@@ -67,34 +67,34 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CATL-01 | TBD | Pending |
-| CATL-02 | TBD | Pending |
-| CATL-03 | TBD | Pending |
-| CATL-04 | TBD | Pending |
-| CONF-01 | TBD | Pending |
-| CONF-02 | TBD | Pending |
-| CONF-03 | TBD | Pending |
-| CONF-04 | TBD | Pending |
-| CONF-05 | TBD | Pending |
-| EXEC-01 | TBD | Pending |
-| EXEC-02 | TBD | Pending |
-| EXEC-03 | TBD | Pending |
-| EXEC-04 | TBD | Pending |
-| EXEC-05 | TBD | Pending |
-| API-01 | TBD | Pending |
-| API-02 | TBD | Pending |
-| API-03 | TBD | Pending |
-| API-04 | TBD | Pending |
-| VERI-01 | TBD | Pending |
-| VERI-02 | TBD | Pending |
-| PERF-01 | TBD | Pending |
-| PERF-02 | TBD | Pending |
+| CATL-01 | Phase 1 | Pending |
+| CATL-02 | Phase 1 | Pending |
+| CATL-03 | Phase 1 | Pending |
+| CATL-04 | Phase 1 | Pending |
+| CONF-01 | Phase 2 | Pending |
+| CONF-02 | Phase 2 | Pending |
+| CONF-03 | Phase 2 | Pending |
+| CONF-04 | Phase 2 | Pending |
+| CONF-05 | Phase 2 | Pending |
+| EXEC-01 | Phase 3 | Pending |
+| EXEC-02 | Phase 3 | Pending |
+| EXEC-03 | Phase 3 | Pending |
+| EXEC-04 | Phase 3 | Pending |
+| EXEC-05 | Phase 3 | Pending |
+| API-01 | Phase 4 | Pending |
+| API-02 | Phase 4 | Pending |
+| API-03 | Phase 4 | Pending |
+| API-04 | Phase 4 | Pending |
+| VERI-01 | Phase 5 | Pending |
+| VERI-02 | Phase 5 | Pending |
+| PERF-01 | Phase 5 | Pending |
+| PERF-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 22 total
-- Mapped to phases: 0
-- Unmapped: 22 WARNING
+- Mapped to phases: 22 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-22*
-*Last updated: 2026-03-22 after initial definition*
+*Last updated: 2026-03-22 after roadmap creation*
