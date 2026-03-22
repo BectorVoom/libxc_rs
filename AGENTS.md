@@ -11,6 +11,12 @@
 - Active roadmap phase: **Phase 1 - Catalog & Metadata Lockdown**
 - Immediate goal: lock generated registries and metadata tables so every ID, alias, and descriptor mirrors the upstream inventory before downstream layers depend on them.
 
+
+## Conventions
+
+- Before creating any test code, read `\home\chemtech\workspace\cintx\docs\rust_crate_test_guideline.md` and follow it when designing and implementing the tests.
+
+
 ## Key Constraints
 
 - All numerical execution paths must use CubeCL, including CPU.
