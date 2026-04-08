@@ -172,32 +172,99 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Which phases cover which requirements. Each requirement maps to exactly one phase.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DOM-01 through DOM-05 | Phase 1 | Pending |
-| REG-01 through REG-05 | Phase 1 | Pending |
-| ERR-01 through ERR-03 | Phase 1 | Pending |
-| MATH-01 through MATH-10 | Phase 2 | Pending |
-| IO-01 through IO-05 | Phase 3 | Pending |
-| KERN-01 through KERN-02 | Phase 2 | Pending |
-| KERN-03 through KERN-09 | Phase 4 | Pending |
-| EVAL-01 through EVAL-05 | Phase 5 | Pending |
-| FUNC-01 through FUNC-06 | Phase 5 | Pending |
-| HYB-01 through HYB-04 | Phase 5 | Pending |
-| API-01 through API-03 | Phase 6 | Pending |
-| COMPAT-01 through COMPAT-03 | Phase 6 | Pending |
-| GPU-01 through GPU-07 | Phase 7 | Pending |
-| VERIFY-01 through VERIFY-08 | Phase 4-7 | Pending |
-| PERF-01 through PERF-05 | Phase 7 | Pending |
-| BUILD-01 through BUILD-05 | Phase 1-7 | Pending |
+| DOM-01 | Phase 1: Foundation and Registry | Pending |
+| DOM-02 | Phase 1: Foundation and Registry | Pending |
+| DOM-03 | Phase 1: Foundation and Registry | Pending |
+| DOM-04 | Phase 1: Foundation and Registry | Pending |
+| DOM-05 | Phase 1: Foundation and Registry | Pending |
+| REG-01 | Phase 1: Foundation and Registry | Pending |
+| REG-02 | Phase 1: Foundation and Registry | Pending |
+| REG-03 | Phase 1: Foundation and Registry | Pending |
+| REG-04 | Phase 1: Foundation and Registry | Pending |
+| REG-05 | Phase 1: Foundation and Registry | Pending |
+| ERR-01 | Phase 1: Foundation and Registry | Pending |
+| ERR-02 | Phase 1: Foundation and Registry | Pending |
+| ERR-03 | Phase 1: Foundation and Registry | Pending |
+| VERIFY-01 | Phase 1: Foundation and Registry | Pending |
+| BUILD-01 | Phase 1: Foundation and Registry | Pending |
+| BUILD-02 | Phase 1: Foundation and Registry | Pending |
+| BUILD-03 | Phase 1: Foundation and Registry | Pending |
+| BUILD-04 | Phase 1: Foundation and Registry | Pending |
+| BUILD-05 | Phase 1: Foundation and Registry | Pending |
+| MATH-01 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-02 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-03 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-04 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-05 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-06 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-07 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-08 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-09 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| MATH-10 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| KERN-01 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| KERN-02 | Phase 2: Math Core and CubeCL Substrate | Pending |
+| IO-01 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| IO-02 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| IO-03 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| IO-04 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| IO-05 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| EVAL-01 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| EVAL-02 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| EVAL-03 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| EVAL-04 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| EVAL-05 | Phase 3: Input/Output and Evaluation Framework | Pending |
+| KERN-03 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-04 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-05 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-06 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-07 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-08 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-09 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-02 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-03 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-04 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-05 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-06 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-07 | Phase 4: Bulk Kernel Translation | Pending |
+| FUNC-01 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| FUNC-02 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| FUNC-03 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| FUNC-04 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| FUNC-05 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| FUNC-06 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| HYB-01 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| HYB-02 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| HYB-03 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| HYB-04 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
+| API-01 | Phase 6: Public API and C Compatibility | Pending |
+| API-02 | Phase 6: Public API and C Compatibility | Pending |
+| API-03 | Phase 6: Public API and C Compatibility | Pending |
+| COMPAT-01 | Phase 6: Public API and C Compatibility | Pending |
+| COMPAT-02 | Phase 6: Public API and C Compatibility | Pending |
+| COMPAT-03 | Phase 6: Public API and C Compatibility | Pending |
+| GPU-01 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-02 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-03 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-04 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-05 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-06 | Phase 7: GPU Backends and Performance | Pending |
+| GPU-07 | Phase 7: GPU Backends and Performance | Pending |
+| VERIFY-08 | Phase 7: GPU Backends and Performance | Pending |
+| PERF-01 | Phase 7: GPU Backends and Performance | Pending |
+| PERF-02 | Phase 7: GPU Backends and Performance | Pending |
+| PERF-03 | Phase 7: GPU Backends and Performance | Pending |
+| PERF-04 | Phase 7: GPU Backends and Performance | Pending |
+| PERF-05 | Phase 7: GPU Backends and Performance | Pending |
 
 **Coverage:**
-- v1 requirements: 74 total
-- Mapped to phases: 74
+- v1 requirements: 83 total
+- Mapped to phases: 83
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-09*
-*Last updated: 2026-04-09 after initial definition*
+*Last updated: 2026-04-09 after roadmap creation*
