@@ -1,0 +1,16 @@
+[package]
+name = "libxc_rs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bitflags = "2.10.0"
+bytemuck = { version = "1.25.0", features = ["derive"] }
+cubecl = { version = "0.9.0", features = ["cpu","wgpu"] }
+thiserror = "2.0.18"
+
+[workspace]
+members = [
+    "verify",
+    # "xtask",
+]
