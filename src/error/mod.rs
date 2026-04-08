@@ -71,3 +71,40 @@ pub enum LibxcRsError {
     #[error("all {np} input grid points have density below threshold ({threshold})")]
     AllBelowThreshold { np: usize, threshold: f64 },
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_unknown_id_display() {
+        let err = LibxcRsError::UnknownFunctionalId(999);
+        let msg = format!("{err}");
+        assert!(msg.contains("unknown functional ID: 999"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_removed_id_display() {
+        let err = LibxcRsError::RemovedFunctionalId {
+            removed_id: 104,
+            replacement_id: 1,
+            replacement_name: "XC_LDA_X",
+        };
+        let msg = format!("{err}");
+        assert!(msg.contains("removed functional ID 104"), "got: {msg}");
+        assert!(msg.contains("XC_LDA_X"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_unknown_name_display() {
+        let err = LibxcRsError::UnknownFunctionalName("bogus".into());
+        let msg = format!("{err}");
+        assert!(msg.contains("bogus"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_error_is_send_sync() {
+        fn assert_send_sync<T: Send + Sync>() {}
+        assert_send_sync::<LibxcRsError>();
+    }
+}
