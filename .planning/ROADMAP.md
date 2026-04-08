@@ -32,12 +32,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Dimension calculation returns correct array sizes for all family/spin/order combinations (verified against libxc util.c, including the 477-component case)
   4. The verify/ crate links against system libxc 7.0.0 via bindgen and can call C libxc functions to obtain oracle values
   5. cargo build, cargo test, and cargo clippy all pass with zero warnings
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md -- Domain types, error enum, and dimension calculation
+- [ ] 01-02-PLAN.md -- Xtask code generator, static registry, and FunctionalId wiring
+- [ ] 01-03-PLAN.md -- Oracle verification harness and build quality validation
 
 ### Phase 2: Math Core and CubeCL Substrate
 **Goal**: All mathematical building blocks are implemented as #[cube] functions, validated against known values and libm references, and the CubeCL CPU backend produces bit-accurate f64 results for the LDA_X canary kernel
