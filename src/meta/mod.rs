@@ -1,3 +1,5 @@
+pub(crate) mod generated;
+
 use crate::model::{
     DerivativeOrder, Family, FunctionalFlags, FunctionalId, HybridTermKind, Kind,
 };

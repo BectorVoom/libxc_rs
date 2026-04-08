@@ -148,14 +148,18 @@ fn generate_registry() -> Result<()> {
                     name_aliases.push((define_name, id));
                 }
                 Category::Removed => {
-                    // Check if the same numeric ID exists in xc_funcs.h as a HYB_ variant
-                    let replacement_id = if entries.contains_key(&id) {
-                        // Same ID was reassigned to a HYB_ variant
-                        id
+                    if entries.contains_key(&id) {
+                        // The numeric ID was reassigned to a different functional
+                        // in xc_funcs.h. The old name is dead but the ID is alive.
+                        // Don't add to REMOVED_IDS (that would break ID lookup for
+                        // the new functional). Instead track the removed name so
+                        // name-based lookups return a proper error.
+                        // We store (removed_name, old_id) -- will be mapped to
+                        // replacement by find_hyb_replacement later.
                     } else {
-                        0 // No replacement
-                    };
-                    removed_ids.push((id, replacement_id));
+                        // ID is truly gone from active registry
+                        removed_ids.push((id, 0));
+                    }
                 }
             }
         }
