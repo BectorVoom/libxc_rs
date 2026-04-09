@@ -13,6 +13,7 @@ pub mod dims;
 pub mod registry;
 pub mod math;
 pub mod kernel;
+pub mod input;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
@@ -22,3 +23,4 @@ pub use meta::{FunctionalMeta, Reference, ExtParamSpec, HybridTerm};
 pub use error::LibxcRsError;
 pub use dims::Dimensions;
 pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, version_string};
+pub use input::{LdaInput, GgaInput, MggaInput};
