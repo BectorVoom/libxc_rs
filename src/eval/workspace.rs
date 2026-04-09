@@ -30,6 +30,21 @@ pub struct MggaScratch<'a> {
     _marker: std::marker::PhantomData<&'a mut [f64]>,
 }
 
+/// Internal struct for LDA field offsets within the MGGA-ordered scratch buffer.
+#[allow(dead_code)]
+struct LdaFieldOffsets {
+    zk_off: usize,
+    zk_len: usize,
+    vrho_off: usize,
+    vrho_len: usize,
+    v2rho2_off: usize,
+    v2rho2_len: usize,
+    v3rho3_off: usize,
+    v3rho3_len: usize,
+    v4rho4_off: usize,
+    v4rho4_len: usize,
+}
+
 /// Pre-allocated scratch buffer for mixed functional evaluation.
 ///
 /// Allocates a single contiguous `Vec<f64>` sized for the MGGA superset
@@ -86,24 +101,133 @@ impl EvaluationWorkspace {
         self.spin
     }
 
+    /// Compute the element offset of a field in the MGGA-ordered scratch buffer.
+    ///
+    /// The scratch layout follows the field order in `Dimensions::total_output_components()`:
+    /// Order 0: zk
+    /// Order 1: vrho, vsigma, vlapl, vtau
+    /// Order 2: v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2
+    /// Order 3: v3rho3, ...
+    /// Order 4: v4rho4, ...
+    ///
+    /// Returns (offset_in_elements, field_len_in_elements) for the requested field.
+    fn lda_field_offsets(&self) -> LdaFieldOffsets {
+        let d = &self.dims;
+        let np = self.np;
+
+        // Order 0
+        let zk_off = 0usize;
+        let zk_len = d.zk as usize * np;
+
+        // Order 1: vrho is first
+        let o1_start = zk_len;
+        let vrho_off = o1_start;
+        let vrho_len = d.vrho as usize * np;
+        let o1_end = o1_start
+            + (d.vrho as usize + d.vsigma as usize + d.vlapl as usize + d.vtau as usize) * np;
+
+        // Order 2: v2rho2 is first in order 2
+        let o2_start = o1_end;
+        let v2rho2_off = o2_start;
+        let v2rho2_len = d.v2rho2 as usize * np;
+        let o2_end = o2_start
+            + (d.v2rho2 as usize
+                + d.v2rhosigma as usize
+                + d.v2rholapl as usize
+                + d.v2rhotau as usize
+                + d.v2sigma2 as usize
+                + d.v2sigmalapl as usize
+                + d.v2sigmatau as usize
+                + d.v2lapl2 as usize
+                + d.v2lapltau as usize
+                + d.v2tau2 as usize)
+                * np;
+
+        // Order 3: v3rho3 is first in order 3
+        let o3_start = o2_end;
+        let v3rho3_off = o3_start;
+        let v3rho3_len = d.v3rho3 as usize * np;
+        let o3_end = o3_start
+            + (d.v3rho3 as usize
+                + d.v3rho2sigma as usize
+                + d.v3rho2lapl as usize
+                + d.v3rho2tau as usize
+                + d.v3rhosigma2 as usize
+                + d.v3rhosigmalapl as usize
+                + d.v3rhosigmatau as usize
+                + d.v3rholapl2 as usize
+                + d.v3rholapltau as usize
+                + d.v3rhotau2 as usize
+                + d.v3sigma3 as usize
+                + d.v3sigma2lapl as usize
+                + d.v3sigma2tau as usize
+                + d.v3sigmalapl2 as usize
+                + d.v3sigmalapltau as usize
+                + d.v3sigmatau2 as usize
+                + d.v3lapl3 as usize
+                + d.v3lapl2tau as usize
+                + d.v3lapltau2 as usize
+                + d.v3tau3 as usize)
+                * np;
+
+        // Order 4: v4rho4 is first in order 4
+        let v4rho4_off = o3_end;
+        let v4rho4_len = d.v4rho4 as usize * np;
+
+        LdaFieldOffsets {
+            zk_off,
+            zk_len,
+            vrho_off,
+            vrho_len,
+            v2rho2_off,
+            v2rho2_len,
+            v3rho3_off,
+            v3rho3_len,
+            v4rho4_off,
+            v4rho4_len,
+        }
+    }
+
     /// Get mutable scratch slices for LDA derivative fields.
     ///
-    /// Returns non-overlapping slices via `split_at_mut` chains into the
-    /// contiguous scratch buffer. The slices are at the beginning of the
-    /// buffer, covering only the LDA-relevant fields (zk, vrho, v2rho2,
-    /// v3rho3, v4rho4).
+    /// Returns non-overlapping slices via `split_at_mut` into the contiguous
+    /// scratch buffer. The slices correspond to the LDA fields (zk, vrho,
+    /// v2rho2, v3rho3, v4rho4) at their correct offsets within the MGGA-ordered
+    /// layout.
     pub fn lda_scratch_mut(&mut self) -> LdaScratch<'_> {
-        let zk_len = self.dims.zk as usize * self.np;
-        let vrho_len = self.dims.vrho as usize * self.np;
-        let v2rho2_len = self.dims.v2rho2 as usize * self.np;
-        let v3rho3_len = self.dims.v3rho3 as usize * self.np;
-        let v4rho4_len = self.dims.v4rho4 as usize * self.np;
+        let offsets = self.lda_field_offsets();
 
-        let (zk, rest) = self.scratch.split_at_mut(zk_len);
-        let (vrho, rest) = rest.split_at_mut(vrho_len);
-        let (v2rho2, rest) = rest.split_at_mut(v2rho2_len);
-        let (v3rho3, rest) = rest.split_at_mut(v3rho3_len);
-        let (v4rho4, _rest) = rest.split_at_mut(v4rho4_len);
+        // Use split_at_mut to create non-overlapping mutable slices.
+        // We split progressively, keeping track of the "rest" slice.
+        // Since fields are at known offsets, we skip over non-LDA fields.
+
+        // zk is at offset 0
+        let (zk_and_rest, after_zk) = self.scratch.split_at_mut(offsets.zk_len);
+        let zk = &mut zk_and_rest[..offsets.zk_len];
+
+        // vrho starts at vrho_off, which is right after zk for MGGA (zk is order 0, vrho is first in order 1)
+        // The gap between end of zk and start of vrho is 0 (vrho immediately follows zk)
+        let vrho_local_off = offsets.vrho_off - offsets.zk_len;
+        let (_, vrho_start) = after_zk.split_at_mut(vrho_local_off);
+        let (vrho, after_vrho) = vrho_start.split_at_mut(offsets.vrho_len);
+
+        // v2rho2 starts at v2rho2_off
+        let v2rho2_local_off =
+            offsets.v2rho2_off - offsets.vrho_off - offsets.vrho_len;
+        let (_, v2rho2_start) = after_vrho.split_at_mut(v2rho2_local_off);
+        let (v2rho2, after_v2rho2) = v2rho2_start.split_at_mut(offsets.v2rho2_len);
+
+        // v3rho3
+        let v3rho3_local_off =
+            offsets.v3rho3_off - offsets.v2rho2_off - offsets.v2rho2_len;
+        let (_, v3rho3_start) = after_v2rho2.split_at_mut(v3rho3_local_off);
+        let (v3rho3, after_v3rho3) = v3rho3_start.split_at_mut(offsets.v3rho3_len);
+
+        // v4rho4
+        let v4rho4_local_off =
+            offsets.v4rho4_off - offsets.v3rho3_off - offsets.v3rho3_len;
+        let (_, v4rho4_start) = after_v3rho3.split_at_mut(v4rho4_local_off);
+        let (v4rho4, _) = v4rho4_start.split_at_mut(offsets.v4rho4_len);
 
         LdaScratch {
             zk,

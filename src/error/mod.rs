@@ -70,6 +70,14 @@ pub enum LibxcRsError {
 
     #[error("all {np} input grid points have density below threshold ({threshold})")]
     AllBelowThreshold { np: usize, threshold: f64 },
+
+    #[error("workspace mismatch: expected np={expected_np} spin={expected_spin:?}, got np={actual_np} spin={actual_spin:?}")]
+    WorkspaceMismatch {
+        expected_np: usize,
+        actual_np: usize,
+        expected_spin: Spin,
+        actual_spin: Spin,
+    },
 }
 
 #[cfg(test)]
