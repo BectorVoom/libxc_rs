@@ -2,12 +2,18 @@
 //!
 //! Routes evaluation requests to the correct CubeCL kernel function based on
 //! derivative order and spin mode. All kernel launches go through the safe
-//! wrappers in `kernel::lda::launch_lda_x` -- this module contains NO unsafe code
-//! (BUILD-04 compliant).
+//! wrappers in `kernel::lda::launch_lda_x` -- this module contains no raw kernel
+//! launch calls (BUILD-04 compliant).
 
+use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
 use crate::input::LdaInput;
-use crate::model::{DerivativeOrder, Thresholds};
+use crate::kernel::launch::{
+    calculate_launch_config, cpu_client, create_input_buffer,
+    create_zero_output_buffer, read_output_buffer,
+};
+use crate::kernel::lda::launch_lda_x::{self, BufArg};
+use crate::model::{DerivativeOrder, Spin, Thresholds};
 use crate::output::LdaOutput;
 
 /// Evaluate an LDA functional on the given input, writing results to output.
@@ -27,13 +33,217 @@ use crate::output::LdaOutput;
 /// # Errors
 /// Returns `LibxcRsError` if evaluation fails.
 pub fn dispatch_lda(
-    _input: &LdaInput,
-    _order: DerivativeOrder,
-    _output: &mut LdaOutput,
-    _alpha: f64,
-    _thresholds: &Thresholds,
+    input: &LdaInput,
+    order: DerivativeOrder,
+    output: &mut LdaOutput,
+    alpha: f64,
+    thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
-    todo!("dispatch_lda not yet implemented")
+    let np = input.np();
+    let spin = input.spin();
+    let dims = Dimensions::lda(spin);
+
+    // Zero caller-provided output buffers (T-03-04 mitigation).
+    // Kernels use += accumulation, so stale data would corrupt results.
+    if let Some(ref mut buf) = output.zk {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.vrho {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v2rho2 {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v3rho3 {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v4rho4 {
+        buf.fill(0.0);
+    }
+
+    // Create CubeCL client and upload input
+    let client = cpu_client();
+    let rho_handle = create_input_buffer(&client, input.rho());
+    let rho_len = input.rho().len();
+
+    // Create output handles for each derivative level up to `order`.
+    // For None output fields, create dummy buffers the kernel writes to
+    // but whose results are discarded (D-07 bridge).
+    let zk_len = np * dims.zk as usize;
+    let zk_handle = create_zero_output_buffer(&client, zk_len);
+
+    let vrho_len = np * dims.vrho as usize;
+    let vrho_handle = if order >= DerivativeOrder::Vxc {
+        Some(create_zero_output_buffer(&client, vrho_len))
+    } else {
+        None
+    };
+
+    let v2rho2_len = np * dims.v2rho2 as usize;
+    let v2rho2_handle = if order >= DerivativeOrder::Fxc {
+        Some(create_zero_output_buffer(&client, v2rho2_len))
+    } else {
+        None
+    };
+
+    let v3rho3_len = np * dims.v3rho3 as usize;
+    let v3rho3_handle = if order >= DerivativeOrder::Kxc {
+        Some(create_zero_output_buffer(&client, v3rho3_len))
+    } else {
+        None
+    };
+
+    let v4rho4_len = np * dims.v4rho4 as usize;
+    let v4rho4_handle = if order >= DerivativeOrder::Lxc {
+        Some(create_zero_output_buffer(&client, v4rho4_len))
+    } else {
+        None
+    };
+
+    let (cube_count, cube_dim) = calculate_launch_config(np);
+
+    // Dispatch to correct safe kernel wrapper based on (order, spin).
+    // All kernel launches go through safe wrappers in launch_lda_x.
+    let rho_buf = BufArg::new(&rho_handle, rho_len);
+    let zk_buf = BufArg::new(&zk_handle, zk_len);
+
+    match (order, spin) {
+        (DerivativeOrder::Exc, Spin::Unpolarized) => {
+            launch_lda_x::launch_lda_x_exc_unpol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Vxc, Spin::Unpolarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_vxc_unpol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Fxc, Spin::Unpolarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_fxc_unpol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Kxc, Spin::Unpolarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            let v3rho3_h = v3rho3_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_kxc_unpol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                &BufArg::new(v3rho3_h, v3rho3_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Lxc, Spin::Unpolarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            let v3rho3_h = v3rho3_handle.as_ref().unwrap();
+            let v4rho4_h = v4rho4_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_lxc_unpol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                &BufArg::new(v3rho3_h, v3rho3_len),
+                &BufArg::new(v4rho4_h, v4rho4_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Exc, Spin::Polarized) => {
+            launch_lda_x::launch_lda_x_exc_pol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Vxc, Spin::Polarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_vxc_pol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Fxc, Spin::Polarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_fxc_pol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Kxc, Spin::Polarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            let v3rho3_h = v3rho3_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_kxc_pol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                &BufArg::new(v3rho3_h, v3rho3_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+        (DerivativeOrder::Lxc, Spin::Polarized) => {
+            let vrho_h = vrho_handle.as_ref().unwrap();
+            let v2rho2_h = v2rho2_handle.as_ref().unwrap();
+            let v3rho3_h = v3rho3_handle.as_ref().unwrap();
+            let v4rho4_h = v4rho4_handle.as_ref().unwrap();
+            launch_lda_x::launch_lda_x_lxc_pol(
+                &client, cube_count, cube_dim,
+                &rho_buf, &zk_buf,
+                &BufArg::new(vrho_h, vrho_len),
+                &BufArg::new(v2rho2_h, v2rho2_len),
+                &BufArg::new(v3rho3_h, v3rho3_len),
+                &BufArg::new(v4rho4_h, v4rho4_len),
+                alpha, thresholds.density, thresholds.zeta,
+            );
+        }
+    }
+
+    // Read back results from CubeCL buffers into caller-provided output slices.
+    // Only copy back for Some fields; None fields had dummy buffers that are discarded.
+    if let Some(ref mut buf) = output.zk {
+        let result = read_output_buffer(&client, zk_handle, zk_len);
+        buf.copy_from_slice(&result);
+    }
+    if let (Some(buf), Some(h)) = (&mut output.vrho, vrho_handle) {
+        let result = read_output_buffer(&client, h, vrho_len);
+        buf.copy_from_slice(&result);
+    }
+    if let (Some(buf), Some(h)) = (&mut output.v2rho2, v2rho2_handle) {
+        let result = read_output_buffer(&client, h, v2rho2_len);
+        buf.copy_from_slice(&result);
+    }
+    if let (Some(buf), Some(h)) = (&mut output.v3rho3, v3rho3_handle) {
+        let result = read_output_buffer(&client, h, v3rho3_len);
+        buf.copy_from_slice(&result);
+    }
+    if let (Some(buf), Some(h)) = (&mut output.v4rho4, v4rho4_handle) {
+        let result = read_output_buffer(&client, h, v4rho4_len);
+        buf.copy_from_slice(&result);
+    }
+
+    Ok(())
 }
 
 #[cfg(test)]
