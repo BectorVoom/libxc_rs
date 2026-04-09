@@ -49,12 +49,14 @@ Plans:
   3. LDA_X kernel (both unpolarized and polarized) produces energy with relative error <= 10^-12 vs libxc oracle
   4. All #[cube] math functions produce identical results on CubeCL CPU backend as on native Rust (cross-backend consistency)
   5. Kernel launch wrapper correctly handles buffer creation, CubeCount/CubeDim calculation, and backend selection
-**Plans**: 3 plans
+**Plans**: 5 plans
 
 Plans:
 - [ ] 02-01-PLAN.md — Math core: constants, powers, piecewise, polynomials, erf, spin, DFT quantities
 - [ ] 02-02-PLAN.md — Kernel launch infrastructure: backend selection, buffer management, CubeCount/CubeDim
 - [ ] 02-03-PLAN.md — LDA_X canary kernel translation and oracle verification
+- [ ] 02-04-PLAN.md — Math integration tests and workspace build quality gate
+- [ ] 02-05-PLAN.md — LDA_X edge-case and stress testing (thresholds, alpha, extreme spins)
 
 ### Phase 3: Input/Output and Evaluation Framework
 **Goal**: Type-safe I/O bundles validate buffer sizes, output masks control which derivatives are computed, and the dispatch/accumulation framework correctly routes evaluation for single and mixed functionals
@@ -151,7 +153,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Registry | 0/3 | Not started | - |
-| 2. Math Core and CubeCL Substrate | 0/3 | Not started | - |
+| 2. Math Core and CubeCL Substrate | 0/5 | Not started | - |
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
 | 4. Bulk Kernel Translation | 0/5 | Not started | - |
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
