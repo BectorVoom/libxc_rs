@@ -12,6 +12,7 @@ pub mod error;
 pub mod dims;
 pub mod registry;
 pub mod math;
+pub mod kernel;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
