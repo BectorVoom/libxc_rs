@@ -28,6 +28,7 @@ pub struct AuxiliaryConfig {
 /// Matches libxc `mix_func.c` line 54 exactly.
 /// The compiler will auto-vectorize this loop.
 pub fn add_to_mix(dst: &mut [f64], coeff: f64, src: &[f64]) {
+    debug_assert_eq!(dst.len(), src.len(), "add_to_mix: dst and src must have equal length");
     for (d, s) in dst.iter_mut().zip(src.iter()) {
         *d += coeff * *s;
     }
