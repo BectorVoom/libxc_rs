@@ -71,9 +71,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Input/output bundle types with validation and OutputMask bitflags
-- [ ] 03-02-PLAN.md -- LDA dispatch layer bridging bundles to CubeCL kernels
-- [ ] 03-03-PLAN.md -- Mixed functional workspace and accumulation framework
+- [x] 03-01-PLAN.md -- Input/output bundle types with validation and OutputMask bitflags
+- [x] 03-02-PLAN.md -- LDA dispatch layer bridging bundles to CubeCL kernels
+- [x] 03-03-PLAN.md -- Mixed functional workspace and accumulation framework
 
 ### Phase 4: Bulk Kernel Translation
 **Goal**: All 270 maple2c kernel files are translated to Rust #[cube] functions preserving exact floating-point operation order, and every functional passes oracle verification through all applicable derivative orders and spin modes
