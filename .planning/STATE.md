@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 01 — foundation-and-registry
+**Current focus:** Phase 02 — math-core-and-cubecl-substrate
 
 ## Current Position
 
-Phase: 2
+Phase: 02 (math-core-and-cubecl-substrate) — Ready to plan
 Plan: Not started
-Status: Executing Phase 01
-Last activity: 2026-04-09
+Status: Phase 01 complete, ready to plan Phase 02
+Last activity: 2026-04-09 -- Phase 01 verified and completed
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [████████████████████] 3/3 plans (100%) — Phase 01 done
 
 ## Performance Metrics
 
@@ -60,7 +60,9 @@ Progress: [░░░░░░░░░░] 0%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- None yet.
+- Static registry uses sparse array (1024 slots) for O(1) ID lookup, sorted slice for O(log n) name lookup
+- Xtask code generator parses C headers to produce Rust registry data (not runtime parsing)
+- Of 52 "removed" IDs in xc_funcs_removed.h, only ID 104 is truly gone; 24 are name aliases, 27 were reassigned
 
 ### Pending Todos
 
@@ -74,6 +76,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-08T23:20:03.764Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation-and-registry/01-CONTEXT.md
+Last session: 2026-04-09
+Stopped at: Phase 01 complete, ready to plan Phase 02
+Resume file: None
