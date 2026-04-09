@@ -8,6 +8,10 @@ fn main() {
         .define("BUILD_TESTING", "OFF")
         .define("ENABLE_FORTRAN", "OFF")
         .define("ENABLE_PYTHON", "OFF")
+        .define("DISABLE_VXC", "OFF")
+        .define("DISABLE_FXC", "OFF")
+        .define("DISABLE_KXC", "OFF")
+        .define("DISABLE_LXC", "OFF")
         .define("CMAKE_POLICY_VERSION_MINIMUM", "3.5")
         .build();
 
