@@ -85,14 +85,14 @@ Plans:
   3. All ~80 MGGA functional kernels pass oracle verification through applicable derivative orders
   4. Density thresholding correctly skips grid points below threshold and clamps spin densities
   5. Output accumulation uses += semantics to support mixed functional evaluation
-**Plans**: 3 plans
+**Plans**: 5 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-- [ ] 04-03: TBD
-- [ ] 04-04: TBD
-- [ ] 04-05: TBD
+- [ ] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
+- [ ] 04-02-PLAN.md — LDA batch: translate all 42 LDA kernels + dispatch wiring + oracle verification
+- [ ] 04-03-PLAN.md — GGA batch: translate all 131 GGA kernels + dispatch_gga + oracle verification
+- [ ] 04-04-PLAN.md — MGGA batch: mgga_c_rmggac risk gate + all 92 MGGA kernels + dispatch_mgga
+- [ ] 04-05-PLAN.md — Full cross-family oracle verification sweep and Phase 4 sign-off
 
 ### Phase 5: Functional Lifecycle and Hybrid Properties
 **Goal**: Users can construct a Functional instance by ID, configure external parameters and thresholds, query hybrid properties, and evaluate any of the 649 functionals through the Functional struct
