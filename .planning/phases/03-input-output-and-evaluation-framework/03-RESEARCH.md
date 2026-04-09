@@ -91,7 +91,8 @@ src/
 │   ├── launch.rs        # (existing) Buffer management, CPU client
 │   ├── lda/
 │   │   ├── mod.rs
-│   │   └── lda_x.rs     # (existing) 10 kernel functions
+│   │   ├── lda_x.rs     # (existing) 10 kernel functions
+│   │   └── launch_lda_x.rs  # Safe wrappers for unsafe launch_unchecked (BUILD-04)
 │   └── mod.rs
 └── lib.rs               # Add: pub mod input; pub mod output; pub mod eval;
 ```
@@ -173,58 +174,57 @@ impl<'a> LdaOutput<'a> {
 ```
 [VERIFIED: `LibxcRsError::OutputBufferSizeMismatch` exists in `src/error/mod.rs`]
 
-### Pattern 3: Dispatch Layer Bridge
+### Pattern 3: Safe Kernel Launch Wrappers (BUILD-04 Compliance)
 
-**What:** The dispatch layer bridges between bundle types (user-facing) and CubeCL kernel functions (which take individual `Array<f64>` parameters). It creates CubeCL buffers from the input slices, launches the kernel, and reads results back.
+**What:** Safe wrapper functions in `src/kernel/lda/launch_lda_x.rs` encapsulate the `unsafe { launch_unchecked }` calls. The dispatch layer in `src/eval/dispatch.rs` calls only these safe wrappers, keeping all unsafe code within the kernel/ module tree as required by BUILD-04.
+
+**When to use:** Every kernel launch from the dispatch layer.
 
 **Example:**
 ```rust
-// Source: existing launch.rs patterns + CONTEXT.md D-08
-pub fn dispatch_lda(
-    input: &LdaInput,
-    order: DerivativeOrder,
-    output: &mut LdaOutput,
+// In src/kernel/lda/launch_lda_x.rs (BUILD-04 allowed zone)
+use cubecl::cpu::CpuRuntime;
+use cubecl::client::ComputeClient;
+use cubecl::prelude::*;
+use super::lda_x;
+
+/// Safe wrapper for lda_x_exc_unpol kernel launch.
+pub fn launch_lda_x_exc_unpol(
+    client: &ComputeClient<CpuRuntime>,
+    cube_count: CubeCount,
+    cube_dim: CubeDim,
+    rho: ArrayArg<'_, CpuRuntime>,
+    zk: ArrayArg<'_, CpuRuntime>,
     alpha: f64,
-    thresholds: &Thresholds,
-) -> Result<(), LibxcRsError> {
-    let client = cpu_client();
-    let np = input.np;
-    let rho_handle = create_input_buffer(&client, input.rho);
-    
-    // Create output handles only for Some fields
-    // Zero-initialize per T-02-06 (kernels use += accumulation)
-    let zk_handle = create_zero_output_buffer(&client, np * 1); // dims.zk always 1
-    
-    let (cube_count, cube_dim) = calculate_launch_config(np);
-    
-    match (order, input.spin) {
-        (DerivativeOrder::Exc, Spin::Unpolarized) => {
-            unsafe {
-                lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
-                    &client, cube_count, cube_dim,
-                    ArrayArg::from_raw_parts::<f64>(&rho_handle, np, 1),
-                    ArrayArg::from_raw_parts::<f64>(&zk_handle, np, 1),
-                    ScalarArg::new(alpha),
-                    ScalarArg::new(thresholds.density),
-                    ScalarArg::new(thresholds.zeta),
-                ).unwrap();
-            }
-        }
-        // ... other (order, spin) combinations
-        _ => return Err(LibxcRsError::UnsupportedDerivativeOrder { ... }),
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    unsafe {
+        lda_x::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+            client, cube_count, cube_dim,
+            rho, zk,
+            ScalarArg::new(alpha),
+            ScalarArg::new(dens_threshold),
+            ScalarArg::new(zeta_threshold),
+        ).unwrap();
     }
-    
-    // Read back results into caller's buffers
-    if let Some(ref mut zk_buf) = output.zk {
-        let result = read_output_buffer(&client, zk_handle, np);
-        zk_buf.copy_from_slice(&result);
-    }
-    
-    Ok(())
 }
 ```
+
+```rust
+// In src/eval/dispatch.rs (NO unsafe allowed)
+use crate::kernel::lda::launch_lda_x;
+
+// Dispatch calls safe wrappers only:
+launch_lda_x::launch_lda_x_exc_unpol(
+    &client, cube_count, cube_dim,
+    ArrayArg::from_raw_parts::<f64>(&rho_handle, np, 1),
+    ArrayArg::from_raw_parts::<f64>(&zk_handle, np, 1),
+    alpha, thresholds.density, thresholds.zeta,
+);
+```
 [VERIFIED: `launch_unchecked` pattern from `src/kernel/lda/lda_x.rs` line 26]
-[VERIFIED: `ArrayArg::from_raw_parts`, `ScalarArg::new` patterns from `src/kernel/launch.rs` test]
+[VERIFIED: BUILD-04 restricts unsafe to compat/, kernel/launch.rs, and GPU buffer management modules]
 
 ### Pattern 4: Mixed Functional Accumulation
 
@@ -247,6 +247,7 @@ fn add_to_mix(dst: &mut [f64], coeff: f64, src: &[f64]) {
 - **Output buffer allocation by the library:** The library NEVER allocates output buffers (D-06). Caller always provides them.
 - **Single monolithic output struct:** Do NOT create one output struct for all families. LdaOutput, GgaOutput, MggaOutput are separate types with different field sets.
 - **Shared mutable state between dispatch and workspace:** Non-mixed path must be completely independent of workspace (D-13).
+- **Unsafe in dispatch layer:** Do NOT place `unsafe { launch_unchecked }` calls in `src/eval/dispatch.rs`. All unsafe kernel launches must go through safe wrappers in `src/kernel/lda/` per BUILD-04.
 
 ## Don't Hand-Roll
 
@@ -310,6 +311,13 @@ fn add_to_mix(dst: &mut [f64], coeff: f64, src: &[f64]) {
 **Warning signs:** Mixed functional results that depend on auxiliary evaluation order.
 
 [VERIFIED: `mix_func.c` line 148-149 shows `xc_mgga_vars_allocate_all` allocates fresh buffers; our scratch reuse must explicitly zero]
+
+### Pitfall 7: Unsafe Code in Dispatch Layer (BUILD-04 Violation)
+
+**What goes wrong:** Placing `unsafe { launch_unchecked }` calls directly in `src/eval/dispatch.rs` violates BUILD-04 which restricts unsafe to compat/, kernel/launch.rs, and GPU buffer management modules.
+**Why it happens:** Natural tendency to call CubeCL launch functions directly at the call site.
+**How to avoid:** Create safe wrapper functions in `src/kernel/lda/launch_lda_x.rs` that encapsulate the unsafe calls. The dispatch layer calls only these safe wrappers.
+**Warning signs:** `grep -rn "unsafe" src/eval/` returns matches.
 
 ## Code Examples
 
@@ -393,37 +401,43 @@ impl EvaluationWorkspace {
 
 ```rust
 // Source: CONTEXT.md D-08, D-10
-use crate::kernel::lda::lda_x::*;
+// NOTE: dispatch.rs calls SAFE wrappers only (BUILD-04)
+use crate::kernel::lda::launch_lda_x;
 
-pub fn dispatch_lda_kernel(
-    client: &ComputeClient<CpuRuntime>,
+pub fn dispatch_lda(
+    input: &LdaInput,
     order: DerivativeOrder,
-    spin: Spin,
-    np: usize,
-    rho_handle: &cubecl::server::Handle,
-    output_handles: &LdaOutputHandles,
+    output: &mut LdaOutput,
     alpha: f64,
-    dens_threshold: f64,
-    zeta_threshold: f64,
+    thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
+    let client = cpu_client();
+    let np = input.np();
+    let rho_handle = create_input_buffer(&client, input.rho());
+    let zk_handle = create_zero_output_buffer(&client, np * 1);
+
     let (cube_count, cube_dim) = calculate_launch_config(np);
-    
-    match (order, spin) {
+
+    match (order, input.spin()) {
         (DerivativeOrder::Exc, Spin::Unpolarized) => {
-            // Launch lda_x_exc_unpol
+            // Safe wrapper call -- no unsafe in dispatch.rs
+            launch_lda_x::launch_lda_x_exc_unpol(
+                &client, cube_count, cube_dim,
+                ArrayArg::from_raw_parts::<f64>(&rho_handle, np, 1),
+                ArrayArg::from_raw_parts::<f64>(&zk_handle, np, 1),
+                alpha, thresholds.density, thresholds.zeta,
+            );
         }
-        (DerivativeOrder::Vxc, Spin::Unpolarized) => {
-            // Launch lda_x_vxc_unpol
-        }
-        // ... 8 more arms for all order x spin combinations
-        _ => {
-            return Err(LibxcRsError::UnsupportedDerivativeOrder {
-                id: FunctionalId(1), // placeholder
-                order,
-                max: DerivativeOrder::Lxc,
-            });
-        }
+        // ... other (order, spin) combinations using safe wrappers
+        _ => return Err(LibxcRsError::UnsupportedDerivativeOrder { ... }),
     }
+
+    // Read back results into caller's buffers
+    if let Some(ref mut zk_buf) = output.zk {
+        let result = read_output_buffer(&client, zk_handle, np);
+        zk_buf.copy_from_slice(&result);
+    }
+
     Ok(())
 }
 ```
@@ -484,22 +498,16 @@ Total: 1 + 4 + 10 + 20 + 35 = 70 fields. Each field is `Option<&'a mut [f64]>` w
 | A2 | Single contiguous Vec<f64> for workspace scratch is better than per-field Vecs | Code Examples | Low -- per-field Vecs work too; contiguous is better for cache but harder to index |
 | A3 | `OutputMask::from_order()` should be cumulative (VXC includes EXC) | Code Examples | Medium -- if libxc ever supports computing VXC without EXC this would be wrong (but it doesn't) |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **How should the dispatch layer handle the functional ID for non-LDA_X functionals?**
-   - What we know: D-10 says GGA/MGGA arms return error. The dispatch currently only has LDA_X.
-   - What's unclear: Should dispatch take a `FunctionalId` and match on it, or should each functional register a kernel function pointer?
-   - Recommendation: For Phase 3, dispatch takes `FunctionalId` and has a single `match` arm for `LDA_X (id=1)`. Phase 4 will expand this. Match-based dispatch per D-08.
+   - RESOLVED: For Phase 3, dispatch takes `FunctionalId` and has a single `match` arm for `LDA_X (id=1)`. Phase 4 will expand this. Match-based dispatch per D-08. GGA/MGGA arms return `UnsupportedDerivativeOrder` error.
 
 2. **Should output zeroing happen in the dispatch layer or at the kernel level?**
-   - What we know: libxc zeros output buffers before evaluation. CubeCL kernels use `+=`. `create_zero_output_buffer()` zeros at buffer creation.
-   - What's unclear: Whether caller-provided `&mut [f64]` output buffers should be zeroed by the dispatch layer before kernel launch, or whether the caller is responsible.
-   - Recommendation: Dispatch layer zeros caller-provided output buffers (matching libxc behavior). This is part of the evaluation contract. Kernels assume zero-initialized outputs.
+   - RESOLVED: Dispatch layer zeros caller-provided output buffers (matching libxc behavior). This is part of the evaluation contract. Kernels assume zero-initialized outputs. CubeCL output buffers are also zero-initialized via `create_zero_output_buffer()`.
 
 3. **How to handle the bridge between `Option<&mut [f64]>` output fields and CubeCL `Array<f64>` kernel parameters?**
-   - What we know: Current LDA_X kernels take individual `Array<f64>` params for each output level. Higher-order kernels (e.g., `lda_x_fxc_unpol`) take `zk`, `vrho`, AND `v2rho2`.
-   - What's unclear: When output.vrho is `None` but order is `Fxc`, the kernel still writes to vrho. We need a dummy buffer.
-   - Recommendation: For `None` output fields at orders below the requested order, allocate a dummy zero buffer that the kernel writes to but whose results are discarded. This is cheap (just `np * dim` doubles) and avoids kernel branching. For `None` fields at the requested order, this is a user error (requesting Fxc but not providing v2rho2).
+   - RESOLVED: For `None` output fields at orders below the requested order, allocate a dummy zero buffer that the kernel writes to but whose results are discarded. This is cheap (just `np * dim` doubles) and avoids kernel branching. For `None` fields at the requested order, this is a user error (requesting Fxc but not providing v2rho2).
 
 ## Validation Architecture
 
