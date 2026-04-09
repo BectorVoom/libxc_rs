@@ -80,21 +80,42 @@ impl std::fmt::Display for FunctionalId {
 }
 
 impl FunctionalId {
+    /// Look up a functional by its integer ID.
+    /// Returns Ok(FunctionalId) for valid IDs, Err for unknown or removed.
+    pub fn from_raw(id: u16) -> Result<Self, crate::LibxcRsError> {
+        crate::registry::lookup_by_id(id).map(|meta| meta.id)
+    }
+
+    /// Look up a functional by its canonical name (case-insensitive).
+    pub fn from_name(name: &str) -> Result<Self, crate::LibxcRsError> {
+        crate::registry::lookup_by_name(name)
+    }
+
     /// Get the raw integer ID.
     pub fn raw(self) -> u16 {
         self.0
     }
 
-    /// Look up a functional by its integer ID.
-    /// Placeholder -- actual implementation wired to registry in Plan 02.
-    pub fn from_raw(id: u16) -> Result<Self, crate::LibxcRsError> {
-        Err(crate::LibxcRsError::UnknownFunctionalId(id))
+    /// Get the canonical name of this functional.
+    pub fn name(self) -> &'static str {
+        // SAFETY: FunctionalId can only be constructed via from_raw/from_name
+        // which validate against the registry, so this lookup always succeeds.
+        crate::registry::lookup_by_id(self.0)
+            .map(|m| m.name)
+            .unwrap_or("UNKNOWN")
     }
 
-    /// Look up a functional by its canonical name (case-insensitive).
-    /// Placeholder -- actual implementation wired to registry in Plan 02.
-    pub fn from_name(name: &str) -> Result<Self, crate::LibxcRsError> {
-        Err(crate::LibxcRsError::UnknownFunctionalName(name.to_owned()))
+    /// Get the family of this functional.
+    pub fn family(self) -> Family {
+        crate::registry::lookup_by_id(self.0)
+            .map(|m| m.family)
+            .unwrap_or(Family::Lda)
+    }
+
+    /// Get the full metadata for this functional.
+    pub fn meta(self) -> &'static crate::meta::FunctionalMeta {
+        crate::registry::lookup_by_id(self.0)
+            .expect("FunctionalId was constructed from a valid ID")
     }
 }
 
@@ -199,5 +220,45 @@ mod tests {
         assert_eq!(t.zeta, 1e-10);
         assert_eq!(t.sigma, 1e-24);
         assert_eq!(t.tau, 1e-20);
+    }
+
+    #[test]
+    fn test_functional_id_from_raw() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        assert_eq!(id.raw(), 1);
+    }
+
+    #[test]
+    fn test_functional_id_from_name() {
+        let id = FunctionalId::from_name("XC_LDA_X").unwrap();
+        assert_eq!(id.raw(), 1);
+    }
+
+    #[test]
+    fn test_functional_id_name() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        assert_eq!(id.name(), "XC_LDA_X");
+    }
+
+    #[test]
+    fn test_functional_id_family() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        assert_eq!(id.family(), Family::Lda);
+    }
+
+    #[test]
+    fn test_functional_id_from_raw_invalid() {
+        assert!(FunctionalId::from_raw(9999).is_err());
+    }
+
+    #[test]
+    fn test_functional_id_from_raw_removed() {
+        assert!(FunctionalId::from_raw(104).is_err());
+    }
+
+    #[test]
+    fn test_functional_id_meta() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        assert_eq!(id.meta().kind, Kind::Exchange);
     }
 }
