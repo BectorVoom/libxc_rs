@@ -153,3 +153,132 @@ pub fn oracle_lda_all(func_id: i32, spin: i32, rho: &[f64]) -> Result<LdaOracleO
         v4rho4,
     })
 }
+
+/// Options for configuring the oracle before evaluation.
+#[derive(Default)]
+pub struct OracleOptions {
+    /// If Some, set the external parameters (e.g., alpha for LDA_X).
+    pub ext_params: Option<Vec<f64>>,
+    /// If Some, override the density threshold.
+    pub dens_threshold: Option<f64>,
+}
+
+/// Call C libxc to evaluate LDA exc with custom options (ext_params, dens_threshold).
+pub fn oracle_lda_exc_with_opts(
+    func_id: i32,
+    spin: i32,
+    rho: &[f64],
+    opts: &OracleOptions,
+) -> Result<Vec<f64>> {
+    ensure!(spin == 1 || spin == 2, "spin must be 1 or 2, got {spin}");
+
+    let np = if spin == 1 {
+        rho.len()
+    } else {
+        ensure!(rho.len().is_multiple_of(2), "polarized rho must have even length");
+        rho.len() / 2
+    };
+    ensure!(np > 0, "rho must not be empty");
+
+    let mut exc = vec![0.0f64; np];
+
+    unsafe {
+        let func = oracle_ffi::xc_func_alloc();
+        if func.is_null() {
+            bail!("xc_func_alloc returned null");
+        }
+
+        let ret = oracle_ffi::xc_func_init(func, func_id, spin);
+        if ret != 0 {
+            oracle_ffi::xc_func_free(func);
+            bail!("xc_func_init failed with code {ret}");
+        }
+
+        if let Some(ref params) = opts.ext_params {
+            oracle_ffi::xc_func_set_ext_params(func, params.as_ptr());
+        }
+        if let Some(threshold) = opts.dens_threshold {
+            oracle_ffi::xc_func_set_dens_threshold(func, threshold);
+        }
+
+        oracle_ffi::xc_lda_exc(func, np, rho.as_ptr(), exc.as_mut_ptr());
+
+        oracle_ffi::xc_func_end(func);
+        oracle_ffi::xc_func_free(func);
+    }
+
+    Ok(exc)
+}
+
+/// Call C libxc to evaluate LDA with all derivatives, with custom options.
+pub fn oracle_lda_all_with_opts(
+    func_id: i32,
+    spin: i32,
+    rho: &[f64],
+    opts: &OracleOptions,
+) -> Result<LdaOracleOutput> {
+    ensure!(spin == 1 || spin == 2, "spin must be 1 or 2, got {spin}");
+
+    let np = if spin == 1 {
+        rho.len()
+    } else {
+        ensure!(rho.len().is_multiple_of(2), "polarized rho must have even length");
+        rho.len() / 2
+    };
+    ensure!(np > 0, "rho must not be empty");
+
+    let (dim_vrho, dim_v2rho2, dim_v3rho3, dim_v4rho4) = if spin == 1 {
+        (1, 1, 1, 1)
+    } else {
+        (2, 3, 4, 5)
+    };
+
+    let mut zk = vec![0.0f64; np];
+    let mut vrho = vec![0.0f64; np * dim_vrho];
+    let mut v2rho2 = vec![0.0f64; np * dim_v2rho2];
+    let mut v3rho3 = vec![0.0f64; np * dim_v3rho3];
+    let mut v4rho4 = vec![0.0f64; np * dim_v4rho4];
+
+    unsafe {
+        let func = oracle_ffi::xc_func_alloc();
+        if func.is_null() {
+            bail!("xc_func_alloc returned null");
+        }
+
+        let ret = oracle_ffi::xc_func_init(func, func_id, spin);
+        if ret != 0 {
+            oracle_ffi::xc_func_free(func);
+            bail!("xc_func_init failed with code {ret}");
+        }
+
+        if let Some(ref params) = opts.ext_params {
+            oracle_ffi::xc_func_set_ext_params(func, params.as_ptr());
+        }
+        if let Some(threshold) = opts.dens_threshold {
+            oracle_ffi::xc_func_set_dens_threshold(func, threshold);
+        }
+
+        oracle_ffi::xc_lda_exc_vxc_fxc_kxc(
+            func,
+            np,
+            rho.as_ptr(),
+            zk.as_mut_ptr(),
+            vrho.as_mut_ptr(),
+            v2rho2.as_mut_ptr(),
+            v3rho3.as_mut_ptr(),
+        );
+
+        oracle_ffi::xc_lda_lxc(func, np, rho.as_ptr(), v4rho4.as_mut_ptr());
+
+        oracle_ffi::xc_func_end(func);
+        oracle_ffi::xc_func_free(func);
+    }
+
+    Ok(LdaOracleOutput {
+        zk,
+        vrho,
+        v2rho2,
+        v3rho3,
+        v4rho4,
+    })
+}
