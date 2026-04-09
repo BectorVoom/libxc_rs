@@ -88,7 +88,7 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
+- [x] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
 - [ ] 04-02-PLAN.md — LDA batch: translate all 42 LDA kernels + dispatch wiring + oracle verification
 - [ ] 04-03-PLAN.md — GGA batch: translate all 131 GGA kernels + dispatch_gga + oracle verification
 - [ ] 04-04-PLAN.md — MGGA batch: mgga_c_rmggac risk gate + all 92 MGGA kernels + dispatch_mgga
