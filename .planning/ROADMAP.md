@@ -35,8 +35,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Domain types, error enum, and dimension calculation
-- [ ] 01-02-PLAN.md -- Xtask code generator, static registry, and FunctionalId wiring
+- [x] 01-01-PLAN.md -- Domain types, error enum, and dimension calculation
+- [x] 01-02-PLAN.md -- Xtask code generator, static registry, and FunctionalId wiring
 - [ ] 01-03-PLAN.md -- Oracle verification harness and build quality validation
 
 ### Phase 2: Math Core and CubeCL Substrate
