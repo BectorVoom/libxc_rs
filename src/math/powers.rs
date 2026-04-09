@@ -14,8 +14,7 @@ pub fn safe_cbrt(x: f64) -> f64 {
     let abs_x = f64::abs(x);
     let cbrt_abs = f64::powf(abs_x, 1.0 / 3.0);
     let sign = select(x < 0.0, -1.0f64, 1.0f64);
-    let result = select(x == 0.0, 0.0f64, sign * cbrt_abs);
-    result
+    select(x == 0.0, 0.0f64, sign * cbrt_abs)
 }
 
 /// x^(1/3) -- cube root via safe_cbrt

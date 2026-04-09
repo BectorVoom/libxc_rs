@@ -1,4 +1,10 @@
 #![deny(warnings)]
+// CubeCL #[cube] macro expansion generates code that triggers these lints.
+// The excessive_precision lint is also inappropriate for scientific constants
+// where trailing digits are intentional for documentation clarity.
+#![allow(clippy::excessive_precision)]
+#![allow(clippy::needless_late_init)]
+#![allow(clippy::too_many_arguments)]
 
 pub mod model;
 pub mod meta;
