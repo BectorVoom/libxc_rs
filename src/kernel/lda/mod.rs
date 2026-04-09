@@ -1,2 +1,2 @@
 // LDA kernel implementations.
-// lda_x canary kernel added in Plan 03.
+pub mod lda_x;
