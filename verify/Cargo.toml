@@ -1,0 +1,15 @@
+[package]
+name = "libxc_rs-verify"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.100"
+libxc_rs = { path = ".." }
+
+[dev-dependencies]
+approx = "0.5.1"
+
+[build-dependencies]
+bindgen = "0.72.1"
+cmake = "0.1.58"
