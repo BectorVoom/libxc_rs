@@ -4,7 +4,7 @@ use crate::model::Spin;
 /// Used to validate buffer sizes and compute strides.
 ///
 /// Values are derived from libxc `util.c` `internal_counters_set_{lda,gga,mgga}`.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 pub struct Dimensions {
     // Input dimensions (elements per grid point)
     pub rho: u8,
@@ -351,8 +351,7 @@ impl Dimensions {
     }
 
     fn zeroed() -> Self {
-        // SAFETY: all fields are integer types where zero is valid.
-        unsafe { std::mem::zeroed() }
+        Self::default()
     }
 }
 

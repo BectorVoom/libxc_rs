@@ -14,7 +14,7 @@ use anyhow::{bail, ensure, Result};
 /// * `func_id` - Functional ID (e.g., 1 for LDA_X)
 /// * `spin` - Spin mode: 1 = unpolarized, 2 = polarized
 /// * `rho` - Density values. For unpolarized: one value per grid point.
-///           For polarized: interleaved [rho_up, rho_down] pairs.
+///   For polarized: interleaved \[rho_up, rho_down\] pairs.
 ///
 /// # Returns
 /// Vec of energy density values, one per grid point.
@@ -28,7 +28,7 @@ pub fn oracle_lda_exc(func_id: i32, spin: i32, rho: &[f64]) -> Result<Vec<f64>> 
         rho.len()
     } else {
         ensure!(
-            rho.len() % 2 == 0,
+            rho.len().is_multiple_of(2),
             "polarized rho must have even length, got {}",
             rho.len()
         );

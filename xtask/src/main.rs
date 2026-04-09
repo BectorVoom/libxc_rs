@@ -35,18 +35,18 @@ fn parse_family_and_kind(name: &str) -> (&'static str, &'static str) {
     let rest = name.strip_prefix("XC_").unwrap_or(name);
 
     // Determine family (and whether it's a hybrid prefix)
-    let after_family = if rest.starts_with("HYB_MGGA_") {
-        &rest[9..] // "HYB_MGGA_".len() == 9
-    } else if rest.starts_with("HYB_GGA_") {
-        &rest[8..] // "HYB_GGA_".len() == 8
-    } else if rest.starts_with("HYB_LDA_") {
-        &rest[8..] // "HYB_LDA_".len() == 8
-    } else if rest.starts_with("MGGA_") {
-        &rest[5..] // "MGGA_".len() == 5
-    } else if rest.starts_with("GGA_") {
-        &rest[4..] // "GGA_".len() == 4
-    } else if rest.starts_with("LDA_") {
-        &rest[4..] // "LDA_".len() == 4
+    let after_family = if let Some(s) = rest.strip_prefix("HYB_MGGA_") {
+        s
+    } else if let Some(s) = rest.strip_prefix("HYB_GGA_") {
+        s
+    } else if let Some(s) = rest.strip_prefix("HYB_LDA_") {
+        s
+    } else if let Some(s) = rest.strip_prefix("MGGA_") {
+        s
+    } else if let Some(s) = rest.strip_prefix("GGA_") {
+        s
+    } else if let Some(s) = rest.strip_prefix("LDA_") {
+        s
     } else {
         rest
     };
@@ -223,12 +223,12 @@ fn find_hyb_replacement(removed_name: &str, entries: &BTreeMap<u16, FuncEntry>) 
     let rest = removed_name.strip_prefix("XC_").unwrap_or(removed_name);
 
     // Try inserting "HYB_" before the family prefix
-    let hyb_name = if rest.starts_with("MGGA_") {
-        format!("XC_HYB_MGGA_{}", &rest[5..])
-    } else if rest.starts_with("GGA_") {
-        format!("XC_HYB_GGA_{}", &rest[4..])
-    } else if rest.starts_with("LDA_") {
-        format!("XC_HYB_LDA_{}", &rest[4..])
+    let hyb_name = if let Some(s) = rest.strip_prefix("MGGA_") {
+        format!("XC_HYB_MGGA_{s}")
+    } else if let Some(s) = rest.strip_prefix("GGA_") {
+        format!("XC_HYB_GGA_{s}")
+    } else if let Some(s) = rest.strip_prefix("LDA_") {
+        format!("XC_HYB_LDA_{s}")
     } else {
         return 0;
     };
@@ -376,9 +376,7 @@ fn generate_removed_file(
     // Removed IDs
     out.push_str("/// Removed functional IDs that should produce RemovedFunctionalId error.\n");
     out.push_str("/// (removed_id, replacement_id) -- replacement_id = 0 means no replacement.\n");
-    out.push_str(&format!(
-        "pub(crate) static REMOVED_IDS: &[(u16, u16)] = &[\n"
-    ));
+    out.push_str("pub(crate) static REMOVED_IDS: &[(u16, u16)] = &[\n");
 
     for &(removed_id, replacement_id) in removed {
         out.push_str(&format!("    ({removed_id}, {replacement_id}),\n"));
@@ -388,9 +386,7 @@ fn generate_removed_file(
 
     // Name aliases
     out.push_str("/// Name aliases (old name -> active ID) for backward compatibility.\n");
-    out.push_str(&format!(
-        "pub(crate) static NAME_ALIASES: &[(&str, u16)] = &[\n"
-    ));
+    out.push_str("pub(crate) static NAME_ALIASES: &[(&str, u16)] = &[\n");
 
     for (name, id) in aliases {
         out.push_str(&format!("    (\"{name}\", {id}),\n"));
