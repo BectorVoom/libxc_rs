@@ -12,21 +12,21 @@ Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluatio
 
 ### Validated
 
-(None yet -- ship to validate)
+- [x] Domain model: Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags enums/newtypes — Validated in Phase 1
+- [x] All 649 functional IDs present in static registry with zero runtime registration cost — Validated in Phase 1
+- [x] Static FunctionalMeta with references, ext_params, hybrid terms as `&'static` data — Validated in Phase 1
+- [x] O(1) registry lookup by ID, O(log n) by name — Validated in Phase 1
+- [x] Dimension calculation matching libxc's util.c rules (up to 477 components for 4th-order polarized MGGA) — Validated in Phase 1
+- [x] Oracle verification harness in verify/ crate using bindgen against system libxc 7.0.0 — Validated in Phase 1
 
 ### Active
 
 - [ ] Pure Rust implementation -- no runtime C/Fortran FFI dependency in the production path
 - [ ] Three-layer API: compatibility layer (C API 1:1 mapping), typed safe core, ergonomic high-level interface
-- [ ] All 649 functional IDs present in static registry with zero runtime registration cost
 - [ ] All 52 removed functional IDs return typed error with replacement ID
 - [ ] All 85 public C API functions mapped to Rust equivalents
-- [ ] Domain model: Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags enums/newtypes
-- [ ] Static FunctionalMeta with references, ext_params, hybrid terms as `&'static` data
-- [ ] O(1) registry lookup by ID, O(log n) by name
 - [ ] Input bundles (LdaInput, GgaInput, MggaInput) with buffer size validation
 - [ ] Output bundles with Option<&mut [f64]> NULL-pointer semantics and OutputMask bitflags
-- [ ] Dimension calculation matching libxc's util.c rules (up to 477 components for 4th-order polarized MGGA)
 - [ ] Mathematical core: shared #[cube] numerical building blocks (pow_1_3, safe_cbrt, piecewise3/5, erf/erfc, Horner evaluation, DFT quantities)
 - [ ] All 270 maple2c kernel files translated to Rust #[cube] functions preserving f64 precision and operation order
 - [ ] Density thresholding: grid points below threshold skipped, spin densities clamped
@@ -39,7 +39,6 @@ Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluatio
 - [ ] Builder pattern and BatchEvaluator for ergonomic API
 - [ ] C compatibility layer: extern "C" functions for all 85 public C API functions
 - [ ] Hybrid functional properties: HybridType, CAM coefficients, NLC coefficients, auxiliary functionals
-- [ ] Oracle verification harness in verify/ crate using bindgen against system libxc 7.0.0
 - [ ] Error types with thiserror v2 at library boundary, anyhow in verify/benches/xtask
 - [ ] Performance: CPU batch within 1.5x of libxc C, GPU batch >5x CPU throughput, zero heap allocation in non-mixed hot path
 - [ ] Benchmark suite with criterion for regression detection
@@ -103,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-09 after initialization*
+*Last updated: 2026-04-09 after Phase 1 completion*
