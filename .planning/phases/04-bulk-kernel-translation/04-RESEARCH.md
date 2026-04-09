@@ -531,19 +531,19 @@ These are kernel files for the XC component of hybrid functionals. The hybrid mi
 | A4 | Two-level dispatch (ID -> handler -> order/spin) is better than flat match | Pitfall 7 | LOW -- either approach works, flat match may have longer compile times |
 | A5 | `pow_2(x)` and `pow_3(x)` as named functions vs inline `x*x` | Code Examples | LOW -- both work, named functions aid consistency |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **CubeCL compilation limits for large MGGA kernels**
+1. **CubeCL compilation limits for large MGGA kernels** — RESOLVED: D-05 (translate as-is, split if needed) and D-06 (test mgga_c_rmggac first) address this. Plan 04 Task 1 includes a checkpoint gate.
    - What we know: The largest kernel is 100K lines of C. CubeCL proc-macro generates IR at compile time.
    - What's unclear: Maximum function size CubeCL can handle before OOM or timeout.
    - Recommendation: D-06 addresses this -- test mgga_c_rmggac first. If it fails, split per derivative order.
 
-2. **External parameter default values**
+2. **External parameter default values** — RESOLVED: Oracle handles defaults via `xc_func_init`. Per-functional C source files contain `xc_func_info_type` with params struct and defaults.
    - What we know: 136 functionals use `params->field`. Default values are defined in C header files.
    - What's unclear: Where exactly each functional's default params are stored in the libxc source tree.
    - Recommendation: Check `libxc-master/src/<functional_name>.c` for the `xc_func_info_type` definition which includes the params struct and defaults. The oracle handles defaults automatically via `xc_func_init`.
 
-3. **Dispatch architecture at scale**
+3. **Dispatch architecture at scale** — RESOLVED: D-12 (per-functional dispatch wiring) and Pitfall 7 (two-level dispatch) address this. Each functional's launch module exports a dispatch function; top-level routes by ID.
    - What we know: Current dispatch is a single match on (order, spin) for one functional.
    - What's unclear: Best pattern for 262 functionals with varying parameter signatures.
    - Recommendation: Each functional's launch module exports a `dispatch_<name>()` function; the top-level dispatch routes by functional ID. This keeps each functional self-contained.
