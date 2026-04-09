@@ -235,24 +235,61 @@ pub fn dispatch_lda(
 
     // Read back results from CubeCL buffers into caller-provided output slices.
     // Only copy back for Some fields; None fields had dummy buffers that are discarded.
+    // Each readback includes a length check to return a typed error instead of
+    // panicking via copy_from_slice on size mismatch.
     if let Some(ref mut buf) = output.zk {
         let result = read_output_buffer(&client, zk_handle, zk_len);
+        if buf.len() != result.len() {
+            return Err(LibxcRsError::OutputBufferSizeMismatch {
+                field: "zk",
+                expected: buf.len(),
+                actual: result.len(),
+            });
+        }
         buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.vrho, vrho_handle) {
         let result = read_output_buffer(&client, h, vrho_len);
+        if buf.len() != result.len() {
+            return Err(LibxcRsError::OutputBufferSizeMismatch {
+                field: "vrho",
+                expected: buf.len(),
+                actual: result.len(),
+            });
+        }
         buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v2rho2, v2rho2_handle) {
         let result = read_output_buffer(&client, h, v2rho2_len);
+        if buf.len() != result.len() {
+            return Err(LibxcRsError::OutputBufferSizeMismatch {
+                field: "v2rho2",
+                expected: buf.len(),
+                actual: result.len(),
+            });
+        }
         buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v3rho3, v3rho3_handle) {
         let result = read_output_buffer(&client, h, v3rho3_len);
+        if buf.len() != result.len() {
+            return Err(LibxcRsError::OutputBufferSizeMismatch {
+                field: "v3rho3",
+                expected: buf.len(),
+                actual: result.len(),
+            });
+        }
         buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v4rho4, v4rho4_handle) {
         let result = read_output_buffer(&client, h, v4rho4_len);
+        if buf.len() != result.len() {
+            return Err(LibxcRsError::OutputBufferSizeMismatch {
+                field: "v4rho4",
+                expected: buf.len(),
+                actual: result.len(),
+            });
+        }
         buf.copy_from_slice(&result);
     }
 
