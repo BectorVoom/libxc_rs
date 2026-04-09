@@ -49,12 +49,12 @@ Plans:
   3. LDA_X kernel (both unpolarized and polarized) produces energy with relative error <= 10^-12 vs libxc oracle
   4. All #[cube] math functions produce identical results on CubeCL CPU backend as on native Rust (cross-backend consistency)
   5. Kernel launch wrapper correctly handles buffer creation, CubeCount/CubeDim calculation, and backend selection
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Math core: constants, powers, piecewise, polynomials, erf, spin, DFT quantities
+- [ ] 02-02-PLAN.md — Kernel launch infrastructure: backend selection, buffer management, CubeCount/CubeDim
+- [ ] 02-03-PLAN.md — LDA_X canary kernel translation and oracle verification
 
 ### Phase 3: Input/Output and Evaluation Framework
 **Goal**: Type-safe I/O bundles validate buffer sizes, output masks control which derivatives are computed, and the dispatch/accumulation framework correctly routes evaluation for single and mixed functionals
@@ -66,7 +66,7 @@ Plans:
   3. OutputMask bitflags correctly select which derivative levels (exc/vxc/fxc/kxc/lxc) to compute
   4. Mixed functional evaluation accumulates weighted results from auxiliary functionals, matching mix_func.c behavior
   5. Non-mixed evaluation hot path performs zero heap allocations
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 03-01: TBD
@@ -83,7 +83,7 @@ Plans:
   3. All ~80 MGGA functional kernels pass oracle verification through applicable derivative orders
   4. Density thresholding correctly skips grid points below threshold and clamps spin densities
   5. Output accumulation uses += semantics to support mixed functional evaluation
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 04-01: TBD
@@ -102,7 +102,7 @@ Plans:
   3. Hybrid functionals correctly report their HybridType, CAM coefficients (omega, alpha, beta), and NLC coefficients (b, C)
   4. Auxiliary functionals for mixed/hybrid functionals are recursively constructed and iterable
   5. Drop implementation cleans up all resources without leaks
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 05-01: TBD
@@ -119,7 +119,7 @@ Plans:
   3. All 85 public C API functions are implemented as extern "C" with correct signatures matching libxc headers
   4. C-compatible struct layouts pass size/alignment assertions matching libxc's xc_func_type
   5. All unsafe code is confined to compat/, kernel/launch.rs, and GPU buffer management modules
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 06-01: TBD
@@ -136,7 +136,7 @@ Plans:
   3. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
   4. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
   5. Benchmark suite with criterion detects performance regressions across key functionals
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 07-01: TBD
