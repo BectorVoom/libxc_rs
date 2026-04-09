@@ -23,6 +23,14 @@ use crate::output::LdaOutput;
 /// fields by allocating dummy buffers the kernel writes to but whose
 /// results are discarded.
 ///
+/// **Note on `zk`:** The energy density `zk` is always computed by every LDA
+/// kernel variant, regardless of the requested derivative order. If
+/// `output.zk` is `None`, a dummy GPU buffer is still allocated and written
+/// by the kernel, but the result is not copied back to the caller. Passing
+/// `None` for `zk` therefore wastes one output buffer allocation but does
+/// not skip computation. Higher-order derivative fields (`vrho`, `v2rho2`,
+/// etc.) are truly optional and only computed when `order` requires them.
+///
 /// # Arguments
 /// * `input` - Validated LDA input bundle
 /// * `order` - Maximum derivative order to compute
