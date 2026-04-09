@@ -7,6 +7,9 @@
 //! Each wrapper function takes CubeCL handles and sizes, constructs ArrayArg
 //! internally, and calls launch_unchecked -- all within a single unsafe block.
 //! Callers (e.g., src/eval/dispatch.rs) never touch unsafe code.
+//!
+//! All wrappers return `Result` to propagate kernel launch failures instead
+//! of panicking via `unwrap()`.
 
 use cubecl::cpu::CpuRuntime;
 use cubecl::client::ComputeClient;
@@ -33,6 +36,9 @@ impl<'a> BufArg<'a> {
 // ============================================================================
 
 /// Safe wrapper for `lda_x_exc_unpol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_exc_unpol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -42,7 +48,7 @@ pub fn launch_lda_x_exc_unpol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -51,11 +57,15 @@ pub fn launch_lda_x_exc_unpol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_vxc_unpol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_vxc_unpol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -66,7 +76,7 @@ pub fn launch_lda_x_vxc_unpol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_vxc_unpol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -76,11 +86,15 @@ pub fn launch_lda_x_vxc_unpol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_fxc_unpol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_fxc_unpol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -92,7 +106,7 @@ pub fn launch_lda_x_fxc_unpol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_fxc_unpol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -103,11 +117,15 @@ pub fn launch_lda_x_fxc_unpol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_kxc_unpol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_kxc_unpol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -120,7 +138,7 @@ pub fn launch_lda_x_kxc_unpol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_kxc_unpol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -132,11 +150,15 @@ pub fn launch_lda_x_kxc_unpol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_lxc_unpol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_lxc_unpol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -150,7 +172,7 @@ pub fn launch_lda_x_lxc_unpol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -163,8 +185,9 @@ pub fn launch_lda_x_lxc_unpol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 // ============================================================================
@@ -172,6 +195,9 @@ pub fn launch_lda_x_lxc_unpol(
 // ============================================================================
 
 /// Safe wrapper for `lda_x_exc_pol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_exc_pol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -181,7 +207,7 @@ pub fn launch_lda_x_exc_pol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -190,11 +216,15 @@ pub fn launch_lda_x_exc_pol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_vxc_pol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_vxc_pol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -205,7 +235,7 @@ pub fn launch_lda_x_vxc_pol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_vxc_pol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -215,11 +245,15 @@ pub fn launch_lda_x_vxc_pol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_fxc_pol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_fxc_pol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -231,7 +265,7 @@ pub fn launch_lda_x_fxc_pol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -242,11 +276,15 @@ pub fn launch_lda_x_fxc_pol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_kxc_pol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_kxc_pol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -259,7 +297,7 @@ pub fn launch_lda_x_kxc_pol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_kxc_pol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -271,11 +309,15 @@ pub fn launch_lda_x_kxc_pol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 /// Safe wrapper for `lda_x_lxc_pol` kernel launch.
+///
+/// # Errors
+/// Returns an error if the CubeCL kernel launch fails.
 pub fn launch_lda_x_lxc_pol(
     client: &ComputeClient<CpuRuntime>,
     cube_count: CubeCount,
@@ -289,7 +331,7 @@ pub fn launch_lda_x_lxc_pol(
     alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
-) {
+) -> Result<(), Box<dyn std::error::Error>> {
     unsafe {
         lda_x::lda_x_lxc_pol::launch_unchecked::<CpuRuntime>(
             client, cube_count, cube_dim,
@@ -302,8 +344,9 @@ pub fn launch_lda_x_lxc_pol(
             ScalarArg::new(alpha),
             ScalarArg::new(dens_threshold),
             ScalarArg::new(zeta_threshold),
-        ).unwrap();
+        )?;
     }
+    Ok(())
 }
 
 #[cfg(test)]
@@ -330,7 +373,7 @@ mod tests {
             &BufArg::new(&rho_handle, np),
             &BufArg::new(&zk_handle, np),
             1.0, 1e-15, 1e-10,
-        );
+        ).unwrap();
 
         let zk = read_output_buffer(&client, zk_handle, np);
         assert_eq!(zk.len(), np);
@@ -357,7 +400,7 @@ mod tests {
             &BufArg::new(&zk_handle, np),
             &BufArg::new(&vrho_handle, np),
             1.0, 1e-15, 1e-10,
-        );
+        ).unwrap();
 
         let zk = read_output_buffer(&client, zk_handle, np);
         let vrho = read_output_buffer(&client, vrho_handle, np);
@@ -386,7 +429,7 @@ mod tests {
             &BufArg::new(&rho_handle, np * 2),
             &BufArg::new(&zk_handle, np),
             1.0, 1e-15, 1e-10,
-        );
+        ).unwrap();
 
         let zk = read_output_buffer(&client, zk_handle, np);
         for (i, &val) in zk.iter().enumerate() {

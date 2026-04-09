@@ -107,13 +107,18 @@ pub fn dispatch_lda(
     let rho_buf = BufArg::new(&rho_handle, rho_len);
     let zk_buf = BufArg::new(&zk_handle, zk_len);
 
+    // Helper to convert kernel launch errors into LibxcRsError.
+    let map_launch_err = |e: Box<dyn std::error::Error>| LibxcRsError::KernelLaunchFailed {
+        reason: e.to_string(),
+    };
+
     match (order, spin) {
         (DerivativeOrder::Exc, Spin::Unpolarized) => {
             launch_lda_x::launch_lda_x_exc_unpol(
                 &client, cube_count, cube_dim,
                 &rho_buf, &zk_buf,
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Vxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -122,7 +127,7 @@ pub fn dispatch_lda(
                 &rho_buf, &zk_buf,
                 &BufArg::new(vrho_h, vrho_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Fxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -133,7 +138,7 @@ pub fn dispatch_lda(
                 &BufArg::new(vrho_h, vrho_len),
                 &BufArg::new(v2rho2_h, v2rho2_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Kxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -146,7 +151,7 @@ pub fn dispatch_lda(
                 &BufArg::new(v2rho2_h, v2rho2_len),
                 &BufArg::new(v3rho3_h, v3rho3_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Lxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -161,14 +166,14 @@ pub fn dispatch_lda(
                 &BufArg::new(v3rho3_h, v3rho3_len),
                 &BufArg::new(v4rho4_h, v4rho4_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Exc, Spin::Polarized) => {
             launch_lda_x::launch_lda_x_exc_pol(
                 &client, cube_count, cube_dim,
                 &rho_buf, &zk_buf,
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Vxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -177,7 +182,7 @@ pub fn dispatch_lda(
                 &rho_buf, &zk_buf,
                 &BufArg::new(vrho_h, vrho_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Fxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -188,7 +193,7 @@ pub fn dispatch_lda(
                 &BufArg::new(vrho_h, vrho_len),
                 &BufArg::new(v2rho2_h, v2rho2_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Kxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -201,7 +206,7 @@ pub fn dispatch_lda(
                 &BufArg::new(v2rho2_h, v2rho2_len),
                 &BufArg::new(v3rho3_h, v3rho3_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
         (DerivativeOrder::Lxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
@@ -216,7 +221,7 @@ pub fn dispatch_lda(
                 &BufArg::new(v3rho3_h, v3rho3_len),
                 &BufArg::new(v4rho4_h, v4rho4_len),
                 alpha, thresholds.density, thresholds.zeta,
-            );
+            ).map_err(map_launch_err)?;
         }
     }
 

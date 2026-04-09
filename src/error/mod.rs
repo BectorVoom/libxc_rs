@@ -78,6 +78,9 @@ pub enum LibxcRsError {
         expected_spin: Spin,
         actual_spin: Spin,
     },
+
+    #[error("kernel launch failed: {reason}")]
+    KernelLaunchFailed { reason: String },
 }
 
 #[cfg(test)]
