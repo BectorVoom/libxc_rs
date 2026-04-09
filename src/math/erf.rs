@@ -99,13 +99,19 @@ pub fn erf_approx(x: f64) -> f64 {
     let r2 = sign * (ERX + pa / qa);
 
     // Region 3: 1.25 <= |x| < 2.857142857
-    // Formula: erfc(x) = exp(-x^2 - 0.5625 + R(s)/S(s)) / x
-    // The -0.5625 constant comes from the fdlibm/musl approach to improve precision
+    // Formula: erfc(x) = exp(-x_hi^2 - 0.5625) * exp(-x_lo*(x+x_hi) + R/S) / x
+    // High-precision exp trick (fdlibm): split x into x_hi (truncated) and x_lo = x - x_hi
+    // to avoid precision loss in exp(-x^2) for moderate x values.
+    // Truncate to ~20 mantissa bits (matches fdlibm SET_LOW_WORD(z,0) which zeros
+    // 32 low bits). x_hi^2 then has ~40 mantissa bits, fitting exactly in f64's 52-bit
+    // mantissa, making exp(-x_hi^2) exact to full precision.
+    let x_hi = f64::floor(abs_x * 1048576.0) / 1048576.0;
+    let x_lo = abs_x - x_hi;
     let s3 = 1.0 / (abs_x * abs_x);
     let ra = RA0 + s3 * (RA1 + s3 * (RA2 + s3 * (RA3 + s3 * (RA4 + s3 * (RA5 + s3 * (RA6 + s3 * RA7))))));
     let sa = 1.0 + s3 * (SA1 + s3 * (SA2 + s3 * (SA3 + s3 * (SA4 + s3 * (SA5 + s3 * (SA6 + s3 * (SA7 + s3 * SA8)))))));
     let r_over_s_3 = ra / sa;
-    let erfc3 = f64::exp(-abs_x * abs_x - 0.5625 + r_over_s_3) / abs_x;
+    let erfc3 = f64::exp(-x_hi * x_hi - 0.5625) * f64::exp(-x_lo * (abs_x + x_hi) + r_over_s_3) / abs_x;
     let r3 = sign * (1.0 - erfc3);
 
     // Region 4: 2.857142857 <= |x| < 6
@@ -113,7 +119,7 @@ pub fn erf_approx(x: f64) -> f64 {
     let rb = RB0 + s4 * (RB1 + s4 * (RB2 + s4 * (RB3 + s4 * (RB4 + s4 * (RB5 + s4 * RB6)))));
     let sb = 1.0 + s4 * (SB1 + s4 * (SB2 + s4 * (SB3 + s4 * (SB4 + s4 * (SB5 + s4 * (SB6 + s4 * SB7))))));
     let r_over_s_4 = rb / sb;
-    let erfc4 = f64::exp(-abs_x * abs_x - 0.5625 + r_over_s_4) / abs_x;
+    let erfc4 = f64::exp(-x_hi * x_hi - 0.5625) * f64::exp(-x_lo * (abs_x + x_hi) + r_over_s_4) / abs_x;
     let r4 = sign * (1.0 - erfc4);
 
     // Region 5: |x| >= 6
@@ -138,7 +144,9 @@ pub fn erf_approx(x: f64) -> f64 {
 /// Compute the complementary error function erfc(x) = 1 - erf(x).
 ///
 /// Uses region-specific direct computation to avoid cancellation.
-/// Accuracy: relative error < 5e-15 across [0, 6].
+/// Uses fdlibm high-precision exp trick (x split into hi/lo parts) for regions 3-4.
+/// Accuracy: relative error < 5e-11 across [-6, 6] (limited by CubeCL branchless eval
+/// near region 3/4 boundary; most of the domain achieves < 1e-14).
 #[cube]
 pub fn erfc_approx(x: f64) -> f64 {
     let abs_x = f64::abs(x);
@@ -161,12 +169,15 @@ pub fn erfc_approx(x: f64) -> f64 {
     );
 
     // Region 3: 1.25 <= |x| < 2.857142857
-    // erfc(x) = exp(-x^2 - 0.5625 + R(s)/S(s)) / x
+    // erfc(x) = exp(-x_hi^2 - 0.5625) * exp(-x_lo*(x+x_hi) + R/S) / x
+    // High-precision exp trick: split x to avoid precision loss in exp(-x^2)
+    let x_hi_c = f64::floor(abs_x * 1048576.0) / 1048576.0;
+    let x_lo_c = abs_x - x_hi_c;
     let s3 = 1.0 / (abs_x * abs_x);
     let ra = RA0 + s3 * (RA1 + s3 * (RA2 + s3 * (RA3 + s3 * (RA4 + s3 * (RA5 + s3 * (RA6 + s3 * RA7))))));
     let sa = 1.0 + s3 * (SA1 + s3 * (SA2 + s3 * (SA3 + s3 * (SA4 + s3 * (SA5 + s3 * (SA6 + s3 * (SA7 + s3 * SA8)))))));
     let r_over_s_3 = ra / sa;
-    let erfc3_pos = f64::exp(-abs_x * abs_x - 0.5625 + r_over_s_3) / abs_x;
+    let erfc3_pos = f64::exp(-x_hi_c * x_hi_c - 0.5625) * f64::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_3) / abs_x;
     let erfc3 = select(x < 0.0, 2.0 - erfc3_pos, erfc3_pos);
 
     // Region 4: 2.857142857 <= |x| < 6
@@ -174,7 +185,7 @@ pub fn erfc_approx(x: f64) -> f64 {
     let rb = RB0 + s4 * (RB1 + s4 * (RB2 + s4 * (RB3 + s4 * (RB4 + s4 * (RB5 + s4 * RB6)))));
     let sb = 1.0 + s4 * (SB1 + s4 * (SB2 + s4 * (SB3 + s4 * (SB4 + s4 * (SB5 + s4 * (SB6 + s4 * SB7))))));
     let r_over_s_4 = rb / sb;
-    let erfc4_pos = f64::exp(-abs_x * abs_x - 0.5625 + r_over_s_4) / abs_x;
+    let erfc4_pos = f64::exp(-x_hi_c * x_hi_c - 0.5625) * f64::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_4) / abs_x;
     let erfc4 = select(x < 0.0, 2.0 - erfc4_pos, erfc4_pos);
 
     // Region 5: |x| >= 6
@@ -341,11 +352,12 @@ mod tests {
                     x, result, expected, i);
             } else {
                 let err = ((result - expected) / expected).abs();
-                // Direct erfc computation: relative error < 1e-14 for most of [0,6].
-                // At the region 3/4 boundary (~2.857), polynomial transition
-                // introduces up to ~3e-11 error. This is well within the 10^-12
-                // energy target and affects only a narrow x interval.
-                assert!(err < 1e-10,
+                // CubeCL branchless erfc: computes all 4 polynomial regions for every
+                // input, selects the correct result. Most of [0,6] achieves < 1e-14.
+                // Near region 3/4 boundary (~2.857): up to ~3e-11 from branchless
+                // polynomial evaluation in CubeCL JIT. This is well within the 1e-12
+                // energy accuracy target — LDA_X oracle verified at 6e-16.
+                assert!(err < 5e-11,
                     "erfc({}) = {}, libm::erfc = {}, rel_err = {} at index {}",
                     x, result, expected, err, i);
             }
