@@ -53,6 +53,15 @@ pub fn dispatch_lda(
 
     // Zero caller-provided output buffers (T-03-04 mitigation).
     // Kernels use += accumulation, so stale data would corrupt results.
+    //
+    // INVARIANT: dispatch_lda is authoritative for zeroing its own output
+    // buffers. Callers (including evaluate_mixed_lda) must NOT rely on
+    // this zeroing for their own accumulation logic -- they should zero
+    // their own output separately. The mixed path zeros scratch via
+    // workspace.zero_scratch() before building scratch_output, and
+    // dispatch_lda re-zeros those same slices here. The double-zero is
+    // intentional: it keeps dispatch_lda self-contained so it can be
+    // called directly (not only through the mixed path).
     if let Some(ref mut buf) = output.zk {
         buf.fill(0.0);
     }

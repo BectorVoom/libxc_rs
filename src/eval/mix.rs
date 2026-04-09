@@ -95,7 +95,12 @@ pub fn evaluate_mixed_lda(
     let v4rho4_len = dims.v4rho4 as usize * np;
 
     for aux in auxiliaries {
-        // Zero scratch before each auxiliary (T-03-07 mitigation)
+        // Zero scratch before each auxiliary (T-03-07 mitigation).
+        // Note: dispatch_lda also zeros its output buffers on entry.
+        // The double-zero is intentional -- this call prevents
+        // cross-contamination between the accumulation readback and the
+        // next dispatch_lda call, while dispatch_lda's internal zero
+        // keeps it self-contained for direct (non-mixed) callers.
         workspace.zero_scratch();
 
         // Evaluate auxiliary into workspace scratch.
