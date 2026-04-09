@@ -5,6 +5,7 @@ pub mod meta;
 pub mod error;
 pub mod dims;
 pub mod registry;
+pub mod math;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
