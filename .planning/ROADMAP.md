@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
 - [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
-- [ ] **Phase 7: GPU Backends and Performance** - CUDA/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
+- [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 
 ## Phase Details
 
@@ -52,11 +52,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Math core: constants, powers, piecewise, polynomials, erf, spin, DFT quantities
-- [ ] 02-02-PLAN.md — Kernel launch infrastructure: backend selection, buffer management, CubeCount/CubeDim
-- [ ] 02-03-PLAN.md — LDA_X canary kernel translation and oracle verification
-- [ ] 02-04-PLAN.md — Math integration tests and workspace build quality gate
-- [ ] 02-05-PLAN.md — LDA_X edge-case and stress testing (thresholds, alpha, extreme spins)
+- [x] 02-01-PLAN.md — Math core: constants, powers, piecewise, polynomials, erf, spin, DFT quantities
+- [x] 02-02-PLAN.md — Kernel launch infrastructure: backend selection, buffer management, CubeCount/CubeDim
+- [x] 02-03-PLAN.md — LDA_X canary kernel translation and oracle verification
+- [x] 02-04-PLAN.md — Math integration tests and workspace build quality gate
+- [x] 02-05-PLAN.md — LDA_X edge-case and stress testing (thresholds, alpha, extreme spins)
 
 ### Phase 3: Input/Output and Evaluation Framework
 **Goal**: Type-safe I/O bundles validate buffer sizes, output masks control which derivatives are computed, and the dispatch/accumulation framework correctly routes evaluation for single and mixed functionals
@@ -129,12 +129,12 @@ Plans:
 - [ ] 06-03: TBD
 
 ### Phase 7: GPU Backends and Performance
-**Goal**: GPU evaluation delivers >5x CPU throughput on CUDA, all performance targets are met, and the benchmark suite provides regression detection
+**Goal**: GPU evaluation delivers >5x CPU throughput on ROCM, all performance targets are met, and the benchmark suite provides regression detection
 **Depends on**: Phase 6
 **Requirements**: GPU-01, GPU-02, GPU-03, GPU-04, GPU-05, GPU-06, GPU-07, VERIFY-08, PERF-01, PERF-02, PERF-03, PERF-04, PERF-05
 **Success Criteria** (what must be TRUE):
-  1. CUDA backend produces results matching CPU to within 10^-14 relative error for all tested functionals
-  2. GPU batch evaluation (100k points) achieves >5x CPU batch throughput on CUDA
+  1. ROCM backend produces results matching CPU to within 10^-14 relative error for all tested functionals
+  2. GPU batch evaluation (100k points) achieves >5x CPU batch throughput on ROCM
   3. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
   4. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
   5. Benchmark suite with criterion detects performance regressions across key functionals
