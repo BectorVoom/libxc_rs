@@ -1,8 +1,20 @@
 [package]
+<<<<<<< HEAD
+name = "xtask"
+=======
 name = "libxc_rs-xtask"
+>>>>>>> origin/main
 version = "0.1.0"
 edition = "2024"
 
 [[bin]]
 name = "xtask"
+<<<<<<< HEAD
+path = "src/main.rs"
+
+[dependencies]
+regex = "1"
+anyhow = "1"
+=======
 path = "main.rs"
+>>>>>>> origin/main

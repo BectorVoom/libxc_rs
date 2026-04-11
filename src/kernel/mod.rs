@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+pub mod launch;
+pub mod lda;
+pub mod gga;
+pub mod mgga;
+=======
 //! Placeholder module generated from README tree for src/kernel.
 
 pub mod dispatch_key;
@@ -7,3 +13,4 @@ pub mod lda;
 pub mod mgga;
 pub mod mix;
 pub mod shared;
+>>>>>>> origin/main
