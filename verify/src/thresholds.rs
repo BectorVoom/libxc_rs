@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /// Tolerance constants for oracle comparison, derived from project accuracy requirements.
 ///
 /// Each constant represents the maximum acceptable relative error (using the
@@ -31,10 +30,4 @@ pub fn tolerance_for_order(order: usize) -> f64 {
         4 => LXC_TOLERANCE,
         _ => panic!("derivative order {order} out of range 0..=4"),
     }
-=======
-#![allow(dead_code)]
-
-pub fn describe() -> &'static str {
-    "placeholder: thresholds"
->>>>>>> origin/main
 }

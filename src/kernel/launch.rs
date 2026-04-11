@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //! Kernel launch infrastructure for CubeCL compute kernels.
 //!
 //! Provides reusable utilities for launching CubeCL kernels:
@@ -230,7 +229,3 @@ mod tests {
         }
     }
 }
-=======
-#![allow(dead_code)]
-//! Placeholder stub for `src/kernel/launch.rs`.
->>>>>>> origin/main

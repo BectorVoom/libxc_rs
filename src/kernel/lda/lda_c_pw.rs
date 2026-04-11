@@ -3,10 +3,10 @@
 //! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_pw.c`.
 //! Translation preserves exact maple2c variable names and operation order.
 
-#[allow(unused_variables, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
-use crate::math::constants::{M_PI, M_CBRT2, M_CBRT3, M_CBRT4};
+use crate::math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use crate::math::powers::{pow_1_3, pow_3_2};
 use crate::math::piecewise::{piecewise3};
 
@@ -15,25 +15,33 @@ use crate::math::piecewise::{piecewise3};
 // ============================================================================
 
 /// LDA_C_PW exc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_exc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -46,17 +54,17 @@ pub fn lda_c_pw_exc_unpol(
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
         let t17 = 1.0 / t1;
-        let t18 = param_beta1[0];
+        let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
         let t22 = f64::sqrt(t21);
-        let t26 = param_beta2[0] * t3;
-        let t29 = param_beta3[0];
+        let t26 = param_beta2_0 * t3;
+        let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
-        let t36 = param_pp[0] + 1.0;
+        let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
-        let t38 = param_beta4[0] * t37;
+        let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
@@ -65,17 +73,17 @@ pub fn lda_c_pw_exc_unpol(
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
-        let t57 = param_a[2];
-        let t59 = param_alpha1[2];
+        let t57 = param_a_2;
+        let t59 = param_alpha1_2;
         let t60 = t59 * t3;
         let t63 = 1.0 + t60 * t12 / 4.0;
         let t64 = 1.0 / t57;
-        let t65 = param_beta1[2];
-        let t69 = param_beta2[2] * t3;
-        let t72 = param_beta3[2];
-        let t77 = param_pp[2] + 1.0;
+        let t65 = param_beta1_2;
+        let t69 = param_beta2_2 * t3;
+        let t72 = param_beta3_2;
+        let t77 = param_pp_2 + 1.0;
         let t78 = f64::powf(t34, t77);
-        let t79 = param_beta4[2] * t78;
+        let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
         let t85 = f64::ln(t84);
@@ -83,31 +91,38 @@ pub fn lda_c_pw_exc_unpol(
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_C_PW vxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_vxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -120,17 +135,17 @@ pub fn lda_c_pw_vxc_unpol(
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
         let t17 = 1.0 / t1;
-        let t18 = param_beta1[0];
+        let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
         let t22 = f64::sqrt(t21);
-        let t26 = param_beta2[0] * t3;
-        let t29 = param_beta3[0];
+        let t26 = param_beta2_0 * t3;
+        let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
-        let t36 = param_pp[0] + 1.0;
+        let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
-        let t38 = param_beta4[0] * t37;
+        let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
@@ -139,17 +154,17 @@ pub fn lda_c_pw_vxc_unpol(
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
-        let t57 = param_a[2];
-        let t59 = param_alpha1[2];
+        let t57 = param_a_2;
+        let t59 = param_alpha1_2;
         let t60 = t59 * t3;
         let t63 = 1.0 + t60 * t12 / 4.0;
         let t64 = 1.0 / t57;
-        let t65 = param_beta1[2];
-        let t69 = param_beta2[2] * t3;
-        let t72 = param_beta3[2];
-        let t77 = param_pp[2] + 1.0;
+        let t65 = param_beta1_2;
+        let t69 = param_beta2_2 * t3;
+        let t72 = param_beta3_2;
+        let t77 = param_pp_2 + 1.0;
         let t78 = f64::powf(t34, t77);
-        let t79 = param_beta4[2] * t78;
+        let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
         let t85 = f64::ln(t84);
@@ -157,7 +172,6 @@ pub fn lda_c_pw_vxc_unpol(
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
         zk[ip] += tzk0;
-
         let t94 = t1 * t2 * t3;
         let t96 = 1.0 / t10 / rho[ip];
         let t99 = t94 * t9 * t96 * t44;
@@ -187,32 +201,39 @@ pub fn lda_c_pw_vxc_unpol(
         let t154 = t133 * t135 * t149 * t152;
         let tvrho0 = -2.0 * t45 + 2.0 * t89 + rho[ip] * (t99 / 6.0 + t124 - t131 / 6.0 - t154);
         vrho[ip] += tvrho0;
-
     }
 }
 
 /// LDA_C_PW fxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_fxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -225,17 +246,17 @@ pub fn lda_c_pw_fxc_unpol(
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
         let t17 = 1.0 / t1;
-        let t18 = param_beta1[0];
+        let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
         let t22 = f64::sqrt(t21);
-        let t26 = param_beta2[0] * t3;
-        let t29 = param_beta3[0];
+        let t26 = param_beta2_0 * t3;
+        let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
-        let t36 = param_pp[0] + 1.0;
+        let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
-        let t38 = param_beta4[0] * t37;
+        let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
@@ -244,17 +265,17 @@ pub fn lda_c_pw_fxc_unpol(
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
-        let t57 = param_a[2];
-        let t59 = param_alpha1[2];
+        let t57 = param_a_2;
+        let t59 = param_alpha1_2;
         let t60 = t59 * t3;
         let t63 = 1.0 + t60 * t12 / 4.0;
         let t64 = 1.0 / t57;
-        let t65 = param_beta1[2];
-        let t69 = param_beta2[2] * t3;
-        let t72 = param_beta3[2];
-        let t77 = param_pp[2] + 1.0;
+        let t65 = param_beta1_2;
+        let t69 = param_beta2_2 * t3;
+        let t72 = param_beta3_2;
+        let t77 = param_pp_2 + 1.0;
         let t78 = f64::powf(t34, t77);
-        let t79 = param_beta4[2] * t78;
+        let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
         let t85 = f64::ln(t84);
@@ -262,7 +283,6 @@ pub fn lda_c_pw_fxc_unpol(
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
         zk[ip] += tzk0;
-
         let t94 = t1 * t2 * t3;
         let t96 = 1.0 / t10 / rho[ip];
         let t99 = t94 * t9 * t96 * t44;
@@ -292,7 +312,6 @@ pub fn lda_c_pw_fxc_unpol(
         let t154 = t133 * t135 * t149 * t152;
         let tvrho0 = -2.0 * t45 + 2.0 * t89 + rho[ip] * (t99 / 6.0 + t124 - t131 / 6.0 - t154);
         vrho[ip] += tvrho0;
-
         let t161 = rho[ip] * rho[ip];
         let t163 = 1.0 / t10 / t161;
         let t166 = t94 * t9 * t163 * t44;
@@ -353,11 +372,11 @@ pub fn lda_c_pw_fxc_unpol(
         let t280 = t274 * t277 * t278;
         let tv2rho20 = t99 / 3.0 + 2.0 * t124 - t131 / 3.0 - 2.0 * t154 + rho[ip] * (-2.0 / 9.0 * t166 - t171 / 6.0 - 2.0 * t178 + t215 + t223 / 2.0 + 2.0 / 9.0 * t228 + t237 / 6.0 + 2.0 * t244 - t270 - t280 / 2.0);
         v2rho2[ip] += tv2rho20;
-
     }
 }
 
 /// LDA_C_PW kxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_kxc_unpol(
     rho: &Array<f64>,
@@ -365,21 +384,28 @@ pub fn lda_c_pw_kxc_unpol(
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -392,17 +418,17 @@ pub fn lda_c_pw_kxc_unpol(
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
         let t17 = 1.0 / t1;
-        let t18 = param_beta1[0];
+        let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
         let t22 = f64::sqrt(t21);
-        let t26 = param_beta2[0] * t3;
-        let t29 = param_beta3[0];
+        let t26 = param_beta2_0 * t3;
+        let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
-        let t36 = param_pp[0] + 1.0;
+        let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
-        let t38 = param_beta4[0] * t37;
+        let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
@@ -411,17 +437,17 @@ pub fn lda_c_pw_kxc_unpol(
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
-        let t57 = param_a[2];
-        let t59 = param_alpha1[2];
+        let t57 = param_a_2;
+        let t59 = param_alpha1_2;
         let t60 = t59 * t3;
         let t63 = 1.0 + t60 * t12 / 4.0;
         let t64 = 1.0 / t57;
-        let t65 = param_beta1[2];
-        let t69 = param_beta2[2] * t3;
-        let t72 = param_beta3[2];
-        let t77 = param_pp[2] + 1.0;
+        let t65 = param_beta1_2;
+        let t69 = param_beta2_2 * t3;
+        let t72 = param_beta3_2;
+        let t77 = param_pp_2 + 1.0;
         let t78 = f64::powf(t34, t77);
-        let t79 = param_beta4[2] * t78;
+        let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
         let t85 = f64::ln(t84);
@@ -429,7 +455,6 @@ pub fn lda_c_pw_kxc_unpol(
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
         zk[ip] += tzk0;
-
         let t94 = t1 * t2 * t3;
         let t96 = 1.0 / t10 / rho[ip];
         let t99 = t94 * t9 * t96 * t44;
@@ -459,7 +484,6 @@ pub fn lda_c_pw_kxc_unpol(
         let t154 = t133 * t135 * t149 * t152;
         let tvrho0 = -2.0 * t45 + 2.0 * t89 + rho[ip] * (t99 / 6.0 + t124 - t131 / 6.0 - t154);
         vrho[ip] += tvrho0;
-
         let t161 = rho[ip] * rho[ip];
         let t163 = 1.0 / t10 / t161;
         let t166 = t94 * t9 * t163 * t44;
@@ -520,7 +544,6 @@ pub fn lda_c_pw_kxc_unpol(
         let t280 = t274 * t277 * t278;
         let tv2rho20 = t99 / 3.0 + 2.0 * t124 - t131 / 3.0 - 2.0 * t154 + rho[ip] * (-2.0 / 9.0 * t166 - t171 / 6.0 - 2.0 * t178 + t215 + t223 / 2.0 + 2.0 / 9.0 * t228 + t237 / 6.0 + 2.0 * t244 - t270 - t280 / 2.0);
         v2rho2[ip] += tv2rho20;
-
         let t294 = t96 * t174;
         let t296 = t168 * t294 * t177;
         let t304 = 1.0 / t22 / t183 / t185 / t7 * t187 / 4.0;
@@ -603,11 +626,11 @@ pub fn lda_c_pw_kxc_unpol(
         let t490 = -6.0 * t421 + 6.0 * t427 + 3.0 * t435 - t448 / 2.0 - 14.0 / 27.0 * t453 - t458 / 3.0 + t463 / 4.0 - t467 / 8.0 - 3.0 / 2.0 * t472 - t478 / 2.0 + t488 / 8.0;
         let tv3rho30 = -2.0 / 3.0 * t166 - t171 / 2.0 - 6.0 * t178 + 3.0 * t215 + 3.0 / 2.0 * t223 + 2.0 / 3.0 * t228 + t237 / 2.0 + 6.0 * t244 - 3.0 * t270 - 3.0 / 2.0 * t280 + rho[ip] * (t417 + t490);
         v3rho3[ip] += tv3rho30;
-
     }
 }
 
 /// LDA_C_PW lxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_lxc_unpol(
     rho: &Array<f64>,
@@ -616,21 +639,28 @@ pub fn lda_c_pw_lxc_unpol(
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
     v4rho4: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -643,17 +673,17 @@ pub fn lda_c_pw_lxc_unpol(
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
         let t17 = 1.0 / t1;
-        let t18 = param_beta1[0];
+        let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
         let t22 = f64::sqrt(t21);
-        let t26 = param_beta2[0] * t3;
-        let t29 = param_beta3[0];
+        let t26 = param_beta2_0 * t3;
+        let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
-        let t36 = param_pp[0] + 1.0;
+        let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
-        let t38 = param_beta4[0] * t37;
+        let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
@@ -662,17 +692,17 @@ pub fn lda_c_pw_lxc_unpol(
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
-        let t57 = param_a[2];
-        let t59 = param_alpha1[2];
+        let t57 = param_a_2;
+        let t59 = param_alpha1_2;
         let t60 = t59 * t3;
         let t63 = 1.0 + t60 * t12 / 4.0;
         let t64 = 1.0 / t57;
-        let t65 = param_beta1[2];
-        let t69 = param_beta2[2] * t3;
-        let t72 = param_beta3[2];
-        let t77 = param_pp[2] + 1.0;
+        let t65 = param_beta1_2;
+        let t69 = param_beta2_2 * t3;
+        let t72 = param_beta3_2;
+        let t77 = param_pp_2 + 1.0;
         let t78 = f64::powf(t34, t77);
-        let t79 = param_beta4[2] * t78;
+        let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
         let t85 = f64::ln(t84);
@@ -680,7 +710,6 @@ pub fn lda_c_pw_lxc_unpol(
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
         zk[ip] += tzk0;
-
         let t94 = t1 * t2 * t3;
         let t96 = 1.0 / t10 / rho[ip];
         let t99 = t94 * t9 * t96 * t44;
@@ -710,7 +739,6 @@ pub fn lda_c_pw_lxc_unpol(
         let t154 = t133 * t135 * t149 * t152;
         let tvrho0 = -2.0 * t45 + 2.0 * t89 + rho[ip] * (t99 / 6.0 + t124 - t131 / 6.0 - t154);
         vrho[ip] += tvrho0;
-
         let t161 = rho[ip] * rho[ip];
         let t163 = 1.0 / t10 / t161;
         let t166 = t94 * t9 * t163 * t44;
@@ -771,7 +799,6 @@ pub fn lda_c_pw_lxc_unpol(
         let t280 = t274 * t277 * t278;
         let tv2rho20 = t99 / 3.0 + 2.0 * t124 - t131 / 3.0 - 2.0 * t154 + rho[ip] * (-2.0 / 9.0 * t166 - t171 / 6.0 - 2.0 * t178 + t215 + t223 / 2.0 + 2.0 / 9.0 * t228 + t237 / 6.0 + 2.0 * t244 - t270 - t280 / 2.0);
         v2rho2[ip] += tv2rho20;
-
         let t294 = t96 * t174;
         let t296 = t168 * t294 * t177;
         let t304 = 1.0 / t22 / t183 / t185 / t7 * t187 / 4.0;
@@ -854,7 +881,6 @@ pub fn lda_c_pw_lxc_unpol(
         let t490 = -6.0 * t421 + 6.0 * t427 + 3.0 * t435 - t448 / 2.0 - 14.0 / 27.0 * t453 - t458 / 3.0 + t463 / 4.0 - t467 / 8.0 - 3.0 / 2.0 * t472 - t478 / 2.0 + t488 / 8.0;
         let tv3rho30 = -2.0 / 3.0 * t166 - t171 / 2.0 - 6.0 * t178 + 3.0 * t215 + 3.0 / 2.0 * t223 + 2.0 / 3.0 * t228 + t237 / 2.0 + 6.0 * t244 - 3.0 * t270 - 3.0 / 2.0 * t280 + rho[ip] * (t417 + t490);
         v3rho3[ip] += tv3rho30;
-
         let t503 = 2.0 * t296 + 4.0 * t345 + 6.0 * t349 + 24.0 * t353 - 24.0 * t356 - 12.0 * t363 + 2.0 * t374 - 4.0 * t405 + 56.0 / 27.0 * t408 + 4.0 / 3.0 * t412 - t415;
         let t514 = t213 * t213;
         let t518 = t176 * t176;
@@ -884,7 +910,6 @@ pub fn lda_c_pw_lxc_unpol(
         let t822 = -24.0 * t421 + 24.0 * t427 + 12.0 * t435 - 2.0 * t448 - 56.0 / 27.0 * t453 - 4.0 / 3.0 * t458 + t463 - t467 / 2.0 - 6.0 * t472 - 2.0 * t478 + t488 / 2.0 + rho[ip] * (t565 + t678 + t765 + t818);
         let tv4rho40 = t503 + t822;
         v4rho4[ip] += tv4rho40;
-
     }
 }
 
@@ -893,28 +918,42 @@ pub fn lda_c_pw_lxc_unpol(
 // ============================================================================
 
 /// LDA_C_PW exc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_exc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_1: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_1: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_1: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_1: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_1: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_1: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_1: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -922,29 +961,29 @@ pub fn lda_c_pw_exc_pol(
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 + rho1;
         let t11 = pow_1_3(t10);
         let t12 = 1.0 / t11;
         let t13 = t9 * t12;
         let t16 = 1.0 + t4 * t13 / 4.0;
         let t18 = 1.0 / t1;
-        let t19 = param_beta1[0];
+        let t19 = param_beta1_0;
         let t20 = t3 * t6;
         let t22 = t20 * t8 * t12;
         let t23 = f64::sqrt(t22);
-        let t27 = param_beta2[0] * t3;
-        let t30 = param_beta3[0];
+        let t27 = param_beta2_0 * t3;
+        let t30 = param_beta3_0;
         let t31 = pow_3_2(t22);
         let t35 = t22 / 4.0;
-        let t37 = param_pp[0] + 1.0;
+        let t37 = param_pp_0 + 1.0;
         let t38 = f64::powf(t35, t37);
-        let t39 = param_beta4[0] * t38;
+        let t39 = param_beta4_0 * t38;
         let t40 = t19 * t23 / 2.0 + t27 * t13 / 4.0 + 0.125 * t30 * t31 + t39;
         let t44 = 1.0 + t18 / t40 / 2.0;
         let t45 = f64::ln(t44);
         let t46 = t1 * t16 * t45;
         let t47 = 2.0 * t46;
-        let t48 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t48 = rho0 - rho1;
         let t49 = t48 * t48;
         let t50 = t49 * t49;
         let t51 = t10 * t10;
@@ -967,31 +1006,31 @@ pub fn lda_c_pw_exc_pol(
         let t70 = M_CBRT2;
         let t73 = 1.0 / (2.0 * t70 - 2.0);
         let t74 = t69 * t73;
-        let t75 = param_a[1];
-        let t76 = param_alpha1[1];
+        let t75 = param_a_1;
+        let t76 = param_alpha1_1;
         let t77 = t76 * t3;
         let t80 = 1.0 + t77 * t13 / 4.0;
         let t82 = 1.0 / t75;
-        let t83 = param_beta1[1];
-        let t87 = param_beta2[1] * t3;
-        let t90 = param_beta3[1];
-        let t95 = param_pp[1] + 1.0;
+        let t83 = param_beta1_1;
+        let t87 = param_beta2_1 * t3;
+        let t90 = param_beta3_1;
+        let t95 = param_pp_1 + 1.0;
         let t96 = f64::powf(t35, t95);
-        let t97 = param_beta4[1] * t96;
+        let t97 = param_beta4_1 * t96;
         let t98 = t83 * t23 / 2.0 + t87 * t13 / 4.0 + 0.125 * t90 * t31 + t97;
         let t102 = 1.0 + t82 / t98 / 2.0;
         let t103 = f64::ln(t102);
-        let t105 = param_a[2];
-        let t106 = param_alpha1[2];
+        let t105 = param_a_2;
+        let t106 = param_alpha1_2;
         let t107 = t106 * t3;
         let t110 = 1.0 + t107 * t13 / 4.0;
         let t112 = 1.0 / t105;
-        let t113 = param_beta1[2];
-        let t117 = param_beta2[2] * t3;
-        let t120 = param_beta3[2];
-        let t125 = param_pp[2] + 1.0;
+        let t113 = param_beta1_2;
+        let t117 = param_beta2_2 * t3;
+        let t120 = param_beta3_2;
+        let t125 = param_pp_2 + 1.0;
         let t126 = f64::powf(t35, t125);
-        let t127 = param_beta4[2] * t126;
+        let t127 = param_beta4_2 * t126;
         let t128 = t113 * t23 / 2.0 + t117 * t13 / 4.0 + 0.125 * t120 * t31 + t127;
         let t132 = 1.0 + t112 / t128 / 2.0;
         let t133 = f64::ln(t132);
@@ -1004,34 +1043,47 @@ pub fn lda_c_pw_exc_pol(
         let t145 = 2.0 * t74 * t105 * t143;
         let tzk0 = -t47 + t140 + t145;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_C_PW vxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_vxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_1: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_1: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_1: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_1: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_1: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_1: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_1: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -1039,29 +1091,29 @@ pub fn lda_c_pw_vxc_pol(
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 + rho1;
         let t11 = pow_1_3(t10);
         let t12 = 1.0 / t11;
         let t13 = t9 * t12;
         let t16 = 1.0 + t4 * t13 / 4.0;
         let t18 = 1.0 / t1;
-        let t19 = param_beta1[0];
+        let t19 = param_beta1_0;
         let t20 = t3 * t6;
         let t22 = t20 * t8 * t12;
         let t23 = f64::sqrt(t22);
-        let t27 = param_beta2[0] * t3;
-        let t30 = param_beta3[0];
+        let t27 = param_beta2_0 * t3;
+        let t30 = param_beta3_0;
         let t31 = pow_3_2(t22);
         let t35 = t22 / 4.0;
-        let t37 = param_pp[0] + 1.0;
+        let t37 = param_pp_0 + 1.0;
         let t38 = f64::powf(t35, t37);
-        let t39 = param_beta4[0] * t38;
+        let t39 = param_beta4_0 * t38;
         let t40 = t19 * t23 / 2.0 + t27 * t13 / 4.0 + 0.125 * t30 * t31 + t39;
         let t44 = 1.0 + t18 / t40 / 2.0;
         let t45 = f64::ln(t44);
         let t46 = t1 * t16 * t45;
         let t47 = 2.0 * t46;
-        let t48 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t48 = rho0 - rho1;
         let t49 = t48 * t48;
         let t50 = t49 * t49;
         let t51 = t10 * t10;
@@ -1084,31 +1136,31 @@ pub fn lda_c_pw_vxc_pol(
         let t70 = M_CBRT2;
         let t73 = 1.0 / (2.0 * t70 - 2.0);
         let t74 = t69 * t73;
-        let t75 = param_a[1];
-        let t76 = param_alpha1[1];
+        let t75 = param_a_1;
+        let t76 = param_alpha1_1;
         let t77 = t76 * t3;
         let t80 = 1.0 + t77 * t13 / 4.0;
         let t82 = 1.0 / t75;
-        let t83 = param_beta1[1];
-        let t87 = param_beta2[1] * t3;
-        let t90 = param_beta3[1];
-        let t95 = param_pp[1] + 1.0;
+        let t83 = param_beta1_1;
+        let t87 = param_beta2_1 * t3;
+        let t90 = param_beta3_1;
+        let t95 = param_pp_1 + 1.0;
         let t96 = f64::powf(t35, t95);
-        let t97 = param_beta4[1] * t96;
+        let t97 = param_beta4_1 * t96;
         let t98 = t83 * t23 / 2.0 + t87 * t13 / 4.0 + 0.125 * t90 * t31 + t97;
         let t102 = 1.0 + t82 / t98 / 2.0;
         let t103 = f64::ln(t102);
-        let t105 = param_a[2];
-        let t106 = param_alpha1[2];
+        let t105 = param_a_2;
+        let t106 = param_alpha1_2;
         let t107 = t106 * t3;
         let t110 = 1.0 + t107 * t13 / 4.0;
         let t112 = 1.0 / t105;
-        let t113 = param_beta1[2];
-        let t117 = param_beta2[2] * t3;
-        let t120 = param_beta3[2];
-        let t125 = param_pp[2] + 1.0;
+        let t113 = param_beta1_2;
+        let t117 = param_beta2_2 * t3;
+        let t120 = param_beta3_2;
+        let t125 = param_pp_2 + 1.0;
         let t126 = f64::powf(t35, t125);
-        let t127 = param_beta4[2] * t126;
+        let t127 = param_beta4_2 * t126;
         let t128 = t113 * t23 / 2.0 + t117 * t13 / 4.0 + 0.125 * t120 * t31 + t127;
         let t132 = 1.0 + t112 / t128 / 2.0;
         let t133 = f64::ln(t132);
@@ -1121,7 +1173,6 @@ pub fn lda_c_pw_vxc_pol(
         let t145 = 2.0 * t74 * t105 * t143;
         let tzk0 = -t47 + t140 + t145;
         zk[ip] += tzk0;
-
         let t147 = t1 * t2 * t3;
         let t149 = 1.0 / t11 / t10;
         let t152 = t147 * t9 * t149 * t45;
@@ -1192,7 +1243,6 @@ pub fn lda_c_pw_vxc_pol(
         let t270 = t266 * t269;
         let tvrho0 = -t47 + t140 + t145 + t10 * (t153 + t176 + t180 - t185 + t199 + t255 + t258 - t265 - t270);
         vrho[ip * 2] += tvrho0;
-
         let t273 = -t55 - t187;
         let t276 = piecewise3(t58, 0.0, 4.0 / 3.0 * t61 * t273);
         let t277 = -t273;
@@ -1204,35 +1254,48 @@ pub fn lda_c_pw_vxc_pol(
         let t287 = 2.0 * t286;
         let tvrho1 = -t47 + t140 + t145 + t10 * (t153 + t176 - t180 - t185 + t284 + t255 + t287 - t265 - t270);
         vrho[ip * 2 + 1] += tvrho1;
-
     }
 }
 
 /// LDA_C_PW fxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_fxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_1: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_1: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_1: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_1: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_1: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_1: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_1: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -1240,29 +1303,29 @@ pub fn lda_c_pw_fxc_pol(
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 + rho1;
         let t11 = pow_1_3(t10);
         let t12 = 1.0 / t11;
         let t13 = t9 * t12;
         let t16 = 1.0 + t4 * t13 / 4.0;
         let t18 = 1.0 / t1;
-        let t19 = param_beta1[0];
+        let t19 = param_beta1_0;
         let t20 = t3 * t6;
         let t22 = t20 * t8 * t12;
         let t23 = f64::sqrt(t22);
-        let t27 = param_beta2[0] * t3;
-        let t30 = param_beta3[0];
+        let t27 = param_beta2_0 * t3;
+        let t30 = param_beta3_0;
         let t31 = pow_3_2(t22);
         let t35 = t22 / 4.0;
-        let t37 = param_pp[0] + 1.0;
+        let t37 = param_pp_0 + 1.0;
         let t38 = f64::powf(t35, t37);
-        let t39 = param_beta4[0] * t38;
+        let t39 = param_beta4_0 * t38;
         let t40 = t19 * t23 / 2.0 + t27 * t13 / 4.0 + 0.125 * t30 * t31 + t39;
         let t44 = 1.0 + t18 / t40 / 2.0;
         let t45 = f64::ln(t44);
         let t46 = t1 * t16 * t45;
         let t47 = 2.0 * t46;
-        let t48 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t48 = rho0 - rho1;
         let t49 = t48 * t48;
         let t50 = t49 * t49;
         let t51 = t10 * t10;
@@ -1285,31 +1348,31 @@ pub fn lda_c_pw_fxc_pol(
         let t70 = M_CBRT2;
         let t73 = 1.0 / (2.0 * t70 - 2.0);
         let t74 = t69 * t73;
-        let t75 = param_a[1];
-        let t76 = param_alpha1[1];
+        let t75 = param_a_1;
+        let t76 = param_alpha1_1;
         let t77 = t76 * t3;
         let t80 = 1.0 + t77 * t13 / 4.0;
         let t82 = 1.0 / t75;
-        let t83 = param_beta1[1];
-        let t87 = param_beta2[1] * t3;
-        let t90 = param_beta3[1];
-        let t95 = param_pp[1] + 1.0;
+        let t83 = param_beta1_1;
+        let t87 = param_beta2_1 * t3;
+        let t90 = param_beta3_1;
+        let t95 = param_pp_1 + 1.0;
         let t96 = f64::powf(t35, t95);
-        let t97 = param_beta4[1] * t96;
+        let t97 = param_beta4_1 * t96;
         let t98 = t83 * t23 / 2.0 + t87 * t13 / 4.0 + 0.125 * t90 * t31 + t97;
         let t102 = 1.0 + t82 / t98 / 2.0;
         let t103 = f64::ln(t102);
-        let t105 = param_a[2];
-        let t106 = param_alpha1[2];
+        let t105 = param_a_2;
+        let t106 = param_alpha1_2;
         let t107 = t106 * t3;
         let t110 = 1.0 + t107 * t13 / 4.0;
         let t112 = 1.0 / t105;
-        let t113 = param_beta1[2];
-        let t117 = param_beta2[2] * t3;
-        let t120 = param_beta3[2];
-        let t125 = param_pp[2] + 1.0;
+        let t113 = param_beta1_2;
+        let t117 = param_beta2_2 * t3;
+        let t120 = param_beta3_2;
+        let t125 = param_pp_2 + 1.0;
         let t126 = f64::powf(t35, t125);
-        let t127 = param_beta4[2] * t126;
+        let t127 = param_beta4_2 * t126;
         let t128 = t113 * t23 / 2.0 + t117 * t13 / 4.0 + 0.125 * t120 * t31 + t127;
         let t132 = 1.0 + t112 / t128 / 2.0;
         let t133 = f64::ln(t132);
@@ -1322,7 +1385,6 @@ pub fn lda_c_pw_fxc_pol(
         let t145 = 2.0 * t74 * t105 * t143;
         let tzk0 = -t47 + t140 + t145;
         zk[ip] += tzk0;
-
         let t147 = t1 * t2 * t3;
         let t149 = 1.0 / t11 / t10;
         let t152 = t147 * t9 * t149 * t45;
@@ -1393,7 +1455,6 @@ pub fn lda_c_pw_fxc_pol(
         let t270 = t266 * t269;
         let tvrho0 = -t47 + t140 + t145 + t10 * (t153 + t176 + t180 - t185 + t199 + t255 + t258 - t265 - t270);
         vrho[ip * 2] += tvrho0;
-
         let t273 = -t55 - t187;
         let t276 = piecewise3(t58, 0.0, 4.0 / 3.0 * t61 * t273);
         let t277 = -t273;
@@ -1405,7 +1466,6 @@ pub fn lda_c_pw_fxc_pol(
         let t287 = 2.0 * t286;
         let tvrho1 = -t47 + t140 + t145 + t10 * (t153 + t176 - t180 - t185 + t284 + t255 + t287 - t265 - t270);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t290 = t152 / 3.0;
         let t291 = 2.0 * t176;
         let t292 = 8.0 * t179;
@@ -1562,7 +1622,6 @@ pub fn lda_c_pw_fxc_pol(
         let t549 = t402 + t515 - t518 - t521 - t524 - t455 - t460 + t528 - t534 + t537 + t542 + t548;
         let tv2rho20 = t290 + t291 + t292 - t293 + 2.0 * t199 + t295 + 4.0 * t257 - t297 - t298 + t10 * (t399 + t549);
         v2rho2[ip * 3] += tv2rho20;
-
         let t552 = t372 * t273;
         let t555 = t61 * t48;
         let t559 = piecewise3(t58, 0.0, 4.0 / 9.0 * t552 * t188 + 8.0 / 3.0 * t555 * t377);
@@ -1585,7 +1644,6 @@ pub fn lda_c_pw_fxc_pol(
         let t590 = -4.0 * t584 - t338 + t346 + t362 - 4.0 * t363 - 4.0 * t367 - t517 - t521 + t528 - t589 - t370 + t401 + t515;
         let tv2rho21 = t290 + t291 - t293 + t199 + t295 + t258 - t297 - t298 + t284 + t287 + t10 * (t583 + t590);
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t595 = t273 * t273;
         let t599 = 2.0 * t186 + 2.0 * t378;
         let t603 = piecewise3(t58, 0.0, 4.0 / 9.0 * t372 * t595 + 4.0 / 3.0 * t61 * t599);
@@ -1606,11 +1664,11 @@ pub fn lda_c_pw_fxc_pol(
         let t625 = -t620 - t521 - t621 - t455 - t460 + t528 - t534 + t622 - t623 - t624 + t542 + t548;
         let tv2rho22 = t290 + t291 - t292 - t293 + 2.0 * t284 + t295 + 4.0 * t286 - t297 - t298 + t10 * (t619 + t625);
         v2rho2[ip * 3 + 2] += tv2rho22;
-
     }
 }
 
 /// LDA_C_PW kxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_kxc_pol(
     rho: &Array<f64>,
@@ -1618,24 +1676,37 @@ pub fn lda_c_pw_kxc_pol(
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_1: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_1: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_1: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_1: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_1: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_1: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_1: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -1643,29 +1714,29 @@ pub fn lda_c_pw_kxc_pol(
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 + rho1;
         let t11 = pow_1_3(t10);
         let t12 = 1.0 / t11;
         let t13 = t9 * t12;
         let t16 = 1.0 + t4 * t13 / 4.0;
         let t18 = 1.0 / t1;
-        let t19 = param_beta1[0];
+        let t19 = param_beta1_0;
         let t20 = t3 * t6;
         let t22 = t20 * t8 * t12;
         let t23 = f64::sqrt(t22);
-        let t27 = param_beta2[0] * t3;
-        let t30 = param_beta3[0];
+        let t27 = param_beta2_0 * t3;
+        let t30 = param_beta3_0;
         let t31 = pow_3_2(t22);
         let t35 = t22 / 4.0;
-        let t37 = param_pp[0] + 1.0;
+        let t37 = param_pp_0 + 1.0;
         let t38 = f64::powf(t35, t37);
-        let t39 = param_beta4[0] * t38;
+        let t39 = param_beta4_0 * t38;
         let t40 = t19 * t23 / 2.0 + t27 * t13 / 4.0 + 0.125 * t30 * t31 + t39;
         let t44 = 1.0 + t18 / t40 / 2.0;
         let t45 = f64::ln(t44);
         let t46 = t1 * t16 * t45;
         let t47 = 2.0 * t46;
-        let t48 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t48 = rho0 - rho1;
         let t49 = t48 * t48;
         let t50 = t49 * t49;
         let t51 = t10 * t10;
@@ -1688,31 +1759,31 @@ pub fn lda_c_pw_kxc_pol(
         let t70 = M_CBRT2;
         let t73 = 1.0 / (2.0 * t70 - 2.0);
         let t74 = t69 * t73;
-        let t75 = param_a[1];
-        let t76 = param_alpha1[1];
+        let t75 = param_a_1;
+        let t76 = param_alpha1_1;
         let t77 = t76 * t3;
         let t80 = 1.0 + t77 * t13 / 4.0;
         let t82 = 1.0 / t75;
-        let t83 = param_beta1[1];
-        let t87 = param_beta2[1] * t3;
-        let t90 = param_beta3[1];
-        let t95 = param_pp[1] + 1.0;
+        let t83 = param_beta1_1;
+        let t87 = param_beta2_1 * t3;
+        let t90 = param_beta3_1;
+        let t95 = param_pp_1 + 1.0;
         let t96 = f64::powf(t35, t95);
-        let t97 = param_beta4[1] * t96;
+        let t97 = param_beta4_1 * t96;
         let t98 = t83 * t23 / 2.0 + t87 * t13 / 4.0 + 0.125 * t90 * t31 + t97;
         let t102 = 1.0 + t82 / t98 / 2.0;
         let t103 = f64::ln(t102);
-        let t105 = param_a[2];
-        let t106 = param_alpha1[2];
+        let t105 = param_a_2;
+        let t106 = param_alpha1_2;
         let t107 = t106 * t3;
         let t110 = 1.0 + t107 * t13 / 4.0;
         let t112 = 1.0 / t105;
-        let t113 = param_beta1[2];
-        let t117 = param_beta2[2] * t3;
-        let t120 = param_beta3[2];
-        let t125 = param_pp[2] + 1.0;
+        let t113 = param_beta1_2;
+        let t117 = param_beta2_2 * t3;
+        let t120 = param_beta3_2;
+        let t125 = param_pp_2 + 1.0;
         let t126 = f64::powf(t35, t125);
-        let t127 = param_beta4[2] * t126;
+        let t127 = param_beta4_2 * t126;
         let t128 = t113 * t23 / 2.0 + t117 * t13 / 4.0 + 0.125 * t120 * t31 + t127;
         let t132 = 1.0 + t112 / t128 / 2.0;
         let t133 = f64::ln(t132);
@@ -1725,7 +1796,6 @@ pub fn lda_c_pw_kxc_pol(
         let t145 = 2.0 * t74 * t105 * t143;
         let tzk0 = -t47 + t140 + t145;
         zk[ip] += tzk0;
-
         let t147 = t1 * t2 * t3;
         let t149 = 1.0 / t11 / t10;
         let t152 = t147 * t9 * t149 * t45;
@@ -1796,7 +1866,6 @@ pub fn lda_c_pw_kxc_pol(
         let t270 = t266 * t269;
         let tvrho0 = -t47 + t140 + t145 + t10 * (t153 + t176 + t180 - t185 + t199 + t255 + t258 - t265 - t270);
         vrho[ip * 2] += tvrho0;
-
         let t273 = -t55 - t187;
         let t276 = piecewise3(t58, 0.0, 4.0 / 3.0 * t61 * t273);
         let t277 = -t273;
@@ -1808,7 +1877,6 @@ pub fn lda_c_pw_kxc_pol(
         let t287 = 2.0 * t286;
         let tvrho1 = -t47 + t140 + t145 + t10 * (t153 + t176 - t180 - t185 + t284 + t255 + t287 - t265 - t270);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t290 = t152 / 3.0;
         let t291 = 2.0 * t176;
         let t292 = 8.0 * t179;
@@ -1965,7 +2033,6 @@ pub fn lda_c_pw_kxc_pol(
         let t549 = t402 + t515 - t518 - t521 - t524 - t455 - t460 + t528 - t534 + t537 + t542 + t548;
         let tv2rho20 = t290 + t291 + t292 - t293 + 2.0 * t199 + t295 + 4.0 * t257 - t297 - t298 + t10 * (t399 + t549);
         v2rho2[ip * 3] += tv2rho20;
-
         let t552 = t372 * t273;
         let t555 = t61 * t48;
         let t559 = piecewise3(t58, 0.0, 4.0 / 9.0 * t552 * t188 + 8.0 / 3.0 * t555 * t377);
@@ -1988,7 +2055,6 @@ pub fn lda_c_pw_kxc_pol(
         let t590 = -4.0 * t584 - t338 + t346 + t362 - 4.0 * t363 - 4.0 * t367 - t517 - t521 + t528 - t589 - t370 + t401 + t515;
         let tv2rho21 = t290 + t291 - t293 + t199 + t295 + t258 - t297 - t298 + t284 + t287 + t10 * (t583 + t590);
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t595 = t273 * t273;
         let t599 = 2.0 * t186 + 2.0 * t378;
         let t603 = piecewise3(t58, 0.0, 4.0 / 9.0 * t372 * t595 + 4.0 / 3.0 * t61 * t599);
@@ -2009,7 +2075,6 @@ pub fn lda_c_pw_kxc_pol(
         let t625 = -t620 - t521 - t621 - t455 - t460 + t528 - t534 + t622 - t623 - t624 + t542 + t548;
         let tv2rho22 = t290 + t291 - t292 - t293 + 2.0 * t284 + t295 + 4.0 * t286 - t297 - t298 + t10 * (t619 + t625);
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t628 = 3.0 * t335;
         let t630 = t20 * t8;
         let t631 = t74 * t106 * t630;
@@ -2247,7 +2312,6 @@ pub fn lda_c_pw_kxc_pol(
         let t1064 = 6.0 * t401 + t1054 - 6.0 * t517 - t1056 - t523 - t1057 - t1058 + t1059 - t1060 + 6.0 * t536 + t1062 + t1063;
         let tv3rho30 = t1052 + t1064;
         v3rho3[ip * 4] += tv3rho30;
-
         let t1065 = t282 * t543;
         let t1066 = t1065 * t546;
         let t1069 = t282 * t505;
@@ -2301,7 +2365,6 @@ pub fn lda_c_pw_kxc_pol(
         let t1169 = -t624 - t338 - t341 + t1044 + t1046 + t366 - 16.0 * t367 - 4.0 * t517 - t1056 + t1059 - t620 - t1050 + t398 + 4.0 * t401 + t1054;
         let tv3rho31 = t1165 + t1169;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t1171 = t814 * t595;
         let t1176 = t372 * t599;
         let t1181 = -2.0 * t377 - 6.0 * t770;
@@ -2331,7 +2394,6 @@ pub fn lda_c_pw_kxc_pol(
         let t1246 = t618 - t338 + t341 + t1044 + t1046 - t364 - t366 - t368 - t518 - t1056 + t1059 - 4.0 * t589 - t1050 + t402 + t1054;
         let tv3rho32 = t1244 + t1246;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t1247 = t1066 / 2.0;
         let t1251 = 3.0 / 2.0 * t1070;
         let t1252 = t636 + t1247 + t642 - t646 - t650 - 12.0 * t1206 - 12.0 * t1208 + 3.0 * t1211 - t1251 + t659 + t667 - t680;
@@ -2362,11 +2424,11 @@ pub fn lda_c_pw_kxc_pol(
         let t1306 = -6.0 * t589 - t1056 - t574 - t1057 - t1058 + t1059 - t1060 + 6.0 * t580 - 24.0 * t581 - 24.0 * t584 + t1062 + t1063;
         let tv3rho33 = t1301 + t1306;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
     }
 }
 
 /// LDA_C_PW lxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_lxc_pol(
     rho: &Array<f64>,
@@ -2375,24 +2437,37 @@ pub fn lda_c_pw_lxc_pol(
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
     v4rho4: &mut Array<f64>,
-    param_a: f64,
-    param_alpha1: f64,
-    param_beta1: f64,
-    param_beta2: f64,
-    param_beta3: f64,
-    param_beta4: f64,
+    param_a_0: f64,
+    param_a_1: f64,
+    param_a_2: f64,
+    param_alpha1_0: f64,
+    param_alpha1_1: f64,
+    param_alpha1_2: f64,
+    param_beta1_0: f64,
+    param_beta1_1: f64,
+    param_beta1_2: f64,
+    param_beta2_0: f64,
+    param_beta2_1: f64,
+    param_beta2_2: f64,
+    param_beta3_0: f64,
+    param_beta3_1: f64,
+    param_beta3_2: f64,
+    param_beta4_0: f64,
+    param_beta4_1: f64,
+    param_beta4_2: f64,
     param_fz20: f64,
-    param_pp: f64,
+    param_pp_0: f64,
+    param_pp_1: f64,
+    param_pp_2: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
-        let t1 = param_a[0];
-        let t2 = param_alpha1[0];
+        let t1 = param_a_0;
+        let t2 = param_alpha1_0;
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
@@ -2400,29 +2475,29 @@ pub fn lda_c_pw_lxc_pol(
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 + rho1;
         let t11 = pow_1_3(t10);
         let t12 = 1.0 / t11;
         let t13 = t9 * t12;
         let t16 = 1.0 + t4 * t13 / 4.0;
         let t18 = 1.0 / t1;
-        let t19 = param_beta1[0];
+        let t19 = param_beta1_0;
         let t20 = t3 * t6;
         let t22 = t20 * t8 * t12;
         let t23 = f64::sqrt(t22);
-        let t27 = param_beta2[0] * t3;
-        let t30 = param_beta3[0];
+        let t27 = param_beta2_0 * t3;
+        let t30 = param_beta3_0;
         let t31 = pow_3_2(t22);
         let t35 = t22 / 4.0;
-        let t37 = param_pp[0] + 1.0;
+        let t37 = param_pp_0 + 1.0;
         let t38 = f64::powf(t35, t37);
-        let t39 = param_beta4[0] * t38;
+        let t39 = param_beta4_0 * t38;
         let t40 = t19 * t23 / 2.0 + t27 * t13 / 4.0 + 0.125 * t30 * t31 + t39;
         let t44 = 1.0 + t18 / t40 / 2.0;
         let t45 = f64::ln(t44);
         let t46 = t1 * t16 * t45;
         let t47 = 2.0 * t46;
-        let t48 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t48 = rho0 - rho1;
         let t49 = t48 * t48;
         let t50 = t49 * t49;
         let t51 = t10 * t10;
@@ -2445,31 +2520,31 @@ pub fn lda_c_pw_lxc_pol(
         let t70 = M_CBRT2;
         let t73 = 1.0 / (2.0 * t70 - 2.0);
         let t74 = t69 * t73;
-        let t75 = param_a[1];
-        let t76 = param_alpha1[1];
+        let t75 = param_a_1;
+        let t76 = param_alpha1_1;
         let t77 = t76 * t3;
         let t80 = 1.0 + t77 * t13 / 4.0;
         let t82 = 1.0 / t75;
-        let t83 = param_beta1[1];
-        let t87 = param_beta2[1] * t3;
-        let t90 = param_beta3[1];
-        let t95 = param_pp[1] + 1.0;
+        let t83 = param_beta1_1;
+        let t87 = param_beta2_1 * t3;
+        let t90 = param_beta3_1;
+        let t95 = param_pp_1 + 1.0;
         let t96 = f64::powf(t35, t95);
-        let t97 = param_beta4[1] * t96;
+        let t97 = param_beta4_1 * t96;
         let t98 = t83 * t23 / 2.0 + t87 * t13 / 4.0 + 0.125 * t90 * t31 + t97;
         let t102 = 1.0 + t82 / t98 / 2.0;
         let t103 = f64::ln(t102);
-        let t105 = param_a[2];
-        let t106 = param_alpha1[2];
+        let t105 = param_a_2;
+        let t106 = param_alpha1_2;
         let t107 = t106 * t3;
         let t110 = 1.0 + t107 * t13 / 4.0;
         let t112 = 1.0 / t105;
-        let t113 = param_beta1[2];
-        let t117 = param_beta2[2] * t3;
-        let t120 = param_beta3[2];
-        let t125 = param_pp[2] + 1.0;
+        let t113 = param_beta1_2;
+        let t117 = param_beta2_2 * t3;
+        let t120 = param_beta3_2;
+        let t125 = param_pp_2 + 1.0;
         let t126 = f64::powf(t35, t125);
-        let t127 = param_beta4[2] * t126;
+        let t127 = param_beta4_2 * t126;
         let t128 = t113 * t23 / 2.0 + t117 * t13 / 4.0 + 0.125 * t120 * t31 + t127;
         let t132 = 1.0 + t112 / t128 / 2.0;
         let t133 = f64::ln(t132);
@@ -2482,7 +2557,6 @@ pub fn lda_c_pw_lxc_pol(
         let t145 = 2.0 * t74 * t105 * t143;
         let tzk0 = -t47 + t140 + t145;
         zk[ip] += tzk0;
-
         let t147 = t1 * t2 * t3;
         let t149 = 1.0 / t11 / t10;
         let t152 = t147 * t9 * t149 * t45;
@@ -2553,7 +2627,6 @@ pub fn lda_c_pw_lxc_pol(
         let t270 = t266 * t269;
         let tvrho0 = -t47 + t140 + t145 + t10 * (t153 + t176 + t180 - t185 + t199 + t255 + t258 - t265 - t270);
         vrho[ip * 2] += tvrho0;
-
         let t273 = -t55 - t187;
         let t276 = piecewise3(t58, 0.0, 4.0 / 3.0 * t61 * t273);
         let t277 = -t273;
@@ -2565,7 +2638,6 @@ pub fn lda_c_pw_lxc_pol(
         let t287 = 2.0 * t286;
         let tvrho1 = -t47 + t140 + t145 + t10 * (t153 + t176 - t180 - t185 + t284 + t255 + t287 - t265 - t270);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t290 = t152 / 3.0;
         let t291 = 2.0 * t176;
         let t292 = 8.0 * t179;
@@ -2722,7 +2794,6 @@ pub fn lda_c_pw_lxc_pol(
         let t549 = t402 + t515 - t518 - t521 - t524 - t455 - t460 + t528 - t534 + t537 + t542 + t548;
         let tv2rho20 = t290 + t291 + t292 - t293 + 2.0 * t199 + t295 + 4.0 * t257 - t297 - t298 + t10 * (t399 + t549);
         v2rho2[ip * 3] += tv2rho20;
-
         let t552 = t372 * t273;
         let t555 = t61 * t48;
         let t559 = piecewise3(t58, 0.0, 4.0 / 9.0 * t552 * t188 + 8.0 / 3.0 * t555 * t377);
@@ -2745,7 +2816,6 @@ pub fn lda_c_pw_lxc_pol(
         let t590 = -4.0 * t584 - t338 + t346 + t362 - 4.0 * t363 - 4.0 * t367 - t517 - t521 + t528 - t589 - t370 + t401 + t515;
         let tv2rho21 = t290 + t291 - t293 + t199 + t295 + t258 - t297 - t298 + t284 + t287 + t10 * (t583 + t590);
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t595 = t273 * t273;
         let t599 = 2.0 * t186 + 2.0 * t378;
         let t603 = piecewise3(t58, 0.0, 4.0 / 9.0 * t372 * t595 + 4.0 / 3.0 * t61 * t599);
@@ -2766,7 +2836,6 @@ pub fn lda_c_pw_lxc_pol(
         let t625 = -t620 - t521 - t621 - t455 - t460 + t528 - t534 + t622 - t623 - t624 + t542 + t548;
         let tv2rho22 = t290 + t291 - t292 - t293 + 2.0 * t284 + t295 + 4.0 * t286 - t297 - t298 + t10 * (t619 + t625);
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t628 = 3.0 * t335;
         let t630 = t20 * t8;
         let t631 = t74 * t106 * t630;
@@ -3004,7 +3073,6 @@ pub fn lda_c_pw_lxc_pol(
         let t1064 = 6.0 * t401 + t1054 - 6.0 * t517 - t1056 - t523 - t1057 - t1058 + t1059 - t1060 + 6.0 * t536 + t1062 + t1063;
         let tv3rho30 = t1052 + t1064;
         v3rho3[ip * 4] += tv3rho30;
-
         let t1065 = t282 * t543;
         let t1066 = t1065 * t546;
         let t1069 = t282 * t505;
@@ -3058,7 +3126,6 @@ pub fn lda_c_pw_lxc_pol(
         let t1169 = -t624 - t338 - t341 + t1044 + t1046 + t366 - 16.0 * t367 - 4.0 * t517 - t1056 + t1059 - t620 - t1050 + t398 + 4.0 * t401 + t1054;
         let tv3rho31 = t1165 + t1169;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t1171 = t814 * t595;
         let t1176 = t372 * t599;
         let t1181 = -2.0 * t377 - 6.0 * t770;
@@ -3088,7 +3155,6 @@ pub fn lda_c_pw_lxc_pol(
         let t1246 = t618 - t338 + t341 + t1044 + t1046 - t364 - t366 - t368 - t518 - t1056 + t1059 - 4.0 * t589 - t1050 + t402 + t1054;
         let tv3rho32 = t1244 + t1246;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t1247 = t1066 / 2.0;
         let t1251 = 3.0 / 2.0 * t1070;
         let t1252 = t636 + t1247 + t642 - t646 - t650 - 12.0 * t1206 - 12.0 * t1208 + 3.0 * t1211 - t1251 + t659 + t667 - t680;
@@ -3119,7 +3185,6 @@ pub fn lda_c_pw_lxc_pol(
         let t1306 = -6.0 * t589 - t1056 - t574 - t1057 - t1058 + t1059 - t1060 + 6.0 * t580 - 24.0 * t581 - 24.0 * t584 + t1062 + t1063;
         let tv3rho33 = t1301 + t1306;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
         let t1307 = t635 / 2.0;
         let t1309 = 2.0 * t645;
         let t1310 = 4.0 / 3.0 * t649;
@@ -3319,7 +3384,6 @@ pub fn lda_c_pw_lxc_pol(
         let t2051 = 12.0 * t808 + 12.0 * t811 + 4.0 * t843 + 8.0 * t845 - t2042 - 12.0 * t878 - 12.0 * t880 - t2045 + t2046 + t2047 - t2048 - t2049 - t2050;
         let tv4rho40 = t1317 + t2022 + t2037 + t2051;
         v4rho4[ip * 5] += tv4rho40;
-
         let t2056 = t1307 + t1247 + 3.0 / 2.0 * t638 + t641 - t1309 - t1310 - t1251 + t1311 - 9.0 / 2.0 * t661 + t1313 - t1314 + t1315 + t1316 - t690 + t1253 + 2.0 * t693;
         let t2058 = 6.0 * t1119;
         let t2059 = 24.0 * t1121;
@@ -3409,7 +3473,6 @@ pub fn lda_c_pw_lxc_pol(
         let t2277 = -72.0 * t800 - t2035 - 24.0 * t804 + 6.0 * t808 + 9.0 * t811 + t843 + t846 - t2042 - 6.0 * t878 - 9.0 * t880 - t2045 + t10 * (t2086 + t2099 + t2105 + t2132 + t2215 + t2225 + t2249 + t2272) + t2046 + t2047 - t2048 - t2049 - t2050;
         let tv4rho41 = t2056 + t2063 + t2071 + t2277;
         v4rho4[ip * 5 + 1] += tv4rho41;
-
         let t2286 = t1307 + 4.0 * t1202 + t1066 + t638 + t641 - t1309 - t1310 + 8.0 * t1206 - 8.0 * t1208 + 2.0 * t1211 + 2.0 * t1213 - 3.0 * t1070 + t1311 - 3.0 * t661 + t1313 - t1314 + t1315;
         let t2299 = t1316 - t690 + 4.0 / 3.0 * t1072 - t1218 / 3.0 + 4.0 / 3.0 * t693 - t1319 - 4.0 / 3.0 * t1077 - t703 / 3.0 + t1321 + t1322 + 4.0 * t1113 - 6.0 * t1115 + 12.0 * t1116 - 8.0 * t1119 - 32.0 * t1121 + 2.0 * t1124 + 8.0 * t1126;
         let t2312 = 16.0 * t1128 - 48.0 * t1130 + 120.0 * t1134 - t1227 - 64.0 * t1140 + 6.0 * t1143 - t1323 + 12.0 * t755 + t2017 - t2018 + 192.0 * t774 - t1148 - 48.0 * t782 + t2027 + 64.0 * t786 - 16.0 * t788 + 120.0 * t790;
@@ -3443,7 +3506,6 @@ pub fn lda_c_pw_lxc_pol(
         let t2496 = -8.0 * t792 + t2032 - 48.0 * t800 - t2035 - 8.0 * t804 + 2.0 * t808 + 6.0 * t811 - t2042 - 2.0 * t878 - 6.0 * t880 - 2.0 * t1237 - t2045 + t10 * (t2324 + t2333 + t2343 + t2420 + t2445 + t2463 + t2474 + t2491) + t2046 + t2047 - t2048 - t2049 - t2050;
         let tv4rho42 = t2286 + t2299 + t2312 + t2496;
         v4rho4[ip * 5 + 2] += tv4rho42;
-
         let t2523 = 12.0 * t53 + 24.0 * t1862;
         let t2527 = piecewise3(t58, 0.0, 40.0 / 81.0 * t1850 * t1265 * t188 - 16.0 / 9.0 * t1171 * t378 - 8.0 / 9.0 * t1080 * t599 * t188 + 8.0 / 3.0 * t1083 * t377 * t599 + 4.0 / 3.0 * t552 * t1181 + 4.0 / 9.0 * t372 * t1271 * t188 + 4.0 / 3.0 * t61 * t2523);
         let t2548 = piecewise3(t65, 0.0, 40.0 / 81.0 * t1871 * t1276 * t192 + 16.0 / 9.0 * t1186 * t378 - 8.0 / 9.0 * t1095 * t607 * t192 - 8.0 / 3.0 * t1098 * t377 * t607 + 4.0 / 3.0 * t560 * t1194 + 4.0 / 9.0 * t386 * t1281 * t192 - 4.0 / 3.0 * t66 * t2523);
@@ -3467,7 +3529,6 @@ pub fn lda_c_pw_lxc_pol(
         let t2636 = t787 - t789 + t791 + t2032 - t2070 - t801 - t2035 + t812 - t2042 - t881 - 6.0 * t1237 - t2045 + t2046 + t2047 - t2048 - t2049 - t2050;
         let tv4rho43 = t2625 + t2630 + t2634 + t2636;
         v4rho4[ip * 5 + 3] += tv4rho43;
-
         let t2644 = t1330 + t2081 / 2.0 - t1334 + t1343 - t1348 - t1352 + t1356 + t1360 - t1364 - 24.0 * t2084 + t1367 - t1371;
         let t2646 = t1376 + t1379 - t1384 - t1387 - t1391 + t1394 - t1399 - t1406 - t1410 + t1464 - t1466 - 56.0 / 27.0 * t2092 + t1476;
         let t2650 = -t1485 - t1529 + t1818 + t1671 - t1678 + t1822 - t1682 + t1687 + t1690 - 48.0 * t2103 + t1701 + 12.0 * t2336;
@@ -3490,6 +3551,5 @@ pub fn lda_c_pw_lxc_pol(
         let t2749 = t2026 + t2027 + t2032 - t2033 - t2035 - t2042 - 12.0 * t1237 - t2045 + t2046 + t2047 - t2048 - t2049 - t2050;
         let tv4rho44 = t2732 + t2739 + t2747 + t2749;
         v4rho4[ip * 5 + 4] += tv4rho44;
-
     }
 }
