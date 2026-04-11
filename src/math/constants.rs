@@ -1,5 +1,8 @@
 //! Mathematical constants from libxc `util.h`, truncated to f64 (17 significant digits).
 
+/// pi = 3.14159265358979323846 (same as std::f64::consts::PI, but usable in #[cube] kernels)
+pub const M_PI: f64 = std::f64::consts::PI;
+
 /// sqrt(pi) = 1.7724538509055160
 pub const M_SQRTPI: f64 = 1.7724538509055160;
 
