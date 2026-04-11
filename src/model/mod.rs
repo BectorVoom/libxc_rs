@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use bitflags::bitflags;
 
 /// Functional family classification
@@ -262,3 +263,15 @@ mod tests {
         assert_eq!(id.meta().kind, Kind::Exchange);
     }
 }
+=======
+//! Placeholder module generated from README tree for src/model.
+
+pub mod derivative;
+pub mod family;
+pub mod feature_requirements;
+pub mod flags;
+pub mod kind;
+pub mod precision;
+pub mod spin;
+pub mod thresholds;
+>>>>>>> origin/main

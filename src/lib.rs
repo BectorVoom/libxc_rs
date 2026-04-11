@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #![deny(warnings)]
 // CubeCL #[cube] macro expansion generates code that triggers these lints.
 // The excessive_precision lint is also inappropriate for scientific constants
@@ -28,3 +29,22 @@ pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, vers
 pub use input::{LdaInput, GgaInput, MggaInput};
 pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
 pub use eval::dispatch_lda;
+=======
+//! libxc_rs workspace root documentation derived from docs/libxc_rs_detailed_design.md.
+#![doc = include_str!("../docs/libxc_rs_detailed_design.md")]
+
+pub mod api;
+pub mod compat;
+pub mod error;
+pub mod eval;
+pub mod generated;
+pub mod input;
+pub mod kernel;
+pub mod layout;
+pub mod meta;
+pub mod model;
+pub mod output;
+pub mod registry;
+pub mod runtime;
+pub mod workspace;
+>>>>>>> origin/main

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 pub(crate) mod generated;
 
 use crate::model::{
@@ -51,3 +52,14 @@ pub struct FunctionalMeta {
     /// Maximum supported derivative order
     pub max_order: DerivativeOrder,
 }
+=======
+//! Placeholder module generated from README tree for src/meta.
+
+pub mod auxiliary;
+pub mod ext_param;
+pub mod functional_meta;
+pub mod hybrid;
+pub mod library;
+pub mod nlc;
+pub mod reference;
+>>>>>>> origin/main

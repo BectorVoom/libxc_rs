@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+<<<<<<< HEAD
 anyhow = "1.0.100"
 libxc_rs = { path = ".." }
 
@@ -14,3 +15,6 @@ cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
 [build-dependencies]
 bindgen = "0.72.1"
 cmake = "0.1.58"
+=======
+libxc_rs = { path = ".." }
+>>>>>>> origin/main

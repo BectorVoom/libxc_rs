@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use crate::model::{DerivativeOrder, Family, FunctionalId, Spin};
 
 #[derive(Debug, thiserror::Error)]
@@ -119,3 +120,10 @@ mod tests {
         assert_send_sync::<LibxcRsError>();
     }
 }
+=======
+//! Placeholder module generated from README tree for src/error.
+
+pub mod ffi;
+pub mod internal;
+pub mod public;
+>>>>>>> origin/main

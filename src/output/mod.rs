@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 pub mod mask;
 
 pub use mask::OutputMask;
@@ -598,3 +599,13 @@ mod tests {
         // Total: 1 + 4 + 10 + 20 + 35 = 70
     }
 }
+=======
+//! Placeholder module generated from README tree for src/output.
+
+pub mod bundle;
+pub mod gga;
+pub mod lda;
+pub mod mgga;
+pub mod request;
+pub mod resident;
+>>>>>>> origin/main

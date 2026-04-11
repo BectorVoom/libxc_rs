@@ -14,7 +14,11 @@
 
 ## Conventions
 
+<<<<<<< HEAD
 - Before creating any test code, read `\home\chemtech\workspace\libxc_rs\docs\rust_crate_test_guideline.md` and follow it when designing and implementing the tests.
+=======
+- Before creating any test code, read `\home\chemtech\workspace\cintx\docs\rust_crate_test_guideline.md` and follow it when designing and implementing the tests.
+>>>>>>> origin/main
 
 
 ## Key Constraints
@@ -35,6 +39,7 @@ Before making file changes, route work through the GSD workflow so `.planning/` 
 - Use `/gsd:execute-phase <n>` to execute planned work.
 
 Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+<<<<<<< HEAD
 
 
 ## Mandatory Manual for `cubecl` Implementation
@@ -138,3 +143,5 @@ Root cause analysis
 Recommended fix steps
 Warning review
 Remaining uncertainties
+=======
+>>>>>>> origin/main

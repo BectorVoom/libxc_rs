@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 mod by_id;
 mod by_name;
 mod removed;
@@ -187,3 +188,14 @@ mod tests {
         assert_eq!(id, FunctionalId(38));
     }
 }
+=======
+//! Placeholder module generated from README tree for src/registry.
+
+pub mod by_id;
+pub mod by_name;
+pub mod current;
+pub mod families;
+pub mod generated;
+pub mod internal;
+pub mod legacy;
+>>>>>>> origin/main

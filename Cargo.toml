@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+<<<<<<< HEAD
 bitflags = "2.10.0"
 bytemuck = { version = "1.25.0", features = ["derive"] }
 cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
@@ -15,3 +16,14 @@ libm = "0.2"
 
 [workspace]
 members = ["xtask","verify"]
+=======
+anyhow = "1.0.102"
+cubecl = "0.9.0"
+thiserror = "2.0.18"
+
+[workspace]
+members = [
+    "verify",
+    "xtask",
+]
+>>>>>>> origin/main
