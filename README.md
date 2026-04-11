@@ -1,189 +1,159 @@
-## 19. Source Tree
+## 20. Source Tree
 
-
-```text
-├── docs/
-src/
-├── lib.rs
-├── api/
-│   ├── mod.rs
-│   ├── functional.rs
-│   ├── builder.rs
-│   ├── batch.rs
-│   ├── resident.rs
-│   ├── meta.rs
-│   └── compat.rs
-├── compat/
-│   ├── mod.rs
-│   ├── raw_handle.rs
-│   ├── c_layout.rs
-│   ├── legacy_eval.rs
-│   ├── ids.rs
-│   └── removed.rs
-├── meta/
-│   ├── mod.rs
-│   ├── library.rs
-│   ├── reference.rs
-│   ├── functional_meta.rs
-│   ├── ext_param.rs
-│   ├── hybrid.rs
-│   ├── nlc.rs
-│   └── auxiliary.rs
-├── registry/
-│   ├── mod.rs
-│   ├── current.rs
-│   ├── legacy.rs
-│   ├── internal.rs
-│   ├── by_id.rs
-│   ├── by_name.rs
-│   ├── families.rs
-│   └── generated.rs
-├── model/
-│   ├── mod.rs
-│   ├── family.rs
-│   ├── kind.rs
-│   ├── spin.rs
-│   ├── derivative.rs
-│   ├── flags.rs
-│   ├── thresholds.rs
-│   ├── precision.rs
-│   └── feature_requirements.rs
-├── layout/
-│   ├── mod.rs
-│   ├── dims.rs
-│   ├── packed.rs
-│   ├── strided.rs
-│   ├── soa.rs
-│   ├── tiles.rs
-│   └── validation.rs
-├── input/
-│   ├── mod.rs
-│   ├── lda.rs
-│   ├── gga.rs
-│   ├── mgga.rs
-│   ├── owned.rs
-│   ├── borrowed.rs
-│   └── resident.rs
-├── output/
-│   ├── mod.rs
-│   ├── request.rs
-│   ├── lda.rs
-│   ├── gga.rs
-│   ├── mgga.rs
-│   ├── bundle.rs
-│   └── resident.rs
-├── workspace/
-│   ├── mod.rs
-│   ├── planner.rs
-│   ├── host.rs
-│   ├── resident.rs
-│   └── scratch_map.rs
-├── runtime/
-│   ├── mod.rs
-│   ├── device.rs
-│   ├── cpu.rs
-│   ├── cuda.rs
-│   ├── hip.rs
-│   ├── wgpu.rs
-│   ├── cache.rs
-│   ├── streams.rs
-│   └── capability.rs
-├── kernel/
-│   ├── mod.rs
-│   ├── launch.rs
-│   ├── dispatch_key.rs
-│   ├── shared/
+```
+libxc_rs/
+├── Cargo.toml                          # Workspace root
+├── CLAUDE.md                           # AI assistant instructions
+├── README.md                           # Project documentation
+│
+├── src/                                # Main library crate
+│   ├── lib.rs                          # Public re-exports
+│   │
+│   ├── model/                          # Domain types
 │   │   ├── mod.rs
-│   │   ├── types.rs
-│   │   ├── math.rs
-│   │   ├── thresholds.rs
-│   │   ├── spin.rs
-│   │   ├── ext_params.rs
-│   │   ├── output_mask.rs
-│   │   └── aux_accumulate.rs
-│   ├── lda/
+│   │   ├── family.rs                   # Family enum
+│   │   ├── kind.rs                     # Kind enum
+│   │   ├── spin.rs                     # Spin enum
+│   │   ├── derivative.rs              # DerivativeOrder enum
+│   │   ├── id.rs                       # FunctionalId newtype
+│   │   ├── flags.rs                    # FunctionalFlags bitflags
+│   │   ├── dims.rs                     # Dimensions struct
+│   │   ├── precision.rs               # Precision constants
+│   │   └── thresholds.rs              # Thresholds struct
+│   │
+│   ├── meta/                           # Static metadata
 │   │   ├── mod.rs
-│   │   ├── order0.rs
-│   │   ├── order1.rs
-│   │   ├── order2.rs
-│   │   ├── order3.rs
-│   │   └── order4.rs
-│   ├── gga/
+│   │   ├── functional_meta.rs         # FunctionalMeta struct
+│   │   └── library.rs                 # Library version/reference
+│   │
+│   ├── registry/                       # Lookup tables
 │   │   ├── mod.rs
-│   │   ├── order0.rs
-│   │   ├── order1.rs
-│   │   ├── order2.rs
-│   │   ├── order3.rs
-│   │   └── order4.rs
-│   ├── mgga/
+│   │   └── tables.rs                  # Static ID→Meta, Name→ID tables
+│   │
+│   ├── error/                          # Error types
 │   │   ├── mod.rs
-│   │   ├── order0.rs
-│   │   ├── order1.rs
-│   │   ├── order2.rs
-│   │   ├── order3.rs
-│   │   └── order4.rs
-│   └── mix/
+│   │   ├── public.rs                  # LibxcRsError (thiserror v2)
+│   │   ├── internal.rs                # Internal error helpers
+│   │   └── ffi.rs                     # C-compatible error codes
+│   │
+│   ├── math/                           # Mathematical core
+│   │   ├── mod.rs
+│   │   ├── power.rs                   # pow_1_3, pow_2_3, safe_cbrt, etc.
+│   │   ├── threshold.rs              # piecewise3, piecewise5, clamp, safe_div
+│   │   ├── constants.rs              # Mathematical constants (M_CBRT3, etc.)
+│   │   ├── spin_transform.rs         # to_total_zeta, spin_scaling, clamp_zeta
+│   │   ├── special.rs                # erf_approx, erfc_approx
+│   │   ├── polynomial.rs             # poly_eval, rational_eval (Horner)
+│   │   └── dft_quantities.rs         # reduced_gradient_s, wigner_seitz_rs, etc.
+│   │
+│   ├── input/                          # Input bundles
+│   │   ├── mod.rs
+│   │   ├── lda.rs                     # LdaInput
+│   │   ├── gga.rs                     # GgaInput
+│   │   └── mgga.rs                    # MggaInput
+│   │
+│   ├── output/                         # Output bundles
+│   │   ├── mod.rs
+│   │   ├── mask.rs                    # OutputMask bitflags
+│   │   ├── lda.rs                     # LdaOutput
+│   │   ├── gga.rs                     # GgaOutput
+│   │   └── mgga.rs                    # MggaOutput
+│   │
+│   ├── kernel/                         # CubeCL kernel implementations
+│   │   ├── mod.rs
+│   │   ├── launch.rs                  # Kernel launch wrappers
+│   │   ├── shared/                    # Kernel-level shared code
+│   │   │   ├── mod.rs
+│   │   │   ├── spin.rs               # Spin handling in kernels
+│   │   │   ├── thresholds.rs         # Density screening
+│   │   │   └── output_mask.rs        # Conditional output writing
+│   │   ├── lda/                       # LDA kernels (one file per functional)
+│   │   │   ├── mod.rs
+│   │   │   ├── lda_x.rs              # Slater exchange
+│   │   │   ├── lda_c_vwn.rs          # VWN correlation
+│   │   │   ├── lda_c_pw.rs           # PW correlation
+│   │   │   └── ... (all LDA functionals)
+│   │   ├── gga/                       # GGA kernels
+│   │   │   ├── mod.rs
+│   │   │   ├── gga_x_pbe.rs          # PBE exchange
+│   │   │   ├── gga_c_lyp.rs          # LYP correlation
+│   │   │   └── ... (all GGA functionals)
+│   │   └── mgga/                      # MGGA kernels
+│   │       ├── mod.rs
+│   │       ├── mgga_x_scan.rs        # SCAN exchange
+│   │       ├── mgga_c_tpss.rs        # TPSS correlation
+│   │       └── ... (all MGGA functionals)
+│   │
+│   ├── eval/                           # Evaluation orchestration
+│   │   ├── mod.rs
+│   │   ├── dispatch.rs               # Family/order/spin dispatch
+│   │   ├── mix.rs                    # Mixed functional accumulation
+│   │   └── workspace.rs             # EvaluationWorkspace
+│   │
+│   ├── func/                           # Functional instance
+│   │   ├── mod.rs
+│   │   ├── lifecycle.rs              # new(), Drop
+│   │   ├── config.rs                 # Threshold/ext_param setters
+│   │   └── params.rs                 # FunctionalParams trait + impls
+│   │
+│   ├── hybrid/                         # Hybrid properties
+│   │   ├── mod.rs
+│   │   ├── cam.rs                    # CAM coefficients
+│   │   ├── nlc.rs                    # Non-local correlation
+│   │   └── auxiliary.rs              # Auxiliary functional access
+│   │
+│   ├── api/                            # High-level ergonomic API
+│   │   ├── mod.rs
+│   │   ├── builder.rs               # FunctionalBuilder
+│   │   └── batch.rs                 # BatchEvaluator
+│   │
+│   ├── gpu/                            # GPU buffer management
+│   │   ├── mod.rs
+│   │   ├── buffer.rs                # GpuBuffer<R>
+│   │   ├── pool.rs                  # Buffer pool / reuse
+│   │   ├── backend.rs               # Backend selection + fallback
+│   │   └── evaluator.rs            # GpuEvaluator
+│   │
+│   └── compat/                         # C compatibility layer
 │       ├── mod.rs
-│       ├── aux_eval.rs
-│       ├── weighted_sum.rs
-│       ├── hybrid_terms.rs
-│       └── nlc_terms.rs
-├── eval/
-│   ├── mod.rs
-│   ├── dispatcher.rs
-│   ├── prepare.rs
-│   ├── execute.rs
-│   ├── finalize.rs
-│   └── policy.rs
-├── error/
-│   ├── mod.rs
-│   ├── public.rs
-│   ├── internal.rs
-│   └── ffi.rs
-└── generated/
-    ├── mod.rs
-    ├── functional_registry.rs
-    ├── legacy_aliases.rs
-    ├── removed_ids.rs
-    ├── ext_param_specs.rs
-    └── dispatch_tables.rs
-
-xtask/
-├── main.rs
-├── parse_xc_h.rs
-├── parse_functionals.rs
-├── generate_registry.rs
-└── generate_dispatch.rs
-
-tests/
-├── api_catalog.rs
-├── registry_roundtrip.rs
-├── ext_params.rs
-├── shape_validation.rs
-├── oracle_lda.rs
-├── oracle_gga.rs
-├── oracle_mgga.rs
-├── oracle_hybrid.rs
-├── cpu_gpu_parity.rs
-├── nan_inf.rs
-└── removed_ids.rs
-
-verify/
-├── Cargo.toml
-└── src/
-    ├── main.rs
-    ├── dataset.rs
-    ├── oracle_ffi.rs
-    ├── compare.rs
-    ├── report.rs
-    └── thresholds.rs
-
-benches/
-├── registry.rs
-├── init.rs
-├── lda.rs
-├── gga.rs
-├── mgga.rs
-├── resident.rs
-└── transfer.rs
+│       └── ffi.rs                    # extern "C" functions
+│
+├── verify/                             # Oracle verification harness
+│   ├── Cargo.toml                     # Dependencies: bindgen, anyhow, etc.
+│   ├── build.rs                       # bindgen: libxc.h → FFI bindings
+│   ├── src/
+│   │   ├── main.rs                   # CLI entry point
+│   │   ├── oracle.rs                 # libxc C FFI wrapper
+│   │   ├── comparison.rs            # Result comparison logic
+│   │   ├── test_data.rs             # BrOH/H/Li test system loading
+│   │   └── report.rs                # JSON/HTML result output
+│   └── tests/
+│       └── oracle_comparison.rs      # Integration test: Rust vs C
+│
+├── benches/                            # Performance benchmarks
+│   ├── lda_batch.rs                   # LDA throughput
+│   ├── gga_batch.rs                   # GGA throughput
+│   ├── mgga_batch.rs                  # MGGA throughput
+│   ├── gpu_batch.rs                   # GPU batch throughput
+│   ├── transfer_overhead.rs           # Host-device transfer cost
+│   └── cold_start.rs                  # Functional::new() latency
+│
+├── xtask/                              # Build and development tasks
+│   ├── Cargo.toml
+│   └── src/
+│       └── main.rs                   # cargo xtask commands
+│
+├── tests/                              # Integration tests
+│   ├── api_coverage.rs               # All 85 public C functions are reachable
+│   ├── registry_completeness.rs      # All 649 IDs resolve to metadata
+│   ├── dimension_correctness.rs      # Dimension calculations match libxc
+│   └── error_handling.rs            # Error variant coverage
+│
+├── docs/
+│   ├── design/
+│   │   └── libxc_rs_detailed_design.md  # THIS DOCUMENT
+│   └── manual/
+│       └── Cubecl/                   # CubeCL documentation
+│
+└── libxc-master/                       # Vendored libxc 7.0.0 source (reference only)
 ```

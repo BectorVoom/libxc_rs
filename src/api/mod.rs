@@ -2,7 +2,3 @@
 
 pub mod batch;
 pub mod builder;
-pub mod compat;
-pub mod functional;
-pub mod meta;
-pub mod resident;

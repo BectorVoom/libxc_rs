@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
 use crate::model::Spin;
@@ -351,13 +350,3 @@ mod tests {
         assert_eq!(input.rho().len(), 0);
     }
 }
-=======
-//! Placeholder module generated from README tree for src/input.
-
-pub mod borrowed;
-pub mod gga;
-pub mod lda;
-pub mod mgga;
-pub mod owned;
-pub mod resident;
->>>>>>> origin/main

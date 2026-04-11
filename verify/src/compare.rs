@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /// Relative error metric per VER-04: |x-y| / (1 + max(|x|, |y|))
 ///
 /// This metric avoids division-by-zero when both values are near zero while
@@ -48,10 +47,4 @@ mod tests {
         let err = relative_error(-1.0, -1.0);
         assert_eq!(err, 0.0);
     }
-=======
-#![allow(dead_code)]
-
-pub fn describe() -> &'static str {
-    "placeholder: compare"
->>>>>>> origin/main
 }

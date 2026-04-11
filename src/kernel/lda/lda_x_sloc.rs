@@ -3,7 +3,7 @@
 //! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_x_sloc.c`.
 //! Translation preserves exact maple2c variable names and operation order.
 
-#[allow(unused_variables, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
 use crate::math::piecewise::{piecewise3};
@@ -13,6 +13,7 @@ use crate::math::piecewise::{piecewise3};
 // ============================================================================
 
 /// LDA_X_SLOC exc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_exc_unpol(
     rho: &Array<f64>,
@@ -20,7 +21,7 @@ pub fn lda_x_sloc_exc_unpol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -32,11 +33,11 @@ pub fn lda_x_sloc_exc_unpol(
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_X_SLOC vxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_vxc_unpol(
     rho: &Array<f64>,
@@ -45,7 +46,7 @@ pub fn lda_x_sloc_vxc_unpol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -57,14 +58,13 @@ pub fn lda_x_sloc_vxc_unpol(
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;
-
         let tvrho0 = -2.0 * t4 * t5 * param_b * t8 - 2.0 * t10;
         vrho[ip] += tvrho0;
-
     }
 }
 
 /// LDA_X_SLOC fxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_fxc_unpol(
     rho: &Array<f64>,
@@ -74,7 +74,7 @@ pub fn lda_x_sloc_fxc_unpol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -86,20 +86,18 @@ pub fn lda_x_sloc_fxc_unpol(
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;
-
         let tvrho0 = -2.0 * t4 * t5 * param_b * t8 - 2.0 * t10;
         vrho[ip] += tvrho0;
-
         let t16 = t4 * t5;
         let t17 = 1.0 / rho[ip];
         let t21 = param_b * param_b;
         let tv2rho20 = -2.0 * t16 * t21 * t17 * t8 - 2.0 * t16 * param_b * t17 * t8;
         v2rho2[ip] += tv2rho20;
-
     }
 }
 
 /// LDA_X_SLOC kxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_kxc_unpol(
     rho: &Array<f64>,
@@ -110,7 +108,7 @@ pub fn lda_x_sloc_kxc_unpol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -122,26 +120,23 @@ pub fn lda_x_sloc_kxc_unpol(
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;
-
         let tvrho0 = -2.0 * t4 * t5 * param_b * t8 - 2.0 * t10;
         vrho[ip] += tvrho0;
-
         let t16 = t4 * t5;
         let t17 = 1.0 / rho[ip];
         let t21 = param_b * param_b;
         let tv2rho20 = -2.0 * t16 * t21 * t17 * t8 - 2.0 * t16 * param_b * t17 * t8;
         v2rho2[ip] += tv2rho20;
-
         let t26 = rho[ip] * rho[ip];
         let t27 = 1.0 / t26;
         let t31 = t21 * param_b;
         let tv3rho30 = -2.0 * t16 * t31 * t27 * t8 + 2.0 * t16 * param_b * t27 * t8;
         v3rho3[ip] += tv3rho30;
-
     }
 }
 
 /// LDA_X_SLOC lxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_lxc_unpol(
     rho: &Array<f64>,
@@ -153,7 +148,7 @@ pub fn lda_x_sloc_lxc_unpol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -165,27 +160,22 @@ pub fn lda_x_sloc_lxc_unpol(
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;
-
         let tvrho0 = -2.0 * t4 * t5 * param_b * t8 - 2.0 * t10;
         vrho[ip] += tvrho0;
-
         let t16 = t4 * t5;
         let t17 = 1.0 / rho[ip];
         let t21 = param_b * param_b;
         let tv2rho20 = -2.0 * t16 * t21 * t17 * t8 - 2.0 * t16 * param_b * t17 * t8;
         v2rho2[ip] += tv2rho20;
-
         let t26 = rho[ip] * rho[ip];
         let t27 = 1.0 / t26;
         let t31 = t21 * param_b;
         let tv3rho30 = -2.0 * t16 * t31 * t27 * t8 + 2.0 * t16 * param_b * t27 * t8;
         v3rho3[ip] += tv3rho30;
-
         let t37 = 1.0 / t26 / rho[ip];
         let t46 = t21 * t21;
         let tv4rho40 = 2.0 * t16 * t21 * t37 * t8 + 4.0 * t16 * t31 * t37 * t8 - 2.0 * t16 * t46 * t37 * t8 - 4.0 * t16 * param_b * t37 * t8;
         v4rho4[ip] += tv4rho40;
-
     }
 }
 
@@ -194,6 +184,7 @@ pub fn lda_x_sloc_lxc_unpol(
 // ============================================================================
 
 /// LDA_X_SLOC exc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_exc_pol(
     rho: &Array<f64>,
@@ -201,19 +192,18 @@ pub fn lda_x_sloc_exc_pol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = param_b + 1.0;
         let t3 = 1.0 / t1 / 2.0;
         let t4 = param_a * t3;
-        let t5 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t5 = rho0 + rho1;
         let t6 = f64::powf(t5, param_b);
-        let t7 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t7 = rho0 - rho1;
         let t8 = 1.0 / t5;
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
@@ -228,11 +218,11 @@ pub fn lda_x_sloc_exc_pol(
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_X_SLOC vxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_vxc_pol(
     rho: &Array<f64>,
@@ -241,19 +231,18 @@ pub fn lda_x_sloc_vxc_pol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = param_b + 1.0;
         let t3 = 1.0 / t1 / 2.0;
         let t4 = param_a * t3;
-        let t5 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t5 = rho0 + rho1;
         let t6 = f64::powf(t5, param_b);
-        let t7 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t7 = rho0 - rho1;
         let t8 = 1.0 / t5;
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
@@ -268,7 +257,6 @@ pub fn lda_x_sloc_vxc_pol(
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
-
         let t22 = t6 * param_b;
         let t24 = t4 * t22 * t19;
         let t25 = t5 * param_a;
@@ -287,7 +275,6 @@ pub fn lda_x_sloc_vxc_pol(
         let t42 = t35 + t41;
         let tvrho0 = -t25 * t26 * t42 - t24 + tzk0;
         vrho[ip * 2] += tvrho0;
-
         let t45 = -t8 - t30;
         let t48 = piecewise3(t11, 0.0, t27 * t45 * t32);
         let t49 = -t45;
@@ -295,11 +282,11 @@ pub fn lda_x_sloc_vxc_pol(
         let t53 = t48 + t52;
         let tvrho1 = -t25 * t26 * t53 - t24 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
-
     }
 }
 
 /// LDA_X_SLOC fxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_fxc_pol(
     rho: &Array<f64>,
@@ -309,19 +296,18 @@ pub fn lda_x_sloc_fxc_pol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = param_b + 1.0;
         let t3 = 1.0 / t1 / 2.0;
         let t4 = param_a * t3;
-        let t5 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t5 = rho0 + rho1;
         let t6 = f64::powf(t5, param_b);
-        let t7 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t7 = rho0 - rho1;
         let t8 = 1.0 / t5;
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
@@ -336,7 +322,6 @@ pub fn lda_x_sloc_fxc_pol(
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
-
         let t22 = t6 * param_b;
         let t24 = t4 * t22 * t19;
         let t25 = t5 * param_a;
@@ -355,7 +340,6 @@ pub fn lda_x_sloc_fxc_pol(
         let t42 = t35 + t41;
         let tvrho0 = -t25 * t26 * t42 - t24 + tzk0;
         vrho[ip * 2] += tvrho0;
-
         let t45 = -t8 - t30;
         let t48 = piecewise3(t11, 0.0, t27 * t45 * t32);
         let t49 = -t45;
@@ -363,7 +347,6 @@ pub fn lda_x_sloc_fxc_pol(
         let t53 = t48 + t52;
         let tvrho1 = -t25 * t26 * t53 - t24 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
-
         let t56 = t4 * t6;
         let t57 = param_b * t8;
         let t59 = t56 * t57 * t19;
@@ -392,7 +375,6 @@ pub fn lda_x_sloc_fxc_pol(
         let t99 = t86 + t98;
         let tv2rho20 = -t25 * t26 * t99 - t59 - 2.0 * t61 - t66 - 2.0 * t68;
         v2rho2[ip * 3] += tv2rho20;
-
         let t103 = t4 * t6 * t53;
         let t105 = t4 * t22 * t53;
         let t106 = t31 * t74;
@@ -404,7 +386,6 @@ pub fn lda_x_sloc_fxc_pol(
         let t124 = t114 + t123;
         let tv2rho21 = -t25 * t26 * t124 - t103 - t105 - t59 - t61 - t66 - t68;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t129 = t45 * t45;
         let t130 = t129 * t74;
         let t133 = 2.0 * t29 + 2.0 * t79;
@@ -416,11 +397,11 @@ pub fn lda_x_sloc_fxc_pol(
         let t148 = t138 + t147;
         let tv2rho22 = -t25 * t26 * t148 - 2.0 * t103 - 2.0 * t105 - t59 - t66;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
     }
 }
 
 /// LDA_X_SLOC kxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_kxc_pol(
     rho: &Array<f64>,
@@ -431,19 +412,18 @@ pub fn lda_x_sloc_kxc_pol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = param_b + 1.0;
         let t3 = 1.0 / t1 / 2.0;
         let t4 = param_a * t3;
-        let t5 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t5 = rho0 + rho1;
         let t6 = f64::powf(t5, param_b);
-        let t7 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t7 = rho0 - rho1;
         let t8 = 1.0 / t5;
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
@@ -458,7 +438,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
-
         let t22 = t6 * param_b;
         let t24 = t4 * t22 * t19;
         let t25 = t5 * param_a;
@@ -477,7 +456,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t42 = t35 + t41;
         let tvrho0 = -t25 * t26 * t42 - t24 + tzk0;
         vrho[ip * 2] += tvrho0;
-
         let t45 = -t8 - t30;
         let t48 = piecewise3(t11, 0.0, t27 * t45 * t32);
         let t49 = -t45;
@@ -485,7 +463,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t53 = t48 + t52;
         let tvrho1 = -t25 * t26 * t53 - t24 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
-
         let t56 = t4 * t6;
         let t57 = param_b * t8;
         let t59 = t56 * t57 * t19;
@@ -514,7 +491,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t99 = t86 + t98;
         let tv2rho20 = -t25 * t26 * t99 - t59 - 2.0 * t61 - t66 - 2.0 * t68;
         v2rho2[ip * 3] += tv2rho20;
-
         let t103 = t4 * t6 * t53;
         let t105 = t4 * t22 * t53;
         let t106 = t31 * t74;
@@ -526,7 +502,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t124 = t114 + t123;
         let tv2rho21 = -t25 * t26 * t124 - t103 - t105 - t59 - t61 - t66 - t68;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t129 = t45 * t45;
         let t130 = t129 * t74;
         let t133 = 2.0 * t29 + 2.0 * t79;
@@ -538,7 +513,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t148 = t138 + t147;
         let tv2rho22 = -t25 * t26 * t148 - 2.0 * t103 - 2.0 * t105 - t59 - t66;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t151 = param_b * t29;
         let t153 = t56 * t151 * t19;
         let t155 = t56 * t57 * t42;
@@ -569,7 +543,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t215 = t194 + t214;
         let tv3rho30 = -t25 * t26 * t215 + t153 - 3.0 * t155 - 3.0 * t158 - t163 - 3.0 * t165 - 3.0 * t168;
         v3rho3[ip * 4] += tv3rho30;
-
         let t221 = t56 * t57 * t53;
         let t224 = 2.0 * t4 * t6 * t124;
         let t226 = t56 * t64 * t53;
@@ -599,7 +572,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t288 = t258 + t287;
         let tv3rho31 = -t25 * t26 * t288 + t153 - 2.0 * t155 - t158 - t163 - 2.0 * t165 - t168 - t221 - t224 - t226 - t229;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t294 = t4 * t6 * t148;
         let t296 = t4 * t22 * t148;
         let t297 = t31 * t174;
@@ -619,7 +591,6 @@ pub fn lda_x_sloc_kxc_pol(
         let t341 = t319 + t340;
         let tv3rho32 = -t25 * t26 * t341 + t153 - t155 - t163 - t165 - 2.0 * t221 - t224 - 2.0 * t226 - t229 - t294 - t296;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t348 = t129 * t45;
         let t349 = t348 * t174;
         let t351 = t45 * t74;
@@ -635,11 +606,11 @@ pub fn lda_x_sloc_kxc_pol(
         let t385 = t366 + t384;
         let tv3rho33 = -t25 * t26 * t385 + t153 - t163 - 3.0 * t221 - 3.0 * t226 - 3.0 * t294 - 3.0 * t296;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
     }
 }
 
 /// LDA_X_SLOC lxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_sloc_lxc_pol(
     rho: &Array<f64>,
@@ -651,19 +622,18 @@ pub fn lda_x_sloc_lxc_pol(
     param_a: f64,
     param_b: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = param_b + 1.0;
         let t3 = 1.0 / t1 / 2.0;
         let t4 = param_a * t3;
-        let t5 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t5 = rho0 + rho1;
         let t6 = f64::powf(t5, param_b);
-        let t7 = rho[ip * 2] - rho[ip * 2 + 1];
+        let t7 = rho0 - rho1;
         let t8 = 1.0 / t5;
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
@@ -678,7 +648,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
-
         let t22 = t6 * param_b;
         let t24 = t4 * t22 * t19;
         let t25 = t5 * param_a;
@@ -697,7 +666,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t42 = t35 + t41;
         let tvrho0 = -t25 * t26 * t42 - t24 + tzk0;
         vrho[ip * 2] += tvrho0;
-
         let t45 = -t8 - t30;
         let t48 = piecewise3(t11, 0.0, t27 * t45 * t32);
         let t49 = -t45;
@@ -705,7 +673,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t53 = t48 + t52;
         let tvrho1 = -t25 * t26 * t53 - t24 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
-
         let t56 = t4 * t6;
         let t57 = param_b * t8;
         let t59 = t56 * t57 * t19;
@@ -734,7 +701,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t99 = t86 + t98;
         let tv2rho20 = -t25 * t26 * t99 - t59 - 2.0 * t61 - t66 - 2.0 * t68;
         v2rho2[ip * 3] += tv2rho20;
-
         let t103 = t4 * t6 * t53;
         let t105 = t4 * t22 * t53;
         let t106 = t31 * t74;
@@ -746,7 +712,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t124 = t114 + t123;
         let tv2rho21 = -t25 * t26 * t124 - t103 - t105 - t59 - t61 - t66 - t68;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t129 = t45 * t45;
         let t130 = t129 * t74;
         let t133 = 2.0 * t29 + 2.0 * t79;
@@ -758,7 +723,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t148 = t138 + t147;
         let tv2rho22 = -t25 * t26 * t148 - 2.0 * t103 - 2.0 * t105 - t59 - t66;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t151 = param_b * t29;
         let t153 = t56 * t151 * t19;
         let t155 = t56 * t57 * t42;
@@ -789,7 +753,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t215 = t194 + t214;
         let tv3rho30 = -t25 * t26 * t215 + t153 - 3.0 * t155 - 3.0 * t158 - t163 - 3.0 * t165 - 3.0 * t168;
         v3rho3[ip * 4] += tv3rho30;
-
         let t221 = t56 * t57 * t53;
         let t224 = 2.0 * t4 * t6 * t124;
         let t226 = t56 * t64 * t53;
@@ -819,7 +782,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t288 = t258 + t287;
         let tv3rho31 = -t25 * t26 * t288 + t153 - 2.0 * t155 - t158 - t163 - 2.0 * t165 - t168 - t221 - t224 - t226 - t229;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t294 = t4 * t6 * t148;
         let t296 = t4 * t22 * t148;
         let t297 = t31 * t174;
@@ -839,7 +801,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t341 = t319 + t340;
         let tv3rho32 = -t25 * t26 * t341 + t153 - t155 - t163 - t165 - 2.0 * t221 - t224 - 2.0 * t226 - t229 - t294 - t296;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t348 = t129 * t45;
         let t349 = t348 * t174;
         let t351 = t45 * t74;
@@ -855,7 +816,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t385 = t366 + t384;
         let tv3rho33 = -t25 * t26 * t385 + t153 - t163 - 3.0 * t221 - 3.0 * t226 - 3.0 * t294 - 3.0 * t296;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
         let t390 = t56 * t63 * t78 * t19;
         let t394 = 2.0 * t56 * param_b * t78 * t19;
         let t396 = t56 * t151 * t42;
@@ -894,7 +854,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t495 = piecewise3(t16, 0.0, t494);
         let tv4rho40 = t390 - t394 + 4.0 * t396 - 6.0 * t399 - 4.0 * t402 - t407 + t411 - 4.0 * t413 - 6.0 * t416 - 4.0 * t419 - t25 * t26 * (t460 + t495);
         v4rho4[ip * 5] += tv4rho40;
-
         let t500 = t4 * t22 * t288;
         let t503 = t186 * t74 * t45;
         let t512 = t172 * t425 * t45;
@@ -929,7 +888,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t643 = t56 * t151 * t53;
         let tv4rho41 = -t419 - 3.0 * t500 - t25 * t26 * (t562 + t623) - t402 - 3.0 * t628 + t390 - t407 - t631 + 3.0 * t396 - 3.0 * t399 - 3.0 * t413 - 3.0 * t416 - t638 - t641 - t394 + t411 + t643;
         v4rho4[ip * 5 + 1] += tv4rho41;
-
         let t646 = t4 * t22 * t341;
         let t649 = t81 * t174 * t129;
         let t651 = t7 * t7;
@@ -960,7 +918,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t782 = t56 * t64 * t148;
         let tv4rho42 = -2.0 * t500 - 2.0 * t646 - t25 * t26 * (t708 + t765) - 2.0 * t628 - 2.0 * t771 + t390 - t407 - 2.0 * t631 + 2.0 * t396 - t399 - 2.0 * t413 - t416 - 4.0 * t637 - 4.0 * t640 - t779 - t394 + t411 + 2.0 * t643 - t782;
         v4rho4[ip * 5 + 2] += tv4rho42;
-
         let t790 = t4 * t6 * t385;
         let t792 = t4 * t22 * t385;
         let t794 = t31 * t425 * t348;
@@ -978,7 +935,6 @@ pub fn lda_x_sloc_lxc_pol(
         let t888 = piecewise3(t16, 0.0, t887);
         let tv4rho43 = t390 - t394 + t396 + 3.0 * t643 - t638 - 3.0 * t779 - 3.0 * t771 - t407 + t411 - t413 - 3.0 * t631 - t641 - 3.0 * t782 - 3.0 * t646 - t790 - t792 - t25 * t26 * (t841 + t888);
         v4rho4[ip * 5 + 3] += tv4rho43;
-
         let t898 = t129 * t129;
         let t899 = t898 * t425;
         let t902 = t129 * t174 * t133;
@@ -998,6 +954,5 @@ pub fn lda_x_sloc_lxc_pol(
         let t964 = piecewise3(t16, 0.0, t963);
         let tv4rho44 = t390 - t394 + 4.0 * t643 - 6.0 * t779 - 4.0 * t790 - t407 + t411 - 4.0 * t631 - 6.0 * t782 - 4.0 * t792 - t25 * t26 * (t931 + t964);
         v4rho4[ip * 5 + 4] += tv4rho44;
-
     }
 }

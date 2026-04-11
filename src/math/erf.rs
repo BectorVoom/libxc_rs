@@ -141,6 +141,13 @@ pub fn erf_approx(x: f64) -> f64 {
     )
 }
 
+/// Backward-compatible alias for generated kernels that still reference the
+/// older CubeCL-facing helper name.
+#[cube]
+pub fn erf_cube(x: f64) -> f64 {
+    erf_approx(x)
+}
+
 /// Compute the complementary error function erfc(x) = 1 - erf(x).
 ///
 /// Uses region-specific direct computation to avoid cancellation.

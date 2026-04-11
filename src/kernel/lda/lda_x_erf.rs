@@ -3,25 +3,27 @@
 //! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_x_erf.c`.
 //! Translation preserves exact maple2c variable names and operation order.
 
-#[allow(unused_variables, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
-use crate::math::constants::{M_PI, M_CBRT2, M_CBRT3, M_CBRT4};
+use crate::math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use crate::math::powers::{pow_1_3};
 use crate::math::piecewise::{piecewise3};
-use crate::math::erf::erf_cube;
+use crate::math::erf::{erf_approx};
 
 // ============================================================================
 // UNPOLARIZED FUNCTIONS
 // ============================================================================
 
 /// LDA_X_ERF exc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_exc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -40,7 +42,7 @@ pub fn lda_x_erf_exc_unpol(
         let t16 = pow_1_3(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
-        let t20 = t17 * t18 * p->hyb_omega[0];
+        let t20 = t17 * t18 * param_hyb_omega_0;
         let t23 = piecewise3(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t20 * t1 / t15 * t24 / 18.0;
@@ -62,7 +64,7 @@ pub fn lda_x_erf_exc_unpol(
         let t56 = piecewise3(t29, 1.35, t27);
         let t57 = f64::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_cube(t58 / 2.0);
+        let t60 = erf_approx(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
         let t65 = f64::exp(-t63 / 4.0);
@@ -73,18 +75,19 @@ pub fn lda_x_erf_exc_unpol(
         let t79 = t7 * t14 * t15 * t76;
         let tzk0 = -3.0 / 16.0 * t79;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_X_ERF vxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_vxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -103,7 +106,7 @@ pub fn lda_x_erf_vxc_unpol(
         let t16 = pow_1_3(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
-        let t20 = t17 * t18 * p->hyb_omega[0];
+        let t20 = t17 * t18 * param_hyb_omega_0;
         let t23 = piecewise3(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t20 * t1 / t15 * t24 / 18.0;
@@ -125,7 +128,7 @@ pub fn lda_x_erf_vxc_unpol(
         let t56 = piecewise3(t29, 1.35, t27);
         let t57 = f64::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_cube(t58 / 2.0);
+        let t60 = erf_approx(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
         let t65 = f64::exp(-t63 / 4.0);
@@ -136,7 +139,6 @@ pub fn lda_x_erf_vxc_unpol(
         let t79 = t7 * t14 * t15 * t76;
         let tzk0 = -3.0 / 16.0 * t79;
         zk[ip] += tzk0;
-
         let t82 = t15 * rho[ip];
         let t84 = t82 * t1 * t3;
         let t85 = t6 * t9;
@@ -163,19 +165,20 @@ pub fn lda_x_erf_vxc_unpol(
         let t148 = piecewise3(t28, -t87 * t93 / 18.0 + t97 * t93 / 240.0 - t101 * t93 / 4480.0 + t105 * t93 / 103680.0 - t109 * t93 / 2838528.0 + t113 * t93 / 89456640.0 - t117 * t93 / 3185049600.0 + t121 * t93 / 126340300800.0, -8.0 / 3.0 * t125 * t72 - 8.0 / 3.0 * t56 * t144);
         let tvrho0 = -t79 / 4.0 - 3.0 / 16.0 * t84 * t85 * t13 * t148;
         vrho[ip] += tvrho0;
-
     }
 }
 
 /// LDA_X_ERF fxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_fxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -194,7 +197,7 @@ pub fn lda_x_erf_fxc_unpol(
         let t16 = pow_1_3(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
-        let t20 = t17 * t18 * p->hyb_omega[0];
+        let t20 = t17 * t18 * param_hyb_omega_0;
         let t23 = piecewise3(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t20 * t1 / t15 * t24 / 18.0;
@@ -216,7 +219,7 @@ pub fn lda_x_erf_fxc_unpol(
         let t56 = piecewise3(t29, 1.35, t27);
         let t57 = f64::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_cube(t58 / 2.0);
+        let t60 = erf_approx(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
         let t65 = f64::exp(-t63 / 4.0);
@@ -227,7 +230,6 @@ pub fn lda_x_erf_fxc_unpol(
         let t79 = t7 * t14 * t15 * t76;
         let tzk0 = -3.0 / 16.0 * t79;
         zk[ip] += tzk0;
-
         let t82 = t15 * rho[ip];
         let t84 = t82 * t1 * t3;
         let t85 = t6 * t9;
@@ -254,7 +256,6 @@ pub fn lda_x_erf_fxc_unpol(
         let t148 = piecewise3(t28, -t87 * t93 / 18.0 + t97 * t93 / 240.0 - t101 * t93 / 4480.0 + t105 * t93 / 103680.0 - t109 * t93 / 2838528.0 + t113 * t93 / 89456640.0 - t117 * t93 / 3185049600.0 + t121 * t93 / 126340300800.0, -8.0 / 3.0 * t125 * t72 - 8.0 / 3.0 * t56 * t144);
         let tvrho0 = -t79 / 4.0 - 3.0 / 16.0 * t84 * t85 * t13 * t148;
         vrho[ip] += tvrho0;
-
         let t153 = t15 * t15;
         let t154 = 1.0 / t153;
         let t163 = t93 * t93;
@@ -277,11 +278,11 @@ pub fn lda_x_erf_fxc_unpol(
         let t254 = piecewise3(t28, t206, -8.0 / 3.0 * t207 * t72 - 16.0 / 3.0 * t125 * t144 - 8.0 / 3.0 * t56 * t250);
         let tv2rho20 = -t7 * t14 * t154 * t76 / 12.0 - t7 * t14 * t15 * t148 / 2.0 - 3.0 / 16.0 * t84 * t85 * t13 * t254;
         v2rho2[ip] += tv2rho20;
-
     }
 }
 
 /// LDA_X_ERF kxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_kxc_unpol(
     rho: &Array<f64>,
@@ -289,8 +290,9 @@ pub fn lda_x_erf_kxc_unpol(
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -309,7 +311,7 @@ pub fn lda_x_erf_kxc_unpol(
         let t16 = pow_1_3(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
-        let t20 = t17 * t18 * p->hyb_omega[0];
+        let t20 = t17 * t18 * param_hyb_omega_0;
         let t23 = piecewise3(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t20 * t1 / t15 * t24 / 18.0;
@@ -331,7 +333,7 @@ pub fn lda_x_erf_kxc_unpol(
         let t56 = piecewise3(t29, 1.35, t27);
         let t57 = f64::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_cube(t58 / 2.0);
+        let t60 = erf_approx(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
         let t65 = f64::exp(-t63 / 4.0);
@@ -342,7 +344,6 @@ pub fn lda_x_erf_kxc_unpol(
         let t79 = t7 * t14 * t15 * t76;
         let tzk0 = -3.0 / 16.0 * t79;
         zk[ip] += tzk0;
-
         let t82 = t15 * rho[ip];
         let t84 = t82 * t1 * t3;
         let t85 = t6 * t9;
@@ -369,7 +370,6 @@ pub fn lda_x_erf_kxc_unpol(
         let t148 = piecewise3(t28, -t87 * t93 / 18.0 + t97 * t93 / 240.0 - t101 * t93 / 4480.0 + t105 * t93 / 103680.0 - t109 * t93 / 2838528.0 + t113 * t93 / 89456640.0 - t117 * t93 / 3185049600.0 + t121 * t93 / 126340300800.0, -8.0 / 3.0 * t125 * t72 - 8.0 / 3.0 * t56 * t144);
         let tvrho0 = -t79 / 4.0 - 3.0 / 16.0 * t84 * t85 * t13 * t148;
         vrho[ip] += tvrho0;
-
         let t153 = t15 * t15;
         let t154 = 1.0 / t153;
         let t163 = t93 * t93;
@@ -392,7 +392,6 @@ pub fn lda_x_erf_kxc_unpol(
         let t254 = piecewise3(t28, t206, -8.0 / 3.0 * t207 * t72 - 16.0 / 3.0 * t125 * t144 - 8.0 / 3.0 * t56 * t250);
         let tv2rho20 = -t7 * t14 * t154 * t76 / 12.0 - t7 * t14 * t15 * t148 / 2.0 - 3.0 / 16.0 * t84 * t85 * t13 * t254;
         v2rho2[ip] += tv2rho20;
-
         let t260 = 1.0 / t153 / rho[ip];
         let t273 = t163 * t93;
         let t276 = t35 * t93;
@@ -426,11 +425,11 @@ pub fn lda_x_erf_kxc_unpol(
         let t416 = piecewise3(t28, t304 + t341, -8.0 / 3.0 * t343 * t72 - 8.0 * t207 * t144 - 8.0 * t125 * t250 - 8.0 / 3.0 * t56 * t412);
         let tv3rho30 = t7 * t14 * t260 * t76 / 18.0 - t7 * t14 * t154 * t148 / 4.0 - 3.0 / 4.0 * t7 * t14 * t15 * t254 - 3.0 / 16.0 * t84 * t85 * t13 * t416;
         v3rho3[ip] += tv3rho30;
-
     }
 }
 
 /// LDA_X_ERF lxc -- unpolarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_lxc_unpol(
     rho: &Array<f64>,
@@ -439,8 +438,9 @@ pub fn lda_x_erf_lxc_unpol(
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
     v4rho4: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
@@ -459,7 +459,7 @@ pub fn lda_x_erf_lxc_unpol(
         let t16 = pow_1_3(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
-        let t20 = t17 * t18 * p->hyb_omega[0];
+        let t20 = t17 * t18 * param_hyb_omega_0;
         let t23 = piecewise3(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t20 * t1 / t15 * t24 / 18.0;
@@ -481,7 +481,7 @@ pub fn lda_x_erf_lxc_unpol(
         let t56 = piecewise3(t29, 1.35, t27);
         let t57 = f64::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_cube(t58 / 2.0);
+        let t60 = erf_approx(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
         let t65 = f64::exp(-t63 / 4.0);
@@ -492,7 +492,6 @@ pub fn lda_x_erf_lxc_unpol(
         let t79 = t7 * t14 * t15 * t76;
         let tzk0 = -3.0 / 16.0 * t79;
         zk[ip] += tzk0;
-
         let t82 = t15 * rho[ip];
         let t84 = t82 * t1 * t3;
         let t85 = t6 * t9;
@@ -519,7 +518,6 @@ pub fn lda_x_erf_lxc_unpol(
         let t148 = piecewise3(t28, -t87 * t93 / 18.0 + t97 * t93 / 240.0 - t101 * t93 / 4480.0 + t105 * t93 / 103680.0 - t109 * t93 / 2838528.0 + t113 * t93 / 89456640.0 - t117 * t93 / 3185049600.0 + t121 * t93 / 126340300800.0, -8.0 / 3.0 * t125 * t72 - 8.0 / 3.0 * t56 * t144);
         let tvrho0 = -t79 / 4.0 - 3.0 / 16.0 * t84 * t85 * t13 * t148;
         vrho[ip] += tvrho0;
-
         let t153 = t15 * t15;
         let t154 = 1.0 / t153;
         let t163 = t93 * t93;
@@ -542,7 +540,6 @@ pub fn lda_x_erf_lxc_unpol(
         let t254 = piecewise3(t28, t206, -8.0 / 3.0 * t207 * t72 - 16.0 / 3.0 * t125 * t144 - 8.0 / 3.0 * t56 * t250);
         let tv2rho20 = -t7 * t14 * t154 * t76 / 12.0 - t7 * t14 * t15 * t148 / 2.0 - 3.0 / 16.0 * t84 * t85 * t13 * t254;
         v2rho2[ip] += tv2rho20;
-
         let t260 = 1.0 / t153 / rho[ip];
         let t273 = t163 * t93;
         let t276 = t35 * t93;
@@ -576,7 +573,6 @@ pub fn lda_x_erf_lxc_unpol(
         let t416 = piecewise3(t28, t304 + t341, -8.0 / 3.0 * t343 * t72 - 8.0 * t207 * t144 - 8.0 * t125 * t250 - 8.0 / 3.0 * t56 * t412);
         let tv3rho30 = t7 * t14 * t260 * t76 / 18.0 - t7 * t14 * t154 * t148 / 4.0 - 3.0 / 4.0 * t7 * t14 * t15 * t254 - 3.0 / 16.0 * t84 * t85 * t13 * t416;
         v3rho3[ip] += tv3rho30;
-
         let t438 = t166 * t166;
         let t444 = 140.0 / 729.0 * t20 * t1 / t15 / t438 * t24;
         let t445 = piecewise3(t29, t444, 0.0);
@@ -593,7 +589,6 @@ pub fn lda_x_erf_lxc_unpol(
         let t652 = piecewise3(t28, t488 + t539, -8.0 / 3.0 * t541 * t72 - 32.0 / 3.0 * t343 * t144 - 16.0 * t207 * t250 - 32.0 / 3.0 * t125 * t412 - 8.0 / 3.0 * t56 * t648);
         let tv4rho40 = -5.0 / 54.0 * t7 * t14 / t153 / t166 * t76 + 2.0 / 9.0 * t7 * t14 * t260 * t148 - t7 * t14 * t154 * t254 / 2.0 - t7 * t14 * t15 * t416 - 3.0 / 16.0 * t84 * t85 * t13 * t652;
         v4rho4[ip] += tv4rho40;
-
     }
 }
 
@@ -602,18 +597,19 @@ pub fn lda_x_erf_lxc_unpol(
 // ============================================================================
 
 /// LDA_X_ERF exc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_exc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = M_CBRT3;
         let t3 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -621,8 +617,8 @@ pub fn lda_x_erf_exc_pol(
         let t7 = t1 * t3 * t6;
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
-        let t10 = rho[ip * 2] - rho[ip * 2 + 1];
-        let t11 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 - rho1;
+        let t11 = rho0 + rho1;
         let t12 = 1.0 / t11;
         let t13 = t10 * t12;
         let t14 = 1.0 + t13;
@@ -637,7 +633,7 @@ pub fn lda_x_erf_exc_pol(
         let t24 = t23 * t23;
         let t25 = t3 * t3;
         let t26 = t24 * t25;
-        let t27 = t26 * p->hyb_omega[0];
+        let t27 = t26 * param_hyb_omega_0;
         let t28 = 1.0 / t22;
         let t29 = t1 * t28;
         let t30 = piecewise3(t15, t16, t18);
@@ -661,7 +657,7 @@ pub fn lda_x_erf_exc_pol(
         let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_cube(t65 / 2.0);
+        let t67 = erf_approx(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
         let t72 = f64::exp(-t70 / 4.0);
@@ -696,7 +692,7 @@ pub fn lda_x_erf_exc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_cube(t127 / 2.0);
+        let t129 = erf_approx(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
         let t134 = f64::exp(-t132 / 4.0);
@@ -708,24 +704,24 @@ pub fn lda_x_erf_exc_pol(
         let t148 = t7 * t92 * t146;
         let tzk0 = -3.0 / 32.0 * t86 - 3.0 / 32.0 * t148;
         zk[ip] += tzk0;
-
     }
 }
 
 /// LDA_X_ERF vxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_vxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = M_CBRT3;
         let t3 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -733,8 +729,8 @@ pub fn lda_x_erf_vxc_pol(
         let t7 = t1 * t3 * t6;
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
-        let t10 = rho[ip * 2] - rho[ip * 2 + 1];
-        let t11 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 - rho1;
+        let t11 = rho0 + rho1;
         let t12 = 1.0 / t11;
         let t13 = t10 * t12;
         let t14 = 1.0 + t13;
@@ -749,7 +745,7 @@ pub fn lda_x_erf_vxc_pol(
         let t24 = t23 * t23;
         let t25 = t3 * t3;
         let t26 = t24 * t25;
-        let t27 = t26 * p->hyb_omega[0];
+        let t27 = t26 * param_hyb_omega_0;
         let t28 = 1.0 / t22;
         let t29 = t1 * t28;
         let t30 = piecewise3(t15, t16, t18);
@@ -773,7 +769,7 @@ pub fn lda_x_erf_vxc_pol(
         let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_cube(t65 / 2.0);
+        let t67 = erf_approx(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
         let t72 = f64::exp(-t70 / 4.0);
@@ -808,7 +804,7 @@ pub fn lda_x_erf_vxc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_cube(t127 / 2.0);
+        let t129 = erf_approx(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
         let t134 = f64::exp(-t132 / 4.0);
@@ -820,7 +816,6 @@ pub fn lda_x_erf_vxc_pol(
         let t148 = t7 * t92 * t146;
         let tzk0 = -3.0 / 32.0 * t86 - 3.0 / 32.0 * t148;
         zk[ip] += tzk0;
-
         let t150 = 3.0 / 32.0 * t86;
         let t151 = 3.0 / 32.0 * t148;
         let t152 = t11 * t11;
@@ -912,7 +907,6 @@ pub fn lda_x_erf_vxc_pol(
         let t337 = 3.0 / 32.0 * t336;
         let tvrho0 = -t150 - t151 + t11 * (-t162 - t168 - t248 - t256 - t260 - t337);
         vrho[ip * 2] += tvrho0;
-
         let t340 = -t12 - t154;
         let t343 = piecewise3(t15, 0.0, 4.0 / 3.0 * t18 * t340);
         let t344 = t9 * t343;
@@ -963,25 +957,25 @@ pub fn lda_x_erf_vxc_pol(
         let t455 = 3.0 / 32.0 * t454;
         let tvrho1 = -t150 - t151 + t11 * (-t347 - t168 - t397 - t405 - t260 - t455);
         vrho[ip * 2 + 1] += tvrho1;
-
     }
 }
 
 /// LDA_X_ERF fxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_fxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = M_CBRT3;
         let t3 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -989,8 +983,8 @@ pub fn lda_x_erf_fxc_pol(
         let t7 = t1 * t3 * t6;
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
-        let t10 = rho[ip * 2] - rho[ip * 2 + 1];
-        let t11 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 - rho1;
+        let t11 = rho0 + rho1;
         let t12 = 1.0 / t11;
         let t13 = t10 * t12;
         let t14 = 1.0 + t13;
@@ -1005,7 +999,7 @@ pub fn lda_x_erf_fxc_pol(
         let t24 = t23 * t23;
         let t25 = t3 * t3;
         let t26 = t24 * t25;
-        let t27 = t26 * p->hyb_omega[0];
+        let t27 = t26 * param_hyb_omega_0;
         let t28 = 1.0 / t22;
         let t29 = t1 * t28;
         let t30 = piecewise3(t15, t16, t18);
@@ -1029,7 +1023,7 @@ pub fn lda_x_erf_fxc_pol(
         let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_cube(t65 / 2.0);
+        let t67 = erf_approx(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
         let t72 = f64::exp(-t70 / 4.0);
@@ -1064,7 +1058,7 @@ pub fn lda_x_erf_fxc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_cube(t127 / 2.0);
+        let t129 = erf_approx(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
         let t134 = f64::exp(-t132 / 4.0);
@@ -1076,7 +1070,6 @@ pub fn lda_x_erf_fxc_pol(
         let t148 = t7 * t92 * t146;
         let tzk0 = -3.0 / 32.0 * t86 - 3.0 / 32.0 * t148;
         zk[ip] += tzk0;
-
         let t150 = 3.0 / 32.0 * t86;
         let t151 = 3.0 / 32.0 * t148;
         let t152 = t11 * t11;
@@ -1168,7 +1161,6 @@ pub fn lda_x_erf_fxc_pol(
         let t337 = 3.0 / 32.0 * t336;
         let tvrho0 = -t150 - t151 + t11 * (-t162 - t168 - t248 - t256 - t260 - t337);
         vrho[ip * 2] += tvrho0;
-
         let t340 = -t12 - t154;
         let t343 = piecewise3(t15, 0.0, 4.0 / 3.0 * t18 * t340);
         let t344 = t9 * t343;
@@ -1219,7 +1211,6 @@ pub fn lda_x_erf_fxc_pol(
         let t455 = 3.0 / 32.0 * t454;
         let tvrho1 = -t150 - t151 + t11 * (-t347 - t168 - t397 - t405 - t260 - t455);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t459 = t167 / 16.0;
         let t462 = t259 / 16.0;
         let t464 = t155 * t155;
@@ -1321,7 +1312,6 @@ pub fn lda_x_erf_fxc_pol(
         let t755 = -t479 - t482 - t485 + t491 - t495 - t613 - t625 - t628 - t631 + t635 - t639 - t754;
         let tv2rho20 = -3.0 / 16.0 * t161 - t459 - 3.0 / 16.0 * t247 - 3.0 / 16.0 * t255 - t462 - 3.0 / 16.0 * t336 + t11 * t755;
         v2rho2[ip * 3] += tv2rho20;
-
         let t759 = t18 * t10;
         let t763 = piecewise3(t15, 0.0, 4.0 / 9.0 * t348 * t155 + 8.0 / 3.0 * t759 * t468);
         let t764 = t9 * t763;
@@ -1333,7 +1323,7 @@ pub fn lda_x_erf_fxc_pol(
         let t781 = t7 * t21 * t779;
         let t783 = t42 * t356;
         let t788 = t27 * t173 * t351;
-        let t791 = t26 * p->hyb_omega[0] * t1;
+        let t791 = t26 * param_hyb_omega_0 * t1;
         let t792 = t28 * t509;
         let t793 = t350 * t183;
         let t797 = t516 * t340;
@@ -1422,7 +1412,6 @@ pub fn lda_x_erf_fxc_pol(
         let t1037 = -3.0 / 32.0 * t766 - t769 / 32.0 - 3.0 / 32.0 * t772 - t481 / 32.0 + t491 - t494 / 32.0 - 3.0 / 32.0 * t777 - t781 / 32.0 - 3.0 / 32.0 * t896 - 3.0 / 32.0 * t907 - t910 / 32.0 - 3.0 / 32.0 * t913 - t627 / 32.0 + t635 - t638 / 32.0 - 3.0 / 32.0 * t918 - t922 / 32.0 - 3.0 / 32.0 * t1035;
         let tv2rho21 = t11 * t1037 - t162 - t248 - t256 - t337 - t347 - t397 - t405 - t455 - t459 - t462;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t1043 = t340 * t340;
         let t1047 = 2.0 * t153 + 2.0 * t469;
         let t1051 = piecewise3(t15, 0.0, 4.0 / 9.0 * t180 * t1043 + 4.0 / 3.0 * t18 * t1047);
@@ -1514,11 +1503,11 @@ pub fn lda_x_erf_fxc_pol(
         let t1272 = -t1055 - t1056 - t1059 + t491 - t1060 - t1157 - t1169 - t1170 - t1173 + t635 - t1174 - t1271;
         let tv2rho22 = -3.0 / 16.0 * t346 - t459 - 3.0 / 16.0 * t396 - 3.0 / 16.0 * t404 - t462 - 3.0 / 16.0 * t454 + t11 * t1272;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
     }
 }
 
 /// LDA_X_ERF kxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_kxc_pol(
     rho: &Array<f64>,
@@ -1526,14 +1515,14 @@ pub fn lda_x_erf_kxc_pol(
     vrho: &mut Array<f64>,
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = M_CBRT3;
         let t3 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -1541,8 +1530,8 @@ pub fn lda_x_erf_kxc_pol(
         let t7 = t1 * t3 * t6;
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
-        let t10 = rho[ip * 2] - rho[ip * 2 + 1];
-        let t11 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 - rho1;
+        let t11 = rho0 + rho1;
         let t12 = 1.0 / t11;
         let t13 = t10 * t12;
         let t14 = 1.0 + t13;
@@ -1557,7 +1546,7 @@ pub fn lda_x_erf_kxc_pol(
         let t24 = t23 * t23;
         let t25 = t3 * t3;
         let t26 = t24 * t25;
-        let t27 = t26 * p->hyb_omega[0];
+        let t27 = t26 * param_hyb_omega_0;
         let t28 = 1.0 / t22;
         let t29 = t1 * t28;
         let t30 = piecewise3(t15, t16, t18);
@@ -1581,7 +1570,7 @@ pub fn lda_x_erf_kxc_pol(
         let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_cube(t65 / 2.0);
+        let t67 = erf_approx(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
         let t72 = f64::exp(-t70 / 4.0);
@@ -1616,7 +1605,7 @@ pub fn lda_x_erf_kxc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_cube(t127 / 2.0);
+        let t129 = erf_approx(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
         let t134 = f64::exp(-t132 / 4.0);
@@ -1628,7 +1617,6 @@ pub fn lda_x_erf_kxc_pol(
         let t148 = t7 * t92 * t146;
         let tzk0 = -3.0 / 32.0 * t86 - 3.0 / 32.0 * t148;
         zk[ip] += tzk0;
-
         let t150 = 3.0 / 32.0 * t86;
         let t151 = 3.0 / 32.0 * t148;
         let t152 = t11 * t11;
@@ -1720,7 +1708,6 @@ pub fn lda_x_erf_kxc_pol(
         let t337 = 3.0 / 32.0 * t336;
         let tvrho0 = -t150 - t151 + t11 * (-t162 - t168 - t248 - t256 - t260 - t337);
         vrho[ip * 2] += tvrho0;
-
         let t340 = -t12 - t154;
         let t343 = piecewise3(t15, 0.0, 4.0 / 3.0 * t18 * t340);
         let t344 = t9 * t343;
@@ -1771,7 +1758,6 @@ pub fn lda_x_erf_kxc_pol(
         let t455 = 3.0 / 32.0 * t454;
         let tvrho1 = -t150 - t151 + t11 * (-t347 - t168 - t397 - t405 - t260 - t455);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t459 = t167 / 16.0;
         let t462 = t259 / 16.0;
         let t464 = t155 * t155;
@@ -1873,7 +1859,6 @@ pub fn lda_x_erf_kxc_pol(
         let t755 = -t479 - t482 - t485 + t491 - t495 - t613 - t625 - t628 - t631 + t635 - t639 - t754;
         let tv2rho20 = -3.0 / 16.0 * t161 - t459 - 3.0 / 16.0 * t247 - 3.0 / 16.0 * t255 - t462 - 3.0 / 16.0 * t336 + t11 * t755;
         v2rho2[ip * 3] += tv2rho20;
-
         let t759 = t18 * t10;
         let t763 = piecewise3(t15, 0.0, 4.0 / 9.0 * t348 * t155 + 8.0 / 3.0 * t759 * t468);
         let t764 = t9 * t763;
@@ -1885,7 +1870,7 @@ pub fn lda_x_erf_kxc_pol(
         let t781 = t7 * t21 * t779;
         let t783 = t42 * t356;
         let t788 = t27 * t173 * t351;
-        let t791 = t26 * p->hyb_omega[0] * t1;
+        let t791 = t26 * param_hyb_omega_0 * t1;
         let t792 = t28 * t509;
         let t793 = t350 * t183;
         let t797 = t516 * t340;
@@ -1974,7 +1959,6 @@ pub fn lda_x_erf_kxc_pol(
         let t1037 = -3.0 / 32.0 * t766 - t769 / 32.0 - 3.0 / 32.0 * t772 - t481 / 32.0 + t491 - t494 / 32.0 - 3.0 / 32.0 * t777 - t781 / 32.0 - 3.0 / 32.0 * t896 - 3.0 / 32.0 * t907 - t910 / 32.0 - 3.0 / 32.0 * t913 - t627 / 32.0 + t635 - t638 / 32.0 - 3.0 / 32.0 * t918 - t922 / 32.0 - 3.0 / 32.0 * t1035;
         let tv2rho21 = t11 * t1037 - t162 - t248 - t256 - t337 - t347 - t397 - t405 - t455 - t459 - t462;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t1043 = t340 * t340;
         let t1047 = 2.0 * t153 + 2.0 * t469;
         let t1051 = piecewise3(t15, 0.0, 4.0 / 9.0 * t180 * t1043 + 4.0 / 3.0 * t18 * t1047);
@@ -2066,7 +2050,6 @@ pub fn lda_x_erf_kxc_pol(
         let t1272 = -t1055 - t1056 - t1059 + t491 - t1060 - t1157 - t1169 - t1170 - t1173 + t635 - t1174 - t1271;
         let tv2rho22 = -3.0 / 16.0 * t346 - t459 - 3.0 / 16.0 * t396 - 3.0 / 16.0 * t404 - t462 - 3.0 / 16.0 * t454 + t11 * t1272;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t1275 = t7 * t253 * t632;
         let t1276 = t1275 / 16.0;
         let t1278 = 1.0 / t163 / t152;
@@ -2211,7 +2194,6 @@ pub fn lda_x_erf_kxc_pol(
         let t1724 = t634 / 16.0;
         let tv3rho30 = t11 * t1719 - 3.0 / 16.0 * t481 + t1722 - 3.0 / 16.0 * t627 + t1724 - 9.0 / 32.0 * t478 - 9.0 / 16.0 * t484 - 3.0 / 16.0 * t494 - 9.0 / 32.0 * t612 - 9.0 / 32.0 * t624 - 9.0 / 16.0 * t630 - 3.0 / 16.0 * t638 - 9.0 / 32.0 * t753;
         v3rho3[ip * 4] += tv3rho30;
-
         let t1737 = -t479 - t481 / 8.0 - t485 + t1722 - t494 / 8.0 - t613 - t625 - t627 / 8.0 - t631 + t1724 - t638 / 8.0 - t754;
         let t1748 = t487 * t451;
         let t1750 = t7 * t92 * t1748;
@@ -2352,7 +2334,6 @@ pub fn lda_x_erf_kxc_pol(
         let t2280 = t11 * (t1768 + t2269) - t2272 - t1056 - t2273 - t2274 - t1060 - t2275 - t2276 - t1170 - t2277 - t2278 - t1174 - t2279;
         let tv3rho31 = t1737 + t2280;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t2289 = t1275 / 48.0 - t1282 + t1287 / 48.0 - t1292 + t1325 / 48.0 + t1536 / 48.0 + t1750 / 24.0 - t1754 - t1757 + t1759 / 24.0 - t1763 + t1766 / 24.0 - t1771 + t1773 / 24.0 - t1797 - t1810 - t2044 - t2057;
         let t2290 = t164 * t1267;
         let t2292 = t7 * t92 * t2290;
@@ -2471,7 +2452,6 @@ pub fn lda_x_erf_kxc_pol(
         let t2788 = -t2275 - t2276 - t910 / 8.0 - t2277 - t2278 - t922 / 8.0 - t2279 - t1055 - t1059 - t1157 - t1169 - t1173 - t1271;
         let tv3rho32 = t2785 + t2788;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t2795 = t1158 * t398;
         let t2801 = 6.0 * t468 + 6.0 * t1303;
         let t2805 = piecewise3(t88, 0.0, -8.0 / 27.0 * t657 * t2795 + 4.0 / 3.0 * t406 * t1161 + 4.0 / 3.0 * t89 * t2801);
@@ -2549,11 +2529,11 @@ pub fn lda_x_erf_kxc_pol(
         let t3124 = -3.0 / 32.0 * t2292 - 3.0 / 32.0 * t2295 - 3.0 / 16.0 * t2298 - 3.0 / 16.0 * t2301 - 3.0 / 32.0 * t2305 - 3.0 / 32.0 * t2308 - t2809 - t2812 - t2815 - t2957 - t2971 - t2974 - t2977 - t3119 + t3120 + t3121 + t3122 + t3123 - t1282 - t1292;
         let tv3rho33 = t11 * t3124 + t1722 + t1724 - 3.0 / 16.0 * t769 - 3.0 / 16.0 * t781 - 3.0 / 16.0 * t910 - 3.0 / 16.0 * t922 - 9.0 / 32.0 * t1054 - 9.0 / 16.0 * t1058 - 9.0 / 32.0 * t1156 - 9.0 / 32.0 * t1168 - 9.0 / 16.0 * t1172 - 9.0 / 32.0 * t1270;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
     }
 }
 
 /// LDA_X_ERF lxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_x_erf_lxc_pol(
     rho: &Array<f64>,
@@ -2562,14 +2542,14 @@ pub fn lda_x_erf_lxc_pol(
     v2rho2: &mut Array<f64>,
     v3rho3: &mut Array<f64>,
     v4rho4: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
-    #[allow(unused_variables)] zeta_threshold: f64,
+    zeta_threshold: f64,
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-
         let t1 = M_CBRT3;
         let t3 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -2577,8 +2557,8 @@ pub fn lda_x_erf_lxc_pol(
         let t7 = t1 * t3 * t6;
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
-        let t10 = rho[ip * 2] - rho[ip * 2 + 1];
-        let t11 = rho[ip * 2] + rho[ip * 2 + 1];
+        let t10 = rho0 - rho1;
+        let t11 = rho0 + rho1;
         let t12 = 1.0 / t11;
         let t13 = t10 * t12;
         let t14 = 1.0 + t13;
@@ -2593,7 +2573,7 @@ pub fn lda_x_erf_lxc_pol(
         let t24 = t23 * t23;
         let t25 = t3 * t3;
         let t26 = t24 * t25;
-        let t27 = t26 * p->hyb_omega[0];
+        let t27 = t26 * param_hyb_omega_0;
         let t28 = 1.0 / t22;
         let t29 = t1 * t28;
         let t30 = piecewise3(t15, t16, t18);
@@ -2617,7 +2597,7 @@ pub fn lda_x_erf_lxc_pol(
         let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_cube(t65 / 2.0);
+        let t67 = erf_approx(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
         let t72 = f64::exp(-t70 / 4.0);
@@ -2652,7 +2632,7 @@ pub fn lda_x_erf_lxc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_cube(t127 / 2.0);
+        let t129 = erf_approx(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
         let t134 = f64::exp(-t132 / 4.0);
@@ -2664,7 +2644,6 @@ pub fn lda_x_erf_lxc_pol(
         let t148 = t7 * t92 * t146;
         let tzk0 = -3.0 / 32.0 * t86 - 3.0 / 32.0 * t148;
         zk[ip] += tzk0;
-
         let t150 = 3.0 / 32.0 * t86;
         let t151 = 3.0 / 32.0 * t148;
         let t152 = t11 * t11;
@@ -2756,7 +2735,6 @@ pub fn lda_x_erf_lxc_pol(
         let t337 = 3.0 / 32.0 * t336;
         let tvrho0 = -t150 - t151 + t11 * (-t162 - t168 - t248 - t256 - t260 - t337);
         vrho[ip * 2] += tvrho0;
-
         let t340 = -t12 - t154;
         let t343 = piecewise3(t15, 0.0, 4.0 / 3.0 * t18 * t340);
         let t344 = t9 * t343;
@@ -2807,7 +2785,6 @@ pub fn lda_x_erf_lxc_pol(
         let t455 = 3.0 / 32.0 * t454;
         let tvrho1 = -t150 - t151 + t11 * (-t347 - t168 - t397 - t405 - t260 - t455);
         vrho[ip * 2 + 1] += tvrho1;
-
         let t459 = t167 / 16.0;
         let t462 = t259 / 16.0;
         let t464 = t155 * t155;
@@ -2909,7 +2886,6 @@ pub fn lda_x_erf_lxc_pol(
         let t755 = -t479 - t482 - t485 + t491 - t495 - t613 - t625 - t628 - t631 + t635 - t639 - t754;
         let tv2rho20 = -3.0 / 16.0 * t161 - t459 - 3.0 / 16.0 * t247 - 3.0 / 16.0 * t255 - t462 - 3.0 / 16.0 * t336 + t11 * t755;
         v2rho2[ip * 3] += tv2rho20;
-
         let t759 = t18 * t10;
         let t763 = piecewise3(t15, 0.0, 4.0 / 9.0 * t348 * t155 + 8.0 / 3.0 * t759 * t468);
         let t764 = t9 * t763;
@@ -2921,7 +2897,7 @@ pub fn lda_x_erf_lxc_pol(
         let t781 = t7 * t21 * t779;
         let t783 = t42 * t356;
         let t788 = t27 * t173 * t351;
-        let t791 = t26 * p->hyb_omega[0] * t1;
+        let t791 = t26 * param_hyb_omega_0 * t1;
         let t792 = t28 * t509;
         let t793 = t350 * t183;
         let t797 = t516 * t340;
@@ -3010,7 +2986,6 @@ pub fn lda_x_erf_lxc_pol(
         let t1037 = -3.0 / 32.0 * t766 - t769 / 32.0 - 3.0 / 32.0 * t772 - t481 / 32.0 + t491 - t494 / 32.0 - 3.0 / 32.0 * t777 - t781 / 32.0 - 3.0 / 32.0 * t896 - 3.0 / 32.0 * t907 - t910 / 32.0 - 3.0 / 32.0 * t913 - t627 / 32.0 + t635 - t638 / 32.0 - 3.0 / 32.0 * t918 - t922 / 32.0 - 3.0 / 32.0 * t1035;
         let tv2rho21 = t11 * t1037 - t162 - t248 - t256 - t337 - t347 - t397 - t405 - t455 - t459 - t462;
         v2rho2[ip * 3 + 1] += tv2rho21;
-
         let t1043 = t340 * t340;
         let t1047 = 2.0 * t153 + 2.0 * t469;
         let t1051 = piecewise3(t15, 0.0, 4.0 / 9.0 * t180 * t1043 + 4.0 / 3.0 * t18 * t1047);
@@ -3102,7 +3077,6 @@ pub fn lda_x_erf_lxc_pol(
         let t1272 = -t1055 - t1056 - t1059 + t491 - t1060 - t1157 - t1169 - t1170 - t1173 + t635 - t1174 - t1271;
         let tv2rho22 = -3.0 / 16.0 * t346 - t459 - 3.0 / 16.0 * t396 - 3.0 / 16.0 * t404 - t462 - 3.0 / 16.0 * t454 + t11 * t1272;
         v2rho2[ip * 3 + 2] += tv2rho22;
-
         let t1275 = t7 * t253 * t632;
         let t1276 = t1275 / 16.0;
         let t1278 = 1.0 / t163 / t152;
@@ -3247,7 +3221,6 @@ pub fn lda_x_erf_lxc_pol(
         let t1724 = t634 / 16.0;
         let tv3rho30 = t11 * t1719 - 3.0 / 16.0 * t481 + t1722 - 3.0 / 16.0 * t627 + t1724 - 9.0 / 32.0 * t478 - 9.0 / 16.0 * t484 - 3.0 / 16.0 * t494 - 9.0 / 32.0 * t612 - 9.0 / 32.0 * t624 - 9.0 / 16.0 * t630 - 3.0 / 16.0 * t638 - 9.0 / 32.0 * t753;
         v3rho3[ip * 4] += tv3rho30;
-
         let t1737 = -t479 - t481 / 8.0 - t485 + t1722 - t494 / 8.0 - t613 - t625 - t627 / 8.0 - t631 + t1724 - t638 / 8.0 - t754;
         let t1748 = t487 * t451;
         let t1750 = t7 * t92 * t1748;
@@ -3388,7 +3361,6 @@ pub fn lda_x_erf_lxc_pol(
         let t2280 = t11 * (t1768 + t2269) - t2272 - t1056 - t2273 - t2274 - t1060 - t2275 - t2276 - t1170 - t2277 - t2278 - t1174 - t2279;
         let tv3rho31 = t1737 + t2280;
         v3rho3[ip * 4 + 1] += tv3rho31;
-
         let t2289 = t1275 / 48.0 - t1282 + t1287 / 48.0 - t1292 + t1325 / 48.0 + t1536 / 48.0 + t1750 / 24.0 - t1754 - t1757 + t1759 / 24.0 - t1763 + t1766 / 24.0 - t1771 + t1773 / 24.0 - t1797 - t1810 - t2044 - t2057;
         let t2290 = t164 * t1267;
         let t2292 = t7 * t92 * t2290;
@@ -3507,7 +3479,6 @@ pub fn lda_x_erf_lxc_pol(
         let t2788 = -t2275 - t2276 - t910 / 8.0 - t2277 - t2278 - t922 / 8.0 - t2279 - t1055 - t1059 - t1157 - t1169 - t1173 - t1271;
         let tv3rho32 = t2785 + t2788;
         v3rho3[ip * 4 + 2] += tv3rho32;
-
         let t2795 = t1158 * t398;
         let t2801 = 6.0 * t468 + 6.0 * t1303;
         let t2805 = piecewise3(t88, 0.0, -8.0 / 27.0 * t657 * t2795 + 4.0 / 3.0 * t406 * t1161 + 4.0 / 3.0 * t89 * t2801);
@@ -3585,7 +3556,6 @@ pub fn lda_x_erf_lxc_pol(
         let t3124 = -3.0 / 32.0 * t2292 - 3.0 / 32.0 * t2295 - 3.0 / 16.0 * t2298 - 3.0 / 16.0 * t2301 - 3.0 / 32.0 * t2305 - 3.0 / 32.0 * t2308 - t2809 - t2812 - t2815 - t2957 - t2971 - t2974 - t2977 - t3119 + t3120 + t3121 + t3122 + t3123 - t1282 - t1292;
         let tv3rho33 = t11 * t3124 + t1722 + t1724 - 3.0 / 16.0 * t769 - 3.0 / 16.0 * t781 - 3.0 / 16.0 * t910 - 3.0 / 16.0 * t922 - 9.0 / 32.0 * t1054 - 9.0 / 16.0 * t1058 - 9.0 / 32.0 * t1156 - 9.0 / 32.0 * t1168 - 9.0 / 16.0 * t1172 - 9.0 / 32.0 * t1270;
         v3rho3[ip * 4 + 3] += tv3rho33;
-
         let t3136 = t496 * t496;
         let t3139 = t528 * t528;
         let t3163 = 1.0 / t59 / t41;
@@ -3685,7 +3655,6 @@ pub fn lda_x_erf_lxc_pol(
         let t3838 = -9.0 / 8.0 * t1321 + t1325 / 4.0 - 3.0 / 8.0 * t1329 - 3.0 / 8.0 * t1509 - 3.0 / 8.0 * t1523 - 9.0 / 8.0 * t1526 - 3.0 / 4.0 * t1529 - 9.0 / 8.0 * t1532 + t1536 / 4.0 - 3.0 / 8.0 * t1540 - 3.0 / 8.0 * t1717;
         let tv4rho40 = t11 * (t3747 + t3814) + t1275 / 4.0 - t3818 - 3.0 / 8.0 * t1284 + t1287 / 4.0 - t3821 - 3.0 / 8.0 * t1294 - 3.0 / 8.0 * t1312 - 9.0 / 8.0 * t1315 - 3.0 / 4.0 * t1318 + t3838;
         v4rho4[ip * 5] += tv4rho40;
-
         let t3840 = t7 * t764 * t492;
         let t3843 = t7 * t344 * t1323;
         let t3844 = t3843 / 16.0;
@@ -3814,7 +3783,6 @@ pub fn lda_x_erf_lxc_pol(
         let t4801 = -9.0 / 32.0 * t1802 - 9.0 / 16.0 * t1805 - t4791 - 9.0 / 32.0 * t2020 - 9.0 / 32.0 * t2037 - 9.0 / 16.0 * t2040 - t4795 - 9.0 / 32.0 * t2046 - 9.0 / 32.0 * t2049 - 9.0 / 16.0 * t2052 - t4799 - 9.0 / 32.0 * t2267;
         let tv4rho41 = t4772 + t4778 + t4788 + t4801;
         v4rho4[ip * 5 + 1] += tv4rho41;
-
         let t4803 = t189 * t810;
         let t4820 = t810 * t810;
         let t4832 = t27 * t173 * t2413;
@@ -3907,7 +3875,6 @@ pub fn lda_x_erf_lxc_pol(
         let t5918 = -t2305 / 16.0 - t2308 / 16.0 - 3.0 / 16.0 * t2311 - 3.0 / 16.0 * t2521 - 3.0 / 16.0 * t2536 - 3.0 / 16.0 * t2539 - 3.0 / 8.0 * t2542 - 3.0 / 8.0 * t2545 - 3.0 / 16.0 * t2548 - 3.0 / 16.0 * t2755 - 3.0 / 16.0 * t2769 - 3.0 / 16.0 * t2772 - 3.0 / 8.0 * t2775 - 3.0 / 8.0 * t2778;
         let tv4rho42 = t5872 + t5887 + t5903 + t5918;
         v4rho4[ip * 5 + 2] += tv4rho42;
-
         let t5920 = t1195 * t278;
         let t5947 = t27 * t173 * t2820;
         let t5957 = t791 * t2122 * t2824;
@@ -3984,7 +3951,6 @@ pub fn lda_x_erf_lxc_pol(
         let t6778 = -9.0 / 32.0 * t2311 - 9.0 / 32.0 * t2521 - 9.0 / 32.0 * t2536 - 9.0 / 32.0 * t2539 - 9.0 / 16.0 * t2542 - 9.0 / 16.0 * t2545 - 9.0 / 32.0 * t2548 - 9.0 / 32.0 * t2755 - 9.0 / 32.0 * t2769 - 9.0 / 32.0 * t2772 - 9.0 / 16.0 * t2775 - 9.0 / 16.0 * t2778;
         let tv4rho43 = t6752 + t6756 + t6765 + t6778;
         v4rho4[ip * 5 + 3] += tv4rho43;
-
         let t6789 = t1065 * t1065;
         let t6798 = t1075 * t1075;
         let t6807 = t1043 * t1043;
@@ -4028,6 +3994,5 @@ pub fn lda_x_erf_lxc_pol(
         let t7340 = -3.0 / 8.0 * t2956 - 3.0 / 8.0 * t2970 - 9.0 / 8.0 * t2973 - 9.0 / 8.0 * t2976 - 3.0 / 8.0 * t3118 + t1750 / 4.0 + t1759 / 4.0 + t1766 / 4.0 + t1773 / 4.0 - t3818 - t3821;
         let tv4rho44 = t11 * (t7304 + t7318) - 3.0 / 8.0 * t2292 - 3.0 / 8.0 * t2295 - 3.0 / 4.0 * t2298 - 3.0 / 4.0 * t2301 - 3.0 / 8.0 * t2305 - 3.0 / 8.0 * t2308 - 3.0 / 8.0 * t2808 - 9.0 / 8.0 * t2811 - 9.0 / 8.0 * t2814 + t7340;
         v4rho4[ip * 5 + 4] += tv4rho44;
-
     }
 }
