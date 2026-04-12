@@ -1,0 +1,4 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /workspace/tools/gga_test_crate/Cargo.toml
+workspace: /workspace/Cargo.toml
+    Checking libxc_rs v0.1.0 (/workspace)

@@ -1,0 +1,2350 @@
+    Checking libxc_rs v0.1.0 (/workspace)
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/exc_unpol.rs:74:35
+   |
+74 |         let t77 = piecewise3(t76, DBL_EPSILON, t75);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/vxc_unpol.rs:76:35
+   |
+76 |         let t77 = piecewise3(t76, DBL_EPSILON, t75);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/fxc_unpol.rs:79:35
+   |
+79 |         let t77 = piecewise3(t76, DBL_EPSILON, t75);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/kxc_unpol.rs:83:35
+   |
+83 |         let t77 = piecewise3(t76, DBL_EPSILON, t75);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/lxc_unpol.rs:88:35
+   |
+88 |         let t77 = piecewise3(t76, DBL_EPSILON, t75);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_b88/exc_pol.rs:99:37
+   |
+99 |         let t111 = piecewise3(t110, DBL_EPSILON, t109);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_b88/vxc_pol.rs:101:37
+    |
+101 |         let t111 = piecewise3(t110, DBL_EPSILON, t109);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_b88/fxc_pol.rs:104:37
+    |
+104 |         let t111 = piecewise3(t110, DBL_EPSILON, t109);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_b88/kxc_pol.rs:108:37
+    |
+108 |         let t111 = piecewise3(t110, DBL_EPSILON, t109);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_b88/lxc_pol.rs:113:37
+    |
+113 |         let t111 = piecewise3(t110, DBL_EPSILON, t109);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/exc_unpol.rs:67:35
+   |
+67 |         let t66 = piecewise3(t65, DBL_EPSILON, t64);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/vxc_unpol.rs:69:35
+   |
+69 |         let t66 = piecewise3(t65, DBL_EPSILON, t64);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/fxc_unpol.rs:72:35
+   |
+72 |         let t66 = piecewise3(t65, DBL_EPSILON, t64);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/kxc_unpol.rs:76:35
+   |
+76 |         let t66 = piecewise3(t65, DBL_EPSILON, t64);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/lxc_unpol.rs:81:35
+   |
+81 |         let t66 = piecewise3(t65, DBL_EPSILON, t64);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/exc_pol.rs:88:35
+   |
+88 |         let t95 = piecewise3(t94, DBL_EPSILON, t93);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/vxc_pol.rs:90:35
+   |
+90 |         let t95 = piecewise3(t94, DBL_EPSILON, t93);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/fxc_pol.rs:93:35
+   |
+93 |         let t95 = piecewise3(t94, DBL_EPSILON, t93);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_g96/kxc_pol.rs:97:35
+   |
+97 |         let t95 = piecewise3(t94, DBL_EPSILON, t93);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_g96/lxc_pol.rs:102:35
+    |
+102 |         let t95 = piecewise3(t94, DBL_EPSILON, t93);
+    |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/exc_unpol.rs:71:35
+   |
+71 |         let t74 = piecewise3(t73, DBL_EPSILON, t72);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/vxc_unpol.rs:73:35
+   |
+73 |         let t74 = piecewise3(t73, DBL_EPSILON, t72);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/fxc_unpol.rs:76:35
+   |
+76 |         let t74 = piecewise3(t73, DBL_EPSILON, t72);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/kxc_unpol.rs:80:35
+   |
+80 |         let t74 = piecewise3(t73, DBL_EPSILON, t72);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/lxc_unpol.rs:85:35
+   |
+85 |         let t74 = piecewise3(t73, DBL_EPSILON, t72);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/exc_pol.rs:91:37
+   |
+91 |         let t103 = piecewise3(t102, DBL_EPSILON, t101);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/vxc_pol.rs:93:37
+   |
+93 |         let t103 = piecewise3(t102, DBL_EPSILON, t101);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pbe/fxc_pol.rs:96:37
+   |
+96 |         let t103 = piecewise3(t102, DBL_EPSILON, t101);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pbe/kxc_pol.rs:100:37
+    |
+100 |         let t103 = piecewise3(t102, DBL_EPSILON, t101);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pbe/lxc_pol.rs:105:37
+    |
+105 |         let t103 = piecewise3(t102, DBL_EPSILON, t101);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pw91/exc_unpol.rs:96:37
+   |
+96 |         let t110 = piecewise3(t109, DBL_EPSILON, t108);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_pw91/vxc_unpol.rs:98:37
+   |
+98 |         let t110 = piecewise3(t109, DBL_EPSILON, t108);
+   |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/fxc_unpol.rs:101:37
+    |
+101 |         let t110 = piecewise3(t109, DBL_EPSILON, t108);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/kxc_unpol.rs:105:37
+    |
+105 |         let t110 = piecewise3(t109, DBL_EPSILON, t108);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/lxc_unpol.rs:110:37
+    |
+110 |         let t110 = piecewise3(t109, DBL_EPSILON, t108);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/exc_pol.rs:127:37
+    |
+127 |         let t163 = piecewise3(t162, DBL_EPSILON, t161);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/vxc_pol.rs:129:37
+    |
+129 |         let t163 = piecewise3(t162, DBL_EPSILON, t161);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/fxc_pol.rs:132:37
+    |
+132 |         let t163 = piecewise3(t162, DBL_EPSILON, t161);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/kxc_pol.rs:136:37
+    |
+136 |         let t163 = piecewise3(t162, DBL_EPSILON, t161);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_op_pw91/lxc_pol.rs:141:37
+    |
+141 |         let t163 = piecewise3(t162, DBL_EPSILON, t161);
+    |                                     ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/exc_unpol.rs:55:35
+   |
+55 |         let t51 = piecewise3(t50, DBL_EPSILON, t49);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/vxc_unpol.rs:57:35
+   |
+57 |         let t51 = piecewise3(t50, DBL_EPSILON, t49);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/fxc_unpol.rs:60:35
+   |
+60 |         let t51 = piecewise3(t50, DBL_EPSILON, t49);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/kxc_unpol.rs:64:35
+   |
+64 |         let t51 = piecewise3(t50, DBL_EPSILON, t49);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/lxc_unpol.rs:69:35
+   |
+69 |         let t51 = piecewise3(t50, DBL_EPSILON, t49);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/exc_pol.rs:69:35
+   |
+69 |         let t69 = piecewise3(t68, DBL_EPSILON, t67);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/vxc_pol.rs:71:35
+   |
+71 |         let t69 = piecewise3(t68, DBL_EPSILON, t67);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/fxc_pol.rs:74:35
+   |
+74 |         let t69 = piecewise3(t68, DBL_EPSILON, t67);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/kxc_pol.rs:78:35
+   |
+78 |         let t69 = piecewise3(t68, DBL_EPSILON, t67);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_op_xalpha/lxc_pol.rs:83:35
+   |
+83 |         let t69 = piecewise3(t68, DBL_EPSILON, t67);
+   |                                   ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_revtca/exc_pol.rs:89:27
+   |
+89 |         let t77 = pow_1_4(DBL_EPSILON);
+   |                           ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_revtca/vxc_pol.rs:91:27
+   |
+91 |         let t77 = pow_1_4(DBL_EPSILON);
+   |                           ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_revtca/fxc_pol.rs:94:27
+   |
+94 |         let t77 = pow_1_4(DBL_EPSILON);
+   |                           ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_c_revtca/kxc_pol.rs:98:27
+   |
+98 |         let t77 = pow_1_4(DBL_EPSILON);
+   |                           ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+   --> src/kernel/gga/gga_c_revtca/lxc_pol.rs:103:27
+    |
+103 |         let t77 = pow_1_4(DBL_EPSILON);
+    |                           ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/exc_unpol.rs:51:29
+   |
+51 |         let t38 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/vxc_unpol.rs:53:29
+   |
+53 |         let t38 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/fxc_unpol.rs:56:29
+   |
+56 |         let t38 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/kxc_unpol.rs:60:29
+   |
+60 |         let t38 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/lxc_unpol.rs:65:29
+   |
+65 |         let t38 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/exc_pol.rs:62:29
+   |
+62 |         let t45 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/vxc_pol.rs:64:29
+   |
+64 |         let t45 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/fxc_pol.rs:67:29
+   |
+67 |         let t45 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/kxc_pol.rs:71:29
+   |
+71 |         let t45 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `DBL_EPSILON` in this scope
+  --> src/kernel/gga/gga_k_vt84f/lxc_pol.rs:76:29
+   |
+76 |         let t45 = f64::sqrt(DBL_EPSILON);
+   |                             ^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:55:38
+   |
+55 |         let t44 = xbspline(t43, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:92:41
+   |
+92 |         let t119 = cbspline(-t118, 0.0, params);
+   |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:57:38
+   |
+57 |         let t44 = xbspline(t43, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:94:41
+   |
+94 |         let t119 = cbspline(-t118, 0.0, params);
+   |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:99:39
+   |
+99 |         let t126 = xbspline(t43, 1.0, params);
+   |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:117:41
+    |
+117 |         let t161 = cbspline(-t118, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:60:38
+   |
+60 |         let t44 = xbspline(t43, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:97:41
+   |
+97 |         let t119 = cbspline(-t118, 0.0, params);
+   |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:102:39
+    |
+102 |         let t126 = xbspline(t43, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:120:41
+    |
+120 |         let t161 = cbspline(-t118, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:176:39
+    |
+176 |         let t283 = xbspline(t43, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:192:41
+    |
+192 |         let t322 = cbspline(-t118, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:64:38
+   |
+64 |         let t44 = xbspline(t43, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:101:41
+    |
+101 |         let t119 = cbspline(-t118, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:106:39
+    |
+106 |         let t126 = xbspline(t43, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:124:41
+    |
+124 |         let t161 = cbspline(-t118, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:180:39
+    |
+180 |         let t283 = xbspline(t43, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:196:41
+    |
+196 |         let t322 = cbspline(-t118, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:295:39
+    |
+295 |         let t558 = xbspline(t43, 3.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:314:41
+    |
+314 |         let t607 = cbspline(-t118, 3.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:69:38
+   |
+69 |         let t44 = xbspline(t43, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:106:41
+    |
+106 |         let t119 = cbspline(-t118, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:111:39
+    |
+111 |         let t126 = xbspline(t43, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:129:41
+    |
+129 |         let t161 = cbspline(-t118, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:185:39
+    |
+185 |         let t283 = xbspline(t43, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:201:41
+    |
+201 |         let t322 = cbspline(-t118, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:300:39
+    |
+300 |         let t558 = xbspline(t43, 3.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:319:41
+    |
+319 |         let t607 = cbspline(-t118, 3.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:467:40
+    |
+467 |         let t1047 = xbspline(t43, 4.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:477:42
+    |
+477 |         let t1109 = cbspline(-t118, 4.0, params);
+    |                                          ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:67:38
+   |
+67 |         let t51 = xbspline(t50, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:85:38
+   |
+85 |         let t81 = xbspline(t80, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:159:41
+    |
+159 |         let t198 = cbspline(-t197, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:69:38
+   |
+69 |         let t51 = xbspline(t50, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:87:38
+   |
+87 |         let t81 = xbspline(t80, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:161:41
+    |
+161 |         let t198 = cbspline(-t197, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:172:39
+    |
+172 |         let t216 = xbspline(t50, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:196:41
+    |
+196 |         let t266 = cbspline(-t197, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:283:39
+    |
+283 |         let t425 = xbspline(t80, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:72:38
+   |
+72 |         let t51 = xbspline(t50, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:90:38
+   |
+90 |         let t81 = xbspline(t80, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:164:41
+    |
+164 |         let t198 = cbspline(-t197, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:175:39
+    |
+175 |         let t216 = xbspline(t50, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:199:41
+    |
+199 |         let t266 = cbspline(-t197, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:286:39
+    |
+286 |         let t425 = xbspline(t80, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:376:39
+    |
+376 |         let t598 = xbspline(t50, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:404:41
+    |
+404 |         let t666 = cbspline(-t197, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:622:40
+    |
+622 |         let t1117 = xbspline(t80, 2.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:76:38
+   |
+76 |         let t51 = xbspline(t50, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:94:38
+   |
+94 |         let t81 = xbspline(t80, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:168:41
+    |
+168 |         let t198 = cbspline(-t197, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:179:39
+    |
+179 |         let t216 = xbspline(t50, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:203:41
+    |
+203 |         let t266 = cbspline(-t197, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:290:39
+    |
+290 |         let t425 = xbspline(t80, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:380:39
+    |
+380 |         let t598 = xbspline(t50, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:408:41
+    |
+408 |         let t666 = cbspline(-t197, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:626:40
+    |
+626 |         let t1117 = xbspline(t80, 2.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:885:40
+    |
+885 |         let t1628 = xbspline(t50, 3.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:902:42
+    |
+902 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                                          ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:1355:40
+     |
+1355 |         let t2754 = xbspline(t80, 3.0, params);
+     |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:81:38
+   |
+81 |         let t51 = xbspline(t50, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:99:38
+   |
+99 |         let t81 = xbspline(t80, 0.0, params);
+   |                                      ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:173:41
+    |
+173 |         let t198 = cbspline(-t197, 0.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:184:39
+    |
+184 |         let t216 = xbspline(t50, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:208:41
+    |
+208 |         let t266 = cbspline(-t197, 1.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:295:39
+    |
+295 |         let t425 = xbspline(t80, 1.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:385:39
+    |
+385 |         let t598 = xbspline(t50, 2.0, params);
+    |                                       ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:413:41
+    |
+413 |         let t666 = cbspline(-t197, 2.0, params);
+    |                                         ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:631:40
+    |
+631 |         let t1117 = xbspline(t80, 2.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:890:40
+    |
+890 |         let t1628 = xbspline(t50, 3.0, params);
+    |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:907:42
+    |
+907 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                                          ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1360:40
+     |
+1360 |         let t2754 = xbspline(t80, 3.0, params);
+     |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1999:40
+     |
+1999 |         let t4123 = xbspline(t50, 4.0, params);
+     |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2032:42
+     |
+2032 |         let t4241 = cbspline(-t197, 4.0, params);
+     |                                          ^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `params` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2562:40
+     |
+2562 |         let t6692 = xbspline(t80, 4.0, params);
+     |                                        ^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `sin` in this scope
+   --> src/kernel/gga/gga_c_revtca/exc_pol.rs:116:20
+    |
+116 |         let t124 = sin(t123);
+    |                    ^^^
+    |
+   ::: /home/vscode/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.9.0/src/frontend/operation/binary.rs:210:1
+    |
+210 | pub fn min<T: PartialOrd + CubePrimitive>(lhs: T, rhs: T) -> T {
+    | -------------------------------------------------------------- similarly named function `min` defined here
+    |
+help: a function with a similar name exists
+    |
+116 -         let t124 = sin(t123);
+116 +         let t124 = min(t123);
+    |
+help: use the `.` operator to call the method `sin` on `f64`
+    |
+116 -         let t124 = sin(t123);
+116 +         let t124 = t123.sin();
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `sin`
+   --> src/kernel/gga/gga_c_revtca/exc_pol.rs:116:20
+    |
+116 |         let t124 = sin(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `sin`
+    |
+    = help: if you wanted to use a crate named `sin`, use `cargo add sin` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+116 -         let t124 = sin(t123);
+116 +         let t124 = Sin(t123);
+    |
+
+error[E0425]: cannot find function `sin` in this scope
+   --> src/kernel/gga/gga_c_revtca/vxc_pol.rs:118:20
+    |
+118 |         let t124 = sin(t123);
+    |                    ^^^
+    |
+   ::: /home/vscode/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.9.0/src/frontend/operation/binary.rs:210:1
+    |
+210 | pub fn min<T: PartialOrd + CubePrimitive>(lhs: T, rhs: T) -> T {
+    | -------------------------------------------------------------- similarly named function `min` defined here
+    |
+help: a function with a similar name exists
+    |
+118 -         let t124 = sin(t123);
+118 +         let t124 = min(t123);
+    |
+help: use the `.` operator to call the method `sin` on `f64`
+    |
+118 -         let t124 = sin(t123);
+118 +         let t124 = t123.sin();
+    |
+
+error[E0425]: cannot find function `cos` in this scope
+   --> src/kernel/gga/gga_c_revtca/vxc_pol.rs:174:20
+    |
+174 |         let t209 = cos(t123);
+    |                    ^^^ not found in this scope
+    |
+help: use the `.` operator to call the method `cos` on `f64`
+    |
+174 -         let t209 = cos(t123);
+174 +         let t209 = t123.cos();
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `sin`
+   --> src/kernel/gga/gga_c_revtca/vxc_pol.rs:118:20
+    |
+118 |         let t124 = sin(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `sin`
+    |
+    = help: if you wanted to use a crate named `sin`, use `cargo add sin` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+118 -         let t124 = sin(t123);
+118 +         let t124 = Sin(t123);
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cos`
+   --> src/kernel/gga/gga_c_revtca/vxc_pol.rs:174:20
+    |
+174 |         let t209 = cos(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `cos`
+    |
+    = help: if you wanted to use a crate named `cos`, use `cargo add cos` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+174 -         let t209 = cos(t123);
+174 +         let t209 = Cos(t123);
+    |
+
+error[E0425]: cannot find function `sin` in this scope
+   --> src/kernel/gga/gga_c_revtca/fxc_pol.rs:121:20
+    |
+121 |         let t124 = sin(t123);
+    |                    ^^^
+    |
+   ::: /home/vscode/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.9.0/src/frontend/operation/binary.rs:210:1
+    |
+210 | pub fn min<T: PartialOrd + CubePrimitive>(lhs: T, rhs: T) -> T {
+    | -------------------------------------------------------------- similarly named function `min` defined here
+    |
+help: a function with a similar name exists
+    |
+121 -         let t124 = sin(t123);
+121 +         let t124 = min(t123);
+    |
+help: use the `.` operator to call the method `sin` on `f64`
+    |
+121 -         let t124 = sin(t123);
+121 +         let t124 = t123.sin();
+    |
+
+error[E0425]: cannot find function `cos` in this scope
+   --> src/kernel/gga/gga_c_revtca/fxc_pol.rs:177:20
+    |
+177 |         let t209 = cos(t123);
+    |                    ^^^ not found in this scope
+    |
+help: use the `.` operator to call the method `cos` on `f64`
+    |
+177 -         let t209 = cos(t123);
+177 +         let t209 = t123.cos();
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `sin`
+   --> src/kernel/gga/gga_c_revtca/fxc_pol.rs:121:20
+    |
+121 |         let t124 = sin(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `sin`
+    |
+    = help: if you wanted to use a crate named `sin`, use `cargo add sin` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+121 -         let t124 = sin(t123);
+121 +         let t124 = Sin(t123);
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cos`
+   --> src/kernel/gga/gga_c_revtca/fxc_pol.rs:177:20
+    |
+177 |         let t209 = cos(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `cos`
+    |
+    = help: if you wanted to use a crate named `cos`, use `cargo add cos` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+177 -         let t209 = cos(t123);
+177 +         let t209 = Cos(t123);
+    |
+
+error[E0425]: cannot find function `sin` in this scope
+   --> src/kernel/gga/gga_c_revtca/kxc_pol.rs:125:20
+    |
+125 |         let t124 = sin(t123);
+    |                    ^^^
+    |
+   ::: /home/vscode/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.9.0/src/frontend/operation/binary.rs:210:1
+    |
+210 | pub fn min<T: PartialOrd + CubePrimitive>(lhs: T, rhs: T) -> T {
+    | -------------------------------------------------------------- similarly named function `min` defined here
+    |
+help: a function with a similar name exists
+    |
+125 -         let t124 = sin(t123);
+125 +         let t124 = min(t123);
+    |
+help: use the `.` operator to call the method `sin` on `f64`
+    |
+125 -         let t124 = sin(t123);
+125 +         let t124 = t123.sin();
+    |
+
+error[E0425]: cannot find function `cos` in this scope
+   --> src/kernel/gga/gga_c_revtca/kxc_pol.rs:181:20
+    |
+181 |         let t209 = cos(t123);
+    |                    ^^^ not found in this scope
+    |
+help: use the `.` operator to call the method `cos` on `f64`
+    |
+181 -         let t209 = cos(t123);
+181 +         let t209 = t123.cos();
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `sin`
+   --> src/kernel/gga/gga_c_revtca/kxc_pol.rs:125:20
+    |
+125 |         let t124 = sin(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `sin`
+    |
+    = help: if you wanted to use a crate named `sin`, use `cargo add sin` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+125 -         let t124 = sin(t123);
+125 +         let t124 = Sin(t123);
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cos`
+   --> src/kernel/gga/gga_c_revtca/kxc_pol.rs:181:20
+    |
+181 |         let t209 = cos(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `cos`
+    |
+    = help: if you wanted to use a crate named `cos`, use `cargo add cos` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+181 -         let t209 = cos(t123);
+181 +         let t209 = Cos(t123);
+    |
+
+error[E0425]: cannot find function `sin` in this scope
+   --> src/kernel/gga/gga_c_revtca/lxc_pol.rs:130:20
+    |
+130 |         let t124 = sin(t123);
+    |                    ^^^
+    |
+   ::: /home/vscode/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.9.0/src/frontend/operation/binary.rs:210:1
+    |
+210 | pub fn min<T: PartialOrd + CubePrimitive>(lhs: T, rhs: T) -> T {
+    | -------------------------------------------------------------- similarly named function `min` defined here
+    |
+help: a function with a similar name exists
+    |
+130 -         let t124 = sin(t123);
+130 +         let t124 = min(t123);
+    |
+help: use the `.` operator to call the method `sin` on `f64`
+    |
+130 -         let t124 = sin(t123);
+130 +         let t124 = t123.sin();
+    |
+
+error[E0425]: cannot find function `cos` in this scope
+   --> src/kernel/gga/gga_c_revtca/lxc_pol.rs:186:20
+    |
+186 |         let t209 = cos(t123);
+    |                    ^^^ not found in this scope
+    |
+help: use the `.` operator to call the method `cos` on `f64`
+    |
+186 -         let t209 = cos(t123);
+186 +         let t209 = t123.cos();
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `sin`
+   --> src/kernel/gga/gga_c_revtca/lxc_pol.rs:130:20
+    |
+130 |         let t124 = sin(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `sin`
+    |
+    = help: if you wanted to use a crate named `sin`, use `cargo add sin` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+130 -         let t124 = sin(t123);
+130 +         let t124 = Sin(t123);
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cos`
+   --> src/kernel/gga/gga_c_revtca/lxc_pol.rs:186:20
+    |
+186 |         let t209 = cos(t123);
+    |                    ^^^ use of unresolved module or unlinked crate `cos`
+    |
+    = help: if you wanted to use a crate named `cos`, use `cargo add cos` to add it to your `Cargo.toml`
+help: a trait with a similar name exists (notice the capitalization)
+    |
+186 -         let t209 = cos(t123);
+186 +         let t209 = Cos(t123);
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/exc_unpol.rs:76:19
+   |
+76 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/exc_unpol.rs:76:19
+   |
+76 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/vxc_unpol.rs:78:19
+   |
+78 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/vxc_unpol.rs:78:19
+   |
+78 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/fxc_unpol.rs:81:19
+   |
+81 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/fxc_unpol.rs:81:19
+   |
+81 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/kxc_unpol.rs:85:19
+   |
+85 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/kxc_unpol.rs:85:19
+   |
+85 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/lxc_unpol.rs:90:19
+   |
+90 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/lxc_unpol.rs:90:19
+   |
+90 |         let t75 = LambertW(t64 * t69 * t68 * t72 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/exc_pol.rs:84:19
+   |
+84 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+   --> src/kernel/gga/gga_x_am05/exc_pol.rs:123:20
+    |
+123 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/exc_pol.rs:84:19
+   |
+84 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+   --> src/kernel/gga/gga_x_am05/exc_pol.rs:123:20
+    |
+123 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/vxc_pol.rs:86:19
+   |
+86 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+   --> src/kernel/gga/gga_x_am05/vxc_pol.rs:125:20
+    |
+125 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/vxc_pol.rs:86:19
+   |
+86 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+   --> src/kernel/gga/gga_x_am05/vxc_pol.rs:125:20
+    |
+125 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/fxc_pol.rs:89:19
+   |
+89 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+   --> src/kernel/gga/gga_x_am05/fxc_pol.rs:128:20
+    |
+128 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/fxc_pol.rs:89:19
+   |
+89 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+   --> src/kernel/gga/gga_x_am05/fxc_pol.rs:128:20
+    |
+128 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/kxc_pol.rs:93:19
+   |
+93 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+   --> src/kernel/gga/gga_x_am05/kxc_pol.rs:132:20
+    |
+132 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/kxc_pol.rs:93:19
+   |
+93 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+   --> src/kernel/gga/gga_x_am05/kxc_pol.rs:132:20
+    |
+132 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+  --> src/kernel/gga/gga_x_am05/lxc_pol.rs:98:19
+   |
+98 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function, tuple struct or tuple variant `LambertW` in this scope
+   --> src/kernel/gga/gga_x_am05/lxc_pol.rs:137:20
+    |
+137 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+  --> src/kernel/gga/gga_x_am05/lxc_pol.rs:98:19
+   |
+98 |         let t79 = LambertW(t69 * t73 * t72 * t76 / 1728.0);
+   |                   ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0433]: failed to resolve: use of undeclared type `LambertW`
+   --> src/kernel/gga/gga_x_am05/lxc_pol.rs:137:20
+    |
+137 |         let t148 = LambertW(t69 * t143 * t142 * t76 / 1728.0);
+    |                    ^^^^^^^^ use of undeclared type `LambertW`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:55:19
+   |
+55 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:92:20
+   |
+92 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:55:19
+   |
+55 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_unpol.rs:92:20
+   |
+92 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+   |
+   = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:57:19
+   |
+57 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:94:20
+   |
+94 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:99:20
+   |
+99 |         let t126 = xbspline(t43, 1.0, params);
+   |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:117:20
+    |
+117 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:57:19
+   |
+57 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:94:20
+   |
+94 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+   |
+   = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:99:20
+   |
+99 |         let t126 = xbspline(t43, 1.0, params);
+   |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_unpol.rs:117:20
+    |
+117 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:60:19
+   |
+60 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:97:20
+   |
+97 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:102:20
+    |
+102 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:120:20
+    |
+120 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:176:20
+    |
+176 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:192:20
+    |
+192 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:60:19
+   |
+60 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:97:20
+   |
+97 |         let t119 = cbspline(-t118, 0.0, params);
+   |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+   |
+   = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:102:20
+    |
+102 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:120:20
+    |
+120 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:176:20
+    |
+176 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_unpol.rs:192:20
+    |
+192 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:64:19
+   |
+64 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:101:20
+    |
+101 |         let t119 = cbspline(-t118, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:106:20
+    |
+106 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:124:20
+    |
+124 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:180:20
+    |
+180 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:196:20
+    |
+196 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:295:20
+    |
+295 |         let t558 = xbspline(t43, 3.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:314:20
+    |
+314 |         let t607 = cbspline(-t118, 3.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:64:19
+   |
+64 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:101:20
+    |
+101 |         let t119 = cbspline(-t118, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:106:20
+    |
+106 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:124:20
+    |
+124 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:180:20
+    |
+180 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:196:20
+    |
+196 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:295:20
+    |
+295 |         let t558 = xbspline(t43, 3.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_unpol.rs:314:20
+    |
+314 |         let t607 = cbspline(-t118, 3.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:69:19
+   |
+69 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:106:20
+    |
+106 |         let t119 = cbspline(-t118, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:111:20
+    |
+111 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:129:20
+    |
+129 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:185:20
+    |
+185 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:201:20
+    |
+201 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:300:20
+    |
+300 |         let t558 = xbspline(t43, 3.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:319:20
+    |
+319 |         let t607 = cbspline(-t118, 3.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:467:21
+    |
+467 |         let t1047 = xbspline(t43, 4.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:477:21
+    |
+477 |         let t1109 = cbspline(-t118, 4.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:69:19
+   |
+69 |         let t44 = xbspline(t43, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:106:20
+    |
+106 |         let t119 = cbspline(-t118, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:111:20
+    |
+111 |         let t126 = xbspline(t43, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:129:20
+    |
+129 |         let t161 = cbspline(-t118, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:185:20
+    |
+185 |         let t283 = xbspline(t43, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:201:20
+    |
+201 |         let t322 = cbspline(-t118, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:300:20
+    |
+300 |         let t558 = xbspline(t43, 3.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:319:20
+    |
+319 |         let t607 = cbspline(-t118, 3.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:467:21
+    |
+467 |         let t1047 = xbspline(t43, 4.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_unpol.rs:477:21
+    |
+477 |         let t1109 = cbspline(-t118, 4.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:67:19
+   |
+67 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:85:19
+   |
+85 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:159:20
+    |
+159 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:67:19
+   |
+67 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:85:19
+   |
+85 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/exc_pol.rs:159:20
+    |
+159 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:69:19
+   |
+69 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:87:19
+   |
+87 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:161:20
+    |
+161 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:172:20
+    |
+172 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:196:20
+    |
+196 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:283:20
+    |
+283 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:69:19
+   |
+69 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:87:19
+   |
+87 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:161:20
+    |
+161 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:172:20
+    |
+172 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:196:20
+    |
+196 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/vxc_pol.rs:283:20
+    |
+283 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:72:19
+   |
+72 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:90:19
+   |
+90 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:164:20
+    |
+164 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:175:20
+    |
+175 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:199:20
+    |
+199 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:286:20
+    |
+286 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:376:20
+    |
+376 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:404:20
+    |
+404 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:622:21
+    |
+622 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:72:19
+   |
+72 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:90:19
+   |
+90 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:164:20
+    |
+164 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:175:20
+    |
+175 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:199:20
+    |
+199 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:286:20
+    |
+286 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:376:20
+    |
+376 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:404:20
+    |
+404 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/fxc_pol.rs:622:21
+    |
+622 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:76:19
+   |
+76 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:94:19
+   |
+94 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:168:20
+    |
+168 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:179:20
+    |
+179 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:203:20
+    |
+203 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:290:20
+    |
+290 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:380:20
+    |
+380 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:408:20
+    |
+408 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:626:21
+    |
+626 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:885:21
+    |
+885 |         let t1628 = xbspline(t50, 3.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:902:21
+    |
+902 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:1355:21
+     |
+1355 |         let t2754 = xbspline(t80, 3.0, params);
+     |                     ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:76:19
+   |
+76 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:94:19
+   |
+94 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:168:20
+    |
+168 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:179:20
+    |
+179 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:203:20
+    |
+203 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:290:20
+    |
+290 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:380:20
+    |
+380 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:408:20
+    |
+408 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:626:21
+    |
+626 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:885:21
+    |
+885 |         let t1628 = xbspline(t50, 3.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:902:21
+    |
+902 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+    --> src/kernel/gga/hyb_gga_xc_case21/kxc_pol.rs:1355:21
+     |
+1355 |         let t2754 = xbspline(t80, 3.0, params);
+     |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+     |
+     = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:81:19
+   |
+81 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:99:19
+   |
+99 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:173:20
+    |
+173 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:184:20
+    |
+184 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:208:20
+    |
+208 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:295:20
+    |
+295 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:385:20
+    |
+385 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:413:20
+    |
+413 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:631:21
+    |
+631 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:890:21
+    |
+890 |         let t1628 = xbspline(t50, 3.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:907:21
+    |
+907 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1360:21
+     |
+1360 |         let t2754 = xbspline(t80, 3.0, params);
+     |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1999:21
+     |
+1999 |         let t4123 = xbspline(t50, 4.0, params);
+     |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `cbspline` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2032:21
+     |
+2032 |         let t4241 = cbspline(-t197, 4.0, params);
+     |                     ^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xbspline` in this scope
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2562:21
+     |
+2562 |         let t6692 = xbspline(t80, 4.0, params);
+     |                     ^^^^^^^^ not found in this scope
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:81:19
+   |
+81 |         let t51 = xbspline(t50, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+  --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:99:19
+   |
+99 |         let t81 = xbspline(t80, 0.0, params);
+   |                   ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+   |
+   = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:173:20
+    |
+173 |         let t198 = cbspline(-t197, 0.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:184:20
+    |
+184 |         let t216 = xbspline(t50, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:208:20
+    |
+208 |         let t266 = cbspline(-t197, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:295:20
+    |
+295 |         let t425 = xbspline(t80, 1.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:385:20
+    |
+385 |         let t598 = xbspline(t50, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:413:20
+    |
+413 |         let t666 = cbspline(-t197, 2.0, params);
+    |                    ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:631:21
+    |
+631 |         let t1117 = xbspline(t80, 2.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:890:21
+    |
+890 |         let t1628 = xbspline(t50, 3.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+    |
+    = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+   --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:907:21
+    |
+907 |         let t1672 = cbspline(-t197, 3.0, params);
+    |                     ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+    |
+    = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1360:21
+     |
+1360 |         let t2754 = xbspline(t80, 3.0, params);
+     |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+     |
+     = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:1999:21
+     |
+1999 |         let t4123 = xbspline(t50, 4.0, params);
+     |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+     |
+     = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `cbspline`
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2032:21
+     |
+2032 |         let t4241 = cbspline(-t197, 4.0, params);
+     |                     ^^^^^^^^ use of unresolved module or unlinked crate `cbspline`
+     |
+     = help: if you wanted to use a crate named `cbspline`, use `cargo add cbspline` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xbspline`
+    --> src/kernel/gga/hyb_gga_xc_case21/lxc_pol.rs:2562:21
+     |
+2562 |         let t6692 = xbspline(t80, 4.0, params);
+     |                     ^^^^^^^^ use of unresolved module or unlinked crate `xbspline`
+     |
+     = help: if you wanted to use a crate named `xbspline`, use `cargo add xbspline` to add it to your `Cargo.toml`
+
+error: could not compile `libxc_rs` (lib) due to 338 previous errors
+
+Caused by:
+  process didn't exit successfully: `/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_rs --edition=2024 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata -C embed-bitcode=no -C codegen-units=16 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=19888f3716662502 -C extra-filename=-50afe2bba9d6f4c4 --out-dir /workspace/target/debug/deps -C linker=clang -C incremental=/workspace/target/debug/incremental -L dependency=/workspace/target/debug/deps --extern bitflags=/workspace/target/debug/deps/libbitflags-aa5849daf4ed706c.rmeta --extern bytemuck=/workspace/target/debug/deps/libbytemuck-9005d7d99e89585c.rmeta --extern cubecl=/workspace/target/debug/deps/libcubecl-ab19ea42447fb8d4.rmeta --extern thiserror=/workspace/target/debug/deps/libthiserror-f7d827294f23db4a.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (signal: 9, SIGKILL: kill)

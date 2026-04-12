@@ -1,0 +1,15 @@
+   Compiling libxc_rs v0.1.0 (/workspace)
+error[E0433]: failed to resolve: function `drop` is not a crate or module
+    --> src/kernel/lda/lda_c_ml1.rs:5959:9
+     |
+5959 |         drop(t892 * t472);
+     |         ^^^^ function `drop` is not a crate or module
+     |
+help: a trait with a similar name exists
+     |
+5959 -         drop(t892 * t472);
+5959 +         Drop(t892 * t472);
+     |
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `libxc_rs` (lib) due to 1 previous error

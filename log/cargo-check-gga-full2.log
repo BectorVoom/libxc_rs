@@ -1,0 +1,5 @@
+    Checking libxc_rs v0.1.0 (/workspace)
+error: could not compile `libxc_rs` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_rs --edition=2024 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata -C embed-bitcode=no -C codegen-units=16 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=19888f3716662502 -C extra-filename=-50afe2bba9d6f4c4 --out-dir /workspace/target/debug/deps -C linker=clang -C incremental=/workspace/target/debug/incremental -L dependency=/workspace/target/debug/deps --extern bitflags=/workspace/target/debug/deps/libbitflags-aa5849daf4ed706c.rmeta --extern bytemuck=/workspace/target/debug/deps/libbytemuck-9005d7d99e89585c.rmeta --extern cubecl=/workspace/target/debug/deps/libcubecl-ab19ea42447fb8d4.rmeta --extern thiserror=/workspace/target/debug/deps/libthiserror-f7d827294f23db4a.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (signal: 9, SIGKILL: kill)

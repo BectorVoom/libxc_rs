@@ -1,0 +1,12 @@
+[package]
+name = "gga_test"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
+bytemuck = { version = "1.25.0", features = ["derive"] }
+
+[profile.dev]
+debug = 0
+codegen-units = 16

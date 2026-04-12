@@ -81,6 +81,12 @@ pub enum LibxcRsError {
 
     #[error("kernel launch failed: {reason}")]
     KernelLaunchFailed { reason: String },
+
+    #[error("unsupported functional ID {func_id} in dispatch")]
+    UnsupportedFunctional { func_id: u32 },
+
+    #[error("functional {func_id} does not support derivative order '{order}'")]
+    FuncOrderNotSupported { func_id: u32, order: String },
 }
 
 #[cfg(test)]

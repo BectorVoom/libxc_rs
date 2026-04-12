@@ -15,8 +15,12 @@ use crate::output::LdaOutput;
 
 /// Configuration for one auxiliary functional in a mixed evaluation.
 pub struct AuxiliaryConfig {
+    /// The libxc functional ID for this auxiliary (e.g., 1 for LDA_X).
+    pub func_id: u32,
     /// The functional's alpha parameter (e.g., 1.0 for LDA_X).
     pub alpha: f64,
+    /// Functional-specific scalar parameters (empty for parameterless functionals).
+    pub params: Vec<f64>,
     /// The mixing coefficient (weight) for this auxiliary.
     pub weight: f64,
     /// Numerical thresholds for this auxiliary's evaluation.
@@ -134,7 +138,7 @@ pub fn evaluate_mixed_lda(
                 },
             };
 
-            dispatch_lda(input, order, &mut scratch_output, aux.alpha, &aux.thresholds)?;
+            dispatch_lda(aux.func_id, input, order, &mut scratch_output, &aux.params, &aux.thresholds)?;
         }
         // scratch_output is dropped here, releasing the mutable borrow on workspace
 
@@ -228,7 +232,7 @@ mod tests {
                 Some(&mut zk_direct), Some(&mut vrho_direct), None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Vxc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(1, &input, DerivativeOrder::Vxc, &mut out_direct, &[1.0], &default_thresholds()).unwrap();
         }
 
         // Mixed with single aux, weight=1.0
@@ -241,7 +245,9 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             let auxes = vec![AuxiliaryConfig {
+                func_id: 1,
                 alpha: 1.0,
+                params: vec![1.0],
                 weight: 1.0,
                 thresholds: default_thresholds(),
             }];
@@ -273,7 +279,7 @@ mod tests {
                 Some(&mut zk_direct), None, None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Exc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(1, &input, DerivativeOrder::Exc, &mut out_direct, &[1.0], &default_thresholds()).unwrap();
         }
 
         // Mixed with two auxes: 0.7 + 0.3 = 1.0
@@ -285,8 +291,8 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             let auxes = vec![
-                AuxiliaryConfig { alpha: 1.0, weight: 0.7, thresholds: default_thresholds() },
-                AuxiliaryConfig { alpha: 1.0, weight: 0.3, thresholds: default_thresholds() },
+                AuxiliaryConfig { func_id: 1, alpha: 1.0, params: vec![1.0], weight: 0.7, thresholds: default_thresholds() },
+                AuxiliaryConfig { func_id: 1, alpha: 1.0, params: vec![1.0], weight: 0.3, thresholds: default_thresholds() },
             ];
             evaluate_mixed_lda(&input, DerivativeOrder::Exc, &mut out_mixed, &auxes, &mut ws).unwrap();
         }
@@ -312,7 +318,7 @@ mod tests {
                 Some(&mut zk_direct), None, None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Exc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(1, &input, DerivativeOrder::Exc, &mut out_direct, &[1.0], &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=0.5
@@ -355,7 +361,9 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             let auxes = vec![AuxiliaryConfig {
+                func_id: 1,
                 alpha: 1.0,
+                params: vec![1.0],
                 weight: 1.0,
                 thresholds: default_thresholds(),
             }];
@@ -380,7 +388,9 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             let auxes = vec![AuxiliaryConfig {
+                func_id: 1,
                 alpha: 1.0,
+                params: vec![1.0],
                 weight: 1.0,
                 thresholds: default_thresholds(),
             }];
@@ -408,7 +418,7 @@ mod tests {
                 Some(&mut zk_d), Some(&mut vrho_d), Some(&mut v2rho2_d), None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Fxc, &mut out, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(1, &input, DerivativeOrder::Fxc, &mut out, &[1.0], &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=1.0
@@ -422,7 +432,9 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             let auxes = vec![AuxiliaryConfig {
+                func_id: 1,
                 alpha: 1.0,
+                params: vec![1.0],
                 weight: 1.0,
                 thresholds: default_thresholds(),
             }];

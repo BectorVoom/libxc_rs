@@ -1,0 +1,27 @@
+   Compiling libxc_rs-verify v0.1.0 (/workspace/verify)
+   Compiling libxc_rs v0.1.0 (/workspace)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9m 27s
+     Running tests/gga_kernel_test.rs (target/debug/deps/gga_kernel_test-7c6a5e8305cb5e7f)
+
+running 5 tests
+test test_gga_x_pbe_exc_unpol ... ok
+test test_gga_c_cs1_exc_pol ... ok
+test test_gga_c_cs1_exc_unpol ... ok
+test test_gga_x_pbe_vxc_unpol ... FAILED
+test test_gga_c_cs1_vxc_pol ... ok
+
+failures:
+
+---- test_gga_x_pbe_vxc_unpol stdout ----
+
+thread 'test_gga_x_pbe_vxc_unpol' (47200) panicked at verify/tests/gga_kernel_test.rs:123:9:
+pbe vxc zk[0]: rel_err = 8.06e-2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    test_gga_x_pbe_vxc_unpol
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s
+
+error: test failed, to rerun pass `-p libxc_rs-verify --test gga_kernel_test`

@@ -275,6 +275,9 @@ pub fn oracle_gga_all_with_opts(
         if let Some(threshold) = opts.dens_threshold {
             oracle_ffi::xc_func_set_dens_threshold(func, threshold);
         }
+        if let Some(threshold) = opts.zeta_threshold {
+            oracle_ffi::xc_func_set_zeta_threshold(func, threshold);
+        }
 
         // Check which derivative levels are supported
         let info = (*func).info;
@@ -583,6 +586,9 @@ pub fn oracle_mgga_all_with_opts(
         if let Some(threshold) = opts.dens_threshold {
             oracle_ffi::xc_func_set_dens_threshold(func, threshold);
         }
+        if let Some(threshold) = opts.zeta_threshold {
+            oracle_ffi::xc_func_set_zeta_threshold(func, threshold);
+        }
 
         // Check which derivative levels are supported
         let info = (*func).info;
@@ -672,6 +678,8 @@ pub struct OracleOptions {
     pub ext_params: Option<Vec<f64>>,
     /// If Some, override the density threshold.
     pub dens_threshold: Option<f64>,
+    /// If Some, override the zeta (spin polarization) threshold.
+    pub zeta_threshold: Option<f64>,
 }
 
 /// Call C libxc to evaluate LDA exc with custom options (ext_params, dens_threshold).
@@ -710,6 +718,9 @@ pub fn oracle_lda_exc_with_opts(
         }
         if let Some(threshold) = opts.dens_threshold {
             oracle_ffi::xc_func_set_dens_threshold(func, threshold);
+        }
+        if let Some(threshold) = opts.zeta_threshold {
+            oracle_ffi::xc_func_set_zeta_threshold(func, threshold);
         }
 
         oracle_ffi::xc_lda_exc(func, np, rho.as_ptr(), exc.as_mut_ptr());
@@ -767,6 +778,9 @@ pub fn oracle_lda_all_with_opts(
         }
         if let Some(threshold) = opts.dens_threshold {
             oracle_ffi::xc_func_set_dens_threshold(func, threshold);
+        }
+        if let Some(threshold) = opts.zeta_threshold {
+            oracle_ffi::xc_func_set_zeta_threshold(func, threshold);
         }
 
         oracle_ffi::xc_lda_exc_vxc_fxc_kxc(

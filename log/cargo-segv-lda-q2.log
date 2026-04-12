@@ -1,0 +1,33 @@
+   Compiling libxc_rs v0.1.0 (/tmp/libxc_rs_debug2)
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x3c16eec) [0x76c0fce16eec]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0x45cb0) [0x76c0f9024cb0]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZNK4llvm6DIELoc11computeSizeERKNS_5dwarf10FormParamsE+0x5) [0x76c0f7105405]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit20constructVariableDIEERNS_11DbgVariableERKNS_12LexicalScopeERPNS_3DIEE+0x1112) [0x76c0f74842d2]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x71e) [0x76c0f748299e]
+
+### cycle encountered after 5 frames with period 6
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+### recursed 41 times
+
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.21.1-rust-1.94.1-stable(_ZN4llvm16DwarfCompileUnit25createAndAddScopeChildrenEPNS_12LexicalScopeERNS_3DIEE+0x5e8) [0x76c0f7482868]
+
+note: rustc unexpectedly overflowed its stack! this is a bug
+note: maximum backtrace depth reached, frames may have been lost
+note: we would appreciate a report at https://github.com/rust-lang/rust
+help: you can increase rustc's stack size by setting RUST_MIN_STACK=16777216
+note: backtrace dumped due to SIGSEGV! resuming signal
+error: could not compile `libxc_rs` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_rs --edition=2024 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debuginfo=2 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=b4ea9ba426ec25d9 -C extra-filename=-47be1f67779b1b2c --out-dir /tmp/libxc_rs_debug2_target_no_kernel/debug/deps -C linker=clang -C incremental=/tmp/libxc_rs_debug2_target_no_kernel/debug/incremental -L dependency=/tmp/libxc_rs_debug2_target_no_kernel/debug/deps --extern bitflags=/tmp/libxc_rs_debug2_target_no_kernel/debug/deps/libbitflags-a9492541ec333643.rmeta --extern bytemuck=/tmp/libxc_rs_debug2_target_no_kernel/debug/deps/libbytemuck-88d75ee8991cf298.rmeta --extern cubecl=/tmp/libxc_rs_debug2_target_no_kernel/debug/deps/libcubecl-f313bf8e3f1a9e87.rmeta --extern thiserror=/tmp/libxc_rs_debug2_target_no_kernel/debug/deps/libthiserror-146249504c7bc201.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (signal: 11, SIGSEGV: invalid memory reference)
