@@ -16,6 +16,8 @@ libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
+libxc_rs-verify = { path = "verify" }
+libxc-kernel-mgga-1 = { path = "crates/kernel-mgga-1" }
 
 [workspace]
 members = [
