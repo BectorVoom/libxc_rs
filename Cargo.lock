@@ -1359,6 +1359,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-kernel-gga"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-lda"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "cubecl",
+ "libxc-kernel-math",
+ "libxc_rs",
+]
+
+[[package]]
+name = "libxc-kernel-math"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+]
+
+[[package]]
+name = "libxc-kernel-mgga"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
 name = "libxc_rs"
 version = "0.1.0"
 dependencies = [
@@ -1367,6 +1400,10 @@ dependencies = [
  "bytemuck",
  "cubecl",
  "libm",
+ "libxc-kernel-gga",
+ "libxc-kernel-lda",
+ "libxc-kernel-math",
+ "libxc-kernel-mgga",
  "thiserror",
 ]
 
