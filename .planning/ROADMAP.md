@@ -251,9 +251,10 @@ Route the libxc public surface through four layered capabilities: start by locki
   2. All 92 MGGA functionals are translated and organized into sub-crates that compile
   3. Representative MGGA functionals pass oracle comparison with relative error <= 1e-12 for exc
   4. kernel-mgga facade re-exports all sub-crates
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [ ] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
 - [ ] 08-02-PLAN.md -- Translate representative functionals and oracle verification
 - [ ] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
+- [ ] 08-04-PLAN.md -- Deferred br89/mbrxc documentation and VXC oracle verification

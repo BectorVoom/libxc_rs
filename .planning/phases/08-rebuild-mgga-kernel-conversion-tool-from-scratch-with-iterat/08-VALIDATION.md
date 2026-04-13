@@ -45,6 +45,8 @@ created: 2026-04-13
 | 08-03-T1 | 03 | 3 | KERN-05, KERN-06 | T-08-05 | N/A | unit | `cd /workspace && find crates/kernel-mgga-[0-9]*/src -mindepth 1 -maxdepth 1 -type d \| wc -l` | tools/batch_translate_mgga.py | ⬜ pending |
 | 08-03-T2 | 03 | 3 | KERN-05, KERN-06 | T-08-05 | N/A | compilation | `cd /workspace && RUST_MIN_STACK=67108864 cargo check -p libxc-kernel-mgga 2>&1 \| tail -10` | crates/kernel-mgga/src/lib.rs | ⬜ pending |
 | 08-03-T3 | 03 | 3 | VERIFY-03, VERIFY-04 | T-08-06 | N/A | integration | `cd /workspace && RUST_MIN_STACK=67108864 cargo test --test oracle_mgga -- --nocapture 2>&1 \| tail -20` | tests/oracle_mgga.rs | ⬜ pending |
+| 08-04-T1 | 04 | 4 | KERN-05 | T-08-07 | N/A | compilation | `cd /workspace && RUST_MIN_STACK=67108864 cargo check -p libxc-kernel-mgga 2>&1 \| tail -5 && grep -c "DeferredMgga" crates/kernel-mgga/src/deferred.rs` | crates/kernel-mgga/src/deferred.rs | ⬜ pending |
+| 08-04-T2 | 04 | 4 | VERIFY-04 | T-08-08 | N/A | integration | `cd /workspace && RUST_MIN_STACK=67108864 cargo test --test oracle_mgga test_mgga_vxc -- --nocapture 2>&1 \| tail -20` | tests/oracle_mgga.rs | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
