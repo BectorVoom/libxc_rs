@@ -8,10 +8,55 @@ bitflags = "2.10.0"
 bytemuck = { version = "1.25.0", features = ["derive"] }
 cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
 thiserror = "2.0.18"
+libxc-kernel-math = { path = "crates/kernel-math" }
+libxc-kernel-lda = { path = "crates/kernel-lda" }
+libxc-kernel-gga = { path = "crates/kernel-gga" }
+libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
 
 [workspace]
-members = ["xtask","verify"]
+members = [
+    "xtask",
+    "verify",
+    "crates/kernel-math",
+    "crates/kernel-lda",
+    "crates/kernel-gga",
+    "crates/kernel-mgga",
+]
+
+# Reduce peak memory: CubeCL proc macro expansion generates massive IR.
+# Disabling debug info avoids LLVM's debug scope tracking.
+[profile.dev.package.libxc_rs]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc_rs]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-lda]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-gga]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-lda]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-gga]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga]
+debug = 0
+codegen-units = 16

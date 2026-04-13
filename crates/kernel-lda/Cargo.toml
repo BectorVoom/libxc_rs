@@ -1,0 +1,20 @@
+[package]
+name = "libxc-kernel-lda"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
+libxc-kernel-math = { path = "../kernel-math" }
+bytemuck = { version = "1.25.0", features = ["derive"] }
+
+[dev-dependencies]
+libxc_rs = { path = "../.." }
+
+[profile.dev]
+debug = 0
+codegen-units = 16
+
+[profile.test]
+debug = 0
+codegen-units = 16
