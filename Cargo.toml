@@ -28,6 +28,7 @@ members = [
     "crates/kernel-gga-2",
     "crates/kernel-gga-3",
     "crates/kernel-mgga",
+    "crates/kernel-mgga-1",
 ]
 
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.
@@ -93,5 +94,13 @@ debug = 0
 codegen-units = 16
 
 [profile.test.package.libxc-kernel-mgga]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-1]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-1]
 debug = 0
 codegen-units = 16
