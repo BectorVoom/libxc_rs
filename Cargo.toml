@@ -14,15 +14,4 @@ approx = "0.5.1"
 libm = "0.2"
 
 [workspace]
-members = ["xtask","verify","tools/gga_test_crate"]
-
-# Reduce peak memory: CubeCL proc macro expansion for 127 GGA kernel modules
-# generates massive IR. Disabling debug info avoids LLVM's debug scope tracking
-# which is the primary memory consumer for deeply nested generated code.
-[profile.dev.package.libxc_rs]
-debug = 0
-codegen-units = 16
-
-[profile.test.package.libxc_rs]
-debug = 0
-codegen-units = 16
+members = ["xtask","verify"]

@@ -5,8 +5,3 @@ pub mod polynomials;
 pub mod erf;
 pub mod spin;
 pub mod dft_quantities;
-pub mod bspline;
-pub mod lambert_w;
-pub mod expint_e1;
-pub mod special;
-pub mod integrate;
