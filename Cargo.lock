@@ -1363,6 +1363,33 @@ name = "libxc-kernel-gga"
 version = "0.1.0"
 dependencies = [
  "cubecl",
+ "libxc-kernel-gga-1",
+ "libxc-kernel-gga-2",
+ "libxc-kernel-gga-3",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-1"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-2"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
  "libxc-kernel-math",
 ]
 
@@ -1380,7 +1407,10 @@ dependencies = [
 name = "libxc-kernel-math"
 version = "0.1.0"
 dependencies = [
+ "approx",
+ "bytemuck",
  "cubecl",
+ "libm",
 ]
 
 [[package]]

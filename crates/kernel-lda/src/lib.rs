@@ -47,9 +47,9 @@ pub mod lda_xc_teter93;
 pub mod lda_xc_tih;
 pub mod lda_xc_zlp;
 
-// Large kernels -- split into per-function subdirectory modules:
-pub mod lda_c_pmgb06;
-pub mod lda_c_pw_erf;
+// Large kernels -- deferred (OOM during compilation even with 16GB RAM):
+// pub mod lda_c_pmgb06;  // lxc_pol: 9.8K lines
+// pub mod lda_c_pw_erf;  // lxc_pol: 11K lines
 
 // Extremely large kernels -- deferred (individual functions exceed compiler memory limits):
 // pub mod lda_c_pk09;   // kxc_pol: 17K lines
