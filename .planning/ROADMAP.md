@@ -162,10 +162,12 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 ### Phase 8: Extract kernel/lda, kernel/gga, and kernel/mgga into independent workspace crates under crates/
 
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 7
-**Plans:** 0 plans
+**Goal:** Move the three kernel family module trees (lda, gga, mgga) and the shared math module into four independent workspace crates under crates/, eliminating compilation bottlenecks and enabling independent per-family builds while preserving the main crate's public API surface via re-exports
+**Requirements**: None (structural refactoring -- no functional requirements)
+**Depends on:** Phase 4 (kernel files must exist before extraction)
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 8 to break down)
+- [ ] 08-01-PLAN.md -- Create kernel-math crate and 3 kernel family crate scaffolds
+- [ ] 08-02-PLAN.md -- Move kernel files to sub-crates, rewrite imports, rewire main crate
+- [ ] 08-03-PLAN.md -- Fix test imports and full workspace verification
