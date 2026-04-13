@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-MGGA maple2c-to-Rust translator — built from scratch modeled on translate_gga.py.
+GGA maple2c-to-Rust translator v2 — rebuilt from scratch.
 
 Translates C kernel files from libxc maple2c to Rust #[cube(launch_unchecked)]
 functions. Generates one .rs file per (derivative_level, spin_mode) pair inside
 a per-functional directory.
 
 Usage:
-    translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only]
-    translate_mgga.py --batch --write-to <dir>
+    translate_gga_v2.py <c_file> <func_name> --write-to <dir> [--vxc-only]
+    translate_gga_v2.py --batch --write-to <dir>
 """
 
 import re
@@ -23,70 +23,25 @@ from pathlib import Path
 LEVELS = ['exc', 'vxc', 'fxc', 'kxc', 'lxc']
 LEVEL_ORD = {l: i for i, l in enumerate(LEVELS)}
 
-# Cumulative output buffers per derivative level (70 MGGA fields total at lxc)
+# Cumulative output buffers per derivative level
 LEVEL_OUTPUTS = {
     'exc': ['zk'],
-    'vxc': ['zk', 'vrho', 'vsigma', 'vlapl', 'vtau'],
-    'fxc': ['zk', 'vrho', 'vsigma', 'vlapl', 'vtau',
-            'v2rho2', 'v2rhosigma', 'v2rholapl', 'v2rhotau',
-            'v2sigma2', 'v2sigmalapl', 'v2sigmatau',
-            'v2lapl2', 'v2lapltau', 'v2tau2'],
-    'kxc': ['zk', 'vrho', 'vsigma', 'vlapl', 'vtau',
-            'v2rho2', 'v2rhosigma', 'v2rholapl', 'v2rhotau',
-            'v2sigma2', 'v2sigmalapl', 'v2sigmatau',
-            'v2lapl2', 'v2lapltau', 'v2tau2',
-            'v3rho3', 'v3rho2sigma', 'v3rho2lapl', 'v3rho2tau',
-            'v3rhosigma2', 'v3rhosigmalapl', 'v3rhosigmatau',
-            'v3rholapl2', 'v3rholapltau', 'v3rhotau2',
-            'v3sigma3', 'v3sigma2lapl', 'v3sigma2tau',
-            'v3sigmalapl2', 'v3sigmalapltau', 'v3sigmatau2',
-            'v3lapl3', 'v3lapl2tau', 'v3lapltau2', 'v3tau3'],
-    'lxc': ['zk', 'vrho', 'vsigma', 'vlapl', 'vtau',
-            'v2rho2', 'v2rhosigma', 'v2rholapl', 'v2rhotau',
-            'v2sigma2', 'v2sigmalapl', 'v2sigmatau',
-            'v2lapl2', 'v2lapltau', 'v2tau2',
-            'v3rho3', 'v3rho2sigma', 'v3rho2lapl', 'v3rho2tau',
-            'v3rhosigma2', 'v3rhosigmalapl', 'v3rhosigmatau',
-            'v3rholapl2', 'v3rholapltau', 'v3rhotau2',
-            'v3sigma3', 'v3sigma2lapl', 'v3sigma2tau',
-            'v3sigmalapl2', 'v3sigmalapltau', 'v3sigmatau2',
-            'v3lapl3', 'v3lapl2tau', 'v3lapltau2', 'v3tau3',
-            'v4rho4', 'v4rho3sigma', 'v4rho3lapl', 'v4rho3tau',
-            'v4rho2sigma2', 'v4rho2sigmalapl', 'v4rho2sigmatau',
-            'v4rho2lapl2', 'v4rho2lapltau', 'v4rho2tau2',
-            'v4rhosigma3', 'v4rhosigma2lapl', 'v4rhosigma2tau',
-            'v4rhosigmalapl2', 'v4rhosigmalapltau', 'v4rhosigmatau2',
-            'v4rholapl3', 'v4rholapl2tau', 'v4rholapltau2', 'v4rhotau3',
-            'v4sigma4', 'v4sigma3lapl', 'v4sigma3tau',
-            'v4sigma2lapl2', 'v4sigma2lapltau', 'v4sigma2tau2',
-            'v4sigmalapl3', 'v4sigmalapl2tau', 'v4sigmalapltau2', 'v4sigmatau3',
-            'v4lapl4', 'v4lapl3tau', 'v4lapl2tau2', 'v4lapltau3', 'v4tau4'],
+    'vxc': ['zk', 'vrho', 'vsigma'],
+    'fxc': ['zk', 'vrho', 'vsigma', 'v2rho2', 'v2rhosigma', 'v2sigma2'],
+    'kxc': ['zk', 'vrho', 'vsigma', 'v2rho2', 'v2rhosigma', 'v2sigma2',
+            'v3rho3', 'v3rho2sigma', 'v3rhosigma2', 'v3sigma3'],
+    'lxc': ['zk', 'vrho', 'vsigma', 'v2rho2', 'v2rhosigma', 'v2sigma2',
+            'v3rho3', 'v3rho2sigma', 'v3rhosigma2', 'v3sigma3',
+            'v4rho4', 'v4rho3sigma', 'v4rho2sigma2', 'v4rhosigma3', 'v4sigma4'],
 }
 
 # Polarized component count per output field (unpolarized always 1)
-# Verified against verify/src/lib.rs lines 440-491
 POL_DIMS = {
     'zk': 1,
-    'vrho': 2, 'vsigma': 3, 'vlapl': 2, 'vtau': 2,
-    'v2rho2': 3, 'v2rhosigma': 6, 'v2rholapl': 4, 'v2rhotau': 4,
-    'v2sigma2': 6, 'v2sigmalapl': 6, 'v2sigmatau': 6,
-    'v2lapl2': 3, 'v2lapltau': 4, 'v2tau2': 3,
-    'v3rho3': 4, 'v3rho2sigma': 9, 'v3rho2lapl': 6, 'v3rho2tau': 6,
-    'v3rhosigma2': 12, 'v3rhosigmalapl': 12, 'v3rhosigmatau': 12,
-    'v3rholapl2': 6, 'v3rholapltau': 8, 'v3rhotau2': 6,
-    'v3sigma3': 10, 'v3sigma2lapl': 12, 'v3sigma2tau': 12,
-    'v3sigmalapl2': 9, 'v3sigmalapltau': 12, 'v3sigmatau2': 9,
-    'v3lapl3': 4, 'v3lapl2tau': 6, 'v3lapltau2': 6, 'v3tau3': 4,
-    'v4rho4': 5, 'v4rho3sigma': 12, 'v4rho3lapl': 8, 'v4rho3tau': 8,
-    'v4rho2sigma2': 18, 'v4rho2sigmalapl': 18, 'v4rho2sigmatau': 18,
-    'v4rho2lapl2': 9, 'v4rho2lapltau': 12, 'v4rho2tau2': 9,
-    'v4rhosigma3': 20, 'v4rhosigma2lapl': 36, 'v4rhosigma2tau': 36,
-    'v4rhosigmalapl2': 18, 'v4rhosigmalapltau': 24, 'v4rhosigmatau2': 36,
-    'v4rholapl3': 8, 'v4rholapl2tau': 12, 'v4rholapltau2': 12, 'v4rhotau3': 8,
-    'v4sigma4': 15, 'v4sigma3lapl': 20, 'v4sigma3tau': 30,
-    'v4sigma2lapl2': 18, 'v4sigma2lapltau': 24, 'v4sigma2tau2': 18,
-    'v4sigmalapl3': 12, 'v4sigmalapl2tau': 18, 'v4sigmalapltau2': 18, 'v4sigmatau3': 12,
-    'v4lapl4': 5, 'v4lapl3tau': 8, 'v4lapl2tau2': 9, 'v4lapltau3': 8, 'v4tau4': 5,
+    'vrho': 2, 'vsigma': 3,
+    'v2rho2': 3, 'v2rhosigma': 6, 'v2sigma2': 6,
+    'v3rho3': 4, 'v3rho2sigma': 9, 'v3rhosigma2': 12, 'v3sigma3': 10,
+    'v4rho4': 5, 'v4rho3sigma': 12, 'v4rho2sigma2': 18, 'v4rhosigma3': 20, 'v4sigma4': 15,
 }
 
 FILE_HEADER = (
@@ -148,9 +103,11 @@ def scan_params(c_src: str) -> list:
             if pfx == 'p' and fld in skip: continue
             accesses.add((fld, (int(m.group(2)),)))
         # Scalar: pfx->field (not followed by [ or word char)
+            # Handle carefully to not match sub-patterns of 1D/2D
         for m in re.finditer(rf'{pfx}->(\w+)(?!\[|\w)', c_src):
             fld = m.group(1)
             if pfx == 'p' and fld in skip: continue
+            # Verify it's not followed by [ (the lookahead should handle this)
             accesses.add((fld, ()))
     return sorted(accesses)
 
@@ -172,20 +129,20 @@ def detect_imports(c_src: str) -> list:
                  'POW_1_4', 'POW_7_3', 'POW_2', 'POW_3']
     for fn in power_fns:
         if f'{fn}(' in c_src:
-            imports.append((fn.lower(), 'libxc_kernel_math::powers'))
+            imports.append((fn.lower(), 'crate::math::powers'))
 
     if re.search(r'\bcbrt\(', c_src):
-        imports.append(('safe_cbrt', 'libxc_kernel_math::powers'))
+        imports.append(('safe_cbrt', 'crate::math::powers'))
 
     if 'my_piecewise3(' in c_src:
-        imports.append(('piecewise3', 'libxc_kernel_math::piecewise'))
+        imports.append(('piecewise3', 'crate::math::piecewise'))
     if 'my_piecewise5(' in c_src:
-        imports.append(('piecewise5', 'libxc_kernel_math::piecewise'))
+        imports.append(('piecewise5', 'crate::math::piecewise'))
 
     if re.search(r'\berf\(', c_src):
-        imports.append(('erf_approx', 'libxc_kernel_math::erf'))
+        imports.append(('erf_approx', 'crate::math::erf'))
     if re.search(r'\berfc\(', c_src):
-        imports.append(('erfc_approx', 'libxc_kernel_math::erf'))
+        imports.append(('erfc_approx', 'crate::math::erf'))
 
     consts = ['M_PI', 'M_CBRT2', 'M_CBRT3', 'M_CBRT4', 'M_CBRT5', 'M_CBRT6',
               'M_CBRT7', 'M_CBRT9', 'M_CBRTPI', 'M_SQRTPI', 'M_SQRT2',
@@ -193,24 +150,24 @@ def detect_imports(c_src: str) -> list:
               'FZETAFACTOR', 'KF_CONST', 'M_C']
     for c in consts:
         if re.search(r'\b' + c + r'\b', c_src):
-            imports.append((c, 'libxc_kernel_math::constants'))
+            imports.append((c, 'crate::math::constants'))
 
     if re.search(r'\bLambertW\(', c_src):
-        imports.append(('lambert_w', 'libxc_kernel_math::lambert_w'))
+        imports.append(('lambert_w', 'crate::math::lambert_w'))
     if re.search(r'\bxc_E1_scaled\(', c_src):
-        imports.append(('xc_e1_scaled', 'libxc_kernel_math::expint_e1'))
+        imports.append(('xc_e1_scaled', 'crate::math::expint_e1'))
     if re.search(r'\bxc_erfcx\(', c_src):
-        imports.append(('xc_erfcx', 'libxc_kernel_math::special'))
+        imports.append(('xc_erfcx', 'crate::math::special'))
     if re.search(r'\bxc_dilogarithm\(', c_src):
-        imports.append(('xc_dilogarithm', 'libxc_kernel_math::special'))
+        imports.append(('xc_dilogarithm', 'crate::math::special'))
     if re.search(r'\bxc_integrate_func0\(', c_src):
-        imports.append(('xc_integrate_func0', 'libxc_kernel_math::integrate'))
+        imports.append(('xc_integrate_func0', 'crate::math::integrate'))
     if re.search(r'\bxc_integrate_func1\(', c_src):
-        imports.append(('xc_integrate_func1', 'libxc_kernel_math::integrate'))
+        imports.append(('xc_integrate_func1', 'crate::math::integrate'))
     if re.search(r'\bxbspline\(', c_src):
-        imports.append(('case21_xbspline', 'libxc_kernel_math::bspline'))
+        imports.append(('case21_xbspline', 'crate::math::bspline'))
     if re.search(r'\bcbspline\(', c_src):
-        imports.append(('case21_cbspline', 'libxc_kernel_math::bspline'))
+        imports.append(('case21_cbspline', 'crate::math::bspline'))
 
     return imports
 
@@ -234,7 +191,7 @@ def translate_line(line: str, is_pol: bool) -> str:
     """Translate a single C computation line to Rust."""
     s = line
 
-    # --- Parameter accesses: params->field[i][j] -> param_field_i_j ---
+    # --- Parameter accesses: params->field[i][j] → param_field_i_j ---
     s = re.sub(r'params->(\w+)\[(\d+)\]\[(\d+)\]',
                lambda m: f'param_{m.group(1)}_{m.group(2)}_{m.group(3)}', s)
     s = re.sub(r'params->(\w+)\[(\d+)\](?!\[)',
@@ -261,7 +218,7 @@ def translate_line(line: str, is_pol: bool) -> str:
     s = s.replace('my_piecewise5(', 'piecewise5(')
     s = s.replace('my_piecewise3(', 'piecewise3(')
 
-    # --- C math functions -> Rust ---
+    # --- C math functions → Rust ---
     math_map = [
         (r'\blog\(',    'f64::ln('),
         (r'\bsqrt\(',   'f64::sqrt('),
@@ -304,6 +261,8 @@ def translate_line(line: str, is_pol: bool) -> str:
                lambda m: f'case21_cbspline({m.group(1)}, __IDER_{m.group(2)}__, {cc_args})', s)
 
     # --- Numeric literal translation ---
+    # maple2c uses 0.XYZeN notation. Rust accepts this directly.
+    # We only simplify obvious integer values like 0.2e1 → 2.0, 0.1e1 → 1.0
     def simplify_literal(m):
         txt = m.group(1)
         try:
@@ -323,17 +282,14 @@ def translate_line(line: str, is_pol: bool) -> str:
         s = s.replace('sigma[0]', 'sigma0')
         s = s.replace('sigma[1]', 'sigma1')
         s = s.replace('sigma[2]', 'sigma2')
-        s = s.replace('lapl[0]', 'lapl0')
-        s = s.replace('lapl[1]', 'lapl1')
-        s = s.replace('tau[0]', 'tau0')
-        s = s.replace('tau[1]', 'tau1')
     else:
         s = s.replace('rho[0]', 'rho[ip]')
         s = s.replace('sigma[0]', 'sigma[ip]')
-        s = s.replace('lapl[0]', 'lapl[ip]')
-        s = s.replace('tau[0]', 'tau[ip]')
 
     # --- Integer literal arguments in function calls ---
+    # Convert , 0) → , 0.0) and , 0, → , 0.0, for f64 function arguments
+    # But NOT inside array indexing [] or variable names
+    # We do this carefully: only inside function call parentheses
     s = re.sub(r',\s*(\d+)\s*\)', lambda m: f', {m.group(1)}.0)', s)
     s = re.sub(r',\s*(\d+)\s*,', lambda m: f', {m.group(1)}.0,', s)
 
@@ -384,11 +340,6 @@ def parse_body(body_text: str, level: str, spin: str, is_vxc_only: bool):
             continue
 
         # Output guard: if(out->field != NULL ...)
-        # Handles all 4 MGGA guard patterns:
-        # Pattern A: if(out->zk != NULL && ...)
-        # Pattern B: if(out->vrho != NULL && ... NEEDS_LAPLACIAN ...)
-        # Pattern C: if(out->vrho != NULL && ... NEEDS_TAU ...)
-        # Pattern D: if(out->v2rho2 != NULL && ... NEEDS_LAPLACIAN ... NEEDS_TAU ...)
         if stripped.startswith('if(out->'):
             # Next non-empty line should be the output write
             j = i + 1
@@ -451,7 +402,7 @@ def generate_function(func_name: str, level: str, spin: str,
 
     used_params = find_used_params(compute_lines, all_params)
 
-    # Build output var -> (field, component) map
+    # Build output var → (field, component) map
     out_map = {}
     for field, comp, var in output_writes:
         out_map[var] = (field, comp)
@@ -467,8 +418,6 @@ def generate_function(func_name: str, level: str, spin: str,
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     lines.append(f'    sigma: &Array<f64>,')
-    lines.append(f'    lapl: &Array<f64>,')
-    lines.append(f'    tau: &Array<f64>,')
     for buf in out_bufs:
         lines.append(f'    {buf}: &mut Array<f64>,')
     for field, indices in used_params:
@@ -495,10 +444,6 @@ def generate_function(func_name: str, level: str, spin: str,
         lines.append(f'        let sigma0 = sigma[ip * 3];')
         lines.append(f'        let sigma1 = sigma[ip * 3 + 1];')
         lines.append(f'        let sigma2 = sigma[ip * 3 + 2];')
-        lines.append(f'        let lapl0 = lapl[ip * 2];')
-        lines.append(f'        let lapl1 = lapl[ip * 2 + 1];')
-        lines.append(f'        let tau0 = tau[ip * 2];')
-        lines.append(f'        let tau1 = tau[ip * 2 + 1];')
 
     # Translate computation lines and insert output writes
     for cline in compute_lines:
@@ -550,7 +495,7 @@ def translate_one_function(c_src: str, func_name: str, level: str, spin: str,
     fn_code = generate_function(func_name, level, spin, compute_lines,
                                 output_writes, all_params, is_vxc_only)
 
-    src_dir = 'mgga_vxc' if is_vxc_only else 'mgga_exc'
+    src_dir = 'gga_vxc' if is_vxc_only else 'gga_exc'
     return (
         f'//! {func_name.upper()} {level} {spin} kernel.\n'
         f'//!\n'
@@ -635,27 +580,27 @@ def translate_functional(c_file: str, func_name: str, out_dir: str,
 # ---------------------------------------------------------------------------
 
 def batch_translate(out_dir: str, c_dir: str = 'libxc-master/src/maple2c'):
-    """Translate all MGGA functionals."""
-    mgga_exc_dir = os.path.join(c_dir, 'mgga_exc')
-    mgga_vxc_dir = os.path.join(c_dir, 'mgga_vxc')
+    """Translate all GGA functionals."""
+    gga_exc_dir = os.path.join(c_dir, 'gga_exc')
+    gga_vxc_dir = os.path.join(c_dir, 'gga_vxc')
 
     all_funcs = []
 
-    # Standard mgga_exc files
-    for fname in sorted(os.listdir(mgga_exc_dir)):
+    # Standard gga_exc files
+    for fname in sorted(os.listdir(gga_exc_dir)):
         if not fname.endswith('.c') or 'Zone' in fname or fname == 'Makefile.am':
             continue
         func_name = fname[:-2]  # strip .c
-        c_path = os.path.join(mgga_exc_dir, fname)
+        c_path = os.path.join(gga_exc_dir, fname)
         all_funcs.append((c_path, func_name, False))
 
-    # Special mgga_vxc files
-    if os.path.isdir(mgga_vxc_dir):
-        for fname in sorted(os.listdir(mgga_vxc_dir)):
+    # Special gga_vxc files
+    if os.path.isdir(gga_vxc_dir):
+        for fname in sorted(os.listdir(gga_vxc_dir)):
             if not fname.endswith('.c') or 'Zone' in fname or fname == 'Makefile.am':
                 continue
             func_name = fname[:-2]
-            c_path = os.path.join(mgga_vxc_dir, fname)
+            c_path = os.path.join(gga_vxc_dir, fname)
             all_funcs.append((c_path, func_name, True))
 
     mod_entries = []
@@ -672,9 +617,9 @@ def batch_translate(out_dir: str, c_dir: str = 'libxc-master/src/maple2c'):
 
     # Write top-level mod.rs
     mod_rs_lines = [
-        '//! MGGA kernel translations from maple2c.',
+        '//! GGA kernel translations from maple2c.',
         f'//!',
-        f'//! Auto-generated: {len(mod_entries)} MGGA functionals.',
+        f'//! Auto-generated: {len(mod_entries)} GGA functionals.',
         '',
     ]
     for entry in mod_entries:
@@ -704,8 +649,8 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only]")
-        print("       translate_mgga.py --batch --write-to <dir>")
+        print("Usage: translate_gga_v2.py <c_file> <func_name> --write-to <dir> [--vxc-only]")
+        print("       translate_gga_v2.py --batch --write-to <dir>")
         sys.exit(1)
 
     c_file = sys.argv[1]
