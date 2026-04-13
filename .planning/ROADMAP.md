@@ -240,3 +240,20 @@ Route the libxc public surface through four layered capabilities: start by locki
 | 4. Safe & Compatibility APIs | 0/TBD | Not started | - |
 | 5. Verification & Performance Baselines | 0/TBD | Not started | - |
 >>>>>>> origin/main
+
+### Phase 8: Rebuild MGGA kernel conversion tool from scratch with iterative pattern verification
+
+**Goal:** Build translate_mgga.py from scratch, iteratively verify it against representative MGGA functionals, then batch-translate all 92 MGGA functionals into compiled sub-crates with oracle-verified numerical correctness
+**Requirements**: KERN-05, KERN-06, VERIFY-03, VERIFY-04
+**Depends on:** Phase 4 (kernel infrastructure), Phase 8-extract (sub-crate pattern)
+**Success Criteria** (what must be TRUE):
+  1. translate_mgga.py translates any MGGA maple2c C file into compilable Rust #[cube] kernels with lapl and tau arrays
+  2. All 92 MGGA functionals are translated and organized into sub-crates that compile
+  3. Representative MGGA functionals pass oracle comparison with relative error <= 1e-12 for exc
+  4. kernel-mgga facade re-exports all sub-crates
+**Plans:** 3 plans
+
+Plans:
+- [ ] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
+- [ ] 08-02-PLAN.md -- Translate representative functionals and oracle verification
+- [ ] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
