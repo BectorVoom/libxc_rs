@@ -10,7 +10,11 @@ libxc-kernel-math = { path = "../kernel-math" }
 [profile.dev]
 debug = 0
 codegen-units = 16
+opt-level = 0
+incremental = true
 
 [profile.test]
 debug = 0
 codegen-units = 16
+opt-level = 0
+incremental = true

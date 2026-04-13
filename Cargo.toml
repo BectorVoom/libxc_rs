@@ -18,6 +18,42 @@ approx = "0.5.1"
 libm = "0.2"
 libxc_rs-verify = { path = "verify" }
 libxc-kernel-mgga-1 = { path = "crates/kernel-mgga-1" }
+libxc-kernel-mgga-2 = { path = "crates/kernel-mgga-2" }
+libxc-kernel-mgga-3 = { path = "crates/kernel-mgga-3" }
+libxc-kernel-mgga-4 = { path = "crates/kernel-mgga-4" }
+libxc-kernel-mgga-5 = { path = "crates/kernel-mgga-5" }
+libxc-kernel-mgga-6 = { path = "crates/kernel-mgga-6" }
+libxc-kernel-mgga-7 = { path = "crates/kernel-mgga-7" }
+libxc-kernel-mgga-8 = { path = "crates/kernel-mgga-8" }
+libxc-kernel-mgga-9 = { path = "crates/kernel-mgga-9" }
+libxc-kernel-mgga-10 = { path = "crates/kernel-mgga-10" }
+libxc-kernel-mgga-11 = { path = "crates/kernel-mgga-11" }
+libxc-kernel-mgga-12 = { path = "crates/kernel-mgga-12" }
+libxc-kernel-mgga-13 = { path = "crates/kernel-mgga-13" }
+libxc-kernel-mgga-14 = { path = "crates/kernel-mgga-14" }
+libxc-kernel-mgga-15 = { path = "crates/kernel-mgga-15" }
+libxc-kernel-mgga-16 = { path = "crates/kernel-mgga-16" }
+libxc-kernel-mgga-17 = { path = "crates/kernel-mgga-17" }
+libxc-kernel-mgga-18 = { path = "crates/kernel-mgga-18" }
+libxc-kernel-mgga-19 = { path = "crates/kernel-mgga-19" }
+libxc-kernel-mgga-20 = { path = "crates/kernel-mgga-20" }
+libxc-kernel-mgga-21 = { path = "crates/kernel-mgga-21" }
+libxc-kernel-mgga-22 = { path = "crates/kernel-mgga-22" }
+libxc-kernel-mgga-23 = { path = "crates/kernel-mgga-23" }
+libxc-kernel-mgga-24 = { path = "crates/kernel-mgga-24" }
+libxc-kernel-mgga-25 = { path = "crates/kernel-mgga-25" }
+libxc-kernel-mgga-26 = { path = "crates/kernel-mgga-26" }
+libxc-kernel-mgga-27 = { path = "crates/kernel-mgga-27" }
+libxc-kernel-mgga-28 = { path = "crates/kernel-mgga-28" }
+libxc-kernel-mgga-29 = { path = "crates/kernel-mgga-29" }
+libxc-kernel-mgga-30 = { path = "crates/kernel-mgga-30" }
+libxc-kernel-mgga-31 = { path = "crates/kernel-mgga-31" }
+libxc-kernel-mgga-32 = { path = "crates/kernel-mgga-32" }
+libxc-kernel-mgga-33 = { path = "crates/kernel-mgga-33" }
+libxc-kernel-mgga-34 = { path = "crates/kernel-mgga-34" }
+libxc-kernel-mgga-35 = { path = "crates/kernel-mgga-35" }
+libxc-kernel-mgga-36 = { path = "crates/kernel-mgga-36" }
+libxc-kernel-mgga-37 = { path = "crates/kernel-mgga-37" }
 
 [workspace]
 members = [
@@ -31,6 +67,42 @@ members = [
     "crates/kernel-gga-3",
     "crates/kernel-mgga",
     "crates/kernel-mgga-1",
+    "crates/kernel-mgga-2",
+    "crates/kernel-mgga-3",
+    "crates/kernel-mgga-4",
+    "crates/kernel-mgga-5",
+    "crates/kernel-mgga-6",
+    "crates/kernel-mgga-7",
+    "crates/kernel-mgga-8",
+    "crates/kernel-mgga-9",
+    "crates/kernel-mgga-10",
+    "crates/kernel-mgga-11",
+    "crates/kernel-mgga-12",
+    "crates/kernel-mgga-13",
+    "crates/kernel-mgga-14",
+    "crates/kernel-mgga-15",
+    "crates/kernel-mgga-16",
+    "crates/kernel-mgga-17",
+    "crates/kernel-mgga-18",
+    "crates/kernel-mgga-19",
+    "crates/kernel-mgga-20",
+    "crates/kernel-mgga-21",
+    "crates/kernel-mgga-22",
+    "crates/kernel-mgga-23",
+    "crates/kernel-mgga-24",
+    "crates/kernel-mgga-25",
+    "crates/kernel-mgga-26",
+    "crates/kernel-mgga-27",
+    "crates/kernel-mgga-28",
+    "crates/kernel-mgga-29",
+    "crates/kernel-mgga-30",
+    "crates/kernel-mgga-31",
+    "crates/kernel-mgga-32",
+    "crates/kernel-mgga-33",
+    "crates/kernel-mgga-34",
+    "crates/kernel-mgga-35",
+    "crates/kernel-mgga-36",
+    "crates/kernel-mgga-37",
 ]
 
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.
@@ -104,5 +176,293 @@ debug = 0
 codegen-units = 16
 
 [profile.test.package.libxc-kernel-mgga-1]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-2]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-2]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-3]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-3]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-4]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-4]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-5]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-5]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-6]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-6]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-7]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-7]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-8]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-8]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-9]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-9]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-10]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-10]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-11]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-11]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-12]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-12]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-13]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-13]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-14]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-14]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-15]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-15]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-16]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-16]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-17]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-17]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-18]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-18]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-19]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-19]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-20]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-20]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-21]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-21]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-22]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-22]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-23]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-23]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-24]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-24]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-25]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-25]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-26]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-26]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-27]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-27]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-28]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-28]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-29]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-29]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-30]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-30]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-31]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-31]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-32]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-32]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-33]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-33]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-34]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-34]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-35]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-35]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-36]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-36]
+debug = 0
+codegen-units = 16
+
+[profile.dev.package.libxc-kernel-mgga-37]
+debug = 0
+codegen-units = 16
+
+[profile.test.package.libxc-kernel-mgga-37]
 debug = 0
 codegen-units = 16

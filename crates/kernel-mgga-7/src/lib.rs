@@ -4,5 +4,4 @@
 
 //! MGGA kernel translations batch 7.
 
-pub mod mgga_xc_lp90;
-pub mod mgga_xc_zlp;
+pub mod mgga_c_kcis;
