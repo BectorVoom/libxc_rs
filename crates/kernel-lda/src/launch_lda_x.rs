@@ -352,7 +352,7 @@ pub fn launch_lda_x_lxc_pol(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::kernel::launch::{
+    use libxc_rs::kernel::launch::{
         calculate_launch_config, cpu_client, create_input_buffer,
         create_zero_output_buffer, read_output_buffer,
     };

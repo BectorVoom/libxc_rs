@@ -1263,7 +1263,7 @@ pub fn lda_x_lxc_pol(
 mod tests {
     use super::*;
     use cubecl::cpu::CpuRuntime;
-    use crate::kernel::launch::{cpu_client, create_input_buffer, create_zero_output_buffer, read_output_buffer, calculate_launch_config};
+    use libxc_rs::kernel::launch::{cpu_client, create_input_buffer, create_zero_output_buffer, read_output_buffer, calculate_launch_config};
 
     /// Test that LDA_X exc unpolarized produces finite, non-zero output for rho=1.0
     #[test]
