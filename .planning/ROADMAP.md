@@ -254,7 +254,7 @@ Route the libxc public surface through four layered capabilities: start by locki
 **Plans:** 4 plans
 
 Plans:
-- [ ] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
-- [ ] 08-02-PLAN.md -- Translate representative functionals and oracle verification
-- [ ] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
-- [ ] 08-04-PLAN.md -- Deferred br89/mbrxc documentation and VXC oracle verification
+- [x] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
+- [x] 08-02-PLAN.md -- Translate representative functionals and oracle verification
+- [x] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
+- [x] 08-04-PLAN.md -- Deferred br89/mbrxc documentation and VXC oracle verification

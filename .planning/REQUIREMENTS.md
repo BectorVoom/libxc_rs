@@ -57,8 +57,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **KERN-02**: LDA_X canary kernel passes oracle comparison at 10^-12 relative error (both spin modes)
 - [ ] **KERN-03**: All LDA kernel files translated from maple2c to #[cube] functions (~43 functionals)
 - [ ] **KERN-04**: All GGA kernel files translated from maple2c to #[cube] functions (~130 functionals)
-- [ ] **KERN-05**: All MGGA kernel files translated from maple2c to #[cube] functions (~80 functionals)
-- [ ] **KERN-06**: Kernel translations preserve floating-point operation order from maple2c temporaries
+- [x] **KERN-05**: All MGGA kernel files translated from maple2c to #[cube] functions (~80 functionals)
+- [x] **KERN-06**: Kernel translations preserve floating-point operation order from maple2c temporaries
 - [ ] **KERN-07**: Density thresholding: grid points below threshold skipped, spin densities clamped
 - [ ] **KERN-08**: Output accumulation via += for mixed functional support
 - [ ] **KERN-09**: Each functional/order/spin combination is a separate kernel function
@@ -276,8 +276,8 @@ Which phases cover which requirements. Each requirement maps to exactly one phas
 | EVAL-05 | Phase 3: Input/Output and Evaluation Framework | Pending |
 | KERN-03 | Phase 4: Bulk Kernel Translation | Pending |
 | KERN-04 | Phase 4: Bulk Kernel Translation | Pending |
-| KERN-05 | Phase 4: Bulk Kernel Translation | Pending |
-| KERN-06 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-05 | Phase 4: Bulk Kernel Translation | Complete |
+| KERN-06 | Phase 4: Bulk Kernel Translation | Complete |
 | KERN-07 | Phase 4: Bulk Kernel Translation | Pending |
 | KERN-08 | Phase 4: Bulk Kernel Translation | Pending |
 | KERN-09 | Phase 4: Bulk Kernel Translation | Pending |
