@@ -520,25 +520,16 @@ phase success criteria 2 and 3:
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should kernel-gga-{1,2,3} also get derivative-order feature gates?**
-   - What we know: Their largest lxc_pol.rs is 4,889 lines (below OOM threshold), so they compile fine
-   - What's unclear: Future additions might push them over 5K
-   - Recommendation: No for now. Don't add unnecessary complexity to working crates.
+   - RESOLVED: No — kernel-gga-{1,2,3} compile fine at 4,889 lines max, no order gates needed. Don't add unnecessary complexity to working crates.
 
 2. **Should `order-kxc` and `order-lxc` be separate from the family gating?**
-   - What we know: Higher-order derivatives are rarely needed (most DFT uses exc+vxc)
-   - What's unclear: Whether existing callers depend on kxc/lxc from GGA
-   - Recommendation: Add them as separate optional features in kernel-gga-4 Cargo.toml
-     but do NOT add them to the workspace root's `[features]` yet (scope creep risk).
-     The primary goal is enabling the 25 functionals at exc+vxc+fxc level.
+   - RESOLVED: order-kxc/order-lxc added to kernel-gga-4 Cargo.toml only, not workspace root. The primary goal is enabling the 25 functionals at exc+vxc+fxc level.
 
 3. **Does sccache actually produce cache hits in practice?**
-   - What we know: Configuration is correct (rustc-wrapper + incremental=false)
-   - What's unclear: Whether CubeCL proc macro output is deterministic enough for sccache
-   - Recommendation: Run `sccache --zero-stats && cargo check && sccache --show-stats`
-     to verify after implementing feature gating.
+   - RESOLVED: Run `sccache --zero-stats && cargo check && sccache --show-stats` post-execution to verify. Configuration is correct (rustc-wrapper + incremental=false).
 
 ---
 
