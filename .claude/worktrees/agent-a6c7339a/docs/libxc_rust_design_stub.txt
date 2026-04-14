@@ -1,0 +1,1 @@
+Stub placeholder for libxc Rust design artifact generation. Main design document write succeeded.

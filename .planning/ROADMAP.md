@@ -273,6 +273,6 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 09-01-PLAN.md -- Remove sccache rustc-wrapper to fix incremental compilation
-- [ ] 09-02-PLAN.md -- Add feature gates for kernel families (lda/gga/mgga)
+- [x] 09-01-PLAN.md -- Remove sccache rustc-wrapper to fix incremental compilation
+- [x] 09-02-PLAN.md -- Add feature gates for kernel families (lda/gga/mgga)
 - [ ] 09-03-PLAN.md -- Clean up redundant per-crate profile sections

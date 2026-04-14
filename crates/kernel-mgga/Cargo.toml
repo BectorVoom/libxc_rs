@@ -43,15 +43,3 @@ libxc-kernel-mgga-34 = { path = "../kernel-mgga-34" }
 libxc-kernel-mgga-35 = { path = "../kernel-mgga-35" }
 libxc-kernel-mgga-36 = { path = "../kernel-mgga-36" }
 libxc-kernel-mgga-37 = { path = "../kernel-mgga-37" }
-
-[profile.dev]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true
-
-[profile.test]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true

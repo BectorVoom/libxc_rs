@@ -1,0 +1,49 @@
+services:
+  dev:
+    image: localhost/libxc_rs-dev:latest
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        UBUNTU_IMAGE: ubuntu:26.04
+        USERNAME: vscode
+        USER_UID: 1000
+        USER_GID: 1000
+    init: true
+    user: vscode
+    working_dir: /workspace
+    command: /bin/bash -lc "sleep infinity"
+    environment:
+      TZ: Asia/Tokyo
+      CARGO_HOME: /home/vscode/.cargo
+      RUSTUP_HOME: /home/vscode/.rustup
+      BUN_INSTALL: /home/vscode/.bun
+      UV_CACHE_DIR: /home/vscode/.cache/uv
+    volumes:
+      - ./:/workspace:cached
+      - cargo-registry:/home/vscode/.cargo/registry
+      - cargo-git:/home/vscode/.cargo/git
+      - rustup-home:/home/vscode/.rustup
+      - uv-cache:/home/vscode/.cache/uv
+      - bun-install-cache:/home/vscode/.bun/install/cache
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    networks:
+      - default
+      - external-devnet
+
+volumes:
+  cargo-registry:
+  cargo-git:
+  rustup-home:
+  uv-cache:
+  bun-install-cache:
+
+networks:
+  external-devnet:
+    external: true
+    name: ${EXTERNAL_DOCKER_NETWORK:-bridge}

@@ -70,6 +70,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     bash-completion \
     build-essential \
+    libssl-dev \
     ca-certificates \
     clang \
     curl \
@@ -90,12 +91,13 @@ RUN apt-get update \
     xz-utils \
     zip \
     nodejs \
+    cmake \
     && ln -sf /usr/bin/python3 /usr/local/bin/python \
     && ln -sf /usr/bin/pip3 /usr/local/bin/pip \
     && locale-gen C.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-
+RUN cargo install sccache --locked
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
@@ -103,6 +105,9 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     | sh -s -- -y --default-toolchain stable \
     && mkdir -p /home/${USERNAME}/.cargo \
     && cat > /home/${USERNAME}/.cargo/config.toml <<'CARGOEOF'
+[build]
+compiler = "sccache"
+
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
