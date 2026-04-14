@@ -5,4 +5,5 @@
 //! MGGA kernel translations batch 24.
 
 pub mod mgga_c_vsxc;
-pub mod mgga_x_mbr;
+// mgga_x_mbr deferred: requires xc_mgga_x_br89_get_x (Brent's method root-finder)
+// pub mod mgga_x_mbr;

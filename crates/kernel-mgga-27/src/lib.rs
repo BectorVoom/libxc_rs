@@ -4,4 +4,5 @@
 
 //! MGGA kernel translations batch 27.
 
-pub mod mgga_x_mggac;
+// mgga_x_mggac deferred: requires xc_mgga_x_mbrxc_get_x (MBRXC root-finder)
+// pub mod mgga_x_mggac;

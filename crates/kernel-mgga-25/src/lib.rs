@@ -5,4 +5,5 @@
 //! MGGA kernel translations batch 25.
 
 pub mod mgga_x_ft98;
-pub mod mgga_x_mbrxc_bg;
+// mgga_x_mbrxc_bg deferred: requires xc_mgga_x_mbrxc_get_x (MBRXC root-finder)
+// pub mod mgga_x_mbrxc_bg;
