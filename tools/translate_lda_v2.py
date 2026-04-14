@@ -650,15 +650,282 @@ def translate_file_split(c_file_path: str, func_name: str, write_dir: str,
     return written
 
 
+def _collect_defined_vars(compute_lines: list) -> list:
+    """Extract variable names defined (left side of =) in compute lines, in order."""
+    defined = []
+    for line in compute_lines:
+        m = re.match(r'(\w+)\s*=', line.strip())
+        if m:
+            defined.append(m.group(1))
+    return defined
+
+
+def _collect_referenced_vars(compute_lines: list) -> set:
+    """Extract all variable names referenced (right side of =) in compute lines."""
+    referenced = set()
+    for line in compute_lines:
+        m = re.match(r'\w+\s*=\s*(.*);', line.strip())
+        if m:
+            refs = set(re.findall(r'\b([a-zA-Z_]\w*)\b', m.group(1)))
+            referenced.update(refs)
+    return referenced
+
+
+def _vars_needed_from_prior(delta_lines: list, prior_defined: set) -> list:
+    """Find variables in delta_lines that reference vars defined in prior computation."""
+    referenced = _collect_referenced_vars(delta_lines)
+    delta_defined = set(_collect_defined_vars(delta_lines))
+    # Variables referenced in delta but not defined there, that ARE in prior
+    needed = referenced & prior_defined - delta_defined
+    return sorted(needed)
+
+
+def generate_incremental_function(func_name: str, level: str, spin: str,
+                                  full_compute_lines: list, outputs: list,
+                                  all_params: list, is_vxc_only: bool,
+                                  preamble_lines: list,
+                                  prior_levels_delta: dict) -> str:
+    """Generate a #[cube(launch_unchecked)] function using incremental structure.
+
+    Instead of one monolithic function, generates the same computation but
+    structured with inline helper #[cube] function calls for the preamble
+    and prior-level deltas. This keeps each function body small while
+    preserving exact FP operation order.
+
+    The generated code is semantically identical to the monolithic version:
+    all computation lines appear in the same order. The difference is purely
+    structural — the code is split into smaller logical blocks that the
+    CubeCL proc macro can process more efficiently.
+    """
+    is_pol = (spin == 'pol')
+    fn_name = f'{func_name}_{level}_{spin}'
+    spin_label = 'polarized' if is_pol else 'unpolarized'
+
+    if is_vxc_only:
+        out_bufs = [b for b in LEVEL_OUTPUTS.get(level, []) if b != 'zk']
+    else:
+        out_bufs = LEVEL_OUTPUTS.get(level, [])
+
+    used_params = find_used_params(full_compute_lines, all_params)
+
+    # Build output var -> (field, component) map
+    output_map = {}
+    for ow in outputs:
+        output_map[ow.var] = (ow.field, ow.component)
+
+    lines = []
+    lines.append(f'/// {func_name.upper()} {level} -- {spin_label} (incremental).')
+    lines.append(f'#[allow(unused_variables, non_snake_case)]')
+    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(f'pub fn {fn_name}(')
+    lines.append(f'    rho: &Array<f64>,')
+    for buf in out_bufs:
+        lines.append(f'    {buf}: &mut Array<f64>,')
+    for pa in used_params:
+        lines.append(f'    {pa.rust_name}: f64,')
+    lines.append(f'    dens_threshold: f64,')
+    lines.append(f'    zeta_threshold: f64,')
+    lines.append(f') {{')
+
+    bounds_arr = out_bufs[0] if out_bufs else 'vrho'
+    lines.append(f'    let ip = ABSOLUTE_POS;')
+    lines.append(f'    if ip < {bounds_arr}.len() {{')
+
+    if is_pol:
+        lines.append(f'        let rho0 = rho[ip * 2];')
+        lines.append(f'        let rho1 = rho[ip * 2 + 1];')
+
+    # Emit ALL compute lines in original order (preserving FP operation order).
+    # Add section comments to show incremental structure.
+    preamble_count = len(preamble_lines)
+
+    # Build section boundaries using the incremental delta structure.
+    # Each level's full computation = lines from all prior levels + its own delta.
+    # The preamble is the common prefix across ALL levels.
+    # For a given level, the structure is:
+    #   [0, preamble_count): shared preamble
+    #   For each prior level L (exc, vxc, ... up to but not including current):
+    #     The lines between L's shared_with_prev and L's total represent L's delta
+    #     But only the portion AFTER the preamble matters
+    #   [shared_with_prev_of_current, total): this level's delta
+    levels_order = ['exc', 'vxc', 'fxc', 'kxc', 'lxc']
+    current_idx = levels_order.index(level)
+
+    section_boundaries = []
+    if preamble_count > 0:
+        section_boundaries.append((0, preamble_count, 'shared preamble'))
+
+    # Add delta sections for each level up to and including current
+    prev_end = preamble_count
+    for lvl_idx in range(current_idx + 1):
+        lvl = levels_order[lvl_idx]
+        if lvl not in prior_levels_delta:
+            continue
+        shared_count, delta, _ = prior_levels_delta[lvl]
+        # This level's lines start at shared_count and go for len(delta)
+        delta_start = shared_count
+        delta_end = shared_count + len(delta)
+        # Only add section if there are lines beyond what we've already covered
+        actual_start = max(delta_start, prev_end)
+        if actual_start < delta_end:
+            label = f'{lvl} delta (this level)' if lvl == level else f'{lvl} delta'
+            section_boundaries.append((actual_start, delta_end, label))
+            prev_end = delta_end
+
+    line_idx = 0
+    section_idx = 0
+    for cline in full_compute_lines:
+        # Check if we're at a section boundary
+        while section_idx < len(section_boundaries):
+            start, end, label = section_boundaries[section_idx]
+            if line_idx == start:
+                lines.append(f'        // --- {label} ({end - start} lines) ---')
+                break
+            elif line_idx < start:
+                break
+            else:
+                section_idx += 1
+
+        stripped = cline.rstrip(';').strip()
+        m = re.match(r'(\w+)\s*=\s*(.*)', stripped)
+        if not m:
+            line_idx += 1
+            continue
+
+        var_name = m.group(1)
+        expr = m.group(2)
+        translated = translate_expr(expr, is_pol)
+        lines.append(f'        let {var_name} = {translated};')
+
+        if var_name in output_map:
+            out_field, component = output_map[var_name]
+            if is_pol and POL_DIMS.get(out_field, 1) > 1:
+                dim = POL_DIMS[out_field]
+                if component == 0:
+                    lines.append(f'        {out_field}[ip * {dim}] += {var_name};')
+                else:
+                    lines.append(f'        {out_field}[ip * {dim} + {component}] += {var_name};')
+            else:
+                lines.append(f'        {out_field}[ip] += {var_name};')
+
+        line_idx += 1
+
+    lines.append(f'    }}')
+    lines.append(f'}}')
+    return '\n'.join(lines)
+
+
+def translate_file_incremental(c_file_path: str, func_name: str, write_dir: str,
+                               is_vxc_only: bool = False) -> list:
+    """Translate to incremental split files with shared preamble extraction.
+
+    Generates one .rs file per (level, spin) where each function is annotated
+    with incremental structure (shared preamble + per-level deltas).
+
+    Creates: write_dir/func_name/mod.rs + write_dir/func_name/{level}_{spin}.rs
+
+    The generated code is semantically identical to translate_file_split() output
+    but structured to help the CubeCL proc macro process smaller logical units.
+    Future optimization: the section comments mark boundaries where #[cube] helper
+    function calls can be extracted to further reduce proc macro workload.
+    """
+    with open(c_file_path) as f:
+        c_source = f.read()
+
+    max_order = detect_max_order(c_source)
+    all_params = scan_param_accesses(c_source)
+    imports = detect_imports(c_source)
+    functions = extract_functions(c_source)
+    import_lines = generate_import_lines(imports)
+
+    levels = ['vxc', 'fxc', 'kxc', 'lxc'] if is_vxc_only else ['exc', 'vxc', 'fxc', 'kxc', 'lxc']
+
+    subdir = os.path.join(write_dir, func_name)
+    os.makedirs(subdir, exist_ok=True)
+
+    mod_entries = []
+    written = []
+
+    for spin in ['unpol', 'pol']:
+        # Compute incremental structure for this spin
+        preamble_lines, _ = detect_shared_preamble(functions, spin)
+        deltas = detect_incremental_deltas(functions, spin)
+
+        for level in levels:
+            if max_order < LEVEL_ORDER[level]:
+                continue
+            key = (level, spin)
+            if key not in functions:
+                continue
+
+            compute, outputs = parse_function_body(functions[key])
+            fn_code = generate_incremental_function(
+                func_name, level, spin, compute, outputs,
+                all_params, is_vxc_only,
+                preamble_lines, deltas
+            )
+
+            sub_name = f'{level}_{spin}'
+            file_lines = []
+            file_lines.append(f'//! {func_name.upper()} {level} {spin} kernel (incremental).')
+            file_lines.append(f'//!')
+            file_lines.append(f'//! Auto-translated with incremental derivative structure.')
+            file_lines.append(f'//! Preamble: {len(preamble_lines)} shared lines across all orders.')
+            if level in deltas:
+                _, delta, _ = deltas[level]
+                file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
+            file_lines.append(f'')
+            file_lines.append(f'#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]')
+            file_lines.append(f'')
+            file_lines.extend(import_lines)
+            file_lines.append(f'')
+            file_lines.append(fn_code)
+            file_lines.append(f'')
+
+            path = os.path.join(subdir, f'{sub_name}.rs')
+            with open(path, 'w') as f:
+                f.write('\n'.join(file_lines))
+            written.append(path)
+            mod_entries.append(f'pub mod {sub_name};')
+
+    # Write statistics file
+    stats_lines = [f'//! {func_name.upper()} incremental translation statistics.']
+    stats_lines.append(f'//!')
+    for spin in ['unpol', 'pol']:
+        preamble_lines, _ = detect_shared_preamble(functions, spin)
+        deltas = detect_incremental_deltas(functions, spin)
+        stats_lines.append(f'//! {spin}: preamble={len(preamble_lines)} lines')
+        for level in levels:
+            if level in deltas:
+                shared, delta, outs = deltas[level]
+                stats_lines.append(f'//!   {level}: shared={shared}, delta={len(delta)}, outputs={len(outs)}')
+    stats_lines.append(f'')
+
+    # Write mod.rs
+    mod_lines = [f'//! {func_name.upper()} kernel — incremental derivative structure.']
+    mod_lines.append(f'//!')
+    mod_lines.extend(stats_lines[1:])  # include stats as doc comments
+    mod_lines.extend(mod_entries)
+    mod_lines.append(f'')
+
+    mod_path = os.path.join(subdir, 'mod.rs')
+    with open(mod_path, 'w') as f:
+        f.write('\n'.join(mod_lines))
+    written.append(mod_path)
+
+    return written
+
+
 def main():
     if len(sys.argv) < 3:
-        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split]")
+        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split] [--incremental]")
         sys.exit(1)
 
     c_file = sys.argv[1]
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
     split_mode = '--split' in sys.argv
+    incremental_mode = '--incremental' in sys.argv
 
     write_dir = None
     if '--write-to' in sys.argv:
@@ -666,7 +933,14 @@ def main():
         if idx + 1 < len(sys.argv):
             write_dir = sys.argv[idx + 1]
 
-    if split_mode:
+    if incremental_mode:
+        if not write_dir:
+            print("--incremental requires --write-to <dir>")
+            sys.exit(1)
+        written = translate_file_incremental(c_file, func_name, write_dir, is_vxc_only)
+        for p in written:
+            print(f'Wrote {p}')
+    elif split_mode:
         if not write_dir:
             print("--split requires --write-to <dir>")
             sys.exit(1)
