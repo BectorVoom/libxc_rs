@@ -433,6 +433,110 @@ def generate_function(func_name: str, level: str, spin: str,
 
 
 # ============================================================================
+# Shared preamble and incremental delta detection
+# ============================================================================
+
+def detect_shared_preamble(functions: dict, spin: str) -> tuple:
+    """Detect the shared preamble (common prefix) across all derivative orders.
+
+    Args:
+        functions: dict of (level, spin) -> function body text (from extract_functions)
+        spin: 'unpol' or 'pol'
+
+    Returns:
+        (preamble_lines, per_level_remaining_lines) where:
+        - preamble_lines: list of C compute lines common to ALL derivative orders
+        - per_level_remaining_lines: dict of level -> list of lines AFTER the preamble
+    """
+    levels_present = []
+    level_compute = {}
+    for level in ['exc', 'vxc', 'fxc', 'kxc', 'lxc']:
+        key = (level, spin)
+        if key in functions:
+            compute_lines, _ = parse_function_body(functions[key])
+            level_compute[level] = compute_lines
+            levels_present.append(level)
+
+    if not levels_present:
+        return [], {}
+
+    # Find the common prefix across ALL present levels
+    min_len = min(len(level_compute[l]) for l in levels_present)
+    preamble_end = 0
+    for i in range(min_len):
+        ref_line = level_compute[levels_present[0]][i]
+        if all(level_compute[l][i] == ref_line for l in levels_present[1:]):
+            preamble_end = i + 1
+        else:
+            break
+
+    preamble_lines = level_compute[levels_present[0]][:preamble_end]
+    per_level_remaining = {}
+    for level in levels_present:
+        per_level_remaining[level] = level_compute[level][preamble_end:]
+
+    return preamble_lines, per_level_remaining
+
+
+def detect_incremental_deltas(functions: dict, spin: str) -> dict:
+    """Compute incremental deltas between consecutive derivative orders.
+
+    For each consecutive pair (exc->vxc, vxc->fxc, etc.), determines which
+    lines in the higher order are new vs shared with the lower order.
+
+    Args:
+        functions: dict of (level, spin) -> function body text
+        spin: 'unpol' or 'pol'
+
+    Returns:
+        dict of level -> (shared_line_count, delta_lines, output_writes) where:
+        - shared_line_count: number of compute lines shared with previous level
+        - delta_lines: list of NEW compute lines unique to this level
+        - output_writes: list of OutputWrite for this level
+    """
+    levels_present = []
+    level_data = {}
+    for level in ['exc', 'vxc', 'fxc', 'kxc', 'lxc']:
+        key = (level, spin)
+        if key in functions:
+            compute_lines, outputs = parse_function_body(functions[key])
+            level_data[level] = (compute_lines, outputs)
+            levels_present.append(level)
+
+    if not levels_present:
+        return {}
+
+    result = {}
+
+    # First level has no predecessor — all lines are "delta"
+    first = levels_present[0]
+    first_compute, first_outputs = level_data[first]
+    result[first] = (0, first_compute, first_outputs)
+
+    # For each subsequent level, find where it diverges from the previous
+    for idx in range(1, len(levels_present)):
+        curr_level = levels_present[idx]
+        prev_level = levels_present[idx - 1]
+
+        curr_compute, curr_outputs = level_data[curr_level]
+        prev_compute, _ = level_data[prev_level]
+
+        # Find shared prefix length between prev and curr
+        shared = 0
+        min_len = min(len(prev_compute), len(curr_compute))
+        for i in range(min_len):
+            if prev_compute[i] == curr_compute[i]:
+                shared += 1
+            else:
+                break
+
+        delta_lines = curr_compute[shared:]
+        result[curr_level] = (shared, delta_lines, curr_outputs)
+
+    return result
+
+
+# ============================================================================
 # Main translation
 # ============================================================================
 
