@@ -48,3 +48,5 @@ pub use libxc_kernel_mgga_34 as batch34;
 pub use libxc_kernel_mgga_35 as batch35;
 pub use libxc_kernel_mgga_36 as batch36;
 pub use libxc_kernel_mgga_37 as batch37;
+
+pub mod deferred;
