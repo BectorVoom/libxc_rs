@@ -1,4 +1,8 @@
-//! LDA_C_PW_ERF lxc pol kernel.
+//! LDA_C_PW_ERF lxc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 187 shared lines across all orders.
+//! Delta: 6718 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PW_ERF lxc -- polarized.
+/// LDA_C_PW_ERF lxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_erf_lxc_pol(
@@ -25,6 +29,7 @@ pub fn lda_c_pw_erf_lxc_pol(
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
+        // --- shared preamble (187 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -213,6 +218,7 @@ pub fn lda_c_pw_erf_lxc_pol(
         let t313 = t305 * t312;
         let tzk0 = -t33 + t89 + t91 - t313;
         zk[ip] += tzk0;
+        // --- vxc delta (326 lines) ---
         let t315 = t4 * t156 * t31;
         let t316 = 0.0011073577833333333 * t315;
         let t317 = t27 * t27;
@@ -541,6 +547,7 @@ pub fn lda_c_pw_erf_lxc_pol(
         let t889 = t316 + t337 - t341 - t346 + t750 + t392 + t752 - t399 - t404 - t888 - t736;
         let tvrho1 = t7 * t889 - t313 - t33 + t89 + t91;
         vrho[ip * 2 + 1] += tvrho1;
+        // --- fxc delta (1026 lines) ---
         let t891 = 0.0022147155666666666 * t315;
         let t892 = 2.0 * t336;
         let t893 = 8.0 * t340;
@@ -1570,6 +1577,7 @@ pub fn lda_c_pw_erf_lxc_pol(
         let t2688 = -t1049 - t1045 - t997 + t1036 - t2687 + t2354 + t1083 - t1053 - t1057 + t1079 + t1087 + t1748 - t1757 - t1001;
         let tv2rho22 = t891 + t892 - t893 - t894 + 2.0 * t750 + t896 + 0.03950357940513041 * t751 - t898 - t899 - 2.0 * t888 - t901 + t7 * (t2352 + t2688);
         v2rho2[ip * 3 + 2] += tv2rho22;
+        // --- kxc delta (2953 lines) ---
         let t2693 = 1.0 / t311 / t310 / t309;
         let t2694 = t305 * t2693;
         let t2695 = t343 * t296;
@@ -4527,6 +4535,7 @@ pub fn lda_c_pw_erf_lxc_pol(
         let t8096 = -t4322 - t4324 - t4329 + t4330 - 3.0 * t2687 + 0.05925536910769562 * t2353 + t4333 - t4334 - t4335 + t4337 + t4338 + t4339 - t4340 - t4342;
         let tv3rho33 = t8093 + t8096;
         v3rho3[ip * 4 + 3] += tv3rho33;
+        // --- lxc delta (this level) (6718 lines) ---
         let t8097 = 1.8960024086108225 * t2696;
         let t8098 = 0.06506148529668915 * t2699;
         let t8099 = 1.9263778438055648 * t2702;

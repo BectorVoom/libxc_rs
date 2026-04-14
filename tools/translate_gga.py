@@ -129,20 +129,20 @@ def detect_imports(c_src: str) -> list:
                  'POW_1_4', 'POW_7_3', 'POW_2', 'POW_3']
     for fn in power_fns:
         if f'{fn}(' in c_src:
-            imports.append((fn.lower(), 'crate::math::powers'))
+            imports.append((fn.lower(), 'libxc_kernel_math::powers'))
 
     if re.search(r'\bcbrt\(', c_src):
-        imports.append(('safe_cbrt', 'crate::math::powers'))
+        imports.append(('safe_cbrt', 'libxc_kernel_math::powers'))
 
     if 'my_piecewise3(' in c_src:
-        imports.append(('piecewise3', 'crate::math::piecewise'))
+        imports.append(('piecewise3', 'libxc_kernel_math::piecewise'))
     if 'my_piecewise5(' in c_src:
-        imports.append(('piecewise5', 'crate::math::piecewise'))
+        imports.append(('piecewise5', 'libxc_kernel_math::piecewise'))
 
     if re.search(r'\berf\(', c_src):
-        imports.append(('erf_approx', 'crate::math::erf'))
+        imports.append(('erf_approx', 'libxc_kernel_math::erf'))
     if re.search(r'\berfc\(', c_src):
-        imports.append(('erfc_approx', 'crate::math::erf'))
+        imports.append(('erfc_approx', 'libxc_kernel_math::erf'))
 
     consts = ['M_PI', 'M_CBRT2', 'M_CBRT3', 'M_CBRT4', 'M_CBRT5', 'M_CBRT6',
               'M_CBRT7', 'M_CBRT9', 'M_CBRTPI', 'M_SQRTPI', 'M_SQRT2',
@@ -150,24 +150,24 @@ def detect_imports(c_src: str) -> list:
               'FZETAFACTOR', 'KF_CONST', 'M_C']
     for c in consts:
         if re.search(r'\b' + c + r'\b', c_src):
-            imports.append((c, 'crate::math::constants'))
+            imports.append((c, 'libxc_kernel_math::constants'))
 
     if re.search(r'\bLambertW\(', c_src):
-        imports.append(('lambert_w', 'crate::math::lambert_w'))
+        imports.append(('lambert_w', 'libxc_kernel_math::lambert_w'))
     if re.search(r'\bxc_E1_scaled\(', c_src):
-        imports.append(('xc_e1_scaled', 'crate::math::expint_e1'))
+        imports.append(('xc_e1_scaled', 'libxc_kernel_math::expint_e1'))
     if re.search(r'\bxc_erfcx\(', c_src):
-        imports.append(('xc_erfcx', 'crate::math::special'))
+        imports.append(('xc_erfcx', 'libxc_kernel_math::special'))
     if re.search(r'\bxc_dilogarithm\(', c_src):
-        imports.append(('xc_dilogarithm', 'crate::math::special'))
+        imports.append(('xc_dilogarithm', 'libxc_kernel_math::special'))
     if re.search(r'\bxc_integrate_func0\(', c_src):
-        imports.append(('xc_integrate_func0', 'crate::math::integrate'))
+        imports.append(('xc_integrate_func0', 'libxc_kernel_math::integrate'))
     if re.search(r'\bxc_integrate_func1\(', c_src):
-        imports.append(('xc_integrate_func1', 'crate::math::integrate'))
+        imports.append(('xc_integrate_func1', 'libxc_kernel_math::integrate'))
     if re.search(r'\bxbspline\(', c_src):
-        imports.append(('case21_xbspline', 'crate::math::bspline'))
+        imports.append(('case21_xbspline', 'libxc_kernel_math::bspline'))
     if re.search(r'\bcbspline\(', c_src):
-        imports.append(('case21_cbspline', 'crate::math::bspline'))
+        imports.append(('case21_cbspline', 'libxc_kernel_math::bspline'))
 
     return imports
 

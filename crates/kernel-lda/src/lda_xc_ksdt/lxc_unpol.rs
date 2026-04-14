@@ -1,4 +1,8 @@
-//! LDA_XC_KSDT lxc unpol kernel.
+//! LDA_XC_KSDT lxc unpol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 185 shared lines across all orders.
+//! Delta: 366 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_XC_KSDT lxc -- unpolarized.
+/// LDA_XC_KSDT lxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_xc_ksdt_lxc_unpol(
@@ -59,6 +63,7 @@ pub fn lda_xc_ksdt_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (185 lines) ---
         let t1 = 1.0 / M_PI;
         let t2 = M_CBRT4;
         let t3 = t2 * t2;
@@ -245,6 +250,7 @@ pub fn lda_xc_ksdt_lxc_unpol(
         let t365 = t328 * t364;
         let tzk0 = -t213 / 3.0 - t365 / 3.0;
         zk[ip] += tzk0;
+        // --- vxc delta (223 lines) ---
         let t369 = t25 * t1;
         let t371 = 1.0 / t369 * t13;
         let t372 = t4 * t371;
@@ -469,6 +475,7 @@ pub fn lda_xc_ksdt_lxc_unpol(
         let t792 = t788 * t791;
         let tvrho0 = -t213 / 3.0 - t365 / 3.0 + rho[ip] * (-t497 / 3.0 - t501 / 9.0 + t556 / 3.0 - t605 / 3.0 - t724 / 3.0 - t728 / 9.0 + t782 / 3.0 - 2.0 / 3.0 * t785 + t792 / 3.0);
         vrho[ip] += tvrho0;
+        // --- fxc delta (406 lines) ---
         let t805 = t2 * t417;
         let t806 = t805 * t211;
         let t807 = t147 * t806;
@@ -876,6 +883,7 @@ pub fn lda_xc_ksdt_lxc_unpol(
         let t1679 = 2.0 / 3.0 * t1336 + t1443 / 3.0 - 2.0 / 3.0 * t1451 - 4.0 / 9.0 * t1454 + 2.0 / 9.0 * t1458 + 2.0 / 3.0 * t1461 - 4.0 / 3.0 * t1463 - 2.0 / 3.0 * t1467 + 2.0 / 3.0 * t1470 + 2.0 / 9.0 * t1474 + 4.0 / 3.0 * t1479 + t1482 / 3.0 + t1485 / 3.0 - t1674 / 3.0 - 2.0 / 3.0 * t1677;
         let tv2rho20 = -2.0 / 3.0 * t497 - 2.0 / 9.0 * t501 + 2.0 / 3.0 * t556 - 2.0 / 3.0 * t605 - 2.0 / 3.0 * t724 - 2.0 / 9.0 * t728 + 2.0 / 3.0 * t782 - 4.0 / 3.0 * t785 + 2.0 / 3.0 * t792 + rho[ip] * (t1333 + t1679);
         v2rho2[ip] += tv2rho20;
+        // --- kxc delta (783 lines) ---
         let t1694 = 2.0 / 9.0 * t807 - 2.0 / 3.0 * t809 - 2.0 * t816 - 2.0 / 3.0 * t819 + 2.0 / 3.0 * t823 + t990 + 4.0 * t994 - 2.0 * t1002 + 2.0 * t1004 - 2.0 * t1006 - t1238 + 2.0 / 9.0 * t1242 - t1329 - 2.0 / 3.0 * t1331 + 2.0 * t1336;
         let t1704 = t805 * t603;
         let t1705 = t147 * t1704;
@@ -1660,6 +1668,7 @@ pub fn lda_xc_ksdt_lxc_unpol(
         let t3592 = t1443 - 2.0 * t1451 - 4.0 / 3.0 * t1454 + 2.0 / 3.0 * t1458 + 2.0 * t1461 - 4.0 * t1463 - 2.0 * t1467 + 2.0 * t1470 + 2.0 / 3.0 * t1474 + 4.0 * t1479 + t1482 + t1485 - t1674 + rho[ip] * (t2626 + t3437 + t3529 + t3587) - 2.0 * t1677;
         let tv3rho30 = t1694 + t3592;
         v3rho3[ip] += tv3rho30;
+        // --- lxc delta (this level) (366 lines) ---
         let t3613 = 8.0 / 9.0 * t1705 + 4.0 / 3.0 * t2050 + 4.0 * t2054 - 40.0 / 81.0 * t2056 - 8.0 / 3.0 * t2058 - 4.0 / 3.0 * t2495 - 16.0 / 3.0 * t2497 - 8.0 * t2499 + 16.0 / 9.0 * t2502 - 8.0 * t2504 - 8.0 / 3.0 * t2507 - 8.0 * t2509 - 8.0 / 3.0 * t2608 - 8.0 * t2614 - 4.0 * t2616 + 4.0 * t2619 + 8.0 / 3.0 * t2620 + 4.0 * t2622 + 4.0 / 3.0 * t2624 - 8.0 / 9.0 * t2629;
         let t3642 = t1301 * t1316 * t779 * t588;
         let t3676 = -4.0 / 3.0 * t496 * t3484 - 8.0 * t503 * t1447 * t2052 * t553 + 8.0 / 3.0 * t328 * t732 * t2606 * t779 + 8.0 * t813 * t2644 * t3642 - 4.0 * t813 * t2633 * t3642 + 8.0 * t2639 * t814 * t598 * t599 * t987 - 8.0 / 3.0 * t788 * t2610 * t208 * t2978 * t779 - 16.0 * t788 * t997 * t592 * t2612 + 12.0 * t788 * t2661 * t205 * t208 * t999 * t987 - 8.0 / 3.0 * t1473 * t2613 - 8.0 * t1469 * t2613 - 40.0 / 81.0 * t147 * t924 * t603;

@@ -315,13 +315,13 @@ def generate_import_lines(imports: dict) -> list:
         by_module.setdefault(module, []).append(name)
 
     if 'constants' in by_module:
-        lines.append(f'use crate::math::constants::{{{", ".join(sorted(by_module["constants"]))}}};')
+        lines.append(f'use libxc_kernel_math::constants::{{{", ".join(sorted(by_module["constants"]))}}};')
     if 'powers' in by_module:
-        lines.append(f'use crate::math::powers::{{{", ".join(sorted(by_module["powers"]))}}};')
+        lines.append(f'use libxc_kernel_math::powers::{{{", ".join(sorted(by_module["powers"]))}}};')
     if 'piecewise' in by_module:
-        lines.append(f'use crate::math::piecewise::{{{", ".join(sorted(by_module["piecewise"]))}}};')
+        lines.append(f'use libxc_kernel_math::piecewise::{{{", ".join(sorted(by_module["piecewise"]))}}};')
     if 'erf' in by_module:
-        lines.append(f'use crate::math::erf::{{{", ".join(sorted(by_module["erf"]))}}};')
+        lines.append(f'use libxc_kernel_math::erf::{{{", ".join(sorted(by_module["erf"]))}}};')
 
     return lines
 

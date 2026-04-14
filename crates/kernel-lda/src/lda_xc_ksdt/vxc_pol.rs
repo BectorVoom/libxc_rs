@@ -1,4 +1,8 @@
-//! LDA_XC_KSDT vxc pol kernel.
+//! LDA_XC_KSDT vxc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 242 shared lines across all orders.
+//! Delta: 505 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_XC_KSDT vxc -- polarized.
+/// LDA_XC_KSDT vxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_xc_ksdt_vxc_pol(
@@ -59,6 +63,7 @@ pub fn lda_xc_ksdt_vxc_pol(
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
+        // --- shared preamble (242 lines) ---
         let t1 = 1.0 / M_PI;
         let t2 = M_CBRT4;
         let t3 = t2 * t2;
@@ -302,6 +307,7 @@ pub fn lda_xc_ksdt_vxc_pol(
         let t392 = t355 * t391;
         let tzk0 = -t245 / 3.0 - t392 / 3.0;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (505 lines) ---
         let t394 = t245 / 3.0;
         let t395 = t392 / 3.0;
         let t396 = t5 * t8;
