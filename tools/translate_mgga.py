@@ -415,6 +415,94 @@ def parse_body(body_text: str, level: str, spin: str, is_vxc_only: bool):
 
 
 # ---------------------------------------------------------------------------
+# Shared preamble and incremental delta detection
+# ---------------------------------------------------------------------------
+
+def detect_shared_preamble(bodies: dict, spin: str) -> tuple:
+    """Detect the shared preamble (common prefix) across all derivative orders.
+
+    Args:
+        bodies: dict of (level, spin) -> function body text
+        spin: 'unpol' or 'pol'
+
+    Returns:
+        (preamble_lines, per_level_remaining) where:
+        - preamble_lines: list of C compute lines common to ALL derivative orders
+        - per_level_remaining: dict of level -> list of lines AFTER the preamble
+    """
+    levels_present = []
+    level_compute = {}
+    for level in LEVELS:
+        key = (level, spin)
+        if key in bodies:
+            compute, _ = parse_body(bodies[key], level, spin, False)
+            level_compute[level] = compute
+            levels_present.append(level)
+
+    if not levels_present:
+        return [], {}
+
+    min_len = min(len(level_compute[l]) for l in levels_present)
+    preamble_end = 0
+    for i in range(min_len):
+        ref_line = level_compute[levels_present[0]][i]
+        if all(level_compute[l][i] == ref_line for l in levels_present[1:]):
+            preamble_end = i + 1
+        else:
+            break
+
+    preamble_lines = level_compute[levels_present[0]][:preamble_end]
+    per_level_remaining = {}
+    for level in levels_present:
+        per_level_remaining[level] = level_compute[level][preamble_end:]
+
+    return preamble_lines, per_level_remaining
+
+
+def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
+    """Compute incremental deltas between consecutive derivative orders.
+
+    Returns:
+        dict of level -> (shared_line_count, delta_lines, output_writes)
+    """
+    levels_present = []
+    level_data = {}
+    for level in LEVELS:
+        key = (level, spin)
+        if key in bodies:
+            compute, outputs = parse_body(bodies[key], level, spin, False)
+            level_data[level] = (compute, outputs)
+            levels_present.append(level)
+
+    if not levels_present:
+        return {}
+
+    result = {}
+    first = levels_present[0]
+    first_compute, first_outputs = level_data[first]
+    result[first] = (0, first_compute, first_outputs)
+
+    for idx in range(1, len(levels_present)):
+        curr_level = levels_present[idx]
+        prev_level = levels_present[idx - 1]
+        curr_compute, curr_outputs = level_data[curr_level]
+        prev_compute, _ = level_data[prev_level]
+
+        shared = 0
+        min_len = min(len(prev_compute), len(curr_compute))
+        for i in range(min_len):
+            if prev_compute[i] == curr_compute[i]:
+                shared += 1
+            else:
+                break
+
+        delta_lines = curr_compute[shared:]
+        result[curr_level] = (shared, delta_lines, curr_outputs)
+
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Rust function generation
 # ---------------------------------------------------------------------------
 
@@ -631,6 +719,224 @@ def translate_functional(c_file: str, func_name: str, out_dir: str,
 
 
 # ---------------------------------------------------------------------------
+# Incremental generation
+# ---------------------------------------------------------------------------
+
+def generate_incremental_function(func_name: str, level: str, spin: str,
+                                  full_compute_lines: list, output_writes: list,
+                                  all_params: list, is_vxc_only: bool,
+                                  preamble_lines: list,
+                                  prior_levels_delta: dict) -> str:
+    """Generate a #[cube(launch_unchecked)] function with incremental structure annotations."""
+    is_pol = (spin == 'pol')
+    fn_name = f'{func_name}_{level}_{spin}'
+
+    if is_vxc_only:
+        out_bufs = [b for b in LEVEL_OUTPUTS[level] if b != 'zk']
+    else:
+        out_bufs = LEVEL_OUTPUTS[level]
+
+    used_params = find_used_params(full_compute_lines, all_params)
+
+    out_map = {}
+    for field, comp, var in output_writes:
+        out_map[var] = (field, comp)
+
+    raw_text = ' '.join(full_compute_lines)
+    has_xbspline = 'xbspline(' in raw_text
+    has_cbspline = 'cbspline(' in raw_text
+
+    lines = []
+    lines.append(f'#[allow(unused_variables, non_snake_case)]')
+    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(f'pub fn {fn_name}(')
+    lines.append(f'    rho: &Array<f64>,')
+    lines.append(f'    sigma: &Array<f64>,')
+    lines.append(f'    lapl: &Array<f64>,')
+    lines.append(f'    tau: &Array<f64>,')
+    for buf in out_bufs:
+        lines.append(f'    {buf}: &mut Array<f64>,')
+    for field, indices in used_params:
+        lines.append(f'    {param_rust_name(field, indices)}: f64,')
+    if has_xbspline:
+        for i in range(10):
+            lines.append(f'    param_cx_{i}: f64,')
+    if has_cbspline:
+        for i in range(10):
+            lines.append(f'    param_cc_{i}: f64,')
+    lines.append(f'    dens_threshold: f64,')
+    lines.append(f'    zeta_threshold: f64,')
+    lines.append(f') {{')
+
+    bounds_arr = out_bufs[0] if out_bufs else 'vrho'
+    lines.append(f'    let ip = ABSOLUTE_POS;')
+    lines.append(f'    if ip < {bounds_arr}.len() {{')
+
+    if is_pol:
+        lines.append(f'        let rho0 = rho[ip * 2];')
+        lines.append(f'        let rho1 = rho[ip * 2 + 1];')
+        lines.append(f'        let sigma0 = sigma[ip * 3];')
+        lines.append(f'        let sigma1 = sigma[ip * 3 + 1];')
+        lines.append(f'        let sigma2 = sigma[ip * 3 + 2];')
+        lines.append(f'        let lapl0 = lapl[ip * 2];')
+        lines.append(f'        let lapl1 = lapl[ip * 2 + 1];')
+        lines.append(f'        let tau0 = tau[ip * 2];')
+        lines.append(f'        let tau1 = tau[ip * 2 + 1];')
+
+    # Build section boundaries
+    preamble_count = len(preamble_lines)
+    current_idx = LEVELS.index(level)
+
+    section_boundaries = []
+    if preamble_count > 0:
+        section_boundaries.append((0, preamble_count, 'shared preamble'))
+
+    prev_end = preamble_count
+    for lvl_idx in range(current_idx + 1):
+        lvl = LEVELS[lvl_idx]
+        if lvl not in prior_levels_delta:
+            continue
+        shared_count, delta, _ = prior_levels_delta[lvl]
+        delta_start = shared_count
+        delta_end = shared_count + len(delta)
+        actual_start = max(delta_start, prev_end)
+        if actual_start < delta_end:
+            label = f'{lvl} delta (this level)' if lvl == level else f'{lvl} delta'
+            section_boundaries.append((actual_start, delta_end, label))
+            prev_end = delta_end
+
+    line_idx = 0
+    section_idx = 0
+    for cline in full_compute_lines:
+        while section_idx < len(section_boundaries):
+            start, end, label = section_boundaries[section_idx]
+            if line_idx == start:
+                lines.append(f'        // --- {label} ({end - start} lines) ---')
+                break
+            elif line_idx < start:
+                break
+            else:
+                section_idx += 1
+
+        stripped = cline.rstrip(';').strip()
+        m = re.match(r'(\w+)\s*=\s*(.*)', stripped)
+        if not m:
+            line_idx += 1
+            continue
+
+        var_name = m.group(1)
+        expr = m.group(2)
+        translated = translate_line(expr, is_pol)
+        lines.append(f'        let {var_name} = {translated};')
+
+        if var_name in out_map:
+            out_field, component = out_map[var_name]
+            if is_pol and POL_DIMS.get(out_field, 1) > 1:
+                dim = POL_DIMS[out_field]
+                if component == 0:
+                    lines.append(f'        {out_field}[ip * {dim}] += {var_name};')
+                else:
+                    lines.append(f'        {out_field}[ip * {dim} + {component}] += {var_name};')
+            else:
+                lines.append(f'        {out_field}[ip] += {var_name};')
+
+        line_idx += 1
+
+    lines.append(f'    }}')
+    lines.append(f'}}')
+    return '\n'.join(lines)
+
+
+def translate_functional_incremental(c_file: str, func_name: str, out_dir: str,
+                                     is_vxc_only: bool = False) -> list:
+    """Translate with incremental derivative structure annotations."""
+    c_src = read_c_source(c_file)
+
+    unimp = check_unimplemented_math(c_src)
+    if unimp:
+        raise RuntimeError(unimp)
+
+    max_order = detect_max_order(c_src)
+    all_params = scan_params(c_src)
+    imports = detect_imports(c_src)
+    imports_str = format_imports(imports)
+    bodies = extract_function_bodies(c_src)
+
+    levels = (['vxc', 'fxc', 'kxc', 'lxc'] if is_vxc_only
+              else ['exc', 'vxc', 'fxc', 'kxc', 'lxc'])
+
+    func_dir = os.path.join(out_dir, func_name)
+    os.makedirs(func_dir, exist_ok=True)
+
+    mod_entries = []
+    written = []
+
+    for spin in ('unpol', 'pol'):
+        preamble_lines, _ = detect_shared_preamble(bodies, spin)
+        deltas = detect_incremental_deltas(bodies, spin)
+
+        for level in levels:
+            if LEVEL_ORD[level] > max_order:
+                continue
+            key = (level, spin)
+            if key not in bodies:
+                continue
+
+            compute, output_writes = parse_body(bodies[key], level, spin, is_vxc_only)
+            fn_code = generate_incremental_function(
+                func_name, level, spin, compute, output_writes,
+                all_params, is_vxc_only, preamble_lines, deltas)
+
+            sub_name = f'{level}_{spin}'
+            src_dir = 'mgga_vxc' if is_vxc_only else 'mgga_exc'
+            file_lines = [
+                f'//! {func_name.upper()} {level} {spin} kernel (incremental).',
+                f'//!',
+                f'//! Auto-translated with incremental derivative structure.',
+                f'//! Preamble: {len(preamble_lines)} shared lines across all orders.',
+            ]
+            if level in deltas:
+                _, delta, _ = deltas[level]
+                file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
+            file_lines.extend([
+                f'',
+                FILE_HEADER,
+                f'',
+                imports_str,
+                f'',
+                fn_code,
+                f'',
+            ])
+
+            path = os.path.join(func_dir, f'{sub_name}.rs')
+            with open(path, 'w') as f:
+                f.write('\n'.join(file_lines))
+            written.append(path)
+            mod_entries.append(f'pub mod {sub_name};')
+
+    # Write mod.rs with incremental stats
+    mod_lines = [f'//! {func_name.upper()} kernel -- incremental derivative structure.', '']
+    for spin in ('unpol', 'pol'):
+        preamble_lines, _ = detect_shared_preamble(bodies, spin)
+        deltas = detect_incremental_deltas(bodies, spin)
+        mod_lines.append(f'//! {spin}: preamble={len(preamble_lines)} lines')
+        for level in levels:
+            if level in deltas:
+                shared, delta, outs = deltas[level]
+                mod_lines.append(f'//!   {level}: shared={shared}, delta={len(delta)}, outputs={len(outs)}')
+    mod_lines.append('')
+    mod_lines.extend(mod_entries)
+    mod_lines.append('')
+
+    mod_path = os.path.join(func_dir, 'mod.rs')
+    with open(mod_path, 'w') as f:
+        f.write('\n'.join(mod_lines))
+    written.append(mod_path)
+
+    return written
+
+
+# ---------------------------------------------------------------------------
 # Batch mode
 # ---------------------------------------------------------------------------
 
@@ -704,18 +1010,22 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only]")
+        print("Usage: translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental]")
         print("       translate_mgga.py --batch --write-to <dir>")
         sys.exit(1)
 
     c_file = sys.argv[1]
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
+    incremental = '--incremental' in sys.argv
 
     idx = sys.argv.index('--write-to')
     out_dir = sys.argv[idx + 1]
 
-    written = translate_functional(c_file, func_name, out_dir, is_vxc_only)
+    if incremental:
+        written = translate_functional_incremental(c_file, func_name, out_dir, is_vxc_only)
+    else:
+        written = translate_functional(c_file, func_name, out_dir, is_vxc_only)
     for p in written:
         print(f'Wrote {p}')
 
