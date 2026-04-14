@@ -258,3 +258,21 @@ Plans:
 - [x] 08-02-PLAN.md -- Translate representative functionals and oracle verification
 - [x] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
 - [x] 08-04-PLAN.md -- Deferred br89/mbrxc documentation and VXC oracle verification
+
+### Phase 9: Reduce Kernel Build Time
+
+**Goal:** Reduce kernel build times from ~70 min serial (~25-35 min with jobs=3) to a reasonable level through configuration fixes, feature gating, and profile cleanup
+**Requirements**: BUILD-OPT-01, BUILD-OPT-02, BUILD-OPT-03
+**Depends on:** Phase 8 (kernel crates must exist)
+**Success Criteria** (what must be TRUE):
+  1. sccache is removed and incremental compilation works without interference
+  2. Default `cargo build` compiles only LDA kernels (~4 min), not all 3.7M lines
+  3. Feature gates allow selective compilation: `--features gga` for GGA, `--features all-kernels` for everything
+  4. No sub-crate has redundant [profile.dev] or [profile.test] sections
+  5. Workspace root Cargo.toml is the single source of truth for profile settings
+**Plans:** 3 plans
+
+Plans:
+- [ ] 09-01-PLAN.md -- Remove sccache rustc-wrapper to fix incremental compilation
+- [ ] 09-02-PLAN.md -- Add feature gates for kernel families (lda/gga/mgga)
+- [ ] 09-03-PLAN.md -- Clean up redundant per-crate profile sections
