@@ -1,7 +1,8 @@
-//! MGGA_X_2D_JS17 kxc pol kernel.
+//! MGGA_X_2D_JS17 kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_js17.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 65 shared lines across all orders.
+//! Delta: 422 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -65,6 +66,7 @@ pub fn mgga_x_2d_js17_kxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (65 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = f64::sqrt(M_PI);
         let t4 = 1.0 / t3;
@@ -131,6 +133,7 @@ pub fn mgga_x_2d_js17_kxc_pol(
         let t101 = piecewise3(t61, 0.0, -2.0 / 3.0 * t70 * t98);
         let tzk0 = t60 + t101;
         zk[ip] += tzk0;
+        // --- vxc delta (71 lines) ---
         let t102 = t5 * t5;
         let t103 = 1.0 / t102;
         let t104 = t15 * t103;
@@ -211,6 +214,7 @@ pub fn mgga_x_2d_js17_kxc_pol(
         let t253 = piecewise3(t61, 0.0, 0.9242750552041905708e-3 * t248 * t250);
         let tvtau1 = t5 * t253;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (181 lines) ---
         let t256 = 1.0 / t22;
         let t257 = t106 * t106;
         let t260 = t102 * t5;
@@ -437,6 +441,7 @@ pub fn mgga_x_2d_js17_kxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (this level) (422 lines) ---
         let t637 = 1.0 / t23;
         let t638 = t257 * t106;
         let t641 = t256 * t106;

@@ -1,7 +1,8 @@
-//! MGGA_C_M08 fxc unpol kernel.
+//! MGGA_C_M08 fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m08.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 156 shared lines across all orders.
+//! Delta: 325 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -61,6 +62,7 @@ pub fn mgga_c_m08_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (156 lines) ---
         let t3 = param_m08_a_1;
         let t4 = M_CBRT6;
         let t5 = t4 * t4;
@@ -218,6 +220,7 @@ pub fn mgga_c_m08_fxc_unpol(
         let t232 = t178 * t231;
         let tzk0 = t140 + t232;
         zk[ip] += tzk0;
+        // --- vxc delta (182 lines) ---
         let t233 = t3 * tau[ip];
         let t235 = 1.0 / t15 / t185;
         let t237 = t12 * t235 * t22;
@@ -404,6 +407,7 @@ pub fn mgga_c_m08_fxc_unpol(
         let t646 = t645 * t231;
         let tvtau0 = rho[ip] * (t598 + t646);
         vtau[ip] += tvtau0;
+        // --- fxc delta (this level) (325 lines) ---
         let t652 = tau[ip] * tau[ip];
         let t653 = t3 * t652;
         let t655 = 1.0 / t14 / t474;

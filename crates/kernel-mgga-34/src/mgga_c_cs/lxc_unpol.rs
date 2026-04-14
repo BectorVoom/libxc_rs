@@ -1,7 +1,8 @@
-//! MGGA_C_CS lxc unpol kernel.
+//! MGGA_C_CS lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_cs.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 21 shared lines across all orders.
+//! Delta: 39 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_c_cs_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (21 lines) ---
         let t2 = pow_1_3(rho[ip]);
         let t3 = 1.0 / t2;
         let t5 = 1.0 + 0.34899999999999999998e0 * t3;
@@ -114,6 +116,7 @@ pub fn mgga_c_cs_lxc_unpol(
         let t39 = 1.0 + 0.264e0 * t8 * t36;
         let tzk0 = -0.4918e-1 * t6 * t39;
         zk[ip] += tzk0;
+        // --- vxc delta (18 lines) ---
         let t42 = t5 * t5;
         let t43 = 1.0 / t42;
         let t44 = t3 * t43;
@@ -136,6 +139,7 @@ pub fn mgga_c_cs_lxc_unpol(
         let t84 = t8 * t14;
         let tvtau0 = -0.649176e-2 / t19 * t6 * t84;
         vtau[ip] += tvtau0;
+        // --- fxc delta (29 lines) ---
         let t87 = t43 * t39;
         let t93 = 1.0 / t42 / t5;
         let t94 = t21 * t93;
@@ -175,6 +179,7 @@ pub fn mgga_c_cs_lxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (46 lines) ---
         let t163 = t93 * t39;
         let t166 = t43 * t70;
         let t173 = t42 * t42;
@@ -241,6 +246,7 @@ pub fn mgga_c_cs_lxc_unpol(
         v3lapltau2[ip] += tv3lapltau20;
         let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (39 lines) ---
         let t318 = 1.0 / t207;
         let t327 = 1.0 / t2 / t207;
         let t354 = -0.2311597037037037037e0 * t230 * t8 * t36 + 0.3345871597037037037e-1 * t118 * t8 * t36 + 0.27739164444444444444e0 * t184 * t67 - 0.12712639132942222222e-2 * t318 * t8 * t36 - 0.30112844373333333333e-1 * t187 * t67 - 0.1783232e0 * t101 * t123 + 0.13417131218226103703e-4 * t327 * t8 * t36 + 0.6356319566471111111e-3 * t193 * t67 + 0.1129231664e-1 * t104 * t123 + 0.891616e-1 * t50 * t214 + 0.264e0 * t8 * (t16 * (6160.0 / 81.0 * t18 * t209 - 770.0 / 81.0 * t23 * t209) / 4.0 - 2618.0 / 81.0 * sigma[ip] / t19 / t116 / t29 + 770.0 / 81.0 * lapl[ip] * t209);

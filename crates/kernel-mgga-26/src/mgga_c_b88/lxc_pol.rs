@@ -1,7 +1,8 @@
-//! MGGA_C_B88 lxc pol kernel.
+//! MGGA_C_B88 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b88.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 132 shared lines across all orders.
+//! Delta: 3632 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_c_b88_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (132 lines) ---
         let t2 = rho0 - rho1;
         let t3 = t2 * t2;
         let t4 = rho0 + rho1;
@@ -234,6 +236,7 @@ pub fn mgga_c_b88_lxc_pol(
         let t182 = piecewise3(t58, 0.0, -0.18641351111111111112e-3 * t161 * t179);
         let tzk0 = -t95 + t145 + t182;
         zk[ip] += tzk0;
+        // --- vxc delta (226 lines) ---
         let t183 = t2 * t6;
         let t184 = t5 * t4;
         let t185 = 1.0 / t184;
@@ -469,6 +472,7 @@ pub fn mgga_c_b88_lxc_pol(
         let t617 = piecewise3(t58, 0.0, -0.37282702222222222224e-3 * t614 * t179);
         let tvtau1 = t4 * t617;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (775 lines) ---
         let t619 = 0.4e0 * t193;
         let t624 = 2.0 * t6;
         let t625 = t2 * t185;
@@ -1289,6 +1293,7 @@ pub fn mgga_c_b88_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (2632 lines) ---
         let t2308 = t177 * t236;
         let t2310 = t1226 * t2308 * t721;
         let t2315 = t924 * t361 * t328 * t236;
@@ -4086,6 +4091,7 @@ pub fn mgga_c_b88_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (3632 lines) ---
         let t8978 = t2528 * t344;
         let t8980 = t943 * t964;
         let t8990 = t2 * t2976;

@@ -1,7 +1,8 @@
-//! MGGA_X_MBEEF fxc unpol kernel.
+//! MGGA_X_MBEEF fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbeef.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 92 shared lines across all orders.
+//! Delta: 484 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +38,7 @@ pub fn mgga_x_mbeef_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (92 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -130,6 +132,7 @@ pub fn mgga_x_mbeef_fxc_unpol(
         let t254 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t250);
         let tzk0 = 2.0 * t254;
         zk[ip] += tzk0;
+        // --- vxc delta (187 lines) ---
         let t256 = t18 / t31;
         let t262 = t30 * rho[ip];
         let t264 = 1.0 / t31 / t262;
@@ -321,6 +324,7 @@ pub fn mgga_x_mbeef_fxc_unpol(
         let t1084 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t1080);
         let tvtau0 = 2.0 * rho[ip] * t1084;
         vtau[ip] += tvtau0;
+        // --- fxc delta (this level) (484 lines) ---
         let t1087 = t18 * t46;
         let t1094 = t321 * t321;
         let t1095 = t85 * t1094;

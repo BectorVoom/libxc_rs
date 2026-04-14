@@ -1,7 +1,8 @@
-//! MGGA_X_RTPSS fxc unpol kernel.
+//! MGGA_X_RTPSS fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 82 shared lines across all orders.
+//! Delta: 191 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn mgga_x_rtpss_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (82 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -125,6 +127,7 @@ pub fn mgga_x_rtpss_fxc_unpol(
         let t132 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t128);
         let tzk0 = 2.0 * t132;
         zk[ip] += tzk0;
+        // --- vxc delta (97 lines) ---
         let t133 = 1.0 / t48;
         let t134 = t18 * t133;
         let t138 = t7 * t18;
@@ -226,6 +229,7 @@ pub fn mgga_x_rtpss_fxc_unpol(
         let t353 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t347 * t349);
         let tvtau0 = 2.0 * rho[ip] * t353;
         vtau[ip] += tvtau0;
+        // --- fxc delta (this level) (191 lines) ---
         let t356 = t18 * t56;
         let t360 = t133 * param_kappa;
         let t364 = t240 * t26;

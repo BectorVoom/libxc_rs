@@ -1,7 +1,8 @@
-//! MGGA_X_M11_L vxc pol kernel.
+//! MGGA_X_M11_L vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11_l.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 349 shared lines across all orders.
+//! Delta: 383 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -86,6 +87,7 @@ pub fn mgga_x_m11_l_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (349 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -436,6 +438,7 @@ pub fn mgga_x_m11_l_vxc_pol(
         let t539 = piecewise3(t315, 0.0, -3.0 / 8.0 * t6 * t324 * t535);
         let tzk0 = t314 + t539;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (383 lines) ---
         let t540 = t7 * t7;
         let t541 = 1.0 / t540;
         let t542 = t17 * t541;

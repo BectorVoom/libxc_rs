@@ -1,7 +1,8 @@
-//! MGGA_X_VCML kxc pol kernel.
+//! MGGA_X_VCML kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_vcml.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 167 shared lines across all orders.
+//! Delta: 2305 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -66,6 +67,7 @@ pub fn mgga_x_vcml_kxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (167 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -234,6 +236,7 @@ pub fn mgga_x_vcml_kxc_pol(
         let t494 = piecewise3(t260, 0.0, -3.0 / 8.0 * t6 * t269 * t490);
         let tzk0 = t259 + t494;
         zk[ip] += tzk0;
+        // --- vxc delta (387 lines) ---
         let t495 = t7 * t7;
         let t496 = 1.0 / t495;
         let t497 = t17 * t496;
@@ -630,6 +633,7 @@ pub fn mgga_x_vcml_kxc_pol(
         let t2194 = piecewise3(t260, 0.0, -3.0 / 8.0 * t6 * t269 * t2190);
         let tvtau1 = t7 * t2194;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (1044 lines) ---
         let t2197 = t24 * t24;
         let t2198 = 1.0 / t2197;
         let t2199 = t499 * t499;
@@ -1719,6 +1723,7 @@ pub fn mgga_x_vcml_kxc_pol(
         let t7554 = piecewise3(t260, 0.0, -3.0 / 8.0 * t6 * t269 * t7550);
         let tv2tau22 = t7 * t7554;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (this level) (2305 lines) ---
         let t7558 = 1.0 / t2197 / t20;
         let t7559 = t2199 * t499;
         let t7562 = t2198 * t499;

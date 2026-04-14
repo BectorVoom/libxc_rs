@@ -1,7 +1,8 @@
-//! HYB_MGGA_X_M05 vxc unpol kernel.
+//! HYB_MGGA_X_M05 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_m05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 87 shared lines across all orders.
+//! Delta: 84 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn hyb_mgga_x_m05_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (87 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -128,6 +130,7 @@ pub fn hyb_mgga_x_m05_vxc_unpol(
         let t121 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t21 * t117);
         let tzk0 = 2.0 * t121;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (84 lines) ---
         let t123 = 1.0 / t32 * param_csi_HF;
         let t127 = t4 * t18;
         let t128 = t31 * rho[ip];

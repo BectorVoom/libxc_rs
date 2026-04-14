@@ -1,7 +1,8 @@
-//! MGGA_K_PGSLB kxc unpol kernel.
+//! MGGA_K_PGSLB kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_pgslb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 42 shared lines across all orders.
+//! Delta: 45 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -59,6 +60,7 @@ pub fn mgga_k_pgslb_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (42 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = t4 * t4;
@@ -102,6 +104,7 @@ pub fn mgga_k_pgslb_kxc_unpol(
         let t62 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t58);
         let tzk0 = 2.0 * t62;
         zk[ip] += tzk0;
+        // --- vxc delta (15 lines) ---
         let t64 = t21 / t22;
         let t69 = 1.0 / t23 / t52;
         let t77 = t34 * t34;
@@ -121,6 +124,7 @@ pub fn mgga_k_pgslb_kxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
+        // --- fxc delta (35 lines) ---
         let t115 = t21 / t22 / rho[ip];
         let t123 = 1.0 / t23 / t77;
         let t131 = param_pgslb_mu * param_pgslb_mu;
@@ -166,6 +170,7 @@ pub fn mgga_k_pgslb_kxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (this level) (45 lines) ---
         let t206 = t21 / t22 / t34;
         let t217 = 1.0 / t23 / t143;
         let t225 = t77 * t77;

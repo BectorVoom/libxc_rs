@@ -1,7 +1,8 @@
-//! MGGA_X_TB09 vxc unpol kernel.
+//! MGGA_X_TB09 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_vxc/mgga_x_tb09.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 41 shared lines across all orders.
+//! Delta: 41 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn mgga_x_tb09_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < vrho.len() {
+        // --- shared preamble (41 lines) ---
         let t2 = M_CBRTPI;
         let t3 = param_c * t2;
         let t4 = M_CBRT2;

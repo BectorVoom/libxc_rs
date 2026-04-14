@@ -1,7 +1,8 @@
-//! MGGA_X_RLDA lxc unpol kernel.
+//! MGGA_X_RLDA lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rlda.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 26 shared lines across all orders.
+//! Delta: 71 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -93,6 +94,7 @@ pub fn mgga_x_rlda_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (26 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRTPI;
         let t5 = t4 * t4;
@@ -120,6 +122,7 @@ pub fn mgga_x_rlda_lxc_unpol(
         let t42 = piecewise3(t3, 0.0, -15.0 / 16.0 * t17 * t18 * t39);
         let tzk0 = 2.0 * t42;
         zk[ip] += tzk0;
+        // --- vxc delta (20 lines) ---
         let t43 = 1.0 / t28;
         let t48 = t17 * t18 * param_prefactor;
         let t49 = t22 * t24;
@@ -144,6 +147,7 @@ pub fn mgga_x_rlda_lxc_unpol(
         let t79 = piecewise3(t3, 0.0, 15.0 / 8.0 * t74);
         let tvtau0 = 2.0 * rho[ip] * t79;
         vtau[ip] += tvtau0;
+        // --- fxc delta (32 lines) ---
         let t86 = t17 * t43 * param_prefactor;
         let t90 = 1.0 / t50 / t36;
         let t91 = t59 * t59;
@@ -186,6 +190,7 @@ pub fn mgga_x_rlda_lxc_unpol(
         let t146 = piecewise3(t3, 0.0, -15.0 * t138);
         let tv2tau20 = 2.0 * rho[ip] * t146;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (55 lines) ---
         let t153 = t17 * t30 * param_prefactor;
         let t160 = t50 * t50;
         let t161 = 1.0 / t160;
@@ -261,6 +266,7 @@ pub fn mgga_x_rlda_lxc_unpol(
         let t255 = piecewise3(t3, 0.0, 180.0 * t244);
         let tv3tau30 = 2.0 * rho[ip] * t255;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (71 lines) ---
         let t276 = 1.0 / t160 / t36;
         let t277 = t91 * t91;
         let t287 = t103 * t103;

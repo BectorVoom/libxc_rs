@@ -1,7 +1,8 @@
-//! MGGA_X_GVT4 vxc unpol kernel.
+//! MGGA_X_GVT4 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_gvt4.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 48 shared lines across all orders.
+//! Delta: 37 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -27,6 +28,7 @@ pub fn mgga_x_gvt4_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (48 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRTPI;
         let t6 = 1.0 <= zeta_threshold;
@@ -76,6 +78,7 @@ pub fn mgga_x_gvt4_vxc_unpol(
         let t80 = piecewise3(t3, 0.0, t19 * t77 / 4.0);
         let tzk0 = 2.0 * t80;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (37 lines) ---
         let t82 = t17 / t24;
         let t85 = t23 * rho[ip];
         let t87 = 1.0 / t24 / t85;

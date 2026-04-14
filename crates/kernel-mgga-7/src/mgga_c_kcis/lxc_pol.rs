@@ -1,7 +1,8 @@
-//! MGGA_C_KCIS lxc pol kernel.
+//! MGGA_C_KCIS lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_kcis.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 385 shared lines across all orders.
+//! Delta: 18804 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_c_kcis_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (385 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -487,6 +489,7 @@ pub fn mgga_c_kcis_lxc_pol(
         let t640 = t446 * t638 / 16.0;
         let tzk0 = t166 + t231 - t444 - t640;
         zk[ip] += tzk0;
+        // --- vxc delta (920 lines) ---
         let t643 = 0.11073577833333333333e-2 * t5 * t103 * t32;
         let t644 = t28 * t28;
         let t645 = 1.0 / t644;
@@ -1416,6 +1419,7 @@ pub fn mgga_c_kcis_lxc_pol(
         let t2289 = t2288 * t637;
         let tvtau1 = t2285 * t2289 / 16.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (3038 lines) ---
         let t2291 = 2.0 * t780;
         let t2292 = 2.0 * t827;
         let t2294 = 2.0 * t909;
@@ -4499,6 +4503,7 @@ pub fn mgga_c_kcis_lxc_pol(
         let t8518 = t8517 * t637;
         let tv2tau22 = -t2285 * t8518 / 8.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (9978 lines) ---
         let t8521 = 3.0 * t2532;
         let t8522 = t779 * t2537;
         let t8523 = t8522 * t2539;
@@ -14642,6 +14647,7 @@ pub fn mgga_c_kcis_lxc_pol(
         let t31240 = t31239 * t637;
         let tv3tau33 = 3.0 / 8.0 * t2285 * t31240;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (18804 lines) ---
         let t31242 = 24.0 * t8523;
         let t31243 = 4.0 * t9315;
         let t31244 = 4.0 * t9313;

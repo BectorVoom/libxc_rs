@@ -1,7 +1,8 @@
-//! MGGA_C_KCISK lxc unpol kernel.
+//! MGGA_C_KCISK lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_kcisk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 250 shared lines across all orders.
+//! Delta: 1188 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_c_kcisk_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (250 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -343,6 +345,7 @@ pub fn mgga_c_kcisk_lxc_unpol(
         let t448 = t276 * t446 / 8.0;
         let tzk0 = t216 + t275 - t448;
         zk[ip] += tzk0;
+        // --- vxc delta (328 lines) ---
         let t451 = 0.11073577833333333333e-2 * t5 * t154 * t31;
         let t452 = t27 * t27;
         let t453 = 1.0 / t452;
@@ -675,6 +678,7 @@ pub fn mgga_c_kcisk_lxc_unpol(
         let t1125 = sigma[ip] * t1124;
         let tvtau0 = t1125 * t1083 / 8.0;
         vtau[ip] += tvtau0;
+        // --- fxc delta (612 lines) ---
         let t1134 = 0.14764770444444444444e-2 * t5 * t169 * t31;
         let t1135 = t5 * t7;
         let t1136 = t139 * t453;
@@ -1297,6 +1301,7 @@ pub fn mgga_c_kcisk_lxc_unpol(
         let t2547 = sigma[ip] * t2546;
         let tv2tau20 = -t2547 * t1083 / 4.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (1125 lines) ---
         let t2558 = t562 * t562;
         let t2559 = 1.0 / t2558;
         let t2561 = t1337 * t566;
@@ -2442,6 +2447,7 @@ pub fn mgga_c_kcisk_lxc_unpol(
         let t5501 = sigma[ip] * t5500;
         let tv3tau30 = 3.0 / 4.0 * t5501 * t1083;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (1188 lines) ---
         let t5509 = t192 / t3099 / t214;
         let t5510 = t1472 * t1472;
         let t5512 = 24.0 * t5509 * t5510;

@@ -1,7 +1,8 @@
-//! MGGA_XC_LP90 lxc pol kernel.
+//! MGGA_XC_LP90 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 30 shared lines across all orders.
+//! Delta: 654 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -99,6 +100,7 @@ pub fn mgga_xc_lp90_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (30 lines) ---
         let t3 = sigma0 + 2.0 * sigma1 + sigma2;
         let t4 = rho0 + rho1;
         let t5 = t4 * t4;
@@ -130,6 +132,7 @@ pub fn mgga_xc_lp90_lxc_pol(
         let t42 = 1.0 / t41;
         let tzk0 = -t39 * t42;
         zk[ip] += tzk0;
+        // --- vxc delta (39 lines) ---
         let t44 = t5 * t4;
         let t46 = 1.0 / t7 / t44;
         let t48 = 0.10041333333333333333e-2 * t3 * t46;
@@ -178,6 +181,7 @@ pub fn mgga_xc_lp90_lxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (112 lines) ---
         let t103 = t66 * t42;
         let t105 = t39 * t71;
         let t107 = 1.0 / t6 / t4;
@@ -335,6 +339,7 @@ pub fn mgga_xc_lp90_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (312 lines) ---
         let t251 = t143 * t42;
         let t253 = t66 * t71;
         let t254 = t253 * t107;
@@ -812,6 +817,7 @@ pub fn mgga_xc_lp90_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (654 lines) ---
         let t612 = t311 * t42;
         let t615 = t143 * t71 * t107;
         let t618 = t66 * t151 * t9;

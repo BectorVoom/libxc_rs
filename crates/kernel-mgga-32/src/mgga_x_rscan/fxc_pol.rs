@@ -1,7 +1,8 @@
-//! MGGA_X_RSCAN fxc pol kernel.
+//! MGGA_X_RSCAN fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 205 shared lines across all orders.
+//! Delta: 1395 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,6 +52,7 @@ pub fn mgga_x_rscan_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (205 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -257,6 +259,7 @@ pub fn mgga_x_rscan_fxc_pol(
         let t308 = piecewise3(t178, 0.0, -3.0 / 8.0 * t187 * t305);
         let tzk0 = t177 + t308;
         zk[ip] += tzk0;
+        // --- vxc delta (344 lines) ---
         let t309 = 1.0 / t73;
         let t310 = t17 * t309;
         let t312 = piecewise5(t11, 0.0, t15, 0.0, t8 - t310);
@@ -610,6 +613,7 @@ pub fn mgga_x_rscan_fxc_pol(
         let t1021 = piecewise3(t178, 0.0, -3.0 / 8.0 * t187 * t1018);
         let tvtau1 = t7 * t1021;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (this level) (1395 lines) ---
         let t1024 = t24 * t24;
         let t1025 = 1.0 / t1024;
         let t1026 = t312 * t312;

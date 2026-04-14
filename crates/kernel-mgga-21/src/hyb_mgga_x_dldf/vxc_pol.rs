@@ -1,7 +1,8 @@
-//! HYB_MGGA_X_DLDF vxc pol kernel.
+//! HYB_MGGA_X_DLDF vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_dldf.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 83 shared lines across all orders.
+//! Delta: 79 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn hyb_mgga_x_dldf_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (83 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = rho0 + rho1;
@@ -120,6 +122,7 @@ pub fn hyb_mgga_x_dldf_vxc_pol(
         let t126 = piecewise3(t76, 0.0, -0.98727272578809758046e-1 * t85 * t123);
         let tzk0 = t75 + t126;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (79 lines) ---
         let t127 = t4 * t4;
         let t128 = 1.0 / t127;
         let t129 = t14 * t128;

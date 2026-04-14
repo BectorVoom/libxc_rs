@@ -1,7 +1,8 @@
-//! MGGA_X_VT84 lxc unpol kernel.
+//! MGGA_X_VT84 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_vt84.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 87 shared lines across all orders.
+//! Delta: 1204 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_x_vt84_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (87 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -180,6 +182,7 @@ pub fn mgga_x_vt84_lxc_unpol(
         let t133 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t129);
         let tzk0 = 2.0 * t133;
         zk[ip] += tzk0;
+        // --- vxc delta (137 lines) ---
         let t135 = t18 / t52;
         let t139 = 1.0 / t88;
         let t140 = t22 * t139;
@@ -321,6 +324,7 @@ pub fn mgga_x_vt84_lxc_unpol(
         let t415 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t411);
         let tvtau0 = 2.0 * rho[ip] * t415;
         vtau[ip] += tvtau0;
+        // --- fxc delta (353 lines) ---
         let t418 = t18 * t60;
         let t425 = t22 * t271;
         let t428 = t88 * t24;
@@ -684,6 +688,7 @@ pub fn mgga_x_vt84_lxc_unpol(
         let t1304 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t1300);
         let tv2tau20 = 2.0 * rho[ip] * t1304;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (972 lines) ---
         let t1307 = t18 * t54;
         let t1317 = t600 * t248;
         let t1318 = t1317 * t805;
@@ -1676,6 +1681,7 @@ pub fn mgga_x_vt84_lxc_unpol(
         let t4388 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t4384);
         let tv3tau30 = 2.0 * rho[ip] * t4388;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (1204 lines) ---
         let t4408 = t579 * t579;
         let t4415 = 1.0 / t1633 / t113;
         let t4416 = t112 * t4415;

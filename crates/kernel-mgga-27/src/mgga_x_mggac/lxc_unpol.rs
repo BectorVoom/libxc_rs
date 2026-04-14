@@ -1,7 +1,8 @@
-//! MGGA_X_MGGAC lxc unpol kernel.
+//! MGGA_X_MGGAC lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mggac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 94 shared lines across all orders.
+//! Delta: 7086 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_x_mggac_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (94 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -187,6 +189,7 @@ pub fn mgga_x_mggac_lxc_unpol(
         let t138 = piecewise3(t3, 0.0, 3.0 / 16.0 * t7 * t20 * t134);
         let tzk0 = 2.0 * t138;
         zk[ip] += tzk0;
+        // --- vxc delta (134 lines) ---
         let t140 = t18 / t28;
         let t144 = t22 * t6;
         let t145 = t144 * t77;
@@ -325,6 +328,7 @@ pub fn mgga_x_mggac_lxc_unpol(
         let t426 = piecewise3(t3, 0.0, 3.0 / 16.0 * t7 * t20 * t422);
         let tvtau0 = 2.0 * rho[ip] * t426;
         vtau[ip] += tvtau0;
+        // --- fxc delta (579 lines) ---
         let t429 = t18 * t30;
         let t437 = 1.0 / t28 / t53;
         let t438 = t27 * t437;
@@ -914,6 +918,7 @@ pub fn mgga_x_mggac_lxc_unpol(
         let t2170 = piecewise3(t3, 0.0, 3.0 / 16.0 * t7 * t20 * t2166);
         let tv2tau20 = 2.0 * rho[ip] * t2170;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (2415 lines) ---
         let t2173 = t18 * t149;
         let t2184 = 1.0 / t522 / t199;
         let t2185 = t521 * t2184;
@@ -3349,6 +3354,7 @@ pub fn mgga_x_mggac_lxc_unpol(
         let t12657 = piecewise3(t3, 0.0, 3.0 / 16.0 * t7 * t20 * t12653);
         let tv3tau30 = 2.0 * rho[ip] * t12657;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (7086 lines) ---
         let t12674 = t530 * t531 * t2986;
         let t12676 = t977 * t3024 * t2569;
         let t12679 = t2200 * t2204;

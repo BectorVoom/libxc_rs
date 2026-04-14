@@ -1,7 +1,8 @@
-//! MGGA_X_TB09 vxc pol kernel.
+//! MGGA_X_TB09 vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_vxc/mgga_x_tb09.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 63 shared lines across all orders.
+//! Delta: 63 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +38,7 @@ pub fn mgga_x_tb09_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (63 lines) ---
         let t2 = M_CBRTPI;
         let t3 = param_c * t2;
         let t4 = pow_1_3(rho0);

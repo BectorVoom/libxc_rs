@@ -1,7 +1,8 @@
-//! MGGA_X_2D_PRP10 lxc pol kernel.
+//! MGGA_X_2D_PRP10 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_vxc/mgga_x_2d_prp10.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 40 shared lines across all orders.
+//! Delta: 763 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -100,6 +101,7 @@ pub fn mgga_x_2d_prp10_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (40 lines) ---
         let t2 = rho0 * rho0;
         let t3 = 1.0 / t2;
         let t6 = tau0 * t3;
@@ -142,6 +144,7 @@ pub fn mgga_x_2d_prp10_lxc_pol(
         let t58 = f64::sqrt(rho1);
         let tvrho1 = -t57 * t58;
         vrho[ip * 2 + 1] += tvrho1;
+        // --- fxc delta (73 lines) ---
         let t60 = xc_bessel_I1(t20);
         let t61 = M_PI * t60;
         let t65 = 2.0 * tau0 * t8;
@@ -232,6 +235,7 @@ pub fn mgga_x_2d_prp10_lxc_pol(
         let t178 = t172 * t108 / 2.0 - 2.0 / 3.0 * t112 * t175;
         let tv2rhotau3 = -t178 * t58;
         v2rhotau[ip * 4 + 3] += tv2rhotau3;
+        // --- kxc delta (297 lines) ---
         let t180 = 1.0 / t20;
         let t182 = -t180 * t60 + t21;
         let t183 = M_PI * t182;
@@ -610,6 +614,7 @@ pub fn mgga_x_2d_prp10_lxc_pol(
         let t692 = t679 * t447 / 4.0 + t545 + t682 * t465 / 2.0 - t682 * t468 / 2.0 - t682 * t471 / 2.0 + t338 * t689 / 3.0 - t593;
         let tv3rhotau25 = -t692 * t58;
         v3rhotau2[ip * 6 + 5] += tv3rhotau25;
+        // --- lxc delta (this level) (763 lines) ---
         let t694 = t488 * t184;
         let t695 = t183 * t694;
         let t697 = 1.0 / t189 / t15;

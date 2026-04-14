@@ -1,7 +1,8 @@
-//! MGGA_X_JK vxc pol kernel.
+//! MGGA_X_JK vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_jk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 84 shared lines across all orders.
+//! Delta: 107 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn mgga_x_jk_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (84 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -123,6 +125,7 @@ pub fn mgga_x_jk_vxc_pol(
         let t115 = piecewise3(t72, 0.0, -3.0 / 8.0 * t6 * t81 * t111);
         let tzk0 = t71 + t115;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (107 lines) ---
         let t116 = t7 * t7;
         let t117 = 1.0 / t116;
         let t118 = t17 * t117;

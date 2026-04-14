@@ -1,7 +1,8 @@
-//! HYB_MGGA_XC_WB97MV fxc pol kernel.
+//! HYB_MGGA_XC_WB97MV fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_xc_wb97mv.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 332 shared lines across all orders.
+//! Delta: 1617 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -62,6 +63,7 @@ pub fn hyb_mgga_xc_wb97mv_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (332 lines) ---
         let t3 = rho0 - rho1;
         let t4 = rho0 + rho1;
         let t5 = 1.0 / t4;
@@ -395,6 +397,7 @@ pub fn hyb_mgga_xc_wb97mv_fxc_pol(
         let t541 = t496 * t540;
         let tzk0 = t130 + t219 + t337 + t433 + t541;
         zk[ip] += tzk0;
+        // --- vxc delta (564 lines) ---
         let t542 = 1.0 / t455;
         let t543 = t3 * t542;
         let t544 = t5 - t543;
@@ -968,6 +971,7 @@ pub fn hyb_mgga_xc_wb97mv_fxc_pol(
         let t1785 = t496 * t1784;
         let tvtau1 = t4 * (t1733 + t1751 + t1785);
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (this level) (1617 lines) ---
         let t1795 = 1.0 / t99 / t300;
         let t1799 = t300 * t644;
         let t1801 = 1.0 / t98 / t1799;

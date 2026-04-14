@@ -1,7 +1,8 @@
-//! MGGA_C_TPSSLOC lxc unpol kernel.
+//! MGGA_C_TPSSLOC lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_tpssloc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 315 shared lines across all orders.
+//! Delta: 1150 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_c_tpssloc_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (315 lines) ---
         let t3 = piecewise3(0 < 0, 0.0, 0.0);
         let t4 = -t3 <= -0.999999999999e0;
         let t5 = 1.0 <= zeta_threshold;
@@ -408,6 +410,7 @@ pub fn mgga_c_tpssloc_lxc_unpol(
         let t511 = 1.0 + 0.45e1 * t507 * t508;
         let tzk0 = t507 * t511;
         zk[ip] += tzk0;
+        // --- vxc delta (423 lines) ---
         let t514 = 1.0 / t54 / t52 * t10;
         let t515 = t14 * rho[ip];
         let t517 = 1.0 / t16 / t515;
@@ -835,6 +838,7 @@ pub fn mgga_c_tpssloc_lxc_unpol(
         let t1278 = 0.45e1 * t1271 * t508 + 0.135e2 * t1060 * t1265;
         let tvtau0 = t1057 * t1278 + t1272 * t511;
         vtau[ip] += tvtau0;
+        // --- fxc delta (891 lines) ---
         let t1286 = t10 * t10;
         let t1287 = 1.0 / t54 / t53 * t1286;
         let t1288 = t524 * t524;
@@ -1736,6 +1740,7 @@ pub fn mgga_c_tpssloc_lxc_unpol(
         let t3158 = 0.45e1 * t3145 * t508 + 27.0 * t2843 * t1265 + 27.0 * t2308 * t3130 + 0.135e2 * t1060 * t3137;
         let tv2tau20 = t1057 * t3158 + 2.0 * t1272 * t1278 + t3146 * t511;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (1673 lines) ---
         let t3168 = t2149 * t536;
         let t3172 = 1.0 / t1371 / t546;
         let t3173 = t80 * t3172;
@@ -3429,6 +3434,7 @@ pub fn mgga_c_tpssloc_lxc_unpol(
         let t7614 = 0.45e1 * t7591 * t508 + 0.405e2 * t7064 * t1265 + 81.0 * t6237 * t3130 + 0.405e2 * t2843 * t3137 + 27.0 * t507 * t7606 + 81.0 * t2308 * t7609 + 0.135e2 * t1060 * t7582;
         let tv3tau30 = t1057 * t7614 + 3.0 * t1272 * t3158 + 3.0 * t3146 * t1278 + t7592 * t511;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (1150 lines) ---
         let t7633 = piecewise3(t64, 0.0, 3.0 * t1479 * t61);
         let t7652 = t1371 * t1371;
         let t7655 = t1342 * t1342;

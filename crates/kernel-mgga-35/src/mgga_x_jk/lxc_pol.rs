@@ -1,7 +1,8 @@
-//! MGGA_X_JK lxc pol kernel.
+//! MGGA_X_JK lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_jk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 84 shared lines across all orders.
+//! Delta: 1053 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -103,6 +104,7 @@ pub fn mgga_x_jk_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (84 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -188,6 +190,7 @@ pub fn mgga_x_jk_lxc_pol(
         let t115 = piecewise3(t72, 0.0, -3.0 / 8.0 * t6 * t81 * t111);
         let tzk0 = t71 + t115;
         zk[ip] += tzk0;
+        // --- vxc delta (107 lines) ---
         let t116 = t7 * t7;
         let t117 = 1.0 / t116;
         let t118 = t17 * t117;
@@ -304,6 +307,7 @@ pub fn mgga_x_jk_lxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (298 lines) ---
         let t350 = t24 * t24;
         let t351 = 1.0 / t350;
         let t352 = t120 * t120;
@@ -647,6 +651,7 @@ pub fn mgga_x_jk_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (813 lines) ---
         let t1053 = 1.0 / t350 / t20;
         let t1054 = t352 * t120;
         let t1057 = t351 * t120;
@@ -1625,6 +1630,7 @@ pub fn mgga_x_jk_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (1053 lines) ---
         let t2881 = sigma0 / t39 / t710;
         let t2885 = t155 * t172;
         let t2916 = t1115 * t385;

@@ -1,7 +1,8 @@
-//! MGGA_C_LTAPW kxc pol kernel.
+//! MGGA_C_LTAPW kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ltapw.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 72 shared lines across all orders.
+//! Delta: 7442 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -67,6 +68,7 @@ pub fn mgga_c_ltapw_kxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (72 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -140,6 +142,7 @@ pub fn mgga_c_ltapw_kxc_pol(
         let t117 = 0.19751789702565206229e-1 * t86 * t111;
         let tzk0 = -t59 + t115 + t117;
         zk[ip] += tzk0;
+        // --- vxc delta (226 lines) ---
         let t118 = rho0 + rho1;
         let t119 = t5 * t7;
         let t121 = 1.0 / t34 / t33;
@@ -375,6 +378,7 @@ pub fn mgga_c_ltapw_kxc_pol(
         let t482 = 0.58482233974552040708e0 * t225 * t480;
         let tvtau1 = t118 * (t406 + t422 - t426 - t428 + t445 + t472 + t474 - t478 - t482);
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (1428 lines) ---
         let t493 = t123 * t129;
         let t495 = t310 * t493 * t153;
         let t496 = 0.35616666666666666667e-1 * t495;
@@ -1848,6 +1852,7 @@ pub fn mgga_c_ltapw_kxc_pol(
         let t2860 = -t2831 - t2833 - t2687 + t2690 - t2694 - t2702 - t2698 - t2835 + t2839 - t2842 + t2845 - t2849 - t2853 - t2855 + t2859 + t2723;
         let tv2tau22 = t118 * (t2829 + t2860);
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (this level) (7442 lines) ---
         let t2876 = -0.10685e0 * t495 + 0.73246220147012639764e-3 * t503 - 0.10986933022051895965e-2 * t506 - 0.54934665110259479823e-3 * t516 - 0.51947267698127589899e2 * t525 - 0.17544670192365612213e1 * t564 - 0.35089340384731224426e1 * t567 - 12.0 * t570 + 12.0 * t572 - 24.0 * t575 - 24.0 * t579 + 24.0 * t582 + 0.32530742648344572643e-1 * t585 + 0.35089340384731224426e1 * t592;
         let t2888 = 1.0 / t48 / t617;
         let t2889 = t6 * t2888;

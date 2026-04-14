@@ -1,7 +1,8 @@
-//! MGGA_K_GEA2 lxc pol kernel.
+//! MGGA_K_GEA2 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_gea2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 54 shared lines across all orders.
+//! Delta: 665 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_k_gea2_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (54 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -156,6 +158,7 @@ pub fn mgga_k_gea2_lxc_pol(
         let t85 = piecewise3(t57, 0.0, 3.0 / 20.0 * t7 * t67 * t81);
         let tzk0 = t56 + t85;
         zk[ip] += tzk0;
+        // --- vxc delta (55 lines) ---
         let t86 = t8 * t8;
         let t87 = 1.0 / t86;
         let t88 = t18 * t87;
@@ -220,6 +223,7 @@ pub fn mgga_k_gea2_lxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (135 lines) ---
         let t198 = 1.0 / t26;
         let t199 = t90 * t90;
         let t202 = t86 * t8;
@@ -400,6 +404,7 @@ pub fn mgga_k_gea2_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (318 lines) ---
         let t452 = 1.0 / t26 / t21;
         let t453 = t199 * t90;
         let t456 = t198 * t90;
@@ -883,6 +888,7 @@ pub fn mgga_k_gea2_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (665 lines) ---
         let t929 = t7 * t492 * t112;
         let t932 = t7 * t225 * t241;
         let t935 = t7 * t99 * t511;

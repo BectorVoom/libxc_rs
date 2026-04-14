@@ -1,7 +1,8 @@
-//! MGGA_C_RSCAN lxc unpol kernel.
+//! MGGA_C_RSCAN lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 125 shared lines across all orders.
+//! Delta: 905 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_c_rscan_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (125 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -218,6 +220,7 @@ pub fn mgga_c_rscan_lxc_unpol(
         let t201 = t171 * t200;
         let tzk0 = -t33 + t58 + t107 + t201;
         zk[ip] += tzk0;
+        // --- vxc delta (163 lines) ---
         let t202 = t8 * rho[ip];
         let t203 = 1.0 / t202;
         let t204 = t7 * t203;
@@ -385,6 +388,7 @@ pub fn mgga_c_rscan_lxc_unpol(
         let t485 = rho[ip] * t484;
         let tvtau0 = t485 * t200;
         vtau[ip] += tvtau0;
+        // --- fxc delta (437 lines) ---
         let t493 = t7 * t88;
         let t495 = t5 * t493 * t31;
         let t496 = 0.14764627977777777777e-2 * t495;
@@ -832,6 +836,7 @@ pub fn mgga_c_rscan_lxc_unpol(
         let t1350 = rho[ip] * t1349;
         let tv2tau20 = t1350 * t200;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (967 lines) ---
         let t1352 = t572 * t243;
         let t1354 = t236 * t569 * t563 * t1352;
         let t1355 = 0.51947577317044391277e2 * t1354;
@@ -1819,6 +1824,7 @@ pub fn mgga_c_rscan_lxc_unpol(
         let t3667 = rho[ip] * t3666;
         let tv3tau30 = t3667 * t200;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (905 lines) ---
         let t3683 = -0.20779030926817756511e3 * t1354 + 0.14035736694323150897e2 * t1359 + 0.28493333333333333333e0 * t1363 - 0.2137e0 * t1366 - 0.34367190188705947438e1 * t1370 + 0.4274e0 * t1374 + 0.4155806185363551302e3 * t1381 - 0.23392894490538584828e1 * t1413 - 12.0 * t1418 - 0.4101607543286562663e4 * t1426 + 12.0 * t1428 + 4.0 * t1857 + 12.0 * t1858 - 0.3859675079686208416e3 * t1435 + 4.0 * t1447;
         let t3691 = t505 * t505;
         let t3694 = 0.62071215503128080361e4 * t13 / t534 / t502 * t3691 * t1453;

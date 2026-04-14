@@ -1,7 +1,8 @@
-//! MGGA_C_PKZB vxc pol kernel.
+//! MGGA_C_PKZB vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_pkzb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 271 shared lines across all orders.
+//! Delta: 534 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn mgga_c_pkzb_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (271 lines) ---
         let t2 = rho0 * rho0;
         let t3 = pow_1_3(rho0);
         let t4 = t3 * t3;
@@ -308,6 +310,7 @@ pub fn mgga_c_pkzb_vxc_pol(
         let t429 = 0.2390625e-1 * t328 * t427;
         let tzk0 = t196 - t325 - t429;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (534 lines) ---
         let t430 = t30 * t42;
         let t431 = t2 * rho0;
         let t433 = 1.0 / t4 / t431;

@@ -1,7 +1,8 @@
-//! MGGA_XC_B97MV exc unpol kernel.
+//! MGGA_XC_B97MV exc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_b97mv.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 176 shared lines across all orders.
+//! Delta: 176 lines unique to exc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn mgga_xc_b97mv_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (176 lines) ---
         let t2 = 1.0 <= zeta_threshold;
         let t3 = piecewise3(t2, zeta_threshold, 1.0);
         let t5 = rho[ip] / 2.0 <= dens_threshold;

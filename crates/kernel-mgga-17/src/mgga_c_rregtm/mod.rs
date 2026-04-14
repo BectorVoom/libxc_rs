@@ -1,4 +1,17 @@
-//! MGGA_C_RREGTM kernel — split into per-function files.
+//! MGGA_C_RREGTM kernel -- incremental derivative structure.
+
+//! unpol: preamble=108 lines
+//!   exc: shared=0, delta=108, outputs=1
+//!   vxc: shared=108, delta=130, outputs=5
+//!   fxc: shared=238, delta=329, outputs=15
+//!   kxc: shared=567, delta=655, outputs=35
+//!   lxc: shared=1222, delta=634, outputs=70
+//! pol: preamble=167 lines
+//!   exc: shared=0, delta=167, outputs=1
+//!   vxc: shared=167, delta=285, outputs=10
+//!   fxc: shared=452, delta=971, outputs=55
+//!   kxc: shared=1423, delta=3020, outputs=220
+//!   lxc: shared=4443, delta=7327, outputs=715
 
 pub mod exc_unpol;
 pub mod vxc_unpol;

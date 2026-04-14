@@ -1,7 +1,8 @@
-//! MGGA_C_BC95 vxc unpol kernel.
+//! MGGA_C_BC95 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_bc95.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 88 shared lines across all orders.
+//! Delta: 110 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -29,6 +30,7 @@ pub fn mgga_c_bc95_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (88 lines) ---
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
         let t6 = piecewise3(t4, zeta_threshold, 1.0);
@@ -118,6 +120,7 @@ pub fn mgga_c_bc95_vxc_unpol(
         let t168 = t162 * t167;
         let tzk0 = t123 + t168;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (110 lines) ---
         let t170 = 1.0 / t14 / rho[ip];
         let t171 = t170 * t16;
         let t172 = t20 * t46;

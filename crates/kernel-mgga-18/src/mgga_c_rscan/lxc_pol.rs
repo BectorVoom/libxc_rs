@@ -1,7 +1,8 @@
-//! MGGA_C_RSCAN lxc pol kernel.
+//! MGGA_C_RSCAN lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 188 shared lines across all orders.
+//! Delta: 12276 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_c_rscan_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (188 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -290,6 +292,7 @@ pub fn mgga_c_rscan_lxc_pol(
         let t270 = t232 * t269;
         let tzk0 = -t34 + t90 + t92 + t147 + t270;
         zk[ip] += tzk0;
+        // --- vxc delta (335 lines) ---
         let t271 = t9 * t8;
         let t272 = 1.0 / t271;
         let t273 = t7 * t272;
@@ -634,6 +637,7 @@ pub fn mgga_c_rscan_lxc_pol(
         let t848 = t8 * t847;
         let tvtau1 = t848 * t269;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (1339 lines) ---
         let t849 = t320 * t353;
         let t850 = t41 * t849;
         let t851 = 2.0 * t850;
@@ -2018,6 +2022,7 @@ pub fn mgga_c_rscan_lxc_pol(
         let t3541 = t8 * t3540;
         let tv2tau22 = t3541 * t269;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (5171 lines) ---
         let t3544 = 96.0 * t855;
         let t3545 = 3.0 * t972;
         let t3547 = 0.44293883933333333332e-2 * t907;
@@ -7354,6 +7359,7 @@ pub fn mgga_c_rscan_lxc_pol(
         let t16008 = t8 * t16007;
         let tv3tau33 = t16008 * t269;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (12276 lines) ---
         let t16012 = 0.86748650402413918736e-1 * t3782;
         let t16013 = 0.1301229756036208781e0 * t3785;
         let t16014 = 0.19263893255070628431e1 * t3788;

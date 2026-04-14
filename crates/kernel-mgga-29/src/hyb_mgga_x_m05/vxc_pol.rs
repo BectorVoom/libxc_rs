@@ -1,7 +1,8 @@
-//! HYB_MGGA_X_M05 vxc pol kernel.
+//! HYB_MGGA_X_M05 vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_m05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 154 shared lines across all orders.
+//! Delta: 172 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -49,6 +50,7 @@ pub fn hyb_mgga_x_m05_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (154 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -204,6 +206,7 @@ pub fn hyb_mgga_x_m05_vxc_pol(
         let t212 = piecewise3(t127, 0.0, -3.0 / 8.0 * t136 * t209);
         let tzk0 = t126 + t212;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (172 lines) ---
         let t213 = t7 * t7;
         let t214 = 1.0 / t213;
         let t215 = t17 * t214;

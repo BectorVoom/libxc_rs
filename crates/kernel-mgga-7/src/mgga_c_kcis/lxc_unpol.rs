@@ -1,7 +1,8 @@
-//! MGGA_C_KCIS lxc unpol kernel.
+//! MGGA_C_KCIS lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_kcis.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 205 shared lines across all orders.
+//! Delta: 1097 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_c_kcis_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (205 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -298,6 +300,7 @@ pub fn mgga_c_kcis_lxc_unpol(
         let t371 = t215 * t369 / 8.0;
         let tzk0 = t163 + t214 - t371;
         zk[ip] += tzk0;
+        // --- vxc delta (294 lines) ---
         let t374 = 0.11073577833333333333e-2 * t5 * t100 * t31;
         let t375 = t27 * t27;
         let t376 = 1.0 / t375;
@@ -596,6 +599,7 @@ pub fn mgga_c_kcis_lxc_unpol(
         let t953 = sigma[ip] * t952;
         let tvtau0 = t953 * t913 / 8.0;
         vtau[ip] += tvtau0;
+        // --- fxc delta (549 lines) ---
         let t962 = 0.14764770444444444444e-2 * t5 * t116 * t31;
         let t963 = t85 * t376;
         let t966 = 0.35616666666666666667e-1 * t630 * t963 * t394;
@@ -1155,6 +1159,7 @@ pub fn mgga_c_kcis_lxc_unpol(
         let t2189 = sigma[ip] * t2188;
         let tv2tau20 = -t2189 * t913 / 4.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (1024 lines) ---
         let t2202 = t471 * t448;
         let t2205 = t110 * t1096;
         let t2211 = 1.0 / t1095 / t92;
@@ -2199,6 +2204,7 @@ pub fn mgga_c_kcis_lxc_unpol(
         let t4753 = sigma[ip] * t4752;
         let tv3tau30 = 3.0 / 4.0 * t4753 * t913;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (1097 lines) ---
         let t4764 = 24.0 * t2570 * t2581;
         let t4769 = 36.0 * t2577 * t1197 * t1284;
         let t4770 = t2565 * t512;

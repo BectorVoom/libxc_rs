@@ -1,7 +1,8 @@
-//! MGGA_C_REVTPSS fxc pol kernel.
+//! MGGA_C_REVTPSS fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 382 shared lines across all orders.
+//! Delta: 3168 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,6 +52,7 @@ pub fn mgga_c_revtpss_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (382 lines) ---
         let t2 = rho0 - rho1;
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;
@@ -434,6 +436,7 @@ pub fn mgga_c_revtpss_fxc_pol(
         let t575 = t572 * t573 + 1.0;
         let tzk0 = t571 * t575;
         zk[ip] += tzk0;
+        // --- vxc delta (913 lines) ---
         let t576 = t10 * t2;
         let t578 = 2.0 * t576 * t17;
         let t579 = t16 * t3;
@@ -1356,6 +1359,7 @@ pub fn mgga_c_revtpss_fxc_pol(
         let t2212 = t2207 * t573 + 3.0 * t2209 * t572;
         let tvtau1 = t1458 * t2212 + t2205 * t575;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (this level) (3168 lines) ---
         let t2214 = t1455 * t575;
         let t2216 = t571 * t1464;
         let t2219 = 2.0 * t10 * t17;

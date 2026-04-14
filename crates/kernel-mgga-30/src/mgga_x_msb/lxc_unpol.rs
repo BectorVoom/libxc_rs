@@ -1,7 +1,8 @@
-//! MGGA_X_MSB lxc unpol kernel.
+//! MGGA_X_MSB lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_msb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 56 shared lines across all orders.
+//! Delta: 438 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -95,6 +96,7 @@ pub fn mgga_x_msb_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (56 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -152,6 +154,7 @@ pub fn mgga_x_msb_lxc_unpol(
         let t87 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t83);
         let tzk0 = 2.0 * t87;
         zk[ip] += tzk0;
+        // --- vxc delta (60 lines) ---
         let t89 = t18 / t31;
         let t93 = param_kappa * param_kappa;
         let t94 = t37 * t37;
@@ -216,6 +219,7 @@ pub fn mgga_x_msb_lxc_unpol(
         let t213 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t209);
         let tvtau0 = 2.0 * rho[ip] * t213;
         vtau[ip] += tvtau0;
+        // --- fxc delta (169 lines) ---
         let t216 = t18 * t44;
         let t226 = t93 / t94 / t37 * t49;
         let t228 = 1.0 / t23 / t22;
@@ -395,6 +399,7 @@ pub fn mgga_x_msb_lxc_unpol(
         let t642 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t638);
         let tv2tau20 = 2.0 * rho[ip] * t642;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (438 lines) ---
         let t645 = t18 * t33;
         let t655 = t122 * t122;
         let t656 = 1.0 / t655;
@@ -853,6 +858,7 @@ pub fn mgga_x_msb_lxc_unpol(
         let t2026 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t2022);
         let tv3tau30 = 2.0 * rho[ip] * t2026;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (438 lines) ---
         let t2046 = t93 / t694 / t76;
         let t2047 = t229 * t229;
         let t2048 = t669 * t2047;

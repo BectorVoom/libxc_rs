@@ -1,7 +1,8 @@
-//! MGGA_K_PC07 lxc pol kernel.
+//! MGGA_K_PC07 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_pc07.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 146 shared lines across all orders.
+//! Delta: 5636 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -103,6 +104,7 @@ pub fn mgga_k_pc07_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (146 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -250,6 +252,7 @@ pub fn mgga_k_pc07_lxc_pol(
         let t208 = piecewise3(t122, 0.0, 3.0 / 20.0 * t7 * t132 * t204);
         let tzk0 = t121 + t208;
         zk[ip] += tzk0;
+        // --- vxc delta (203 lines) ---
         let t209 = t8 * t8;
         let t210 = 1.0 / t209;
         let t211 = t18 * t210;
@@ -462,6 +465,7 @@ pub fn mgga_k_pc07_lxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (688 lines) ---
         let t596 = 1.0 / t26;
         let t597 = t213 * t213;
         let t600 = t209 * t8;
@@ -1195,6 +1199,7 @@ pub fn mgga_k_pc07_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (2268 lines) ---
         let t2094 = 1.0 / t26 / t21;
         let t2095 = t597 * t213;
         let t2098 = t596 * t213;
@@ -3628,6 +3633,7 @@ pub fn mgga_k_pc07_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (5636 lines) ---
         let t8798 = t7 * t2122 * t302;
         let t8801 = t7 * t614 * t789;
         let t8807 = t7 * t2134 * t302;

@@ -1,7 +1,8 @@
-//! MGGA_C_M05 lxc pol kernel.
+//! MGGA_C_M05 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 227 shared lines across all orders.
+//! Delta: 2720 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -114,6 +115,7 @@ pub fn mgga_c_m05_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (227 lines) ---
         let t3 = rho0 - rho1;
         let t4 = rho0 + rho1;
         let t5 = 1.0 / t4;
@@ -342,6 +344,7 @@ pub fn mgga_c_m05_lxc_pol(
         let t389 = t354 * t388;
         let tzk0 = t171 + t291 + t389;
         zk[ip] += tzk0;
+        // --- vxc delta (371 lines) ---
         let t390 = 1.0 / t313;
         let t391 = t3 * t390;
         let t392 = t5 - t391;
@@ -722,6 +725,7 @@ pub fn mgga_c_m05_lxc_pol(
         let t1152 = 8.0 * t969 * t1150;
         let tvtau1 = t4 * (t1148 + t1152);
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (1017 lines) ---
         let t1161 = t313 * t4;
         let t1162 = 1.0 / t1161;
         let t1163 = t3 * t1162;
@@ -1784,6 +1788,7 @@ pub fn mgga_c_m05_lxc_pol(
         let t3394 = 64.0 * t969 * t3392;
         let tv2tau22 = t4 * (-t3380 + t3384 + t3388 - t3394);
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (2439 lines) ---
         let t3396 = 1.0 / t119;
         let t3398 = t3396 * t155 * t169;
         let t3399 = t543 * t3398;
@@ -4388,6 +4393,7 @@ pub fn mgga_c_m05_lxc_pol(
         let t9072 = 512.0 * t969 * t9070;
         let tv3tau33 = t4 * (t9056 - t9060 - t9063 - t9068 + t9072);
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (2720 lines) ---
         let t9089 = 3.0 * t3399 + 4.0 * t3512 + 380.0 / 3.0 * t3515 - 6400.0 / 3.0 * t3517 - 40.0 * t3519 - 160.0 * t3522 - 6400.0 / 3.0 * t3524 + 3.0 / 2.0 * t3527 - 3.0 * t3529 - 256000.0 / 27.0 * t3538 + 83200.0 / 9.0 * t3544 - 800.0 / 3.0 * t3548 - 33280.0 / 27.0 * t3552 + 2080.0 / 3.0 * t3554 + 2080.0 / 3.0 * t3557;
         let t9099 = t3624 * sigma0;
         let t9102 = t3627 * sigma0;

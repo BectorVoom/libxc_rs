@@ -1,7 +1,8 @@
-//! MGGA_XC_CC06 lxc pol kernel.
+//! MGGA_XC_CC06 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_cc06.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 96 shared lines across all orders.
+//! Delta: 1205 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_xc_cc06_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (96 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -198,6 +200,7 @@ pub fn mgga_xc_cc06_lxc_pol(
         let t155 = t150 * t153 + 1.0;
         let tzk0 = t124 * t155;
         zk[ip] += tzk0;
+        // --- vxc delta (136 lines) ---
         let t156 = t14 * t8;
         let t159 = 1.0 / t73;
         let t162 = 2.0 * t15 * t159 * t16;
@@ -343,6 +346,7 @@ pub fn mgga_xc_cc06_lxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (334 lines) ---
         let t413 = t301 * t155;
         let t415 = t124 * t330;
         let t419 = 4.0 * t30 * t187 * t31;
@@ -722,6 +726,7 @@ pub fn mgga_xc_cc06_lxc_pol(
         v2tau2[ip * 3 + 1] += tv2tau21;
         let tv2tau22 = 0.0;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (742 lines) ---
         let t1117 = t679 * t155;
         let t1119 = t301 * t330;
         let t1121 = t124 * t732;
@@ -1629,6 +1634,7 @@ pub fn mgga_xc_cc06_lxc_pol(
         v3tau3[ip * 4 + 2] += tv3tau32;
         let tv3tau33 = 0.0;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (1205 lines) ---
         let t2836 = t1546 * t155;
         let t2838 = t679 * t330;
         let t2840 = t301 * t732;

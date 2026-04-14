@@ -1,7 +1,8 @@
-//! MGGA_C_REVSCAN fxc pol kernel.
+//! MGGA_C_REVSCAN fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 199 shared lines across all orders.
+//! Delta: 1198 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -46,6 +47,7 @@ pub fn mgga_c_revscan_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (199 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -246,6 +248,7 @@ pub fn mgga_c_revscan_fxc_pol(
         let t293 = t240 * t292;
         let tzk0 = -t34 + t90 + t92 + t177 + t293;
         zk[ip] += tzk0;
+        // --- vxc delta (337 lines) ---
         let t295 = 1.0 / t9 / t8;
         let t296 = t7 * t295;
         let t298 = t5 * t296 * t32;
@@ -592,6 +595,7 @@ pub fn mgga_c_revscan_fxc_pol(
         let t854 = t8 * t853;
         let tvtau1 = t854 * t292;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (this level) (1198 lines) ---
         let t855 = t344 * t2;
         let t856 = t855 * t384;
         let t857 = 0.36622894612013090108e-3 * t856;

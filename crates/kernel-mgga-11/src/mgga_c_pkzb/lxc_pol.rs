@@ -1,7 +1,8 @@
-//! MGGA_C_PKZB lxc pol kernel.
+//! MGGA_C_PKZB lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_pkzb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 271 shared lines across all orders.
+//! Delta: 9133 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_c_pkzb_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (271 lines) ---
         let t2 = rho0 * rho0;
         let t3 = pow_1_3(rho0);
         let t4 = t3 * t3;
@@ -373,6 +375,7 @@ pub fn mgga_c_pkzb_lxc_pol(
         let t429 = 0.2390625e-1 * t328 * t427;
         let tzk0 = t196 - t325 - t429;
         zk[ip] += tzk0;
+        // --- vxc delta (534 lines) ---
         let t430 = t30 * t42;
         let t431 = t2 * rho0;
         let t433 = 1.0 / t4 / t431;
@@ -916,6 +919,7 @@ pub fn mgga_c_pkzb_lxc_pol(
         let t1403 = 0.478125e-1 * t328 * t1401;
         let tvtau1 = t9 * (-t1398 + t1403);
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (1718 lines) ---
         let t1410 = t448 * t448;
         let t1413 = t30 * t452;
         let t1414 = t448 * t459;
@@ -2679,6 +2683,7 @@ pub fn mgga_c_pkzb_lxc_pol(
         let t4758 = 0.1434375e0 * t328 * t4756;
         let tv2tau22 = t9 * (t4753 - t4758);
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (5516 lines) ---
         let t4769 = t1410 * t452;
         let t4772 = t30 * t1448;
         let t4773 = t448 * t1450;
@@ -8360,6 +8365,7 @@ pub fn mgga_c_pkzb_lxc_pol(
         let t16025 = 0.57375e0 * t328 * t16023;
         let tv3tau33 = t9 * (-t16020 + t16025);
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (9133 lines) ---
         let t16036 = t30 * t4827;
         let t16046 = 1.0 / t1447 / t41;
         let t16047 = t31 * t16046;

@@ -1,7 +1,8 @@
-//! MGGA_K_GEA4 lxc unpol kernel.
+//! MGGA_K_GEA4 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_gea4.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 47 shared lines across all orders.
+//! Delta: 42 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_k_gea4_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (47 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = t4 * t4;
@@ -140,6 +142,7 @@ pub fn mgga_k_gea4_lxc_unpol(
         let t78 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t74);
         let tzk0 = 2.0 * t78;
         zk[ip] += tzk0;
+        // --- vxc delta (19 lines) ---
         let t80 = t21 / t22;
         let t85 = 1.0 / t23 / t52;
         let t96 = t31 * t70 * lapl[ip];
@@ -163,6 +166,7 @@ pub fn mgga_k_gea4_lxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
+        // --- fxc delta (30 lines) ---
         let t147 = t21 / t22 / rho[ip];
         let t155 = 1.0 / t23 / t59;
         let t166 = t31 * t101 * lapl[ip];
@@ -203,6 +207,7 @@ pub fn mgga_k_gea4_lxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (38 lines) ---
         let t239 = t21 / t22 / t34;
         let t250 = 1.0 / t23 / t68;
         let t261 = t31 * t171 * lapl[ip];
@@ -261,6 +266,7 @@ pub fn mgga_k_gea4_lxc_unpol(
         v3lapltau2[ip] += tv3lapltau20;
         let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (42 lines) ---
         let t349 = 1.0 / t23 / t99;
         let t374 = piecewise3(t3, 0.0, -14.0 / 135.0 * t8 * t21 * t54 * t74 + 8.0 / 45.0 * t8 * t239 * t105 - t8 * t147 * t175 / 5.0 + 2.0 / 5.0 * t8 * t80 * t270 + 3.0 / 20.0 * t8 * t24 * (13090.0 / 6561.0 * t30 * t33 * t349 + 15400.0 / 2187.0 * t30 * t40 * t250 + 9880.0 / 59049.0 * t49 * t51 * t171 - 2717.0 / 6561.0 * t58 * t31 * t266 * lapl[ip] + 41800.0 / 177147.0 * t49 * t67 / t22 / t264 / rho[ip]));
         let tv4rho40 = 2.0 * rho[ip] * t374 + 8.0 * t275;

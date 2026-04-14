@@ -1,7 +1,8 @@
-//! MGGA_X_RSCAN vxc pol kernel.
+//! MGGA_X_RSCAN vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 205 shared lines across all orders.
+//! Delta: 344 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -41,6 +42,7 @@ pub fn mgga_x_rscan_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (205 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -247,6 +249,7 @@ pub fn mgga_x_rscan_vxc_pol(
         let t308 = piecewise3(t178, 0.0, -3.0 / 8.0 * t187 * t305);
         let tzk0 = t177 + t308;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (344 lines) ---
         let t309 = 1.0 / t73;
         let t310 = t17 * t309;
         let t312 = piecewise5(t11, 0.0, t15, 0.0, t8 - t310);

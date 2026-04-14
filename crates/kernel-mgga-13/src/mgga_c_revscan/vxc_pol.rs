@@ -1,7 +1,8 @@
-//! MGGA_C_REVSCAN vxc pol kernel.
+//! MGGA_C_REVSCAN vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 199 shared lines across all orders.
+//! Delta: 337 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn mgga_c_revscan_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (199 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -236,6 +238,7 @@ pub fn mgga_c_revscan_vxc_pol(
         let t293 = t240 * t292;
         let tzk0 = -t34 + t90 + t92 + t177 + t293;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (337 lines) ---
         let t295 = 1.0 / t9 / t8;
         let t296 = t7 * t295;
         let t298 = t5 * t296 * t32;

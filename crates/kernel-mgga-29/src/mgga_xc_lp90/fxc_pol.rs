@@ -1,7 +1,8 @@
-//! MGGA_XC_LP90 fxc pol kernel.
+//! MGGA_XC_LP90 fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 30 shared lines across all orders.
+//! Delta: 112 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,6 +45,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (30 lines) ---
         let t3 = sigma0 + 2.0 * sigma1 + sigma2;
         let t4 = rho0 + rho1;
         let t5 = t4 * t4;
@@ -75,6 +77,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t42 = 1.0 / t41;
         let tzk0 = -t39 * t42;
         zk[ip] += tzk0;
+        // --- vxc delta (39 lines) ---
         let t44 = t5 * t4;
         let t46 = 1.0 / t7 / t44;
         let t48 = 0.10041333333333333333e-2 * t3 * t46;
@@ -123,6 +126,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         vtau[ip * 2] += tvtau0;
         let tvtau1 = 0.0;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (this level) (112 lines) ---
         let t103 = t66 * t42;
         let t105 = t39 * t71;
         let t107 = 1.0 / t6 / t4;

@@ -1,7 +1,8 @@
-//! MGGA_X_VT84 lxc pol kernel.
+//! MGGA_X_VT84 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_vt84.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 160 shared lines across all orders.
+//! Delta: 3161 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -101,6 +102,7 @@ pub fn mgga_x_vt84_lxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (160 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -262,6 +264,7 @@ pub fn mgga_x_vt84_lxc_pol(
         let t248 = piecewise3(t139, 0.0, -3.0 / 8.0 * t6 * t148 * t244);
         let tzk0 = t138 + t248;
         zk[ip] += tzk0;
+        // --- vxc delta (273 lines) ---
         let t249 = t7 * t7;
         let t250 = 1.0 / t249;
         let t251 = t17 * t250;
@@ -544,6 +547,7 @@ pub fn mgga_x_vt84_lxc_pol(
         let t830 = piecewise3(t139, 0.0, -3.0 / 8.0 * t6 * t148 * t826);
         let tvtau1 = t7 * t830;
         vtau[ip * 2 + 1] += tvtau1;
+        // --- fxc delta (752 lines) ---
         let t833 = t24 * t24;
         let t834 = 1.0 / t833;
         let t835 = t253 * t253;
@@ -1341,6 +1345,7 @@ pub fn mgga_x_vt84_lxc_pol(
         let t2739 = piecewise3(t139, 0.0, -3.0 / 8.0 * t6 * t148 * t2735);
         let tv2tau22 = t7 * t2739;
         v2tau2[ip * 3 + 2] += tv2tau22;
+        // --- kxc delta (2052 lines) ---
         let t2743 = 1.0 / t833 / t20;
         let t2744 = t835 * t253;
         let t2747 = t834 * t253;
@@ -3558,6 +3563,7 @@ pub fn mgga_x_vt84_lxc_pol(
         let t9226 = piecewise3(t139, 0.0, -3.0 / 8.0 * t6 * t148 * t9222);
         let tv3tau33 = t7 * t9226;
         v3tau3[ip * 4 + 3] += tv3tau33;
+        // --- lxc delta (this level) (3161 lines) ---
         let t9231 = t6 * t847 * t860 * t134;
         let t9235 = t6 * t2759 * t262 * t134;
         let t9241 = t3966 * t117;

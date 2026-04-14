@@ -1,7 +1,8 @@
-//! MGGA_XC_ZLP lxc unpol kernel.
+//! MGGA_XC_ZLP lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 22 shared lines across all orders.
+//! Delta: 37 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -91,6 +92,7 @@ pub fn mgga_xc_zlp_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (22 lines) ---
         let t2 = M_CBRT3;
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = t2 * t4;
@@ -114,6 +116,7 @@ pub fn mgga_xc_zlp_lxc_unpol(
         let t38 = t34 * t37;
         let tzk0 = -t38 / 3.0;
         zk[ip] += tzk0;
+        // --- vxc delta (16 lines) ---
         let t41 = t11 * rho[ip];
         let t42 = t10 * rho[ip];
         let t44 = 1.0 / t12 / t42;
@@ -134,6 +137,7 @@ pub fn mgga_xc_zlp_lxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
+        // --- fxc delta (23 lines) ---
         let t71 = t49 * t31;
         let t75 = t24 * t61 * t33;
         let t78 = t36 * t58;
@@ -167,6 +171,7 @@ pub fn mgga_xc_zlp_lxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (34 lines) ---
         let t116 = t88 * t31;
         let t119 = t49 * t61;
         let t125 = t24 * t105 * t33;
@@ -221,6 +226,7 @@ pub fn mgga_xc_zlp_lxc_unpol(
         v3lapltau2[ip] += tv3lapltau20;
         let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (37 lines) ---
         let t218 = 1.0 / t11 / t81;
         let t224 = t99 * t99;
         let tv4rho40 = -0.3448144e0 * t49 * t105 * t11 - 0.215509e-1 * t41 * (2618.0 / 81.0 * sigma[ip] / t12 / t81 / t10 - 770.0 / 81.0 * lapl[ip] * t135) * t31 - 0.862036e-1 * t141 * t61 - 0.1293054e0 * t89 * t105 - 0.862036e-1 * t50 * t161 - 0.11493813333333333333e0 * t140 * t31 * t11 - 0.3448144e0 * t88 * t61 * t11 - 0.57469066666666666666e-1 * t116 * t58 - 0.11493813333333333333e0 * t119 * t58 + 0.25541807407407407407e-1 * t71 * t17 - 8.0 / 9.0 * t125 * t78 + 32.0 / 81.0 * t75 * t130 - 40.0 / 243.0 * t34 * t36 * t14 - t53 * (-0.98765432098765432088e0 / t81 * t55 + 0.60307932181100836503e3 * t218 * t100 - 0.11784031256031235593e6 * t83 * t156 + 0.86346472773757568068e7 / t133 / t224 + 0.20218340740740740741e-2 * t28 * t44) * t64 / 3.0 - 16.0 / 9.0 * t24 * t161 * t33 * t37;

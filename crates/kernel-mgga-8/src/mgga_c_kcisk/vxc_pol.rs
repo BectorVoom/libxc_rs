@@ -1,7 +1,8 @@
-//! MGGA_C_KCISK vxc pol kernel.
+//! MGGA_C_KCISK vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_kcisk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 471 shared lines across all orders.
+//! Delta: 1083 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn mgga_c_kcisk_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
+        // --- shared preamble (471 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -508,6 +510,7 @@ pub fn mgga_c_kcisk_vxc_pol(
         let t809 = t564 * t807 / 16.0;
         let tzk0 = t219 + t292 - t562 - t809;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (1083 lines) ---
         let t812 = 0.11073577833333333333e-2 * t5 * t157 * t32;
         let t813 = t28 * t28;
         let t814 = 1.0 / t813;

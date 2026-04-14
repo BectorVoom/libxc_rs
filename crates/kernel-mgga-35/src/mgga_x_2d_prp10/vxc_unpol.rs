@@ -1,7 +1,8 @@
-//! MGGA_X_2D_PRP10 vxc unpol kernel.
+//! MGGA_X_2D_PRP10 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_vxc/mgga_x_2d_prp10.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 22 shared lines across all orders.
+//! Delta: 22 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -26,6 +27,7 @@ pub fn mgga_x_2d_prp10_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < vrho.len() {
+        // --- shared preamble (22 lines) ---
         let t2 = rho[ip] * rho[ip];
         let t3 = 1.0 / t2;
         let t7 = 2.0 * tau[ip] * t3;

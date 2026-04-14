@@ -1,7 +1,8 @@
-//! MGGA_X_BR89_EXPLICIT kxc unpol kernel.
+//! MGGA_X_BR89_EXPLICIT kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89_explicit.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 72 shared lines across all orders.
+//! Delta: 2461 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -58,6 +59,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (72 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = 1.0 <= zeta_threshold;
         let t5 = zeta_threshold - 1.0;
@@ -131,6 +133,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t125 = piecewise3(t3, 0.0, -t20 * t122 / 4.0);
         let tzk0 = 2.0 * t125;
         zk[ip] += tzk0;
+        // --- vxc delta (163 lines) ---
         let t127 = t14 / t26;
         let t128 = t127 * t19;
         let t131 = t19 * t21;
@@ -298,6 +301,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t463 = piecewise3(t3, 0.0, -t132 * t447 / 12.0 - t20 * t455 / 4.0 + t132 * t459 / 4.0);
         let tvtau0 = 2.0 * rho[ip] * t463;
         vtau[ip] += tvtau0;
+        // --- fxc delta (658 lines) ---
         let t466 = t14 * t28;
         let t467 = t466 * t19;
         let t470 = t127 * t131;
@@ -966,6 +970,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t2133 = piecewise3(t3, 0.0, -t132 * t2097 / 12.0 - t132 * t2102 / 36.0 - t132 * t2105 / 6.0 + t132 * t2108 / 6.0 - t20 * t2118 / 4.0 + t132 * t2121 / 2.0 - t132 * t2125 / 2.0 + t132 * t2129 / 4.0);
         let tv2tau20 = 2.0 * rho[ip] * t2133;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (this level) (2461 lines) ---
         let t2136 = t654 * t216;
         let t2137 = t2136 * t622;
         let t2138 = t229 * t2137;

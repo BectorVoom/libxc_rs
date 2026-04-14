@@ -1,7 +1,8 @@
-//! MGGA_X_MVSB lxc unpol kernel.
+//! MGGA_X_MVSB lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mvsb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 55 shared lines across all orders.
+//! Delta: 232 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -96,6 +97,7 @@ pub fn mgga_x_mvsb_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (55 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -152,6 +154,7 @@ pub fn mgga_x_mvsb_lxc_unpol(
         let t84 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t63 * t80);
         let tzk0 = 2.0 * t84;
         zk[ip] += tzk0;
+        // --- vxc delta (62 lines) ---
         let t85 = 1.0 / t24;
         let t90 = t23 * t31;
         let t92 = t29 * rho[ip];
@@ -218,6 +221,7 @@ pub fn mgga_x_mvsb_lxc_unpol(
         let t222 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t217 * t80);
         let tvtau0 = 2.0 * rho[ip] * t222;
         vtau[ip] += tvtau0;
+        // --- fxc delta (157 lines) ---
         let t233 = t71 * t92;
         let t234 = 1.0 / t233;
         let t235 = t18 * t234;
@@ -385,6 +389,7 @@ pub fn mgga_x_mvsb_lxc_unpol(
         let t657 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t652 * t80);
         let tv2tau20 = 2.0 * rho[ip] * t657;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (317 lines) ---
         let t668 = 1.0 / t323;
         let t669 = t18 * t668;
         let t671 = t7 * t669 * t63;
@@ -722,6 +727,7 @@ pub fn mgga_x_mvsb_lxc_unpol(
         let t1708 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t1703 * t80);
         let tv3tau30 = 2.0 * rho[ip] * t1708;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (232 lines) ---
         let t1727 = t23 * t693;
         let t1730 = 1.0 / t24 / t138;
         let t1733 = 6160.0 / 81.0 * t1727 - 2618.0 / 81.0 * t28 * t1730;
