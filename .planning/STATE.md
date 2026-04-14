@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 08-02-PLAN.md
-last_updated: "2026-04-13T13:14:42.726Z"
-last_activity: 2026-04-13
+stopped_at: Completed 08-08-PLAN.md
+last_updated: "2026-04-14T01:31:11.631Z"
+last_activity: 2026-04-14
 progress:
   total_phases: 8
-  completed_phases: 4
+  completed_phases: 3
   total_plans: 25
-  completed_plans: 19
-  percent: 76
+  completed_plans: 20
+  percent: 80
 ---
 
 <<<<<<< HEAD
@@ -42,14 +42,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 04 — bulk-kernel-translation
+**Current focus:** Phase 08 — extract-kernel-lda-kernel-gga-and-kernel-mgga-into-independe
 
 ## Current Position
 
-Phase: 04 (bulk-kernel-translation) — EXECUTING
-Plan: 3 of 5
+Phase: 08 (extract-kernel-lda-kernel-gga-and-kernel-mgga-into-independe) — EXECUTING
+Plan: 2 of 9
 Status: Ready to execute
-Last activity: 2026-04-13
+Last activity: 2026-04-14
 
 Progress: [████████████████████] 3/3 plans (100%) — Phase 01 done
 =======
@@ -110,6 +110,7 @@ Progress: [░░░░░░░░░░] 0%
 >>>>>>> origin/main
 | Phase 08 P01 | 7min | 2 tasks | 15 files |
 | Phase 08 P02 | 77min | 2 tasks | 36 files |
+| Phase 08 P08 | 0min | 3 tasks | 1088 files |
 
 ## Accumulated Context
 
@@ -132,6 +133,7 @@ Recent decisions affecting current work:
 
 - [Phase 08]: Used libxc_kernel_math:: import paths for MGGA kernels matching GGA pattern
 - [Phase 08]: CubeCL CPU runtime requires mutex serialization for concurrent kernel launches in tests
+- [Phase 08]: Rebatched MGGA from 7 to 37 sub-crates using first-fit-decreasing bin packing for OOM mitigation
 
 ### Pending Todos
 
@@ -147,8 +149,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-13T13:14:42.721Z
-Stopped at: Completed 08-02-PLAN.md
+Last session: 2026-04-14T01:31:11.621Z
+Stopped at: Completed 08-08-PLAN.md
 Resume file: None
 =======
 None yet.

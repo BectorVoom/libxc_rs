@@ -114,7 +114,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **VERIFY-01**: Verification harness in verify/ crate using bindgen against system libxc 7.0.0
 - [ ] **VERIFY-02**: All 649 functionals verified against libxc oracle across applicable derivative orders and spin modes
 - [x] **VERIFY-03**: Energy (exc): relative error <= 10^-12
-- [ ] **VERIFY-04**: VXC: relative error <= 10^-10
+- [x] **VERIFY-04**: VXC: relative error <= 10^-10
 - [ ] **VERIFY-05**: FXC: relative error <= 10^-8
 - [ ] **VERIFY-06**: KXC: relative error <= 10^-6
 - [ ] **VERIFY-07**: LXC: relative error <= 10^-4
@@ -283,7 +283,7 @@ Which phases cover which requirements. Each requirement maps to exactly one phas
 | KERN-09 | Phase 4: Bulk Kernel Translation | Pending |
 | VERIFY-02 | Phase 4: Bulk Kernel Translation | Pending |
 | VERIFY-03 | Phase 4: Bulk Kernel Translation | Complete |
-| VERIFY-04 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-04 | Phase 4: Bulk Kernel Translation | Complete |
 | VERIFY-05 | Phase 4: Bulk Kernel Translation | Pending |
 | VERIFY-06 | Phase 4: Bulk Kernel Translation | Pending |
 | VERIFY-07 | Phase 4: Bulk Kernel Translation | Pending |
