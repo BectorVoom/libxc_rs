@@ -1,7 +1,8 @@
-//! GGA_X_HERMAN vxc unpol kernel.
+//! GGA_X_HERMAN vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_herman.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 24 shared lines across all orders.
+//! Delta: 8 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -23,6 +24,7 @@ pub fn gga_x_herman_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (24 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -48,6 +50,7 @@ pub fn gga_x_herman_vxc_unpol(
         let t41 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t37);
         let tzk0 = 2.0 * t41;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (8 lines) ---
         let t47 = t30 * rho[ip];
         let t50 = t17 / t18 / t47;
         let t53 = t25 * sigma[ip] * t28;

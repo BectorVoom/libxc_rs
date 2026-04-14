@@ -1,7 +1,8 @@
-//! GGA_K_PW86 fxc unpol kernel.
+//! GGA_K_PW86 fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pw86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 41 shared lines across all orders.
+//! Delta: 19 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -26,6 +27,7 @@ pub fn gga_k_pw86_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (41 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -68,6 +70,7 @@ pub fn gga_k_pw86_fxc_unpol(
         let t62 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t58);
         let tzk0 = 2.0 * t62;
         zk[ip] += tzk0;
+        // --- vxc delta (21 lines) ---
         let t63 = 1.0 / t21;
         let t68 = t7 * t20;
         let t69 = t58 * t58;
@@ -91,6 +94,7 @@ pub fn gga_k_pw86_fxc_unpol(
         let t113 = piecewise3(t2, 0.0, t68 * t75 * t109 / 100.0);
         let tvsigma0 = 2.0 * rho[ip] * t113;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (19 lines) ---
         let t117 = 1.0 / t21 / rho[ip];
         let t122 = t63 * t74;
         let t127 = 1.0 / t73 / t57;

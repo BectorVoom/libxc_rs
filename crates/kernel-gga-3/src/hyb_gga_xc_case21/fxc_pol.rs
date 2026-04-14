@@ -1,7 +1,8 @@
-//! HYB_GGA_XC_CASE21 fxc pol kernel.
+//! HYB_GGA_XC_CASE21 fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 132 shared lines across all orders.
+//! Delta: 467 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -55,6 +56,7 @@ pub fn hyb_gga_xc_case21_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (132 lines) ---
         let t1 = 1.0 - param_ax;
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
@@ -188,6 +190,7 @@ pub fn hyb_gga_xc_case21_fxc_pol(
         let t199 = t198 * t191;
         let tzk0 = t87 + t199;
         zk[ip] += tzk0;
+        // --- vxc delta (189 lines) ---
         let t200 = 1.0 / t108;
         let t201 = t17 * t200;
         let t202 = t8 - t201;
@@ -382,6 +385,7 @@ pub fn hyb_gga_xc_case21_fxc_pol(
         let t560 = t559 * t191;
         let tvsigma2 = t7 * (t548 + t560);
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (467 lines) ---
         let t565 = t24 * t24;
         let t566 = 1.0 / t565;
         let t567 = t203 * t203;

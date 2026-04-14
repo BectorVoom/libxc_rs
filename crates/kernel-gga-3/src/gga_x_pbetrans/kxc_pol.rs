@@ -1,7 +1,8 @@
-//! GGA_X_PBETRANS kxc pol kernel.
+//! GGA_X_PBETRANS kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 67 shared lines across all orders.
+//! Delta: 415 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_pbetrans_kxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (67 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -103,6 +105,7 @@ pub fn gga_x_pbetrans_kxc_pol(
         let t111 = piecewise3(t70, 0.0, -3.0 / 8.0 * t5 * t79 * t107);
         let tzk0 = t69 + t111;
         zk[ip] += tzk0;
+        // --- vxc delta (75 lines) ---
         let t112 = t6 * t6;
         let t113 = 1.0 / t112;
         let t114 = t16 * t113;
@@ -183,6 +186,7 @@ pub fn gga_x_pbetrans_kxc_pol(
         let t287 = piecewise3(t70, 0.0, -3.0 / 8.0 * t5 * t79 * t283);
         let tvsigma2 = t6 * t287;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (173 lines) ---
         let t290 = t23 * t23;
         let t291 = 1.0 / t290;
         let t292 = t116 * t116;
@@ -371,6 +375,7 @@ pub fn gga_x_pbetrans_kxc_pol(
         let t842 = piecewise3(t70, 0.0, -3.0 / 8.0 * t5 * t79 * t838);
         let tv2sigma25 = t6 * t842;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (this level) (415 lines) ---
         let t846 = 1.0 / t290 / t19;
         let t847 = t292 * t116;
         let t850 = t291 * t116;

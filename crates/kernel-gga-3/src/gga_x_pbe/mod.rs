@@ -1,4 +1,17 @@
-//! GGA_X_PBE kernel — split into per-function files.
+//! GGA_X_PBE kernel -- incremental derivative structure.
+
+//! unpol: preamble=26 lines
+//!   exc: shared=0, delta=26, outputs=1
+//!   vxc: shared=26, delta=13, outputs=3
+//!   fxc: shared=39, delta=22, outputs=6
+//!   kxc: shared=61, delta=28, outputs=10
+//!   lxc: shared=89, delta=14, outputs=15
+//! pol: preamble=51 lines
+//!   exc: shared=0, delta=51, outputs=1
+//!   vxc: shared=51, delta=53, outputs=6
+//!   fxc: shared=104, delta=116, outputs=21
+//!   kxc: shared=220, delta=216, outputs=56
+//!   lxc: shared=436, delta=292, outputs=126
 
 pub mod exc_unpol;
 pub mod vxc_unpol;

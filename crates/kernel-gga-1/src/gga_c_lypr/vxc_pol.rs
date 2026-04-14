@@ -1,7 +1,8 @@
-//! GGA_C_LYPR vxc pol kernel.
+//! GGA_C_LYPR vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_lypr.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 106 shared lines across all orders.
+//! Delta: 186 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn gga_c_lypr_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (106 lines) ---
         let t1 = param_m1 * param_omega;
         let t2 = rho0 + rho1;
         let t3 = pow_1_3(t2);
@@ -143,6 +145,7 @@ pub fn gga_c_lypr_vxc_pol(
         let t155 = 7.0 / 6.0 * t30 - 7.0 / 48.0 * t70 * t88 + t144 * t146 / 8.0 + t150 * t152 / 8.0;
         let tzk0 = param_a * (-t13 * t16 + t21 * t123 + t130 * t137 * t138 * t155 / 6.0);
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (186 lines) ---
         let t161 = t2 * param_a;
         let t162 = param_m1 * param_m1;
         let t165 = f64::exp(-t162 * t132 * t134);

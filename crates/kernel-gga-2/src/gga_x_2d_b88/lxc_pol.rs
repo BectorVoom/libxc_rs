@@ -1,7 +1,8 @@
-//! GGA_X_2D_B88 lxc pol kernel.
+//! GGA_X_2D_B88 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b88.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 60 shared lines across all orders.
+//! Delta: 269 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_x_2d_b88_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (60 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = f64::sqrt(M_PI);
         let t3 = 1.0 / t2;
@@ -101,6 +103,7 @@ pub fn gga_x_2d_b88_lxc_pol(
         let t79 = piecewise3(t49, 0.0, -2.0 / 3.0 * t58 * t76);
         let tzk0 = t48 + t79;
         zk[ip] += tzk0;
+        // --- vxc delta (68 lines) ---
         let t80 = t4 * t4;
         let t81 = 1.0 / t80;
         let t82 = t14 * t81;
@@ -174,6 +177,7 @@ pub fn gga_x_2d_b88_lxc_pol(
         let t219 = piecewise3(t49, 0.0, -2.0 / 3.0 * t58 * t216);
         let tvsigma2 = t4 * t219;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (144 lines) ---
         let t222 = 1.0 / t21;
         let t223 = t84 * t84;
         let t226 = t80 * t4;
@@ -333,6 +337,7 @@ pub fn gga_x_2d_b88_lxc_pol(
         let t572 = piecewise3(t49, 0.0, -2.0 / 3.0 * t58 * t569);
         let tv2sigma25 = t4 * t572;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (249 lines) ---
         let t575 = 1.0 / t22;
         let t576 = t223 * t84;
         let t579 = t222 * t84;
@@ -617,6 +622,7 @@ pub fn gga_x_2d_b88_lxc_pol(
         let t1262 = piecewise3(t49, 0.0, -2.0 / 3.0 * t58 * t1259);
         let tv3sigma39 = t4 * t1262;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (269 lines) ---
         let t1265 = sigma0 * t455;
         let t1281 = 1.0 / t624 / t40;
         let t1282 = t261 * t261;

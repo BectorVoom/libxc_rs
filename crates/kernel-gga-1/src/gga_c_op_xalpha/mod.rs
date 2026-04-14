@@ -1,4 +1,17 @@
-//! GGA_C_OP_XALPHA kernel — split into per-function files.
+//! GGA_C_OP_XALPHA kernel -- incremental derivative structure.
+
+//! unpol: preamble=44 lines
+//!   exc: shared=0, delta=44, outputs=1
+//!   vxc: shared=44, delta=15, outputs=3
+//!   fxc: shared=59, delta=23, outputs=6
+//!   kxc: shared=82, delta=32, outputs=10
+//!   lxc: shared=114, delta=22, outputs=15
+//! pol: preamble=54 lines
+//!   exc: shared=0, delta=54, outputs=1
+//!   vxc: shared=54, delta=55, outputs=6
+//!   fxc: shared=109, delta=133, outputs=21
+//!   kxc: shared=242, delta=269, outputs=56
+//!   lxc: shared=511, delta=406, outputs=126
 
 pub mod exc_unpol;
 pub mod vxc_unpol;

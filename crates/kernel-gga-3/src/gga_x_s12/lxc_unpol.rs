@@ -1,7 +1,8 @@
-//! GGA_X_S12 lxc unpol kernel.
+//! GGA_X_S12 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_s12.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 34 shared lines across all orders.
+//! Delta: 52 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -41,6 +42,7 @@ pub fn gga_x_s12_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (34 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -76,6 +78,7 @@ pub fn gga_x_s12_lxc_unpol(
         let t53 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t20 * t49);
         let tzk0 = 2.0 * t53;
         zk[ip] += tzk0;
+        // --- vxc delta (26 lines) ---
         let t55 = 1.0 / t25 * param_bx;
         let t59 = t39 * t39;
         let t61 = param_B / t59;
@@ -104,6 +107,7 @@ pub fn gga_x_s12_lxc_unpol(
         let t106 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t20 * t102);
         let tvsigma0 = 2.0 * rho[ip] * t106;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (40 lines) ---
         let t111 = 1.0 / t25 / rho[ip] * param_bx;
         let t120 = param_B / t59 / t39;
         let t121 = t74 * t74;
@@ -147,6 +151,7 @@ pub fn gga_x_s12_lxc_unpol(
         let t217 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t20 * t213);
         let tv2sigma20 = 2.0 * rho[ip] * t217;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (72 lines) ---
         let t220 = t27 * param_bx;
         let t230 = t59 * t59;
         let t232 = param_B / t230;
@@ -223,6 +228,7 @@ pub fn gga_x_s12_lxc_unpol(
         let t445 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t20 * t441);
         let tv3sigma30 = 2.0 * rho[ip] * t445;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (52 lines) ---
         let t463 = t23 / t25 / t68;
         let t468 = t22 / t19 / t382;
         let t485 = t120 * t121 * t144;

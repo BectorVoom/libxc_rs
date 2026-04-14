@@ -1,7 +1,8 @@
-//! GGA_K_LGAP_GE lxc unpol kernel.
+//! GGA_K_LGAP_GE lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_lgap_ge.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 41 shared lines across all orders.
+//! Delta: 11 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (41 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -80,6 +82,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
         let t66 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t62);
         let tzk0 = 2.0 * t66;
         zk[ip] += tzk0;
+        // --- vxc delta (15 lines) ---
         let t68 = t20 / t21;
         let t73 = 1.0 / t21 / t47;
         let t77 = t47 * rho[ip];
@@ -97,6 +100,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
         let t112 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t108);
         let tvsigma0 = 2.0 * rho[ip] * t112;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (16 lines) ---
         let t115 = t20 * t36;
         let t123 = 1.0 / t21 / t77;
         let t128 = 1.0 / t22 / t57;
@@ -116,6 +120,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
         let t177 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t173);
         let tv2sigma20 = 2.0 * rho[ip] * t177;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (19 lines) ---
         let t180 = t20 * t73;
         let t191 = 1.0 / t21 / t57;
         let t196 = 1.0 / t22 / t83;
@@ -139,6 +144,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
         let t268 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t264);
         let tv3sigma30 = 2.0 * rho[ip] * t268;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (11 lines) ---
         let t294 = t57 * t57;
         let t304 = piecewise3(t2, 0.0, -14.0 / 135.0 * t7 * t20 * t123 * t62 + 8.0 / 45.0 * t7 * t180 * t88 - t7 * t115 * t137 / 5.0 + 2.0 / 5.0 * t7 * t68 * t205 + 3.0 / 20.0 * t7 * t23 * (910.0 / 243.0 * t31 * t34 / t21 / t83 + 2618.0 / 243.0 * t44 * t46 / t22 / t132 + 35.0 * t55 * t56 / t294));
         let tv4rho40 = 2.0 * rho[ip] * t304 + 8.0 * t210;

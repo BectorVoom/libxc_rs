@@ -1,7 +1,8 @@
-//! GGA_C_CS1 lxc pol kernel.
+//! GGA_C_CS1 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_cs1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 66 shared lines across all orders.
+//! Delta: 403 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_c_cs1_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (66 lines) ---
         let t1 = rho0 - rho1;
         let t2 = t1 * t1;
         let t3 = rho0 + rho1;
@@ -107,6 +109,7 @@ pub fn gga_c_cs1_lxc_pol(
         let t92 = t69 * t90 / 2.0;
         let tzk0 = t34 + t64 + t92;
         zk[ip] += tzk0;
+        // --- vxc delta (112 lines) ---
         let t93 = t1 * t5;
         let t94 = t4 * t3;
         let t95 = 1.0 / t94;
@@ -224,6 +227,7 @@ pub fn gga_c_cs1_lxc_pol(
         let t255 = t69 * t253 / 2.0;
         let tvsigma2 = t3 * (t226 + t255);
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (250 lines) ---
         let t258 = 0.58166666666666666664e-1 * t108;
         let t259 = t126 / 2.0;
         let t262 = t98 * t103;
@@ -489,6 +493,7 @@ pub fn gga_c_cs1_lxc_pol(
         let t639 = t69 * t637 / 2.0;
         let tv2sigma25 = t3 * (t596 + t639);
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (526 lines) ---
         let t642 = 0.17449999999999999999e0 * t266;
         let t643 = 0.20300166666666666665e-1 * t272;
         let t651 = 3.0 / 4.0 * t359;
@@ -1050,6 +1055,7 @@ pub fn gga_c_cs1_lxc_pol(
         let t1462 = t69 * t1460 / 2.0;
         let tv3sigma39 = t3 * (t1413 + t1462);
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (403 lines) ---
         let t1478 = t804 * t3;
         let t1489 = 1.0 / t354 / t28;
         let t1494 = t13 * (0.59099626666666666667e-3 * t16 / t8 / t118 * t29 - 0.2011875712e-4 * t116 / t350 * t122 + 0.24016278528e-6 * t349 / t22 / t1284 * t355 - 0.121962627072e-8 * t803 / t8 / t1478 * t809 + 0.225161773056e-11 * t349 * t16 / t804 / t17 * t1489) / 4.0;

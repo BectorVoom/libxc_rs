@@ -1,7 +1,8 @@
-//! GGA_X_PW91 lxc unpol kernel.
+//! GGA_X_PW91 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pw91.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 46 shared lines across all orders.
+//! Delta: 66 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_x_pw91_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (46 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -89,6 +91,7 @@ pub fn gga_x_pw91_lxc_unpol(
         let t75 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t71);
         let tzk0 = 2.0 * t75;
         zk[ip] += tzk0;
+        // --- vxc delta (46 lines) ---
         let t77 = t17 / t31;
         let t81 = param_d * param_alpha;
         let t83 = 1.0 / t23 / t22;
@@ -137,6 +140,7 @@ pub fn gga_x_pw91_lxc_unpol(
         let t175 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t171);
         let tvsigma0 = 2.0 * rho[ip] * t175;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (64 lines) ---
         let t180 = t17 / t31 / rho[ip];
         let t187 = t88 * t96;
         let t189 = 1.0 / t18 / t187;
@@ -204,6 +208,7 @@ pub fn gga_x_pw91_lxc_unpol(
         let t352 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t348);
         let tv2sigma20 = 2.0 * rho[ip] * t352;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (97 lines) ---
         let t355 = t17 * t33;
         let t366 = 1.0 / t18 / t200;
         let t371 = t200 * t96;
@@ -305,6 +310,7 @@ pub fn gga_x_pw91_lxc_unpol(
         let t668 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t664);
         let tv3sigma30 = 2.0 * rho[ip] * t668;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (66 lines) ---
         let t685 = 1.0 / t18 / t267;
         let t690 = 1.0 / t475;
         let t695 = t200 * t89;

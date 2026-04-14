@@ -1,7 +1,8 @@
-//! GGA_XC_TH2 lxc pol kernel.
+//! GGA_XC_TH2 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 96 shared lines across all orders.
+//! Delta: 446 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_xc_th2_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (96 lines) ---
         let t1 = f64::powf(rho0, 1.0 / 12.0);
         let t4 = f64::powf(rho1, 1.0 / 12.0);
         let t7 = f64::powf(rho0, 1.0 / 6.0);
@@ -137,6 +139,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t149 = 0.735705e-1 * t76 * t69 - 0.3584585e-1 * t87 * t69 - 0.2035835e-1 * t76 * t105 + 0.1073125e-1 * t87 * t105 - 0.384078e-3 * t110 * t105 + 0.310377e-1 * t76 * t123 - 0.720326e-1 * t87 * t123 + 0.446562e-1 * t110 * t123 - 0.266802e0 * t132 * t133 + 0.150822e1 * t137 * t133 - 0.194515e1 * t140 * t133 + 0.679078e0 * t146 * t133;
         let tzk0 = (t75 + t149) * t45;
         zk[ip] += tzk0;
+        // --- vxc delta (99 lines) ---
         let t157 = 1.0 / t13 / t90;
         let t158 = t40 * t157;
         let t161 = t43 * t133;
@@ -241,6 +244,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t441 = t439 / 4.0 - t121;
         let tvsigma2 = -0.113329375e-1 * t415 * t417 + 0.91858125e-2 * t420 * t417 + 0.91963125e-2 * t423 * t417 - 0.448073125e-2 * t426 * t417 - 0.254479375e-2 * t429 * t102 + 0.134140625e-2 * t432 * t102 - 0.4800975e-4 * t435 * t102 + 0.310377e-1 * t76 * t441 - 0.720326e-1 * t87 * t441 + 0.446562e-1 * t110 * t441;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (259 lines) ---
         let t448 = 0.222320805e-1 * t96;
         let t449 = 0.222320805e-1 * t103;
         let t450 = 1.0 / t19;
@@ -515,6 +519,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t1275 = t87 * t1265;
         let tv2sigma25 = 0.566646875e-2 * t1266 * t417 - 0.459290625e-2 * t1269 * t417 - 0.459815625e-2 * t1272 * t417 + 0.2240365625e-2 * t1275 * t417;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (400 lines) ---
         let t1280 = 1.0 / t460 / rho0;
         let t1282 = 1.0 / t20;
         let t1287 = 0.7144992e0 * t227;
@@ -950,6 +955,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t2975 = t87 * t2965;
         let tv3sigma39 = -0.8499703125e-2 * t2966 * t417 + 0.6889359375e-2 * t2969 * t417 + 0.6897234375e-2 * t2972 * t417 - 0.33605484375e-2 * t2975 * t417;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (446 lines) ---
         let t2982 = 1.0 / t460 / t90;
         let t2985 = 1.0 / t19 / t90;
         let t2991 = t1041 * t43 * t133;

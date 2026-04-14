@@ -1,7 +1,8 @@
-//! GGA_C_CCDF exc unpol kernel.
+//! GGA_C_CCDF exc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_ccdf.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 19 shared lines across all orders.
+//! Delta: 19 lines unique to exc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -25,6 +26,7 @@ pub fn gga_c_ccdf_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (19 lines) ---
         let t1 = pow_1_3(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = param_c2 * t2 + 1.0;

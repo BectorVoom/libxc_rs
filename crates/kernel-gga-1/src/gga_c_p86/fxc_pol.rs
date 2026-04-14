@@ -1,7 +1,8 @@
-//! GGA_C_P86 fxc pol kernel.
+//! GGA_C_P86 fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 85 shared lines across all orders.
+//! Delta: 219 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn gga_c_p86_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (85 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -124,6 +126,7 @@ pub fn gga_c_p86_fxc_pol(
         let t120 = t105 * t119;
         let tzk0 = t27 + t60 + t120;
         zk[ip] += tzk0;
+        // --- vxc delta (88 lines) ---
         let t121 = t17 * t17;
         let t122 = 1.0 / t121;
         let t124 = 1.0 / t14 * t1;
@@ -217,6 +220,7 @@ pub fn gga_c_p86_fxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (219 lines) ---
         let t273 = 2.0 * t142;
         let t274 = 2.0 * t157;
         let t276 = 14.0 / 3.0 * t176;

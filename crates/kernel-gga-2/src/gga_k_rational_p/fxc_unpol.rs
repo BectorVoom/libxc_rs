@@ -1,7 +1,8 @@
-//! GGA_K_RATIONAL_P fxc unpol kernel.
+//! GGA_K_RATIONAL_P fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_rational_p.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 30 shared lines across all orders.
+//! Delta: 33 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn gga_k_rational_p_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (30 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -59,6 +61,7 @@ pub fn gga_k_rational_p_fxc_unpol(
         let t47 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t43);
         let tzk0 = 2.0 * t47;
         zk[ip] += tzk0;
+        // --- vxc delta (12 lines) ---
         let t53 = t35 * rho[ip];
         let t57 = t7 * t20 / t53 * t43;
         let t58 = param_C2 * t26;
@@ -73,6 +76,7 @@ pub fn gga_k_rational_p_fxc_unpol(
         let t79 = piecewise3(t2, 0.0, -t7 * t20 / t35 * t43 * t76 / 160.0);
         let tvsigma0 = 2.0 * rho[ip] * t79;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (33 lines) ---
         let t88 = t35 * t35;
         let t92 = t7 * t20 / t88 * t43;
         let t95 = t88 * t35;

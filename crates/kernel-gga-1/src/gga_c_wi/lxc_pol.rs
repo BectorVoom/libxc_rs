@@ -1,7 +1,8 @@
-//! GGA_C_WI lxc pol kernel.
+//! GGA_C_WI lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_wi.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 28 shared lines across all orders.
+//! Delta: 295 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,6 +45,7 @@ pub fn gga_c_wi_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (28 lines) ---
         let t2 = sigma0 + 2.0 * sigma1 + sigma2;
         let t3 = param_b * t2;
         let t4 = rho0 + rho1;
@@ -73,6 +75,7 @@ pub fn gga_c_wi_lxc_pol(
         let t46 = 1.0 / t45;
         let tzk0 = t15 * t46;
         zk[ip] += tzk0;
+        // --- vxc delta (36 lines) ---
         let t47 = t5 * t4;
         let t49 = 1.0 / t7 / t47;
         let t52 = t2 * t2;
@@ -114,6 +117,7 @@ pub fn gga_c_wi_lxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (98 lines) ---
         let t109 = t15 * t66;
         let t113 = 1.0 / t7 / t30;
         let t117 = t30 * t47;
@@ -227,6 +231,7 @@ pub fn gga_c_wi_lxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (223 lines) ---
         let t280 = t61 * t66;
         let t283 = t15 * t140;
         let t289 = 1.0 / t7 / t84;
@@ -485,6 +490,7 @@ pub fn gga_c_wi_lxc_pol(
         v3sigma3[ip * 10 + 8] += tv3sigma38;
         let tv3sigma39 = tv3sigma35;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (295 lines) ---
         let t747 = 1.0 / t36;
         let t748 = t26 * t747;
         let t762 = 1.0 / t324 / t45;

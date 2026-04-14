@@ -1,7 +1,8 @@
-//! GGA_X_PBEPOW lxc unpol kernel.
+//! GGA_X_PBEPOW lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbepow.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 37 shared lines across all orders.
+//! Delta: 28 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_pbepow_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (37 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -73,6 +75,7 @@ pub fn gga_x_pbepow_lxc_unpol(
         let t52 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t48);
         let tzk0 = 2.0 * t52;
         zk[ip] += tzk0;
+        // --- vxc delta (29 lines) ---
         let t54 = t17 / t30;
         let t58 = t29 * rho[ip];
         let t60 = 1.0 / t30 / t58;
@@ -104,6 +107,7 @@ pub fn gga_x_pbepow_lxc_unpol(
         let t118 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t114);
         let tvsigma0 = 2.0 * rho[ip] * t118;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (43 lines) ---
         let t123 = t17 / t30 / rho[ip];
         let t131 = 1.0 / t30 / t75;
         let t132 = t28 * t131;
@@ -150,6 +154,7 @@ pub fn gga_x_pbepow_lxc_unpol(
         let t244 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t240);
         let tv2sigma20 = 2.0 * rho[ip] * t244;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (63 lines) ---
         let t247 = t17 * t32;
         let t259 = t28 / t30 / t102;
         let t260 = t259 * t44;
@@ -217,6 +222,7 @@ pub fn gga_x_pbepow_lxc_unpol(
         let t475 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t471);
         let tv3sigma30 = 2.0 * rho[ip] * t475;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (28 lines) ---
         let t493 = t28 / t30 / t76;
         let t515 = f64::powf(t41, 96.0);
         let t516 = t140 * t140;

@@ -1,7 +1,8 @@
-//! GGA_C_P86VWN kxc pol kernel.
+//! GGA_C_P86VWN kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 121 shared lines across all orders.
+//! Delta: 899 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_c_p86vwn_kxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (121 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -164,6 +166,7 @@ pub fn gga_c_p86vwn_kxc_pol(
         let t168 = t153 * t167;
         let tzk0 = t21 + t26 + t32 - t86 + t109 + t168;
         zk[ip] += tzk0;
+        // --- vxc delta (174 lines) ---
         let t170 = 1.0 / t8 / t7;
         let t171 = t6 * t170;
         let t175 = t4 * t6;
@@ -343,6 +346,7 @@ pub fn gga_c_p86vwn_kxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (407 lines) ---
         let t451 = 14.0 / 3.0 * t345;
         let t452 = 2.0 * t384;
         let t453 = 0.79531491350053540358e-1 * t207;
@@ -765,6 +769,7 @@ pub fn gga_c_p86vwn_kxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (this level) (899 lines) ---
         let t1148 = 36.0 * t456;
         let t1149 = 96.0 * t459;
         let t1153 = 3.0 * t660;

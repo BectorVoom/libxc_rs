@@ -1,7 +1,8 @@
-//! GGA_X_LSRPBE vxc unpol kernel.
+//! GGA_X_LSRPBE vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lsrpbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 32 shared lines across all orders.
+//! Delta: 15 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -26,6 +27,7 @@ pub fn gga_x_lsrpbe_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (32 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -59,6 +61,7 @@ pub fn gga_x_lsrpbe_vxc_unpol(
         let t55 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t51);
         let tzk0 = 2.0 * t55;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (15 lines) ---
         let t57 = t17 / t31;
         let t61 = t30 * rho[ip];
         let t63 = 1.0 / t31 / t61;

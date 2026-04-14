@@ -160,9 +160,9 @@ def detect_imports(c_src: str) -> list:
         imports.append(('xc_erfcx', 'libxc_kernel_math::special'))
     if re.search(r'\bxc_dilogarithm\(', c_src):
         imports.append(('xc_dilogarithm', 'libxc_kernel_math::special'))
-    if re.search(r'\bxc_integrate_func0\(', c_src):
+    if re.search(r'\bxc_integrate_func0\(', c_src) or re.search(r'\bxc_integrate\(func0', c_src):
         imports.append(('xc_integrate_func0', 'libxc_kernel_math::integrate'))
-    if re.search(r'\bxc_integrate_func1\(', c_src):
+    if re.search(r'\bxc_integrate_func1\(', c_src) or re.search(r'\bxc_integrate\(func1', c_src):
         imports.append(('xc_integrate_func1', 'libxc_kernel_math::integrate'))
     if re.search(r'\bxbspline\(', c_src):
         imports.append(('case21_xbspline', 'libxc_kernel_math::bspline'))
@@ -217,6 +217,13 @@ def translate_line(line: str, is_pol: bool) -> str:
     # --- Piecewise macros ---
     s = s.replace('my_piecewise5(', 'piecewise5(')
     s = s.replace('my_piecewise3(', 'piecewise3(')
+
+    # --- xc_integrate(funcN, NULL, 0.0, x) → xc_integrate_funcN(x, param_beta) ---
+    # Must run BEFORE generic math_map to avoid partial matches
+    s = re.sub(r'\bxc_integrate\(func0,\s*NULL,\s*0\.0,\s*([^)]+)\)',
+               r'xc_integrate_func0(\1, param_beta)', s)
+    s = re.sub(r'\bxc_integrate\(func1,\s*NULL,\s*0\.0,\s*([^)]+)\)',
+               r'xc_integrate_func1(\1, param_beta)', s)
 
     # --- C math functions → Rust ---
     math_map = [
@@ -473,6 +480,10 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
             patterns += [f'params->{field}', f'p->{field}']
         if any(p in text for p in patterns):
             used.append((field, indices))
+    # xc_integrate(func0/func1, ...) calls implicitly use param_beta
+    if 'xc_integrate(func' in text:
+        if ('beta', ()) not in used and ('beta', ()) in all_params:
+            used.append(('beta', ()))
     return used
 
 

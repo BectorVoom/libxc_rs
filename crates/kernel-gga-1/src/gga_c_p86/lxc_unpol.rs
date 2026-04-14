@@ -1,7 +1,8 @@
-//! GGA_C_P86 lxc unpol kernel.
+//! GGA_C_P86 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 61 shared lines across all orders.
+//! Delta: 39 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_c_p86_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (61 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -104,6 +106,7 @@ pub fn gga_c_p86_lxc_unpol(
         let t100 = t53 * t99;
         let tzk0 = t26 + t49 + t100;
         zk[ip] += tzk0;
+        // --- vxc delta (49 lines) ---
         let t101 = t16 * t16;
         let t102 = 1.0 / t101;
         let t104 = 1.0 / t13 * t1;
@@ -155,6 +158,7 @@ pub fn gga_c_p86_lxc_unpol(
         let t196 = t192 * t194 / 2.0;
         let tvsigma0 = rho[ip] * (t187 - t196);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (73 lines) ---
         let t204 = 1.0 / t101 / t16;
         let t205 = t113 * t113;
         let t210 = 1.0 / t13 / t10 * t61;
@@ -231,6 +235,7 @@ pub fn gga_c_p86_lxc_unpol(
         let t356 = t352 * t354 / 4.0;
         let tv2sigma20 = rho[ip] * (-t346 + t356);
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (116 lines) ---
         let t367 = t123 * t123;
         let t368 = 1.0 / t367;
         let t372 = t234 * t127;
@@ -351,6 +356,7 @@ pub fn gga_c_p86_lxc_unpol(
         let t618 = t614 * t616 / 8.0;
         let tv3sigma30 = rho[ip] * (t600 + t605 - t618);
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (39 lines) ---
         let t622 = t205 * t205;
         let t628 = t222 * t222;
         let t640 = 1.0 / t13 / t77 * t472 * t4 * t6 / 48.0;

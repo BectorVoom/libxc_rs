@@ -1,7 +1,8 @@
-//! GGA_XC_TH1 vxc unpol kernel.
+//! GGA_XC_TH1 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 52 shared lines across all orders.
+//! Delta: 15 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_xc_th1_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (52 lines) ---
         let t2 = f64::powf(2.0, 1.0 / 6.0);
         let t3 = t2 * t2;
         let t4 = t3 * t3;
@@ -93,6 +95,7 @@ pub fn gga_xc_th1_vxc_unpol(
         let t119 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t33 * t34 * t38 / 4.0 + t43 * t7 * t34 * t38 / 4.0 + t49 * t15 * t34 * t38 / 4.0 + t55 * t22 * t34 * t38 / 4.0 + t61 * t62 * sigma[ip] * t64 / 8.0 + t69 * t70 * sigma[ip] * t64 / 8.0 + t76 * t80 * sigma[ip] * t64 / 8.0 + t87 * t88 / 8.0 + t92 * t23 * t98 / 2.0 + t103 * t29 * t98 / 2.0 + t108 * t109 * t98 / 2.0 + t114 * t98 / 2.0 + t117 * rho[ip];
         let tzk0 = t119 * t70;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (15 lines) ---
         let t136 = 1.0 / t22;
         let t142 = 1.0 / t7 / t93;
         let t147 = 1.0 / t93;

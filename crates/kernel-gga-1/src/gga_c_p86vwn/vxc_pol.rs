@@ -1,7 +1,8 @@
-//! GGA_C_P86VWN vxc pol kernel.
+//! GGA_C_P86VWN vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 121 shared lines across all orders.
+//! Delta: 174 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_p86vwn_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (121 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -157,6 +159,7 @@ pub fn gga_c_p86vwn_vxc_pol(
         let t168 = t153 * t167;
         let tzk0 = t21 + t26 + t32 - t86 + t109 + t168;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (174 lines) ---
         let t170 = 1.0 / t8 / t7;
         let t171 = t6 * t170;
         let t175 = t4 * t6;

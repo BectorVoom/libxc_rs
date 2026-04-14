@@ -1,7 +1,8 @@
-//! GGA_X_LAG lxc pol kernel.
+//! GGA_X_LAG lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lag.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 51 shared lines across all orders.
+//! Delta: 648 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_x_lag_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (51 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = rho0 + rho1;
@@ -92,6 +94,7 @@ pub fn gga_x_lag_lxc_pol(
         let t70 = piecewise3(t46, 0.0, -0.15400028771927569605e-4 * t55 * t67);
         let tzk0 = t45 + t70;
         zk[ip] += tzk0;
+        // --- vxc delta (73 lines) ---
         let t71 = t3 * t3;
         let t72 = 1.0 / t71;
         let t73 = t13 * t72;
@@ -170,6 +173,7 @@ pub fn gga_x_lag_lxc_pol(
         let t190 = piecewise3(t46, 0.0, -0.20225720187783705106e-4 * t147 * t183 + 0.17927265883587493137e-8 * t159 * t186);
         let tvsigma2 = t3 * t190;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (190 lines) ---
         let t193 = t20 * t20;
         let t194 = 1.0 / t193;
         let t195 = t75 * t75;
@@ -375,6 +379,7 @@ pub fn gga_x_lag_lxc_pol(
         let t566 = piecewise3(t46, 0.0, -0.98704265214330019501e-4 * t401 * t546 + 0.37002608216172636205e-7 * t414 * t549 + 0.10112860093891852553e-4 * t147 * t556 - 0.31552804587857326957e-11 * t428 * t559 - 0.89636329417937465685e-9 * t159 * t562);
         let tv2sigma25 = t3 * t566;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (422 lines) ---
         let t569 = t208 * t89;
         let t572 = t208 * t101;
         let t575 = t79 * t225;
@@ -832,6 +837,7 @@ pub fn gga_x_lag_lxc_pol(
         let t1561 = piecewise3(t46, 0.0, t1560);
         let tv3sigma39 = t3 * t1561;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (648 lines) ---
         let t1566 = t591 * t259;
         let t1568 = t595 * t270;
         let t1572 = t239 / t241 / t1133;

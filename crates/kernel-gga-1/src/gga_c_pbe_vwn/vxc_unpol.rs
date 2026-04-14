@@ -1,7 +1,8 @@
-//! GGA_C_PBE_VWN vxc unpol kernel.
+//! GGA_C_PBE_VWN vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe_vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 85 shared lines across all orders.
+//! Delta: 100 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -26,6 +27,7 @@ pub fn gga_c_pbe_vwn_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (85 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -112,6 +114,7 @@ pub fn gga_c_pbe_vwn_vxc_unpol(
         let t126 = t72 * t125;
         let tzk0 = t20 + t25 + t31 - t67 + t126;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (100 lines) ---
         let t128 = 1.0 / t7 / rho[ip];
         let t129 = t6 * t128;
         let t133 = t4 * t6;

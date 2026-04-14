@@ -1,7 +1,8 @@
-//! GGA_C_CHACHIYO lxc unpol kernel.
+//! GGA_C_CHACHIYO lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_chachiyo.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 36 shared lines across all orders.
+//! Delta: 42 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_c_chachiyo_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (36 lines) ---
         let t1 = M_CBRT3;
         let t2 = t1 * t1;
         let t3 = param_bp * t2;
@@ -79,6 +81,7 @@ pub fn gga_c_chachiyo_lxc_unpol(
         let t56 = f64::powf(t53, t55);
         let tzk0 = t44 * t56;
         zk[ip] += tzk0;
+        // --- vxc delta (29 lines) ---
         let t58 = t8 / t18;
         let t62 = t17 / t9;
         let t65 = t3 * t58 / 9.0 + 2.0 / 9.0 * t13 * t62;
@@ -110,6 +113,7 @@ pub fn gga_c_chachiyo_lxc_unpol(
         let t106 = t46 * t94;
         let tvsigma0 = t104 * param_h * t106 / 48.0;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (55 lines) ---
         let t108 = t79 * t56;
         let t110 = t44 * t56;
         let t115 = t8 / t18 / rho[ip];
@@ -168,6 +172,7 @@ pub fn gga_c_chachiyo_lxc_unpol(
         let t214 = t199 * t177;
         let tv2sigma20 = t206 * t207 * t211 / 768.0 - t206 * param_h * t214 / 768.0;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (68 lines) ---
         let t217 = t141 * t56;
         let t227 = t8 / t18 / t47;
         let t230 = t17 * t49;
@@ -240,6 +245,7 @@ pub fn gga_c_chachiyo_lxc_unpol(
         let t407 = t406 * t325;
         let tv3sigma30 = t397 * t399 / 12288.0 - t402 * t403 / 4096.0 + t395 * t407 / 6144.0;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (42 lines) ---
         let t423 = t8 * t205;
         let t426 = t17 * t92;
         let t431 = param_ap * (-80.0 / 243.0 * t3 * t423 - 56.0 / 243.0 * t13 * t426) * t67;

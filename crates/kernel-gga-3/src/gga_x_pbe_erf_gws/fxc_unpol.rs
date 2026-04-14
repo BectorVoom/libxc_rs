@@ -1,7 +1,8 @@
-//! GGA_X_PBE_ERF_GWS fxc unpol kernel.
+//! GGA_X_PBE_ERF_GWS fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbe_erf_gws.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 121 shared lines across all orders.
+//! Delta: 150 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -31,6 +32,7 @@ pub fn gga_x_pbe_erf_gws_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (121 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = param_hyb_omega_0 * param_hyb_omega_0;
         let t4 = param_ax * t3;
@@ -153,6 +155,7 @@ pub fn gga_x_pbe_erf_gws_fxc_unpol(
         let t231 = 1.0 / rho[ip];
         let tzk0 = 2.0 * t230 * t231;
         zk[ip] += tzk0;
+        // --- vxc delta (93 lines) ---
         let t234 = param_b_PBE * param_ax * t3;
         let t237 = t234 * t30 * t9 * t15;
         let t238 = t19 * rho[ip];
@@ -248,6 +251,7 @@ pub fn gga_x_pbe_erf_gws_fxc_unpol(
         let t467 = piecewise3(t2, 0.0, -81.0 * t451 * t455 + 72576.0 * t459 * t463);
         let tvsigma0 = 2.0 * t467;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (150 lines) ---
         let t468 = 1.0 / t163;
         let t470 = t17 * t468 * t25;
         let t474 = param_ax * param_ax;

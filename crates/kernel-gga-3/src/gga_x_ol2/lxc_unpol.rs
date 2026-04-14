@@ -1,7 +1,8 @@
-//! GGA_X_OL2 lxc unpol kernel.
+//! GGA_X_OL2 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_ol2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 29 shared lines across all orders.
+//! Delta: 15 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn gga_x_ol2_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (29 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -68,6 +70,7 @@ pub fn gga_x_ol2_lxc_unpol(
         let t46 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t42);
         let tzk0 = 2.0 * t46;
         zk[ip] += tzk0;
+        // --- vxc delta (19 lines) ---
         let t48 = t17 / t24;
         let t52 = t23 * rho[ip];
         let t54 = 1.0 / t24 / t52;
@@ -89,6 +92,7 @@ pub fn gga_x_ol2_lxc_unpol(
         let t93 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t89);
         let tvsigma0 = 2.0 * rho[ip] * t93;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (30 lines) ---
         let t98 = t17 / t24 / rho[ip];
         let t105 = t23 * t23;
         let t107 = 1.0 / t24 / t105;
@@ -122,6 +126,7 @@ pub fn gga_x_ol2_lxc_unpol(
         let t178 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t174);
         let tv2sigma20 = 2.0 * rho[ip] * t178;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (36 lines) ---
         let t181 = t17 * t26;
         let t192 = 1.0 / t24 / t147;
         let t193 = t22 * t192;
@@ -162,6 +167,7 @@ pub fn gga_x_ol2_lxc_unpol(
         let t305 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t301);
         let tv3sigma30 = 2.0 * rho[ip] * t305;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (15 lines) ---
         let t322 = 1.0 / t24 / t122;
         let t323 = t22 * t322;
         let t337 = t212 * rho[ip];

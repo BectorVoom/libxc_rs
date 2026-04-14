@@ -1,7 +1,8 @@
-//! GGA_X_Q1D lxc unpol kernel.
+//! GGA_X_Q1D lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_q1d.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 54 shared lines across all orders.
+//! Delta: 60 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_q1d_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (54 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -90,6 +92,7 @@ pub fn gga_x_q1d_lxc_unpol(
         let t76 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t72);
         let tzk0 = 2.0 * t76;
         zk[ip] += tzk0;
+        // --- vxc delta (40 lines) ---
         let t78 = t17 / t30;
         let t82 = t36 * t36;
         let t83 = 1.0 / t82;
@@ -132,6 +135,7 @@ pub fn gga_x_q1d_lxc_unpol(
         let t159 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t155);
         let tvsigma0 = 2.0 * rho[ip] * t159;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (58 lines) ---
         let t164 = t17 / t30 / rho[ip];
         let t172 = 1.0 / t82 / t36;
         let t173 = t172 * t40;
@@ -193,6 +197,7 @@ pub fn gga_x_q1d_lxc_unpol(
         let t325 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t321);
         let tv2sigma20 = 2.0 * rho[ip] * t325;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (103 lines) ---
         let t328 = t17 * t32;
         let t338 = t100 * t199;
         let t341 = t103 * t103;
@@ -300,6 +305,7 @@ pub fn gga_x_q1d_lxc_unpol(
         let t677 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t673);
         let tv3sigma30 = 2.0 * rho[ip] * t677;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (60 lines) ---
         let t695 = t45 / t18 / t106;
         let t700 = t28 / t30 / t94;
         let t709 = t100 * t342;

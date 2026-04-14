@@ -1,7 +1,8 @@
-//! GGA_X_LB lxc pol kernel.
+//! GGA_X_LB lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_vxc/gga_x_lb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 45 shared lines across all orders.
+//! Delta: 105 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_x_lb_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (45 lines) ---
         let t1 = M_CBRT3;
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -89,6 +91,7 @@ pub fn gga_x_lb_lxc_pol(
         let t67 = -t9 - t66;
         let tvrho1 = t67 * t40;
         vrho[ip * 2 + 1] += tvrho1;
+        // --- fxc delta (58 lines) ---
         let t68 = t17 * rho0;
         let t70 = 1.0 / t18 / t68;
         let t74 = t28 * t28;
@@ -156,6 +159,7 @@ pub fn gga_x_lb_lxc_pol(
         let t181 = piecewise3(t44, -t45 * t115 * t172 + t164 * t58, -t176 * t136 / 6.0 + t176 * t63 / 6.0);
         let tv2rhosigma5 = -t181 * t40;
         v2rhosigma[ip * 6 + 5] += tv2rhosigma5;
+        // --- kxc delta (104 lines) ---
         let t183 = param_beta * t70;
         let t186 = t75 * t91;
         let t188 = t70 * t75;
@@ -285,6 +289,7 @@ pub fn gga_x_lb_lxc_pol(
         let t450 = piecewise3(t44, -t45 * t115 * t440 + 2.0 * t45 * t341 * t421 - 2.0 * t164 * t418, -t444 * t63 / 12.0 + t444 * t274 / 6.0);
         let tv3rhosigma211 = -t450 * t40;
         v3rhosigma2[ip * 12 + 11] += tv3rhosigma211;
+        // --- lxc delta (this level) (105 lines) ---
         let t459 = t70 * t194;
         let t463 = t74 * t74;
         let t464 = 1.0 / t463;

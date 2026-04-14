@@ -1,7 +1,8 @@
-//! GGA_XC_TH3 kxc unpol kernel.
+//! GGA_XC_TH3 kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 54 shared lines across all orders.
+//! Delta: 21 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -45,6 +46,7 @@ pub fn gga_xc_th3_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (54 lines) ---
         let t2 = f64::powf(2.0, 1.0 / 6.0);
         let t3 = t2 * t2;
         let t4 = t3 * t3;
@@ -100,6 +102,7 @@ pub fn gga_xc_th3_kxc_unpol(
         let t116 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t38 * t39 * t40 * t45 / 4.0 + t50 * t7 * t40 * t45 / 4.0 + t56 * t15 * t40 * t45 / 4.0 + t62 * t22 * t40 * t45 / 4.0 + t68 * t69 * sigma[ip] * t71 / 8.0 + t76 * t80 * sigma[ip] * t71 / 8.0 + t87 * t88 / 8.0 + t92 * t29 * t98 / 2.0 + t103 * t104 * t98 / 2.0 + t109 * t98 / 2.0 + 0.94387431268169349665e0 * t112 * t113;
         let tzk0 = t116 * t69;
         zk[ip] += tzk0;
+        // --- vxc delta (20 lines) ---
         let t125 = t39 * t39;
         let t127 = t125 * t125;
         let t128 = t127 * t127;
@@ -122,6 +125,7 @@ pub fn gga_xc_th3_kxc_unpol(
         let t214 = t95 * t71 - t95;
         let tvsigma0 = t38 * t39 * t188 * t45 / 8.0 + t50 * t7 * t188 * t45 / 8.0 + t56 * t15 * t188 * t45 / 8.0 + t62 * t22 * t188 * t45 / 8.0 + t68 * t69 * t71 / 8.0 + t76 * t80 * t71 / 8.0 + t87 * t71 / 8.0 + t92 * t29 * t214 / 2.0 + t103 * t104 * t214 / 2.0 + t109 * t214 / 2.0;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (18 lines) ---
         let t229 = 1.0 / t15;
         let t233 = 1.0 / t129 / rho[ip];
         let t246 = 1.0 / t23;
@@ -143,6 +147,7 @@ pub fn gga_xc_th3_kxc_unpol(
         let t344 = 1.0 / t40 / sigma[ip];
         let tv2sigma20 = -t56 * t15 * t344 * t45 / 16.0 - t62 * t22 * t344 * t45 / 16.0 - t38 * t39 * t344 * t45 / 16.0 - t50 * t7 * t344 * t45 / 16.0;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (21 lines) ---
         let t360 = t272 * rho[ip];
         let t362 = 1.0 / t28 / t360;
         let t363 = sigma[ip] * t362;

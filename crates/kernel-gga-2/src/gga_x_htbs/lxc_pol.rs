@@ -1,7 +1,8 @@
-//! GGA_X_HTBS lxc pol kernel.
+//! GGA_X_HTBS lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_htbs.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 116 shared lines across all orders.
+//! Delta: 367 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_x_htbs_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (116 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -157,6 +159,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t178 = piecewise3(t106, 0.0, -3.0 / 8.0 * t5 * t115 * t174);
         let tzk0 = t105 + t178;
         zk[ip] += tzk0;
+        // --- vxc delta (91 lines) ---
         let t179 = t6 * t6;
         let t180 = 1.0 / t179;
         let t181 = t16 * t180;
@@ -253,6 +256,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t452 = piecewise3(t106, 0.0, -3.0 / 8.0 * t5 * t115 * t448);
         let tvsigma2 = t6 * t452;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (199 lines) ---
         let t455 = t23 * t23;
         let t456 = 1.0 / t455;
         let t457 = t183 * t183;
@@ -467,6 +471,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t1119 = piecewise3(t106, 0.0, -3.0 / 8.0 * t5 * t115 * t1115);
         let tv2sigma25 = t6 * t1119;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (339 lines) ---
         let t1123 = 1.0 / t455 / t19;
         let t1124 = t457 * t183;
         let t1127 = t456 * t183;
@@ -841,6 +846,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t2364 = piecewise3(t106, 0.0, -3.0 / 8.0 * t5 * t115 * t2360);
         let tv3sigma39 = t6 * t2364;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (367 lines) ---
         let t2368 = 1.0 / t1173 / t70;
         let t2369 = t492 * t492;
         let t2375 = t535 * t535;

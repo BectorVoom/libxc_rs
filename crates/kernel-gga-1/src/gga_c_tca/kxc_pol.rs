@@ -1,7 +1,8 @@
-//! GGA_C_TCA kxc pol kernel.
+//! GGA_C_TCA kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_tca.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 51 shared lines across all orders.
+//! Delta: 408 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_tca_kxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (51 lines) ---
         let t1 = rho0 - rho1;
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
@@ -87,6 +89,7 @@ pub fn gga_c_tca_kxc_pol(
         let t62 = t38 * t40 * t27 * t59;
         let tzk0 = t62 / 3.0;
         zk[ip] += tzk0;
+        // --- vxc delta (48 lines) ---
         let t63 = 4.0 / 9.0 * t62;
         let t65 = t35 * t37;
         let t66 = t52 * t19 * t65;
@@ -140,6 +143,7 @@ pub fn gga_c_tca_kxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (150 lines) ---
         let t126 = t19 * t35;
         let t127 = t126 * t93;
         let t128 = t25 * t27;
@@ -305,6 +309,7 @@ pub fn gga_c_tca_kxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (this level) (408 lines) ---
         let t365 = t132 * t81;
         let t366 = t155 * t365;
         let t369 = 1.0 / t135 / t2;

@@ -1,7 +1,8 @@
-//! GGA_X_OPTX lxc pol kernel.
+//! GGA_X_OPTX lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_optx.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 55 shared lines across all orders.
+//! Delta: 232 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,6 +44,7 @@ pub fn gga_x_optx_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (55 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -99,6 +101,7 @@ pub fn gga_x_optx_lxc_pol(
         let t85 = piecewise3(t53, 0.0, -3.0 / 8.0 * t5 * t62 * t81);
         let tzk0 = t52 + t85;
         zk[ip] += tzk0;
+        // --- vxc delta (54 lines) ---
         let t86 = t6 * t6;
         let t87 = 1.0 / t86;
         let t88 = t16 * t87;
@@ -158,6 +161,7 @@ pub fn gga_x_optx_lxc_pol(
         let t215 = piecewise3(t53, 0.0, -3.0 / 8.0 * t5 * t62 * t211);
         let tvsigma2 = t6 * t215;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (110 lines) ---
         let t218 = t23 * t23;
         let t219 = 1.0 / t218;
         let t220 = t90 * t90;
@@ -283,6 +287,7 @@ pub fn gga_x_optx_lxc_pol(
         let t539 = piecewise3(t53, 0.0, -3.0 / 8.0 * t5 * t62 * t535);
         let tv2sigma25 = t6 * t539;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (184 lines) ---
         let t543 = 1.0 / t218 / t19;
         let t544 = t220 * t90;
         let t547 = t219 * t90;
@@ -502,6 +507,7 @@ pub fn gga_x_optx_lxc_pol(
         let t1146 = piecewise3(t53, 0.0, -3.0 / 8.0 * t5 * t62 * t1142);
         let tv3sigma39 = t6 * t1146;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (232 lines) ---
         let t1151 = t5 * t93 * t582 * t48;
         let t1154 = 1.0 / t98 / t223;
         let t1158 = 10.0 / 27.0 * t5 * t25 * t1154 * t48;

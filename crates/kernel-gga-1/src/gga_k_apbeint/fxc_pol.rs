@@ -1,7 +1,8 @@
-//! GGA_K_APBEINT fxc pol kernel.
+//! GGA_K_APBEINT fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_apbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 66 shared lines across all orders.
+//! Delta: 163 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_k_apbeint_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (66 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = t2 * t2;
@@ -102,6 +104,7 @@ pub fn gga_k_apbeint_fxc_pol(
         let t109 = piecewise3(t70, 0.0, 3.0 / 20.0 * t6 * t80 * t105);
         let tzk0 = t69 + t109;
         zk[ip] += tzk0;
+        // --- vxc delta (86 lines) ---
         let t110 = t7 * t7;
         let t111 = 1.0 / t110;
         let t112 = t17 * t111;
@@ -193,6 +196,7 @@ pub fn gga_k_apbeint_fxc_pol(
         let t292 = piecewise3(t70, 0.0, 3.0 / 20.0 * t209 * t289);
         let tvsigma2 = t7 * t292;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (163 lines) ---
         let t295 = 1.0 / t25;
         let t296 = t114 * t114;
         let t299 = t110 * t7;

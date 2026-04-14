@@ -1,7 +1,8 @@
-//! GGA_X_FD_LB94 vxc unpol kernel.
+//! GGA_X_FD_LB94 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_fd_lb94.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 33 shared lines across all orders.
+//! Delta: 16 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -25,6 +26,7 @@ pub fn gga_x_fd_lb94_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (33 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -59,6 +61,7 @@ pub fn gga_x_fd_lb94_vxc_unpol(
         let t48 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t44);
         let tzk0 = 2.0 * t48;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (16 lines) ---
         let t49 = t18 * t18;
         let t51 = t17 / t49;
         let t55 = rho[ip] * rho[ip];

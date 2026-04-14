@@ -1,7 +1,8 @@
-//! GGA_K_OL1 lxc unpol kernel.
+//! GGA_K_OL1 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 32 shared lines across all orders.
+//! Delta: 10 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_k_ol1_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (32 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -68,6 +70,7 @@ pub fn gga_k_ol1_lxc_unpol(
         let t51 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;
+        // --- vxc delta (13 lines) ---
         let t52 = 1.0 / t21;
         let t57 = t7 * t20;
         let t58 = t27 * rho[ip];
@@ -83,6 +86,7 @@ pub fn gga_k_ol1_lxc_unpol(
         let t88 = piecewise3(t2, 0.0, t57 * t22 * t83 * t69 / 12.0);
         let tvsigma0 = 2.0 * rho[ip] * t88;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (14 lines) ---
         let t99 = t27 * t27;
         let t101 = 1.0 / t22 / t99;
         let t105 = 1.0 / t21 / t58;
@@ -100,6 +104,7 @@ pub fn gga_k_ol1_lxc_unpol(
         let t143 = piecewise3(t2, 0.0, -0.64895402177010868827e-3 * t136 * t140);
         let tv2sigma20 = 2.0 * rho[ip] * t143;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (16 lines) ---
         let t158 = t99 * rho[ip];
         let t160 = 1.0 / t22 / t158;
         let t164 = 1.0 / t21 / t99;
@@ -120,6 +125,7 @@ pub fn gga_k_ol1_lxc_unpol(
         let t213 = piecewise3(t2, 0.0, 0.9734310326551630324e-3 * t136 * t210);
         let tv3sigma30 = 2.0 * rho[ip] * t213;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (10 lines) ---
         let t247 = piecewise3(t2, 0.0, -14.0 / 135.0 * t7 * t20 * t105 * t47 + 8.0 / 81.0 * t57 * t64 * t67 * t69 - t57 * t35 * t108 * t69 / 9.0 + 2.0 / 9.0 * t57 * t52 * t167 * t69 + t57 * t22 * (2618.0 / 729.0 * t26 / t22 / t99 / t27 + 0.30423209876543209876e0 * t33 / t21 / t158) * t69 / 12.0);
         let tv4rho40 = 2.0 * rho[ip] * t247 + 8.0 * t173;
         v4rho4[ip] += tv4rho40;

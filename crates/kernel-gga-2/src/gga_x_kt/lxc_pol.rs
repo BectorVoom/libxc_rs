@@ -1,7 +1,8 @@
-//! GGA_X_KT lxc pol kernel.
+//! GGA_X_KT lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_kt.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 67 shared lines across all orders.
+//! Delta: 509 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_x_kt_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (67 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -110,6 +112,7 @@ pub fn gga_x_kt_lxc_pol(
         let t91 = piecewise3(t60, 0.0, -3.0 / 8.0 * t5 * t69 * t87);
         let tzk0 = t59 + t91;
         zk[ip] += tzk0;
+        // --- vxc delta (79 lines) ---
         let t92 = t6 * t6;
         let t93 = 1.0 / t92;
         let t94 = t16 * t93;
@@ -194,6 +197,7 @@ pub fn gga_x_kt_lxc_pol(
         let t264 = piecewise3(t60, 0.0, t258 * t261 / 16.0);
         let tvsigma2 = t6 * t264;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (198 lines) ---
         let t267 = t23 * t23;
         let t268 = 1.0 / t267;
         let t269 = t96 * t96;
@@ -407,6 +411,7 @@ pub fn gga_x_kt_lxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = 0.0;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (500 lines) ---
         let t773 = 1.0 / t267 / t19;
         let t774 = t269 * t96;
         let t777 = t268 * t96;
@@ -942,6 +947,7 @@ pub fn gga_x_kt_lxc_pol(
         v3sigma3[ip * 10 + 8] += tv3sigma38;
         let tv3sigma39 = 0.0;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (509 lines) ---
         let t2153 = t5 * t789 * t105 * t55;
         let t2157 = t5 * t281 * t294 * t55;
         let t2161 = t5 * t99 * t812 * t55;

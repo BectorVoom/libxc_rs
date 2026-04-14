@@ -1,7 +1,8 @@
-//! GGA_X_CHACHIYO kxc unpol kernel.
+//! GGA_X_CHACHIYO kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_chachiyo.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 32 shared lines across all orders.
+//! Delta: 148 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +31,7 @@ pub fn gga_x_chachiyo_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (32 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -63,6 +65,7 @@ pub fn gga_x_chachiyo_kxc_unpol(
         let t51 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t41 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;
+        // --- vxc delta (27 lines) ---
         let t52 = 1.0 / t23;
         let t57 = t22 * rho[ip];
         let t59 = 1.0 / t23 / t57;
@@ -92,6 +95,7 @@ pub fn gga_x_chachiyo_kxc_unpol(
         let t120 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t104 * t47 + t111 * t112 / 8.0 + t111 * t116 / 24.0);
         let tvsigma0 = 2.0 * rho[ip] * t120;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (64 lines) ---
         let t124 = 1.0 / t23 / rho[ip];
         let t134 = t17 / t57;
         let t135 = t134 * t41;
@@ -159,6 +163,7 @@ pub fn gga_x_chachiyo_kxc_unpol(
         let t309 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t272 * t47 + t277 * t112 / 4.0 + t277 * t116 / 12.0 - t283 * t285 / 36.0 - t288 * t290 / 108.0 - t111 * t293 / 16.0 - t296 * t298 / 324.0 - t111 * t302 / 48.0 - t296 * t305 / 648.0);
         let tv2sigma20 = 2.0 * rho[ip] * t309;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (148 lines) ---
         let t312 = t140 * rho[ip];
         let t314 = 1.0 / t19 / t312;
         let t315 = t17 * t314;

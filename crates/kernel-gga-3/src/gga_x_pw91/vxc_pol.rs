@@ -1,7 +1,8 @@
-//! GGA_X_PW91 vxc pol kernel.
+//! GGA_X_PW91 vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pw91.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 79 shared lines across all orders.
+//! Delta: 105 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_pw91_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (79 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -115,6 +117,7 @@ pub fn gga_x_pw91_vxc_pol(
         let t131 = piecewise3(t80, 0.0, -3.0 / 8.0 * t5 * t89 * t127);
         let tzk0 = t79 + t131;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (105 lines) ---
         let t132 = t6 * t6;
         let t133 = 1.0 / t132;
         let t134 = t16 * t133;

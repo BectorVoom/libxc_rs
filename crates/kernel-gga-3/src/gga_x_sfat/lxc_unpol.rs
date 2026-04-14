@@ -1,7 +1,8 @@
-//! GGA_X_SFAT lxc unpol kernel.
+//! GGA_X_SFAT lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 85 shared lines across all orders.
+//! Delta: 227 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn gga_x_sfat_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (85 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -122,6 +124,7 @@ pub fn gga_x_sfat_lxc_unpol(
         let t142 = piecewise3(t2, 0.0, -3.0 / 8.0 * t51 * t138 * t18);
         let tzk0 = 2.0 * t142;
         zk[ip] += tzk0;
+        // --- vxc delta (99 lines) ---
         let t143 = 1.0 / t33;
         let t144 = t137 * t143;
         let t148 = t67 * t66;
@@ -223,6 +226,7 @@ pub fn gga_x_sfat_lxc_unpol(
         let t388 = piecewise3(t2, 0.0, -3.0 / 8.0 * t319 * t138 * t18 - 3.0 / 8.0 * t51 * t381 * t18);
         let tvsigma0 = 2.0 * t388 * rho[ip];
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (222 lines) ---
         let t392 = 1.0 / t33 / rho[ip];
         let t393 = t137 * t392;
         let t397 = t293 * t143;
@@ -448,6 +452,7 @@ pub fn gga_x_sfat_lxc_unpol(
         let t1030 = piecewise3(t2, 0.0, -3.0 / 8.0 * t51 * t1019 * t18 - 3.0 / 4.0 * t319 * t381 * t18 - 3.0 / 8.0 * t893 * t138 * t18);
         let tv2sigma20 = 2.0 * t1030 * rho[ip];
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (281 lines) ---
         let t1033 = t137 * t35;
         let t1037 = t293 * t392;
         let t1044 = t627 * t143;
@@ -733,6 +738,7 @@ pub fn gga_x_sfat_lxc_unpol(
         let t2519 = piecewise3(t2, 0.0, -3.0 / 8.0 * t51 * t2505 * t18 - 9.0 / 8.0 * t319 * t1019 * t18 - 9.0 / 8.0 * t893 * t381 * t18 - 3.0 / 8.0 * t2351 * t138 * t18);
         let tv3sigma30 = 2.0 * t2519 * rho[ip];
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (227 lines) ---
         let t2553 = 15.0 / 17.0 * t200 * t1239 * t117 - 816.0 / 19.0 * t534 * t529 - 14.0 / 15.0 * t200 * t1239 * t115 - 240.0 / 7.0 * t534 * t519 + 32.0 * t534 * t521 - 144.0 / 5.0 * t534 * t523 + 288.0 / 7.0 * t534 * t505 - 208.0 / 5.0 * t534 * t503 - 16.0 * t534 * t527 + 136.0 / 171.0 * t200 * t1239 * t76 + 128.0 / 3.0 * t534 * t531;
         let t2581 = -720.0 / 17.0 * t534 * t499 - 528.0 / 13.0 * t534 * t507 + 40.0 * t534 * t509 - 432.0 / 11.0 * t534 * t511 - 128.0 / 153.0 * t200 * t1239 * t73 + 216.0 / 5.0 * t534 * t496 * t1307 + 42.0 * t534 * t501 - 64.0 / 45.0 * t200 * t1239 * t97 + 72.0 / 55.0 * t200 * t1239 * t100 - 40.0 / 33.0 * t200 * t1239 * t103 + 36.0 * t534 * t517;
         let t2614 = 44.0 / 39.0 * t200 * t1239 * t106 - 96.0 / 91.0 * t200 * t1239 * t109 + 104.0 / 105.0 * t200 * t1239 * t112 + 14.0 / 9.0 * t200 * t1239 * t94 - 112.0 / 3.0 * t534 * t515 - 72.0 / 95.0 * t200 * t1239 * t566 - 8.0 / 3.0 * t200 * t1239 * t81 + 12.0 / 5.0 * t200 * t1239 * t83 - 32.0 / 15.0 * t200 * t1239 * t86 + 40.0 / 21.0 * t200 * t1239 * t89 + 192.0 / 5.0 * t534 * t513;

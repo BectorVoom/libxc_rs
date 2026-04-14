@@ -1,7 +1,8 @@
-//! GGA_X_BPCCAC kxc unpol kernel.
+//! GGA_X_BPCCAC kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bpccac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 60 shared lines across all orders.
+//! Delta: 190 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +31,7 @@ pub fn gga_x_bpccac_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (60 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -91,6 +93,7 @@ pub fn gga_x_bpccac_kxc_unpol(
         let t92 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t88);
         let tzk0 = 2.0 * t92;
         zk[ip] += tzk0;
+        // --- vxc delta (59 lines) ---
         let t94 = t17 / t40;
         let t98 = t28 * t28;
         let t99 = 1.0 / t98;
@@ -152,6 +155,7 @@ pub fn gga_x_bpccac_kxc_unpol(
         let t211 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t207);
         let tvsigma0 = 2.0 * rho[ip] * t211;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (111 lines) ---
         let t216 = t17 / t40 / rho[ip];
         let t224 = 1.0 / t98 / t28;
         let t226 = t224 * sigma[ip] * t37;
@@ -266,6 +270,7 @@ pub fn gga_x_bpccac_kxc_unpol(
         let t498 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t494);
         let tv2sigma20 = 2.0 * rho[ip] * t498;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (190 lines) ---
         let t501 = t17 * t42;
         let t512 = 1.0 / t18 / t294;
         let t513 = t21 * t512;

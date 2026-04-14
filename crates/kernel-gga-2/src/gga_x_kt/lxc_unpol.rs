@@ -1,7 +1,8 @@
-//! GGA_X_KT lxc unpol kernel.
+//! GGA_X_KT lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_kt.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 36 shared lines across all orders.
+//! Delta: 9 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +38,7 @@ pub fn gga_x_kt_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (36 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -74,6 +76,7 @@ pub fn gga_x_kt_lxc_unpol(
         let t51 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;
+        // --- vxc delta (22 lines) ---
         let t52 = 1.0 / t34;
         let t53 = t17 * t52;
         let t58 = t21 * t26 * t28;
@@ -98,6 +101,7 @@ pub fn gga_x_kt_lxc_unpol(
         let t100 = piecewise3(t2, 0.0, t95 * t97 / 8.0);
         let tvsigma0 = 2.0 * rho[ip] * t100;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (25 lines) ---
         let t104 = 1.0 / t34 / rho[ip];
         let t105 = t17 * t104;
         let t112 = 1.0 / t73;
@@ -126,6 +130,7 @@ pub fn gga_x_kt_lxc_unpol(
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (31 lines) ---
         let t183 = t17 * t36;
         let t193 = 1.0 / t74;
         let t194 = t193 * sigma[ip];
@@ -161,6 +166,7 @@ pub fn gga_x_kt_lxc_unpol(
         v3rhosigma2[ip] += tv3rhosigma20;
         let tv3sigma30 = 0.0;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (9 lines) ---
         let t316 = t142 * t114;
         let t374 = -20944.0 / 729.0 * t27 * t32 * sigma[ip] / t34 / t129 / t33 * t42 - 88.0 / 243.0 * t238 * t104 * sigma[ip] * t243 + 8.0 / 243.0 * t21 * t26 * t316 * t239 * t242 * t112 + 19712.0 / 729.0 * t58 * t59 * t225 * t42 * t11 - 40.0 / 729.0 * t58 / t73 / t114 / t33 * sigma[ip] * t60 * t142 - 256.0 / 729.0 * t58 * t194 * t119 * t195 - 704.0 / 243.0 * t58 * t113 * t210 * t114 - 20.0 / 243.0 * t27 / t31 * sigma[ip] * t78 * t142 - 1408.0 / 729.0 * t27 * t205 * t137 * t195 - 460.0 / 729.0 * t27 * t37 * t282 + 352.0 / 27.0 * t27 * t124 * t231 * t114 - 9856.0 / 729.0 * t27 * t75 * t225 * t77 * t11 - 64.0 / 243.0 * t27 * t316 * t52 * sigma[ip] / t240 / t41 * t73;
         let t379 = piecewise3(t2, 0.0, 10.0 / 27.0 * t6 * t17 * t67 * t47 - 5.0 / 9.0 * t6 * t183 * t83 + t6 * t105 * t151 / 2.0 - t6 * t53 * t247 / 2.0 - 3.0 / 8.0 * t6 * t19 * t374);

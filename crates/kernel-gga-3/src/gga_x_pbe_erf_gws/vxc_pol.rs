@@ -1,7 +1,8 @@
-//! GGA_X_PBE_ERF_GWS vxc pol kernel.
+//! GGA_X_PBE_ERF_GWS vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbe_erf_gws.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 181 shared lines across all orders.
+//! Delta: 177 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,6 +34,7 @@ pub fn gga_x_pbe_erf_gws_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (181 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRTPI;
         let t3 = 1.0 / t2;
@@ -215,6 +217,7 @@ pub fn gga_x_pbe_erf_gws_vxc_pol(
         let t382 = piecewise3(t217, 0.0, -168.0 * t324 * t379);
         let tzk0 = (t216 + t382) / (rho0 + rho1);
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (177 lines) ---
         let t390 = param_b_PBE * param_ax * t4 * t28 * t9 * t15;
         let t391 = t18 * rho0;
         let t392 = 1.0 / t391;

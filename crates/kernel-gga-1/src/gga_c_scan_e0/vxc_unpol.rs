@@ -1,7 +1,8 @@
-//! GGA_C_SCAN_E0 vxc unpol kernel.
+//! GGA_C_SCAN_E0 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_scan_e0.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 64 shared lines across all orders.
+//! Delta: 75 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -23,6 +24,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (64 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -88,6 +90,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t106 = t62 * t66 * t104;
         let tzk0 = -t32 + t57 + t106;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (75 lines) ---
         let t108 = 1.0 / t7 / rho[ip];
         let t109 = t6 * t108;
         let t111 = t4 * t109 * t30;

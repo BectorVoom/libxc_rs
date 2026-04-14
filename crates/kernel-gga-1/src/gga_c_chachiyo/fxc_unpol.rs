@@ -1,7 +1,8 @@
-//! GGA_C_CHACHIYO fxc unpol kernel.
+//! GGA_C_CHACHIYO fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_chachiyo.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 36 shared lines across all orders.
+//! Delta: 55 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,6 +34,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (36 lines) ---
         let t1 = M_CBRT3;
         let t2 = t1 * t1;
         let t3 = param_bp * t2;
@@ -70,6 +72,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t56 = f64::powf(t53, t55);
         let tzk0 = t44 * t56;
         zk[ip] += tzk0;
+        // --- vxc delta (29 lines) ---
         let t58 = t8 / t18;
         let t62 = t17 / t9;
         let t65 = t3 * t58 / 9.0 + 2.0 / 9.0 * t13 * t62;
@@ -101,6 +104,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t106 = t46 * t94;
         let tvsigma0 = t104 * param_h * t106 / 48.0;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (55 lines) ---
         let t108 = t79 * t56;
         let t110 = t44 * t56;
         let t115 = t8 / t18 / rho[ip];

@@ -1,7 +1,8 @@
-//! HYB_GGA_XC_CASE21 lxc pol kernel.
+//! HYB_GGA_XC_CASE21 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 132 shared lines across all orders.
+//! Delta: 1310 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -64,6 +65,7 @@ pub fn hyb_gga_xc_case21_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (132 lines) ---
         let t1 = 1.0 - param_ax;
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
@@ -197,6 +199,7 @@ pub fn hyb_gga_xc_case21_lxc_pol(
         let t199 = t198 * t191;
         let tzk0 = t87 + t199;
         zk[ip] += tzk0;
+        // --- vxc delta (189 lines) ---
         let t200 = 1.0 / t108;
         let t201 = t17 * t200;
         let t202 = t8 - t201;
@@ -391,6 +394,7 @@ pub fn hyb_gga_xc_case21_lxc_pol(
         let t560 = t559 * t191;
         let tvsigma2 = t7 * (t548 + t560);
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (467 lines) ---
         let t565 = t24 * t24;
         let t566 = 1.0 / t565;
         let t567 = t203 * t203;
@@ -873,6 +877,7 @@ pub fn hyb_gga_xc_case21_lxc_pol(
         let t1529 = t1528 * t191;
         let tv2sigma25 = t7 * (t1501 + t1504 + t1529);
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (1094 lines) ---
         let t1537 = 1.0 / t565 / t20;
         let t1538 = t567 * t203;
         let t1541 = t566 * t203;
@@ -2002,6 +2007,7 @@ pub fn hyb_gga_xc_case21_lxc_pol(
         let t4037 = t4036 * t191;
         let tv3sigma39 = t7 * (t3996 + t3999 + t4001 + t4037);
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (1310 lines) ---
         let t4048 = t215 * t1575 * t631;
         let t4051 = t215 * t594 * t1614;
         let t4055 = t134 * t1628;

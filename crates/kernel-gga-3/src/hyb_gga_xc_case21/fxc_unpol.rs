@@ -1,7 +1,8 @@
-//! HYB_GGA_XC_CASE21 fxc unpol kernel.
+//! HYB_GGA_XC_CASE21 fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 70 shared lines across all orders.
+//! Delta: 111 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -50,6 +51,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (70 lines) ---
         let t1 = 1.0 - param_ax;
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
@@ -121,6 +123,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t120 = t119 * t112;
         let tzk0 = t50 + t120;
         zk[ip] += tzk0;
+        // --- vxc delta (72 lines) ---
         let t125 = t7 * t18;
         let t126 = case21_xbspline(t43, 1, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t127 = t19 * t126;
@@ -195,6 +198,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t270 = t269 * t112;
         let tvsigma0 = rho[ip] * (t253 + t270);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (111 lines) ---
         let t279 = t80 * t126;
         let t283 = case21_xbspline(t43, 2, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t284 = t19 * t283;

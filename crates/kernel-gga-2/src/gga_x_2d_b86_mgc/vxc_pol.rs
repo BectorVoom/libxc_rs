@@ -1,7 +1,8 @@
-//! GGA_X_2D_B86_MGC vxc pol kernel.
+//! GGA_X_2D_B86_MGC vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86_mgc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 56 shared lines across all orders.
+//! Delta: 58 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn gga_x_2d_b86_mgc_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (56 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = f64::sqrt(M_PI);
         let t3 = 1.0 / t2;
@@ -85,6 +87,7 @@ pub fn gga_x_2d_b86_mgc_vxc_pol(
         let t71 = piecewise3(t45, 0.0, -2.0 / 3.0 * t54 * t68);
         let tzk0 = t44 + t71;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (58 lines) ---
         let t72 = t4 * t4;
         let t73 = 1.0 / t72;
         let t74 = t14 * t73;

@@ -1,7 +1,8 @@
-//! GGA_X_SFAT_PBE lxc pol kernel.
+//! GGA_X_SFAT_PBE lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 157 shared lines across all orders.
+//! Delta: 2019 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -41,6 +42,7 @@ pub fn gga_x_sfat_pbe_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (157 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -199,6 +201,7 @@ pub fn gga_x_sfat_pbe_lxc_pol(
         let t257 = piecewise3(t145, 0.0, -3.0 / 8.0 * t254 * t154);
         let tzk0 = t144 + t257;
         zk[ip] += tzk0;
+        // --- vxc delta (274 lines) ---
         let t258 = t6 * t6;
         let t259 = 1.0 / t258;
         let t260 = t259 * t16;
@@ -478,6 +481,7 @@ pub fn gga_x_sfat_pbe_lxc_pol(
         let t867 = piecewise3(t145, 0.0, -3.0 / 8.0 * t859 * t154 - 0.15138388533315411618e-2 * t863 * t715);
         let tvsigma2 = t867 * t6;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (772 lines) ---
         let t870 = t23 * t23;
         let t871 = 1.0 / t870;
         let t872 = t262 * t262;
@@ -1265,6 +1269,7 @@ pub fn gga_x_sfat_pbe_lxc_pol(
         let t3053 = piecewise3(t145, 0.0, -3.0 / 8.0 * t3043 * t154 - 0.30276777066630823236e-2 * t863 * t2743 + 0.27692524554911754573e-4 * t3049 * t715);
         let tv2sigma25 = t3053 * t6;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (1300 lines) ---
         let t3058 = t1122 * t406;
         let t3063 = t898 * t406;
         let t3064 = t411 * t3063;
@@ -2600,6 +2605,7 @@ pub fn gga_x_sfat_pbe_lxc_pol(
         let t9842 = piecewise3(t145, 0.0, -3.0 / 8.0 * t9831 * t154 - 0.45415165599946234854e-2 * t863 * t9357 + 0.83077573664735263718e-4 * t3049 * t2743 - 0.46804592689379073444e-7 * t9838 * t5614);
         let tv3sigma39 = t9842 * t6;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (2019 lines) ---
         let t9845 = t1132 * t3066;
         let t9847 = t1136 * t3063;
         let t9849 = t902 * t892;

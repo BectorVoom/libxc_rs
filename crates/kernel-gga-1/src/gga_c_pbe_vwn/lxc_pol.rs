@@ -1,7 +1,8 @@
-//! GGA_C_PBE_VWN lxc pol kernel.
+//! GGA_C_PBE_VWN lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe_vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 126 shared lines across all orders.
+//! Delta: 2100 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,6 +44,7 @@ pub fn gga_c_pbe_vwn_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (126 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -170,6 +172,7 @@ pub fn gga_c_pbe_vwn_lxc_pol(
         let t173 = t119 * t172;
         let tzk0 = t21 + t26 + t32 - t86 + t109 + t173;
         zk[ip] += tzk0;
+        // --- vxc delta (221 lines) ---
         let t175 = 1.0 / t8 / t7;
         let t176 = t6 * t175;
         let t180 = t4 * t6;
@@ -396,6 +399,7 @@ pub fn gga_c_pbe_vwn_lxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (558 lines) ---
         let t534 = t334 * t342;
         let t535 = 8.0 * t534;
         let t536 = t78 * t77;
@@ -969,6 +973,7 @@ pub fn gga_c_pbe_vwn_lxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (1458 lines) ---
         let t1610 = 24.0 * t534;
         let t1611 = 60.0 * t539;
         let t1612 = 36.0 * t543;
@@ -2462,6 +2467,7 @@ pub fn gga_c_pbe_vwn_lxc_pol(
         v3sigma3[ip * 10 + 8] += tv3sigma38;
         let tv3sigma39 = tv3sigma35;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (2100 lines) ---
         let t4934 = 384.0 * t1745;
         let t4936 = 144.0 * t1749;
         let t4939 = 48.0 * t1753;

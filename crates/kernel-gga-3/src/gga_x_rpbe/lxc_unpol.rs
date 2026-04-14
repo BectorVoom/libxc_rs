@@ -1,7 +1,8 @@
-//! GGA_X_RPBE lxc unpol kernel.
+//! GGA_X_RPBE lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_rpbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 29 shared lines across all orders.
+//! Delta: 15 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +38,7 @@ pub fn gga_x_rpbe_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (29 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -67,6 +69,7 @@ pub fn gga_x_rpbe_lxc_unpol(
         let t46 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t42);
         let tzk0 = 2.0 * t46;
         zk[ip] += tzk0;
+        // --- vxc delta (10 lines) ---
         let t52 = t30 * rho[ip];
         let t55 = t17 / t18 / t52;
         let t59 = t29 * t39;
@@ -79,6 +82,7 @@ pub fn gga_x_rpbe_lxc_unpol(
         let t76 = piecewise3(t2, 0.0, -t6 * t17 / t18 / t30 * t73 / 64.0);
         let tvsigma0 = 2.0 * rho[ip] * t76;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (21 lines) ---
         let t85 = t30 * t30;
         let t88 = t17 / t18 / t85;
         let t93 = t85 * t52;
@@ -103,6 +107,7 @@ pub fn gga_x_rpbe_lxc_unpol(
         let t140 = piecewise3(t2, 0.0, t6 * t17 / t132 * t96 * t137 / 768.0);
         let tv2sigma20 = 2.0 * rho[ip] * t140;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (27 lines) ---
         let t149 = t17 / t18 / t132;
         let t154 = t85 * t85;
         let t158 = t6 * t17 / t154 * t96;
@@ -134,6 +139,7 @@ pub fn gga_x_rpbe_lxc_unpol(
         let t224 = piecewise3(t2, 0.0, -t217 / t31 / t93 * t170 * t175 / 1536.0);
         let tv3sigma30 = 2.0 * rho[ip] * t224;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (15 lines) ---
         let t246 = t154 * t52;
         let t257 = t96 * t96;
         let t260 = t103 * t103;

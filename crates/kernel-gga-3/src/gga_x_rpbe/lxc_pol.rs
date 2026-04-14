@@ -1,7 +1,8 @@
-//! GGA_X_RPBE lxc pol kernel.
+//! GGA_X_RPBE lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_rpbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 51 shared lines across all orders.
+//! Delta: 285 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_x_rpbe_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (51 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -94,6 +96,7 @@ pub fn gga_x_rpbe_lxc_pol(
         let t79 = piecewise3(t53, 0.0, -3.0 / 8.0 * t5 * t62 * t75);
         let tzk0 = t52 + t79;
         zk[ip] += tzk0;
+        // --- vxc delta (46 lines) ---
         let t80 = t6 * t6;
         let t81 = 1.0 / t80;
         let t82 = t16 * t81;
@@ -145,6 +148,7 @@ pub fn gga_x_rpbe_lxc_pol(
         let t176 = piecewise3(t53, 0.0, -t170 * t173 / 64.0);
         let tvsigma2 = t6 * t176;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (123 lines) ---
         let t179 = t23 * t23;
         let t180 = 1.0 / t179;
         let t181 = t84 * t84;
@@ -283,6 +287,7 @@ pub fn gga_x_rpbe_lxc_pol(
         let t465 = piecewise3(t53, 0.0, t375 * t462 / 1536.0);
         let tv2sigma25 = t6 * t465;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (238 lines) ---
         let t469 = t5 * t194 * param_rpbe_mu;
         let t473 = t5 * t198 * param_rpbe_mu;
         let t474 = t473 * t106;
@@ -556,6 +561,7 @@ pub fn gga_x_rpbe_lxc_pol(
         let t1045 = piecewise3(t53, 0.0, -t844 * t1042 / 6144.0);
         let tv3sigma39 = t6 * t1045;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (285 lines) ---
         let t1054 = t477 * t221;
         let t1056 = t213 * t484;
         let t1067 = t5 * t507 * param_rpbe_mu * t106;

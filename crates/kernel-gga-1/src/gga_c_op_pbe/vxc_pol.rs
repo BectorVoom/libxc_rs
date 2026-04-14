@@ -1,7 +1,8 @@
-//! GGA_C_OP_PBE vxc pol kernel.
+//! GGA_C_OP_PBE vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 76 shared lines across all orders.
+//! Delta: 101 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn gga_c_op_pbe_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (76 lines) ---
         let t1 = rho0 - rho1;
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
@@ -105,6 +107,7 @@ pub fn gga_c_op_pbe_vxc_pol(
         let t118 = t106 * t117;
         let tzk0 = piecewise3(t11, 0.0, -0.25e0 * t21 * t118);
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (101 lines) ---
         let t121 = t2 * t2;
         let t122 = 1.0 / t121;
         let t123 = t1 * t122;

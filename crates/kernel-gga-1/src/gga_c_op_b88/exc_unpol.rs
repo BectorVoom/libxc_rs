@@ -1,7 +1,8 @@
-//! GGA_C_OP_B88 exc unpol kernel.
+//! GGA_C_OP_B88 exc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_b88.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 63 shared lines across all orders.
+//! Delta: 63 lines unique to exc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -21,6 +22,7 @@ pub fn gga_c_op_b88_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (63 lines) ---
         let t1 = 1.0 <= zeta_threshold;
         let t4 = t1 || rho[ip] / 2.0 <= dens_threshold;
         let t5 = zeta_threshold - 1.0;

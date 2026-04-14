@@ -1,7 +1,8 @@
-//! GGA_X_VMT84 lxc unpol kernel.
+//! GGA_X_VMT84 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_vmt84.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 52 shared lines across all orders.
+//! Delta: 51 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +38,7 @@ pub fn gga_x_vmt84_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (52 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -90,6 +92,7 @@ pub fn gga_x_vmt84_lxc_unpol(
         let t78 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t74);
         let tzk0 = 2.0 * t78;
         zk[ip] += tzk0;
+        // --- vxc delta (34 lines) ---
         let t80 = t17 / t31;
         let t84 = t30 * rho[ip];
         let t86 = 1.0 / t31 / t84;
@@ -126,6 +129,7 @@ pub fn gga_x_vmt84_lxc_unpol(
         let t161 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t157);
         let tvsigma0 = 2.0 * rho[ip] * t161;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (61 lines) ---
         let t165 = t17 / t116;
         let t173 = 1.0 / t31 / t58;
         let t174 = t29 * t173;
@@ -190,6 +194,7 @@ pub fn gga_x_vmt84_lxc_unpol(
         let t366 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t362);
         let tv2sigma20 = 2.0 * rho[ip] * t366;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (84 lines) ---
         let t369 = t17 * t33;
         let t379 = 1.0 / t300;
         let t385 = 1.0 / t18 / t193;
@@ -278,6 +283,7 @@ pub fn gga_x_vmt84_lxc_unpol(
         let t707 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t703);
         let tv3sigma30 = 2.0 * rho[ip] * t707;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (51 lines) ---
         let t724 = 1.0 / t31 / t94;
         let t730 = 1.0 / t18 / t273;
         let t731 = t28 * t730;

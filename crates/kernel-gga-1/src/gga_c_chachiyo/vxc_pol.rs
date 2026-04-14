@@ -1,7 +1,8 @@
-//! GGA_C_CHACHIYO vxc pol kernel.
+//! GGA_C_CHACHIYO vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_chachiyo.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 52 shared lines across all orders.
+//! Delta: 56 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_chachiyo_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (52 lines) ---
         let t1 = M_CBRT3;
         let t2 = t1 * t1;
         let t3 = param_bp * t2;
@@ -88,6 +90,7 @@ pub fn gga_c_chachiyo_vxc_pol(
         let t72 = f64::powf(t69, t71);
         let tzk0 = t58 * t72;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (56 lines) ---
         let t74 = t8 / t19;
         let t78 = t18 / t10;
         let t81 = t3 * t74 / 9.0 + 2.0 / 9.0 * t14 * t78;

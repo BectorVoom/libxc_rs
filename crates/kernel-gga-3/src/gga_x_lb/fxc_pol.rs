@@ -1,7 +1,8 @@
-//! GGA_X_LB fxc pol kernel.
+//! GGA_X_LB fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_vxc/gga_x_lb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 45 shared lines across all orders.
+//! Delta: 58 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,6 +34,7 @@ pub fn gga_x_lb_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (45 lines) ---
         let t1 = M_CBRT3;
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -80,6 +82,7 @@ pub fn gga_x_lb_fxc_pol(
         let t67 = -t9 - t66;
         let tvrho1 = t67 * t40;
         vrho[ip * 2 + 1] += tvrho1;
+        // --- fxc delta (this level) (58 lines) ---
         let t68 = t17 * rho0;
         let t70 = 1.0 / t18 / t68;
         let t74 = t28 * t28;

@@ -1,7 +1,8 @@
-//! GGA_K_MPBE kxc pol kernel.
+//! GGA_K_MPBE kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_mpbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 89 shared lines across all orders.
+//! Delta: 245 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -39,6 +40,7 @@ pub fn gga_k_mpbe_kxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (89 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = t2 * t2;
@@ -129,6 +131,7 @@ pub fn gga_k_mpbe_kxc_pol(
         let t138 = piecewise3(t88, 0.0, 3.0 / 20.0 * t6 * t98 * t134);
         let tzk0 = t87 + t138;
         zk[ip] += tzk0;
+        // --- vxc delta (85 lines) ---
         let t139 = t7 * t7;
         let t140 = 1.0 / t139;
         let t141 = t17 * t140;
@@ -219,6 +222,7 @@ pub fn gga_k_mpbe_kxc_pol(
         let t357 = piecewise3(t88, 0.0, 3.0 / 20.0 * t6 * t98 * t353);
         let tvsigma2 = t7 * t357;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (135 lines) ---
         let t360 = 1.0 / t25;
         let t361 = t143 * t143;
         let t364 = t139 * t7;
@@ -369,6 +373,7 @@ pub fn gga_k_mpbe_kxc_pol(
         let t822 = piecewise3(t88, 0.0, 3.0 / 20.0 * t6 * t98 * t818);
         let tv2sigma25 = t7 * t822;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (this level) (245 lines) ---
         let t826 = 1.0 / t25 / t20;
         let t827 = t361 * t143;
         let t830 = t360 * t143;

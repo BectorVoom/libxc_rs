@@ -1,7 +1,8 @@
-//! GGA_C_OP_G96 fxc unpol kernel.
+//! GGA_C_OP_G96 fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_g96.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 56 shared lines across all orders.
+//! Delta: 97 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -26,6 +27,7 @@ pub fn gga_c_op_g96_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (56 lines) ---
         let t1 = 1.0 <= zeta_threshold;
         let t4 = t1 || rho[ip] / 2.0 <= dens_threshold;
         let t5 = zeta_threshold - 1.0;
@@ -83,6 +85,7 @@ pub fn gga_c_op_g96_fxc_unpol(
         let t80 = 1.0 / t79;
         let tzk0 = piecewise3(t4, 0.0, -0.25e0 * t10 * t69 * t80);
         zk[ip] += tzk0;
+        // --- vxc delta (42 lines) ---
         let t84 = t9 * t69;
         let t88 = 1.0 / t30 / t29;
         let t94 = t18 * t18;
@@ -127,6 +130,7 @@ pub fn gga_c_op_g96_fxc_unpol(
         let t179 = piecewise3(t4, 0.0, 0.89907133e0 * t10 * t77 * t163 * t80 + 0.25e0 * t10 * t135 * t174);
         let tvsigma0 = rho[ip] * t179;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (97 lines) ---
         let t181 = t9 * t77;
         let t182 = t128 * t80;
         let t188 = t128 * t128;

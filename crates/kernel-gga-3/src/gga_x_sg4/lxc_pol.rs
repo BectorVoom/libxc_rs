@@ -1,7 +1,8 @@
-//! GGA_X_SG4 lxc pol kernel.
+//! GGA_X_SG4 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sg4.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 78 shared lines across all orders.
+//! Delta: 271 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_x_sg4_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (78 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -119,6 +121,7 @@ pub fn gga_x_sg4_lxc_pol(
         let t117 = piecewise3(t74, 0.0, -3.0 / 8.0 * t5 * t83 * t113);
         let tzk0 = t73 + t117;
         zk[ip] += tzk0;
+        // --- vxc delta (63 lines) ---
         let t118 = t6 * t6;
         let t119 = 1.0 / t118;
         let t120 = t16 * t119;
@@ -187,6 +190,7 @@ pub fn gga_x_sg4_lxc_pol(
         let t269 = piecewise3(t74, 0.0, -3.0 / 8.0 * t5 * t83 * t265);
         let tvsigma2 = t6 * t269;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (145 lines) ---
         let t272 = t23 * t23;
         let t273 = 1.0 / t272;
         let t274 = t122 * t122;
@@ -347,6 +351,7 @@ pub fn gga_x_sg4_lxc_pol(
         let t687 = piecewise3(t74, 0.0, -3.0 / 8.0 * t5 * t83 * t683);
         let tv2sigma25 = t6 * t687;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (248 lines) ---
         let t691 = 1.0 / t272 / t19;
         let t692 = t274 * t122;
         let t695 = t273 * t122;
@@ -630,6 +635,7 @@ pub fn gga_x_sg4_lxc_pol(
         let t1462 = piecewise3(t74, 0.0, -3.0 / 8.0 * t5 * t83 * t1458);
         let tv3sigma39 = t6 * t1462;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (271 lines) ---
         let t1466 = 1.0 / t130 / t277;
         let t1470 = 10.0 / 27.0 * t5 * t25 * t1466 * t69;
         let t1473 = t5 * t707 * t131 * t69;

@@ -1,7 +1,8 @@
-//! GGA_X_LB kxc unpol kernel.
+//! GGA_X_LB kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_vxc/gga_x_lb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 29 shared lines across all orders.
+//! Delta: 52 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -32,6 +33,7 @@ pub fn gga_x_lb_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < vrho.len() {
+        // --- shared preamble (29 lines) ---
         let t1 = M_CBRT3;
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -62,6 +64,7 @@ pub fn gga_x_lb_kxc_unpol(
         let t45 = (-param_alpha * t1 * t4 * t6 / 2.0 - t43) * t19;
         let tvrho0 = t45 * t13 / 2.0;
         vrho[ip] += tvrho0;
+        // --- fxc delta (34 lines) ---
         let t47 = t20 * rho[ip];
         let t49 = 1.0 / t21 / t47;
         let t54 = t18 * t19;
@@ -98,6 +101,7 @@ pub fn gga_x_lb_kxc_unpol(
         let t113 = t112 * t19;
         let tv2rhosigma0 = -t113 * t13 / 2.0;
         v2rhosigma[ip] += tv2rhosigma0;
+        // --- kxc delta (this level) (52 lines) ---
         let t116 = t20 * t20;
         let t118 = 1.0 / t21 / t116;
         let t123 = t49 * t56;

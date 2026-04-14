@@ -1,7 +1,8 @@
-//! GGA_K_APBEINT fxc unpol kernel.
+//! GGA_K_APBEINT fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_apbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 41 shared lines across all orders.
+//! Delta: 52 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +31,7 @@ pub fn gga_k_apbeint_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (41 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -72,6 +74,7 @@ pub fn gga_k_apbeint_fxc_unpol(
         let t64 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t60);
         let tzk0 = 2.0 * t64;
         zk[ip] += tzk0;
+        // --- vxc delta (42 lines) ---
         let t65 = 1.0 / t21;
         let t66 = t20 * t65;
         let t70 = t7 * t20;
@@ -116,6 +119,7 @@ pub fn gga_k_apbeint_fxc_unpol(
         let t143 = piecewise3(t2, 0.0, 3.0 / 20.0 * t70 * t72 * t139);
         let tvsigma0 = 2.0 * rho[ip] * t143;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (52 lines) ---
         let t147 = 1.0 / t21 / rho[ip];
         let t148 = t20 * t147;
         let t152 = t65 * t71;

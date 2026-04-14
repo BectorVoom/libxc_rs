@@ -1,7 +1,8 @@
-//! GGA_K_LLP lxc pol kernel.
+//! GGA_K_LLP lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_llp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 66 shared lines across all orders.
+//! Delta: 263 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_k_llp_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (66 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = t2 * t2;
@@ -109,6 +111,7 @@ pub fn gga_k_llp_lxc_pol(
         let t97 = piecewise3(t63, 0.0, 3.0 / 20.0 * t6 * t73 * t93);
         let tzk0 = t62 + t97;
         zk[ip] += tzk0;
+        // --- vxc delta (70 lines) ---
         let t98 = t7 * t7;
         let t99 = 1.0 / t98;
         let t100 = t17 * t99;
@@ -184,6 +187,7 @@ pub fn gga_k_llp_lxc_pol(
         let t262 = piecewise3(t63, 0.0, 3.0 / 20.0 * t6 * t73 * t258);
         let tvsigma2 = t7 * t262;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (136 lines) ---
         let t265 = 1.0 / t25;
         let t266 = t102 * t102;
         let t269 = t98 * t7;
@@ -335,6 +339,7 @@ pub fn gga_k_llp_lxc_pol(
         let t686 = piecewise3(t63, 0.0, 3.0 / 20.0 * t6 * t73 * t682);
         let tv2sigma25 = t7 * t686;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (251 lines) ---
         let t690 = 1.0 / t25 / t20;
         let t691 = t266 * t102;
         let t694 = t265 * t102;
@@ -621,6 +626,7 @@ pub fn gga_k_llp_lxc_pol(
         let t1549 = piecewise3(t63, 0.0, 3.0 / 20.0 * t6 * t73 * t1545);
         let tv3sigma39 = t7 * t1549;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (263 lines) ---
         let t1553 = 1.0 / t41 / t543;
         let t1577 = 1.0 / t755 / t52;
         let t1578 = t311 * t311;

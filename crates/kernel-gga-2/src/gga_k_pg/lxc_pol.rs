@@ -1,7 +1,8 @@
-//! GGA_K_PG lxc pol kernel.
+//! GGA_K_PG lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 57 shared lines across all orders.
+//! Delta: 244 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -41,6 +42,7 @@ pub fn gga_k_pg_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (57 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = t2 * t2;
@@ -99,6 +101,7 @@ pub fn gga_k_pg_lxc_pol(
         let t85 = piecewise3(t57, 0.0, 3.0 / 20.0 * t6 * t67 * t81);
         let tzk0 = t56 + t85;
         zk[ip] += tzk0;
+        // --- vxc delta (43 lines) ---
         let t86 = t7 * t7;
         let t87 = 1.0 / t86;
         let t88 = t17 * t87;
@@ -147,6 +150,7 @@ pub fn gga_k_pg_lxc_pol(
         let t195 = piecewise3(t57, 0.0, 3.0 / 20.0 * t6 * t67 * t191);
         let tvsigma2 = t7 * t195;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (103 lines) ---
         let t198 = 1.0 / t25;
         let t199 = t90 * t90;
         let t202 = t86 * t7;
@@ -265,6 +269,7 @@ pub fn gga_k_pg_lxc_pol(
         let t487 = piecewise3(t57, 0.0, t478 * t484 / 3840.0);
         let tv2sigma25 = t7 * t487;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (202 lines) ---
         let t491 = 1.0 / t25 / t20;
         let t492 = t199 * t90;
         let t495 = t198 * t90;
@@ -502,6 +507,7 @@ pub fn gga_k_pg_lxc_pol(
         let t1043 = piecewise3(t57, 0.0, -t1037 * t1040 / 15360.0);
         let tv3sigma39 = t7 * t1043;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (244 lines) ---
         let t1047 = t6 * t512 * t113;
         let t1053 = t6 * t519 * t113;
         let t1056 = t6 * t216 * t255;

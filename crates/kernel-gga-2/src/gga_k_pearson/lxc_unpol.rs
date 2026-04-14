@@ -1,7 +1,8 @@
-//! GGA_K_PEARSON lxc unpol kernel.
+//! GGA_K_PEARSON lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pearson.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 39 shared lines across all orders.
+//! Delta: 15 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_k_pearson_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (39 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -75,6 +77,7 @@ pub fn gga_k_pearson_lxc_unpol(
         let t56 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t52);
         let tzk0 = 2.0 * t56;
         zk[ip] += tzk0;
+        // --- vxc delta (18 lines) ---
         let t58 = t20 / t21;
         let t62 = t33 * rho[ip];
         let t66 = t32 / t22 / t62 * t48;
@@ -95,6 +98,7 @@ pub fn gga_k_pearson_lxc_unpol(
         let t103 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t99);
         let tvsigma0 = 2.0 * rho[ip] * t103;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (29 lines) ---
         let t108 = t20 / t21 / rho[ip];
         let t118 = t32 / t22 / t42 * t48;
         let t121 = t43 * t42;
@@ -127,6 +131,7 @@ pub fn gga_k_pearson_lxc_unpol(
         let t196 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t192);
         let tv2sigma20 = 2.0 * rho[ip] * t196;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (38 lines) ---
         let t201 = t20 / t21 / t33;
         let t211 = t42 * rho[ip];
         let t215 = t32 / t22 / t211 * t48;
@@ -169,6 +174,7 @@ pub fn gga_k_pearson_lxc_unpol(
         let t337 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t333);
         let tv3sigma30 = 2.0 * rho[ip] * t337;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (15 lines) ---
         let t355 = t42 * t33;
         let t362 = t43 * t355;
         let t385 = t130 * t130;

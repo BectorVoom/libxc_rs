@@ -1,7 +1,8 @@
-//! GGA_XC_TH2 lxc unpol kernel.
+//! GGA_XC_TH2 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 51 shared lines across all orders.
+//! Delta: 12 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_xc_th2_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (51 lines) ---
         let t1 = f64::powf(2.0, 1.0 / 12.0);
         let t2 = t1 * t1;
         let t3 = t2 * t1;
@@ -87,6 +89,7 @@ pub fn gga_xc_th2_lxc_unpol(
         let t84 = 0.3394155e0 * t6 * t7 * rho[ip] - 0.879105e0 * t14 * t16 + 0.63838e0 * t20 * t22 - 0.803945e0 * t25 * t27 + 0.182805e0 * t32 - 0.4533175e-1 * t35 * t41 + 0.3674325e-1 * t44 * t41 + 0.3678525e-1 * t47 * t41 - 0.17922925e-1 * t50 * t41 - 0.50895875e-2 * t54 * t56 + 0.26828125e-2 * t63 * t56 - 0.960195e-4 * t66 * sigma[ip] * t55 + 0.1551885e-1 * t32 * t75 - 0.360163e-1 * t79 * t75 + 0.223281e-1 * t70 * t75;
         let tzk0 = t84 * t53;
         zk[ip] += tzk0;
+        // --- vxc delta (26 lines) ---
         let t93 = t19 * t30;
         let t95 = t7 * t7;
         let t97 = t95 * t95;
@@ -115,6 +118,7 @@ pub fn gga_xc_th2_lxc_unpol(
         let t163 = t162 - t72;
         let tvsigma0 = -0.22665875e-1 * t35 * t147 + 0.18371625e-1 * t44 * t147 + 0.18392625e-1 * t47 * t147 - 0.89614625e-2 * t50 * t147 - 0.50895875e-2 * t54 * t55 + 0.26828125e-2 * t63 * t55 - 0.960195e-4 * t66 * t55 + 0.1551885e-1 * t32 * t163 - 0.360163e-1 * t79 * t163 + 0.223281e-1 * t70 * t163;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (23 lines) ---
         let t171 = 1.0 / t99 / rho[ip];
         let t172 = t34 * t171;
         let t175 = t25 * t118;
@@ -141,6 +145,7 @@ pub fn gga_xc_th2_lxc_unpol(
         let t265 = 1.0 / t36 / sigma[ip] * t40;
         let tv2sigma20 = 0.113329375e-1 * t35 * t265 - 0.91858125e-2 * t44 * t265 - 0.91963125e-2 * t47 * t265 + 0.448073125e-2 * t50 * t265;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (24 lines) ---
         let t283 = t19 / t22;
         let t287 = t207 * rho[ip];
         let t289 = 1.0 / t30 / t287;
@@ -169,6 +174,7 @@ pub fn gga_xc_th2_lxc_unpol(
         let t387 = 1.0 / t36 / t384 * t40;
         let tv3sigma30 = -0.1699940625e-1 * t35 * t387 + 0.1377871875e-1 * t44 * t387 + 0.1379446875e-1 * t47 * t387 - 0.6721096875e-2 * t50 * t387;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (12 lines) ---
         let t404 = t19 / t21 / t70;
         let t411 = sigma[ip] / t30 / t207 / t70;
         let t414 = 20944.0 / 81.0 * t411 * t55 - 20944.0 / 81.0 * t411;

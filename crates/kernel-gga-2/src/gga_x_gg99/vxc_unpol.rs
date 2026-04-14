@@ -1,7 +1,8 @@
-//! GGA_X_GG99 vxc unpol kernel.
+//! GGA_X_GG99 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_gg99.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 87 shared lines across all orders.
+//! Delta: 82 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -24,6 +25,7 @@ pub fn gga_x_gg99_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (87 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -112,6 +114,7 @@ pub fn gga_x_gg99_vxc_unpol(
         let t115 = piecewise3(t2, 0.0, -t22 * t112 / 24.0);
         let tzk0 = 2.0 * t115;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (82 lines) ---
         let t116 = t20 * t20;
         let t117 = 1.0 / t116;
         let t118 = t19 * t117;

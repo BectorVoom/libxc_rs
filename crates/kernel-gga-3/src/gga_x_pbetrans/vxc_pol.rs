@@ -1,7 +1,8 @@
-//! GGA_X_PBETRANS vxc pol kernel.
+//! GGA_X_PBETRANS vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 67 shared lines across all orders.
+//! Delta: 75 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn gga_x_pbetrans_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (67 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -96,6 +98,7 @@ pub fn gga_x_pbetrans_vxc_pol(
         let t111 = piecewise3(t70, 0.0, -3.0 / 8.0 * t5 * t79 * t107);
         let tzk0 = t69 + t111;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (75 lines) ---
         let t112 = t6 * t6;
         let t113 = 1.0 / t112;
         let t114 = t16 * t113;

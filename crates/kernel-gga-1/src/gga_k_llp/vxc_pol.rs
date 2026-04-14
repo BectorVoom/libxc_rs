@@ -1,7 +1,8 @@
-//! GGA_K_LLP vxc pol kernel.
+//! GGA_K_LLP vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_llp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 66 shared lines across all orders.
+//! Delta: 70 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +31,7 @@ pub fn gga_k_llp_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (66 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = t2 * t2;
@@ -97,6 +99,7 @@ pub fn gga_k_llp_vxc_pol(
         let t97 = piecewise3(t63, 0.0, 3.0 / 20.0 * t6 * t73 * t93);
         let tzk0 = t62 + t97;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (70 lines) ---
         let t98 = t7 * t7;
         let t99 = 1.0 / t98;
         let t100 = t17 * t99;

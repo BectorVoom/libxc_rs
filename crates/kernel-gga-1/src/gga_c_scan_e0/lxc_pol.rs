@@ -1,7 +1,8 @@
-//! GGA_C_SCAN_E0 lxc pol kernel.
+//! GGA_C_SCAN_E0 lxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_scan_e0.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 99 shared lines across all orders.
+//! Delta: 2421 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn gga_c_scan_e0_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (99 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -140,6 +142,7 @@ pub fn gga_c_scan_e0_lxc_pol(
         let t146 = t96 * t105 * t144;
         let tzk0 = -t33 + t89 + t91 + t146;
         zk[ip] += tzk0;
+        // --- vxc delta (153 lines) ---
         let t148 = 1.0 / t8 / t7;
         let t149 = t6 * t148;
         let t151 = t4 * t149 * t31;
@@ -298,6 +301,7 @@ pub fn gga_c_scan_e0_lxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (452 lines) ---
         let t394 = 0.22146941966666666666e-2 * t151;
         let t395 = 2.0 * t176;
         let t396 = 8.0 * t180;
@@ -765,6 +769,7 @@ pub fn gga_c_scan_e0_lxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (1233 lines) ---
         let t1187 = 60.0 * t438;
         let t1188 = 36.0 * t441;
         let t1189 = 96.0 * t444;
@@ -2033,6 +2038,7 @@ pub fn gga_c_scan_e0_lxc_pol(
         v3sigma3[ip * 10 + 8] += tv3sigma38;
         let tv3sigma39 = tv3sigma35;
         v3sigma3[ip * 10 + 9] += tv3sigma39;
+        // --- lxc delta (this level) (2421 lines) ---
         let t3626 = 24.0 * t1256;
         let t3630 = 960.0 * t1272;
         let t3631 = 480.0 * t1277;

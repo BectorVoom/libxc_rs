@@ -1,7 +1,8 @@
-//! GGA_K_MEYER lxc unpol kernel.
+//! GGA_K_MEYER lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_meyer.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 53 shared lines across all orders.
+//! Delta: 143 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_k_meyer_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (53 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -89,6 +91,7 @@ pub fn gga_k_meyer_lxc_unpol(
         let t73 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t69);
         let tzk0 = 2.0 * t73;
         zk[ip] += tzk0;
+        // --- vxc delta (47 lines) ---
         let t75 = t20 / t21;
         let t79 = t42 * t43;
         let t81 = 1.0 / t21 / t33;
@@ -138,6 +141,7 @@ pub fn gga_k_meyer_lxc_unpol(
         let t162 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t158);
         let tvsigma0 = 2.0 * rho[ip] * t162;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (93 lines) ---
         let t165 = t20 * t46;
         let t172 = t33 * rho[ip];
         let t174 = 1.0 / t21 / t172;
@@ -234,6 +238,7 @@ pub fn gga_k_meyer_lxc_unpol(
         let t404 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t400);
         let tv2sigma20 = 2.0 * rho[ip] * t404;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (193 lines) ---
         let t407 = t20 * t81;
         let t418 = 1.0 / t22 / rho[ip];
         let t419 = t31 * t418;
@@ -431,6 +436,7 @@ pub fn gga_k_meyer_lxc_unpol(
         let t989 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t985);
         let tv3sigma30 = 2.0 * rho[ip] * t989;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (143 lines) ---
         let t1012 = t469 * t97;
         let t1023 = t190 * t215;
         let t1040 = 1.0 / t172;

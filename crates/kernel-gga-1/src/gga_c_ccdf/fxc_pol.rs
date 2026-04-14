@@ -1,7 +1,8 @@
-//! GGA_C_CCDF fxc pol kernel.
+//! GGA_C_CCDF fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_ccdf.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 21 shared lines across all orders.
+//! Delta: 72 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_ccdf_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (21 lines) ---
         let t1 = rho0 + rho1;
         let t2 = pow_1_3(t1);
         let t3 = 1.0 / t2;
@@ -57,6 +59,7 @@ pub fn gga_c_ccdf_fxc_pol(
         let t30 = 1.0 - param_c3 / t27;
         let tzk0 = t7 * t30;
         zk[ip] += tzk0;
+        // --- vxc delta (18 lines) ---
         let t31 = t3 * param_c1;
         let t32 = t5 * t5;
         let t33 = 1.0 / t32;
@@ -80,6 +83,7 @@ pub fn gga_c_ccdf_fxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (72 lines) ---
         let t58 = param_c1 * t33;
         let t59 = t30 * param_c2;
         let t63 = param_c3 * t41;

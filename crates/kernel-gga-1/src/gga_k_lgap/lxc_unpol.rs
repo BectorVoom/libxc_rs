@@ -1,7 +1,8 @@
-//! GGA_K_LGAP lxc unpol kernel.
+//! GGA_K_LGAP lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_lgap.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 42 shared lines across all orders.
+//! Delta: 22 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -39,6 +40,7 @@ pub fn gga_k_lgap_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (42 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -82,6 +84,7 @@ pub fn gga_k_lgap_lxc_unpol(
         let t70 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t66);
         let tzk0 = 2.0 * t70;
         zk[ip] += tzk0;
+        // --- vxc delta (20 lines) ---
         let t71 = 1.0 / t21;
         let t72 = t20 * t71;
         let t76 = t7 * t20;
@@ -104,6 +107,7 @@ pub fn gga_k_lgap_lxc_unpol(
         let t120 = piecewise3(t2, 0.0, -3.0 / 20.0 * t76 * t77 * t116);
         let tvsigma0 = 2.0 * rho[ip] * t120;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (27 lines) ---
         let t123 = t20 * t36;
         let t127 = t71 * param_kappa;
         let t132 = 1.0 / t21 / t83;
@@ -134,6 +138,7 @@ pub fn gga_k_lgap_lxc_unpol(
         let t204 = piecewise3(t2, 0.0, -3.0 / 20.0 * t76 * t77 * t195 - 3.0 / 20.0 * t76 * t77 * t199);
         let tv2sigma20 = 2.0 * rho[ip] * t204;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (39 lines) ---
         let t211 = t36 * param_kappa;
         let t222 = 1.0 / t21 / t57;
         let t227 = 1.0 / t22 / t89;
@@ -177,6 +182,7 @@ pub fn gga_k_lgap_lxc_unpol(
         let t348 = piecewise3(t2, 0.0, -3.0 / 20.0 * t76 * t77 * t335 - 9.0 / 20.0 * t177 * t339 - 3.0 / 20.0 * t76 * t77 * t343);
         let tv3sigma30 = 2.0 * rho[ip] * t348;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (22 lines) ---
         let t355 = t79 * param_kappa;
         let t383 = t57 * t57;
         let t397 = t146 * t146;

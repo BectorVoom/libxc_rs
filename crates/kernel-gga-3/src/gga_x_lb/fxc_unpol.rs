@@ -1,7 +1,8 @@
-//! GGA_X_LB fxc unpol kernel.
+//! GGA_X_LB fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_vxc/gga_x_lb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 29 shared lines across all orders.
+//! Delta: 34 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,6 +29,7 @@ pub fn gga_x_lb_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < vrho.len() {
+        // --- shared preamble (29 lines) ---
         let t1 = M_CBRT3;
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
@@ -58,6 +60,7 @@ pub fn gga_x_lb_fxc_unpol(
         let t45 = (-param_alpha * t1 * t4 * t6 / 2.0 - t43) * t19;
         let tvrho0 = t45 * t13 / 2.0;
         vrho[ip] += tvrho0;
+        // --- fxc delta (this level) (34 lines) ---
         let t47 = t20 * rho[ip];
         let t49 = 1.0 / t21 / t47;
         let t54 = t18 * t19;

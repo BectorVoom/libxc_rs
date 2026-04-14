@@ -1,7 +1,8 @@
-//! GGA_K_PW86 vxc unpol kernel.
+//! GGA_K_PW86 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pw86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 41 shared lines across all orders.
+//! Delta: 21 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -23,6 +24,7 @@ pub fn gga_k_pw86_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (41 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = t3 * t3;
@@ -65,6 +67,7 @@ pub fn gga_k_pw86_vxc_unpol(
         let t62 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t58);
         let tzk0 = 2.0 * t62;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (21 lines) ---
         let t63 = 1.0 / t21;
         let t68 = t7 * t20;
         let t69 = t58 * t58;

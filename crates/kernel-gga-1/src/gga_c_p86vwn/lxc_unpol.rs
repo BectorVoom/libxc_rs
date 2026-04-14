@@ -1,7 +1,8 @@
-//! GGA_C_P86VWN lxc unpol kernel.
+//! GGA_C_P86VWN lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 76 shared lines across all orders.
+//! Delta: 91 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (76 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -119,6 +121,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t118 = t71 * t117;
         let tzk0 = t20 + t25 + t31 - t67 + t118;
         zk[ip] += tzk0;
+        // --- vxc delta (82 lines) ---
         let t120 = 1.0 / t7 / rho[ip];
         let t121 = t6 * t120;
         let t125 = t4 * t6;
@@ -203,6 +206,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t271 = t267 * t269 / 2.0;
         let tvsigma0 = rho[ip] * (t262 - t271);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (143 lines) ---
         let t280 = t6 * t70;
         let t282 = t4 * t280 * t15;
         let t284 = t120 * t127;
@@ -349,6 +353,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t577 = t573 * t575 / 4.0;
         let tv2sigma20 = rho[ip] * (-t567 + t577);
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (240 lines) ---
         let t579 = t474 * rho[ip];
         let t581 = 1.0 / t7 / t579;
         let t582 = sigma[ip] * t581;
@@ -593,6 +598,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t1144 = t1140 * t1142 / 8.0;
         let tv3sigma30 = rho[ip] * (t1126 + t1131 - t1144);
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (91 lines) ---
         let t1146 = t474 * t68;
         let t1154 = t75 * t476;
         let t1157 = t82 * t569;

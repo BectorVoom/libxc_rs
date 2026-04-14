@@ -1,7 +1,8 @@
-//! GGA_X_MPBE fxc pol kernel.
+//! GGA_X_MPBE fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_mpbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 84 shared lines across all orders.
+//! Delta: 137 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_mpbe_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (84 lines) ---
         let t1 = rho0 <= dens_threshold;
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
@@ -120,6 +122,7 @@ pub fn gga_x_mpbe_fxc_pol(
         let t133 = piecewise3(t84, 0.0, -3.0 / 8.0 * t5 * t93 * t129);
         let tzk0 = t83 + t133;
         zk[ip] += tzk0;
+        // --- vxc delta (86 lines) ---
         let t134 = t6 * t6;
         let t135 = 1.0 / t134;
         let t136 = t16 * t135;
@@ -211,6 +214,7 @@ pub fn gga_x_mpbe_fxc_pol(
         let t353 = piecewise3(t84, 0.0, -3.0 / 8.0 * t5 * t93 * t349);
         let tvsigma2 = t6 * t353;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (137 lines) ---
         let t356 = t23 * t23;
         let t357 = 1.0 / t356;
         let t358 = t138 * t138;

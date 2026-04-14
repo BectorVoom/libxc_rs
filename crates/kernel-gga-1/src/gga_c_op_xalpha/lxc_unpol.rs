@@ -1,7 +1,8 @@
-//! GGA_C_OP_XALPHA lxc unpol kernel.
+//! GGA_C_OP_XALPHA lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_xalpha.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 44 shared lines across all orders.
+//! Delta: 22 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_op_xalpha_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (44 lines) ---
         let t1 = 1.0 <= zeta_threshold;
         let t4 = t1 || rho[ip] / 2.0 <= dens_threshold;
         let t5 = zeta_threshold - 1.0;
@@ -80,6 +82,7 @@ pub fn gga_c_op_xalpha_lxc_unpol(
         let t65 = 1.0 / t64;
         let tzk0 = piecewise3(t4, 0.0, -0.25e0 * t10 * t54 * t65);
         zk[ip] += tzk0;
+        // --- vxc delta (15 lines) ---
         let t69 = t9 * t54;
         let t72 = t20 * t21;
         let t79 = piecewise3(t14, 0.0, -t72 * t22 / t30 / t29 * t28 / 27.0);
@@ -97,6 +100,7 @@ pub fn gga_c_op_xalpha_lxc_unpol(
         vrho[ip] += tvrho0;
         let tvsigma0 = 0.0;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (23 lines) ---
         let t112 = t9 * t62;
         let t113 = t88 * t65;
         let t119 = t88 * t88;
@@ -123,6 +127,7 @@ pub fn gga_c_op_xalpha_lxc_unpol(
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (32 lines) ---
         let t183 = t9 * t60;
         let t184 = t119 * t65;
         let t192 = t124 * t28;
@@ -159,6 +164,7 @@ pub fn gga_c_op_xalpha_lxc_unpol(
         v3rhosigma2[ip] += tv3rhosigma20;
         let tv3sigma30 = 0.0;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (22 lines) ---
         let t292 = t124 * t124;
         let t293 = t125 * t125;
         let t301 = piecewise3(t14, 0.0, 280.0 / 729.0 * t72 * t22 / t30 / t293);

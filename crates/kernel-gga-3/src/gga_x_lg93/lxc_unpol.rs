@@ -1,7 +1,8 @@
-//! GGA_X_LG93 lxc unpol kernel.
+//! GGA_X_LG93 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lg93.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 57 shared lines across all orders.
+//! Delta: 52 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_x_lg93_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (57 lines) ---
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -93,6 +95,7 @@ pub fn gga_x_lg93_lxc_unpol(
         let t92 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t84 * t88);
         let tzk0 = 2.0 * t92;
         zk[ip] += tzk0;
+        // --- vxc delta (37 lines) ---
         let t93 = 1.0 / t30;
         let t98 = f64::powf(t83, -0.975026e0);
         let t99 = t19 * t98;
@@ -132,6 +135,7 @@ pub fn gga_x_lg93_lxc_unpol(
         let t187 = piecewise3(t2, 0.0, -0.936525e-2 * t18 * t99 * t174 + 0.10668500988363995023e-9 * t137 * t179 * t84 * t183);
         let tvsigma0 = 2.0 * rho[ip] * t187;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (60 lines) ---
         let t191 = 1.0 / t30 / rho[ip];
         let t196 = t93 * t98;
         let t201 = 1.0 / t19 / t42;
@@ -195,6 +199,7 @@ pub fn gga_x_lg93_lxc_unpol(
         let t362 = piecewise3(t2, 0.0, 0.91313622465e-2 * t18 * t207 * t326 + 0.5328702873668048234e-11 * t308 * t332 - 0.936525e-2 * t18 * t99 * t351 - 0.17780834980606658371e-18 * t137 * t355 * t84 * t358);
         let tv2sigma20 = 2.0 * rho[ip] * t362;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (101 lines) ---
         let t365 = t137 * t62;
         let t366 = t142 * t142;
         let t367 = 1.0 / t366;
@@ -300,6 +305,7 @@ pub fn gga_x_lg93_lxc_unpol(
         let t678 = piecewise3(t2, 0.0, -0.18034677852255909e-1 * t18 * t443 * t636 - 0.77934357721515935961e-11 * t485 * t641 + 0.273940867395e-1 * t274 * t645 - 0.13321757184170120585e-19 * t620 * t650 + 0.7993054310502072351e-11 * t308 * t654 - 0.936525e-2 * t18 * t99 * t667 + 0.27380660457656766008e-28 * t137 * t672 * t84 * t367);
         let tv3sigma30 = 2.0 * rho[ip] * t678;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (52 lines) ---
         let t698 = t98 * t367;
         let t738 = t32 * t98;
         let t742 = t191 * t206;

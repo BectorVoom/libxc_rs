@@ -1,7 +1,8 @@
-//! GGA_XC_TH1 vxc pol kernel.
+//! GGA_XC_TH1 vxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 116 shared lines across all orders.
+//! Delta: 111 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -49,6 +50,7 @@ pub fn gga_xc_th1_vxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (116 lines) ---
         let t1 = param_omega_0;
         let t2 = f64::powf(rho0, 1.0 / 6.0);
         let t3 = t2 * rho0;
@@ -166,6 +168,7 @@ pub fn gga_xc_th1_vxc_pol(
         let t158 = t110 * t101 / 2.0 + t115 * t101 / 2.0 + t119 * t130 + t133 * t130 + t136 * t130 + t139 * t130 + t142 * t145 + t148 * t145 + t151 * t145 + t154 * t145 + t156 * t35;
         let tzk0 = (t1 * t6 + t8 * t13 + t15 * t20 + t22 * t27 + t30 * t60 / 2.0 + t64 * t60 / 2.0 + t68 * t60 / 2.0 + t81 * t60 / 2.0 + t85 * t101 / 2.0 + t105 * t101 / 2.0 + t158) * t36;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (111 lines) ---
         let t168 = t118 * t16;
         let t171 = t86 * rho0;
         let t173 = 1.0 / t23 / t171;

@@ -1,7 +1,8 @@
-//! GGA_C_BMK fxc unpol kernel.
+//! GGA_C_BMK fxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_bmk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 121 shared lines across all orders.
+//! Delta: 183 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -36,6 +37,7 @@ pub fn gga_c_bmk_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (121 lines) ---
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
         let t5 = piecewise3(t3, zeta_threshold, 1.0);
@@ -158,6 +160,7 @@ pub fn gga_c_bmk_fxc_unpol(
         let t216 = t184 * t215;
         let tzk0 = t145 + t216;
         zk[ip] += tzk0;
+        // --- vxc delta (120 lines) ---
         let t218 = 1.0 / t13 / rho[ip];
         let t219 = t218 * t15;
         let t220 = t19 * t45;
@@ -280,6 +283,7 @@ pub fn gga_c_bmk_fxc_unpol(
         let t484 = t184 * t483;
         let tvsigma0 = rho[ip] * (t460 + t484);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (this level) (183 lines) ---
         let t491 = 1.0 / t13 / t96;
         let t492 = t491 * t15;
         let t495 = 0.14764770444444444444e-2 * t12 * t492 * t220;
