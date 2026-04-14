@@ -270,9 +270,10 @@ Plans:
   3. Feature gates allow selective compilation: `--features gga` for GGA, `--features all-kernels` for everything
   4. No sub-crate has redundant [profile.dev] or [profile.test] sections
   5. Workspace root Cargo.toml is the single source of truth for profile settings
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [x] 09-01-PLAN.md -- Remove sccache rustc-wrapper to fix incremental compilation
 - [x] 09-02-PLAN.md -- Add feature gates for kernel families (lda/gga/mgga)
-- [ ] 09-03-PLAN.md -- Clean up redundant per-crate profile sections
+- [ ] 09-03-PLAN.md -- Feature-gate kernel families at workspace root (gga/mgga/all-kernels)
+- [ ] 09-04-PLAN.md -- Create kernel-gga-4 crate for 25 deferred GGA functionals with order gates
