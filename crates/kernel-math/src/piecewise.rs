@@ -14,6 +14,15 @@ pub fn piecewise3(cond: bool, val_true: f64, val_false: f64) -> f64 {
     select(cond, val_true, val_false)
 }
 
+/// Heaviside step function: returns 1.0 if x >= 0, else 0.0.
+///
+/// Maps to libxc's `Heaviside(x)` macro.
+#[cube]
+#[allow(non_snake_case)]
+pub fn Heaviside(x: f64) -> f64 {
+    select(x >= 0.0, 1.0, 0.0)
+}
+
 /// Branch-free 3-way select: returns `v1` if `c1`, else `v2` if `c2`, else `v_else`.
 ///
 /// Maps to libxc's `my_piecewise5(c1, x1, c2, x2, x3)`.
