@@ -1,8 +1,7 @@
-//! MGGA_K_PC07 fxc unpol kernel (incremental).
+//! MGGA_K_PC07 fxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 86 shared lines across all orders.
-//! Delta: 316 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_pc07.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,7 +39,6 @@ pub fn mgga_k_pc07_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (86 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = t4 * t4;
@@ -128,7 +126,6 @@ pub fn mgga_k_pc07_fxc_unpol(
         let t118 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t114);
         let tzk0 = 2.0 * t118;
         zk[ip] += tzk0;
-        // --- vxc delta (96 lines) ---
         let t120 = t21 / t22;
         let t125 = 1.0 / t23 / t53;
         let t126 = t33 * t125;
@@ -229,7 +226,6 @@ pub fn mgga_k_pc07_fxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
-        // --- fxc delta (this level) (316 lines) ---
         let t303 = t21 / t22 / rho[ip];
         let t311 = 1.0 / t23 / t60;
         let t312 = t33 * t311;

@@ -1,8 +1,7 @@
-//! MGGA_X_2D_PRHG07 vxc pol kernel (incremental).
+//! MGGA_X_2D_PRHG07 vxc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 58 shared lines across all orders.
-//! Delta: 80 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,7 +36,6 @@ pub fn mgga_x_2d_prhg07_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (58 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;
@@ -97,7 +95,6 @@ pub fn mgga_x_2d_prhg07_vxc_pol(
         let t82 = piecewise3(t51, 0.0, -t60 * t79 / 8.0);
         let tzk0 = t50 + t82;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (80 lines) ---
         let t83 = t3 * t3;
         let t84 = 1.0 / t83;
         let t85 = t13 * t84;

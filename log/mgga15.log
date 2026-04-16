@@ -1,0 +1,117 @@
+    Blocking waiting for file lock on build directory
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: module `Heaviside` should have a snake case name
+  --> crates/kernel-math/src/piecewise.rs:22:8
+   |
+22 | pub fn Heaviside(x: f64) -> f64 {
+   |        ^^^^^^^^^ help: convert the identifier to snake case: `heaviside`
+   |
+   = note: `#[warn(non_snake_case)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: `libxc-kernel-math` (lib) generated 14 warnings
+    Checking libxc-kernel-mgga-15 v0.1.0 (/workspace/crates/kernel-mgga-15)
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead

@@ -1,17 +1,4 @@
-//! MGGA_C_REVSCAN kernel -- incremental derivative structure.
-
-//! unpol: preamble=142 lines
-//!   exc: shared=0, delta=142, outputs=1
-//!   vxc: shared=142, delta=163, outputs=5
-//!   fxc: shared=305, delta=407, outputs=15
-//!   kxc: shared=712, delta=790, outputs=35
-//!   lxc: shared=1502, delta=723, outputs=70
-//! pol: preamble=199 lines
-//!   exc: shared=0, delta=199, outputs=1
-//!   vxc: shared=199, delta=337, outputs=10
-//!   fxc: shared=536, delta=1198, outputs=55
-//!   kxc: shared=1734, delta=3924, outputs=220
-//!   lxc: shared=5658, delta=9148, outputs=715
+//! MGGA_C_REVSCAN kernel — split into per-function files.
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
@@ -21,5 +8,25 @@ pub mod lxc_unpol;
 pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
-pub mod kxc_pol;
-pub mod lxc_pol;
+pub mod kxc_pol_part0;
+pub mod kxc_pol_part1;
+pub mod lxc_pol_part0;
+pub mod lxc_pol_part1;
+pub mod lxc_pol_part2;
+pub mod lxc_pol_part3;
+pub mod lxc_pol_part4;
+pub mod lxc_pol_part5;
+pub mod lxc_pol_part6;
+pub mod lxc_pol_part7;
+pub mod lxc_pol_part8;
+pub mod lxc_pol_part9;
+pub mod lxc_pol_part10;
+pub mod lxc_pol_part11;
+pub mod lxc_pol_part12;
+pub mod lxc_pol_part13;
+pub mod lxc_pol_part14;
+pub mod lxc_pol_part15;
+pub mod lxc_pol_part16;
+pub mod lxc_pol_part17;
+pub mod lxc_pol_part18;
+pub mod lxc_pol_part19;

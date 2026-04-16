@@ -1,8 +1,7 @@
-//! MGGA_X_SA_TPSS exc pol kernel (incremental).
+//! MGGA_X_SA_TPSS exc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 163 shared lines across all orders.
-//! Delta: 163 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_sa_tpss.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,7 +32,6 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (163 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;

@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "model_profile": "quality",
-=======
-  "model_profile": "balanced",
->>>>>>> origin/main
   "commit_docs": true,
   "parallelization": true,
   "search_gitignored": false,
@@ -20,39 +16,27 @@
     "research": true,
     "plan_check": true,
     "verifier": true,
-<<<<<<< HEAD
     "nyquist_validation": true,
-=======
-    "nyquist_validation": false,
->>>>>>> origin/main
-    "auto_advance": true,
+    "auto_advance": false,
     "node_repair": true,
     "node_repair_budget": 2,
-    "ui_phase": true,
-    "ui_safety_gate": true,
+    "ui_phase": false,
+    "ui_safety_gate": false,
     "text_mode": false,
-<<<<<<< HEAD
     "research_before_questions": false,
     "discuss_mode": "discuss",
     "skip_discuss": false,
     "code_review": true,
     "code_review_depth": "standard",
+    "use_worktrees": true,
     "_auto_chain_active": false
-=======
-    "_auto_chain_active": true
->>>>>>> origin/main
   },
   "hooks": {
     "context_warnings": true
   },
-<<<<<<< HEAD
   "project_code": null,
   "phase_naming": "sequential",
   "agent_skills": {},
   "mode": "yolo",
   "granularity": "standard"
-=======
-  "mode": "yolo",
-  "granularity": "coarse"
->>>>>>> origin/main
 }

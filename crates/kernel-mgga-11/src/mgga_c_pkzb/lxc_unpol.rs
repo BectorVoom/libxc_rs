@@ -1,8 +1,7 @@
-//! MGGA_C_PKZB lxc unpol kernel (incremental).
+//! MGGA_C_PKZB lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 143 shared lines across all orders.
-//! Delta: 417 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_pkzb.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -93,7 +92,6 @@ pub fn mgga_c_pkzb_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (143 lines) ---
         let t2 = sigma[ip] * sigma[ip];
         let t3 = rho[ip] * rho[ip];
         let t4 = 1.0 / t3;
@@ -238,7 +236,6 @@ pub fn mgga_c_pkzb_lxc_unpol(
         let t245 = 0.478125e-1 * t5 * t243;
         let tzk0 = t126 - t245;
         zk[ip] += tzk0;
-        // --- vxc delta (173 lines) ---
         let t246 = t3 * rho[ip];
         let t247 = 1.0 / t246;
         let t248 = t2 * t247;
@@ -416,7 +413,6 @@ pub fn mgga_c_pkzb_lxc_unpol(
         let t555 = 0.95625e-1 * t5 * t553;
         let tvtau0 = rho[ip] * (-t552 + t555);
         vtau[ip] += tvtau0;
-        // --- fxc delta (358 lines) ---
         let t561 = 1.0 / t98;
         let t562 = t2 * t561;
         let t563 = t562 * t249;
@@ -785,7 +781,6 @@ pub fn mgga_c_pkzb_lxc_unpol(
         let t1219 = 0.286875e0 * t5 * t1217;
         let tv2tau20 = rho[ip] * (t1216 - t1219);
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (607 lines) ---
         let t1227 = 1.0 / t324;
         let t1228 = t2 * t1227;
         let t1229 = t1228 * t249;
@@ -1413,7 +1408,6 @@ pub fn mgga_c_pkzb_lxc_unpol(
         let t2583 = 0.11475e1 * t5 * t2581;
         let tv3tau30 = rho[ip] * (-t2580 + t2583);
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (417 lines) ---
         let t2594 = t2 / t695;
         let t2601 = t7 * t1535;
         let t2607 = t579 * t579;

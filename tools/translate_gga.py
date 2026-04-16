@@ -461,6 +461,164 @@ def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Dependency tracing for function splitting
+# ---------------------------------------------------------------------------
+
+# Default threshold: if a generated kernel function exceeds this many lines,
+# split it into per-output-array sub-kernels.
+SPLIT_THRESHOLD = 5000
+
+# Output arrays grouped by derivative order, used for split naming.
+OUTPUT_ORDER = {
+    'zk': 0, 'vrho': 1, 'vsigma': 1,
+    'v2rho2': 2, 'v2rhosigma': 2, 'v2sigma2': 2,
+    'v3rho3': 3, 'v3rho2sigma': 3, 'v3rhosigma2': 3, 'v3sigma3': 3,
+    'v4rho4': 4, 'v4rho3sigma': 4, 'v4rho2sigma2': 4, 'v4rhosigma3': 4, 'v4sigma4': 4,
+}
+
+
+def build_dependency_graph(compute_lines: list, is_pol: bool):
+    """Build a dependency graph from C compute lines.
+
+    Returns:
+        var_order: list of variable names in declaration order
+        var_deps: dict mapping var -> set of tN variables it directly references
+        var_c_line: dict mapping var -> original C line text
+    """
+    var_order = []
+    var_deps = {}
+    var_c_line = {}
+
+    for cline in compute_lines:
+        stripped = cline.rstrip(';').strip()
+        m = re.match(r'(\w+)\s*=\s*(.*)', stripped)
+        if not m:
+            continue
+        var = m.group(1)
+        expr = m.group(2)
+        # Extract all maple2c variable references: tN (temporaries), tvXXX, tzkN, etc.
+        # All maple2c vars start with 't' followed by a digit or known prefix (v, zk).
+        # We match any 't' + word chars, then filter out C functions/keywords.
+        refs = set(re.findall(r'\b(t\w+)\b', expr))
+        # Remove known non-variable tokens that start with 't'
+        refs -= {var}  # don't self-reference
+        refs -= {'true', 'tanh', 'tan', 'trunc'}  # C keywords/functions
+        var_order.append(var)
+        var_deps[var] = refs
+        var_c_line[var] = cline
+
+    return var_order, var_deps, var_c_line
+
+
+def transitive_deps(variables: set, var_deps: dict, _cache: dict = None) -> set:
+    """Compute transitive closure of dependencies for a set of variables."""
+    if _cache is None:
+        _cache = {}
+    result = set()
+    stack = list(variables)
+    while stack:
+        v = stack.pop()
+        if v in result:
+            continue
+        result.add(v)
+        for dep in var_deps.get(v, set()):
+            if dep not in result:
+                stack.append(dep)
+    return result
+
+
+def split_by_output_array(compute_lines: list, output_writes: list, is_pol: bool):
+    """Split a kernel's computation into per-output-array sub-kernels.
+
+    Each sub-kernel gets only the compute lines needed for its output
+    variables (transitive dependency closure).
+
+    Returns:
+        list of (suffix, sub_compute_lines, sub_output_writes, sub_out_bufs)
+        where suffix is the output array name (e.g. 'v4rho4').
+    """
+    var_order, var_deps, var_c_line = build_dependency_graph(compute_lines, is_pol)
+    var_set = set(var_order)
+
+    # Group output writes by array name
+    groups = {}
+    for field, comp, var_name in output_writes:
+        groups.setdefault(field, []).append((field, comp, var_name))
+
+    # Sort groups by declaration order (first output write appearance)
+    group_order = []
+    for field in LEVEL_OUTPUTS.get('lxc', []):
+        if field in groups:
+            group_order.append(field)
+    # Add any remaining (shouldn't happen but be safe)
+    for field in groups:
+        if field not in group_order:
+            group_order.append(field)
+
+    result = []
+    for field in group_order:
+        sub_outputs = groups[field]
+        # Find all output variable names for this array
+        output_vars = set()
+        for _, _, var_name in sub_outputs:
+            output_vars.add(var_name)
+            # Also add the tN variables the output var depends on
+            if var_name in var_deps:
+                output_vars |= var_deps[var_name]
+
+        # Compute transitive closure
+        needed = transitive_deps(output_vars, var_deps)
+
+        # Filter compute lines to only those defining needed variables, in order
+        sub_compute = []
+        for cline in compute_lines:
+            stripped = cline.rstrip(';').strip()
+            m = re.match(r'(\w+)\s*=', stripped)
+            if m and m.group(1) in needed:
+                sub_compute.append(cline)
+
+        result.append((field, sub_compute, sub_outputs, [field]))
+
+    return result
+
+
+def merge_small_splits(splits: list, threshold: int):
+    """Merge consecutive small splits to reduce the number of sub-kernels.
+
+    Merges adjacent output-array groups if their combined size stays under
+    the threshold.
+    """
+    if not splits:
+        return splits
+
+    merged = [splits[0]]
+    for suffix, compute, outputs, bufs in splits[1:]:
+        prev_suffix, prev_compute, prev_outputs, prev_bufs = merged[-1]
+        # Estimate combined size: can't just add because they share deps.
+        # Use max as a conservative estimate.
+        combined_size = len(prev_compute) + len(compute)
+        if combined_size < threshold:
+            # Merge: take union of compute lines in order
+            seen = set()
+            merged_compute = []
+            for cline in prev_compute + compute:
+                stripped = cline.rstrip(';').strip()
+                m = re.match(r'(\w+)\s*=', stripped)
+                key = m.group(1) if m else cline
+                if key not in seen:
+                    seen.add(key)
+                    merged_compute.append(cline)
+            merged[-1] = (f'{prev_suffix}_{suffix}',
+                         merged_compute,
+                         prev_outputs + outputs,
+                         prev_bufs + bufs)
+        else:
+            merged.append((suffix, compute, outputs, bufs))
+
+    return merged
+
+
+# ---------------------------------------------------------------------------
 # Rust function generation
 # ---------------------------------------------------------------------------
 
@@ -489,12 +647,26 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
 
 def generate_function(func_name: str, level: str, spin: str,
                       compute_lines: list, output_writes: list,
-                      all_params: list, is_vxc_only: bool) -> str:
-    """Generate a single Rust #[cube(launch_unchecked)] function."""
-    is_pol = (spin == 'pol')
-    fn_name = f'{func_name}_{level}_{spin}'
+                      all_params: list, is_vxc_only: bool,
+                      fn_suffix: str = '', out_bufs_override: list = None) -> str:
+    """Generate a single Rust #[cube(launch_unchecked)] function.
 
-    if is_vxc_only:
+    Args:
+        fn_suffix: optional suffix appended to function name (e.g. '_v4rho4')
+        out_bufs_override: if set, use these output buffers instead of level defaults
+    """
+    is_pol = (spin == 'pol')
+    fn_name = f'{func_name}_{level}_{spin}{fn_suffix}'
+
+    if out_bufs_override is not None:
+        # Deduplicate while preserving order
+        seen = set()
+        out_bufs = []
+        for b in out_bufs_override:
+            if b not in seen:
+                seen.add(b)
+                out_bufs.append(b)
+    elif is_vxc_only:
         out_bufs = [b for b in LEVEL_OUTPUTS[level] if b != 'zk']
     else:
         out_bufs = LEVEL_OUTPUTS[level]
@@ -573,40 +745,112 @@ def generate_function(func_name: str, level: str, spin: str,
     return '\n'.join(lines)
 
 
+def estimate_function_lines(compute_lines: list, output_writes: list) -> int:
+    """Estimate the generated Rust function line count (compute + outputs + boilerplate)."""
+    # Each compute line becomes one 'let' line. Output writes add ~1 line each.
+    # Boilerplate (signature, bounds check, input loads) adds ~20-30 lines.
+    return len(compute_lines) + len(output_writes) + 25
+
+
 # ---------------------------------------------------------------------------
 # File generation
 # ---------------------------------------------------------------------------
 
 def translate_one_function(c_src: str, func_name: str, level: str, spin: str,
                            all_params: list, imports_str: str,
-                           is_vxc_only: bool) -> str | None:
-    """Translate a single (level, spin) function to a complete .rs file."""
+                           is_vxc_only: bool,
+                           split_threshold: int = SPLIT_THRESHOLD) -> list:
+    """Translate a single (level, spin) function to one or more .rs file contents.
+
+    Returns a list of (sub_name, rs_code) tuples.  Normally one entry, but
+    oversized kernels are split into per-output-array sub-kernels.
+    """
     bodies = extract_function_bodies(c_src)
     key = (level, spin)
     if key not in bodies:
-        return None
+        return []
 
     max_order = detect_max_order(c_src)
     if LEVEL_ORD[level] > max_order:
-        return None
+        return []
 
     compute_lines, output_writes = parse_body(bodies[key], level, spin, is_vxc_only)
-    fn_code = generate_function(func_name, level, spin, compute_lines,
-                                output_writes, all_params, is_vxc_only)
+    est = estimate_function_lines(compute_lines, output_writes)
 
     src_dir = 'gga_vxc' if is_vxc_only else 'gga_exc'
-    return (
-        f'//! {func_name.upper()} {level} {spin} kernel.\n'
-        f'//!\n'
-        f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
-        f'//! Preserves exact maple2c variable names and FP operation order.\n'
-        f'\n'
-        f'{FILE_HEADER}\n'
-        f'\n'
-        f'{imports_str}\n'
-        f'\n'
-        f'{fn_code}\n'
-    )
+
+    if est <= split_threshold:
+        # Small enough — generate single kernel as before
+        fn_code = generate_function(func_name, level, spin, compute_lines,
+                                    output_writes, all_params, is_vxc_only)
+        rs_code = (
+            f'//! {func_name.upper()} {level} {spin} kernel.\n'
+            f'//!\n'
+            f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
+            f'//! Preserves exact maple2c variable names and FP operation order.\n'
+            f'\n'
+            f'{FILE_HEADER}\n'
+            f'\n'
+            f'{imports_str}\n'
+            f'\n'
+            f'{fn_code}\n'
+        )
+        return [(f'{level}_{spin}', rs_code)]
+
+    # --- Oversized: split by output-array group ---
+    is_pol = (spin == 'pol')
+    splits = split_by_output_array(compute_lines, output_writes, is_pol)
+    splits = merge_small_splits(splits, split_threshold)
+
+    # If a split chunk is still too large, try splitting it further by
+    # individual output component
+    final_splits = []
+    for suffix, sub_compute, sub_outputs, sub_bufs in splits:
+        sub_est = estimate_function_lines(sub_compute, sub_outputs)
+        if sub_est > split_threshold and len(sub_outputs) > 1:
+            # Split this chunk into individual output components
+            for field, comp, var_name in sub_outputs:
+                var_order, var_deps, var_c_line = build_dependency_graph(sub_compute, is_pol)
+                output_vars = {var_name}
+                if var_name in var_deps:
+                    output_vars |= var_deps[var_name]
+                needed = transitive_deps(output_vars, var_deps)
+                comp_compute = [cl for cl in sub_compute
+                                if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                                and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+                comp_suffix = f'{field}_{comp}'
+                final_splits.append((comp_suffix, comp_compute,
+                                    [(field, comp, var_name)], [field]))
+            final_splits = merge_small_splits(final_splits, split_threshold)
+        else:
+            final_splits.append((suffix, sub_compute, sub_outputs, sub_bufs))
+
+    results = []
+    total_parts = len(final_splits)
+    for idx, (suffix, sub_compute, sub_outputs, sub_bufs) in enumerate(final_splits):
+        fn_suffix = f'_part{idx}_{suffix}'
+        fn_code = generate_function(func_name, level, spin, sub_compute,
+                                    sub_outputs, all_params, is_vxc_only,
+                                    fn_suffix=fn_suffix,
+                                    out_bufs_override=sub_bufs)
+        sub_name = f'{level}_{spin}_part{idx}_{suffix}'
+        sub_lines = estimate_function_lines(sub_compute, sub_outputs)
+        rs_code = (
+            f'//! {func_name.upper()} {level} {spin} kernel — split part {idx}/{total_parts} ({suffix}).\n'
+            f'//!\n'
+            f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
+            f'//! Split sub-kernel: outputs [{", ".join(sub_bufs)}] ({sub_lines} lines).\n'
+            f'//! Each sub-kernel recomputes its dependency chain from inputs.\n'
+            f'\n'
+            f'{FILE_HEADER}\n'
+            f'\n'
+            f'{imports_str}\n'
+            f'\n'
+            f'{fn_code}\n'
+        )
+        results.append((sub_name, rs_code))
+
+    return results
 
 
 # Math functions that don't have Rust implementations yet
@@ -651,17 +895,14 @@ def translate_functional(c_file: str, func_name: str, out_dir: str,
 
     for spin in ('unpol', 'pol'):
         for level in levels:
-            rs_code = translate_one_function(c_src, func_name, level, spin,
-                                            all_params, imports_str, is_vxc_only)
-            if rs_code is None:
-                continue
-
-            sub_name = f'{level}_{spin}'
-            path = os.path.join(func_dir, f'{sub_name}.rs')
-            with open(path, 'w') as f:
-                f.write(rs_code)
-            written.append(path)
-            mod_entries.append(f'pub mod {sub_name};')
+            file_list = translate_one_function(c_src, func_name, level, spin,
+                                              all_params, imports_str, is_vxc_only)
+            for sub_name, rs_code in file_list:
+                path = os.path.join(func_dir, f'{sub_name}.rs')
+                with open(path, 'w') as f:
+                    f.write(rs_code)
+                written.append(path)
+                mod_entries.append(f'pub mod {sub_name};')
 
     # Write mod.rs
     mod_rs = f'//! {func_name.upper()} kernel — split into per-function files.\n\n'
@@ -860,8 +1101,12 @@ def generate_incremental_function(func_name: str, level: str, spin: str,
 
 
 def translate_functional_incremental(c_file: str, func_name: str, out_dir: str,
-                                     is_vxc_only: bool = False) -> list:
-    """Translate with incremental derivative structure annotations."""
+                                     is_vxc_only: bool = False,
+                                     split_threshold: int = SPLIT_THRESHOLD) -> list:
+    """Translate with incremental derivative structure annotations.
+
+    Oversized kernels are automatically split by output-array group.
+    """
     c_src = read_c_source(c_file)
 
     unimp = check_unimplemented_math(c_src)
@@ -895,36 +1140,95 @@ def translate_functional_incremental(c_file: str, func_name: str, out_dir: str,
                 continue
 
             compute, output_writes = parse_body(bodies[key], level, spin, is_vxc_only)
-            fn_code = generate_incremental_function(
-                func_name, level, spin, compute, output_writes,
-                all_params, is_vxc_only, preamble_lines, deltas)
-
-            sub_name = f'{level}_{spin}'
+            est = estimate_function_lines(compute, output_writes)
             src_dir = 'gga_vxc' if is_vxc_only else 'gga_exc'
-            file_lines = [
-                f'//! {func_name.upper()} {level} {spin} kernel (incremental).',
-                f'//!',
-                f'//! Auto-translated with incremental derivative structure.',
-                f'//! Preamble: {len(preamble_lines)} shared lines across all orders.',
-            ]
-            if level in deltas:
-                _, delta, _ = deltas[level]
-                file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
-            file_lines.extend([
-                f'',
-                FILE_HEADER,
-                f'',
-                imports_str,
-                f'',
-                fn_code,
-                f'',
-            ])
 
-            path = os.path.join(func_dir, f'{sub_name}.rs')
-            with open(path, 'w') as f:
-                f.write('\n'.join(file_lines))
-            written.append(path)
-            mod_entries.append(f'pub mod {sub_name};')
+            if est <= split_threshold:
+                # Small enough — single incremental kernel
+                fn_code = generate_incremental_function(
+                    func_name, level, spin, compute, output_writes,
+                    all_params, is_vxc_only, preamble_lines, deltas)
+
+                sub_name = f'{level}_{spin}'
+                file_lines = [
+                    f'//! {func_name.upper()} {level} {spin} kernel (incremental).',
+                    f'//!',
+                    f'//! Auto-translated with incremental derivative structure.',
+                    f'//! Preamble: {len(preamble_lines)} shared lines across all orders.',
+                ]
+                if level in deltas:
+                    _, delta, _ = deltas[level]
+                    file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
+                file_lines.extend([
+                    f'',
+                    FILE_HEADER,
+                    f'',
+                    imports_str,
+                    f'',
+                    fn_code,
+                    f'',
+                ])
+
+                path = os.path.join(func_dir, f'{sub_name}.rs')
+                with open(path, 'w') as f:
+                    f.write('\n'.join(file_lines))
+                written.append(path)
+                mod_entries.append(f'pub mod {sub_name};')
+            else:
+                # Oversized — split by output-array group (same as non-incremental split)
+                is_pol = (spin == 'pol')
+                splits = split_by_output_array(compute, output_writes, is_pol)
+                splits = merge_small_splits(splits, split_threshold)
+
+                # Further split if individual chunks are still too large
+                final_splits = []
+                for suffix, sub_compute, sub_outputs, sub_bufs in splits:
+                    sub_est = estimate_function_lines(sub_compute, sub_outputs)
+                    if sub_est > split_threshold and len(sub_outputs) > 1:
+                        for field, comp, var_name in sub_outputs:
+                            var_order, var_deps, var_c_line = build_dependency_graph(sub_compute, is_pol)
+                            output_vars = {var_name}
+                            if var_name in var_deps:
+                                output_vars |= var_deps[var_name]
+                            needed = transitive_deps(output_vars, var_deps)
+                            comp_compute = [cl for cl in sub_compute
+                                            if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                                            and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+                            final_splits.append((f'{field}_{comp}', comp_compute,
+                                                [(field, comp, var_name)], [field]))
+                        final_splits = merge_small_splits(final_splits, split_threshold)
+                    else:
+                        final_splits.append((suffix, sub_compute, sub_outputs, sub_bufs))
+
+                total_parts = len(final_splits)
+                for idx, (suffix, sub_compute, sub_outputs, sub_bufs) in enumerate(final_splits):
+                    fn_suffix = f'_part{idx}_{suffix}'
+                    fn_code = generate_function(func_name, level, spin, sub_compute,
+                                                sub_outputs, all_params, is_vxc_only,
+                                                fn_suffix=fn_suffix,
+                                                out_bufs_override=sub_bufs)
+                    sub_name = f'{level}_{spin}_part{idx}_{suffix}'
+                    sub_lines = estimate_function_lines(sub_compute, sub_outputs)
+                    file_lines = [
+                        f'//! {func_name.upper()} {level} {spin} kernel — split part {idx}/{total_parts} ({suffix}).',
+                        f'//!',
+                        f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.',
+                        f'//! Split sub-kernel: outputs [{", ".join(sub_bufs)}] ({sub_lines} lines).',
+                        f'//! Each sub-kernel recomputes its dependency chain from inputs.',
+                        f'',
+                        FILE_HEADER,
+                        f'',
+                        imports_str,
+                        f'',
+                        fn_code,
+                        f'',
+                    ]
+
+                    path = os.path.join(func_dir, f'{sub_name}.rs')
+                    with open(path, 'w') as f:
+                        f.write('\n'.join(file_lines))
+                    written.append(path)
+                    mod_entries.append(f'pub mod {sub_name};')
 
     # Write mod.rs with incremental stats
     mod_lines = [f'//! {func_name.upper()} kernel -- incremental derivative structure.', '']
@@ -956,7 +1260,7 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental]")
+        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N]")
         print("       translate_gga.py --batch --write-to <dir>")
         sys.exit(1)
 
@@ -964,6 +1268,13 @@ def main():
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
     incremental = '--incremental' in sys.argv
+
+    # Parse --split-threshold
+    if '--split-threshold' in sys.argv:
+        idx_st = sys.argv.index('--split-threshold')
+        threshold = int(sys.argv[idx_st + 1])
+        global SPLIT_THRESHOLD
+        SPLIT_THRESHOLD = threshold
 
     idx = sys.argv.index('--write-to')
     out_dir = sys.argv[idx + 1]

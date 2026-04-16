@@ -1,17 +1,4 @@
-//! MGGA_C_RMGGAC kernel -- incremental derivative structure.
-
-//! unpol: preamble=104 lines
-//!   exc: shared=0, delta=104, outputs=1
-//!   vxc: shared=104, delta=156, outputs=5
-//!   fxc: shared=260, delta=589, outputs=15
-//!   kxc: shared=849, delta=2001, outputs=35
-//!   lxc: shared=2850, delta=1805, outputs=70
-//! pol: preamble=161 lines
-//!   exc: shared=0, delta=161, outputs=1
-//!   vxc: shared=161, delta=340, outputs=10
-//!   fxc: shared=501, delta=1988, outputs=55
-//!   kxc: shared=2489, delta=13097, outputs=220
-//!   lxc: shared=15586, delta=41642, outputs=715
+//! MGGA_C_RMGGAC kernel — split into per-function files.
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
@@ -21,5 +8,104 @@ pub mod lxc_unpol;
 pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
-pub mod kxc_pol;
-pub mod lxc_pol;
+pub mod kxc_pol_part0;
+pub mod kxc_pol_part1;
+pub mod kxc_pol_part2;
+pub mod kxc_pol_part3;
+pub mod kxc_pol_part4;
+pub mod kxc_pol_part5;
+pub mod kxc_pol_part6;
+pub mod lxc_pol_part0;
+pub mod lxc_pol_part1;
+pub mod lxc_pol_part2;
+pub mod lxc_pol_part3;
+pub mod lxc_pol_part4;
+pub mod lxc_pol_part5;
+pub mod lxc_pol_part6;
+pub mod lxc_pol_part7;
+pub mod lxc_pol_part8;
+pub mod lxc_pol_part9;
+pub mod lxc_pol_part10;
+pub mod lxc_pol_part11;
+pub mod lxc_pol_part12;
+pub mod lxc_pol_part13;
+pub mod lxc_pol_part14;
+pub mod lxc_pol_part15;
+pub mod lxc_pol_part16;
+pub mod lxc_pol_part17;
+pub mod lxc_pol_part18;
+pub mod lxc_pol_part19;
+pub mod lxc_pol_part20;
+pub mod lxc_pol_part21;
+pub mod lxc_pol_part22;
+pub mod lxc_pol_part23;
+pub mod lxc_pol_part24;
+pub mod lxc_pol_part25;
+pub mod lxc_pol_part26;
+pub mod lxc_pol_part27;
+pub mod lxc_pol_part28;
+pub mod lxc_pol_part29;
+pub mod lxc_pol_part30;
+pub mod lxc_pol_part31;
+pub mod lxc_pol_part32;
+pub mod lxc_pol_part33;
+pub mod lxc_pol_part34;
+pub mod lxc_pol_part35;
+pub mod lxc_pol_part36;
+pub mod lxc_pol_part37;
+pub mod lxc_pol_part38;
+pub mod lxc_pol_part39;
+pub mod lxc_pol_part40;
+pub mod lxc_pol_part41;
+pub mod lxc_pol_part42;
+pub mod lxc_pol_part43;
+pub mod lxc_pol_part44;
+pub mod lxc_pol_part45;
+pub mod lxc_pol_part46;
+pub mod lxc_pol_part47;
+pub mod lxc_pol_part48;
+pub mod lxc_pol_part49;
+pub mod lxc_pol_part50;
+pub mod lxc_pol_part51;
+pub mod lxc_pol_part52;
+pub mod lxc_pol_part53;
+pub mod lxc_pol_part54;
+pub mod lxc_pol_part55;
+pub mod lxc_pol_part56;
+pub mod lxc_pol_part57;
+pub mod lxc_pol_part58;
+pub mod lxc_pol_part59;
+pub mod lxc_pol_part60;
+pub mod lxc_pol_part61;
+pub mod lxc_pol_part62;
+pub mod lxc_pol_part63;
+pub mod lxc_pol_part64;
+pub mod lxc_pol_part65;
+pub mod lxc_pol_part66;
+pub mod lxc_pol_part67;
+pub mod lxc_pol_part68;
+pub mod lxc_pol_part69;
+pub mod lxc_pol_part70;
+pub mod lxc_pol_part71;
+pub mod lxc_pol_part72;
+pub mod lxc_pol_part73;
+pub mod lxc_pol_part74;
+pub mod lxc_pol_part75;
+pub mod lxc_pol_part76;
+pub mod lxc_pol_part77;
+pub mod lxc_pol_part78;
+pub mod lxc_pol_part79;
+pub mod lxc_pol_part80;
+pub mod lxc_pol_part81;
+pub mod lxc_pol_part82;
+pub mod lxc_pol_part83;
+pub mod lxc_pol_part84;
+pub mod lxc_pol_part85;
+pub mod lxc_pol_part86;
+pub mod lxc_pol_part87;
+pub mod lxc_pol_part88;
+pub mod lxc_pol_part89;
+pub mod lxc_pol_part90;
+pub mod lxc_pol_part91;
+pub mod lxc_pol_part92;
+pub mod lxc_pol_part93;

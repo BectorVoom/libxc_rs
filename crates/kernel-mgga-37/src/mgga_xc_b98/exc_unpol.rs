@@ -1,8 +1,7 @@
-//! MGGA_XC_B98 exc unpol kernel (incremental).
+//! MGGA_XC_B98 exc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 102 shared lines across all orders.
-//! Delta: 102 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_b98.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -24,7 +23,6 @@ pub fn mgga_xc_b98_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (102 lines) ---
         let t2 = M_CBRT3;
         let t3 = M_CBRTPI;
         let t5 = t2 / t3;

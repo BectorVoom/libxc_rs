@@ -1,8 +1,7 @@
-//! MGGA_C_TPSS exc unpol kernel (incremental).
+//! MGGA_C_TPSS exc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 284 shared lines across all orders.
-//! Delta: 284 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_tpss.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,7 +29,6 @@ pub fn mgga_c_tpss_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (284 lines) ---
         let t3 = piecewise3(0 < 0, 0.0, 0.0);
         let t4 = -t3 <= -0.999999999999e0;
         let t5 = param_C0_c_0;

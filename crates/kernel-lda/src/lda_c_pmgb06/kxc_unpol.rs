@@ -1,8 +1,4 @@
-//! LDA_C_PMGB06 kxc unpol kernel (incremental).
-//!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 116 shared lines across all orders.
-//! Delta: 134 lines unique to kxc.
+//! LDA_C_PMGB06 kxc unpol kernel.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -11,7 +7,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PMGB06 kxc -- unpolarized (incremental).
+/// LDA_C_PMGB06 kxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pmgb06_kxc_unpol(
@@ -26,7 +22,6 @@ pub fn lda_c_pmgb06_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (116 lines) ---
         let t1 = 1.0 <= zeta_threshold;
         let t2 = pow_1_3(zeta_threshold);
         let t3 = t2 * t2;
@@ -144,7 +139,6 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t247 = 1.0 / t246;
         let tzk0 = t240 * t247;
         zk[ip] += tzk0;
-        // --- vxc delta (78 lines) ---
         let t248 = t10 * t12;
         let t249 = 1.0 / t23;
         let t251 = param_hyb_omega_0 * t249 * t25;
@@ -224,7 +218,6 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t478 = t80 * t17 * t38;
         let tvrho0 = tzk0 + rho[ip] * t470 * t247 + 0.41076328840066667 * t82 * t240 * t475 * t478;
         vrho[ip] += tvrho0;
-        // --- fxc delta (111 lines) ---
         let t484 = t240 * t475 * t78;
         let t485 = t79 * t17;
         let t487 = t485 * t106 * t38;
@@ -337,7 +330,6 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t844 = t88 * t18 * t215;
         let tv2rho20 = 2.0 * t470 * t247 + 0.13692109613355555 * t484 * t487 + rho[ip] * t832 * t247 + 0.8215265768013333 * t82 * t470 * t475 * t478 + 0.6327242966164848 * t288 * t240 * t841 * t844;
         v2rho2[ip] += tv2rho20;
-        // --- kxc delta (this level) (134 lines) ---
         let t850 = t470 * t475 * t78;
         let t854 = t240 * t841 * t13;
         let t855 = t87 * t18;

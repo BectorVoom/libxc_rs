@@ -1,8 +1,7 @@
-//! HYB_MGGA_XC_WB97MV vxc unpol kernel (incremental).
+//! HYB_MGGA_XC_WB97MV vxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 192 shared lines across all orders.
-//! Delta: 228 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_xc_wb97mv.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,7 +43,6 @@ pub fn hyb_mgga_xc_wb97mv_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (192 lines) ---
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
         let t6 = M_CBRT3;
@@ -238,7 +236,6 @@ pub fn hyb_mgga_xc_wb97mv_vxc_unpol(
         let t326 = t279 * t325;
         let tzk0 = t124 + t240 + t326;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (228 lines) ---
         let t327 = t19 * t142;
         let t331 = t38 * t37;
         let t332 = 1.0 / t331;

@@ -1,25 +1,25 @@
-//! MGGA_X_MBR kernel -- incremental derivative structure.
-
-//! unpol: preamble=68 lines
-//!   exc: shared=0, delta=68, outputs=1
-//!   vxc: shared=68, delta=85, outputs=5
-//!   fxc: shared=153, delta=326, outputs=15
-//!   kxc: shared=479, delta=1462, outputs=35
-//!   lxc: shared=1941, delta=3091, outputs=70
-//! pol: preamble=113 lines
-//!   exc: shared=0, delta=113, outputs=1
-//!   vxc: shared=113, delta=177, outputs=10
-//!   fxc: shared=290, delta=759, outputs=55
-//!   kxc: shared=1049, delta=3561, outputs=220
-//!   lxc: shared=4610, delta=9675, outputs=715
+//! MGGA_X_MBR kernel — split into per-function files.
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
 pub mod fxc_unpol;
 pub mod kxc_unpol;
-pub mod lxc_unpol;
+pub mod lxc_unpol_part0;
+pub mod lxc_unpol_part1;
 pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
 pub mod kxc_pol;
-pub mod lxc_pol;
+pub mod lxc_pol_part0;
+pub mod lxc_pol_part1;
+pub mod lxc_pol_part2;
+pub mod lxc_pol_part3;
+pub mod lxc_pol_part4;
+pub mod lxc_pol_part5;
+pub mod lxc_pol_part6;
+pub mod lxc_pol_part7;
+pub mod lxc_pol_part8;
+pub mod lxc_pol_part9;
+pub mod lxc_pol_part10;
+pub mod lxc_pol_part11;
+pub mod lxc_pol_part12;

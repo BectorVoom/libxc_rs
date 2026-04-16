@@ -1,8 +1,7 @@
-//! MGGA_X_2D_PRHG07 exc pol kernel (incremental).
+//! MGGA_X_2D_PRHG07 exc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 58 shared lines across all orders.
-//! Delta: 58 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,7 +32,6 @@ pub fn mgga_x_2d_prhg07_exc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (58 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;

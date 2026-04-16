@@ -525,14 +525,114 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
     return used
 
 
+SPLIT_THRESHOLD = 5000
+
+
+def build_dependency_graph(compute_lines):
+    """Build a dependency graph from C compute lines."""
+    var_order = []
+    var_deps = {}
+    for cline in compute_lines:
+        stripped = cline.rstrip(';').strip()
+        m = re.match(r'(\w+)\s*=\s*(.*)', stripped)
+        if not m:
+            continue
+        var = m.group(1)
+        expr = m.group(2)
+        refs = set(re.findall(r'\b(t\w+)\b', expr))
+        refs.discard(var)
+        refs -= {'true', 'tanh', 'tan', 'trunc'}
+        var_order.append(var)
+        var_deps[var] = refs
+    return var_order, var_deps
+
+
+def transitive_deps(variables, var_deps):
+    """Compute transitive closure of dependencies."""
+    result = set()
+    stack = list(variables)
+    while stack:
+        v = stack.pop()
+        if v in result:
+            continue
+        result.add(v)
+        for dep in var_deps.get(v, set()):
+            if dep not in result:
+                stack.append(dep)
+    return result
+
+
+def split_by_output_array(compute_lines, output_writes, is_pol):
+    """Split a kernel's computation into per-output-array sub-kernels."""
+    var_order, var_deps = build_dependency_graph(compute_lines)
+    groups = {}
+    for field, comp, var_name in output_writes:
+        groups.setdefault(field, []).append((field, comp, var_name))
+    all_out_arrays = LEVEL_OUTPUTS.get('lxc', [])
+    group_order = [f for f in all_out_arrays if f in groups]
+    for f in groups:
+        if f not in group_order:
+            group_order.append(f)
+    result = []
+    for field in group_order:
+        sub_outputs = groups[field]
+        output_vars = set()
+        for _, _, var_name in sub_outputs:
+            output_vars.add(var_name)
+            if var_name in var_deps:
+                output_vars |= var_deps[var_name]
+        needed = transitive_deps(output_vars, var_deps)
+        sub_compute = [cl for cl in compute_lines
+                       if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                       and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+        result.append((field, sub_compute, sub_outputs, [field]))
+    return result
+
+
+def merge_small_splits(splits, threshold):
+    """Merge consecutive small splits to reduce sub-kernel count."""
+    if not splits:
+        return splits
+    merged = [splits[0]]
+    for suffix, compute, outputs, bufs in splits[1:]:
+        prev_suffix, prev_compute, prev_outputs, prev_bufs = merged[-1]
+        if len(prev_compute) + len(compute) < threshold:
+            seen = set()
+            merged_compute = []
+            for cline in prev_compute + compute:
+                stripped = cline.rstrip(';').strip()
+                m = re.match(r'(\w+)\s*=', stripped)
+                key = m.group(1) if m else cline
+                if key not in seen:
+                    seen.add(key)
+                    merged_compute.append(cline)
+            merged[-1] = (f'{prev_suffix}_{suffix}', merged_compute,
+                         prev_outputs + outputs, prev_bufs + bufs)
+        else:
+            merged.append((suffix, compute, outputs, bufs))
+    return merged
+
+
+def estimate_function_lines(compute_lines, output_writes):
+    return len(compute_lines) + len(output_writes) + 30
+
+
 def generate_function(func_name: str, level: str, spin: str,
                       compute_lines: list, output_writes: list,
-                      all_params: list, is_vxc_only: bool) -> str:
+                      all_params: list, is_vxc_only: bool,
+                      fn_suffix: str = '', out_bufs_override: list = None) -> str:
     """Generate a single Rust #[cube(launch_unchecked)] function."""
     is_pol = (spin == 'pol')
-    fn_name = f'{func_name}_{level}_{spin}'
+    fn_name = f'{func_name}_{level}_{spin}{fn_suffix}'
 
-    if is_vxc_only:
+    if out_bufs_override is not None:
+        seen = set()
+        out_bufs = []
+        for b in out_bufs_override:
+            if b not in seen:
+                seen.add(b)
+                out_bufs.append(b)
+    elif is_vxc_only:
         out_bufs = [b for b in LEVEL_OUTPUTS[level] if b != 'zk']
     else:
         out_bufs = LEVEL_OUTPUTS[level]
@@ -623,34 +723,92 @@ def generate_function(func_name: str, level: str, spin: str,
 
 def translate_one_function(c_src: str, func_name: str, level: str, spin: str,
                            all_params: list, imports_str: str,
-                           is_vxc_only: bool) -> str | None:
-    """Translate a single (level, spin) function to a complete .rs file."""
+                           is_vxc_only: bool) -> list:
+    """Translate a single (level, spin) function to one or more .rs file contents.
+
+    Returns a list of (sub_name, rs_code) tuples. Normally one entry, but
+    oversized kernels are split into per-output-array sub-kernels.
+    """
     bodies = extract_function_bodies(c_src)
     key = (level, spin)
     if key not in bodies:
-        return None
+        return []
 
     max_order = detect_max_order(c_src)
     if LEVEL_ORD[level] > max_order:
-        return None
+        return []
 
     compute_lines, output_writes = parse_body(bodies[key], level, spin, is_vxc_only)
-    fn_code = generate_function(func_name, level, spin, compute_lines,
-                                output_writes, all_params, is_vxc_only)
-
+    est = estimate_function_lines(compute_lines, output_writes)
     src_dir = 'mgga_vxc' if is_vxc_only else 'mgga_exc'
-    return (
-        f'//! {func_name.upper()} {level} {spin} kernel.\n'
-        f'//!\n'
-        f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
-        f'//! Preserves exact maple2c variable names and FP operation order.\n'
-        f'\n'
-        f'{FILE_HEADER}\n'
-        f'\n'
-        f'{imports_str}\n'
-        f'\n'
-        f'{fn_code}\n'
-    )
+
+    if est <= SPLIT_THRESHOLD:
+        fn_code = generate_function(func_name, level, spin, compute_lines,
+                                    output_writes, all_params, is_vxc_only)
+        rs_code = (
+            f'//! {func_name.upper()} {level} {spin} kernel.\n'
+            f'//!\n'
+            f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
+            f'//! Preserves exact maple2c variable names and FP operation order.\n'
+            f'\n'
+            f'{FILE_HEADER}\n'
+            f'\n'
+            f'{imports_str}\n'
+            f'\n'
+            f'{fn_code}\n'
+        )
+        return [(f'{level}_{spin}', rs_code)]
+
+    # --- Oversized: split by output-array group ---
+    is_pol = (spin == 'pol')
+    splits = split_by_output_array(compute_lines, output_writes, is_pol)
+    splits = merge_small_splits(splits, SPLIT_THRESHOLD)
+
+    # Further split if individual chunks are still too large
+    final_splits = []
+    for suffix, sub_compute, sub_outputs, sub_bufs in splits:
+        sub_est = estimate_function_lines(sub_compute, sub_outputs)
+        if sub_est > SPLIT_THRESHOLD and len(sub_outputs) > 1:
+            for field, comp, var_name in sub_outputs:
+                var_order, var_deps = build_dependency_graph(sub_compute)
+                output_vars = {var_name}
+                if var_name in var_deps:
+                    output_vars |= var_deps[var_name]
+                needed = transitive_deps(output_vars, var_deps)
+                comp_compute = [cl for cl in sub_compute
+                                if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                                and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+                final_splits.append((f'{field}_{comp}', comp_compute,
+                                    [(field, comp, var_name)], [field]))
+            final_splits = merge_small_splits(final_splits, SPLIT_THRESHOLD)
+        else:
+            final_splits.append((suffix, sub_compute, sub_outputs, sub_bufs))
+
+    results = []
+    total_parts = len(final_splits)
+    for idx, (suffix, sub_compute, sub_outputs, sub_bufs) in enumerate(final_splits):
+        fn_suffix = f'_part{idx}'
+        fn_code = generate_function(func_name, level, spin, sub_compute,
+                                    sub_outputs, all_params, is_vxc_only,
+                                    fn_suffix=fn_suffix,
+                                    out_bufs_override=sub_bufs)
+        sub_name = f'{level}_{spin}_part{idx}'
+        sub_lines = estimate_function_lines(sub_compute, sub_outputs)
+        rs_code = (
+            f'//! {func_name.upper()} {level} {spin} kernel — split part {idx}/{total_parts} ({suffix}).\n'
+            f'//!\n'
+            f'//! Auto-translated from `libxc-master/src/maple2c/{src_dir}/{func_name}.c`.\n'
+            f'//! Split sub-kernel: outputs [{", ".join(sub_bufs)}] ({sub_lines} lines).\n'
+            f'\n'
+            f'{FILE_HEADER}\n'
+            f'\n'
+            f'{imports_str}\n'
+            f'\n'
+            f'{fn_code}\n'
+        )
+        results.append((sub_name, rs_code))
+
+    return results
 
 
 # Math functions that don't have Rust implementations yet
@@ -695,17 +853,14 @@ def translate_functional(c_file: str, func_name: str, out_dir: str,
 
     for spin in ('unpol', 'pol'):
         for level in levels:
-            rs_code = translate_one_function(c_src, func_name, level, spin,
-                                            all_params, imports_str, is_vxc_only)
-            if rs_code is None:
-                continue
-
-            sub_name = f'{level}_{spin}'
-            path = os.path.join(func_dir, f'{sub_name}.rs')
-            with open(path, 'w') as f:
-                f.write(rs_code)
-            written.append(path)
-            mod_entries.append(f'pub mod {sub_name};')
+            file_list = translate_one_function(c_src, func_name, level, spin,
+                                              all_params, imports_str, is_vxc_only)
+            for sub_name, rs_code in file_list:
+                path = os.path.join(func_dir, f'{sub_name}.rs')
+                with open(path, 'w') as f:
+                    f.write(rs_code)
+                written.append(path)
+                mod_entries.append(f'pub mod {sub_name};')
 
     # Write mod.rs
     mod_rs = f'//! {func_name.upper()} kernel — split into per-function files.\n\n'

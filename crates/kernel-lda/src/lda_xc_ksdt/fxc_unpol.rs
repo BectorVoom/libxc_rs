@@ -1,8 +1,4 @@
-//! LDA_XC_KSDT fxc unpol kernel (incremental).
-//!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 185 shared lines across all orders.
-//! Delta: 406 lines unique to fxc.
+//! LDA_XC_KSDT fxc unpol kernel.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -11,7 +7,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_XC_KSDT fxc -- unpolarized (incremental).
+/// LDA_XC_KSDT fxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_xc_ksdt_fxc_unpol(
@@ -61,7 +57,6 @@ pub fn lda_xc_ksdt_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (185 lines) ---
         let t1 = 1.0 / M_PI;
         let t2 = M_CBRT4;
         let t3 = t2 * t2;
@@ -248,7 +243,6 @@ pub fn lda_xc_ksdt_fxc_unpol(
         let t365 = t328 * t364;
         let tzk0 = -t213 / 3.0 - t365 / 3.0;
         zk[ip] += tzk0;
-        // --- vxc delta (223 lines) ---
         let t369 = t25 * t1;
         let t371 = 1.0 / t369 * t13;
         let t372 = t4 * t371;
@@ -473,7 +467,6 @@ pub fn lda_xc_ksdt_fxc_unpol(
         let t792 = t788 * t791;
         let tvrho0 = -t213 / 3.0 - t365 / 3.0 + rho[ip] * (-t497 / 3.0 - t501 / 9.0 + t556 / 3.0 - t605 / 3.0 - t724 / 3.0 - t728 / 9.0 + t782 / 3.0 - 2.0 / 3.0 * t785 + t792 / 3.0);
         vrho[ip] += tvrho0;
-        // --- fxc delta (this level) (406 lines) ---
         let t805 = t2 * t417;
         let t806 = t805 * t211;
         let t807 = t147 * t806;

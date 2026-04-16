@@ -1,8 +1,4 @@
-//! LDA_C_PMGB06 fxc pol kernel (incremental).
-//!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 191 shared lines across all orders.
-//! Delta: 937 lines unique to fxc.
+//! LDA_C_PMGB06 fxc pol kernel.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -11,7 +7,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PMGB06 fxc -- polarized (incremental).
+/// LDA_C_PMGB06 fxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pmgb06_fxc_pol(
@@ -27,7 +23,6 @@ pub fn lda_c_pmgb06_fxc_pol(
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        // --- shared preamble (191 lines) ---
         let t1 = rho0 - rho1;
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
@@ -220,7 +215,6 @@ pub fn lda_c_pmgb06_fxc_pol(
         let t328 = 1.0 / t327;
         let tzk0 = t321 * t328;
         zk[ip] += tzk0;
-        // --- vxc delta (310 lines) ---
         let t329 = t19 * t23;
         let t330 = 1.0 / t9;
         let t331 = t1 * t81;
@@ -533,7 +527,6 @@ pub fn lda_c_pmgb06_fxc_pol(
         let t927 = 3.0 * t329 * t770 + t346 * t791 + (t393 - 0.031505407223141116 * t795 * t118 - t417 - t423 + t427 - 0.005388405304614574 * t123 * t125 * t859 * t117) * t61 + (t558 - 0.0837628205355044 * t795 * t199 - 0.0837628205355044 * t84 * t868 + t572 - 0.011938374665504766 * t122 * t202 * t886 - t616 + 0.42708890021612717 * t107 * t110 * t902) * t295 + t709 - 0.01197423401025461 * t297 * t909 - t717 - t721 + (t725 - 0.031835665774679375 * t123 * t912 * t199 - 0.031835665774679375 * t123 * t305 * t868 - t734 + 0.05332506774217938 * t81 * t902) * t312 - t744 + 0.020267214298646783 * t123 * t315 * t902 * t317;
         let tvrho1 = t2 * t927 * t328 + t759 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
-        // --- fxc delta (this level) (937 lines) ---
         let t930 = t749 * t328;
         let t933 = t321 * t754 * t97;
         let t934 = t98 * t31;

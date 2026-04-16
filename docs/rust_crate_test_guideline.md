@@ -137,3 +137,47 @@ You are done only when the response or file change:
 - states the gate conditions,
 - documents exceptions and risks,
 - and avoids overstating assurance.
+
+
+When working on this Rust project, always save the full Cargo output to a log file under the `log/` directory before investigating any build issues.
+
+### Required procedure
+
+1. Ensure the `log/` directory exists.
+2. Run the relevant Cargo command and redirect **both stdout and stderr** to a log file under `log/`.
+3. Do **not** rely only on terminal output. Use the saved log file as the primary source for analysis.
+4. After the log file is created, investigate all **errors** first, then review **warnings**.
+5. In your report:
+   - identify the root cause of each error
+   - identify the source location when possible
+   - distinguish confirmed causes from hypotheses
+   - propose concrete fixes in priority order
+   - list warnings separately and state whether each warning is actionable or low priority
+
+### Command examples
+
+For build investigation:
+```bash
+mkdir -p log && cargo build > log/cargo.log 2>&1
+
+For test investigation:
+
+mkdir -p log && cargo test > log/cargo-test.log 2>&1
+Analysis requirements
+Read the log file completely before making conclusions.
+Quote the relevant error and warning lines exactly when useful.
+Do not guess if the log does not support the conclusion.
+If multiple errors appear, determine whether later errors are cascading effects of an earlier failure.
+Prioritize the earliest primary error that likely caused the rest.
+After analyzing errors, summarize warnings and recommend whether they should be fixed now or later.
+Output format
+
+Provide results in this order:
+
+Log file used
+Primary error summary
+Root cause analysis
+Recommended fix steps
+Warning review
+Remaining uncertainties
+=======

@@ -1,0 +1,130 @@
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: `libxc-kernel-math` (lib) generated 13 warnings
+    Checking libxc-kernel-gga-1 v0.1.0 (/workspace/crates/kernel-gga-1)
+    Checking libxc-kernel-gga-15 v0.1.0 (/workspace/crates/kernel-gga-15)
+    Checking libxc-kernel-gga-9 v0.1.0 (/workspace/crates/kernel-gga-9)
+    Checking libxc-kernel-gga-6 v0.1.0 (/workspace/crates/kernel-gga-6)
+    Checking libxc-kernel-gga-7 v0.1.0 (/workspace/crates/kernel-gga-7)
+    Checking libxc-kernel-gga-19 v0.1.0 (/workspace/crates/kernel-gga-19)
+    Checking libxc-kernel-gga-22 v0.1.0 (/workspace/crates/kernel-gga-22)
+    Checking libxc-kernel-gga-16 v0.1.0 (/workspace/crates/kernel-gga-16)
+    Checking libxc-kernel-gga-13 v0.1.0 (/workspace/crates/kernel-gga-13)
+    Checking libxc-kernel-gga-4 v0.1.0 (/workspace/crates/kernel-gga-4)
+    Checking libxc-kernel-gga-12 v0.1.0 (/workspace/crates/kernel-gga-12)
+    Checking libxc-kernel-gga-10 v0.1.0 (/workspace/crates/kernel-gga-10)
+    Checking libxc-kernel-gga-21 v0.1.0 (/workspace/crates/kernel-gga-21)
+    Checking libxc-kernel-gga-2 v0.1.0 (/workspace/crates/kernel-gga-2)
+    Checking libxc-kernel-gga-5 v0.1.0 (/workspace/crates/kernel-gga-5)
+    Checking libxc-kernel-gga-8 v0.1.0 (/workspace/crates/kernel-gga-8)
+    Checking libxc-kernel-gga-17 v0.1.0 (/workspace/crates/kernel-gga-17)
+    Checking libxc-kernel-gga-18 v0.1.0 (/workspace/crates/kernel-gga-18)
+    Checking libxc-kernel-gga-3 v0.1.0 (/workspace/crates/kernel-gga-3)
+    Checking libxc-kernel-gga-11 v0.1.0 (/workspace/crates/kernel-gga-11)
+    Checking libxc-kernel-gga-20 v0.1.0 (/workspace/crates/kernel-gga-20)
+    Checking libxc-kernel-gga-14 v0.1.0 (/workspace/crates/kernel-gga-14)
+    Checking libxc-kernel-gga v0.1.0 (/workspace/crates/kernel-gga)
+    Finished `dev` profile [unoptimized] target(s) in 8m 52s

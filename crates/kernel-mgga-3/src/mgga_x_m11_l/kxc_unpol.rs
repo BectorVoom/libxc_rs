@@ -1,8 +1,7 @@
-//! MGGA_X_M11_L kxc unpol kernel (incremental).
+//! MGGA_X_M11_L kxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 198 shared lines across all orders.
-//! Delta: 401 lines unique to kxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11_l.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -108,7 +107,6 @@ pub fn mgga_x_m11_l_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (198 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -308,7 +306,6 @@ pub fn mgga_x_m11_l_kxc_unpol(
         let t301 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t297);
         let tzk0 = 2.0 * t301;
         zk[ip] += tzk0;
-        // --- vxc delta (231 lines) ---
         let t303 = t18 / t94;
         let t307 = t38 * t37;
         let t308 = 1.0 / t307;
@@ -544,7 +541,6 @@ pub fn mgga_x_m11_l_kxc_unpol(
         let t978 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t974);
         let tvtau0 = 2.0 * rho[ip] * t978;
         vtau[ip] += tvtau0;
-        // --- fxc delta (357 lines) ---
         let t981 = t18 * t111;
         let t988 = t315 * t315;
         let t996 = 2.0 / 81.0 * t27 * t4 / t19 / t93 * t31;
@@ -912,7 +908,6 @@ pub fn mgga_x_m11_l_kxc_unpol(
         let t2739 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t2735);
         let tv2tau20 = 2.0 * rho[ip] * t2739;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (this level) (401 lines) ---
         let t2742 = t18 * t96;
         let t2752 = t988 * t315;
         let t2755 = t42 * t315;

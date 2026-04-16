@@ -340,6 +340,111 @@ LEVEL_OUTPUTS = {
     'lxc': ['zk', 'vrho', 'v2rho2', 'v3rho3', 'v4rho4'],
 }
 
+# Default threshold: if a generated kernel function exceeds this many lines,
+# split it into per-output-array sub-kernels.
+SPLIT_THRESHOLD = 5000
+
+
+# ---------------------------------------------------------------------------
+# Dependency tracing for function splitting
+# ---------------------------------------------------------------------------
+
+def build_dependency_graph(compute_lines):
+    """Build a dependency graph from C compute lines."""
+    var_order = []
+    var_deps = {}
+    for cline in compute_lines:
+        stripped = cline.rstrip(';').strip()
+        m = re.match(r'(\w+)\s*=\s*(.*)', stripped)
+        if not m:
+            continue
+        var = m.group(1)
+        expr = m.group(2)
+        refs = set(re.findall(r'\b(t\w+)\b', expr))
+        refs.discard(var)
+        refs -= {'true', 'tanh', 'tan', 'trunc'}
+        var_order.append(var)
+        var_deps[var] = refs
+    return var_order, var_deps
+
+
+def transitive_deps(variables, var_deps):
+    """Compute transitive closure of dependencies for a set of variables."""
+    result = set()
+    stack = list(variables)
+    while stack:
+        v = stack.pop()
+        if v in result:
+            continue
+        result.add(v)
+        for dep in var_deps.get(v, set()):
+            if dep not in result:
+                stack.append(dep)
+    return result
+
+
+def split_by_output_array(compute_lines, output_writes, is_pol):
+    """Split a kernel's computation into per-output-array sub-kernels."""
+    var_order, var_deps = build_dependency_graph(compute_lines)
+
+    groups = {}
+    for ow in output_writes:
+        groups.setdefault(ow.field, []).append(ow)
+
+    # Sort groups by LEVEL_OUTPUTS order
+    all_out_arrays = LEVEL_OUTPUTS.get('lxc', [])
+    group_order = [f for f in all_out_arrays if f in groups]
+    for f in groups:
+        if f not in group_order:
+            group_order.append(f)
+
+    result = []
+    for field in group_order:
+        sub_outputs = groups[field]
+        output_vars = set()
+        for ow in sub_outputs:
+            output_vars.add(ow.var)
+            if ow.var in var_deps:
+                output_vars |= var_deps[ow.var]
+        needed = transitive_deps(output_vars, var_deps)
+        sub_compute = [cl for cl in compute_lines
+                       if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                       and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+        result.append((field, sub_compute, sub_outputs, [field]))
+    return result
+
+
+def merge_small_splits(splits, threshold):
+    """Merge consecutive small splits to reduce the number of sub-kernels."""
+    if not splits:
+        return splits
+    merged = [splits[0]]
+    for suffix, compute, outputs, bufs in splits[1:]:
+        prev_suffix, prev_compute, prev_outputs, prev_bufs = merged[-1]
+        combined_size = len(prev_compute) + len(compute)
+        if combined_size < threshold:
+            seen = set()
+            merged_compute = []
+            for cline in prev_compute + compute:
+                stripped = cline.rstrip(';').strip()
+                m = re.match(r'(\w+)\s*=', stripped)
+                key = m.group(1) if m else cline
+                if key not in seen:
+                    seen.add(key)
+                    merged_compute.append(cline)
+            merged[-1] = (f'{prev_suffix}_{suffix}',
+                         merged_compute,
+                         prev_outputs + outputs,
+                         prev_bufs + bufs)
+        else:
+            merged.append((suffix, compute, outputs, bufs))
+    return merged
+
+
+def estimate_function_lines(compute_lines, output_writes):
+    """Estimate the generated Rust function line count."""
+    return len(compute_lines) + len(output_writes) + 25
+
 
 def find_used_params(compute_lines: list, all_params: list) -> list:
     """Find which parameters are actually referenced in the compute lines."""
@@ -364,13 +469,21 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
 
 def generate_function(func_name: str, level: str, spin: str,
                       compute_lines: list, outputs: list,
-                      all_params: list, is_vxc_only: bool) -> str:
+                      all_params: list, is_vxc_only: bool,
+                      fn_suffix: str = '', out_bufs_override: list = None) -> str:
     """Generate a single Rust #[cube(launch_unchecked)] function."""
     is_pol = (spin == 'pol')
-    fn_name = f'{func_name}_{level}_{spin}'
+    fn_name = f'{func_name}_{level}_{spin}{fn_suffix}'
     spin_label = 'polarized' if is_pol else 'unpolarized'
 
-    if is_vxc_only:
+    if out_bufs_override is not None:
+        seen = set()
+        out_bufs = []
+        for b in out_bufs_override:
+            if b not in seen:
+                seen.add(b)
+                out_bufs.append(b)
+    elif is_vxc_only:
         out_bufs = [b for b in LEVEL_OUTPUTS.get(level, []) if b != 'zk']
     else:
         out_bufs = LEVEL_OUTPUTS.get(level, [])
@@ -608,6 +721,8 @@ def translate_file_split(c_file_path: str, func_name: str, write_dir: str,
     mod_entries = []
     written = []
 
+    header = '#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]'
+
     for spin in ['unpol', 'pol']:
         for level in levels:
             if max_order < LEVEL_ORDER[level]:
@@ -617,24 +732,66 @@ def translate_file_split(c_file_path: str, func_name: str, write_dir: str,
                 continue
 
             compute, outputs = parse_function_body(functions[key])
-            fn_code = generate_function(func_name, level, spin, compute, outputs, all_params, is_vxc_only)
+            est = estimate_function_lines(compute, outputs)
 
-            sub_name = f'{level}_{spin}'
-            lines = []
-            lines.append(f'//! {func_name.upper()} {level} {spin} kernel.')
-            lines.append(f'')
-            lines.append(f'#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]')
-            lines.append(f'')
-            lines.extend(import_lines)
-            lines.append(f'')
-            lines.append(fn_code)
-            lines.append(f'')
+            if est <= SPLIT_THRESHOLD:
+                # Small enough — single kernel
+                fn_code = generate_function(func_name, level, spin, compute, outputs, all_params, is_vxc_only)
+                sub_name = f'{level}_{spin}'
+                file_lines = [f'//! {func_name.upper()} {level} {spin} kernel.', '', header, '']
+                file_lines.extend(import_lines)
+                file_lines.extend(['', fn_code, ''])
+                path = os.path.join(subdir, f'{sub_name}.rs')
+                with open(path, 'w') as f:
+                    f.write('\n'.join(file_lines))
+                written.append(path)
+                mod_entries.append(f'pub mod {sub_name};')
+            else:
+                # Oversized — split by output-array group
+                is_pol = (spin == 'pol')
+                splits = split_by_output_array(compute, outputs, is_pol)
+                splits = merge_small_splits(splits, SPLIT_THRESHOLD)
 
-            path = os.path.join(subdir, f'{sub_name}.rs')
-            with open(path, 'w') as f:
-                f.write('\n'.join(lines))
-            written.append(path)
-            mod_entries.append(f'pub mod {sub_name};')
+                # Further split individual components if still too large
+                final_splits = []
+                for suffix, sub_compute, sub_outputs, sub_bufs in splits:
+                    sub_est = estimate_function_lines(sub_compute, sub_outputs)
+                    if sub_est > SPLIT_THRESHOLD and len(sub_outputs) > 1:
+                        for ow in sub_outputs:
+                            var_order, var_deps = build_dependency_graph(sub_compute)
+                            output_vars = {ow.var}
+                            if ow.var in var_deps:
+                                output_vars |= var_deps[ow.var]
+                            needed = transitive_deps(output_vars, var_deps)
+                            comp_compute = [cl for cl in sub_compute
+                                            if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                                            and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+                            final_splits.append((f'{ow.field}_{ow.component}', comp_compute, [ow], [ow.field]))
+                        final_splits = merge_small_splits(final_splits, SPLIT_THRESHOLD)
+                    else:
+                        final_splits.append((suffix, sub_compute, sub_outputs, sub_bufs))
+
+                total_parts = len(final_splits)
+                for idx, (suffix, sub_compute, sub_outputs, sub_bufs) in enumerate(final_splits):
+                    fn_suffix = f'_part{idx}_{suffix}'
+                    fn_code = generate_function(func_name, level, spin, sub_compute,
+                                                sub_outputs, all_params, is_vxc_only,
+                                                fn_suffix=fn_suffix,
+                                                out_bufs_override=sub_bufs)
+                    sub_name = f'{level}_{spin}_part{idx}_{suffix}'
+                    sub_lines = estimate_function_lines(sub_compute, sub_outputs)
+                    file_lines = [
+                        f'//! {func_name.upper()} {level} {spin} kernel — split part {idx}/{total_parts} ({suffix}).',
+                        f'//! Split sub-kernel: outputs [{", ".join(sub_bufs)}] ({sub_lines} lines).',
+                        '', header, '',
+                    ]
+                    file_lines.extend(import_lines)
+                    file_lines.extend(['', fn_code, ''])
+                    path = os.path.join(subdir, f'{sub_name}.rs')
+                    with open(path, 'w') as f:
+                        f.write('\n'.join(file_lines))
+                    written.append(path)
+                    mod_entries.append(f'pub mod {sub_name};')
 
     # Write mod.rs for the subdirectory
     mod_lines = [f'//! {func_name.upper()} kernel — split into per-function files.']

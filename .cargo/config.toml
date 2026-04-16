@@ -8,4 +8,9 @@
 # expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
 [build]
 rustc-wrapper = "sccache"
-jobs = 8
+jobs = 6
+
+[env]
+# CubeCL proc macro uses deep recursion for large kernel functions.
+# Default 8MB stack causes SIGSEGV; 64MB prevents stack overflow.
+RUST_MIN_STACK = "67108864"

@@ -1,8 +1,7 @@
-//! MGGA_C_REVSCAN lxc unpol kernel (incremental).
+//! MGGA_C_REVSCAN lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 142 shared lines across all orders.
-//! Delta: 723 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revscan.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -93,7 +92,6 @@ pub fn mgga_c_revscan_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (142 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -237,7 +235,6 @@ pub fn mgga_c_revscan_lxc_unpol(
         let t227 = t182 * t226;
         let tzk0 = -t33 + t58 + t138 + t227;
         zk[ip] += tzk0;
-        // --- vxc delta (163 lines) ---
         let t229 = 1.0 / t8 / rho[ip];
         let t230 = t7 * t229;
         let t232 = t5 * t230 * t31;
@@ -405,7 +402,6 @@ pub fn mgga_c_revscan_lxc_unpol(
         let t508 = rho[ip] * t507;
         let tvtau0 = t508 * t226;
         vtau[ip] += tvtau0;
-        // --- fxc delta (407 lines) ---
         let t516 = t7 * t88;
         let t518 = t5 * t516 * t31;
         let t519 = 0.14764627977777777777e-2 * t518;
@@ -823,7 +819,6 @@ pub fn mgga_c_revscan_lxc_unpol(
         let t1251 = rho[ip] * t1250;
         let tv2tau20 = t1251 * t226;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (790 lines) ---
         let t1253 = t527 * t254 * t553;
         let t1254 = 6.0 * t1253;
         let t1255 = t553 * t561;
@@ -1634,7 +1629,6 @@ pub fn mgga_c_revscan_lxc_unpol(
         let t2978 = rho[ip] * t2977;
         let tv3tau30 = t2978 * t226;
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (723 lines) ---
         let t2981 = 0.14246666666666666666e0 * t520 * t1487 * t554;
         let t2985 = 0.22911460125803964958e1 * t520 * t88 * t558 * t562;
         let t2988 = 0.21053605041484726346e2 * t262 * t593 * t1483;

@@ -1,0 +1,277 @@
+//! LDA_C_RC04 kxc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 35 shared lines across all orders.
+//! Delta: 112 lines unique to kxc.
+
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::powers::{pow_1_3};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+/// LDA_C_RC04 kxc -- polarized (incremental).
+#[allow(unused_variables, non_snake_case)]
+#[cube(launch_unchecked)]
+pub fn lda_c_rc04_kxc_pol(
+    rho: &Array<f64>,
+    zk: &mut Array<f64>,
+    vrho: &mut Array<f64>,
+    v2rho2: &mut Array<f64>,
+    v3rho3: &mut Array<f64>,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    let ip = ABSOLUTE_POS;
+    if ip < zk.len() {
+        let rho0 = rho[ip * 2];
+        let rho1 = rho[ip * 2 + 1];
+        // --- shared preamble (35 lines) ---
+        let t1 = rho0 - rho1;
+        let t2 = rho0 + rho1;
+        let t3 = 1.0 / t2;
+        let t4 = t1 * t3;
+        let t5 = 1.0 + t4;
+        let t6 = t5 <= zeta_threshold;
+        let t7 = pow_1_3(zeta_threshold);
+        let t8 = t7 * t7;
+        let t9 = pow_1_3(t5);
+        let t10 = t9 * t9;
+        let t11 = piecewise3(t6, t8, t10);
+        let t12 = 1.0 - t4;
+        let t13 = t12 <= zeta_threshold;
+        let t14 = pow_1_3(t12);
+        let t15 = t14 * t14;
+        let t16 = piecewise3(t13, t8, t15);
+        let t18 = t11 / 2.0 + t16 / 2.0;
+        let t19 = t18 * t18;
+        let t20 = t19 * t18;
+        let t21 = M_CBRT3;
+        let t23 = pow_1_3(1.0 / M_PI);
+        let t24 = t21 * t23;
+        let t25 = M_CBRT4;
+        let t26 = t25 * t25;
+        let t27 = pow_1_3(t2);
+        let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
+        let t33 = f64::atan(t32);
+        let t35 = -0.655868 * t33 + 0.897889;
+        let t37 = t21 * t21;
+        let t38 = t20 * t35 * t37;
+        let t39 = 1.0 / t23;
+        let t40 = t39 * t25;
+        let t41 = t40 * t27;
+        let t42 = t38 * t41;
+        let tzk0 = t42 / 3.0;
+        zk[ip] += tzk0;
+        // --- vxc delta (26 lines) ---
+        let t43 = 4.0 / 9.0 * t42;
+        let t44 = t27 * t2;
+        let t46 = t44 * t19 * t35;
+        let t47 = t37 * t39;
+        let t48 = 1.0 / t9;
+        let t49 = t2 * t2;
+        let t50 = 1.0 / t49;
+        let t51 = t1 * t50;
+        let t52 = t3 - t51;
+        let t55 = piecewise3(t6, 0.0, 2.0 / 3.0 * t48 * t52);
+        let t56 = 1.0 / t14;
+        let t57 = -t52;
+        let t60 = piecewise3(t13, 0.0, 2.0 / 3.0 * t56 * t57);
+        let t62 = t55 / 2.0 + t60 / 2.0;
+        let t66 = t32 * t32;
+        let t67 = t66 + 1.0;
+        let t68 = 1.0 / t67;
+        let t70 = 0.6945723010386666 * t20 * t68;
+        let tvrho0 = t46 * t47 * t25 * t62 + t43 + t70;
+        vrho[ip * 2] += tvrho0;
+        let t71 = -t3 - t51;
+        let t74 = piecewise3(t6, 0.0, 2.0 / 3.0 * t48 * t71);
+        let t75 = -t71;
+        let t78 = piecewise3(t13, 0.0, 2.0 / 3.0 * t56 * t75);
+        let t80 = t74 / 2.0 + t78 / 2.0;
+        let t82 = t47 * t25 * t80;
+        let tvrho1 = t46 * t82 + t43 + t70;
+        vrho[ip * 2 + 1] += tvrho1;
+        // --- fxc delta (59 lines) ---
+        let t85 = t19 * t35 * t37;
+        let t86 = t27 * t62;
+        let t88 = t85 * t40 * t86;
+        let t92 = 0.9260964013848889 * t20 * t3 * t68;
+        let t93 = t27 * t27;
+        let t94 = 1.0 / t93;
+        let t97 = 4.0 / 27.0 * t38 * t40 * t94;
+        let t98 = t44 * t18;
+        let t99 = t98 * t35;
+        let t100 = t62 * t62;
+        let t105 = t19 * t68;
+        let t106 = t105 * t62;
+        let t109 = 1.0 / t9 / t5;
+        let t110 = t52 * t52;
+        let t113 = t49 * t2;
+        let t114 = 1.0 / t113;
+        let t115 = t1 * t114;
+        let t117 = -2.0 * t50 + 2.0 * t115;
+        let t121 = piecewise3(t6, 0.0, -2.0 / 9.0 * t109 * t110 + 2.0 / 3.0 * t48 * t117);
+        let t123 = 1.0 / t14 / t12;
+        let t124 = t57 * t57;
+        let t127 = -t117;
+        let t131 = piecewise3(t13, 0.0, -2.0 / 9.0 * t123 * t124 + 2.0 / 3.0 * t56 * t127);
+        let t133 = t121 / 2.0 + t131 / 2.0;
+        let t135 = t47 * t25 * t133;
+        let t137 = t67 * t67;
+        let t138 = 1.0 / t137;
+        let t139 = t20 * t138;
+        let t141 = 1.0 / t44;
+        let t143 = t24 * t26 * t141;
+        let t145 = 0.3677803165958304 * t139 * t32 * t143;
+        let tv2rho20 = 8.0 / 3.0 * t88 + t92 + t97 + 2.0 * t99 * t47 * t25 * t100 + 4.167433806232 * t106 + t46 * t135 + t145;
+        v2rho2[ip * 3] += tv2rho20;
+        let t148 = t27 * t19 * t35;
+        let t149 = t148 * t82;
+        let t151 = t35 * t37;
+        let t152 = t98 * t151;
+        let t153 = t80 * t62;
+        let t154 = t40 * t153;
+        let t157 = t105 * t80;
+        let t159 = t109 * t71;
+        let t162 = t48 * t1;
+        let t166 = piecewise3(t6, 0.0, -2.0 / 9.0 * t159 * t52 + 4.0 / 3.0 * t162 * t114);
+        let t167 = t123 * t75;
+        let t170 = t56 * t1;
+        let t174 = piecewise3(t13, 0.0, -2.0 / 9.0 * t167 * t57 - 4.0 / 3.0 * t170 * t114);
+        let t176 = t166 / 2.0 + t174 / 2.0;
+        let t178 = t47 * t25 * t176;
+        let tv2rho21 = 4.0 / 3.0 * t88 + t92 + t97 + 4.0 / 3.0 * t149 + 2.0 * t152 * t154 + 2.083716903116 * t157 + t46 * t178 + 2.083716903116 * t106 + t145;
+        v2rho2[ip * 3 + 1] += tv2rho21;
+        let t182 = t80 * t80;
+        let t184 = t47 * t25 * t182;
+        let t188 = t71 * t71;
+        let t192 = 2.0 * t50 + 2.0 * t115;
+        let t196 = piecewise3(t6, 0.0, -2.0 / 9.0 * t109 * t188 + 2.0 / 3.0 * t48 * t192);
+        let t197 = t75 * t75;
+        let t200 = -t192;
+        let t204 = piecewise3(t13, 0.0, -2.0 / 9.0 * t123 * t197 + 2.0 / 3.0 * t56 * t200);
+        let t206 = t196 / 2.0 + t204 / 2.0;
+        let t208 = t47 * t25 * t206;
+        let tv2rho22 = 8.0 / 3.0 * t149 + t92 + t97 + 2.0 * t99 * t184 + 4.167433806232 * t157 + t46 * t208 + t145;
+        v2rho2[ip * 3 + 2] += tv2rho22;
+        // --- kxc delta (this level) (112 lines) ---
+        let t210 = t19 * t3;
+        let t211 = t68 * t62;
+        let t212 = t210 * t211;
+        let t216 = 0.6173976009232592 * t20 * t50 * t68;
+        let t217 = t18 * t35;
+        let t218 = t217 * t37;
+        let t219 = t27 * t100;
+        let t221 = t218 * t40 * t219;
+        let t225 = t85 * t40 * t94 * t62;
+        let t227 = t62 * t133;
+        let t231 = t19 * t138;
+        let t234 = t231 * t62 * t32 * t143;
+        let t236 = t18 * t68;
+        let t237 = t236 * t100;
+        let t239 = t105 * t133;
+        let t241 = t139 * t37;
+        let t242 = t23 * t23;
+        let t243 = t242 * t25;
+        let t245 = 1.0 / t93 / t49;
+        let t248 = 0.38948389123222243 * t241 * t243 * t245;
+        let t251 = t85 * t40 * t27 * t133;
+        let t254 = 1.0 / t27 / t49;
+        let t257 = t32 * t21;
+        let t258 = t23 * t26;
+        let t259 = t257 * t258;
+        let t261 = 1e-20 * t20 * t254 * t138 * t259;
+        let t263 = 1.0 / t93 / t2;
+        let t266 = 8.0 / 81.0 * t38 * t40 * t263;
+        let t267 = t100 * t62;
+        let t270 = t47 * t25;
+        let t273 = t5 * t5;
+        let t275 = 1.0 / t9 / t273;
+        let t276 = t110 * t52;
+        let t279 = t109 * t52;
+        let t282 = t49 * t49;
+        let t283 = 1.0 / t282;
+        let t284 = t1 * t283;
+        let t286 = 6.0 * t114 - 6.0 * t284;
+        let t290 = piecewise3(t6, 0.0, 8.0 / 27.0 * t275 * t276 - 2.0 / 3.0 * t279 * t117 + 2.0 / 3.0 * t48 * t286);
+        let t291 = t12 * t12;
+        let t293 = 1.0 / t14 / t291;
+        let t294 = t124 * t57;
+        let t297 = t123 * t57;
+        let t300 = -t286;
+        let t304 = piecewise3(t13, 0.0, 8.0 / 27.0 * t293 * t294 - 2.0 / 3.0 * t297 * t127 + 2.0 / 3.0 * t56 * t300);
+        let t306 = t290 / 2.0 + t304 / 2.0;
+        let t311 = 1.0 / t137 / t67;
+        let t312 = t20 * t311;
+        let t316 = t37 * t242 * t25 * t245;
+        let t318 = 1.5579355649288897 * t312 * t66 * t316;
+        let tv3rho30 = 8.334867612464 * t212 - t216 + 8.0 * t221 + 4.0 / 3.0 * t225 + 6.0 * t152 * t40 * t227 + 3.3100228493624737 * t234 + 12.502301418696 * t237 + 6.251150709348 * t239 - t248 + 4.0 * t251 - t261 - t266 + 2.0 * t44 * t267 * t35 * t270 + t46 * t47 * t25 * t306 + t318;
+        v3rho3[ip * 4] += tv3rho30;
+        let t320 = t68 * t80;
+        let t321 = t210 * t320;
+        let t324 = 8.334867612464 * t236 * t153;
+        let t329 = t94 * t19 * t35;
+        let t330 = t329 * t82;
+        let t332 = t27 * t18;
+        let t333 = t332 * t151;
+        let t335 = 16.0 / 3.0 * t333 * t154;
+        let t337 = t44 * t100 * t35;
+        let t340 = t176 * t62;
+        let t341 = t40 * t340;
+        let t344 = 5.556578408309333 * t212 - t216 + 2.7782892041546665 * t321 + t324 + 8.0 / 3.0 * t221 + 8.0 / 9.0 * t225 + 2.2066818995749826 * t234 + 4.0 / 9.0 * t330 + t335 + 2.0 * t337 * t82 + 4.0 * t152 * t341;
+        let t345 = t80 * t133;
+        let t346 = t40 * t345;
+        let t351 = t231 * t80 * t32 * t143;
+        let t356 = 4.167433806232 * t105 * t176;
+        let t359 = 8.0 / 3.0 * t148 * t178;
+        let t360 = t275 * t71;
+        let t363 = t109 * t1;
+        let t374 = piecewise3(t6, 0.0, 8.0 / 27.0 * t360 * t110 - 8.0 / 9.0 * t363 * t114 * t52 - 2.0 / 9.0 * t159 * t117 + 4.0 / 3.0 * t48 * t114 - 4.0 * t162 * t283);
+        let t375 = t293 * t75;
+        let t378 = t123 * t1;
+        let t389 = piecewise3(t13, 0.0, 8.0 / 27.0 * t375 * t124 + 8.0 / 9.0 * t378 * t114 * t57 - 2.0 / 9.0 * t167 * t127 - 4.0 / 3.0 * t56 * t114 + 4.0 * t170 * t283);
+        let t391 = t374 / 2.0 + t389 / 2.0;
+        let t393 = t47 * t25 * t391;
+        let t395 = 2.0 * t152 * t346 + 1.1033409497874913 * t351 + 4.167433806232 * t237 + 2.083716903116 * t239 + t356 - t248 + 4.0 / 3.0 * t251 - t261 - t266 + t318 + t359 + t46 * t393;
+        let tv3rho31 = t344 + t395;
+        v3rho3[ip * 4 + 1] += tv3rho31;
+        let t403 = t332 * t35 * t184;
+        let t405 = t80 * t176;
+        let t406 = t40 * t405;
+        let t409 = 2.7782892041546665 * t212 - t216 + 5.556578408309333 * t321 + t324 + 4.0 / 9.0 * t225 + 1.1033409497874913 * t234 + 8.0 / 9.0 * t330 + t335 + 2.2066818995749826 * t351 + 8.0 / 3.0 * t403 + 4.0 * t152 * t406;
+        let t410 = t148 * t208;
+        let t412 = t206 * t62;
+        let t413 = t40 * t412;
+        let t416 = t236 * t182;
+        let t418 = t105 * t206;
+        let t420 = t44 * t62;
+        let t424 = t275 * t188;
+        let t429 = t109 * t192;
+        let t434 = -2.0 * t114 - 6.0 * t284;
+        let t438 = piecewise3(t6, 0.0, 8.0 / 27.0 * t424 * t52 - 8.0 / 9.0 * t159 * t115 - 2.0 / 9.0 * t429 * t52 + 2.0 / 3.0 * t48 * t434);
+        let t439 = t293 * t197;
+        let t444 = t123 * t200;
+        let t447 = -t434;
+        let t451 = piecewise3(t13, 0.0, 8.0 / 27.0 * t439 * t57 + 8.0 / 9.0 * t167 * t115 - 2.0 / 9.0 * t444 * t57 + 2.0 / 3.0 * t56 * t447);
+        let t453 = t438 / 2.0 + t451 / 2.0;
+        let t455 = t47 * t25 * t453;
+        let t457 = 4.0 / 3.0 * t410 + 2.0 * t152 * t413 + t356 + 4.167433806232 * t416 + 2.083716903116 * t418 - t248 - t261 - t266 + t318 + t359 + 2.0 * t420 * t35 * t184 + t46 * t455;
+        let tv3rho32 = t409 + t457;
+        v3rho3[ip * 4 + 2] += tv3rho32;
+        let t463 = t80 * t206;
+        let t464 = t40 * t463;
+        let t469 = t182 * t80;
+        let t474 = t188 * t71;
+        let t480 = -6.0 * t114 - 6.0 * t284;
+        let t484 = piecewise3(t6, 0.0, 8.0 / 27.0 * t275 * t474 - 2.0 / 3.0 * t159 * t192 + 2.0 / 3.0 * t48 * t480);
+        let t485 = t197 * t75;
+        let t490 = -t480;
+        let t494 = piecewise3(t13, 0.0, 8.0 / 27.0 * t293 * t485 - 2.0 / 3.0 * t167 * t200 + 2.0 / 3.0 * t56 * t490);
+        let t496 = t484 / 2.0 + t494 / 2.0;
+        let t498 = t47 * t25 * t496;
+        let tv3rho33 = -t216 + 8.334867612464 * t321 + 4.0 / 3.0 * t330 + 3.3100228493624737 * t351 + 8.0 * t403 + 4.0 * t410 + 6.0 * t152 * t464 + 12.502301418696 * t416 + 6.251150709348 * t418 - t248 - t261 - t266 + t318 + 2.0 * t44 * t469 * t35 * t270 + t46 * t498;
+        v3rho3[ip * 4 + 3] += tv3rho33;
+    }
+}

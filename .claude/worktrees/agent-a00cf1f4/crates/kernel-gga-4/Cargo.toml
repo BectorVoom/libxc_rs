@@ -1,0 +1,13 @@
+[package]
+name = "libxc-kernel-gga-4"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+order-kxc = []
+order-lxc = ["order-kxc"]
+all-orders = ["order-lxc"]
+
+[dependencies]
+cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
+libxc-kernel-math = { path = "../kernel-math" }

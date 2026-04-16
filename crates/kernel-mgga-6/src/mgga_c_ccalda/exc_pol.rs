@@ -1,8 +1,7 @@
-//! MGGA_C_CCALDA exc pol kernel (incremental).
+//! MGGA_C_CCALDA exc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 107 shared lines across all orders.
-//! Delta: 107 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ccalda.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -34,7 +33,6 @@ pub fn mgga_c_ccalda_exc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (107 lines) ---
         let t2 = 1.0 + param_c;
         let t3 = pow_1_3(rho0);
         let t4 = t3 * t3;

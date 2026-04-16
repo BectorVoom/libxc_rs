@@ -1,8 +1,7 @@
-//! MGGA_K_CSK_LOC lxc unpol kernel (incremental).
+//! MGGA_K_CSK_LOC lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 57 shared lines across all orders.
-//! Delta: 1016 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_csk_loc.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -96,7 +95,6 @@ pub fn mgga_k_csk_loc_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (57 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = t4 * t4;
@@ -155,7 +153,6 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         let t76 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t72);
         let tzk0 = 2.0 * t76;
         zk[ip] += tzk0;
-        // --- vxc delta (37 lines) ---
         let t78 = t21 / t22;
         let t82 = t34 * rho[ip];
         let t84 = 1.0 / t23 / t82;
@@ -197,7 +194,6 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
-        // --- fxc delta (112 lines) ---
         let t159 = t21 / t22 / rho[ip];
         let t166 = t34 * t34;
         let t168 = 1.0 / t23 / t166;
@@ -320,7 +316,6 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (484 lines) ---
         let t400 = t21 / t22 / t34;
         let t412 = 1.0 / t23 / t166 / rho[ip];
         let t413 = t33 * t412;
@@ -825,7 +820,6 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         v3lapltau2[ip] += tv3lapltau20;
         let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (1016 lines) ---
         let t1466 = t33 / t23 / t166 / t34;
         let t1468 = 13090.0 / 729.0 * t30 * t1466;
         let t1474 = 2618.0 / 243.0 * t41 * t1466 + 770.0 / 243.0 * t45 * t46 * t412 - t1468;

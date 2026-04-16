@@ -1,8 +1,7 @@
-//! MGGA_C_TPSSLOC fxc unpol kernel (incremental).
+//! MGGA_C_TPSSLOC fxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 315 shared lines across all orders.
-//! Delta: 891 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_tpssloc.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,7 +37,6 @@ pub fn mgga_c_tpssloc_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (315 lines) ---
         let t3 = piecewise3(0 < 0, 0.0, 0.0);
         let t4 = -t3 <= -0.999999999999e0;
         let t5 = 1.0 <= zeta_threshold;
@@ -355,7 +353,6 @@ pub fn mgga_c_tpssloc_fxc_unpol(
         let t511 = 1.0 + 0.45e1 * t507 * t508;
         let tzk0 = t507 * t511;
         zk[ip] += tzk0;
-        // --- vxc delta (423 lines) ---
         let t514 = 1.0 / t54 / t52 * t10;
         let t515 = t14 * rho[ip];
         let t517 = 1.0 / t16 / t515;
@@ -783,7 +780,6 @@ pub fn mgga_c_tpssloc_fxc_unpol(
         let t1278 = 0.45e1 * t1271 * t508 + 0.135e2 * t1060 * t1265;
         let tvtau0 = t1057 * t1278 + t1272 * t511;
         vtau[ip] += tvtau0;
-        // --- fxc delta (this level) (891 lines) ---
         let t1286 = t10 * t10;
         let t1287 = 1.0 / t54 / t53 * t1286;
         let t1288 = t524 * t524;

@@ -1,8 +1,7 @@
-//! MGGA_C_KCISK fxc unpol kernel (incremental).
+//! MGGA_C_KCISK fxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 250 shared lines across all orders.
-//! Delta: 612 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_kcisk.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,7 +37,6 @@ pub fn mgga_c_kcisk_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (250 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -290,7 +288,6 @@ pub fn mgga_c_kcisk_fxc_unpol(
         let t448 = t276 * t446 / 8.0;
         let tzk0 = t216 + t275 - t448;
         zk[ip] += tzk0;
-        // --- vxc delta (328 lines) ---
         let t451 = 0.11073577833333333333e-2 * t5 * t154 * t31;
         let t452 = t27 * t27;
         let t453 = 1.0 / t452;
@@ -623,7 +620,6 @@ pub fn mgga_c_kcisk_fxc_unpol(
         let t1125 = sigma[ip] * t1124;
         let tvtau0 = t1125 * t1083 / 8.0;
         vtau[ip] += tvtau0;
-        // --- fxc delta (this level) (612 lines) ---
         let t1134 = 0.14764770444444444444e-2 * t5 * t169 * t31;
         let t1135 = t5 * t7;
         let t1136 = t139 * t453;

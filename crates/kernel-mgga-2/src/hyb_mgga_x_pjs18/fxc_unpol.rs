@@ -1,8 +1,7 @@
-//! HYB_MGGA_X_PJS18 fxc unpol kernel (incremental).
+//! HYB_MGGA_X_PJS18 fxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 185 shared lines across all orders.
-//! Delta: 476 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_pjs18.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,7 +39,6 @@ pub fn hyb_mgga_x_pjs18_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (185 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -227,7 +225,6 @@ pub fn hyb_mgga_x_pjs18_fxc_unpol(
         let t339 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t335);
         let tzk0 = 2.0 * t339;
         zk[ip] += tzk0;
-        // --- vxc delta (242 lines) ---
         let t341 = t18 / t40;
         let t345 = t73 * t72;
         let t346 = 1.0 / t345;
@@ -474,7 +471,6 @@ pub fn hyb_mgga_x_pjs18_fxc_unpol(
         let t953 = piecewise3(t3, 0.0, 0.16102154094629041974e-1 * t947 * t950);
         let tvtau0 = 2.0 * rho[ip] * t953;
         vtau[ip] += tvtau0;
-        // --- fxc delta (this level) (476 lines) ---
         let t956 = t18 * t219;
         let t964 = 1.0 / t40 / t52;
         let t965 = t38 * t964;

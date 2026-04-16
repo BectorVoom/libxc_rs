@@ -1,8 +1,7 @@
-//! MGGA_C_TPSSLOC vxc unpol kernel (incremental).
+//! MGGA_C_TPSSLOC vxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 315 shared lines across all orders.
-//! Delta: 423 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_tpssloc.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -28,7 +27,6 @@ pub fn mgga_c_tpssloc_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (315 lines) ---
         let t3 = piecewise3(0 < 0, 0.0, 0.0);
         let t4 = -t3 <= -0.999999999999e0;
         let t5 = 1.0 <= zeta_threshold;
@@ -345,7 +343,6 @@ pub fn mgga_c_tpssloc_vxc_unpol(
         let t511 = 1.0 + 0.45e1 * t507 * t508;
         let tzk0 = t507 * t511;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (423 lines) ---
         let t514 = 1.0 / t54 / t52 * t10;
         let t515 = t14 * rho[ip];
         let t517 = 1.0 / t16 / t515;

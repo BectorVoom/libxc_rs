@@ -1,8 +1,7 @@
-//! MGGA_X_MBRXH_BG fxc pol kernel (incremental).
+//! MGGA_X_MBRXH_BG fxc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 89 shared lines across all orders.
-//! Delta: 740 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxh_bg.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -47,7 +46,6 @@ pub fn mgga_x_mbrxh_bg_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (89 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;
@@ -138,7 +136,6 @@ pub fn mgga_x_mbrxh_bg_fxc_pol(
         let t125 = piecewise3(t76, 0.0, -t86 * t122 / 4.0);
         let tzk0 = t75 + t125;
         zk[ip] += tzk0;
-        // --- vxc delta (160 lines) ---
         let t126 = t3 * t3;
         let t127 = 1.0 / t126;
         let t128 = t13 * t127;
@@ -308,7 +305,6 @@ pub fn mgga_x_mbrxh_bg_fxc_pol(
         let t408 = piecewise3(t76, 0.0, -t389 * t279 / 12.0 - t86 * t400 / 4.0 + t299 * t404 / 4.0);
         let tvtau1 = t3 * t408;
         vtau[ip * 2 + 1] += tvtau1;
-        // --- fxc delta (this level) (740 lines) ---
         let t411 = t64 * t193;
         let t412 = t28 * t411;
         let t418 = 1.0 / t31 / t49;

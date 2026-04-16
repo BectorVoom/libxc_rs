@@ -1,8 +1,4 @@
-//! LDA_C_PW_ERF exc unpol kernel (incremental).
-//!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 106 shared lines across all orders.
-//! Delta: 106 lines unique to exc.
+//! LDA_C_PW_ERF exc unpol kernel.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -11,7 +7,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PW_ERF exc -- unpolarized (incremental).
+/// LDA_C_PW_ERF exc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_erf_exc_unpol(
@@ -23,7 +19,6 @@ pub fn lda_c_pw_erf_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (106 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);

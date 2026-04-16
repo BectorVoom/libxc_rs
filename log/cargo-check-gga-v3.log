@@ -1,0 +1,336 @@
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: `libxc-kernel-math` (lib) generated 13 warnings
+    Checking libxc-kernel-gga-2 v0.1.0 (/workspace/crates/kernel-gga-2)
+    Checking libxc-kernel-gga-9 v0.1.0 (/workspace/crates/kernel-gga-9)
+    Checking libxc-kernel-gga-14 v0.1.0 (/workspace/crates/kernel-gga-14)
+    Checking libxc-kernel-gga-21 v0.1.0 (/workspace/crates/kernel-gga-21)
+    Checking libxc-kernel-gga-1 v0.1.0 (/workspace/crates/kernel-gga-1)
+    Checking libxc-kernel-gga-20 v0.1.0 (/workspace/crates/kernel-gga-20)
+    Checking libxc-kernel-gga-16 v0.1.0 (/workspace/crates/kernel-gga-16)
+    Checking libxc-kernel-gga-17 v0.1.0 (/workspace/crates/kernel-gga-17)
+    Checking libxc-kernel-gga-12 v0.1.0 (/workspace/crates/kernel-gga-12)
+    Checking libxc-kernel-gga-7 v0.1.0 (/workspace/crates/kernel-gga-7)
+    Checking libxc-kernel-gga-10 v0.1.0 (/workspace/crates/kernel-gga-10)
+warning: ignoring -C extra-filename flag due to -o flag
+
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x3c16eec) [0x770ddc416eec]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0x45cb0) [0x770dd8624cb0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x173141) [0x770db7773141]
+
+### cycle encountered after 3 frames with period 4
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+### recursed 17 times
+
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17b3e6) [0x770db777b3e6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174ffd) [0x770db7774ffd]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174ffd) [0x770db7774ffd]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x770db7774e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2033fb) [0x770db78033fb]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25364c) [0x770db785364c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a6d5) [0x770db785a6d5]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9689) [0x770db77d9689]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f9de6) [0x770db77f9de6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1915d4) [0x770db77915d4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f640c) [0x770db77f640c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c1768) [0x770db77c1768]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d0766) [0x770db77d0766]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1baf45) [0x770db77baf45]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x145b2d) [0x770db7745b2d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1486b7) [0x770db77486b7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259870) [0x770db7859870]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1ce229) [0x770db77ce229]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259675) [0x770db7859675]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f8a3d) [0x770db77f8a3d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17e6d2) [0x770db777e6d2]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1da1f6) [0x770db77da1f6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x21e465) [0x770db781e465]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9a07) [0x770db77d9a07]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x173aa6) [0x770db7773aa6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a783) [0x770db785a783]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9689) [0x770db77d9689]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f9de6) [0x770db77f9de6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1915d4) [0x770db77915d4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f640c) [0x770db77f640c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c1768) [0x770db77c1768]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d0766) [0x770db77d0766]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1baf45) [0x770db77baf45]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x145b2d) [0x770db7745b2d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1486b7) [0x770db77486b7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259870) [0x770db7859870]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1ce229) [0x770db77ce229]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259675) [0x770db7859675]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f8a3d) [0x770db77f8a3d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17e6d2) [0x770db777e6d2]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19d236) [0x770db779d236]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x21dc65) [0x770db781dc65]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19cceb) [0x770db779cceb]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19bb6f) [0x770db779bb6f]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25d67f) [0x770db785d67f]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a2aa) [0x770db785a2aa]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2604e4) [0x770db78604e4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e45c6) [0x770db77e45c6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e4332) [0x770db77e4332]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2592e6) [0x770db78592e6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e2df0) [0x770db77e2df0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c5ca0) [0x770db77c5ca0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1b44ec) [0x770db77b44ec]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f192b) [0x770db77f192b]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e17d7) [0x770db77e17d7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e457e) [0x770db77e457e]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f6cc2) [0x770db77f6cc2]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x604367e) [0x770dde84367e]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvXs0_NtCsiviWpKasGV0_12rustc_expand10proc_macroNtB5_13AttrProcMacroNtNtB7_4base13AttrProcMacro6expand+0x1f0) [0x770dde842cb0]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6042979) [0x770dde842979]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvMs1_NtCsiviWpKasGV0_12rustc_expand6expandNtB5_13MacroExpander21fully_expand_fragment+0x95b1) [0x770ddf00abb3]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvMs1_NtCsiviWpKasGV0_12rustc_expand6expandNtB5_13MacroExpander12expand_crate+0x384) [0x770ddf0011d2]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x59c4df4) [0x770dde1c4df4]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvNtCsgbGAOEN9ykS_15rustc_interface6passes25resolver_for_lowering_raw+0x27f) [0x770ddec12195]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411f0d) [0x770ddec11f0d]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411ee7) [0x770ddec11ee7]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RINvNtNtCsgHa9A6Md9v_18rustc_query_system5query8plumbing17try_execute_queryINtCsefoSHKFzx0E_16rustc_query_impl13DynamicConfigINtNtB4_6caches11SingleCacheINtNtNtCsk30s2LStKIs_12rustc_middle5query5erase6ErasedAhj10_EEKb0_KB3s_KB3s_ENtNtB1e_8plumbing9QueryCtxtKB3s_EB1e_+0x21c) [0x770ddec115dc]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411146) [0x770ddec11146]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x659f3f8) [0x770dded9f3f8]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x63e1e74) [0x770ddebe1e74]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6344e4e) [0x770ddeb44e4e]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6344c20) [0x770ddeb44c20]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6346dc6) [0x770ddeb46dc6]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0xa40da) [0x770dd86830da]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0x1377ac) [0x770dd87167ac]
+
+note: rustc unexpectedly overflowed its stack! this is a bug
+note: we would appreciate a report at https://github.com/rust-lang/rust
+help: you can increase rustc's stack size by setting RUST_MIN_STACK=16777216
+note: backtrace dumped due to SIGSEGV! resuming signal
+sccache: Compiler killed by signal 11
+warning: `libxc-kernel-gga-14` (lib) generated 1 warning
+error: could not compile `libxc-kernel-gga-14` (lib); 1 warning emitted
+
+Caused by:
+  process didn't exit successfully: `sccache /home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_kernel_gga_14 --edition=2024 crates/kernel-gga-14/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata -C embed-bitcode=no -C codegen-units=16 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=16c3ba9c797a7a37 -C extra-filename=-baa69bd5e367beea --out-dir /workspace/target/debug/deps -C linker=clang -C strip=debuginfo -L dependency=/workspace/target/debug/deps --extern cubecl=/workspace/target/debug/deps/libcubecl-9f408060472e7ce0.rmeta --extern libxc_kernel_math=/workspace/target/debug/deps/liblibxc_kernel_math-5924e770261ad0da.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (exit status: 254)
+warning: build failed, waiting for other jobs to finish...
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x3c16eec) [0x71c129e16eec]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0x45cb0) [0x71c126024cb0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x321e87) [0x71c103b21e87]
+
+### cycle encountered after 3 frames with period 4
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x3339fc) [0x71c103b339fc]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x3de016) [0x71c103bde016]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x324733) [0x71c103b24733]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x321fcc) [0x71c103b21fcc]
+### recursed 18 times
+
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17b3e6) [0x71c10397b3e6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174ffd) [0x71c103974ffd]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174ffd) [0x71c103974ffd]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x174e86) [0x71c103974e86]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2033fb) [0x71c103a033fb]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25364c) [0x71c103a5364c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a6d5) [0x71c103a5a6d5]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9689) [0x71c1039d9689]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f9de6) [0x71c1039f9de6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1915d4) [0x71c1039915d4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f640c) [0x71c1039f640c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c1768) [0x71c1039c1768]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d0766) [0x71c1039d0766]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1baf45) [0x71c1039baf45]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x145b2d) [0x71c103945b2d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1486b7) [0x71c1039486b7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259870) [0x71c103a59870]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1ce229) [0x71c1039ce229]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259675) [0x71c103a59675]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f8a3d) [0x71c1039f8a3d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17e6d2) [0x71c10397e6d2]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1da1f6) [0x71c1039da1f6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x21e465) [0x71c103a1e465]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9a07) [0x71c1039d9a07]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x173aa6) [0x71c103973aa6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a783) [0x71c103a5a783]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d9689) [0x71c1039d9689]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f9de6) [0x71c1039f9de6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1915d4) [0x71c1039915d4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f640c) [0x71c1039f640c]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c1768) [0x71c1039c1768]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1d0766) [0x71c1039d0766]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1baf45) [0x71c1039baf45]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x145b2d) [0x71c103945b2d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1486b7) [0x71c1039486b7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259870) [0x71c103a59870]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1ce229) [0x71c1039ce229]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x259675) [0x71c103a59675]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f8a3d) [0x71c1039f8a3d]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x17e6d2) [0x71c10397e6d2]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19d236) [0x71c10399d236]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x21dc65) [0x71c103a1dc65]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19cceb) [0x71c10399cceb]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x19bb6f) [0x71c10399bb6f]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25d67f) [0x71c103a5d67f]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x25a2aa) [0x71c103a5a2aa]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2604e4) [0x71c103a604e4]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e45c6) [0x71c1039e45c6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e4332) [0x71c1039e4332]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x2592e6) [0x71c103a592e6]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e2df0) [0x71c1039e2df0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1c5ca0) [0x71c1039c5ca0]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1b44ec) [0x71c1039b44ec]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f192b) [0x71c1039f192b]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e17d7) [0x71c1039e17d7]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1e457e) [0x71c1039e457e]
+/workspace/target/debug/deps/libcubecl_macros-ee10198a14d4bf15.so(+0x1f6cc2) [0x71c1039f6cc2]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x604367e) [0x71c12c24367e]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvXs0_NtCsiviWpKasGV0_12rustc_expand10proc_macroNtB5_13AttrProcMacroNtNtB7_4base13AttrProcMacro6expand+0x1f0) [0x71c12c242cb0]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6042979) [0x71c12c242979]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvMs1_NtCsiviWpKasGV0_12rustc_expand6expandNtB5_13MacroExpander21fully_expand_fragment+0x95b1) [0x71c12ca0abb3]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvMs1_NtCsiviWpKasGV0_12rustc_expand6expandNtB5_13MacroExpander12expand_crate+0x384) [0x71c12ca011d2]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x59c4df4) [0x71c12bbc4df4]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RNvNtCsgbGAOEN9ykS_15rustc_interface6passes25resolver_for_lowering_raw+0x27f) [0x71c12c612195]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411f0d) [0x71c12c611f0d]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411ee7) [0x71c12c611ee7]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(_RINvNtNtCsgHa9A6Md9v_18rustc_query_system5query8plumbing17try_execute_queryINtCsefoSHKFzx0E_16rustc_query_impl13DynamicConfigINtNtB4_6caches11SingleCacheINtNtNtCsk30s2LStKIs_12rustc_middle5query5erase6ErasedAhj10_EEKb0_KB3s_KB3s_ENtNtB1e_8plumbing9QueryCtxtKB3s_EB1e_+0x21c) [0x71c12c6115dc]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6411146) [0x71c12c611146]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x659f3f8) [0x71c12c79f3f8]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x63e1e74) [0x71c12c5e1e74]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6344e4e) [0x71c12c544e4e]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6344c20) [0x71c12c544c20]
+/home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-83018425804cb0fc.so(+0x6346dc6) [0x71c12c546dc6]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0xa40da) [0x71c1260830da]
+/usr/lib/x86_64-linux-gnu/libc.so.6(+0x1377ac) [0x71c1261167ac]
+
+note: rustc unexpectedly overflowed its stack! this is a bug
+note: we would appreciate a report at https://github.com/rust-lang/rust
+help: you can increase rustc's stack size by setting RUST_MIN_STACK=16777216
+note: backtrace dumped due to SIGSEGV! resuming signal
+sccache: Compiler killed by signal 11
+warning: `libxc-kernel-gga-16` (lib) generated 1 warning (1 duplicate)
+error: could not compile `libxc-kernel-gga-16` (lib); 1 warning emitted
+
+Caused by:
+  process didn't exit successfully: `sccache /home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_kernel_gga_16 --edition=2024 crates/kernel-gga-16/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata -C embed-bitcode=no -C codegen-units=16 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=d370dd0a15488505 -C extra-filename=-265a391eeff57547 --out-dir /workspace/target/debug/deps -C linker=clang -C strip=debuginfo -L dependency=/workspace/target/debug/deps --extern cubecl=/workspace/target/debug/deps/libcubecl-9f408060472e7ce0.rmeta --extern libxc_kernel_math=/workspace/target/debug/deps/liblibxc_kernel_math-5924e770261ad0da.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (exit status: 254)

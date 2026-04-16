@@ -1,8 +1,7 @@
-//! MGGA_C_M06L vxc unpol kernel (incremental).
+//! MGGA_C_M06L vxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 202 shared lines across all orders.
-//! Delta: 240 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m06l.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -55,7 +54,6 @@ pub fn mgga_c_m06l_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (202 lines) ---
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
         let t6 = piecewise3(t4, zeta_threshold, 1.0);
@@ -259,7 +257,6 @@ pub fn mgga_c_m06l_vxc_unpol(
         let t337 = t210 * t336;
         let tzk0 = t171 + t250 + t299 + t337;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (240 lines) ---
         let t339 = 1.0 / t14 / rho[ip];
         let t340 = t339 * t16;
         let t341 = t20 * t46;

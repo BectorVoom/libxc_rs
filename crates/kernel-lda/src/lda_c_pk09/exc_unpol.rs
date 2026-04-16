@@ -1,8 +1,4 @@
-//! LDA_C_PK09 exc unpol kernel (incremental).
-//!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 199 shared lines across all orders.
-//! Delta: 199 lines unique to exc.
+//! LDA_C_PK09 exc unpol kernel.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -11,7 +7,7 @@ use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PK09 exc -- unpolarized (incremental).
+/// LDA_C_PK09 exc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pk09_exc_unpol(
@@ -22,7 +18,6 @@ pub fn lda_c_pk09_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (199 lines) ---
         let t1 = M_CBRT4;
         let t2 = t1 * t1;
         let t3 = M_CBRT3;

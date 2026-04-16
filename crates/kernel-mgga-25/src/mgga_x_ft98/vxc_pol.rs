@@ -1,8 +1,7 @@
-//! MGGA_X_FT98 vxc pol kernel (incremental).
+//! MGGA_X_FT98 vxc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 176 shared lines across all orders.
-//! Delta: 254 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_ft98.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,7 +42,6 @@ pub fn mgga_x_ft98_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (176 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -221,7 +219,6 @@ pub fn mgga_x_ft98_vxc_pol(
         let t257 = piecewise3(t147, 0.0, -3.0 / 8.0 * t6 * t156 * t253);
         let tzk0 = t146 + t257;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (254 lines) ---
         let t258 = t7 * t7;
         let t259 = 1.0 / t258;
         let t260 = t17 * t259;

@@ -6,7 +6,8 @@
 
 pub mod mgga_c_cc;
 pub mod mgga_k_lk;
-pub mod mgga_x_2d_prp10;
+// mgga_x_2d_prp10 deferred: requires xc_bessel_I0/I1 (Bessel functions)
+// pub mod mgga_x_2d_prp10;
 pub mod mgga_x_jk;
 pub mod mgga_x_mvs;
 pub mod mgga_x_tb09;

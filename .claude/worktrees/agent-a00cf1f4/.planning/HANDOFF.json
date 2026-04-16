@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-04-09T23:42:43.105Z",
+  "phase": "04",
+  "phase_name": "bulk-kernel-translation",
+  "phase_dir": ".planning/phases/04-bulk-kernel-translation",
+  "plan": 2,
+  "task": 1,
+  "total_tasks": 11,
+  "status": "paused",
+  "completed_tasks": [
+    {"id": "04-01-01", "name": "Add missing power functions and GGA/MGGA module scaffolding", "status": "done", "commit": "a7cb366"},
+    {"id": "04-01-02", "name": "Extend oracle harness for GGA/MGGA and create batch test files", "status": "done", "commit": "109d8aa"}
+  ],
+  "remaining_tasks": [
+    {"id": "04-02-01", "name": "Translate all 42 LDA kernels to Rust #[cube] functions", "status": "not_started"},
+    {"id": "04-02-02", "name": "Wire LDA kernels into dispatch and verify against oracle", "status": "not_started"},
+    {"id": "04-03-01", "name": "Translate all 131 GGA kernels to Rust #[cube] functions", "status": "not_started"},
+    {"id": "04-03-02", "name": "Wire GGA kernels into dispatch and verify against oracle", "status": "not_started"},
+    {"id": "04-04-01", "name": "mgga_c_rmggac risk gate (100K lines)", "status": "not_started"},
+    {"id": "04-04-02", "name": "Translate remaining 91 MGGA kernels", "status": "not_started"},
+    {"id": "04-04-03", "name": "Wire MGGA kernels into dispatch and verify", "status": "not_started"},
+    {"id": "04-05-01", "name": "Full cross-family oracle verification sweep", "status": "not_started"},
+    {"id": "04-05-02", "name": "Phase 4 sign-off report", "status": "not_started"}
+  ],
+  "blockers": [],
+  "human_actions_pending": [],
+  "decisions": [
+    {"decision": "Fully manual translation of all 262 kernel files", "rationale": "Maximum fidelity and control over FP operation order", "phase": "04"},
+    {"decision": "One file per functional with individual launch wrappers", "rationale": "Clear 1:1 correspondence with maple2c source", "phase": "04"},
+    {"decision": "LDA -> GGA -> MGGA translation order", "rationale": "Simplest-first, natural dependency chain", "phase": "04"},
+    {"decision": "Test largest MGGA kernel first as risk gate", "rationale": "Surface CubeCL compilation limits early", "phase": "04"}
+  ],
+  "uncommitted_files": [".planning/ROADMAP.md"],
+  "next_action": "Execute plan 04-02: Translate all 42 LDA kernels. Run /gsd-execute-phase 4 which will detect 04-01 SUMMARY exists and resume from plan 04-02.",
+  "context_notes": "Phase 4 auto-advance pipeline ran discuss->plan->execute. Plan 04-01 (infrastructure) is complete and merged. ROADMAP.md has uncommitted progress update for 04-01. Plans 04-02 through 04-05 remain. Each plan is a separate wave (sequential). Plans 04-04 and 04-05 are non-autonomous (checkpoints)."
+}

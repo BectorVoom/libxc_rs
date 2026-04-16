@@ -1,8 +1,7 @@
-//! MGGA_C_VSXC lxc unpol kernel (incremental).
+//! MGGA_C_VSXC lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 131 shared lines across all orders.
-//! Delta: 362 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_vsxc.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -107,7 +106,6 @@ pub fn mgga_c_vsxc_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (131 lines) ---
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
         let t6 = piecewise3(t4, zeta_threshold, 1.0);
@@ -240,7 +238,6 @@ pub fn mgga_c_vsxc_lxc_unpol(
         let t235 = t197 * t234;
         let tzk0 = t158 + t235;
         zk[ip] += tzk0;
-        // --- vxc delta (156 lines) ---
         let t237 = 1.0 / t14 / rho[ip];
         let t238 = t237 * t16;
         let t239 = t20 * t46;
@@ -401,7 +398,6 @@ pub fn mgga_c_vsxc_lxc_unpol(
         let t554 = t197 * t553;
         let tvtau0 = rho[ip] * (t530 + t535 + t554);
         vtau[ip] += tvtau0;
-        // --- fxc delta (321 lines) ---
         let t562 = 1.0 / t14 / t96;
         let t563 = t562 * t16;
         let t566 = 0.14764627977777777777e-2 * t13 * t563 * t239;
@@ -733,7 +729,6 @@ pub fn mgga_c_vsxc_lxc_unpol(
         let t1256 = t197 * t1255;
         let tv2tau20 = rho[ip] * (t1231 + t1233 - t1238 + t1256);
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (581 lines) ---
         let t1268 = t677 * t298;
         let t1272 = t657 * t298;
         let t1276 = t659 * t298;
@@ -1335,7 +1330,6 @@ pub fn mgga_c_vsxc_lxc_unpol(
         let t2680 = t197 * t2679;
         let tv3tau30 = rho[ip] * (t2654 + t2656 - t2658 + t2663 + t2680);
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (362 lines) ---
         let t2705 = t59 * t7 * t384;
         let t2716 = 36.0 * t611 * t576 * t605;
         let t2719 = 8.0 * t574 * t268 * t1383;

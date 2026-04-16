@@ -1,8 +1,7 @@
-//! MGGA_C_M08 vxc unpol kernel (incremental).
+//! MGGA_C_M08 vxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 156 shared lines across all orders.
-//! Delta: 182 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m08.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -52,7 +51,6 @@ pub fn mgga_c_m08_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (156 lines) ---
         let t3 = param_m08_a_1;
         let t4 = M_CBRT6;
         let t5 = t4 * t4;
@@ -210,7 +208,6 @@ pub fn mgga_c_m08_vxc_unpol(
         let t232 = t178 * t231;
         let tzk0 = t140 + t232;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (182 lines) ---
         let t233 = t3 * tau[ip];
         let t235 = 1.0 / t15 / t185;
         let t237 = t12 * t235 * t22;
