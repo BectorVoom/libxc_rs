@@ -14,3 +14,5 @@ pub mod lambert_w;
 pub mod expint_e1;
 pub mod special;
 pub mod integrate;
+pub mod br89;
+pub mod mbrxc;

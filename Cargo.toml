@@ -17,43 +17,114 @@ libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 approx = "0.5.1"
 libm = "0.2"
 libxc_rs-verify = { path = "verify" }
-libxc-kernel-mgga-1 = { path = "crates/kernel-mgga-1" }
-libxc-kernel-mgga-2 = { path = "crates/kernel-mgga-2" }
-libxc-kernel-mgga-3 = { path = "crates/kernel-mgga-3" }
-libxc-kernel-mgga-4 = { path = "crates/kernel-mgga-4" }
+libxc-kernel-mgga-1a = { path = "crates/kernel-mgga-1a" }
+libxc-kernel-mgga-1b = { path = "crates/kernel-mgga-1b" }
+libxc-kernel-mgga-1c = { path = "crates/kernel-mgga-1c" }
+libxc-kernel-mgga-1d = { path = "crates/kernel-mgga-1d" }
+libxc-kernel-mgga-2a = { path = "crates/kernel-mgga-2a" }
+libxc-kernel-mgga-2b = { path = "crates/kernel-mgga-2b" }
+libxc-kernel-mgga-3a = { path = "crates/kernel-mgga-3a" }
+libxc-kernel-mgga-3b = { path = "crates/kernel-mgga-3b" }
+libxc-kernel-mgga-4a = { path = "crates/kernel-mgga-4a" }
+libxc-kernel-mgga-4b = { path = "crates/kernel-mgga-4b" }
 libxc-kernel-mgga-5 = { path = "crates/kernel-mgga-5" }
 libxc-kernel-mgga-6 = { path = "crates/kernel-mgga-6" }
-libxc-kernel-mgga-7 = { path = "crates/kernel-mgga-7" }
-libxc-kernel-mgga-8 = { path = "crates/kernel-mgga-8" }
-libxc-kernel-mgga-9 = { path = "crates/kernel-mgga-9" }
-libxc-kernel-mgga-10 = { path = "crates/kernel-mgga-10" }
-libxc-kernel-mgga-11 = { path = "crates/kernel-mgga-11" }
-libxc-kernel-mgga-12 = { path = "crates/kernel-mgga-12" }
-libxc-kernel-mgga-13 = { path = "crates/kernel-mgga-13" }
-libxc-kernel-mgga-14 = { path = "crates/kernel-mgga-14" }
-libxc-kernel-mgga-15 = { path = "crates/kernel-mgga-15" }
+libxc-kernel-mgga-7a = { path = "crates/kernel-mgga-7a" }
+libxc-kernel-mgga-7b = { path = "crates/kernel-mgga-7b" }
+libxc-kernel-mgga-7c = { path = "crates/kernel-mgga-7c" }
+libxc-kernel-mgga-7d = { path = "crates/kernel-mgga-7d" }
+libxc-kernel-mgga-7e = { path = "crates/kernel-mgga-7e" }
+libxc-kernel-mgga-8a = { path = "crates/kernel-mgga-8a" }
+libxc-kernel-mgga-8b = { path = "crates/kernel-mgga-8b" }
+libxc-kernel-mgga-8c = { path = "crates/kernel-mgga-8c" }
+libxc-kernel-mgga-8d = { path = "crates/kernel-mgga-8d" }
+libxc-kernel-mgga-8e = { path = "crates/kernel-mgga-8e" }
+libxc-kernel-mgga-8f = { path = "crates/kernel-mgga-8f" }
+libxc-kernel-mgga-9a = { path = "crates/kernel-mgga-9a" }
+libxc-kernel-mgga-9b = { path = "crates/kernel-mgga-9b" }
+libxc-kernel-mgga-10a = { path = "crates/kernel-mgga-10a" }
+libxc-kernel-mgga-10b = { path = "crates/kernel-mgga-10b" }
+libxc-kernel-mgga-11a = { path = "crates/kernel-mgga-11a" }
+libxc-kernel-mgga-11b = { path = "crates/kernel-mgga-11b" }
+libxc-kernel-mgga-11c = { path = "crates/kernel-mgga-11c" }
+libxc-kernel-mgga-12a = { path = "crates/kernel-mgga-12a" }
+libxc-kernel-mgga-12b = { path = "crates/kernel-mgga-12b" }
+libxc-kernel-mgga-12c = { path = "crates/kernel-mgga-12c" }
+libxc-kernel-mgga-12d = { path = "crates/kernel-mgga-12d" }
+libxc-kernel-mgga-13a = { path = "crates/kernel-mgga-13a" }
+libxc-kernel-mgga-13b = { path = "crates/kernel-mgga-13b" }
+libxc-kernel-mgga-14a = { path = "crates/kernel-mgga-14a" }
+libxc-kernel-mgga-14b = { path = "crates/kernel-mgga-14b" }
+libxc-kernel-mgga-14c = { path = "crates/kernel-mgga-14c" }
+libxc-kernel-mgga-14d = { path = "crates/kernel-mgga-14d" }
+libxc-kernel-mgga-14e = { path = "crates/kernel-mgga-14e" }
+libxc-kernel-mgga-14f = { path = "crates/kernel-mgga-14f" }
+libxc-kernel-mgga-14g = { path = "crates/kernel-mgga-14g" }
+libxc-kernel-mgga-14h = { path = "crates/kernel-mgga-14h" }
+libxc-kernel-mgga-14i = { path = "crates/kernel-mgga-14i" }
+libxc-kernel-mgga-14j = { path = "crates/kernel-mgga-14j" }
+libxc-kernel-mgga-14k = { path = "crates/kernel-mgga-14k" }
+libxc-kernel-mgga-14l = { path = "crates/kernel-mgga-14l" }
+libxc-kernel-mgga-15a = { path = "crates/kernel-mgga-15a" }
+libxc-kernel-mgga-15b = { path = "crates/kernel-mgga-15b" }
+libxc-kernel-mgga-15c = { path = "crates/kernel-mgga-15c" }
+libxc-kernel-mgga-15d = { path = "crates/kernel-mgga-15d" }
+libxc-kernel-mgga-15e = { path = "crates/kernel-mgga-15e" }
+libxc-kernel-mgga-15f = { path = "crates/kernel-mgga-15f" }
+libxc-kernel-mgga-15g = { path = "crates/kernel-mgga-15g" }
+libxc-kernel-mgga-15h = { path = "crates/kernel-mgga-15h" }
 libxc-kernel-mgga-16 = { path = "crates/kernel-mgga-16" }
 libxc-kernel-mgga-17 = { path = "crates/kernel-mgga-17" }
-libxc-kernel-mgga-18 = { path = "crates/kernel-mgga-18" }
-libxc-kernel-mgga-19 = { path = "crates/kernel-mgga-19" }
-libxc-kernel-mgga-20 = { path = "crates/kernel-mgga-20" }
+libxc-kernel-mgga-18a = { path = "crates/kernel-mgga-18a" }
+libxc-kernel-mgga-18b = { path = "crates/kernel-mgga-18b" }
+libxc-kernel-mgga-18c = { path = "crates/kernel-mgga-18c" }
+libxc-kernel-mgga-19a = { path = "crates/kernel-mgga-19a" }
+libxc-kernel-mgga-19b = { path = "crates/kernel-mgga-19b" }
+libxc-kernel-mgga-19c = { path = "crates/kernel-mgga-19c" }
+libxc-kernel-mgga-19d = { path = "crates/kernel-mgga-19d" }
+libxc-kernel-mgga-19e = { path = "crates/kernel-mgga-19e" }
+libxc-kernel-mgga-19f = { path = "crates/kernel-mgga-19f" }
+libxc-kernel-mgga-19g = { path = "crates/kernel-mgga-19g" }
+libxc-kernel-mgga-20a = { path = "crates/kernel-mgga-20a" }
+libxc-kernel-mgga-20b = { path = "crates/kernel-mgga-20b" }
+libxc-kernel-mgga-20c = { path = "crates/kernel-mgga-20c" }
+libxc-kernel-mgga-20d = { path = "crates/kernel-mgga-20d" }
+libxc-kernel-mgga-20e = { path = "crates/kernel-mgga-20e" }
+libxc-kernel-mgga-20f = { path = "crates/kernel-mgga-20f" }
+libxc-kernel-mgga-20g = { path = "crates/kernel-mgga-20g" }
+libxc-kernel-mgga-20h = { path = "crates/kernel-mgga-20h" }
+libxc-kernel-mgga-20i = { path = "crates/kernel-mgga-20i" }
+libxc-kernel-mgga-20j = { path = "crates/kernel-mgga-20j" }
+libxc-kernel-mgga-20k = { path = "crates/kernel-mgga-20k" }
+libxc-kernel-mgga-20l = { path = "crates/kernel-mgga-20l" }
 libxc-kernel-mgga-21 = { path = "crates/kernel-mgga-21" }
-libxc-kernel-mgga-22 = { path = "crates/kernel-mgga-22" }
+libxc-kernel-mgga-22a = { path = "crates/kernel-mgga-22a" }
+libxc-kernel-mgga-22b = { path = "crates/kernel-mgga-22b" }
+libxc-kernel-mgga-22c = { path = "crates/kernel-mgga-22c" }
+libxc-kernel-mgga-22d = { path = "crates/kernel-mgga-22d" }
 libxc-kernel-mgga-23 = { path = "crates/kernel-mgga-23" }
-libxc-kernel-mgga-24 = { path = "crates/kernel-mgga-24" }
-libxc-kernel-mgga-25 = { path = "crates/kernel-mgga-25" }
-libxc-kernel-mgga-26 = { path = "crates/kernel-mgga-26" }
-libxc-kernel-mgga-27 = { path = "crates/kernel-mgga-27" }
+libxc-kernel-mgga-24a = { path = "crates/kernel-mgga-24a" }
+libxc-kernel-mgga-24b = { path = "crates/kernel-mgga-24b" }
+libxc-kernel-mgga-25a = { path = "crates/kernel-mgga-25a" }
+libxc-kernel-mgga-25b = { path = "crates/kernel-mgga-25b" }
+libxc-kernel-mgga-26a = { path = "crates/kernel-mgga-26a" }
+libxc-kernel-mgga-26b = { path = "crates/kernel-mgga-26b" }
+libxc-kernel-mgga-27a = { path = "crates/kernel-mgga-27a" }
+libxc-kernel-mgga-27b = { path = "crates/kernel-mgga-27b" }
+libxc-kernel-mgga-27c = { path = "crates/kernel-mgga-27c" }
 libxc-kernel-mgga-28 = { path = "crates/kernel-mgga-28" }
 libxc-kernel-mgga-29 = { path = "crates/kernel-mgga-29" }
 libxc-kernel-mgga-30 = { path = "crates/kernel-mgga-30" }
 libxc-kernel-mgga-31 = { path = "crates/kernel-mgga-31" }
-libxc-kernel-mgga-32 = { path = "crates/kernel-mgga-32" }
+libxc-kernel-mgga-32a = { path = "crates/kernel-mgga-32a" }
+libxc-kernel-mgga-32b = { path = "crates/kernel-mgga-32b" }
 libxc-kernel-mgga-33 = { path = "crates/kernel-mgga-33" }
 libxc-kernel-mgga-34 = { path = "crates/kernel-mgga-34" }
 libxc-kernel-mgga-35 = { path = "crates/kernel-mgga-35" }
-libxc-kernel-mgga-36 = { path = "crates/kernel-mgga-36" }
-libxc-kernel-mgga-37 = { path = "crates/kernel-mgga-37" }
+libxc-kernel-mgga-36a = { path = "crates/kernel-mgga-36a" }
+libxc-kernel-mgga-36b = { path = "crates/kernel-mgga-36b" }
+libxc-kernel-mgga-37a = { path = "crates/kernel-mgga-37a" }
+libxc-kernel-mgga-37b = { path = "crates/kernel-mgga-37b" }
 
 [workspace]
 members = [
@@ -62,16 +133,52 @@ members = [
     "crates/kernel-math",
     "crates/kernel-lda",
     "crates/kernel-gga",
-    "crates/kernel-gga-1",
-    "crates/kernel-gga-2",
-    "crates/kernel-gga-3",
-    "crates/kernel-gga-4",
-    "crates/kernel-gga-5",
-    "crates/kernel-gga-6",
-    "crates/kernel-gga-7",
-    "crates/kernel-gga-8",
-    "crates/kernel-gga-9",
-    "crates/kernel-gga-10",
+    "crates/kernel-gga-1a",
+    "crates/kernel-gga-1b",
+    "crates/kernel-gga-1c",
+    "crates/kernel-gga-1d",
+    "crates/kernel-gga-2a",
+    "crates/kernel-gga-2b",
+    "crates/kernel-gga-2c",
+    "crates/kernel-gga-2d",
+    "crates/kernel-gga-3a",
+    "crates/kernel-gga-3b",
+    "crates/kernel-gga-3c",
+    "crates/kernel-gga-3d",
+    "crates/kernel-gga-3e",
+    "crates/kernel-gga-4a",
+    "crates/kernel-gga-4b",
+    "crates/kernel-gga-4c",
+    "crates/kernel-gga-4d",
+    "crates/kernel-gga-4e",
+    "crates/kernel-gga-4f",
+    "crates/kernel-gga-4g",
+    "crates/kernel-gga-5a",
+    "crates/kernel-gga-5b",
+    "crates/kernel-gga-5c",
+    "crates/kernel-gga-5d",
+    "crates/kernel-gga-5e",
+    "crates/kernel-gga-5f",
+    "crates/kernel-gga-5g",
+    "crates/kernel-gga-6a",
+    "crates/kernel-gga-6b",
+    "crates/kernel-gga-6c",
+    "crates/kernel-gga-6d",
+    "crates/kernel-gga-7a",
+    "crates/kernel-gga-7b",
+    "crates/kernel-gga-7c",
+    "crates/kernel-gga-7d",
+    "crates/kernel-gga-8a",
+    "crates/kernel-gga-8b",
+    "crates/kernel-gga-8c",
+    "crates/kernel-gga-8d",
+    "crates/kernel-gga-9a",
+    "crates/kernel-gga-9b",
+    "crates/kernel-gga-9c",
+    "crates/kernel-gga-10a",
+    "crates/kernel-gga-10b",
+    "crates/kernel-gga-10c",
+    "crates/kernel-gga-10d",
     "crates/kernel-gga-11",
     "crates/kernel-gga-12",
     "crates/kernel-gga-13",
@@ -85,43 +192,114 @@ members = [
     "crates/kernel-gga-21",
     "crates/kernel-gga-22",
     "crates/kernel-mgga",
-    "crates/kernel-mgga-1",
-    "crates/kernel-mgga-2",
-    "crates/kernel-mgga-3",
-    "crates/kernel-mgga-4",
+    "crates/kernel-mgga-1a",
+    "crates/kernel-mgga-1b",
+    "crates/kernel-mgga-1c",
+    "crates/kernel-mgga-1d",
+    "crates/kernel-mgga-2a",
+    "crates/kernel-mgga-2b",
+    "crates/kernel-mgga-3a",
+    "crates/kernel-mgga-3b",
+    "crates/kernel-mgga-4a",
+    "crates/kernel-mgga-4b",
     "crates/kernel-mgga-5",
     "crates/kernel-mgga-6",
-    "crates/kernel-mgga-7",
-    "crates/kernel-mgga-8",
-    "crates/kernel-mgga-9",
-    "crates/kernel-mgga-10",
-    "crates/kernel-mgga-11",
-    "crates/kernel-mgga-12",
-    "crates/kernel-mgga-13",
-    "crates/kernel-mgga-14",
-    "crates/kernel-mgga-15",
+    "crates/kernel-mgga-7a",
+    "crates/kernel-mgga-7b",
+    "crates/kernel-mgga-7c",
+    "crates/kernel-mgga-7d",
+    "crates/kernel-mgga-7e",
+    "crates/kernel-mgga-8a",
+    "crates/kernel-mgga-8b",
+    "crates/kernel-mgga-8c",
+    "crates/kernel-mgga-8d",
+    "crates/kernel-mgga-8e",
+    "crates/kernel-mgga-8f",
+    "crates/kernel-mgga-9a",
+    "crates/kernel-mgga-9b",
+    "crates/kernel-mgga-10a",
+    "crates/kernel-mgga-10b",
+    "crates/kernel-mgga-11a",
+    "crates/kernel-mgga-11b",
+    "crates/kernel-mgga-11c",
+    "crates/kernel-mgga-12a",
+    "crates/kernel-mgga-12b",
+    "crates/kernel-mgga-12c",
+    "crates/kernel-mgga-12d",
+    "crates/kernel-mgga-13a",
+    "crates/kernel-mgga-13b",
+    "crates/kernel-mgga-14a",
+    "crates/kernel-mgga-14b",
+    "crates/kernel-mgga-14c",
+    "crates/kernel-mgga-14d",
+    "crates/kernel-mgga-14e",
+    "crates/kernel-mgga-14f",
+    "crates/kernel-mgga-14g",
+    "crates/kernel-mgga-14h",
+    "crates/kernel-mgga-14i",
+    "crates/kernel-mgga-14j",
+    "crates/kernel-mgga-14k",
+    "crates/kernel-mgga-14l",
+    "crates/kernel-mgga-15a",
+    "crates/kernel-mgga-15b",
+    "crates/kernel-mgga-15c",
+    "crates/kernel-mgga-15d",
+    "crates/kernel-mgga-15e",
+    "crates/kernel-mgga-15f",
+    "crates/kernel-mgga-15g",
+    "crates/kernel-mgga-15h",
     "crates/kernel-mgga-16",
     "crates/kernel-mgga-17",
-    "crates/kernel-mgga-18",
-    "crates/kernel-mgga-19",
-    "crates/kernel-mgga-20",
+    "crates/kernel-mgga-18a",
+    "crates/kernel-mgga-18b",
+    "crates/kernel-mgga-18c",
+    "crates/kernel-mgga-19a",
+    "crates/kernel-mgga-19b",
+    "crates/kernel-mgga-19c",
+    "crates/kernel-mgga-19d",
+    "crates/kernel-mgga-19e",
+    "crates/kernel-mgga-19f",
+    "crates/kernel-mgga-19g",
+    "crates/kernel-mgga-20a",
+    "crates/kernel-mgga-20b",
+    "crates/kernel-mgga-20c",
+    "crates/kernel-mgga-20d",
+    "crates/kernel-mgga-20e",
+    "crates/kernel-mgga-20f",
+    "crates/kernel-mgga-20g",
+    "crates/kernel-mgga-20h",
+    "crates/kernel-mgga-20i",
+    "crates/kernel-mgga-20j",
+    "crates/kernel-mgga-20k",
+    "crates/kernel-mgga-20l",
     "crates/kernel-mgga-21",
-    "crates/kernel-mgga-22",
+    "crates/kernel-mgga-22a",
+    "crates/kernel-mgga-22b",
+    "crates/kernel-mgga-22c",
+    "crates/kernel-mgga-22d",
     "crates/kernel-mgga-23",
-    "crates/kernel-mgga-24",
-    "crates/kernel-mgga-25",
-    "crates/kernel-mgga-26",
-    "crates/kernel-mgga-27",
+    "crates/kernel-mgga-24a",
+    "crates/kernel-mgga-24b",
+    "crates/kernel-mgga-25a",
+    "crates/kernel-mgga-25b",
+    "crates/kernel-mgga-26a",
+    "crates/kernel-mgga-26b",
+    "crates/kernel-mgga-27a",
+    "crates/kernel-mgga-27b",
+    "crates/kernel-mgga-27c",
     "crates/kernel-mgga-28",
     "crates/kernel-mgga-29",
     "crates/kernel-mgga-30",
     "crates/kernel-mgga-31",
-    "crates/kernel-mgga-32",
+    "crates/kernel-mgga-32a",
+    "crates/kernel-mgga-32b",
     "crates/kernel-mgga-33",
     "crates/kernel-mgga-34",
     "crates/kernel-mgga-35",
-    "crates/kernel-mgga-36",
-    "crates/kernel-mgga-37",
+    "crates/kernel-mgga-36a",
+    "crates/kernel-mgga-36b",
+    "crates/kernel-mgga-37a",
+    "crates/kernel-mgga-37b",
 ]
 
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.

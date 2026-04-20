@@ -1,0 +1,695 @@
+    Checking libxc-kernel-math v0.1.0 (/workspace/crates/kernel-math)
+error[E0282]: type annotations needed
+   --> crates/kernel-math/src/br89.rs:108:17
+    |
+108 |         let mut do_bisect = 0.0f64;
+    |                 ^^^^^^^^^ cannot infer type
+
+error[E0283]: type annotations needed
+  --> crates/kernel-math/src/br89.rs:54:1
+   |
+54 | #[cube]
+   | ^^^^^^^ cannot infer type for struct `ExpandElementTyped<_>`
+   |
+   = note: multiple `impl`s satisfying `ExpandElementTyped<_>: IntoMut` found in the `cubecl_core` crate:
+           - impl<T> IntoMut for ExpandElementTyped<T>
+             where T: ExpandElementIntoMut;
+           - impl<T> IntoMut for ExpandElementTyped<cubecl::frontend::Shared<T>>
+             where T: CubePrimitive;
+           - impl<T> IntoMut for ExpandElementTyped<cubecl::frontend::SharedMemory<T>>
+             where T: CubePrimitive;
+   = note: this error originates in the attribute macro `cube` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0283]: type annotations needed
+  --> crates/kernel-math/src/br89.rs:54:1
+   |
+54 | #[cube]
+   | ^^^^^^^ cannot infer type for struct `ExpandElementTyped<_>`
+   |
+   = note: multiple `impl`s satisfying `ExpandElementTyped<_>: From<ExpandElementTyped<_>>` found in the following crates: `core`, `cubecl_core`:
+           - impl From<ExpandElementTyped<cubecl::frontend::Shared<cubecl::frontend::barrier::Barrier>>> for ExpandElementTyped<cubecl::frontend::barrier::Barrier>;
+           - impl<T> From<T> for T;
+   = note: required for `ExpandElementTyped<_>` to implement `Into<ExpandElementTyped<_>>`
+   = note: this error originates in the attribute macro `cube` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `a` is never read
+  --> crates/kernel-math/src/br89.rs:66:21
+   |
+66 |         let mut a = 0.0f64;
+   |                     ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b` is never read
+  --> crates/kernel-math/src/br89.rs:67:21
+   |
+67 |         let mut b = 0.0f64;
+   |                     ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `fa` is never read
+   --> crates/kernel-math/src/br89.rs:525:756
+    |
+525 | ...::abs(fa) < f64::abs(fb) { let ta = a; let tfa = fa; a = b; fa = fb; b = ta; fb = tfa; }
+    |                                                                ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `fb` is never read
+   --> crates/kernel-math/src/br89.rs:525:773
+    |
+525 | ...abs(fb) { let ta = a; let tfa = fa; a = b; fa = fb; b = ta; fb = tfa; }
+    |                                                                ^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `c` is never read
+   --> crates/kernel-math/src/br89.rs:525:614
+    |
+525 | ...0; } else { mflag = 0.0; } let fs = br89_obj(s, rhs); d = c; c = b; fc = fb; if fa*fs < 0.0 { b = s; fb = fs; } else { a = s; fa...
+    |                                                                 ^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `fc` is never read
+   --> crates/kernel-math/src/br89.rs:525:621
+    |
+525 | ...e { mflag = 0.0; } let fs = br89_obj(s, rhs); d = c; c = b; fc = fb; if fa*fs < 0.0 { b = s; fb = fs; } else { a = s; fa = fs; }...
+    |                                                                ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `d` is never read
+   --> crates/kernel-math/src/br89.rs:525:607
+    |
+525 | ...ag = 1.0; } else { mflag = 0.0; } let fs = br89_obj(s, rhs); d = c; c = b; fc = fb; if fa*fs < 0.0 { b = s; fb = fs; } else { a ...
+    |                                                                 ^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `mflag` is never read
+   --> crates/kernel-math/src/br89.rs:525:565
+    |
+525 | ...if do_bisect > 0.5 { s = (a+b)*0.5; mflag = 1.0; } else { mflag = 0.0; } let fs = br89_obj(s, rhs); d = c; c = b; fc = fb; if fa...
+    |                                                              ^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `mflag` is never read
+   --> crates/kernel-math/src/br89.rs:525:543
+    |
+525 | ... { do_bisect = 1.0; } if do_bisect > 0.5 { s = (a+b)*0.5; mflag = 1.0; } else { mflag = 0.0; } let fs = br89_obj(s, rhs); d = c;...
+    |                                                              ^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:100:21
+    |
+100 |         let mut s = 0.0f64;
+    |                     ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:121:9
+    |
+121 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:142:9
+    |
+142 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:163:9
+    |
+163 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:184:9
+    |
+184 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:205:9
+    |
+205 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:226:9
+    |
+226 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:247:9
+    |
+247 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:268:9
+    |
+268 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:289:9
+    |
+289 |         s = 0.0;
+    |         ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:314:9
+    |
+314 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:320:9
+    |
+320 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:326:9
+    |
+326 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:332:9
+    |
+332 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:338:9
+    |
+338 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:344:9
+    |
+344 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:350:9
+    |
+350 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:356:9
+    |
+356 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:362:9
+    |
+362 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:368:9
+    |
+368 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:374:9
+    |
+374 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:380:9
+    |
+380 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:386:9
+    |
+386 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:392:9
+    |
+392 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:398:9
+    |
+398 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:404:9
+    |
+404 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:410:9
+    |
+410 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:416:9
+    |
+416 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:422:9
+    |
+422 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:428:9
+    |
+428 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:435:9
+    |
+435 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:441:9
+    |
+441 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:447:9
+    |
+447 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:453:9
+    |
+453 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:459:9
+    |
+459 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:465:9
+    |
+465 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:471:9
+    |
+471 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:477:9
+    |
+477 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:483:9
+    |
+483 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:489:9
+    |
+489 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:495:9
+    |
+495 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:497:9
+    |
+497 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:499:9
+    |
+499 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:501:9
+    |
+501 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:503:9
+    |
+503 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:505:9
+    |
+505 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:507:9
+    |
+507 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:509:9
+    |
+509 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:511:9
+    |
+511 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:513:9
+    |
+513 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:515:9
+    |
+515 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:516:9
+    |
+516 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:517:9
+    |
+517 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:518:9
+    |
+518 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:519:9
+    |
+519 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:521:9
+    |
+521 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:522:9
+    |
+522 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:523:9
+    |
+523 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:524:9
+    |
+524 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `s` is never read
+   --> crates/kernel-math/src/br89.rs:525:9
+    |
+525 | ...   s = 0.0; if fa != fc && fb != fc { s = (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))); }...
+    |       ^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+Some errors have detailed explanations: E0282, E0283.
+For more information about an error, try `rustc --explain E0282`.
+warning: `libxc-kernel-math` (lib) generated 82 warnings
+error: could not compile `libxc-kernel-math` (lib) due to 3 previous errors; 82 warnings emitted

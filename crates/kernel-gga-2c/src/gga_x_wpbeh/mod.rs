@@ -1,0 +1,15 @@
+//! GGA_X_WPBEH kernel — split into per-function files.
+
+pub mod fxc_pol;
+pub mod kxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2;
+pub mod kxc_pol_part3_v3rho3_2;
+pub mod kxc_pol_part5_v3rho2sigma_2_v3rho2sigma_3_v3rho2sigma_4_v3rho2sigma_5_v3rho2sigma_6_v3rho2sigma_7;
+pub mod kxc_pol_part7_v3rhosigma2;
+pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2;
+pub mod lxc_pol_part16_v4rho3sigma_3_v4rho3sigma_4;
+pub mod lxc_pol_part19_v4rho3sigma_8;
+pub mod lxc_pol_part26_v4rhosigma3_0_v4rhosigma3_1_v4rhosigma3_2_v4rhosigma3_3_v4rhosigma3_4_v4rhosigma3_5_v4rhosigma3_6_v4rhosigma3_7_v4rhosigma3_8_v4rhosigma3_9;
+pub mod lxc_pol_part5_v3rho2sigma_2_v3rho2sigma_3_v3rho2sigma_4_v3rho2sigma_5_v3rho2sigma_6_v3rho2sigma_7;
+pub mod lxc_pol_part7_v3rhosigma2;
+pub mod lxc_pol_part9_v4rho4_0;
+pub mod lxc_unpol_part1_v4rho3sigma;

@@ -10,6 +10,7 @@ use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_CBRT2, M_CBRTPI, M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3};
+use libxc_kernel_math::br89::xc_mgga_x_br89_get_x;
 
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]

@@ -212,6 +212,13 @@ def detect_imports(c_src: str) -> list:
     if re.search(r'\bcbspline\(', c_src):
         imports.append(('case21_cbspline', 'libxc_kernel_math::bspline'))
 
+    # Cross-functional MGGA helper calls (root-finders defined in other crates).
+    # Without these imports the consumer kernel files fail to compile.
+    if re.search(r'\bxc_mgga_x_br89_get_x\(', c_src):
+        imports.append(('xc_mgga_x_br89_get_x', 'libxc_kernel_math::br89'))
+    if re.search(r'\bxc_mgga_x_mbrxc_get_x\(', c_src):
+        imports.append(('xc_mgga_x_mbrxc_get_x', 'libxc_kernel_math::mbrxc'))
+
     return imports
 
 
