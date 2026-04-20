@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 08-08-PLAN.md
-last_updated: "2026-04-14T13:02:27.816Z"
-last_activity: 2026-04-14 -- Phase 09 execution started
+last_updated: "2026-04-20T08:18:19.572Z"
+last_activity: 2026-04-20 -- Phase 04 execution started
 progress:
   total_phases: 9
   completed_phases: 4
@@ -42,14 +42,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 09 — reduce-kernel-build-time
+**Current focus:** Phase 04 — bulk-kernel-translation
 
 ## Current Position
 
-Phase: 09 (reduce-kernel-build-time) — EXECUTING
-Plan: 1 of 4
-Status: Executing Phase 09
-Last activity: 2026-04-14 -- Phase 09 execution started
+Phase: 04 (bulk-kernel-translation) — EXECUTING
+Plan: 1 of 5
+Status: Executing Phase 04
+Last activity: 2026-04-20 -- Phase 04 execution started
 
 Progress: [████████████████████] 3/3 plans (100%) — Phase 01 done
 =======
