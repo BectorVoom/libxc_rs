@@ -55,7 +55,7 @@ Phase 4 now delivers **dispatch coverage + numerical oracle verification** for e
 ### Kernel Source (Locked by phases 8/9)
 - **D-01-R:** Kernel Rust source lives in workspace sub-crates under `crates/kernel-{lda,gga,mgga}*`. Every functional is already in its own subdirectory split per (derivative-level, spin-mode). The top-level `libxc_kernel_{lda,gga,mgga}` crates are facades that re-export sub-crate batches.
 - **D-02-R:** The four special `_vxc` files are already translated alongside their families (`lda_xc_tih` in `crates/kernel-lda`, `gga_x_lb` in a `kernel-gga-*` batch, `mgga_x_2d_prp10` and `mgga_x_tb09` in `kernel-mgga-*` batches). Phase 4 only wires their dispatch entries — no translation work.
-- **D-03-R:** Deferred lists are authoritative: **4 LDA deferred** (`lda_c_pk09`, `lda_xc_ksdt`, `lda_c_pw_erf`, `lda_c_pmgb06`); **6 MGGA deferred** (`mgga_c_b94`, `mgga_x_br89`, `mgga_c_scan_vv10` subset, `mgga_x_mbrxc`, `mgga_c_lp90`, `mgga_x_mbr`). Verify the exact MGGA names against `crates/kernel-mgga/src/deferred.rs` before editing — treat that file as source of truth.
+- **D-03-R:** Deferred lists are authoritative: **4 LDA deferred** (`lda_c_pk09`, `lda_xc_ksdt`, `lda_c_pw_erf`, `lda_c_pmgb06`); **6 MGGA deferred** (`mgga_c_b94`, `mgga_x_br89`, `mgga_x_mbr`, `mgga_x_mbrxc_bg`, `mgga_x_mbrxh_bg`, `mgga_x_mggac`) — these are the authoritative names taken directly from `crates/kernel-mgga/src/deferred.rs` (W7 fix, 2026-04-20: earlier drafts of this line listed `mgga_c_scan_vv10 subset`, `mgga_x_mbrxc`, `mgga_c_lp90` which do NOT match the actual file; always treat `crates/kernel-mgga/src/deferred.rs` as source of truth).
 
 ### Dispatch Layer (Phase 4's real work)
 - **D-04-R:** Generalize `src/eval/dispatch.rs::dispatch_lda` from its current `lda_x`-only shape into an ID-based two-level match: outer match on functional ID (or name-derived enum) selects the launch wrapper set, inner match on `(DerivativeOrder, Spin)` picks the concrete `#[cube]` variant. Preserve the current zero-then-accumulate contract and the BUILD-04 "no raw launch calls outside kernel::launch" invariant.
@@ -95,7 +95,7 @@ Phase 4 now delivers **dispatch coverage + numerical oracle verification** for e
 - `crates/kernel-lda/src/lib.rs` — 37 compiled + 4 deferred LDA modules, source of truth for LDA functional coverage
 - `crates/kernel-gga/src/lib.rs` — facade re-exporting 22 GGA sub-crate batches (`kernel-gga-1a` … `kernel-gga-22`)
 - `crates/kernel-mgga/src/lib.rs` — facade re-exporting 37 MGGA sub-crate batches (`kernel-mgga-1a` … `kernel-mgga-37b`)
-- `crates/kernel-mgga/src/deferred.rs` — canonical `DeferredMgga` struct + `DEFERRED_MGGA_FUNCTIONALS` const array (6 entries). Mirror this pattern in `crates/kernel-lda/src/deferred.rs`.
+- `crates/kernel-mgga/src/deferred.rs` — canonical `DeferredMgga` struct + `DEFERRED_MGGA_FUNCTIONALS` const array (6 entries: `mgga_c_b94`, `mgga_x_br89`, `mgga_x_mbr`, `mgga_x_mbrxc_bg`, `mgga_x_mbrxh_bg`, `mgga_x_mggac`). Mirror this pattern in `crates/kernel-lda/src/deferred.rs`.
 - `crates/kernel-math` — shared `#[cube]` math primitives used by every kernel crate
 
 ### Dispatch Layer (what Phase 4 changes)
@@ -182,3 +182,4 @@ Phase 4 now delivers **dispatch coverage + numerical oracle verification** for e
 
 *Phase: 04-bulk-kernel-translation*
 *Context gathered: 2026-04-10; refreshed: 2026-04-20 after phases 8 and 9 completed out-of-order.*
+*D-03-R MGGA deferred names corrected: 2026-04-20 (W7 — aligned with `crates/kernel-mgga/src/deferred.rs`).*
