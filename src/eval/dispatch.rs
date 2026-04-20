@@ -12,7 +12,10 @@ use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer,
     create_zero_output_buffer, read_output_buffer,
 };
-use crate::kernel::lda::launch_lda_x::{self, BufArg};
+use crate::kernel::lda::lda_x::{exc_unpol, exc_pol, fxc_unpol, fxc_pol, kxc_unpol, kxc_pol, lxc_unpol, lxc_pol, vxc_unpol, vxc_pol};
+use cubecl::cpu::CpuRuntime;
+use cubecl::frontend::ScalarArg;
+use cubecl::prelude::{ArrayArg, LaunchError};
 use crate::model::{DerivativeOrder, Spin, Thresholds};
 use crate::output::LdaOutput;
 
@@ -119,126 +122,157 @@ pub fn dispatch_lda(
 
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
-    // Dispatch to correct safe kernel wrapper based on (order, spin).
-    // All kernel launches go through safe wrappers in launch_lda_x.
-    let rho_buf = BufArg::new(&rho_handle, rho_len);
-    let zk_buf = BufArg::new(&zk_handle, zk_len);
+    // Dispatch to correct kernel based on (order, spin).
+    // Uses direct kernel launch through CubeCL.
 
     // Helper to convert kernel launch errors into LibxcRsError.
-    let map_launch_err = |e: Box<dyn std::error::Error>| LibxcRsError::KernelLaunchFailed {
+    let map_launch_err = |e: LaunchError| LibxcRsError::KernelLaunchFailed {
         reason: e.to_string(),
     };
+    let alpha_arg = ScalarArg { elem: alpha };
+    let density_threshold_arg = ScalarArg { elem: thresholds.density };
+    let zeta_threshold_arg = ScalarArg { elem: thresholds.zeta };
 
     match (order, spin) {
         (DerivativeOrder::Exc, Spin::Unpolarized) => {
-            launch_lda_x::launch_lda_x_exc_unpol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Vxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_vxc_unpol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                vxc_unpol::lda_x_vxc_unpol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Fxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_fxc_unpol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                fxc_unpol::lda_x_fxc_unpol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Kxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
             let v3rho3_h = v3rho3_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_kxc_unpol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                &BufArg::new(v3rho3_h, v3rho3_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                kxc_unpol::lda_x_kxc_unpol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v3rho3_h, v3rho3_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Lxc, Spin::Unpolarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
             let v3rho3_h = v3rho3_handle.as_ref().unwrap();
             let v4rho4_h = v4rho4_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_lxc_unpol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                &BufArg::new(v3rho3_h, v3rho3_len),
-                &BufArg::new(v4rho4_h, v4rho4_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                lxc_unpol::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v3rho3_h, v3rho3_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v4rho4_h, v4rho4_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Exc, Spin::Polarized) => {
-            launch_lda_x::launch_lda_x_exc_pol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                exc_pol::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Vxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_vxc_pol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                vxc_pol::lda_x_vxc_pol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Fxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_fxc_pol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                fxc_pol::lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Kxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
             let v3rho3_h = v3rho3_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_kxc_pol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                &BufArg::new(v3rho3_h, v3rho3_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                kxc_pol::lda_x_kxc_pol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v3rho3_h, v3rho3_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
         (DerivativeOrder::Lxc, Spin::Polarized) => {
             let vrho_h = vrho_handle.as_ref().unwrap();
             let v2rho2_h = v2rho2_handle.as_ref().unwrap();
             let v3rho3_h = v3rho3_handle.as_ref().unwrap();
             let v4rho4_h = v4rho4_handle.as_ref().unwrap();
-            launch_lda_x::launch_lda_x_lxc_pol(
-                &client, cube_count, cube_dim,
-                &rho_buf, &zk_buf,
-                &BufArg::new(vrho_h, vrho_len),
-                &BufArg::new(v2rho2_h, v2rho2_len),
-                &BufArg::new(v3rho3_h, v3rho3_len),
-                &BufArg::new(v4rho4_h, v4rho4_len),
-                alpha, thresholds.density, thresholds.zeta,
-            ).map_err(map_launch_err)?;
+            unsafe {
+                lxc_pol::lda_x_lxc_pol::launch_unchecked::<CpuRuntime>(
+                    &client, cube_count, cube_dim,
+                    ArrayArg::from_raw_parts::<f64>(&rho_handle, rho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(&zk_handle, zk_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(vrho_h, vrho_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v2rho2_h, v2rho2_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v3rho3_h, v3rho3_len, 1),
+                    ArrayArg::from_raw_parts::<f64>(v4rho4_h, v4rho4_len, 1),
+                    alpha_arg, density_threshold_arg, zeta_threshold_arg,
+                ).map_err(map_launch_err)?;
+            }
         }
     }
 
