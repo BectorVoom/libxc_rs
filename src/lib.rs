@@ -20,6 +20,7 @@ pub mod eval;
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
     HybridType, HybridTermKind, Dimensionality, Thresholds,
+    LdaFunctional,
 };
 pub use meta::{FunctionalMeta, Reference, ExtParamSpec, HybridTerm};
 pub use error::LibxcRsError;

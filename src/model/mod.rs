@@ -1,5 +1,8 @@
 use bitflags::bitflags;
 
+pub mod lda_functional;
+pub use lda_functional::LdaFunctional;
+
 /// Functional family classification
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[repr(u8)]

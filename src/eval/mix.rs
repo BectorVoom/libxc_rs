@@ -7,10 +7,10 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
-use crate::eval::dispatch::dispatch_lda;
+use crate::eval::dispatch::{dispatch_lda, LdaFunctionalParams};
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::input::LdaInput;
-use crate::model::{DerivativeOrder, Thresholds};
+use crate::model::{DerivativeOrder, LdaFunctional, Thresholds};
 use crate::output::LdaOutput;
 
 /// Configuration for one auxiliary functional in a mixed evaluation.
@@ -134,7 +134,20 @@ pub fn evaluate_mixed_lda(
                 },
             };
 
-            dispatch_lda(input, order, &mut scratch_output, aux.alpha, &aux.thresholds)?;
+            // TODO: Phase 5 — route mixed components by their registry metadata
+            // rather than always dispatching to LdaFunctional::LdaX. The
+            // existing mixed evaluators in libxc construct their auxiliaries
+            // from named LDA functionals (lda_x, lda_c_pw, ...); for Phase 4
+            // the only mixed-LDA tests use lda_x exclusively, so this matches
+            // prior behavior bit-for-bit.
+            dispatch_lda(
+                LdaFunctional::LdaX,
+                input,
+                order,
+                &mut scratch_output,
+                &LdaFunctionalParams { alpha: aux.alpha },
+                &aux.thresholds,
+            )?;
         }
         // scratch_output is dropped here, releasing the mutable borrow on workspace
 
@@ -228,7 +241,8 @@ mod tests {
                 Some(&mut zk_direct), Some(&mut vrho_direct), None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Vxc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Vxc, &mut out_direct,
+                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with single aux, weight=1.0
@@ -273,7 +287,8 @@ mod tests {
                 Some(&mut zk_direct), None, None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Exc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
+                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with two auxes: 0.7 + 0.3 = 1.0
@@ -312,7 +327,8 @@ mod tests {
                 Some(&mut zk_direct), None, None, None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Exc, &mut out_direct, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
+                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=0.5
@@ -408,7 +424,8 @@ mod tests {
                 Some(&mut zk_d), Some(&mut vrho_d), Some(&mut v2rho2_d), None, None,
                 np, Spin::Unpolarized,
             ).unwrap();
-            dispatch_lda(&input, DerivativeOrder::Fxc, &mut out, 1.0, &default_thresholds()).unwrap();
+            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Fxc, &mut out,
+                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=1.0

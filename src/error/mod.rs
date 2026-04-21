@@ -81,6 +81,12 @@ pub enum LibxcRsError {
 
     #[error("kernel launch failed: {reason}")]
     KernelLaunchFailed { reason: String },
+
+    #[error("functional {id} is not yet supported by libxc_rs: {reason}")]
+    UnsupportedFunctional {
+        id: FunctionalId,
+        reason: &'static str,
+    },
 }
 
 #[cfg(test)]
@@ -117,5 +123,20 @@ mod tests {
     fn test_error_is_send_sync() {
         fn assert_send_sync<T: Send + Sync>() {}
         assert_send_sync::<LibxcRsError>();
+    }
+
+    #[test]
+    fn test_unsupported_functional_display() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let err = LibxcRsError::UnsupportedFunctional {
+            id,
+            reason: "LDA functional is tracked as deferred",
+        };
+        let msg = format!("{err}");
+        assert!(
+            msg.contains("functional 1 is not yet supported"),
+            "got: {msg}"
+        );
+        assert!(msg.contains("deferred"), "got: {msg}");
     }
 }
