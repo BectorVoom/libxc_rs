@@ -43,6 +43,8 @@ pub mod lda_xc_teter93;
 pub mod lda_xc_tih;
 pub mod lda_xc_zlp;
 
+pub mod deferred;
+
 // Deferred: source generated with incremental structure but individual functions
 // exceed CubeCL proc macro stack limits (kxc_pol/lxc_pol > 10K lines).
 pub mod lda_c_pk09;
