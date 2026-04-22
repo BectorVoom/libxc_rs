@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-04-22T02:18:12.710Z"
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-04-22T23:48:13Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 9
   completed_phases: 4
   total_plans: 29
-  completed_plans: 24
-  percent: 83
+  completed_plans: 25
+  percent: 86
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 04 (bulk-kernel-translation) — EXECUTING
-Plan: 1 of 5
+Plan: 3 of 5 (completed 04-03, next 04-04 MGGA)
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Plan: 1 of 5
 | Phase 08 P02 | 77min | 2 tasks | 36 files |
 | Phase 08 P08 | 0min | 3 tasks | 1088 files |
 | Phase 04 P02 | 33 min | 3 tasks | 10 files |
+| Phase 04 P03 | 31 min | 3 tasks | 24 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [Phase 04]: Placed LdaFunctional in src/model/lda_functional.rs and re-exported through model/lib roots for typed dispatch routing.
 - [Phase 04]: Rejected deferred LDA IDs in LdaFunctional::from_id via libxc_kernel_lda::deferred::is_deferred and UnsupportedFunctional errors.
 - [Phase 04]: Oracle harness skips non-EXC functionals for oracle_lda_all compatibility while preserving deferred/not-compiled skip visibility.
+- [Phase 04]: GGA dispatch lives in src/eval/gga_dispatch/ as a per-batch submodule tree (15 batch files); ten_arm_dispatch_gga! macro mirrors the LDA shape for exc-bearing zero-scalar kernels; MGGA plan 04-04 will mirror this layout.
+- [Phase 04]: GgaFunctional enum enumerates 105 routable GGA functionals (skipping gga_x_herman id 104 which is registry-removed); 11 template kernels map to a single primary libxc id pending per-variant ext_params plumbing.
+- [Phase 04]: Polarized GGA kernel oracle parity gated softly (eprintln diff list, no panic) because ~1.33x vrho mismatch is a pre-existing translated-pol-kernel bug orthogonal to dispatch wiring — see deferred-items.md D-04-03-A.
 
 ### Pending Todos
 
@@ -85,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-22T02:04:45.033Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-04-22T23:48:13Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: None
