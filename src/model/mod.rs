@@ -1,7 +1,9 @@
 use bitflags::bitflags;
 
 pub mod lda_functional;
+pub mod gga_functional;
 pub use lda_functional::LdaFunctional;
+pub use gga_functional::GgaFunctional;
 
 /// Functional family classification
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
