@@ -90,7 +90,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
-- [ ] 04-02-PLAN.md — LDA dispatch: generalize dispatch_lda + deferred.rs + per-functional Rust-vs-C oracle comparison (37 compiled, 4 deferred)
+- [x] 04-02-PLAN.md — LDA dispatch: generalize dispatch_lda + deferred.rs + per-functional Rust-vs-C oracle comparison (37 compiled, 4 deferred)
 - [ ] 04-03-PLAN.md — GGA dispatch: new dispatch_gga + GgaFunctional enum + per-functional oracle comparison (106 compiled)
 - [ ] 04-04-PLAN.md — MGGA dispatch: new dispatch_mgga + MggaFunctional enum + per-functional oracle comparison (86 compiled, 6 deferred)
 - [ ] 04-05-PLAN.md — Cross-family verification sweep (cargo xtask verify-phase-4) + Phase 4 COVERAGE sign-off

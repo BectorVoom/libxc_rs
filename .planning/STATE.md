@@ -3,15 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 08-08-PLAN.md
-last_updated: "2026-04-20T11:31:56.735Z"
-last_activity: 2026-04-20 -- Phase 04 execution started
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-04-22T02:04:45.038Z"
+last_activity: 2026-04-22
 progress:
   total_phases: 9
   completed_phases: 4
   total_plans: 29
-  completed_plans: 23
-  percent: 79
+  completed_plans: 24
 ---
 
 <<<<<<< HEAD
@@ -47,23 +46,14 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 04 (bulk-kernel-translation) — EXECUTING
-Plan: 1 of 5
-Status: Executing Phase 04
-Last activity: 2026-04-20 -- Phase 04 execution started
-
-Progress: [████████████████████] 3/3 plans (100%) — Phase 01 done
-=======
-See: .planning/PROJECT.md (updated 2026-03-22)
-
-**Core value:** Deliver full libxc public capability coverage through a safer Rust API without splitting CPU and GPU semantics.
-**Current focus:** Phase 1: Catalog & Metadata Lockdown
+Plan: 2 of 5
 
 ## Current Position
 
 Phase: 1 of 5 (Catalog & Metadata Lockdown)
 Plan: 0 of TBD (pre-planning)
 Status: Ready to plan
-Last activity: 2026-03-22 — Roadmap drafted with coarse phases pacing the requirements.
+Last activity: 2026-04-22
 
 Progress: [░░░░░░░░░░] 0%
 >>>>>>> origin/main
@@ -111,6 +101,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 08 P01 | 7min | 2 tasks | 15 files |
 | Phase 08 P02 | 77min | 2 tasks | 36 files |
 | Phase 08 P08 | 0min | 3 tasks | 1088 files |
+| Phase 04 P02 | 33 min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -134,6 +125,9 @@ Recent decisions affecting current work:
 - [Phase 08]: Used libxc_kernel_math:: import paths for MGGA kernels matching GGA pattern
 - [Phase 08]: CubeCL CPU runtime requires mutex serialization for concurrent kernel launches in tests
 - [Phase 08]: Rebatched MGGA from 7 to 37 sub-crates using first-fit-decreasing bin packing for OOM mitigation
+- [Phase 04]: Placed LdaFunctional in src/model/lda_functional.rs and re-exported through model/lib roots for typed dispatch routing.
+- [Phase 04]: Rejected deferred LDA IDs in LdaFunctional::from_id via libxc_kernel_lda::deferred::is_deferred and UnsupportedFunctional errors.
+- [Phase 04]: Oracle harness skips non-EXC functionals for oracle_lda_all compatibility while preserving deferred/not-compiled skip visibility.
 
 ### Pending Todos
 
@@ -149,8 +143,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T01:31:11.621Z
-Stopped at: Completed 08-08-PLAN.md
+Last session: 2026-04-22T02:04:45.033Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
 =======
 None yet.

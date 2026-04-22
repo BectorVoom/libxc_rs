@@ -55,13 +55,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **KERN-01**: Kernel launch wrappers handle backend selection, buffer creation, CubeCount/CubeDim calculation
 - [ ] **KERN-02**: LDA_X canary kernel passes oracle comparison at 10^-12 relative error (both spin modes)
-- [ ] **KERN-03**: All LDA kernel files translated from maple2c to #[cube] functions (~43 functionals)
+- [x] **KERN-03**: All LDA kernel files translated from maple2c to #[cube] functions (~43 functionals)
 - [ ] **KERN-04**: All GGA kernel files translated from maple2c to #[cube] functions (~130 functionals)
 - [x] **KERN-05**: All MGGA kernel files translated from maple2c to #[cube] functions (~80 functionals)
 - [x] **KERN-06**: Kernel translations preserve floating-point operation order from maple2c temporaries
-- [ ] **KERN-07**: Density thresholding: grid points below threshold skipped, spin densities clamped
-- [ ] **KERN-08**: Output accumulation via += for mixed functional support
-- [ ] **KERN-09**: Each functional/order/spin combination is a separate kernel function
+- [x] **KERN-07**: Density thresholding: grid points below threshold skipped, spin densities clamped
+- [x] **KERN-08**: Output accumulation via += for mixed functional support
+- [x] **KERN-09**: Each functional/order/spin combination is a separate kernel function
 
 ### Evaluation Orchestration
 
@@ -112,12 +112,12 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Oracle Verification
 
 - [ ] **VERIFY-01**: Verification harness in verify/ crate using bindgen against system libxc 7.0.0
-- [ ] **VERIFY-02**: All 649 functionals verified against libxc oracle across applicable derivative orders and spin modes
+- [x] **VERIFY-02**: All 649 functionals verified against libxc oracle across applicable derivative orders and spin modes
 - [x] **VERIFY-03**: Energy (exc): relative error <= 10^-12
 - [x] **VERIFY-04**: VXC: relative error <= 10^-10
-- [ ] **VERIFY-05**: FXC: relative error <= 10^-8
-- [ ] **VERIFY-06**: KXC: relative error <= 10^-6
-- [ ] **VERIFY-07**: LXC: relative error <= 10^-4
+- [x] **VERIFY-05**: FXC: relative error <= 10^-8
+- [x] **VERIFY-06**: KXC: relative error <= 10^-6
+- [x] **VERIFY-07**: LXC: relative error <= 10^-4
 - [ ] **VERIFY-08**: GPU results match CPU results to within 10^-14
 
 ### Performance
@@ -274,19 +274,19 @@ Which phases cover which requirements. Each requirement maps to exactly one phas
 | EVAL-03 | Phase 3: Input/Output and Evaluation Framework | Pending |
 | EVAL-04 | Phase 3: Input/Output and Evaluation Framework | Pending |
 | EVAL-05 | Phase 3: Input/Output and Evaluation Framework | Pending |
-| KERN-03 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-03 | Phase 4: Bulk Kernel Translation | Complete |
 | KERN-04 | Phase 4: Bulk Kernel Translation | Pending |
 | KERN-05 | Phase 4: Bulk Kernel Translation | Complete |
 | KERN-06 | Phase 4: Bulk Kernel Translation | Complete |
-| KERN-07 | Phase 4: Bulk Kernel Translation | Pending |
-| KERN-08 | Phase 4: Bulk Kernel Translation | Pending |
-| KERN-09 | Phase 4: Bulk Kernel Translation | Pending |
-| VERIFY-02 | Phase 4: Bulk Kernel Translation | Pending |
+| KERN-07 | Phase 4: Bulk Kernel Translation | Complete |
+| KERN-08 | Phase 4: Bulk Kernel Translation | Complete |
+| KERN-09 | Phase 4: Bulk Kernel Translation | Complete |
+| VERIFY-02 | Phase 4: Bulk Kernel Translation | Complete |
 | VERIFY-03 | Phase 4: Bulk Kernel Translation | Complete |
 | VERIFY-04 | Phase 4: Bulk Kernel Translation | Complete |
-| VERIFY-05 | Phase 4: Bulk Kernel Translation | Pending |
-| VERIFY-06 | Phase 4: Bulk Kernel Translation | Pending |
-| VERIFY-07 | Phase 4: Bulk Kernel Translation | Pending |
+| VERIFY-05 | Phase 4: Bulk Kernel Translation | Complete |
+| VERIFY-06 | Phase 4: Bulk Kernel Translation | Complete |
+| VERIFY-07 | Phase 4: Bulk Kernel Translation | Complete |
 | FUNC-01 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
 | FUNC-02 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
 | FUNC-03 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
