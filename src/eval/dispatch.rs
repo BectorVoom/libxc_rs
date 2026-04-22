@@ -934,10 +934,11 @@ fn launch_lda_c_1d_csc(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
             2.0_f64, 3.0_f64, 1.511_f64, 0.258_f64, 4.424_f64,
         ),
         params_pol = (
-            // ferro_0..9
-            18.40_f64, 0.0_f64, 7.501_f64, 0.10185_f64, 0.012827_f64,
-            2.0_f64, 3.0_f64, 1.511_f64, 0.258_f64, 4.424_f64,
-            // para_0..9
+            // ferro_0..9 -- libxc csc_set_ext_params uses par_ferro[0]
+            // for interaction=1, bb=1.0 (which is the default).
+            5.24_f64, 0.0_f64, 1.568_f64, 0.12856_f64, 0.003201_f64,
+            2.0_f64, 3.0_f64, 0.0538_f64, 1.56e-5_f64, 2.958_f64,
+            // para_0..9 -- par_para[8] for the paramagnetic channel.
             18.40_f64, 0.0_f64, 7.501_f64, 0.10185_f64, 0.012827_f64,
             2.0_f64, 3.0_f64, 1.511_f64, 0.258_f64, 4.424_f64,
         ),
