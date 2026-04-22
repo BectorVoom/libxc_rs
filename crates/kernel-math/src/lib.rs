@@ -1,6 +1,8 @@
 #![allow(clippy::excessive_precision)]
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::too_many_arguments)]
+#![allow(non_snake_case)]
+#![allow(unused_assignments)]
 
 pub mod constants;
 pub mod powers;

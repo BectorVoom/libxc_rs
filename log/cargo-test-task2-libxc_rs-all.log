@@ -1,0 +1,20 @@
+test registry::tests::test_name_alias_resolves ... ok
+test registry::tests::test_registry_completeness ... ok
+test registry::tests::test_removed_id_104 ... ok
+test registry::tests::test_version ... ok
+test eval::dispatch::tests::test_vxc_with_vrho_none_still_succeeds ... ok
+test eval::dispatch::tests::test_lxc_unpolarized_populates_all_levels ... ok
+test kernel::launch::tests::test_identity_single_element ... ok
+test eval::dispatch::tests::test_lda_xc_tih_vxc_succeeds ... ok
+test eval::mix::tests::mixed_vxc_order_populates_both_zk_and_vrho ... ok
+test kernel::launch::tests::test_identity_small ... ok
+test kernel::launch::tests::test_identity_1000_elements ... ok
+test eval::mix::tests::mixed_two_auxes_complementary_weights_match_dispatch ... ok
+test kernel::launch::tests::test_identity_special_values ... ok
+test eval::mix::tests::mixed_single_aux_weight_1_matches_dispatch ... ok
+test eval::dispatch::tests::test_kxc_unpolarized_populates_all_levels ... ok
+test eval::mix::tests::mixed_half_weight_produces_half_result ... ok
+test eval::mix::tests::mixed_fxc_order_through_mixed_path ... ok
+
+test result: ok. 125 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.73s
+

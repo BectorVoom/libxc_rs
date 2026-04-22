@@ -1,0 +1,20 @@
+   Compiling libxc_rs-verify v0.1.0 (/home/chemtech/workspace/libxc_rs/verify)
+   Compiling approx v0.5.1
+   Compiling libxc_rs v0.1.0 (/home/chemtech/workspace/libxc_rs)
+    Finished `test` profile [unoptimized] target(s) in 11.12s
+     Running unittests src/lib.rs (target/debug/deps/libxc_rs-76047782cc37fabd)
+
+running 10 tests
+test model::lda_functional::tests::from_id_rejects_deferred_lda_c_pk09 ... ok
+test model::lda_functional::tests::from_id_rejects_deferred_lda_c_pw_erf ... ok
+test model::lda_functional::tests::from_id_rejects_lda_family_id_not_compiled ... ok
+test model::lda_functional::tests::from_id_rejects_deferred_lda_xc_ksdt ... ok
+test model::lda_functional::tests::from_id_rejects_deferred_lda_c_pmgb06 ... ok
+test model::lda_functional::tests::from_id_routes_lda_xc_1d_ehwlrg_variants ... ok
+test model::lda_functional::tests::from_id_routes_lda_x ... ok
+test model::lda_functional::tests::has_exc_false_only_for_lda_xc_tih ... ok
+test model::lda_functional::tests::from_id_routes_lda_xc_tih ... ok
+test model::lda_functional::tests::to_id_round_trips_through_from_id ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 112 filtered out; finished in 0.00s
+

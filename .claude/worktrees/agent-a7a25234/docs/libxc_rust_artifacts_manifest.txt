@@ -1,0 +1,5 @@
+/mnt/data/libxc_rust_detailed_design.md
+/mnt/data/libxc_public_api_inventory.csv
+/mnt/data/libxc_functional_inventory.csv
+/mnt/data/libxc_legacy_removed_inventory.csv
+/mnt/data/libxc_rust_design_stub.txt

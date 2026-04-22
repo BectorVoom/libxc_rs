@@ -3022,6 +3022,7 @@ dependencies = [
  "bindgen 0.72.1",
  "cmake",
  "cubecl",
+ "libxc-kernel-lda",
  "libxc_rs",
 ]
 

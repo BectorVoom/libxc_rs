@@ -5,42 +5,55 @@ services:
       context: .
       dockerfile: .devcontainer/Dockerfile
       args:
-        UBUNTU_IMAGE: ubuntu:26.04
-        USERNAME: vscode
-        USER_UID: 1000
-        USER_GID: 1000
+        UBUNTU_IMAGE: ${UBUNTU_IMAGE:-ubuntu:26.04}
+        USERNAME: ${DEV_USERNAME:-vscode}
+        USER_UID: ${LOCAL_UID:-1000}
+        USER_GID: ${LOCAL_GID:-1000}
+
     init: true
-    user: vscode
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     working_dir: /workspace
     command: /bin/bash -lc "sleep infinity"
+
     environment:
       TZ: Asia/Tokyo
-      CARGO_HOME: /home/vscode/.cargo
-      RUSTUP_HOME: /home/vscode/.rustup
-      BUN_INSTALL: /home/vscode/.bun
-      UV_CACHE_DIR: /home/vscode/.cache/uv
+      HOME: /home/${DEV_USERNAME:-vscode}
+      CARGO_HOME: /home/${DEV_USERNAME:-vscode}/.cargo
+      RUSTUP_HOME: /home/${DEV_USERNAME:-vscode}/.rustup
+      BUN_INSTALL: /home/${DEV_USERNAME:-vscode}/.bun
+      UV_CACHE_DIR: /home/${DEV_USERNAME:-vscode}/.cache/uv
+      SCCACHE_DIR: /home/${DEV_USERNAME:-vscode}/.cache/sccache
+
     volumes:
       - ./:/workspace:cached
-      - cargo-registry:/home/vscode/.cargo/registry
-      - cargo-git:/home/vscode/.cargo/git
-      - rustup-home:/home/vscode/.rustup
-      - uv-cache:/home/vscode/.cache/uv
-      - bun-install-cache:/home/vscode/.bun/install/cache
+      - cargo-target:/workspace/target
+      - cargo-registry:/home/${DEV_USERNAME:-vscode}/.cargo/registry
+      - cargo-git:/home/${DEV_USERNAME:-vscode}/.cargo/git
+      - rustup-home:/home/${DEV_USERNAME:-vscode}/.rustup
+      - uv-cache:/home/${DEV_USERNAME:-vscode}/.cache/uv
+      - sccache-cache:/home/${DEV_USERNAME:-vscode}/.cache/sccache
+      - bun-install-cache:/home/${DEV_USERNAME:-vscode}/.bun/install/cache
+
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
     cap_add:
       - SYS_PTRACE
+
     security_opt:
       - seccomp:unconfined
+
     networks:
       - default
       - external-devnet
 
 volumes:
+  cargo-target:
   cargo-registry:
   cargo-git:
   rustup-home:
   uv-cache:
+  sccache-cache:
   bun-install-cache:
 
 networks:

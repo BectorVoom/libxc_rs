@@ -78,7 +78,7 @@ fn test_lda_x_threshold_boundary() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -137,7 +137,7 @@ fn test_lda_x_derivatives_at_threshold() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
+        lxc_unpol::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -204,7 +204,7 @@ fn test_lda_x_nondefault_alpha() {
         let (cube_count, cube_dim) = calculate_launch_config(n);
 
         unsafe {
-            lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+            exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
                 &client,
                 cube_count,
                 cube_dim,
@@ -255,7 +255,7 @@ fn test_lda_x_alpha_linearity() {
     let zk1_handle = create_zero_output_buffer(&client, n);
     let (cube_count, cube_dim) = calculate_launch_config(n);
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client, cube_count, cube_dim,
             ArrayArg::from_raw_parts::<f64>(&rho_handle, n, 1),
             ArrayArg::from_raw_parts::<f64>(&zk1_handle, n, 1),
@@ -271,7 +271,7 @@ fn test_lda_x_alpha_linearity() {
     let zk2_handle = create_zero_output_buffer(&client, n);
     let (cube_count, cube_dim) = calculate_launch_config(n);
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client, cube_count, cube_dim,
             ArrayArg::from_raw_parts::<f64>(&rho_handle, n, 1),
             ArrayArg::from_raw_parts::<f64>(&zk2_handle, n, 1),
@@ -319,7 +319,7 @@ fn test_lda_x_alpha_derivatives() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
+        lxc_unpol::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -389,7 +389,7 @@ fn test_lda_x_extreme_density() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
+        lxc_unpol::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -486,7 +486,7 @@ fn test_lda_x_pol_asymmetric() {
         let (cube_count, cube_dim) = calculate_launch_config(np);
 
         unsafe {
-            lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
+            exc_pol::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
                 &client,
                 cube_count,
                 cube_dim,
@@ -528,7 +528,7 @@ fn test_lda_x_pol_asymmetric_derivatives() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
+        fxc_pol::lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -594,7 +594,7 @@ fn test_lda_x_pol_symmetric_matches_unpol() {
         let zk_handle = create_zero_output_buffer(&client, 1);
         let (cc, cd) = calculate_launch_config(1);
         unsafe {
-            lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+            exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
                 &client, cc, cd,
                 ArrayArg::from_raw_parts::<f64>(&rho_handle, 1, 1),
                 ArrayArg::from_raw_parts::<f64>(&zk_handle, 1, 1),
@@ -611,7 +611,7 @@ fn test_lda_x_pol_symmetric_matches_unpol() {
         let zk_handle = create_zero_output_buffer(&client, 1);
         let (cc, cd) = calculate_launch_config(1);
         unsafe {
-            lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
+            exc_pol::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
                 &client, cc, cd,
                 ArrayArg::from_raw_parts::<f64>(&rho_handle, 2, 1),
                 ArrayArg::from_raw_parts::<f64>(&zk_handle, 1, 1),
@@ -667,7 +667,7 @@ fn test_lda_x_large_batch() {
     }
 
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
