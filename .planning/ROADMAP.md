@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Foundation and Registry** - Domain types, error handling, static registry, dimension calculation, and oracle harness
 - [ ] **Phase 2: Math Core and CubeCL Substrate** - All #[cube] math building blocks, CubeCL CPU backend, LDA_X canary kernel validation
 - [ ] **Phase 3: Input/Output and Evaluation Framework** - I/O bundle types, output masks, dispatch routing, mixed functional accumulation
-- [ ] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
+- [x] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
 - [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
@@ -91,8 +91,8 @@ Plans:
 - [x] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
 - [x] 04-02-PLAN.md — LDA dispatch: generalize dispatch_lda + deferred.rs + per-functional Rust-vs-C oracle comparison (37 compiled, 4 deferred)
 - [x] 04-03-PLAN.md — GGA dispatch: dispatch_gga scaffolding + GgaFunctional enum + per-functional oracle comparison (105 routable; 42 zero-scalar dispatched + 63 UnsupportedFunctional pending Phase 4 follow-up)
-- [ ] 04-04-PLAN.md — MGGA dispatch: new dispatch_mgga + MggaFunctional enum + per-functional oracle comparison (86 compiled, 6 deferred)
-- [ ] 04-05-PLAN.md — Cross-family verification sweep (cargo xtask verify-phase-4) + Phase 4 COVERAGE sign-off
+- [x] 04-04-PLAN.md — MGGA dispatch: new dispatch_mgga + MggaFunctional enum + per-functional oracle comparison (86 compiled, 6 deferred)
+- [x] 04-05-PLAN.md — Cross-family verification sweep (cargo xtask verify-phase-4) + Phase 4 COVERAGE sign-off
 
 ### Phase 5: Functional Lifecycle and Hybrid Properties
 **Goal**: Users can construct a Functional instance by ID, configure external parameters and thresholds, query hybrid properties, and evaluate any of the 649 functionals through the Functional struct
@@ -155,7 +155,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 1. Foundation and Registry | 0/3 | Not started | - |
 | 2. Math Core and CubeCL Substrate | 0/5 | Not started | - |
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
-| 4. Bulk Kernel Translation | 0/5 | Not started | - |
+| 4. Bulk Kernel Translation | 5/5 | Complete | 2026-04-24 |
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
 | 6. Public API and C Compatibility | 0/3 | Not started | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
