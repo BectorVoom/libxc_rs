@@ -20,7 +20,7 @@ pub mod eval;
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
     HybridType, HybridTermKind, Dimensionality, Thresholds,
-    LdaFunctional, GgaFunctional,
+    LdaFunctional, GgaFunctional, MggaFunctional,
 };
 pub use meta::{FunctionalMeta, Reference, ExtParamSpec, HybridTerm};
 pub use error::LibxcRsError;
@@ -28,4 +28,4 @@ pub use dims::Dimensions;
 pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, version_string};
 pub use input::{LdaInput, GgaInput, MggaInput};
 pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
-pub use eval::{dispatch_lda, dispatch_gga};
+pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};

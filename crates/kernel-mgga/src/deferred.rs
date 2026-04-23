@@ -12,6 +12,8 @@
 pub struct DeferredMgga {
     /// Functional name (e.g., "mgga_c_b94")
     pub name: &'static str,
+    /// libxc functional ID
+    pub id: u16,
     /// C source file line count
     pub c_lines: u32,
     /// The special math function this functional requires
@@ -28,36 +30,42 @@ pub struct DeferredMgga {
 pub const DEFERRED_MGGA_FUNCTIONALS: &[DeferredMgga] = &[
     DeferredMgga {
         name: "mgga_c_b94",
+        id: 397,
         c_lines: 34_899,
         blocked_by: "xc_mgga_x_br89_get_x",
         reason: "Requires Brent's method root-finder for BR89 exchange hole model",
     },
     DeferredMgga {
         name: "mgga_x_br89",
+        id: 206,
         c_lines: 69_562,
         blocked_by: "xc_mgga_x_br89_get_x",
         reason: "Requires Brent's method root-finder for BR89 exchange hole model",
     },
     DeferredMgga {
         name: "mgga_x_mbr",
+        id: 716,
         c_lines: 36_233,
         blocked_by: "xc_mgga_x_br89_get_x",
         reason: "Requires Brent's method root-finder for BR89 exchange hole model",
     },
     DeferredMgga {
         name: "mgga_x_mbrxc_bg",
+        id: 696,
         c_lines: 38_682,
         blocked_by: "xc_mgga_x_mbrxc_get_x",
         reason: "Requires MBRXC variant root-finder for modified BR exchange hole",
     },
     DeferredMgga {
         name: "mgga_x_mbrxh_bg",
+        id: 697,
         c_lines: 35_453,
         blocked_by: "xc_mgga_x_br89_get_x",
         reason: "Requires Brent's method root-finder for BR89 exchange hole model",
     },
     DeferredMgga {
         name: "mgga_x_mggac",
+        id: 711,
         c_lines: 55_752,
         blocked_by: "xc_mgga_x_mbrxc_get_x",
         reason: "Requires MBRXC variant root-finder for modified BR exchange hole",
@@ -69,3 +77,35 @@ pub const TRANSLATED_MGGA_COUNT: usize = 86;
 
 /// Total MGGA functionals in libxc 7.0.0.
 pub const TOTAL_MGGA_COUNT: usize = 92;
+
+/// Return true if the given libxc functional ID is in the deferred list.
+pub fn is_deferred(id: u16) -> bool {
+    DEFERRED_MGGA_FUNCTIONALS.iter().any(|d| d.id == id)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn deferred_count_matches_constant() {
+        assert_eq!(DEFERRED_MGGA_FUNCTIONALS.len(), 6);
+    }
+
+    #[test]
+    fn is_deferred_recognizes_known_ids() {
+        assert!(is_deferred(397)); // mgga_c_b94
+        assert!(is_deferred(206)); // mgga_x_br89
+        assert!(is_deferred(716)); // mgga_x_mbr
+        assert!(is_deferred(696)); // mgga_x_mbrxc_bg
+        assert!(is_deferred(697)); // mgga_x_mbrxh_bg
+        assert!(is_deferred(711)); // mgga_x_mggac
+    }
+
+    #[test]
+    fn is_deferred_rejects_compiled_ids() {
+        assert!(!is_deferred(202)); // mgga_x_tpss
+        assert!(!is_deferred(208)); // mgga_x_tb09
+        assert!(!is_deferred(1));   // lda_x
+    }
+}
