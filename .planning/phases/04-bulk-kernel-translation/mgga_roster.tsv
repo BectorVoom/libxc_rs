@@ -1,0 +1,32 @@
+hyb_mgga_x_dldf	21	36	FULL	1	
+mgga_xc_zlp	23	42	FULL	1	
+mgga_c_cs	34	72	FULL	1	
+mgga_x_lta	34	201	FULL	1	param_ltafrac
+mgga_x_tpss	33	202	FULL	1	param_BLOC_a,param_BLOC_b,param_b,param_c,param_e,param_kappa,param_mu
+mgga_x_tau_hcth	34	205	FULL	1	param_cx_local_0,param_cx_local_1,param_cx_local_2,param_cx_local_3,param_cx_nlocal_0,param_cx_nlocal_1,param_cx_nlocal_2,param_cx_nlocal_3
+mgga_x_tb09	35	208	VXC_ONLY	0	param_alpha,param_c
+mgga_x_pkzb	28	213	FULL	1	
+mgga_x_th	34	225	FULL	1	
+mgga_xc_cc06	35	229	FULL	1	
+mgga_x_jk	35	256	FULL	1	param_beta,param_gamma
+mgga_x_mvs	35	257	FULL	1	param_b,param_c1,param_e1,param_k0
+mgga_x_rtpss	21	299	FULL	1	param_b,param_c,param_e,param_kappa,param_mu
+mgga_c_cc	35	387	FULL	1	
+hyb_mgga_x_m05	29	438	FULL	1	param_a_0,param_a_1,param_a_2,param_a_3,param_a_4,param_a_5,param_a_6,param_a_7,param_a_8,param_a_9,param_a_10,param_a_11,param_csi_HF
+mgga_x_tm	30	540	FULL	1	
+mgga_xc_lp90	29	564	FULL	1	
+mgga_x_gx	29	575	FULL	1	param_alphainf,param_c0,param_c1
+mgga_x_pbe_gx	29	576	FULL	1	
+mgga_x_2d_js17	34	609	FULL	1	
+mgga_k_rda	29	621	FULL	1	param_A0,param_A1,param_A2,param_A3,param_a,param_b,param_beta1,param_beta2,param_beta3,param_c
+mgga_k_gea2	17	627	FULL	1	
+mgga_k_gea4	34	628	FULL	1	
+mgga_x_rlda	34	688	FULL	1	param_prefactor
+mgga_x_task	33	707	FULL	1	param_task_anu_0,param_task_anu_1,param_task_anu_2,param_task_bnu_0,param_task_bnu_1,param_task_bnu_2,param_task_bnu_3,param_task_bnu_4,param_task_c,param_task_d,param_task_h0x
+mgga_k_lk	35	UNKNOWN	FULL	1	param_kappa
+mgga_k_pgslb	34	UNKNOWN	FULL	1	param_pgslb_beta,param_pgslb_mu
+mgga_x_m06l	21	UNKNOWN	FULL	1	param_a_0,param_a_1,param_a_2,param_a_3,param_a_4,param_a_5,param_a_6,param_a_7,param_a_8,param_a_9,param_a_10,param_a_11,param_d_0,param_d_1,param_d_2,param_d_3,param_d_4,param_d_5
+mgga_x_m08	21	UNKNOWN	FULL	1	param_a_0,param_a_1,param_a_2,param_a_3,param_a_4,param_a_5,param_a_6,param_a_7,param_a_8,param_a_9,param_a_10,param_a_11,param_b_0,param_b_1,param_b_2,param_b_3,param_b_4,param_b_5,param_b_6,param_b_7,param_b_8,param_b_9,param_b_10,param_b_11
+mgga_x_ms	29	UNKNOWN	FULL	1	param_b,param_c,param_kappa
+mgga_x_msb	30	UNKNOWN	FULL	1	param_b,param_c,param_kappa
+# total_compiled: 31
