@@ -16,7 +16,7 @@ pub struct Reference {
 }
 
 /// External parameter specification
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct ExtParamSpec {
     pub name: &'static str,
     pub description: &'static str,
@@ -26,7 +26,7 @@ pub struct ExtParamSpec {
 }
 
 /// A single hybrid exchange term
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct HybridTerm {
     pub kind: HybridTermKind,
     pub coefficient: f64,
@@ -47,7 +47,7 @@ pub struct PropagationRule {
 }
 
 /// Static metadata for a functional. Lives in .rodata.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq)]
 pub struct FunctionalMeta {
     pub id: FunctionalId,
     pub name: &'static str,

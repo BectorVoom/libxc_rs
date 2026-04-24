@@ -2,8 +2,8 @@
 #![allow(non_upper_case_globals)]
 
 use super::PropagationRule;
-use crate::model::FunctionalId;
 
+#[allow(dead_code)]
 pub(crate) const PROPAGATION_RULES: &[PropagationRule] = &[
     // Populated by cargo xtask generate-metadata
 ];

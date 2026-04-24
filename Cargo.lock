@@ -2889,6 +2889,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-sys"
+version = "0.1.0"
+dependencies = [
+ "bindgen 0.72.1",
+ "cmake",
+]
+
+[[package]]
 name = "libxc_rs"
 version = "0.1.0"
 dependencies = [
@@ -3019,11 +3027,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "approx",
- "bindgen 0.72.1",
- "cmake",
  "cubecl",
  "libxc-kernel-lda",
  "libxc-kernel-mgga",
+ "libxc-sys",
  "libxc_rs",
 ]
 
@@ -4760,6 +4767,7 @@ name = "xtask"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "libxc-sys",
  "regex",
 ]
 

@@ -3,6 +3,7 @@
 
 use crate::model::{FunctionalId, HybridType};
 
+#[allow(dead_code)]
 pub(crate) const HYBRID_TYPES: &[(FunctionalId, HybridType)] = &[
     // Populated by cargo xtask generate-metadata
 ];
