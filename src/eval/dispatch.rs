@@ -52,6 +52,43 @@ impl Default for LdaFunctionalParams {
     }
 }
 
+// Plan 05-02 bridge: implement FunctionalParams for the historical
+// LdaFunctionalParams struct so call sites can pass it as `&dyn FunctionalParams`
+// without changing the dispatch arm bodies. The dispatch arm for LdaX continues
+// to consume `params.alpha` directly via the typed parameter, while the trait
+// object exists for forward-compatibility with the new Functional API.
+impl crate::functional::params::FunctionalParams for LdaFunctionalParams {
+    fn ext_param_count(&self) -> usize {
+        1
+    }
+
+    fn raw_ext_params(&self) -> &[f64] {
+        // Cannot return a &[f64] over a Copy field without owning storage;
+        // the historical struct doesn't carry a Box. Plan 05-03 may rework
+        // this to use the LdaXParams concrete type from functional::params_lda.
+        // For now, return an empty slice — the trait object is used only as
+        // a Send+Sync handle in this plan; ext_param queries go through
+        // Functional's own getters which read from Functional.ext_params.
+        &[]
+    }
+
+    fn set_ext_params(&mut self, vals: &[f64]) -> Result<(), LibxcRsError> {
+        if vals.len() != 1 {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: crate::model::FunctionalId(1),
+                expected: 1,
+                actual: vals.len(),
+            });
+        }
+        self.alpha = vals[0];
+        Ok(())
+    }
+
+    fn as_any(&self) -> &dyn std::any::Any {
+        self
+    }
+}
+
 // ============================================================================
 // Public dispatch entry point
 // ============================================================================

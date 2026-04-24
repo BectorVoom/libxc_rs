@@ -16,6 +16,7 @@ pub mod kernel;
 pub mod input;
 pub mod output;
 pub mod eval;
+pub mod functional;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
@@ -29,3 +30,4 @@ pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, vers
 pub use input::{LdaInput, GgaInput, MggaInput};
 pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
 pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};
+pub use functional::{Functional, FunctionalParams, NoParams};
