@@ -789,32 +789,37 @@ impl EvaluationWorkspace {
 | A7 | Snapshotting at `XC_UNPOLARIZED` is sufficient — polarized invocation produces no additional metadata | §xtask generate-metadata | libxc does distinguish `nspin` in `dim` fields, but `ext_params`, `hyb_*`, `func_aux`, and all `info->*` metadata are spin-independent. [VERIFIED: libxc-master/src/xc.h:327 `xc_func_type.nspin` is separate from `info`]. Metadata snapshot takes UNPOLARIZED safely. |
 | A8 | Aux arity distribution is 1..=6, with B3LYP = 4 aux | §Pitfall 4, CONTEXT.md revision | Empirically verified by grep on libxc-master. [VERIFIED: grep mix_init arities], [VERIFIED: hyb_gga_xc_b3lyp.c funcs_id[4]]. CONTEXT.md's "1-4" and "B3LYP = 3 aux" wording should be revised — no code impact, Vec handles any arity. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Does any libxc functional have a non-Copy parent→aux ext_param propagation?**
    - What we know: `hyb_gga_xc_camy_b3lyp` and `mgga_c_b94_hyb` and `hyb_gga_xc_wb2plyp` all use `xc_func_set_ext_params_name(p->func_aux[i], "_name", value)` — pure Copy by name.
    - What's unclear: Haven't audited all 147 hybrid + mixed functionals. Empirical check is a small xtask prototype.
    - Recommendation: Plan 05-01 includes a scan task: grep `xc_func_set_ext_params_name(p->func_aux` and `xc_func_set_ext_params(p->func_aux` across libxc-master/src/*.c, audit each occurrence. If any non-Copy cases exist, either (a) scope them out per CONTEXT.md §deferred "Non-Copy propagation transforms", or (b) hand-write per-functional Rust.
+   - **RESOLVED:** Phase 5 scope is Copy-only. xtask's perturbation heuristic (Plan 05-01 Task 2 Step 3) detects non-Copy propagation and bails loud with `PropagationConflict`. Hand-written derivation (CAM omega→alpha transforms and similar formula-driven cases) lives in per-functional `FunctionalParams::set_ext_params` impls (Plan 05-02). If libxc 7.0.0 contains any non-Copy parent→aux edge, xtask fails at snapshot time, forcing a conscious scope decision.
 
 2. **Should `dispatch_*` remain `pub` in `libxc_rs::eval` or move to `pub(crate)`?**
    - What we know: CONTEXT.md §Claude's Discretion leaves this open. Currently `pub` and re-exported at crate root (`/workspace/src/lib.rs:31`). Verify/tests/*.rs calls them directly.
    - What's unclear: Preserving `pub` maintains verify/ compatibility but creates two public ways to evaluate (free `dispatch_*` vs `Functional::evaluate_*`), which can confuse users.
    - Recommendation: Keep `pub` through Phase 5 (verify tests matter), downgrade to `pub(crate)` in Phase 6 when `BatchEvaluator` offers the canonical API and verify tests can be refactored to use `Functional::evaluate_*`.
+   - **RESOLVED:** Keep `pub` in Phase 5 to avoid verify-test churn (honors D-11). Downgrade to `pub(crate)` is deferred to Phase 6 or later.
 
 3. **Single `params.rs` file with 229 impls, or per-family split?**
    - What we know: CONTEXT.md §Claude's Discretion marks this planner's choice.
    - What's unclear: Size estimate — each impl is 5-20 lines (struct + `impl FunctionalParams`), so 229 × 15 ≈ 3500 lines in one file. Compiles fine but painful to navigate.
    - Recommendation: Per-family split (`params_lda.rs`, `params_gga.rs`, `params_mgga.rs`). Each ~1000-1500 lines, family-scoped semantic locality.
+   - **RESOLVED:** Per-family split: `src/functional/params.rs` (trait + `NoParams`), `src/functional/params_lda.rs` (37 impls), `src/functional/params_gga.rs` (106 impls), `src/functional/params_mgga.rs` (86 impls). Aligns with existing `*_dispatch/` family split and keeps per-file line count manageable.
 
 4. **Should `FunctionalParams` impls be xtask-generated?**
    - What we know: CONTEXT.md §Claude's Discretion. Metadata is already xtask-generated, so emitting `impl FunctionalParams for LdaXParams { … }` from the same pass is possible.
    - What's unclear: The derived-parameter formulas differ per functional in ways that can't all be expressed as table-driven code (see Pitfall 1 — `set_ext_params_cam` is formula-driven, not table-driven).
    - Recommendation: **Hand-write the derivation logic, xtask-emit the trivial Copy-only impls.** Functionals with zero ext_params get `NoParams`; functionals with ext_params + pure-Copy `set_ext_params_cpy` can be generated; the ~20 functionals with derivation formulas (CAM/CAMY/CAMG/LC/LCY and some MGGA hybrids) are hand-written. Mixes macro-generation with precision where needed.
+   - **RESOLVED:** Hybrid approach — xtask emits the Copy-only baseline (per-functional struct definition + `raw_ext_params` + pure-Copy `set_ext_params`) into committed generated files; hand-write the `set_ext_params` bodies for the ~20 derivation-bearing families (CAM / CAMY / CAMG / LC / LCY / omega-bearing variants). Bounds the hand-written surface to ~20 families rather than 229 impls. Committed xtask output is consistent with D-01 / D-04 / D-05.
 
 5. **How does the snapshot round-trip for `FunctionalMeta.flags` handle unknown libxc flag bits?**
    - What we know: `FunctionalFlags::from_bits_retain` preserves unknown bits (bitflags 2.x `retain`-family constructors). [VERIFIED: bitflags 2.10 docs]
    - What's unclear: Does Phase 4's `FunctionalFlags` enum cover all libxc flags, including `MAPLE2C_FLAGS` bundle?
    - Recommendation: Wave-0 audit: enumerate flags emitted by xtask, diff against `src/model/mod.rs::FunctionalFlags` bit definitions. Extend enum if missing.
+   - **RESOLVED:** Add explicit Wave-0 audit step to Plan 05-01: grep `XC_FLAGS_*` definitions in `libxc-master/src/xc.h` and diff against `src/model/FunctionalFlags` bitflags. A gap surfaces via the D-04 metadata round-trip test (bitwise `flags` compare fails loud), so this is non-blocking for planning.
 
 ## Environment Availability
 
