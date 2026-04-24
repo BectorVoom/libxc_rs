@@ -4,6 +4,7 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
+mod generate_metadata;
 mod verify_phase_4;
 
 fn main() -> Result<()> {
@@ -12,6 +13,7 @@ fn main() -> Result<()> {
 
     match command {
         "generate-registry" => generate_registry()?,
+        "generate-metadata" => generate_metadata::run()?,
         "verify-phase-4" => {
             let report = verify_phase_4::run_phase_4_verification()?;
             verify_phase_4::print_phase_4_summary(&report);
@@ -24,6 +26,7 @@ fn main() -> Result<()> {
             eprintln!();
             eprintln!("Commands:");
             eprintln!("  generate-registry  Parse C headers and generate registry source files");
+            eprintln!("  generate-metadata  Snapshot libxc metadata for all 649 functionals");
             eprintln!(
                 "  verify-phase-4     Run full Phase 4 oracle matrix (LDA+GGA+MGGA) and print summary"
             );
@@ -308,6 +311,7 @@ fn generate_meta_file(root: &Path, entries: &BTreeMap<u16, FuncEntry>) -> Result
              \x20   hybrid_terms: &[],\n\
              \x20   nlc_params: None,\n\
              \x20   max_order: DerivativeOrder::Exc,\n\
+             \x20   hybrid_type: crate::model::HybridType::Semilocal,\n\
              }};\n\n",
             name = entry.define_name,
             id = entry.id,
