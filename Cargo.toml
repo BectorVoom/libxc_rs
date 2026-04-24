@@ -130,6 +130,7 @@ libxc-kernel-mgga-37b = { path = "crates/kernel-mgga-37b" }
 members = [
     "xtask",
     "verify",
+    "libxc-sys",
     "crates/kernel-math",
     "crates/kernel-lda",
     "crates/kernel-gga",
