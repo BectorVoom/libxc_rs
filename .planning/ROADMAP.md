@@ -107,9 +107,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md — libxc-sys factoring + cargo xtask generate-metadata + full FunctionalMeta population (references/ext_params/hybrid_terms/auxiliaries/nlc_params/hybrid_type for all 649 IDs) + verify/tests/metadata_oracle.rs round-trip test
+- [ ] 05-02-PLAN.md — FunctionalParams trait + 229 per-functional impls + dispatch signature migration to &dyn FunctionalParams + Functional struct (lifecycle + config: ext_param get/set by name/index/bulk, 4 threshold setters) + GgaScratch/MggaScratch materialization + 4 new LibxcRsError variants
+- [ ] 05-03-PLAN.md — Rust port of xc_hyb_type + CAM/NLC/aux queries (HYB-01..04) + eager recursive aux construction with propagation map + evaluate_mixed_gga/evaluate_mixed_mgga + Functional::evaluate_{lda,gga,mgga} + verify/tests/{hybrid_type_oracle,hybrid_oracle,mixed_oracle}.rs
 
 ### Phase 6: Public API and C Compatibility
 **Goal**: The library provides an ergonomic Rust API with builder pattern and batch evaluation, plus a complete C compatibility layer that enables drop-in replacement for libxc in C/Fortran DFT codes
@@ -170,7 +170,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
   2. All 92 MGGA functionals are translated and organized into sub-crates that compile
   3. Representative MGGA functionals pass oracle comparison with relative error <= 1e-12 for exc
   4. kernel-mgga facade re-exports all sub-crates
-**Plans:** 4 plans
 
 Plans:
 - [x] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
