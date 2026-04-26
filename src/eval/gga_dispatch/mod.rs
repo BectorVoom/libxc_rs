@@ -24,6 +24,7 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
+use crate::functional::params::FunctionalParams;
 use crate::input::GgaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
@@ -310,8 +311,15 @@ pub fn dispatch_gga(
     input: &GgaInput,
     order: DerivativeOrder,
     output: &mut GgaOutput,
+    params: &dyn FunctionalParams,
     thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
+    // `params` is currently unused by GGA dispatch: all 105 routed GGA
+    // functionals use hardcoded libxc 7.0.0 ext_param defaults at the
+    // launch site (matching the C oracle). The trait-object parameter is
+    // reserved for per-arm downcasts when the CAM/CAMY/LC/LCY family is
+    // wired in a follow-up plan.
+    let _ = params;
     // 1. Validate functional can satisfy the requested order.
     if order == DerivativeOrder::Exc && !functional.has_exc() {
         return Err(LibxcRsError::UnsupportedDerivativeOrder {
@@ -624,6 +632,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedDerivativeOrder { .. }));
@@ -647,6 +656,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         );
         // Accept either Ok (when scalar defaults are wired) or a typed

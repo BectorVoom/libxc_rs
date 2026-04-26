@@ -399,7 +399,7 @@ fn run_rust_gga(
         v4sigma4:   if order >= DerivativeOrder::Lxc { Some(&mut v4sigma4) } else { None },
     };
 
-    match dispatch_gga(functional, &input, order, &mut output, &Thresholds::default()) {
+    match dispatch_gga(functional, &input, order, &mut output, &libxc_rs::NoParams, &Thresholds::default()) {
         Ok(()) => {
             // Drop `output` to release the &mut borrows, then read the
             // populated local vectors.

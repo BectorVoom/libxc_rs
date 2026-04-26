@@ -41,7 +41,7 @@ fn snapshot_from_ffi(id: FunctionalId, name: &'static str) -> FunctionalMeta {
 
 #[test]
 fn metadata_round_trip_all_649() {
-    let mut mismatches = Vec::new();
+    let mut mismatches: Vec<String> = Vec::new();
     let mut count = 0usize;
     for id in all_functional_ids() {
         count += 1;

@@ -14,6 +14,8 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
+use crate::functional::params::FunctionalParams;
+use crate::functional::params_lda::LdaXParams;
 use crate::input::LdaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer,
@@ -27,67 +29,12 @@ use cubecl::frontend::ScalarArg;
 use cubecl::prelude::{ArrayArg, CubeCount, CubeDim, LaunchError};
 use cubecl::server::Handle;
 
-/// Per-functional scalar parameters that vary between LDA kernels.
-///
-/// For exchange functionals (`LdaX`, `LdaX2d`, `LdaXRel`, `LdaXErf`,
-/// `LdaXSloc`, `LdaXYukawa`) `alpha` is the Slater exchange scaling and
-/// defaults to 1.0. All other LDA functionals ignore this value — their
-/// parameters are hardcoded to the libxc 7.0.0 defaults at the call site.
-///
-/// **Phase 4 scope:** This struct exposes the historical `param_alpha` knob
-/// only. Configurable per-functional ext-params (e.g. `lda_x_erf` omega,
-/// `lda_c_chachiyo` ap/bp/cp/af/bf/cf overrides) are tracked for a future
-/// plan. The defaults baked into dispatch match libxc's C oracle so the
-/// per-functional Rust-vs-C verify tests pass without parameter plumbing.
-#[derive(Debug, Clone, Copy)]
-pub struct LdaFunctionalParams {
-    /// Slater exchange scaling for `lda_x`. Ignored by every other
-    /// functional (their parameters come from libxc defaults).
-    pub alpha: f64,
-}
-
-impl Default for LdaFunctionalParams {
-    fn default() -> Self {
-        Self { alpha: 1.0 }
-    }
-}
-
-// Plan 05-02 bridge: implement FunctionalParams for the historical
-// LdaFunctionalParams struct so call sites can pass it as `&dyn FunctionalParams`
-// without changing the dispatch arm bodies. The dispatch arm for LdaX continues
-// to consume `params.alpha` directly via the typed parameter, while the trait
-// object exists for forward-compatibility with the new Functional API.
-impl crate::functional::params::FunctionalParams for LdaFunctionalParams {
-    fn ext_param_count(&self) -> usize {
-        1
-    }
-
-    fn raw_ext_params(&self) -> &[f64] {
-        // Cannot return a &[f64] over a Copy field without owning storage;
-        // the historical struct doesn't carry a Box. Plan 05-03 may rework
-        // this to use the LdaXParams concrete type from functional::params_lda.
-        // For now, return an empty slice — the trait object is used only as
-        // a Send+Sync handle in this plan; ext_param queries go through
-        // Functional's own getters which read from Functional.ext_params.
-        &[]
-    }
-
-    fn set_ext_params(&mut self, vals: &[f64]) -> Result<(), LibxcRsError> {
-        if vals.len() != 1 {
-            return Err(LibxcRsError::ExtParamCountMismatch {
-                id: crate::model::FunctionalId(1),
-                expected: 1,
-                actual: vals.len(),
-            });
-        }
-        self.alpha = vals[0];
-        Ok(())
-    }
-
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
-    }
-}
+// The historical `LdaFunctionalParams` struct has been retired: `LdaXParams`
+// from `crate::functional::params_lda` is the authoritative carrier for the
+// `lda_x` alpha scaling. `src/eval/mod.rs` re-exports `LdaXParams as
+// LdaFunctionalParams` so verify/tests and any external callers continue to
+// compile without migration churn. New code should reference `LdaXParams`
+// directly.
 
 // ============================================================================
 // Public dispatch entry point
@@ -105,21 +52,24 @@ impl crate::functional::params::FunctionalParams for LdaFunctionalParams {
 /// * `input` - Validated LDA input bundle
 /// * `order` - Maximum derivative order to compute
 /// * `output` - Output bundle with optional buffers for each derivative level
-/// * `params` - Per-functional scalar parameters (currently `alpha` for
-///   exchange functionals; all other functionals use libxc defaults)
+/// * `params` - `&dyn FunctionalParams` trait object carrying per-functional
+///   ext_params. The six LDA exchange arms downcast to their concrete
+///   `*Params` type (e.g. `LdaXParams`) to recover `alpha`; all other arms
+///   ignore the trait object and use hardcoded libxc defaults.
 /// * `thresholds` - Numerical thresholds for evaluation stability
 ///
 /// # Errors
 /// * `UnsupportedDerivativeOrder` if `order == Exc` for a `_vxc`-only
 ///   functional like `LdaXcTih`.
-/// * `KernelLaunchFailed` on CubeCL launch failure.
+/// * `KernelLaunchFailed` on CubeCL launch failure or if an exchange arm
+///   receives a `FunctionalParams` trait object of the wrong concrete type.
 /// * `OutputBufferSizeMismatch` if caller-provided buffers are wrong size.
 pub fn dispatch_lda(
     functional: LdaFunctional,
     input: &LdaInput,
     order: DerivativeOrder,
     output: &mut LdaOutput,
-    params: &LdaFunctionalParams,
+    params: &dyn FunctionalParams,
     thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
     // 1. Validate functional can satisfy the requested order.
@@ -194,9 +144,17 @@ pub fn dispatch_lda(
         zt,
     };
 
-    // 4. Per-functional dispatch.
+    // 4. Per-functional dispatch. Exchange arms downcast `params` to their
+    // concrete `FunctionalParams` implementor; other arms ignore `params`
+    // and rely on kernel-internal defaults (matching libxc's C oracle).
     match functional {
-        LdaFunctional::LdaX                => launch_lda_x(&ctx, order, spin, params.alpha)?,
+        LdaFunctional::LdaX => {
+            let p = params.as_any().downcast_ref::<LdaXParams>()
+                .ok_or_else(|| LibxcRsError::KernelLaunchFailed {
+                    reason: "FunctionalParams type mismatch: LdaX expects LdaXParams".into(),
+                })?;
+            launch_lda_x(&ctx, order, spin, p.alpha)?
+        }
         LdaFunctional::LdaX2d              => launch_lda_x_2d(&ctx, order, spin)?,
         LdaFunctional::LdaXRel             => launch_lda_x_rel(&ctx, order, spin)?,
         LdaFunctional::LdaXErf             => launch_lda_x_erf(&ctx, order, spin)?,
@@ -1249,8 +1207,8 @@ mod tests {
         Thresholds::default()
     }
 
-    fn default_params() -> LdaFunctionalParams {
-        LdaFunctionalParams::default()
+    fn default_params() -> LdaXParams {
+        LdaXParams::default()
     }
 
     #[test]

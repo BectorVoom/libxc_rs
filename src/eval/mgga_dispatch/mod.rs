@@ -35,6 +35,7 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
+use crate::functional::params::FunctionalParams;
 use crate::input::MggaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
@@ -193,8 +194,15 @@ pub fn dispatch_mgga(
     input: &MggaInput,
     order: DerivativeOrder,
     output: &mut MggaOutput,
+    params: &dyn FunctionalParams,
     thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
+    // `params` is currently unused by MGGA dispatch: the routed MGGA
+    // functionals that launch with ext_params (MGGA_X_TPSS, MGGA_X_TASK,
+    // etc.) use hardcoded libxc 7.0.0 defaults at the launch site
+    // (matching the C oracle). The trait-object parameter is reserved
+    // for per-arm downcasts when per-functional scalar wiring lands.
+    let _ = params;
     // 1. Validate functional can satisfy the requested order (W5 — filesystem-driven has_exc).
     if order == DerivativeOrder::Exc && !functional.has_exc() {
         return Err(LibxcRsError::UnsupportedDerivativeOrder {
@@ -397,6 +405,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedDerivativeOrder { .. }));
@@ -417,6 +426,7 @@ mod tests {
             &input,
             DerivativeOrder::Fxc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedDerivativeOrder { .. }));
@@ -449,6 +459,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedFunctional { .. }));
@@ -473,6 +484,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         );
         match r {

@@ -7,8 +7,9 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
-use crate::eval::dispatch::{dispatch_lda, LdaFunctionalParams};
+use crate::eval::dispatch::dispatch_lda;
 use crate::eval::workspace::EvaluationWorkspace;
+use crate::functional::params_lda::LdaXParams;
 use crate::input::LdaInput;
 use crate::model::{DerivativeOrder, LdaFunctional, Thresholds};
 use crate::output::LdaOutput;
@@ -145,7 +146,7 @@ pub fn evaluate_mixed_lda(
                 input,
                 order,
                 &mut scratch_output,
-                &LdaFunctionalParams { alpha: aux.alpha },
+                &LdaXParams::new(aux.alpha),
                 &aux.thresholds,
             )?;
         }
@@ -242,7 +243,7 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Vxc, &mut out_direct,
-                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
+                         &LdaXParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with single aux, weight=1.0
@@ -288,7 +289,7 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
-                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
+                         &LdaXParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with two auxes: 0.7 + 0.3 = 1.0
@@ -328,7 +329,7 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
-                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
+                         &LdaXParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=0.5
@@ -425,7 +426,7 @@ mod tests {
                 np, Spin::Unpolarized,
             ).unwrap();
             dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Fxc, &mut out,
-                         &LdaFunctionalParams::default(), &default_thresholds()).unwrap();
+                         &LdaXParams::default(), &default_thresholds()).unwrap();
         }
 
         // Mixed with weight=1.0

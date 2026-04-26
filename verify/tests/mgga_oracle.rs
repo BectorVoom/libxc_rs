@@ -296,7 +296,7 @@ fn run_rust_mgga(
         ..Default::default()
     };
 
-    match dispatch_mgga(functional, &input, order, &mut output, &Thresholds::default()) {
+    match dispatch_mgga(functional, &input, order, &mut output, &libxc_rs::NoParams, &Thresholds::default()) {
         Ok(()) => {
             drop(output);
             // Construct a minimal MggaOracleOutput — only Exc and Vxc tiers
