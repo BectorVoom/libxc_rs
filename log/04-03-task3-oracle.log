@@ -1,0 +1,12 @@
+
+running 2 tests
+test test_all_gga_oracle_pol ... FAILED
+test test_all_gga_oracle_unpol ... ok
+
+failures:
+
+failures:
+    test_all_gga_oracle_pol
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 152.93s
+

@@ -1,0 +1,67 @@
+   Compiling libxc_rs-verify v0.1.0 (/home/chemtech/workspace/libxc_rs/verify)
+warning: unused imports: `ExtParamSpec`, `HybridTerm`, and `Reference`
+ --> verify/tests/metadata_oracle.rs:4:22
+  |
+4 | use libxc_rs::meta::{ExtParamSpec, FunctionalMeta, HybridTerm, Reference};
+  |                      ^^^^^^^^^^^^                  ^^^^^^^^^^  ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `HybridTermKind`
+ --> verify/tests/metadata_oracle.rs:5:54
+  |
+5 | use libxc_rs::model::{FunctionalFlags, FunctionalId, HybridTermKind, HybridType};
+  |                                                      ^^^^^^^^^^^^^^
+
+warning: unused import: `xc_hyb_type`
+ --> verify/tests/metadata_oracle.rs:7:58
+  |
+7 | use libxc_sys::{xc_func_end, xc_func_init, xc_func_type, xc_hyb_type, XC_UNPOLARIZED};
+  |                                                          ^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+  --> verify/tests/metadata_oracle.rs:44:9
+   |
+44 |     let mut mismatches: Vec<String> = Vec::new();
+   |         ----^^^^^^^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `mismatches`
+  --> verify/tests/metadata_oracle.rs:44:9
+   |
+44 |     let mut mismatches: Vec<String> = Vec::new();
+   |         ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_mismatches`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `rust`
+  --> verify/tests/metadata_oracle.rs:48:13
+   |
+48 |         let rust = lookup_by_id(id.raw()).expect("registry lookup");
+   |             ^^^^ help: if this is intentional, prefix it with an underscore: `_rust`
+
+warning: function `snapshot_from_ffi` is never used
+  --> verify/tests/metadata_oracle.rs:12:4
+   |
+12 | fn snapshot_from_ffi(id: FunctionalId, name: &'static str) -> FunctionalMeta {
+   |    ^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `SkippedDeferred` is never constructed
+   --> verify/tests/mgga_oracle.rs:361:5
+    |
+353 | enum CompareResult {
+    |      ------------- variant in this enum
+...
+361 |     SkippedDeferred,
+    |     ^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `libxc_rs-verify` (test "metadata_oracle") generated 7 warnings (run `cargo fix --test "metadata_oracle" -p libxc_rs-verify` to apply 6 suggestions)
+warning: `libxc_rs-verify` (test "mgga_oracle") generated 1 warning
+    Finished `dev` profile [unoptimized] target(s) in 1.25s

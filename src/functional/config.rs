@@ -76,6 +76,9 @@ impl Functional {
         // Plan 05-02 NoParams blanket this only triggers when vals.len() != 0
         // for a zero-ext_param functional, which is already caught above.
         self.params.set_ext_params(vals)?;
+        // Plan 05-03 D-16 — re-apply PROPAGATION_RULES so any aux ext_params
+        // that mirror parent values stay in sync after this mutation.
+        self.propagate_to_aux()?;
         Ok(())
     }
 

@@ -1,0 +1,19 @@
+    Finished `test` profile [unoptimized] target(s) in 0.55s
+     Running unittests src/lib.rs (target/debug/deps/libxc_rs-855d4a7aaf66cddc)
+
+running 12 tests
+test eval::workspace::tests::gga_scratch_polarized_correct_lengths ... ok
+test eval::workspace::tests::gga_scratch_unpolarized_correct_lengths ... ok
+test eval::workspace::tests::mgga_scratch_polarized_correct_lengths ... ok
+test eval::workspace::tests::mgga_scratch_total_matches_workspace_size ... ok
+test eval::workspace::tests::mgga_scratch_unpolarized_correct_lengths ... ok
+test eval::workspace::tests::new_polarized_allocates_correct_size ... ok
+test eval::workspace::tests::new_unpolarized_allocates_correct_size ... ok
+test eval::workspace::tests::zero_scratch_zeroes_all_elements ... ok
+test eval::workspace::tests::lda_scratch_polarized_correct_lengths ... ok
+test eval::workspace::tests::lda_scratch_unpolarized_correct_lengths ... ok
+test eval::workspace::tests::lda_scratch_after_zero_all_zeros ... ok
+test eval::workspace::tests::scratch_reuse_write_zero_verify ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 184 filtered out; finished in 0.00s
+

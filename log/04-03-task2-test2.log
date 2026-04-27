@@ -1,0 +1,7 @@
+
+running 2 tests
+test eval::gga_dispatch::tests::dispatch_gga_rejects_exc_on_gga_x_lb ... ok
+test eval::gga_dispatch::tests::dispatch_gga_gga_x_pbea_unpol_produces_finite_energy ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 133 filtered out; finished in 0.15s
+

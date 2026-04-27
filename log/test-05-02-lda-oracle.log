@@ -1,0 +1,93 @@
+   Compiling libxc_rs-verify v0.1.0 (/home/chemtech/workspace/libxc_rs/verify)
+    Finished `test` profile [unoptimized] target(s) in 13.04s
+     Running tests/lda_oracle.rs (target/debug/deps/lda_oracle-00c5e09b45a6cb36)
+
+running 2 tests
+test test_all_lda_oracle_pol has been running for over 60 seconds
+test test_all_lda_oracle_unpol has been running for over 60 seconds
+test test_all_lda_oracle_pol ... FAILED
+test test_all_lda_oracle_unpol ... FAILED
+
+failures:
+
+---- test_all_lda_oracle_pol stdout ----
+SKIP lda_c_gl (id=5): not compiled in crates/kernel-lda
+SKIP lda_c_xalpha (id=6): not compiled in crates/kernel-lda
+SKIP lda_c_pz_mod (id=10): not compiled in crates/kernel-lda
+SKIP lda_c_ob_pz (id=11): not compiled in crates/kernel-lda
+SKIP lda_c_pw_mod (id=13): not compiled in crates/kernel-lda
+SKIP lda_c_ob_pw (id=14): not compiled in crates/kernel-lda
+SKIP lda_c_vbh (id=17): not compiled in crates/kernel-lda
+SKIP lda_x_1d_soft (id=21): not compiled in crates/kernel-lda
+SKIP lda_c_ml2 (id=23): not compiled in crates/kernel-lda
+SKIP lda_c_pw_rpa (id=25): not compiled in crates/kernel-lda
+SKIP lda_k_lp (id=51): not compiled in crates/kernel-lda
+SKIP lda_xc_ksdt (id=259): deferred (CubeCL proc-macro stack)
+SKIP lda_c_karasiev_mod (id=308): not compiled in crates/kernel-lda
+SKIP lda_xc_corrksdt (id=318): not compiled in crates/kernel-lda
+SKIP lda_xc_lp_a (id=547): not compiled in crates/kernel-lda
+SKIP lda_xc_lp_b (id=548): not compiled in crates/kernel-lda
+SKIP lda_x_rae (id=549): not compiled in crates/kernel-lda
+SKIP lda_c_mcweeny (id=551): not compiled in crates/kernel-lda
+SKIP lda_c_br78 (id=552): not compiled in crates/kernel-lda
+SKIP lda_c_pk09 (id=554): deferred (CubeCL proc-macro stack)
+SKIP lda_c_ow_lyp (id=573): not compiled in crates/kernel-lda
+SKIP lda_c_ow (id=574): not compiled in crates/kernel-lda
+SKIP lda_xc_gdsmfb (id=577): not compiled in crates/kernel-lda
+SKIP lda_c_karasiev (id=579): not compiled in crates/kernel-lda
+SKIP lda_k_lp96 (id=580): not compiled in crates/kernel-lda
+SKIP lda_c_pmgb06 (id=590): deferred (CubeCL proc-macro stack)
+SKIP lda_x_1d_exponential (id=600): not compiled in crates/kernel-lda
+SKIP lda_c_pw_erf (id=654): deferred (CubeCL proc-macro stack)
+SKIP lda_c_upw92 (id=683): not compiled in crates/kernel-lda
+SKIP lda_c_rpw92 (id=684): not compiled in crates/kernel-lda
+LDA pol summary: tested=10 skipped_no_exc=0 skipped_deferred=4 skipped_not_compiled=26 failures=28
+
+thread 'test_all_lda_oracle_pol' (980539) panicked at verify/tests/lda_oracle.rs:499:5:
+tested=10 should be >= 30
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- test_all_lda_oracle_unpol stdout ----
+SKIP lda_c_gl (id=5): not compiled in crates/kernel-lda
+SKIP lda_c_xalpha (id=6): not compiled in crates/kernel-lda
+SKIP lda_c_pz_mod (id=10): not compiled in crates/kernel-lda
+SKIP lda_c_ob_pz (id=11): not compiled in crates/kernel-lda
+SKIP lda_c_pw_mod (id=13): not compiled in crates/kernel-lda
+SKIP lda_c_ob_pw (id=14): not compiled in crates/kernel-lda
+SKIP lda_c_vbh (id=17): not compiled in crates/kernel-lda
+SKIP lda_x_1d_soft (id=21): not compiled in crates/kernel-lda
+SKIP lda_c_ml2 (id=23): not compiled in crates/kernel-lda
+SKIP lda_c_pw_rpa (id=25): not compiled in crates/kernel-lda
+SKIP lda_k_lp (id=51): not compiled in crates/kernel-lda
+SKIP lda_xc_ksdt (id=259): deferred (CubeCL proc-macro stack)
+SKIP lda_c_karasiev_mod (id=308): not compiled in crates/kernel-lda
+SKIP lda_xc_corrksdt (id=318): not compiled in crates/kernel-lda
+SKIP lda_xc_lp_a (id=547): not compiled in crates/kernel-lda
+SKIP lda_xc_lp_b (id=548): not compiled in crates/kernel-lda
+SKIP lda_x_rae (id=549): not compiled in crates/kernel-lda
+SKIP lda_c_mcweeny (id=551): not compiled in crates/kernel-lda
+SKIP lda_c_br78 (id=552): not compiled in crates/kernel-lda
+SKIP lda_c_pk09 (id=554): deferred (CubeCL proc-macro stack)
+SKIP lda_c_ow_lyp (id=573): not compiled in crates/kernel-lda
+SKIP lda_c_ow (id=574): not compiled in crates/kernel-lda
+SKIP lda_xc_gdsmfb (id=577): not compiled in crates/kernel-lda
+SKIP lda_c_karasiev (id=579): not compiled in crates/kernel-lda
+SKIP lda_k_lp96 (id=580): not compiled in crates/kernel-lda
+SKIP lda_c_pmgb06 (id=590): deferred (CubeCL proc-macro stack)
+SKIP lda_x_1d_exponential (id=600): not compiled in crates/kernel-lda
+SKIP lda_c_pw_erf (id=654): deferred (CubeCL proc-macro stack)
+SKIP lda_c_upw92 (id=683): not compiled in crates/kernel-lda
+SKIP lda_c_rpw92 (id=684): not compiled in crates/kernel-lda
+LDA unpol summary: tested=27 skipped_no_exc=0 skipped_deferred=4 skipped_not_compiled=26 failures=11
+
+thread 'test_all_lda_oracle_unpol' (980540) panicked at verify/tests/lda_oracle.rs:425:5:
+tested=27 should be >= 30 (we have ~38 routable functionals minus a few without EXC oracle support)
+
+
+failures:
+    test_all_lda_oracle_pol
+    test_all_lda_oracle_unpol
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 238.43s
+
+error: test failed, to rerun pass `-p libxc_rs-verify --test lda_oracle`

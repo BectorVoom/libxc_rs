@@ -127,10 +127,10 @@ libxc-kernel-mgga-37a = { path = "crates/kernel-mgga-37a" }
 libxc-kernel-mgga-37b = { path = "crates/kernel-mgga-37b" }
 
 [workspace]
-members = [
-    "xtask",
+members=[    "xtask",
     "verify",
-    "libxc-sys",
+    "libxc-sys",]
+default-members = [
     "crates/kernel-math",
     "crates/kernel-lda",
     "crates/kernel-gga",
@@ -302,7 +302,7 @@ members = [
     "crates/kernel-mgga-37a",
     "crates/kernel-mgga-37b",
 ]
-
+resolver = "3"
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.
 # debug=0 skips LLVM debug scope tracking.
 # codegen-units=16 bounds per-unit memory.

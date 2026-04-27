@@ -30,4 +30,6 @@ pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, vers
 pub use input::{LdaInput, GgaInput, MggaInput};
 pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
 pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};
-pub use functional::{Functional, FunctionalParams, NoParams};
+pub use functional::{
+    classify_hybrid, CamCoefficients, Functional, FunctionalParams, NlcCoefficients, NoParams,
+};

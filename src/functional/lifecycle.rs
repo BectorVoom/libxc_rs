@@ -1,10 +1,16 @@
 //! `Functional::new` (constructor) + `Drop` (no-op) + `construct_params`
 //! dispatch table mapping `meta.id` to a concrete `Box<dyn FunctionalParams>`.
+//!
+//! Plan 05-03 layered eager recursive auxiliary construction here: when
+//! `meta.auxiliaries` is non-empty, `Functional::new` constructs each aux
+//! Functional (depth bound 2 enforced by xtask) and then applies the static
+//! `PROPAGATION_RULES` so aux ext_params reflect the parent's defaults.
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
 use crate::functional::params::{FunctionalParams, NoParams};
 use crate::functional::{params_lda, Functional};
+use crate::meta::generated_propagation::PROPAGATION_RULES;
 use crate::meta::FunctionalMeta;
 use crate::model::{Family, FunctionalId, Spin, Thresholds};
 use crate::registry::lookup_by_id;
@@ -52,16 +58,94 @@ impl Functional {
         //   hardcoded libxc defaults).
         let params: Box<dyn FunctionalParams> = construct_params(meta.id, ext_params.as_deref())?;
 
-        Ok(Functional {
+        // Eager recursive aux construction (Plan 05-03 D-15). Depth ≤ 2
+        // (enforced at xtask snapshot time, see Plan 05-01 D-17). On the
+        // current empty-metadata snapshot every functional has
+        // `meta.auxiliaries: &[]` so this loop is a no-op; once xtask
+        // populates real auxiliaries, this performs the recursion.
+        let mut auxiliaries: Vec<Functional> = Vec::with_capacity(meta.auxiliaries.len());
+        let mut mix_coefficients: Vec<f64> = Vec::with_capacity(meta.auxiliaries.len());
+        for &(aux_id, weight) in meta.auxiliaries {
+            let aux = Functional::new(aux_id, spin).map_err(|e| {
+                LibxcRsError::AuxiliaryInitFailed {
+                    parent_id: meta.id,
+                    aux_id,
+                    source: Box::new(e),
+                }
+            })?;
+            auxiliaries.push(aux);
+            mix_coefficients.push(weight);
+        }
+
+        let mut out = Functional {
             meta,
             spin,
             dims,
             thresholds: Thresholds::default(),
             ext_params,
             params,
-            auxiliaries: Vec::new(),
-            mix_coefficients: Vec::new(),
-        })
+            auxiliaries,
+            mix_coefficients,
+        };
+
+        // Apply propagation rules: for each rule whose parent_id matches
+        // self.meta.id, copy the parent's ext_param value (read by index
+        // for O(1) access; xtask validates indices at snapshot time) into
+        // the named aux slot's ext_param.
+        out.propagate_to_aux()?;
+
+        Ok(out)
+    }
+
+    /// Apply `PROPAGATION_RULES` for this functional id to its auxiliary
+    /// functionals. Called from `Functional::new` and from any ext_param
+    /// setter that mutates parent state (`config.rs::set_ext_params`).
+    ///
+    /// Returns `PropagationConflict` if any rule references an out-of-range
+    /// `parent_param_index`, an `aux_slot >= auxiliaries.len()`, or an
+    /// `aux_param_name` not present on the targeted aux. Real
+    /// `PROPAGATION_RULES` (xtask-validated) never trigger these branches;
+    /// they exist as defense-in-depth against snapshot drift.
+    pub(crate) fn propagate_to_aux(&mut self) -> Result<(), LibxcRsError> {
+        let id = self.meta.id;
+        let ext_snapshot: Option<Vec<f64>> =
+            self.ext_params.as_deref().map(|s| s.to_vec());
+        for rule in PROPAGATION_RULES.iter().filter(|r| r.parent_id == id) {
+            let ext = ext_snapshot.as_deref().ok_or(
+                LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: rule.parent_param_name,
+                    aux_slot: rule.aux_slot,
+                    aux_name: rule.aux_param_name,
+                },
+            )?;
+            let parent_value = ext
+                .get(rule.parent_param_index as usize)
+                .copied()
+                .ok_or(LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: rule.parent_param_name,
+                    aux_slot: rule.aux_slot,
+                    aux_name: rule.aux_param_name,
+                })?;
+            let aux = self
+                .auxiliaries
+                .get_mut(rule.aux_slot as usize)
+                .ok_or(LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: rule.parent_param_name,
+                    aux_slot: rule.aux_slot,
+                    aux_name: rule.aux_param_name,
+                })?;
+            aux.set_ext_param(rule.aux_param_name, parent_value)
+                .map_err(|_| LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: rule.parent_param_name,
+                    aux_slot: rule.aux_slot,
+                    aux_name: rule.aux_param_name,
+                })?;
+        }
+        Ok(())
     }
 }
 
@@ -214,5 +298,108 @@ mod tests {
         // GGA functionals fall through to NoParams in Plan 05-02.
         let downcast = f.params.as_any().downcast_ref::<NoParams>();
         assert!(downcast.is_some(), "Non-LDA-X functionals should yield NoParams in Plan 05-02");
+    }
+
+    // ── Plan 05-03: aux recursion + propagation invariants ────────────
+
+    /// Test 2 (aux depth bounded): for every id in the registry, recursive
+    /// aux depth observed at construction time is <= 2 (xtask invariant
+    /// D-17). Currently meta.auxiliaries is empty for all 649 ids (Plan
+    /// 05-01 deferred), so observed depth is 0 — the test still verifies
+    /// the construction loop terminates without panicking.
+    #[test]
+    fn aux_depth_bounded_for_all_649_ids() {
+        use crate::registry::all_functional_ids;
+        for id in all_functional_ids() {
+            // Construct and immediately drop. Recursion bound enforced
+            // at xtask snapshot time; we just confirm runtime construction
+            // does not loop or panic.
+            let f = Functional::new(id, Spin::Unpolarized);
+            // Some ids may construct successfully even when their kernel
+            // is deferred — Functional::new itself never fails on
+            // deferred ids, only evaluate_* does (Pitfall 7).
+            if let Ok(func) = f {
+                // Walk auxiliary tree, asserting depth <= 2.
+                fn walk(f: &Functional, depth: u8) {
+                    assert!(
+                        depth <= 2,
+                        "aux depth {depth} exceeds bound 2 for id {}",
+                        f.meta.id
+                    );
+                    for aux in f.auxiliary_functionals() {
+                        walk(aux, depth + 1);
+                    }
+                }
+                walk(&func, 0);
+            }
+        }
+    }
+
+    /// FUNC-06: Drop must not panic for representative hybrid ids.
+    /// On the current empty-metadata snapshot, every Functional::new call
+    /// produces an empty auxiliaries Vec, so the test exercises the
+    /// non-aux Drop path. Once xtask populates aux trees, this test will
+    /// also exercise the recursive Drop path.
+    #[test]
+    fn drop_hybrids_ok() {
+        // 10 representative hybrid ids: B3LYP family, CAM-B3LYP, wB97X,
+        // M06, HSE03, PBE0, B2PLYP, X3LYP, LC-wPBE, mgga_c_b94_hyb. Some
+        // of these may not be in the registry (b94_hyb is mgga family);
+        // we use lookup_by_name and skip any that don't resolve.
+        let candidate_names = [
+            "hyb_gga_xc_b3lyp",
+            "hyb_gga_xc_cam_b3lyp",
+            "hyb_gga_xc_wb97x",
+            "hyb_mgga_xc_m06",
+            "hyb_gga_xc_hse03",
+            "hyb_gga_xc_pbeh",
+            "hyb_gga_xc_b2plyp",
+            "hyb_mgga_xc_x1b95",
+            "hyb_gga_xc_lc_wpbe",
+            "mgga_c_b94_hyb",
+        ];
+        let mut count = 0usize;
+        for name in candidate_names {
+            if let Ok(id) = FunctionalId::from_name(name) {
+                let f = Functional::new(id, Spin::Unpolarized);
+                if let Ok(func) = f {
+                    drop(func);
+                    count += 1;
+                }
+            }
+        }
+        // Sanity: at least some of the candidate names resolve in the
+        // current registry.
+        assert!(count > 0, "no candidate hybrid ids resolved");
+    }
+
+    /// Aux recursion shape — for the empty-metadata snapshot every
+    /// functional has zero aux. Once xtask populates real metadata,
+    /// this test verifies the recursion produces a valid Vec<Functional>.
+    #[test]
+    fn empty_metadata_aux_is_empty() {
+        let id = FunctionalId::from_name("hyb_gga_xc_b3lyp").unwrap();
+        let f = Functional::new(id, Spin::Unpolarized).unwrap();
+        // Today (Plan 05-01 deferred): meta.auxiliaries is empty, so
+        // f.auxiliaries is empty. After xtask populates B3LYP's 4-aux
+        // structure (LDA_X, GGA_X_B88, LDA_C_VWN, GGA_C_LYP), this assert
+        // must be updated to expect 4.
+        assert_eq!(f.meta.auxiliaries.len(), 0);
+        assert_eq!(f.auxiliary_functionals().len(), 0);
+        assert_eq!(f.mix_coefficients().len(), 0);
+    }
+
+    /// Propagation map runtime application is a no-op when
+    /// PROPAGATION_RULES is empty (current state). This test guards the
+    /// loop's defensive error paths.
+    #[test]
+    fn empty_propagation_rules_runs_clean() {
+        // Construct several ids; if propagate_to_aux had any unguarded
+        // panic path it would surface here.
+        for raw in [1u16, 101, 130, 202, 287] {
+            if let Ok(id) = FunctionalId::from_raw(raw) {
+                let _ = Functional::new(id, Spin::Unpolarized).unwrap();
+            }
+        }
     }
 }

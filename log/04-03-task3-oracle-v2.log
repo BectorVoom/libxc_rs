@@ -1,0 +1,484 @@
+   Compiling libxc_rs-verify v0.1.0 (/home/chemtech/workspace/libxc_rs/verify)
+    Finished `test` profile [unoptimized] target(s) in 5.61s
+     Running tests/gga_oracle.rs (target/debug/deps/gga_oracle-17a801489eda01e8)
+
+running 2 tests
+test test_all_gga_oracle_pol ... SKIP gga_x_gam (id=32): not compiled in crates/kernel-gga
+SKIP gga_c_gam (id=33): not compiled in crates/kernel-gga
+SKIP gga_x_ev93 (id=35): per-functional scalar defaults pending (pol)
+SKIP gga_x_bcgp (id=38): not compiled in crates/kernel-gga
+SKIP gga_c_acgga (id=39): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_oc2_n (id=40): not compiled in crates/kernel-gga
+SKIP gga_x_b86_r (id=41): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_ch_n (id=44): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_lo_n (id=45): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b88_v2 (id=46): not compiled in crates/kernel-gga
+SKIP gga_c_q2d (id=47): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_mol (id=49): not compiled in crates/kernel-gga
+SKIP gga_k_tfvw (id=52): per-functional scalar defaults pending (pol)
+SKIP gga_k_revapbeint (id=53): not compiled in crates/kernel-gga
+SKIP gga_k_apbeint (id=54): per-functional scalar defaults pending (pol)
+SKIP gga_k_revapbe (id=55): not compiled in crates/kernel-gga
+SKIP gga_x_ak13 (id=56): per-functional scalar defaults pending (pol)
+SKIP gga_x_pbe_tca (id=59): not compiled in crates/kernel-gga
+SKIP gga_x_pbeint (id=60): per-functional scalar defaults pending (pol)
+SKIP gga_c_zpbeint (id=61): not compiled in crates/kernel-gga
+SKIP gga_c_pbeint (id=62): not compiled in crates/kernel-gga
+SKIP gga_c_zpbesol (id=63): not compiled in crates/kernel-gga
+SKIP gga_xc_opbe_d (id=65): not compiled in crates/kernel-gga
+SKIP gga_xc_opwlyp_d (id=66): not compiled in crates/kernel-gga
+SKIP gga_xc_oblyp_d (id=67): not compiled in crates/kernel-gga
+SKIP gga_x_vmt84_ge (id=68): per-functional scalar defaults pending (pol)
+SKIP gga_x_vmt84_pbe (id=69): not compiled in crates/kernel-gga
+SKIP gga_x_vmt_ge (id=70): per-functional scalar defaults pending (pol)
+SKIP gga_x_vmt_pbe (id=71): not compiled in crates/kernel-gga
+SKIP gga_c_n12_sx (id=79): not compiled in crates/kernel-gga
+SKIP gga_c_n12 (id=80): not compiled in crates/kernel-gga
+SKIP gga_x_n12 (id=82): per-functional scalar defaults pending (pol)
+SKIP gga_c_regtpss (id=83): not compiled in crates/kernel-gga
+SKIP gga_c_ft97 (id=88): not compiled in crates/kernel-gga
+SKIP gga_c_spbe (id=89): not compiled in crates/kernel-gga
+SKIP gga_x_ssb_sw (id=90): per-functional scalar defaults pending (pol)
+SKIP gga_x_ssb (id=91): not compiled in crates/kernel-gga
+SKIP gga_x_ssb_d (id=92): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_407p (id=93): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_p76 (id=94): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_p14 (id=95): not compiled in crates/kernel-gga
+SKIP gga_xc_b97_gga1 (id=96): not compiled in crates/kernel-gga
+SKIP gga_c_hcth_a (id=97): not compiled in crates/kernel-gga
+SKIP gga_c_revtca (id=99): not compiled in crates/kernel-gga
+SKIP gga_x_pbe (id=101): per-functional scalar defaults pending (pol)
+SKIP gga_x_pbe_r (id=102): not compiled in crates/kernel-gga
+SKIP gga_x_b86 (id=103): per-functional scalar defaults pending (pol)
+SKIP gga_x_b86_mgc (id=105): not compiled in crates/kernel-gga
+SKIP gga_x_b88 (id=106): per-functional scalar defaults pending (pol)
+SKIP gga_x_pw86 (id=108): per-functional scalar defaults pending (pol)
+SKIP gga_x_pw91 (id=109): per-functional scalar defaults pending (pol)
+SKIP gga_x_optx (id=110): per-functional scalar defaults pending (pol)
+SKIP gga_x_dk87_r1 (id=111): per-functional scalar defaults pending (pol)
+SKIP gga_x_dk87_r2 (id=112): not compiled in crates/kernel-gga
+SKIP gga_x_ft97_a (id=114): not compiled in crates/kernel-gga
+SKIP gga_x_ft97_b (id=115): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_sol (id=116): not compiled in crates/kernel-gga
+SKIP gga_x_rpbe (id=117): per-functional scalar defaults pending (pol)
+SKIP gga_x_mpw91 (id=119): not compiled in crates/kernel-gga
+SKIP gga_x_am05 (id=120): per-functional scalar defaults pending (pol)
+SKIP gga_x_mpbe (id=122): per-functional scalar defaults pending (pol)
+SKIP gga_x_xpbe (id=123): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_jsjr (id=126): not compiled in crates/kernel-gga
+SKIP gga_c_pbe (id=130): per-functional scalar defaults pending (pol)
+SKIP gga_c_lyp (id=131): per-functional scalar defaults pending (pol)
+SKIP gga_c_p86 (id=132): per-functional scalar defaults pending (pol)
+SKIP gga_c_pbe_sol (id=133): not compiled in crates/kernel-gga
+SKIP gga_c_pw91 (id=134): not compiled in crates/kernel-gga
+SKIP gga_c_am05 (id=135): per-functional scalar defaults pending (pol)
+SKIP gga_c_xpbe (id=136): not compiled in crates/kernel-gga
+SKIP gga_c_lm (id=137): per-functional scalar defaults pending (pol)
+SKIP gga_c_pbe_jrgx (id=138): not compiled in crates/kernel-gga
+SKIP gga_x_optb88_vdw (id=139): not compiled in crates/kernel-gga
+SKIP gga_x_pbek1_vdw (id=140): not compiled in crates/kernel-gga
+SKIP gga_x_optpbe_vdw (id=141): not compiled in crates/kernel-gga
+SKIP gga_c_rge2 (id=143): not compiled in crates/kernel-gga
+SKIP gga_x_rpw86 (id=144): not compiled in crates/kernel-gga
+SKIP gga_x_kt1 (id=145): per-functional scalar defaults pending (pol)
+SKIP gga_xc_kt2 (id=146): not compiled in crates/kernel-gga
+SKIP gga_c_wi (id=148): per-functional scalar defaults pending (pol)
+SKIP gga_x_mb88 (id=149): not compiled in crates/kernel-gga
+SKIP gga_x_sogga (id=150): not compiled in crates/kernel-gga
+SKIP gga_x_sogga11 (id=151): per-functional scalar defaults pending (pol)
+SKIP gga_c_sogga11 (id=152): not compiled in crates/kernel-gga
+SKIP gga_c_wi0 (id=153): not compiled in crates/kernel-gga
+SKIP gga_xc_th1 (id=154): per-functional scalar defaults pending (pol)
+SKIP gga_xc_th3 (id=156): per-functional scalar defaults pending (pol)
+SKIP gga_xc_th4 (id=157): not compiled in crates/kernel-gga
+SKIP gga_c_sogga11_x (id=159): not compiled in crates/kernel-gga
+SKIP gga_x_lb (id=160): oracle reports no EXC (pol)
+SKIP gga_xc_hcth_93 (id=161): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_120 (id=162): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_147 (id=163): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_407 (id=164): not compiled in crates/kernel-gga
+SKIP gga_xc_edf1 (id=165): not compiled in crates/kernel-gga
+SKIP gga_xc_xlyp (id=166): not compiled in crates/kernel-gga
+SKIP gga_xc_kt1 (id=167): not compiled in crates/kernel-gga
+SKIP gga_x_lspbe (id=168): per-functional scalar defaults pending (pol)
+SKIP gga_x_lsrpbe (id=169): per-functional scalar defaults pending (pol)
+SKIP gga_xc_b97_d (id=170): not compiled in crates/kernel-gga
+SKIP gga_x_optb86b_vdw (id=171): not compiled in crates/kernel-gga
+SKIP gga_xc_pbe1w (id=173): not compiled in crates/kernel-gga
+SKIP gga_xc_mpwlyp1w (id=174): not compiled in crates/kernel-gga
+SKIP gga_xc_pbelyp1w (id=175): not compiled in crates/kernel-gga
+SKIP gga_c_acggap (id=176): not compiled in crates/kernel-gga
+SKIP gga_x_b88_6311g (id=179): not compiled in crates/kernel-gga
+SKIP gga_x_ncap (id=180): per-functional scalar defaults pending (pol)
+SKIP gga_xc_ncap (id=181): not compiled in crates/kernel-gga
+SKIP gga_x_lbm (id=182): not compiled in crates/kernel-gga
+SKIP gga_x_ol2 (id=183): per-functional scalar defaults pending (pol)
+SKIP gga_x_apbe (id=184): not compiled in crates/kernel-gga
+SKIP gga_k_apbe (id=185): per-functional scalar defaults pending (pol)
+SKIP gga_c_apbe (id=186): not compiled in crates/kernel-gga
+SKIP gga_k_tw1 (id=187): not compiled in crates/kernel-gga
+SKIP gga_k_tw2 (id=188): not compiled in crates/kernel-gga
+SKIP gga_k_tw3 (id=189): not compiled in crates/kernel-gga
+SKIP gga_k_tw4 (id=190): not compiled in crates/kernel-gga
+SKIP gga_xc_mohlyp (id=194): not compiled in crates/kernel-gga
+SKIP gga_xc_mohlyp2 (id=195): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fl (id=196): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fc (id=197): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fcfo (id=198): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fco (id=199): not compiled in crates/kernel-gga
+SKIP gga_c_optc (id=200): not compiled in crates/kernel-gga
+SKIP gga_x_ecmv92 (id=215): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_vwn (id=216): per-functional scalar defaults pending (pol)
+SKIP gga_c_p86_ft (id=217): not compiled in crates/kernel-gga
+SKIP gga_k_rational_p (id=218): per-functional scalar defaults pending (pol)
+SKIP gga_k_pg1 (id=219): per-functional scalar defaults pending (pol)
+SKIP gga_c_pbeloc (id=246): not compiled in crates/kernel-gga
+SKIP gga_c_p86vwn (id=252): per-functional scalar defaults pending (pol)
+SKIP gga_c_p86vwn_ft (id=253): not compiled in crates/kernel-gga
+SKIP gga_xc_vv10 (id=255): not compiled in crates/kernel-gga
+SKIP gga_c_pbefe (id=258): not compiled in crates/kernel-gga
+SKIP gga_x_pbefe (id=265): not compiled in crates/kernel-gga
+SKIP gga_x_cap (id=270): per-functional scalar defaults pending (pol)
+SKIP gga_x_eb88 (id=271): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_mol (id=272): not compiled in crates/kernel-gga
+SKIP gga_k_absp3 (id=277): not compiled in crates/kernel-gga
+SKIP gga_k_absp4 (id=278): not compiled in crates/kernel-gga
+SKIP gga_c_bmk (id=280): per-functional scalar defaults pending (pol)
+SKIP gga_c_tau_hcth (id=281): not compiled in crates/kernel-gga
+SKIP gga_c_hyb_tau_hcth (id=283): not compiled in crates/kernel-gga
+SKIP gga_xc_beefvdw (id=286): not compiled in crates/kernel-gga
+SKIP gga_c_chachiyo (id=309): per-functional scalar defaults pending (pol)
+SKIP gga_x_revssb_d (id=312): not compiled in crates/kernel-gga
+SKIP gga_c_ccdf (id=313): per-functional scalar defaults pending (pol)
+SKIP gga_x_pw91_mod (id=316): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_mod (id=320): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_gaussian (id=321): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_gaussian (id=322): not compiled in crates/kernel-gga
+SKIP gga_x_ncapr (id=324): not compiled in crates/kernel-gga
+SKIP gga_xc_b97_3c (id=327): not compiled in crates/kernel-gga
+SKIP hyb_gga_xc_case21 (id=390): per-functional scalar defaults pending (pol)
+SKIP gga_x_s12g (id=495): per-functional scalar defaults pending (pol)
+SKIP gga_k_vw (id=500): not compiled in crates/kernel-gga
+SKIP gga_k_ge2 (id=501): not compiled in crates/kernel-gga
+SKIP gga_k_golden (id=502): not compiled in crates/kernel-gga
+SKIP gga_k_yt65 (id=503): not compiled in crates/kernel-gga
+SKIP gga_k_baltin (id=504): not compiled in crates/kernel-gga
+SKIP gga_k_lieb (id=505): not compiled in crates/kernel-gga
+SKIP gga_k_absp1 (id=506): not compiled in crates/kernel-gga
+SKIP gga_k_absp2 (id=507): not compiled in crates/kernel-gga
+SKIP gga_k_gr (id=508): not compiled in crates/kernel-gga
+SKIP gga_k_ludena (id=509): not compiled in crates/kernel-gga
+SKIP gga_k_gp85 (id=510): not compiled in crates/kernel-gga
+SKIP gga_k_ol2 (id=513): per-functional scalar defaults pending (pol)
+SKIP gga_k_fr_b88 (id=514): not compiled in crates/kernel-gga
+SKIP gga_k_dk (id=516): per-functional scalar defaults pending (pol)
+SKIP gga_k_perdew (id=517): not compiled in crates/kernel-gga
+SKIP gga_k_vsk (id=518): not compiled in crates/kernel-gga
+SKIP gga_k_vjks (id=519): not compiled in crates/kernel-gga
+SKIP gga_k_ernzerhof (id=520): not compiled in crates/kernel-gga
+SKIP gga_k_lc94 (id=521): per-functional scalar defaults pending (pol)
+SKIP gga_k_llp (id=522): per-functional scalar defaults pending (pol)
+SKIP gga_x_wpbeh (id=524): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_pbe (id=525): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_pbe_sol (id=526): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b88 (id=527): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b97x (id=528): not compiled in crates/kernel-gga
+SKIP gga_x_ityh (id=529): per-functional scalar defaults pending (pol)
+SKIP gga_x_sfat (id=530): per-functional scalar defaults pending (pol)
+SKIP gga_c_sg4 (id=534): not compiled in crates/kernel-gga
+SKIP gga_x_kgg99 (id=544): not compiled in crates/kernel-gga
+SKIP gga_xc_hle16 (id=545): not compiled in crates/kernel-gga
+SKIP gga_c_gapc (id=555): not compiled in crates/kernel-gga
+SKIP gga_c_gaploc (id=556): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbeint (id=557): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbesol (id=558): not compiled in crates/kernel-gga
+SKIP gga_c_tm_lyp (id=559): not compiled in crates/kernel-gga
+SKIP gga_c_tm_pbe (id=560): not compiled in crates/kernel-gga
+SKIP gga_x_b88m (id=570): not compiled in crates/kernel-gga
+SKIP gga_xc_kt3 (id=587): not compiled in crates/kernel-gga
+SKIP gga_k_gds08 (id=591): not compiled in crates/kernel-gga
+SKIP gga_k_ghds10 (id=592): not compiled in crates/kernel-gga
+SKIP gga_k_ghds10r (id=593): not compiled in crates/kernel-gga
+SKIP gga_k_tkvln (id=594): not compiled in crates/kernel-gga
+SKIP gga_k_pbe3 (id=595): not compiled in crates/kernel-gga
+SKIP gga_k_pbe4 (id=596): not compiled in crates/kernel-gga
+SKIP gga_x_sfat_pbe (id=601): per-functional scalar defaults pending (pol)
+SKIP gga_x_fd_lb94 (id=604): per-functional scalar defaults pending (pol)
+SKIP gga_x_fd_revlb94 (id=605): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbeloc (id=606): not compiled in crates/kernel-gga
+SKIP gga_k_lkt (id=613): per-functional scalar defaults pending (pol)
+SKIP gga_k_pbe2 (id=616): per-functional scalar defaults pending (pol)
+SKIP gga_k_vt84f (id=619): per-functional scalar defaults pending (pol)
+SKIP gga_k_lgap (id=620): per-functional scalar defaults pending (pol)
+SKIP gga_x_ityh_optx (id=622): per-functional scalar defaults pending (pol)
+SKIP gga_x_ityh_pbe (id=623): per-functional scalar defaults pending (pol)
+SKIP gga_c_lypr (id=624): per-functional scalar defaults pending (pol)
+SKIP gga_k_lgap_ge (id=633): per-functional scalar defaults pending (pol)
+SKIP gga_k_tfvw_opt (id=635): not compiled in crates/kernel-gga
+SKIP hyb_gga_x_cam_s12g (id=646): per-functional scalar defaults pending (pol)
+SKIP gga_x_pbe_erf_gws (id=655): per-functional scalar defaults pending (pol)
+SKIP gga_c_pbe_erf_gws (id=657): not compiled in crates/kernel-gga
+SKIP gga_c_mggac (id=712): not compiled in crates/kernel-gga
+GGA pol summary: tested=3 skipped_no_exc=1 skipped_not_compiled=153 skipped_pending_params=62 failures=39
+GGA polarized oracle mismatches (39 of 42 tested) — Phase 4 follow-up (pre-existing pol-kernel bugs):
+  gga_x_hcth_a vxc Polarized.vrho[0]: rust=-8.334751606923346e-1 c=-6.283442711851678e-1 rel_err=3.265e-1
+  gga_x_q2d vxc Polarized.vrho[0]: rust=-7.573497160877483e-1 c=-5.706600334331979e-1 rel_err=3.271e-1
+  gga_x_lv_rpw86 vxc Polarized.vrho[1]: rust=-8.786425030522140e-1 c=-4.529007730050382e-1 rel_err=9.400e-1
+  gga_c_op_xalpha vxc Polarized.vrho[0]: rust=-4.777819211158760e-2 c=-2.812876502682706e-2 rel_err=6.986e-1
+  gga_c_op_g96 vxc Polarized.vrho[0]: rust=-5.899260079955290e-2 c=-3.520076252648240e-2 rel_err=6.759e-1
+  gga_c_op_pbe vxc Polarized.vrho[0]: rust=-5.847784450669398e-2 c=-3.503612028784935e-2 rel_err=6.691e-1
+  gga_c_op_b88 vxc Polarized.vrho[0]: rust=-5.923194310390284e-2 c=-3.551490311415401e-2 rel_err=6.678e-1
+  gga_x_bpccac vxc Polarized.vrho[0]: rust=-7.533036199213812e-1 c=-5.666139372668308e-1 rel_err=3.295e-1
+  gga_c_tca vxc Polarized.vrho[0]: rust=-8.388259140864707e-2 c=-5.269321960829797e-2 rel_err=5.919e-1
+  gga_x_g96 vxc Polarized.vrho[0]: rust=-7.554294894399797e-1 c=-5.687398067854293e-1 rel_err=3.283e-1
+  gga_x_lg93 vxc Polarized.vrho[0]: rust=-7.546194251556408e-1 c=-5.679297425010905e-1 rel_err=3.287e-1
+  gga_x_wc vxc Polarized.vrho[0]: rust=-7.542742918053216e-1 c=-5.675846091507712e-1 rel_err=3.289e-1
+  gga_x_pbea vxc Polarized.vrho[0]: rust=-7.537522722261313e-1 c=-5.670625895715810e-1 rel_err=3.292e-1
+  gga_x_2d_b86_mgc vxc Polarized.vrho[0]: rust=-8.363011647573293e-1 c=-7.005392583131564e-1 rel_err=1.938e-1
+  gga_x_bayesian vxc Polarized.vrho[0]: rust=-7.551120082307353e-1 c=-5.682729738300614e-1 rel_err=3.288e-1
+  gga_x_2d_b88 vxc Polarized.vrho[0]: rust=-8.338310442638721e-1 c=-6.980691378196991e-1 rel_err=1.945e-1
+  gga_x_2d_b86 vxc Polarized.vrho[0]: rust=-8.352889686436528e-1 c=-6.995270621994798e-1 rel_err=1.941e-1
+  gga_x_2d_pbe vxc Polarized.vrho[0]: rust=-8.173594816556398e-1 c=-6.815975752114669e-1 rel_err=1.992e-1
+  gga_x_rge2 vxc Polarized.vrho[0]: rust=-9.072417619180223e-1 c=-5.704557853287808e-1 rel_err=5.904e-1
+  gga_c_wl fxc Polarized.v2rho2[0]: rust=inf c=4.219726234451423e-1 rel_err=inf
+  gga_xc_th2 vxc Polarized.vrho[0]: rust=-7.955960817500334e-1 c=-5.928851895940082e-1 rel_err=3.419e-1
+  gga_x_c09x vxc Polarized.vrho[0]: rust=inf c=-5.718796029007494e-1 rel_err=inf
+  gga_x_htbs vxc Polarized.vrho[0]: rust=-7.542742918053216e-1 c=-5.675846091507712e-1 rel_err=3.289e-1
+  gga_x_airy vxc Polarized.vrho[3]: rust=-1.513959515967600e0 c=-8.309390394691067e-1 rel_err=8.220e-1
+  gga_c_op_pw91 vxc Polarized.vrho[0]: rust=-5.901077522922164e-2 c=-3.537749447703640e-2 rel_err=6.680e-1
+  gga_x_beefvdw vxc Polarized.vrho[0]: rust=-7.809212214794602e-1 c=-5.879537145899557e-1 rel_err=3.282e-1
+  gga_x_pbetrans vxc Polarized.vrho[0]: rust=-7.533244780959708e-1 c=-5.666347954414205e-1 rel_err=3.295e-1
+  gga_k_pearson vxc Polarized.vrho[0]: rust=1.808206965519965e0 c=1.622747119984615e0 rel_err=1.143e-1
+  gga_k_ol1 vxc Polarized.vrho[0]: rust=1.809471022519682e0 c=1.624011176984332e0 rel_err=1.142e-1
+  gga_k_fr_pw86 vxc Polarized.vrho[0]: rust=2.155746521922484e0 c=1.618586730491378e0 rel_err=3.319e-1
+  gga_k_thakkar vxc Polarized.vrho[0]: rust=1.773562431574932e0 c=1.588102586039583e0 rel_err=1.168e-1
+  gga_x_sg4 vxc Polarized.vrho[0]: rust=-7.528971265854889e-1 c=-5.662074439309386e-1 rel_err=3.297e-1
+  gga_x_gg99 vxc Polarized.vrho[0]: rust=-7.675299422263424e-1 c=-5.559812626002911e-1 rel_err=3.805e-1
+  gga_x_pbepow vxc Polarized.vrho[0]: rust=-7.529166572018515e-1 c=-5.662269745473012e-1 rel_err=3.297e-1
+  gga_c_scan_e0 vxc Polarized.vrho[0]: rust=-9.667899379414684e-2 c=-5.801878725873839e-2 rel_err=6.663e-1
+  gga_c_w94 vxc Polarized.vrho[0]: rust=-1.322963615354764e-1 c=-6.828285880370784e-2 rel_err=9.375e-1
+  gga_c_cs1 vxc Polarized.vrho[0]: rust=-4.682253144117041e-2 c=-2.608172882961694e-2 rel_err=7.952e-1
+  gga_k_exp4 vxc Polarized.vrho[0]: rust=1.671994083831340e0 c=1.286460156932455e0 rel_err=2.997e-1
+  gga_x_q1d vxc Polarized.vrho[0]: rust=-7.122318754078542e-1 c=-5.785815841220565e-1 rel_err=2.310e-1
+ok
+test test_all_gga_oracle_unpol ... SKIP gga_x_gam (id=32): not compiled in crates/kernel-gga
+SKIP gga_c_gam (id=33): not compiled in crates/kernel-gga
+SKIP gga_x_ev93 (id=35): per-functional scalar defaults pending
+SKIP gga_x_bcgp (id=38): not compiled in crates/kernel-gga
+SKIP gga_c_acgga (id=39): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_oc2_n (id=40): not compiled in crates/kernel-gga
+SKIP gga_x_b86_r (id=41): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_ch_n (id=44): not compiled in crates/kernel-gga
+SKIP gga_x_lambda_lo_n (id=45): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b88_v2 (id=46): not compiled in crates/kernel-gga
+SKIP gga_c_q2d (id=47): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_mol (id=49): not compiled in crates/kernel-gga
+SKIP gga_k_tfvw (id=52): per-functional scalar defaults pending
+SKIP gga_k_revapbeint (id=53): not compiled in crates/kernel-gga
+SKIP gga_k_apbeint (id=54): per-functional scalar defaults pending
+SKIP gga_k_revapbe (id=55): not compiled in crates/kernel-gga
+SKIP gga_x_ak13 (id=56): per-functional scalar defaults pending
+SKIP gga_x_pbe_tca (id=59): not compiled in crates/kernel-gga
+SKIP gga_x_pbeint (id=60): per-functional scalar defaults pending
+SKIP gga_c_zpbeint (id=61): not compiled in crates/kernel-gga
+SKIP gga_c_pbeint (id=62): not compiled in crates/kernel-gga
+SKIP gga_c_zpbesol (id=63): not compiled in crates/kernel-gga
+SKIP gga_xc_opbe_d (id=65): not compiled in crates/kernel-gga
+SKIP gga_xc_opwlyp_d (id=66): not compiled in crates/kernel-gga
+SKIP gga_xc_oblyp_d (id=67): not compiled in crates/kernel-gga
+SKIP gga_x_vmt84_ge (id=68): per-functional scalar defaults pending
+SKIP gga_x_vmt84_pbe (id=69): not compiled in crates/kernel-gga
+SKIP gga_x_vmt_ge (id=70): per-functional scalar defaults pending
+SKIP gga_x_vmt_pbe (id=71): not compiled in crates/kernel-gga
+SKIP gga_c_n12_sx (id=79): not compiled in crates/kernel-gga
+SKIP gga_c_n12 (id=80): not compiled in crates/kernel-gga
+SKIP gga_x_n12 (id=82): per-functional scalar defaults pending
+SKIP gga_c_regtpss (id=83): not compiled in crates/kernel-gga
+SKIP gga_c_ft97 (id=88): not compiled in crates/kernel-gga
+SKIP gga_c_spbe (id=89): not compiled in crates/kernel-gga
+SKIP gga_x_ssb_sw (id=90): per-functional scalar defaults pending
+SKIP gga_x_ssb (id=91): not compiled in crates/kernel-gga
+SKIP gga_x_ssb_d (id=92): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_407p (id=93): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_p76 (id=94): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_p14 (id=95): not compiled in crates/kernel-gga
+SKIP gga_xc_b97_gga1 (id=96): not compiled in crates/kernel-gga
+SKIP gga_c_hcth_a (id=97): not compiled in crates/kernel-gga
+SKIP gga_c_revtca (id=99): not compiled in crates/kernel-gga
+SKIP gga_x_pbe (id=101): per-functional scalar defaults pending
+SKIP gga_x_pbe_r (id=102): not compiled in crates/kernel-gga
+SKIP gga_x_b86 (id=103): per-functional scalar defaults pending
+SKIP gga_x_b86_mgc (id=105): not compiled in crates/kernel-gga
+SKIP gga_x_b88 (id=106): per-functional scalar defaults pending
+SKIP gga_x_pw86 (id=108): per-functional scalar defaults pending
+SKIP gga_x_pw91 (id=109): per-functional scalar defaults pending
+SKIP gga_x_optx (id=110): per-functional scalar defaults pending
+SKIP gga_x_dk87_r1 (id=111): per-functional scalar defaults pending
+SKIP gga_x_dk87_r2 (id=112): not compiled in crates/kernel-gga
+SKIP gga_x_ft97_a (id=114): not compiled in crates/kernel-gga
+SKIP gga_x_ft97_b (id=115): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_sol (id=116): not compiled in crates/kernel-gga
+SKIP gga_x_rpbe (id=117): per-functional scalar defaults pending
+SKIP gga_x_mpw91 (id=119): not compiled in crates/kernel-gga
+SKIP gga_x_am05 (id=120): per-functional scalar defaults pending
+SKIP gga_x_mpbe (id=122): per-functional scalar defaults pending
+SKIP gga_x_xpbe (id=123): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_jsjr (id=126): not compiled in crates/kernel-gga
+SKIP gga_c_pbe (id=130): per-functional scalar defaults pending
+SKIP gga_c_lyp (id=131): per-functional scalar defaults pending
+SKIP gga_c_p86 (id=132): per-functional scalar defaults pending
+SKIP gga_c_pbe_sol (id=133): not compiled in crates/kernel-gga
+SKIP gga_c_pw91 (id=134): not compiled in crates/kernel-gga
+SKIP gga_c_am05 (id=135): per-functional scalar defaults pending
+SKIP gga_c_xpbe (id=136): not compiled in crates/kernel-gga
+SKIP gga_c_lm (id=137): per-functional scalar defaults pending
+SKIP gga_c_pbe_jrgx (id=138): not compiled in crates/kernel-gga
+SKIP gga_x_optb88_vdw (id=139): not compiled in crates/kernel-gga
+SKIP gga_x_pbek1_vdw (id=140): not compiled in crates/kernel-gga
+SKIP gga_x_optpbe_vdw (id=141): not compiled in crates/kernel-gga
+SKIP gga_c_rge2 (id=143): not compiled in crates/kernel-gga
+SKIP gga_x_rpw86 (id=144): not compiled in crates/kernel-gga
+SKIP gga_x_kt1 (id=145): per-functional scalar defaults pending
+SKIP gga_xc_kt2 (id=146): not compiled in crates/kernel-gga
+SKIP gga_c_wi (id=148): per-functional scalar defaults pending
+SKIP gga_x_mb88 (id=149): not compiled in crates/kernel-gga
+SKIP gga_x_sogga (id=150): not compiled in crates/kernel-gga
+SKIP gga_x_sogga11 (id=151): per-functional scalar defaults pending
+SKIP gga_c_sogga11 (id=152): not compiled in crates/kernel-gga
+SKIP gga_c_wi0 (id=153): not compiled in crates/kernel-gga
+SKIP gga_xc_th1 (id=154): per-functional scalar defaults pending
+SKIP gga_xc_th3 (id=156): per-functional scalar defaults pending
+SKIP gga_xc_th4 (id=157): not compiled in crates/kernel-gga
+SKIP gga_c_sogga11_x (id=159): not compiled in crates/kernel-gga
+SKIP gga_x_lb (id=160): oracle reports no EXC
+SKIP gga_xc_hcth_93 (id=161): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_120 (id=162): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_147 (id=163): not compiled in crates/kernel-gga
+SKIP gga_xc_hcth_407 (id=164): not compiled in crates/kernel-gga
+SKIP gga_xc_edf1 (id=165): not compiled in crates/kernel-gga
+SKIP gga_xc_xlyp (id=166): not compiled in crates/kernel-gga
+SKIP gga_xc_kt1 (id=167): not compiled in crates/kernel-gga
+SKIP gga_x_lspbe (id=168): per-functional scalar defaults pending
+SKIP gga_x_lsrpbe (id=169): per-functional scalar defaults pending
+SKIP gga_xc_b97_d (id=170): not compiled in crates/kernel-gga
+SKIP gga_x_optb86b_vdw (id=171): not compiled in crates/kernel-gga
+SKIP gga_xc_pbe1w (id=173): not compiled in crates/kernel-gga
+SKIP gga_xc_mpwlyp1w (id=174): not compiled in crates/kernel-gga
+SKIP gga_xc_pbelyp1w (id=175): not compiled in crates/kernel-gga
+SKIP gga_c_acggap (id=176): not compiled in crates/kernel-gga
+SKIP gga_x_b88_6311g (id=179): not compiled in crates/kernel-gga
+SKIP gga_x_ncap (id=180): per-functional scalar defaults pending
+SKIP gga_xc_ncap (id=181): not compiled in crates/kernel-gga
+SKIP gga_x_lbm (id=182): not compiled in crates/kernel-gga
+SKIP gga_x_ol2 (id=183): per-functional scalar defaults pending
+SKIP gga_x_apbe (id=184): not compiled in crates/kernel-gga
+SKIP gga_k_apbe (id=185): per-functional scalar defaults pending
+SKIP gga_c_apbe (id=186): not compiled in crates/kernel-gga
+SKIP gga_k_tw1 (id=187): not compiled in crates/kernel-gga
+SKIP gga_k_tw2 (id=188): not compiled in crates/kernel-gga
+SKIP gga_k_tw3 (id=189): not compiled in crates/kernel-gga
+SKIP gga_k_tw4 (id=190): not compiled in crates/kernel-gga
+SKIP gga_xc_mohlyp (id=194): not compiled in crates/kernel-gga
+SKIP gga_xc_mohlyp2 (id=195): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fl (id=196): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fc (id=197): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fcfo (id=198): not compiled in crates/kernel-gga
+SKIP gga_xc_th_fco (id=199): not compiled in crates/kernel-gga
+SKIP gga_c_optc (id=200): not compiled in crates/kernel-gga
+SKIP gga_x_ecmv92 (id=215): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_vwn (id=216): per-functional scalar defaults pending
+SKIP gga_c_p86_ft (id=217): not compiled in crates/kernel-gga
+SKIP gga_k_rational_p (id=218): per-functional scalar defaults pending
+SKIP gga_k_pg1 (id=219): per-functional scalar defaults pending
+SKIP gga_c_pbeloc (id=246): not compiled in crates/kernel-gga
+SKIP gga_c_p86vwn (id=252): per-functional scalar defaults pending
+SKIP gga_c_p86vwn_ft (id=253): not compiled in crates/kernel-gga
+SKIP gga_xc_vv10 (id=255): not compiled in crates/kernel-gga
+SKIP gga_c_pbefe (id=258): not compiled in crates/kernel-gga
+SKIP gga_x_pbefe (id=265): not compiled in crates/kernel-gga
+SKIP gga_x_cap (id=270): per-functional scalar defaults pending
+SKIP gga_x_eb88 (id=271): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_mol (id=272): not compiled in crates/kernel-gga
+SKIP gga_k_absp3 (id=277): not compiled in crates/kernel-gga
+SKIP gga_k_absp4 (id=278): not compiled in crates/kernel-gga
+SKIP gga_c_bmk (id=280): per-functional scalar defaults pending
+SKIP gga_c_tau_hcth (id=281): not compiled in crates/kernel-gga
+SKIP gga_c_hyb_tau_hcth (id=283): not compiled in crates/kernel-gga
+SKIP gga_xc_beefvdw (id=286): not compiled in crates/kernel-gga
+SKIP gga_c_chachiyo (id=309): per-functional scalar defaults pending
+SKIP gga_x_revssb_d (id=312): not compiled in crates/kernel-gga
+SKIP gga_c_ccdf (id=313): per-functional scalar defaults pending
+SKIP gga_x_pw91_mod (id=316): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_mod (id=320): not compiled in crates/kernel-gga
+SKIP gga_x_pbe_gaussian (id=321): not compiled in crates/kernel-gga
+SKIP gga_c_pbe_gaussian (id=322): not compiled in crates/kernel-gga
+SKIP gga_x_ncapr (id=324): not compiled in crates/kernel-gga
+SKIP gga_xc_b97_3c (id=327): not compiled in crates/kernel-gga
+SKIP hyb_gga_xc_case21 (id=390): per-functional scalar defaults pending
+SKIP gga_x_s12g (id=495): per-functional scalar defaults pending
+SKIP gga_k_vw (id=500): not compiled in crates/kernel-gga
+SKIP gga_k_ge2 (id=501): not compiled in crates/kernel-gga
+SKIP gga_k_golden (id=502): not compiled in crates/kernel-gga
+SKIP gga_k_yt65 (id=503): not compiled in crates/kernel-gga
+SKIP gga_k_baltin (id=504): not compiled in crates/kernel-gga
+SKIP gga_k_lieb (id=505): not compiled in crates/kernel-gga
+SKIP gga_k_absp1 (id=506): not compiled in crates/kernel-gga
+SKIP gga_k_absp2 (id=507): not compiled in crates/kernel-gga
+SKIP gga_k_gr (id=508): not compiled in crates/kernel-gga
+SKIP gga_k_ludena (id=509): not compiled in crates/kernel-gga
+SKIP gga_k_gp85 (id=510): not compiled in crates/kernel-gga
+SKIP gga_k_ol2 (id=513): per-functional scalar defaults pending
+SKIP gga_k_fr_b88 (id=514): not compiled in crates/kernel-gga
+SKIP gga_k_dk (id=516): per-functional scalar defaults pending
+SKIP gga_k_perdew (id=517): not compiled in crates/kernel-gga
+SKIP gga_k_vsk (id=518): not compiled in crates/kernel-gga
+SKIP gga_k_vjks (id=519): not compiled in crates/kernel-gga
+SKIP gga_k_ernzerhof (id=520): not compiled in crates/kernel-gga
+SKIP gga_k_lc94 (id=521): per-functional scalar defaults pending
+SKIP gga_k_llp (id=522): per-functional scalar defaults pending
+SKIP gga_x_wpbeh (id=524): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_pbe (id=525): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_pbe_sol (id=526): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b88 (id=527): not compiled in crates/kernel-gga
+SKIP gga_x_hjs_b97x (id=528): not compiled in crates/kernel-gga
+SKIP gga_x_ityh (id=529): per-functional scalar defaults pending
+SKIP gga_x_sfat (id=530): per-functional scalar defaults pending
+SKIP gga_c_sg4 (id=534): not compiled in crates/kernel-gga
+SKIP gga_x_kgg99 (id=544): not compiled in crates/kernel-gga
+SKIP gga_xc_hle16 (id=545): not compiled in crates/kernel-gga
+SKIP gga_c_gapc (id=555): not compiled in crates/kernel-gga
+SKIP gga_c_gaploc (id=556): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbeint (id=557): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbesol (id=558): not compiled in crates/kernel-gga
+SKIP gga_c_tm_lyp (id=559): not compiled in crates/kernel-gga
+SKIP gga_c_tm_pbe (id=560): not compiled in crates/kernel-gga
+SKIP gga_x_b88m (id=570): not compiled in crates/kernel-gga
+SKIP gga_xc_kt3 (id=587): not compiled in crates/kernel-gga
+SKIP gga_k_gds08 (id=591): not compiled in crates/kernel-gga
+SKIP gga_k_ghds10 (id=592): not compiled in crates/kernel-gga
+SKIP gga_k_ghds10r (id=593): not compiled in crates/kernel-gga
+SKIP gga_k_tkvln (id=594): not compiled in crates/kernel-gga
+SKIP gga_k_pbe3 (id=595): not compiled in crates/kernel-gga
+SKIP gga_k_pbe4 (id=596): not compiled in crates/kernel-gga
+SKIP gga_x_sfat_pbe (id=601): per-functional scalar defaults pending
+SKIP gga_x_fd_lb94 (id=604): per-functional scalar defaults pending
+SKIP gga_x_fd_revlb94 (id=605): not compiled in crates/kernel-gga
+SKIP gga_c_zvpbeloc (id=606): not compiled in crates/kernel-gga
+SKIP gga_k_lkt (id=613): per-functional scalar defaults pending
+SKIP gga_k_pbe2 (id=616): per-functional scalar defaults pending
+SKIP gga_k_vt84f (id=619): per-functional scalar defaults pending
+SKIP gga_k_lgap (id=620): per-functional scalar defaults pending
+SKIP gga_x_ityh_optx (id=622): per-functional scalar defaults pending
+SKIP gga_x_ityh_pbe (id=623): per-functional scalar defaults pending
+SKIP gga_c_lypr (id=624): per-functional scalar defaults pending
+SKIP gga_k_lgap_ge (id=633): per-functional scalar defaults pending
+SKIP gga_k_tfvw_opt (id=635): not compiled in crates/kernel-gga
+SKIP hyb_gga_x_cam_s12g (id=646): per-functional scalar defaults pending
+SKIP gga_x_pbe_erf_gws (id=655): per-functional scalar defaults pending
+SKIP gga_c_pbe_erf_gws (id=657): not compiled in crates/kernel-gga
+SKIP gga_c_mggac (id=712): not compiled in crates/kernel-gga
+GGA unpol summary: tested=42 skipped_no_exc=1 skipped_not_compiled=153 skipped_pending_params=62 failures=0
+ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 184.78s
+

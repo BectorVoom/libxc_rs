@@ -1,0 +1,19 @@
+    Finished `test` profile [unoptimized] target(s) in 4.57s
+     Running unittests src/lib.rs (target/debug/deps/libxc_rs-855d4a7aaf66cddc)
+
+running 12 tests
+test eval::dispatch::tests::test_dispatch_zeros_output_buffers ... ok
+test eval::dispatch::tests::test_exc_polarized_routes_to_pol_kernel ... ok
+test eval::dispatch::tests::test_exc_unpolarized_produces_negative_energy ... ok
+test eval::dispatch::tests::test_fxc_unpolarized_populates_all_levels ... ok
+test eval::dispatch::tests::test_kxc_unpolarized_populates_all_levels ... ok
+test eval::dispatch::tests::test_lda_c_vwn_exc_unpol ... ok
+test eval::dispatch::tests::test_lda_xc_tih_rejects_exc_request ... ok
+test eval::dispatch::tests::test_lda_xc_tih_vxc_succeeds ... ok
+test eval::dispatch::tests::test_lxc_unpolarized_populates_all_levels ... ok
+test eval::dispatch::tests::test_vxc_polarized_vrho_has_2np_elements ... ok
+test eval::dispatch::tests::test_vxc_unpolarized_populates_both_zk_and_vrho ... ok
+test eval::dispatch::tests::test_vxc_with_vrho_none_still_succeeds ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 184 filtered out; finished in 1.13s
+

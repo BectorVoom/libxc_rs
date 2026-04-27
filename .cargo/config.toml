@@ -8,7 +8,7 @@
 # expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
 [build]
 # rustc-wrapper = "sccache"
-jobs = 1
+jobs = 3
 
 [env]
 # Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
@@ -17,4 +17,5 @@ jobs = 1
 RUST_MIN_STACK = "2010886400"
 # Share build artifacts across worktrees so isolated executors reuse the
 # main repo's compiled artifacts instead of rebuilding from scratch.
-CARGO_TARGET_DIR = "/home/chemtech/workspace/libxc_rs/target"
+
+

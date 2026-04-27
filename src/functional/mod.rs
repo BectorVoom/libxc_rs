@@ -7,12 +7,15 @@
 //! ext_param setters/getters), and the `FunctionalParams` plumbing trait.
 
 pub mod config;
+pub mod evaluate;
+pub mod hybrid;
 pub mod lifecycle;
 pub mod params;
 pub mod params_gga;
 pub mod params_lda;
 pub mod params_mgga;
 
+pub use hybrid::{classify_hybrid, CamCoefficients, NlcCoefficients};
 pub use params::{FunctionalParams, NoParams};
 
 use crate::dims::Dimensions;

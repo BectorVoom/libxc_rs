@@ -6,7 +6,10 @@ pub mod workspace;
 pub use dispatch::dispatch_lda;
 pub use gga_dispatch::dispatch_gga;
 pub use mgga_dispatch::dispatch_mgga;
-pub use mix::{add_to_mix, evaluate_mixed_lda, AuxiliaryConfig};
+pub use mix::{
+    add_to_mix, evaluate_mixed_gga, evaluate_mixed_lda, evaluate_mixed_lda_functional,
+    evaluate_mixed_mgga, AuxiliaryConfig,
+};
 pub use workspace::EvaluationWorkspace;
 
 // Alias kept for backward compat with verify/tests/lda_oracle.rs and other
