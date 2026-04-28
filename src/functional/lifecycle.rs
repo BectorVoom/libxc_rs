@@ -345,17 +345,22 @@ mod tests {
         // M06, HSE03, PBE0, B2PLYP, X3LYP, LC-wPBE, mgga_c_b94_hyb. Some
         // of these may not be in the registry (b94_hyb is mgga family);
         // we use lookup_by_name and skip any that don't resolve.
+        // Names use the canonical "XC_..." form (case-insensitive at the
+        // registry boundary; lowercase here for readability). The shorter
+        // libxc display form (e.g. "hyb_gga_xc_b3lyp") is NOT in the
+        // registry table — `lookup_by_name` requires the "XC_"-prefixed
+        // canonical id.
         let candidate_names = [
-            "hyb_gga_xc_b3lyp",
-            "hyb_gga_xc_cam_b3lyp",
-            "hyb_gga_xc_wb97x",
-            "hyb_mgga_xc_m06",
-            "hyb_gga_xc_hse03",
-            "hyb_gga_xc_pbeh",
-            "hyb_gga_xc_b2plyp",
-            "hyb_mgga_xc_x1b95",
-            "hyb_gga_xc_lc_wpbe",
-            "mgga_c_b94_hyb",
+            "xc_hyb_gga_xc_b3lyp",
+            "xc_hyb_gga_xc_cam_b3lyp",
+            "xc_hyb_gga_xc_wb97x",
+            "xc_hyb_mgga_xc_m06",
+            "xc_hyb_gga_xc_hse03",
+            "xc_hyb_gga_xc_pbeh",
+            "xc_hyb_gga_xc_b2plyp",
+            "xc_hyb_mgga_xc_x1b95",
+            "xc_hyb_gga_xc_lc_wpbe",
+            "xc_mgga_c_b94_hyb",
         ];
         let mut count = 0usize;
         let mut nonempty_aux = 0usize;
@@ -389,7 +394,9 @@ mod tests {
     /// the recursively-constructed `Vec<Functional>` carry 4 entries.
     #[test]
     fn b3lyp_aux_count_is_4() {
-        let id = FunctionalId::from_name("hyb_gga_xc_b3lyp").unwrap();
+        // Registry uses the canonical XC_-prefixed form (case-insensitive).
+        let id = FunctionalId::from_name("xc_hyb_gga_xc_b3lyp")
+            .unwrap_or_else(|_| FunctionalId::from_raw(402).unwrap());
         let f = Functional::new(id, Spin::Unpolarized).unwrap();
         assert_eq!(
             f.meta.auxiliaries.len(),

@@ -178,30 +178,30 @@ fn run_mgga_oracle_compare(name: &str) {
 
 #[test]
 fn b3lyp_gga_vxc_matches_libxc() {
-    run_gga_oracle_compare("hyb_gga_xc_b3lyp", None);
+    run_gga_oracle_compare("xc_hyb_gga_xc_b3lyp", None);
 }
 
 #[test]
 fn cam_b3lyp_gga_vxc_matches_libxc_default() {
-    run_gga_oracle_compare("hyb_gga_xc_cam_b3lyp", None);
+    run_gga_oracle_compare("xc_hyb_gga_xc_cam_b3lyp", None);
 }
 
 #[test]
 fn cam_b3lyp_gga_vxc_matches_libxc_omega_0_5() {
-    run_gga_oracle_compare("hyb_gga_xc_cam_b3lyp", Some(0.5));
+    run_gga_oracle_compare("xc_hyb_gga_xc_cam_b3lyp", Some(0.5));
 }
 
 #[test]
 fn hse03_gga_vxc_matches_libxc() {
-    run_gga_oracle_compare("hyb_gga_xc_hse03", None);
+    run_gga_oracle_compare("xc_hyb_gga_xc_hse03", None);
 }
 
 #[test]
 fn wb97x_gga_vxc_matches_libxc() {
-    run_gga_oracle_compare("hyb_gga_xc_wb97x", None);
+    run_gga_oracle_compare("xc_hyb_gga_xc_wb97x", None);
 }
 
 #[test]
 fn b94_hyb_mgga_vxc_matches_libxc() {
-    run_mgga_oracle_compare("mgga_c_b94_hyb");
+    run_mgga_oracle_compare("xc_mgga_c_b94_hyb");
 }

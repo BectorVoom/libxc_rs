@@ -41,7 +41,7 @@ fn ffi_exx(id: u16) -> f64 {
 
 #[test]
 fn b3lyp_exx_coefficient_matches_ffi() {
-    let id = lookup_by_name("hyb_gga_xc_b3lyp").expect("b3lyp must be in registry");
+    let id = lookup_by_name("xc_hyb_gga_xc_b3lyp").expect("b3lyp must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     assert_eq!(f.hybrid_type(), HybridType::Hybrid);
     let exx = f.exx_coefficient().expect("B3LYP is Hybrid");
@@ -54,7 +54,7 @@ fn b3lyp_exx_coefficient_matches_ffi() {
 
 #[test]
 fn cam_b3lyp_cam_coefficients_match_ffi() {
-    let id = lookup_by_name("hyb_gga_xc_cam_b3lyp").expect("cam-b3lyp must be in registry");
+    let id = lookup_by_name("xc_hyb_gga_xc_cam_b3lyp").expect("cam-b3lyp must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     let cam = f.cam_coefficients().expect("CAM-B3LYP is CAM");
     let (o, a, b) = ffi_cam(id.raw());
@@ -80,7 +80,7 @@ fn lda_x_returns_none_for_cam_and_exx() {
     // This test passes regardless of metadata population state because
     // LDA_X is genuinely Semilocal in libxc; cam_coefficients and
     // exx_coefficient must both return None.
-    let id = lookup_by_name("lda_x").expect("lda_x must be in registry");
+    let id = lookup_by_name("xc_lda_x").expect("lda_x must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     assert!(f.cam_coefficients().is_none());
     assert!(f.exx_coefficient().is_none());
@@ -89,7 +89,7 @@ fn lda_x_returns_none_for_cam_and_exx() {
 
 #[test]
 fn vv10_nlc_coefficients_match_ffi() {
-    let id = lookup_by_name("gga_xc_vv10").expect("vv10 must be in registry");
+    let id = lookup_by_name("xc_gga_xc_vv10").expect("vv10 must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     let nlc = f.nlc_coefficients().expect("vv10 is NLC");
 
@@ -108,7 +108,7 @@ fn vv10_nlc_coefficients_match_ffi() {
 
 #[test]
 fn non_nlc_functional_returns_none() {
-    let id = lookup_by_name("lda_x").expect("lda_x must be in registry");
+    let id = lookup_by_name("xc_lda_x").expect("lda_x must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     assert!(f.nlc_coefficients().is_none());
 }
