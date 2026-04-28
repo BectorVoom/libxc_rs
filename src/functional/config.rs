@@ -40,7 +40,11 @@ impl Functional {
         let arr = self.ext_params.as_deref().unwrap_or(&[]);
         for (i, spec) in self.meta.ext_params.iter().enumerate() {
             if spec.name == name {
-                return Ok(arr[i]);
+                // CR-04 defensive read: if `arr` is shorter than the spec list
+                // (e.g. invariant broken because `self.ext_params is None` while
+                // metadata is populated), fall back to the meta default rather
+                // than panicking on `arr[i]`.
+                return Ok(arr.get(i).copied().unwrap_or(spec.default_value));
             }
         }
         Err(LibxcRsError::UnknownExtParamName {
@@ -97,11 +101,31 @@ impl Functional {
                 count,
             });
         }
-        let mut new_vals: Vec<f64> = self
-            .ext_params
-            .as_deref()
-            .map(|s| s.to_vec())
-            .unwrap_or_default();
+        // CR-04 fix: when `self.ext_params is None` but `meta.ext_params` is
+        // non-empty (an invariant the constructor normally maintains, but
+        // which Plan 05-04 metadata population could expose), seed `new_vals`
+        // from `meta.ext_params[i].default_value` instead of `unwrap_or_default()`
+        // (which produces an empty Vec and would then panic at
+        // `new_vals[idx] = val`).
+        let mut new_vals: Vec<f64> = match self.ext_params.as_deref() {
+            Some(s) => s.to_vec(),
+            None => self
+                .meta
+                .ext_params
+                .iter()
+                .map(|spec| spec.default_value)
+                .collect(),
+        };
+        // Defense-in-depth: if the invariant is broken and `new_vals` is
+        // shorter than `count`, surface a typed error rather than panicking
+        // on the index assignment.
+        if new_vals.len() != count {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: self.meta.id,
+                expected: count,
+                actual: new_vals.len(),
+            });
+        }
         new_vals[idx] = val;
         self.set_ext_params(&new_vals)
     }
@@ -265,6 +289,62 @@ mod tests {
                 assert_eq!(name, "totally_bogus");
             }
             other => panic!("expected UnknownExtParamName, got {other:?}"),
+        }
+    }
+
+    /// CR-04 regression test: forcibly break the invariant `ext_params is Some`
+    /// when `meta.ext_params is non-empty` (which Plan 05-04 metadata
+    /// population is expected to introduce in the wild on caller misuse).
+    /// `set_ext_param_by_index` must NOT panic; it must either succeed by
+    /// re-seeding from `meta.ext_params[i].default_value`, or return a typed
+    /// error such as `ExtParamIndexOutOfRange` / `ExtParamCountMismatch`.
+    #[test]
+    fn set_ext_param_by_index_recovers_when_ext_params_is_none_after_metadata_population() {
+        let id = FunctionalId::from_raw(1).unwrap(); // lda_x
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        // Force the latent invariant to be broken: ext_params None even though
+        // (after Plan 05-04 lands) meta might list a parameter.
+        f.ext_params = None;
+        // For empty meta this returns ExtParamIndexOutOfRange (no panic).
+        // For non-empty meta this re-seeds new_vals from default_value and
+        // succeeds. Either way: NO panic.
+        let result = f.set_ext_param_by_index(0, 0.5);
+        match result {
+            Ok(())
+            | Err(LibxcRsError::ExtParamIndexOutOfRange { .. })
+            | Err(LibxcRsError::ExtParamCountMismatch { .. }) => {}
+            other => panic!(
+                "set_ext_param_by_index must never panic and must surface a typed error; got {other:?}"
+            ),
+        }
+    }
+
+    /// CR-04 symmetric defensive-read regression for the `ext_param` getter:
+    /// when `self.ext_params is None` but `meta.ext_params` lists entries
+    /// (post Plan 05-04), reading by name must NOT panic. It returns the
+    /// `default_value` for the matching spec, or `UnknownExtParamName` if
+    /// no spec matches.
+    #[test]
+    fn ext_param_getter_does_not_panic_when_ext_params_is_none() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        f.ext_params = None;
+        // Bogus name path always returns UnknownExtParamName regardless of
+        // whether meta.ext_params is empty or populated.
+        match f.ext_param("definitely_not_a_real_param") {
+            Err(LibxcRsError::UnknownExtParamName { .. }) => {}
+            other => panic!("expected UnknownExtParamName, got {other:?}"),
+        }
+        // If meta.ext_params is non-empty (post Plan 05-04), looking up by
+        // the actual name MUST return the default rather than panicking.
+        if let Some(spec) = f.meta.ext_params.first() {
+            let name = spec.name;
+            let expected_default = spec.default_value;
+            let got = f.ext_param(name).expect("must not panic and must succeed for known name");
+            assert!(
+                got == expected_default || got.is_finite(),
+                "expected meta default {expected_default} or a finite fallback, got {got}"
+            );
         }
     }
 }

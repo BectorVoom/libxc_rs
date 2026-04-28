@@ -122,65 +122,101 @@ macro_rules! ten_arm_dispatch_gga {
     ) => {{
         let rho_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.rho, $ctx.rho_len, 1) };
         let sigma_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.sigma, $ctx.sigma_len, 1) };
-        let zk_arg = || {
-            let h = $ctx.zk.expect("zk handle missing for Exc+ order on exc-bearing functional");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) }
+        // CR-07: each handle accessor surfaces a typed
+        // `LibxcRsError::KernelLaunchFailed` when the corresponding `Option`
+        // is `None`, instead of panicking. Use `$crate::error::LibxcRsError`
+        // so the path resolves at the macro-user call site (macro hygiene),
+        // mirroring how the existing `map_gga_launch_err` qualified path is
+        // written.
+        let zk_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.zk.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "zk handle missing for Exc+ order on exc-bearing functional".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) })
         };
-        let vrho_arg = || {
-            let h = $ctx.vrho.expect("vrho handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) }
+        let vrho_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vrho.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vrho handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) })
         };
-        let vsigma_arg = || {
-            let h = $ctx.vsigma.expect("vsigma handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) }
+        let vsigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vsigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vsigma handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) })
         };
-        let v2rho2_arg = || {
-            let h = $ctx.v2rho2.expect("v2rho2 handle missing for Fxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) }
+        let v2rho2_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v2rho2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v2rho2 handle missing for Fxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) })
         };
-        let v2rhosigma_arg = || {
-            let h = $ctx.v2rhosigma.expect("v2rhosigma handle missing for Fxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rhosigma_len, 1) }
+        let v2rhosigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v2rhosigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v2rhosigma handle missing for Fxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rhosigma_len, 1) })
         };
-        let v2sigma2_arg = || {
-            let h = $ctx.v2sigma2.expect("v2sigma2 handle missing for Fxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2sigma2_len, 1) }
+        let v2sigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v2sigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v2sigma2 handle missing for Fxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2sigma2_len, 1) })
         };
-        let v3rho3_arg = || {
-            let h = $ctx.v3rho3.expect("v3rho3 handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) }
+        let v3rho3_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v3rho3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v3rho3 handle missing for Kxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) })
         };
-        let v3rho2sigma_arg = || {
-            let h = $ctx.v3rho2sigma.expect("v3rho2sigma handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho2sigma_len, 1) }
+        let v3rho2sigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v3rho2sigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v3rho2sigma handle missing for Kxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho2sigma_len, 1) })
         };
-        let v3rhosigma2_arg = || {
-            let h = $ctx.v3rhosigma2.expect("v3rhosigma2 handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rhosigma2_len, 1) }
+        let v3rhosigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v3rhosigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v3rhosigma2 handle missing for Kxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rhosigma2_len, 1) })
         };
-        let v3sigma3_arg = || {
-            let h = $ctx.v3sigma3.expect("v3sigma3 handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3sigma3_len, 1) }
+        let v3sigma3_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v3sigma3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v3sigma3 handle missing for Kxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3sigma3_len, 1) })
         };
-        let v4rho4_arg = || {
-            let h = $ctx.v4rho4.expect("v4rho4 handle missing for Lxc order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) }
+        let v4rho4_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v4rho4.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v4rho4 handle missing for Lxc order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) })
         };
-        let v4rho3sigma_arg = || {
-            let h = $ctx.v4rho3sigma.expect("v4rho3sigma handle missing for Lxc order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho3sigma_len, 1) }
+        let v4rho3sigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v4rho3sigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v4rho3sigma handle missing for Lxc order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho3sigma_len, 1) })
         };
-        let v4rho2sigma2_arg = || {
-            let h = $ctx.v4rho2sigma2.expect("v4rho2sigma2 handle missing for Lxc order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho2sigma2_len, 1) }
+        let v4rho2sigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v4rho2sigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v4rho2sigma2 handle missing for Lxc order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho2sigma2_len, 1) })
         };
-        let v4rhosigma3_arg = || {
-            let h = $ctx.v4rhosigma3.expect("v4rhosigma3 handle missing for Lxc order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rhosigma3_len, 1) }
+        let v4rhosigma3_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v4rhosigma3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v4rhosigma3 handle missing for Lxc order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rhosigma3_len, 1) })
         };
-        let v4sigma4_arg = || {
-            let h = $ctx.v4sigma4.expect("v4sigma4 handle missing for Lxc order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4sigma4_len, 1) }
+        let v4sigma4_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.v4sigma4.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "v4sigma4 handle missing for Lxc order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4sigma4_len, 1) })
         };
         let dt = ScalarArg { elem: $ctx.dt };
         let zt = ScalarArg { elem: $ctx.zt };
@@ -188,7 +224,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Exc, Spin::Unpolarized) => unsafe {
                 $($exc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -196,7 +232,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Vxc, Spin::Unpolarized) => unsafe {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -204,8 +240,8 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Fxc, Spin::Unpolarized) => unsafe {
                 $($fxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -213,9 +249,9 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Kxc, Spin::Unpolarized) => unsafe {
                 $($kxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
-                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -223,11 +259,11 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Lxc, Spin::Unpolarized) => unsafe {
                 $($lxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
-                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
-                    v4rho4_arg(), v4rho3sigma_arg(), v4rho2sigma2_arg(),
-                    v4rhosigma3_arg(), v4sigma4_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
+                    v4rho4_arg()?, v4rho3sigma_arg()?, v4rho2sigma2_arg()?,
+                    v4rhosigma3_arg()?, v4sigma4_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -235,7 +271,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Exc, Spin::Polarized) => unsafe {
                 $($exc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -243,7 +279,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Vxc, Spin::Polarized) => unsafe {
                 $($vxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -251,8 +287,8 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Fxc, Spin::Polarized) => unsafe {
                 $($fxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -260,9 +296,9 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Kxc, Spin::Polarized) => unsafe {
                 $($kxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
-                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -270,11 +306,11 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Lxc, Spin::Polarized) => unsafe {
                 $($lxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
-                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
-                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
-                    v4rho4_arg(), v4rho3sigma_arg(), v4rho2sigma2_arg(),
-                    v4rhosigma3_arg(), v4sigma4_arg(),
+                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
+                    v4rho4_arg()?, v4rho3sigma_arg()?, v4rho2sigma2_arg()?,
+                    v4rhosigma3_arg()?, v4sigma4_arg()?,
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;

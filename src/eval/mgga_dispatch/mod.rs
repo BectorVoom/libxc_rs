@@ -116,25 +116,39 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
         let sigma_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.sigma, $ctx.sigma_len, 1) };
         let lapl_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.lapl, $ctx.lapl_len, 1) };
         let tau_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.tau, $ctx.tau_len, 1) };
-        let zk_arg = || {
-            let h = $ctx.zk.expect("zk handle missing for Exc+ order on exc-bearing functional");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) }
+        // CR-07: each handle accessor surfaces a typed
+        // `LibxcRsError::KernelLaunchFailed` when the corresponding `Option`
+        // is `None`, instead of panicking. Use `$crate::error::LibxcRsError`
+        // for macro hygiene (path resolves at macro-user call site).
+        let zk_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.zk.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "zk handle missing for Exc+ order on exc-bearing functional".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) })
         };
-        let vrho_arg = || {
-            let h = $ctx.vrho.expect("vrho handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) }
+        let vrho_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vrho.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vrho handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) })
         };
-        let vsigma_arg = || {
-            let h = $ctx.vsigma.expect("vsigma handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) }
+        let vsigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vsigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vsigma handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) })
         };
-        let vlapl_arg = || {
-            let h = $ctx.vlapl.expect("vlapl handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vlapl_len, 1) }
+        let vlapl_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vlapl.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vlapl handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vlapl_len, 1) })
         };
-        let vtau_arg = || {
-            let h = $ctx.vtau.expect("vtau handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vtau_len, 1) }
+        let vtau_arg = || -> Result<_, $crate::error::LibxcRsError> {
+            let h = $ctx.vtau.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
+                reason: "vtau handle missing for Vxc+ order".to_string(),
+            })?;
+            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vtau_len, 1) })
         };
         let dt = ScalarArg { elem: $ctx.dt };
         let zt = ScalarArg { elem: $ctx.zt };
@@ -142,7 +156,7 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
             DerivativeOrder::Exc => unsafe {
                 $($exc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), lapl_arg(), tau_arg(), zk_arg(),
+                    rho_arg(), sigma_arg(), lapl_arg(), tau_arg(), zk_arg()?,
                     dt, zt,
                 ).map_err(crate::eval::mgga_dispatch::map_mgga_launch_err)?;
             }
@@ -150,7 +164,7 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), sigma_arg(), lapl_arg(), tau_arg(),
-                    zk_arg(), vrho_arg(), vsigma_arg(), vlapl_arg(), vtau_arg(),
+                    zk_arg()?, vrho_arg()?, vsigma_arg()?, vlapl_arg()?, vtau_arg()?,
                     dt, zt,
                 ).map_err(crate::eval::mgga_dispatch::map_mgga_launch_err)?;
             }
