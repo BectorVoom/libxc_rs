@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing Phase 05
-stopped_at: Phase 5 context gathered
-last_updated: "2026-04-28T06:16:28.583Z"
+status: Phase 05 gap-closure paused (org usage cap)
+stopped_at: Phase 5 Wave 1 — 3 WIP commits in worktrees, awaiting usage reset
+last_updated: "2026-04-28T07:05:00.000Z"
 progress:
   total_phases: 9
   completed_phases: 5
@@ -24,8 +24,27 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 05 (functional-lifecycle-and-hybrid-properties) — EXECUTING
-Plan: 1 of 7
+Phase: 05 (functional-lifecycle-and-hybrid-properties) — PAUSED (org usage cap)
+Plan: 3 of 7 complete (05-01..05-03); Wave 1 of gap-closure halted with 3 WIP commits
+
+## Pending Resumption — Phase 05 Gap Closure
+
+Three Wave 1 executor agents hit org monthly usage cap before completing.
+Partial work preserved as WIP commits on locked worktree branches:
+
+| Plan | Worktree branch | WIP commit | Files |
+|------|-----------------|------------|-------|
+| 05-04 | worktree-agent-a5c0fcda2537dbccf | eb08f4ab | 7 (xtask, src/functional, verify/tests) |
+| 05-05 | worktree-agent-a841c937705bf9399 | 3cbc49f9 | 3 (config.rs, gga/mgga dispatch) |
+| 05-07 | worktree-agent-a47664d411b3bec66 | ae6b847c | 2 (Cargo.toml, Cargo.lock) |
+
+Wave 2 (05-06) not yet started. None of the WIP commits are validated —
+do NOT merge to libxc_rs_kernel until executor resumes and runs the
+plan's verification commands.
+
+To resume after usage resets: re-run `/gsd-execute-phase 5 -- gaps_only`
+(or `--gaps-only`). Spawned executors should adopt the WIP commits as
+their starting point rather than starting from scratch.
 
 ## Performance Metrics
 
