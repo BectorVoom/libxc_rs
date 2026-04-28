@@ -104,9 +104,9 @@ impl Functional {
         // CR-04 fix: when `self.ext_params is None` but `meta.ext_params` is
         // non-empty (an invariant the constructor normally maintains, but
         // which Plan 05-04 metadata population could expose), seed `new_vals`
-        // from `meta.ext_params[i].default_value` instead of `unwrap_or_default()`
-        // (which produces an empty Vec and would then panic at
-        // `new_vals[idx] = val`).
+        // from `meta.ext_params[i].default_value`. The previous implementation
+        // produced an empty Vec in this branch and would then panic at
+        // `new_vals[idx] = val`.
         let mut new_vals: Vec<f64> = match self.ext_params.as_deref() {
             Some(s) => s.to_vec(),
             None => self

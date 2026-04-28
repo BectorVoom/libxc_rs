@@ -106,8 +106,11 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
         $functional_name:literal
     ) => {{
         if $spin != Spin::Unpolarized {
+            // CR-07 follow-up: use the in-crate FunctionalId constructor (no
+            // registry lookup, structurally panic-free) for the placeholder id
+            // carried in the typed error.
             return Err(LibxcRsError::UnsupportedFunctional {
-                id: crate::model::FunctionalId::from_raw(1).expect("valid id"),
+                id: $crate::model::FunctionalId(1),
                 reason: "MGGA polarized dispatch deferred pending Phase 4 follow-up \
                          (translated *_pol kernels have pre-existing bugs — see GGA plan 04-03 deferred-items)",
             });
@@ -169,8 +172,10 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
                 ).map_err(crate::eval::mgga_dispatch::map_mgga_launch_err)?;
             }
             DerivativeOrder::Fxc | DerivativeOrder::Kxc | DerivativeOrder::Lxc => {
+                // CR-07 follow-up: structurally panic-free constructor for the
+                // placeholder `FunctionalId` carried in the typed error.
                 return Err(LibxcRsError::UnsupportedDerivativeOrder {
-                    id: crate::model::FunctionalId::from_raw(1).expect("valid id"),
+                    id: $crate::model::FunctionalId(1),
                     order: $order,
                     max: DerivativeOrder::Vxc,
                 });
