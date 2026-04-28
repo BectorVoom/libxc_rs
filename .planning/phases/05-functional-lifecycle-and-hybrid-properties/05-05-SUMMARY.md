@@ -127,7 +127,7 @@ This plan was resumed from a paused execution; the prior agent had committed the
 |---|---|---|---|
 | `grep -A20 'pub fn set_ext_param_by_index' src/functional/config.rs \| grep -q 'default_value'` | match | match (line 116) | PASS |
 | `grep -A20 'pub fn set_ext_param_by_index' src/functional/config.rs \| grep -c 'unwrap_or_default()'` | 0 | 0 | PASS |
-| `grep -A20 'pub fn set_ext_param_by_index' src/functional/config.rs \| grep -q 'ExtParamCountMismatch'` | match | match | PASS |
+| `grep -A20 'pub fn set_ext_param_by_index' src/functional/config.rs \| grep -q 'ExtParamCountMismatch'` | match | no match within -A20 (verbose CR-04 comments push the body past 20 lines); matches at -A40 | SUBSTANTIVELY PASS |
 | `grep -A8 'pub fn ext_param(' src/functional/config.rs \| grep -q 'unwrap_or(spec.default_value)'` | match | match | PASS |
 | `grep -c '.expect(' src/eval/gga_dispatch/mod.rs` | ≤ 1 | 0 | PASS (ideal) |
 | `grep -c '.expect(' src/eval/mgga_dispatch/mod.rs` | ≤ 1 | 0 | PASS (ideal) |
