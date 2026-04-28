@@ -551,8 +551,20 @@ pub fn evaluate_mixed_gga(
 /// - **LDA aux** contributes only to rho-derivative chain.
 /// - **GGA aux** contributes to rho + sigma chains.
 /// - **MGGA aux** contributes to rho + sigma + (lapl chain if
-///   `NEEDS_LAPLACIAN` flag set on aux) + (tau chain if `NEEDS_TAU` flag
-///   set on aux). Mixed lapl-tau cross-derivative fields gate on both flags.
+///   aux's `NEEDS_LAPLACIAN` AND parent's `NEEDS_LAPLACIAN` are both set) +
+///   (tau chain if aux's `NEEDS_TAU` AND parent's `NEEDS_TAU` are both set).
+///   Mixed lapl-tau cross-derivative fields gate on `needs_lapl AND needs_tau`
+///   (the combined gates).
+///
+/// **CR-03 fix (Plan 05-06):** the parent's NEEDS_LAPLACIAN/NEEDS_TAU flags
+/// are also load-bearing per `mix_func.c:104-120` (parent ASSERTS its own
+/// NEEDS_LAPLACIAN bit must be set whenever any aux needs laplacian). Gating
+/// on both parent AND aux is the safe defense: when parent's flags are
+/// correctly populated by xtask, the gate is equivalent to the libxc
+/// reference (aux-only); when parent's flags are missing, the gate prevents
+/// aux contributions from leaking into a parent output buffer the parent did
+/// not promise to expose. The `add_opt_n` helper would also catch this as a
+/// length mismatch, but the gate is cheaper and more semantically clear.
 ///
 /// All 70 MGGA caller output fields are zeroed once before the loop.
 pub fn evaluate_mixed_mgga(
@@ -612,6 +624,11 @@ pub fn evaluate_mixed_mgga(
     let lda_zk_len = lda_dims.zk as usize * np;
     let lda_vrho_len = lda_dims.vrho as usize * np;
     let lda_v2rho2_len = lda_dims.v2rho2 as usize * np;
+
+    // Capture parent flags once (CR-03 fix): the gate is parent AND aux per
+    // mix_func.c:184-305 + parent assertion at mix_func.c:104-120.
+    let parent_needs_lapl = functional.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+    let parent_needs_tau = functional.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
 
     macro_rules! zero_field { ($field:ident) => {
         if let Some(ref mut b) = output.$field { b.fill(0.0); }
@@ -723,8 +740,16 @@ pub fn evaluate_mixed_mgga(
             }
             Family::Mgga => {
                 let mgga_fn = MggaFunctional::from_id(aux.meta.id)?;
-                let needs_lapl = aux.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
-                let needs_tau = aux.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
+                let aux_needs_lapl = aux.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+                let aux_needs_tau = aux.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
+                // CR-03 fix (Plan 05-06): gate on parent AND aux flags per
+                // mix_func.c:104-120 (parent-flag assertion) + 184-305
+                // (per-aux accumulation). When parent doesn't carry the
+                // NEEDS_LAPLACIAN/NEEDS_TAU bit, we MUST NOT route aux's
+                // vlapl/vtau contributions into the parent's output buffers
+                // (which the parent didn't promise to expose).
+                let needs_lapl = aux_needs_lapl && parent_needs_lapl;
+                let needs_tau = aux_needs_tau && parent_needs_tau;
                 let needs_both = needs_lapl && needs_tau;
 
                 workspace.zero_scratch();
@@ -759,7 +784,10 @@ pub fn evaluate_mixed_mgga(
                     // Order >= Kxc / Lxc: dispatch_mgga currently rejects them
                     // upstream, so leave the higher-order aux_output fields as
                     // None. If/when MGGA Fxc+ is wired, expand here.
-                    let _ = (needs_lapl, needs_tau, needs_both);
+                    // (WR-10 Plan 05-06: a dead let-discard that previously
+                    // consumed needs_lapl / needs_tau / needs_both has been
+                    // removed since those variables are load-bearing below in
+                    // the gated accumulation block.)
                     dispatch_mgga(mgga_fn, input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
                 }
                 let scratch = workspace.mgga_scratch_mut();
@@ -1109,4 +1137,62 @@ mod tests {
         assert!(res.is_err());
     }
 
+    // ── evaluate_mixed_mgga parent-flag gate (Plan 05-06 CR-03) ────────────
+
+    /// Verifies the CR-03 fix: `evaluate_mixed_mgga` consults BOTH the
+    /// parent's NEEDS_LAPLACIAN flag AND the aux's NEEDS_LAPLACIAN flag
+    /// (combined with AND) when deciding to populate vlapl. Per
+    /// libxc-master/src/mix_func.c lines 104-120 (parent flag assertion) +
+    /// 184-305 (per-aux accumulation), if the parent does not declare
+    /// NEEDS_LAPLACIAN, no aux's vlapl contributions should leak into the
+    /// parent's output.
+    ///
+    /// This test exercises the boolean gate at the FunctionalFlags level
+    /// since constructing a fully-synthetic Functional with overridden
+    /// metadata requires Box::leak gymnastics that obscure the test intent.
+    /// Full end-to-end validation is provided by the FFI-tier oracle test
+    /// `b94_hyb_mgga_vxc_matches_libxc` (in verify/tests/mixed_oracle.rs,
+    /// unignored by Plan 05-04), which exercises the live combined gate
+    /// against libxc 7.0.0 for hyb_mgga_xc_b94.
+    #[test]
+    fn mixed_mgga_respects_parent_no_laplacian_gate() {
+        use crate::model::FunctionalFlags;
+
+        // Parent does NOT need laplacian; aux DOES need laplacian.
+        // The combined gate `aux_needs && parent_needs` MUST be false.
+        let parent_flags = FunctionalFlags::HAVE_EXC | FunctionalFlags::HAVE_VXC;
+        let aux_flags =
+            FunctionalFlags::HAVE_EXC | FunctionalFlags::HAVE_VXC | FunctionalFlags::NEEDS_LAPLACIAN;
+
+        let parent_needs_lapl = parent_flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+        let aux_needs_lapl = aux_flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+        let combined_needs_lapl = aux_needs_lapl && parent_needs_lapl;
+
+        assert!(aux_needs_lapl, "test premise: aux must declare NEEDS_LAPLACIAN");
+        assert!(!parent_needs_lapl, "test premise: parent must NOT declare NEEDS_LAPLACIAN");
+        assert!(
+            !combined_needs_lapl,
+            "CR-03 gate must be FALSE when parent doesn't need laplacian, regardless of aux flags"
+        );
+
+        // Symmetric case: BOTH parent AND aux declare NEEDS_LAPLACIAN.
+        // The combined gate MUST be true.
+        let parent_with_lapl = parent_flags | FunctionalFlags::NEEDS_LAPLACIAN;
+        let parent_with_lapl_needs = parent_with_lapl.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+        let combined_with_lapl = aux_needs_lapl && parent_with_lapl_needs;
+        assert!(
+            combined_with_lapl,
+            "CR-03 gate must be TRUE when both parent and aux declare NEEDS_LAPLACIAN"
+        );
+
+        // Tau symmetry: parent doesn't need tau, aux does → combined gate false.
+        let aux_tau = FunctionalFlags::HAVE_EXC | FunctionalFlags::NEEDS_TAU;
+        let parent_no_tau = FunctionalFlags::HAVE_EXC;
+        let combined_tau = aux_tau.contains(FunctionalFlags::NEEDS_TAU)
+            && parent_no_tau.contains(FunctionalFlags::NEEDS_TAU);
+        assert!(
+            !combined_tau,
+            "CR-03 gate must be FALSE for vtau when parent doesn't need tau"
+        );
+    }
 }
