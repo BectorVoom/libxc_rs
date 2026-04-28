@@ -60,22 +60,23 @@ fn rust_port_matches_snapshot_for_all_649() {
 }
 
 #[test]
-#[ignore = "Plan 05-01 metadata population deferred; FFI comparison is meaningful once xc_func_init-driven snapshots populate meta.hybrid_terms / meta.hybrid_type. Set LIBXC_RS_HYB_TYPE_ORACLE_FFI=1 and remove ignore once metadata is live."]
 fn three_way_hybrid_type_matches_for_all_649() {
     use libxc_sys::{xc_func_end, xc_func_init, xc_func_type, xc_hyb_type, XC_UNPOLARIZED};
 
     fn map_ffi(c: i32) -> HybridType {
-        // libxc-master/src/util.h XC_HYB_* constants:
-        //   XC_HYB_NONE = 0, SEMILOCAL = 1, HYBRID = 2, CAM = 3,
-        //   CAMY = 4, CAMG = 5, DOUBLE_HYBRID = 6, MIXTURE = 32
+        // Per libxc-master/src/xc.h:94-100 (XC_HYB_TYPE_* return values
+        // from xc_hyb_type()):
+        //   XC_HYB_SEMILOCAL = 0, XC_HYB_HYBRID = 1, XC_HYB_CAM = 2,
+        //   XC_HYB_CAMY = 3, XC_HYB_CAMG = 4, XC_HYB_DOUBLE_HYBRID = 5,
+        //   XC_HYB_MIXTURE = 32768
         match c {
-            0 | 1 => HybridType::Semilocal,
-            2 => HybridType::Hybrid,
-            3 => HybridType::Cam,
-            4 => HybridType::CamYukawa,
-            5 => HybridType::CamGaussian,
-            6 => HybridType::DoubleHybrid,
-            32 => HybridType::Mixture,
+            0 => HybridType::Semilocal,
+            1 => HybridType::Hybrid,
+            2 => HybridType::Cam,
+            3 => HybridType::CamYukawa,
+            4 => HybridType::CamGaussian,
+            5 => HybridType::DoubleHybrid,
+            32768 => HybridType::Mixture,
             other => panic!("unknown XC_HYB_* constant {other}"),
         }
     }

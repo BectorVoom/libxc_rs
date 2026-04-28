@@ -336,10 +336,9 @@ mod tests {
     }
 
     /// FUNC-06: Drop must not panic for representative hybrid ids.
-    /// On the current empty-metadata snapshot, every Functional::new call
-    /// produces an empty auxiliaries Vec, so the test exercises the
-    /// non-aux Drop path. Once xtask populates aux trees, this test will
-    /// also exercise the recursive Drop path.
+    /// After Plan 05-04 metadata population, hybrid functionals carry
+    /// non-empty `auxiliaries` so this test now exercises the recursive
+    /// Drop path through the eagerly-constructed sub-Functionals.
     #[test]
     fn drop_hybrids_ok() {
         // 10 representative hybrid ids: B3LYP family, CAM-B3LYP, wB97X,
@@ -359,10 +358,14 @@ mod tests {
             "mgga_c_b94_hyb",
         ];
         let mut count = 0usize;
+        let mut nonempty_aux = 0usize;
         for name in candidate_names {
             if let Ok(id) = FunctionalId::from_name(name) {
                 let f = Functional::new(id, Spin::Unpolarized);
                 if let Ok(func) = f {
+                    if !func.auxiliary_functionals().is_empty() {
+                        nonempty_aux += 1;
+                    }
                     drop(func);
                     count += 1;
                 }
@@ -371,22 +374,33 @@ mod tests {
         // Sanity: at least some of the candidate names resolve in the
         // current registry.
         assert!(count > 0, "no candidate hybrid ids resolved");
+        // Plan 05-04 closure: at least one canonical hybrid (e.g. B3LYP)
+        // must carry non-empty aux after metadata population.
+        assert!(
+            nonempty_aux > 0,
+            "expected at least one hybrid candidate with non-empty aux after Plan 05-04"
+        );
     }
 
-    /// Aux recursion shape — for the empty-metadata snapshot every
-    /// functional has zero aux. Once xtask populates real metadata,
-    /// this test verifies the recursion produces a valid Vec<Functional>.
+    /// Plan 05-04 closure: B3LYP's metadata-driven aux count is 4
+    /// (LDA_X, GGA_X_B88, LDA_C_VWN_RPA, GGA_C_LYP). After
+    /// `cargo xtask generate-metadata` populates `meta.auxiliaries`
+    /// from a live `xc_func_init` snapshot, both the static slice and
+    /// the recursively-constructed `Vec<Functional>` carry 4 entries.
     #[test]
-    fn empty_metadata_aux_is_empty() {
+    fn b3lyp_aux_count_is_4() {
         let id = FunctionalId::from_name("hyb_gga_xc_b3lyp").unwrap();
         let f = Functional::new(id, Spin::Unpolarized).unwrap();
-        // Today (Plan 05-01 deferred): meta.auxiliaries is empty, so
-        // f.auxiliaries is empty. After xtask populates B3LYP's 4-aux
-        // structure (LDA_X, GGA_X_B88, LDA_C_VWN, GGA_C_LYP), this assert
-        // must be updated to expect 4.
-        assert_eq!(f.meta.auxiliaries.len(), 0);
-        assert_eq!(f.auxiliary_functionals().len(), 0);
-        assert_eq!(f.mix_coefficients().len(), 0);
+        assert_eq!(
+            f.meta.auxiliaries.len(),
+            4,
+            "B3LYP must have 4 auxiliaries"
+        );
+        assert_eq!(
+            f.auxiliary_functionals().len(),
+            4,
+            "Recursive aux construction must populate 4 sub-Functionals"
+        );
     }
 
     /// Propagation map runtime application is a no-op when

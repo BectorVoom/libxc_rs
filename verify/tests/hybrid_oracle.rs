@@ -22,7 +22,8 @@ use libxc_sys::{
 
 fn ffi_cam(id: u16) -> (f64, f64, f64) {
     let mut t: xc_func_type = unsafe { std::mem::zeroed() };
-    unsafe { xc_func_init(&mut t, id as i32, XC_UNPOLARIZED as i32) };
+    let rc = unsafe { xc_func_init(&mut t, id as i32, XC_UNPOLARIZED as i32) };
+    assert_eq!(rc, 0, "xc_func_init failed for id={id}");
     let (mut o, mut a, mut b) = (0.0_f64, 0.0_f64, 0.0_f64);
     unsafe { xc_hyb_cam_coef(&t, &mut o, &mut a, &mut b) };
     unsafe { xc_func_end(&mut t) };
@@ -31,14 +32,14 @@ fn ffi_cam(id: u16) -> (f64, f64, f64) {
 
 fn ffi_exx(id: u16) -> f64 {
     let mut t: xc_func_type = unsafe { std::mem::zeroed() };
-    unsafe { xc_func_init(&mut t, id as i32, XC_UNPOLARIZED as i32) };
+    let rc = unsafe { xc_func_init(&mut t, id as i32, XC_UNPOLARIZED as i32) };
+    assert_eq!(rc, 0, "xc_func_init failed for id={id}");
     let v = unsafe { xc_hyb_exx_coef(&t) };
     unsafe { xc_func_end(&mut t) };
     v
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn b3lyp_exx_coefficient_matches_ffi() {
     let id = lookup_by_name("hyb_gga_xc_b3lyp").expect("b3lyp must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
@@ -52,7 +53,6 @@ fn b3lyp_exx_coefficient_matches_ffi() {
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn cam_b3lyp_cam_coefficients_match_ffi() {
     let id = lookup_by_name("hyb_gga_xc_cam_b3lyp").expect("cam-b3lyp must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
@@ -88,14 +88,14 @@ fn lda_x_returns_none_for_cam_and_exx() {
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn vv10_nlc_coefficients_match_ffi() {
     let id = lookup_by_name("gga_xc_vv10").expect("vv10 must be in registry");
     let f = Functional::new(id, Spin::Unpolarized).unwrap();
     let nlc = f.nlc_coefficients().expect("vv10 is NLC");
 
     let mut t: xc_func_type = unsafe { std::mem::zeroed() };
-    unsafe { xc_func_init(&mut t, id.raw() as i32, XC_UNPOLARIZED as i32) };
+    let rc = unsafe { xc_func_init(&mut t, id.raw() as i32, XC_UNPOLARIZED as i32) };
+    assert_eq!(rc, 0, "xc_func_init failed for vv10 id={}", id.raw());
     // The xc_func_type FFI struct has nlc_b and nlc_C fields populated
     // after init for VV10 functionals.
     let ffi_b = t.nlc_b;

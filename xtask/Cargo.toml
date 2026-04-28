@@ -11,3 +11,4 @@ path = "src/main.rs"
 regex = "1"
 anyhow = "1"
 libxc-sys = { path = "../libxc-sys" }
+libxc_rs = { path = ".." }

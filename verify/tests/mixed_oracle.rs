@@ -177,37 +177,31 @@ fn run_mgga_oracle_compare(name: &str) {
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn b3lyp_gga_vxc_matches_libxc() {
     run_gga_oracle_compare("hyb_gga_xc_b3lyp", None);
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn cam_b3lyp_gga_vxc_matches_libxc_default() {
     run_gga_oracle_compare("hyb_gga_xc_cam_b3lyp", None);
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn cam_b3lyp_gga_vxc_matches_libxc_omega_0_5() {
     run_gga_oracle_compare("hyb_gga_xc_cam_b3lyp", Some(0.5));
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn hse03_gga_vxc_matches_libxc() {
     run_gga_oracle_compare("hyb_gga_xc_hse03", None);
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn wb97x_gga_vxc_matches_libxc() {
     run_gga_oracle_compare("hyb_gga_xc_wb97x", None);
 }
 
 #[test]
-#[ignore = "metadata population deferred; see Plan 05-01 SUMMARY"]
 fn b94_hyb_mgga_vxc_matches_libxc() {
     run_mgga_oracle_compare("mgga_c_b94_hyb");
 }

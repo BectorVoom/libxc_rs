@@ -347,4 +347,67 @@ mod tests {
         let f = Functional::new(id, Spin::Unpolarized).unwrap();
         assert_eq!(f.hybrid_type(), f.meta.hybrid_type);
     }
+
+    // ── Plan 05-04: unit-tier hybrid assertions (Gap 2 closure) ──────
+    //
+    // These tests cover B3LYP and CAM-B3LYP HybridType / exx / cam reads
+    // independent of the FFI test tier. After Plan 05-04 populates
+    // `meta.hybrid_terms` and `meta.hybrid_type` from a live xc_func_init
+    // snapshot, these unit-tier assertions land in the green column even
+    // when the verify/ FFI tier is not built.
+
+    #[test]
+    fn b3lyp_hybrid_type_is_hybrid() {
+        // Gap 2 closure (unit tier): B3LYP must classify as HybridType::Hybrid
+        // once Plan 05-04 populates meta.hybrid_terms with the single Fock
+        // term [HybridTerm{ kind: Fock, coefficient: 0.20, omega: 0.0 }].
+        let id = crate::model::FunctionalId::from_name("hyb_gga_xc_b3lyp")
+            .expect("registry must contain hyb_gga_xc_b3lyp after metadata regen");
+        let f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert_eq!(f.hybrid_type(), HybridType::Hybrid);
+    }
+
+    #[test]
+    fn b3lyp_exx_coefficient_matches_020() {
+        // Gap 2 closure (unit tier): B3LYP exx_coefficient must read
+        // meta.hybrid_terms[0].coefficient which equals exactly 0.20
+        // (Becke 1993). Tolerance: 1e-15 (literal f64).
+        let id = crate::model::FunctionalId::from_name("hyb_gga_xc_b3lyp")
+            .expect("registry must contain hyb_gga_xc_b3lyp after metadata regen");
+        let f = Functional::new(id, Spin::Unpolarized).unwrap();
+        let exx = f.exx_coefficient().expect("B3LYP exx_coefficient must be Some");
+        assert!(
+            (exx - 0.20).abs() < 1e-15,
+            "B3LYP exx_coefficient expected 0.20, got {exx}"
+        );
+    }
+
+    #[test]
+    fn cam_b3lyp_hybrid_type_is_cam() {
+        // Gap 2 closure (unit tier): CAM-B3LYP must classify as HybridType::Cam.
+        let id = crate::model::FunctionalId::from_name("hyb_gga_xc_cam_b3lyp")
+            .expect("registry must contain hyb_gga_xc_cam_b3lyp after metadata regen");
+        let f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert_eq!(f.hybrid_type(), HybridType::Cam);
+    }
+
+    #[test]
+    fn cam_b3lyp_cam_coefficients_some() {
+        // Gap 2 closure (unit tier): CAM-B3LYP cam_coefficients() must
+        // return Some with finite (omega, alpha, beta). Exact-value
+        // comparison lives in the FFI tier (verify/tests/hybrid_oracle.rs);
+        // here we just confirm the read path produces non-None values
+        // from populated metadata.
+        let id = crate::model::FunctionalId::from_name("hyb_gga_xc_cam_b3lyp")
+            .expect("registry must contain hyb_gga_xc_cam_b3lyp after metadata regen");
+        let f = Functional::new(id, Spin::Unpolarized).unwrap();
+        let cam = f.cam_coefficients().expect("CAM-B3LYP cam_coefficients must be Some");
+        assert!(
+            cam.omega.is_finite() && cam.omega > 0.0,
+            "omega must be finite positive: {}",
+            cam.omega
+        );
+        assert!(cam.alpha.is_finite(), "alpha must be finite: {}", cam.alpha);
+        assert!(cam.beta.is_finite(), "beta must be finite: {}", cam.beta);
+    }
 }
