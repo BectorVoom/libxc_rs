@@ -4660,7 +4660,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "libxc-sys",
- "libxc_rs",
  "regex",
 ]
 

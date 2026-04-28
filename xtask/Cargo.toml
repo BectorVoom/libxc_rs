@@ -11,4 +11,8 @@ path = "src/main.rs"
 regex = "1"
 anyhow = "1"
 libxc-sys = { path = "../libxc-sys" }
-libxc_rs = { path = ".." }
+# NOTE: a path-dep on `libxc_rs = { path = ".." }` was tried during 05-04
+# resume but pulled in 170 kernel crates whose CubeCL proc-macro expansion
+# takes ~9 hours to compile. The xtask iterates IDs 1..1024 directly via
+# `xc_func_init` rc-check (xtask is the metadata oracle and so does not
+# need the registry it is regenerating).
