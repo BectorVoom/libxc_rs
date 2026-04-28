@@ -178,6 +178,15 @@ The static `grep`-based acceptance checks listed above are all satisfied by dire
 
 When the cargo check completes, the orchestrator will validate. If any compile error surfaces, it will be addressable as a follow-up commit on this branch.
 
+## Self-Check: PASSED
+
+- FOUND: `.planning/phases/05-functional-lifecycle-and-hybrid-properties/05-05-SUMMARY.md`
+- FOUND commit `861f21dd` (WIP base — Tasks 1 + 2 substantive content)
+- FOUND commit `0afc877a` (residual `.expect()` removal + comment cleanup)
+- FOUND commit `41bffc29` (this SUMMARY.md)
+- All static acceptance grep checks satisfied on disk
+- No files outside `files_modified` allowlist were touched in `0afc877a`
+
 ---
 *Phase: 05-functional-lifecycle-and-hybrid-properties*
 *Completed: 2026-04-28*
