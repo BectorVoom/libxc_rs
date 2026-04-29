@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Phase 05 gap-closure paused (org usage cap)
-stopped_at: Phase 5 Wave 1 — 3 WIP commits in worktrees, awaiting usage reset
-last_updated: "2026-04-28T07:05:00.000Z"
+stopped_at: Phase 5 context gathered
+last_updated: "2026-04-29T07:37:32.523Z"
 progress:
   total_phases: 9
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 36
-  completed_plans: 30
-  percent: 83
+  completed_plans: 34
+  percent: 94
 ---
 
 # Project State
@@ -20,12 +20,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 05 — functional-lifecycle-and-hybrid-properties
+**Current focus:** Phase 09 — reduce-kernel-build-time
 
 ## Current Position
 
-Phase: 05 (functional-lifecycle-and-hybrid-properties) — PAUSED (org usage cap)
-Plan: 3 of 7 complete (05-01..05-03); Wave 1 of gap-closure halted with 3 WIP commits
+Phase: 09 (reduce-kernel-build-time) — EXECUTING
+Plan: 1 of 4
 
 ## Pending Resumption — Phase 05 Gap Closure
 

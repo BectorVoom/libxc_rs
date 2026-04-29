@@ -1,0 +1,31 @@
+   Compiling aho-corasick v1.1.4
+   Compiling regex-syntax v0.8.10
+   Compiling regex-automata v0.4.14
+   Compiling regex v1.12.3
+   Compiling sanitize-filename v0.6.0
+   Compiling cubecl-common v0.9.0
+   Compiling cubecl-ir v0.9.0
+   Compiling cubecl-runtime v0.9.0
+   Compiling cubecl-core v0.9.0
+   Compiling cubecl-std v0.9.0
+   Compiling cubecl-opt v0.9.0
+   Compiling cubecl-cpu v0.9.0
+   Compiling cubecl v0.9.0
+   Compiling libxc-kernel-math v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-math)
+   Compiling libxc-kernel-mgga-7d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7d)
+   Compiling libxc-kernel-gga-1b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-1b)
+   Compiling libxc-kernel-gga-4d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-4d)
+   Compiling libxc-kernel-mgga-32b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-32b)
+   Compiling libxc-kernel-gga-4e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-4e)
+   Compiling libxc-kernel-mgga-2b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-2b)
+   Compiling libxc-kernel-gga-3d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-3d)
+   Compiling libxc-kernel-gga-9b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-9b)
+   Compiling libxc-kernel-gga-6a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-6a)
+   Compiling libxc-kernel-mgga-14e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14e)
+   Compiling libxc-kernel-mgga-25a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-25a)
+   Compiling libxc-kernel-gga-5c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-5c)
+   Compiling libxc-kernel-gga-1d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-1d)
+   Compiling libxc-kernel-gga-3c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-3c)
+   Compiling libxc-kernel-gga-2a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-2a)
+   Compiling libxc-kernel-mgga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1a)
+   Compiling libxc-kernel-mgga-30 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-30)

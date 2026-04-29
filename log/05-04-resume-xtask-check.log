@@ -1,0 +1,15 @@
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+warning: field `libxc_name` is never read
+  --> xtask/src/generate_metadata.rs:73:5
+   |
+70 | struct Snapshot {
+   |        -------- field in this struct
+...
+73 |     libxc_name: String,   // human-readable display name from xc_func_info
+   |     ^^^^^^^^^^
+   |
+   = note: `Snapshot` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `xtask` (bin "xtask") generated 1 warning
+    Finished `dev` profile [unoptimized] target(s) in 0.55s
