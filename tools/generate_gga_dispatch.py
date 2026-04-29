@@ -22,7 +22,6 @@ Scope note (Phase 4 Plan 03):
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parent.parent
@@ -329,68 +328,6 @@ pub(crate) use ten_arm_dispatch_gga;
 
 
 def main():
-    # Parse --launch-mode flag for build-time-reduction migration.
-    # See docs/manual/Cubecl/cubecl_macro_fanout_manual.md (Strategy 1).
-    #
-    # per-kernel (default): current behavior. The dispatch macro calls
-    #   `kernel_name::launch_unchecked::<CpuRuntime>(...)` directly on each
-    #   translated kernel. Pairs with translators' `--cube-style launch`.
-    #   Produces ~1741 host-callable launch wrappers across the GGA workspace.
-    #
-    # per-batch (NOT YET IMPLEMENTED — Phase 9 work): emit thin
-    #   `#[cube(launch_unchecked)]` wrapper modules under
-    #   src/eval/gga_dispatch/batch{N}/launches/{level}_{spin}.rs that
-    #   internally `match` on the FunctionalId and call the underlying
-    #   `#[cube]` kernel. The generated dispatch macro then invokes those
-    #   per-batch wrappers instead of per-kernel launches. Pairs with
-    #   translators' `--cube-style plain`.
-    #
-    # The migration must be coordinated: when --launch-mode flips to
-    # per-batch, ALL of the GGA kernel sub-crates must also be re-translated
-    # with `--cube-style plain` in the same regeneration pass. Mixing the
-    # two breaks the build (per-kernel launches reference functions whose
-    # `launch_unchecked` was no longer generated).
-    launch_mode = 'per-kernel'
-    if '--launch-mode' in sys.argv:
-        idx = sys.argv.index('--launch-mode')
-        if idx + 1 >= len(sys.argv):
-            print("--launch-mode requires {per-kernel,per-batch}")
-            sys.exit(1)
-        launch_mode = sys.argv[idx + 1]
-        if launch_mode not in ('per-kernel', 'per-batch'):
-            print(f"--launch-mode must be one of: per-kernel, per-batch (got {launch_mode!r})")
-            sys.exit(1)
-
-    if launch_mode == 'per-batch':
-        # Surface the migration path clearly without silently producing a
-        # broken dispatch layer. The wrapper-emission code is intentionally
-        # not implemented yet — see Phase 9 plan and
-        # .planning/research/phase-9-buildtime-research.md for design.
-        print(
-            "ERROR: --launch-mode per-batch is not yet implemented.\n"
-            "\n"
-            "Implementing this requires:\n"
-            "  1. Emit src/eval/gga_dispatch/batch{N}/launches/{level}_{spin}.rs\n"
-            "     wrapper modules: one #[cube(launch_unchecked)] per\n"
-            "     (batch, derivative_level, spin_mode) — ~10 per batch × 58 batches\n"
-            "     = ~580 wrappers (vs ~1741 today).\n"
-            "  2. Each wrapper match-dispatches on FunctionalId to call the\n"
-            "     underlying #[cube] kernel functions (which must have been\n"
-            "     translated with --cube-style plain).\n"
-            "  3. Update the ten_arm_dispatch_gga macro to call those wrappers\n"
-            "     instead of per-kernel launch_unchecked.\n"
-            "  4. Update all 58 batch{N}.rs files emitted by emit_launch_helper\n"
-            "     to reference the new wrappers.\n"
-            "  5. Coordinate with re-running translate_gga.py --cube-style plain\n"
-            "     across the entire kernel-gga sub-crate set.\n"
-            "\n"
-            "Tracked as Phase 9 (Reduce kernel build time). See:\n"
-            "  .planning/research/phase-9-buildtime-research.md\n"
-            "  docs/manual/Cubecl/cubecl_macro_fanout_manual.md (Strategy 1)\n",
-            file=sys.stderr,
-        )
-        sys.exit(2)
-
     rows = load_roster()
     # Group by batch
     by_batch: dict[str, list] = {}
