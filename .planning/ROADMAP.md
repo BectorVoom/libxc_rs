@@ -199,6 +199,6 @@ Plans:
 - [x] 09-03-PLAN.md — GGA bin-pack into 59 letter-suffix sub-crates + MGGA into ~80 sub-crates (commit b5d4c742, no SUMMARY) [archive-pre-round4/]
 - [obsolete] archived 09-04-PLAN.md — feature-gating + ≤180s target (obsoleted by Round-4 SPEC) [archive-pre-round4/]
 - [x] 09-04-PLAN.md — Raise translator SPLIT_THRESHOLD 5K → 18K (D-06) + regenerate LDA/GGA/MGGA (D-07) + ≤20K cap forward-guard (Wave 1, autonomous)
-- [ ] 09-05-PLAN.md — Generate tools/audit_deferred_gga.py (D-12) + post-09-04 coverage audit + close any mod.rs/lib.rs gaps for the 25 deferred GGAs (Wave 2, autonomous)
+- [x] 09-05-PLAN.md — Generate tools/audit_deferred_gga.py (D-12) + post-09-04 coverage audit + close any mod.rs/lib.rs gaps for the 25 deferred GGAs (Wave 2, autonomous)
 - [ ] 09-06-PLAN.md — End-to-end `cargo check --workspace` (D-13) + re-run all SPEC §Acceptance Criteria commands → log/09-06-spec-acceptance.log (Wave 3, autonomous)
 - [ ] 09-07-PLAN.md — Oracle parity full sweep (D-14): 25 deferred GGAs at strict 1e-12 + MGGA non-regression spot-check via verify/tests/parity_phase09.rs (Wave 4, autonomous)
