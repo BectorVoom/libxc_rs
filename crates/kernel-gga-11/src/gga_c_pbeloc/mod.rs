@@ -1,4 +1,17 @@
-//! GGA_C_PBELOC kernel — split into per-function files.
+//! GGA_C_PBELOC kernel -- incremental derivative structure.
+
+//! unpol: preamble=83 lines
+//!   exc: shared=0, delta=83, outputs=1
+//!   vxc: shared=83, delta=109, outputs=3
+//!   fxc: shared=192, delta=209, outputs=6
+//!   kxc: shared=401, delta=365, outputs=10
+//!   lxc: shared=766, delta=208, outputs=15
+//! pol: preamble=119 lines
+//!   exc: shared=0, delta=119, outputs=1
+//!   vxc: shared=119, delta=211, outputs=6
+//!   fxc: shared=330, delta=688, outputs=21
+//!   kxc: shared=1018, delta=2204, outputs=56
+//!   lxc: shared=3222, delta=4512, outputs=126
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
@@ -9,7 +22,4 @@ pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
 pub mod kxc_pol;
-pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2_v3rho3_v3rho2sigma_v3rhosigma2_v3sigma3;
-pub mod lxc_pol_part1_v4rho4;
-pub mod lxc_pol_part2_v4rho3sigma;
-pub mod lxc_pol_part3_v4rho2sigma2_v4rhosigma3_v4sigma4;
+pub mod lxc_pol;

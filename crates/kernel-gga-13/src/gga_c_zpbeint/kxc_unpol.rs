@@ -1,7 +1,8 @@
-//! GGA_C_ZPBEINT kxc unpol kernel.
+//! GGA_C_ZPBEINT kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zpbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 80 shared lines across all orders.
+//! Delta: 404 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -32,6 +33,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (80 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -113,6 +115,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t131 = t78 * t81 * t129;
         let tzk0 = -t32 + t57 + t131;
         zk[ip] += tzk0;
+        // --- vxc delta (102 lines) ---
         let t133 = 1.0 / t7 / rho[ip];
         let t134 = t6 * t133;
         let t136 = t4 * t134 * t30;
@@ -217,6 +220,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t298 = t206 * t296 * t262;
         let tvsigma0 = rho[ip] * (t274 + t298);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (215 lines) ---
         let t306 = t6 * t83;
         let t308 = t4 * t306 * t30;
         let t309 = 0.14764627977777777777e-2 * t308;
@@ -435,6 +439,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t661 = t206 * t659 * t524;
         let tv2sigma20 = rho[ip] * (t614 + t619 + t624 + t657 - t661);
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (404 lines) ---
         let t663 = t6 * t209;
         let t665 = t4 * t663 * t30;
         let t666 = 0.34450798614814814813e-2 * t665;

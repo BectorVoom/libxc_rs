@@ -1,7 +1,8 @@
-//! HYB_GGA_XC_WB97 lxc unpol kernel.
+//! HYB_GGA_XC_WB97 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_wb97.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 179 shared lines across all orders.
+//! Delta: 186 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -52,6 +53,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (179 lines) ---
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
         let t5 = M_CBRT3;
@@ -232,6 +234,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
         let t316 = t284 * t315;
         let tzk0 = t141 + t245 + t316;
         zk[ip] += tzk0;
+        // --- vxc delta (164 lines) ---
         let t317 = t18 * t159;
         let t321 = t37 * t36;
         let t322 = 1.0 / t321;
@@ -398,6 +401,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
         let t719 = t284 * t718;
         let tvsigma0 = rho[ip] * (t670 + t695 + t719);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (231 lines) ---
         let t726 = t18 * t468;
         let t736 = t329 * t329;
         let t740 = 1.0 / t19 / t87;
@@ -632,6 +636,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
         let t1421 = t284 * t1420;
         let tv2sigma20 = rho[ip] * (t1362 + t1392 + t1421);
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (274 lines) ---
         let t1430 = t18 * t90;
         let t1450 = 1.0 / t19 / t389;
         let t1454 = 14.0 / 243.0 * t25 * t5 * t1450 * t30;
@@ -910,6 +915,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
         let t2568 = t284 * t2567;
         let tv3sigma30 = rho[ip] * (t2499 + t2534 + t2568);
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (186 lines) ---
         let t2588 = 1.0 / t19 / t1247;
         let t2590 = t2588 * t431 * t11;
         let t2593 = 1.0 / t858;

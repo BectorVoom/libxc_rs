@@ -1,7 +1,8 @@
-//! GGA_C_REGTPSS lxc unpol kernel.
+//! GGA_C_REGTPSS lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_regtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 80 shared lines across all orders.
+//! Delta: 400 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_regtpss_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (80 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -116,6 +118,7 @@ pub fn gga_c_regtpss_lxc_unpol(
         let t125 = t62 * t66 * t123;
         let tzk0 = -t32 + t57 + t125;
         zk[ip] += tzk0;
+        // --- vxc delta (115 lines) ---
         let t127 = 1.0 / t7 / rho[ip];
         let t128 = t6 * t127;
         let t130 = t4 * t128 * t30;
@@ -233,6 +236,7 @@ pub fn gga_c_regtpss_lxc_unpol(
         let t305 = t304 * t275;
         let tvsigma0 = t281 * t305;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (249 lines) ---
         let t311 = t6 * t75;
         let t313 = t4 * t311 * t30;
         let t314 = 0.14764627977777777777e-2 * t313;
@@ -485,6 +489,7 @@ pub fn gga_c_regtpss_lxc_unpol(
         let t753 = t752 * t641;
         let tv2sigma20 = t281 * t749 - t281 * t753;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (521 lines) ---
         let t755 = t6 * t190;
         let t757 = t4 * t755 * t30;
         let t758 = 0.34450798614814814813e-2 * t757;
@@ -1010,6 +1015,7 @@ pub fn gga_c_regtpss_lxc_unpol(
         let t1884 = t1883 * t816;
         let tv3sigma30 = -3.0 * t281 * t748 * t1495 + t281 * t1877 + 2.0 * t281 * t1884;
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (400 lines) ---
         let t1900 = 0.13780319445925925925e-1 * t757 + 0.1929837539843104208e3 * t761 + 0.2069040516770936012e4 * t770 + 24.0 * t773 - 0.3859675079686208416e3 * t779 + 4.0 * t811 + 8.0 * t818 - 0.2077903092681775651e3 * t823 + 0.14035736694323150897e2 * t828 + 0.28493333333333333333e0 * t832 - 0.2137e0 * t835 - 0.34367190188705947438e1 * t839 + 0.4274e0 * t844;
         let t1913 = t372 * t372;
         let t1917 = 0.6233709278045326953e3 * t162 * t1189 * t1913 * t392;

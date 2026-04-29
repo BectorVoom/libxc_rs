@@ -1,7 +1,8 @@
-//! MGGA_C_M05 lxc unpol kernel.
+//! MGGA_C_M05 lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 145 shared lines across all orders.
+//! Delta: 251 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -105,6 +106,7 @@ pub fn mgga_c_m05_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (145 lines) ---
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
         let t6 = piecewise3(t4, zeta_threshold, 1.0);
@@ -251,6 +253,7 @@ pub fn mgga_c_m05_lxc_unpol(
         let t250 = t210 * t249;
         let tzk0 = t171 + t250;
         zk[ip] += tzk0;
+        // --- vxc delta (161 lines) ---
         let t252 = 1.0 / t14 / rho[ip];
         let t253 = t252 * t16;
         let t254 = t20 * t46;
@@ -416,6 +419,7 @@ pub fn mgga_c_m05_lxc_unpol(
         let t562 = 32.0 * t558 * t560;
         let tvtau0 = rho[ip] * (t556 + t562);
         vtau[ip] += tvtau0;
+        // --- fxc delta (286 lines) ---
         let t571 = 1.0 / t14 / t98;
         let t572 = t571 * t16;
         let t575 = 0.14764627977777777777e-2 * t13 * t572 * t254;
@@ -712,6 +716,7 @@ pub fn mgga_c_m05_lxc_unpol(
         let t1178 = 512.0 * t400 * t1176;
         let tv2tau20 = rho[ip] * (-t1163 + t1169 + t1172 - t1178);
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (462 lines) ---
         let t1182 = t36 / t34 / t114;
         let t1183 = t1182 * t105;
         let t1187 = 1.0 / t14 / t127;
@@ -1194,6 +1199,7 @@ pub fn mgga_c_m05_lxc_unpol(
         let t2339 = 16384.0 * t1170 * t2337;
         let tv3tau30 = rho[ip] * (t2324 - t2328 - t2330 - t2335 + t2339);
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (251 lines) ---
         let t2355 = 8.0 * t1253 + 24.0 * t1256 + 24.0 * t1259 + 8.0 * t1500 + 6.0 * t1503 + 3.0 * t1506 + 3.0 * t1509 - 6.0 * t1511 + 6.0 * t1515 - 6.0 * t1517 - 8192000.0 / 27.0 * t1526 - 51200.0 / 3.0 * t1529 - 160.0 * t1532 - 133120.0 / 27.0 * t1535;
         let t2383 = t812 * t812;
         let t2387 = 1.0 / t14 / t986;

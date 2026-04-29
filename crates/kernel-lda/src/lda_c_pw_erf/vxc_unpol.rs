@@ -1,4 +1,8 @@
-//! LDA_C_PW_ERF vxc unpol kernel.
+//! LDA_C_PW_ERF vxc unpol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 106 shared lines across all orders.
+//! Delta: 89 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PW_ERF vxc -- unpolarized.
+/// LDA_C_PW_ERF vxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_erf_vxc_unpol(
@@ -20,6 +24,7 @@ pub fn lda_c_pw_erf_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (106 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -127,6 +132,7 @@ pub fn lda_c_pw_erf_vxc_unpol(
         let t217 = t209 * t216;
         let tzk0 = -t32 + t57 - t217;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (89 lines) ---
         let t219 = t4 * t104 * t30;
         let t220 = 0.0011073577833333333 * t219;
         let t221 = t26 * t26;

@@ -1,7 +1,8 @@
-//! GGA_C_SOGGA11 kxc pol kernel.
+//! GGA_C_SOGGA11 kxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_sogga11.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 97 shared lines across all orders.
+//! Delta: 2011 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -47,6 +48,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (97 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -145,6 +147,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t149 = t129 * t127 * t118 + t146 * t144 * t135 + t94 * t118 + t120 * t121 + t123 * t124 + t126 * t127 + t133 * t135 + t137 * t138 + t140 * t141 + t143 * t144 + param_sogga11_a_0 + param_sogga11_b_0;
         let tzk0 = t92 * t149;
         zk[ip] += tzk0;
+        // --- vxc delta (149 lines) ---
         let t151 = 1.0 / t8 / t7;
         let t152 = t6 * t151;
         let t155 = 0.11073470983333333333e-2 * t4 * t152 * t31;
@@ -299,6 +302,7 @@ pub fn gga_c_sogga11_kxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (558 lines) ---
         let t428 = t249 * t149;
         let t430 = t92 * t315;
         let t432 = t222 * t222;
@@ -872,6 +876,7 @@ pub fn gga_c_sogga11_kxc_pol(
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let tv2sigma25 = tv2sigma22;
         v2sigma2[ip * 6 + 5] += tv2sigma25;
+        // --- kxc delta (this level) (2011 lines) ---
         let t1577 = t627 * t149;
         let t1579 = t249 * t315;
         let t1581 = t92 * t758;

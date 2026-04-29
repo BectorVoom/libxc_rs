@@ -1,7 +1,8 @@
-//! GGA_C_ZVPBEINT lxc unpol kernel.
+//! GGA_C_ZVPBEINT lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 89 shared lines across all orders.
+//! Delta: 213 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,6 +39,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (89 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -128,6 +130,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t140 = t83 * t139;
         let tzk0 = -t32 + t57 + t140;
         zk[ip] += tzk0;
+        // --- vxc delta (111 lines) ---
         let t142 = 1.0 / t7 / rho[ip];
         let t143 = t6 * t142;
         let t145 = t4 * t143 * t30;
@@ -241,6 +244,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t310 = t219 * t309;
         let tvsigma0 = rho[ip] * (-t288 + t310);
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (227 lines) ---
         let t318 = t6 * t92;
         let t320 = t4 * t318 * t30;
         let t321 = 0.14764627977777777777e-2 * t320;
@@ -471,6 +475,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t689 = t219 * t687 * t547;
         let tv2sigma20 = rho[ip] * (-t636 + t650 - t652 + t685 - t689);
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (427 lines) ---
         let t691 = t62 * t220;
         let t692 = 1.0 / t691;
         let t693 = t60 * t692;
@@ -902,6 +907,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t1506 = 2.0 * t1505;
         let tv3sigma30 = rho[ip] * (t1436 + t1440 - t1442 - t1456 + t1460 - t1462 + t1464 + t1497 - t1501 + t1506);
         v3sigma3[ip] += tv3sigma30;
+        // --- lxc delta (this level) (213 lines) ---
         let t1524 = 4.0 * t755 - 24.0 * t757 + 0.13780319445925925925e-1 * t761 + 4.0 * t766 - 0.1301229756036208781e0 * t768 - 0.86748650402413918736e-1 * t771 + 0.65061487801810439052e-1 * t774 + 0.19263893255070628431e1 * t777 - 12.0 * t781 + 12.0 * t785 + 12.0 * t791 + 12.0 * t793 + 12.0 * t795 - 0.14035736694323150897e2 * t800 - 0.23392894490538584828e1 * t829 - 0.4101607543286562663e4 * t837;
         let t1543 = 0.86748650402413918736e-1 * t370 * t318 * t378;
         let t1546 = 0.67471172535210825684e-1 * t370 * t759 * t187;

@@ -1,7 +1,8 @@
-//! MGGA_X_MCML lxc unpol kernel.
+//! MGGA_X_MCML lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mcml.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 92 shared lines across all orders.
+//! Delta: 1830 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,6 +93,7 @@ pub fn mgga_x_mcml_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (92 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -185,6 +187,7 @@ pub fn mgga_x_mcml_lxc_unpol(
         let t256 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t252);
         let tzk0 = 2.0 * t256;
         zk[ip] += tzk0;
+        // --- vxc delta (187 lines) ---
         let t258 = t18 / t31;
         let t264 = t30 * rho[ip];
         let t266 = 1.0 / t31 / t264;
@@ -376,6 +379,7 @@ pub fn mgga_x_mcml_lxc_unpol(
         let t1089 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t1085);
         let tvtau0 = 2.0 * rho[ip] * t1089;
         vtau[ip] += tvtau0;
+        // --- fxc delta (485 lines) ---
         let t1092 = t18 * t54;
         let t1100 = 1.0 / t31 / t314;
         let t1101 = t29 * t1100;
@@ -871,6 +875,7 @@ pub fn mgga_x_mcml_lxc_unpol(
         let t3688 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t3684);
         let tv2tau20 = 2.0 * rho[ip] * t3688;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (1031 lines) ---
         let t3691 = t18 * t33;
         let t3701 = t312 * t312;
         let t3702 = t1179 * t3701;
@@ -1922,6 +1927,7 @@ pub fn mgga_x_mcml_lxc_unpol(
         let t10413 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t10409);
         let tv3tau30 = 2.0 * rho[ip] * t10413;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (1830 lines) ---
         let t10429 = t1112 * t1112;
         let t10434 = t1123 * t1123;
         let t10442 = 1.0 / t31 / t315;

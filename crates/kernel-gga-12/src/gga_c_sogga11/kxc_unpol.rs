@@ -1,7 +1,8 @@
-//! GGA_C_SOGGA11 kxc unpol kernel.
+//! GGA_C_SOGGA11 kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_sogga11.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 64 shared lines across all orders.
+//! Delta: 312 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,6 +43,7 @@ pub fn gga_c_sogga11_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (64 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -107,6 +109,7 @@ pub fn gga_c_sogga11_kxc_unpol(
         let t109 = t106 * t104 * t95 + t89 * t87 * t78 + t100 * t101 + t103 * t104 + t60 * t78 + t80 * t81 + t83 * t84 + t86 * t87 + t93 * t95 + t97 * t98 + param_sogga11_a_0 + param_sogga11_b_0;
         let tzk0 = t58 * t109;
         zk[ip] += tzk0;
+        // --- vxc delta (74 lines) ---
         let t111 = 1.0 / t7 / rho[ip];
         let t112 = t6 * t111;
         let t116 = t26 * t26;
@@ -183,6 +186,7 @@ pub fn gga_c_sogga11_kxc_unpol(
         let t254 = -0.69506584583333333332e-3 * t213 * t217 - 0.13901316916666666666e-2 * t222 * t217 - 0.20851975375e-2 * t225 * t217 - 0.27802633833333333333e-2 * t228 * t217 - 0.34753292291666666666e-2 * t231 * t217 - 0.69506584583333333332e-3 * t234 * t235 * t238 - 0.13901316916666666666e-2 * t242 * t238 - 0.20851975375e-2 * t245 * t238 - 0.27802633833333333333e-2 * t248 * t238 - 0.34753292291666666666e-2 * t251 * t238;
         let tvsigma0 = t162 * t254;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (169 lines) ---
         let t259 = t6 * t66;
         let t263 = t4 * t6;
         let t264 = t111 * t117;
@@ -355,6 +359,7 @@ pub fn gga_c_sogga11_kxc_unpol(
         let t664 = -0.28986991802640426041e-5 * t589 * t596 + 0.2898699180264042604e-5 * t599 * t596 - 0.57973983605280852081e-5 * t604 * t596 + 0.86960975407921278125e-5 * t609 * t596 - 0.86960975407921278125e-5 * t612 * t596 + 0.17392195081584255625e-4 * t615 * t596 - 0.11594796721056170417e-4 * t618 * t596 + 0.28986991802640426041e-4 * t621 * t596 - 0.14493495901320213021e-4 * t624 * t596 - 0.14493495901320213021e-5 * t627 * t628 * t633 + 0.2898699180264042604e-5 * t636 * t628 * t639 - 0.2898699180264042604e-5 * t643 * t633 + 0.86960975407921278125e-5 * t646 * t639 - 0.43480487703960639062e-5 * t649 * t633 + 0.17392195081584255625e-4 * t652 * t639 - 0.57973983605280852083e-5 * t655 * t633 + 0.28986991802640426041e-4 * t658 * t639 - 0.72467479506601065103e-5 * t661 * t633;
         let tv2sigma20 = t162 * t664;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (312 lines) ---
         let t672 = t340 * t153;
         let t676 = t320 * t153;
         let t678 = t337 * t676 * t155;
