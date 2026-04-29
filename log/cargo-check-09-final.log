@@ -1,0 +1,1556 @@
+=== Plan 09-06 Task 1: cargo check baseline ===
+date: 2026-04-29T22:07:14+09:00
+pwd: /home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6
+git HEAD: f459a1722547646f5076cdeac06b864de586699e
+git branch: worktree-agent-a02d14c2c5607aaf6
+--- .cargo/config.toml ---
+# Build configuration for CubeCL kernel crates.
+#
+# sccache: Caches compiled crate outputs so unchanged kernel sub-crates are
+# skipped on rebuild. Incremental compilation is disabled (see Cargo.toml
+# profiles) because sccache cannot cache incremental builds.
+#
+# jobs = 3: Each kernel sub-crate consumes 3-7 GB RAM during CubeCL proc macro
+# expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
+[build]
+# rustc-wrapper = "sccache"
+jobs = 3
+
+[env]
+# Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
+# deep through the CubeCL `#[cube]` proc-macro expansion. The default 8MB
+# rustc stack overflows (SIGSEGV); 64MB clears it with margin.
+RUST_MIN_STACK = "2010886400"
+# Share build artifacts across worktrees so isolated executors reuse the
+# main repo's compiled artifacts instead of rebuilding from scratch.
+
+
+--- end config ---
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.24
+   Compiling libc v0.2.184
+   Compiling cfg-if v1.0.4
+   Compiling shlex v1.3.0
+   Compiling memchr v2.8.0
+   Compiling find-msvc-tools v0.1.9
+   Compiling fnv v1.0.7
+   Compiling syn v2.0.117
+   Compiling log v0.4.29
+   Compiling stable_deref_trait v1.2.1
+   Compiling bytes v1.11.1
+   Compiling bitflags v2.11.0
+   Compiling pin-project-lite v0.2.17
+   Compiling jobserver v0.1.34
+   Compiling zmij v1.0.21
+   Compiling cc v1.2.59
+   Compiling serde_derive v1.0.228
+   Compiling synstructure v0.13.2
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+   Compiling zerovec-derive v0.11.3
+   Compiling zerofrom v0.1.7
+   Compiling yoke v0.8.2
+   Compiling serde_core v1.0.228
+   Compiling equivalent v1.0.2
+   Compiling futures-core v0.3.32
+   Compiling displaydoc v0.2.5
+   Compiling itoa v1.0.18
+   Compiling zerovec v0.11.6
+   Compiling socket2 v0.6.3
+   Compiling mio v1.2.0
+   Compiling serde v1.0.228
+   Compiling futures-sink v0.3.32
+   Compiling tokio v1.51.1
+   Compiling once_cell v1.21.4
+   Compiling tinystr v0.8.3
+   Compiling http v1.4.0
+   Compiling ring v0.17.14
+   Compiling aho-corasick v1.1.4
+   Compiling smallvec v1.15.1
+   Compiling writeable v0.6.3
+   Compiling autocfg v1.5.0
+   Compiling regex-syntax v0.8.10
+   Compiling slab v0.4.12
+   Compiling libm v0.2.16
+   Compiling litemap v0.8.2
+   Compiling icu_locale_core v2.2.0
+   Compiling regex-automata v0.4.14
+   Compiling zerotrie v0.2.4
+   Compiling potential_utf v0.1.5
+   Compiling typenum v1.19.0
+   Compiling icu_normalizer_data v2.2.0
+   Compiling zeroize v1.8.2
+   Compiling icu_properties_data v2.2.0
+   Compiling version_check v0.9.5
+   Compiling prettyplease v0.2.37
+   Compiling utf8_iter v1.0.4
+   Compiling icu_collections v2.2.0
+   Compiling generic-array v0.14.7
+   Compiling rustls-pki-types v1.14.0
+   Compiling regex v1.12.3
+   Compiling icu_provider v2.2.0
+   Compiling http-body v1.0.1
+   Compiling tracing-core v0.1.36
+   Compiling getrandom v0.2.17
+   Compiling futures-io v0.3.32
+   Compiling futures-task v0.3.32
+   Compiling httparse v1.10.1
+   Compiling percent-encoding v2.3.2
+   Compiling hashbrown v0.16.1
+   Compiling anyhow v1.0.102
+   Compiling untrusted v0.9.0
+   Compiling indexmap v2.13.1
+   Compiling futures-util v0.3.32
+   Compiling tracing v0.1.44
+   Compiling tokio-util v0.7.18
+   Compiling try-lock v0.2.5
+   Compiling zerocopy v0.8.48
+   Compiling tower-service v0.3.3
+   Compiling rustls v0.23.37
+   Compiling atomic-waker v1.1.2
+   Compiling h2 v0.4.13
+   Compiling want v0.3.1
+   Compiling icu_properties v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling futures-channel v0.3.32
+   Compiling subtle v2.6.1
+   Compiling pkg-config v0.3.32
+   Compiling rustix v1.1.4
+   Compiling liblzma-sys v0.4.6
+   Compiling hyper v1.9.0
+   Compiling idna_adapter v1.2.1
+   Compiling form_urlencoded v1.2.2
+   Compiling sync_wrapper v1.0.2
+   Compiling zerocopy-derive v0.8.48
+   Compiling tower-layer v0.3.3
+   Compiling ipnet v2.12.0
+   Compiling base64 v0.22.1
+   Compiling linux-raw-sys v0.12.1
+   Compiling glob v0.3.3
+   Compiling clang-sys v1.8.1
+   Compiling hyper-util v0.1.20
+   Compiling tower v0.5.3
+   Compiling idna v1.1.0
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling webpki-roots v1.0.6
+   Compiling option-ext v0.2.0
+   Compiling iri-string v0.7.12
+   Compiling serde_json v1.0.149
+   Compiling ryu v1.0.23
+   Compiling serde_urlencoded v0.7.1
+   Compiling tower-http v0.6.8
+   Compiling dirs-sys v0.5.0
+   Compiling digest v0.10.7
+   Compiling url v2.5.8
+   Compiling xattr v1.6.1
+   Compiling http-body-util v0.1.3
+   Compiling rustls-webpki v0.103.10
+   Compiling num-traits v0.2.19
+   Compiling num_cpus v1.17.0
+   Compiling filetime v0.2.27
+   Compiling tokio-rustls v0.26.4
+   Compiling hyper-rustls v0.27.7
+   Compiling cpufeatures v0.2.17
+   Compiling same-file v1.0.6
+   Compiling sha2 v0.10.9
+   Compiling walkdir v2.5.0
+   Compiling reqwest v0.12.28
+   Compiling tar v0.4.45
+   Compiling dirs v6.0.0
+   Compiling minimal-lexical v0.2.1
+   Compiling constcat v0.6.1
+   Compiling unicode-segmentation v1.13.2
+   Compiling nom v7.1.3
+   Compiling libloading v0.8.9
+   Compiling either v1.15.0
+   Compiling itertools v0.13.0
+   Compiling cexpr v0.6.0
+   Compiling rustc-hash v2.1.2
+   Compiling cfg_aliases v0.2.1
+   Compiling bytemuck_derive v1.10.2
+   Compiling ident_case v1.0.1
+   Compiling thiserror v2.0.18
+   Compiling strsim v0.11.1
+   Compiling darling_core v0.21.3
+   Compiling convert_case v0.10.0
+   Compiling getrandom v0.3.4
+   Compiling unicode-xid v0.2.6
+   Compiling derive_more-impl v2.1.1
+   Compiling darling_macro v0.21.3
+   Compiling thiserror-impl v2.0.18
+    Checking parking v2.2.1
+   Compiling crossbeam-utils v0.8.21
+   Compiling darling v0.21.3
+   Compiling liblzma v0.4.6
+   Compiling tracel-llvm-bundler v20.1.4-7
+    Checking scopeguard v1.2.0
+   Compiling object v0.37.3
+   Compiling paste v1.0.15
+   Compiling parking_lot_core v0.9.12
+    Checking lock_api v0.4.14
+    Checking rand_core v0.9.5
+    Checking ppv-lite86 v0.2.21
+    Checking bytemuck v1.25.0
+   Compiling derive-new v0.7.0
+    Checking adler2 v2.0.1
+    Checking gimli v0.32.3
+   Compiling bindgen v0.71.1
+    Checking addr2line v0.25.1
+    Checking miniz_oxide v0.8.9
+    Checking half v2.7.1
+    Checking rand_chacha v0.9.0
+    Checking concurrent-queue v2.5.0
+   Compiling cubecl-common v0.9.0
+    Checking fastrand v2.4.1
+    Checking rustc-demangle v0.1.27
+   Compiling portable-atomic v1.13.1
+    Checking foldhash v0.1.5
+    Checking allocator-api2 v0.2.21
+   Compiling tinyvec_macros v0.1.1
+   Compiling tinyvec v1.11.0
+    Checking hashbrown v0.15.5
+    Checking backtrace v0.3.76
+    Checking futures-lite v2.6.1
+    Checking float8 v0.4.2
+    Checking event-listener v5.4.1
+    Checking rand v0.9.2
+    Checking parking_lot v0.12.5
+    Checking spin v0.10.0
+    Checking sanitize-filename v0.6.0
+   Compiling enumset_derive v0.14.0
+    Checking derive_more v2.1.1
+    Checking serde_bytes v0.11.19
+    Checking web-time v1.1.0
+    Checking float4 v0.1.0
+    Checking winnow v1.0.1
+    Checking embassy-futures v0.1.2
+    Checking toml_parser v1.1.2+spec-1.1.0
+    Checking enumset v1.1.10
+    Checking event-listener-strategy v0.5.4
+   Compiling unicode-normalization v0.1.25
+   Compiling cubecl-macros-internal v0.9.0
+   Compiling cubecl-runtime v0.9.0
+    Checking num-integer v0.1.46
+    Checking toml_datetime v0.7.5+spec-1.1.0
+    Checking serde_spanned v1.1.1
+   Compiling variadics_please v1.1.0
+   Compiling cubecl-macros v0.9.0
+   Compiling deunicode v1.6.2
+    Checking toml_writer v1.1.1+spec-1.1.0
+    Checking float-ord v0.3.2
+    Checking winnow v0.7.15
+    Checking toml v0.9.12+spec-1.1.0
+    Checking cubecl-ir v0.9.0
+   Compiling slug v0.1.6
+   Compiling tracel-tblgen-rs v20.1.4-7
+   Compiling caseless v0.2.2
+    Checking async-channel v2.5.0
+   Compiling tracel-mlir-sys v20.1.4-7
+   Compiling tracel-mlir-rs-macros v20.1.4-7
+   Compiling unicode_categories v0.1.1
+   Compiling entities v1.0.1
+    Checking md5 v0.8.0
+   Compiling typed-arena v2.0.2
+   Compiling comrak v0.39.1
+    Checking num-bigint v0.4.6
+   Compiling convert_case v0.8.0
+   Compiling unindent v0.2.4
+    Checking num-rational v0.4.2
+    Checking num-iter v0.1.45
+    Checking num-complex v0.4.6
+    Checking fixedbitset v0.4.2
+    Checking type-map v0.5.1
+    Checking petgraph v0.6.5
+    Checking num v0.4.3
+   Compiling cubecl-cpu v0.9.0
+    Checking stable-vec v0.4.2
+    Checking sysinfo v0.36.1
+   Compiling cubecl v0.9.0
+   Compiling bindgen v0.72.1
+    Checking tracel-mlir-rs v20.1.4-7
+    Checking cubecl-core v0.9.0
+    Checking cubecl-std v0.9.0
+    Checking cubecl-opt v0.9.0
+   Compiling cmake v0.1.58
+   Compiling libxc_rs-verify v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/verify)
+    Checking approx v0.5.1
+   Compiling libxc-sys v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/libxc-sys)
+    Checking tracel-llvm v20.1.4-7
+    Checking libxc-kernel-math v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-math)
+    Checking libxc-kernel-mgga-9a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-9a)
+    Checking libxc-kernel-mgga-15c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-15c)
+    Checking libxc-kernel-mgga-32a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-32a)
+    Checking libxc-kernel-mgga-37b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-37b)
+    Checking libxc-kernel-mgga-20e v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-20e)
+    Checking libxc-kernel-mgga-27a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-27a)
+    Checking libxc-kernel-mgga-14j v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-14j)
+    Checking libxc-kernel-mgga-15b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-15b)
+    Checking libxc-kernel-gga-4d v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-4d)
+    Checking libxc-kernel-gga-9b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-9b)
+    Checking libxc-kernel-mgga-20c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-20c)
+    Checking libxc-kernel-mgga-2b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-2b)
+    Checking libxc-kernel-mgga-15g v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-15g)
+    Checking libxc-kernel-mgga-20i v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-20i)
+    Checking libxc-kernel-mgga-24b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-24b)
+    Checking libxc-kernel-mgga-4b v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-4b)
+    Checking libxc-kernel-mgga-36a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-36a)
+    Checking libxc-kernel-gga-11 v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-11)
+    Checking libxc-kernel-gga-20 v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-20)
+    Checking libxc-kernel-gga-5d v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-5d)
+    Checking libxc-kernel-gga-10a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-10a)
+    Checking libxc-kernel-gga-2a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-2a)
+    Checking libxc-kernel-mgga-26a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-26a)
+    Checking libxc-kernel-mgga-8c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-8c)
+    Checking libxc-kernel-gga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-1a)
+    Checking libxc-kernel-mgga-18c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-18c)
+    Checking libxc-kernel-mgga-8f v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-8f)
+    Checking libxc-kernel-gga-3c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-gga-3c)
+    Checking libxc-kernel-mgga-14f v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-14f)
+    Checking libxc-kernel-mgga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-1a)
+    Checking libxc-kernel-mgga-1c v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-1c)
+    Checking libxc-kernel-mgga-29 v0.1.0 (/home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a02d14c2c5607aaf6/crates/kernel-mgga-29)
+warning: ignoring -C extra-filename flag due to -o flag
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_unpol.rs:72:19
+   |
+72 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_unpol.rs:79:19
+   |
+79 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_unpol.rs:72:19
+   |
+72 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_unpol.rs:79:19
+   |
+79 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_unpol.rs:76:19
+   |
+76 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_unpol.rs:83:19
+   |
+83 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_unpol.rs:76:19
+   |
+76 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_unpol.rs:83:19
+   |
+83 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_unpol.rs:86:19
+   |
+86 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_unpol.rs:93:19
+   |
+93 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_unpol.rs:86:19
+   |
+86 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_unpol.rs:93:19
+   |
+93 |         let t75 = Heaviside(t74);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_unpol.rs:106:19
+    |
+106 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_unpol.rs:113:19
+    |
+113 |         let t75 = Heaviside(t74);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_unpol.rs:106:19
+    |
+106 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_unpol.rs:113:19
+    |
+113 |         let t75 = Heaviside(t74);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_unpol.rs:141:19
+    |
+141 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_unpol.rs:148:19
+    |
+148 |         let t75 = Heaviside(t74);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_unpol.rs:141:19
+    |
+141 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_unpol.rs:148:19
+    |
+148 |         let t75 = Heaviside(t74);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:86:19
+   |
+86 |         let t72 = Heaviside(t71);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:93:19
+   |
+93 |         let t81 = Heaviside(t80);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:118:20
+    |
+118 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:124:20
+    |
+124 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:86:19
+   |
+86 |         let t72 = Heaviside(t71);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:93:19
+   |
+93 |         let t81 = Heaviside(t80);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:118:20
+    |
+118 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs:124:20
+    |
+124 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:90:19
+   |
+90 |         let t72 = Heaviside(t71);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:97:19
+   |
+97 |         let t81 = Heaviside(t80);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:122:20
+    |
+122 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:128:20
+    |
+128 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:90:19
+   |
+90 |         let t72 = Heaviside(t71);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:97:19
+   |
+97 |         let t81 = Heaviside(t80);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:122:20
+    |
+122 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs:128:20
+    |
+128 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:100:19
+    |
+100 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:107:19
+    |
+107 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:132:20
+    |
+132 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:138:20
+    |
+138 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:100:19
+    |
+100 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:107:19
+    |
+107 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:132:20
+    |
+132 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs:138:20
+    |
+138 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:120:19
+    |
+120 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:127:19
+    |
+127 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:152:20
+    |
+152 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:158:20
+    |
+158 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:120:19
+    |
+120 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:127:19
+    |
+127 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:152:20
+    |
+152 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs:158:20
+    |
+158 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:155:19
+    |
+155 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:162:19
+    |
+162 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:187:20
+    |
+187 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:193:20
+    |
+193 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:155:19
+    |
+155 |         let t72 = Heaviside(t71);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:162:19
+    |
+162 |         let t81 = Heaviside(t80);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:187:20
+    |
+187 |         let t127 = Heaviside(t126);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs:193:20
+    |
+193 |         let t135 = Heaviside(t134);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_unpol.rs:67:19
+   |
+67 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_unpol.rs:72:19
+   |
+72 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_unpol.rs:67:19
+   |
+67 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_unpol.rs:72:19
+   |
+72 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_unpol.rs:71:19
+   |
+71 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_unpol.rs:76:19
+   |
+76 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_unpol.rs:71:19
+   |
+71 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_unpol.rs:76:19
+   |
+76 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_unpol.rs:81:19
+   |
+81 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_unpol.rs:86:19
+   |
+86 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_unpol.rs:81:19
+   |
+81 |         let t60 = Heaviside(t59);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_unpol.rs:86:19
+   |
+86 |         let t68 = Heaviside(t67);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_unpol.rs:101:19
+    |
+101 |         let t60 = Heaviside(t59);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_unpol.rs:106:19
+    |
+106 |         let t68 = Heaviside(t67);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_unpol.rs:101:19
+    |
+101 |         let t60 = Heaviside(t59);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_unpol.rs:106:19
+    |
+106 |         let t68 = Heaviside(t67);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_unpol.rs:136:19
+    |
+136 |         let t60 = Heaviside(t59);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_unpol.rs:141:19
+    |
+141 |         let t68 = Heaviside(t67);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_unpol.rs:136:19
+    |
+136 |         let t60 = Heaviside(t59);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_unpol.rs:141:19
+    |
+141 |         let t68 = Heaviside(t67);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:82:19
+   |
+82 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:87:19
+   |
+87 |         let t74 = Heaviside(t73);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:116:20
+    |
+116 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:121:20
+    |
+121 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:82:19
+   |
+82 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:87:19
+   |
+87 |         let t74 = Heaviside(t73);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:116:20
+    |
+116 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs:121:20
+    |
+121 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:86:19
+   |
+86 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:91:19
+   |
+91 |         let t74 = Heaviside(t73);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:120:20
+    |
+120 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:125:20
+    |
+125 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:86:19
+   |
+86 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:91:19
+   |
+91 |         let t74 = Heaviside(t73);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:120:20
+    |
+120 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs:125:20
+    |
+125 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:96:19
+   |
+96 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 9 + use libxc_kernel_math::piecewise::Heaviside;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:101:19
+    |
+101 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:130:20
+    |
+130 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:135:20
+    |
+135 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+  --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:96:19
+   |
+96 |         let t66 = Heaviside(t65);
+   |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+   |
+   = help: consider importing this module:
+           libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:101:19
+    |
+101 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:130:20
+    |
+130 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs:135:20
+    |
+135 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:116:19
+    |
+116 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:121:19
+    |
+121 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:150:20
+    |
+150 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:155:20
+    |
+155 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:116:19
+    |
+116 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:121:19
+    |
+121 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:150:20
+    |
+150 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs:155:20
+    |
+155 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:151:19
+    |
+151 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:156:19
+    |
+156 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:185:20
+    |
+185 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Heaviside` in this scope
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:190:20
+    |
+190 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  9 + use libxc_kernel_math::piecewise::Heaviside;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:151:19
+    |
+151 |         let t66 = Heaviside(t65);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:156:19
+    |
+156 |         let t74 = Heaviside(t73);
+    |                   ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:185:20
+    |
+185 |         let t120 = Heaviside(t119);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+error[E0433]: failed to resolve: use of undeclared type `Heaviside`
+   --> crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs:190:20
+    |
+190 |         let t128 = Heaviside(t127);
+    |                    ^^^^^^^^^ use of undeclared type `Heaviside`
+    |
+    = help: consider importing this module:
+            libxc_kernel_math::piecewise::Heaviside
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+warning: `libxc-kernel-mgga-29` (lib) generated 1 warning
+error: could not compile `libxc-kernel-mgga-29` (lib) due to 120 previous errors; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+exit_code: 143
+--- post-run dmesg tail (OOM/kill check) ---
+(no OOM/kill in recent dmesg, or dmesg not accessible)
+--- /proc/meminfo MemAvailable ---
+MemAvailable:   25194708 kB
+--- post-run notes ---
+exit_code=143 means SIGTERM. The cargo process was terminated by the executor after mgga-29's compile failure was captured (120 errors due to missing Heaviside import) and only mgga-8f was still running standalone for ~57min in proc-macro expansion. Killing was deliberate to capture the compile-failure data without waiting for mgga-8f's runaway expansion to finish — the cargo failure signal is already definitive.
+--- summary of compile errors ---
+errors-by-type:
+     60 error[E0433]
+     60 error[E0425]
+missing-symbol summary:
+     60 cannot find function, tuple struct or tuple variant `Heaviside`
+files-with-errors:
+files-with-errors-complete:
+crates/kernel-mgga-29/src/mgga_x_gx/exc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/exc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/fxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/fxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/kxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/kxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/lxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/lxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/vxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_gx/vxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/exc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/fxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/kxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/lxc_unpol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_pol.rs
+crates/kernel-mgga-29/src/mgga_x_pbe_gx/vxc_unpol.rs
