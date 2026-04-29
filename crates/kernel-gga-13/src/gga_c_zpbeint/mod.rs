@@ -1,4 +1,17 @@
-//! GGA_C_ZPBEINT kernel — split into per-function files.
+//! GGA_C_ZPBEINT kernel -- incremental derivative structure.
+
+//! unpol: preamble=80 lines
+//!   exc: shared=0, delta=80, outputs=1
+//!   vxc: shared=80, delta=102, outputs=3
+//!   fxc: shared=182, delta=215, outputs=6
+//!   kxc: shared=397, delta=404, outputs=10
+//!   lxc: shared=801, delta=205, outputs=15
+//! pol: preamble=117 lines
+//!   exc: shared=0, delta=117, outputs=1
+//!   vxc: shared=117, delta=214, outputs=6
+//!   fxc: shared=331, delta=695, outputs=21
+//!   kxc: shared=1026, delta=2320, outputs=56
+//!   lxc: shared=3346, delta=3512, outputs=126
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
@@ -9,7 +22,4 @@ pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
 pub mod kxc_pol;
-pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2_v3rho3_v3rho2sigma_v3rhosigma2_v3sigma3;
-pub mod lxc_pol_part1_v4rho4;
-pub mod lxc_pol_part2_v4rho3sigma;
-pub mod lxc_pol_part3_v4rho2sigma2_v4rhosigma3_v4sigma4;
+pub mod lxc_pol;

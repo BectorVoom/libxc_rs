@@ -466,7 +466,10 @@ def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
 
 # Default threshold: if a generated kernel function exceeds this many lines,
 # split it into per-output-array sub-kernels.
-SPLIT_THRESHOLD = 5000
+# Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
+# margin under SPEC's 20K per-file forward guard, after the dev machine was
+# verified to have RAM headroom for 16K+ line files.
+SPLIT_THRESHOLD = 18000
 
 # Output arrays grouped by derivative order, used for split naming.
 OUTPUT_ORDER = {

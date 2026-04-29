@@ -19,6 +19,12 @@ import shutil
 
 WORKSPACE = "/workspace"
 CRATES_DIR = os.path.join(WORKSPACE, "crates")
+# TARGET_MAX is the per-SUB-CRATE bin-packing budget (sum of all .rs lines
+# inside one crates/kernel-mgga-NX/ tree), NOT a per-#[cube] function line
+# cap. The per-function line cap lives in tools/translate_mgga.py
+# (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 50K
+# bin budget here is unrelated to that 18K function cap and stays as-is per
+# CONTEXT D-09 (sub-crate re-bin-packing is OUT of scope for Phase 9).
 TARGET_MAX = 50000
 SUFFIXES = list("abcdefghijklmnop")  # 16 should suffice (largest functional needs 12)
 

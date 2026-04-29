@@ -1,4 +1,8 @@
-//! LDA_C_PMGB06 vxc pol kernel.
+//! LDA_C_PMGB06 vxc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 191 shared lines across all orders.
+//! Delta: 310 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PMGB06 vxc -- polarized.
+/// LDA_C_PMGB06 vxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pmgb06_vxc_pol(
@@ -22,6 +26,7 @@ pub fn lda_c_pmgb06_vxc_pol(
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
+        // --- shared preamble (191 lines) ---
         let t1 = rho0 - rho1;
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
@@ -214,6 +219,7 @@ pub fn lda_c_pmgb06_vxc_pol(
         let t328 = 1.0 / t327;
         let tzk0 = t321 * t328;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (310 lines) ---
         let t329 = t19 * t23;
         let t330 = 1.0 / t9;
         let t331 = t1 * t81;

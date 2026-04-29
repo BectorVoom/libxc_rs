@@ -1,7 +1,8 @@
-//! GGA_C_REGTPSS vxc unpol kernel.
+//! GGA_C_REGTPSS vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_regtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 80 shared lines across all orders.
+//! Delta: 115 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -23,6 +24,7 @@ pub fn gga_c_regtpss_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (80 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -104,6 +106,7 @@ pub fn gga_c_regtpss_vxc_unpol(
         let t125 = t62 * t66 * t123;
         let tzk0 = -t32 + t57 + t125;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (115 lines) ---
         let t127 = 1.0 / t7 / rho[ip];
         let t128 = t6 * t127;
         let t130 = t4 * t128 * t30;

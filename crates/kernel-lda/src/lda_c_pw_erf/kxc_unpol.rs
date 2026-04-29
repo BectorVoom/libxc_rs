@@ -1,4 +1,8 @@
-//! LDA_C_PW_ERF kxc unpol kernel.
+//! LDA_C_PW_ERF kxc unpol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 106 shared lines across all orders.
+//! Delta: 193 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,7 +11,7 @@ use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PW_ERF kxc -- unpolarized.
+/// LDA_C_PW_ERF kxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]
 pub fn lda_c_pw_erf_kxc_unpol(
@@ -22,6 +26,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (106 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -129,6 +134,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t217 = t209 * t216;
         let tzk0 = -t32 + t57 - t217;
         zk[ip] += tzk0;
+        // --- vxc delta (89 lines) ---
         let t219 = t4 * t104 * t30;
         let t220 = 0.0011073577833333333 * t219;
         let t221 = t26 * t26;
@@ -219,6 +225,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t443 = t439 * t442;
         let tvrho0 = -t32 + t57 - t217 + rho[ip] * (t220 + t241 - t246 - t259 - t435 - 0.41076328840066667 * t443);
         vrho[ip] += tvrho0;
+        // --- fxc delta (134 lines) ---
         let t454 = t4 * t293 * t30;
         let t455 = 0.0014764770444444443 * t454;
         let t456 = t103 * t222;
@@ -354,6 +361,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t803 = -t455 - t459 - t466 + t488 + t496 + t500 + t504 + t511 - t522 - t530 - t785 - 0.8215265768013333 * t788 - 0.6327242966164848 * t797 + 0.6846054806677778 * t801;
         let tv2rho20 = 0.0022147155666666666 * t219 + 2.0 * t240 - 0.0003662311007350632 * t245 - 1.169644679491041 * t258 - 2.0 * t435 - 0.8215265768013333 * t443 + rho[ip] * t803;
         v2rho2[ip] += tv2rho20;
+        // --- kxc delta (this level) (193 lines) ---
         let t806 = 1.0 / t489 / t221;
         let t807 = t12 * t806;
         let t808 = t463 * t237;

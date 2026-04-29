@@ -1,7 +1,8 @@
-//! MGGA_C_SCAN vxc unpol kernel.
+//! MGGA_C_SCAN vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_scan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 108 shared lines across all orders.
+//! Delta: 130 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -27,6 +28,7 @@ pub fn mgga_c_scan_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (108 lines) ---
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
         let t4 = pow_1_3(t3);
@@ -136,6 +138,7 @@ pub fn mgga_c_scan_vxc_unpol(
         let t181 = t152 * t180;
         let tzk0 = -t33 + t58 + t107 + t181;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (130 lines) ---
         let t183 = 1.0 / t8 / rho[ip];
         let t184 = t7 * t183;
         let t186 = t5 * t184 * t31;

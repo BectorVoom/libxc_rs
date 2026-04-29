@@ -1,7 +1,8 @@
-//! HYB_GGA_XC_WB97 vxc unpol kernel.
+//! HYB_GGA_XC_WB97 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_wb97.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 179 shared lines across all orders.
+//! Delta: 164 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,6 +41,7 @@ pub fn hyb_gga_xc_wb97_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (179 lines) ---
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
         let t5 = M_CBRT3;
@@ -220,6 +222,7 @@ pub fn hyb_gga_xc_wb97_vxc_unpol(
         let t316 = t284 * t315;
         let tzk0 = t141 + t245 + t316;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (164 lines) ---
         let t317 = t18 * t159;
         let t321 = t37 * t36;
         let t322 = 1.0 / t321;

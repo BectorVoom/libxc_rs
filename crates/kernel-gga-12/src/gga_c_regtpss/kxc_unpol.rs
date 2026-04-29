@@ -1,7 +1,8 @@
-//! GGA_C_REGTPSS kxc unpol kernel.
+//! GGA_C_REGTPSS kxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_regtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 80 shared lines across all orders.
+//! Delta: 521 lines unique to kxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +31,7 @@ pub fn gga_c_regtpss_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (80 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -111,6 +113,7 @@ pub fn gga_c_regtpss_kxc_unpol(
         let t125 = t62 * t66 * t123;
         let tzk0 = -t32 + t57 + t125;
         zk[ip] += tzk0;
+        // --- vxc delta (115 lines) ---
         let t127 = 1.0 / t7 / rho[ip];
         let t128 = t6 * t127;
         let t130 = t4 * t128 * t30;
@@ -228,6 +231,7 @@ pub fn gga_c_regtpss_kxc_unpol(
         let t305 = t304 * t275;
         let tvsigma0 = t281 * t305;
         vsigma[ip] += tvsigma0;
+        // --- fxc delta (249 lines) ---
         let t311 = t6 * t75;
         let t313 = t4 * t311 * t30;
         let t314 = 0.14764627977777777777e-2 * t313;
@@ -480,6 +484,7 @@ pub fn gga_c_regtpss_kxc_unpol(
         let t753 = t752 * t641;
         let tv2sigma20 = t281 * t749 - t281 * t753;
         v2sigma2[ip] += tv2sigma20;
+        // --- kxc delta (this level) (521 lines) ---
         let t755 = t6 * t190;
         let t757 = t4 * t755 * t30;
         let t758 = 0.34450798614814814813e-2 * t757;

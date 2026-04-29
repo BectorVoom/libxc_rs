@@ -1,7 +1,8 @@
-//! GGA_C_SOGGA11 vxc unpol kernel.
+//! GGA_C_SOGGA11 vxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_sogga11.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 64 shared lines across all orders.
+//! Delta: 74 lines unique to vxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,6 +36,7 @@ pub fn gga_c_sogga11_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (64 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -100,6 +102,7 @@ pub fn gga_c_sogga11_vxc_unpol(
         let t109 = t106 * t104 * t95 + t89 * t87 * t78 + t100 * t101 + t103 * t104 + t60 * t78 + t80 * t81 + t83 * t84 + t86 * t87 + t93 * t95 + t97 * t98 + param_sogga11_a_0 + param_sogga11_b_0;
         let tzk0 = t58 * t109;
         zk[ip] += tzk0;
+        // --- vxc delta (this level) (74 lines) ---
         let t111 = 1.0 / t7 / rho[ip];
         let t112 = t6 * t111;
         let t116 = t26 * t26;

@@ -1,20 +1,25 @@
-//! HYB_GGA_XC_WB97 kernel — split into per-function files.
+//! HYB_GGA_XC_WB97 kernel -- incremental derivative structure.
 
-pub mod exc_pol;
+//! unpol: preamble=179 lines
+//!   exc: shared=0, delta=179, outputs=1
+//!   vxc: shared=179, delta=164, outputs=3
+//!   fxc: shared=343, delta=231, outputs=6
+//!   kxc: shared=574, delta=274, outputs=10
+//!   lxc: shared=848, delta=186, outputs=15
+//! pol: preamble=328 lines
+//!   exc: shared=0, delta=328, outputs=1
+//!   vxc: shared=328, delta=485, outputs=6
+//!   fxc: shared=813, delta=1140, outputs=21
+//!   kxc: shared=1953, delta=2399, outputs=56
+//!   lxc: shared=4352, delta=2840, outputs=126
+
 pub mod exc_unpol;
-pub mod fxc_pol;
-pub mod fxc_unpol;
-pub mod kxc_pol;
-pub mod kxc_unpol;
-pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2;
-pub mod lxc_pol_part1_v3rho3;
-pub mod lxc_pol_part2_v3rho2sigma_v3rhosigma2_v3sigma3_v4rho4_0;
-pub mod lxc_pol_part3_v4rho4_1;
-pub mod lxc_pol_part4_v4rho4_2;
-pub mod lxc_pol_part5_v4rho4_3;
-pub mod lxc_pol_part6_v4rho4_4;
-pub mod lxc_pol_part7_v4rho3sigma;
-pub mod lxc_pol_part8_v4rho2sigma2_v4rhosigma3_v4sigma4;
-pub mod lxc_unpol;
-pub mod vxc_pol;
 pub mod vxc_unpol;
+pub mod fxc_unpol;
+pub mod kxc_unpol;
+pub mod lxc_unpol;
+pub mod exc_pol;
+pub mod vxc_pol;
+pub mod fxc_pol;
+pub mod kxc_pol;
+pub mod lxc_pol;

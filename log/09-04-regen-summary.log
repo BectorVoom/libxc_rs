@@ -1,0 +1,69 @@
+# Phase 9 Plan 09-04 Regeneration Summary
+# Generated: 2026-04-29T12:40:09Z
+
+## Translator threshold (Task 1)
+SPLIT_THRESHOLD = 18000
+- tools/translate_lda_v2.py: 18000 (was 5000)
+- tools/translate_gga.py:    18000 (was 5000)
+- tools/translate_mgga.py:   18000 (was 5000)
+- tools/split_oversized_kernel.py: TARGET_MAX=50000 unchanged (per-sub-crate bin-pack budget; comment annotated)
+- tools/split_oversized_mgga.py:   TARGET_MAX=50000 unchanged (same)
+- tools/resplit_gga.py:            DEFAULT_BIN_LIMIT=500_000 unchanged (CONTEXT D-09 — re-bin-packing OUT of scope)
+
+## File counts
+Pre-regen:  4440 files (across crates/kernel-{lda,gga,mgga}*/src/)
+Post-regen: 4292 files
+Delta:      -148 (negative = consolidation)
+
+## Largest file pre/post
+Pre:  7604160 total
+Post: 17555 crates/kernel-lda/src/lda_c_pk09/kxc_pol.rs
+
+## Functionals regenerated (single-sub-crate only, per CONTEXT D-09)
+LDA:  41 functionals
+GGA:  120 functionals
+MGGA: 51 functionals
+Total regenerated: 212
+
+## Functionals SKIPPED (multi-sub-crate, per CONTEXT D-09)
+Total skipped: 35
+(see log/09-04-skipped-multi-subcrate.log for the full list)
+
+These functionals were distributed across multiple letter-suffix sub-crates by
+tools/split_oversized_kernel.py for compile-OOM mitigation (Plan 09-03). The
+regen at 18K threshold produces a smaller, single-directory file set that
+cannot fit the existing multi-sub-crate distribution without violating D-09.
+
+## SPEC Req 2: per-file ≤ 20,000 lines (forward guard)
+TOTAL_OVERSIZE: 0
+(see log/09-04-postregen-cap-audit.log)
+
+## SPEC Req 3: profile single-source-of-truth
+No sub-crate Cargo.toml has a [profile.*] section
+(see log/09-04-profile-drift-check.log — empty)
+
+## SPEC Req 1: no order-feature gates
+find crates -path '*kernel-gga*/src/*' -name '*.rs' -exec grep -l 'cfg(feature *= *"order-' {} +
+returns nothing.
+
+## Operation-order spot-checks (D-08)
+3/3 PASS
+- LDA: lda_c_pw fxc_pol (single-sub-crate, regenerated, byte-identical)
+- GGA: gga_c_ft97 lxc_pol (multi-sub-crate, SKIPPED, byte-identical to HEAD)
+- MGGA: mgga_c_b94 kxc_pol (single-sub-crate, regenerated, byte-identical)
+
+## mod.rs orphan audit
+0 orphan pub mod references
+(see log/09-04-mod-orphan-check.log)
+
+## Special case
+- mgga_x_br89_explicit: pre-regen had only 4 unpol files (no pol/no lxc).
+  Regen with --incremental produced lxc_pol.rs at 21,679 lines (oversize).
+  Re-translated this single functional with --split (non-incremental) at
+  threshold 18000. Result: lxc_pol_part0.rs (15,232L) + lxc_pol_part1.rs
+  (12,723L). Both under 20K cap. mod.rs updated automatically.
+
+## Translator change for MGGA CLI
+Added --split-threshold N CLI flag to tools/translate_mgga.py to allow per-
+invocation threshold override (parity with translate_gga.py). Did not change
+the module-level SPLIT_THRESHOLD = 18000 default.

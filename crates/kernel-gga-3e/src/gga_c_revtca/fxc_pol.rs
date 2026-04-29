@@ -1,7 +1,8 @@
-//! GGA_C_REVTCA fxc pol kernel.
+//! GGA_C_REVTCA fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 99 shared lines across all orders.
+//! Delta: 333 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -31,6 +32,7 @@ pub fn gga_c_revtca_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (99 lines) ---
         let t1 = rho0 - rho1;
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
@@ -131,6 +133,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t134 = t40 * t41 * t132;
         let tzk0 = t134 / 3.0;
         zk[ip] += tzk0;
+        // --- vxc delta (108 lines) ---
         let t135 = 4.0 / 9.0 * t134;
         let t137 = t35 * t37;
         let t138 = t53 * t19 * t137;
@@ -244,6 +247,7 @@ pub fn gga_c_revtca_fxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (333 lines) ---
         let t306 = t159 * t222;
         let t308 = t3 * t19;
         let t310 = t25 * t167;

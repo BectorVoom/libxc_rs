@@ -1,7 +1,8 @@
-//! MGGA_X_RPPSCAN lxc unpol kernel.
+//! MGGA_X_RPPSCAN lxc unpol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rppscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 83 shared lines across all orders.
+//! Delta: 548 lines unique to lxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -96,6 +97,7 @@ pub fn mgga_x_rppscan_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (83 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -180,6 +182,7 @@ pub fn mgga_x_rppscan_lxc_unpol(
         let t142 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t122 * t138);
         let tzk0 = 2.0 * t142;
         zk[ip] += tzk0;
+        // --- vxc delta (102 lines) ---
         let t143 = 1.0 / t31;
         let t148 = param_k1 * param_k1;
         let t149 = t89 * t89;
@@ -286,6 +289,7 @@ pub fn mgga_x_rppscan_lxc_unpol(
         let t369 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t364 * t138);
         let tvtau0 = 2.0 * rho[ip] * t369;
         vtau[ip] += tvtau0;
+        // --- fxc delta (267 lines) ---
         let t380 = 1.0 / t152;
         let t381 = t380 * t122;
         let t383 = t239 * t381 * t243;
@@ -563,6 +567,7 @@ pub fn mgga_x_rppscan_lxc_unpol(
         let t1101 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t1096 * t138);
         let tv2tau20 = 2.0 * rho[ip] * t1101;
         v2tau2[ip] += tv2tau20;
+        // --- kxc delta (560 lines) ---
         let t1112 = 1.0 / t47;
         let t1113 = t1112 * t122;
         let t1115 = t239 * t1113 * t243;
@@ -1143,6 +1148,7 @@ pub fn mgga_x_rppscan_lxc_unpol(
         let t3099 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t3094 * t138);
         let tv3tau30 = 2.0 * rho[ip] * t3099;
         v3tau3[ip] += tv3tau30;
+        // --- lxc delta (this level) (548 lines) ---
         let t3115 = t148 / t1136 / t89;
         let t3116 = t389 * t389;
         let t3126 = t466 * t466;

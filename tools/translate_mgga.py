@@ -532,7 +532,12 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
     return used
 
 
-SPLIT_THRESHOLD = 5000
+# Default threshold: if a generated kernel function exceeds this many lines,
+# split it into per-output-array sub-kernels.
+# Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
+# margin under SPEC's 20K per-file forward guard, after the dev machine was
+# verified to have RAM headroom for 16K+ line files.
+SPLIT_THRESHOLD = 18000
 
 
 def build_dependency_graph(compute_lines):
@@ -1172,7 +1177,7 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental]")
+        print("Usage: translate_mgga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N]")
         print("       translate_mgga.py --batch --write-to <dir>")
         sys.exit(1)
 
@@ -1180,6 +1185,13 @@ def main():
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
     incremental = '--incremental' in sys.argv
+
+    # Parse --split-threshold (overrides module-level SPLIT_THRESHOLD).
+    if '--split-threshold' in sys.argv:
+        idx_st = sys.argv.index('--split-threshold')
+        threshold = int(sys.argv[idx_st + 1])
+        global SPLIT_THRESHOLD
+        SPLIT_THRESHOLD = threshold
 
     idx = sys.argv.index('--write-to')
     out_dir = sys.argv[idx + 1]

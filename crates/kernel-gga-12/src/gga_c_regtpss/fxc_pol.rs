@@ -1,7 +1,8 @@
-//! GGA_C_REGTPSS fxc pol kernel.
+//! GGA_C_REGTPSS fxc pol kernel (incremental).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_regtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 114 shared lines across all orders.
+//! Delta: 655 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -31,6 +32,7 @@ pub fn gga_c_regtpss_fxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (114 lines) ---
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
         let t3 = pow_1_3(t2);
@@ -146,6 +148,7 @@ pub fn gga_c_regtpss_fxc_pol(
         let t164 = t96 * t105 * t162;
         let tzk0 = -t33 + t89 + t91 + t164;
         zk[ip] += tzk0;
+        // --- vxc delta (220 lines) ---
         let t166 = 1.0 / t8 / t7;
         let t167 = t6 * t166;
         let t169 = t4 * t167 * t31;
@@ -371,6 +374,7 @@ pub fn gga_c_regtpss_fxc_pol(
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
+        // --- fxc delta (this level) (655 lines) ---
         let t507 = 0.22146941966666666666e-2 * t169;
         let t508 = 2.0 * t194;
         let t509 = 8.0 * t198;

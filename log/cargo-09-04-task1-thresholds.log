@@ -1,0 +1,11 @@
+=== translate_lda_v2 ===
+348:SPLIT_THRESHOLD = 18000
+=== translate_gga ===
+472:SPLIT_THRESHOLD = 18000
+=== translate_mgga ===
+540:SPLIT_THRESHOLD = 18000
+=== check no stale 5000 literals ===
+=== final count of 18000 ===
+tools/translate_gga.py:1
+tools/translate_lda_v2.py:1
+tools/translate_mgga.py:1

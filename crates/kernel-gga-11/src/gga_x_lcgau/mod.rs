@@ -1,4 +1,17 @@
-//! GGA_X_LCGAU kernel — split into per-function files.
+//! GGA_X_LCGAU kernel -- incremental derivative structure.
+
+//! unpol: preamble=124 lines
+//!   exc: shared=0, delta=124, outputs=1
+//!   vxc: shared=124, delta=144, outputs=3
+//!   fxc: shared=268, delta=308, outputs=6
+//!   kxc: shared=576, delta=447, outputs=10
+//!   lxc: shared=1023, delta=443, outputs=15
+//! pol: preamble=241 lines
+//!   exc: shared=0, delta=241, outputs=1
+//!   vxc: shared=241, delta=389, outputs=6
+//!   fxc: shared=630, delta=1137, outputs=21
+//!   kxc: shared=1767, delta=2045, outputs=56
+//!   lxc: shared=3812, delta=3254, outputs=126
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
@@ -9,8 +22,4 @@ pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
 pub mod kxc_pol;
-pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2_v3rho3_v3rho2sigma_v3rhosigma2_v3sigma3;
-pub mod lxc_pol_part1_v4rho4;
-pub mod lxc_pol_part2_v4rho3sigma;
-pub mod lxc_pol_part3_v4rho2sigma2;
-pub mod lxc_pol_part4_v4rhosigma3_v4sigma4;
+pub mod lxc_pol;
