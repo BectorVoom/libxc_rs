@@ -34,7 +34,7 @@ Unblock all 25 previously-deferred GGA functionals at full derivative-order cove
 
 - **D-03:** No `[features]` section is added to root `Cargo.toml` in this phase. `libxc-kernel-gga` and `libxc-kernel-mgga` remain non-optional dependencies.
 - **D-04:** `src/kernel/mod.rs` keeps unguarded `pub use libxc_kernel_gga as gga;` and `pub use libxc_kernel_mgga as mgga;`. The unguarded `use libxc_kernel_mgga::deferred::is_deferred` in `src/model/mgga_functional.rs:43` stays unguarded — no scope creep into cfg-gating.
-- **D-05:** Roadmap requirements `BUILD-OPT-02` (default-build family scope, ≤180s wall-clock) and `BUILD-OPT-03` (family feature gates, cfg-gated re-exports) are explicitly **deferred** out of Phase 9. They need to be re-introduced in a future phase if/when desired. `BUILD-OPT-01` (sccache + incremental=false) was already done before Phase 9 started and remains untouched.
+- **D-05:** Roadmap requirements `BUILD-OPT-02` (default-build family scope, ≤900s wall-clock — relaxed from the original ≤180s on 2026-04-29 per user directive) and `BUILD-OPT-03` (family feature gates, cfg-gated re-exports) are explicitly **deferred** out of Phase 9. They need to be re-introduced in a future phase if/when desired. `BUILD-OPT-01` (sccache + incremental=false) was already done before Phase 9 started and remains untouched.
 
 ### Translator split threshold + kernel regeneration
 
@@ -151,7 +151,7 @@ None — `todo.match-phase` returned 0 matches for Phase 9.
 ## Deferred Ideas
 
 - **Family feature gates (`gga`, `mgga`, `all-kernels`)** — Removed from Phase 9 in Round 4. Required to satisfy roadmap `BUILD-OPT-02` and `BUILD-OPT-03`. Belongs in a future phase if/when the user wants to reduce default-build cost.
-- **Default-build wall-clock target (≤180s or any other)** — Removed from Phase 9 in Round 4. If revisited later, would need a fresh measurement on the dev machine and possibly relaxed targets given MGGA's always-on cost.
+- **Default-build wall-clock target (currently ≤900s; originally ≤180s, relaxed on 2026-04-29 per user directive)** — Removed from Phase 9 in Round 4. If revisited later, would need a fresh measurement on the dev machine and possibly further relaxed targets given MGGA's always-on cost.
 - **Cfg-gating `libxc_kernel_gga`/`libxc_kernel_mgga` references in `src/`** — Coupled to family feature gates above. Out of Phase 9.
 - **Sub-crate re-bin-packing post-regen** — With 18K-threshold regen producing fewer/larger files inside each functional, the existing ~170 sub-crate split may be over-fragmented (each sub-crate ends up smaller than necessary). Re-running the bin-packer at a larger sub-crate budget could consolidate. Not in Phase 9; a future "tighten kernel workspace organization" phase could pick this up.
 - **6 deferred MGGAs (`mgga_c_b94`, `mgga_x_br89`, `mgga_x_mbr`, `mgga_x_mbrxc_bg`, `mgga_x_mbrxh_bg`, `mgga_x_mggac`)** — Blocked on Brent's-method root-finder implementation in `kernel-math`. Out of Phase 9 per SPEC Boundaries; tracked in `crates/kernel-mgga/src/deferred.rs`.
