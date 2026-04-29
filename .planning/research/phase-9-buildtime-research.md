@@ -3,6 +3,18 @@ research_for: Phase 9 (Reduce kernel build time)
 written: 2026-04-29
 context: Phase 5 cumulative `cargo check -p libxc_rs` took 216m17s cold-cache; `cargo test --tests` estimated 15+ hr. Triggered build-time analysis grounded in `docs/manual/Cubecl/cubecl_macro_fanout_manual.md`.
 status: ready_for_phase_9_planning
+project_decision_2026_04_29:
+  - "Pri 3 (per-batch launch-wrapper consolidation) is REJECTED — not to be implemented."
+  - "Rationale: project plans to use all 649 functionals in production, so all
+    kernels must be compiled regardless of dispatch layout. The compile-time
+    saving from launch-wrapper consolidation (revised to ~5-15%) does not
+    justify the 1-2 week implementation cost. Pri 1 (lift jobs cap) + Pri 2
+    (consolidate sub-crates at 500K) are the dominant wins and are
+    sufficient."
+  - "Dead scaffolding from the Pri 3 design pass (translators' --cube-style
+    flag, dispatch generator's --launch-mode flag) remains in place as
+    inert opt-in surface. Default behavior is unaffected; the surface is
+    cheap to remove later if desired but harmless to keep."
 ---
 
 # Build-time reduction research
