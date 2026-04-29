@@ -3,10 +3,23 @@
 Translate maple2c C kernel files to Rust #[cube] functions (v2 - rebuilt from scratch).
 
 Reads a C source file from libxc's maple2c directory and produces a Rust kernel file
-with #[cube(launch_unchecked)] functions. Translation preserves exact maple2c variable
+with cube-annotated functions. Translation preserves exact maple2c variable
 names and floating-point operation order for bit-level equivalence.
 
 Usage: translate_lda_v2.py <c_file> <func_name> [--write-to <dir>] [--vxc-only]
+                                                [--cube-style {launch,plain}]
+
+--cube-style launch (default, current behavior):
+  Emit `#[cube(launch_unchecked)]` on each kernel. Each kernel becomes its own
+  host-launchable entry point (3,945 launch wrappers across the workspace).
+
+--cube-style plain (build-time-reduction mode, opt-in):
+  Emit `#[cube]` instead. Kernels become internal helpers, not host-launchable.
+  Requires the dispatch layer (src/eval/{lda,gga,mgga}_dispatch/) to wrap them
+  in per-batch launch entries (see tools/generate_gga_dispatch.py
+  --launch-mode per-batch). Dramatically reduces proc-macro fan-out per the
+  CubeCL macro fan-out manual at docs/manual/Cubecl/cubecl_macro_fanout_manual.md
+  (Strategy 1 / Anti-pattern 1).
 """
 
 import re
@@ -14,6 +27,12 @@ import sys
 import os
 from dataclasses import dataclass
 from typing import Optional
+
+
+# Annotation emitted on every translated kernel function. Default preserves
+# the legacy launch_unchecked behavior so existing pipelines do not change.
+# `main()` overrides this when --cube-style plain is passed.
+_CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
 
 
 # ============================================================================
@@ -498,7 +517,7 @@ def generate_function(func_name: str, level: str, spin: str,
     lines = []
     lines.append(f'/// {func_name.upper()} {level} -- {spin_label}.')
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     for buf in out_bufs:
@@ -873,7 +892,7 @@ def generate_incremental_function(func_name: str, level: str, spin: str,
     lines = []
     lines.append(f'/// {func_name.upper()} {level} -- {spin_label} (incremental).')
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     for buf in out_bufs:
@@ -1074,8 +1093,10 @@ def translate_file_incremental(c_file_path: str, func_name: str, write_dir: str,
 
 
 def main():
+    global _CUBE_ANNOTATION
+
     if len(sys.argv) < 3:
-        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split] [--incremental]")
+        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split] [--incremental] [--cube-style {launch,plain}]")
         sys.exit(1)
 
     c_file = sys.argv[1]
@@ -1089,6 +1110,20 @@ def main():
         idx = sys.argv.index('--write-to')
         if idx + 1 < len(sys.argv):
             write_dir = sys.argv[idx + 1]
+
+    if '--cube-style' in sys.argv:
+        idx = sys.argv.index('--cube-style')
+        if idx + 1 >= len(sys.argv):
+            print("--cube-style requires {launch,plain}")
+            sys.exit(1)
+        style = sys.argv[idx + 1]
+        if style == 'plain':
+            _CUBE_ANNOTATION = '#[cube]'
+        elif style == 'launch':
+            _CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
+        else:
+            print(f"--cube-style must be one of: launch, plain (got {style!r})")
+            sys.exit(1)
 
     if incremental_mode:
         if not write_dir:

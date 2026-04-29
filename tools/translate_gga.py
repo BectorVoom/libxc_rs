@@ -2,19 +2,29 @@
 """
 GGA maple2c-to-Rust translator v2 — rebuilt from scratch.
 
-Translates C kernel files from libxc maple2c to Rust #[cube(launch_unchecked)]
+Translates C kernel files from libxc maple2c to Rust cube-annotated
 functions. Generates one .rs file per (derivative_level, spin_mode) pair inside
 a per-functional directory.
 
 Usage:
     translate_gga_v2.py <c_file> <func_name> --write-to <dir> [--vxc-only]
+                        [--cube-style {launch,plain}]
     translate_gga_v2.py --batch --write-to <dir>
+
+--cube-style launch (default): emit `#[cube(launch_unchecked)]` per kernel.
+--cube-style plain:            emit `#[cube]` for build-time reduction;
+                               requires per-batch launch wrappers from the
+                               dispatch generator.
 """
 
 import re
 import sys
 import os
 from pathlib import Path
+
+# Annotation emitted on every translated kernel function. Default preserves
+# legacy launch_unchecked behavior. `main()` overrides via --cube-style.
+_CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -685,7 +695,7 @@ def generate_function(func_name: str, level: str, spin: str,
 
     lines = []
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     lines.append(f'    sigma: &Array<f64>,')
@@ -1007,7 +1017,7 @@ def generate_incremental_function(func_name: str, level: str, spin: str,
 
     lines = []
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     lines.append(f'    sigma: &Array<f64>,')
@@ -1253,6 +1263,22 @@ def translate_functional_incremental(c_file: str, func_name: str, out_dir: str,
 
 
 def main():
+    global _CUBE_ANNOTATION
+
+    if '--cube-style' in sys.argv:
+        idx = sys.argv.index('--cube-style')
+        if idx + 1 >= len(sys.argv):
+            print("--cube-style requires {launch,plain}")
+            sys.exit(1)
+        style = sys.argv[idx + 1]
+        if style == 'plain':
+            _CUBE_ANNOTATION = '#[cube]'
+        elif style == 'launch':
+            _CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
+        else:
+            print(f"--cube-style must be one of: launch, plain (got {style!r})")
+            sys.exit(1)
+
     if '--batch' in sys.argv:
         idx = sys.argv.index('--write-to')
         out_dir = sys.argv[idx + 1]
@@ -1260,7 +1286,7 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N]")
+        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N] [--cube-style {launch,plain}]")
         print("       translate_gga.py --batch --write-to <dir>")
         sys.exit(1)
 

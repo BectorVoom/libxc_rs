@@ -3,7 +3,7 @@
 Translate maple2c C kernel files to Rust #[cube] functions.
 
 This script reads a C source file from libxc's maple2c directory and produces:
-1. A Rust kernel file with #[cube(launch_unchecked)] functions
+1. A Rust kernel file with cube-annotated functions
 2. A Rust launch wrapper file with safe wrappers
 
 Translation rules:
@@ -14,12 +14,23 @@ Translation rules:
 - my_piecewise3/5 -> piecewise3/5
 - M_CBRT3 etc. -> crate::math::constants::*
 - Output accumulation via +=
+
+CLI: --cube-style {launch,plain}
+  launch (default): emit `#[cube(launch_unchecked)]` per kernel (legacy).
+  plain:            emit `#[cube]` per kernel for build-time reduction;
+                    requires the dispatch layer to provide per-batch launch
+                    wrappers (see tools/generate_gga_dispatch.py).
 """
 
 import re
 import sys
 import os
 from pathlib import Path
+
+# Annotation emitted on every translated kernel function. Default preserves
+# legacy launch_unchecked behavior so existing pipelines do not change.
+# `main()` overrides this when --cube-style plain is passed.
+_CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
 
 # Functionals that have params and their field names
 FUNC_PARAMS = {
@@ -415,7 +426,7 @@ def generate_kernel_function(func_name, level, spin, compute_lines, outputs,
 
     lines = []
     lines.append(f'/// {func_name.upper()} {level} -- {spin_label}.')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     for op in out_params:
@@ -599,7 +610,7 @@ def generate_rust_function(func_name, level, spin, compute_lines, output_lines,
 
     lines = []
     lines.append(f'/// {func_name.upper()} {level} -- {spin_label}.')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(_CUBE_ANNOTATION)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     for op in actual_out_params:
@@ -801,13 +812,29 @@ def generate_launch_wrapper(func_name, c_file_path, params, is_vxc_only=False):
 
 
 def main():
+    global _CUBE_ANNOTATION
+
     if len(sys.argv) < 3:
-        print("Usage: translate_lda.py <c_file> <func_name> [--vxc-only]")
+        print("Usage: translate_lda.py <c_file> <func_name> [--vxc-only] [--cube-style {launch,plain}]")
         sys.exit(1)
 
     c_file = sys.argv[1]
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
+
+    if '--cube-style' in sys.argv:
+        idx = sys.argv.index('--cube-style')
+        if idx + 1 >= len(sys.argv):
+            print("--cube-style requires {launch,plain}")
+            sys.exit(1)
+        style = sys.argv[idx + 1]
+        if style == 'plain':
+            _CUBE_ANNOTATION = '#[cube]'
+        elif style == 'launch':
+            _CUBE_ANNOTATION = '#[cube(launch_unchecked)]'
+        else:
+            print(f"--cube-style must be one of: launch, plain (got {style!r})")
+            sys.exit(1)
 
     # Generate kernel file
     kernel_rs = translate_c_to_rust(c_file, func_name, is_vxc_only)
