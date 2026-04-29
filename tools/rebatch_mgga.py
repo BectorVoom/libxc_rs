@@ -3,11 +3,28 @@
 Rebatch MGGA sub-crates to avoid OOM during compilation.
 
 Reads per-functional sizes from existing sub-crates, applies first-fit-decreasing
-bin packing with a 50K line target, moves functional directories into new sub-crate
-layout, and generates Cargo.toml + lib.rs for each.
+bin packing with a configurable line target, moves functional directories into new
+sub-crate layout, and generates Cargo.toml + lib.rs for each.
 
 Usage:
-    python3 tools/rebatch_mgga.py [--dry-run]
+    python3 tools/rebatch_mgga.py [--dry-run] [--target-max N]
+
+--target-max N (default 50000):
+    Maximum lines per sub-crate. Smaller values produce more, smaller crates;
+    larger values produce fewer, larger crates.
+
+    Build-time vs RAM trade-off:
+      - Small target  → many small crates → less RAM per crate (Phase 8 P08
+                        chose 50K specifically to dodge >20 GB RSS), but more
+                        cargo coordination overhead (manifest parse, build-script
+                        run, link) per workspace build.
+      - Large target  → fewer larger crates → less cargo overhead, but each
+                        crate's CubeCL proc-macro expansion uses more RAM.
+
+    Recommendation: only raise this with `--dry-run` first to inspect bin
+    counts, then benchmark a single rebatched crate's compile RAM with
+    `/usr/bin/time -v cargo check -p libxc-kernel-mgga-1` before committing.
+    Phase 9 plans to instrument this trade-off systematically.
 """
 
 import os
@@ -16,7 +33,7 @@ import shutil
 import json
 
 CRATES_DIR = "crates"
-TARGET_MAX = 50000  # Max lines per sub-crate
+DEFAULT_TARGET_MAX = 50000  # Max lines per sub-crate (Phase 8 P08 OOM mitigation)
 
 
 def get_functional_sizes():
@@ -126,14 +143,29 @@ def create_lib_rs(crate_dir, func_names, crate_num):
 def main():
     dry_run = '--dry-run' in sys.argv
 
+    target_max = DEFAULT_TARGET_MAX
+    if '--target-max' in sys.argv:
+        idx = sys.argv.index('--target-max')
+        if idx + 1 >= len(sys.argv):
+            print("--target-max requires a positive integer (lines per crate)")
+            sys.exit(1)
+        try:
+            target_max = int(sys.argv[idx + 1])
+        except ValueError:
+            print(f"--target-max must be an integer, got {sys.argv[idx + 1]!r}")
+            sys.exit(1)
+        if target_max <= 0:
+            print(f"--target-max must be positive, got {target_max}")
+            sys.exit(1)
+
     # Step 1: Measure all functionals
     print("Scanning existing sub-crates...")
     funcs = get_functional_sizes()
     print(f"Found {len(funcs)} functionals")
 
     # Step 2: Bin pack
-    batches = bin_pack(funcs, TARGET_MAX)
-    print(f"Planned {len(batches)} sub-crates (target max {TARGET_MAX} lines)")
+    batches = bin_pack(funcs, target_max)
+    print(f"Planned {len(batches)} sub-crates (target max {target_max} lines)")
 
     for i, batch in enumerate(batches, 1):
         total = sum(f[1] for f in batch)

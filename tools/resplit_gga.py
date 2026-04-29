@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
-"""Re-split all 131 GGA functionals into ~22 sub-crates using first-fit-decreasing bin packing.
+"""Re-split all 131 GGA functionals into sub-crates using first-fit-decreasing bin packing.
 
-Follows the proven MGGA 37-sub-crate pattern. The 25 deferred functionals
+Follows the proven MGGA sub-crate pattern. The 25 deferred functionals
 (whose lxc_pol/kxc_pol files exceed the CubeCL proc macro memory limit)
 are included as source but commented out in lib.rs.
 
-Usage: python3 tools/resplit_gga.py
+Usage: python3 tools/resplit_gga.py [--bin-limit N]
+
+--bin-limit N (default 50000):
+    Maximum lines per sub-crate for bin packing. Smaller values produce more,
+    smaller crates; larger values produce fewer, larger crates.
+
+    Build-time vs RAM trade-off:
+      - Small limit  → many small crates → less RAM per crate (chosen at 50K
+                       to dodge >20 GB RSS during CubeCL proc-macro expansion),
+                       but more cargo coordination overhead per workspace build.
+      - Large limit  → fewer larger crates → less cargo overhead, but each
+                       crate uses more RAM during expansion.
+
+    Recommendation: only raise this after benchmarking single-crate compile RAM
+    with the new size. Phase 9 plans to instrument this trade-off systematically.
 """
 
 import os
@@ -17,7 +31,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GGA_SRC = os.path.join(PROJECT_ROOT, "crates", "kernel-gga", "src")
 CRATES_DIR = os.path.join(PROJECT_ROOT, "crates")
 CARGO_TOML = os.path.join(PROJECT_ROOT, "Cargo.toml")
-BIN_LIMIT = 50_000
+DEFAULT_BIN_LIMIT = 50_000  # Phase 8 P08 OOM mitigation
 
 # 25 deferred functionals: CubeCL proc macro SIGSEGV on their large
 # lxc_pol/kxc_pol files. Source is distributed but commented out.
@@ -236,6 +250,21 @@ def update_workspace(num_subcrates):
 
 
 def main():
+    bin_limit = DEFAULT_BIN_LIMIT
+    if '--bin-limit' in sys.argv:
+        idx = sys.argv.index('--bin-limit')
+        if idx + 1 >= len(sys.argv):
+            print("--bin-limit requires a positive integer (lines per crate)")
+            sys.exit(1)
+        try:
+            bin_limit = int(sys.argv[idx + 1])
+        except ValueError:
+            print(f"--bin-limit must be an integer, got {sys.argv[idx + 1]!r}")
+            sys.exit(1)
+        if bin_limit <= 0:
+            print(f"--bin-limit must be positive, got {bin_limit}")
+            sys.exit(1)
+
     print("=== GGA Sub-Crate Re-Split ===\n")
 
     # Step 1: Inventory
@@ -244,8 +273,8 @@ def main():
     print(f"Found {len(functionals)} GGA functionals, {total_lines:,} total lines\n")
 
     # Step 2: Bin pack
-    bins, bin_sizes = bin_pack_ffd(functionals, BIN_LIMIT)
-    print(f"Bin packing with limit={BIN_LIMIT:,} lines -> {len(bins)} bins\n")
+    bins, bin_sizes = bin_pack_ffd(functionals, bin_limit)
+    print(f"Bin packing with limit={bin_limit:,} lines -> {len(bins)} bins\n")
 
     for i, (b, sz) in enumerate(zip(bins, bin_sizes)):
         names = [name for name, _ in b]
@@ -276,9 +305,9 @@ def main():
     print(f"Total lines: {total_lines:,}")
     print(f"Max bin:     {max(bin_sizes):,} lines")
     print(f"Min bin:     {min(bin_sizes):,} lines")
-    solo = sum(1 for sz in bin_sizes if sz > BIN_LIMIT)
+    solo = sum(1 for sz in bin_sizes if sz > bin_limit)
     if solo:
-        print(f"Solo crates: {solo} (exceed {BIN_LIMIT:,} line limit)")
+        print(f"Solo crates: {solo} (exceed {bin_limit:,} line limit)")
 
 
 if __name__ == "__main__":
