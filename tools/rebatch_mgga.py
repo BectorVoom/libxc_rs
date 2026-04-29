@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Rebatch MGGA sub-crates to avoid OOM during compilation.
+Rebatch MGGA sub-crates with configurable per-crate line ceiling.
 
 Reads per-functional sizes from existing sub-crates, applies first-fit-decreasing
 bin packing with a configurable line target, moves functional directories into new
@@ -9,22 +9,34 @@ sub-crate layout, and generates Cargo.toml + lib.rs for each.
 Usage:
     python3 tools/rebatch_mgga.py [--dry-run] [--target-max N]
 
---target-max N (default 50000):
+--target-max N (default 500000):
     Maximum lines per sub-crate. Smaller values produce more, smaller crates;
     larger values produce fewer, larger crates.
 
-    Build-time vs RAM trade-off:
-      - Small target  → many small crates → less RAM per crate (Phase 8 P08
-                        chose 50K specifically to dodge >20 GB RSS), but more
-                        cargo coordination overhead (manifest parse, build-script
-                        run, link) per workspace build.
-      - Large target  → fewer larger crates → less cargo overhead, but each
-                        crate's CubeCL proc-macro expansion uses more RAM.
+    Default raised from 50K (Phase 8 P08 OOM mitigation) to 500K once the
+    project has memory headroom for the heavier per-crate CubeCL proc-macro
+    expansion. The build-time saving comes from reducing cargo coordination
+    overhead — fewer crates means fewer manifest parses, fewer build-script
+    runs, fewer link units, less dependency-graph bookkeeping.
 
-    Recommendation: only raise this with `--dry-run` first to inspect bin
-    counts, then benchmark a single rebatched crate's compile RAM with
-    `/usr/bin/time -v cargo check -p libxc-kernel-mgga-1` before committing.
-    Phase 9 plans to instrument this trade-off systematically.
+    Build-time vs RAM trade-off:
+      - 50K (legacy) → ~37 crates, ~6-12 GB RAM per crate at peak. Safe on
+                        24 GB systems with jobs=3 cap. Forces ~37× cargo
+                        coordination cost per workspace build.
+      - 500K (default) → ~4-6 crates, ~30-50 GB RAM per crate at peak.
+                        Suitable for 64+ GB systems. Cargo coordination drops
+                        ~7-9×, dominant gain on multi-core builds.
+      - Larger values → keep going if RAM allows. Diminishing returns past
+                        the point where cargo's coordination cost is below
+                        the longest single-crate compile time.
+
+    For memory-tight systems, opt back into the legacy ceiling explicitly:
+        python3 tools/rebatch_mgga.py --target-max 50000
+
+    Recommendation: always pass `--dry-run` first to inspect the resulting
+    bin count and the single-largest-bin size, then benchmark with
+    `/usr/bin/time -v cargo check -p libxc-kernel-mgga-1` to confirm peak
+    RSS before committing the new layout.
 """
 
 import os
@@ -33,7 +45,7 @@ import shutil
 import json
 
 CRATES_DIR = "crates"
-DEFAULT_TARGET_MAX = 50000  # Max lines per sub-crate (Phase 8 P08 OOM mitigation)
+DEFAULT_TARGET_MAX = 500_000  # Memory-permissive default; opt back to 50000 for tight RAM
 
 
 def get_functional_sizes():

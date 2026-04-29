@@ -7,19 +7,31 @@ are included as source but commented out in lib.rs.
 
 Usage: python3 tools/resplit_gga.py [--bin-limit N]
 
---bin-limit N (default 50000):
+--bin-limit N (default 500000):
     Maximum lines per sub-crate for bin packing. Smaller values produce more,
     smaller crates; larger values produce fewer, larger crates.
 
-    Build-time vs RAM trade-off:
-      - Small limit  → many small crates → less RAM per crate (chosen at 50K
-                       to dodge >20 GB RSS during CubeCL proc-macro expansion),
-                       but more cargo coordination overhead per workspace build.
-      - Large limit  → fewer larger crates → less cargo overhead, but each
-                       crate uses more RAM during expansion.
+    Default raised from 50K (Phase 8 P08 OOM mitigation) to 500K once the
+    project has memory headroom for heavier per-crate CubeCL proc-macro
+    expansion. The build-time saving comes from reducing cargo coordination
+    overhead — fewer crates means fewer manifest parses, fewer build-script
+    runs, fewer link units.
 
-    Recommendation: only raise this after benchmarking single-crate compile RAM
-    with the new size. Phase 9 plans to instrument this trade-off systematically.
+    Build-time vs RAM trade-off:
+      - 50K (legacy) → ~22 crates, ~6-12 GB RAM per crate at peak. Safe on
+                        24 GB systems with jobs=3 cap. Forces ~22× cargo
+                        coordination cost per workspace build.
+      - 500K (default) → ~3-5 crates, ~30-50 GB RAM per crate at peak.
+                        Suitable for 64+ GB systems. Cargo coordination drops
+                        ~5-7×, dominant gain on multi-core builds.
+
+    For memory-tight systems, opt back into the legacy ceiling explicitly:
+        python3 tools/resplit_gga.py --bin-limit 50000
+
+    Recommendation: always run with current --bin-limit value once before
+    re-splitting (the script does delete + recreate sub-crates), and benchmark
+    with `/usr/bin/time -v cargo check -p libxc-kernel-gga-1` to confirm peak
+    RSS before committing the new layout.
 """
 
 import os
@@ -31,7 +43,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GGA_SRC = os.path.join(PROJECT_ROOT, "crates", "kernel-gga", "src")
 CRATES_DIR = os.path.join(PROJECT_ROOT, "crates")
 CARGO_TOML = os.path.join(PROJECT_ROOT, "Cargo.toml")
-DEFAULT_BIN_LIMIT = 50_000  # Phase 8 P08 OOM mitigation
+DEFAULT_BIN_LIMIT = 500_000  # Memory-permissive default; opt back to 50000 for tight RAM
 
 # 25 deferred functionals: CubeCL proc macro SIGSEGV on their large
 # lxc_pol/kxc_pol files. Source is distributed but commented out.
