@@ -1,0 +1,19 @@
+test_gap_commented_pub_mod (tools.test_audit_deferred_gga.AuditFunctionalTests.test_gap_commented_pub_mod)
+Test 4: mod.rs contains `// pub mod kxc_pol;` → status GAP, kind commented_pub_mod. ... ok
+test_gap_forbidden_gate (tools.test_audit_deferred_gga.AuditFunctionalTests.test_gap_forbidden_gate)
+Test 5: mod.rs contains `#[cfg(feature = "order-kxc")]` → status FORBIDDEN_GATE. ... ok
+test_gap_missing_lib_export (tools.test_audit_deferred_gga.AuditFunctionalTests.test_gap_missing_lib_export)
+Test 6: functional dir exists, but lib.rs has no `pub mod <functional>;` line. ... ok
+test_gap_orphan_file (tools.test_audit_deferred_gga.AuditFunctionalTests.test_gap_orphan_file)
+Test 3: a .rs file exists on disk but is NOT listed in mod.rs. ... ok
+test_happy_path_all_levels_covered (tools.test_audit_deferred_gga.AuditFunctionalTests.test_happy_path_all_levels_covered)
+Test 2: all 10 (level, spin) tuples covered in a single sub-crate → status OK. ... ok
+test_multi_subcrate_aggregation (tools.test_audit_deferred_gga.AuditFunctionalTests.test_multi_subcrate_aggregation)
+Test 7: split coverage across two sub-crates is UNIONed → status OK. ... ok
+test_canonical_list_resolves_25_functionals (tools.test_audit_deferred_gga.CanonicalListTests.test_canonical_list_resolves_25_functionals)
+load_canonical_list() must return exactly 25 names with the 6 RESEARCH-named present. ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.310s
+
+OK
