@@ -1,0 +1,17 @@
+=== Plan 09-06 Task 2: SPEC §Acceptance Criteria re-verification ===
+date: 2026-04-29T23:04:35+09:00
+git HEAD: 4ec2d8d5d85976e152ee3978a852d4838c8f52dc
+
+PASS  C1: 09-05 audit --strict  (exit=0)
+PASS  C2: no commented pub mod entries  (no matches)
+PASS  C3: no order-feature gates  (no matches)
+FAIL  C4: cargo check (full workspace) exit 0  (exit=1) -- output: 
+FAIL  C5: cargo check log shows Finished  (exit=1) -- output: 
+C6: oracle parity 1e-12  -- DEFERRED to Plan 09-07
+PASS  C7: per-file cap ≤20,000 lines  (exit=0)
+PASS  C8: no [profile.*] in sub-crate Cargo.toml  (no matches)
+FAIL  C9: .cargo/config.toml has rustc-wrapper = sccache  (exit=1) -- output: 
+PASS  C10a: root Cargo.toml has no gga/mgga/all-kernels [features]  (exit=0)
+PASS  C10b: libxc-kernel-{gga,mgga} are not optional in root deps  (no matches)
+
+=== SUMMARY: PASS=7  FAIL=3 ===
