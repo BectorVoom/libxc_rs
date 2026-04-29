@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: Phase 05 gap-closure paused (org usage cap)
 stopped_at: "Phase 9 context gathered (SPEC revised Round 3+4: cap raised to 20K; feature-gating removed; phase narrowed to unblock 25 deferred GGAs)"
-last_updated: "2026-04-29T10:10:16.859Z"
+last_updated: "2026-04-29T12:16:11.739Z"
 progress:
   total_phases: 9
   completed_phases: 6
   total_plans: 36
-  completed_plans: 34
-  percent: 94
+  completed_plans: 32
+  percent: 89
 ---
 
 # Project State
@@ -24,8 +24,9 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 09 (reduce-kernel-build-time) — EXECUTING
-Plan: 1 of 4
+Phase: 09 (reduce-kernel-build-time) — PLANNED, ready to execute
+Plans: 0 of 4 executed (post-Round-4 replan; old 09-01/02/03 already shipped pre-replan and are archived under `archive-pre-round4/`)
+Last activity: 2026-04-29 — replanned from scratch after SPEC Round 3+4 narrowed scope (deferred BUILD-OPT-02/03 family-feature work; line cap raised to ≤20K)
 
 ## Pending Resumption — Phase 05 Gap Closure
 

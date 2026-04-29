@@ -139,8 +139,8 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. ROCM backend produces results matching CPU to within 10^-14 relative error for all tested functionals
   2. GPU batch evaluation (100k points) achieves >5x CPU batch throughput on ROCM
-  3. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
-  4. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
+  3. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
+  4. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
   5. Benchmark suite with criterion detects performance regressions across key functionals
 **Plans**: 3 plans
 
@@ -179,16 +179,26 @@ Plans:
 - [x] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
 - [x] 08-02-PLAN.md -- Translate representative functionals and oracle verification
 - [x] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
-- [x] 08-04-PLAN.md -- Deferred br89/mbrxc documentation and VXC oracle verification
 
 ### Phase 9: Reduce Kernel Build Time
 
-**Goal:** Reduce kernel build times from ~70 min serial (~25-35 min with jobs=3) to a reasonable level through configuration fixes, feature gating, and profile cleanup
-**Requirements**: BUILD-OPT-01, BUILD-OPT-02, BUILD-OPT-03
+**Goal:** Unblock all 25 previously-deferred GGA functionals at full derivative-order coverage (exc/vxc/fxc/kxc/lxc, polarized + unpolarized) under the default `cargo build`, while preserving 1e-12 oracle parity vs libxc 7.0.0; maintain forward-guard caps (≤20,000 lines per generated `.rs` file) and profile single-source-of-truth. Per Round-4 SPEC revision: family feature gates and ≤180s wall-clock targets are deferred to a future phase.
+**Requirements**: SPEC-09-R1, SPEC-09-R2, SPEC-09-R3
+**Requirements note:** The three IDs above map to the locked requirements in `09-SPEC.md`. Legacy roadmap IDs `BUILD-OPT-01`/`02`/`03` (originally listed for this phase) status: `BUILD-OPT-01` was satisfied before Phase 9 started (sccache + `incremental = false` already in `.cargo/config.toml`); `BUILD-OPT-02` (default-build family scope, ≤180s wall-clock) and `BUILD-OPT-03` (family feature gates, cfg-gated re-exports) are deferred out of Phase 9 per SPEC Round 4 / CONTEXT D-05 — re-introduce in a future phase if/when desired.
 **Depends on:** Phase 8 (kernel crates must exist)
-**Success Criteria** (what must be TRUE):
-  1. sccache is removed and incremental compilation works without interference
-  2. Default `cargo build` compiles only LDA kernels (~4 min), not all 3.7M lines
-  3. Feature gates allow selective compilation: `--features gga` for GGA, `--features all-kernels` for everything
-  4. No sub-crate has redundant [profile.dev] or [profile.test] sections
-  5. Workspace root Cargo.toml is the single source of truth for profile settings
+**Success Criteria** (what must be TRUE — Round 4):
+  1. All 25 previously-deferred GGA functionals compile at full derivative-order coverage under default `cargo build` with no `#[cfg(feature = "order-*")]` attributes
+  2. No `.rs` file in crates/kernel-{lda,gga,mgga}*/src/ exceeds 20,000 lines
+  3. No sub-crate Cargo.toml has a [profile.*] section (single-source-of-truth preserved)
+  4. Every newly-unblocked (functional × derivative-order × spin) tuple passes oracle parity at strict 1e-12 vs libxc 7.0.0
+**Plans:** 7 plans (3 already complete + 4 post-Round-4 — old 09-04 obsolete and archived)
+
+Plans:
+- [x] 09-01-PLAN.md — Translator shared-preamble + incremental-delta annotations (translate_lda_v2.py / translate_gga.py / translate_mgga.py) [archive-pre-round4/]
+- [x] 09-02-PLAN.md — Re-translate all 239 functionals + LDA per-(level, spin) split [archive-pre-round4/]
+- [x] 09-03-PLAN.md — GGA bin-pack into 59 letter-suffix sub-crates + MGGA into ~80 sub-crates (commit b5d4c742, no SUMMARY) [archive-pre-round4/]
+- [obsolete] archived 09-04-PLAN.md — feature-gating + ≤180s target (obsoleted by Round-4 SPEC) [archive-pre-round4/]
+- [ ] 09-04-PLAN.md — Raise translator SPLIT_THRESHOLD 5K → 18K (D-06) + regenerate LDA/GGA/MGGA (D-07) + ≤20K cap forward-guard (Wave 1, autonomous)
+- [ ] 09-05-PLAN.md — Generate tools/audit_deferred_gga.py (D-12) + post-09-04 coverage audit + close any mod.rs/lib.rs gaps for the 25 deferred GGAs (Wave 2, autonomous)
+- [ ] 09-06-PLAN.md — End-to-end `cargo check --workspace` (D-13) + re-run all SPEC §Acceptance Criteria commands → log/09-06-spec-acceptance.log (Wave 3, autonomous)
+- [ ] 09-07-PLAN.md — Oracle parity full sweep (D-14): 25 deferred GGAs at strict 1e-12 + MGGA non-regression spot-check via verify/tests/parity_phase09.rs (Wave 4, autonomous)

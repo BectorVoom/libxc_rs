@@ -45,12 +45,12 @@ Unblock all 25 previously-deferred GGA functionals at full derivative-order cove
 
 ### Plan 09-04 disposition + new plan structure
 
-- **D-10:** Existing Plan 09-04 (which scoped feature-gating and the ≤180s target) is **obsolete after Round 4** and replaced by a new sequence:
+- **D-10 [informational]:** Existing Plan 09-04 (which scoped feature-gating and the ≤180s target) is **obsolete after Round 4** and replaced by a new sequence:
   - **New Plan 09-04** — Raise translator split threshold to 18K (D-06) + regenerate LDA/GGA/MGGA kernels (D-07) + verify no file >20,000 lines + commit. Output every cargo run to `log/<descriptive>.log` per project convention.
   - **New Plan 09-05** — Generated audit script (`tools/audit_deferred_gga.py`) that for each of the 25 deferred functionals: enumerates expected derivative-order modules from the maple2c source, then asserts coverage against `crates/kernel-gga*/src/<functional>/mod.rs`. Produces a JSON/markdown report. Fix any gaps. Commit.
   - **New Plan 09-06** — End-to-end build verification: `cargo check 2>&1 | tee log/cargo-check-09-final.log`. Must exit 0 with peak RSS below dev-machine total. (Per user feedback memory: prefer `cargo check` over `cargo build` for compile-error verification.)
   - **New Plan 09-07** — Oracle parity full sweep through `verify/` harness: every newly-enabled (functional × derivative order × spin) tuple from the 25 deferred GGAs (≤250 tuples max) + MGGA non-regression spot-check (since MGGA was regenerated under D-07). Strict 1e-12 relative-error tolerance per PROJECT.md. Use rayon for parallel execution. Any tuple failing 1e-12 is a phase blocker.
-- **D-11:** Old 09-04-PLAN.md should be **archived** (rename to `09-04-PLAN.obsolete.md` or similar) so the plan-phase regenerator does not pick it up but the audit trail is preserved.
+- **D-11 [informational]:** Old 09-04-PLAN.md should be **archived** (rename to `09-04-PLAN.obsolete.md` or similar) so the plan-phase regenerator does not pick it up but the audit trail is preserved.
 
 ### Audit + verification methodology
 
