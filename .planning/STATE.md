@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Phase 05 gap-closure paused (org usage cap)
-stopped_at: Phase 5 context gathered
-last_updated: "2026-04-29T07:37:32.523Z"
+stopped_at: "Phase 9 context gathered (SPEC revised Round 3+4: cap raised to 20K; feature-gating removed; phase narrowed to unblock 25 deferred GGAs)"
+last_updated: "2026-04-29T10:10:16.859Z"
 progress:
   total_phases: 9
   completed_phases: 6
@@ -108,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-24T00:13:12.246Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-functional-lifecycle-and-hybrid-properties/05-CONTEXT.md
+Last session: 2026-04-29T10:10:16.826Z
+Stopped at: Phase 9 context gathered (SPEC revised Round 3+4: cap raised to 20K; feature-gating removed; phase narrowed to unblock 25 deferred GGAs)
+Resume file: .planning/phases/09-reduce-kernel-build-time/09-CONTEXT.md
