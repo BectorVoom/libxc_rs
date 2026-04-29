@@ -8,7 +8,7 @@
 
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::piecewise::{Heaviside, piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]

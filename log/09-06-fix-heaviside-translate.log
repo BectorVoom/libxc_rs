@@ -1,0 +1,27 @@
+=== Re-translating mgga_x_gx with patched translator (Heaviside detection) ===
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/exc_unpol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/vxc_unpol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/fxc_unpol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/kxc_unpol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/lxc_unpol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/exc_pol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/vxc_pol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/fxc_pol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/kxc_pol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/lxc_pol.rs
+Wrote /tmp/regen-mgga_x_gx/mgga_x_gx/mod.rs
+RC=0
+
+=== Re-translating mgga_x_pbe_gx ===
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/exc_unpol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/vxc_unpol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/fxc_unpol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/kxc_unpol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/lxc_unpol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/exc_pol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/vxc_pol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/fxc_pol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/kxc_pol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/lxc_pol.rs
+Wrote /tmp/regen-mgga_x_pbe_gx/mgga_x_pbe_gx/mod.rs
+RC=0

@@ -181,6 +181,8 @@ def detect_imports(c_src: str) -> list:
         imports.append(('piecewise3', 'libxc_kernel_math::piecewise'))
     if 'my_piecewise5(' in c_src:
         imports.append(('piecewise5', 'libxc_kernel_math::piecewise'))
+    if re.search(r'\bHeaviside\(', c_src):
+        imports.append(('Heaviside', 'libxc_kernel_math::piecewise'))
 
     if re.search(r'\berf\(', c_src):
         imports.append(('erf_approx', 'libxc_kernel_math::erf'))
