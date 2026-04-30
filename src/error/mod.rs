@@ -81,6 +81,41 @@ pub enum LibxcRsError {
 
     #[error("kernel launch failed: {reason}")]
     KernelLaunchFailed { reason: String },
+
+    #[error("functional {id} is not yet supported by libxc_rs: {reason}")]
+    UnsupportedFunctional {
+        id: FunctionalId,
+        reason: &'static str,
+    },
+
+    #[error("external parameter index {index} out of range for functional {id} (has {count} params)")]
+    ExtParamIndexOutOfRange {
+        id: FunctionalId,
+        index: usize,
+        count: usize,
+    },
+
+    #[error("unknown external parameter name '{name}' for functional {id}")]
+    UnknownExtParamName {
+        id: FunctionalId,
+        name: String,
+    },
+
+    #[error("failed to initialize auxiliary functional {aux_id} for parent {parent_id}: {source}")]
+    AuxiliaryInitFailed {
+        parent_id: FunctionalId,
+        aux_id: FunctionalId,
+        #[source]
+        source: Box<LibxcRsError>,
+    },
+
+    #[error("propagation conflict for functional {id}: parent param '{parent_name}' targets aux slot {aux_slot} param '{aux_name}' which is not present")]
+    PropagationConflict {
+        id: FunctionalId,
+        parent_name: &'static str,
+        aux_slot: u8,
+        aux_name: &'static str,
+    },
 }
 
 #[cfg(test)]
@@ -117,5 +152,71 @@ mod tests {
     fn test_error_is_send_sync() {
         fn assert_send_sync<T: Send + Sync>() {}
         assert_send_sync::<LibxcRsError>();
+    }
+
+    #[test]
+    fn test_unsupported_functional_display() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let err = LibxcRsError::UnsupportedFunctional {
+            id,
+            reason: "LDA functional is tracked as deferred",
+        };
+        let msg = format!("{err}");
+        assert!(
+            msg.contains("functional 1 is not yet supported"),
+            "got: {msg}"
+        );
+        assert!(msg.contains("deferred"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_ext_param_index_out_of_range_display() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let err = LibxcRsError::ExtParamIndexOutOfRange { id, index: 5, count: 2 };
+        let msg = format!("{err}");
+        assert!(msg.contains("index 5 out of range"), "got: {msg}");
+        assert!(msg.contains("has 2 params"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_unknown_ext_param_name_display() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let err = LibxcRsError::UnknownExtParamName {
+            id,
+            name: "bogus_param".into(),
+        };
+        let msg = format!("{err}");
+        assert!(msg.contains("'bogus_param'"), "got: {msg}");
+        assert!(msg.contains("functional 1"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_auxiliary_init_failed_display() {
+        let parent_id = FunctionalId::from_raw(1).unwrap();
+        let aux_id = FunctionalId::from_raw(7).unwrap();
+        let inner = LibxcRsError::UnknownFunctionalId(999);
+        let err = LibxcRsError::AuxiliaryInitFailed {
+            parent_id,
+            aux_id,
+            source: Box::new(inner),
+        };
+        let msg = format!("{err}");
+        assert!(msg.contains("auxiliary functional 7"), "got: {msg}");
+        assert!(msg.contains("parent 1"), "got: {msg}");
+    }
+
+    #[test]
+    fn test_propagation_conflict_display() {
+        let id = FunctionalId::from_raw(1).unwrap();
+        let err = LibxcRsError::PropagationConflict {
+            id,
+            parent_name: "_omega",
+            aux_slot: 1,
+            aux_name: "_omega",
+        };
+        let msg = format!("{err}");
+        assert!(msg.contains("propagation conflict"), "got: {msg}");
+        assert!(msg.contains("'_omega'"), "got: {msg}");
+        assert!(msg.contains("aux slot 1"), "got: {msg}");
     }
 }

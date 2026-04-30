@@ -1,0 +1,14 @@
+//! GGA_C_SG4 kernel — split into per-function files.
+
+pub mod exc_unpol;
+pub mod fxc_pol;
+pub mod fxc_unpol;
+pub mod kxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2_v3rho3;
+pub mod kxc_unpol;
+pub mod lxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2_v3rho3;
+pub mod lxc_pol_part11_v4rho2sigma2_1_v4rho2sigma2_2_v4rho2sigma2_3_v4rho2sigma2_4_v4rho2sigma2_5;
+pub mod lxc_pol_part12_v4rho2sigma2_6;
+pub mod lxc_pol_part16_v4rho2sigma2_11_v4rho2sigma2_12;
+pub mod lxc_pol_part17_v4rho2sigma2_13_v4rho2sigma2_14_v4rho2sigma2_15_v4rho2sigma2_16_v4rho2sigma2_17;
+pub mod lxc_pol_part3_v4rho3sigma_0_v4rho3sigma_1_v4rho3sigma_2;
+pub mod vxc_pol;

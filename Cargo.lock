@@ -1359,6 +1359,1544 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-kernel-gga"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-gga-10a",
+ "libxc-kernel-gga-10b",
+ "libxc-kernel-gga-10c",
+ "libxc-kernel-gga-10d",
+ "libxc-kernel-gga-11",
+ "libxc-kernel-gga-12",
+ "libxc-kernel-gga-13",
+ "libxc-kernel-gga-14",
+ "libxc-kernel-gga-15",
+ "libxc-kernel-gga-16",
+ "libxc-kernel-gga-17",
+ "libxc-kernel-gga-18",
+ "libxc-kernel-gga-19",
+ "libxc-kernel-gga-1a",
+ "libxc-kernel-gga-1b",
+ "libxc-kernel-gga-1c",
+ "libxc-kernel-gga-1d",
+ "libxc-kernel-gga-20",
+ "libxc-kernel-gga-21",
+ "libxc-kernel-gga-22",
+ "libxc-kernel-gga-2a",
+ "libxc-kernel-gga-2b",
+ "libxc-kernel-gga-2c",
+ "libxc-kernel-gga-2d",
+ "libxc-kernel-gga-3a",
+ "libxc-kernel-gga-3b",
+ "libxc-kernel-gga-3c",
+ "libxc-kernel-gga-3d",
+ "libxc-kernel-gga-3e",
+ "libxc-kernel-gga-4a",
+ "libxc-kernel-gga-4b",
+ "libxc-kernel-gga-4c",
+ "libxc-kernel-gga-4d",
+ "libxc-kernel-gga-4e",
+ "libxc-kernel-gga-4f",
+ "libxc-kernel-gga-4g",
+ "libxc-kernel-gga-5a",
+ "libxc-kernel-gga-5b",
+ "libxc-kernel-gga-5c",
+ "libxc-kernel-gga-5d",
+ "libxc-kernel-gga-5e",
+ "libxc-kernel-gga-5f",
+ "libxc-kernel-gga-5g",
+ "libxc-kernel-gga-6a",
+ "libxc-kernel-gga-6b",
+ "libxc-kernel-gga-6c",
+ "libxc-kernel-gga-6d",
+ "libxc-kernel-gga-7a",
+ "libxc-kernel-gga-7b",
+ "libxc-kernel-gga-7c",
+ "libxc-kernel-gga-7d",
+ "libxc-kernel-gga-8a",
+ "libxc-kernel-gga-8b",
+ "libxc-kernel-gga-8c",
+ "libxc-kernel-gga-8d",
+ "libxc-kernel-gga-9a",
+ "libxc-kernel-gga-9b",
+ "libxc-kernel-gga-9c",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-10a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-10b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-10c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-10d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-11"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-12"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-13"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-14"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-15"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-16"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-17"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-18"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-19"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-1a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-1b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-1c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-1d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-20"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-21"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-22"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-2a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-2b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-2c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-2d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-3e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-4g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-5g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-6a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-6b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-6c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-6d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-7a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-7b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-7c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-7d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-8a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-8b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-8c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-8d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-9a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-9b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-gga-9c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-lda"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "cubecl",
+ "libxc-kernel-math",
+ "libxc_rs",
+]
+
+[[package]]
+name = "libxc-kernel-math"
+version = "0.1.0"
+dependencies = [
+ "approx",
+ "bytemuck",
+ "cubecl",
+ "libm",
+]
+
+[[package]]
+name = "libxc-kernel-mgga"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+ "libxc-kernel-mgga-10a",
+ "libxc-kernel-mgga-10b",
+ "libxc-kernel-mgga-11a",
+ "libxc-kernel-mgga-11b",
+ "libxc-kernel-mgga-11c",
+ "libxc-kernel-mgga-12a",
+ "libxc-kernel-mgga-12b",
+ "libxc-kernel-mgga-12c",
+ "libxc-kernel-mgga-12d",
+ "libxc-kernel-mgga-13a",
+ "libxc-kernel-mgga-13b",
+ "libxc-kernel-mgga-14a",
+ "libxc-kernel-mgga-14b",
+ "libxc-kernel-mgga-14c",
+ "libxc-kernel-mgga-14d",
+ "libxc-kernel-mgga-14e",
+ "libxc-kernel-mgga-14f",
+ "libxc-kernel-mgga-14g",
+ "libxc-kernel-mgga-14h",
+ "libxc-kernel-mgga-14i",
+ "libxc-kernel-mgga-14j",
+ "libxc-kernel-mgga-14k",
+ "libxc-kernel-mgga-14l",
+ "libxc-kernel-mgga-15a",
+ "libxc-kernel-mgga-15b",
+ "libxc-kernel-mgga-15c",
+ "libxc-kernel-mgga-15d",
+ "libxc-kernel-mgga-15e",
+ "libxc-kernel-mgga-15f",
+ "libxc-kernel-mgga-15g",
+ "libxc-kernel-mgga-15h",
+ "libxc-kernel-mgga-16",
+ "libxc-kernel-mgga-17",
+ "libxc-kernel-mgga-18a",
+ "libxc-kernel-mgga-18b",
+ "libxc-kernel-mgga-18c",
+ "libxc-kernel-mgga-19a",
+ "libxc-kernel-mgga-19b",
+ "libxc-kernel-mgga-19c",
+ "libxc-kernel-mgga-19d",
+ "libxc-kernel-mgga-19e",
+ "libxc-kernel-mgga-19f",
+ "libxc-kernel-mgga-19g",
+ "libxc-kernel-mgga-1a",
+ "libxc-kernel-mgga-1b",
+ "libxc-kernel-mgga-1c",
+ "libxc-kernel-mgga-1d",
+ "libxc-kernel-mgga-20a",
+ "libxc-kernel-mgga-20b",
+ "libxc-kernel-mgga-20c",
+ "libxc-kernel-mgga-20d",
+ "libxc-kernel-mgga-20e",
+ "libxc-kernel-mgga-20f",
+ "libxc-kernel-mgga-20g",
+ "libxc-kernel-mgga-20h",
+ "libxc-kernel-mgga-20i",
+ "libxc-kernel-mgga-20j",
+ "libxc-kernel-mgga-20k",
+ "libxc-kernel-mgga-20l",
+ "libxc-kernel-mgga-21",
+ "libxc-kernel-mgga-22a",
+ "libxc-kernel-mgga-22b",
+ "libxc-kernel-mgga-22c",
+ "libxc-kernel-mgga-22d",
+ "libxc-kernel-mgga-23",
+ "libxc-kernel-mgga-24a",
+ "libxc-kernel-mgga-24b",
+ "libxc-kernel-mgga-25a",
+ "libxc-kernel-mgga-25b",
+ "libxc-kernel-mgga-26a",
+ "libxc-kernel-mgga-26b",
+ "libxc-kernel-mgga-27a",
+ "libxc-kernel-mgga-27b",
+ "libxc-kernel-mgga-27c",
+ "libxc-kernel-mgga-28",
+ "libxc-kernel-mgga-29",
+ "libxc-kernel-mgga-2a",
+ "libxc-kernel-mgga-2b",
+ "libxc-kernel-mgga-30",
+ "libxc-kernel-mgga-31",
+ "libxc-kernel-mgga-32a",
+ "libxc-kernel-mgga-32b",
+ "libxc-kernel-mgga-33",
+ "libxc-kernel-mgga-34",
+ "libxc-kernel-mgga-35",
+ "libxc-kernel-mgga-36a",
+ "libxc-kernel-mgga-36b",
+ "libxc-kernel-mgga-37a",
+ "libxc-kernel-mgga-37b",
+ "libxc-kernel-mgga-3a",
+ "libxc-kernel-mgga-3b",
+ "libxc-kernel-mgga-4a",
+ "libxc-kernel-mgga-4b",
+ "libxc-kernel-mgga-5",
+ "libxc-kernel-mgga-6",
+ "libxc-kernel-mgga-7a",
+ "libxc-kernel-mgga-7b",
+ "libxc-kernel-mgga-7c",
+ "libxc-kernel-mgga-7d",
+ "libxc-kernel-mgga-7e",
+ "libxc-kernel-mgga-8a",
+ "libxc-kernel-mgga-8b",
+ "libxc-kernel-mgga-8c",
+ "libxc-kernel-mgga-8d",
+ "libxc-kernel-mgga-8e",
+ "libxc-kernel-mgga-8f",
+ "libxc-kernel-mgga-9a",
+ "libxc-kernel-mgga-9b",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-10a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-10b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-11a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-11b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-11c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-12a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-12b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-12c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-12d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-13a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-13b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14h"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14i"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14j"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14k"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-14l"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-15h"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-16"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-17"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-18a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-18b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-18c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-19g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-1a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-1b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-1c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-1d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20g"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20h"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20i"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20j"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20k"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-20l"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-21"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-22a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-22b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-22c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-22d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-23"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-24a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-24b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-25a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-25b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-26a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-26b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-27a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-27b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-27c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-28"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-29"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-2a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-2b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-30"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-31"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-32a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-32b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-33"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-34"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-35"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-36a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-36b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-37a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-37b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-3a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-3b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-4a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-4b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-5"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-6"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-7a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-7b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-7c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-7d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-7e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8c"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8d"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8e"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-8f"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-9a"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-kernel-mgga-9b"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
+]
+
+[[package]]
+name = "libxc-sys"
+version = "0.1.0"
+dependencies = [
+ "bindgen 0.72.1",
+ "cmake",
+]
+
+[[package]]
 name = "libxc_rs"
 version = "0.1.0"
 dependencies = [
@@ -1367,6 +2905,11 @@ dependencies = [
  "bytemuck",
  "cubecl",
  "libm",
+ "libxc-kernel-gga",
+ "libxc-kernel-lda",
+ "libxc-kernel-math",
+ "libxc-kernel-mgga",
+ "libxc_rs-verify",
  "thiserror",
 ]
 
@@ -1376,9 +2919,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "approx",
- "bindgen 0.72.1",
- "cmake",
  "cubecl",
+ "libxc-kernel-lda",
+ "libxc-kernel-mgga",
+ "libxc-sys",
  "libxc_rs",
 ]
 
@@ -3115,6 +4659,7 @@ name = "xtask"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "libxc-sys",
  "regex",
 ]
 

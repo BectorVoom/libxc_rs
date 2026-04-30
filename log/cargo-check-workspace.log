@@ -1,0 +1,595 @@
+    Checking cubecl-runtime v0.9.0
+    Checking cubecl-core v0.9.0
+    Checking cubecl-std v0.9.0
+    Checking cubecl-opt v0.9.0
+    Checking cubecl-cpu v0.9.0
+    Checking cubecl v0.9.0
+    Checking libxc-kernel-math v0.1.0 (/workspace/crates/kernel-math)
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: `libxc-kernel-math` (lib) generated 13 warnings
+    Checking libxc-kernel-gga-10 v0.1.0 (/workspace/crates/kernel-gga-10)
+    Checking libxc-kernel-mgga-12 v0.1.0 (/workspace/crates/kernel-mgga-12)
+    Checking libxc-kernel-mgga-21 v0.1.0 (/workspace/crates/kernel-mgga-21)
+    Checking libxc-kernel-mgga-27 v0.1.0 (/workspace/crates/kernel-mgga-27)
+    Checking libxc-kernel-mgga-35 v0.1.0 (/workspace/crates/kernel-mgga-35)
+    Checking libxc-kernel-mgga-9 v0.1.0 (/workspace/crates/kernel-mgga-9)
+    Checking libxc-kernel-gga-11 v0.1.0 (/workspace/crates/kernel-gga-11)
+    Checking libxc-kernel-mgga-14 v0.1.0 (/workspace/crates/kernel-mgga-14)
+    Checking libxc-kernel-mgga-36 v0.1.0 (/workspace/crates/kernel-mgga-36)
+warning: ignoring -C extra-filename flag due to -o flag
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_unpol.rs:44:19
+   |
+44 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_unpol.rs:54:19
+   |
+54 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_unpol.rs:65:19
+   |
+65 |         let t36 = xc_bessel_I1(t21);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_unpol.rs:74:19
+   |
+74 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_unpol.rs:85:19
+   |
+85 |         let t36 = xc_bessel_I1(t21);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_unpol.rs:109:19
+    |
+109 |         let t22 = xc_bessel_I0(t21);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_unpol.rs:120:19
+    |
+120 |         let t36 = xc_bessel_I1(t21);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_pol.rs:53:19
+   |
+53 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_pol.rs:73:19
+   |
+73 |         let t49 = xc_bessel_I0(t48);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:63:19
+   |
+63 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:83:19
+   |
+83 |         let t49 = xc_bessel_I0(t48);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:93:19
+   |
+93 |         let t60 = xc_bessel_I1(t20);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:112:19
+    |
+112 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:83:19
+   |
+83 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+   |
+   = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:103:19
+    |
+103 |         let t49 = xc_bessel_I0(t48);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:113:19
+    |
+113 |         let t60 = xc_bessel_I1(t20);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:132:19
+    |
+132 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:118:19
+    |
+118 |         let t21 = xc_bessel_I0(t20);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I0`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:138:19
+    |
+138 |         let t49 = xc_bessel_I0(t48);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I0`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I0`, use `cargo add xc_bessel_I0` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:148:19
+    |
+148 |         let t60 = xc_bessel_I1(t20);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_bessel_I1`
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:167:19
+    |
+167 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_bessel_I1`
+    |
+    = help: if you wanted to use a crate named `xc_bessel_I1`, use `cargo add xc_bessel_I1` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_unpol.rs:52:19
+   |
+52 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_unpol.rs:62:19
+   |
+62 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_unpol.rs:82:19
+   |
+82 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_unpol.rs:117:19
+    |
+117 |         let t36 = xc_mgga_x_br89_get_x(t35);
+    |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+    |
+    = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_pol.rs:56:19
+   |
+56 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_pol.rs:90:19
+   |
+90 |         let t73 = xc_mgga_x_br89_get_x(t72);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_pol.rs:66:19
+   |
+66 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_pol.rs:100:19
+    |
+100 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+    |
+    = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_pol.rs:86:19
+   |
+86 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   |
+   = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_pol.rs:120:19
+    |
+120 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+    |
+    = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_pol.rs:121:19
+    |
+121 |         let t23 = xc_mgga_x_br89_get_x(t22);
+    |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+    |
+    = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_pol.rs:155:19
+    |
+155 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `xc_mgga_x_br89_get_x`
+    |
+    = help: if you wanted to use a crate named `xc_mgga_x_br89_get_x`, use `cargo add xc_mgga_x_br89_get_x` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_unpol.rs:44:19
+   |
+44 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_unpol.rs:54:19
+   |
+54 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_unpol.rs:65:19
+   |
+65 |         let t36 = xc_bessel_I1(t21);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_unpol.rs:74:19
+   |
+74 |         let t22 = xc_bessel_I0(t21);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_unpol.rs:85:19
+   |
+85 |         let t36 = xc_bessel_I1(t21);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_unpol.rs:109:19
+    |
+109 |         let t22 = xc_bessel_I0(t21);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_unpol.rs:120:19
+    |
+120 |         let t36 = xc_bessel_I1(t21);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_pol.rs:53:19
+   |
+53 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/vxc_pol.rs:73:19
+   |
+73 |         let t49 = xc_bessel_I0(t48);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:63:19
+   |
+63 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:83:19
+   |
+83 |         let t49 = xc_bessel_I0(t48);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:93:19
+   |
+93 |         let t60 = xc_bessel_I1(t20);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/fxc_pol.rs:112:19
+    |
+112 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:83:19
+   |
+83 |         let t21 = xc_bessel_I0(t20);
+   |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:103:19
+    |
+103 |         let t49 = xc_bessel_I0(t48);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:113:19
+    |
+113 |         let t60 = xc_bessel_I1(t20);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/kxc_pol.rs:132:19
+    |
+132 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:118:19
+    |
+118 |         let t21 = xc_bessel_I0(t20);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I0` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:138:19
+    |
+138 |         let t49 = xc_bessel_I0(t48);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:148:19
+    |
+148 |         let t60 = xc_bessel_I1(t20);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_bessel_I1` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_2d_prp10/lxc_pol.rs:167:19
+    |
+167 |         let t91 = xc_bessel_I1(t48);
+    |                   ^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_unpol.rs:52:19
+   |
+52 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_unpol.rs:62:19
+   |
+62 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_unpol.rs:82:19
+   |
+82 |         let t36 = xc_mgga_x_br89_get_x(t35);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_unpol.rs:117:19
+    |
+117 |         let t36 = xc_mgga_x_br89_get_x(t35);
+    |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_pol.rs:56:19
+   |
+56 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/vxc_pol.rs:90:19
+   |
+90 |         let t73 = xc_mgga_x_br89_get_x(t72);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_pol.rs:66:19
+   |
+66 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/fxc_pol.rs:100:19
+    |
+100 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+  --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_pol.rs:86:19
+   |
+86 |         let t23 = xc_mgga_x_br89_get_x(t22);
+   |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/kxc_pol.rs:120:19
+    |
+120 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_pol.rs:121:19
+    |
+121 |         let t23 = xc_mgga_x_br89_get_x(t22);
+    |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `xc_mgga_x_br89_get_x` in this scope
+   --> crates/kernel-mgga-35/src/mgga_x_tb09/lxc_pol.rs:155:19
+    |
+155 |         let t73 = xc_mgga_x_br89_get_x(t72);
+    |                   ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+warning: `libxc-kernel-mgga-35` (lib) generated 1 warning
+error: could not compile `libxc-kernel-mgga-35` (lib) due to 66 previous errors; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead

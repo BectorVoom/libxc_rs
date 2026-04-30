@@ -8,10 +8,227 @@ bitflags = "2.10.0"
 bytemuck = { version = "1.25.0", features = ["derive"] }
 cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
 thiserror = "2.0.18"
+libxc-kernel-math = { path = "crates/kernel-math" }
+libxc-kernel-lda = { path = "crates/kernel-lda" }
+libxc-kernel-gga = { path = "crates/kernel-gga" }
+libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
+libxc_rs-verify = { path = "verify" }
 
 [workspace]
-members = ["xtask","verify"]
+members=[    "xtask",
+    "verify",
+    "libxc-sys",]
+default-members = [
+    "crates/kernel-math",
+    "crates/kernel-lda",
+    "crates/kernel-gga",
+    "crates/kernel-gga-1a",
+    "crates/kernel-gga-1b",
+    "crates/kernel-gga-1c",
+    "crates/kernel-gga-1d",
+    "crates/kernel-gga-2a",
+    "crates/kernel-gga-2b",
+    "crates/kernel-gga-2c",
+    "crates/kernel-gga-2d",
+    "crates/kernel-gga-3a",
+    "crates/kernel-gga-3b",
+    "crates/kernel-gga-3c",
+    "crates/kernel-gga-3d",
+    "crates/kernel-gga-3e",
+    "crates/kernel-gga-4a",
+    "crates/kernel-gga-4b",
+    "crates/kernel-gga-4c",
+    "crates/kernel-gga-4d",
+    "crates/kernel-gga-4e",
+    "crates/kernel-gga-4f",
+    "crates/kernel-gga-4g",
+    "crates/kernel-gga-5a",
+    "crates/kernel-gga-5b",
+    "crates/kernel-gga-5c",
+    "crates/kernel-gga-5d",
+    "crates/kernel-gga-5e",
+    "crates/kernel-gga-5f",
+    "crates/kernel-gga-5g",
+    "crates/kernel-gga-6a",
+    "crates/kernel-gga-6b",
+    "crates/kernel-gga-6c",
+    "crates/kernel-gga-6d",
+    "crates/kernel-gga-7a",
+    "crates/kernel-gga-7b",
+    "crates/kernel-gga-7c",
+    "crates/kernel-gga-7d",
+    "crates/kernel-gga-8a",
+    "crates/kernel-gga-8b",
+    "crates/kernel-gga-8c",
+    "crates/kernel-gga-8d",
+    "crates/kernel-gga-9a",
+    "crates/kernel-gga-9b",
+    "crates/kernel-gga-9c",
+    "crates/kernel-gga-10a",
+    "crates/kernel-gga-10b",
+    "crates/kernel-gga-10c",
+    "crates/kernel-gga-10d",
+    "crates/kernel-gga-11",
+    "crates/kernel-gga-12",
+    "crates/kernel-gga-13",
+    "crates/kernel-gga-14",
+    "crates/kernel-gga-15",
+    "crates/kernel-gga-16",
+    "crates/kernel-gga-17",
+    "crates/kernel-gga-18",
+    "crates/kernel-gga-19",
+    "crates/kernel-gga-20",
+    "crates/kernel-gga-21",
+    "crates/kernel-gga-22",
+    "crates/kernel-mgga",
+    "crates/kernel-mgga-1a",
+    "crates/kernel-mgga-1b",
+    "crates/kernel-mgga-1c",
+    "crates/kernel-mgga-1d",
+    "crates/kernel-mgga-2a",
+    "crates/kernel-mgga-2b",
+    "crates/kernel-mgga-3a",
+    "crates/kernel-mgga-3b",
+    "crates/kernel-mgga-4a",
+    "crates/kernel-mgga-4b",
+    "crates/kernel-mgga-5",
+    "crates/kernel-mgga-6",
+    "crates/kernel-mgga-7a",
+    "crates/kernel-mgga-7b",
+    "crates/kernel-mgga-7c",
+    "crates/kernel-mgga-7d",
+    "crates/kernel-mgga-7e",
+    "crates/kernel-mgga-8a",
+    "crates/kernel-mgga-8b",
+    "crates/kernel-mgga-8c",
+    "crates/kernel-mgga-8d",
+    "crates/kernel-mgga-8e",
+    "crates/kernel-mgga-8f",
+    "crates/kernel-mgga-9a",
+    "crates/kernel-mgga-9b",
+    "crates/kernel-mgga-10a",
+    "crates/kernel-mgga-10b",
+    "crates/kernel-mgga-11a",
+    "crates/kernel-mgga-11b",
+    "crates/kernel-mgga-11c",
+    "crates/kernel-mgga-12a",
+    "crates/kernel-mgga-12b",
+    "crates/kernel-mgga-12c",
+    "crates/kernel-mgga-12d",
+    "crates/kernel-mgga-13a",
+    "crates/kernel-mgga-13b",
+    "crates/kernel-mgga-14a",
+    "crates/kernel-mgga-14b",
+    "crates/kernel-mgga-14c",
+    "crates/kernel-mgga-14d",
+    "crates/kernel-mgga-14e",
+    "crates/kernel-mgga-14f",
+    "crates/kernel-mgga-14g",
+    "crates/kernel-mgga-14h",
+    "crates/kernel-mgga-14i",
+    "crates/kernel-mgga-14j",
+    "crates/kernel-mgga-14k",
+    "crates/kernel-mgga-14l",
+    "crates/kernel-mgga-15a",
+    "crates/kernel-mgga-15b",
+    "crates/kernel-mgga-15c",
+    "crates/kernel-mgga-15d",
+    "crates/kernel-mgga-15e",
+    "crates/kernel-mgga-15f",
+    "crates/kernel-mgga-15g",
+    "crates/kernel-mgga-15h",
+    "crates/kernel-mgga-16",
+    "crates/kernel-mgga-17",
+    "crates/kernel-mgga-18a",
+    "crates/kernel-mgga-18b",
+    "crates/kernel-mgga-18c",
+    "crates/kernel-mgga-19a",
+    "crates/kernel-mgga-19b",
+    "crates/kernel-mgga-19c",
+    "crates/kernel-mgga-19d",
+    "crates/kernel-mgga-19e",
+    "crates/kernel-mgga-19f",
+    "crates/kernel-mgga-19g",
+    "crates/kernel-mgga-20a",
+    "crates/kernel-mgga-20b",
+    "crates/kernel-mgga-20c",
+    "crates/kernel-mgga-20d",
+    "crates/kernel-mgga-20e",
+    "crates/kernel-mgga-20f",
+    "crates/kernel-mgga-20g",
+    "crates/kernel-mgga-20h",
+    "crates/kernel-mgga-20i",
+    "crates/kernel-mgga-20j",
+    "crates/kernel-mgga-20k",
+    "crates/kernel-mgga-20l",
+    "crates/kernel-mgga-21",
+    "crates/kernel-mgga-22a",
+    "crates/kernel-mgga-22b",
+    "crates/kernel-mgga-22c",
+    "crates/kernel-mgga-22d",
+    "crates/kernel-mgga-23",
+    "crates/kernel-mgga-24a",
+    "crates/kernel-mgga-24b",
+    "crates/kernel-mgga-25a",
+    "crates/kernel-mgga-25b",
+    "crates/kernel-mgga-26a",
+    "crates/kernel-mgga-26b",
+    "crates/kernel-mgga-27a",
+    "crates/kernel-mgga-27b",
+    "crates/kernel-mgga-27c",
+    "crates/kernel-mgga-28",
+    "crates/kernel-mgga-29",
+    "crates/kernel-mgga-30",
+    "crates/kernel-mgga-31",
+    "crates/kernel-mgga-32a",
+    "crates/kernel-mgga-32b",
+    "crates/kernel-mgga-33",
+    "crates/kernel-mgga-34",
+    "crates/kernel-mgga-35",
+    "crates/kernel-mgga-36a",
+    "crates/kernel-mgga-36b",
+    "crates/kernel-mgga-37a",
+    "crates/kernel-mgga-37b",
+]
+resolver = "3"
+# Reduce peak memory: CubeCL proc macro expansion generates massive IR.
+# debug=0 skips LLVM debug scope tracking.
+# codegen-units=16 bounds per-unit memory.
+# incremental=false so sccache can cache compiled crates.
+[profile.dev]
+debug = 0
+codegen-units = 16
+incremental = false
+
+# Optimize proc-macros (and their build-dep tree) once at -O3 so each
+# expansion call runs ~5-10x faster. cubecl-macros + syn/quote run thousands
+# of times during a workspace build; the one-time cost of optimizing the
+# macro crate is repaid many times over. Does not touch the main compilation.
+[profile.dev.build-override]
+opt-level = 3
+codegen-units = 256
+debug = false
+
+[profile.release]
+debug = 0
+incremental = false
+codegen-units = 256
+
+[profile.release.build-override]
+opt-level = 3
+codegen-units = 256
+debug = false
+
+[profile.test]
+debug = 0
+codegen-units = 16
+incremental = false
+
+[profile.test.build-override]
+opt-level = 3
+codegen-units = 256
+debug = false

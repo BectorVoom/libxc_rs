@@ -86,7 +86,7 @@ fn test_lda_x_exc_unpol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -132,7 +132,7 @@ fn test_lda_x_vxc_unpol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_vxc_unpol::launch_unchecked::<CpuRuntime>(
+        vxc_unpol::lda_x_vxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -178,7 +178,7 @@ fn test_lda_x_fxc_unpol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_fxc_unpol::launch_unchecked::<CpuRuntime>(
+        fxc_unpol::lda_x_fxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -222,7 +222,7 @@ fn test_lda_x_kxc_unpol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_kxc_unpol::launch_unchecked::<CpuRuntime>(
+        kxc_unpol::lda_x_kxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -268,7 +268,7 @@ fn test_lda_x_lxc_unpol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(n);
 
     unsafe {
-        lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
+        lxc_unpol::lda_x_lxc_unpol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -329,7 +329,7 @@ fn test_lda_x_exc_pol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
+        exc_pol::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -376,7 +376,7 @@ fn test_lda_x_vxc_pol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_vxc_pol::launch_unchecked::<CpuRuntime>(
+        vxc_pol::lda_x_vxc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -425,7 +425,7 @@ fn test_lda_x_fxc_pol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
+        fxc_pol::lda_x_fxc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -472,7 +472,7 @@ fn test_lda_x_kxc_pol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_kxc_pol::launch_unchecked::<CpuRuntime>(
+        kxc_pol::lda_x_kxc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -521,7 +521,7 @@ fn test_lda_x_lxc_pol_oracle() {
     let (cube_count, cube_dim) = calculate_launch_config(np);
 
     unsafe {
-        lda_x_lxc_pol::launch_unchecked::<CpuRuntime>(
+        lxc_pol::lda_x_lxc_pol::launch_unchecked::<CpuRuntime>(
             &client,
             cube_count,
             cube_dim,
@@ -582,7 +582,7 @@ fn test_lda_x_symmetric_pol_matches_unpol() {
     let zk_handle = create_zero_output_buffer(&client, 1);
     let (cc, cd) = calculate_launch_config(1);
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client, cc, cd,
             ArrayArg::from_raw_parts::<f64>(&rho_handle, 1, 1),
             ArrayArg::from_raw_parts::<f64>(&zk_handle, 1, 1),
@@ -598,7 +598,7 @@ fn test_lda_x_symmetric_pol_matches_unpol() {
     let zk_handle = create_zero_output_buffer(&client, 1);
     let (cc, cd) = calculate_launch_config(1);
     unsafe {
-        lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
+        exc_pol::lda_x_exc_pol::launch_unchecked::<CpuRuntime>(
             &client, cc, cd,
             ArrayArg::from_raw_parts::<f64>(&rho_handle, 2, 1),
             ArrayArg::from_raw_parts::<f64>(&zk_handle, 1, 1),
@@ -625,7 +625,7 @@ fn test_lda_x_high_density() {
     let (cc, cd) = calculate_launch_config(1);
 
     unsafe {
-        lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
+        exc_unpol::lda_x_exc_unpol::launch_unchecked::<CpuRuntime>(
             &client, cc, cd,
             ArrayArg::from_raw_parts::<f64>(&rho_handle, 1, 1),
             ArrayArg::from_raw_parts::<f64>(&zk_handle, 1, 1),

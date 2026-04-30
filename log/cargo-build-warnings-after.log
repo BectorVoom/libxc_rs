@@ -1,0 +1,430 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-10a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-10b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-10c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-10d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-1a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-1b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-1c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-1d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-2a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-2b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-2c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-2d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-3a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-3b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-3c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-3d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-3e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-4g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-5g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-6a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-6b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-6c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-6d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-7a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-7b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-7c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-7d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-8a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-8b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-8c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-8d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-9a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-9b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-gga-9c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-10a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-10b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-12a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-12b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-12c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-12d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-13a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-13b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14h/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14i/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14j/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14k/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14l/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15h/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-18a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-18b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-18c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20g/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20h/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20i/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20j/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20k/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20l/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-24a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-24b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-25a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-25b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-26a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-26b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-27a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-27b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-27c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-2a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-2b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-32a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-32b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-36a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-36b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-37a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-37b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-3a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-3b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-4a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-4b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8c/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8d/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8e/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8f/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-9a/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/chemtech/workspace/libxc_rs/crates/kernel-mgga-9b/Cargo.toml
+workspace: /home/chemtech/workspace/libxc_rs/Cargo.toml
+   Compiling libxc-kernel-math v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-math)
+   Compiling libxc-kernel-mgga-14k v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14k)
+   Compiling libxc-kernel-mgga-27c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-27c)
+   Compiling libxc-kernel-mgga-8d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8d)
+   Compiling libxc-kernel-mgga-17 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-17)
+   Compiling libxc-kernel-gga-6c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-6c)
+   Compiling libxc-kernel-mgga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-1a)

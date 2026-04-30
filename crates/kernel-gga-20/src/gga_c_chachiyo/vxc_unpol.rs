@@ -1,0 +1,105 @@
+//! GGA_C_CHACHIYO vxc unpol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 36 shared lines across all orders.
+//! Delta: 29 lines unique to vxc.
+
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case)]
+#[cube(launch_unchecked)]
+pub fn gga_c_chachiyo_vxc_unpol(
+    rho: &Array<f64>,
+    sigma: &Array<f64>,
+    zk: &mut Array<f64>,
+    vrho: &mut Array<f64>,
+    vsigma: &mut Array<f64>,
+    param_af: f64,
+    param_ap: f64,
+    param_bf: f64,
+    param_bp: f64,
+    param_cf: f64,
+    param_cp: f64,
+    param_h: f64,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    let ip = ABSOLUTE_POS;
+    if ip < zk.len() {
+        // --- shared preamble (36 lines) ---
+        let t1 = M_CBRT3;
+        let t2 = t1 * t1;
+        let t3 = param_bp * t2;
+        let t5 = pow_1_3(1.0 / M_PI);
+        let t7 = M_CBRT4;
+        let t8 = 1.0 / t5 * t7;
+        let t9 = pow_1_3(rho[ip]);
+        let t10 = t8 * t9;
+        let t13 = param_cp * t1;
+        let t14 = t5 * t5;
+        let t16 = t7 * t7;
+        let t17 = 1.0 / t14 * t16;
+        let t18 = t9 * t9;
+        let t19 = t17 * t18;
+        let t22 = 1.0 + t3 * t10 / 3.0 + t13 * t19 / 3.0;
+        let t23 = f64::ln(t22);
+        let t24 = param_ap * t23;
+        let t25 = param_bf * t2;
+        let t28 = param_cf * t1;
+        let t31 = 1.0 + t25 * t10 / 3.0 + t28 * t19 / 3.0;
+        let t32 = f64::ln(t31);
+        let t36 = pow_1_3(zeta_threshold);
+        let t37 = t36 * t36;
+        let t38 = piecewise3(1.0 <= zeta_threshold, t37, 1.0);
+        let t39 = t38 * t38;
+        let t42 = -2.0 * t39 * t38 + 2.0;
+        let t44 = t24 + (param_af * t32 - t24) * t42;
+        let t45 = M_CBRTPI;
+        let t46 = t2 * t45;
+        let t47 = rho[ip] * rho[ip];
+        let t49 = 1.0 / t9 / t47;
+        let t53 = 1.0 + t46 * t49 * sigma[ip] / 48.0;
+        let t54 = 1.0 / t44;
+        let t55 = param_h * t54;
+        let t56 = f64::powf(t53, t55);
+        let tzk0 = t44 * t56;
+        zk[ip] += tzk0;
+        // --- vxc delta (this level) (29 lines) ---
+        let t58 = t8 / t18;
+        let t62 = t17 / t9;
+        let t65 = t3 * t58 / 9.0 + 2.0 / 9.0 * t13 * t62;
+        let t67 = 1.0 / t22;
+        let t68 = param_ap * t65 * t67;
+        let t73 = t25 * t58 / 9.0 + 2.0 / 9.0 * t28 * t62;
+        let t75 = 1.0 / t31;
+        let t79 = t68 + (param_af * t73 * t75 - t68) * t42;
+        let t80 = rho[ip] * t79;
+        let t82 = rho[ip] * t44;
+        let t83 = t44 * t44;
+        let t84 = 1.0 / t83;
+        let t85 = param_h * t84;
+        let t86 = f64::ln(t53);
+        let t87 = t79 * t86;
+        let t89 = t55 * t2;
+        let t90 = t47 * rho[ip];
+        let t92 = 1.0 / t9 / t90;
+        let t93 = t45 * t92;
+        let t94 = 1.0 / t53;
+        let t95 = sigma[ip] * t94;
+        let t96 = t93 * t95;
+        let t99 = -t85 * t87 - 7.0 / 144.0 * t89 * t96;
+        let t100 = t56 * t99;
+        let tvrho0 = t82 * t100 + t80 * t56 + tzk0;
+        vrho[ip] += tvrho0;
+        let t103 = 1.0 / t9 / rho[ip];
+        let t104 = t103 * t56;
+        let t106 = t46 * t94;
+        let tvsigma0 = t104 * param_h * t106 / 48.0;
+        vsigma[ip] += tvsigma0;
+    }
+}

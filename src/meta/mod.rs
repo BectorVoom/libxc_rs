@@ -1,11 +1,13 @@
 pub(crate) mod generated;
+pub(crate) mod generated_hybrid;
+pub(crate) mod generated_propagation;
 
 use crate::model::{
-    DerivativeOrder, Family, FunctionalFlags, FunctionalId, HybridTermKind, Kind,
+    DerivativeOrder, Family, FunctionalFlags, FunctionalId, HybridTermKind, HybridType, Kind,
 };
 
 /// Literature reference
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Reference {
     pub citation: &'static str,
     pub doi: &'static str,
@@ -14,7 +16,7 @@ pub struct Reference {
 }
 
 /// External parameter specification
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct ExtParamSpec {
     pub name: &'static str,
     pub description: &'static str,
@@ -24,15 +26,28 @@ pub struct ExtParamSpec {
 }
 
 /// A single hybrid exchange term
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct HybridTerm {
     pub kind: HybridTermKind,
     pub coefficient: f64,
     pub omega: f64,
 }
 
+/// Copy-style ext_param flow from a hybrid parent's named ext_param to a
+/// named ext_param on one of its auxiliary functionals.
+/// Emitted by `cargo xtask generate-metadata` (D-16). Non-Copy transforms
+/// are rejected at xtask time per D-16 / Plan 05-01 Task 2 acceptance.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PropagationRule {
+    pub parent_id: FunctionalId,
+    pub parent_param_name: &'static str,
+    pub parent_param_index: u16,
+    pub aux_slot: u8,
+    pub aux_param_name: &'static str,
+}
+
 /// Static metadata for a functional. Lives in .rodata.
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct FunctionalMeta {
     pub id: FunctionalId,
     pub name: &'static str,
@@ -50,4 +65,6 @@ pub struct FunctionalMeta {
     pub nlc_params: Option<(f64, f64)>,
     /// Maximum supported derivative order
     pub max_order: DerivativeOrder,
+    /// Hybrid type classification
+    pub hybrid_type: HybridType,
 }

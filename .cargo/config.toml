@@ -1,0 +1,21 @@
+# Build configuration for CubeCL kernel crates.
+#
+# sccache: Caches compiled crate outputs so unchanged kernel sub-crates are
+# skipped on rebuild. Incremental compilation is disabled (see Cargo.toml
+# profiles) because sccache cannot cache incremental builds.
+#
+# jobs = 3: Each kernel sub-crate consumes 3-7 GB RAM during CubeCL proc macro
+# expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
+[build]
+# rustc-wrapper = "sccache"
+jobs = 3
+
+[env]
+# Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
+# deep through the CubeCL `#[cube]` proc-macro expansion. The default 8MB
+# rustc stack overflows (SIGSEGV); 64MB clears it with margin.
+RUST_MIN_STACK = "2010886400"
+# Share build artifacts across worktrees so isolated executors reuse the
+# main repo's compiled artifacts instead of rebuilding from scratch.
+
+

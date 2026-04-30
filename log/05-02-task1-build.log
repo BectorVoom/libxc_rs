@@ -1,0 +1,7 @@
+error: failed to write /home/chemtech/workspace/libxc_rs/Cargo.lock
+
+Caused by:
+  failed to open: /home/chemtech/workspace/libxc_rs/Cargo.lock
+
+Caused by:
+  Permission denied (os error 13)

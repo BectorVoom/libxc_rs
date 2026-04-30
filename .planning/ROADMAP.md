@@ -2,7 +2,6 @@
 
 ## Overview
 
-<<<<<<< HEAD
 This roadmap delivers a pure-Rust reimplementation of libxc 7.0.0 covering all 649 exchange-correlation functionals with f64 precision, CubeCL-based GPU compute, and C API compatibility. The journey follows the natural dependency chain: domain types and registry (foundation) -> math core and CubeCL validation (risk gate) -> I/O bundles and evaluation framework (interface contract) -> bulk kernel translation (core value) -> functional lifecycle and public API (usability) -> C compatibility layer (interop) -> GPU backends and performance (differentiator). Each phase delivers a verifiable capability that unblocks the next.
 
 ## Phases
@@ -16,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Foundation and Registry** - Domain types, error handling, static registry, dimension calculation, and oracle harness
 - [ ] **Phase 2: Math Core and CubeCL Substrate** - All #[cube] math building blocks, CubeCL CPU backend, LDA_X canary kernel validation
 - [ ] **Phase 3: Input/Output and Evaluation Framework** - I/O bundle types, output masks, dispatch routing, mixed functional accumulation
-- [ ] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
+- [x] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
 - [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
@@ -86,14 +85,14 @@ Plans:
   3. All ~80 MGGA functional kernels pass oracle verification through applicable derivative orders
   4. Density thresholding correctly skips grid points below threshold and clamps spin densities
   5. Output accumulation uses += semantics to support mixed functional evaluation
-**Plans**: 5 plans
+**Plans:** 5 plans
 
 Plans:
 - [x] 04-01-PLAN.md — Infrastructure: missing power functions, oracle GGA/MGGA harness, module scaffolding
-- [ ] 04-02-PLAN.md — LDA batch: translate all 42 LDA kernels + dispatch wiring + oracle verification
-- [ ] 04-03-PLAN.md — GGA batch: translate all 131 GGA kernels + dispatch_gga + oracle verification
-- [ ] 04-04-PLAN.md — MGGA batch: mgga_c_rmggac risk gate + all 92 MGGA kernels + dispatch_mgga
-- [ ] 04-05-PLAN.md — Full cross-family oracle verification sweep and Phase 4 sign-off
+- [x] 04-02-PLAN.md — LDA dispatch: generalize dispatch_lda + deferred.rs + per-functional Rust-vs-C oracle comparison (37 compiled, 4 deferred)
+- [x] 04-03-PLAN.md — GGA dispatch: dispatch_gga scaffolding + GgaFunctional enum + per-functional oracle comparison (105 routable; 42 zero-scalar dispatched + 63 UnsupportedFunctional pending Phase 4 follow-up)
+- [x] 04-04-PLAN.md — MGGA dispatch: new dispatch_mgga + MggaFunctional enum + per-functional oracle comparison (86 compiled, 6 deferred)
+- [x] 04-05-PLAN.md — Cross-family verification sweep (cargo xtask verify-phase-4) + Phase 4 COVERAGE sign-off
 
 ### Phase 5: Functional Lifecycle and Hybrid Properties
 **Goal**: Users can construct a Functional instance by ID, configure external parameters and thresholds, query hybrid properties, and evaluate any of the 649 functionals through the Functional struct
@@ -105,12 +104,16 @@ Plans:
   3. Hybrid functionals correctly report their HybridType, CAM coefficients (omega, alpha, beta), and NLC coefficients (b, C)
   4. Auxiliary functionals for mixed/hybrid functionals are recursively constructed and iterable
   5. Drop implementation cleans up all resources without leaks
-**Plans**: 3 plans
+**Plans**: 7 plans (3 original + 4 gap-closure)
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [x] 05-01-PLAN.md — libxc-sys factoring + cargo xtask generate-metadata + full FunctionalMeta population (references/ext_params/hybrid_terms/auxiliaries/nlc_params/hybrid_type for all 649 IDs) + verify/tests/metadata_oracle.rs round-trip test
+- [x] 05-02-PLAN.md — FunctionalParams trait + 229 per-functional impls + dispatch signature migration to &dyn FunctionalParams + Functional struct (lifecycle + config: ext_param get/set by name/index/bulk, 4 threshold setters) + GgaScratch/MggaScratch materialization + 4 new LibxcRsError variants
+- [x] 05-03-PLAN.md — Rust port of xc_hyb_type + CAM/NLC/aux queries (HYB-01..04) + eager recursive aux construction with propagation map + evaluate_mixed_gga/evaluate_mixed_mgga + Functional::evaluate_{lda,gga,mgga} + verify/tests/{hybrid_type_oracle,hybrid_oracle,mixed_oracle}.rs
+- [ ] 05-04-PLAN.md (gap-closure) — xtask generate-metadata real implementation: populate generated.rs/generated_hybrid.rs/generated_propagation.rs for all 649; unignore 6 oracle tests; CR-05 FFI rc-check
+- [ ] 05-05-PLAN.md (gap-closure) — set_ext_param_by_index defensive fallback (CR-04) + replace .expect() in ten_arm_dispatch_gga! and mgga_zero_scalar_unpol_dispatch! macros with typed LibxcRsError (CR-07)
+- [ ] 05-06-PLAN.md (gap-closure) — replace add_opt with length-checked add_opt_n (CR-02); add parent NEEDS_LAPLACIAN/NEEDS_TAU gates to evaluate_mixed_mgga (CR-03); harden add_to_mix assert (WR-11); remove dead let-discard (WR-10)
+- [ ] 05-07-PLAN.md (gap-closure) — remove 108 redundant libxc-kernel-mgga-* entries from root Cargo.toml [dev-dependencies] (CR-06 cleanup)
 
 ### Phase 6: Public API and C Compatibility
 **Goal**: The library provides an ergonomic Rust API with builder pattern and batch evaluation, plus a complete C compatibility layer that enables drop-in replacement for libxc in C/Fortran DFT codes
@@ -136,8 +139,8 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. ROCM backend produces results matching CPU to within 10^-14 relative error for all tested functionals
   2. GPU batch evaluation (100k points) achieves >5x CPU batch throughput on ROCM
-  3. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
-  4. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
+  3. WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)
+  4. CPU batch evaluation (1000 points) is within 1.5x of libxc C performance
   5. Benchmark suite with criterion detects performance regressions across key functionals
 **Plans**: 3 plans
 
@@ -156,87 +159,46 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 1. Foundation and Registry | 0/3 | Not started | - |
 | 2. Math Core and CubeCL Substrate | 0/5 | Not started | - |
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
-| 4. Bulk Kernel Translation | 0/5 | Not started | - |
+| 4. Bulk Kernel Translation | 5/5 | Complete | 2026-04-24 |
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
 | 6. Public API and C Compatibility | 0/3 | Not started | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
-=======
-Route the libxc public surface through four layered capabilities: start by locking inventory + metadata, follow with configuration and validation, build the shared CubeCL execution substrate, expose the safe/compat APIs, and finish with verification plus performance baselines. Coarse granularity keeps the phases focused on capability completion before moving on to the next dependency.
 
-## Phases
+### Phase 8: Rebuild MGGA kernel conversion tool from scratch with iterative pattern verification
 
-- [ ] **Phase 1: Catalog & Metadata Lockdown** - Deliver generated registries and metadata tables that mirror the upstream public inventory.
-- [ ] **Phase 2: Configuration Safety & Input Validation** - Surface typed builders, thresholds, and input bundles that reject bad configurations before launching kernels.
-- [ ] **Phase 3: Unified CubeCL Execution Substrate** - Build the CubeCL kernel family, dispatch keys, and resident execution plumbing so CPU and GPU share the same numeric path.
-- [ ] **Phase 4: Safe & Compatibility APIs** - Layer the ergonomic safe API, compatibility shims, and resident flows on top of the validated metadata and kernels.
-- [ ] **Phase 5: Verification & Performance Baselines** - Deliver the oracle comparison harness, reporting, and benchmarks that prove correctness and reuse.
-
-## Phase Details
-
-### Phase 1: Catalog & Metadata Lockdown
-**Goal**: Guarantee every public functional ID, name, legacy alias, and metadata datum is available through generated registries before downstream layers rely on them.
-**Depends on**: Nothing (first phase)
-**Requirements**: CATL-01, CATL-02, CATL-03, CATL-04
+**Goal:** Build translate_mgga.py from scratch, iteratively verify it against representative MGGA functionals, then batch-translate all 92 MGGA functionals into compiled sub-crates with oracle-verified numerical correctness
+**Requirements**: KERN-05, KERN-06, VERIFY-03, VERIFY-04
+**Depends on:** Phase 4 (kernel infrastructure), Phase 8-extract (sub-crate pattern)
 **Success Criteria** (what must be TRUE):
-  1. The generated registry lets callers resolve each current ID and report its family classification on demand.
-  2. Canonical names and legacy aliases all resolve to the same metadata entry without loss.
-  3. Metadata queries surface family, kind, flags, references, derivative support, and external-parameter specs.
-  4. The generation pipeline reproduces the 85 public functions, 649 current IDs, and remaining legacy/removed identifiers explicitly.
-**Plans**: TBD
+  1. translate_mgga.py translates any MGGA maple2c C file into compilable Rust #[cube] kernels with lapl and tau arrays
+  2. All 92 MGGA functionals are translated and organized into sub-crates that compile
+  3. Representative MGGA functionals pass oracle comparison with relative error <= 1e-12 for exc
+  4. kernel-mgga facade re-exports all sub-crates
 
-### Phase 2: Configuration Safety & Input Validation
-**Goal**: Provide typed builders, thresholds, and input/output bundles that guard launches with precise, family-aware validation.
-**Depends on**: Phase 1
-**Requirements**: CONF-01, CONF-02, CONF-03, CONF-04, CONF-05
-**Success Criteria** (what must be TRUE):
-  1. Functional builders accept IDs or names with spin, threshold, external-parameter, precision, and runtime bindings.
-  2. Invalid thresholds, removed/unknown IDs, or bad external-parameter requests surface typed errors before execution reaches CubeCL.
-  3. LDA/GGA/MGGA input bundles check shape/layout invariants at construction so every launch is structurally sound.
-  4. MGGA inputs reject missing tau or lapl channels whenever the metadata mandates them.
-  5. Output requests deliver typed bundles corresponding to the requested derivative orders 0 through 4 only.
-**Plans**: TBD
+Plans:
+- [x] 08-01-PLAN.md -- Build translate_mgga.py and compile first functional (mgga_xc_lp90)
+- [x] 08-02-PLAN.md -- Translate representative functionals and oracle verification
+- [x] 08-03-PLAN.md -- Batch translate all 92 MGGA functionals into sub-crates
 
-### Phase 3: Unified CubeCL Execution Substrate
-**Goal**: Compile the shared CubeCL kernel family, dispatch logic, and resident router so CPU and GPU share a single numeric engine.
-**Depends on**: Phase 2
-**Requirements**: EXEC-01, EXEC-02, EXEC-03, EXEC-04, EXEC-05
-**Success Criteria** (what must be TRUE):
-  1. Host evaluations for LDA, GGA, and MGGA orders 0–4 execute through CubeCL CPU kernels without a handwritten evaluator.
-  2. The same kernel logic runs on at least one CubeCL GPU backend and surfaces backend-unavailable or capability-mismatch errors when unsupported.
-  3. Dispatch keys specialize by family, derivative order, spin, required MGGA channels, precision policy, and output masks.
-  4. Auxiliary, hybrid, and nonlocal-correlation accumulation flows execute entirely on the device-side path.
-  5. Resident execution keeps functionals, inputs, outputs, and scratch buffers resident and uploads only dirty regions between launches.
-**Plans**: TBD
+### Phase 9: Reduce Kernel Build Time
 
-### Phase 4: Safe & Compatibility APIs
-**Goal**: Layer ergonomic safe APIs and compatibility shims on the validated metadata and unified kernels so callers can reach every libxc capability.
-**Depends on**: Phase 3
-**Requirements**: API-01, API-02, API-03, API-04
-**Success Criteria** (what must be TRUE):
-  1. Safe Rust APIs cover lifecycle, metadata access, configuration, host/batch/resident evaluation, and runtime policy controls.
-  2. Safe or compatibility APIs together reach every one of the 85 public libxc functions.
-  3. Compatibility shims preserve legacy aggregate evaluation entry points and packed layout behavior for migration callers.
-  4. Public errors are surfaced through thiserror v2 while verification, benchmarking, and CLI tooling can still rely on anyhow.
-**Plans**: TBD
+**Goal:** Unblock all 25 previously-deferred GGA functionals at full derivative-order coverage (exc/vxc/fxc/kxc/lxc, polarized + unpolarized) under the default `cargo build`, while preserving 1e-12 oracle parity vs libxc 7.0.0; maintain forward-guard caps (≤20,000 lines per generated `.rs` file) and profile single-source-of-truth. Per Round-4 SPEC revision: family feature gates and the default-build wall-clock target (≤900s as of 2026-04-29; originally ≤180s, relaxed by user directive) are deferred to a future phase.
+**Requirements**: SPEC-09-R1, SPEC-09-R2, SPEC-09-R3
+**Requirements note:** The three IDs above map to the locked requirements in `09-SPEC.md`. Legacy roadmap IDs `BUILD-OPT-01`/`02`/`03` (originally listed for this phase) status: `BUILD-OPT-01` was satisfied before Phase 9 started (sccache + `incremental = false` already in `.cargo/config.toml`); `BUILD-OPT-02` (default-build family scope, ≤900s wall-clock — relaxed from the original ≤180s on 2026-04-29 per user directive) and `BUILD-OPT-03` (family feature gates, cfg-gated re-exports) are deferred out of Phase 9 per SPEC Round 4 / CONTEXT D-05 — re-introduce in a future phase if/when desired.
+**Depends on:** Phase 8 (kernel crates must exist)
+**Success Criteria** (what must be TRUE — Round 4):
+  1. All 25 previously-deferred GGA functionals compile at full derivative-order coverage under default `cargo build` with no `#[cfg(feature = "order-*")]` attributes
+  2. No `.rs` file in crates/kernel-{lda,gga,mgga}*/src/ exceeds 20,000 lines
+  3. No sub-crate Cargo.toml has a [profile.*] section (single-source-of-truth preserved)
+  4. Every newly-unblocked (functional × derivative-order × spin) tuple passes oracle parity at strict 1e-12 vs libxc 7.0.0
+**Plans:** 7 plans (3 already complete + 4 post-Round-4 — old 09-04 obsolete and archived)
 
-### Phase 5: Verification & Performance Baselines
-**Goal**: Prove correctness and performance by exercising every capability against libxc and measuring caching, resident reuse, and transfer costs.
-**Depends on**: Phase 4
-**Requirements**: VERI-01, VERI-02, PERF-01, PERF-02
-**Success Criteria** (what must be TRUE):
-  1. Verification tooling compares Rust outputs against libxc across family, derivative order, spin mode, and supported runtime combinations.
-  2. Reports include per-functional abs/rel/ULP metrics, CPU-vs-GPU parity summaries, and removed-identifier handling summaries.
-  3. Benchmarks cover lookup, initialization, CPU batch, GPU batch, resident reuse, transfer volume, and cold-vs-warm execution behavior.
-  4. Runtime caches and workspace reuse keep repeated evaluation paths free of hidden allocations and unnecessary transfers.
-**Plans**: TBD
-
-## Progress
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Catalog & Metadata Lockdown | 0/TBD | Not started | - |
-| 2. Configuration Safety & Input Validation | 0/TBD | Not started | - |
-| 3. Unified CubeCL Execution Substrate | 0/TBD | Not started | - |
-| 4. Safe & Compatibility APIs | 0/TBD | Not started | - |
-| 5. Verification & Performance Baselines | 0/TBD | Not started | - |
->>>>>>> origin/main
+Plans:
+- [x] 09-01-PLAN.md — Translator shared-preamble + incremental-delta annotations (translate_lda_v2.py / translate_gga.py / translate_mgga.py) [archive-pre-round4/]
+- [x] 09-02-PLAN.md — Re-translate all 239 functionals + LDA per-(level, spin) split [archive-pre-round4/]
+- [x] 09-03-PLAN.md — GGA bin-pack into 59 letter-suffix sub-crates + MGGA into ~80 sub-crates (commit b5d4c742, no SUMMARY) [archive-pre-round4/]
+- [obsolete] archived 09-04-PLAN.md — feature-gating + ≤180s target (obsoleted by Round-4 SPEC) [archive-pre-round4/]
+- [x] 09-04-PLAN.md — Raise translator SPLIT_THRESHOLD 5K → 18K (D-06) + regenerate LDA/GGA/MGGA (D-07) + ≤20K cap forward-guard (Wave 1, autonomous)
+- [x] 09-05-PLAN.md — Generate tools/audit_deferred_gga.py (D-12) + post-09-04 coverage audit + close any mod.rs/lib.rs gaps for the 25 deferred GGAs (Wave 2, autonomous)
+- [ ] 09-06-PLAN.md — End-to-end `cargo check --workspace` (D-13) + re-run all SPEC §Acceptance Criteria commands → log/09-06-spec-acceptance.log (Wave 3, autonomous)
+- [ ] 09-07-PLAN.md — Oracle parity full sweep (D-14): 25 deferred GGAs at strict 1e-12 + MGGA non-regression spot-check via verify/tests/parity_phase09.rs (Wave 4, autonomous)

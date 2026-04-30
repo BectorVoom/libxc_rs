@@ -1,0 +1,14 @@
+//! GGA_C_FT97 kernel — split into per-function files.
+
+pub mod exc_pol;
+pub mod kxc_pol_part2_v3rho3_1;
+pub mod kxc_pol_part3_v3rho3_2;
+pub mod lxc_pol_part10_v4rho4_0;
+pub mod lxc_pol_part14_v4rho4_4;
+pub mod lxc_pol_part19_v4rho3sigma_5;
+pub mod lxc_pol_part27_v4rho2sigma2_6_v4rho2sigma2_7_v4rho2sigma2_8_v4rho2sigma2_9_v4rho2sigma2_10;
+pub mod lxc_pol_part28_v4rho2sigma2_11;
+pub mod lxc_pol_part2_v3rho3_1;
+pub mod lxc_pol_part32_v4rhosigma3_10_v4rhosigma3_11_v4rhosigma3_12_v4rhosigma3_13_v4rhosigma3_14_v4rhosigma3_15_v4rhosigma3_16_v4rhosigma3_17_v4rhosigma3_18_v4rhosigma3_19;
+pub mod lxc_pol_part3_v3rho3_2;
+pub mod lxc_pol_part9_v3sigma3;

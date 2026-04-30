@@ -1,0 +1,112 @@
+ Downloading crates ...
+  Downloaded idna_adapter v1.2.2
+  Downloaded cc v1.2.61
+  Downloaded rustls-pki-types v1.14.1
+  Downloaded rustls-webpki v0.103.13
+  Downloaded winnow v1.0.2
+  Downloaded rustls v0.23.40
+  Downloaded libc v0.2.186
+   Compiling libc v0.2.186
+   Compiling rustls-pki-types v1.14.1
+   Compiling hashbrown v0.17.0
+   Compiling bitflags v2.11.1
+   Compiling indexmap v2.14.0
+   Compiling rustls v0.23.40
+   Compiling typenum v1.20.0
+   Compiling pkg-config v0.3.33
+   Compiling jobserver v0.1.34
+   Compiling mio v1.2.0
+   Compiling socket2 v0.6.3
+   Compiling cc v1.2.61
+   Compiling getrandom v0.2.17
+   Compiling tokio v1.52.1
+   Compiling generic-array v0.14.7
+   Compiling ring v0.17.14
+   Compiling liblzma-sys v0.4.6
+   Compiling idna_adapter v1.2.2
+   Compiling rustix v1.1.4
+   Compiling idna v1.1.0
+   Compiling tokio-util v0.7.18
+   Compiling h2 v0.4.13
+   Compiling rustls-webpki v0.103.13
+   Compiling hyper v1.9.0
+   Compiling hyper-util v0.1.20
+   Compiling tower v0.5.3
+   Compiling block-buffer v0.10.4
+   Compiling tokio-rustls v0.26.4
+   Compiling crypto-common v0.1.7
+   Compiling webpki-roots v1.0.7
+   Compiling tower-http v0.6.8
+   Compiling hyper-rustls v0.27.9
+   Compiling dirs-sys v0.5.0
+   Compiling digest v0.10.7
+   Compiling url v2.5.8
+   Compiling xattr v1.6.1
+   Compiling filetime v0.2.27
+   Compiling num_cpus v1.17.0
+   Compiling sha2 v0.10.9
+   Compiling reqwest v0.12.28
+   Compiling tar v0.4.45
+   Compiling liblzma v0.4.6
+   Compiling dirs v6.0.0
+   Compiling clang-sys v1.8.1
+    Checking getrandom v0.3.4
+   Compiling tracel-llvm-bundler v20.1.4-7
+    Checking rand_core v0.9.5
+    Checking rand_chacha v0.9.0
+    Checking parking_lot_core v0.9.12
+    Checking backtrace v0.3.76
+    Checking parking_lot v0.12.5
+   Compiling bindgen v0.71.1
+    Checking rand v0.9.4
+    Checking winnow v1.0.2
+    Checking toml_parser v1.1.2+spec-1.1.0
+    Checking cubecl-common v0.9.0
+    Checking cubecl-ir v0.9.0
+    Checking toml v0.9.12+spec-1.1.0
+   Compiling tracel-mlir-sys v20.1.4-7
+   Compiling tracel-mlir-rs-macros v20.1.4-7
+   Compiling cubecl-macros v0.9.0
+   Compiling tracel-tblgen-rs v20.1.4-7
+    Checking cubecl-runtime v0.9.0
+    Checking cubecl-core v0.9.0
+    Checking petgraph v0.6.5
+    Checking tracel-mlir-rs v20.1.4-7
+   Compiling cubecl-cpu v0.9.0
+    Checking cubecl-std v0.9.0
+    Checking cubecl-opt v0.9.0
+    Checking sysinfo v0.36.1
+    Checking tracel-llvm v20.1.4-7
+    Checking cubecl v0.9.0
+    Checking libxc-kernel-math v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-math)
+    Checking libxc-kernel-mgga-14d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14d)
+    Checking libxc-kernel-mgga-36a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-36a)
+    Checking libxc-kernel-mgga-15f v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15f)
+    Checking libxc-kernel-mgga-11b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11b)
+    Checking libxc-kernel-gga-4e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-4e)
+    Checking libxc-kernel-mgga-7d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7d)
+    Checking libxc-kernel-mgga-7e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7e)
+    Checking libxc-kernel-mgga-20c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20c)
+    Checking libxc-kernel-mgga-3a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-3a)
+    Checking libxc-kernel-gga-17 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-17)
+    Checking libxc-kernel-mgga-14e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14e)
+    Checking libxc-kernel-gga-3e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-3e)
+    Checking libxc-kernel-gga-5a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-5a)
+    Checking libxc-kernel-mgga-15c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15c)
+    Checking libxc-kernel-mgga-22c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22c)
+    Checking libxc-kernel-mgga-27b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-27b)
+    Checking libxc-kernel-mgga-8d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8d)
+    Checking libxc-kernel-gga-3b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-3b)
+    Checking libxc-kernel-mgga-10a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-10a)
+    Checking libxc-kernel-gga-10d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-10d)
+    Checking libxc-kernel-gga-4b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-4b)
+    Checking libxc-kernel-mgga-18b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-18b)
+    Checking libxc-kernel-mgga-14a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14a)
+    Checking libxc-kernel-mgga-8f v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8f)
+    Checking libxc-kernel-mgga-37b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-37b)
+    Checking libxc-kernel-mgga-14k v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14k)
+    Checking libxc-kernel-gga-5c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-5c)
+    Checking libxc-kernel-mgga-2b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-2b)
+    Checking libxc-kernel-mgga-8a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8a)
+    Checking libxc-kernel-mgga-35 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-35)
+    Checking libxc-kernel-gga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-1a)

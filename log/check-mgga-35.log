@@ -1,0 +1,5 @@
+   |
+   = note: `#[warn(non_snake_case)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: `libxc-kernel-math` (lib) generated 20 warnings
+    Finished `dev` profile [unoptimized] target(s) in 0.10s

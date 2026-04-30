@@ -1,0 +1,19 @@
+# Rust
+target
+**/target
+
+
+# Dev tools
+.vscode
+.vscode/**
+
+# Node
+node_modules
+**/node_modules
+
+# Python
+__pycache__
+**/__pycache__
+
+# OS
+.DS_Store

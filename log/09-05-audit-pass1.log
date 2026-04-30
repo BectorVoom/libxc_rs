@@ -1,0 +1,3 @@
+Audit: 25 functionals — OK=25, GAP=0, FORBIDDEN_GATE=0.
+JSON: /home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a35b9ae54baf3a4b5/log/09-05-deferred-gga-audit.json
+Markdown: /home/chemtech/workspace/libxc_rs/.claude/worktrees/agent-a35b9ae54baf3a4b5/.planning/phases/09-reduce-kernel-build-time/09-05-DEFERRED-GGA-AUDIT.md

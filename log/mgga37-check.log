@@ -1,0 +1,224 @@
+    Blocking waiting for file lock on build directory
+warning: value assigned to `result` is never read
+  --> crates/kernel-math/src/lambert_w.rs:26:22
+   |
+26 |     let mut result = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `w0` is never read
+  --> crates/kernel-math/src/lambert_w.rs:36:22
+   |
+36 |         let mut w0 = 0.0f64;
+   |                      ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:22:23
+   |
+22 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/expint_e1.rs:72:23
+   |
+72 |     let mut b2: f64 = 0.0;
+   |                       ^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:107:23
+    |
+107 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:136:23
+    |
+136 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:162:23
+    |
+162 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+   --> crates/kernel-math/src/expint_e1.rs:197:23
+    |
+197 |     let mut b2: f64 = 0.0;
+    |                       ^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `e1` is never read
+   --> crates/kernel-math/src/expint_e1.rs:233:18
+    |
+233 |     let mut e1 = 0.0f64;
+    |                  ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `b2` is never read
+  --> crates/kernel-math/src/special.rs:36:18
+   |
+36 |     let mut b2 = 0.0f64;
+   |                  ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: value assigned to `dspenc` is never read
+   --> crates/kernel-math/src/special.rs:139:22
+    |
+139 |     let mut dspenc = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:208:22
+    |
+208 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: value assigned to `result` is never read
+   --> crates/kernel-math/src/special.rs:242:22
+    |
+242 |     let mut result = 0.0f64;
+    |                      ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: `libxc-kernel-math` (lib) generated 13 warnings
+    Checking libxc-kernel-mgga-37 v0.1.0 (/workspace/crates/kernel-mgga-37)
+sccache: warning: The server looks like it shut down unexpectedly, compiling locally instead
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/fxc_unpol.rs:291:20
+    |
+291 |         let t457 = (t24);
+    |                    ^   ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+291 -         let t457 = (t24);
+291 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/kxc_unpol.rs:311:20
+    |
+311 |         let t457 = (t24);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+311 -         let t457 = (t24);
+311 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/lxc_unpol.rs:346:20
+    |
+346 |         let t457 = (t24);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+346 -         let t457 = (t24);
+346 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/fxc_pol.rs:529:20
+    |
+529 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+529 -         let t913 = (t32);
+529 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/fxc_pol.rs:683:21
+    |
+683 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+683 -         let t1287 = (t166);
+683 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/kxc_pol.rs:549:20
+    |
+549 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+549 -         let t913 = (t32);
+549 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/kxc_pol.rs:703:21
+    |
+703 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+703 -         let t1287 = (t166);
+703 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/lxc_pol.rs:584:20
+    |
+584 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+584 -         let t913 = (t32);
+584 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernel-mgga-37/src/mgga_x_regtpss/lxc_pol.rs:738:21
+    |
+738 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+738 -         let t1287 = (t166);
+738 +         let t1287 = t166;
+    |
+
+sccache: Compile terminated by signal 9
+warning: `libxc-kernel-mgga-37` (lib) generated 9 warnings (run `cargo fix --lib -p libxc-kernel-mgga-37` to apply 9 suggestions)
+error: could not compile `libxc-kernel-mgga-37` (lib); 9 warnings emitted
+
+Caused by:
+  process didn't exit successfully: `sccache /home/vscode/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libxc_kernel_mgga_37 --edition=2024 crates/kernel-mgga-37/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata -C embed-bitcode=no -C codegen-units=16 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=21965922a274de01 -C extra-filename=-5faa8ac6d4330458 --out-dir /workspace/target/debug/deps -C linker=clang -C strip=debuginfo -L dependency=/workspace/target/debug/deps --extern cubecl=/workspace/target/debug/deps/libcubecl-9f408060472e7ce0.rmeta --extern libxc_kernel_math=/workspace/target/debug/deps/liblibxc_kernel_math-5924e770261ad0da.rmeta -C link-arg=-fuse-ld=mold -L native=/home/vscode/.local/share/tracel/tracel-llvm-20.1.4-7/lib` (exit status: 2)

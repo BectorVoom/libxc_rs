@@ -1,0 +1,16 @@
+    Finished `test` profile [unoptimized] target(s) in 0.42s
+     Running unittests src/lib.rs (target/debug/deps/libxc_rs-855d4a7aaf66cddc)
+
+running 9 tests
+test error::tests::test_error_is_send_sync ... ok
+test error::tests::test_auxiliary_init_failed_display ... ok
+test error::tests::test_propagation_conflict_display ... ok
+test error::tests::test_removed_id_display ... ok
+test error::tests::test_unknown_id_display ... ok
+test error::tests::test_unsupported_functional_display ... ok
+test error::tests::test_ext_param_index_out_of_range_display ... ok
+test error::tests::test_unknown_ext_param_name_display ... ok
+test error::tests::test_unknown_name_display ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 187 filtered out; finished in 0.02s
+

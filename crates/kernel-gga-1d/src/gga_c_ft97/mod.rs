@@ -1,0 +1,16 @@
+//! GGA_C_FT97 kernel — split into per-function files.
+
+pub mod kxc_pol_part0_zk_vrho_vsigma_v2rho2_v2rhosigma_v2sigma2;
+pub mod kxc_pol_part4_v3rho3_3_v3rho2sigma_0_v3rho2sigma_1;
+pub mod kxc_pol_part5_v3rho2sigma_2_v3rho2sigma_3_v3rho2sigma_4;
+pub mod kxc_pol_part6_v3rho2sigma_5_v3rho2sigma_6_v3rho2sigma_7;
+pub mod kxc_pol_part8_v3rhosigma2;
+pub mod lxc_pol_part15_v4rho3sigma_0_v4rho3sigma_1;
+pub mod lxc_pol_part18_v4rho3sigma_4;
+pub mod lxc_pol_part24_v4rho3sigma_11;
+pub mod lxc_pol_part31_v4rhosigma3_0_v4rhosigma3_1_v4rhosigma3_2_v4rhosigma3_3_v4rhosigma3_4_v4rhosigma3_5_v4rhosigma3_6_v4rhosigma3_7_v4rhosigma3_8_v4rhosigma3_9;
+pub mod lxc_pol_part4_v3rho3_3_v3rho2sigma_0_v3rho2sigma_1;
+pub mod lxc_pol_part5_v3rho2sigma_2_v3rho2sigma_3_v3rho2sigma_4;
+pub mod lxc_pol_part6_v3rho2sigma_5_v3rho2sigma_6_v3rho2sigma_7;
+pub mod lxc_pol_part8_v3rhosigma2;
+pub mod vxc_unpol;

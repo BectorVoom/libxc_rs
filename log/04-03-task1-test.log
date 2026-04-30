@@ -1,0 +1,13 @@
+
+running 8 tests
+test model::gga_functional::tests::from_id_rejects_lda_x_id ... ok
+test model::gga_functional::tests::from_id_rejects_non_compiled_gga_id ... ok
+test model::gga_functional::tests::from_id_routes_gga_c_pbe ... ok
+test model::gga_functional::tests::from_id_routes_gga_x_lb_vxc_only ... ok
+test model::gga_functional::tests::from_id_routes_gga_x_pbe ... ok
+test model::gga_functional::tests::has_exc_only_false_for_gga_x_lb ... ok
+test model::gga_functional::tests::kernel_name_is_libxc_name ... ok
+test model::gga_functional::tests::to_id_round_trips_through_from_id ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 125 filtered out; finished in 0.00s
+

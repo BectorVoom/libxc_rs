@@ -1,0 +1,6 @@
+=== TUPLE: crates/kernel-lda/src/lda_c_pw/fxc_pol.rs ===
+OK: crates/kernel-lda/src/lda_c_pw/fxc_pol.rs
+=== TUPLE (multi-sub-crate, skipped — verify byte-identity to HEAD): gga_c_ft97/lxc_pol_*.rs ===
+OK: gga_c_ft97 (skipped, files byte-identical to HEAD across all 4 sub-crates)
+=== TUPLE: crates/kernel-mgga-5/src/mgga_c_b94/kxc_pol.rs ===
+OK: crates/kernel-mgga-5/src/mgga_c_b94/kxc_pol.rs

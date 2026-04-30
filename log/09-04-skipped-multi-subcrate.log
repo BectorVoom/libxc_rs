@@ -1,0 +1,43 @@
+# Multi-sub-crate functionals SKIPPED in regen (D-09 preservation)
+# Total: 35 functionals
+# These were distributed across multiple sub-crates by
+# tools/split_oversized_kernel.py for compile-OOM mitigation.
+# Regenerating them at the new 18K threshold would produce a
+# different (smaller) file set that cannot fit the existing
+# multi-sub-crate distribution without violating D-09.
+#
+gga_c_acggap: 3 sub-crates (kernel-gga-8a,kernel-gga-8b,kernel-gga-8c)
+gga_c_ft97: 4 sub-crates (kernel-gga-1a,kernel-gga-1b,kernel-gga-1c,kernel-gga-1d)
+gga_c_gapc: 6 sub-crates (kernel-gga-4a,kernel-gga-4b,kernel-gga-4c,kernel-gga-4d,kernel-gga-4e,kernel-gga-4f)
+gga_c_gaploc: 6 sub-crates (kernel-gga-5a,kernel-gga-5b,kernel-gga-5c,kernel-gga-5d,kernel-gga-5e,kernel-gga-5f)
+gga_c_optc: 3 sub-crates (kernel-gga-6a,kernel-gga-6b,kernel-gga-6c)
+gga_c_pbe_erf_gws: 4 sub-crates (kernel-gga-3a,kernel-gga-3b,kernel-gga-3c,kernel-gga-3d)
+gga_c_q2d: 3 sub-crates (kernel-gga-7a,kernel-gga-7b,kernel-gga-7c)
+gga_c_sg4: 2 sub-crates (kernel-gga-10a,kernel-gga-10b)
+gga_x_hjs: 2 sub-crates (kernel-gga-10c,kernel-gga-10d)
+gga_x_hjs_b88_v2: 2 sub-crates (kernel-gga-9a,kernel-gga-9b)
+gga_x_wpbeh: 4 sub-crates (kernel-gga-2a,kernel-gga-2b,kernel-gga-2c,kernel-gga-2d)
+hyb_mgga_x_js18: 4 sub-crates (kernel-mgga-1a,kernel-mgga-1b,kernel-mgga-1c,kernel-mgga-1d)
+hyb_mgga_x_pjs18: 2 sub-crates (kernel-mgga-2a,kernel-mgga-2b)
+hyb_mgga_xc_gas22: 2 sub-crates (kernel-mgga-3a,kernel-mgga-3b)
+hyb_mgga_xc_wb97mv: 2 sub-crates (kernel-mgga-4a,kernel-mgga-4b)
+mgga_c_kcis: 5 sub-crates (kernel-mgga-7a,kernel-mgga-7b,kernel-mgga-7c,kernel-mgga-7d,kernel-mgga-7e)
+mgga_c_kcisk: 6 sub-crates (kernel-mgga-8a,kernel-mgga-8b,kernel-mgga-8c,kernel-mgga-8d,kernel-mgga-8e,kernel-mgga-8f)
+mgga_c_ltapw: 2 sub-crates (kernel-mgga-9a,kernel-mgga-9b)
+mgga_c_m06l: 2 sub-crates (kernel-mgga-10a,kernel-mgga-10b)
+mgga_c_pkzb: 3 sub-crates (kernel-mgga-11a,kernel-mgga-11b,kernel-mgga-11c)
+mgga_c_r2scan: 4 sub-crates (kernel-mgga-12a,kernel-mgga-12b,kernel-mgga-12c,kernel-mgga-12d)
+mgga_c_revscan: 2 sub-crates (kernel-mgga-13a,kernel-mgga-13b)
+mgga_c_revtpss: 12 sub-crates (kernel-mgga-14a,kernel-mgga-14b,kernel-mgga-14c,kernel-mgga-14d,kernel-mgga-14e,kernel-mgga-14f,kernel-mgga-14g,kernel-mgga-14h,kernel-mgga-14i,kernel-mgga-14j,kernel-mgga-14k,kernel-mgga-14l)
+mgga_c_rmggac: 8 sub-crates (kernel-mgga-15a,kernel-mgga-15b,kernel-mgga-15c,kernel-mgga-15d,kernel-mgga-15e,kernel-mgga-15f,kernel-mgga-15g,kernel-mgga-15h)
+mgga_c_rscan: 3 sub-crates (kernel-mgga-18a,kernel-mgga-18b,kernel-mgga-18c)
+mgga_c_tpss: 7 sub-crates (kernel-mgga-19a,kernel-mgga-19b,kernel-mgga-19c,kernel-mgga-19d,kernel-mgga-19e,kernel-mgga-19f,kernel-mgga-19g)
+mgga_c_tpssloc: 12 sub-crates (kernel-mgga-20a,kernel-mgga-20b,kernel-mgga-20c,kernel-mgga-20d,kernel-mgga-20e,kernel-mgga-20f,kernel-mgga-20g,kernel-mgga-20h,kernel-mgga-20i,kernel-mgga-20j,kernel-mgga-20k,kernel-mgga-20l)
+mgga_x_br89: 4 sub-crates (kernel-mgga-22a,kernel-mgga-22b,kernel-mgga-22c,kernel-mgga-22d)
+mgga_x_mbr: 2 sub-crates (kernel-mgga-24a,kernel-mgga-24b)
+mgga_x_mbrxc_bg: 2 sub-crates (kernel-mgga-25a,kernel-mgga-25b)
+mgga_x_mbrxh_bg: 2 sub-crates (kernel-mgga-26a,kernel-mgga-26b)
+mgga_x_mggac: 3 sub-crates (kernel-mgga-27a,kernel-mgga-27b,kernel-mgga-27c)
+mgga_x_rscan: 2 sub-crates (kernel-mgga-32a,kernel-mgga-32b)
+mgga_xc_b97mv: 2 sub-crates (kernel-mgga-36a,kernel-mgga-36b)
+mgga_xc_b98: 2 sub-crates (kernel-mgga-37a,kernel-mgga-37b)

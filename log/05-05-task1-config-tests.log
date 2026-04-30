@@ -1,0 +1,37 @@
+   Compiling thiserror v2.0.18
+   Compiling libxc-sys v0.1.0 (/home/chemtech/workspace/libxc_rs/libxc-sys)
+   Compiling anyhow v1.0.102
+   Compiling cubecl-runtime v0.9.0
+   Compiling approx v0.5.1
+   Compiling cubecl-core v0.9.0
+   Compiling cubecl-opt v0.9.0
+   Compiling cubecl-std v0.9.0
+   Compiling cubecl-cpu v0.9.0
+   Compiling cubecl v0.9.0
+   Compiling libxc-kernel-math v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-math)
+   Compiling libxc-kernel-mgga-8e v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8e)
+   Compiling libxc-kernel-mgga-19b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19b)
+   Compiling libxc-kernel-mgga-7c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-7c)
+   Compiling libxc-kernel-mgga-19d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-19d)
+   Compiling libxc-kernel-gga-2a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-2a)
+   Compiling libxc-kernel-gga-1a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-1a)
+   Compiling libxc-kernel-mgga-18c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-18c)
+   Compiling libxc-kernel-mgga-20g v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20g)
+   Compiling libxc-kernel-gga-3c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-3c)
+   Compiling libxc-kernel-mgga-35 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-35)
+   Compiling libxc-kernel-mgga-14a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-14a)
+   Compiling libxc-kernel-mgga-20d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20d)
+   Compiling libxc-kernel-mgga-29 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-29)
+   Compiling libxc-kernel-mgga-16 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-16)
+   Compiling libxc-kernel-mgga-20f v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-20f)
+   Compiling libxc-kernel-gga-4b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-4b)
+   Compiling libxc-kernel-mgga-13b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-13b)
+   Compiling libxc-kernel-gga-22 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-22)
+   Compiling libxc-kernel-mgga-22b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-22b)
+   Compiling libxc-kernel-mgga-11c v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11c)
+   Compiling libxc-kernel-gga-20 v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-20)
+   Compiling libxc-kernel-gga-5b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-gga-5b)
+   Compiling libxc-kernel-mgga-15a v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-15a)
+   Compiling libxc-kernel-mgga-8d v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-8d)
+   Compiling libxc-kernel-mgga-2b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-2b)
+   Compiling libxc-kernel-mgga-11b v0.1.0 (/home/chemtech/workspace/libxc_rs/crates/kernel-mgga-11b)

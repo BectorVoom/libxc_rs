@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized] target(s) in 0.38s
+     Running unittests src/lib.rs (target/debug/deps/libxc_rs-855d4a7aaf66cddc)
+
+running 1 test
+test eval::dispatch::tests::test_exc_unpolarized_produces_negative_energy ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.14s
+

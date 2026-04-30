@@ -1,0 +1,21 @@
+   Compiling libxc_rs v0.1.0 (/home/chemtech/workspace/libxc_rs)
+error: constant `HYBRID_TYPES` is never used
+ --> src/meta/generated_hybrid.rs:6:18
+  |
+6 | pub(crate) const HYBRID_TYPES: &[(FunctionalId, HybridType)] = &[
+  |                  ^^^^^^^^^^^^
+  |
+note: the lint level is defined here
+ --> src/lib.rs:1:9
+  |
+1 | #![deny(warnings)]
+  |         ^^^^^^^^
+  = note: `#[deny(dead_code)]` implied by `#[deny(warnings)]`
+
+error: constant `PROPAGATION_RULES` is never used
+ --> src/meta/generated_propagation.rs:6:18
+  |
+6 | pub(crate) const PROPAGATION_RULES: &[PropagationRule] = &[
+  |                  ^^^^^^^^^^^^^^^^^
+
+error: could not compile `libxc_rs` (lib) due to 2 previous errors
