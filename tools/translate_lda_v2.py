@@ -345,7 +345,9 @@ LEVEL_OUTPUTS = {
 # Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
 # margin under SPEC's 20K per-file forward guard, after the dev machine was
 # verified to have RAM headroom for 16K+ line files.
+# --no-split flag disables splitting by setting threshold to max.
 SPLIT_THRESHOLD = 18000
+UNSPLITTABLE = 999999
 
 
 # ---------------------------------------------------------------------------
@@ -1078,7 +1080,7 @@ def translate_file_incremental(c_file_path: str, func_name: str, write_dir: str,
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split] [--incremental]")
+        print("Usage: translate_lda_v2.py <c_file> <func_name> [--vxc-only] [--write-to <dir>] [--split] [--incremental] [--no-split]")
         sys.exit(1)
 
     c_file = sys.argv[1]
@@ -1086,6 +1088,12 @@ def main():
     is_vxc_only = '--vxc-only' in sys.argv
     split_mode = '--split' in sys.argv
     incremental_mode = '--incremental' in sys.argv
+    no_split_mode = '--no-split' in sys.argv
+
+    # Apply --no-split flag to disable splitting
+    if no_split_mode:
+        global SPLIT_THRESHOLD
+        SPLIT_THRESHOLD = UNSPLITTABLE
 
     write_dir = None
     if '--write-to' in sys.argv:

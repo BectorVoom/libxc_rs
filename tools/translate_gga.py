@@ -469,7 +469,9 @@ def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
 # Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
 # margin under SPEC's 20K per-file forward guard, after the dev machine was
 # verified to have RAM headroom for 16K+ line files.
+# --no-split flag disables splitting by setting threshold to max.
 SPLIT_THRESHOLD = 18000
+UNSPLITTABLE = 999999
 
 # Output arrays grouped by derivative order, used for split naming.
 OUTPUT_ORDER = {
@@ -1263,7 +1265,7 @@ def main():
         return
 
     if len(sys.argv) < 3:
-        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N]")
+        print("Usage: translate_gga.py <c_file> <func_name> --write-to <dir> [--vxc-only] [--incremental] [--split-threshold N] [--no-split]")
         print("       translate_gga.py --batch --write-to <dir>")
         sys.exit(1)
 
@@ -1271,12 +1273,17 @@ def main():
     func_name = sys.argv[2]
     is_vxc_only = '--vxc-only' in sys.argv
     incremental = '--incremental' in sys.argv
+    no_split_mode = '--no-split' in sys.argv
+
+    # Apply --no-split flag to disable splitting
+    if no_split_mode:
+        global SPLIT_THRESHOLD
+        SPLIT_THRESHOLD = UNSPLITTABLE
 
     # Parse --split-threshold
     if '--split-threshold' in sys.argv:
         idx_st = sys.argv.index('--split-threshold')
         threshold = int(sys.argv[idx_st + 1])
-        global SPLIT_THRESHOLD
         SPLIT_THRESHOLD = threshold
 
     idx = sys.argv.index('--write-to')
