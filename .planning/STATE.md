@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 05 gap-closure paused (org usage cap)
-stopped_at: "Phase 9 context gathered (SPEC revised Round 3+4: cap raised to 20K; feature-gating removed; phase narrowed to unblock 25 deferred GGAs)"
-last_updated: "2026-04-29T12:23:43.800Z"
-last_activity: 2026-04-29 -- Phase 09 execution started
+status: Phase 09 in progress (3 of 4 plans done; 09-07 oracle parity sweep pending)
+stopped_at: "Phase 09-06 SPEC acceptance verified (7 PASS / 3 FAIL); parity sweep deferred to 09-07"
+last_updated: "2026-05-04T00:00:00.000Z"
+last_activity: 2026-05-04 -- reconciled stale Phase 05 gap-closure state (gap closure was actually completed 2026-05-02; STATE.md and ROADMAP plan checkboxes updated)
 progress:
   total_phases: 9
   completed_phases: 6
   total_plans: 36
-  completed_plans: 32
-  percent: 89
+  completed_plans: 35
+  percent: 97
 ---
 
 # Project State
@@ -26,28 +26,30 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 09 (reduce-kernel-build-time) — EXECUTING
-Plan: 1 of 4
-Plans: 0 of 4 executed (post-Round-4 replan; old 09-01/02/03 already shipped pre-replan and are archived under `archive-pre-round4/`)
-Last activity: 2026-04-29 -- Phase 09 execution started
+Plan: 4 of 4 (09-07 pending)
+Plans: 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`)
+Last activity: 2026-05-04 -- Phase 05 stale-state reconcile
 
-## Pending Resumption — Phase 05 Gap Closure
+## Phase 05 — Gap Closure Resolved (2026-05-02)
 
-Three Wave 1 executor agents hit org monthly usage cap before completing.
-Partial work preserved as WIP commits on locked worktree branches:
+The "Pending Resumption" block previously here was stale. The gap-closure work
+flagged as paused on 2026-04-29 was actually completed on 2026-05-02. Concrete
+evidence:
 
-| Plan | Worktree branch | WIP commit | Files |
-|------|-----------------|------------|-------|
-| 05-04 | worktree-agent-a5c0fcda2537dbccf | eb08f4ab | 7 (xtask, src/functional, verify/tests) |
-| 05-05 | worktree-agent-a841c937705bf9399 | 3cbc49f9 | 3 (config.rs, gga/mgga dispatch) |
-| 05-07 | worktree-agent-a47664d411b3bec66 | ae6b847c | 2 (Cargo.toml, Cargo.lock) |
+| Plan | WIP commit (paused) | Real fix commits (after resume) | SUMMARY |
+|------|---------------------|---------------------------------|---------|
+| 05-04 | df5324f1 | c20a0225 → 50508037 → 08996314 | 20.6 KB ✓ |
+| 05-05 | 861f21dd | 0afc877a → 41bffc29 → 46ce5b9c → 69a372f8 | 17.7 KB ✓ |
+| 05-06 | (no wip) | cb634de1 → 01f6039a → 6c5ac9f1 | 19.8 KB ✓ |
+| 05-07 | 71fdddd8 | 45896f06 → b4cd019c | 9.8 KB ✓ |
 
-Wave 2 (05-06) not yet started. None of the WIP commits are validated —
-do NOT merge to libxc_rs_kernel until executor resumes and runs the
-plan's verification commands.
+The original locked worktree branches (`worktree-agent-a5c0fcda…`,
+`…a841c937…`, `…a47664d4…`) and WIP SHAs (`eb08f4ab`, `3cbc49f9`, `ae6b847c`)
+referenced in the older note are no longer reachable in git — superseded by
+the clean fix commits above.
 
-To resume after usage resets: re-run `/gsd-execute-phase 5 -- gaps_only`
-(or `--gaps-only`). Spawned executors should adopt the WIP commits as
-their starting point rather than starting from scratch.
+Outstanding: re-run `/gsd-verify-work 5` to upgrade `05-VERIFICATION.md`
+(currently `status: human_needed`, dated pre-resume 2026-04-28) to `pass`.
 
 ## Performance Metrics
 

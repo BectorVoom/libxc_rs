@@ -110,10 +110,10 @@ Plans:
 - [x] 05-01-PLAN.md — libxc-sys factoring + cargo xtask generate-metadata + full FunctionalMeta population (references/ext_params/hybrid_terms/auxiliaries/nlc_params/hybrid_type for all 649 IDs) + verify/tests/metadata_oracle.rs round-trip test
 - [x] 05-02-PLAN.md — FunctionalParams trait + 229 per-functional impls + dispatch signature migration to &dyn FunctionalParams + Functional struct (lifecycle + config: ext_param get/set by name/index/bulk, 4 threshold setters) + GgaScratch/MggaScratch materialization + 4 new LibxcRsError variants
 - [x] 05-03-PLAN.md — Rust port of xc_hyb_type + CAM/NLC/aux queries (HYB-01..04) + eager recursive aux construction with propagation map + evaluate_mixed_gga/evaluate_mixed_mgga + Functional::evaluate_{lda,gga,mgga} + verify/tests/{hybrid_type_oracle,hybrid_oracle,mixed_oracle}.rs
-- [ ] 05-04-PLAN.md (gap-closure) — xtask generate-metadata real implementation: populate generated.rs/generated_hybrid.rs/generated_propagation.rs for all 649; unignore 6 oracle tests; CR-05 FFI rc-check
-- [ ] 05-05-PLAN.md (gap-closure) — set_ext_param_by_index defensive fallback (CR-04) + replace .expect() in ten_arm_dispatch_gga! and mgga_zero_scalar_unpol_dispatch! macros with typed LibxcRsError (CR-07)
-- [ ] 05-06-PLAN.md (gap-closure) — replace add_opt with length-checked add_opt_n (CR-02); add parent NEEDS_LAPLACIAN/NEEDS_TAU gates to evaluate_mixed_mgga (CR-03); harden add_to_mix assert (WR-11); remove dead let-discard (WR-10)
-- [ ] 05-07-PLAN.md (gap-closure) — remove 108 redundant libxc-kernel-mgga-* entries from root Cargo.toml [dev-dependencies] (CR-06 cleanup)
+- [x] 05-04-PLAN.md (gap-closure) — xtask generate-metadata real implementation: populate generated.rs/generated_hybrid.rs/generated_propagation.rs for all 649; unignore 6 oracle tests; CR-05 FFI rc-check
+- [x] 05-05-PLAN.md (gap-closure) — set_ext_param_by_index defensive fallback (CR-04) + replace .expect() in ten_arm_dispatch_gga! and mgga_zero_scalar_unpol_dispatch! macros with typed LibxcRsError (CR-07)
+- [x] 05-06-PLAN.md (gap-closure) — replace add_opt with length-checked add_opt_n (CR-02); add parent NEEDS_LAPLACIAN/NEEDS_TAU gates to evaluate_mixed_mgga (CR-03); harden add_to_mix assert (WR-11); remove dead let-discard (WR-10)
+- [x] 05-07-PLAN.md (gap-closure) — remove 108 redundant libxc-kernel-mgga-* entries from root Cargo.toml [dev-dependencies] (CR-06 cleanup)
 
 ### Phase 6: Public API and C Compatibility
 **Goal**: The library provides an ergonomic Rust API with builder pattern and batch evaluation, plus a complete C compatibility layer that enables drop-in replacement for libxc in C/Fortran DFT codes
