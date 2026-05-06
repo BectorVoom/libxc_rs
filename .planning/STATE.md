@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 09 in progress (3 of 4 plans done; 09-07 oracle parity sweep pending)
-stopped_at: "Phase 09-06 SPEC acceptance verified (7 PASS / 3 FAIL); parity sweep deferred to 09-07"
+status: Phase 06 in progress (1 of 4 plans done; 06-01 Layer-3 API complete; 06-02a next)
+stopped_at: "Phase 06-01 wave 1 merged (b83b005d); 06-02a wave 2 next"
 last_updated: "2026-05-06T00:00:00.000Z"
-last_activity: 2026-05-06 -- Phase 06 planned (4 plans: 06-01, 06-02a, 06-02b, 06-03; sequential waves 1→4; verification PASSED iteration 2)
+last_activity: 2026-05-06 -- Phase 06 wave 1 complete: 06-01 Layer-3 API (FunctionalBuilder, BatchEvaluator, sealed EvaluateInput, 4 new error variants)
 progress:
   total_phases: 9
   completed_phases: 6

@@ -128,7 +128,7 @@ Plans:
 **Plans**: 4 plans (06-02 split during revision into 06-02a infra+lifecycle and 06-02b accessors)
 
 Plans:
-- [ ] 06-01-PLAN.md — Layer-3 Rust API: FunctionalBuilder, BatchEvaluator, sealed EvaluateInput trait, +InvalidSpin variant (API-01..03; Wave 1)
+- [x] 06-01-PLAN.md — Layer-3 Rust API: FunctionalBuilder, BatchEvaluator, sealed EvaluateInput trait, +InvalidSpin variant (API-01..03; Wave 1)
 - [ ] 06-02a-PLAN.md — Compat infrastructure + lifecycle: c_layout/errno/macros/raw_handle, 4 threshold setters, 5 ext_params setters/getters, 2 errno accessors, Pitfall 4 fix, Pitfall 10 substitution, 25-variant LibxcRsError::discriminant table (16 extern C; COMPAT-02/03; Wave 2 *(blocked on 06-01)*)
 - [ ] 06-02b-PLAN.md — Compat accessors + AK13: 8 discovery, 14 info/reference, 5 library, 9 hybrid+aux+NLC+AK13 (formula inlined verbatim from gga_x_ak13.c with oracle pairs), removed helper (35 extern C; COMPAT-01 partial; Wave 3 *(blocked on 06-02a)*)
 - [ ] 06-03-PLAN.md — 35 evaluate functions (12 LDA + 12 GGA + 11 MGGA, with NULL-skip + order-inference), hand-written include/xc.h with 25 LIBXC_RS_* codes, verify/tests/compat_smoke.rs (closes COMPAT-01; total ≥85 symbols; Wave 4 *(blocked on 06-02b)*)
@@ -162,7 +162,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
 | 4. Bulk Kernel Translation | 5/5 | Complete | 2026-04-24 |
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
-| 6. Public API and C Compatibility | 0/3 | Not started | - |
+| 6. Public API and C Compatibility | 1/4 | In progress | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
 
 ### Phase 8: Rebuild MGGA kernel conversion tool from scratch with iterative pattern verification
