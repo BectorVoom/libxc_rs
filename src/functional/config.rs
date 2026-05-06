@@ -152,18 +152,30 @@ impl Functional {
 
     pub fn set_density_threshold(&mut self, v: f64) {
         self.thresholds.density = v;
+        for aux in self.auxiliaries.iter_mut() {
+            aux.set_density_threshold(v);
+        }
     }
 
     pub fn set_zeta_threshold(&mut self, v: f64) {
         self.thresholds.zeta = v;
+        for aux in self.auxiliaries.iter_mut() {
+            aux.set_zeta_threshold(v);
+        }
     }
 
     pub fn set_sigma_threshold(&mut self, v: f64) {
         self.thresholds.sigma = v;
+        for aux in self.auxiliaries.iter_mut() {
+            aux.set_sigma_threshold(v);
+        }
     }
 
     pub fn set_tau_threshold(&mut self, v: f64) {
         self.thresholds.tau = v;
+        for aux in self.auxiliaries.iter_mut() {
+            aux.set_tau_threshold(v);
+        }
     }
 }
 
@@ -324,6 +336,60 @@ mod tests {
     /// (post Plan 05-04), reading by name must NOT panic. It returns the
     /// `default_value` for the matching spec, or `UnknownExtParamName` if
     /// no spec matches.
+    // === Pitfall 4 — threshold setters propagate to auxiliaries ===
+
+    #[test]
+    fn threshold_propagates_to_aux_density() {
+        let id = FunctionalId::from_name("XC_HYB_GGA_XC_B3LYP").unwrap();
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert!(!f.auxiliary_functionals().is_empty(), "B3LYP must have auxiliaries");
+        f.set_density_threshold(1e-12);
+        assert_eq!(f.thresholds().density, 1e-12);
+        for aux in f.auxiliary_functionals() {
+            assert_eq!(aux.thresholds().density, 1e-12,
+                "aux {} did not receive density threshold", aux.meta().name);
+        }
+    }
+
+    #[test]
+    fn threshold_propagates_to_aux_zeta() {
+        let id = FunctionalId::from_name("XC_HYB_GGA_XC_B3LYP").unwrap();
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert!(!f.auxiliary_functionals().is_empty(), "B3LYP must have auxiliaries");
+        f.set_zeta_threshold(2e-7);
+        assert_eq!(f.thresholds().zeta, 2e-7);
+        for aux in f.auxiliary_functionals() {
+            assert_eq!(aux.thresholds().zeta, 2e-7,
+                "aux {} did not receive zeta threshold", aux.meta().name);
+        }
+    }
+
+    #[test]
+    fn threshold_propagates_to_aux_sigma() {
+        let id = FunctionalId::from_name("XC_HYB_GGA_XC_B3LYP").unwrap();
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert!(!f.auxiliary_functionals().is_empty(), "B3LYP must have auxiliaries");
+        f.set_sigma_threshold(3e-19);
+        assert_eq!(f.thresholds().sigma, 3e-19);
+        for aux in f.auxiliary_functionals() {
+            assert_eq!(aux.thresholds().sigma, 3e-19,
+                "aux {} did not receive sigma threshold", aux.meta().name);
+        }
+    }
+
+    #[test]
+    fn threshold_propagates_to_aux_tau() {
+        let id = FunctionalId::from_name("XC_HYB_GGA_XC_B3LYP").unwrap();
+        let mut f = Functional::new(id, Spin::Unpolarized).unwrap();
+        assert!(!f.auxiliary_functionals().is_empty(), "B3LYP must have auxiliaries");
+        f.set_tau_threshold(4e-14);
+        assert_eq!(f.thresholds().tau, 4e-14);
+        for aux in f.auxiliary_functionals() {
+            assert_eq!(aux.thresholds().tau, 4e-14,
+                "aux {} did not receive tau threshold", aux.meta().name);
+        }
+    }
+
     #[test]
     fn ext_param_getter_does_not_panic_when_ext_params_is_none() {
         let id = FunctionalId::from_raw(1).unwrap();
