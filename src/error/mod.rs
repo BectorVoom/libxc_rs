@@ -144,6 +144,44 @@ pub enum LibxcRsError {
     InvalidSpin(i32),
 }
 
+impl LibxcRsError {
+    /// Map this error to its C-ABI integer discriminant.
+    ///
+    /// Every variant maps to a unique negative integer; the table is mirrored
+    /// in `compat::errno` (and in `include/xc.h` LIBXC_RS_* block, written by
+    /// 06-03). The match is **exhaustive** by design — adding a new variant
+    /// MUST produce a compile error here so the discriminant table is updated
+    /// in lockstep. There is no `_ =>` catch-all arm.
+    pub fn discriminant(&self) -> i32 {
+        match self {
+            Self::UnknownFunctionalId(_)            =>  -4,
+            Self::RemovedFunctionalId { .. }        =>  -6,
+            Self::UnknownFunctionalName(_)          =>  -5,
+            Self::UnsupportedDerivativeOrder { .. } => -15,
+            Self::InputBufferSizeMismatch { .. }    => -12,
+            Self::OutputBufferSizeMismatch { .. }   => -13,
+            Self::FamilyMismatch { .. }             => -10,
+            Self::SpinMismatch { .. }               => -11,
+            Self::ExtParamNotFound { .. }           => -17,
+            Self::ExtParamCountMismatch { .. }      =>  -9,
+            Self::GpuNotAvailable { .. }            => -18,
+            Self::DeviceCapabilityMismatch { .. }   => -19,
+            Self::AllBelowThreshold { .. }          => -20,
+            Self::WorkspaceMismatch { .. }          => -21,
+            Self::KernelLaunchFailed { .. }         => -22,
+            Self::UnsupportedFunctional { .. }      => -16,
+            Self::ExtParamIndexOutOfRange { .. }    =>  -8,
+            Self::UnknownExtParamName { .. }        =>  -7,
+            Self::AuxiliaryInitFailed { .. }        => -23,
+            Self::PropagationConflict { .. }        => -24,
+            Self::BatchOverflow { .. }              => -14,
+            Self::UninitializedHandle               =>  -3,
+            Self::Panicked { .. }                   =>  -1,
+            Self::InvalidSpin(_)                    => -25,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -287,5 +325,58 @@ mod tests {
         let _ = format!("{:?}", LibxcRsError::BatchOverflow { requested: 1, capacity: 0 });
         let _ = format!("{:?}", LibxcRsError::Panicked { message: "x".into() });
         let _ = format!("{:?}", LibxcRsError::InvalidSpin(0));
+    }
+}
+
+#[cfg(test)]
+mod discriminant_tests {
+    use super::*;
+    use crate::model::{DerivativeOrder, Family, FunctionalId, Spin};
+
+    /// Construct one of every variant. Sentinel field values are arbitrary.
+    fn all_variants() -> Vec<LibxcRsError> {
+        let id = FunctionalId::from_raw(1).unwrap();
+        vec![
+            LibxcRsError::UnknownFunctionalId(0),
+            LibxcRsError::RemovedFunctionalId { removed_id: 0, replacement_id: 0, replacement_name: "" },
+            LibxcRsError::UnknownFunctionalName(String::new()),
+            LibxcRsError::UnsupportedDerivativeOrder { id, order: DerivativeOrder::Exc, max: DerivativeOrder::Exc },
+            LibxcRsError::InputBufferSizeMismatch { field: "", expected: 0, actual: 0 },
+            LibxcRsError::OutputBufferSizeMismatch { field: "", expected: 0, actual: 0 },
+            LibxcRsError::FamilyMismatch { id, expected: Family::Lda, actual: Family::Lda },
+            LibxcRsError::SpinMismatch { expected: Spin::Unpolarized, actual: Spin::Unpolarized },
+            LibxcRsError::ExtParamNotFound { id, name: String::new() },
+            LibxcRsError::ExtParamCountMismatch { id, expected: 0, actual: 0 },
+            LibxcRsError::GpuNotAvailable { reason: String::new() },
+            LibxcRsError::DeviceCapabilityMismatch { device: String::new() },
+            LibxcRsError::AllBelowThreshold { np: 0, threshold: 0.0 },
+            LibxcRsError::WorkspaceMismatch { expected_np: 0, actual_np: 0, expected_spin: Spin::Unpolarized, actual_spin: Spin::Unpolarized },
+            LibxcRsError::KernelLaunchFailed { reason: String::new() },
+            LibxcRsError::UnsupportedFunctional { id, reason: "" },
+            LibxcRsError::ExtParamIndexOutOfRange { id, index: 0, count: 0 },
+            LibxcRsError::UnknownExtParamName { id, name: String::new() },
+            LibxcRsError::AuxiliaryInitFailed { parent_id: id, aux_id: id, source: Box::new(LibxcRsError::UnknownFunctionalId(0)) },
+            LibxcRsError::PropagationConflict { id, parent_name: "", aux_slot: 0, aux_name: "" },
+            LibxcRsError::BatchOverflow { requested: 0, capacity: 0 },
+            LibxcRsError::UninitializedHandle,
+            LibxcRsError::Panicked { message: String::new() },
+            LibxcRsError::InvalidSpin(0),
+        ]
+    }
+
+    #[test]
+    fn discriminant_all_variants_unique() {
+        let codes: Vec<i32> = all_variants().iter().map(|e| e.discriminant()).collect();
+        // Every code is negative.
+        for (i, c) in codes.iter().enumerate() {
+            assert!(*c < 0, "variant index {i} returned non-negative discriminant {c}");
+        }
+        // All codes are distinct.
+        let mut sorted = codes.clone();
+        sorted.sort();
+        sorted.dedup();
+        assert_eq!(sorted.len(), codes.len(),
+            "discriminant codes are not unique: codes={codes:?}");
+        assert_eq!(codes.len(), 24, "expected 24 LibxcRsError variants in 06-02a; got {}", codes.len());
     }
 }
