@@ -4,5 +4,6 @@ pub mod c_layout;
 pub mod errno;
 pub mod ids;
 pub mod legacy_eval;
+pub mod macros;
 pub mod raw_handle;
 pub mod removed;
