@@ -116,6 +116,32 @@ pub enum LibxcRsError {
         aux_slot: u8,
         aux_name: &'static str,
     },
+
+    // ── Phase 6 plan 06-01 Task 1: new error variants ────────────────
+
+    /// Caller passed `np` exceeding `BatchEvaluator`'s fixed capacity.
+    /// Per CONTEXT D-A2-2: no amortized growth — preserves the zero-alloc
+    /// invariant of the evaluation hot path. Caller must size for worst case.
+    #[error("batch overflow: requested {requested} points exceeds capacity {capacity}")]
+    BatchOverflow { requested: usize, capacity: usize },
+
+    /// Caller invoked an operation on an `xc_func_type*` that has not yet
+    /// been initialized via `xc_func_init` (or has been reset by `xc_func_end`).
+    /// Surfaces from the C ABI; not raised by pure-Rust API paths.
+    #[error("uninitialized xc_func_type handle: call xc_func_init before use")]
+    UninitializedHandle,
+
+    /// Internal panic was caught at the FFI boundary by `catch_unwind`.
+    /// The captured payload (if String / &str) is preserved in `message`;
+    /// other payload types yield a generic message. Per CONTEXT D-A4-2.
+    #[error("panic in libxc_rs compat layer: {message}")]
+    Panicked { message: String },
+
+    /// Caller passed an out-of-range `nspin` to `xc_func_init` (or any other
+    /// path that takes a raw `int` spin value). Valid values are 1 (unpolarized)
+    /// and 2 (polarized). Used by `compat::raw_handle::xc_func_init` in 06-02a.
+    #[error("invalid spin value {0}: expected 1 (unpolarized) or 2 (polarized)")]
+    InvalidSpin(i32),
 }
 
 #[cfg(test)]
@@ -218,5 +244,48 @@ mod tests {
         assert!(msg.contains("propagation conflict"), "got: {msg}");
         assert!(msg.contains("'_omega'"), "got: {msg}");
         assert!(msg.contains("aux slot 1"), "got: {msg}");
+    }
+
+    // Phase 6 plan 06-01 Task 1: new error variants
+
+    #[test]
+    fn batch_overflow_display() {
+        let e = LibxcRsError::BatchOverflow { requested: 1024, capacity: 256 };
+        let msg = e.to_string();
+        assert!(msg.contains("1024"), "got: {msg}");
+        assert!(msg.contains("256"), "got: {msg}");
+        assert!(msg.to_ascii_lowercase().contains("overflow"), "got: {msg}");
+    }
+
+    #[test]
+    fn uninitialized_handle_display() {
+        let e = LibxcRsError::UninitializedHandle;
+        let msg = e.to_string();
+        assert!(msg.to_ascii_lowercase().contains("uninitialized"), "got: {msg}");
+        assert!(msg.contains("xc_func_init"), "got: {msg}");
+    }
+
+    #[test]
+    fn panicked_display() {
+        let e = LibxcRsError::Panicked { message: "boom".to_string() };
+        let msg = e.to_string();
+        assert!(msg.to_ascii_lowercase().contains("panic"), "got: {msg}");
+        assert!(msg.contains("boom"), "got: {msg}");
+    }
+
+    #[test]
+    fn invalid_spin_display() {
+        let e = LibxcRsError::InvalidSpin(7);
+        let msg = e.to_string();
+        assert!(msg.contains("7"), "got: {msg}");
+        assert!(msg.to_ascii_lowercase().contains("spin"), "got: {msg}");
+    }
+
+    #[test]
+    fn new_variants_implement_debug() {
+        let _ = format!("{:?}", LibxcRsError::UninitializedHandle);
+        let _ = format!("{:?}", LibxcRsError::BatchOverflow { requested: 1, capacity: 0 });
+        let _ = format!("{:?}", LibxcRsError::Panicked { message: "x".into() });
+        let _ = format!("{:?}", LibxcRsError::InvalidSpin(0));
     }
 }
