@@ -125,12 +125,13 @@ Plans:
   3. All 85 public C API functions are implemented as extern "C" with correct signatures matching libxc headers
   4. C-compatible struct layouts pass size/alignment assertions matching libxc's xc_func_type
   5. All unsafe code is confined to compat/, kernel/launch.rs, and GPU buffer management modules
-**Plans**: 3 plans
+**Plans**: 4 plans (06-02 split during revision into 06-02a infra+lifecycle and 06-02b accessors)
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
-- [ ] 06-03: TBD
+- [ ] 06-01-PLAN.md — Layer-3 Rust API: FunctionalBuilder, BatchEvaluator, sealed EvaluateInput trait, +InvalidSpin variant (API-01..03; Wave 1)
+- [ ] 06-02a-PLAN.md — Compat infrastructure + lifecycle: c_layout/errno/macros/raw_handle, 4 threshold setters, 5 ext_params setters/getters, 2 errno accessors, Pitfall 4 fix, Pitfall 10 substitution, 25-variant LibxcRsError::discriminant table (16 extern C; COMPAT-02/03; Wave 2 *(blocked on 06-01)*)
+- [ ] 06-02b-PLAN.md — Compat accessors + AK13: 8 discovery, 14 info/reference, 5 library, 9 hybrid+aux+NLC+AK13 (formula inlined verbatim from gga_x_ak13.c with oracle pairs), removed helper (35 extern C; COMPAT-01 partial; Wave 3 *(blocked on 06-02a)*)
+- [ ] 06-03-PLAN.md — 35 evaluate functions (12 LDA + 12 GGA + 11 MGGA, with NULL-skip + order-inference), hand-written include/xc.h with 25 LIBXC_RS_* codes, verify/tests/compat_smoke.rs (closes COMPAT-01; total ≥85 symbols; Wave 4 *(blocked on 06-02b)*)
 
 ### Phase 7: GPU Backends and Performance
 **Goal**: GPU evaluation delivers >5x CPU throughput on ROCM, all performance targets are met, and the benchmark suite provides regression detection

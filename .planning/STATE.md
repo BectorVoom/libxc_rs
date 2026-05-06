@@ -5,7 +5,7 @@ milestone_name: milestone
 status: Phase 09 in progress (3 of 4 plans done; 09-07 oracle parity sweep pending)
 stopped_at: "Phase 09-06 SPEC acceptance verified (7 PASS / 3 FAIL); parity sweep deferred to 09-07"
 last_updated: "2026-05-06T00:00:00.000Z"
-last_activity: 2026-05-06 -- Phase 06 context gathered (Public API + C Compatibility); 4 gray areas decided
+last_activity: 2026-05-06 -- Phase 06 planned (4 plans: 06-01, 06-02a, 06-02b, 06-03; sequential waves 1→4; verification PASSED iteration 2)
 progress:
   total_phases: 9
   completed_phases: 6
@@ -114,5 +114,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-06T00:00:00.000Z
-Stopped at: Phase 6 context gathered (Public API + C Compatibility — opaque xc_func_type, workspace-only BatchEvaluator, dispatch-trait EvaluateInput, int errno + catch_unwind compat boundary)
-Resume file: .planning/phases/06-public-api-and-c-compatibility/06-CONTEXT.md
+Stopped at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
+Resume file: .planning/phases/06-public-api-and-c-compatibility/06-01-PLAN.md (run /gsd-execute-phase 6 to begin Wave 1)

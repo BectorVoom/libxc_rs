@@ -854,37 +854,37 @@ The Nyquist principle: every externally-observable signal must have at least one
 | Concurrent mutation of shared `xc_func_type*` | Tampering | CONTEXT D-A1-3: single-threaded per handle. **Mitigation:** documented in C header; matches libxc's de-facto contract. No runtime atomic guard (cost in hot path). |
 | Re-init leaking previous Functional | Resource Exhaustion | `std::ptr::replace` (or read+drop+write) ensures the previous Functional drops on re-init. Test under valgrind/LeakSanitizer. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should `xc_functional_get_name` return a freed-by-caller string (libxc-compatible) or a thread-local cached pointer (libxc_rs convention)?**
    - What we know: libxc returns `libxc_malloc`'d strings; the magic constant `XC_EXT_PARAMS_DEFAULT` and the `xc_func_alloc/free` pair already establish a "Rust allocates, C frees via xc_*_free" pattern as feasible.
    - What's unclear: Whether existing C/Fortran integrators rely on the `free()`-able return value or just copy + ignore.
-   - Recommendation: Thread-local cache (matches errno pattern, no 86th function), document loudly. Re-evaluate at Phase 6 verify time if a real C harness reveals friction.
+   - **RESOLVED:** Thread-local cache (matches errno pattern, no 86th function), document loudly. Re-evaluate at Phase 6 verify time if a real C harness reveals friction.
 
 2. **C-harness integration test: hand-rolled `cc`-built C file or pure-Rust FFI exercise?**
    - What we know: CONTEXT § Specifics suggests a "single Rust test that calls our extern "C" functions through their FFI signature" as minimum-viable.
    - What's unclear: Whether the planner will additionally want a 50-line C `.c` file compiled via `cc` build script (true header-compile test) for COMPAT-02 confidence.
-   - Recommendation: Start with Rust-only FFI test (`verify/tests/compat_smoke.rs`); add `cc`-built C harness in a follow-on plan if header-compile confidence is needed. Both are valid.
+   - **RESOLVED:** Start with Rust-only FFI test (`verify/tests/compat_smoke.rs`); add `cc`-built C harness in a follow-on plan if header-compile confidence is needed. Both are valid.
 
 3. **C header committed location: `include/xc.h`, `compat/include/xc.h`, or `target/include/xc.h`?**
    - What we know: PROJECT.md says "drop-in replacement"; users `#include "xc.h"`. CONTEXT mentions both options. No precedent in this repo (currently no `include/` directory).
    - What's unclear: Convention preference — `include/` at repo root is most discoverable.
-   - Recommendation: `include/xc.h` at repo root. Easy to find; aligns with C convention; no build-time generation means it can ship in source tree.
+   - **RESOLVED:** `include/xc.h` at repo root. Easy to find; aligns with C convention; no build-time generation means it can ship in source tree.
 
 4. **`removed.rs` errno code: dedicated `LIBXC_RS_REMOVED` or map to a richer payload via `RemovedFunctionalId`?**
    - What we know: Phase-1 already returns `LibxcRsError::RemovedFunctionalId { removed_id, replacement_id, replacement_name }` with the replacement payload.
    - What's unclear: Whether C callers care about the replacement_id or just want a "this was removed" signal.
-   - Recommendation: Dedicated `LIBXC_RS_REMOVED_FUNCTIONAL_ID = -10` errno code; format the message string as "ID 104 removed; use 1 (XC_LDA_X) instead" in the thread-local message. Best of both worlds.
+   - **RESOLVED:** Dedicated `LIBXC_RS_REMOVED_FUNCTIONAL_ID = -10` errno code; format the message string as "ID 104 removed; use 1 (XC_LDA_X) instead" in the thread-local message. Best of both worlds.
 
 5. **Aux-propagation of threshold setters (Pitfall 4) — fix in Phase 5 surface or duplicate in compat?**
    - What we know: libxc's `set_dens_threshold` walks aux recursively; Phase-5 currently doesn't.
    - What's unclear: Whether anyone has shipped Layer-3 Rust code relying on the non-propagating behavior (likely no — Phase-5 is brand new and has no released downstream consumers).
-   - Recommendation: Fix in Phase 5 surface (one line per setter). Single source of truth. Update Phase-5 unit tests to verify aux propagation.
+   - **RESOLVED:** Fix in Phase 5 surface (one line per setter). Single source of truth. Update Phase-5 unit tests to verify aux propagation.
 
 6. **`xc_lda_new` / `xc_gga_new` exposure of `xc_*_out_params` struct — define in Rust `compat/c_layout.rs` or treat as opaque?**
    - What we know: These structs (`xc.h:196-246`) are part of the C ABI; C callers can construct them, fill in pointers, pass them. We must define them in the C header at minimum.
    - What's unclear: Whether to also `#[repr(C)]` define them in Rust for direct field access in `xc_lda_new` shim, or read field-by-field as raw pointers via offset.
-   - Recommendation: `#[repr(C)]` define them in `compat/c_layout.rs` with all-pointer fields. Layout is well-specified (struct of `*mut f64`); `repr(C)` is required for any C ABI struct we receive by-pointer.
+   - **RESOLVED:** `#[repr(C)]` define them in `compat/c_layout.rs` with all-pointer fields. Layout is well-specified (struct of `*mut f64`); `repr(C)` is required for any C ABI struct we receive by-pointer.
 
 ## Environment Availability
 
