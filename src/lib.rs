@@ -18,6 +18,7 @@ pub mod output;
 pub mod eval;
 pub mod functional;
 pub mod api;
+pub mod compat;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
