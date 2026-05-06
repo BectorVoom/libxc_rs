@@ -17,6 +17,7 @@ pub mod input;
 pub mod output;
 pub mod eval;
 pub mod functional;
+pub mod api;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
@@ -33,3 +34,4 @@ pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};
 pub use functional::{
     classify_hybrid, CamCoefficients, Functional, FunctionalParams, NlcCoefficients, NoParams,
 };
+pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};
