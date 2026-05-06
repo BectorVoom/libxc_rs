@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: Phase 09 in progress (3 of 4 plans done; 09-07 oracle parity sweep pending)
 stopped_at: "Phase 09-06 SPEC acceptance verified (7 PASS / 3 FAIL); parity sweep deferred to 09-07"
-last_updated: "2026-05-04T00:00:00.000Z"
-last_activity: 2026-05-04 -- reconciled stale Phase 05 gap-closure state (gap closure was actually completed 2026-05-02; STATE.md and ROADMAP plan checkboxes updated)
+last_updated: "2026-05-06T00:00:00.000Z"
+last_activity: 2026-05-06 -- Phase 06 context gathered (Public API + C Compatibility); 4 gray areas decided
 progress:
   total_phases: 9
   completed_phases: 6
@@ -113,6 +113,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-29T10:10:16.826Z
-Stopped at: Phase 9 context gathered (SPEC revised Round 3+4: cap raised to 20K; feature-gating removed; phase narrowed to unblock 25 deferred GGAs)
-Resume file: .planning/phases/09-reduce-kernel-build-time/09-CONTEXT.md
+Last session: 2026-05-06T00:00:00.000Z
+Stopped at: Phase 6 context gathered (Public API + C Compatibility — opaque xc_func_type, workspace-only BatchEvaluator, dispatch-trait EvaluateInput, int errno + catch_unwind compat boundary)
+Resume file: .planning/phases/06-public-api-and-c-compatibility/06-CONTEXT.md
