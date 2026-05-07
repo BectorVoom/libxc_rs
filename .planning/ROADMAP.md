@@ -224,6 +224,11 @@ Plans:
 **Plans:** TBD (will be decomposed during /gsd-plan-phase)
 
 Plans:
+**Wave 2**
 - [ ] 10-01-PLAN.md — TBD: extract libxc-core (pure data layer)
+
+**Wave 3** *(blocked on Wave 2 completion)*
 - [ ] 10-02-PLAN.md — TBD: extract libxc-eval (orchestration layer)
+
+**Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 10-03-PLAN.md — TBD: extract libxc-compat (FFI shim) and reduce root to facade

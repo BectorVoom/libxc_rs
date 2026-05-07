@@ -2,7 +2,7 @@
 phase: 10
 slug: workspace-level-modular-split
 status: draft
-nyquist_compliant: false
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-05-07
 ---
@@ -45,9 +45,9 @@ created: 2026-05-07
 | V-10-02   | SC-2: libxc-core has zero CubeCL/kernel-* deps | cargo tree | `cargo tree -p libxc-core --prefix none 2>&1 \| tee log/10-final-cargo-tree-core.log` | grep -E "cubecl\|kernel-(lda\|gga\|mgga\|math)" log/10-final-cargo-tree-core.log returns no matches |
 | V-10-03   | SC-3: libxc-eval has libxc-core, NOT libxc-compat | cargo tree | `cargo tree -p libxc-eval --prefix none 2>&1 \| tee log/10-final-cargo-tree-eval.log` | grep "libxc-core" matches; grep "libxc-compat" returns no matches |
 | V-10-04   | SC-4: libxc-compat has both; nothing depends on libxc-compat | cargo tree | `cargo tree -p libxc-compat --invert 2>&1 \| tee log/10-final-cargo-tree-compat.log` | inverted tree shows only libxc-compat itself (its cdylib output) |
-| V-10-05   | SC-5: root facade preserves public surface | source-grep + check | `grep -rhE "use libxc_rs::[a-zA-Z_:]+" verify/ tests/ examples/ 2>/dev/null \| sort -u > log/10-final-public-surface.log; cargo check -p verify 2>&1 \| tee log/10-final-verify-check.log` | verify/ compiles with zero source changes; surface log diffs cleanly against pre-refactor capture |
+| V-10-05   | SC-5: root facade preserves public surface | source-grep + check | `grep -rhE "use libxc_rs::[a-zA-Z_:]+" verify/ tests/ examples/ 2>/dev/null \| sort -u > log/10-final-public-surface.log; cargo check -p libxc_rs-verify 2>&1 \| tee log/10-final-verify-check.log` | verify/ compiles with zero source changes; surface log diffs cleanly against pre-refactor capture |
 | V-10-06   | SC-6: cargo test parity | cargo test | `cargo test --workspace 2>&1 \| tee log/10-final-cargo-test-workspace.log` | pass/fail set matches pre-refactor baseline captured in Wave 0 (`log/10-pre-baseline-test.log`) |
-| V-10-07   | SC-7: oracle parity at 1e-12 | verify/ harness | `cargo test -p verify --release -- --nocapture 2>&1 \| tee log/10-final-oracle-parity.log` (representative sample: LDA_X, GGA_X_PBE, MGGA_X_TPSS at order 0+2, both spin modes) | every relative error ≤ 1e-12 |
+| V-10-07   | SC-7: oracle parity at 1e-12 | verify/ harness | `cargo test -p libxc_rs-verify --release -- --nocapture 2>&1 \| tee log/10-final-oracle-parity.log` (representative sample: LDA_X, GGA_X_PBE, MGGA_X_TPSS at order 0+2, both spin modes) | every relative error ≤ 1e-12 |
 | V-10-08   | SC-8: zero new warnings | cargo build | `cargo build --workspace 2>&1 \| tee log/10-final-cargo-build-workspace.log` | grep "^warning:" returns no matches |
 
 ---
@@ -79,11 +79,11 @@ created: 2026-05-07
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify entries or are listed under Wave 0
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 captures all 6 baseline files BEFORE any move
-- [ ] No watch-mode flags (`cargo watch`, etc.)
-- [ ] Feedback latency < 120 s
-- [ ] `nyquist_compliant: true` set in frontmatter (planner sets after wiring per-task entries)
+- [x] All tasks have `<automated>` verify entries or are listed under Wave 0
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 captures all 6 baseline files BEFORE any move
+- [x] No watch-mode flags (`cargo watch`, etc.)
+- [x] Feedback latency < 120 s
+- [x] `nyquist_compliant: true` set in frontmatter (planner sets after wiring per-task entries)
 
-**Approval:** pending
+**Approval:** approved 2026-05-08

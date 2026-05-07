@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 06 in progress (1 of 4 plans done; 06-01 Layer-3 API complete; 06-02a next)
-stopped_at: "Phase 06-01 wave 1 merged (b83b005d); 06-02a wave 2 next"
-last_updated: "2026-05-06T00:00:00.000Z"
-last_activity: 2026-05-06 -- Phase 06 wave 1 complete: 06-01 Layer-3 API (FunctionalBuilder, BatchEvaluator, sealed EvaluateInput, 4 new error variants)
+status: Ready to execute
+stopped_at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
+last_updated: "2026-05-07T20:15:43.290Z"
+last_activity: 2026-05-07 -- Phase 10 planning complete
 progress:
-  total_phases: 9
+  total_phases: 10
   completed_phases: 6
-  total_plans: 36
-  completed_plans: 35
-  percent: 97
+  total_plans: 44
+  completed_plans: 36
+  percent: 82
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 09 — reduce-kernel-build-time
+**Current focus:** Phase 06 — public-api-and-c-compatibility
 
 ## Current Position
 
-Phase: 09 (reduce-kernel-build-time) — EXECUTING
-Plan: 4 of 4 (09-07 pending)
+Phase: 06 (public-api-and-c-compatibility) — EXECUTING
+Plan: 1 of 4
 Plans: 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`)
-Last activity: 2026-05-04 -- Phase 05 stale-state reconcile
+Last activity: 2026-05-07 -- Phase 10 planning complete
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
