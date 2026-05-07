@@ -203,3 +203,27 @@ Plans:
 - [x] 09-05-PLAN.md — Generate tools/audit_deferred_gga.py (D-12) + post-09-04 coverage audit + close any mod.rs/lib.rs gaps for the 25 deferred GGAs (Wave 2, autonomous)
 - [ ] 09-06-PLAN.md — End-to-end `cargo check --workspace` (D-13) + re-run all SPEC §Acceptance Criteria commands → log/09-06-spec-acceptance.log (Wave 3, autonomous)
 - [ ] 09-07-PLAN.md — Oracle parity full sweep (D-14): 25 deferred GGAs at strict 1e-12 + MGGA non-regression spot-check via verify/tests/parity_phase09.rs (Wave 4, autonomous)
+
+### Phase 10: Workspace-Level Modular Split
+
+**Goal:** Refactor the root `libxc_rs` crate into a layered Cargo workspace where types and metadata are separated from compute orchestration by compiler-enforced crate boundaries. After this phase, `libxc-core` (model, meta, registry, input, output, layout, dims) contains zero compute logic and zero CubeCL imports; `libxc-eval` (eval, functional, kernel glue, workspace) depends one-way on `libxc-core`; `libxc-compat` (extern "C" shim) depends on both but is depended on by neither; the root `libxc_rs` crate becomes a thin facade over `api/` re-exporting a curated public surface.
+**Driver:** Coupling / unclear boundaries — eval orchestration currently reaches into model and registry types with no compiler wall. Captured via /gsd-explore on 2026-05-07. See `.planning/notes/workspace-modular-architecture.md`.
+**Depends on:** Phase 6 (Public API and C Compatibility) being at a stable seam — best executed after 06-02a settles to avoid colliding with the in-flight extern "C" wrapper work.
+**Pre-planning blockers:**
+  1. Resolve `src/error/` and `src/math/` placement (todo: `audit-error-math-placement`)
+  2. Answer generated-files research question (`.planning/research/questions.md`) — affects xtask codegen flow
+**Success Criteria** (what must be TRUE):
+  1. Four target crates exist: `crates/libxc-core`, `crates/libxc-eval`, `crates/libxc-compat`, plus the root `libxc_rs` facade
+  2. `cargo tree -p libxc-core` shows zero CubeCL or kernel-* dependencies (pure data layer)
+  3. `cargo tree -p libxc-eval` shows `libxc-core` as a dependency but `libxc-compat` is not in the dependency closure
+  4. `cargo tree -p libxc-compat` shows `libxc-eval` and `libxc-core` as dependencies; nothing depends on `libxc-compat` except the cdylib output
+  5. The root `libxc_rs` crate's public surface is unchanged from a downstream consumer's perspective (existing `use libxc_rs::...` paths still resolve via re-export)
+  6. All existing tests pass: `cargo test --workspace` matches pre-refactor pass/fail set
+  7. Oracle parity preserved: `verify/` regression sweep at 1e-12 strict relative error on representative LDA/GGA/MGGA functionals
+  8. `cargo build --workspace` succeeds with zero new warnings
+**Plans:** TBD (will be decomposed during /gsd-plan-phase)
+
+Plans:
+- [ ] 10-01-PLAN.md — TBD: extract libxc-core (pure data layer)
+- [ ] 10-02-PLAN.md — TBD: extract libxc-eval (orchestration layer)
+- [ ] 10-03-PLAN.md — TBD: extract libxc-compat (FFI shim) and reduce root to facade
