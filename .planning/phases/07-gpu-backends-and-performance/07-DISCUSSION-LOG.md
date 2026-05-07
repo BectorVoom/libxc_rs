@@ -210,3 +210,91 @@ Areas where the user left Claude flexibility (documented in CONTEXT.md):
 None surfaced during discussion that weren't already in REQUIREMENTS.md v2 / Out of Scope. User's response to the "anything else to capture" question was "Nothing more."
 
 Scope-creep ideas that could have appeared (e.g. bf16, mixed-precision evaluation, runtime precision switching without reconstruction) are explicitly documented in CONTEXT.md `<deferred>` for future-phase consideration.
+
+---
+
+# 2026-05-07 Update — Backend Feature Flags
+
+**Trigger:** User directive: "I want to pick backend by feature flag." Re-opened CONTEXT.md `Phase Shape + Backend Matrix` area only; D-01..D-08 (Codegen, Precision Selection, Verification) confirmed unchanged.
+
+**Areas re-discussed:** Phase shape + backend matrix (D-09..D-11). Three new decisions added (D-12, D-13, D-14).
+
+## Pre-discussion: State Check
+
+Two grounding observations surfaced before re-opening:
+
+1. **Phase 6 still in flight.** STATE.md shows 06-02a/02b/03 pending. CONTEXT had treated Phase 6 as sealed; new backend wiring in Phase 7 must respect what 06-02b emits in `compat/` and the builder/error surface.
+2. **Plan 07-01 doc amendments not yet run.** PROJECT.md still says `Precision: f64 only`; REQUIREMENTS.md still has `f32 evaluation mode` under Out of Scope. The original D-11 amendment list remains load-bearing.
+
+## Re-opened Area — Phase Shape + Backend Matrix (D-09..D-11)
+
+### Q1: Feature composition model
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Additive: multi-backend, runtime picks (Recommended) | Multiple backend features may be enabled together; binary contains all enabled backends; runtime/builder picks. `default = ["cpu"]`. | ✓ |
+| Mutually exclusive: pick exactly one | One backend feature at a time; conflicting combos fire `compile_error!`. | |
+| Additive + auto-default at runtime | Same as additive, but priority order CUDA > HIP > WGPU > CPU when no preference given. | |
+
+**User's choice:** Additive multi-backend; default = `cpu`. Locked into D-12.
+
+### Q2: Precision dimension under feature flags?
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Backend only — precision stays runtime (Recommended) | D-04a/D-05 unchanged: env var + builder + all 3 precisions always compiled. Smallest delta. | ✓ |
+| Both backend AND precision feature-flagged | Adds `precision-f64`/`precision-f32`/`precision-f16` features; reopens D-05. | |
+| Backend feature-flagged; drop f16 entirely | Simplifies matrix to f64+f32 only; removes WARN-only kxc/lxc bands. | |
+
+**User's choice:** Backend only. D-04a/D-05 confirmed unchanged.
+
+### Q3: `Backend` enum representation under feature flags
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Variants cfg-gated (compile-time absence) | `Backend::Cuda` doesn't exist without `cuda` feature; mention is compile error; match arms need `#[cfg]`. | ✓ |
+| All variants always exist; runtime error | Enum complete; `Functional::new` returns `BackendNotCompiledIn` if requested backend is feature-disabled. | |
+
+**User's choice:** Cfg-gated variants. Locked into D-13. Runtime `BackendNotCompiledIn` still exists for the env-var parse path (string-keyed, since the variant cannot be constructed).
+
+### Q4: Default backend when no preference is given
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Always CPU when CPU feature is enabled | Default = `Backend::Cpu`; user must explicitly opt into GPU. | |
+| Priority order: CUDA > HIP > WGPU > CPU | Pick most-capable compiled-in backend; ergonomic but surprising for embedded use. | |
+| Add `LIBXC_RS_BACKEND` env var (default = CPU) (Recommended) | Mirror `LIBXC_RS_PRECISION`; env-var-driven default; builder override wins. | ✓ |
+
+**User's choice:** `LIBXC_RS_BACKEND` env var. Locked into D-14. Symmetric with precision-selection idiom from D-04a.
+
+### Q5: Plan placement for feature-flag scaffolding
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Fold into Plan 07-03 (Recommended) | Plan 07-03 already covers selection mechanism (precision); add backend feature gates, cfg'd `Backend` enum, env var, and new error variants here. | ✓ |
+| Promote to a dedicated Plan 07-02.5 | Separate scaffolding plan between translator regen and dispatch genericization. | |
+| Spread across Plans 07-05/06/07 | Each backend plan self-contained with its own feature gate. | |
+
+**User's choice:** Fold into Plan 07-03. D-09 plan list updated; Plans 07-05/06/07 become smaller (body-only).
+
+## New Decisions Locked
+
+- **D-12:** Additive Cargo features `cpu` (default) / `cuda` / `hip` / `wgpu`, each forwarding to `cubecl/<feature>`.
+- **D-13:** `Backend` enum variants are `#[cfg(feature = "...")]`-gated. `match` arms over `Backend` carry parallel `#[cfg]` attributes. Runtime env-var path uses string-keyed `Error::BackendNotCompiledIn { backend_name: String }`.
+- **D-14:** `LIBXC_RS_BACKEND` env var with strict lowercase parsing; `Error::InvalidBackendEnvVar(String)` for unknown names; `Error::BackendNotCompiledIn { backend_name }` for valid names with disabled feature; `FunctionalBuilder::backend()` per-instance override.
+
+## Cascade Edits to Existing Decisions
+
+- **D-09:** Plan 07-03 description updated to absorb backend feature-flag scaffolding alongside precision plumbing. Plans 07-05/06/07 noted as body-only (scaffolding lives upstream).
+- **D-10:** Reframed as two-layer (compile-time feature gate + runtime precision check). Matrix table now includes Cargo-feature column.
+- **D-11:** PROJECT.md amendment expanded to update the "Unified CubeCL substrate" Active requirement. REQUIREMENTS.md amendment adds **PREC-07** (Cargo features) and **PREC-08** (`LIBXC_RS_BACKEND` env var). CLAUDE.md amendment now includes the commented-out `[features]` example in the Installation section.
+
+## Confirmed Unchanged
+
+D-01, D-02, D-03 (Codegen) — User did not re-open. Single generic `<F: Float>` emission stays.
+D-04a, D-04b, D-05 (Precision Selection) — Confirmed by Q2 selection. Env var + builder; C FFI f64-only; all 3 precisions always compiled.
+D-06, D-07, D-08 (Verification) — User did not re-open. Two-track harness, per-order tolerance bands, full coverage stay.
+
+## Deferred Ideas (no new ones)
+
+No new deferred ideas surfaced in this update. All items in CONTEXT.md `<deferred>` remain valid.

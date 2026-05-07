@@ -1,6 +1,7 @@
 # Phase 7: GPU Backends and Performance — Context
 
 **Gathered:** 2026-04-24
+**Updated:** 2026-05-07 — backend selection moved to additive Cargo features (D-12); D-09/D-10/D-11 revised; D-01..D-08 unchanged.
 **Status:** Ready for planning
 
 <domain>
@@ -59,31 +60,36 @@ Phase 7 delivers a **multi-precision compute substrate + GPU backends + performa
 
 ### Phase Shape + Backend Matrix (Area 4)
 
-- **D-09:** **Phase 7 is enlarged** to absorb the precision refactor. Target ~6–8 plans (up from 3 in the current roadmap). Suggested plan decomposition (planner may refine):
+- **D-09 (revised 2026-05-07):** **Phase 7 is enlarged** to absorb the precision refactor *and* the backend feature-flag scaffolding. Target ~6–8 plans (up from 3 in the current roadmap). Suggested plan decomposition (planner may refine):
   1. Plan 07-01 — **Doc amendments** (see D-11).
   2. Plan 07-02 — Update `tools/translate_*.py` to emit generic; regenerate kernel-math and kernel-lda/gga/mgga sub-crates.
-  3. Plan 07-03 — Genericize dispatch enums, input/output bundles, `Functional<F>`, `BatchEvaluator<F>`; add `Precision` enum + env var + builder override.
+  3. Plan 07-03 — Selection-mechanism plumbing: genericize dispatch enums, input/output bundles, `Functional<F>`, `BatchEvaluator<F>`; add `Precision` enum + `LIBXC_RS_PRECISION` env var + builder override; **AND** add Cargo `[features]` block (D-12), `Backend` enum with cfg-gated variants, `LIBXC_RS_BACKEND` env var + builder override, `Error::InvalidBackendEnvVar`, `Error::BackendNotCompiledIn { backend_name }`. Both selection mechanisms land in one plan because they share the same builder/env-var idiom.
   4. Plan 07-04 — Two-track verify/ harness with per-precision tolerance bands; calibrate against LDA_X.
-  5. Plan 07-05 — CUDA backend (f64+f32) via cubecl-cuda; device selection, buffer management.
-  6. Plan 07-06 — HIP backend (f64+f32) via cubecl-hip.
-  7. Plan 07-07 — WGPU backend (f32 only) via cubecl-wgpu; runtime error for f64/f16 request.
+  5. Plan 07-05 — CUDA backend (f64+f32) via cubecl-cuda; behind `cuda` feature; device selection, buffer management. Scaffolding from 07-03 already in place — this plan only adds the body.
+  6. Plan 07-06 — HIP backend (f64+f32) via cubecl-hip; behind `hip` feature.
+  7. Plan 07-07 — WGPU backend (f32 only) via cubecl-wgpu; behind `wgpu` feature; runtime `Error::BackendPrecisionUnsupported` for f64/f16 request.
   8. Plan 07-08 — Benchmark suite + performance targets (`PERF-01..05`, `VERIFY-08`).
-- **D-10:** **Conservative backend × precision matrix:**
+- **D-10 (revised 2026-05-07):** **Two-layer backend × precision matrix** — compile-time gating via Cargo features (D-12) plus runtime precision check:
 
-  | Backend | f64 | f32 | f16 |
-  |---------|-----|-----|-----|
-  | CPU (cubecl-cpu) | yes | yes | yes |
-  | CUDA (cubecl-cuda) | yes | yes | deferred to v2 |
-  | HIP (cubecl-hip) | yes | yes | deferred to v2 |
-  | WGPU (cubecl-wgpu) | **no** (WebGPU spec) | yes | deferred to v2 |
+  | Backend | Cargo feature | f64 | f32 | f16 |
+  |---------|---------------|-----|-----|-----|
+  | CPU (cubecl-cpu) | `cpu` (default) | yes | yes | yes |
+  | CUDA (cubecl-cuda) | `cuda` | yes | yes | deferred to v2 |
+  | HIP (cubecl-hip) | `hip` | yes | yes | deferred to v2 |
+  | WGPU (cubecl-wgpu) | `wgpu` | **no** (WebGPU spec) | yes | deferred to v2 |
 
-  Unsupported combos return `Error::BackendPrecisionUnsupported { backend, precision }` at `Functional::new()`. WGPU + f64 request returns the same error (supersedes the old "typed f64-unsupported error" wording in the original GPU-06 requirement — see D-11).
+  **Layer 1 (compile-time):** If a backend's Cargo feature isn't enabled, the corresponding `Backend::*` enum variant doesn't exist — referencing it is a compile error. `LIBXC_RS_BACKEND` env-var requests for a not-compiled-in backend raise `Error::BackendNotCompiledIn { backend_name }` at parse time (string-keyed because the enum variant cannot be constructed).
+
+  **Layer 2 (runtime):** For a backend that *is* compiled in, requesting an unsupported precision returns `Error::BackendPrecisionUnsupported { backend, precision }` at `Functional::new()` / `FunctionalBuilder::build()`. WGPU + f64 (and any backend + f16 for non-CPU) follow this path.
+
+  This supersedes the old "typed f64-unsupported error" wording in the original GPU-06 requirement — see D-11.
 
 ### Prerequisite Doc Amendments
 
-- **D-11:** **Plan 07-01 amends PROJECT.md and REQUIREMENTS.md** before any code work. Specific amendments:
+- **D-11 (revised 2026-05-07):** **Plan 07-01 amends PROJECT.md and REQUIREMENTS.md** before any code work. Specific amendments:
   - **PROJECT.md Constraints:** `Precision: f64 only; energy relative error <= 10^-12 vs libxc oracle` → `Precision: f64 default (oracle-comparison path remains end-to-end f64, relative error <= 10^-12); f32 and f16 supported as Rust-side capabilities for real-world operation (per Track 2 tolerance bands).`
   - **PROJECT.md Constraints:** `GPU precision: No silent f32 fallback; typed error if device lacks f64 support` → `GPU precision: No silent precision degradation; typed Error::BackendPrecisionUnsupported when a backend/precision combo is unavailable (e.g. WGPU + f64).`
+  - **PROJECT.md Active requirements:** Update `Unified CubeCL substrate: single kernel source compiles to cubecl-cpu (always), cubecl-cuda, cubecl-hip, cubecl-wgpu (feature-gated)` → `Unified CubeCL substrate: single kernel source compiles to cubecl-cpu (default Cargo feature), cubecl-cuda, cubecl-hip, cubecl-wgpu (each behind its own additive Cargo feature). Multiple backend features may be enabled simultaneously; runtime selects via FunctionalBuilder::backend() or LIBXC_RS_BACKEND env var.`
   - **REQUIREMENTS.md Out of Scope:** Remove `f32 evaluation mode -- precision requirements mandate f64 throughout; mixed precision would be misleading`. Add explanatory note in Context that f32/f16 are Rust-only and never compared directly to libxc.
   - **REQUIREMENTS.md GPU-06:** `f64-only precision policy: typed error if device lacks f64 support, no silent f32 fallback` → `Precision policy: f64 is the default and only precision used for oracle comparison. f32/f16 are Rust-side capabilities selectable via LIBXC_RS_PRECISION env var or FunctionalBuilder::precision(). Unsupported backend/precision combos return Error::BackendPrecisionUnsupported.`
   - **REQUIREMENTS.md Phase 7 Success Criterion #4:** `WGPU backend returns a typed error at runtime if the device lacks f64 support (no silent f32 fallback)` → `WGPU backend only supports f32 (WebGPU spec lacks f64). Requesting WGPU with f64 or f16 returns Error::BackendPrecisionUnsupported at Functional::new().`
@@ -94,8 +100,48 @@ Phase 7 delivers a **multi-precision compute substrate + GPU backends + performa
     - **PREC-04:** Two-track verification: Track 1 (f64 vs libxc) at Phase-4 tolerances; Track 2 (f32/f16 vs Rust-f64) at per-order bands per D-07.
     - **PREC-05:** Backend × precision matrix per D-10; unsupported combos return typed error.
     - **PREC-06:** C FFI is f64-only; precision is Rust-side capability.
-  - Update **Traceability** table to map PREC-01..06 to Phase 7.
-  - Plan 07-01 also updates CLAUDE.md's technology stack table footer and the "Constraints" block to match.
+    - **PREC-07 (NEW):** Cargo features `cpu`/`cuda`/`hip`/`wgpu` select compiled-in backends. Default = `cpu`. Multiple features may be enabled additively. `Backend` enum variants are `#[cfg(feature = "...")]`-gated; not-compiled-in backends are a compile error to reference and an `Error::BackendNotCompiledIn` at runtime when requested via `LIBXC_RS_BACKEND`.
+    - **PREC-08 (NEW):** `LIBXC_RS_BACKEND` env var recognized at `Functional::new()`; values `cpu` | `cuda` | `hip` | `wgpu`; default `cpu`; `FunctionalBuilder::backend(Backend)` per-instance override; invalid value returns `Error::InvalidBackendEnvVar(String)`.
+  - Update **Traceability** table to map PREC-01..08 to Phase 7.
+  - Plan 07-01 also updates CLAUDE.md's technology stack table footer, the "Constraints" block, and the commented-out `[features]` example in the Installation section to match the locked feature shape from D-12.
+
+### Backend Feature Flags (Area 5 — added 2026-05-07)
+
+- **D-12 (NEW):** **Backend selection is compile-time via additive Cargo features.** Locked feature shape:
+  ```toml
+  [features]
+  default = ["cpu"]
+  cpu  = ["cubecl/cpu"]
+  cuda = ["cubecl/cuda"]
+  hip  = ["cubecl/hip"]
+  wgpu = ["cubecl/wgpu"]
+  ```
+  - **Additive:** Multiple backend features may be enabled simultaneously (e.g. `cargo build --features "cpu,cuda"`). The compiled binary contains all enabled backends; runtime dispatches via `FunctionalBuilder::backend()` or `LIBXC_RS_BACKEND`.
+  - **Default = `cpu`:** `cargo build` (no flags) yields a CPU-only binary. Matches the existing `cubecl = { ..., features = ["cpu"] }` baseline.
+  - **No `--no-default-features` requirement for GPU users:** `cargo build --features cuda` keeps CPU available alongside CUDA. To get a GPU-only binary, users pass `--no-default-features --features cuda`.
+  - **Feature flags are backend-only.** Per the Update banner, precision (f64/f32/f16) stays runtime per D-04a/D-05; no `precision-*` Cargo features.
+  - **Binary-size note:** Adding `cuda`/`hip`/`wgpu` pulls in their respective cubecl backend deps. CI build matrix (Plan 07-08 scope) should cover at minimum `default`, `--features cuda`, `--features wgpu`, and `--features all-backends` (alias) so feature-gate breakage is caught early.
+
+- **D-13 (NEW):** **`Backend` enum uses `#[cfg]`-gated variants.** Locked shape:
+  ```rust
+  pub enum Backend {
+      Cpu,
+      #[cfg(feature = "cuda")] Cuda,
+      #[cfg(feature = "hip")]  Hip,
+      #[cfg(feature = "wgpu")] Wgpu,
+  }
+  ```
+  - **Compile-time enforcement:** Code that mentions `Backend::Cuda` without the `cuda` feature is a compile error. Match arms in dispatch must use parallel `#[cfg]` attributes. Downstream callers that want portable code must `#[cfg]`-gate their backend-specific paths.
+  - **No `Error::BackendNotCompiledIn` at the type level:** the type system already enforces it for `Backend::*` literals.
+  - **Runtime fallback for env-var path:** `LIBXC_RS_BACKEND=cuda` on a binary built without the `cuda` feature must still parse without panicking. Parse layer returns `Error::BackendNotCompiledIn { backend_name: String }` (string-keyed because the enum variant doesn't exist).
+
+- **D-14 (NEW):** **`LIBXC_RS_BACKEND` env var, parallel to `LIBXC_RS_PRECISION`:**
+  - Values: `cpu` | `cuda` | `hip` | `wgpu` (lowercase, exact match — same strict parsing discipline as `LIBXC_RS_PRECISION`).
+  - Unset → default `Backend::Cpu`.
+  - Invalid value (uppercase, whitespace, unknown name) → `Error::InvalidBackendEnvVar(String)`.
+  - Valid value but feature not compiled in → `Error::BackendNotCompiledIn { backend_name: String }`.
+  - `FunctionalBuilder::backend(Backend::X)` per-instance override always wins over the env var.
+  - Implement `FromStr` for `Backend` (matches the env-var grammar one-to-one); `Display` lowercase. Note: `FromStr` impl needs `#[cfg]` arms — for not-compiled-in names, return the `BackendNotCompiledIn` error rather than `InvalidBackendEnvVar`.
 
 ### Claude's Discretion
 
@@ -117,10 +163,11 @@ None — no pending todos matched Phase 7 scope at discussion time.
 
 ### Project-level (authoritative)
 - `.planning/PROJECT.md` — Core value, constraints, key decisions. **Will be amended in Plan 07-01** (see D-11); Plan 07-01 must run first.
-- `.planning/REQUIREMENTS.md` — GPU-01..07, VERIFY-08, PERF-01..05; new PREC-01..06 added in Plan 07-01.
+- `.planning/REQUIREMENTS.md` — GPU-01..07, VERIFY-08, PERF-01..05; new PREC-01..08 added in Plan 07-01 (PREC-07/08 cover backend Cargo features and `LIBXC_RS_BACKEND` env var per D-12/D-13/D-14).
 - `.planning/ROADMAP.md` §Phase 7 — original goal text (to be updated alongside PROJECT.md).
 - `.planning/STATE.md` — current progress snapshot.
-- `CLAUDE.md` — Recommended Stack table, Key Technical Risks (see especially the "WGPU backend lacks f64 on many GPUs" and "CubeCL 0.9.0 kernel compilation limits" rows, which this phase directly addresses).
+- `Cargo.toml` (workspace root) — current `cubecl = { ..., features = ["cpu"] }` line is the baseline; Plan 07-03 introduces the `[features]` block per D-12 and rewires this dep. **Authoritative source of truth for the locked feature shape.**
+- `CLAUDE.md` — Recommended Stack table, Key Technical Risks (see especially the "WGPU backend lacks f64 on many GPUs" and "CubeCL 0.9.0 kernel compilation limits" rows, which this phase directly addresses). The Installation section's commented-out `[features]` example must be updated by Plan 07-01 to match D-12's locked shape.
 
 ### Prior-phase decisions (locked, carry forward)
 - `.planning/phases/04-bulk-kernel-translation/` — Phase 4 established the 170 sub-crate layout, dispatch enum pattern, and oracle tolerance regime. Track 1 verification inherits directly.
@@ -169,8 +216,9 @@ None — no pending todos matched Phase 7 scope at discussion time.
 
 - **Public crate root (`src/lib.rs`):** Add `pub enum Precision { F64, F32, F16 }` and the runtime-dispatching `Functional` facade. This is the boundary between generic internals and non-generic external API — downstream agents must understand this is where monomorphizations get unified.
 - **`src/api/builder.rs`:** Existing `FunctionalBuilder` gains `.precision(Precision)` method. Default comes from env var at `.build()` time.
-- **`src/error.rs`:** Add `Error::BackendPrecisionUnsupported { backend, precision }`, `Error::InvalidPrecisionEnvVar(String)`, `Error::PrecisionMismatch { expected, got }` variants.
-- **`src/kernel/launch.rs`:** Kernel launcher becomes `launch_lda<F: Float, B: Backend>(...)`; backend selection (CPU/CUDA/HIP/WGPU) and precision (F) are orthogonal generic parameters. Dispatch matrix per D-10 enforced here with compile-time + runtime guards.
+- **`src/error.rs`:** Add `Error::BackendPrecisionUnsupported { backend, precision }`, `Error::InvalidPrecisionEnvVar(String)`, `Error::PrecisionMismatch { expected, got }`, `Error::InvalidBackendEnvVar(String)`, `Error::BackendNotCompiledIn { backend_name: String }` variants. The last two are added by Plan 07-03 alongside the precision variants — see D-12/D-13/D-14.
+- **`src/kernel/launch.rs`:** Kernel launcher becomes `launch_lda<F: Float, B: Backend>(...)`; backend selection (CPU/CUDA/HIP/WGPU) and precision (F) are orthogonal generic parameters. Dispatch matrix per D-10 enforced here with **compile-time `#[cfg]` gates** (matching `Backend` enum variants per D-13) and runtime precision guards. Match arms over `Backend` must carry `#[cfg(feature = "...")]` attributes parallel to the enum definition.
+- **`Cargo.toml` (workspace root):** Currently has `cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }` and **no `[features]` section**. Plan 07-03 adds the locked `[features]` block from D-12 and rewires the `cubecl` dependency to forward the feature set (`cubecl = { version = "0.9.0", default-features = false }` + per-feature `cubecl/cpu` etc. activations).
 - **`verify/Cargo.toml`:** No new dependencies; bindgen/cmake/libxc-master vendor stays. New test files: `low_precision_consistency.rs` for Track 2.
 - **`compat/` (Phase 6's C FFI module):** **No changes from D-04b.** C symbols stay f64-only. This is a simplifying outcome.
 
@@ -180,6 +228,8 @@ None — no pending todos matched Phase 7 scope at discussion time.
 - **Phase 9 (Reduce Kernel Build Time) overlaps directly.** Tripling monomorphizations can 3× compile time in the worst case. Phase 9's feature-gating approach (`--features gga`, `--features all-kernels`) may need to extend to precision dimensions if build time regresses. Plan ahead: measure compile time before and after D-01/D-02 regeneration, compare against Phase 9 baseline.
 - **f16 subnormal threshold (~6.1e-5)** is above many polynomial coefficients in GGA/MGGA functionals. Some functionals may silently flush-to-zero at f16 for specific coefficient combinations — this is a correctness concern that Track 2 (D-06) will surface via the WARN-only kxc/lxc bands.
 - **CubeCL 0.9.0 f16 support varies by backend:** cubecl-cpu has f16 (software); cubecl-cuda requires compute capability ≥6.0 with native f16; cubecl-hip f16 status less documented; cubecl-wgpu f16 depends on `SHADER_F16` extension. D-10's conservative matrix sidesteps most of this for v1.
+- **Cfg-gated enum variants force `#[cfg]` propagation through the codebase:** every `match` over `Backend` and every type-level use of `Backend::Cuda` etc. needs parallel `#[cfg]` attributes. This is the cost of D-13's compile-time enforcement and is preferred to a runtime-only matrix per the user's directive. Researcher should establish a `match_backend!` macro idiom (or equivalent) in Plan 07-03 to avoid `#[cfg]` boilerplate at every call site.
+- **Workspace-wide feature propagation:** `verify/`, `bench/`, and `xtask/` subcrates depend on the main crate. They must declare matching feature passthroughs (e.g., `libxc_rs = { workspace = true, features = ["cuda"] }`) when running GPU tests/benches. Plan 07-04 (verify) and Plan 07-08 (bench) own this.
 
 </code_context>
 
@@ -190,6 +240,9 @@ None — no pending todos matched Phase 7 scope at discussion time.
 - **Calibration harness precedes band locking:** D-07 bands must be validated against measured LDA_X worst-case before they're committed as hard CI gates. Plan 07-04 should include a calibration step: regenerate LDA_X at f32 and f16, measure relative error vs f64 across the Phase 4 test-point grid (H, Li, BrOH, BrOH+), then adjust D-07 values up or down before lock.
 - **Env var parsing: strict, not permissive.** `LIBXC_RS_PRECISION=F64` (uppercase), `= f32 ` (whitespace), `=double` (libxc-ism) all return `Error::InvalidPrecisionEnvVar(value)`. Exact match on lowercase `f64` | `f32` | `f16` only. Unset env var defaults to `Precision::F64`.
 - **`Precision` enum Display/FromStr:** Implement `FromStr` for parsing env var; `Display` lowercase. Matches the env var grammar one-to-one.
+- **`LIBXC_RS_BACKEND` env var (D-14): same strict parsing discipline as `LIBXC_RS_PRECISION`.** Lowercase exact match on `cpu` | `cuda` | `hip` | `wgpu`; unset defaults to `Backend::Cpu`. Two distinct error paths: `Error::InvalidBackendEnvVar(String)` for unknown names (e.g. `nvidia`, `gpu`), `Error::BackendNotCompiledIn { backend_name: String }` for valid names whose feature isn't enabled in this build. The `BackendNotCompiledIn` arm exists because the corresponding `Backend::*` enum variant doesn't exist (D-13) — so the parse layer must short-circuit before constructing one.
+- **`Backend::FromStr` implementation needs `#[cfg]` arms:** the parse function dispatches to `Ok(Backend::Cuda)` only under `#[cfg(feature = "cuda")]`; the `#[cfg(not(feature = "cuda"))]` path returns `Err(BackendNotCompiledIn { backend_name: "cuda".to_string() })`. This pattern is the canonical way to surface compile-time-absent backends as runtime errors in env-var/serde paths. Researcher should template this in Plan 07-03 — pattern repeats for hip and wgpu.
+- **CI build matrix (Plan 07-08): cover at minimum `cargo build` (default), `cargo build --features "cuda"`, `cargo build --features "wgpu"`, and `cargo build --features "cuda,hip,wgpu"` (all-backends additive).** Each combination should also run `cargo check --no-default-features --features cuda` to catch missing `#[cfg]` arms in CPU-default code paths.
 
 </specifics>
 
@@ -215,3 +268,4 @@ None — no matching todos at discussion time.
 
 *Phase: 07-gpu-backends-and-performance*
 *Context gathered: 2026-04-24*
+*Updated: 2026-05-07 — D-09/D-10/D-11 revised; D-12/D-13/D-14 added; backend selection moved to additive Cargo features per user directive.*
