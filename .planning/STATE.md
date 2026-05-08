@@ -115,7 +115,7 @@ None yet.
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
-| 260508-q01 | Update cubecl to 0.10.0 in all workspace | 2026-05-08 | TBD | [260508-q01-update-cubecl-010-workspace](.planning/quick/260508-q01-update-cubecl-010-workspace/) |
+| 260508-q01 | Update cubecl to 0.10.0 in all workspace | 2026-05-08 | 784c8fc8 | [260508-q01-update-cubecl-010-workspace](.planning/quick/260508-q01-update-cubecl-010-workspace/) |
 
 ## Session Continuity
 
