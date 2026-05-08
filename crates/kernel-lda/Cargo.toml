@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
-libxc-kernel-math = { path = "../kernel-math" }
-bytemuck = { version = "1.25.0", features = ["derive"] }
+libxc-kernel-lda-1 = { path = "../kernel-lda-1" }
+libxc-kernel-lda-2 = { path = "../kernel-lda-2" }
+libxc-kernel-lda-3 = { path = "../kernel-lda-3" }
+libxc-kernel-lda-4 = { path = "../kernel-lda-4" }
 
 [dev-dependencies]
 libxc_rs = { path = "../.." }
-

@@ -3,51 +3,52 @@
 #![allow(clippy::too_many_arguments)]
 
 //! LDA kernel implementations (incremental derivative structure).
-//! Auto-generated: 41 functionals (37 compiled, 4 deferred).
+//! Auto-generated: 41 functionals re-exported from 4 sub-crates.
+//! Bin-packed by tools/split_lda_subcrates.py
 
-pub mod hyb_lda_xc_bn05;
-pub mod lda_c_1d_csc;
-pub mod lda_c_1d_loos;
-pub mod lda_c_2d_amgb;
-pub mod lda_c_2d_prm;
-pub mod lda_c_chachiyo;
-pub mod lda_c_chachiyo_mod;
-pub mod lda_c_gk72;
-pub mod lda_c_gombas;
-pub mod lda_c_hl;
-pub mod lda_c_lp96;
-pub mod lda_c_ml1;
-pub mod lda_c_pw;
-pub mod lda_c_pz;
-pub mod lda_c_rc04;
-pub mod lda_c_rpa;
-pub mod lda_c_vwn;
-pub mod lda_c_vwn_1;
-pub mod lda_c_vwn_2;
-pub mod lda_c_vwn_3;
-pub mod lda_c_vwn_4;
-pub mod lda_c_vwn_rpa;
-pub mod lda_c_w20;
-pub mod lda_c_wigner;
-pub mod lda_k_gds08_worker;
-pub mod lda_k_tf;
-pub mod lda_k_zlp;
-pub mod lda_x;
-pub mod lda_x_2d;
-pub mod lda_x_erf;
-pub mod lda_x_rel;
-pub mod lda_x_sloc;
-pub mod lda_x_yukawa;
-pub mod lda_xc_1d_ehwlrg;
-pub mod lda_xc_teter93;
-pub mod lda_xc_tih;
-pub mod lda_xc_zlp;
-
+// `deferred` is in-aggregator metadata (not a kernel module).
 pub mod deferred;
 
-// Deferred: source generated with incremental structure but individual functions
-// exceed CubeCL proc macro stack limits (kxc_pol/lxc_pol > 10K lines).
-pub mod lda_c_pk09;
-pub mod lda_c_pmgb06;
-pub mod lda_c_pw_erf;
-pub mod lda_xc_ksdt;
+// Functional re-exports (paths preserved so that
+// `use libxc_kernel_lda::<func>::*;` keeps working).
+pub use libxc_kernel_lda_1::hyb_lda_xc_bn05;
+pub use libxc_kernel_lda_2::lda_c_1d_csc;
+pub use libxc_kernel_lda_2::lda_c_1d_loos;
+pub use libxc_kernel_lda_2::lda_c_2d_amgb;
+pub use libxc_kernel_lda_2::lda_c_2d_prm;
+pub use libxc_kernel_lda_2::lda_c_chachiyo;
+pub use libxc_kernel_lda_2::lda_c_chachiyo_mod;
+pub use libxc_kernel_lda_2::lda_c_gk72;
+pub use libxc_kernel_lda_2::lda_c_gombas;
+pub use libxc_kernel_lda_2::lda_c_hl;
+pub use libxc_kernel_lda_2::lda_c_lp96;
+pub use libxc_kernel_lda_1::lda_c_ml1;
+pub use libxc_kernel_lda_3::lda_c_pk09;
+pub use libxc_kernel_lda_3::lda_c_pmgb06;
+pub use libxc_kernel_lda_2::lda_c_pw;
+pub use libxc_kernel_lda_4::lda_c_pw_erf;
+pub use libxc_kernel_lda_2::lda_c_pz;
+pub use libxc_kernel_lda_2::lda_c_rc04;
+pub use libxc_kernel_lda_2::lda_c_rpa;
+pub use libxc_kernel_lda_1::lda_c_vwn;
+pub use libxc_kernel_lda_3::lda_c_vwn_1;
+pub use libxc_kernel_lda_1::lda_c_vwn_2;
+pub use libxc_kernel_lda_1::lda_c_vwn_3;
+pub use libxc_kernel_lda_1::lda_c_vwn_4;
+pub use libxc_kernel_lda_1::lda_c_vwn_rpa;
+pub use libxc_kernel_lda_1::lda_c_w20;
+pub use libxc_kernel_lda_2::lda_c_wigner;
+pub use libxc_kernel_lda_2::lda_k_gds08_worker;
+pub use libxc_kernel_lda_2::lda_k_tf;
+pub use libxc_kernel_lda_2::lda_k_zlp;
+pub use libxc_kernel_lda_2::lda_x;
+pub use libxc_kernel_lda_2::lda_x_2d;
+pub use libxc_kernel_lda_2::lda_x_erf;
+pub use libxc_kernel_lda_2::lda_x_rel;
+pub use libxc_kernel_lda_2::lda_x_sloc;
+pub use libxc_kernel_lda_1::lda_x_yukawa;
+pub use libxc_kernel_lda_4::lda_xc_1d_ehwlrg;
+pub use libxc_kernel_lda_4::lda_xc_ksdt;
+pub use libxc_kernel_lda_2::lda_xc_teter93;
+pub use libxc_kernel_lda_2::lda_xc_tih;
+pub use libxc_kernel_lda_2::lda_xc_zlp;
