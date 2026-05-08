@@ -637,9 +637,18 @@ def generate_function(func_name: str, level: str, spin: str,
                       compute_lines: list, output_writes: list,
                       all_params: list, is_vxc_only: bool,
                       fn_suffix: str = '', out_bufs_override: list = None) -> str:
-    """Generate a single Rust #[cube(launch_unchecked)] function."""
+    """Generate a single Rust #[cube(...)] function.
+
+    When `fn_suffix` is empty the function is the per-(level, spin) entry
+    kernel and is emitted as `#[cube(launch_unchecked)]`. When `fn_suffix`
+    starts with `_part` the function is a split-helper that the dispatch
+    layer never invokes directly; emit it as plain `#[cube]` per
+    `docs/manual/Cubecl/cubecl_macro_fanout_manual.md` §4.3 / §23 to skip
+    the launch-wrapper boilerplate (Anti-pattern 1).
+    """
     is_pol = (spin == 'pol')
     fn_name = f'{func_name}_{level}_{spin}{fn_suffix}'
+    cube_attr = '#[cube]' if fn_suffix.startswith('_part') else '#[cube(launch_unchecked)]'
 
     if out_bufs_override is not None:
         seen = set()
@@ -667,7 +676,7 @@ def generate_function(func_name: str, level: str, spin: str,
 
     lines = []
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(cube_attr)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     lines.append(f'    sigma: &Array<f64>,')

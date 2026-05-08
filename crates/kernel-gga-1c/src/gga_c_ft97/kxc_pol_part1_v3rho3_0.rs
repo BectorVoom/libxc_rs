@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn gga_c_ft97_kxc_pol_part1_v3rho3_0(
     rho: &Array<f64>,
     sigma: &Array<f64>,

@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 use libxc_kernel_math::mbrxc::xc_mgga_x_mbrxc_get_x;
 
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn mgga_x_mbrxc_bg_lxc_unpol_part1(
     rho: &Array<f64>,
     sigma: &Array<f64>,

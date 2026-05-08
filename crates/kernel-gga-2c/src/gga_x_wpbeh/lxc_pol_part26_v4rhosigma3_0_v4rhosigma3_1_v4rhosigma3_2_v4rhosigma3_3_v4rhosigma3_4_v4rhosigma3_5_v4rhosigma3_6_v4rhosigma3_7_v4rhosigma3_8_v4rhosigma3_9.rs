@@ -15,7 +15,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 use libxc_kernel_math::special::{xc_erfcx};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn gga_x_wpbeh_lxc_pol_part26_v4rhosigma3_0_v4rhosigma3_1_v4rhosigma3_2_v4rhosigma3_3_v4rhosigma3_4_v4rhosigma3_5_v4rhosigma3_6_v4rhosigma3_7_v4rhosigma3_8_v4rhosigma3_9(
     rho: &Array<f64>,
     sigma: &Array<f64>,
