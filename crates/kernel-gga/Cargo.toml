@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
+cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 libxc-kernel-math = { path = "../kernel-math" }
 libxc-kernel-gga-1a = { path = "../kernel-gga-1a" }
 libxc-kernel-gga-1b = { path = "../kernel-gga-1b" }
