@@ -105,21 +105,16 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cubecl = {{ version = "0.9.0", default-features = false, features = ["cpu"] }}
+cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
 libxc-kernel-math = {{ path = "../kernel-math" }}
-
-[profile.dev]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true
-
-[profile.test]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true
 """
+
+# NOTE: per-sub-crate [profile.*] sections are intentionally omitted.
+# Cargo workspace mode ignores them (and warns "profiles for the non root
+# package will be ignored") — the workspace root Cargo.toml is the single
+# source of truth for profile settings. Keeping templates lean reduces
+# noise on regen and matches the existing in-tree Cargo.toml shape after
+# the 2026-05-08 cubecl-0.10 upgrade.
 
 
 def make_lib_rs(family, crate_name, functionals):

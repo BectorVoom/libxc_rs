@@ -137,7 +137,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cubecl = {{ version = "0.9.0", default-features = false, features = ["cpu"] }}
+cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
 libxc-kernel-math = {{ path = "../kernel-math" }}
 """
     with open(os.path.join(crate_dir, "Cargo.toml"), "w") as f:
@@ -175,7 +175,7 @@ def update_facade(num_subcrates):
     """Rewrite kernel-gga/Cargo.toml and kernel-gga/src/lib.rs."""
     # Cargo.toml
     deps = [
-        'cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }',
+        'cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }',
         'libxc-kernel-math = { path = "../kernel-math" }',
     ]
     for i in range(1, num_subcrates + 1):
