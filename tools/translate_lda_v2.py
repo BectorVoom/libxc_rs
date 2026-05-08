@@ -1098,10 +1098,19 @@ def main():
     incremental_mode = '--incremental' in sys.argv
     no_split_mode = '--no-split' in sys.argv
 
+    global SPLIT_THRESHOLD
     # Apply --no-split flag to disable splitting
     if no_split_mode:
-        global SPLIT_THRESHOLD
         SPLIT_THRESHOLD = UNSPLITTABLE
+
+    # Apply --split-threshold N to override the default 18000-line cap.
+    # Useful for hot single-functional regen where the default leaves a
+    # body just under threshold and proc-macro RAM blows up. Lower values
+    # produce more (and smaller) `_partN` helpers.
+    if '--split-threshold' in sys.argv:
+        idx = sys.argv.index('--split-threshold')
+        if idx + 1 < len(sys.argv):
+            SPLIT_THRESHOLD = int(sys.argv[idx + 1])
 
     write_dir = None
     if '--write-to' in sys.argv:

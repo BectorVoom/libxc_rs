@@ -1,4 +1,5 @@
-//! LDA_C_PK09 fxc pol kernel.
+//! LDA_C_PK09 kxc pol kernel — split part 0/5 (zk_vrho_v2rho2).
+//! Split sub-kernel: outputs [zk, vrho, v2rho2] (6022 lines).
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,10 +8,10 @@ use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PK09 fxc -- polarized.
+/// LDA_C_PK09 kxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
-pub fn lda_c_pk09_fxc_pol(
+#[cube]
+pub fn lda_c_pk09_kxc_pol_part0_zk_vrho_v2rho2(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
     vrho: &mut Array<f64>,
