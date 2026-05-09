@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Unified Maple→kernel driver: orchestrates the existing translate_*.py and
-split_*.py family tools behind one CLI with consistent splitting-criteria
-knobs for OOM mitigation.
+Unified Maple→kernel driver: orchestrates the existing per-functional
+translators (via regen_phase09.py) and split_*.py family tools behind one
+CLI with consistent splitting-criteria knobs for OOM mitigation.
 
 This is a THIN ORCHESTRATOR. It does not reimplement translation or
 splitting logic; it delegates to the existing per-family tools via
@@ -15,14 +15,21 @@ kernel (see `docs/manual/Cubecl/cubecl_macro_fanout_manual.md`). Two knobs
 control how that mass is distributed across files and sub-crates:
 
   --split-threshold N   per-cube-fn line cap (default 100000)
-                        Used by the translator. Larger value ⇒ each
-                        translated `#[cube]` function file holds more
-                        lines ⇒ FEWER per-functional `.rs` files.
+                        Currently a module-level constant inside
+                        translate_lda_v2.py / translate_gga.py /
+                        translate_mgga.py. regen_phase09.py reads the
+                        translators' active value at translation time.
+                        The driver does NOT mutate the constants; if a
+                        non-default value is requested, it warns and
+                        proceeds with whatever the translators have
+                        compiled in. Larger value ⇒ FEWER per-functional
+                        .rs files.
 
   --target-max N        per-sub-crate line cap (default 500000)
-                        Used by the splitter. Larger value ⇒ each
-                        kernel-* sub-crate holds more lines ⇒ FEWER
-                        sub-crates.
+                        Honored by split_lda_subcrates.py via
+                        --target-max=N. split_oversized_kernel.py uses a
+                        module-level constant; non-default value warns and
+                        falls back. Larger value ⇒ FEWER sub-crates.
 
 User-direction memo (see feedback_splitting_terminology.md):
   "fewer files / less aggressive splitting" ⇒ RAISE these values
@@ -32,11 +39,11 @@ confirm the desired file/sub-crate COUNT direction before tweaking.
 
 # Wrapped tools
 
-  translate:
-    LDA   tools/translate_lda_v2.py  --batch --write-to <dir>
-          (does NOT accept --split-threshold; driver warns if non-default)
-    GGA   tools/translate_gga.py     --batch --write-to <dir> [--split-threshold N]
-    MGGA  tools/translate_mgga.py    --batch --write-to <dir> [--split-threshold N]
+  translate (delegates to regen_phase09.py — per-functional iteration with
+            atomic per-functional directory replacement, multi-sub-crate
+            functionals SKIPPED per CONTEXT D-09):
+    LDA, GGA, MGGA, all
+      tools/regen_phase09.py --family <family> [--dry-run]
 
   split:
     LDA   tools/split_lda_subcrates.py [--target-max=N] [--dry-run]
@@ -50,14 +57,24 @@ confirm the desired file/sub-crate COUNT direction before tweaking.
 # Usage
 
   tools/maple_to_kernels.py translate --family all
-  tools/maple_to_kernels.py translate --family gga --split-threshold 100000
+  tools/maple_to_kernels.py translate --family gga
   tools/maple_to_kernels.py split     --family lda --target-max 500000
   tools/maple_to_kernels.py all       --family mgga --dry-run
   tools/maple_to_kernels.py all       --family all --dry-run
 
-The companion script `tools/regen_phase09.py` is a Phase 9 Plan 09-04
-specific orchestrator (single-sub-crate functionals only). It is not
-replaced by this driver; both coexist.
+# Why delegate translation to regen_phase09.py?
+
+The per-family translators (translate_*.py) operate on a SINGLE
+<c_file> <func_name> at a time. translate_lda_v2.py does not have a
+--batch mode at all; only translate_gga.py and translate_mgga.py do, and
+even their batch outputs go to a flat directory that does not match the
+actual bin-packed sub-crate layout (kernel-{lda,gga,mgga}-N/...).
+
+regen_phase09.py already encapsulates the correct per-functional flow:
+it discovers each functional's existing sub-crate location, runs the
+appropriate translator into a temporary staging directory, then
+atomically replaces the existing per-functional directory contents.
+That is the flow we want; the driver just exposes a unified CLI on top.
 """
 
 import argparse
@@ -72,39 +89,22 @@ TOOLS = REPO_ROOT / "tools"
 DEFAULT_SPLIT_THRESHOLD = 100_000
 DEFAULT_TARGET_MAX = 500_000
 
-WRITE_TO = {
-    "lda": REPO_ROOT / "crates" / "kernel-lda" / "src" / "funcs",
-    "gga": REPO_ROOT / "crates" / "kernel-gga" / "src" / "funcs",
-    "mgga": REPO_ROOT / "crates" / "kernel-mgga" / "src" / "funcs",
-}
-
 FAMILIES = ("lda", "gga", "mgga")
 
 
-def families_from_arg(family: str) -> list[str]:
-    return list(FAMILIES) if family == "all" else [family]
-
-
-def translate_cmd(family: str, split_threshold: int) -> list[list[str]]:
-    write_to = str(WRITE_TO[family])
-    if family == "lda":
-        if split_threshold != DEFAULT_SPLIT_THRESHOLD:
-            print(
-                f"WARN: translate_lda_v2.py does not accept --split-threshold; "
-                f"requested {split_threshold} ignored. Edit SPLIT_THRESHOLD in "
-                f"tools/translate_lda_v2.py to change.",
-                file=sys.stderr,
-            )
-        return [[
-            sys.executable, str(TOOLS / "translate_lda_v2.py"),
-            "--batch", "--write-to", write_to,
-        ]]
-    tool = "translate_gga.py" if family == "gga" else "translate_mgga.py"
-    return [[
-        sys.executable, str(TOOLS / tool),
-        "--batch", "--write-to", write_to,
-        "--split-threshold", str(split_threshold),
-    ]]
+def translate_cmd(family: str, split_threshold: int, dry_run: bool) -> list[list[str]]:
+    if split_threshold != DEFAULT_SPLIT_THRESHOLD:
+        print(
+            f"WARN: regen_phase09.py does not accept --split-threshold; "
+            f"requested {split_threshold} ignored. Edit SPLIT_THRESHOLD in "
+            f"tools/translate_lda_v2.py / translate_gga.py / translate_mgga.py "
+            f"to change. Active value at translation time wins.",
+            file=sys.stderr,
+        )
+    cmd = [sys.executable, str(TOOLS / "regen_phase09.py"), "--family", family]
+    if dry_run:
+        cmd.append("--dry-run")
+    return [cmd]
 
 
 def split_cmd(family: str, target_max: int) -> list[list[str]]:
@@ -128,26 +128,35 @@ def split_cmd(family: str, target_max: int) -> list[list[str]]:
 
 def run_or_print(cmd: list[str], dry_run: bool) -> int:
     pretty = " ".join(shlex.quote(p) for p in cmd)
-    if dry_run:
-        print(f"[dry-run] {pretty}")
-        return 0
-    print(f"[run] {pretty}", flush=True)
+    # When dry_run is True, the underlying tool already received --dry-run via
+    # its own CLI flag (translate via regen_phase09.py --dry-run; split via
+    # the per-tool --dry-run that do_split appends). We still execute the
+    # subprocess so the tool can print its own dry-run plan, but mark the
+    # invocation in our log as a forwarded dry-run for clarity.
+    label = "[dry-run forwarded]" if dry_run else "[run]"
+    print(f"{label} {pretty}", flush=True)
     return subprocess.run(cmd, cwd=str(REPO_ROOT)).returncode
+
+
+def _split_families(family: str) -> list[str]:
+    """Family list for split_*.py invocations (no 'all' passthrough)."""
+    return list(FAMILIES) if family == "all" else [family]
 
 
 def do_translate(args: argparse.Namespace) -> int:
     rc = 0
-    for fam in families_from_arg(args.family):
-        for cmd in translate_cmd(fam, args.split_threshold):
-            rc = run_or_print(cmd, args.dry_run) or rc
-            if rc and not args.dry_run:
-                return rc
+    # regen_phase09.py accepts --family {lda,gga,mgga,all} directly, so we
+    # do not iterate per-family here — one invocation covers the whole set.
+    for cmd in translate_cmd(args.family, args.split_threshold, args.dry_run):
+        rc = run_or_print(cmd, args.dry_run) or rc
+        if rc and not args.dry_run:
+            return rc
     return rc
 
 
 def do_split(args: argparse.Namespace) -> int:
     rc = 0
-    for fam in families_from_arg(args.family):
+    for fam in _split_families(args.family):
         cmds = split_cmd(fam, args.target_max)
         if args.dry_run:
             cmds = [c + ["--dry-run"] for c in cmds]
@@ -176,7 +185,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--dry-run", action="store_true",
-        help="Print the underlying tool invocations without executing them.",
+        help=(
+            "Forward --dry-run to each underlying tool. The tool runs but "
+            "produces only a planning/diff summary, no on-disk changes."
+        ),
     )
 
     sub = parser.add_subparsers(dest="cmd", required=True)
