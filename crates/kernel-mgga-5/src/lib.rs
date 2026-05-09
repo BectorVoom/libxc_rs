@@ -4,6 +4,8 @@
 
 //! MGGA kernel translations batch 5.
 
-// mgga_c_b94 deferred: requires xc_mgga_x_br89_get_x (Brent's method root-finder)
-// pub mod mgga_c_b94;
-pub mod mgga_c_m05;
+pub mod hyb_mgga_x_pjs18;
+pub mod mgga_c_ltapw;
+pub mod mgga_x_jk;
+pub mod mgga_x_mbrxc_bg;
+pub mod mgga_x_rscan;
