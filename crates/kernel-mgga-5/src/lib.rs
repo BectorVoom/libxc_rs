@@ -4,8 +4,7 @@
 
 //! MGGA kernel translations batch 5.
 
-pub mod hyb_mgga_x_pjs18;
-pub mod mgga_c_ltapw;
-pub mod mgga_x_jk;
-pub mod mgga_x_mbrxc_bg;
-pub mod mgga_x_rscan;
+pub mod mgga_c_ccalda;
+pub mod mgga_c_rmggac;
+pub mod mgga_x_br89;
+pub mod mgga_xc_cc06;

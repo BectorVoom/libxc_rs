@@ -4,5 +4,5 @@
 
 //! MGGA kernel translations batch 4.
 
-pub mod hyb_mgga_x_dldf;
-pub mod mgga_c_kcisk;
+pub mod mgga_c_revtpss;
+pub mod mgga_x_br89_explicit;

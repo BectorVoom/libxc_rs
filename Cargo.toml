@@ -22,12 +22,6 @@ libxc-kernel-mgga-5 = { path = "crates/kernel-mgga-5" }
 libxc-kernel-mgga-6 = { path = "crates/kernel-mgga-6" }
 libxc-kernel-mgga-7 = { path = "crates/kernel-mgga-7" }
 libxc-kernel-mgga-8 = { path = "crates/kernel-mgga-8" }
-libxc-kernel-mgga-9 = { path = "crates/kernel-mgga-9" }
-libxc-kernel-mgga-10 = { path = "crates/kernel-mgga-10" }
-libxc-kernel-mgga-11 = { path = "crates/kernel-mgga-11" }
-libxc-kernel-mgga-12 = { path = "crates/kernel-mgga-12" }
-libxc-kernel-mgga-13 = { path = "crates/kernel-mgga-13" }
-libxc-kernel-mgga-14 = { path = "crates/kernel-mgga-14" }
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
@@ -56,12 +50,6 @@ default-members = [
     "crates/kernel-mgga-6",
     "crates/kernel-mgga-7",
     "crates/kernel-mgga-8",
-    "crates/kernel-mgga-9",
-    "crates/kernel-mgga-10",
-    "crates/kernel-mgga-11",
-    "crates/kernel-mgga-12",
-    "crates/kernel-mgga-13",
-    "crates/kernel-mgga-14",
 ]
 resolver = "3"
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.
