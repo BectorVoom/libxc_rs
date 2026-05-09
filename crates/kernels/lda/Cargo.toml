@@ -5,5 +5,6 @@ edition = "2024"
 
 [dependencies]
 libxc-kernel-lda-1 = { path = "../lda-1" }
+libxc-kernel-lda-2 = { path = "../lda-2" }
 [dev-dependencies]
 libxc_rs = { path = "../../.." }
