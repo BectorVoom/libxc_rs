@@ -5,7 +5,7 @@ milestone_name: milestone
 status: Ready to execute
 stopped_at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
 last_updated: "2026-05-07T20:15:43.290Z"
-last_activity: 2026-05-08 -- Completed quick task 260508-q01: update cubecl to 0.10.0 in all workspace
+last_activity: 2026-05-09 -- Completed quick task 260509-q01: raise TARGET_MAX 50000 to 500000 in splitter tools (re-runs were no-ops)
 progress:
   total_phases: 10
   completed_phases: 6
@@ -116,6 +116,7 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260508-q01 | Update cubecl to 0.10.0 in all workspace | 2026-05-08 | 784c8fc8 | [260508-q01-update-cubecl-010-workspace](.planning/quick/260508-q01-update-cubecl-010-workspace/) |
+| 260509-q01 | Raise TARGET_MAX 50000→500000 in splitter tools and re-run (re-runs were no-ops on current tree) | 2026-05-09 | 8be648ce | [260509-q01-split-thresholds-10x](.planning/quick/260509-q01-split-thresholds-10x/) |
 
 ## Session Continuity
 
