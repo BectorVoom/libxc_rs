@@ -4,6 +4,7 @@
 
 //! MGGA kernel translations batch 6.
 
-pub mod mgga_c_kcis;
-pub mod mgga_c_tpss;
-pub mod mgga_x_r4scan;
+pub mod hyb_mgga_xc_gas22;
+pub mod mgga_c_ccalda;
+pub mod mgga_c_pkzb;
+pub mod mgga_c_revscan;

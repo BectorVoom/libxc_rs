@@ -368,8 +368,11 @@ def update_facade(num_subcrates):
 def update_workspace(num_subcrates):
     """Update workspace root Cargo.toml: strip stale kernel-mgga-* entries
     (numeric or lettered) and emit fresh kernel-mgga-1..N entries."""
-    cargo_path = os.path.join(os.path.dirname(CRATES_DIR), "Cargo.toml") \
-        if os.path.dirname(CRATES_DIR) else "Cargo.toml"
+    # CRATES_DIR is "crates/kernels"; project root Cargo.toml is two levels up.
+    # The previous one-level dirname resolved to "crates/Cargo.toml" — wrong
+    # since kernels moved under crates/ in q07.
+    cargo_dir = os.path.dirname(os.path.dirname(CRATES_DIR))
+    cargo_path = os.path.join(cargo_dir, "Cargo.toml") if cargo_dir else "Cargo.toml"
     content = open(cargo_path).read()
 
     # Strip every libxc-kernel-mgga-<id> dep line under [workspace.dependencies].

@@ -4,7 +4,5 @@
 
 //! MGGA kernel translations batch 3.
 
-pub mod mgga_c_kcisk;
-pub mod mgga_c_r2scan;
-pub mod mgga_k_lk;
-pub mod mgga_x_mggac;
+pub mod mgga_c_kcis;
+pub mod mgga_x_mbrxh_bg;

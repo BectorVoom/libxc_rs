@@ -14,3 +14,9 @@ libxc-kernel-mgga-5 = { path = "../mgga-5" }
 libxc-kernel-mgga-6 = { path = "../mgga-6" }
 libxc-kernel-mgga-7 = { path = "../mgga-7" }
 libxc-kernel-mgga-8 = { path = "../mgga-8" }
+libxc-kernel-mgga-9 = { path = "../mgga-9" }
+libxc-kernel-mgga-10 = { path = "../mgga-10" }
+libxc-kernel-mgga-11 = { path = "../mgga-11" }
+libxc-kernel-mgga-12 = { path = "../mgga-12" }
+libxc-kernel-mgga-13 = { path = "../mgga-13" }
+libxc-kernel-mgga-14 = { path = "../mgga-14" }

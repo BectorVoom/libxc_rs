@@ -4,6 +4,5 @@
 
 //! MGGA kernel translations batch 7.
 
-pub mod mgga_c_b94;
-pub mod mgga_c_tpssloc;
-pub mod mgga_x_tm;
+pub mod mgga_c_r2scan;
+pub mod mgga_x_mggac;
