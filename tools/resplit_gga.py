@@ -58,6 +58,87 @@ DEFERRED = {
 }
 
 
+SUBCRATE_RE = re.compile(r"^kernel-gga-\d+[a-p]?$")
+
+
+def gather_into_aggregator(dry_run: bool) -> tuple[int, set[str]]:
+    """Merge per-functional contents from every kernel-gga-* sub-crate's src/
+    into kernel-gga/src/<func>/ on a per-file basis.
+
+    `split_oversized_kernel.py` produces several `kernel-gga-N{a,b,c,d}/src/<func>/`
+    directories that share the SAME functional name but contain DIFFERENT .rs
+    files (each lettered sub-crate holds its share of the .rs files for that
+    functional, with a per-share mod.rs declaring only that subset).
+
+    To gather correctly we must:
+      1. For each (sub-crate, functional) pair, copy every .rs file EXCEPT
+         mod.rs into kernel-gga/src/<func>/ (skip-clobber: if a same-named
+         .rs file already exists at the destination, abort with an error —
+         indicates the sub-crate split logic is non-disjoint and we need
+         human review rather than silent loss).
+      2. After all .rs files are merged, regenerate each <func>/mod.rs from
+         the union of file basenames in that <func>/ directory.
+
+    Returns (num_files_moved, set_of_touched_funcs).
+    """
+    moved_files = 0
+    touched: set[str] = set()
+    for entry in sorted(os.listdir(CRATES_DIR)):
+        if not SUBCRATE_RE.match(entry):
+            continue
+        sub_src = os.path.join(CRATES_DIR, entry, "src")
+        if not os.path.isdir(sub_src):
+            continue
+        for item in sorted(os.listdir(sub_src)):
+            item_path = os.path.join(sub_src, item)
+            if not os.path.isdir(item_path):
+                continue
+            dst_dir = os.path.join(GGA_SRC, item)
+            if not dry_run:
+                os.makedirs(dst_dir, exist_ok=True)
+            for fn in sorted(os.listdir(item_path)):
+                if not fn.endswith(".rs"):
+                    continue
+                if fn == "mod.rs":
+                    continue  # regenerated below
+                src_file = os.path.join(item_path, fn)
+                dst_file = os.path.join(dst_dir, fn)
+                if os.path.exists(dst_file):
+                    print(
+                        f"FATAL: {dst_file} already exists when merging "
+                        f"{src_file} — non-disjoint sub-crate split, refusing "
+                        f"to clobber. Investigate manually.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(2)
+                if dry_run:
+                    print(f"  [dry-run] mv {src_file} -> {dst_file}")
+                else:
+                    shutil.move(src_file, dst_file)
+                moved_files += 1
+            touched.add(item)
+
+    # Regenerate mod.rs for every touched functional from the merged file set.
+    for func in sorted(touched):
+        func_dir = os.path.join(GGA_SRC, func)
+        if dry_run and not os.path.isdir(func_dir):
+            continue  # dry-run did no actual moves; mod.rs synthesis skipped
+        if not os.path.isdir(func_dir):
+            continue
+        modnames = sorted(
+            fn[:-3] for fn in os.listdir(func_dir)
+            if fn.endswith(".rs") and fn != "mod.rs"
+        )
+        mod_lines = [f"pub mod {n};" for n in modnames] + [""]
+        mod_path = os.path.join(func_dir, "mod.rs")
+        if dry_run:
+            print(f"  [dry-run] regenerate {mod_path} ({len(modnames)} modules)")
+        else:
+            with open(mod_path, "w") as f:
+                f.write("\n".join(mod_lines))
+    return moved_files, touched
+
+
 def get_functional_line_counts():
     """Walk kernel-gga/src/ and count lines per functional directory."""
     functionals = {}
@@ -72,6 +153,45 @@ def get_functional_line_counts():
                 with open(fpath, "r") as f:
                     total += sum(1 for _ in f)
         functionals[name] = total
+    return functionals
+
+
+def get_functional_line_counts_repack_dry():
+    """Variant for --repack --dry-run: scans kernel-gga/src/ AND every
+    kernel-gga-* sub-crate, summing line counts across ALL lettered
+    sub-crates that contribute to the same functional name (excluding
+    duplicate mod.rs which gets regenerated at merge time). Mirrors the
+    accounting that a live gather+merge run would produce.
+    """
+    functionals: dict[str, int] = {}
+    for name in sorted(os.listdir(GGA_SRC)):
+        path = os.path.join(GGA_SRC, name)
+        if not os.path.isdir(path):
+            continue
+        total = 0
+        for fname in os.listdir(path):
+            if fname.endswith(".rs") and fname != "mod.rs":
+                fpath = os.path.join(path, fname)
+                with open(fpath, "r") as f:
+                    total += sum(1 for _ in f)
+        functionals[name] = total
+    for entry in sorted(os.listdir(CRATES_DIR)):
+        if not SUBCRATE_RE.match(entry):
+            continue
+        sub_src = os.path.join(CRATES_DIR, entry, "src")
+        if not os.path.isdir(sub_src):
+            continue
+        for item in sorted(os.listdir(sub_src)):
+            item_path = os.path.join(sub_src, item)
+            if not os.path.isdir(item_path):
+                continue
+            for fname in os.listdir(item_path):
+                if fname.endswith(".rs") and fname != "mod.rs":
+                    fpath = os.path.join(item_path, fname)
+                    with open(fpath, "r") as f:
+                        functionals[item] = functionals.get(item, 0) + sum(
+                            1 for _ in f
+                        )
     return functionals
 
 
@@ -102,16 +222,29 @@ def bin_pack_ffd(functionals, limit):
     return bins, bin_sizes
 
 
-def delete_old_subcrates():
-    """Remove old kernel-gga-N directories."""
+def delete_old_subcrates(dry_run: bool = False):
+    """Remove old kernel-gga-N (numeric) AND kernel-gga-Nx (lettered) sub-crates.
+
+    The lettered pattern is what `split_oversized_kernel.py` produces when a
+    single-bin functional exceeds TARGET_MAX; on a repack we want to drop both.
+    """
     removed = []
     for name in os.listdir(CRATES_DIR):
-        if re.match(r"^kernel-gga-\d+$", name):
+        if SUBCRATE_RE.match(name):
             path = os.path.join(CRATES_DIR, name)
-            shutil.rmtree(path)
+            if dry_run:
+                print(f"  [dry-run] rm -rf {path}")
+            else:
+                shutil.rmtree(path)
             removed.append(name)
     if removed:
-        print(f"Removed {len(removed)} old sub-crates: {', '.join(sorted(removed, key=lambda x: int(x.split('-')[-1])))}")
+        # Sort: numeric-only first, then lettered, both in numeric/letter order.
+        def sort_key(s: str) -> tuple[int, str]:
+            tail = s.split("-")[-1]
+            m = re.match(r"^(\d+)([a-p])?$", tail)
+            return (int(m.group(1)), m.group(2) or "") if m else (10**9, tail)
+        print(f"Removed {len(removed)} old sub-crates: "
+              f"{', '.join(sorted(removed, key=sort_key))}")
 
 
 def create_subcrate(bin_index, functionals_in_bin):
@@ -236,9 +369,9 @@ def update_workspace(num_subcrates):
             continue
 
         if in_members:
-            # Skip old kernel-gga-N entries (but keep kernel-gga itself)
+            # Skip old kernel-gga-N AND kernel-gga-Nx entries (but keep kernel-gga itself)
             stripped = line.strip().strip(',').strip('"').strip("'")
-            if re.match(r'^crates/kernel-gga-\d+$', stripped):
+            if re.match(r'^crates/kernel-gga-\d+[a-p]?$', stripped):
                 # Insert new entries right before the first old one (once)
                 if not gga_entries_inserted:
                     for i in range(1, num_subcrates + 1):
@@ -262,6 +395,7 @@ def update_workspace(num_subcrates):
 
 
 def main():
+    dry_run = '--dry-run' in sys.argv
     bin_limit = DEFAULT_BIN_LIMIT
     if '--bin-limit' in sys.argv:
         idx = sys.argv.index('--bin-limit')
@@ -279,8 +413,23 @@ def main():
 
     print("=== GGA Sub-Crate Re-Split ===\n")
 
-    # Step 1: Inventory
-    functionals = get_functional_line_counts()
+    # Step 0: Auto-gather. If kernel-gga-* sub-crates exist (numeric or
+    # lettered), move every per-functional dir back into kernel-gga/src/ so
+    # the bin-packer sees the full set. No-op if the aggregator already holds
+    # the source of truth.
+    existing_subs = [e for e in os.listdir(CRATES_DIR) if SUBCRATE_RE.match(e)]
+    if existing_subs:
+        print(f"Pre-gather: {len(existing_subs)} existing kernel-gga-* sub-crate(s) "
+              f"will be drained into {os.path.relpath(GGA_SRC, PROJECT_ROOT)}/")
+        moved_files, touched = gather_into_aggregator(dry_run)
+        print(f"  merged {moved_files} .rs file(s) across {len(touched)} functional(s).\n")
+
+    # Step 1: Inventory. Use the dry-run-aware variant when applicable so the
+    # bin-pack accounting matches a live run.
+    if dry_run and existing_subs:
+        functionals = get_functional_line_counts_repack_dry()
+    else:
+        functionals = get_functional_line_counts()
     total_lines = sum(functionals.values())
     print(f"Found {len(functionals)} GGA functionals, {total_lines:,} total lines\n")
 
@@ -293,6 +442,10 @@ def main():
         print(f"  Bin {i+1:2d}: {sz:6,} lines, {len(b):2d} functionals")
 
     print()
+
+    if dry_run:
+        print("Dry run -- no changes made.")
+        return
 
     # Step 3: Delete old sub-crates
     delete_old_subcrates()
