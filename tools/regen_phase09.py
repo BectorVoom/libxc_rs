@@ -243,7 +243,7 @@ def main():
         family_log = os.path.join(LOG_DIR, f"09-04-regen-{family}.log")
         with open(family_log, "w") as flog:
             flog.write(f"# Phase 9 Plan 09-04: regen {family.upper()} (single-sub-crate functionals)\n")
-            flog.write(f"# Threshold: 18000 lines per #[cube] function\n")
+            flog.write(f"# Threshold: 1800 lines per #[cube] function\n")
             flog.write(f"# Mode: {'dry-run' if args.dry_run else 'live'}\n#\n")
             for func_name, sub_crate in sorted(by_family.get(family, [])):
                 print(f"  [{family}] {func_name} → {sub_crate}", flush=True)
