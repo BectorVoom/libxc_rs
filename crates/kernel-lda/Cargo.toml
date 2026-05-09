@@ -1,9 +1,0 @@
-[package]
-name = "libxc-kernel-lda"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-libxc-kernel-lda-1 = { path = "../kernel-lda-1" }
-[dev-dependencies]
-libxc_rs = { path = "../.." }

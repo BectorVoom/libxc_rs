@@ -8,20 +8,20 @@ bitflags = "2.10.0"
 bytemuck = { version = "1.25.0", features = ["derive"] }
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 thiserror = "2.0.18"
-libxc-kernel-math = { path = "crates/kernel-math" }
-libxc-kernel-lda = { path = "crates/kernel-lda" }
-libxc-kernel-lda-1 = { path = "crates/kernel-lda-1" }
-libxc-kernel-gga = { path = "crates/kernel-gga" }
-libxc-kernel-mgga = { path = "crates/kernel-mgga" }
+libxc-kernel-math = { path = "crates/kernels/math" }
+libxc-kernel-lda = { path = "crates/kernels/lda" }
+libxc-kernel-lda-1 = { path = "crates/kernels/lda-1" }
+libxc-kernel-gga = { path = "crates/kernels/gga" }
+libxc-kernel-mgga = { path = "crates/kernels/mgga" }
 
-libxc-kernel-mgga-1 = { path = "crates/kernel-mgga-1" }
-libxc-kernel-mgga-2 = { path = "crates/kernel-mgga-2" }
-libxc-kernel-mgga-3 = { path = "crates/kernel-mgga-3" }
-libxc-kernel-mgga-4 = { path = "crates/kernel-mgga-4" }
-libxc-kernel-mgga-5 = { path = "crates/kernel-mgga-5" }
-libxc-kernel-mgga-6 = { path = "crates/kernel-mgga-6" }
-libxc-kernel-mgga-7 = { path = "crates/kernel-mgga-7" }
-libxc-kernel-mgga-8 = { path = "crates/kernel-mgga-8" }
+libxc-kernel-mgga-1 = { path = "crates/kernels/mgga-1" }
+libxc-kernel-mgga-2 = { path = "crates/kernels/mgga-2" }
+libxc-kernel-mgga-3 = { path = "crates/kernels/mgga-3" }
+libxc-kernel-mgga-4 = { path = "crates/kernels/mgga-4" }
+libxc-kernel-mgga-5 = { path = "crates/kernels/mgga-5" }
+libxc-kernel-mgga-6 = { path = "crates/kernels/mgga-6" }
+libxc-kernel-mgga-7 = { path = "crates/kernels/mgga-7" }
+libxc-kernel-mgga-8 = { path = "crates/kernels/mgga-8" }
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
@@ -32,24 +32,24 @@ members=[    "xtask",
     "verify",
     "libxc-sys",]
 default-members = [
-    "crates/kernel-math",
-    "crates/kernel-lda",
-    "crates/kernel-lda-1",
-    "crates/kernel-gga",
-    "crates/kernel-gga-1",
-    "crates/kernel-gga-2",
-    "crates/kernel-gga-3",
-    "crates/kernel-gga-4",
-    "crates/kernel-gga-5",
-    "crates/kernel-mgga",
-    "crates/kernel-mgga-1",
-    "crates/kernel-mgga-2",
-    "crates/kernel-mgga-3",
-    "crates/kernel-mgga-4",
-    "crates/kernel-mgga-5",
-    "crates/kernel-mgga-6",
-    "crates/kernel-mgga-7",
-    "crates/kernel-mgga-8",
+    "crates/kernels/math",
+    "crates/kernels/lda",
+    "crates/kernels/lda-1",
+    "crates/kernels/gga",
+    "crates/kernels/gga-1",
+    "crates/kernels/gga-2",
+    "crates/kernels/gga-3",
+    "crates/kernels/gga-4",
+    "crates/kernels/gga-5",
+    "crates/kernels/mgga",
+    "crates/kernels/mgga-1",
+    "crates/kernels/mgga-2",
+    "crates/kernels/mgga-3",
+    "crates/kernels/mgga-4",
+    "crates/kernels/mgga-5",
+    "crates/kernels/mgga-6",
+    "crates/kernels/mgga-7",
+    "crates/kernels/mgga-8",
 ]
 resolver = "3"
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.

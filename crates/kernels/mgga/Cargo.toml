@@ -1,0 +1,16 @@
+[package]
+name = "libxc-kernel-mgga"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
+libxc-kernel-math = { path = "../math" }
+libxc-kernel-mgga-1 = { path = "../mgga-1" }
+libxc-kernel-mgga-2 = { path = "../mgga-2" }
+libxc-kernel-mgga-3 = { path = "../mgga-3" }
+libxc-kernel-mgga-4 = { path = "../mgga-4" }
+libxc-kernel-mgga-5 = { path = "../mgga-5" }
+libxc-kernel-mgga-6 = { path = "../mgga-6" }
+libxc-kernel-mgga-7 = { path = "../mgga-7" }
+libxc-kernel-mgga-8 = { path = "../mgga-8" }
