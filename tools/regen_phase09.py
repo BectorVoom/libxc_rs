@@ -5,7 +5,7 @@ Phase 9 Plan 09-04 regeneration driver.
 For each functional currently present in EXACTLY ONE sub-crate under
 `crates/kernel-{lda,gga-*,mgga-*}/src/<functional>/`, re-run the matching
 translator (translate_lda_v2.py / translate_gga.py / translate_mgga.py) with
-the active SPLIT_THRESHOLD (50000 as of quick task 260509-q03) into a temporary staging directory, then atomically
+the active SPLIT_THRESHOLD (100000 as of quick task 260509-q02) into a temporary staging directory, then atomically
 replace the existing per-functional directory contents (preserving sub-crate
 boundary per CONTEXT D-09).
 
@@ -109,7 +109,7 @@ def list_existing_files(func_dir: str):
 
 
 def run_translator(family: str, c_path: str, func_name: str,
-                   write_to: str, vxc_only: bool, threshold: int = 50000):
+                   write_to: str, vxc_only: bool, threshold: int = 100000):
     """Run the translator subprocess and return (returncode, stdout, stderr)."""
     cmd = [sys.executable, TRANSLATOR[family], c_path, func_name,
            "--write-to", write_to, "--split", "--incremental"]
@@ -243,7 +243,7 @@ def main():
         family_log = os.path.join(LOG_DIR, f"09-04-regen-{family}.log")
         with open(family_log, "w") as flog:
             flog.write(f"# Phase 9 Plan 09-04: regen {family.upper()} (single-sub-crate functionals)\n")
-            flog.write(f"# Threshold: 50000 lines per #[cube] function\n")
+            flog.write(f"# Threshold: 100000 lines per #[cube] function\n")
             flog.write(f"# Mode: {'dry-run' if args.dry_run else 'live'}\n#\n")
             for func_name, sub_crate in sorted(by_family.get(family, [])):
                 print(f"  [{family}] {func_name} → {sub_crate}", flush=True)

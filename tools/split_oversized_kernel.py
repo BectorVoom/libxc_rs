@@ -19,9 +19,9 @@ import sys
 import shutil
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CRATES_DIR = os.path.join(REPO_ROOT, "crates")
+CRATES_DIR = os.path.join(REPO_ROOT, "crates", "kernels")
 # TARGET_MAX is the per-SUB-CRATE bin-packing budget (sum of all .rs lines
-# inside one crates/kernel-<family>-NX/ tree), NOT a per-#[cube] function
+# inside one crates/kernels/<family>-NX/ tree), NOT a per-#[cube] function
 # line cap. The per-function line cap lives in tools/translate_*.py
 # (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 500K
 # bin budget here is unrelated to that 18K function cap. Raised 10× from the
@@ -33,8 +33,8 @@ SUFFIXES = list("abcdefghijklmnop")
 def scan_family(family):
     """Return {crate: {functional: [(file, lines), ...]}} for the family,
     skipping already-split crates and the aggregator."""
-    prefix = f"kernel-{family}-"
-    aggregator = f"kernel-{family}"
+    prefix = f"{family}-"
+    aggregator = f"{family}"
     out = {}
     for entry in sorted(os.listdir(CRATES_DIR)):
         if not entry.startswith(prefix) or entry == aggregator:
@@ -106,7 +106,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 """
 
 # NOTE: per-sub-crate [profile.*] sections are intentionally omitted.
@@ -145,8 +145,8 @@ def make_mod_rs(file_subset, functional):
 
 
 def update_workspace_and_aggregator(family, crate_renames):
-    prefix = f"kernel-{family}-"
-    aggregator = f"kernel-{family}"
+    prefix = f"{family}-"
+    aggregator = f"{family}"
     crate_id_prefix = f"libxc-kernel-{family}-"
     rust_id_prefix = f"libxc_kernel_{family}_"
 
@@ -161,10 +161,10 @@ def update_workspace_and_aggregator(family, crate_renames):
     for old, news in crate_renames:
         n_old = old.replace(prefix, "")  # e.g. "4"
         # workspace dep line
-        old_dep_ws = f'{crate_id_prefix}{n_old} = {{ path = "crates/{old}" }}'
+        old_dep_ws = f'{crate_id_prefix}{n_old} = {{ path = "crates/kernels/{old}" }}'
         new_dep_ws = '\n'.join(
             f'{crate_id_prefix}{nc.replace(prefix, "")} = '
-            f'{{ path = "crates/{nc}" }}' for nc in news
+            f'{{ path = "crates/kernels/{nc}" }}' for nc in news
         )
         ws_content = ws_content.replace(old_dep_ws, new_dep_ws)
         old_member = f'    "crates/{old}",'
@@ -199,7 +199,7 @@ def main():
         print("Usage: split_oversized_kernel.py <lda|gga|mgga> [--dry-run]")
         sys.exit(1)
     family = args[0]
-    prefix = f"kernel-{family}-"
+    prefix = f"{family}-"
 
     oversized = find_oversized(family)
     print(f"Found {len(oversized)} oversized {family.upper()} functionals (>{TARGET_MAX} lines):\n")

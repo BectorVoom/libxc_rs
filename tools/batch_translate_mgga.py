@@ -24,7 +24,7 @@ from translate_mgga import translate_functional
 
 MGGA_EXC_DIR = "libxc-master/src/maple2c/mgga_exc"
 MGGA_VXC_DIR = "libxc-master/src/maple2c/mgga_vxc"
-CRATES_DIR = "crates"
+CRATES_DIR = "crates/kernels"
 DEFAULT_TARGET_MAX = 500000
 
 
@@ -125,7 +125,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 
 [profile.dev]
 debug = 0
@@ -227,7 +227,7 @@ def main():
     # Create sub-crates
     print(f"\nPhase 3: Creating {len(batches)} sub-crates...")
     for i, batch in enumerate(batches, 1):
-        crate_name = f"kernel-mgga-{i}"
+        crate_name = f"mgga-{i}"
         crate_dir = os.path.join(CRATES_DIR, crate_name)
         src_dir = os.path.join(crate_dir, "src")
         os.makedirs(src_dir, exist_ok=True)
@@ -269,11 +269,11 @@ def main():
     # Print workspace integration hints
     print(f"\nWorkspace Cargo.toml members to add:")
     for i in range(1, n + 1):
-        print(f'    "crates/kernel-mgga-{i}",')
+        print(f'    "crates/kernels/mgga-{i}",')
 
     print(f"\nFacade dependencies:")
     for i in range(1, n + 1):
-        print(f'libxc-kernel-mgga-{i} = {{ path = "../kernel-mgga-{i}" }}')
+        print(f'libxc-kernel-mgga-{i} = {{ path = "../mgga-{i}" }}')
 
 
 if __name__ == '__main__':

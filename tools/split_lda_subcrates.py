@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Split crates/kernel-lda mono-crate into bin-packed sub-crates.
+"""Split crates/kernels/lda mono-crate into bin-packed sub-crates.
 
-Currently `crates/kernel-lda` is a single ~11 MB Rust crate containing 41
+Currently `crates/kernels/lda` is a single ~11 MB Rust crate containing 41
 LDA functionals × 5 derivative orders × 2 spin modes = ~410 launch kernels
 that compile in one rustc invocation. Per
 `docs/manual/Cubecl/cubecl_macro_fanout_manual.md` §16 ("Split Crates to
@@ -11,9 +11,9 @@ Reduce Recompilation Scope") and matching the GGA/MGGA structure
 peak RAM during proc-macro expansion drops.
 
 Strategy:
-1. Scan `crates/kernel-lda/src/*/` for per-functional line counts.
+1. Scan `crates/kernels/lda/src/*/` for per-functional line counts.
 2. First-fit-decreasing bin pack into ≤TARGET_MAX-line bins.
-3. For each bin produce `crates/kernel-lda-<N>/` with Cargo.toml + lib.rs
+3. For each bin produce `crates/kernels/lda-<N>/` with Cargo.toml + lib.rs
    re-declaring `pub mod <func>;` for each functional in the bin.
 4. Move (`mv`) each functional directory from kernel-lda/src/ into the
    new sub-crate's src/.
@@ -24,7 +24,7 @@ Strategy:
 7. Update workspace root Cargo.toml: add new members + new path deps.
 
 `deferred.rs` and any non-functional metadata files in
-`crates/kernel-lda/src/` stay in the aggregator (they're shared
+`crates/kernels/lda/src/` stay in the aggregator (they're shared
 metadata, not generated kernel code).
 
 Usage:
@@ -54,8 +54,8 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-CRATES_DIR = REPO_ROOT / "crates"
-LDA_AGG = CRATES_DIR / "kernel-lda"
+CRATES_DIR = REPO_ROOT / "crates" / "kernels"
+LDA_AGG = CRATES_DIR / "lda"
 WORKSPACE_CARGO = REPO_ROOT / "Cargo.toml"
 
 TARGET_MAX = 500_000  # lines per sub-crate (matches GGA/MGGA)
@@ -96,7 +96,7 @@ def make_subcrate_cargo(sub_idx: int) -> str:
         'edition = "2024"\n\n'
         "[dependencies]\n"
         'cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }\n'
-        'libxc-kernel-math = { path = "../kernel-math" }\n'
+        'libxc-kernel-math = { path = "../math" }\n'
     )
 
 
@@ -154,7 +154,7 @@ def make_aggregator_cargo(num_subs: int, original_aggregator_cargo: str) -> str:
             out.append("[dependencies]")
             for n in range(1, num_subs + 1):
                 out.append(
-                    f'libxc-kernel-lda-{n} = {{ path = "../kernel-lda-{n}" }}'
+                    f'libxc-kernel-lda-{n} = {{ path = "../lda-{n}" }}'
                 )
             # skip until next [section] or EOF
             i += 1
@@ -167,11 +167,11 @@ def make_aggregator_cargo(num_subs: int, original_aggregator_cargo: str) -> str:
 
 
 WORKSPACE_DEP_RE = re.compile(
-    r'^libxc-kernel-lda = \{ path = "crates/kernel-lda" \}\s*$',
+    r'^libxc-kernel-lda = \{ path = "crates/kernels/lda" \}\s*$',
     re.MULTILINE,
 )
 WORKSPACE_MEMBER_RE = re.compile(
-    r'^\s*"crates/kernel-lda",\s*$',
+    r'^\s*"crates/kernels/lda",\s*$',
     re.MULTILINE,
 )
 
@@ -180,34 +180,34 @@ def update_workspace_cargo(num_subs: int, content: str) -> str:
     """Insert the new sub-crate members and path-deps into workspace Cargo.toml.
 
     Strips any pre-existing `libxc-kernel-lda-<N>` deps and
-    `"crates/kernel-lda-<N>",` members first so a `--repack` that changes
+    `"crates/kernels/lda-<N>",` members first so a `--repack` that changes
     bin count produces a clean diff (no leftover `-3` / `-4` entries).
     """
     # Strip every pre-existing libxc-kernel-lda-<N> dep line (any N ≥ 1).
     content = re.sub(
-        r'^libxc-kernel-lda-\d+\s*=\s*\{\s*path\s*=\s*"crates/kernel-lda-\d+"\s*\}\s*\n',
+        r'^libxc-kernel-lda-\d+\s*=\s*\{\s*path\s*=\s*"crates/kernels/lda-\d+"\s*\}\s*\n',
         "",
         content,
         flags=re.MULTILINE,
     )
-    # Strip every pre-existing "crates/kernel-lda-<N>", member line.
+    # Strip every pre-existing "crates/kernels/lda-<N>", member line.
     content = re.sub(
-        r'^\s*"crates/kernel-lda-\d+",\s*\n',
+        r'^\s*"crates/kernels/lda-\d+",\s*\n',
         "",
         content,
         flags=re.MULTILINE,
     )
 
     new_deps = "\n".join(
-        f'libxc-kernel-lda = {{ path = "crates/kernel-lda" }}' if n == 0
-        else f'libxc-kernel-lda-{n} = {{ path = "crates/kernel-lda-{n}" }}'
+        f'libxc-kernel-lda = {{ path = "crates/kernels/lda" }}' if n == 0
+        else f'libxc-kernel-lda-{n} = {{ path = "crates/kernels/lda-{n}" }}'
         for n in range(0, num_subs + 1)
     )
     content = WORKSPACE_DEP_RE.sub(new_deps, content, count=1)
 
     new_members = "\n".join(
-        f'    "crates/kernel-lda",' if n == 0
-        else f'    "crates/kernel-lda-{n}",'
+        f'    "crates/kernels/lda",' if n == 0
+        else f'    "crates/kernels/lda-{n}",'
         for n in range(0, num_subs + 1)
     )
     content = WORKSPACE_MEMBER_RE.sub(new_members, content, count=1)
@@ -220,7 +220,7 @@ def existing_subcrate_indices() -> list[int]:
     for entry in CRATES_DIR.iterdir():
         if not entry.is_dir():
             continue
-        m = re.match(r"^kernel-lda-(\d+)$", entry.name)
+        m = re.match(r"^lda-(\d+)$", entry.name)
         if m:
             out.append(int(m.group(1)))
     return sorted(out)
@@ -234,7 +234,7 @@ def repack_gather(dry_run: bool) -> tuple[int, int]:
     moved = 0
     emptied = 0
     for n in existing_subcrate_indices():
-        sub_src = CRATES_DIR / f"kernel-lda-{n}" / "src"
+        sub_src = CRATES_DIR / f"lda-{n}" / "src"
         if not sub_src.is_dir():
             continue
         local_moved = 0
@@ -268,7 +268,7 @@ def delete_old_subcrates(dry_run: bool) -> int:
     """
     removed = 0
     for n in existing_subcrate_indices():
-        sub = CRATES_DIR / f"kernel-lda-{n}"
+        sub = CRATES_DIR / f"lda-{n}"
         if not sub.is_dir():
             continue
         if dry_run:
@@ -282,7 +282,7 @@ def delete_old_subcrates(dry_run: bool) -> int:
 def already_split() -> bool:
     """True if any kernel-lda-N sub-crate already exists."""
     for entry in CRATES_DIR.iterdir():
-        if entry.is_dir() and re.match(r"^kernel-lda-\d+", entry.name):
+        if entry.is_dir() and re.match(r"^lda-\d+", entry.name):
             return True
     return False
 
@@ -307,7 +307,7 @@ def main() -> int:
             return 0
         old_indices = existing_subcrate_indices()
         print(f"Repack mode: gathering {len(old_indices)} existing sub-crate(s) "
-              f"({['kernel-lda-' + str(n) for n in old_indices]}) "
+              f"({['lda-' + str(n) for n in old_indices]}) "
               f"back into {LDA_AGG.relative_to(REPO_ROOT)}/src/...")
         moved, emptied = repack_gather(dry_run)
         print(f"  moved {moved} functional dir(s) from {emptied} sub-crate(s).")
@@ -329,7 +329,7 @@ def main() -> int:
         # so the bin-pack accounting matches what a live run would see.
         seen = {name for name, _ in items}
         for n in existing_subcrate_indices():
-            sub_src = CRATES_DIR / f"kernel-lda-{n}" / "src"
+            sub_src = CRATES_DIR / f"lda-{n}" / "src"
             if not sub_src.is_dir():
                 continue
             for name, lines in per_func_lines(sub_src):
@@ -357,7 +357,7 @@ def main() -> int:
 
     # 1. Materialise sub-crates and move functional dirs.
     for idx, b in enumerate(bins, start=1):
-        sub_dir = CRATES_DIR / f"kernel-lda-{idx}"
+        sub_dir = CRATES_DIR / f"lda-{idx}"
         (sub_dir / "src").mkdir(parents=True, exist_ok=True)
         # Cargo.toml
         (sub_dir / "Cargo.toml").write_text(make_subcrate_cargo(idx))
@@ -387,8 +387,8 @@ def main() -> int:
     ws = update_workspace_cargo(len(bins), ws)
     WORKSPACE_CARGO.write_text(ws)
 
-    print(f"\nDone. Created {len(bins)} sub-crates under crates/kernel-lda-1..{len(bins)}/.")
-    print("Aggregator crates/kernel-lda/ keeps `pub mod deferred` and re-exports each functional.")
+    print(f"\nDone. Created {len(bins)} sub-crates under crates/kernels/lda-1..{len(bins)}/.")
+    print("Aggregator crates/kernels/lda/ keeps `pub mod deferred` and re-exports each functional.")
     print("Run `cargo metadata` to verify workspace + dependency resolution.")
     return 0
 

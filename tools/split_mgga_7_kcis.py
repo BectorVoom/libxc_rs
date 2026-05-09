@@ -8,7 +8,7 @@ within KCIS, producing kernel-mgga-7a..7e each ≤50K lines.
 
 Each new crate keeps the same module path `mgga_c_kcis::<file>` so call
 sites are unaffected; the only public-API impact is at the aggregator
-(`crates/kernel-mgga/src/lib.rs`) which gains additional `batch7a..7e`
+(`crates/kernels/mgga/src/lib.rs`) which gains additional `batch7a..7e`
 re-exports replacing the old `batch7`.
 
 Usage: python3 tools/split_mgga_7_kcis.py [--dry-run]
@@ -20,7 +20,7 @@ import sys
 import re
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_CRATE = "kernel-mgga-7"
+SRC_CRATE = "mgga-7"
 FUNCTIONAL = "mgga_c_kcis"
 TARGET_MAX = 500000
 SUFFIXES = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # extend if more bins needed
@@ -58,7 +58,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 
 [profile.dev]
 debug = 0
@@ -122,7 +122,7 @@ def main():
     new_crate_names = []
     for i, b in enumerate(bins):
         suffix = SUFFIXES[i]
-        crate_name = f"kernel-mgga-7{suffix}"
+        crate_name = f"mgga-7{suffix}"
         crate_dir = os.path.join(REPO_ROOT, "crates", crate_name)
         new_src = os.path.join(crate_dir, "src", FUNCTIONAL)
         os.makedirs(new_src, exist_ok=True)
@@ -153,11 +153,11 @@ def main():
 
     # Replace the dependency line
     new_dep_lines = '\n'.join(
-        f'libxc-kernel-mgga-7{suf} = {{ path = "crates/{cname}" }}'
+        f'libxc-kernel-mgga-7{suf} = {{ path = "crates/kernels/{cname}" }}'
         for suf, cname in new_crate_names
     )
     content = content.replace(
-        'libxc-kernel-mgga-7 = { path = "crates/kernel-mgga-7" }',
+        'libxc-kernel-mgga-7 = { path = "crates/kernels/mgga-7" }',
         new_dep_lines
     )
 
@@ -166,7 +166,7 @@ def main():
         f'    "crates/{cname}",' for _suf, cname in new_crate_names
     )
     content = content.replace(
-        '    "crates/kernel-mgga-7",',
+        '    "crates/kernels/mgga-7",',
         new_member_lines
     )
 
@@ -174,8 +174,8 @@ def main():
         f.write(content)
     print(f"  Updated {ws_cargo}")
 
-    # Update crates/kernel-mgga/Cargo.toml
-    mg_cargo = os.path.join(REPO_ROOT, "crates", "kernel-mgga", "Cargo.toml")
+    # Update crates/kernels/mgga/Cargo.toml
+    mg_cargo = os.path.join(REPO_ROOT, "crates", "mgga", "Cargo.toml")
     with open(mg_cargo) as f:
         content = f.read()
     new_dep_lines = '\n'.join(
@@ -183,15 +183,15 @@ def main():
         for suf, cname in new_crate_names
     )
     content = content.replace(
-        'libxc-kernel-mgga-7 = { path = "../kernel-mgga-7" }',
+        'libxc-kernel-mgga-7 = { path = "../mgga-7" }',
         new_dep_lines
     )
     with open(mg_cargo, 'w') as f:
         f.write(content)
     print(f"  Updated {mg_cargo}")
 
-    # Update crates/kernel-mgga/src/lib.rs
-    mg_lib = os.path.join(REPO_ROOT, "crates", "kernel-mgga", "src", "lib.rs")
+    # Update crates/kernels/mgga/src/lib.rs
+    mg_lib = os.path.join(REPO_ROOT, "crates", "mgga", "src", "lib.rs")
     with open(mg_lib) as f:
         content = f.read()
     new_export_lines = '\n'.join(

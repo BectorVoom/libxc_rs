@@ -18,9 +18,9 @@ import sys
 import shutil
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CRATES_DIR = os.path.join(REPO_ROOT, "crates")
+CRATES_DIR = os.path.join(REPO_ROOT, "crates", "kernels")
 # TARGET_MAX is the per-SUB-CRATE bin-packing budget (sum of all .rs lines
-# inside one crates/kernel-mgga-NX/ tree), NOT a per-#[cube] function line
+# inside one crates/kernels/mgga-NX/ tree), NOT a per-#[cube] function line
 # cap. The per-function line cap lives in tools/translate_mgga.py
 # (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 500K
 # bin budget here is unrelated to that 18K function cap. Raised 10× from the
@@ -33,13 +33,13 @@ def find_oversized():
     """Return list of (crate_name, functional, [(file, lines), ...])."""
     out = []
     for entry in sorted(os.listdir(CRATES_DIR)):
-        if not entry.startswith("kernel-mgga-") or entry == "kernel-mgga":
+        if not entry.startswith("mgga-") or entry == "mgga":
             continue
         # Skip already-split crates (kernel-mgga-Na, Nb, etc.)
         if any(entry.endswith(s) for s in ['a', 'b', 'c', 'd', 'e', 'f', 'g',
                                            'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p']):
             # Heuristic: ends with single letter after digits (e.g. mgga-7a)
-            stripped = entry[len("kernel-mgga-"):]
+            stripped = entry[len("mgga-"):]
             if stripped[-1].isalpha() and stripped[:-1].isdigit():
                 continue
         src_dir = os.path.join(CRATES_DIR, entry, "src")
@@ -80,7 +80,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 
 [profile.dev]
 debug = 0
@@ -119,8 +119,8 @@ def make_mod_rs(file_subset, functional):
 def update_workspace_and_aggregator(crate_renames):
     """crate_renames: list of (old_crate, [new_crate, ...])."""
     ws_cargo = os.path.join(REPO_ROOT, "Cargo.toml")
-    mg_cargo = os.path.join(CRATES_DIR, "kernel-mgga", "Cargo.toml")
-    mg_lib = os.path.join(CRATES_DIR, "kernel-mgga", "src", "lib.rs")
+    mg_cargo = os.path.join(CRATES_DIR, "mgga", "Cargo.toml")
+    mg_lib = os.path.join(CRATES_DIR, "mgga", "src", "lib.rs")
 
     # Read all
     with open(ws_cargo) as f: ws_content = f.read()
@@ -128,12 +128,12 @@ def update_workspace_and_aggregator(crate_renames):
     with open(mg_lib) as f:   lib_content = f.read()
 
     for old, news in crate_renames:
-        n_old = old.replace("kernel-mgga-", "")  # e.g. "20"
+        n_old = old.replace("mgga-", "")  # e.g. "20"
         # workspace dep line
-        old_dep_ws = f'libxc-kernel-mgga-{n_old} = {{ path = "crates/{old}" }}'
+        old_dep_ws = f'libxc-kernel-mgga-{n_old} = {{ path = "crates/kernels/{old}" }}'
         new_dep_ws = '\n'.join(
-            f'libxc-kernel-mgga-{nc.replace("kernel-mgga-", "")} = '
-            f'{{ path = "crates/{nc}" }}' for nc in news
+            f'libxc-kernel-mgga-{nc.replace("mgga-", "")} = '
+            f'{{ path = "crates/kernels/{nc}" }}' for nc in news
         )
         ws_content = ws_content.replace(old_dep_ws, new_dep_ws)
         # workspace member entry
@@ -144,7 +144,7 @@ def update_workspace_and_aggregator(crate_renames):
         # aggregator Cargo dep
         old_dep_mg = f'libxc-kernel-mgga-{n_old} = {{ path = "../{old}" }}'
         new_dep_mg = '\n'.join(
-            f'libxc-kernel-mgga-{nc.replace("kernel-mgga-", "")} = '
+            f'libxc-kernel-mgga-{nc.replace("mgga-", "")} = '
             f'{{ path = "../{nc}" }}' for nc in news
         )
         mg_content = mg_content.replace(old_dep_mg, new_dep_mg)
@@ -152,8 +152,8 @@ def update_workspace_and_aggregator(crate_renames):
         # aggregator lib.rs re-export
         old_export = f'pub use libxc_kernel_mgga_{n_old} as batch{n_old};'
         new_exports = '\n'.join(
-            f'pub use libxc_kernel_mgga_{nc.replace("kernel-mgga-", "")} '
-            f'as batch{nc.replace("kernel-mgga-", "")};' for nc in news
+            f'pub use libxc_kernel_mgga_{nc.replace("mgga-", "")} '
+            f'as batch{nc.replace("mgga-", "")};' for nc in news
         )
         lib_content = lib_content.replace(old_export, new_exports)
 
@@ -171,15 +171,15 @@ def main():
     plan = []
     for crate, func, files in oversized:
         bins = bin_pack(files, TARGET_MAX)
-        n_old = crate.replace("kernel-mgga-", "")
+        n_old = crate.replace("mgga-", "")
         # Skip if already a multi-letter suffix (already split)
         if not n_old.isdigit():
             print(f"  SKIP {crate} (non-pure-numeric suffix)")
             continue
-        new_crates = [f"kernel-mgga-{n_old}{SUFFIXES[i]}" for i in range(len(bins))]
+        new_crates = [f"mgga-{n_old}{SUFFIXES[i]}" for i in range(len(bins))]
         total = sum(n for _, n in files)
         print(f"  {crate}/{func}: {total:,}L → {len(bins)} sub-crates "
-              f"({', '.join(c.replace('kernel-mgga-', '') for c in new_crates)})")
+              f"({', '.join(c.replace('mgga-', '') for c in new_crates)})")
         plan.append((crate, func, bins, new_crates))
 
     if dry_run:
@@ -200,7 +200,7 @@ def main():
                              os.path.join(new_func, fname))
             with open(os.path.join(new_func, "mod.rs"), 'w') as f:
                 f.write(make_mod_rs(b, func))
-            n_new = new_crate.replace("kernel-mgga-", "")
+            n_new = new_crate.replace("mgga-", "")
             with open(os.path.join(new_dir, "Cargo.toml"), 'w') as f:
                 f.write(CARGO_TOML_TEMPLATE.format(name=n_new))
             with open(os.path.join(new_dir, "src", "lib.rs"), 'w') as f:

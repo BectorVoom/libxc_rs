@@ -40,8 +40,8 @@ import shutil
 import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GGA_SRC = os.path.join(PROJECT_ROOT, "crates", "kernel-gga", "src")
-CRATES_DIR = os.path.join(PROJECT_ROOT, "crates")
+CRATES_DIR = os.path.join(PROJECT_ROOT, "crates", "kernels")
+GGA_SRC = os.path.join(CRATES_DIR, "gga", "src")
 CARGO_TOML = os.path.join(PROJECT_ROOT, "Cargo.toml")
 DEFAULT_BIN_LIMIT = 500_000  # Memory-permissive default; opt back to 50000 for tight RAM
 
@@ -58,7 +58,7 @@ DEFERRED = {
 }
 
 
-SUBCRATE_RE = re.compile(r"^kernel-gga-\d+[a-p]?$")
+SUBCRATE_RE = re.compile(r"^gga-\d+[a-p]?$")
 
 
 def gather_into_aggregator(dry_run: bool) -> tuple[int, set[str]]:
@@ -250,7 +250,7 @@ def delete_old_subcrates(dry_run: bool = False):
 def create_subcrate(bin_index, functionals_in_bin):
     """Create a single kernel-gga-N sub-crate."""
     n = bin_index + 1
-    crate_name = f"kernel-gga-{n}"
+    crate_name = f"gga-{n}"
     crate_dir = os.path.join(CRATES_DIR, crate_name)
     src_dir = os.path.join(crate_dir, "src")
     os.makedirs(src_dir, exist_ok=True)
@@ -276,7 +276,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 """
     with open(os.path.join(crate_dir, "Cargo.toml"), "w") as f:
         f.write(cargo_content)
@@ -314,10 +314,10 @@ def update_facade(num_subcrates):
     # Cargo.toml
     deps = [
         'cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }',
-        'libxc-kernel-math = { path = "../kernel-math" }',
+        'libxc-kernel-math = { path = "../math" }',
     ]
     for i in range(1, num_subcrates + 1):
-        deps.append(f'libxc-kernel-gga-{i} = {{ path = "../kernel-gga-{i}" }}')
+        deps.append(f'libxc-kernel-gga-{i} = {{ path = "../gga-{i}" }}')
 
     cargo_content = f"""[package]
 name = "libxc-kernel-gga"
@@ -327,7 +327,7 @@ edition = "2024"
 [dependencies]
 {chr(10).join(deps)}
 """
-    facade_toml = os.path.join(CRATES_DIR, "kernel-gga", "Cargo.toml")
+    facade_toml = os.path.join(CRATES_DIR, "gga", "Cargo.toml")
     with open(facade_toml, "w") as f:
         f.write(cargo_content)
 
@@ -349,7 +349,7 @@ edition = "2024"
         lib_lines.append(f'pub use libxc_kernel_gga_{i} as batch{i};')
     lib_lines.append('')
 
-    facade_lib = os.path.join(CRATES_DIR, "kernel-gga", "src", "lib.rs")
+    facade_lib = os.path.join(CRATES_DIR, "gga", "src", "lib.rs")
     with open(facade_lib, "w") as f:
         f.write('\n'.join(lib_lines))
 
@@ -376,11 +376,11 @@ def update_workspace(num_subcrates):
         if in_members:
             # Skip old kernel-gga-N AND kernel-gga-Nx entries (but keep kernel-gga itself)
             stripped = line.strip().strip(',').strip('"').strip("'")
-            if re.match(r'^crates/kernel-gga-\d+[a-p]?$', stripped):
+            if re.match(r'^crates/kernels/gga-\d+[a-p]?$', stripped):
                 # Insert new entries right before the first old one (once)
                 if not gga_entries_inserted:
                     for i in range(1, num_subcrates + 1):
-                        new_lines.append(f'    "crates/kernel-gga-{i}",')
+                        new_lines.append(f'    "crates/kernels/gga-{i}",')
                     gga_entries_inserted = True
                 continue
 
@@ -389,7 +389,7 @@ def update_workspace(num_subcrates):
                 # If we never saw old entries, insert before closing bracket
                 if not gga_entries_inserted:
                     for i in range(1, num_subcrates + 1):
-                        new_lines.append(f'    "crates/kernel-gga-{i}",')
+                        new_lines.append(f'    "crates/kernels/gga-{i}",')
                     gga_entries_inserted = True
                 in_members = False
 

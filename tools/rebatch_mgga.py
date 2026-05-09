@@ -44,9 +44,9 @@ import re
 import sys
 import shutil
 
-CRATES_DIR = "crates"
+CRATES_DIR = "crates/kernels"
 DEFAULT_TARGET_MAX = 500_000  # Memory-permissive default; opt back to 50000 for tight RAM
-SUBCRATE_RE = re.compile(r"^kernel-mgga-\d+[a-p]?$")
+SUBCRATE_RE = re.compile(r"^mgga-\d+[a-p]?$")
 
 
 def get_functional_sizes():
@@ -163,7 +163,7 @@ edition = "2024"
 
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
-libxc-kernel-math = {{ path = "../kernel-math" }}
+libxc-kernel-math = {{ path = "../math" }}
 """
     with open(os.path.join(crate_dir, "Cargo.toml"), 'w') as f:
         f.write(content)
@@ -273,7 +273,7 @@ def main():
     # Step 5: Create new sub-crates.
     print(f"\nCreating {len(batches)} new sub-crates...")
     for i, batch in enumerate(batches, 1):
-        crate_name = f"kernel-mgga-{i}"
+        crate_name = f"mgga-{i}"
         crate_dir = os.path.join(CRATES_DIR, crate_name)
         src_dir = os.path.join(crate_dir, "src")
         os.makedirs(src_dir, exist_ok=True)
@@ -318,13 +318,13 @@ def main():
 
 def update_facade(num_subcrates):
     """Rewrite kernel-mgga/Cargo.toml and kernel-mgga/src/lib.rs."""
-    facade_dir = os.path.join(CRATES_DIR, "kernel-mgga")
+    facade_dir = os.path.join(CRATES_DIR, "mgga")
     deps = [
         'cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }',
-        'libxc-kernel-math = { path = "../kernel-math" }',
+        'libxc-kernel-math = { path = "../math" }',
     ]
     for i in range(1, num_subcrates + 1):
-        deps.append(f'libxc-kernel-mgga-{i} = {{ path = "../kernel-mgga-{i}" }}')
+        deps.append(f'libxc-kernel-mgga-{i} = {{ path = "../mgga-{i}" }}')
     cargo_content = (
         '[package]\n'
         'name = "libxc-kernel-mgga"\n'
@@ -375,33 +375,33 @@ def update_workspace(num_subcrates):
     # Strip every libxc-kernel-mgga-<id> dep line under [workspace.dependencies].
     content = re.sub(
         r'^libxc-kernel-mgga-\d+[a-p]?\s*=\s*\{\s*path\s*=\s*'
-        r'"crates/kernel-mgga-\d+[a-p]?"\s*\}\s*\n',
+        r'"crates/kernels/mgga-\d+[a-p]?"\s*\}\s*\n',
         "",
         content, flags=re.MULTILINE,
     )
-    # Strip every "crates/kernel-mgga-<id>", member line.
+    # Strip every "crates/kernels/mgga-<id>", member line.
     content = re.sub(
-        r'^\s*"crates/kernel-mgga-\d+[a-p]?",\s*\n',
+        r'^\s*"crates/kernels/mgga-\d+[a-p]?",\s*\n',
         "",
         content, flags=re.MULTILINE,
     )
     # Insert fresh deps right after the kernel-mgga aggregator dep line.
     new_deps = "\n".join(
-        f'libxc-kernel-mgga-{i} = {{ path = "crates/kernel-mgga-{i}" }}'
+        f'libxc-kernel-mgga-{i} = {{ path = "crates/kernels/mgga-{i}" }}'
         for i in range(1, num_subcrates + 1)
     ) + "\n"
     content = re.sub(
-        r'(^libxc-kernel-mgga\s*=\s*\{\s*path\s*=\s*"crates/kernel-mgga"\s*\}\s*\n)',
+        r'(^libxc-kernel-mgga\s*=\s*\{\s*path\s*=\s*"crates/kernels/mgga"\s*\}\s*\n)',
         r'\1' + new_deps,
         content, count=1, flags=re.MULTILINE,
     )
     # Insert fresh members right after the kernel-mgga member line.
     new_members = "\n".join(
-        f'    "crates/kernel-mgga-{i}",'
+        f'    "crates/kernels/mgga-{i}",'
         for i in range(1, num_subcrates + 1)
     ) + "\n"
     content = re.sub(
-        r'(^\s*"crates/kernel-mgga",\s*\n)',
+        r'(^\s*"crates/kernels/mgga",\s*\n)',
         r'\1' + new_members,
         content, count=1, flags=re.MULTILINE,
     )
