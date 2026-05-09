@@ -2,6 +2,6 @@
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::too_many_arguments)]
 
-//! MGGA kernel translations batch 11.
+//! MGGA kernel translations: mgga-8a (mgga_c_revtpss subset).
 
-pub mod mgga_c_tpssloc;
+pub mod mgga_c_revtpss;

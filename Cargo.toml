@@ -22,10 +22,13 @@ libxc-kernel-mgga-4 = { path = "crates/kernels/mgga-4" }
 libxc-kernel-mgga-5 = { path = "crates/kernels/mgga-5" }
 libxc-kernel-mgga-6 = { path = "crates/kernels/mgga-6" }
 libxc-kernel-mgga-7 = { path = "crates/kernels/mgga-7" }
-libxc-kernel-mgga-8 = { path = "crates/kernels/mgga-8" }
-libxc-kernel-mgga-9 = { path = "crates/kernels/mgga-9" }
+libxc-kernel-mgga-8a = { path = "crates/kernels/mgga-8a" }
+libxc-kernel-mgga-8b = { path = "crates/kernels/mgga-8b" }
+libxc-kernel-mgga-9a = { path = "crates/kernels/mgga-9a" }
+libxc-kernel-mgga-9b = { path = "crates/kernels/mgga-9b" }
 libxc-kernel-mgga-10 = { path = "crates/kernels/mgga-10" }
-libxc-kernel-mgga-11 = { path = "crates/kernels/mgga-11" }
+libxc-kernel-mgga-11a = { path = "crates/kernels/mgga-11a" }
+libxc-kernel-mgga-11b = { path = "crates/kernels/mgga-11b" }
 libxc-kernel-mgga-12 = { path = "crates/kernels/mgga-12" }
 libxc-kernel-mgga-13 = { path = "crates/kernels/mgga-13" }
 libxc-kernel-mgga-14 = { path = "crates/kernels/mgga-14" }
@@ -60,10 +63,13 @@ default-members = [
     "crates/kernels/mgga-5",
     "crates/kernels/mgga-6",
     "crates/kernels/mgga-7",
-    "crates/kernels/mgga-8",
-    "crates/kernels/mgga-9",
+    "crates/kernels/mgga-8a",
+    "crates/kernels/mgga-8b",
+    "crates/kernels/mgga-9a",
+    "crates/kernels/mgga-9b",
     "crates/kernels/mgga-10",
-    "crates/kernels/mgga-11",
+    "crates/kernels/mgga-11a",
+    "crates/kernels/mgga-11b",
     "crates/kernels/mgga-12",
     "crates/kernels/mgga-13",
     "crates/kernels/mgga-14",
