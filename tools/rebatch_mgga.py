@@ -40,20 +40,39 @@ Usage:
 """
 
 import os
+import re
 import sys
 import shutil
-import json
 
 CRATES_DIR = "crates"
 DEFAULT_TARGET_MAX = 500_000  # Memory-permissive default; opt back to 50000 for tight RAM
+SUBCRATE_RE = re.compile(r"^kernel-mgga-\d+[a-p]?$")
 
 
 def get_functional_sizes():
-    """Scan existing sub-crates and measure per-functional line counts."""
-    funcs = []  # list of (func_name, line_count, source_crate_dir)
+    """Scan existing kernel-mgga-* sub-crates and produce a per-functional
+    summary, MERGING shares of the same functional across lettered sub-crates.
+
+    `split_oversized_kernel.py` / `split_oversized_mgga.py` produce
+    `kernel-mgga-N{a,b,c,d}/src/<func>/` directories that share the SAME
+    functional name but contain DIFFERENT .rs files (each lettered crate
+    holds its share of the .rs files for that functional, with a per-share
+    mod.rs declaring only that subset).
+
+    Returns a list of dicts:
+      [{
+         "name": "mgga_x_br89",
+         "lines": <total .rs lines across all shares, excluding mod.rs>,
+         "is_dir": True/False,         # True when the functional is a
+                                        # directory module; False for a
+                                        # bare .rs file.
+         "sources": [(<crate_dir>, <path_inside_src>), ...],
+       }, ...]
+    """
+    by_name: dict[str, dict] = {}
 
     for entry in sorted(os.listdir(CRATES_DIR)):
-        if not entry.startswith("kernel-mgga-") or entry == "kernel-mgga":
+        if not SUBCRATE_RE.match(entry):
             continue
         crate_dir = os.path.join(CRATES_DIR, entry)
         src_dir = os.path.join(crate_dir, "src")
@@ -62,53 +81,81 @@ def get_functional_sizes():
 
         for item in sorted(os.listdir(src_dir)):
             item_path = os.path.join(src_dir, item)
-            if item == "lib.rs" or not os.path.isdir(item_path):
-                # Check if it's a .rs file (non-directory module)
+            if not os.path.isdir(item_path):
+                # Bare .rs file module (rare for MGGA but supported).
                 if item.endswith('.rs') and item != 'lib.rs':
                     func_name = item[:-3]
                     lines = sum(1 for _ in open(item_path))
-                    funcs.append((func_name, lines, crate_dir, False))
+                    rec = by_name.setdefault(func_name, {
+                        "name": func_name, "lines": 0,
+                        "is_dir": False, "sources": [],
+                    })
+                    if rec["is_dir"]:
+                        print(f"FATAL: functional {func_name!r} appears as both "
+                              f"a directory module AND a bare .rs file across "
+                              f"sub-crates. Refusing to merge.", file=sys.stderr)
+                        sys.exit(2)
+                    rec["lines"] += lines
+                    rec["sources"].append((crate_dir, item))
                 continue
 
-            # Directory-based module
+            # Directory-based module.
             func_name = item
-            total_lines = 0
+            sub_lines = 0
             for rs_file in os.listdir(item_path):
-                if rs_file.endswith('.rs'):
-                    fpath = os.path.join(item_path, rs_file)
-                    total_lines += sum(1 for _ in open(fpath))
-            funcs.append((func_name, total_lines, crate_dir, True))
+                if rs_file.endswith('.rs') and rs_file != 'mod.rs':
+                    sub_lines += sum(1 for _ in open(os.path.join(item_path, rs_file)))
+            rec = by_name.setdefault(func_name, {
+                "name": func_name, "lines": 0,
+                "is_dir": True, "sources": [],
+            })
+            if not rec["is_dir"]:
+                print(f"FATAL: functional {func_name!r} appears as both a "
+                      f"directory module AND a bare .rs file across sub-crates. "
+                      f"Refusing to merge.", file=sys.stderr)
+                sys.exit(2)
+            rec["lines"] += sub_lines
+            rec["sources"].append((crate_dir, item))
 
-    return funcs
+    return sorted(by_name.values(), key=lambda r: r["name"])
 
 
 def bin_pack(funcs, target_max):
-    """First-fit decreasing bin packing."""
-    # Sort by size descending
-    sorted_funcs = sorted(funcs, key=lambda x: -x[1])
+    """First-fit decreasing bin packing over per-functional records.
 
-    batches = []  # list of lists of (func_name, lines, source_dir, is_dir)
-    batch_totals = []
+    Each record is the dict shape returned by get_functional_sizes(). Bins
+    are lists of those records. Solo-oversized functionals (lines > target)
+    get their own bin even though they exceed the target — caller's choice
+    to enforce; this matches resplit_gga.py's behavior.
+    """
+    sorted_funcs = sorted(funcs, key=lambda r: -r["lines"])
 
-    for func in sorted_funcs:
+    batches: list[list[dict]] = []
+    batch_totals: list[int] = []
+
+    for rec in sorted_funcs:
         placed = False
         for i, batch in enumerate(batches):
-            if batch_totals[i] + func[1] <= target_max:
-                batch.append(func)
-                batch_totals[i] += func[1]
+            if batch_totals[i] + rec["lines"] <= target_max:
+                batch.append(rec)
+                batch_totals[i] += rec["lines"]
                 placed = True
                 break
         if not placed:
-            batches.append([func])
-            batch_totals.append(func[1])
+            batches.append([rec])
+            batch_totals.append(rec["lines"])
 
-    # Sort batches by first functional name for determinism
-    batches.sort(key=lambda b: b[0][0])
+    batches.sort(key=lambda b: b[0]["name"])
     return batches
 
 
 def create_cargo_toml(crate_dir, crate_num):
-    """Create Cargo.toml for a sub-crate."""
+    """Create Cargo.toml for a sub-crate.
+
+    [profile.dev]/[profile.test] sections were removed project-wide
+    (commit 4be5c995 'drop dead [profile.*] sections'); they're inherited
+    from the workspace root so per-crate copies are dead code.
+    """
     content = f"""[package]
 name = "libxc-kernel-mgga-{crate_num}"
 version = "0.1.0"
@@ -117,18 +164,6 @@ edition = "2024"
 [dependencies]
 cubecl = {{ version = "0.10.0", default-features = false, features = ["cpu"] }}
 libxc-kernel-math = {{ path = "../kernel-math" }}
-
-[profile.dev]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true
-
-[profile.test]
-debug = 0
-codegen-units = 16
-opt-level = 0
-incremental = true
 """
     with open(os.path.join(crate_dir, "Cargo.toml"), 'w') as f:
         f.write(content)
@@ -173,48 +208,69 @@ def main():
     # Step 1: Measure all functionals
     print("Scanning existing sub-crates...")
     funcs = get_functional_sizes()
-    print(f"Found {len(funcs)} functionals")
+    print(f"Found {len(funcs)} unique functionals "
+          f"(merged across {sum(len(r['sources']) for r in funcs)} (sub-crate, "
+          f"functional) pairs).")
 
     # Step 2: Bin pack
     batches = bin_pack(funcs, target_max)
     print(f"Planned {len(batches)} sub-crates (target max {target_max} lines)")
 
     for i, batch in enumerate(batches, 1):
-        total = sum(f[1] for f in batch)
-        names = ', '.join(f[0] for f in batch)
+        total = sum(r["lines"] for r in batch)
+        names = ', '.join(r["name"] for r in batch)
         print(f"  mgga-{i}: {total:6d} lines ({len(batch)} funcs): {names}")
 
     if dry_run:
         print("\nDry run -- no changes made.")
         return
 
-    # Step 3: Create staging area
+    # Step 3: Stage merged per-functional contents.
     staging = "/tmp/mgga_rebatch_staging"
     if os.path.exists(staging):
         shutil.rmtree(staging)
     os.makedirs(staging)
 
-    # Copy all functional dirs/files to staging
-    print("\nCopying functionals to staging area...")
-    for func_name, lines, source_crate, is_dir in funcs:
-        if is_dir:
-            src = os.path.join(source_crate, "src", func_name)
-            dst = os.path.join(staging, func_name)
-            shutil.copytree(src, dst)
+    print("\nMerging functional shares into staging...")
+    for rec in funcs:
+        if rec["is_dir"]:
+            stage_dir = os.path.join(staging, rec["name"])
+            os.makedirs(stage_dir, exist_ok=True)
+            for crate_dir, src_relname in rec["sources"]:
+                src_dir = os.path.join(crate_dir, "src", src_relname)
+                for fn in os.listdir(src_dir):
+                    if not fn.endswith(".rs") or fn == "mod.rs":
+                        continue
+                    src_file = os.path.join(src_dir, fn)
+                    dst_file = os.path.join(stage_dir, fn)
+                    if os.path.exists(dst_file):
+                        print(f"FATAL: {dst_file} already in staging when "
+                              f"merging {src_file} — non-disjoint sub-crate "
+                              f"split. Refusing to clobber.", file=sys.stderr)
+                        sys.exit(2)
+                    shutil.copy2(src_file, dst_file)
+            # Synthesise mod.rs from the merged file set.
+            modnames = sorted(
+                fn[:-3] for fn in os.listdir(stage_dir)
+                if fn.endswith(".rs") and fn != "mod.rs"
+            )
+            with open(os.path.join(stage_dir, "mod.rs"), "w") as f:
+                f.write("\n".join(f"pub mod {n};" for n in modnames) + "\n")
         else:
-            src = os.path.join(source_crate, "src", func_name + ".rs")
-            dst = os.path.join(staging, func_name + ".rs")
+            # Bare-file functional. Take the first source as canonical.
+            crate_dir, src_relname = rec["sources"][0]
+            src = os.path.join(crate_dir, "src", src_relname)
+            dst = os.path.join(staging, src_relname)
             shutil.copy2(src, dst)
 
-    # Step 4: Remove old sub-crates
+    # Step 4: Remove old sub-crates (numeric AND lettered).
     print("Removing old sub-crates...")
-    for entry in os.listdir(CRATES_DIR):
-        if entry.startswith("kernel-mgga-") and entry != "kernel-mgga":
-            path = os.path.join(CRATES_DIR, entry)
-            shutil.rmtree(path)
+    for entry in sorted(os.listdir(CRATES_DIR)):
+        if SUBCRATE_RE.match(entry):
+            shutil.rmtree(os.path.join(CRATES_DIR, entry))
             print(f"  Removed {entry}")
 
-    # Step 5: Create new sub-crates
+    # Step 5: Create new sub-crates.
     print(f"\nCreating {len(batches)} new sub-crates...")
     for i, batch in enumerate(batches, 1):
         crate_name = f"kernel-mgga-{i}"
@@ -222,52 +278,136 @@ def main():
         src_dir = os.path.join(crate_dir, "src")
         os.makedirs(src_dir, exist_ok=True)
 
-        # Create Cargo.toml
         create_cargo_toml(crate_dir, i)
 
-        # Move functional files from staging
         func_names = []
-        for func_name, lines, _, is_dir in batch:
-            if is_dir:
-                src = os.path.join(staging, func_name)
-                dst = os.path.join(src_dir, func_name)
+        for rec in batch:
+            if rec["is_dir"]:
+                src = os.path.join(staging, rec["name"])
+                dst = os.path.join(src_dir, rec["name"])
                 shutil.copytree(src, dst)
             else:
-                src = os.path.join(staging, func_name + ".rs")
-                dst = os.path.join(src_dir, func_name + ".rs")
+                src = os.path.join(staging, rec["name"] + ".rs")
+                dst = os.path.join(src_dir, rec["name"] + ".rs")
                 shutil.copy2(src, dst)
-            func_names.append(func_name)
+            func_names.append(rec["name"])
 
-        # Create lib.rs
         create_lib_rs(crate_dir, func_names, i)
 
-        total = sum(f[1] for f in batch)
+        total = sum(r["lines"] for r in batch)
         print(f"  Created {crate_name}: {len(func_names)} funcs, {total} lines")
 
-    # Cleanup staging
     shutil.rmtree(staging)
 
-    # Step 6: Print what needs updating
+    # Step 6: Update kernel-mgga aggregator (Cargo.toml + lib.rs).
     n = len(batches)
+    update_facade(n)
+    print("Updated kernel-mgga facade (Cargo.toml + lib.rs)")
+
+    # Step 7: Update workspace root Cargo.toml.
+    update_workspace(n)
+    print("Updated workspace members in root Cargo.toml")
+
     print(f"\n{'='*60}")
     print(f"REBATCHING COMPLETE: {n} sub-crates created")
     print(f"{'='*60}")
 
-    print(f"\nUpdate kernel-mgga/Cargo.toml dependencies:")
-    for i in range(1, n + 1):
-        print(f'libxc-kernel-mgga-{i} = {{ path = "../kernel-mgga-{i}" }}')
-
-    print(f"\nUpdate kernel-mgga/src/lib.rs re-exports:")
-    for i in range(1, n + 1):
-        print(f'pub use libxc_kernel_mgga_{i} as batch{i};')
-
-    print(f"\nWorkspace members to add:")
-    for i in range(1, n + 1):
-        print(f'    "crates/kernel-mgga-{i}",')
-
-    # Output batch count for scripting
     with open("/tmp/mgga_batch_count.txt", "w") as f:
         f.write(str(n))
+
+
+def update_facade(num_subcrates):
+    """Rewrite kernel-mgga/Cargo.toml and kernel-mgga/src/lib.rs."""
+    facade_dir = os.path.join(CRATES_DIR, "kernel-mgga")
+    deps = [
+        'cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }',
+        'libxc-kernel-math = { path = "../kernel-math" }',
+    ]
+    for i in range(1, num_subcrates + 1):
+        deps.append(f'libxc-kernel-mgga-{i} = {{ path = "../kernel-mgga-{i}" }}')
+    cargo_content = (
+        '[package]\n'
+        'name = "libxc-kernel-mgga"\n'
+        'version = "0.1.0"\n'
+        'edition = "2024"\n'
+        '\n'
+        '[dependencies]\n'
+        + '\n'.join(deps) + '\n'
+    )
+    with open(os.path.join(facade_dir, "Cargo.toml"), "w") as f:
+        f.write(cargo_content)
+
+    # lib.rs preserves any non-batch-export prefix (e.g. `pub mod deferred;`)
+    # if present, then re-emits the numeric `batch{i}` aliases.
+    lib_path = os.path.join(facade_dir, "src", "lib.rs")
+    preserved_prefix: list[str] = []
+    if os.path.exists(lib_path):
+        for line in open(lib_path):
+            stripped = line.strip()
+            if stripped.startswith("pub use libxc_kernel_mgga_"):
+                break
+            preserved_prefix.append(line.rstrip("\n"))
+    if not preserved_prefix or not any(s.strip() for s in preserved_prefix):
+        preserved_prefix = [
+            "#![allow(clippy::excessive_precision)]",
+            "#![allow(clippy::needless_late_init)]",
+            "#![allow(clippy::too_many_arguments)]",
+            "",
+            "//! MGGA kernel translations from maple2c.",
+            "",
+            "// Re-export sub-crates containing compiled MGGA functionals.",
+        ]
+    out_lines = list(preserved_prefix)
+    for i in range(1, num_subcrates + 1):
+        out_lines.append(f"pub use libxc_kernel_mgga_{i} as batch{i};")
+    out_lines.append("")
+    with open(lib_path, "w") as f:
+        f.write("\n".join(out_lines))
+
+
+def update_workspace(num_subcrates):
+    """Update workspace root Cargo.toml: strip stale kernel-mgga-* entries
+    (numeric or lettered) and emit fresh kernel-mgga-1..N entries."""
+    cargo_path = os.path.join(os.path.dirname(CRATES_DIR), "Cargo.toml") \
+        if os.path.dirname(CRATES_DIR) else "Cargo.toml"
+    content = open(cargo_path).read()
+
+    # Strip every libxc-kernel-mgga-<id> dep line under [workspace.dependencies].
+    content = re.sub(
+        r'^libxc-kernel-mgga-\d+[a-p]?\s*=\s*\{\s*path\s*=\s*'
+        r'"crates/kernel-mgga-\d+[a-p]?"\s*\}\s*\n',
+        "",
+        content, flags=re.MULTILINE,
+    )
+    # Strip every "crates/kernel-mgga-<id>", member line.
+    content = re.sub(
+        r'^\s*"crates/kernel-mgga-\d+[a-p]?",\s*\n',
+        "",
+        content, flags=re.MULTILINE,
+    )
+    # Insert fresh deps right after the kernel-mgga aggregator dep line.
+    new_deps = "\n".join(
+        f'libxc-kernel-mgga-{i} = {{ path = "crates/kernel-mgga-{i}" }}'
+        for i in range(1, num_subcrates + 1)
+    ) + "\n"
+    content = re.sub(
+        r'(^libxc-kernel-mgga\s*=\s*\{\s*path\s*=\s*"crates/kernel-mgga"\s*\}\s*\n)',
+        r'\1' + new_deps,
+        content, count=1, flags=re.MULTILINE,
+    )
+    # Insert fresh members right after the kernel-mgga member line.
+    new_members = "\n".join(
+        f'    "crates/kernel-mgga-{i}",'
+        for i in range(1, num_subcrates + 1)
+    ) + "\n"
+    content = re.sub(
+        r'(^\s*"crates/kernel-mgga",\s*\n)',
+        r'\1' + new_members,
+        content, count=1, flags=re.MULTILINE,
+    )
+
+    with open(cargo_path, "w") as f:
+        f.write(content)
 
 
 if __name__ == '__main__':
