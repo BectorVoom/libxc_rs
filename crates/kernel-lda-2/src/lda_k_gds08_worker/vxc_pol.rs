@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 
 /// LDA_K_GDS08_WORKER vxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn lda_k_gds08_worker_vxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

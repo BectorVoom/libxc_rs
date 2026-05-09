@@ -1,47 +1,47 @@
 # Phase 9 Plan 09-04: regen MGGA (single-sub-crate functionals)
-# Threshold: 18000 lines per #[cube] function
+# Threshold: 100000 lines per #[cube] function
 # Mode: live
 #
 OK: hyb_mgga_x_dldf → kernel-mgga-21 pre=10 post=10 added=0 removed=0
 OK: hyb_mgga_x_m05 → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_c_b94 → kernel-mgga-5 pre=8 post=8 added=0 removed=0
 OK: mgga_c_cc → kernel-mgga-35 pre=10 post=10 added=0 removed=0
-OK: mgga_c_ccalda → kernel-mgga-6 pre=18 post=10 added=2 removed=10
+OK: mgga_c_ccalda → kernel-mgga-6 pre=10 post=10 added=0 removed=0
 OK: mgga_c_cs → kernel-mgga-34 pre=10 post=10 added=0 removed=0
-OK: mgga_c_m05 → kernel-mgga-5 pre=13 post=10 added=1 removed=4
-OK: mgga_c_rppscan → kernel-mgga-16 pre=16 post=10 added=1 removed=7
-OK: mgga_c_rregtm → kernel-mgga-17 pre=16 post=10 added=1 removed=7
-OK: mgga_c_scan → kernel-mgga-16 pre=16 post=10 added=1 removed=7
-OK: mgga_k_csk → kernel-mgga-21 pre=11 post=10 added=1 removed=2
-OK: mgga_k_csk_loc → kernel-mgga-33 pre=11 post=10 added=1 removed=2
+OK: mgga_c_m05 → kernel-mgga-5 pre=10 post=10 added=0 removed=0
+OK: mgga_c_rppscan → kernel-mgga-16 pre=10 post=10 added=0 removed=0
+OK: mgga_c_rregtm → kernel-mgga-17 pre=10 post=10 added=0 removed=0
+OK: mgga_c_scan → kernel-mgga-16 pre=10 post=10 added=0 removed=0
+OK: mgga_k_csk → kernel-mgga-21 pre=10 post=10 added=0 removed=0
+OK: mgga_k_csk_loc → kernel-mgga-33 pre=10 post=10 added=0 removed=0
 OK: mgga_k_gea2 → kernel-mgga-17 pre=10 post=10 added=0 removed=0
 OK: mgga_k_gea4 → kernel-mgga-34 pre=10 post=10 added=0 removed=0
 OK: mgga_k_lk → kernel-mgga-35 pre=10 post=10 added=0 removed=0
-OK: mgga_k_pc07 → kernel-mgga-17 pre=16 post=10 added=1 removed=7
+OK: mgga_k_pc07 → kernel-mgga-17 pre=10 post=10 added=0 removed=0
 OK: mgga_k_pgslb → kernel-mgga-34 pre=10 post=10 added=0 removed=0
 OK: mgga_k_rda → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_x_2d_js17 → kernel-mgga-34 pre=10 post=10 added=0 removed=0
-OK: mgga_x_2d_prhg07 → kernel-mgga-30 pre=11 post=10 added=1 removed=2
+OK: mgga_x_2d_prhg07 → kernel-mgga-30 pre=10 post=10 added=0 removed=0
 OK: mgga_x_2d_prp10 → kernel-mgga-35 pre=8 post=8 added=0 removed=0
-OK: mgga_x_br89_explicit → kernel-mgga-23 pre=4 post=10 added=6 removed=0
-OK: mgga_x_edmgga → kernel-mgga-33 pre=10 post=10 added=1 removed=1
+OK: mgga_x_br89_explicit → kernel-mgga-23 pre=19 post=10 added=2 removed=11
+OK: mgga_x_edmgga → kernel-mgga-33 pre=10 post=10 added=0 removed=0
 OK: mgga_x_gx → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_x_jk → kernel-mgga-35 pre=10 post=10 added=0 removed=0
 OK: mgga_x_lta → kernel-mgga-34 pre=10 post=10 added=0 removed=0
 OK: mgga_x_m06l → kernel-mgga-21 pre=10 post=10 added=0 removed=0
 OK: mgga_x_m08 → kernel-mgga-21 pre=10 post=10 added=0 removed=0
-OK: mgga_x_m11 → kernel-mgga-28 pre=11 post=10 added=1 removed=2
-OK: mgga_x_mcml → kernel-mgga-6 pre=14 post=10 added=1 removed=5
-OK: mgga_x_mn12 → kernel-mgga-28 pre=11 post=10 added=1 removed=2
+OK: mgga_x_m11 → kernel-mgga-28 pre=10 post=10 added=0 removed=0
+OK: mgga_x_mcml → kernel-mgga-6 pre=10 post=10 added=0 removed=0
+OK: mgga_x_mn12 → kernel-mgga-28 pre=10 post=10 added=0 removed=0
 OK: mgga_x_ms → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_x_msb → kernel-mgga-30 pre=10 post=10 added=0 removed=0
 OK: mgga_x_mvs → kernel-mgga-35 pre=10 post=10 added=0 removed=0
 OK: mgga_x_pbe_gx → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_x_pkzb → kernel-mgga-28 pre=10 post=10 added=0 removed=0
-OK: mgga_x_r2scan → kernel-mgga-30 pre=11 post=10 added=1 removed=2
-OK: mgga_x_r4scan → kernel-mgga-31 pre=19 post=10 added=2 removed=11
+OK: mgga_x_r2scan → kernel-mgga-30 pre=10 post=10 added=0 removed=0
+OK: mgga_x_r4scan → kernel-mgga-31 pre=10 post=10 added=0 removed=0
 OK: mgga_x_rlda → kernel-mgga-34 pre=10 post=10 added=0 removed=0
-OK: mgga_x_rppscan → kernel-mgga-28 pre=11 post=10 added=1 removed=2
+OK: mgga_x_rppscan → kernel-mgga-28 pre=10 post=10 added=0 removed=0
 OK: mgga_x_rtpss → kernel-mgga-21 pre=10 post=10 added=0 removed=0
 OK: mgga_x_task → kernel-mgga-33 pre=10 post=10 added=0 removed=0
 OK: mgga_x_tau_hcth → kernel-mgga-34 pre=10 post=10 added=0 removed=0
@@ -49,7 +49,7 @@ OK: mgga_x_tb09 → kernel-mgga-35 pre=8 post=8 added=0 removed=0
 OK: mgga_x_th → kernel-mgga-34 pre=10 post=10 added=0 removed=0
 OK: mgga_x_tm → kernel-mgga-30 pre=10 post=10 added=0 removed=0
 OK: mgga_x_tpss → kernel-mgga-33 pre=10 post=10 added=0 removed=0
-OK: mgga_x_vcml → kernel-mgga-31 pre=14 post=10 added=1 removed=5
+OK: mgga_x_vcml → kernel-mgga-31 pre=10 post=10 added=0 removed=0
 OK: mgga_xc_cc06 → kernel-mgga-35 pre=10 post=10 added=0 removed=0
 OK: mgga_xc_lp90 → kernel-mgga-29 pre=10 post=10 added=0 removed=0
 OK: mgga_xc_zlp → kernel-mgga-23 pre=10 post=10 added=0 removed=0

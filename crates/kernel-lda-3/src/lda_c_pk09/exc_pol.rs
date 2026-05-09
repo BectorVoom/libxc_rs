@@ -1,4 +1,8 @@
-//! LDA_C_PK09 exc pol kernel.
+//! LDA_C_PK09 exc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 363 shared lines across all orders.
+//! Delta: 363 lines unique to exc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,9 +11,9 @@ use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PK09 exc -- polarized.
+/// LDA_C_PK09 exc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn lda_c_pk09_exc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
@@ -20,6 +24,7 @@ pub fn lda_c_pk09_exc_pol(
     if ip < zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
+        // --- shared preamble (363 lines) ---
         let t1 = rho0 + rho1;
         let t2 = rho0 - rho1;
         let t3 = t2 * t2;

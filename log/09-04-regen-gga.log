@@ -1,14 +1,14 @@
 # Phase 9 Plan 09-04: regen GGA (single-sub-crate functionals)
-# Threshold: 18000 lines per #[cube] function
+# Threshold: 100000 lines per #[cube] function
 # Mode: live
 #
-OK: gga_c_acgga → kernel-gga-9c pre=21 post=10 added=1 removed=12
+OK: gga_c_acgga → kernel-gga-9c pre=10 post=10 added=0 removed=0
 OK: gga_c_am05 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_c_bmk → kernel-gga-6d pre=10 post=10 added=0 removed=0
 OK: gga_c_ccdf → kernel-gga-17 pre=10 post=10 added=0 removed=0
 OK: gga_c_chachiyo → kernel-gga-20 pre=10 post=10 added=0 removed=0
 OK: gga_c_cs1 → kernel-gga-18 pre=10 post=10 added=0 removed=0
-OK: gga_c_hcth_a → kernel-gga-7d pre=18 post=10 added=1 removed=9
+OK: gga_c_hcth_a → kernel-gga-7d pre=10 post=10 added=0 removed=0
 OK: gga_c_lm → kernel-gga-19 pre=10 post=10 added=0 removed=0
 OK: gga_c_lyp → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_c_lypr → kernel-gga-16 pre=10 post=10 added=0 removed=0
@@ -21,19 +21,19 @@ OK: gga_c_p86 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_c_p86vwn → kernel-gga-16 pre=10 post=10 added=0 removed=0
 OK: gga_c_pbe → kernel-gga-4g pre=10 post=10 added=0 removed=0
 OK: gga_c_pbe_vwn → kernel-gga-14 pre=10 post=10 added=0 removed=0
-OK: gga_c_pbeloc → kernel-gga-11 pre=13 post=10 added=1 removed=4
-OK: gga_c_pw91 → kernel-gga-13 pre=13 post=10 added=1 removed=4
-OK: gga_c_regtpss → kernel-gga-12 pre=13 post=10 added=1 removed=4
-OK: gga_c_revtca → kernel-gga-3e pre=11 post=10 added=1 removed=2
+OK: gga_c_pbeloc → kernel-gga-11 pre=10 post=10 added=0 removed=0
+OK: gga_c_pw91 → kernel-gga-13 pre=10 post=10 added=0 removed=0
+OK: gga_c_regtpss → kernel-gga-12 pre=10 post=10 added=0 removed=0
+OK: gga_c_revtca → kernel-gga-3e pre=10 post=10 added=0 removed=0
 OK: gga_c_scan_e0 → kernel-gga-15 pre=10 post=10 added=0 removed=0
-OK: gga_c_sogga11 → kernel-gga-12 pre=18 post=10 added=1 removed=9
+OK: gga_c_sogga11 → kernel-gga-12 pre=10 post=10 added=0 removed=0
 OK: gga_c_tca → kernel-gga-19 pre=10 post=10 added=0 removed=0
 OK: gga_c_w94 → kernel-gga-21 pre=10 post=10 added=0 removed=0
 OK: gga_c_wi → kernel-gga-21 pre=10 post=10 added=0 removed=0
 OK: gga_c_wl → kernel-gga-19 pre=10 post=10 added=0 removed=0
-OK: gga_c_zpbeint → kernel-gga-13 pre=13 post=10 added=1 removed=4
-OK: gga_c_zvpbeint → kernel-gga-11 pre=13 post=10 added=1 removed=4
-OK: gga_c_zvpbeloc → kernel-gga-12 pre=13 post=10 added=1 removed=4
+OK: gga_c_zpbeint → kernel-gga-13 pre=10 post=10 added=0 removed=0
+OK: gga_c_zvpbeint → kernel-gga-11 pre=10 post=10 added=0 removed=0
+OK: gga_c_zvpbeloc → kernel-gga-12 pre=10 post=10 added=0 removed=0
 OK: gga_k_apbe → kernel-gga-22 pre=10 post=10 added=0 removed=0
 OK: gga_k_apbeint → kernel-gga-20 pre=10 post=10 added=0 removed=0
 OK: gga_k_dk → kernel-gga-19 pre=10 post=10 added=0 removed=0
@@ -72,7 +72,7 @@ OK: gga_x_chachiyo → kernel-gga-13 pre=10 post=10 added=0 removed=0
 OK: gga_x_dk87 → kernel-gga-14 pre=10 post=10 added=0 removed=0
 OK: gga_x_ev93 → kernel-gga-19 pre=10 post=10 added=0 removed=0
 OK: gga_x_fd_lb94 → kernel-gga-21 pre=10 post=10 added=0 removed=0
-OK: gga_x_ft97 → kernel-gga-14 pre=13 post=10 added=1 removed=4
+OK: gga_x_ft97 → kernel-gga-14 pre=10 post=10 added=0 removed=0
 OK: gga_x_g96 → kernel-gga-22 pre=10 post=10 added=0 removed=0
 OK: gga_x_gg99 → kernel-gga-5g pre=10 post=10 added=0 removed=0
 OK: gga_x_hcth_a → kernel-gga-21 pre=10 post=10 added=0 removed=0
@@ -84,7 +84,7 @@ OK: gga_x_ityh_pbe → kernel-gga-15 pre=10 post=10 added=0 removed=0
 OK: gga_x_kt → kernel-gga-20 pre=10 post=10 added=0 removed=0
 OK: gga_x_lag → kernel-gga-20 pre=10 post=10 added=0 removed=0
 OK: gga_x_lb → kernel-gga-8d pre=8 post=8 added=0 removed=0
-OK: gga_x_lcgau → kernel-gga-11 pre=14 post=10 added=1 removed=5
+OK: gga_x_lcgau → kernel-gga-11 pre=10 post=10 added=0 removed=0
 OK: gga_x_lg93 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_x_lspbe → kernel-gga-22 pre=10 post=10 added=0 removed=0
 OK: gga_x_lsrpbe → kernel-gga-22 pre=10 post=10 added=0 removed=0
@@ -115,10 +115,10 @@ OK: gga_x_ssb_sw → kernel-gga-20 pre=10 post=10 added=0 removed=0
 OK: gga_x_vmt → kernel-gga-21 pre=10 post=10 added=0 removed=0
 OK: gga_x_vmt84 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_x_wc → kernel-gga-20 pre=10 post=10 added=0 removed=0
-OK: gga_xc_b97 → kernel-gga-13 pre=12 post=10 added=1 removed=3
+OK: gga_xc_b97 → kernel-gga-13 pre=10 post=10 added=0 removed=0
 OK: gga_xc_th1 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: gga_xc_th2 → kernel-gga-19 pre=10 post=10 added=0 removed=0
 OK: gga_xc_th3 → kernel-gga-18 pre=10 post=10 added=0 removed=0
 OK: hyb_gga_x_cam_s12 → kernel-gga-15 pre=10 post=10 added=0 removed=0
 OK: hyb_gga_xc_case21 → kernel-gga-15 pre=10 post=10 added=0 removed=0
-OK: hyb_gga_xc_wb97 → kernel-gga-8d pre=18 post=10 added=1 removed=9
+OK: hyb_gga_xc_wb97 → kernel-gga-8d pre=10 post=10 added=0 removed=0

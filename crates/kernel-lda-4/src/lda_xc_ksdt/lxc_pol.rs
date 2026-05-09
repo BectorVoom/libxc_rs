@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// LDA_XC_KSDT lxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn lda_xc_ksdt_lxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

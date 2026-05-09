@@ -12,7 +12,7 @@ use libxc_kernel_math::lambert_w::{lambert_w};
 use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn mgga_x_2d_prp10_vxc_pol(
     rho: &Array<f64>,
     sigma: &Array<f64>,

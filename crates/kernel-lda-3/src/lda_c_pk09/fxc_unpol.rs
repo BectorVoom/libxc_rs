@@ -1,4 +1,8 @@
-//! LDA_C_PK09 fxc unpol kernel.
+//! LDA_C_PK09 fxc unpol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 199 shared lines across all orders.
+//! Delta: 550 lines unique to fxc.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -7,9 +11,9 @@ use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 use libxc_kernel_math::piecewise::{piecewise3};
 
-/// LDA_C_PK09 fxc -- unpolarized.
+/// LDA_C_PK09 fxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn lda_c_pk09_fxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
@@ -20,6 +24,7 @@ pub fn lda_c_pk09_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
+        // --- shared preamble (199 lines) ---
         let t1 = M_CBRT4;
         let t2 = t1 * t1;
         let t3 = M_CBRT3;
@@ -220,6 +225,7 @@ pub fn lda_c_pk09_fxc_unpol(
         let t338 = t98 / 4.0 - 11.03992419064953 * t86 - 2.700122570973095 * t95 - 1.8805371096875316 * t104 + 0.9402685548437658 * t112 + 9.744586887290076 * t116 + 2.4686668587241773 * t122 - 0.020575331764924796 * t130 + 9.317629008816482 * t139 - 1.1070374589416536 * t152 - 1.213758097597164 * t160 - 3.5540878740919255 * t164 + t336 / 4.0;
         let tzk0 = rho[ip] * t338;
         zk[ip] += tzk0;
+        // --- vxc delta (335 lines) ---
         let t340 = rho[ip] * rho[ip];
         let t341 = t133 * t133;
         let t342 = 1.0 / t341;
@@ -556,6 +562,7 @@ pub fn lda_c_pk09_fxc_unpol(
         let t1034 = t951 + t1033;
         let tvrho0 = t340 * t1034 + 2.0 * tzk0;
         vrho[ip] += tvrho0;
+        // --- fxc delta (this level) (550 lines) ---
         let t1053 = t427 * t61;
         let t1054 = t60 * t1053;
         let t1057 = t376 * t376;
