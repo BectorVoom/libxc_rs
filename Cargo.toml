@@ -11,7 +11,6 @@ thiserror = "2.0.18"
 libxc-kernel-math = { path = "crates/kernel-math" }
 libxc-kernel-lda = { path = "crates/kernel-lda" }
 libxc-kernel-lda-1 = { path = "crates/kernel-lda-1" }
-libxc-kernel-lda-2 = { path = "crates/kernel-lda-2" }
 libxc-kernel-gga = { path = "crates/kernel-gga" }
 libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 
@@ -42,7 +41,6 @@ default-members = [
     "crates/kernel-math",
     "crates/kernel-lda",
     "crates/kernel-lda-1",
-    "crates/kernel-lda-2",
     "crates/kernel-gga",
     "crates/kernel-gga-1",
     "crates/kernel-gga-2",
