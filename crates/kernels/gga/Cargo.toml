@@ -11,3 +11,6 @@ libxc-kernel-gga-2 = { path = "../gga-2" }
 libxc-kernel-gga-3 = { path = "../gga-3" }
 libxc-kernel-gga-4 = { path = "../gga-4" }
 libxc-kernel-gga-5 = { path = "../gga-5" }
+libxc-kernel-gga-6 = { path = "../gga-6" }
+libxc-kernel-gga-7 = { path = "../gga-7" }
+libxc-kernel-gga-8 = { path = "../gga-8" }

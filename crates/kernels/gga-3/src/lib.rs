@@ -4,10 +4,9 @@
 
 //! GGA kernel translations batch 3.
 
-pub mod gga_c_lyp;
+pub mod gga_c_bmk;
 
 // Deferred: CubeCL proc macro SIGSEGV on large lxc_pol/kxc_pol files.
-// pub mod gga_c_acggap;
-// pub mod gga_c_pbe_erf_gws;
-// pub mod gga_c_q2d;
-// pub mod gga_x_hjs;
+// pub mod gga_c_ft97;
+// pub mod gga_c_sg4;
+// pub mod gga_x_lcgau;
