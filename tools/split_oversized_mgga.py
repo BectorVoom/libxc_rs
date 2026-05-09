@@ -25,7 +25,7 @@ CRATES_DIR = os.path.join(REPO_ROOT, "crates")
 # (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 500K
 # bin budget here is unrelated to that 18K function cap. Raised 10× from the
 # original 50K per quick task 260509-q01 (operator override of CONTEXT D-09).
-TARGET_MAX = 500000
+TARGET_MAX = 100000
 SUFFIXES = list("abcdefghijklmnop")  # 16 should suffice (largest functional needs 12)
 
 

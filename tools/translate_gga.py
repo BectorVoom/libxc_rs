@@ -470,7 +470,7 @@ def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
 # margin under SPEC's 20K per-file forward guard, after the dev machine was
 # verified to have RAM headroom for 16K+ line files.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 18000
+SPLIT_THRESHOLD = 1800
 UNSPLITTABLE = 999999
 
 # Output arrays grouped by derivative order, used for split naming.

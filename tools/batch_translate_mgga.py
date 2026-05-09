@@ -25,7 +25,7 @@ from translate_mgga import translate_functional
 MGGA_EXC_DIR = "libxc-master/src/maple2c/mgga_exc"
 MGGA_VXC_DIR = "libxc-master/src/maple2c/mgga_vxc"
 CRATES_DIR = "crates"
-DEFAULT_TARGET_MAX = 500000
+DEFAULT_TARGET_MAX = 100000
 
 
 def collect_all_functionals():

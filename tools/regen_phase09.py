@@ -5,7 +5,7 @@ Phase 9 Plan 09-04 regeneration driver.
 For each functional currently present in EXACTLY ONE sub-crate under
 `crates/kernel-{lda,gga-*,mgga-*}/src/<functional>/`, re-run the matching
 translator (translate_lda_v2.py / translate_gga.py / translate_mgga.py) with
-the new 18K SPLIT_THRESHOLD into a temporary staging directory, then atomically
+the active SPLIT_THRESHOLD (1800 as of quick task 260509-q02) into a temporary staging directory, then atomically
 replace the existing per-functional directory contents (preserving sub-crate
 boundary per CONTEXT D-09).
 
@@ -109,7 +109,7 @@ def list_existing_files(func_dir: str):
 
 
 def run_translator(family: str, c_path: str, func_name: str,
-                   write_to: str, vxc_only: bool, threshold: int = 18000):
+                   write_to: str, vxc_only: bool, threshold: int = 1800):
     """Run the translator subprocess and return (returncode, stdout, stderr)."""
     cmd = [sys.executable, TRANSLATOR[family], c_path, func_name,
            "--write-to", write_to, "--split", "--incremental"]

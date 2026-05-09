@@ -22,7 +22,7 @@ import re
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_CRATE = "kernel-mgga-7"
 FUNCTIONAL = "mgga_c_kcis"
-TARGET_MAX = 500000
+TARGET_MAX = 100000
 SUFFIXES = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # extend if more bins needed
 
 
