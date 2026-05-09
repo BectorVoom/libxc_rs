@@ -1,0 +1,106 @@
+//! GGA_K_LGAP_GE exc pol kernel (incremental).
+//!
+//! Auto-translated with incremental derivative structure.
+//! Preamble: 70 shared lines across all orders.
+//! Delta: 70 lines unique to exc.
+
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case)]
+#[cube(launch_unchecked)]
+pub fn gga_k_lgap_ge_exc_pol(
+    rho: &Array<f64>,
+    sigma: &Array<f64>,
+    zk: &mut Array<f64>,
+    param_mu_0: f64,
+    param_mu_1: f64,
+    param_mu_2: f64,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    let ip = ABSOLUTE_POS;
+    if ip < zk.len() {
+        let rho0 = rho[ip * 2];
+        let rho1 = rho[ip * 2 + 1];
+        let sigma0 = sigma[ip * 3];
+        let sigma1 = sigma[ip * 3 + 1];
+        let sigma2 = sigma[ip * 3 + 2];
+        // --- shared preamble (70 lines) ---
+        let t1 = rho0 <= dens_threshold;
+        let t2 = M_CBRT3;
+        let t3 = t2 * t2;
+        let t4 = M_CBRTPI;
+        let t6 = t3 * t4 * M_PI;
+        let t7 = rho0 + rho1;
+        let t8 = 1.0 / t7;
+        let t11 = 2.0 * rho0 * t8 <= zeta_threshold;
+        let t12 = zeta_threshold - 1.0;
+        let t15 = 2.0 * rho1 * t8 <= zeta_threshold;
+        let t16 = -t12;
+        let t17 = rho0 - rho1;
+        let t19 = piecewise5(t11, t12, t15, t16, t17 * t8);
+        let t20 = 1.0 + t19;
+        let t21 = t20 <= zeta_threshold;
+        let t22 = pow_1_3(zeta_threshold);
+        let t23 = t22 * t22;
+        let t24 = t23 * zeta_threshold;
+        let t25 = pow_1_3(t20);
+        let t26 = t25 * t25;
+        let t28 = piecewise3(t21, t24, t26 * t20);
+        let t29 = pow_1_3(t7);
+        let t30 = t29 * t29;
+        let t31 = t28 * t30;
+        let t33 = M_CBRT6;
+        let t34 = t33 * t33;
+        let t35 = param_mu_0 * t34;
+        let t36 = M_PI * M_PI;
+        let t37 = pow_1_3(t36);
+        let t38 = 1.0 / t37;
+        let t39 = f64::sqrt(sigma0);
+        let t40 = t38 * t39;
+        let t41 = pow_1_3(rho0);
+        let t43 = 1.0 / t41 / rho0;
+        let t48 = param_mu_1 * t33;
+        let t49 = t37 * t37;
+        let t50 = 1.0 / t49;
+        let t51 = t50 * sigma0;
+        let t52 = rho0 * rho0;
+        let t53 = t41 * t41;
+        let t55 = 1.0 / t53 / t52;
+        let t61 = param_mu_2 / t36;
+        let t62 = t39 * sigma0;
+        let t63 = t52 * t52;
+        let t64 = 1.0 / t63;
+        let t68 = 1.0 + t35 * t40 * t43 / 12.0 + t48 * t51 * t55 / 24.0 + t61 * t62 * t64 / 48.0;
+        let t72 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t31 * t68);
+        let t73 = rho1 <= dens_threshold;
+        let t74 = -t17;
+        let t76 = piecewise5(t15, t12, t11, t16, t74 * t8);
+        let t77 = 1.0 + t76;
+        let t78 = t77 <= zeta_threshold;
+        let t79 = pow_1_3(t77);
+        let t80 = t79 * t79;
+        let t82 = piecewise3(t78, t24, t80 * t77);
+        let t83 = t82 * t30;
+        let t84 = f64::sqrt(sigma2);
+        let t85 = t38 * t84;
+        let t86 = pow_1_3(rho1);
+        let t88 = 1.0 / t86 / rho1;
+        let t92 = t50 * sigma2;
+        let t93 = rho1 * rho1;
+        let t94 = t86 * t86;
+        let t96 = 1.0 / t94 / t93;
+        let t100 = t84 * sigma2;
+        let t101 = t93 * t93;
+        let t102 = 1.0 / t101;
+        let t106 = 1.0 + t35 * t85 * t88 / 12.0 + t48 * t92 * t96 / 24.0 + t61 * t100 * t102 / 48.0;
+        let t110 = piecewise3(t73, 0.0, 3.0 / 20.0 * t6 * t83 * t106);
+        let tzk0 = t72 + t110;
+        zk[ip] += tzk0;
+    }
+}
