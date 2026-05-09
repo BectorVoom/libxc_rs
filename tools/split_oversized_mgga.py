@@ -17,15 +17,15 @@ import os
 import sys
 import shutil
 
-WORKSPACE = "/workspace"
-CRATES_DIR = os.path.join(WORKSPACE, "crates")
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CRATES_DIR = os.path.join(REPO_ROOT, "crates")
 # TARGET_MAX is the per-SUB-CRATE bin-packing budget (sum of all .rs lines
 # inside one crates/kernel-mgga-NX/ tree), NOT a per-#[cube] function line
 # cap. The per-function line cap lives in tools/translate_mgga.py
-# (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 50K
-# bin budget here is unrelated to that 18K function cap and stays as-is per
-# CONTEXT D-09 (sub-crate re-bin-packing is OUT of scope for Phase 9).
-TARGET_MAX = 50000
+# (SPLIT_THRESHOLD = 18000 as of Phase 9 Plan 09-04, CONTEXT D-06). The 500K
+# bin budget here is unrelated to that 18K function cap. Raised 10× from the
+# original 50K per quick task 260509-q01 (operator override of CONTEXT D-09).
+TARGET_MAX = 500000
 SUFFIXES = list("abcdefghijklmnop")  # 16 should suffice (largest functional needs 12)
 
 
@@ -118,7 +118,7 @@ def make_mod_rs(file_subset, functional):
 
 def update_workspace_and_aggregator(crate_renames):
     """crate_renames: list of (old_crate, [new_crate, ...])."""
-    ws_cargo = os.path.join(WORKSPACE, "Cargo.toml")
+    ws_cargo = os.path.join(REPO_ROOT, "Cargo.toml")
     mg_cargo = os.path.join(CRATES_DIR, "kernel-mgga", "Cargo.toml")
     mg_lib = os.path.join(CRATES_DIR, "kernel-mgga", "src", "lib.rs")
 

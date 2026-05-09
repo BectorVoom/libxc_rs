@@ -19,16 +19,16 @@ import shutil
 import sys
 import re
 
-WORKSPACE = "/workspace"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_CRATE = "kernel-mgga-7"
 FUNCTIONAL = "mgga_c_kcis"
-TARGET_MAX = 50000
+TARGET_MAX = 500000
 SUFFIXES = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # extend if more bins needed
 
 
 def collect_files():
     """Return sorted list of (filename, line_count)."""
-    src = os.path.join(WORKSPACE, "crates", SRC_CRATE, "src", FUNCTIONAL)
+    src = os.path.join(REPO_ROOT, "crates", SRC_CRATE, "src", FUNCTIONAL)
     out = []
     for f in sorted(os.listdir(src)):
         if f.endswith(".rs") and f != "mod.rs":
@@ -116,14 +116,14 @@ def main():
         print(f"ERROR: need more suffixes (have {len(SUFFIXES)}, need {len(bins)})")
         sys.exit(1)
 
-    src_dir = os.path.join(WORKSPACE, "crates", SRC_CRATE, "src", FUNCTIONAL)
+    src_dir = os.path.join(REPO_ROOT, "crates", SRC_CRATE, "src", FUNCTIONAL)
 
     # Create new sub-crates
     new_crate_names = []
     for i, b in enumerate(bins):
         suffix = SUFFIXES[i]
         crate_name = f"kernel-mgga-7{suffix}"
-        crate_dir = os.path.join(WORKSPACE, "crates", crate_name)
+        crate_dir = os.path.join(REPO_ROOT, "crates", crate_name)
         new_src = os.path.join(crate_dir, "src", FUNCTIONAL)
         os.makedirs(new_src, exist_ok=True)
         new_crate_names.append((suffix, crate_name))
@@ -147,7 +147,7 @@ def main():
         print(f"  Created {crate_name}: {len(b)} files")
 
     # Update workspace Cargo.toml
-    ws_cargo = os.path.join(WORKSPACE, "Cargo.toml")
+    ws_cargo = os.path.join(REPO_ROOT, "Cargo.toml")
     with open(ws_cargo) as f:
         content = f.read()
 
@@ -175,7 +175,7 @@ def main():
     print(f"  Updated {ws_cargo}")
 
     # Update crates/kernel-mgga/Cargo.toml
-    mg_cargo = os.path.join(WORKSPACE, "crates", "kernel-mgga", "Cargo.toml")
+    mg_cargo = os.path.join(REPO_ROOT, "crates", "kernel-mgga", "Cargo.toml")
     with open(mg_cargo) as f:
         content = f.read()
     new_dep_lines = '\n'.join(
@@ -191,7 +191,7 @@ def main():
     print(f"  Updated {mg_cargo}")
 
     # Update crates/kernel-mgga/src/lib.rs
-    mg_lib = os.path.join(WORKSPACE, "crates", "kernel-mgga", "src", "lib.rs")
+    mg_lib = os.path.join(REPO_ROOT, "crates", "kernel-mgga", "src", "lib.rs")
     with open(mg_lib) as f:
         content = f.read()
     new_export_lines = '\n'.join(
@@ -207,7 +207,7 @@ def main():
     print(f"  Updated {mg_lib}")
 
     # Remove old kernel-mgga-7
-    old = os.path.join(WORKSPACE, "crates", SRC_CRATE)
+    old = os.path.join(REPO_ROOT, "crates", SRC_CRATE)
     shutil.rmtree(old)
     print(f"  Removed {old}")
 

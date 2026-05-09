@@ -48,7 +48,7 @@ CRATES_DIR = REPO_ROOT / "crates"
 LDA_AGG = CRATES_DIR / "kernel-lda"
 WORKSPACE_CARGO = REPO_ROOT / "Cargo.toml"
 
-TARGET_MAX = 50_000  # lines per sub-crate (matches GGA/MGGA)
+TARGET_MAX = 500_000  # lines per sub-crate (matches GGA/MGGA)
 SUFFIXES = list("abcdefghijklmnop")  # only used if a single functional > TARGET_MAX
 
 
