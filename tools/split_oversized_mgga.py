@@ -29,7 +29,7 @@ TARGET_MAX = 500000
 SUFFIXES = list("abcdefghijklmnop")  # 16 should suffice (largest functional needs 12)
 
 
-def find_oversized():
+def find_oversized(target_max=TARGET_MAX):
     """Return list of (crate_name, functional, [(file, lines), ...])."""
     out = []
     for entry in sorted(os.listdir(CRATES_DIR)):
@@ -55,7 +55,7 @@ def find_oversized():
                     n = sum(1 for _ in open(os.path.join(path, rs)))
                     files.append((rs, n))
             total = sum(n for _, n in files)
-            if total > TARGET_MAX:
+            if total > target_max:
                 out.append((entry, item, files))
     return out
 
@@ -136,9 +136,9 @@ def update_workspace_and_aggregator(crate_renames):
             f'{{ path = "crates/kernels/{nc}" }}' for nc in news
         )
         ws_content = ws_content.replace(old_dep_ws, new_dep_ws)
-        # workspace member entry
-        old_member = f'    "crates/{old}",'
-        new_members = '\n'.join(f'    "crates/{nc}",' for nc in news)
+        # workspace member entry (post-q07 path: crates/kernels/<crate>)
+        old_member = f'    "crates/kernels/{old}",'
+        new_members = '\n'.join(f'    "crates/kernels/{nc}",' for nc in news)
         ws_content = ws_content.replace(old_member, new_members)
 
         # aggregator Cargo dep
@@ -165,12 +165,27 @@ def update_workspace_and_aggregator(crate_renames):
 def main():
     dry_run = '--dry-run' in sys.argv
 
-    oversized = find_oversized()
-    print(f"Found {len(oversized)} oversized functionals (>{TARGET_MAX} lines):\n")
+    target_max = TARGET_MAX
+    if '--target-max' in sys.argv:
+        idx = sys.argv.index('--target-max')
+        if idx + 1 >= len(sys.argv):
+            print("--target-max requires a positive integer (lines per crate)")
+            sys.exit(2)
+        try:
+            target_max = int(sys.argv[idx + 1])
+        except ValueError:
+            print(f"--target-max must be an integer, got {sys.argv[idx + 1]!r}")
+            sys.exit(2)
+        if target_max <= 0:
+            print(f"--target-max must be positive, got {target_max}")
+            sys.exit(2)
+
+    oversized = find_oversized(target_max)
+    print(f"Found {len(oversized)} oversized functionals (>{target_max} lines):\n")
 
     plan = []
     for crate, func, files in oversized:
-        bins = bin_pack(files, TARGET_MAX)
+        bins = bin_pack(files, target_max)
         n_old = crate.replace("mgga-", "")
         # Skip if already a multi-letter suffix (already split)
         if not n_old.isdigit():
