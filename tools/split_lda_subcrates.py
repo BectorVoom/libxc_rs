@@ -28,13 +28,23 @@ Strategy:
 metadata, not generated kernel code).
 
 Usage:
-    python3 tools/split_lda_subcrates.py [--dry-run] [--target-max LINES]
+    python3 tools/split_lda_subcrates.py [--dry-run] [--target-max=LINES]
+    python3 tools/split_lda_subcrates.py --repack [--dry-run] [--target-max=LINES]
 
 `--dry-run` prints the bin assignment + would-be edits without touching
 the filesystem.
 
-This script is idempotent: a second run with no changes since the last
-emits "already split" and exits cleanly.
+By default the script is idempotent: a second run with no changes since
+the last emits "already split" and exits cleanly.
+
+`--repack` opts INTO consolidation: gathers per-functional dirs back from
+the existing `kernel-lda-1..N` sub-crates into `kernel-lda/src/`, deletes
+the old sub-crates and their workspace entries, then re-runs the
+bin-packer at the requested `--target-max`. Useful for "decrease kernels"
+when total LDA mass × 1 fits within `--target-max` (collapses to fewer
+bins). See feedback_splitting_terminology.md: smaller `--target-max` ⇒
+MORE bins; larger ⇒ FEWER. Total LDA ~187K lines as of 2026-05-09;
+`--target-max=100000` produces 2 bins, `--target-max=500000` produces 1.
 """
 
 import re
@@ -167,7 +177,27 @@ WORKSPACE_MEMBER_RE = re.compile(
 
 
 def update_workspace_cargo(num_subs: int, content: str) -> str:
-    """Insert the new sub-crate members and path-deps into workspace Cargo.toml."""
+    """Insert the new sub-crate members and path-deps into workspace Cargo.toml.
+
+    Strips any pre-existing `libxc-kernel-lda-<N>` deps and
+    `"crates/kernel-lda-<N>",` members first so a `--repack` that changes
+    bin count produces a clean diff (no leftover `-3` / `-4` entries).
+    """
+    # Strip every pre-existing libxc-kernel-lda-<N> dep line (any N ≥ 1).
+    content = re.sub(
+        r'^libxc-kernel-lda-\d+\s*=\s*\{\s*path\s*=\s*"crates/kernel-lda-\d+"\s*\}\s*\n',
+        "",
+        content,
+        flags=re.MULTILINE,
+    )
+    # Strip every pre-existing "crates/kernel-lda-<N>", member line.
+    content = re.sub(
+        r'^\s*"crates/kernel-lda-\d+",\s*\n',
+        "",
+        content,
+        flags=re.MULTILINE,
+    )
+
     new_deps = "\n".join(
         f'libxc-kernel-lda = {{ path = "crates/kernel-lda" }}' if n == 0
         else f'libxc-kernel-lda-{n} = {{ path = "crates/kernel-lda-{n}" }}'
@@ -184,6 +214,71 @@ def update_workspace_cargo(num_subs: int, content: str) -> str:
     return content
 
 
+def existing_subcrate_indices() -> list[int]:
+    """Return sorted list of N for every existing kernel-lda-N sub-crate."""
+    out: list[int] = []
+    for entry in CRATES_DIR.iterdir():
+        if not entry.is_dir():
+            continue
+        m = re.match(r"^kernel-lda-(\d+)$", entry.name)
+        if m:
+            out.append(int(m.group(1)))
+    return sorted(out)
+
+
+def repack_gather(dry_run: bool) -> tuple[int, int]:
+    """Move every functional dir from kernel-lda-N/src/ back into kernel-lda/src/.
+
+    Returns (num_moved_dirs, num_subcrates_emptied).
+    """
+    moved = 0
+    emptied = 0
+    for n in existing_subcrate_indices():
+        sub_src = CRATES_DIR / f"kernel-lda-{n}" / "src"
+        if not sub_src.is_dir():
+            continue
+        local_moved = 0
+        for entry in sorted(sub_src.iterdir()):
+            if not entry.is_dir():
+                continue  # lib.rs and other top-level files stay (or get deleted with parent)
+            dst = LDA_AGG / "src" / entry.name
+            if dst.exists():
+                print(
+                    f"WARN: {dst} already exists in aggregator; skipping move of "
+                    f"{entry} to avoid clobber",
+                    file=sys.stderr,
+                )
+                continue
+            if dry_run:
+                print(f"  [dry-run] mv {entry.relative_to(REPO_ROOT)} -> "
+                      f"{dst.relative_to(REPO_ROOT)}")
+            else:
+                shutil.move(str(entry), str(dst))
+            local_moved += 1
+        moved += local_moved
+        if local_moved:
+            emptied += 1
+    return moved, emptied
+
+
+def delete_old_subcrates(dry_run: bool) -> int:
+    """Remove every kernel-lda-N/ directory entirely (after gather).
+
+    Returns the count of removed directories.
+    """
+    removed = 0
+    for n in existing_subcrate_indices():
+        sub = CRATES_DIR / f"kernel-lda-{n}"
+        if not sub.is_dir():
+            continue
+        if dry_run:
+            print(f"  [dry-run] rm -rf {sub.relative_to(REPO_ROOT)}")
+        else:
+            shutil.rmtree(sub)
+        removed += 1
+    return removed
+
+
 def already_split() -> bool:
     """True if any kernel-lda-N sub-crate already exists."""
     for entry in CRATES_DIR.iterdir():
@@ -195,6 +290,7 @@ def already_split() -> bool:
 def main() -> int:
     args = sys.argv[1:]
     dry_run = "--dry-run" in args
+    repack = "--repack" in args
     target = TARGET_MAX
     for a in args:
         if a.startswith("--target-max="):
@@ -204,12 +300,43 @@ def main() -> int:
         print(f"FATAL: {LDA_AGG} does not exist", file=sys.stderr)
         return 2
 
-    if already_split() and not dry_run:
-        print("Already split (kernel-lda-<N> sub-crate exists). Refusing to redo.")
+    if repack:
+        if not already_split():
+            print("Nothing to repack: no kernel-lda-<N> sub-crates exist. "
+                  "Run without --repack to perform an initial split.")
+            return 0
+        old_indices = existing_subcrate_indices()
+        print(f"Repack mode: gathering {len(old_indices)} existing sub-crate(s) "
+              f"({['kernel-lda-' + str(n) for n in old_indices]}) "
+              f"back into {LDA_AGG.relative_to(REPO_ROOT)}/src/...")
+        moved, emptied = repack_gather(dry_run)
+        print(f"  moved {moved} functional dir(s) from {emptied} sub-crate(s).")
+        removed = delete_old_subcrates(dry_run)
+        print(f"  removed {removed} old sub-crate director{'y' if removed == 1 else 'ies'}.")
+        # Fall through to the standard pack-and-emit flow below. After this
+        # point already_split() should return False on a live run; on a
+        # dry-run we still proceed conceptually with the same accounting.
+    elif already_split() and not dry_run:
+        print("Already split (kernel-lda-<N> sub-crate exists). Refusing to redo. "
+              "Pass --repack to gather + re-bin-pack at a different --target-max.")
         return 0
 
     src = LDA_AGG / "src"
     items = per_func_lines(src)
+    if repack and dry_run:
+        # On --repack --dry-run, the gather above was a no-op; scan each
+        # kernel-lda-N/src/ for the functionals it would have contributed
+        # so the bin-pack accounting matches what a live run would see.
+        seen = {name for name, _ in items}
+        for n in existing_subcrate_indices():
+            sub_src = CRATES_DIR / f"kernel-lda-{n}" / "src"
+            if not sub_src.is_dir():
+                continue
+            for name, lines in per_func_lines(sub_src):
+                if name in seen:
+                    continue
+                items.append((name, lines))
+                seen.add(name)
     bins = bin_pack(items, target)
 
     print(f"Found {len(items)} LDA functionals; total "
