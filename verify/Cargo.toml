@@ -11,6 +11,6 @@ libxc_rs = { path = ".." }
 [dev-dependencies]
 approx = "0.5.1"
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
-libxc-kernel-lda = { path = "../crates/kernel-lda" }
-libxc-kernel-mgga = { path = "../crates/kernel-mgga" }
+libxc-kernel-lda = { path = "../crates/kernels/lda" }
+libxc-kernel-mgga = { path = "../crates/kernels/mgga" }
 
