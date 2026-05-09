@@ -14,7 +14,7 @@ jobs = 3
 # Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
 # deep through the CubeCL `#[cube]` proc-macro expansion. The default 8MB
 # rustc stack overflows (SIGSEGV); 64MB clears it with margin.
-RUST_MIN_STACK = "2010886400"
+RUST_MIN_STACK = "67108864"
 # Share build artifacts across worktrees so isolated executors reuse the
 # main repo's compiled artifacts instead of rebuilding from scratch.
 
