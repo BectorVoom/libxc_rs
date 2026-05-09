@@ -540,7 +540,7 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
 # margin under SPEC's 20K per-file forward guard, after the dev machine was
 # verified to have RAM headroom for 16K+ line files.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 18000
+SPLIT_THRESHOLD = 50000
 UNSPLITTABLE = 999999
 
 
