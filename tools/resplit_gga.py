@@ -255,13 +255,18 @@ def create_subcrate(bin_index, functionals_in_bin):
     src_dir = os.path.join(crate_dir, "src")
     os.makedirs(src_dir, exist_ok=True)
 
-    # Copy functional directories
+    # Move functional directories out of the aggregator into this sub-crate.
+    # Originally `shutil.copytree`; that left duplicated trees behind in
+    # kernel-gga/src/ when the aggregator was treated as gathered staging
+    # (q05 commit 3af6b262 demonstrated the resulting 137 MB / 1810-file
+    # orphan). Move semantics drains the aggregator naturally so a follow-up
+    # `--repack` does not trip the merge guard.
     for name, _ in functionals_in_bin:
         src_path = os.path.join(GGA_SRC, name)
         dst_path = os.path.join(src_dir, name)
         if os.path.exists(dst_path):
             shutil.rmtree(dst_path)
-        shutil.copytree(src_path, dst_path)
+        shutil.move(src_path, dst_path)
 
     # Generate Cargo.toml (no feature gates)
     cargo_content = f"""[package]
