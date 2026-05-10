@@ -13,7 +13,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_2};
 use libxc_kernel_math::special::{xc_dilogarithm};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn gga_x_gg99_kxc_pol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
