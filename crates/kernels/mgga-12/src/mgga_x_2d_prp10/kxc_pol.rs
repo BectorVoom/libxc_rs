@@ -10,6 +10,7 @@ use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI, M_SQRT2};
 use libxc_kernel_math::lambert_w::{lambert_w};
 use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 
 #[allow(unused_variables, non_snake_case)]
 #[cube(launch_unchecked)]

@@ -14,8 +14,7 @@ pub mod mgga_k_lk;
 pub mod mgga_k_pgslb;
 pub mod mgga_k_rda;
 pub mod mgga_x_2d_js17;
-// pub mod mgga_x_2d_prp10;  // DEFERRED (id 211) — requires xc_bessel_I0/I1 not implemented in libxc-kernel-math.
-                              // Comment-out was lost during q06/q08 rebatching; restored per Phase 04-04-SUMMARY.
+pub mod mgga_x_2d_prp10;
 pub mod mgga_x_gx;
 pub mod mgga_x_lta;
 pub mod mgga_x_m06l;
