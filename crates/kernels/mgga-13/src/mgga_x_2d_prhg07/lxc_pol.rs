@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn mgga_x_2d_prhg07_lxc_pol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
