@@ -5,7 +5,7 @@ milestone_name: milestone
 status: Ready to execute
 stopped_at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
 last_updated: "2026-05-07T20:15:43.290Z"
-last_activity: 2026-05-10 -- Completed quick task 260510-q01: investigate cargo build OOM root cause (RUST_MIN_STACK 1.87 GiB typo + 3 solo-oversized MGGA crates) and split mgga-{8,9,11} into letter-suffix sub-crates
+last_activity: 2026-05-10 -- Completed quick task 260510-q02: restored mgga_x_2d_prp10 module deferral lost during q06/q08 rebatching (Bessel I0/I1 still unimplemented in kernel-math)
 progress:
   total_phases: 10
   completed_phases: 6
@@ -124,6 +124,7 @@ None yet.
 | 260509-q07 | Move all 17 kernel sub-crates under crates/kernels/ parent dir; update 7 splitter tools to match | 2026-05-09 | d4fd678a | [260509-q07-kernels-parent-dir](.planning/quick/260509-q07-kernels-parent-dir/) |
 | 260509-q08 | Reduce GGA/MGGA/LDA per-crate size: GGA 5→8 (300K), MGGA 8→14 (300K, 4 solo-oversized), LDA 1→2 (100K); fix latent rebatch_mgga.py update_workspace path bug | 2026-05-09 | 3224d347 | [260509-q08-reduce-gga-mgga-files](.planning/quick/260509-q08-reduce-gga-mgga-files/) |
 | 260510-q01 | Investigate cargo build OOM root cause: RUST_MIN_STACK 1.87 GiB → 64 MiB typo (was 30× too large); split mgga-{8,9,11} solo-oversized crates via --target-max=350000 (mgga-8→8a/8b, mgga-9→9a/9b, mgga-11→11a/11b); add --target-max parsing + post-q07 path fix to split_oversized_mgga.py | 2026-05-10 | 58753e18 | [260510-q01-investigate-kernel-oom](.planning/quick/260510-q01-investigate-kernel-oom/) |
+| 260510-q02 | Restore mgga_x_2d_prp10 module deferral (libxc id 211, missing Bessel I0/I1) lost in q06/q08 lib.rs regeneration | 2026-05-10 | 28a6ea65 | [260510-q02-restore-prp10-deferral](.planning/quick/260510-q02-restore-prp10-deferral/) |
 
 ## Session Continuity
 
