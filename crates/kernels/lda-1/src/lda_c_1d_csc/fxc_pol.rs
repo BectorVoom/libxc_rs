@@ -10,7 +10,7 @@ use cubecl::prelude::*;
 
 /// LDA_C_1D_CSC fxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_1d_csc_fxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

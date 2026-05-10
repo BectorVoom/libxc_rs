@@ -10,7 +10,7 @@ use cubecl::prelude::*;
 
 /// LDA_XC_TIH lxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_xc_tih_lxc_unpol(
     rho: &Array<f64>,
     vrho: &mut Array<f64>,

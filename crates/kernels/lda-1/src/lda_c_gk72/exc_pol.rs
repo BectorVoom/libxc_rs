@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise5};
 
 /// LDA_C_GK72 exc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_gk72_exc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// LDA_C_2D_AMGB lxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_2d_amgb_lxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

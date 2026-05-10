@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// LDA_C_VWN_2 exc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_vwn_2_exc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

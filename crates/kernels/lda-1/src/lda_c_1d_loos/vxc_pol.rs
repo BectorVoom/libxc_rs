@@ -11,7 +11,7 @@ use libxc_kernel_math::constants::{M_PI, M_SQRT2};
 
 /// LDA_C_1D_LOOS vxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_1d_loos_vxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

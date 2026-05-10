@@ -14,7 +14,7 @@ use libxc_kernel_math::erf::{erf_approx};
 
 /// LDA_X_ERF lxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_x_erf_lxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

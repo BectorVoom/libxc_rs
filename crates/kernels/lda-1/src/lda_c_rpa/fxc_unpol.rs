@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 /// LDA_C_RPA fxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_c_rpa_fxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

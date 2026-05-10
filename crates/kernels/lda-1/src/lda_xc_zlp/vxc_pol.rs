@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 /// LDA_XC_ZLP vxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_xc_zlp_vxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

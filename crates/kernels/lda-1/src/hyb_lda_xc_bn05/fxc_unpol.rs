@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// HYB_LDA_XC_BN05 fxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn hyb_lda_xc_bn05_fxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,

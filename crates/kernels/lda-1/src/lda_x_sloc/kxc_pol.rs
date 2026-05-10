@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// LDA_X_SLOC kxc -- polarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube(launch_unchecked)]
+#[cube]
 pub fn lda_x_sloc_kxc_pol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
