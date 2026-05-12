@@ -15,6 +15,13 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
+# Routing helper: emit `#[cube]` instead of `#[cube(launch_unchecked)]` for
+# functionals that `LdaFunctional::from_id` does not route, so regen does
+# not re-introduce dead-code launch wrappers (cubecl_macro_fanout_manual §4.3).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from kernel_routing import cached_routed_funcnames
+KERNEL_FAMILY = "lda"
+
 
 # ============================================================================
 # Data structures
@@ -493,7 +500,9 @@ def generate_function(func_name: str, level: str, spin: str,
     is_pol = (spin == 'pol')
     fn_name = f'{func_name}_{level}_{spin}{fn_suffix}'
     spin_label = 'polarized' if is_pol else 'unpolarized'
-    cube_attr = '#[cube]' if fn_suffix.startswith('_part') else '#[cube(launch_unchecked)]'
+    is_split_helper = fn_suffix.startswith('_part')
+    is_unrouted = func_name not in cached_routed_funcnames(KERNEL_FAMILY)
+    cube_attr = '#[cube]' if (is_split_helper or is_unrouted) else '#[cube(launch_unchecked)]'
 
     if out_bufs_override is not None:
         seen = set()
@@ -889,10 +898,13 @@ def generate_incremental_function(func_name: str, level: str, spin: str,
     for ow in outputs:
         output_map[ow.var] = (ow.field, ow.component)
 
+    is_unrouted = func_name not in cached_routed_funcnames(KERNEL_FAMILY)
+    cube_attr = '#[cube]' if is_unrouted else '#[cube(launch_unchecked)]'
+
     lines = []
     lines.append(f'/// {func_name.upper()} {level} -- {spin_label} (incremental).')
     lines.append(f'#[allow(unused_variables, non_snake_case)]')
-    lines.append(f'#[cube(launch_unchecked)]')
+    lines.append(cube_attr)
     lines.append(f'pub fn {fn_name}(')
     lines.append(f'    rho: &Array<f64>,')
     for buf in out_bufs:
