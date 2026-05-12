@@ -13,7 +13,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 /// LDA_C_PW_ERF kxc -- unpolarized (incremental).
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn lda_c_pw_erf_kxc_unpol(
     rho: &Array<f64>,
     zk: &mut Array<f64>,
