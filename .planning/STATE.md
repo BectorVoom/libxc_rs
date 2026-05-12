@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 Phase: 06 (public-api-and-c-compatibility) — EXECUTING
 Plan: 1 of 4
 Plans: 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`)
-Last activity: 2026-05-07 -- Phase 10 planning complete
+Last activity: 2026-05-12 - Completed quick task 260512-q01: Routing-aware translator emit (closes regen→launch_unchecked loop; fixes broken demoter glob)
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
@@ -125,6 +125,7 @@ None yet.
 | 260509-q08 | Reduce GGA/MGGA/LDA per-crate size: GGA 5→8 (300K), MGGA 8→14 (300K, 4 solo-oversized), LDA 1→2 (100K); fix latent rebatch_mgga.py update_workspace path bug | 2026-05-09 | 3224d347 | [260509-q08-reduce-gga-mgga-files](.planning/quick/260509-q08-reduce-gga-mgga-files/) |
 | 260510-q01 | Investigate cargo build OOM root cause: RUST_MIN_STACK 1.87 GiB → 64 MiB typo (was 30× too large); split mgga-{8,9,11} solo-oversized crates via --target-max=350000 (mgga-8→8a/8b, mgga-9→9a/9b, mgga-11→11a/11b); add --target-max parsing + post-q07 path fix to split_oversized_mgga.py | 2026-05-10 | 58753e18 | [260510-q01-investigate-kernel-oom](.planning/quick/260510-q01-investigate-kernel-oom/) |
 | 260510-q02 | Restore mgga_x_2d_prp10 module deferral (libxc id 211, missing Bessel I0/I1) lost in q06/q08 lib.rs regeneration | 2026-05-10 | 28a6ea65 | [260510-q02-restore-prp10-deferral](.planning/quick/260510-q02-restore-prp10-deferral/) |
+| 260512-q01 | Routing-aware translator emit: emit `#[cube]` for unrouted functionals (closes regen-reintroduces-launch_unchecked loop); fix `demote_unrouted_kernels.py` glob (was no-op since `crates/kernel-* → crates/kernels/*` move); 32 lda-2 entry kernels demoted | 2026-05-12 | 61c9f620 | [260512-q01-routing-aware-translator-emit](.planning/quick/260512-q01-routing-aware-translator-emit/) |
 
 ## Session Continuity
 
