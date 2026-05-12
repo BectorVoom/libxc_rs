@@ -466,11 +466,13 @@ def detect_incremental_deltas(bodies: dict, spin: str) -> dict:
 
 # Default threshold: if a generated kernel function exceeds this many lines,
 # split it into per-output-array sub-kernels.
-# Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
-# margin under SPEC's 20K per-file forward guard, after the dev machine was
-# verified to have RAM headroom for 16K+ line files.
+# History: 5000 → 18000 (09-04 / CONTEXT D-06) → 50000 (q02) → 100000 (q07).
+# Lowered 100000 → 6000 (260512) after lda-2 OOM'd cargo check on 13–17K-line
+# `#[cube]` functions. CubeCL macro fan-out scales super-linearly with body
+# size (cubecl_macro_fanout_manual.md §10). 6000 sits comfortably above
+# lda-1's 4,229-line max which compiles fast.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 100000
+SPLIT_THRESHOLD = 6000
 UNSPLITTABLE = 999999
 
 # Output arrays grouped by derivative order, used for split naming.

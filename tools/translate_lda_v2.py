@@ -342,11 +342,17 @@ LEVEL_OUTPUTS = {
 
 # Default threshold: if a generated kernel function exceeds this many lines,
 # split it into per-output-array sub-kernels.
-# Raised 5000 → 18000 in Phase 9 Plan 09-04 (CONTEXT D-06): 2K-line safety
-# margin under SPEC's 20K per-file forward guard, after the dev machine was
-# verified to have RAM headroom for 16K+ line files.
+# History: 5000 → 18000 (Phase 9 Plan 09-04 / CONTEXT D-06, RAM headroom verified) →
+# 50000 (q02, reduce file count) → 100000 (q07, with the path move).
+# Lowered 100000 → 6000 (260512) after lda-2 OOM'd cargo check on 13–17K-line
+# `#[cube]` functions (lda_xc_ksdt lxc_pol 13,969L; lda_c_pk09 kxc_pol 17,555L).
+# CubeCL macro fan-out scales super-linearly with body size — see
+# docs/manual/Cubecl/cubecl_macro_fanout_manual.md §10 ("Large `#[cube]`
+# functions" are the listed source of slow macro expansion).
+# Calibration: lda-1's largest body is 4,229 lines and compiles fast; 6,000
+# leaves headroom for currently-small kernels while catching the OOM cases.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 100000
+SPLIT_THRESHOLD = 6000
 UNSPLITTABLE = 999999
 
 
@@ -1029,34 +1035,88 @@ def translate_file_incremental(c_file_path: str, func_name: str, write_dir: str,
                 continue
 
             compute, outputs = parse_function_body(functions[key])
-            fn_code = generate_incremental_function(
-                func_name, level, spin, compute, outputs,
-                all_params, is_vxc_only,
-                preamble_lines, deltas
-            )
+            est = estimate_function_lines(compute, outputs)
+            header_allow = '#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]'
 
-            sub_name = f'{level}_{spin}'
-            file_lines = []
-            file_lines.append(f'//! {func_name.upper()} {level} {spin} kernel (incremental).')
-            file_lines.append(f'//!')
-            file_lines.append(f'//! Auto-translated with incremental derivative structure.')
-            file_lines.append(f'//! Preamble: {len(preamble_lines)} shared lines across all orders.')
-            if level in deltas:
-                _, delta, _ = deltas[level]
-                file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
-            file_lines.append(f'')
-            file_lines.append(f'#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]')
-            file_lines.append(f'')
-            file_lines.extend(import_lines)
-            file_lines.append(f'')
-            file_lines.append(fn_code)
-            file_lines.append(f'')
+            if est <= SPLIT_THRESHOLD:
+                # Small enough — single incremental kernel
+                fn_code = generate_incremental_function(
+                    func_name, level, spin, compute, outputs,
+                    all_params, is_vxc_only,
+                    preamble_lines, deltas
+                )
 
-            path = os.path.join(subdir, f'{sub_name}.rs')
-            with open(path, 'w') as f:
-                f.write('\n'.join(file_lines))
-            written.append(path)
-            mod_entries.append(f'pub mod {sub_name};')
+                sub_name = f'{level}_{spin}'
+                file_lines = []
+                file_lines.append(f'//! {func_name.upper()} {level} {spin} kernel (incremental).')
+                file_lines.append(f'//!')
+                file_lines.append(f'//! Auto-translated with incremental derivative structure.')
+                file_lines.append(f'//! Preamble: {len(preamble_lines)} shared lines across all orders.')
+                if level in deltas:
+                    _, delta, _ = deltas[level]
+                    file_lines.append(f'//! Delta: {len(delta)} lines unique to {level}.')
+                file_lines.append(f'')
+                file_lines.append(header_allow)
+                file_lines.append(f'')
+                file_lines.extend(import_lines)
+                file_lines.append(f'')
+                file_lines.append(fn_code)
+                file_lines.append(f'')
+
+                path = os.path.join(subdir, f'{sub_name}.rs')
+                with open(path, 'w') as f:
+                    f.write('\n'.join(file_lines))
+                written.append(path)
+                mod_entries.append(f'pub mod {sub_name};')
+            else:
+                # Oversized — split by output-array group (same path as
+                # translate_file_split). Incremental sharing within the file
+                # is sacrificed in favor of compile-time / RAM headroom.
+                # See cubecl_macro_fanout_manual.md §10 + lda-2 OOM repro
+                # (260512) for context.
+                is_pol = (spin == 'pol')
+                splits = split_by_output_array(compute, outputs, is_pol)
+                splits = merge_small_splits(splits, SPLIT_THRESHOLD)
+
+                final_splits = []
+                for suffix, sub_compute, sub_outputs, sub_bufs in splits:
+                    sub_est = estimate_function_lines(sub_compute, sub_outputs)
+                    if sub_est > SPLIT_THRESHOLD and len(sub_outputs) > 1:
+                        for ow in sub_outputs:
+                            _, var_deps = build_dependency_graph(sub_compute)
+                            output_vars = {ow.var}
+                            if ow.var in var_deps:
+                                output_vars |= var_deps[ow.var]
+                            needed = transitive_deps(output_vars, var_deps)
+                            comp_compute = [cl for cl in sub_compute
+                                            if re.match(r'(\w+)\s*=', cl.rstrip(';').strip())
+                                            and re.match(r'(\w+)\s*=', cl.rstrip(';').strip()).group(1) in needed]
+                            final_splits.append((f'{ow.field}_{ow.component}', comp_compute, [ow], [ow.field]))
+                        final_splits = merge_small_splits(final_splits, SPLIT_THRESHOLD)
+                    else:
+                        final_splits.append((suffix, sub_compute, sub_outputs, sub_bufs))
+
+                total_parts = len(final_splits)
+                for idx, (suffix, sub_compute, sub_outputs, sub_bufs) in enumerate(final_splits):
+                    fn_suffix = f'_part{idx}_{suffix}'
+                    fn_code = generate_function(func_name, level, spin, sub_compute,
+                                                sub_outputs, all_params, is_vxc_only,
+                                                fn_suffix=fn_suffix,
+                                                out_bufs_override=sub_bufs)
+                    sub_name = f'{level}_{spin}_part{idx}_{suffix}'
+                    sub_lines = estimate_function_lines(sub_compute, sub_outputs)
+                    file_lines = [
+                        f'//! {func_name.upper()} {level} {spin} kernel — split part {idx}/{total_parts} ({suffix}).',
+                        f'//! Split sub-kernel: outputs [{", ".join(sub_bufs)}] ({sub_lines} lines).',
+                        '', header_allow, '',
+                    ]
+                    file_lines.extend(import_lines)
+                    file_lines.extend(['', fn_code, ''])
+                    path = os.path.join(subdir, f'{sub_name}.rs')
+                    with open(path, 'w') as f:
+                        f.write('\n'.join(file_lines))
+                    written.append(path)
+                    mod_entries.append(f'pub mod {sub_name};')
 
     # Write statistics file
     stats_lines = [f'//! {func_name.upper()} incremental translation statistics.']
