@@ -597,6 +597,19 @@ def split_by_output_array(compute_lines: list, output_writes: list, is_pol: bool
     return result
 
 
+# Cap descriptive part of a merged-split suffix so the final filename
+# stays under the Linux 255-byte per-component limit. Uniqueness comes
+# from the `_partN` index in the caller; this is the descriptive portion.
+_SUFFIX_MAX_CHARS = 60
+
+
+def _capped_merge_suffix(prev_suffix: str, new_suffix: str) -> str:
+    combined = f'{prev_suffix}_{new_suffix}'
+    if len(combined) <= _SUFFIX_MAX_CHARS:
+        return combined
+    return f'{combined[:_SUFFIX_MAX_CHARS]}_etc'
+
+
 def merge_small_splits(splits: list, threshold: int):
     """Merge consecutive small splits to reduce the number of sub-kernels.
 
@@ -623,7 +636,7 @@ def merge_small_splits(splits: list, threshold: int):
                 if key not in seen:
                     seen.add(key)
                     merged_compute.append(cline)
-            merged[-1] = (f'{prev_suffix}_{suffix}',
+            merged[-1] = (_capped_merge_suffix(prev_suffix, suffix),
                          merged_compute,
                          prev_outputs + outputs,
                          prev_bufs + bufs)
