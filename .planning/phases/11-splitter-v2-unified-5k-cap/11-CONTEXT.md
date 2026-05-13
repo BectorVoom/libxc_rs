@@ -45,9 +45,23 @@ The pipeline must iterate until both invariants hold AND `cargo build --workspac
 ### RAM ceiling (Phase 11 operating envelope)
 - **D-07:** Hard rule for ALL Phase 11 iteration runs:
   - Executor runs **inline** (no `isolation="worktree"` subagent dispatch for cargo-touching work).
-  - `CARGO_BUILD_JOBS=1` exported in the orchestrator's environment AND in every subagent prompt that may compile.
-  - This is **tighter** than the existing memory `feedback_ram_constraints.md` which says `jobs ≤ 2`. Phase 11 specifically tightens to `jobs=1` because the splitter iteration loop touches the macro-heaviest crates and previously OOM'd at higher concurrency. Decision is scoped to Phase 11; other phases keep the `≤ 2` rule.
+  - `cargo`'s `jobs = 1` is already enforced project-wide via `.cargo/config.toml` (see D-09 below). Phase 11 MUST NOT relax it — neither by overriding `CARGO_BUILD_JOBS`, nor by passing `--jobs N` on the command line, nor by editing `.cargo/config.toml`.
+  - This is **tighter** than the existing memory `feedback_ram_constraints.md` which says `jobs ≤ 2` — but the project's actual current default in `.cargo/config.toml` is already `jobs = 1`, so this rule re-asserts the existing project default rather than tightening from `≤ 2`. Memory is stale on this point (memory was written before the cargo-config tightening); future-Claude should trust `.cargo/config.toml` over memory when they disagree.
   - Read-only researcher / scout subagents are still permitted (they don't compile).
+
+### Build environment baseline (must be preserved verbatim)
+- **D-08 (RUST_MIN_STACK):** `RUST_MIN_STACK = "67108864"` (64 MB) in `.cargo/config.toml` `[env]` is load-bearing for compilation of `libxc-kernel-math` (specifically br89 and mbrxc Brent-method root-finders). The default 8 MB rustc thread stack SIGSEGVs during deep `#[cube]` proc-macro expansion of these inlined root-finders. CSE-aware subdivision (D-01) will introduce MORE deeply nested `#[cube]` helpers in MGGA chunks, so the 64 MB stack is even more load-bearing after Phase 11 than before. Phase 11 MUST NOT:
+  - Remove or reduce `RUST_MIN_STACK` below 64 MB.
+  - Set `RUST_MIN_STACK` to the prior buggy value `2_000_000_000` (≈1.87 GiB — was a 30× too-large typo fixed in quick task 260510-q01; reintroducing it OOMs the build).
+  - Override the env value in subagent prompts.
+  Phase 11 MAY raise `RUST_MIN_STACK` further if a specific functional's chunk-graph still SIGSEGVs after splitting — document the new value and the failing chunk in the iteration's SUMMARY.md.
+- **D-09 (cargo config is the source of truth):** Phase 11 reads its build environment from `.cargo/config.toml`, not from agent prompts or memory. Specifically:
+  - `[build] jobs = 1` — single-job builds (D-07).
+  - `[build] target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"` — out-of-tree target dir under `.cache/`. Iteration loops MUST NOT clean this directory between iterations (per-iteration full rebuild is intractable on this hardware); incremental builds against this target dir are the design.
+  - `[env] RUST_MIN_STACK = "67108864"` (D-08).
+  - sccache is in use (per `.cargo/config.toml` header comment) — Phase 11 MUST NOT disable sccache or enable incremental compilation in Cargo.toml profiles (the two are incompatible per the config header).
+  Any subagent prompt that lists "build commands" MUST cite `.cargo/config.toml` as the authoritative env, not duplicate the values inline (duplication causes drift — see how memory's `jobs ≤ 2` drifted from the actual `jobs = 1` in the config).
+  - The stale comment on lines 7–8 of `.cargo/config.toml` ("jobs = 3: each kernel sub-crate consumes 3-7 GB...") refers to a prior tuning era and is inconsistent with the current `jobs = 1` setting. Phase 11 SHOULD fix the comment as part of any cargo-config-adjacent commit it makes (low-risk cleanup, not a separate task).
 
 ### Locked from prior discussion (carried in from quick-task promotion)
 - **D-LOCK-A:** Unification scope = collapse per-family subcrates ONLY. Multiple files per functional are permitted; `_partNN` per D-04 is the convention. (Re-stating from pre-discuss context for downstream agents.)
@@ -93,6 +107,7 @@ The pipeline must iterate until both invariants hold AND `cargo build --workspac
 
 ### Existing project policy that this phase touches
 - `CLAUDE.md` — § "Constraints": specifies "f64 only; no silent f32 fallback; typed error if device lacks f64 support" AND "Maple2c formula translations must preserve floating-point operation order for bit-level equivalence". Phase 11 amends both (D-03, D-05). The amendment must land in this phase's executor commits, not as a separate doc change.
+- `.cargo/config.toml` — **load-bearing build environment**. `[build] jobs = 1`, `target-dir = .cache/cargo-target`, `[env] RUST_MIN_STACK = 67108864`. See D-07/D-08/D-09 for the rules. Stale comment on lines 7-8 mentions "jobs=3" historically — D-09 directs fixing it as part of any cargo-config-adjacent commit. sccache + incremental-off are interdependent invariants (per header comment) — do not change either.
 
 ### Project memory references (must read before planning)
 - `~/.claude/projects/-home-user-Documents-workspace-libxc-rs/memory/project_splitter_algorithm_floor.md` — "Splitter algorithm bottoms out at one output component; 8–15K-line single-output leaves are unavoidable today." Phase 11 D-01 explicitly attacks this floor.
