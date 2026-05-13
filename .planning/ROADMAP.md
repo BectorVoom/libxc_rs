@@ -19,6 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
+- [ ] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
 
 ## Phase Details
 
@@ -232,3 +233,35 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 10-03-PLAN.md — TBD: extract libxc-compat (FFI shim) and reduce root to facade
+
+### Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap
+
+**Goal:** Re-engineer the Maple → CubeCL conversion pipeline (`tools/translate_{lda_v2,gga,mgga}.py` and helpers) so that two invariants hold simultaneously: (a) per-family sub-crates are collapsed — no more `crates/kernels/{lda,gga,mgga}-N/` numbered parents; one kernel-family crate per family. (b) Every emitted Rust file under the kernel crates is ≤5,000 lines, with the splitter extended to subdivide single output expressions (the current 8–15K floor for r4scan, br89_explicit, etc.) into `#[cube]` helper functions following the CubeCL macro fan-out manual. The phase is done when both invariants hold AND `cargo build --workspace` succeeds AND oracle parity is preserved.
+
+**Driver:** Reduce CubeCL macro fan-out and per-crate compile/RAM cost; consolidate accumulated splitter complexity. Locked decisions captured in 11-CONTEXT.md from the discuss-phase that produced this entry. Supersedes the in-progress quick task `.planning/quick/260513-8nv-update-splitter-tool-enforce-3000-line-c` (which targeted a 3000-line cap and is now abandoned).
+
+**Depends on:** Open — relationship to Phase 10 (workspace modular split) is one of the gray areas being discussed.
+
+**Pre-planning blockers:**
+  1. Decide expression-subdivision strategy (CSE-aware? AST-level? per-statement?) — research-grade
+  2. Define cross-file ABI for subdivided expressions under CubeCL macro fan-out manual constraints
+  3. Decide naming/dispatch for functionals that span N files (numbered suffix vs single file with internal modules)
+  4. Define verification gate (bit-exact, 1e-12, energy-only) post-re-translation
+
+**Success Criteria** (what must be TRUE):
+  1. `find crates/kernels -maxdepth 1 -type d` shows **no** `lda-N`, `gga-N`, `mgga-N` numbered children — only family-level crates
+  2. `find crates/kernels -name '*.rs' -exec wc -l {} +` shows zero files >5,000 lines
+  3. The splitter (`tools/translate_*.py`) is capable of subdividing a single output expression into multiple `#[cube]` helper functions; r4scan, br89_explicit, mgga-{8,9,11} sized cases all fit under 5K
+  4. `cargo build --workspace` succeeds on the user's RAM-constrained machine (inline sequential, `cargo` jobs ≤ 2)
+  5. Oracle parity preserved at the gate level chosen during discussion
+  6. Pipeline is idempotent: running it twice produces no diff
+  7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
+
+**Plans:** TBD (will be decomposed during /gsd-plan-phase after research)
+
+**Canonical refs:**
+  - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
+  - libxc-master/maple/ (Maple source)
+  - tools/translate_lda_v2.py, tools/translate_gga.py, tools/translate_mgga.py (current splitter, SPLIT_THRESHOLD=6000)
+  - tools/split_oversized_{kernel,mgga}.py, tools/split_mgga_7_kcis.py, tools/rebatch_mgga.py (post-split helpers)
+  - .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (this phase's locked decisions)

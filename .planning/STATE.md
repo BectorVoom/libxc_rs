@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
-last_updated: "2026-05-07T20:15:43.290Z"
-last_activity: 2026-05-10 -- Completed quick task 260510-q02: restored mgga_x_2d_prp10 module deferral lost during q06/q08 rebatching (Bessel I0/I1 still unimplemented in kernel-math)
+status: Ready to plan (Phase 11)
+stopped_at: Phase 11 context gathered — 11-CONTEXT.md written with 7 locked decisions (D-01 CSE-aware subdivision, D-02 free `#[cube]<F:Float>` helpers, D-03 generic precision policy with f64 oracle gate, D-04 _partNN file layout, D-05 1e-12 oracle gate, D-06 Phase 11 before Phase 10, D-07 CARGO_BUILD_JOBS=1 inline executor); 4 pre-locked decisions carried from /gsd-quick promotion (D-LOCK-A..D); Phase 11 entry inserted in ROADMAP after Phase 10; quick task 260513-8nv superseded
+last_updated: "2026-05-13T00:00:00.000Z"
+last_activity: 2026-05-13 -- Phase 11 (Splitter v2 — Unified Kernels with 5K Line Cap) added to ROADMAP and discuss-phase complete; next: /gsd-plan-phase 11
 progress:
   total_phases: 10
   completed_phases: 6
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 06 (public-api-and-c-compatibility) — EXECUTING
-Plan: 1 of 4
-Plans: 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`)
-Last activity: 2026-05-12 - Completed quick tasks 260512-q01 (routing-aware translator emit) and 260512-q02 (fix translator merge-suffix filename overflow; regen mgga-14 oversized functionals)
+Phase: 11 (splitter-v2-unified-5k-cap) — CONTEXT GATHERED (ready to plan)
+Plan: 0 of TBD (planner runs next)
+Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
+Last activity: 2026-05-13 - Phase 11 added to ROADMAP, discuss-phase complete (11-CONTEXT.md, 11-DISCUSSION-LOG.md written); quick task 260513-8nv-update-splitter-tool-enforce-3000-line-c superseded
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
@@ -130,6 +130,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-06T00:00:00.000Z
-Stopped at: Phase 6 planned — 4 PLAN.md files written (06-01 Layer-3 API; 06-02a compat infra+lifecycle; 06-02b accessors+AK13; 06-03 evaluators+xc.h+smoke); sequential waves 1→2→3→4; gsd-plan-checker iteration 2 PASSED with 87 extern-C symbols planned vs ≥85 target
-Resume file: .planning/phases/06-public-api-and-c-compatibility/06-01-PLAN.md (run /gsd-execute-phase 6 to begin Wave 1)
+Last session: 2026-05-13T00:00:00.000Z
+Stopped at: Phase 11 context gathered — 11-CONTEXT.md written with 7 locked decisions + 4 pre-locked from /gsd-quick promotion; Phase 11 entry inserted in ROADMAP after Phase 10
+Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (run `/gsd-plan-phase 11` to plan; researcher recommended first since D-01 CSE-aware subdivision is research-grade)
