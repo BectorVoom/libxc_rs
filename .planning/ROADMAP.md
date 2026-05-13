@@ -257,7 +257,15 @@ Plans:
   6. Pipeline is idempotent: running it twice produces no diff
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
 
-**Plans:** TBD (will be decomposed during /gsd-plan-phase after research)
+**Plans:** 6 plans
+
+Plans:
+- [ ] 11-01-PLAN.md — Wave 0: D-02 ABI spike + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency) + parity_phase11.rs scaffold + 11-BASELINE.md snapshot
+- [ ] 11-02-PLAN.md — Wave 1: build CSE partitioner (tools/translate_v2/cse.py) + replace LDA chunked-scratch with D-02 tuple-return `<F: Float>` ABI + lower SPLIT_THRESHOLD to 5000 + regen LDA + verify parity
+- [ ] 11-03-PLAN.md — Wave 2: factor `chunk_single_output_d02` into shared tools/translate_v2/emit.py + add D-02 chunked-emission wedge to translate_gga.py + regen GGA at SPLIT_THRESHOLD=5000 + verify parity
+- [ ] 11-04-PLAN.md — Wave 3: add D-02 chunked-emission wedge to translate_mgga.py + regen MGGA at SPLIT_THRESHOLD=5000 (closes the 207-file blast radius — worst-case parity gates here) + verify smoke + worst-case
+- [ ] 11-05-PLAN.md — Wave 4: build tools/collapse_subcrates.py (Strategy 1 atomic-per-family migrator) + collapse LDA → GGA → MGGA into the 3 family façades; root Cargo.toml drops 22 numbered deps; dispatch paths preserved unchanged
+- [ ] 11-06-PLAN.md — Wave 5: update CLAUDE.md per D-03a (precision + operation-order policy) + delete 5 obsolete splitter tools + clean up maple_to_kernels.py stale defaults + idempotency test (P11-INV-6) + final phase gate (FINAL-METRICS, ROADMAP/STATE/VALIDATION updates)
 
 **Canonical refs:**
   - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
