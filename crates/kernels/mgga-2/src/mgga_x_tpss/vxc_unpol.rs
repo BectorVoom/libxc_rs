@@ -1,8 +1,7 @@
-//! MGGA_X_TPSS vxc unpol kernel (incremental).
+//! MGGA_X_TPSS vxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 86 shared lines across all orders.
-//! Delta: 107 lines unique to vxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tpss.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -12,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn mgga_x_tpss_vxc_unpol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
@@ -35,7 +34,6 @@ pub fn mgga_x_tpss_vxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (86 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -123,7 +121,6 @@ pub fn mgga_x_tpss_vxc_unpol(
         let t142 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t138);
         let tzk0 = 2.0 * t142;
         zk[ip] += tzk0;
-        // --- vxc delta (this level) (107 lines) ---
         let t143 = 1.0 / t56;
         let t144 = t18 * t143;
         let t148 = t7 * t18;

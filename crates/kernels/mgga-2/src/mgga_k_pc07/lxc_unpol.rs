@@ -1,8 +1,7 @@
-//! MGGA_K_PC07 lxc unpol kernel (incremental).
+//! MGGA_K_PC07 lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 86 shared lines across all orders.
-//! Delta: 2488 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_pc07.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -95,7 +94,6 @@ pub fn mgga_k_pc07_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (86 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = t4 * t4;
@@ -183,7 +181,6 @@ pub fn mgga_k_pc07_lxc_unpol(
         let t118 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t114);
         let tzk0 = 2.0 * t118;
         zk[ip] += tzk0;
-        // --- vxc delta (96 lines) ---
         let t120 = t21 / t22;
         let t125 = 1.0 / t23 / t53;
         let t126 = t33 * t125;
@@ -284,7 +281,6 @@ pub fn mgga_k_pc07_lxc_unpol(
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
-        // --- fxc delta (316 lines) ---
         let t303 = t21 / t22 / rho[ip];
         let t311 = 1.0 / t23 / t60;
         let t312 = t33 * t311;
@@ -611,7 +607,6 @@ pub fn mgga_k_pc07_lxc_unpol(
         v2lapltau[ip] += tv2lapltau0;
         let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (1023 lines) ---
         let t982 = t21 / t22 / t34;
         let t993 = 1.0 / t23 / t69;
         let t995 = t30 * t33 * t993;
@@ -1655,7 +1650,6 @@ pub fn mgga_k_pc07_lxc_unpol(
         v3lapltau2[ip] += tv3lapltau20;
         let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (2488 lines) ---
         let t4158 = 1.0 / t23 / t140;
         let t4160 = t30 * t33 * t4158;
         let t4161 = 13090.0 / 729.0 * t4160;

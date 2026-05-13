@@ -1,8 +1,7 @@
-//! MGGA_C_B94 exc pol kernel (incremental).
+//! MGGA_C_B94 exc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 175 shared lines across all orders.
-//! Delta: 175 lines unique to exc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b94.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,7 +36,6 @@ pub fn mgga_c_b94_exc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (175 lines) ---
         let t2 = rho0 - rho1;
         let t3 = t2 * t2;
         let t4 = rho0 + rho1;

@@ -1,8 +1,7 @@
-//! MGGA_C_B94 fxc pol kernel (incremental).
+//! MGGA_C_B94 fxc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 175 shared lines across all orders.
-//! Delta: 3552 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b94.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,7 +50,6 @@ pub fn mgga_c_b94_fxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (175 lines) ---
         let t2 = rho0 - rho1;
         let t3 = t2 * t2;
         let t4 = rho0 + rho1;
@@ -228,7 +226,6 @@ pub fn mgga_c_b94_fxc_pol(
         let t240 = piecewise3(t72, 0.0, -0.5433422936572482469e-3 * t206 * t237);
         let tzk0 = -t130 + t191 + t240;
         zk[ip] += tzk0;
-        // --- vxc delta (505 lines) ---
         let t241 = t2 * t6;
         let t242 = t5 * t4;
         let t243 = 1.0 / t242;
@@ -743,7 +740,6 @@ pub fn mgga_c_b94_fxc_pol(
         let t1207 = piecewise3(t72, 0.0, -0.10866845873144964938e-2 * t1163 * t237 + 0.72445639154299766253e-3 * t650 * t1167 + 0.21733691746289929876e-2 * t206 * t1171 - 0.21733691746289929876e-2 * t650 * t1175 - 0.5433422936572482469e-3 * t206 * t1203);
         let tvtau1 = t4 * (-t1155 - t1160 + t1207);
         vtau[ip * 2 + 1] += tvtau1;
-        // --- fxc delta (this level) (3552 lines) ---
         let t1210 = 0.4e0 * t252;
         let t1215 = 2.0 * t6;
         let t1216 = t2 * t243;

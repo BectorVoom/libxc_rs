@@ -1,8 +1,7 @@
-//! MGGA_X_RTPSS lxc unpol kernel (incremental).
+//! MGGA_X_RTPSS lxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 82 shared lines across all orders.
-//! Delta: 336 lines unique to lxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rtpss.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -12,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn mgga_x_rtpss_lxc_unpol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
@@ -98,7 +97,6 @@ pub fn mgga_x_rtpss_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (82 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -182,7 +180,6 @@ pub fn mgga_x_rtpss_lxc_unpol(
         let t132 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t128);
         let tzk0 = 2.0 * t132;
         zk[ip] += tzk0;
-        // --- vxc delta (97 lines) ---
         let t133 = 1.0 / t48;
         let t134 = t18 * t133;
         let t138 = t7 * t18;
@@ -284,7 +281,6 @@ pub fn mgga_x_rtpss_lxc_unpol(
         let t353 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t347 * t349);
         let tvtau0 = 2.0 * rho[ip] * t353;
         vtau[ip] += tvtau0;
-        // --- fxc delta (191 lines) ---
         let t356 = t18 * t56;
         let t360 = t133 * param_kappa;
         let t364 = t240 * t26;
@@ -486,7 +482,6 @@ pub fn mgga_x_rtpss_lxc_unpol(
         let t892 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t881 * t349 + 3.0 / 8.0 * t595 * t888);
         let tv2tau20 = 2.0 * rho[ip] * t892;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (390 lines) ---
         let t899 = t56 * param_kappa;
         let t909 = t148 * t26;
         let t910 = t909 * t33;
@@ -897,7 +892,6 @@ pub fn mgga_x_rtpss_lxc_unpol(
         let t2203 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t2181 * t349 + 9.0 / 8.0 * t595 * t2189 - 3.0 / 8.0 * t595 * t2199);
         let tv3tau30 = 2.0 * rho[ip] * t2203;
         v3tau3[ip] += tv3tau30;
-        // --- lxc delta (this level) (336 lines) ---
         let t2210 = t50 * param_kappa;
         let t2228 = t430 * t439;
         let t2231 = t189 * t1001;

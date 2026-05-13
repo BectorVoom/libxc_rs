@@ -1,8 +1,7 @@
-//! MGGA_X_TASK kxc unpol kernel (incremental).
+//! MGGA_X_TASK kxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 108 shared lines across all orders.
-//! Delta: 524 lines unique to kxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -12,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn mgga_x_task_kxc_unpol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
@@ -69,7 +68,6 @@ pub fn mgga_x_task_kxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (108 lines) ---
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = M_CBRT3;
         let t5 = M_CBRTPI;
@@ -179,7 +177,6 @@ pub fn mgga_x_task_kxc_unpol(
         let t165 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t161);
         let tzk0 = 2.0 * t165;
         zk[ip] += tzk0;
-        // --- vxc delta (87 lines) ---
         let t166 = 1.0 / t31;
         let t167 = t18 * t166;
         let t173 = param_task_c / t39 / t38;
@@ -271,7 +268,6 @@ pub fn mgga_x_task_kxc_unpol(
         let t363 = piecewise3(t3, 0.0, -3.0 / 8.0 * t316 * t358 * t359);
         let tvtau0 = 2.0 * rho[ip] * t363;
         vtau[ip] += tvtau0;
-        // --- fxc delta (222 lines) ---
         let t366 = 1.0 / t81;
         let t367 = t18 * t366;
         let t374 = t38 * t38;
@@ -504,7 +500,6 @@ pub fn mgga_x_task_kxc_unpol(
         let t941 = piecewise3(t3, 0.0, -3.0 / 8.0 * t316 * t937 * t359);
         let tv2tau20 = 2.0 * rho[ip] * t941;
         v2tau2[ip] += tv2tau20;
-        // --- kxc delta (this level) (524 lines) ---
         let t944 = t18 * t33;
         let t954 = t374 * t38;
         let t957 = param_task_c / t39 / t954;

@@ -1,8 +1,7 @@
-//! MGGA_X_TASK kxc pol kernel (incremental).
+//! MGGA_X_TASK kxc pol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 178 shared lines across all orders.
-//! Delta: 1332 lines unique to kxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -12,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
 
 #[allow(unused_variables, non_snake_case)]
-#[cube]
+#[cube(launch_unchecked)]
 pub fn mgga_x_task_kxc_pol(
     rho: &Array<f64>,
     sigma: &Array<f64>,
@@ -78,7 +77,6 @@ pub fn mgga_x_task_kxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        // --- shared preamble (178 lines) ---
         let t2 = rho0 <= dens_threshold;
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
@@ -258,7 +256,6 @@ pub fn mgga_x_task_kxc_pol(
         let t287 = piecewise3(t174, 0.0, -3.0 / 8.0 * t6 * t183 * t283);
         let tzk0 = t173 + t287;
         zk[ip] += tzk0;
-        // --- vxc delta (187 lines) ---
         let t288 = t7 * t7;
         let t289 = 1.0 / t288;
         let t290 = t17 * t289;
@@ -455,7 +452,6 @@ pub fn mgga_x_task_kxc_pol(
         let t727 = piecewise3(t174, 0.0, -3.0 / 8.0 * t679 * t724);
         let tvtau1 = t7 * t727;
         vtau[ip * 2 + 1] += tvtau1;
-        // --- fxc delta (522 lines) ---
         let t730 = t24 * t24;
         let t731 = 1.0 / t730;
         let t732 = t292 * t292;
@@ -1023,7 +1019,6 @@ pub fn mgga_x_task_kxc_pol(
         let t2064 = piecewise3(t174, 0.0, -3.0 / 8.0 * t679 * t2061);
         let tv2tau22 = t7 * t2064;
         v2tau2[ip * 3 + 2] += tv2tau22;
-        // --- kxc delta (this level) (1332 lines) ---
         let t2068 = 1.0 / t730 / t20;
         let t2069 = t732 * t292;
         let t2072 = t731 * t292;

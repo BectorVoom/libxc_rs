@@ -1,8 +1,7 @@
-//! MGGA_C_B94 fxc unpol kernel (incremental).
+//! MGGA_C_B94 fxc unpol kernel.
 //!
-//! Auto-translated with incremental derivative structure.
-//! Preamble: 92 shared lines across all orders.
-//! Delta: 1333 lines unique to fxc.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b94.c`.
+//! Preserves exact maple2c variable names and FP operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,7 +41,6 @@ pub fn mgga_c_b94_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        // --- shared preamble (92 lines) ---
         let t2 = rho[ip] * param_cab;
         let t4 = rho[ip] / 2.0 <= dens_threshold;
         let t5 = M_CBRT2;
@@ -136,7 +134,6 @@ pub fn mgga_c_b94_fxc_unpol(
         let t128 = 2.0 * t127;
         let tzk0 = -t74 + t128;
         zk[ip] += tzk0;
-        // --- vxc delta (228 lines) ---
         let t129 = t67 * t71;
         let t131 = t5 * t93;
         let t133 = t52 * t10;
@@ -369,7 +366,6 @@ pub fn mgga_c_b94_fxc_unpol(
         let t568 = 2.0 * t567;
         let tvtau0 = rho[ip] * (-t514 - t521 + t568);
         vtau[ip] += tvtau0;
-        // --- fxc delta (this level) (1333 lines) ---
         let t574 = t198 * t71;
         let t576 = t67 * t202;
         let t578 = t5 * t227;
