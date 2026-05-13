@@ -305,7 +305,10 @@ Per A1 (HIGH risk if wrong) this MUST run and pass before bulk rollout.
 
 ---
 
-### `crates/kernels/{lda,gga,mgga}/src/lib.rs` — re-export-shim restructure (Strategy 1)
+### `crates/kernels/{lda,gga,mgga}/src/lib.rs` — re-export-shim restructure (Strategy 1) — **OBSOLETE per D-10b (2026-05-13 user revision)**
+
+> **NOTE — DO NOT USE FOR NEW PLANS.** Strategy 1 envisioned numbered subcrates surviving as `pub mod batchN;` re-exports inside the family façade. The user revision (D-10/D-10a/D-10b in 11-CONTEXT.md) DELETES the numbered subcrates upfront and the splitter emits directly into the unified per-family layout. The new pattern is "Splitter emission target redirect" (added below). The LDA per-functional `pub mod <func>;` form (the LDA analog block in this section) is STILL CORRECT and applies to all three families post-D-10. The GGA/MGGA `pub mod batchN;` form described below is the part that becomes obsolete.
+
 
 **Closest analog (LDA):** `crates/kernels/lda-1/src/lib.rs` lines 7-21:
 ```rust
@@ -387,6 +390,31 @@ Phase 11 chunks ALWAYS get `#[cube]` (per D-02 + cubecl manual §4, also RESEARC
 
 ---
 
+### Splitter emission target redirect (NEW per D-10 — replaces "what to copy" in legacy chunked-scratch path)
+
+**Pattern source:** the existing per-functional emit pattern in `tools/translate_lda_v2.py` `translate_file_split` (lines 1116-1240) and `translate_file_incremental` (lines 1412-1583) which take a `write_dir` argument and emit `write_dir/<func_name>/...`. PRE-D-10 the orchestrator (`tools/regen_phase09.py:143-181`) passes `write_dir = crates/kernels/<existing-numbered-subcrate-name>` (discovered by scanning the filesystem, line 78-100). POST-D-10 the orchestrator passes `write_dir = crates/kernels/<family>` for ALL functionals of that family.
+
+**Mechanical redirect:** the splitter itself does NOT change its emission shape — `translate_file_split(c_path, func_name, write_dir, ...)` still produces `write_dir/<func_name>/mod.rs` plus `write_dir/<func_name>/<level>_<spin>*.rs`. Only the `write_dir` argument changes:
+
+| Family | Pre-D-10 `write_dir` (per regen_phase09.py) | Post-D-10 `write_dir` |
+|--------|---------------------------------------------|------------------------|
+| LDA    | `crates/kernels/lda-1/src` or `crates/kernels/lda-2/src` (whichever subcrate currently owns the functional, discovered by `scan_functional_distribution`) | `crates/kernels/lda/src` (always) |
+| GGA    | `crates/kernels/gga-N/src` (one of 8) | `crates/kernels/gga/src` (always) |
+| MGGA   | `crates/kernels/mgga-{1..14 with letter suffixes}/src` (one of 17) | `crates/kernels/mgga/src` (always) |
+
+**The discovery mechanism MUST change too.** `regen_phase09.py:scan_functional_distribution` (line 78-100) walks `crates/kernels/kernel-{lda,gga,mgga}*/src/<func>/` to discover which functionals exist and which subcrate they belong to. POST-D-10 there are no subcrates — the source-of-truth for "which functionals exist" becomes `libxc-master/maple/{lda,gga,mgga}_exc/*.c` (the Maple input directories, already referenced as `MAPLE2C` constant at line 38). New plan 11-02 task 2 introduces `tools/regen_unified.py` (or a `--unified` mode of `regen_phase09.py`) that:
+1. Walks `libxc-master/src/maple2c/{family}_exc/*.c` and `_vxc/*.c` to enumerate functionals.
+2. For each functional, calls the family translator with `write_dir = crates/kernels/{family}/src`.
+3. Maintains the per-functional dir replacement pattern (delete pre-existing files in `crates/kernels/{family}/src/<func>/`, then copy from staging).
+
+**Per-family `lib.rs` regeneration:** after all functionals emit, the unified family `lib.rs` is rewritten with `pub mod <func>;` lines (one per emitted top-level subdir under `crates/kernels/{family}/src/`), sorted alphabetically for splitter-emit determinism (per RESEARCH.md "Idempotency Contract"). The existing `crates/kernels/lda/src/lib.rs` (lines 14-54, the per-functional `pub use libxc_kernel_lda_N::<func>;` block) is structurally what the new lib.rs becomes — just with `pub mod <func>;` instead of `pub use ...`. The `pub mod deferred;` line on line 10 stays; `deferred.rs` is in-aggregator metadata and is NOT regenerated.
+
+**Anti-pattern in the LEGACY analog (CARRY OVER from the now-obsolete Strategy 1 section):** the chunked-scratch helpers in `tools/translate_lda_v2.py` lines 480-852 (`_parse_var_defs`, `_build_scratch_replacer`, `_generate_chunk_helper`, `_generate_chunked_wrapper`, `chunk_single_output_split`) emit `&mut Array<f64>` shared scratch + hardcoded `f64`. These remain anti-patterns under D-10 — the D-02 chunked-scratch wrapper analog (LDA's existing `_chunkN` pattern in `crates/kernels/lda-2/src/lda_xc_ksdt/lxc_pol_part5_v4rho4_1.rs` and its `_chunk0/_chunk1` siblings) STILL applies for the chunking work in waves 2-4, but the file is now emitted under `crates/kernels/lda/src/lda_xc_ksdt/...` instead of `crates/kernels/lda-2/src/lda_xc_ksdt/...`. The chunk file shape, header, imports, `#[cube]` placement, `use super::` chunk-import lines all carry over verbatim; only the parent path differs.
+
+**Dispatch generator path consequences:** `tools/generate_gga_dispatch.py` line 701 currently emits `kpath = f"crate::kernel::gga::batch{batch}::{name}"`. POST-D-10 this becomes `kpath = f"crate::kernel::gga::{name}"` (drop the `batch{batch}::` segment). The `_roster.tsv` files at `.planning/phases/04-bulk-kernel-translation/{gga,mgga}_roster.tsv` retain the `batch` column for now (truncating the column would invalidate the existing parser at line 39-46) but the column value becomes a no-op for path emission. The per-batch submodule emit (`pub mod batch{N};` in `mod.rs`, plus per-batch files at `src/eval/{family}_dispatch/batch{N}.rs`) is REPLACED with a per-functional emit (`pub mod funcs;` plus `src/eval/{family}_dispatch/funcs/<func>.rs`, OR a single flat `src/eval/{family}_dispatch.rs` containing all dispatch helpers). Planner's call which form to use; the unified flat form is recommended for symmetry with LDA dispatch (which uses no batch layer today).
+
+---
+
 ## Shared Patterns
 
 ### Imports for any newly emitted kernel chunk file
@@ -462,7 +490,7 @@ cargo test -p libxc_rs-verify --test parity_phase11 -- --test-threads=1 --nocapt
 | **D-02 ABI: `#[cube] fn chunk_N<F: Float>(args: F, ...) -> (F, F, ...)`** | kernel-emission ABI | Rust source output | RESEARCH.md A1 (line 704): no oracle-validated tuple-returning `#[cube]` kernel exists in libxc_rs today. The cubecl-macros 0.10 PARSER supports tuples (RESEARCH.md line 833) but **no kernel exercises it**. `crates/kernels/math/src/br89.rs:38` and `mbrxc.rs:9` source comments still claim "CubeCL doesn't support tuples" — those comments are STALE per cubecl 0.10 but not yet rebutted by a passing test. Wave 0 spike (`verify/tests/spike_tuple_return_cube.rs`) IS the first analog and MUST land first. |
 | **`<F: Float>` generic `#[cube]` kernels** | kernel-emission | Rust source output | RESEARCH.md §19 line 231: "**Currently NOT met anywhere in libxc_rs** (every existing `#[cube]` is hardcoded `f64`)." `crates/kernels/math/src/powers.rs` lines 13-19 (`pub fn safe_cbrt(x: f64) -> f64`) — every math primitive is `f64` today. Phase 11 introduces the FIRST generic kernels. The spike result determines whether the math primitives need to be re-emitted as `<F: Float>` too, or whether wrapping `param: f64 → F::new(param)` at use sites is sufficient (RESEARCH.md §"Code Examples" lines 651-657 picks the latter). |
 | **CSE pass over `compute_lines` (Strategy C)** | translator helper | Python AST → chunked partition | The CSE algorithm itself is novel. The CLOSEST existing primitive is `tools/translate_lda_v2.py` lines 370-401 (`build_dependency_graph` + `transitive_deps`) — Phase 11 extends with reverse-dep counts + walk-with-budget chunker + tuple-arg/return inference. RESEARCH.md §"CSE Detection Heuristic" lines 287-300 specifies the algorithm; `tools/translate_v2/cse.py` is the recommended new file (~600 lines). |
-| **Subcrate collapse helper (`tools/collapse_subcrates.py`)** | audit-tool / migrator | filesystem moves + Cargo.toml edit | RESEARCH.md §"Tooling needed" lines 340-345. No existing tool moves crate dirs + rewrites `Cargo.toml` workspace deps atomically. Closest analog by intent is `tools/split_lda_subcrates.py` (412 lines — splits the OPPOSITE direction). The new tool walks `crates/kernels/<family>-N/src/`, moves dirs to `crates/kernels/<family>/src/`, drops the numbered crate dirs, edits root `Cargo.toml`. Atomicity: ONE FAMILY at a time per RESEARCH.md line 344. |
+| **Subcrate collapse helper (`tools/collapse_subcrates.py`)** — **OBSOLETE per D-10/D-10a (2026-05-13)** | n/a | n/a | The new D-10 architecture deletes numbered subcrates upfront via a small one-shot `rm -rf` + `Cargo.toml` edit (no migrator needed because the splitter populates the unified layout from scratch on next run). Pattern superseded by the bash one-liner in plan 11-02 Task 1. |
 | **Workspace `cargo build --workspace` peak-RSS measurement** | audit-tool | runtime measurement | No existing in-repo tool. Closest external analog: `260510-q01-SUMMARY.md` measurement methodology (`/usr/bin/time -v cargo build -p libxc-kernel-mgga-1`). Phase 11 plans should reproduce that pattern, not invent a new one. |
 
 ---
