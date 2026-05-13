@@ -249,6 +249,7 @@ Plans:
   4. Define verification gate (bit-exact, 1e-12, energy-only) post-re-translation
 
 **Success Criteria** (what must be TRUE):
+  0. **Pre-flight gate (P11-INV-A1):** D-02 tuple-return `<F: Float>` `#[cube]` ABI is empirically proven on cubecl-cpu via a Wave 0 spike test. If this gate fails, Phase 11 pauses for re-discussion (likely fall back to `&mut F` out-params). Per RESEARCH.md A1: HIGH risk if the parser/IR/codegen path doesn't round-trip cleanly; PATTERNS.md confirms no existing analog. The spike's existence motivates the entire phase ABI choice.
   1. `find crates/kernels -maxdepth 1 -type d` shows **no** `lda-N`, `gga-N`, `mgga-N` numbered children — only family-level crates
   2. `find crates/kernels -name '*.rs' -exec wc -l {} +` shows zero files >5,000 lines
   3. The splitter (`tools/translate_*.py`) is capable of subdividing a single output expression into multiple `#[cube]` helper functions; r4scan, br89_explicit, mgga-{8,9,11} sized cases all fit under 5K
@@ -256,6 +257,7 @@ Plans:
   5. Oracle parity preserved at the gate level chosen during discussion
   6. Pipeline is idempotent: running it twice produces no diff
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
+  8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
 **Plans:** 6 plans
 
