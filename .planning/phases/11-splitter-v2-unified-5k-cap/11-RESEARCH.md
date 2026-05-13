@@ -713,31 +713,38 @@ After Strategy-1 collapse: `crate::kernel::mgga::batch17::...` resolves because 
 **If user disagrees with A1/A2:** plan a Wave 0 spike that proves or disproves the tuple-return ABI BEFORE writing the CSE chunker.
 **If user disagrees with A4:** plan an interim state where 5K cap holds without subcrate collapse, then evaluate.
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> **D11 closure (planner-checker dimension 11, Research Resolution):** All five questions below are operationalized in the Phase 11 plans. The recommendations have been adopted; resolutions are recorded inline below each question.
 
 1. **Should chunk helpers themselves be allowed to call other chunk helpers (nesting)?**
    - What we know: cubecl-macros 0.10 expands `#[cube]` calls inline at the IR level; nesting is supported syntactically.
    - What's unclear: whether deeply-nested chunk-of-chunk-of-chunk graphs explode the proc-macro stack the same way deep `#[cube]` bodies do (per D-08 SIGSEGV history).
    - Recommendation: keep chunk graphs FLAT in v1 — wrapper calls chunk_0, chunk_1, ..., chunk_N in sequence, no chunk calls another chunk. If a chunk's deps argue for nesting, lift the shared dep INTO the wrapper rather than nesting. Revisit after the bulk regen succeeds.
+   - **RESOLVED:** Adopted. Operationalized in plan 11-02 task 1 (`tools/translate_v2/cse.py` flat-graph contract: "chunks never reference symbols defined in another chunk except via `inputs`").
 
 2. **What about the 25 `_partNN` files of `mgga_c_revtpss/lxc_pol_*` — should they ALL be re-chunked, or just the ones >5K?**
    - What we know: 30 of 35 revtpss files are >5K. The other 5 are between 1K-5K (already-merged small splits).
    - What's unclear: whether re-chunking the 5K-and-under files would IMPROVE or DEGRADE compile time.
    - Recommendation: re-chunk only files >5K. Leave files ≤5K untouched (idempotency-friendly).
+   - **RESOLVED:** Adopted. Operationalized in plan 11-04 must_have ("only files >5K are re-chunked; the 5 already-merged small revtpss splits (1K-5K range) are left untouched").
 
 3. **Are there any functionals where CSE-aware chunking can't help because the deepest dependency chain is itself >5K lines?**
    - What we know: the LDA case `lda_xc_ksdt/lxc_pol_part5_v4rho4_1` produces a chunk0 of 5,995 lines (existing chunked-scratch). At Phase 11 threshold of 5K, this is one chunk too few.
    - What's unclear: whether ANY single chunk's MINIMUM dep chain (root → leaf) exceeds 5K lines. If yes, mid-chain CSE breakpoints (forced even when not natural) become necessary.
    - Recommendation: planner adds an explicit "if no natural breakpoint within 4500 lines, force a breakpoint at the lowest-arity cut point in the next 500 lines" rule.
+   - **RESOLVED:** Adopted. Operationalized in plan 11-02 task 1 (`tools/translate_v2/cse.py` forced-breakpoint contract: "when chunk size reaches `chunk_max_lines - force_headroom` without a natural breakpoint, scan the next `force_headroom` lines for the cut point that minimizes `len(inputs) + len(outputs)` and force a break there"; `DEFAULT_FORCE_HEADROOM = 500`).
 
 4. **What's the right chunk-naming convention?**
    - Current LDA: `<func>_<level>_<spin>_part<N>_<suffix>_chunk<K>` — already 80+ chars on lxc-level functions. The 60-char merge-suffix cap (`_SUFFIX_MAX_CHARS = 60`) was added in 260512-q02 to avoid the Linux 255-byte filename limit. Phase 11 must continue to respect this; chunk indices append AFTER the suffix cap, so chunk indices `_chunk0` through `_chunkN` add ≤8 chars per chunk and stay safe.
    - Recommendation: keep the existing naming; verify max basename ≤200 chars (`83 chars` measured by 260512-q02).
+   - **RESOLVED:** Adopted. Documented in PATTERNS.md ("Python translator deterministic-emit conventions" section). The `_SUFFIX_MAX_CHARS = 60` cap is preserved; chunk indices appended after the suffix cap stay within the 200-char basename budget.
 
 5. **Should `tools/maple_to_kernels.py`'s stale `DEFAULT_SPLIT_THRESHOLD = 100_000` and `DEFAULT_TARGET_MAX = 500_000` be aligned to the new 5K cap?**
    - What we know: these defaults are NOT honored — the underlying translators have hardcoded `SPLIT_THRESHOLD = 6000` and would need to be modified to 5000. The driver just warns when its CLI values diverge from the translator constants.
    - What's unclear: whether the driver should be modified to MUTATE the translator constants on each invocation, or keep the warning + manual sync.
    - Recommendation: as part of Phase 11, refactor the driver to either (a) accept `--split-threshold` and override the translator constant via env var, or (b) remove the unused CLI knobs and document that translators own the constant. Decision is Claude's discretion.
+   - **RESOLVED:** Option (b) adopted. Operationalized in plan 11-06 task 1 ("tools/maple_to_kernels.py stale defaults DEFAULT_SPLIT_THRESHOLD=100_000 and DEFAULT_TARGET_MAX=500_000 are removed per RESEARCH.md Q5 — translators now own the constant (5000); driver no longer pretends to").
 
 ## Environment Availability
 
