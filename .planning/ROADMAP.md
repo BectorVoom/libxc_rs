@@ -266,7 +266,7 @@ Plans:
 - [ ] 11-02-PLAN.md — Wave 1: build CSE partitioner (tools/translate_v2/cse.py) + replace LDA chunked-scratch with D-02 tuple-return `<F: Float>` ABI + lower SPLIT_THRESHOLD to 5000 + regen LDA + verify parity
 - [ ] 11-03-PLAN.md — Wave 2: factor `chunk_single_output_d02` into shared tools/translate_v2/emit.py + add D-02 chunked-emission wedge to translate_gga.py + regen GGA at SPLIT_THRESHOLD=5000 + verify parity
 - [ ] 11-04-PLAN.md — Wave 3: add D-02 chunked-emission wedge to translate_mgga.py + regen MGGA at SPLIT_THRESHOLD=5000 (closes the 207-file blast radius — worst-case parity gates here) + verify smoke + worst-case
-- [ ] 11-05-PLAN.md — Wave 4: build tools/collapse_subcrates.py (Strategy 1 atomic-per-family migrator) + collapse LDA → GGA → MGGA into the 3 family façades; root Cargo.toml drops 22 numbered deps; dispatch paths preserved unchanged
+- [ ] 11-05-PLAN.md — Wave 4: build tools/collapse_subcrates.py (Strategy 1 atomic-per-family migrator) + collapse LDA → GGA → MGGA into the 3 family façades; root Cargo.toml drops 22 numbered deps; **dispatch tree REGENERATED in Operation 4 (B1 closure) against the post-collapse façade**
 - [ ] 11-06-PLAN.md — Wave 5: update CLAUDE.md per D-03a (precision + operation-order policy) + delete 5 obsolete splitter tools + clean up maple_to_kernels.py stale defaults + idempotency test (P11-INV-6) + final phase gate (FINAL-METRICS, ROADMAP/STATE/VALIDATION updates)
 
 **Canonical refs:**
