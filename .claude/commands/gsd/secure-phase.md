@@ -9,7 +9,7 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-  - Task
+  - Agent
   - AskUserQuestion
 ---
 <objective>
@@ -22,7 +22,7 @@ Output: updated SECURITY.md.
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/secure-phase.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/secure-phase.md
 </execution_context>
 
 <context>
@@ -30,6 +30,6 @@ Phase: $ARGUMENTS — optional, defaults to last completed phase.
 </context>
 
 <process>
-Execute @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/secure-phase.md.
+Execute end-to-end.
 Preserve all workflow gates.
 </process>

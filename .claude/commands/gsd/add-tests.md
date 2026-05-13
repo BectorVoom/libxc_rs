@@ -9,7 +9,7 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-  - Task
+  - Agent
   - AskUserQuestion
 argument-instructions: |
   Parse the argument as a phase number (integer, decimal, or letter-suffix), plus optional free-text instructions.
@@ -25,7 +25,7 @@ Output: Test files committed with message `test(phase-{N}): add unit and E2E tes
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/add-tests.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/add-tests.md
 </execution_context>
 
 <context>
@@ -36,6 +36,6 @@ Phase: $ARGUMENTS
 </context>
 
 <process>
-Execute the add-tests workflow from @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/add-tests.md end-to-end.
+Execute end-to-end.
 Preserve all workflow gates (classification approval, test plan approval, RED-GREEN verification, gap reporting).
 </process>

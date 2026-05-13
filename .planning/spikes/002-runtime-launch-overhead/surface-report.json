@@ -1,0 +1,13 @@
+{
+  "kernel_rs_files": 4307,
+  "kernel_rs_lines": 7251224,
+  "cube_launch_unchecked_kernels": 3797,
+  "plain_cube_helpers": 64,
+  "host_cpu_launch_calls": 31,
+  "cpu_client_calls": 7,
+  "input_upload_call_sites": 10,
+  "zero_output_call_sites": 28,
+  "readback_call_sites": 12,
+  "resident_stub_count": 2,
+  "bench_placeholder_count": 7
+}

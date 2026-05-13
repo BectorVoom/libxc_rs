@@ -9,7 +9,7 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-  - Task
+  - Agent
   - AskUserQuestion
 ---
 <objective>
@@ -25,7 +25,7 @@ Flag handling rule:
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/docs-update.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/docs-update.md
 </execution_context>
 
 <context>
@@ -43,6 +43,6 @@ Arguments: $ARGUMENTS
 </context>
 
 <process>
-Execute the docs-update workflow from @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/docs-update.md end-to-end.
+Execute end-to-end.
 Preserve all workflow gates (preservation_check, flag handling, wave execution, monorepo dispatch, commit, reporting).
 </process>

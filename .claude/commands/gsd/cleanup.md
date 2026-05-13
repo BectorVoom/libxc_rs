@@ -14,10 +14,10 @@ Use when `.planning/phases/` has accumulated directories from past milestones.
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/cleanup.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/cleanup.md
 </execution_context>
 
 <process>
-Follow the cleanup workflow at @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/cleanup.md.
+Execute end-to-end.
 Identify completed milestones, show a dry-run summary, and archive on confirmation.
 </process>

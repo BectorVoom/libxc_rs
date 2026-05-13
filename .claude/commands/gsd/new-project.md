@@ -6,7 +6,7 @@ allowed-tools:
   - Read
   - Bash
   - Write
-  - Task
+  - Agent
   - AskUserQuestion
 ---
 <runtime_note>
@@ -33,14 +33,14 @@ Initialize a new project through unified flow: questioning → research (optiona
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/new-project.md
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/questioning.md
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/ui-brand.md
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/project.md
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/requirements.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/new-project.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/questioning.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/ui-brand.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/project.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/requirements.md
 </execution_context>
 
 <process>
-Execute the new-project workflow from @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/new-project.md end-to-end.
+Execute end-to-end.
 Preserve all workflow gates (validation, approvals, commits, routing).
 </process>

@@ -1,0 +1,1222 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+libxc_rs v0.1.0 (/home/user/Documents/workspace/libxc_rs)
+bitflags v2.11.0
+serde_core v1.0.228
+bytemuck v1.25.0
+bytemuck_derive v1.10.2 (proc-macro)
+proc-macro2 v1.0.106
+unicode-ident v1.0.24
+quote v1.0.45
+proc-macro2 v1.0.106 (*)
+syn v2.0.117
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+unicode-ident v1.0.24
+cubecl v0.10.0
+cubecl-core v0.10.0
+bitflags v2.11.0 (*)
+bytemuck v1.25.0 (*)
+cubecl-common v0.10.0
+backtrace v0.3.76
+addr2line v0.25.1
+gimli v0.32.3
+cfg-if v1.0.4
+libc v0.2.184
+miniz_oxide v0.8.9
+adler2 v2.0.1
+object v0.37.3
+memchr v2.8.0
+rustc-demangle v0.1.27
+bytemuck v1.25.0 (*)
+cfg-if v1.0.4
+derive-new v0.7.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+derive_more v2.1.1
+derive_more-impl v2.1.1 (proc-macro)
+convert_case v0.10.0
+unicode-segmentation v1.13.2
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+unicode-xid v0.2.6
+rustc_version v0.4.1
+semver v1.0.28
+dirs v6.0.0
+dirs-sys v0.5.0
+libc v0.2.184
+option-ext v0.2.0
+embassy-futures v0.1.2
+float4 v0.2.0
+float8 v0.7.0
+half v2.7.1
+bytemuck v1.25.0 (*)
+cfg-if v1.0.4
+num-traits v0.2.19
+libm v0.2.16
+autocfg v1.5.0
+serde v1.0.228
+serde_core v1.0.228
+serde_derive v1.0.228 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+zerocopy v0.8.48
+zerocopy-derive v0.8.48 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+futures-lite v2.6.1
+fastrand v2.4.1
+futures-core v0.3.32
+futures-io v0.3.32
+parking v2.2.1
+pin-project-lite v0.2.17
+half v2.7.1 (*)
+hashbrown v0.16.1
+allocator-api2 v0.2.21
+equivalent v1.0.2
+foldhash v0.2.0
+serde_core v1.0.228
+log v0.4.29
+num-traits v0.2.19 (*)
+oneshot v0.2.1
+parking_lot v0.12.5
+lock_api v0.4.14
+scopeguard v1.2.0
+parking_lot_core v0.9.12
+cfg-if v1.0.4
+libc v0.2.184
+smallvec v1.15.1
+serde v1.0.228 (*)
+rand v0.10.1
+chacha20 v0.10.0
+cfg-if v1.0.4
+cpufeatures v0.3.0
+rand_core v0.10.1
+getrandom v0.4.2
+cfg-if v1.0.4
+libc v0.2.184
+rand_core v0.10.1
+rand_core v0.10.1
+sanitize-filename v0.6.0
+regex v1.12.3
+regex-automata v0.4.14
+regex-syntax v0.8.10
+regex-syntax v0.8.10
+serde v1.0.228 (*)
+serde_bytes v0.11.19
+serde_core v1.0.228
+serde_json v1.0.149
+itoa v1.0.18
+memchr v2.8.0
+serde_core v1.0.228
+zmij v1.0.21
+spin v0.10.0
+lock_api v0.4.14 (*)
+toml v1.1.2+spec-1.1.0
+serde_core v1.0.228
+serde_spanned v1.1.1
+serde_core v1.0.228
+toml_datetime v1.1.1+spec-1.1.0
+serde_core v1.0.228
+toml_parser v1.1.2+spec-1.1.0
+winnow v1.0.1
+toml_writer v1.1.1+spec-1.1.0
+winnow v1.0.1
+tynm v0.2.0
+nom v8.0.0
+memchr v2.8.0
+web-time v1.1.0
+xxhash-rust v0.8.15
+cfg_aliases v0.2.1
+cubecl-ir v0.10.0
+cubecl-common v0.10.0 (*)
+cubecl-macros-internal v0.10.0 (proc-macro)
+darling v0.23.0
+darling_core v0.23.0
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+strsim v0.11.1
+syn v2.0.117 (*)
+darling_macro v0.23.0 (proc-macro)
+darling_core v0.23.0 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+derive-new v0.7.0 (proc-macro) (*)
+derive_more v2.1.1 (*)
+enumset v1.1.12
+enumset_derive v0.15.0 (proc-macro)
+darling v0.21.3
+darling_core v0.21.3
+fnv v1.0.7
+ident_case v1.0.1
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+darling_macro v0.21.3 (proc-macro)
+darling_core v0.21.3 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+serde v1.0.228 (*)
+float-ord v0.3.2
+fnv v1.0.7
+foldhash v0.2.0
+half v2.7.1 (*)
+hashbrown v0.16.1 (*)
+num-traits v0.2.19 (*)
+portable-atomic v1.13.1
+serde v1.0.228 (*)
+serde v1.0.228 (*)
+variadics_please v1.1.0 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+cubecl-macros v0.10.0 (proc-macro)
+cubecl-common v0.10.0
+bytemuck v1.25.0 (*)
+cfg-if v1.0.4
+derive-new v0.7.0 (proc-macro) (*)
+derive_more v2.1.1
+derive_more-impl v2.1.1 (proc-macro) (*)
+embassy-futures v0.1.2
+half v2.7.1
+cfg-if v1.0.4
+num-traits v0.2.19
+libm v0.2.16
+autocfg v1.5.0
+serde v1.0.228
+serde_core v1.0.228
+serde_derive v1.0.228 (proc-macro) (*)
+zerocopy v0.8.48 (*)
+hashbrown v0.16.1
+allocator-api2 v0.2.21
+equivalent v1.0.2
+foldhash v0.2.0
+log v0.4.29
+num-traits v0.2.19 (*)
+rand v0.10.1
+chacha20 v0.10.0 (*)
+rand_core v0.10.1
+serde v1.0.228 (*)
+spin v0.10.0 (*)
+tynm v0.2.0 (*)
+web-time v1.1.0
+cfg_aliases v0.2.1
+darling v0.23.0 (*)
+derive-new v0.7.0 (proc-macro) (*)
+ident_case v1.0.1
+inflections v1.1.1
+prettyplease v0.2.37
+proc-macro2 v1.0.106 (*)
+syn v2.0.117 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+cubecl-runtime v0.10.0
+ahash v0.8.12
+cfg-if v1.0.4
+once_cell v1.21.4
+zerocopy v0.8.48 (*)
+version_check v0.9.5
+async-channel v2.5.0
+concurrent-queue v2.5.0
+crossbeam-utils v0.8.21
+event-listener-strategy v0.5.4
+event-listener v5.4.1
+concurrent-queue v2.5.0 (*)
+parking v2.2.1
+pin-project-lite v0.2.17
+pin-project-lite v0.2.17
+futures-core v0.3.32
+pin-project-lite v0.2.17
+bytemuck v1.25.0 (*)
+cfg-if v1.0.4
+cubecl-common v0.10.0 (*)
+cubecl-ir v0.10.0 (*)
+cubecl-zspace v0.10.0
+derive-new v0.7.0 (proc-macro) (*)
+serde v1.0.228 (*)
+smallvec v1.15.1 (*)
+derive-new v0.7.0 (proc-macro) (*)
+derive_more v2.1.1 (*)
+dirs v6.0.0 (*)
+enumset v1.1.12 (*)
+hashbrown v0.16.1 (*)
+log v0.4.29
+md5 v0.8.0
+serde v1.0.228 (*)
+serde_json v1.0.149 (*)
+spin v0.10.0 (*)
+thiserror v2.0.18
+thiserror-impl v2.0.18 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+toml v1.1.2+spec-1.1.0 (*)
+web-time v1.1.0
+cfg_aliases v0.2.1
+cubecl-zspace v0.10.0 (*)
+derive-new v0.7.0 (proc-macro) (*)
+derive_more v2.1.1 (*)
+enumset v1.1.12 (*)
+float-ord v0.3.2
+half v2.7.1 (*)
+hashbrown v0.16.1 (*)
+log v0.4.29
+num-traits v0.2.19 (*)
+paste v1.0.15 (proc-macro)
+serde v1.0.228 (*)
+serde_json v1.0.149 (*)
+variadics_please v1.1.0 (proc-macro) (*)
+cubecl-cpu v0.10.0
+bytemuck v1.25.0 (*)
+cubecl-common v0.10.0 (*)
+cubecl-core v0.10.0 (*)
+cubecl-opt v0.10.0
+cubecl-common v0.10.0 (*)
+cubecl-core v0.10.0 (*)
+cubecl-ir v0.10.0 (*)
+float-ord v0.3.2
+log v0.4.29
+num v0.4.3
+num-bigint v0.4.6
+num-integer v0.1.46
+num-traits v0.2.19 (*)
+num-traits v0.2.19 (*)
+num-complex v0.4.6
+num-traits v0.2.19 (*)
+num-integer v0.1.46 (*)
+num-iter v0.1.45
+num-integer v0.1.46 (*)
+num-traits v0.2.19 (*)
+autocfg v1.5.0
+num-rational v0.4.2
+num-bigint v0.4.6 (*)
+num-integer v0.1.46 (*)
+num-traits v0.2.19 (*)
+num-traits v0.2.19 (*)
+petgraph v0.8.3
+fixedbitset v0.5.7
+hashbrown v0.15.5
+foldhash v0.1.5
+indexmap v2.13.1
+equivalent v1.0.2
+hashbrown v0.16.1 (*)
+smallvec v1.15.1 (*)
+stable-vec v0.4.2
+type-map v0.5.1
+rustc-hash v2.1.2
+cubecl-runtime v0.10.0 (*)
+cubecl-std v0.10.0
+cubecl-common v0.10.0 (*)
+cubecl-core v0.10.0 (*)
+cubecl-runtime v0.10.0 (*)
+half v2.7.1 (*)
+num-traits v0.2.19 (*)
+paste v1.0.15 (proc-macro)
+serde v1.0.228 (*)
+spin v0.10.0 (*)
+variadics_please v1.1.0 (proc-macro) (*)
+derive-new v0.7.0 (proc-macro) (*)
+half v2.7.1 (*)
+log v0.4.29
+paste v1.0.15 (proc-macro)
+serde v1.0.228 (*)
+sysinfo v0.38.4
+libc v0.2.184
+memchr v2.8.0
+tracel-llvm v20.1.4-7
+tracel-mlir-rs v20.1.4-7
+tracel-mlir-rs-macros v20.1.4-7 (proc-macro)
+comrak v0.39.1
+caseless v0.2.2
+unicode-normalization v0.1.25
+tinyvec v1.11.0
+tinyvec_macros v0.1.1
+entities v1.0.1
+memchr v2.8.0
+slug v0.1.6
+deunicode v1.6.2
+typed-arena v2.0.2
+unicode_categories v0.1.1
+convert_case v0.8.0
+unicode-segmentation v1.13.2
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+regex v1.12.3
+aho-corasick v1.1.4
+memchr v2.8.0
+memchr v2.8.0
+regex-automata v0.4.14
+aho-corasick v1.1.4 (*)
+memchr v2.8.0
+regex-syntax v0.8.10
+regex-syntax v0.8.10
+syn v2.0.117 (*)
+tracel-llvm-bundler v20.1.4-7
+anyhow v1.0.102
+constcat v0.6.1
+dirs v6.0.0 (*)
+liblzma v0.4.6
+liblzma-sys v0.4.6
+libc v0.2.184
+cc v1.2.59
+find-msvc-tools v0.1.9
+jobserver v0.1.34
+libc v0.2.184
+libc v0.2.184
+shlex v1.3.0
+pkg-config v0.3.32
+num_cpus v1.17.0
+libc v0.2.184
+regex v1.12.3 (*)
+reqwest v0.12.28
+base64 v0.22.1
+bytes v1.11.1
+futures-channel v0.3.32
+futures-core v0.3.32
+futures-sink v0.3.32
+futures-core v0.3.32
+futures-util v0.3.32
+futures-core v0.3.32
+futures-io v0.3.32
+futures-sink v0.3.32
+futures-task v0.3.32
+memchr v2.8.0
+pin-project-lite v0.2.17
+slab v0.4.12
+h2 v0.4.13
+atomic-waker v1.1.2
+bytes v1.11.1
+fnv v1.0.7
+futures-core v0.3.32
+futures-sink v0.3.32
+http v1.4.0
+bytes v1.11.1
+itoa v1.0.18
+indexmap v2.13.1
+equivalent v1.0.2
+hashbrown v0.16.1 (*)
+slab v0.4.12
+tokio v1.51.1
+bytes v1.11.1
+libc v0.2.184
+mio v1.2.0
+libc v0.2.184
+pin-project-lite v0.2.17
+socket2 v0.6.3
+libc v0.2.184
+tokio-util v0.7.18
+bytes v1.11.1
+futures-core v0.3.32
+futures-sink v0.3.32
+pin-project-lite v0.2.17
+tokio v1.51.1 (*)
+tracing v0.1.44
+pin-project-lite v0.2.17
+tracing-core v0.1.36
+once_cell v1.21.4
+http v1.4.0 (*)
+http-body v1.0.1
+bytes v1.11.1
+http v1.4.0 (*)
+http-body-util v0.1.3
+bytes v1.11.1
+futures-core v0.3.32
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+pin-project-lite v0.2.17
+hyper v1.9.0
+atomic-waker v1.1.2
+bytes v1.11.1
+futures-channel v0.3.32 (*)
+futures-core v0.3.32
+h2 v0.4.13 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+httparse v1.10.1
+itoa v1.0.18
+pin-project-lite v0.2.17
+smallvec v1.15.1
+tokio v1.51.1 (*)
+want v0.3.1
+try-lock v0.2.5
+hyper-rustls v0.27.7
+http v1.4.0 (*)
+hyper v1.9.0 (*)
+hyper-util v0.1.20
+base64 v0.22.1
+bytes v1.11.1
+futures-channel v0.3.32 (*)
+futures-util v0.3.32 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+hyper v1.9.0 (*)
+ipnet v2.12.0
+libc v0.2.184
+percent-encoding v2.3.2
+pin-project-lite v0.2.17
+socket2 v0.6.3 (*)
+tokio v1.51.1 (*)
+tower-service v0.3.3
+tracing v0.1.44 (*)
+rustls v0.23.37
+once_cell v1.21.4
+ring v0.17.14
+cfg-if v1.0.4
+getrandom v0.2.17
+cfg-if v1.0.4
+libc v0.2.184
+untrusted v0.9.0
+cc v1.2.59 (*)
+rustls-pki-types v1.14.0
+zeroize v1.8.2
+rustls-webpki v0.103.10
+ring v0.17.14 (*)
+rustls-pki-types v1.14.0 (*)
+untrusted v0.9.0
+subtle v2.6.1
+zeroize v1.8.2
+rustls-pki-types v1.14.0 (*)
+tokio v1.51.1 (*)
+tokio-rustls v0.26.4
+rustls v0.23.37 (*)
+tokio v1.51.1 (*)
+tower-service v0.3.3
+webpki-roots v1.0.6
+rustls-pki-types v1.14.0 (*)
+hyper-util v0.1.20 (*)
+log v0.4.29
+percent-encoding v2.3.2
+pin-project-lite v0.2.17
+rustls v0.23.37 (*)
+rustls-pki-types v1.14.0 (*)
+serde v1.0.228 (*)
+serde_urlencoded v0.7.1
+form_urlencoded v1.2.2
+percent-encoding v2.3.2
+itoa v1.0.18
+ryu v1.0.23
+serde v1.0.228 (*)
+sync_wrapper v1.0.2
+futures-core v0.3.32
+tokio v1.51.1 (*)
+tokio-rustls v0.26.4 (*)
+tower v0.5.3
+futures-core v0.3.32
+futures-util v0.3.32 (*)
+pin-project-lite v0.2.17
+sync_wrapper v1.0.2 (*)
+tokio v1.51.1 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tower-http v0.6.8
+bitflags v2.11.0
+bytes v1.11.1
+futures-util v0.3.32 (*)
+http v1.4.0 (*)
+http-body v1.0.1 (*)
+iri-string v0.7.12
+pin-project-lite v0.2.17
+tower v0.5.3 (*)
+tower-layer v0.3.3
+tower-service v0.3.3
+tower-service v0.3.3
+url v2.5.8
+form_urlencoded v1.2.2 (*)
+idna v1.1.0
+idna_adapter v1.2.1
+icu_normalizer v2.2.0
+icu_collections v2.2.0
+displaydoc v0.2.5 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+potential_utf v0.1.5
+zerovec v0.11.6
+yoke v0.8.2
+stable_deref_trait v1.2.1
+yoke-derive v0.8.2 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+synstructure v0.13.2
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+zerofrom v0.1.7
+zerofrom-derive v0.1.7 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+synstructure v0.13.2 (*)
+zerofrom v0.1.7 (*)
+zerovec-derive v0.11.3 (proc-macro)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+syn v2.0.117 (*)
+utf8_iter v1.0.4
+yoke v0.8.2 (*)
+zerofrom v0.1.7 (*)
+zerovec v0.11.6 (*)
+icu_normalizer_data v2.2.0
+icu_provider v2.2.0
+displaydoc v0.2.5 (proc-macro) (*)
+icu_locale_core v2.2.0
+displaydoc v0.2.5 (proc-macro) (*)
+litemap v0.8.2
+tinystr v0.8.3
+displaydoc v0.2.5 (proc-macro) (*)
+zerovec v0.11.6 (*)
+writeable v0.6.3
+zerovec v0.11.6 (*)
+writeable v0.6.3
+yoke v0.8.2 (*)
+zerofrom v0.1.7 (*)
+zerotrie v0.2.4
+displaydoc v0.2.5 (proc-macro) (*)
+yoke v0.8.2 (*)
+zerofrom v0.1.7 (*)
+zerovec v0.11.6 (*)
+smallvec v1.15.1
+zerovec v0.11.6 (*)
+icu_properties v2.2.0
+icu_collections v2.2.0 (*)
+icu_locale_core v2.2.0 (*)
+icu_properties_data v2.2.0
+icu_provider v2.2.0 (*)
+zerotrie v0.2.4 (*)
+zerovec v0.11.6 (*)
+smallvec v1.15.1
+utf8_iter v1.0.4
+percent-encoding v2.3.2
+webpki-roots v1.0.6 (*)
+sha2 v0.10.9
+cfg-if v1.0.4
+cpufeatures v0.2.17
+digest v0.10.7
+block-buffer v0.10.4
+generic-array v0.14.7
+typenum v1.19.0
+version_check v0.9.5
+crypto-common v0.1.7
+generic-array v0.14.7 (*)
+typenum v1.19.0
+tar v0.4.45
+filetime v0.2.27
+cfg-if v1.0.4
+libc v0.2.184
+libc v0.2.184
+xattr v1.6.1
+rustix v1.1.4
+bitflags v2.11.0
+linux-raw-sys v0.12.1
+walkdir v2.5.0
+same-file v1.0.6
+anyhow v1.0.102
+bytes v1.11.1
+constcat v0.6.1
+dirs v6.0.0 (*)
+liblzma v0.4.6 (*)
+reqwest v0.12.28 (*)
+serde v1.0.228 (*)
+serde_json v1.0.149
+itoa v1.0.18
+memchr v2.8.0
+serde_core v1.0.228
+zmij v1.0.21
+sha2 v0.10.9 (*)
+tar v0.4.45 (*)
+walkdir v2.5.0 (*)
+tracel-tblgen-rs v20.1.4-7
+paste v1.0.15 (proc-macro)
+thiserror v2.0.18 (*)
+bindgen v0.71.1
+bitflags v2.11.0
+cexpr v0.6.0
+nom v7.1.3
+memchr v2.8.0
+minimal-lexical v0.2.1
+clang-sys v1.8.1
+glob v0.3.3
+libc v0.2.184
+libloading v0.8.9
+cfg-if v1.0.4
+glob v0.3.3
+itertools v0.13.0
+either v1.15.0
+log v0.4.29
+prettyplease v0.2.37 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+regex v1.12.3 (*)
+rustc-hash v2.1.2
+shlex v1.3.0
+syn v2.0.117 (*)
+cc v1.2.59 (*)
+tracel-llvm-bundler v20.1.4-7 (*)
+unindent v0.2.4
+tracel-llvm-bundler v20.1.4-7 (*)
+tracel-mlir-sys v20.1.4-7
+tracel-llvm-bundler v20.1.4-7 (*)
+tracel-mlir-sys v20.1.4-7 (*)
+tracel-llvm-bundler v20.1.4-7 (*)
+cubecl-ir v0.10.0 (*)
+cubecl-runtime v0.10.0 (*)
+half v2.7.1 (*)
+libxc-kernel-gga v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga)
+cubecl v0.10.0 (*)
+libxc-kernel-gga-10a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-10a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math)
+cubecl v0.10.0 (*)
+libxc-kernel-gga-10b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-10b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-10c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-10c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-10d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-10d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-11 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-11)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-12 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-12)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-13 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-13)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-14 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-14)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-15 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-15)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-16 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-16)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-17 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-17)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-18 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-18)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-19 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-19)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-1a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-1a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-1b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-1b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-1c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-1c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-1d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-1d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-20 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-20)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-21 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-21)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-22 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-22)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-2a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-2a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-2b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-2b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-2c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-2c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-2d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-2d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-3a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-3b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-3c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-3d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-3e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-4g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-5g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-6a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-6a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-6b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-6b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-6c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-6c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-6d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-6d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-7a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-7a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-7b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-7b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-7c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-7c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-7d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-7d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-8a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-8b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-8c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-8d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-9a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-9a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-9b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-9b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-gga-9c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-9c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-lda v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda)
+libxc-kernel-lda-1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-1)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-lda-2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-2)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-lda-3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-3)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-lda-4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-4)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-lda-1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-1) (*)
+libxc-kernel-lda-2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-2) (*)
+libxc-kernel-lda-3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-3) (*)
+libxc-kernel-lda-4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-lda-4) (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-10a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-10a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-10b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-10b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-11a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-11a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-11b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-11b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-11c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-11c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-12a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-12b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-12c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-12d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-13a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-13a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-13b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-13b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14h v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14h)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14i v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14i)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14j v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14j)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14k v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14k)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-14l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14l)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-15h v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15h)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-16 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-16)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-17 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-17)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-18a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-18a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-18b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-18b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-18c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-18c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-19g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-1a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-1b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-1c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-1d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20g)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20h v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20h)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20i v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20i)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20j v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20j)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20k v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20k)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-20l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20l)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-21 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-21)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-22a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-22a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-22b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-22b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-22c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-22c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-22d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-22d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-23 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-23)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-24a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-24a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-24b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-24b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-25a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-25a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-25b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-25b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-26a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-26a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-26b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-26b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-27a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-27a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-27b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-27b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-27c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-27c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-28 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-28)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-29 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-29)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-2a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-2a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-2b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-2b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-30 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-30)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-31 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-31)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-32a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-32a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-32b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-32b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-33 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-33)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-34 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-34)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-35 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-35)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-36a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-36a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-36b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-36b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-37a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-37a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-37b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-37b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-3a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-3a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-3b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-3b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-4a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-4a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-4b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-4b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-5)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-6)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-7a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-7a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-7b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-7b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-7c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-7c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-7d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-7d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-7e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-7e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8c)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8d)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8e)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-8f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-8f)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-9a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-9a)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+libxc-kernel-mgga-9b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-9b)
+cubecl v0.10.0 (*)
+libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math) (*)
+thiserror v2.0.18 (*)
+approx v0.5.1
+num-traits v0.2.19 (*)
+libm v0.2.16
+libxc_rs-verify v0.1.0 (/home/user/Documents/workspace/libxc_rs/verify)
+anyhow v1.0.102
+libxc-sys v0.1.0 (/home/user/Documents/workspace/libxc_rs/libxc-sys)
+bindgen v0.72.1
+bitflags v2.11.0
+cexpr v0.6.0 (*)
+clang-sys v1.8.1 (*)
+itertools v0.13.0 (*)
+log v0.4.29
+prettyplease v0.2.37 (*)
+proc-macro2 v1.0.106 (*)
+quote v1.0.45 (*)
+regex v1.12.3 (*)
+rustc-hash v2.1.2
+shlex v1.3.0
+syn v2.0.117 (*)
+cmake v0.1.58
+cc v1.2.59 (*)
+libxc_rs v0.1.0 (/home/user/Documents/workspace/libxc_rs) (*)

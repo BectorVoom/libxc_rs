@@ -9,7 +9,7 @@ allowed-tools:
   - Glob
   - Grep
   - Bash
-  - Task
+  - Agent
   - TodoWrite
   - AskUserQuestion
 ---
@@ -31,8 +31,8 @@ Context budget: ~15% orchestrator, 100% fresh per subagent.
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/execute-phase.md
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/ui-brand.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/execute-phase.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <runtime_note>
@@ -58,6 +58,6 @@ Context files are resolved inside the workflow via `gsd-sdk query init.execute-p
 </context>
 
 <process>
-Execute the execute-phase workflow from @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/execute-phase.md end-to-end.
+Execute end-to-end.
 Preserve all workflow gates (wave execution, checkpoint handling, verification, state updates, routing).
 </process>

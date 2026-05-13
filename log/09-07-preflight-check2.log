@@ -1,0 +1,52 @@
+   Compiling bindgen v0.71.1
+   Compiling bindgen v0.72.1
+   Compiling tracel-tblgen-rs v20.1.4-7
+   Compiling libxc-sys v0.1.0 (/home/user/Documents/workspace/libxc_rs/libxc-sys)
+   Compiling tracel-mlir-rs-macros v20.1.4-7
+    Checking anyhow v1.0.102
+    Checking approx v0.5.1
+    Checking tracel-mlir-rs v20.1.4-7
+    Checking tracel-llvm v20.1.4-7
+    Checking cubecl-cpu v0.9.0
+    Checking cubecl v0.9.0
+    Checking libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-math)
+    Checking libxc-kernel-gga-4e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4e)
+    Checking libxc-kernel-mgga-4a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-4a)
+    Checking libxc-kernel-gga-10a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-10a)
+    Checking libxc-kernel-mgga-20b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20b)
+    Checking libxc-kernel-mgga-1c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1c)
+    Checking libxc-kernel-gga-5g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-5g)
+    Checking libxc-kernel-mgga-27a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-27a)
+    Checking libxc-kernel-mgga-14a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14a)
+    Checking libxc-kernel-gga-13 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-13)
+    Checking libxc-kernel-gga-7a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-7a)
+    Checking libxc-kernel-mgga-15h v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15h)
+    Checking libxc-kernel-gga-8b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8b)
+    Checking libxc-kernel-mgga-14b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14b)
+    Checking libxc-kernel-mgga-6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-6)
+    Checking libxc-kernel-mgga-19d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19d)
+    Checking libxc-kernel-mgga-20k v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20k)
+    Checking libxc-kernel-mgga-14l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-14l)
+    Checking libxc-kernel-mgga-11a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-11a)
+    Checking libxc-kernel-mgga-12b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12b)
+    Checking libxc-kernel-mgga-12a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-12a)
+    Checking libxc-kernel-gga-8a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-8a)
+    Checking libxc-kernel-mgga-20e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20e)
+    Checking libxc-kernel-mgga-20i v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20i)
+    Checking libxc-kernel-gga-6a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-6a)
+    Checking libxc-kernel-mgga-11c v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-11c)
+    Checking libxc-kernel-mgga-20l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-20l)
+    Checking libxc-kernel-gga-20 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-20)
+    Checking libxc-kernel-mgga-19f v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-19f)
+    Checking libxc-kernel-mgga-1a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1a)
+    Checking libxc-kernel-mgga-1d v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-1d)
+    Checking libxc-kernel-mgga-15g v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15g)
+    Checking libxc-kernel-gga-18 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-18)
+    Checking libxc-kernel-mgga-15e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-15e)
+    Checking libxc-kernel-mgga-18b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-18b)
+    Checking libxc-kernel-mgga-31 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-31)
+    Checking libxc-kernel-gga-4b v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-4b)
+    Checking libxc-kernel-mgga-37a v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-37a)
+    Checking libxc-kernel-gga-3e v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-gga-3e)
+    Checking libxc-kernel-mgga-35 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-35)
+    Checking libxc-kernel-mgga-16 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernel-mgga-16)

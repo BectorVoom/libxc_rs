@@ -6,6 +6,10 @@
 
 **Core value:** deliver full libxc public capability coverage through a safer Rust API without splitting CPU and GPU semantics into separate evaluator implementations.
 
+## Skills
+
+- **Spike findings for libxc_rs** (build optimization patterns, sccache setup) → `Skill("spike-findings-libxc_rs")`
+
 ## Current Focus
 
 - Active roadmap phase: **Phase 1 - Catalog & Metadata Lockdown**

@@ -146,9 +146,9 @@ dependencies = [
 
 [[package]]
 name = "bitflags"
-version = "2.11.0"
+version = "2.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "843867be96c8daad0d758b57df9392b6d8d271134fce549de6ce169ff98a92af"
+checksum = "c4512299f36f043ab09a583e57bceb5a5aab7a73db1805848e8fef3c9e8c78b3"
 dependencies = [
  "serde_core",
 ]
@@ -205,9 +205,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.2.59"
+version = "1.2.62"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b7a4d3ec6524d28a329fc53654bbadc9bdd7b0431f5d65f1a56ffb28a1ee5283"
+checksum = "a1dce859f0832a7d088c4f1119888ab94ef4b5d6795d1ce05afb7fe159d79f98"
 dependencies = [
  "find-msvc-tools",
  "jobserver",
@@ -882,13 +882,12 @@ checksum = "9f1f227452a390804cdb637b74a86990f2a7d7ba4b7d5693aac9b4dd6defd8d6"
 
 [[package]]
 name = "filetime"
-version = "0.2.27"
+version = "0.2.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f98844151eee8917efc50bd9e8318cb963ae8b297431495d3f758616ea5c57db"
+checksum = "2d5b2eef6fafbf69f877e55509ce5b11a760690ac9700a2921be067aa6afaef6"
 dependencies = [
  "cfg-if",
  "libc",
- "libredox",
 ]
 
 [[package]]
@@ -1078,9 +1077,9 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
 name = "h2"
-version = "0.4.13"
+version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f44da3a8150a6703ed5d34e164b875fd14c2cdab9af1252a9a1020bde2bdc54"
+checksum = "171fefbc92fe4a4de27e0698d6a5b392d6a0e333506bc49133760b3bcf948733"
 dependencies = [
  "atomic-waker",
  "bytes",
@@ -1130,6 +1129,12 @@ dependencies = [
  "serde",
  "serde_core",
 ]
+
+[[package]]
+name = "hashbrown"
+version = "0.17.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 
 [[package]]
 name = "heck"
@@ -1205,15 +1210,14 @@ dependencies = [
 
 [[package]]
 name = "hyper-rustls"
-version = "0.27.7"
+version = "0.27.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3c93eb611681b207e1fe55d5a71ecf91572ec8a6705cdb6857f7d8d5242cf58"
+checksum = "33ca68d021ef39cf6463ab54c1d0f5daf03377b70561305bb89a8f83aab66e0f"
 dependencies = [
  "http",
  "hyper",
  "hyper-util",
  "rustls",
- "rustls-pki-types",
  "tokio",
  "tokio-rustls",
  "tower-service",
@@ -1350,9 +1354,9 @@ dependencies = [
 
 [[package]]
 name = "idna_adapter"
-version = "1.2.1"
+version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3acae9609540aa318d1bc588455225fb2085b9ed0c4f6bd0d9d5bcd86f1a0344"
+checksum = "cb68373c0d6620ef8105e855e7745e18b0d00d3bdb07fb532e434244cdb9a714"
 dependencies = [
  "icu_normalizer",
  "icu_properties",
@@ -1360,12 +1364,12 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.13.1"
+version = "2.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45a8a2b9cb3e0b0c1803dbb0758ffac5de2f425b23c28f518faabd9d805342ff"
+checksum = "d466e9454f08e4a911e14806c24e16fba1b4c121d1ea474396f396069cf949d9"
 dependencies = [
  "equivalent",
- "hashbrown 0.16.1",
+ "hashbrown 0.17.1",
  "serde",
  "serde_core",
 ]
@@ -1381,16 +1385,6 @@ name = "ipnet"
 version = "2.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d98f6fed1fde3f8c21bc40a1abb88dd75e67924f9cffc3ef95607bad8017f8e2"
-
-[[package]]
-name = "iri-string"
-version = "0.7.12"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "25e659a4bb38e810ebc252e53b5814ff908a8c58c2a9ce2fae1bbec24cbf4e20"
-dependencies = [
- "memchr",
- "serde",
-]
 
 [[package]]
 name = "itertools"
@@ -1419,9 +1413,9 @@ dependencies = [
 
 [[package]]
 name = "js-sys"
-version = "0.3.94"
+version = "0.3.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e04e2ef80ce82e13552136fabeef8a5ed1f985a96805761cbb9a2c34e7664d9"
+checksum = "67df7112613f8bfd9150013a0314e196f4800d3201ae742489d999db2f979f08"
 dependencies = [
  "cfg-if",
  "futures-util",
@@ -1437,9 +1431,9 @@ checksum = "09edd9e8b54e49e587e4f6295a7d29c3ea94d469cb40ab8ca70b288248a81db2"
 
 [[package]]
 name = "libc"
-version = "0.2.184"
+version = "0.2.186"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48f5d2a454e16a5ea0f4ced81bd44e4cfc7bd3a507b61887c99fd3538b28e4af"
+checksum = "68ab91017fe16c622486840e4c83c9a37afeff978bd239b5293d61ece587de66"
 
 [[package]]
 name = "libloading"
@@ -1480,14 +1474,11 @@ checksum = "b6d2cec3eae94f9f509c767b45932f1ada8350c4bdb85af2fcab4a3c14807981"
 
 [[package]]
 name = "libredox"
-version = "0.1.15"
+version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ddbf48fd451246b1f8c2610bd3b4ac0cc6e149d89832867093ab69a17194f08"
+checksum = "e02f3bb43d335493c96bf3fd3a321600bf6bd07ed34bc64118e9293bdffea46c"
 dependencies = [
- "bitflags",
  "libc",
- "plain",
- "redox_syscall 0.7.3",
 ]
 
 [[package]]
@@ -1495,69 +1486,19 @@ name = "libxc-kernel-gga"
 version = "0.1.0"
 dependencies = [
  "cubecl",
- "libxc-kernel-gga-10a",
- "libxc-kernel-gga-10b",
- "libxc-kernel-gga-10c",
- "libxc-kernel-gga-10d",
- "libxc-kernel-gga-11",
- "libxc-kernel-gga-12",
- "libxc-kernel-gga-13",
- "libxc-kernel-gga-14",
- "libxc-kernel-gga-15",
- "libxc-kernel-gga-16",
- "libxc-kernel-gga-17",
- "libxc-kernel-gga-18",
- "libxc-kernel-gga-19",
- "libxc-kernel-gga-1a",
- "libxc-kernel-gga-1b",
- "libxc-kernel-gga-1c",
- "libxc-kernel-gga-1d",
- "libxc-kernel-gga-20",
- "libxc-kernel-gga-21",
- "libxc-kernel-gga-22",
- "libxc-kernel-gga-2a",
- "libxc-kernel-gga-2b",
- "libxc-kernel-gga-2c",
- "libxc-kernel-gga-2d",
- "libxc-kernel-gga-3a",
- "libxc-kernel-gga-3b",
- "libxc-kernel-gga-3c",
- "libxc-kernel-gga-3d",
- "libxc-kernel-gga-3e",
- "libxc-kernel-gga-4a",
- "libxc-kernel-gga-4b",
- "libxc-kernel-gga-4c",
- "libxc-kernel-gga-4d",
- "libxc-kernel-gga-4e",
- "libxc-kernel-gga-4f",
- "libxc-kernel-gga-4g",
- "libxc-kernel-gga-5a",
- "libxc-kernel-gga-5b",
- "libxc-kernel-gga-5c",
- "libxc-kernel-gga-5d",
- "libxc-kernel-gga-5e",
- "libxc-kernel-gga-5f",
- "libxc-kernel-gga-5g",
- "libxc-kernel-gga-6a",
- "libxc-kernel-gga-6b",
- "libxc-kernel-gga-6c",
- "libxc-kernel-gga-6d",
- "libxc-kernel-gga-7a",
- "libxc-kernel-gga-7b",
- "libxc-kernel-gga-7c",
- "libxc-kernel-gga-7d",
- "libxc-kernel-gga-8a",
- "libxc-kernel-gga-8b",
- "libxc-kernel-gga-8c",
- "libxc-kernel-gga-8d",
- "libxc-kernel-gga-9a",
- "libxc-kernel-gga-9b",
- "libxc-kernel-gga-9c",
+ "libxc-kernel-gga-1",
+ "libxc-kernel-gga-2",
+ "libxc-kernel-gga-3",
+ "libxc-kernel-gga-4",
+ "libxc-kernel-gga-5",
+ "libxc-kernel-gga-6",
+ "libxc-kernel-gga-7",
+ "libxc-kernel-gga-8",
  "libxc-kernel-math",
 ]
 
 [[package]]
-name = "libxc-kernel-gga-10a"
+name = "libxc-kernel-gga-1"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1565,7 +1506,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-10b"
+name = "libxc-kernel-gga-2"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1573,7 +1514,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-10c"
+name = "libxc-kernel-gga-3"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1581,7 +1522,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-10d"
+name = "libxc-kernel-gga-4"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1589,7 +1530,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-11"
+name = "libxc-kernel-gga-5"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1597,7 +1538,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-12"
+name = "libxc-kernel-gga-6"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1605,7 +1546,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-13"
+name = "libxc-kernel-gga-7"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -1613,407 +1554,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-gga-14"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-15"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-16"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-17"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-18"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-19"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-1a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-1b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-1c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-1d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-20"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-21"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-22"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-2a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-2b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-2c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-2d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-3a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-3b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-3c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-3d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-3e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-4g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-5g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-6a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-6b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-6c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-6d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-7a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-7b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-7c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-7d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-8a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-8b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-8c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-8d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-9a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-9b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-gga-9c"
+name = "libxc-kernel-gga-8"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2024,10 +1565,25 @@ dependencies = [
 name = "libxc-kernel-lda"
 version = "0.1.0"
 dependencies = [
- "bytemuck",
+ "libxc-kernel-lda-1",
+ "libxc-kernel-lda-2",
+ "libxc_rs",
+]
+
+[[package]]
+name = "libxc-kernel-lda-1"
+version = "0.1.0"
+dependencies = [
  "cubecl",
  "libxc-kernel-math",
- "libxc_rs",
+]
+
+[[package]]
+name = "libxc-kernel-lda-2"
+version = "0.1.0"
+dependencies = [
+ "cubecl",
+ "libxc-kernel-math",
 ]
 
 [[package]]
@@ -2046,118 +1602,27 @@ version = "0.1.0"
 dependencies = [
  "cubecl",
  "libxc-kernel-math",
- "libxc-kernel-mgga-10a",
- "libxc-kernel-mgga-10b",
+ "libxc-kernel-mgga-1",
+ "libxc-kernel-mgga-10",
  "libxc-kernel-mgga-11a",
  "libxc-kernel-mgga-11b",
- "libxc-kernel-mgga-11c",
- "libxc-kernel-mgga-12a",
- "libxc-kernel-mgga-12b",
- "libxc-kernel-mgga-12c",
- "libxc-kernel-mgga-12d",
- "libxc-kernel-mgga-13a",
- "libxc-kernel-mgga-13b",
- "libxc-kernel-mgga-14a",
- "libxc-kernel-mgga-14b",
- "libxc-kernel-mgga-14c",
- "libxc-kernel-mgga-14d",
- "libxc-kernel-mgga-14e",
- "libxc-kernel-mgga-14f",
- "libxc-kernel-mgga-14g",
- "libxc-kernel-mgga-14h",
- "libxc-kernel-mgga-14i",
- "libxc-kernel-mgga-14j",
- "libxc-kernel-mgga-14k",
- "libxc-kernel-mgga-14l",
- "libxc-kernel-mgga-15a",
- "libxc-kernel-mgga-15b",
- "libxc-kernel-mgga-15c",
- "libxc-kernel-mgga-15d",
- "libxc-kernel-mgga-15e",
- "libxc-kernel-mgga-15f",
- "libxc-kernel-mgga-15g",
- "libxc-kernel-mgga-15h",
- "libxc-kernel-mgga-16",
- "libxc-kernel-mgga-17",
- "libxc-kernel-mgga-18a",
- "libxc-kernel-mgga-18b",
- "libxc-kernel-mgga-18c",
- "libxc-kernel-mgga-19a",
- "libxc-kernel-mgga-19b",
- "libxc-kernel-mgga-19c",
- "libxc-kernel-mgga-19d",
- "libxc-kernel-mgga-19e",
- "libxc-kernel-mgga-19f",
- "libxc-kernel-mgga-19g",
- "libxc-kernel-mgga-1a",
- "libxc-kernel-mgga-1b",
- "libxc-kernel-mgga-1c",
- "libxc-kernel-mgga-1d",
- "libxc-kernel-mgga-20a",
- "libxc-kernel-mgga-20b",
- "libxc-kernel-mgga-20c",
- "libxc-kernel-mgga-20d",
- "libxc-kernel-mgga-20e",
- "libxc-kernel-mgga-20f",
- "libxc-kernel-mgga-20g",
- "libxc-kernel-mgga-20h",
- "libxc-kernel-mgga-20i",
- "libxc-kernel-mgga-20j",
- "libxc-kernel-mgga-20k",
- "libxc-kernel-mgga-20l",
- "libxc-kernel-mgga-21",
- "libxc-kernel-mgga-22a",
- "libxc-kernel-mgga-22b",
- "libxc-kernel-mgga-22c",
- "libxc-kernel-mgga-22d",
- "libxc-kernel-mgga-23",
- "libxc-kernel-mgga-24a",
- "libxc-kernel-mgga-24b",
- "libxc-kernel-mgga-25a",
- "libxc-kernel-mgga-25b",
- "libxc-kernel-mgga-26a",
- "libxc-kernel-mgga-26b",
- "libxc-kernel-mgga-27a",
- "libxc-kernel-mgga-27b",
- "libxc-kernel-mgga-27c",
- "libxc-kernel-mgga-28",
- "libxc-kernel-mgga-29",
- "libxc-kernel-mgga-2a",
- "libxc-kernel-mgga-2b",
- "libxc-kernel-mgga-30",
- "libxc-kernel-mgga-31",
- "libxc-kernel-mgga-32a",
- "libxc-kernel-mgga-32b",
- "libxc-kernel-mgga-33",
- "libxc-kernel-mgga-34",
- "libxc-kernel-mgga-35",
- "libxc-kernel-mgga-36a",
- "libxc-kernel-mgga-36b",
- "libxc-kernel-mgga-37a",
- "libxc-kernel-mgga-37b",
- "libxc-kernel-mgga-3a",
- "libxc-kernel-mgga-3b",
- "libxc-kernel-mgga-4a",
- "libxc-kernel-mgga-4b",
+ "libxc-kernel-mgga-12",
+ "libxc-kernel-mgga-13",
+ "libxc-kernel-mgga-14",
+ "libxc-kernel-mgga-2",
+ "libxc-kernel-mgga-3",
+ "libxc-kernel-mgga-4",
  "libxc-kernel-mgga-5",
  "libxc-kernel-mgga-6",
- "libxc-kernel-mgga-7a",
- "libxc-kernel-mgga-7b",
- "libxc-kernel-mgga-7c",
- "libxc-kernel-mgga-7d",
- "libxc-kernel-mgga-7e",
+ "libxc-kernel-mgga-7",
  "libxc-kernel-mgga-8a",
  "libxc-kernel-mgga-8b",
- "libxc-kernel-mgga-8c",
- "libxc-kernel-mgga-8d",
- "libxc-kernel-mgga-8e",
- "libxc-kernel-mgga-8f",
  "libxc-kernel-mgga-9a",
  "libxc-kernel-mgga-9b",
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-10a"
+name = "libxc-kernel-mgga-1"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2165,7 +1630,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-10b"
+name = "libxc-kernel-mgga-10"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2189,7 +1654,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-11c"
+name = "libxc-kernel-mgga-12"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2197,7 +1662,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-12a"
+name = "libxc-kernel-mgga-13"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2205,7 +1670,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-12b"
+name = "libxc-kernel-mgga-14"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2213,7 +1678,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-12c"
+name = "libxc-kernel-mgga-2"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2221,7 +1686,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-12d"
+name = "libxc-kernel-mgga-3"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2229,671 +1694,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-13a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-13b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14h"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14i"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14j"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14k"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-14l"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-15h"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-16"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-17"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-18a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-18b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-18c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-19g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-1a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-1b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-1c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-1d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20f"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20g"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20h"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20i"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20j"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20k"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-20l"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-21"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-22a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-22b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-22c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-22d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-23"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-24a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-24b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-25a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-25b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-26a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-26b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-27a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-27b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-27c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-28"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-29"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-2a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-2b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-30"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-31"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-32a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-32b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-33"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-34"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-35"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-36a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-36b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-37a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-37b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-3a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-3b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-4a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-4b"
+name = "libxc-kernel-mgga-4"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2917,39 +1718,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libxc-kernel-mgga-7a"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-7b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-7c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-7d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-7e"
+name = "libxc-kernel-mgga-7"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -2966,38 +1735,6 @@ dependencies = [
 
 [[package]]
 name = "libxc-kernel-mgga-8b"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-8c"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-8d"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-8e"
-version = "0.1.0"
-dependencies = [
- "cubecl",
- "libxc-kernel-math",
-]
-
-[[package]]
-name = "libxc-kernel-mgga-8f"
 version = "0.1.0"
 dependencies = [
  "cubecl",
@@ -3039,8 +1776,27 @@ dependencies = [
  "libm",
  "libxc-kernel-gga",
  "libxc-kernel-lda",
+ "libxc-kernel-lda-1",
+ "libxc-kernel-lda-2",
  "libxc-kernel-math",
  "libxc-kernel-mgga",
+ "libxc-kernel-mgga-1",
+ "libxc-kernel-mgga-10",
+ "libxc-kernel-mgga-11a",
+ "libxc-kernel-mgga-11b",
+ "libxc-kernel-mgga-12",
+ "libxc-kernel-mgga-13",
+ "libxc-kernel-mgga-14",
+ "libxc-kernel-mgga-2",
+ "libxc-kernel-mgga-3",
+ "libxc-kernel-mgga-4",
+ "libxc-kernel-mgga-5",
+ "libxc-kernel-mgga-6",
+ "libxc-kernel-mgga-7",
+ "libxc-kernel-mgga-8a",
+ "libxc-kernel-mgga-8b",
+ "libxc-kernel-mgga-9a",
+ "libxc-kernel-mgga-9b",
  "libxc_rs-verify",
  "thiserror",
 ]
@@ -3332,7 +2088,7 @@ checksum = "2621685985a2ebf1c516881c026032ac7deafcda1a2c9b7850dc81e3dfcb64c1"
 dependencies = [
  "cfg-if",
  "libc",
- "redox_syscall 0.5.18",
+ "redox_syscall",
  "smallvec",
  "windows-link",
 ]
@@ -3369,15 +2125,9 @@ checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 
 [[package]]
 name = "pkg-config"
-version = "0.3.32"
+version = "0.3.33"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
-
-[[package]]
-name = "plain"
-version = "0.2.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
+checksum = "19f132c84eca552bf34cab8ec81f1c1dcc229b811638f9d283dceabe58c5569e"
 
 [[package]]
 name = "portable-atomic"
@@ -3390,9 +2140,9 @@ dependencies = [
 
 [[package]]
 name = "portable-atomic-util"
-version = "0.2.6"
+version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "091397be61a01d4be58e7841595bd4bfedb15f1cd54977d79b8271e94ed799a3"
+checksum = "c2a106d1259c23fac8e543272398ae0e3c0b8d33c88ed73d0cc71b0f1d902618"
 dependencies = [
  "portable-atomic",
 ]
@@ -3463,7 +2213,7 @@ dependencies = [
  "bytes",
  "getrandom 0.3.4",
  "lru-slab",
- "rand 0.9.2",
+ "rand 0.9.4",
  "ring",
  "rustc-hash",
  "rustls",
@@ -3512,9 +2262,9 @@ checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
 
 [[package]]
 name = "rand"
-version = "0.9.2"
+version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6db2770f06117d490610c7488547d543617b21bfa07796d7a12f6f1bd53850d1"
+checksum = "44c5af06bb1b7d3216d91932aed5265164bf384dc89cd6ba05cf59a35f5f76ea"
 dependencies = [
  "rand_chacha",
  "rand_core 0.9.5",
@@ -3561,15 +2311,6 @@ name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
-dependencies = [
- "bitflags",
-]
-
-[[package]]
-name = "redox_syscall"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ce70a74e890531977d37e532c34d45e9055d2409ed08ddba14529471ed0be16"
 dependencies = [
  "bitflags",
 ]
@@ -3705,9 +2446,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.37"
+version = "0.23.40"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "758025cb5fccfd3bc2fd74708fd4682be41d99e5dff73c377c0646c6012c73a4"
+checksum = "ef86cd5876211988985292b91c96a8f2d298df24e75989a43a3c73f2d4d8168b"
 dependencies = [
  "once_cell",
  "ring",
@@ -3719,9 +2460,9 @@ dependencies = [
 
 [[package]]
 name = "rustls-pki-types"
-version = "1.14.0"
+version = "1.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "be040f8b0a225e40375822a563fa9524378b9d63112f53e19ffff34df5d33fdd"
+checksum = "30a7197ae7eb376e574fe940d068c30fe0462554a3ddbe4eca7838e049c937a9"
 dependencies = [
  "web-time",
  "zeroize",
@@ -3729,9 +2470,9 @@ dependencies = [
 
 [[package]]
 name = "rustls-webpki"
-version = "0.103.10"
+version = "0.103.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df33b2b81ac578cabaf06b89b0631153a3f416b0a886e8a7a1707fb51abbd1ef"
+checksum = "61c429a8649f110dddef65e2a5ad240f747e85f7758a6bccc7e5777bd33f756e"
 dependencies = [
  "ring",
  "rustls-pki-types",
@@ -4043,9 +2784,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.51.1"
+version = "1.52.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f66bf9585cda4b724d3e78ab34b73fb2bbaba9011b9bfdf69dc836382ea13b8c"
+checksum = "8fc7f01b389ac15039e4dc9531aa973a135d7a4135281b12d7c1bc79fd57fffe"
 dependencies = [
  "bytes",
  "libc",
@@ -4134,20 +2875,20 @@ dependencies = [
 
 [[package]]
 name = "tower-http"
-version = "0.6.8"
+version = "0.6.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d4e6559d53cc268e5031cd8429d05415bc4cb4aefc4aa5d6cc35fbf5b924a1f8"
+checksum = "68d6fdd9f81c2819c9a8b0e0cd91660e7746a8e6ea2ba7c6b2b057985f6bcb51"
 dependencies = [
  "bitflags",
  "bytes",
  "futures-util",
  "http",
  "http-body",
- "iri-string",
  "pin-project-lite",
  "tower",
  "tower-layer",
  "tower-service",
+ "url",
 ]
 
 [[package]]
@@ -4292,9 +3033,9 @@ checksum = "6af6ae20167a9ece4bcb41af5b80f8a1f1df981f6391189ce00fd257af04126a"
 
 [[package]]
 name = "typenum"
-version = "1.19.0"
+version = "1.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
+checksum = "40ce102ab67701b8526c123c1bab5cbe42d7040ccfd0f64af1a385808d2f43de"
 
 [[package]]
 name = "unicode-ident"
@@ -4409,11 +3150,11 @@ checksum = "ccf3ec651a847eb01de73ccad15eb7d99f80485de043efb2f370cd654f4ea44b"
 
 [[package]]
 name = "wasip2"
-version = "1.0.2+wasi-0.2.9"
+version = "1.0.3+wasi-0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9517f9239f02c069db75e65f174b3da828fe5f5b945c4dd26bd25d89c03ebcf5"
+checksum = "20064672db26d7cdc89c7798c48a0fdfac8213434a1186e5ef29fd560ae223d6"
 dependencies = [
- "wit-bindgen",
+ "wit-bindgen 0.57.1",
 ]
 
 [[package]]
@@ -4422,14 +3163,14 @@ version = "0.4.0+wasi-0.3.0-rc-2026-01-06"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5428f8bf88ea5ddc08faddef2ac4a67e390b88186c703ce6dbd955e1c145aca5"
 dependencies = [
- "wit-bindgen",
+ "wit-bindgen 0.51.0",
 ]
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.117"
+version = "0.2.121"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0551fc1bb415591e3372d0bc4780db7e587d84e2a7e79da121051c5c4b89d0b0"
+checksum = "49ace1d07c165b0864824eee619580c4689389afa9dc9ed3a4c75040d82e6790"
 dependencies = [
  "cfg-if",
  "once_cell",
@@ -4440,9 +3181,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-futures"
-version = "0.4.67"
+version = "0.4.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03623de6905b7206edd0a75f69f747f134b7f0a2323392d664448bf2d3c5d87e"
+checksum = "96492d0d3ffba25305a7dc88720d250b1401d7edca02cc3bcd50633b424673b8"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -4450,9 +3191,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.117"
+version = "0.2.121"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7fbdf9a35adf44786aecd5ff89b4563a90325f9da0923236f6104e603c7e86be"
+checksum = "8e68e6f4afd367a562002c05637acb8578ff2dea1943df76afb9e83d177c8578"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -4460,9 +3201,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.117"
+version = "0.2.121"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dca9693ef2bab6d4e6707234500350d8dad079eb508dca05530c85dc3a529ff2"
+checksum = "d95a9ec35c64b2a7cb35d3fead40c4238d0940c86d107136999567a4703259f2"
 dependencies = [
  "bumpalo",
  "proc-macro2",
@@ -4473,9 +3214,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.117"
+version = "0.2.121"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "39129a682a6d2d841b6c429d0c51e5cb0ed1a03829d8b3d1e69a011e62cb3d3b"
+checksum = "c4e0100b01e9f0d03189a92b96772a1fb998639d981193d7dbab487302513441"
 dependencies = [
  "unicode-ident",
 ]
@@ -4516,9 +3257,9 @@ dependencies = [
 
 [[package]]
 name = "web-sys"
-version = "0.3.94"
+version = "0.3.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd70027e39b12f0849461e08ffc50b9cd7688d942c1c8e3c7b22273236b4dd0a"
+checksum = "4b572dff8bcf38bad0fa19729c89bb5748b2b9b1d8be70cf90df697e3a8f32aa"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -4536,9 +3277,9 @@ dependencies = [
 
 [[package]]
 name = "webpki-roots"
-version = "1.0.6"
+version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22cfaf3c063993ff62e73cb4311efde4db1efb31ab78a3e5c457939ad5cc0bed"
+checksum = "52f5ee44c96cf55f1b349600768e3ece3a8f26010c05265ab73f945bb1a2eb9d"
 dependencies = [
  "rustls-pki-types",
 ]
@@ -4842,9 +3583,9 @@ checksum = "d6bbff5f0aada427a1e5a6da5f1f98158182f26556f345ac9e04d36d0ebed650"
 
 [[package]]
 name = "winnow"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09dac053f1cd375980747450bfc7250c264eaae0583872e845c0c7cd578872b5"
+checksum = "2ee1708bef14716a11bae175f579062d4554d95be2c6829f518df847b7b3fdd0"
 
 [[package]]
 name = "wit-bindgen"
@@ -4854,6 +3595,12 @@ checksum = "d7249219f66ced02969388cf2bb044a09756a083d0fab1e566056b04d9fbcaa5"
 dependencies = [
  "wit-bindgen-rust-macro",
 ]
+
+[[package]]
+name = "wit-bindgen"
+version = "0.57.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
 name = "wit-bindgen-core"

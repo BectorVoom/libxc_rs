@@ -7,8 +7,8 @@
 # jobs = 3: Each kernel sub-crate consumes 3-7 GB RAM during CubeCL proc macro
 # expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
 [build]
-# rustc-wrapper = "sccache"
-jobs = 3
+jobs = 1
+target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"
 
 [env]
 # Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
@@ -17,5 +17,3 @@ jobs = 3
 RUST_MIN_STACK = "67108864"
 # Share build artifacts across worktrees so isolated executors reuse the
 # main repo's compiled artifacts instead of rebuilding from scratch.
-
-

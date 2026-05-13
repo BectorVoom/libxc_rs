@@ -9,7 +9,7 @@ allowed-tools:
   - Glob
   - Grep
   - Bash
-  - Task
+  - Agent
   - AskUserQuestion
 ---
 <objective>
@@ -39,7 +39,7 @@ Granular flags are composable: `--discuss --research --validate` gives the same 
 </objective>
 
 <execution_context>
-@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/quick.md
+@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/quick.md
 </execution_context>
 
 <context>
@@ -153,7 +153,7 @@ When SUBCMD=resume and SLUG is set (already sanitized):
 
 When SUBCMD=run:
 
-Execute the quick workflow from @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/quick.md end-to-end.
+Execute end-to-end.
 Preserve all workflow gates (validation, task description, planning, execution, state updates, commits).
 
 </process>

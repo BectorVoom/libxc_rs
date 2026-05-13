@@ -1,0 +1,102 @@
+    Checking regex-syntax v0.8.10
+    Checking tracel-mlir-rs v20.1.4-7
+    Checking regex-automata v0.4.14
+    Checking regex v1.12.3
+    Checking sanitize-filename v0.6.0
+    Checking cubecl-common v0.9.0
+    Checking cubecl-ir v0.9.0
+    Checking cubecl-runtime v0.9.0
+    Checking cubecl-core v0.9.0
+    Checking cubecl-opt v0.9.0
+    Checking cubecl-std v0.9.0
+   Compiling libxc-sys v0.1.0 (/home/user/Documents/workspace/libxc_rs/libxc-sys)
+    Checking tracel-llvm v20.1.4-7
+    Checking cubecl-cpu v0.9.0
+error: failed to run custom build command for `libxc-sys v0.1.0 (/home/user/Documents/workspace/libxc_rs/libxc-sys)`
+
+Caused by:
+  process didn't exit successfully: `/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-4987929028e6fa78/build-script-build` (exit status: 101)
+  --- stdout
+  CMAKE_TOOLCHAIN_FILE_x86_64-unknown-linux-gnu = None
+  CMAKE_TOOLCHAIN_FILE_x86_64_unknown_linux_gnu = None
+  HOST_CMAKE_TOOLCHAIN_FILE = None
+  CMAKE_TOOLCHAIN_FILE = None
+  CMAKE_GENERATOR_x86_64-unknown-linux-gnu = None
+  CMAKE_GENERATOR_x86_64_unknown_linux_gnu = None
+  HOST_CMAKE_GENERATOR = None
+  CMAKE_GENERATOR = None
+  CMAKE_PREFIX_PATH_x86_64-unknown-linux-gnu = None
+  CMAKE_PREFIX_PATH_x86_64_unknown_linux_gnu = None
+  HOST_CMAKE_PREFIX_PATH = None
+  CMAKE_PREFIX_PATH = None
+  CMAKE_x86_64-unknown-linux-gnu = None
+  CMAKE_x86_64_unknown_linux_gnu = None
+  HOST_CMAKE = None
+  CMAKE = None
+  -- Setting option CMAKE_BUILD_TYPE: Debug
+  -- Setting option BUILD_SHARED_LIBS: OFF
+  -- Setting option BUILD_TESTING: OFF
+  -- Setting option BUILD_FPIC: ON
+  -- Setting option NAMESPACE_INSTALL_INCLUDEDIR: /
+  -- Setting option ENABLE_GENERIC: OFF
+  -- Setting option ENABLE_FORTRAN: OFF
+  -- Setting option ENABLE_PYTHON: OFF
+  -- Setting option ENABLE_XHOST: ON
+  -- Performing Test CMAKE_C_FLAGS [-march=native] - Success, Appending
+  -- Setting option DISABLE_VXC: OFF
+  -- Setting option DISABLE_FXC: OFF
+  -- Setting option DISABLE_KXC: OFF
+  -- Setting option DISABLE_LXC: OFF
+  -- Setting option DISABLE_FHC: OFF
+  -- Version: Full 7.0.0
+  -- SO Version: Full 13:0:0 Major 13
+  -- Configuring done (0.1s)
+  -- Generating done (0.0s)
+  -- Build files have been written to: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/build
+  [ 98%] Built target xc
+  [ 99%] Built target xc-info
+  [100%] Built target xc-threshold
+  Install the project...
+  -- Install configuration: "Debug"
+  -- Installing: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc.h
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc_funcs.h
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc_funcs_worker.h
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc_funcs_removed.h
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc_version.h
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/bin/xc-info
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/libxc.a
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/cmake/Libxc/LibxcConfig.cmake
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/cmake/Libxc/LibxcConfigVersion.cmake
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/cmake/Libxc/LibxcTargets-C.cmake
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/cmake/Libxc/LibxcTargets-C-debug.cmake
+  -- Up-to-date: /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib/pkgconfig/libxc.pc
+  cargo:root=/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out
+  cargo:rustc-link-search=native=/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib
+  cargo:rustc-link-lib=static=xc
+  cargo:rustc-link-search=native=/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/lib64
+
+  --- stderr
+  running: cd "/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/build" && CMAKE_PREFIX_PATH="" LC_ALL="C" "cmake" "/home/user/Documents/workspace/libxc_rs/libxc-sys/../libxc-master" "-B" "/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/build" "-DBUILD_SHARED_LIBS=OFF" "-DBUILD_TESTING=OFF" "-DENABLE_FORTRAN=OFF" "-DENABLE_PYTHON=OFF" "-DDISABLE_VXC=OFF" "-DDISABLE_FXC=OFF" "-DDISABLE_KXC=OFF" "-DDISABLE_LXC=OFF" "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" "-DCMAKE_INSTALL_PREFIX=/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out" "-DCMAKE_C_FLAGS= -ffunction-sections -fdata-sections -fPIC -m64 -w" "-DCMAKE_C_COMPILER=/usr/bin/cc" "-DCMAKE_CXX_FLAGS= -ffunction-sections -fdata-sections -fPIC -m64 -w" "-DCMAKE_CXX_COMPILER=/usr/bin/c++" "-DCMAKE_ASM_FLAGS= -ffunction-sections -fdata-sections -fPIC -m64 -w" "-DCMAKE_ASM_COMPILER=/usr/bin/cc" "-DCMAKE_BUILD_TYPE=Debug"
+  CMake Warning (dev) at CMakeLists.txt:2 (project):
+    cmake_minimum_required() should be called prior to this top-level project()
+    call.  Please see the cmake-commands(7) manual for usage documentation of
+    both commands.
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+
+  CMake Deprecation Warning at CMakeLists.txt:10 (cmake_minimum_required):
+    Compatibility with CMake < 3.5 will be removed from a future version of
+    CMake.
+
+    Update the VERSION argument <min> value or use a ...<max> suffix to tell
+    CMake that the project does not need compatibility with older versions.
+
+
+  Test program linked with -m
+  running: cd "/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/build" && LC_ALL="C" MAKEFLAGS="-j --jobserver-fds=8,9 --jobserver-auth=8,9" "cmake" "--build" "/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/build" "--target" "install" "--config" "Debug"
+  /home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc.h:29:10: fatal error: 'stddef.h' file not found
+
+  thread 'main' (517690) panicked at libxc-sys/build.rs:34:10:
+  Failed to generate bindings for libxc: ClangDiagnostic("/home/user/Documents/workspace/libxc_rs/target/debug/build/libxc-sys-2d24caff27ffac5a/out/include/xc.h:29:10: fatal error: 'stddef.h' file not found\n")
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+warning: build failed, waiting for other jobs to finish...
+EXIT: 101

@@ -374,11 +374,11 @@ This annotation is consumed by downstream workflows (`new-project`, `progress`) 
 | 2. Name | 0/2 | Not started | - |
 ```
 
-Reference full template: `/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/roadmap.md`
+Reference full template: `/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/roadmap.md`
 
 ## STATE.md Structure
 
-Use template from `/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/state.md`.
+Use template from `/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/state.md`.
 
 Key sections:
 - Project Reference (core value, current focus)
@@ -560,7 +560,7 @@ When files are written and returning to orchestrator:
 
 ### Files Ready for Review
 
-User can review actual files in the editor or via SDK queries (e.g. `node ./node_modules/@gsd-build/sdk/dist/cli.js query roadmap.analyze` and `query state.load`) instead of ad-hoc shell `cat`.
+User can review actual files in the editor or via SDK queries (e.g. `gsd-sdk query roadmap.analyze` and `gsd-sdk query state.load`) instead of ad-hoc shell `cat`.
 
 {If gaps found during creation:}
 
