@@ -142,3 +142,97 @@ The following implementation surfaces are explicitly left to downstream planning
 - Two questions had user clarification rounds before answering (Cross-file ABI → triggered the f32-vs-f64 precision question; RAM ceiling → triggered the jobs=1 tightening).
 - All questions were batched per project memory `feedback_batch_questions` (2–4 questions per turn). One 4-question batch covered Q1–Q4; one 3-question batch covered the precision follow-up + Q3 + Q4; one 2-question batch covered Q5 + Q6.
 - Underlying gsd-sdk lacks the `query` subcommand the workflow expects; orchestrator drove the workflow manually using direct file ops and Read/Edit/Write tools.
+
+---
+
+# Re-discussion — 2026-05-14 (update session)
+
+**Date:** 2026-05-14
+**Trigger:** User re-ran `/gsd-discuss-phase 11` and chose "Update it." Plan 11-01 (Wave 0) was already executed; plans 11-02..06 existed. Two quick tasks (260514-q01, 260514-q02) had touched the same kernel area since the 2026-05-13 discussion.
+**Areas discussed:** Unification target (new requirement from user), q01/q02 reconciliation, internal subcrate layout, verify-gate feasibility, deferred-kernel handling.
+
+---
+
+## New requirement — unification target (user-initiated)
+
+The user rejected the initial gray-area batch to add a requirement directly: subcrates must be named by **functional id** (`gga_c_acgga`, `gga_c_gapc`), not family number (`gga-1`, `gga-2`). Crate structure `kernels/ > {lda,gga,mgga}/ > <func>/`, subcrates directly under the family directory. No build verification required now — `cargo build --workspace` is OOMing.
+
+Two structural clarifications were asked:
+
+| Question | Options | Selected |
+|----------|---------|----------|
+| Subcrate granularity | One per functional (all ~264) / Per-functional only for oversized | **One per functional (all ~264)** |
+| Family level | Façade crate re-exporting subcrates / Plain directory, no crate | **Plain directory, no crate** |
+
+**Effect on CONTEXT.md:** D-10 / D-10a / D-10b rewritten (per-functional subcrates, not per-family crates); D-LOCK-A revised; family directories lose their `Cargo.toml`/`lib.rs`.
+
+---
+
+## 5K-line cap status under the new structure
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Still a hard cap | Per-functional subcrates AND ≤5K-line files both required; CSE chunking (D-01) stays in scope | ✓ |
+| Relax to soft/deferred | Subcrate isolation is the real OOM fix; 5K cap becomes soft / moves to follow-up | |
+| Discuss it | — | |
+
+**User's choice:** Still a hard cap.
+**Notes:** Per-functional subcrates fix the OOM at the compilation-unit boundary; the 5K cap fixes per-file proc-macro fan-out. Both invariants hold. D-LOCK-B and D-01 unchanged.
+
+---
+
+## Reconciling q01/q02 hand-tuned output
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Clean-slate regenerate all (Recommended) | Splitter v2 regenerates all ~264 functionals from Maple; q01/q02 output discarded; splitter must reproduce ≤5K | ✓ |
+| Preserve q01/q02, restructure only | Keep q01's mgga-2 files + q02's mgga_c_b94 nesting; only regenerate functionals still >5K | |
+
+**User's choice:** Clean-slate regenerate all.
+**Notes:** Consistent with D-10a clean-slate philosophy and D-LOCK-D idempotency (the splitter must reproduce everything anyway). Captured in revised D-10a.
+
+---
+
+## Internal layout within a per-functional subcrate
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Nested by output — q02 style (Recommended) | `src/kxc_pol/part01.rs`, `src/kxc_unpol/part01.rs` — group parts under the derivative they compute; supersedes flat `_partNN` | ✓ |
+| Flat `_partNN` (keep D-04) | Keep flat files in `src/`: `kxc_pol_part01.rs` etc. | |
+
+**User's choice:** Nested by output (q02 style).
+**Notes:** Reverses the original D-04 (`_partNN` flat). q02's `mgga_c_b94` refactor (commit `504d8560`) is the concrete precedent. Within an isolated subcrate namespace the output-grouped nesting is clean.
+
+---
+
+## D-05 verify-gate feasibility
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Narrow deps + smoke per iteration (Recommended) | verify/ depends on individual functional subcrates, not umbrellas; per-iteration gate = representative smoke parity at 1e-12; full per-subcrate sweep at phase end | ✓ |
+| Full sweep every iteration | Keep D-05 as written — complete regression sweep after every iteration | |
+| Discuss it | — | |
+
+**User's choice:** Narrow deps + smoke per iteration.
+**Notes:** Structural fix for the verify/ OOM confirmed in Wave 0 deviation D1. Tolerance (1e-12, energy + routed derivatives, f64) unchanged. Captured in revised D-05.
+
+---
+
+## Deferred-kernel handling
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Exclude from default-members (Recommended) | 6 deferred kernels + mgga_x_br89_explicit are normal subcrates omitted from `[workspace] default-members`; built only via `-p` | ✓ |
+| Feature-gate them | Port q02's reverted feature-gate approach to the subcrate structure | |
+| Discuss it | — | |
+
+**User's choice:** Exclude from default-members.
+**Notes:** New D-11. Supersedes q02's feature-gate approach (committed `1eec03e2`, reverted `59b11dcd`). Per-functional subcrates make `default-members` exclusion the natural mechanism.
+
+---
+
+## Re-discussion process notes
+
+- User rejected the first gray-area AskUserQuestion batch to inject a new requirement, then rejected the reformulated questions once for clarification. After the clarification was given, two structural questions + the 5K-cap question + the gray-area multiselect were batched into one 4-question turn; the four gray-area deep-dives were batched into a second 4-question turn. All recommended options were selected.
+- The plans-exist gate was not asked as a separate question — given the magnitude of the D-10 rewrite, replanning 11-02..06 is a stated consequence (see CONTEXT.md re-plan note), surfaced as the primary next step.
+- New decisions added: D-11 (deferred-kernel handling), D-12 (build verification not a phase gate). Revised: D-04, D-05, D-10, D-10a, D-10b, D-LOCK-A.
