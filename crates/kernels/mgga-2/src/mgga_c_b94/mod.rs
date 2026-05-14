@@ -1,27 +1,17 @@
 //! MGGA_C_B94 kernel — split into per-function files.
+//!
+//! kxc_pol and kxc_unpol are aggregated into single `#[cube] fn` entry points
+//! that delegate to their respective partN private internal modules
+//! (`kxc_pol/part0..part15`, `kxc_unpol/part0..part2`). This restructure
+//! is the Plan 1 hypothesis test from quick task 260514-q02 — moving the
+//! partitioned files under a single function module rather than holding
+//! them as flat siblings of mod.rs.
 
 pub mod exc_unpol;
 pub mod vxc_unpol;
 pub mod fxc_unpol;
-pub mod kxc_unpol_part0;
-pub mod kxc_unpol_part1;
-pub mod kxc_unpol_part2;
+pub mod kxc_unpol;
 pub mod exc_pol;
 pub mod vxc_pol;
 pub mod fxc_pol;
-pub mod kxc_pol_part0;
-pub mod kxc_pol_part1;
-pub mod kxc_pol_part2;
-pub mod kxc_pol_part3;
-pub mod kxc_pol_part4;
-pub mod kxc_pol_part5;
-pub mod kxc_pol_part6;
-pub mod kxc_pol_part7;
-pub mod kxc_pol_part8;
-pub mod kxc_pol_part9;
-pub mod kxc_pol_part10;
-pub mod kxc_pol_part11;
-pub mod kxc_pol_part12;
-pub mod kxc_pol_part13;
-pub mod kxc_pol_part14;
-pub mod kxc_pol_part15;
+pub mod kxc_pol;
