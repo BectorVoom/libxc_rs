@@ -259,11 +259,11 @@ Plans:
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
   8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
-**Plans:** 6 plans
+**Plans:** 2/6 plans executed
 
 Plans: 6 plans (replanned 2026-05-14 against the revised per-functional-subcrate CONTEXT; 11-01 Wave 0 preserved as executed, 11-02..06 regenerated)
 - [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
-- [ ] 11-02-PLAN.md — Wave 1: build splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + wire all 3 translators (D-02 tuple-return ABI, SPLIT_THRESHOLD=4500) + extend audit_subcrate_collapse.sh for family-crate absence + retune maple_to_kernels.py (tooling only, no tree mutation)
+- [x] 11-02-PLAN.md — Wave 1: build splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + wire all 3 translators (D-02 tuple-return ABI, SPLIT_THRESHOLD=4500) + extend audit_subcrate_collapse.sh for family-crate absence + retune maple_to_kernels.py (tooling only, no tree mutation)
 - [ ] 11-03-PLAN.md — Wave 2: D-10a clean-slate — delete 27 numbered subcrates + 3 family crates + regen ~264 per-functional subcrates from Maple + rewrite root Cargo.toml (per-functional deps, D-11 deferred kernels excluded from default-members) + regenerate dispatch tree against per-functional paths (closes Blocker B1)
 - [ ] 11-04-PLAN.md — Wave 3: verify LDA (~41) + GGA (~131) — narrow verify/ dev-deps to per-functional subcrates (D-05 verify-OOM fix) + compile every LDA+GGA subcrate per -p + phase11_smoke parity at 1e-12 + LDA+GGA idempotency
 - [ ] 11-05-PLAN.md — Wave 4: verify MGGA (~92) — add MGGA dev-deps + compile every routed + 7 deferred subcrates + un-ignore phase11_worst_case, pass smoke + worst-case parity at 1e-12 (mgga_c_b94 16K etc. CSE-chunked to ≤5K) + MGGA idempotency + mgga_x_2d_prp10 deferral preserved
