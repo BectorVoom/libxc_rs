@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Phase 11 context gathered — 11-CONTEXT.md written with 7 locked decisions + 4 pre-locked from /gsd-quick promotion; Phase 11 entry inserted in ROADMAP after Phase 10
-last_updated: "2026-05-14T00:00:00.000Z"
-last_activity: 2026-05-14 -- Completed quick task 260514-q01: split mgga-2 and nearby large MGGA kernels
+stopped_at: Phase 11 context REVISED — per-functional subcrates unification target; D-04/D-05/D-10/D-LOCK-A revised, D-11/D-12 added; plans 11-02..06 stale, replan required
+last_updated: "2026-05-14T06:51:12.381Z"
+last_activity: "2026-05-14 -- Completed quick task 260514-q01: split mgga-2 and nearby large MGGA kernels"
 progress:
   total_phases: 11
   completed_phases: 6
   total_plans: 50
-  completed_plans: 36
-  percent: 72
+  completed_plans: 37
+  percent: 74
 ---
 
 # Project State
@@ -131,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-13T00:00:00.000Z
-Stopped at: Phase 11 context gathered — 11-CONTEXT.md written with 7 locked decisions + 4 pre-locked from /gsd-quick promotion; Phase 11 entry inserted in ROADMAP after Phase 10
-Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (run `/gsd-plan-phase 11` to plan; researcher recommended first since D-01 CSE-aware subdivision is research-grade)
+Last session: 2026-05-14T06:51:12.378Z
+Stopped at: Phase 11 context REVISED — per-functional subcrates unification target; D-04/D-05/D-10/D-LOCK-A revised, D-11/D-12 added; plans 11-02..06 stale, replan required
+Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
