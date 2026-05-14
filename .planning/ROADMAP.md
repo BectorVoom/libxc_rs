@@ -261,13 +261,13 @@ Plans:
 
 **Plans:** 6 plans
 
-Plans:
-- [ ] 11-01-PLAN.md — Wave 0: D-02 ABI spike + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
-- [ ] 11-02-PLAN.md — Wave 1: clean-slate (D-10a) — delete 22 numbered subcrates + strip root Cargo.toml + reset family façades + build splitter v2 emit infra (cse.py/emit.py/regen_unified.py) + modify 3 family translators (D-02 wedge + SPLIT_THRESHOLD=5000) + regen dispatch against empty unified façade (B1 closure under D-10b)
-- [ ] 11-03-PLAN.md — Wave 2: populate unified LDA façade (~41 functionals) via tools/regen_unified.py --family lda; verify smoke parity at strict 1e-12; LDA-only idempotency
-- [ ] 11-04-PLAN.md — Wave 3: populate unified GGA façade (~131 functionals; closes gga_c_acgga 11K + gga_c_ft97 10K + gga_c_gapc 31-file >5K cluster); verify smoke parity; GGA-only idempotency
-- [ ] 11-05-PLAN.md — Wave 4: populate unified MGGA façade (~92 functionals; closes 207-file blast radius including mgga_c_b94 16K + mgga_c_kcisk 16K + mgga_c_revtpss 30 files >5K); verify smoke + worst-case parity at strict 1e-12; MGGA-only idempotency; mgga_x_2d_prp10 deferral preserved
-- [ ] 11-06-PLAN.md — Wave 5: update CLAUDE.md per D-03a (precision + operation-order policy) + delete 7 obsolete splitter tools (split_oversized_kernel, split_oversized_mgga, split_mgga_7_kcis, rebatch_mgga, shrink_part_fanout, regen_phase09, translate_lda) + clean up maple_to_kernels.py stale defaults + rewire to regen_unified.py + end-to-end idempotency (P11-INV-6) + final phase gate (FINAL-METRICS, ROADMAP/STATE/VALIDATION updates; criterion 8 reworded for D-10b)
+Plans: 6 plans (replanned 2026-05-14 against the revised per-functional-subcrate CONTEXT; 11-01 Wave 0 preserved as executed, 11-02..06 regenerated)
+- [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
+- [ ] 11-02-PLAN.md — Wave 1: build splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + wire all 3 translators (D-02 tuple-return ABI, SPLIT_THRESHOLD=4500) + extend audit_subcrate_collapse.sh for family-crate absence + retune maple_to_kernels.py (tooling only, no tree mutation)
+- [ ] 11-03-PLAN.md — Wave 2: D-10a clean-slate — delete 27 numbered subcrates + 3 family crates + regen ~264 per-functional subcrates from Maple + rewrite root Cargo.toml (per-functional deps, D-11 deferred kernels excluded from default-members) + regenerate dispatch tree against per-functional paths (closes Blocker B1)
+- [ ] 11-04-PLAN.md — Wave 3: verify LDA (~41) + GGA (~131) — narrow verify/ dev-deps to per-functional subcrates (D-05 verify-OOM fix) + compile every LDA+GGA subcrate per -p + phase11_smoke parity at 1e-12 + LDA+GGA idempotency
+- [ ] 11-05-PLAN.md — Wave 4: verify MGGA (~92) — add MGGA dev-deps + compile every routed + 7 deferred subcrates + un-ignore phase11_worst_case, pass smoke + worst-case parity at 1e-12 (mgga_c_b94 16K etc. CSE-chunked to ≤5K) + MGGA idempotency + mgga_x_2d_prp10 deferral preserved
+- [ ] 11-06-PLAN.md — Wave 5: update CLAUDE.md per D-03a (precision + operation-order policy) + delete 7 obsolete numbered-subcrate-layout splitter tools + clean maple_to_kernels.py to splitter-v2-only + end-to-end idempotency gate (P11-INV-6) + 5-audit simultaneous sweep + ROADMAP criteria #1/#4 correction + 11-FINAL-METRICS.md
 
 **Canonical refs:**
   - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
