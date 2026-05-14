@@ -3,13 +3,6 @@ name = "libxc-kernel-mgga"
 version = "0.1.0"
 edition = "2024"
 
-[features]
-# Forwards the per-sub-crate `deferred-kernels` flag for kernels whose libxc
-# IDs are gated as "deferred" at runtime. Currently scoped to mgga-2 (the
-# `mgga_c_b94` module) — see quick task 260514-q02. Extend to mgga-3/5/7/13/14
-# in follow-up work when the remaining 5 deferred modules are gated.
-deferred-kernels = ["libxc-kernel-mgga-2/deferred-kernels"]
-
 [dependencies]
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 libxc-kernel-math = { path = "../math" }

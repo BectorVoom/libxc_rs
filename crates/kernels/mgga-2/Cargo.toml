@@ -3,13 +3,6 @@ name = "libxc-kernel-mgga-2"
 version = "0.1.0"
 edition = "2024"
 
-[features]
-# Opt-in: compile kernel modules whose libxc IDs are gated as "deferred" at
-# runtime by `crates/kernels/mgga/src/deferred.rs` (currently `mgga_c_b94`).
-# Off by default to suppress build-time macro-fanout RSS — see quick task
-# 260514-q02's design memo.
-deferred-kernels = []
-
 [dependencies]
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 libxc-kernel-math = { path = "../math" }
