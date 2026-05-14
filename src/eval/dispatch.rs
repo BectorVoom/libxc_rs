@@ -553,7 +553,7 @@ fn launch_lda_x(
     spin: Spin,
     alpha: f64,
 ) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x::*;
+    use crate::kernel::lda::lda_x::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_x_exc_unpol], [vxc_unpol::lda_x_vxc_unpol],
@@ -568,7 +568,7 @@ fn launch_lda_x(
 }
 
 fn launch_lda_x_2d(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x_2d::*;
+    use crate::kernel::lda::lda_x_2d::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_x_2d_exc_unpol], [vxc_unpol::lda_x_2d_vxc_unpol],
@@ -583,7 +583,7 @@ fn launch_lda_x_2d(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> R
 }
 
 fn launch_lda_x_rel(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x_rel::*;
+    use crate::kernel::lda::lda_x_rel::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_x_rel_exc_unpol], [vxc_unpol::lda_x_rel_vxc_unpol],
@@ -598,7 +598,7 @@ fn launch_lda_x_rel(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_x_erf(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x_erf::*;
+    use crate::kernel::lda::lda_x_erf::*;
     // libxc default omega = 0.3 (omega_values[] in lda_x_erf.c)
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -614,7 +614,7 @@ fn launch_lda_x_erf(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_x_sloc(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x_sloc::*;
+    use crate::kernel::lda::lda_x_sloc::*;
     // libxc default sloc_values = {1.67, 0.3} -> param_a=1.67, param_b=0.3
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -630,7 +630,7 @@ fn launch_lda_x_sloc(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) ->
 }
 
 fn launch_lda_x_yukawa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_x_yukawa::*;
+    use crate::kernel::lda::lda_x_yukawa::*;
     // libxc default omega = 0.3
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -646,7 +646,7 @@ fn launch_lda_x_yukawa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
 }
 
 fn launch_lda_c_rpa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_rpa::*;
+    use crate::kernel::lda::lda_c_rpa::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_rpa_exc_unpol], [vxc_unpol::lda_c_rpa_vxc_unpol],
@@ -661,7 +661,7 @@ fn launch_lda_c_rpa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_c_hl(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_hl::*;
+    use crate::kernel::lda::lda_c_hl::*;
     // libxc par_hl = {21.0, 21.0, 0.0225, 0.0225} mapped to
     // {hl_r_0, hl_r_1, hl_c_0, hl_c_1}; kernel param order is
     // (hl_c_0, hl_c_1, hl_r_0, hl_r_1).
@@ -679,7 +679,7 @@ fn launch_lda_c_hl(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> R
 }
 
 fn launch_lda_c_vwn(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn::*;
+    use crate::kernel::lda::lda_c_vwn::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_exc_unpol], [vxc_unpol::lda_c_vwn_vxc_unpol],
@@ -694,7 +694,7 @@ fn launch_lda_c_vwn(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_c_vwn_rpa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn_rpa::*;
+    use crate::kernel::lda::lda_c_vwn_rpa::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_rpa_exc_unpol], [vxc_unpol::lda_c_vwn_rpa_vxc_unpol],
@@ -709,7 +709,7 @@ fn launch_lda_c_vwn_rpa(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin)
 }
 
 fn launch_lda_c_vwn_1(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn_1::*;
+    use crate::kernel::lda::lda_c_vwn_1::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_1_exc_unpol], [vxc_unpol::lda_c_vwn_1_vxc_unpol],
@@ -724,7 +724,7 @@ fn launch_lda_c_vwn_1(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -
 }
 
 fn launch_lda_c_vwn_2(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn_2::*;
+    use crate::kernel::lda::lda_c_vwn_2::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_2_exc_unpol], [vxc_unpol::lda_c_vwn_2_vxc_unpol],
@@ -739,7 +739,7 @@ fn launch_lda_c_vwn_2(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -
 }
 
 fn launch_lda_c_vwn_3(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn_3::*;
+    use crate::kernel::lda::lda_c_vwn_3::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_3_exc_unpol], [vxc_unpol::lda_c_vwn_3_vxc_unpol],
@@ -754,7 +754,7 @@ fn launch_lda_c_vwn_3(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -
 }
 
 fn launch_lda_c_vwn_4(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_vwn_4::*;
+    use crate::kernel::lda::lda_c_vwn_4::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_vwn_4_exc_unpol], [vxc_unpol::lda_c_vwn_4_vxc_unpol],
@@ -769,7 +769,7 @@ fn launch_lda_c_vwn_4(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -
 }
 
 fn launch_lda_c_pz(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_pz::*;
+    use crate::kernel::lda::lda_c_pz::*;
     // libxc par_pz indices = [gamma0, gamma1, beta1_0, beta1_1, beta2_0,
     // beta2_1, a0, a1, b0, b1, c0, c1, d0, d1].
     // Kernel parameter order is alphabetical:
@@ -797,7 +797,7 @@ fn launch_lda_c_pz(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> R
 }
 
 fn launch_lda_c_pw(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_pw::*;
+    use crate::kernel::lda::lda_c_pw::*;
     // libxc par_pw (id 12) — full 22-element array indexed [0..=21]:
     //   pp[0..=2], a[0..=2], alpha1[0..=2], beta1[0..=2], beta2[0..=2],
     //   beta3[0..=2], beta4[0..=2], fz20.
@@ -844,7 +844,7 @@ fn launch_lda_c_pw(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> R
 }
 
 fn launch_lda_c_wigner(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_wigner::*;
+    use crate::kernel::lda::lda_c_wigner::*;
     // libxc val_wigner = {-0.44, 7.8} -> {a, b}
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -860,7 +860,7 @@ fn launch_lda_c_wigner(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
 }
 
 fn launch_lda_c_rc04(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_rc04::*;
+    use crate::kernel::lda::lda_c_rc04::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_rc04_exc_unpol], [vxc_unpol::lda_c_rc04_vxc_unpol],
@@ -875,7 +875,7 @@ fn launch_lda_c_rc04(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) ->
 }
 
 fn launch_lda_c_2d_amgb(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_2d_amgb::*;
+    use crate::kernel::lda::lda_c_2d_amgb::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_2d_amgb_exc_unpol], [vxc_unpol::lda_c_2d_amgb_vxc_unpol],
@@ -890,7 +890,7 @@ fn launch_lda_c_2d_amgb(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin)
 }
 
 fn launch_lda_c_2d_prm(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_2d_prm::*;
+    use crate::kernel::lda::lda_c_2d_prm::*;
     // libxc default N_values = {2.0}; init computes c = M_PI / (2*(N-1)*q^2)
     // with q = 3.9274. For N=2 this gives c ≈ 0.10183793993557394.
     const PRM_C_DEFAULT: f64 = 0.101_837_939_935_573_94;
@@ -908,7 +908,7 @@ fn launch_lda_c_2d_prm(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
 }
 
 fn launch_lda_c_1d_csc(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_1d_csc::*;
+    use crate::kernel::lda::lda_c_1d_csc::*;
     // libxc default csc_values = {1, 1.0} -> interaction=1 (soft-Coulomb),
     // beta=1.0. csc_set_ext_params then chooses par_para[8] for both ppara
     // and pferro pointers, so unpol gets one 10-element array and pol gets
@@ -942,7 +942,7 @@ fn launch_lda_c_1d_csc(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
 }
 
 fn launch_lda_c_1d_loos(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_1d_loos::*;
+    use crate::kernel::lda::lda_c_1d_loos::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_1d_loos_exc_unpol], [vxc_unpol::lda_c_1d_loos_vxc_unpol],
@@ -957,7 +957,7 @@ fn launch_lda_c_1d_loos(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin)
 }
 
 fn launch_lda_c_gk72(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_gk72::*;
+    use crate::kernel::lda::lda_c_gk72::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_gk72_exc_unpol], [vxc_unpol::lda_c_gk72_vxc_unpol],
@@ -972,7 +972,7 @@ fn launch_lda_c_gk72(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) ->
 }
 
 fn launch_lda_c_gombas(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_gombas::*;
+    use crate::kernel::lda::lda_c_gombas::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_gombas_exc_unpol], [vxc_unpol::lda_c_gombas_vxc_unpol],
@@ -987,7 +987,7 @@ fn launch_lda_c_gombas(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) 
 }
 
 fn launch_lda_c_lp96(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_lp96::*;
+    use crate::kernel::lda::lda_c_lp96::*;
     // libxc par_c_lp96 = {-0.0603, 0.0175, -0.00053} -> (C1, C2, C3)
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -1003,7 +1003,7 @@ fn launch_lda_c_lp96(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) ->
 }
 
 fn launch_lda_c_ml1(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_ml1::*;
+    use crate::kernel::lda::lda_c_ml1::*;
     // libxc par_ml1 = {0.2026, 0.084} -> (fc, q)
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -1019,7 +1019,7 @@ fn launch_lda_c_ml1(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_c_w20(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_w20::*;
+    use crate::kernel::lda::lda_c_w20::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_c_w20_exc_unpol], [vxc_unpol::lda_c_w20_vxc_unpol],
@@ -1034,7 +1034,7 @@ fn launch_lda_c_w20(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_c_chachiyo(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_chachiyo::*;
+    use crate::kernel::lda::lda_c_chachiyo::*;
     // libxc par_chachiyo = {ap, bp, cp, af, bf, cf}; kernel param order
     // is alphabetical: (af, ap, bf, bp, cf, cp).
     ten_arm_dispatch!(
@@ -1058,7 +1058,7 @@ fn launch_lda_c_chachiyo(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin
 }
 
 fn launch_lda_c_chachiyo_mod(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_c_chachiyo_mod::*;
+    use crate::kernel::lda::lda_c_chachiyo_mod::*;
     // lda_c_chachiyo_mod uses the same par_chachiyo defaults.
     ten_arm_dispatch!(
         ctx, order, spin,
@@ -1078,7 +1078,7 @@ fn launch_lda_c_chachiyo_mod(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: 
 }
 
 fn launch_lda_k_tf(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_k_tf::*;
+    use crate::kernel::lda::lda_k_tf::*;
     // libxc lda_k_tf_init for XC_LDA_K_TF sets ax to:
     // 3/10 * pow(9*M_PI/4, 2/3) ≈ 1.104950565705860002098832079519635692942
     const TF_AX: f64 = 1.104_950_565_705_860_002_098_832_079_519_635_692_942;
@@ -1096,7 +1096,7 @@ fn launch_lda_k_tf(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> R
 }
 
 fn launch_lda_k_zlp(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_k_zlp::*;
+    use crate::kernel::lda::lda_k_zlp::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_k_zlp_exc_unpol], [vxc_unpol::lda_k_zlp_vxc_unpol],
@@ -1111,7 +1111,7 @@ fn launch_lda_k_zlp(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> 
 }
 
 fn launch_lda_xc_teter93(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_xc_teter93::*;
+    use crate::kernel::lda::lda_xc_teter93::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_xc_teter93_exc_unpol], [vxc_unpol::lda_xc_teter93_vxc_unpol],
@@ -1126,7 +1126,7 @@ fn launch_lda_xc_teter93(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin
 }
 
 fn launch_lda_xc_zlp(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_xc_zlp::*;
+    use crate::kernel::lda::lda_xc_zlp::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_xc_zlp_exc_unpol], [vxc_unpol::lda_xc_zlp_vxc_unpol],
@@ -1141,7 +1141,7 @@ fn launch_lda_xc_zlp(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) ->
 }
 
 fn launch_lda_xc_tih(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_xc_tih::*;
+    use crate::kernel::lda::lda_xc_tih::*;
     eight_arm_vxc_only_dispatch!(
         ctx, order, spin,
         [vxc_unpol::lda_xc_tih_vxc_unpol], [fxc_unpol::lda_xc_tih_fxc_unpol],
@@ -1162,7 +1162,7 @@ fn launch_lda_xc_1d_ehwlrg(
     a3: f64,
     alpha: f64,
 ) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::lda_xc_1d_ehwlrg::*;
+    use crate::kernel::lda::lda_xc_1d_ehwlrg::*;
     ten_arm_dispatch!(
         ctx, order, spin,
         [exc_unpol::lda_xc_1d_ehwlrg_exc_unpol], [vxc_unpol::lda_xc_1d_ehwlrg_vxc_unpol],
@@ -1177,7 +1177,7 @@ fn launch_lda_xc_1d_ehwlrg(
 }
 
 fn launch_hyb_lda_xc_bn05(ctx: &LaunchCtx<'_>, order: DerivativeOrder, spin: Spin) -> Result<(), LibxcRsError> {
-    use libxc_kernel_lda::hyb_lda_xc_bn05::*;
+    use crate::kernel::lda::hyb_lda_xc_bn05::*;
     // libxc par_bn05 = {1.0} -> param_hyb_omega_0
     ten_arm_dispatch!(
         ctx, order, spin,

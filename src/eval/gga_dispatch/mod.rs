@@ -1,10 +1,11 @@
-//! Per-batch dispatch layer for GGA kernel evaluation.
+//! Per-functional dispatch layer for GGA kernel evaluation.
 //!
-//! Routes `dispatch_gga(functional, ...)` to per-batch launch helpers
-//! mirroring the 58 `crates/kernel-gga-*` sub-crates. The outer match in
+//! Routes `dispatch_gga(functional, ...)` to per-functional launch helpers
+//! under `funcs/<func>.rs`, one per routed functional. The outer match in
 //! `dispatch_gga` picks the variant, then delegates to the matching
-//! `batch{N}::dispatch_{functional}_launch` helper defined in a sibling
-//! submodule.
+//! `funcs::<func>::dispatch_<func>` helper. Kernel paths resolve through the
+//! `crate::kernel::gga` per-functional re-export façade (Phase 11 D-10b — no
+//! `batchN::` segment survives).
 //!
 //! **Per-functional scalars (B3 invariant):** Each kernel's `#[cube]`
 //! signature is authoritative. For kernels that take zero per-functional
@@ -24,7 +25,6 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
-use crate::functional::params::FunctionalParams;
 use crate::input::GgaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
@@ -38,21 +38,7 @@ use cubecl::prelude::{CubeCount, CubeDim, LaunchError};
 use cubecl::server::Handle;
 
 
-pub mod batch4g;
-pub mod batch5g;
-pub mod batch6d;
-pub mod batch8d;
-pub mod batch12;
-pub mod batch13;
-pub mod batch14;
-pub mod batch15;
-pub mod batch16;
-pub mod batch17;
-pub mod batch18;
-pub mod batch19;
-pub mod batch20;
-pub mod batch21;
-pub mod batch22;
+pub mod funcs;
 
 /// Bag of CubeCL handles + scalar args shared across all per-batch
 /// dispatch helpers. Matches the structure used by LDA dispatch.
@@ -122,101 +108,65 @@ macro_rules! ten_arm_dispatch_gga {
     ) => {{
         let rho_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.rho, $ctx.rho_len, 1) };
         let sigma_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.sigma, $ctx.sigma_len, 1) };
-        // CR-07: each handle accessor surfaces a typed
-        // `LibxcRsError::KernelLaunchFailed` when the corresponding `Option`
-        // is `None`, instead of panicking. Use `$crate::error::LibxcRsError`
-        // so the path resolves at the macro-user call site (macro hygiene),
-        // mirroring how the existing `map_gga_launch_err` qualified path is
-        // written.
-        let zk_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.zk.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "zk handle missing for Exc+ order on exc-bearing functional".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) })
+        let zk_arg = || {
+            let h = $ctx.zk.expect("zk handle missing for Exc+ order on exc-bearing functional");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) }
         };
-        let vrho_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.vrho.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "vrho handle missing for Vxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) })
+        let vrho_arg = || {
+            let h = $ctx.vrho.expect("vrho handle missing for Vxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) }
         };
-        let vsigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.vsigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "vsigma handle missing for Vxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) })
+        let vsigma_arg = || {
+            let h = $ctx.vsigma.expect("vsigma handle missing for Vxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) }
         };
-        let v2rho2_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v2rho2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v2rho2 handle missing for Fxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) })
+        let v2rho2_arg = || {
+            let h = $ctx.v2rho2.expect("v2rho2 handle missing for Fxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) }
         };
-        let v2rhosigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v2rhosigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v2rhosigma handle missing for Fxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rhosigma_len, 1) })
+        let v2rhosigma_arg = || {
+            let h = $ctx.v2rhosigma.expect("v2rhosigma handle missing for Fxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rhosigma_len, 1) }
         };
-        let v2sigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v2sigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v2sigma2 handle missing for Fxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2sigma2_len, 1) })
+        let v2sigma2_arg = || {
+            let h = $ctx.v2sigma2.expect("v2sigma2 handle missing for Fxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2sigma2_len, 1) }
         };
-        let v3rho3_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v3rho3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v3rho3 handle missing for Kxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) })
+        let v3rho3_arg = || {
+            let h = $ctx.v3rho3.expect("v3rho3 handle missing for Kxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) }
         };
-        let v3rho2sigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v3rho2sigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v3rho2sigma handle missing for Kxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho2sigma_len, 1) })
+        let v3rho2sigma_arg = || {
+            let h = $ctx.v3rho2sigma.expect("v3rho2sigma handle missing for Kxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho2sigma_len, 1) }
         };
-        let v3rhosigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v3rhosigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v3rhosigma2 handle missing for Kxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rhosigma2_len, 1) })
+        let v3rhosigma2_arg = || {
+            let h = $ctx.v3rhosigma2.expect("v3rhosigma2 handle missing for Kxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rhosigma2_len, 1) }
         };
-        let v3sigma3_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v3sigma3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v3sigma3 handle missing for Kxc+ order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3sigma3_len, 1) })
+        let v3sigma3_arg = || {
+            let h = $ctx.v3sigma3.expect("v3sigma3 handle missing for Kxc+ order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3sigma3_len, 1) }
         };
-        let v4rho4_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v4rho4.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v4rho4 handle missing for Lxc order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) })
+        let v4rho4_arg = || {
+            let h = $ctx.v4rho4.expect("v4rho4 handle missing for Lxc order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) }
         };
-        let v4rho3sigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v4rho3sigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v4rho3sigma handle missing for Lxc order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho3sigma_len, 1) })
+        let v4rho3sigma_arg = || {
+            let h = $ctx.v4rho3sigma.expect("v4rho3sigma handle missing for Lxc order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho3sigma_len, 1) }
         };
-        let v4rho2sigma2_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v4rho2sigma2.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v4rho2sigma2 handle missing for Lxc order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho2sigma2_len, 1) })
+        let v4rho2sigma2_arg = || {
+            let h = $ctx.v4rho2sigma2.expect("v4rho2sigma2 handle missing for Lxc order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho2sigma2_len, 1) }
         };
-        let v4rhosigma3_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v4rhosigma3.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v4rhosigma3 handle missing for Lxc order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rhosigma3_len, 1) })
+        let v4rhosigma3_arg = || {
+            let h = $ctx.v4rhosigma3.expect("v4rhosigma3 handle missing for Lxc order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rhosigma3_len, 1) }
         };
-        let v4sigma4_arg = || -> Result<_, $crate::error::LibxcRsError> {
-            let h = $ctx.v4sigma4.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
-                reason: "v4sigma4 handle missing for Lxc order".to_string(),
-            })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4sigma4_len, 1) })
+        let v4sigma4_arg = || {
+            let h = $ctx.v4sigma4.expect("v4sigma4 handle missing for Lxc order");
+            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4sigma4_len, 1) }
         };
         let dt = ScalarArg { elem: $ctx.dt };
         let zt = ScalarArg { elem: $ctx.zt };
@@ -224,7 +174,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Exc, Spin::Unpolarized) => unsafe {
                 $($exc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -232,7 +182,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Vxc, Spin::Unpolarized) => unsafe {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -240,8 +190,8 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Fxc, Spin::Unpolarized) => unsafe {
                 $($fxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -249,9 +199,9 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Kxc, Spin::Unpolarized) => unsafe {
                 $($kxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
-                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -259,11 +209,11 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Lxc, Spin::Unpolarized) => unsafe {
                 $($lxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
-                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
-                    v4rho4_arg()?, v4rho3sigma_arg()?, v4rho2sigma2_arg()?,
-                    v4rhosigma3_arg()?, v4sigma4_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
+                    v4rho4_arg(), v4rho3sigma_arg(), v4rho2sigma2_arg(),
+                    v4rhosigma3_arg(), v4sigma4_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -271,7 +221,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Exc, Spin::Polarized) => unsafe {
                 $($exc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -279,7 +229,7 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Vxc, Spin::Polarized) => unsafe {
                 $($vxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -287,8 +237,8 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Fxc, Spin::Polarized) => unsafe {
                 $($fxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -296,9 +246,9 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Kxc, Spin::Polarized) => unsafe {
                 $($kxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
-                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -306,11 +256,11 @@ macro_rules! ten_arm_dispatch_gga {
             (DerivativeOrder::Lxc, Spin::Polarized) => unsafe {
                 $($lxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
-                    rho_arg(), sigma_arg(), zk_arg()?, vrho_arg()?, vsigma_arg()?,
-                    v2rho2_arg()?, v2rhosigma_arg()?, v2sigma2_arg()?,
-                    v3rho3_arg()?, v3rho2sigma_arg()?, v3rhosigma2_arg()?, v3sigma3_arg()?,
-                    v4rho4_arg()?, v4rho3sigma_arg()?, v4rho2sigma2_arg()?,
-                    v4rhosigma3_arg()?, v4sigma4_arg()?,
+                    rho_arg(), sigma_arg(), zk_arg(), vrho_arg(), vsigma_arg(),
+                    v2rho2_arg(), v2rhosigma_arg(), v2sigma2_arg(),
+                    v3rho3_arg(), v3rho2sigma_arg(), v3rhosigma2_arg(), v3sigma3_arg(),
+                    v4rho4_arg(), v4rho3sigma_arg(), v4rho2sigma2_arg(),
+                    v4rhosigma3_arg(), v4sigma4_arg(),
                     $( ScalarArg { elem: $scalar }, )*
                     dt, zt,
                 ).map_err(crate::eval::gga_dispatch::map_gga_launch_err)?;
@@ -347,15 +297,8 @@ pub fn dispatch_gga(
     input: &GgaInput,
     order: DerivativeOrder,
     output: &mut GgaOutput,
-    params: &dyn FunctionalParams,
     thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
-    // `params` is currently unused by GGA dispatch: all 105 routed GGA
-    // functionals use hardcoded libxc 7.0.0 ext_param defaults at the
-    // launch site (matching the C oracle). The trait-object parameter is
-    // reserved for per-arm downcasts when the CAM/CAMY/LC/LCY family is
-    // wired in a follow-up plan.
-    let _ = params;
     // 1. Validate functional can satisfy the requested order.
     if order == DerivativeOrder::Exc && !functional.has_exc() {
         return Err(LibxcRsError::UnsupportedDerivativeOrder {
@@ -502,111 +445,111 @@ pub fn dispatch_gga(
     // appropriate batch submodule.
     match functional {
 
-        GgaFunctional::GgaXHcthA => batch21::dispatch_gga_x_hcth_a(&ctx, order, spin)?,
-        GgaFunctional::GgaXEv93 => batch19::dispatch_gga_x_ev93(&ctx, order, spin)?,
-        GgaFunctional::GgaXQ2d => batch18::dispatch_gga_x_q2d(&ctx, order, spin)?,
-        GgaFunctional::GgaKTflw => batch22::dispatch_gga_k_tflw(&ctx, order, spin)?,
-        GgaFunctional::GgaKApbeint => batch20::dispatch_gga_k_apbeint(&ctx, order, spin)?,
-        GgaFunctional::GgaXAk13 => batch20::dispatch_gga_x_ak13(&ctx, order, spin)?,
-        GgaFunctional::GgaKMeyer => batch18::dispatch_gga_k_meyer(&ctx, order, spin)?,
-        GgaFunctional::GgaXLvRpw86 => batch19::dispatch_gga_x_lv_rpw86(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbeint => batch20::dispatch_gga_x_pbeint(&ctx, order, spin)?,
-        GgaFunctional::GgaXVmt84 => batch18::dispatch_gga_x_vmt84(&ctx, order, spin)?,
-        GgaFunctional::GgaXVmt => batch21::dispatch_gga_x_vmt(&ctx, order, spin)?,
-        GgaFunctional::GgaXN12 => batch17::dispatch_gga_x_n12(&ctx, order, spin)?,
-        GgaFunctional::GgaCOpXalpha => batch21::dispatch_gga_c_op_xalpha(&ctx, order, spin)?,
-        GgaFunctional::GgaCOpG96 => batch17::dispatch_gga_c_op_g96(&ctx, order, spin)?,
-        GgaFunctional::GgaCOpPbe => batch16::dispatch_gga_c_op_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaCOpB88 => batch16::dispatch_gga_c_op_b88(&ctx, order, spin)?,
-        GgaFunctional::GgaXSsbSw => batch20::dispatch_gga_x_ssb_sw(&ctx, order, spin)?,
-        GgaFunctional::GgaXBpccac => batch17::dispatch_gga_x_bpccac(&ctx, order, spin)?,
-        GgaFunctional::GgaCTca => batch19::dispatch_gga_c_tca(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbe => batch22::dispatch_gga_x_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXB86 => batch21::dispatch_gga_x_b86(&ctx, order, spin)?,
-        GgaFunctional::GgaXB88 => batch21::dispatch_gga_x_b88(&ctx, order, spin)?,
-        GgaFunctional::GgaXG96 => batch22::dispatch_gga_x_g96(&ctx, order, spin)?,
-        GgaFunctional::GgaXPw86 => batch21::dispatch_gga_x_pw86(&ctx, order, spin)?,
-        GgaFunctional::GgaXPw91 => batch15::dispatch_gga_x_pw91(&ctx, order, spin)?,
-        GgaFunctional::GgaXOptx => batch12::dispatch_gga_x_optx(&ctx, order, spin)?,
-        GgaFunctional::GgaXDk87 => batch14::dispatch_gga_x_dk87(&ctx, order, spin)?,
-        GgaFunctional::GgaXLg93 => batch18::dispatch_gga_x_lg93(&ctx, order, spin)?,
-        GgaFunctional::GgaXRpbe => batch22::dispatch_gga_x_rpbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXWc => batch20::dispatch_gga_x_wc(&ctx, order, spin)?,
-        GgaFunctional::GgaXAm05 => batch17::dispatch_gga_x_am05(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbea => batch22::dispatch_gga_x_pbea(&ctx, order, spin)?,
-        GgaFunctional::GgaXMpbe => batch20::dispatch_gga_x_mpbe(&ctx, order, spin)?,
-        GgaFunctional::GgaX2dB86Mgc => batch22::dispatch_gga_x_2d_b86_mgc(&ctx, order, spin)?,
-        GgaFunctional::GgaXBayesian => batch20::dispatch_gga_x_bayesian(&ctx, order, spin)?,
-        GgaFunctional::GgaX2dB88 => batch21::dispatch_gga_x_2d_b88(&ctx, order, spin)?,
-        GgaFunctional::GgaX2dB86 => batch21::dispatch_gga_x_2d_b86(&ctx, order, spin)?,
-        GgaFunctional::GgaX2dPbe => batch22::dispatch_gga_x_2d_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaCPbe => batch4g::dispatch_gga_c_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaCLyp => batch18::dispatch_gga_c_lyp(&ctx, order, spin)?,
-        GgaFunctional::GgaCP86 => batch18::dispatch_gga_c_p86(&ctx, order, spin)?,
-        GgaFunctional::GgaCAm05 => batch18::dispatch_gga_c_am05(&ctx, order, spin)?,
-        GgaFunctional::GgaCLm => batch19::dispatch_gga_c_lm(&ctx, order, spin)?,
-        GgaFunctional::GgaXRge2 => batch22::dispatch_gga_x_rge2(&ctx, order, spin)?,
-        GgaFunctional::GgaXKt => batch20::dispatch_gga_x_kt(&ctx, order, spin)?,
-        GgaFunctional::GgaCWl => batch19::dispatch_gga_c_wl(&ctx, order, spin)?,
-        GgaFunctional::GgaCWi => batch21::dispatch_gga_c_wi(&ctx, order, spin)?,
-        GgaFunctional::GgaXSogga11 => batch18::dispatch_gga_x_sogga11(&ctx, order, spin)?,
-        GgaFunctional::GgaXcTh1 => batch18::dispatch_gga_xc_th1(&ctx, order, spin)?,
-        GgaFunctional::GgaXcTh2 => batch19::dispatch_gga_xc_th2(&ctx, order, spin)?,
-        GgaFunctional::GgaXcTh3 => batch18::dispatch_gga_xc_th3(&ctx, order, spin)?,
-        GgaFunctional::GgaXC09x => batch22::dispatch_gga_x_c09x(&ctx, order, spin)?,
-        GgaFunctional::GgaXLb => batch8d::dispatch_gga_x_lb(&ctx, order, spin)?,
-        GgaFunctional::GgaXLspbe => batch22::dispatch_gga_x_lspbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXLsrpbe => batch22::dispatch_gga_x_lsrpbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXNcap => batch17::dispatch_gga_x_ncap(&ctx, order, spin)?,
-        GgaFunctional::GgaXOl2 => batch22::dispatch_gga_x_ol2(&ctx, order, spin)?,
-        GgaFunctional::GgaKApbe => batch22::dispatch_gga_k_apbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXHtbs => batch19::dispatch_gga_x_htbs(&ctx, order, spin)?,
-        GgaFunctional::GgaXAiry => batch19::dispatch_gga_x_airy(&ctx, order, spin)?,
-        GgaFunctional::GgaXLag => batch20::dispatch_gga_x_lag(&ctx, order, spin)?,
-        GgaFunctional::GgaCPbeVwn => batch14::dispatch_gga_c_pbe_vwn(&ctx, order, spin)?,
-        GgaFunctional::GgaKRationalP => batch21::dispatch_gga_k_rational_p(&ctx, order, spin)?,
-        GgaFunctional::GgaKPg => batch22::dispatch_gga_k_pg(&ctx, order, spin)?,
-        GgaFunctional::GgaCP86vwn => batch16::dispatch_gga_c_p86vwn(&ctx, order, spin)?,
-        GgaFunctional::GgaCOpPw91 => batch16::dispatch_gga_c_op_pw91(&ctx, order, spin)?,
-        GgaFunctional::GgaXCap => batch20::dispatch_gga_x_cap(&ctx, order, spin)?,
-        GgaFunctional::GgaCBmk => batch6d::dispatch_gga_c_bmk(&ctx, order, spin)?,
-        GgaFunctional::GgaXBeefvdw => batch17::dispatch_gga_x_beefvdw(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbetrans => batch19::dispatch_gga_x_pbetrans(&ctx, order, spin)?,
-        GgaFunctional::GgaXChachiyo => batch13::dispatch_gga_x_chachiyo(&ctx, order, spin)?,
-        GgaFunctional::GgaCChachiyo => batch20::dispatch_gga_c_chachiyo(&ctx, order, spin)?,
-        GgaFunctional::GgaCCcdf => batch17::dispatch_gga_c_ccdf(&ctx, order, spin)?,
-        GgaFunctional::HybGgaXcCase21 => batch15::dispatch_hyb_gga_xc_case21(&ctx, order, spin)?,
-        GgaFunctional::GgaXS12 => batch20::dispatch_gga_x_s12(&ctx, order, spin)?,
-        GgaFunctional::GgaKPearson => batch22::dispatch_gga_k_pearson(&ctx, order, spin)?,
-        GgaFunctional::GgaKOl1 => batch22::dispatch_gga_k_ol1(&ctx, order, spin)?,
-        GgaFunctional::GgaKOl2 => batch22::dispatch_gga_k_ol2(&ctx, order, spin)?,
-        GgaFunctional::GgaKPw86 => batch21::dispatch_gga_k_pw86(&ctx, order, spin)?,
-        GgaFunctional::GgaKDk => batch19::dispatch_gga_k_dk(&ctx, order, spin)?,
-        GgaFunctional::GgaKLc94 => batch19::dispatch_gga_k_lc94(&ctx, order, spin)?,
-        GgaFunctional::GgaKLlp => batch21::dispatch_gga_k_llp(&ctx, order, spin)?,
-        GgaFunctional::GgaKThakkar => batch20::dispatch_gga_k_thakkar(&ctx, order, spin)?,
-        GgaFunctional::GgaXItyh => batch15::dispatch_gga_x_ityh(&ctx, order, spin)?,
-        GgaFunctional::GgaXSfat => batch14::dispatch_gga_x_sfat(&ctx, order, spin)?,
-        GgaFunctional::GgaXSg4 => batch20::dispatch_gga_x_sg4(&ctx, order, spin)?,
-        GgaFunctional::GgaXGg99 => batch5g::dispatch_gga_x_gg99(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbepow => batch21::dispatch_gga_x_pbepow(&ctx, order, spin)?,
-        GgaFunctional::GgaCScanE0 => batch15::dispatch_gga_c_scan_e0(&ctx, order, spin)?,
-        GgaFunctional::GgaCW94 => batch21::dispatch_gga_c_w94(&ctx, order, spin)?,
-        GgaFunctional::GgaCCs1 => batch18::dispatch_gga_c_cs1(&ctx, order, spin)?,
-        GgaFunctional::GgaKExp4 => batch22::dispatch_gga_k_exp4(&ctx, order, spin)?,
-        GgaFunctional::GgaXSfatPbe => batch14::dispatch_gga_x_sfat_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaXFdLb94 => batch21::dispatch_gga_x_fd_lb94(&ctx, order, spin)?,
-        GgaFunctional::GgaKLkt => batch21::dispatch_gga_k_lkt(&ctx, order, spin)?,
-        GgaFunctional::GgaKMpbe => batch20::dispatch_gga_k_mpbe(&ctx, order, spin)?,
-        GgaFunctional::GgaKVt84f => batch17::dispatch_gga_k_vt84f(&ctx, order, spin)?,
-        GgaFunctional::GgaKLgap => batch21::dispatch_gga_k_lgap(&ctx, order, spin)?,
-        GgaFunctional::GgaXItyhOptx => batch16::dispatch_gga_x_ityh_optx(&ctx, order, spin)?,
-        GgaFunctional::GgaXItyhPbe => batch15::dispatch_gga_x_ityh_pbe(&ctx, order, spin)?,
-        GgaFunctional::GgaCLypr => batch16::dispatch_gga_c_lypr(&ctx, order, spin)?,
-        GgaFunctional::GgaKLgapGe => batch22::dispatch_gga_k_lgap_ge(&ctx, order, spin)?,
-        GgaFunctional::HybGgaXCamS12 => batch15::dispatch_hyb_gga_x_cam_s12(&ctx, order, spin)?,
-        GgaFunctional::GgaXPbeErfGws => batch17::dispatch_gga_x_pbe_erf_gws(&ctx, order, spin)?,
-        GgaFunctional::GgaXQ1d => batch19::dispatch_gga_x_q1d(&ctx, order, spin)?,
+        GgaFunctional::GgaXHcthA => funcs::gga_x_hcth_a::dispatch_gga_x_hcth_a(&ctx, order, spin)?,
+        GgaFunctional::GgaXEv93 => funcs::gga_x_ev93::dispatch_gga_x_ev93(&ctx, order, spin)?,
+        GgaFunctional::GgaXQ2d => funcs::gga_x_q2d::dispatch_gga_x_q2d(&ctx, order, spin)?,
+        GgaFunctional::GgaKTflw => funcs::gga_k_tflw::dispatch_gga_k_tflw(&ctx, order, spin)?,
+        GgaFunctional::GgaKApbeint => funcs::gga_k_apbeint::dispatch_gga_k_apbeint(&ctx, order, spin)?,
+        GgaFunctional::GgaXAk13 => funcs::gga_x_ak13::dispatch_gga_x_ak13(&ctx, order, spin)?,
+        GgaFunctional::GgaKMeyer => funcs::gga_k_meyer::dispatch_gga_k_meyer(&ctx, order, spin)?,
+        GgaFunctional::GgaXLvRpw86 => funcs::gga_x_lv_rpw86::dispatch_gga_x_lv_rpw86(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbeint => funcs::gga_x_pbeint::dispatch_gga_x_pbeint(&ctx, order, spin)?,
+        GgaFunctional::GgaXVmt84 => funcs::gga_x_vmt84::dispatch_gga_x_vmt84(&ctx, order, spin)?,
+        GgaFunctional::GgaXVmt => funcs::gga_x_vmt::dispatch_gga_x_vmt(&ctx, order, spin)?,
+        GgaFunctional::GgaXN12 => funcs::gga_x_n12::dispatch_gga_x_n12(&ctx, order, spin)?,
+        GgaFunctional::GgaCOpXalpha => funcs::gga_c_op_xalpha::dispatch_gga_c_op_xalpha(&ctx, order, spin)?,
+        GgaFunctional::GgaCOpG96 => funcs::gga_c_op_g96::dispatch_gga_c_op_g96(&ctx, order, spin)?,
+        GgaFunctional::GgaCOpPbe => funcs::gga_c_op_pbe::dispatch_gga_c_op_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaCOpB88 => funcs::gga_c_op_b88::dispatch_gga_c_op_b88(&ctx, order, spin)?,
+        GgaFunctional::GgaXSsbSw => funcs::gga_x_ssb_sw::dispatch_gga_x_ssb_sw(&ctx, order, spin)?,
+        GgaFunctional::GgaXBpccac => funcs::gga_x_bpccac::dispatch_gga_x_bpccac(&ctx, order, spin)?,
+        GgaFunctional::GgaCTca => funcs::gga_c_tca::dispatch_gga_c_tca(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbe => funcs::gga_x_pbe::dispatch_gga_x_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXB86 => funcs::gga_x_b86::dispatch_gga_x_b86(&ctx, order, spin)?,
+        GgaFunctional::GgaXB88 => funcs::gga_x_b88::dispatch_gga_x_b88(&ctx, order, spin)?,
+        GgaFunctional::GgaXG96 => funcs::gga_x_g96::dispatch_gga_x_g96(&ctx, order, spin)?,
+        GgaFunctional::GgaXPw86 => funcs::gga_x_pw86::dispatch_gga_x_pw86(&ctx, order, spin)?,
+        GgaFunctional::GgaXPw91 => funcs::gga_x_pw91::dispatch_gga_x_pw91(&ctx, order, spin)?,
+        GgaFunctional::GgaXOptx => funcs::gga_x_optx::dispatch_gga_x_optx(&ctx, order, spin)?,
+        GgaFunctional::GgaXDk87 => funcs::gga_x_dk87::dispatch_gga_x_dk87(&ctx, order, spin)?,
+        GgaFunctional::GgaXLg93 => funcs::gga_x_lg93::dispatch_gga_x_lg93(&ctx, order, spin)?,
+        GgaFunctional::GgaXRpbe => funcs::gga_x_rpbe::dispatch_gga_x_rpbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXWc => funcs::gga_x_wc::dispatch_gga_x_wc(&ctx, order, spin)?,
+        GgaFunctional::GgaXAm05 => funcs::gga_x_am05::dispatch_gga_x_am05(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbea => funcs::gga_x_pbea::dispatch_gga_x_pbea(&ctx, order, spin)?,
+        GgaFunctional::GgaXMpbe => funcs::gga_x_mpbe::dispatch_gga_x_mpbe(&ctx, order, spin)?,
+        GgaFunctional::GgaX2dB86Mgc => funcs::gga_x_2d_b86_mgc::dispatch_gga_x_2d_b86_mgc(&ctx, order, spin)?,
+        GgaFunctional::GgaXBayesian => funcs::gga_x_bayesian::dispatch_gga_x_bayesian(&ctx, order, spin)?,
+        GgaFunctional::GgaX2dB88 => funcs::gga_x_2d_b88::dispatch_gga_x_2d_b88(&ctx, order, spin)?,
+        GgaFunctional::GgaX2dB86 => funcs::gga_x_2d_b86::dispatch_gga_x_2d_b86(&ctx, order, spin)?,
+        GgaFunctional::GgaX2dPbe => funcs::gga_x_2d_pbe::dispatch_gga_x_2d_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaCPbe => funcs::gga_c_pbe::dispatch_gga_c_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaCLyp => funcs::gga_c_lyp::dispatch_gga_c_lyp(&ctx, order, spin)?,
+        GgaFunctional::GgaCP86 => funcs::gga_c_p86::dispatch_gga_c_p86(&ctx, order, spin)?,
+        GgaFunctional::GgaCAm05 => funcs::gga_c_am05::dispatch_gga_c_am05(&ctx, order, spin)?,
+        GgaFunctional::GgaCLm => funcs::gga_c_lm::dispatch_gga_c_lm(&ctx, order, spin)?,
+        GgaFunctional::GgaXRge2 => funcs::gga_x_rge2::dispatch_gga_x_rge2(&ctx, order, spin)?,
+        GgaFunctional::GgaXKt => funcs::gga_x_kt::dispatch_gga_x_kt(&ctx, order, spin)?,
+        GgaFunctional::GgaCWl => funcs::gga_c_wl::dispatch_gga_c_wl(&ctx, order, spin)?,
+        GgaFunctional::GgaCWi => funcs::gga_c_wi::dispatch_gga_c_wi(&ctx, order, spin)?,
+        GgaFunctional::GgaXSogga11 => funcs::gga_x_sogga11::dispatch_gga_x_sogga11(&ctx, order, spin)?,
+        GgaFunctional::GgaXcTh1 => funcs::gga_xc_th1::dispatch_gga_xc_th1(&ctx, order, spin)?,
+        GgaFunctional::GgaXcTh2 => funcs::gga_xc_th2::dispatch_gga_xc_th2(&ctx, order, spin)?,
+        GgaFunctional::GgaXcTh3 => funcs::gga_xc_th3::dispatch_gga_xc_th3(&ctx, order, spin)?,
+        GgaFunctional::GgaXC09x => funcs::gga_x_c09x::dispatch_gga_x_c09x(&ctx, order, spin)?,
+        GgaFunctional::GgaXLb => funcs::gga_x_lb::dispatch_gga_x_lb(&ctx, order, spin)?,
+        GgaFunctional::GgaXLspbe => funcs::gga_x_lspbe::dispatch_gga_x_lspbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXLsrpbe => funcs::gga_x_lsrpbe::dispatch_gga_x_lsrpbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXNcap => funcs::gga_x_ncap::dispatch_gga_x_ncap(&ctx, order, spin)?,
+        GgaFunctional::GgaXOl2 => funcs::gga_x_ol2::dispatch_gga_x_ol2(&ctx, order, spin)?,
+        GgaFunctional::GgaKApbe => funcs::gga_k_apbe::dispatch_gga_k_apbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXHtbs => funcs::gga_x_htbs::dispatch_gga_x_htbs(&ctx, order, spin)?,
+        GgaFunctional::GgaXAiry => funcs::gga_x_airy::dispatch_gga_x_airy(&ctx, order, spin)?,
+        GgaFunctional::GgaXLag => funcs::gga_x_lag::dispatch_gga_x_lag(&ctx, order, spin)?,
+        GgaFunctional::GgaCPbeVwn => funcs::gga_c_pbe_vwn::dispatch_gga_c_pbe_vwn(&ctx, order, spin)?,
+        GgaFunctional::GgaKRationalP => funcs::gga_k_rational_p::dispatch_gga_k_rational_p(&ctx, order, spin)?,
+        GgaFunctional::GgaKPg => funcs::gga_k_pg::dispatch_gga_k_pg(&ctx, order, spin)?,
+        GgaFunctional::GgaCP86vwn => funcs::gga_c_p86vwn::dispatch_gga_c_p86vwn(&ctx, order, spin)?,
+        GgaFunctional::GgaCOpPw91 => funcs::gga_c_op_pw91::dispatch_gga_c_op_pw91(&ctx, order, spin)?,
+        GgaFunctional::GgaXCap => funcs::gga_x_cap::dispatch_gga_x_cap(&ctx, order, spin)?,
+        GgaFunctional::GgaCBmk => funcs::gga_c_bmk::dispatch_gga_c_bmk(&ctx, order, spin)?,
+        GgaFunctional::GgaXBeefvdw => funcs::gga_x_beefvdw::dispatch_gga_x_beefvdw(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbetrans => funcs::gga_x_pbetrans::dispatch_gga_x_pbetrans(&ctx, order, spin)?,
+        GgaFunctional::GgaXChachiyo => funcs::gga_x_chachiyo::dispatch_gga_x_chachiyo(&ctx, order, spin)?,
+        GgaFunctional::GgaCChachiyo => funcs::gga_c_chachiyo::dispatch_gga_c_chachiyo(&ctx, order, spin)?,
+        GgaFunctional::GgaCCcdf => funcs::gga_c_ccdf::dispatch_gga_c_ccdf(&ctx, order, spin)?,
+        GgaFunctional::HybGgaXcCase21 => funcs::hyb_gga_xc_case21::dispatch_hyb_gga_xc_case21(&ctx, order, spin)?,
+        GgaFunctional::GgaXS12 => funcs::gga_x_s12::dispatch_gga_x_s12(&ctx, order, spin)?,
+        GgaFunctional::GgaKPearson => funcs::gga_k_pearson::dispatch_gga_k_pearson(&ctx, order, spin)?,
+        GgaFunctional::GgaKOl1 => funcs::gga_k_ol1::dispatch_gga_k_ol1(&ctx, order, spin)?,
+        GgaFunctional::GgaKOl2 => funcs::gga_k_ol2::dispatch_gga_k_ol2(&ctx, order, spin)?,
+        GgaFunctional::GgaKPw86 => funcs::gga_k_pw86::dispatch_gga_k_pw86(&ctx, order, spin)?,
+        GgaFunctional::GgaKDk => funcs::gga_k_dk::dispatch_gga_k_dk(&ctx, order, spin)?,
+        GgaFunctional::GgaKLc94 => funcs::gga_k_lc94::dispatch_gga_k_lc94(&ctx, order, spin)?,
+        GgaFunctional::GgaKLlp => funcs::gga_k_llp::dispatch_gga_k_llp(&ctx, order, spin)?,
+        GgaFunctional::GgaKThakkar => funcs::gga_k_thakkar::dispatch_gga_k_thakkar(&ctx, order, spin)?,
+        GgaFunctional::GgaXItyh => funcs::gga_x_ityh::dispatch_gga_x_ityh(&ctx, order, spin)?,
+        GgaFunctional::GgaXSfat => funcs::gga_x_sfat::dispatch_gga_x_sfat(&ctx, order, spin)?,
+        GgaFunctional::GgaXSg4 => funcs::gga_x_sg4::dispatch_gga_x_sg4(&ctx, order, spin)?,
+        GgaFunctional::GgaXGg99 => funcs::gga_x_gg99::dispatch_gga_x_gg99(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbepow => funcs::gga_x_pbepow::dispatch_gga_x_pbepow(&ctx, order, spin)?,
+        GgaFunctional::GgaCScanE0 => funcs::gga_c_scan_e0::dispatch_gga_c_scan_e0(&ctx, order, spin)?,
+        GgaFunctional::GgaCW94 => funcs::gga_c_w94::dispatch_gga_c_w94(&ctx, order, spin)?,
+        GgaFunctional::GgaCCs1 => funcs::gga_c_cs1::dispatch_gga_c_cs1(&ctx, order, spin)?,
+        GgaFunctional::GgaKExp4 => funcs::gga_k_exp4::dispatch_gga_k_exp4(&ctx, order, spin)?,
+        GgaFunctional::GgaXSfatPbe => funcs::gga_x_sfat_pbe::dispatch_gga_x_sfat_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaXFdLb94 => funcs::gga_x_fd_lb94::dispatch_gga_x_fd_lb94(&ctx, order, spin)?,
+        GgaFunctional::GgaKLkt => funcs::gga_k_lkt::dispatch_gga_k_lkt(&ctx, order, spin)?,
+        GgaFunctional::GgaKMpbe => funcs::gga_k_mpbe::dispatch_gga_k_mpbe(&ctx, order, spin)?,
+        GgaFunctional::GgaKVt84f => funcs::gga_k_vt84f::dispatch_gga_k_vt84f(&ctx, order, spin)?,
+        GgaFunctional::GgaKLgap => funcs::gga_k_lgap::dispatch_gga_k_lgap(&ctx, order, spin)?,
+        GgaFunctional::GgaXItyhOptx => funcs::gga_x_ityh_optx::dispatch_gga_x_ityh_optx(&ctx, order, spin)?,
+        GgaFunctional::GgaXItyhPbe => funcs::gga_x_ityh_pbe::dispatch_gga_x_ityh_pbe(&ctx, order, spin)?,
+        GgaFunctional::GgaCLypr => funcs::gga_c_lypr::dispatch_gga_c_lypr(&ctx, order, spin)?,
+        GgaFunctional::GgaKLgapGe => funcs::gga_k_lgap_ge::dispatch_gga_k_lgap_ge(&ctx, order, spin)?,
+        GgaFunctional::HybGgaXCamS12 => funcs::hyb_gga_x_cam_s12::dispatch_hyb_gga_x_cam_s12(&ctx, order, spin)?,
+        GgaFunctional::GgaXPbeErfGws => funcs::gga_x_pbe_erf_gws::dispatch_gga_x_pbe_erf_gws(&ctx, order, spin)?,
+        GgaFunctional::GgaXQ1d => funcs::gga_x_q1d::dispatch_gga_x_q1d(&ctx, order, spin)?,
     }
 
     // 5. Read back results from CubeCL buffers into caller-provided slices.
@@ -668,7 +611,6 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
-            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedDerivativeOrder { .. }));
@@ -692,7 +634,6 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
-            &crate::functional::params::NoParams,
             &Thresholds::default(),
         );
         // Accept either Ok (when scalar defaults are wired) or a typed

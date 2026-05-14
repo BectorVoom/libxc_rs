@@ -12,7 +12,7 @@
 //! `FLAGS_HAVE_EXC`).
 //!
 //! Non-compiled MGGA functionals (e.g. `mgga_c_b94` id 397 which is listed in
-//! `crates/kernel-mgga/src/deferred.rs`, or functionals whose kernel modules
+//! `crates/kernels/math/src/deferred.rs`, or functionals whose kernel modules
 //! have only partial-derivative coverage after split-file translations) are
 //! NOT represented here — `MggaFunctional::from_id` returns
 //! `Err(UnsupportedFunctional)` for them.
@@ -27,7 +27,7 @@
 //! **Note on deferred functionals (6 IDs):** `MggaFunctional::from_id` explicitly
 //! rejects the six deferred libxc IDs (`mgga_c_b94`, `mgga_x_br89`, `mgga_x_mbr`,
 //! `mgga_x_mbrxc_bg`, `mgga_x_mbrxh_bg`, `mgga_x_mggac`) before the main match
-//! via `libxc_kernel_mgga::deferred::is_deferred`, surfacing a specific
+//! via `libxc_kernel_math::deferred::mgga::is_deferred`, surfacing a specific
 //! "Brent's-method root-finder" reason so callers can distinguish these from
 //! genuinely-not-translated IDs.
 //!
@@ -40,7 +40,7 @@
 
 use crate::error::LibxcRsError;
 use crate::model::FunctionalId;
-use libxc_kernel_mgga::deferred::is_deferred as is_deferred_mgga;
+use libxc_kernel_math::deferred::mgga::is_deferred as is_deferred_mgga;
 
 /// Enumerates the 25 compiled, routable MGGA functionals `dispatch_mgga` can serve.
 ///
@@ -128,7 +128,7 @@ impl MggaFunctional {
             return Err(LibxcRsError::UnsupportedFunctional {
                 id,
                 reason: "MGGA functional deferred pending Brent's method root-finder. \
-                         See crates/kernel-mgga/src/deferred.rs",
+                         See crates/kernels/math/src/deferred.rs",
             });
         }
         match id.raw() {

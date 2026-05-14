@@ -10,7 +10,7 @@
 //! Deferred functionals (lda_c_pk09=554, lda_xc_ksdt=259, lda_c_pw_erf=654,
 //! lda_c_pmgb06=590) are NOT represented here — `LdaFunctional::from_id`
 //! returns `Err(UnsupportedFunctional)` for them, matching the `is_deferred`
-//! helper in `libxc_kernel_lda::deferred`.
+//! helper in `libxc_kernel_math::deferred::lda`.
 //!
 //! `lda_k_gds08_worker` (libxc internal id 100001) is NOT represented either:
 //! it is an internal building block not registered in libxc_rs's u16 ID space.
@@ -77,11 +77,11 @@ impl LdaFunctional {
     /// - Any non-LDA ID (these should be routed via dispatch_gga / dispatch_mgga)
     pub fn from_id(id: FunctionalId) -> Result<Self, LibxcRsError> {
         // Reject deferred IDs explicitly so the error message is actionable.
-        if libxc_kernel_lda::deferred::is_deferred(id.raw()) {
+        if libxc_kernel_math::deferred::lda::is_deferred(id.raw()) {
             return Err(LibxcRsError::UnsupportedFunctional {
                 id,
                 reason: "LDA functional is tracked as deferred (CubeCL proc-macro stack limit). \
-                         See crates/kernel-lda/src/deferred.rs",
+                         See crates/kernels/math/src/deferred.rs",
             });
         }
         match id.raw() {
