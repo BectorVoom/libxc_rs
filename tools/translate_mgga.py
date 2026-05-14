@@ -21,6 +21,10 @@ from pathlib import Path
 # not re-introduce dead-code launch wrappers (cubecl_macro_fanout_manual §4.3).
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kernel_routing import cached_routed_funcnames
+# Phase 11 splitter v2: CSE pass + per-functional subcrate emitter (D-01/D-04/D-10).
+from translate_v2.cse import partition_compute_lines, Chunk
+from translate_v2 import emit
+from translate_v2 import per_functional
 KERNEL_FAMILY = "mgga"
 
 
@@ -550,7 +554,9 @@ def find_used_params(compute_lines: list, all_params: list) -> list:
 # size (cubecl_macro_fanout_manual.md §10). 6000 sits comfortably above
 # lda-1's 4,229-line max which compiles fast.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 6000
+# Phase 11 D-LOCK-B: 4500 leaves headroom vs the 5000 hard cap. Memory
+# project_split_threshold_history: do not go below 4500 without recalibrating.
+SPLIT_THRESHOLD = 4500
 UNSPLITTABLE = 999999
 
 
@@ -1056,6 +1062,63 @@ def generate_incremental_function(func_name: str, level: str, spin: str,
     lines.append(f'    }}')
     lines.append(f'}}')
     return '\n'.join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Phase 11 D-10: per-functional subcrate emission (splitter v2)
+# ---------------------------------------------------------------------------
+
+def emit_per_functional(c_file: str, func_name: str, family: str = 'mgga',
+                        is_vxc_only: bool = False,
+                        split_threshold: int = None) -> list:
+    """Emit `func_name` as a per-functional subcrate under
+    crates/kernels/{family}/<func>/ in the q02 nested-by-output layout, via
+    translate_v2.emit. Single outputs still over the cap after the per-output
+    cut are CSE-subdivided into D-02 tuple-return chunks.
+
+    Reuses this translator's own primitives (parse_body, generate_function,
+    split_by_output_array, ...) — only the destination + layout change.
+    `maple_to_kernels.py translate` calls this directly, replacing the stale
+    regen_phase09.py in-place-replacement pipeline.
+    """
+    if split_threshold is None:
+        split_threshold = SPLIT_THRESHOLD
+    c_src = read_c_source(c_file)
+    unimp = check_unimplemented_math(c_src)
+    if unimp:
+        raise RuntimeError(unimp)
+    imports = detect_imports(c_src)
+    imports_str = format_imports(imports)
+    needs_libm = any('libm' in str(m).lower() for _n, m in imports)
+    adapter = per_functional.FamilyAdapter(
+        family=family,
+        file_header=FILE_HEADER,
+        src_dir_label='mgga_vxc' if is_vxc_only else 'mgga_exc',
+        is_routed=(func_name in cached_routed_funcnames(KERNEL_FAMILY)),
+        needs_libm=needs_libm,
+        imports_str=imports_str,
+        all_params=scan_params(c_src),
+        bodies=extract_function_bodies(c_src),
+        max_order=detect_max_order(c_src),
+        level_ord=LEVEL_ORD,
+        level_outputs=LEVEL_OUTPUTS,
+        levels=(['vxc', 'fxc', 'kxc', 'lxc'] if is_vxc_only
+                else ['exc', 'vxc', 'fxc', 'kxc', 'lxc']),
+        translate_line=translate_line,
+        parse=parse_body,
+        estimate=estimate_function_lines,
+        gen_fn=generate_function,
+        split_by_output=split_by_output_array,
+        merge_small=merge_small_splits,
+        build_dep_graph=lambda c, is_pol: build_dependency_graph(c),
+        transitive_deps=transitive_deps,
+        ow_var=lambda ow: ow[2],
+        ow_field=lambda ow: ow[0],
+        ow_component=lambda ow: ow[1],
+        pol_dims=POL_DIMS,
+    )
+    return per_functional.emit_functional(adapter, func_name, is_vxc_only,
+                                          split_threshold)
 
 
 def translate_functional_incremental(c_file: str, func_name: str, out_dir: str,

@@ -20,6 +20,10 @@ from typing import Optional
 # not re-introduce dead-code launch wrappers (cubecl_macro_fanout_manual §4.3).
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kernel_routing import cached_routed_funcnames
+# Phase 11 splitter v2: CSE pass + per-functional subcrate emitter (D-01/D-04/D-10).
+from translate_v2.cse import partition_compute_lines, Chunk
+from translate_v2 import emit
+from translate_v2 import per_functional
 KERNEL_FAMILY = "lda"
 
 
@@ -356,10 +360,11 @@ LEVEL_OUTPUTS = {
 # CubeCL macro fan-out scales super-linearly with body size — see
 # docs/manual/Cubecl/cubecl_macro_fanout_manual.md §10 ("Large `#[cube]`
 # functions" are the listed source of slow macro expansion).
-# Calibration: lda-1's largest body is 4,229 lines and compiles fast; 6,000
-# leaves headroom for currently-small kernels while catching the OOM cases.
+# Calibration: lda-1's largest body is 4,229 lines and compiles fast.
+# Phase 11 D-LOCK-B: 4500 leaves headroom vs the 5000 hard cap. Memory
+# project_split_threshold_history: do not go below 4500 without recalibrating.
 # --no-split flag disables splitting by setting threshold to max.
-SPLIT_THRESHOLD = 6000
+SPLIT_THRESHOLD = 4500
 UNSPLITTABLE = 999999
 
 
@@ -1169,6 +1174,64 @@ def translate_file_incremental(c_file_path: str, func_name: str, write_dir: str,
     written.append(mod_path)
 
     return written
+
+
+# ---------------------------------------------------------------------------
+# Phase 11 D-10: per-functional subcrate emission (splitter v2)
+# ---------------------------------------------------------------------------
+
+_LDA_FILE_HEADER = ('#![allow(unused_imports, unused_variables, non_snake_case, '
+                    'clippy::excessive_precision, clippy::too_many_arguments, '
+                    'clippy::needless_return)]')
+
+
+def emit_per_functional(c_file: str, func_name: str, family: str = 'lda',
+                        is_vxc_only: bool = False,
+                        split_threshold: int = None) -> list:
+    """Emit `func_name` as a per-functional subcrate under
+    crates/kernels/{family}/<func>/ in the q02 nested-by-output layout, via
+    translate_v2.emit. Single outputs still over the cap after the per-output
+    cut are CSE-subdivided into D-02 tuple-return chunks.
+
+    Reuses this translator's own primitives (parse_function_body,
+    generate_function, split_by_output_array, ...) — only the destination +
+    layout change. `maple_to_kernels.py translate` calls this directly,
+    replacing the stale regen_phase09.py in-place-replacement pipeline.
+    """
+    if split_threshold is None:
+        split_threshold = SPLIT_THRESHOLD
+    with open(c_file) as f:
+        c_src = f.read()
+    imports_str = '\n'.join(generate_import_lines(detect_imports(c_src)))
+    adapter = per_functional.FamilyAdapter(
+        family=family,
+        file_header=_LDA_FILE_HEADER,
+        src_dir_label='lda_vxc' if is_vxc_only else 'lda_exc',
+        is_routed=(func_name in cached_routed_funcnames(KERNEL_FAMILY)),
+        needs_libm=False,  # LDA detect_imports has no libm path
+        imports_str=imports_str,
+        all_params=scan_param_accesses(c_src),
+        bodies=extract_functions(c_src),
+        max_order=detect_max_order(c_src),
+        level_ord=LEVEL_ORDER,
+        level_outputs=LEVEL_OUTPUTS,
+        levels=(['vxc', 'fxc', 'kxc', 'lxc'] if is_vxc_only
+                else ['exc', 'vxc', 'fxc', 'kxc', 'lxc']),
+        translate_line=translate_expr,
+        parse=lambda body, level, spin, vxc: parse_function_body(body),
+        estimate=estimate_function_lines,
+        gen_fn=generate_function,
+        split_by_output=split_by_output_array,
+        merge_small=merge_small_splits,
+        build_dep_graph=lambda c, is_pol: build_dependency_graph(c),
+        transitive_deps=transitive_deps,
+        ow_var=lambda ow: ow.var,
+        ow_field=lambda ow: ow.field,
+        ow_component=lambda ow: ow.component,
+        pol_dims=POL_DIMS,
+    )
+    return per_functional.emit_functional(adapter, func_name, is_vxc_only,
+                                          split_threshold)
 
 
 def main():
