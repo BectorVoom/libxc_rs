@@ -46,7 +46,7 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - Bit-exact f64 was rejected (CSE-aware subdivision introduces named temporaries that may legitimately reorder accumulation). Energy-only at 1e-12 with relaxed-derivative gates was rejected (would mask Phase 4-style derivative bugs).
 
 ### Phase ordering
-- **D-06:** Phase 11 lands before Phase 10 (workspace modular split). Rationale: collapsing the numbered kernel subcrates into per-functional subcrates first means Phase 10 inherits a clean, granular kernel layer rather than absorbing the current sprawl AND the workspace split simultaneously. Phase 10's ROADMAP entry already commits to `cargo tree -p libxc-eval` cleanliness — Phase 11 makes that cheaper to achieve. Risk acknowledged: Phase 11 is research-grade and slow; Phase 10 waits.
+- **D-06 [informational]:** Phase 11 lands before Phase 10 (workspace modular split). Rationale: collapsing the numbered kernel subcrates into per-functional subcrates first means Phase 10 inherits a clean, granular kernel layer rather than absorbing the current sprawl AND the workspace split simultaneously. Phase 10's ROADMAP entry already commits to `cargo tree -p libxc-eval` cleanliness — Phase 11 makes that cheaper to achieve. Risk acknowledged: Phase 11 is research-grade and slow; Phase 10 waits.
 
 ### RAM ceiling (Phase 11 operating envelope)
 - **D-07:** Hard rule for ALL Phase 11 iteration runs:
