@@ -169,31 +169,41 @@ def _build_part_wrapper(adapter, func_name, level, spin, output,
     return "\n".join(lines) + "\n"
 
 
-def emit_cse_chunked_output(adapter, func_name, level, spin, output,
-                            compute_lines, output_writes, out_bufs,
-                            split_threshold):
-    """Emit a single over-cap output as D-02 CSE tuple-return chunks.
+def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
+                    compute_lines, output_writes, part_out_bufs,
+                    split_threshold):
+    """CSE-subdivide a single over-cap output-component PART into D-02
+    tuple-return ``<F: Float>`` chunks.
 
-    Returns True if it emitted a chunked output, False if CSE produced a single
-    chunk (caller falls back to a normal single-file emit). Best-effort ambient
-    input threading — see the D-02 ABI RISK note at the top of this module.
+    Returns ``(part_wrapper_src, [chunk_src, ...])`` for
+    ``emit.emit_output_dir`` (the part becomes a ``<output>/part{idx}/``
+    directory — the third nesting level), or ``None`` if the CSE pass could
+    not subdivide it (<=1 chunk), in which case the caller falls back to a
+    flat (still-oversized) part and logs the miss as an 11-02 <-> 11-03 retune
+    signal.
+
+    Best-effort ambient-input threading (pol loads + dens/zeta thresholds) —
+    see the D-02 ABI RISK note at the top of this module; ``param_*`` threading
+    is not yet covered and may surface as a STEP-5 / 11-04 compile error.
     """
-    _vo, var_deps = adapter.build_dep_graph(compute_lines, spin == "pol")
+    is_pol = (spin == "pol")
+    _vo, var_deps = adapter.build_dep_graph(compute_lines, is_pol)
     est = lambda ls: len(ls) + 25
     chunks = cse.partition_compute_lines(compute_lines, var_deps, est,
                                          chunk_max_lines=split_threshold)
     if len(chunks) <= 1:
-        return False
+        return None
 
-    is_pol = (spin == "pol")
     defined_all = {v for v in (_parse_assign(l)[0] for l in compute_lines) if v}
     pol_loads = _POL_LOADS.get(adapter.family, []) if is_pol else []
     ambient_pool = set(pol_loads) | {"dens_threshold", "zeta_threshold"}
+    ow_vars = [adapter.ow_var(ow) for ow in output_writes]
 
-    part_srcs = []
+    chunk_srcs = []
     wrapper_calls = []
     for ch in chunks:
-        chunk_fn = f"{func_name}_{level}_{spin}_{output}_chunk{ch.index}"
+        chunk_fn = (f"{func_name}_{level}_{spin}_part{part_idx}_{suffix}"
+                    f"_chunk{ch.index}")
         body = []
         referenced = set()
         for ln in ch.lines:
@@ -208,18 +218,23 @@ def emit_cse_chunked_output(adapter, func_name, level, spin, output,
         ambient_args = sorted(i for i in (referenced & ambient_pool)
                               if i not in defined_all)
         in_args = list(ch.inputs) + ambient_args
+        # vars this chunk hands to a LATER chunk, plus any output-write var it
+        # defines: the defining chunk must always return the output var, even
+        # when ch.outputs only tracks cross-chunk deps.
+        chunk_defined = {v for v in (_parse_assign(l)[0] for l in ch.lines)
+                         if v and v not in ch.inputs}
         out_vars = list(ch.outputs)
-        if not out_vars:
-            chunk_defined = {v for v in (_parse_assign(l)[0] for l in ch.lines) if v}
-            out_vars = [adapter.ow_var(ow) for ow in output_writes
-                        if adapter.ow_var(ow) in chunk_defined]
+        for ov in ow_vars:
+            if ov in chunk_defined and ov not in out_vars:
+                out_vars.append(ov)
         sig_in = ", ".join(f"{a}: F" for a in in_args)
         comma = "," if len(out_vars) == 1 else ""
         ret = "(" + ", ".join("F" for _ in out_vars) + comma + ")"
         ret_expr = "(" + ", ".join(out_vars) + comma + ")"
-        part_srcs.append(
-            f"//! {func_name.upper()} {level} {spin} — {output} CSE chunk "
-            f"{ch.index}/{len(chunks)} (D-02 tuple-return <F: Float>).\n"
+        chunk_srcs.append(
+            f"//! {func_name.upper()} {level} {spin} — {output} part "
+            f"{part_idx} ({suffix}) CSE chunk {ch.index}/{len(chunks)} "
+            f"(D-02 tuple-return <F: Float>).\n"
             f"{adapter.file_header}\n\n{adapter.imports_str}\n\n"
             f"#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]\n"
             f"#[cube]\n"
@@ -230,18 +245,42 @@ def emit_cse_chunked_output(adapter, func_name, level, spin, output,
         wrapper_calls.append((ret_expr, chunk_fn, ", ".join(in_args)))
 
     wrapper = _build_chunk_wrapper(adapter, func_name, level, spin, output,
-                                   out_bufs, output_writes, wrapper_calls,
-                                   is_pol, len(chunks))
-    emit.emit_chunked_output(adapter.family, func_name, output, wrapper, part_srcs)
-    return True
+                                   part_out_bufs, output_writes, wrapper_calls,
+                                   is_pol, len(chunks),
+                                   fn_suffix=f"_part{part_idx}_{suffix}",
+                                   is_part=True)
+
+    # If the CSE attempt cannot get its OWN output under the cap — the chunk
+    # count made the wrapper itself oversized, or a chunk stayed oversized —
+    # discard it and signal a flat fallback. This is the irreducibly-dense
+    # single-output 4th-derivative case (kcis/kcisk/revtpss/tpssloc lxc_pol,
+    # lda_c_pk09 kxc_pol, ...): the D-02 tuple-return ABI cannot subdivide
+    # those (the cross-cut arity runs to thousands). A flat single-`#[cube]`
+    # emit is a known quantity; the chunked form would just be a 4000+-call
+    # wrapper that is itself a proc-macro fan-out problem. Those flat files
+    # become documented D-LOCK-B exceptions — see tools/kernel_size_exceptions.txt.
+    wrapper_lines = wrapper.count("\n") + 1
+    max_chunk_lines = max((c.count("\n") + 1 for c in chunk_srcs), default=0)
+    if wrapper_lines > split_threshold or max_chunk_lines > split_threshold:
+        return None
+    return wrapper, chunk_srcs
 
 
 def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
-                         output_writes, wrapper_calls, is_pol, n_chunks):
-    """`<output>/mod.rs` wrapper for a D-02 CSE-chunked single output: loads
-    inputs, calls each chunk destructuring its tuple return, writes outputs."""
-    fn_name = f"{func_name}_{level}_{spin}"
-    cube_attr = "#[cube(launch_unchecked)]" if adapter.is_routed else "#[cube]"
+                         output_writes, wrapper_calls, is_pol, n_chunks,
+                         fn_suffix="", is_part=False):
+    """`#[cube]` wrapper over a set of D-02 CSE tuple-return chunks: loads
+    inputs, calls each chunk destructuring its tuple return, writes outputs.
+
+    With ``is_part=True`` this builds a per-component PART wrapper
+    (``<output>/part{idx}/mod.rs``, fn ``..._part{idx}_{suffix}``) — always
+    plain ``#[cube]``, because a ``_part`` helper is never a launch entry point
+    (`audit_cube_launch.sh` baseline must not move). With ``is_part=False`` it
+    builds a whole-output entry wrapper and the routing verdict picks
+    ``#[cube(launch_unchecked)]`` vs ``#[cube]``."""
+    fn_name = f"{func_name}_{level}_{spin}{fn_suffix}"
+    cube_attr = "#[cube]" if is_part else (
+        "#[cube(launch_unchecked)]" if adapter.is_routed else "#[cube]")
     input_arrays = _INPUT_ARRAYS[adapter.family]
     lines = [
         f"//! {func_name.upper()} {level} {spin} kernel — {output} "
@@ -343,38 +382,53 @@ def emit_functional(adapter, func_name, is_vxc_only, split_threshold):
                 else:
                     final.append((suffix, sub_c, sub_o, sub_b))
 
-            # CSE hook: a lone over-cap single output -> D-02 tuple-return chunks
-            if (len(final) == 1
-                    and adapter.estimate(final[0][1], final[0][2]) > split_threshold
-                    and len(final[0][2]) == 1):
-                _s, c1, o1, _b1 = final[0]
-                out_bufs = adapter.level_outputs[level]
-                if is_vxc_only:
-                    out_bufs = [b for b in out_bufs if b != "zk"]
-                if emit_cse_chunked_output(adapter, func_name, level, spin,
-                                           output, c1, o1, out_bufs,
-                                           split_threshold):
-                    output_modules.append(output)
-                    continue
-                # CSE produced <=1 chunk -> fall through to single-part emit
-
-            # nested-by-output: per-component parts + wrapper
-            part_codes = []
+            # nested-by-output emit: each part is either a flat per-component
+            # `#[cube]` fn, or — when a single output component is STILL over
+            # the cap after the per-component cut — a D-02 CSE-chunked part
+            # directory (`<output>/part{idx}/mod.rs` + `chunk{n}.rs`). The old
+            # `len(final) == 1` whole-output CSE special case falls out of this
+            # loop naturally as a one-element `final`.
+            parts = []
+            part_sig_codes = []
             for idx, (suffix, sub_c, sub_o, sub_b) in enumerate(final):
-                fn_suffix = f"_part{idx}_{suffix}"
-                fn_code = adapter.gen_fn(func_name, level, spin, sub_c, sub_o,
-                                         adapter.all_params, is_vxc_only,
-                                         fn_suffix=fn_suffix,
-                                         out_bufs_override=sub_b)
-                part_codes.append(_assemble_file(
-                    adapter, func_name, level, spin, fn_code,
-                    part=(idx, len(final), suffix, sub_b)))
+                sub_est = adapter.estimate(sub_c, sub_o)
+                cse_part = None
+                if sub_est > split_threshold and len(sub_o) == 1:
+                    cse_part = _cse_chunk_part(
+                        adapter, func_name, level, spin, output, idx, suffix,
+                        sub_c, sub_o, sub_b, split_threshold)
+                if cse_part is not None:
+                    wrapper_src, chunk_srcs = cse_part
+                    parts.append({"kind": "cse", "wrapper": wrapper_src,
+                                  "chunks": chunk_srcs})
+                    part_sig_codes.append(wrapper_src)
+                else:
+                    if sub_est > split_threshold:
+                        # CSE could not get this component under the cap (<=1
+                        # chunk, or its own wrapper/chunks went oversized). Emit
+                        # flat — an irreducibly-dense single-output component;
+                        # the resulting over-cap file is a documented D-LOCK-B
+                        # exception (tools/kernel_size_exceptions.txt).
+                        print(f"  WARN: {adapter.family}/{func_name} {output} "
+                              f"part{idx} ({suffix}) over cap (~{sub_est} est), "
+                              f"not CSE-reducible — flat emit (D-LOCK-B exception)",
+                              file=sys.stderr)
+                    fn_suffix = f"_part{idx}_{suffix}"
+                    fn_code = adapter.gen_fn(func_name, level, spin, sub_c,
+                                             sub_o, adapter.all_params,
+                                             is_vxc_only, fn_suffix=fn_suffix,
+                                             out_bufs_override=sub_b)
+                    flat_src = _assemble_file(
+                        adapter, func_name, level, spin, fn_code,
+                        part=(idx, len(final), suffix, sub_b))
+                    parts.append({"kind": "flat", "src": flat_src})
+                    part_sig_codes.append(flat_src)
             full_fn = adapter.gen_fn(func_name, level, spin, compute, outs,
                                      adapter.all_params, is_vxc_only)
             wrapper = _build_part_wrapper(adapter, func_name, level, spin,
-                                          output, full_fn, part_codes)
-            emit.emit_chunked_output(adapter.family, func_name, output,
-                                     wrapper, part_codes)
+                                          output, full_fn, part_sig_codes)
+            emit.emit_output_dir(adapter.family, func_name, output,
+                                 wrapper, parts)
             output_modules.append(output)
 
     emit.emit_cargo_toml(adapter.family, func_name, adapter.needs_libm)
@@ -467,25 +521,76 @@ def _selftest():
             transitive_deps=lambda vs, vd: set(vs),
             ow_var=lambda o: o.var, ow_field=lambda o: o.field,
             ow_component=lambda o: o.component, pol_dims={"zk": 1, "vrho": 2})
-        mods = emit_functional(adapter_big, "gga_x_big", False, 120)
+        # threshold 200: the two per-component halves (~155 est each) stay
+        # UNDER the cap, so this case keeps covering the flat nested-by-output
+        # path (the CSE-chunked-part path is exercised by case 3 below).
+        mods = emit_functional(adapter_big, "gga_x_big", False, 200)
         db = emit.subcrate_dir("gga", "gga_x_big")
         wrap = db / "src" / "vxc_unpol" / "mod.rs"
         if not wrap.exists() or "mod part0;" not in wrap.read_text():
             print("SELFTEST FAIL: over-cap functional missing nested wrapper")
             ok = False
         if not (db / "src" / "vxc_unpol" / "part0.rs").exists():
-            print("SELFTEST FAIL: over-cap functional missing part files")
+            print("SELFTEST FAIL: over-cap functional missing flat part files")
+            ok = False
+        if (db / "src" / "vxc_unpol" / "part0").is_dir():
+            print("SELFTEST FAIL: in-cap part0 wrongly emitted as a directory")
             ok = False
         cargo = (db / "Cargo.toml").read_text()
         if 'libm = "0.2"' not in cargo:
             print("SELFTEST FAIL: needs_libm not propagated to Cargo.toml")
             ok = False
+
+        # --- case 3: single output component STILL over cap after the
+        # per-component cut -> D-02 CSE-chunked part directory (third level) ---
+        cse_compute = ["t1 = rho0 + rho1;"]
+        cse_compute += [f"t{k} = t{k-1} + 1.0;" for k in range(2, 600)]
+        adapter_cse = FamilyAdapter(
+            family="mgga", file_header="#![allow(unused_imports)]",
+            src_dir_label="mgga_exc", is_routed=True, needs_libm=False,
+            imports_str="use cubecl::prelude::*;", all_params=[],
+            bodies={("lxc", "pol"): "BODY"}, max_order=4,
+            level_ord={"lxc": 3}, level_outputs={"lxc": ["v4rho4"]},
+            levels=["lxc"], translate_line=lambda e, p: e,
+            parse=lambda b, l, s, v: (cse_compute, [OW("t599", "v4rho4")]),
+            estimate=lambda c, o: len(c) + 25,
+            gen_fn=fake_gen_fn,
+            split_by_output=lambda c, o, p: [("v4rho4_0", c, o, ["v4rho4"])],
+            merge_small=lambda s, t: s, build_dep_graph=fake_dep,
+            transitive_deps=lambda vs, vd: set(vs),
+            ow_var=lambda o: o.var, ow_field=lambda o: o.field,
+            ow_component=lambda o: o.component, pol_dims={"v4rho4": 1})
+        emit_functional(adapter_cse, "mgga_c_cse", False, 120)
+        dc = emit.subcrate_dir("mgga", "mgga_c_cse")
+        pdir = dc / "src" / "lxc_pol" / "part0"
+        if not (dc / "src" / "lxc_pol" / "mod.rs").exists():
+            print("SELFTEST FAIL: CSE functional missing output mod.rs")
+            ok = False
+        if not pdir.is_dir() or not (pdir / "mod.rs").exists():
+            print("SELFTEST FAIL: CSE part not emitted as a part0/ directory")
+            ok = False
+        chunk_files = sorted(pdir.glob("chunk*.rs")) if pdir.is_dir() else []
+        if len(chunk_files) < 2:
+            print(f"SELFTEST FAIL: CSE part not subdivided into chunks: "
+                  f"{[f.name for f in chunk_files]}")
+            ok = False
+        if pdir.is_dir():
+            pw = (pdir / "mod.rs").read_text()
+            if "mod chunk0;" not in pw or "launch_unchecked" in pw:
+                print("SELFTEST FAIL: CSE part wrapper malformed "
+                      "(missing mod decl, or carries a launch attr)")
+                ok = False
+        for f in dc.rglob("*.rs"):
+            n = len(f.read_text().splitlines())
+            if n > 120 + 60:  # chunk_max_lines + wrapper/header headroom
+                print(f"SELFTEST FAIL: CSE output file over cap: {f} ({n} lines)")
+                ok = False
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
     if ok:
-        print("SELFTEST PASS: emit_functional drives single-file + nested-by-output "
-              "layouts; CSE chunking covered by emit_cse_chunked_output path")
+        print("SELFTEST PASS: emit_functional drives single-file, flat "
+              "nested-by-output, and D-02 CSE-chunked-part layouts")
         return 0
     return 1
 

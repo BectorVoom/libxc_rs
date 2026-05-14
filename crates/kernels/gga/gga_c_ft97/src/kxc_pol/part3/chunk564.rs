@@ -1,0 +1,21 @@
+//! GGA_C_FT97 kxc pol — kxc_pol part 3 (v3rho3_2) CSE chunk 564/887 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::expint_e1::{xc_e1_scaled};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk564<F: Float>(t2665: F, t5213: F, t446: F, t2670: F, t4917: F, t666: F, t89: F, t4635: F, t792: F, t1212: F) -> (F, F, F, F, F, F, F) {
+    let t5214 = t2665 * t5213;
+    let t5215 = t446 * t5214;
+    let t5217 = t2670 * t4917;
+    let t5219 = t89 * t666 * t5217;
+    let t5221 = t792 * t4635;
+    let t5223 = t89 * t666 * t5221;
+    let t5225 = t1212 * t1212;
+    (t5214, t5215, t5217, t5219, t5221, t5223, t5225)
+}

@@ -1,0 +1,17 @@
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 495/1272 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk495<F: Float>(t2494: F, t2520: F, t824: F, t828: F, t261: F, t827: F) -> (F, F, F, F) {
+    let t2521 = t2494 * t2520;
+    let t2525 = t824 * t828;
+    let t2528 = t827 * t261;
+    let t2529 = 1.0 / t2528;
+    (t2521, t2525, t2528, t2529)
+}

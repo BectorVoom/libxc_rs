@@ -1,0 +1,15 @@
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1109/1265 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1109<F: Float>(t16541: F, t16543: F, t16548: F, t16550: F, t16555: F, t16557: F, t16559: F, t16560: F, t16561: F, t16562: F, t16566: F, t16568: F, t16569: F, t16573: F, t16574: F, t12822: F) -> (F, F) {
+    let t16575 = t16541 - t16543 - t16548 + t16550 - t16555 + t16557 - t16559 + t16560 - t16561 - t16562 + t16566 + t16568 - t16569 - t16573 - t16574;
+    let t16577 = 4.0 / 45.0 * t12822;
+    (t16575, t16577)
+}

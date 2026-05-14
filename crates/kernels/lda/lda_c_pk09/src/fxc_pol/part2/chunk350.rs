@@ -1,0 +1,18 @@
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 350/979 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk350<F: Float>(t1754: F, t1765: F, t1684: F, t1735: F, t1732: F, t1738: F, t1762: F, t1769: F) -> (F, F, F, F, F) {
+    let t1784 = 2.0 * t1754;
+    let t1786 = 0.6666666666666666 * t1765;
+    let t1788 = 0.505765839233979 * t1684;
+    let t1790 = 0.168588613077993 * t1735;
+    let t1792 = t1784 - 2.0 * t1762 + t1786 + 2.0 * t1769 + t1788 - 0.505765839233979 * t1732 + t1790 + 0.505765839233979 * t1738;
+    (t1784, t1786, t1788, t1790, t1792)
+}

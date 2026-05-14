@@ -60,7 +60,11 @@ def variant_to_snake_candidates(variant: str) -> list[str]:
             stripped = re.sub(r"_?[0-9]+$", "", c)
             extras.add(stripped)
     candidates.update(extras)
-    return list(candidates)
+    # `sorted`, not `list`: the caller picks the first candidate that matches a
+    # known dir (and `[0]` as a fallback), so a hash-seed-dependent set order
+    # would make routing — and therefore every emitted `#[cube]` attribute —
+    # non-deterministic (D-LOCK-D).
+    return sorted(candidates)
 
 
 def _model_path(family: str) -> Path:
@@ -68,18 +72,22 @@ def _model_path(family: str) -> Path:
 
 
 def collect_func_dirs(family: str) -> dict[str, list[Path]]:
-    """{funcname: [path, ...]} for every `crates/kernels/<family>*/src/<func>/`.
+    """{funcname: [path]} for every per-functional subcrate
+    `crates/kernels/<family>/<func>/` (the D-10 per-functional-subcrate layout).
 
-    Glob matches the post-`crates/kernel-* → crates/kernels/*` layout move.
+    Pre-D-10 this globbed `crates/kernels/<family>*/src/<func>/` — the numbered-
+    subcrate layout. After the 11-03 D-10a restructure the family level is a
+    plain directory whose children are the per-functional subcrates (each with
+    its own `Cargo.toml`), so that glob returned nothing and `known_dirs` came
+    back empty — which forced `parse_routed_funcnames` into its hash-random
+    `[0]` fallback for every LDA variant. Walk the new layout instead.
     """
     out: dict[str, list[Path]] = {}
-    for crate in sorted(CRATES_DIR.glob(f"kernels/{family}*")):
-        src = crate / "src"
-        if not src.is_dir():
-            continue
-        for entry in sorted(src.iterdir()):
-            if not entry.is_dir():
-                continue
+    family_dir = CRATES_DIR / "kernels" / family
+    if not family_dir.is_dir():
+        return out
+    for entry in sorted(family_dir.iterdir()):
+        if entry.is_dir() and (entry / "Cargo.toml").is_file():
             out.setdefault(entry.name, []).append(entry)
     return out
 

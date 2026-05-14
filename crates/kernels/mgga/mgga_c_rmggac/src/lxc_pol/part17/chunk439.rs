@@ -1,0 +1,24 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 439/964 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk439<F: Float>(t1411: F, t941: F, t1392: F, t500: F, t4066: F, t4069: F, t1535: F, t446: F, t4116: F, t4120: F, t4124: F, t1004: F, t589: F, t194: F, t618: F, t1412: F, t171: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t5321 = t941 * t1411;
+    let t5372 = t500 * t1392;
+    let t5375 = 48.0 * t4066;
+    let t5376 = 80.0 * t4069;
+    let t5377 = t1535 * t446;
+    let t5382 = 12.0 * t4116;
+    let t5385 = 4.0 * t4120;
+    let t5388 = 32.0 * t4124;
+    let t5389 = t1004 * t589;
+    let t5395 = t194 * t618;
+    let t5400 = t1412 * t171;
+    (t5321, t5372, t5375, t5376, t5377, t5382, t5385, t5388, t5389, t5395, t5400)
+}

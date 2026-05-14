@@ -151,6 +151,43 @@ def emit_chunked_output(family: str, func: str, output: str,
         _write(out_dir / f"part{nn}.rs", part_src)
 
 
+def emit_output_dir(family: str, func: str, output: str,
+                    wrapper_src: str, parts: list) -> None:
+    """Write a chunked output whose parts may be flat OR themselves CSE-chunked.
+
+    ``wrapper_src`` is the complete ``<func>/src/<output>/mod.rs`` content (the
+    q02 nested-by-output wrapper-of-parts). ``parts`` is an ordered list; entry
+    ``idx`` is one of:
+
+      ``{"kind": "flat", "src": <str>}``
+          -> ``<output>/part{idx}.rs``  — a single ``#[cube]`` per-component part
+
+      ``{"kind": "cse", "wrapper": <str>, "chunks": [<str>, ...]}``
+          -> ``<output>/part{idx}/mod.rs``      the ``#[cube]`` part wrapper
+             ``<output>/part{idx}/chunk{n}.rs`` one per D-02 CSE chunk
+
+    The ``<output>/mod.rs`` ``mod part{idx};`` declaration resolves to either
+    ``part{idx}.rs`` or ``part{idx}/mod.rs`` transparently — this is the THIRD
+    nesting level, used when a single output *component* still exceeds
+    SPLIT_THRESHOLD after the per-component cut and must be D-02 CSE-chunked.
+    partNN / chunkNN indices are 0-based sequence order (reset per output /
+    per part), so a double-emit stays byte-identical (D-LOCK-D)."""
+    out_dir = subcrate_dir(family, func) / "src" / output
+    _write(out_dir / "mod.rs", wrapper_src)
+    for idx, part in enumerate(parts):
+        kind = part["kind"]
+        if kind == "flat":
+            _write(out_dir / f"part{idx}.rs", part["src"])
+        elif kind == "cse":
+            part_dir = out_dir / f"part{idx}"
+            _write(part_dir / "mod.rs", part["wrapper"])
+            for nn, chunk_src in enumerate(part["chunks"]):
+                _write(part_dir / f"chunk{nn}.rs", chunk_src)
+        else:
+            raise ValueError(
+                f"emit_output_dir: unknown part kind {kind!r} at index {idx}")
+
+
 # --- self-test ---------------------------------------------------------------
 def _selftest() -> int:
     """Emit a tiny synthetic functional into a tempdir, assert the expected files
@@ -182,12 +219,35 @@ def _selftest() -> int:
         "//! part 0/2.\n#[cube]\nfn p0<F: Float>(x: F) -> (F, F) { (x, x) }\n",
         "//! part 1/2.\n#[cube]\nfn p1<F: Float>(x: F) -> (F,) { (x,) }\n",
     ]
+    # emit_output_dir: a mixed output — part0 flat, part1 itself CSE-chunked
+    # into a part1/ directory (the third nesting level).
+    out_dir_wrapper_src = (
+        "//! MGGA_X_SELFTEST polarized lxc-level kernel (nested-by-output).\n"
+        f"{CRATE_ALLOW}\n"
+        "mod part0;\nmod part1;\n"
+        "use cubecl::prelude::*;\n"
+        "#[cube(launch_unchecked)]\n"
+        "pub fn mgga_x_selftest_lxc_pol(rho: &Array<f64>) {}\n"
+    )
+    mixed_parts = [
+        {"kind": "flat",
+         "src": "//! part 0 flat.\n#[cube]\npub fn p0(rho: &Array<f64>) {}\n"},
+        {"kind": "cse",
+         "wrapper": ("//! part 1 CSE-chunked part wrapper.\n"
+                     "mod chunk0;\nmod chunk1;\n"
+                     "#[cube]\npub fn p1(rho: &Array<f64>) {}\n"),
+         "chunks": [
+             "//! chunk 0.\n#[cube]\nfn c0<F: Float>(x: F) -> (F,) { (x,) }\n",
+             "//! chunk 1.\n#[cube]\nfn c1<F: Float>(x: F) -> (F,) { (x,) }\n",
+         ]},
+    ]
 
     def _do_emit():
         emit_cargo_toml(fam, func, needs_libm=True)
-        emit_lib_rs(fam, func, ["exc_unpol", "kxc_pol"])
+        emit_lib_rs(fam, func, ["exc_unpol", "kxc_pol", "lxc_pol"])
         emit_single_output(fam, func, "exc_unpol", single_src)
         emit_chunked_output(fam, func, "kxc_pol", wrapper_src, part_srcs)
+        emit_output_dir(fam, func, "lxc_pol", out_dir_wrapper_src, mixed_parts)
 
     def _snapshot(root):
         snap = {}
@@ -224,11 +284,21 @@ def _selftest() -> int:
             d / "src" / "kxc_pol" / "mod.rs",
             d / "src" / "kxc_pol" / "part0.rs",
             d / "src" / "kxc_pol" / "part1.rs",
+            # emit_output_dir: flat part0.rs alongside a CSE-chunked part1/ dir
+            d / "src" / "lxc_pol" / "mod.rs",
+            d / "src" / "lxc_pol" / "part0.rs",
+            d / "src" / "lxc_pol" / "part1" / "mod.rs",
+            d / "src" / "lxc_pol" / "part1" / "chunk0.rs",
+            d / "src" / "lxc_pol" / "part1" / "chunk1.rs",
         ]
         for f in expected_files:
             if not f.exists():
                 print(f"SELFTEST FAIL: expected file missing: {f}")
                 ok = False
+        # the flat part must NOT also exist as a directory (file/dir collision)
+        if (d / "src" / "lxc_pol" / "part0").is_dir():
+            print("SELFTEST FAIL: flat lxc_pol/part0 emitted as a directory")
+            ok = False
 
         wrapper = (d / "src" / "kxc_pol" / "mod.rs").read_text()
         if "mod part0;" not in wrapper or "launch_unchecked" not in wrapper:

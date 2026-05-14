@@ -24,10 +24,14 @@ if [[ "$COUNT" -gt 0 ]]; then
 fi
 
 # --- Check 2: no family-level crate artifacts (D-LOCK-A) ---
+# `|| true` is load-bearing: when no family crate artifacts remain (the correct
+# post-11-03 state) the loop's final `[[ -f ]] && echo` test is false, so the
+# command-substitution subshell exits 1 — and under `set -e` that would abort
+# the script before Check 2's `if` even runs. The `|| true` neutralises that.
 FAMILY_CRATES=$(for f in lda gga mgga; do
   [[ -f "$REPO_ROOT/crates/kernels/$f/Cargo.toml" ]] && echo "$f/Cargo.toml"
   [[ -f "$REPO_ROOT/crates/kernels/$f/src/lib.rs" ]] && echo "$f/src/lib.rs"
-done)
+done) || true
 
 if [[ -n "$FAMILY_CRATES" ]]; then
     echo "FAIL: family-level crate artifact(s) remain (P11-INV-1, per-functional-subcrate invariant):"

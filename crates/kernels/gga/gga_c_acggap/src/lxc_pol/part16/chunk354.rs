@@ -1,0 +1,16 @@
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 16 (v4rho3sigma_8) CSE chunk 354/1080 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_acggap_lxc_pol_part16_v4rho3sigma_8_chunk354<F: Float>(t560: F, t814: F, t474: F, t232: F, t822: F) -> (F, F, F) {
+    let t1680 = t560 * t814;
+    let t1690 = t474 * t474;
+    let t1694 = 2.0 * t232 + 2.0 * t822;
+    (t1680, t1690, t1694)
+}

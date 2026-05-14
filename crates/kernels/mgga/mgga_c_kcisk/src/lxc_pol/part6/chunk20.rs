@@ -1,0 +1,19 @@
+//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 20/957 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk20<F: Float>(t12: F, t15: F, t18: F, t26: F, t14: F, zeta_threshold: F) -> (F, F, F, F, F) {
+    let t28 = 0.379785e1 * t15 + 0.8969e0 * t12 + 0.204775e0 * t18 + 0.123235e0 * t26;
+    let t31 = 1.0 + 0.16081824322151104822e2 / t28;
+    let t32 = f64::ln(t31);
+    let t34 = 0.62182e-1 * t14 * t32;
+    let t36 = pow_1_3(zeta_threshold);
+    let t37 = t36 * zeta_threshold;
+    (t28, t31, t32, t34, t37)
+}

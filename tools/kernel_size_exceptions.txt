@@ -1,0 +1,93 @@
+# Documented D-LOCK-B exceptions — kernel `.rs` files permitted to exceed the
+# 5,000-line cap (tools/audit_kernel_size.py reads this allowlist).
+#
+# These are irreducibly-dense single-output 4th-derivative components. Splitter
+# v2's D-02 tuple-return CSE ABI cannot subdivide them: a dense single output
+# component's cross-cut live set runs to thousands of values, so chunking it
+# yields EITHER thousands of micro-chunks (a wrapper that is itself over-cap and
+# a proc-macro fan-out problem) OR thousands-wide `#[cube]` tuples (which do not
+# compile). per_functional._cse_chunk_part detects this and falls back to a flat
+# single-`#[cube]` emit — a known quantity. See Phase 11 plan 11-03 SUMMARY.
+#
+# Per-functional subcrate isolation (D-10) still bounds the COMPILATION unit —
+# the actual fix for the cargo-build OOM. This list documents the residual
+# per-FILE cap misses; plans 11-04/11-05 verify each builds via `cargo build -p`
+# and defer (exclude from default-members) any that still OOM.
+#
+# Format: one repo-relative path per line; `#` comments and blank lines ignored.
+# Regenerated deterministically by the splitter (D-LOCK-D) — if a path here is
+# no longer over-cap, audit_kernel_size.py flags it as a stale exception.
+#
+# --- populated after the 11-03 regen below this line ---
+# 70 files, 13 functionals, max 16139 lines (deterministic D-LOCK-D output)
+
+crates/kernels/gga/gga_c_ft97/src/lxc_pol/part12.rs  # 8980 lines
+crates/kernels/gga/gga_c_ft97/src/lxc_pol/part13.rs  # 10906 lines
+crates/kernels/gga/gga_c_ft97/src/lxc_pol/part14.rs  # 9338 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part10.rs  # 8266 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part11.rs  # 8267 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part12.rs  # 8281 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part13.rs  # 8281 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part14.rs  # 8282 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part15.rs  # 8284 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part16.rs  # 8284 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part17.rs  # 8285 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part18.rs  # 8266 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part19.rs  # 8266 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part20.rs  # 8267 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_pol/part9.rs  # 8266 lines
+crates/kernels/gga/gga_c_gapc/src/lxc_unpol/part4.rs  # 5350 lines
+crates/kernels/gga/gga_c_optc/src/lxc_pol/part10.rs  # 8324 lines
+crates/kernels/gga/gga_c_optc/src/lxc_pol/part8.rs  # 8242 lines
+crates/kernels/gga/gga_c_optc/src/lxc_pol/part9.rs  # 9571 lines
+crates/kernels/gga/gga_c_pbe_erf_gws/src/lxc_pol/part10.rs  # 9197 lines
+crates/kernels/gga/gga_c_pbe_erf_gws/src/lxc_pol/part8.rs  # 9113 lines
+crates/kernels/gga/gga_c_pbe_erf_gws/src/lxc_pol/part9.rs  # 10785 lines
+crates/kernels/gga/gga_x_wpbeh/src/lxc_pol/part12.rs  # 6611 lines
+crates/kernels/gga/gga_x_wpbeh/src/lxc_pol/part13.rs  # 7601 lines
+crates/kernels/gga/gga_x_wpbeh/src/lxc_pol/part14.rs  # 6834 lines
+crates/kernels/lda/lda_c_pk09/src/kxc_pol/part4.rs  # 7341 lines
+crates/kernels/lda/lda_c_pk09/src/kxc_pol/part5.rs  # 13132 lines
+crates/kernels/lda/lda_c_pk09/src/kxc_pol/part6.rs  # 13170 lines
+crates/kernels/lda/lda_c_pk09/src/kxc_pol/part7.rs  # 7436 lines
+crates/kernels/lda/lda_xc_ksdt/src/lxc_pol/part6.rs  # 8223 lines
+crates/kernels/lda/lda_xc_ksdt/src/lxc_pol/part7.rs  # 9509 lines
+crates/kernels/lda/lda_xc_ksdt/src/lxc_pol/part8.rs  # 8309 lines
+crates/kernels/mgga/mgga_c_kcis/src/lxc_pol/part13.rs  # 6746 lines
+crates/kernels/mgga/mgga_c_kcis/src/lxc_pol/part14.rs  # 11989 lines
+crates/kernels/mgga/mgga_c_kcis/src/lxc_pol/part15.rs  # 14128 lines
+crates/kernels/mgga/mgga_c_kcis/src/lxc_pol/part16.rs  # 12165 lines
+crates/kernels/mgga/mgga_c_kcis/src/lxc_pol/part17.rs  # 6829 lines
+crates/kernels/mgga/mgga_c_kcisk/src/kxc_pol/part4.rs  # 7279 lines
+crates/kernels/mgga/mgga_c_kcisk/src/kxc_pol/part5.rs  # 7326 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part15.rs  # 7769 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part16.rs  # 13720 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part17.rs  # 16139 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part18.rs  # 13914 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part19.rs  # 7877 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part4.rs  # 7279 lines
+crates/kernels/mgga/mgga_c_kcisk/src/lxc_pol/part5.rs  # 7326 lines
+crates/kernels/mgga/mgga_c_r2scan/src/lxc_pol/part7.rs  # 6232 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part20.rs  # 6308 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part21.rs  # 10890 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part22.rs  # 12649 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part23.rs  # 10956 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part24.rs  # 6378 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part28.rs  # 8804 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part29.rs  # 8046 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part30.rs  # 8784 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part31.rs  # 8813 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part32.rs  # 8060 lines
+crates/kernels/mgga/mgga_c_revtpss/src/lxc_pol/part33.rs  # 8829 lines
+crates/kernels/mgga/mgga_c_tpss/src/lxc_pol/part14.rs  # 6733 lines
+crates/kernels/mgga/mgga_c_tpss/src/lxc_pol/part15.rs  # 7721 lines
+crates/kernels/mgga/mgga_c_tpss/src/lxc_pol/part16.rs  # 6804 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part20.rs  # 8735 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part21.rs  # 10089 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part22.rs  # 8809 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part27.rs  # 9093 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part28.rs  # 7901 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part29.rs  # 9046 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part30.rs  # 9078 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part31.rs  # 7939 lines
+crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol/part32.rs  # 9125 lines

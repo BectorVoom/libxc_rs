@@ -1,0 +1,15 @@
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1122/1157 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1122<F: Float>(t20856: F, t20857: F, t20861: F, t20864: F, t20868: F, t20870: F, t20873: F, t20876: F, t20879: F, t20882: F, t20885: F, t20886: F, t20890: F, t20892: F, t20894: F, t20897: F, t20898: F, t20899: F, t20901: F, t20903: F, t20905: F, t20910: F, t20914: F, t20916: F, t20917: F, t9250: F) -> (F, F) {
+    let t23199 = -t20856 + t20857 + t20861 - t20864 + t20868 - t20870 - t20873 + t20876 + t20879 + t20882 + t20885 + t20886 + t20890;
+    let t23201 = t20892 - t20894 + t20897 - t9250 + t20898 + t20899 - t20901 - t20903 + t20905 - t20910 + t20914 - t20916 + t20917;
+    (t23199, t23201)
+}

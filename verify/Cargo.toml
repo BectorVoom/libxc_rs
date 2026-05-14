@@ -11,6 +11,9 @@ libxc_rs = { path = ".." }
 [dev-dependencies]
 approx = "0.5.1"
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
-libxc-kernel-lda = { path = "../crates/kernels/lda" }
-libxc-kernel-mgga = { path = "../crates/kernels/mgga" }
+# The `libxc-kernel-{lda,mgga}` family-crate dev-deps were removed by Phase 11
+# plan 11-03: the D-10a restructure deleted those family crates, so the dead
+# path-deps left the whole workspace unloadable. Plan 11-04 (D-05) re-adds the
+# narrowed per-functional `libxc-kernel-<func>` dev-deps that parity_phase11.rs
+# actually exercises — the structural fix for the verify/ OOM.
 

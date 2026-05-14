@@ -1,0 +1,19 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 724/1171 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk724<F: Float>(t10471: F, t1127: F, t3245: F, t1138: F, t3329: F, t1140: F, t364: F) -> (F, F, F, F, F, F) {
+    let t10472 = 0.73697530864197530862e-3 * t10471;
+    let t10473 = t3245 * t1127;
+    let t10491 = t1138 * t3329;
+    let t10496 = t1140 * t1140;
+    let t10497 = 1.0 / t10496;
+    let t10498 = t364 * t10497;
+    (t10472, t10473, t10491, t10496, t10497, t10498)
+}

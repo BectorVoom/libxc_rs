@@ -1,0 +1,24 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 439/1050 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk439<F: Float>(t3109: F, t906: F, t247: F, t1063: F, t1086: F, t994: F, t3090: F, t373: F, t66: F, t828: F, t1032: F, t989: F, t1040: F, t1024: F, t1062: F, t1031: F, t196: F) -> (F, F, F, F, F, F, F) {
+    let t3110 = t3109 * t906;
+    let t3111 = t247 * t3110;
+    let t3112 = t1063 * t3111;
+    let t3114 = t994 * t1086;
+    let t3115 = t3114 * t3090;
+    let t3116 = t66 * t373;
+    let t3117 = t828 * t3116;
+    let t3123 = t989 * t1032;
+    let t3124 = t3123 * t1040;
+    let t3127 = t1024 * t1062;
+    let t3140 = 1.0 / t1031 / t196;
+    (t3112, t3115, t3116, t3117, t3124, t3127, t3140)
+}

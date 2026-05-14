@@ -1,0 +1,17 @@
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 527/1138 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk527<F: Float>(t20: F, t2916: F, t1125: F, t161: F, t1210: F, t1132: F, t1135: F, t1139: F, t1140: F, t159: F, t2908: F, t2911: F, t39: F, t628: F, t629: F) -> (F, F, F, F) {
+    let t2917 = t2916 * t20;
+    let t2920 = t1125 * t161;
+    let t2923 = t1210 * t161;
+    let t2929 = t2908 / 2.0 + 0.09405 * t2911 * t629 - 0.1254 * t1132 * t1135 + 0.02358774 * t2917 * t1140 + 0.09753333333333333 * t628 * t2920 - 0.03145032 * t1139 * t2923 + 0.001883059277350998 * t159 * t39 * t161;
+    (t2917, t2920, t2923, t2929)
+}

@@ -1,0 +1,15 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 9/1190 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk9<F: Float>(t11: F, t17: F, t19: F, t21: F, t9: F, t5: F) -> (F, F) {
+    let t24 = 0.35e0 + 0.87e0 * t9 * t11 + 0.5e0 * t17 + 0.226e1 * t19 * t21;
+    let t25 = 1.0 + t5;
+    (t24, t25)
+}

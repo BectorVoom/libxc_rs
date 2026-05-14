@@ -1,0 +1,221 @@
+//! LDA_C_W20 vxc pol kernel.
+//!
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_w20.c`.
+//! Preserves exact maple2c variable names and FP operation order.
+
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_kernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_kernel_math::piecewise::{piecewise3};
+
+/// LDA_C_W20 vxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
+#[cube(launch_unchecked)]
+pub fn lda_c_w20_vxc_pol(
+    rho: &Array<f64>,
+    zk: &mut Array<f64>,
+    vrho: &mut Array<f64>,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    let ip = ABSOLUTE_POS;
+    if ip < zk.len() {
+        let rho0 = rho[ip * 2];
+        let rho1 = rho[ip * 2 + 1];
+        let t1 = f64::ln(2.0);
+        let t2 = 1.0 - t1;
+        let t3 = M_PI * M_PI;
+        let t4 = 1.0 / t3;
+        let t5 = t2 * t4;
+        let t6 = t1 / 6.0;
+        let t8 = 1.0 / t2;
+        let t12 = f64::exp(-2.0 * (-0.16244537117517982 + t6) * t8 * t3);
+        let t13 = M_CBRT3;
+        let t14 = t13 * t13;
+        let t15 = 1.0 / M_PI;
+        let t16 = pow_1_3(t15);
+        let t17 = t16 * t16;
+        let t18 = t14 * t17;
+        let t19 = M_CBRT4;
+        let t20 = rho0 + rho1;
+        let t21 = pow_1_3(t20);
+        let t22 = t21 * t21;
+        let t23 = 1.0 / t22;
+        let t25 = t18 * t19 * t23;
+        let t27 = f64::exp(-t25 / 40000.0);
+        let t28 = 1.0 - t27;
+        let t29 = M_CBRTPI;
+        let t30 = t29 * t29;
+        let t32 = pow_1_3(9.0);
+        let t33 = 1.0 / t30 * t32;
+        let t34 = t19 * t19;
+        let t40 = t12 / 2.0;
+        let t41 = (-0.9 + 3.0 / 16.0 * t33 * t34) * t8 * t3 + t40;
+        let t45 = (-2.0 * t28 * t41 + t12) * t14;
+        let t46 = 1.0 / t16;
+        let t47 = t46 * t19;
+        let t48 = t47 * t21;
+        let t51 = t28 * t8;
+        let t52 = f64::sqrt(4.0);
+        let t53 = t13 * t16;
+        let t54 = 1.0 / t21;
+        let t56 = t53 * t34 * t54;
+        let t57 = f64::sqrt(t56);
+        let t59 = 1.0 / t57 / t56;
+        let t61 = t51 * t52 * t59;
+        let t63 = t32 * t32;
+        let t64 = t63 * t19;
+        let t65 = t30 * t3;
+        let t69 = -3.0 / 40.0 * t64 * t65 * t8 + t40;
+        let t73 = (-2.0 * t28 * t69 + t12) * t13;
+        let t74 = 1.0 / t17;
+        let t75 = t74 * t34;
+        let t76 = t75 * t22;
+        let t79 = 1.0 + t45 * t48 / 3.0 - 118.43525281307231 * t61 + t73 * t76 / 3.0;
+        let t80 = f64::ln(t79);
+        let t82 = t5 * t80 / 2.0;
+        let t83 = t53 * t34;
+        let t84 = t54 * t27;
+        let t85 = pow_1_4(4.0);
+        let t86 = t85 * t85;
+        let t87 = t86 * t85;
+        let t88 = pow_1_4(t56);
+        let t92 = t27 + 5.0 / 8.0 * t87 * t88 * t56;
+        let t93 = 1.0 / t92;
+        let t94 = t3 * M_PI;
+        let t96 = 1.0 / t29 / t94;
+        let t98 = 12.0 * t1;
+        let t99 = 7.0 / 6.0 * t3 - t98 - 1.0;
+        let t100 = t96 * t99;
+        let t101 = t14 * t46;
+        let t105 = 1.0 + t101 * t19 * t21 / 3.0;
+        let t106 = f64::ln(t105);
+        let t110 = -t64 * t100 * t106 / 36.0 - 0.01;
+        let t111 = t93 * t110;
+        let t114 = t83 * t84 * t111 / 4.0;
+        let t119 = f64::exp(-4.0 * (-0.1412623711751798 + t6) * t8 * t3);
+        let t120 = M_CBRT2;
+        let t128 = t119 / 2.0;
+        let t129 = 2.0 * (-0.9 + 3.0 / 16.0 * t33 * t34 * t120) * t8 * t3 + t128;
+        let t133 = (-2.0 * t129 * t28 + t119) * t14;
+        let t137 = t120 * t120;
+        let t142 = -3.0 / 20.0 * t64 * t65 * t137 * t8 + t128;
+        let t146 = (-2.0 * t142 * t28 + t119) * t13;
+        let t149 = 1.0 + t133 * t48 / 3.0 - 236.87050562614462 * t61 + t146 * t76 / 3.0;
+        let t150 = f64::ln(t149);
+        let t155 = t137 * t63;
+        let t157 = 13.0 / 12.0 * t3 - t98 + 1.0 / 2.0;
+        let t158 = t96 * t157;
+        let t160 = t155 * t158 * t106;
+        let t163 = -t5 * t150 / 4.0 - t53 * t84 * t93 * t160 / 144.0 + t82 - t114;
+        let t164 = rho0 - rho1;
+        let t165 = 1.0 / t20;
+        let t166 = t164 * t165;
+        let t167 = 1.0 + t166;
+        let t168 = t167 <= zeta_threshold;
+        let t169 = pow_1_3(zeta_threshold);
+        let t170 = t169 * zeta_threshold;
+        let t171 = pow_1_3(t167);
+        let t173 = piecewise3(t168, t170, t171 * t167);
+        let t174 = 1.0 - t166;
+        let t175 = t174 <= zeta_threshold;
+        let t176 = pow_1_3(t174);
+        let t178 = piecewise3(t175, t170, t176 * t174);
+        let t179 = t173 + t178 - 2.0;
+        let t183 = 1.0 / (2.0 * t120 - 2.0);
+        let t184 = t163 * t179 * t183;
+        let tzk0 = -t82 + t114 + t184;
+        zk[ip] += tzk0;
+        let t186 = 1.0 / t21 / t20;
+        let t187 = t186 * t27;
+        let t191 = t47 * t23;
+        let t194 = f64::powf(4.0, 1.0 / 6.0);
+        let t195 = t194 * t194;
+        let t196 = t195 * t195;
+        let t197 = t196 * t194;
+        let t198 = t18 * t197;
+        let t200 = 1.0 / t22 / t20;
+        let t201 = t200 * t27;
+        let t202 = t8 * t59;
+        let t204 = t198 * t201 * t202;
+        let t206 = t51 * t194;
+        let t207 = 4.0 * t25;
+        let t209 = 1.0 / t57 / t207;
+        let t210 = t209 * t13;
+        let t213 = t206 * t210 * t16 * t186;
+        let t215 = t165 * t27;
+        let t218 = t75 * t54;
+        let t221 = t83 * t187 * t41 / 30000.0 + t45 * t191 / 9.0 + 0.0019739208802178718 * t204 - 236.87050562614462 * t213 + t215 * t69 / 7500.0 + 2.0 / 9.0 * t73 * t218;
+        let t222 = 1.0 / t79;
+        let t224 = t5 * t221 * t222;
+        let t225 = t224 / 2.0;
+        let t227 = t83 * t187 * t111;
+        let t228 = t227 / 12.0;
+        let t229 = t20 * t20;
+        let t230 = 1.0 / t229;
+        let t231 = t15 * t230;
+        let t232 = t27 * t93;
+        let t233 = t232 * t110;
+        let t234 = t231 * t233;
+        let t235 = t234 / 20000.0;
+        let t236 = t92 * t92;
+        let t237 = 1.0 / t236;
+        let t238 = t27 * t237;
+        let t239 = t19 * t200;
+        let t243 = f64::powf(4.0, 1.0 / 12.0);
+        let t244 = t243 * t243;
+        let t245 = t244 * t244;
+        let t246 = t245 * t243;
+        let t247 = t246 * t88;
+        let t248 = t53 * t186;
+        let t251 = t18 * t239 * t27 / 60000.0 - 25.0 / 24.0 * t247 * t248;
+        let t252 = t110 * t251;
+        let t253 = t238 * t252;
+        let t254 = t56 * t253;
+        let t255 = t254 / 4.0;
+        let t256 = t19 * t165;
+        let t258 = t63 * t96;
+        let t259 = 1.0 / t105;
+        let t260 = t99 * t259;
+        let t261 = t258 * t260;
+        let t262 = t256 * t232 * t261;
+        let t263 = t262 / 108.0;
+        let t275 = t83 * t187 * t129 / 30000.0 + t133 * t191 / 9.0 + 0.0039478417604357436 * t204 - 473.74101125228924 * t213 + t215 * t142 / 7500.0 + 2.0 / 9.0 * t146 * t218;
+        let t276 = 1.0 / t149;
+        let t284 = t3 * t3;
+        let t286 = 1.0 / t29 / t284;
+        let t287 = t286 * t230;
+        let t288 = t19 * t27;
+        let t290 = t93 * t137;
+        let t291 = t63 * t157;
+        let t292 = t291 * t106;
+        let t293 = t290 * t292;
+        let t297 = t53 * t84 * t237;
+        let t298 = t155 * t96;
+        let t299 = t157 * t106;
+        let t300 = t299 * t251;
+        let t301 = t298 * t300;
+        let t307 = t258 * t157 * t19 * t259;
+        let t310 = -t5 * t275 * t276 / 4.0 + t53 * t187 * t93 * t160 / 432.0 - t287 * t288 * t293 / 2880000.0 + t297 * t301 / 144.0 - t215 * t290 * t307 / 432.0 + t225 + t228 - t235 + t255 + t263;
+        let t312 = t310 * t179 * t183;
+        let t313 = t164 * t230;
+        let t314 = t165 - t313;
+        let t317 = piecewise3(t168, 0.0, 4.0 / 3.0 * t171 * t314);
+        let t318 = -t314;
+        let t321 = piecewise3(t175, 0.0, 4.0 / 3.0 * t176 * t318);
+        let t322 = t317 + t321;
+        let t324 = t163 * t322 * t183;
+        let tvrho0 = -t82 + t114 + t184 + t20 * (-t225 - t228 + t235 - t255 - t263 + t312 + t324);
+        vrho[ip * 2] += tvrho0;
+        let t327 = -t165 - t313;
+        let t330 = piecewise3(t168, 0.0, 4.0 / 3.0 * t171 * t327);
+        let t331 = -t327;
+        let t334 = piecewise3(t175, 0.0, 4.0 / 3.0 * t176 * t331);
+        let t335 = t330 + t334;
+        let t337 = t163 * t335 * t183;
+        let tvrho1 = -t82 + t114 + t184 + t20 * (-t225 - t228 + t235 - t255 - t263 + t312 + t337);
+        vrho[ip * 2 + 1] += tvrho1;
+    }
+}

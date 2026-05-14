@@ -1,0 +1,21 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 1094/1100 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk1094<F: Float>(t2397: F, t4474: F, t21637: F, t329: F, t378: F, t838: F, t931: F, t6819: F, t2365: F, t6110: F, t822: F, t833: F, t2074: F, t2395: F, t2370: F, t830: F) -> (F, F, F, F, F) {
+    let t21819 = t4474 * t2397;
+    let t21823 = 455.0 / 243.0 * t329 * t21637 * t378;
+    let t21825 = t329 * t838 * t931;
+    let t21826 = t21825 * t6819;
+    let t21828 = t6110 * t2365;
+    let t21830 = t822 * t21828 * t833;
+    let t21832 = t2395 * t2074;
+    let t21834 = t2370 * t830 * t21832;
+    (t21819, t21823, t21826, t21830, t21834)
+}

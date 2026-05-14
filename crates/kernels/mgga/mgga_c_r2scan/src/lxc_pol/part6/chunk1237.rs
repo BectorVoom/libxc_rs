@@ -1,0 +1,18 @@
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 6 (v4rho4_1) CSE chunk 1237/1462 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_r2scan_lxc_pol_part6_v4rho4_1_chunk1237<F: Float>(t133: F, t1604: F, t22980: F, t5054: F, t1607: F, t20954: F, t5100: F, t6245: F, t6053: F, t783: F, t784: F, t788: F, t108: F, t110: F, t144: F, t5132: F, t548: F) -> (F, F, F, F, F) {
+    let t22983 = t1604 * t22980 * t133 * t5054;
+    let t22985 = t20954 * t1607;
+    let t22987 = t5100 * t6245;
+    let t22991 = t783 * t6053 * t784 * t788;
+    let t22997 = t108 / t5132 / t144 * t110 * t548;
+    (t22983, t22985, t22987, t22991, t22997)
+}

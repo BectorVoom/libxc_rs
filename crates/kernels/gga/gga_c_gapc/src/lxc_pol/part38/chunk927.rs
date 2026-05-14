@@ -1,0 +1,21 @@
+//! GGA_C_GAPC lxc pol — lxc_pol part 38 (v4rho2sigma2_17) CSE chunk 927/1126 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_gapc_lxc_pol_part38_v4rho2sigma2_17_chunk927<F: Float>(t1038: F, t18822: F, t3787: F, t15515: F, t7592: F, t1: F, t932: F, t28415: F, t8140: F, t761: F, t2188: F, t3329: F, t959: F, t2619: F, t2972: F, t190: F, t2211: F) -> (F, F, F, F, F, F, F, F) {
+    let t28472 = t3787 * t1038 * t18822;
+    let t28517 = t7592 * t15515;
+    let t28524 = t932 * t1;
+    let t28526 = t28415 * t8140;
+    let t28594 = t761 * t1;
+    let t28602 = M_PI * t2188 * t959 * t3329;
+    let t28609 = t2619 * t2972;
+    let t28622 = t2211 * t190;
+    (t28472, t28517, t28524, t28526, t28594, t28602, t28609, t28622)
+}

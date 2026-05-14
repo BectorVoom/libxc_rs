@@ -1,0 +1,14 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 863/1178 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk863<F: Float>(t5929: F, t5933: F, t5936: F, t7498: F, t7504: F, t7509: F, t7513: F, t7518: F, t7519: F, t7524: F, t7526: F, t7529: F, t7532: F, t7536: F, t7538: F, t7540: F, t7563: F) -> (F,) {
+    let t8432 = -t7498 - t7504 + t7509 - t7513 + t7518 + t7519 + t7524 + t7526 - t7529 - t7532 - t7536 - t7538 + t7540 + t7563 + t5929 + t5933 + 0.10821041362364843377e0 * t5936;
+    (t8432,)
+}

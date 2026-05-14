@@ -1,0 +1,17 @@
+//! GGA_C_FT97 lxc pol — lxc_pol part 20 (v4rho3sigma_5) CSE chunk 444/1293 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::expint_e1::{xc_e1_scaled};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_ft97_lxc_pol_part20_v4rho3sigma_5_chunk444<F: Float>(t238: F, t6045: F, t6056: F, t1417: F, t3759: F, t3766: F, t3774: F, t6015: F, t6019: F, t6024: F, t6029: F, t6034: F, t6038: F, t6043: F, t6047: F, t6053: F, t6055: F) -> (F, F) {
+    let t239 = 0.1e-59 < t238;
+    let t6057 = t6045 * t6056;
+    let t6061 = piecewise3(t239, -0.23254900946437792e-1 * t3759 * t6015 - 2.0 * t3766 * t6019 + 0.25845121844514357744e-4 * t3774 * t6024 + 0.22227677429409423704e-2 * t1417 * t6029 + 0.22270151833971792333e-3 * t6034 * t6038 + 0.38306165027777777778e-1 * t6043 * t6047 - t6053 - 0.6384360837962962963e-2 * t6055 * t6057, 0.0);
+    (t6057, t6061)
+}
