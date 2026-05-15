@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 PAUSED — replan required
-stopped_at: Plan 11-03 Task 2 paused — P11-INV-5 (≤23 launchables) is unsatisfiable against the plan's mandated per-functional .launch_unchecked() dispatch design. Plan-level contradiction; user chose to replan. WIP committed c3fba8089. See .planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md
-last_updated: "2026-05-15T00:00:00.000Z"
-last_activity: 2026-05-15 -- Phase 11 paused at 11-03 Task 2 for replan (P11-INV-5 contradiction)
+status: Phase 11 — ready to execute (replanned for D-13)
+stopped_at: Replan complete. P11-INV-5 contradiction resolved by D-13 (11-CONTEXT.md) — a per-design launch budget replaces the unsatisfiable flat ≤23. Plans 11-03..06 regenerated, plan-checker VERIFICATION PASSED; 11-01/11-02 preserved. Resume with /gsd-execute-phase 11 (wave 2, plan 11-03 — Task 1 is a verify-only checkpoint of committed 95727cb36+97d6347be; WIP c3fba8089 carried into Task 3).
+last_updated: "2026-05-15T12:00:00.000Z"
+last_activity: 2026-05-15 -- Phase 11 replanned for D-13 (P11-INV-5 → per-design launch budget); plans 11-03..06 regenerated, verification passed
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,14 +25,17 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — PAUSED (replan required)
-Plan: 11-03 of 6 — Task 1 ✅ committed; Task 2 ⚠️ partial WIP (`c3fba8089`), paused
-Blocker: P11-INV-5 vs the per-functional dispatch design is a plan-level
-contradiction — `audit_cube_launch.sh` = 1677 vs baseline 23, and ≤23 cannot
-coexist with the preserve-the-dispatch-macros mandate. Replan via
-`/gsd-plan-phase 11`. Full handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`
+Phase: 11 (splitter-v2-unified-5k-cap) — ready to execute (replanned 2026-05-15)
+Plan: 11-03 of 6 next — Task 1 verify-only checkpoint (re-confirms committed
+`95727cb36`+`97d6347be`); Task 2 rewrites `audit_cube_launch.sh` to the D-13
+per-design budget; Task 3 completes the dispatch regen on WIP `c3fba8089`.
+Resolved: P11-INV-5 contradiction — D-13 (11-CONTEXT.md) keeps the dispatch
+macros and redefines the invariant to a per-design launch budget (one
+launch_unchecked per routed (functional,output); no unrouted kernel
+launchable; `crates/kernels/math/` ≤22). Plans 11-03..06 regenerated;
+plan-checker VERIFICATION PASSED. Handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-14 -- Phase 11 execution started
+Last activity: 2026-05-15 -- Phase 11 replanned for D-13; plans 11-03..06 regenerated, verification passed
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
