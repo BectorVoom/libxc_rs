@@ -197,7 +197,7 @@ The five sections explicitly cited in CONTEXT.md, translated into operational ru
 ### §3 ("Keep the CubeCL expansion surface as small as possible") [CITED: docs/manual/Cubecl/cubecl_macro_fanout_manual.md §3]
 
 **Operational rules:**
-- Total `#[cube(launch)]` / `#[cube(launch_unchecked)]` count is the primary fan-out budget. **Current baseline (verified): 22 `#[cube(launch_unchecked)]` in `crates/kernels/`** — all 22 are in `crates/kernels/math/` (powers, erf, dft_quantities, polynomials, spin, piecewise). Zero functional kernels are launchable today; 100% of functional `#[cube]` calls are reached through `src/kernel/launch.rs` (1 launch_unchecked) and the dispatch tree.
+- Total `#[cube(launch)]` / `#[cube(launch_unchecked)]` count is a fan-out budget — but **see D-13 (CONTEXT.md): P11-INV-5's original flat "≤22/23 count" form was unsatisfiable against the D-10b dispatch design and has been revised (2026-05-15).** The pre-Phase-11 "22, all in `crates/kernels/math/`" figure was measured on the numbered-subcrate tree whose dispatch layer never compiled (Blocker B1) — it was never a working reference. Under the D-10 per-functional-subcrate design, every **routed** functional has one `#[cube(launch_unchecked)]` entry kernel per output module — the dispatch macros `ten_arm_dispatch_gga!` / `mgga_zero_scalar_unpol_dispatch!`, preserved verbatim per D-10b, call `.launch_unchecked()` per `(functional × output)`, so ~168 routed × ~10 outputs ≈ 1677 launchables. Per D-13 this is **accepted**: the manual §5/§19 fan-out cost is per-compilation-unit, and per-functional subcrates isolate each subcrate's ~10 launch wrappers. The revised P11-INV-5 / `audit_cube_launch.sh` budget: one launch wrapper per routed `(functional, output)`, no **unrouted** kernel launchable, `crates/kernels/math/` ≤22 — NOT a flat count.
 - Plain `#[cube]` count: **3,911 in `crates/kernels/`** (verified via `grep -h '^\s*#\[cube\]'`). Phase 11 will INCREASE this number — that's expected and permitted. The constraint is on `(launch)` only.
 - Helper functions are unbounded — adding 5,000 new `#[cube]` chunk helpers does not violate §3 as long as none of them are `(launch)`.
 
@@ -444,8 +444,8 @@ codegen-units = 2
 
 | Metric | Value | Source of truth |
 |--------|-------|-----------------|
-| `#[cube(launch_unchecked)]` count in `crates/kernels/` | **22** | `find crates/kernels -name '*.rs' \| xargs grep -h '#\[cube(launch'` |
-| All 22 are in | `crates/kernels/math/` | All `(launch_unchecked)` sites are `dft_quantities.rs:4`, `erf.rs:2`, `piecewise.rs:2`, `polynomials.rs:2`, `powers.rs:9`, `spin.rs:3` |
+| `#[cube(launch_unchecked)]` count in `crates/kernels/` (pre-Phase-11) | **22** — **NOT a Phase-11 target; see D-13** | `find crates/kernels -name '*.rs' \| xargs grep -h '#\[cube(launch'` |
+| All 22 are in | `crates/kernels/math/` | `dft_quantities.rs:4`, `erf.rs:2`, `piecewise.rs:2`, `polynomials.rs:2`, `powers.rs:9`, `spin.rs:3`. **NOTE (2026-05-15):** measured on the pre-collapse tree whose dispatch never compiled. The Phase-11 P11-INV-5 target is the **D-13 per-design budget** (one launch wrapper per routed `(functional, output)`; no unrouted kernel launchable; `math/` ≤22), NOT a flat count. |
 | Plain `#[cube]` count in `crates/kernels/` | **3,911** | `find crates/kernels -name '*.rs' \| xargs grep -h '^\s*#\[cube\]'` |
 | Files >5K lines (Phase 11 target = 0) | **237** | `find crates/kernels -name '*.rs' -exec wc -l {} + \| awk '$1 > 5000' \| wc -l` |
 | Largest file (Phase 11 target = ≤5000) | **16,703 lines** | `mgga-2/src/mgga_c_b94/kxc_pol.rs` |
@@ -579,7 +579,7 @@ So Phase 11 builds the new ABI from scratch (CSE-aware tuple-returning `<F: Floa
 | P11-INV-2 | All `crates/kernels/**/*.rs` are ≤5000 lines | smoke | `find crates/kernels -name '*.rs' -exec wc -l {} + \| awk '$1 > 5000 && $2 != "total"' \| wc -l` (must equal 0) | ❌ Wave 0 needs `tools/audit_kernel_size.py` |
 | P11-INV-3 | `cargo build --workspace` succeeds | smoke | `cargo build --workspace` (under D-08/D-09 envelope) | ✅ via cargo |
 | P11-INV-4 | Oracle parity 1e-12 on energy + derivatives | unit + integration | `cargo test -p libxc_rs-verify -- --test-threads=1` | ✅ existing tests; add Phase 11 sweep file |
-| P11-INV-5 | `#[cube(launch_unchecked)]` count ≤ 22 (baseline) | smoke | `find crates/kernels -name '*.rs' \| xargs grep -h '#\[cube(launch' \| wc -l` | ❌ Wave 0 needs `tools/audit_cube_launch.sh` |
+| P11-INV-5 | **(REVISED — D-13)** Launch surface matches the per-functional design: exactly one `#[cube(launch_unchecked)]` entry per routed `(functional, output)`; no **unrouted** kernel launchable; `crates/kernels/math/` ≤22. NOT a flat count. | smoke | `bash tools/audit_cube_launch.sh` (rewritten per D-13 in the replanned 11-03) | ✅ `tools/audit_cube_launch.sh` exists (Wave 0); **rewritten** in replanned 11-03 |
 | P11-INV-6 | Pipeline idempotent (re-run produces no diff) | integration | `tools/test_idempotency.sh` (proposed) | ❌ Wave 0 needs `tools/test_idempotency.sh` |
 
 ### Sampling Rate
@@ -592,7 +592,7 @@ So Phase 11 builds the new ABI from scratch (CSE-aware tuple-returning `<F: Floa
 
 - [ ] `tools/audit_kernel_size.py` — fails non-zero if any `crates/kernels/**/*.rs` > 5000 lines (covers P11-INV-2)
 - [ ] `tools/audit_subcrate_collapse.sh` — fails non-zero if any `crates/kernels/{family}-N` dirs exist (covers P11-INV-1)
-- [ ] `tools/audit_cube_launch.sh` — fails non-zero if `#[cube(launch_unchecked)]` count exceeds 22 (covers P11-INV-5)
+- [ ] `tools/audit_cube_launch.sh` — Wave 0 built it as a flat `≤23` count check; **per D-13 (2026-05-15) it is rewritten in the replanned 11-03** to assert the per-design budget (one launch wrapper per routed `(functional, output)`; no unrouted kernel launchable; `math/` ≤22) (covers revised P11-INV-5)
 - [ ] `tools/test_idempotency.sh` — runs the splitter twice, diffs the tree, fails on diff (covers P11-INV-6)
 - [ ] `verify/tests/parity_phase11.rs` — modeled on `parity_phase09.rs`; covers a curated smoke set + the worst-case functionals (mgga_c_revtpss, mgga_c_kcisk, mgga_c_b94, mgga_x_r4scan)
 - [ ] Spike test: `verify/tests/spike_tuple_return_cube.rs` — smallest possible `#[cube] fn f<F: Float>(x: F, y: F) -> (F, F) { (x + y, x - y) }` + launch + assert. RUNS FIRST IN PHASE 11.

@@ -90,6 +90,15 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 ### Build verification is not a phase gate (NEW 2026-05-14)
 - **D-12:** `cargo build --workspace` is **currently OOMing and is NOT a gate** for the restructure work. The per-functional subcrate isolation (D-10) IS the structural fix for the OOM. During iteration, build verification is **per-subcrate** (`cargo build -p libxc-kernel-<func>`) and incremental against the cached target dir (D-09). A whole-workspace build is not expected to pass until enough subcrates are populated and the dispatch tree is regenerated; even then it is verified incrementally, not as a single-invocation gate. The original ROADMAP success criterion #4 (`cargo build --workspace` succeeds) is reinterpreted accordingly — see the re-plan note at the end of this file.
 
+### P11-INV-5 redefined — launch-surface invariant for the per-functional design (NEW 2026-05-15)
+- **D-13:** P11-INV-5's original form (`#[cube(launch_unchecked)]` count ≤ 23 in `crates/kernels/`) is **unsatisfiable** against the D-10b dispatch design and is **revised**. Root cause: the dispatch macros (`ten_arm_dispatch_gga!`, `mgga_zero_scalar_unpol_dispatch!`), preserved verbatim per D-10b, call `.launch_unchecked()` per `(functional × output-module)` — so every routed entry kernel MUST be `#[cube(launch_unchecked)]` (~1677 total: ~168 routed functionals × ~10 output modules). The ≤22/23 baseline was measured on the pre-Phase-11 numbered-subcrate tree whose dispatch layer never compiled (Blocker B1) — it was never a working reference point. **Resolution (user decision 2026-05-15, replan of 11-03..06): keep the dispatch macros as-is (D-10b honored); redefine the invariant AND rewrite `tools/audit_cube_launch.sh` to a per-design budget:**
+  - Every **routed** functional has exactly one `#[cube(launch_unchecked)]` entry kernel per emitted output module — no more, no fewer than the routing table (`tools/kernel_routing.py`) dictates.
+  - No **unrouted** functional kernel is launchable — the `kernel_routing.py` "is routed?" gate still demotes unrouted entry kernels to plain `#[cube]` (the §4 anti-pattern fix from quick task 260512-q01 stands).
+  - `crates/kernels/math/` `#[cube(launch_unchecked)]` count stays **≤ 22** (unchanged — Phase 11 MUST NOT add launchables to `math/`).
+  - The rewritten `audit_cube_launch.sh` asserts these three conditions, NOT a flat `≤23` count.
+  - **Why this is sound under D-10:** the `cubecl_macro_fanout_manual.md` §5/§19 fan-out warning is about launch surface *within one compilation unit*. After the D-10 per-functional-subcrate restructure, each subcrate holds only its own ~10 launch wrappers and compiles independently under `jobs = 1` — the ~1677 never expand in one rustc invocation. Per-functional subcrates are themselves the structural mitigation P11-INV-5 was guarding for.
+  - **Rejected:** redesigning the dispatch into manual §5/§19 generic-launch kernels + `#[comptime]` functional/output selection (would satisfy `≤23` as-is, but requires revising D-10b's preserve-the-macros mandate, re-researching the generic-launch architecture, and reworking the translators' launch policy + `emit.py` + both dispatch generators — disproportionate when per-functional subcrates already neutralize the cost).
+
 ### Claude's Discretion
 - **Subcrate package naming.** Recommended: follow the existing `libxc-kernel-*` convention — package `libxc-kernel-<func>` (e.g. `libxc-kernel-gga_c_acgga`), lib name `libxc_kernel_<func>`. Planner confirms the exact spelling (hyphen vs underscore handling in the package name) after reading the current numbered-subcrate `Cargo.toml` naming.
 - Internal structure of the CSE pass (Maple AST walker vs post-translation Rust AST walker vs Python-side intermediate IR). The decision is "CSE-aware" — implementation surface is left to the planner + phase researcher.
@@ -222,5 +231,28 @@ The planner must also flag, for ROADMAP correction:
 
 ---
 
+## Re-plan Note (2026-05-15)
+
+Phase 11 paused mid-execution at plan **11-03 Task 2** (`.continue-here.md`): the
+per-functional dispatch design (D-10b — dispatch macros preserved verbatim, calling
+`.launch_unchecked()` per `(functional × output)`) is **mathematically incompatible**
+with P11-INV-5's original `≤23` flat count — `audit_cube_launch.sh` reports 1677.
+The user's resolution is **D-13** above: keep the macros, redefine the invariant +
+rewrite the audit to a per-design budget. **Plans 11-03..06 must be regenerated** to
+reflect D-13:
+- **11-01, 11-02** stay — executed; their deliverables survive D-13 (11-02's `emit.py`
+  routing-aware launch policy is correct as-is; only the *audit* and the *invariant
+  definition* change).
+- **11-03** — Task 1 (clean-slate delete + 266-subcrate regen + root manifest rewrite)
+  is committed (`95727cb36`, `97d6347be`) and its acceptance criteria re-verified;
+  the replan preserves it. Task 2 (dispatch regen) has sound WIP at `c3fba8089` the
+  replan can build on. The replan must add: rewrite `tools/audit_cube_launch.sh` per
+  D-13, and make the revised P11-INV-5 the gate (not the old `≤23`).
+- **11-04, 11-05, 11-06** — regenerated; every `P11-INV-5` reference updated to the
+  D-13 form; 11-06's close-out also corrects `11-BASELINE.md` and `11-VALIDATION.md`
+  P11-INV-5 rows.
+
+---
+
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13)*
