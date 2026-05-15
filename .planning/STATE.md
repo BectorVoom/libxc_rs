@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing Phase 11 — plan 11-03 complete; next is 11-04
-stopped_at: Phase 11-03 complete — D-13 audit_cube_launch.sh rewritten; dispatch tree verified deterministic; rustc --extern path-resolution gate passed; Blocker B1 closed. Next: 11-04.
-last_updated: "2026-05-15T02:57:00.264Z"
-last_activity: 2026-05-15
+status: Phase 11 PAUSED at 11-04 Task 1A — architectural blocker, replan required
+stopped_at: 11-04 Task 1A landed (`39eb75f93` narrowed `verify/` dev-deps per D-05). Halted at Task 1B's per-`-p` compile gate. Spike + q01 (`5c379dc25` — three emit fixes in `tools/translate_v2/`) revealed a deeper D-02 incompatibility: `crates/kernels/math/src/` has 38 concrete-f64 helpers (`piecewise3`, `pow_1_3`, `f64::sqrt`, …), 0 generic over `<F: Float>`. Generated chunks emit `<F: Float>` per D-02 but call those f64 helpers — CubeCL 0.10 does not coerce. 11-01's D-02 spike validated 2-tuple bare arithmetic, never a helper call. Phase 11 needs replan with "one kernel compiles end-to-end + 1e-12 parity" as the entry gate. Handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`. Resume with `/gsd-plan-phase 11`.
+last_updated: "2026-05-15T15:00:00.000Z"
+last_activity: 2026-05-15 -- Phase 11 paused at 11-04 Task 1A; D-02 vs `crates/kernels/math/src/` helper-layer architectural blocker surfaced; q01 commit `5c379dc25` (three emit fixes) preserved as forward groundwork; replan required
 progress:
   total_phases: 11
   completed_phases: 6
