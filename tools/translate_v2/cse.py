@@ -29,7 +29,10 @@ import re
 CHUNK_MAX_LINES = 4500          # leave headroom vs the 5000 hard cap (D-LOCK-B)
 MIN_REVERSE_DEPS = 5            # natural-breakpoint reverse-dep threshold
 MIN_CHAIN_LENGTH = 50           # min def-use chain span before a breakpoint counts
-MAX_TUPLE_ARITY = 16            # cubecl-macros tuple arity cap (drop to 8 if needed)
+MAX_TUPLE_ARITY = 12            # CubeCL 0.10 CubeType derive ceiling (tuples <=12)
+                                # Verified 2026-05-15 via E0277 against 13/14/15-tuples
+                                # in 19 subcrates (11-04 Task 1B halt). Do NOT raise
+                                # above 12 without re-validating CubeType implementations.
 
 
 @dataclass

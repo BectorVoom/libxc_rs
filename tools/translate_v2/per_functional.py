@@ -61,6 +61,36 @@ _LOAD_STRIDE = {"rho": {"lda": 2, "gga": 2, "mgga": 2},
 _IDENT_RE = re.compile(r'\b([A-Za-z_]\w*)\b')
 _ASSIGN_RE = re.compile(r'^\s*(\w+)\s*=\s*(.*)$')
 
+# CubeCL 0.10 fix #2 — chunk bodies emit `<F: Float>` generic code; raw f64
+# literals do NOT auto-coerce to F under `#[cube]` (E0277 "Mul<F> for {float}").
+# This regex matches every f64 literal token in a translated Rust expression so
+# we can wrap each as `F::new(<lit>)`. Spec:
+#   * mandatory decimal point — pure-integer literals (`0`, `2`) used as
+#     u32/usize args or as identifier suffixes MUST NOT be wrapped, and they
+#     have no dot.
+#   * optional exponent — maple2c emits `0.21687e-1` style scientific notation.
+#   * the `(?<![A-Za-z_\d.])` / `(?![A-Za-z_\d.])` manual boundaries refuse to
+#     bite into an identifier like `param_cx_0` and refuse to match the trailing
+#     exponent of `0.5e2` as a second literal.
+# Validated 2026-05-15 against the spike file `crates/kernels/math/tests/
+# spike_cse_emit_q01.rs` (Q4a/b/c) and the q01 canary set.
+_F64_LITERAL_RE = re.compile(
+    r'(?<![A-Za-z_\d.])(\d+\.\d+(?:[eE][+-]?\d+)?)(?![A-Za-z_\d.])'
+)
+
+
+def _wrap_f64_literals(rust_expr: str) -> str:
+    """Wrap every f64 literal token in ``rust_expr`` as ``F::new(<lit>)``.
+
+    This is the q01 CubeCL 0.10 Fix #2 emit pass — applied to chunk-body RHS
+    expressions only (the flat `#[cube]` path keeps using concrete f64 typing
+    and so does NOT call this). Pure-integer literals (`0`, `2`) are left
+    untouched because they appear as `u32`/`usize` arguments to cube builtins
+    and the like. Already-wrapped `F::new(...)` are not re-wrapped because the
+    chunk-body emit pipeline never produces them upstream.
+    """
+    return _F64_LITERAL_RE.sub(lambda m: f"F::new({m.group(1)})", rust_expr)
+
 
 @dataclass
 class FamilyAdapter:
@@ -214,6 +244,11 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             referenced.update(_IDENT_RE.findall(rust_expr))
             if var in ch.inputs:
                 continue
+            # q01 Fix #2: wrap f64 literals as F::new(<lit>) so they coerce
+            # against the chunk's generic `<F: Float>` parameters under
+            # CubeCL 0.10. See _wrap_f64_literals for the regex spec; the flat
+            # `#[cube]` path stays on concrete f64 and does NOT wrap.
+            rust_expr = _wrap_f64_literals(rust_expr)
             body.append(f"    let {var} = {rust_expr};")
         ambient_args = sorted(i for i in (referenced & ambient_pool)
                               if i not in defined_all)
@@ -228,9 +263,21 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             if ov in chunk_defined and ov not in out_vars:
                 out_vars.append(ov)
         sig_in = ", ".join(f"{a}: F" for a in in_args)
-        comma = "," if len(out_vars) == 1 else ""
-        ret = "(" + ", ".join("F" for _ in out_vars) + comma + ")"
-        ret_expr = "(" + ", ".join(out_vars) + comma + ")"
+        # q01 Fix #3: emit `-> F` (scalar) + bare-ident return when there is
+        # exactly one output. CubeCL 0.10's macro return-type inference fails on
+        # ANY `let` inside `-> (F,)` (E0308 "expected (NativeExpand<F>,), found
+        # NativeExpand<F>"). The wrapper callsite is updated to match — single-
+        # output chunks return scalar F, so the wrapper destructures with plain
+        # `let var = chunk(...);` instead of `let (var,) = chunk(...);`. The
+        # multi-output path keeps the tuple ABI as before.
+        if len(out_vars) == 1:
+            ret = "F"
+            ret_expr = out_vars[0]
+            wrapper_bind = out_vars[0]
+        else:
+            ret = "(" + ", ".join("F" for _ in out_vars) + ")"
+            ret_expr = "(" + ", ".join(out_vars) + ")"
+            wrapper_bind = ret_expr
         chunk_srcs.append(
             f"//! {func_name.upper()} {level} {spin} — {output} part "
             f"{part_idx} ({suffix}) CSE chunk {ch.index}/{len(chunks)} "
@@ -242,7 +289,7 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             + ("\n".join(body) + "\n" if body else "")
             + f"    {ret_expr}\n}}\n"
         )
-        wrapper_calls.append((ret_expr, chunk_fn, ", ".join(in_args)))
+        wrapper_calls.append((wrapper_bind, chunk_fn, ", ".join(in_args)))
 
     wrapper = _build_chunk_wrapper(adapter, func_name, level, spin, output,
                                    part_out_bufs, output_writes, wrapper_calls,
