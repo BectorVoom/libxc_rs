@@ -8,12 +8,38 @@ anyhow = "1.0.100"
 libxc-sys = { path = "../libxc-sys" }
 libxc_rs = { path = ".." }
 
+# Dev-dep narrowing per Phase 11 D-05 (11-CONTEXT.md): verify/ must depend on
+# INDIVIDUAL per-functional kernel subcrates, NEVER on umbrella/family kernel
+# crates. Wave 0 deviation D1 (11-01-SUMMARY.md) showed that umbrella
+# `libxc-kernel-{lda,mgga}` dev-deps OOM-killed the verify build before any
+# test compiled, even on a trivial standalone test. The umbrella family crates
+# were deleted by 11-03's D-10a clean-slate restructure; this manifest now
+# lists only the per-functional kernels that `verify/tests/parity_phase11.rs`
+# exercises (the union of `PHASE11_SMOKE` + `PHASE11_WORST_CASE`). Other parity
+# tests (parity_phase09.rs, *_oracle.rs) route through `libxc_rs::eval::dispatch_*`
+# or `libxc_rs::kernel::...` re-exports and so do NOT need direct kernel dev-deps.
 [dev-dependencies]
 approx = "0.5.1"
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
-# The `libxc-kernel-{lda,mgga}` family-crate dev-deps were removed by Phase 11
-# plan 11-03: the D-10a restructure deleted those family crates, so the dead
-# path-deps left the whole workspace unloadable. Plan 11-04 (D-05) re-adds the
-# narrowed per-functional `libxc-kernel-<func>` dev-deps that parity_phase11.rs
-# actually exercises — the structural fix for the verify/ OOM.
 
+# PHASE11_SMOKE — 3 LDA + 3 GGA + 4 MGGA (D-05 narrowed witness; 11-04)
+libxc-kernel-lda_x = { path = "../crates/kernels/lda/lda_x" }
+libxc-kernel-lda_c_pw = { path = "../crates/kernels/lda/lda_c_pw" }
+libxc-kernel-lda_xc_teter93 = { path = "../crates/kernels/lda/lda_xc_teter93" }
+libxc-kernel-gga_x_pbe = { path = "../crates/kernels/gga/gga_x_pbe" }
+libxc-kernel-gga_c_pbe = { path = "../crates/kernels/gga/gga_c_pbe" }
+libxc-kernel-gga_x_b88 = { path = "../crates/kernels/gga/gga_x_b88" }
+libxc-kernel-mgga_x_lta = { path = "../crates/kernels/mgga/mgga_x_lta" }
+libxc-kernel-mgga_x_tpss = { path = "../crates/kernels/mgga/mgga_x_tpss" }
+libxc-kernel-mgga_x_pkzb = { path = "../crates/kernels/mgga/mgga_x_pkzb" }
+libxc-kernel-mgga_x_th = { path = "../crates/kernels/mgga/mgga_x_th" }
+
+# PHASE11_WORST_CASE — 6 MGGA (Phase 11 plan 11-05 closes these; #[ignore]'d today)
+# NOTE: parity_phase11.rs lists `mgga_xc_b97m_v` (id 254) — the on-disk
+# package is `libxc-kernel-mgga_xc_b97mv` (no underscore between b97m and v).
+libxc-kernel-mgga_c_revtpss = { path = "../crates/kernels/mgga/mgga_c_revtpss" }
+libxc-kernel-mgga_c_kcisk = { path = "../crates/kernels/mgga/mgga_c_kcisk" }
+libxc-kernel-mgga_c_b94 = { path = "../crates/kernels/mgga/mgga_c_b94" }
+libxc-kernel-mgga_x_r4scan = { path = "../crates/kernels/mgga/mgga_x_r4scan" }
+libxc-kernel-mgga_x_br89_explicit = { path = "../crates/kernels/mgga/mgga_x_br89_explicit" }
+libxc-kernel-mgga_xc_b97mv = { path = "../crates/kernels/mgga/mgga_xc_b97mv" }
