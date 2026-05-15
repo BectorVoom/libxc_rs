@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Phase 11 context REVISED — per-functional subcrates unification target; D-04/D-05/D-10/D-LOCK-A revised, D-11/D-12 added; plans 11-02..06 stale, replan required
-last_updated: "2026-05-14T08:45:44.875Z"
-last_activity: 2026-05-14
+status: Phase 11 PAUSED — replan required
+stopped_at: Plan 11-03 Task 2 paused — P11-INV-5 (≤23 launchables) is unsatisfiable against the plan's mandated per-functional .launch_unchecked() dispatch design. Plan-level contradiction; user chose to replan. WIP committed c3fba8089. See .planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md
+last_updated: "2026-05-15T00:00:00.000Z"
+last_activity: 2026-05-15 -- Phase 11 paused at 11-03 Task 2 for replan (P11-INV-5 contradiction)
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,10 +25,14 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — EXECUTING
-Plan: 2 of 6
+Phase: 11 (splitter-v2-unified-5k-cap) — PAUSED (replan required)
+Plan: 11-03 of 6 — Task 1 ✅ committed; Task 2 ⚠️ partial WIP (`c3fba8089`), paused
+Blocker: P11-INV-5 vs the per-functional dispatch design is a plan-level
+contradiction — `audit_cube_launch.sh` = 1677 vs baseline 23, and ≤23 cannot
+coexist with the preserve-the-dispatch-macros mandate. Replan via
+`/gsd-plan-phase 11`. Full handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-14
+Last activity: 2026-05-14 -- Phase 11 execution started
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
