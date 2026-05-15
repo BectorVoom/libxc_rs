@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 — ready to execute (replanned for D-13)
-stopped_at: Replan complete. P11-INV-5 contradiction resolved by D-13 (11-CONTEXT.md) — a per-design launch budget replaces the unsatisfiable flat ≤23. Plans 11-03..06 regenerated, plan-checker VERIFICATION PASSED; 11-01/11-02 preserved. Resume with /gsd-execute-phase 11 (wave 2, plan 11-03 — Task 1 is a verify-only checkpoint of committed 95727cb36+97d6347be; WIP c3fba8089 carried into Task 3).
-last_updated: "2026-05-15T12:00:00.000Z"
-last_activity: 2026-05-15 -- Phase 11 replanned for D-13 (P11-INV-5 → per-design launch budget); plans 11-03..06 regenerated, verification passed
+status: Executing Phase 11 — plan 11-03 complete; next is 11-04
+stopped_at: Phase 11-03 complete — D-13 audit_cube_launch.sh rewritten; dispatch tree verified deterministic; rustc --extern path-resolution gate passed; Blocker B1 closed. Next: 11-04.
+last_updated: "2026-05-15T02:57:00.264Z"
+last_activity: 2026-05-15
 progress:
   total_phases: 11
   completed_phases: 6
   total_plans: 50
-  completed_plans: 38
-  percent: 76
+  completed_plans: 39
+  percent: 78
 ---
 
 # Project State
@@ -25,17 +25,27 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — ready to execute (replanned 2026-05-15)
-Plan: 11-03 of 6 next — Task 1 verify-only checkpoint (re-confirms committed
-`95727cb36`+`97d6347be`); Task 2 rewrites `audit_cube_launch.sh` to the D-13
-per-design budget; Task 3 completes the dispatch regen on WIP `c3fba8089`.
-Resolved: P11-INV-5 contradiction — D-13 (11-CONTEXT.md) keeps the dispatch
-macros and redefines the invariant to a per-design launch budget (one
-launch_unchecked per routed (functional,output); no unrouted kernel
-launchable; `crates/kernels/math/` ≤22). Plans 11-03..06 regenerated;
-plan-checker VERIFICATION PASSED. Handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`
+Phase: 11 (splitter-v2-unified-5k-cap) — EXECUTING
+Plan: 4 of 6 (11-03 just completed — D-13 audit + dispatch tree verification)
+
+Plan 11-03 outcome (2026-05-15):
+- Task 1: verify-only re-confirmation of `95727cb36`+`97d6347be` (clean-slate
+  266-subcrate restructure) — approved by user; no commit.
+- Task 2 (`eea58fed7`): rewrote `tools/audit_cube_launch.sh` to the D-13
+  per-design launch budget (routed one-per-output, unrouted-zero,
+  math/src/ ≤22). PASS: 1654 routed pairs, 0 unrouted launchables, math=22.
+- Task 3 (`f820fae90` --allow-empty): re-ran the three dispatch/re-export
+  generators — zero git diff (deterministic against committed WIP
+  `c3fba8089`). `audit_dispatch_tree.sh` exit 0; 0 batchN refs survive.
+  Path-resolution gate ran at RUNG 2: built `libxc-kernel-lda_c_lp96`,
+  `libxc-kernel-gga_x_lb`, `libxc-kernel-mgga_xc_lp90`, then `rustc --extern`
+  type-checked the deep `crate::kernel::{family}::<func>::<output>::<fn>`
+  re-export paths — exit 0. Blocker B1 closed.
+
+Wave 2 is finished under D-13. Next plan: 11-04.
+
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-15 -- Phase 11 replanned for D-13; plans 11-03..06 regenerated, verification passed
+Last activity: 2026-05-15 — Phase 11-03 complete
 
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
@@ -86,6 +96,7 @@ Outstanding: re-run `/gsd-verify-work 5` to upgrade `05-VERIFICATION.md`
 | Phase 08 P08 | 0min | 3 tasks | 1088 files |
 | Phase 04 P02 | 33 min | 3 tasks | 10 files |
 | Phase 04 P03 | 31 min | 3 tasks | 24 files |
+| Phase 11 P03 | 25min | 3 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -107,6 +118,8 @@ Recent decisions affecting current work:
 - [Phase 04]: GGA dispatch lives in src/eval/gga_dispatch/ as a per-batch submodule tree (15 batch files); ten_arm_dispatch_gga! macro mirrors the LDA shape for exc-bearing zero-scalar kernels; MGGA plan 04-04 will mirror this layout.
 - [Phase 04]: GgaFunctional enum enumerates 105 routable GGA functionals (skipping gga_x_herman id 104 which is registry-removed); 11 template kernels map to a single primary libxc id pending per-variant ext_params plumbing.
 - [Phase 04]: Polarized GGA kernel oracle parity gated softly (eprintln diff list, no panic) because ~1.33x vrho mismatch is a pre-existing translated-pol-kernel bug orthogonal to dispatch wiring — see deferred-items.md D-04-03-A.
+- [Phase 11-03]: D-13 launch budget — audit_cube_launch.sh asserts routed (functional,output) one-per-output, unrouted-zero, math/src/ <=22; flat <=23 count form retired
+- [Phase 11-03]: path-resolution gate ran at RUNG 2 (build 3 spot-check routed subcrates + rustc --extern the deep re-export paths); RUNG 1 (cargo check -p libxc_rs) would compile all 268 kernel deps (D-12 OOM risk)
 
 ### Pending Todos
 
@@ -138,6 +151,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-14T06:51:12.378Z
+Last session: 2026-05-15T02:55:30.719Z
 Stopped at: Phase 11 context REVISED — per-functional subcrates unification target; D-04/D-05/D-10/D-LOCK-A revised, D-11/D-12 added; plans 11-02..06 stale, replan required
-Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
+Resume file: None
