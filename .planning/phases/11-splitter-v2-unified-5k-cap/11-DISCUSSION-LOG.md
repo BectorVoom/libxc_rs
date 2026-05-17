@@ -235,4 +235,183 @@ Two structural clarifications were asked:
 
 - User rejected the first gray-area AskUserQuestion batch to inject a new requirement, then rejected the reformulated questions once for clarification. After the clarification was given, two structural questions + the 5K-cap question + the gray-area multiselect were batched into one 4-question turn; the four gray-area deep-dives were batched into a second 4-question turn. All recommended options were selected.
 - The plans-exist gate was not asked as a separate question — given the magnitude of the D-10 rewrite, replanning 11-02..06 is a stated consequence (see CONTEXT.md re-plan note), surfaced as the primary next step.
+
+---
+
+# Discussion: 2026-05-15 (second pause — D-14..D-17)
+
+**Trigger:** Phase 11 paused mid-execution at plan 11-04 Task 1A. `.continue-here.md` documented a four-layer architectural blocker, with layer 4 (math/src/ helper concreteness vs `<F: Float>` chunks) identified as a planner-level reset event. User invoked `/gsd-discuss-phase 11` to lock D-02 disposition before replanning.
+
+**Areas discussed:** D-02 ABI fate, Compile-first entry gate, Translator emit surface vs IR pass, Replan boundary, In-flight artifact disposition.
+
+---
+
+## Pre-discussion routing
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Update CONTEXT.md focused on D-02 + replan blockers | Re-open the gray areas raised by the blocker; carry forward unchanged decisions from existing CONTEXT.md | ✓ |
+| View existing CONTEXT.md first | Display current decisions, then choose Update / Skip | |
+| Full re-discuss from scratch | Treat as fresh phase | |
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Continue and replan after | Capture new context, then `/gsd-plan-phase 11` to regenerate 11-04..11-06 against the new D-02 disposition | ✓ |
+| View existing plans first | List/skim 11-04, 11-05, 11-06 PLAN.md before deciding scope | |
+| Cancel — context is fine, just replan | Skip discuss-phase entirely | |
+
+---
+
+## D-02 ABI fate
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Option C — generic chunks, cast at helper call sites | Chunks stay <F: Float>; translator wraps every helper call as `F::new(pow_1_3(F::cast_into(x)))`. ~581k call-site wraps. Zero math/src/ change. | |
+| Option B — concrete-f64 chunk bodies, generic launch wrappers | Drop F-generic from chunk bodies; cast at launch wrapper. Loses chunk-level genericity. | |
+| Option A — make 38 math helpers generic over <F: Float> | Refactor all 38 + propagate F::new() wraps internally. Manual §6 says yes. | |
+| Spike first — build A and C on canary, pick after measuring | Lower-risk lock-in. ~2 days spike budget. Option B excluded from race. | ✓ |
+
+**User's choice:** Spike first — A vs C race, B excluded.
+**Notes:** Establishes D-14. The 11-01 D-02 spike was insufficient (never exercised helper calls); the new spike's pass criteria force compile + parity + idempotency together.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Regex/textual pass in per_functional.py | Extend q01's `_wrap_f64_literals` regex | |
+| AST-level pass in cse.py | F-coercion visitor in cse.py; for C wraps helper calls, for A barely changes | ✓ |
+| Defer to planner | Decide once D-02 is locked | |
+
+**User's choice:** AST-level cse.py.
+**Notes:** D-16. q01's regex retires; one AST pass handles literal-wrap (Family A residual subsumed) and helper-call-wrap (under Option C) or stays minimal (under Option A).
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| lda_x | Simplest baseline; ~1-2 helper calls; doesn't exercise CSE/5K cap/wide-tuple | |
+| gga_x_pbe | Canonical mid-complexity; multi-output; exercises F↔f64 boundary | |
+| mgga_c_b94 (deferred) | 16,703-line kxc_pol.rs stress; CSE + wide-tuple + helper-call all at once. ~20+ min compile under jobs=1. Deferred → parity needs one-shot bypass. | ✓ |
+| Both lda_x AND gga_x_pbe in sequence | Two-tier spike | |
+
+**User's choice:** mgga_c_b94 (deferred).
+**Notes:** Most aggressive stress-test choice. Implication flagged for planner: parity step needs one-shot `is_deferred` bypass (NOT a permanent unfilter — D-11 stays).
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Compile + parity + lines-touched | Objective metrics; lines-touched delta as tiebreaker | |
+| Compile + parity only | Simpler; lacks cost comparison | |
+| Compile + parity + idempotency | Strictest gate; idempotency = D-LOCK-D anyway | ✓ |
+
+**User's choice:** Compile + parity + idempotency.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| 1 day per option (2 days total) | Default to other option if one fails within budget; escalate to third discuss-phase if both fail | ✓ |
+| Half a day per option (1 day total) | Faster; risk on the trickier option (A's br89 Brent refactor) | |
+| Open-ended | No cap; risks spike consuming the phase | |
+
+**User's choice:** 2-day time-box.
+
+---
+
+## Compile-first entry gate
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Same canary (mgga_c_b94) for spike + gate | Spike outcome IS gate's first deliverable | ✓ |
+| Different canary — spike on mgga_c_b94, gate on gga_x_pbe | Two-stage validation | |
+| Three-stage — spike → lda_x → gga_x_pbe | Strongest pre-sweep confidence | |
+
+**User's choice:** Same canary.
+**Notes:** D-15. Trades the routed-functional re-validation for simplicity; planner notes the deferred-bypass requirement for the parity leg.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Kernel subcrate + dispatch + verify integration | All three legs green | ✓ |
+| Kernel subcrate + verify integration only | Skips standalone libxc_rs dispatch build | |
+| Kernel subcrate compile only | Same granularity as 11-04 Task 1A; weak — wouldn't have caught the blocker | |
+
+**User's choice:** Full three-leg gate.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Stop and replan — third discuss-phase pass | Each gate failure is a planner-level reset event | ✓ |
+| Iterate within spike plan — N retries | Lower context-switch overhead; risk: retries compound on the wrong ABI | |
+| Hybrid — retries inside spike, force replan if both A and C fail | Middle path | |
+
+**User's choice:** Stop and replan on failure.
+**Notes:** Codifies AP-6: "don't grind on the same broken approach without a planner-level reset."
+
+---
+
+## Translator emit surface (refinement)
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| All 38 helpers in one wave + 165-error test drift fix | Single coherent change; bigger diff | ✓ |
+| Tiered — powers/piecewise → dft_quantities/spin/erf → br89/bessel/lambert_w | Smaller per-commit diffs; ~3x merge surface | |
+| Defer hard helpers — only refactor canary-touched | Risk: per-`-p` sweep stalls on unrefactored helpers | |
+
+**User's choice:** All 38 in one wave (if A wins).
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| cse.py AST visitor matches helper-call CallExpr | Allowlist of known helpers; F::cast_into in, F::new out | ✓ |
+| Hybrid — cse.py marks, emit.py renders | Cleaner separation of concerns | |
+| Allowlist vs comprehensive scan | Sub-decision | |
+
+**User's choice:** AST visitor with allowlist (if C wins).
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Subsume into AST F-coercion visitor | One pass handles literals + helper calls | ✓ |
+| Keep regex; extend to integer-mantissa + named consts | Cheaper; brittle | |
+| Defer to follow-up | Risk: sweep stalls on Family A sites not on canary | |
+
+**User's choice:** Subsume into AST visitor. q01's regex retires.
+
+---
+
+## Replan boundary
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Expand to 11-04..08 (5 plans) | spike → translator → regen+gate → sweep → close | ✓ |
+| Repurpose 11-04..06 (3 plans) | Each plan absorbs more work; coarser SUMMARYs | |
+| Hybrid — 11-04a/b/c + 11-05/06 unchanged | Sub-plans for spike/translator/gate; rest preserved | |
+
+**User's choice:** 5-plan expansion.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| Retroactive 11-04 SUMMARY for Task 1A, then renumber | 39eb75f93 documented standalone; forward work in 11-05.. | ✓ |
+| Roll Task 1A into new 11-04 as completed prereq | Cleaner forward narrative; loses traceability | |
+| Leave 11-04 PLAN.md as paused-partial; new plans use 11-04.1 etc. | Most faithful; confuses gsd-tools sequential expectation | |
+
+**User's choice:** Retroactive 11-04 SUMMARY + forward 11-05..08.
+
+| Option | Description | Selected |
+|--------|-------------|----------|
+| 11-06 (translator update) — co-locate with cse.py work | Math/src/ touches in one plan whether A or C wins | ✓ |
+| 11-05 (spike) — unblock spike's parity test | Grows spike scope to 2.5 days | |
+| 11-08 (close) — bundle with audit + ROADMAP edits | Math/src/ test suite stays red until close | |
+| Defer to parallel quick task | Parallel + jobs=1 RAM ceiling don't compose | |
+
+**User's choice:** 11-06 absorbs the 165 from_raw_parts API drift errors.
+
+---
+
+## In-flight artifact disposition (multi-select)
+
+| Item | Decision |
+|------|----------|
+| Commit `5c379dc25` (q01 emit fixes) | KEEP. MAX_TUPLE_ARITY=12 stays; single-output scalar return stays. The regex `_wrap_f64_literals` retires (superseded by D-16). |
+| Commit `39eb75f93` (verify dev-dep narrowing per D-05) | KEEP. Documented retroactively in 11-04 SUMMARY (D-17). |
+| math/src/ #[cfg(test)] from_raw_parts drift (165 errors, predates session) | ADDRESS in 11-06 (translator update plan). |
+| ROADMAP success criteria edits | EDIT in 11-08 close — criterion #1 per D-10, criterion #4 per D-12, NEW criterion per D-15 (compile-first entry gate). |
+
+---
+
+## Process notes (2026-05-15 second pause)
+
+- Two routing questions batched as a 2-question turn at the start. Three planning gray-areas batched as 4-question turns (Area 1: D-02 fate + emit surface; Area 1 follow-up: canary + metric + time-box; Area 2: gate canary relationship + scope + failure recovery; Area 3: A-refactor scope + C-implementation + Family A subsumption; Area 4: replan structure + 11-04 disposition + math/src/ drift slot).
+- All "Recommended" options were selected by the user except: (a) D-02 fate where the user picked "Spike first" over the recommended Option C — confirming the spike-first culture established by q01; (b) gate scope where the user picked the recommended three-leg gate.
+- Empirical inputs from `260515-q01` SPIKE-FINDINGS.md were treated as locked facts, not re-litigated: MAX_TUPLE_ARITY=12 cap, literal-coercion E0277, 1-tuple E0308, 38 concrete-f64 helpers, ~581k call sites.
 - New decisions added: D-11 (deferred-kernel handling), D-12 (build verification not a phase gate). Revised: D-04, D-05, D-10, D-10a, D-10b, D-LOCK-A.
