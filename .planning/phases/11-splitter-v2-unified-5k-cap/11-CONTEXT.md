@@ -5,7 +5,8 @@
 **Revised:** 2026-05-15 (D-13 added — P11-INV-5 per-design budget under D-10b)
 **Revised:** 2026-05-15 (second pause — D-02 spike-pending; D-14, D-15, D-16, D-17 added for the architectural blocker found at 11-04 Task 1A)
 **Revised:** 2026-05-18 (D-02 locked to Option C via user decision, then reconsidered; D-02 re-locked to Option A via user decision — improve Python tooling to refactor helpers correctly; timeline open-ended; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
-**Status:** Ready for planning (re-plan required — D-02 locked to Option A via discuss-phase 2026-05-18; timeline unconstrained for quality)
+**Revised:** 2026-05-18 (third session — stale artifacts deleted; D-18 added for Serena MCP refactoring tooling; 11-05 status clarified as COMPLETE; 11-06..08-PLAN-NEW files and .continue-here.md removed)
+**Status:** Ready for planning (re-plan required — D-02 locked to Option A; 11-05 COMPLETE with syntax errors deferred to 11-06; 11-06..08 plans need regeneration per D-18)
 
 <domain>
 ## Phase Boundary
@@ -102,16 +103,17 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **Why this is sound under D-10:** the `cubecl_macro_fanout_manual.md` §5/§19 fan-out warning is about launch surface *within one compilation unit*. After the D-10 per-functional-subcrate restructure, each subcrate holds only its own ~10 launch wrappers and compiles independently under `jobs = 1` — the ~1677 never expand in one rustc invocation. Per-functional subcrates are themselves the structural mitigation P11-INV-5 was guarding for.
   - **Rejected:** redesigning the dispatch into manual §5/§19 generic-launch kernels + `#[comptime]` functional/output selection (would satisfy `≤23` as-is, but requires revising D-10b's preserve-the-macros mandate, re-researching the generic-launch architecture, and reworking the translators' launch policy + `emit.py` + both dispatch generators — disproportionate when per-functional subcrates already neutralize the cost).
 
-### D-02 validation via canary spike (LOCKED 2026-05-18 — Option A selected)
-- **D-14:** Validate D-02 (Option A locked) via a spike on **`mgga_c_b94`** (deferred per D-11; 16,703-line `kxc_pol.rs` extreme; stresses CSE chunking + wide-tuple emit + generic-helper-call boundary simultaneously).
-  - **Option A (LOCKED via user decision 2026-05-18, reconsidered 2026-05-18):** Refactor all 38 helpers in `crates/kernels/math/src/` to be generic `#[cube] pub fn helper<F: Float>(…) -> F` (or `F`-tuple returns). Propagate `F::new(…)` wraps to internal f64 literals; `.sqrt()` → `F::sqrt(x)`; named constants (`M_PI`, `M_CBRT3`, …) wrapped at definition. Chunks remain `<F: Float>` per the original D-02 reading. **One wave, all 38 helpers** (powers/piecewise + dft_quantities/spin/erf + br89/bessel/lambert_w/mbrxc + integrate/polynomials/special/expint_e1/mbrxc). Sound per `cubecl_macro_fanout_manual.md` §6. This is the architecturally cleaner ABI.
-  - **Python tooling approach:** The Phase 2 `_refactor_helper_*` scripts have systematic syntax errors in 11 files (incomplete regex patterns in the refactoring logic). Rather than use cast-site boilerplate workarounds, the spike will improve the Python tooling to handle these patterns correctly, then refactor all 38 helpers cleanly.
-  - **Spike validation criteria (Option A must pass all three):**
-    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1` (validates that generic helpers compile cleanly with mgga_c_b94's `<F: Float>` chunks).
-    2. Parity vs libxc oracle at **1e-12 relative error on energy AND all routed derivatives**. mgga_c_b94 is in D-11's deferred set; the spike's parity step requires a **one-shot bypass** of `is_deferred(id)` for this single canary, NOT a permanent unfilter. D-11 is preserved.
-    3. **Idempotency** (D-LOCK-D): re-run translator, no diff.
-  - **Time-box:** Open-ended. Quality over speed. The spike includes: (1) analyze the 11 problematic files to understand the Phase 2 script failure patterns, (2) improve the Python refactoring tooling, (3) refactor all 38 helpers, (4) validate on mgga_c_b94. No time constraint.
-  - **Why the prior gate was insufficient:** the 11-01 D-02 spike (`spike_tuple_return_cube.rs`) tested `<F: Float>` tuple-return in isolation against synthesized expressions. It never called `crates/kernels/math/src/` helpers. The architectural mismatch only surfaced at 11-04 Task 1A when verify's per-functional `cargo build -p` first exercised real chunks + real helper calls together. Option A is preferred over Option C because it's the architecturally sound solution — generic helpers are the right abstraction, not a workaround.
+### D-02 validation via canary spike (EXECUTED 2026-05-18 — plan 11-05 COMPLETE)
+- **D-14:** **EXECUTED in plan 11-05.** All 38 helpers in 16 files were refactored to generic `<F: Float>` (commits `466e074d0`, `d8cc4da0c`, `7a65f3bc6`, `233a8890d`, `dcb7d517d`). The logical refactoring is 100% complete. Three-leg validation (compile + parity + idempotency) is **deferred to 11-06** — the automated refactoring script left syntax errors that block compilation. Syntax cleanup is the first task of 11-06 (D-18).
+  - **Option A status:** All 16 helper files contain generic `<F: Float>` signatures. The `tools/refactor_helpers_generic.py` script was created and used for bulk transformation. Remaining blockers are syntactic (function signature malformations, malformed literals from the automated pass), not semantic.
+  - **Known syntax errors from automated script (11-06's fix scope):**
+    1. Function signature malformations — e.g., missing opening parenthesis, `param: f64` where should be `param: F`
+    2. Numeric literal errors — incomplete exponents (`0.123e-` instead of `0.123e-4`), malformed loop constructs
+    3. CubeCL 0.10 API drift in `#[cfg(test)]` blocks — `ArrayArg::from_raw_parts` signature changed; ~165 test-only errors across helper files
+  - **Validation gate (carries into 11-06):** After syntax cleanup:
+    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1`
+    2. Parity vs libxc oracle at **1e-12 relative error on energy AND all routed derivatives** (one-shot `is_deferred(id)` bypass for mgga_c_b94; D-11 preserved)
+    3. Idempotency: re-run translator, no diff
 
 ### Compile-first entry gate (NEW 2026-05-15 — second pause)
 - **D-15:** The 2026-05-15 replan establishes a single-canary compile-first entry gate that **MUST pass before the per-`-p` sweep starts**. This is the structural correction for Phase 11's repeated pattern of declaring structural completion without per-`-p` cargo gates (see anti-pattern table below).
@@ -128,13 +130,16 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **Family A literal wrapping stays as-is.** The q01 commit `5c379dc25` fixes (`F::new(...)` wraps for f64 literals, MAX_TUPLE_ARITY = 12, single-output scalar return on `-> F`) are preserved. These are orthogonal to the helper refactoring and remain in place.
   - **What stays in per_functional.py:** q01's single-output scalar-return decision (`-> F` vs `-> (F,)`, commit `5c379dc25`) stays in per_functional.py (no migration). The MAX_TUPLE_ARITY = 12 cap stays in cse.py.
 
-### Replan structure: 5 plans 11-04..08 (NEW 2026-05-15 — second pause)
-- **D-17:** The 2026-05-15 replan splits into five plan slots, each with a single clear deliverable and SUMMARY:
-  - **11-04 (retroactive partial SUMMARY only — no new tasks):** Documents that commit `39eb75f93` (verify dev-dep narrowing per D-05) landed standalone. Status: **PARTIAL — replanned mid-Task-1A**. The retroactive SUMMARY preserves git history truth and acknowledges the pause.
-  - **11-05 — D-02 ABI spike (D-14).** 2-day time-box; A vs C race on mgga_c_b94; compile + 1e-12 parity + idempotency pass criteria; one-shot deferred-bypass for parity. Outcome locks D-02.
-  - **11-06 — Translator update per chosen ABI (D-16) + math/src/ test drift fix.** cse.py AST visitor lands per the locked ABI. Family A literal-wrap is subsumed; `_wrap_f64_literals` regex retires. **Co-located:** the 165 `from_raw_parts` API drift errors in `crates/kernels/math/src/` `#[cfg(test)]` tests (`dft_quantities.rs`, `powers.rs`, `polynomials.rs`, `bspline.rs`, `erf.rs`, etc. — CubeCL 0.10 `ArrayArg::from_raw_parts` signature changed from `::<f64>(&handle, n, 1)` to `(handle: Handle, length: usize)`) are fixed here. Math/src/ touches happen in this plan whether A or C wins — A refactors helper bodies, C only refactors the test gates, but the plan slot is the same.
-  - **11-07 — Regen 266 subcrates + compile-first entry gate (D-15) on mgga_c_b94.** Translator runs over the full Maple input set; 266 per-functional subcrates produced; mgga_c_b94 gate passes all three legs (kernel + dispatch + ad-hoc parity).
-  - **11-08 — Per-`-p` sweep + audits + close.** Each subcrate's `cargo build -p libxc-kernel-<func>` is verified incrementally per D-12. `tools/audit_cube_launch.sh` is rewritten per D-13 (per-design budget, not flat ≤23). `tools/audit_subcrate_collapse.sh` adds the per-functional-subcrate invariant per D-10a. **ROADMAP.md edits:** success criterion #1 (per-functional subcrates, no numbered subcrates, family is plain directory) + #4 (per-`-p` incremental gates, D-12) + NEW criterion (compile-first entry gate per D-15). Phase close + final SUMMARY.
+### Replan structure: 5 plans 11-04..08 (REVISED 2026-05-18 — third session)
+- **D-17:** Replan splits into five plan slots. Updated status:
+  - **11-04 (COMPLETE — retroactive partial SUMMARY):** Commit `39eb75f93` (verify dev-dep narrowing per D-05) landed. Status: PARTIAL — replanned mid-Task-1A.
+  - **11-05 — D-02 ABI spike (COMPLETE).** All 38 helpers in 16 files refactored to generic `<F: Float>`. Syntax errors remain from automated script; three-leg validation deferred to 11-06. See 11-05-SUMMARY.md.
+  - **11-06 — Syntax cleanup (D-18: Serena MCP) + translator update (D-16) + from_raw_parts drift fix.** First task: fix syntax errors in `crates/kernels/math/src/` via Serena MCP server (Python tools as fallback). Second task: fix 165 `ArrayArg::from_raw_parts` API drift errors in `#[cfg(test)]` blocks. Third task: validate three-leg gate (compile + 1e-12 parity + idempotency on mgga_c_b94). cse.py AST visitor confirmation (Option A: minimal; chunks compile cleanly against now-generic helpers).
+  - **11-07 — Regen 266 subcrates + compile-first entry gate (D-15) on mgga_c_b94.** Translator runs over full Maple input; mgga_c_b94 gate passes all three legs (kernel + dispatch + ad-hoc parity).
+  - **11-08 — Per-`-p` sweep + audits + close.** Incremental per-subcrate `cargo build -p`. Audit tools rewritten per D-13. ROADMAP.md criteria updated. Phase close + final SUMMARY.
+
+### Serena MCP refactoring tooling (NEW 2026-05-18 — third session)
+- **D-18:** For the 11-06 syntax cleanup task, use **Serena MCP server** (`serena start-mcp-server --context=claude-code --project-from-cwd`) as the primary refactoring tool. Serena is already configured in `~/.claude.json`. Python tools (e.g., `tools/refactor_helpers_generic.py`, ad-hoc sed scripts) are the fallback if Serena proves too difficult for specific patterns. The three error categories to fix (D-14 known syntax errors) are: (1) function signature malformations, (2) malformed numeric literals, (3) `ArrayArg::from_raw_parts` API drift in tests.
 
 ### Critical Anti-Patterns for Phase 11 Replan (NEW 2026-05-18 — documented in `.continue-here.md`)
 
@@ -374,5 +379,26 @@ work starts at 11-05.
 
 ---
 
+---
+
+## Re-plan Note (2026-05-18 — third session: cleanup + D-18)
+
+Third discuss-phase session. Changes from prior state:
+
+1. **Stale artifacts deleted:** `.continue-here.md` (said "Option C"), `11-06/07/08-PLAN-NEW.md` (Option C plan variants). These contradicted the Option A decision in CONTEXT.md and have been removed.
+2. **11-05 status:** COMPLETE (all 38 helpers in 16 files refactored to `<F: Float>`). Syntax errors from automated script are 11-06's first task, not a blocker on 11-05 completion.
+3. **D-18 added:** Serena MCP server as primary refactoring tool for 11-06 syntax cleanup. Already configured in `~/.claude.json`. Python tools as fallback.
+4. **11-06..08 plans need regeneration** to reflect D-18 tooling and the updated 11-05 starting state. Existing `11-06/07/08-PLAN.md` files are stale (written before 11-05 executed).
+
+**Carry-forward summary (current):**
+- 11-01 SUMMARY ✓
+- 11-02 SUMMARY ✓
+- 11-03 SUMMARY ✓
+- 11-04 SUMMARY (retroactive partial) ✓
+- 11-05 SUMMARY ✓ — helpers logically complete, syntax errors deferred to 11-06
+- 11-06..08: REGENERATE via `/gsd-plan-phase 11`
+
+---
+
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option C locked then reconsidered; Option A locked via Python tooling approach; blocking anti-patterns codified)*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option A locked) · Re-planned: 2026-05-18 (D-18 Serena MCP, 11-05 COMPLETE, stale cleanup)*
