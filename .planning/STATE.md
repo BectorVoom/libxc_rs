@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 REPLAN LOCKED — discuss-phase 3 complete (2026-05-18), Option C locked, ready for `/gsd-plan-phase 11`
-stopped_at: Third discuss-phase session (2026-05-18) resolved D-02 blocker. User decided to abandon Option A (generic helpers refactoring — 11 files have systematic syntax errors in Phase 2 scripts) and lock Option C (cast-at-call-site in translator). D-14 spike now validates Option C only (1–2 day time-box). Blocking anti-patterns AP-1..3 codified with structural mitigations. See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-18 with Option C) and 11-DISCUSSION-LOG-2026-05-18.md for anti-pattern analysis.
-last_updated: "2026-05-18T14:00:00Z"
-last_activity: 2026-05-18 — Phase 11 discuss-phase complete. D-02 locked to Option C (cast-at-call-site). AP-1 (compile-first entry gate), AP-2 (`.cargo/config.toml` immutable), AP-3 (no hand-editing) with structural mitigations. Ready for planning with locked decisions.
+status: Phase 11 REPLAN LOCKED — discuss-phase complete (2026-05-18, reconsidered), Option A locked, ready for `/gsd-plan-phase 11`
+stopped_at: Discuss-phase sessions (2026-05-18): Initial decision Option C (cast-at-call-site), reconsidered by user. Final decision: **Option A (generic helpers via Python tooling)** — user prioritizes architectural quality over speed. Phase 2 `_refactor_helper_*` scripts have fixable errors; D-14 spike will improve tooling and refactor all 38 helpers correctly. Timeline open-ended (quality over speed). Blocking anti-patterns AP-1..3 codified with structural mitigations. See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-18 with Option A) and 11-DISCUSSION-LOG-2026-05-18*.md for details.
+last_updated: "2026-05-18T14:30:00Z"
+last_activity: 2026-05-18 — Phase 11 discuss-phase complete. D-02 locked to Option A (generic helpers). D-14 spike has open timeline. AP-1 (compile-first entry gate), AP-2 (`.cargo/config.toml` immutable), AP-3 (no hand-editing) with structural mitigations. Ready for planning with locked decisions and quality-first approach.
 progress:
   total_phases: 11
   completed_phases: 6

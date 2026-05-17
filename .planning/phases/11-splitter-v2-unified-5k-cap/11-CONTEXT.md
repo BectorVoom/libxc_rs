@@ -4,8 +4,8 @@
 **Revised:** 2026-05-14 (unification target changed to per-functional subcrates; D-10 family, D-LOCK-A, D-04, D-05 revised; D-11/D-12 added)
 **Revised:** 2026-05-15 (D-13 added — P11-INV-5 per-design budget under D-10b)
 **Revised:** 2026-05-15 (second pause — D-02 spike-pending; D-14, D-15, D-16, D-17 added for the architectural blocker found at 11-04 Task 1A)
-**Revised:** 2026-05-18 (D-02 locked to Option C via user decision — cast-at-call-site in translator; Option A attempt found unsalvageable due to systematic automated-script errors; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
-**Status:** Ready for planning (re-plan required — D-02 locked to Option C via discuss-phase 2026-05-18)
+**Revised:** 2026-05-18 (D-02 locked to Option C via user decision, then reconsidered; D-02 re-locked to Option A via user decision — improve Python tooling to refactor helpers correctly; timeline open-ended; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
+**Status:** Ready for planning (re-plan required — D-02 locked to Option A via discuss-phase 2026-05-18; timeline unconstrained for quality)
 
 <domain>
 ## Phase Boundary
@@ -32,7 +32,7 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 
 ### Cross-file ABI for subdivided chunks
 - **D-02:** Free `#[cube]` functions with explicit value args and tuple returns, generic over `<F: Float>`. Signature shape: `#[cube] fn chunk_NN<F: Float>(args: f64s as F) -> (F, F, ...)`. Each chunk's dependencies are visible in its parameter list. Helper structs with `#[cube] impl` blocks and bag-of-floats shared mutable state are explicitly rejected (per `cubecl_macro_fanout_manual.md` §9, §19, §4).
-  - **LOCKED (2026-05-18 via user decision, Option C selected):** Keep all 38 helpers in `crates/kernels/math/src/` as concrete `f64`. Chunks remain `<F: Float>` per the ABI signature. At call sites where `<F: Float>` chunks invoke concrete-`f64` helpers, the translator (cse.py) emits cast wrappers: `cast_into_f(helper_f64(cast_from_f(x)))`. Preserves helper code unchanged (lower risk); generates boilerplate at call sites (581K auto-generated call patterns, acceptable — manually written). **Rationale:** Option A (generic helpers) attempted to fix via Phase 2 automated scripts (`_refactor_helper_*`) but 11 files have systematic syntax errors (incomplete patterns in the refactoring regex). These errors surface only at the regen stage, not during syntax check. Option C unblocks faster by accepting translator-side boilerplate rather than fixing the Helper-refactoring scripts. Mathematically sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost in CubeCL.
+  - **LOCKED (2026-05-18 via user decision, Option A selected — reconsidered 2026-05-18):** Refactor all 38 helpers in `crates/kernels/math/src/` to be generic over `<F: Float>`. Chunks call the now-generic helpers with no call-site wrapping needed. Internal helpers use `F::new(literal)` and `F::sqrt(x)` for generic arithmetic. Named constants (`M_PI`, `M_CBRT3`, …) are wrapped at definition in the helper module. Sound per `cubecl_macro_fanout_manual.md` §6. **Approach:** The Phase 2 `_refactor_helper_*` scripts have systematic syntax errors in 11 files (incomplete regex patterns). Rather than work around these via translator-side boilerplate (Option C), the replan will improve the Python tooling to fix the helpers correctly. This is the architecturally cleaner solution. Timeline is open-ended — quality over speed.
 
 ### Precision policy (overrides existing CLAUDE.md "f64 only" rule for kernel chunks)
 - **D-03:** Kernel chunks are generic over `<F: Float>`. **f64 is the default and the sole correctness target** — the oracle verification gate (D-05) runs at f64 only. f32 is a launch-time opt-in for performance with no correctness guarantee; chunks compile against both but f32 is not oracle-gated. This relaxes the existing `CLAUDE.md` constraint ("f64 only; no silent f32 fallback") in a controlled way: f32 is no longer a *silent* fallback — it remains an explicit launch-time choice with documented "performance-only, no correctness gate" status. The typed-error-if-device-lacks-f64 rule still applies when the user *selects* f64.
@@ -102,15 +102,16 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **Why this is sound under D-10:** the `cubecl_macro_fanout_manual.md` §5/§19 fan-out warning is about launch surface *within one compilation unit*. After the D-10 per-functional-subcrate restructure, each subcrate holds only its own ~10 launch wrappers and compiles independently under `jobs = 1` — the ~1677 never expand in one rustc invocation. Per-functional subcrates are themselves the structural mitigation P11-INV-5 was guarding for.
   - **Rejected:** redesigning the dispatch into manual §5/§19 generic-launch kernels + `#[comptime]` functional/output selection (would satisfy `≤23` as-is, but requires revising D-10b's preserve-the-macros mandate, re-researching the generic-launch architecture, and reworking the translators' launch policy + `emit.py` + both dispatch generators — disproportionate when per-functional subcrates already neutralize the cost).
 
-### D-02 validation via canary spike (LOCKED 2026-05-18 — Option C selected)
-- **D-14:** Validate D-02 (Option C locked) via a 1-day spike on **`mgga_c_b94`** (deferred per D-11; 16,703-line `kxc_pol.rs` extreme; stresses CSE chunking + wide-tuple emit + cast-wrapped helper-call boundary simultaneously).
-  - **Option C (LOCKED via user decision 2026-05-18):** Keep concrete-f64 helpers in `crates/kernels/math/src/` unchanged. Translator (cse.py) emits cast wrappers at call sites: `cast_into_f(helper_f64(cast_from_f(x)))`. Chunks remain `<F: Float>` per the original D-02 signature. Accepts ~581K auto-generated boilerplate call patterns (acceptable for an auto-generated tree); avoids the systematic syntax errors in Option A's automated helper-refactoring scripts. Sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost abstractions in CubeCL.
-  - **Spike validation criteria (Option C must pass all three):**
-    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1` (validates that cast-wrapped helper calls compile cleanly with mgga_c_b94's `<F: Float>` chunks).
+### D-02 validation via canary spike (LOCKED 2026-05-18 — Option A selected)
+- **D-14:** Validate D-02 (Option A locked) via a spike on **`mgga_c_b94`** (deferred per D-11; 16,703-line `kxc_pol.rs` extreme; stresses CSE chunking + wide-tuple emit + generic-helper-call boundary simultaneously).
+  - **Option A (LOCKED via user decision 2026-05-18, reconsidered 2026-05-18):** Refactor all 38 helpers in `crates/kernels/math/src/` to be generic `#[cube] pub fn helper<F: Float>(…) -> F` (or `F`-tuple returns). Propagate `F::new(…)` wraps to internal f64 literals; `.sqrt()` → `F::sqrt(x)`; named constants (`M_PI`, `M_CBRT3`, …) wrapped at definition. Chunks remain `<F: Float>` per the original D-02 reading. **One wave, all 38 helpers** (powers/piecewise + dft_quantities/spin/erf + br89/bessel/lambert_w/mbrxc + integrate/polynomials/special/expint_e1/mbrxc). Sound per `cubecl_macro_fanout_manual.md` §6. This is the architecturally cleaner ABI.
+  - **Python tooling approach:** The Phase 2 `_refactor_helper_*` scripts have systematic syntax errors in 11 files (incomplete regex patterns in the refactoring logic). Rather than use cast-site boilerplate workarounds, the spike will improve the Python tooling to handle these patterns correctly, then refactor all 38 helpers cleanly.
+  - **Spike validation criteria (Option A must pass all three):**
+    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1` (validates that generic helpers compile cleanly with mgga_c_b94's `<F: Float>` chunks).
     2. Parity vs libxc oracle at **1e-12 relative error on energy AND all routed derivatives**. mgga_c_b94 is in D-11's deferred set; the spike's parity step requires a **one-shot bypass** of `is_deferred(id)` for this single canary, NOT a permanent unfilter. D-11 is preserved.
     3. **Idempotency** (D-LOCK-D): re-run translator, no diff.
-  - **Time-box:** 1–2 days. This is a validation spike for the chosen Option C, not an option race. Implementation focus: wire cast-wrapper emission into cse.py AST pass (D-16).
-  - **Why the prior gate was insufficient:** the 11-01 D-02 spike (`spike_tuple_return_cube.rs`) tested `<F: Float>` tuple-return in isolation against synthesized expressions. It never called `crates/kernels/math/src/` helpers. The architectural mismatch only surfaced at 11-04 Task 1A when verify's per-functional `cargo build -p` first exercised real chunks + real helper calls together. That spike also didn't test the cast-wrapper pattern. Option C replaces Option A because A's automated helper refactoring has systematic syntax errors in 11 files (incomplete regex patterns) that don't surface until regen.
+  - **Time-box:** Open-ended. Quality over speed. The spike includes: (1) analyze the 11 problematic files to understand the Phase 2 script failure patterns, (2) improve the Python refactoring tooling, (3) refactor all 38 helpers, (4) validate on mgga_c_b94. No time constraint.
+  - **Why the prior gate was insufficient:** the 11-01 D-02 spike (`spike_tuple_return_cube.rs`) tested `<F: Float>` tuple-return in isolation against synthesized expressions. It never called `crates/kernels/math/src/` helpers. The architectural mismatch only surfaced at 11-04 Task 1A when verify's per-functional `cargo build -p` first exercised real chunks + real helper calls together. Option A is preferred over Option C because it's the architecturally sound solution — generic helpers are the right abstraction, not a workaround.
 
 ### Compile-first entry gate (NEW 2026-05-15 — second pause)
 - **D-15:** The 2026-05-15 replan establishes a single-canary compile-first entry gate that **MUST pass before the per-`-p` sweep starts**. This is the structural correction for Phase 11's repeated pattern of declaring structural completion without per-`-p` cargo gates (see anti-pattern table below).
@@ -121,11 +122,10 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
     3. Ad-hoc parity vs libxc oracle at 1e-12 on energy + routed derivatives, with the **one-shot `is_deferred(id)` bypass** noted in D-14. NOT a permanent unfilter — D-11 stays.
   - **Failure recovery:** Gate failure halts the replan, writes `.continue-here.md` documenting the failure mode, triggers a **third `/gsd-discuss-phase 11` pass**. No in-plan retry-grinding — that was the failure mode of 11-04 pre-pause. Each retry of the same broken approach is itself an anti-pattern.
 
-### Translator emit lives in cse.py AST pass (LOCKED 2026-05-18 — Option C selected)
-- **D-16:** The D-02 Option C ABI's tooling-side emit code focuses on **cast-wrapper emission for helper calls** in `tools/translate_v2/cse.py` as an **AST-level pass**, alongside existing literal-wrapping and tuple-arity work.
-  - **For Option C (cast-at-call-site — LOCKED):** cse.py's AST visitor adds a **call-site cast wrapper** step. When the AST visitor encounters a call to a concrete-f64 helper (from `crates/kernels/math/src/`), it wraps the call: `cast_into_f(helper_f64(cast_from_f(x)))`. This keeps the helper layer untouched and moves all boilerplate to the translator, which is acceptable for auto-generated code.
-  - **Cast helper functions** (`cast_into_f`, `cast_from_f`) are added to `crates/kernels/math/src/` as generic `#[cube] pub fn` functions that take a dummy `F` type parameter and emit no-op inline casts (zero-cost per `cubecl_macro_fanout_manual.md` §6). These are tiny compared to the 38 concrete helpers they wrap.
-  - **Family A literal wrapping stays as-is.** The q01 commit `5c379dc25` fixes (`F::new(...)` wraps for f64 literals, MAX_TUPLE_ARITY = 12, single-output scalar return on `-> F`) are preserved. Option C does not change the literal-wrapping strategy.
+### Translator emit lives in cse.py AST pass (LOCKED 2026-05-18 — Option A selected)
+- **D-16:** The D-02 Option A ABI's tooling-side emit code focuses on **f64 literal wrapping** in `tools/translate_v2/cse.py` as an **AST-level pass**, with no call-site wrapper logic needed (helpers are now generic).
+  - **For Option A (helpers generic — LOCKED):** cse.py's AST visitor stays minimal — chunks compile cleanly against the now-generic helpers with no call-site wrapping needed. The bulk of Option A's work is in `crates/kernels/math/src/` (refactoring helpers to generic via improved Python tools in D-14), not in the translator emit logic.
+  - **Family A literal wrapping stays as-is.** The q01 commit `5c379dc25` fixes (`F::new(...)` wraps for f64 literals, MAX_TUPLE_ARITY = 12, single-output scalar return on `-> F`) are preserved. These are orthogonal to the helper refactoring and remain in place.
   - **What stays in per_functional.py:** q01's single-output scalar-return decision (`-> F` vs `-> (F,)`, commit `5c379dc25`) stays in per_functional.py (no migration). The MAX_TUPLE_ARITY = 12 cap stays in cse.py.
 
 ### Replan structure: 5 plans 11-04..08 (NEW 2026-05-15 — second pause)
@@ -340,7 +340,7 @@ reflect D-13:
 
 ---
 
-## Re-plan Note (2026-05-18 — second pause resolution, Option C locked)
+## Re-plan Note (2026-05-18 — second pause resolution, Option A locked)
 
 Phase 11 paused a second time at **plan 11-04 Task 1A** (`.continue-here.md`). Task 1A's
 verify dev-dep narrowing (commit `39eb75f93`, the D-05 OOM structural fix) landed cleanly
@@ -353,14 +353,14 @@ per-functional `cargo build -p` first exercised real chunks + real helper calls 
 The quick task **`260515-q01-cse-chunk-arity-cap-12`** (commit `5c379dc25`) empirically
 established the four-layer bug structure (MAX_TUPLE_ARITY cap, literal coercion, 1-tuple
 `let`, helper-layer concreteness) via `crates/kernels/math/tests/spike_cse_emit_q01.rs`.
-Layers 1–3 are fixed in `tools/translate_v2/`; layer 4 was originally D-14's spike scope
-(Option A vs C race to refactor helpers).
+Layers 1–3 are fixed in `tools/translate_v2/`; layer 4 is **D-14**'s scope.
 
-**Resolution (user decision 2026-05-18):** **Abandon Option A (generic helpers). Lock Option C (cast-at-call-site).** Rationale: Option A required refactoring 38 helpers via Phase 2 automated scripts (`_refactor_helper_*`), but 11 files have systematic syntax errors in the regex patterns — these errors only surface at the regen stage, not during syntax check. The script fix itself would be a multi-hour meta-task. Option C unblocks immediately by accepting translator-side boilerplate (`cast_into_f(helper_f64(cast_from_f(x)))` at ~581K call sites) instead. Mathematically sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost in CubeCL. The auto-generated code is acceptable; the refactoring scripts are not.
+**Initial resolution (user decision 2026-05-18, first pass):** Abandon Option A; lock Option C (cast-at-call-site).
+**Reconsidered resolution (user decision 2026-05-18, second pass):** **Lock Option A (generic helpers).** Rationale: Option A is the architecturally sound solution — making helpers properly generic is cleaner than accepting cast boilerplate throughout the generated tree. The Phase 2 `_refactor_helper_*` scripts have systematic syntax errors in 11 files, but these can be fixed via improved Python tooling. Timeline is open-ended — quality over speed. This is the right long-term abstraction.
 
-The decisions added in this revision (D-02 revised to C, D-14 updated to C, D-16 updated for cast-wrapper emit, AP-1..3 with structural mitigations) are designed to prevent recurrence: **D-02 Option C** unblocks the D-14 spike within 1–2 days (vs Option A's script debugging); **AP-1/AP-2/AP-3** provide structural gates and checks to catch these breakage patterns early (entry-gate compile, pre-flight `.cargo/config.toml` check, explicit ban on hand-editing); **AP-6 reframed as part of AP-1**: compile-first entry gate, not compile-after exit gate.
+The decisions in this final revision (D-02 locked to A, D-14 updated for Python-tooling approach, D-16 simplified for non-cast emit, AP-1..3 with structural mitigations) are designed to prevent recurrence: **D-02 Option A** targets the right abstraction via improved tooling, not workarounds; **AP-1/AP-2/AP-3** provide structural gates and checks to catch breakage patterns early (entry-gate compile, pre-flight `.cargo/config.toml` check, explicit ban on hand-editing); **AP-6 reframed as part of AP-1**: compile-first entry gate, not compile-after exit gate.
 
-**Plans 11-04..06 are stale and must be regenerated per the Option C decision.** 11-01..03 SUMMARYs survive. The
+**Plans 11-04..06 are stale and must be regenerated per the Option A decision.** 11-01..03 SUMMARYs survive. The
 retroactive 11-04 SUMMARY (D-17) documents the Task 1A landing and the pause. Forward
 work starts at 11-05.
 
@@ -370,9 +370,9 @@ work starts at 11-05.
 - 11-03 SUMMARY ✓ (D-13 audit + dispatch verification under per-functional subcrates)
 - 11-04 partial commit `39eb75f93` ✓ (verify dev-dep narrowing — retroactive SUMMARY in this replan)
 - `5c379dc25` (q01 three emit fixes in `tools/translate_v2/`) ✓ — building on, not redoing
-- D-14 spike now validates **Option C** (chosen path, not an A-vs-C race)
+- D-14 spike now validates **Option A** (via improved Python tooling; timeline unconstrained for quality)
 
 ---
 
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option C locked; blocking anti-patterns codified)*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option C locked then reconsidered; Option A locked via Python tooling approach; blocking anti-patterns codified)*
