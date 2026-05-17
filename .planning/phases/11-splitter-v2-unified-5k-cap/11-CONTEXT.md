@@ -4,7 +4,8 @@
 **Revised:** 2026-05-14 (unification target changed to per-functional subcrates; D-10 family, D-LOCK-A, D-04, D-05 revised; D-11/D-12 added)
 **Revised:** 2026-05-15 (D-13 added — P11-INV-5 per-design budget under D-10b)
 **Revised:** 2026-05-15 (second pause — D-02 spike-pending; D-14, D-15, D-16, D-17 added for the architectural blocker found at 11-04 Task 1A)
-**Status:** Ready for planning (re-plan required — D-02 locked to Option A via discuss-phase 2026-05-18)
+**Revised:** 2026-05-18 (D-02 locked to Option C via user decision — cast-at-call-site in translator; Option A attempt found unsalvageable due to systematic automated-script errors; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
+**Status:** Ready for planning (re-plan required — D-02 locked to Option C via discuss-phase 2026-05-18)
 
 <domain>
 ## Phase Boundary
@@ -31,7 +32,7 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 
 ### Cross-file ABI for subdivided chunks
 - **D-02:** Free `#[cube]` functions with explicit value args and tuple returns, generic over `<F: Float>`. Signature shape: `#[cube] fn chunk_NN<F: Float>(args: f64s as F) -> (F, F, ...)`. Each chunk's dependencies are visible in its parameter list. Helper structs with `#[cube] impl` blocks and bag-of-floats shared mutable state are explicitly rejected (per `cubecl_macro_fanout_manual.md` §9, §19, §4).
-  - **LOCKED (2026-05-18 via discuss-phase, Option A selected):** Refactor all 38 helpers in `crates/kernels/math/src/` to be generic over `<F: Float>`. Chunks call the now-generic helpers with no call-site wrapping needed. Internal helpers use `F::new(literal)` and `F::sqrt(x)` for generic arithmetic. Named constants (`M_PI`, `M_CBRT3`, …) are wrapped at definition in the helper module. Sound per `cubecl_macro_fanout_manual.md` §6. This eliminates the architectural mismatch that blocked 11-04 Task 1A.
+  - **LOCKED (2026-05-18 via user decision, Option C selected):** Keep all 38 helpers in `crates/kernels/math/src/` as concrete `f64`. Chunks remain `<F: Float>` per the ABI signature. At call sites where `<F: Float>` chunks invoke concrete-`f64` helpers, the translator (cse.py) emits cast wrappers: `cast_into_f(helper_f64(cast_from_f(x)))`. Preserves helper code unchanged (lower risk); generates boilerplate at call sites (581K auto-generated call patterns, acceptable — manually written). **Rationale:** Option A (generic helpers) attempted to fix via Phase 2 automated scripts (`_refactor_helper_*`) but 11 files have systematic syntax errors (incomplete patterns in the refactoring regex). These errors surface only at the regen stage, not during syntax check. Option C unblocks faster by accepting translator-side boilerplate rather than fixing the Helper-refactoring scripts. Mathematically sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost in CubeCL.
 
 ### Precision policy (overrides existing CLAUDE.md "f64 only" rule for kernel chunks)
 - **D-03:** Kernel chunks are generic over `<F: Float>`. **f64 is the default and the sole correctness target** — the oracle verification gate (D-05) runs at f64 only. f32 is a launch-time opt-in for performance with no correctness guarantee; chunks compile against both but f32 is not oracle-gated. This relaxes the existing `CLAUDE.md` constraint ("f64 only; no silent f32 fallback") in a controlled way: f32 is no longer a *silent* fallback — it remains an explicit launch-time choice with documented "performance-only, no correctness gate" status. The typed-error-if-device-lacks-f64 rule still applies when the user *selects* f64.
@@ -101,15 +102,15 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **Why this is sound under D-10:** the `cubecl_macro_fanout_manual.md` §5/§19 fan-out warning is about launch surface *within one compilation unit*. After the D-10 per-functional-subcrate restructure, each subcrate holds only its own ~10 launch wrappers and compiles independently under `jobs = 1` — the ~1677 never expand in one rustc invocation. Per-functional subcrates are themselves the structural mitigation P11-INV-5 was guarding for.
   - **Rejected:** redesigning the dispatch into manual §5/§19 generic-launch kernels + `#[comptime]` functional/output selection (would satisfy `≤23` as-is, but requires revising D-10b's preserve-the-macros mandate, re-researching the generic-launch architecture, and reworking the translators' launch policy + `emit.py` + both dispatch generators — disproportionate when per-functional subcrates already neutralize the cost).
 
-### D-02 validation via canary spike (LOCKED 2026-05-18 — Option A selected)
-- **D-14:** Validate D-02 (Option A locked) via a 1-day spike on **`mgga_c_b94`** (deferred per D-11; 16,703-line `kxc_pol.rs` extreme; stresses CSE chunking + wide-tuple emit + helper-call boundary simultaneously).
-  - **Option A (LOCKED via user decision 2026-05-18):** Refactor all 38 helpers in `crates/kernels/math/src/` to `#[cube] pub fn helper<F: Float>(…) -> F` (or `F`-tuple returns). Propagate `F::new(…)` wraps to internal f64 literals; `.sqrt()` → `F::sqrt(x)`; named constants (`M_PI`, `M_CBRT3`, …) wrapped at definition. Chunks remain `<F: Float>` per the original D-02 reading. **One wave, all 38 helpers** (powers/piecewise + dft_quantities/spin/erf + br89/bessel/lambert_w/mbrxc). Sound under `cubecl_macro_fanout_manual.md` §6. This is the chosen ABI.
-  - **Spike validation criteria (Option A must pass all three):**
-    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1` (validates that generic helpers compile cleanly with mgga_c_b94 chunks).
+### D-02 validation via canary spike (LOCKED 2026-05-18 — Option C selected)
+- **D-14:** Validate D-02 (Option C locked) via a 1-day spike on **`mgga_c_b94`** (deferred per D-11; 16,703-line `kxc_pol.rs` extreme; stresses CSE chunking + wide-tuple emit + cast-wrapped helper-call boundary simultaneously).
+  - **Option C (LOCKED via user decision 2026-05-18):** Keep concrete-f64 helpers in `crates/kernels/math/src/` unchanged. Translator (cse.py) emits cast wrappers at call sites: `cast_into_f(helper_f64(cast_from_f(x)))`. Chunks remain `<F: Float>` per the original D-02 signature. Accepts ~581K auto-generated boilerplate call patterns (acceptable for an auto-generated tree); avoids the systematic syntax errors in Option A's automated helper-refactoring scripts. Sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost abstractions in CubeCL.
+  - **Spike validation criteria (Option C must pass all three):**
+    1. `cargo build -p libxc-kernel-mgga_c_b94` GREEN under CubeCL 0.10 + `jobs = 1` (validates that cast-wrapped helper calls compile cleanly with mgga_c_b94's `<F: Float>` chunks).
     2. Parity vs libxc oracle at **1e-12 relative error on energy AND all routed derivatives**. mgga_c_b94 is in D-11's deferred set; the spike's parity step requires a **one-shot bypass** of `is_deferred(id)` for this single canary, NOT a permanent unfilter. D-11 is preserved.
     3. **Idempotency** (D-LOCK-D): re-run translator, no diff.
-  - **Time-box:** 1 day. This is a validation spike, not an option race. If it fails, escalate to a **third `/gsd-discuss-phase 11` pass** and reconsider Option C.
-  - **Why the prior gate was insufficient:** the 11-01 D-02 spike (`spike_tuple_return_cube.rs`) tested `<F: Float>` tuple-return in isolation against synthesized expressions. It never called `crates/kernels/math/src/` helpers. The architectural mismatch only surfaced at 11-04 Task 1A when verify's per-functional `cargo build -p` first exercised real chunks + real helper calls together.
+  - **Time-box:** 1–2 days. This is a validation spike for the chosen Option C, not an option race. Implementation focus: wire cast-wrapper emission into cse.py AST pass (D-16).
+  - **Why the prior gate was insufficient:** the 11-01 D-02 spike (`spike_tuple_return_cube.rs`) tested `<F: Float>` tuple-return in isolation against synthesized expressions. It never called `crates/kernels/math/src/` helpers. The architectural mismatch only surfaced at 11-04 Task 1A when verify's per-functional `cargo build -p` first exercised real chunks + real helper calls together. That spike also didn't test the cast-wrapper pattern. Option C replaces Option A because A's automated helper refactoring has systematic syntax errors in 11 files (incomplete regex patterns) that don't surface until regen.
 
 ### Compile-first entry gate (NEW 2026-05-15 — second pause)
 - **D-15:** The 2026-05-15 replan establishes a single-canary compile-first entry gate that **MUST pass before the per-`-p` sweep starts**. This is the structural correction for Phase 11's repeated pattern of declaring structural completion without per-`-p` cargo gates (see anti-pattern table below).
@@ -120,11 +121,12 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
     3. Ad-hoc parity vs libxc oracle at 1e-12 on energy + routed derivatives, with the **one-shot `is_deferred(id)` bypass** noted in D-14. NOT a permanent unfilter — D-11 stays.
   - **Failure recovery:** Gate failure halts the replan, writes `.continue-here.md` documenting the failure mode, triggers a **third `/gsd-discuss-phase 11` pass**. No in-plan retry-grinding — that was the failure mode of 11-04 pre-pause. Each retry of the same broken approach is itself an anti-pattern.
 
-### Translator emit lives in cse.py AST pass (LOCKED 2026-05-18 — Option A selected)
-- **D-16:** The D-02 Option A ABI's tooling-side emit code focuses on **f64 literal wrapping** in `tools/translate_v2/cse.py` as an **AST-level pass**.
-  - **For Option A (helpers generic — LOCKED):** cse.py's AST visitor stays minimal — chunks compile cleanly against the now-generic helpers with no call-site wrapping needed. The bulk of Option A's work is in `crates/kernels/math/src/` (refactoring helpers to generic), not in tools.
-  - **Family A literal wrapping subsumed.** The integer-mantissa f64 literal (`2e-21`-style) and named-f64-constant (`M_PI`, `M_CBRT3`, …) wrapping that q01's `_wrap_f64_literals` regex partially handled is **moved to the cse.py AST pass**. The regex retires. AST-level F::new emission for **all** f64 literals (named constants + integer-mantissa + decimal) happens in one visitor pass.
-  - **What stays in per_functional.py:** q01's single-output scalar-return decision (`-> F` vs `-> (F,)`, commit `5c379dc25`) can stay in per_functional.py for now or migrate to cse.py — planner's call. The MAX_TUPLE_ARITY = 12 cap (q01) stays in cse.py where it already lives.
+### Translator emit lives in cse.py AST pass (LOCKED 2026-05-18 — Option C selected)
+- **D-16:** The D-02 Option C ABI's tooling-side emit code focuses on **cast-wrapper emission for helper calls** in `tools/translate_v2/cse.py` as an **AST-level pass**, alongside existing literal-wrapping and tuple-arity work.
+  - **For Option C (cast-at-call-site — LOCKED):** cse.py's AST visitor adds a **call-site cast wrapper** step. When the AST visitor encounters a call to a concrete-f64 helper (from `crates/kernels/math/src/`), it wraps the call: `cast_into_f(helper_f64(cast_from_f(x)))`. This keeps the helper layer untouched and moves all boilerplate to the translator, which is acceptable for auto-generated code.
+  - **Cast helper functions** (`cast_into_f`, `cast_from_f`) are added to `crates/kernels/math/src/` as generic `#[cube] pub fn` functions that take a dummy `F` type parameter and emit no-op inline casts (zero-cost per `cubecl_macro_fanout_manual.md` §6). These are tiny compared to the 38 concrete helpers they wrap.
+  - **Family A literal wrapping stays as-is.** The q01 commit `5c379dc25` fixes (`F::new(...)` wraps for f64 literals, MAX_TUPLE_ARITY = 12, single-output scalar return on `-> F`) are preserved. Option C does not change the literal-wrapping strategy.
+  - **What stays in per_functional.py:** q01's single-output scalar-return decision (`-> F` vs `-> (F,)`, commit `5c379dc25`) stays in per_functional.py (no migration). The MAX_TUPLE_ARITY = 12 cap stays in cse.py.
 
 ### Replan structure: 5 plans 11-04..08 (NEW 2026-05-15 — second pause)
 - **D-17:** The 2026-05-15 replan splits into five plan slots, each with a single clear deliverable and SUMMARY:
@@ -134,13 +136,28 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **11-07 — Regen 266 subcrates + compile-first entry gate (D-15) on mgga_c_b94.** Translator runs over the full Maple input set; 266 per-functional subcrates produced; mgga_c_b94 gate passes all three legs (kernel + dispatch + ad-hoc parity).
   - **11-08 — Per-`-p` sweep + audits + close.** Each subcrate's `cargo build -p libxc-kernel-<func>` is verified incrementally per D-12. `tools/audit_cube_launch.sh` is rewritten per D-13 (per-design budget, not flat ≤23). `tools/audit_subcrate_collapse.sh` adds the per-functional-subcrate invariant per D-10a. **ROADMAP.md edits:** success criterion #1 (per-functional subcrates, no numbered subcrates, family is plain directory) + #4 (per-`-p` incremental gates, D-12) + NEW criterion (compile-first entry gate per D-15). Phase close + final SUMMARY.
 
-### Anti-patterns carried into the replan (NEW 2026-05-15 — second pause; planner MUST enforce)
-- **AP-1 (blocking):** Re-running `/gsd-execute-phase 11` against the existing 11-04..06 plan tree without replanning. The current plans are stale against D-02's spike-pending status. Each `-p` compile attempt loops on the architectural mismatch. **Planner enforcement:** the regenerated 11-05..08 plans must have entry-gate criteria that explicitly compile-check before claiming structural completion.
-- **AP-2 (blocking):** Modifying `.cargo/config.toml`. D-07/D-08/D-09 invariant. Committed `jobs = 1` is the source of truth. User caps jobs by hand. Phase 11 plans MUST NOT add tasks that touch this file, neither directly nor via env-override.
-- **AP-3 (blocking):** Hand-editing files in `crates/kernels/{lda,gga,mgga}/` to "fix" compile errors. D-LOCK-D / P11-INV-6 idempotency requires all fixes route through `tools/translate_v2/`. **Planner enforcement:** every plan task that addresses a kernel-tree compile error must take the form "modify tools/translate_v2/<file> → regen → verify", never "edit <emitted kernel file> directly".
-- **AP-4 (warning):** Reverting commit `5c379dc25` (q01 emit fixes). Three CubeCL 0.10 emit fixes are independently correct and validated by `spike_cse_emit_q01.rs`. The replan **builds on them** — MAX_TUPLE_ARITY=12 stays, single-output scalar return stays. Only the regex `_wrap_f64_literals` retires (superseded by D-16's AST pass).
+### Critical Anti-Patterns for Phase 11 Replan (NEW 2026-05-18 — documented in `.continue-here.md`)
+
+The following patterns have been **empirically observed to break the replan** in prior iterations and must be actively prevented:
+
+- **AP-1 (blocking): Re-executing without replanning**
+  - **What it is:** Running `/gsd-execute-phase 11` against the existing 11-04..06 plan tree without a fresh replan. The plans are stale; each compile attempt loops on the architectural mismatch D-02 was supposed to resolve.
+  - **How it manifested:** Plans 11-01..03 claimed structural completion without per-`-p` compile gates. When 11-04 Task 1A introduced the first per-`-p` gate, it surfaced the D-02 helper-layer incompatibility.
+  - **Structural fix:** The regenerated 11-05..08 plans MUST have **entry-gate criteria** (per-`-p` compile check on a canary functional) BEFORE any structural work begins. This reverses the gate order: compile-first (entry), not compile-after (exit).
+
+- **AP-2 (blocking): Modifying `.cargo/config.toml`**
+  - **What it is:** Changing `[build] jobs` or `[env] RUST_MIN_STACK` in `.cargo/config.toml`. These are D-07/D-08/D-09 load-bearing constraints.
+  - **How it manifested:** An uncapped `jobs` override (even temporary) causes OOM (exit 137) on the 30GB machine. The committed `jobs = 1` is the source of truth; user restores the cap by hand.
+  - **Structural fix:** Phase 11 plans MUST include a **pre-flight check** task that verifies `.cargo/config.toml` has `jobs = 1` and `RUST_MIN_STACK = 67108864`. No plan task touches this file directly, and no task overrides these values via `CARGO_BUILD_JOBS` or env-var proxies.
+
+- **AP-3 (blocking): Hand-editing generated kernel files**
+  - **What it is:** Manually patching `crates/kernels/{lda,gga,mgga}/*.rs` files to fix compile errors instead of fixing the root cause in `tools/translate_v2/`.
+  - **How it manifested:** When 11-04 encountered "Mul<F> for {float}" errors in generated chunks, the temptation was to hand-edit the generated code. Hand edits don't survive regen (D-LOCK-D idempotency requirement).
+  - **Structural fix:** D-LOCK-D idempotency is NON-NEGOTIABLE. Every plan task addressing a kernel-tree compile error MUST follow: "identify root cause in `tools/translate_v2/<file>` → modify translator → regen from Maple → verify gate". Explicit ban in plan task descriptions: "no hand-edits of generated files".
+
+- **AP-4 (warning):** Reverting commit `5c379dc25` (q01 emit fixes). Three CubeCL 0.10 emit fixes are independently correct and validated by `spike_cse_emit_q01.rs`. The replan **builds on them** — MAX_TUPLE_ARITY=12 stays, single-output scalar return stays. Only the regex `_wrap_f64_literals` stays (not retired, since Option C doesn't replace it with an AST pass).
 - **AP-5 (warning):** Treating 11-01/11-02/11-03 SUMMARYs as needing redo. Their structural deliverables (D-02 isolated spike, audit tools, baseline, dispatch audit, clean-slate regen of 266 subcrates at `97d6347be`, D-13 dispatch verification) survive the second pause. The replan reframes WHAT 11-04..08 verify, not WHAT 11-01..03 produced.
-- **AP-6 (blocking — NEW):** Declaring structural completion without per-`-p` cargo gates. The defining failure mode of Phase 11 across 2026-05-13..05-15 was three structural-completion claims (wide-tuple chunk emission, literal-coercion, 1-tuple scalar return, helper-layer architecture) each without a per-`-p` compile gate. **Planner enforcement:** every plan's exit gate MUST include at least one `cargo build -p libxc-kernel-<concrete-functional>` or equivalent compile verification. No structural-only completion claims.
+- **AP-6 (blocking — reframed under AP-1):** Declaring structural completion without per-`-p` cargo gates. The defining failure mode of Phase 11 across 2026-05-13..05-15 was three structural-completion claims (wide-tuple chunk emission, literal-coercion, 1-tuple scalar return, helper-layer architecture) each without a per-`-p` compile gate. This is now the **entry-gate structural fix** for AP-1: compile-first, before structural claims.
 
 ### Claude's Discretion
 - **Subcrate package naming.** Recommended: follow the existing `libxc-kernel-*` convention — package `libxc-kernel-<func>` (e.g. `libxc-kernel-gga_c_acgga`), lib name `libxc_kernel_<func>`. Planner confirms the exact spelling (hyphen vs underscore handling in the package name) after reading the current numbered-subcrate `Cargo.toml` naming.
@@ -323,7 +340,7 @@ reflect D-13:
 
 ---
 
-## Re-plan Note (2026-05-15 — second pause, post-architectural-blocker)
+## Re-plan Note (2026-05-18 — second pause resolution, Option C locked)
 
 Phase 11 paused a second time at **plan 11-04 Task 1A** (`.continue-here.md`). Task 1A's
 verify dev-dep narrowing (commit `39eb75f93`, the D-05 OOM structural fix) landed cleanly
@@ -336,17 +353,14 @@ per-functional `cargo build -p` first exercised real chunks + real helper calls 
 The quick task **`260515-q01-cse-chunk-arity-cap-12`** (commit `5c379dc25`) empirically
 established the four-layer bug structure (MAX_TUPLE_ARITY cap, literal coercion, 1-tuple
 `let`, helper-layer concreteness) via `crates/kernels/math/tests/spike_cse_emit_q01.rs`.
-Layers 1–3 are fixed in `tools/translate_v2/`; layer 4 is **D-14**'s scope.
+Layers 1–3 are fixed in `tools/translate_v2/`; layer 4 was originally D-14's spike scope
+(Option A vs C race to refactor helpers).
 
-The decisions added in this revision (D-14, D-15, D-16, D-17 + AP-1..6) are designed to
-prevent recurrence: **D-14** locks D-02 via a measured A-vs-C race instead of an unverified
-extension of the 11-01 spike; **D-15** makes per-`-p` cargo compile a **plan entry gate**,
-not a plan exit gate; **D-16** consolidates emit logic into a single AST pass that owns
-both literal-wrap and helper-call-wrap, removing the multi-regex fragility that bit q01;
-**D-17** splits the work into five plans 11-04..08 so each gate is small and falsifiable;
-**AP-6** codifies "no structural completion claim without a per-`-p` compile gate".
+**Resolution (user decision 2026-05-18):** **Abandon Option A (generic helpers). Lock Option C (cast-at-call-site).** Rationale: Option A required refactoring 38 helpers via Phase 2 automated scripts (`_refactor_helper_*`), but 11 files have systematic syntax errors in the regex patterns — these errors only surface at the regen stage, not during syntax check. The script fix itself would be a multi-hour meta-task. Option C unblocks immediately by accepting translator-side boilerplate (`cast_into_f(helper_f64(cast_from_f(x)))` at ~581K call sites) instead. Mathematically sound per `cubecl_macro_fanout_manual.md` §6 — casts are zero-cost in CubeCL. The auto-generated code is acceptable; the refactoring scripts are not.
 
-**Plans 11-04..06 are stale and must be regenerated.** 11-01..03 SUMMARYs survive. The
+The decisions added in this revision (D-02 revised to C, D-14 updated to C, D-16 updated for cast-wrapper emit, AP-1..3 with structural mitigations) are designed to prevent recurrence: **D-02 Option C** unblocks the D-14 spike within 1–2 days (vs Option A's script debugging); **AP-1/AP-2/AP-3** provide structural gates and checks to catch these breakage patterns early (entry-gate compile, pre-flight `.cargo/config.toml` check, explicit ban on hand-editing); **AP-6 reframed as part of AP-1**: compile-first entry gate, not compile-after exit gate.
+
+**Plans 11-04..06 are stale and must be regenerated per the Option C decision.** 11-01..03 SUMMARYs survive. The
 retroactive 11-04 SUMMARY (D-17) documents the Task 1A landing and the pause. Forward
 work starts at 11-05.
 
@@ -356,9 +370,9 @@ work starts at 11-05.
 - 11-03 SUMMARY ✓ (D-13 audit + dispatch verification under per-functional subcrates)
 - 11-04 partial commit `39eb75f93` ✓ (verify dev-dep narrowing — retroactive SUMMARY in this replan)
 - `5c379dc25` (q01 three emit fixes in `tools/translate_v2/`) ✓ — building on, not redoing
-- D-14 spike replaces the unverified D-02 lock
+- D-14 spike now validates **Option C** (chosen path, not an A-vs-C race)
 
 ---
 
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause)*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option C locked; blocking anti-patterns codified)*
