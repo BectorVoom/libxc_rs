@@ -59,26 +59,12 @@ The document should describe what you want to build.
 ```bash
 INIT=$(gsd-sdk query init.new-project)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
-AGENT_SKILLS_RESEARCHER=$(gsd-sdk query agent-skills gsd-project-researcher)
-AGENT_SKILLS_SYNTHESIZER=$(gsd-sdk query agent-skills gsd-research-synthesizer)
-AGENT_SKILLS_ROADMAPPER=$(gsd-sdk query agent-skills gsd-roadmapper)
+AGENT_SKILLS_RESEARCHER=$(gsd-sdk query agent-skills gsd-project-researcher 2>/dev/null)
+AGENT_SKILLS_SYNTHESIZER=$(gsd-sdk query agent-skills gsd-synthesizer 2>/dev/null)
+AGENT_SKILLS_ROADMAPPER=$(gsd-sdk query agent-skills gsd-roadmapper 2>/dev/null)
 ```
 
-Parse JSON for: `researcher_model`, `synthesizer_model`, `roadmapper_model`, `commit_docs`, `project_exists`, `has_codebase_map`, `planning_exists`, `has_existing_code`, `has_package_file`, `is_brownfield`, `needs_codebase_map`, `has_git`, `project_path`, `agents_installed`, `missing_agents`.
-
-**If `agents_installed` is false:** Display a warning before proceeding:
-```
-⚠ GSD agents not installed. The following agents are missing from your agents directory:
-  {missing_agents joined with newline}
-
-Subagent spawns (gsd-project-researcher, gsd-research-synthesizer, gsd-roadmapper) will fail
-with "agent type not found". Run the installer with --global to make agents available:
-
-  npx get-shit-done-cc@latest --global
-
-Proceeding without research subagents — roadmap will be generated inline.
-```
-Skip Steps 6–7 (parallel research and synthesis) and proceed directly to roadmap creation in Step 8.
+Parse JSON for: `researcher_model`, `synthesizer_model`, `roadmapper_model`, `commit_docs`, `project_exists`, `has_codebase_map`, `planning_exists`, `has_existing_code`, `has_package_file`, `is_brownfield`, `needs_codebase_map`, `has_git`, `project_path`.
 
 **Detect runtime and set instruction file name:**
 
@@ -236,7 +222,7 @@ gsd-sdk query config-new-project '{"mode":"yolo","granularity":"[selected]","par
 
 ```bash
 mkdir -p .planning
-gsd-sdk query commit "chore: add project config" --files .planning/config.json
+gsd-sdk query commit "chore: add project config" .planning/config.json
 ```
 
 **Persist auto-advance chain flag to config (survives context compaction):**
@@ -253,10 +239,10 @@ Check for existing spike and sketch work that should inform project setup:
 
 ```bash
 # Check for spike findings skill (project-local)
-SPIKE_SKILL=$(ls ./.claude/skills/spike-findings-*/SKILL.md 2>/dev/null | head -1 || true)
+SPIKE_SKILL=$(ls ./.claude/skills/spike-findings-*/SKILL.md 2>/dev/null | head -1)
 
 # Check for sketch findings skill (project-local)
-SKETCH_SKILL=$(ls ./.claude/skills/sketch-findings-*/SKILL.md 2>/dev/null | head -1 || true)
+SKETCH_SKILL=$(ls ./.claude/skills/sketch-findings-*/SKILL.md 2>/dev/null | head -1)
 
 # Check for raw spikes/sketches in .planning/
 HAS_SPIKES=$(ls .planning/spikes/MANIFEST.md 2>/dev/null)
@@ -269,8 +255,8 @@ If any of these exist, surface them before questioning:
 ⚡ Prior exploration detected:
 {if SPIKE_SKILL}  ✓ Spike findings skill: {path} — validated patterns from experiments
 {if SKETCH_SKILL}  ✓ Sketch findings skill: {path} — validated design decisions
-{if HAS_SPIKES && !SPIKE_SKILL}  ◆ Raw spikes in .planning/spikes/ — consider `/gsd-spike --wrap-up` to package findings
-{if HAS_SKETCHES && !SKETCH_SKILL}  ◆ Raw sketches in .planning/sketches/ — consider `/gsd-sketch --wrap-up` to package findings
+{if HAS_SPIKES && !SPIKE_SKILL}  ◆ Raw spikes in .planning/spikes/ — consider `/gsd-spike-wrap-up` to package findings
+{if HAS_SKETCHES && !SKETCH_SKILL}  ◆ Raw sketches in .planning/sketches/ — consider `/gsd-sketch-wrap-up` to package findings
 
 These findings will be incorporated into project context and available to planning agents.
 ```
@@ -447,7 +433,7 @@ Do not compress. Capture everything gathered.
 
 ```bash
 mkdir -p .planning
-gsd-sdk query commit "docs: initialize project" --files .planning/PROJECT.md
+gsd-sdk query commit "docs: initialize project" .planning/PROJECT.md
 ```
 
 ## 5. Workflow Preferences
@@ -666,7 +652,7 @@ gsd-sdk query config-new-project '{"mode":"[yolo|interactive]","granularity":"[s
 **Commit config.json:**
 
 ```bash
-gsd-sdk query commit "chore: add project config" --files .planning/config.json
+gsd-sdk query commit "chore: add project config" .planning/config.json
 ```
 
 ## 5.1. Sub-Repo Detection
@@ -754,8 +740,8 @@ Display spawning indicator:
 
 Spawn 4 parallel gsd-project-researcher agents with path references:
 
-```text
-Agent(prompt="<research_type>
+```
+Task(prompt="<research_type>
 Project Research — Stack dimension for [domain].
 </research_type>
 
@@ -791,11 +777,11 @@ Your STACK.md feeds into roadmap creation. Be prescriptive:
 
 <output>
 Write to: .planning/research/STACK.md
-Use template: /home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/STACK.md
+Use template: /home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/STACK.md
 </output>
 ", subagent_type="gsd-project-researcher", model="{researcher_model}", description="Stack research")
 
-Agent(prompt="<research_type>
+Task(prompt="<research_type>
 Project Research — Features dimension for [domain].
 </research_type>
 
@@ -831,11 +817,11 @@ Your FEATURES.md feeds into requirements definition. Categorize clearly:
 
 <output>
 Write to: .planning/research/FEATURES.md
-Use template: /home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/FEATURES.md
+Use template: /home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/FEATURES.md
 </output>
 ", subagent_type="gsd-project-researcher", model="{researcher_model}", description="Features research")
 
-Agent(prompt="<research_type>
+Task(prompt="<research_type>
 Project Research — Architecture dimension for [domain].
 </research_type>
 
@@ -871,11 +857,11 @@ Your ARCHITECTURE.md informs phase structure in roadmap. Include:
 
 <output>
 Write to: .planning/research/ARCHITECTURE.md
-Use template: /home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/ARCHITECTURE.md
+Use template: /home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/ARCHITECTURE.md
 </output>
 ", subagent_type="gsd-project-researcher", model="{researcher_model}", description="Architecture research")
 
-Agent(prompt="<research_type>
+Task(prompt="<research_type>
 Project Research — Pitfalls dimension for [domain].
 </research_type>
 
@@ -911,17 +897,15 @@ Your PITFALLS.md prevents mistakes in roadmap/planning. For each pitfall:
 
 <output>
 Write to: .planning/research/PITFALLS.md
-Use template: /home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/PITFALLS.md
+Use template: /home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/PITFALLS.md
 </output>
 ", subagent_type="gsd-project-researcher", model="{researcher_model}", description="Pitfalls research")
 ```
 
-> **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling all 4 researcher Agent() calls above, do NOT read research files or synthesize content independently while the subagents are active. Wait for all 4 researchers to complete before spawning the synthesizer. This prevents duplicate work and wasted context.
-
 After all 4 agents complete, spawn synthesizer to create SUMMARY.md:
 
-```text
-Agent(prompt="
+```
+Task(prompt="
 <task>
 Synthesize research outputs into SUMMARY.md.
 </task>
@@ -937,13 +921,11 @@ ${AGENT_SKILLS_SYNTHESIZER}
 
 <output>
 Write to: .planning/research/SUMMARY.md
-Use template: /home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/SUMMARY.md
+Use template: /home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/research-project/SUMMARY.md
 Commit after writing.
 </output>
 ", subagent_type="gsd-research-synthesizer", model="{synthesizer_model}", description="Synthesize research")
 ```
-
-> **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling Agent() above, stop working on this task immediately. Do not read more files, edit code, or run tests related to this task while the subagent is active. Wait for the subagent to return its result. This prevents duplicate work, conflicting edits, and wasted context. Only resume when the subagent result is available.
 
 Display research complete banner and key findings:
 
@@ -1114,23 +1096,8 @@ If "adjust": Return to scoping.
 **Commit requirements:**
 
 ```bash
-gsd-sdk query commit "docs: define v1 requirements" --files .planning/REQUIREMENTS.md
+gsd-sdk query commit "docs: define v1 requirements" .planning/REQUIREMENTS.md
 ```
-
-## 7.5. Project Structure Mode
-
-**If auto mode:** Set `PROJECT_MODE=mvp` and skip this prompt.
-
-**Mode prompt: Vertical MVP vs Horizontal Layers.**
-
-Ask the user how they want to structure the project. Use `AskUserQuestion` with two options:
-
-- **Vertical MVP** — get a working app fast, add features slice by slice. Each phase delivers an end-to-end user capability. *(Recommended for new products and rapid-iteration MVPs.)*
-- **Horizontal Layers** — build complete technical layers (DB → API → UI → wiring) and assemble at the end. *(Better for infrastructure-heavy projects with multiple developers.)*
-
-Set `PROJECT_MODE=mvp` if the user picks Vertical MVP, otherwise `PROJECT_MODE=standard`.
-
-When `TEXT_MODE=true` (per the workflow's existing TEXT_MODE handling for non-Claude runtimes), present the same two options as a plain-text numbered list and ask the user to type their choice number.
 
 ## 8. Create Roadmap
 
@@ -1144,27 +1111,10 @@ Display stage banner:
 ◆ Spawning roadmapper...
 ```
 
-**ROADMAP.md template — mode-aware emit.** When generating the initial ROADMAP.md:
-
-- If `PROJECT_MODE=mvp`: under each `### Phase N:` header, emit `**Mode:** mvp` on the line immediately following `**Goal:**`. This sets every initial phase to MVP mode (per Phase-4-Persistence decision: per-phase mode, not project-wide config).
-- If `PROJECT_MODE=standard`: emit the standard ROADMAP.md template with no `**Mode:**` lines (Horizontal Layers standard template — no behavioral change for users who pick Horizontal Layers).
-
-Example MVP-mode emit for Phase 1:
-
-```markdown
-### Phase 1: [Name]
-**Goal:** [Goal]
-**Mode:** mvp
-**Success Criteria**:
-1. [Criterion]
-```
-
-Pass `PROJECT_MODE` to the roadmapper so it applies the correct template.
-
 Spawn gsd-roadmapper agent with path references:
 
-```text
-Agent(prompt="
+```
+Task(prompt="
 <planning_context>
 
 <files_to_read>
@@ -1191,8 +1141,6 @@ Write files first, then return. This ensures artifacts persist even if context i
 </instructions>
 ", subagent_type="gsd-roadmapper", model="{roadmapper_model}", description="Create roadmap")
 ```
-
-> **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling Agent() above, stop working on this task immediately. Do not read more files, edit code, or run tests related to this task while the subagent is active. Wait for the subagent to return its result. This prevents duplicate work, conflicting edits, and wasted context. Only resume when the subagent result is available.
 
 **Handle roadmapper return:**
 
@@ -1262,8 +1210,8 @@ Use AskUserQuestion:
 - Get user's adjustment notes
 - Re-spawn roadmapper with revision context:
 
-  ```text
-  Agent(prompt="
+  ```
+  Task(prompt="
   <revision>
   User feedback on roadmap:
   [user's notes]
@@ -1279,8 +1227,6 @@ Use AskUserQuestion:
   </revision>
   ", subagent_type="gsd-roadmapper", model="{roadmapper_model}", description="Revise roadmap")
   ```
-
-  > **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling Agent() above, stop working on this task immediately. Do not read more files, edit code, or run tests related to this task while the subagent is active. Wait for the subagent to return its result. This prevents duplicate work, conflicting edits, and wasted context. Only resume when the subagent result is available.
 
 - Present revised roadmap
 - Loop until user approves
@@ -1298,7 +1244,7 @@ This ensures new projects get the default GSD workflow-enforcement guidance and 
 **Commit roadmap (after approval or auto mode):**
 
 ```bash
-gsd-sdk query commit "docs: create roadmap ([N] phases)" --files .planning/ROADMAP.md .planning/STATE.md .planning/REQUIREMENTS.md "$INSTRUCTION_FILE"
+gsd-sdk query commit "docs: create roadmap ([N] phases)" .planning/ROADMAP.md .planning/STATE.md .planning/REQUIREMENTS.md "$INSTRUCTION_FILE"
 ```
 
 ## 9. Done

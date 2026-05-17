@@ -112,7 +112,7 @@ fn gl32_func0<F: Float>(a: F, h: F, beta: F) -> F {
 
 /// Integrate func0 from 0 to b using 16-panel composite 32-point F::new(GL) (512 points).
 #[cube]
-pub fn xc_integrate_func0<F: Float>(b: F::new(F), beta: F::new(F)) -> F::new(F) {
+pub fn xc_integrate_func0<F: Float>(b: F, beta: F) -> F {
     let h = b / F::new(16.0);
     gl32_func0( F::new(0.0) * h, h, beta)
         + gl32_func0( F::new(1.0) * h, h, beta)
@@ -344,7 +344,7 @@ fn gl32_func1_regular<F: Float>(a: F, h: F, beta: F) -> F {
 /// The smooth remainder is integrated with 16-panel composite 32-point F::new(GL)
 /// (512 total quadrature points) for ≤ 10⁻¹² relative error.
 #[cube]
-pub fn xc_integrate_func1<F: Float>(b: F::new(F), beta: F::new(F)) -> F::new(F) {
+pub fn xc_integrate_func1<F: Float>(b: F, beta: F) -> F {
     let csi = F::new(1.2599210498948732); // F::new(M_CBRT2)
     let c = -F::new(0.75) * beta * csi;
 

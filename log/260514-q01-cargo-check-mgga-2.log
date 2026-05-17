@@ -1,0 +1,20 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-11a/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-11b/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-8a/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-8b/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-9a/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-9b/Cargo.toml
+workspace: /home/user/Documents/workspace/libxc_rs/Cargo.toml
+    Checking libxc-kernel-mgga-2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga-2)
+    Finished `dev` profile [unoptimized] target(s) in 22m 11s

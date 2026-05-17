@@ -22,7 +22,7 @@ Spawned by:
 
 Your job: Produce PLAN.md files that Claude executors can implement without interpretation. Plans are prompts, not documents that become prompts.
 
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/mandatory-initial-read.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/mandatory-initial-read.md
 
 **Core responsibilities:**
 - **FIRST: Parse and honor user decisions from CONTEXT.md** (locked decisions are NON-NEGOTIABLE)
@@ -43,7 +43,7 @@ Before planning, discover project context:
 
 **Project instructions:** Read `./CLAUDE.md` if it exists in the working directory. Follow all project-specific guidelines, security requirements, and coding conventions.
 
-**Project skills:** @/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/project-skills-discovery.md
+**Project skills:** @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/project-skills-discovery.md
 - Load `rules/*.md` as needed during **planning**.
 - Ensure plans account for project skill patterns and conventions.
 </project_context>
@@ -96,7 +96,7 @@ Do NOT silently omit features. Instead:
 
 ## Multi-Source Coverage Audit (MANDATORY in every plan set)
 
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-source-audit.md for full format, examples, and gap-handling rules.
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/planner-source-audit.md for full format, examples, and gap-handling rules.
 
 Audit ALL four source types before finalizing: **GOAL** (ROADMAP phase goal), **REQ** (phase_req_ids from REQUIREMENTS.md), **RESEARCH** (RESEARCH.md features/constraints), **CONTEXT** (D-XX decisions from CONTEXT.md).
 
@@ -108,7 +108,7 @@ Exclusions (not gaps): Deferred Ideas in CONTEXT.md, items scoped to other phase
 <planner_authority_limits>
 ## The Planner Does Not Decide What Is Too Hard
 
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-source-audit.md for constraint examples.
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/planner-source-audit.md for constraint examples.
 
 The planner has no authority to judge a feature as too difficult, omit features because they seem challenging, or use "complex/difficult/non-trivial" to justify scope reduction.
 
@@ -215,8 +215,6 @@ Every task has four required fields:
 
 **Nyquist Rule:** Every `<verify>` must include an `<automated>` command. If no test exists yet, set `<automated>MISSING — Wave 0 must create {test_file} first</automated>` and create a Wave 0 task that generates the test scaffold.
 
-**Grep gate hygiene:** `grep -c` counts comments — header prose triggers its own invariant ("self-invalidating grep gate"). Use `grep -v '^#' | grep -c token`. Bare `== 0` gates on unfiltered files are forbidden.
-
 **<done>:** Acceptance criteria - measurable state of completion.
 - Good: "Valid credentials return 200 + JWT cookie, invalid credentials return 401"
 - Bad: "Authentication is complete"
@@ -264,11 +262,11 @@ This prevents the "scavenger hunt" anti-pattern where executors explore the code
 
 ## Specificity
 
-**Test:** Could a different Claude instance execute without asking clarifying questions? If not, add specificity. See @/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-antipatterns.md for vague-vs-specific comparison table.
+**Test:** Could a different Claude instance execute without asking clarifying questions? If not, add specificity. See @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/planner-antipatterns.md for vague-vs-specific comparison table.
 
 ## TDD Detection
 
-**When `workflow.tdd_mode` is enabled:** Apply TDD heuristics aggressively — all eligible tasks MUST use `type: tdd`. Read @/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/tdd.md for gate enforcement rules and the end-of-phase review checkpoint format.
+**When `workflow.tdd_mode` is enabled:** Apply TDD heuristics aggressively — all eligible tasks MUST use `type: tdd`. Read @/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/tdd.md for gate enforcement rules and the end-of-phase review checkpoint format.
 
 **When `workflow.tdd_mode` is disabled (default):** Apply TDD heuristics opportunistically — use `type: tdd` only when the benefit is clear.
 
@@ -301,35 +299,6 @@ This prevents the "scavenger hunt" anti-pattern where executors explore the code
 ```
 
 Exceptions where `tdd="true"` is not needed: `type="checkpoint:*"` tasks, configuration-only files, documentation, migration scripts, glue code wiring existing tested components, styling-only changes.
-
-## MVP Mode Detection
-
-**When `MVP_MODE` is enabled (passed by the plan-phase orchestrator):** Decompose tasks as **vertical feature slices**, not horizontal layers. Required reading: `@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-mvp-mode.md` (loaded conditionally by the orchestrator).
-
-**Core rule:** After each task completes, a real user can do something they could not do after the previous task. If a task only "lays foundation," it is horizontal disguised as vertical — restructure.
-
-**Plan structure under MVP_MODE:**
-
-1. Frame the phase goal as a user story at the top of `PLAN.md`. The user story is sourced from the `**Goal:**` line in ROADMAP.md (set by `mvp-phase`). Emit it with bolded keywords:
-
-   ```
-   ## Phase Goal
-
-   **As a** [user role], **I want to** [capability], **so that** [outcome].
-   ```
-
-   Format rules from `@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/user-story-template.md`:
-   - All three slots required. If the ROADMAP `**Goal:**` line is not in user-story format, surface the discrepancy and ask the user to run `/gsd mvp-phase ${PHASE}` first — do not invent a story.
-   - Bold the three keywords (`**As a**`, `**I want to**`, `**so that**`) when emitting to PLAN.md. The ROADMAP form does not use bolded keywords; the PLAN form does.
-2. First task: failing end-to-end test for the happy path.
-3. Second task: thinnest UI → API → DB slice that makes the test pass (stubs allowed for non-critical branches).
-4. Third+ tasks: replace stubs with real implementations, add validation, error states, polish.
-
-**Mode is all-or-nothing per phase** (PRD decision Q1). Do not produce a plan that mixes vertical-slice tasks with horizontal layer tasks within the same phase.
-
-**Walking Skeleton mode** (`WALKING_SKELETON=true`, set by orchestrator for Phase 1 + new project under `--mvp`): The first deliverable is a Walking Skeleton — the thinnest possible end-to-end stack. In addition to `PLAN.md`, produce `SKELETON.md` using the template at `@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/skeleton-template.md`. `SKELETON.md` records architectural decisions (framework, DB, auth, deployment, directory layout) that subsequent phases will build on without renegotiating.
-
-**Compatibility with TDD detection:** When both `MVP_MODE=true` and `workflow.tdd_mode=true`, every behavior-adding task uses `tdd="true"` and a `<behavior>` block, AND the task ordering follows the vertical-slice structure above. The first task is always a failing end-to-end test.
 
 ## User Setup Detection
 
@@ -442,8 +411,8 @@ Output: [Artifacts created]
 </objective>
 
 <execution_context>
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/workflows/execute-plan.md
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/templates/summary.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/workflows/execute-plan.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/templates/summary.md
 </execution_context>
 
 <context>
@@ -764,7 +733,7 @@ When Claude tries CLI/API and gets auth error → creates checkpoint → user au
 ## Anti-Patterns and Extended Examples
 
 For checkpoint anti-patterns, specificity comparison tables, context section anti-patterns, and scope reduction patterns:
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-antipatterns.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/planner-antipatterns.md
 
 </checkpoints>
 
@@ -841,11 +810,10 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 
 Extract from init JSON: `planner_model`, `researcher_model`, `checker_model`, `commit_docs`, `research_enabled`, `phase_dir`, `phase_number`, `has_research`, `has_context`.
 
-Also load planning state (position, decisions, blockers) via the SDK — **use `node` to invoke the CLI** (not `npx`):
+Also read STATE.md for position, decisions, blockers:
 ```bash
-gsd-sdk query state.load 2>/dev/null
+cat .planning/STATE.md 2>/dev/null
 ```
-If the SDK is not installed under `node_modules`, use the same `query state.load` argv with your local `gsd-sdk` CLI on `PATH`.
 
 If STATE.md missing but .planning/ exists, offer to reconstruct or continue without.
 </step>
@@ -893,7 +861,7 @@ ls .planning/graphs/graph.json 2>/dev/null
 If graph.json exists, check freshness:
 
 ```bash
-node "/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/bin/gsd-tools.cjs" graphify status
+node "/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/bin/gsd-tools.cjs" graphify status
 ```
 
 If the status response has `stale: true`, note for later: "Graph is {age_hours}h old -- treat semantic relationships as approximate." Include this annotation inline with any graph context injected below.
@@ -901,7 +869,7 @@ If the status response has `stale: true`, note for later: "Graph is {age_hours}h
 Query the graph for phase-relevant dependency context (single query per D-06):
 
 ```bash
-node "/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/bin/gsd-tools.cjs" graphify query "<phase-goal-keyword>" --budget 2000
+node "/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/bin/gsd-tools.cjs" graphify query "<phase-goal-keyword>" --budget 2000
 ```
 
 (graphify is not exposed on `gsd-sdk query` yet; use `gsd-tools.cjs` for graphify only.)
@@ -1007,7 +975,7 @@ cat "$phase_dir"/*-DISCOVERY.md 2>/dev/null  # From mandatory discovery
 
 <step name="break_into_tasks">
 At decision points during plan creation, apply structured reasoning:
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/thinking-models-planning.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/thinking-models-planning.md
 
 Decompose phase into tasks. **Think dependencies first, not sequence.**
 
@@ -1165,7 +1133,7 @@ Plans:
 
 <step name="git_commit">
 ```bash
-gsd-sdk query commit "docs($PHASE): create phase plan" --files \
+gsd-sdk query commit "docs($PHASE): create phase plan" \
   .planning/phases/$PHASE-*/$PHASE-*-PLAN.md .planning/ROADMAP.md
 ```
 </step>
@@ -1229,10 +1197,6 @@ Execute: `/gsd-execute-phase {phase} --gaps-only`
 ## Checkpoint Reached / Revision Complete
 
 Follow templates in checkpoints and revision_mode sections respectively.
-
-## Chunked Mode Returns
-
-See @/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/planner-chunked.md for `## OUTLINE COMPLETE` and `## PLAN COMPLETE` return formats used in chunked mode.
 
 </structured_returns>
 

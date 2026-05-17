@@ -27,7 +27,7 @@ const LOG_DBL_MAX: f64 = 709.7827128933840;
 // 2 * F::new(DBL_MIN)
 const TWO_DBL_MIN: f64 = 4.450147717014403e-308;
 // 2 * sqrt(2) * F::new(SQRT_DBL_EPSILON)
-const TWO_SQRT2_SQRT_DBL_EPSILON: f64 = F::new(4.214684242274519e-8);
+const TWO_SQRT2_SQRT_DBL_EPSILON: f64 = 4.214684242274519e-8;
 
 // ---------------------------------------------------------------------------
 // Chebyshev evaluators (Clenshaw recurrence, manual unrolling)
@@ -51,7 +51,7 @@ fn cheb_bi0<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.01304891466707290428);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.22826445869203013390);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(1.92733795399380827000);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.07660547252839144951);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.07660547252839144951;
     F::new(0.5) * (b0 - b2)
 }
 
@@ -63,22 +63,22 @@ fn cheb_ai0<F: Float>(x: F) -> F {
     let mut b1 = F::new(0.0);
     let mut b2: f64 = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000007);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000071);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000071;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0000000000000000031);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000608);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000002415);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000608;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000002415;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000027155);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000011468);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000011468;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000112822);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0000000000000175785);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000011916228);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000011916228;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000022925563);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000155964859);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000001204463945);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000001204463945;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000825247260);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000027838499429);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000007826143501);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000790117997921);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000007826143501;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000790117997921;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000001070076463439);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000041531313389237);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0075913808108233);
@@ -94,18 +94,18 @@ fn cheb_ai02<F: Float>(x: F) -> F {
     let mut b1 = F::new(0.0);
     let mut b2: f64 = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000003);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000027);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000000003);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000027;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000003;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0000000000000000017);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000382);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000000095);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000004151);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000095;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000004151;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000001539);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000038529);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000071801);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000179419);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000001321580);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000003149915);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000179419;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001321580;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000003149915;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0000000000000118891);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000049406022);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000339623203);
@@ -135,7 +135,7 @@ fn cheb_bi1<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.001545394556300123);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.03483899429995945);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.407348876675464810);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.001971713261099859);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.001971713261099859;
     F::new(0.5) * (b0 - b2)
 }
 
@@ -146,27 +146,27 @@ fn cheb_ai1<F: Float>(x: F) -> F {
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
     let mut b2: f64 = F::new(0.0);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000000000);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000000;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000071);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000333);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000333;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000730);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000002023);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000027315);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000027315;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000124260);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000166665);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000001664947);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000166665;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001664947;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000012663889);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000029085122);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000144842341);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000029085122;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000144842341;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000001318012367);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.000000000015593781);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000002918338918);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.000000000015593781;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000002918338918;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000104949824671);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000858561914581);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000002069971253350);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000061151858579437);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.01922953231443221);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.02846744181881479);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000002069971253350;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000061151858579437;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.01922953231443221;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.02846744181881479;
     F::new(0.5) * (b0 - b2)
 }
 
@@ -177,27 +177,27 @@ fn cheb_ai12<F: Float>(x: F) -> F {
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
     let mut b2: f64 = F::new(0.0);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000003);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000003;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000028);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000033);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000000018);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000382);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000018;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000382;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000001041);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000004273);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000002101);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000004083);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000071985);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000002101;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000004083;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000071985;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.000000000000002035);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000001412580);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000003252602);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000001897495);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000055897433);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000383538039);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000002631468847);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000025122362377);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000388256480887);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000011058893876263);
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00976109749136147);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001897495;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000055897433;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000383538039;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000002631468847;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000025122362377;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000388256480887;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000011058893876263;
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00976109749136147;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0285762350182801);
     F::new(0.5) * (b0 - b2)
 }
@@ -211,7 +211,7 @@ fn cheb_ai12<F: Float>(x: F) -> F {
 ///
 /// Mirrors libxc `xc_bessel_I0_scaled` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I0_scaled<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_bessel_I0_scaled<F: Float>(x: F) -> F {
     let y = F::abs(x);
     let mut r = F::new(0.0);
 
@@ -236,7 +236,7 @@ pub fn xc_bessel_I0_scaled<F: Float>(x: F::new(F)) -> F::new(F) {
 ///
 /// Mirrors libxc `xc_bessel_I0` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I0<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_bessel_I0<F: Float>(x: F) -> F {
     let y = F::abs(x);
     let mut r = F::new(0.0);
 
@@ -257,7 +257,7 @@ pub fn xc_bessel_I0<F: Float>(x: F::new(F)) -> F::new(F) {
 ///
 /// Mirrors libxc `xc_bessel_I1_scaled` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I1_scaled<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_bessel_I1_scaled<F: Float>(x: F) -> F {
     let y = F::abs(x);
     let mut r = F::new(0.0);
 
@@ -287,7 +287,7 @@ pub fn xc_bessel_I1_scaled<F: Float>(x: F::new(F)) -> F::new(F) {
 ///
 /// Mirrors libxc `xc_bessel_I1` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I1<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_bessel_I1<F: Float>(x: F) -> F {
     let y = F::abs(x);
     let mut r = F::new(0.0);
 
@@ -340,14 +340,14 @@ mod tests {
     }
 
     const BI0: [f64; 12] = [
-        -F::new(0.07660547252839144951), F::new(1.92733795399380827000), F::new(0.22826445869203013390),
+        -0.07660547252839144951, F::new(1.92733795399380827000), F::new(0.22826445869203013390),
          F::new(0.01304891466707290428), F::new(0.0004344270900816487), F::new(0.00000942265768600193),
          F::new(0.0000001434006289510), F::new(0.000000001613849069), F::new(0.000000000013966500),
          F::new(0.00000000000009579451), F::new(0.00000000000000053339), F::new(0.00000000000000000245),
     ];
 
     const BI1: [f64; 11] = [
-        -F::new(0.001971713261099859), F::new(0.407348876675464810), F::new(0.03483899429995945),
+        -0.001971713261099859, F::new(0.407348876675464810), F::new(0.03483899429995945),
          F::new(0.001545394556300123), F::new(0.000041888521098377), F::new(0.000000764902676483),
          F::new(0.00000001004249392), F::new(0.000000000099322077), F::new(0.000000000000766380),
          F::new(0.000000000000004741), F::new(0.00000000000000002),
@@ -394,13 +394,13 @@ mod tests {
         // Known F::new(SLATEC) value: at x = -1 (i.e. y*y/F::new(4.5) - F::new(1.0) = -1 ⇒ y = 0)
         // sum is approximately equal to truncation behavior. Just check
         // it's finite and within reasonable bounds.
-        let v = cheb(-F::new(1.0), &F::new(BI0));
+        let v = cheb(-1.0, &F::new(BI0));
         assert!(v.is_finite());
     }
 
     #[test]
     fn cheb_bi1_matches_libxc_table() {
-        let v = cheb(-F::new(1.0), &F::new(BI1));
+        let v = cheb(-1.0, &F::new(BI1));
         assert!(v.is_finite());
     }
 

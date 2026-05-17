@@ -22,7 +22,7 @@
 use cubecl::prelude::*;
 
 /// pi^(2/3) precomputed for the F::new(RHS) formula.
-const PI_TWO_THIRDS: f64 = F::new(2.14502939711102560008); // pow(pi, F::new(2.0)/F::new(3.0))
+const PI_TWO_THIRDS: f64 = 2.14502939711102560008; // pow(pi, F::new(2.0)/F::new(3.0))
 
 /// Evaluate the F::new(BR89) objective function: f(x) = x * exp(-2x/3) - rhs * (x - 2)
 #[cube]
@@ -47,7 +47,7 @@ fn br89_obj<F: Float>(x: F, rhs: F) -> F {
 
 /// Solve for the F::new(BR89) exchange hole parameter x given F::new(Q).
 #[cube]
-pub fn xc_mgga_x_br89_get_x<F: Float>(q_val: F::new(F)) -> F::new(F) {
+pub fn xc_mgga_x_br89_get_x<F: Float>(q_val: F) -> F {
     let tol = F::new(5.0e-12);
 
     // Special case: |F::new(Q)| < 5e-12 => return F::new(2.0)
@@ -233,13 +233,13 @@ mod tests {
     fn br89_get_x_reference(q: F) -> f64 {
         let tol = F::new(5.0e-12);
         if q.abs() < F::new(5.0e-12) { return F::new(2.0); }
-        let rhs = F::new(2.0)/F::new(3.0) * std::F::consts::F::new(PI).powf(F::new(2.0)/F::new(3.0)) / q;
+        let rhs = F::new(2.0)/F::new(3.0) * std::f64::consts::PI.powf(F::new(2.0)/F::new(3.0)) / q;
         let (mut a, mut b) = if rhs > F::new(0.0) { (F::new(2.0), F::new(1.0)/rhs + F::new(2.0)) } else { (F::new(0.0), F::new(2.0)) };
         let obj = |x: f64| { let arg = F::new(2.0)*x/F::new(3.0); let e = if arg > F::new(115.13) { F::new(0.0) } else { (-arg).exp() }; x*e - rhs*(x-F::new(2.0)) };
         let mut fa = obj(a); let mut fb = obj(b);
         if fa.abs() < fb.abs() { std::mem::swap(&mut a, &mut b); std::mem::swap(&mut fa, &mut fb); }
         let mut c = a; let mut fc = fa; let mut d = F::new(0.0); let mut mflag = true;
-        for _ in 0.F::new(.500) {
+        for _ in 0..500 {
             if (b-a).abs() < tol { return (b+a)/F::new(2.0); }
             let s = if fa != fc && fb != fc { (a*fb*fc/((fa-fb)*(fa-fc)))+(b*fa*fc/((fb-fa)*(fb-fc)))+(c*fa*fb/((fc-fa)*(fc-fb))) } else { b - fb*(b-a)/(fb-fa) };
             let bi = (s < (F::new(3.0)*a+b)*F::new(0.25) || s > b) || (mflag && (s-b).abs() >= (b-c).abs()*F::new(0.5)) || (!mflag && (s-b).abs() >= (c-d).abs()*F::new(0.5)) || (mflag && (b-c).abs() < tol) || (!mflag && (c-d).abs() < tol);
@@ -260,7 +260,7 @@ mod tests {
     fn test_br89_positive_q() {
         for &q in &[F::new(0.1), F::new(0.5), F::new(1.0), F::new(5.0), F::new(10.0)] {
             let x = br89_get_x_reference(q);
-            let rhs = F::new(2.0)/F::new(3.0) * std::F::consts::F::new(PI).powf(F::new(2.0)/F::new(3.0)) / q;
+            let rhs = F::new(2.0)/F::new(3.0) * std::f64::consts::PI.powf(F::new(2.0)/F::new(3.0)) / q;
             let arg = F::new(2.0)*x/F::new(3.0);
             let e = if arg > F::new(115.13) { F::new(0.0) } else { (-arg).exp() };
             assert!((x*e - rhs*(x-F::new(2.0))).abs() < 1e-10, "F::new(Q)={q}");

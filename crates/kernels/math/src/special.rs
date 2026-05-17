@@ -90,7 +90,7 @@ fn cheb_eval_38<F: Float>(x: F, c0: F, c1: F, c2: F, c3: F, c4: F,
 /// Translated from libxc `special_functions.c` `xc_dilogarithm`.
 /// Uses Chebyshev approximation (F::new(SLATEC) method by F::new(W). Fullerton).
 #[cube]
-pub fn xc_dilogarithm<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_dilogarithm<F: Float>(x: F) -> F {
     let pi26 = F::new(1.644934066848226436472415166646025189219);
 
     // Spence Chebyshev coefficients (38 terms)
@@ -170,9 +170,9 @@ pub fn xc_dilogarithm<F: Float>(x: F::new(F)) -> F::new(F) {
             s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
             s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
             s30, s31, s32, s33, s34, s35, s36, s37));
-    } else if x > -F::new(1.0) {
+    } else if x > -1.0 {
         let aux = F::ln(F::new(1.0) - x);
-        dspenc = -F::new(0.5) * aux * aux
+        dspenc = -0.5 * aux * aux
             - x * (F::new(1.0) + cheb_eval_38(F::new(4.0) * x / (x - F::new(1.0)) - F::new(1.0),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
@@ -203,7 +203,7 @@ pub fn xc_dilogarithm<F: Float>(x: F::new(F)) -> F::new(F) {
 /// Uses a 100-point Chebyshev expansion for the core range,
 /// with asymptotic expansions for large |x|.
 #[cube]
-pub fn xc_erfcx<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_erfcx<F: Float>(x: F) -> F {
     let ispi = F::new(0.5641895835477562869480794515); // 1 / sqrt(pi)
     let mut result = F::new(0.0);
 
@@ -220,9 +220,9 @@ pub fn xc_erfcx<F: Float>(x: F::new(F)) -> F::new(F) {
             result = erfcx_y100(F::new(400.0) / (F::new(4.0) + x));
         }
     } else {
-        if x < -F::new(26.7) {
+        if x < -26.7 {
             result = F::F::new(MAX);
-        } else if x < -F::new(6.1) {
+        } else if x < -6.1 {
             result = F::new(2.0) * F::exp(x * x);
         } else {
             result = F::new(2.0) * F::exp(x * x) - erfcx_y100(F::new(400.0) / (F::new(4.0) - x));
@@ -247,9 +247,9 @@ fn erfcx_y100<F: Float>(y: F) -> F {
         let p = F::new(0.3275911);
         let t = F::new(1.0) / (F::new(1.0) + p * x);
         let a1 = F::new(0.254829592);
-        let a2 = -F::new(0.28449673);
+        let a2 = -0.28449673;
         let a3 = F::new(1.421413741);
-        let a4 = -F::new(1.453152027);
+        let a4 = -1.453152027;
         let a5 = F::new(1.061405429);
         result = t * (a1 + t * (a2 + t * (a3 + t * (a4 + t * a5))));
     } else {

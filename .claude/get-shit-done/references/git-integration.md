@@ -51,7 +51,7 @@ Phases:
 What to commit:
 
 ```bash
-gsd-sdk query commit "docs: initialize [project-name] ([N] phases)" --files .planning/
+gsd-sdk query commit "docs: initialize [project-name] ([N] phases)" .planning/
 ```
 
 </format>
@@ -62,11 +62,8 @@ gsd-sdk query commit "docs: initialize [project-name] ([N] phases)" --files .pla
 Each task gets its own commit immediately after completion.
 
 > **Parallel agents:** When running as a parallel executor (spawned by execute-phase),
-> run commits normally — let pre-commit hooks run. Do NOT pass `--no-verify` by default
-> (#2924). Hooks should fire on the introducing commit; silent bypass violates project
-> CLAUDE.md guidance. If a project explicitly opts out via
-> `workflow.worktree_skip_hooks=true`, the orchestrator surfaces that flag in the
-> executor prompt; absent that signal, hooks run normally.
+> use `--no-verify` on all commits to avoid pre-commit hook lock contention.
+> The orchestrator validates hooks once after all agents complete.
 
 ```
 {type}({phase}-{plan}): {task-name}
@@ -136,7 +133,7 @@ SUMMARY: .planning/phases/XX-name/{phase}-{plan}-SUMMARY.md
 What to commit:
 
 ```bash
-gsd-sdk query commit "docs({phase}-{plan}): complete [plan-name] plan" --files .planning/phases/XX-name/{phase}-{plan}-PLAN.md .planning/phases/XX-name/{phase}-{plan}-SUMMARY.md .planning/STATE.md .planning/ROADMAP.md
+gsd-sdk query commit "docs({phase}-{plan}): complete [plan-name] plan" .planning/phases/XX-name/{phase}-{plan}-PLAN.md .planning/phases/XX-name/{phase}-{plan}-SUMMARY.md .planning/STATE.md .planning/ROADMAP.md
 ```
 
 **Note:** Code files NOT included - already committed per-task.
@@ -156,7 +153,7 @@ Current: [task name]
 What to commit:
 
 ```bash
-gsd-sdk query commit "wip: [phase-name] paused at task [X]/[Y]" --files .planning/
+gsd-sdk query commit "wip: [phase-name] paused at task [X]/[Y]" .planning/
 ```
 
 </format>

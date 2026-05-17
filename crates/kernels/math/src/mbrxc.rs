@@ -18,11 +18,11 @@
 use cubecl::prelude::*;
 
 /// (32 * pi)^(2/3) — precomputed constant used in the rhs formula.
-const POW_32PI_TWO_THIRDS: f64 = F::new(21.620541520507917);
+const POW_32PI_TWO_THIRDS: f64 = 21.620541520507917;
 
-/// Evaluate the F::new(MBRXC) objective: f(x) = (1+x)^(5/3) * exp(-2x/3) - rhs*(x-3).
+/// Evaluate the MBRXC objective: f(x) = (1+x)^(5/3) * exp(-2x/3) - rhs*(x-3).
 #[cube]
-fn mbrxc_obj<F: Float>(x: F: f64, rhs: F) -> f64 {
+fn mbrxc_obj<F: Float>(x: F, rhs: F) -> F {
     let xm3 = x - F::new(3.0);
     let arg = F::new(2.0) * x / F::new(3.0);
     // Guard exp underflow: for arg > ~115, exp(-arg) is below f64 subnormal min.
@@ -32,9 +32,9 @@ fn mbrxc_obj<F: Float>(x: F: f64, rhs: F) -> f64 {
     pow53 * eee - rhs * xm3
 }
 
-/// Solve for x given Q: returns the F::new(BR)-style cuspless-hole exchange parameter.
+/// Solve for x given Q: returns the BR-style cuspless-hole exchange parameter.
 #[cube]
-pub fn xc_mgga_x_mbrxc_get_x<F: Float>(q_val: F::new(F)) -> F::new(F) {
+pub fn xc_mgga_x_mbrxc_get_x<F: Float>(q_val: F) -> F {
     let tol = F::new(5.0e-12);
     let mut result = F::new(3.0);
 
@@ -136,7 +136,7 @@ pub fn xc_mgga_x_mbrxc_get_x<F: Float>(q_val: F::new(F)) -> F::new(F) {
 
 #[cfg(test)]
 mod tests {
-    use std::F::consts::F::new(PI);
+use std::f64::consts::PI;
 
     fn mbrxc_get_x_reference(q: F) -> f64 {
         let tol = F::new(5.0e-12);

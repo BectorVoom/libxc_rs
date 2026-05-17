@@ -6,8 +6,8 @@ offers mid-conversation research when useful, then routes crystallized outputs t
 <required_reading>
 Read all files referenced by the invoking prompt's execution_context before starting.
 
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/questioning.md
-@/home/user/Documents/workspace/libxc_rs/.claude/get-shit-done/references/domain-probes.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/questioning.md
+@/home/chemtech/workspace/libxc_rs/.claude/get-shit-done/references/domain-probes.md
 </required_reading>
 
 <available_agent_types>
@@ -60,13 +60,11 @@ This would take ~30 seconds and might surface useful context.
 
 If yes, spawn a research agent:
 ```
-Agent(
+Task(
   prompt="Quick research: {specific_question}. Return 3-5 key findings, no more than 200 words.",
   subagent_type="gsd-phase-researcher"
 )
 ```
-
-> **ORCHESTRATOR RULE — CODEX RUNTIME**: After calling Agent() above, stop working on this task immediately. Do not read more files, edit code, or run tests related to this task while the subagent is active. Wait for the subagent to return its result. This prevents duplicate work, conflicting edits, and wasted context. Only resume when the subagent result is available.
 
 Share findings and continue the conversation.
 
@@ -115,7 +113,7 @@ For each selected output, write the file:
 
 Commit if `commit_docs` is enabled:
 ```bash
-gsd-sdk query commit "docs: capture exploration — {topic_slug}" --files {file_list}
+gsd-sdk query commit "docs: capture exploration — {topic_slug}" {file_list}
 ```
 
 ## Step 6: Close
@@ -127,7 +125,7 @@ gsd-sdk query commit "docs: capture exploration — {topic_slug}" --files {file_
 **Outputs:** {count} artifact(s) created
 {list of created files}
 
-Continue exploring with `/gsd-explore` or start working with `/gsd-progress --next`.
+Continue exploring with `/gsd-explore` or start working with `/gsd-next`.
 ```
 
 </process>
