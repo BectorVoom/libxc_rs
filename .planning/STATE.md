@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 PAUSED at 11-04 Task 1A — architectural blocker, replan required
-stopped_at: 11-04 Task 1A landed (`39eb75f93` narrowed `verify/` dev-deps per D-05). Halted at Task 1B's per-`-p` compile gate. Spike + q01 (`5c379dc25` — three emit fixes in `tools/translate_v2/`) revealed a deeper D-02 incompatibility: `crates/kernels/math/src/` has 38 concrete-f64 helpers (`piecewise3`, `pow_1_3`, `f64::sqrt`, …), 0 generic over `<F: Float>`. Generated chunks emit `<F: Float>` per D-02 but call those f64 helpers — CubeCL 0.10 does not coerce. 11-01's D-02 spike validated 2-tuple bare arithmetic, never a helper call. Phase 11 needs replan with "one kernel compiles end-to-end + 1e-12 parity" as the entry gate. Handoff: `.planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md`. Resume with `/gsd-plan-phase 11`.
-last_updated: "2026-05-15T15:00:00.000Z"
-last_activity: 2026-05-15 -- Phase 11 paused at 11-04 Task 1A; D-02 vs `crates/kernels/math/src/` helper-layer architectural blocker surfaced; q01 commit `5c379dc25` (three emit fixes) preserved as forward groundwork; replan required
+status: Phase 11 REPLAN LOCKED — discuss-phase 2 complete, D-14..D-17 captured, ready for `/gsd-plan-phase 11`
+stopped_at: Second discuss-phase session (2026-05-15) locked D-02 disposition via 2-day spike (A vs C race on mgga_c_b94); compile-first entry gate defined (D-15); translator emit living in cse.py AST pass (D-16); replan structure 5 plans 11-04..08 (D-17). See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-15 with D-14..D-17) and 11-DISCUSSION-LOG.md. Anti-patterns AP-1..6 codified to prevent recurrence of the "structural completion without per-`-p` gate" failure pattern.
+last_updated: "2026-05-15T16:00:00Z"
+last_activity: 2026-05-15 — Phase 11 second discuss-phase pass complete. D-14 (D-02 spike), D-15 (compile-first gate), D-16 (AST emit), D-17 (5-plan replan) locked. Ready for planning.
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,8 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — EXECUTING
-Plan: 4 of 6 (11-03 just completed — D-13 audit + dispatch tree verification)
+Phase: 11 (splitter-v2-unified-5k-cap) — DISCUSS-PHASE COMPLETE, PLANNING NEXT
+Previous execution: 11-01 (Wave 0: audit tools + D-02 spike), 11-02 (emit.py routing-aware launch + MAX_TUPLE_ARITY=12), 11-03 (D-13 audit + dispatch tree verification) ✓
+Paused at: 11-04 Task 1A (verify dev-dep narrowing landed `39eb75f93`; Task 1B blocked by D-02 architectural blocker)
+Replan structure locked: 11-04 (retroactive partial SUMMARY) + 11-05..08 (forward work: spike → translator → regen+gate → sweep → close)
 
 Plan 11-03 outcome (2026-05-15):
 - Task 1: verify-only re-confirmation of `95727cb36`+`97d6347be` (clean-slate
