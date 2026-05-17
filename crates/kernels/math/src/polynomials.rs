@@ -1,6 +1,7 @@
 //! Polynomial and rational function evaluation using Horner's method.
 //!
 //! Used internally by the erf implementation and by GGA/MGGA functionals.
+//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
 
@@ -12,7 +13,7 @@ use cubecl::prelude::*;
 ///
 /// Horner form: `((a_n * x + a_{n-1}) * x + ...) * x + a_0`
 #[cube]
-pub fn poly_eval(x: f64, coeffs: &Array<f64>, #[comptime] n: usize) -> f64 {
+pub fn poly_eval<F: Float>(x: F, coeffs: &Array<F>, #[comptime] n: usize) -> F {
     let mut result = coeffs[0usize];
     let mut i = 1usize;
     while i < n {
@@ -26,13 +27,13 @@ pub fn poly_eval(x: f64, coeffs: &Array<f64>, #[comptime] n: usize) -> f64 {
 ///
 /// Both `p` and `q` coefficient arrays are highest-degree first.
 #[cube]
-pub fn rational_eval(
-    x: f64,
-    p: &Array<f64>,
-    q: &Array<f64>,
+pub fn rational_eval<F: Float>(
+    x: F,
+    p: &Array<F>,
+    q: &Array<F>,
     #[comptime] np: usize,
     #[comptime] nq: usize,
-) -> f64 {
+) -> F {
     poly_eval(x, p, np) / poly_eval(x, q, nq)
 }
 

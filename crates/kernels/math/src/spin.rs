@@ -2,6 +2,7 @@
 //!
 //! Provides functions for computing total density, spin polarization (zeta),
 //! spin-scaling factor, and clamping zeta to valid range.
+//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
 use super::powers::pow_4_3;
@@ -10,7 +11,7 @@ use super::powers::pow_4_3;
 ///
 /// Returns `rho_up + rho_down`.
 #[cube]
-pub fn compute_total(rho_up: f64, rho_down: f64) -> f64 {
+pub fn compute_total<F: Float>(rho_up: F, rho_down: F) -> F {
     rho_up + rho_down
 }
 
@@ -18,16 +19,16 @@ pub fn compute_total(rho_up: f64, rho_down: f64) -> f64 {
 ///
 /// If total density is below `threshold`, returns 0.0 (unpolarized).
 #[cube]
-pub fn compute_zeta(rho_up: f64, rho_down: f64, threshold: f64) -> f64 {
+pub fn compute_zeta<F: Float>(rho_up: F, rho_down: F, threshold: F) -> F {
     let total = rho_up + rho_down;
     let zeta = (rho_up - rho_down) / total;
-    select(total < threshold, 0.0f64, zeta)
+    select(total < threshold, F::new(0.0), zeta)
 }
 
 /// Combined total+zeta computation (convenience wrapper).
 /// Returns total density. Use `compute_zeta` separately for zeta.
 #[cube]
-pub fn to_total_zeta_total(rho_up: f64, rho_down: f64) -> f64 {
+pub fn to_total_zeta_total<F: Float>(rho_up: F, rho_down: F) -> F {
     compute_total(rho_up, rho_down)
 }
 
@@ -35,10 +36,10 @@ pub fn to_total_zeta_total(rho_up: f64, rho_down: f64) -> f64 {
 ///
 /// Approaches 1.0 for unpolarized (zeta=0) and 2^(1/3) for fully polarized (zeta=1).
 #[cube]
-pub fn spin_scaling(zeta: f64) -> f64 {
-    let up = 1.0 + zeta;
-    let down = 1.0 - zeta;
-    (pow_4_3(up) + pow_4_3(down)) / 2.0
+pub fn spin_scaling<F: Float>(zeta: F) -> F {
+    let up = F::new(1.0) + zeta;
+    let down = F::new(1.0) - zeta;
+    (pow_4_3(up) + pow_4_3(down)) / F::new(2.0)
 }
 
 /// Clamp zeta to [-(1-threshold), (1-threshold)].
@@ -46,9 +47,9 @@ pub fn spin_scaling(zeta: f64) -> f64 {
 /// Prevents division by zero in spin-dependent quantities when
 /// one spin channel has nearly zero density.
 #[cube]
-pub fn clamp_zeta(zeta: f64, threshold: f64) -> f64 {
-    let upper = 1.0 - threshold;
-    let lower = -(1.0 - threshold);
+pub fn clamp_zeta<F: Float>(zeta: F, threshold: F) -> F {
+    let upper = F::new(1.0) - threshold;
+    let lower = -(F::new(1.0) - threshold);
     let clamped = select(zeta > upper, upper, zeta);
     select(clamped < lower, lower, clamped)
 }
