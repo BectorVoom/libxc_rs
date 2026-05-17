@@ -3,6 +3,7 @@
 //! W(z) is defined as the inverse of f(w) = w * exp(w), i.e., W(z) * exp(W(z)) = z.
 //! Uses Halley's method with 15 iterations, matching libxc's `LambertW` implementation
 //! in `special_functions.c`.
+//! Generic over `<F: Float>` to support both f64 and f32.
 //!
 //! Matches the libxc C original's control flow using `if/else` guards for
 //! below-branch, small-z, and initial guess region selection. CubeCL 0.9.0
@@ -18,32 +19,32 @@ use cubecl::prelude::*;
 /// For z >= -1/e, returns W_0(z). Uses `if/else` guards for special cases
 /// and initial guess selection, with 15 unrolled Halley iteration steps.
 #[cube]
-pub fn lambert_w(z: f64) -> f64 {
-    let inv_e = 1.0 / f64::exp(1.0);
-    let eps = f64::EPSILON;
-    let cbrt_eps = f64::powf(eps, 1.0 / 3.0);
+pub fn lambert_w<F: Float>(z: F) -> F {
+    let inv_e = F::new(1.0) / F::exp(F::new(1.0));
+    let eps = F::new(1e-15);
+    let cbrt_eps = F::powf(eps, F::new(1.0) / F::new(3.0));
 
-    let mut result = 0.0f64;
+    let mut result = F::new(0.0);
 
-    if z + inv_e < -10.0 * eps {
+    if z + inv_e < F::new(-10.0) * eps {
         // Below branch: z < -1/e
-        result = -1.0;
-    } else if f64::abs(z) < cbrt_eps {
+        result = F::new(-1.0);
+    } else if F::abs(z) < cbrt_eps {
         // Small z: power expansion
-        result = z - z * z + 1.5 * z * z * z;
+        result = z - z * z + F::new(1.5) * z * z * z;
     } else {
         // Initial guess based on region
-        let mut w0 = 0.0f64;
-        if z <= -0.3140862435046707 {
+        let mut w0 = F::new(0.0);
+        if z <= F::new(-0.3140862435046707) {
             // Near branch point
-            w0 = f64::sqrt(2.0 * f64::exp(1.0) * z + 2.0) - 1.0;
-        } else if z <= 1.149876485041417 {
+            w0 = F::sqrt(F::new(2.0) * F::exp(F::new(1.0)) * z + F::new(2.0)) - F::new(1.0);
+        } else if z <= F::new(1.149876485041417) {
             // Taylor around origin
-            w0 = z - z * z + 1.5 * z * z * z;
+            w0 = z - z * z + F::new(1.5) * z * z * z;
         } else {
             // Asymptotic expansion
-            let lnz = f64::ln(z);
-            w0 = lnz - f64::ln(lnz);
+            let lnz = F::ln(z);
+            w0 = lnz - F::ln(lnz);
         }
 
         // Halley's iteration: 15 steps (unrolled)
@@ -69,11 +70,11 @@ pub fn lambert_w(z: f64) -> f64 {
 
 /// Single Halley iteration step for Lambert W.
 #[cube]
-fn halley_step(w: f64, z: f64) -> f64 {
-    let expmw = f64::exp(-w);
+fn halley_step<F: Float>(w: F, z: F) -> F {
+    let expmw = F::exp(-w);
     let residual = w - z * expmw;
-    let denom = w + 1.0 - (w + 2.0) / (2.0 * w + 2.0) * residual;
+    let denom = w + F::new(1.0) - (w + F::new(2.0)) / (F::new(2.0) * w + F::new(2.0)) * residual;
     // Guard against w == -1 (denom would be 0)
-    let dw = select(f64::abs(w + 1.0) < 1.0e-300, 0.0f64, -residual / denom);
+    let dw = select(F::abs(w + F::new(1.0)) < F::new(1.0e-300), F::new(0.0), -residual / denom);
     w + dw
 }

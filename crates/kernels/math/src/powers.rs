@@ -1,6 +1,7 @@
 //! Safe fractional power functions for DFT calculations.
 //!
 //! All functions are `#[cube]`-annotated for CubeCL compilation.
+//! Generic over `<F: Float>` to support both f64 (oracle correctness) and f32 (performance).
 //! `safe_cbrt` handles negative inputs correctly (cbrt(-8) == -2, not NaN).
 
 use cubecl::prelude::*;
@@ -10,35 +11,35 @@ use cubecl::prelude::*;
 /// Standard `powf(x, 1/3)` returns NaN for negative x. This function
 /// extracts the sign, computes `|x|^(1/3)`, and restores the sign.
 #[cube]
-pub fn safe_cbrt(x: f64) -> f64 {
-    let abs_x = f64::abs(x);
-    let cbrt_abs = f64::powf(abs_x, 1.0 / 3.0);
-    let sign = select(x < 0.0, -1.0f64, 1.0f64);
-    select(x == 0.0, 0.0f64, sign * cbrt_abs)
+pub fn safe_cbrt<F: Float>(x: F) -> F {
+    let abs_x = F::abs(x);
+    let cbrt_abs = F::powf(abs_x, F::new(1.0) / F::new(3.0));
+    let sign = select(x < F::new(0.0), F::new(-1.0), F::new(1.0));
+    select(x == F::new(0.0), F::new(0.0), sign * cbrt_abs)
 }
 
 /// x^(1/3) -- cube root via safe_cbrt
 #[cube]
-pub fn pow_1_3(x: f64) -> f64 {
+pub fn pow_1_3<F: Float>(x: F) -> F {
     safe_cbrt(x)
 }
 
 /// x^(2/3) = cbrt(x)^2
 #[cube]
-pub fn pow_2_3(x: f64) -> f64 {
+pub fn pow_2_3<F: Float>(x: F) -> F {
     let c = safe_cbrt(x);
     c * c
 }
 
 /// x^(4/3) = x * cbrt(x)
 #[cube]
-pub fn pow_4_3(x: f64) -> f64 {
+pub fn pow_4_3<F: Float>(x: F) -> F {
     x * safe_cbrt(x)
 }
 
 /// x^(5/3) = x * cbrt(x)^2
 #[cube]
-pub fn pow_5_3(x: f64) -> f64 {
+pub fn pow_5_3<F: Float>(x: F) -> F {
     let c = safe_cbrt(x);
     x * c * c
 }
@@ -46,21 +47,21 @@ pub fn pow_5_3(x: f64) -> f64 {
 /// x^(3/2) = x * sqrt(x)
 /// Maps to C macro: POW_3_2(x) = (x)*sqrt(x)
 #[cube]
-pub fn pow_3_2(x: f64) -> f64 {
-    x * f64::sqrt(x)
+pub fn pow_3_2<F: Float>(x: F) -> F {
+    x * F::sqrt(x)
 }
 
 /// x^(1/4) = sqrt(sqrt(x))
 /// Maps to C macro: POW_1_4(x) = sqrt(sqrt(x))
 #[cube]
-pub fn pow_1_4(x: f64) -> f64 {
-    f64::sqrt(f64::sqrt(x))
+pub fn pow_1_4<F: Float>(x: F) -> F {
+    F::sqrt(F::sqrt(x))
 }
 
 /// x^(7/3) = x * x * cbrt(x)
 /// Maps to C macro: POW_7_3(x) = (x)*(x)*cbrt(x)
 #[cube]
-pub fn pow_7_3(x: f64) -> f64 {
+pub fn pow_7_3<F: Float>(x: F) -> F {
     x * x * safe_cbrt(x)
 }
 
@@ -68,7 +69,7 @@ pub fn pow_7_3(x: f64) -> f64 {
 /// Maps to C macro: POW_2(x) = (x)*(x)
 /// Named function for grep-ability matching maple2c POW_2 references.
 #[cube]
-pub fn pow_2(x: f64) -> f64 {
+pub fn pow_2<F: Float>(x: F) -> F {
     x * x
 }
 
@@ -76,7 +77,7 @@ pub fn pow_2(x: f64) -> f64 {
 /// Maps to C macro: POW_3(x) = (x)*(x)*(x)
 /// Named function for grep-ability matching maple2c POW_3 references.
 #[cube]
-pub fn pow_3(x: f64) -> f64 {
+pub fn pow_3<F: Float>(x: F) -> F {
     x * x * x
 }
 

@@ -2,6 +2,7 @@
 //!
 //! These map directly to libxc's `my_piecewise3` and `my_piecewise5` macros,
 //! using CubeCL's `select()` for branchless execution on GPU.
+//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
 
@@ -10,7 +11,7 @@ use cubecl::prelude::*;
 /// Maps to libxc's `my_piecewise3(c, x1, x2)`.
 /// Note: Both branches are always evaluated (branchless select).
 #[cube]
-pub fn piecewise3(cond: bool, val_true: f64, val_false: f64) -> f64 {
+pub fn piecewise3<F: Float>(cond: bool, val_true: F, val_false: F) -> F {
     select(cond, val_true, val_false)
 }
 
@@ -19,8 +20,8 @@ pub fn piecewise3(cond: bool, val_true: f64, val_false: f64) -> f64 {
 /// Maps to libxc's `Heaviside(x)` macro.
 #[cube]
 #[allow(non_snake_case)]
-pub fn Heaviside(x: f64) -> f64 {
-    select(x >= 0.0, 1.0, 0.0)
+pub fn Heaviside<F: Float>(x: F) -> F {
+    select(x >= F::new(0.0), F::new(1.0), F::new(0.0))
 }
 
 /// Branch-free 3-way select: returns `v1` if `c1`, else `v2` if `c2`, else `v_else`.
@@ -28,7 +29,7 @@ pub fn Heaviside(x: f64) -> f64 {
 /// Maps to libxc's `my_piecewise5(c1, x1, c2, x2, x3)`.
 /// Note: All branches are always evaluated (nested branchless select).
 #[cube]
-pub fn piecewise5(c1: bool, v1: f64, c2: bool, v2: f64, v_else: f64) -> f64 {
+pub fn piecewise5<F: Float>(c1: bool, v1: F, c2: bool, v2: F, v_else: F) -> F {
     select(c1, v1, select(c2, v2, v_else))
 }
 
