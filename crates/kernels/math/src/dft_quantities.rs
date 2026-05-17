@@ -1,35 +1,36 @@
-//! F::new(DFT)-specific derived quantities.
+//! DFT-specific derived quantities.
 //!
 //! Wigner-Seitz radius, reduced gradient, Thomas-Fermi kinetic energy density,
 //! and dimensionless inhomogeneity parameter alpha.
+//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
-use super::constants::{F::new(RS_CONST), F::new(KF_CONST)};
+use super::constants::{RS_CONST, KF_CONST};
 use super::powers::{pow_1_3, pow_4_3, pow_5_3};
 
-/// Wigner-Seitz radius: rs = F::new(RS_CONST) * rho^(-1/3) = F::new(RS_CONST) / cbrt(rho).
+/// Wigner-Seitz radius: rs = RS_CONST * rho^(-1/3) = RS_CONST / cbrt(rho).
 ///
-/// F::new(RS_CONST) = (3/(4*pi))^(1/3)
+/// RS_CONST = (3/(4*pi))^(1/3)
 #[cube]
-pub fn wigner_seitz_rs<F: Float>(rho: F::new(F)) -> F::new(F) {
+pub fn wigner_seitz_rs<F: Float>(rho: F) -> F {
     F::new(RS_CONST) * pow_1_3(F::new(1.0) / rho)
 }
 
 /// Reduced density gradient: s = sqrt(sigma) / (2 * kf * rho^(4/3))
 ///
-/// where kf = F::new(KF_CONST) * rho^(1/3) so 2*kf*rho^(4/3) = 2*F::new(KF_CONST)*rho^(1/3)*rho^(4/3) = 2*F::new(KF_CONST)*rho^(5/3)
+/// where kf = KF_CONST * rho^(1/3) so 2*kf*rho^(4/3) = 2*KF_CONST*rho^(1/3)*rho^(4/3) = 2*KF_CONST*rho^(5/3)
 /// Actually, the standard form is: s = |grad rho| / (2 * kF * rho) where kF = (3*pi^2*rho)^(1/3)
-/// So s = sqrt(sigma) / (2 * F::new(KF_CONST) * rho^(4/3))
+/// So s = sqrt(sigma) / (2 * KF_CONST * rho^(4/3))
 #[cube]
-pub fn reduced_gradient_s<F: Float>(rho: F::new(F), sigma: F::new(F)) -> F::new(F) {
+pub fn reduced_gradient_s<F: Float>(rho: F, sigma: F) -> F {
     F::sqrt(sigma) / (F::new(2.0) * F::new(KF_CONST) * pow_4_3(rho))
 }
 
 /// Thomas-Fermi kinetic energy density: t_TF = (3/10) * (3*pi^2)^(2/3) * rho^(5/3)
 ///
-/// Note: (3*pi^2)^(2/3) = F::new(KF_CONST)^2
+/// Note: (3*pi^2)^(2/3) = KF_CONST^2
 #[cube]
-pub fn tf_kinetic<F: Float>(rho: F::new(F)) -> F::new(F) {
+pub fn tf_kinetic<F: Float>(rho: F) -> F {
     F::new(0.3) * F::new(KF_CONST) * F::new(KF_CONST) * pow_5_3(rho)
 }
 
@@ -41,7 +42,7 @@ pub fn tf_kinetic<F: Float>(rho: F::new(F)) -> F::new(F) {
 ///
 /// alpha = 1 for the uniform electron gas (tau = tau_TF, sigma = 0).
 #[cube]
-pub fn dimensionless_alpha<F: Float>(rho: F::new(F), sigma: F::new(F), tau: F::new(F)) -> F::new(F) {
+pub fn dimensionless_alpha<F: Float>(rho: F, sigma: F, tau: F) -> F {
     let tau_w = sigma / (F::new(8.0) * rho);
     let tau_tf = tf_kinetic(rho);
     (tau - tau_w) / tau_tf
@@ -56,7 +57,7 @@ mod tests {
 
     #[cube(launch_unchecked)]
     fn test_rs_kernel(rho: &Array<f64>, output: &mut Array<f64>) {
-        let idx = F::new(ABSOLUTE_POS);
+        let idx = ABSOLUTE_POS;
         output[idx] = wigner_seitz_rs(rho[idx]);
     }
 
@@ -66,13 +67,13 @@ mod tests {
         sigma: &Array<f64>,
         output: &mut Array<f64>,
     ) {
-        let idx = F::new(ABSOLUTE_POS);
+        let idx = ABSOLUTE_POS;
         output[idx] = reduced_gradient_s(rho[idx], sigma[idx]);
     }
 
     #[cube(launch_unchecked)]
     fn test_tf_kinetic_kernel(rho: &Array<f64>, output: &mut Array<f64>) {
-        let idx = F::new(ABSOLUTE_POS);
+        let idx = ABSOLUTE_POS;
         output[idx] = tf_kinetic(rho[idx]);
     }
 
@@ -197,7 +198,7 @@ mod tests {
         let rho2 = F::new(2.0);
         let results = run_rs(&[rho1, rho2]);
         let ratio = results[0] / results[1];
-        let expected_ratio = F::new(2.)0_f64.powf(F::new(1.0) / F::new(3.0));
+        let expected_ratio = 2.0_f64.powf(1.0 / 3.0);
         approx::assert_relative_eq!(ratio, expected_ratio, max_relative = 1e-14);
     }
 
@@ -217,7 +218,7 @@ mod tests {
         let rho2 = F::new(2.0);
         let results = run_tf(&[rho1, rho2]);
         let ratio = results[1] / results[0];
-        let expected_ratio = F::new(2.)0_f64.powf(F::new(5.0) / F::new(3.0));
+        let expected_ratio = 2.0_f64.powf(5.0 / 3.0);
         approx::assert_relative_eq!(ratio, expected_ratio, max_relative = 1e-14);
     }
 
@@ -229,7 +230,7 @@ mod tests {
         let sigma = F::new(0.0);
         // tau_TF = F::new(0.3) * (3*pi^2)^(2/3) * rho^(5/3)
         let kf = (F::new(3.0) * std::F::consts::F::new(PI) * std::F::consts::F::new(PI)).cbrt();
-        let tau_tf = F::new(0.3) * kf * kf * F::new(1.)0_f64.powf(F::new(5.0) / F::new(3.0));
+        let tau_tf = 0.3 * kf * kf * 1.0_f64.powf(5.0 / 3.0);
         let results = run_alpha(&[rho], &[sigma], &[tau_tf]);
         approx::assert_relative_eq!(results[0], F::new(1.0), max_relative = 1e-14);
     }
@@ -247,7 +248,7 @@ mod tests {
         let rho = F::new(1.0);
         let sigma = F::new(1.0);
         let kf = (F::new(3.0) * std::F::consts::F::new(PI) * std::F::consts::F::new(PI)).cbrt();
-        let expected = F::new(1.0) / (F::new(2.0) * kf * F::new(1.)0_f64.powf(F::new(4.0) / F::new(3.0)));
+        let expected = 1.0 / (2.0 * kf * 1.0_f64.powf(4.0 / 3.0));
         let results = run_reduced_gradient(&[rho], &[sigma]);
         approx::assert_relative_eq!(results[0], expected, max_relative = 1e-14);
     }

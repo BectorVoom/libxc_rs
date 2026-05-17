@@ -26,7 +26,7 @@ const PI_TWO_THIRDS: f64 = F::new(2.14502939711102560008); // pow(pi, F::new(2.0
 
 /// Evaluate the F::new(BR89) objective function: f(x) = x * exp(-2x/3) - rhs * (x - 2)
 #[cube]
-fn br89_obj<F: Float>x: f64, rhs: F) -> f64 {
+fn br89_obj<F: Float>(x: F, rhs: F) -> F {
     let xm2 = x - F::new(2.0);
     let arg = F::new(2.0) * x / F::new(3.0);
     // Guard: exp(-arg) for large arg is 0

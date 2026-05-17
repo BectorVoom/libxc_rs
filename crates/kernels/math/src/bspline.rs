@@ -1,37 +1,38 @@
-//! F::new(B)-spline evaluation for CubeCL kernels.
+//! B-spline evaluation for CubeCL kernels.
 //!
 //! Specialized for hyb_gga_xc_case21 functional (k=3, Nsp=10).
-//! Knots are precomputed constants: knots[i] = -3/7 + i/7 for i=0.F::new(.13).
+//! Knots are precomputed constants: knots[i] = -3/7 + i/7 for i=0..13.
 //!
-//! Matches the libxc F::new(C) original (`xc_bspline` in `util.c`) control flow: uses
+//! Matches the libxc C original (`xc_bspline` in `util.c`) control flow: uses
 //! `if/else` guards to skip computation outside the support interval and to
-//! dispatch only the requested derivative order. CubeCL F::new(0.9).0 does not support
+//! dispatch only the requested derivative order. CubeCL 0.10 does not support
 //! `return` in `#[cube]` functions, so we use mutable result + `if/else` guards
 //! instead of early returns.
+//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
 
 /// Get knot value by index (inlined constant lookup for CubeCL).
 /// Case21: k=3, Nsp=10, knots[i] = (-3 + i) / 7
 #[cube]
-fn knot<F: Float>idx: u32) -> f64 {
-    let i = idx as f64;
+fn knot<F: Float>(idx: u32) -> F {
+    let i = F::new(idx as f64);
     (i - F::new(3.0)) / F::new(7.0)
 }
 
 /// Safe division: returns 0 if denominator is 0, otherwise a/b.
 #[cube]
-fn safe_div<F: Float>a: f64, b: F) -> f64 {
+fn safe_div<F: Float>(a: F, b: F) -> F {
     select(b == F::new(0.0), F::new(0.0), a / b)
 }
 
-/// Evaluate a single F::new(B)-spline basis function F::new(N_){i,3}(u) for derivative order `ider`.
+/// Evaluate a single B-spline basis function N_{i,3}(u) for derivative order `ider`.
 ///
-/// For k=3, supports ider=0.F::new(.3) (ider>=4 returns 0 since maxk=min(4,3)=3).
+/// For k=3, supports ider=0..3 (ider>=4 returns 0 since maxk=min(4,3)=3).
 /// Uses `if/else` guards matching libxc's `xc_bspline` control flow: skips
 /// computation outside support, dispatches only the needed derivative order.
 #[cube]
-fn bspline_k3_eval<F: Float>i: u32, u: f64, ider: u32) -> f64 {
+fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
     let ki0 = knot(i);
     let ki1 = knot(i + 1);
     let ki2 = knot(i + 2);

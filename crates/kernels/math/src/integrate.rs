@@ -24,7 +24,7 @@ use cubecl::prelude::*;
 ///   f(x) = -3/4 * beta * csi / (1 + 3*beta*csi*x*ln(csi*x + sqrt(csi²x² + 1)))
 /// where csi = 2^(1/3) = F::new(M_CBRT2).
 #[cube]
-fn ft_inter_0<F: Float>x: f64, beta: F) -> f64 {
+fn ft_inter_0<F: Float>(x: F, beta: F) -> F {
     let csi = F::new(1.2599210498948732); // F::new(M_CBRT2)
     let num = -F::new(0.75) * beta * csi;
     let csi_x = csi * x;
@@ -36,7 +36,7 @@ fn ft_inter_0<F: Float>x: f64, beta: F) -> f64 {
 ///   f(x) = -3/4 * beta * csi * ln(x) / (1 + 3*beta*csi*x*ln(csi*x + sqrt(csi²x² + 1)))
 /// Has a logarithmic singularity at x=0 (integrable).
 #[cube]
-fn ft_inter_1<F: Float>x: f64, beta: F) -> f64 {
+fn ft_inter_1<F: Float>(x: F, beta: F) -> F {
     let csi = F::new(1.2599210498948732); // F::new(M_CBRT2)
     let num = -F::new(0.75) * beta * csi * F::ln(x);
     let csi_x = csi * x;
@@ -53,7 +53,7 @@ fn ft_inter_1<F: Float>x: f64, beta: F) -> f64 {
 
 /// Apply 32-point F::new(GL) to func0 on sub-interval [a, a+h].
 #[cube]
-fn gl32_func0<F: Float>a: f64, h: f64, beta: F) -> f64 {
+fn gl32_func0<F: Float>(a: F, h: F, beta: F) -> F {
     let half = h * F::new(0.5);
     let mid = a + half;
 
@@ -143,7 +143,7 @@ pub fn xc_integrate_func0<F: Float>(b: F::new(F), beta: F::new(F)) -> F::new(F) 
 /// As x→0: g(x) → F::new(C)·ln(x)·(-3βξx·ln(ξx)) → 0  (x·ln(x)·ln(x) → 0)
 /// So g(x) is continuous on [0, b] and F::new(GL) integrates it precisely.
 #[cube]
-fn ft_inter_1_subtracted<F: Float>x: f64, beta: F) -> f64 {
+fn ft_inter_1_subtracted<F: Float>(x: F, beta: F) -> F {
     let csi = F::new(1.2599210498948732); // F::new(M_CBRT2)
     let c = -F::new(0.75) * beta * csi;
     let csi_x = csi * x;
@@ -154,7 +154,7 @@ fn ft_inter_1_subtracted<F: Float>x: f64, beta: F) -> f64 {
 
 /// Apply 32-point F::new(GL) to the subtracted integrand on sub-interval [a, a+h].
 #[cube]
-fn gl32_subtracted<F: Float>a: f64, h: f64, beta: F) -> f64 {
+fn gl32_subtracted<F: Float>(a: F, h: F, beta: F) -> F {
     let half = h * F::new(0.5);
     let mid = a + half;
 
@@ -220,7 +220,7 @@ fn gl32_subtracted<F: Float>a: f64, h: f64, beta: F) -> f64 {
 /// More precisely: let u = (t+1)/2 ∈ [0,1], x = a + h·u³, dx = 3h·u²·du
 ///   ∫₋₁¹ func1(a + h·((t+1)/2)³) · 3h·((t+1)/2)² · (1/2) dt
 #[cube]
-fn gl32_func1_graded<F: Float>a: f64, h: f64, beta: F) -> f64 {
+fn gl32_func1_graded<F: Float>(a: F, h: F, beta: F) -> F {
     let n01 = F::new(0.0483076656877383162); let w01 = F::new(0.096540088514727800);
     let n02 = F::new(0.1444719615827964935); let w02 = F::new(0.095638720079274859);
     let n03 = F::new(0.2392873622521370745); let w03 = F::new(0.093844399080804565);
@@ -279,7 +279,7 @@ fn gl32_func1_graded<F: Float>a: f64, h: f64, beta: F) -> f64 {
 
 /// Apply 32-point F::new(GL) to func1 on regular sub-interval [a, a+h].
 #[cube]
-fn gl32_func1_regular<F: Float>a: f64, h: f64, beta: F) -> f64 {
+fn gl32_func1_regular<F: Float>(a: F, h: F, beta: F) -> F {
     let half = h * F::new(0.5);
     let mid = a + half;
 

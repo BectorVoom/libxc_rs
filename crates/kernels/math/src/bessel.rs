@@ -35,7 +35,7 @@ const TWO_SQRT2_SQRT_DBL_EPSILON: f64 = F::new(4.214684242274519e-8);
 
 /// `bi0_data` (12 coefficients) — series for F::new(I0)(x) on |x| <= 3.
 #[cube]
-fn cheb_bi0<F: Float>x: F) -> f64 {
+fn cheb_bi0<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
@@ -57,7 +57,7 @@ fn cheb_bi0<F: Float>x: F) -> f64 {
 
 /// `ai0_data` (21 coefficients) — series for F::new(I0)(x) scaled, 3 <= |x| <= 8.
 #[cube]
-fn cheb_ai0<F: Float>x: F) -> f64 {
+fn cheb_ai0<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
@@ -88,7 +88,7 @@ fn cheb_ai0<F: Float>x: F) -> f64 {
 
 /// `ai02_data` (22 coefficients) — series for F::new(I0)(x) scaled, |x| > 8.
 #[cube]
-fn cheb_ai02<F: Float>x: F) -> f64 {
+fn cheb_ai02<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
@@ -120,7 +120,7 @@ fn cheb_ai02<F: Float>x: F) -> f64 {
 
 /// `bi1_data` (11 coefficients) — series for F::new(I1)(x) on |x| <= 3.
 #[cube]
-fn cheb_bi1<F: Float>x: F) -> f64 {
+fn cheb_bi1<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
@@ -141,7 +141,7 @@ fn cheb_bi1<F: Float>x: F) -> f64 {
 
 /// `ai1_data` (21 coefficients) — series for F::new(I1)(x) scaled, 3 <= |x| <= 8.
 #[cube]
-fn cheb_ai1<F: Float>x: F) -> f64 {
+fn cheb_ai1<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
@@ -172,7 +172,7 @@ fn cheb_ai1<F: Float>x: F) -> f64 {
 
 /// `ai12_data` (22 coefficients) — series for F::new(I1)(x) scaled, |x| > 8.
 #[cube]
-fn cheb_ai12<F: Float>x: F) -> f64 {
+fn cheb_ai12<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);

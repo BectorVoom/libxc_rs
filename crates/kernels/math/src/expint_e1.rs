@@ -1,25 +1,26 @@
 //! Scaled exponential integral E₁ for CubeCL kernels.
 //!
 //! `xc_e1_scaled(x) = exp(x) * E₁(x)` where E₁ is the exponential integral.
-//! Based on libxc's `expint_e1.c` which uses Chebyshev series (F::new(SLATEC)/F::new(GSL) origin).
+//! Based on libxc's `expint_e1.c` which uses Chebyshev series (SLATEC/GSL origin).
+//! Generic over `<F: Float>` to support both f64 and f32.
 //!
-//! Matches the libxc F::new(C) original (`xc_expint_e1_impl` in `expint_e1.c`) control
+//! Matches the libxc C original (`xc_expint_e1_impl` in `expint_e1.c`) control
 //! flow: uses `if/else` guards to evaluate only one Chebyshev series per call.
-//! CubeCL F::new(0.9).0 does not support `return`, so we use mutable result + `if/else`
+//! CubeCL 0.10 does not support `return`, so we use mutable result + `if/else`
 //! instead of early returns. No runtime arrays; all coefficients are inlined.
 
 use cubecl::prelude::*;
 
 // Each Chebyshev evaluator computes: sum via Clenshaw recurrence b0 = 2x*b1 - b2 + c[i]
-// then returns F::new(0.5)*(b0 - b2). Coefficients are hardcoded constants.
+// then returns 0.5*(b0 - b2). Coefficients are hardcoded constants.
 
-/// Chebyshev eval for F::new(AE11) series (39 coefficients), x in [-10, -4] region mapped to [-1,1].
+/// Chebyshev eval for AE11 series (39 coefficients), x in [-10, -4] region mapped to [-1,1].
 #[cube]
-fn cheb_ae11<F: Float>x: F) -> f64 {
+fn cheb_ae11<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     // Coefficients in reverse order (i = 38 down to 0)
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.000000000000000017);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.000000000000000082);
@@ -63,13 +64,13 @@ fn cheb_ae11<F: Float>x: F) -> f64 {
     F::new(0.5) * (b0 - b2)
 }
 
-/// Chebyshev eval for F::new(AE12) series (25 coefficients), x in [-4, -1] region.
+/// Chebyshev eval for AE12 series (25 coefficients), x in [-4, -1] region.
 #[cube]
-fn cheb_ae12<F: Float>x: F) -> f64 {
+fn cheb_ae12<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.000000000000000058);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.0000000000000002);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000071);
@@ -100,11 +101,11 @@ fn cheb_ae12<F: Float>x: F) -> f64 {
 
 /// Chebyshev eval for F::new(E11) series (19 coefficients), x in [-1, 0] region.
 #[cube]
-fn cheb_e11<F: Float>x: F) -> f64 {
+fn cheb_e11<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000000108);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.00000000000000002733);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000065457);
@@ -129,11 +130,11 @@ fn cheb_e11<F: Float>x: F) -> f64 {
 
 /// Chebyshev eval for F::new(E12) series (16 coefficients), x in (0, 1] region.
 #[cube]
-fn cheb_e12<F: Float>x: F) -> f64 {
+fn cheb_e12<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.00000000000000000315);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000010148);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.00000000000000306291);
@@ -155,11 +156,11 @@ fn cheb_e12<F: Float>x: F) -> f64 {
 
 /// Chebyshev eval for F::new(AE13) series (25 coefficients), x in [1, 4] region.
 #[cube]
-fn cheb_ae13<F: Float>x: F) -> f64 {
+fn cheb_ae13<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.000000000000000023);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000009);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.000000000000000383);
@@ -190,11 +191,11 @@ fn cheb_ae13<F: Float>x: F) -> f64 {
 
 /// Chebyshev eval for F::new(AE14) series (26 coefficients), x > 4 region.
 #[cube]
-fn cheb_ae14<F: Float>x: F) -> f64 {
+fn cheb_ae14<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000005);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::new(0.0000000000000001);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -F::new(0.00000000000000048);
@@ -226,10 +227,10 @@ fn cheb_ae14<F: Float>x: F) -> f64 {
 
 /// Scaled exponential integral: exp(x) * E₁(x).
 ///
-/// This is `xc_E1_scaled(x)` from libxc, equivalent to `xc_expint_e1_impl(x, 1)`.
+/// Scaled exponential integral E₁: xc_e1_scaled(x) = exp(x) * E₁(x).
 /// Uses `if/else` guards to evaluate only the active Chebyshev region.
 #[cube]
-pub fn xc_e1_scaled<F: Float>(x: F::new(F)) -> F::new(F) {
+pub fn xc_e1_scaled<F: Float>(x: F) -> F {
     let mut e1 = F::new(0.0);
 
     if x <= -F::new(10.0) {

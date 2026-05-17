@@ -21,7 +21,7 @@ use cubecl::prelude::*;
 /// This is a manual unrolling since CubeCL doesn't support dynamic loops
 /// over arrays. We support up to 38 coefficients (needed for dilogarithm).
 #[cube]
-fn cheb_eval_38<F: Float>x: f64, c0: f64, c1: f64, c2: f64, c3: f64, c4: f64,
+fn cheb_eval_38<F: Float>(x: F, c0: F, c1: F, c2: F, c3: F, c4: F,
     c5: f64, c6: f64, c7: f64, c8: f64, c9: f64,
     c10: f64, c11: f64, c12: f64, c13: f64, c14: f64,
     c15: f64, c16: f64, c17: f64, c18: f64, c19: f64,
@@ -98,10 +98,10 @@ pub fn xc_dilogarithm<F: Float>(x: F::new(F)) -> F::new(F) {
     let s1  =  F::new(0.8169658058051014403501838185271e-1);
     let s2  =  F::new(0.5814157140778730872977350641182e-2);
     let s3  =  F::new(0.5371619814541527542247889005319e-3);
-    let s4  =  F::new(0.5724704675185826233210603054782e-);
+    let s4  =  F::new(0.5724704675185826233210603054782e-4);
     let s5  =  F::new(0.6674546121649336343607835438589e-5);
-    let s6  =  F::new(0.8276467339715676981584391689011e-);
-    let s7  =  F::new(0.1073315673030678951270005873354e-);
+    let s6  =  F::new(0.8276467339715676981584391689011e-6);
+    let s7  =  F::new(0.1073315673030678951270005873354e-6);
     let s8  =  F::new(0.1440077294303239402334590331513e-7);
     let s9  =  F::new(0.1984442029965906367898877139608e-8);
     let s10 =  F::new(0.2794005822163638720201994821615e-9);
@@ -235,7 +235,7 @@ pub fn xc_erfcx<F: Float>(x: F::new(F)) -> F::new(F) {
 /// Core erfcx computation using rational approximations.
 /// y = 400/(4+x) maps x in [0, ∞) to y in (0, 100].
 #[cube]
-fn erfcx_y100<F: Float>y: F) -> f64 {
+fn erfcx_y100<F: Float>(y: F) -> F {
     let x = F::new(400.0) / y - F::new(4.0);
     let ispi = F::new(0.5641895835477562869480794515);
     let x2 = x * x;

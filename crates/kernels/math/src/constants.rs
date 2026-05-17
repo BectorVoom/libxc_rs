@@ -77,7 +77,7 @@ mod tests {
     use super::*;
 
     /// Helper: compute relative error between two f64 values
-    fn rel_err(a: f64, b: f64) -> f64 {
+    fn rel_err(a: f64, b: F) -> f64 {
         if b == 0.0 {
             a.abs()
         } else {
