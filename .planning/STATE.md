@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 REPLAN LOCKED — discuss-phase complete (2026-05-18, reconsidered), Option A locked, ready for `/gsd-plan-phase 11`
-stopped_at: Discuss-phase sessions (2026-05-18): Initial decision Option C (cast-at-call-site), reconsidered by user. Final decision: **Option A (generic helpers via Python tooling)** — user prioritizes architectural quality over speed. Phase 2 `_refactor_helper_*` scripts have fixable errors; D-14 spike will improve tooling and refactor all 38 helpers correctly. Timeline open-ended (quality over speed). Blocking anti-patterns AP-1..3 codified with structural mitigations. See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-18 with Option A) and 11-DISCUSSION-LOG-2026-05-18*.md for details.
-last_updated: "2026-05-18T14:30:00Z"
-last_activity: 2026-05-18 — Phase 11 discuss-phase complete. D-02 locked to Option A (generic helpers). D-14 spike has open timeline. AP-1 (compile-first entry gate), AP-2 (`.cargo/config.toml` immutable), AP-3 (no hand-editing) with structural mitigations. Ready for planning with locked decisions and quality-first approach.
+status: Phase 11 PLANNED — 11-06/07/08 regenerated against locked Option A (third-iteration replan), ready for `/gsd-execute-phase 11`
+stopped_at: Plan-phase complete (2026-05-18 evening, third-iteration replan against Option A). Plans 11-01..05 executed; 11-06..08 regenerated and committed in `0e53def41`; one revision iteration (`98d94c599`) addressed 2 blockers + 6 warnings (SPEC-11-Rx → ROADMAP success criterion mapping in CONTEXT.md L265-287, 11-07 Cargo.toml removed from scope, D-05 smoke parity gate added to 11-06 and 11-07 Task 3, 11-08 `LIBXC_RS_BYPASS_DEFERRED` removal at phase close, sweep artifacts under `.cache/`, brace-expansion bash-c wrappers, anchored greps). Plan checker returned `VERIFICATION PASSED` on iteration 2. AP-1..AP-6 mitigations intact.
+last_updated: "2026-05-18T23:30:00Z"
+last_activity: 2026-05-18 — Phase 11 plan-phase complete (third-iteration replan). 11-06 (Serena MCP syntax cleanup + cse.py D-16 confirm + canary three-leg gate), 11-07 (regen 266 subcrates + D-15 compile-first entry gate), 11-08 (per-`-p` sweep + audits + bypass removal + close). All 8 SPEC-11-R criteria covered across 11-05..08 per CONTEXT.md mapping. Ready to execute.
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — DISCUSS-PHASE COMPLETE, PLANNING NEXT
-Previous execution: 11-01 (Wave 0: audit tools + D-02 spike), 11-02 (emit.py routing-aware launch + MAX_TUPLE_ARITY=12), 11-03 (D-13 audit + dispatch tree verification) ✓
-Paused at: 11-04 Task 1A (verify dev-dep narrowing landed `39eb75f93`; Task 1B blocked by D-02 architectural blocker)
-Replan structure locked: 11-04 (retroactive partial SUMMARY) + 11-05..08 (forward work: spike → translator → regen+gate → sweep → close)
+Phase: 11 (splitter-v2-unified-5k-cap) — PLANNED, READY TO EXECUTE
+Previous execution: 11-01..05 ✓ (Wave 0 audit + D-02 spike; emit.py + MAX_TUPLE_ARITY=12; D-13 audit + dispatch verification; verify dev-dep narrowing; Option A 38-helper refactoring across 16 files, syntax errors deferred to 11-06)
+Next execution: 11-06 (Serena MCP syntax cleanup + three-leg gate on mgga_c_b94 canary) → 11-07 (full Maple→Rust regen 266 subcrates + D-15 compile-first entry gate) → 11-08 (per-`-p` sweep across ~258 routed + 5-audit suite + LIBXC_RS_BYPASS_DEFERRED removal + phase close)
+Plans: 8/8 written; 5/8 executed. Plan checker PASSED iteration 2 (1 revision applied for SPEC-11-Rx mapping + 11-07 Cargo.toml scope + 6 warnings).
 
 Plan 11-03 outcome (2026-05-15):
 - Task 1: verify-only re-confirmation of `95727cb36`+`97d6347be` (clean-slate
