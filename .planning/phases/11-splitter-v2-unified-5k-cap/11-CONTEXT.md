@@ -261,6 +261,33 @@ The following patterns have been **empirically observed to break the replan** in
 
 </canonical_refs>
 
+<spec_to_criterion_map>
+## SPEC-11-Rx → ROADMAP Phase 11 Success Criterion Map (NEW 2026-05-18 fix per checker BLOCKER 1)
+
+Plan frontmatter (11-05/06/07/08) tags requirements using the local IDs `SPEC-11-R1..R8`. These IDs are NOT defined in REQUIREMENTS.md, ROADMAP.md, or VALIDATION.md — ROADMAP.md uses **Success Criteria #1..#8 + P11-INV-A1** (see ROADMAP.md lines 251–260). The table below provides the canonical mapping so traceability is unambiguous.
+
+| Local ID | ROADMAP Success Criterion (source: .planning/ROADMAP.md lines 251–260) | Delivered by plan(s) |
+|---|---|---|
+| SPEC-11-R1 | #1 — `find crates/kernels -maxdepth 1 -type d` shows no `lda-N`/`gga-N`/`mgga-N` numbered children AND no per-family Cargo.toml (per D-10a; family dirs are plain directories) | 11-03 (clean-slate delete + 266-subcrate regen), re-verified by 11-07 (idempotent regen) |
+| SPEC-11-R2 | #2 — Zero `.rs` files >5,000 lines (hard cap per D-LOCK-B) | 11-02 (CSE pass tooling), 11-03 (initial regen), 11-07 (full regen verifies post-Option-A) |
+| SPEC-11-R3 | #3 — Splitter capable of subdividing single-output expressions; r4scan, br89_explicit, mgga-{8,9,11} all ≤5K | 11-02 (CSE pass), 11-03 (full-tree empirical verification), 11-07 (re-verified), 11-08 (final audit sweep) |
+| SPEC-11-R4 | #4 — Per-`-p` cargo build across routed subcrates succeeds (D-12 reinterpretation: NOT `cargo build --workspace`) | 11-08 (the per-`-p` sweep IS this criterion's empirical gate) |
+| SPEC-11-R5 | #5 — Oracle parity preserved at 1e-12 (per D-05; energy + routed derivatives at f64) | 11-05 (helper refactor preserves parity by design), 11-06 (three-leg gate on mgga_c_b94), 11-07 (D-15 entry gate + smoke), 11-08 (sweep verifies no parity regression) |
+| SPEC-11-R6 | #6 — Pipeline idempotent (running twice produces no diff per D-LOCK-D / P11-INV-6) | 11-02 (deterministic emit), 11-03 (verified post-regen), 11-06 (canary idempotency), 11-07 (full-tree `test_idempotency.sh`), 11-08 (final 5-audit sweep) |
+| SPEC-11-R7 | #7 — CubeCL macro fan-out audit clean per D-13 per-design budget (NOT the original ≤23 flat count — see D-13 rationale) | 11-03 (audit_cube_launch.sh D-13 rewrite committed at eea58fed7), 11-08 (post-regen re-confirmation + ROADMAP correction) |
+| SPEC-11-R8 | #8 — Dispatch tree resolves cleanly post-collapse; Blocker B1 closed; zero `batchN` segments survive | 11-03 (dispatch regen + Blocker B1 closure), 11-07 (re-regen against full-tree Option-A subcrates), 11-08 (final audit_dispatch_tree.sh) |
+
+**Note on the executed plans 11-01..04:** Their PLAN.md files do NOT use the SPEC-11-Rx scheme (this naming convention was introduced in 11-05 onward), but their *delivered work* covers many criteria. The "Delivered by plan(s)" column above documents which plan contributed evidence for each criterion regardless of whether the plan's frontmatter labeled it. Per ROADMAP.md the 5/8 executed plans (11-01..05) have already produced verifiable evidence for criteria #1 (11-03), #2 (11-03), #3 (11-02/03), #6 (11-02/03), #7 (11-03), #8 (11-03), and partial #5 (11-05 helper refactor — full validation in 11-06+).
+
+**Coverage check across forward plans 11-06..08 frontmatter (post-fix):**
+- 11-06 must list: SPEC-11-R5, SPEC-11-R6, SPEC-11-R7 (three-leg gate validates parity + idempotency on canary; preserves D-16 emit which protects R7 fan-out)
+- 11-07 must list: SPEC-11-R1, SPEC-11-R2, SPEC-11-R3, SPEC-11-R5, SPEC-11-R6, SPEC-11-R8 (full regen empirically re-verifies the structural criteria + idempotency + dispatch + parity)
+- 11-08 must list: SPEC-11-R3, SPEC-11-R4, SPEC-11-R6, SPEC-11-R7, SPEC-11-R8 (per-`-p` sweep is R4; final 5-audit sweep re-verifies R3/R6/R7/R8 at phase close)
+
+After post-fix frontmatter updates: every SPEC-11-Rx appears in at least one plan's `requirements:` field across 11-05..08. 11-05's frontmatter (SPEC-11-R5, SPEC-11-R7) is preserved as-committed.
+
+</spec_to_criterion_map>
+
 <code_context>
 ## Existing Code Insights
 
