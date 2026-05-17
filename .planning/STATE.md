@@ -49,6 +49,17 @@ Wave 2 is finished under D-13. Next plan: 11-04.
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
 Last activity: 2026-05-15 — Phase 11-03 complete
 
+## Phase 11 — PAUSED at Plan 11-05, Option A → Option C Pivot (2026-05-18)
+
+Attempted Option A (refactor 38 helpers to generic `<F: Float>`) blocked by Phase 2 automated-script systematic errors in 11 files. User elected to **pivot to Option C (cast-at-call-site in translator)** at 14:00 UTC. 
+
+State: commit dcb7d517d marks partial fixes and checkpoint. Next session: replan with Option C.
+
+Carry-forward from 11-05 attempt:
+- Commit d8cc4da0c: Manual Phase 1 refactoring (5 files) validated as working ✓
+- Commit dcb7d517d: Partial fixes + analysis of remaining errors
+- Decision: abandon this path, move to translator-level approach
+
 ## Phase 05 — Gap Closure Resolved (2026-05-02)
 
 The "Pending Resumption" block previously here was stale. The gap-closure work
