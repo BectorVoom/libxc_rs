@@ -259,15 +259,17 @@ Plans:
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
   8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
-**Plans:** 3/6 plans executed
+**Plans:** 5/8 plans executed (replanned 2026-05-18, third session — D-02 Option A locked, D-18 Serena MCP added)
 
-Plans: 6 plans (replanned 2026-05-14 against the revised per-functional-subcrate CONTEXT; 11-01 Wave 0 preserved as executed, 11-02..06 regenerated)
+Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP D-18; 11-01..05 executed; 11-06..08 regenerated)
 - [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
-- [x] 11-02-PLAN.md — Wave 1: build splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + wire all 3 translators (D-02 tuple-return ABI, SPLIT_THRESHOLD=4500) + extend audit_subcrate_collapse.sh for family-crate absence + retune maple_to_kernels.py (tooling only, no tree mutation)
-- [x] 11-03-PLAN.md — Wave 2: D-10a clean-slate — delete 27 numbered subcrates + 3 family crates + regen ~264 per-functional subcrates from Maple + rewrite root Cargo.toml (per-functional deps, D-11 deferred kernels excluded from default-members) + regenerate dispatch tree against per-functional paths (closes Blocker B1)
-- [ ] 11-04-PLAN.md — Wave 3: verify LDA (~41) + GGA (~131) — narrow verify/ dev-deps to per-functional subcrates (D-05 verify-OOM fix) + compile every LDA+GGA subcrate per -p + phase11_smoke parity at 1e-12 + LDA+GGA idempotency
-- [ ] 11-05-PLAN.md — Wave 4: verify MGGA (~92) — add MGGA dev-deps + compile every routed + 7 deferred subcrates + un-ignore phase11_worst_case, pass smoke + worst-case parity at 1e-12 (mgga_c_b94 16K etc. CSE-chunked to ≤5K) + MGGA idempotency + mgga_x_2d_prp10 deferral preserved
-- [ ] 11-06-PLAN.md — Wave 5: update CLAUDE.md per D-03a (precision + operation-order policy) + delete 7 obsolete numbered-subcrate-layout splitter tools + clean maple_to_kernels.py to splitter-v2-only + end-to-end idempotency gate (P11-INV-6) + 5-audit simultaneous sweep + ROADMAP criteria #1/#4 correction + 11-FINAL-METRICS.md
+- [x] 11-02-PLAN.md — Wave 1: splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + 3 translators rewired (D-02 ABI, SPLIT_THRESHOLD=4500, MAX_TUPLE_ARITY=12) + maple_to_kernels.py driver (tooling only)
+- [x] 11-03-PLAN.md — Wave 2: D-10a clean-slate (delete 27 numbered subcrates + 3 family crates) + regen ~266 per-functional subcrates + rewrite root Cargo.toml + regen dispatch tree (Blocker B1 closed) + audit_cube_launch.sh rewrite per D-13 per-design budget
+- [x] 11-04-PLAN.md — Retroactive PARTIAL SUMMARY: verify dev-dep narrowing (39eb75f93, D-05 OOM fix) + D-02 architectural blocker analysis (four-layer bug structure documented)
+- [x] 11-05-PLAN.md — Option A spike (D-14): refactor all 38 helpers in 16 crates/kernels/math/src/ files to generic `<F: Float>` via tools/refactor_helpers_generic.py (logical refactoring complete; syntax errors deferred to 11-06)
+- [ ] 11-06-PLAN.md — Syntax cleanup (Serena MCP D-18) of 11 auto-pass files in math/src/ + cse.py D-16 confirm + three-leg gate on mgga_c_b94 canary (compile + parity at 1e-12 + idempotency)
+- [ ] 11-07-PLAN.md — Full Maple→Rust regen of 266 subcrates + dispatch tree regen (per-functional paths) + D-15 compile-first entry gate on mgga_c_b94 (kernel + libxc_rs + parity + idempotency)
+- [ ] 11-08-PLAN.md — Per-`-p` cargo build sweep across ~258 routed subcrates + 5-audit final sweep + CLAUDE.md (D-03a) + ROADMAP success criteria #1/#4/#7 correction (D-12/D-13) + delete 5 obsolete tools + phase close
 
 **Canonical refs:**
   - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
