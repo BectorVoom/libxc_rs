@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 REPLAN LOCKED — discuss-phase 2 complete, D-14..D-17 captured, ready for `/gsd-plan-phase 11`
-stopped_at: Second discuss-phase session (2026-05-15) locked D-02 disposition via 2-day spike (A vs C race on mgga_c_b94); compile-first entry gate defined (D-15); translator emit living in cse.py AST pass (D-16); replan structure 5 plans 11-04..08 (D-17). See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-15 with D-14..D-17) and 11-DISCUSSION-LOG.md. Anti-patterns AP-1..6 codified to prevent recurrence of the "structural completion without per-`-p` gate" failure pattern.
-last_updated: "2026-05-15T16:00:00Z"
-last_activity: 2026-05-15 — Phase 11 second discuss-phase pass complete. D-14 (D-02 spike), D-15 (compile-first gate), D-16 (AST emit), D-17 (5-plan replan) locked. Ready for planning.
+status: Phase 11 REPLAN LOCKED — discuss-phase 3 complete (2026-05-18), Option C locked, ready for `/gsd-plan-phase 11`
+stopped_at: Third discuss-phase session (2026-05-18) resolved D-02 blocker. User decided to abandon Option A (generic helpers refactoring — 11 files have systematic syntax errors in Phase 2 scripts) and lock Option C (cast-at-call-site in translator). D-14 spike now validates Option C only (1–2 day time-box). Blocking anti-patterns AP-1..3 codified with structural mitigations. See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (revised 2026-05-18 with Option C) and 11-DISCUSSION-LOG-2026-05-18.md for anti-pattern analysis.
+last_updated: "2026-05-18T14:00:00Z"
+last_activity: 2026-05-18 — Phase 11 discuss-phase complete. D-02 locked to Option C (cast-at-call-site). AP-1 (compile-first entry gate), AP-2 (`.cargo/config.toml` immutable), AP-3 (no hand-editing) with structural mitigations. Ready for planning with locked decisions.
 progress:
   total_phases: 11
   completed_phases: 6
