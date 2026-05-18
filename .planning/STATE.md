@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 HALTED at plan 11-06 per AP-1/D-15 — three-leg gate leg 1 (`cargo build -p libxc-kernel-math`) fails with 515 errors. Architectural mismatch: 11-05 auto-script wrapped f64 named constants in F::new() but CubeCL Float::new(val: f32) cannot construct f64-precision values. Needs /gsd-discuss-phase 11 (4th iteration) for architectural decision on F::cast_from() vs Option C revival.
-stopped_at: 11-06 HALT (2026-05-18). Commit `75c0f5112` — FAILED SUMMARY committed. No edits to crates/kernels/math/src/, tools/, src/model/, or verify/. .cargo/config.toml unchanged (AP-2 confirmed). Plans 11-01..05 executed; 11-06 surfaced architectural blocker via entry gate (per AP-6 design: this is the gate working as intended). Plans 11-07/11-08 are blocked behind 11-06 architectural decision.
-last_updated: "2026-05-18T23:59:00Z"
-last_activity: 2026-05-18 — Phase 11 plan 11-06 HALT. Discovered the 11-05 Phase 2 auto-script (`tools/refactor_helpers_generic.py`) produced 515 compile errors in `libxc-kernel-math`, dominated by 447 E0308 "expected f32, found f64" errors from `F::new(<f64 const>)` wraps. The CubeCL 0.10 Float trait declares `fn new(val: f32) -> Self` — f64 named constants (SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, ...) cannot pass through. The plan's "revert F::new(IDENT) to bare IDENT" rule also fails (bare f64 in F-generic body is also a type error). Proposed forward: `F::cast_from(<f64 const>)` via cubecl-core Cast trait. Requires user decision in /gsd-discuss-phase 11.
+status: "Phase 11 HALTED at plan 11-06 per AP-1/D-15 — three-leg gate leg 1 (`cargo build -p libxc-kernel-math`) fails with 515 errors. Architectural mismatch: 11-05 auto-script wrapped f64 named constants in F::new() but CubeCL Float::new(val: f32) cannot construct f64-precision values. Needs /gsd-discuss-phase 11 (4th iteration) for architectural decision on F::cast_from() vs Option C revival."
+stopped_at: Phase 11 4th-iter discuss complete (A1 locked, D-19..D-24, AP-7, f32+f64 test scope)
+last_updated: "2026-05-18T01:18:42.738Z"
+last_activity: 2026-05-15 — Phase 11-03 complete
 progress:
   total_phases: 11
   completed_phases: 6
-  total_plans: 50
-  completed_plans: 39
-  percent: 78
+  total_plans: 52
+  completed_plans: 42
+  percent: 81
 ---
 
 # Project State
@@ -32,11 +32,14 @@ Next step: `/gsd-discuss-phase 11` — 4th-iteration replan. Choose between (A1)
 Plans: 8/8 written; 5/8 executed; 1/8 HALTED. 11-07/08 blocked behind 11-06 architectural decision.
 
 Plan 11-03 outcome (2026-05-15):
+
 - Task 1: verify-only re-confirmation of `95727cb36`+`97d6347be` (clean-slate
   266-subcrate restructure) — approved by user; no commit.
+
 - Task 2 (`eea58fed7`): rewrote `tools/audit_cube_launch.sh` to the D-13
   per-design launch budget (routed one-per-output, unrouted-zero,
   math/src/ ≤22). PASS: 1654 routed pairs, 0 unrouted launchables, math=22.
+
 - Task 3 (`f820fae90` --allow-empty): re-ran the three dispatch/re-export
   generators — zero git diff (deterministic against committed WIP
   `c3fba8089`). `audit_dispatch_tree.sh` exit 0; 0 batchN refs survive.
@@ -57,6 +60,7 @@ Attempted Option A (refactor 38 helpers to generic `<F: Float>`) blocked by Phas
 State: commit dcb7d517d marks partial fixes and checkpoint. Next session: replan with Option C.
 
 Carry-forward from 11-05 attempt:
+
 - Commit d8cc4da0c: Manual Phase 1 refactoring (5 files) validated as working ✓
 - Commit dcb7d517d: Partial fixes + analysis of remaining errors
 - Decision: abandon this path, move to translator-level approach
@@ -165,6 +169,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-15T02:55:30.719Z
-Stopped at: Phase 11 context REVISED — per-functional subcrates unification target; D-04/D-05/D-10/D-LOCK-A revised, D-11/D-12 added; plans 11-02..06 stale, replan required
-Resume file: None
+Last session: 2026-05-18T01:18:42.736Z
+Stopped at: Phase 11 4th-iter discuss complete (A1 locked, D-19..D-24, AP-7, f32+f64 test scope)
+Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
