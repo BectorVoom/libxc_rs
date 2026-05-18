@@ -77,7 +77,7 @@ pub fn mgga_c_b94_kxc_pol_part11_v3sigma2lapl(
         let t54 = 0.0 < t53;
         let t55 = piecewise3::<f64>(t54, 0.5e-12, -0.5e-12);
         let t56 = piecewise3::<f64>(t49, t55, t53);
-        let t57 = xc_mgga_x_br89_get_x(t56);
+        let t57 = xc_mgga_x_br89_get_x::<f64>(t56);
         let t59 = f64::exp(t57 / 3.0);
         let t60 = 1.0 / t59;
         let t61 = f64::exp(-t57);
@@ -113,7 +113,7 @@ pub fn mgga_c_b94_kxc_pol_part11_v3sigma2lapl(
         let t105 = 0.0 < t104;
         let t106 = piecewise3::<f64>(t105, 0.5e-12, -0.5e-12);
         let t107 = piecewise3::<f64>(t100, t106, t104);
-        let t108 = xc_mgga_x_br89_get_x(t107);
+        let t108 = xc_mgga_x_br89_get_x::<f64>(t107);
         let t110 = f64::exp(t108 / 3.0);
         let t111 = 1.0 / t110;
         let t112 = f64::exp(-t108);

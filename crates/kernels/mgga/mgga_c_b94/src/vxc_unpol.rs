@@ -63,7 +63,7 @@ pub fn mgga_c_b94_vxc_unpol(
         let t49 = 0.0 < t48;
         let t50 = piecewise3::<f64>(t49, 0.5e-12, -0.5e-12);
         let t51 = piecewise3::<f64>(t38, t50, t48);
-        let t52 = xc_mgga_x_br89_get_x(t51);
+        let t52 = xc_mgga_x_br89_get_x::<f64>(t51);
         let t54 = f64::exp(t52 / 3.0);
         let t55 = 1.0 / t54;
         let t56 = f64::exp(-t52);

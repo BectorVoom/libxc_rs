@@ -320,6 +320,26 @@ def translate_line(line: str, is_pol: bool) -> str:
     # --- Restore bspline ider placeholders to integer literals ---
     s = re.sub(r'__IDER_(\d+)__', r'\1', s)
 
+    # --- D-25 Rule 10 Phase-2 extension (5th-iter Session 3 amendment) ---
+    # After Session 2 converted 9 math/src/ Phase-2 files to generic <F: Float>,
+    # their public functions also need ::<f64> turbofish at chunk call sites.
+    # Without this, chunks built from older math/ (pre-generic) compile but
+    # chunks built against the now-generic math/ fail with E0282 "type
+    # annotations needed". Idempotent: \bname\( does not match name::<f64>(
+    # on subsequent passes (word-boundary regex).
+    for fn in [
+        'xc_mgga_x_br89_get_x',                          # br89.rs
+        'xc_mgga_x_mbrxc_get_x',                         # mbrxc.rs
+        'erf_approx', 'erfc_approx',                     # erf.rs (math_map output)
+        'xc_dilogarithm', 'xc_erfcx',                    # special.rs (math_map output)
+        'xc_e1_scaled',                                  # expint_e1.rs (math_map output)
+        'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
+        'xc_bessel_I0_scaled', 'xc_bessel_I0',
+        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs
+        'case21_xbspline', 'case21_cbspline',            # bspline.rs
+    ]:
+        s = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', s)
+
     return s
 
 

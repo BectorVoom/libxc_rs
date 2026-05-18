@@ -283,6 +283,25 @@ def translate_expr(expr: str, is_pol: bool) -> str:
     result = re.sub(r',\s*(\d+)\s*\)', lambda m: f', {m.group(1)}.0)', result)
     result = re.sub(r',\s*(\d+)\s*,', lambda m: f', {m.group(1)}.0,', result)
 
+    # 11. D-25 Rule 10 Phase-2 extension (5th-iter Session 3 amendment) -------
+    # After Session 2 converted 9 math/src/ Phase-2 files to generic <F: Float>,
+    # their public functions also need ::<f64> turbofish at chunk call sites.
+    # LDA chunks predominantly call erf_approx/erfc_approx, but the full list
+    # is included for forward-compatibility (idempotent / no-op when unused).
+    # Idempotent: \bname\( does not match name::<f64>( on subsequent passes.
+    for fn in [
+        'xc_mgga_x_br89_get_x',                          # br89.rs
+        'xc_mgga_x_mbrxc_get_x',                         # mbrxc.rs
+        'erf_approx', 'erfc_approx',                     # erf.rs
+        'xc_dilogarithm', 'xc_erfcx',                    # special.rs
+        'xc_e1_scaled',                                  # expint_e1.rs
+        'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
+        'xc_bessel_I0_scaled', 'xc_bessel_I0',
+        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs
+        'case21_xbspline', 'case21_cbspline',            # bspline.rs
+    ]:
+        result = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', result)
+
     return result
 
 
