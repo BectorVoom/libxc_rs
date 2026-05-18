@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Phase 11 5th-iter context gathered — Direction A locked, AP-8 codified
-last_updated: "2026-05-18T05:25:06.280Z"
-last_activity: 2026-05-18 -- Phase 11 planning complete
+status: Paused mid-execution — 11-06 Session 1 done (Tasks 1-4 + structural unblocks); resume in fresh session for Task 5
+stopped_at: Phase 11 11-06 5th-iter Session 1 complete; math/ + mgga_c_b94 canary compile-green for first time in history
+last_updated: "2026-05-18T15:30:00.000Z"
+last_activity: 2026-05-18 -- Phase 11 11-06 5th-iter Session 1 (Tasks 1-4 + 3 structural blockers fixed)
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,12 +25,15 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — HALTED twice
-Plan: 11-06 (4th-iter recovery HALTED at Gate 2, 2026-05-18)
-Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter with FAILED SUMMARY (`75c0f5112`); 11-06 HALTED FOURTH-iter at Gate 2 (cf59c2c08+SUMMARY).
-4th-iter Halt reason: cast_from policy implemented (D-20) + 4 Task 1 surgical fixes committed + Gate 1 fixture PASS. But Gate 2 `cargo build -p libxc-kernel-math` cannot satisfy because Phase-2 baseline at 7a65f3bc6 contains 4 corruption categories beyond D-23 surgical scope: (1) mixed-precision generic-fn signatures, (2) non-pub #[cube] generic helpers causing E0433, (3) broken `(` brackets in fn signatures, (4) missed literal-wrap sites (negative literals, idx-as-f64 casts, select third-arg). Error count: 234 (start) → 121 (cast_from) → 84 (sig fix attempt) → 1755 (over-aggressive fix uncovers more layers).
-Next step: `/gsd-discuss-phase 11` — 5th-iteration replan. See .continue-here.md. Three architectural directions documented in 11-06-SUMMARY.md: (A) Manual Phase-2 redo using proven Phase-1 pattern; (B) Option C translator-level cast revival; (C) Hybrid Phase-1 generic + Phase-2 concrete + translator cast. Recommendation: Direction A.
-Plans: 8/8 written; 5/8 executed; 1/8 HALTED. 11-07/08 blocked behind 11-06 architectural decision.
+Phase: 11 (splitter-v2-unified-5k-cap) — PAUSED mid-11-06 5th-iter execution
+Plan: 11-06 5th-iter Session 1 complete (Tasks 1-4 + 3 structural unblocks); Tasks 5-8 deferred to fresh Session 2
+Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Session 1 PARTIAL (`8cb80ce49`).
+5th-iter Session 1 outcome (2026-05-18, 8 commits): math/ baseline now compile-green for FIRST TIME IN HISTORY; mgga_c_b94 canary regenerated and compile-green at both precisions; PATTERN.md amended with Rule 9 (cross-fn turbofish, MANDATORY) and Rule 10 (translator carry-forward). Three structural blockers fixed:
+  (1) dcb7d517d 436-file scope → path-scoped reset (Deviation A)
+  (2) Phase-1 baseline never compiled (turbofish missing) → 27 surgical edits to powers/spin/lambert_w/dft_quantities (Deviation C, commit 38b5bc1ee)
+  (3) Generated chunk tree never compiled → translator-side turbofish emission in translate_{lda_v2,gga,mgga}.py (Deviation D, commit e7d1bdce4) + mgga_c_b94 canonical regen (commit 00b5380a1)
+Next step: fresh session — `/gsd:execute-phase 11` (continues with Task 5 of 11-06 since SUMMARY.md is PARTIAL not complete; gsd-tools will see 11-06 as incomplete because SUMMARY frontmatter has `status: PARTIAL`). See `11-06-SUMMARY.md` "What a fresh session needs to know" section for resume instructions. Apply 11-PATTERN.md Rules 1-9 from the start of every Task 5 file conversion (Rule 9 — cross-fn turbofish — was the missing structural piece that caused every prior HALT).
+Plans: 8/8 written; 5/8 executed; 1/8 IN PROGRESS (11-06 PARTIAL). 11-07/08 blocked behind 11-06 completion (and 11-07 needs to also pick up the translator-emitted turbofish for the other 91 MGGA + 131 GGA + 43 LDA functionals via full-tree regen).
 
 Plan 11-03 outcome (2026-05-15):
 
