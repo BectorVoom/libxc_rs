@@ -20,6 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 - [ ] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
+- [ ] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
 
 ## Phase Details
 
@@ -277,3 +278,38 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
   - tools/translate_lda_v2.py, tools/translate_gga.py, tools/translate_mgga.py (current splitter, SPLIT_THRESHOLD=6000)
   - tools/split_oversized_{kernel,mgga}.py, tools/split_mgga_7_kcis.py, tools/rebatch_mgga.py (post-split helpers)
   - .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md (this phase's locked decisions)
+
+### Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green
+
+**Goal:** Resolve the Rule 3 chunk-body emit gap in `tools/translate_v2/` that blocked Phase 11 from closing on SPEC-11-R4/R5, then drive `batched_compile_sweep.py` to VERDICT: ALL_OK across all 266 on-disk subcrates and re-open the Phase 11 closure items (11-06 Legs 2/3/4 + Task 8, 11-08 Tasks 2 + 3). Phase done when the translator emits Rule 3 conversions for all f64-literal positions inside fn bodies, full-tree regen produces a workspace that survives per-`-p` cargo build across the entire dispatch graph, the f32+f64 sweep is green end-to-end, and Phase 11 can call `phase.complete`.
+
+**Driver:** Phase 11 closed PARTIAL (`ac9729a51d`) with structural goals met (D-10a, D-13, dispatch tree) but codegen correctness blocked on two translator defect patterns observed in 11-06 Leg 2 (`gga_c_gaploc`, P1 named-const-in-F-arithmetic, 2920 errors) and 11-07 LDA sweep (`lda_c_pk09`, P2 bare-f64 tuple-return member, 789 errors). Both resolve to the same root cause: `tools/translate_v2/` chunk-body emit does NOT apply Rule 3 (`F::cast_from(NAMED)` / `F::new(literal)`) to f64-literal positions inside the function body — only Deviation F (cross-fn turbofish) was previously addressed.
+
+**Depends on:** Phase 11 PARTIAL close (delivered: per-functional subcrate restructure, 11-PATTERN.md Rules 1-10, batched_compile_sweep.py, dual-precision infra, math/ generic refactor). No fresh prerequisites.
+
+**Pre-planning blockers:**
+  1. Decide scope boundary: is 11.1 strictly the translator fix + sweep-to-green, or does it also absorb the deferred 11-06 Legs 2/3/4 + Task 8 and 11-08 Tasks 2 + 3 before Phase 11 closes?
+  2. Decide P3-preventive scope: enumerate every f64-literal site shape the translator should handle (P1, P2, plus arbitrary let-binding RHS feeding F expressions, plus inline match arms, plus closure bodies)
+  3. Decide regen strategy: full clean rebuild (delete + regen all 266 subcrates) vs. selective regen of affected functionals only — affects whether Deviation F surgical edits get superseded cleanly or coexist with new emit
+  4. Decide whether translator should now own Rule 9/10 turbofish emission natively (currently emitted via Deviation F edits in 3 translators) so future regens are reproducible
+
+**Success Criteria** (what must be TRUE):
+  1. `tools/translate_v2/` chunk-body emit applies Rule 3 to ALL f64-literal positions inside fn bodies: named-const refs in F arithmetic (P1), bare-literal tuple-return members (P2), let-binding RHS feeding F expressions (P3)
+  2. Full-tree regen completes idempotently — `test_idempotency.sh` PASSES (it currently FAILS on `split_lda_subcrates.py` tool-staleness; 11.1 may also need to fix the tool-staleness audit gap surfaced in 11-08 A5)
+  3. `python3 tools/batched_compile_sweep.py` returns VERDICT: ALL_OK end-to-end across LDA (43) + GGA (131) + MGGA (92) = 266 subcrates at f64
+  4. The two known failures from Phase 11 are green: `gga_c_gaploc` per-`-p` compile (P1 exemplar) and `lda_c_pk09` per-`-p` compile (P2 exemplar)
+  5. SPEC-11-R4 satisfied: clean per-`-p` cargo build of all 266 on-disk subcrates
+  6. SPEC-11-R5 satisfied: parity tests pass at chosen gate (mgga_c_b94 canary at minimum; full set per Phase 11 R5 scope)
+  7. If 11.1 absorbs the deferred 11-08 Task 3 — D-24 full-649 f32 oracle sweep PASSES under hard ceiling 1e-3
+  8. Phase 11 `phase.complete` invocation unblocked (whether via 11.1 absorbing closure or 11.1 handing back to a re-opened 11)
+
+**Plans:** To be scoped via /gsd:discuss-phase 11.1 → /gsd:plan-phase 11.1.
+
+**Canonical refs:**
+  - .planning/phases/11-splitter-v2-unified-5k-cap/11-FINAL-METRICS.md § "Phase 11.1 Follow-Up Scope (translator fix)"
+  - .planning/phases/11-splitter-v2-unified-5k-cap/11-08-SUMMARY.md (PARTIAL close, blocker disposition)
+  - .planning/phases/11-splitter-v2-unified-5k-cap/11-PATTERN.md (Rules 1-10 — translation conventions the emit fix must respect)
+  - .planning/phases/11-splitter-v2-unified-5k-cap/11-07-SWEEP-MANIFEST-lda.ndjson (P2 exemplar evidence)
+  - .planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md (P1 exemplar evidence at 92ddcebe90)
+  - tools/translate_v2/ (translator package — the surface area being amended)
+  - tools/batched_compile_sweep.py (sweep instrument that gates VERDICT: ALL_OK)
