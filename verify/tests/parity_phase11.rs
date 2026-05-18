@@ -55,6 +55,65 @@ use libxc_rs_verify::{
 const STRICT_TOL: f64 = 1e-12;
 const REL_FLOOR: f64 = 1e-30;
 
+// ---- D-19a / D-19c f32 dual-precision contract -----------------------------
+//
+// LIBXC_RS_F32=1 enables the env-gated f32 leg. The f32 tests run the SAME
+// rust dispatch path against the f64 oracle and check max_rel_err against a
+// per-functional tolerance loaded from
+// crates/kernels/math/tests/f32_tolerance_overrides.toml.
+//
+// Default (no override): RELAXED_TOL_F32 = 1e-6.
+// Hard ceiling: 1e-3 (asserted in f32_tolerance_for — any override above
+// this triggers a panic indicating an f32 codegen defect, not convergence
+// noise). Brent-class helpers (br89, mbrxc and dependents) get 1e-4.
+//
+// NOTE: At Task 4 the f32 dispatch wiring through chunks does not yet exist —
+// the f32 leg compiles and exercises the TOML loader + ceiling assertion, but
+// the per-entry parity comparison stays f64-typed until Task 6 (Gate 3) wires
+// the f32 chunk → helper integration spike for mgga_c_b94.
+
+const RELAXED_TOL_F32: f64 = 1e-6;
+
+/// Per-test f32 tolerance override callback (D-19c).
+/// Loads `crates/kernels/math/tests/f32_tolerance_overrides.toml` once and looks up
+/// by functional name. Returns RELAXED_TOL_F32 (1e-6) if no override.
+fn f32_tolerance_for(functional_name: &str) -> f64 {
+    static OVERRIDES: std::sync::OnceLock<std::collections::HashMap<String, f64>> =
+        std::sync::OnceLock::new();
+    let map = OVERRIDES.get_or_init(|| {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../crates/kernels/math/tests/f32_tolerance_overrides.toml");
+        let text = std::fs::read_to_string(&path).unwrap_or_default();
+        let parsed: toml::Value = toml::from_str(&text)
+            .unwrap_or(toml::Value::Table(Default::default()));
+        let mut m = std::collections::HashMap::new();
+        if let Some(tbl) = parsed.as_table() {
+            for (key, val) in tbl {
+                if key == "default" {
+                    continue;
+                }
+                if let Some(tol) = val.get("tolerance").and_then(|v| v.as_float()) {
+                    // Hard ceiling per CONTEXT.md D-19c: 1e-3
+                    assert!(
+                        tol <= 1e-3,
+                        "f32 tolerance override for {} ({}) exceeds 1e-3 ceiling — \
+                         investigate as f32 codegen defect, not convergence noise",
+                        key,
+                        tol
+                    );
+                    m.insert(key.clone(), tol);
+                }
+            }
+        }
+        m
+    });
+    map.get(functional_name).copied().unwrap_or(RELAXED_TOL_F32)
+}
+
+fn f32_mode_enabled() -> bool {
+    std::env::var("LIBXC_RS_F32").as_deref() == Ok("1")
+}
+
 // ---- Phase11 entry types ---------------------------------------------------
 
 #[derive(Debug, Clone, Copy)]
@@ -450,4 +509,63 @@ fn phase11_worst_case() {
         failures.len(),
         failures.join("\n  ")
     );
+}
+
+// ---- D-19 / D-19c f32 dual-precision test entry points ---------------------
+//
+// Env-gated by LIBXC_RS_F32=1. At Task 4 (this commit) the bodies validate:
+//   - the TOML loader works
+//   - the per-entry tolerance lookup returns a sensible value
+//   - the hard-ceiling assertion in f32_tolerance_for fires correctly
+// Task 6 (Gate 3 Leg 3) wires the actual f32 chunk dispatch + parity check
+// once Task 5 has converted the helper layer to generic <F: Float>.
+
+#[test]
+fn phase11_smoke_f32() {
+    if !f32_mode_enabled() {
+        return;
+    }
+    // Validate every smoke entry has a sensible tolerance lookup; the loader
+    // also enforces the 1e-3 hard ceiling at first call.
+    for entry in PHASE11_SMOKE {
+        let tol = f32_tolerance_for(entry.canonical);
+        assert!(
+            tol > 0.0 && tol <= 1e-3,
+            "phase11_smoke_f32: tolerance for {} ({}) is out of range",
+            entry.canonical,
+            tol
+        );
+        eprintln!(
+            "PARITY_TUPLE_F32: smoke {} {} tolerance={:.0e} (Task-4 loader probe; \
+             actual f32 parity dispatch wired in Task 6 Gate 3)",
+            family_label(entry.family),
+            entry.canonical,
+            tol
+        );
+    }
+}
+
+#[test]
+fn phase11_worst_case_f32() {
+    if !f32_mode_enabled() {
+        return;
+    }
+    // Same probe shape as smoke_f32; worst-case entries include the
+    // mgga_c_b94 D-19c override (1e-4 per TOML).
+    for entry in PHASE11_WORST_CASE {
+        let tol = f32_tolerance_for(entry.canonical);
+        assert!(
+            tol > 0.0 && tol <= 1e-3,
+            "phase11_worst_case_f32: tolerance for {} ({}) is out of range",
+            entry.canonical,
+            tol
+        );
+        eprintln!(
+            "PARITY_TUPLE_F32: worst_case {} {} tolerance={:.0e} (Task-4 loader probe; \
+             actual f32 parity dispatch wired in Task 6 Gate 3)",
+            family_label(entry.family),
+            entry.canonical,
+            tol
+        );
+    }
 }

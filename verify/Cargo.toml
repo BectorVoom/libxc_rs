@@ -21,6 +21,9 @@ libxc_rs = { path = ".." }
 [dev-dependencies]
 approx = "0.5.1"
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
+# D-19c per-test f32 tolerance map loader (verify/tests/parity_phase11.rs).
+# Reads crates/kernels/math/tests/f32_tolerance_overrides.toml at test setup.
+toml = "0.8"
 
 # PHASE11_SMOKE — 3 LDA + 3 GGA + 4 MGGA (D-05 narrowed witness; 11-04)
 libxc-kernel-lda_x = { path = "../crates/kernels/lda/lda_x" }

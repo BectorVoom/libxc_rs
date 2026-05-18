@@ -125,11 +125,18 @@ impl MggaFunctional {
     /// - Non-MGGA IDs (route those via `dispatch_lda` / `dispatch_gga`).
     pub fn from_id(id: FunctionalId) -> Result<Self, LibxcRsError> {
         if is_deferred_mgga(id.raw()) {
-            return Err(LibxcRsError::UnsupportedFunctional {
-                id,
-                reason: "MGGA functional deferred pending Brent's method root-finder. \
-                         See crates/kernels/math/src/deferred.rs",
-            });
+            // D-15 / D-22 amended Gate 3 / Direction A exit-gate one-shot bypass.
+            // Scoped to test-time verification only — REMOVED in 11-08 Task 2 Step 5
+            // when phase closes and D-11 production semantics restore.
+            // See .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md D-15.
+            if std::env::var("LIBXC_RS_BYPASS_DEFERRED").as_deref() != Ok("1") {
+                return Err(LibxcRsError::UnsupportedFunctional {
+                    id,
+                    reason: "MGGA functional deferred pending Brent's method root-finder. \
+                             See crates/kernels/math/src/deferred.rs",
+                });
+            }
+            // else: fall through (canary-gate path only — bypassed via env var)
         }
         match id.raw() {
             36 => Ok(Self::HybMggaXDldf),
