@@ -303,7 +303,11 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
   7. If 11.1 absorbs the deferred 11-08 Task 3 — D-24 full-649 f32 oracle sweep PASSES under hard ceiling 1e-3
   8. Phase 11 `phase.complete` invocation unblocked (whether via 11.1 absorbing closure or 11.1 handing back to a re-opened 11)
 
-**Plans:** To be scoped via /gsd:discuss-phase 11.1 → /gsd:plan-phase 11.1.
+**Plans:** 4 plans
+  - [ ] 11.1-01-PLAN.md — Translator amend (D-04..D-10, D-15, D-17): helpers_allowlist.py + cse.py AST classifier + per_functional.py emit fix + Deviation E/F removal
+  - [ ] 11.1-02-PLAN.md — Full-tree regen + G1 f64 sweep + G2 f32 sweep + D-LOCK-D idempotency proof (D-13, D-16, D-18, D-LOCK-D)
+  - [ ] 11.1-03-PLAN.md — G3 mgga_c_b94 f64 parity at 1e-12 + G4 full-649 f32 oracle with tolerance overrides (D-02, D-03, D-12, D-20)
+  - [ ] 11.1-04-PLAN.md — SUMMARY rollup + ROADMAP/STATE update + phase.complete (D-01 hand-back)
 
 **Canonical refs:**
   - .planning/phases/11-splitter-v2-unified-5k-cap/11-FINAL-METRICS.md § "Phase 11.1 Follow-Up Scope (translator fix)"
