@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: "Phase 11 HALTED at plan 11-06 per AP-1/D-15 — three-leg gate leg 1 (`cargo build -p libxc-kernel-math`) fails with 515 errors. Architectural mismatch: 11-05 auto-script wrapped f64 named constants in F::new() but CubeCL Float::new(val: f32) cannot construct f64-precision values. Needs /gsd-discuss-phase 11 (4th iteration) for architectural decision on F::cast_from() vs Option C revival."
-stopped_at: Phase 11 4th-iter discuss complete (A1 locked, D-19..D-24, AP-7, f32+f64 test scope)
-last_updated: "2026-05-18T01:18:42.738Z"
-last_activity: 2026-05-15 — Phase 11-03 complete
+status: "Phase 11 HALTED at plan 11-06 (4th-iter) per AP-1/D-22 — Gate 2 (cargo build -p libxc-kernel-math) cannot pass with cast_from policy alone. Phase-2 baseline at 7a65f3bc6 contains 4 corruption categories beyond D-23 scope (mixed-precision signatures, non-pub #[cube] helpers, broken ( brackets, missed literal-wraps). Needs /gsd-discuss-phase 11 (5th iteration) — see .continue-here.md for Direction A/B/C."
+stopped_at: Phase 11 4th-iter HALTED at Gate 2 (Tasks 1-4 PASS, Task 5 FAILED)
+last_updated: "2026-05-18T02:50:00.000Z"
+last_activity: 2026-05-18 -- Phase 11-06 4th-iter execution HALTED at Gate 2 (FAILED SUMMARY written)
 progress:
   total_phases: 11
   completed_phases: 6
   total_plans: 52
-  completed_plans: 42
-  percent: 81
+  completed_plans: 41
+  percent: 79
 ---
 
 # Project State
@@ -25,10 +25,11 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — HALTED at plan 11-06, awaits architectural decision in /gsd-discuss-phase 11 (4th iteration)
-Previous execution: 11-01..05 ✓; 11-06 HALTED with FAILED SUMMARY (`75c0f5112`)
-Halt reason: `cargo build -p libxc-kernel-math` exits with 515 errors. ~508 are out-of-scope for plan 11-06's 3 named "syntax cleanup" categories. Root cause: CubeCL Float::new(val: f32) cannot construct from f64 named constants (SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, ...). Proposed forward path (needs user decision): F::cast_from(<f64 const>) via cubecl-core Cast trait, OR Option C revival.
-Next step: `/gsd-discuss-phase 11` — 4th-iteration replan. Choose between (A1) extend `tools/refactor_helpers_generic.py` to emit `F::cast_from(<f64 const>)` for defined f64 constants, (A2) demote helper constants to f32 (probably violates 1e-12 oracle gate), (C) revive Option C cast-at-call-site in translator, or (Hybrid) Phase-1-files generic + Phase-2-files reverted to f64 + Option C at translator.
+Phase: 11 (splitter-v2-unified-5k-cap) — HALTED twice
+Plan: 11-06 (4th-iter recovery HALTED at Gate 2, 2026-05-18)
+Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter with FAILED SUMMARY (`75c0f5112`); 11-06 HALTED FOURTH-iter at Gate 2 (cf59c2c08+SUMMARY).
+4th-iter Halt reason: cast_from policy implemented (D-20) + 4 Task 1 surgical fixes committed + Gate 1 fixture PASS. But Gate 2 `cargo build -p libxc-kernel-math` cannot satisfy because Phase-2 baseline at 7a65f3bc6 contains 4 corruption categories beyond D-23 surgical scope: (1) mixed-precision generic-fn signatures, (2) non-pub #[cube] generic helpers causing E0433, (3) broken `(` brackets in fn signatures, (4) missed literal-wrap sites (negative literals, idx-as-f64 casts, select third-arg). Error count: 234 (start) → 121 (cast_from) → 84 (sig fix attempt) → 1755 (over-aggressive fix uncovers more layers).
+Next step: `/gsd-discuss-phase 11` — 5th-iteration replan. See .continue-here.md. Three architectural directions documented in 11-06-SUMMARY.md: (A) Manual Phase-2 redo using proven Phase-1 pattern; (B) Option C translator-level cast revival; (C) Hybrid Phase-1 generic + Phase-2 concrete + translator cast. Recommendation: Direction A.
 Plans: 8/8 written; 5/8 executed; 1/8 HALTED. 11-07/08 blocked behind 11-06 architectural decision.
 
 Plan 11-03 outcome (2026-05-15):
@@ -51,7 +52,7 @@ Plan 11-03 outcome (2026-05-15):
 Wave 2 is finished under D-13. Next plan: 11-04.
 
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-15 — Phase 11-03 complete
+Last activity: 2026-05-18 -- Phase 11 execution started
 
 ## Phase 11 — PAUSED at Plan 11-05, Option A → Option C Pivot (2026-05-18)
 
@@ -169,6 +170,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-18T01:18:42.736Z
-Stopped at: Phase 11 4th-iter discuss complete (A1 locked, D-19..D-24, AP-7, f32+f64 test scope)
-Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
+Last session: 2026-05-18T02:50:00.000Z
+Stopped at: Phase 11-06 4th-iter HALTED at Gate 2 (FAILED SUMMARY written; Tasks 1-3 committed; AP-1 HALT per D-22)
+Resume file: .continue-here.md (then `/gsd-discuss-phase 11` for 5th iter)

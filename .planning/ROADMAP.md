@@ -259,7 +259,7 @@ Plans:
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
   8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
-**Plans:** 5/8 plans executed; 11-06 HALTED 2026-05-18 per AP-1/D-15 — awaits architectural decision in /gsd-discuss-phase 11 (4th iteration). 11-07/08 blocked.
+**Plans:** 5/8 plans executed; 11-06 HALTED twice (2026-05-18 per AP-1/D-15 third iter; 2026-05-18 per AP-1/D-22 fourth iter at Gate 2). 11-07/08 blocked. Awaits /gsd-discuss-phase 11 (5th iteration) — see .continue-here.md for Direction A/B/C analysis.
 
 Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP D-18; 11-01..05 executed; 11-06 HALTED with FAILED SUMMARY; 11-07..08 blocked)
 - [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
