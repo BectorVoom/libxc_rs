@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 PLANNED — 11-06/07/08 regenerated against locked Option A (third-iteration replan), ready for `/gsd-execute-phase 11`
-stopped_at: Plan-phase complete (2026-05-18 evening, third-iteration replan against Option A). Plans 11-01..05 executed; 11-06..08 regenerated and committed in `0e53def41`; one revision iteration (`98d94c599`) addressed 2 blockers + 6 warnings (SPEC-11-Rx → ROADMAP success criterion mapping in CONTEXT.md L265-287, 11-07 Cargo.toml removed from scope, D-05 smoke parity gate added to 11-06 and 11-07 Task 3, 11-08 `LIBXC_RS_BYPASS_DEFERRED` removal at phase close, sweep artifacts under `.cache/`, brace-expansion bash-c wrappers, anchored greps). Plan checker returned `VERIFICATION PASSED` on iteration 2. AP-1..AP-6 mitigations intact.
-last_updated: "2026-05-18T23:30:00Z"
-last_activity: 2026-05-18 — Phase 11 plan-phase complete (third-iteration replan). 11-06 (Serena MCP syntax cleanup + cse.py D-16 confirm + canary three-leg gate), 11-07 (regen 266 subcrates + D-15 compile-first entry gate), 11-08 (per-`-p` sweep + audits + bypass removal + close). All 8 SPEC-11-R criteria covered across 11-05..08 per CONTEXT.md mapping. Ready to execute.
+status: Phase 11 HALTED at plan 11-06 per AP-1/D-15 — three-leg gate leg 1 (`cargo build -p libxc-kernel-math`) fails with 515 errors. Architectural mismatch: 11-05 auto-script wrapped f64 named constants in F::new() but CubeCL Float::new(val: f32) cannot construct f64-precision values. Needs /gsd-discuss-phase 11 (4th iteration) for architectural decision on F::cast_from() vs Option C revival.
+stopped_at: 11-06 HALT (2026-05-18). Commit `75c0f5112` — FAILED SUMMARY committed. No edits to crates/kernels/math/src/, tools/, src/model/, or verify/. .cargo/config.toml unchanged (AP-2 confirmed). Plans 11-01..05 executed; 11-06 surfaced architectural blocker via entry gate (per AP-6 design: this is the gate working as intended). Plans 11-07/11-08 are blocked behind 11-06 architectural decision.
+last_updated: "2026-05-18T23:59:00Z"
+last_activity: 2026-05-18 — Phase 11 plan 11-06 HALT. Discovered the 11-05 Phase 2 auto-script (`tools/refactor_helpers_generic.py`) produced 515 compile errors in `libxc-kernel-math`, dominated by 447 E0308 "expected f32, found f64" errors from `F::new(<f64 const>)` wraps. The CubeCL 0.10 Float trait declares `fn new(val: f32) -> Self` — f64 named constants (SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, ...) cannot pass through. The plan's "revert F::new(IDENT) to bare IDENT" rule also fails (bare f64 in F-generic body is also a type error). Proposed forward: `F::cast_from(<f64 const>)` via cubecl-core Cast trait. Requires user decision in /gsd-discuss-phase 11.
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,10 +25,11 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — PLANNED, READY TO EXECUTE
-Previous execution: 11-01..05 ✓ (Wave 0 audit + D-02 spike; emit.py + MAX_TUPLE_ARITY=12; D-13 audit + dispatch verification; verify dev-dep narrowing; Option A 38-helper refactoring across 16 files, syntax errors deferred to 11-06)
-Next execution: 11-06 (Serena MCP syntax cleanup + three-leg gate on mgga_c_b94 canary) → 11-07 (full Maple→Rust regen 266 subcrates + D-15 compile-first entry gate) → 11-08 (per-`-p` sweep across ~258 routed + 5-audit suite + LIBXC_RS_BYPASS_DEFERRED removal + phase close)
-Plans: 8/8 written; 5/8 executed. Plan checker PASSED iteration 2 (1 revision applied for SPEC-11-Rx mapping + 11-07 Cargo.toml scope + 6 warnings).
+Phase: 11 (splitter-v2-unified-5k-cap) — HALTED at plan 11-06, awaits architectural decision in /gsd-discuss-phase 11 (4th iteration)
+Previous execution: 11-01..05 ✓; 11-06 HALTED with FAILED SUMMARY (`75c0f5112`)
+Halt reason: `cargo build -p libxc-kernel-math` exits with 515 errors. ~508 are out-of-scope for plan 11-06's 3 named "syntax cleanup" categories. Root cause: CubeCL Float::new(val: f32) cannot construct from f64 named constants (SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, ...). Proposed forward path (needs user decision): F::cast_from(<f64 const>) via cubecl-core Cast trait, OR Option C revival.
+Next step: `/gsd-discuss-phase 11` — 4th-iteration replan. Choose between (A1) extend `tools/refactor_helpers_generic.py` to emit `F::cast_from(<f64 const>)` for defined f64 constants, (A2) demote helper constants to f32 (probably violates 1e-12 oracle gate), (C) revive Option C cast-at-call-site in translator, or (Hybrid) Phase-1-files generic + Phase-2-files reverted to f64 + Option C at translator.
+Plans: 8/8 written; 5/8 executed; 1/8 HALTED. 11-07/08 blocked behind 11-06 architectural decision.
 
 Plan 11-03 outcome (2026-05-15):
 - Task 1: verify-only re-confirmation of `95727cb36`+`97d6347be` (clean-slate

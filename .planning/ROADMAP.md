@@ -259,17 +259,17 @@ Plans:
   7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
   8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
-**Plans:** 5/8 plans executed (replanned 2026-05-18, third session — D-02 Option A locked, D-18 Serena MCP added)
+**Plans:** 5/8 plans executed; 11-06 HALTED 2026-05-18 per AP-1/D-15 — awaits architectural decision in /gsd-discuss-phase 11 (4th iteration). 11-07/08 blocked.
 
-Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP D-18; 11-01..05 executed; 11-06..08 regenerated)
+Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP D-18; 11-01..05 executed; 11-06 HALTED with FAILED SUMMARY; 11-07..08 blocked)
 - [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
 - [x] 11-02-PLAN.md — Wave 1: splitter v2 tooling — CSE pass (translate_v2/cse.py) + per-functional nested-by-output emitter (translate_v2/emit.py) + 3 translators rewired (D-02 ABI, SPLIT_THRESHOLD=4500, MAX_TUPLE_ARITY=12) + maple_to_kernels.py driver (tooling only)
 - [x] 11-03-PLAN.md — Wave 2: D-10a clean-slate (delete 27 numbered subcrates + 3 family crates) + regen ~266 per-functional subcrates + rewrite root Cargo.toml + regen dispatch tree (Blocker B1 closed) + audit_cube_launch.sh rewrite per D-13 per-design budget
 - [x] 11-04-PLAN.md — Retroactive PARTIAL SUMMARY: verify dev-dep narrowing (39eb75f93, D-05 OOM fix) + D-02 architectural blocker analysis (four-layer bug structure documented)
 - [x] 11-05-PLAN.md — Option A spike (D-14): refactor all 38 helpers in 16 crates/kernels/math/src/ files to generic `<F: Float>` via tools/refactor_helpers_generic.py (logical refactoring complete; syntax errors deferred to 11-06)
-- [ ] 11-06-PLAN.md — Syntax cleanup (Serena MCP D-18) of 11 auto-pass files in math/src/ + cse.py D-16 confirm + three-leg gate on mgga_c_b94 canary (compile + parity at 1e-12 + idempotency)
-- [ ] 11-07-PLAN.md — Full Maple→Rust regen of 266 subcrates + dispatch tree regen (per-functional paths) + D-15 compile-first entry gate on mgga_c_b94 (kernel + libxc_rs + parity + idempotency)
-- [ ] 11-08-PLAN.md — Per-`-p` cargo build sweep across ~258 routed subcrates + 5-audit final sweep + CLAUDE.md (D-03a) + ROADMAP success criteria #1/#4/#7 correction (D-12/D-13) + delete 5 obsolete tools + phase close
+- [!] 11-06-PLAN.md — **HALTED at Task 1 Step 5** (entry-gate `cargo build -p libxc-kernel-math` exits with 515 errors). 11-06-SUMMARY.md (`75c0f5112`) marked **Self-Check: FAILED**. Root cause: CubeCL Float::new(val: f32) cannot construct from f64 named constants — the 11-05 auto-script wrapped ~14 defined f64 constants (SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, ...) in F::new() producing 447 E0308 errors. Proposed forward: F::cast_from(<f64 const>) via cubecl-core Cast trait (cast.rs:14) OR Option C revival. Needs /gsd-discuss-phase 11 4th iteration for architectural decision.
+- [ ] 11-07-PLAN.md — BLOCKED behind 11-06 architectural decision. Was: Full Maple→Rust regen of 266 subcrates + dispatch tree regen (per-functional paths) + D-15 compile-first entry gate on mgga_c_b94 (kernel + libxc_rs + parity + idempotency)
+- [ ] 11-08-PLAN.md — BLOCKED behind 11-06 architectural decision. Was: Per-`-p` cargo build sweep across ~258 routed subcrates + 5-audit final sweep + CLAUDE.md (D-03a) + ROADMAP success criteria #1/#4/#7 correction (D-12/D-13) + delete 5 obsolete tools + phase close
 
 **Canonical refs:**
   - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
