@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Paused mid-execution — 11-06 Session 2 done (Task 5 all 9 sub-steps); Tasks 6-8 deferred to fresh Session 3
-stopped_at: Phase 11 11-06 5th-iter Session 2 complete; ALL 9 math/ Phase-2 files now generic <F: Float>, green at f64+f32
-last_updated: "2026-05-18T20:00:00.000Z"
-last_activity: 2026-05-18 -- Phase 11 11-06 5th-iter Session 2 (Task 5: 9 atomic per-file commits, aggregate gates green)
+status: Paused — 6th-iter discuss-phase committed (D-31..D-34 batched-compile sweep + jobs=3 policy); 11-07 scope replaced; next is /gsd:plan-phase 11 to regenerate 11-07/08
+stopped_at: Phase 11 6th-iter context gathered; new 11-07 = tools/batched_compile_sweep.py authoring + execution
+last_updated: "2026-05-18T22:00:00.000Z"
+last_activity: 2026-05-18 -- Phase 11 6th /gsd:discuss-phase (CONTEXT.md commit 68ee4c0c3)
 progress:
   total_phases: 11
   completed_phases: 6
@@ -200,6 +200,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-18T04:37:09.267Z
-Stopped at: Phase 11 5th-iter context gathered — Direction A locked, AP-8 codified
+Last session: 2026-05-18T22:00:00.000Z
+Stopped at: Phase 11 6th-iter context gathered — D-31..D-34 batched-compile sweep + jobs=3 invocation policy; 11-07 scope replaced (original full-tree regen + D-15 entry gate absorbed by 11-06 Deviations E+F); AP-2 narrowed to RUST_MIN_STACK; memory feedback_ram_constraints amended with conditional. Next: /gsd:plan-phase 11 to regenerate 11-07 (batched_compile_sweep.py authoring + sweep) and 11-08 (narrowed: audits + close). 11-06 Task 6 Legs 2/3/4 + Task 8 still pending fresh execute-phase session.
 Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
+
+⚠ Working-tree anomaly: `.cargo/config.toml` shows uncommitted `jobs = 10` (vs committed `jobs = 1`). Per `feedback_ram_constraints` memory ("user manages config by hand"), agent did NOT touch it. User must restore `jobs = 1` before any cargo work runs in 11-06 Task 6 or new 11-07.
