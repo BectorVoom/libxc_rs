@@ -42,23 +42,51 @@ F32_CONST_PATTERN = re.compile(r'^\s*(?:pub\s+)?const\s+([A-Z][A-Z0-9_]*)\s*:\s*
 # Detect at least one generic-over-F function in the file
 GENERIC_F_FN_PATTERN = re.compile(r'fn\s+\w+\s*<\s*F\s*:\s*Float\s*>')
 
-# Match F::new(UPPERCASE_IDENT) — multi-char uppercase identifier
-F_NEW_IDENT_PATTERN = re.compile(r'F::new\(([A-Z][A-Z0-9_]+)\)')
+# Match F::new(UPPERCASE_IDENT) — accept single-char too (catches doc-comment
+# corruption like `F::new(C)`, `F::new(W)` from the 11-05 auto-script)
+F_NEW_IDENT_PATTERN = re.compile(r'F::new\(([A-Z][A-Z0-9_]*)\)')
+
+# Match F::new(NUMERIC_LITERAL) in a const declaration context — these are
+# always broken (const context can't call F::new) and must be reverted to
+# bare literal.
+F_NEW_LITERAL_IN_CONST_RE = re.compile(
+    r'^(\s*(?:pub\s+)?const\s+\w+\s*:\s*f64\s*=\s*)F::new\(([^)]+)\)\s*;'
+)
+
+
+def _scan_consts_from_file(path: Path, f64_set: set, f32_set: set):
+    """Append const declarations from one file into the given sets."""
+    try:
+        src = path.read_text()
+    except Exception:
+        return
+    for line in src.split('\n'):
+        m = F64_CONST_PATTERN.match(line)
+        if m:
+            f64_set.add(m.group(1))
+        m = F32_CONST_PATTERN.match(line)
+        if m:
+            f32_set.add(m.group(1))
 
 
 def classify_file(path: Path) -> dict:
-    """Return per-file metadata used by the per-site classifier."""
+    """Return per-file metadata used by the per-site classifier.
+
+    Scans the current file AND its sibling files in the same directory for
+    const declarations. This is necessary because helpers import constants
+    from sibling modules (e.g., crates/kernels/math/src/constants.rs declares
+    RS_CONST/KF_CONST which dft_quantities.rs imports).
+    """
     src = path.read_text()
-    lines = src.split('\n')
     f64_consts = set()
     f32_consts = set()
-    for line in lines:
-        m = F64_CONST_PATTERN.match(line)
-        if m:
-            f64_consts.add(m.group(1))
-        m = F32_CONST_PATTERN.match(line)
-        if m:
-            f32_consts.add(m.group(1))
+    # Scan the file itself
+    _scan_consts_from_file(path, f64_consts, f32_consts)
+    # Scan sibling files in the same directory (catches imported consts)
+    parent = path.parent
+    for sibling in parent.glob('*.rs'):
+        if sibling != path:
+            _scan_consts_from_file(sibling, f64_consts, f32_consts)
     is_generic = bool(GENERIC_F_FN_PATTERN.search(src))
     return {
         'src': src,
@@ -109,9 +137,23 @@ def classify_site(ident: str, meta: dict, line_context: str) -> tuple:
 
 
 def apply_cast_from_policy(src: str, meta: dict, counters: dict) -> str:
-    """Apply D-20 cast_from classifier to every F::new(IDENT) site (multi-char IDENT)."""
+    """Apply D-20 cast_from classifier to every F::new(IDENT) site (multi-char IDENT).
+
+    Skips `use`/`mod`/`extern` declaration lines (the F::new wrap there is a
+    Phase-2 corruption that must be reverted to bare IDENT — handled by a
+    pre-pass below).
+    """
     out_lines = []
     for line in src.split('\n'):
+        stripped = line.lstrip()
+        # Use/mod/extern lines: any F::new(IDENT) is corruption; revert to bare IDENT
+        if re.match(r'^\s*(use |mod |extern )', stripped):
+            def revert_in_use(m):
+                counters['revert'] = counters.get('revert', 0) + 1
+                return m.group(1)
+            new_line = F_NEW_IDENT_PATTERN.sub(revert_in_use, line)
+            out_lines.append(new_line)
+            continue
         def repl(m):
             ident = m.group(1)
             new_text, class_tag = classify_site(ident, meta, line)
@@ -136,7 +178,28 @@ SURGICAL_PATTERNS = [
     (re.compile(r'for _ in 0\.F::new\(\.(\d+)\)'), r'for _ in 0..\1'),
     # Double-wrap (D-23 special.rs:224) -> F::cast_from(f64::MAX)
     (re.compile(r'F::F::new\(MAX\)'), r'F::cast_from(f64::MAX)'),
+    # Doc-comment F::new(7.0).0 / F::new(N.N).M -> N.N.M revert
+    # (Phase-2 auto-script wrapped `7.0` inside comment text like "libxc 7.0.0")
+    (re.compile(r'(///|//!|//) (.*?)F::new\((\d+\.\d+)\)\.(\d+)'),
+     r'\1 \2\3.\4'),
 ]
+
+
+def revert_const_literal_wraps(src: str, counters: dict) -> str:
+    """Revert `const FOO: f64 = F::new(NUMERIC);` -> `const FOO: f64 = NUMERIC;`.
+
+    The Phase-2 auto-script wrapped numeric literals in const declarations, but
+    const contexts cannot call F::new (it's a runtime trait method). Revert.
+    """
+    out_lines = []
+    for line in src.split('\n'):
+        m = F_NEW_LITERAL_IN_CONST_RE.match(line)
+        if m:
+            counters['surgical'] = counters.get('surgical', 0) + 1
+            out_lines.append(f'{m.group(1)}{m.group(2)};')
+        else:
+            out_lines.append(line)
+    return '\n'.join(out_lines)
 
 
 def apply_surgical_fixes(src: str, counters: dict) -> str:
@@ -227,10 +290,12 @@ def legacy_refactor(content: str) -> str:
     )
 
     # Step 7 (legacy): named-constant blanket wrap — DISABLED by D-20.
-    # The cast_from classifier (applied BEFORE this legacy pass) already handles
-    # F::new(IDENT) classification. Leaving the legacy Step 7 enabled would
-    # re-wrap identifiers, producing F::new(F::cast_from(X)) and undoing the fix.
-    # Keep this comment as a permanent reminder: do NOT re-enable Step 7.
+    # Original Step 7 wrapped every UPPERCASE identifier in F::new(...) which
+    # caused the 11-06 HALT (515 errors). The cast_from-aware Step 7 lives
+    # OUTSIDE legacy_refactor() — see classify_and_wrap_identifiers() called
+    # by transform_file() AFTER legacy_refactor() completes. This split lets
+    # the file-level identifier scan re-classify named constants per D-20
+    # (f64 const -> F::cast_from, f32 const -> F::new, etc).
 
     # Step 8: Clean up double-wrapped literals
     content = re.sub(
@@ -253,32 +318,173 @@ def legacy_refactor(content: str) -> str:
 # Top-level per-file driver
 # ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# Cast_from-aware identifier wrap (D-20's replacement for legacy Step 7)
+# ----------------------------------------------------------------------------
+
+# Match a bare uppercase identifier (named constant), excluding contexts that
+# already wrap it. Negative lookbehind avoids re-wrapping after F::new(, F::cast_from(,
+# F::, const , let , : , and other declaration-site forms.
+BARE_IDENT_RE = re.compile(r'\b([A-Z][A-Z0-9_]+)\b')
+
+# Identifiers we never wrap (booleans, common Rust intrinsics).
+NEVER_WRAP = {'TRUE', 'FALSE', 'PI', 'E', 'NAN', 'INFINITY', 'NEG_INFINITY',
+              'MAX', 'MIN', 'EPSILON', 'DIGITS', 'RADIX', 'MANTISSA_DIGITS',
+              'MIN_POSITIVE', 'MIN_EXP', 'MAX_EXP', 'MIN_10_EXP', 'MAX_10_EXP'}
+
+
+def classify_and_wrap_identifiers(src: str, meta: dict, counters: dict) -> str:
+    """Wrap bare uppercase named-constant identifiers per D-20 policy.
+
+    Only wraps identifiers that match the file's collected f64_consts or
+    f32_consts sets. Bare identifiers in doc-comments, strings, declarations,
+    or already inside an F::new( / F::cast_from( wrapper are skipped.
+    """
+    if not meta['is_generic']:
+        # Non-generic file: do nothing (deferred.rs is fully reverted, no wraps wanted)
+        return src
+
+    known_consts = meta['f64_consts'] | meta['f32_consts']
+    if not known_consts:
+        return src
+
+    out_lines = []
+    for line in src.split('\n'):
+        stripped = line.lstrip()
+
+        # Skip doc-comments and ordinary comments
+        if stripped.startswith('///') or stripped.startswith('//!') or stripped.startswith('//'):
+            out_lines.append(line)
+            continue
+
+        # Skip const declarations themselves (RHS may have an f64 literal)
+        if re.match(r'^\s*(?:pub\s+)?const\s+[A-Z]', line):
+            out_lines.append(line)
+            continue
+
+        # Skip use/mod/extern declarations
+        if re.match(r'^\s*(use |mod |extern )', stripped):
+            out_lines.append(line)
+            continue
+
+        # Walk identifiers on this line, skipping any inside an existing
+        # F::new( ... ) or F::cast_from( ... ) wrapper, or inside a string.
+        def repl(m):
+            ident = m.group(1)
+            start = m.start()
+            end = m.end()
+            # Skip if not a known const
+            if ident not in known_consts:
+                return ident
+            if ident in NEVER_WRAP:
+                return ident
+            # Check for in-string context (odd quote count to left of match)
+            quotes_before = line[:start].count('"')
+            if quotes_before % 2 != 0:
+                return ident
+            # Check for already-wrapped context: look back for "F::new(" or "F::cast_from(" without closing paren
+            left = line[:start]
+            # Coarse check: if last F::new( or F::cast_from( is unclosed before our position
+            last_new = max(left.rfind('F::new('), left.rfind('F::cast_from('))
+            if last_new >= 0:
+                # Count parens between last_new and start
+                segment = line[last_new:start]
+                opens = segment.count('(')
+                closes = segment.count(')')
+                if opens > closes:
+                    return ident  # inside an existing wrapper
+            # Skip when ident is immediately preceded by "::" (path segment like f64::MAX)
+            if start >= 2 and line[start - 2:start] == '::':
+                return ident
+            # Classify and wrap
+            if ident in meta['f64_consts']:
+                counters['cast_from'] = counters.get('cast_from', 0) + 1
+                return f'F::cast_from({ident})'
+            if ident in meta['f32_consts']:
+                counters['keep_f_new'] = counters.get('keep_f_new', 0) + 1
+                return f'F::new({ident})'
+            return ident
+        new_line = BARE_IDENT_RE.sub(repl, line)
+        out_lines.append(new_line)
+    return '\n'.join(out_lines)
+
+
 def transform_file(path: Path, dry_run: bool, counters: dict, run_legacy: bool = False) -> bool:
     """Apply D-20 cast_from policy + D-23 surgical fixes to the file.
 
     Returns True if the file content changed.
 
-    By default (run_legacy=False) we ONLY apply the cast_from classifier and
-    surgical fixes. The legacy bulk refactor is opt-in via run_legacy=True
-    (used when a file is being migrated f64 -> F for the first time).
+    Pipeline order:
+      1. (optional) legacy_refactor — converts signatures, numeric literals, etc.
+      2. apply_cast_from_policy — re-classifies any F::new(IDENT) sites produced
+         by legacy or pre-existing in the file.
+      3. classify_and_wrap_identifiers — wraps bare named-constant identifiers
+         in F::cast_from / F::new per D-20 (replaces legacy Step 7).
+      4. apply_surgical_fixes — defensive D-23 patterns (_f64 suffix, range-op,
+         double-wrap).
+
+    By default (run_legacy=False) we ONLY apply steps 2-4 (cast_from
+    classifier + surgical fixes). The legacy bulk refactor is opt-in via
+    run_legacy=True (used when a file is being migrated f64 -> F for the
+    first time, e.g., bessel.rs in Task 5).
     """
     meta = classify_file(path)
     new_src = meta['src']
 
-    # D-20 cast_from classifier (per-site classification of F::new(IDENT))
-    new_src = apply_cast_from_policy(new_src, meta, counters)
-
-    # D-23 surgical defensive patterns
-    new_src = apply_surgical_fixes(new_src, counters)
-
-    # Optional legacy bulk pass (off by default; for new-file migrations)
+    # Step 1: optional legacy bulk pass (signatures + literals)
     if run_legacy:
         new_src = legacy_refactor(new_src)
+        # Re-classify after legacy may have changed which fns are generic
+        meta_after = classify_file_from_str(new_src, path)
+    else:
+        meta_after = meta
+
+    # Step 2: cast_from policy on any F::new(IDENT) sites
+    new_src = apply_cast_from_policy(new_src, meta_after, counters)
+
+    # Step 3: cast_from-aware identifier wrap (replaces legacy Step 7)
+    new_src = classify_and_wrap_identifiers(new_src, meta_after, counters)
+
+    # Step 4: revert const-context F::new wrapping (always broken)
+    new_src = revert_const_literal_wraps(new_src, counters)
+
+    # Step 5: D-23 surgical defensive patterns
+    new_src = apply_surgical_fixes(new_src, counters)
 
     changed = new_src != meta['src']
     if changed and not dry_run:
         path.write_text(new_src)
     return changed
+
+
+def classify_file_from_str(src: str, path: Path) -> dict:
+    """Like classify_file() but operates on an in-memory string (post-legacy).
+
+    Same sibling-scan as classify_file() to catch imported consts.
+    """
+    f64_consts = set()
+    f32_consts = set()
+    # In-memory src
+    for line in src.split('\n'):
+        m = F64_CONST_PATTERN.match(line)
+        if m:
+            f64_consts.add(m.group(1))
+        m = F32_CONST_PATTERN.match(line)
+        if m:
+            f32_consts.add(m.group(1))
+    # Sibling scan
+    parent = path.parent
+    for sibling in parent.glob('*.rs'):
+        if sibling != path:
+            _scan_consts_from_file(sibling, f64_consts, f32_consts)
+    is_generic = bool(GENERIC_F_FN_PATTERN.search(src))
+    return {
+        'src': src,
+        'f64_consts': f64_consts,
+        'f32_consts': f32_consts,
+        'is_generic': is_generic,
+        'path': str(path),
+    }
 
 
 def main():
