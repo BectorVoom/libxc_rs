@@ -5,25 +5,24 @@
 //!
 //! Matches the libxc C original (`xc_bspline` in `util.c`) control flow: uses
 //! `if/else` guards to skip computation outside the support interval and to
-//! dispatch only the requested derivative order. CubeCL 0.10 does not support
+//! dispatch only the requested derivative order. CubeCL 0.9.0 does not support
 //! `return` in `#[cube]` functions, so we use mutable result + `if/else` guards
 //! instead of early returns.
-//! Generic over `<F: Float>` to support both f64 and f32.
 
 use cubecl::prelude::*;
 
 /// Get knot value by index (inlined constant lookup for CubeCL).
 /// Case21: k=3, Nsp=10, knots[i] = (-3 + i) / 7
 #[cube]
-fn knot<F: Float>(idx: u32) -> F {
-    let i = F::new(idx as f64);
-    (i - F::new(3.0)) / F::new(7.0)
+fn knot(idx: u32) -> f64 {
+    let i = idx as f64;
+    (i - 3.0) / 7.0
 }
 
 /// Safe division: returns 0 if denominator is 0, otherwise a/b.
 #[cube]
-fn safe_div<F: Float>(a: F, b: F) -> F {
-    select(b == F::new(0.0), F::new(0.0), a / b)
+fn safe_div(a: f64, b: f64) -> f64 {
+    select(b == 0.0, 0.0f64, a / b)
 }
 
 /// Evaluate a single B-spline basis function N_{i,3}(u) for derivative order `ider`.
@@ -32,26 +31,26 @@ fn safe_div<F: Float>(a: F, b: F) -> F {
 /// Uses `if/else` guards matching libxc's `xc_bspline` control flow: skips
 /// computation outside support, dispatches only the needed derivative order.
 #[cube]
-fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
+fn bspline_k3_eval(i: u32, u: f64, ider: u32) -> f64 {
     let ki0 = knot(i);
     let ki1 = knot(i + 1);
     let ki2 = knot(i + 2);
     let ki3 = knot(i + 3);
     let ki4 = knot(i + 4);
 
-    let mut result = F::new(0.0);
+    let mut result = 0.0f64;
 
     // Guard: only compute if u is in support [knots[i], knots[i+4])
     if u >= ki0 {
         if u < ki4 {
             // Degree 0: piecewise constants (always needed)
-            let n0_0 = select(u >= ki0, select(u < ki1, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_1 = select(u >= ki1, select(u < ki2, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_2 = select(u >= ki2, select(u < ki3, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_3 = select(u >= ki3, select(u < ki4, F::new(1.0), F::new(0.0)), F::new(0.0));
+            let n0_0 = select(u >= ki0, select(u < ki1, 1.0f64, 0.0f64), 0.0f64);
+            let n0_1 = select(u >= ki1, select(u < ki2, 1.0f64, 0.0f64), 0.0f64);
+            let n0_2 = select(u >= ki2, select(u < ki3, 1.0f64, 0.0f64), 0.0f64);
+            let n0_3 = select(u >= ki3, select(u < ki4, 1.0f64, 0.0f64), 0.0f64);
 
             if ider == 3 {
-                // Derivative order 3: only needs F::new(N)[0] values, 3 triangular passes
+                // Derivative order 3: only needs N[0] values, 3 triangular passes
                 let d3_a0 = safe_div(n0_0, ki1 - ki0);
                 let d3_a1 = safe_div(n0_1, ki2 - ki1);
                 let d3_a2 = safe_div(n0_2, ki3 - ki2);
@@ -62,11 +61,11 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                 let d3_c0 = safe_div(d3_b0, ki2 - ki0);
                 let d3_c1 = safe_div(d3_b1, ki3 - ki1);
                 let d3_c2 = safe_div(d3_b2, ki4 - ki2);
-                let d3_d0 = F::new(2.0) * (d3_c0 - d3_c1);
-                let d3_d1 = F::new(2.0) * (d3_c1 - d3_c2);
+                let d3_d0 = 2.0 * (d3_c0 - d3_c1);
+                let d3_d1 = 2.0 * (d3_c1 - d3_c2);
                 let d3_e0 = safe_div(d3_d0, ki3 - ki0);
                 let d3_e1 = safe_div(d3_d1, ki4 - ki1);
-                result = F::new(3.0) * (d3_e0 - d3_e1);
+                result = 3.0 * (d3_e0 - d3_e1);
             } else {
                 // Degree 1: needed for ider <= 2
                 let n1_0 = safe_div((u - ki0) * n0_0, ki1 - ki0)
@@ -77,15 +76,15 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                          + safe_div((ki4 - u) * n0_3, ki4 - ki3);
 
                 if ider == 2 {
-                    // Derivative order 2: needs F::new(N)[1] values, 2 triangular passes
+                    // Derivative order 2: needs N[1] values, 2 triangular passes
                     let d2_a0 = safe_div(n1_0, ki2 - ki0);
                     let d2_a1 = safe_div(n1_1, ki3 - ki1);
                     let d2_a2 = safe_div(n1_2, ki4 - ki2);
-                    let d2_b0 = F::new(2.0) * (d2_a0 - d2_a1);
-                    let d2_b1 = F::new(2.0) * (d2_a1 - d2_a2);
+                    let d2_b0 = 2.0 * (d2_a0 - d2_a1);
+                    let d2_b1 = 2.0 * (d2_a1 - d2_a2);
                     let d2_c0 = safe_div(d2_b0, ki3 - ki0);
                     let d2_c1 = safe_div(d2_b1, ki4 - ki1);
-                    result = F::new(3.0) * (d2_c0 - d2_c1);
+                    result = 3.0 * (d2_c0 - d2_c1);
                 } else {
                     // Degree 2: needed for ider <= 1
                     let n2_0 = safe_div((u - ki0) * n1_0, ki2 - ki0)
@@ -94,12 +93,12 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                              + safe_div((ki4 - u) * n1_2, ki4 - ki2);
 
                     if ider == 1 {
-                        // Derivative order 1: needs F::new(N)[2] values
+                        // Derivative order 1: needs N[2] values
                         let d1_s0 = safe_div(n2_0, ki3 - ki0);
                         let d1_s1 = safe_div(n2_1, ki4 - ki1);
-                        result = F::new(3.0) * (d1_s0 - d1_s1);
+                        result = 3.0 * (d1_s0 - d1_s1);
                     } else {
-                        // ider == 0: function value, needs full F::new(N)[3]
+                        // ider == 0: function value, needs full N[3]
                         result = safe_div((u - ki0) * n2_0, ki3 - ki0)
                                + safe_div((ki4 - u) * n2_1, ki4 - ki1);
                     }
@@ -111,7 +110,7 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
     result
 }
 
-/// Evaluate case21 exchange F::new(B)-spline: sum_i cx[i] * F::new(B_){i,3}(u, ider)
+/// Evaluate case21 exchange B-spline: sum_i cx[i] * B_{i,3}(u, ider)
 ///
 /// cx_0..cx_9 are the 10 exchange enhancement coefficients.
 #[cube]
@@ -133,7 +132,7 @@ pub fn case21_xbspline(
         + cx_9 * bspline_k3_eval(9, u, ider)
 }
 
-/// Evaluate case21 correlation F::new(B)-spline: sum_i cc[i] * F::new(B_){i,3}(u, ider)
+/// Evaluate case21 correlation B-spline: sum_i cc[i] * B_{i,3}(u, ider)
 ///
 /// cc_0..cc_9 are the 10 correlation enhancement coefficients.
 #[cube]
