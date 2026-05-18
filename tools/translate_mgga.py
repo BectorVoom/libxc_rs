@@ -274,13 +274,18 @@ def translate_line(line: str, is_pol: bool) -> str:
     s = re.sub(r'p->(\w+)', lambda m: f'param_{m.group(1)}', s)
 
     # --- Power macros ---
+    # D-25 Rule 10 (11-06 Task 4 amendment): emit explicit ::<f64> turbofish so
+    # generated chunks compile against the now-generic <F: Float> libxc_kernel_math
+    # helpers. Bare `pow_1_3(...)` fails E0282 inside any #[cube] body.
+    # Substitution is idempotent (re-running on `pow_1_3::<f64>(` does not match
+    # `pow_1_3(` again).
     for macro in ['POW_1_3', 'POW_2_3', 'POW_4_3', 'POW_5_3', 'POW_3_2',
                   'POW_1_4', 'POW_7_3', 'POW_2', 'POW_3']:
-        s = s.replace(f'{macro}(', f'{macro.lower()}(')
+        s = s.replace(f'{macro}(', f'{macro.lower()}::<f64>(')
 
-    # --- Piecewise macros ---
-    s = s.replace('my_piecewise5(', 'piecewise5(')
-    s = s.replace('my_piecewise3(', 'piecewise3(')
+    # --- Piecewise macros (also generic <F: Float>; D-25 Rule 10 turbofish) ---
+    s = s.replace('my_piecewise5(', 'piecewise5::<f64>(')
+    s = s.replace('my_piecewise3(', 'piecewise3::<f64>(')
 
     # --- C math functions -> Rust ---
     math_map = [
