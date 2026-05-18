@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: "Phase 11 HALTED at plan 11-06 (4th-iter) per AP-1/D-22 — Gate 2 (cargo build -p libxc-kernel-math) cannot pass with cast_from policy alone. Phase-2 baseline at 7a65f3bc6 contains 4 corruption categories beyond D-23 scope (mixed-precision signatures, non-pub #[cube] helpers, broken ( brackets, missed literal-wraps). Needs /gsd-discuss-phase 11 (5th iteration) — see .continue-here.md for Direction A/B/C."
-stopped_at: Phase 11 4th-iter HALTED at Gate 2 (Tasks 1-4 PASS, Task 5 FAILED)
-last_updated: "2026-05-18T02:50:00.000Z"
-last_activity: 2026-05-18 -- Phase 11-06 4th-iter execution HALTED at Gate 2 (FAILED SUMMARY written)
+stopped_at: Phase 11 5th-iter context gathered — Direction A locked, AP-8 codified
+last_updated: "2026-05-18T04:37:09.270Z"
+last_activity: 2026-05-18 -- Phase 11 execution started
 progress:
   total_phases: 11
   completed_phases: 6
   total_plans: 52
-  completed_plans: 41
-  percent: 79
+  completed_plans: 42
+  percent: 81
 ---
 
 # Project State
@@ -170,6 +170,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-18T02:50:00.000Z
-Stopped at: Phase 11-06 4th-iter HALTED at Gate 2 (FAILED SUMMARY written; Tasks 1-3 committed; AP-1 HALT per D-22)
-Resume file: .continue-here.md (then `/gsd-discuss-phase 11` for 5th iter)
+Last session: 2026-05-18T04:37:09.267Z
+Stopped at: Phase 11 5th-iter context gathered — Direction A locked, AP-8 codified
+Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
