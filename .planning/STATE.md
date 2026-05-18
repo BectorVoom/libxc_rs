@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: "Phase 11 6th-iter context gathered — D-31..D-34 batched-compile sweep + jobs=3 invocation policy; 11-07 scope replaced (original full-tree regen + D-15 entry gate absorbed by 11-06 Deviations E+F); AP-2 narrowed to RUST_MIN_STACK; memory feedback_ram_constraints amended with conditional. Next: /gsd:plan-phase 11 to regenerate 11-07 (batched_compile_sweep.py authoring + sweep) and 11-08 (narrowed: audits + close). 11-06 Task 6 Legs 2/3/4 + Task 8 still pending fresh execute-phase session."
-last_updated: "2026-05-18T12:39:06.062Z"
-last_activity: 2026-05-18 -- Phase 11 planning complete
+status: Paused — phase 11 PARTIAL, awaiting phase 11.1 translator-fix follow-up
+stopped_at: "Phase 11 execute-phase run 2026-05-18 evening: 11-06 Task 6 Leg 1 (mgga_c_b94 canary compile) GREEN at f64+f32; Leg 2 (parity f64) HALTED at compile of verify's transitive dep graph — gga_c_gaploc 2920 errors, P1 pattern (named-const M_PI inline in F-typed arithmetic). User pivoted to 11-07. 11-07 Task 1 (batched_compile_sweep.py author) COMPLETE at 6e2a793fb8; Task 2 (LDA-only sweep) ran 17m, HALTED at lda_c_pk09 with P2 pattern (tuple-return bare f64 member). 11-08 Task 1 (audits + 11-FINAL-METRICS.md) PARTIAL: A1/A2/A4 PASS, A3 splitter floor (22 unexcepted >5K), A5 tool staleness; SPEC-11-R4/R5 BLOCKED on translator Rule 3 emit gap. Next: scope phase 11.1 to amend tools/translate_v2/ chunk-body emit (P1+P2 fix), full-tree regen, then resume 11-06 Task 6 Legs 2/3/4 + Task 8 + 11-08 Task 2/3 + phase.complete."
+last_updated: "2026-05-18T22:50:00.000Z"
+last_activity: 2026-05-18 -- Phase 11 execute-phase PARTIAL — translator Rule 3 emit gap blocks codegen-correctness goals
 progress:
   total_phases: 11
   completed_phases: 6
@@ -25,9 +25,47 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — PAUSED mid-11-06 5th-iter execution
-Plan: 11-06 5th-iter Session 2 complete (Task 5: all 9 sub-steps); Tasks 6-8 deferred to fresh Session 3
-Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Session 1 PARTIAL (`8cb80ce49`, Tasks 1-4 + structural unblocks); 11-06 5th-iter Session 2 PARTIAL (`1bf0e3bf1`, Task 5 all 9 sub-steps).
+Phase: 11 (splitter-v2-unified-5k-cap) — PARTIAL CLOSE, awaiting phase 11.1 translator-fix follow-up
+Plan: 11-07 + 11-08 closed as PARTIAL (`6667a0731b`, `a470529c8c`, `ac9729a51d`); 11-06 stays PARTIAL (`.continue-here.md` at `92ddcebe90` documents Leg 2 HALT)
+Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Sessions 1+2 PARTIAL; 11-06 6th-iter Deviations E+F at `cc324c6fa..d26efabda`; 11-06 Task 7 at `265bf03b55`.
+
+## Phase 11 execute-phase run — 2026-05-18 evening session
+
+**Outcome: PARTIAL.** Structural goals (D-10a, D-13, dispatch tree) MET. Codegen-correctness goals (SPEC-11-R4, SPEC-11-R5, D-24 f32 sweep) BLOCKED on translator Rule 3 emit gap. Phase remains open in ROADMAP; no phase.complete invocation. See `.planning/phases/11-splitter-v2-unified-5k-cap/11-FINAL-METRICS.md` for end-state metrics.
+
+**Session arc:**
+
+1. 11-06 Task 6 Leg 1 (mgga_c_b94 canary compile) re-confirmed GREEN at f64 + f32 — first re-verification post Deviation E+F. (4m 07s @ jobs=1.)
+2. 11-06 Task 6 Leg 2 (parity f64 phase11_worst_case) HALTED at compile of verify's transitive dep graph: `gga_c_gaploc/lxc_pol/part53/chunk804.rs:13` failed with 2920 errors of the form `let t = M_PI * t_F` (Rule 3 violation: named-const M_PI inline in F-typed arithmetic — pattern P1).
+3. Pivot to 11-07 (per AP-8: "real translator bug routes through /gsd:discuss-phase", interpreted by user as pivot to sweep tool which is the diagnostic instrument).
+4. 11-07 Task 1 (`tools/batched_compile_sweep.py`) authored to spec at `6e2a793fb8` — 515 lines, all forbidden/required pattern checks pass.
+5. 11-07 Task 2 (LDA-only sweep, 17m 22s) HALTED at `lda_c_pk09` — 789 errors of distinct shape: tuple-return chunk with bare f64 tuple member (pattern P2).
+6. User disposition: stop sweep (would re-confirm same root cause across GGA/MGGA); jump to 11-08 audits.
+7. 11-08 Task 1 Step 0/1/4/5/6: AP-2 pre-flight PASS; 5 audits re-run (A1/A2/A4 PASS; A3 splitter floor at 22 unexcepted >5K, max 6,674; A5 tool staleness in `split_lda_subcrates.py`). 11-FINAL-METRICS.md authored at `a470529c8c`. Step 3 (F32 smoke) deferred — translator bug would block cargo test. Tasks 2 + 3 deferred.
+8. 11-08-SUMMARY.md committed at `ac9729a51d` recording phase-11 PARTIAL close.
+
+**Two translator defect patterns (same root cause family):**
+
+| Pattern | First observed | Exemplar | Fix |
+|---|---|---|---|
+| P1: Named-const ref inline in F-typed arithmetic | `gga_c_gaploc::lxc_pol::part53::chunk804.rs:13` | `let t = ... * M_PI * ...` | Wrap as `F::cast_from(M_PI)` or hoist `let pi = F::cast_from(M_PI);` at fn body top |
+| P2: Tuple-return chunk with bare f64 tuple member | `lda_c_pk09::fxc_pol::part2::chunk5.rs:15` | `(t6, t7, t8)` where `t8` is bare f64 literal | Wrap tuple-return members in `F::cast_from(...)` / `F::new(...)` per Rule 2/3 boundary |
+
+Root cause: `tools/translate_v2/` chunk-body emit path does NOT apply Rule 3 (`F::cast_from(NAMED)` / `F::new(literal)`) to f64-literal positions inside the function body. Deviation F (commits `4aaaaa7739`/`8a9f32091e`/`d26efabda6`) extended Rule 10 turbofish to cross-fn calls only.
+
+**Phase 11.1 follow-up scope (recommended):** Amend translator chunk-body emit for P1+P2+P3-preventive; full-tree regen (supersedes Deviation F); re-run `python3 tools/batched_compile_sweep.py` until ALL_OK; resume 11-06 Task 6 Legs 2/3/4 + Task 8; resume 11-08 Task 2 (config/cleanup + LIBXC_RS_BYPASS_DEFERRED removal) + Task 3 (D-24 full-649 f32 sweep); then phase.complete 11.
+
+**Durable phase 11 deliverables (regardless of 11.1 outcome):**
+
+- `tools/batched_compile_sweep.py` — codifies the per-`-p` compile entry gate that memory `project_phase11_structural_without_compile` flagged as missing
+- D-10a clean-slate restructure (266 per-functional subcrates)
+- D-13 launch budget invariant (1654 routed / 0 unrouted / 22 math/src/)
+- 11-PATTERN.md (Rules 1-10) — canonical translation conventions
+- Phase-2 math/ files manually converted to generic `<F: Float>` (9 files)
+- f32_tolerance_overrides.toml + LIBXC_RS_F32 env-gated parity infra
+
+## Stale 11-06 narrative below — SUPERSEDED by the section above (kept for history)
+
 
 5th-iter Session 1 outcome (2026-05-18, 8 commits): math/ baseline now compile-green for FIRST TIME IN HISTORY; mgga_c_b94 canary regenerated and compile-green at both precisions; PATTERN.md amended with Rule 9 (cross-fn turbofish, MANDATORY) and Rule 10 (translator carry-forward). Three structural blockers fixed:
   (1) dcb7d517d 436-file scope → path-scoped reset (Deviation A)
