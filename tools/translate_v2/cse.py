@@ -23,7 +23,9 @@ fails during partial module initialization. The plan anticipates this:
 """
 
 from dataclasses import dataclass
+import enum
 import re
+from typing import Optional
 
 # --- Splitter v2 knobs (RESEARCH "CSE Detection Heuristic") -------------------
 CHUNK_MAX_LINES = 4500          # leave headroom vs the 5000 hard cap (D-LOCK-B)
@@ -305,6 +307,183 @@ def partition_compute_lines(compute_lines, var_deps, est_line_fn, *,
         chunks.append(Chunk(index=idx, lines=lines, inputs=inputs,
                              outputs=outputs, est_lines=est_line_fn(lines)))
     return chunks
+
+
+# --- Phase 11.1 D-04..D-07, D-15, D-19 position classifier ------------------
+#
+# These additions support per_functional._wrap_f64_literals_v2 — the chunk-body
+# emit pass that decides Rule 2 (F::new) vs Rule 3 (F::cast_from with hoisted
+# binding) vs native turbofish (D-08) vs no-wrap (Rule 4 doc-comment / string
+# guard). Nothing here mutates partition_compute_lines.
+
+class Classification(enum.Enum):
+    """Where a token sits in a chunk body, per CONTEXT.md D-04 P-taxonomy."""
+    NamedConstInF = "named_const_in_f"            # P1 / hoist via D-05
+    BareLiteralTupleMember = "bare_literal_tuple"  # P2 / wrap per D-06
+    LetRhsToF = "let_rhs_to_f"                    # P3 / wrap per D-06
+    HelperArg = "helper_arg"                       # P4 / wrap per D-06
+    SingleExprBodyReturn = "single_expr_body"      # P5 / wrap per D-06
+    MatchOrCondOrClosure = "match_or_cond"        # P6 / wrap per D-06
+    IntegerCounter = "integer_counter"             # no-wrap (Rule 4 / index)
+
+
+@dataclass
+class PositionContext:
+    """Context passed to ``classify_position`` for D-07 position-driven dispatch.
+
+    The classifier looks at WHERE a token sits — not what it is — to decide
+    whether to wrap. ``parent_kind`` names the immediate syntactic position
+    (`multiplicand`, `tuple_return_member`, `let_rhs`, `helper_call_arg`,
+    `single_expr_body`, `match_arm`, `if_branch`, `closure_body`, `index`,
+    `range`, `u32_arg`, `u16_arg`, `usize_arg`). ``enclosing_return_type``
+    is the textual return-type form of the enclosing fn (`F`, `(F, F)`,
+    `(F, F, F)`, `_`). ``enclosing_let_type`` is `"F"` when known, `None`
+    otherwise. The two boolean guards (`in_doc_comment`, `in_string_literal`)
+    implement the Rule-4 hands-off boundary.
+    """
+    parent_kind: str
+    enclosing_return_type: str
+    enclosing_let_type: Optional[str]
+    in_doc_comment: bool
+    in_string_literal: bool
+
+
+# Lazy import — kept inside classify_position to avoid a circular import
+# in case helpers_allowlist ever grows a dependency on this module.
+def _named_consts() -> dict:
+    from translate_v2.helpers_allowlist import NAMED_CONSTS
+    return NAMED_CONSTS
+
+
+_INTEGER_LITERAL_RE = re.compile(r"^\d+$")
+_INTEGER_PARENT_KINDS = frozenset(
+    {"index", "range", "u32_arg", "u16_arg", "usize_arg"}
+)
+_TUPLE_F_RETURN_RE = re.compile(r"^\(\s*F\s*,")
+_CONDITIONAL_PARENT_KINDS = frozenset(
+    {"match_arm", "if_branch", "closure_body"}
+)
+
+
+def classify_position(token: str, ctx: PositionContext) -> Classification:
+    """Classify a token by its syntactic position (D-07 decision tree).
+
+    Decision order (per Plan 11.1-01 Task 1):
+        1. Doc-comment / string-literal guard → IntegerCounter (no-wrap sentinel)
+        2. Pure-integer in a counter-style parent → IntegerCounter
+        3. Named-const in F-typed enclosing return → NamedConstInF
+        4. tuple-return member in (F, ...) → BareLiteralTupleMember
+        5. let-rhs with enclosing F let-type → LetRhsToF
+        6. helper-call arg → HelperArg
+        7. single-expression body in F-typed fn → SingleExprBodyReturn
+        8. match-arm / if-branch / closure-body → MatchOrCondOrClosure
+        9. fallback → IntegerCounter (safe no-wrap default)
+    """
+    # 1. Rule-4 hands-off: doc-comments and string literals are never wrapped.
+    if ctx.in_doc_comment or ctx.in_string_literal:
+        return Classification.IntegerCounter
+
+    # 2. Pure integer in a counter/index/u32-arg position.
+    if _INTEGER_LITERAL_RE.match(token) and ctx.parent_kind in _INTEGER_PARENT_KINDS:
+        return Classification.IntegerCounter
+
+    # 3. Named-const in an F-typed enclosing context (P1 / P3 / P4 / P5 with
+    # named-const dimension). The named-const dimension is position-orthogonal
+    # by D-04 design — it beats the let-rhs / helper-arg / single-expr-body
+    # bare-literal classifications when the token is itself a named-const.
+    if token in _named_consts():
+        ret = ctx.enclosing_return_type
+        if ret == "F" or _TUPLE_F_RETURN_RE.match(ret or ""):
+            return Classification.NamedConstInF
+
+    # 4. Bare literal as a tuple-return member.
+    if (ctx.parent_kind == "tuple_return_member"
+            and _TUPLE_F_RETURN_RE.match(ctx.enclosing_return_type or "")):
+        return Classification.BareLiteralTupleMember
+
+    # 5. Bare literal on the RHS of a let-binding into an F-typed local.
+    if ctx.parent_kind == "let_rhs" and ctx.enclosing_let_type == "F":
+        return Classification.LetRhsToF
+
+    # 6. Bare literal as a helper-call argument.
+    if ctx.parent_kind == "helper_call_arg":
+        return Classification.HelperArg
+
+    # 7. Bare literal as a single-expression body return.
+    if (ctx.parent_kind == "single_expr_body"
+            and ctx.enclosing_return_type == "F"):
+        return Classification.SingleExprBodyReturn
+
+    # 8. Bare literal in match-arm RHS, if-branch RHS, or closure body.
+    if ctx.parent_kind in _CONDITIONAL_PARENT_KINDS:
+        return Classification.MatchOrCondOrClosure
+
+    # 9. Safe fallback: no-wrap.
+    return Classification.IntegerCounter
+
+
+# Match candidate UPPER_SNAKE_CASE identifiers + the special ``f64::MAX`` form.
+# Word-boundary anchors keep us from biting into surrounding tokens; the
+# ``f64::MAX`` alternative is matched literally because ``::`` is not a
+# word character.
+_UPPER_CONST_RE = re.compile(r"\b[A-Z][A-Z0-9_]*\b|\bf64::MAX\b")
+
+
+def collect_named_const_uses(rust_body: str) -> dict:
+    """Frequency map of NAMED_CONSTS occurrences in ``rust_body``.
+
+    Excludes occurrences inside doc-comments (``///`` and ``//!`` prefix
+    lines) and inside string-literal spans (per-line even/odd `"` tracking).
+    Used by ``per_functional.py`` to build the per-chunk hoisting prelude.
+
+    Returns ``{symbol: count}`` with ``count >= 1``. Symbols not in
+    :data:`helpers_allowlist.NAMED_CONSTS` are filtered out.
+    """
+    named = _named_consts()
+    counts: dict = {}
+    for line in rust_body.splitlines():
+        stripped = line.lstrip()
+        # Skip doc-comment lines wholesale.
+        if stripped.startswith("///") or stripped.startswith("//!"):
+            continue
+        # Build a mask of "inside a string-literal" character positions by
+        # walking the line and toggling on each (unescaped) `"`. The mask is
+        # then consulted at every regex match start.
+        in_string = False
+        mask = [False] * len(line)
+        i = 0
+        while i < len(line):
+            ch = line[i]
+            # Treat `\"` as an escaped quote — does not flip the string state.
+            if ch == "\\" and i + 1 < len(line):
+                mask[i] = in_string
+                mask[i + 1] = in_string
+                i += 2
+                continue
+            if ch == '"':
+                # Flip AFTER recording the position so the quote itself sits in
+                # whichever side opened it. We treat the quote characters as
+                # part of the string span for masking purposes.
+                in_string = not in_string
+                mask[i] = True
+                i += 1
+                continue
+            mask[i] = in_string
+            i += 1
+        for m in _UPPER_CONST_RE.finditer(line):
+            sym = m.group(0)
+            if sym not in named:
+                continue
+            if mask[m.start()]:
+                continue
+            counts[sym] = counts.get(sym, 0) + 1
+    return counts
+
+
+# D-05 hoisting-prelude line template. Filled with `name` (the local binding,
+# e.g. `pi`) and `symbol` (the source const, e.g. `M_PI`):
+#     "    let pi = F::cast_from(M_PI);"
+HOIST_PRELUDE_TEMPLATE = "    let {name} = F::cast_from({symbol});"
 
 
 # --- self-test ---------------------------------------------------------------
