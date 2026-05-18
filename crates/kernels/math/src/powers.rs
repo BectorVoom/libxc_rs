@@ -21,26 +21,26 @@ pub fn safe_cbrt<F: Float>(x: F) -> F {
 /// x^(1/3) -- cube root via safe_cbrt
 #[cube]
 pub fn pow_1_3<F: Float>(x: F) -> F {
-    safe_cbrt(x)
+    safe_cbrt::<F>(x)
 }
 
 /// x^(2/3) = cbrt(x)^2
 #[cube]
 pub fn pow_2_3<F: Float>(x: F) -> F {
-    let c = safe_cbrt(x);
+    let c = safe_cbrt::<F>(x);
     c * c
 }
 
 /// x^(4/3) = x * cbrt(x)
 #[cube]
 pub fn pow_4_3<F: Float>(x: F) -> F {
-    x * safe_cbrt(x)
+    x * safe_cbrt::<F>(x)
 }
 
 /// x^(5/3) = x * cbrt(x)^2
 #[cube]
 pub fn pow_5_3<F: Float>(x: F) -> F {
-    let c = safe_cbrt(x);
+    let c = safe_cbrt::<F>(x);
     x * c * c
 }
 
@@ -62,7 +62,7 @@ pub fn pow_1_4<F: Float>(x: F) -> F {
 /// Maps to C macro: POW_7_3(x) = (x)*(x)*cbrt(x)
 #[cube]
 pub fn pow_7_3<F: Float>(x: F) -> F {
-    x * x * safe_cbrt(x)
+    x * x * safe_cbrt::<F>(x)
 }
 
 /// x^2 = x * x

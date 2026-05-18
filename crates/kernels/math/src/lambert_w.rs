@@ -48,21 +48,21 @@ pub fn lambert_w<F: Float>(z: F) -> F {
         }
 
         // Halley's iteration: 15 steps (unrolled)
-        let w1 = halley_step(w0, z);
-        let w2 = halley_step(w1, z);
-        let w3 = halley_step(w2, z);
-        let w4 = halley_step(w3, z);
-        let w5 = halley_step(w4, z);
-        let w6 = halley_step(w5, z);
-        let w7 = halley_step(w6, z);
-        let w8 = halley_step(w7, z);
-        let w9 = halley_step(w8, z);
-        let w10 = halley_step(w9, z);
-        let w11 = halley_step(w10, z);
-        let w12 = halley_step(w11, z);
-        let w13 = halley_step(w12, z);
-        let w14 = halley_step(w13, z);
-        result = halley_step(w14, z);
+        let w1 = halley_step::<F>(w0, z);
+        let w2 = halley_step::<F>(w1, z);
+        let w3 = halley_step::<F>(w2, z);
+        let w4 = halley_step::<F>(w3, z);
+        let w5 = halley_step::<F>(w4, z);
+        let w6 = halley_step::<F>(w5, z);
+        let w7 = halley_step::<F>(w6, z);
+        let w8 = halley_step::<F>(w7, z);
+        let w9 = halley_step::<F>(w8, z);
+        let w10 = halley_step::<F>(w9, z);
+        let w11 = halley_step::<F>(w10, z);
+        let w12 = halley_step::<F>(w11, z);
+        let w13 = halley_step::<F>(w12, z);
+        let w14 = halley_step::<F>(w13, z);
+        result = halley_step::<F>(w14, z);
     }
 
     result

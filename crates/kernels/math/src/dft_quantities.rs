@@ -12,7 +12,7 @@ use super::powers::{pow_1_3, pow_4_3, pow_5_3};
 /// RS_CONST = (3/(4*pi))^(1/3)
 #[cube]
 pub fn wigner_seitz_rs(rho: f64) -> f64 {
-    RS_CONST * pow_1_3(1.0 / rho)
+    RS_CONST * pow_1_3::<f64>(1.0 / rho)
 }
 
 /// Reduced density gradient: s = sqrt(sigma) / (2 * kf * rho^(4/3))
@@ -22,7 +22,7 @@ pub fn wigner_seitz_rs(rho: f64) -> f64 {
 /// So s = sqrt(sigma) / (2 * KF_CONST * rho^(4/3))
 #[cube]
 pub fn reduced_gradient_s(rho: f64, sigma: f64) -> f64 {
-    f64::sqrt(sigma) / (2.0 * KF_CONST * pow_4_3(rho))
+    f64::sqrt(sigma) / (2.0 * KF_CONST * pow_4_3::<f64>(rho))
 }
 
 /// Thomas-Fermi kinetic energy density: t_TF = (3/10) * (3*pi^2)^(2/3) * rho^(5/3)
@@ -30,7 +30,7 @@ pub fn reduced_gradient_s(rho: f64, sigma: f64) -> f64 {
 /// Note: (3*pi^2)^(2/3) = KF_CONST^2
 #[cube]
 pub fn tf_kinetic(rho: f64) -> f64 {
-    0.3 * KF_CONST * KF_CONST * pow_5_3(rho)
+    0.3 * KF_CONST * KF_CONST * pow_5_3::<f64>(rho)
 }
 
 /// Dimensionless inhomogeneity parameter alpha:

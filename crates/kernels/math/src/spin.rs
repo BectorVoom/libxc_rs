@@ -29,7 +29,7 @@ pub fn compute_zeta<F: Float>(rho_up: F, rho_down: F, threshold: F) -> F {
 /// Returns total density. Use `compute_zeta` separately for zeta.
 #[cube]
 pub fn to_total_zeta_total<F: Float>(rho_up: F, rho_down: F) -> F {
-    compute_total(rho_up, rho_down)
+    compute_total::<F>(rho_up, rho_down)
 }
 
 /// Spin scaling factor: f(zeta) = ((1+zeta)^(4/3) + (1-zeta)^(4/3)) / 2.
@@ -39,7 +39,7 @@ pub fn to_total_zeta_total<F: Float>(rho_up: F, rho_down: F) -> F {
 pub fn spin_scaling<F: Float>(zeta: F) -> F {
     let up = F::new(1.0) + zeta;
     let down = F::new(1.0) - zeta;
-    (pow_4_3(up) + pow_4_3(down)) / F::new(2.0)
+    (pow_4_3::<F>(up) + pow_4_3::<F>(down)) / F::new(2.0)
 }
 
 /// Clamp zeta to [-(1-threshold), (1-threshold)].
