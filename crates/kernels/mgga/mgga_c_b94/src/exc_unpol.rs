@@ -32,17 +32,17 @@ pub fn mgga_c_b94_exc_unpol(
         let t5 = M_CBRT2;
         let t6 = 1.0 <= zeta_threshold;
         let t7 = zeta_threshold - 1.0;
-        let t9 = piecewise5(t6, t7, t6, -t7, 0.0);
+        let t9 = piecewise5::<f64>(t6, t7, t6, -t7, 0.0);
         let t10 = 1.0 + t9;
         let t11 = t10 * rho[ip];
-        let t12 = pow_1_3(t11);
+        let t12 = pow_1_3::<f64>(t11);
         let t13 = 1.0 / t12;
         let t14 = t5 * t13;
         let t15 = M_CBRTPI;
         let t16 = 1.0 / t15;
         let t17 = t14 * t16;
         let t18 = t5 * t5;
-        let t19 = pow_1_3(rho[ip]);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t19 * t19;
         let t21 = t20 * rho[ip];
         let t22 = 1.0 / t21;
@@ -57,8 +57,8 @@ pub fn mgga_c_b94_exc_unpol(
         let t45 = t18 * t31;
         let t48 = t39 * t22 / 6.0 - 2.0 / 3.0 * t25 * t42 + t28 * t45 / 12.0;
         let t49 = 0.0 < t48;
-        let t50 = piecewise3(t49, 0.5e-12, -0.5e-12);
-        let t51 = piecewise3(t38, t50, t48);
+        let t50 = piecewise3::<f64>(t49, 0.5e-12, -0.5e-12);
+        let t51 = piecewise3::<f64>(t38, t50, t48);
         let t52 = xc_mgga_x_br89_get_x(t51);
         let t54 = f64::exp(t52 / 3.0);
         let t55 = 1.0 / t54;
@@ -69,7 +69,7 @@ pub fn mgga_c_b94_exc_unpol(
         let t61 = 1.0 / t60;
         let t62 = t55 * t61;
         let t63 = t62 * t52;
-        let t66 = piecewise3(t4, 0.0, t17 * t63 / 2.0);
+        let t66 = piecewise3::<f64>(t4, 0.0, t17 * t63 / 2.0);
         let t67 = param_cab * t66;
         let t68 = 2.0 * t67;
         let t69 = 1.0 + t68;
@@ -77,7 +77,7 @@ pub fn mgga_c_b94_exc_unpol(
         let t71 = t68 - t70;
         let t74 = 0.4e0 * t2 * t66 * t71;
         let t75 = t10 * t10;
-        let t76 = pow_1_3(t10);
+        let t76 = pow_1_3::<f64>(t10);
         let t77 = t76 * t76;
         let t78 = t77 * t75;
         let t79 = t78 * t18;
@@ -116,7 +116,7 @@ pub fn mgga_c_b94_exc_unpol(
         let t122 = -t116 * t117 * t119 + 1.0;
         let t123 = t103 * t122;
         let t124 = t97 * t123;
-        let t127 = piecewise3(t4, 0.0, -0.5433422936572482469e-3 * t91 * t124);
+        let t127 = piecewise3::<f64>(t4, 0.0, -0.5433422936572482469e-3 * t91 * t124);
         let t128 = 2.0 * t127;
         let tzk0 = -t74 + t128;
         zk[ip] += tzk0;
