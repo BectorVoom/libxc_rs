@@ -6,7 +6,8 @@
 **Revised:** 2026-05-15 (second pause — D-02 spike-pending; D-14, D-15, D-16, D-17 added for the architectural blocker found at 11-04 Task 1A)
 **Revised:** 2026-05-18 (D-02 locked to Option C via user decision, then reconsidered; D-02 re-locked to Option A via user decision — improve Python tooling to refactor helpers correctly; timeline open-ended; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
 **Revised:** 2026-05-18 (third session — stale artifacts deleted; D-18 added for Serena MCP refactoring tooling; 11-05 status clarified as COMPLETE; 11-06..08-PLAN-NEW files and .continue-here.md removed)
-**Status:** Ready for planning (re-plan required — D-02 locked to Option A; 11-05 COMPLETE with syntax errors deferred to 11-06; 11-06..08 plans need regeneration per D-18)
+**Revised:** 2026-05-18 (fourth session, post-11-06 HALT — D-03 amended for f32 correctness gating; D-19..D-24 added: f32+f64 parametric test scope, A1 locked as the only path supporting helper-level dual-precision tests, cast_from script policy, 3-gate pre-bulk validation, surgical revert scope, AP-7 codified)
+**Status:** Ready for planning (re-plan required — A1 LOCKED via D-20; 11-06..08 plans REGENERATE per D-24; f32+f64 dual-precision test surface mandated by D-19)
 
 <domain>
 ## Phase Boundary
@@ -36,8 +37,10 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **LOCKED (2026-05-18 via user decision, Option A selected — reconsidered 2026-05-18):** Refactor all 38 helpers in `crates/kernels/math/src/` to be generic over `<F: Float>`. Chunks call the now-generic helpers with no call-site wrapping needed. Internal helpers use `F::new(literal)` and `F::sqrt(x)` for generic arithmetic. Named constants (`M_PI`, `M_CBRT3`, …) are wrapped at definition in the helper module. Sound per `cubecl_macro_fanout_manual.md` §6. **Approach:** The Phase 2 `_refactor_helper_*` scripts have systematic syntax errors in 11 files (incomplete regex patterns). Rather than work around these via translator-side boilerplate (Option C), the replan will improve the Python tooling to fix the helpers correctly. This is the architecturally cleaner solution. Timeline is open-ended — quality over speed.
 
 ### Precision policy (overrides existing CLAUDE.md "f64 only" rule for kernel chunks)
-- **D-03:** Kernel chunks are generic over `<F: Float>`. **f64 is the default and the sole correctness target** — the oracle verification gate (D-05) runs at f64 only. f32 is a launch-time opt-in for performance with no correctness guarantee; chunks compile against both but f32 is not oracle-gated. This relaxes the existing `CLAUDE.md` constraint ("f64 only; no silent f32 fallback") in a controlled way: f32 is no longer a *silent* fallback — it remains an explicit launch-time choice with documented "performance-only, no correctness gate" status. The typed-error-if-device-lacks-f64 rule still applies when the user *selects* f64.
-- **D-03a:** `CLAUDE.md` must be updated as part of this phase to reflect the policy shift (move "f64 only" → "f64 by default and for oracle gating; f32 opt-in at launch with no correctness gate").
+- **D-03:** Kernel chunks are generic over `<F: Float>`. **f64 is the default and the primary correctness target** — the oracle verification gate (D-05) runs at f64 with 1e-12 relative error.
+  - **AMENDED 2026-05-18 (fourth session, by D-19):** f32 is now ALSO a correctness target at a relaxed tolerance (1e-6 relative error vs f64 oracle widened to f64). f32 is no longer "performance-only opt-in, no correctness gate" — it is a first-class secondary correctness target, env-gated at run time (`LIBXC_RS_F32=1`).
+  - Typed-error-if-device-lacks-selected-precision rule still applies.
+- **D-03a:** `CLAUDE.md` must be updated as part of this phase to reflect BOTH the original policy shift AND the D-19 amendment: "f64 is the primary correctness target at 1e-12; f32 is a secondary correctness target at 1e-6 relative, env-gated at test time via `LIBXC_RS_F32=1`."
 
 ### File layout within a functional subcrate (REVISED 2026-05-14)
 - **D-04 (REVISED — nested by output):** Inside a functional subcrate (`crates/kernels/gga/gga_c_acgga/src/`), multi-file functionals and CSE chunks are laid out **nested by the output derivative they compute** — the convention quick task 260514-q02 converged to for `mgga_c_b94`. Example: `gga_c_acgga/src/kxc_pol/part01.rs … part04.rs`, `gga_c_acgga/src/kxc_unpol/part01.rs …`. CSE chunk helpers (D-02) live alongside the parts in the same output subdir. The subcrate `src/lib.rs` enumerates the output modules (`pub mod kxc_pol;` …) and re-exports the assembled per-output functions. **The previous flat `_partNN`-in-`src/` convention is superseded** — flat `_partNN` was the pre-revision D-04; splitter v2 standardizes on the nested layout because within an isolated subcrate namespace the output-grouped nesting is clean and matches how the splitter already splits along output boundaries.
@@ -138,8 +141,92 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **11-07 — Regen 266 subcrates + compile-first entry gate (D-15) on mgga_c_b94.** Translator runs over full Maple input; mgga_c_b94 gate passes all three legs (kernel + dispatch + ad-hoc parity).
   - **11-08 — Per-`-p` sweep + audits + close.** Incremental per-subcrate `cargo build -p`. Audit tools rewritten per D-13. ROADMAP.md criteria updated. Phase close + final SUMMARY.
 
-### Serena MCP refactoring tooling (NEW 2026-05-18 — third session)
+### Serena MCP refactoring tooling (NEW 2026-05-18 — third session; REAFFIRMED 2026-05-18 fourth session by D-21)
 - **D-18:** For the 11-06 syntax cleanup task, use **Serena MCP server** (`serena start-mcp-server --context=claude-code --project-from-cwd`) as the primary refactoring tool. Serena is already configured in `~/.claude.json`. Python tools (e.g., `tools/refactor_helpers_generic.py`, ad-hoc sed scripts) are the fallback if Serena proves too difficult for specific patterns. The three error categories to fix (D-14 known syntax errors) are: (1) function signature malformations, (2) malformed numeric literals, (3) `ArrayArg::from_raw_parts` API drift in tests.
+
+### Test scope expansion: f32 + f64 parametric testing (NEW 2026-05-18 — fourth session)
+- **D-19:** **All tests** in the libxc_rs test surface are parameterized over BOTH `<F = f32>` and `<F = f64>` precisions and exercised under each. Scope:
+  - Helper unit tests under `crates/kernels/math/tests/` (e.g., `spike_tuple_return_cube.rs`, `spike_cse_emit_q01.rs`, all per-helper unit tests)
+  - Per-functional subcrate tests under `crates/kernels/{lda,gga,mgga}/<func>/tests/` (where present)
+  - All spike harnesses, both existing and new
+  - `verify/tests/parity_phase11.rs` (smoke + worst-case sets)
+  - `verify/tests/oracle_*.rs` — full 649-functional oracle harness under both precisions
+  - **Architectural consequence:** Helper unit tests parameterized over F require **helpers to be generic over `<F: Float>`** at the source level. This is what locks **A1** as the architectural path (D-20). Hybrid and C are ruled out: their concrete-f64 helpers cannot be tested parametrically over F at the helper unit-test level.
+- **D-19a (amends D-03):** F32 is elevated from "performance-only opt-in, no correctness gate" to "**correctness-gated at relaxed tolerance**". Oracle parity at **1e-6 relative error** on energy + routed derivatives (vs f64 libxc oracle widened to f64). The 1e-12 gate is preserved for f64.
+- **D-19b — F32 test execution mode is env-gated:** Tests run f64 by default. `LIBXC_RS_F32=1` env var enables f32 test execution (compile + parity comparison). CI runs both modes; local devs run f64 by default unless f32 coverage is needed. Avoids day-to-day test-time doubling while keeping f32 a first-class correctness target. Discovery: a single env-var check at test-suite startup gates whether f32 instantiations are executed; helpers and chunks always *compile* against both (compile gate is unconditional).
+- **D-19c — F32 tolerance for ill-conditioned cases:** Brent root-finders (`br89.rs`, `mbrxc.rs`) and similar iterative algorithms may need per-test relaxation beyond 1e-6 due to f32 convergence behavior. Default gate is 1e-6; per-test overrides documented in a small tolerance table per (functional, derivative-order) pair. Implementation surface left to planner.
+
+### Architectural path: A1 LOCKED for 4th iteration (NEW 2026-05-18 — fourth session)
+- **D-20:** Resolves the `F::new(val: f32)` vs f64-named-constant blocker that HALTed plan 11-06 (commit `75c0f5112`, 515 errors dominated by 447 × E0308 `expected f32, found f64`). **Locked path: A1 — cast_from script + surgical manual fixes.** Required by D-19's helper-level f32+f64 test scope (only generic-helpers paths support parametric tests at the helper layer).
+  - **A1 approach:**
+    1. Extend `tools/refactor_helpers_generic.py` with cast_from policy: every `F::new(IDENT)` site is classified by symbol class and rewritten accordingly:
+       - **f64 const** (SQRT_DBL_EPSILON, LOG_DBL_MAX, TWO_DBL_MIN, TWO_SQRT2_SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, PI_TWO_THIRDS, POW_32PI_TWO_THIRDS, …): `F::new(IDENT)` → `F::cast_from(IDENT)` (cubecl-core 0.10 `Cast` trait — blanket `impl<P: CubePrimitive> Cast for P`, defined at `cubecl-core-0.10.0/src/frontend/element/cast.rs:14-37`)
+       - **f32 const** (none currently known but classifier must handle): keep `F::new(IDENT)` (Float::new accepts f32 per `cubecl-core-0.10.0/src/frontend/element/float.rs:75`)
+       - **Doc-comment / string-literal context** (LDA, MGGA, ID, A, C, BR89, MBRXC, "17.5K", …): revert to bare `IDENT` / original string text
+       - **Non-generic file** (`deferred.rs`): full revert of all auto-script changes — the file is not `<F: Float>`-parameterized
+       - **Numeric literal with `_f64` suffix** (e.g., `3.0_f64` mis-wrapped as `F::new(3.)0_f64`): rewrite to `F::new(3.0)`
+       - **Range operator `..`** (e.g., `0..500` mis-wrapped as `0.F::new(.500)`): revert to `0..500`
+       - **Double-wrap pattern** (e.g., `f64::MAX` mis-wrapped as `F::F::new(MAX)`): restore original `f64::MAX` semantics via case-by-case manual fix
+    2. Surgical manual fixes for known non-script regressions (D-23 enumerates):
+       - `deferred.rs` (full revert) — file is not generic-over-F
+       - `special.rs:224` — `F::F::new(MAX)` → restore `f64::MAX` semantics
+       - `bessel.rs` and similar — `let mut <var>: f64 = F::new(0.0)` → `let mut <var>: F = F::new(0.0)` (6 known sites)
+       - `mbrxc.rs:145` — `F::new(3.)0_f64` × 3 → `F::new(3.0)`; line 154 `for _ in 0.F::new(.500)` → `for _ in 0..500`
+  - **Rejected:**
+    - **A2 (f32 demote):** Violates 1e-12 oracle gate in `CLAUDE.md` core constraint and `REQUIREMENTS.md:4` core value. Non-starter.
+    - **C (Option C revival):** Reverses the session-2 reconsideration (cast boilerplate at ~581K call sites). Also incompatible with D-19's helper-level dual-precision test scope (concrete-f64 helpers cannot be tested parametrically over F).
+    - **Hybrid (Phase-1 generic + Phase-2 revert + translator casts):** Phase-2 concrete-f64 helpers cannot satisfy D-19's helper-level test parameterization. Ruled out.
+
+### Primary refactoring tool: Serena MCP (NEW 2026-05-18 — fourth session; reaffirms D-18)
+- **D-21:** Serena MCP is the **primary** tool for A1's source edits. The 11-06 HALT empirically confirmed that pure-regex Python is insufficient — distinguishing f64 const from f32 literal from doc-comment text from string-literal text from range-op `..` from `_f64` literal suffix requires semantic awareness. Serena MCP (LSP-backed, already configured in `~/.claude.json`) handles these classifications natively. **Fallback policy:** extended `tools/refactor_helpers_generic.py` is allowed for purely-syntactic bulk operations AFTER Serena MCP has identified the safe-to-bulk-transform call sites (e.g., a final f64-literal-wrap pass on already-classified locations). Pure regex MUST NOT be the primary classifier.
+
+### Pre-bulk validation gate: 3-gate sequence (NEW 2026-05-18 — fourth session; structural mitigation for 11-06 failure mode)
+- **D-22:** Before the cast_from-aware refactor script bulk-runs on the 11 problematic Phase-2 helper files, three gates must green **in strict sequence**. Skipping or reordering = AP-7 violation.
+  - **Gate 1 — Synthetic-fixture coverage matrix.** Create `tools/refactor_test_fixtures/symbol_class_matrix.rs` (or planner-equivalent path) containing every known symbol class:
+    - f64 const declaration + usage (in generic body)
+    - f32 const declaration + usage (in generic body)
+    - Doc-comment with constant-like text (`LDA`, `MGGA`, `ID`, `BR89`, …)
+    - String literal with constant-like text (`"17.5K"`, `"BR89 model"`, …)
+    - Range operator `..` (`for _ in 0..500`)
+    - `_f64` literal suffix (`3.0_f64`)
+    - Double-wrap pattern (`f64::MAX`)
+    - Non-generic helper context (`pub fn is_deferred(id: u16) -> bool { … }`)
+    - Mixed: f64 const used inside generic body with arithmetic against `F`
+    - Run the new script on it; `cargo build` on the fixture MUST green; diff inspection: every change matches the per-symbol-class policy from D-20.
+  - **Gate 2 — Canary file: bessel.rs.** Chosen as canary because it has the highest `F::new(` count (200) AND the most diverse symbol classes (f64 const usage, doc-comments, type annotations).
+    - Revert all Phase-2 changes on `crates/kernels/math/src/bessel.rs` (from `7a65f3bc6`/`dcb7d517d`/`233a8890d`) — start fresh from pre-Phase-2 state
+    - Run the new script on bessel.rs alone
+    - `cargo build -p libxc-kernel-math` MUST green
+    - Diff inspection: every change matches the policy
+  - **Gate 3 — Spike harness: chunk → helper integration boundary (mgga_c_b94).** The missing 11-05 spike coverage. Tests the actual production integration boundary that the helper-level changes affect.
+    - **Compile gate:** `cargo build -p libxc-kernel-mgga_c_b94` green (depends on bessel.rs via post-Gate-2 state + other helpers as needed)
+    - **Parity gate at f64:** 1e-12 relative error on energy + routed derivatives of mgga_c_b94 (one-shot `is_deferred(id)` bypass per D-14/D-15)
+    - **Parity gate at f32 (NEW per D-19):** 1e-6 relative error under `LIBXC_RS_F32=1`
+    - **Idempotency:** re-run the script on bessel.rs, `git diff` must be empty
+  - **Only after all three gates green in strict sequence** does the script bulk-run on the remaining 10 Phase-2 files (`expint_e1.rs`, `integrate.rs`, `br89.rs`, `mbrxc.rs`, `special.rs`, `erf.rs`, `dft_quantities.rs`, `bspline.rs`, and others minus those that have already been validated). After bulk run, `cargo build -p libxc-kernel-math` MUST green as the bulk-run exit gate.
+
+### Surgical revert scope (NEW 2026-05-18 — fourth session; derived from D-20 + D-22)
+- **D-23:** Revert/fix scope of commits `7a65f3bc6` (batch convert 10 helpers) + `dcb7d517d` (subset fixes) + `233a8890d` (partial syntax fixes):
+  - **`deferred.rs` — FULL REVERT.** All 34 `F::new(…)` sites are wrong: the file is not generic-over-F (`pub fn is_deferred(id: u16) -> bool`). String literals corrupted (`"… F::new(17.)5K lines …"` was `"17.5K"`), doc comments corrupted (`F::new(LDA)`, `F::new(MGGA)`, `F::new(ID)` were bare identifiers in prose), real code corrupted (`F::new(DEFERRED_LDA_FUNCTIONALS).iter()` should be bare). Restore to pre-`7a65f3bc6` state.
+  - **`special.rs:224` — Surgical fix.** `F::F::new(MAX);` (double-wrap of `f64::MAX`) → restore the original `f64::MAX` semantics. Specific transformation TBD by planner after re-reading the pre-commit state (likely `result = f64::MAX;` or `result = F::cast_from(f64::MAX);` depending on the surrounding context).
+  - **`bessel.rs` and any similar files — Surgical fix.** All `let mut <var>: f64 = F::new(0.0)` patterns (6 known sites in bessel.rs per 11-06 HALT report) → `let mut <var>: F = F::new(0.0)`. Search-and-fix: `grep -nE 'let mut \w+: f64 = F::new'` enumerates the sites.
+  - **`mbrxc.rs:145` — Surgical fix.** `F::new(3.)0_f64` × 3 sites → `F::new(3.0)`; line 154 `for _ in 0.F::new(.500)` → `for _ in 0..500`.
+  - **All other Phase-2 changes — KEEP, then re-process** with the D-20 cast_from-aware script (Gate 2 canary first per D-22, then bulk on remaining 10 helpers).
+  - **Phase-1 manually-refactored files — UNCHANGED.** `powers.rs` (3 F::new), `piecewise.rs` (1 F::new), `lambert_w.rs` (14), `polynomials.rs` (0), `spin.rs` (6) — these are proven clean from commits `466e074d0` + `d8cc4da0c` and stay as-is.
+
+### Plan 11-06/07/08 regeneration scope (NEW 2026-05-18 — fourth session)
+- **D-24:** All three forward plans regenerate per the locked decisions D-19..D-23:
+  - **11-06** — **REPLACED scope** (not amendment). Tasks:
+    1. Pre-flight: verify `.cargo/config.toml` invariants per AP-2 (jobs=1, RUST_MIN_STACK=67108864, target-dir).
+    2. Surgical revert per D-23 (deferred.rs full revert; special.rs/bessel.rs/mbrxc.rs surgical fixes).
+    3. Extend `tools/refactor_helpers_generic.py` with cast_from policy per D-20 (or replace it with Serena-MCP-driven equivalent per D-21).
+    4. Gate 1 — synthetic fixture build per D-22.
+    5. Gate 2 — bessel.rs canary per D-22 (revert bessel.rs Phase-2 changes first; run script; compile-gate `cargo build -p libxc-kernel-math`).
+    6. Gate 3 — mgga_c_b94 chunk→helper spike at f64 1e-12 AND f32 1e-6 (`LIBXC_RS_F32=1`).
+    7. Bulk-run script on remaining 10 helpers.
+    8. Three-leg exit gate: `cargo build -p libxc-kernel-math` green, `cargo build -p libxc-kernel-mgga_c_b94` green, parity green at both precisions, idempotency green.
+  - **11-07** — Regen 266 subcrates + D-15 entry gate (compile-first) **AT BOTH PRECISIONS for mgga_c_b94 canary**. The original 11-07 plan already includes D-15; the amendment is the f32 leg.
+  - **11-08** — Per-`-p` sweep + audits + close, **with f32 test mode exercised under env-gate**. The per-`-p` sweep includes a `LIBXC_RS_F32=1` pass on the smoke parity set. The full 649-functional f32 oracle sweep is a phase-end deliverable, not a per-iteration gate (matches D-05's "full per-subcrate parity sweep runs at phase end" pattern, now extended to both precisions).
 
 ### Critical Anti-Patterns for Phase 11 Replan (NEW 2026-05-18 — documented in `.continue-here.md`)
 
@@ -164,6 +251,11 @@ The following patterns have been **empirically observed to break the replan** in
 - **AP-5 (warning):** Treating 11-01/11-02/11-03 SUMMARYs as needing redo. Their structural deliverables (D-02 isolated spike, audit tools, baseline, dispatch audit, clean-slate regen of 266 subcrates at `97d6347be`, D-13 dispatch verification) survive the second pause. The replan reframes WHAT 11-04..08 verify, not WHAT 11-01..03 produced.
 - **AP-6 (blocking — reframed under AP-1):** Declaring structural completion without per-`-p` cargo gates. The defining failure mode of Phase 11 across 2026-05-13..05-15 was three structural-completion claims (wide-tuple chunk emission, literal-coercion, 1-tuple scalar return, helper-layer architecture) each without a per-`-p` compile gate. This is now the **entry-gate structural fix** for AP-1: compile-first, before structural claims.
 
+- **AP-7 (blocking — NEW 2026-05-18, fourth session):** **Spike exercises unit boundary instead of integration boundary.**
+  - **What it is:** The architectural validation spike tests one component in isolation (e.g., tuple-return, literal coercion) but never exercises the integration boundary the production code will cross (chunk → helper call, dispatch macro → launch_unchecked, etc.). The integration boundary is where API-contract mismatches surface; isolating the components hides them.
+  - **How it manifested:** The 11-05 spike used `spike_cse_emit_q01.rs` and `spike_tuple_return_cube.rs` to validate Option A's tuple-return + literal-coercion in isolation against synthesized expressions. It never compiled a chunk that called a helper. The CubeCL `Float::new(val: f32)` constraint on the helper side vs the chunk's `<F: Float>` call site was untested. Plan 11-06's entry gate (`cargo build -p libxc-kernel-math`) was the first time chunk → helper integration was exercised — and it surfaced 447 × E0308 errors that an integration-boundary spike would have caught in 11-05.
+  - **Structural fix:** Every architectural decision in Phase 11 (and beyond) MUST be validated by a spike that exercises the **same integration boundary** the production code will cross. For helper-layer changes: a real chunk → helper call must compile + parity-test. For dispatch layer: a real `from_id → ten_arm_dispatch → launch_unchecked` chain must compile + parity-test. Unit-level spikes (one component in isolation) are insufficient for architectural validation. **D-22's Gate 3 codifies this pattern for the 4th-iteration replan.**
+
 ### Claude's Discretion
 - **Subcrate package naming.** Recommended: follow the existing `libxc-kernel-*` convention — package `libxc-kernel-<func>` (e.g. `libxc-kernel-gga_c_acgga`), lib name `libxc_kernel_<func>`. Planner confirms the exact spelling (hyphen vs underscore handling in the package name) after reading the current numbered-subcrate `Cargo.toml` naming.
 - Internal structure of the CSE pass (Maple AST walker vs post-translation Rust AST walker vs Python-side intermediate IR). The decision is "CSE-aware" — implementation surface is left to the planner + phase researcher.
@@ -184,6 +276,10 @@ The following patterns have been **empirically observed to break the replan** in
 
 ### CubeCL design constraints (load-bearing)
 - `docs/manual/Cubecl/cubecl_macro_fanout_manual.md` — THE authoritative reference for how to subdivide kernels under CubeCL. Key sections: §3 ("Keep the CubeCL expansion surface as small as possible"), §6 (Prefer Generic Numeric Kernels — supports D-03 generic `<F: Float>`), §10 ("Break apart meaningful algorithmic stages, NOT every expression-level helper" — supports D-01 CSE-aware over per-statement), §13 (Reduce Element-Type Generic Explosion — caveats D-03), §19 (Recommended low-fan-out architecture), §21 (Refactoring Checklist). Read end-to-end before planning.
+
+### CubeCL 0.10 API contracts (load-bearing for D-20 cast_from policy)
+- `/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.10.0/src/frontend/element/float.rs:75` — `pub trait Float { fn new(val: f32) -> Self; ... }`. **The root cause of the 11-06 HALT.** `Float::new` accepts only `f32`; passing an `f64` const triggers E0308 in `<F: Float>` body. ~447 of the 515 errors in `cargo build -p libxc-kernel-math` post-11-05 derive from this.
+- `/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.10.0/src/frontend/element/cast.rs:14-37` — `pub trait Cast: CubePrimitive { fn cast_from<From: CubePrimitive>(value: From) -> Self; ... }` with blanket `impl<P: CubePrimitive> Cast for P`. **The fix per D-20:** `F::cast_from(<f64 const>)` preserves f64 precision through generic helpers when F=f64, and emits a narrowing cast when F=f32 (precision-only — per D-03/D-19a, f32 is gated at 1e-6 relative).
 
 ### Wave 0 artifacts (plan 11-01 — already executed)
 - `.planning/phases/11-splitter-v2-unified-5k-cap/11-01-SUMMARY.md` — Wave 0 results. D-02 spike PASSED; audit tools committed; dispatch staleness (Blocker B1) documented. Read for the deviation list (D1–D7) — D1 (verify/ OOM) directly motivates the D-05 revision.
@@ -326,7 +422,8 @@ After post-fix frontmatter updates: every SPEC-11-Rx appears in at least one pla
 <deferred>
 ## Deferred Ideas
 
-- **f32 oracle gate at relaxed tolerance.** Rejected for now (D-03); a natural future capability once the f64 path is stable.
+- **f32 oracle gate at relaxed tolerance.** ~~Rejected for now (D-03)~~ **PROMOTED to scope (2026-05-18 fourth session) via D-19a — f32 is now correctness-gated at 1e-6 relative, env-gated at test time via `LIBXC_RS_F32=1`.**
+- **Audit `error/` and `math/` module placement before workspace-modular-split phase.** Cross-referenced from todo backlog (`audit-error-math-placement.md`, score 0.6). Deferred to Phase 10 — the audit is workspace-split prep, not Phase 11 splitter/architecture work.
 - **CI gate enforcing the 5K cap + subcrate-count invariant.** `tools/audit_kernel_size.py` exists from Wave 0; wiring it (and `audit_subcrate_collapse.sh`) into CI is a natural follow-up but not strictly required for phase completion.
 - **Workspace boundary refactor.** Phase 10 — sequenced AFTER Phase 11 (D-06).
 - **Promoting `#[cube]` traits in kernel chunks.** Rejected at D-02 (manual §9). A future phase finding a true trait-shaped abstraction is its own decision.
@@ -424,6 +521,53 @@ Third discuss-phase session. Changes from prior state:
 - 11-04 SUMMARY (retroactive partial) ✓
 - 11-05 SUMMARY ✓ — helpers logically complete, syntax errors deferred to 11-06
 - 11-06..08: REGENERATE via `/gsd-plan-phase 11`
+
+---
+
+## Re-plan Note (2026-05-18 — fourth session: post-11-06 HALT, A1 locked, f32+f64 test scope)
+
+Fourth discuss-phase session. Triggered by plan 11-06's HALT (commit `75c0f5112`, FAILED SUMMARY): the 11-05 Phase 2 auto-script (`tools/refactor_helpers_generic.py`) wrapped every f64 literal AND every named identifier in `F::new(...)`. CubeCL `Float::new(val: f32)` rejects f64 named constants — 447 × E0308 errors out of 515 total. The plan's "3 syntax categories" model accounted for 7 errors (1.4%); the remaining 508 are architectural.
+
+### What this session changed
+
+1. **New directive: f32 + f64 dual-precision test surface (D-19).** All tests in the project — helper unit tests, per-functional subcrate tests, spike harnesses, parity_phase11.rs, and the 649-functional oracle harness — are parameterized over both `<F = f32>` and `<F = f64>` and exercised under each. F32 elevated to a first-class correctness target at 1e-6 relative (vs f64 oracle widened). Env-gated via `LIBXC_RS_F32=1`. **This locks A1 as the only viable architectural path** — helpers must be generic to support parametric tests at the helper layer.
+
+2. **D-03 amended (D-19a).** F32 is no longer "performance-only, no correctness gate". It is now correctness-gated at 1e-6 relative. The amended policy: f64 is the primary correctness target at 1e-12; f32 is a secondary correctness target at 1e-6 relative, env-gated at test time. `CLAUDE.md` must be updated as part of this phase to reflect both the original D-03 shift and the D-19a amendment.
+
+3. **A1 locked (D-20).** Extends `tools/refactor_helpers_generic.py` (or Serena-MCP-driven equivalent) with cast_from policy: classify every `F::new(IDENT)` site by symbol class (f64 const → `F::cast_from`; f32 const → keep `F::new`; doc-comment / string-literal → revert; non-generic file → revert; `_f64` suffix bug → fix; range op bug → fix; double-wrap bug → fix). Surgical manual fixes per D-23 for known non-script regressions. A2 / C / Hybrid rejected with reasons captured.
+
+4. **3-gate pre-bulk validation sequence (D-22).** Structural mitigation for AP-7 (newly codified). Before the script bulk-runs on the 11 problematic Phase-2 helper files: (1) synthetic-fixture coverage matrix with all known symbol classes, (2) bessel.rs canary (highest F::new count + most diverse symbol classes), (3) chunk → helper integration-boundary spike on mgga_c_b94 at both precisions (compile + parity at f64 1e-12 + parity at f32 1e-6 + idempotency). Only after all three green does bulk run proceed.
+
+5. **AP-7 codified.** "Spike exercises unit boundary instead of integration boundary." The 11-05 spike validated tuple-return + literal-coercion in isolation but never compiled a chunk that called a helper. D-22's Gate 3 enforces integration-boundary spikes going forward.
+
+6. **D-24 — plan regeneration scope.** 11-06 replaced (not amended): pre-flight + surgical revert + script extension + 3-gate sequence + bulk run + three-leg exit gate. 11-07 amended: D-15 entry gate now runs at both precisions. 11-08 amended: per-`-p` sweep includes f32 leg under env-gate; full 649-functional f32 oracle sweep is phase-end deliverable.
+
+### Carry-forward summary (post-fourth-session)
+
+- 11-01 SUMMARY ✓ — Wave 0 deliverables
+- 11-02 SUMMARY ✓ — emit.py routing-aware launch policy, MAX_TUPLE_ARITY=12
+- 11-03 SUMMARY ✓ — D-13 audit + dispatch verification + 266-subcrate regen
+- 11-04 SUMMARY (retroactive partial) ✓ — D-05 verify dev-dep narrowing
+- 11-05 SUMMARY ✓ — helpers logically refactored, syntax errors deferred (now superseded by D-22 sequence + D-23 surgical revert)
+- 11-06 FAILED SUMMARY ✓ (commit `75c0f5112`) — HALT report; no source edits applied
+- 11-06..08: REGENERATE via `/gsd-plan-phase 11` per D-24
+
+### Phase 11 forward gating
+
+Per D-22 + D-24, the next plan-phase + execute-phase cycle MUST honor:
+
+| Phase point | Gate | At what precision |
+|---|---|---|
+| Pre-flight | `.cargo/config.toml` invariants (AP-2) | n/a |
+| Surgical revert | `deferred.rs` reverted; `special.rs:224`, `bessel.rs` type-annotations, `mbrxc.rs:145` fixed | n/a |
+| Gate 1 (D-22) | Synthetic fixture compiles after script run | n/a (compile-only) |
+| Gate 2 (D-22) | `cargo build -p libxc-kernel-math` after script run on bessel.rs alone | n/a (compile-only) |
+| Gate 3 (D-22) | mgga_c_b94 chunk→helper compile + parity + idempotency | **BOTH** f64 (1e-12) AND f32 (1e-6 under `LIBXC_RS_F32=1`) |
+| Bulk run | Script transforms remaining 10 helpers | n/a |
+| Exit gate (11-06) | `cargo build -p libxc-kernel-math` + spike re-test | BOTH precisions |
+| Entry gate (11-07, D-15) | mgga_c_b94 canary post full-tree regen | BOTH precisions |
+| Per-`-p` sweep (11-08) | Each routed subcrate `cargo build -p <crate>` | f64 only at sweep; f32 smoke only |
+| Phase end | Full 649-functional oracle sweep | BOTH precisions (one-shot, phase-end deliverable) |
 
 ---
 
