@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 877/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 877/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk877<F: Float>(t2801: F, t39337: F, t14289: F, t501: F, t605: F, t3718: F, t8042: F, t1382: F, t14348: F, t1052: F, t12270: F, t14350: F, t14408: F, t1960: F, t46004: F, t46006: F, t46008: F, t46013: F, t46016: F, t46019: F, t46023: F, t46025: F, t46832: F, t46835: F, t50781: F, t5559: F, t841: F) -> (F, F, F, F, F) {
-    let t50789 = 4.0 * t39337 * t2801;
-    let t50790 = t14289 * t501;
-    let t50791 = t50790 * t605;
-    let t50796 = 2.0 * t8042 * t3718;
-    let t50799 = 2.0 * t1382 * t14348 * t605;
-    let t50800 = 4.0 * t1052 * t12270 * t1960 - 12.0 * t14350 * t5559 * t841 + 2.0 * t14408 * t1960 * t841 + t46004 - t46006 + t46008 + t46013 - t46016 + t46019 - t46023 - t46025 + t46832 - t46835 + t50781 - t50789 + t50791 + t50796 - t50799;
-    (t50789, t50791, t50796, t50799, t50800)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk877<F: Float>(t2615: F, t326: F, t45316: F, t43832: F, t1890: F, t1966: F, t44707: F, t590: F, t10024: F, t11823: F, t43881: F, t5241: F, t5640: F) -> (F, F, F, F, F, F) {
+    let t45658 = F::new(0.92023022289409799224e1) * t2615 * t326 * t45316;
+    let t45663 = F::new(0.23005755572352449806e1) * t43832;
+    let t45667 = F::new(0.97135412416599232513e1) * t1966 * t1890 * t44707 * t590;
+    let t45678 = t11823 * t10024;
+    let t45680 = F::new(0.15337170381568299871e1) * t43881;
+    let t45684 = F::new(0.13803453343411469884e2) * t5640 * t5241 * t44707 * t590;
+    (t45658, t45663, t45667, t45678, t45680, t45684)
 }

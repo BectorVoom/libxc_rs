@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 660/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 660/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk660<F: Float>(t107: F, t408: F, t2558: F, t10928: F, t6574: F, t822: F, t2012: F, t7809: F, t7802: F, t5638: F, t9419: F, t5538: F, t883: F, t2547: F, t279: F, t481: F) -> (F, F, F, F, F, F, F, F) {
-    let t28438 = t107 * t408;
-    let t28439 = t28438 * t2558;
-    let t28640 = t822 * t10928 * t6574;
-    let t28673 = t2012 * t7809;
-    let t28737 = t2012 * t7802;
-    let t28856 = t822 * t5638 * t9419;
-    let t29277 = t5538 * t883;
-    let t29439 = t481 * t2547 * t279;
-    (t28438, t28439, t28640, t28673, t28737, t28856, t29277, t29439)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk660<F: Float>(t11688: F, t549: F, t1036: F, t10854: F, t10858: F, t10863: F, t10868: F, t11743: F, t11749: F, t11752: F, t11757: F, t11760: F, t11765: F, t1998: F, t2009: F, t2033: F, t6060: F, t780: F, t8634: F) -> F {
+    let t11772 = t549 * t11688;
+    let t11775 = -F::new(0.35750489951850426669e0) * t11743 * t2009 + F::new(0.71500979903700853338e0) * t1036 * t8634 - F::new(0.23005755572352449806e1) * t1998 * t11749 - F::new(0.21450293971110256001e1) * t6060 * t11752 + F::new(0.35750489951850426669e0) * t780 * t11757 - F::new(0.35750489951850426669e0) * t11760 * t2009 + F::new(0.35750489951850426669e0) * t780 * t11765 - F::new(0.59584149919750711116e-1) * t10854 - F::new(0.59584149919750711116e-1) * t10858 + F::new(0.59584149919750711116e-1) * t10863 - F::new(0.17875244975925213335e0) * t10868 + F::new(0.39722766613167140743e-1) * t2033 * t11772;
+    t11775
 }

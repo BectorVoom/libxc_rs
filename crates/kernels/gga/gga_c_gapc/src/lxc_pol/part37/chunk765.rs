@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 765/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 765/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk765<F: Float>(t3278: F, t3285: F, t3289: F, t3288: F, t7178: F, t1092: F, t3402: F, t9282: F, t3408: F, t612: F, t7451: F, t2545: F, t7453: F, t197: F, t7776: F, t1077: F) -> (F, F, F, F, F, F, F) {
-    let t9595 = t3278 * t3285;
-    let t9597 = t3278 * t3289;
-    let t9599 = t3288 * t7178;
-    let t9600 = t1092 * t9599;
-    let t9602 = t3402 * t9282;
-    let t9603 = t9602 * t3408;
-    let t9605 = t7451 * t612;
-    let t9606 = t2545 * t7453;
-    let t9607 = t9605 * t9606;
-    let t9609 = t197 * t7776;
-    let t9610 = t1077 * t9609;
-    (t9595, t9597, t9599, t9600, t9603, t9607, t9610)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk765<F: Float>(t185: F, t8769: F, t1717: F, t8726: F, t8729: F, t8732: F, t8735: F, t8739: F, t8741: F, t8746: F, t8752: F, t8756: F, t8758: F, t8761: F, t8766: F) -> (F, F, F) {
+    let t8770 = t185 * t8769;
+    let t8771 = t8770 * t1717;
+    let t8773 = F::new(0.30362304687500000001e-3) * t8726 - F::new(0.14492726735651760868e-5) * t8729 - F::new(0.14492726735651760868e-5) * t8732 - F::new(0.72463633678258804342e-6) * t8735 + F::new(0.14492726735651760868e-5) * t8739 + F::new(0.28985453471303521736e-5) * t8741 + F::new(0.25745714186718600947e-6) * t8746 - F::new(0.33199136135672468897e-7) * t8752 + F::new(0.59028064049225649701e-7) * t8756 - F::new(0.28985453471303521736e-5) * t8758 + F::new(0.29518907335069444446e-5) * t8761 - F::new(0.33765185592488808582e-6) * t8766 - F::new(0.77294542590142724635e-6) * t8771;
+    (t8770, t8771, t8773)
 }

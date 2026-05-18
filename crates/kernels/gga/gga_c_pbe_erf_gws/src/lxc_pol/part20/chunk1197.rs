@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1197/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1197/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1197<F: Float>(t13776: F, t3861: F, t3975: F, t9504: F, t3912: F, t50887: F, t14138: F, t2409: F, t35890: F, t3965: F, t12243: F, t14121: F, t13772: F, t3200: F, t335: F, t338: F, t3917: F, t4183: F, t51957: F, t54536: F, t54538: F, t54567: F, t57581: F, t57584: F, t57588: F, t57593: F, t57595: F, t57598: F, t6793: F) -> (F,) {
-    let t57602 = t13776 * t3975 * t3861 * t9504;
-    let t57604 = t3912 * t50887;
-    let t57605 = t57604 * t14138;
-    let t57608 = t3965 * t2409 * t35890;
-    let t57614 = t14121 * t12243;
-    let t57618 = -t54536 + t54538 - 7.0 / 288.0 * t57581 + t57584 / 768.0 + t6793 * t57588 / 48.0 + t57593 / 768.0 + t57595 / 24.0 - t57598 / 48.0 + t54567 - t57602 / 384.0 - t57605 / 48.0 - t57608 / 96.0 + t51957 - t335 * t338 * t3200 * t4183 / 48.0 + t57614 / 16.0 - t3917 * t13772 / 96.0;
-    (t57618,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1197<F: Float>(t2416: F, t360: F, t4383: F, t4408: F, t2365: F, t56: F, t2118: F, t2306: F, t4395: F, t824: F, t822: F, t2169: F, t2200: F, t329: F) -> (F, F, F, F, F, F, F, F) {
+    let t15641 = t2416 * t360;
+    let t19658 = t4408 * t4383;
+    let t19775 = t2365 * t56;
+    let t19776 = t2118 * t19775;
+    let t19894 = t2306 * t4383;
+    let t19898 = t4395 * t4383;
+    let t19905 = t824 * t19775;
+    let t19906 = t822 * t19905;
+    let t20091 = t329 * t2200 * t2169;
+    (t15641, t19658, t19776, t19894, t19898, t19905, t19906, t20091)
 }

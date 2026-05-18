@@ -30,20 +30,20 @@ pub fn gga_k_vt84f_exc_unpol(
         let t7 = t4 * t5 * M_PI;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
         let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
+        let t17 = pow_1_3::<f64>(t12);
         let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
-        let t21 = pow_1_3(rho[ip]);
+        let t20 = piecewise3::<f64>(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+        let t21 = pow_1_3::<f64>(rho[ip]);
         let t22 = t21 * t21;
         let t23 = t20 * t22;
         let t24 = M_CBRT6;
         let t25 = t24 * t24;
         let t26 = M_PI * M_PI;
-        let t27 = pow_1_3(t26);
+        let t27 = pow_1_3::<f64>(t26);
         let t29 = t25 / t27;
         let t30 = f64::sqrt(sigma[ip]);
         let t31 = M_CBRT2;
@@ -88,7 +88,7 @@ pub fn gga_k_vt84f_exc_unpol(
         let t99 = t80 * t47;
         let t101 = 1.0 / t22 / t99;
         let t106 = t38 < t37;
-        let t107 = piecewise3(t106, t37, t38);
+        let t107 = piecewise3::<f64>(t106, t37, t38);
         let t108 = t107 * t107;
         let t109 = param_mu * t108;
         let t110 = param_alpha * t108;
@@ -101,8 +101,8 @@ pub fn gga_k_vt84f_exc_unpol(
         let t119 = 1.0 - t118;
         let t120 = 1.0 / t108;
         let t121 = t120 - 1.0;
-        let t125 = piecewise3(t39, 1.0 + t44 * t46 * t49 / 24.0 + t59 * t61 * t65 / 288.0 + t78 * t79 * t81 / 576.0 + t96 * t98 * t101 / 13824.0, 1.0 - t109 * t114 + t119 * t121 + 5.0 / 3.0 * t108);
-        let t129 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t125);
+        let t125 = piecewise3::<f64>(t39, 1.0 + t44 * t46 * t49 / 24.0 + t59 * t61 * t65 / 288.0 + t78 * t79 * t81 / 576.0 + t96 * t98 * t101 / 13824.0, 1.0 - t109 * t114 + t119 * t121 + 5.0 / 3.0 * t108);
+        let t129 = piecewise3::<f64>(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t125);
         let tzk0 = 2.0 * t129;
         zk[ip] += tzk0;
     }

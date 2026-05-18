@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 583/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 583/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk583<F: Float>(t158: F, t3689: F, t123: F, t488: F, t12000: F, t169: F, t172: F, t452: F, t10248: F, t10251: F, t10255: F, t10259: F, t10261: F, t10264: F, t10267: F, t10271: F, t10275: F, t10278: F, t105: F, t1358: F, t3692: F, t3696: F, t380: F, t419: F) -> (F, F, F, F) {
-    let t12012 = t158 * t3689;
-    let t12013 = t12012 * t123;
-    let t12014 = t12013 * t488;
-    let t12018 = t12000 * t169 * t172;
-    let t12019 = t452 * t12018;
-    let t12028 = -t10248 + t10251 - t10255 - t10259 + t10261 + t10264 + t10267 - t10271 - t10275 - 0.31616674039640166221e-2 * t1358 * t12014 + 0.28455006635676149599e-1 * t105 * t12019 - 0.37940008847568199465e-1 * t380 * t3696 + 0.37940008847568199465e-1 * t380 * t3692 - 0.28455006635676149599e-1 * t419 * t3696 + t10278;
-    (t12012, t12013, t12018, t12028)
+pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk583<F: Float>(t10268: F, t6507: F, t1358: F, t2299: F, t3394: F, t488: F, t2339: F, t7888: F, t3366: F, t605: F, t2902: F, t921: F) -> (F, F, F, F, F, F) {
+    let t10269 = t6507 * t10268;
+    let t10271 = F::new(0.63233348079280332442e-2) * t1358 * t10269;
+    let t10272 = t2299 * t3394;
+    let t10273 = t10272 * t488;
+    let t10275 = F::new(0.31616674039640166221e-2) * t1358 * t10273;
+    let t10276 = t7888 * t2339;
+    let t10278 = F::new(0.94850022118920498663e-2) * t1358 * t10276;
+    let t10295 = t3366 * t605;
+    let t10298 = t2902 * t921;
+    (t10271, t10272, t10275, t10278, t10295, t10298)
 }

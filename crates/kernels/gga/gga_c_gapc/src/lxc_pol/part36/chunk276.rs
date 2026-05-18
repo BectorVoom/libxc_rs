@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 36 (v4rho2sigma2_15) CSE chunk 276/1133 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 36 (v4rho2sigma2_15) CSE chunk 276/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk276<F: Float>(t1043: F, t1046: F, t126: F, t315: F) -> (F, F) {
-    let t1047 = t1043 * t1046;
-    let t1051 = t126 * t315;
-    (t1047, t1051)
+pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk276<F: Float>(t1045: F, t676: F) -> F {
+    let t1046 = t1045 * t676;
+    t1046
 }

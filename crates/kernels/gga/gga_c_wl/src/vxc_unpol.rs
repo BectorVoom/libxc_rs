@@ -23,14 +23,14 @@ pub fn gga_c_wl_vxc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t1 = f64::sqrt(sigma[ip]);
-        let t2 = pow_1_3(rho[ip]);
+        let t2 = pow_1_3::<f64>(rho[ip]);
         let t4 = 1.0 / t2 / rho[ip];
         let t5 = t1 * t4;
         let t7 = -0.7486e0 + 0.6001e-1 * t5;
         let t8 = M_CBRT2;
         let t9 = t1 * t8;
         let t12 = M_CBRT3;
-        let t14 = pow_1_3(1.0 / M_PI);
+        let t14 = pow_1_3::<f64>(1.0 / M_PI);
         let t15 = t12 * t14;
         let t16 = M_CBRT4;
         let t17 = t16 * t16;

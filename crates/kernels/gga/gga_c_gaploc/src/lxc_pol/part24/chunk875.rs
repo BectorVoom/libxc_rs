@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 875/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 875/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk875<F: Float>(t10215: F, t493: F, t492: F, t169: F, t172: F, t452: F, t1365: F, t7906: F, t6525: F, t10184: F, t10187: F, t10195: F, t10198: F, t105: F, t3341: F, t3359: F, t380: F, t419: F, t9151: F, t9207: F, t9210: F) -> (F, F, F, F, F, F) {
-    let t10216 = t493 * t10215;
-    let t10217 = t492 * t10216;
-    let t10223 = t10215 * t169 * t172;
-    let t10224 = t452 * t10223;
-    let t10227 = t1365 * t7906;
-    let t10228 = t6525 * t10227;
-    let t10229 = 0.11856252764865062333e-2 * t10228;
-    let t10230 = t9151 + t10184 + t10187 + 0.37940008847568199465e-1 * t380 * t3341 - 0.37940008847568199465e-1 * t380 * t3359 - 0.28455006635676149599e-1 * t419 * t3359 - t10195 - t10198 - t9207 + t9210 - 0.28455006635676149599e-1 * t105 * t10217 + 0.28455006635676149599e-1 * t419 * t3341 + 0.28455006635676149599e-1 * t105 * t10224 + t10229;
-    (t10216, t10217, t10223, t10224, t10227, t10230)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk875<F: Float>(t836: F, t8720: F, t568: F, t1880: F, t2958: F, t1445: F, t2949: F, t2950: F, t4614: F, t1457: F, t1035: F, t2052: F) -> (F, F, F, F, F, F, F) {
+    let t8721 = t836 * t8720;
+    let t8722 = t568 * t8721;
+    let t8725 = t2958 * t1880;
+    let t8726 = t1445 * t8725;
+    let t8729 = t2949 * t1880;
+    let t8730 = t1445 * t8729;
+    let t8733 = t4614 * t2950;
+    let t8738 = t1457 * t8729;
+    let t8741 = t2052 * t1035;
+    (t8722, t8726, t8729, t8730, t8733, t8738, t8741)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1082/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1082/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1082<F: Float>(t1524: F, t1784: F, t3573: F, t3621: F, t6283: F, t1140: F, t6279: F, t1077: F, t1083: F, t1173: F, t1181: F, t13344: F, t1532: F, t16824: F, t16826: F, t16839: F, t16841: F, t16847: F, t16849: F, t1748: F, t336: F, t367: F) -> (F, F) {
-    let t21901 = t1524 * t1524;
-    let t21906 = t3573 * t1784;
-    let t21908 = t3621 * t6283;
-    let t21910 = t1140 * t6279;
-    let t21919 = 0.34299214494455789578e-2 * t1173 * t1181 * t1532 * t1748 * t1077 + t367 * t336 * t1083 * t21901 / 24.0 + 35.0 / 216.0 * t21906 - 7.0 / 24.0 * t21908 - 7.0 / 72.0 * t21910 + 7.0 / 36.0 * t16824 + 7.0 / 72.0 * t16826 - 7.0 / 36.0 * t16839 - 7.0 / 72.0 * t16841 - 7.0 / 36.0 * t16847 - 7.0 / 72.0 * t16849 - 0.80031500487063509016e-2 * t13344;
-    (t21901, t21919)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1082<F: Float>(t1941: F, t3952: F, t11553: F, t103: F, t10952: F, t11545: F, t11549: F, t11552: F, t11557: F, t11560: F, t1674: F, t1679: F, t19289: F, t3984: F, t495: F, t5399: F, t5439: F, t560: F, t6583: F, t694: F, t811: F, t922: F, t96: F) -> (F, F) {
+    let t19387 = t1941 * t3952;
+    let t19394 = F::new(0.24415263074675393405e-3) * t11553;
+    let t19395 = -F::new(24.0) * t103 * t10952 * t3984 * t560 * t96 - F::new(6.0) * t1674 * t6583 * t922 + F::new(2.0) * t1679 * t19387 * t811 + F::new(6.0) * t19289 * t495 * t694 - F::new(12.0) * t5399 * t5439 * t694 + t11545 + t11549 - t11552 - t11557 - t11560 + t19394;
+    (t19394, t19395)
 }

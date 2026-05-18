@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 898/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 898/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk898<F: Float>(t40822: F, t40825: F, t40828: F, t40833: F, t43202: F, t43207: F, t43208: F, t43209: F, t43212: F, t43216: F, t43220: F, t43222: F, t43237: F, t47708: F, t47709: F, t47711: F, t47714: F, t47720: F) -> (F,) {
-    let t51038 = -t43202 + t47708 + 0.41016139894091862845e-1 * t47709 + 0.30762104920568897134e-1 * t47711 + 0.30762104920568897134e-1 * t47714 + 0.19226315575355560709e-2 * t40822 - 0.38452631150711121418e-2 * t40825 - 0.12817543716903707139e-2 * t40828 + 0.25635087433807414278e-2 * t40833 + t43207 + t43208 + t43209 + t43212 + t43216 + t43220 + t43222 - t43237 - 0.61524209841137794269e-1 * t47720;
-    (t51038,)
+pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk898<F: Float>(t40836: F, t40850: F, t40853: F, t2508: F, t2927: F, t3266: F, t3234: F, t8469: F, t2580: F, t2958: F, t9688: F, t13221: F, t7129: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t43207 = F::new(0.64087718584518535698e-3) * t40836;
+    let t43208 = F::new(0.1281754371690370714e-2) * t40850;
+    let t43209 = F::new(0.64087718584518535698e-3) * t40853;
+    let t43212 = F::new(0.76905262301422242837e-2) * t2508 * t3266 * t2927;
+    let t43213 = t8469 * t3234;
+    let t43216 = F::new(0.15381052460284448567e-1) * t2508 * t2580 * t43213;
+    let t43217 = t2958 * t9688;
+    let t43220 = F::new(0.15381052460284448567e-1) * t2508 * t2580 * t43217;
+    let t43222 = F::new(0.76905262301422242837e-2) * t7129 * t13221;
+    (t43207, t43208, t43209, t43212, t43213, t43216, t43217, t43220, t43222)
 }

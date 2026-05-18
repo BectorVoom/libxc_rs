@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 882/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 882/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk882<F: Float>(t2367: F, t3052: F, t2395: F, t2409: F, t3189: F, t2359: F, t2373: F, t2388: F, t2392: F, t2498: F, t2503: F, t3040: F, t3047: F, t3077: F, t3207: F, t4415: F, t6793: F, t827: F, t833: F, t8584: F, t8592: F, t8598: F, t8602: F, t8606: F, t8611: F, t8616: F) -> (F, F) {
-    let t8622 = 7.0 / 72.0 * t2367 * t3052;
-    let t8624 = t2409 * t2395 * t3189;
-    let t8628 = -t2388 * t3047 / 96.0 - t2392 * t3047 / 96.0 - t827 * t8584 / 48.0 - t3040 * t2373 / 24.0 - t827 * t8592 / 48.0 - t2498 * t2373 / 24.0 + t8598 + t6793 * t8602 / 8.0 + t3077 * t8606 / 48.0 - t2359 * t8611 / 96.0 + t2388 * t2503 / 96.0 + t8616 * t833 / 96.0 + t2392 * t2503 / 96.0 + t8622 + t3207 * t8624 / 8.0 - 7.0 / 72.0 * t4415;
-    (t8624, t8628)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk882<F: Float>(t2660: F, t2796: F, t2800: F, t1879: F, t1033: F, t1726: F, t1733: F, t209: F, t184: F, t1024: F, t7593: F, t7595: F, t7597: F, t7599: F, t7601: F, t7603: F, t7605: F, t7607: F, t7609: F, t7613: F, t7615: F, t7617: F) -> (F, F, F, F, F, F) {
+    let t7619 = F::new(16.0) / F::new(45.0) * t2660 * t2796;
+    let t7621 = F::new(8.0) / F::new(15.0) * t2660 * t2800;
+    let t7623 = F::new(16.0) / F::new(45.0) * t1879 * t2796;
+    let t7625 = F::new(2.0) / F::new(15.0) * t1033 * t1726;
+    let t7626 = t1733 * t209;
+    let t7627 = t7626 * t184;
+    let t7629 = F::new(4.0) / F::new(15.0) * t7627 * t1024;
+    let t7630 = t7593 + t7595 + t7597 + t7599 + t7601 + t7603 + t7605 + t7607 + t7609 - t7613 + t7615 + t7617 + t7619 + t7621 + t7623 - t7625 + t7629;
+    (t7619, t7621, t7623, t7625, t7629, t7630)
 }

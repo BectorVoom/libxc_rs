@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 836/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 836/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk836<F: Float>(t41914: F, t41947: F, t41949: F, t41951: F, t10430: F, t2890: F, t9267: F, t2478: F, t3545: F, t6576: F, t2482: F, t3536: F, t9263: F, t3541: F, t11549: F, t9272: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t46368 = 0.59584149919750711116e-1 * t41914;
-    let t46370 = 0.17875244975925213335e0 * t41947;
-    let t46371 = 0.17875244975925213335e0 * t41949;
-    let t46372 = 0.17875244975925213335e0 * t41951;
-    let t46378 = t9267 * t2890 * t10430;
-    let t46379 = 0.19171462976960374838e1 * t46378;
-    let t46381 = t6576 * t3545 * t2478;
-    let t46382 = 0.19171462976960374838e0 * t46381;
-    let t46384 = t9263 * t3536 * t2482;
-    let t46387 = t9267 * t3541 * t2482;
-    let t46390 = t9272 * t11549 * t2482;
-    (t46368, t46370, t46371, t46372, t46379, t46382, t46384, t46387, t46390)
+pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk836<F: Float>(t20368: F, t44386: F, t1358: F, t23915: F, t161: F, t37573: F, t2339: F, t172: F, t3338: F, t550: F, t13396: F, t2299: F, t488: F) -> (F, F, F, F, F, F) {
+    let t44387 = t20368 * t44386;
+    let t44390 = F::new(0.18970004423784099732e-1) * t1358 * t23915 * t44387;
+    let t44391 = t37573 * t161;
+    let t44394 = F::new(0.94850022118920498663e-2) * t1358 * t44391 * t2339;
+    let t44395 = t172 * t3338;
+    let t44396 = t550 * t44395;
+    let t44403 = F::new(0.31616674039640166221e-2) * t1358 * t2299 * t13396 * t488;
+    (t44387, t44390, t44394, t44395, t44396, t44403)
 }

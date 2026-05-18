@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1224/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1224/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1224<F: Float>(t34587: F, t10215: F, t10495: F, t1339: F, t1359: F, t1424: F, t1430: F, t1537: F, t30788: F, t30791: F, t30794: F, t34556: F, t34558: F, t34566: F, t34567: F, t34573: F, t34576: F, t34579: F, t34581: F, t34583: F, t34586: F, t544: F, t590: F, t6716: F, t6717: F) -> (F,) {
-    let t34588 = 0.17875244975925213335e0 * t34587;
-    let t34589 = -0.1022478025437886658e1 * t1537 * t1339 * t10215 * t590 + t34556 + 0.23833659967900284446e0 * t34558 * t1430 - 0.79445533226334281486e-1 * t544 * t1359 * t10495 * t1424 + t30788 + t30791 - t30794 - t34566 + 0.13803453343411469884e2 * t6716 * t6717 * t34567 - t34573 + t34576 + t34579 + t34581 - t34583 - t34586 + t34588;
-    (t34589,)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1224<F: Float>(t10673: F, t10722: F, t123: F, t1836: F, t1841: F, t1897: F, t2060: F, t2508: F, t2580: F, t29349: F, t29354: F, t32351: F, t32353: F, t32355: F, t32360: F, t32363: F, t32364: F, t32370: F, t32371: F, t3433: F, t3464: F, t5288: F, t734: F, t779: F) -> F {
+    let t32386 = t29349 + t32351 - t32353 - t32355 - t32360 + t29354 - t32363 - F::new(0.17090058289204942853e-2) * t1841 * t32364 * t123 * t734 + t32370 + F::new(0.15381052460284448567e-1) * t2508 * t2580 * t32371 + F::new(0.15381052460284448567e-1) * t5288 * t10722 + F::new(0.15381052460284448567e-1) * t2508 * t779 * t10673 + F::new(0.76905262301422242837e-2) * t2508 * t2060 * t3433 - F::new(0.76905262301422242837e-2) * t1897 * t3464 * t1836;
+    t32386
 }

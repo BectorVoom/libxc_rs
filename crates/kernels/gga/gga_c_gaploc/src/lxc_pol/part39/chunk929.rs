@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 929/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 929/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk929<F: Float>(t13740: F, t484: F, t42844: F, t42845: F, t42847: F, t42850: F, t42852: F, t47024: F, t47028: F, t47032: F, t47036: F, t47040: F, t11977: F, t2268: F, t6763: F, t1063: F, t6750: F) -> (F, F, F) {
-    let t47042 = t484 * t13740;
-    let t47044 = -t42844 + 0.56910013271352299198e-1 * t47024 + 0.56910013271352299198e-1 * t47028 - t42845 + t42847 + t42850 - 0.31616674039640166221e-2 * t47032 - 0.63233348079280332442e-2 * t42852 + 0.11856252764865062333e-2 * t47036 + 0.28455006635676149599e-1 * t47040 + 0.15808337019820083111e-2 * t47042;
-    let t47047 = t2268 * t11977 * t6763;
-    let t47050 = t1063 * t11977 * t6750;
-    (t47044, t47047, t47050)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk929<F: Float>(t2487: F, t41965: F, t6711: F, t204: F, t2476: F, t41839: F, t40228: F, t40234: F, t40237: F, t40239: F, t40243: F, t40249: F) -> (F, F, F, F, F, F, F, F) {
+    let t41968 = F::new(0.43710935587469654631e2) * t2487 * t6711 * t41965;
+    let t41970 = t2476 * t204 * t41839;
+    let t41972 = F::new(0.29792074959875355558e-1) * t40228;
+    let t41973 = F::new(0.89376224879626066674e-1) * t40234;
+    let t41974 = F::new(0.59584149919750711116e-1) * t40237;
+    let t41975 = F::new(0.29792074959875355558e-1) * t40239;
+    let t41976 = F::new(0.29792074959875355558e-1) * t40243;
+    let t41978 = F::new(0.17041300423964777634e0) * t40249;
+    (t41968, t41970, t41972, t41973, t41974, t41975, t41976, t41978)
 }

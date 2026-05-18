@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 943/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 943/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk943<F: Float>(t1109: F, t343: F, t874: F, t2118: F, t9499: F, t824: F, t8994: F, t3038: F, t3747: F, t905: F, t1113: F, t9856: F, t8996: F, t9016: F, t858: F, t3065: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11744 = t1109 * t874 * t343;
-    let t11745 = t2118 * t11744;
-    let t11746 = t9499 * t11745;
-    let t11749 = t824 * t8994;
-    let t11750 = t9499 * t11749;
-    let t11753 = t3038 * t3747;
-    let t11754 = t905 * t11753;
-    let t11757 = t1113 * t9856;
-    let t11758 = t905 * t11757;
-    let t11762 = t9016 * t8996 / 48.0;
-    let t11763 = t858 * t11744;
-    let t11764 = t3065 * t11763;
-    (t11745, t11746, t11749, t11750, t11753, t11754, t11757, t11758, t11762, t11764)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk943<F: Float>(t3456: F, t579: F, t1033: F, t2749: F, t3513: F, t7011: F, t4913: F, t2607: F, t2722: F, t1621: F, t1620: F, t2603: F, t2612: F) -> (F, F, F, F, F, F) {
+    let t10616 = F::new(4.0) / F::new(15.0) * t579 * t3456;
+    let t10617 = t1033 * t2749;
+    let t10618 = F::new(8.0) / F::new(45.0) * t10617;
+    let t10620 = F::new(8.0) / F::new(15.0) * t7011 * t3513;
+    let t10622 = F::new(8.0) / F::new(15.0) * t4913 * t3513;
+    let t10623 = t2607 * t2722;
+    let t10624 = t1621 * t10623;
+    let t10626 = F::new(8.0) / F::new(15.0) * t1620 * t10624;
+    let t10628 = F::new(8.0) / F::new(15.0) * t2612 * t2603;
+    (t10616, t10618, t10620, t10622, t10626, t10628)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 987/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 987/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk987<F: Float>(t4144: F, t987: F, t4245: F, t4398: F, t8410: F, t1: F, t25760: F, t1415: F, t1519: F, t2876: F, t540: F, t8071: F, t20550: F, t7892: F, t106: F, t192: F, t7861: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t25955 = t987 * t4144;
-    let t26011 = t987 * t4245;
-    let t26122 = t4398 * t8410;
-    let t26126 = t25760 * t1;
-    let t26127 = t1415 * t26126;
-    let t26244 = t2876 * t1519;
-    let t26279 = t8071 * t540;
-    let t26328 = t20550 * t7892;
-    let t26343 = t7861 * t1 * t106 * t192;
-    (t25955, t26011, t26122, t26126, t26127, t26244, t26279, t26328, t26343)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk987<F: Float>(t11016: F, t3025: F, t3504: F, t5782: F, t8483: F, t935: F, t1445: F, t2087: F, t2530: F, t3009: F, t2949: F, t813: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t11018 = F::new(0.7150097990370085334e0) * t3025 * t11016;
+    let t11024 = F::new(0.69017266717057349418e1) * t5782 * t3504;
+    let t11025 = t8483 * t935;
+    let t11026 = t1445 * t11025;
+    let t11028 = F::new(0.69017266717057349418e1) * t2087 * t11026;
+    let t11029 = t3009 * t2530;
+    let t11030 = t1445 * t11029;
+    let t11032 = F::new(0.69017266717057349418e1) * t2087 * t11030;
+    let t11038 = t2949 * t2530;
+    let t11039 = t1445 * t11038;
+    let t11041 = F::new(0.46011511144704899612e1) * t813 * t11039;
+    (t11018, t11024, t11025, t11026, t11028, t11029, t11030, t11032, t11038, t11039, t11041)
 }

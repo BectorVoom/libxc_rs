@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 604/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 604/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk604<F: Float>(t1438: F, t428: F, t4688: F, t4711: F, t4714: F, t4718: F, t4811: F, t4815: F, t4818: F, t4820: F, t4822: F, t4824: F, t4826: F, t1333: F, t4778: F, t87: F) -> (F, F, F, F, F, F) {
-    let t4827 = t1438 * t428;
-    let t4828 = 96.0 * t4827;
-    let t4829 = t4811 - t4815 + t4688 + t4711 - t4714 - t4718 - t4818 + t4820 - t4822 + t4824 + t4826 - t4828;
-    let t4830 = t1333 * t428;
-    let t4831 = 60.0 * t4830;
-    let t4832 = t4778 * t87;
-    (t4827, t4828, t4829, t4830, t4831, t4832)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk604<F: Float>(t1322: F, t4607: F, t2704: F, t2718: F, t4518: F, t4521: F, t4524: F, t4529: F, t4531: F, t4533: F, t456: F, t1314: F) -> (F, F, F, F) {
+    let t4608 = t4607 * t1322;
+    let t4619 = -F::new(0.34523333333333333333e1) * t4518 + F::new(0.23015555555555555556e1) * t4521 - F::new(0.26851481481481481482e1) * t4524 - F::new(0.93932222222222222223e0) * t2704 + F::new(0.73355e-1) * t4529 - F::new(0.14671e0) * t4531 - F::new(0.17116166666666666667e0) * t4533 - F::new(0.36793333333333333333e0) * t2718;
+    let t4620 = t4619 * t456;
+    let t4623 = t1314 * t1322;
+    (t4608, t4619, t4620, t4623)
 }

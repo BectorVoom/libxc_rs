@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 1110/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 1110/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1110<F: Float>(t3974: F, t3990: F, t53592: F, t8939: F, t14602: F, t51666: F, t3959: F, t9704: F, t3965: F, t9323: F, t14460: F, t4414: F, t1192: F, t13911: F, t19631: F, t22379: F, t2408: F, t2409: F, t3066: F, t3067: F, t4155: F, t51524: F, t53572: F, t53578: F, t53579: F, t53581: F, t53584: F, t53585: F, t9688: F) -> (F,) {
-    let t53595 = t53592 * t3990 * t3974 * t8939;
-    let t53597 = t51666 * t14602;
-    let t53598 = 7.0 / 576.0 * t53597;
-    let t53599 = t3959 * t9704;
-    let t53601 = t3965 * t9323;
-    let t53610 = 7.0 / 72.0 * t4414 * t14460;
-    let t53613 = -t53572 / 24.0 - t53578 - t53579 / 48.0 - t53581 / 48.0 - t53584 + 35.0 / 216.0 * t53585 + t2408 * t2409 * t19631 * t4155 / 48.0 - 5.0 / 128.0 * t53595 - t53598 + t53599 / 24.0 + t53601 / 48.0 + t3066 * t2409 * t3067 * t1192 * t9688 / 48.0 - 7.0 / 144.0 * t51524 - t53610 + t22379 * t13911 / 24.0;
-    (t53613,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1110<F: Float>(t14046: F, t4029: F, t3139: F, t6178: F, t4028: F, t1184: F, t2212: F, t14004: F, t14008: F, t14012: F, t14016: F, t14018: F, t14020: F, t14026: F, t14030: F, t14032: F, t14036: F, t14038: F, t14040: F, t14043: F) -> (F, F, F) {
+    let t14047 = t14046 * t4029;
+    let t14048 = F::new(7.0) / F::new(144.0) * t14047;
+    let t14049 = t3139 * t6178;
+    let t14050 = t4028 * t14049;
+    let t14052 = t1184 * t2212;
+    let t14054 = t14004 / F::new(96.0) - t14008 / F::new(768.0) + t14012 / F::new(96.0) - t14016 / F::new(96.0) + t14018 / F::new(96.0) + t14020 / F::new(96.0) - t14026 - t14030 - t14032 / F::new(192.0) + t14036 / F::new(256.0) + t14038 / F::new(24.0) - t14040 / F::new(48.0) + t14043 + t14048 - t14050 / F::new(96.0) + t14052 / F::new(16.0);
+    (t14047, t14049, t14054)
 }

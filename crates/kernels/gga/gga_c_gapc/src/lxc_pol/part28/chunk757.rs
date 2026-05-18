@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 28 (v4rho2sigma2_7) CSE chunk 757/1213 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 28 (v4rho2sigma2_7) CSE chunk 757/1429 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk757<F: Float>(t871: F, t903: F, t2526: F, t9430: F, t9433: F, t9436: F, t9440: F, t9442: F, t9445: F, t9447: F, t9449: F, t9451: F, t9455: F, t9457: F, t9461: F, t2505: F, t904: F) -> (F, F, F) {
-    let t9463 = t871 * t903;
-    let t9464 = t9463 * t2526;
-    let t9466 = -0.27801896084645508334e-2 * t9430 + 0.12163329537032409896e-2 * t9433 - 0.42270452978984302532e-6 * t9436 - 0.14480154210752868924e-5 * t9440 + 0.17376185052903442709e-3 * t9442 + 0.687148483626368822e-6 * t9445 - 0.2318836277704281739e-4 * t9447 + 0.16908181191593721013e-4 * t9449 - 0.33816362383187442026e-4 * t9451 + 0.1374296967252737644e-6 * t9455 - 0.18326250058315256483e-6 * t9457 - 0.45775879823985672486e-6 * t9461 - 0.12357942809624928455e-3 * t9464;
-    let t9468 = t904 * t2505;
-    (t9464, t9466, t9468)
+pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk757<F: Float>(t3949: F, t8676: F, t8674: F, t5462: F, t8673: F, t3954: F, t154: F, t125: F, t1736: F, t190: F, t1649: F, t1026: F, t1754: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t8677 = t8676 * t3949;
+    let t8678 = t8674 * t8677;
+    let t8680 = t5462 * t8673;
+    let t8681 = t8676 * t3954;
+    let t8682 = t8680 * t8681;
+    let t8684 = t5462 * t154;
+    let t8685 = t1736 * t125;
+    let t8686 = t8685 * t190;
+    let t8687 = t8686 * t1649;
+    let t8688 = t8684 * t8687;
+    let t8690 = t1754 * t1026;
+    (t8677, t8678, t8681, t8682, t8684, t8685, t8686, t8687, t8688, t8690)
 }

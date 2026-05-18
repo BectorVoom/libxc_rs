@@ -34,12 +34,12 @@ pub fn gga_x_lb_fxc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
+        let t4 = pow_1_3::<f64>(1.0 / M_PI);
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
         let t9 = param_alpha * t1 * t4 * t6 / 2.0;
         let t10 = f64::sqrt(sigma0);
-        let t11 = pow_1_3(rho0);
+        let t11 = pow_1_3::<f64>(rho0);
         let t13 = 1.0 / t11 / rho0;
         let t14 = t10 * t13;
         let t15 = t14 < 300.0;
@@ -55,12 +55,12 @@ pub fn gga_x_lb_fxc_pol(
         let t29 = 1.0 / t28;
         let t33 = f64::ln(2.0 * t23);
         let t34 = 1.0 / t33;
-        let t37 = piecewise3(t15, t16 * t20 * t29, t14 * t34 / 3.0);
+        let t37 = piecewise3::<f64>(t15, t16 * t20 * t29, t14 * t34 / 3.0);
         let t38 = -t9 - t37;
         let tvrho0 = t38 * t11;
         vrho[ip * 2] += tvrho0;
         let t39 = f64::sqrt(sigma2);
-        let t40 = pow_1_3(rho1);
+        let t40 = pow_1_3::<f64>(rho1);
         let t42 = 1.0 / t40 / rho1;
         let t43 = t39 * t42;
         let t44 = t43 < 300.0;
@@ -76,7 +76,7 @@ pub fn gga_x_lb_fxc_pol(
         let t58 = 1.0 / t57;
         let t62 = f64::ln(2.0 * t52);
         let t63 = 1.0 / t62;
-        let t66 = piecewise3(t44, t45 * t49 * t58, t43 * t63 / 3.0);
+        let t66 = piecewise3::<f64>(t44, t45 * t49 * t58, t43 * t63 / 3.0);
         let t67 = -t9 - t66;
         let tvrho1 = t67 * t40;
         vrho[ip * 2 + 1] += tvrho1;
@@ -96,7 +96,7 @@ pub fn gga_x_lb_fxc_pol(
         let t95 = t10 * t78;
         let t97 = t33 * t33;
         let t98 = 1.0 / t97;
-        let t102 = piecewise3(t15, -8.0 / 3.0 * t16 * t70 * t29 - t16 * t76 * t91, -4.0 / 9.0 * t95 * t34 + 4.0 / 9.0 * t95 * t98);
+        let t102 = piecewise3::<f64>(t15, -8.0 / 3.0 * t16 * t70 * t29 - t16 * t76 * t91, -4.0 / 9.0 * t95 * t34 + 4.0 / 9.0 * t95 * t98);
         let t104 = 1.0 / t18;
         let tv2rho20 = -t102 * t11 + t38 * t104 / 3.0;
         v2rho2[ip * 3] += tv2rho20;
@@ -117,7 +117,7 @@ pub fn gga_x_lb_fxc_pol(
         let t133 = t39 * t117;
         let t135 = t62 * t62;
         let t136 = 1.0 / t135;
-        let t140 = piecewise3(t44, -8.0 / 3.0 * t45 * t109 * t58 - t45 * t115 * t129, 4.0 / 9.0 * t133 * t136 - 4.0 / 9.0 * t133 * t63);
+        let t140 = piecewise3::<f64>(t44, -8.0 / 3.0 * t45 * t109 * t58 - t45 * t115 * t129, 4.0 / 9.0 * t133 * t136 - 4.0 / 9.0 * t133 * t63);
         let t142 = 1.0 / t47;
         let tv2rho22 = -t140 * t40 + t67 * t142 / 3.0;
         v2rho2[ip * 3 + 2] += tv2rho22;
@@ -127,7 +127,7 @@ pub fn gga_x_lb_fxc_pol(
         let t150 = param_gamma * t87;
         let t153 = 3.0 / 2.0 * t145 * t150 + 3.0 / 2.0 * t148 * t25;
         let t157 = t147 * t13;
-        let t162 = piecewise3(t15, -t16 * t76 * t153 + t145 * t29, t157 * t34 / 6.0 - t157 * t98 / 6.0);
+        let t162 = piecewise3::<f64>(t15, -t16 * t76 * t153 + t145 * t29, t157 * t34 / 6.0 - t157 * t98 / 6.0);
         let tv2rhosigma0 = -t162 * t11;
         v2rhosigma[ip * 6] += tv2rhosigma0;
         let tv2rhosigma1 = 0.0;
@@ -144,7 +144,7 @@ pub fn gga_x_lb_fxc_pol(
         let t169 = param_gamma * t125;
         let t172 = 3.0 / 2.0 * t164 * t169 + 3.0 / 2.0 * t167 * t54;
         let t176 = t166 * t42;
-        let t181 = piecewise3(t44, -t45 * t115 * t172 + t164 * t58, -t176 * t136 / 6.0 + t176 * t63 / 6.0);
+        let t181 = piecewise3::<f64>(t44, -t45 * t115 * t172 + t164 * t58, -t176 * t136 / 6.0 + t176 * t63 / 6.0);
         let tv2rhosigma5 = -t181 * t40;
         v2rhosigma[ip * 6 + 5] += tv2rhosigma5;
     }

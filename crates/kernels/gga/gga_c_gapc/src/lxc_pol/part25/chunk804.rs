@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 25 (v4rho2sigma2_4) CSE chunk 804/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 25 (v4rho2sigma2_4) CSE chunk 804/1444 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk804<F: Float>(t462: F, t762: F, t3193: F, t126: F, t818: F, t787: F, t3187: F, t297: F, t3727: F, t7371: F, t771: F, t2316: F, t3188: F, t284: F, t2902: F, t3216: F) -> (F, F, F, F, F, F) {
-    let t10139 = t462 * t762;
-    let t10140 = t10139 * t3193;
-    let t10142 = t126 * t818;
-    let t10143 = t10142 * t787;
-    let t10144 = t3187 * t10143;
-    let t10146 = t3727 * t297;
-    let t10147 = t10146 * t7371;
-    let t10148 = t771 * t10147;
-    let t10150 = t3188 * t2316;
-    let t10151 = t284 * t10150;
-    let t10153 = t2902 * t3216;
-    (t10140, t10142, t10144, t10148, t10151, t10153)
+pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk804<F: Float>(t1022: F, t9209: F, t9174: F, t9177: F, t9182: F, t9186: F, t9188: F, t9190: F, t9192: F, t9195: F, t9198: F, t9201: F, t9205: F, t9207: F) -> (F, F) {
+    let t9210 = t1022 * t9209;
+    let t9212 = -F::new(0.69504740211613770836e-4) * t9174 - F::new(0.69504740211613770836e-4) * t9177 + F::new(0.10005749997240850276e-8) * t9182 + F::new(0.2085142206348413125e-3) * t9186 - F::new(0.2318836277704281739e-4) * t9188 + F::new(0.4637672555408563478e-4) * t9190 + F::new(0.2318836277704281739e-4) * t9192 + F::new(0.38647271295071362318e-6) * t9195 - F::new(0.687148483626368822e-6) * t9198 + F::new(0.86880925264517213544e-4) * t9201 - F::new(0.14480154210752868924e-5) * t9205 + F::new(0.17376185052903442709e-3) * t9207 + F::new(0.17376185052903442709e-3) * t9210;
+    (t9210, t9212)
 }

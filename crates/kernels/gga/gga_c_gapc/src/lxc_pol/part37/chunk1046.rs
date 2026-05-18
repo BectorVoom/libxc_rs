@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1046/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1046/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1046<F: Float>(t1734: F, t24759: F, t1084: F, t29654: F, t15680: F, t26312: F, t3402: F, t11966: F, t28346: F, t189: F, t1899: F, t15508: F, t90: F, t18680: F, t277: F, t327: F) -> (F, F, F, F, F, F, F) {
-    let t34186 = t1734 * t24759;
-    let t34188 = t1084 * t34186 * t29654;
-    let t34191 = t3402 * t26312 * t15680;
-    let t34193 = t11966 * t28346;
-    let t34195 = t189 * t1899;
-    let t34197 = t15508 * t90;
-    let t34200 = t277 * t34195 * t34197 * t327 * t18680;
-    (t34186, t34188, t34191, t34193, t34195, t34197, t34200)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1046<F: Float>(t12058: F, t1616: F, t11314: F, t11318: F, t11323: F, t11327: F, t11334: F, t11337: F, t11339: F, t11345: F, t11348: F, t11351: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t12059 = t1616 * t12058;
+    let t12060 = F::new(2.0) * t12059;
+    let t12068 = F::new(0.34752370105806885418e-3) * t11314;
+    let t12069 = F::new(0.34752370105806885418e-3) * t11318;
+    let t12070 = F::new(0.51491428373437201895e-5) * t11323;
+    let t12071 = F::new(0.70344136651018351213e-8) * t11327;
+    let t12073 = F::new(0.25340269868817520617e-3) * t11334;
+    let t12074 = F::new(0.25301920572916666668e-5) * t11337;
+    let t12075 = F::new(0.40483072916666666669e-4) * t11339;
+    let t12076 = F::new(0.24458523220486111112e-4) * t11345;
+    let t12077 = F::new(0.34752370105806885418e-3) * t11348;
+    let t12078 = F::new(0.40483072916666666669e-4) * t11351;
+    (t12059, t12060, t12068, t12069, t12070, t12071, t12073, t12074, t12075, t12076, t12077, t12078)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 1203/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 1203/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1203<F: Float>(t3067: F, t8693: F, t8751: F, t1102: F, t2917: F, t8749: F, t8791: F, t3012: F, t8688: F, t2994: F, t8686: F, t241: F, t8868: F, t1104: F, t8558: F, t8565: F) -> (F, F, F, F, F, F) {
-    let t26457 = 0.2077890707925103596e3 * t3067 * t8693;
-    let t26459 = 0.4155781415850207192e3 * t3067 * t8751;
-    let t26463 = 0.62336721237753107879e3 * t1102 * t8749 * t2917 * t8791;
-    let t26464 = t3012 * t8688;
-    let t26467 = 0.3103500882342370105e4 * t8686 * t26464 * t2994;
-    let t26468 = t241 * t8868;
-    let t26470 = 0.23392893589820816284e1 * t26468 * t1104;
-    let t26472 = 24.0 * t8558 * t8565;
-    (t26457, t26459, t26463, t26467, t26470, t26472)
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1203<F: Float>(t23622: F, t23624: F, t23626: F, t23630: F, t23633: F, t23635: F, t23637: F, t23640: F, t23644: F, t23647: F, t23651: F, t23653: F, t23655: F, t23914: F) -> F {
+    let t24855 = -F::new(0.91817777777777777776e0) * t23622 + F::new(0.68863333333333333332e0) * t23624 + F::new(0.76514814814814814814e0) * t23626 - F::new(0.15302962962962962963e1) * t23630 - F::new(0.516475e0) * t23633 + F::new(0.21424148148148148148e1) * t23635 - F::new(0.27545333333333333333e1) * t23637 + F::new(0.68863333333333333334e1) * t23640 + F::new(0.309885e1) * t23644 + F::new(0.250068e1) * t23647 + F::new(0.62517e0) * t23651 - F::new(0.6618234375e1) * t23914 - F::new(0.41318e1) * t23653 + F::new(0.13772666666666666666e1) * t23655;
+    t24855
 }

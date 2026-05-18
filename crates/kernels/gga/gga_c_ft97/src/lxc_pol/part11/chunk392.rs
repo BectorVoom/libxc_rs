@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 392/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 392/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk392<F: Float>(t2142: F, t609: F, t144: F, t1956: F, t1959: F, t1962: F, t1967: F, t1972: F, t1977: F, t1981: F, t1989: F, t2078: F, t2089: F, t2122: F) -> (F, F, F) {
-    let t2143 = t2142 * t609;
-    let t2144 = t144 * t2143;
-    let t2149 = 4.0 / 9.0 * t1956;
-    let t2157 = -t2089 / 4.0 + t2122 / 2.0 + t2149 + 2.0 / 9.0 * t1959 + 2.0 / 3.0 * t1962 - 2.0 / 9.0 * t1967 + 2.0 / 3.0 * t1972 + 2.0 / 3.0 * t1977 - t1981 / 3.0 + 2.0 * t1989 - t2078;
-    (t2143, t2144, t2157)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk392<F: Float>(t2080: F, t515: F, t152: F, t153: F, t590: F, t91: F, t151: F, t1771: F, t1775: F, t583: F, t458: F, t588: F) -> (F, F, F, F, F, F, F) {
+    let t2081 = t515 * t2080;
+    let t2086 = F::new(1.0) / t153 / t152;
+    let t2087 = t590 * t590;
+    let t2089 = t91 * t2086 * t2087;
+    let t2092 = F::new(4.0) / F::new(9.0) * t1771 * t151;
+    let t2093 = t1775 * t583;
+    let t2095 = t458 * t588;
+    (t2081, t2086, t2087, t2089, t2092, t2093, t2095)
 }

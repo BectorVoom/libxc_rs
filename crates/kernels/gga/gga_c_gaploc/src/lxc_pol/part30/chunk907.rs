@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 907/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 907/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk907<F: Float>(t10677: F, t550: F, t1843: F, t10627: F, t688: F, t779: F, t2508: F, t296: F, t3431: F, t123: F, t734: F, t2554: F, t2932: F, t7064: F, t5539: F, t8769: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t10678 = t550 * t10677;
-    let t10679 = t1843 * t10678;
-    let t10682 = t10627 * t688;
-    let t10683 = t779 * t10682;
-    let t10685 = 0.76905262301422242837e-2 * t2508 * t10683;
-    let t10686 = t296 * t3431;
-    let t10687 = t10686 * t123;
-    let t10688 = t10687 * t734;
-    let t10691 = t2932 * t2554;
-    let t10692 = t7064 * t10691;
-    let t10693 = 0.32043859292259267849e-3 * t10692;
-    let t10694 = t5539 * t8769;
-    (t10678, t10679, t10682, t10683, t10685, t10686, t10688, t10691, t10693, t10694)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk907<F: Float>(t2326: F, t900: F, t9561: F, t1407: F, t3178: F, t3163: F, t4379: F, t2293: F, t2366: F, t2365: F, t1429: F, t6696: F, t901: F) -> (F, F, F, F, F, F, F, F) {
+    let t9562 = t900 * t2326;
+    let t9564 = F::new(0.89376224879626066674e-1) * t9561 * t9562;
+    let t9568 = t1407 * t3178;
+    let t9569 = F::new(0.38342925953920749676e0) * t9568;
+    let t9571 = F::new(0.29792074959875355558e-1) * t4379 * t3163;
+    let t9572 = t2366 * t2293;
+    let t9573 = t2365 * t9572;
+    let t9575 = F::new(0.29792074959875355558e-1) * t1429 * t9573;
+    let t9577 = F::new(0.29792074959875355558e-1) * t6696 * t901;
+    (t9562, t9564, t9569, t9571, t9572, t9573, t9575, t9577)
 }

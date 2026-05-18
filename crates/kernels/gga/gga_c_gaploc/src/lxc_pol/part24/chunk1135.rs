@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1135/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1135/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1135<F: Float>(t1457: F, t2634: F, t32969: F, t28242: F, t28245: F, t11109: F, t22315: F, t11001: F, t1445: F, t2061: F, t2070: F, t2201: F, t28249: F, t28259: F, t32387: F, t32951: F, t32953: F, t32955: F, t32958: F, t32960: F, t32963: F, t32968: F) -> (F, F) {
-    let t32970 = t1457 * t2634;
-    let t32972 = 0.50050685932590597338e1 * t32969 * t32970;
-    let t32973 = 0.25561950635947166452e0 * t28242;
-    let t32974 = 0.25561950635947166452e0 * t28245;
-    let t32978 = t22315 * t11109;
-    let t32979 = 0.38342925953920749676e0 * t32978;
-    let t32980 = -t32951 + t32953 + t32955 - t32958 - t32960 + t32963 + 0.71500979903700853338e0 * t2070 * t11001 + 0.35750489951850426669e0 * t2061 * t11001 - t32968 - t32972 - t32973 + t32974 - t28249 - t28259 - 0.46011511144704899612e1 * t2201 * t1445 * t32387 - t32979;
-    (t32970, t32980)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1135<F: Float>(t4260: F, t883: F, t6490: F, t6525: F, t1436: F, t9544: F, t1538: F, t20395: F, t6583: F, t20481: F, t21414: F, t123: F, t6393: F) -> (F, F, F, F, F, F) {
+    let t30204 = t4260 * t883;
+    let t30207 = F::new(0.94850022118920498664e-2) * t6525 * t30204 * t6490;
+    let t30246 = t1436 * t9544;
+    let t30247 = F::new(0.1022478025437886658e1) * t30246;
+    let t30250 = t6583 * t1538 * t883 * t20395;
+    let t30251 = F::new(0.76685851907841499352e0) * t30250;
+    let t30253 = F::new(0.59584149919750711116e-1) * t20481 * t21414;
+    let t30258 = t6393 * t123 * t883;
+    (t30204, t30207, t30247, t30251, t30253, t30258)
 }

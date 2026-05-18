@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 710/1126 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 710/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk710<F: Float>(t3123: F, t8888: F, t9009: F, t9011: F, t9014: F, t9017: F, t9021: F, t9024: F, t9027: F, t9032: F, t9034: F, t9036: F, t9038: F, t9042: F, t1448: F, t3116: F) -> (F, F) {
-    let t9044 = t8888 * t3123;
-    let t9046 = -0.12357942809624928455e-3 * t9009 - 0.18326250058315256483e-6 * t9011 - 0.27801896084645508334e-2 * t9014 + 0.75883739738679928911e-6 * t9017 - 0.13492128925537291361e-5 * t9021 - 0.7588373973867992891e-7 * t9024 + 0.13492128925537291361e-6 * t9027 + 0.7324140771837707598e-5 * t9032 - 0.2318836277704281739e-4 * t9034 + 0.56360603971979070047e-7 * t9036 - 0.10020915386217878654e-6 * t9038 + 0.56275309320814680968e-8 * t9042 + 0.5627530932081468097e-7 * t9044;
-    let t9047 = t1448 * t3116;
-    (t9046, t9047)
+pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk710<F: Float>(t1574: F, t2938: F, t8369: F, t8371: F, t8374: F, t8377: F, t8382: F, t8385: F, t8388: F, t8391: F, t8397: F, t8401: F) -> F {
+    let t8403 = t1574 * t2938;
+    let t8405 = F::new(0.3475929712541504153e-2) * t8369 + F::new(0.3475929712541504153e-2) * t8371 + F::new(0.20855578275249024918e-2) * t8374 - F::new(0.43449121406768801912e-5) * t8377 + F::new(0.257508459537449766e-6) * t8382 - F::new(0.772525378612349298e-5) * t8385 - F::new(0.10427789137624512459e-2) * t8388 - F::new(0.6951859425083008306e-4) * t8391 + F::new(0.73256006569213709438e-5) * t8397 + F::new(0.43449121406768801912e-4) * t8401 - F::new(0.27517776890953574544e-3) * t8403;
+    t8405
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 499/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 499/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk499<F: Float>(t10351: F, t6716: F, t10314: F, t6711: F, t6710: F, t2859: F, t9333: F, t3410: F, t4614: F, t1562: F, t3411: F, t4953: F, t8097: F, t874: F, t1445: F, t1641: F, t3391: F) -> (F, F, F, F, F, F, F) {
-    let t10353 = 0.69017266717057349418e1 * t6716 * t10351;
-    let t10354 = t6711 * t10314;
-    let t10356 = 0.11502877786176224903e2 * t6710 * t10354;
-    let t10358 = 0.10725146985555128001e1 * t2859 * t9333;
-    let t10359 = t4614 * t3410;
-    let t10361 = 0.92023022289409799224e1 * t1562 * t10359;
-    let t10363 = 0.69017266717057349418e1 * t4953 * t3411;
-    let t10364 = t8097 * t874;
-    let t10365 = t1445 * t10364;
-    let t10367 = 0.69017266717057349418e1 * t1562 * t10365;
-    let t10369 = 0.46011511144704899612e1 * t1641 * t3391;
-    (t10353, t10356, t10358, t10361, t10363, t10367, t10369)
+pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk499<F: Float>(t9285: F, t9287: F, t2365: F, t6520: F, t7025: F, t1415: F, t2371: F, t7030: F, t1645: F, t2349: F, t9182: F, t3196: F, t7014: F) -> (F, F, F, F, F, F, F) {
+    let t9289 = F::new(0.29792074959875355558e-1) * t9285 * t9287;
+    let t9294 = t2365 * t6520;
+    let t9296 = F::new(0.29792074959875355558e-1) * t7025 * t9294;
+    let t9305 = t1415 * t2371;
+    let t9307 = F::new(0.29792074959875355558e-1) * t9305 * t7030;
+    let t9333 = t1645 * t2349;
+    let t9343 = t1645 * t9182;
+    let t9362 = t7014 * t3196;
+    (t9289, t9294, t9296, t9307, t9333, t9343, t9362)
 }

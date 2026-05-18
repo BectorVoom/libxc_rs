@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1178/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1178/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1178<F: Float>(t34888: F, t1339: F, t3394: F, t6578: F, t6583: F, t31065: F, t10144: F, t1572: F, t4673: F, t10455: F, t4950: F, t10140: F, t10348: F, t8155: F, t31770: F, t6824: F) -> (F, F, F, F, F, F, F, F) {
-    let t34889 = 0.76685851907841499352e0 * t34888;
-    let t34890 = t1339 * t3394;
-    let t34892 = t6583 * t34890 * t6578;
-    let t34893 = 0.19171462976960374838e1 * t34892;
-    let t34894 = 0.31952438294933958064e-1 * t31065;
-    let t34897 = 0.95334639871601137784e0 * t1572 * t4673 * t10144;
-    let t34900 = 0.95334639871601137784e0 * t4950 * t10455;
-    let t34903 = 0.95334639871601137784e0 * t1572 * t4673 * t10140;
-    let t34905 = 0.14300195980740170668e1 * t8155 * t10348;
-    let t34910 = 0.95334639871601137784e0 * t6824 * t31770;
-    (t34889, t34893, t34894, t34897, t34900, t34903, t34905, t34910)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1178<F: Float>(t31889: F, t2268: F, t6320: F, t6509: F, t8097: F, t20117: F, t2854: F, t10246: F, t6313: F, t123: F, t25760: F, t2326: F, t9074: F) -> (F, F, F, F, F) {
+    let t31890 = F::new(0.11856252764865062333e-2) * t31889;
+    let t31894 = F::new(0.34146007962811379518e0) * t2268 * t6320 * t8097 * t6509;
+    let t31898 = F::new(0.34146007962811379518e0) * t2268 * t6320 * t2854 * t20117;
+    let t31900 = F::new(0.53116012386595479252e0) * t6313 * t10246;
+    let t31903 = t25760 * t123;
+    let t31905 = t9074 * t31903 * t2326;
+    (t31890, t31894, t31898, t31900, t31905)
 }

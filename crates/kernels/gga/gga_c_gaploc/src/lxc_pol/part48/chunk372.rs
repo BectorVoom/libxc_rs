@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 372/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 372/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk372<F: Float>(t3025: F, t3470: F, t1022: F, t2610: F, t2365: F, t2033: F, t1457: F, t3447: F, t2103: F, t3451: F, t531: F, t2949: F, t935: F, t1445: F, t813: F, t123: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3472 = 0.10725146985555128001e1 * t3025 * t3470;
-    let t3473 = t2610 * t1022;
-    let t3474 = t2365 * t3473;
-    let t3475 = t2033 * t3474;
-    let t3476 = 0.14896037479937677779e-1 * t3475;
-    let t3477 = t1457 * t3447;
-    let t3479 = 0.71500979903700853338e0 * t2103 * t3477;
-    let t3480 = t531 * t3451;
-    let t3483 = t2949 * t935;
-    let t3484 = t1445 * t3483;
-    let t3486 = 0.46011511144704899612e1 * t813 * t3484;
-    let t3487 = t1022 * t123;
-    (t3472, t3473, t3474, t3475, t3476, t3477, t3479, t3480, t3483, t3484, t3486, t3487)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk372<F: Float>(t130: F, t139: F, t145: F, t459: F, t136: F, t453: F, t129: F, t1242: F, t1247: F, t1240: F, t464: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t3091 = F::new(1.0) / t130;
+    let t3092 = t3091 * t139;
+    let t3094 = t3092 * t145 * t459;
+    let t3096 = t453 * t136;
+    let t3097 = F::new(1.0) / t3096;
+    let t3098 = t129 * t3097;
+    let t3099 = t3098 * t1242;
+    let t3101 = t1247 * t129;
+    let t3102 = t3097 * t1240;
+    let t3103 = t3102 * M_PI;
+    let t3104 = t3101 * t3103;
+    let t3106 = t464 * t3091;
+    (t3091, t3092, t3094, t3096, t3097, t3098, t3099, t3101, t3102, t3103, t3104, t3106)
 }

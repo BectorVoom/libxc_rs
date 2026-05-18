@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 849/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 849/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk849<F: Float>(t12272: F, t14350: F, t44671: F, t44674: F, t44676: F, t44678: F, t44684: F, t44687: F, t44689: F, t44692: F, t44694: F, t44697: F, t44702: F, t44705: F, t49820: F, t49965: F, t49968: F, t49998: F, t50029: F, t50074: F, t50108: F, t50134: F, t50136: F, t50149: F, t50163: F, t50179: F, t50208: F, t50239: F, t50253: F, t50263: F, t50276: F, t50286: F, t50302: F, t5552: F, t748: F, t8862: F) -> (F,) {
-    let t50308 = -t44697 + t44671 + 4.0 * t5552 * t14350 + t44674 + t49820 + 4.0 * t8862 * t12272 - t44676 + t44678 + t44684 - t44687 + t44689 - t44692 + t44694 - t44702 + t44705 - t748 * (t49998 + t50029 + t50074 + t50108 + t50134 + t50136 + t50149 + t50163 + t50179 + t50208 + t50239 + t50253 + t50263 + t50276 + t50286 + t50302) - t49965 - t49968;
-    (t50308,)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk849<F: Float>(t45108: F, t13548: F, t731: F, t11832: F, t22090: F, t2508: F, t7291: F, t11969: F, t2592: F, t10301: F, t8045: F, t11714: F, t7324: F) -> (F, F, F, F, F, F) {
+    let t45109 = F::new(0.32043859292259267849e-3) * t45108;
+    let t45110 = t731 * t13548;
+    let t45111 = F::new(0.42725145723012357132e-3) * t45110;
+    let t45115 = F::new(0.1845726295234133828e0) * t2508 * t22090 * t11832 * t7291;
+    let t45124 = t2592 * t11969;
+    let t45134 = F::new(4.0) * t8045 * t10301;
+    let t45141 = F::new(4.0) * t7324 * t11714;
+    (t45109, t45111, t45115, t45124, t45134, t45141)
 }

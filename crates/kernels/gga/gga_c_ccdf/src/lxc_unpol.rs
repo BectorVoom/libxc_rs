@@ -39,7 +39,7 @@ pub fn gga_c_ccdf_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = pow_1_3(rho[ip]);
+        let t1 = pow_1_3::<f64>(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = param_c2 * t2 + 1.0;
         let t5 = 1.0 / t4;
@@ -49,7 +49,7 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t9 = t8 * t8;
         let t10 = t7 * t9;
         let t11 = M_PI * M_PI;
-        let t12 = pow_1_3(t11);
+        let t12 = pow_1_3::<f64>(t11);
         let t13 = 1.0 / t12;
         let t14 = f64::sqrt(sigma[ip]);
         let t15 = t13 * t14;

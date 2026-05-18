@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 705/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 705/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk705<F: Float>(t13772: F, t13785: F, t13804: F, t13834: F, t502: F, t3749: F, t977: F, t1960: F, t2592: F, t123: F, t3720: F, t883: F, t2685: F, t2684: F, t969: F, t825: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t13836 = t13772 + t13785 + t13804 + t13834;
-    let t13837 = t502 * t13836;
-    let t13838 = t3749 * t977;
-    let t13839 = t1960 * t13838;
-    let t13841 = t2592 * t3749;
-    let t13846 = t3720 * t123;
-    let t13847 = t13846 * t883;
-    let t13848 = t2685 * t13847;
-    let t13849 = t2684 * t13848;
-    let t13851 = t969 * t13847;
-    let t13852 = t825 * t13851;
-    (t13836, t13837, t13838, t13839, t13841, t13846, t13847, t13848, t13849, t13851, t13852)
+pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk705<F: Float>(t11997: F, t11998: F, t12011: F, t12028: F, t3699: F, t501: F, t3718: F, t605: F, t12007: F, t549: F, t10309: F, t10313: F, t10317: F, t10321: F, t10323: F, t10326: F, t10329: F, t1429: F, t9265: F, t9270: F, t9276: F, t9280: F, t9289: F, t9296: F, t9307: F) -> (F, F, F, F) {
+    let t12030 = t11997 + t11998 + t12011 + t12028;
+    let t12032 = t3699 * t501;
+    let t12035 = t3718 * t605;
+    let t12038 = t549 * t12007;
+    let t12043 = F::new(0.39722766613167140743e-1) * t1429 * t12038 - F::new(0.76685851907841499354e0) * t9265 + t9270 - t9276 - t10309 - t10313 - t10317 - t10321 + t10323 - F::new(0.38342925953920749677e0) * t9280 + t9289 + t9296 - t9307 - t10326 + t10329;
+    (t12030, t12032, t12035, t12043)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 27 (v4rho2sigma2_6) CSE chunk 994/1128 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 27 (v4rho2sigma2_6) CSE chunk 994/1310 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part27_v4rho2sigma2_6_chunk994<F: Float>(t11808: F, t30187: F, t3131: F, t5658: F, t1084: F, t29568: F, t11781: F, t3368: F, t34036: F, t34038: F, t34043: F, t34046: F, t34048: F, t34050: F, t34052: F, t34054: F) -> (F, F) {
-    let t34056 = t11808 * t30187;
-    let t34058 = t3131 * t5658;
-    let t34060 = t1084 * t34058 * t29568;
-    let t34062 = t11781 * t3368;
-    let t34064 = -0.58333107277199074076e-4 * t34036 + 0.57970906942607043474e-5 * t34038 - 0.3077456993052877797e-8 * t34043 - 0.15387284965264388985e-8 * t34046 + 0.99443481748595550042e-7 * t34048 - 0.10316808205282028424e-4 * t34050 + 0.1600868508130162607e-6 * t34052 + 0.14302847739140993952e-5 * t34054 + 0.70341874126922921073e-8 * t34056 + 0.23286599093046454432e-9 * t34060 + 0.24760339692676868218e-5 * t34062;
-    (t34058, t34064)
+pub fn gga_c_gapc_lxc_pol_part27_v4rho2sigma2_6_chunk994<F: Float>(t11789: F, t11860: F, t11921: F, t12000: F, t10099: F, t1096: F, t11706: F, t11708: F, t11718: F, t11721: F, t11725: F, t2464: F, t2469: F, t3265: F, t3268: F, t338: F, t3449: F, t3746: F, t3795: F, t7056: F, t7063: F, t884: F, t9375: F, t972: F) -> (F, F) {
+    let t12002 = t11789 + t11860 + t11921 + t12000;
+    let t12004 = F::new(4.0) * t10099 * t3268 - F::new(2.0) * t1096 * t9375 + t11706 * t338 - t11708 * t972 - F::new(6.0) * t11718 * t7063 + F::new(4.0) * t11721 * t2469 + F::new(2.0) * t11725 * t2469 - t12002 * t884 - t2464 * t3795 - F::new(2.0) * t3265 * t3449 + F::new(2.0) * t3746 * t7056;
+    (t12002, t12004)
 }

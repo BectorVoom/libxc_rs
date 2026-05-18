@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 849/1126 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 849/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk849<F: Float>(t11513: F, t1743: F, t1749: F, t190: F, t632: F, t11449: F, t11451: F, t5117: F, t1: F, t8820: F) -> (F, F, F, F, F, F, F) {
-    let t11514 = t1743 * t11513;
-    let t11515 = t11514 * t1749;
-    let t11517 = t632 * t190;
-    let t11518 = t11517 * t11449;
-    let t11519 = t11451 * t5117;
-    let t11520 = t11518 * t11519;
-    let t11522 = t8820 * t1;
-    (t11514, t11515, t11517, t11518, t11519, t11520, t11522)
+pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk849<F: Float>(t2660: F, t2767: F, t8639: F, t1081: F, t2807: F, t2752: F, t2685: F, t3357: F, t3360: F, t9857: F, t9860: F, t9866: F, t9869: F, t9872: F, t9874: F, t9876: F, t9878: F) -> F {
+    let t9881 = t2660 * t8639 * t2767;
+    let t9883 = t1081 * t2807;
+    let t9885 = t1081 * t2752;
+    let t9887 = t3357 * t2685;
+    let t9889 = t3360 * t2685;
+    let t9891 = -F::new(0.17376185052903442709e-3) * t9857 + F::new(0.25745714186718600948e-5) * t9860 + F::new(0.49239311888846044752e-7) * t9866 + F::new(0.17376185052903442709e-3) * t9869 + F::new(0.86880925264517213544e-4) * t9872 + F::new(0.2318836277704281739e-4) * t9874 - F::new(0.15176747947735985782e-6) * t9876 + F::new(0.26984257851074582721e-6) * t9878 - F::new(0.23248749138441366393e-5) * t9881 + F::new(0.21642471925239962898e-3) * t9883 - F::new(0.21642471925239962898e-3) * t9885 - F::new(0.20611878024038059902e-5) * t9887 + F::new(0.36647919126739670507e-5) * t9889;
+    t9891
 }

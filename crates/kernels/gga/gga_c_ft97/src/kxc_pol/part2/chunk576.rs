@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 576/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 576/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk576<F: Float>(t26: F, t7943: F, t1771: F, t380: F, t1644: F, t458: F, t1648: F, t1652: F, t17: F, t7760: F, t1594: F, t7858: F, t62: F, t66: F, t1613: F, t77: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t7944 = t26 * t7943;
-    let t7945 = 28.0 / 27.0 * t7944;
-    let t7946 = t1771 * t380;
-    let t7948 = t458 * t1644;
-    let t7950 = t458 * t1648;
-    let t7952 = t458 * t1652;
-    let t7954 = t17 * t7760;
-    let t7982 = t1594 * t7858;
-    let t7983 = t62 * t66;
-    let t7998 = t77 * t1613;
-    (t7944, t7945, t7946, t7948, t7950, t7952, t7954, t7982, t7983, t7998)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk576<F: Float>(t3817: F, t695: F, t1417: F, t224: F, t2387: F, t3723: F, t3726: F, t3730: F, t3734: F, t3752: F, t3755: F, t3759: F, t3760: F, t3762: F, t3766: F, t3768: F, t3774: F, t3777: F, t3782: F, t3786: F, t3789: F, t3791: F, t678: F) -> F {
+    let t3818 = t695 * t3817;
+    let t3820 = F::new(0.67598802253579164263e-4) * t3723 * t3726 + F::new(0.11627450473218896e-1) * t2387 * t3730 + F::new(0.23254900946437792e-2) * t678 * t3734 - F::new(0.11627450473218896e-1) * t678 * t3752 + F::new(0.19365723406274399941e-3) * t678 * t3755 - F::new(0.23254900946437792e-1) * t3759 * t3760 * t3762 - F::new(2.0) * t3766 * t3768 - F::new(0.68920324918704953981e-4) * t3774 * t3777 - F::new(0.59273806478425129876e-2) * t1417 * t3782 + F::new(0.11627450473218896e-1) * t2387 * t3786 + F::new(2.0) * t3789 * t3791 - t224 * t3818;
+    t3820
 }

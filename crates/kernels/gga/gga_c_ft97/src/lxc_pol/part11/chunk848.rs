@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 848/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 848/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk848<F: Float>(t12137: F, t1643: F, t2258: F, t2259: F, t2265: F, t2266: F, t2282: F, t2294: F, t358: F, t3613: F, t3621: F, t363: F, t37264: F, t37269: F, t37311: F, t37362: F, t39483: F, t39485: F, t39487: F, t39495: F, t39514: F, t39524: F, t39550: F, t39568: F, t631: F, t637: F, t639: F, t643: F, t7955: F, t7959: F, t7973: F, t8618: F, t8619: F, t8654: F) -> (F,) {
-    let t39574 = 8.0 / 9.0 * t39483 - 8.0 * t39485 - 16.0 / 27.0 * t2265 * t39487 * t7955 * t643 + 4.0 / 9.0 * t2265 * t12137 * t37311 + 2.0 * t2265 * t39495 * t1643 * t2282 + 8.0 / 3.0 * t2265 * t8654 * t7959 * t643 - 4.0 / 3.0 * t2265 * t2266 * t7973 * t643 - 4.0 / 3.0 * t2265 * t3621 * t37264 + 2.0 / 9.0 * t2265 * t3613 * t37269 - 16.0 * t2265 * t39514 * t8619 * t358 * t363 + t631 * t2258 * t2259 * t37362 / 6.0 - 10.0 * t39524 + 36.0 * t631 * t637 * t8618 * t2282 * t2294 + t631 * t637 * t639 * (t39550 + t39568) / 2.0;
-    (t39574,)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk848<F: Float>(t37406: F, t82: F, t37357: F, t7761: F, t89: F, t2999: F, t433: F, t1755: F, t1587: F, t27: F, t37360: F, t37365: F, t37368: F, t37372: F, t37376: F, t37379: F, t37383: F, t37386: F, t37394: F, t37399: F, t37403: F) -> (F, F, F, F, F) {
+    let t37407 = t82 * t37406;
+    let t37410 = t89 * t7761 * t37407 * t37357;
+    let t37413 = t89 * t2999 * t433;
+    let t37414 = F::new(56.0) / F::new(81.0) * t37413;
+    let t37415 = t1755 * t1755;
+    let t37418 = t89 * t27 * t1587 * t37415;
+    let t37419 = -F::new(40.0) / F::new(243.0) * t37360 - t37365 / F::new(9.0) + F::new(4.0) / F::new(9.0) * t37368 + F::new(4.0) / F::new(3.0) * t37372 + t37376 / F::new(3.0) - F::new(8.0) / F::new(27.0) * t37379 + t37383 + t37386 - t37394 / F::new(18.0) - F::new(6.0) * t37399 + F::new(20.0) / F::new(243.0) * t37403 + F::new(20.0) / F::new(27.0) * t37410 + t37414 + t37418;
+    (t37410, t37413, t37415, t37418, t37419)
 }

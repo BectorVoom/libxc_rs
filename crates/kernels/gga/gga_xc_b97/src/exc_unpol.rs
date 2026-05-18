@@ -38,9 +38,9 @@ pub fn gga_xc_b97_exc_unpol(
     if ip < zk.len() {
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
-        let t5 = piecewise3(t3, zeta_threshold, 1.0);
-        let t6 = pow_1_3(zeta_threshold);
-        let t8 = piecewise3(t3, 1.0 / t6, 1.0);
+        let t5 = piecewise3::<f64>(t3, zeta_threshold, 1.0);
+        let t6 = pow_1_3::<f64>(zeta_threshold);
+        let t8 = piecewise3::<f64>(t3, 1.0 / t6, 1.0);
         let t9 = t8 * t8;
         let t10 = t9 * t8;
         let t14 = rho[ip] / t10 / 2.0 <= dens_threshold;
@@ -50,14 +50,14 @@ pub fn gga_xc_b97_exc_unpol(
         let t20 = t19 * t19;
         let t21 = t15 / t16 * t20;
         let t23 = t6 * zeta_threshold;
-        let t25 = piecewise3(2.0 <= zeta_threshold, t23, 2.0 * t19);
-        let t26 = pow_1_3(rho[ip]);
+        let t25 = piecewise3::<f64>(2.0 <= zeta_threshold, t23, 2.0 * t19);
+        let t26 = pow_1_3::<f64>(rho[ip]);
         let t28 = 1.0 / t8;
-        let t32 = piecewise3(t14, 0.0, -3.0 / 16.0 * t21 * t25 * t26 * t28);
+        let t32 = piecewise3::<f64>(t14, 0.0, -3.0 / 16.0 * t21 * t25 * t26 * t28);
         let t33 = 0.0 <= dens_threshold;
-        let t35 = piecewise3(0.0 <= zeta_threshold, t23, 0.0);
-        let t40 = piecewise3(t33, 0.0, -3.0 / 16.0 * t21 * t35 * t26 * t28);
-        let t44 = piecewise3(t4, 0.0, t5 * (t32 + t40) / 2.0);
+        let t35 = piecewise3::<f64>(0.0 <= zeta_threshold, t23, 0.0);
+        let t40 = piecewise3::<f64>(t33, 0.0, -3.0 / 16.0 * t21 * t35 * t26 * t28);
+        let t44 = piecewise3::<f64>(t4, 0.0, t5 * (t32 + t40) / 2.0);
         let t46 = param_c_x_1;
         let t47 = t46 * sigma[ip];
         let t48 = rho[ip] * rho[ip];
@@ -97,7 +97,7 @@ pub fn gga_xc_b97_exc_unpol(
         let t96 = param_c_x_0 + 0.4e-2 * t47 * t52 * t57 + 0.32e-4 * t63 * t71 + 0.256e-6 * t76 * t81 + 0.1024e-8 * t86 * t93;
         let t98 = 2.0 * t44 * t96;
         let t99 = 1.0 / M_PI;
-        let t100 = pow_1_3(t99);
+        let t100 = pow_1_3::<f64>(t99);
         let t101 = t15 * t100;
         let t102 = M_CBRT4;
         let t103 = t102 * t102;
@@ -106,7 +106,7 @@ pub fn gga_xc_b97_exc_unpol(
         let t108 = t104 * t105 * t19 * t8;
         let t110 = 1.0 + 0.53425e-1 * t108;
         let t111 = f64::sqrt(t108);
-        let t114 = pow_3_2(t108);
+        let t114 = pow_3_2::<f64>(t108);
         let t116 = t15 * t15;
         let t117 = t100 * t100;
         let t118 = t116 * t117;
@@ -128,7 +128,7 @@ pub fn gga_xc_b97_exc_unpol(
         let t159 = 1.0 + 0.29608574643216675549e2 / t156;
         let t160 = f64::ln(t159);
         let t161 = t151 * t160;
-        let t170 = piecewise3(t4, 0.0, t5 * (-t131 + t136 * (-0.3109e-1 * t138 * t147 + t131 - 0.19751789702565206229e-1 * t161) + 0.19751789702565206229e-1 * t136 * t161) / 2.0);
+        let t170 = piecewise3::<f64>(t4, 0.0, t5 * (-t131 + t136 * (-0.3109e-1 * t138 * t147 + t131 - 0.19751789702565206229e-1 * t161) + 0.19751789702565206229e-1 * t136 * t161) / 2.0);
         let t172 = param_c_ss_1;
         let t173 = t172 * sigma[ip];
         let t175 = 1.0 + 0.2e0 * t54;
@@ -153,12 +153,12 @@ pub fn gga_xc_b97_exc_unpol(
         let t205 = t101 * t103 * t105;
         let t207 = 1.0 + 0.53425e-1 * t205;
         let t208 = f64::sqrt(t205);
-        let t211 = pow_3_2(t205);
+        let t211 = pow_3_2::<f64>(t205);
         let t214 = t118 * t102 * t120;
         let t216 = 0.379785e1 * t208 + 0.8969e0 * t205 + 0.204775e0 * t211 + 0.123235e0 * t214;
         let t219 = 1.0 + 0.16081824322151104822e2 / t216;
         let t220 = f64::ln(t219);
-        let t223 = piecewise3(t3, t23, 1.0);
+        let t223 = piecewise3::<f64>(t3, t23, 1.0);
         let t226 = (2.0 * t223 - 2.0) * t135;
         let t228 = 1.0 + 0.278125e-1 * t205;
         let t233 = 0.51785e1 * t208 + 0.905775e0 * t205 + 0.1100325e0 * t211 + 0.1241775e0 * t214;

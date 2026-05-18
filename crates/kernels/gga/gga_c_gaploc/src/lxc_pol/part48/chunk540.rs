@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 540/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 540/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk540<F: Float>(t10892: F, t787: F, t2465: F, t2949: F, t2464: F, t825: F, t8516: F, t959: F, t10876: F, t10878: F, t10881: F, t10885: F, t10888: F, t10891: F, t2028: F, t9836: F, t9838: F, t9846: F, t9849: F, t9853: F, t9892: F) -> (F, F, F, F) {
-    let t10893 = t787 * t10892;
-    let t10896 = t2465 * t2949;
-    let t10897 = t2464 * t10896;
-    let t10898 = t825 * t10897;
-    let t10899 = 0.42603251059911944084e-1 * t10898;
-    let t10900 = t8516 * t959;
-    let t10901 = 0.14896037479937677779e-1 * t10900;
-    let t10902 = -t9836 + t9838 - t9846 - t9849 + t9853 - t10876 + t10878 + t10881 - t10885 + t10888 - t10891 - 0.39722766613167140743e-1 * t10893 * t2028 + t10899 - t9892 + t10901;
-    (t10893, t10898, t10900, t10902)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk540<F: Float>(t3418: F, t605: F, t3381: F, t4379: F, t2366: F, t2754: F, t2365: F, t1429: F, t10241: F, t447: F, t6964: F, t6963: F) -> (F, F, F, F, F, F, F) {
+    let t10305 = t3418 * t605;
+    let t10308 = t4379 * t3381;
+    let t10309 = F::new(0.14896037479937677779e-1) * t10308;
+    let t10310 = t2366 * t2754;
+    let t10311 = t2365 * t10310;
+    let t10312 = t1429 * t10311;
+    let t10313 = F::new(0.14896037479937677779e-1) * t10312;
+    let t10314 = t10241 * t447;
+    let t10315 = t6964 * t10314;
+    let t10317 = F::new(0.71500979903700853338e0) * t6963 * t10315;
+    (t10305, t10308, t10309, t10312, t10313, t10314, t10317)
 }

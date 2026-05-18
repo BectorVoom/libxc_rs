@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 791/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 791/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk791<F: Float>(t1: F, t2754: F, t106: F, t192: F) -> (F, F, F) {
-    let t8070 = t2754 * t1;
-    let t8071 = t8070 * t106;
-    let t8072 = t8071 * t192;
-    (t8070, t8071, t8072)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk791<F: Float>(t1998: F, t2005: F, t2009: F, t2028: F, t2615: F, t2646: F, t2649: F, t2660: F, t2684: F, t5703: F, t5724: F, t6159: F, t7403: F, t7407: F, t7411: F, t7414: F, t7417: F, t7421: F, t7424: F, t7430: F, t7432: F, t7436: F, t7439: F, t7443: F, t7448: F, t7453: F, t7459: F, t780: F, t825: F) -> F {
+    let t7462 = -F::new(0.79445533226334281486e-1) * t7403 * t2028 + F::new(0.11360866949309851756e0) * t2684 * t7407 - F::new(0.11360866949309851756e0) * t825 * t7411 - F::new(0.38342925953920749676e0) * t7414 + F::new(0.38342925953920749676e0) * t7417 - F::new(0.38342925953920749676e0) * t7421 + F::new(0.9585731488480187419e0) * t7424 - F::new(0.57514388930881124514e0) * t7430 - F::new(0.29792074959875355558e-1) * t7432 - F::new(0.14896037479937677779e-1) * t7436 + F::new(0.92023022289409799224e1) * t2615 * t7439 + F::new(0.21450293971110256002e1) * t7443 * t2005 + F::new(0.71500979903700853338e0) * t5703 * t2660 - F::new(0.71500979903700853338e0) * t7448 * t2009 - F::new(0.35750489951850426669e0) * t2649 * t5724 + F::new(0.47667319935800568892e0) * t780 * t7453 - F::new(0.46011511144704899612e1) * t6159 * t2646 - F::new(0.46011511144704899612e1) * t1998 * t7459;
+    t7462
 }

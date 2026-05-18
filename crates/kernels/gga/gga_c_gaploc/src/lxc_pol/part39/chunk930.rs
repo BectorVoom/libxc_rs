@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 930/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 930/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk930<F: Float>(t42857: F, t42863: F, t42866: F, t42867: F, t42868: F, t42869: F, t42870: F, t42871: F, t42872: F, t47047: F, t47050: F, t13756: F, t380: F, t42873: F, t42874: F, t42877: F, t42881: F, t42883: F, t42885: F, t42889: F, t42893: F, t42896: F, t42899: F) -> (F, F) {
-    let t47052 = -0.19918504644973304719e0 * t47047 + t42857 + t42863 + t42866 - t42867 + t42868 + 0.85365019907028448797e-1 * t47050 - t42869 - t42870 - t42871 + t42872;
-    let t47054 = 0.37940008847568199465e-1 * t380 * t13756;
-    let t47058 = t42873 + t42874 + t47054 - t42877 + t42881 - 0.28455006635676149599e-1 * t42883 - 0.11856252764865062333e-2 * t42885 - 0.11856252764865062333e-2 * t42889 - t42893 + t42896 + t42899;
-    (t47052, t47058)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk930<F: Float>(t40252: F, t40258: F, t40277: F, t40280: F, t40283: F, t1445: F, t1562: F, t41784: F, t12881: F, t9497: F, t8248: F, t9565: F) -> (F, F, F, F, F, F, F, F) {
+    let t41979 = F::new(0.29792074959875355558e-1) * t40252;
+    let t41980 = F::new(0.20854452471912748891e0) * t40258;
+    let t41982 = F::new(0.17875244975925213335e0) * t40277;
+    let t41983 = F::new(0.11916829983950142223e0) * t40280;
+    let t41984 = F::new(0.59584149919750711116e-1) * t40283;
+    let t41987 = F::new(0.62115540045351614476e2) * t1562 * t1445 * t41784;
+    let t41989 = F::new(0.25025342966295298669e1) * t9497 * t12881;
+    let t41991 = F::new(0.11916829983950142223e0) * t8248 * t9565;
+    (t41979, t41980, t41982, t41983, t41984, t41987, t41989, t41991)
 }

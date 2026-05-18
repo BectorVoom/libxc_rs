@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 909/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 909/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk909<F: Float>(t10019: F, t2617: F, t3005: F, t7810: F, t10628: F, t4820: F, t7513: F, t1029: F, t7803: F, t1052: F, t7822: F, t2972: F, t7324: F, t3459: F, t5552: F, t3073: F, t977: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t11108 = 0.15976219147466979032e-1 * t10019;
-    let t11109 = t3005 * t2617;
-    let t11110 = t7810 * t11109;
-    let t11111 = 0.19171462976960374838e0 * t11110;
-    let t11116 = t4820 * t10628;
-    let t11118 = 0.79445533226334281487e-1 * t7513 * t11116;
-    let t11119 = t1029 * t2617;
-    let t11120 = t7803 * t11119;
-    let t11121 = 0.19171462976960374838e0 * t11120;
-    let t11130 = t7822 * t1052;
-    let t11132 = 2.0 * t7324 * t2972;
-    let t11134 = 2.0 * t5552 * t3459;
-    let t11135 = t3073 * t977;
-    (t11108, t11109, t11111, t11116, t11118, t11119, t11121, t11130, t11132, t11134, t11135)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk909<F: Float>(t123: F, t7284: F, t2563: F, t9647: F, t5539: F, t7292: F, t286: F, t708: F, t9095: F, t1687: F, t9099: F, t5337: F, t5340: F, t9106: F) -> (F, F, F, F, F, F, F, F) {
+    let t9648 = t7284 * t123;
+    let t9649 = t9648 * t2563;
+    let t9651 = F::new(0.1922631557535556071e-2) * t9647 * t9649;
+    let t9652 = t5539 * t7292;
+    let t9654 = F::new(0.1281754371690370714e-2) * t9647 * t9652;
+    let t9664 = t9095 * t286 * t708;
+    let t9666 = t9099 * t1687;
+    let t9669 = t9106 * t5337 * t5340;
+    (t9648, t9649, t9651, t9652, t9654, t9664, t9666, t9669)
 }

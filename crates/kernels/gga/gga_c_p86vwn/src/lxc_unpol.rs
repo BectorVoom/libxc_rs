@@ -44,11 +44,11 @@ pub fn gga_c_p86vwn_lxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
@@ -77,8 +77,8 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t47 = t46 * t46;
         let t49 = f64::ln(t47 * t36);
         let t53 = 1.0 <= zeta_threshold;
-        let t54 = pow_1_3(zeta_threshold);
-        let t56 = piecewise3(t53, t54 * zeta_threshold, 1.0);
+        let t54 = pow_1_3::<f64>(zeta_threshold);
+        let t56 = piecewise3::<f64>(t53, t54 * zeta_threshold, 1.0);
         let t59 = M_CBRT2;
         let t60 = t59 - 1.0;
         let t65 = 9.0 * t56 - 9.0;
@@ -112,7 +112,7 @@ pub fn gga_c_p86vwn_lxc_unpol(
         let t107 = 1.0 / t105 / rho[ip];
         let t110 = f64::exp(-t73 * t104 * t107);
         let t112 = t54 * t54;
-        let t114 = piecewise3(t53, t112 * zeta_threshold, 1.0);
+        let t114 = piecewise3::<f64>(t53, t112 * zeta_threshold, 1.0);
         let t115 = f64::sqrt(t114);
         let t116 = 1.0 / t115;
         let t117 = t110 * t101 * t116;

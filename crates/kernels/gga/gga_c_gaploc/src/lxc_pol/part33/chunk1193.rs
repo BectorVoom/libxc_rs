@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1193/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1193/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1193<F: Float>(t2366: F, t38276: F, t12000: F, t158: F, t1063: F, t12008: F, t123: F, t1349: F, t1358: F, t29850: F, t29852: F, t31488: F, t31490: F, t31493: F, t31496: F, t31498: F, t31522: F, t3808: F, t38267: F, t38272: F, t38277: F, t4323: F, t488: F, t535: F, t6507: F) -> (F, F, F) {
-    let t38281 = t2366 * t38276;
-    let t38285 = t158 * t12000;
-    let t38292 = -0.56910013271352299198e-1 * t1063 * t535 * t38267 - 0.63233348079280332442e-2 * t1349 * t4323 * t38272 - 0.12646669615856066488e-1 * t1358 * t6507 * t38277 + 0.18970004423784099733e-1 * t1358 * t4323 * t38281 - 0.63233348079280332442e-2 * t1358 * t38285 * t123 * t488 + 0.63233348079280332442e-2 * t3808 * t12008 - t31488 + t31490 + t31493 + t31496 + t29850 - t29852 + t31498 + t31522;
-    (t38281, t38285, t38292)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1193<F: Float>(t24722: F, t2508: F, t2541: F, t1897: F, t2580: F, t7068: F, t8469: F, t21455: F, t2958: F, t21460: F, t3487: F, t486: F, t7069: F) -> (F, F, F, F, F) {
+    let t32131 = F::new(0.53833683610995569986e-1) * t2508 * t2541 * t24722;
+    let t32135 = F::new(0.30762104920568897134e-1) * t1897 * t2580 * t8469 * t7068;
+    let t32139 = F::new(0.30762104920568897134e-1) * t1897 * t2580 * t2958 * t21455;
+    let t32143 = F::new(0.15381052460284448567e-1) * t1897 * t2580 * t2958 * t21460;
+    let t32145 = t3487 * t486 * t7069;
+    (t32131, t32135, t32139, t32143, t32145)
 }

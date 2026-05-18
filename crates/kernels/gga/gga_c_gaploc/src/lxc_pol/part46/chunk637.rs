@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 637/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 637/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk637<F: Float>(t13041: F, t1445: F, t833: F, t2097: F, t3039: F, t3277: F, t13010: F, t13015: F, t13018: F, t13021: F, t13026: F, t13028: F, t13029: F, t13031: F, t13036: F, t13040: F) -> (F, F, F) {
-    let t13042 = t1445 * t13041;
-    let t13044 = 0.43710935587469654631e2 * t833 * t13042;
-    let t13045 = t3039 * t2097;
-    let t13047 = 0.25025342966295298669e1 * t3277 * t13045;
-    let t13048 = -0.13803453343411469884e2 * t13010 - t13015 - t13018 + 0.14300195980740170668e1 * t13021 + t13026 + t13028 + 0.71500979903700853338e0 * t13029 - 0.21450293971110256002e1 * t13031 + t13036 - t13040 + t13044 - t13047;
-    (t13042, t13045, t13048)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk637<F: Float>(t10760: F, t2508: F, t2586: F, t2936: F, t3448: F, t7129: F, t3420: F, t1024: F, t2717: F, t2927: F, t954: F, t3464: F, t702: F) -> (F, F, F, F, F, F, F) {
+    let t10762 = F::new(0.23071578690426672851e-1) * t2508 * t10760;
+    let t10763 = t2936 * t2586;
+    let t10765 = F::new(0.23071578690426672851e-1) * t2508 * t10763;
+    let t10767 = F::new(0.15381052460284448567e-1) * t7129 * t3448;
+    let t10769 = F::new(0.76905262301422242837e-2) * t7129 * t3420;
+    let t10770 = t2717 * t1024;
+    let t10772 = F::new(0.76905262301422242837e-2) * t2508 * t10770;
+    let t10773 = t954 * t2927;
+    let t10775 = F::new(0.76905262301422242837e-2) * t2508 * t10773;
+    let t10776 = t3464 * t702;
+    (t10762, t10765, t10767, t10769, t10772, t10775, t10776)
 }

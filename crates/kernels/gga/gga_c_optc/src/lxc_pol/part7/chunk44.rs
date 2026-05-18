@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 44/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 44/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -13,9 +13,9 @@ pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk44<F: Float>(t43: F, t50: F, t45: 
     let t51 = t50 <= zeta_threshold;
     let t96 = t45 * t45;
     let t97 = t47 * t47;
-    let t98 = piecewise3(t44, t96, t97);
+    let t98 = piecewise3::<f64>(t44, t96, t97);
     let t99 = t52 * t52;
-    let t100 = piecewise3(t51, t96, t99);
-    let t102 = t98 / 2.0 + t100 / 2.0;
+    let t100 = piecewise3::<f64>(t51, t96, t99);
+    let t102 = t98 / F::new(2.0) + t100 / F::new(2.0);
     (t96, t97, t99, t102)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1040/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1040/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1040<F: Float>(t14757: F, t2376: F, t2409: F, t1112: F, t331: F, t2306: F, t3074: F, t833: F, t4157: F, t4414: F, t9716: F, t3959: F, t13989: F, t13999: F, t14002: F, t14114: F, t14742: F, t14745: F, t14749: F, t14752: F, t14755: F, t2408: F, t3066: F, t335: F) -> (F, F, F, F, F, F) {
-    let t14759 = t2409 * t2376 * t14757;
-    let t14765 = t1112 * t331;
-    let t14766 = t2306 * t14765;
-    let t14767 = t3074 * t14766;
-    let t14768 = t14767 * t833;
-    let t14770 = t4414 * t4157;
-    let t14772 = t2409 * t9716;
-    let t14773 = t3959 * t14772;
-    let t14775 = -t335 * t14742 / 96.0 + 7.0 / 144.0 * t14745 + t3066 * t14749 / 48.0 + 7.0 / 288.0 * t14752 + t14755 / 1536.0 + t13989 + t2408 * t14759 / 48.0 - 7.0 / 144.0 * t13999 + 7.0 / 144.0 * t14002 + 7.0 / 1152.0 * t14114 + t14768 / 96.0 - 7.0 / 144.0 * t14770 - t14773 / 48.0;
-    (t14759, t14765, t14767, t14770, t14772, t14775)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1040<F: Float>(t11651: F, t9665: F, t3257: F, t3803: F, t6355: F, t326: F, t6469: F, t820: F, t339: F, t3802: F, t6472: F, t860: F) -> (F, F, F, F, F) {
+    let t11652 = t9665 * t11651;
+    let t11656 = t3257 * t3803 * t6355;
+    let t11660 = t326 * t6469 * t820;
+    let t11661 = t3802 * t339;
+    let t11662 = t6472 * t11661;
+    let t11663 = t11660 * t11662;
+    let t11665 = t11663 * t860 / F::new(96.0);
+    (t11652, t11656, t11660, t11661, t11665)
 }

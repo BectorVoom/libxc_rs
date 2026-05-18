@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1017/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1017/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1017<F: Float>(t29874: F, t9075: F, t1365: F, t20540: F, t23983: F, t484: F, t9087: F, t145: F, t27835: F, t459: F, t1242: F, t27839: F, t27842: F, t4074: F, t4077: F, t18091: F, t27847: F) -> (F, F, F, F, F, F, F) {
-    let t29876 = 0.47425011059460249332e-2 * t29874 * t9075;
-    let t29879 = 0.47425011059460249332e-2 * t23983 * t1365 * t20540;
-    let t29892 = 0.63233348079280332442e-2 * t484 * t9087;
-    let t29896 = t27835 * t145 * t459;
-    let t29898 = t27839 * t1242;
-    let t29901 = t27842 * t4074 * t4077;
-    let t29903 = t27847 * t18091;
-    (t29876, t29879, t29892, t29896, t29898, t29901, t29903)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1017<F: Float>(t12223: F, t550: F, t549: F, t1890: F, t3720: F, t590: F, t3726: F, t10941: F, t10944: F, t10953: F, t10963: F, t10966: F, t10971: F, t10975: F, t10977: F, t10980: F, t10983: F, t10988: F, t10990: F, t10993: F, t1966: F, t1991: F, t2033: F) -> (F, F, F, F, F) {
+    let t12236 = t550 * t12223;
+    let t12237 = t549 * t12236;
+    let t12240 = t1890 * t3720;
+    let t12241 = t12240 * t590;
+    let t12244 = t3726 * t590;
+    let t12247 = -t10941 + F::new(0.39722766613167140743e-1) * t2033 * t12237 + t10944 - t10953 + t10963 - t10966 - F::new(0.51123901271894332902e0) * t1966 * t12241 + F::new(0.51123901271894332902e0) * t1991 * t12244 - t10971 - t10975 + t10977 + t10980 + t10983 - t10988 - t10990 - t10993;
+    (t12236, t12237, t12241, t12244, t12247)
 }

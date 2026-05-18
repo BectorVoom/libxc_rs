@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1195/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 1195/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1195<F: Float>(t13815: F, t3781: F, t833: F, t850: F, t11737: F, t1193: F, t14802: F, t2408: F, t2409: F, t26654: F, t3060: F, t3207: F, t3212: F, t35566: F, t4155: F, t53614: F, t54492: F, t54505: F, t54532: F, t57542: F, t57545: F, t57551: F, t57555: F, t57570: F, t57574: F, t9283: F) -> (F,) {
-    let t57578 = t850 * t3781 * t13815 * t833;
-    let t57580 = t54492 + t2408 * t2409 * t26654 * t4155 / 24.0 + 7.0 / 144.0 * t57542 + t54505 - t57545 / 48.0 - t3207 * t9283 * t1193 * t11737 / 16.0 + t57551 / 48.0 + t57555 / 1536.0 - t2408 * t35566 * t14802 / 12.0 + t54532 - t2408 * t9283 * t53614 * t3212 / 12.0 - t2408 * t9283 * t53614 * t3060 / 12.0 - t57570 / 512.0 + t57574 / 1536.0 + t57578 / 96.0;
-    (t57580,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1195<F: Float>(t3781: F, t3950: F, t850: F, t833: F, t13989: F, t14770: F, t14779: F, t14999: F, t15332: F, t15335: F, t15338: F, t15343: F, t15346: F, t15348: F, t15353: F, t15358: F, t15362: F, t15367: F, t15372: F, t15374: F, t2408: F, t3066: F) -> (F, F) {
+    let t15377 = t850 * t3781 * t3950;
+    let t15378 = t15377 * t833;
+    let t15380 = t14999 - t15332 / F::new(24.0) - t15335 / F::new(48.0) + t13989 - t2408 * t15338 / F::new(12.0) - t15343 / F::new(96.0) - t15346 / F::new(48.0) - t15348 / F::new(24.0) - F::new(7.0) / F::new(72.0) * t14770 - t3066 * t15353 / F::new(16.0) - t15358 / F::new(3072.0) + t3066 * t15362 / F::new(24.0) - t15367 / F::new(3072.0) + F::new(7.0) / F::new(144.0) * t14779 + t15372 / F::new(1536.0) + t15374 / F::new(96.0) + t15378 / F::new(96.0);
+    (t15377, t15380)
 }

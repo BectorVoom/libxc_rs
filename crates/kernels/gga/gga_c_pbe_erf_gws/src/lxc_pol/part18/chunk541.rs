@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 541/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 541/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk541<F: Float>(t1: F, t3: F, t991: F, t672: F, t2009: F, t2590: F, t2595: F, t2600: F, t2605: F, t2611: F, t2614: F, t2617: F, t2619: F, t2624: F, t2629: F, t2634: F, t2639: F, t2642: F, t2645: F, t2662: F, t2664: F) -> (F, F, F) {
-    let t2970 = t991 * t1 * t3;
-    let t2971 = t2970 * t672;
-    let t2973 = t2009 + t2590 - t2595 - t2600 + t2605 - t2611 + t2614 + t2617 + t2619 + t2624 - t2629 + t2634 - t2639 + t2642 + t2645 + 0.10821041362364843377e0 * t2971 + t2662 + t2664;
-    (t2970, t2971, t2973)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk541<F: Float>(t2741: F, t619: F, t1019: F, t579: F, t1799: F, t1033: F, t636: F, t1045: F, t582: F, t211: F, t1780: F, t2676: F, t2682: F, t2687: F, t2691: F, t2692: F, t2693: F, t2694: F, t2726: F, t2728: F, t2732: F, t2734: F, t2739: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t2743 = F::new(4.0) / F::new(15.0) * t2741 * t619;
+    let t2745 = F::new(2.0) / F::new(15.0) * t579 * t1019;
+    let t2746 = F::new(8.0) / F::new(45.0) * t1799;
+    let t2747 = t1033 * t636;
+    let t2748 = F::new(4.0) / F::new(45.0) * t2747;
+    let t2749 = t582 * t1045;
+    let t2750 = t211 * t2749;
+    let t2751 = F::new(4.0) / F::new(45.0) * t2750;
+    let t2752 = -t2676 + t2682 - t2687 - t2691 - t2692 - t2693 - t1780 + t2694 - t2726 - t2728 + t2732 + t2734 - t2739 + t2743 - t2745 + t2746 + t2748 - t2751;
+    (t2743, t2745, t2746, t2747, t2748, t2749, t2750, t2751, t2752)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 851/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 851/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk851<F: Float>(t43690: F, t43693: F, t43695: F, t43698: F, t43699: F, t43703: F, t43708: F, t43712: F, t43716: F, t43719: F, t43721: F, t43723: F, t43726: F, t43729: F, t43731: F, t43735: F, t43737: F, t43740: F, t43743: F, t43746: F, t780: F) -> (F,) {
-    let t43747 = 0.14300195980740170668e1 * t43690 + t43693 - t43695 - t43698 + 0.14300195980740170668e1 * t43699 + 0.35750489951850426669e0 * t780 * t43703 + t43708 + 0.38342925953920749676e0 * t43712 - t43716 + t43719 + t43721 + t43723 + t43726 + t43729 + 0.14300195980740170668e1 * t43731 - t43735 + t43737 - t43740 - t43743 - t43746;
-    (t43747,)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk851<F: Float>(t34777: F, t901: F, t35106: F, t40219: F, t40225: F, t41915: F, t41919: F, t41922: F, t41927: F, t41930: F, t41933: F, t41935: F, t41938: F, t41941: F, t41942: F, t41945: F, t41948: F, t41950: F, t41952: F, t41954: F, t41958: F) -> F {
+    let t41960 = t34777 * t901;
+    let t41962 = t35106 * t901;
+    let t41964 = t41915 + t41919 + t41922 + F::new(0.76685851907841499352e0) * t40219 - t41927 - t41930 + t41933 + F::new(0.30674340763136599741e2) * t41935 + F::new(0.95334639871601137787e0) * t41938 + t41941 + F::new(0.71500979903700853338e0) * t41942 + t41945 - F::new(0.1533717038156829987e1) * t40225 - t41948 - t41950 - t41952 + F::new(0.51123901271894332901e0) * t41954 - F::new(0.89376224879626066674e-1) * t41958 + F::new(0.29792074959875355558e-1) * t41960 + F::new(0.29792074959875355558e-1) * t41962;
+    t41964
 }

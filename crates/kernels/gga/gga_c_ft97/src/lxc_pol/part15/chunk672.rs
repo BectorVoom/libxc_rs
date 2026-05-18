@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 672/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 672/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,21 +9,17 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk672<F: Float>(t4733: F, t925: F, t9144: F, t1017: F, t4417: F, t3440: F, t9115: F, t1053: F, t9121: F, t3439: F, t4431: F, t2222: F, t2221: F, t2211: F, t2210: F, t20224: F, t3434: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t20743 = t4733 * t925;
-    let t20744 = t9144 * t20743;
-    let t20748 = t4417 * t1017;
-    let t20749 = t3440 * t20748;
-    let t20750 = t9115 * t20749;
-    let t20753 = t4417 * t1053;
-    let t20754 = t9121 * t20753;
-    let t20755 = t3439 * t20754;
-    let t20758 = t4431 * t1017;
-    let t20759 = t2222 * t20758;
-    let t20760 = t2221 * t20759;
-    let t20763 = t4431 * t1053;
-    let t20764 = t2211 * t20763;
-    let t20765 = t2210 * t20764;
-    let t20768 = t3434 * t20224;
-    (t20743, t20744, t20748, t20749, t20750, t20753, t20754, t20755, t20758, t20759, t20760, t20763, t20764, t20765, t20768)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk672<F: Float>(t19977: F, t35: F, t4474: F, t930: F, t374: F, t4449: F, t938: F, t1631: F, t4466: F, t929: F, t1594: F, t4467: F) -> (F, F, F, F, F, F, F, F) {
+    let t19978 = t19977 * t35;
+    let t19982 = t930 * t4474;
+    let t19983 = t374 * t19982;
+    let t19986 = t4449 * t938;
+    let t19987 = t1631 * t19986;
+    let t19993 = t4466 * t929;
+    let t19994 = t19993 * t35;
+    let t19995 = t1594 * t19994;
+    let t19998 = t1594 * t19986;
+    let t20004 = t1631 * t19994;
+    let t20007 = t4467 * t938;
+    (t19978, t19983, t19987, t19993, t19995, t19998, t20004, t20007)
 }

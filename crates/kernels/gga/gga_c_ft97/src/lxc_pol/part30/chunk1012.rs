@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 1012/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 1012/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk1012<F: Float>(t7114: F, t98724: F, t1882: F, t36228: F, t112883: F, t114820: F, t143653: F, t1476: F, t152861: F, t15294: F, t153372: F, t15369: F, t15460: F, t1901: F, t2347: F, t24898: F, t2749: F, t2766: F, t2862: F, t28924: F, t29137: F, t29369: F, t296: F, t319: F, t34159: F, t35972: F, t36003: F, t36121: F, t36152: F, t3886: F, t4141: F, t4261: F, t4266: F, t446: F, t56098: F, t56815: F, t6386: F, t6393: F, t7021: F, t7036: F, t7662: F, t7679: F, t824: F, t840: F, t871: F, t875: F, t882: F) -> (F, F) {
-    let t154017 = t98724 * t7114;
-    let t154059 = t1882 * t36228;
-    let t154082 = 2.0 / 27.0 * t1901 * t15294 * t7679 * t2347 * t3886 - 2.0 / 9.0 * t1901 * t56098 * t34159 + 4.0 / 3.0 * t446 * t2862 * t6393 * t7036 + 4.0 / 3.0 * t446 * t296 * t154017 + 2.0 / 3.0 * t446 * t840 * t871 * t7021 * t6386 - t446 * t840 * t36003 * t824 / 3.0 + 2.0 / 3.0 * t446 * t840 * t871 * t1476 * t28924 - 4.0 / 3.0 * t1901 * t15369 * t24898 * t29369 - 4.0 / 3.0 * t1901 * t56815 * t36152 - 4.0 / 3.0 * t1901 * t15460 * t112883 * t7114 + t1901 * t143653 * t4261 / 9.0 + 2.0 / 9.0 * t1901 * t143653 * t4266 - 2.0 / 27.0 * t1901 * t2766 * t7662 * t4141 - 4.0 / 3.0 * t1901 * t114820 * t29137 + t154059 / 9.0 - t446 * t840 * t882 * t35972 / 3.0 - t446 * t840 * t319 * t153372 / 3.0 + t446 * t840 * t871 * t35972 * t875 / 3.0 + 2.0 / 3.0 * t446 * t2862 * t319 * t152861 + t446 * t840 * t2749 * t36121 / 3.0;
-    (t154017, t154082)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk1012<F: Float>(t24543: F, t35333: F, t140756: F, t140757: F, t27878: F, t33292: F, t27819: F, t27820: F, t33341: F, t729: F, t24437: F, t2574: F, t27796: F) -> (F, F, F, F) {
+    let t150259 = t24543 * t35333;
+    let t150263 = t33292 * t140756 * t140757 * t27878;
+    let t150267 = t27819 * t729 * t33341 * t27820;
+    let t150271 = t24437 * t2574 * t33341 * t27796;
+    (t150259, t150263, t150267, t150271)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1113/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1113/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1113<F: Float>(t10704: F, t1850: F, t10636: F, t5227: F, t1841: F, t3487: F, t7275: F, t734: F, t10826: F, t2536: F, t1944: F, t3444: F, t29478: F, t29480: F, t29483: F, t29486: F, t29489: F, t32604: F, t32610: F, t32615: F, t32618: F, t32621: F) -> (F,) {
-    let t32622 = t1850 * t10704;
-    let t32623 = 0.85450291446024714264e-3 * t32622;
-    let t32625 = 0.17090058289204942853e-2 * t5227 * t10636;
-    let t32629 = 0.17090058289204942853e-2 * t1841 * t7275 * t3487 * t734;
-    let t32633 = 0.17090058289204942853e-2 * t1841 * t2536 * t10826 * t734;
-    let t32634 = t1944 * t3444;
-    let t32635 = 0.99692006687028833308e-3 * t32634;
-    let t32636 = -t32604 - t32610 + t32615 + t32618 + t32621 - t32623 - t32625 - t32629 - t32633 - t29478 + t29480 + t29483 + t29486 - t29489 - t32635;
-    (t32636,)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1113<F: Float>(t2684: F, t7354: F, t9829: F, t1391: F, t9833: F, t15490: F, t7584: F, t9438: F, t21456: F, t2365: F, t7390: F, t7416: F, t9834: F) -> (F, F, F, F, F) {
+    let t28987 = t2684 * t7354 * t9829;
+    let t28988 = F::new(0.1022478025437886658e1) * t28987;
+    let t28990 = t2684 * t1391 * t9833;
+    let t28991 = F::new(0.5396411800922179584e0) * t28990;
+    let t29001 = t7584 * t9438 * t15490;
+    let t29009 = F::new(0.59584149919750711116e-1) * t7390 * t2365 * t21456;
+    let t29011 = F::new(0.17041300423964777634e0) * t7416 * t9834;
+    (t28988, t28991, t29001, t29009, t29011)
 }

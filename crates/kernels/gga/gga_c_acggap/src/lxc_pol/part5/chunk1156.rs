@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1156/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1156/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1156<F: Float>(t3431: F, t6161: F, t18499: F, t18502: F, t18508: F, t18510: F, t18518: F, t18523: F, t18525: F, t18545: F, t18553: F, t18555: F, t372: F, t4261: F, t4262: F, t5544: F) -> (F,) {
-    let t23915 = t3431 * t6161;
-    let t23927 = 0.34299214494455789577e-2 * t18499 + 0.17149607247227894789e-2 * t18502 - 0.34299214494455789578e-1 * t18508 - 0.40015750243531754508e-2 * t18510 - 0.80031500487063509015e-2 * t23915 + 0.34299214494455789578e-2 * t18518 + 0.34299214494455789578e-2 * t18523 - 0.51448821741683684367e-1 * t18525 - 35.0 / 54.0 * t18545 - 0.34299214494455789578e-2 * t18553 - 0.32012600194825403606e-1 * t18555 - t4261 * t4262 * t5544 * t372 / 6.0;
-    (t23927,)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1156<F: Float>(t3431: F, t5623: F, t12838: F, t12840: F, t12842: F, t12844: F, t12848: F, t15826: F, t15828: F, t15830: F, t15832: F, t15841: F, t15849: F) -> F {
+    let t20857 = t3431 * t5623;
+    let t20870 = F::new(0.32012600194825403606e-1) * t20857 - F::new(0.34299214494455789578e-2) * t15826 - F::new(0.24009450146119052704e-1) * t15828 - F::new(0.16006300097412701803e-1) * t15830 - F::new(0.12004725073059526352e-1) * t15832 + F::new(0.34299214494455789578e-2) * t12838 - F::new(0.25724410870841842183e-2) * t12840 - F::new(0.17149607247227894789e-2) * t12842 + F::new(0.25724410870841842183e-2) * t12844 - F::new(0.80031500487063509016e-2) * t12848 + F::new(0.17149607247227894789e-1) * t15841 - F::new(0.68026775414003982663e-1) * t15849;
+    t20870
 }

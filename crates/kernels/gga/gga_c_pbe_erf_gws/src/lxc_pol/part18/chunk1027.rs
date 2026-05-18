@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 1027/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 1027/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk1027<F: Float>(t14577: F, t338: F, t353: F, t1161: F, t3222: F, t13781: F, t3972: F, t1113: F, t9520: F, t3975: F, t9504: F, t13776: F, t13782: F, t4166: F, t9270: F, t1118: F, t875: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t14579 = t338 * t353 * t14577;
-    let t14582 = t1161 * param_a_c;
-    let t14583 = t14582 * t3222;
-    let t14584 = t13781 * t14583;
-    let t14585 = t3972 * t14584;
-    let t14587 = t1113 * t9520;
-    let t14588 = t3975 * t14587;
-    let t14589 = t3972 * t14588;
-    let t14591 = t1113 * t9504;
-    let t14592 = t3975 * t14591;
-    let t14593 = t13776 * t14592;
-    let t14595 = t1113 * t13782;
-    let t14596 = t13781 * t14595;
-    let t14597 = t3972 * t14596;
-    let t14599 = t9270 * t4166;
-    let t14601 = t1118 * t875;
-    (t14579, t14583, t14584, t14585, t14588, t14589, t14592, t14593, t14596, t14597, t14599, t14601)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk1027<F: Float>(t3793: F, t8928: F, t2206: F, t3867: F, t2289: F, t3827: F, t3857: F, t3802: F, t4394: F, t2105: F, t820: F, t9482: F) -> (F, F, F, F, F, F, F) {
+    let t11492 = t8928 * t3793 / F::new(96.0);
+    let t11493 = t2206 * t3867;
+    let t11494 = F::new(7.0) / F::new(144.0) * t11493;
+    let t11495 = t2289 * t3827;
+    let t11497 = t2289 * t3857;
+    let t11499 = t3802 * t4394;
+    let t11500 = t2105 * t820;
+    let t11501 = t11499 * t11500;
+    let t11502 = t9482 * t11501;
+    (t11492, t11494, t11495, t11497, t11499, t11501, t11502)
 }

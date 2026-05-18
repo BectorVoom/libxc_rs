@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 870/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 870/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk870<F: Float>(t10809: F, t11: F, t10796: F, t571: F, t2704: F, t10443: F, t1758: F, t10438: F, t3422: F, t395: F, t3426: F, t3430: F, t10762: F, t10785: F, t10789: F, t10793: F, t10797: F, t10801: F, t10804: F, t10807: F, t25: F, t2718: F, t7407: F, t7409: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10810 = t11 * t10809;
-    let t10812 = t571 * t10796;
-    let t10813 = t2704 * t10812;
-    let t10815 = t1758 * t10443;
-    let t10816 = t11 * t10815;
-    let t10818 = t571 * t10438;
-    let t10819 = t11 * t10818;
-    let t10823 = t395 * t3422;
-    let t10825 = t395 * t3426;
-    let t10827 = t395 * t3430;
-    let t10829 = t571 * t10762;
-    let t10830 = t11 * t10829;
-    let t10832 = -0.29629629629629629629e-2 * t25 * t10785 - 0.88888888888888888888e-2 * t2718 * t10789 - 0.39999999999999999999e-1 * t25 * t10793 + 0.53333333333333333332e-1 * t2718 * t10797 - 0.39990740740740740742e-1 * t10801 + 0.14396666666666666667e0 * t10804 - 0.9597777777777777778e-1 * t10807 - 0.21595e0 * t10810 + 0.28793333333333333334e0 * t10813 - 0.23994444444444444445e-1 * t10816 + 0.71983333333333333334e-1 * t10819 - 0.14814814814814814815e-1 * t7407 + 0.17777777777777777778e-1 * t7409 + 0.79981481481481481483e-2 * t10823 - 0.23994444444444444445e-1 * t10825 + 0.11997222222222222222e-1 * t10827 - 0.35991666666666666667e-1 * t10830;
-    (t10810, t10813, t10816, t10819, t10823, t10825, t10827, t10830, t10832)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk870<F: Float>(t3028: F, t369: F, t1109: F, t931: F, t2164: F, t3168: F, t2206: F, t3191: F, t2133: F, t3039: F, t1114: F, t6187: F) -> (F, F, F, F, F, F) {
+    let t9053 = t3028 * t369;
+    let t9056 = t1109 * t931;
+    let t9086 = F::new(7.0) / F::new(144.0) * t2164 * t3168;
+    let t9096 = F::new(7.0) / F::new(24.0) * t2206 * t3191;
+    let t9108 = t3039 * t2133;
+    let t9111 = t1114 * t6187;
+    (t9053, t9056, t9086, t9096, t9108, t9111)
 }

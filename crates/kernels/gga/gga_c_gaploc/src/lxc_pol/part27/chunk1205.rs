@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1205/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1205/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1205<F: Float>(t30105: F, t31922: F, t31924: F, t31928: F, t31930: F, t31932: F, t31935: F, t31939: F, t31942: F, t31945: F, t31948: F, t31952: F, t31956: F, t31958: F, t30113: F, t30118: F, t30120: F, t30123: F, t31961: F, t31966: F, t31969: F, t31974: F, t31984: F, t31988: F, t31990: F, t31994: F, t31998: F, t32001: F, t32003: F) -> (F, F) {
-    let t38384 = -t30105 + t31922 - t31924 - t31928 + t31930 - t31932 - t31935 - t31939 + t31942 + t31945 - t31948 - t31952 - t31956 + t31958;
-    let t38385 = t31961 + t31966 + t31969 + t31974 + t31984 + t31988 - t31990 - t31994 - t31998 + t32001 + t32003 - t30113 + t30118 + t30120 + t30123;
-    (t38384, t38385)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1205<F: Float>(t32328: F, t2932: F, t7064: F, t7177: F, t10698: F, t1841: F, t21476: F, t7313: F, t24321: F, t2558: F, t9647: F, t1843: F, t24478: F) -> (F, F, F, F, F, F) {
+    let t32329 = F::new(0.64087718584518535698e-3) * t32328;
+    let t32331 = t7064 * t2932 * t7177;
+    let t32332 = F::new(0.32043859292259267849e-3) * t32331;
+    let t32333 = t1841 * t10698;
+    let t32334 = F::new(0.25635087433807414279e-2) * t32333;
+    let t32336 = t21476 * t2932 * t7313;
+    let t32337 = F::new(0.64087718584518535698e-3) * t32336;
+    let t32339 = t9647 * t24321 * t2558;
+    let t32340 = F::new(0.32043859292259267849e-3) * t32339;
+    let t32342 = t7064 * t1843 * t24478;
+    (t32329, t32332, t32334, t32337, t32340, t32342)
 }

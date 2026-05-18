@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 831/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 831/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk831<F: Float>(t7957: F, t2799: F, t7776: F, t561: F, t2768: F, t418: F, t7694: F, t1820: F, t2575: F, t4934: F, t1620: F, t2826: F, t583: F, t5564: F, t5562: F, t7927: F, t7931: F, t7934: F, t7939: F, t7943: F, t7944: F, t7947: F, t7949: F, t7953: F, t7955: F) -> (F, F, F, F, F, F, F) {
-    let t7958 = 8.0 / 135.0 * t7957;
-    let t7959 = t7776 * t2799;
-    let t7960 = t561 * t7959;
-    let t7961 = 4.0 / 9.0 * t7960;
-    let t7962 = t2768 * t418;
-    let t7963 = t7694 * t7962;
-    let t7965 = 16.0 / 45.0 * t1820 * t7963;
-    let t7966 = t4934 * t2575;
-    let t7968 = 32.0 / 135.0 * t1620 * t7966;
-    let t7970 = 8.0 / 45.0 * t2826 * t583;
-    let t7971 = 8.0 / 45.0 * t5564;
-    let t7972 = t7927 - t7931 + t7934 - t7939 - t7943 - t7944 - t7947 + t5562 - t7949 + t7953 + t7955 - t7958 - t7961 + t7965 + t7968 + t7970 + t7971;
-    (t7958, t7961, t7965, t7968, t7970, t7971, t7972)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk831<F: Float>(t43: F, t1403: F, t1407: F, t2457: F, t2460: F, t39: F, t47: F, t532: F, t6933: F, t6936: F, t6937: F, t4767: F, t954: F, zeta_threshold: F) -> (F, F) {
+    let t44 = t43 <= zeta_threshold;
+    let t6947 = piecewise3::<f64>(t44, F::new(0.0), -F::new(8.0) / F::new(27.0) * t6933 * t1403 + F::new(16.0) / F::new(9.0) * t6936 * t6937 + F::new(4.0) / F::new(9.0) * t2457 * t1407 + F::new(8.0) / F::new(3.0) * t47 * t532 - F::new(8.0) * t2460 * t39);
+    let t6948 = t4767 * t954;
+    (t6947, t6948)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 24 (v4rho2sigma2_3) CSE chunk 911/1133 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 24 (v4rho2sigma2_3) CSE chunk 911/1327 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part24_v4rho2sigma2_3_chunk911<F: Float>(t103: F, t172: F, t5698: F, t4048: F, t561: F, t1037: F, t1552: F, t1403: F, t1689: F, t1509: F, t5685: F, t1303: F, t6: F, t1153: F, t1418: F, t122: F, t169: F, t188: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t21076 = t5698 * t172 * t103;
-    let t21084 = t561 * t4048;
-    let t21111 = t1037 * t1552;
-    let t21115 = t1689 * t1403;
-    let t21157 = t5685 * t1509;
-    let t21183 = t1037 * t1303;
-    let t21204 = t4048 * t6;
-    let t21249 = t1418 * t1153;
-    let t21281 = t169 * t4048 * t122 * t188;
-    (t21076, t21084, t21111, t21115, t21157, t21183, t21204, t21249, t21281)
+pub fn gga_c_gapc_lxc_pol_part24_v4rho2sigma2_3_chunk911<F: Float>(t10371: F, t10374: F, t10376: F, t10379: F, t10383: F, t10386: F, t10390: F, t10393: F, t10396: F, t10399: F, t10403: F, t11060: F, t11072: F, t11085: F, t11097: F, t11111: F, t11123: F, t11136: F) -> F {
+    let t11148 = -F::new(0.7113065081882594864e-4) * t10371 + F::new(0.82073827867876094584e-5) * t10374 + F::new(0.18788769913633132635e-2) * t10376 + F::new(0.8768092626362128563e-4) * t10379 - F::new(0.11273261948179879581e-2) * t10383 + F::new(0.18788769913633132635e-2) * t10386 - F::new(0.26597999771996882504e-6) * t10390 - F::new(0.82073827867876094584e-5) * t10393 - F::new(0.16414765573575218917e-4) * t10396 - F::new(0.82073827867876094584e-5) * t10399 - F::new(0.23485962392041415794e-4) * t10403;
+    let t11151 = t11060 + t11072 + t11085 + t11097 + t11111 + t11123 + t11136 + t11148;
+    t11151
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 870/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 870/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk870<F: Float>(t10293: F, t3366: F, t605: F, t4349: F, t2902: F, t921: F, t1382: F, t1016: F, t2497: F, t3381: F, t4379: F, t2366: F, t2754: F, t2365: F, t1429: F, t10241: F, t447: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10294 = 2.0 * t10293;
-    let t10295 = t3366 * t605;
-    let t10296 = t4349 * t10295;
-    let t10297 = 6.0 * t10296;
-    let t10298 = t2902 * t921;
-    let t10299 = t1382 * t10298;
-    let t10300 = 2.0 * t10299;
-    let t10301 = t1016 * t2497;
-    let t10302 = t1382 * t10301;
-    let t10303 = 2.0 * t10302;
-    let t10308 = t4379 * t3381;
-    let t10309 = 0.14896037479937677779e-1 * t10308;
-    let t10310 = t2366 * t2754;
-    let t10311 = t2365 * t10310;
-    let t10312 = t1429 * t10311;
-    let t10313 = 0.14896037479937677779e-1 * t10312;
-    let t10314 = t10241 * t447;
-    (t10294, t10295, t10296, t10297, t10298, t10299, t10300, t10301, t10302, t10303, t10309, t10310, t10311, t10313, t10314)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk870<F: Float>(t1628: F, t3060: F, t1589: F, t2963: F, t7088: F, t7090: F, t7093: F, t7096: F, t7098: F, t7100: F, t1020: F, t2919: F, t471: F, t64: F, t90: F) -> (F, F, F) {
+    let t8693 = t1628 * t3060;
+    let t8696 = t1589 * t2963;
+    let t8710 = F::new(189.0) / F::new(256.0) * t7088 - F::new(483.0) / F::new(8192.0) * t7090 + F::new(147.0) / F::new(524288.0) * t7093 - F::new(49.0) / F::new(524288.0) * t7096 + F::new(161.0) / F::new(8192.0) * t7098 - F::new(63.0) / F::new(256.0) * t7100;
+    let t8720 = t8710 * t471 - F::new(8.0) / F::new(3.0) * t2919 * t64 + F::new(4.0) / F::new(3.0) * t1020 * t90 + F::new(63.0) / F::new(256.0) * t7088 - F::new(49.0) / F::new(8192.0) * t7090 + F::new(49.0) / F::new(24576.0) * t7098 - F::new(21.0) / F::new(256.0) * t7100;
+    (t8693, t8696, t8720)
 }

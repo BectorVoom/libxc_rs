@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 799/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 799/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk799<F: Float>(t2487: F, t46362: F, t6711: F, t4391: F, t46254: F, t6964: F, t42199: F, t204: F, t587: F, t46103: F, t6710: F, t13392: F, t549: F, t2392: F, t46499: F, t1: F, t1457: F, t1559: F, t2417: F, t3516: F, t544: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t46580 = 0.14953741122029092374e3 * t2487 * t6711 * t46362;
-    let t46583 = 0.42900587942220512003e1 * t4391 * t6964 * t46254;
-    let t46584 = 0.23005755572352449806e1 * t42199;
-    let t46587 = 0.92023022289409799224e1 * t587 * t204 * t46254;
-    let t46590 = 0.43710935587469654631e2 * t2487 * t6711 * t46254;
-    let t46593 = 0.11502877786176224903e2 * t6710 * t6711 * t46103;
-    let t46595 = t4391 * t549 * t13392;
-    let t46596 = 0.59584149919750711116e-1 * t46595;
-    let t46598 = 0.17875244975925213335e2 * t46499 * t2392;
-    let t46604 = 0.21450293971110256001e2 * t544 * t1559 * t3516 * t1 * t1457 * t2417;
-    (t46580, t46583, t46584, t46587, t46590, t46593, t46596, t46598, t46604)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk799<F: Float>(t33308: F, t9805: F, t9806: F, t15499: F, t28640: F, t3487: F, t2963: F, t3295: F, t9796: F, t1029: F, t9829: F, t20671: F, t28069: F, t33148: F) -> (F, F, F, F, F) {
+    let t43403 = t9805 * t33308 * t9806;
+    let t43407 = t28640 * t15499 * t3487 * t9806;
+    let t43412 = t9796 * t2963 * t3295;
+    let t43416 = t9796 * t1029 * t9829;
+    let t43425 = t28069 * t20671 * t33148;
+    (t43403, t43407, t43412, t43416, t43425)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 948/1293 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 948/1451 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk948<F: Float>(t115: F, t658: F, t5: F, t2219: F, t2224: F, t10195: F, t10345: F, t179: F, t182: F, t183: F, t2211: F, t2213: F, t2217: F, t2218: F, t6576: F, t6578: F, t6581: F, t6586: F, t6587: F, t6588: F, t6589: F, t6592: F, t6597: F, t720: F, t723: F, t724: F, t727: F) -> (F, F) {
-    let t23269 = t658 * t115;
-    let t23270 = t23269 * t5;
-    let t23315 = t2219 * t2219;
-    let t23321 = t2224 * t2224;
-    let t23331 = (0.20106419753086419753e2 * t10195 + 0.20068888888888888889e-1 * t10345) * t183 - 4.0 * t6576 * t723 * t727 + 12.0 * t2211 * t2217 * t2219 - 6.0 * t6578 * t2224 - 24.0 * t720 * t6587 * t6589 + 24.0 * t6581 * t6592 - 4.0 * t2213 * t6597 + 24.0 * t179 / t6586 / t182 * t23315 - 36.0 * t6588 * t2219 * t2224 + 6.0 * t2218 * t23321 + 8.0 * t2218 * t727 * t6597 - t724 * (0.75383950617283950617e4 * t10195 + 0.12819753086419753086e4 * t10345);
-    (t23270, t23331)
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk948<F: Float>(t12366: F, t5190: F, t17426: F, t3020: F, t8582: F, t1221: F, t17348: F, t914: F, t17336: F, t8426: F, t4305: F, t5308: F) -> (F, F, F, F, F, F, F, F) {
+    let t17435 = F::new(0.48245472966453314466e2) * t12366 * t5190;
+    let t17436 = t17426 * t3020;
+    let t17438 = F::new(0.96490945932906628932e2) * t8582 * t17436;
+    let t17439 = t1221 * t17348;
+    let t17440 = t914 * t17439;
+    let t17442 = t8426 * t17336;
+    let t17443 = t914 * t17442;
+    let t17447 = F::new(0.51947267698127589899e2) * t4305 * t5308;
+    (t17435, t17436, t17438, t17439, t17440, t17442, t17443, t17447)
 }

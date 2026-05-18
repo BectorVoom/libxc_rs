@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 25 (v4rho2sigma2_4) CSE chunk 934/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 25 (v4rho2sigma2_4) CSE chunk 934/1444 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk934<F: Float>(t11373: F, t11382: F, t11385: F, t11392: F, t11403: F, t11445: F, t11453: F, t12086: F, t12087: F, t12090: F, t12093: F, t12094: F, t12095: F, t12096: F, t12097: F, t12098: F, t12099: F, t12100: F, t12101: F, t12104: F) -> (F,) {
-    let t12607 = -0.90579542097823505428e-7 * t11373 + t12086 + t12087 - 0.44198524585191154661e-8 * t11382 - 0.6629778687778673199e-7 * t11385 + t12090 + 0.57970906942607043475e-5 * t11392 - 0.14340192936791314021e-8 * t11403 + t12093 + t12094 - t12095 - t12096 - t12097 + t12098 - t12099 - t12100 - t12101 - 0.64087860648527174257e-6 * t11445 + 0.98332751566569010432e-8 * t11453 + t12104;
-    (t12607,)
+pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk934<F: Float>(t9214: F, t9217: F, t9220: F, t9224: F, t9226: F, t9230: F, t9233: F, t9235: F, t9239: F, t9242: F, t9250: F, t9257: F, t9263: F) -> F {
+    let t10752 = F::new(0.17376185052903442709e-3) * t9214 - F::new(0.28960308421505737848e-5) * t9217 - F::new(0.51491428373437201896e-5) * t9220 - F::new(0.51491428373437201896e-5) * t9224 + F::new(0.21642471925239962898e-3) * t9226 + F::new(0.4048307291666666667e-4) * t9230 + F::new(0.20241536458333333336e-3) * t9233 - F::new(0.61320337121513228211e-3) * t9235 - F::new(0.22202903123154399017e-4) * t9239 - F::new(0.20241536458333333335e-4) * t9242 - F::new(0.29183437491952479975e-8) * t9250 + F::new(0.98481791311425691698e-7) * t9257 + F::new(0.1969635826228513834e-6) * t9263;
+    t10752
 }

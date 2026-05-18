@@ -29,16 +29,16 @@ pub fn gga_x_pbepow_vxc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = M_CBRT6;
         let t21 = M_PI * M_PI;
-        let t22 = pow_1_3(t21);
+        let t22 = pow_1_3::<f64>(t21);
         let t23 = t22 * t22;
         let t24 = 1.0 / t23;
         let t25 = t20 * t24;
@@ -58,7 +58,7 @@ pub fn gga_x_pbepow_vxc_unpol(
         let t44 = 0.13344141567995010044e-3 * t42 - 1.0;
         let t45 = t33 * t44;
         let t48 = 1.0 - 0.91464571985215458336e-2 * t26 * t45;
-        let t52 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t48);
+        let t52 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t48);
         let tzk0 = 2.0 * t52;
         zk[ip] += tzk0;
         let t54 = t17 / t30;
@@ -81,7 +81,7 @@ pub fn gga_x_pbepow_vxc_unpol(
         let t85 = -8.0 / 3.0 * t26 * t66 + 0.4878110505878157778e1 * t74 * t82;
         let t86 = t65 * t85;
         let t90 = 0.2439055252939078889e-1 * t26 * t62 - 0.12205161970267854748e-3 * t26 * t33 * t86;
-        let t95 = piecewise3(t2, 0.0, -t6 * t54 * t48 / 8.0 - 3.0 / 8.0 * t6 * t19 * t90);
+        let t95 = piecewise3::<f64>(t2, 0.0, -t6 * t54 * t48 / 8.0 - 3.0 / 8.0 * t6 * t19 * t90);
         let tvrho0 = 2.0 * rho[ip] * t95 + 2.0 * t52;
         vrho[ip] += tvrho0;
         let t102 = t75 * rho[ip];
@@ -89,7 +89,7 @@ pub fn gga_x_pbepow_vxc_unpol(
         let t109 = t25 * t40 - 0.18292914397043091667e1 * t72 * sigma[ip] * t106;
         let t110 = t65 * t109;
         let t114 = -0.91464571985215458336e-2 * t25 * t45 - 0.12205161970267854748e-3 * t26 * t33 * t110;
-        let t118 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t114);
+        let t118 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t114);
         let tvsigma0 = 2.0 * rho[ip] * t118;
         vsigma[ip] += tvsigma0;
     }

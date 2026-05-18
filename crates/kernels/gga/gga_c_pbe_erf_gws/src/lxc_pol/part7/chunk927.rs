@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 927/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 927/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk927<F: Float>(t1321: F, t18638: F, t18639: F, t470: F, t1396: F, t4793: F, t1289: F, t1292: F, t13: F, t18515: F, t1276: F, t1285: F, t1291: F, t1399: F, t4782: F, t1218: F) -> (F, F, F, F, F, F, F) {
-    let t18641 = t1321 * t1321;
-    let t18642 = 1.0 / t18641;
-    let t18645 = 0.91080982599109921211e5 * t470 * t18638 * t18639 * t18642;
-    let t18646 = t4793 * t1396;
-    let t18647 = 0.35089340384731224426e1 * t18646;
-    let t18648 = t1289 * t1289;
-    let t18651 = t1292 * t1292;
-    let t18655 = 0.24954977986735470917e5 * t13 / t18648 * t18515 / t18651;
-    let t18658 = 36.0 * t1291 * t1276 * t1285;
-    let t18659 = t1399 * t4782;
-    let t18660 = 0.41015588084031179722e4 * t18659;
-    let t18661 = t4793 * t1218;
-    (t18642, t18645, t18647, t18655, t18658, t18660, t18661)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk927<F: Float>(t1829: F, t5406: F, t2735: F, t561: F, t563: F, t1730: F, t5116: F, t17316: F, t17318: F, t17326: F, t17328: F, t17330: F, t17335: F, t17338: F, t17341: F) -> (F, F, F, F) {
+    let t17343 = F::new(16.0) / F::new(15.0) * t5406 * t1829;
+    let t17345 = t561 * t2735 * t563;
+    let t17346 = F::new(128.0) / F::new(405.0) * t17345;
+    let t17347 = t1730 * t5116;
+    let t17348 = F::new(32.0) / F::new(45.0) * t17347;
+    let t17349 = t17316 + t17318 + t17326 + t17328 + t17330 - t17335 + t17338 + t17341 - t17343 + t17346 - t17348;
+    (t17343, t17346, t17348, t17349)
 }

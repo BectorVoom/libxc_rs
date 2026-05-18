@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 795/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 795/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk795<F: Float>(t41726: F, t6717: F, t6914: F, t12942: F, t1429: F, t549: F, t12878: F, t4953: F, t40073: F, t40076: F, t40090: F, t41596: F, t447: F) -> (F, F, F, F, F, F, F) {
-    let t41729 = 0.37959496694381542179e3 * t6914 * t6717 * t41726;
-    let t41731 = t1429 * t549 * t12942;
-    let t41734 = 0.62115540045351614476e2 * t4953 * t12878;
-    let t41735 = 0.59584149919750711116e-1 * t40073;
-    let t41736 = 0.25561950635947166451e0 * t40076;
-    let t41737 = 0.19171462976960374838e1 * t40090;
-    let t41738 = t41596 * t447;
-    (t41729, t41731, t41734, t41735, t41736, t41737, t41738)
+pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk795<F: Float>(t13870: F, t808: F, t568: F, t813: F, t836: F, t833: F, t314: F, t313: F, t317: F, t739: F, t531: F, t797: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t13871 = t808 * t13870;
+    let t13872 = t568 * t13871;
+    let t13874 = F::new(0.23005755572352449806e1) * t813 * t13872;
+    let t13875 = t836 * t13870;
+    let t13876 = t568 * t13875;
+    let t13878 = F::new(0.23005755572352449806e1) * t833 * t13876;
+    let t13879 = t314 * t13870;
+    let t13880 = t313 * t13879;
+    let t13882 = F::new(0.35750489951850426669e0) * t13880 * t317;
+    let t13883 = t739 * t13870;
+    let t13884 = t531 * t13883;
+    let t13886 = F::new(0.35750489951850426669e0) * t797 * t13884;
+    (t13871, t13872, t13874, t13875, t13876, t13878, t13879, t13880, t13882, t13883, t13884, t13886)
 }

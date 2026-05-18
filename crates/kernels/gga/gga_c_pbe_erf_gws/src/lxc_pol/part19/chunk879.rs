@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 879/1222 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 879/1404 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk879<F: Float>(t10972: F, t561: F, t5513: F, t1006: F, t2786: F, t3425: F, t610: F, t1827: F, t587: F, t10792: F, t1821: F, t10796: F, t7694: F, t2768: F, t950: F, t1820: F) -> (F, F, F, F, F, F, F) {
-    let t10973 = t561 * t10972;
-    let t10974 = 8.0 / 45.0 * t10973;
-    let t10975 = 4.0 / 135.0 * t5513;
-    let t10977 = 4.0 / 15.0 * t1006 * t2786;
-    let t10978 = t3425 * t610;
-    let t10979 = t1827 * t10978;
-    let t10981 = 8.0 / 45.0 * t587 * t10979;
-    let t10982 = t1821 * t10792;
-    let t10984 = 8.0 / 15.0 * t587 * t10982;
-    let t10985 = t7694 * t10796;
-    let t10987 = 32.0 / 45.0 * t587 * t10985;
-    let t10988 = t2768 * t950;
-    let t10989 = t7694 * t10988;
-    let t10991 = 16.0 / 45.0 * t1820 * t10989;
-    (t10974, t10975, t10977, t10981, t10984, t10987, t10991)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk879<F: Float>(t3242: F, t6627: F, t2319: F, t3295: F, t1105: F, t2264: F, t899: F, t923: F, t3249: F, t6636: F, t6684: F, t2323: F, t3279: F) -> (F, F, F, F, F, F) {
+    let t9598 = F::new(7.0) / F::new(288.0) * t6627 * t3242;
+    let t9601 = F::new(7.0) / F::new(1152.0) * t2319 * t3295;
+    let t9607 = t1105 * param_a_c;
+    let t9630 = t899 * t2264 * t923;
+    let t9632 = F::new(7.0) / F::new(384.0) * t9630 * t3249;
+    let t9637 = t6684 * t6636;
+    let t9645 = F::new(35.0) / F::new(576.0) * t2323 * t3279;
+    (t9598, t9601, t9607, t9632, t9637, t9645)
 }

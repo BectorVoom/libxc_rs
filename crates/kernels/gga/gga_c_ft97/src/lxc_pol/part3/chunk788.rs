@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 788/887 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 788/1032 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk788<F: Float>(t13464: F, t13468: F, t13469: F, t13474: F, t13475: F, t1417: F, t1701: F, t17933: F, t17937: F, t17941: F, t17945: F, t17946: F, t17950: F, t17958: F, t17960: F, t17964: F, t17966: F, t17971: F, t17976: F, t17980: F, t17987: F, t17988: F, t2035: F, t2387: F, t3786: F, t6757: F) -> (F,) {
-    let t17992 = -0.23254900946437792e-2 * t2387 * t17933 + 0.23254900946437792e-1 * t2387 * t17937 + 0.23254900946437792e-1 * t2387 * t17941 + 0.77462893625097599762e-3 * t17945 * t13469 * t17946 - 0.38731446812548799881e-3 * t13468 * t13469 * t17950 - 0.46509801892875584e-2 * t13474 * t13475 * t17950 - 0.46509801892875584e-1 * t17958 * t6757 * t17960 + 0.46509801892875584e-1 * t17964 * t6757 * t17966 + 0.93019603785751168e-2 * t17971 * t13475 * t17946 + 0.37540077436335915588e-1 * t1417 * t1701 * t17976 - 0.11854761295685025975e-1 * t1417 * t1701 * t17980 + 0.46509801892875584e-1 * t13464 * t3786 - 0.14053536537767171586e-3 * t17987 * t2035 * t17988;
-    (t17992,)
+pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk788<F: Float>(t103: F, t4436: F, t379: F, t8217: F, t16155: F, t3194: F, t8518: F, t16160: F, t8210: F, t3193: F, t432: F, t4431: F) -> (F, F, F, F) {
+    let t16228 = t103 * t4436;
+    let t16229 = t16228 * t379;
+    let t16230 = t8217 * t16229;
+    let t16233 = t3194 * t16155;
+    let t16234 = t8518 * t16233;
+    let t16237 = t8210 * t16160;
+    let t16238 = t3193 * t16237;
+    let t16241 = t4431 * t432;
+    (t16230, t16234, t16238, t16241)
 }

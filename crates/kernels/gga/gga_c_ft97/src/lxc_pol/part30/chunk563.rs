@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 563/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 563/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk563<F: Float>(t6050: F, t6828: F, t1417: F, t1127: F, t218: F, t709: F, t25057: F, t6776: F, t694: F, t226: F, t6762: F, t3817: F, t6018: F, t13443: F, t17994: F, t24358: F, t24372: F, t24380: F, t27686: F, t27689: F, t27692: F, t27696: F, t27700: F, t27704: F, t27707: F, t27711: F, t27713: F, t27717: F, t3723: F, t3759: F, t3766: F, t6015: F, t6019: F, t6034: F) -> (F, F, F, F, F, F, F) {
-    let t27720 = t6828 * t6050;
-    let t27721 = t1417 * t27720;
-    let t27723 = t218 * t1127;
-    let t27724 = t27723 * t709;
-    let t27725 = t25057 * t27724;
-    let t27729 = t694 * t6776;
-    let t27730 = t27729 * t709;
-    let t27733 = t6762 * t226;
-    let t27736 = t6018 * t3817;
-    let t27739 = -0.44540303667943584666e-4 * t6034 * t27686 - 0.14836531933660919214e-4 * t24372 * t27689 - 0.23254900946437792e-1 * t3759 * t27692 - 0.23254900946437792e-1 * t3759 * t27696 + 0.13519760450715832853e-3 * t3723 * t27700 - 0.23254900946437792e-1 * t27704 * t6015 + 4.0 * t3766 * t27707 - 0.21281202793209876543e-2 * t24358 + 0.44455354858818847408e-2 * t27711 * t25057 * t27713 - 0.11854761295685025975e-1 * t27717 * t17994 + 0.17024962234567901235e-1 * t27721 - 0.44455354858818847408e-2 * t13443 * t27725 + 0.74233839446572641111e-4 * t24380 - 2.0 * t3766 * t27730 - 2.0 * t27733 * t6019 - 2.0 * t3766 * t27736;
-    (t27720, t27724, t27725, t27729, t27730, t27733, t27739)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk563<F: Float>(t25035: F, t1476: F, t2347: F, t1882: F, t6336: F, t6260: F, t668: F, t2691: F, t6248: F, t24330: F, t6242: F, t6243: F) -> (F, F, F, F, F, F) {
+    let t25036 = F::new(2.0) / F::new(9.0) * t25035;
+    let t25037 = t1476 * t2347;
+    let t25042 = t1882 * t6336;
+    let t25044 = t6260 * t668;
+    let t25049 = t2691 * t6248;
+    let t25055 = t6242 * t24330 * t6243;
+    (t25036, t25037, t25042, t25044, t25049, t25055)
 }

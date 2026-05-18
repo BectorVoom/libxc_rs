@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1049/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1049/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1049<F: Float>(t1163: F, t1181: F, t4289: F, t5725: F, t4396: F, t5743: F, t1532: F, t322: F, t5799: F, t1524: F, t944: F, t1165: F, t1531: F, t1552: F, t16057: F, t16072: F, t16083: F, t16110: F, t16117: F, t3396: F, t406: F, t4263: F, t4298: F, t5740: F, t5741: F, t6337: F, t929: F) -> (F,) {
-    let t21060 = t1163 * t1181 * t4289 * t5725;
-    let t21066 = t4396 * t5743;
-    let t21071 = t1163 * t1181 * t1532 * t5799 * t322;
-    let t21077 = t944 * t1524;
-    let t21093 = 0.17149607247227894789e-2 * t21060 - 0.41159057393346947494e-1 * t3396 * t1181 * t6337 * t4263 - 0.34299214494455789578e-2 * t21066 + 0.17149607247227894789e-2 * t21071 - 0.34299214494455789578e-2 * t1531 * t1165 * t4298 * t5741 - 0.34299214494455789578e-2 * t1531 * t1165 * t1552 * t21077 * t406 - 0.17149607247227894789e-2 * t1531 * t1165 * t1552 * t5740 * t929 + 0.24009450146119052705e0 * t16057 - 0.17149607247227894789e-2 * t16072 + 0.16006300097412701803e-1 * t16083 + 0.42874018118069736972e-3 * t16110 + 0.68598428988911579156e-2 * t16117;
-    (t21093,)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1049<F: Float>(t3379: F, t4708: F, t1165: F, t3290: F, t3361: F, t6138: F, t1163: F, t1539: F, t15560: F, t3372: F, t4372: F, t3431: F, t4447: F) -> (F, F, F, F, F) {
+    let t18305 = t3379 * t4708;
+    let t18309 = t3361 * t1165 * t6138 * t3290;
+    let t18321 = t1163 * t1165 * t15560 * t1539;
+    let t18323 = t3372 * t4372;
+    let t18329 = t3431 * t4447;
+    (t18305, t18309, t18321, t18323, t18329)
 }

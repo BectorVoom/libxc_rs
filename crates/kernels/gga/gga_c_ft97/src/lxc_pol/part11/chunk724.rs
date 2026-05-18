@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 724/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 724/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,21 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk724<F: Float>(t869: F, t309: F, t2844: F, t875: F, t296: F, t2770: F, t871: F, t2867: F, t684: F, t2749: F, t840: F, t2801: F, t2843: F, t2739: F, t824: F, t2862: F, t319: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10695 = t869 * t869;
-    let t10696 = 1.0 / t10695;
-    let t10697 = t309 * t10696;
-    let t10698 = t2844 * t875;
-    let t10699 = t10697 * t10698;
-    let t10700 = t296 * t10699;
-    let t10703 = t2770 * t871;
-    let t10704 = t2867 * t684;
-    let t10705 = t10703 * t10704;
-    let t10709 = t840 * t2749 * t2867;
-    let t10712 = t875 * t2801;
-    let t10713 = t2843 * t10712;
-    let t10714 = t296 * t10713;
-    let t10717 = t2739 * t824;
-    let t10719 = t2862 * t319 * t10717;
-    (t10695, t10696, t10697, t10698, t10699, t10700, t10703, t10704, t10705, t10709, t10712, t10713, t10714, t10717, t10719)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk724<F: Float>(t2526: F, t766: F, t2568: F, t242: F, t1901: F, t446: F, t9788: F, t9794: F, t9799: F, t9805: F, t9810: F, t9813: F, t9816: F, t9819: F, t9822: F, t9824: F, t9826: F, t9828: F, t9831: F, t9835: F) -> (F, F, F, F) {
+    let t9838 = t766 * t2526;
+    let t9839 = t2568 * t9838;
+    let t9840 = t242 * t9839;
+    let t9843 = F::new(2.0) / F::new(3.0) * t1901 * t9788 - F::new(2.0) / F::new(3.0) * t1901 * t9794 - F::new(2.0) / F::new(3.0) * t1901 * t9799 + F::new(2.0) / F::new(9.0) * t1901 * t9805 + F::new(2.0) / F::new(9.0) * t1901 * t9810 + F::new(2.0) / F::new(3.0) * t9813 - t446 * t9816 - t446 * t9819 / F::new(3.0) - F::new(4.0) / F::new(9.0) * t9822 - F::new(4.0) / F::new(9.0) * t9824 + t9826 / F::new(3.0) + F::new(2.0) / F::new(3.0) * t9828 - F::new(2.0) / F::new(3.0) * t446 * t9831 + F::new(4.0) / F::new(9.0) * t446 * t9835 + F::new(2.0) * t446 * t9840;
+    (t9838, t9839, t9840, t9843)
 }

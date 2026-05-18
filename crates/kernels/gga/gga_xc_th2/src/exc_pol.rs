@@ -32,9 +32,9 @@ pub fn gga_xc_th2_exc_pol(
         let t8 = t7 * rho0;
         let t10 = f64::powf(rho1, 1.0 / 6.0);
         let t11 = t10 * rho1;
-        let t13 = pow_1_3(rho0);
+        let t13 = pow_1_3::<f64>(rho0);
         let t14 = t13 * rho0;
-        let t16 = pow_1_3(rho1);
+        let t16 = pow_1_3::<f64>(rho1);
         let t17 = t16 * rho1;
         let t19 = f64::sqrt(rho0);
         let t20 = t19 * rho0;
@@ -60,10 +60,10 @@ pub fn gga_xc_th2_exc_pol(
         let t46 = t43 * t45;
         let t47 = 1.0 + t46;
         let t48 = t47 <= zeta_threshold;
-        let t49 = pow_1_3(zeta_threshold);
+        let t49 = pow_1_3::<f64>(zeta_threshold);
         let t50 = t49 * zeta_threshold;
-        let t51 = pow_1_3(t47);
-        let t53 = piecewise3(t48, t50, t51 * t47);
+        let t51 = pow_1_3::<f64>(t47);
+        let t53 = piecewise3::<f64>(t48, t50, t51 * t47);
         let t54 = M_CBRT2;
         let t55 = t54 * t54;
         let t56 = t53 * t55;
@@ -72,8 +72,8 @@ pub fn gga_xc_th2_exc_pol(
         let t60 = t58 * t59;
         let t61 = 1.0 - t46;
         let t62 = t61 <= zeta_threshold;
-        let t63 = pow_1_3(t61);
-        let t65 = piecewise3(t62, t50, t63 * t61);
+        let t63 = pow_1_3::<f64>(t61);
+        let t65 = piecewise3::<f64>(t62, t50, t63 * t61);
         let t66 = t65 * t55;
         let t69 = t42 * t56 / 4.0 + t60 * t66 / 4.0;
         let t72 = t20 + t23;
@@ -104,7 +104,7 @@ pub fn gga_xc_th2_exc_pol(
         let t110 = t90 + t97;
         let t116 = sigma0 + 2.0 * sigma1 + sigma2;
         let t117 = t44 * t44;
-        let t118 = pow_1_3(t44);
+        let t118 = pow_1_3::<f64>(t44);
         let t119 = t118 * t118;
         let t121 = 1.0 / t119 / t117;
         let t122 = t116 * t121;
@@ -116,8 +116,8 @@ pub fn gga_xc_th2_exc_pol(
         let t136 = t14 + t17;
         let t137 = t136 * t131;
         let t140 = t72 * t131;
-        let t143 = pow_5_3(rho0);
-        let t144 = pow_5_3(rho1);
+        let t143 = pow_5_3::<f64>(rho0);
+        let t144 = pow_5_3::<f64>(rho1);
         let t145 = t143 + t144;
         let t146 = t145 * t131;
         let t149 = 0.735705e-1 * t76 * t69 - 0.3584585e-1 * t87 * t69 - 0.2035835e-1 * t76 * t105 + 0.1073125e-1 * t87 * t105 - 0.384078e-3 * t110 * t105 + 0.310377e-1 * t76 * t123 - 0.720326e-1 * t87 * t123 + 0.446562e-1 * t110 * t123 - 0.266802e0 * t132 * t133 + 0.150822e1 * t137 * t133 - 0.194515e1 * t140 * t133 + 0.679078e0 * t146 * t133;

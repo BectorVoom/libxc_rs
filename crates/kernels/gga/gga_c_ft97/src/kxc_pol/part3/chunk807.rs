@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 3 (v3rho3_2) CSE chunk 807/887 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 3 (v3rho3_2) CSE chunk 807/1032 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk807<F: Float>(t17780: F, t3917: F, t17722: F, t2493: F, t18303: F, t18305: F, t18308: F, t18312: F, t18314: F, t18316: F, t18318: F, t18321: F, t18324: F, t18327: F, t18330: F, t18333: F, t18336: F, t18339: F, t18342: F, t18345: F, t18348: F, t18351: F, t3139: F, t462: F, t92: F) -> (F,) {
-    let t18354 = t3917 * t17780;
-    let t18357 = t2493 * t17722;
-    let t18360 = 2.0 / 27.0 * t18303 - 2.0 / 9.0 * t18305 - t462 * t18308 / 3.0 - t92 * t18312 + t18314 / 3.0 - 2.0 / 3.0 * t18316 + 2.0 / 3.0 * t462 * t18318 - 2.0 / 9.0 * t462 * t18321 + t462 * t18324 / 3.0 + 2.0 / 9.0 * t462 * t18327 + 4.0 / 3.0 * t462 * t18330 - 10.0 / 27.0 * t462 * t18333 + 8.0 / 9.0 * t3139 * t18336 + 2.0 / 3.0 * t462 * t18339 - 4.0 / 3.0 * t3139 * t18342 - 2.0 / 3.0 * t462 * t18345 - 2.0 / 3.0 * t462 * t18348 - 2.0 * t462 * t18351 - 8.0 / 3.0 * t3139 * t18354 + t462 * t18357 / 3.0;
-    (t18360,)
+pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk807<F: Float>(t16023: F, t16081: F, t16144: F, t16194: F, t16227: F, t16284: F, t16332: F, t16544: F, t108: F, t15594: F, t15596: F, t15599: F, t15968: F, t2976: F, t3109: F, t3289: F, t438: F, t4415: F, t4501: F, t4621: F, t497: F, t88: F, t948: F, t984: F) -> F {
+    let t16547 = t16023 + t16081 + t16144 + t16194 + t16227 + t16284 + t16332 + t16544;
+    let t16549 = -t108 * t15594 - t108 * t15596 - t108 * t15599 - t108 * t15968 - t16547 * t88 - F::new(2.0) * t2976 * t984 - F::new(2.0) * t3109 * t984 - F::new(2.0) * t3289 * t948 - t438 * t4621 - t4415 * t497 - t4501 * t497;
+    t16549
 }

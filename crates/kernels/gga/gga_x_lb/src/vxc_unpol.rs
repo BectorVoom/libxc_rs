@@ -26,13 +26,13 @@ pub fn gga_x_lb_vxc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < vrho.len() {
         let t1 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
+        let t4 = pow_1_3::<f64>(1.0 / M_PI);
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
         let t10 = f64::sqrt(sigma[ip]);
         let t11 = M_CBRT2;
         let t12 = t10 * t11;
-        let t13 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(rho[ip]);
         let t15 = 1.0 / t13 / rho[ip];
         let t17 = t12 * t15 < 300.0;
         let t18 = param_beta * sigma[ip];
@@ -51,7 +51,7 @@ pub fn gga_x_lb_vxc_unpol(
         let t38 = f64::ln(2.0 * t28);
         let t39 = 1.0 / t38;
         let t40 = t15 * t39;
-        let t43 = piecewise3(t17, t18 * t24 * t34, t12 * t40 / 3.0);
+        let t43 = piecewise3::<f64>(t17, t18 * t24 * t34, t12 * t40 / 3.0);
         let t45 = (-param_alpha * t1 * t4 * t6 / 2.0 - t43) * t19;
         let tvrho0 = t45 * t13 / 2.0;
         vrho[ip] += tvrho0;

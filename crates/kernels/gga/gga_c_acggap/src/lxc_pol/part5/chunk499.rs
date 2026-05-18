@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 499/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 499/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk499<F: Float>(t2607: F, t31: F, t4: F, t195: F, t682: F, t656: F, t691: F, t243: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t2609 = t4 * t2607 * t31;
-    let t2610 = 0.34450798614814814813e-2 * t2609;
-    let t2611 = t195 * t682;
-    let t2612 = t656 * t2611;
-    let t2613 = 0.16265371950452609763e-1 * t2612;
-    let t2614 = t195 * t691;
-    let t2615 = t656 * t2614;
-    let t2616 = 0.48159733137676571078e0 * t2615;
-    let t2617 = t243 * t4;
-    (t2609, t2610, t2611, t2612, t2613, t2614, t2615, t2616, t2617)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk499<F: Float>(t1247: F, t1815: F, t1651: F, t525: F, t1839: F, t456: F, t1844: F, t182: F, t1907: F, t119: F, t1226: F, t1228: F, t1235: F, t1246: F, t151: F, t1627: F, t1631: F, t1645: F, t1649: F) -> (F, F, F, F, F, F) {
+    let t1922 = t1247 * t1815;
+    let t1925 = t1651 * t525;
+    let t1928 = t456 * t1839;
+    let t1931 = t456 * t1844;
+    let t1934 = t182 * t1907;
+    let t1937 = t1226 - t1228 - F::new(0.13170898365871023197e1) * t1627 + F::new(0.13170898365871023197e1) * t1645 + t1235 + F::new(0.13170898365871023197e1) * t1631 - F::new(0.13170898365871023197e1) * t1649 - t1246 + F::new(0.13170898365871023197e1) * t151 * t1922 - F::new(0.13170898365871023197e1) * t151 * t1925 - F::new(0.65854491829355115987e0) * t151 * t1928 - F::new(0.65854491829355115987e0) * t151 * t1931 + F::new(0.65854491829355115987e0) * t119 * t1934;
+    (t1922, t1925, t1928, t1931, t1934, t1937)
 }

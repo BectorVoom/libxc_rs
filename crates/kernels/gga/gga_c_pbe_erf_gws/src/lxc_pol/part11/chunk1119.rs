@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1119/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1119/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1119<F: Float>(t1076: F, t328: F, t1115: F, t1144: F, t12111: F, t13174: F, t13227: F, t13613: F, t2118: F, t27077: F, t27079: F, t3052: F, t3207: F, t335: F, t338: F, t3733: F, t3912: F, t3913: F, t43375: F, t43740: F, t44063: F, t44158: F, t46635: F, t46637: F, t8713: F, t9283: F, t9838: F) -> (F, F) {
-    let t50539 = t1076 * t328;
-    let t50544 = 7.0 / 12.0 * t44158 - 455.0 / 324.0 * t27077 - 455.0 / 324.0 * t27079 - t13174 * t3052 / 12.0 - t43740 * t3733 / 16.0 + t3913 * t12111 / 8.0 - t1115 * t44063 / 4.0 - t1115 * t43375 / 8.0 - 3.0 / 4.0 * t3207 * t9283 * t8713 * t13227 - t335 * t338 * t1144 * t13613 / 4.0 + 7.0 / 72.0 * t46635 + 7.0 / 24.0 * t46637 + t3912 * t2118 * t50539 * t9838 / 8.0;
-    (t50539, t50544)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1119<F: Float>(t3390: F, t3469: F, t4927: F, t639: F, t1033: F, t12585: F, t32093: F, t1019: F, t12452: F, t18237: F, t34500: F, t43029: F, t47832: F, t47836: F, t47839: F, t47841: F, t47844: F) -> (F, F, F, F, F) {
+    let t47848 = F::new(32.0) / F::new(15.0) * t639 * t4927 * t3469 * t3390;
+    let t47850 = F::new(16.0) / F::new(5.0) * t1033 * t12585;
+    let t47851 = F::new(16.0) / F::new(45.0) * t32093;
+    let t47855 = F::new(16.0) / F::new(5.0) * t12452 * t1019;
+    let t47856 = -t47832 - t47836 + t47839 - t47841 - t47844 - t47848 - t47850 - t47851 + F::new(8.0) / F::new(9.0) * t43029 + F::new(8.0) / F::new(3.0) * t34500 - t47855 + t18237;
+    (t47848, t47850, t47851, t47855, t47856)
 }

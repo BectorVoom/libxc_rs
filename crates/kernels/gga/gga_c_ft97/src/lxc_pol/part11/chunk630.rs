@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 630/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 630/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk630<F: Float>(t2180: F, t558: F, t2179: F, t574: F, t2075: F, t609: F, t605: F, t1637: F, t599: F, t89: F, t167: F, t569: F, t7973: F, t143: F, t7954: F, t7955: F) -> (F, F, F, F, F, F, F, F) {
-    let t9311 = t2180 * t558;
-    let t9313 = t574 * t2179 * t9311;
-    let t9316 = t2075 * t609;
-    let t9318 = t574 * t605 * t9316;
-    let t9321 = t89 * t1637 * t599;
-    let t9324 = t569 * t167 * t7973;
-    let t9327 = t7954 * t143;
-    let t9329 = t9327 * t167 * t7955;
-    (t9311, t9313, t9316, t9318, t9321, t9324, t9327, t9329)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk630<F: Float>(t7899: F, t8690: F, t2007: F, t383: F, t528: F, t7977: F, t7944: F, t1655: F, t7946: F, t7948: F, t7950: F, t7952: F, t7957: F, t7961: F, t7964: F, t7968: F, t7971: F, t7975: F) -> (F, F, F, F) {
+    let t8691 = t8690 * t7899;
+    let t8693 = t2007 * t383;
+    let t8696 = t528 * t7977;
+    let t8698 = F::new(0.44934037037037037036e0) * t7944;
+    let t8709 = F::new(0.1760655e0) * t8691 - F::new(0.352131e0) * t8693 * t1655 + F::new(0.234754e0) * t8696 - t8698 - F::new(0.19257444444444444444e0) * t7946 + F::new(0.9628722222222222222e-1) * t7948 - F::new(0.28886166666666666666e0) * t7950 + F::new(0.14443083333333333333e0) * t7952 - F::new(0.1604787037037037037e0) * t7957 + F::new(0.57772333333333333332e0) * t7961 - F::new(0.28886166666666666666e0) * t7964 - F::new(0.86658499999999999998e0) * t7968 + F::new(0.86658499999999999998e0) * t7971 - F::new(0.14443083333333333333e0) * t7975;
+    (t8691, t8693, t8696, t8709)
 }

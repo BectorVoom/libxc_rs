@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 1080/1126 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 1080/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk1080<F: Float>(t11207: F, t11211: F, t25176: F, t11208: F, t11210: F, t5248: F, t102: F, t125: F, t190: F, t13853: F, t35381: F, t11214: F, t11217: F, t4050: F, t423: F, t11216: F, t1448: F, t4055: F) -> (F, F, F, F, F, F) {
-    let t35463 = t25176 * t11207 * t11211;
-    let t35466 = t11208 * t11210 * t5248;
-    let t35469 = t102 * t125 * t190;
-    let t35471 = t35381 * t35469 * t13853;
-    let t35475 = t11214 * t423 * t4050 * t11217;
-    let t35478 = t11216 * t1448 * t4055;
-    (t35463, t35466, t35469, t35471, t35475, t35478)
+pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk1080<F: Float>(t1084: F, t15610: F, t33411: F, t1734: F, t8709: F, t15516: F, t3708: F, t9563: F, t9934: F, t33387: F, t33390: F, t33394: F, t33396: F, t33402: F, t33405: F, t33407: F, t33409: F) -> (F, F) {
+    let t33413 = t1084 * t33411 * t15610;
+    let t33415 = t1734 * t8709;
+    let t33417 = t1084 * t33415 * t15516;
+    let t33420 = t9563 * t3708 * t9934;
+    let t33422 = -F::new(0.38647271295071362318e-6) * t33387 + F::new(0.33764099580923002116e-6) * t33390 - F::new(0.4976888445083044254e-7) * t33394 - F::new(0.52756405595192190805e-8) * t33396 + F::new(0.22098551499687900009e-8) * t33402 - F::new(0.21102562238076876322e-7) * t33405 - F::new(0.18115908419564701086e-6) * t33407 + F::new(0.52756405595192190805e-8) * t33409 + F::new(0.168651611569216142e-8) * t33413 + F::new(0.27665946779727057415e-8) * t33417 - F::new(0.33147827249531850014e-7) * t33420;
+    (t33415, t33422)
 }

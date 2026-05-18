@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 898/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 898/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk898<F: Float>(t10024: F, t10867: F, t2714: F, t3040: F, t2718: F, t9873: F, t3500: F, t7416: F, t10827: F, t2685: F, t2684: F, t2465: F, t2958: F, t2464: F, t787: F, t8788: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t10868 = t10867 * t10024;
-    let t10869 = 0.44688112439813033337e-1 * t10868;
-    let t10871 = 0.35750489951850426669e0 * t2714 * t3040;
-    let t10873 = 0.35750489951850426669e0 * t2718 * t3040;
-    let t10876 = 0.15976219147466979032e-1 * t9873;
-    let t10877 = t7416 * t3500;
-    let t10878 = 0.19171462976960374838e0 * t10877;
-    let t10879 = t2685 * t10827;
-    let t10880 = t2684 * t10879;
-    let t10881 = 0.19171462976960374838e0 * t10880;
-    let t10882 = t2465 * t2958;
-    let t10883 = t2464 * t10882;
-    let t10884 = t2684 * t10883;
-    let t10885 = 0.42603251059911944084e-1 * t10884;
-    let t10886 = t787 * t8788;
-    (t10869, t10871, t10873, t10876, t10878, t10879, t10881, t10882, t10883, t10885, t10886)
+pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk898<F: Float>(t6509: F, t883: F, t4782: F, t9272: F, t123: F, t2293: F, t912: F, t587: F, t544: F, t6603: F) -> (F, F, F, F, F, F) {
+    let t9273 = t883 * t6509;
+    let t9274 = t4782 * t9273;
+    let t9276 = F::new(0.11502877786176224903e1) * t9272 * t9274;
+    let t9277 = t2293 * t123;
+    let t9278 = t9277 * t883;
+    let t9279 = t912 * t9278;
+    let t9280 = t587 * t9279;
+    let t9285 = t544 * t6603;
+    (t9274, t9276, t9278, t9279, t9280, t9285)
 }

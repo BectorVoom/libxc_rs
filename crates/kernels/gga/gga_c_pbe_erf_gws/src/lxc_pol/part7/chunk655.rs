@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 655/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 655/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk655<F: Float>(t5470: F, t645: F, t1627: F, t1635: F, t1645: F, t1630: F, t1634: F, t639: F, t1639: F, t9: F, t1644: F, t4373: F, t643: F, t642: F, t1724: F, t1791: F, t661: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t5472 = 4.0 / 15.0 * t5470 * t645;
-    let t5474 = 4.0 / 15.0 * t1627 * t1635;
-    let t5476 = 4.0 / 9.0 * t1627 * t1645;
-    let t5477 = t1630 * t1634;
-    let t5478 = t639 * t5477;
-    let t5479 = 8.0 / 45.0 * t5478;
-    let t5480 = t9 * t1639;
-    let t5481 = t5480 * t1644;
-    let t5482 = t639 * t5481;
-    let t5483 = 8.0 / 27.0 * t5482;
-    let t5484 = t643 * t4373;
-    let t5485 = t642 * t5484;
-    let t5487 = 4.0 / 45.0 * t639 * t5485;
-    let t5489 = t1791 * t661 * t1724;
-    (t5472, t5474, t5476, t5477, t5479, t5480, t5481, t5483, t5484, t5485, t5487, t5489)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk655<F: Float>(t185: F, t5179: F, t1795: F, t633: F, t1730: F, t1735: F, t5124: F, t5128: F, t5132: F, t5136: F, t5140: F, t5144: F, t5148: F, t5151: F, t5154: F, t5158: F, t5160: F, t5166: F, t5168: F, t5170: F, t5173: F) -> (F, F, F, F) {
+    let t5181 = F::new(4.0) / F::new(5.0) * t185 * t5179;
+    let t5183 = F::new(4.0) / F::new(5.0) * t633 * t1795;
+    let t5185 = F::new(4.0) / F::new(5.0) * t1730 * t1735;
+    let t5186 = -t5124 + t5128 - t5132 + t5136 - t5140 + t5144 - t5148 - t5151 + t5154 + t5158 - t5160 + t5166 + t5168 + t5170 + t5173 - t5181 + t5183 + t5185;
+    (t5181, t5183, t5185, t5186)
 }

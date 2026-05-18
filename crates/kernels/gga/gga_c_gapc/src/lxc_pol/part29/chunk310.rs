@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 29 (v4rho2sigma2_8) CSE chunk 310/1129 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 29 (v4rho2sigma2_8) CSE chunk 310/1311 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part29_v4rho2sigma2_8_chunk310<F: Float>(t481: F, t5: F, t83: F, t6: F, t995: F, t93: F, t1254: F, t414: F, t491: F, t1141: F, t1146: F, t1147: F, t1174: F, t1249: F, t392: F, t402: F, t405: F, t421: F, t70: F, t73: F, t99: F) -> (F, F, F, F) {
-    let t1256 = t5 * t481;
-    let t1257 = t83 * t1256;
-    let t1260 = t6 * t995;
-    let t1261 = t93 * t1260;
-    let t1263 = -0.11955719325063177623e-1 * t414 + 0.40985e-2 * t1254 - 0.10566666666666666667e-2 * t1257 + 0.3884654180847230157e-4 * t491 - 0.420109375e-5 * t1261;
-    let t1265 = 0.23426533963880895498e-2 * t414 * t70 + 0.46853067927761790996e-2 * t1141 * t402 + 0.70279601891642686494e-2 * t1146 * t1147 - 0.23426533963880895498e-2 * t392 * t1174 - t1249 * t99 - 2.0 * t405 * t421 - t73 * t1263;
-    (t1257, t1261, t1263, t1265)
+pub fn gga_c_gapc_lxc_pol_part29_v4rho2sigma2_8_chunk310<F: Float>(t1227: F, t372: F, t1165: F, t1167: F, t1169: F, t1197: F, t1199: F, t1201: F, t374: F, t381: F, t373: F, t1225: F) -> (F, F, F, F, F, F) {
+    let t1229 = F::new(0.11696446794910408142e1) * t372 * t1227;
+    let t1236 = -F::new(0.57538888888888888889e0) * t1165 + F::new(0.11507777777777777778e1) * t1167 + F::new(0.40256666666666666667e0) * t1169 + F::new(0.366775e-1) * t1197 + F::new(0.73355e-1) * t1199 + F::new(0.137975e0) * t1201;
+    let t1238 = t374 * t1236 * t381;
+    let t1240 = F::new(0.58482233974552040708e0) * t372 * t1238;
+    let t1241 = t373 * t373;
+    let t1242 = F::new(1.0) / t1241;
+    let t1243 = t1242 * t1225;
+    (t1229, t1236, t1238, t1240, t1242, t1243)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 960/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 960/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk960<F: Float>(t1603: F, t19422: F, t137: F, t1509: F, t1839: F, t442: F, t5214: F, t144: F, t4043: F, t674: F, t3707: F, t5972: F, t647: F, t5: F, t4: F, t5971: F) -> (F, F, F, F, F, F, F, F) {
-    let t20171 = t19422 * t1603;
-    let t20198 = t1509 * t137;
-    let t20200 = t5214 * t1839 * t20198 * t442;
-    let t20372 = t4043 * t144 * t674;
-    let t20461 = t3707 * t144;
-    let t20487 = t647 * t5972;
-    let t20499 = t5 * t137;
-    let t20500 = t20499 * t4;
-    let t20501 = t5971 * t20500;
-    (t20171, t20198, t20200, t20372, t20461, t20487, t20500, t20501)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk960<F: Float>(t10371: F, t10374: F, t10376: F, t10379: F, t10383: F, t10386: F, t10390: F, t10393: F, t10396: F, t10399: F, t10403: F, t11060: F, t11072: F, t11085: F, t11097: F, t11111: F, t11123: F, t11136: F) -> F {
+    let t11148 = -F::new(0.7113065081882594864e-4) * t10371 + F::new(0.82073827867876094584e-5) * t10374 + F::new(0.18788769913633132635e-2) * t10376 + F::new(0.8768092626362128563e-4) * t10379 - F::new(0.11273261948179879581e-2) * t10383 + F::new(0.18788769913633132635e-2) * t10386 - F::new(0.26597999771996882504e-6) * t10390 - F::new(0.82073827867876094584e-5) * t10393 - F::new(0.16414765573575218917e-4) * t10396 - F::new(0.82073827867876094584e-5) * t10399 - F::new(0.23485962392041415794e-4) * t10403;
+    let t11151 = t11060 + t11072 + t11085 + t11097 + t11111 + t11123 + t11136 + t11148;
+    t11151
 }

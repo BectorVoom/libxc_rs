@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1030/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 1030/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1030<F: Float>(t174: F, t507: F, t435: F, t495: F, t930: F, t1298: F, t407: F, t1150: F, t1165: F, t1173: F, t1460: F, t1524: F, t1532: F, t15690: F, t15695: F, t15814: F, t1849: F, t301: F, t372: F, t4255: F, t4256: F, t4257: F, t4261: F, t4263: F, t4593: F, t5164: F, t5544: F, t5549: F, t5651: F, t5693: F, t839: F, t8927: F, t922: F) -> (F, F) {
-    let t20555 = t507 * t174;
-    let t20559 = t507 * t435;
-    let t20590 = t930 * t495;
-    let t20595 = t407 * t1298;
-    let t20600 = -t1150 * t4593 * t5164 / 8.0 - t4255 * t20555 * t4257 / 4.0 - t4261 * t20559 * t4263 / 6.0 - t15690 * t8927 * t1460 * t1524 / 4.0 - t4255 * t15695 * t5693 / 4.0 - t4255 * t4256 * t5544 * t301 / 4.0 - t4255 * t4256 * t5549 * t301 / 4.0 - t4255 * t4256 * t1849 * t839 / 8.0 - t4255 * t4256 * t5651 * t372 / 8.0 + t15814 * t4256 * t1849 * t922 / 2.0 + 0.17149607247227894789e-2 * t1173 * t1165 * t1532 * t20590 + 0.34299214494455789578e-2 * t1173 * t1165 * t1532 * t20595;
-    (t20595, t20600)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1030<F: Float>(t1008: F, t4849: F, t4853: F, t4878: F, t1181: F, t3290: F, t3391: F, t6337: F, t3409: F, t4406: F, t1165: F, t12991: F, t3355: F, t540: F) -> (F, F, F, F, F, F) {
+    let t17619 = t1008 * t4849;
+    let t17621 = t1008 * t4853;
+    let t17623 = t1008 * t4878;
+    let t17627 = t3391 * t1181 * t6337 * t3290;
+    let t17631 = t3409 * t4406;
+    let t17635 = t12991 * t1165 * t540 * t3355;
+    (t17619, t17621, t17623, t17627, t17631, t17635)
 }

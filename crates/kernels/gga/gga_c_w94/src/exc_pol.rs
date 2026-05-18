@@ -31,10 +31,10 @@ pub fn gga_c_w94_exc_pol(
         let t3 = 1.0 / t2;
         let t4 = t1 * t3;
         let t5 = 0.0 < t4;
-        let t6 = piecewise3(t5, t4, -t4);
+        let t6 = piecewise3::<f64>(t5, t4, -t4);
         let t7 = 0.1e-9 < t6;
-        let t8 = piecewise3(t7, t6, 0.1e-9);
-        let t9 = pow_1_3(t8);
+        let t8 = piecewise3::<f64>(t7, t6, 0.1e-9);
+        let t9 = pow_1_3::<f64>(t8);
         let t10 = t9 * t9;
         let t12 = -t10 * t8 + 1.0;
         let t13 = f64::sqrt(t12);
@@ -44,7 +44,7 @@ pub fn gga_c_w94_exc_pol(
         let t18 = t2 * t2;
         let t19 = t18 * t18;
         let t20 = 1.0 / t19;
-        let t22 = pow_1_3(t2);
+        let t22 = pow_1_3::<f64>(t2);
         let t24 = 1.0 / t22 / t2;
         let t25 = t16 * t24;
         let t26 = f64::powf(t25, 1.0 / 16.0);
@@ -53,7 +53,7 @@ pub fn gga_c_w94_exc_pol(
         let t31 = t18 * t2;
         let t32 = 1.0 / t31;
         let t35 = M_CBRT3;
-        let t37 = pow_1_3(1.0 / M_PI);
+        let t37 = pow_1_3::<f64>(1.0 / M_PI);
         let t38 = t35 * t37;
         let t39 = M_CBRT4;
         let t40 = t39 * t39;

@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 739/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 739/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk739<F: Float>(t7612: F, t880: F, t193: F, t1477: F, t6391: F, t1506: F, t6261: F, t681: F, t7617: F, t1466: F, t1479: F, t34090: F, t34114: F, t34173: F, t34212: F, t34231: F, t34262: F, t34267: F, t34276: F, t34278: F, t34283: F, t34312: F, t6210: F, t6263: F, t6267: F, t7581: F, t7587: F, t7618: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t34321 = t7612 * t880;
-    let t34322 = t193 * t34321;
-    let t34325 = t1477 * t6391;
-    let t34326 = t193 * t34325;
-    let t34329 = t6261 * t1506;
-    let t34330 = t193 * t34329;
-    let t34333 = t681 * t7617;
-    let t34335 = t1466 * t34333 / 9.0;
-    let t34336 = t1466 * t34262 / 6.0 - t34267 + 8.0 * t34114 - 12.0 * t34173 + 8.0 * t34090 + 4.0 * t34231 - 4.0 * t34212 + t6210 * t7618 / 3.0 - t34276 - t1466 * t34278 / 3.0 + t34283 + t34312 * t1479 / 6.0 + t7581 * t6263 / 6.0 + t7581 * t6267 / 6.0 - t6210 * t7587 / 3.0 + t1466 * t34322 / 6.0 + t1466 * t34326 / 3.0 + t1466 * t34330 / 3.0 - t34335;
-    (t34321, t34322, t34325, t34326, t34329, t34330, t34333, t34335, t34336)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk739<F: Float>(t33404: F, t6037: F, t33374: F, t7470: F, t6050: F, t6815: F, t14: F, t33403: F) -> (F, F, F, F, F) {
+    let t33405 = t33404 * t6037;
+    let t33408 = t7470 * t33374;
+    let t33411 = t7470 * t6050;
+    let t33413 = F::new(0.11352761063935582948e-3) * t6815 * t33411;
+    let t33414 = t33403 * t14;
+    (t33405, t33408, t33411, t33413, t33414)
 }

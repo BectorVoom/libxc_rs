@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 600/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 600/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk600<F: Float>(t2968: F, t2973: F, t2975: F, t2977: F, t163: F, t164: F, t169: F, t171: F, t1947: F, t1948: F, t1951: F, t1955: F, t1958: F, t1962: F, t1966: F, t1969: F, t1973: F, t1977: F, t1980: F, t2523: F, t2942: F, t2946: F, t2950: F, t2957: F) -> (F, F) {
-    let t2979 = t2968 + t2973 + t2975 + t2977;
-    let t2984 = -t1947 + 0.31505407223141117834e-1 * t1948 + t1951 + t1955 + 0.31505407223141117834e-1 * t2942 - 0.31505407223141117834e-1 * t2523 * t164 - 0.31505407223141117834e-1 * t2946 - 0.19753890328909480882e-2 * t2950 - 0.31505407223141117834e-1 * t1958 - t1966 - t1969 - 0.19753890328909480882e-2 * t1962 - t1973 - t1977 + 0.89806755076909568204e-2 * t1980 + 0.89806755076909568204e-2 * t2957 - 0.53884053046145740922e-2 * t169 * t171 * t2979 * t163;
-    (t2979, t2984)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk600<F: Float>(t2747: F, t1045: F, t582: F, t211: F, t1780: F, t2676: F, t2682: F, t2687: F, t2691: F, t2692: F, t2693: F, t2694: F, t2726: F, t2728: F, t2732: F, t2734: F, t2739: F, t2743: F, t2745: F, t2746: F) -> (F, F, F, F) {
+    let t2748 = F::new(4.0) / F::new(45.0) * t2747;
+    let t2749 = t582 * t1045;
+    let t2750 = t211 * t2749;
+    let t2751 = F::new(4.0) / F::new(45.0) * t2750;
+    let t2752 = -t2676 + t2682 - t2687 - t2691 - t2692 - t2693 - t1780 + t2694 - t2726 - t2728 + t2732 + t2734 - t2739 + t2743 - t2745 + t2746 + t2748 - t2751;
+    (t2748, t2749, t2751, t2752)
 }

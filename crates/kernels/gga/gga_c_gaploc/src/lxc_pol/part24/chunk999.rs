@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 999/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 999/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk999<F: Float>(t5676: F, t9944: F, t23492: F, t959: F, t23495: F, t23292: F, t787: F, t9824: F, t107: F, t408: F, t2558: F, t9823: F, t22909: F, t9820: F, t2624: F, t7419: F, t9800: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t28423 = 0.59584149919750711116e-1 * t5676 * t9944;
-    let t28425 = 0.29792074959875355558e-1 * t23492 * t959;
-    let t28427 = 0.59584149919750711116e-1 * t23495 * t959;
-    let t28435 = t787 * t23292;
-    let t28437 = 0.29792074959875355558e-1 * t28435 * t9824;
-    let t28438 = t107 * t408;
-    let t28439 = t28438 * t2558;
-    let t28441 = 0.11916829983950142223e0 * t9823 * t28439;
-    let t28443 = 0.29792074959875355558e-1 * t9820 * t22909;
-    let t28449 = t9800 * t2624 * t7419;
-    (t28423, t28425, t28427, t28435, t28437, t28438, t28439, t28441, t28443, t28449)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk999<F: Float>(t1022: F, t830: F, t1: F, t787: F, t2631: F, t2628: F, t2976: F, t7284: F, t2639: F, t10627: F, t723: F) -> (F, F, F, F, F, F, F, F) {
+    let t10809 = t830 * t1022;
+    let t10810 = t10809 * t1;
+    let t10811 = t787 * t10810;
+    let t10813 = F::new(0.42900587942220512003e1) * t10811 * t2631;
+    let t10814 = t2976 * t2628;
+    let t10815 = F::new(0.29792074959875355558e-1) * t10814;
+    let t10816 = t7284 * t1022;
+    let t10817 = t787 * t10816;
+    let t10819 = F::new(0.25025342966295298669e1) * t10817 * t2639;
+    let t10820 = t10627 * t723;
+    (t10809, t10811, t10813, t10815, t10816, t10817, t10819, t10820)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 785/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 785/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk785<F: Float>(t2321: F, t34478: F, t9074: F, t123: F, t31730: F, t2326: F, t12797: F, t1358: F, t12773: F, t6305: F, t2268: F, t42212: F, t888: F, t1365: F, t42408: F, t42625: F, t42629: F, t42633: F, t42637: F, t42638: F, t42641: F, t42645: F, t42648: F, t42652: F, t42655: F, t42659: F, t42661: F) -> (F,) {
-    let t42664 = t9074 * t34478 * t2321;
-    let t42669 = t31730 * t123;
-    let t42671 = t9074 * t42669 * t2326;
-    let t42673 = t1358 * t12797;
-    let t42674 = 0.31616674039640166221e-2 * t42673;
-    let t42675 = t6305 * t12773;
-    let t42678 = t2268 * t42212 * t888;
-    let t42680 = -0.1138200265427045984e0 * t42625 - t42629 - t42633 + t42637 - t42638 + t42641 - t42645 + t42648 - t42652 + t42655 - t42659 - 0.23712505529730124666e-2 * t42661 + 0.23712505529730124666e-2 * t42664 + 0.31616674039640166221e-2 * t1358 * t1365 * t42408 - 0.71137516589190373998e-2 * t42671 - t42674 - 0.1707300398140568976e0 * t42675 - 0.1707300398140568976e0 * t42678;
-    (t42680,)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk785<F: Float>(t2478: F, t3125: F, t6576: F, t888: F, t9263: F, t9278: F, t1415: F, t7030: F, t9301: F, t30639: F, t6590: F, t12455: F, t18067: F) -> (F, F, F, F, F) {
+    let t40219 = t6576 * t3125 * t2478;
+    let t40225 = t9263 * t888 * t9278;
+    let t40228 = t1415 * t9301 * t7030;
+    let t40234 = t30639 * t6590;
+    let t40237 = t18067 * t12455;
+    (t40219, t40225, t40228, t40234, t40237)
 }

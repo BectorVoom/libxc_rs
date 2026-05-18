@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 452/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 452/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk452<F: Float>(t43: F, t50: F, t560: F, t1690: F, t1694: F, t292: F, t817: F, t1699: F, t1702: F, t296: F, t829: F, zeta_threshold: F) -> (F, F) {
-    let t44 = t43 <= zeta_threshold;
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk452<F: Float>(t50: F, t1699: F, t1702: F, t52: F, t893: F, t1698: F, t59: F, zeta_threshold: F) -> F {
     let t51 = t50 <= zeta_threshold;
-    let t1717 = t560 * t560;
-    let t1726 = piecewise3(t44, 0.0, -2.0 / 9.0 * t817 * t1690 + 2.0 / 3.0 * t292 * t1694);
-    let t1732 = piecewise3(t51, 0.0, -2.0 / 9.0 * t829 * t1699 + 2.0 / 3.0 * t296 * t1702);
-    let t1734 = t1726 / 2.0 + t1732 / 2.0;
-    (t1717, t1734)
+    let t1706 = piecewise3::<f64>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t893 * t1699 + F::new(4.0) / F::new(3.0) * t52 * t1702);
+    let t1708 = (t1698 + t1706) * t59;
+    t1708
 }

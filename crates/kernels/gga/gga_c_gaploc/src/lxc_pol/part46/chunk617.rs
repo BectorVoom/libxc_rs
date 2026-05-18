@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 617/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 617/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk617<F: Float>(t12766: F, t2343: F, t2268: F, t2321: F, t3371: F, t882: F, t10156: F, t888: F, t12383: F, t12386: F, t12392: F, t12395: F, t12397: F, t12400: F, t471: F, t3334: F, t871: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t12767 = t2343 * t12766;
-    let t12769 = 0.56910013271352299198e-1 * t2268 * t12767;
-    let t12770 = t3371 * t2321;
-    let t12771 = t882 * t12770;
-    let t12773 = t10156 * t888;
-    let t12774 = t2268 * t12773;
-    let t12782 = -3.0 / 256.0 * t12383 - 27.0 / 8192.0 * t12386 + 27.0 / 524288.0 * t12392 - 9.0 / 524288.0 * t12395 + 9.0 / 8192.0 * t12397 + t12400 / 256.0;
-    let t12783 = t12782 * t471;
-    let t12784 = t3334 * t871;
-    (t12767, t12769, t12770, t12771, t12773, t12774, t12782, t12783, t12784)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk617<F: Float>(t10544: F, t6514: F, t986: F, t544: F, t2386: F, t2389: F, t2898: F, t10314: F, t204: F, t2476: F, t594: F, t1: F) -> (F, F, F, F, F, F, F) {
+    let t10545 = F::new(0.25561950635947166451e0) * t10544;
+    let t10546 = t6514 * t986;
+    let t10547 = t544 * t10546;
+    let t10549 = F::new(0.25025342966295298669e1) * t10547 * t2386;
+    let t10550 = t2898 * t2389;
+    let t10551 = F::new(0.29792074959875355558e-1) * t10550;
+    let t10552 = t204 * t10314;
+    let t10554 = F::new(0.46011511144704899612e1) * t2476 * t10552;
+    let t10555 = t594 * t986;
+    let t10556 = t10555 * t1;
+    (t10545, t10547, t10549, t10551, t10554, t10555, t10556)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 910/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 910/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,8 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk910<F: Float>(t1113: F, t7464: F, t123607: F, t13411: F, t13520: F, t140932: F, t142832: F, t150546: F, t150727: F, t150736: F, t150764: F, t150770: F, t17807: F, t17859: F, t27495: F, t27529: F, t27552: F, t27596: F, t27717: F, t33383: F, t33394: F, t33434: F, t33436: F, t33437: F, t36796: F, t3774: F, t66076: F, t66382: F, t683: F, t709: F, t7853: F) -> (F,) {
-    let t150808 = t7464 * t1113;
-    let t150831 = -0.1721820212247325051e-5 * t3774 * t150736 - 0.25845121844514357744e-4 * t13520 * t150727 + 0.93911185864662097827e-1 * t33434 * t150546 * t33437 - 0.22979081259345929704e-6 * t17807 * t33394 * t27596 - 0.39525571512470170088e-4 * t36796 * t142832 * t150808 * t709 + 0.22979081259345929704e-6 * t66076 * t33394 * t27552 - 0.45958162518691859409e-6 * t123607 * t33394 * t27529 + 0.70433389398496573372e-1 * t140932 * t33436 * t683 * t17859 - 0.47419045182740103902e-1 * t27717 * t7853 * t27495 - 0.25845121844514357744e-4 * t33383 * t150764 + 0.60102574844279699039e-6 * t13411 * t66382 * t150770;
-    (t150831,)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk910<F: Float>(t1240: F, t799: F, t66422: F, t688: F, t17818: F, t17817: F, t65693: F, t1613: F, t1689: F, t2035: F, t39: F, t811: F) -> (F, F, F, F, F, F) {
+    let t72397 = t799 * t1240;
+    let t79528 = t66422 * t688;
+    let t79529 = t79528 * t17818;
+    let t79641 = t17817 * t65693;
+    let t79931 = t1689 * t1613;
+    let t82957 = t811 * t39 * t2035;
+    (t72397, t79528, t79529, t79641, t79931, t82957)
 }

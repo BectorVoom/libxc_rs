@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 710/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 710/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk710<F: Float>(t1165: F, t4267: F, t5606: F, t4643: F, t1181: F, t406: F, t506: F, t157: F, t530: F, t1759: F, t301: F, t1552: F, t1173: F, t1180: F, t335: F, t367: F, t418: F, t4340: F, t4350: F, t4361: F, t5561: F, t5570: F, t5574: F, t5577: F, t5579: F, t5581: F, t5583: F, t5586: F, t5590: F, t5594: F, t5598: F, t5601: F, t5603: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5608 = t1165 * t4267 * t5606;
-    let t5611 = t4643 * t5606;
-    let t5612 = t1181 * t5611;
-    let t5615 = t506 * t406;
-    let t5616 = t5615 * t157;
-    let t5617 = t530 * t5616;
-    let t5618 = t1181 * t5617;
-    let t5621 = t1759 * t301;
-    let t5623 = t1165 * t1552 * t5621;
-    let t5626 = 0.85748036236139473944e-2 * t418 * t5561 + 0.40015750243531754508e-2 * t4340 + 0.17149607247227894789e-2 * t4350 - 0.34299214494455789578e-2 * t4361 - 0.12862205435420921092e-2 * t5570 - 0.51448821741683684368e-2 * t418 * t5574 - 0.20007875121765877254e-2 * t5577 + 0.16006300097412701803e-1 * t5579 - 0.16006300097412701803e-1 * t5581 + 0.80031500487063509015e-2 * t5583 - t367 * t5586 / 96.0 - t335 * t5590 / 24.0 - t335 * t5594 / 24.0 - t335 * t5598 / 48.0 - 0.20007875121765877254e-2 * t5601 + 0.42874018118069736972e-3 * t5603 - 0.34299214494455789578e-2 * t1173 * t5608 + 0.17149607247227894789e-2 * t1180 * t5612 + 0.34299214494455789578e-2 * t1173 * t5618 - 0.34299214494455789578e-2 * t1173 * t5623;
-    (t5608, t5611, t5612, t5615, t5616, t5617, t5618, t5621, t5623, t5626)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk710<F: Float>(t175: F, t398: F, t5080: F, t1413: F, t935: F, t506: F, t879: F, t368: F, t384: F, t3476: F, t527: F, t1017: F) -> (F, F, F, F, F, F, F) {
+    let t5082 = t398 * t175 * t5080;
+    let t5086 = F::new(0.42874018118069736972e-3) * t935 * t1413;
+    let t5087 = t506 * t879;
+    let t5089 = t398 * t368 * t5087;
+    let t5090 = t384 * t5089;
+    let t5092 = t3476 * t527;
+    let t5094 = t506 * t1017;
+    (t5082, t5086, t5087, t5089, t5090, t5092, t5094)
 }

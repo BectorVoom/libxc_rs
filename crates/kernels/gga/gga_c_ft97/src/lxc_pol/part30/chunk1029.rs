@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 1029/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 1029/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk1029<F: Float>(t2842: F, t7611: F, t312: F, t35972: F, t10447: F, t10683: F, t10703: F, t1091: F, t11593: F, t143989: F, t144140: F, t144142: F, t144148: F, t144150: F, t144153: F, t1495: F, t1508: F, t152872: F, t153473: F, t15369: F, t15460: F, t1901: F, t193: F, t25253: F, t28501: F, t28506: F, t2862: F, t2874: F, t2881: F, t29127: F, t29130: F, t295: F, t319: F, t34118: F, t34197: F, t35828: F, t35863: F, t36156: F, t36182: F, t3746: F, t4176: F, t4181: F, t44369: F, t446: F, t684: F, t7045: F, t840: F, t882: F, t89: F) -> (F,) {
-    let t154705 = t2842 * t7611;
-    let t154717 = t312 * t35972;
-    let t154726 = -4.0 * t1901 * t29127 * t1495 * t29130 + 2.0 / 27.0 * t144140 - 4.0 / 9.0 * t144142 + 2.0 / 3.0 * t446 * t2862 * t882 * t35863 + 2.0 / 3.0 * t446 * t2862 * t319 * t152872 + 4.0 / 3.0 * t446 * t2862 * t1508 * t28501 + 4.0 / 3.0 * t446 * t2862 * t1508 * t28506 - 2.0 * t446 * t10683 * t882 * t35828 - 2.0 / 9.0 * t1901 * t44369 * t36182 - 2.0 / 9.0 * t1901 * t10703 * t34118 * t1091 + 2.0 / 3.0 * t144148 + 2.0 / 9.0 * t144150 - 4.0 / 9.0 * t144153 + t89 * t193 * t295 * t153473 * t312 / 3.0 - 2.0 / 3.0 * t1901 * t15369 * t143989 * t4176 - 2.0 / 3.0 * t1901 * t15460 * t154705 * t4181 - 2.0 / 9.0 * t1901 * t10447 * t36156 + 4.0 / 9.0 * t11593 * t2881 * t34197 * t3746 + t1901 * t2874 * t154717 * t684 / 9.0 + 2.0 / 3.0 * t446 * t840 * t25253 * t7045;
-    (t154726,)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk1029<F: Float>(t108517: F, t141116: F, t35504: F, t52: F, t709: F, t35367: F, t6050: F, t6815: F, t140943: F, t33434: F, t35431: F, t226: F, t33350: F) -> (F, F, F, F, F, F) {
+    let t150640 = t108517 * t141116;
+    let t150655 = t52 * t35504 * t709;
+    let t150658 = t35367 * t6050;
+    let t150659 = t6815 * t150658;
+    let t150662 = t33434 * t140943 * t35431;
+    let t150664 = t33350 * t226;
+    (t150640, t150655, t150658, t150659, t150662, t150664)
 }

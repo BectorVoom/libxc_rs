@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 895/1293 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 895/1451 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk895<F: Float>(t17612: F, t275: F, t176: F, t1006: F, t5471: F, t1584: F, t1567: F, t2325: F, t5242: F, t1442: F, t15067: F, t15066: F, t1221: F, t17356: F, t914: F, t15571: F, t4208: F, sigma2: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t17613 = t17612 * t275;
-    let t17615 = t176 * t17613 * sigma2;
-    let t17618 = t1006 * t5471;
-    let t17619 = t17618 * t1584;
-    let t17622 = t2325 * t1567;
-    let t17623 = t17622 * t5242;
-    let t17626 = t15067 * t1442;
-    let t17627 = t15066 * t17626;
-    let t17634 = t1221 * t17356;
-    let t17635 = t914 * t17634;
-    let t17643 = t15571 * t4208;
-    (t17615, t17618, t17619, t17622, t17623, t17627, t17634, t17635, t17643)
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk895<F: Float>(t16779: F, t16883: F, t241: F, t1000: F, t16640: F, t914: F, t16632: F, t2549: F, t16648: F, t13603: F, t13607: F, t13612: F, t16654: F, t16657: F, t4054: F, t5069: F, t5076: F, t999: F) -> (F, F, F, F, F, F, F, F) {
+    let t16885 = t241 * (t16779 + t16883);
+    let t16886 = t1000 * t16640;
+    let t16887 = t914 * t16886;
+    let t16890 = t2549 * t16632;
+    let t16891 = t914 * t16890;
+    let t16894 = t1000 * t16648;
+    let t16895 = t914 * t16894;
+    let t16900 = -t16654 - t16657 - t13603 / F::new(3.0) + t13607 / F::new(3.0) + t13612 / F::new(6.0) + t16885 + t999 * t16887 - t4054 * t5076 - F::new(4.0) / F::new(3.0) * t999 * t16891 + t999 * t16895 / F::new(6.0) + F::new(2.0) / F::new(3.0) * t4054 * t5069;
+    (t16885, t16886, t16887, t16890, t16891, t16894, t16895, t16900)
 }

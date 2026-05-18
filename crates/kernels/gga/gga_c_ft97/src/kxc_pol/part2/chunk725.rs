@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 725/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 725/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,11 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk725<F: Float>(t2086: F, t3526: F, t590: F, t91: F, t2120: F, t3491: F, t12574: F, t12577: F, t12580: F, t12584: F, t12589: F, t12592: F, t12918: F, t12921: F, t9062: F, t12893: F, t12905: F, t12917: F) -> (F, F, F) {
-    let t12923 = t2086 * t3526;
-    let t12925 = t91 * t12923 * t590;
-    let t12928 = t91 * t3491 * t2120;
-    let t12937 = -t12918 + t12921 / 8.0 - t12925 / 6.0 - t12928 / 12.0 + 2.0 / 9.0 * t12574 + 8.0 / 9.0 * t12577 - 2.0 / 27.0 * t12580 + 2.0 / 3.0 * t12584 - 2.0 * t12589 + 4.0 / 27.0 * t12592 - 2.0 / 27.0 * t9062;
-    let t12939 = t12893 + t12905 + t12917 + t12937;
-    (t12925, t12928, t12939)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk725<F: Float>(t11416: F, t11036: F, t11041: F, t11043: F, t11048: F, t11052: F, t11056: F, t11061: F, t11066: F, t11070: F, t11073: F, t11076: F, t11395: F, t11399: F, t11404: F, t11408: F, t11413: F, t7771: F, t8190: F, t8195: F) -> F {
+    let t11417 = F::new(2.0) / F::new(9.0) * t11416;
+    let t11418 = t8195 / F::new(18.0) - t11036 / F::new(27.0) - t11041 - F::new(2.0) / F::new(81.0) * t11043 - t11048 / F::new(9.0) - t11052 / F::new(3.0) - t11056 / F::new(9.0) + F::new(2.0) / F::new(9.0) * t11061 - t7771 / F::new(9.0) - F::new(2.0) / F::new(9.0) * t11066 + t11070 - t11073 / F::new(9.0) - F::new(2.0) / F::new(27.0) * t11076 - t8190 - t11395 / F::new(6.0) - F::new(2.0) / F::new(9.0) * t11399 + F::new(11.0) / F::new(27.0) * t11404 + t11408 / F::new(3.0) + F::new(2.0) / F::new(3.0) * t11413 - t11417;
+    t11418
 }

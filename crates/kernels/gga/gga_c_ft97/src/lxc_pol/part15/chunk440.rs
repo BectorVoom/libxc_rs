@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 440/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 440/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,19 +9,18 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk440<F: Float>(t4589: F, t488: F, t83: F, t3238: F, t979: F, t452: F, t942: F, t986: F, t110: F, t4495: F, t920: F, t1903: F, t1902: F, t1910: F, t1909: F, t4458: F, t447: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4590 = t488 * t4589;
-    let t4591 = t83 * t4590;
-    let t4594 = t3238 * t979;
-    let t4595 = t83 * t4594;
-    let t4599 = t452 * t986 * t942;
-    let t4603 = t452 * t110 * t4495;
-    let t4606 = t920 * t942;
-    let t4607 = t1903 * t4606;
-    let t4608 = t1902 * t4607;
-    let t4611 = t920 * t979;
-    let t4612 = t1910 * t4611;
-    let t4613 = t1909 * t4612;
-    let t4617 = t447 * t110 * t4458;
-    (t4590, t4591, t4594, t4595, t4599, t4603, t4607, t4608, t4611, t4612, t4613, t4617)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk440<F: Float>(t1711: F, t4474: F, t64: F, t1737: F, t4417: F, t420: F, t419: F, t1742: F, t423: F, t4431: F, t1731: F, t3086: F) -> (F, F, F, F, F, F, F, F) {
+    let t4475 = t1711 * t4474;
+    let t4476 = t64 * t4475;
+    let t4479 = t1737 * t4417;
+    let t4480 = t420 * t4479;
+    let t4481 = t419 * t4480;
+    let t4483 = t1742 * t4417;
+    let t4484 = t420 * t4483;
+    let t4485 = t419 * t4484;
+    let t4487 = t423 * t4431;
+    let t4488 = t420 * t4487;
+    let t4489 = t419 * t4488;
+    let t4491 = -t1731 + F::new(0.42562405586419753086e-2) * t3086 + F::new(0.85124811172839506173e-2) * t4481 - F::new(0.12768721675925925926e-1) * t4485 + F::new(0.6384360837962962963e-2) * t4489;
+    (t4476, t4479, t4481, t4483, t4485, t4487, t4489, t4491)
 }

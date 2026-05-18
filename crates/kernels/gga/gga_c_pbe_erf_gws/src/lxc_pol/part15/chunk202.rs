@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 202/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 202/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,7 +12,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk202<F: Float>(t418: F
     let t573 = t572 * t418;
     let t574 = t571 * t573;
     let t575 = t11 * t574;
-    let t577 = t570 + 0.18891666666666666667e-2 * t575;
+    let t577 = t570 + F::new(0.18891666666666666667e-2) * t575;
     let t578 = t173 * t577;
     let t579 = t578 * t184;
     (t573, t574, t575, t577, t578, t579)

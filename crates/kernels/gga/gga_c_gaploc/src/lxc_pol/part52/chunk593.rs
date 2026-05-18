@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 593/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 593/1013 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk593<F: Float>(t12134: F, t1445: F, t11987: F, t1457: F, t10617: F, t10620: F, t1450: F, t1456: F, t9549: F, t9553: F, t9556: F, t9560: F, t9564: F, t9568: F, t9571: F, t9575: F, t9577: F, t9579: F, t9582: F, t9584: F) -> (F,) {
-    let t12135 = t1445 * t12134;
-    let t12138 = t1457 * t11987;
-    let t12145 = -t10617 + t10620 - 0.23005755572352449806e1 * t1450 * t12135 + 0.35750489951850426669e0 * t1456 * t12138 + 0.85206502119823888171e-1 * t9549 - 0.51123901271894332903e0 * t9553 + 0.51123901271894332903e0 * t9556 + t9560 - t9564 - 0.38342925953920749677e0 * t9568 - t9571 - t9575 + t9577 + t9579 + t9582 - t9584;
-    (t12145,)
+pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk593<F: Float>(t10161: F, t10164: F, t10168: F, t10175: F, t1063: F, t11154: F, t11157: F, t11160: F, t11163: F, t11202: F, t11240: F, t11284: F, t2268: F, t3519: F, t3532: F, t380: F) -> F {
+    let t11286 = F::new(0.37940008847568199465e-1) * t380 * t3532 + F::new(0.37940008847568199465e-1) * t380 * t3519 - F::new(0.47425011059460249332e-2) * t10161 + F::new(0.47425011059460249332e-2) * t10164 - F::new(0.142275033178380748e-1) * t10168 + F::new(0.63233348079280332443e-2) * t10175 - F::new(0.28455006635676149599e-1) * t1063 * t11154 + F::new(0.56910013271352299198e-1) * t2268 * t11157 + F::new(0.28455006635676149599e-1) * t2268 * t11160 - F::new(0.28455006635676149599e-1) * t1063 * t11163 + t11202 + t11240 + t11284;
+    t11286
 }

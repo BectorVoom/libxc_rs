@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 726/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 726/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk726<F: Float>(t42587: F, t42590: F, t11182: F, t2317: F, t6525: F, t35900: F, t883: F, t2761: F, t9074: F, t1365: F, t36211: F, t35888: F, t35893: F, t4261: F, t11280: F, t2326: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t44305 = 0.142275033178380748e-1 * t42587;
-    let t44306 = 0.142275033178380748e-1 * t42590;
-    let t44308 = t6525 * t11182 * t2317;
-    let t44309 = 0.11856252764865062333e-2 * t44308;
-    let t44310 = t883 * t35900;
-    let t44312 = t9074 * t2761 * t44310;
-    let t44313 = 0.23712505529730124666e-2 * t44312;
-    let t44315 = t6525 * t1365 * t36211;
-    let t44316 = 0.11856252764865062333e-2 * t44315;
-    let t44318 = t9074 * t1365 * t35888;
-    let t44319 = 0.35568758294595186999e-2 * t44318;
-    let t44321 = t9074 * t4261 * t35893;
-    let t44322 = 0.23712505529730124666e-2 * t44321;
-    let t44324 = t9074 * t11280 * t2326;
-    (t44305, t44306, t44309, t44310, t44313, t44316, t44319, t44322, t44324)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk726<F: Float>(t13629: F, t13665: F, t13696: F, t13716: F, t1052: F, t10800: F, t13567: F, t13569: F, t13573: F, t13577: F, t13580: F, t13581: F, t13584: F, t13587: F, t1960: F, t2969: F, t331: F, t3511: F, t748: F) -> (F, F) {
+    let t13718 = t13629 + t13665 + t13696 + t13716;
+    let t13720 = -F::new(2.0) * t1052 * t10800 + t13567 * t331 + F::new(4.0) * t13581 * t1960 - t13718 * t748 - F::new(2.0) * t2969 * t3511 - t13569 + t13573 + t13577 - t13580 - t13584 + t13587;
+    (t13718, t13720)
 }

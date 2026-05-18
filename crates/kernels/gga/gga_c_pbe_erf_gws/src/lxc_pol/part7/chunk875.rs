@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 875/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 875/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk875<F: Float>(t17799: F, t185: F, t5274: F, t582: F, t17771: F, t17773: F, t17778: F, t17783: F, t17785: F, t17790: F, t17794: F, t17796: F, t17798: F, t211: F, t5112: F, t5516: F, t583: F) -> (F, F, F, F, F) {
-    let t17800 = 32.0 / 15.0 * t17799;
-    let t17802 = t185 * t582 * t5274;
-    let t17803 = 16.0 / 45.0 * t17802;
-    let t17804 = -t17771 - t17773 - t17778 - t17783 + t17785 + t17790 + t17794 - t17796 - t17798 + t17800 - t17803;
-    let t17806 = t211 * t582 * t5112;
-    let t17807 = 32.0 / 15.0 * t17806;
-    let t17808 = t5516 * t583;
-    (t17800, t17803, t17804, t17807, t17808)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk875<F: Float>(t16746: F, t572: F, t11: F, t571: F, t16715: F, t16720: F, t16722: F, t16724: F, t16726: F, t16728: F, t16730: F, t16732: F, t16734: F, t16736: F, t16743: F) -> (F, F, F) {
+    let t16747 = t572 * t16746;
+    let t16749 = t11 * t571 * t16747;
+    let t16751 = -F::new(0.2518888888888888889e-1) * t16715 + F::new(0.12594444444444444445e-1) * t16720 - F::new(0.10075555555555555556e-1) * t16722 + F::new(0.10075555555555555556e-1) * t16724 - F::new(0.5037777777777777778e-2) * t16726 - F::new(0.78365432098765432099e-2) * t16728 + F::new(0.50377777777777777778e-2) * t16730 + F::new(0.33585185185185185186e-2) * t16732 - F::new(0.27987654320987654323e-2) * t16734 - F::new(0.25188888888888888889e-2) * t16736 + F::new(0.55975308641975308645e-2) * t16743 + F::new(0.18891666666666666667e-2) * t16749;
+    (t16747, t16749, t16751)
 }

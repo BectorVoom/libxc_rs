@@ -33,10 +33,10 @@ pub fn gga_c_w94_vxc_pol(
         let t3 = 1.0 / t2;
         let t4 = t1 * t3;
         let t5 = 0.0 < t4;
-        let t6 = piecewise3(t5, t4, -t4);
+        let t6 = piecewise3::<f64>(t5, t4, -t4);
         let t7 = 0.1e-9 < t6;
-        let t8 = piecewise3(t7, t6, 0.1e-9);
-        let t9 = pow_1_3(t8);
+        let t8 = piecewise3::<f64>(t7, t6, 0.1e-9);
+        let t9 = pow_1_3::<f64>(t8);
         let t10 = t9 * t9;
         let t12 = -t10 * t8 + 1.0;
         let t13 = f64::sqrt(t12);
@@ -46,7 +46,7 @@ pub fn gga_c_w94_vxc_pol(
         let t18 = t2 * t2;
         let t19 = t18 * t18;
         let t20 = 1.0 / t19;
-        let t22 = pow_1_3(t2);
+        let t22 = pow_1_3::<f64>(t2);
         let t24 = 1.0 / t22 / t2;
         let t25 = t16 * t24;
         let t26 = f64::powf(t25, 1.0 / 16.0);
@@ -55,7 +55,7 @@ pub fn gga_c_w94_vxc_pol(
         let t31 = t18 * t2;
         let t32 = 1.0 / t31;
         let t35 = M_CBRT3;
-        let t37 = pow_1_3(1.0 / M_PI);
+        let t37 = pow_1_3::<f64>(1.0 / M_PI);
         let t38 = t35 * t37;
         let t39 = M_CBRT4;
         let t40 = t39 * t39;
@@ -69,8 +69,8 @@ pub fn gga_c_w94_vxc_pol(
         let t51 = 1.0 / t18;
         let t52 = t1 * t51;
         let t53 = t3 - t52;
-        let t55 = piecewise3(t5, t53, -t53);
-        let t56 = piecewise3(t7, t55, 0.0);
+        let t55 = piecewise3::<f64>(t5, t53, -t53);
+        let t56 = piecewise3::<f64>(t7, t55, 0.0);
         let t60 = t2 * t13;
         let t61 = t45 * t45;
         let t62 = 1.0 / t61;
@@ -84,8 +84,8 @@ pub fn gga_c_w94_vxc_pol(
         let tvrho0 = tzk0 + 5.0 / 6.0 * t49 * t50 * t56 + t80;
         vrho[ip * 2] += tvrho0;
         let t81 = -t3 - t52;
-        let t83 = piecewise3(t5, t81, -t81);
-        let t84 = piecewise3(t7, t83, 0.0);
+        let t83 = piecewise3::<f64>(t5, t81, -t81);
+        let t84 = piecewise3::<f64>(t7, t83, 0.0);
         let tvrho1 = tzk0 + 5.0 / 6.0 * t49 * t50 * t84 + t80;
         vrho[ip * 2 + 1] += tvrho1;
         let t88 = 1.0 / t16;

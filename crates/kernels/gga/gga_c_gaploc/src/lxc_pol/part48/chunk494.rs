@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 494/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 494/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk494<F: Float>(t10268: F, t6507: F, t1358: F, t2299: F, t3394: F, t488: F, t2339: F, t7888: F, t10232: F, t10236: F, t10238: F, t10240: F, t10245: F, t10248: F, t10251: F, t10255: F, t10259: F, t10261: F, t10264: F, t10267: F) -> (F, F) {
-    let t10269 = t6507 * t10268;
-    let t10271 = 0.63233348079280332442e-2 * t1358 * t10269;
-    let t10272 = t2299 * t3394;
-    let t10273 = t10272 * t488;
-    let t10275 = 0.31616674039640166221e-2 * t1358 * t10273;
-    let t10276 = t7888 * t2339;
-    let t10278 = 0.94850022118920498663e-2 * t1358 * t10276;
-    let t10279 = 0.31616674039640166221e-2 * t1358 * t10232 + t10236 - t10238 - t10240 + t10245 - t10248 + t10251 - t10255 - t10259 + t10261 + t10264 + t10267 - t10271 - t10275 + t10278;
-    (t10272, t10279)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk494<F: Float>(t3122: F, t484: F, t3130: F, t1339: F, t475: F, t123: F, t6514: F, t2326: F, t9074: F, t4261: F, t6510: F, t584: F, t6575: F) -> (F, F, F, F, F, F) {
+    let t9149 = F::new(0.31616674039640166221e-2) * t484 * t3122;
+    let t9151 = F::new(0.31616674039640166221e-2) * t484 * t3130;
+    let t9182 = t1339 * t475;
+    let t9204 = t6514 * t123;
+    let t9205 = t9204 * t2326;
+    let t9207 = F::new(0.71137516589190373998e-2) * t9074 * t9205;
+    let t9208 = t4261 * t6510;
+    let t9210 = F::new(0.47425011059460249332e-2) * t9074 * t9208;
+    let t9263 = t584 * t6575;
+    (t9149, t9151, t9182, t9207, t9210, t9263)
 }

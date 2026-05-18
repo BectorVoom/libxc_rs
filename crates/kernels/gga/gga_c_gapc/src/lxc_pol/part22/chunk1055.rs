@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 22 (v4rho2sigma2_1) CSE chunk 1055/1209 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 22 (v4rho2sigma2_1) CSE chunk 1055/1426 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part22_v4rho2sigma2_1_chunk1055<F: Float>(t20774: F, t26312: F, t2993: F, t26597: F, t5395: F, t21072: F, t27408: F, t33539: F, t11308: F, t11329: F, t1036: F, t11488: F, t21111: F, t1688: F, t21115: F, t11361: F, t3060: F, t9272: F) -> (F, F, F, F, F, F, F) {
-    let t34477 = t2993 * t26312 * t20774;
-    let t34480 = t5395 * t26597 * t20774;
-    let t34484 = t21072 * t33539 * t27408;
-    let t34486 = t11329 * t11308;
-    let t34489 = t11488 * t1036 * t21111;
-    let t34492 = t11488 * t1688 * t21115;
-    let t34495 = t3060 * t11361 * t9272;
-    (t34477, t34480, t34484, t34486, t34489, t34492, t34495)
+pub fn gga_c_gapc_lxc_pol_part22_v4rho2sigma2_1_chunk1055<F: Float>(t12176: F, t12190: F, t338: F, t11728: F, t11731: F, t11734: F, t11737: F, t11739: F, t11743: F, t11746: F, t11750: F, t11765: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t12191 = t12176 + t12190;
+    let t12192 = t12191 * t338;
+    let t12193 = F::new(0.21720231316129303386e-4) * t11728;
+    let t12194 = F::new(0.21720231316129303386e-4) * t11731;
+    let t12195 = F::new(0.2318836277704281739e-4) * t11734;
+    let t12196 = F::new(0.12290803273518880209e-7) * t11737;
+    let t12197 = F::new(0.16217772716043213195e-2) * t11739;
+    let t12198 = F::new(0.21720231316129303386e-4) * t11743;
+    let t12199 = F::new(0.5686343261418565457e-6) * t11746;
+    let t12200 = F::new(0.2318836277704281739e-4) * t11750;
+    let t12203 = F::new(0.34752370105806885418e-3) * t11765;
+    (t12191, t12192, t12193, t12194, t12195, t12196, t12197, t12198, t12199, t12200, t12203)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1047/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1047/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1047<F: Float>(t31495: F, t10141: F, t6313: F, t10215: F, t203: F, t447: F, t10122: F, t1305: F, t10124: F, t10127: F, t10157: F, t1063: F, t1064: F, t1529: F, t1595: F, t2268: F, t29850: F, t29852: F, t31488: F, t31490: F, t31493: F, t3340: F, t3358: F, t3833: F, t6305: F) -> (F, F, F, F) {
-    let t31496 = 0.23712505529730124666e-2 * t31495;
-    let t31498 = 0.15176003539027279786e0 * t6313 * t10141;
-    let t31501 = t203 * t10215;
-    let t31502 = t31501 * t447;
-    let t31509 = t10122 * t1305;
-    let t31520 = -t31488 + t31490 + t31493 + t31496 + t29850 - t29852 + t31498 + 0.56910013271352299198e-1 * t3833 * t10124 + 0.56910013271352299198e-1 * t1063 * t1064 * t31502 + 0.28455006635676149599e-1 * t2268 * t1595 * t3340 + 0.28455006635676149599e-1 * t1063 * t1064 * t31509 + 0.56910013271352299198e-1 * t6305 * t10127 - 0.19918504644973304719e0 * t2268 * t1529 * t3358 - 0.2276400530854091968e0 * t6313 * t10157;
-    (t31501, t31502, t31509, t31520)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1047<F: Float>(t2371: F, t4360: F, t4803: F, t6715: F, t20117: F, t6508: F, t20013: F, t1433: F, t9271: F, t1323: F, t874: F, t2366: F) -> (F, F, F, F, F, F, F) {
+    let t20481 = t4360 * t2371;
+    let t20496 = t4803 * t6715;
+    let t20513 = t6508 * t20117;
+    let t20521 = t6508 * t20013;
+    let t20535 = t1433 * t9271;
+    let t20539 = t874 * t1323;
+    let t20540 = t2366 * t20539;
+    (t20481, t20496, t20513, t20521, t20535, t20539, t20540)
 }

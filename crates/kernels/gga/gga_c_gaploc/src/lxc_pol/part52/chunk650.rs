@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 650/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 650/1013 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk650<F: Float>(t14361: F, t14395: F, t14402: F, t14406: F, t13338: F, t13345: F, t13352: F, t13573: F, t13587: F, t14292: F, t14297: F, t14349: F, t14350: F, t1960: F, t2969: F, t3749: F, t748: F) -> (F, F) {
-    let t14408 = t14361 + t14395 + t14402 + t14406;
-    let t14412 = 4.0 * t14350 * t1960 - t14408 * t748 - 2.0 * t2969 * t3749 - t13338 + t13345 - t13352 + t13573 + t13587 + t14292 - t14297 + t14349;
-    (t14408, t14412)
+pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk650<F: Float>(t12000: F, t569: F, t568: F, t3701: F, t524: F, t189: F, t188: F, t600: F, t1628: F, t3709: F, t10479: F, t10484: F, t10501: F, t10503: F, t10506: F, t10508: F, t10510: F, t10512: F, t1580: F, t1641: F, t193: F, t3702: F, t3710: F, t3715: F, t541: F, t574: F, t597: F) -> (F, F, F, F) {
+    let t12109 = t569 * t12000;
+    let t12110 = t568 * t12109;
+    let t12113 = t524 * t3701;
+    let t12116 = t189 * t12000;
+    let t12117 = t188 * t12116;
+    let t12124 = t600 * t12000;
+    let t12125 = t568 * t12124;
+    let t12128 = t1628 * t3709;
+    let t12131 = -F::new(0.23005755572352449806e1) * t1641 * t3710 - F::new(0.23005755572352449806e1) * t574 * t12110 + F::new(0.35750489951850426669e0) * t12113 * t193 + F::new(0.35750489951850426669e0) * t12117 * t193 + F::new(0.23833659967900284446e0) * t3702 * t541 + F::new(0.23005755572352449806e1) * t1580 * t3715 + F::new(0.23005755572352449806e1) * t597 * t12125 - F::new(0.30674340763136599741e1) * t574 * t12128 + t10479 + t10484 - t10501 - t10503 + t10506 + t10508 + t10510 + t10512;
+    (t12113, t12116, t12117, t12131)
 }

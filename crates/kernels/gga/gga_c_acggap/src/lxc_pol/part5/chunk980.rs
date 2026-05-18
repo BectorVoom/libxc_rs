@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 980/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 980/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk980<F: Float>(t14947: F, t1674: F, t19441: F, t19444: F, t19451: F, t19452: F, t19453: F, t19454: F, t19455: F, t19456: F, t19510: F, t291: F, t301: F, t6610: F, t6621: F, t839: F, t96: F) -> (F,) {
-    let t19514 = 12.0 * t1674 * t19444 * t301 + 6.0 * t1674 * t6610 * t839 + 3.0 * t19510 * t291 * t96 + 12.0 * t14947 * t6621 - t19441 - t19451 + t19452 + t19453 + t19454 - t19455 + t19456;
-    (t19514,)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk980<F: Float>(t4355: F, t997: F, t13463: F, t171: F, t1008: F, t4528: F, t3372: F, t5129: F, t1163: F, t1165: F, t1532: F, t16020: F) -> (F, F, F, F, F) {
+    let t16057 = t997 * t4355;
+    let t16059 = t13463 * t171;
+    let t16072 = t1008 * t4528;
+    let t16083 = t3372 * t5129;
+    let t16110 = t1163 * t1165 * t1532 * t16020;
+    (t16057, t16059, t16072, t16083, t16110)
 }

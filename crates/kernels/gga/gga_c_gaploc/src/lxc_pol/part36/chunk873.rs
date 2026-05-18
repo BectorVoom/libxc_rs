@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 873/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 873/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk873<F: Float>(t41430: F, t41435: F, t41445: F, t33575: F, t787: F, t10024: F, t24549: F, t7584: F, t9438: F, t13064: F, t825: F, t826: F, t10677: F, t2464: F, t2465: F, t10782: F, t2684: F) -> (F, F, F, F, F, F, F, F) {
-    let t44110 = 0.19171462976960374838e1 * t41430;
-    let t44111 = 0.42603251059911944084e0 * t41435;
-    let t44112 = 0.29792074959875355558e-1 * t41445;
-    let t44113 = t787 * t33575;
-    let t44114 = t44113 * t10024;
-    let t44117 = t7584 * t9438 * t24549;
-    let t44118 = 0.15976219147466979032e-1 * t44117;
-    let t44120 = t825 * t826 * t13064;
-    let t44124 = t825 * t2464 * t2465 * t10677;
-    let t44128 = t2684 * t2464 * t2465 * t10782;
-    (t44110, t44111, t44112, t44114, t44118, t44120, t44124, t44128)
+pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk873<F: Float>(t41965: F, t6717: F, t6914: F, t10532: F, t10533: F, t42188: F, t42190: F, t42194: F, t42198: F, t42200: F, t42203: F, t42205: F, t42208: F, t42210: F, t42214: F, t42216: F, t42221: F, t42224: F, t42227: F, t42230: F, t42233: F, t42236: F, t42239: F) -> F {
+    let t42242 = F::new(0.62115540045351614476e2) * t6914 * t6717 * t41965;
+    let t42245 = F::new(0.27606906686822939767e2) * t10532 * t10533 * t41965;
+    let t42246 = -t42188 + t42190 - t42194 + t42198 - t42200 - t42203 - t42205 - t42208 - F::new(0.21450293971110256002e1) * t42210 - F::new(0.21450293971110256002e1) * t42214 - F::new(0.21450293971110256002e1) * t42216 - t42221 - t42224 - t42227 - t42230 + t42233 + t42236 + t42239 - t42242 + t42245;
+    t42246
 }

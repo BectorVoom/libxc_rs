@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 817/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 817/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk817<F: Float>(t787: F, t8752: F, t2610: F, t8669: F) -> (F, F) {
-    let t8753 = t787 * t8752;
-    let t8756 = t2610 * t8669;
-    (t8753, t8756)
+pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk817<F: Float>(t1967: F, t7805: F, t7810: F, t2087: F, t2103: F, t2197: F, t2638: F, t2664: F, t2669: F, t5782: F, t6060: F, t7751: F, t7756: F, t7759: F, t7766: F, t7769: F, t7772: F, t7775: F, t7780: F, t7782: F, t7786: F, t7790: F, t7792: F, t7795: F, t7798: F, t7800: F, t7807: F, t833: F) -> (F, F) {
+    let t7811 = t1967 * t7805;
+    let t7812 = t7810 * t7811;
+    let t7814 = F::new(0.71500979903700853338e0) * t2103 * t7751 + F::new(0.23005755572352449806e2) * t2197 * t2664 + F::new(0.23005755572352449806e2) * t833 * t7756 + F::new(0.11502877786176224903e2) * t833 * t7759 - F::new(0.13803453343411469884e2) * t5782 * t2669 - F::new(0.13803453343411469884e2) * t2087 * t7766 - F::new(0.25025342966295298669e1) * t2638 * t7769 + F::new(0.42900587942220512003e1) * t2103 * t7772 - F::new(0.21450293971110256001e1) * t6060 * t7775 + F::new(0.29792074959875355558e-1) * t7780 + F::new(0.14896037479937677779e-1) * t7782 - F::new(0.44688112439813033337e-1) * t7786 - F::new(0.14896037479937677779e-1) * t7790 - F::new(0.29792074959875355558e-1) * t7792 + F::new(0.59584149919750711116e-1) * t7795 - F::new(0.13491029502305448961e0) * t7798 + F::new(0.25561950635947166452e0) * t7800 + F::new(0.38342925953920749676e0) * t7807 - F::new(0.38342925953920749676e0) * t7812;
+    (t7812, t7814)
 }

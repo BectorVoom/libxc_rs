@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 943/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 943/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk943<F: Float>(t3379: F, t5277: F, t5281: F, t1181: F, t15758: F, t3451: F, t535: F, t16325: F, t4282: F, t530: F, t1165: F, t3456: F, t4241: F, t4289: F, t3431: F, t12349: F, t1532: F) -> (F, F, F, F, F, F, F) {
-    let t18017 = t3379 * t5277;
-    let t18019 = t3379 * t5281;
-    let t18027 = t3451 * t1181 * t535 * t15758;
-    let t18031 = t4282 * t1181 * t530 * t16325;
-    let t18035 = t3456 * t1165 * t4289 * t4241;
-    let t18037 = t3431 * t5277;
-    let t18041 = t3456 * t1165 * t1532 * t12349;
-    (t18017, t18019, t18027, t18031, t18035, t18037, t18041)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk943<F: Float>(t2709: F, t2712: F, t2716: F, t2736: F, t2978: F, t2982: F, t2988: F, t2805: F, t2811: F, t2994: F, t1364: F, t228: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t14717 = F::new(0.28493333333333333333e0) * t2709;
+    let t14718 = F::new(0.2137e0) * t2712;
+    let t14719 = F::new(0.34367190188705947438e1) * t2716;
+    let t14720 = F::new(0.4274e0) * t2736;
+    let t14725 = F::new(480.0) * t2978;
+    let t14726 = F::new(0.23392894490538584828e1) * t2982;
+    let t14729 = F::new(0.14035736694323150897e2) * t2988;
+    let t14731 = F::new(0.2069040516770936012e4) * t2805;
+    let t14732 = F::new(0.3859675079686208416e3) * t2811;
+    let t14734 = F::new(240.0) * t2994;
+    let t14810 = F::new(32.0) * t1364 * t228;
+    (t14717, t14718, t14719, t14720, t14725, t14726, t14729, t14731, t14732, t14734, t14810)
 }

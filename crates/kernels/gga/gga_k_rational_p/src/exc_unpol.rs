@@ -30,19 +30,19 @@ pub fn gga_k_rational_p_exc_unpol(
         let t7 = t4 * t5 * M_PI;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
         let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
+        let t17 = pow_1_3::<f64>(t12);
         let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
-        let t21 = pow_1_3(rho[ip]);
+        let t20 = piecewise3::<f64>(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+        let t21 = pow_1_3::<f64>(rho[ip]);
         let t22 = t21 * t21;
         let t24 = 1.0 / param_p;
         let t26 = M_CBRT6;
         let t28 = M_PI * M_PI;
-        let t29 = pow_1_3(t28);
+        let t29 = pow_1_3::<f64>(t28);
         let t30 = t29 * t29;
         let t31 = 1.0 / t30;
         let t32 = t31 * sigma[ip];
@@ -51,7 +51,7 @@ pub fn gga_k_rational_p_exc_unpol(
         let t35 = rho[ip] * rho[ip];
         let t42 = 1.0 + param_C2 * t24 * t26 * t32 * t34 / t22 / t35 / 24.0;
         let t43 = f64::powf(t42, -param_p);
-        let t47 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t43);
+        let t47 = piecewise3::<f64>(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t43);
         let tzk0 = 2.0 * t47;
         zk[ip] += tzk0;
     }

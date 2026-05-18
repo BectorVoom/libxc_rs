@@ -35,7 +35,7 @@ pub fn gga_c_cs1_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = pow_1_3(rho[ip]);
+        let t1 = pow_1_3::<f64>(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = 1.0 + 0.349e0 * t2;
         let t5 = 1.0 / t4;
@@ -51,7 +51,7 @@ pub fn gga_c_cs1_lxc_unpol(
         let t20 = 1.0 / t19;
         let t23 = -0.159068e0 + 0.286308e-6 * t6 * t11 * t20;
         let t25 = t5 * t23 / 4.0;
-        let t27 = piecewise3(1.0 <= zeta_threshold, zeta_threshold, 1.0);
+        let t27 = piecewise3::<f64>(1.0 <= zeta_threshold, zeta_threshold, 1.0);
         let t28 = M_CBRT2;
         let t29 = t28 * t28;
         let t30 = t27 * t29;

@@ -25,11 +25,11 @@ pub fn gga_x_2d_b86_mgc_exc_unpol(
         let t3 = f64::sqrt(M_PI);
         let t5 = 1.0 <= zeta_threshold;
         let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+        let t8 = piecewise5::<f64>(t5, t6, t5, -t6, 0.0);
         let t9 = 1.0 + t8;
         let t11 = f64::sqrt(zeta_threshold);
         let t13 = f64::sqrt(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+        let t15 = piecewise3::<f64>(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
         let t16 = 1.0 / t3 * t15;
         let t17 = M_SQRT2;
         let t18 = f64::sqrt(rho[ip]);
@@ -39,12 +39,12 @@ pub fn gga_x_2d_b86_mgc_exc_unpol(
         let t22 = 1.0 / t21;
         let t23 = sigma[ip] * t22;
         let t25 = 1.0 + 0.16646e-1 * t23;
-        let t26 = pow_1_4(t25);
+        let t26 = pow_1_4::<f64>(t25);
         let t27 = t26 * t26;
         let t28 = t27 * t26;
         let t29 = 1.0 / t28;
         let t32 = 1.0 + 0.4409422067590197497e-2 * t23 * t29;
-        let t36 = piecewise3(t2, 0.0, -2.0 / 3.0 * t16 * t19 * t32);
+        let t36 = piecewise3::<f64>(t2, 0.0, -2.0 / 3.0 * t16 * t19 * t32);
         let tzk0 = 2.0 * t36;
         zk[ip] += tzk0;
     }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 28 (v4rho2sigma2_7) CSE chunk 1067/1213 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 28 (v4rho2sigma2_7) CSE chunk 1067/1429 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk1067<F: Float>(t11451: F, t11518: F, t20897: F, t11517: F, t33490: F, t34535: F, t5117: F, t11438: F, t19686: F, t3021: F, t11442: F, t19671: F, t11322: F, t611: F, t9386: F, t11483: F, t11485: F, t1846: F) -> (F, F, F, F, F, F, F) {
-    let t34654 = t11518 * t11451 * t20897;
-    let t34656 = t11517 * t33490;
-    let t34658 = t34656 * t34535 * t5117;
-    let t34661 = t11438 * t3021 * t19686;
-    let t34663 = t19671 * t11442;
-    let t34666 = t611 * t9386 * t11322;
-    let t34669 = t1846 * t11483 * t11485;
-    (t34654, t34656, t34658, t34661, t34663, t34666, t34669)
+pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk1067<F: Float>(t10099: F, t3568: F, t3846: F, t972: F, t1096: F, t3622: F, t2469: F, t3832: F, t7063: F, t1125: F, t3449: F, t12039: F, t12041: F, t12042: F, t12048: F, t12049: F, t12051: F, t12057: F, t12060: F, t12064: F, t12150: F) -> (F, F, F, F, F) {
+    let t12281 = F::new(2.0) * t10099 * t3568;
+    let t12282 = t3846 * t972;
+    let t12285 = t3622 * t1096;
+    let t12287 = F::new(2.0) * t2469 * t12285;
+    let t12288 = t3832 * t972;
+    let t12290 = F::new(6.0) * t7063 * t12288;
+    let t12291 = t1125 * t3449;
+    let t12293 = F::new(2.0) * t2469 * t12291;
+    let t12294 = F::new(2.0) * t12282 * t2469 - t12039 + t12041 + t12042 - t12048 + t12049 - t12051 - t12057 - t12060 - t12064 + t12150 + t12281 + t12287 - t12290 + t12293;
+    (t12282, t12285, t12288, t12291, t12294)
 }

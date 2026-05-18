@@ -29,12 +29,12 @@ pub fn gga_c_ft97_exc_unpol(
         let t5 = t2 * t4;
         let t6 = M_CBRT3;
         let t7 = 1.0 / M_PI;
-        let t8 = pow_1_3(t7);
+        let t8 = pow_1_3::<f64>(t7);
         let t9 = t6 * t8;
         let t10 = t5 * t9;
         let t11 = M_CBRT4;
         let t12 = t11 * t11;
-        let t13 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(rho[ip]);
         let t14 = 1.0 / t13;
         let t15 = t12 * t14;
         let t16 = M_CBRT2;
@@ -80,13 +80,13 @@ pub fn gga_c_ft97_exc_unpol(
         let t68 = t58 * t67;
         let t69 = t56 * t68;
         let t70 = 0.1e-59 < t69;
-        let t71 = piecewise3(t70, t69, 0.1e-59);
+        let t71 = piecewise3::<f64>(t70, t69, 0.1e-59);
         let t72 = 1.0 / t71;
         let t73 = t16 * t72;
         let t75 = t10 * t15 * t73;
         let t76 = t75 / 6.0;
         let t77 = 10000000.0 <= t76;
-        let t78 = xc_e1_scaled(t76);
+        let t78 = xc_e1_scaled::<f64>(t76);
         let t79 = t5 * t59;
         let t80 = t14 * t16;
         let t81 = f64::sqrt(6.0);
@@ -101,7 +101,7 @@ pub fn gga_c_ft97_exc_unpol(
         let t94 = t72 * t90 * t93;
         let t98 = 1.0 + t79 * t80 * t94 / 3.0;
         let t100 = t90 * t93;
-        let t105 = piecewise3(t77, 0.0, t5 * (-t78 * t98 + 2.0 * t100) / 4.0);
+        let t105 = piecewise3::<f64>(t77, 0.0, t5 * (-t78 * t98 + 2.0 * t100) / 4.0);
         let t106 = f64::sqrt(t19);
         let t108 = f64::exp(-0.544669424e0 * t106);
         let t110 = t17 * t17;
@@ -120,13 +120,13 @@ pub fn gga_c_ft97_exc_unpol(
         let t127 = t123 * t126;
         let t128 = t121 * t127;
         let t129 = 0.1e-59 < t128;
-        let t130 = piecewise3(t129, t128, 0.1e-59);
+        let t130 = piecewise3::<f64>(t129, t128, 0.1e-59);
         let t131 = 1.0 / t130;
         let t132 = t16 * t131;
         let t134 = t10 * t15 * t132;
         let t135 = t134 / 6.0;
         let t136 = 10000000.0 <= t135;
-        let t137 = xc_e1_scaled(t135);
+        let t137 = xc_e1_scaled::<f64>(t135);
         let t138 = t131 * t2;
         let t140 = t59 * t80 * t138;
         let t141 = f64::sqrt(t140);
@@ -144,7 +144,7 @@ pub fn gga_c_ft97_exc_unpol(
         let t163 = t162 * t162;
         let t164 = 1.0 / t163;
         let t168 = f64::exp(-t32 * t159 * t164 / 4.0);
-        let t172 = piecewise3(t136, 0.0, t5 * t157 * t168 / 4.0);
+        let t172 = piecewise3::<f64>(t136, 0.0, t5 * t157 * t168 / 4.0);
         let tzk0 = 2.0 * t105 + 2.0 * t172;
         zk[ip] += tzk0;
     }

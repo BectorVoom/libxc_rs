@@ -37,16 +37,16 @@ pub fn gga_c_acggap_lxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
         let t12 = 1.0 + 0.53425e-1 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -57,8 +57,8 @@ pub fn gga_c_acggap_lxc_unpol(
         let t30 = f64::ln(t29);
         let t32 = 0.621814e-1 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
-        let t34 = pow_1_3(zeta_threshold);
-        let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
+        let t36 = piecewise3::<f64>(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
         let t45 = 1.0 + 0.278125e-1 * t10;
@@ -72,7 +72,7 @@ pub fn gga_c_acggap_lxc_unpol(
         let t61 = 1.0 / t60;
         let t62 = t59 * t61;
         let t63 = t34 * t34;
-        let t64 = piecewise3(t33, t63, 1.0);
+        let t64 = piecewise3::<f64>(t33, t63, 1.0);
         let t65 = t64 * t64;
         let t66 = t65 * t64;
         let t68 = 1.0 + 0.416675e-1 * t10;
@@ -855,7 +855,7 @@ pub fn gga_c_acggap_lxc_unpol(
         let t1559 = t164 * t225;
         let t1560 = t163 * t1559;
         let t1562 = t4 * t1116;
-        let t1564 = 1.0/pow_3_2(t10);
+        let t1564 = 1.0/pow_3_2::<f64>(t10);
         let t1565 = t1564 * t2;
         let t1566 = t1565 * t565;
         let t1568 = t448 * t1556;

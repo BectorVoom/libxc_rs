@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 1009/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 1009/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk1009<F: Float>(t13821: F, t1628: F, t574: F, t13825: F, t597: F, t13750: F, t1589: F, t557: F, t13829: F, t193: F, t524: F, t1: F, t46873: F, t544: F, t1424: F, t42026: F, t42029: F, t42030: F, t42032: F, t48011: F, t48013: F, t48017: F) -> (F,) {
-    let t48020 = 0.30674340763136599741e1 * t574 * t1628 * t13821;
-    let t48023 = 0.30674340763136599741e1 * t597 * t1628 * t13825;
-    let t48026 = 0.23833659967900284446e0 * t557 * t1589 * t13750;
-    let t48029 = 0.35750489951850426669e0 * t524 * t13829 * t193;
-    let t48032 = t544 * t46873 * t1;
-    let t48034 = 0.39722766613167140743e-1 * t48032 * t1424;
-    let t48037 = t48011 + t48013 + t48017 - t48020 + t48023 - t48026 + t48029 - 0.14896037479937677779e-1 * t42026 - t48034 + t42029 + 0.35750489951850426669e0 * t42030 + 0.35750489951850426669e0 * t42032;
-    (t48037,)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk1009<F: Float>(t10782: F, t2530: F, t2508: F, t2580: F, t13206: F, t7129: F, t42944: F, t688: F, t779: F, t13225: F, t2549: F, t2562: F, t32179: F, t883: F, t943: F) -> (F, F, F, F, F, F) {
+    let t43316 = t10782 * t2530;
+    let t43318 = t2508 * t2580 * t43316;
+    let t43321 = F::new(0.15381052460284448567e-1) * t7129 * t13206;
+    let t43325 = F::new(0.76905262301422242837e-2) * t2508 * t779 * t42944 * t688;
+    let t43326 = t2549 * t13225;
+    let t43330 = t943 * t2562 * t883 * t32179;
+    (t43316, t43318, t43321, t43325, t43326, t43330)
 }

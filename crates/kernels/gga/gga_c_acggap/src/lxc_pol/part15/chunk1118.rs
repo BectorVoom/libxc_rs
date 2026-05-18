@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 1118/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 1118/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk1118<F: Float>(t33796: F, t9168: F, t2131: F, t2132: F, t309: F, t9971: F, t10017: F, t2138: F, t2147: F, t322: F, t157: F, t1915: F, t2146: F, t2152: F, t2338: F, t33301: F, t38455: F, t38458: F, t38471: F, t38474: F, t38481: F, t38662: F, t406: F, t463: F, t8004: F, t8316: F, t9422: F, t9428: F) -> (F,) {
-    let t42229 = t33796 * t9168;
-    let t42247 = t2131 * t2132 * t9971 * t309;
-    let t42252 = t2138 * t2147 * t10017 * t322;
-    let t42256 = t2138 * t2132 * t9971 * t322;
-    let t42258 = -0.17347256376410398924e1 * t38662 * t9428 + 0.17347256376410398924e1 * t42229 - t33301 + 0.69389025505641595696e1 * t38455 + t38458 - 0.8673628188205199462e0 * t2338 * t9422 - 0.26020884564615598386e1 * t2146 * t8004 * t10017 * t463 + 0.4336814094102599731e0 * t2146 * t2152 * t9971 * t406 * t157 + 0.13170898365871023197e1 * t8316 * t1915 - 0.8673628188205199462e0 * t42247 - t38471 - 0.17347256376410398924e1 * t38474 - 0.17347256376410398924e1 * t42252 + t38481 + 0.8673628188205199462e0 * t42256;
-    (t42258,)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk1118<F: Float>(t7447: F, t9663: F, t7440: F, t9734: F, t31773: F, t9660: F, t9730: F, t2030: F, t361: F, t9700: F, t142: F, t5506: F, t599: F) -> (F, F, F, F, F, F) {
+    let t39320 = t7447 * t9663;
+    let t39322 = t7440 * t9734;
+    let t39324 = t31773 * t9660;
+    let t39326 = t7447 * t9730;
+    let t39330 = t2030 * t361 * t9700;
+    let t39334 = t2030 * t142 * t599 * t5506;
+    (t39320, t39322, t39324, t39326, t39330, t39334)
 }

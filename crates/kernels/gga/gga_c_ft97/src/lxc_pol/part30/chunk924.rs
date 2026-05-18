@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 924/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 924/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk924<F: Float>(t1403: F, t27825: F, t2336: F, t35760: F, t1091: F, t141441: F, t141447: F, t141461: F, t141468: F, t1425: F, t1526: F, t193: F, t2320: F, t24181: F, t27469: F, t27860: F, t27863: F, t27866: F, t27869: F, t33540: F, t33547: F, t33552: F, t35757: F, t35761: F, t35766: F, t3704: F, t3746: F, t3837: F, t5996: F, t6002: F, t6062: F, t666: F, t6745: F, t6838: F, t684: F) -> (F,) {
-    let t151123 = t1403 * t27825;
-    let t151126 = t1403 * t2336 * t35760;
-    let t151139 = t141441 / 18.0 - t1403 * t193 * t24181 * t3837 - t1403 * t3704 * t1425 * t3746 / 9.0 - t141447 - t141461 / 36.0 - t6002 * t27863 / 9.0 - t6002 * t27866 / 9.0 + t6002 * t27869 / 27.0 - t6002 * t27860 / 9.0 + t1403 * t666 * t6062 * t1091 / 18.0 + t5996 * t35761 / 18.0 + t6745 * t33547 / 18.0 + t141468 / 18.0 - t151123 / 9.0 - t151126 / 54.0 + t1403 * t666 * t6838 * t684 / 18.0 - t33540 * t35766 / 6.0 - t35757 * t33552 / 6.0 - t1526 * t2320 * t27469 / 12.0;
-    (t151139,)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk924<F: Float>(t7021: F, t870: F, t28842: F, t1495: F, t2681: F, t6353: F, t848: F, t108446: F, t3766: F, t27669: F, t79528: F, t226: F, t27703: F) -> (F, F, F, F, F, F, F) {
+    let t114578 = t870 * t7021;
+    let t114751 = t28842 * t870;
+    let t114820 = t2681 * t1495;
+    let t114847 = t848 * t6353;
+    let t122830 = t3766 * t108446;
+    let t123028 = t79528 * t27669;
+    let t123124 = t27703 * t226;
+    (t114578, t114751, t114820, t114847, t122830, t123028, t123124)
 }

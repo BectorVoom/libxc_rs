@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 989/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 989/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,21 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk989<F: Float>(t88252: F, t9570: F, t2404: F, t92: F, t88184: F, t2347: F, t88239: F, t88153: F, t9577: F, t683: F, t88606: F, t2360: F, t88149: F, t41446: F, t9568: F, t88612: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t88735 = t9570 * t88252;
-    let t88737 = t92 * t2404 * t88735;
-    let t88740 = t92 * t2404 * t88184;
-    let t88742 = t2347 * t88239;
-    let t88744 = t92 * t2404 * t88742;
-    let t88747 = t92 * t2404 * t88153;
-    let t88749 = t9577 * t88252;
-    let t88751 = t92 * t683 * t88749;
-    let t88754 = t92 * t683 * t88606;
-    let t88756 = t2360 * t88239;
-    let t88758 = t92 * t683 * t88756;
-    let t88761 = t92 * t683 * t88149;
-    let t88764 = t41446 * t88252;
-    let t88766 = t92 * t9568 * t88764;
-    let t88769 = t92 * t9568 * t88612;
-    (t88735, t88737, t88740, t88742, t88744, t88747, t88749, t88751, t88754, t88756, t88758, t88761, t88764, t88766, t88769)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk989<F: Float>(t22242: F, t8392: F, t1882: F, t22357: F, t22369: F, t22205: F, t22251: F, t22439: F, t870: F, t22454: F, t22346: F, t22178: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t84390 = t8392 * t22242;
+    let t84404 = t1882 * t22357;
+    let t84486 = t8392 * t22369;
+    let t84500 = t1882 * t22205;
+    let t84504 = t1882 * t22251;
+    let t84519 = t22439 * t870;
+    let t84547 = t1882 * t22454;
+    let t84581 = t870 * t22346;
+    let t84586 = t8392 * t22178;
+    (t84390, t84404, t84486, t84500, t84504, t84519, t84547, t84581, t84586)
 }

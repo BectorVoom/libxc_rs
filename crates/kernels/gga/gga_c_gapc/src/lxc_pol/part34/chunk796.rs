@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 34 (v4rho2sigma2_13) CSE chunk 796/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 34 (v4rho2sigma2_13) CSE chunk 796/1427 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part34_v4rho2sigma2_13_chunk796<F: Float>(t10039: F, t829: F, t3438: F, t8786: F, t9894: F, t9897: F, t3120: F, t3402: F, t1086: F, t2628: F, t2233: F, t2982: F, t3387: F, t3138: F, t3363: F, t3330: F) -> (F, F, F, F, F, F, F) {
-    let t10040 = t829 * t10039;
-    let t10041 = t3438 * t10040;
-    let t10043 = t9894 * t8786;
-    let t10044 = t10043 * t9897;
-    let t10046 = t3402 * t3120;
-    let t10047 = t1086 * t2628;
-    let t10048 = t10046 * t10047;
-    let t10050 = t2982 * t2233;
-    let t10051 = t3387 * t10050;
-    let t10053 = t3363 * t3138;
-    let t10054 = t10053 * t3330;
-    (t10041, t10043, t10044, t10047, t10048, t10051, t10054)
+pub fn gga_c_gapc_lxc_pol_part34_v4rho2sigma2_13_chunk796<F: Float>(t9097: F, t9100: F, t9104: F, t9106: F, t9108: F, t9111: F, t9115: F, t9118: F, t9121: F, t9124: F, t9126: F, t9130: F, t9132: F) -> F {
+    let t9134 = -F::new(0.16908181191593721013e-4) * t9097 + F::new(0.14492726735651760868e-5) * t9100 - F::new(0.45775879823985672486e-6) * t9104 + F::new(0.16908181191593721013e-4) * t9106 - F::new(0.50680539737635041234e-4) * t9108 - F::new(0.50680539737635041234e-4) * t9111 - F::new(0.18758436440271560323e-8) * t9115 + F::new(0.12647289956446654818e-8) * t9118 + F::new(0.6487109086417285278e-2) * t9121 - F::new(0.13900948042322754167e-2) * t9124 + F::new(0.66340671383216596998e-6) * t9126 + F::new(0.10120768229166666667e-3) * t9130 + F::new(0.27801896084645508334e-2) * t9132;
+    t9134
 }

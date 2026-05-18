@@ -28,11 +28,11 @@ pub fn gga_c_pbe_vwn_vxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
@@ -61,14 +61,14 @@ pub fn gga_c_pbe_vwn_vxc_unpol(
         let t47 = t46 * t46;
         let t49 = f64::ln(t47 * t36);
         let t53 = 1.0 <= zeta_threshold;
-        let t54 = pow_1_3(zeta_threshold);
-        let t56 = piecewise3(t53, t54 * zeta_threshold, 1.0);
+        let t54 = pow_1_3::<f64>(zeta_threshold);
+        let t56 = piecewise3::<f64>(t53, t54 * zeta_threshold, 1.0);
         let t59 = M_CBRT2;
         let t60 = t59 - 1.0;
         let t65 = 9.0 * t56 - 9.0;
         let t67 = t33 * (t40 + 0.317708004743941464e0 * t44 + 0.41403379428206274608e-3 * t49) * t65 / 24.0;
         let t68 = t54 * t54;
-        let t69 = piecewise3(t53, t68, 1.0);
+        let t69 = piecewise3::<f64>(t53, t68, 1.0);
         let t70 = t69 * t69;
         let t71 = t70 * t69;
         let t72 = param_gamma * t71;

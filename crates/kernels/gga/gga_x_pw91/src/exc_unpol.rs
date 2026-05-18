@@ -34,16 +34,16 @@ pub fn gga_x_pw91_exc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = M_CBRT6;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t25 = 1.0 / t24;
         let t27 = M_CBRT2;
@@ -66,13 +66,13 @@ pub fn gga_x_pw91_exc_unpol(
         let t55 = param_f * t54;
         let t56 = t41 * t34 / 24.0 - t55;
         let t57 = t46 * t47;
-        let t63 = f64::ln(param_b * t44 * t45 * t51 / 12.0 + f64::sqrt(pow_2(param_b * t44 * t45 * t51 / 12.0) + 1.0));
+        let t63 = f64::ln(param_b * t44 * t45 * t51 / 12.0 + f64::sqrt(pow_2::<f64>(param_b * t44 * t45 * t51 / 12.0) + 1.0));
         let t64 = param_a * t63;
         let t65 = t27 * t50 * t64;
         let t68 = 1.0 + t57 * t65 / 12.0 + t55;
         let t69 = 1.0 / t68;
         let t71 = t56 * t69 + 1.0;
-        let t75 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t71);
+        let t75 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t71);
         let tzk0 = 2.0 * t75;
         zk[ip] += tzk0;
     }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1004/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1004/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1004<F: Float>(t14423: F, t361: F, t3223: F, t13917: F, t1162: F, t875: F, t13796: F, t3989: F, t2171: F, t13859: F, t2409: F, t9721: F, t3959: F, t8708: F, t1119: F, t4386: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t14424 = t361 * t14423;
-    let t14425 = t14424 * t3223;
-    let t14426 = t13917 * t14425;
-    let t14442 = t1162 * t875;
-    let t14443 = t13796 * t14442;
-    let t14444 = t3989 * t14443;
-    let t14455 = t14423 * t2171;
-    let t14456 = t13796 * t14455;
-    let t14457 = t13859 * t14456;
-    let t14463 = t2409 * t9721;
-    let t14464 = t3959 * t14463;
-    let t14466 = t2409 * t8708;
-    let t14467 = t3959 * t14466;
-    let t14469 = t4386 * t1119;
-    (t14424, t14425, t14426, t14443, t14444, t14456, t14457, t14463, t14464, t14466, t14467, t14469)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1004<F: Float>(t3116: F, t6535: F, t3139: F, t875: F, t8840: F, t2168: F, t2190: F, t3131: F, t1114: F, t6671: F, t6674: F, t6414: F) -> (F, F, F, F, F, F, F) {
+    let t9007 = t3116 * t6535 / F::new(24.0);
+    let t9009 = t3139 * t8840 * t875;
+    let t9011 = t2168 * t9009 / F::new(48.0);
+    let t9013 = t3139 * t3131 * t2190;
+    let t9015 = t2168 * t9013 / F::new(96.0);
+    let t9016 = t1114 * t6671;
+    let t9018 = t9016 * t6674 / F::new(24.0);
+    let t9019 = F::new(7.0) / F::new(288.0) * t6414;
+    (t9007, t9009, t9011, t9013, t9015, t9018, t9019)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 284/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 284/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk284<F: Float>(t453: F, t8: F, t6: F, t95: F, t1194: F, t1199: F, t1201: F, t408: F, t101: F, t1088: F, t1093: F, t1094: F, t1121: F, t1189: F, t387: F, t397: F, t400: F, t415: F, t72: F, t75: F) -> (F, F, F) {
-    let t1204 = 1.0 / t8 / t453;
-    let t1205 = t6 * t1204;
-    let t1206 = t95 * t1205;
-    let t1208 = -0.11955719325063177623e-1 * t408 + 0.40985e-2 * t1194 - 0.10566666666666666667e-2 * t1199 + 0.3884654180847230157e-4 * t1201 - 0.420109375e-5 * t1206;
-    let t1210 = 0.23426533963880895498e-2 * t408 * t72 + 0.46853067927761790996e-2 * t1088 * t397 + 0.70279601891642686494e-2 * t1093 * t1094 - 0.23426533963880895498e-2 * t387 * t1121 - t1189 * t101 - 2.0 * t400 * t415 - t75 * t1208;
-    (t1206, t1208, t1210)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk284<F: Float>(t11: F, t19: F, t1101: F, t1108: F, t350: F, t21: F, t405: F, t1112: F, t1114: F, t1116: F, t356: F, t340: F) -> (F, F, F, F) {
+    let t1142 = F::new(1.0)/f64::sqrt(t11);
+    let t1143 = t1142 * t19;
+    let t1144 = t1143 * t1101;
+    let t1146 = t350 * t1108;
+    let t1148 = t21 * t405;
+    let t1150 = -F::new(0.42198333333333333333e0) * t1112 + F::new(0.84396666666666666666e0) * t1114 + F::new(0.39862222222222222223e0) * t1116 + F::new(0.68258333333333333333e-1) * t1144 + F::new(0.13651666666666666667e0) * t1146 + F::new(0.13692777777777777778e0) * t1148;
+    let t1151 = t1150 * t356;
+    let t1153 = F::new(1.0) * t340 * t1151;
+    (t1144, t1146, t1148, t1153)
 }

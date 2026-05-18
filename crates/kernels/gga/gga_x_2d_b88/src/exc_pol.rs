@@ -36,14 +36,14 @@ pub fn gga_x_2d_b88_exc_pol(
         let t12 = 2.0 * rho1 * t5 <= zeta_threshold;
         let t13 = -t9;
         let t14 = rho0 - rho1;
-        let t16 = piecewise5(t8, t9, t12, t13, t14 * t5);
+        let t16 = piecewise5::<f64>(t8, t9, t12, t13, t14 * t5);
         let t17 = 1.0 + t16;
         let t18 = t17 <= zeta_threshold;
         let t19 = f64::sqrt(zeta_threshold);
         let t20 = t19 * zeta_threshold;
         let t21 = f64::sqrt(t17);
         let t22 = t21 * t17;
-        let t23 = piecewise3(t18, t20, t22);
+        let t23 = piecewise3::<f64>(t18, t20, t22);
         let t24 = t3 * t23;
         let t25 = M_SQRT2;
         let t26 = f64::sqrt(t4);
@@ -61,15 +61,15 @@ pub fn gga_x_2d_b88_exc_pol(
         let t41 = 1.0 / t40;
         let t44 = 1.0 + 0.46526913586269795717e-2 * t31 * t41;
         let t45 = t27 * t44;
-        let t48 = piecewise3(t1, 0.0, -2.0 / 3.0 * t24 * t45);
+        let t48 = piecewise3::<f64>(t1, 0.0, -2.0 / 3.0 * t24 * t45);
         let t49 = rho1 <= dens_threshold;
         let t50 = -t14;
-        let t52 = piecewise5(t12, t9, t8, t13, t50 * t5);
+        let t52 = piecewise5::<f64>(t12, t9, t8, t13, t50 * t5);
         let t53 = 1.0 + t52;
         let t54 = t53 <= zeta_threshold;
         let t55 = f64::sqrt(t53);
         let t56 = t55 * t53;
-        let t57 = piecewise3(t54, t20, t56);
+        let t57 = piecewise3::<f64>(t54, t20, t56);
         let t58 = t3 * t57;
         let t59 = rho1 * rho1;
         let t60 = t59 * rho1;
@@ -84,7 +84,7 @@ pub fn gga_x_2d_b88_exc_pol(
         let t72 = 1.0 / t71;
         let t75 = 1.0 + 0.46526913586269795717e-2 * t62 * t72;
         let t76 = t27 * t75;
-        let t79 = piecewise3(t49, 0.0, -2.0 / 3.0 * t58 * t76);
+        let t79 = piecewise3::<f64>(t49, 0.0, -2.0 / 3.0 * t58 * t76);
         let tzk0 = t48 + t79;
         zk[ip] += tzk0;
     }

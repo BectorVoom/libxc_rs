@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 559/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 559/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,17 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk559<F: Float>(t4226: F, t845: F, t91: F, t4032: F, t4049: F, t2656: F, t2659: F, t2823: F, t4035: F, t4039: F, t4042: F, t4046: F, t4054: F, t4059: F, t4132: F, t4193: F) -> (F, F) {
-    let t4228 = t91 * t845 * t4226;
-    let t4230 = t4032 / 27.0;
-    let t4235 = t4049 / 9.0;
-    let t4239 = -t4193 / 12.0 + t4228 / 6.0 + t2823 + t2656 + t2659 + t4230 - 2.0 / 27.0 * t4035 + t4039 / 9.0 + 2.0 / 9.0 * t4042 + 2.0 / 9.0 * t4046 + t4235 + t4054 / 9.0 + 2.0 / 3.0 * t4059 - t4132 / 3.0;
-    (t4228, t4239)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk559<F: Float>(t147: F, t184: F, t3658: F, t21: F, t1078: F, t648: F, t1079: F, t363: F, t649: F, t920: F, t18: F, t1577: F, t1064: F, t1080: F, t2240: F, t3597: F, t3601: F, t5: F, t620: F, t623: F, t650: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t148 = F::new(10000000.0) <= t147;
+    let t3659 = t3658 * t184;
+    let t3660 = t3659 * t21;
+    let t3663 = t1078 * t648;
+    let t3664 = t184 * t21;
+    let t3665 = t3663 * t3664;
+    let t3668 = t1079 * t363;
+    let t3674 = t649 * t920;
+    let t3677 = t184 * t18;
+    let t3678 = t3677 * t1577;
+    let t3682 = piecewise3::<f64>(t148, F::new(0.0), t5 * t3597 * t21 / F::new(4.0) + t3601 * t650 / F::new(4.0) + t5 * t1064 * t363 / F::new(4.0) + t2240 * t1080 / F::new(4.0) + t623 * t3660 / F::new(4.0) + t623 * t3665 / F::new(4.0) + t623 * t3668 / F::new(4.0) + t5 * t620 * t920 / F::new(4.0) + t623 * t3674 / F::new(4.0) + t623 * t3678 / F::new(2.0));
+    (t3659, t3660, t3663, t3664, t3665, t3668, t3674, t3677, t3678, t3682)
 }

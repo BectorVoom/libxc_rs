@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 694/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 694/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk694<F: Float>(t7515: F, t7519: F, t7539: F, t7545: F, t7549: F, t7557: F, t7601: F, t7611: F, t7631: F, t7638: F, t7640: F, t7671: F, t7673: F, t7677: F, t7696: F, t7717: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t8184 = 0.85748036236139473944e-3 * t7515;
-    let t8185 = 0.12579236915841660827e-2 * t7519;
-    let t8190 = 0.62896184579208304138e-3 * t7539;
-    let t8192 = 0.31448092289604152069e-3 * t7545;
-    let t8193 = 0.41930789719472202758e-3 * t7549;
-    let t8195 = 0.62896184579208304138e-3 * t7557;
-    let t8205 = 0.13073958333333333333e0 * t7601;
-    let t8209 = 0.21437009059034868486e-3 * t7611;
-    let t8219 = 0.37737710747524982482e-2 * t7631;
-    let t8220 = 0.27953859812981468505e-2 * t7638;
-    let t8221 = 0.25724410870841842184e-2 * t7640;
-    let t8232 = 0.42874018118069736972e-3 * t7671;
-    let t8233 = 13.0 / 144.0 * t7673;
-    let t8235 = 0.25724410870841842184e-2 * t7677;
-    let t8240 = 0.37737710747524982482e-2 * t7696;
-    let t8247 = 0.42874018118069736972e-3 * t7717;
-    (t8184, t8185, t8190, t8192, t8193, t8195, t8205, t8209, t8219, t8220, t8221, t8232, t8233, t8235, t8240, t8247)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk694<F: Float>(t22: F, t7508: F, t420: F, t56: F, t1072: F, t368: F, t7507: F, t1095: F, t1083: F, t355: F, t360: F, t7458: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t7510 = F::new(1.0) / t22 / t7508;
+    let t7512 = t7510 * t56 * t420;
+    let t7513 = t368 * t1072;
+    let t7514 = t7512 * t7513;
+    let t7515 = t7507 * t7514;
+    let t7517 = t1095 * t1072;
+    let t7518 = t7512 * t7517;
+    let t7519 = t7507 * t7518;
+    let t7528 = t7458 * t1083 * t355 * t360;
+    (t7510, t7512, t7513, t7514, t7515, t7517, t7518, t7519, t7528)
 }

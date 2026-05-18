@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 1014/1092 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 1014/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1014<F: Float>(t34127: F, t34130: F, t34156: F, t34158: F, t30301: F, t34123: F, t34132: F, t34135: F, t34138: F, t34142: F, t34146: F, t34148: F, t34150: F, t34152: F, t34154: F, t34162: F, t34166: F) -> (F,) {
-    let t36950 = 0.28582678745379824648e-3 * t34127;
-    let t36951 = 0.42874018118069736972e-3 * t34130;
-    let t36961 = 0.18868855373762491241e-2 * t34156;
-    let t36962 = 0.13719685797782315831e-1 * t34158;
-    let t36966 = -0.42874018118069736972e-3 * t34123 + t36950 + t36951 - 0.75475421495049964965e-2 * t34132 + 0.21437009059034868486e-2 * t34135 + 0.85748036236139473944e-3 * t34138 + 0.31448092289604152069e-2 * t34142 + 0.62896184579208304138e-2 * t34146 + 0.68598428988911579156e-2 * t34148 - 0.34299214494455789578e-2 * t34150 + 0.34299214494455789578e-2 * t34152 - 0.17149607247227894789e-2 * t34154 - t36961 - t36962 - 0.7717323261252552655e-1 * t34162 + 0.64311027177104605458e-2 * t34166 + 0.40015750243531754507e-2 * t30301;
-    (t36966,)
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1014<F: Float>(t5138: F, t8511: F, t5143: F, t31362: F, t8783: F, t1165: F, t20595: F, t604: F, t7337: F, t1426: F, t1579: F, t2085: F, t598: F) -> (F, F, F, F, F) {
+    let t34074 = t8511 * t5138;
+    let t34078 = t8511 * t5143;
+    let t34081 = t31362 * t8783;
+    let t34085 = t7337 * t1165 * t604 * t20595;
+    let t34089 = t598 * t1426 * t1579 * t2085;
+    (t34074, t34078, t34081, t34085, t34089)
 }

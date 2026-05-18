@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 800/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 800/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk800<F: Float>(t1181: F, t14575: F, t599: F, t7346: F, t1983: F, t30262: F, t4210: F, t7586: F, t1170: F, t8462: F, t2028: F, t7599: F, t2048: F, t2052: F, t7600: F, t154: F, t360: F, t7322: F, t7326: F) -> (F, F, F, F, F, F, F) {
-    let t30273 = t7346 * t1181 * t599 * t14575;
-    let t30280 = t30262 * t7586 * t1983 * t4210;
-    let t30282 = t1170 * t8462;
-    let t30307 = t7599 * t2028;
-    let t30308 = t30307 * t2048;
-    let t30310 = t7600 * t2052;
-    let t30314 = t7322 * t154 * t360 * t7326;
-    (t30273, t30280, t30282, t30307, t30308, t30310, t30314)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk800<F: Float>(t8650: F, t8632: F, t8635: F, t8638: F, t8640: F, t8642: F, t8644: F, t8646: F, t8654: F, t8658: F, t8662: F, t8666: F, t8668: F, t8670: F, t8672: F) -> F {
+    let t9239 = F::new(0.10718504529517434243e-2) * t8650;
+    let t9247 = F::new(0.1528125e-1) * t8632 + t8635 / F::new(16.0) + t8638 / F::new(64.0) + F::new(0.34299214494455789578e-2) * t8640 - F::new(0.17149607247227894789e-2) * t8642 + F::new(0.17149607247227894789e-2) * t8644 - F::new(0.85748036236139473944e-3) * t8646 + t9239 + F::new(0.64311027177104605458e-2) * t8654 - F::new(0.94344276868812456207e-3) * t8658 - F::new(0.47172138434406228104e-2) * t8662 + F::new(0.20965394859736101379e-3) * t8666 + F::new(0.34299214494455789578e-2) * t8668 - F::new(0.17149607247227894789e-2) * t8670 + F::new(0.17149607247227894789e-2) * t8672;
+    t9247
 }

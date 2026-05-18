@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1121/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1121/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1121<F: Float>(t54279: F, t9427: F, t3237: F, t51371: F, t3242: F, t14011: F, t9634: F, t3232: F, t4028: F, t9103: F, t14101: F, t8837: F, t9098: F, t14079: F, t3283: F, t4049: F, t9594: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t54280 = t54279 * t9427;
-    let t54283 = t51371 * t3237;
-    let t54285 = t51371 * t3242;
-    let t54287 = t14011 * t9634;
-    let t54289 = t51371 * t3232;
-    let t54295 = t4028 * t9103;
-    let t54297 = t14101 * t8837;
-    let t54299 = t4028 * t9098;
-    let t54301 = t14079 * t3283;
-    let t54303 = t4049 * t9594;
-    (t54280, t54283, t54285, t54287, t54289, t54295, t54297, t54299, t54301, t54303)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1121<F: Float>(t13904: F, t13907: F, t13921: F, t13945: F, t13950: F, t13954: F, t13958: F, t13964: F, t13966: F, t13969: F, t14302: F, t14305: F, t14311: F, t14322: F, t14327: F, t2388: F, t2392: F, t2408: F, t4083: F, t827: F) -> F {
+    let t14332 = t13904 / F::new(768.0) - t14302 + t13907 / F::new(768.0) - t13921 / F::new(384.0) - F::new(7.0) / F::new(72.0) * t14305 - t2392 * t4083 / F::new(96.0) - t827 * t14311 / F::new(48.0) - t2388 * t4083 / F::new(96.0) + t13945 / F::new(48.0) - t13950 / F::new(12.0) + F::new(7.0) / F::new(72.0) * t13954 - t13958 / F::new(384.0) + F::new(7.0) / F::new(1152.0) * t13964 - t2408 * t14322 / F::new(12.0) - t827 * t14327 / F::new(48.0) + t13966 / F::new(12.0) - t13969 / F::new(24.0);
+    t14332
 }

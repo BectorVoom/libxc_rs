@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 845/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 845/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk845<F: Float>(t2130: F, t851: F, t7941: F, t862: F, t157: F, t406: F, t847: F, t2248: F, t469: F, t103: F, t2236: F, t30005: F, t3054: F, t633: F, t865: F, t2245: F, t7924: F) -> (F, F, F, F, F, F, F, F) {
-    let t32165 = t851 * t2130;
-    let t32181 = t862 * t7941;
-    let t32194 = t847 * t406 * t157;
-    let t32262 = t2248 * t469;
-    let t32278 = t103 * t2248;
-    let t32315 = t30005 * t2236;
-    let t32324 = 0.39512695097613069591e1 * t3054 * t633 * t865;
-    let t32329 = t7924 * t2245;
-    (t32165, t32181, t32194, t32262, t32278, t32315, t32324, t32329)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk845<F: Float>(t8278: F, t8291: F, t8292: F, t8294: F, t8945: F, t8953: F, t8973: F, t8975: F, t8981: F, t8983: F, t9739: F, t9741: F, t9743: F, t9747: F, t9749: F, t9751: F, t9753: F, t9755: F, t9759: F, t9762: F) -> F {
+    let t9968 = -t8278 - F::new(7.0) / F::new(72.0) * t8945 - F::new(0.62896184579208304138e-3) * t8953 - t9739 / F::new(12.0) - t9741 / F::new(24.0) + t9743 / F::new(8.0) + F::new(0.12862205435420921092e-1) * t8973 - F::new(0.11321313224257494745e-1) * t8975 - F::new(0.18868855373762491241e-1) * t8981 + F::new(0.51448821741683684367e-2) * t8983 - t9747 / F::new(24.0) - t9749 / F::new(48.0) + t9751 / F::new(24.0) + F::new(0.17149607247227894789e-1) * t9753 + F::new(0.51448821741683684367e-2) * t9755 + t8291 + t8292 - F::new(0.21437009059034868486e-3) * t9759 + t8294 + t9762 / F::new(48.0);
+    t9968
 }

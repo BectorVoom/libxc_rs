@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 722/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 722/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk722<F: Float>(t10473: F, t2478: F, t6576: F, t4130: F, t41596: F, t4781: F, t590: F, t34688: F, t9272: F, t9273: F, t18313: F, t31119: F, t3394: F, t10495: F, t1424: F, t2299: F, t544: F) -> (F, F, F, F, F) {
-    let t41649 = t6576 * t10473 * t2478;
-    let t41650 = 0.76685851907841499353e0 * t41649;
-    let t41654 = 0.13803453343411469884e2 * t4781 * t4130 * t41596 * t590;
-    let t41656 = t9272 * t34688 * t9273;
-    let t41657 = 0.10352590007558602413e2 * t41656;
-    let t41660 = t31119 * t18313 * t3394 * t9273;
-    let t41661 = 0.46011511144704899612e1 * t41660;
-    let t41664 = t544 * t2299 * t10495 * t1424;
-    (t41650, t41654, t41657, t41661, t41664)
+pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk722<F: Float>(t10697: F, t3247: F, t9647: F, t13019: F, t2580: F, t2508: F, t13023: F, t1024: F, t3266: F, t2936: F, t3255: F, t12613: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t13200 = t10697 * t3247;
+    let t13201 = t9647 * t13200;
+    let t13202 = F::new(0.1922631557535556071e-2) * t13201;
+    let t13203 = t2580 * t13019;
+    let t13204 = t2508 * t13203;
+    let t13206 = t2580 * t13023;
+    let t13208 = F::new(0.15381052460284448567e-1) * t2508 * t13206;
+    let t13209 = t3266 * t1024;
+    let t13211 = F::new(0.76905262301422242837e-2) * t2508 * t13209;
+    let t13212 = t2936 * t3255;
+    let t13214 = F::new(0.23071578690426672851e-1) * t2508 * t13212;
+    let t13215 = F::new(0.64087718584518535698e-3) * t12613;
+    (t13200, t13202, t13203, t13204, t13206, t13208, t13209, t13211, t13212, t13214, t13215)
 }

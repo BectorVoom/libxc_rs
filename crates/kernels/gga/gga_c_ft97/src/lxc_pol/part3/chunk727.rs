@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 727/887 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 727/1032 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,18 +9,18 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk727<F: Float>(t120: F, t15656: F, t72: F, t4687: F, t8959: F, t422: F, t4441: F, t8966: F, t929: F, t3056: F, t71: F, t530: F, t383: F, t4690: F, t1005: F, t4693: F) -> (F, F, F, F, F, F, F, F) {
-    let t16848 = t15656 * t120;
-    let t16849 = t72 * t16848;
-    let t16853 = 0.8854768453090786061e-3 * t8959 * t4687;
-    let t16854 = t422 * t4441;
-    let t16855 = t16854 * t8966;
-    let t16858 = t929 * t120;
-    let t16860 = t72 * t16858 * t3056;
-    let t16863 = t71 * t4441;
-    let t16864 = t16863 * t530;
-    let t16867 = t4690 * t383;
-    let t16870 = t1005 * t3056;
-    let t16875 = t4693 * t383;
-    (t16849, t16853, t16855, t16860, t16864, t16867, t16870, t16875)
+pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk727<F: Float>(t14635: F, t1882: F, t4041: F, t4034: F, t4053: F, t4057: F, t681: F, t89: F, t10400: F, t10279: F, t1186: F, t9733: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t14636 = t14635 / F::new(27.0);
+    let t14637 = t1882 * t4041;
+    let t14638 = F::new(2.0) / F::new(27.0) * t14637;
+    let t14639 = t1882 * t4034;
+    let t14640 = F::new(2.0) / F::new(81.0) * t14639;
+    let t14657 = t1882 * t4053;
+    let t14658 = t14657 / F::new(27.0);
+    let t14683 = t89 * t681 * t4057;
+    let t14684 = F::new(2.0) / F::new(9.0) * t14683;
+    let t14708 = F::new(4.0) / F::new(27.0) * t10400;
+    let t14711 = F::new(4.0) / F::new(81.0) * t10279;
+    let t14715 = t89 * t9733 * t1186;
+    (t14636, t14637, t14638, t14639, t14640, t14657, t14658, t14683, t14684, t14708, t14711, t14715)
 }

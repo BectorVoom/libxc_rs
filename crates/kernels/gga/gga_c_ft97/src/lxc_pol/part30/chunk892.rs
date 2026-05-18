@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 892/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 892/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk892<F: Float>(t6817: F, t14: F, t6056: F, t27519: F, t7203: F, t3789: F, t2344: F, t2360: F, t33426: F, t3886: F, t2347: F, t9567: F, t1127: F, t1109: F, t17: F, t171: F, sigma2: F) -> (F, F, F, F, F, F, F, F) {
-    let t150319 = sigma2 * t6817;
-    let t150320 = t150319 * t14;
-    let t150321 = t150320 * t6056;
-    let t150327 = t27519 * t7203;
-    let t150328 = t3789 * t150327;
-    let t150331 = t33426 * t2344 * t2360 * t3886;
-    let t150336 = t33426 * t9567 * t2347 * t3886;
-    let t150344 = t2344 * t1127;
-    let t150351 = t1109 * t171 * t17;
-    (t150319, t150321, t150327, t150328, t150331, t150336, t150344, t150351)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk892<F: Float>(t319: F, t35972: F, t840: F, t1508: F, t2862: F, t7036: F, t10683: F, t35828: F, t34124: F, t34156: F, t34158: F, t36204: F, t36208: F, t36211: F, t36215: F, t36220: F, t36224: F, t446: F) -> (F, F, F, F) {
+    let t36228 = t840 * t319 * t35972;
+    let t36232 = t2862 * t1508 * t7036;
+    let t36236 = t10683 * t319 * t35828;
+    let t36239 = -F::new(2.0) / F::new(3.0) * t446 * t36204 - F::new(2.0) / F::new(3.0) * t446 * t36208 + F::new(4.0) / F::new(3.0) * t446 * t36211 + F::new(2.0) / F::new(3.0) * t446 * t36215 + F::new(2.0) / F::new(3.0) * t446 * t36220 + t34124 + t34156 - t34158 - t446 * t36224 / F::new(3.0) - t446 * t36228 / F::new(3.0) + F::new(4.0) / F::new(3.0) * t446 * t36232 - F::new(2.0) * t446 * t36236;
+    (t36228, t36232, t36236, t36239)
 }

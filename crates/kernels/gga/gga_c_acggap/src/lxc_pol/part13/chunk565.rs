@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 565/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 565/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk565<F: Float>(t1535: F, t4396: F, t1180: F, t1531: F, t3172: F, t3179: F, t3462: F, t418: F, t4331: F, t4335: F, t4339: F, t4340: F, t4344: F, t4350: F, t4355: F, t4361: F, t4364: F, t4368: F, t4369: F, t4373: F, t4376: F, t4380: F, t4384: F, t4391: F, t4393: F) -> (F,) {
-    let t4398 = 0.85748036236139473944e-3 * t4396 * t1535;
-    let t4399 = -0.42874018118069736972e-3 * t1180 * t4331 + 0.42874018118069736972e-3 * t1180 * t4335 - t4339 + 0.20007875121765877254e-2 * t4340 - 0.51448821741683684367e-2 * t418 * t4344 + 0.85748036236139473944e-3 * t4350 - 0.25724410870841842183e-1 * t418 * t4355 - 0.17149607247227894789e-2 * t4361 + 0.85748036236139473944e-3 * t1180 * t4364 + t4368 + 35.0 / 432.0 * t4369 + 0.21437009059034868486e-3 * t4373 - 0.17149607247227894789e-2 * t3462 * t4376 + 0.85748036236139473944e-3 * t1531 * t4380 - 0.85748036236139473944e-3 * t1531 * t4384 + 0.85748036236139473944e-3 * t3172 - 0.85748036236139473944e-3 * t3179 - t4391 + 0.85748036236139473944e-3 * t1531 * t4393 + t4398;
-    (t4399,)
+pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk565<F: Float>(t43: F, t3992: F, t657: F, t2618: F, t2861: F, t474: F, t34: F, t886: F, t234: F, t821: F, t1361: F, t1364: F, t39: F, t47: F, t818: F, t824: F, zeta_threshold: F) -> (F, F, F, F) {
+    let t44 = t43 <= zeta_threshold;
+    let t3993 = t3992 * t657;
+    let t3994 = F::new(0.10843581300301739842e-1) * t3993;
+    let t3995 = F::new(0.21687162600603479684e-1) * t2618;
+    let t3996 = t2861 * t474;
+    let t3999 = t886 * t34;
+    let t4000 = t821 * t234;
+    let t4010 = piecewise3::<f64>(t44, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3996 * t818 + F::new(16.0) / F::new(9.0) * t3999 * t4000 + F::new(4.0) / F::new(9.0) * t1361 * t824 + F::new(8.0) / F::new(3.0) * t47 * t821 - F::new(8.0) * t1364 * t39);
+    (t3994, t3995, t4000, t4010)
 }

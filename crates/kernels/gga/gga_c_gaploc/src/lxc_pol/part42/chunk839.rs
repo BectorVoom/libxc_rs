@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 839/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 839/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk839<F: Float>(t14364: F, t313: F, t795: F, t10914: F, t10915: F, t2639: F, t43602: F, t43604: F, t45411: F, t45415: F, t45421: F, t45426: F, t45429: F, t45432: F, t45438: F, t45440: F, t45442: F, t45451: F, t45453: F, t45454: F, t45457: F, t45458: F, t45459: F, t50130: F, t6066: F, t6111: F) -> (F,) {
-    let t50139 = t313 * t795 * t14364;
-    let t50149 = -0.10725146985555128001e1 * t50139 * t2639 + 0.85801175884441024008e1 * t6111 * t6066 * t50130 - 0.42900587942220512004e1 * t10914 * t10915 * t50130 - t45411 + t45415 + t43602 - t43604 - 0.44688112439813033337e-1 * t45421 + t45426 - t45429 - t45432 - t45438 + t45440 - t45442 + t45451 + t45453 + t45454 + t45457 - t45458 + t45459;
-    (t50149,)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk839<F: Float>(t13516: F, t64: F, t40612: F, t40614: F, t40620: F, t40630: F, t40632: F, t40634: F, t43027: F, t13624: F, t1841: F, t2536: F, t734: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t44857 = F::new(4.0) / F::new(3.0) * t13516 * t64;
+    let t44860 = F::new(7.0) / F::new(256.0) * t40612;
+    let t44861 = F::new(63.0) / F::new(8192.0) * t40614;
+    let t44862 = F::new(63.0) / F::new(524288.0) * t40620;
+    let t44863 = F::new(21.0) / F::new(524288.0) * t40630;
+    let t44864 = F::new(21.0) / F::new(8192.0) * t40632;
+    let t44865 = F::new(7.0) / F::new(768.0) * t40634;
+    let t44883 = F::new(0.1281754371690370714e-2) * t43027;
+    let t44887 = F::new(0.85450291446024714263e-3) * t1841 * t2536 * t13624 * t734;
+    (t44857, t44860, t44861, t44862, t44863, t44864, t44865, t44883, t44887)
 }

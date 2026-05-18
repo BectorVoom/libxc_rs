@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 949/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 949/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk949<F: Float>(t13682: F, t13683: F, t192: F, t2506: F, t3917: F, t41482: F, t41794: F, t41837: F, t41841: F, t41849: F, t42059: F, t42192: F, t42194: F, t42206: F, t42207: F, t42212: F, t42214: F, t42216: F, t42218: F, t42227: F, t462: F, t743: F, t92: F, t9896: F) -> (F,) {
-    let t42229 = 8.0 / 3.0 * t42192 + 16.0 / 9.0 * t42194 + 8.0 / 3.0 * t13682 * t13683 * t42059 - 12.0 * t462 * t3917 * t41482 - 4.0 * t462 * t9896 * t41837 + t42206 + 112.0 / 27.0 * t42207 - t92 * t192 * t743 * t41794 + 16.0 / 3.0 * t42212 - 8.0 / 3.0 * t42214 + 8.0 * t42216 + 24.0 * t92 * t192 * t42218 * t41849 + 6.0 * t92 * t192 * t2506 * t41841 + 4.0 / 3.0 * t42227;
-    (t42229,)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk949<F: Float>(t2087: F, t2120: F, t91: F, t9252: F, t39662: F, t39666: F, t39670: F, t39674: F, t39677: F, t39679: F, t39681: F, t39683: F, t39685: F, t39687: F, t39689: F, t39691: F, t39696: F, t39700: F) -> (F, F) {
+    let t39704 = t91 * t9252 * t2087 * t2120;
+    let t39706 = F::new(8.0) / F::new(3.0) * t39662 - F::new(8.0) * t39666 - F::new(8.0) * t39670 + t39674 - t39677 - F::new(20.0) / F::new(9.0) * t39679 + F::new(8.0) / F::new(3.0) * t39681 - F::new(4.0) / F::new(3.0) * t39683 - F::new(8.0) / F::new(3.0) * t39685 + F::new(8.0) / F::new(9.0) * t39687 - F::new(8.0) / F::new(9.0) * t39689 + F::new(8.0) / F::new(3.0) * t39691 - F::new(8.0) / F::new(3.0) * t39696 - F::new(16.0) / F::new(3.0) * t39700 + F::new(9.0) / F::new(4.0) * t39704;
+    (t39704, t39706)
 }

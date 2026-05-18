@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 954/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 954/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk954<F: Float>(t102: F, t327: F, t959: F, t285: F, t6849: F, t2762: F, t328: F, t332: F, t2315: F, t286: F, t2801: F, t442: F, t8131: F, t2254: F, t8139: F, t186: F, t2153: F) -> (F, F, F, F, F, F, F, F) {
-    let t18639 = t102 * t327 * t959;
-    let t18679 = 1.0 / t6849 / t285;
-    let t18680 = 1.0 / t2762 / t328 * t332 * t18679;
-    let t18813 = t2315 * t286;
-    let t18815 = t8131 * t2801 * t18813 * t442;
-    let t18822 = t2254 * t286;
-    let t18824 = t8139 * t18822 * t442;
-    let t18856 = t2153 * t186;
-    (t18639, t18679, t18680, t18813, t18815, t18822, t18824, t18856)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk954<F: Float>(t10024: F, t10027: F, t10032: F, t10037: F, t10041: F, t10044: F, t10048: F, t10051: F, t10054: F, t10059: F, t10064: F, t10070: F, t10073: F, t10080: F) -> F {
+    let t11035 = -F::new(0.44080907786205030539e-6) * t10024 + F::new(0.12974218172834570556e-1) * t10027 + F::new(0.10005428175813516294e-7) * t10032 - F::new(0.33764099580923002116e-6) * t10037 - F::new(0.11254699860307667372e-7) * t10041 + F::new(0.82065519814743407918e-9) * t10044 - F::new(0.56273499301538336858e-7) * t10048 + F::new(0.20240885416666666668e-4) * t10051 - F::new(0.49239311888846044752e-7) * t10054 - F::new(0.49239311888846044752e-7) * t10059 + F::new(0.16882049790461501058e-6) * t10064 - F::new(0.50646149371384503174e-6) * t10070 + F::new(0.33764099580923002116e-6) * t10073 - F::new(0.35903664918950240965e-8) * t10080;
+    t11035
 }

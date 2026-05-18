@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 1154/1222 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 1154/1404 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1154<F: Float>(t12074: F, t14567: F, t11794: F, t14069: F, t14079: F, t3857: F, t11961: F, t14011: F, t11635: F, t54279: F, t14024: F, t3783: F, t11640: F, t14498: F, t11819: F, t338: F, t54055: F) -> (F, F, F, F, F, F, F, F) {
-    let t57100 = t12074 * t14567;
-    let t57102 = t11794 * t14069;
-    let t57104 = t14079 * t3857;
-    let t57108 = t14011 * t11961;
-    let t57110 = t54279 * t11635;
-    let t57112 = t3783 * t14024;
-    let t57114 = t14498 * t11640;
-    let t57117 = t54055 * t338 * t11819;
-    (t57100, t57102, t57104, t57108, t57110, t57112, t57114, t57117)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1154<F: Float>(t2494: F, t4066: F, t4233: F, t945: F, t810: F, t4209: F, t4414: F, t1115: F, t14198: F, t14311: F, t14416: F, t14426: F, t14444: F, t14457: F, t14464: F, t14467: F, t14470: F, t2498: F, t3040: F, t4083: F) -> (F, F, F, F, F) {
+    let t14849 = t4066 * t2494;
+    let t14852 = t4233 * t945;
+    let t14854 = t14852 * t810;
+    let t14867 = t4414 * t4209;
+    let t14873 = -t2498 * t4083 / F::new(96.0) - t1115 * t14311 / F::new(96.0) - t14416 / F::new(768.0) - t14426 / F::new(768.0) - t3040 * t4083 / F::new(96.0) + F::new(7.0) / F::new(288.0) * t14198 + t14444 / F::new(1536.0) - F::new(7.0) / F::new(144.0) * t14867 + t14457 / F::new(384.0) - t14464 / F::new(24.0) - t14467 / F::new(24.0) - t14470 / F::new(24.0);
+    (t14849, t14852, t14854, t14867, t14873)
 }

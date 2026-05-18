@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 688/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 688/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk688<F: Float>(t30019: F, t883: F, t2300: F, t9074: F, t12360: F, t2312: F, t2321: F, t882: F, t9493: F, t2325: F, t29661: F, t2326: F, t9079: F, t2317: F, t6525: F, t9066: F) -> (F, F, F, F, F, F, F) {
-    let t39776 = t883 * t30019;
-    let t39778 = t9074 * t2300 * t39776;
-    let t39791 = t2312 * t12360;
-    let t39794 = t882 * t9493 * t2321;
-    let t39798 = t882 * t2325 * t883 * t29661;
-    let t39805 = t9074 * t9079 * t2326;
-    let t39808 = t6525 * t9066 * t2317;
-    (t39776, t39778, t39791, t39794, t39798, t39805, t39808)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk688<F: Float>(t12806: F, t6320: F, t2268: F, t3148: F, t988: F, t12792: F, t169: F, t172: F, t452: F, t105: F, t12764: F, t12769: F, t12771: F, t12774: F, t12794: F, t12799: F, t12802: F, t12805: F) -> (F, F, F, F, F) {
+    let t12807 = t6320 * t12806;
+    let t12809 = F::new(0.17073003981405689759e0) * t2268 * t12807;
+    let t12810 = t3148 * t988;
+    let t12812 = F::new(0.28455006635676149599e-1) * t2268 * t12810;
+    let t12814 = t12792 * t169 * t172;
+    let t12815 = t452 * t12814;
+    let t12818 = F::new(0.1138200265427045984e0) * t12764 + t12769 + F::new(0.23712505529730124666e-2) * t12771 - F::new(0.1707300398140568976e0) * t12774 - F::new(0.28455006635676149599e-1) * t105 * t12794 + t12799 - t12802 + t12805 - t12809 + t12812 + F::new(0.28455006635676149599e-1) * t105 * t12815;
+    (t12807, t12810, t12814, t12815, t12818)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 955/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 955/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk955<F: Float>(t559: F, t6316: F, t6319: F, t539: F, t6525: F, t1986: F, t6825: F, t1860: F, t1993: F, t601: F, t1: F, t598: F, t6735: F, t1874: F, t2042: F, t1963: F, t2048: F) -> (F, F, F, F, F, F, F, F) {
-    let t22631 = t6316 * t559;
-    let t22632 = 96.0 * t22631;
-    let t22633 = t6319 * t559;
-    let t22634 = 576.0 * t22633;
-    let t22635 = t539 * t6525;
-    let t22636 = 16.0 * t22635;
-    let t22637 = t1986 * t6825;
-    let t22638 = 0.14035736153892489771e2 * t22637;
-    let t22641 = 0.21053604230838734656e2 * t601 * t1993 * t1860;
-    let t22643 = t6735 * t1 * t598;
-    let t22644 = 0.73246220147012639764e-3 * t22643;
-    let t22645 = t2042 * t1874;
-    let t22646 = 240.0 * t22645;
-    let t22647 = t2048 * t1963;
-    (t22632, t22634, t22636, t22638, t22641, t22644, t22646, t22647)
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk955<F: Float>(t3182: F, t426: F, t8193: F, t8915: F, t935: F, t1: F, t9103: F, t4456: F, t3107: F, t3102: F, t8113: F, t3104: F, t8914: F, sigma2: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t9114 = t3182 * sigma2;
+    let t9115 = t9114 * t426;
+    let t9116 = t9115 * t8193;
+    let t9117 = t8915 * t935;
+    let t9118 = t9117 * t1;
+    let t9119 = t9103 * t9118;
+    let t9122 = t4456 * t8193;
+    let t9123 = t3107 * t935;
+    let t9124 = t9123 * t1;
+    let t9125 = t9103 * t9124;
+    let t9128 = t3102 * t8113;
+    let t9129 = t3104 * t8914;
+    (t9114, t9115, t9116, t9117, t9118, t9119, t9122, t9123, t9124, t9125, t9128, t9129)
 }

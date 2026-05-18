@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1181/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1181/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1181<F: Float>(t10930: F, t10931: F, t32897: F, t8556: F, t9823: F, t7336: F, t8775: F, t10893: F, t28937: F, t28941: F, t28944: F, t28946: F, t33820: F, t33824: F, t33826: F, t33829: F, t33832: F, t33835: F, t33838: F, t33841: F, t5694: F) -> (F,) {
-    let t33844 = 0.55213813373645879534e2 * t10930 * t10931 * t32897;
-    let t33846 = 0.47667319935800568892e0 * t9823 * t8556;
-    let t33848 = 0.2780593662921699852e0 * t8775 * t7336;
-    let t33849 = -t33820 + 0.92686455430723328401e-1 * t10893 * t5694 + t33824 - t28937 - t28941 + t28944 + t28946 + t33826 - t33829 + t33832 - t33835 - t33838 - t33841 + t33844 + t33846 - t33848;
-    (t33849,)
+pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1181<F: Float>(t1367: F, t31543: F, t196: F, t21488: F, t555: F, t2787: F, t6509: F, t590: F, t1570: F, t10177: F, t4538: F, t189: F, t3394: F, t488: F) -> (F, F, F, F, F, F, F) {
+    let t31764 = t31543 * t1367;
+    let t31766 = F::new(0.44263343655496232709e-1) * t21488 * t196 * t555 * t31764;
+    let t31769 = t2787 * t6509;
+    let t31770 = t590 * t31769;
+    let t31772 = F::new(0.7588001769513639893e-1) * t21488 * t196 * t1570 * t31770;
+    let t31775 = t590 * t10177;
+    let t31777 = F::new(0.37940008847568199465e-1) * t21488 * t196 * t4538 * t31775;
+    let t31783 = F::new(0.63233348079280332442e-2) * t21488 * t196 * t189 * t6509 * t3394 * t488;
+    (t31764, t31766, t31770, t31772, t31775, t31777, t31783)
 }

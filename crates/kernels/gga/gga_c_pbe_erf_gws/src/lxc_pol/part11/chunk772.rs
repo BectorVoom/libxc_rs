@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 772/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 772/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk772<F: Float>(t13252: F, t3221: F, t11539: F, t1109: F, t3752: F, t3258: F, t2255: F, t1076: F, t1133: F, t343: F, t1123: F, t274: F, t3854: F, t816: F, t3803: F, t3257: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t13253 = t3221 * t13252;
-    let t13254 = t11539 * t13253;
-    let t13257 = t3752 * t1109;
-    let t13258 = t3258 * t13257;
-    let t13259 = t2255 * t13258;
-    let t13262 = t1076 * t1133;
-    let t13263 = t13262 * t343;
-    let t13264 = t1123 * t13263;
-    let t13265 = t2255 * t13264;
-    let t13269 = t274 * t3854 * t343;
-    let t13271 = t2255 * t1123 * t13269;
-    let t13274 = t816 * t1133;
-    let t13276 = t3803 * t13274 * t343;
-    let t13277 = t3257 * t13276;
-    (t13253, t13254, t13257, t13259, t13263, t13265, t13269, t13271, t13277)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk772<F: Float>(t2615: F, t3504: F, t1044: F, t3390: F, t5110: F, t186: F, t211: F, t1017: F, t3454: F, t5176: F, t185: F, t10416: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t12582 = F::new(8.0) / F::new(15.0) * t2615 * t3504;
+    let t12583 = t3390 * t1044;
+    let t12584 = t5110 * t12583;
+    let t12585 = t186 * t12584;
+    let t12587 = F::new(4.0) / F::new(5.0) * t211 * t12585;
+    let t12588 = t3454 * t1017;
+    let t12589 = t5176 * t12588;
+    let t12590 = t186 * t12589;
+    let t12592 = F::new(4.0) / F::new(5.0) * t185 * t12590;
+    let t12593 = F::new(8.0) / F::new(15.0) * t10416;
+    (t12582, t12583, t12584, t12585, t12587, t12588, t12589, t12590, t12592, t12593)
 }

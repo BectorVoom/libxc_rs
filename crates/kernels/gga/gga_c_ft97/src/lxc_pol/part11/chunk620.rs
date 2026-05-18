@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 620/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 620/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,11 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk620<F: Float>(t2190: F, t379: F, t9144: F, t2142: F, t2157: F, t144: F, t1901: F, t446: F, t9090: F, t9094: F, t9097: F, t9100: F, t9104: F, t9106: F, t9109: F, t9112: F, t9118: F, t9124: F, t9129: F, t9136: F, t9141: F) -> (F, F, F, F, F) {
-    let t9145 = t2190 * t379;
-    let t9146 = t9144 * t9145;
-    let t9149 = t2142 * t2157;
-    let t9150 = t144 * t9149;
-    let t9152 = -2.0 / 9.0 * t9090 + t1901 * t9094 / 3.0 - 2.0 / 9.0 * t9097 + 2.0 / 3.0 * t1901 * t9100 - t446 * t9104 + t9106 / 3.0 + 2.0 / 3.0 * t446 * t9109 - 2.0 / 9.0 * t9112 + 2.0 / 9.0 * t1901 * t9118 + 2.0 / 9.0 * t1901 * t9124 - 2.0 / 3.0 * t1901 * t9129 - 2.0 / 3.0 * t1901 * t9136 - 2.0 / 3.0 * t1901 * t9141 - 2.0 / 3.0 * t1901 * t9146 - t446 * t9150;
-    (t9145, t9146, t9149, t9150, t9152)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk620<F: Float>(t8381: F, t8473: F, t8525: F, t8586: F, t103: F, t8460: F, t108: F, t1538: F, t1761: F, t1920: F, t438: F, t497: F, t7734: F, t7736: F, t8199: F, t8356: F, t8361: F, t8364: F, t8420: F, t8467: F, t8502: F, t88: F) -> (F, F, F) {
+    let t8588 = t8381 + t8473 + t8525 + t8586;
+    let t8590 = t8460 * t103;
+    let t8598 = -t108 * t7734 - F::new(2.0) * t108 * t7736 - t108 * t8199 - F::new(3.0) * t1538 * t497 - F::new(3.0) * t1761 * t497 - F::new(3.0) * t1920 * t438 - t8588 * t88 - F::new(2.0) * t8356 - F::new(6.0) * t8361 - F::new(6.0) * t8364 - F::new(12.0) * t8420 + F::new(12.0) * t8467 + F::new(12.0) * t8502 + F::new(2.0) * t8590;
+    (t8588, t8590, t8598)
 }

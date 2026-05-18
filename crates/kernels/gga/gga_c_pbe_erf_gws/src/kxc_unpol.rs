@@ -36,17 +36,17 @@ pub fn gga_c_pbe_erf_gws_kxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
         let t12 = 1.0 + 0.53425e-1 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -59,8 +59,8 @@ pub fn gga_c_pbe_erf_gws_kxc_unpol(
         let t30 = f64::ln(t29);
         let t32 = 0.62182e-1 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
-        let t34 = pow_1_3(zeta_threshold);
-        let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
+        let t36 = piecewise3::<f64>(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
         let t45 = 1.0 + 0.278125e-1 * t10;
@@ -72,7 +72,7 @@ pub fn gga_c_pbe_erf_gws_kxc_unpol(
         let t59 = t58 - 1.0;
         let t60 = 2.0 * t59;
         let t62 = 0.2923025e1 * param_hyb_omega_0 * t13;
-        let t64 = pow_1_3(9.0);
+        let t64 = pow_1_3::<f64>(9.0);
         let t65 = t64 * t64;
         let t73 = param_hyb_omega_0 * param_hyb_omega_0;
         let t75 = (0.344851e1 - M_PI * t5 * t65 * t3 / t59 / 12.0) * t73 * t1;
@@ -142,7 +142,7 @@ pub fn gga_c_pbe_erf_gws_kxc_unpol(
         let t216 = 1.0 / t215;
         let t217 = t209 * t216;
         let t218 = t34 * t34;
-        let t219 = piecewise3(t33, t218, 1.0);
+        let t219 = piecewise3::<f64>(t33, t218, 1.0);
         let t220 = t219 * t219;
         let t221 = t220 * t219;
         let t222 = param_gamma * t221;
@@ -878,7 +878,7 @@ pub fn gga_c_pbe_erf_gws_kxc_unpol(
         let t1648 = t76 * t530;
         let t1649 = t292 * t1648;
         let t1651 = t4 * t786;
-        let t1653 = 1.0/pow_3_2(t10);
+        let t1653 = 1.0/pow_3_2::<f64>(t10);
         let t1654 = t1653 * t2;
         let t1655 = t1654 * t934;
         let t1657 = t680 * t1645;

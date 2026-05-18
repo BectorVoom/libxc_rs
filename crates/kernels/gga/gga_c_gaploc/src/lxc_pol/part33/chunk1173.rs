@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1173/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1173/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1173<F: Float>(t10513: F, t20592: F, t2487: F, t18676: F, t34459: F, t6711: F, t10314: F, t6710: F, t34246: F, t6717: F, t6914: F, t20441: F, t10532: F, t4529: F, t579: F, t30903: F) -> (F, F, F, F, F, F, F) {
-    let t34743 = 0.11656249489991907902e3 * t2487 * t20592 * t10513;
-    let t34746 = 0.23005755572352449806e2 * t18676 * t6711 * t34459;
-    let t34749 = 0.30674340763136599742e2 * t6710 * t20592 * t10314;
-    let t34752 = 0.62115540045351614476e2 * t6914 * t6717 * t34246;
-    let t34762 = 0.1656414401209376386e3 * t6914 * t20441 * t10513;
-    let t34766 = 0.73618417831527839379e2 * t10532 * t579 * t4529 * t10513;
-    let t34773 = 0.63904876589867916128e-1 * t30903;
-    (t34743, t34746, t34749, t34752, t34762, t34766, t34773)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1173<F: Float>(t2268: F, t2440: F, t2756: F, t10135: F, t6313: F, t10132: F, t6305: F, t555: F, t7861: F, t888: F, t7863: F, t894: F) -> (F, F, F, F, F, F, F) {
+    let t31786 = F::new(0.56910013271352299198e-1) * t2268 * t2440 * t2756;
+    let t31788 = F::new(0.2276400530854091968e0) * t6313 * t10135;
+    let t31790 = F::new(0.17073003981405689759e0) * t6305 * t10132;
+    let t31792 = F::new(0.17073003981405689759e0) * t6305 * t10135;
+    let t31793 = t555 * t7861;
+    let t31796 = F::new(0.85365019907028448797e-1) * t2268 * t31793 * t888;
+    let t31799 = F::new(0.28455006635676149599e-1) * t2268 * t894 * t7863;
+    (t31786, t31788, t31790, t31792, t31793, t31796, t31799)
 }

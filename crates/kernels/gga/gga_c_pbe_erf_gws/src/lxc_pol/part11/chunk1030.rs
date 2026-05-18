@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1030/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1030/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1030<F: Float>(t12355: F, t2485: F, t47372: F, t478: F, t48542: F, t48544: F, t48546: F, t48548: F, t48550: F, t48552: F, t48554: F, t48556: F, t10037: F, t11296: F, t11299: F, t11300: F, t12390: F, t12395: F, t12405: F, t12422: F, t12990: F, t142: F, t143: F, t16394: F, t16415: F, t16418: F, t16422: F, t25965: F, t26470: F, t279: F, t2858: F, t2986: F, t2990: F, t33637: F, t3620: F, t3641: F, t3686: F, t42310: F, t42325: F, t42412: F, t42842: F, t475: F, t48434: F, t48528: F, t5651: F, t8305: F, t967: F, t981: F, t988: F) -> (F, F, F, F) {
-    let t48558 = t2485 * t12355;
-    let t48560 = t478 * t47372;
-    let t48562 = -28.0 / 81.0 * t48542 + 8.0 / 9.0 * t48544 - t48546 / 3.0 - 4.0 / 9.0 * t48548 + t48550 / 3.0 - 28.0 / 81.0 * t48552 + 8.0 / 9.0 * t48554 - t48556 / 3.0 - 4.0 / 9.0 * t48558 + t48560 / 3.0;
-    let t48573 = 36.0 * t8305 * t3641 * t11299 + 12.0 * t2986 * t42842 - 3.0 * t12990 * t3620 + 18.0 * t2986 * t3641 * t10037 - 6.0 * t988 * t16394 * t142 * t12405 * t981 + (t48434 + t48528) * t279 + 0.16271775250016674846e-1 * t25965 + 12.0 * t42412 * t2990 - 0.11622696607154767747e-2 * t42310 + 12.0 * t2986 * t12422 * t2858 + 24.0 * t11296 * t12390 + 36.0 * t33637 * t11300 - t16415 - t16418 + t16422 + 3.0 * t475 * t143 * t48562 - 6.0 * t3686 * t12395 - 0.21618361918556568284e0 * t42325 + 24.0 * t26470 * t5651 * t12405 * t967;
-    (t48558, t48560, t48562, t48573)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1030<F: Float>(t12955: F, t395: F, t501: F, t12930: F, t156: F, t496: F, t42658: F, t8135: F, t12937: F, t12929: F, t1563: F, t12962: F, t513: F) -> (F, F, F, F, F, F, F) {
+    let t42678 = t501 * t12955 * t395;
+    let t42680 = t156 * t12930;
+    let t42681 = t496 * t42680;
+    let t42683 = t8135 * t42658;
+    let t42714 = t496 * t156 * t12937;
+    let t42719 = t1563 * t12929;
+    let t42742 = t12962 * t513;
+    (t42678, t42680, t42681, t42683, t42714, t42719, t42742)
 }

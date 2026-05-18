@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 850/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 850/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk850<F: Float>(t1457: F, t2103: F, t43217: F, t43001: F, t10867: F, t9989: F, t10086: F, t10811: F, t43508: F, t7427: F, t7573: F, t326: F, t43486: F, t825: F, t43598: F, t7584: F, t7585: F) -> (F, F, F, F, F, F, F) {
-    let t43729 = 0.71500979903700853338e0 * t2103 * t1457 * t43217;
-    let t43731 = t2103 * t1457 * t43001;
-    let t43735 = 0.25025342966295298669e1 * t10867 * t1457 * t9989;
-    let t43737 = 0.42900587942220512003e1 * t10811 * t10086;
-    let t43740 = 0.62115540045351614476e2 * t7427 * t7573 * t43508;
-    let t43743 = 0.18404604457881959845e2 * t825 * t326 * t43486;
-    let t43746 = 0.43710935587469654631e2 * t7584 * t7585 * t43598;
-    (t43729, t43731, t43735, t43737, t43740, t43743, t43746)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk850<F: Float>(t2877: F, t40251: F, t12968: F, t34471: F, t34286: F, t10615: F, t40186: F, t12964: F, t587: F, t589: F, t1429: F, t2365: F, t2366: F, t31747: F) -> (F, F, F, F, F, F) {
+    let t41945 = F::new(0.35750489951850426669e0) * t40251 * t2877;
+    let t41947 = t34471 * t12968;
+    let t41948 = F::new(0.89376224879626066675e-1) * t41947;
+    let t41949 = t34286 * t12968;
+    let t41950 = F::new(0.89376224879626066675e-1) * t41949;
+    let t41951 = t10615 * t40186;
+    let t41952 = F::new(0.89376224879626066675e-1) * t41951;
+    let t41954 = t587 * t589 * t12964;
+    let t41958 = t1429 * t2365 * t2366 * t31747;
+    (t41945, t41948, t41950, t41952, t41954, t41958)
 }

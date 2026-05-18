@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1185/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1185/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1185<F: Float>(t10140: F, t4614: F, t597: F, t10359: F, t4953: F, t10364: F, t1562: F, t1445: F, t31711: F, t31866: F, t26343: F, t895: F, t32033: F, t6710: F, t6711: F, t6470: F, t9286: F) -> (F, F, F, F, F, F, F, F) {
-    let t34994 = 0.30674340763136599742e2 * t597 * t4614 * t10140;
-    let t34996 = 0.18404604457881959845e2 * t4953 * t10359;
-    let t34999 = 0.18404604457881959845e2 * t1562 * t4614 * t10364;
-    let t35021 = 0.23005755572352449806e2 * t597 * t1445 * t31711;
-    let t35024 = 0.11502877786176224903e2 * t597 * t1445 * t31866;
-    let t35027 = 0.35750489951850426669e0 * t895 * t26343;
-    let t35034 = 0.87421871174939309262e2 * t6710 * t6711 * t32033;
-    let t35036 = t9286 * t6470;
-    (t34994, t34996, t34999, t35021, t35024, t35027, t35034, t35036)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1185<F: Float>(t2268: F, t2304: F, t31936: F, t10242: F, t1595: F, t1063: F, t21042: F, t2765: F, t25955: F, t894: F, t20013: F, t2854: F, t6320: F) -> (F, F, F, F, F) {
+    let t31939 = F::new(0.39837009289946609438e0) * t2268 * t2304 * t31936;
+    let t31942 = F::new(0.28455006635676149599e-1) * t2268 * t1595 * t10242;
+    let t31945 = F::new(0.85365019907028448797e-1) * t1063 * t2765 * t21042;
+    let t31948 = F::new(0.28455006635676149599e-1) * t1063 * t894 * t25955;
+    let t31952 = F::new(0.17073003981405689759e0) * t2268 * t6320 * t2854 * t20013;
+    (t31939, t31942, t31945, t31948, t31952)
 }

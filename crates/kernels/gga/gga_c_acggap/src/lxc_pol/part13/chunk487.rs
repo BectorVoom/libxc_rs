@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 487/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 487/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk487<F: Float>(t2654: F, t220: F, t760: F, t771: F, t271: F, t680: F, t690: F, t273: F, t218: F, t761: F, t219: F, t777: F, t1072: F, t2: F, t39: F, t575: F, t661: F) -> (F, F, F, F, F, F, F, F) {
-    let t2655 = 0.48245938496077605201e2 * t2654;
-    let t2657 = t760 * t220 * t771;
-    let t2658 = 6.0 * t2657;
-    let t2660 = t680 * t690 * t271;
-    let t2663 = t273 * t680;
-    let t2666 = t761 * t218;
-    let t2667 = t2666 * t219;
-    let t2668 = t777 * t2667;
-    let t2669 = 6.0 * t2668;
-    let t2670 = t1072 * t2;
-    let t2671 = t2670 * t39;
-    let t2673 = t661 * t575;
-    (t2655, t2658, t2660, t2663, t2666, t2669, t2671, t2673)
+pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk487<F: Float>(t2327: F, t598: F, t2022: F, t2024: F, t2039: F, t2078: F, t2084: F, t2098: F, t2102: F, t2291: F, t2295: F, t2300: F, t2305: F, t2307: F, t2311: F, t2315: F, t2319: F, t2321: F, t2323: F) -> F {
+    let t2328 = t598 * t2327;
+    let t2330 = -t2022 - t2024 + F::new(0.47172138434406228102e-3) * t2291 + t2039 - F::new(0.21437009059034868486e-3) * t2295 + F::new(0.7862023072401038017e-3) * t2300 - F::new(0.31448092289604152068e-3) * t2305 - F::new(0.42874018118069736972e-3) * t2307 - F::new(0.53592522647587171215e-3) * t2311 + F::new(0.114609375e-1) * t2315 + F::new(0.7640625e-2) * t2319 + F::new(0.85748036236139473944e-3) * t2321 - F::new(0.85748036236139473944e-3) * t2323 + F::new(0.10718504529517434243e-3) * t2328 + t2078 - t2084 - t2098 + t2102;
+    t2330
 }

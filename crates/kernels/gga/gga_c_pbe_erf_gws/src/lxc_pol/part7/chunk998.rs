@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 998/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 998/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk998<F: Float>(t20112: F, t822: F, t19745: F, t2306: F, t3074: F, t19751: F, t2118: F, t2382: F, t4384: F, t353: F, t745: F, t859: F, t939: F, t19592: F, t20081: F, t20086: F, t20092: F, t20106: F, t20108: F, t20110: F, t2074: F, t2373: F, t2408: F, t2409: F, t2417: F, t3067: F, t335: F, t338: F, t4390: F, t6724: F, t6797: F, t6816: F, t6817: F, t833: F, t892: F) -> (F,) {
-    let t20113 = t822 * t20112;
-    let t20117 = t3074 * t2306 * t19745;
-    let t20121 = t2382 * t2118 * t19751;
-    let t20124 = t2382 * t4384;
-    let t20127 = t859 * t353 * t939 * t745;
-    let t20130 = -455.0 / 324.0 * t20081 + t19592 * t4390 / 6.0 + t2382 * t20086 * t833 / 32.0 + 35.0 / 18.0 * t20092 - t2408 * t2409 * t3067 * t2074 * t2417 / 4.0 - t335 * t338 * t892 * t6724 / 24.0 - t6816 * t338 * t892 * t6817 - 35.0 / 18.0 * t20106 - 7.0 / 6.0 * t20108 - 7.0 / 12.0 * t20110 + t20113 * t6797 / 4.0 - t20117 * t2373 / 4.0 - t20121 * t2373 / 4.0 - t20124 * t20127 / 8.0;
-    (t20130,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk998<F: Float>(t1914: F, t5421: F, t17328: F, t17330: F, t17335: F, t17338: F, t17341: F, t17343: F, t18240: F, t18243: F, t18245: F, t18247: F, t18250: F) -> F {
+    let t18252 = t1914 * t5421;
+    let t18254 = t17328 + t17330 - t17335 + t17338 + t17341 - t17343 + t18240 - t18243 - t18245 + F::new(2.0) * t18247 + F::new(4.0) / F::new(3.0) * t18250 + F::new(0.72933333333333333331e0) * t18252;
+    t18254
 }

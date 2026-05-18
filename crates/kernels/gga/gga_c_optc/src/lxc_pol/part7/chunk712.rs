@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 712/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 712/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk712<F: Float>(t2127: F, t7122: F, t2126: F, t6927: F, t115: F, t138: F, t5: F, t6932: F, t6937: F, t2124: F, t2168: F, t3467: F, t3501: F, t6782: F, t6787: F, t6792: F, t6928: F, t7111: F, t7113: F, t7116: F, t7119: F) -> (F, F, F, F, F) {
-    let t7123 = t7122 * t2127;
-    let t7125 = t2126 * t6927;
-    let t7128 = t138 * t115;
-    let t7129 = t7128 * t5;
-    let t7130 = t7129 * t6932;
-    let t7133 = t2126 * t6937;
-    let t7136 = 0.18137053605011111023e0 * t2168 * t6928 + 0.18137053605011111023e0 * t2168 * t6782 - 0.5441116081503333307e0 * t3501 * t6787 + 0.13602790203758333267e0 * t3501 * t6792 - 0.16927916698010370288e1 * t7111 + 0.52158968938732547127e0 * t2124 * t7113 - 0.26079484469366273564e0 * t2124 * t7116 + 0.52158968938732547127e0 * t3467 * t7119 - 0.24340852171408521993e1 * t7123 + 0.52158968938732547127e0 * t2124 * t7125 - 0.15647690681619764138e1 * t2124 * t7130 + 0.52158968938732547127e0 * t2124 * t7133;
-    (t7125, t7129, t7130, t7133, t7136)
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk712<F: Float>(t2030: F, t2074: F, t2020: F, t2029: F, t2026: F, t6: F, t616: F, t1948: F, t3440: F, t6318: F, t6321: F, t6324: F, t6328: F, t6330: F, t6342: F, t6356: F, t6526: F, t6613: F, t6619: F, t6621: F, t6623: F) -> (F, F, F, F, F, F, F) {
+    let t6797 = t2030 * t2074;
+    let t6799 = t2020 * t2029;
+    let t6800 = t6799 * t2026;
+    let t6802 = t6 * t616;
+    let t6803 = t6802 * t1948;
+    let t6804 = t3440 * t6803;
+    let t6807 = t6318 - t6321 + t6324 - t6328 + t6330 + t6342 + t6526 - t6356 + t6613 - t6619 + t6621 - t6623;
+    (t6797, t6799, t6800, t6802, t6803, t6804, t6807)
 }

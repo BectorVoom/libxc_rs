@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1022/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1022/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1022<F: Float>(t2317: F, t6289: F, t6525: F, t1217: F, t3122: F, t1222: F, t3130: F, t6338: F, t29874: F, t9208: F, t4325: F, t6515: F, t484: F, t9090: F, t20395: F, t493: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t30169 = 0.47425011059460249332e-2 * t6525 * t6289 * t2317;
-    let t30171 = 0.73772239425827054516e-2 * t1217 * t3122;
-    let t30173 = 0.63233348079280332442e-2 * t1222 * t3122;
-    let t30182 = 0.23712505529730124666e-2 * t6338 * t3130;
-    let t30184 = 0.73772239425827054516e-2 * t1217 * t3130;
-    let t30186 = 0.94850022118920498664e-2 * t29874 * t9208;
-    let t30189 = 0.142275033178380748e-1 * t6525 * t6515 * t4325;
-    let t30199 = 0.63233348079280332442e-2 * t484 * t9090;
-    let t30200 = t493 * t20395;
-    (t30169, t30171, t30173, t30182, t30184, t30186, t30189, t30199, t30200)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1022<F: Float>(t12156: F, t12191: F, t12199: F, t12202: F, t12235: F, t12247: F, t12249: F, t12267: F, t3749: F, t841: F, t10287: F, t10291: F, t10292: F, t10294: F, t10303: F, t10797: F, t10798: F, t10804: F, t10807: F, t12031: F, t12034: F, t12037: F, t1955: F, t1960: F, t748: F) -> (F, F, F) {
+    let t12270 = t12156 + t12191 + t12199 + t12202 + t12235 + t12247 + t12249 + t12267;
+    let t12272 = t3749 * t841;
+    let t12276 = -t12270 * t748 + F::new(2.0) * t12272 * t1960 - t1955 * t3749 - t10287 - t10291 + t10292 - t10294 - t10303 - t10797 - t10798 - t10804 + t10807 - t12031 + t12034 - t12037;
+    (t12270, t12272, t12276)
 }

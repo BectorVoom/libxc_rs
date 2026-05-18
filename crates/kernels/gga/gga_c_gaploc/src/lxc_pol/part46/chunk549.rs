@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 549/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 549/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk549<F: Float>(t7980: F, t874: F, t1445: F, t574: F, t2293: F, t2778: F, t10334: F, t10336: F, t10337: F, t10342: F, t10345: F, t10350: F, t10353: F, t10356: F, t10358: F, t10361: F, t10363: F, t10367: F, t10369: F, t1562: F, t1572: F, t1646: F) -> (F,) {
-    let t10370 = t7980 * t874;
-    let t10371 = t1445 * t10370;
-    let t10373 = 0.46011511144704899612e1 * t574 * t10371;
-    let t10374 = t2778 * t2293;
-    let t10375 = t1445 * t10374;
-    let t10377 = 0.46011511144704899612e1 * t574 * t10375;
-    let t10378 = t10334 + t10336 - 0.35750489951850426669e0 * t10337 * t1646 - 0.69017266717057349418e1 * t1562 * t10342 + 0.71500979903700853338e0 * t1572 * t10345 - t10350 + t10353 - t10356 - t10358 - t10361 - t10363 - t10367 - t10369 - t10373 - t10377;
-    (t10378,)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk549<F: Float>(t1897: F, t2508: F, t9592: F, t9597: F, t9600: F, t9605: F, t9608: F, t9611: F, t9614: F, t9618: F, t9620: F, t9622: F, t9661: F, t9718: F, t9763: F) -> F {
+    let t9765 = F::new(0.30762104920568897134e-1) * t2508 * t9592 + F::new(0.76905262301422242837e-2) * t1897 * t9597 - F::new(0.46143157380853345702e-1) * t2508 * t9600 - F::new(0.15381052460284448567e-1) * t1897 * t9605 - F::new(0.76905262301422242837e-2) * t1897 * t9608 + F::new(0.76905262301422242837e-2) * t2508 * t9611 + F::new(0.23071578690426672851e-1) * t1897 * t9614 + t9618 - t9620 - t9622 + t9661 + t9718 + t9763;
+    t9765
 }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 928/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 18 (v4rho3sigma_6) CSE chunk 928/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk928<F: Float>(t3793: F, t8928: F, t2206: F, t3867: F, t2289: F, t3827: F, t3857: F, t3802: F, t4394: F, t2105: F, t820: F, t9482: F, t2271: F, t3861: F, t905: F, t11339: F, t823: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11492 = t8928 * t3793 / 96.0;
-    let t11493 = t2206 * t3867;
-    let t11494 = 7.0 / 144.0 * t11493;
-    let t11495 = t2289 * t3827;
-    let t11497 = t2289 * t3857;
-    let t11499 = t3802 * t4394;
-    let t11500 = t2105 * t820;
-    let t11501 = t11499 * t11500;
-    let t11502 = t9482 * t11501;
-    let t11505 = t3861 * t2271;
-    let t11506 = t905 * t11505;
-    let t11509 = t11339 * t823;
-    (t11492, t11494, t11495, t11497, t11499, t11501, t11502, t11505, t11506, t11509)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk928<F: Float>(t10392: F, t418: F, t7063: F, t7062: F, t7069: F, t5117: F, t1044: F, t954: F, t422: F, t7505: F, t7115: F, t626: F, t7116: F) -> (F, F, F, F, F, F, F) {
+    let t10393 = t10392 * t418;
+    let t10394 = t7063 * t10393;
+    let t10396 = F::new(16.0) / F::new(45.0) * t7062 * t10394;
+    let t10397 = t7069 * t10393;
+    let t10399 = F::new(8.0) / F::new(27.0) * t7062 * t10397;
+    let t10400 = F::new(8.0) / F::new(135.0) * t5117;
+    let t10401 = t954 * t1044;
+    let t10402 = t10401 * t422;
+    let t10403 = t7505 * t10402;
+    let t10405 = F::new(16.0) / F::new(45.0) * t7115 * t10403;
+    let t10406 = t7116 * t626;
+    (t10396, t10399, t10400, t10401, t10402, t10405, t10406)
 }

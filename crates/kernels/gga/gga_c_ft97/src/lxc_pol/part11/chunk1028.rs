@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 1028/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 1028/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1028<F: Float>(t10195: F, t10198: F, t10199: F, t10823: F, t10829: F, t10931: F, t10935: F, t113: F, t14408: F, t1934: F, t2904: F, t2956: F, t2962: F, t2963: F, t332: F, t43304: F, t43311: F, t44642: F, t44789: F, t5: F, t505: F, t8608: F, t889: F, t910: F, t911: F) -> (F,) {
-    let t44795 = t889 * t910 * t8608 + 3.0 * t2904 * t10935 + t889 * t10931 * t505 + 3.0 / 4.0 * t889 * t43304 * t332 * t113 + 3.0 / 2.0 * t10829 * t2963 + t43311 * t911 + 3.0 / 2.0 * t889 * t2962 * t113 * t2956 + 3.0 * t889 * t10198 * t14408 + 3.0 * t2904 * t10199 + 3.0 / 2.0 * t889 * t2962 * t1934 + 3.0 * t2904 * t10823 + t2904 * t10195 + t5 * (t44642 + t44789) * t332 * t113 / 4.0;
-    (t44795,)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1028<F: Float>(t2320: F, t41490: F, t701: F, t2447: F, t626: F, t41451: F, t41456: F, t41461: F, t41466: F, t41471: F, t41475: F, t41480: F, t41484: F, t41488: F) -> (F, F, F) {
+    let t41492 = t701 * t2320 * t41490;
+    let t41495 = t701 * t626 * t2447;
+    let t41497 = -F::new(0.23834947128395061728e0) * t41451 + F::new(0.11917473564197530864e0) * t41456 + F::new(0.30644932022222222222e0) * t41461 - F::new(0.30644932022222222222e0) * t41466 + F::new(0.25537443351851851852e-1) * t41471 + F::new(0.34049924469135802469e-1) * t41475 - F::new(0.15322466011111111111e0) * t41480 + F::new(0.22983699016666666666e0) * t41484 - F::new(0.38306165027777777778e-1) * t41488 - F::new(0.51074886703703703704e-1) * t41492 + F::new(0.17024962234567901234e-1) * t41495;
+    (t41492, t41495, t41497)
 }

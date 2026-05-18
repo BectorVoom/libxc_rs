@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 550/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 550/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk550<F: Float>(t11019: F, t1445: F, t3504: F, t5782: F, t8483: F, t935: F, t2087: F, t2530: F, t3009: F, t10721: F, t10006: F, t10993: F, t10995: F, t10996: F, t11001: F, t11006: F, t11010: F, t11011: F, t11012: F, t11015: F, t11018: F, t1998: F, t2009: F, t780: F, t807: F) -> (F,) {
-    let t11020 = t1445 * t11019;
-    let t11024 = 0.69017266717057349418e1 * t5782 * t3504;
-    let t11025 = t8483 * t935;
-    let t11026 = t1445 * t11025;
-    let t11028 = 0.69017266717057349418e1 * t2087 * t11026;
-    let t11029 = t3009 * t2530;
-    let t11030 = t1445 * t11029;
-    let t11032 = 0.69017266717057349418e1 * t2087 * t11030;
-    let t11033 = t1445 * t10721;
-    let t11036 = -t10993 + t10995 - 0.35750489951850426669e0 * t10996 * t2009 + 0.35750489951850426669e0 * t780 * t11001 - 0.69017266717057349418e1 * t2087 * t11006 + t11010 + t10006 - t11011 + t11012 + t11015 - t11018 - 0.23005755572352449806e1 * t1998 * t11020 - t11024 - t11028 - t11032 + 0.23005755572352449806e1 * t807 * t11033;
-    (t11036,)
+pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk550<F: Float>(t9442: F, t9446: F, t9451: F, t1: F, t10170: F, t544: F, t1415: F, t2897: F, t7030: F, t8237: F, t9287: F, t3407: F, t7014: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t10414 = F::new(0.15976219147466979032e-1) * t9442;
+    let t10415 = F::new(0.31952438294933958064e-1) * t9446;
+    let t10416 = F::new(0.31952438294933958064e-1) * t9451;
+    let t10417 = t10170 * t1;
+    let t10418 = t544 * t10417;
+    let t10421 = t1415 * t2897;
+    let t10422 = t10421 * t7030;
+    let t10423 = F::new(0.14896037479937677779e-1) * t10422;
+    let t10424 = t544 * t8237;
+    let t10425 = t10424 * t9287;
+    let t10426 = F::new(0.14896037479937677779e-1) * t10425;
+    let t10427 = t7014 * t3407;
+    (t10414, t10415, t10416, t10417, t10418, t10421, t10422, t10423, t10424, t10425, t10426, t10427)
 }

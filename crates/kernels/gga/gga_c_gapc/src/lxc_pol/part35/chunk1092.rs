@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 1092/1126 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 1092/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk1092<F: Float>(t1006: F, t3639: F, t4893: F, t11257: F, t4644: F, t1265: F, t1459: F, t3649: F, t3652: F, t11182: F, t11185: F, t11249: F, t25176: F, t11215: F, t13676: F, t13679: F, t520: F) -> (F, F, F, F, F, F) {
-    let t35631 = t1006 * t3639 * t4893;
-    let t35634 = t11257 * t3639 * t4644;
-    let t35638 = t3649 * t1265 * t1459 * t3652;
-    let t35640 = t11182 * t11185;
-    let t35643 = t25176 * t1459 * t11249;
-    let t35647 = t11215 * t13676 * t520 * t13679;
-    (t35631, t35634, t35638, t35640, t35643, t35647)
+pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk1092<F: Float>(t11808: F, t11983: F, t11772: F, t29692: F, t11795: F, t9387: F, t11508: F, t3402: F, t7944: F, t33536: F, t33541: F, t33547: F, t33552: F, t33555: F, t33558: F, t33561: F) -> F {
+    let t33563 = t11808 * t11983;
+    let t33565 = t11772 * t29692;
+    let t33567 = t9387 * t11795;
+    let t33570 = t3402 * t11508 * t7944;
+    let t33572 = F::new(0.2209855149968790001e-7) * t33536 - F::new(0.26904388710304542825e-7) * t33541 + F::new(0.2504163411376437654e-5) * t33547 - F::new(0.44524025454273061491e-5) * t33552 - F::new(0.30353495895471971564e-6) * t33555 + F::new(0.53968515702149165444e-6) * t33558 - F::new(0.32042899674547455014e-6) * t33561 - F::new(0.32042899674547455014e-6) * t33563 + F::new(0.63252766927083333336e-6) * t33565 + F::new(0.27462095132499841011e-4) * t33567 + F::new(0.30353495895471971564e-6) * t33570;
+    t33572
 }

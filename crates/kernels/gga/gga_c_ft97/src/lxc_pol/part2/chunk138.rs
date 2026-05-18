@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 2 (v3rho3_1) CSE chunk 138/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 2 (v3rho3_1) CSE chunk 138/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -14,6 +14,6 @@ pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk138<F: Float>(t35: F, t383: F, t37
     let t385 = t374 * t384;
     let t388 = t38 * t62;
     let t389 = t43 * rho0;
-    let t391 = 1.0 / t45 / t389;
+    let t391 = F::new(1.0) / t45 / t389;
     (t384, t385, t388, t389, t391)
 }

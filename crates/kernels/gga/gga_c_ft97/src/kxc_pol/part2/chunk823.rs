@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 823/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 823/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,18 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk823<F: Float>(t2876: F, t3690: F, t10409: F, t446: F, t3699: F, t2665: F, t2680: F, t4129: F, t824: F, t193: F, t89: F, t2739: F, t4056: F, t1212: F, t2682: F, t7640: F) -> (F, F, F, F, F, F, F) {
-    let t14686 = t3690 * t2876;
-    let t14687 = t10409 * t14686;
-    let t14688 = t446 * t14687;
-    let t14690 = t3699 * t2876;
-    let t14691 = t2665 * t14690;
-    let t14692 = t446 * t14691;
-    let t14694 = t2680 * t4129;
-    let t14695 = t14694 * t824;
-    let t14697 = t89 * t193 * t14695;
-    let t14699 = t4056 * t2739;
-    let t14701 = t89 * t193 * t14699;
-    let t14704 = t7640 * t1212 * t2682;
-    (t14686, t14688, t14690, t14692, t14697, t14701, t14704)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk823<F: Float>(t1039: F, t2087: F, t91: F, t9252: F, t2086: F, t3526: F, t590: F, t2120: F, t3491: F, t12574: F, t12577: F, t12580: F, t12584: F, t12589: F, t12592: F, t12918: F, t9062: F) -> (F, F, F, F) {
+    let t12921 = t91 * t9252 * t1039 * t2087;
+    let t12923 = t2086 * t3526;
+    let t12925 = t91 * t12923 * t590;
+    let t12928 = t91 * t3491 * t2120;
+    let t12937 = -t12918 + t12921 / F::new(8.0) - t12925 / F::new(6.0) - t12928 / F::new(12.0) + F::new(2.0) / F::new(9.0) * t12574 + F::new(8.0) / F::new(9.0) * t12577 - F::new(2.0) / F::new(27.0) * t12580 + F::new(2.0) / F::new(3.0) * t12584 - F::new(2.0) * t12589 + F::new(4.0) / F::new(27.0) * t12592 - F::new(2.0) / F::new(27.0) * t9062;
+    (t12921, t12925, t12928, t12937)
 }

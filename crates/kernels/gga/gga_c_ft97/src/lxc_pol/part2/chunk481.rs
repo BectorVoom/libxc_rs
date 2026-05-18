@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 2 (v3rho3_1) CSE chunk 481/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 2 (v3rho3_1) CSE chunk 481/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,19 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk481<F: Float>(t3056: F, t35: F, t374: F, t1594: F, t3037: F, t25: F, t938: F, t373: F, t383: F, t408: F, t401: F, t64: F, t66: F, t1710: F, t428: F, t1725: F, t935: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3057 = t3056 * t35;
-    let t3058 = t374 * t3057;
-    let t3061 = t1594 * t3037;
-    let t3064 = t938 * t25;
-    let t3065 = t373 * t383;
-    let t3066 = t3065 * t35;
-    let t3067 = t3064 * t3066;
-    let t3070 = t408 * t938;
-    let t3071 = t3070 * t401;
-    let t3076 = t64 * t66;
-    let t3077 = t1710 * t938;
-    let t3078 = t3077 * t428;
-    let t3083 = t1725 * t935;
-    (t3057, t3058, t3061, t3064, t3066, t3067, t3070, t3071, t3076, t3077, t3078, t3083)
+pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk481<F: Float>(t2666: F, t2771: F, t2498: F, t848: F, t2502: F, t2: F, t2680: F, t192: F, t2682: F, t2739: F, t852: F, t2761: F, t2762: F, t2764: F, t2767: F, t462: F, t92: F) -> (F, F, F, F, F, F, F) {
+    let t2772 = t2771 * t2666;
+    let t2775 = t848 * t2498;
+    let t2778 = t848 * t2502;
+    let t2781 = t2680 * t2;
+    let t2783 = t192 * t2781 * t2682;
+    let t2787 = t192 * t852 * t2739;
+    let t2789 = t2761 + F::new(2.0) / F::new(9.0) * t2762 + F::new(2.0) / F::new(3.0) * t2764 - F::new(2.0) / F::new(9.0) * t462 * t2767 + F::new(2.0) / F::new(3.0) * t462 * t2772 + F::new(2.0) / F::new(3.0) * t462 * t2775 - t462 * t2778 / F::new(3.0) + F::new(2.0) * t92 * t2783 - t92 * t2787;
+    (t2772, t2775, t2778, t2781, t2783, t2787, t2789)
 }

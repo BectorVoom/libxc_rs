@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 792/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 792/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk792<F: Float>(t7268: F, t7312: F, t650: F, t186: F, t211: F, t2730: F, t2737: F, t1024: F, t5343: F, t5205: F, t7184: F, t7185: F, t7187: F, t7190: F, t7193: F, t7198: F, t7203: F, t7208: F, t7215: F, t7221: F, t7223: F, t7228: F, t7230: F) -> (F, F, F, F) {
-    let t7313 = t7268 + t7312;
-    let t7314 = t650 * t7313;
-    let t7315 = t186 * t7314;
-    let t7317 = 2.0 / 15.0 * t211 * t7315;
-    let t7319 = 8.0 / 15.0 * t2730 * t2737;
-    let t7321 = 4.0 / 15.0 * t5343 * t1024;
-    let t7322 = t7184 + t7185 + 4.0 / 135.0 * t5205 + t7187 - t7190 + t7193 - t7198 + t7203 + t7208 - t7215 + t7221 + t7223 - t7228 + t7230 - t7317 - t7319 + t7321;
-    (t7317, t7319, t7321, t7322)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk792<F: Float>(t164: F, t5984: F, t1964: F, t528: F, t1457: F, t547: F, t762: F, t4551: F, t1597: F, t1464: F, t163: F, t169: F, t234: F, t366: F) -> (F, F, F, F, F, F, F, F) {
+    let t5985 = t5984 * t164;
+    let t5986 = F::new(0.1186530987165140469e-3) * t5985;
+    let t5988 = F::new(0.94516221669423353502e-1) * t528 * t1964;
+    let t5990 = t1457 * t164;
+    let t5993 = F::new(0.18903244333884670701e0) * t762 * t547;
+    let t5994 = t4551 * t164;
+    let t5996 = t1597 * t547;
+    let t5999 = F::new(0.189032443338846707e0) * t1464 * t164;
+    let t6003 = F::new(0.87811049408533800023e-1) * t169 * t366 * t234 * t163;
+    (t5986, t5988, t5990, t5993, t5994, t5996, t5999, t6003)
 }

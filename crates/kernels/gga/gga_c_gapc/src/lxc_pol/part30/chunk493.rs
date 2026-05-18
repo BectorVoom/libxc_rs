@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 30 (v4rho2sigma2_9) CSE chunk 493/1135 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 30 (v4rho2sigma2_9) CSE chunk 493/1331 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part30_v4rho2sigma2_9_chunk493<F: Float>(t185: F, t3056: F, t649: F, t122: F, t424: F) -> (F, F, F) {
-    let t3057 = t185 * t3056;
-    let t3058 = t3057 * t649;
-    let t3060 = t424 * t122;
-    (t3057, t3058, t3060)
+pub fn gga_c_gapc_lxc_pol_part30_v4rho2sigma2_9_chunk493<F: Float>(t218: F, t211: F, t220: F, t2836: F, t414: F, t694: F, t2835: F, t43: F, t385: F, t991: F, t426: F, t118: F, t632: F, zeta_threshold: F) -> (F, F, F, F) {
+    let t219 = t218 <= zeta_threshold;
+    let t2839 = t220 * t211;
+    let t2843 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2836 * t694 - F::new(8.0) / F::new(3.0) * t2839 * t414);
+    let t2845 = (t2835 + t2843) * t43;
+    let t2874 = t385 * t991;
+    let t2876 = t426 * t991;
+    let t2878 = t632 * t118;
+    (t2845, t2874, t2876, t2878)
 }

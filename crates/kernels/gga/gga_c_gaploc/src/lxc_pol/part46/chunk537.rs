@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 537/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 537/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk537<F: Float>(t3327: F, t6305: F, t4261: F, t7893: F, t9074: F, t2312: F, t3351: F, t7974: F, t894: F, t1063: F, t9097: F, t9100: F, t9108: F, t9111: F, t9113: F, t9115: F) -> (F, F, F, F, F) {
-    let t10184 = 0.28455006635676149599e-1 * t6305 * t3327;
-    let t10185 = t4261 * t7893;
-    let t10186 = t9074 * t10185;
-    let t10187 = 0.23712505529730124666e-2 * t10186;
-    let t10194 = t2312 * t3351;
-    let t10195 = 0.11856252764865062333e-2 * t10194;
-    let t10196 = t894 * t7974;
-    let t10198 = 0.28455006635676149599e-1 * t1063 * t10196;
-    let t10205 = -21.0 / 256.0 * t9097 + 147.0 / 8192.0 * t9100 - 63.0 / 524288.0 * t9108 + 21.0 / 524288.0 * t9111 - 49.0 / 8192.0 * t9113 + 7.0 / 256.0 * t9115;
-    (t10184, t10187, t10195, t10198, t10205)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk537<F: Float>(t2549: F, t3248: F, t7221: F, t883: F, t2562: F, t943: F, t3240: F, t2558: F, t2717: F, t2537: F, t2554: F, t7064: F) -> (F, F, F, F, F, F) {
+    let t9622 = F::new(0.64087718584518535698e-3) * t2549 * t3248;
+    let t9624 = t883 * t7221;
+    let t9625 = t2562 * t9624;
+    let t9627 = F::new(0.64087718584518535698e-3) * t943 * t9625;
+    let t9629 = F::new(0.64087718584518535698e-3) * t2549 * t3240;
+    let t9630 = t2717 * t2558;
+    let t9632 = F::new(0.64087718584518535698e-3) * t943 * t9630;
+    let t9633 = t2537 * t2554;
+    let t9635 = F::new(0.64087718584518535698e-3) * t7064 * t9633;
+    (t9622, t9624, t9627, t9629, t9632, t9635)
 }

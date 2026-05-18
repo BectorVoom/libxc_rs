@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1091/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1091/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1091<F: Float>(t10722: F, t10776: F, t10790: F, t11083: F, t1841: F, t1897: F, t2042: F, t2508: F, t2580: F, t32207: F, t32213: F, t32215: F, t32222: F, t32226: F, t32230: F, t32234: F, t32241: F, t32243: F, t32245: F, t3433: F, t5288: F, t5293: F, t702: F, t7129: F, t7226: F, t7289: F) -> (F,) {
-    let t32248 = 0.76905262301422242837e-2 * t2508 * t2042 * t3433 + t32207 + 0.20508069947045931424e-1 * t5293 * t10722 + t32213 - 0.34180116578409885705e-2 * t1841 * t7289 * t32215 + t32222 + t32226 - 0.15381052460284448567e-1 * t1897 * t11083 * t702 + 0.92286314761706691403e-1 * t2508 * t2580 * t32230 - 0.46143157380853345701e-1 * t2508 * t7226 * t32234 - 0.15381052460284448567e-1 * t5288 * t10776 + t32241 + t32243 + t32245 - 0.46143157380853345702e-1 * t7129 * t10790;
-    (t32248,)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1091<F: Float>(t1402: F, t2033: F, t3280: F, t2628: F, t7403: F, t1980: F, t7634: F, t9824: F, t7419: F, t948: F, t9796: F, t5241: F, t935: F) -> (F, F, F, F, F, F) {
+    let t28249 = F::new(0.17875244975925213335e0) * t2033 * t1402 * t3280;
+    let t28259 = F::new(0.11916829983950142223e0) * t7403 * t2628;
+    let t28279 = t1980 * t7634;
+    let t28281 = F::new(0.59584149919750711116e-1) * t28279 * t9824;
+    let t28283 = t9796 * t948 * t7419;
+    let t28284 = F::new(0.1533717038156829987e1) * t28283;
+    let t28286 = t5241 * t935;
+    (t28249, t28259, t28279, t28281, t28284, t28286)
 }

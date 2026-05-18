@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 998/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 998/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk998<F: Float>(t10004: F, t5676: F, t1645: F, t7124: F, t23309: F, t7372: F, t1966: F, t9801: F, t5640: F, t9807: F, t2021: F, t6109: F, t899: F, t7305: F, t913: F, t2033: F, t2365: F, t2610: F, t7112: F) -> (F, F, F, F, F, F, F, F) {
-    let t28381 = 0.11916829983950142223e0 * t5676 * t10004;
-    let t28387 = t1645 * t7124;
-    let t28406 = 0.59584149919750711116e-1 * t23309 * t7372;
-    let t28407 = t1966 * t9801;
-    let t28409 = t5640 * t9807;
-    let t28412 = t2021 * t6109 * t899;
-    let t28415 = 0.11916829983950142223e0 * t28412 * t913 * t7305;
-    let t28419 = 0.29792074959875355558e-1 * t2033 * t2365 * t2610 * t7112;
-    (t28381, t28387, t28406, t28407, t28409, t28412, t28415, t28419)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk998<F: Float>(t12000: F, t493: F, t492: F, t11986: F, t550: F, t1365: F, t10184: F, t10187: F, t10195: F, t10198: F, t10229: F, t10236: F, t10238: F, t10240: F, t10245: F, t105: F, t1358: F, t3692: F, t419: F, t9207: F, t9210: F) -> (F, F, F, F, F) {
+    let t12001 = t493 * t12000;
+    let t12002 = t492 * t12001;
+    let t12007 = t550 * t11986;
+    let t12008 = t1365 * t12007;
+    let t12011 = t10184 + t10187 - F::new(0.28455006635676149599e-1) * t105 * t12002 + F::new(0.28455006635676149599e-1) * t419 * t3692 + F::new(0.31616674039640166221e-2) * t1358 * t12008 - t10195 - t10198 - t9207 + t9210 + t10229 + t10236 - t10238 - t10240 + t10245;
+    (t12001, t12002, t12007, t12008, t12011)
 }

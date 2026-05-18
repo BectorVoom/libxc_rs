@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 1013/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 1013/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1013<F: Float>(t10666: F, t2801: F, t10738: F, t1882: F, t10741: F, t192: F, t33828: F, t10714: F, t2399: F, t2834: F, t89: F, t2751: F, t8232: F, t10690: F, t2832: F, t848: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t44272 = t10666 * t2801;
-    let t44276 = t1882 * t10738;
-    let t44278 = t1882 * t10741;
-    let t44280 = t192 * t33828;
-    let t44289 = t1882 * t10714;
-    let t44292 = t89 * t2399 * t2834;
-    let t44294 = t8232 * t2751;
-    let t44300 = t1882 * t10690;
-    let t44302 = t848 * t2832;
-    (t44272, t44276, t44278, t44280, t44289, t44292, t44294, t44300, t44302)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1013<F: Float>(t1948: F, t2252: F, t342: F, t142: F, t7763: F, t511: F, t8639: F, t11269: F, t1526: F, t1527: F, t15567: F, t16640: F, t1943: F, t343: F, t72: F, t7745: F, t7765: F, t7789: F, t8766: F, t9007: F, t9041: F, t9045: F, t9078: F, t9084: F) -> F {
+    let t41305 = t342 * t2252 * t1948;
+    let t41318 = t142 * t7763;
+    let t41328 = F::new(5.0) / F::new(54.0) * t342 * t8639 * t511;
+    let t41329 = t1526 * t1527 * t9078 / F::new(2.0) - t1526 * t1527 * t8766 * t7765 / F::new(2.0) + t15567 * t16640 * t7789 / F::new(2.0) + t41305 / F::new(6.0) + t9084 - t342 * t343 * t72 * t9007 / F::new(4.0) - t1526 * t1527 * t1943 * t7745 / F::new(12.0) - t1526 * t1527 * t9041 / F::new(4.0) - F::new(7.0) / F::new(27.0) * t1526 * t11269 * t41318 * t7765 - t1526 * t1527 * t9045 / F::new(4.0) - t41328;
+    t41329
 }

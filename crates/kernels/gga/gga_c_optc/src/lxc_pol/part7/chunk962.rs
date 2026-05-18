@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 962/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 962/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk962<F: Float>(t1872: F, t2048: F, t22610: F, t22700: F, t22703: F, t22705: F, t22708: F, t22711: F, t22713: F, t22716: F, t22719: F, t22721: F, t22724: F, t22726: F, t138: F, t6843: F) -> (F, F, F) {
-    let t22727 = t2048 * t1872;
-    let t22728 = 192.0 * t22727;
-    let t22729 = t22700 + t22703 + t22705 + t22708 - t22711 - t22713 - t22716 - t22719 - t22721 + t22724 + t22726 + t22610 - t22728;
-    let t22736 = t6843 * t138;
-    (t22728, t22729, t22736)
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk962<F: Float>(t3245: F, t9197: F, t4289: F, t9069: F, t1162: F, t1179: F, t3234: F, t3244: F, t8953: F, t8957: F, t9169: F, t9172: F, t9175: F, t9176: F, t9179: F, t9181: F, t9188: F, t9191: F, t9194: F, t9198: F, t9202: F, t9206: F) -> F {
+    let t9209 = t3245 * t9197;
+    let t9212 = t4289 * t9069;
+    let t9215 = F::new(0.11983980782038291513e5) * t9169 * t9172 - F::new(0.8987985586528718635e4) * t9175 * t9176 + F::new(0.10076140891672839458e-1) * t9179 + F::new(0.16793568152788065762e-1) * t9181 + F::new(0.50380704458364197288e-2) * t1179 * t8957 + F::new(0.22391424203717421017e-1) * t1179 * t8953 + t9188 + F::new(0.1559479530529405812e2) * t9191 - F::new(0.30228422675018518374e-1) * t1179 * t9194 + F::new(0.1169609647897054359e2) * t3234 * t9198 + F::new(0.25190352229182098644e-1) * t1179 * t9202 + F::new(0.11590881986385010473e0) * t1162 * t9206 + F::new(0.11360101276506094136e1) * t3244 * t9209 + F::new(0.15146801702008125515e1) * t3244 * t9212;
+    t9215
 }

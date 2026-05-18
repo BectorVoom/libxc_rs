@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 582/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 582/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk582<F: Float>(t188: F, t3701: F, t3695: F, t531: F, t3689: F, t569: F, t568: F, t600: F, t193: F, t3157: F, t3165: F, t3179: F, t3197: F, t3370: F, t3376: F, t3379: F, t3383: F, t3386: F, t3393: F, t3398: F, t3401: F, t3406: F, t3409: F, t3413: F, t557: F, t574: F, t597: F) -> (F, F, F, F, F, F, F) {
-    let t3702 = t188 * t3701;
-    let t3705 = t531 * t3695;
-    let t3709 = t569 * t3689;
-    let t3710 = t568 * t3709;
-    let t3714 = t600 * t3689;
-    let t3715 = t568 * t3714;
-    let t3718 = t3370 + 0.35750489951850426669e0 * t3702 * t193 + t3157 - t3379 + t3376 - t3383 - t3165 + t3386 - 0.35750489951850426669e0 * t557 * t3705 - t3393 - 0.38342925953920749677e0 * t3179 + t3401 - 0.23005755572352449806e1 * t574 * t3710 - t3398 - t3406 + t3409 + 0.38342925953920749677e0 * t3197 - t3413 + 0.23005755572352449806e1 * t597 * t3715;
-    (t3702, t3705, t3709, t3710, t3714, t3715, t3718)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk582<F: Float>(t2268: F, t3327: F, t3094: F, t3107: F, t3099: F, t3104: F, t471: F, t2321: F, t999: F) -> (F, F, F, F, F, F) {
+    let t3329 = F::new(0.28455006635676149599e-1) * t2268 * t3327;
+    let t3330 = F::new(3.0) / F::new(128.0) * t3094;
+    let t3333 = t3107 / F::new(128.0);
+    let t3334 = t3330 - F::new(9.0) / F::new(4096.0) * t3099 + F::new(3.0) / F::new(4096.0) * t3104 - t3333;
+    let t3335 = t3334 * t471;
+    let t3344 = t999 * t2321;
+    (t3329, t3330, t3333, t3334, t3335, t3344)
 }

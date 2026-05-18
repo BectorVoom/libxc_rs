@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1216/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1216/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1216<F: Float>(t11981: F, t1305: F, t1445: F, t1450: F, t1603: F, t30374: F, t30378: F, t30379: F, t30381: F, t30387: F, t34358: F, t34361: F, t34366: F, t34370: F, t34374: F, t34377: F, t34381: F, t34383: F, t34386: F, t3701: F, t4667: F) -> (F,) {
-    let t38535 = t34358 - 0.23005755572352449806e1 * t1450 * t1445 * t11981 * t1305 + t34361 + t34366 - t34370 + t34374 + t34377 - t34381 + t30374 - t30378 + t34383 - 0.38342925953920749677e0 * t30379 - 0.76685851907841499354e0 * t30381 + 0.10224780254378866581e1 * t30387 - t34386 + 0.71500979903700853338e0 * t1603 * t3701 * t4667;
-    (t38535,)
+pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1216<F: Float>(t32584: F, t25462: F, t2558: F, t9647: F, t25055: F, t5539: F, t16880: F, t25059: F, t1854: F, t22008: F, t32348: F, t21488: F, t314: F, t320: F, t3487: F, t7291: F, t734: F) -> (F, F, F, F, F, F) {
+    let t32585 = F::new(0.64087718584518535698e-3) * t32584;
+    let t32587 = t9647 * t25462 * t2558;
+    let t32588 = F::new(0.64087718584518535698e-3) * t32587;
+    let t32590 = t9647 * t5539 * t25055;
+    let t32591 = F::new(0.38452631150711121418e-2) * t32590;
+    let t32593 = t9647 * t16880 * t25059;
+    let t32594 = F::new(0.19226315575355560709e-2) * t32593;
+    let t32597 = F::new(0.17090058289204942853e-2) * t22008 * t32348 * t1854;
+    let t32604 = F::new(0.17090058289204942853e-2) * t21488 * t320 * t314 * t7291 * t3487 * t734;
+    (t32585, t32588, t32591, t32594, t32597, t32604)
 }

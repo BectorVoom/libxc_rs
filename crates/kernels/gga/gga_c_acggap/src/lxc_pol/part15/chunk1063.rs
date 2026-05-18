@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 1063/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 1063/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk1063<F: Float>(t34293: F, t37013: F, t37014: F, t37016: F, t37017: F, t39141: F, t39143: F, t39145: F, t39147: F, t39151: F, t39155: F, t39160: F, t39162: F, t39167: F, t39169: F, t39171: F, t39173: F, t39176: F) -> (F,) {
-    let t41510 = -0.18868855373762491241e-2 * t39141 + 0.13719685797782315831e-1 * t39143 + 0.68598428988911579156e-2 * t39145 - 0.34299214494455789578e-2 * t39147 - 0.12579236915841660827e-2 * t39151 - 0.15724046144802076034e-2 * t39155 + 0.62896184579208304138e-3 * t39160 - 0.12862205435420921092e-1 * t39162 - 0.94344276868812456207e-3 * t39167 - t39169 / 24.0 - t39171 / 48.0 - 0.80031500487063509015e-2 * t39173 + 0.64025200389650807212e-1 * t34293 + t37013 - t37014 + t37016 + t37017 - 0.21437009059034868486e-2 * t39176;
-    (t41510,)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk1063<F: Float>(t36367: F, t36372: F, t36377: F, t36380: F, t36382: F, t36388: F, t2138: F, t2147: F, t2394: F, t879: F, t33524: F, t639: F) -> (F, F, F, F, F, F, F, F) {
+    let t37980 = t36367 / F::new(24.0);
+    let t37983 = F::new(0.68598428988911579156e-2) * t36372;
+    let t37985 = F::new(0.21437009059034868486e-2) * t36377;
+    let t37987 = F::new(7.0) / F::new(72.0) * t36380;
+    let t37988 = F::new(0.5603125e-1) * t36382;
+    let t37992 = F::new(0.68598428988911579156e-2) * t36388;
+    let t38008 = t2138 * t2147 * t2394 * t879;
+    let t38010 = t33524 * t639;
+    (t37980, t37983, t37985, t37987, t37988, t37992, t38008, t38010)
 }

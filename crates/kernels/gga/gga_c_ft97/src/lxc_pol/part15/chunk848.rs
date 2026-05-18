@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 848/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 848/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk848<F: Float>(t1127: F, t3724: F, t66115: F, t21222: F, t25: F, t1113: F, t13580: F, t18132: F, t18089: F, t226: F, t21157: F, t1109: F, t5025: F, t5049: F, t200: F, t5005: F) -> (F, F, F, F, F, F, F, F) {
-    let t79317 = t3724 * t66115 * t1127;
-    let t79341 = t21222 * t25;
-    let t79373 = t13580 * t18132 * t1113;
-    let t79402 = t18089 * t226;
-    let t79423 = t21157 * t25;
-    let t79430 = t1109 * t5025;
-    let t79439 = t1109 * t5049;
-    let t79457 = t200 * t5005;
-    (t79317, t79341, t79373, t79402, t79423, t79430, t79439, t79457)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk848<F: Float>(t22456: F, t2874: F, t1091: F, t19571: F, t2881: F, t1248: F, t19333: F, t296: F, t10749: F, t15329: F, t15420: F, t1901: F, t193: F, t22398: F, t22402: F, t22407: F, t22412: F, t22416: F, t22441: F, t22446: F, t22449: F, t22454: F, t446: F, t89: F) -> (F, F, F, F, F, F) {
+    let t22457 = t2874 * t22456;
+    let t22460 = t19571 * t1091;
+    let t22461 = t2881 * t22460;
+    let t22464 = t19333 * t1248;
+    let t22465 = t296 * t22464;
+    let t22467 = F::new(2.0) / F::new(3.0) * t1901 * t22398 - t446 * t22402 / F::new(3.0) + F::new(2.0) * t446 * t22407 - F::new(2.0) * t446 * t22412 - F::new(2.0) / F::new(3.0) * t446 * t22416 + F::new(4.0) / F::new(9.0) * t15329 + t89 * t193 * t22441 / F::new(3.0) - t446 * t22446 - t446 * t22449 / F::new(3.0) - F::new(4.0) / F::new(9.0) * t15420 - t446 * t22454 + t1901 * t22457 / F::new(3.0) + t1901 * t22461 / F::new(3.0) - t10749 - t446 * t22465;
+    (t22457, t22460, t22461, t22464, t22465, t22467)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 647/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 647/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk647<F: Float>(t1903: F, t720: F, t254: F, t542: F, t252: F, t1907: F, t723: F, t245: F, t713: F, t1802: F, t610: F, t1866: F, t1885: F, t587: F, t1697: F, t212: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5384 = 2.0 / 9.0 * t720 * t1903;
-    let t5385 = t254 * t542;
-    let t5387 = 8.0 / 81.0 * t252 * t5385;
-    let t5388 = t1907 * t723;
-    let t5390 = t245 * t713;
-    let t5393 = t1802 * t610;
-    let t5394 = t5393 * t1866;
-    let t5395 = t1885 * t5394;
-    let t5397 = 4.0 / 5.0 * t587 * t5395;
-    let t5399 = 1.0 / t212 / t1697;
-    (t5384, t5385, t5387, t5388, t5390, t5393, t5394, t5395, t5397, t5399)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk647<F: Float>(t1639: F, t56: F, t5064: F, t11: F, t5048: F, t625: F, t25: F, t5065: F, t5069: F, t5072: F, t5075: F, t5078: F, t5082: F, t5083: F, t5085: F, t5087: F) -> (F, F, F, F, F, F) {
+    let t5089 = t56 * t1639;
+    let t5090 = t5089 * t5064;
+    let t5091 = t11 * t5090;
+    let t5093 = t625 * t5048;
+    let t5094 = t11 * t5093;
+    let t5096 = -F::new(0.29629629629629629629e-2) * t25 * t5065 + F::new(0.14396666666666666667e0) * t5069 - F::new(0.71983333333333333335e-1) * t5072 - F::new(0.21595e0) * t5075 + F::new(0.21595e0) * t5078 - t5082 - F::new(0.47988888888888888888e-1) * t5083 + F::new(0.35991666666666666666e-1) * t5085 + F::new(0.23994444444444444444e-1) * t5087 - F::new(0.39990740740740740742e-1) * t5091 - F::new(0.35991666666666666667e-1) * t5094;
+    (t5089, t5090, t5091, t5093, t5094, t5096)
 }

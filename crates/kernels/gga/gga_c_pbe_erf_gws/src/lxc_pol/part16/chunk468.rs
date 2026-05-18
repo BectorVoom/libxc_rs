@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 468/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 468/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk468<F: Float>(t1826: F, t1831: F, t1870: F, t1874: F, t1876: F, t1881: F, t1884: F, t1890: F, t1895: F, t1900: F, t2014: F, t2015: F, t1994: F, t2010: F, t2012: F, t1602: F, t163: F, t164: F, t169: F, t171: F, t1947: F, t1948: F, t1951: F, t1955: F, t1958: F, t1962: F, t1966: F, t1969: F, t1973: F, t1977: F, t1980: F) -> (F, F) {
-    let t2017 = t1826 - t1831 - t1870 + t1874 - t1876 + t1881 + t1884 + t2014 + 8.0 / 3.0 * t2015 - t1890 - t1895 - t1900;
-    let t2019 = t1994 + t2010 + t2012 + t2017;
-    let t2024 = -t1947 + 0.63010814446282235668e-1 * t1948 + t1951 + t1955 - 0.31505407223141117834e-1 * t1602 * t164 - 0.63010814446282235668e-1 * t1958 - 0.39507780657818961764e-2 * t1962 - t1966 - t1969 - t1973 - t1977 + 0.17961351015381913641e-1 * t1980 - 0.53884053046145740922e-2 * t169 * t171 * t2019 * t163;
-    (t2019, t2024)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk468<F: Float>(t1403: F, t1896: F, t590: F, t587: F, t720: F, t723: F, t156: F, t254: F, t252: F, t1354: F, t247: F, t251: F) -> (F, F, F, F, F, F, F, F) {
+    let t1897 = t1896 * t1403;
+    let t1898 = t590 * t1897;
+    let t1900 = F::new(8.0) / F::new(45.0) * t587 * t1898;
+    let t1902 = F::new(4.0) / F::new(9.0) * t720 * t723;
+    let t1903 = t254 * t156;
+    let t1905 = F::new(2.0) / F::new(27.0) * t252 * t1903;
+    let t1906 = t1354 * t247;
+    let t1907 = t1906 * t251;
+    (t1897, t1898, t1900, t1902, t1903, t1905, t1906, t1907)
 }

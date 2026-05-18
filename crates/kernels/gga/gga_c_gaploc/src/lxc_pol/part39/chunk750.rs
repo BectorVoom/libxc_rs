@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 750/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 750/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk750<F: Float>(t3689: F, t447: F, t2366: F, t475: F, t6508: F, t12000: F, t158: F, t599: F, t203: F, t1: F, t544: F, t1564: F, t1359: F, t12064: F, t540: F, t106: F, t192: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t38271 = t3689 * t447;
-    let t38272 = t2366 * t38271;
-    let t38276 = t3689 * t475;
-    let t38277 = t6508 * t38276;
-    let t38281 = t2366 * t38276;
-    let t38285 = t158 * t12000;
-    let t38392 = t599 * t12000;
-    let t38413 = t203 * t12000;
-    let t38486 = t544 * t38285 * t1;
-    let t38613 = t1564 * t12000;
-    let t38674 = t1359 * t3689;
-    let t38688 = t12064 * t540;
-    let t38759 = t12000 * t1 * t106 * t192;
-    (t38272, t38277, t38281, t38392, t38413, t38486, t38613, t38674, t38688, t38759)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk750<F: Float>(t12782: F, t471: F, t3334: F, t871: F, t12383: F, t12386: F, t12397: F, t12400: F, t12412: F, t10318: F, t2321: F, t9074: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t12783 = t12782 * t471;
+    let t12784 = t3334 * t871;
+    let t12787 = F::new(9.0) / F::new(256.0) * t12383;
+    let t12788 = F::new(9.0) / F::new(8192.0) * t12386;
+    let t12789 = F::new(3.0) / F::new(8192.0) * t12397;
+    let t12790 = F::new(3.0) / F::new(256.0) * t12400;
+    let t12791 = F::new(2.0) * t12412;
+    let t12797 = t10318 * t2321;
+    let t12798 = t9074 * t12797;
+    (t12783, t12784, t12787, t12788, t12789, t12790, t12791, t12797, t12798)
 }

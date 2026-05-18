@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1026/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1026/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1026<F: Float>(t2464: F, t2465: F, t2487: F, t6428: F, t3178: F, t4625: F, t1407: F, t9279: F, t9555: F, t3193: F, t4634: F, t28229: F, t3192: F, t574: F, t1641: F, t9421: F) -> (F, F, F, F, F, F, F) {
-    let t30378 = 0.17041300423964777634e0 * t2487 * t2464 * t2465 * t6428;
-    let t30379 = t4625 * t3178;
-    let t30380 = 0.38342925953920749676e0 * t30379;
-    let t30381 = t1407 * t9279;
-    let t30382 = 0.76685851907841499352e0 * t30381;
-    let t30387 = t1407 * t9555;
-    let t30388 = 0.1022478025437886658e1 * t30387;
-    let t30404 = t4634 * t3193;
-    let t30542 = t574 * t28229 * t3192;
-    let t30546 = t1641 * t9421;
-    (t30378, t30380, t30382, t30388, t30404, t30542, t30546)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1026<F: Float>(t2972: F, t7324: F, t3459: F, t5552: F, t3073: F, t977: F, t1960: F, t2595: F, t8862: F, t2592: F, t10282: F, t10285: F, t10288: F, t10289: F, t10297: F, t10300: F, t10625: F, t11125: F, t11127: F, t11130: F, t748: F) -> (F, F) {
+    let t11132 = F::new(2.0) * t7324 * t2972;
+    let t11134 = F::new(2.0) * t5552 * t3459;
+    let t11135 = t3073 * t977;
+    let t11137 = F::new(2.0) * t1960 * t11135;
+    let t11139 = F::new(2.0) * t8862 * t2595;
+    let t11140 = t2592 * t3073;
+    let t11141 = -t11125 * t748 + F::new(2.0) * t11127 * t1960 - t10282 + t10285 + t10288 + t10289 + t10297 - t10300 + t10625 - t11130 + t11132 + t11134 + t11137 + t11139 - t11140;
+    (t11135, t11141)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1058/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1058/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1058<F: Float>(t10186: F, t11296: F, t12406: F, t12899: F, t12962: F, t142: F, t143: F, t1503: F, t169: F, t19169: F, t19174: F, t19182: F, t19203: F, t19458: F, t19466: F, t2031: F, t26477: F, t26480: F, t296: F, t299: F, t301: F, t33446: F, t34300: F, t34326: F, t3638: F, t3671: F, t42905: F, t43168: F, t48520: F, t48741: F, t48908: F, t526: F, t5651: F, t8497: F, t967: F, t987: F, t988: F) -> (F,) {
-    let t48932 = -0.36991419282863461287e1 * t26477 - 0.3486808982146430324e-2 * t26480 - t988 * t2031 * t142 * t12962 + 18.0 * t11296 * t10186 + t48908 * t296 - t19169 - t19174 - 0.47896936041018436376e-1 * t43168 + t19182 + 0.20267214298646782767e-1 * t169 * t299 * t48520 * t301 - 0.10931146159029059066e-3 * t34300 + 18.0 * t1503 * t143 * t48741 + 0.23948468020509218188e0 * t34326 + 6.0 * t988 * t33446 * t12406 + 24.0 * t12899 * t987 * t526 - t19203 + 36.0 * t42905 * t3638 - t19458 + t19466 - 12.0 * t8497 * t5651 * t3671 * t967;
-    (t48932,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1058<F: Float>(t13249: F, t6402: F, t3123: F, t37138: F, t12041: F, t36666: F, t13342: F, t6416: F, t13124: F, t19561: F, t13446: F, t2206: F) -> (F, F, F, F, F, F) {
+    let t45755 = t6402 * t13249;
+    let t45767 = t3123 * t37138;
+    let t45771 = t12041 * t36666;
+    let t45793 = t6416 * t13342;
+    let t45805 = t13124 * t19561;
+    let t45821 = t2206 * t13446;
+    (t45755, t45767, t45771, t45793, t45805, t45821)
 }

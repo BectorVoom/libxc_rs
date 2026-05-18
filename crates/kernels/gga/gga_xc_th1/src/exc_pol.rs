@@ -54,9 +54,9 @@ pub fn gga_xc_th1_exc_pol(
         let t5 = t4 * rho1;
         let t6 = t3 + t5;
         let t8 = param_omega_1;
-        let t9 = pow_1_3(rho0);
+        let t9 = pow_1_3::<f64>(rho0);
         let t10 = t9 * rho0;
-        let t11 = pow_1_3(rho1);
+        let t11 = pow_1_3::<f64>(rho1);
         let t12 = t11 * rho1;
         let t13 = t10 + t12;
         let t15 = param_omega_2;
@@ -82,10 +82,10 @@ pub fn gga_xc_th1_exc_pol(
         let t37 = t34 * t36;
         let t38 = 1.0 + t37;
         let t39 = t38 <= zeta_threshold;
-        let t40 = pow_1_3(zeta_threshold);
+        let t40 = pow_1_3::<f64>(zeta_threshold);
         let t41 = t40 * zeta_threshold;
-        let t42 = pow_1_3(t38);
-        let t44 = piecewise3(t39, t41, t42 * t38);
+        let t42 = pow_1_3::<f64>(t38);
+        let t44 = piecewise3::<f64>(t39, t41, t42 * t38);
         let t45 = M_CBRT2;
         let t46 = t45 * t45;
         let t47 = t44 * t46;
@@ -94,8 +94,8 @@ pub fn gga_xc_th1_exc_pol(
         let t51 = t49 * t50;
         let t52 = 1.0 - t37;
         let t53 = t52 <= zeta_threshold;
-        let t54 = pow_1_3(t52);
-        let t56 = piecewise3(t53, t41, t54 * t52);
+        let t54 = pow_1_3::<f64>(t52);
+        let t56 = piecewise3::<f64>(t53, t41, t54 * t52);
         let t57 = t56 * t46;
         let t60 = t33 * t47 / 4.0 + t51 * t57 / 4.0;
         let t63 = param_omega_5;
@@ -139,7 +139,7 @@ pub fn gga_xc_th1_exc_pol(
         let t119 = t118 * t20;
         let t123 = sigma0 + 2.0 * sigma1 + sigma2;
         let t124 = t35 * t35;
-        let t125 = pow_1_3(t35);
+        let t125 = pow_1_3::<f64>(t35);
         let t126 = t125 * t125;
         let t128 = 1.0 / t126 / t124;
         let t130 = t92 / 4.0 + t99 / 4.0 - t123 * t128;

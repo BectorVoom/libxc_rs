@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 703/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 703/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk703<F: Float>(t587: F, t6981: F, t1430: F, t1441: F, t1537: F, t1599: F, t2446: F, t2449: F, t2457: F, t2493: F, t4418: F, t4428: F, t4849: F, t557: F, t6937: F, t6944: F, t6950: F, t6954: F, t6957: F, t6959: F, t6961: F, t6963: F, t6965: F, t6968: F, t6972: F, t6975: F, t6979: F) -> (F, F) {
-    let t6982 = t587 * t6981;
-    let t6984 = -0.47667319935800568892e0 * t1599 * t2449 - 0.71500979903700853338e0 * t1599 * t2446 - 0.35750489951850426669e0 * t557 * t6937 + 0.51123901271894332905e0 * t4418 * t2493 + 0.1022478025437886658e1 * t4428 * t2457 + 0.1022478025437886658e1 * t1441 * t6944 - 0.1022478025437886658e1 * t4849 * t2493 - 0.1022478025437886658e1 * t1537 * t6950 + 0.23833659967900284446e0 * t6954 * t1430 - 0.59584149919750711116e-1 * t6957 + 0.29792074959875355558e-1 * t6959 + 0.14896037479937677779e-1 * t6961 - 0.14300195980740170668e1 * t6963 * t6965 - 0.29792074959875355558e-1 * t6968 - 0.14896037479937677779e-1 * t6972 + 0.19171462976960374838e0 * t6975 - 0.42603251059911944086e-1 * t6979 + 0.51123901271894332903e0 * t6982;
-    (t6982, t6984)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk703<F: Float>(t6341: F, t6422: F, t6482: F, t6549: F, t2353: F, t501: F, t1381: F, t892: F, t1383: F, t921: F, t2497: F, t605: F) -> (F, F, F, F, F) {
+    let t6551 = t6341 + t6422 + t6482 + t6549;
+    let t6553 = t2353 * t501;
+    let t6556 = t892 * t1381;
+    let t6565 = t921 * t1383;
+    let t6568 = t2497 * t605;
+    (t6551, t6553, t6556, t6565, t6568)
 }

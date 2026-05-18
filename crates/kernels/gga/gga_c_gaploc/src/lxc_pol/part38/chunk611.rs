@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 611/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 611/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk611<F: Float>(t123: F, t3338: F, t883: F, t912: F, t587: F, t3129: F, t900: F, t10615: F, t9448: F, t986: F, t9438: F, t2487: F, t10318: F, t544: F, t9287: F, t2488: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t12963 = t3338 * t123;
-    let t12964 = t12963 * t883;
-    let t12965 = t912 * t12964;
-    let t12966 = t587 * t12965;
-    let t12968 = t900 * t3129;
-    let t12969 = t10615 * t12968;
-    let t12986 = t9448 * t986;
-    let t12987 = t9438 * t12986;
-    let t12988 = t2487 * t12987;
-    let t12990 = t544 * t10318;
-    let t12991 = t12990 * t9287;
-    let t12993 = t2488 * t12964;
-    (t12964, t12965, t12966, t12968, t12969, t12986, t12987, t12988, t12990, t12991, t12993)
+pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk611<F: Float>(t11053: F, t2679: F, t9805: F, t1029: F, t9796: F, t10627: F, t5241: F, t590: F, t5640: F, t1890: F, t1966: F, t739: F) -> (F, F, F, F, F, F, F) {
+    let t11054 = t11053 * t2679;
+    let t11055 = t9805 * t11054;
+    let t11056 = F::new(0.57514388930881124514e0) * t11055;
+    let t11057 = t1029 * t2679;
+    let t11058 = t9796 * t11057;
+    let t11059 = F::new(0.38342925953920749676e0) * t11058;
+    let t11061 = t5241 * t10627 * t590;
+    let t11063 = F::new(0.15337170381568299871e1) * t5640 * t11061;
+    let t11065 = t1890 * t10627 * t590;
+    let t11067 = F::new(0.25561950635947166451e1) * t1966 * t11065;
+    let t11068 = t739 * t10627;
+    (t11055, t11056, t11058, t11059, t11063, t11067, t11068)
 }

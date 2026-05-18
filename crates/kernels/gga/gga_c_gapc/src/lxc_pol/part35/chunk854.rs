@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 854/1126 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 35 (v4rho2sigma2_14) CSE chunk 854/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk854<F: Float>(t11586: F, t1461: F, t1030: F, t1908: F, t203: F, t6: F, t8715: F, t11302: F, t5395: F, t5974: F, t2994: F, t435: F) -> (F, F, F, F, F, F, F, F) {
-    let t11587 = t1461 * t11586;
-    let t11588 = t1030 * t11587;
-    let t11589 = t1908 * t203;
-    let t11591 = t11589 * t6 * t8715;
-    let t11592 = t11588 * t11591;
-    let t11594 = t5395 * t11302;
-    let t11595 = t11594 * t5974;
-    let t11597 = t435 * t2994;
-    (t11587, t11588, t11589, t11591, t11592, t11594, t11595, t11597)
+pub fn gga_c_gapc_lxc_pol_part35_v4rho2sigma2_14_chunk854<F: Float>(t9932: F, t9934: F, t3434: F, t949: F, t2749: F, t3348: F, t3322: F, t9414: F, t9898: F, t9901: F, t9904: F, t9908: F, t9910: F, t9914: F, t9917: F, t9924: F, t9930: F) -> F {
+    let t9935 = t9932 * t9934;
+    let t9937 = t3434 * t949;
+    let t9939 = t3348 * t2749;
+    let t9941 = t9414 * t3322;
+    let t9943 = F::new(0.12890821708151275006e-8) * t9898 + F::new(0.21135226489492151266e-6) * t9901 + F::new(0.61900849231692170544e-6) * t9904 - F::new(0.42205124476153752644e-7) * t9908 - F::new(0.84410248952307505288e-7) * t9910 - F::new(0.42205124476153752644e-7) * t9914 - F::new(0.50027140879067581468e-8) * t9917 + F::new(0.10005428175813516294e-7) * t9924 - F::new(0.72956247115306889641e-9) * t9930 + F::new(0.24619655944423022376e-7) * t9935 + F::new(0.10821235962619981449e-3) * t9937 + F::new(0.11594181388521408695e-4) * t9939 + F::new(0.40021712703254065174e-7) * t9941;
+    t9943
 }

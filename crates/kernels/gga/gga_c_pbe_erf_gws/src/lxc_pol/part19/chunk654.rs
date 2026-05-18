@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 654/1222 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 654/1404 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk654<F: Float>(t3861: F, t824: F, t905: F, t3717: F, t858: F, t886: F, t884: F, t904: F, t933: F, t2300: F, t3703: F, t3855: F, t867: F, t866: F, t3145: F, t2266: F, t2336: F, t3271: F, t3274: F, t3302: F, t3827: F, t3834: F, t3837: F, t3843: F, t3857: F, t3860: F, t902: F, t914: F, t929: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3862 = t3861 * t824;
-    let t3863 = t905 * t3862;
-    let t3866 = t858 * t3717;
-    let t3867 = t886 * t3866;
-    let t3869 = t884 * t3867 / 48.0;
-    let t3871 = t933 * t904 * t3717;
-    let t3875 = t2300 * t904 * t3703;
-    let t3879 = t858 * t3855;
-    let t3880 = t867 * t3879;
-    let t3882 = t866 * t3880 / 96.0;
-    let t3883 = 7.0 / 144.0 * t3145;
-    let t3885 = -t914 * t3827 / 1536.0 + 7.0 / 576.0 * t3271 - t3834 + t2266 * t3837 / 512.0 + t3843 - t914 * t3857 / 1536.0 + t3860 + t902 * t3863 / 1536.0 - t3869 - t929 * t3871 / 768.0 + 5.0 / 768.0 * t929 * t3875 - 7.0 / 1152.0 * t3274 - t3882 + t2336 + t3883 + 7.0 / 1152.0 * t3302;
-    (t3862, t3863, t3867, t3869, t3871, t3875, t3879, t3880, t3882, t3883, t3885)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk654<F: Float>(t3591: F, t3592: F, t3606: F, t3607: F, t153: F, t156: F, t1596: F, t1601: F, t1608: F, t1611: F, t168: F, t1937: F, t242: F, t245: F, t2520: F, t2526: F, t2531: F, t2837: F, t3373: F, t3380: F) -> (F, F) {
+    let t3609 = t3591 + t3592 + t3606 + t3607;
+    let t3617 = -t1596 + F::new(0.16752564107100880375e0) * t2520 + t1601 - F::new(0.83762820535504401876e-1) * t3380 * t242 - F::new(0.16752564107100880375e0) * t2526 - t1608 - t1611 + F::new(0.39794582218349216586e-1) * t2531 - F::new(0.11938374665504764976e-1) * t168 * t245 * t3609 + t1937 - F::new(0.11389037339096724978e1) * t2837 + F::new(0.42708890021612718669e0) * t153 * t156 * t3373;
+    (t3609, t3617)
 }

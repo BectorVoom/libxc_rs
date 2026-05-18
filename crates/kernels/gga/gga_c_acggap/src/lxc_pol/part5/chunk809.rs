@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 809/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 809/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk809<F: Float>(t158: F, t2933: F, t944: F, t3045: F, t3055: F, t1210: F, t939: F, t3084: F, t322: F, t113: F, t11805: F, t11820: F, t4: F, t381: F, t452: F, t1258: F, t980: F) -> (F, F, F, F, F, F, F, F) {
-    let t12331 = 1.0 / t2933 / t158;
-    let t12334 = t944 * t944;
-    let t12344 = 0.15805078039045227836e2 * t3055 * t3045;
-    let t12345 = t939 * t1210;
-    let t12349 = t3084 * t322;
-    let t12357 = 0.43209876543209876543e0 * t4 * t11805 * t113 + 0.27437962962962962965e0 * t11820;
-    let t12360 = 0.65854491829355115987e0 * t381 * t452 * t12357;
-    let t12385 = t980 * t1258;
-    (t12331, t12334, t12344, t12345, t12349, t12357, t12360, t12385)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk809<F: Float>(t150: F, t187: F, t6413: F, t1915: F, t857: F, t119: F, t3862: F, t3869: F, t4107: F, t4113: F, t4123: F, t464: F, t5512: F, t5514: F, t5518: F, t5520: F, t5523: F, t5525: F) -> (F, F) {
+    let t6415 = t6413 * t150 * t187;
+    let t6418 = t857 * t1915;
+    let t6421 = F::new(0.65854491829355115987e0) * t5512 + F::new(0.13170898365871023197e1) * t5514 + t4107 - F::new(0.13170898365871023197e1) * t5518 + t4113 - F::new(0.65854491829355115987e0) * t5520 * t464 - F::new(0.13170898365871023197e1) * t5523 - F::new(0.65854491829355115987e0) * t5525 + F::new(0.65854491829355115987e0) * t119 * t6415 + F::new(0.13170898365871023197e1) * t6418 + t3862 + t4123 + F::new(0.13170898365871023197e1) * t3869;
+    (t6415, t6421)
 }

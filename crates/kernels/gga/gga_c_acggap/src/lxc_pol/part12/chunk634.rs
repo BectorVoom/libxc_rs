@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 634/1092 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 634/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk634<F: Float>(t301: F, t7381: F, t7380: F, t1983: F, t372: F, t2095: F, t355: F, t429: F, t1017: F, t604: F, t336: F, t578: F, t2016: F, t2056: F, t1156: F, t570: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t7382 = t7381 * t301;
-    let t7383 = t7380 * t7382;
-    let t7384 = t7383 / 32.0;
-    let t7386 = t1983 * t372;
-    let t7387 = t2095 * t7386;
-    let t7388 = t7387 / 96.0;
-    let t7389 = t429 * t355;
-    let t7390 = t2095 * t7389;
-    let t7391 = 0.1528125e-1 * t7390;
-    let t7392 = t604 * t1017;
-    let t7393 = t336 * t7392;
-    let t7394 = t578 * t7393;
-    let t7396 = t2016 * t2056;
-    let t7397 = 0.28015625e-1 * t7396;
-    let t7398 = t570 * t1156;
-    (t7382, t7383, t7384, t7386, t7387, t7388, t7389, t7390, t7391, t7393, t7394, t7396, t7397, t7398)
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk634<F: Float>(t1163: F, t4959: F, t1165: F, t3196: F, t540: F, t4210: F, t530: F, t3194: F, t1181: F, t3169: F, t535: F, t3176: F, t4643: F) -> (F, F, F, F, F, F, F, F) {
+    let t4961 = F::new(0.85748036236139473944e-3) * t1163 * t4959;
+    let t4963 = t1165 * t540 * t3196;
+    let t4967 = t1165 * t530 * t4210;
+    let t4969 = F::new(0.17149607247227894789e-2) * t3194 * t4967;
+    let t4971 = t1165 * t530 * t3196;
+    let t4975 = t1181 * t530 * t3169;
+    let t4978 = t535 * t3196;
+    let t4979 = t1181 * t4978;
+    let t4982 = t4643 * t3176;
+    (t4961, t4963, t4967, t4969, t4971, t4975, t4979, t4982)
 }

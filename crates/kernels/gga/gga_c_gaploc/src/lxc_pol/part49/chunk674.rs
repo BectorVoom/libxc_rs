@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 674/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 674/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk674<F: Float>(t12766: F, t2343: F, t2268: F, t2321: F, t3371: F, t882: F, t10156: F, t888: F, t12383: F, t12386: F, t12392: F, t12395: F, t12397: F, t12400: F, t471: F, t3334: F, t871: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t12767 = t2343 * t12766;
-    let t12769 = 0.56910013271352299198e-1 * t2268 * t12767;
-    let t12770 = t3371 * t2321;
-    let t12771 = t882 * t12770;
-    let t12773 = t10156 * t888;
-    let t12774 = t2268 * t12773;
-    let t12782 = -3.0 / 256.0 * t12383 - 27.0 / 8192.0 * t12386 + 27.0 / 524288.0 * t12392 - 9.0 / 524288.0 * t12395 + 9.0 / 8192.0 * t12397 + t12400 / 256.0;
-    let t12783 = t12782 * t471;
-    let t12784 = t3334 * t871;
-    (t12767, t12769, t12770, t12771, t12773, t12774, t12782, t12783, t12784)
+pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk674<F: Float>(t10887: F, t2021: F, t2975: F, t7372: F, t1: F, t10686: F, t787: F, t2465: F, t2949: F, t2464: F, t825: F, t8516: F, t959: F) -> (F, F, F, F, F, F) {
+    let t10888 = F::new(0.14896037479937677779e-1) * t10887;
+    let t10889 = t2021 * t2975;
+    let t10890 = t10889 * t7372;
+    let t10891 = F::new(0.14896037479937677779e-1) * t10890;
+    let t10892 = t10686 * t1;
+    let t10893 = t787 * t10892;
+    let t10896 = t2465 * t2949;
+    let t10897 = t2464 * t10896;
+    let t10898 = t825 * t10897;
+    let t10899 = F::new(0.42603251059911944084e-1) * t10898;
+    let t10900 = t8516 * t959;
+    (t10888, t10891, t10892, t10893, t10899, t10900)
 }

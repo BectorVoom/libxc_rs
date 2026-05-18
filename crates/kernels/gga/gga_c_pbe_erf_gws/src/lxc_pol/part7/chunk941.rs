@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 941/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 941/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk941<F: Float>(t153: F, t156: F, t18054: F, t18367: F, t18369: F, t18372: F, t18375: F, t18377: F, t18379: F, t18413: F, t18415: F, t18416: F, t18419: F, t18420: F, t18987: F, t242: F) -> (F,) {
-    let t18991 = 0.10051538464260528225e1 * t18367 + 0.10051538464260528225e1 * t18369 + t18372 - 0.83762820535504401876e-1 * t18054 * t242 - 0.33505128214201760751e0 * t18375 - 0.50257692321302641126e0 * t18377 - 0.33505128214201760751e0 * t18379 - t18413 + t18415 - 0.10051538464260528225e1 * t18416 - t18419 + 0.2010307692852105645e1 * t18420 + 0.42708890021612718669e0 * t153 * t156 * t18987;
-    (t18991,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk941<F: Float>(t17512: F, t639: F, t1892: F, t5463: F, t1620: F, t5493: F, t5505: F, t5489: F, t4913: F, t5494: F, t17490: F, t17493: F, t17498: F, t17501: F, t17503: F, t17507: F, t17511: F) -> (F, F, F, F, F, F) {
+    let t17513 = t639 * t17512;
+    let t17514 = F::new(128.0) / F::new(1215.0) * t17513;
+    let t17516 = t639 * t5463 * t1892;
+    let t17517 = F::new(32.0) / F::new(135.0) * t17516;
+    let t17519 = t1620 * t5493 * t5505;
+    let t17520 = F::new(32.0) / F::new(15.0) * t17519;
+    let t17522 = t639 * t5493 * t5489;
+    let t17523 = F::new(32.0) / F::new(15.0) * t17522;
+    let t17524 = t4913 * t5494;
+    let t17525 = F::new(64.0) / F::new(15.0) * t17524;
+    let t17526 = F::new(8.0) * t17490 - t17493 - t17498 - t17501 + t17503 + t17507 + t17511 + t17514 + t17517 - t17520 + t17523 - t17525;
+    (t17514, t17517, t17520, t17523, t17525, t17526)
 }

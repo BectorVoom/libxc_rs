@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1023/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1023/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1023<F: Float>(t4260: F, t883: F, t6490: F, t6525: F, t1436: F, t9544: F, t1538: F, t20395: F, t6583: F, t20481: F, t21414: F, t123: F, t6393: F, t587: F, t912: F, t21071: F, t901: F) -> (F, F, F, F, F, F, F, F) {
-    let t30204 = t4260 * t883;
-    let t30207 = 0.94850022118920498664e-2 * t6525 * t30204 * t6490;
-    let t30246 = t1436 * t9544;
-    let t30250 = t6583 * t1538 * t883 * t20395;
-    let t30253 = 0.59584149919750711116e-1 * t20481 * t21414;
-    let t30258 = t6393 * t123 * t883;
-    let t30260 = t587 * t912 * t30258;
-    let t30263 = 0.29792074959875355558e-1 * t21071 * t901;
-    (t30204, t30207, t30246, t30250, t30253, t30258, t30260, t30263)
+pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1023<F: Float>(t12259: F, t1445: F, t1457: F, t10022: F, t10026: F, t10030: F, t10042: F, t11059: F, t11063: F, t11067: F, t11071: F, t11108: F, t11111: F, t11118: F, t11121: F, t12252: F, t12256: F, t2004: F, t2028: F, t2639: F, t807: F) -> (F, F, F) {
+    let t12260 = t1445 * t12259;
+    let t12263 = t1457 * t12259;
+    let t12267 = -t11059 + t11063 - t11067 + t11071 + t11108 - t10022 - F::new(0.39722766613167140743e-1) * t12252 * t2028 - F::new(0.10725146985555128001e1) * t12256 * t2639 + F::new(0.23005755572352449806e1) * t807 * t12260 + F::new(0.35750489951850426669e0) * t2004 * t12263 - t10026 - F::new(0.51123901271894332903e0) * t10030 + t10042 - t11111 - t11118 + t11121;
+    (t12260, t12263, t12267)
 }

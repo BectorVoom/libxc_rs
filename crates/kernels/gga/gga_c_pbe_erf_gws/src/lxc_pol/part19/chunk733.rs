@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 733/1222 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 733/1404 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk733<F: Float>(t159: F, t285: F, t5668: F, t169: F, t301: F, t366: F, t745: F, t1457: F, t545: F, t1368: F, t762: F, t147: F, t242: F, t535: F, t784: F, t1339: F, t700: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t5670 = t5668 * t159 * t285;
-    let t5674 = t169 * t366 * t745 * t301;
-    let t5690 = t1457 * t545 * t285;
-    let t5694 = 0.87170224553660758101e-3 * t762 * t1368 * t285;
-    let t5697 = t366 * t147;
-    let t5700 = 0.5188034422540342311e0 * t169 * t5697 * t242;
-    let t5701 = t784 * t535;
-    let t5703 = t169 * t5701 * t242;
-    let t5707 = 0.42447554366239164361e0 * t169 * t1339 * t700;
-    (t5670, t5674, t5690, t5694, t5697, t5700, t5701, t5703, t5707)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk733<F: Float>(t353: F, t4228: F, t338: F, t1115: F, t2408: F, t3066: F, t335: F, t4072: F, t4077: F, t4083: F, t4087: F, t4128: F, t4131: F, t4133: F, t4136: F, t4139: F, t4143: F, t4147: F, t4151: F, t4209: F, t4213: F, t4218: F) -> (F, F) {
+    let t4229 = t353 * t4228;
+    let t4230 = t338 * t4229;
+    let t4233 = t4128 / F::new(48.0) - t4072 - t4131 / F::new(24.0) + t4133 / F::new(48.0) - t4136 / F::new(48.0) + t4139 / F::new(768.0) - t4077 - t4143 / F::new(384.0) - t4147 / F::new(1536.0) - t4151 / F::new(1536.0) - t1115 * t4083 / F::new(96.0) + t4087 + t2408 * t4209 / F::new(48.0) - t335 * t4213 / F::new(96.0) + t3066 * t4218 / F::new(48.0) - t335 * t4230 / F::new(96.0);
+    (t4230, t4233)
 }

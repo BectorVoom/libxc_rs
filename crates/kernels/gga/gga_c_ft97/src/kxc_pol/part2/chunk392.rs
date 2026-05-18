@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 392/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 392/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,17 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk392<F: Float>(t379: F, t643: F, t2266: F, t1570: F, t179: F, t1559: F, t72: F, t1580: F, t632: F, t178: F, t637: F, t1638: F, t1640: F, t1645: F, t1649: F, t1653: F, t2008: F, t2011: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t2267 = t379 * t643;
-    let t2268 = t2266 * t2267;
-    let t2271 = t179 * t1570;
-    let t2273 = t72 * t2271 * t1559;
-    let t2277 = t72 * t632 * t1580;
-    let t2280 = t178 * t178;
-    let t2281 = 1.0 / t2280;
-    let t2282 = t643 * t643;
-    let t2284 = t637 * t2281 * t2282;
-    let t2289 = 0.19257444444444444444e0 * t1638;
-    let t2294 = -0.117377e0 * t2008 + 0.234754e0 * t2011 + t2289 + 0.9628722222222222222e-1 * t1640 - 0.9628722222222222222e-1 * t1645 + 0.28886166666666666666e0 * t1649 - 0.14443083333333333333e0 * t1653;
-    (t2267, t2268, t2273, t2277, t2280, t2281, t2282, t2284, t2289, t2294)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk392<F: Float>(t2142: F, t609: F, t144: F, t1956: F, t1959: F, t1962: F, t1967: F, t1972: F, t1977: F, t1981: F, t1989: F, t2078: F, t2089: F, t2122: F) -> (F, F, F, F) {
+    let t2143 = t2142 * t609;
+    let t2144 = t144 * t2143;
+    let t2149 = F::new(4.0) / F::new(9.0) * t1956;
+    let t2157 = -t2089 / F::new(4.0) + t2122 / F::new(2.0) + t2149 + F::new(2.0) / F::new(9.0) * t1959 + F::new(2.0) / F::new(3.0) * t1962 - F::new(2.0) / F::new(9.0) * t1967 + F::new(2.0) / F::new(3.0) * t1972 + F::new(2.0) / F::new(3.0) * t1977 - t1981 / F::new(3.0) + F::new(2.0) * t1989 - t2078;
+    (t2143, t2144, t2149, t2157)
 }

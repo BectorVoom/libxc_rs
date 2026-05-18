@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 14 (v4rho3sigma_6) CSE chunk 896/1080 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 14 (v4rho3sigma_6) CSE chunk 896/1223 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk896<F: Float>(t34186: F, t35246: F, t7586: F, t1545: F, t30948: F, t1456: F, t7614: F, t7433: F, t8739: F, t1089: F, t2079: F, t535: F, t7542: F, t1967: F, t8978: F, t33953: F, t5127: F) -> (F, F, F, F, F, F, F) {
-    let t35248 = t34186 * t7586 * t35246;
-    let t35249 = 0.42874018118069736972e-2 * t35248;
-    let t35250 = t30948 * t1545;
-    let t35251 = 0.16006300097412701803e-1 * t35250;
-    let t35258 = t7614 * t1456;
-    let t35259 = 0.16006300097412701803e-1 * t35258;
-    let t35260 = t7433 * t8739;
-    let t35261 = 0.37737710747524982482e-2 * t35260;
-    let t35271 = t2079 * t1089 * t535 * t7542;
-    let t35273 = t1967 * t8978;
-    let t35274 = 0.25724410870841842184e-2 * t35273;
-    let t35284 = t33953 * t5127;
-    (t35249, t35251, t35259, t35261, t35271, t35274, t35284)
+pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk896<F: Float>(t30882: F, t1998: F, t3697: F, t1997: F, t3243: F, t390: F, t7796: F, t7799: F, t3036: F, t3213: F, t1035: F, t1039: F, t7613: F) -> (F, F, F, F, F, F) {
+    let t30883 = F::new(0.10940814253092610657e-1) * t30882;
+    let t30886 = t1998 * t3697;
+    let t30887 = F::new(0.42874018118069736972e-3) * t30886;
+    let t30889 = t3243 * t1997 * t390;
+    let t30890 = F::new(0.12862205435420921092e-2) * t30889;
+    let t30893 = t7799 * t7796;
+    let t30904 = t3036 * t1997 * t3213;
+    let t30905 = F::new(0.25724410870841842183e-2) * t30904;
+    let t30907 = t1035 * t7613 * t1039;
+    (t30883, t30887, t30890, t30893, t30905, t30907)
 }

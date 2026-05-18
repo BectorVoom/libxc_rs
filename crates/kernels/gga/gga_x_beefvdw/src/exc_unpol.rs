@@ -27,16 +27,16 @@ pub fn gga_x_beefvdw_exc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = t10 + 1.0;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = M_CBRT6;
         let t21 = M_PI * M_PI;
-        let t22 = pow_1_3(t21);
+        let t22 = pow_1_3::<f64>(t21);
         let t23 = t22 * t22;
         let t24 = 1.0 / t23;
         let t25 = t20 * t24;
@@ -81,7 +81,7 @@ pub fn gga_x_beefvdw_exc_unpol(
         let t99 = t46 * t65;
         let t102 = 0.11313514630621233134e1 - 0.72975787893717136018e1 * t51 + 0.37835396407252402359e4 * t59 - 0.61754786104528599731e3 * t62 - 0.44233229018433803622e3 * t46 - 0.20148245175625047025e5 * t47 + 0.22748997850816485208e4 * t56 + 0.70504541869034010051e5 * t88 - 0.281024018056846299e4 * t52 - 0.32352403136049329184e6 * t91 + 0.18078200670879145336e6 * t93 - 0.12981481812794983922e6 * t95 + 0.56174007979372666951e5 * t97 - 0.10276426607863824397e5 * t99 - 0.16837084139014120539e6 * t48;
         let t103 = t81 + t102;
-        let t107 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t103);
+        let t107 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t103);
         let tzk0 = 2.0 * t107;
         zk[ip] += tzk0;
     }

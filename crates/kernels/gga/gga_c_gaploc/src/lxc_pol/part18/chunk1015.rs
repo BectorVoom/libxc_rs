@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1015/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1015/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1015<F: Float>(t123: F, t21888: F, t7297: F, t9647: F, t16880: F, t21504: F, t29439: F, t9752: F, t23292: F, t2558: F, t1222: F, t3130: F, t2312: F, t9087: F, t20065: F, t2321: F, t9074: F) -> (F, F, F, F, F, F, F) {
-    let t29498 = 0.7690526230142224284e-2 * t9647 * t21888 * t123 * t7297;
-    let t29501 = 0.3845263115071112142e-2 * t9647 * t16880 * t21504;
-    let t29503 = 0.1281754371690370714e-2 * t29439 * t9752;
-    let t29631 = 0.64087718584518535698e-3 * t9647 * t23292 * t2558;
-    let t29850 = 0.63233348079280332442e-2 * t1222 * t3130;
-    let t29852 = 0.47425011059460249332e-2 * t2312 * t9087;
-    let t29860 = 0.23712505529730124666e-2 * t9074 * t20065 * t2321;
-    (t29498, t29501, t29503, t29631, t29850, t29852, t29860)
+pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1015<F: Float>(t10964: F, t813: F, t10783: F, t1457: F, t2194: F, t3484: F, t8528: F, t935: F, t1445: F, t3477: F, t5771: F, t10713: F) -> (F, F, F, F, F, F, F, F) {
+    let t10966 = F::new(0.61348681526273199483e1) * t813 * t10964;
+    let t10967 = t1457 * t10783;
+    let t10971 = F::new(0.46011511144704899612e1) * t2194 * t3484;
+    let t10972 = t8528 * t935;
+    let t10973 = t1445 * t10972;
+    let t10975 = F::new(0.46011511144704899612e1) * t813 * t10973;
+    let t10977 = F::new(0.71500979903700853338e0) * t5771 * t3477;
+    let t10978 = t1457 * t10713;
+    (t10966, t10967, t10971, t10972, t10973, t10975, t10977, t10978)
 }

@@ -43,14 +43,14 @@ pub fn gga_c_wi_kxc_pol(
         let t3 = param_b * t2;
         let t4 = rho0 + rho1;
         let t5 = t4 * t4;
-        let t6 = pow_1_3(t4);
+        let t6 = pow_1_3::<f64>(t4);
         let t7 = t6 * t6;
         let t9 = 1.0 / t7 / t5;
         let t10 = param_k * t2;
         let t12 = f64::exp(-t10 * t9);
         let t15 = t3 * t9 * t12 + param_a;
         let t16 = M_CBRT3;
-        let t18 = pow_1_3(1.0 / M_PI);
+        let t18 = pow_1_3::<f64>(1.0 / M_PI);
         let t19 = t16 * t18;
         let t20 = M_CBRT4;
         let t21 = t20 * t20;

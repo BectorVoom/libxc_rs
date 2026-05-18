@@ -29,17 +29,17 @@ pub fn gga_x_airy_vxc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = M_CBRT6;
         let t21 = t20 * t20;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = 1.0 / t23;
         let t25 = t21 * t24;
         let t26 = f64::sqrt(sigma[ip]);
@@ -57,7 +57,7 @@ pub fn gga_x_airy_vxc_unpol(
         let t46 = 1.0 + 0.47702180224903349918e-3 * t44;
         let t47 = 1.0 / t46;
         let t49 = 0.60146019220211109872e-4 * t33 * t36 + t43 * t47;
-        let t53 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t49);
+        let t53 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t49);
         let tzk0 = 2.0 * t53;
         zk[ip] += tzk0;
         let t54 = t18 * t18;
@@ -85,7 +85,7 @@ pub fn gga_x_airy_vxc_unpol(
         let t94 = t93 * t21;
         let t95 = t92 * t94;
         let t98 = -0.21064836058394555311e-3 * t62 * t68 + 0.18671024483029835192e-7 * t74 * t68 + t88 * t47 + 0.22094403263198687541e-2 * t95 * t68;
-        let t103 = piecewise3(t2, 0.0, -t6 * t56 * t49 / 8.0 - 3.0 / 8.0 * t6 * t19 * t98);
+        let t103 = piecewise3::<f64>(t2, 0.0, -t6 * t56 * t49 / 8.0 - 3.0 / 8.0 * t6 * t19 * t98);
         let tvrho0 = 2.0 * rho[ip] * t103 + 2.0 * t53;
         vrho[ip] += tvrho0;
         let t106 = 1.0 / t26;
@@ -96,7 +96,7 @@ pub fn gga_x_airy_vxc_unpol(
         let t115 = t114 * t30;
         let t120 = -0.72725590518833154352e-1 * t79 * t115 + 0.73176486411919415733e-1 * t85 * t115;
         let t124 = 0.78993135218979582417e-4 * t62 * t109 - 0.7001634181136188197e-8 * t74 * t109 + t120 * t47 - 0.82854012236995078279e-3 * t95 * t109;
-        let t128 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t124);
+        let t128 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t124);
         let tvsigma0 = 2.0 * rho[ip] * t128;
         vsigma[ip] += tvsigma0;
     }

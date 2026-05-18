@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1240/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1240/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1240<F: Float>(t18736: F, t2365: F, t25575: F, t25735: F, t7025: F, t10402: F, t20675: F, t204: F, t2476: F, t34371: F, t10310: F, t1429: F, t549: F, t2478: F, t6583: F, t8272: F) -> (F, F, F, F, F, F) {
-    let t34838 = t18736 * t2365 * t25575;
-    let t34839 = 0.29792074959875355558e-1 * t34838;
-    let t34841 = t7025 * t2365 * t25735;
-    let t34842 = 0.29792074959875355558e-1 * t34841;
-    let t34854 = t20675 * t10402;
-    let t34855 = 0.38342925953920749676e0 * t34854;
-    let t34860 = 0.92023022289409799224e1 * t2476 * t204 * t34371;
-    let t34862 = t1429 * t549 * t10310;
-    let t34863 = 0.59584149919750711116e-1 * t34862;
-    let t34865 = t6583 * t8272 * t2478;
-    (t34839, t34842, t34855, t34860, t34863, t34865)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1240<F: Float>(t10669: F, t10674: F, t169: F, t1908: F, t1935: F, t1939: F, t270: F, t29471: F, t29473: F, t29476: F, t299: F, t32313: F, t32585: F, t32588: F, t32591: F, t32594: F, t32597: F, t3434: F, t3452: F, t650: F, t706: F) -> F {
+    let t32598 = -F::new(0.20508069947045931424e-1) * t650 * t10669 - F::new(0.76905262301422242837e-2) * t1935 * t3452 + F::new(0.76905262301422242837e-2) * t270 * t706 * t32313 * t169 * t299 - F::new(0.34180116578409885707e-2) * t1908 * t3452 + F::new(0.20508069947045931424e-1) * t650 * t10674 + F::new(0.20508069947045931424e-1) * t1939 * t3434 - t29471 + t29473 - t32585 + t32588 + t32591 - t32594 - t29476 + t32597;
+    t32598
 }

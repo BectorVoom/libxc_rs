@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 688/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 688/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk688<F: Float>(t12118: F, t12122: F, t2294: F, t3640: F, t637: F, t2253: F, t3642: F, t11034: F, t3613: F, t1736: F, t179: F, t11008: F, t12099: F, t12102: F, t12104: F, t12108: F, t12113: F, t12119: F, t2265: F, t631: F, t8641: F, t8643: F, t8645: F, t8647: F, t8676: F, t8678: F, t8714: F, t8718: F, t8719: F) -> (F,) {
-    let t12123 = t12122 * t12118;
-    let t12128 = t637 * t3640 * t2294;
-    let t12132 = 2.0 * t2253 * t3642;
-    let t12134 = t3613 * t11034;
-    let t12137 = t1736 * t179;
-    let t12138 = t12137 * t11008;
-    let t12141 = 10.0 / 27.0 * t8641 - t8643 / 9.0 - t8645 / 27.0 + 2.0 / 3.0 * t2265 * t12099 + t2265 * t12102 - t2265 * t12104 / 3.0 + t2265 * t12108 + t8647 - t8714 / 3.0 + 10.0 / 9.0 * t8719 + 2.0 * t2265 * t12113 + 4.0 / 3.0 * t2265 * t12119 - 2.0 / 9.0 * t2265 * t12123 + 4.0 / 9.0 * t8676 + t8718 - 3.0 / 2.0 * t631 * t12128 + t12132 + 2.0 / 9.0 * t8678 + t2265 * t12134 / 18.0 + 2.0 / 27.0 * t2265 * t12138;
-    (t12141,)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk688<F: Float>(t2253: F, t2930: F, t703: F, t900: F, t230: F, t2938: F, t9556: F, t2937: F, t325: F, t8640: F, t895: F, t2934: F) -> (F, F, F, F, F, F, F) {
+    let t10843 = t2253 * t2930;
+    let t10845 = t703 * t900;
+    let t10864 = t230 * t2938;
+    let t10883 = F::new(0.44934037037037037036e0) * t9556;
+    let t10904 = F::new(1.0) / t2937 / t325;
+    let t10921 = t8640 * t895;
+    let t10923 = t2253 * t2934;
+    (t10843, t10845, t10864, t10883, t10904, t10921, t10923)
 }

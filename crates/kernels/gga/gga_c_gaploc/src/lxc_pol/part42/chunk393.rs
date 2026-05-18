@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 393/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 393/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk393<F: Float>(t3726: F, t531: F, t3720: F, t808: F, t568: F, t836: F, t317: F, t3275: F, t3283: F, t3297: F, t3312: F, t3463: F, t3469: F, t3472: F, t3476: F, t3479: F, t3486: F, t3491: F, t3494: F, t3499: F, t3502: F, t3506: F, t3733: F, t797: F, t813: F, t833: F) -> (F, F, F, F, F, F) {
-    let t3736 = t531 * t3726;
-    let t3740 = t808 * t3720;
-    let t3741 = t568 * t3740;
-    let t3745 = t836 * t3720;
-    let t3746 = t568 * t3745;
-    let t3749 = t3463 + 0.35750489951850426669e0 * t3733 * t317 + t3275 - t3472 + t3469 - t3476 - t3283 + t3479 - 0.35750489951850426669e0 * t797 * t3736 - t3486 - 0.38342925953920749677e0 * t3297 + t3494 - 0.23005755572352449806e1 * t813 * t3741 - t3491 - t3499 + t3502 + 0.38342925953920749677e0 * t3312 - t3506 + 0.23005755572352449806e1 * t833 * t3746;
-    (t3736, t3740, t3741, t3745, t3746, t3749)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk393<F: Float>(t3545: F, t492: F, t105: F, t3345: F, t3352: F, t3519: F, t3532: F, t3537: F, t3542: F, t1016: F) -> (F, F, F) {
+    let t3546 = t492 * t3545;
+    let t3549 = F::new(0.28455006635676149599e-1) * t105 * t3519 + F::new(0.28455006635676149599e-1) * t105 * t3532 + F::new(0.47425011059460249332e-2) * t3345 - F::new(0.85365019907028448797e-1) * t105 * t3537 - F::new(0.47425011059460249332e-2) * t3352 + F::new(0.56910013271352299198e-1) * t105 * t3542 - F::new(0.28455006635676149599e-1) * t105 * t3546;
+    let t3553 = t1016 * t1016;
+    (t3546, t3549, t3553)
 }

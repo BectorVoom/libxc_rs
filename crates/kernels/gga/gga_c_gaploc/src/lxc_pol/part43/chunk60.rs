@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 60/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 60/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,25 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk60<F: Float>(t204: F, t61: F, t190: F, t193: F, t199: F, t64: F, t36: F, t43: F, t40: F, rho0: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F) {
-    let t205 = t61 * t204;
-    let t208 = 1.0 + 0.35750489951850426669e0 * t190 * t193 - 0.11502877786176224903e1 * t199 * t205;
-    let t209 = 1.0 / t208;
-    let t211 = rho0 - rho1;
-    let t212 = t211 * t64;
-    let t213 = 1.0 + t212;
-    let t214 = t213 <= zeta_threshold;
-    let t215 = pow_1_3(t213);
-    let t217 = piecewise3(t214, t36, t215 * t213);
-    let t218 = 1.0 - t212;
-    let t219 = t218 <= zeta_threshold;
-    let t220 = pow_1_3(t218);
-    let t222 = piecewise3(t219, t36, t220 * t218);
-    let t224 = (t217 + t222 - 2.0) * t43;
-    let t225 = 2.0 <= zeta_threshold;
-    let t227 = piecewise3(t225, t36, 2.0 * t40);
-    let t228 = 0.0 <= zeta_threshold;
-    let t229 = piecewise3(t228, t36, 0.0);
-    let t231 = (t227 + t229 - 2.0) * t43;
-    (t205, t208, t209, t211, t215, t220, t224, t231)
+pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk60<F: Float>(t201: F, t203: F) -> F {
+    let t204 = t201 * t203;
+    t204
 }

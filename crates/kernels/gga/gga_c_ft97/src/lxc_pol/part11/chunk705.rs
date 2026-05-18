@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 705/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 705/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,16 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk705<F: Float>(t10358: F, t291: F, t815: F, t287: F, t2726: F, t820: F, t2724: F, t9636: F, t9639: F, t9642: F, t9645: F, t9648: F, t9655: F, t9660: F, t9663: F, t9668: F, t9671: F, t9675: F) -> (F, F, F, F, F, F, F) {
-    let t10359 = t291 * t10358;
-    let t10362 = t815 * t815;
-    let t10363 = 1.0 / t10362;
-    let t10364 = t287 * t10363;
-    let t10365 = t2726 * t820;
-    let t10369 = t2724 * t820;
-    let t10373 = 0.18521666970164609055e-1 * t9636;
-    let t10384 = t10373 - 0.11113000182098765433e-1 * t9639 + 0.22226000364197530866e-1 * t9642 - 0.33339000546296296299e-1 * t9645 + 0.16669500273148148149e-1 * t9648 + 0.51860667516460905352e-1 * t9655 - 0.13335600218518518519e0 * t9660 + 0.66678001092592592595e-1 * t9663 + 0.10001700163888888889e0 * t9668 - 0.10001700163888888889e0 * t9671 + 0.16669500273148148149e-1 * t9675;
-    (t10359, t10362, t10363, t10364, t10365, t10369, t10384)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk705<F: Float>(t2417: F, t689: F, t2394: F, t2418: F, t709: F, t680: F, t2455: F, t2379: F, t9538: F, t209: F, t2247: F, t228: F, t231: F) -> (F, F, F, F, F, F, F) {
+    let t9613 = t689 * t2417;
+    let t9614 = t2394 * t9613;
+    let t9617 = t2418 * t709;
+    let t9618 = t680 * t9617;
+    let t9621 = t689 * t2455;
+    let t9622 = t680 * t9621;
+    let t9625 = t2379 * t9538;
+    let t9631 = t2379 * t9613;
+    let t9634 = t209 * t2247;
+    let t9636 = t228 * t9634 * t231;
+    (t9614, t9617, t9618, t9622, t9625, t9631, t9636)
 }

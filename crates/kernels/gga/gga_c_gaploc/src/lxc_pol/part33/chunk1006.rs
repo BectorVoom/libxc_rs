@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1006/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1006/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1006<F: Float>(t10023: F, t28889: F, t2021: F, t7339: F, t7372: F, t3296: F, t6100: F, t21451: F, t2365: F, t6111: F, t1967: F, t21455: F, t7810: F, t883: F, t21460: F, t20671: F, t22538: F, t22984: F) -> (F, F, F, F, F, F, F) {
-    let t28891 = 0.3575048995185042667e0 * t10023 * t28889;
-    let t28915 = 0.59584149919750711116e-1 * t2021 * t7339 * t7372;
-    let t28916 = t6100 * t3296;
-    let t28920 = 0.11916829983950142223e0 * t6111 * t2365 * t21451;
-    let t28936 = t7810 * t1967 * t883 * t21455;
-    let t28940 = t7810 * t1967 * t883 * t21460;
-    let t28944 = 0.17041300423964777634e0 * t22538 * t20671 * t22984;
-    (t28891, t28915, t28916, t28920, t28936, t28940, t28944)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1006<F: Float>(t11981: F, t447: F, t1445: F, t11987: F, t1457: F, t10617: F, t10620: F, t1450: F, t1456: F, t9549: F, t9553: F, t9556: F, t9560: F, t9564: F, t9568: F, t9571: F, t9575: F, t9577: F, t9579: F, t9582: F, t9584: F) -> (F, F, F, F) {
+    let t12134 = t11981 * t447;
+    let t12135 = t1445 * t12134;
+    let t12138 = t1457 * t11987;
+    let t12145 = -t10617 + t10620 - F::new(0.23005755572352449806e1) * t1450 * t12135 + F::new(0.35750489951850426669e0) * t1456 * t12138 + F::new(0.85206502119823888171e-1) * t9549 - F::new(0.51123901271894332903e0) * t9553 + F::new(0.51123901271894332903e0) * t9556 + t9560 - t9564 - F::new(0.38342925953920749677e0) * t9568 - t9571 - t9575 + t9577 + t9579 + t9582 - t9584;
+    (t12134, t12135, t12138, t12145)
 }

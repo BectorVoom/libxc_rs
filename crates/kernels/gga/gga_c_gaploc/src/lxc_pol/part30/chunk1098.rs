@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1098/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1098/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1098<F: Float>(t10677: F, t1880: F, t21636: F, t3440: F, t3420: F, t21556: F, t2554: F, t7064: F, t8871: F, t1897: F, t7671: F, t8637: F, t3437: F, t7211: F, t10749: F, t2549: F) -> (F, F, F, F, F, F, F, F) {
-    let t32387 = t10677 * t1880;
-    let t32394 = 0.10254034973522965712e-1 * t21636 * t3440;
-    let t32398 = 0.34180116578409885707e-2 * t21636 * t3420;
-    let t32400 = 0.6152420984113779427e-1 * t21556 * t3440;
-    let t32407 = t7064 * t8871 * t2554;
-    let t32408 = 0.64087718584518535698e-3 * t32407;
-    let t32411 = 0.46143157380853345702e-1 * t1897 * t8637 * t7671;
-    let t32412 = t7211 * t3437;
-    let t32413 = 0.32043859292259267849e-3 * t32412;
-    let t32414 = t2549 * t10749;
-    (t32387, t32394, t32398, t32400, t32408, t32411, t32413, t32414)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1098<F: Float>(t28563: F, t2586: F, t2617: F, t7803: F, t7344: F, t948: F, t20671: F, t22543: F, t22980: F, t21461: F, t2365: F, t7390: F) -> (F, F, F, F, F) {
+    let t28564 = F::new(0.76685851907841499352e0) * t28563;
+    let t28566 = t7803 * t2586 * t2617;
+    let t28567 = F::new(0.76685851907841499352e0) * t28566;
+    let t28569 = t7803 * t948 * t7344;
+    let t28570 = F::new(0.38342925953920749676e0) * t28569;
+    let t28585 = F::new(0.17041300423964777634e0) * t22543 * t20671 * t22980;
+    let t28593 = F::new(0.29792074959875355558e-1) * t7390 * t2365 * t21461;
+    (t28564, t28567, t28570, t28585, t28593)
 }

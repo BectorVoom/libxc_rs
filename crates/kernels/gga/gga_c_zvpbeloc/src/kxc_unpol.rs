@@ -41,10 +41,10 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t9 = f64::powf(t8, 1.0 / 6.0);
         let t10 = t6 * t9;
         let t11 = 1.0 / M_PI;
-        let t12 = pow_1_3(t11);
-        let t13 = pow_1_3(rho[ip]);
+        let t12 = pow_1_3::<f64>(t11);
+        let t13 = pow_1_3::<f64>(rho[ip]);
         let t14 = 1.0 / t13;
-        let t17 = piecewise3(0.1e-19 < 0.0, 0.0, 0.1e-19);
+        let t17 = piecewise3::<f64>(0.1e-19 < 0.0, 0.0, 0.1e-19);
         let t19 = t10 * t12 * t14 * t17;
         let t21 = f64::exp(-0.99999999999999999999e0 * t19);
         let t22 = M_CBRT3;
@@ -54,7 +54,7 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t27 = t23 * t25 * t14;
         let t29 = 1.0 + 0.53425e-1 * t27;
         let t30 = f64::sqrt(t27);
-        let t33 = pow_3_2(t27);
+        let t33 = pow_3_2::<f64>(t27);
         let t35 = t22 * t22;
         let t36 = t12 * t12;
         let t37 = t35 * t36;
@@ -65,8 +65,8 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t47 = f64::ln(t46);
         let t49 = 0.621814e-1 * t29 * t47;
         let t50 = 1.0 <= zeta_threshold;
-        let t51 = pow_1_3(zeta_threshold);
-        let t53 = piecewise3(t50, t51 * zeta_threshold, 1.0);
+        let t51 = pow_1_3::<f64>(zeta_threshold);
+        let t53 = piecewise3::<f64>(t50, t51 * zeta_threshold, 1.0);
         let t56 = M_CBRT2;
         let t60 = (2.0 * t53 - 2.0) / (2.0 * t56 - 2.0);
         let t62 = 1.0 + 0.278125e-1 * t27;
@@ -78,7 +78,7 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t76 = 1.0 - t75;
         let t77 = t76 * t8;
         let t78 = t51 * t51;
-        let t79 = piecewise3(t50, t78, 1.0);
+        let t79 = piecewise3::<f64>(t50, t78, 1.0);
         let t80 = t79 * t79;
         let t81 = t80 * t79;
         let t82 = rho[ip] * rho[ip];
@@ -241,7 +241,7 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t328 = t156 * t17;
         let t332 = t21 * t281;
         let t334 = t177 * t25;
-        let t335 = pow_1_3(t8);
+        let t335 = pow_1_3::<f64>(t8);
         let t336 = t22 * t335;
         let t337 = t334 * t336;
         let t338 = t17 * t17;
@@ -488,7 +488,7 @@ pub fn gga_c_zvpbeloc_kxc_unpol(
         let t816 = t166 * t206;
         let t817 = t165 * t816;
         let t819 = t23 * t798;
-        let t821 = 1.0/pow_3_2(t27);
+        let t821 = 1.0/pow_3_2::<f64>(t27);
         let t822 = t821 * t11;
         let t823 = t822 * t211;
         let t825 = t377 * t813;

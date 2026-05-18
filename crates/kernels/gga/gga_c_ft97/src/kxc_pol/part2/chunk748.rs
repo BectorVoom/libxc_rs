@@ -1,4 +1,4 @@
-//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 748/869 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 748/1007 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk748<F: Float>(t13309: F, t3910: F, t2: F, t9952: F, t9570: F, t992: F, t2349: F) -> (F, F, F) {
-    let t13310 = t3910 * t13309;
-    let t13313 = t9952 * t2;
-    let t13314 = t9570 * t992;
-    let t13315 = t13314 * t2349;
-    (t13310, t13313, t13315)
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk748<F: Float>(t1557: F, t469: F, t3188: F, t432: F, t26: F, t356: F, t1570: F, t1800: F, t942: F, t1565: F, t11718: F, t11720: F, t11724: F, t11728: F, t11732: F, t11734: F, t11735: F, t11738: F, t11741: F, t11745: F, t11746: F, t11749: F, t11755: F, t3139: F, t462: F, t8289: F, t8298: F, t8301: F, t8302: F, t8331: F) -> (F, F) {
+    let t11756 = t469 * t1557;
+    let t11757 = t3188 * t432;
+    let t11758 = t11756 * t11757;
+    let t11761 = t26 * t356;
+    let t11762 = t469 * t1570;
+    let t11763 = t11762 * t11757;
+    let t11766 = t1800 * t942;
+    let t11767 = t11766 * t1565;
+    let t11771 = F::new(22.0) / F::new(9.0) * t11718 - F::new(4.0) / F::new(27.0) * t11720 + F::new(4.0) * t462 * t11724 - F::new(6.0) * t462 * t11728 - t11732 - t8301 - t11734 + F::new(2.0) / F::new(3.0) * t462 * t11735 + F::new(8.0) / F::new(3.0) * t3139 * t11738 + F::new(4.0) / F::new(3.0) * t3139 * t11741 - t11745 - F::new(2.0) * t462 * t11746 - F::new(2.0) / F::new(3.0) * t462 * t11749 - F::new(2.0) / F::new(3.0) * t8289 + t8298 / F::new(3.0) - F::new(8.0) / F::new(9.0) * t8302 + F::new(4.0) / F::new(9.0) * t11755 * t11758 - F::new(4.0) / F::new(3.0) * t11761 * t11763 - F::new(4.0) / F::new(3.0) * t11761 * t11767 - F::new(2.0) / F::new(9.0) * t8331;
+    (t11761, t11771)
 }

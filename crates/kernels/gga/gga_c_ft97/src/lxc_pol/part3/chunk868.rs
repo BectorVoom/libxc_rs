@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 868/887 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 868/1032 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,17 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk868<F: Float>(t2857: F, t4965: F, t882: F, t1091: F, t4181: F, t15312: F, t1248: F, t505: F, t3699: F, t15254: F, t3690: F, t15294: F, t4167: F, t10703: F, t5376: F, t681: F, t89: F) -> (F, F, F, F, F, F) {
-    let t19614 = t2857 * t882 * t4965;
-    let t19617 = t1091 * t4181;
-    let t19618 = t15312 * t19617;
-    let t19621 = t1248 * t505;
-    let t19622 = t3699 * t19621;
-    let t19623 = t15254 * t19622;
-    let t19626 = t3690 * t19621;
-    let t19627 = t15294 * t19626;
-    let t19630 = t1091 * t4167;
-    let t19631 = t10703 * t19630;
-    let t19635 = t89 * t681 * t5376;
-    (t19614, t19618, t19623, t19627, t19631, t19635)
+pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk868<F: Float>(t144: F, t17500: F, t13196: F, t13201: F, t17426: F, t17429: F, t17432: F, t17434: F, t17436: F, t17438: F, t17440: F, t17443: F, t17488: F, t17493: F, t17497: F, t1901: F, t28: F, t446: F, t89: F, t9457: F) -> F {
+    let t17501 = t144 * t17500;
+    let t17504 = t13196 - F::new(4.0) / F::new(9.0) * t1901 * t17426 + F::new(4.0) / F::new(27.0) * t1901 * t17429 - F::new(2.0) / F::new(27.0) * t17432 + F::new(2.0) / F::new(81.0) * t17434 + t17436 / F::new(27.0) - F::new(2.0) / F::new(9.0) * t17438 + F::new(2.0) / F::new(27.0) * t17440 - t17443 / F::new(9.0) + t89 * t28 * t17488 / F::new(3.0) - F::new(8.0) / F::new(27.0) * t13201 - t9457 - F::new(4.0) / F::new(9.0) * t1901 * t17493 - F::new(2.0) / F::new(9.0) * t1901 * t17497 - t446 * t17501 / F::new(3.0);
+    t17504
 }

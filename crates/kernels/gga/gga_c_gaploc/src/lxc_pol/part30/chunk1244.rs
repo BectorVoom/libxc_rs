@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1244/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1244/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1244<F: Float>(t10455: F, t4950: F, t10140: F, t1572: F, t4673: F, t10348: F, t8155: F, t31770: F, t6824: F, t20367: F, t31775: F, t10537: F, t4379: F, t34407: F, t6716: F, t6717: F) -> (F, F, F, F, F, F, F) {
-    let t34900 = 0.95334639871601137784e0 * t4950 * t10455;
-    let t34903 = 0.95334639871601137784e0 * t1572 * t4673 * t10140;
-    let t34905 = 0.14300195980740170668e1 * t8155 * t10348;
-    let t34910 = 0.95334639871601137784e0 * t6824 * t31770;
-    let t34912 = 0.47667319935800568892e0 * t20367 * t31775;
-    let t34913 = t4379 * t10537;
-    let t34914 = 0.59584149919750711116e-1 * t34913;
-    let t34917 = 0.13803453343411469884e2 * t6716 * t6717 * t34407;
-    (t34900, t34903, t34905, t34910, t34912, t34914, t34917)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1244<F: Float>(t10640: F, t7137: F, t22775: F, t2508: F, t9014: F, t1949: F, t3444: F, t10743: F, t731: F, t22044: F, t2580: F, t2958: F, t5269: F) -> (F, F, F, F, F) {
+    let t32639 = F::new(0.12304841968227558854e0) * t7137 * t10640;
+    let t32642 = F::new(0.92286314761706691403e-1) * t2508 * t9014 * t22775;
+    let t32643 = t1949 * t3444;
+    let t32644 = F::new(0.85450291446024714264e-3) * t32643;
+    let t32645 = t731 * t10743;
+    let t32646 = F::new(0.85450291446024714264e-3) * t32645;
+    let t32650 = F::new(0.30762104920568897134e-1) * t5269 * t2580 * t2958 * t22044;
+    (t32639, t32642, t32644, t32646, t32650)
 }

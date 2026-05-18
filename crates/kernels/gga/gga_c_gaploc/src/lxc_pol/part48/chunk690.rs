@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 690/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 690/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk690<F: Float>(t2482: F, t41590: F, t9272: F, t12960: F, t1537: F, t34890: F, t6583: F, t9537: F, t10473: F, t9263: F, t10469: F, t9267: F, t2476: F, t26922: F, t9438: F, t10268: F, t4391: F, t549: F) -> (F, F, F, F, F, F, F) {
-    let t41592 = t9272 * t41590 * t2482;
-    let t41594 = t1537 * t12960;
-    let t41606 = t6583 * t34890 * t9537;
-    let t41609 = t9263 * t10473 * t2482;
-    let t41612 = t9267 * t10469 * t2482;
-    let t41615 = t2476 * t9438 * t26922;
-    let t41618 = t4391 * t549 * t10268;
-    (t41592, t41594, t41606, t41609, t41612, t41615, t41618)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk690<F: Float>(t12804: F, t2321: F, t3556: F, t882: F, t3565: F, t888: F, t2268: F, t3560: F, t11271: F, t3340: F, t999: F, t3518: F, t894: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t13303 = F::new(0.94850022118920498664e-2) * t12804;
+    let t13304 = t3556 * t2321;
+    let t13305 = t882 * t13304;
+    let t13306 = F::new(0.11856252764865062333e-2) * t13305;
+    let t13307 = t3565 * t888;
+    let t13309 = F::new(0.19918504644973304719e0) * t2268 * t13307;
+    let t13310 = t3560 * t2321;
+    let t13311 = t882 * t13310;
+    let t13312 = F::new(0.11856252764865062333e-2) * t13311;
+    let t13313 = t11271 * t888;
+    let t13315 = F::new(0.85365019907028448797e-1) * t2268 * t13313;
+    let t13316 = t999 * t3340;
+    let t13319 = t894 * t3518;
+    (t13303, t13304, t13306, t13307, t13309, t13310, t13312, t13313, t13315, t13316, t13319)
 }

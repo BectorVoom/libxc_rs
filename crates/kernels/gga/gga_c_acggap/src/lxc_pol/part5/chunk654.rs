@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 654/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 654/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk654<F: Float>(t1524: F, t360: F, t1083: F, t398: F, t372: F, t1459: F, t1173: F, t1180: F, t3396: F, t418: F, t4695: F, t4699: F, t4701: F, t4705: F, t4708: F, t4713: F, t4716: F, t4722: F, t4724: F, t4728: F, t4732: F, t4735: F, t4737: F, t4742: F, t4745: F, t4747: F, t4748: F, t4750: F, t4754: F) -> (F, F, F, F, F) {
-    let t4757 = t1524 * t360;
-    let t4759 = t398 * t1083 * t4757;
-    let t4762 = t1524 * t372;
-    let t4764 = t398 * t1459 * t4762;
-    let t4767 = 0.85748036236139473944e-3 * t1180 * t4695 + t4699 + 0.17149607247227894789e-2 * t1173 * t4701 - t4705 + 0.85748036236139473944e-3 * t1173 * t4708 - 0.42874018118069736972e-3 * t1180 * t4713 - 0.80031500487063509015e-2 * t4716 + t4722 - 0.34299214494455789578e-2 * t418 * t4724 - 0.17149607247227894789e-2 * t418 * t4728 + 0.68598428988911579156e-2 * t3396 * t4732 + 0.51448821741683684367e-2 * t4735 * t4737 - 0.25724410870841842184e-2 * t4742 + t4745 - t4747 + 0.25724410870841842184e-2 * t4748 + 0.85748036236139473944e-3 * t4750 + 0.34299214494455789578e-2 * t418 * t4754 - 0.17149607247227894789e-2 * t418 * t4759 + 0.25724410870841842184e-2 * t418 * t4764;
-    (t4757, t4759, t4762, t4764, t4767)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk654<F: Float>(t506: F, t864: F, t368: F, t398: F, t1036: F, t171: F, t3221: F, t495: F, t922: F, t175: F, t1089: F, t1165: F, t1552: F, t3176: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t4347 = t506 * t864;
+    let t4349 = t398 * t368 * t4347;
+    let t4350 = t1036 * t4349;
+    let t4352 = t3221 * t171;
+    let t4353 = t495 * t922;
+    let t4355 = t4352 * t175 * t4353;
+    let t4358 = t495 * t864;
+    let t4360 = t1089 * t175 * t4358;
+    let t4361 = t1036 * t4360;
+    let t4364 = t1165 * t1552 * t3176;
+    (t4347, t4349, t4350, t4352, t4353, t4355, t4360, t4361, t4364)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 159/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 159/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk159<F: Float>(t50: F, t478: F, t52: F, t477: F, t59: F, zeta_threshold: F) -> (F,) {
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk159<F: Float>(t50: F, t478: F, t52: F, t477: F, t59: F, zeta_threshold: F) -> F {
     let t51 = t50 <= zeta_threshold;
-    let t481 = piecewise3(t51, 0.0, 4.0 / 3.0 * t52 * t478);
+    let t481 = piecewise3::<f64>(t51, F::new(0.0), F::new(4.0) / F::new(3.0) * t52 * t478);
     let t483 = (t477 + t481) * t59;
-    (t483,)
+    t483
 }

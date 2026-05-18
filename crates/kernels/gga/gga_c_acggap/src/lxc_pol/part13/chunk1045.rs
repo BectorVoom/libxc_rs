@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 1045/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 1045/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk1045<F: Float>(t2030: F, t4495: F, t7815: F, t2060: F, t5187: F, t4479: F, t142: F, t4099: F, t599: F, t1078: F, t2317: F, t1181: F, t5249: F, t7493: F, t4680: F, t7575: F, t8609: F) -> (F, F, F, F, F, F, F) {
-    let t36256 = t2030 * t7815 * t4495;
-    let t36259 = t2060 * t7815 * t5187;
-    let t36262 = t2060 * t7815 * t4479;
-    let t36266 = t2030 * t142 * t599 * t4099;
-    let t36269 = t2060 * t1078 * t2317;
-    let t36273 = t7493 * t1181 * t599 * t5249;
-    let t36274 = 0.10718504529517434243e-2 * t36273;
-    let t36276 = t7575 * t4680 * t8609;
-    (t36256, t36259, t36262, t36266, t36269, t36274, t36276)
+pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk1045<F: Float>(t1967: F, t8561: F, t30340: F, t30349: F, t30353: F, t30355: F, t30362: F, t34327: F, t34330: F, t34332: F, t34333: F, t34336: F, t34338: F, t34339: F, t34341: F, t34343: F, t34348: F, t34349: F) -> F {
+    let t34351 = t1967 * t8561;
+    let t34352 = F::new(0.37737710747524982482e-2) * t34351;
+    let t34357 = F::new(0.114609375e-1) * t34327 + F::new(0.22921875e-1) * t34330 - t34332 - t34333 + t30340 + F::new(0.31448092289604152068e-3) * t34336 + t34338 + t34339 + t34341 - F::new(0.10718504529517434243e-3) * t34343 - t34348 - F::new(0.37737710747524982482e-2) * t34349 + t34352 - F::new(0.94344276868812456204e-3) * t30349 + F::new(0.10482697429868050689e-3) * t30353 - F::new(0.10718504529517434243e-3) * t30355 - F::new(0.7145669686344956162e-4) * t30362;
+    t34357
 }

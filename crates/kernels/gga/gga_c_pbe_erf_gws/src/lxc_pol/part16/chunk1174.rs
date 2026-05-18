@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1174/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1174/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1174<F: Float>(t4227: F, t6781: F, t829: F, t830: F, t14886: F, t4386: F, t892: F, t15036: F, t19906: F, t54463: F, t14935: F, t15021: F, t15081: F, t2376: F, t2408: F, t2409: F, t29751: F, t3066: F, t51881: F, t51896: F, t52194: F, t52551: F, t54461: F, t54465: F, t54473: F, t54484: F, t6793: F, t810: F, t827: F, t8734: F, t8793: F) -> (F,) {
-    let t55762 = t6781 * t4227;
-    let t55764 = t829 * t830 * t55762;
-    let t55769 = t4386 * t892 * t14886;
-    let t55773 = 7.0 / 72.0 * t19906 * t15036;
-    let t55781 = 7.0 / 576.0 * t54463;
-    let t55795 = -t827 * t55764 / 48.0 + 7.0 / 72.0 * t51881 + t6793 * t55769 / 24.0 - t55773 + t8793 * t52194 / 24.0 - 7.0 / 1152.0 * t51896 - t2408 * t29751 * t15021 / 12.0 + t54461 / 1536.0 - t55781 + t54465 / 24.0 - t54473 / 192.0 + 7.0 / 144.0 * t52551 + t54484 / 12.0 + t2408 * t2409 * t2376 * t15081 * t810 / 24.0 + t3066 * t2409 * t8734 * t14935 / 24.0;
-    (t55795,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1174<F: Float>(t2200: F, t857: F, t329: F, t1114: F, t19658: F, t2409: F, t3205: F, t1105: F, t814: F, t2074: F, t2501: F, t3199: F, t898: F) -> (F, F, F, F, F, F) {
+    let t22508 = t2200 * t857;
+    let t22509 = t329 * t22508;
+    let t26604 = t1114 * t19658;
+    let t26617 = t3205 * t2409;
+    let t26623 = t1105 * t814;
+    let t26647 = t2501 * t2074;
+    let t26654 = t3199 * t898;
+    (t22509, t26604, t26617, t26623, t26647, t26654)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 704/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 704/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk704<F: Float>(t13194: F, t29439: F, t32357: F, t5539: F, t9647: F, t32436: F, t2558: F, t32743: F, t7064: F, t7069: F, t8878: F, t10657: F, t871: F, t33360: F, t1841: F, t13200: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t42985 = t29439 * t13194;
-    let t42988 = t9647 * t5539 * t32357;
-    let t42991 = t9647 * t5539 * t32436;
-    let t43027 = t9647 * t32743 * t2558;
-    let t43042 = t7064 * t8878 * t7069;
-    let t43072 = t10657 * t871;
-    let t43093 = t9647 * t33360 * t2558;
-    let t43095 = t1841 * t13194;
-    let t43098 = t1841 * t13200;
-    (t42985, t42988, t42991, t43027, t43042, t43072, t43093, t43095, t43098)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk704<F: Float>(t13642: F, t13506: F, t1445: F, t2087: F, t11622: F, t935: F, t813: F, t13555: F, t833: F, t13056: F, t13059: F, t11627: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t13643 = F::new(0.19171462976960374838e0) * t13642;
+    let t13644 = t1445 * t13506;
+    let t13646 = F::new(0.62115540045351614476e2) * t2087 * t13644;
+    let t13647 = t11622 * t935;
+    let t13648 = t1445 * t13647;
+    let t13650 = F::new(0.46011511144704899612e1) * t813 * t13648;
+    let t13651 = t1445 * t13555;
+    let t13653 = F::new(0.11502877786176224903e2) * t833 * t13651;
+    let t13655 = F::new(0.23005755572352449806e1) * t13056;
+    let t13656 = F::new(0.15337170381568299871e1) * t13059;
+    let t13657 = t11627 * t935;
+    (t13643, t13644, t13646, t13647, t13648, t13650, t13651, t13653, t13655, t13656, t13657)
 }

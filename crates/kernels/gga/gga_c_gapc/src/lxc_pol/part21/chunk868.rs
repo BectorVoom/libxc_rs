@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 21 (v4rho2sigma2_0) CSE chunk 868/1125 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 21 (v4rho2sigma2_0) CSE chunk 868/1307 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part21_v4rho2sigma2_0_chunk868<F: Float>(t11784: F, t3330: F, t10058: F, t3784: F, t11728: F, t11731: F, t11734: F, t11737: F, t11739: F, t11743: F, t11746: F, t11750: F, t11756: F, t11762: F, t11765: F, t11767: F, t11770: F, t11773: F, t11776: F, t11779: F, t11782: F) -> (F,) {
-    let t11785 = t11784 * t3330;
-    let t11787 = t3784 * t10058;
-    let t11789 = 0.10860115658064651693e-4 * t11728 + 0.10860115658064651693e-4 * t11731 - 0.11594181388521408695e-4 * t11734 + 0.61454016367594401047e-8 * t11737 + 0.81088863580216065975e-3 * t11739 - 0.10860115658064651693e-4 * t11743 - 0.28431716307092827285e-6 * t11746 + 0.11594181388521408695e-4 * t11750 - 0.1264887086769121065e-7 * t11756 + 0.61144341362847222225e-5 * t11762 - 0.17376185052903442709e-3 * t11765 - 0.17376185052903442709e-3 * t11767 + 0.71141006005012433352e-8 * t11770 + 0.63252766927083333336e-6 * t11773 + 0.63252766927083333336e-6 * t11776 + 0.84540905957968605066e-6 * t11779 + 0.12380169846338434109e-5 * t11782 + 0.52756405595192190805e-8 * t11785 + 0.52756405595192190805e-8 * t11787;
-    (t11789,)
+pub fn gga_c_gapc_lxc_pol_part21_v4rho2sigma2_0_chunk868<F: Float>(t10023: F, t10082: F, t9428: F, t9466: F, t9511: F, t9548: F, t9594: F, t9633: F, t9676: F, t9726: F, t9773: F, t9813: F, t9855: F, t9891: F, t9943: F, t9983: F) -> F {
+    let t10086 = t9428 + t9466 + t9511 + t9548 + t9594 + t9633 + t9676 + t9726 + t9773 + t9813 + t9855 + t9891 + t9943 + t9983 + t10023 + t10082;
+    t10086
 }

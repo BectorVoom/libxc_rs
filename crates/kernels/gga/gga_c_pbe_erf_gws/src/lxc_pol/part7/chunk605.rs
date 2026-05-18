@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 605/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 605/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk605<F: Float>(t40: F, t4832: F, t1319: F, t456: F, t4607: F, t470: F, t472: F, t542: F, t1447: F, t1218: F, t156: F, t1392: F, t1396: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4833 = t40 * t4832;
-    let t4835 = t1319 * t4607 * t456;
-    let t4836 = t470 * t4835;
-    let t4837 = 0.35089340384731224426e1 * t4836;
-    let t4838 = t542 * t472;
-    let t4839 = t1447 * t4838;
-    let t4840 = 0.21687161765563048428e-1 * t4839;
-    let t4841 = t156 * t1218;
-    let t4842 = t1447 * t4841;
-    let t4843 = 0.32530742648344572643e-1 * t4842;
-    let t4844 = t156 * t1392;
-    let t4845 = t1447 * t4844;
-    let t4846 = 0.48159446095139119799e0 * t4845;
-    let t4847 = t156 * t1396;
-    let t4848 = t1447 * t4847;
-    let t4849 = 0.16265371324172286321e-1 * t4848;
-    (t4833, t4835, t4836, t4837, t4838, t4839, t4840, t4841, t4842, t4843, t4844, t4845, t4846, t4847, t4848, t4849)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk605<F: Float>(t455: F, t4623: F, t1231: F, t440: F, t441: F, t1257: F, t67: F, t62: F, t1261: F, t1314: F, t457: F, t1253: F) -> (F, F, F, F, F, F, F, F) {
+    let t4624 = t4623 * t455;
+    let t4630 = t1231 * t440;
+    let t4631 = t4630 * t441;
+    let t4635 = F::new(1.0) / t1257 / t67;
+    let t4636 = t62 * t4635;
+    let t4637 = t4630 * t1261;
+    let t4640 = t457 * t1314;
+    let t4643 = t1253 * t1261;
+    (t4624, t4630, t4631, t4635, t4636, t4637, t4640, t4643)
 }

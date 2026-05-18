@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 705/1092 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 705/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk705<F: Float>(t2146: F, t2236: F, t2241: F, t7912: F, t8062: F, t8067: F, t8069: F, t8074: F, t8076: F, t8078: F, t8082: F, t8087: F, t8092: F, t8096: F, t8098: F, t8101: F, t8106: F, t8108: F, t8113: F, t8115: F, t8119: F) -> (F,) {
-    let t8122 = 0.17347256376410398924e1 * t7912 * t2236 + 0.17347256376410398924e1 * t8062 + t8067 + 0.17347256376410398924e1 * t2146 * t8069 + 0.34694512752820797848e1 * t8074 + 0.17347256376410398924e1 * t8076 - 0.17347256376410398924e1 * t8078 - 0.34694512752820797848e1 * t8082 + t8087 + 0.8673628188205199462e0 * t7912 * t2241 + 0.4336814094102599731e0 * t2146 * t8092 - t8096 - t8098 - 0.17347256376410398924e1 * t8101 - t8106 - 0.26020884564615598386e1 * t2146 * t8108 - t8113 - 0.13170898365871023197e1 * t8115 - 0.8673628188205199462e0 * t2146 * t8119;
-    (t8122,)
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk705<F: Float>(t1084: F, t1181: F, t7351: F, t7564: F, t1111: F, t604: F, t7426: F, t2070: F, t7433: F, t2450: F, t7336: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t7566 = t1181 * t7351 * t1084;
+    let t7567 = t7564 * t7566;
+    let t7569 = t604 * t1111;
+    let t7570 = t1181 * t7569;
+    let t7571 = t7426 * t7570;
+    let t7572 = F::new(0.42874018118069736972e-3) * t7571;
+    let t7573 = t7433 * t2070;
+    let t7574 = F::new(0.12862205435420921092e-2) * t7573;
+    let t7575 = t2450 * t7336;
+    (t7566, t7567, t7569, t7570, t7571, t7572, t7573, t7574, t7575)
 }

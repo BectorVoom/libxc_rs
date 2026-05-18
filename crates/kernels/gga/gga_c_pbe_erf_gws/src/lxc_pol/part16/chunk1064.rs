@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1064/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1064/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1064<F: Float>(t51649: F, t867: F, t3966: F, t326: F, t378: F, t6594: F, t13968: F, t14001: F, t745: F, t837: F, t833: F, t850: F, t851: F, t1477: F, t274: F, t14169: F, t804: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t51966 = t51649 * t867;
-    let t51967 = t51966 * t3966;
-    let t51977 = t326 * t6594 * t378;
-    let t51979 = t14001 * t13968;
-    let t51989 = t745 * t837;
-    let t51992 = t850 * t851 * t51989 * t833;
-    let t52033 = t274 * t1477;
-    let t52036 = t850 * t851 * t52033 * t833;
-    let t52079 = t804 * t14169;
-    (t51966, t51967, t51977, t51979, t51989, t51992, t52033, t52036, t52079)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1064<F: Float>(t2344: F, t904: F, t8828: F, t1150: F, t6717: F, t8886: F, t3219: F, t3235: F, t6360: F, t875: F, t9375: F, t2343: F, t3247: F, t6714: F, t6718: F, t9181: F, t9183: F, t9187: F, t9190: F, t9192: F, t9196: F) -> (F, F, F, F, F) {
+    let t9665 = t2344 * t904;
+    let t9666 = t9665 * t8828;
+    let t9669 = t6717 * t1150;
+    let t9671 = t9665 * t8886;
+    let t9675 = t3235 * t3219 * t6360;
+    let t9681 = t3235 * t9375 * t875;
+    let t9684 = t2343 * t9666 / F::new(192.0) + F::new(119.0) / F::new(6912.0) * t9669 + t9181 - t3247 * t9671 / F::new(64.0) + t9183 + t9187 + t3247 * t9675 / F::new(512.0) - t9190 - t9192 - F::new(7.0) / F::new(2304.0) * t6714 + F::new(119.0) / F::new(3456.0) * t6718 - t9196 - t2343 * t9681 / F::new(768.0);
+    (t9666, t9671, t9675, t9681, t9684)
 }

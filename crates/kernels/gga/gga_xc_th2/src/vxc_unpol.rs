@@ -38,7 +38,7 @@ pub fn gga_xc_th2_vxc_unpol(
         let t16 = t15 * rho[ip];
         let t19 = M_CBRT2;
         let t20 = t19 * t19;
-        let t21 = pow_1_3(rho[ip]);
+        let t21 = pow_1_3::<f64>(rho[ip]);
         let t22 = t21 * rho[ip];
         let t25 = M_SQRT2;
         let t26 = f64::sqrt(rho[ip]);
@@ -49,8 +49,8 @@ pub fn gga_xc_th2_vxc_unpol(
         let t34 = t4 * t3;
         let t35 = t34 * t7;
         let t36 = f64::sqrt(sigma[ip]);
-        let t38 = pow_1_3(zeta_threshold);
-        let t40 = piecewise3(1.0 <= zeta_threshold, t38 * zeta_threshold, 1.0);
+        let t38 = pow_1_3::<f64>(zeta_threshold);
+        let t40 = piecewise3::<f64>(1.0 <= zeta_threshold, t38 * zeta_threshold, 1.0);
         let t41 = t36 * t40;
         let t44 = t25 * t15;
         let t47 = t19 * t21;

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 495/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 495/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk495<F: Float>(t9561: F, t9562: F, t549: F, t9199: F, t1407: F, t3178: F, t3163: F, t4379: F, t2293: F, t2366: F, t2365: F, t1429: F, t6696: F, t901: F, t6700: F, t3162: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t9564 = 0.89376224879626066674e-1 * t9561 * t9562;
-    let t9565 = t549 * t9199;
-    let t9568 = t1407 * t3178;
-    let t9569 = 0.38342925953920749676e0 * t9568;
-    let t9571 = 0.29792074959875355558e-1 * t4379 * t3163;
-    let t9572 = t2366 * t2293;
-    let t9573 = t2365 * t9572;
-    let t9575 = 0.29792074959875355558e-1 * t1429 * t9573;
-    let t9577 = 0.29792074959875355558e-1 * t6696 * t901;
-    let t9579 = 0.29792074959875355558e-1 * t6700 * t901;
-    let t9580 = t549 * t3162;
-    (t9564, t9565, t9568, t9569, t9571, t9575, t9577, t9579, t9580)
+pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk495<F: Float>(t9097: F, t9100: F, t9108: F, t9111: F, t9113: F, t9115: F, t2287: F, t871: F, t3109: F, t471: F, t64: F) -> (F, F, F) {
+    let t9117 = -F::new(21.0) / F::new(512.0) * t9097 + F::new(147.0) / F::new(16384.0) * t9100 - F::new(63.0) / F::new(1048576.0) * t9108 + F::new(21.0) / F::new(1048576.0) * t9111 - F::new(49.0) / F::new(16384.0) * t9113 + F::new(7.0) / F::new(512.0) * t9115;
+    let t9121 = t2287 * t871;
+    let t9127 = t9117 * t471 - F::new(4.0) / F::new(3.0) * t3109 * t64 + t9121 / F::new(2.0) - F::new(7.0) / F::new(512.0) * t9097 + F::new(21.0) / F::new(16384.0) * t9100 - F::new(7.0) / F::new(16384.0) * t9113 + F::new(7.0) / F::new(1536.0) * t9115;
+    (t9117, t9121, t9127)
 }

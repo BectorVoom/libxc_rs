@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 219/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 219/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,21 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk219<F: Float>(t687: F, t690: F, t251: F, t258: F, t266: F, t273: F, t4: F, t668: F, t71: F, t721: F, t722: F, t728: F, t730: F, t740: F, t745: F, t748: F, t753: F, t757: F, t764: F, t774: F, t782: F, t786: F, t792: F, t793: F, t796: F, t799: F, t84: F) -> (F, F) {
-    let t800 = t687 * t690;
-    let t803 = -0.70983522622222222221e-3 * t4 * t668 * t71 - 0.34246666666666666666e-1 * t721 * t722 * t258 - 2.0 * t728 * t730 + 1.0 * t251 * t740 + 0.32163958997385070134e2 * t745 * t748 + t753 + t757 + t764 - t774 - t782 - 0.24415263074675393405e-3 * t4 * t668 * t84 - 0.10843581300301739842e-1 * t721 * t786 * t273 - 0.11696447245269292414e1 * t792 * t793 + 0.5848223622634646207e0 * t266 * t796 + 0.17315859105681463759e2 * t799 * t800;
-    (t800, t803)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk219<F: Float>(t219: F, t771: F, t201: F, t199: F, t13: F, t30: F, t761: F, t132: F, t265: F, t264: F, t80: F, t75: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t772 = t771 * t219;
+    let t773 = t201 * t772;
+    let t774 = F::new(1.0) * t773;
+    let t775 = t199 * t199;
+    let t776 = F::new(1.0) / t775;
+    let t777 = t13 * t776;
+    let t778 = t30 * t30;
+    let t779 = F::new(1.0) / t778;
+    let t780 = t761 * t779;
+    let t781 = t777 * t780;
+    let t782 = F::new(0.16081979498692535067e2) * t781;
+    let t786 = t132 * t265;
+    let t790 = t264 * t80;
+    let t791 = F::new(1.0) / t790;
+    let t792 = t75 * t791;
+    (t772, t774, t775, t776, t777, t778, t779, t780, t782, t786, t791, t792)
 }

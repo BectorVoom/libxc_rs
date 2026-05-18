@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 917/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 917/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk917<F: Float>(t13598: F, t701: F, t9583: F, t173: F, t9666: F, t9483: F, t9592: F, t209: F, t3626: F, t228: F, t231: F, t39370: F, t420: F, t704: F, t2248: F, t705: F) -> (F, F, F, F, F, F, F) {
-    let t41502 = t701 * t13598 * t9583;
-    let t41505 = t701 * t173 * t9666;
-    let t41508 = t701 * t9483 * t9592;
-    let t41510 = t209 * t3626;
-    let t41512 = t228 * t41510 * t231;
-    let t41513 = 0.18916624705075445817e-1 * t41512;
-    let t41516 = t701 * t420 * t704 * t39370;
-    let t41519 = t701 * t2248 * t705;
-    (t41502, t41505, t41508, t41512, t41513, t41516, t41519)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk917<F: Float>(t11587: F, t1647: F, t1901: F, t1909: F, t1922: F, t379: F, t38846: F, t38866: F, t446: F, t447: F, t487: F, t8206: F, t8212: F, t8355: F, t8372: F, t8387: F, t8425: F, t8506: F, t8510: F, t8511: F, t8519: F, t8535: F) -> F {
+    let t38883 = -F::new(112.0) / F::new(81.0) * t38846 - F::new(4.0) / F::new(3.0) * t1901 * t1909 * t8510 * t1647 + F::new(4.0) / F::new(9.0) * t1901 * t1909 * t487 * t8355 * t379 + F::new(4.0) / F::new(3.0) * t1901 * t8506 * t8511 + F::new(8.0) / F::new(9.0) * t1901 * t11587 * t8212 + F::new(4.0) / F::new(3.0) * t1901 * t8372 * t8387 + F::new(8.0) / F::new(9.0) * t1901 * t38866 * t8519 - F::new(8.0) / F::new(3.0) * t1901 * t8506 * t8425 + F::new(8.0) / F::new(3.0) * t1901 * t8506 * t8535 - F::new(8.0) / F::new(3.0) * t1901 * t8372 * t8206 + F::new(4.0) / F::new(3.0) * t446 * t447 * t1922 * t1647;
+    t38883
 }

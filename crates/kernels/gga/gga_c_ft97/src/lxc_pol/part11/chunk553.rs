@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 553/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 553/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,12 +9,16 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk553<F: Float>(t1631: F, t8035: F, t407: F, t66: F, t1712: F, t428: F, t1599: F, t1617: F, t1618: F, t1624: F, t1665: F, t372: F, t399: F, t534: F, t64: F, t7899: F, t7906: F, t8000: F, t8001: F, t8003: F, t8009: F, t8011: F, t8015: F, t8018: F, t8032: F, t8036: F, t8039: F, t8042: F, t8044: F) -> (F, F, F, F, F) {
-    let t8047 = t1631 * t8035;
-    let t8050 = t407 * t407;
-    let t8051 = 1.0 / t8050;
-    let t8052 = t66 * t8051;
-    let t8053 = t1712 * t428;
-    let t8057 = -0.49022040019937983366e-5 * t8000 * t8001 * t8003 + 0.13774561697978600408e-4 * t8009 * t8011 + 0.41352194951222972388e-4 * t8015 * t8011 + 0.13094861734553941256e-2 * t1617 * t1618 * t8018 + 0.35564283887055077925e-1 * t1665 * t399 - 0.40559281352147498558e-4 * t7906 * t7899 * t1599 - 0.33776098467676728323e-5 * t534 * t7899 * t1599 + 0.58097170218823199823e-3 * t372 * t8032 - 0.58097170218823199822e-3 * t1624 * t8036 + 0.69764702839313376e-2 * t372 * t8039 - 0.69764702839313376e-1 * t8042 * t8044 - 0.69764702839313376e-2 * t1624 * t8047 - 6.0 * t64 * t8052 * t8053;
-    (t8050, t8051, t8052, t8053, t8057)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk553<F: Float>(t1866: F, t7807: F, t446: F, t1651: F, t432: F, t1564: F, t1755: F, t379: F, t1546: F, t1572: F, t89: F, t1566: F, t1882: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t7808 = t1866 * t7807;
+    let t7809 = t446 * t7808;
+    let t7811 = t1651 * t432;
+    let t7812 = t1564 * t7811;
+    let t7813 = t446 * t7812;
+    let t7815 = t379 * t1755;
+    let t7816 = t1564 * t7815;
+    let t7817 = t446 * t7816;
+    let t7820 = t89 * t1546 * t1572;
+    let t7822 = t1882 * t1566;
+    (t7808, t7809, t7811, t7812, t7813, t7815, t7816, t7817, t7820, t7822)
 }

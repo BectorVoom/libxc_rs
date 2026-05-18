@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 581/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 581/1013 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk581<F: Float>(t11986: F, t447: F, t1064: F, t3701: F, t448: F, t3691: F, t535: F, t10115: F, t10118: F, t10131: F, t10134: F, t10137: F, t10139: F, t1063: F, t11978: F, t11983: F, t2268: F, t9072: F, t9077: F, t9085: F) -> (F, F) {
-    let t11987 = t11986 * t447;
-    let t11988 = t1064 * t11987;
-    let t11991 = t3701 * t448;
-    let t11994 = t535 * t3691;
-    let t11997 = -0.85365019907028448797e-1 * t2268 * t11978 + 0.56910013271352299198e-1 * t2268 * t11983 + 0.28455006635676149599e-1 * t1063 * t11988 - 0.28455006635676149599e-1 * t1063 * t11991 + 0.28455006635676149599e-1 * t2268 * t11994 - t9072 + t9077 + t9085 + t10115 + t10118 - t10131 - t10134 - t10137 + t10139;
-    (t11987, t11997)
+pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk581<F: Float>(t11058: F, t10627: F, t5241: F, t590: F, t5640: F, t1890: F, t1966: F, t739: F, t1991: F, t10019: F, t2617: F, t3005: F) -> (F, F, F, F, F, F, F) {
+    let t11059 = F::new(0.38342925953920749676e0) * t11058;
+    let t11061 = t5241 * t10627 * t590;
+    let t11063 = F::new(0.15337170381568299871e1) * t5640 * t11061;
+    let t11065 = t1890 * t10627 * t590;
+    let t11067 = F::new(0.25561950635947166451e1) * t1966 * t11065;
+    let t11068 = t739 * t10627;
+    let t11069 = t11068 * t590;
+    let t11071 = F::new(0.1022478025437886658e1) * t1991 * t11069;
+    let t11108 = F::new(0.15976219147466979032e-1) * t10019;
+    let t11109 = t3005 * t2617;
+    (t11059, t11063, t11067, t11068, t11071, t11108, t11109)
 }

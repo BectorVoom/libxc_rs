@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 697/1041 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 697/1189 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,17 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk697<F: Float>(t32457: F, t488: F, t83: F, t1882: F, t7226: F, t432: F, t452: F, t7288: F, t7283: F, t1825: F, t7281: F, t7274: F, t8466: F, t499: F, t7211: F, t110: F, t32325: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t32458 = t488 * t32457;
-    let t32459 = t83 * t32458;
-    let t32463 = 2.0 / 9.0 * t1882 * t7226;
-    let t32465 = t452 * t7288 * t432;
-    let t32469 = t1882 * t7283 / 9.0;
-    let t32470 = t1825 * t7281;
-    let t32471 = t83 * t32470;
-    let t32474 = t8466 * t7274;
-    let t32475 = t83 * t32474;
-    let t32479 = t452 * t499 * t7211;
-    let t32483 = t452 * t110 * t32325;
-    (t32458, t32459, t32463, t32465, t32469, t32470, t32471, t32474, t32475, t32479, t32483)
+pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk697<F: Float>(t27103: F, t446: F, t27064: F, t9073: F, t1369: F, t376: F, t6665: F, t27066: F, t27070: F, t27075: F, t27079: F, t27084: F, t27089: F, t27094: F, t27098: F, t27101: F) -> (F, F, F, F, F) {
+    let t27104 = t446 * t27103;
+    let t27106 = t9073 * t27064;
+    let t27107 = t446 * t27106;
+    let t27110 = t1369 * t376 * t6665;
+    let t27112 = -t27066 / F::new(3.0) - t27070 / F::new(3.0) + t27075 / F::new(9.0) - t27079 / F::new(12.0) - t27084 / F::new(12.0) + t27089 / F::new(4.0) + t27094 / F::new(4.0) - F::new(2.0) / F::new(3.0) * t27098 - F::new(2.0) / F::new(3.0) * t27101 + F::new(2.0) / F::new(9.0) * t27104 - F::new(2.0) / F::new(3.0) * t27107 - t27110 / F::new(3.0);
+    (t27104, t27106, t27107, t27110, t27112)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 669/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 669/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk669<F: Float>(t191: F, t5750: F, t2925: F, t5241: F, t10627: F, t22623: F, t24885: F, t787: F, t2610: F, t7291: F, t10012: F, t1890: F, t3487: F, t107: F, t10809: F, t16687: F, t19: F, t60: F, t822: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t32810 = t191 * t5750;
-    let t32840 = t5241 * t2925;
-    let t32847 = t22623 * t10627;
-    let t32969 = t787 * t24885;
-    let t33087 = t2610 * t7291;
-    let t33148 = t10012 * t10627;
-    let t33289 = t1890 * t3487;
-    let t33294 = t787 * t10809 * t107;
-    let t33308 = t5241 * t3487;
-    let t33331 = t822 * t16687 * t19 * t60;
-    (t32810, t32840, t32847, t32969, t33087, t33148, t33289, t33294, t33308, t33331)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk669<F: Float>(t12311: F, t734: F, t10645: F, t10647: F, t10685: F, t12291: F, t12294: F, t12297: F, t12306: F, t1841: F, t1897: F, t2508: F, t270: F, t3723: F, t3727: F, t650: F, t681: F, t9635: F, t9651: F, t9654: F) -> F {
+    let t12312 = t12311 * t734;
+    let t12315 = -t10645 - t10647 + F::new(0.76905262301422242837e-2) * t2508 * t12291 + F::new(0.15381052460284448567e-1) * t2508 * t12294 + F::new(0.76905262301422242837e-2) * t1897 * t12297 - t9635 - t9651 + t9654 + F::new(0.10254034973522965712e-1) * t650 * t3723 + F::new(0.76905262301422242837e-2) * t681 * t3723 + F::new(0.76905262301422242837e-2) * t270 * t12306 - F::new(0.10254034973522965712e-1) * t650 * t3727 + t10685 - F::new(0.85450291446024714263e-3) * t1841 * t12312;
+    t12315
 }

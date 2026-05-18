@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 944/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 944/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,11 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk944<F: Float>(t1882: F, t35703: F, t35694: F, t35717: F, t35707: F, t13885: F, t14127: F, t141868: F, t142002: F, t151079: F, t151357: F, t151409: F, t1901: F, t242: F, t28267: F, t28349: F, t33759: F, t3837: F, t3842: F, t4005: F, t446: F, t53797: F, t6061: F, t6154: F, t6940: F, t729: F, t7484: F, t762: F, t98123: F) -> (F, F, F, F) {
-    let t151897 = t1882 * t35703;
-    let t151907 = t1882 * t35694;
-    let t151926 = t1882 * t35717;
-    let t151954 = t1882 * t35707;
-    let t151964 = -t446 * t729 * t4005 * t7484 / 3.0 + 4.0 / 3.0 * t446 * t242 * t151409 + 2.0 / 3.0 * t446 * t729 * t6154 * t28267 + 2.0 / 3.0 * t446 * t729 * t762 * t6061 * t6940 + 4.0 / 3.0 * t446 * t242 * t151079 + 4.0 / 9.0 * t53797 * t98123 * t28349 - t142002 - t446 * t242 * t151357 / 3.0 + t151954 / 9.0 + 4.0 / 3.0 * t1901 * t13885 * t33759 * t3837 + 2.0 * t1901 * t14127 * t141868 * t3842;
-    (t151897, t151907, t151926, t151964)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk944<F: Float>(t141203: F, t33485: F, t375: F, t89: F, t33465: F, t681: F, t33469: F, t33288: F, t33308: F, t7511: F, t33303: F, t33333: F, t6109: F) -> (F, F, F, F, F, F, F) {
+    let t141204 = F::new(4.0) / F::new(9.0) * t141203;
+    let t141206 = t89 * t375 * t33485;
+    let t141220 = t89 * t681 * t33465;
+    let t141223 = t89 * t681 * t33469;
+    let t141231 = t7511 * t33288 * t33308;
+    let t141240 = t7511 * t33288 * t33303;
+    let t141255 = t6109 * t681 * t33333;
+    (t141204, t141206, t141220, t141223, t141231, t141240, t141255)
 }

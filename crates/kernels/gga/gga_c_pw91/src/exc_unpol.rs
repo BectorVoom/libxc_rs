@@ -23,15 +23,15 @@ pub fn gga_c_pw91_exc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t10 = t4 * t6 / t7;
         let t12 = 1.0 + 0.53425e-1 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -42,8 +42,8 @@ pub fn gga_c_pw91_exc_unpol(
         let t30 = f64::ln(t29);
         let t32 = 0.62182e-1 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
-        let t34 = pow_1_3(zeta_threshold);
-        let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
+        let t36 = piecewise3::<f64>(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
         let t45 = 1.0 + 0.278125e-1 * t10;
@@ -52,11 +52,11 @@ pub fn gga_c_pw91_exc_unpol(
         let t54 = f64::ln(t53);
         let t57 = 0.19751789702565206229e-1 * t43 * t45 * t54;
         let t58 = M_PI * M_PI;
-        let t59 = pow_1_3(t58);
+        let t59 = pow_1_3::<f64>(t58);
         let t60 = t59 * t59;
         let t61 = t18 * t60;
         let t62 = t34 * t34;
-        let t63 = piecewise3(t33, t62, 1.0);
+        let t63 = piecewise3::<f64>(t33, t62, 1.0);
         let t64 = t63 * t63;
         let t65 = t64 * t63;
         let t66 = 1.0 / t59;
@@ -110,7 +110,7 @@ pub fn gga_c_pw91_exc_unpol(
         let t146 = t140 * t144 - 0.18535714285714285714e-2;
         let t147 = t146 * t63;
         let t149 = t137 * t147 * sigma[ip];
-        let t151 = pow_1_3(9.0);
+        let t151 = pow_1_3::<f64>(9.0);
         let t152 = t151 * t151;
         let t156 = 1.0 / t21 / t68;
         let t158 = sigma[ip] * t39;

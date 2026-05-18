@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 670/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 670/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk670<F: Float>(t425: F, t7614: F, t431: F, t7546: F, t7550: F, t7551: F, t7558: F, t7562: F, t7567: F, t7572: F, t7574: F, t7578: F, t7581: F, t7590: F, t7593: F, t7597: F, t7602: F, t7603: F, t7607: F, t7608: F, t7612: F) -> (F, F, F) {
-    let t7615 = t7614 * t425;
-    let t7616 = 0.16006300097412701803e-1 * t7615;
-    let t7617 = t7614 * t431;
-    let t7619 = t7546 + t7550 - 0.94344276868812456204e-2 * t7551 - t7558 + 0.34299214494455789578e-2 * t7562 + 0.18868855373762491241e-2 * t7567 + t7572 + t7574 + 0.21437009059034868486e-2 * t7578 - 0.21437009059034868486e-3 * t7581 - t7590 - t7593 / 384.0 - 0.38203125e-2 * t7597 - t7602 + 0.85748036236139473944e-3 * t7603 - t7607 - 0.85748036236139473944e-3 * t7608 + t7612 + t7616 - 0.80031500487063509015e-2 * t7617;
-    (t7615, t7617, t7619)
+pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk670<F: Float>(t2096: F, t7310: F, t1133: F, t570: F, t2015: F, t2028: F, t2048: F, t2016: F, t2052: F, t594: F, t8: F, t130: F) -> (F, F, F, F, F, F, F, F) {
+    let t7311 = t7310 * t2096;
+    let t7312 = F::new(0.6621875e-1) * t7311;
+    let t7313 = t570 * t1133;
+    let t7315 = t2015 * t2028;
+    let t7316 = t7315 * t2048;
+    let t7317 = F::new(11.0) / F::new(192.0) * t7316;
+    let t7318 = t2016 * t2052;
+    let t7319 = F::new(11.0) / F::new(576.0) * t7318;
+    let t7321 = F::new(1.0) / t8 / t594;
+    let t7322 = t130 * t7321;
+    (t7312, t7313, t7315, t7316, t7317, t7318, t7319, t7322)
 }

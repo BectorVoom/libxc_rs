@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 385/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 385/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk385<F: Float>(t2343: F, t3354: F, t2268: F, t1016: F, t921: F, t2877: F, t895: F, t2898: F, t901: F, t1645: F, t888: F) -> (F, F, F, F, F, F) {
-    let t3355 = t2343 * t3354;
-    let t3357 = 0.56910013271352299198e-1 * t2268 * t3355;
-    let t3366 = t1016 * t921;
-    let t3370 = 0.35750489951850426669e0 * t895 * t2877;
-    let t3375 = t2898 * t901;
-    let t3376 = 0.14896037479937677779e-1 * t3375;
-    let t3377 = t1645 * t888;
-    (t3355, t3357, t3366, t3370, t3376, t3377)
+pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk385<F: Float>(t3203: F, t568: F, t1532: F, t1562: F, t1572: F, t193: F, t3149: F, t3153: F, t3157: F, t3159: F, t3165: F, t3166: F, t3169: F, t3173: F, t3180: F, t3182: F, t3186: F, t3194: F, t3198: F, t3200: F, t557: F, t574: F, t597: F) -> (F, F) {
+    let t3204 = t568 * t3203;
+    let t3207 = F::new(0.35750489951850426669e0) * t3149 * t193 + F::new(0.35750489951850426669e0) * t3153 * t193 + t3157 - F::new(0.10725146985555128001e1) * t3159 * t1532 - t3165 + F::new(0.71500979903700853338e0) * t1572 * t3166 - F::new(0.35750489951850426669e0) * t557 * t3169 - F::new(0.46011511144704899612e1) * t574 * t3173 - t3180 + F::new(0.11502877786176224903e2) * t597 * t3182 - F::new(0.23005755572352449806e1) * t574 * t3186 - F::new(0.7988109573733489516e-2) * t3194 + t3198 - F::new(0.69017266717057349418e1) * t1562 * t3200 + F::new(0.23005755572352449806e1) * t597 * t3204;
+    (t3204, t3207)
 }

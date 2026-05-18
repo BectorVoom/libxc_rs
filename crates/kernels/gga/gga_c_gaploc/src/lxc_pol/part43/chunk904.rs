@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 904/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 904/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk904<F: Float>(t47790: F, t47791: F, t43361: F, t43364: F, t43368: F, t43371: F, t43374: F, t43378: F, t43384: F, t43385: F, t43386: F, t43389: F, t43398: F, t43400: F, t43404: F, t43408: F, t47126: F, t47127: F, t47133: F, t47137: F, t47140: F) -> (F, F, F) {
-    let t51074 = 2.0 * t47790;
-    let t51075 = 2.0 * t47791;
-    let t51082 = t43361 - t43364 - t43368 - t47126 - t43371 - t43374 - t47127 - t43378 + t43384 - t43385 - 0.76685851907841499352e0 * t43386 + 0.72851559312449424384e1 * t43389 + t43398 - 0.1533717038156829987e1 * t43400 - t43404 + t43408 + 0.30674340763136599742e1 * t47133 - 0.51123901271894332902e1 * t47137 + 0.51123901271894332901e0 * t47140;
-    (t51074, t51075, t51082)
+pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk904<F: Float>(t13055: F, t28073: F, t32840: F, t3295: F, t9805: F, t11053: F, t9829: F, t20671: F, t28856: F, t32847: F, t40956: F, t13058: F, t28737: F) -> (F, F, F, F, F, F) {
+    let t43370 = t28073 * t13055;
+    let t43371 = F::new(0.11502877786176224903e1) * t43370;
+    let t43373 = t9805 * t32840 * t3295;
+    let t43374 = F::new(0.11502877786176224903e1) * t43373;
+    let t43377 = t9805 * t11053 * t9829;
+    let t43378 = F::new(0.11502877786176224903e1) * t43377;
+    let t43383 = t28856 * t20671 * t32847;
+    let t43384 = F::new(0.25561950635947166451e0) * t43383;
+    let t43385 = F::new(0.23005755572352449806e1) * t40956;
+    let t43386 = t28737 * t13058;
+    (t43371, t43374, t43378, t43384, t43385, t43386)
 }

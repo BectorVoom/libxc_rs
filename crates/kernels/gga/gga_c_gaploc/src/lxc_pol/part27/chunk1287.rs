@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1287/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1287/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1287<F: Float>(t12312: F, t29434: F, t29437: F, t29441: F, t29445: F, t29447: F, t29450: F, t29453: F, t29455: F, t29457: F, t32493: F, t32511: F, t32517: F, t32520: F, t5524: F, t32522: F, t32524: F, t32526: F, t32529: F, t32532: F, t32535: F, t32539: F, t32541: F, t32543: F, t32545: F, t32548: F, t32553: F, t32555: F, t32557: F) -> (F, F) {
-    let t39438 = t32493 + 0.8545029144602471425e-3 * t5524 * t12312 - t29434 - t29437 - t29441 - t29445 - t29447 + t29450 + t29453 + t29455 - t29457 + t32511 + t32517 - t32520;
-    let t39440 = -t32522 - t32524 - t32526 - t32529 + t32532 + t32535 + t32539 + t32541 + t32543 + t32545 - t32548 + t32553 + t32555 + t32557;
-    (t39438, t39440)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1287<F: Float>(t2714: F, t8556: F, t3040: F, t7593: F, t7596: F, t7590: F, t16251: F, t2103: F, t3447: F, t10713: F, t4673: F, t10717: F) -> (F, F, F, F, F, F, F) {
+    let t33863 = F::new(0.47667319935800568892e0) * t2714 * t8556;
+    let t33865 = F::new(0.35750489951850426669e0) * t7593 * t3040;
+    let t33867 = F::new(0.71500979903700853338e0) * t7596 * t3040;
+    let t33869 = F::new(0.35750489951850426669e0) * t7590 * t3040;
+    let t33872 = F::new(0.15889106645266856297e0) * t2103 * t16251 * t3447;
+    let t33878 = F::new(0.95334639871601137784e0) * t2103 * t4673 * t10713;
+    let t33881 = F::new(0.95334639871601137784e0) * t2103 * t4673 * t10717;
+    (t33863, t33865, t33867, t33869, t33872, t33878, t33881)
 }

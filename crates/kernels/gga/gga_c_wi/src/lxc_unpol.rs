@@ -41,14 +41,14 @@ pub fn gga_c_wi_lxc_unpol(
     if ip < zk.len() {
         let t1 = param_b * sigma[ip];
         let t2 = rho[ip] * rho[ip];
-        let t3 = pow_1_3(rho[ip]);
+        let t3 = pow_1_3::<f64>(rho[ip]);
         let t4 = t3 * t3;
         let t6 = 1.0 / t4 / t2;
         let t7 = param_k * sigma[ip];
         let t9 = f64::exp(-t7 * t6);
         let t12 = t1 * t6 * t9 + param_a;
         let t13 = M_CBRT3;
-        let t15 = pow_1_3(1.0 / M_PI);
+        let t15 = pow_1_3::<f64>(1.0 / M_PI);
         let t16 = t13 * t15;
         let t17 = M_CBRT4;
         let t18 = t17 * t17;

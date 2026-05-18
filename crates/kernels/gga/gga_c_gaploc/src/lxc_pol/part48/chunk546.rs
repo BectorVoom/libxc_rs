@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 546/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 546/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk546<F: Float>(t10789: F, t313: F, t3503: F, t4614: F, t2087: F, t10677: F, t723: F, t1445: F, t10783: F, t3447: F, t833: F, t3483: F, t813: F, t1457: F, t2194: F, t3484: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10948 = t313 * t10789;
-    let t10951 = t4614 * t3503;
-    let t10953 = 0.92023022289409799224e1 * t2087 * t10951;
-    let t10954 = t10677 * t723;
-    let t10955 = t1445 * t10954;
-    let t10958 = t1445 * t10783;
-    let t10961 = t4614 * t3447;
-    let t10963 = 0.15337170381568299871e2 * t833 * t10961;
-    let t10964 = t4614 * t3483;
-    let t10966 = 0.61348681526273199483e1 * t813 * t10964;
-    let t10967 = t1457 * t10783;
-    let t10971 = 0.46011511144704899612e1 * t2194 * t3484;
-    (t10948, t10953, t10954, t10955, t10958, t10963, t10966, t10967, t10971)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk546<F: Float>(t10374: F, t1445: F, t574: F, t10334: F, t10336: F, t10337: F, t10342: F, t10345: F, t10350: F, t10353: F, t10356: F, t10358: F, t10361: F, t10363: F, t10367: F, t10369: F, t10373: F, t1562: F, t1572: F, t1646: F) -> F {
+    let t10375 = t1445 * t10374;
+    let t10377 = F::new(0.46011511144704899612e1) * t574 * t10375;
+    let t10378 = t10334 + t10336 - F::new(0.35750489951850426669e0) * t10337 * t1646 - F::new(0.69017266717057349418e1) * t1562 * t10342 + F::new(0.71500979903700853338e0) * t1572 * t10345 - t10350 + t10353 - t10356 - t10358 - t10361 - t10363 - t10367 - t10369 - t10373 - t10377;
+    t10378
 }

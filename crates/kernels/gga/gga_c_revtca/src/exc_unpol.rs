@@ -21,17 +21,17 @@ pub fn gga_c_revtca_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t2 = pow_1_3(zeta_threshold);
+        let t2 = pow_1_3::<f64>(zeta_threshold);
         let t3 = t2 * t2;
-        let t4 = piecewise3(1.0 <= zeta_threshold, t3, 1.0);
+        let t4 = piecewise3::<f64>(1.0 <= zeta_threshold, t3, 1.0);
         let t5 = t4 * t4;
         let t6 = t5 * t4;
         let t7 = M_CBRT3;
-        let t9 = pow_1_3(1.0 / M_PI);
+        let t9 = pow_1_3::<f64>(1.0 / M_PI);
         let t10 = t7 * t9;
         let t11 = M_CBRT4;
         let t12 = t11 * t11;
-        let t13 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(rho[ip]);
         let t18 = 0.488827e1 + 0.79425925e0 * t10 * t12 / t13;
         let t19 = f64::atan(t18);
         let t21 = -0.655868e0 * t19 + 0.897889e0;
@@ -43,7 +43,7 @@ pub fn gga_c_revtca_exc_unpol(
         let t27 = M_CBRT6;
         let t28 = t27 * t27;
         let t29 = M_PI * M_PI;
-        let t30 = pow_1_3(t29);
+        let t30 = pow_1_3::<f64>(t29);
         let t31 = 1.0 / t30;
         let t32 = t28 * t31;
         let t33 = M_CBRT2;

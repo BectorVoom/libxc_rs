@@ -34,13 +34,13 @@ pub fn gga_c_lypr_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t2 = pow_1_3(rho[ip]);
+        let t2 = pow_1_3::<f64>(rho[ip]);
         let t3 = 1.0 / t2;
-        let t5 = erfc_approx(param_m1 * param_omega * t3);
+        let t5 = erfc_approx::<f64>(param_m1 * param_omega * t3);
         let t7 = param_d * t3 + 1.0;
         let t8 = 1.0 / t7;
         let t10 = param_m2 * param_omega;
-        let t12 = erfc_approx(t10 * t3);
+        let t12 = erfc_approx::<f64>(t10 * t3);
         let t13 = t12 * param_b;
         let t15 = f64::exp(-param_c * t3);
         let t16 = t15 * t8;
@@ -54,24 +54,24 @@ pub fn gga_c_lypr_fxc_unpol(
         let t28 = M_CBRT3;
         let t29 = t28 * t28;
         let t30 = M_PI * M_PI;
-        let t31 = pow_1_3(t30);
+        let t31 = pow_1_3::<f64>(t30);
         let t32 = t31 * t31;
         let t34 = 1.0 <= zeta_threshold;
         let t35 = zeta_threshold * zeta_threshold;
-        let t36 = pow_1_3(zeta_threshold);
+        let t36 = pow_1_3::<f64>(zeta_threshold);
         let t37 = t36 * t36;
-        let t39 = piecewise3(t34, t37 * t35, 1.0);
+        let t39 = piecewise3::<f64>(t34, t37 * t35, 1.0);
         let t43 = 5.0 / 2.0 - t24 / 18.0;
         let t44 = t43 * sigma[ip];
         let t45 = t20 * t39;
         let t48 = t24 - 11.0;
         let t49 = t48 * sigma[ip];
-        let t52 = piecewise3(t34, t37 * t35 * zeta_threshold, 1.0);
+        let t52 = piecewise3::<f64>(t34, t37 * t35 * zeta_threshold, 1.0);
         let t53 = t20 * t52;
         let t56 = M_CBRT2;
         let t57 = t56 * t56;
         let t58 = sigma[ip] * t57;
-        let t61 = piecewise3(t34, t35, 1.0);
+        let t61 = piecewise3::<f64>(t34, t35, 1.0);
         let t62 = t61 * sigma[ip];
         let t64 = t57 * t20 * t39;
         let t70 = -t21 * t26 - 3.0 / 10.0 * t29 * t32 * t39 + t44 * t45 / 8.0 + t49 * t53 / 144.0 - t56 * (4.0 / 3.0 * t58 * t45 - t62 * t64 / 2.0) / 8.0;

@@ -31,7 +31,7 @@ pub fn gga_c_ccdf_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 + rho1;
-        let t2 = pow_1_3(t1);
+        let t2 = pow_1_3::<f64>(t1);
         let t3 = 1.0 / t2;
         let t5 = param_c2 * t3 + 1.0;
         let t6 = 1.0 / t5;
@@ -41,7 +41,7 @@ pub fn gga_c_ccdf_exc_pol(
         let t10 = t9 * t9;
         let t11 = t8 * t10;
         let t12 = M_PI * M_PI;
-        let t13 = pow_1_3(t12);
+        let t13 = pow_1_3::<f64>(t12);
         let t14 = 1.0 / t13;
         let t16 = sigma0 + 2.0 * sigma1 + sigma2;
         let t17 = f64::sqrt(t16);

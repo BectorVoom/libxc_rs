@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 813/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 813/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk813<F: Float>(t1392: F, t2958: F, t1391: F, t701: F, t8469: F, t1445: F, t1835: F, t8549: F, t1865: F, t1022: F, t5750: F, t3009: F, t1457: F, t2949: F, t2959: F, t4614: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t8579 = t1392 * t2958;
-    let t8580 = t1391 * t8579;
-    let t8587 = t8469 * t701;
-    let t8588 = t1445 * t8587;
-    let t8591 = t2958 * t1835;
-    let t8592 = t1445 * t8591;
-    let t8595 = t1445 * t8549;
-    let t8600 = t2958 * t1865;
-    let t8601 = t1445 * t8600;
-    let t8604 = t5750 * t1022;
-    let t8605 = t8604 * t1865;
-    let t8606 = t1445 * t8605;
-    let t8612 = t3009 * t1865;
-    let t8613 = t1457 * t8612;
-    let t8616 = t2949 * t1865;
-    let t8617 = t1445 * t8616;
-    let t8620 = t4614 * t2959;
-    (t8580, t8588, t8592, t8595, t8600, t8601, t8604, t8606, t8612, t8613, t8617, t8620)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk813<F: Float>(t1457: F, t7245: F, t1445: F, t7259: F, t2089: F, t2530: F, t723: F, t1645: F, t1885: F, t7499: F, t7227: F, t1880: F, t733: F) -> (F, F, F, F, F, F, F, F) {
+    let t7751 = t1457 * t7245;
+    let t7756 = t1445 * t7259;
+    let t7759 = t1445 * t7245;
+    let t7764 = t2089 * t2530;
+    let t7765 = t7764 * t723;
+    let t7766 = t1445 * t7765;
+    let t7769 = t1645 * t1885;
+    let t7772 = t1457 * t7499;
+    let t7775 = t1457 * t7227;
+    let t7778 = t733 * t1880;
+    (t7751, t7756, t7759, t7766, t7769, t7772, t7775, t7778)
 }

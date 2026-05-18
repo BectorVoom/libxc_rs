@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 800/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 800/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk800<F: Float>(t743: F, t746: F, t11735: F, t11747: F, t11756: F, t11770: F, t11775: F, t11792: F, t11825: F, t11828: F, t11834: F, t11837: F, t11869: F, t11870: F, t12015: F, t256: F, t257: F, t2754: F, t2755: F, t2768: F, t2795: F, t62: F, t680: F, t690: F, t728: F, t739: F, t745: F, t747: F, t748: F, t75: F, t793: F, t799: F) -> (F,) {
-    let t12083 = t743 * t743;
-    let t12086 = t746 * t746;
-    let t12091 = -24.0 * t2768 * t12015 * t257 + 0.51947577317044391277e2 * t799 * t11735 * t690 - t11747 + t11756 - 0.12304822629859687989e5 * t75 * t11869 * t11870 * t2795 - t11770 + t11775 - t11792 - t11825 - t11828 - 0.11579025239058625248e4 * t2768 * t748 * t739 + 0.21053605041484726346e2 * t799 * t793 * t680 + 0.12865583598954028054e3 * t745 * t2754 * t747 * t256 - 8.0 * t728 * t2755 * t256 + t11834 - t11837 + 0.19964560303604640732e6 * t62 / t12083 * t12015 / t12086;
-    (t12091,)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk800<F: Float>(t301: F, t6288: F, t960: F, t1899: F, t372: F, t1866: F, t3282: F, t1567: F, t513: F, t1524: F, t530: F, t1782: F, t435: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t6289 = t6288 * t301;
+    let t6290 = t960 * t6289;
+    let t6293 = t1899 * t372;
+    let t6294 = t960 * t6293;
+    let t6297 = t3282 * t1866;
+    let t6300 = t1567 * t513;
+    let t6301 = t960 * t6300;
+    let t6304 = t530 * t1524;
+    let t6305 = t960 * t6304;
+    let t6308 = t435 * t1782;
+    (t6289, t6290, t6293, t6294, t6297, t6300, t6301, t6304, t6305, t6308)
 }

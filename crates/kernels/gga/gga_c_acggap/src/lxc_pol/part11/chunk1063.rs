@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 1063/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 1063/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk1063<F: Float>(t1679: F, t9099: F, t1680: F, t2166: F, t29953: F, t29955: F, t29958: F, t36587: F, t36592: F, t36593: F, t36601: F, t36605: F, t36610: F, t36611: F, t36617: F, t567: F, t7288: F, t8021: F, t9082: F, t9096: F, t9098: F) -> (F,) {
-    let t36619 = 4.0 * t1679 * t9099;
-    let t36620 = -t1680 * t567 * t8021 - 2.0 * t2166 * t567 * t9082 + 4.0 * t36587 * t9096 * t9098 + 6.0 * t36593 * t567 * t7288 - 6.0 * t36610 * t36611 * t9096 - t29953 + t29955 + 6.0 * t29958 + t36592 - t36601 + t36605 - t36617 + t36619;
-    (t36620,)
+pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk1063<F: Float>(t2030: F, t4586: F, t7815: F, t30640: F, t30645: F, t30647: F, t30649: F, t30653: F, t30658: F, t34566: F, t34571: F, t34575: F, t34578: F, t34582: F, t34586: F, t34590: F, t34593: F, t34595: F, t34598: F, t34601: F) -> F {
+    let t34604 = t2030 * t7815 * t4586;
+    let t34606 = -t34566 - F::new(0.10718504529517434243e-3) * t30640 - F::new(0.17149607247227894789e-2) * t30645 + t34571 + F::new(0.12862205435420921092e-2) * t30647 + F::new(0.64311027177104605458e-3) * t30649 - F::new(0.47172138434406228102e-3) * t30653 - t34575 - t30658 + F::new(0.31448092289604152068e-2) * t34578 - F::new(0.12579236915841660827e-2) * t34582 + F::new(0.18868855373762491241e-2) * t34586 - F::new(0.85748036236139473944e-3) * t34590 - t34593 + t34595 / F::new(16.0) + t34598 / F::new(32.0) + t34601 / F::new(64.0) + t34604 / F::new(128.0);
+    t34606
 }

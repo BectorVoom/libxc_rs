@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 967/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 967/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk967<F: Float>(t13849: F, t2409: F, t9296: F, t13772: F, t13778: F, t13785: F, t13789: F, t13794: F, t13801: F, t13804: F, t13810: F, t13813: F, t13818: F, t13822: F, t13826: F, t13833: F, t13837: F, t13842: F, t13846: F, t2408: F, t3066: F, t3207: F, t335: F, t827: F) -> (F, F) {
-    let t13851 = t2409 * t9296 * t13849;
-    let t13854 = -t827 * t13772 / 48.0 - t13778 / 192.0 - t13785 / 768.0 - t13789 / 3072.0 - t13794 / 24.0 + t13801 / 1536.0 + t13804 / 1536.0 - t13810 + t13813 / 96.0 + t13818 / 96.0 - t3207 * t13822 / 16.0 - t335 * t13826 / 48.0 + 5.0 / 768.0 * t13833 + t2408 * t13837 / 24.0 + t3066 * t13842 / 48.0 + t2408 * t13846 / 24.0 - t3066 * t13851 / 16.0;
-    (t13851, t13854)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk967<F: Float>(t43: F, t50: F, t8079: F, t8082: F, t8084: F, t8086: F, t8088: F, t8091: F, t8094: F, t8096: F, t8098: F, t8100: F, zeta_threshold: F) -> F {
+    let t44 = t43 <= zeta_threshold;
+    let t51 = t50 <= zeta_threshold;
+    let t8565 = piecewise3::<f64>(t44, F::new(0.0), F::new(8.0) / F::new(27.0) * t8079 - F::new(8.0) / F::new(9.0) * t8082 - F::new(2.0) / F::new(9.0) * t8084 + F::new(4.0) / F::new(3.0) * t8086 - F::new(4.0) * t8088);
+    let t8572 = piecewise3::<f64>(t51, F::new(0.0), F::new(8.0) / F::new(27.0) * t8091 + F::new(8.0) / F::new(9.0) * t8094 - F::new(2.0) / F::new(9.0) * t8096 - F::new(4.0) / F::new(3.0) * t8098 + F::new(4.0) * t8100);
+    let t8574 = t8565 / F::new(2.0) + t8572 / F::new(2.0);
+    t8574
 }

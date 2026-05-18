@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 750/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 750/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk750<F: Float>(t1127: F, t52: F, t7457: F, t11: F, t1690: F, t213: F, t6793: F, t1091: F, t2404: F, t33436: F, t1113: F, t230: F, t420: F, t7470: F, t27729: F, t6: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t35395 = t52 * t7457 * t1127;
-    let t35402 = t1690 * t11 * t6793 * t213;
-    let t35405 = t2404 * t1091;
-    let t35406 = t33436 * t35405;
-    let t35409 = t230 * t1113;
-    let t35410 = t420 * t35409;
-    let t35414 = t230 * t1127;
-    let t35415 = t420 * t35414;
-    let t35416 = t7470 * t35415;
-    let t35419 = t27729 * t6;
-    (t35395, t35402, t35405, t35406, t35409, t35410, t35414, t35415, t35416, t35419)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk750<F: Float>(t33476: F, t505: F, t2354: F, t446: F, t33253: F, t713: F, t193: F, t89: F, t33452: F, t676: F, t27: F, t33340: F, t33344: F, t33349: F, t33455: F, t33459: F, t33463: F, t33467: F, t33471: F, t33475: F) -> (F, F, F, F, F, F, F) {
+    let t33477 = t33476 * t505;
+    let t33478 = t2354 * t33477;
+    let t33479 = t446 * t33478;
+    let t33481 = t33253 * t713;
+    let t33482 = t193 * t33481;
+    let t33483 = t89 * t33482;
+    let t33485 = t676 * t33452;
+    let t33487 = t89 * t27 * t33485;
+    let t33488 = t33340 + t33344 / F::new(6.0) + t33349 - t33455 / F::new(2.0) - t33459 - F::new(2.0) / F::new(3.0) * t33463 - F::new(6.0) * t33467 + F::new(4.0) * t33471 + t33475 + t33479 / F::new(3.0) + F::new(2.0) * t33483 - t33487;
+    (t33478, t33479, t33481, t33483, t33485, t33487, t33488)
 }

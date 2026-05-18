@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 464/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 17 (v4rho3sigma_5) CSE chunk 464/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk464<F: Float>(t1339: F, t1378: F, t1971: F, t163: F, t169: F, t234: F, t784: F, t299: F, t684: F, t1243: F, t1251: F, t7: F, t226: F, t1354: F, t225: F, t666: F, t679: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t1973 = 0.49542756944904978052e-3 * t1339 * t1378 * t1971;
-    let t1977 = 0.23948468020509218188e-1 * t169 * t784 * t234 * t163;
-    let t1980 = t169 * t299 * t684 * t163;
-    let t1984 = -0.55e0 * t1243 + 5.0 / 18.0 * t1251;
-    let t1985 = t1984 * M_PI;
-    let t1986 = t1985 * t7;
-    let t1988 = 4.0 / 3.0 * t226 * t1986;
-    let t1989 = t1354 * t225;
-    let t1992 = t666 * t679;
-    (t1973, t1977, t1980, t1984, t1985, t1986, t1988, t1989, t1992)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk464<F: Float>(t1866: F, t598: F, t186: F, t185: F, t1406: F, t198: F, t561: F, t579: F, t612: F, t1789: F, t1797: F, t1800: F, t1808: F, t1814: F, t1819: F, t1826: F, t1831: F, t1841: F, t267: F) -> (F, F, F, F, F, F, F, F) {
+    let t1867 = t598 * t1866;
+    let t1868 = t186 * t1867;
+    let t1870 = F::new(2.0) / F::new(15.0) * t185 * t1868;
+    let t1871 = t198 * t1406;
+    let t1872 = t186 * t1871;
+    let t1874 = F::new(4.0) / F::new(15.0) * t561 * t1872;
+    let t1876 = F::new(4.0) / F::new(15.0) * t579 * t612;
+    let t1877 = t1789 + t1797 + t1800 + t1808 + t1814 - t1819 + t1826 - t1831 - t1841 * t267 / F::new(15.0) - t1870 + t1874 - t1876;
+    (t1867, t1868, t1870, t1871, t1872, t1874, t1876, t1877)
 }

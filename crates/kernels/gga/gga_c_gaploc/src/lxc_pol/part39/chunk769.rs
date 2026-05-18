@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 769/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 769/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk769<F: Float>(t2487: F, t2488: F, t40190: F, t2365: F, t29985: F, t4391: F, t1429: F, t30140: F, t29854: F, t29970: F, t6963: F, t12526: F, t587: F, t589: F, t6985: F, t30209: F, t7025: F) -> (F, F, F, F, F, F, F, F) {
-    let t40546 = t2487 * t2488 * t40190;
-    let t40549 = t4391 * t2365 * t29985;
-    let t40555 = t1429 * t2365 * t30140;
-    let t40558 = t4391 * t2365 * t29854;
-    let t40561 = t6963 * t2365 * t29970;
-    let t40564 = t587 * t589 * t12526;
-    let t40567 = t2487 * t6985 * t12526;
-    let t40570 = t7025 * t2365 * t30209;
-    (t40546, t40549, t40555, t40558, t40561, t40564, t40567, t40570)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk769<F: Float>(t3005: F, t3295: F, t9800: F, t11053: F, t9805: F, t1029: F, t9796: F, t12665: F, t12667: F, t123: F, t3431: F, t883: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t13052 = t3005 * t3295;
+    let t13053 = t9800 * t13052;
+    let t13054 = F::new(0.19171462976960374838e1) * t13053;
+    let t13055 = t11053 * t3295;
+    let t13056 = t9805 * t13055;
+    let t13057 = F::new(0.11502877786176224903e1) * t13056;
+    let t13058 = t1029 * t3295;
+    let t13059 = t9796 * t13058;
+    let t13060 = F::new(0.76685851907841499353e0) * t13059;
+    let t13061 = F::new(0.59584149919750711116e-1) * t12665;
+    let t13062 = F::new(0.89376224879626066674e-1) * t12667;
+    let t13063 = t3431 * t123;
+    let t13064 = t13063 * t883;
+    (t13052, t13054, t13055, t13057, t13058, t13060, t13061, t13062, t13063, t13064)
 }

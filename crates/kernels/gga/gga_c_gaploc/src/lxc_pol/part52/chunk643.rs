@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 643/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 52 (v4rhosigma3_17) CSE chunk 643/1013 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk643<F: Float>(t14267: F, t531: F, t14266: F, t189: F, t188: F, t12940: F, t13417: F, t13423: F, t13424: F, t13425: F, t13428: F, t13436: F, t13440: F, t13789: F, t13793: F, t193: F, t557: F) -> (F, F, F, F) {
-    let t14331 = t531 * t14267;
-    let t14334 = t189 * t14266;
-    let t14335 = t188 * t14334;
-    let t14338 = -0.63904876589867916127e-1 * t12940 + t13417 - t13423 + 0.59584149919750711116e-1 * t13789 - 0.59584149919750711116e-1 * t13793 - t13424 - t13425 - 0.35750489951850426669e0 * t557 * t14331 + 0.35750489951850426669e0 * t14335 * t193 - t13428 + t13436 - t13440;
-    (t14331, t14334, t14335, t14338)
+pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk643<F: Float>(t12012: F, t123: F, t488: F, t12000: F, t169: F, t172: F, t452: F, t10248: F, t10251: F, t10255: F, t10259: F, t10261: F, t10264: F, t10267: F, t10271: F, t10275: F, t10278: F, t105: F, t1358: F, t3692: F, t3696: F, t380: F, t419: F) -> (F, F) {
+    let t12013 = t12012 * t123;
+    let t12014 = t12013 * t488;
+    let t12018 = t12000 * t169 * t172;
+    let t12019 = t452 * t12018;
+    let t12028 = -t10248 + t10251 - t10255 - t10259 + t10261 + t10264 + t10267 - t10271 - t10275 - F::new(0.31616674039640166221e-2) * t1358 * t12014 + F::new(0.28455006635676149599e-1) * t105 * t12019 - F::new(0.37940008847568199465e-1) * t380 * t3696 + F::new(0.37940008847568199465e-1) * t380 * t3692 - F::new(0.28455006635676149599e-1) * t419 * t3696 + t10278;
+    (t12013, t12028)
 }

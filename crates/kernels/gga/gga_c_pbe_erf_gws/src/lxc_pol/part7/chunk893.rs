@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 893/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 893/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk893<F: Float>(t5202: F, t735: F, t108: F, t1403: F, t1407: F, t1413: F, t1416: F, t1523: F, t1528: F, t16648: F, t16651: F, t16653: F, t16655: F, t16657: F, t16662: F, t16665: F, t16668: F, t16669: F, t16679: F, t16746: F, t16756: F, t16758: F, t16973: F, t16978: F, t16986: F, t267: F, t4360: F, t4373: F, t476: F, t478: F, t5189: F, t5196: F, t726: F, t728: F, t92: F, t93: F) -> (F,) {
-    let t18160 = t5202 * t735;
-    let t18188 = -t16648 + t16651 + t16653 + t16655 + t16657 + t16662 + t16665 - t16668 + t16756 - 8.0 / 45.0 * t18160 - (-40.0 / 81.0 * t1523 * t16669 + 80.0 / 9.0 * t476 * t1403 * t1407 + 20.0 / 3.0 * t92 * t16679 + 80.0 / 9.0 * t5189 * t4360 + 4.0 / 3.0 * t726 * t16746 - 40.0 / 81.0 * t1528 * t16973 + 80.0 / 9.0 * t478 * t1413 * t1416 + 20.0 / 3.0 * t93 * t16986 + 80.0 / 9.0 * t5196 * t4373 + 4.0 / 3.0 * t728 * t16978) * t108 * t267 / 15.0 - t16758;
-    (t18188,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk893<F: Float>(t155: F, t1660: F, t1665: F, t587: F, t5009: F, t5283: F, t1804: F, t1866: F, t1885: F, t5175: F, t1652: F, t5304: F) -> (F, F, F, F) {
+    let t16942 = t155 * t1660;
+    let t16944 = t587 * t16942 * t1665;
+    let t16945 = F::new(16.0) / F::new(81.0) * t16944;
+    let t16947 = t587 * t5283 * t5009;
+    let t16948 = F::new(64.0) / F::new(27.0) * t16947;
+    let t16953 = F::new(24.0) / F::new(5.0) * t587 * t1885 * t5175 * t1804 * t1866;
+    let t16954 = t5304 * t1652;
+    (t16945, t16948, t16953, t16954)
 }

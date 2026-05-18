@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 724/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 48 (v4rhosigma3_13) CSE chunk 724/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk724<F: Float>(t44283: F, t123: F, t37975: F, t40165: F, t9074: F, t13401: F, t1358: F, t2299: F, t488: F, t42579: F, t3529: F, t874: F) -> (F, F, F, F, F) {
-    let t44284 = 0.71137516589190373998e-2 * t44283;
-    let t44285 = t37975 * t123;
-    let t44287 = t9074 * t44285 * t40165;
-    let t44288 = 0.142275033178380748e-1 * t44287;
-    let t44292 = 0.31616674039640166221e-2 * t1358 * t2299 * t13401 * t488;
-    let t44293 = 0.47425011059460249332e-2 * t42579;
-    let t44294 = t3529 * t874;
-    (t44284, t44288, t44292, t44293, t44294)
+pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk724<F: Float>(t13538: F, t1457: F, t13506: F, t6060: F, t13073: F, t1036: F, t11001: F, t13066: F, t13070: F, t13669: F, t13673: F, t13679: F, t13681: F, t13682: F, t13685: F, t2103: F, t3025: F, t317: F, t833: F) -> (F, F, F) {
+    let t13688 = t1457 * t13538;
+    let t13691 = t1457 * t13506;
+    let t13693 = F::new(0.21450293971110256001e1) * t6060 * t13691;
+    let t13695 = F::new(0.17875244975925213335e0) * t13073;
+    let t13696 = -F::new(0.76685851907841499353e0) * t13066 + F::new(0.23005755572352449806e1) * t833 * t13669 + F::new(0.35750489951850426669e0) * t13673 * t317 + F::new(0.71500979903700853338e0) * t1036 * t11001 + t13679 + t13681 - F::new(0.21450293971110256002e1) * t3025 * t13682 + F::new(0.23005755572352449806e2) * t833 * t13685 + F::new(0.14300195980740170668e1) * t2103 * t13688 - t13693 + F::new(0.76685851907841499353e0) * t13070 - t13695;
+    (t13688, t13691, t13696)
 }

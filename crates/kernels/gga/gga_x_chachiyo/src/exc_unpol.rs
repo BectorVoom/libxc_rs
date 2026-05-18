@@ -26,13 +26,13 @@ pub fn gga_x_chachiyo_exc_unpol(
         let t4 = M_CBRTPI;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = t10 + 1.0;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
         let t18 = t3 / t4 * t17;
-        let t19 = pow_1_3(rho[ip]);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t4 * t4;
         let t21 = t3 * t20;
         let t22 = rho[ip] * rho[ip];
@@ -51,7 +51,7 @@ pub fn gga_x_chachiyo_exc_unpol(
         let t45 = 1.0 / t44;
         let t46 = 1.0 / t39;
         let t47 = t45 * t46;
-        let t51 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t41 * t47);
+        let t51 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t41 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;
     }

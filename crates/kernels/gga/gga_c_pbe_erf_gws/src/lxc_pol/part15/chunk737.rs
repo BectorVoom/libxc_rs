@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 737/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 737/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk737<F: Float>(t1557: F, t5767: F, t1513: F, t4516: F, t103: F, t2: F, t39: F, t497: F, t542: F, t496: F, t1548: F, t156: F, t120: F, t1508: F, t19: F, t5763: F) -> (F, F, F, F, F, F, F, F) {
-    let t5768 = t1557 * t5767;
-    let t5770 = t1513 * t5767;
-    let t5772 = param_hyb_omega_0 * t4516;
-    let t5773 = t103 * t2;
-    let t5776 = 0.19486833333333333333e1 * t5772 * t5773 * t39;
-    let t5783 = t542 * t497;
-    let t5784 = t496 * t5783;
-    let t5787 = t156 * t1548;
-    let t5788 = t496 * t5787;
-    let t5795 = t1508 * t120 * t19;
-    let t5796 = t5795 * t5763;
-    (t5768, t5770, t5776, t5783, t5784, t5787, t5788, t5796)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk737<F: Float>(t1289: F, t387: F, t13: F, t1292: F, t30: F, t4510: F, t2704: F, t2718: F, t4518: F, t4521: F, t4524: F, t4529: F, t4531: F, t4533: F) -> (F, F) {
+    let t4658 = F::new(1.0) / t1289 / t387;
+    let t4659 = t13 * t4658;
+    let t4661 = F::new(1.0) / t1292 / t30;
+    let t4662 = t4510 * t4661;
+    let t4663 = t4659 * t4662;
+    let t4664 = F::new(0.51725014705706168417e3) * t4663;
+    let t4673 = -F::new(0.47063e1) * t4518 + F::new(0.31375333333333333334e1) * t4521 - F::new(0.36604555555555555556e1) * t4524 - F::new(0.16068111111111111111e1) * t2704 + F::new(0.28051666666666666666e0) * t4529 - F::new(0.56103333333333333332e0) * t4531 - F::new(0.6545388888888888889e0) * t4533 - F::new(0.46308888888888888888e0) * t2718;
+    (t4664, t4673)
 }

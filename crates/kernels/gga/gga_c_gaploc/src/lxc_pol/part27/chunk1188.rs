@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1188/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 1188/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1188<F: Float>(t15482: F, t20549: F, t35101: F, t10540: F, t18067: F, t2365: F, t25730: F, t4391: F, t25580: F, t20671: F, t27007: F, t31047: F, t6907: F, t9263: F, t993: F, t2890: F, t9267: F) -> (F, F, F, F, F, F, F) {
-    let t35104 = 0.34082600847929555269e0 * t20549 * t15482 * t35101;
-    let t35109 = t18067 * t10540;
-    let t35110 = 0.59584149919750711116e-1 * t35109;
-    let t35112 = t4391 * t2365 * t25730;
-    let t35113 = 0.59584149919750711116e-1 * t35112;
-    let t35115 = t4391 * t2365 * t25580;
-    let t35116 = 0.29792074959875355558e-1 * t35115;
-    let t35119 = t31047 * t20671 * t27007;
-    let t35120 = 0.42603251059911944084e0 * t35119;
-    let t35122 = t9263 * t993 * t6907;
-    let t35123 = 0.76685851907841499352e0 * t35122;
-    let t35125 = t9267 * t2890 * t6907;
-    (t35104, t35110, t35113, t35116, t35120, t35123, t35125)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk1188<F: Float>(t10429: F, t1358: F, t2299: F, t488: F, t2268: F, t27102: F, t6316: F, t10249: F, t6313: F, t31590: F, t426: F, t535: F) -> (F, F, F, F) {
+    let t31998 = F::new(0.63233348079280332442e-2) * t1358 * t2299 * t10429 * t488;
+    let t32001 = F::new(0.14227503317838074799e1) * t2268 * t6316 * t27102;
+    let t32003 = F::new(0.91056021234163678716e0) * t6313 * t10249;
+    let t32005 = t31590 * t426;
+    let t32008 = F::new(0.56910013271352299198e-1) * t2268 * t535 * t32005;
+    (t31998, t32001, t32003, t32008)
 }

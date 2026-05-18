@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 860/1293 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 860/1451 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk860<F: Float>(t10348: F, t13649: F, t13651: F, t13653: F, t16650: F, t16747: F, t16750: F, t16763: F, t16766: F, t8319: F, t8321: F, t10188: F, t13699: F, t13701: F, t13703: F, t16630: F, t16634: F, t16638: F, t16642: F, t16646: F, t16756: F, t16759: F) -> (F, F) {
-    let t17263 = 0.821e-3 * t13649 - 0.4926e-2 * t13651 + 0.2463e-2 * t13653 - t8319 - 0.19388333333333333333e1 * t16650 - t8321 - 0.7389e-2 * t16747 + 0.7389e-2 * t16763 + 0.2463e-2 * t16750 - 0.12315e-2 * t16766 - 0.4105e-2 * t10348;
-    let t17275 = 0.12925555555555555555e1 * t13699 - 0.38776666666666666665e1 * t13701 + 0.19388333333333333333e1 * t13703 - 0.2585111111111111111e1 * t10188 + 0.77553333333333333331e1 * t16634 - 0.38776666666666666665e1 * t16638 - 0.11633e2 * t16642 + 0.11633e2 * t16646 - 0.21542592592592592592e1 * t16630 - 0.54733333333333333333e-3 * t16756 - 0.12315e-2 * t16759;
-    (t17263, t17275)
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk860<F: Float>(t16287: F, t185: F, t108: F, t176: F, t1303: F, t13056: F, t13573: F, t13578: F, t16341: F, t16342: F, t16344: F, t16345: F, t203: F, t3308: F, t6480: F, t6484: F, t6816: F) -> (F, F) {
+    let t16604 = t185 * t16287;
+    let t16606 = t176 * t16604 * t108;
+    let t16614 = t16341 + t16342 + t16344 + t6816 - t16345 + t16606 * t203 / F::new(2.0) - F::new(0.77534644304710291488e-2) * t3308 * t13056 * t1303 + F::new(3.0) * t13573 + F::new(3.0) / F::new(2.0) * t13578 - t6480 - t6484;
+    (t16606, t16614)
 }

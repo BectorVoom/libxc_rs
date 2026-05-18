@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 547/1222 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 547/1404 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk547<F: Float>(t2928: F, t3024: F, t312: F, t1267: F, t1271: F, t1394: F, t1398: F, t1446: F, t2098: F, t2510: F, t2511: F, t2512: F, t2514: F, t2516: F, t2517: F, t2842: F, t2844: F, t2846: F) -> (F, F) {
-    let t3025 = t2928 + t3024;
-    let t3026 = t3025 * t312;
-    let t3027 = -t2510 - t1271 - t2511 + t1446 - t2512 + t2514 + t2516 - t1267 + t2098 - t1394 - t1398 - t2517 - t3026 - t2842 - t2844 + t2846;
-    (t3025, t3027)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk547<F: Float>(t1006: F, t583: F, t1689: F, t1743: F, t2696: F, t2699: F, t2702: F, t2707: F, t203: F, t184: F, t221: F, t1755: F, t1756: F, t2760: F, t2763: F, t2766: F, t2770: F) -> (F, F, F, F, F, F, F) {
+    let t2807 = t1006 * t583;
+    let t2808 = F::new(4.0) / F::new(45.0) * t2807;
+    let t2814 = -t1743 - F::new(0.62972222222222222223e-3) * t1689 - F::new(0.62972222222222222223e-3) * t2696 + F::new(0.12594444444444444445e-2) * t2699 - F::new(0.37783333333333333334e-2) * t2702 - F::new(0.37783333333333333334e-2) * t2707;
+    let t2815 = t203 * t2814;
+    let t2816 = t2815 * t184;
+    let t2818 = F::new(2.0) / F::new(15.0) * t2816 * t221;
+    let t2824 = -t1755 - F::new(0.62972222222222222223e-3) * t1756 - F::new(0.62972222222222222223e-3) * t2760 + F::new(0.12594444444444444445e-2) * t2763 - F::new(0.37783333333333333334e-2) * t2766 + F::new(0.37783333333333333334e-2) * t2770;
+    (t2807, t2808, t2814, t2815, t2816, t2818, t2824)
 }

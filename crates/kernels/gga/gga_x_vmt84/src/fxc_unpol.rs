@@ -34,17 +34,17 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = M_CBRT6;
         let t21 = param_mu * t20;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t25 = 1.0 / t24;
         let t26 = t25 * sigma[ip];
@@ -78,7 +78,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t69 = 1.0 / sigma[ip];
         let t70 = t69 * t28;
         let t74 = t27 * t48 / 24.0 + 2.0 * t68 * t70 * t32 + t65;
-        let t78 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t74);
+        let t78 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t74);
         let tzk0 = 2.0 * t78;
         zk[ip] += tzk0;
         let t80 = t17 / t31;
@@ -104,7 +104,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t116 = t31 * rho[ip];
         let t120 = t96 * t65;
         let t124 = -t27 * t88 / 9.0 + t93 * t97 * t99 / 108.0 + t105 * t109 / 108.0 - 2.0 / 9.0 * t36 * t37 * t112 + 16.0 / 3.0 * t68 * t70 * t116 + t55 * t57 * t120 / 54.0;
-        let t129 = piecewise3(t2, 0.0, -t6 * t80 * t74 / 8.0 - 3.0 / 8.0 * t6 * t19 * t124);
+        let t129 = piecewise3::<f64>(t2, 0.0, -t6 * t80 * t74 / 8.0 - 3.0 / 8.0 * t6 * t19 * t124);
         let tvrho0 = 2.0 * rho[ip] * t129 + 2.0 * t78;
         vrho[ip] += tvrho0;
         let t134 = t54 * sigma[ip];
@@ -114,7 +114,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t148 = t147 * t28;
         let t152 = sigma[ip] * t28;
         let t157 = t42 * t48 / 24.0 - t91 * t134 * t136 * t99 / 288.0 - t104 * t134 * t141 / 288.0 + t36 * t34 * t65 / 12.0 - 2.0 * t68 * t148 * t32 - t55 * t152 * t61 * t65 / 144.0;
-        let t161 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t157);
+        let t161 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t157);
         let tvsigma0 = 2.0 * rho[ip] * t161;
         vsigma[ip] += tvsigma0;
         let t165 = t17 / t116;
@@ -150,7 +150,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t240 = 1.0 / t31 / t238;
         let t241 = t240 * t65;
         let t245 = 11.0 / 27.0 * t27 * t175 - t93 * t181 * t99 / 12.0 - t105 * t185 / 12.0 + t192 * t195 * t196 * t47 / 81.0 + 2.0 / 81.0 * t202 * t195 * param_alpha * t108 + 2.0 / 81.0 * t209 * t195 * t41 * t212 + 2.0 / 9.0 * t36 * t37 * t216 - 4.0 / 81.0 * t220 * t191 * t195 * t65 + 80.0 / 9.0 * t68 * t70 * t31 - 19.0 / 162.0 * t55 * t57 * t228 + t235 * t237 * t241 / 486.0;
-        let t250 = piecewise3(t2, 0.0, t6 * t165 * t74 / 12.0 - t6 * t80 * t124 / 4.0 - 3.0 / 8.0 * t6 * t19 * t245);
+        let t250 = piecewise3::<f64>(t2, 0.0, t6 * t165 * t74 / 12.0 - t6 * t80 * t124 / 4.0 - 3.0 / 8.0 * t6 * t19 * t245);
         let tv2rho20 = 2.0 * rho[ip] * t250 + 4.0 * t129;
         v2rho2[ip] += tv2rho20;
         let t258 = t54 * t28;
@@ -166,7 +166,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t300 = t193 * t84;
         let t302 = 1.0 / t31 / t300;
         let t307 = -t42 * t88 / 9.0 + t259 * t260 * t262 / 36.0 + t266 * t96 * t41 * t268 / 36.0 - t190 * t56 * t274 * t196 * t47 / 216.0 - t201 * t56 * t274 * param_alpha * t108 / 108.0 - t208 * t56 * t286 / 108.0 + t220 * t274 * t56 * t65 / 54.0 - 16.0 / 3.0 * t68 * t148 * t116 + t55 * t152 * t120 / 27.0 - t235 * t299 * t302 * t65 / 1296.0;
-        let t312 = piecewise3(t2, 0.0, -t6 * t80 * t157 / 8.0 - 3.0 / 8.0 * t6 * t19 * t307);
+        let t312 = piecewise3::<f64>(t2, 0.0, -t6 * t80 * t157 / 8.0 - 3.0 / 8.0 * t6 * t19 * t307);
         let tv2rhosigma0 = 2.0 * rho[ip] * t312 + 2.0 * t161;
         v2rhosigma[ip] += tv2rhosigma0;
         let t319 = t104 * t54;
@@ -178,7 +178,7 @@ pub fn gga_x_vmt84_fxc_unpol(
         let t348 = t347 * t28;
         let t357 = 1.0 / t31 / t194;
         let t362 = -t259 * t61 * param_alpha * t47 / 144.0 - t319 * t141 / 144.0 + t190 * sigma[ip] * t323 * t196 * t47 / 576.0 + t201 * sigma[ip] * t323 * param_alpha * t108 / 288.0 + t208 * sigma[ip] * t335 / 288.0 - t220 * t323 * sigma[ip] * t65 / 144.0 - t36 * t342 * t343 / 12.0 + 4.0 * t68 * t348 * t32 - t55 * t136 * t65 / 144.0 + t235 * t56 * t29 * t357 * t65 / 3456.0;
-        let t366 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t362);
+        let t366 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t362);
         let tv2sigma20 = 2.0 * rho[ip] * t366;
         v2sigma2[ip] += tv2sigma20;
     }

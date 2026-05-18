@@ -37,7 +37,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t4 = t3 * t3;
         let t5 = 1.0 / t4;
         let t7 = -t2 * t5 + 1.0;
-        let t8 = pow_1_3(t3);
+        let t8 = pow_1_3::<f64>(t3);
         let t9 = 1.0 / t8;
         let t11 = 1.0 + 0.349e0 * t9;
         let t12 = 1.0 / t11;
@@ -58,8 +58,8 @@ pub fn gga_c_cs1_fxc_pol(
         let t36 = t1 * t35;
         let t37 = 1.0 + t36;
         let t38 = t37 <= zeta_threshold;
-        let t39 = piecewise3(t38, zeta_threshold, t37);
-        let t40 = pow_1_3(rho0);
+        let t39 = piecewise3::<f64>(t38, zeta_threshold, t37);
+        let t40 = pow_1_3::<f64>(rho0);
         let t41 = t39 * t40;
         let t42 = t40 + 0.349e0;
         let t43 = 1.0 / t42;
@@ -78,8 +78,8 @@ pub fn gga_c_cs1_fxc_pol(
         let t64 = t41 * t62 / 2.0;
         let t65 = 1.0 - t36;
         let t66 = t65 <= zeta_threshold;
-        let t67 = piecewise3(t66, zeta_threshold, t65);
-        let t68 = pow_1_3(rho1);
+        let t67 = piecewise3::<f64>(t66, zeta_threshold, t65);
+        let t68 = pow_1_3::<f64>(rho1);
         let t69 = t67 * t68;
         let t70 = t68 + 0.349e0;
         let t71 = 1.0 / t70;
@@ -124,7 +124,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t126 = t13 * t125;
         let t127 = t126 / 4.0;
         let t128 = t35 - t93;
-        let t129 = piecewise3(t38, 0.0, t128);
+        let t129 = piecewise3::<f64>(t38, 0.0, t128);
         let t130 = t129 * t40;
         let t131 = t130 * t62;
         let t132 = t131 / 2.0;
@@ -150,7 +150,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t160 = t43 * t159;
         let t161 = t41 * t160;
         let t162 = t161 / 2.0;
-        let t164 = piecewise3(t66, 0.0, -t128);
+        let t164 = piecewise3::<f64>(t66, 0.0, -t128);
         let t165 = t164 * t68;
         let t166 = t165 * t90;
         let t167 = t166 / 2.0;
@@ -161,11 +161,11 @@ pub fn gga_c_cs1_fxc_pol(
         let t173 = t172 * t32;
         let t174 = t173 / 4.0;
         let t175 = -t35 - t93;
-        let t176 = piecewise3(t38, 0.0, t175);
+        let t176 = piecewise3::<f64>(t38, 0.0, t175);
         let t177 = t176 * t40;
         let t178 = t177 * t62;
         let t179 = t178 / 2.0;
-        let t181 = piecewise3(t66, 0.0, -t175);
+        let t181 = piecewise3::<f64>(t66, 0.0, -t175);
         let t182 = t181 * t68;
         let t183 = t182 * t90;
         let t184 = t183 / 2.0;
@@ -230,7 +230,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t273 = 0.67667222222222222217e-2 * t272;
         let t274 = t1 * t95;
         let t276 = -2.0 * t5 + 2.0 * t274;
-        let t277 = piecewise3(t38, 0.0, t276);
+        let t277 = piecewise3::<f64>(t38, 0.0, t276);
         let t278 = t277 * t40;
         let t279 = t278 * t62;
         let t280 = t279 / 2.0;
@@ -263,7 +263,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t319 = t43 * t318;
         let t320 = t41 * t319;
         let t321 = t320 / 2.0;
-        let t323 = piecewise3(t66, 0.0, -t276);
+        let t323 = piecewise3::<f64>(t66, 0.0, -t276);
         let t324 = t323 * t68;
         let t325 = t324 * t90;
         let t326 = t325 / 2.0;
@@ -310,7 +310,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t381 = t380 * t107;
         let t383 = t172 * t125;
         let t387 = 2.0 * t274;
-        let t388 = piecewise3(t38, 0.0, t387);
+        let t388 = piecewise3::<f64>(t38, 0.0, t387);
         let t389 = t388 * t40;
         let t390 = t389 * t62;
         let t392 = t176 * t133;
@@ -318,7 +318,7 @@ pub fn gga_c_cs1_fxc_pol(
         let t395 = t176 * t137;
         let t396 = t395 * t141;
         let t398 = t177 * t160;
-        let t400 = piecewise3(t66, 0.0, -t387);
+        let t400 = piecewise3::<f64>(t66, 0.0, -t387);
         let t401 = t400 * t68;
         let t402 = t401 * t90;
         let t404 = t164 * t185;
@@ -331,11 +331,11 @@ pub fn gga_c_cs1_fxc_pol(
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t417 = 0.58166666666666666664e-1 * t381;
         let t419 = 2.0 * t5 + 2.0 * t274;
-        let t420 = piecewise3(t38, 0.0, t419);
+        let t420 = piecewise3::<f64>(t38, 0.0, t419);
         let t421 = t420 * t40;
         let t422 = t421 * t62;
         let t423 = t422 / 2.0;
-        let t425 = piecewise3(t66, 0.0, -t419);
+        let t425 = piecewise3::<f64>(t66, 0.0, -t419);
         let t426 = t425 * t68;
         let t427 = t426 * t90;
         let t428 = t427 / 2.0;

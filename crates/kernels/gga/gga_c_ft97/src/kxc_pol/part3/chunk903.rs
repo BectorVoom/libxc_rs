@@ -1,0 +1,21 @@
+//! GGA_C_FT97 kxc pol — kxc_pol part 3 (v3rho3_2) CSE chunk 903/1032 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::expint_e1::{xc_e1_scaled};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk903<F: Float>(t17899: F, t2394: F, t1127: F, t3751: F, t680: F, t1096: F, t3817: F, t122: F, t237: F, t3758: F, t1113: F, t689: F) -> (F, F, F, F, F) {
+    let t17933 = t2394 * t17899;
+    let t17936 = t3751 * t1127;
+    let t17937 = t680 * t17936;
+    let t17941 = t680 * t1096 * t3817;
+    let t17944 = t237 * t122;
+    let t17945 = t3758 * t17944;
+    let t17946 = t689 * t1113;
+    (t17933, t17937, t17941, t17945, t17946)
+}

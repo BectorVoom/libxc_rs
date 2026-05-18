@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1101/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1101/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1101<F: Float>(t49463: F, t823: F, t850: F, t852: F, t860: F, t3703: F, t1130: F, t11706: F, t13086: F, t13325: F, t13328: F, t13331: F, t21010: F, t2181: F, t27917: F, t3154: F, t339: F, t340: F, t3717: F, t38451: F, t3848: F, t3851: F, t45901: F, t48985: F, t49436: F, t49955: F, t6429: F, t870: F, t9056: F) -> (F, F, F) {
-    let t49986 = t850 * t49463 * t823 * t852 * t860 / 96.0;
-    let t50002 = t3703 * t3703;
-    let t50018 = -48.0 * t1130 * t13086 * t2181 - 360.0 * t21010 * t339 * t50002 - 36.0 * t2181 * t339 * t49955 - t339 * t340 * t49436 + 3.0 * t339 * t48985 * t870 + 360.0 * t3717 * t3848 * t6429 + 12.0 * t1130 * t45901 + 18.0 * t11706 * t3851 + 240.0 * t13325 * t27917 - 144.0 * t13328 * t9056 + 12.0 * t13331 * t3154 - 72.0 * t38451 * t3848;
-    (t49986, t50002, t50018)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1101<F: Float>(t10848: F, t3415: F, t40498: F, t40527: F, t40547: F, t40563: F, t47586: F, t47587: F, t47616: F, t47617: F, t47618: F, t47622: F, t47626: F) -> (F, F, F, F, F, F) {
+    let t47628 = F::new(16.0) / F::new(15.0) * t10848 * t3415;
+    let t47629 = F::new(32.0) / F::new(15.0) * t40498;
+    let t47630 = F::new(64.0) / F::new(45.0) * t40527;
+    let t47631 = F::new(16.0) / F::new(45.0) * t40547;
+    let t47632 = F::new(16.0) / F::new(15.0) * t40563;
+    let t47633 = t47586 - t47587 + t47616 - t47617 - t47618 + t47622 - t47626 - t47628 + t47629 + t47630 - t47631 - t47632;
+    (t47628, t47629, t47630, t47631, t47632, t47633)
 }

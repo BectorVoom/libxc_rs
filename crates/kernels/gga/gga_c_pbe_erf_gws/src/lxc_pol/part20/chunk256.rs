@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 256/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 256/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk256<F: Float>(t386: F, t407: F, t411: F, t416: F, t429: F, t462: F, t464: F, t469: F, t474: F, t794: F, t803: F) -> (F,) {
-    let t814 = t386 + t407 + t411 - t416 + t429 + t462 + t464 - t469 - t474 - t794 - t803;
-    (t814,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk256<F: Float>(t43: F, t50: F, t477: F, t479: F, zeta_threshold: F) -> F {
+    let t44 = t43 <= zeta_threshold;
+    let t51 = t50 <= zeta_threshold;
+    let t806 = piecewise3::<f64>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t477);
+    let t808 = piecewise3::<f64>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t479);
+    let t810 = t806 / F::new(2.0) + t808 / F::new(2.0);
+    t810
 }

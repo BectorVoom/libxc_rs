@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 945/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 945/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk945<F: Float>(t13500: F, t2323: F, t13337: F, t2164: F, t13171: F, t2306: F, t339: F, t13490: F, t3116: F, t6183: F, t11794: F, t8824: F, t13463: F, t13405: F, t8967: F, t13518: F, t2142: F) -> (F, F, F, F, F, F, F, F) {
-    let t46524 = t2323 * t13500;
-    let t46536 = t2164 * t13337;
-    let t46544 = t2306 * t13171 * t339;
-    let t46549 = t3116 * t6183 * t13490;
-    let t46566 = t11794 * t8824;
-    let t46596 = t2164 * t13463;
-    let t46598 = t8967 * t13405;
-    let t46615 = t13518 * t2142;
-    (t46524, t46536, t46544, t46549, t46566, t46596, t46598, t46615)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk945<F: Float>(t2052: F, t4836: F, t4839: F, t4842: F, t4845: F, t4848: F, t4853: F, t4855: F, t4857: F, t4860: F, t4863: F, t1438: F, t2515: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t21884 = t2052 * t2052;
+    let t21885 = F::new(1.0) / t21884;
+    let t21910 = F::new(0.14035736153892489771e2) * t4836;
+    let t21911 = F::new(0.86748647062252193714e-1) * t4839;
+    let t21912 = F::new(0.13012297059337829057e0) * t4842;
+    let t21913 = F::new(0.1926377843805564792e1) * t4845;
+    let t21914 = F::new(0.65061485296689145286e-1) * t4848;
+    let t21917 = F::new(384.0) * t4853;
+    let t21920 = F::new(96.0) * t4855;
+    let t21921 = F::new(576.0) * t4857;
+    let t21922 = F::new(960.0) * t4860;
+    let t21923 = F::new(480.0) * t4863;
+    let t21975 = t1438 * t2515;
+    (t21885, t21910, t21911, t21912, t21913, t21914, t21917, t21920, t21921, t21922, t21923, t21975)
 }

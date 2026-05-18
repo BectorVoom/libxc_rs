@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 708/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 708/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk708<F: Float>(t13861: F, t1445: F, t833: F, t12218: F, t935: F, t2087: F, t12573: F, t12574: F, t13087: F, t13088: F, t13091: F, t13092: F, t13093: F, t13094: F, t13095: F) -> (F, F, F, F, F, F) {
-    let t13862 = t1445 * t13861;
-    let t13863 = t833 * t13862;
-    let t13865 = t12218 * t935;
-    let t13866 = t1445 * t13865;
-    let t13867 = t2087 * t13866;
-    let t13870 = t13087 + t13088 / 2.0 + t12573 - t12574 - t13091 - t13092 + t13093 + t13094 + t13095;
-    (t13862, t13863, t13865, t13866, t13867, t13870)
+pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk708<F: Float>(t1564: F, t3689: F, t475: F, t1445: F, t10331: F, t10334: F, t10336: F, t10350: F, t10353: F, t10356: F, t10358: F, t12045: F, t12048: F, t12051: F, t12054: F, t12057: F, t12060: F, t12065: F, t1562: F, t1572: F, t1646: F, t2386: F, t536: F, t567: F, t574: F, t597: F) -> (F, F) {
+    let t12068 = t1564 * t3689;
+    let t12069 = t12068 * t475;
+    let t12070 = t1445 * t12069;
+    let t12073 = t10331 + t10334 + t10336 - t10350 - F::new(0.46011511144704899612e1) * t574 * t12045 + F::new(0.11502877786176224903e2) * t597 * t12048 + F::new(0.23005755572352449806e1) * t567 * t12051 - F::new(0.10725146985555128001e1) * t12054 * t2386 + F::new(0.71500979903700853338e0) * t1572 * t12057 + t10353 - t10356 - F::new(0.35750489951850426669e0) * t12060 * t1646 + F::new(0.35750489951850426669e0) * t536 * t12065 - F::new(0.69017266717057349418e1) * t1562 * t12070 - t10358;
+    (t12068, t12073)
 }

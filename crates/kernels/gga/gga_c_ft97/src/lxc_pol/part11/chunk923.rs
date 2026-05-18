@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 923/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 923/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,8 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk923<F: Float>(t200: F, t41627: F, t13531: F, t236: F, t2379: F, t2387: F, t2394: F, t2418: F, t2455: F, t3723: F, t3724: F, t41577: F, t41589: F, t41593: F, t41601: F, t41621: F, t41623: F, t678: F, t680: F, t689: F, t9530: F, t9533: F, t9600: F, t9609: F, t9677: F, t9683: F) -> (F,) {
-    let t41628 = t41627 * t200;
-    let t41635 = 0.93019603785751168e-2 * t678 * t2394 * t41589 + 0.279058811357253504e0 * t41593 * t680 * t689 * t9683 - 0.1674352868143521024e-1 * t678 * t9609 * t41577 + 0.279058811357253504e-1 * t9533 * t2394 * t41601 + 0.69764702839313376e-1 * t2387 * t680 * t2418 * t2455 + 0.46509801892875584e-1 * t2387 * t680 * t689 * t9677 + 0.27039520901431665705e-3 * t3723 * t3724 * t236 * t9600 - 0.20265659080606036993e-4 * t13531 * t9530 + 0.20914981278776351936e-3 * t678 * t41621 * t41623 + 0.69764702839313376e-2 * t678 * t2394 * t41628 + 0.58097170218823199823e-3 * t678 * t2379 * t41628;
-    (t41635,)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk923<F: Float>(t1882: F, t8541: F, t8546: F, t1917: F, t8232: F, t8503: F, t8480: F, t8421: F, t3281: F, t449: F, t8406: F, t1878: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t39051 = t1882 * t8541;
+    let t39053 = t1882 * t8546;
+    let t39055 = t8232 * t1917;
+    let t39057 = t1882 * t8503;
+    let t39066 = t1882 * t8480;
+    let t39068 = t1882 * t8421;
+    let t39093 = t3281 * t449;
+    let t39095 = t1882 * t8406;
+    let t39097 = t8232 * t1878;
+    (t39051, t39053, t39055, t39057, t39066, t39068, t39093, t39095, t39097)
 }

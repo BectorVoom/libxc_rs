@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 32 (v4rho2sigma2_11) CSE chunk 884/1129 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 32 (v4rho2sigma2_11) CSE chunk 884/1311 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part32_v4rho2sigma2_11_chunk884<F: Float>(t11937: F, t11938: F, t3439: F, t772: F, t3438: F, t11379: F, t9894: F, t829: F, t9896: F, t3402: F, t3708: F, t9934: F, t3784: F, t9865: F, t11933: F, t19: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11939 = t11937 * t11938;
-    let t11941 = t772 * t3439;
-    let t11942 = t3438 * t11941;
-    let t11944 = t9894 * t11379;
-    let t11945 = t829 * t9896;
-    let t11946 = t11944 * t11945;
-    let t11948 = t3402 * t3708;
-    let t11949 = t11948 * t9934;
-    let t11951 = t3784 * t9865;
-    let t11953 = t11933 * t19;
-    (t11939, t11941, t11942, t11944, t11945, t11946, t11948, t11949, t11951, t11953)
+pub fn gga_c_gapc_lxc_pol_part32_v4rho2sigma2_11_chunk884<F: Float>(t10236: F, t827: F, t1063: F, t10201: F, t10205: F, t10208: F, t10213: F, t10217: F, t10220: F, t10223: F, t10227: F, t10232: F, t10234: F) -> (F, F) {
+    let t10237 = t10236 * t827;
+    let t10238 = t10237 * t1063;
+    let t10240 = -F::new(0.74372214241464483348e-4) * t10201 + F::new(0.11742981196020707897e-4) * t10205 + F::new(0.58714905980103539485e-5) * t10208 + F::new(0.56366309740899397906e-3) * t10213 - F::new(0.33406432906439709826e-4) * t10217 - F::new(0.58714905980103539485e-5) * t10220 - F::new(0.342503618217270647e-5) * t10223 - F::new(0.342503618217270647e-5) * t10227 - F::new(0.20299047773010240345e-6) * t10232 - F::new(0.11742981196020707897e-4) * t10234 - F::new(0.58714905980103539485e-5) * t10238;
+    (t10237, t10240)
 }

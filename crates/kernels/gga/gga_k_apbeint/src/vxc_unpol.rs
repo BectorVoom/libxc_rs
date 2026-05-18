@@ -34,21 +34,21 @@ pub fn gga_k_apbeint_vxc_unpol(
         let t7 = t4 * t5 * M_PI;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
         let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
+        let t17 = pow_1_3::<f64>(t12);
         let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
-        let t21 = pow_1_3(rho[ip]);
+        let t20 = piecewise3::<f64>(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+        let t21 = pow_1_3::<f64>(rho[ip]);
         let t22 = t21 * t21;
         let t23 = t20 * t22;
         let t24 = param_muPBE - param_muGE;
         let t25 = t24 * param_alpha;
         let t26 = M_CBRT6;
         let t27 = M_PI * M_PI;
-        let t28 = pow_1_3(t27);
+        let t28 = pow_1_3::<f64>(t27);
         let t29 = t28 * t28;
         let t30 = 1.0 / t29;
         let t31 = t26 * t30;
@@ -66,7 +66,7 @@ pub fn gga_k_apbeint_vxc_unpol(
         let t52 = t51 * t30;
         let t55 = param_kappa + t52 * t41 / 24.0;
         let t60 = 1.0 + param_kappa * (1.0 - param_kappa / t55);
-        let t64 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t60);
+        let t64 = piecewise3::<f64>(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t60);
         let tzk0 = 2.0 * t64;
         zk[ip] += tzk0;
         let t65 = 1.0 / t21;
@@ -98,7 +98,7 @@ pub fn gga_k_apbeint_vxc_unpol(
         let t106 = t35 * t77;
         let t109 = t103 * t41 / 24.0 - t52 * t106 / 9.0;
         let t110 = t74 * t109;
-        let t115 = piecewise3(t2, 0.0, t7 * t66 * t60 / 10.0 + 3.0 / 20.0 * t70 * t72 * t110);
+        let t115 = piecewise3::<f64>(t2, 0.0, t7 * t66 * t60 / 10.0 + 3.0 / 20.0 * t70 * t72 * t110);
         let tvrho0 = 2.0 * rho[ip] * t115 + 2.0 * t64;
         vrho[ip] += tvrho0;
         let t118 = t25 * t26;
@@ -110,7 +110,7 @@ pub fn gga_k_apbeint_vxc_unpol(
         let t135 = t119 * t38;
         let t138 = t133 * t41 / 24.0 + t51 * t135 / 24.0;
         let t139 = t74 * t138;
-        let t143 = piecewise3(t2, 0.0, 3.0 / 20.0 * t70 * t72 * t139);
+        let t143 = piecewise3::<f64>(t2, 0.0, 3.0 / 20.0 * t70 * t72 * t139);
         let tvsigma0 = 2.0 * rho[ip] * t143;
         vsigma[ip] += tvsigma0;
     }

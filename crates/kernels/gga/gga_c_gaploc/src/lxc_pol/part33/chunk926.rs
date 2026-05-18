@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 926/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 926/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk926<F: Float>(t12043: F, t12073: F, t12085: F, t12086: F, t12106: F, t12131: F, t12133: F, t12145: F, t502: F, t1628: F, t3745: F, t10813: F, t10815: F, t10819: F, t10823: F, t10825: F, t10830: F, t10836: F, t10839: F, t10842: F, t10845: F, t833: F, t9788: F, t9798: F, t9803: F, t9809: F) -> (F, F, F, F) {
-    let t12148 = t12043 + t12073 + t12085 + t12086 + t12106 + t12131 + t12133 + t12145;
-    let t12149 = t502 * t12148;
-    let t12153 = t1628 * t3745;
-    let t12156 = t10813 - t10815 - t10819 - t10823 - t10825 - t10830 + t10836 - t10839 + t10842 + t10845 + 0.38342925953920749677e0 * t9788 - 0.76685851907841499354e0 * t9798 + t9803 - t9809 + 0.30674340763136599741e1 * t833 * t12153;
-    (t12148, t12149, t12153, t12156)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk926<F: Float>(t10144: F, t2343: F, t2268: F, t3327: F, t6313: F, t2317: F, t2761: F, t6525: F, t2321: F, t8237: F, t9074: F, t123: F, t7887: F) -> (F, F, F, F, F, F, F, F) {
+    let t10145 = t2343 * t10144;
+    let t10147 = F::new(0.56910013271352299198e-1) * t2268 * t10145;
+    let t10150 = F::new(0.37940008847568199465e-1) * t6313 * t3327;
+    let t10160 = t2761 * t2317;
+    let t10161 = t6525 * t10160;
+    let t10162 = F::new(0.11856252764865062333e-2) * t10161;
+    let t10163 = t8237 * t2321;
+    let t10164 = t9074 * t10163;
+    let t10165 = F::new(0.11856252764865062333e-2) * t10164;
+    let t10166 = t7887 * t123;
+    (t10145, t10147, t10150, t10160, t10162, t10163, t10165, t10166)
 }

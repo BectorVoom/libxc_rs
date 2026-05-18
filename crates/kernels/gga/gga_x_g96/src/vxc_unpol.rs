@@ -30,14 +30,14 @@ pub fn gga_x_g96_vxc_unpol(
         let t6 = t3 * t5;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t20 = t3 * t3;
-        let t22 = pow_1_3(1.0 / M_PI);
+        let t22 = pow_1_3::<f64>(1.0 / M_PI);
         let t23 = 1.0 / t22;
         let t25 = M_CBRT4;
         let t26 = f64::sqrt(sigma[ip]);
@@ -47,7 +47,7 @@ pub fn gga_x_g96_vxc_unpol(
         let t32 = f64::sqrt(t31);
         let t33 = t32 * t31;
         let t37 = 1.0 + 2.0 / 1233.0 * t20 * t23 * t25 * t33;
-        let t41 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t37);
+        let t41 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t37);
         let tzk0 = 2.0 * t41;
         zk[ip] += tzk0;
         let t42 = t18 * t18;
@@ -56,13 +56,13 @@ pub fn gga_x_g96_vxc_unpol(
         let t52 = t48 / t49 * t23;
         let t53 = t25 * t32;
         let t54 = t53 * t28;
-        let t58 = piecewise3(t2, 0.0, -t6 * t17 / t42 * t37 / 8.0 + t52 * t54 / 274.0);
+        let t58 = piecewise3::<f64>(t2, 0.0, -t6 * t17 / t42 * t37 / 8.0 + t52 * t54 / 274.0);
         let tvrho0 = 2.0 * rho[ip] * t58 + 2.0 * t41;
         vrho[ip] += tvrho0;
         let t63 = t48 / rho[ip] * t23;
         let t64 = 1.0 / t26;
         let t66 = t53 * t64 * t27;
-        let t69 = piecewise3(t2, 0.0, -3.0 / 2192.0 * t63 * t66);
+        let t69 = piecewise3::<f64>(t2, 0.0, -3.0 / 2192.0 * t63 * t66);
         let tvsigma0 = 2.0 * rho[ip] * t69;
         vsigma[ip] += tvsigma0;
     }

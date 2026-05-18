@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 950/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 950/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk950<F: Float>(t13900: F, t5771: F, t43605: F, t43606: F, t43607: F, t43609: F, t43611: F, t43617: F, t47255: F, t47261: F, t47263: F, t47267: F, t47274: F, t41136: F, t43619: F, t43627: F, t43630: F, t43636: F, t43640: F, t43642: F, t43645: F, t43647: F, t43648: F, t43650: F, t43653: F) -> (F, F) {
-    let t47275 = t5771 * t13900;
-    let t47277 = -t43605 + t43606 - t43607 - 0.46011511144704899612e1 * t47255 - t47261 - 0.92023022289409799224e1 * t47263 + 0.19171462976960374838e0 * t43609 - 0.25025342966295298669e1 * t47267 + 0.19171462976960374838e0 * t43611 + t47274 + 0.71500979903700853338e0 * t47275 + t43617;
-    let t47280 = 0.15337170381568299871e1 * t41136;
-    let t47281 = t43619 + t43627 + t43630 + t43636 + t43640 + 0.11502877786176224903e2 * t43642 + t43645 + t43647 - t43648 + 0.9585731488480187419e0 * t43650 + t43653 - t47280;
-    (t47277, t47281)
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk950<F: Float>(t42349: F, t1445: F, t26809: F, t3085: F, t4527: F, t8411: F, t9327: F, t10556: F, t1415: F, t9321: F, t2487: F, t41878: F, t6711: F) -> (F, F, F, F, F) {
+    let t42350 = F::new(0.11502877786176224903e1) * t42349;
+    let t42354 = F::new(0.27606906686822939767e2) * t4527 * t1445 * t26809 * t3085;
+    let t42356 = F::new(0.10725146985555128001e1) * t8411 * t9327;
+    let t42359 = F::new(0.42900587942220512003e1) * t1415 * t10556 * t9321;
+    let t42363 = t2487 * t6711 * t41878;
+    (t42350, t42354, t42356, t42359, t42363)
 }

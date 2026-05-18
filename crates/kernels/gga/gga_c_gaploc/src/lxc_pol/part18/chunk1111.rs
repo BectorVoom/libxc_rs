@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1111/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 18 (v4rho2sigma2_1) CSE chunk 1111/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1111<F: Float>(t21488: F, t314: F, t320: F, t3487: F, t7291: F, t734: F, t2958: F, t590: F, t2101: F, t10639: F, t6058: F, t10736: F, t21497: F, t1897: F, t29190: F, t2936: F) -> (F, F, F, F, F, F, F, F) {
-    let t32604 = 0.17090058289204942853e-2 * t21488 * t320 * t314 * t7291 * t3487 * t734;
-    let t32607 = t2958 * t7291;
-    let t32608 = t590 * t32607;
-    let t32610 = 0.20508069947045931422e-1 * t21488 * t320 * t2101 * t32608;
-    let t32613 = t590 * t10639;
-    let t32615 = 0.10254034973522965711e-1 * t21488 * t320 * t6058 * t32613;
-    let t32616 = t590 * t10736;
-    let t32618 = 0.34180116578409885704e-2 * t21497 * t32616;
-    let t32621 = 0.46143157380853345702e-1 * t1897 * t2936 * t29190;
-    (t32604, t32608, t32610, t32613, t32615, t32616, t32618, t32621)
+pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1111<F: Float>(t2684: F, t7354: F, t9829: F, t1391: F, t9833: F, t15490: F, t7584: F, t9438: F, t21456: F, t2365: F, t7390: F, t7416: F, t9834: F) -> (F, F, F, F, F) {
+    let t28987 = t2684 * t7354 * t9829;
+    let t28988 = F::new(0.1022478025437886658e1) * t28987;
+    let t28990 = t2684 * t1391 * t9833;
+    let t28991 = F::new(0.5396411800922179584e0) * t28990;
+    let t29001 = t7584 * t9438 * t15490;
+    let t29009 = F::new(0.59584149919750711116e-1) * t7390 * t2365 * t21456;
+    let t29011 = F::new(0.17041300423964777634e0) * t7416 * t9834;
+    (t28988, t28991, t29001, t29009, t29011)
 }

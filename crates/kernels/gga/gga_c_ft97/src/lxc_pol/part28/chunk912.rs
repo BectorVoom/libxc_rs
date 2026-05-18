@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 912/1041 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 912/1189 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk912<F: Float>(t136356: F, t136403: F, t136458: F, t136566: F, t136666: F, t136736: F, t136920: F, t136926: F, t136935: F, t145171: F, t22532: F, t22796: F, t25649: F, t25653: F, t25694: F, t25722: F, t25771: F, t25775: F, t25803: F, t3030: F, t32152: F, t34430: F, t36364: F, t36390: F, t37985: F, t6427: F, t7205: F, t92353: F) -> (F,) {
-    let t145297 = 0.89080607335887169333e-3 * t136356 * t34430 - 0.79202200203119310706e-5 * t136666 * t36364 * t25649 + 0.79202200203119310706e-5 * t136926 * t36364 * t25653 - 0.13784064983740990796e-3 * t136736 * t3030 - 0.45497819271775541929e-4 * t136920 * t7205 * t145171 * t25694 - 0.39601100101559655353e-5 * t22796 * t32152 * t25722 - 0.17816121467177433867e-3 * t136566 * t25803 + 0.21120586720831816188e-4 * t136935 * t25771 - 0.59346127734643676855e-4 * t92353 * t36390 * t22532 * t25775 + 0.28200083969358461042e-4 * t136458 - 0.16779431174156321371e-9 * t37985 * t136403 * t6427;
-    (t145297,)
+pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk912<F: Float>(t1587: F, t1852: F, t971: F, t1045: F, t526: F, t1985: F, t2179: F, t1613: F, t1689: F, t1326: F, t8417: F, t1851: F, t5704: F) -> (F, F, F, F, F, F, F, F) {
+    let t60426 = t1587 * t1852;
+    let t60901 = t1587 * t971;
+    let t63180 = t526 * t1045;
+    let t63755 = t1985 * t2179;
+    let t64242 = t1985 * t1045;
+    let t79931 = t1689 * t1613;
+    let t91493 = t1326 * t8417;
+    let t91496 = t5704 * t1851;
+    (t60426, t60901, t63180, t63755, t64242, t79931, t91493, t91496)
 }

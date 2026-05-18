@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 144/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 144/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -14,7 +14,7 @@ pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk144<F: Float>(t481: F, t6:
     let t486 = t482 * t128;
     let t487 = t137 * t139;
     let t488 = t487 * t124;
-    let t491 = 1.0 / t193;
+    let t491 = F::new(1.0) / t193;
     let t492 = t5 * t491;
     (t482, t483, t486, t487, t488, t491, t492)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 959/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 959/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,20 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk959<F: Float>(t20368: F, t20369: F, t4786: F, t6575: F, t2293: F, t447: F, t1564: F, t579: F, t4390: F, t4398: F, t10524: F, t1415: F, t2371: F, t4360: F, t4803: F, t6715: F) -> (F, F, F, F, F, F, F, F) {
-    let t20370 = t20368 * t20369;
-    let t20374 = t4786 * t6575;
-    let t20395 = t2293 * t447;
-    let t20441 = t579 * t1564;
-    let t20445 = t4398 * t4390;
-    let t20471 = t1415 * t10524;
-    let t20481 = t4360 * t2371;
-    let t20496 = t4803 * t6715;
-    (t20370, t20374, t20395, t20441, t20445, t20471, t20481, t20496)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk959<F: Float>(t2554: F, t2932: F, t7064: F, t5539: F, t8769: F, t9647: F, t123: F, t8773: F, t2563: F, t2558: F, t8788: F, t1843: F, t8756: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t10691 = t2932 * t2554;
+    let t10692 = t7064 * t10691;
+    let t10693 = F::new(0.32043859292259267849e-3) * t10692;
+    let t10694 = t5539 * t8769;
+    let t10695 = t9647 * t10694;
+    let t10696 = F::new(0.64087718584518535698e-3) * t10695;
+    let t10697 = t8773 * t123;
+    let t10698 = t10697 * t2563;
+    let t10699 = t9647 * t10698;
+    let t10700 = F::new(0.96131577876777803547e-3) * t10699;
+    let t10701 = t8788 * t2558;
+    let t10702 = t9647 * t10701;
+    let t10703 = F::new(0.32043859292259267849e-3) * t10702;
+    let t10704 = t1843 * t8756;
+    (t10691, t10693, t10694, t10696, t10697, t10698, t10700, t10701, t10703, t10704)
 }

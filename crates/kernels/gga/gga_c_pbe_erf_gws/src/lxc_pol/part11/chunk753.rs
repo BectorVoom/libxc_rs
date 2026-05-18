@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 753/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 753/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk753<F: Float>(t10029: F, t10035: F, t10186: F, t11296: F, t11300: F, t12384: F, t12390: F, t12395: F, t12399: F, t12425: F, t12433: F, t125: F, t12895: F, t12899: F, t12929: F, t12990: F, t13055: F, t13057: F, t13067: F, t143: F, t279: F, t2857: F, t296: F, t2986: F, t2990: F, t3620: F, t3642: F, t3686: F, t475: F, t526: F, t5633: F, t5694: F, t8270: F, t8305: F, t988: F) -> (F,) {
-    let t13069 = -0.16213771438917426213e0 * t10029 - 0.87170224553660758101e-3 * t10035 + t12384 * t296 - 2.0 * t3686 * t3620 + 9.0 * t2986 * t10186 + 9.0 * t2986 * t12390 + 9.0 * t11296 * t2990 - 2.0 * t988 * t12395 - t988 * t12399 - 0.35922702030763827282e-1 * t8270 + t12425 + t5633 + (t12433 + t12895) * t125 + 6.0 * t12899 * t143 + 18.0 * t8305 * t11300 - t5694 + 2.0 * t3686 * t3642 + t12990 * t526 + 3.0 * t475 * t143 * t12929 + t13055 * t279 + 18.0 * t2857 * t13057 + t13067;
-    (t13069,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk753<F: Float>(t8012: F, t8014: F, t12361: F, t85: F, t10257: F, t10259: F, t8016: F, t4688: F, t4711: F, t4714: F, t4718: F, t4807: F, t4815: F) -> (F, F, F, F, F, F, F, F) {
+    let t12369 = F::new(24.0) * t8012;
+    let t12370 = F::new(36.0) * t8014;
+    let t12371 = t12361 * t85;
+    let t12372 = F::new(0.19751789702565206229e-1) * t12371;
+    let t12373 = F::new(12.0) * t10257;
+    let t12374 = F::new(12.0) * t10259;
+    let t12375 = F::new(0.17544670192365612213e1) * t8016;
+    let t12376 = t4807 - t4815 + t4688 + t4711 - t4714 - t4718 - t12369 + t12370 + t12372 - t12373 - t12374 - t12375;
+    (t12369, t12370, t12371, t12372, t12373, t12374, t12375, t12376)
 }

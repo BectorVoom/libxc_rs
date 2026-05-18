@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 602/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 602/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk602<F: Float>(t11057: F, t9796: F, t10627: F, t5241: F, t590: F, t5640: F, t1890: F, t1966: F, t739: F, t1991: F, t1628: F, t3495: F, t1589: F, t3451: F, t3464: F, t769: F) -> (F, F, F, F, F, F, F, F) {
-    let t11058 = t9796 * t11057;
-    let t11059 = 0.38342925953920749676e0 * t11058;
-    let t11061 = t5241 * t10627 * t590;
-    let t11063 = 0.15337170381568299871e1 * t5640 * t11061;
-    let t11065 = t1890 * t10627 * t590;
-    let t11067 = 0.25561950635947166451e1 * t1966 * t11065;
-    let t11068 = t739 * t10627;
-    let t11069 = t11068 * t590;
-    let t11071 = 0.1022478025437886658e1 * t1991 * t11069;
-    let t11072 = t1628 * t3495;
-    let t11075 = t1589 * t3451;
-    let t11080 = t769 * t3464;
-    (t11059, t11063, t11067, t11068, t11071, t11072, t11075, t11080)
+pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk602<F: Float>(t10409: F, t9263: F, t9422: F, t10381: F, t10384: F, t10387: F, t10388: F, t10394: F, t10395: F, t10398: F, t10401: F, t10404: F, t10406: F, t1537: F, t567: F, t9363: F, t9366: F, t9370: F) -> F {
+    let t10410 = t9263 * t10409;
+    let t10411 = F::new(0.38342925953920749676e0) * t10410;
+    let t10412 = F::new(0.63904876589867916128e-1) * t9422;
+    let t10413 = t10381 + t10384 + t10387 + F::new(0.23005755572352449806e1) * t567 * t10388 + t9363 + t9366 - t9370 + t10394 - t10395 - t10398 + t10401 - t10404 - F::new(0.51123901271894332902e0) * t1537 * t10406 - t10411 + t10412;
+    t10413
 }

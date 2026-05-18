@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 423/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 423/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk423<F: Float>(t312: F, t7091: F) -> (F,) {
-    let t7131 = t7091 * t312;
-    (t7131,)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk423<F: Float>(t2: F, t5206: F, t4: F, t26: F) -> (F, F, F) {
+    let t6961 = t5206 * t2;
+    let t6962 = t6961 * t4;
+    let t6963 = t6962 * t26;
+    (t6961, t6962, t6963)
 }

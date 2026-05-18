@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 812/1028 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 49 (v4rhosigma3_14) CSE chunk 812/1217 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk812<F: Float>(t10497: F, t2437: F, t2441: F, t34131: F, t895: F, t41838: F, t493: F, t1441: F, t590: F, t4130: F, t4781: F, t41809: F, t1339: F, t1537: F, t18313: F, t18372: F, t41596: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t42030 = t2437 * t10497;
-    let t42032 = t2441 * t10497;
-    let t42034 = t895 * t34131;
-    let t42036 = t493 * t41838;
-    let t42038 = t1441 * t42036 * t590;
-    let t42042 = t4781 * t4130 * t41838 * t590;
-    let t42047 = 0.15337170381568299871e1 * t4781 * t4130 * t41809 * t590;
-    let t42048 = t493 * t41809;
-    let t42051 = 0.1022478025437886658e1 * t1441 * t42048 * t590;
-    let t42052 = t1339 * t41838;
-    let t42054 = t1537 * t42052 * t590;
-    let t42059 = 0.25561950635947166451e1 * t1537 * t1339 * t41809 * t590;
-    let t42064 = 0.61348681526273199482e1 * t18372 * t18313 * t41596 * t590;
-    (t42030, t42032, t42034, t42038, t42042, t42047, t42051, t42054, t42059, t42064)
+pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk812<F: Float>(t1535: F, t9419: F, t6519: F, t9439: F, t9448: F, t10531: F, t1433: F, t1065: F, t883: F, t900: F, t1423: F, t6589: F) -> (F, F, F, F, F, F, F) {
+    let t20687 = t1535 * t9419;
+    let t20696 = t9439 * t6519;
+    let t20700 = t9448 * t6519;
+    let t20796 = t1433 * t10531;
+    let t20883 = t883 * t1065;
+    let t20884 = t900 * t20883;
+    let t20967 = t1423 * t6589;
+    (t20687, t20696, t20700, t20796, t20883, t20884, t20967)
 }

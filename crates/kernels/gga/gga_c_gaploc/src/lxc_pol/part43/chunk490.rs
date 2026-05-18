@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 490/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 43 (v4rhosigma3_8) CSE chunk 490/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk490<F: Float>(t475: F, t9448: F, t9438: F, t2487: F, t203: F, t539: F, t107: F, t569: F, t9127: F, t568: F, t600: F, t1580: F, t1641: F, t3149: F, t3153: F, t3159: F, t3173: F, t3200: F, t3204: F, t4953: F, t541: F, t574: F, t597: F, t9442: F, t9446: F) -> (F, F, F) {
-    let t9449 = t9448 * t475;
-    let t9450 = t9438 * t9449;
-    let t9451 = t2487 * t9450;
-    let t9453 = t539 * t203;
-    let t9454 = t107 * t9453;
-    let t9461 = t569 * t9127;
-    let t9462 = t568 * t9461;
-    let t9469 = t600 * t9127;
-    let t9470 = t568 * t9469;
-    let t9475 = 0.7988109573733489516e-2 * t9442 - 0.15976219147466979032e-1 * t9446 + 0.15976219147466979032e-1 * t9451 - 0.7150097990370085334e0 * t3159 * t9454 + 0.23833659967900284446e0 * t3153 * t541 + 0.23833659967900284446e0 * t3149 * t541 - 0.23005755572352449806e1 * t574 * t9462 - 0.69017266717057349418e1 * t4953 * t3200 + 0.23005755572352449806e1 * t1580 * t3204 + 0.23005755572352449806e1 * t597 * t9470 - 0.46011511144704899612e1 * t1641 * t3173;
-    (t9451, t9453, t9475)
+pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk490<F: Float>(t123: F, t9065: F, t488: F, t2300: F, t2317: F, t6525: F, t122: F, t481: F, t880: F) -> (F, F, F, F) {
+    let t9066 = t9065 * t123;
+    let t9067 = t9066 * t488;
+    let t9070 = t2300 * t2317;
+    let t9072 = F::new(0.23712505529730124666e-2) * t6525 * t9070;
+    let t9074 = t481 * t880 * t122;
+    (t9066, t9067, t9072, t9074)
 }

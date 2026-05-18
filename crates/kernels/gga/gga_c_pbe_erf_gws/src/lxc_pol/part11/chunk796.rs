@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 796/1141 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 796/1302 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk796<F: Float>(t13280: F, t13345: F, t13392: F, t13453: F, t13484: F, t13515: F, t13568: F, t13603: F, t898: F, t338: F, t353: F, t1161: F, t3721: F, t6126: F, t1144: F, t3722: F) -> (F, F, F, F, F, F, F) {
-    let t13606 = t13280 + t13345 + t13392 + t13453 + t13484 + t13515 + t13568 + t13603;
-    let t13607 = t898 * t13606;
-    let t13609 = t338 * t353 * t13607;
-    let t13612 = t3721 * t1161;
-    let t13613 = t6126 * t13612;
-    let t13615 = t338 * t353 * t13613;
-    let t13619 = t338 * t1144 * t3722;
-    (t13606, t13607, t13609, t13612, t13613, t13615, t13619)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk796<F: Float>(t12526: F, t12579: F, t12609: F, t12663: F, t12742: F, t12772: F, t12808: F, t12879: F, t12323: F, t41: F, t11268: F, t163: F, t164: F, t169: F, t171: F, t5999: F, t6003: F, t6005: F, t6012: F, t6015: F, t8471: F, t8474: F, t8478: F, t8490: F) -> (F, F, F) {
+    let t12882 = t12526 + t12579 + t12609 + t12663 + t12742 + t12772 + t12808 + t12879;
+    let t12891 = t41 * t12323;
+    let t12895 = -F::new(0.53884053046145740922e-2) * t169 * t171 * t12882 * t163 - F::new(0.94516221669423353502e-1) * t11268 - F::new(0.18903244333884670701e0) * t8474 + t5999 + F::new(0.18903244333884670701e0) * t8478 - F::new(0.94516221669423353502e-1) * t8490 + t6003 - t6005 + t6012 + t6015 - F::new(0.31505407223141117834e-1) * t12891 * t164 - F::new(0.71845404061527654564e-1) * t8471;
+    (t12882, t12891, t12895)
 }

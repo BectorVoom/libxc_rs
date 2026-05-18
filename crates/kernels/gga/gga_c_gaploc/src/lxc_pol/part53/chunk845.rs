@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 845/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 845/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk845<F: Float>(t12213: F, t1897: F, t2580: F, t7068: F, t13934: F, t731: F, t2508: F, t47326: F, t740: F, t39454: F, t954: F, t47130: F, t688: F, t779: F, t7291: F, t12218: F, t7226: F) -> (F, F, F, F, F, F, F) {
-    let t47650 = t1897 * t2580 * t12213 * t7068;
-    let t47652 = t731 * t13934;
-    let t47661 = 0.23071578690426672851e-1 * t2508 * t47326 * t740;
-    let t47673 = t1897 * t954 * t39454;
-    let t47677 = t2508 * t779 * t47130 * t688;
-    let t47681 = t2508 * t2580 * t12213 * t7291;
-    let t47685 = t2508 * t7226 * t12218 * t7291;
-    (t47650, t47652, t47661, t47673, t47677, t47681, t47685)
+pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk845<F: Float>(t2487: F, t41965: F, t6711: F, t40228: F, t40239: F, t40243: F, t40249: F, t40252: F, t40258: F, t40261: F, t40277: F, t40280: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t41968 = F::new(0.43710935587469654631e2) * t2487 * t6711 * t41965;
+    let t41972 = F::new(0.29792074959875355558e-1) * t40228;
+    let t41975 = F::new(0.29792074959875355558e-1) * t40239;
+    let t41976 = F::new(0.29792074959875355558e-1) * t40243;
+    let t41978 = F::new(0.17041300423964777634e0) * t40249;
+    let t41979 = F::new(0.29792074959875355558e-1) * t40252;
+    let t41980 = F::new(0.20854452471912748891e0) * t40258;
+    let t41981 = F::new(0.12780975317973583225e0) * t40261;
+    let t41982 = F::new(0.17875244975925213335e0) * t40277;
+    let t41983 = F::new(0.11916829983950142223e0) * t40280;
+    (t41968, t41972, t41975, t41976, t41978, t41979, t41980, t41981, t41982, t41983)
 }

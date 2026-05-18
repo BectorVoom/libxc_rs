@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 662/1124 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 662/1278 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk662<F: Float>(t425: F, t7614: F, t431: F, t438: F, t7605: F, t1966: F, t377: F) -> (F, F, F, F, F, F) {
-    let t7615 = t7614 * t425;
-    let t7616 = 0.16006300097412701803e-1 * t7615;
-    let t7617 = t7614 * t431;
-    let t7622 = t7614 * t438;
-    let t7624 = t7605 * t425;
-    let t7625 = 0.34299214494455789578e-2 * t7624;
-    let t7628 = t7605 * t431;
-    let t7629 = 0.17149607247227894789e-2 * t7628;
-    let t7630 = t377 * t1966;
-    (t7616, t7617, t7622, t7625, t7629, t7630)
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk662<F: Float>(t6479: F, t6493: F, t6526: F, t6555: F, t449: F, t1937: F, t463: F, t1220: F, t1215: F, t1608: F, t1659: F, t1915: F, t3932: F, t3935: F, t3939: F, t446: F, t5365: F, t5369: F, t5372: F, t5381: F, t5382: F, t5388: F) -> (F, F, F, F) {
+    let t6557 = t6479 + t6493 + t6526 + t6555;
+    let t6558 = t449 * t6557;
+    let t6568 = t1937 * t463;
+    let t6569 = t1220 * t6568;
+    let t6574 = -F::new(0.65854491829355115987e0) * t446 * t6558 - F::new(0.13170898365871023197e1) * t1608 * t1659 - F::new(0.13170898365871023197e1) * t5365 + F::new(0.13170898365871023197e1) * t5369 + F::new(0.26341796731742046394e1) * t5372 + F::new(0.13170898365871023197e1) * t1215 * t1915 + F::new(0.13170898365871023197e1) * t446 * t6569 - t3932 + t5381 - F::new(0.13170898365871023197e1) * t5382 - t5388 - F::new(0.65854491829355115987e0) * t3935 + t3939;
+    (t6557, t6558, t6569, t6574)
 }

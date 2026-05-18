@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 631/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 631/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,17 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk631<F: Float>(t1651: F, t569: F, t616: F, t1643: F, t2205: F, t1882: F, t2144: F, t2170: F, t3434: F, t9116: F, t2221: F, t1580: F, t558: F, t2222: F, t609: F, t2211: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t9333 = t569 * t616 * t1651;
-    let t9337 = t2205 * t616 * t1643;
-    let t9340 = t1882 * t2144;
-    let t9342 = t1882 * t2170;
-    let t9344 = t3434 * t9116;
-    let t9345 = t2221 * t9344;
-    let t9348 = t1580 * t558;
-    let t9349 = t2222 * t9348;
-    let t9350 = t2221 * t9349;
-    let t9353 = t1580 * t609;
-    let t9354 = t2211 * t9353;
-    (t9333, t9337, t9340, t9342, t9344, t9345, t9348, t9349, t9350, t9354)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk631<F: Float>(t637: F, t639: F, t8709: F, t2253: F, t2296: F, t3626: F, t70: F, t170: F, t180: F, t645: F, t8640: F, t2265: F, t631: F, t8662: F, t8665: F, t8669: F, t8672: F, t8676: F, t8678: F, t8682: F, t8686: F) -> (F, F, F) {
+    let t8711 = t637 * t639 * t8709;
+    let t8714 = t2253 * t2296;
+    let t8715 = t3626 * t70;
+    let t8718 = F::new(20.0) / F::new(27.0) * t170 * t8715 * t180;
+    let t8719 = t8640 * t645;
+    let t8721 = -t631 * t8662 / F::new(3.0) + t2265 * t8665 / F::new(6.0) - t2265 * t8669 - t2265 * t8672 + F::new(4.0) / F::new(3.0) * t8676 + F::new(2.0) / F::new(3.0) * t8678 + F::new(3.0) * t2265 * t8682 + F::new(2.0) * t2265 * t8686 + t631 * t8711 / F::new(2.0) - t8714 + t8718 + F::new(5.0) / F::new(3.0) * t8719;
+    (t8711, t8715, t8721)
 }

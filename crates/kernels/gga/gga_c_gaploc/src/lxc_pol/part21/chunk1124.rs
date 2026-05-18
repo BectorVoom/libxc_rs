@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1124/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 21 (v4rho2sigma2_4) CSE chunk 1124/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1124<F: Float>(t11116: F, t22263: F, t32357: F, t4820: F, t7513: F, t32436: F, t2679: F, t8802: F, t9800: F, t10942: F, t1966: F, t11119: F, t1986: F, t1445: F, t2087: F, t2530: F, t8483: F) -> (F, F, F, F, F, F, F) {
-    let t33480 = 0.15889106645266856297e0 * t22263 * t11116;
-    let t33483 = 0.15889106645266856297e0 * t7513 * t4820 * t32357;
-    let t33486 = 0.15889106645266856297e0 * t7513 * t4820 * t32436;
-    let t33492 = t9800 * t8802 * t2679;
-    let t33493 = 0.19171462976960374838e1 * t33492;
-    let t33494 = t1966 * t10942;
-    let t33495 = 0.25561950635947166451e1 * t33494;
-    let t33496 = t1986 * t11119;
-    let t33497 = 0.51123901271894332902e0 * t33496;
-    let t33501 = 0.13803453343411469884e2 * t2087 * t1445 * t8483 * t2530;
-    (t33480, t33483, t33486, t33493, t33495, t33497, t33501)
+pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk1124<F: Float>(t2312: F, t9087: F, t20065: F, t2321: F, t9074: F, t1358: F, t9075: F, t2300: F, t6295: F, t6525: F, t2317: F, t6541: F) -> (F, F, F, F, F) {
+    let t29852 = F::new(0.47425011059460249332e-2) * t2312 * t9087;
+    let t29860 = F::new(0.23712505529730124666e-2) * t9074 * t20065 * t2321;
+    let t29862 = F::new(0.63233348079280332442e-2) * t1358 * t9075;
+    let t29865 = F::new(0.23712505529730124666e-2) * t6525 * t2300 * t6295;
+    let t29868 = F::new(0.47425011059460249332e-2) * t6525 * t6541 * t2317;
+    (t29852, t29860, t29862, t29865, t29868)
 }

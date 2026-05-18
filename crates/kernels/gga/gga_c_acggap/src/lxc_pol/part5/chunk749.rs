@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 749/1191 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 5 (v4rho4_2) CSE chunk 749/1332 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk749<F: Float>(t1755: F, t3409: F, t1173: F, t1180: F, t335: F, t3396: F, t3571: F, t3574: F, t3649: F, t367: F, t4901: F, t4906: F, t4910: F, t4918: F, t4926: F, t4928: F, t6140: F, t6145: F, t6148: F, t6153: F, t6158: F, t6161: F, t6164: F, t6167: F, t6171: F, t6175: F) -> (F,) {
-    let t6180 = t3409 * t1755;
-    let t6182 = 0.80031500487063509015e-2 * t4901 - t4906 + t4910 + t4918 - 0.85748036236139473944e-3 * t4926 - 0.40015750243531754508e-2 * t4928 - 0.10289764348336736873e-1 * t3396 * t6140 + 0.17149607247227894789e-2 * t6145 - 0.21437009059034868486e-3 * t1180 * t6148 + 0.85748036236139473944e-3 * t1180 * t6153 + 0.21437009059034868486e-3 * t6158 + 0.85748036236139473944e-3 * t1173 * t6161 - 7.0 / 144.0 * t6164 - t335 * t6167 / 48.0 - t367 * t6171 / 48.0 - t367 * t6175 / 48.0 - 35.0 / 216.0 * t3571 - 35.0 / 432.0 * t3574 + 0.40015750243531754507e-2 * t6180 + t3649;
-    (t6182,)
+pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk749<F: Float>(t1165: F, t4267: F, t5606: F, t4643: F, t1181: F, t406: F, t506: F, t157: F, t530: F, t1759: F, t301: F, t1552: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t5608 = t1165 * t4267 * t5606;
+    let t5611 = t4643 * t5606;
+    let t5612 = t1181 * t5611;
+    let t5615 = t506 * t406;
+    let t5616 = t5615 * t157;
+    let t5617 = t530 * t5616;
+    let t5618 = t1181 * t5617;
+    let t5621 = t1759 * t301;
+    let t5623 = t1165 * t1552 * t5621;
+    (t5608, t5611, t5612, t5615, t5616, t5617, t5618, t5621, t5623)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 941/1293 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 941/1451 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk941<F: Float>(t22366: F, t22422: F, t22485: F, t22617: F, t40: F, t60: F, t544: F, t6525: F, t1872: F, t2045: F, t22026: F, t88: F, t539: F, t1860: F, t1993: F, t601: F) -> (F, F, F, F, F, F) {
-    let t22621 = t40 * t60 * (t22366 + t22422 + t22485 + t22617);
-    let t22623 = 16.0 * t544 * t6525;
-    let t22624 = t2045 * t1872;
-    let t22625 = 72.0 * t22624;
-    let t22626 = t22026 * t88;
-    let t22627 = 384.0 * t22626;
-    let t22635 = t539 * t6525;
-    let t22636 = 16.0 * t22635;
-    let t22641 = 0.21053604230838734656e2 * t601 * t1993 * t1860;
-    (t22621, t22623, t22625, t22627, t22636, t22641)
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk941<F: Float>(t17383: F, t8611: F, t11671: F, t11677: F, t14881: F, t14883: F, t14885: F, t14887: F, t14889: F, t14895: F, t17381: F, t17384: F, t17389: F, t17392: F, t8640: F) -> (F, F) {
+    let t17394 = t8611 * t17383;
+    let t17396 = -F::new(0.32862666666666666666e0) * t14881 + F::new(0.16431333333333333333e0) * t14883 + F::new(0.19931111111111111111e0) * t14885 - F::new(0.59793333333333333333e0) * t14887 + F::new(0.29896666666666666667e0) * t14889 + F::new(0.5477111111111111111e-1) * t14895 + F::new(0.1898925e1) * t17381 + F::new(0.142419375e1) * t17384 - F::new(0.39862222222222222223e0) * t11671 - F::new(0.27385555555555555556e0) * t11677 - F::new(0.82156666666666666668e-1) * t17389 + F::new(0.49293999999999999999e0) * t17392 - F::new(0.76790625e-1) * t17394 - t8640;
+    (t17394, t17396)
 }

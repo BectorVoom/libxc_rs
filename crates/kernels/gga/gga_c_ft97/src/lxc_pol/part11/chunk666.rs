@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 666/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 666/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk666<F: Float>(t676: F, t9692: F, t27: F, t89: F, t10: F, t242: F, t3050: F, t1636: F, t714: F, t669: F, t8608: F, t666: F, t191: F, t7514: F, t2373: F, t713: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t9693 = t676 * t9692;
-    let t9695 = t89 * t27 * t9693;
-    let t9698 = t10 * t3050 * t242;
-    let t9699 = 14.0 / 81.0 * t9698;
-    let t9701 = t89 * t1636 * t714;
-    let t9703 = t669 * t8608;
-    let t9705 = t89 * t666 * t9703;
-    let t9707 = t191 * t7514;
-    let t9708 = t2373 * t713;
-    (t9693, t9695, t9698, t9699, t9701, t9703, t9705, t9707, t9708)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk666<F: Float>(t9204: F, t9242: F, t579: F, t91: F, t153: F, t525: F, t631: F, t637: F, t7242: F, t2087: F, t590: F, t9014: F, t9024: F, t9028: F, t9032: F, t9057: F, t9059: F, t9062: F, t9076: F, t9080: F, t9166: F, t9170: F) -> (F, F, F, F, F) {
+    let t9243 = t9204 + t9242;
+    let t9245 = t91 * t579 * t9243;
+    let t9252 = F::new(1.0) / t153 / t631 / t637 / t525 / t7242 / F::new(4.0);
+    let t9253 = t2087 * t590;
+    let t9255 = t91 * t9252 * t9253;
+    let t9257 = -F::new(2.0) / F::new(3.0) * t9059 - F::new(2.0) * t9076 - F::new(2.0) * t9080 - t9166 - t9014 / F::new(3.0) - F::new(3.0) / F::new(4.0) * t9170 + F::new(6.0) * t9024 - F::new(10.0) / F::new(27.0) * t9028 - F::new(2.0) * t9032 + F::new(4.0) / F::new(3.0) * t9057 - F::new(2.0) / F::new(3.0) * t9062 + t9245 / F::new(2.0) + F::new(3.0) / F::new(8.0) * t9255;
+    (t9243, t9245, t9252, t9255, t9257)
 }

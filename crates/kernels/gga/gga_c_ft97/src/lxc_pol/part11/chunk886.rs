@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 886/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 886/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk886<F: Float>(t39723: F, t39708: F, t39711: F, t39715: F, t39717: F, t39721: F, t39728: F, t39732: F, t39737: F, t39741: F, t39744: F, t39747: F, t39753: F, t39757: F, t40273: F, t39761: F, t39767: F, t39772: F, t39776: F, t39781: F, t39784: F, t39788: F, t39792: F, t39796: F, t40265: F, t40270: F, t40288: F, t40292: F) -> (F, F) {
-    let t40546 = 8.0 / 27.0 * t39723;
-    let t40555 = -2.0 * t39708 + 4.0 / 3.0 * t39711 - 2.0 / 3.0 * t39715 - 2.0 / 9.0 * t39717 + 4.0 / 3.0 * t39721 + t40546 + 20.0 / 81.0 * t39728 + t39732 / 3.0 + 2.0 / 9.0 * t39737 + 2.0 / 9.0 * t39741 + 4.0 / 9.0 * t39744 - 4.0 / 27.0 * t39747 + 4.0 / 3.0 * t39753 - 2.0 / 3.0 * t39757;
-    let t40567 = 56.0 / 81.0 * t40273;
-    let t40570 = 2.0 / 9.0 * t39761 + 4.0 / 3.0 * t39767 + t39772 - 4.0 / 3.0 * t39776 - 40.0 / 243.0 * t39781 + 4.0 / 9.0 * t39784 + 4.0 / 3.0 * t39788 + t39792 / 3.0 - t39796 / 9.0 - t40265 / 6.0 + 4.0 * t40270 + t40567 - 6.0 * t40288 - t40292 / 18.0;
-    (t40555, t40570)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk886<F: Float>(t11: F, t1690: F, t7868: F, t5544: F, t8018: F, t1685: F, t1597: F, t1663: F, t78: F, t8153: F, t8157: F, t32: F, t8991: F) -> (F, F, F, F, F, F) {
+    let t38176 = t1690 * t11;
+    let t38177 = t38176 * t7868;
+    let t38180 = t5544 * t8018;
+    let t38187 = t1685 * t1685;
+    let t38192 = t1597 * t1663 * t78;
+    let t38195 = t8153 * t8157;
+    let t38200 = t8991 / t32;
+    (t38177, t38180, t38187, t38192, t38195, t38200)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 690/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 690/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk690<F: Float>(t353: F, t4053: F, t338: F, t2408: F, t3066: F, t335: F, t3953: F, t3957: F, t3961: F, t3963: F, t3967: F, t3977: F, t3981: F, t3986: F, t3994: F, t3998: F, t4002: F, t4006: F, t4009: F, t4013: F, t4018: F, t827: F) -> (F, F) {
-    let t4054 = t353 * t4053;
-    let t4055 = t338 * t4054;
-    let t4058 = t3953 / 96.0 - t3957 - t3961 / 48.0 + t3963 / 96.0 - t3967 / 96.0 + t3977 / 1536.0 - t3981 - t3986 / 768.0 - t3994 / 3072.0 - t3998 / 3072.0 - t827 * t4002 / 96.0 + t4006 + t2408 * t4009 / 48.0 - t335 * t4013 / 96.0 + t3066 * t4018 / 48.0 - t335 * t4055 / 96.0;
-    (t4055, t4058)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk690<F: Float>(t3886: F, t898: F, t353: F, t338: F, t1144: F, t1162: F, t3717: F, t376: F, t1118: F, t2204: F, t3769: F, t3785: F, t3790: F, t3795: F, t3797: F, t3801: F, t3807: F, t3813: F, t3822: F, t3834: F, t3843: F, t3860: F, t3869: F, t3882: F, t3883: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t3887 = t898 * t3886;
+    let t3888 = t353 * t3887;
+    let t3889 = t338 * t3888;
+    let t3892 = t1144 * t1162;
+    let t3893 = t338 * t3892;
+    let t3896 = t376 * t3717;
+    let t3897 = t353 * t3896;
+    let t3898 = t338 * t3897;
+    let t3902 = t1144 * t1118;
+    let t3903 = t338 * t3902;
+    let t3906 = t3807 + t3785 - t3795 + t3790 - t3769 - t3813 - t3797 + t3843 + t3883 + t3822 - t3882 - t3834 + t2204 + t3860 + t3801 - t3869;
+    (t3887, t3888, t3889, t3892, t3893, t3896, t3897, t3898, t3902, t3903, t3906)
 }

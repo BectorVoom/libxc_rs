@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 422/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 422/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk422<F: Float>(t200: F, t2089: F, t1865: F, t568: F, t795: F) -> (F, F) {
-    let t2090 = t200 * t2089;
-    let t2091 = t2090 * t1865;
-    let t2092 = t568 * t2091;
-    let t2095 = t795 * t1865;
-    (t2092, t2095)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk422<F: Float>(t1410: F, t325: F, t590: F, t121: F, t773: F) -> (F, F, F) {
+    let t2017 = t1410 * t325;
+    let t2018 = t2017 * t590;
+    let t2021 = t773 * t121;
+    (t2017, t2018, t2021)
 }

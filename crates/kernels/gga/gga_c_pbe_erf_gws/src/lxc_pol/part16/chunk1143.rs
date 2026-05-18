@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1143/1184 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1143/1361 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1143<F: Float>(t1144: F, t14191: F, t859: F, t14180: F, t4386: F, t14949: F, t9270: F, t14943: F, t14979: F, t15025: F, t2408: F, t2409: F, t3066: F, t4385: F, t50995: F, t52183: F, t53131: F, t53134: F, t53140: F, t53152: F, t53158: F, t53166: F, t53170: F, t6781: F, t6793: F, t8734: F) -> (F,) {
-    let t54978 = t859 * t1144 * t14191;
-    let t54984 = t4386 * t1144 * t14180;
-    let t54998 = 7.0 / 72.0 * t9270 * t14949;
-    let t55003 = -t53131 / 768.0 + t53134 / 24.0 + 7.0 / 144.0 * t50995 - t53140 / 192.0 + t53152 / 192.0 + t4385 * t54978 / 96.0 - t53158 / 48.0 - t53166 / 192.0 + t6793 * t54984 / 24.0 - 7.0 / 288.0 * t52183 + t2408 * t2409 * t6781 * t14979 / 24.0 + t3066 * t2409 * t8734 * t15025 / 24.0 + t53170 / 192.0 - t54998 + t3066 * t2409 * t8734 * t14943 / 24.0;
-    (t55003,)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1143<F: Float>(t13808: F, t4138: F, t14423: F, t875: F, t13796: F, t3989: F, t1133: F, t898: F, t13798: F, t3214: F, t3959: F, t14121: F, t3209: F) -> (F, F, F, F, F, F, F, F) {
+    let t14716 = t13808 * t4138;
+    let t14720 = t14423 * t875;
+    let t14721 = t13796 * t14720;
+    let t14722 = t3989 * t14721;
+    let t14724 = t898 * t1133;
+    let t14725 = t14724 * t13798;
+    let t14726 = t13796 * t14725;
+    let t14727 = t3989 * t14726;
+    let t14729 = t3959 * t3214;
+    let t14731 = t14121 * t3209;
+    (t14716, t14721, t14722, t14724, t14726, t14727, t14729, t14731)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 944/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 944/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,8 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk944<F: Float>(t62846: F, t62853: F, t62856: F, t78012: F, t78015: F, t78027: F, t87024: F, t87027: F, t87030: F, t87033: F, t87037: F, t87042: F, t87045: F, t87048: F, t64516: F, t78362: F, t78364: F, t78366: F, t78368: F, t78396: F, t87060: F, t87063: F, t87067: F, t87071: F, t87074: F, t87077: F, t87080: F, t87084: F) -> (F, F) {
-    let t87200 = 2.0 / 27.0 * t78012 - 8.0 / 27.0 * t78015 - 4.0 / 3.0 * t78027 - t62846 - 2.0 / 3.0 * t87024 - 2.0 / 3.0 * t87027 - 4.0 / 9.0 * t87030 - 8.0 / 9.0 * t87033 - t87037 / 6.0 - t62853 + t62856 + 4.0 / 3.0 * t87042 + 2.0 / 9.0 * t87045 + 4.0 / 3.0 * t87048;
-    let t87214 = 4.0 / 9.0 * t78362 - 2.0 / 9.0 * t78364 - 2.0 / 9.0 * t78366 + 4.0 / 27.0 * t78368 + t64516 + t87060 / 3.0 + 2.0 / 9.0 * t87063 + 20.0 / 27.0 * t87067 + 4.0 / 9.0 * t78396 + 4.0 / 3.0 * t87071 + 4.0 / 3.0 * t87074 - 10.0 / 27.0 * t87077 + 20.0 / 81.0 * t87080 + 4.0 * t87084;
-    (t87200, t87214)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk944<F: Float>(t20233: F, t8392: F, t20230: F, t20240: F, t20292: F, t1882: F, t20307: F, t103: F, t20098: F, t20409: F, t20288: F, t1526: F, t4422: F, t7705: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t75586 = t8392 * t20233;
+    let t75588 = t8392 * t20230;
+    let t75590 = t8392 * t20240;
+    let t75624 = t8392 * t20292;
+    let t75642 = t1882 * t20307;
+    let t75678 = t103 * t20098;
+    let t75766 = t1882 * t20409;
+    let t75845 = t8392 * t20288;
+    let t75878 = t1526 * t7705 * t4422;
+    (t75586, t75588, t75590, t75624, t75642, t75678, t75766, t75845, t75878)
 }

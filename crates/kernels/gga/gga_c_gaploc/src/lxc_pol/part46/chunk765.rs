@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 765/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 46 (v4rhosigma3_11) CSE chunk 765/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk765<F: Float>(t1445: F, t2778: F, t574: F, t9127: F, t2876: F, t9453: F, t3159: F, t42085: F, t475: F, t12874: F, t4527: F, t4614: F, t42009: F, t42250: F, t42254: F, t42257: F, t42259: F, t42263: F, t42265: F, t42267: F, t42269: F, t42272: F, t42275: F, t42278: F, t42279: F, t42282: F, t42284: F, t42288: F, t597: F) -> (F, F) {
-    let t42292 = 0.46011511144704899612e1 * t574 * t1445 * t2778 * t9127;
-    let t42296 = t2876 * t9453;
-    let t42298 = 0.16683561977530199113e1 * t3159 * t42296;
-    let t42299 = t42085 * t475;
-    let t42305 = 0.36809208915763919689e2 * t4527 * t4614 * t12874;
-    let t42306 = t42250 + 0.85801175884441024008e1 * t42254 + t42257 + 0.29792074959875355558e-1 * t42259 - t42263 + t42265 + t42267 + 0.14300195980740170668e1 * t42269 + t42272 + t42275 + t42278 + 0.14300195980740170668e1 * t42279 + t42282 - t42284 - t42288 - t42292 + 0.11502877786176224903e2 * t597 * t1445 * t42009 - t42298 - 0.46011511144704899612e1 * t574 * t1445 * t42299 + t42305;
-    (t42299, t42306)
+pub fn gga_c_gaploc_lxc_pol_part46_v4rhosigma3_11_chunk765<F: Float>(t2021: F, t33575: F, t10007: F, t10627: F, t32435: F, t739: F, t1: F, t106: F, t10667: F, t316: F, t11000: F, t783: F) -> (F, F, F, F, F) {
+    let t33576 = t2021 * t33575;
+    let t33601 = t10007 * t10627;
+    let t33680 = t739 * t32435;
+    let t33725 = t10667 * t1 * t106 * t316;
+    let t33778 = t11000 * t783;
+    (t33576, t33601, t33680, t33725, t33778)
 }

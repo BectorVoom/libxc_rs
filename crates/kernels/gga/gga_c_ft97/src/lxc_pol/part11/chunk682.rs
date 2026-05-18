@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 682/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 682/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk682<F: Float>(t2372: F, t2459: F, t9947: F, t241: F, t9567: F, t2: F, t9570: F, t9571: F, t1775: F, t2503: F, t2489: F, t2508: F, t458: F, t192: F, t743: F, t9692: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t9949 = t2372 * t9947 * t2459;
-    let t9952 = t9567 * t241;
-    let t9953 = t2 * t9570;
-    let t9954 = t9953 * t9571;
-    let t9955 = t9952 * t9954;
-    let t9958 = t1775 * t2503;
-    let t9960 = t1775 * t2489;
-    let t9962 = t458 * t2508;
-    let t9965 = t192 * t743 * t9692;
-    (t9949, t9952, t9953, t9954, t9955, t9958, t9960, t9962, t9965)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk682<F: Float>(t184: F, t9470: F, t1580: F, t185: F, t21: F, t2236: F, t2240: F, t2301: F, t2306: F, t2309: F, t363: F, t5: F, t620: F, t623: F, t650: F, t7745: F, t8614: F, t8724: F, t8732: F, t8739: F, t8744: F, t8751: F, t8754: F) -> (F, F) {
+    let t9471 = t9470 * t184;
+    let t9478 = F::new(3.0) / F::new(4.0) * t8614 * t650 + t623 * t8724 / F::new(4.0) + F::new(3.0) / F::new(4.0) * t5 * t2236 * t363 + t623 * t8732 / F::new(4.0) + F::new(3.0) / F::new(4.0) * t5 * t620 * t1580 + F::new(3.0) / F::new(4.0) * t623 * t8739 + F::new(3.0) / F::new(4.0) * t2240 * t2306 + F::new(3.0) / F::new(4.0) * t623 * t8744 + F::new(3.0) / F::new(4.0) * t2240 * t2301 + F::new(3.0) / F::new(2.0) * t2240 * t2309 + F::new(3.0) / F::new(4.0) * t623 * t8751 + F::new(3.0) / F::new(4.0) * t623 * t8754 + t5 * t9471 * t21 / F::new(4.0) + t5 * t185 * t7745 / F::new(4.0);
+    (t9471, t9478)
 }

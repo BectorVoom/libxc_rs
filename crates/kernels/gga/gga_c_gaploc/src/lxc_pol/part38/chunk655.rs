@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 655/861 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 38 (v4rhosigma3_3) CSE chunk 655/1003 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk655<F: Float>(t16879: F, t486: F, t165: F, t2089: F, t16534: F, t169: F, t10913: F, t2021: F, t1423: F, t7784: F, t1964: F, t9419: F, t823: F, t40: F, t7291: F, t10007: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t21501 = t16879 * t486;
-    let t21502 = t165 * t2089;
-    let t22090 = t16534 * t169;
-    let t22242 = t2021 * t10913;
-    let t22256 = t1423 * t7784;
-    let t22537 = t1964 * t9419;
-    let t22542 = t823 * t9419;
-    let t22623 = t40 * t2089;
-    let t22624 = t22623 * t7291;
-    let t22629 = t10007 * t7291;
-    (t21501, t21502, t22090, t22242, t22256, t22537, t22542, t22623, t22624, t22629)
+pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk655<F: Float>(t10646: F, t11578: F, t11589: F, t11592: F, t11596: F, t11599: F, t11636: F, t11672: F, t11697: F, t1897: F, t2508: F, t270: F, t3617: F, t3622: F, t3627: F, t3631: F, t681: F) -> F {
+    let t11699 = -F::new(0.17090058289204942853e-2) * t10646 - F::new(0.76905262301422242837e-2) * t681 * t3631 - F::new(0.76905262301422242837e-2) * t270 * t11578 - F::new(0.23071578690426672851e-1) * t681 * t3622 + F::new(0.15381052460284448567e-1) * t681 * t3627 + F::new(0.76905262301422242837e-2) * t681 * t3617 + F::new(0.76905262301422242837e-2) * t270 * t11589 - F::new(0.76905262301422242837e-2) * t1897 * t11592 - F::new(0.23071578690426672851e-1) * t2508 * t11596 - F::new(0.53833683610995569986e-1) * t2508 * t11599 + t11636 + t11672 + t11697;
+    t11699
 }

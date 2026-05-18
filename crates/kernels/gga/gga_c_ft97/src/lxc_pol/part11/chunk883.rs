@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 883/1030 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 883/1173 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,13 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk883<F: Float>(t40367: F, t40403: F, t40446: F, t40486: F, t579: F, t91: F, t2120: F, t2086: F, t3000: F, t520: F, t89: F, t1975: F, t7773: F, t1636: F, t2076: F, t375: F, t9008: F) -> (F, F, F, F, F, F) {
-    let t40490 = t91 * t579 * (t40367 + t40403 + t40446 + t40486);
-    let t40492 = t2120 * t2120;
-    let t40494 = t91 * t2086 * t40492;
-    let t40497 = t89 * t3000 * t520;
-    let t40500 = t89 * t7773 * t1975;
-    let t40503 = t89 * t1636 * t2076;
-    let t40506 = t89 * t375 * t9008;
-    (t40490, t40494, t40497, t40500, t40503, t40506)
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk883<F: Float>(t1644: F, t1771: F, t458: F, t7956: F, t7974: F, t37315: F, t378: F, t92: F, t1570: F, t37362: F, t37264: F, t38077: F, t38081: F, t38084: F, t38088: F, t38090: F, t38092: F) -> (F, F, F, F, F, F, F, F) {
+    let t38094 = t1771 * t1644;
+    let t38096 = t458 * t7956;
+    let t38098 = t458 * t7974;
+    let t38101 = t92 * t378 * t37315;
+    let t38103 = t1570 * t37362;
+    let t38105 = t92 * t378 * t38103;
+    let t38108 = t92 * t378 * t37264;
+    let t38110 = F::new(8.0) * t38077 - F::new(2.0) / F::new(3.0) * t38081 - F::new(8.0) / F::new(9.0) * t38084 + F::new(8.0) * t38088 + F::new(112.0) / F::new(81.0) * t38090 - F::new(8.0) / F::new(9.0) * t38092 - F::new(16.0) / F::new(27.0) * t38094 + F::new(40.0) / F::new(81.0) * t38096 + F::new(4.0) / F::new(9.0) * t38098 - F::new(12.0) * t38101 + F::new(2.0) * t38105 + F::new(8.0) / F::new(3.0) * t38108;
+    (t38094, t38096, t38098, t38101, t38103, t38105, t38108, t38110)
 }

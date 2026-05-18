@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1252/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1252/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1252<F: Float>(t26343: F, t895: F, t32033: F, t6710: F, t6711: F, t6470: F, t9286: F, t32081: F, t544: F, t2365: F, t31752: F, t4391: F, t549: F, t7025: F, t7906: F, t1339: F, t31585: F) -> (F, F, F, F, F, F) {
-    let t35027 = 0.35750489951850426669e0 * t895 * t26343;
-    let t35034 = 0.87421871174939309262e2 * t6710 * t6711 * t32033;
-    let t35036 = t9286 * t6470;
-    let t35037 = t544 * t32081 * t35036;
-    let t35038 = 0.10427226235956374445e0 * t35037;
-    let t35040 = t4391 * t2365 * t31752;
-    let t35041 = 0.17875244975925213335e0 * t35040;
-    let t35043 = t7025 * t549 * t7906;
-    let t35044 = 0.59584149919750711116e-1 * t35043;
-    let t35045 = t1339 * t31585;
-    (t35027, t35034, t35038, t35041, t35044, t35045)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1252<F: Float>(t23575: F, t2972: F, t10805: F, t5552: F, t1960: F, t2728: F, t3073: F, t7822: F, t7332: F, t8862: F, t11125: F, t11127: F, t1955: F, t31478: F, t31480: F, t31483: F, t31485: F, t32090: F, t32091: F, t32093: F, t32095: F, t32099: F, t3511: F, t5549: F, t841: F) -> F {
+    let t32723 = F::new(4.0) * t23575 * t2972;
+    let t32731 = F::new(4.0) * t5552 * t10805;
+    let t32734 = F::new(4.0) * t1960 * t3073 * t2728;
+    let t32736 = F::new(2.0) * t7822 * t3073;
+    let t32740 = F::new(2.0) * t8862 * t7332;
+    let t32741 = F::new(4.0) * t11125 * t1960 * t841 - F::new(2.0) * t11125 * t1955 + F::new(4.0) * t11127 * t5552 - t3511 * t5549 - t31478 - t31480 - t31483 + t31485 - t32090 + t32091 + t32093 - t32095 - t32099 + t32723 + t32731 + t32734 - t32736 + t32740;
+    t32741
 }

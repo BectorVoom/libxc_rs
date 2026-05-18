@@ -25,17 +25,17 @@ pub fn gga_c_gapc_lxc_unpol_part6_v4rhosigma3_v4sigma4(
     if ip < v4rhosigma3.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
         let t12 = 1.0 + 0.53425e-1 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -47,9 +47,9 @@ pub fn gga_c_gapc_lxc_unpol_part6_v4rhosigma3_v4sigma4(
         let t30 = f64::ln(t29);
         let t32 = 0.62182e-1 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
-        let t34 = pow_1_3(zeta_threshold);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
         let t35 = t34 * zeta_threshold;
-        let t36 = piecewise3(t33, t35, 1.0);
+        let t36 = piecewise3::<f64>(t33, t35, 1.0);
         let t39 = M_CBRT2;
         let t42 = 1.0 / (2.0 * t39 - 2.0);
         let t43 = (2.0 * t36 - 2.0) * t42;
@@ -95,7 +95,7 @@ pub fn gga_c_gapc_lxc_unpol_part6_v4rhosigma3_v4sigma4(
         let t114 = 1.0 / t113;
         let t115 = t100 * t114;
         let t116 = t34 * t34;
-        let t117 = piecewise3(t33, t116, 1.0);
+        let t117 = piecewise3::<f64>(t33, t116, 1.0);
         let t118 = t115 * t117;
         let t119 = t60 * t118;
         let t121 = 1.0 + 0.25e-1 * t10;
@@ -160,9 +160,9 @@ pub fn gga_c_gapc_lxc_unpol_part6_v4rhosigma3_v4sigma4(
         let t205 = 1.0 + 0.13900948042322754167e-2 * t176 * t179 - 0.57970906942607043474e-5 * t189 * t202;
         let t206 = 1.0 / t205;
         let t208 = 2.0 <= zeta_threshold;
-        let t210 = piecewise3(t208, t35, 2.0 * t39);
+        let t210 = piecewise3::<f64>(t208, t35, 2.0 * t39);
         let t211 = 0.0 <= zeta_threshold;
-        let t212 = piecewise3(t211, t35, 0.0);
+        let t212 = piecewise3::<f64>(t211, t35, 0.0);
         let t214 = (t210 + t212 - 2.0) * t42;
         let t216 = 1.0 + 0.5137e-1 * t10;
         let t221 = 0.705945e1 * t13 + 0.1549425e1 * t10 + 0.420775e0 * t16 + 0.1562925e0 * t24;
@@ -183,8 +183,8 @@ pub fn gga_c_gapc_lxc_unpol_part6_v4rhosigma3_v4sigma4(
         let t259 = 1.0 / t258;
         let t260 = t251 * t259;
         let t261 = t39 * t39;
-        let t262 = piecewise3(t208, t116, t261);
-        let t263 = piecewise3(t211, t116, 0.0);
+        let t262 = piecewise3::<f64>(t208, t116, t261);
+        let t263 = piecewise3::<f64>(t211, t116, 0.0);
         let t265 = t262 / 2.0 + t263 / 2.0;
         let t266 = t260 * t265;
         let t267 = t60 * t266;

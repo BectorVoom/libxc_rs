@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 1005/1067 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 1005/1222 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,8 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk1005<F: Float>(t1168: F, t21639: F, t2568: F, t10024: F, t1175: F, t18391: F, t21351: F, t2594: F, t265: F, t42469: F, t446: F, t4973: F, t5053: F, t5064: F, t5073: F, t5181: F, t68200: F, t724: F, t729: F, t88726: F, t88730: F, t88742: F, t88749: F, t88756: F, t88764: F) -> (F, F) {
-    let t89273 = t2568 * t1168 * t21639;
-    let t89343 = -40.0 / 81.0 * t446 * t10024 * t1175 * t21351 - 80.0 / 243.0 * t446 * t42469 * t265 * t88726 - t446 * t724 * t265 * t88730 / 9.0 + 8.0 / 9.0 * t68200 - 2.0 / 3.0 * t446 * t724 * t5181 * t4973 - 4.0 * t446 * t729 * t2568 * t5053 * t5064 + 8.0 / 3.0 * t446 * t724 * t265 * t88749 + 4.0 * t446 * t729 * t18391 * t5073 + 40.0 / 27.0 * t446 * t10024 * t265 * t88764 - 2.0 / 9.0 * t446 * t2594 * t265 * t88742 + 2.0 / 3.0 * t446 * t724 * t265 * t88756;
-    (t89273, t89343)
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk1005<F: Float>(t419: F, t420: F, t423: F, t85501: F, t45662: F, t58730: F, t85463: F, t85467: F, t85472: F, t85476: F, t85481: F, t85485: F, t85489: F, t85493: F, t85498: F) -> (F, F) {
+    let t85504 = t419 * t420 * t423 * t85501;
+    let t85506 = F::new(0.25537443351851851852e-1) * t85463 + F::new(0.34049924469135802469e-1) * t85467 - F::new(0.15322466011111111111e0) * t85472 + F::new(0.22983699016666666666e0) * t85476 + F::new(0.17024962234567901234e-1) * t58730 - F::new(0.23834947128395061728e0) * t85481 + F::new(0.11917473564197530864e0) * t85485 + F::new(0.30644932022222222222e0) * t85489 - F::new(0.30644932022222222222e0) * t85493 + F::new(0.94583123525377229081e-2) * t45662 + F::new(0.66208186467764060357e-1) * t85498 + F::new(0.6384360837962962963e-2) * t85504;
+    (t85504, t85506)
 }

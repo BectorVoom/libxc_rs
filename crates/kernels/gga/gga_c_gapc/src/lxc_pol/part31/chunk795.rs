@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 31 (v4rho2sigma2_10) CSE chunk 795/1228 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 31 (v4rho2sigma2_10) CSE chunk 795/1447 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part31_v4rho2sigma2_10_chunk795<F: Float>(t311: F, t9975: F, t474: F, t919: F, t3288: F, t7165: F, t1092: F, t9944: F, t9946: F, t9948: F, t9953: F, t9955: F, t9960: F, t9962: F, t9964: F, t9967: F, t9970: F, t9973: F) -> (F, F, F, F) {
-    let t9976 = t311 * t9975;
-    let t9977 = t474 * t919;
-    let t9978 = t9976 * t9977;
-    let t9980 = t3288 * t7165;
-    let t9981 = t1092 * t9980;
-    let t9983 = 0.22157690349980720138e-6 * t9944 + 0.15176747947735985782e-6 * t9946 - 0.26984257851074582721e-6 * t9948 - 0.11795371371935910947e-5 * t9953 + 0.61900849231692170544e-6 * t9955 - 0.8894825648298215985e-9 * t9960 + 0.18554144965277777779e-4 * t9962 + 0.83413693878529023666e-4 * t9964 - 0.37073828428874785365e-3 * t9967 + 0.69504740211613770836e-4 * t9970 + 0.69504740211613770836e-4 * t9973 + 0.25745714186718600947e-6 * t9978 - 0.14492726735651760868e-5 * t9981;
-    (t9978, t9980, t9981, t9983)
+pub fn gga_c_gapc_lxc_pol_part31_v4rho2sigma2_10_chunk795<F: Float>(t200: F, t9078: F, t3000: F, t2996: F, t126: F, t1636: F, t1875: F, t4940: F, t8769: F, t5190: F, t116: F, t5294: F) -> (F, F, F, F, F, F, F) {
+    let t9079 = t9078 * t200;
+    let t9080 = t9079 * t3000;
+    let t9081 = t2996 * t9080;
+    let t9083 = t126 * t1636;
+    let t9084 = t1875 * t9083;
+    let t9085 = t9084 * t4940;
+    let t9087 = t1875 * t8769;
+    let t9088 = t9087 * t5190;
+    let t9090 = t116 * t5294;
+    (t9079, t9080, t9081, t9083, t9085, t9088, t9090)
 }

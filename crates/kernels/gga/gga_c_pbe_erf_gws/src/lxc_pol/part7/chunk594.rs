@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 594/1100 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 594/1242 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk594<F: Float>(t4678: F, t62: F, t1260: F, t70: F, t4630: F, t1273: F, t1276: F, t155: F, t174: F, t1215: F, t1319: F, t331: F, t449: F, t388: F, t405: F, t1268: F, t1286: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4679 = t62 * t4678;
-    let t4681 = 1.0 / t1260 / t70;
-    let t4682 = t4630 * t4681;
-    let t4687 = t174 * t155 * t1273 * t1276;
-    let t4688 = 0.10685e0 * t4687;
-    let t4689 = t155 * t1215;
-    let t4697 = t155 * t1319;
-    let t4701 = t331 * t449;
-    let t4708 = t331 * t388;
-    let t4710 = t174 * t4708 * t405;
-    let t4711 = 0.71233333333333333334e-1 * t4710;
-    let t4713 = t174 * t1268 * t1286;
-    (t4679, t4681, t4682, t4687, t4688, t4689, t4697, t4701, t4708, t4710, t4711, t4713)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk594<F: Float>(t2704: F, t2718: F, t4518: F, t4521: F, t4524: F, t4529: F, t4531: F, t4533: F, t404: F, t389: F, t4510: F, t1291: F) -> (F, F, F, F, F, F) {
+    let t4536 = -F::new(0.25319e1) * t4518 + F::new(0.16879333333333333333e1) * t4521 - F::new(0.19692555555555555555e1) * t4524 - F::new(0.93011851851851851854e0) * t2704 + F::new(0.13651666666666666667e0) * t4529 - F::new(0.27303333333333333333e0) * t4531 - F::new(0.3185388888888888889e0) * t4533 - F::new(0.36514074074074074075e0) * t2718;
+    let t4537 = t4536 * t404;
+    let t4538 = t389 * t4537;
+    let t4539 = F::new(1.0) * t4538;
+    let t4540 = t4510 * t404;
+    let t4541 = t1291 * t4540;
+    (t4536, t4537, t4538, t4539, t4540, t4541)
 }

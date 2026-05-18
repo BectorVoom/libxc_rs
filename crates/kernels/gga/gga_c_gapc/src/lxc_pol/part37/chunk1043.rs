@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1043/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1043/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1043<F: Float>(t11449: F, t11804: F, t15843: F, t190: F, t2674: F, t11522: F, t15805: F, t9799: F, t3327: F, t33655: F, t33685: F, t7073: F, t3751: F, t9635: F, t11954: F, t3392: F) -> (F, F, F, F, F) {
-    let t34132 = t2674 * t190 * t11449 * t11804 * t15843;
-    let t34135 = t15805 * t11522 * t9799;
-    let t34142 = t7073 * t33655 * t3327 * t33685;
-    let t34144 = t3751 * t9635;
-    let t34146 = t11954 * t3392;
-    (t34132, t34135, t34142, t34144, t34146)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1043<F: Float>(t11205: F, t11212: F, t11218: F, t11220: F, t11225: F, t11229: F, t11231: F, t11240: F, t11244: F, t11246: F, t11250: F, t11255: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t12016 = F::new(0.2530696388073708253e-5) * t11205;
+    let t12017 = F::new(0.18103800586153667463e-6) * t11212;
+    let t12018 = F::new(0.23761238269326688546e-5) * t11218;
+    let t12019 = F::new(0.86898242813537603825e-4) * t11220;
+    let t12020 = F::new(0.86898242813537603825e-4) * t11225;
+    let t12021 = F::new(0.2530696388073708253e-5) * t11229;
+    let t12022 = F::new(0.3475929712541504153e-3) * t11231;
+    let t12025 = F::new(0.1545050757224698596e-4) * t11240;
+    let t12026 = F::new(0.84356546269123608433e-6) * t11244;
+    let t12027 = F::new(0.52638484871933131665e-3) * t11246;
+    let t12028 = F::new(0.32188557442181220751e-6) * t11250;
+    let t12030 = F::new(0.86898242813537603825e-4) * t11255;
+    (t12016, t12017, t12018, t12019, t12020, t12021, t12022, t12025, t12026, t12027, t12028, t12030)
 }

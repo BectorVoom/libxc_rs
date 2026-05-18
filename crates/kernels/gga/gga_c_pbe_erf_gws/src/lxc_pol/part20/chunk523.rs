@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 523/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 20 (v4rho3sigma_8) CSE chunk 523/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk523<F: Float>(t186: F, t2723: F, t211: F, t1033: F, t663: F, t209: F, t617: F, t184: F, t1024: F, t1730: F, t1: F, t331: F, t220: F, t34: F, t616: F, t1031: F, t202: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t2724 = t186 * t2723;
-    let t2726 = 2.0 / 15.0 * t211 * t2724;
-    let t2728 = 2.0 / 15.0 * t1033 * t663;
-    let t2729 = t617 * t209;
-    let t2730 = t2729 * t184;
-    let t2732 = 4.0 / 15.0 * t2730 * t1024;
-    let t2734 = 4.0 / 15.0 * t1730 * t1024;
-    let t2735 = t1 * t331;
-    let t2736 = t220 * t34;
-    let t2737 = t2735 * t2736;
-    let t2739 = 4.0 / 15.0 * t616 * t2737;
-    let t2740 = t202 * t1031;
-    (t2724, t2726, t2728, t2729, t2730, t2732, t2734, t2735, t2736, t2737, t2739, t2740)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk523<F: Float>(t1027: F, t617: F, t1809: F, t1620: F, t572: F, t995: F, t418: F, t1821: F, t1820: F, t1000: F, t562: F, t1037: F, t1627: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t2575 = t1027 * t617;
+    let t2576 = t1809 * t2575;
+    let t2578 = F::new(8.0) / F::new(45.0) * t1620 * t2576;
+    let t2579 = t995 * t572;
+    let t2580 = t2579 * t418;
+    let t2581 = t1821 * t2580;
+    let t2583 = F::new(8.0) / F::new(45.0) * t1820 * t2581;
+    let t2584 = t1000 * t562;
+    let t2585 = t1821 * t2584;
+    let t2587 = F::new(8.0) / F::new(45.0) * t1820 * t2585;
+    let t2590 = F::new(4.0) / F::new(45.0) * t1627 * t1037;
+    (t2575, t2576, t2578, t2579, t2580, t2581, t2583, t2584, t2585, t2587, t2590)
 }

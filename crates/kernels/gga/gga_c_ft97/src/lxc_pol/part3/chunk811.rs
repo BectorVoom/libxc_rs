@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 811/887 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 3 (v3rho3_2) CSE chunk 811/1032 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk811<F: Float>(t2469: F, t5147: F, t242: F, t1091: F, t3842: F, t10007: F, t14196: F, t17790: F, t14200: F, t17794: F, t5073: F, t684: F, t14163: F, t17785: F, t5053: F, t729: F, t773: F) -> (F, F, F, F, F, F, F, F) {
-    let t18398 = t2469 * t5147;
-    let t18399 = t242 * t18398;
-    let t18402 = t1091 * t3842;
-    let t18403 = t10007 * t18402;
-    let t18406 = t14196 * t17790;
-    let t18409 = t14200 * t17794;
-    let t18412 = t5073 * t684;
-    let t18413 = t10007 * t18412;
-    let t18416 = t14163 * t17785;
-    let t18420 = t729 * t773 * t5053;
-    (t18398, t18399, t18403, t18406, t18409, t18413, t18416, t18420)
+pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk811<F: Float>(t4893: F, t648: F, t3664: F, t3659: F, t920: F, t363: F, t4894: F, t4889: F, t4844: F, t5: F, t1080: F, t13273: F, t2240: F, t3601: F, t3660: F, t3665: F, t3668: F, t4890: F, t4895: F, t4898: F, t623: F, t650: F) -> F {
+    let t16585 = t4893 * t648;
+    let t16586 = t16585 * t3664;
+    let t16591 = t3659 * t920;
+    let t16594 = t4894 * t363;
+    let t16601 = t4889 * t363;
+    let t16612 = t5 * t4844;
+    let t16615 = t623 * t16586 / F::new(4.0) + t3601 * t3665 / F::new(2.0) + t623 * t16591 / F::new(2.0) + t623 * t16594 / F::new(4.0) + t2240 * t4898 / F::new(2.0) + t13273 * t1080 / F::new(2.0) + t623 * t16601 / F::new(4.0) + t2240 * t4895 / F::new(4.0) + t3601 * t3660 / F::new(2.0) + t3601 * t3668 / F::new(2.0) + t2240 * t4890 / F::new(4.0) + t16612 * t650 / F::new(4.0);
+    t16615
 }

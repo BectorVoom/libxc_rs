@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 975/1296 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 27 (v4rho2sigma2_10) CSE chunk 975/1468 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk975<F: Float>(t5654: F, t7426: F, t2032: F, t6134: F, t7177: F, t900: F, t10007: F, t7068: F, t10012: F, t1984: F, t9804: F, t5501: F, t935: F, t2530: F, t321: F, t5580: F, t7802: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t22854 = t5654 * t7426;
-    let t22883 = t6134 * t2032;
-    let t22909 = t900 * t7177;
-    let t22980 = t10007 * t7068;
-    let t22984 = t10012 * t7068;
-    let t23000 = t1984 * t9804;
-    let t23021 = t5501 * t935;
-    let t23092 = t321 * t2530;
-    let t23099 = t5580 * t7802;
-    (t22854, t22883, t22909, t22980, t22984, t23000, t23021, t23092, t23099)
+pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk975<F: Float>(t10024: F, t10867: F, t2714: F, t3040: F, t2718: F, t9873: F, t3500: F, t7416: F, t10827: F, t2685: F, t2684: F, t2465: F, t2958: F) -> (F, F, F, F, F, F, F, F) {
+    let t10868 = t10867 * t10024;
+    let t10869 = F::new(0.44688112439813033337e-1) * t10868;
+    let t10871 = F::new(0.35750489951850426669e0) * t2714 * t3040;
+    let t10873 = F::new(0.35750489951850426669e0) * t2718 * t3040;
+    let t10876 = F::new(0.15976219147466979032e-1) * t9873;
+    let t10877 = t7416 * t3500;
+    let t10878 = F::new(0.19171462976960374838e0) * t10877;
+    let t10879 = t2685 * t10827;
+    let t10880 = t2684 * t10879;
+    let t10881 = F::new(0.19171462976960374838e0) * t10880;
+    let t10882 = t2465 * t2958;
+    (t10869, t10871, t10873, t10876, t10878, t10879, t10881, t10882)
 }

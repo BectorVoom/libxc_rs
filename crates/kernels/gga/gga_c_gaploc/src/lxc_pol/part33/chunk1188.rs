@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1188/1294 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 33 (v4rho2sigma2_16) CSE chunk 1188/1464 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1188<F: Float>(t35141: F, t26822: F, t901: F, t10315: F, t20445: F, t20168: F, t31540: F, t20158: F, t31735: F, t20172: F, t2854: F, t590: F, t6519: F, t2875: F, t544: F, t6514: F) -> (F, F, F, F, F, F, F) {
-    let t35142 = 0.29792074959875355558e-1 * t35141;
-    let t35143 = t26822 * t901;
-    let t35144 = 0.14896037479937677779e-1 * t35143;
-    let t35146 = 0.14300195980740170668e1 * t20445 * t10315;
-    let t35172 = 0.51123901271894332902e1 * t20168 * t31540;
-    let t35174 = 0.2044956050875773316e1 * t20158 * t31735;
-    let t35178 = 0.30674340763136599742e1 * t20172 * t2854 * t6519 * t590;
-    let t35180 = t544 * t6514 * t2875;
-    (t35142, t35144, t35146, t35172, t35174, t35178, t35180)
+pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk1188<F: Float>(t32044: F, t10262: F, t2312: F, t23983: F, t2761: F, t6455: F, t10167: F, t29874: F, t10269: F, t4141: F, t10196: F, t3833: F) -> (F, F, F, F, F, F) {
+    let t32045 = F::new(0.11856252764865062333e-2) * t32044;
+    let t32046 = t2312 * t10262;
+    let t32047 = F::new(0.23712505529730124666e-2) * t32046;
+    let t32049 = t23983 * t2761 * t6455;
+    let t32050 = F::new(0.23712505529730124666e-2) * t32049;
+    let t32052 = t29874 * t10167;
+    let t32053 = F::new(0.71137516589190373998e-2) * t32052;
+    let t32055 = F::new(0.63233348079280332441e-2) * t4141 * t10269;
+    let t32057 = F::new(0.56910013271352299198e-1) * t3833 * t10196;
+    (t32045, t32047, t32050, t32053, t32055, t32057)
 }

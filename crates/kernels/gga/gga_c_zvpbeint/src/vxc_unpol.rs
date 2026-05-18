@@ -28,15 +28,15 @@ pub fn gga_c_zvpbeint_vxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t10 = t4 * t6 / t7;
         let t12 = 1.0 + 0.53425e-1 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -47,8 +47,8 @@ pub fn gga_c_zvpbeint_vxc_unpol(
         let t30 = f64::ln(t29);
         let t32 = 0.621814e-1 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
-        let t34 = pow_1_3(zeta_threshold);
-        let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
+        let t36 = piecewise3::<f64>(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
         let t45 = 1.0 + 0.278125e-1 * t10;
@@ -68,7 +68,7 @@ pub fn gga_c_zvpbeint_vxc_unpol(
         let t70 = t68 * t5 * t7;
         let t71 = f64::sqrt(t70);
         let t72 = t66 * t71;
-        let t74 = piecewise3(0.1e-19 < 0.0, 0.0, 0.1e-19);
+        let t74 = piecewise3::<f64>(0.1e-19 < 0.0, 0.0, 0.1e-19);
         let t76 = f64::powf(t74, param_omega / 2.0);
         let t77 = t72 * t76;
         let t80 = f64::exp(-t60 * t63 * t77 / 16.0);
@@ -78,7 +78,7 @@ pub fn gga_c_zvpbeint_vxc_unpol(
         let t84 = M_PI * M_PI;
         let t85 = 1.0 / t84;
         let t86 = t34 * t34;
-        let t87 = piecewise3(t33, t86, 1.0);
+        let t87 = piecewise3::<f64>(t33, t86, 1.0);
         let t88 = t87 * t87;
         let t89 = t88 * t87;
         let t90 = t85 * t89;

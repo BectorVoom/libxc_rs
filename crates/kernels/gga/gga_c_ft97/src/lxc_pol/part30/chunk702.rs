@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 702/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 702/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,16 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk702<F: Float>(t33649: F, t33690: F, t33741: F, t33787: F, t7485: F, t771: F, t193: F, t1403: F, t1427: F, t247: F, t33537: F, t33568: F, t33573: F, t33575: F, t33584: F, t33589: F, t33592: F, t33594: F, t33596: F, t33599: F, t33602: F, t33608: F, t33650: F, t33686: F, t5996: F, t6002: F, t719: F, t7443: F, t7487: F, t7558: F) -> (F, F, F, F) {
-    let t33789 = t33649 + t33690 + t33741 + t33787;
-    let t33792 = t7485 * t771;
-    let t33793 = t193 * t33792;
-    let t33799 = -t6002 * t33537 / 18.0 + t33568 * t1427 / 6.0 - t33573 - t1403 * t33575 / 3.0 - t5996 * t7443 / 3.0 + t5996 * t7487 / 6.0 + t1403 * t33584 / 6.0 - t33589 + t33592 - t33594 + 4.0 * t33596 - 12.0 * t33599 + 8.0 * t33602 - t247 * t33789 + 8.0 * t33608 + t1403 * t33793 / 6.0 - t719 * t7558 - 2.0 * t33650 + 4.0 * t33686;
-    (t33789, t33792, t33793, t33799)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk702<F: Float>(t24873: F, t4260: F, t15312: F, t1501: F, t2360: F, t3886: F, t15254: F, t2347: F, t15294: F, t15299: F, t28760: F, t684: F, t7045: F) -> (F, F, F, F, F, F, F, F) {
+    let t29198 = t24873 * t4260;
+    let t29199 = t15312 * t29198;
+    let t29202 = t1501 * t2360;
+    let t29203 = t29202 * t3886;
+    let t29204 = t15254 * t29203;
+    let t29207 = t1501 * t2347;
+    let t29208 = t29207 * t3886;
+    let t29209 = t15294 * t29208;
+    let t29212 = t15299 * t28760;
+    let t29215 = t7045 * t684;
+    (t29198, t29199, t29203, t29204, t29208, t29209, t29212, t29215)
 }

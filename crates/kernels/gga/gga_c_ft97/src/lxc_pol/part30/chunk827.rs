@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 827/1042 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 827/1184 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk827<F: Float>(t1403: F, t33254: F, t681: F, t33574: F, t33590: F, t5996: F, t2: F, t33452: F, t231: F, t33301: F, t33300: F, t898: F, t1424: F, t7242: F, t24447: F, t631: F) -> (F, F, F, F, F, F, F, F) {
-    let t140707 = t1403 * t681 * t33254;
-    let t140710 = t1403 * t681 * t33574;
-    let t140712 = t5996 * t33590;
-    let t140714 = t2 * t33452;
-    let t140744 = t231 * t33301;
-    let t140756 = t898 * t33300;
-    let t140757 = t7242 * t1424;
-    let t140762 = t24447 * t631;
-    (t140707, t140710, t140712, t140714, t140744, t140756, t140757, t140762)
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk827<F: Float>(t35318: F, t9942: F, t1434: F, t193: F, t2506: F, t35323: F, t1154: F, t7484: F, t743: F, t6109: F, t33508: F, t33513: F, t35312: F, t35316: F, t35321: F, t35326: F, t35330: F, t35334: F) -> (F, F, F, F, F, F, F, F) {
+    let t35336 = t9942 * t35318;
+    let t35338 = t1434 * t193 * t35336;
+    let t35339 = t2506 * t35323;
+    let t35341 = t1434 * t193 * t35339;
+    let t35343 = t7484 * t1154;
+    let t35344 = t743 * t35343;
+    let t35346 = t6109 * t193 * t35344;
+    let t35348 = t35312 / F::new(2.0) + t33508 + F::new(2.0) / F::new(9.0) * t35316 + F::new(4.0) / F::new(3.0) * t35321 - F::new(2.0) / F::new(3.0) * t35326 - t35330 / F::new(6.0) - t33513 - t35334 / F::new(9.0) - t35338 + F::new(2.0) / F::new(3.0) * t35341 + t35346 / F::new(12.0);
+    (t35336, t35338, t35339, t35341, t35343, t35344, t35346, t35348)
 }

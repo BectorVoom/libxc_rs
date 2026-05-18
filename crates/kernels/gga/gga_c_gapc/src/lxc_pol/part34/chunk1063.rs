@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 34 (v4rho2sigma2_13) CSE chunk 1063/1210 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 34 (v4rho2sigma2_13) CSE chunk 1063/1427 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part34_v4rho2sigma2_13_chunk1063<F: Float>(t11439: F, t129: F, t19670: F, t11438: F, t26331: F, t5549: F, t1030: F, t33307: F, t4979: F, t11513: F, t1749: F, t5285: F, t1743: F, t34123: F, t11449: F, t11519: F, t1845: F, t190: F) -> (F, F, F, F, F, F) {
-    let t34633 = t19670 * t129 * t11439;
-    let t34638 = t11438 * t26331 * t5549;
-    let t34641 = t1030 * t33307 * t4979;
-    let t34644 = t5285 * t11513 * t1749;
-    let t34647 = t1743 * t34123 * t4979;
-    let t34651 = t1845 * t190 * t11449 * t11519;
-    (t34633, t34638, t34641, t34644, t34647, t34651)
+pub fn gga_c_gapc_lxc_pol_part34_v4rho2sigma2_13_chunk1063<F: Float>(t11984: F, t11988: F, t11992: F, t11995: F, t11998: F, t11962: F, t11967: F, t11975: F, t12255: F, t12256: F, t12257: F, t12258: F, t12259: F, t12260: F, t12261: F, t12262: F, t12263: F, t12264: F, t12267: F, t12269: F) -> F {
+    let t12270 = F::new(0.33147827249531850013e-7) * t11984;
+    let t12271 = F::new(0.34752370105806885418e-3) * t11988;
+    let t12272 = F::new(0.4637672555408563478e-4) * t11992;
+    let t12273 = F::new(0.4637672555408563478e-4) * t11995;
+    let t12274 = F::new(0.38647271295071362317e-6) * t11998;
+    let t12275 = t12255 + t12256 - t12257 - t12258 + t12259 - t12260 - t12261 - t12262 - t12263 + t12264 + F::new(0.42168511284722222227e-6) * t11962 - F::new(0.36897447374131944448e-6) * t11967 - t12267 + F::new(0.57970906942607043474e-5) * t11975 - t12269 + t12270 + t12271 - t12272 + t12273 + t12274;
+    t12275
 }

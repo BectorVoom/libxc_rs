@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1052/1225 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 37 (v4rho2sigma2_16) CSE chunk 1052/1445 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1052<F: Float>(t11549: F, t8751: F, t11399: F, t5700: F, t1678: F, t11397: F, t632: F, t11533: F, t424: F, t3703: F, t1667: F, t11398: F, t3691: F, t9099: F, t11566: F, t5252: F) -> (F, F, F, F, F, F, F) {
-    let t34330 = t11549 * t8751;
-    let t34333 = t11399 * t5700;
-    let t34334 = t34333 * t1678;
-    let t34335 = t632 * t11397 * t34334;
-    let t34337 = t424 * t11533;
-    let t34338 = t34337 * t3703;
-    let t34340 = t34333 * t1667;
-    let t34341 = t11398 * t34340;
-    let t34344 = t3691 * t9099;
-    let t34346 = t5252 * t11566;
-    (t34330, t34335, t34337, t34338, t34341, t34344, t34346)
+pub fn gga_c_gapc_lxc_pol_part37_v4rho2sigma2_16_chunk1052<F: Float>(t11614: F, t11617: F, t11621: F, t11623: F, t11627: F, t11630: F, t11634: F, t11638: F, t11641: F, t11644: F, t11649: F, t11651: F, t11653: F) -> F {
+    let t12176 = -F::new(0.16414765573575218917e-4) * t11614 - F::new(0.16414765573575218917e-4) * t11617 + F::new(0.23485962392041415794e-5) * t11621 - F::new(0.16146599144528473358e-4) * t11623 + F::new(0.23485962392041415794e-4) * t11627 + F::new(0.14678726495025884871e-5) * t11630 + F::new(0.86995919027186744337e-7) * t11634 + F::new(0.14678726495025884871e-5) * t11638 + F::new(0.23485962392041415794e-4) * t11641 - F::new(0.34197428278281706076e-6) * t11644 - F::new(0.99742499144988309388e-7) * t11649 + F::new(0.30777685450453535468e-5) * t11651 + F::new(0.93943849568165663176e-4) * t11653;
+    t12176
 }

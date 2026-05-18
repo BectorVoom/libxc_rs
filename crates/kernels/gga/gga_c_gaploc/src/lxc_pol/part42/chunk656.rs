@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 656/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 656/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk656<F: Float>(t177: F, t208: F, t4347: F, t1397: F, t4390: F, t1238: F, t4072: F, t4081: F, t92: F, t153: F, t155: F, t4080: F, t121: F, t4524: F, t169: F, t4529: F) -> (F, F, F, F, F, F, F) {
-    let t17293 = t177 / t4347 / t208;
-    let t18067 = t1397 * t4390;
-    let t18089 = 1.0 / t4072 / t1238;
-    let t18091 = t18089 * t92 * t4081;
-    let t18096 = t153 / t4080 / t155;
-    let t18310 = t121 * t4524;
-    let t18313 = t169 * t4529;
-    (t17293, t18067, t18089, t18091, t18096, t18310, t18313)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk656<F: Float>(t1589: F, t3726: F, t10850: F, t10853: F, t10855: F, t10859: F, t12163: F, t12167: F, t12173: F, t12177: F, t12182: F, t12185: F, t2049: F, t2194: F, t2197: F, t317: F, t3733: F, t3736: F, t3741: F, t3746: F, t784: F, t797: F, t813: F, t833: F) -> F {
+    let t12188 = t1589 * t3726;
+    let t12191 = F::new(0.23833659967900284446e0) * t3733 * t784 + F::new(0.23005755572352449806e1) * t2197 * t3746 + F::new(0.23005755572352449806e1) * t833 * t12163 - F::new(0.35750489951850426669e0) * t797 * t12167 - F::new(0.23005755572352449806e1) * t2194 * t3741 - F::new(0.23005755572352449806e1) * t813 * t12173 + F::new(0.35750489951850426669e0) * t12177 * t317 - F::new(0.35750489951850426669e0) * t2049 * t3736 + F::new(0.35750489951850426669e0) * t12182 * t317 - F::new(0.30674340763136599741e1) * t813 * t12185 - F::new(0.23833659967900284446e0) * t797 * t12188 - t10850 + t10853 - t10855 - t10859;
+    t12191
 }

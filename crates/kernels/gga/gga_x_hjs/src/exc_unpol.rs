@@ -43,21 +43,21 @@ pub fn gga_x_hjs_exc_unpol(
         let t6 = t3 / t4;
         let t7 = 1.0 <= zeta_threshold;
         let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+        let t10 = piecewise5::<f64>(t7, t8, t7, -t8, 0.0);
         let t11 = 1.0 + t10;
         let t12 = t11 <= zeta_threshold;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t12, t13 * zeta_threshold, t15 * t11);
-        let t18 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(zeta_threshold);
+        let t15 = pow_1_3::<f64>(t11);
+        let t17 = piecewise3::<f64>(t12, t13 * zeta_threshold, t15 * t11);
+        let t18 = pow_1_3::<f64>(rho[ip]);
         let t19 = t17 * t18;
         let t20 = t3 * t3;
         let t21 = param_hyb_omega_0 * t20;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = 1.0 / t23;
         let t25 = t21 * t24;
-        let t26 = piecewise3(t12, t13, t15);
+        let t26 = piecewise3::<f64>(t12, t13, t15);
         let t27 = 1.0 / t26;
         let t28 = 1.0 / t18;
         let t29 = t27 * t28;
@@ -141,7 +141,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t172 = t109 * t171;
         let t175 = t34 * t41 * t172 / 24.0;
         let t176 = 0.1e-9 < t175;
-        let t177 = piecewise3(t176, t175, 0.1e-9);
+        let t177 = piecewise3::<f64>(t176, t175, 0.1e-9);
         let t178 = param_hyb_omega_0 * param_hyb_omega_0;
         let t179 = t178 * t3;
         let t180 = t26 * t26;
@@ -176,7 +176,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t231 = f64::sqrt(M_PI);
         let t233 = f64::sqrt(t177);
         let t236 = 0.0 < 0.7572109999e0 + t177;
-        let t238 = piecewise3(t236, 0.757211e0 + t177, 0.1e-9);
+        let t238 = piecewise3::<f64>(t236, 0.757211e0 + t177, 0.1e-9);
         let t239 = f64::sqrt(t238);
         let t241 = 4.0 / 5.0 * t231 + 12.0 / 5.0 * t233 - 12.0 / 5.0 * t239;
         let t243 = 0.474596e-1 * t206 * t194 + 0.28363733333333333333e-1 * t220 - 0.9086532e0 * t227 - t230 * t241;
@@ -207,7 +207,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t292 = t281 / 3.0 + t273 / 3.0;
         let t294 = f64::ln(t292 * t286);
         let t297 = 0.757211e0 + 0.47272888888888888889e-1 * t193 * t195 + 0.26366444444444444444e-1 * t219 * t221 - t263 * t264 / 9.0 + 2.0 / 3.0 * t25 * t29 * t275 + 2.0 * t177 * t288 - 2.0 * t238 * t294;
-        let t301 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t297);
+        let t301 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t297);
         let tzk0 = 2.0 * t301;
         zk[ip] += tzk0;
     }

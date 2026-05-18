@@ -1,4 +1,4 @@
-//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 819/1272 (D-02 tuple-return <F: Float>).
+//! GGA_C_OPTC lxc pol — lxc_pol part 7 (v4rho4_0) CSE chunk 819/1414 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk819<F: Float>(t2347: F, t984: F, t2351: F, t988: F, t355: F, t7592: F, t7529: F, t7538: F, t7541: F, t7544: F, t7547: F, t7560: F, t7563: F, t7566: F, t7596: F, t7599: F) -> (F, F, F, F) {
-    let t8304 = t984 * t2347;
-    let t8306 = t988 * t2351;
-    let t8307 = t355 * t8306;
-    let t8319 = 0.54733333333333333333e-2 * t7592;
-    let t8320 = -0.4926e-2 * t7560 + 0.2463e-2 * t7563 - 0.12315e-2 * t7596 - 0.7389e-2 * t7566 + 0.7389e-2 * t7599 - 0.38776666666666666665e1 * t7529 + 0.77553333333333333331e1 * t7538 - 0.38776666666666666665e1 * t7541 - 0.11633e2 * t7544 + 0.11633e2 * t7547 - t8319;
-    (t8304, t8306, t8307, t8320)
+pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk819<F: Float>(t2494: F, t817: F, t818: F, t2493: F, t2495: F, t2518: F, t252: F, t2530: F, t2537: F, t7621: F, t7626: F, t7628: F, t7631: F, t7666: F, t7688: F, t7694: F, t7710: F, t7726: F, t7727: F, t7731: F, t7734: F, t7738: F, t7741: F, t7744: F) -> (F, F, F) {
+    let t7747 = t2494 * t817;
+    let t7748 = t7747 * t818;
+    let t7752 = -F::new(0.3109e-1) * t7710 * t252 - t7688 + t7694 + t7726 - F::new(0.35089340384731224426e1) * t2530 * t7727 + F::new(0.51947267698127589897e2) * t2537 * t7731 - F::new(6.0) * t2493 * t7734 + F::new(0.96494049533612093922e2) * t2518 * t7738 + F::new(0.35089340384731224426e1) * t2537 * t7741 - F::new(6.0) * t7744 * t2495 + F::new(6.0) * t2518 * t7748 - F::new(0.19751789702565206229e-1) * t7621 - t7626 - t7628 - t7631 - t7666;
+    (t7747, t7748, t7752)
 }

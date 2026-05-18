@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1004/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1004/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1004<F: Float>(t549: F, t7069: F, t7390: F, t5638: F, t822: F, t9419: F, t20671: F, t22624: F, t28831: F, t825: F, t969: F, t2013: F, t9851: F, t9847: F, t2464: F, t2465: F, t7221: F) -> (F, F, F, F, F, F, F) {
-    let t28854 = 0.11916829983950142223e0 * t7390 * t549 * t7069;
-    let t28856 = t822 * t5638 * t9419;
-    let t28859 = 0.51123901271894332902e0 * t28856 * t20671 * t22624;
-    let t28861 = t825 * t969 * t28831;
-    let t28862 = 0.38342925953920749676e0 * t28861;
-    let t28864 = 0.17041300423964777634e0 * t2013 * t9851;
-    let t28865 = t2013 * t9847;
-    let t28866 = 0.76685851907841499352e0 * t28865;
-    let t28873 = 0.17041300423964777634e0 * t825 * t2464 * t2465 * t7221;
-    (t28854, t28856, t28859, t28862, t28864, t28866, t28873)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1004<F: Float>(t10887: F, t2021: F, t2975: F, t7372: F, t1: F, t10686: F, t787: F, t2465: F, t2949: F, t2464: F, t825: F, t8516: F, t959: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t10888 = F::new(0.14896037479937677779e-1) * t10887;
+    let t10889 = t2021 * t2975;
+    let t10890 = t10889 * t7372;
+    let t10891 = F::new(0.14896037479937677779e-1) * t10890;
+    let t10892 = t10686 * t1;
+    let t10893 = t787 * t10892;
+    let t10896 = t2465 * t2949;
+    let t10897 = t2464 * t10896;
+    let t10898 = t825 * t10897;
+    let t10899 = F::new(0.42603251059911944084e-1) * t10898;
+    let t10900 = t8516 * t959;
+    (t10888, t10889, t10891, t10892, t10893, t10896, t10897, t10899, t10900)
 }

@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 1073/1092 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 1073/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1073<F: Float>(t2217: F, t939: F, t1614: F, t8114: F, t556: F, t8306: F, t32003: F, t4210: F, t8065: F, t8998: F, t2236: F, t2241: F, t32124: F, t33015: F, t33019: F, t33024: F, t33028: F, t33031: F, t33566: F, t33651: F, t33727: F, t7931: F, t7934: F, t8400: F, t8791: F, t9402: F) -> (F, F) {
-    let t38046 = t939 * t2217;
-    let t38051 = 0.13170898365871023197e1 * t8114 * t1614;
-    let t38052 = t8306 * t556;
-    let t38055 = 0.34694512752820797848e1 * t32003 * t38052 * t4210;
-    let t38065 = t8998 * t8065;
-    let t38072 = -0.17347256376410398924e1 * t8400 * t38046 * t8791 + t33015 + t33019 + t38051 + t38055 + 0.52041769129231196772e1 * t32124 * t38052 * t7934 - 0.8673628188205199462e0 * t7931 * t8306 * t33651 + 0.34694512752820797848e1 * t33024 + 0.8673628188205199462e0 * t33566 * t2241 + 0.8673628188205199462e0 * t38065 + 0.8673628188205199462e0 * t33727 * t9402 + 0.69389025505641595696e1 * t33028 + t33031 + 0.17347256376410398924e1 * t33566 * t2236;
-    (t38052, t38072)
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1073<F: Float>(t7433: F, t8970: F, t1181: F, t22040: F, t604: F, t7493: F, t21118: F, t7351: F, t7426: F, t1131: F, t525: F, t2068: F) -> (F, F, F, F, F) {
+    let t35092 = t7433 * t8970;
+    let t35096 = t7493 * t1181 * t604 * t22040;
+    let t35100 = t7426 * t1181 * t7351 * t21118;
+    let t35102 = t525 * t1131;
+    let t35105 = t2068 * t1181 * t604 * t35102;
+    (t35092, t35096, t35100, t35102, t35105)
 }

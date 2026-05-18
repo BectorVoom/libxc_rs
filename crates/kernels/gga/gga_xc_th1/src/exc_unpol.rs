@@ -47,7 +47,7 @@ pub fn gga_xc_th1_exc_unpol(
         let t12 = M_CBRT2;
         let t13 = t12 * t12;
         let t14 = param_omega_1 * t13;
-        let t15 = pow_1_3(rho[ip]);
+        let t15 = pow_1_3::<f64>(rho[ip]);
         let t16 = t15 * rho[ip];
         let t20 = M_SQRT2;
         let t21 = param_omega_2 * t20;
@@ -58,8 +58,8 @@ pub fn gga_xc_th1_exc_unpol(
         let t29 = t28 * rho[ip];
         let t33 = param_omega_4 * t13;
         let t34 = f64::sqrt(sigma[ip]);
-        let t36 = pow_1_3(zeta_threshold);
-        let t38 = piecewise3(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
+        let t36 = pow_1_3::<f64>(zeta_threshold);
+        let t38 = piecewise3::<f64>(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
         let t43 = param_omega_5 * t20;
         let t49 = param_omega_6 * t12;
         let t55 = param_omega_7 * t2;

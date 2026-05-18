@@ -1,4 +1,4 @@
-//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 945/1178 (D-02 tuple-return <F: Float>).
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 15 (v4rho3sigma_3) CSE chunk 945/1352 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk945<F: Float>(t2112: F, t816: F, t3258: F, t3257: F, t3287: F, t6203: F, t745: F, t851: F, t3221: F, t3220: F, t1123: F, t6396: F, t2255: F, t2253: F, t2277: F, t2312: F, t6477: F, t9033: F, t9037: F, t9039: F, t9041: F, t9042: F, t9539: F, t9540: F) -> (F, F, F, F, F, F, F, F) {
-    let t9543 = t816 * t2112;
-    let t9544 = t3258 * t9543;
-    let t9545 = t3257 * t9544;
-    let t9549 = 7.0 / 288.0 * t6203 * t3287;
-    let t9550 = t851 * t745;
-    let t9551 = t3221 * t9550;
-    let t9552 = t3220 * t9551;
-    let t9555 = t1123 * t6396;
-    let t9556 = t2255 * t9555;
-    let t9559 = -7.0 / 1152.0 * t6477 + t9539 - t9033 - t2312 * t9540 / 192.0 + t2277 * t9545 / 768.0 + t9549 - t2253 * t9552 / 768.0 - t2253 * t9556 / 768.0 + t9037 - t9039 - t9041 - t9042;
-    (t9544, t9545, t9550, t9551, t9552, t9555, t9556, t9559)
+pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk945<F: Float>(t225: F, t7908: F, t2962: F, t679: F, t1049: F, t1986: F, t231: F, t4910: F, t7002: F, t7007: F, t7008: F, t7009: F, t7010: F, t7013: F, t7015: F, t7017: F, t7023: F, t7026: F, t7031: F, t7033: F) -> F {
+    let t8400 = t7908 * t225;
+    let t8404 = F::new(8.0) / F::new(3.0) * t2962 * t679;
+    let t8405 = t1049 * t1986;
+    let t8407 = t7002 - t7007 + t7008 + t4910 + t7009 + F::new(4.0) / F::new(3.0) * t8400 * t231 + t8404 + F::new(4.0) / F::new(3.0) * t8405 + t7010 - t7013 + t7015 - t7017 + t7023 - t7026 + t7031 - t7033;
+    t8407
 }

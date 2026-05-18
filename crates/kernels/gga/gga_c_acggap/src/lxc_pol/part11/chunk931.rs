@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 931/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 931/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk931<F: Float>(t30543: F, t8515: F, t30398: F, t30416: F, t10146: F, t420: F, t576: F, t1083: F, t137: F, t4257: F, t30444: F, t30365: F, t30369: F, t30375: F, t30387: F, t30397: F, t30406: F, t30412: F, t30422: F, t30429: F, t30448: F, t30452: F, t30457: F, t30459: F) -> (F,) {
-    let t34361 = t30543 * t8515;
-    let t34362 = 0.12862205435420921092e-1 * t34361;
-    let t34364 = 35.0 / 216.0 * t30398;
-    let t34366 = 0.25158473831683321654e-2 * t30416;
-    let t34368 = t576 * t420 * t10146;
-    let t34369 = t1083 * t137;
-    let t34371 = t34368 * t34369 * t4257;
-    let t34373 = 0.15724046144802076034e-2 * t30444;
-    let t34378 = -0.85748036236139473944e-3 * t30365 + 0.20965394859736101378e-2 * t30369 + 0.12579236915841660827e-2 * t30375 - t34362 + 11.0 / 384.0 * t30387 - t30397 + t34364 - t30406 + 0.62896184579208304134e-2 * t30412 - t34366 + t30422 + 0.183375e0 * t34371 + t30429 - t34373 - 0.64311027177104605458e-3 * t30448 + 0.62896184579208304136e-3 * t30452 - 0.90035438047946447642e-2 * t30457 + 0.42874018118069736972e-3 * t30459;
-    (t34378,)
+pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk931<F: Float>(t1089: F, t12610: F, t2079: F, t2080: F, t1967: F, t7767: F, t1459: F, t1980: F, t31024: F, t7458: F, t2117: F, t980: F) -> (F, F, F, F) {
+    let t31245 = t2079 * t1089 * t12610 * t2080;
+    let t31247 = t1967 * t7767;
+    let t31251 = t1980 * t7458 * t1459 * t31024;
+    let t31253 = t980 * t2117;
+    (t31245, t31247, t31251, t31253)
 }

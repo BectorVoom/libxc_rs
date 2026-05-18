@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 698/880 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 42 (v4rhosigma3_7) CSE chunk 698/1012 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk698<F: Float>(t12953: F, t31054: F, t12986: F, t2464: F, t2487: F, t3177: F, t35091: F, t9272: F, t12987: F, t7014: F, t2876: F, t9453: F, t10608: F, t9278: F, t34600: F, t544: F, t9287: F) -> (F, F, F, F, F, F, F) {
-    let t42199 = t31054 * t12953;
-    let t42202 = t2487 * t2464 * t12986;
-    let t42226 = t9272 * t35091 * t3177;
-    let t42256 = t7014 * t12987;
-    let t42296 = t2876 * t9453;
-    let t42349 = t9272 * t10608 * t9278;
-    let t42366 = t544 * t34600 * t9287;
-    (t42199, t42202, t42226, t42256, t42296, t42349, t42366)
+pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk698<F: Float>(t13535: F, t2508: F, t2558: F, t3641: F, t943: F, t3650: F, t948: F, t3645: F, t11622: F, t2562: F, t883: F, t11608: F, t935: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t13537 = F::new(0.76905262301422242837e-2) * t2508 * t13535;
+    let t13542 = t3641 * t2558;
+    let t13543 = t943 * t13542;
+    let t13544 = F::new(0.32043859292259267849e-3) * t13543;
+    let t13545 = t3650 * t948;
+    let t13547 = F::new(0.53833683610995569986e-1) * t2508 * t13545;
+    let t13548 = t3645 * t2558;
+    let t13549 = t943 * t13548;
+    let t13550 = F::new(0.32043859292259267849e-3) * t13549;
+    let t13552 = t2562 * t883 * t11622;
+    let t13553 = t943 * t13552;
+    let t13554 = F::new(0.32043859292259267849e-3) * t13553;
+    let t13555 = t11608 * t935;
+    (t13537, t13542, t13544, t13545, t13547, t13548, t13550, t13552, t13554, t13555)
 }

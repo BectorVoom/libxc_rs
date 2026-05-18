@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 881/923 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 53 (v4rhosigma3_18) CSE chunk 881/1072 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk881<F: Float>(t42380: F, t42381: F, t42385: F, t42388: F, t42390: F, t42392: F, t42395: F, t42398: F, t42401: F, t42405: F, t42407: F, t42413: F, t42421: F, t48178: F, t48182: F, t48185: F, t48188: F, t48191: F, t48194: F, t48198: F) -> (F,) {
-    let t50917 = -0.38342925953920749676e0 * t48178 - t48182 + t48185 - t42380 + t42381 - t42385 + t42388 - t42390 + t42392 - t42395 - t42398 - 0.21450293971110256002e1 * t48188 - 0.21450293971110256002e1 * t48191 - 0.51123901271894332901e0 * t48194 + t48198 - t42401 - t42405 + t42407 - t42413 - t42421;
-    (t50917,)
+pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk881<F: Float>(t12830: F, t29874: F, t39805: F, t39808: F, t39811: F, t12803: F, t1358: F, t12797: F, t12767: F, t6305: F, t1063: F, t3158: F, t8207: F) -> (F, F, F, F, F, F, F, F) {
+    let t42820 = t29874 * t12830;
+    let t42821 = F::new(0.71137516589190373998e-2) * t42820;
+    let t42822 = F::new(0.16598753870811087267e-1) * t39805;
+    let t42823 = F::new(0.23712505529730124666e-2) * t39808;
+    let t42824 = F::new(0.23712505529730124666e-2) * t39811;
+    let t42825 = t1358 * t12803;
+    let t42826 = F::new(0.63233348079280332443e-2) * t42825;
+    let t42827 = t29874 * t12797;
+    let t42828 = F::new(0.23712505529730124666e-2) * t42827;
+    let t42838 = F::new(0.56910013271352299198e-1) * t6305 * t12767;
+    let t42841 = F::new(0.19918504644973304719e0) * t1063 * t3158 * t8207;
+    (t42821, t42822, t42823, t42824, t42826, t42828, t42838, t42841)
 }

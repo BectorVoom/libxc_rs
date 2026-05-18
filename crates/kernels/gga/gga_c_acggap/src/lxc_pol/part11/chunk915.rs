@@ -1,4 +1,4 @@
-//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 915/1066 (D-02 tuple-return <F: Float>).
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 11 (v4rho3sigma_3) CSE chunk 915/1213 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk915<F: Float>(t1181: F, t21099: F, t599: F, t7337: F, t2068: F, t20935: F, t604: F, t30269: F, t30297: F, t34072: F, t34074: F, t34076: F, t34077: F, t34078: F, t34082: F, t34085: F, t34089: F, t34092: F, t34095: F, t34100: F, t34102: F, t34105: F, t34107: F) -> (F,) {
-    let t34111 = t7337 * t1181 * t599 * t21099;
-    let t34115 = t2068 * t1181 * t604 * t20935;
-    let t34117 = 0.94344276868812456204e-2 * t30269 - 0.68598428988911579156e-2 * t34072 + 0.34299214494455789578e-2 * t34074 + t34076 + t34077 - 0.34299214494455789578e-2 * t34078 - 0.21437009059034868486e-2 * t30297 - t34082 - 0.15724046144802076034e-2 * t34085 - 0.10718504529517434243e-2 * t34089 + t34092 - 0.62896184579208304136e-3 * t34095 - t34100 + t34102 - 0.94344276868812456204e-2 * t34105 + 0.94344276868812456204e-2 * t34107 + 0.10718504529517434243e-2 * t34111 + 0.42874018118069736972e-3 * t34115;
-    (t34117,)
+pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk915<F: Float>(t14046: F, t7336: F, t7643: F, t1973: F, t7630: F, t1985: F, t30231: F, t1967: F, t7792: F, t7637: F, t7796: F, t1980: F, t1982: F, t1992: F, t5: F, t965: F) -> (F, F, F, F, F, F, F) {
+    let t30984 = t14046 * t7336;
+    let t30985 = t30984 * t7643;
+    let t30987 = t7630 * t1973;
+    let t30989 = t30231 * t1985;
+    let t30990 = F::new(0.28582678745379824648e-2) * t30989;
+    let t30991 = t1967 * t7792;
+    let t30993 = t7637 * t7796;
+    let t30998 = t1980 * t1982 * t5 * t965 * t1992;
+    (t30984, t30985, t30987, t30990, t30991, t30993, t30998)
 }

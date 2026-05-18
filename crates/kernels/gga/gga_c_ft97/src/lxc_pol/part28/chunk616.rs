@@ -1,4 +1,4 @@
-//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 616/1041 (D-02 tuple-return <F: Float>).
+//! GGA_C_FT97 lxc pol — lxc_pol part 28 (v4rho2sigma2_6) CSE chunk 616/1189 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,20 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk616<F: Float>(t23714: F, t3392: F, t1013: F, t422: F, t379: F, t538: F, t920: F, t423: F, t554: F, t1008: F, t72: F, t5579: F, t5570: F, t23701: F, t23705: F, t23711: F, t23715: F, t23732: F, t23789: F, t23817: F, t23832: F, t25710: F, t25715: F, t25719: F, t26635: F, t26671: F, t8859: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t26692 = t3392 * t23714;
-    let t26695 = t422 * t1013;
-    let t26696 = t26695 * t379;
-    let t26700 = t920 * t538;
-    let t26701 = t423 * t26700;
-    let t26705 = t920 * t554;
-    let t26706 = t423 * t26705;
-    let t26714 = t1008 * t554;
-    let t26715 = t72 * t26714;
-    let t26716 = t5579 * t26715;
-    let t26721 = t422 * t1008;
-    let t26722 = t26721 * t379;
-    let t26723 = t5570 * t26722;
-    let t26728 = -0.33339000546296296298e-1 * t23789 - 0.55565000910493827163e-2 * t23817 - 0.40279602951224778275e-1 * t23701 * t25715 - 0.22226000364197530865e-1 * t26692 * t25719 + 0.33339000546296296297e-1 * t23705 * t5570 * t26696 - 0.33339000546296296298e-1 * t23715 * t5570 * t26701 + 0.33339000546296296298e-1 * t23705 * t5570 * t26706 + 0.33339000546296296298e-1 * t26692 * t25710 + 0.40279602951224778275e-1 * t23711 * t25715 + 0.20003400327777777778e0 * t23732 * t26716 + 0.24167761770734866964e0 * t23832 * t26635 - 0.33339000546296296297e-1 * t23715 * t26723 - 0.10947790369858991997e1 * t8859 * t26671;
-    (t26696, t26700, t26701, t26705, t26706, t26714, t26715, t26722, t26728)
+pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk616<F: Float>(t25912: F, t89: F, t22873: F, t942: F, t28: F, t3204: F, t5691: F, t22958: F, t5674: F, t25873: F, t25876: F, t25881: F, t25886: F, t25891: F, t25897: F, t25902: F, t25906: F, t25910: F) -> (F, F, F, F, F, F) {
+    let t25913 = t89 * t25912;
+    let t25915 = t22873 * t942;
+    let t25916 = t28 * t25915;
+    let t25917 = t89 * t25916;
+    let t25919 = t5691 * t3204;
+    let t25920 = t22958 * t25919;
+    let t25921 = t5674 * t25920;
+    let t25923 = -t25873 + t25876 / F::new(18.0) + t25881 / F::new(9.0) - t25886 / F::new(6.0) - t25891 / F::new(6.0) - t25897 / F::new(8.0) + t25902 / F::new(18.0) + F::new(2.0) / F::new(3.0) * t25906 + F::new(2.0) / F::new(3.0) * t25910 - F::new(2.0) / F::new(9.0) * t25913 + F::new(2.0) / F::new(3.0) * t25917 - t25921 / F::new(9.0);
+    (t25913, t25916, t25917, t25919, t25921, t25923)
 }

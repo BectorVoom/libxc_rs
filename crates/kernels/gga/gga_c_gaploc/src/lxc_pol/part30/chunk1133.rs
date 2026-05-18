@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1133/1268 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 30 (v4rho2sigma2_13) CSE chunk 1133/1436 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1133<F: Float>(t1457: F, t2634: F, t32969: F, t28242: F, t28245: F, t11109: F, t22315: F, t11001: F, t1445: F, t2061: F, t2070: F, t2201: F, t28249: F, t28259: F, t32387: F, t32951: F, t32953: F, t32955: F, t32958: F, t32960: F, t32963: F, t32968: F) -> (F, F) {
-    let t32970 = t1457 * t2634;
-    let t32972 = 0.50050685932590597338e1 * t32969 * t32970;
-    let t32973 = 0.25561950635947166452e0 * t28242;
-    let t32974 = 0.25561950635947166452e0 * t28245;
-    let t32978 = t22315 * t11109;
-    let t32979 = 0.38342925953920749676e0 * t32978;
-    let t32980 = -t32951 + t32953 + t32955 - t32958 - t32960 + t32963 + 0.71500979903700853338e0 * t2070 * t11001 + 0.35750489951850426669e0 * t2061 * t11001 - t32968 - t32972 - t32973 + t32974 - t28249 - t28259 - 0.46011511144704899612e1 * t2201 * t1445 * t32387 - t32979;
-    (t32970, t32980)
+pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1133<F: Float>(t30258: F, t587: F, t912: F, t21071: F, t901: F, t4379: F, t9573: F, t1402: F, t1429: F, t3162: F, t20237: F, t544: F) -> (F, F, F, F, F) {
+    let t30260 = t587 * t912 * t30258;
+    let t30261 = F::new(0.38342925953920749676e0) * t30260;
+    let t30263 = F::new(0.29792074959875355558e-1) * t21071 * t901;
+    let t30265 = F::new(0.59584149919750711116e-1) * t4379 * t9573;
+    let t30288 = F::new(0.17875244975925213335e0) * t1429 * t1402 * t3162;
+    let t30292 = t544 * t20237;
+    (t30261, t30263, t30265, t30288, t30292)
 }

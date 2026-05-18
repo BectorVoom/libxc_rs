@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1184/1270 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 24 (v4rho2sigma2_7) CSE chunk 1184/1439 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1184<F: Float>(t10713: F, t2103: F, t4673: F, t10717: F, t11013: F, t5771: F, t10783: F, t10948: F, t1457: F, t32371: F, t33851: F, t33853: F, t33857: F, t33859: F, t33861: F, t33863: F, t33865: F, t33867: F, t33869: F, t33872: F, t7653: F) -> (F,) {
-    let t33878 = 0.95334639871601137784e0 * t2103 * t4673 * t10713;
-    let t33881 = 0.95334639871601137784e0 * t2103 * t4673 * t10717;
-    let t33883 = 0.95334639871601137784e0 * t5771 * t11013;
-    let t33887 = t33851 - t33853 - 0.14300195980740170668e1 * t10948 * t7653 - t33857 - t33859 - t33861 + t33863 + t33865 + t33867 + t33869 - t33872 + 0.95334639871601137784e0 * t2103 * t4673 * t10783 + t33878 + t33881 + t33883 + 0.71500979903700853338e0 * t2103 * t1457 * t32371;
-    (t33887,)
+pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk1184<F: Float>(t2268: F, t2440: F, t2756: F, t10135: F, t6313: F, t10132: F, t6305: F, t555: F, t7861: F, t888: F, t7863: F, t894: F) -> (F, F, F, F, F, F, F) {
+    let t31786 = F::new(0.56910013271352299198e-1) * t2268 * t2440 * t2756;
+    let t31788 = F::new(0.2276400530854091968e0) * t6313 * t10135;
+    let t31790 = F::new(0.17073003981405689759e0) * t6305 * t10132;
+    let t31792 = F::new(0.17073003981405689759e0) * t6305 * t10135;
+    let t31793 = t555 * t7861;
+    let t31796 = F::new(0.85365019907028448797e-1) * t2268 * t31793 * t888;
+    let t31799 = F::new(0.28455006635676149599e-1) * t2268 * t894 * t7863;
+    (t31786, t31788, t31790, t31792, t31793, t31796, t31799)
 }

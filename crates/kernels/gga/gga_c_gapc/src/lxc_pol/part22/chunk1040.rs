@@ -1,4 +1,4 @@
-//! GGA_C_GAPC lxc pol — lxc_pol part 22 (v4rho2sigma2_1) CSE chunk 1040/1209 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPC lxc pol — lxc_pol part 22 (v4rho2sigma2_1) CSE chunk 1040/1426 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gapc_lxc_pol_part22_v4rho2sigma2_1_chunk1040<F: Float>(t11905: F, t15491: F, t18107: F, t33149: F, t10063: F, t11930: F, t11597: F, t3363: F, t3415: F, t11902: F, t16296: F, t18018: F, t1086: F, t11990: F, t15835: F, t11741: F, t16133: F, t3284: F) -> (F, F, F, F, F, F, F, F) {
-    let t34166 = t11905 * t15491;
-    let t34169 = t33149 * t18107;
-    let t34171 = t11930 * t10063;
-    let t34174 = t3363 * t11597 * t3415;
-    let t34176 = t11902 * t16296;
-    let t34178 = t11905 * t18018;
-    let t34181 = t11990 * t1086 * t15835;
-    let t34184 = t11741 * t3284 * t16133;
-    (t34166, t34169, t34171, t34174, t34176, t34178, t34181, t34184)
+pub fn gga_c_gapc_lxc_pol_part22_v4rho2sigma2_1_chunk1040<F: Float>(t11205: F, t11212: F, t11218: F, t11220: F, t11225: F, t11229: F, t11231: F, t11183: F, t11186: F, t12012: F, t12013: F, t12014: F, t12015: F) -> F {
+    let t12016 = F::new(0.2530696388073708253e-5) * t11205;
+    let t12017 = F::new(0.18103800586153667463e-6) * t11212;
+    let t12018 = F::new(0.23761238269326688546e-5) * t11218;
+    let t12019 = F::new(0.86898242813537603825e-4) * t11220;
+    let t12020 = F::new(0.86898242813537603825e-4) * t11225;
+    let t12021 = F::new(0.2530696388073708253e-5) * t11229;
+    let t12022 = F::new(0.3475929712541504153e-3) * t11231;
+    let t12023 = F::new(0.54311401758461002391e-5) * t11183 + F::new(0.54311401758461002391e-5) * t11186 - t12012 - t12013 - t12014 + t12015 + t12016 - t12017 + t12018 - t12019 - t12020 + t12021 + t12022;
+    t12023
 }

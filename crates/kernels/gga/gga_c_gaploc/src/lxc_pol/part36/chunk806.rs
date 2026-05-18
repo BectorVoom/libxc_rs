@@ -1,4 +1,4 @@
-//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 806/884 (D-02 tuple-return <F: Float>).
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 806/1029 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk806<F: Float>(t40588: F, t40591: F, t40596: F, t40599: F, t40602: F, t13194: F, t29439: F, t32357: F, t5539: F, t9647: F, t32436: F, t42920: F, t701: F, t13212: F, t7137: F, t13203: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t42980 = 0.1922631557535556071e-2 * t40588;
-    let t42981 = 0.4486140300916297499e-2 * t40591;
-    let t42982 = 0.7690526230142224284e-2 * t40596;
-    let t42983 = 0.3845263115071112142e-2 * t40599;
-    let t42984 = 0.1281754371690370714e-2 * t40602;
-    let t42985 = t29439 * t13194;
-    let t42986 = 0.12817543716903707139e-2 * t42985;
-    let t42988 = t9647 * t5539 * t32357;
-    let t42989 = 0.12817543716903707139e-2 * t42988;
-    let t42991 = t9647 * t5539 * t32436;
-    let t42992 = 0.12817543716903707139e-2 * t42991;
-    let t42993 = t42920 * t701;
-    let t42998 = 0.30762104920568897135e-1 * t7137 * t13212;
-    let t42999 = t7137 * t13203;
-    (t42980, t42981, t42982, t42983, t42984, t42986, t42989, t42992, t42993, t42998, t42999)
+pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk806<F: Float>(t12696: F, t5676: F, t2033: F, t2365: F, t2610: F, t9688: F, t12695: F, t549: F, t12692: F, t2013: F, t10007: F, t2530: F, t825: F, t9438: F) -> (F, F, F, F, F) {
+    let t41286 = t5676 * t12696;
+    let t41290 = t2033 * t2365 * t2610 * t9688;
+    let t41293 = t2033 * t549 * t12695;
+    let t41295 = t2013 * t12692;
+    let t41299 = t825 * t9438 * t10007 * t2530;
+    (t41286, t41290, t41293, t41295, t41299)
 }
