@@ -142,7 +142,7 @@ use std::f64::consts::PI;
         let tol = F::new(5.0e-12);
         if q.abs() < F::new(5.0e-12) { return F::new(3.0); }
         let rhs = (F::new(32.0) * F::new(PI)).powf(F::new(2.0) / F::new(3.0)) / (F::new(6.0) * q);
-        let (mut a, mut b) = if rhs > F::new(0.0) { (F::new(3.)0_f64, F::new(2.0)/rhs + F::new(3.0)) } else { (-F::new(1.)0_f64, F::new(3.)0_f64) };
+        let (mut a, mut b) = if rhs > F::new(0.0) { (F::new(3.0), F::new(2.0)/rhs + F::new(3.0)) } else { (-F::new(1.0), F::new(3.0)) };
         let obj = |x: f64| -> f64 {
             let arg = F::new(2.0) * x / F::new(3.0);
             let e = if arg > F::new(115.13) { F::new(0.0) } else { (-arg).exp() };
@@ -150,8 +150,8 @@ use std::f64::consts::PI;
         };
         let mut fa = obj(a); let mut fb = obj(b);
         if fa.abs() < fb.abs() { std::mem::swap(&mut a, &mut b); std::mem::swap(&mut fa, &mut fb); }
-        let mut c = a; let mut fc = fa; let mut d = F::new(0.)0_f64; let mut mflag = true;
-        for _ in 0.F::new(.500) {
+        let mut c = a; let mut fc = fa; let mut d = F::new(0.0); let mut mflag = true;
+        for _ in 0..500 {
             if (b - a).abs() < tol { return (b + a) / F::new(2.0); }
             let s = if fa != fc && fb != fc {
                 (a*fb*fc/((fa-fb)*(fa-fc))) + (b*fa*fc/((fb-fa)*(fb-fc))) + (c*fa*fb/((fc-fa)*(fc-fb)))

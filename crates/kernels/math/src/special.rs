@@ -221,7 +221,7 @@ pub fn xc_erfcx<F: Float>(x: F) -> F {
         }
     } else {
         if x < -26.7 {
-            result = F::F::new(MAX);
+            result = F::cast_from(f64::MAX);
         } else if x < -6.1 {
             result = F::new(2.0) * F::exp(x * x);
         } else {

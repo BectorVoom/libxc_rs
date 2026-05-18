@@ -39,7 +39,7 @@ fn cheb_bi0<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000245);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000053339);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000009579451);
@@ -61,7 +61,7 @@ fn cheb_ai0<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000007);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000071;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.0000000000000000031);
@@ -92,7 +92,7 @@ fn cheb_ai02<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000003);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000027;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000003;
@@ -124,7 +124,7 @@ fn cheb_bi1<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000002);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.000000000000004741);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.000000000000766380);
@@ -145,7 +145,7 @@ fn cheb_ai1<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.0000000000000000000;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000071);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000333;
@@ -176,7 +176,7 @@ fn cheb_ai12<F: Float>(x: F) -> F {
     let twox = F::new(2.0) * x;
     let mut b0 = F::new(0.0);
     let mut b1 = F::new(0.0);
-    let mut b2: f64 = F::new(0.0);
+    let mut b2: F = F::new(0.0);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000003;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000028);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  F::new(0.00000000000000000033);
