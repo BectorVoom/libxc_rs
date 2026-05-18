@@ -11,8 +11,8 @@ use super::powers::{pow_1_3, pow_4_3, pow_5_3};
 ///
 /// RS_CONST = (3/(4*pi))^(1/3)
 #[cube]
-pub fn wigner_seitz_rs(rho: f64) -> f64 {
-    RS_CONST * pow_1_3::<f64>(1.0 / rho)
+pub fn wigner_seitz_rs<F: Float>(rho: F) -> F {
+    F::cast_from(RS_CONST) * pow_1_3::<F>(F::new(1.0) / rho)
 }
 
 /// Reduced density gradient: s = sqrt(sigma) / (2 * kf * rho^(4/3))
@@ -21,16 +21,16 @@ pub fn wigner_seitz_rs(rho: f64) -> f64 {
 /// Actually, the standard form is: s = |grad rho| / (2 * kF * rho) where kF = (3*pi^2*rho)^(1/3)
 /// So s = sqrt(sigma) / (2 * KF_CONST * rho^(4/3))
 #[cube]
-pub fn reduced_gradient_s(rho: f64, sigma: f64) -> f64 {
-    f64::sqrt(sigma) / (2.0 * KF_CONST * pow_4_3::<f64>(rho))
+pub fn reduced_gradient_s<F: Float>(rho: F, sigma: F) -> F {
+    F::sqrt(sigma) / (F::new(2.0) * F::cast_from(KF_CONST) * pow_4_3::<F>(rho))
 }
 
 /// Thomas-Fermi kinetic energy density: t_TF = (3/10) * (3*pi^2)^(2/3) * rho^(5/3)
 ///
 /// Note: (3*pi^2)^(2/3) = KF_CONST^2
 #[cube]
-pub fn tf_kinetic(rho: f64) -> f64 {
-    0.3 * KF_CONST * KF_CONST * pow_5_3::<f64>(rho)
+pub fn tf_kinetic<F: Float>(rho: F) -> F {
+    F::new(0.3) * F::cast_from(KF_CONST) * F::cast_from(KF_CONST) * pow_5_3::<F>(rho)
 }
 
 /// Dimensionless inhomogeneity parameter alpha:
@@ -41,9 +41,9 @@ pub fn tf_kinetic(rho: f64) -> f64 {
 ///
 /// alpha = 1 for the uniform electron gas (tau = tau_TF, sigma = 0).
 #[cube]
-pub fn dimensionless_alpha(rho: f64, sigma: f64, tau: f64) -> f64 {
-    let tau_w = sigma / (8.0 * rho);
-    let tau_tf = tf_kinetic(rho);
+pub fn dimensionless_alpha<F: Float>(rho: F, sigma: F, tau: F) -> F {
+    let tau_w = sigma / (F::new(8.0) * rho);
+    let tau_tf = tf_kinetic::<F>(rho);
     (tau - tau_w) / tau_tf
 }
 
@@ -57,7 +57,7 @@ mod tests {
     #[cube(launch_unchecked)]
     fn test_rs_kernel(rho: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = wigner_seitz_rs(rho[idx]);
+        output[idx] = wigner_seitz_rs::<f64>(rho[idx]);
     }
 
     #[cube(launch_unchecked)]
@@ -67,13 +67,13 @@ mod tests {
         output: &mut Array<f64>,
     ) {
         let idx = ABSOLUTE_POS;
-        output[idx] = reduced_gradient_s(rho[idx], sigma[idx]);
+        output[idx] = reduced_gradient_s::<f64>(rho[idx], sigma[idx]);
     }
 
     #[cube(launch_unchecked)]
     fn test_tf_kinetic_kernel(rho: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = tf_kinetic(rho[idx]);
+        output[idx] = tf_kinetic::<f64>(rho[idx]);
     }
 
     #[cube(launch_unchecked)]
@@ -84,7 +84,7 @@ mod tests {
         output: &mut Array<f64>,
     ) {
         let idx = ABSOLUTE_POS;
-        output[idx] = dimensionless_alpha(rho[idx], sigma[idx], tau[idx]);
+        output[idx] = dimensionless_alpha::<f64>(rho[idx], sigma[idx], tau[idx]);
     }
 
     fn make_client() -> ComputeClient<CpuRuntime> {
