@@ -42,6 +42,11 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from translate_v2 import cse
 from translate_v2 import emit
+from translate_v2.cse import (PositionContext,
+                              collect_named_const_uses,
+                              HOIST_PRELUDE_TEMPLATE)
+from translate_v2.helpers_allowlist import (NAMED_CONSTS,
+                                            is_generic_helper_call)
 
 # Pol-spin input loads per family (unpol uses `rho[ip]`-style indexing instead).
 _POL_LOADS = {
@@ -78,18 +83,108 @@ _F64_LITERAL_RE = re.compile(
     r'(?<![A-Za-z_\d.])(\d+\.\d+(?:[eE][+-]?\d+)?)(?![A-Za-z_\d.])'
 )
 
+# D-06 long-literal precision-split cutoff. Literals with > this many
+# significant digits get F::cast_from(<lit>_f64) so the source f64 bit-pattern
+# is preserved verbatim when compiled under f64 mode (f32 mode accepts the
+# narrowing cost per the 1e-6 tolerance in D-19a).
+_LONG_LITERAL_SIGNIFICANT_DIGIT_THRESHOLD = 8
+
+# D-10 chunk-to-chunk call sites (inside a generic chunk body) propagate the
+# caller's F via ::<F>. The naming convention from `_cse_chunk_part` produces
+# `<func>_<level>_<spin>_part<N>_<suffix>_chunk<idx>` — the `_chunk\d+` tail
+# is the discriminator.
+_CHUNK_TO_CHUNK_CALL_RE = re.compile(r'\b([a-z_][a-z_0-9]*_chunk\d+)\(')
+
+# D-08 math/ helper call sites. Negative lookbehind on `::` keeps the regex
+# from biting into a fully-qualified `f64::ln(` or an already-substituted
+# `pow_1_3::<F>(`. The identifier shape is the same as a Rust snake_case fn.
+_HELPER_CALL_RE = re.compile(r'(?<!::)\b([a-z_][a-z_0-9]*)\(')
+
+
+def _significant_digit_count(lit: str) -> int:
+    """Count significant digits in an f64 literal string (decimal-form input).
+
+    `lit` is the raw match from `_F64_LITERAL_RE` — always contains a `.` and
+    may carry an exponent. Strip the decimal point, any leading sign/zeros, and
+    the exponent suffix, then return the remaining digit count.
+    """
+    digits = lit.replace('.', '').lstrip('-+0').split('e')[0].split('E')[0]
+    return len(digits)
+
+
+def _wrap_f64_literals_v2(rust_expr: str,
+                           ctx: PositionContext,
+                           hoisted: dict) -> str:
+    """D-04..D-10 chunk-body emit pass.
+
+    Steps:
+      A. Rule-4 guard — doc-comments and string-literal spans return verbatim.
+      B. D-05 hoisted named-const substitution — replace each NAMED_CONSTS
+         key occurrence with its hoisted local-binding name.
+      C. D-06 f64-literal wrap — `F::new(<lit>)` for short literals, or
+         `F::cast_from(<lit>_f64)` for long (> 8 sig digit) literals to
+         preserve the source f64 bit pattern under f64 mode.
+      D. D-08 native helper turbofish — `helper::<F>(` for every D-09
+         allowlist member at call sites.
+      E. D-10 chunk-to-chunk turbofish — `..._chunk<idx>::<F>(` for
+         chunk-to-chunk calls inside generic chunk bodies. The wrapper→chunk
+         call site (in `_build_chunk_wrapper`) STAYS `::<f64>` because the
+         wrapper itself is concrete-f64 (Array<f64> buffer-typed I/O); see
+         the inline nuance comment at that emit site.
+    """
+    # Step A — Rule-4 hands-off.
+    if ctx.in_doc_comment or ctx.in_string_literal:
+        return rust_expr
+
+    out = rust_expr
+
+    # Step B — hoisted named-const substitution. Iteration is over the
+    # caller-supplied `hoisted` map (ordered insertion), so substitutions are
+    # deterministic. `re.escape` is mandatory because `f64::MAX` contains `:`.
+    for sym, local_name in hoisted.items():
+        out = re.sub(rf'\b{re.escape(sym)}\b', local_name, out)
+
+    # Step C — f64-literal wrap with Rule-2 / Rule-3 length split.
+    def _wrap_literal(m):
+        lit = m.group(1)
+        if _significant_digit_count(lit) > _LONG_LITERAL_SIGNIFICANT_DIGIT_THRESHOLD:
+            return f"F::cast_from({lit}_f64)"
+        return f"F::new({lit})"
+    out = _F64_LITERAL_RE.sub(_wrap_literal, out)
+
+    # Step D — D-08 native math/ helper turbofish via D-09 allowlist.
+    def _wrap_helper(m):
+        name = m.group(1)
+        if is_generic_helper_call(name):
+            return f"{name}::<F>("
+        return m.group(0)
+    out = _HELPER_CALL_RE.sub(_wrap_helper, out)
+
+    # Step E — D-10 chunk-to-chunk turbofish (caller and callee both <F: Float>
+    # inside the chunk body). Applied AFTER the helper pass so a chunk fn name
+    # never collides with an allowlist entry (chunk fns end in `_chunk\d+`,
+    # which is not present in any allowlist member).
+    out = _CHUNK_TO_CHUNK_CALL_RE.sub(lambda m: f"{m.group(1)}::<F>(", out)
+    return out
+
 
 def _wrap_f64_literals(rust_expr: str) -> str:
-    """Wrap every f64 literal token in ``rust_expr`` as ``F::new(<lit>)``.
+    """Backwards-compat shim — pre-Phase-11.1 callers used the no-context form.
 
-    This is the q01 CubeCL 0.10 Fix #2 emit pass — applied to chunk-body RHS
-    expressions only (the flat `#[cube]` path keeps using concrete f64 typing
-    and so does NOT call this). Pure-integer literals (`0`, `2`) are left
-    untouched because they appear as `u32`/`usize` arguments to cube builtins
-    and the like. Already-wrapped `F::new(...)` are not re-wrapped because the
-    chunk-body emit pipeline never produces them upstream.
+    Defaults to a let-rhs/F enclosing context with an empty hoist map; this
+    keeps the legacy "wrap short literal as F::new" behaviour intact for any
+    external smoke test that imports the old name. New emit-path callers
+    should use :func:`_wrap_f64_literals_v2` directly with their own
+    :class:`PositionContext`.
     """
-    return _F64_LITERAL_RE.sub(lambda m: f"F::new({m.group(1)})", rust_expr)
+    default_ctx = PositionContext(
+        parent_kind="let_rhs",
+        enclosing_return_type="F",
+        enclosing_let_type="F",
+        in_doc_comment=False,
+        in_string_literal=False,
+    )
+    return _wrap_f64_literals_v2(rust_expr, default_ctx, {})
 
 
 @dataclass
@@ -234,28 +329,36 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     for ch in chunks:
         chunk_fn = (f"{func_name}_{level}_{spin}_part{part_idx}_{suffix}"
                     f"_chunk{ch.index}")
-        body = []
+
+        # --- Pass 1: translate every line once, accumulating referenced ids
+        # and a (var, rust_expr) list for the body emit pass. Storing the
+        # translated RHS up front lets us:
+        #   * compute chunk_defined / out_vars / ret BEFORE the body emit (so
+        #     the PositionContext can carry the enclosing return type for the
+        #     D-04 / D-07 classifier);
+        #   * build a joined body preview that collect_named_const_uses can
+        #     scan in one pass for D-05 hoisting (Phase 11.1 D-04/D-05).
+        translated = []   # list of (var, rust_expr) for body emit, or None
         referenced = set()
         for ln in ch.lines:
             var, expr = _parse_assign(ln)
             if var is None:
+                translated.append(None)
                 continue
             rust_expr = adapter.translate_line(expr, is_pol)
             referenced.update(_IDENT_RE.findall(rust_expr))
             if var in ch.inputs:
+                translated.append(None)
                 continue
-            # q01 Fix #2: wrap f64 literals as F::new(<lit>) so they coerce
-            # against the chunk's generic `<F: Float>` parameters under
-            # CubeCL 0.10. See _wrap_f64_literals for the regex spec; the flat
-            # `#[cube]` path stays on concrete f64 and does NOT wrap.
-            rust_expr = _wrap_f64_literals(rust_expr)
-            body.append(f"    let {var} = {rust_expr};")
+            translated.append((var, rust_expr))
+
+        # --- Compute chunk_defined / out_vars / ret (moved up from below the
+        # body loop so the PositionContext can use `ret` as the enclosing
+        # return type). The decision tree itself (single output -> scalar F,
+        # else tuple-return) is unchanged.
         ambient_args = sorted(i for i in (referenced & ambient_pool)
                               if i not in defined_all)
         in_args = list(ch.inputs) + ambient_args
-        # vars this chunk hands to a LATER chunk, plus any output-write var it
-        # defines: the defining chunk must always return the output var, even
-        # when ch.outputs only tracks cross-chunk deps.
         chunk_defined = {v for v in (_parse_assign(l)[0] for l in ch.lines)
                          if v and v not in ch.inputs}
         out_vars = list(ch.outputs)
@@ -263,13 +366,8 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             if ov in chunk_defined and ov not in out_vars:
                 out_vars.append(ov)
         sig_in = ", ".join(f"{a}: F" for a in in_args)
-        # q01 Fix #3: emit `-> F` (scalar) + bare-ident return when there is
-        # exactly one output. CubeCL 0.10's macro return-type inference fails on
-        # ANY `let` inside `-> (F,)` (E0308 "expected (NativeExpand<F>,), found
-        # NativeExpand<F>"). The wrapper callsite is updated to match — single-
-        # output chunks return scalar F, so the wrapper destructures with plain
-        # `let var = chunk(...);` instead of `let (var,) = chunk(...);`. The
-        # multi-output path keeps the tuple ABI as before.
+        # q01 Fix #3: single-output chunks return scalar F (CubeCL 0.10
+        # macro return-type inference fails on ANY `let` inside `-> (F,)`).
         if len(out_vars) == 1:
             ret = "F"
             ret_expr = out_vars[0]
@@ -278,6 +376,46 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             ret = "(" + ", ".join("F" for _ in out_vars) + ")"
             ret_expr = "(" + ", ".join(out_vars) + ")"
             wrapper_bind = ret_expr
+
+        # --- D-05 hoisting prelude: pre-scan the joined translated body for
+        # named-const references, then emit `let <local> = F::cast_from(SYM);`
+        # bindings at the top of the chunk body. The same `hoisted` map is
+        # passed into _wrap_f64_literals_v2 so each in-body occurrence of the
+        # const becomes the local-binding identifier (substitution-on-emit).
+        joined_body_preview = "\n".join(
+            f"let {var} = {rust_expr};"
+            for entry in translated
+            if entry is not None
+            for var, rust_expr in [entry]
+        )
+        hoist_uses = collect_named_const_uses(joined_body_preview)
+        hoisted = {sym: NAMED_CONSTS[sym] for sym in hoist_uses
+                   if sym in NAMED_CONSTS}
+
+        # --- Emit prelude lines (one let-binding per hoisted const), then
+        # body lines with D-04..D-10 wrapping. PositionContext carries the
+        # enclosing return type so the classifier (used inside v2) can route
+        # named-const-in-F vs bare-literal-in-tuple correctly. Maple-translated
+        # chunk bodies are pure arithmetic — no doc-comments, no string
+        # literals — so the Rule-4 guards stay False.
+        body = []
+        for sym, local_name in hoisted.items():
+            body.append(HOIST_PRELUDE_TEMPLATE.format(name=local_name,
+                                                      symbol=sym))
+        ctx = PositionContext(
+            parent_kind="let_rhs",
+            enclosing_return_type=ret,
+            enclosing_let_type="F",
+            in_doc_comment=False,
+            in_string_literal=False,
+        )
+        for entry in translated:
+            if entry is None:
+                continue
+            var, rust_expr = entry
+            rust_expr = _wrap_f64_literals_v2(rust_expr, ctx, hoisted)
+            body.append(f"    let {var} = {rust_expr};")
+
         chunk_srcs.append(
             f"//! {func_name.upper()} {level} {spin} — {output} part "
             f"{part_idx} ({suffix}) CSE chunk {ch.index}/{len(chunks)} "
@@ -363,6 +501,13 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
             stride = _LOAD_STRIDE.get(base, {}).get(adapter.family, 2)
             off = f" + {idx}" if idx else ""
             lines.append(f"        let {ld} = {base}[ip * {stride}{off}];")
+    # D-10 NUANCE: wrapper → chunk call site STAYS `::<f64>`. The wrapper
+    # itself is concrete-f64 (see the `&Array<f64>` typed input/output buffers
+    # above), and Rule 9 concrete-caller form calls a generic `<F: Float>`
+    # callee with `::<f64>`. Chunk-to-chunk calls INSIDE a chunk body are a
+    # different position — those are handled by
+    # `_wrap_f64_literals_v2`'s `_CHUNK_TO_CHUNK_CALL_RE` pass and emit
+    # `::<F>` to propagate the chunk's F generic.
     for bind, chunk_fn, args in wrapper_calls:
         lines.append(f"        let {bind} = {chunk_fn}::<f64>({args});")
     for ow in output_writes:
