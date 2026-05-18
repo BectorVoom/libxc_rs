@@ -8,7 +8,8 @@
 **Revised:** 2026-05-18 (third session — stale artifacts deleted; D-18 added for Serena MCP refactoring tooling; 11-05 status clarified as COMPLETE; 11-06..08-PLAN-NEW files and .continue-here.md removed)
 **Revised:** 2026-05-18 (fourth session, post-11-06 HALT — D-03 amended for f32 correctness gating; D-19..D-24 added: f32+f64 parametric test scope, A1 locked as the only path supporting helper-level dual-precision tests, cast_from script policy, 3-gate pre-bulk validation, surgical revert scope, AP-7 codified)
 **Revised:** 2026-05-18 (fifth session, post-11-06 4th-iter HALT at D-22 Gate 2 — D-20 A1 SUPERSEDED by D-25 Direction A (manual Phase-2 redo); D-22 amended (Gate 1 retire, Gate 2 → per-file gate, Gate 3 → exit gate); D-24 amended (11-06 scope replaced per Direction A); D-25..D-30 added; AP-8 codified BLOCKING)
-**Status:** Ready for planning (re-plan required — Direction A LOCKED via D-25; D-20 A1 SUPERSEDED; 11-06..08 plans REGENERATE per amended D-24; D-19 dual-precision test scope REAFFIRMED in full)
+**Revised:** 2026-05-18 (sixth session, post-11-06 Sessions 1+2 + Deviations E/F + Task 7 — D-31..D-34 added (batched-compile sweep `tools/batched_compile_sweep.py`, jobs=3 per-invocation policy, 11-07 scope replacement, Deviation E/F bookkeeping); D-07/D-09 amended (sweep-tool `--jobs 3` permitted, `.cargo/config.toml` stays jobs=1); D-24 amended (11-07 scope replaced); AP-2 narrowed to `RUST_MIN_STACK` only; AP-8 boundary clarified (bounded auto-retry is not a trigger))
+**Status:** Ready for planning (11-06 Session 1+2 complete; Deviations E+F applied; Task 7 done; Task 6 Legs 2/3/4 + Task 8 pending; new 11-07 = batched-compile sweep tool authoring + alphabetical-within-family sweep; 11-08 narrowed to final close)
 
 <domain>
 ## Phase Boundary
@@ -56,11 +57,12 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 ### Phase ordering
 - **D-06 [informational]:** Phase 11 lands before Phase 10 (workspace modular split). Rationale: collapsing the numbered kernel subcrates into per-functional subcrates first means Phase 10 inherits a clean, granular kernel layer rather than absorbing the current sprawl AND the workspace split simultaneously. Phase 10's ROADMAP entry already commits to `cargo tree -p libxc-eval` cleanliness — Phase 11 makes that cheaper to achieve. Risk acknowledged: Phase 11 is research-grade and slow; Phase 10 waits.
 
-### RAM ceiling (Phase 11 operating envelope)
-- **D-07:** Hard rule for ALL Phase 11 iteration runs:
+### RAM ceiling (Phase 11 operating envelope) — AMENDED 2026-05-18 sixth session
+- **D-07 (AMENDED — sixth session per D-32):** Hard rule for ALL Phase 11 iteration runs:
   - Executor runs **inline** (no `isolation="worktree"` subagent dispatch for cargo-touching work).
-  - `cargo`'s `jobs = 1` is already enforced project-wide via `.cargo/config.toml` (see D-09). Phase 11 MUST NOT relax it — neither by overriding `CARGO_BUILD_JOBS`, nor by passing `--jobs N`, nor by editing `.cargo/config.toml`.
-  - This is tighter than memory `feedback_ram_constraints.md` (`jobs ≤ 2`) — but the project's actual `.cargo/config.toml` default is already `jobs = 1`. Trust `.cargo/config.toml` over memory when they disagree.
+  - `cargo`'s `jobs = 1` is the **default** enforced project-wide via `.cargo/config.toml` (see D-09). Phase 11 MUST NOT edit `.cargo/config.toml` (`jobs` line stays `1`). User manages the file by hand.
+  - **Exception (NEW per D-32):** A single dedicated sweep tool `tools/batched_compile_sweep.py` MAY pass `--jobs 3` on its own cargo invocations. No other code path overrides jobs — neither via `CARGO_BUILD_JOBS`, ad-hoc `--jobs N`, nor config edits. The override is justified by per-functional subcrate isolation (D-10) shrinking per-rustc peak memory enough that 3-wide fits the 30 GB envelope; the sweep tool MUST measure and report peak memory per batch to validate the assumption empirically.
+  - This loosens prior wording ("MUST NOT relax it — neither by overriding `CARGO_BUILD_JOBS`, nor by passing `--jobs N`") for the sweep tool only. Memory `feedback_ram_constraints.md` amended in parallel (see sixth-session re-plan note).
   - Read-only researcher / scout subagents are still permitted (they don't compile).
 
 ### Build environment baseline (must be preserved verbatim)
@@ -69,12 +71,12 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - Set `RUST_MIN_STACK` to the prior buggy value `2_000_000_000` (≈1.87 GiB typo fixed in quick task 260510-q01).
   - Override the env value in subagent prompts.
   Phase 11 MAY raise `RUST_MIN_STACK` further if a specific chunk-graph still SIGSEGVs after splitting — document the new value and failing chunk in the iteration's SUMMARY.md.
-- **D-09 (cargo config is the source of truth):** Phase 11 reads its build environment from `.cargo/config.toml`, not from agent prompts or memory:
-  - `[build] jobs = 1` — single-job builds (D-07).
+- **D-09 (cargo config is the source of truth — AMENDED sixth session per D-32):** Phase 11 reads its build environment from `.cargo/config.toml`, not from agent prompts or memory:
+  - `[build] jobs = 1` — single-job builds for all default-path cargo invocations (D-07). **Sole exception:** `tools/batched_compile_sweep.py` passes `--jobs 3` on its own per-batch cargo invocations (D-32). All other code paths inherit `jobs = 1` from the config file.
   - `[build] target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"` — out-of-tree target dir. Iteration loops MUST NOT clean this directory between iterations; incremental builds against it are the design.
   - `[env] RUST_MIN_STACK = "67108864"` (D-08).
   - sccache is in use — Phase 11 MUST NOT disable sccache or enable incremental compilation in Cargo.toml profiles (incompatible per the config header).
-  Any subagent prompt listing "build commands" MUST cite `.cargo/config.toml` as the authoritative env, not duplicate the values inline.
+  Any subagent prompt listing "build commands" MUST cite `.cargo/config.toml` as the authoritative env, not duplicate the values inline. The sweep tool's `--jobs 3` override is documented at its call sites.
 
 ### Locked from prior discussion (carried in from quick-task promotion)
 - **D-LOCK-A (REVISED 2026-05-14):** Unification scope = collapse the 27 numbered subcrates into **one subcrate per functional, named by functional id** — NOT into per-family crates, and NOT into a single fat family crate. The family level (`crates/kernels/{lda,gga,mgga}/`) is a plain directory. Multiple files per functional are permitted; the nested-by-output layout per D-04 is the within-subcrate convention.
@@ -233,8 +235,8 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
        c. F32 failure on a file blocks moving to the next file. Per-file atomic commit with the file path and "green at both precisions" in the message.
     5. **Gate 3 exit gate (D-22 amended).** After all 11 files converted: run the mgga_c_b94 chunk → helper integration spike at both precisions (compile + parity at f64 1e-12 + parity at f32 1e-6 + idempotency). One-shot `is_deferred(id)` bypass mechanism per D-15 (planner picks the exact bypass shape).
     6. SUMMARY.md with per-file conversion deltas, Gate 3 evidence, and the f32 per-test override table (D-19c).
-  - **11-07** — Regen 266 subcrates + D-15 entry gate (compile-first) **AT BOTH PRECISIONS for mgga_c_b94 canary**. The original 11-07 plan already includes D-15; the amendment is the f32 leg. No further change vs the fourth-session D-24.
-  - **11-08** — Per-`-p` sweep + audits + close, **with f32 test mode exercised under env-gate**. The per-`-p` sweep includes a `LIBXC_RS_F32=1` pass on the smoke parity set. The full 649-functional f32 oracle sweep is a phase-end deliverable, not a per-iteration gate (matches D-05's "full per-subcrate parity sweep runs at phase end" pattern, now extended to both precisions). No further change vs the fourth-session D-24.
+  - **11-07 (REPLACED — sixth session per D-34)** — Both original deliverables already landed in 11-06: full-tree regen via Deviation F (commits `4aaaaa773` LDA + `8a9f32091` GGA + `d26efabda` MGGA); D-15 Leg 1 (compile) proven on mgga_c_b94 at both precisions via Deviations D+E. **New 11-07 = batched-compile sweep workflow per D-31..D-33:** author `tools/batched_compile_sweep.py` (separate orchestrator; alphabetical-within-family ordering; batch=20; `--jobs 3` per-invocation only; bounded 2-pass failure mode with halt-and-surface). Run the sweep across all 266 routed + 7 deferred subcrates; produce a pass/fail manifest. First failure surfaces a real translator bug via `.continue-here.md`; halt for `/gsd:discuss-phase`. Peak-RSS measurement per batch validates the jobs=3 envelope empirically.
+  - **11-08 (NARROWED — sixth session per D-34)** — Receives the sweep manifest from 11-07 as evidence for SPEC-11-R4. Remaining 11-08 work: re-run 5 audits post-regen (audit_kernel_size, audit_subcrate_collapse with per-functional-subcrate invariant, audit_cube_launch per D-13, test_idempotency, audit_dispatch_tree); ROADMAP.md success criteria #1/#4/#7 wording correction; CLAUDE.md update per D-03a/D-19a; smoke parity at f32 (env-gated, planner picks the smoke set size); phase close + final SUMMARY. **Full 649-functional dual-precision oracle sweep stays as a phase-end deliverable.**
 
 - **D-24 (ORIGINAL — preserved for record, all script-driven 11-06 tasks SUPERSEDED above):** All three forward plans regenerate per the locked decisions D-19..D-23:
   - **11-06** — **REPLACED scope** (not amendment). Tasks: (1) Pre-flight `.cargo/config.toml`; (2) D-23 surgical revert; (3) Extend cast_from script per D-20; (4) Gate 1 synthetic fixture; (5) Gate 2 bessel.rs canary; (6) Gate 3 mgga_c_b94 spike; (7) Bulk-run script on remaining 10 helpers; (8) Three-leg exit gate.
@@ -276,6 +278,34 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 ### AP-8 codification — automation-extension as architectural rescue (NEW 2026-05-18 — fifth session)
 - **D-30:** Codify AP-8 (BLOCKING) in the anti-patterns table below. Trigger threshold: **non-monotonic decrease across 2 consecutive extension passes.** When the total `cargo build` error count INCREASES across two successive automation-script extensions (even if individual error classes shrink), STOP — the script is no longer finishing the original problem; it is uncovering structural-baseline corruption. The 4th-iter signature (121→507, +386 errors after a "smart signature rewrite" pass) is the canonical example. Required response: HALT the plan; surface for `/gsd-discuss-phase`; pivot to manual conversion or structural-fix-OR-revert. **Same enforcement weight as AP-1, AP-2, AP-3, AP-6, AP-7.**
 
+### Batched compile sweep workflow (NEW 2026-05-18 — sixth session)
+- **D-31:** A dedicated tool `tools/batched_compile_sweep.py` is the supported mechanism for verifying that the ~266 per-functional subcrates compile after a translator regen. Architecture:
+  - **Pure orchestrator.** The sweep tool wraps `cargo build -p <crate>` invocations; it does NOT call any translator and it does NOT modify any source. Translators (`tools/translate_{lda_v2,gga,mgga}.py`) stay pure-emit per D-25's Direction A carve-out — they are unaware of compile state.
+  - **Inputs.** A list of subcrate package names (defaults to the 266-entry routed-functional roster + the 7 D-11 deferred functionals reachable via explicit `-p`); a batch size (default 20); a `--jobs N` override (default 3 per D-32); optional `--start-after <pkg>` for resume; optional `--families lda,gga,mgga` filter.
+  - **Outputs.** Per-batch stderr capture, peak-RSS measurement per batch, a final JSON manifest enumerating pass/fail per subcrate, a human-readable summary report, and (on failure) a `.continue-here.md` pointer in the active plan directory.
+  - **Determinism.** Same input roster + same translator state ⇒ same pass/fail outcome. No iteration count, no retry-loop that can mask non-determinism.
+
+- **D-32:** **Jobs=3 invocation policy.** `tools/batched_compile_sweep.py` passes `--jobs 3` on its `cargo build` invocations. **`.cargo/config.toml` stays at `jobs = 1`** — the override is per-invocation, not project-wide. No other tool, plan task, subagent prompt, or shell command in Phase 11 may pass `--jobs N > 1`. AP-2 (narrowed sixth session) backs this with `RUST_MIN_STACK`-only blocking semantics; the jobs override is permitted ONLY at the sweep tool's call sites. The sweep tool MUST log its effective `--jobs` value at start and report measured peak memory at end so future calibration is data-driven, not assumption-driven.
+
+- **D-33:** **Failure mode = bounded 2-pass with halt-and-surface.** When a batch fails to compile:
+  1. **Pass 1 (batched, `--jobs 3`).** First failing batch: capture full stderr per subcrate-`-p` arg, identify which subcrate(s) failed.
+  2. **Pass 2 (sequential, `--jobs 1`, batch=1).** Re-run only the failing batch's contents one-at-a-time at `--jobs 1`. Isolates parallelism-induced failures from genuine bugs. **This is the only retry.** No third pass, no script extension, no automated source mutation.
+  3. **Halt and surface.** First confirmed failure in Pass 2: stop the sweep, write `.continue-here.md` with the failing functional name + cargo stderr + memory peak, exit non-zero. User reads `.continue-here.md`, decides whether translator needs a fix, source needs a fix, or it's a real compile bug.
+  - **AP-8 boundary (NEW clarification):** The bounded 2-pass retry is NOT an AP-8 trigger. AP-8 forbids **unbounded** extension-as-rescue loops where each pass uncovers a new problem class. The 2-pass design is a **diagnostic narrowing** (parallel → sequential to identify root cause), not a problem-solving loop. The retry count is capped at exactly 2; no automation extensions are applied between passes.
+
+- **D-34:** **Plan slot = new 11-07.** The original 11-07 scope (full-tree regen + D-15 entry gate on mgga_c_b94) is **REPLACED** because both deliverables already landed in 11-06: full-tree regen via Deviations F1+F2+F3 (commits `4aaaaa773`, `8a9f32091`, `d26efabda`); D-15 Leg 1 (compile) via Deviations D+E (commits `e7d1bdce4`, `00b5380a1`, `cc324c6fa`) for mgga_c_b94 at both precisions.
+  - **New 11-07 scope:** Author `tools/batched_compile_sweep.py` per D-31/D-32/D-33. Run the sweep on the 266+7 routed+deferred subcrates in alphabetical-within-family order (LDA all 43 → GGA all 131 → MGGA all 92) at batch=20, `--jobs 3`. First-pass goal: enumerate compile failures (expected: zero in the happy path; any failure surfaces a real translator bug). Empirically validate that jobs=3 + per-functional subcrates stay within the 30 GB envelope; if peak-RSS exceeds ~24 GB on any batch, drop to `--jobs 2` and document the calibration in the plan's SUMMARY.
+  - **Carry into 11-08 (NARROWED):** 11-08 receives the sweep manifest from 11-07 and uses it as evidence for SPEC-11-R4. 11-08's remaining work: re-run the 5 audits post-regen (audit_kernel_size, audit_subcrate_collapse with per-functional-subcrate invariant, audit_cube_launch per D-13, test_idempotency, audit_dispatch_tree); ROADMAP.md success criteria #1/#4/#7 wording correction; CLAUDE.md update per D-03a/D-19a; phase close + final SUMMARY.
+
+### Bookkeeping: Session 1 + Session 2 + Deviation E + Deviation F + Task 7 (NEW 2026-05-18 — sixth session)
+- **D-26 status:** All 9 Phase-2 files converted manually per the locked easiest-first order. Atomic commits 2026-05-18 (Session 2): `9e7544efb` (bspline) → `6570d948d` (dft_quantities) → `9f8bb2000` (erf) → `8a995fb99` (special) → `5c35eb711` (mbrxc) → `74c5321ed` (br89) → `19882e5b1` (integrate) → `de49d7b59` (expint_e1) → `1bf0e3bf1` (bessel — LAST per D-26). All per-file gates GREEN at f64 AND f32 (`cargo build -p libxc-kernel-math` + `spike_cse_emit_q01.rs`). Phase-1 files (powers/piecewise/lambert_w/polynomials/spin) UNTOUCHED across all 9 commits (Step F verified after each). **D-26 cadence complete.**
+- **D-27 status:** `11-PATTERN.md` authored 2026-05-18 (commit `06a52d180`) and amended Session 1 (commit `68723b8ee`) with Rule 9 (cross-fn turbofish, MANDATORY) and Rule 10 (translator carry-forward, informational). **D-27 deliverable complete.**
+- **D-22 Gate 3 Leg 1 status:** Compile gate PROVEN at both precisions across mgga_c_b94 (commits `00b5380a1` 5th-iter Session 1 + `cc324c6fa` Deviation E re-regen). Legs 2 (parity f64), 3 (parity f32 under `LIBXC_RS_F32=1`), and 4 (idempotency: zero diff on translator re-run) remain pending; they execute as 11-06 Task 6 in a fresh session.
+- **Deviation E (NEW status entry):** Session 1's translator-side Rule 10 covered only Phase-1 helpers (`pow_*`, `piecewise[35]`). Session 2's 9-file Phase-2 conversion produced 18 new generic public helpers (`safe_cbrt`, `Heaviside`, Bessel/Erf/Brent fns, …) whose call sites in generated chunks needed `::<f64>` turbofish as well. Commit `cc324c6fa` extended `translate_{lda_v2,gga,mgga}.py` with a Phase-2 substitution block (word-boundary regex; idempotent on already-turbofish'd text) and regenerated the mgga_c_b94 canary as proof. **Deviation E is documented in PATTERN.md Rule 10's "Phase-2 extension" subsection.**
+- **Deviation F (NEW status entry):** With the Phase-2 turbofish substitution committed, the remaining 265 functionals needed full-tree regen to inherit the substitutions. Originally scoped to plan 11-07; pulled forward into 11-06 because the substitution itself was a 11-06 translator change. Executed as three atomic commits 2026-05-18: `4aaaaa773` (LDA 43; `ok=43 skipped=0 failed=0`), `8a9f32091` (GGA 131; `ok=131 skipped=0 failed=0`), `d26efabda` (MGGA 92; `ok=92 skipped=0 failed=0`). Total: 266 functionals regenerated. **Compile status across all 266 is UNVERIFIED — verification is exactly what the new 11-07 batched-compile sweep delivers.**
+- **D-28 status (Task 7):** Header comments annotating fallback / future-use status added to `tools/refactor_helpers_generic.py` and `tools/refactor_test_fixtures/symbol_class_matrix.rs` in commit `265bf03b5`. Both files preserved in-tree per D-28's policy. **Task 7 complete.**
+- **11-06 forward-from-here:** Task 6 Legs 2/3/4 (parity + idempotency on mgga_c_b94) + Task 8 (final SUMMARY rewrite). Estimate ~60–90 min in a fresh session per 11-06-SUMMARY.md Session 1's resume notes.
+
 ### Critical Anti-Patterns for Phase 11 Replan (NEW 2026-05-18 — documented in `.continue-here.md`)
 
 The following patterns have been **empirically observed to break the replan** in prior iterations and must be actively prevented:
@@ -285,10 +315,11 @@ The following patterns have been **empirically observed to break the replan** in
   - **How it manifested:** Plans 11-01..03 claimed structural completion without per-`-p` compile gates. When 11-04 Task 1A introduced the first per-`-p` gate, it surfaced the D-02 helper-layer incompatibility.
   - **Structural fix:** The regenerated 11-05..08 plans MUST have **entry-gate criteria** (per-`-p` compile check on a canary functional) BEFORE any structural work begins. This reverses the gate order: compile-first (entry), not compile-after (exit).
 
-- **AP-2 (blocking): Modifying `.cargo/config.toml`**
-  - **What it is:** Changing `[build] jobs` or `[env] RUST_MIN_STACK` in `.cargo/config.toml`. These are D-07/D-08/D-09 load-bearing constraints.
-  - **How it manifested:** An uncapped `jobs` override (even temporary) causes OOM (exit 137) on the 30GB machine. The committed `jobs = 1` is the source of truth; user restores the cap by hand.
-  - **Structural fix:** Phase 11 plans MUST include a **pre-flight check** task that verifies `.cargo/config.toml` has `jobs = 1` and `RUST_MIN_STACK = 67108864`. No plan task touches this file directly, and no task overrides these values via `CARGO_BUILD_JOBS` or env-var proxies.
+- **AP-2 (blocking — NARROWED 2026-05-18 sixth session): Modifying `[env] RUST_MIN_STACK` in `.cargo/config.toml`**
+  - **What it is:** Changing `[env] RUST_MIN_STACK` in `.cargo/config.toml`. This is D-08's load-bearing constraint for deep `#[cube]` proc-macro expansion (br89/mbrxc Brent-method root-finders SIGSEGV without 64 MB stack).
+  - **How it manifested:** Quick task 260510-q01 found a `RUST_MIN_STACK = "2_000_000_000"` (≈1.87 GiB) typo; reverting to 64 MB fixed OOM-adjacent SIGSEGVs.
+  - **Structural fix:** Phase 11 plans MUST include a **pre-flight check** task that verifies `.cargo/config.toml` has `RUST_MIN_STACK = 67108864`. No plan task touches the env section directly.
+  - **NARROWING (sixth session):** `[build] jobs` was previously in AP-2's blocking scope. Per D-32, the dedicated sweep tool `tools/batched_compile_sweep.py` may pass `--jobs 3` per invocation. `[build] jobs = 1` in `.cargo/config.toml` is still the default and MUST NOT be edited project-wide; the user manages the file by hand per memory `feedback_ram_constraints` (amended same session). The sole permitted override path is the sweep tool's per-invocation `--jobs N` argument. Outside the sweep tool, AP-2's spirit still applies to jobs: no `CARGO_BUILD_JOBS` env-proxy, no ad-hoc `--jobs N` in shell commands, no config edits.
 
 - **AP-3 (blocking): Hand-editing generated kernel files**
   - **What it is:** Manually patching `crates/kernels/{lda,gga,mgga}/*.rs` files to fix compile errors instead of fixing the root cause in `tools/translate_v2/`.
@@ -334,6 +365,12 @@ The following patterns have been **empirically observed to break the replan** in
 ### CubeCL 0.10 API contracts (load-bearing for D-20 cast_from policy)
 - `/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.10.0/src/frontend/element/float.rs:75` — `pub trait Float { fn new(val: f32) -> Self; ... }`. **The root cause of the 11-06 HALT.** `Float::new` accepts only `f32`; passing an `f64` const triggers E0308 in `<F: Float>` body. ~447 of the 515 errors in `cargo build -p libxc-kernel-math` post-11-05 derive from this.
 - `/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cubecl-core-0.10.0/src/frontend/element/cast.rs:14-37` — `pub trait Cast: CubePrimitive { fn cast_from<From: CubePrimitive>(value: From) -> Self; ... }` with blanket `impl<P: CubePrimitive> Cast for P`. **The fix per D-20:** `F::cast_from(<f64 const>)` preserves f64 precision through generic helpers when F=f64, and emits a narrowing cast when F=f32 (precision-only — per D-03/D-19a, f32 is gated at 1e-6 relative).
+
+### Phase 11 in-tree pattern + tooling references (committed during 11-06 5th-iter)
+- `.planning/phases/11-splitter-v2-unified-5k-cap/11-PATTERN.md` — Authored 2026-05-18 (commit `06a52d180`), amended 2026-05-18 (commit `68723b8ee`) with Rule 9 (cross-fn turbofish — MANDATORY for `<F: Float>` callers) and Rule 10 (translator carry-forward — `::<f64>` emission for chunk → math/ helper calls, extended Phase-2 helpers per Deviation E). **The canonical conversion-pattern reference for any future helper-layer work.**
+- `tools/refactor_helpers_generic.py` — D-28 fallback tool. Annotated with header per Task 7 (commit `265bf03b5`). Preserved in-tree as documented fallback for future drift into Phase-2-shape baseline corruption.
+- `tools/refactor_test_fixtures/symbol_class_matrix.rs` — D-22 Gate 1 fixture (commit `7e9391eff`). Annotated per Task 7. Validates the cast_from classifier's per-symbol-class policy.
+- **`tools/batched_compile_sweep.py` (NEW — sixth session per D-31, NOT YET AUTHORED):** The supported mechanism for verifying ~266 per-functional subcrates compile after a translator regen. Authored as the first deliverable of the new 11-07 plan. Architecture per D-31; jobs=3 policy per D-32; failure mode per D-33. **Do NOT add `cargo build --workspace` to any plan — use the sweep tool instead.**
 
 ### Wave 0 artifacts (plan 11-01 — already executed)
 - `.planning/phases/11-splitter-v2-unified-5k-cap/11-01-SUMMARY.md` — Wave 0 results. D-02 spike PASSED; audit tools committed; dispatch staleness (Blocker B1) documented. Read for the deviation list (D1–D7) — D1 (verify/ OOM) directly motivates the D-05 revision.
@@ -421,7 +458,7 @@ Plan frontmatter (11-05/06/07/08) tags requirements using the local IDs `SPEC-11
 | SPEC-11-R1 | #1 — `find crates/kernels -maxdepth 1 -type d` shows no `lda-N`/`gga-N`/`mgga-N` numbered children AND no per-family Cargo.toml (per D-10a; family dirs are plain directories) | 11-03 (clean-slate delete + 266-subcrate regen), re-verified by 11-07 (idempotent regen) |
 | SPEC-11-R2 | #2 — Zero `.rs` files >5,000 lines (hard cap per D-LOCK-B) | 11-02 (CSE pass tooling), 11-03 (initial regen), 11-07 (full regen verifies post-Option-A) |
 | SPEC-11-R3 | #3 — Splitter capable of subdividing single-output expressions; r4scan, br89_explicit, mgga-{8,9,11} all ≤5K | 11-02 (CSE pass), 11-03 (full-tree empirical verification), 11-07 (re-verified), 11-08 (final audit sweep) |
-| SPEC-11-R4 | #4 — Per-`-p` cargo build across routed subcrates succeeds (D-12 reinterpretation: NOT `cargo build --workspace`) | 11-08 (the per-`-p` sweep IS this criterion's empirical gate) |
+| SPEC-11-R4 | #4 — Per-`-p` cargo build across routed subcrates succeeds (D-12 reinterpretation: NOT `cargo build --workspace`) | **11-07 (PRIMARY — sixth session per D-34)** — `tools/batched_compile_sweep.py` produces the pass/fail manifest at scale (266 routed + 7 deferred subcrates, batch=20, `--jobs 3`). 11-08 consumes the manifest as evidence; no separate per-`-p` sweep |
 | SPEC-11-R5 | #5 — Oracle parity preserved at 1e-12 (per D-05; energy + routed derivatives at f64) | 11-05 (helper refactor preserves parity by design), 11-06 (three-leg gate on mgga_c_b94), 11-07 (D-15 entry gate + smoke), 11-08 (sweep verifies no parity regression) |
 | SPEC-11-R6 | #6 — Pipeline idempotent (running twice produces no diff per D-LOCK-D / P11-INV-6) | 11-02 (deterministic emit), 11-03 (verified post-regen), 11-06 (canary idempotency), 11-07 (full-tree `test_idempotency.sh`), 11-08 (final 5-audit sweep) |
 | SPEC-11-R7 | #7 — CubeCL macro fan-out audit clean per D-13 per-design budget (NOT the original ≤23 flat count — see D-13 rationale) | 11-03 (audit_cube_launch.sh D-13 rewrite committed at eea58fed7), 11-08 (post-regen re-confirmation + ROADMAP correction) |
@@ -429,10 +466,10 @@ Plan frontmatter (11-05/06/07/08) tags requirements using the local IDs `SPEC-11
 
 **Note on the executed plans 11-01..04:** Their PLAN.md files do NOT use the SPEC-11-Rx scheme (this naming convention was introduced in 11-05 onward), but their *delivered work* covers many criteria. The "Delivered by plan(s)" column above documents which plan contributed evidence for each criterion regardless of whether the plan's frontmatter labeled it. Per ROADMAP.md the 5/8 executed plans (11-01..05) have already produced verifiable evidence for criteria #1 (11-03), #2 (11-03), #3 (11-02/03), #6 (11-02/03), #7 (11-03), #8 (11-03), and partial #5 (11-05 helper refactor — full validation in 11-06+).
 
-**Coverage check across forward plans 11-06..08 frontmatter (post-fix):**
-- 11-06 must list: SPEC-11-R5, SPEC-11-R6, SPEC-11-R7 (three-leg gate validates parity + idempotency on canary; preserves D-16 emit which protects R7 fan-out)
-- 11-07 must list: SPEC-11-R1, SPEC-11-R2, SPEC-11-R3, SPEC-11-R5, SPEC-11-R6, SPEC-11-R8 (full regen empirically re-verifies the structural criteria + idempotency + dispatch + parity)
-- 11-08 must list: SPEC-11-R3, SPEC-11-R4, SPEC-11-R6, SPEC-11-R7, SPEC-11-R8 (per-`-p` sweep is R4; final 5-audit sweep re-verifies R3/R6/R7/R8 at phase close)
+**Coverage check across forward plans 11-06..08 frontmatter (post-fix; updated sixth session per D-34):**
+- 11-06 must list: SPEC-11-R5, SPEC-11-R6, SPEC-11-R7 (three-leg gate validates parity + idempotency on canary; preserves D-16 emit which protects R7 fan-out). Sixth-session note: Deviation F already produced full-tree regen evidence for R2/R3/R6/R8 — the regen log (`ok=N skipped=0 failed=0` per family) lands as evidence in 11-06 Task 8's final SUMMARY.
+- **11-07 (REVISED — sixth session) must list:** SPEC-11-R4 (PRIMARY — batched sweep manifest is the empirical gate). Side-evidence: R2 (no >5K files in regenerated tree; sweep tool will fail to compile any oversized file via cargo error), R5 (compile-clean is necessary-but-not-sufficient for parity; smoke parity is in 11-08), R6 (sweep tool's idempotency depends on translator determinism).
+- **11-08 (REVISED — sixth session) must list:** SPEC-11-R3, SPEC-11-R6, SPEC-11-R7, SPEC-11-R8 (final 5-audit sweep re-verifies structural criteria + idempotency + fan-out budget + dispatch resolution at phase close). R4's empirical evidence now arrives from 11-07's sweep manifest; 11-08 references it rather than reproducing it.
 
 After post-fix frontmatter updates: every SPEC-11-Rx appears in at least one plan's `requirements:` field across 11-05..08. 11-05's frontmatter (SPEC-11-R5, SPEC-11-R7) is preserved as-committed.
 
@@ -659,13 +696,15 @@ Per amended D-22 + amended D-24 + D-25..D-30, the next plan-phase + execute-phas
 
 | Phase point | Gate | At what precision |
 |---|---|---|
-| Pre-flight (11-06) | `.cargo/config.toml` invariants (AP-2); 4-commit preservation reachable (`466e074d0`, `d8cc4da0c`, `9df2880b3`, plus classifier commits per D-28) | n/a |
-| Revert (11-06) | 3 Phase-2 commits reverted (`7a65f3bc6`, `dcb7d57d`, `233a8890d`); D-23 surgical (`9df2880b3`) untouched; Phase-1 untouched | n/a |
-| PATTERN.md (11-06) | Authored in this phase directory from 5 Phase-1 files per D-27 | n/a |
-| Per-file conversion gate (11-06; ×11) | `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes + per-helper unit tests pass | **BOTH** f64 (default, 1e-12) AND f32 (`LIBXC_RS_F32=1`, 1e-6; per-test override table for Brent-class) |
-| Exit gate (11-06; was D-22 Gate 3) | mgga_c_b94 chunk → helper integration spike (compile + parity + idempotency) | **BOTH** f64 (1e-12) AND f32 (1e-6) |
-| Entry gate (11-07, D-15) | mgga_c_b94 canary post full-tree regen | BOTH precisions |
-| Per-`-p` sweep (11-08) | Each routed subcrate `cargo build -p <crate>` | f64 only at sweep; f32 smoke only |
+| Pre-flight (11-06) | `.cargo/config.toml` invariants (AP-2 narrowed: `RUST_MIN_STACK` only); 4-commit preservation reachable (`466e074d0`, `d8cc4da0c`, `9df2880b3`, plus classifier commits per D-28) | n/a |
+| Revert (11-06) | 3 Phase-2 commits reverted via path-scoped reset (`7a65f3bc6`, `dcb7d57d`, `233a8890d`); D-23 surgical (`9df2880b3`) untouched; Phase-1 untouched | n/a |
+| PATTERN.md (11-06) | Authored at `06a52d180`, amended with Rules 9+10 at `68723b8ee` — **DONE** | n/a |
+| Per-file conversion gate (11-06; ×9) — **DONE Session 2** | `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes (per-file atomic commits 9e7544efb..1bf0e3bf1) | **BOTH** f64 AND f32 — DONE |
+| Exit gate (11-06; was D-22 Gate 3) — Leg 1 DONE; Legs 2/3/4 PENDING | mgga_c_b94 chunk → helper integration spike: Leg 1 compile (DONE at `cc324c6fa` Deviation E re-regen at both precisions); Leg 2 parity f64; Leg 3 parity f32; Leg 4 idempotency | Leg 1: BOTH precisions DONE; Legs 2/3/4: PENDING |
+| Task 7 D-28 headers (11-06) — **DONE** | Header annotations on `refactor_helpers_generic.py` + `symbol_class_matrix.rs` (commit `265bf03b5`) | n/a |
+| Full-tree regen (originally 11-07, **DONE via Deviation F**) | Translator regen for all 266 functionals (`4aaaaa773` LDA + `8a9f32091` GGA + `d26efabda` MGGA; `ok=N skipped=0 failed=0` per family) | n/a — emit only |
+| **Batched-compile sweep (NEW 11-07, D-31..D-33)** | `tools/batched_compile_sweep.py` runs `cargo build -p <crate>` across 266 routed + 7 deferred subcrates, batch=20, `--jobs 3`. Bounded 2-pass failure mode (parallel → sequential → halt). Manifest = SPEC-11-R4 evidence | f64 only at sweep; peak-RSS measured per batch |
+| Audits + close (11-08) | 5 audits (kernel_size, subcrate_collapse, cube_launch, idempotency, dispatch_tree) re-run post-regen; ROADMAP/CLAUDE.md corrections; smoke f32 parity | f64 audits; f32 smoke only |
 | Phase end | Full 649-functional oracle sweep | BOTH precisions (one-shot, phase-end deliverable) |
 
 ### AP-8 enforcement (forward)
@@ -675,7 +714,57 @@ Any future plan introducing a bulk-script automation step MUST include the AP-8 
 - After extension N+1, if count > count(N), STOP — HALT and surface to `/gsd-discuss-phase`.
 - This is a per-plan structural requirement, not just a guideline.
 
+**Sixth-session boundary clarification:** The bounded 2-pass retry inside `tools/batched_compile_sweep.py` (D-33: parallel `--jobs 3` → sequential `--jobs 1` → halt-and-surface) is NOT an AP-8 trigger. AP-8 forbids **unbounded** extension-as-rescue loops where each pass uncovers a new problem class. The sweep tool's retry is **diagnostic narrowing** (parallel→sequential to isolate root cause), capped at exactly 2 passes, with no automation extensions applied between passes. The output is a halt with `.continue-here.md`, not another script extension.
+
+---
+
+## Re-plan Note (2026-05-18 — sixth session: batched-compile sweep + Deviation E/F bookkeeping + 11-07 scope replacement)
+
+Sixth discuss-phase session. Triggered by 11-06 Sessions 1+2 execution outcomes (PARTIAL SUMMARY at `8cb80ce49`; Session 2 completion across commits `9e7544efb`..`1bf0e3bf1`) + Deviation E (Rule 10 Phase-2 helper extension, commit `cc324c6fa`) + Deviation F (full-tree regen, commits `4aaaaa773`/`8a9f32091`/`d26efabda`) + Task 7 (D-28 annotation, commit `265bf03b5`) + user direction change on jobs cap.
+
+### What this session changed
+
+1. **D-31..D-34 added.** Batched-compile sweep workflow as a dedicated orchestrator tool (`tools/batched_compile_sweep.py`); jobs=3 per-invocation policy (sweep tool only — `.cargo/config.toml` stays jobs=1); bounded 2-pass failure mode (parallel → sequential → halt-and-surface); 11-07 scope replacement (original full-tree regen + D-15 entry gate absorbed by 11-06 Deviations E+F; new 11-07 = sweep authoring + execution).
+
+2. **D-07 + D-09 amended.** Sweep tool's `--jobs 3` is the sole permitted jobs override. All other code paths inherit `jobs = 1` from `.cargo/config.toml`. User continues to manage the config file by hand per memory `feedback_ram_constraints` (amended same session).
+
+3. **AP-2 narrowed.** Previously blocked both `[build] jobs` and `[env] RUST_MIN_STACK` edits. Now blocks `RUST_MIN_STACK` edits only (D-08 unchanged: 64 MB stack stays load-bearing). `[build] jobs` edits remain forbidden outside the sweep tool's per-invocation argument, but the blocking severity moves to D-32's invocation-policy enforcement rather than a config-file-edit anti-pattern. The spirit of AP-2 ("user caps jobs by hand") survives via memory.
+
+4. **AP-8 boundary clarified.** D-33's bounded 2-pass retry inside the sweep tool is NOT an AP-8 trigger. Diagnostic narrowing (parallel→sequential) with a hard cap of 2 passes is distinct from unbounded extension-as-rescue loops. Documented at AP-8's "enforcement" section.
+
+5. **Bookkeeping D-22/D-26/D-27/D-28 status entries added.** Session 1+2+Deviation E+F+Task 7 outcomes captured as status updates against existing decisions, not as new decisions. This preserves decision IDs as immutable references while making current state explicit.
+
+6. **spec_to_criterion_map updated.** SPEC-11-R4 primary evidence moves from 11-08 to 11-07 (the sweep manifest IS the per-`-p` cargo build evidence at scale). 11-08 references the manifest rather than reproducing it.
+
+7. **Forward gating table rewritten.** Reflects: per-file conversion DONE Session 2 (×9 not ×11 — `deferred.rs` excluded per D-23 + PATTERN.md Rule 8; `dft_quantities.rs` counted in the 9); Gate 3 Leg 1 DONE via Deviation E re-regen; full-tree regen DONE via Deviation F (originally 11-07, pulled forward); new 11-07 = batched sweep; 11-08 narrowed to audits + close.
+
+### Carry-forward summary (post-sixth-session)
+
+- 11-01..11-04 SUMMARYs ✓ (unchanged)
+- 11-05 SUMMARY ✓ — Phase-1 manual refactor (5 files clean: powers/piecewise/lambert_w/polynomials/spin). Phase-2 work REVERTED per D-25; 9 Phase-2 files manually converted in 11-06 Session 2 (the 11-05 SUMMARY's "all 38 helpers refactored" claim restricted to Phase-1 only stands per fifth-session note).
+- 11-06 PARTIAL SUMMARY (Session 1) ✓ at `8cb80ce49`. Session 2 added 9 atomic per-file commits (`9e7544efb`..`1bf0e3bf1`). Deviation E (`cc324c6fa`) + Deviation F (`4aaaaa773`+`8a9f32091`+`d26efabda`) + Task 7 (`265bf03b5`) followed. Task 6 Legs 2/3/4 + Task 8 pending fresh session.
+- 11-07 REGENERATE per amended D-24: scope replaced from full-tree regen + D-15 entry gate (already done) to batched-compile sweep authoring + execution per D-31..D-34.
+- 11-08 REGENERATE per amended D-24: narrowed to audits + ROADMAP/CLAUDE.md updates + smoke f32 parity + phase close.
+- Memory `feedback_ram_constraints.md` amended with conditional (pre-Phase-11 = jobs>1 OOMs; post-Phase-11 = sweep tool at jobs=3 supported).
+
+### What this session did NOT change
+
+- D-19 dual-precision test scope — REAFFIRMED. Sweep tool exercises f64 by default (jobs=3 doesn't affect precision); f32 smoke parity stays in 11-08.
+- D-25 Direction A — STANDS. Manual Phase-2 redo completed Session 2; PATTERN.md Rules 1-10 stand as canonical.
+- D-26 file-by-file gates — COMPLETE for all 9 Phase-2 files.
+- D-22 amended Gate 3 EXIT — Leg 1 DONE; Legs 2/3/4 still pending in 11-06 Task 6.
+- AP-1, AP-3, AP-4, AP-5, AP-6, AP-7 — UNCHANGED.
+
+### Forward gating (six-session-stable)
+
+See the "Phase 11 forward gating (post-sixth-session)" table above for the current authoritative gate sequence. Key changes from fifth-session table:
+- Per-file conversion gate row: status DONE
+- Gate 3 row: Leg 1 DONE (was PENDING)
+- New row: full-tree regen DONE via Deviation F
+- New row: batched-compile sweep (NEW 11-07)
+- Per-`-p` sweep row removed (absorbed into 11-07)
+
 ---
 
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option A locked) · Re-planned: 2026-05-18 (D-18 Serena MCP, 11-05 COMPLETE, stale cleanup) · Re-planned: 2026-05-18 (D-19..D-24, A1 locked, fourth session, AP-7) · Re-planned: 2026-05-18 (D-25..D-30, Direction A locked, fifth session, AP-8; D-20 A1 SUPERSEDED, D-22 amended, D-24 amended)*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option A locked) · Re-planned: 2026-05-18 (D-18 Serena MCP, 11-05 COMPLETE, stale cleanup) · Re-planned: 2026-05-18 (D-19..D-24, A1 locked, fourth session, AP-7) · Re-planned: 2026-05-18 (D-25..D-30, Direction A locked, fifth session, AP-8; D-20 A1 SUPERSEDED, D-22 amended, D-24 amended) · Re-planned: 2026-05-18 (D-31..D-34 batched-compile sweep + jobs=3 invocation policy, sixth session; D-07/D-09 amended, AP-2 narrowed to RUST_MIN_STACK, AP-8 boundary clarified; 11-07 scope replaced)*
