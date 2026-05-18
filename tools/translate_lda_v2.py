@@ -230,19 +230,21 @@ def translate_expr(expr: str, is_pol: bool) -> str:
     # 4d. p->field -> param_field (remaining p-> accesses)
     result = re.sub(r'p->(\w+)', lambda m: f'param_{m.group(1)}', result)
 
-    # 5. Power macros -> Rust functions
-    # D-25 Rule 10 (11-06 Task 4 amendment): emit explicit ::<f64> turbofish so
-    # generated chunks compile against the now-generic <F: Float> libxc_kernel_math
-    # helpers. Bare `pow_1_3(...)` fails E0282 inside any #[cube] body.
-    # Substitution is idempotent (re-running on `pow_1_3::<f64>(` does not match
-    # `pow_1_3(` again).
+    # 5. Power macros -> Rust functions (NAME REMAP ONLY)
+    # Phase 11.1 D-08/D-17: the `::<f64>` turbofish at chunk-helper call sites
+    # is now emitted NATIVELY by tools/translate_v2/per_functional.py's
+    # _wrap_f64_literals_v2 via the helpers_allowlist GENERIC_HELPERS
+    # allowlist. This block previously appended `::<f64>(` (Deviation E Block A);
+    # it now only performs the Maple-uppercase -> Rust-lowercase rename so the
+    # native emit pass sees the canonical `pow_1_3(` form. See PATTERN.md
+    # Rule 10 § "SUPERSEDED 2026-05-19" annotation.
     for macro in ['POW_1_3', 'POW_2_3', 'POW_4_3', 'POW_5_3', 'POW_3_2',
                   'POW_1_4', 'POW_7_3', 'POW_2', 'POW_3']:
-        result = result.replace(f'{macro}(', f'{macro.lower()}::<f64>(')
+        result = result.replace(f'{macro}(', f'{macro.lower()}(')
 
-    # 6. Piecewise macros (also generic <F: Float>; D-25 Rule 10 turbofish)
-    result = result.replace('my_piecewise5(', 'piecewise5::<f64>(')
-    result = result.replace('my_piecewise3(', 'piecewise3::<f64>(')
+    # 6. Piecewise macros (NAME REMAP ONLY; native turbofish via D-08)
+    result = result.replace('my_piecewise5(', 'piecewise5(')
+    result = result.replace('my_piecewise3(', 'piecewise3(')
 
     # 7. C math -> Rust f64::
     for c_fn, rust_fn in [
@@ -283,24 +285,16 @@ def translate_expr(expr: str, is_pol: bool) -> str:
     result = re.sub(r',\s*(\d+)\s*\)', lambda m: f', {m.group(1)}.0)', result)
     result = re.sub(r',\s*(\d+)\s*,', lambda m: f', {m.group(1)}.0,', result)
 
-    # 11. D-25 Rule 10 Phase-2 extension (5th-iter Session 3 amendment) -------
-    # After Session 2 converted 9 math/src/ Phase-2 files to generic <F: Float>,
-    # their public functions also need ::<f64> turbofish at chunk call sites.
-    # LDA chunks predominantly call erf_approx/erfc_approx, but the full list
-    # is included for forward-compatibility (idempotent / no-op when unused).
-    # Idempotent: \bname\( does not match name::<f64>( on subsequent passes.
-    for fn in [
-        'xc_mgga_x_br89_get_x',                          # br89.rs
-        'xc_mgga_x_mbrxc_get_x',                         # mbrxc.rs
-        'erf_approx', 'erfc_approx',                     # erf.rs
-        'xc_dilogarithm', 'xc_erfcx',                    # special.rs
-        'xc_e1_scaled',                                  # expint_e1.rs
-        'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
-        'xc_bessel_I0_scaled', 'xc_bessel_I0',
-        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs
-        'case21_xbspline', 'case21_cbspline',            # bspline.rs
-    ]:
-        result = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', result)
+    # 11. Block B (Phase-2 helper ::<f64> turbofish substitution) REMOVED
+    # 2026-05-19 per Phase 11.1 D-17 — the turbofish for every Phase-2 generic
+    # helper (xc_mgga_x_br89_get_x, xc_mgga_x_mbrxc_get_x, erf_approx,
+    # erfc_approx, xc_dilogarithm, xc_erfcx, xc_e1_scaled,
+    # xc_integrate_func0, xc_integrate_func1, xc_bessel_I0_scaled,
+    # xc_bessel_I0, xc_bessel_I1_scaled, xc_bessel_I1, case21_xbspline,
+    # case21_cbspline) is now emitted NATIVELY by
+    # tools/translate_v2/per_functional.py::_wrap_f64_literals_v2 via the
+    # helpers_allowlist.GENERIC_HELPERS Phase-2 entries. See PATTERN.md
+    # Rule 10 § "SUPERSEDED 2026-05-19" annotation.
 
     return result
 

@@ -194,6 +194,22 @@ full-tree regen entry gate. The carry-forward:
   at 11-06's end-state; chunks that can't compile due to Rule 10 are documented
   as 11-07-blocking, not 11-06-blocking.
 
+**SUPERSEDED 2026-05-19 (Phase 11.1 D-08):** Turbofish at chunk→helper call
+sites is now emitted natively by
+`tools/translate_v2/per_functional.py::_wrap_f64_literals_v2` via the
+`tools/translate_v2/helpers_allowlist.py` hardcoded `GENERIC_HELPERS`
+allowlist. The Deviation E/F post-emit substitution blocks in
+`tools/translate_lda_v2.py`, `tools/translate_gga.py`, and
+`tools/translate_mgga.py` were removed in Phase 11.1 Plan 01 Task 3 (Block A
+reduced to Maple-uppercase → Rust-lowercase name-remap only; Block B deleted
+outright). Rule 10's principle — every chunk→helper call site carries an
+explicit turbofish — stands; only the implementation moved from post-emit
+substitution to native emit. The "11-06 carry-forward to 11-07" language is
+now historical; translator-side native emit lands in 11.1. The wrapper→chunk
+call site at `per_functional.py:367` STAYS `::<f64>` per the Phase 11.1 D-10
+nuance (the wrapper is concrete-f64; chunk→chunk INSIDE chunk bodies is the
+position that propagates `::<F>`).
+
 ### Rule 8 — Non-generic file exclusion list
 
 The following files in `crates/kernels/math/src/` are **NOT** generic-over-F and are NOT
