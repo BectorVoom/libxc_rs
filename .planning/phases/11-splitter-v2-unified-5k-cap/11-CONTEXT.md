@@ -7,7 +7,8 @@
 **Revised:** 2026-05-18 (D-02 locked to Option C via user decision, then reconsidered; D-02 re-locked to Option A via user decision — improve Python tooling to refactor helpers correctly; timeline open-ended; blocking anti-patterns codified; replan structure adjusted to 11-05..08)
 **Revised:** 2026-05-18 (third session — stale artifacts deleted; D-18 added for Serena MCP refactoring tooling; 11-05 status clarified as COMPLETE; 11-06..08-PLAN-NEW files and .continue-here.md removed)
 **Revised:** 2026-05-18 (fourth session, post-11-06 HALT — D-03 amended for f32 correctness gating; D-19..D-24 added: f32+f64 parametric test scope, A1 locked as the only path supporting helper-level dual-precision tests, cast_from script policy, 3-gate pre-bulk validation, surgical revert scope, AP-7 codified)
-**Status:** Ready for planning (re-plan required — A1 LOCKED via D-20; 11-06..08 plans REGENERATE per D-24; f32+f64 dual-precision test surface mandated by D-19)
+**Revised:** 2026-05-18 (fifth session, post-11-06 4th-iter HALT at D-22 Gate 2 — D-20 A1 SUPERSEDED by D-25 Direction A (manual Phase-2 redo); D-22 amended (Gate 1 retire, Gate 2 → per-file gate, Gate 3 → exit gate); D-24 amended (11-06 scope replaced per Direction A); D-25..D-30 added; AP-8 codified BLOCKING)
+**Status:** Ready for planning (re-plan required — Direction A LOCKED via D-25; D-20 A1 SUPERSEDED; 11-06..08 plans REGENERATE per amended D-24; D-19 dual-precision test scope REAFFIRMED in full)
 
 <domain>
 ## Phase Boundary
@@ -156,8 +157,8 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 - **D-19b — F32 test execution mode is env-gated:** Tests run f64 by default. `LIBXC_RS_F32=1` env var enables f32 test execution (compile + parity comparison). CI runs both modes; local devs run f64 by default unless f32 coverage is needed. Avoids day-to-day test-time doubling while keeping f32 a first-class correctness target. Discovery: a single env-var check at test-suite startup gates whether f32 instantiations are executed; helpers and chunks always *compile* against both (compile gate is unconditional).
 - **D-19c — F32 tolerance for ill-conditioned cases:** Brent root-finders (`br89.rs`, `mbrxc.rs`) and similar iterative algorithms may need per-test relaxation beyond 1e-6 due to f32 convergence behavior. Default gate is 1e-6; per-test overrides documented in a small tolerance table per (functional, derivative-order) pair. Implementation surface left to planner.
 
-### Architectural path: A1 LOCKED for 4th iteration (NEW 2026-05-18 — fourth session)
-- **D-20:** Resolves the `F::new(val: f32)` vs f64-named-constant blocker that HALTed plan 11-06 (commit `75c0f5112`, 515 errors dominated by 447 × E0308 `expected f32, found f64`). **Locked path: A1 — cast_from script + surgical manual fixes.** Required by D-19's helper-level f32+f64 test scope (only generic-helpers paths support parametric tests at the helper layer).
+### Architectural path: A1 LOCKED for 4th iteration (NEW 2026-05-18 — fourth session) — **SUPERSEDED 2026-05-18 fifth session by D-25 Direction A**
+- **D-20 (SUPERSEDED — see D-25):** ~~Resolves the `F::new(val: f32)` vs f64-named-constant blocker that HALTed plan 11-06 (commit `75c0f5112`, 515 errors dominated by 447 × E0308 `expected f32, found f64`). **Locked path: A1 — cast_from script + surgical manual fixes.**~~ The 4th-iteration recovery executed this path (commits `9df2880b3` D-23 surgical revert, `a3aacdbec` cast_from policy, `7e9391eff` Gate 1 fixture, `cf59c2c08` script extensions) and HALTED at D-22 Gate 2 with 84+ residual errors after the classifier policy applied. The cast_from policy itself reduced 180→68 E0308 errors and is architecturally sound (Gate 1 GREEN) — but the Phase-2 baseline at `7a65f3bc6` contains four corruption categories beyond D-23's surgical scope (mixed-precision generic-fn signatures, non-pub `#[cube]` helpers, broken `(` brackets, missed literal-wrap sites) that no automation extension can clear without rolling fix-and-discover (error count 234→121→84→1755→507). The 5th-iteration session locks **Direction A — manual Phase-2 redo** via **D-25** below. D-19's helper-level f32+f64 test scope is reaffirmed (Direction A preserves helpers generic over `<F: Float>`). The cast_from policy classifier is preserved in-tree as documented fallback (D-28).
   - **A1 approach:**
     1. Extend `tools/refactor_helpers_generic.py` with cast_from policy: every `F::new(IDENT)` site is classified by symbol class and rewritten accordingly:
        - **f64 const** (SQRT_DBL_EPSILON, LOG_DBL_MAX, TWO_DBL_MIN, TWO_SQRT2_SQRT_DBL_EPSILON, RS_CONST, KF_CONST, ERX, PI_TWO_THIRDS, POW_32PI_TWO_THIRDS, …): `F::new(IDENT)` → `F::cast_from(IDENT)` (cubecl-core 0.10 `Cast` trait — blanket `impl<P: CubePrimitive> Cast for P`, defined at `cubecl-core-0.10.0/src/frontend/element/cast.rs:14-37`)
@@ -180,8 +181,14 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
 ### Primary refactoring tool: Serena MCP (NEW 2026-05-18 — fourth session; reaffirms D-18)
 - **D-21:** Serena MCP is the **primary** tool for A1's source edits. The 11-06 HALT empirically confirmed that pure-regex Python is insufficient — distinguishing f64 const from f32 literal from doc-comment text from string-literal text from range-op `..` from `_f64` literal suffix requires semantic awareness. Serena MCP (LSP-backed, already configured in `~/.claude.json`) handles these classifications natively. **Fallback policy:** extended `tools/refactor_helpers_generic.py` is allowed for purely-syntactic bulk operations AFTER Serena MCP has identified the safe-to-bulk-transform call sites (e.g., a final f64-literal-wrap pass on already-classified locations). Pure regex MUST NOT be the primary classifier.
 
-### Pre-bulk validation gate: 3-gate sequence (NEW 2026-05-18 — fourth session; structural mitigation for 11-06 failure mode)
-- **D-22:** Before the cast_from-aware refactor script bulk-runs on the 11 problematic Phase-2 helper files, three gates must green **in strict sequence**. Skipping or reordering = AP-7 violation.
+### Pre-bulk validation gate: 3-gate sequence (NEW 2026-05-18 — fourth session; structural mitigation for 11-06 failure mode) — **AMENDED 2026-05-18 fifth session per Direction A**
+- **D-22 (AMENDED — fifth session):** Under Direction A (D-25) the original three-gate sequence is restructured. The bulk-script path the original D-22 guarded NO LONGER EXISTS — Direction A converts files manually after revert. The three gates are revised as follows:
+  - **Gate 1 — RETIRED.** The synthetic-fixture symbol-class matrix (`tools/refactor_test_fixtures/symbol_class_matrix.rs`, committed at `7e9391eff`) validated the cast_from classifier. The classifier is preserved per D-28 but is not used by Direction A's per-file conversion. The fixture stays in tree as evidence of the classifier's Gate-1 GREEN verdict. **Not a gate for the 5th-iter plan.**
+  - **Gate 2 — REPLACED by per-file gate.** Direction A's done-criterion (per-file: `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes + per-helper unit tests pass at f64 and f32) replaces the original Gate 2's bessel.rs canary. bessel.rs becomes one of the 11 files converted (last per the easiest-first order, D-26), inheriting the per-file gate. No special canary status.
+  - **Gate 3 — KEPT as the all-files-converted EXIT gate (before 11-07 full-tree regen).** After all 11 Phase-2 files convert and per-file gates green: run the **chunk → helper integration spike on mgga_c_b94** at BOTH precisions (compile + parity at f64 1e-12 + parity at f32 1e-6 under `LIBXC_RS_F32=1` + idempotency). This is the load-bearing AP-7 anti-pattern mitigation and the entry gate for 11-07's full-tree regen. The original "one-shot `is_deferred(id)` bypass" mechanism survives (planner's discretion on exact mechanism).
+  - **Net change:** Gates 1 and 2 retire/replace. Gate 3 is preserved verbatim (renamed conceptually from "pre-bulk" to "all-files-converted exit gate"). AP-7's integration-boundary discipline is honored.
+
+- **D-22 (ORIGINAL — preserved for record):** Before the cast_from-aware refactor script bulk-runs on the 11 problematic Phase-2 helper files, three gates must green **in strict sequence**. Skipping or reordering = AP-7 violation.
   - **Gate 1 — Synthetic-fixture coverage matrix.** Create `tools/refactor_test_fixtures/symbol_class_matrix.rs` (or planner-equivalent path) containing every known symbol class:
     - f64 const declaration + usage (in generic body)
     - f32 const declaration + usage (in generic body)
@@ -214,19 +221,60 @@ The pipeline must iterate until both invariants hold AND oracle parity is preser
   - **All other Phase-2 changes — KEEP, then re-process** with the D-20 cast_from-aware script (Gate 2 canary first per D-22, then bulk on remaining 10 helpers).
   - **Phase-1 manually-refactored files — UNCHANGED.** `powers.rs` (3 F::new), `piecewise.rs` (1 F::new), `lambert_w.rs` (14), `polynomials.rs` (0), `spin.rs` (6) — these are proven clean from commits `466e074d0` + `d8cc4da0c` and stay as-is.
 
-### Plan 11-06/07/08 regeneration scope (NEW 2026-05-18 — fourth session)
-- **D-24:** All three forward plans regenerate per the locked decisions D-19..D-23:
-  - **11-06** — **REPLACED scope** (not amendment). Tasks:
-    1. Pre-flight: verify `.cargo/config.toml` invariants per AP-2 (jobs=1, RUST_MIN_STACK=67108864, target-dir).
-    2. Surgical revert per D-23 (deferred.rs full revert; special.rs/bessel.rs/mbrxc.rs surgical fixes).
-    3. Extend `tools/refactor_helpers_generic.py` with cast_from policy per D-20 (or replace it with Serena-MCP-driven equivalent per D-21).
-    4. Gate 1 — synthetic fixture build per D-22.
-    5. Gate 2 — bessel.rs canary per D-22 (revert bessel.rs Phase-2 changes first; run script; compile-gate `cargo build -p libxc-kernel-math`).
-    6. Gate 3 — mgga_c_b94 chunk→helper spike at f64 1e-12 AND f32 1e-6 (`LIBXC_RS_F32=1`).
-    7. Bulk-run script on remaining 10 helpers.
-    8. Three-leg exit gate: `cargo build -p libxc-kernel-math` green, `cargo build -p libxc-kernel-mgga_c_b94` green, parity green at both precisions, idempotency green.
-  - **11-07** — Regen 266 subcrates + D-15 entry gate (compile-first) **AT BOTH PRECISIONS for mgga_c_b94 canary**. The original 11-07 plan already includes D-15; the amendment is the f32 leg.
-  - **11-08** — Per-`-p` sweep + audits + close, **with f32 test mode exercised under env-gate**. The per-`-p` sweep includes a `LIBXC_RS_F32=1` pass on the smoke parity set. The full 649-functional f32 oracle sweep is a phase-end deliverable, not a per-iteration gate (matches D-05's "full per-subcrate parity sweep runs at phase end" pattern, now extended to both precisions).
+### Plan 11-06/07/08 regeneration scope (NEW 2026-05-18 — fourth session) — **AMENDED 2026-05-18 fifth session per Direction A**
+- **D-24 (AMENDED — fifth session):** All three forward plans regenerate per the locked decisions D-19, D-22-amended, D-25..D-30 (D-20 SUPERSEDED, D-21 obsolete under manual conversion, D-23 surgical commit preserved as-is):
+  - **11-06** — **REPLACED scope (second replacement, per Direction A).** Tasks:
+    1. Pre-flight: verify `.cargo/config.toml` invariants per AP-2 (jobs=1, RUST_MIN_STACK=67108864, target-dir). Also verify the four "preserved" commits exist and are reachable: `466e074d0`, `d8cc4da0c` (Phase-1 manual), `9df2880b3` (D-23 surgical), `a3aacdbec`/`7e9391eff`/`cf59c2c08` (classifier — kept per D-28).
+    2. Revert exactly the three Phase-2 commits per D-25: `7a65f3bc6` (batch convert 10 helpers), `dcb7d517d` (subset fixes), `233a8890d` (partial syntax fixes). Preserve D-23 surgical (`9df2880b3`) and Phase-1 (`466e074d0`, `d8cc4da0c`) untouched.
+    3. Author **PATTERN.md** in this phase directory derived from all 5 Phase-1 clean files (powers.rs, piecewise.rs, lambert_w.rs, polynomials.rs, spin.rs). Document: literal-wrap rule (`F::new(2.0)`), named-f64-const rule (`F::cast_from(SQRT_DBL_EPSILON)`), doc-comment / string-literal handling (untouched), type-annotation handling (`let mut x: F`), `#[cube]` pub-visibility rule (helpers called from chunks must be `pub` / `pub(crate)` / `pub(super)`), mixed-precision-signature handling.
+    4. **File-by-file manual conversion (D-26 order: easiest-first; bessel.rs LAST).** For each of the 11 Phase-2 files:
+       a. Convert manually using PATTERN.md.
+       b. Per-file gate (D-26 done-criterion): `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes + any existing per-helper unit tests pass — at BOTH f64 (default) AND f32 (`LIBXC_RS_F32=1` per D-19b).
+       c. F32 failure on a file blocks moving to the next file. Per-file atomic commit with the file path and "green at both precisions" in the message.
+    5. **Gate 3 exit gate (D-22 amended).** After all 11 files converted: run the mgga_c_b94 chunk → helper integration spike at both precisions (compile + parity at f64 1e-12 + parity at f32 1e-6 + idempotency). One-shot `is_deferred(id)` bypass mechanism per D-15 (planner picks the exact bypass shape).
+    6. SUMMARY.md with per-file conversion deltas, Gate 3 evidence, and the f32 per-test override table (D-19c).
+  - **11-07** — Regen 266 subcrates + D-15 entry gate (compile-first) **AT BOTH PRECISIONS for mgga_c_b94 canary**. The original 11-07 plan already includes D-15; the amendment is the f32 leg. No further change vs the fourth-session D-24.
+  - **11-08** — Per-`-p` sweep + audits + close, **with f32 test mode exercised under env-gate**. The per-`-p` sweep includes a `LIBXC_RS_F32=1` pass on the smoke parity set. The full 649-functional f32 oracle sweep is a phase-end deliverable, not a per-iteration gate (matches D-05's "full per-subcrate parity sweep runs at phase end" pattern, now extended to both precisions). No further change vs the fourth-session D-24.
+
+- **D-24 (ORIGINAL — preserved for record, all script-driven 11-06 tasks SUPERSEDED above):** All three forward plans regenerate per the locked decisions D-19..D-23:
+  - **11-06** — **REPLACED scope** (not amendment). Tasks: (1) Pre-flight `.cargo/config.toml`; (2) D-23 surgical revert; (3) Extend cast_from script per D-20; (4) Gate 1 synthetic fixture; (5) Gate 2 bessel.rs canary; (6) Gate 3 mgga_c_b94 spike; (7) Bulk-run script on remaining 10 helpers; (8) Three-leg exit gate.
+
+### Architectural path: Direction A LOCKED for 5th iteration (NEW 2026-05-18 — fifth session)
+- **D-25:** Resolves the D-22 Gate 2 failure of the 4th-iteration A1 recovery (commit `3494c80fc`, 84+ residual errors after cast_from policy applied, error progression 234→121→84→1755→507 demonstrating layered Phase-2 baseline corruption). **Locked path: Direction A — manual Phase-2 redo.** Helpers stay generic over `<F: Float>` (preserves D-19 helper-level dual-precision test scope). The path is fully manual conversion (no bulk script); the proven Phase-1 pattern (powers.rs, piecewise.rs, lambert_w.rs, polynomials.rs, spin.rs) is the canonical template.
+  - **Revert scope:** Exactly 3 Phase-2 commits — `7a65f3bc6` (batch convert 10 helpers), `dcb7d57d` (subset fixes), `233a8890d` (partial syntax fixes). The D-23 surgical commit (`9df2880b3` — deferred.rs full revert + special.rs:224 + bessel.rs type-anno + mbrxc.rs literal-suffix fixes) is **PRESERVED** as proven-correct work. The 2 Phase-1 commits (`466e074d0`, `d8cc4da0c`) are **PRESERVED**. The 3 partial-credit 4th-iter commits (`a3aacdbec`, `7e9391eff`, `cf59c2c08` — cast_from classifier + Gate 1 fixture) stay in main's history as-is per D-29.
+  - **Why Direction A (vs B/C):** Direction B (Option C revival — translator-emit casts; helpers stay concrete f64) **sacrifices D-19** at the helper layer. Direction C (Hybrid — Phase-1 generic, Phase-2 concrete, translator cast for Phase-2) gives only **partial D-19 coverage** (~half the helpers). Direction A is the only path that preserves D-19's helper-level f32+f64 parametric test surface in full. The 4th-iter HALT empirically demonstrated that automation-extension on top of the corrupted Phase-2 baseline is a rolling fix-and-discover cycle (the 234→121→84→1755→507 signature is exactly what AP-8 codifies). Manual conversion of 11 files mirroring the proven Phase-1 pattern is definitive.
+  - **Rejected (recorded for posterity):**
+    - **B (Option C revival):** Reverses session-2 reconsideration; sacrifices D-19 helper-level dual-precision tests; ~581K call-site regen. Architecturally cleaner mechanically, but loses the test-surface architecture.
+    - **C (Hybrid):** Pragmatic but yields partial D-19 coverage. The complexity of "some helpers generic, others not" splits the abstraction surface and complicates downstream chunks. Rejected as a half-measure.
+
+### Conversion mechanics for Direction A (NEW 2026-05-18 — fifth session)
+- **D-26:** Direction A's 11-file conversion proceeds with:
+  - **Cadence — file-by-file with per-file compile gate.** One file at a time. After each file: `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes + per-helper unit tests pass — at BOTH f64 (default) AND f32 (`LIBXC_RS_F32=1`). Atomic commit per file with the path and "green at both precisions" in the message.
+  - **Order — easiest-first; bessel.rs LAST.** Build confidence on small files (constants.rs, polynomials-shaped helpers) before tackling bessel.rs (200 F::new sites, highest symbol-class diversity). The planner sequences the 11 files at plan-phase time using helper LOC + F::new-site count as the ordering proxy. The pattern is **proven** on Phase-1 files; conversion is application, not exploration — easiest-first is correct discipline for pattern-application (vs hardest-first for novel architecture).
+  - **Per-file done-criterion — compile + spike_cse_emit_q01 + helper unit tests.** F32 failure on a file blocks moving to the next file. The compile-gate uses the existing project build infrastructure (`.cargo/config.toml` baseline per AP-2; `jobs=1`; `RUST_MIN_STACK=67108864`).
+  - **Per-test override table for f32 tolerance — required for Brent-class helpers (br89.rs, mbrxc.rs).** D-19c's 1e-6 default + per-test override table is the locked policy. The planner specifies the table location during 11-06 (recommended: `crates/kernels/math/tests/f32_tolerance_overrides.toml` or similar; planner picks the exact shape).
+
+### Canonical pattern reference for Direction A (NEW 2026-05-18 — fifth session)
+- **D-27:** The 5th-iter 11-06 plan **authors PATTERN.md in this phase directory** (`.planning/phases/11-splitter-v2-unified-5k-cap/11-PATTERN.md`) derived from all 5 Phase-1 clean files. PATTERN.md is the canonical reference each manual conversion mirrors. Required content:
+  - Literal-wrap rule — `F::new(2.0)` for float literals that fit f32 precision; `F::cast_from(<f64 const or literal>)` for f64-precision-required values.
+  - Named-f64-const rule — `F::cast_from(SQRT_DBL_EPSILON)` etc. for all f64-precision named constants used inside generic bodies.
+  - Doc-comment / string-literal handling — leave untouched (no `F::new` wrapping in prose, strings, or attribute payloads).
+  - Type-annotation handling — `let mut x: F` (not `let mut x: f64`) when the RHS is `F::new(...)` or `F::cast_from(...)`.
+  - `#[cube]` pub-visibility rule — helpers called from chunks (or from other crates) must be `pub` / `pub(crate)` / `pub(super)` to satisfy CubeCL's macro-expansion accessibility check.
+  - Mixed-precision-signature handling — if a helper takes a non-F parameter (e.g., `idx: usize`) or returns a non-F type intentionally, that's a special case to document case-by-case in the file's header comment; default is fully-generic over `<F: Float>`.
+  - Non-generic file exclusion list — files like `deferred.rs` (registry-shaped, `pub fn is_deferred(id: u16) -> bool`) stay concrete; they are NOT in the 11-file conversion set.
+
+### Cast_from classifier disposition + partial-credit commits (NEW 2026-05-18 — fifth session)
+- **D-28:** The cast_from policy classifier in `tools/refactor_helpers_generic.py` (commits `a3aacdbec` initial implementation + `cf59c2c08` sibling-scan + use-line skip + classify_and_wrap_identifiers extensions) is **PRESERVED IN TREE** under Direction A. It is **not used** by the 5th-iter 11-06 plan (which converts manually from concrete-f64 baseline; the classifier operates on broken-`F::new`-wrapped Phase-2 baseline, the opposite transformation direction). Rationale for preservation:
+  - The classifier is **architecturally correct** (180→68 E0308 reduction at D-22 Gate 2 — empirical evidence in 11-06-SUMMARY.md).
+  - The D-22 Gate 1 fixture (`tools/refactor_test_fixtures/symbol_class_matrix.rs`, commit `7e9391eff`) is **valid** and proves the classifier's per-symbol-class policy. Gate 1 VERDICT: GREEN.
+  - Future drift into the same Phase-2-corruption shape (e.g., if a future auto-script regresses any helper file) can be rescued by re-applying the classifier.
+  - Cost-to-keep is zero (no maintenance burden; the script is self-contained).
+  - **Required:** Add a header comment to `tools/refactor_helpers_generic.py` and the fixture file documenting their fallback / future-use status, with a pointer to this CONTEXT.md D-28 entry and the 11-06-SUMMARY.md HALT analysis.
+- **D-29:** The 4 partial-credit 4th-iter commits (`9df2880b3` D-23 surgical, `a3aacdbec` cast_from initial, `7e9391eff` Gate 1 fixture, `cf59c2c08` script extensions) remain in main's git history as-is. `9df2880b3`'s D-23 surgical work is kept in-tree as proven-correct fixes (preserved by D-25's revert scope). `a3aacdbec` / `7e9391eff` / `cf59c2c08` code stays in-tree under D-28. **No rebase, no squash, no cherry-pick-to-archive-branch.** Standard "commits document attempts, don't get rewritten" policy.
+
+### AP-8 codification — automation-extension as architectural rescue (NEW 2026-05-18 — fifth session)
+- **D-30:** Codify AP-8 (BLOCKING) in the anti-patterns table below. Trigger threshold: **non-monotonic decrease across 2 consecutive extension passes.** When the total `cargo build` error count INCREASES across two successive automation-script extensions (even if individual error classes shrink), STOP — the script is no longer finishing the original problem; it is uncovering structural-baseline corruption. The 4th-iter signature (121→507, +386 errors after a "smart signature rewrite" pass) is the canonical example. Required response: HALT the plan; surface for `/gsd-discuss-phase`; pivot to manual conversion or structural-fix-OR-revert. **Same enforcement weight as AP-1, AP-2, AP-3, AP-6, AP-7.**
 
 ### Critical Anti-Patterns for Phase 11 Replan (NEW 2026-05-18 — documented in `.continue-here.md`)
 
@@ -254,7 +302,13 @@ The following patterns have been **empirically observed to break the replan** in
 - **AP-7 (blocking — NEW 2026-05-18, fourth session):** **Spike exercises unit boundary instead of integration boundary.**
   - **What it is:** The architectural validation spike tests one component in isolation (e.g., tuple-return, literal coercion) but never exercises the integration boundary the production code will cross (chunk → helper call, dispatch macro → launch_unchecked, etc.). The integration boundary is where API-contract mismatches surface; isolating the components hides them.
   - **How it manifested:** The 11-05 spike used `spike_cse_emit_q01.rs` and `spike_tuple_return_cube.rs` to validate Option A's tuple-return + literal-coercion in isolation against synthesized expressions. It never compiled a chunk that called a helper. The CubeCL `Float::new(val: f32)` constraint on the helper side vs the chunk's `<F: Float>` call site was untested. Plan 11-06's entry gate (`cargo build -p libxc-kernel-math`) was the first time chunk → helper integration was exercised — and it surfaced 447 × E0308 errors that an integration-boundary spike would have caught in 11-05.
-  - **Structural fix:** Every architectural decision in Phase 11 (and beyond) MUST be validated by a spike that exercises the **same integration boundary** the production code will cross. For helper-layer changes: a real chunk → helper call must compile + parity-test. For dispatch layer: a real `from_id → ten_arm_dispatch → launch_unchecked` chain must compile + parity-test. Unit-level spikes (one component in isolation) are insufficient for architectural validation. **D-22's Gate 3 codifies this pattern for the 4th-iteration replan.**
+  - **Structural fix:** Every architectural decision in Phase 11 (and beyond) MUST be validated by a spike that exercises the **same integration boundary** the production code will cross. For helper-layer changes: a real chunk → helper call must compile + parity-test. For dispatch layer: a real `from_id → ten_arm_dispatch → launch_unchecked` chain must compile + parity-test. Unit-level spikes (one component in isolation) are insufficient for architectural validation. **D-22's Gate 3 codifies this pattern for the 4th-iteration replan; D-22 amended (5th session) carries Gate 3 forward as the all-files-converted EXIT gate.**
+
+- **AP-8 (blocking — NEW 2026-05-18, fifth session; codified via D-30):** **Automation-extension as architectural rescue.**
+  - **What it is:** When a bulk-script / automation pass partially clears a compile-error problem (e.g., one error class shrinks by N%), the temptation is to extend the script with more passes (another regex, a sibling-scan, a use-line skip, a comprehensive signature fix) to chase the residual errors. Each extension uncovers the next layer of structural-baseline corruption, and the total error count fails to monotonically decrease — the automation has stopped finishing the original problem and is now uncovering deeper issues that aren't addressable in the script's frame of reference.
+  - **How it manifested:** The 4th-iter recovery (commits `9df2880b3`, `a3aacdbec`, `7e9391eff`, `cf59c2c08`) implemented the D-20 cast_from policy classifier (architecturally sound — Gate 1 GREEN). Running it on the Phase-2 baseline reduced 180→68 E0308 errors. Then a "smart signature rewrite" extension was attempted; total error count went 121→507 (+386 new errors uncovered: mixed-precision generic-fn signatures, non-pub `#[cube]` helpers, broken `(` brackets, missed literal-wrap sites). Subsequent attempts oscillated 1755→507 without converging. The classifier was correct architecturally; the **response to its partial effectiveness** was the failure mode.
+  - **Trigger threshold:** Total `cargo build` error count INCREASES across two successive automation-script extension passes (the `121 → 507` non-monotonic signature). Even if individual error classes shrink, an aggregate count-increase indicates the automation is uncovering structural-baseline corruption that needs structural treatment (manual conversion or full revert), not yet-another-regex-pass.
+  - **Structural fix:** When the threshold trips, HALT the plan immediately. Write `.continue-here.md` documenting the error-count progression. Trigger `/gsd-discuss-phase` to evaluate structural alternatives: (1) manual conversion, (2) revert to pre-corruption baseline + different approach, (3) accept the corruption is irreparable in the current frame and pivot architectures. **Forbidden:** another script extension pass after the threshold trips. **Allowed:** in-plan analysis, error-class diagnostic enumeration, but no source-mutating actions until the discuss-phase pass resolves direction.
 
 ### Claude's Discretion
 - **Subcrate package naming.** Recommended: follow the existing `libxc-kernel-*` convention — package `libxc-kernel-<func>` (e.g. `libxc-kernel-gga_c_acgga`), lib name `libxc_kernel_<func>`. Planner confirms the exact spelling (hyphen vs underscore handling in the package name) after reading the current numbered-subcrate `Cargo.toml` naming.
@@ -571,5 +625,57 @@ Per D-22 + D-24, the next plan-phase + execute-phase cycle MUST honor:
 
 ---
 
+## Re-plan Note (2026-05-18 — fifth session: Direction A locked, post-4th-iter HALT at D-22 Gate 2)
+
+Fifth discuss-phase session. Triggered by plan 11-06's 4th-iter HALT (commit `3494c80fc`, FAILED 11-06-SUMMARY.md): the D-20 A1 path (cast_from policy + surgical revert) was executed in tasks 1-4 (commits `9df2880b3`, `a3aacdbec`, `7e9391eff`, `cf59c2c08`). D-22 Gate 1 GREEN. D-22 Gate 2 FAILED: `cargo build -p libxc-kernel-math` had 84+ residual errors after the cast_from classifier policy applied — Phase-2 baseline at `7a65f3bc6` contains four corruption categories beyond D-23's surgical scope (mixed-precision generic-fn signatures, non-pub `#[cube]` helpers, broken `(` brackets, missed literal-wrap sites). Error progression 234 → 121 (cast_from policy) → 84 (signature attempt) → 1755 → 507 demonstrates layered structural corruption that no script extension can clear without rolling fix-and-discover.
+
+### What this session changed
+
+1. **D-20 A1 path SUPERSEDED by D-25 Direction A.** Manual Phase-2 redo. Revert 3 Phase-2 commits (`7a65f3bc6`, `dcb7d57d`, `233a8890d`). Manually convert the 11 Phase-2 files using the proven Phase-1 pattern (powers/piecewise/lambert_w/polynomials/spin). ~8-12 h definitive work vs the open-ended rolling fix-and-discover the script extensions produced. **D-19 helper-level f32+f64 dual-precision test scope reaffirmed fully** (Direction A preserves helpers generic; Directions B/C would sacrifice this).
+
+2. **D-22 amended.** Gate 1 retires (classifier-specific; classifier preserved per D-28 but not used). Gate 2 replaced by Direction A's per-file compile+spike+unit-tests gate (D-26 done-criterion). Gate 3 (mgga_c_b94 chunk → helper integration spike at f64 1e-12 AND f32 1e-6) preserved verbatim as the **all-files-converted EXIT gate before 11-07's full-tree regen**. AP-7 integration-boundary discipline carries forward.
+
+3. **D-24 amended.** 11-06 task structure replaced for a second time (Direction A): pre-flight + revert + author PATTERN.md + file-by-file manual conversion (D-26 cadence/order/done-criterion) + Gate 3 exit. 11-07 and 11-08 unchanged from fourth-session D-24 (D-15 entry gate at both precisions; per-`-p` sweep with f32 env-gate; phase-end 649-functional dual-precision oracle).
+
+4. **D-25..D-30 added.** D-25 locks Direction A. D-26 specifies conversion mechanics (file-by-file, easiest-first, per-file gate at both precisions). D-27 mandates PATTERN.md as the canonical reference derived from all 5 Phase-1 files. D-28 preserves the cast_from classifier in-tree as documented fallback. D-29 preserves the 4 partial-credit 4th-iter commits in main's history. D-30 codifies AP-8.
+
+5. **AP-8 codified BLOCKING.** "Automation-extension as architectural rescue." Trigger threshold: non-monotonic decrease across 2 consecutive extension passes (the `121 → 507` 4th-iter signature). Same enforcement weight as AP-1, AP-2, AP-3, AP-6, AP-7.
+
+### Carry-forward summary (post-fifth-session)
+
+- 11-01 SUMMARY ✓ — Wave 0 deliverables (D-02 spike, audit tools, baseline, dispatch audit)
+- 11-02 SUMMARY ✓ — emit.py routing-aware launch policy, MAX_TUPLE_ARITY=12, q01 `5c379dc25`
+- 11-03 SUMMARY ✓ — D-13 audit + dispatch verification + 266-subcrate regen
+- 11-04 SUMMARY (retroactive partial) ✓ — D-05 verify dev-dep narrowing (commit `39eb75f93`)
+- 11-05 SUMMARY ✓ — Phase-1 manual refactor (5 files clean: powers/piecewise/lambert_w/polynomials/spin). **Phase-2 work is being REVERTED per D-25 — commits `7a65f3bc6` + `dcb7d57d` + `233a8890d` are no longer authoritative.** The 11-05 SUMMARY's "all 38 helpers refactored" claim is now restricted to the 5 Phase-1 files; the 11 Phase-2 files revert to concrete f64.
+- 11-06 FAILED SUMMARY (3rd-iter) ✓ archived as `11-06-SUMMARY-HALT.md` (commit `75c0f5112`)
+- 11-06 FAILED SUMMARY (4th-iter) ✓ `11-06-SUMMARY.md` (commit `3494c80fc`) — preserves D-23 surgical + cast_from classifier in tree per D-28; Tasks 1-4 commits stay
+- 11-06..08: REGENERATE via `/gsd-plan-phase 11` per amended D-24
+- `tools/refactor_helpers_generic.py` + `tools/refactor_test_fixtures/symbol_class_matrix.rs` PRESERVED in tree per D-28 with fallback-use header comments to be added during 11-06 execution.
+
+### Phase 11 forward gating (post-fifth-session)
+
+Per amended D-22 + amended D-24 + D-25..D-30, the next plan-phase + execute-phase cycle MUST honor:
+
+| Phase point | Gate | At what precision |
+|---|---|---|
+| Pre-flight (11-06) | `.cargo/config.toml` invariants (AP-2); 4-commit preservation reachable (`466e074d0`, `d8cc4da0c`, `9df2880b3`, plus classifier commits per D-28) | n/a |
+| Revert (11-06) | 3 Phase-2 commits reverted (`7a65f3bc6`, `dcb7d57d`, `233a8890d`); D-23 surgical (`9df2880b3`) untouched; Phase-1 untouched | n/a |
+| PATTERN.md (11-06) | Authored in this phase directory from 5 Phase-1 files per D-27 | n/a |
+| Per-file conversion gate (11-06; ×11) | `cargo build -p libxc-kernel-math` green + `spike_cse_emit_q01.rs` passes + per-helper unit tests pass | **BOTH** f64 (default, 1e-12) AND f32 (`LIBXC_RS_F32=1`, 1e-6; per-test override table for Brent-class) |
+| Exit gate (11-06; was D-22 Gate 3) | mgga_c_b94 chunk → helper integration spike (compile + parity + idempotency) | **BOTH** f64 (1e-12) AND f32 (1e-6) |
+| Entry gate (11-07, D-15) | mgga_c_b94 canary post full-tree regen | BOTH precisions |
+| Per-`-p` sweep (11-08) | Each routed subcrate `cargo build -p <crate>` | f64 only at sweep; f32 smoke only |
+| Phase end | Full 649-functional oracle sweep | BOTH precisions (one-shot, phase-end deliverable) |
+
+### AP-8 enforcement (forward)
+
+Any future plan introducing a bulk-script automation step MUST include the AP-8 abort threshold check:
+- Track total `cargo build` error count across automation extensions.
+- After extension N+1, if count > count(N), STOP — HALT and surface to `/gsd-discuss-phase`.
+- This is a per-plan structural requirement, not just a guideline.
+
+---
+
 *Phase: 11-splitter-v2-unified-5k-cap*
-*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option A locked) · Re-planned: 2026-05-18 (D-18 Serena MCP, 11-05 COMPLETE, stale cleanup)*
+*Context gathered: 2026-05-13 · Revised: 2026-05-14 · Re-planned: 2026-05-15 (D-13) · Re-planned: 2026-05-15 (D-14..D-17, second pause) · Re-planned: 2026-05-18 (Option A locked) · Re-planned: 2026-05-18 (D-18 Serena MCP, 11-05 COMPLETE, stale cleanup) · Re-planned: 2026-05-18 (D-19..D-24, A1 locked, fourth session, AP-7) · Re-planned: 2026-05-18 (D-25..D-30, Direction A locked, fifth session, AP-8; D-20 A1 SUPERSEDED, D-22 amended, D-24 amended)*
