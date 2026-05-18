@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Paused — 6th-iter discuss-phase committed (D-31..D-34 batched-compile sweep + jobs=3 policy); 11-07 scope replaced; next is /gsd:plan-phase 11 to regenerate 11-07/08
-stopped_at: Phase 11 6th-iter context gathered; new 11-07 = tools/batched_compile_sweep.py authoring + execution
-last_updated: "2026-05-18T22:00:00.000Z"
-last_activity: 2026-05-18 -- Phase 11 6th /gsd:discuss-phase (CONTEXT.md commit 68ee4c0c3)
+status: Ready to execute
+stopped_at: "Phase 11 6th-iter context gathered — D-31..D-34 batched-compile sweep + jobs=3 invocation policy; 11-07 scope replaced (original full-tree regen + D-15 entry gate absorbed by 11-06 Deviations E+F); AP-2 narrowed to RUST_MIN_STACK; memory feedback_ram_constraints amended with conditional. Next: /gsd:plan-phase 11 to regenerate 11-07 (batched_compile_sweep.py authoring + sweep) and 11-08 (narrowed: audits + close). 11-06 Task 6 Legs 2/3/4 + Task 8 still pending fresh execute-phase session."
+last_updated: "2026-05-18T12:39:06.062Z"
+last_activity: 2026-05-18 -- Phase 11 planning complete
 progress:
   total_phases: 11
   completed_phases: 6
@@ -35,6 +35,7 @@ Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 
   (3) Generated chunk tree never compiled → translator-side turbofish emission in translate_{lda_v2,gga,mgga}.py (Deviation D, commit e7d1bdce4) + mgga_c_b94 canonical regen (commit 00b5380a1)
 
 5th-iter Session 2 outcome (2026-05-18, 9 commits): ALL 9 Phase-2 files in `crates/kernels/math/src/` manually converted to generic `<F: Float>` per 11-PATTERN.md Rules 1-9. Per-file gates GREEN at f64 AND f32 (compile + spike_cse_emit_q01). Aggregate sanity sweep: all 9 files have `<F: Float>` signatures, ZERO `F::new(<NAMED_CONST>)` Rule 3 violations. Phase-1 files (powers/piecewise/lambert_w/polynomials/spin) UNTOUCHED across all 9 commits (Step F verified after each commit). Per-file atomic commits in plan-mandated easiest-first order (bspline first, bessel LAST per D-26):
+
   1. `9e7544efb` bspline.rs (5 fns, 21 cast sites)
   2. `6570d948d` dft_quantities.rs (4 fns, ~13 cast sites; swapped ::<f64>→::<F> per Session 1 carry-forward)
   3. `9f8bb2000` erf.rs (3 fns, 78 F::cast_from + 21 F::new)
@@ -46,6 +47,7 @@ Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 
   9. `1bf0e3bf1` bessel.rs (10 fns, "highest symbol-class diversity" per D-26; 109 Clenshaw coeffs + 4 named consts)
 
 Pattern decisions codified during conversion:
+
 - Long-precision let-binding constants (Chebyshev/SLATEC coefficients with >5 significant digits): use F::cast_from(<f64-literal>) to preserve f64 precision in f64 mode; F::new(f32) would catastrophically truncate
 - Short exact-representable literals (0.0, 0.5, 1.0, 2.0, 3.0, powers-of-2 fractions): F::new(...) per Rule 2
 - Module-level `const X: f64 = ...` declarations: kept f64-typed; in-body usage wraps with F::cast_from per Rule 3
@@ -54,10 +56,12 @@ Pattern decisions codified during conversion:
 - cfg(test) pure-CPU code (bessel/mbrxc/br89 reference impls): UNCHANGED
 
 Next step: fresh session — `/gsd:execute-phase 11` (continues with Task 6 of 11-06: Gate 3 EXIT 4 legs):
+
 - Leg 1 (compile): already proven for f64+f32 at commit `00b5380a1` (mgga_c_b94 canary)
 - Leg 2 (parity f64): `LIBXC_RS_BYPASS_DEFERRED=1 cargo test -p libxc_rs-verify --test parity_phase11 phase11_worst_case`
 - Leg 3 (parity f32): `LIBXC_RS_BYPASS_DEFERRED=1 LIBXC_RS_F32=1 cargo test ... phase11_worst_case_f32`
 - Leg 4 (idempotency): re-run `translate_mgga.emit_per_functional('mgga_c_b94')` → expect zero git diff
+
 Then Task 7 (D-28 classifier preservation headers, ~5 min), then Task 8 (final SUMMARY rewrite overwriting current PARTIAL).
 
 Plans: 8/8 written; 5/8 executed; 1/8 IN PROGRESS (11-06 PARTIAL — Task 5 done, Tasks 6-8 pending). 11-07/08 blocked behind 11-06 completion (and 11-07 needs to also pick up the translator-emitted turbofish for the other 91 MGGA + 131 GGA + 43 LDA functionals via full-tree regen).
