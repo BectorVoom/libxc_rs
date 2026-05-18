@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Paused — phase 11 PARTIAL, awaiting phase 11.1 translator-fix follow-up
-stopped_at: "Phase 11 execute-phase run 2026-05-18 evening: 11-06 Task 6 Leg 1 (mgga_c_b94 canary compile) GREEN at f64+f32; Leg 2 (parity f64) HALTED at compile of verify's transitive dep graph — gga_c_gaploc 2920 errors, P1 pattern (named-const M_PI inline in F-typed arithmetic). User pivoted to 11-07. 11-07 Task 1 (batched_compile_sweep.py author) COMPLETE at 6e2a793fb8; Task 2 (LDA-only sweep) ran 17m, HALTED at lda_c_pk09 with P2 pattern (tuple-return bare f64 member). 11-08 Task 1 (audits + 11-FINAL-METRICS.md) PARTIAL: A1/A2/A4 PASS, A3 splitter floor (22 unexcepted >5K), A5 tool staleness; SPEC-11-R4/R5 BLOCKED on translator Rule 3 emit gap. Next: scope phase 11.1 to amend tools/translate_v2/ chunk-body emit (P1+P2 fix), full-tree regen, then resume 11-06 Task 6 Legs 2/3/4 + Task 8 + 11-08 Task 2/3 + phase.complete."
-last_updated: "2026-05-18T22:50:00.000Z"
-last_activity: 2026-05-18 -- Phase 11 execute-phase PARTIAL — translator Rule 3 emit gap blocks codegen-correctness goals
+stopped_at: Phase 11.1 context gathered
+last_updated: "2026-05-18T21:38:22.943Z"
+last_activity: 2026-05-18 -- Phase 11 planning complete
 progress:
-  total_phases: 11
-  completed_phases: 6
+  total_phases: 12
+  completed_phases: 7
   total_plans: 52
-  completed_plans: 42
-  percent: 81
+  completed_plans: 44
+  percent: 85
 ---
 
 # Project State
@@ -65,7 +65,6 @@ Root cause: `tools/translate_v2/` chunk-body emit path does NOT apply Rule 3 (`F
 - f32_tolerance_overrides.toml + LIBXC_RS_F32 env-gated parity infra
 
 ## Stale 11-06 narrative below — SUPERSEDED by the section above (kept for history)
-
 
 5th-iter Session 1 outcome (2026-05-18, 8 commits): math/ baseline now compile-green for FIRST TIME IN HISTORY; mgga_c_b94 canary regenerated and compile-green at both precisions; PATTERN.md amended with Rule 9 (cross-fn turbofish, MANDATORY) and Rule 10 (translator carry-forward). Three structural blockers fixed:
   (1) dcb7d517d 436-file scope → path-scoped reset (Deviation A)
@@ -242,8 +241,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-18T22:00:00.000Z
-Stopped at: Phase 11 6th-iter context gathered — D-31..D-34 batched-compile sweep + jobs=3 invocation policy; 11-07 scope replaced (original full-tree regen + D-15 entry gate absorbed by 11-06 Deviations E+F); AP-2 narrowed to RUST_MIN_STACK; memory feedback_ram_constraints amended with conditional. Next: /gsd:plan-phase 11 to regenerate 11-07 (batched_compile_sweep.py authoring + sweep) and 11-08 (narrowed: audits + close). 11-06 Task 6 Legs 2/3/4 + Task 8 still pending fresh execute-phase session.
-Resume file: .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md
+Last session: 2026-05-18T21:38:22.940Z
+Stopped at: Phase 11.1 context gathered
+Resume file: .planning/phases/11.1-translator-rule-3-emit-fix-sweep-to-green/11.1-CONTEXT.md
 
 ⚠ Working-tree anomaly: `.cargo/config.toml` shows uncommitted `jobs = 10` (vs committed `jobs = 1`). Per `feedback_ram_constraints` memory ("user manages config by hand"), agent did NOT touch it. User must restore `jobs = 1` before any cargo work runs in 11-06 Task 6 or new 11-07.
