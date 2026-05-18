@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1060/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1060/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1060<F: Float>(t2146: F, t6362: F, t6367: F, t4763: F, t6371: F, t1325: F, t2328: F, t5289: F, t542: F, t806: F, t11983: F, t1318: F, t2466: F, t593: F, t811: F, t2065: F, t5269: F, t6242: F) -> (F, F, F, F, F, F) {
-    let t22084 = 8.0 / 15.0 * t2146 * t6362;
-    let t22086 = 4.0 / 9.0 * t2146 * t6367;
-    let t22088 = 8.0 / 9.0 * t4763 * t6371;
-    let t22093 = 8.0 / 5.0 * t1325 * t5289 * t2328 * t806 * t542;
-    let t22098 = 24.0 / 5.0 * t1318 * t11983 * t2466 * t811 * t593;
-    let t22102 = 16.0 / 5.0 * t1318 * t5269 * t6242 * t2065;
-    (t22084, t22086, t22088, t22093, t22098, t22102)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1060<F: Float>(t142: F, t774: F, t1549: F, t6093: F, t1: F, t1750: F, t1755: F, t2686: F, t11299: F, t2706: F, t2741: F, t4387: F, t4389: F, t4391: F, t4398: F, t4406: F, t4408: F, t4412: F, t5968: F, t7328: F, t7329: F, t8097: F, t8098: F, t8099: F, t8101: F, t8102: F, t8103: F) -> (F, F, F, F) {
+    let t19866 = t774 * t142;
+    let t19872 = t1549 * t6093;
+    let t19882 = t2686 * t1750 * t1 * t1755;
+    let t19961 = -t8097 - F::new(3.5089340384731225) * t5968 + t8098 + t8099 + t2706 - t8101 - t8102 + F::new(0.0021973866044103793) * t4387 - F::new(5.263401057709683) * t4389 - F::new(155.84180309438278) * t4391 - t11299 - t8103 - t2741 + F::new(0.09759222794503372) * t4398 - t7328 + t7329 + F::new(9.0) * t4406 + F::new(180.0) * t4408 + F::new(10.526802115419367) * t4412;
+    (t19866, t19872, t19882, t19961)
 }

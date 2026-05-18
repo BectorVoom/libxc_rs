@@ -34,12 +34,12 @@ pub fn lda_c_ml1_exc_pol(
         let t9 = t1 * t1;
         let t10 = 1.0 / t9;
         let t12 = -t8 * t10 + 1.0;
-        let t13 = pow_1_3(t1);
+        let t13 = pow_1_3::<f64>(t1);
         let t14 = t13 * param_fc;
         let t16 = 1.0 + t4 <= zeta_threshold;
         let t17 = zeta_threshold - 1.0;
         let t19 = 1.0 - t4 <= zeta_threshold;
-        let t21 = piecewise5(t16, t17, t19, -t17, t4);
+        let t21 = piecewise5::<f64>(t16, t17, t19, -t17, t4);
         let t22 = 1.0 + t21;
         let t23 = f64::powf(t22, param_q);
         let t24 = 1.0 - t21;
@@ -47,10 +47,10 @@ pub fn lda_c_ml1_exc_pol(
         let t26 = t23 + t25;
         let t27 = t21 * t21;
         let t28 = 1.0 - t27;
-        let t29 = pow_1_3(t28);
+        let t29 = pow_1_3::<f64>(t28);
         let t30 = t26 * t29;
-        let t31 = pow_1_3(t22);
-        let t32 = pow_1_3(t24);
+        let t31 = pow_1_3::<f64>(t22);
+        let t32 = pow_1_3::<f64>(t24);
         let t33 = t31 + t32;
         let t34 = 1.0 / t33;
         let t35 = t30 * t34;
@@ -80,7 +80,7 @@ pub fn lda_c_ml1_exc_pol(
         let t67 = t33 * t33;
         let t68 = t66 * t67;
         let t71 = -2.763169 / t38 + 0.28144540420067765 * t53 * t47 + 0.2541000285260132 * t48 - 0.049248579417833935 * t61 * t68;
-        let t74 = piecewise3(t7, 0.0, t12 * t71 / 4.0);
+        let t74 = piecewise3::<f64>(t7, 0.0, t12 * t71 / 4.0);
         let tzk0 = t1 * t74;
         zk[ip] += tzk0;
     }

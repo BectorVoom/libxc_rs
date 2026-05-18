@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 663/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 663/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk663<F: Float>(t439: F, t6491: F, t153: F, t1962: F, t1864: F, t4619: F, t1859: F, t2386: F, t2918: F, t337: F, t1919: F, t493: F, t2911: F, t5470: F, t1: F, t1820: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t6493 = 2.0 / 45.0 * t439 * t6491;
-    let t6494 = t1962 * t153;
-    let t6495 = t6494 * t1864;
-    let t6497 = 4.0 / 45.0 * t439 * t6495;
-    let t6498 = t4619 * t153;
-    let t6499 = t6498 * t1859;
-    let t6501 = 2.0 / 27.0 * t439 * t6499;
-    let t6502 = t2918 * t2386;
-    let t6503 = t6502 * t337;
-    let t6504 = t1919 * t6503;
-    let t6506 = 2.0 / 9.0 * t493 * t6504;
-    let t6507 = t2911 * t2386;
-    let t6508 = t6507 * t337;
-    let t6509 = t5470 * t6508;
-    let t6511 = 8.0 / 81.0 * t493 * t6509;
-    let t6512 = t1820 * t1;
-    (t6493, t6494, t6495, t6497, t6498, t6499, t6501, t6502, t6503, t6504, t6506, t6507, t6508, t6509, t6511, t6512)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk663<F: Float>(t123: F, t2407: F, t317: F, t740: F, t2414: F, t395: F, t113: F, t301: F, t2448: F, t76: F, t1316: F, t1317: F, t2180: F, t2308: F, t2733: F, t2738: F, t2741: F, t329: F, t342: F, t346: F, t4398: F, t4414: F, t5569: F, t5573: F, t5578: F, t5580: F, t5721: F, t5934: F, t5937: F, t5939: F, t5980: F, t77: F, t790: F) -> (F, F, F, F, F) {
+    let t5986 = t123 * t740 * t2407 * t317;
+    let t5988 = t395 * t2414;
+    let t5990 = t5988 * t113 * t301;
+    let t5992 = t76 * t2448;
+    let t5996 = F::new(3.0) * t1316 * t2733 * t1317 - t346 * t2308 * t5934 + F::new(0.019957056683757683) * t5937 + F::new(6.0) * t5939 * t2738 + F::new(6.0) * t1316 * t790 * t5721 + F::new(6.0) * t1316 * t790 * t4414 - t346 * t4398 * t2741 + F::new(0.002711962541669446) * t5569 + F::new(0.39633663517353707) * t5573 - t5578 - F::new(0.0011622696607154768) * t5580 + F::new(3.0) * t329 * t77 * t5980 - F::new(0.054045904796391424) * t5986 - F::new(0.0002905674151788692) * t5990 + F::new(6.0) * t2180 * t5992 * t342;
+    (t5986, t5988, t5990, t5992, t5996)
 }

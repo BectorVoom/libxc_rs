@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 753/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 753/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk753<F: Float>(t117: F, t123: F, t740: F, t859: F, t2780: F, t2793: F, t2794: F, t2797: F, t2807: F, t2809: F, t2812: F, t2816: F, t2820: F, t2825: F, t2828: F, t2831: F, t2835: F, t2840: F, t2844: F, t2846: F, t2849: F) -> (F,) {
-    let t5712 = t123 * t740 * t859 * t117;
-    let t5718 = 0.12602162889256446 * t2816 - t2780 - t2793 - 0.06301081444628223 * t2794 + t2797 - 0.031505407223141116 * t2807 - 0.12602162889256446 * t2809 - t2812 - 0.02394846802050922 * t5712 + t2820 + t2825 - 0.001975389032890948 * t2828 - 0.007901556131563792 * t2831 - 0.0009908551388980995 * t2835 - t2840 - t2844 - t2846 + 0.013169260219272987 * t2849;
-    (t5718,)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk753<F: Float>(t1381: F, t5090: F, t5068: F, t1531: F, t465: F, t5086: F, t5077: F, t4095: F, t4097: F, t4099: F, t4102: F, t4105: F, t4106: F, t4108: F, t4115: F, t4117: F, t4121: F, t5064: F, t5074: F, t5081: F, t5089: F) -> (F, F, F, F, F, F) {
+    let t5091 = t5090 * t1381;
+    let t5093 = F::new(4.0) / F::new(45.0) * t5068 * t5091;
+    let t5094 = t465 * t1531;
+    let t5095 = t5094 * t5086;
+    let t5097 = F::new(4.0) / F::new(45.0) * t5077 * t5095;
+    let t5098 = F::new(2.0) / F::new(3.0) * t4095 + F::new(0.2431111111111111) * t4097 - F::new(4.0) / F::new(27.0) * t4099 - t4102 + t4105 + F::new(2.0) / F::new(9.0) * t4106 + F::new(8.0) / F::new(9.0) * t4108 + t4115 + t4117 - t4121 - t5064 + t5074 + t5081 - t5089 + t5093 + t5097;
+    (t5091, t5093, t5094, t5095, t5097, t5098)
 }

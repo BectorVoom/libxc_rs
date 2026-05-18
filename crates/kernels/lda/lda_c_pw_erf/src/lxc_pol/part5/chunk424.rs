@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 424/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 424/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk424<F: Float>(t1319: F, t2034: F, t1318: F, t1451: F, t1477: F, t1516: F, t1629: F, t1632: F, t1637: F, t1641: F, t1994: F, t1999: F, t2004: F, t2009: F, t2013: F, t2016: F, t2020: F, t2025: F, t2029: F, t2033: F) -> (F, F, F, F, F, F) {
-    let t2035 = t1319 * t2034;
-    let t2037 = 8.0 / 45.0 * t1318 * t2035;
-    let t2039 = 8.0 / 135.0 * t1451;
-    let t2040 = 8.0 / 135.0 * t1477;
-    let t2041 = 4.0 / 45.0 * t1516;
-    let t2042 = t1994 - t1999 + t2004 + t2009 - t2013 - t2016 + t2020 - t2025 + t2029 - t2033 + t2037 + t1629 + 0.10821041362364843 * t1632 + t1637 + t1641 + t2039 + t2040 + t2041;
-    (t2035, t2037, t2039, t2040, t2041, t2042)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk424<F: Float>(t1982: F, t199: F, t568: F, t822: F, t1326: F, t1972: F, t519: F, t1608: F, t1611: F, t1615: F, t1623: F, t1922: F, t1923: F, t1927: F, t1929: F, t1931: F, t1934: F, t1936: F, t1937: F, t1939: F, t1962: F, t231: F) -> (F, F, F, F, F, F) {
+    let t1984 = F::new(2.0) / F::new(15.0) * t1982 * t199;
+    let t1985 = t822 * t568;
+    let t1986 = F::new(4.0) / F::new(45.0) * t1985;
+    let t1987 = t1326 * t1972;
+    let t1989 = F::new(8.0) / F::new(45.0) * t519 * t1987;
+    let t1990 = F::new(4.0) / F::new(3.0) * t1608 + t1611 - t1922 - t1923 + F::new(4.0) / F::new(3.0) * t1615 + t1623 + F::new(0.10821041362364843) * t1927 + F::new(4.0) / F::new(3.0) * t1929 + F::new(4.0) / F::new(3.0) * t1931 * t231 + F::new(4.0) / F::new(3.0) * t1934 + t1936 + t1937 + t1939 + t1962 + t1984 + t1986 - t1989;
+    (t1984, t1985, t1986, t1987, t1989, t1990)
 }

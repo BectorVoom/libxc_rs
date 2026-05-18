@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 978/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 978/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk978<F: Float>(t2334: F, t833: F, t352: F, t13829: F, t4506: F, t34: F, t6723: F, t13771: F, t4522: F, t17645: F, t2034: F, t3974: F, t16612: F, t2010: F, t20688: F, t20689: F, t20691: F, t20693: F, t20695: F, t20700: F, t20704: F, t20707: F, t20710: F) -> (F, F, F, F, F, F, F, F) {
-    let t20711 = t2334 * t833;
-    let t20712 = t20711 * t352;
-    let t20715 = 32.0 / 27.0 * t4506 * t13829 * t20712;
-    let t20716 = t6723 * t34;
-    let t20719 = 16.0 / 9.0 * t13771 * t4522 * t20716;
-    let t20722 = 16.0 / 15.0 * t3974 * t17645 * t2034;
-    let t20725 = 8.0 / 5.0 * t4506 * t16612 * t2010;
-    let t20726 = t20688 + t20689 - t20691 - t20693 + t20695 - t20700 - t20704 + t20707 - t20710 - t20715 + t20719 + t20722 - t20725;
-    (t20711, t20712, t20715, t20716, t20719, t20722, t20725, t20726)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk978<F: Float>(t339: F, t5685: F, t8495: F, t8497: F, t1064: F, t1775: F, t8510: F, t8518: F, t8524: F, t1067: F, t1765: F, t2737: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t14423 = F::new(24.0) * t339 * t5685;
+    let t14432 = F::new(36.0) * t8495;
+    let t14433 = F::new(96.0) * t8497;
+    let t14435 = t1064 * t1775;
+    let t14437 = F::new(96.0) * t8510;
+    let t14439 = F::new(960.0) * t8518;
+    let t14440 = F::new(192.0) * t8524;
+    let t14443 = t1067 * t1775;
+    let t14444 = F::new(36.0) * t14443;
+    let t14445 = t1765 * t2737;
+    (t14423, t14432, t14433, t14435, t14437, t14439, t14440, t14444, t14445)
 }

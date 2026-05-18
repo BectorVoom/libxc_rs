@@ -25,11 +25,11 @@ pub fn lda_k_gds08_worker_exc_unpol(
         let t2 = rho[ip] / 2.0 <= dens_threshold;
         let t3 = 1.0 <= zeta_threshold;
         let t4 = zeta_threshold - 1.0;
-        let t6 = piecewise5(t3, t4, t3, -t4, 0.0);
+        let t6 = piecewise5::<f64>(t3, t4, t3, -t4, 0.0);
         let t7 = 1.0 + t6;
         let t9 = f64::ln(t7 * rho[ip]);
         let t11 = t9 * t9;
-        let t16 = piecewise3(t2, 0.0, t7 * (param_C * t11 + param_B * t9 + param_A) / 2.0);
+        let t16 = piecewise3::<f64>(t2, 0.0, t7 * (param_C * t11 + param_B * t9 + param_A) / 2.0);
         let tzk0 = 2.0 * t16;
         zk[ip] += tzk0;
     }

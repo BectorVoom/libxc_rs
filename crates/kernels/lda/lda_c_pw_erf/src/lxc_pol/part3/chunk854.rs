@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 854/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 854/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk854<F: Float>(t164: F, t4130: F, t1155: F, t479: F, t1062: F, t8: F, t147: F, t483: F, t485: F, t1131: F, t4148: F, t1112: F, t717: F, t1138: F, t1597: F, t1586: F, t2910: F) -> (F, F, F, F, F, F, F, F) {
-    let t10757 = t4130 * t164;
-    let t10760 = 0.7561297733553868 * t1155 * t479;
-    let t10762 = 1.0 / t8 / t1062;
-    let t10764 = t10762 * t147 * t483;
-    let t10766 = 7.439549289525431e-06 * t10764 * t485;
-    let t10768 = t4148 * t1131 * t485;
-    let t10770 = t717 * t1112;
-    let t10772 = t10770 * t1138 * t1597;
-    let t10775 = t1586 * t2910 * t485;
-    (t10757, t10760, t10764, t10766, t10768, t10770, t10772, t10775)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk854<F: Float>(t2702: F, t2708: F, t2711: F, t2738: F, t2747: F, t2751: F, t2754: F, t2758: F, t2760: F, t2943: F, t2949: F, t2988: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t8099 = F::new(1.9263778438055648) * t2702;
+    let t8101 = F::new(0.1301229705933783) * t2708;
+    let t8102 = F::new(0.08674864706225219) * t2711;
+    let t8103 = F::new(2.339289358982082) * t2738;
+    let t8106 = F::new(3.436685857643691) * t2747;
+    let t8107 = F::new(0.2849333333333333) * t2751;
+    let t8108 = F::new(0.2137) * t2754;
+    let t8109 = F::new(0.4274) * t2758;
+    let t8110 = F::new(48.0) * t2760;
+    let t8113 = F::new(14.03573615389249) * t2943;
+    let t8114 = F::new(415.5781415850207) * t2949;
+    let t8118 = F::new(4101.558808403118) * t2988;
+    (t8099, t8101, t8102, t8103, t8106, t8107, t8108, t8109, t8110, t8113, t8114, t8118)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 572/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 572/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,9 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk572<F: Float>(t155: F, t2592: F, t802: F, t815: F, t824: F, t851: F) -> (F, F, F, F) {
-    let t2594 = t2592 * t155 / 30.0;
-    let t2596 = t802 * t815 / 15.0;
-    let t2598 = t802 * t824 / 15.0;
-    let t2599 = t851 * t851;
-    (t2594, t2596, t2598, t2599)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk572<F: Float>(t2477: F, t439: F, t2381: F, t444: F, t442: F) -> (F, F, F) {
+    let t2479 = F::new(2.0) / F::new(45.0) * t439 * t2477;
+    let t2480 = t444 * t2381;
+    let t2481 = t442 * t2480;
+    (t2479, t2480, t2481)
 }

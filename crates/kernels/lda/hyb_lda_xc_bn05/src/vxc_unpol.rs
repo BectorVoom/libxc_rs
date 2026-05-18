@@ -25,7 +25,7 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t3 * t1;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
@@ -33,21 +33,21 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t8 = M_CBRT2;
         let t9 = t8 * t8;
         let t10 = 1.0 <= zeta_threshold;
-        let t11 = pow_1_3(zeta_threshold);
-        let t13 = piecewise3(t10, t11 * zeta_threshold, 1.0);
+        let t11 = pow_1_3::<f64>(zeta_threshold);
+        let t13 = piecewise3::<f64>(t10, t11 * zeta_threshold, 1.0);
         let t14 = t13 * t9;
-        let t15 = pow_1_3(rho[ip]);
-        let t16 = pow_1_3(9.0);
+        let t15 = pow_1_3::<f64>(rho[ip]);
+        let t16 = pow_1_3::<f64>(9.0);
         let t17 = t16 * t16;
         let t18 = t3 * t3;
         let t20 = param_hyb_omega_0 * t18 * t17;
         let t21 = 1.0 / t15;
-        let t23 = piecewise3(t10, t11, 1.0);
+        let t23 = piecewise3::<f64>(t10, t11, 1.0);
         let t24 = 1.0 / t23;
         let t27 = t24 * t21 * t1 * t20 / 18.0;
         let t28 = 1.92 <= t27;
         let t29 = 1.92 < t27;
-        let t30 = piecewise3(t29, t27, 1.92);
+        let t30 = piecewise3::<f64>(t29, t27, 1.92);
         let t31 = t30 * t30;
         let t34 = t31 * t31;
         let t35 = 1.0 / t34;
@@ -75,7 +75,7 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t80 = 1.0 / t76 / t31;
         let t83 = 1.0 / t76 / t34;
         let t85 = 1.0 / t31 / 9.0 - t35 / 30.0 + t38 / 70.0 - t41 / 135.0 + t44 / 231.0 - t47 / 364.0 + t50 / 540.0 - t53 / 765.0 + t56 / 1045.0 - t59 / 1386.0 + t62 / 1794.0 - t65 / 2275.0 + t68 / 2835.0 - t71 / 3480.0 + t74 / 4216.0 - t77 / 5049.0 + t80 / 5985.0 - t83 / 7030.0;
-        let t86 = piecewise3(t29, 1.92, t27);
+        let t86 = piecewise3::<f64>(t29, 1.92, t27);
         let t87 = f64::atan2(1.0, t86);
         let t88 = t86 * t86;
         let t89 = t88 + 3.0;
@@ -84,12 +84,12 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t92 = f64::ln(t91);
         let t94 = -t92 * t89 + 1.0;
         let t97 = t87 + t94 * t86 / 4.0;
-        let t101 = piecewise3(t28, t85, 1.0 - 8.0 / 3.0 * t97 * t86);
+        let t101 = piecewise3::<f64>(t28, t85, 1.0 - 8.0 / 3.0 * t97 * t86);
         let t105 = 3.0 / 16.0 * t101 * t15 * t14 * t7;
         let t107 = t21 * t6 * t4;
         let t109 = 1.0 + 0.053425 * t107;
         let t110 = f64::sqrt(t107);
-        let t113 = pow_3_2(t107);
+        let t113 = pow_3_2::<f64>(t107);
         let t115 = t1 * t1;
         let t116 = t18 * t115;
         let t117 = t15 * t15;
@@ -114,7 +114,7 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t161 = 1.0 / t160;
         let t163 = 1.0 / t15 / rho[ip];
         let t167 = t24 * t163 * t1 * t20 / 54.0;
-        let t168 = piecewise3(t29, -t167, 0.0);
+        let t168 = piecewise3::<f64>(t29, -t167, 0.0);
         let t171 = t34 * t30;
         let t172 = 1.0 / t171;
         let t175 = t34 * t160;
@@ -139,7 +139,7 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t232 = 1.0 / t76 / t160;
         let t236 = 1.0 / t76 / t171;
         let t239 = -2.0 / 9.0 * t168 * t161 + 2.0 / 15.0 * t168 * t172 - 3.0 / 35.0 * t168 * t176 + 8.0 / 135.0 * t168 * t180 - 10.0 / 231.0 * t168 * t184 + 3.0 / 91.0 * t168 * t188 - 7.0 / 270.0 * t168 * t192 + 16.0 / 765.0 * t168 * t196 - 18.0 / 1045.0 * t168 * t200 + 10.0 / 693.0 * t168 * t204 - 11.0 / 897.0 * t168 * t208 + 24.0 / 2275.0 * t168 * t212 - 26.0 / 2835.0 * t168 * t216 + 7.0 / 870.0 * t168 * t220 - 15.0 / 2108.0 * t168 * t224 + 32.0 / 5049.0 * t168 * t228 - 34.0 / 5985.0 * t168 * t232 + 18.0 / 3515.0 * t168 * t236;
-        let t240 = piecewise3(t29, 0.0, -t167);
+        let t240 = piecewise3::<f64>(t29, 0.0, -t167);
         let t243 = 1.0 / t91;
         let t249 = t88 * t86;
         let t250 = 1.0 / t249;
@@ -147,7 +147,7 @@ pub fn hyb_lda_xc_bn05_vxc_unpol(
         let t252 = t243 * t240;
         let t255 = -2.0 * t92 * t240 * t86 + 2.0 * t252 * t251;
         let t258 = -t243 * t90 * t240 + t94 * t240 / 4.0 + t255 * t86 / 4.0;
-        let t262 = piecewise3(t28, t239, -8.0 / 3.0 * t97 * t240 - 8.0 / 3.0 * t258 * t86);
+        let t262 = piecewise3::<f64>(t28, t239, -8.0 / 3.0 * t97 * t240 - 8.0 / 3.0 * t258 * t86);
         let t265 = t262 * t15 * t14 * t7;
         let t267 = t163 * t6;
         let t271 = t122 * t122;

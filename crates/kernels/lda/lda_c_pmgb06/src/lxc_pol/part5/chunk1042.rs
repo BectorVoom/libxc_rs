@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1042/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1042/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1042<F: Float>(t11380: F, t11401: F, t11519: F, t11521: F, t18829: F, t18831: F, t18837: F, t21403: F, t21409: F, t21414: F, t21416: F, t21423: F, t8339: F, t18848: F, t18851: F, t21411: F, t21439: F, t21442: F, t21445: F, t21448: F, t21451: F, t21461: F, t21462: F, t21463: F, t21465: F, t21466: F, t21477: F, t2247: F) -> (F, F) {
-    let t21590 = 1.724255 * t18829 + 6.89702 * t18831 - 2.2990066666666666 * t18837 - 2.2990066666666666 * t11519 + 5.364348888888889 * t11521 + t11380 + t21403 - t11401 - t21409 - t21414 - t8339 + t21416 - t21423;
-    let t21595 = 20.69106 * t18848 - 10.34553 * t18851 - 62.07318 * t2247 * t21411 + t21439 - t21442 + t21445 + t21448 + t21451 - t21461 + t21462 + t21463 + t21465 - t21466 - t21477;
-    (t21590, t21595)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1042<F: Float>(t12154: F, t19471: F, t439: F, t1: F, t6150: F, t2010: F, t5260: F, t15764: F, t15770: F, t15772: F, t15774: F, t19458: F, t19461: F, t19463: F, t19466: F, t19469: F) -> (F, F, F, F, F, F, F, F) {
+    let t19474 = F::new(88.0) / F::new(243.0) * t439 * t12154 * t19471;
+    let t19475 = t6150 * t1;
+    let t19478 = F::new(16.0) / F::new(27.0) * t2010 * t5260 * t19475;
+    let t19479 = F::new(4.0) / F::new(45.0) * t15764;
+    let t19480 = F::new(4.0) / F::new(15.0) * t15770;
+    let t19481 = F::new(4.0) / F::new(9.0) * t15772;
+    let t19482 = F::new(16.0) / F::new(45.0) * t15774;
+    let t19483 = -t19458 + t19461 + t19463 + t19466 + t19469 + t19474 + t19478 + t19479 + t19480 - t19481 - t19482;
+    (t19474, t19475, t19478, t19479, t19480, t19481, t19482, t19483)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1093/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1093/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1093<F: Float>(t11: F, t21240: F, t3536: F, t11829: F, t11834: F, t11846: F, t11848: F, t15838: F, t15848: F, t15850: F, t15887: F, t17327: F, t17332: F, t2061: F, t22713: F, t22717: F, t22722: F, t22725: F, t22728: F, t22731: F, t22734: F, t22737: F, t22740: F, t25: F, t3516: F, t9761: F) -> (F, F) {
-    let t22743 = t11 * t3536 * t21240;
-    let t22745 = -0.2879333333333333 * t15838 - 0.07198333333333333 * t15848 + 0.023994444444444443 * t15850 + 0.05925925925925926 * t11829 + 0.11197407407407407 * t11834 - 0.044444444444444446 * t11846 - 0.007407407407407408 * t17327 + 0.044444444444444446 * t17332 - 0.09597777777777777 * t11848 - 0.03199259259259259 * t15887 - 0.006913580246913581 * t25 * t9761 * t22713 - 0.017777777777777778 * t2061 * t3516 * t22717 - 0.07198333333333333 * t22722 - 0.14396666666666666 * t22725 + 0.8638 * t22728 - 1.2957 * t22731 + 0.21595 * t22734 + 0.4319 * t22737 - 0.8638 * t22740 + 0.47988888888888886 * t22743;
-    (t22743, t22745)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1093<F: Float>(t19645: F, t19647: F, t19650: F, t10: F, t128: F, t20283: F, t325: F, t431: F, t7930: F, t415: F, t7933: F, t7924: F) -> (F, F, F, F, F, F, F) {
+    let t20340 = F::new(8.769075) * t19645;
+    let t20341 = F::new(5.84605) * t19647;
+    let t20342 = F::new(2.923025) * t19650;
+    let t20345 = t10 * t128 * t20283;
+    let t20349 = t431 * t7930 * t325;
+    let t20352 = t415 * t7933 * t325;
+    let t20353 = F::new(2.923025) * t20352;
+    let t20355 = t415 * t7924 * t325;
+    (t20340, t20341, t20342, t20345, t20349, t20353, t20355)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 759/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 759/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk759<F: Float>(t1297: F, t787: F, t2255: F, t384: F, t1309: F, t5790: F, t69: F, t5806: F, t109: F, t370: F, t2247: F, t2249: F, t3643: F, t5749: F, t5752: F, t5755: F, t5762: F, t5785: F, t5789: F, t5801: F, t5804: F, t5810: F) -> (F, F, F, F, F) {
-    let t5843 = t787 * t1297;
-    let t5846 = t2255 * t384;
-    let t5849 = t787 * t1309;
-    let t5852 = t69 * t5790;
-    let t5855 = 1.1495033333333333 * t69 * t5806;
-    let t5858 = t109 * t370;
-    let t5860 = t2247 * t5858 * t2249;
-    let t5862 = t5749 + t5752 - t5755 - t3643 - 0.7663355555555555 * t5852 + t5855 - 1.724255 * t69 * t5810 - t5762 - t5785 - 3.44851 * t5860 - t5789 + t5801 + t5804;
-    (t5843, t5846, t5849, t5858, t5862)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk759<F: Float>(t5071: F, t5139: F, t5138: F, t3074: F, t3077: F, t3149: F, t3151: F, t3153: F, t3156: F, t3158: F, t3165: F, t3182: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t5140 = t5139 * t5071;
+    let t5142 = F::new(2.0) / F::new(27.0) * t5138 * t5140;
+    let t5143 = t3074 / F::new(45.0);
+    let t5144 = t3077 / F::new(45.0);
+    let t5145 = t3149 / F::new(45.0);
+    let t5146 = F::new(2.0) / F::new(45.0) * t3151;
+    let t5147 = F::new(2.0) / F::new(45.0) * t3153;
+    let t5148 = F::new(2.0) / F::new(135.0) * t3156;
+    let t5149 = t3158 / F::new(45.0);
+    let t5150 = F::new(4.0) / F::new(135.0) * t3165;
+    let t5151 = F::new(4.0) / F::new(135.0) * t3182;
+    (t5140, t5142, t5143, t5144, t5145, t5146, t5147, t5148, t5149, t5150, t5151)
 }

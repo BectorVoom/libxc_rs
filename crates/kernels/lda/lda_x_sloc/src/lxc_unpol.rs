@@ -29,7 +29,7 @@ pub fn lda_x_sloc_lxc_unpol(
         let t4 = param_a / t1 / 2.0;
         let t5 = f64::powf(rho[ip], param_b);
         let t7 = f64::powf(zeta_threshold, t1);
-        let t8 = piecewise3(1.0 <= zeta_threshold, t7, 1.0);
+        let t8 = piecewise3::<f64>(1.0 <= zeta_threshold, t7, 1.0);
         let t10 = t4 * t5 * t8;
         let tzk0 = -2.0 * t10;
         zk[ip] += tzk0;

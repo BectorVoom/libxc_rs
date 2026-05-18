@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1117/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1117/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1117<F: Float>(t1410: F, t2253: F, t2256: F, t3990: F, t851: F, t13925: F, t13927: F, t13930: F, t13933: F, t13937: F, t13939: F, t13941: F, t13945: F, t13952: F, t13956: F, t13958: F, t13961: F, t13965: F, t13969: F, t13972: F, t13974: F, t13976: F, t13978: F, t13979: F, t13980: F, t13981: F, t13983: F, t13984: F) -> (F, F) {
-    let t15107 = t2253 * t1410;
-    let t15108 = 2.0 / 9.0 * t15107;
-    let t15109 = t2256 * t1410;
-    let t15111 = t851 * t3990;
-    let t15113 = -t13925 - t13927 - t15108 - 2.0 / 9.0 * t15109 + 8.0 / 81.0 * t15111 - t13930 + t13933 + t13937 + t13939 - t13941 - t13945 - t13952 + t13956;
-    let t15114 = -t13958 + t13961 + t13965 - t13969 + t13972 - t13974 + t13976 + t13978 - t13979 - t13980 - t13981 + t13983 + t13984;
-    (t15113, t15114)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1117<F: Float>(t13066: F, t4581: F, t4753: F, t3416: F, t1318: F, t3854: F, t5225: F, t13042: F, t13044: F, t13046: F, t13049: F, t13052: F, t13055: F, t13057: F, t13059: F, t13064: F) -> (F, F, F, F, F) {
+    let t13067 = F::new(8.0) / F::new(27.0) * t13066;
+    let t13068 = t4753 * t4581;
+    let t13069 = F::new(32.0) / F::new(45.0) * t13068;
+    let t13070 = t3416 * t4581;
+    let t13071 = F::new(32.0) / F::new(45.0) * t13070;
+    let t13073 = t1318 * t3854 * t5225;
+    let t13074 = F::new(16.0) / F::new(45.0) * t13073;
+    let t13075 = -t13042 - t13044 - t13046 + t13049 + t13052 - t13055 - t13057 + t13059 - t13064 - t13067 + t13069 + t13071 + t13074;
+    (t13067, t13069, t13071, t13074, t13075)
 }

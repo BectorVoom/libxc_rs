@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 576/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 576/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk576<F: Float>(t174: F, t177: F, t3540: F, t25: F, t3508: F, t3510: F, t3512: F, t3520: F, t3524: F, t3528: F, t3530: F, t3532: F, t3534: F, t3538: F, t3507: F, t530: F) -> (F, F, F, F) {
-    let t3542 = t174 * t3540 * t177;
-    let t3543 = 0.11197407407407407 * t3542;
-    let t3544 = -0.022222222222222223 * t3508 + 0.013333333333333334 * t3510 + 0.0044444444444444444 * t3512 - 0.002962962962962963 * t25 * t3520 - 0.006666666666666667 * t25 * t3524 - 0.035991666666666665 * t3528 - 0.047988888888888886 * t3530 + 0.035991666666666665 * t3532 + 0.023994444444444443 * t3534 - 0.03999074074074074 * t3538 - t3543;
-    let t3545 = t3507 + t3544;
-    let t3546 = t530 * t3545;
-    (t3542, t3543, t3545, t3546)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk576<F: Float>(t3080: F, t3152: F, t60: F, t40: F, t2849: F, t88: F, t2851: F, t1063: F, t338: F, t3016: F, t3019: F, t3118: F, t3121: F, t3125: F, t3133: F, t3139: F, t3151: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t3153 = t3080 + t3152;
+    let t3154 = t60 * t3153;
+    let t3155 = t40 * t3154;
+    let t3156 = t2849 * t88;
+    let t3157 = F::new(24.0) * t3156;
+    let t3158 = t2851 * t88;
+    let t3159 = F::new(144.0) * t3158;
+    let t3160 = t338 * t1063;
+    let t3161 = t3160 * t88;
+    let t3162 = F::new(240.0) * t3161;
+    let t3163 = t3016 + t3019 + t3155 + t3118 - t3121 + t3125 + t3133 - t3139 + t3151 + t3157 - t3159 + t3162;
+    (t3153, t3154, t3155, t3156, t3157, t3158, t3160, t3161, t3163)
 }

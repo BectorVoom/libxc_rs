@@ -22,7 +22,7 @@ pub fn lda_xc_zlp_exc_pol(
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = rho0 + rho1;
-        let t2 = pow_1_3(t1);
+        let t2 = pow_1_3::<f64>(t1);
         let t5 = 1.0 + 105.5562709925034 / t2;
         let t6 = f64::ln(t5);
         let t9 = 1.0 - 0.00947362 * t6 * t2;

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 817/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 817/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk817<F: Float>(t1687: F, t5021: F, t1653: F, t432: F, t4606: F, t416: F, t118: F, t1184: F, t119: F, t120: F, t3309: F, t436: F, t2: F, t39: F, t411: F, t3318: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t8867 = 2.9018074074074076 * t1687 * t5021;
-    let t8869 = 5.773876543209877 * t1653 * t5021;
-    let t8871 = 2.5390814814814813 * t432 * t4606;
-    let t8873 = 5.052141975308642 * t416 * t4606;
-    let t8877 = 70.0 / 81.0 * t118 * t119 * t1184 * t120;
-    let t8896 = t3309 * t436;
-    let t8898 = t2 * t39 * t411;
-    let t8899 = t8896 * t8898;
-    let t8901 = t3318 * t120;
-    (t8867, t8869, t8871, t8873, t8877, t8896, t8898, t8899, t8901)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk817<F: Float>(t571: F, t7489: F, t2146: F, t2562: F, t6212: F, t6216: F, t6221: F, t6223: F, t7460: F, t7462: F, t7464: F, t7468: F, t7472: F, t7473: F, t7477: F, t7481: F, t7483: F, t7487: F) -> (F, F, F, F, F, F, F) {
+    let t7491 = F::new(8.0) / F::new(9.0) * t571 * t7489;
+    let t7493 = F::new(8.0) / F::new(15.0) * t2146 * t2562;
+    let t7494 = F::new(16.0) / F::new(15.0) * t6212;
+    let t7495 = F::new(8.0) / F::new(15.0) * t6216;
+    let t7496 = F::new(8.0) / F::new(15.0) * t6221;
+    let t7497 = F::new(8.0) / F::new(15.0) * t6223;
+    let t7498 = -t7460 - t7462 - t7464 + t7468 + t7472 - t7473 + t7477 + t7481 - t7483 - t7487 - t7491 - t7493 + t7494 + t7495 + t7496 - t7497;
+    (t7491, t7493, t7494, t7495, t7496, t7497, t7498)
 }

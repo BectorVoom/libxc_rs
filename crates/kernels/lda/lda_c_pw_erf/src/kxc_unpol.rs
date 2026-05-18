@@ -27,17 +27,17 @@ pub fn lda_c_pw_erf_kxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
         let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
-        let t16 = pow_3_2(t10);
+        let t16 = pow_3_2::<f64>(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
         let t20 = t18 * t19;
@@ -49,8 +49,8 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t29 = 1.0 + 16.081824322151103 / t26;
         let t30 = f64::ln(t29);
         let t32 = 0.062182 * t12 * t30;
-        let t34 = pow_1_3(zeta_threshold);
-        let t36 = piecewise3(1.0 <= zeta_threshold, t34 * zeta_threshold, 1.0);
+        let t34 = pow_1_3::<f64>(zeta_threshold);
+        let t36 = piecewise3::<f64>(1.0 <= zeta_threshold, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
         let t45 = 1.0 + 0.0278125 * t10;
@@ -62,7 +62,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t59 = t58 - 1.0;
         let t60 = 2.0 * t59;
         let t62 = 2.923025 * param_hyb_omega_0 * t13;
-        let t64 = pow_1_3(9.0);
+        let t64 = pow_1_3::<f64>(9.0);
         let t65 = t64 * t64;
         let t73 = param_hyb_omega_0 * param_hyb_omega_0;
         let t75 = (3.44851 - M_PI * t5 * t65 * t3 / t59 / 12.0) * t73 * t1;
@@ -408,7 +408,7 @@ pub fn lda_c_pw_erf_kxc_unpol(
         let t880 = t76 * t578;
         let t881 = t225 * t880;
         let t883 = t4 * t586;
-        let t885 = 1.0/pow_3_2(t10);
+        let t885 = 1.0/pow_3_2::<f64>(t10);
         let t886 = t885 * t2;
         let t887 = t886 * t735;
         let t889 = t478 * t877;

@@ -39,7 +39,7 @@ pub fn lda_c_2d_prm_fxc_unpol(
         let t19 = 0.3999583253029731 * t7 * t17;
         let t20 = t5 * t5;
         let t21 = 1.0 / t20;
-        let t23 = 1.0/pow_3_2(t11);
+        let t23 = 1.0/pow_3_2::<f64>(t11);
         let t25 = 0.17722691847124394 * t1 * t21 * t23;
         let t26 = 1.0 + param_c;
         let t27 = f64::sqrt(t26);

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1000/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1000/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1000<F: Float>(t13686: F, t4754: F, t479: F, t132: F, t137: F, t2064: F, t3058: F, t161: F, t166: F, t2093: F, t3382: F, t432: F, t4975: F, t1586: F, t4801: F, t13675: F, t13676: F, t13677: F, t13678: F, t13682: F, t13684: F) -> (F, F, F, F, F, F, F) {
-    let t13687 = 2.0 / 15.0 * t13686;
-    let t13689 = t4754 * t479 / 10.0;
-    let t13693 = t132 * t137 * t3058 * t2064 / 10.0;
-    let t13697 = t161 * t166 * t2093 * t3382 / 30.0;
-    let t13699 = t432 * t4975 / 5.0;
-    let t13703 = t161 * t166 * t4801 * t1586 / 10.0;
-    let t13704 = -t13675 - t13676 - t13677 + t13678 - t13682 - t13684 - t13687 - t13689 - t13693 - t13697 - t13699 - t13703;
-    (t13687, t13689, t13693, t13697, t13699, t13703, t13704)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1000<F: Float>(t9352: F, t9379: F, t9381: F, t9383: F, t9385: F, t9393: F, t9395: F, t132: F, t1547: F, t2065: F, t1381: F, t1601: F, t2088: F, t5068: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t11889 = F::new(4.0) / F::new(135.0) * t9352;
+    let t11890 = F::new(2.0) / F::new(135.0) * t9379;
+    let t11891 = F::new(2.0) / F::new(81.0) * t9381;
+    let t11892 = F::new(4.0) / F::new(27.0) * t9383;
+    let t11893 = F::new(2.0) / F::new(27.0) * t9385;
+    let t11894 = F::new(2.0) / F::new(45.0) * t9393;
+    let t11895 = F::new(2.0) / F::new(15.0) * t9395;
+    let t11897 = t132 * t1547 * t2065;
+    let t11898 = t11897 / F::new(45.0);
+    let t11902 = F::new(4.0) / F::new(15.0) * t5068 * t1601 * t2088 * t1381;
+    (t11889, t11890, t11891, t11892, t11893, t11894, t11895, t11898, t11902)
 }

@@ -32,7 +32,7 @@ pub fn lda_c_2d_amgb_kxc_unpol(
         let t11 = f64::sqrt(M_PI);
         let t12 = 1.0 / t11;
         let t13 = t12 * t2;
-        let t14 = pow_3_2(t13);
+        let t14 = pow_3_2::<f64>(t13);
         let t18 = 0.5654308006315614 * t2 - 0.02069 * t14 + 0.10821581200590331 * t4 + 0.00313738702352666 * t7;
         let t20 = 1.0 + 1.0 / t18;
         let t21 = f64::ln(t20);
@@ -41,7 +41,7 @@ pub fn lda_c_2d_amgb_kxc_unpol(
         let t26 = M_SQRT2;
         let t27 = (t24 - 1.0) * t26;
         let t30 = f64::sqrt(zeta_threshold);
-        let t32 = piecewise3(1.0 <= zeta_threshold, t30 * zeta_threshold, 1.0);
+        let t32 = piecewise3::<f64>(1.0 <= zeta_threshold, t30 * zeta_threshold, 1.0);
         let t33 = t32 - 1.0;
         let t36 = 4.0 / 3.0 * t27 * t12 * t1 * t33;
         let tzk0 = -0.1925 + t22 - t36;
@@ -116,7 +116,7 @@ pub fn lda_c_2d_amgb_kxc_unpol(
         let t160 = t9 * t159;
         let t161 = t151 * t109;
         let t162 = t160 * t161;
-        let t165 = 1.0/pow_3_2(t13);
+        let t165 = 1.0/pow_3_2::<f64>(t13);
         let t168 = t165 / t11 / M_PI;
         let t177 = -1.0601827511841775 * t78 - 0.00096984375 * t168 * t136 + 0.0174571875 * t95 * t133 + 0.058190625 * t51 * t78 - 0.6492948720354199 * t133 - 0.04117820468378741 * t136;
         let t178 = t177 * t57;

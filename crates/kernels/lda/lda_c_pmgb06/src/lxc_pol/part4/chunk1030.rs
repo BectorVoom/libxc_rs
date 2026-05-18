@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1030/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1030/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1030<F: Float>(t2088: F, t764: F, t337: F, t5068: F, t5069: F, t2489: F, t3198: F, t1444: F, t6292: F, t2488: F, t3194: F, t493: F, t2493: F, t3177: F, t14316: F, t15257: F, t15258: F, t15259: F, t15260: F, t15261: F, t15263: F, t15268: F, t15270: F, t15273: F) -> (F, F, F, F, F, F, F, F) {
-    let t15274 = t764 * t2088;
-    let t15275 = t15274 * t337;
-    let t15278 = 8.0 / 45.0 * t5068 * t5069 * t15275;
-    let t15280 = 2.0 / 45.0 * t3198 * t2489;
-    let t15282 = 4.0 / 45.0 * t1444 * t6292;
-    let t15285 = 2.0 / 45.0 * t493 * t3194 * t2488;
-    let t15287 = 2.0 / 45.0 * t3177 * t2493;
-    let t15288 = -0.022363485482220676 * t14316 - t15257 + t15258 + t15259 - t15260 - t15261 + t15263 - t15268 + t15270 + t15273 + t15278 - t15280 - t15282 - t15285 - t15287;
-    (t15274, t15275, t15278, t15280, t15282, t15285, t15287, t15288)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1030<F: Float>(t1190: F, t4189: F, t1187: F, t4197: F, t115: F, t8173: F, t247: F, t413: F, t113: F, t642: F, t8193: F, t1321: F) -> (F, F, F, F, F, F, F, F) {
+    let t10520 = F::new(0.2508) * t4189 * t1190;
+    let t10522 = F::new(0.39013333333333333) * t1187 * t4197;
+    let t10524 = t8173 * t115;
+    let t10525 = t10524 / F::new(2.0);
+    let t10528 = F::new(0.007532237109403992) * t413 * t247 * t115;
+    let t10531 = F::new(0.015064474218807983) * t113 * t642 * t115;
+    let t10533 = F::new(60.0) * t8193;
+    let t10547 = t1321 * t1321;
+    (t10520, t10522, t10524, t10525, t10528, t10531, t10533, t10547)
 }

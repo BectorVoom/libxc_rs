@@ -28,15 +28,15 @@ pub fn lda_x_rel_kxc_unpol(
         let t3 = M_CBRT3;
         let t4 = M_CBRTPI;
         let t6 = t3 / t4;
-        let t8 = pow_1_3(zeta_threshold);
-        let t10 = piecewise3(1.0 <= zeta_threshold, t8 * zeta_threshold, 1.0);
-        let t11 = pow_1_3(rho[ip]);
-        let t15 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t10 * t11);
-        let t16 = pow_1_3(9.0);
+        let t8 = pow_1_3::<f64>(zeta_threshold);
+        let t10 = piecewise3::<f64>(1.0 <= zeta_threshold, t8 * zeta_threshold, 1.0);
+        let t11 = pow_1_3::<f64>(rho[ip]);
+        let t15 = piecewise3::<f64>(t2, 0.0, -3.0 / 8.0 * t6 * t10 * t11);
+        let t16 = pow_1_3::<f64>(9.0);
         let t17 = t16 * t16;
         let t18 = t17 * t3;
         let t19 = 1.0 / M_PI;
-        let t20 = pow_1_3(t19);
+        let t20 = pow_1_3::<f64>(t19);
         let t21 = t20 * t20;
         let t22 = 1.0 / t21;
         let t23 = t11 * t11;
@@ -47,7 +47,7 @@ pub fn lda_x_rel_kxc_unpol(
         let t35 = t3 * t3;
         let t36 = t16 * t35;
         let t37 = 1.0 / t20;
-        let t41 = f64::ln(0.0035625477770544352 * t36 * t37 * t11 + f64::sqrt(pow_2(0.0035625477770544352 * t36 * t37 * t11) + 1.0));
+        let t41 = f64::ln(0.0035625477770544352 * t36 * t37 * t11 + f64::sqrt(pow_2::<f64>(0.0035625477770544352 * t36 * t37 * t11) + 1.0));
         let t42 = t41 * t16;
         let t43 = t35 * t21;
         let t44 = 1.0 / t23;
@@ -56,7 +56,7 @@ pub fn lda_x_rel_kxc_unpol(
         let t51 = 1.0 - 1.5 * t49;
         let tzk0 = 2.0 * t15 * t51;
         zk[ip] += tzk0;
-        let t56 = piecewise3(t2, 0.0, -t6 * t10 * t44 / 8.0);
+        let t56 = piecewise3::<f64>(t2, 0.0, -t6 * t10 * t44 / 8.0);
         let t57 = rho[ip] * t56;
         let t60 = rho[ip] * t15;
         let t61 = 1.0 / t28;
@@ -71,7 +71,7 @@ pub fn lda_x_rel_kxc_unpol(
         let tvrho0 = tzk0 + 2.0 * t57 * t51 - 6.0 * t60 * t81;
         vrho[ip] += tvrho0;
         let t86 = t15 * t48;
-        let t92 = piecewise3(t2, 0.0, t6 * t10 * t76 / 12.0);
+        let t92 = piecewise3::<f64>(t2, 0.0, t6 * t10 * t76 / 12.0);
         let t93 = rho[ip] * t92;
         let t98 = t80 * t80;
         let t102 = 1.0 / t28 / t27;
@@ -86,7 +86,7 @@ pub fn lda_x_rel_kxc_unpol(
         let tv2rho20 = 4.0 * t56 * t51 - 12.0 * t86 * t80 + 2.0 * t93 * t51 - 12.0 * t57 * t81 - 6.0 * t60 * t98 - 6.0 * t60 * t126;
         v2rho2[ip] += tv2rho20;
         let t131 = t56 * t48;
-        let t141 = piecewise3(t2, 0.0, -5.0 / 36.0 * t6 * t10 * t121);
+        let t141 = piecewise3::<f64>(t2, 0.0, -5.0 / 36.0 * t6 * t10 * t121);
         let t142 = rho[ip] * t141;
         let t151 = t80 * t125;
         let t154 = t27 * t27;

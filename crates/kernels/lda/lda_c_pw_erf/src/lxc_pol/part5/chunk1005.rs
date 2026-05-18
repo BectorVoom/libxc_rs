@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1005/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1005/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1005<F: Float>(t16239: F, t16245: F, t16253: F, t16261: F, t12083: F, t16514: F, t16516: F, t16520: F, t9437: F, t16537: F, t16600: F, t14992: F, t19134: F, t17645: F, t2001: F, t3974: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t21112 = 32.0 / 45.0 * t16239;
-    let t21113 = 16.0 / 45.0 * t16245;
-    let t21114 = 16.0 / 45.0 * t16253;
-    let t21115 = 8.0 / 45.0 * t16261;
-    let t21116 = 16.0 / 135.0 * t12083;
-    let t21118 = 16.0 / 45.0 * t16514;
-    let t21119 = 32.0 / 45.0 * t16516;
-    let t21120 = 16.0 / 15.0 * t16520;
-    let t21121 = 32.0 / 1215.0 * t9437;
-    let t21123 = 16.0 / 45.0 * t16537;
-    let t21124 = 4.0 / 45.0 * t16600;
-    let t21125 = t21112 + t21113 + t21114 - t21115 + t21116 - 2.0 / 15.0 * t19134 + t21118 - t21119 - t21120 + t21121 - 0.19947266666666666 * t14992 - t21123 + t21124;
-    let t21128 = 16.0 / 15.0 * t3974 * t17645 * t2001;
-    (t21112, t21113, t21114, t21115, t21116, t21118, t21119, t21120, t21121, t21123, t21124, t21125, t21128)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1005<F: Float>(t1621: F, t2660: F, t529: F, t6590: F, t1325: F, t3787: F, t6998: F, t515: F, t6631: F, t2076: F, t4571: F, t2171: F, t4834: F) -> (F, F, F, F, F, F) {
+    let t15971 = t2660 * t1621;
+    let t15975 = t529 * t6590;
+    let t15983 = t1325 * t3787 * t6998;
+    let t16016 = t6631 * t515;
+    let t16024 = t2076 * t4571;
+    let t16036 = t2171 * t4834;
+    (t15971, t15975, t15983, t16016, t16024, t16036)
 }

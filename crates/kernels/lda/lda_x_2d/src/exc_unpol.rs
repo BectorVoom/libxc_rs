@@ -24,7 +24,7 @@ pub fn lda_x_2d_exc_unpol(
         let t2 = f64::sqrt(M_PI);
         let t4 = t1 / t2;
         let t6 = f64::sqrt(zeta_threshold);
-        let t8 = piecewise3(1.0 <= zeta_threshold, t6 * zeta_threshold, 1.0);
+        let t8 = piecewise3::<f64>(1.0 <= zeta_threshold, t6 * zeta_threshold, 1.0);
         let t9 = f64::sqrt(rho[ip]);
         let t11 = t4 * t8 * t9;
         let tzk0 = -4.0 / 3.0 * t11;

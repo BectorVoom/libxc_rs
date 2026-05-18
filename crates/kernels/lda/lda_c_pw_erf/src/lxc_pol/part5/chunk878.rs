@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 878/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 878/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,9 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk878<F: Float>(t14795: F, t2061: F, t5512: F, t14639: F, t1686: F, t1852: F, t14650: F, t5592: F, t1840: F, t426: F, t474: F, t14584: F, t1856: F, t933: F, t1128: F, t1904: F, t281: F, t285: F) -> (F, F, F, F, F, F, F, F) {
-    let t14796 = 2.93808 * t14795;
-    let t14797 = t5512 * t2061;
-    let t14802 = t1686 * t1852 * t14639;
-    let t14803 = 5.87616 * t14802;
-    let t14813 = t5592 * t14650;
-    let t14814 = 11.75232 * t14813;
-    let t14816 = t426 * t474 * t1840;
-    let t14817 = 2.0 * t14816;
-    let t14843 = t426 * t14584;
-    let t14844 = 2.0 / 3.0 * t14843;
-    let t14849 = t1686 * t1856 * t933;
-    let t14850 = 1.46904 * t14849;
-    let t14895 = t281 * t1904 * t1128 * t285;
-    (t14796, t14797, t14803, t14814, t14817, t14844, t14850, t14895)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk878<F: Float>(t334: F, t8218: F, t913: F, t904: F, t907: F, t319: F, t4606: F, t5021: F, t8141: F, t8143: F, t8146: F, t8149: F, t8155: F, t8157: F, t8159: F, t8161: F) -> (F, F, F) {
+    let t8221 = F::new(6.0) * t913 * t8218 * t334;
+    let t8224 = F::new(48.24547296645331) * t904 * t8218 * t907;
+    let t8238 = F::new(1.0) * t319 * (-F::new(2.109916666666667) * t8141 + F::new(20.2552) * t8143 - F::new(7.501925925925926) * t8146 + F::new(6.564185185185186) * t8149 + F::new(3.100395061728395) * t4606 + F::new(0.06825833333333334) * t8155 - F::new(1.0921333333333334) * t8157 + F::new(1.2134814814814814) * t8159 + F::new(1.0617962962962963) * t8161 + F::new(1.3388493827160495) * t5021) * t334;
+    (t8221, t8224, t8238)
 }

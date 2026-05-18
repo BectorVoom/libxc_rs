@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 872/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 872/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk872<F: Float>(t2693: F, t2695: F, t887: F, t1765: F, t2993: F, t2998: F, t8178: F, t8180: F, t2710: F, t4397: F, t2707: F, t2698: F, t2701: F, t1085: F, t1798: F, t4: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11305 = t887 * t2693 * t2695;
-    let t11307 = t1765 * t2993;
-    let t11308 = 3.5089340384731225 * t11307;
-    let t11309 = t1765 * t2998;
-    let t11310 = 51.94726769812759 * t11309;
-    let t11311 = 51.94726769812759 * t8178;
-    let t11312 = 3076.1691063023386 * t8180;
-    let t11313 = t4397 * t2710;
-    let t11314 = 0.021687161765563047 * t11313;
-    let t11315 = t4397 * t2707;
-    let t11316 = 0.032530742648344574 * t11315;
-    let t11317 = t4397 * t2698;
-    let t11318 = 0.016265371324172287 * t11317;
-    let t11319 = t4397 * t2701;
-    let t11320 = 0.4815944609513912 * t11319;
-    let t11322 = t1798 * t4 * t1085;
-    (t11305, t11308, t11310, t11311, t11312, t11314, t11316, t11318, t11320, t11322)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk872<F: Float>(t1009: F, t1026: F, t2986: F, t400: F, t8171: F, t1027: F, t1030: F, t8428: F, t1073: F, t3007: F, t1184: F, t119: F, t395: F, t84: F) -> (F, F, F, F, F) {
+    let t8441 = F::new(1.0) / t1026 / t1009;
+    let t8445 = F::new(12304.676425209354) * t400 * t8441 * t8171 * t2986;
+    let t8449 = F::new(51.94726769812759) * t400 * t1027 * t8428 * t1030;
+    let t8464 = t1073 * t3007;
+    let t8469 = F::new(0.0018989760778855128) * t395 * t119 * t1184 * t84;
+    (t8441, t8445, t8449, t8464, t8469)
 }

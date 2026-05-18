@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 597/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 597/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk597<F: Float>(t3762: F, t576: F, t571: F, t1469: F, t3416: F, t1287: F, t581: F, t593: F, t1466: F, t1318: F, t1278: F, t529: F, t494: F, t1440: F, t1325: F, t1390: F, t542: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3763 = t3762 * t576;
-    let t3764 = t571 * t3763;
-    let t3765 = 8.0 / 135.0 * t3764;
-    let t3767 = 8.0 / 5.0 * t3416 * t1469;
-    let t3769 = t581 * t1287 * t593;
-    let t3770 = t1466 * t3769;
-    let t3772 = 4.0 / 5.0 * t1318 * t3770;
-    let t3773 = t529 * t1278;
-    let t3774 = t3773 * t494;
-    let t3775 = t1440 * t3774;
-    let t3777 = 4.0 / 5.0 * t1325 * t3775;
-    let t3779 = t1390 * t1278 * t542;
-    (t3763, t3764, t3765, t3767, t3769, t3770, t3772, t3774, t3775, t3777, t3779)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk597<F: Float>(t1393: F, t514: F, t185: F, t1301: F, t493: F, t1288: F, t548: F, t1327: F, t945: F, t1326: F, t1325: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t3384 = t514 * t1393;
+    let t3385 = t185 * t3384;
+    let t3386 = F::new(8.0) / F::new(15.0) * t3385;
+    let t3387 = t514 * t1301;
+    let t3388 = t493 * t3387;
+    let t3389 = F::new(8.0) / F::new(15.0) * t3388;
+    let t3390 = t514 * t1288;
+    let t3391 = t548 * t3390;
+    let t3392 = F::new(8.0) / F::new(15.0) * t3391;
+    let t3393 = t1327 * t945;
+    let t3394 = t1326 * t3393;
+    let t3396 = F::new(8.0) / F::new(15.0) * t1325 * t3394;
+    (t3384, t3385, t3386, t3387, t3388, t3389, t3390, t3391, t3392, t3393, t3394, t3396)
 }

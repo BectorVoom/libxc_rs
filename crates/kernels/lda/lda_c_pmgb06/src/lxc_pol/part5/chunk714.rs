@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 714/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 714/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk714<F: Float>(t6592: F, t6594: F, t6598: F, t6602: F, t6604: F, t6606: F, t6612: F, t6615: F, t6618: F, t6620: F, t6623: F, t6625: F, t6628: F, t6632: F, t6635: F, t3391: F, t6641: F, t6645: F, t6648: F, t6650: F, t6652: F, t6654: F, t6657: F, t6677: F, t6690: F, t6692: F, t6694: F, t6707: F, t6709: F, t6711: F) -> (F, F) {
-    let t7220 = -t6592 - t6594 - t6598 - t6602 - t6604 - t6606 - t6612 - t6615 - t6618 - t6620 - t6623 - t6625 + t6628 + t6632 - t6635;
-    let t7221 = t6641 + t6645 - t6648 + t6650 + t6652 + t6654 + t6657 + t6677 + t6690 + t6692 + t6694 + t6707 + t6709 + t6711 + t3391;
-    (t7220, t7221)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk714<F: Float>(t439: F, t6556: F, t1601: F, t497: F, t764: F, t851: F, t529: F, t5068: F, t3156: F, t3214: F, t3224: F, t5186: F, t6526: F, t6530: F, t6532: F, t6535: F, t6538: F, t6540: F, t6543: F, t6547: F, t6549: F, t6553: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t6558 = t439 * t6556 / F::new(15.0);
+    let t6559 = t1601 * t497;
+    let t6560 = t764 * t851;
+    let t6561 = t6560 * t529;
+    let t6562 = t6559 * t6561;
+    let t6564 = F::new(4.0) / F::new(45.0) * t5068 * t6562;
+    let t6565 = t3156 / F::new(135.0);
+    let t6566 = F::new(2.0) / F::new(405.0) * t3214;
+    let t6567 = F::new(2.0) / F::new(405.0) * t3224;
+    let t6568 = t6526 + t6530 + t6532 + t6535 - t6538 + t6540 + t6543 + t6547 + t6549 + t6553 + t6558 + t6564 - t6565 - t6566 - t6567 + t5186;
+    (t6558, t6559, t6560, t6562, t6564, t6565, t6566, t6567, t6568)
 }

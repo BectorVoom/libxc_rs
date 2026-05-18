@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 452/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 452/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk452<F: Float>(t123: F, t199: F, t2281: F, t125: F, t1798: F, t722: F, t868: F, t395: F, t902: F, t1155: F, t1158: F, t1161: F, t1205: F, t1206: F, t1808: F, t2164: F, t305: F, t566: F, t726: F, t81: F, t912: F) -> (F, F, F, F, F) {
-    let t2283 = t123 * t2281 * t199;
-    let t2285 = t125 * t1798;
-    let t2293 = t123 * t722 * t868;
-    let t2302 = t395 * t902;
-    let t2306 = -t1155 + 0.053059442957798957 * t1158 + 0.053059442957798957 * t1161 + 0.053059442957798957 * t2283 - 0.031835665774679375 * t123 * t2285 * t199 - 0.031835665774679375 * t123 * t912 * t566 + 0.053059442957798957 * t2293 - 0.031835665774679375 * t123 * t726 * t868 - 0.031835665774679375 * t123 * t305 * t1808 + t1205 - 0.10665013548435875 * t1206 - 0.10665013548435875 * t2302 + 0.05332506774217938 * t81 * t2164;
-    (t2283, t2285, t2293, t2302, t2306)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk452<F: Float>(t5: F, t12: F, t2192: F, t2195: F, t332: F, t395: F, t1219: F, t764: F, t1: F, t336: F, t337: F, zeta_threshold: F) -> (F, F) {
+    let t6 = t5 <= zeta_threshold;
+    let t13 = t12 <= zeta_threshold;
+    let t2199 = piecewise3::<f64>(t6, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2192 * t332 + F::new(4.0) / F::new(3.0) * t2195 * t395);
+    let t2200 = t1219 * t764;
+    let t2203 = t336 * t1;
+    let t2207 = piecewise3::<f64>(t13, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2200 * t337 - F::new(4.0) / F::new(3.0) * t2203 * t395);
+    let t2209 = t2199 / F::new(2.0) + t2207 / F::new(2.0);
+    (t2200, t2209)
 }

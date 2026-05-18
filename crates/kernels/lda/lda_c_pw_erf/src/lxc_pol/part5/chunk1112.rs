@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1112/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1112/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1112<F: Float>(t18673: F, t18695: F, t565: F, t7458: F, t211: F, t514: F, t7457: F, t18710: F, t18712: F, t7514: F, t7515: F, t14256: F, t14314: F, t14352: F, t14366: F, t23067: F, t23069: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t23070 = 16.0 / 45.0 * t18673;
-    let t23071 = 8.0 / 15.0 * t18695;
-    let t23073 = 2.0 / 15.0 * t565 * t7458;
-    let t23075 = t211 * t514 * t7457;
-    let t23076 = 4.0 / 45.0 * t23075;
-    let t23077 = 4.0 / 15.0 * t18710;
-    let t23078 = 8.0 / 15.0 * t18712;
-    let t23080 = t211 * t514 * t7514;
-    let t23081 = 8.0 / 15.0 * t23080;
-    let t23083 = 4.0 / 5.0 * t565 * t7515;
-    let t23084 = -t14256 - t23067 - t23069 - t23070 + t23071 - t23073 + t14314 - t14352 - t23076 - t23077 + t23078 - t23081 - t23083 + t14366;
-    (t23070, t23071, t23073, t23076, t23077, t23078, t23081, t23083, t23084)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1112<F: Float>(t34: F, t6723: F, t13771: F, t4522: F, t17645: F, t2034: F, t3974: F, t16612: F, t2010: F, t4506: F, t20688: F, t20689: F, t20691: F, t20693: F, t20695: F, t20700: F, t20704: F, t20707: F, t20710: F, t20715: F) -> (F, F, F, F, F) {
+    let t20716 = t6723 * t34;
+    let t20719 = F::new(16.0) / F::new(9.0) * t13771 * t4522 * t20716;
+    let t20722 = F::new(16.0) / F::new(15.0) * t3974 * t17645 * t2034;
+    let t20725 = F::new(8.0) / F::new(5.0) * t4506 * t16612 * t2010;
+    let t20726 = t20688 + t20689 - t20691 - t20693 + t20695 - t20700 - t20704 + t20707 - t20710 - t20715 + t20719 + t20722 - t20725;
+    (t20716, t20719, t20722, t20725, t20726)
 }

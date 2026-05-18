@@ -23,9 +23,9 @@ pub fn lda_c_ml1_exc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t1 = 1.0 <= zeta_threshold;
-        let t2 = pow_1_3(rho[ip]);
+        let t2 = pow_1_3::<f64>(rho[ip]);
         let t4 = zeta_threshold - 1.0;
-        let t6 = piecewise5(t1, t4, t1, -t4, 0.0);
+        let t6 = piecewise5::<f64>(t1, t4, t1, -t4, 0.0);
         let t7 = 1.0 + t6;
         let t8 = f64::powf(t7, param_q);
         let t9 = 1.0 - t6;
@@ -33,9 +33,9 @@ pub fn lda_c_ml1_exc_unpol(
         let t11 = t8 + t10;
         let t12 = t6 * t6;
         let t13 = 1.0 - t12;
-        let t14 = pow_1_3(t13);
-        let t16 = pow_1_3(t7);
-        let t17 = pow_1_3(t9);
+        let t14 = pow_1_3::<f64>(t13);
+        let t16 = pow_1_3::<f64>(t7);
+        let t17 = pow_1_3::<f64>(t9);
         let t18 = t16 + t17;
         let t20 = t11 * t14 / t18;
         let t23 = 1.0 + 10.874334072525 * t2 * param_fc * t20;
@@ -55,7 +55,7 @@ pub fn lda_c_ml1_exc_unpol(
         let t50 = 1.0 / t49;
         let t52 = t18 * t18;
         let t53 = t48 * t50 * t52;
-        let t57 = piecewise3(t1, 0.0, -0.69079225 / t23 + 0.07036135105016941 * t36 * t26 * t27 * t32 + 0.0635250071315033 * t33 - 0.012312144854458484 * t43 * t45 * t53);
+        let t57 = piecewise3::<f64>(t1, 0.0, -0.69079225 / t23 + 0.07036135105016941 * t36 * t26 * t27 * t32 + 0.0635250071315033 * t33 - 0.012312144854458484 * t43 * t45 * t53);
         let tzk0 = rho[ip] * t57;
         zk[ip] += tzk0;
     }

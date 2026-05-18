@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 698/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 698/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk698<F: Float>(t69: F, t6983: F, t6986: F, t2695: F, t342: F, t2209: F, t769: F, t2448: F, t2247: F, t2248: F, t3505: F, t3517: F, t3525: F, t3644: F, t5874: F, t6980: F, t7017: F, t7024: F, t7026: F) -> (F, F, F, F, F, F) {
-    let t7069 = t69 * t6983;
-    let t7071 = t69 * t6986;
-    let t7073 = t2695 * t342;
-    let t7077 = t769 * t2209;
-    let t7081 = t2448 * t342;
-    let t7085 = -t7017 - t3505 - 0.7663355555555555 * t3644 - t3517 + t3525 - 1.724255 * t69 * t6980 - 1.724255 * t7069 + 0.5747516666666667 * t7071 - 20.69106 * t2247 * t5874 * t7073 + 10.34553 * t2247 * t2248 * t7077 + 5.172765 * t2247 * t2248 * t7081 + t7024 - t7026;
-    (t7069, t7071, t7073, t7077, t7081, t7085)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk698<F: Float>(t1868: F, t822: F, t1385: F, t2010: F, t2574: F, t477: F, t439: F, t1897: F, t6185: F, t6189: F, t1444: F, t2497: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t6371 = t1868 * t822;
+    let t6372 = t1385 * t6371;
+    let t6374 = F::new(4.0) / F::new(45.0) * t2010 * t6372;
+    let t6375 = t2574 * t477;
+    let t6376 = t1385 * t6375;
+    let t6378 = F::new(2.0) / F::new(45.0) * t439 * t6376;
+    let t6379 = t1897 * t6185;
+    let t6381 = F::new(2.0) / F::new(15.0) * t439 * t6379;
+    let t6382 = t1897 * t6189;
+    let t6384 = F::new(8.0) / F::new(45.0) * t2010 * t6382;
+    let t6386 = F::new(2.0) / F::new(45.0) * t1444 * t2497;
+    (t6371, t6372, t6374, t6375, t6376, t6378, t6379, t6381, t6382, t6384, t6386)
 }

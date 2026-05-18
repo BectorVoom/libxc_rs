@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1096/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1096/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1096<F: Float>(t101: F, t754: F, t757: F, t8019: F, t10967: F, t10976: F, t10980: F, t10985: F, t10991: F, t14758: F, t14761: F, t14773: F, t14776: F, t19055: F, t19063: F, t19076: F, t19092: F, t2: F, t21305: F, t21619: F, t21648: F, t21699: F, t22123: F, t22146: F, t22243: F, t328: F, t8032: F, t8034: F, t8039: F, t8043: F, t8047: F) -> (F,) {
-    let t22251 = t101 * t8019 * t754 * t757;
-    let tv4rho43 = 3.0 * t14776 + 0.41076328840066667 * t19055 + t10985 - 3.796345779698908 * t10980 - 0.6846054806677778 * t14758 - 1.2654485932329695 * t8032 - t8039 + t8043 - 0.22820182688925925 * t8034 + t8047 + t19076 + t2 * (t19092 + t21305 + t21619 + t21648 + t21699 + t22123 + t22146 + t22243) * t328 + 0.41076328840066667 * t22251 + 1.232289865202 * t14773 + 1.898172889849454 * t19063 + t10991 + 1.4220018064581168 * t14761 + 0.4740006021527056 * t10967 + t10976;
-    (tv4rho43,)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1096<F: Float>(t2010: F, t6155: F, t6498: F, t1385: F, t439: F, t477: F, t7497: F, t1897: F, t19802: F, t1972: F, t6791: F, t16513: F, t1907: F) -> (F, F, F, F, F) {
+    let t20182 = F::new(4.0) / F::new(9.0) * t2010 * t6498 * t6155;
+    let t20186 = t439 * t1385 * t7497 * t477 / F::new(45.0);
+    let t20189 = F::new(2.0) / F::new(45.0) * t439 * t1897 * t19802;
+    let t20191 = F::new(2.0) / F::new(15.0) * t1972 * t6791;
+    let t20194 = t439 * t16513 * t1907 / F::new(15.0);
+    (t20182, t20186, t20189, t20191, t20194)
 }

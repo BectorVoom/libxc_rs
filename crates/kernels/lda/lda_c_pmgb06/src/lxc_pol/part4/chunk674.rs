@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 674/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 674/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk674<F: Float>(t5: F, t247: F, t902: F, t2142: F, t686: F, t248: F, t2158: F, t643: F, t3912: F, t760: F, t1: F, t1068: F, t1069: F, t1074: F, t2125: F, t2128: F, t395: F, t4367: F, t9: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
-    let t6 = t5 <= zeta_threshold;
-    let t4472 = t247 * t902;
-    let t4481 = t2142 * t686;
-    let t4483 = 2.0 * t248 * t4481;
-    let t4485 = 8.0 * t643 * t2158;
-    let t4486 = t3912 * t760;
-    let t4489 = t1068 * t1;
-    let t4499 = piecewise3(t6, 0.0, -8.0 / 27.0 * t4486 * t1069 + 16.0 / 9.0 * t4489 * t4367 + 4.0 / 9.0 * t2125 * t1074 + 8.0 / 3.0 * t9 * t395 - 8.0 * t2128 * t247);
-    (t4472, t4481, t4483, t4485, t4486, t4499)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk674<F: Float>(t3758: F, t675: F, t682: F, t696: F, t1066: F, t643: F, t638: F, t1065: F, t653: F, t248: F, t1830: F, t2060: F, t3680: F, t3683: F, t3685: F, t3690: F, t3692: F, t3694: F) -> (F, F, F, F, F, F, F) {
+    let t3760 = t675 * t3758 * t682;
+    let t3762 = F::new(0.5848223622634646) * t696 * t3760;
+    let t3764 = F::new(12.0) * t643 * t1066;
+    let t3765 = t638 * t1066;
+    let t3767 = t653 * t1065;
+    let t3768 = t248 * t3767;
+    let t3778 = -F::new(4.7063) * t3680 + F::new(3.1375333333333333) * t3683 - F::new(3.6604555555555556) * t3685 - F::new(1.6068111111111112) * t1830 + F::new(0.2805166666666667) * t3690 - F::new(0.5610333333333334) * t3692 - F::new(0.6545388888888889) * t3694 - F::new(0.4630888888888889) * t2060;
+    (t3760, t3762, t3764, t3765, t3767, t3768, t3778)
 }

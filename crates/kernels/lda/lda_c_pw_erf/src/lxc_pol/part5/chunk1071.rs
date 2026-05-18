@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1071/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1071/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1071<F: Float>(t1991: F, t22281: F, t519: F, t2429: F, t34: F, t4829: F, t1318: F, t1319: F, t549: F, t7422: F, t1325: F, t4956: F, t6944: F, t10557: F, t7624: F, t1449: F, t7620: F) -> (F, F, F, F, F, F, F) {
-    let t22284 = 16.0 / 3.0 * t519 * t1991 * t22281;
-    let t22285 = t2429 * t34;
-    let t22288 = 16.0 / 5.0 * t519 * t4829 * t22285;
-    let t22292 = 16.0 / 15.0 * t1318 * t1319 * t7422 * t549;
-    let t22296 = 8.0 / 5.0 * t1325 * t4956 * t6944 * t34;
-    let t22298 = t519 * t10557 * t7624;
-    let t22299 = 64.0 / 243.0 * t22298;
-    let t22301 = t519 * t1449 * t7620;
-    (t22284, t22285, t22288, t22292, t22296, t22299, t22301)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1071<F: Float>(t8278: F, t8286: F, t8291: F, t11369: F, t20033: F, t85: F, t15450: F, t402: F, t7376: F, t75: F, t8303: F, t15453: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t20057 = F::new(0.032530742648344574) * t8278;
+    let t20058 = F::new(0.016265371324172287) * t8286;
+    let t20059 = F::new(0.4815944609513912) * t8291;
+    let t20060 = F::new(3076.1691063023386) * t11369;
+    let t20062 = F::new(0.019751789702565206) * t20033 * t85;
+    let t20063 = F::new(3.0) * t15450;
+    let t20066 = t7376 * t75 * t402;
+    let t20067 = F::new(0.5848223397455204) * t20066;
+    let t20068 = F::new(103.89453539625518) * t8303;
+    let t20069 = F::new(24.0) * t15453;
+    (t20057, t20058, t20059, t20060, t20062, t20063, t20067, t20068, t20069)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1045/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1045/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1045<F: Float>(t1318: F, t13294: F, t4868: F, t3859: F, t4637: F, t519: F, t4615: F, t5237: F, t11691: F, t5256: F, t1446: F, t5251: F, t10567: F, t197: F, t11724: F, t3892: F, t473: F) -> (F, F, F, F, F, F, F) {
-    let t14188 = 8.0 / 9.0 * t1318 * t4868 * t13294;
-    let t14190 = t519 * t3859 * t4637;
-    let t14191 = 16.0 / 45.0 * t14190;
-    let t14193 = t519 * t5237 * t4615;
-    let t14194 = 16.0 / 9.0 * t14193;
-    let t14197 = 8.0 / 9.0 * t519 * t5256 * t11691;
-    let t14199 = 32.0 / 27.0 * t1446 * t5251;
-    let t14200 = t10567 * t197;
-    let t14203 = 352.0 / 243.0 * t519 * t14200 * t11724;
-    let t14205 = t473 * t3892 * t197;
-    (t14188, t14191, t14194, t14197, t14199, t14203, t14205)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1045<F: Float>(t2171: F, t3847: F, t3404: F, t2035: F, t9752: F, t3851: F, t2002: F, t12211: F, t12215: F, t12219: F, t12223: F, t12227: F, t12229: F, t12234: F, t12239: F) -> (F, F, F, F, F, F) {
+    let t12241 = F::new(4.0) / F::new(15.0) * t2171 * t3847;
+    let t12243 = F::new(4.0) / F::new(9.0) * t2171 * t3404;
+    let t12245 = F::new(8.0) / F::new(15.0) * t9752 * t2035;
+    let t12247 = F::new(4.0) / F::new(15.0) * t2171 * t3851;
+    let t12249 = F::new(8.0) / F::new(15.0) * t9752 * t2002;
+    let t12250 = t12211 + t12215 + t12219 - t12223 - t12227 - t12229 - t12234 - t12239 - t12241 - t12243 + t12245 - t12247 + t12249;
+    (t12241, t12243, t12245, t12247, t12249, t12250)
 }

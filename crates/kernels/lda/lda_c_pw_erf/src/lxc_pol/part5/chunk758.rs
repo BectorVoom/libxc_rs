@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 758/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 758/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk758<F: Float>(t6991: F, t833: F, t1466: F, t1318: F, t6997: F, t784: F, t1440: F, t1325: F, t7002: F, t806: F, t519: F, t575: F, t7370: F, t574: F, t571: F, t4050: F, t7365: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t7596 = t6991 * t833;
-    let t7597 = t1466 * t7596;
-    let t7599 = 4.0 / 5.0 * t1318 * t7597;
-    let t7600 = t6997 * t784;
-    let t7601 = t1440 * t7600;
-    let t7603 = 4.0 / 5.0 * t1325 * t7601;
-    let t7604 = t7002 * t806;
-    let t7605 = t1440 * t7604;
-    let t7607 = 4.0 / 5.0 * t519 * t7605;
-    let t7608 = t575 * t7370;
-    let t7609 = t574 * t7608;
-    let t7611 = 4.0 / 45.0 * t571 * t7609;
-    let t7612 = t4050 * t7365;
-    (t7596, t7597, t7599, t7600, t7601, t7603, t7604, t7605, t7607, t7608, t7609, t7611, t7612)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk758<F: Float>(t2532: F, t3416: F, t2065: F, t2191: F, t1466: F, t1318: F, t4893: F, t833: F, t4892: F, t5334: F, t826: F, t1401: F, t2466: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t6952 = F::new(8.0) / F::new(15.0) * t3416 * t2532;
+    let t6953 = t2191 * t2065;
+    let t6954 = t1466 * t6953;
+    let t6956 = F::new(8.0) / F::new(15.0) * t1318 * t6954;
+    let t6957 = t4893 * t833;
+    let t6958 = t4892 * t6957;
+    let t6960 = F::new(8.0) / F::new(15.0) * t1318 * t6958;
+    let t6962 = F::new(8.0) / F::new(45.0) * t5334 * t826;
+    let t6963 = t1401 * t2466;
+    (t6952, t6953, t6954, t6956, t6957, t6958, t6960, t6962, t6963)
 }

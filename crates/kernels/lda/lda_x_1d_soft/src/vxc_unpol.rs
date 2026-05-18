@@ -25,7 +25,7 @@ pub fn lda_x_1d_soft_vxc_unpol(
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
         let t5 = zeta_threshold - 1.0;
-        let t7 = piecewise5(t3, t5, t3, -t5, 0.0);
+        let t7 = piecewise5::<f64>(t3, t5, t3, -t5, 0.0);
         let t8 = 1.0 + t7;
         let t11 = t8 * M_PI * param_beta * rho[ip];
         let t12 = xc_integrate(func1, NULL, 0.0, t11);
@@ -35,14 +35,14 @@ pub fn lda_x_1d_soft_vxc_unpol(
         let t17 = 1.0 / param_beta;
         let t18 = 1.0 / rho[ip];
         let t19 = t17 * t18;
-        let t24 = piecewise3(t4, 0.0, -0.07957747154594767 * (t8 * t12 - t16 * t19) * t17);
+        let t24 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * (t8 * t12 - t16 * t19) * t17);
         let tzk0 = 2.0 * t24;
         zk[ip] += tzk0;
         let t25 = param_beta * param_beta;
         let t26 = 1.0 / t25;
         let t27 = rho[ip] * rho[ip];
         let t28 = 1.0 / t27;
-        let t32 = piecewise3(t4, 0.0, -0.07957747154594767 * t16 * t26 * t28);
+        let t32 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * t16 * t26 * t28);
         let tvrho0 = 2.0 * rho[ip] * t32 + 2.0 * t24;
         vrho[ip] += tvrho0;
     }

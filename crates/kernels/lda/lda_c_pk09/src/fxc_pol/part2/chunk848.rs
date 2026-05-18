@@ -1,4 +1,4 @@
-//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 848/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 848/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk848<F: Float>(t10162: F, t10164: F, t10174: F, t1451: F, t2596: F, t5404: F, t5632: F, t5783: F, t9623: F, t9631: F, t9635: F, t9742: F, t9750: F, t10104: F, t68: F, t334: F) -> (F, F, F) {
-    let t10177 = t10162 / 18.0 - t10164 * t1451 / 6.0 - t2596 * t5632 / 6.0 + 0.10237773105191754 * t9623 + 0.03412591035063918 * t9631 + 0.10237773105191754 * t9635 + 0.10237773105191754 * t9742 + 0.10237773105191754 * t9750 + t10174 / 18.0 + 0.04991874779241519 * t5404 - t5783;
-    let t10181 = t10104 * t68;
-    let t10182 = t10181 * t334;
-    (t10177, t10181, t10182)
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk848<F: Float>(t8705: F, t8718: F, t974: F, t89: F, t2152: F, t623: F, t844: F, t164: F, t1011: F, t2426: F, t4623: F, t4625: F, t4627: F, t709: F, t7792: F, t8679: F, t8682: F, t8684: F, t8686: F, t8689: F, t8691: F, t98: F) -> (F, F, F) {
+    let t8719 = t8705 + t8718;
+    let t8720 = t8719 * t974;
+    let t8721 = t8720 * t89;
+    let t8724 = t2152 * t623;
+    let t8725 = t844 * t8724;
+    let t8726 = t164 * t8725;
+    let t8730 = F::new(12.992782516386768) * t8679 - t4623 + t4625 + t4627 + F::new(3.159189221415045) * t8682 - F::new(1.6183441301295518) * t8684 - F::new(1.6183441301295518) * t8686 + F::new(0.7897973053537612) * t8689 + F::new(1.6183441301295518) * t8691 + F::new(19.489173774580152) * t2426 * t1011 + F::new(19.489173774580152) * t8721 * t98 + F::new(22.07984838129906) * t8726 + F::new(2.427516195194328) * t7792 * t709;
+    (t8720, t8726, t8730)
 }

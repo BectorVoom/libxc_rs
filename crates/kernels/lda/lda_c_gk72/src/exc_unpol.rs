@@ -23,11 +23,11 @@ pub fn lda_c_gk72_exc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
         let t11 = t10 / 4.0;
@@ -44,7 +44,7 @@ pub fn lda_c_gk72_exc_unpol(
         let t42 = t23 * t35;
         let t44 = t5 / t38;
         let t48 = 1.0 / t30 / t42 / t44 / 4.0;
-        let tzk0 = piecewise5(t12, 0.0311 * t13 - 0.048 + 0.00225 * t4 * t9 * t13 - 0.00425 * t10, t20, -0.06156 + 0.01898 * t13, 0.146 * t25 * t5 * t7 + 5.3 * t29 / t30 / t10 - 0.49 * t37 * t6 * t38 - 6.4 * t29 * t48);
+        let tzk0 = piecewise5::<f64>(t12, 0.0311 * t13 - 0.048 + 0.00225 * t4 * t9 * t13 - 0.00425 * t10, t20, -0.06156 + 0.01898 * t13, 0.146 * t25 * t5 * t7 + 5.3 * t29 / t30 / t10 - 0.49 * t37 * t6 * t38 - 6.4 * t29 * t48);
         zk[ip] += tzk0;
     }
 }

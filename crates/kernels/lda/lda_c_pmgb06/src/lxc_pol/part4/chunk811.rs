@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 811/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 811/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk811<F: Float>(t6175: F, t6224: F, t465: F, t137: F, t132: F, t2553: F, t517: F, t529: F, t166: F, t161: F, t2563: F, t531: F, t2095: F, t831: F, t1420: F, t2481: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t6225 = t6175 + t6224;
-    let t6226 = t465 * t6225;
-    let t6227 = t137 * t6226;
-    let t6229 = t132 * t6227 / 30.0;
-    let t6230 = t2553 * t517;
-    let t6231 = t6230 * t529;
-    let t6232 = t166 * t6231;
-    let t6234 = t161 * t6232 / 30.0;
-    let t6236 = t2563 * t531 / 30.0;
-    let t6238 = t831 * t2095 / 15.0;
-    let t6240 = t1420 * t2481 / 45.0;
-    (t6225, t6226, t6227, t6229, t6230, t6231, t6232, t6234, t6236, t6238, t6240)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk811<F: Float>(t1983: F, t5499: F, t1382: F, t1444: F, t1920: F, t1925: F, t1972: F, t1981: F, t3451: F, t3454: F, t439: F, t493: F, t5458: F, t5464: F, t5467: F, t5471: F, t5474: F, t5477: F, t5483: F, t5487: F, t5494: F, t5497: F) -> (F, F) {
+    let t5500 = t5499 * t1983;
+    let t5504 = F::new(8.0) / F::new(45.0) * t1981 * t5458 + F::new(2.0) / F::new(27.0) * t1444 * t1920 + F::new(2.0) / F::new(27.0) * t493 * t5464 + t493 * t5467 / F::new(27.0) + F::new(8.0) / F::new(81.0) * t493 * t5471 - F::new(4.0) / F::new(27.0) * t1981 * t5474 - F::new(2.0) / F::new(45.0) * t493 * t5477 - F::new(2.0) / F::new(45.0) * t1972 * t1382 - F::new(2.0) / F::new(45.0) * t439 * t5483 - F::new(2.0) / F::new(45.0) * t493 * t5487 - F::new(2.0) / F::new(45.0) * t1444 * t1925 - F::new(2.0) / F::new(45.0) * t493 * t5494 - F::new(2.0) / F::new(405.0) * t5497 + F::new(2.0) / F::new(27.0) * t5500 + F::new(2.0) / F::new(135.0) * t3451 - t3454 / F::new(45.0);
+    (t5500, t5504)
 }

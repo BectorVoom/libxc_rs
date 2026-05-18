@@ -43,7 +43,7 @@ pub fn lda_c_2d_prm_kxc_pol(
         let t20 = 0.3999583253029731 * t8 * t18;
         let t21 = t6 * t6;
         let t22 = 1.0 / t21;
-        let t24 = 1.0/pow_3_2(t12);
+        let t24 = 1.0/pow_3_2::<f64>(t12);
         let t26 = 0.17722691847124394 * t2 * t22 * t24;
         let t27 = 1.0 + param_c;
         let t28 = f64::sqrt(t27);

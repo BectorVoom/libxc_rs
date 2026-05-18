@@ -27,7 +27,7 @@ pub fn lda_c_lp96_fxc_pol(
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = rho0 + rho1;
-        let t2 = pow_1_3(t1);
+        let t2 = pow_1_3::<f64>(t1);
         let t4 = param_C2 / t2;
         let t5 = t2 * t2;
         let t7 = param_C3 / t5;

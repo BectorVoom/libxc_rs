@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1031/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1031/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1031<F: Float>(t73: F, t7306: F, t11200: F, t1316: F, t19124: F, t19140: F, t19148: F, t21267: F, t2236: F, t2308: F, t2311: F, t2718: F, t342: F, t346: F, t374: F, t384: F, t388: F, t4232: F, t5583: F, t5903: F, t6006: F, t6007: F, t6018: F, t61: F, t7041: F, t7086: F, t7089: F, t769: F, t783: F, t787: F, t7881: F, t790: F, t7909: F, t7920: F, t8070: F, t8074: F, t8077: F) -> (F,) {
-    let t21278 = t73 * t7306;
-    let t21305 = -9.0 * t5583 * t4232 * t2236 * t769 - 3.0 * t5583 * t4232 * t2718 * t342 - t346 * t2308 * t73 * t7041 + 18.0 * t11200 * t7909 + (t19124 + t19140 + t19148 + t21267) * t61 + 9.0 * t1316 * t7089 * t2311 + 2.0 * t346 * t5903 * t384 * t7881 + 3.0 * t1316 * t388 * t21278 + 2.0 * t346 * t7089 * t787 + t346 * t790 * t7086 + 4.0 * t6006 * t6007 * t783 * t2236 - 2.0 * t346 * t2308 * t787 * t2236 + 18.0 * t5583 * t6007 * t7920 * t374 - 18.0 * t6018 * t4232 * t7920 * t342 - 5.4655730795145296e-05 * t8070 - t8074 + 0.0001639671923854359 * t8077;
-    (t21305,)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1031<F: Float>(t1: F, t2541: F, t1830: F, t506: F, t1825: F, t5974: F, t36: F, t2389: F, t4851: F, t1414: F, t337: F, t7300: F) -> (F, F, F, F, F, F, F) {
+    let t19336 = t2541 * t1;
+    let t19338 = t1830 * t506 * t19336;
+    let t19340 = t1825 * t5974;
+    let t19342 = t36 * t506 * t19340;
+    let t19344 = t4851 * t2389;
+    let t19346 = t1830 * t506 * t19344;
+    let t19349 = t1414 * t7300 * t337;
+    (t19336, t19338, t19340, t19342, t19344, t19346, t19349)
 }

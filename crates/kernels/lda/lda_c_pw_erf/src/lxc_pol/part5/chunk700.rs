@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 700/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 700/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk700<F: Float>(t1466: F, t6953: F, t1318: F, t4893: F, t833: F, t4892: F, t5334: F, t826: F, t1401: F, t2466: F, t549: F, t3667: F, t593: F, t571: F, t2065: F, t2161: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t6954 = t1466 * t6953;
-    let t6956 = 8.0 / 15.0 * t1318 * t6954;
-    let t6957 = t4893 * t833;
-    let t6958 = t4892 * t6957;
-    let t6960 = 8.0 / 15.0 * t1318 * t6958;
-    let t6962 = 8.0 / 45.0 * t5334 * t826;
-    let t6963 = t1401 * t2466;
-    let t6964 = t6963 * t549;
-    let t6965 = t1466 * t6964;
-    let t6967 = 8.0 / 15.0 * t1318 * t6965;
-    let t6968 = t3667 * t2466;
-    let t6969 = t6968 * t593;
-    let t6970 = t1466 * t6969;
-    let t6972 = 4.0 / 5.0 * t571 * t6970;
-    let t6973 = t2161 * t2065;
-    (t6954, t6956, t6957, t6958, t6960, t6962, t6963, t6964, t6965, t6967, t6968, t6969, t6970, t6972, t6973)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk700<F: Float>(t2396: F, t3802: F, t519: F, t2388: F, t3863: F, t571: F, t2384: F, t3854: F, t1318: F, t811: F, t833: F, t593: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t6233 = t3802 * t2396;
+    let t6234 = t519 * t6233;
+    let t6235 = F::new(16.0) / F::new(135.0) * t6234;
+    let t6236 = t3863 * t2388;
+    let t6237 = t571 * t6236;
+    let t6238 = F::new(16.0) / F::new(135.0) * t6237;
+    let t6239 = t3854 * t2384;
+    let t6240 = t1318 * t6239;
+    let t6241 = F::new(32.0) / F::new(135.0) * t6240;
+    let t6242 = t811 * t833;
+    let t6243 = t6242 * t593;
+    (t6233, t6234, t6235, t6236, t6237, t6238, t6239, t6240, t6241, t6242, t6243)
 }

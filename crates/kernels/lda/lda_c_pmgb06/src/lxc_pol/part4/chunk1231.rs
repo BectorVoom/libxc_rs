@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1231/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1231/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1231<F: Float>(t17829: F, t17830: F, t17831: F, t17832: F, t17833: F, t17834: F, t17835: F, t17836: F, t17837: F, t17838: F, t17839: F, t17842: F, t17843: F, t17844: F, t17845: F, t17846: F, t17847: F, t17848: F, t17849: F, t17850: F, t17851: F, t17852: F, t17853: F, t17854: F, t17855: F, t17856: F, t17858: F, t17863: F, t17869: F, t17871: F) -> (F, F) {
-    let t18385 = -t17829 - t17830 + t17831 + t17832 + t17833 + t17834 + t17835 - t17836 - t17837 - t17838 - t17839 + t17842 - t17843 - t17844 - t17845;
-    let t18386 = -t17846 + t17847 - t17848 - t17849 + t17850 - t17851 - t17852 + t17853 + t17854 + t17855 - t17856 - t17858 + t17863 - t17869 - t17871;
-    (t18385, t18386)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1231<F: Float>(t16213: F, t1898: F, t5220: F, t1902: F, t5211: F, t6478: F, t16187: F, t16189: F, t16190: F, t16192: F, t16195: F, t16199: F, t16201: F, t16204: F, t16207: F, t16210: F, t16212: F) -> (F, F, F, F, F) {
+    let t16214 = F::new(8.0) / F::new(135.0) * t16213;
+    let t16215 = t5220 * t1898;
+    let t16216 = F::new(16.0) / F::new(135.0) * t16215;
+    let t16217 = t5220 * t1902;
+    let t16218 = F::new(8.0) / F::new(81.0) * t16217;
+    let t16219 = t5211 * t6478;
+    let t16220 = F::new(20.0) / F::new(81.0) * t16219;
+    let t16221 = t16187 - t16189 - t16190 - t16192 - t16195 - t16199 - t16201 - t16204 - t16207 - t16210 - t16212 - t16214 - t16216 + t16218 - t16220;
+    (t16214, t16216, t16218, t16220, t16221)
 }

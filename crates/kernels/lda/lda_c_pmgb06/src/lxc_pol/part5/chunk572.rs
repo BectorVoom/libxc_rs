@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 572/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 572/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk572<F: Float>(t122: F, t227: F, t4182: F, t1135: F, t199: F, t2790: F, t2837: F, t29: F, t563: F, t1187: F, t1190: F, t2841: F, t98: F, t1195: F, t115: F, t1180: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t4185 = 0.19455129084526285 * t122 * t4182 * t227;
-    let t4187 = 0.5025769232130264 * t1135 * t199;
-    let t4188 = t2790 / 2.0;
-    let t4189 = t2837 * t29;
-    let t4191 = 0.09405 * t4189 * t563;
-    let t4193 = 0.1254 * t1187 * t1190;
-    let t4194 = t2841 * t98;
-    let t4196 = 0.02358774 * t4194 * t1195;
-    let t4197 = t1180 * t115;
-    (t4185, t4187, t4188, t4189, t4191, t4193, t4194, t4196, t4197)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk572<F: Float>(t740: F, t934: F, t940: F, t2781: F, t623: F, t36: F, t28: F, t247: F, t950: F, t628: F, t1830: F, t2060: F, t3680: F) -> (F, F, F, F, F, F, F) {
+    let t3682 = t934 * t740;
+    let t3683 = t940 * t3682;
+    let t3685 = t623 * t2781;
+    let t3688 = F::new(1.0)/pow_3_2::<f64>(t36);
+    let t3689 = t3688 * t28;
+    let t3690 = t3689 * t247;
+    let t3692 = t950 * t3682;
+    let t3694 = t628 * t2781;
+    let t3697 = -F::new(2.5319) * t3680 + F::new(1.6879333333333333) * t3683 - F::new(1.9692555555555555) * t3685 - F::new(0.9301185185185186) * t1830 + F::new(0.13651666666666668) * t3690 - F::new(0.27303333333333335) * t3692 - F::new(0.31853888888888887) * t3694 - F::new(0.36514074074074077) * t2060;
+    (t3683, t3685, t3689, t3690, t3692, t3694, t3697)
 }

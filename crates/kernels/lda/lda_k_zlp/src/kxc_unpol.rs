@@ -26,14 +26,14 @@ pub fn lda_k_zlp_kxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = t1 * t1;
-        let t4 = pow_1_3(1.0 / M_PI);
+        let t4 = pow_1_3::<f64>(1.0 / M_PI);
         let t5 = 1.0 / t4;
         let t7 = M_CBRT4;
         let t8 = t2 * t5 * t7;
-        let t10 = pow_1_3(zeta_threshold);
+        let t10 = pow_1_3::<f64>(zeta_threshold);
         let t11 = t10 * t10;
-        let t13 = piecewise3(1.0 <= zeta_threshold, t11 * zeta_threshold, 1.0);
-        let t14 = pow_1_3(rho[ip]);
+        let t13 = piecewise3::<f64>(1.0 <= zeta_threshold, t11 * zeta_threshold, 1.0);
+        let t14 = pow_1_3::<f64>(rho[ip]);
         let t15 = t14 * t14;
         let t16 = t13 * t15;
         let t17 = 1.0 / t14;

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1000/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1000/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1000<F: Float>(t2131: F, t3455: F, t2127: F, t5065: F, t4703: F, t568: F, t10294: F, t5031: F, t565: F, t548: F, t9933: F, t10296: F, t10311: F, t10315: F, t10318: F, t10320: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t13396 = 4.0 / 5.0 * t3455 * t2131;
-    let t13397 = t5065 * t2127;
-    let t13398 = 8.0 / 15.0 * t13397;
-    let t13400 = 4.0 / 5.0 * t5065 * t2131;
-    let t13401 = t4703 * t568;
-    let t13402 = 4.0 / 15.0 * t13401;
-    let t13403 = 8.0 / 15.0 * t10294;
-    let t13405 = 2.0 / 5.0 * t565 * t5031;
-    let t13407 = 4.0 / 5.0 * t548 * t9933;
-    let t13408 = 16.0 / 45.0 * t10296;
-    let t13409 = 8.0 / 135.0 * t10311;
-    let t13410 = 8.0 / 81.0 * t10315;
-    let t13411 = 16.0 / 27.0 * t10318;
-    let t13412 = 8.0 / 45.0 * t10320;
-    (t13396, t13398, t13400, t13402, t13403, t13405, t13407, t13408, t13409, t13410, t13411, t13412)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1000<F: Float>(t11677: F, t1318: F, t3899: F, t5366: F, t1466: F, t2191: F, t3655: F, t9217: F, t1966: F, t2961: F, t4619: F, t945: F) -> (F, F, F, F, F, F) {
+    let t11678 = F::new(8.0) / F::new(45.0) * t11677;
+    let t11680 = t1318 * t3899 * t5366;
+    let t11681 = F::new(8.0) / F::new(15.0) * t11680;
+    let t11685 = F::new(4.0) / F::new(15.0) * t1318 * t1466 * t2191 * t3655;
+    let t11686 = F::new(4.0) / F::new(45.0) * t9217;
+    let t11687 = t1966 * t2961;
+    let t11691 = t4619 * t945;
+    (t11678, t11681, t11685, t11686, t11687, t11691)
 }

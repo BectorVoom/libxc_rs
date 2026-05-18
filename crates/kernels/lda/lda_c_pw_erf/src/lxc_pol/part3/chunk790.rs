@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 790/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 790/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk790<F: Float>(t1084: F, t1125: F, t402: F, t156: F, t2942: F, t2948: F, t2704: F, t2707: F, t1085: F, t4: F, t960: F, t2737: F, t2698: F, t2987: F, t2701: F, t1055: F, t474: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t8271 = 0.06747116993730726 * t1084 * t1125 * t402;
-    let t8274 = 0.1301229705933783 * t1084 * t156 * t2942;
-    let t8277 = 3.8527556876111295 * t1084 * t156 * t2948;
-    let t8278 = t2704 * t2707;
-    let t8281 = t960 * t4 * t1085;
-    let t8285 = 0.021687161765563047 * t1084 * t156 * t2737;
-    let t8286 = t2704 * t2698;
-    let t8290 = 38.02486811957057 * t1084 * t156 * t2987;
-    let t8291 = t2704 * t2701;
-    let t8296 = 1.2842518958703766 * t1084 * t474 * t1055;
-    (t8271, t8274, t8277, t8278, t8281, t8285, t8286, t8290, t8291, t8296)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk790<F: Float>(t494: F, t806: F, t542: F, t5289: F, t1325: F, t1392: F, t789: F, t3806: F, t519: F, t1326: F, t4628: F, t2022: F, t3863: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t5290 = t806 * t494;
+    let t5291 = t5290 * t542;
+    let t5292 = t5289 * t5291;
+    let t5294 = F::new(16.0) / F::new(15.0) * t1325 * t5292;
+    let t5295 = t789 * t1392;
+    let t5296 = t3806 * t5295;
+    let t5298 = F::new(8.0) / F::new(45.0) * t519 * t5296;
+    let t5299 = t1326 * t4628;
+    let t5301 = F::new(8.0) / F::new(15.0) * t519 * t5299;
+    let t5302 = t3863 * t2022;
+    (t5290, t5291, t5292, t5294, t5295, t5296, t5298, t5299, t5301, t5302)
 }

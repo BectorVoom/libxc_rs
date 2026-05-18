@@ -23,7 +23,7 @@ pub fn lda_c_gombas_vxc_pol(
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = rho0 + rho1;
-        let t2 = pow_1_3(t1);
+        let t2 = pow_1_3::<f64>(t1);
         let t3 = 1.0 / t2;
         let t5 = 1.0 + 0.0562 * t3;
         let t7 = 0.0357 / t5;

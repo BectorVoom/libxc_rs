@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 700/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 700/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk700<F: Float>(t1547: F, t823: F, t132: F, t409: F, t495: F, t177: F, t497: F, t161: F, t1554: F, t852: F, t1083: F, t1825: F, t525: F, t1: F, t1414: F, t337: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4836 = t1547 * t823;
-    let t4837 = t132 * t4836;
-    let t4838 = t4837 / 135.0;
-    let t4839 = t409 * t495;
-    let t4840 = t177 * t497;
-    let t4841 = t4839 * t4840;
-    let t4843 = 2.0 / 45.0 * t161 * t4841;
-    let t4844 = t1554 * t852;
-    let t4845 = t161 * t4844;
-    let t4846 = t4845 / 135.0;
-    let t4847 = t1825 * t1083;
-    let t4848 = t525 * t4847;
-    let t4851 = t1414 * t1;
-    let t4852 = t4851 * t337;
-    (t4836, t4837, t4838, t4839, t4840, t4841, t4843, t4844, t4845, t4846, t4847, t4848, t4852)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk700<F: Float>(t4238: F, t83: F, t419: F, t1770: F, t1767: F, t398: F, t1186: F, t1768: F, t123: F, t199: F, t2822: F, t2833: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t4239 = t4238 * t83;
+    let t4240 = t4239 * t419;
+    let t4242 = F::new(0.0001639671923854359) * t4240 * t1770;
+    let t4243 = t1767 * t398;
+    let t4244 = t4243 * t419;
+    let t4245 = t4244 * t1770;
+    let t4247 = t1768 * t1186;
+    let t4249 = F::new(5.4655730795145296e-05) * t4247 * t1770;
+    let t4252 = F::new(0.5188034422540342) * t123 * t2822 * t199;
+    let t4254 = t123 * t2833 * t199;
+    (t4239, t4240, t4242, t4243, t4244, t4245, t4247, t4249, t4252, t4254)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 725/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 725/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk725<F: Float>(t208: F, t5374: F, t213: F, t2025: F, t97: F, t588: F, t205: F, t4463: F, t1798: F, t579: F, t5342: F, t5347: F, t5349: F, t5352: F, t5354: F, t5356: F, t5361: F, t5363: F, t5367: F, t5369: F, t5370: F, t5372: F) -> (F, F, F, F, F, F, F) {
-    let t5375 = t5374 * t208;
-    let t5376 = t5375 * t213;
-    let t5378 = t2025 * t97;
-    let t5379 = t5378 * t588;
-    let t5381 = t4463 * t205;
-    let t5382 = t5381 * t208;
-    let t5385 = t1798 * t579;
-    let t5386 = t5385 * t208;
-    let t5388 = 2.0 / 3.0 * t5386 * t213;
-    let t5389 = -t5342 + t5347 - t5349 + t5352 + t5354 - t5356 + t5361 - t5363 + t5367 + t5369 + 4.0 / 9.0 * t5370 - 2.0 / 27.0 * t5372 + t5376 / 3.0 + 0.12155555555555556 * t5379 + t5382 * t213 / 3.0 + t5388;
-    (t5375, t5378, t5381, t5382, t5385, t5386, t5389)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk725<F: Float>(t4801: F, t529: F, t166: F, t161: F, t1887: F, t436: F, t1928: F, t432: F, t1873: F, t435: F, t132: F, t1517: F, t802: F) -> (F, F, F, F, F, F, F, F) {
+    let t4802 = t4801 * t529;
+    let t4803 = t166 * t4802;
+    let t4805 = t161 * t4803 / F::new(15.0);
+    let t4807 = F::new(2.0) / F::new(45.0) * t1887 * t436;
+    let t4809 = F::new(2.0) / F::new(45.0) * t432 * t1928;
+    let t4810 = t435 * t1873;
+    let t4812 = F::new(2.0) / F::new(45.0) * t132 * t4810;
+    let t4814 = F::new(2.0) / F::new(45.0) * t802 * t1517;
+    (t4802, t4803, t4805, t4807, t4809, t4810, t4812, t4814)
 }

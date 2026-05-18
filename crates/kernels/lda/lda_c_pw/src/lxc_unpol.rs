@@ -45,11 +45,11 @@ pub fn lda_c_pw_lxc_unpol(
         let t3 = M_CBRT3;
         let t4 = t2 * t3;
         let t5 = 1.0 / M_PI;
-        let t6 = pow_1_3(t5);
+        let t6 = pow_1_3::<f64>(t5);
         let t7 = M_CBRT4;
         let t8 = t7 * t7;
         let t9 = t6 * t8;
-        let t10 = pow_1_3(rho[ip]);
+        let t10 = pow_1_3::<f64>(rho[ip]);
         let t11 = 1.0 / t10;
         let t12 = t9 * t11;
         let t15 = 1.0 + t4 * t12 / 4.0;
@@ -60,7 +60,7 @@ pub fn lda_c_pw_lxc_unpol(
         let t22 = f64::sqrt(t21);
         let t26 = param_beta2_0 * t3;
         let t29 = param_beta3_0;
-        let t30 = pow_3_2(t21);
+        let t30 = pow_3_2::<f64>(t21);
         let t34 = t21 / 4.0;
         let t36 = param_pp_0 + 1.0;
         let t37 = f64::powf(t34, t36);
@@ -69,8 +69,8 @@ pub fn lda_c_pw_lxc_unpol(
         let t43 = 1.0 + t17 / t39 / 2.0;
         let t44 = f64::ln(t43);
         let t45 = t1 * t15 * t44;
-        let t47 = pow_1_3(zeta_threshold);
-        let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
+        let t47 = pow_1_3::<f64>(zeta_threshold);
+        let t49 = piecewise3::<f64>(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
         let t52 = M_CBRT2;
         let t56 = (2.0 * t49 - 2.0) / (2.0 * t52 - 2.0);
         let t57 = param_a_2;
@@ -191,7 +191,7 @@ pub fn lda_c_pw_lxc_unpol(
         let t314 = t186 / t187 / t311;
         let t318 = 1.0 / t10 / t311;
         let t319 = t9 * t318;
-        let t324 = 1.0/pow_3_2(t21);
+        let t324 = 1.0/pow_3_2::<f64>(t21);
         let t325 = t29 * t324;
         let t332 = t205 * t36;
         let t333 = 1.0 / t311;

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 562/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 562/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk562<F: Float>(t3177: F, t446: F, t1444: F, t1451: F, t1447: F, t1420: F, t1560: F, t1426: F, t1559: F, t439: F, t153: F, t3098: F, t3010: F, t1436: F, t1489: F, t495: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3179 = t3177 * t446 / 15.0;
-    let t3181 = 2.0 / 15.0 * t1444 * t1451;
-    let t3182 = t1447 * t1451;
-    let t3183 = 4.0 / 45.0 * t3182;
-    let t3185 = 2.0 / 15.0 * t1420 * t1560;
-    let t3186 = t1426 * t1559;
-    let t3188 = 2.0 / 15.0 * t439 * t3186;
-    let t3189 = t153 * t3098;
-    let t3190 = t3189 * t3010;
-    let t3191 = t1436 * t3190;
-    let t3193 = 2.0 / 9.0 * t439 * t3191;
-    let t3194 = t495 * t1489;
-    (t3179, t3181, t3182, t3183, t3185, t3186, t3188, t3190, t3191, t3193, t3194)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk562<F: Float>(t1386: F, t2948: F, t439: F, t1536: F, t477: F, t1385: F, t1629: F, t454: F, t1436: F, t464: F, t1526: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t2949 = t2948 * t1386;
+    let t2951 = F::new(2.0) / F::new(15.0) * t439 * t2949;
+    let t2952 = t1536 * t477;
+    let t2953 = t1385 * t2952;
+    let t2955 = t439 * t2953 / F::new(15.0);
+    let t2956 = t454 * t1629;
+    let t2957 = t1385 * t2956;
+    let t2959 = t439 * t2957 / F::new(15.0);
+    let t2960 = t1436 * t464;
+    let t2961 = t1526 * t477;
+    let t2962 = t2960 * t2961;
+    let t2964 = t439 * t2962 / F::new(9.0);
+    (t2949, t2951, t2952, t2953, t2955, t2956, t2957, t2959, t2960, t2961, t2962, t2964)
 }

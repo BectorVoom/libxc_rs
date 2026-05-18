@@ -26,11 +26,11 @@ pub fn lda_c_wigner_fxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t12 = param_b + t4 * t6 * t8 / 4.0;
         let tzk0 = param_a / t12;

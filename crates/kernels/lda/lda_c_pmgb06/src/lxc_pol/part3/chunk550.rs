@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 550/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 550/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk550<F: Float>(t1439: F, t3010: F, t442: F, t439: F, t183: F, t2803: F, t1166: F, t539: F, t188: F, t1830: F, t2060: F, t83: F, t1409: F, t398: F, t463: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3011 = t1439 * t3010;
-    let t3012 = t442 * t3011;
-    let t3014 = 2.0 / 15.0 * t439 * t3012;
-    let t3015 = t2803 * t183;
-    let t3018 = t1166 * t539;
-    let t3019 = t3018 * t188;
-    let t3023 = 1.2833333333333334 * t1830 - 20.0 / 27.0 * t2060;
-    let t3024 = t83 * t3023;
-    let t3026 = 4.0 / 3.0 * t3024 * t188;
-    let t3027 = t398 * t1409;
-    let t3028 = t3027 * t188;
-    let t3030 = t463 * t463;
-    let t3031 = 1.0 / t3030;
-    (t3011, t3012, t3014, t3015, t3018, t3019, t3023, t3024, t3026, t3027, t3028, t3030, t3031)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk550<F: Float>(t154: F, t2851: F, t132: F, t1548: F, t432: F, t1547: F, t459: F, t1382: F, t1444: F, t1387: F, t1423: F, t1592: F, t442: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t2852 = t2851 * t154;
+    let t2854 = F::new(4.0) / F::new(405.0) * t132 * t2852;
+    let t2855 = t432 * t1548;
+    let t2856 = t2855 / F::new(45.0);
+    let t2857 = t1547 * t459;
+    let t2858 = t132 * t2857;
+    let t2859 = t2858 / F::new(45.0);
+    let t2861 = F::new(2.0) / F::new(15.0) * t1444 * t1382;
+    let t2862 = t1423 * t1387;
+    let t2863 = F::new(4.0) / F::new(45.0) * t2862;
+    let t2864 = t442 * t1592;
+    (t2852, t2854, t2855, t2856, t2857, t2858, t2859, t2861, t2862, t2863, t2864)
 }

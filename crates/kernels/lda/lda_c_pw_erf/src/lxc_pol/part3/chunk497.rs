@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 497/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 497/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk497<F: Float>(t1990: F, t2042: F, t2126: F, t2196: F, t1573: F, t1574: F, t1577: F, t1581: F, t1584: F, t1588: F, t1592: F, t1595: F, t1599: F, t1603: F, t1606: F, t163: F, t164: F, t169: F, t171: F, t1902: F, t1905: F, t1908: F, t1912: F, t1919: F) -> (F, F) {
-    let t2198 = t1990 + t2042 + t2126 + t2196;
-    let t2203 = -t1573 + 0.031505407223141116 * t1574 + t1577 + t1581 + 0.031505407223141116 * t1902 - 0.031505407223141116 * t1905 * t164 - 0.031505407223141116 * t1908 - 0.001975389032890948 * t1912 - 0.031505407223141116 * t1584 - t1592 - t1595 - 0.001975389032890948 * t1588 - t1599 - t1603 + 0.008980675507690957 * t1606 + 0.008980675507690957 * t1919 - 0.005388405304614574 * t169 * t171 * t2198 * t163;
-    (t2198, t2203)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk497<F: Float>(t1313: F, t2030: F, t519: F, t549: F, t816: F, t1319: F, t1318: F, t1451: F, t1477: F, t1516: F, t1629: F, t1632: F, t1637: F, t1641: F, t1994: F, t1999: F, t2004: F, t2009: F, t2013: F, t2016: F, t2020: F, t2025: F, t2029: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t2031 = t1313 * t2030;
+    let t2033 = F::new(4.0) / F::new(45.0) * t519 * t2031;
+    let t2034 = t816 * t549;
+    let t2035 = t1319 * t2034;
+    let t2037 = F::new(8.0) / F::new(45.0) * t1318 * t2035;
+    let t2039 = F::new(8.0) / F::new(135.0) * t1451;
+    let t2040 = F::new(8.0) / F::new(135.0) * t1477;
+    let t2041 = F::new(4.0) / F::new(45.0) * t1516;
+    let t2042 = t1994 - t1999 + t2004 + t2009 - t2013 - t2016 + t2020 - t2025 + t2029 - t2033 + t2037 + t1629 + F::new(0.10821041362364843) * t1632 + t1637 + t1641 + t2039 + t2040 + t2041;
+    (t2031, t2033, t2034, t2035, t2037, t2039, t2040, t2041, t2042)
 }

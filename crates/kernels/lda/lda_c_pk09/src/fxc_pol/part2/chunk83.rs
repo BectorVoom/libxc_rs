@@ -1,4 +1,4 @@
-//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 83/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 83/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -14,6 +14,6 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk83<F: Float>(t229: F, t8: F, t92: 
     let t236 = t9 * t129;
     let t237 = t235 * t236;
     let t240 = t68 * t228 * t11;
-    let t242 = 1.0 / t72 / t1;
+    let t242 = F::new(1.0) / t72 / t1;
     (t231, t235, t236, t237, t240, t242)
 }

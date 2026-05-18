@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 845/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 845/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk845<F: Float>(t1765: F, t2993: F, t2998: F, t2710: F, t4397: F, t2707: F, t2698: F, t2701: F, t1085: F, t1798: F, t4: F, t1769: F, t4295: F, t2851: F, t749: F, t8191: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11307 = t1765 * t2993;
-    let t11309 = t1765 * t2998;
-    let t11313 = t4397 * t2710;
-    let t11315 = t4397 * t2707;
-    let t11317 = t4397 * t2698;
-    let t11319 = t4397 * t2701;
-    let t11322 = t1798 * t4 * t1085;
-    let t11323 = 0.032530742648344574 * t11322;
-    let t11325 = t1769 * t4295;
-    let t11327 = t2851 * t749;
-    let t11328 = 144.0 * t11327;
-    let t11333 = 48.0 * t8191;
-    (t11307, t11309, t11313, t11315, t11317, t11319, t11323, t11325, t11328, t11333)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk845<F: Float>(t530: F, t7792: F, t186: F, t185: F, t7359: F, t198: F, t493: F, t6280: F, t739: F, t1313: F, t519: F, t2393: F, t4738: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t7793 = t530 * t7792;
+    let t7794 = t186 * t7793;
+    let t7796 = F::new(2.0) / F::new(15.0) * t185 * t7794;
+    let t7797 = F::new(3.0) * t7359;
+    let t7798 = t198 * t7797;
+    let t7799 = t186 * t7798;
+    let t7801 = F::new(4.0) / F::new(15.0) * t493 * t7799;
+    let t7802 = t6280 * t739;
+    let t7803 = t1313 * t7802;
+    let t7805 = F::new(4.0) / F::new(15.0) * t519 * t7803;
+    let t7807 = F::new(16.0) / F::new(15.0) * t4738 * t2393;
+    (t7793, t7794, t7796, t7797, t7798, t7799, t7801, t7802, t7803, t7805, t7807)
 }

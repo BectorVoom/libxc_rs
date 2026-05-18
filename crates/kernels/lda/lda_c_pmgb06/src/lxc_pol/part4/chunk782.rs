@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 782/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 782/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk782<F: Float>(t110: F, t2221: F, t360: F, t4394: F, t64: F, t35: F, t2226: F, t947: F, t3577: F, t3579: F, t3601: F, t3603: F, t3531: F, t3534: F, t3569: F, t3573: F, t3583: F, t3586: F, t3597: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5806 = t110 * t2221;
-    let t5808 = t360 * t5806 / 3.0;
-    let t5809 = t64 * t4394;
-    let t5810 = t35 * t5809;
-    let t5813 = t2226 * t947;
-    let t5820 = 0.6495611111111111 * t3577;
-    let t5821 = 0.48717083333333333 * t3579;
-    let t5825 = 0.9743416666666667 * t3601;
-    let t5826 = 1.2991222222222223 * t3603;
-    let t5827 = -4.0 / 9.0 * t3531 + t3534 / 6.0 - 0.97936 * t3569 + 0.73452 * t3573 + t5820 + t5821 - 1.95872 * t3583 - t3586 / 2.0 - 2.93808 * t3597 - t5825 - t5826;
-    (t5806, t5808, t5809, t5810, t5813, t5820, t5821, t5825, t5826, t5827)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk782<F: Float>(t500: F, t5194: F, t136: F, t458: F, t1968: F, t439: F, t1592: F, t2064: F, t477: F, t1966: F, t3220: F, t806: F) -> (F, F, F, F, F, F, F, F) {
+    let t5196 = F::new(4.0) / F::new(135.0) * t5194 * t500;
+    let t5197 = t136 * t458;
+    let t5198 = t5197 * t1968;
+    let t5200 = F::new(2.0) / F::new(15.0) * t439 * t5198;
+    let t5201 = t1592 * t2064;
+    let t5202 = t5201 * t477;
+    let t5203 = t1966 * t5202;
+    let t5205 = F::new(2.0) / F::new(15.0) * t439 * t5203;
+    let t5207 = F::new(4.0) / F::new(135.0) * t3220 * t806;
+    (t5196, t5197, t5198, t5200, t5202, t5203, t5205, t5207)
 }

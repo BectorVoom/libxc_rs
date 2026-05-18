@@ -32,7 +32,7 @@ pub fn lda_x_1d_soft_exc_pol(
         let t9 = zeta_threshold - 1.0;
         let t11 = 1.0 - t5 <= zeta_threshold;
         let t12 = -t9;
-        let t13 = piecewise5(t7, t9, t11, t12, t5);
+        let t13 = piecewise5::<f64>(t7, t9, t11, t12, t5);
         let t14 = 1.0 + t13;
         let t15 = t14 * M_PI;
         let t16 = param_beta * t3;
@@ -43,16 +43,16 @@ pub fn lda_x_1d_soft_exc_pol(
         let t22 = t20 * t21;
         let t23 = 1.0 / param_beta;
         let t24 = t23 * t4;
-        let t29 = piecewise3(t8, 0.0, -0.07957747154594767 * (t14 * t18 - t22 * t24) * t23);
+        let t29 = piecewise3::<f64>(t8, 0.0, -0.07957747154594767 * (t14 * t18 - t22 * t24) * t23);
         let t31 = rho1 <= dens_threshold || t11;
-        let t32 = piecewise5(t11, t9, t7, t12, -t5);
+        let t32 = piecewise5::<f64>(t11, t9, t7, t12, -t5);
         let t33 = 1.0 + t32;
         let t34 = t33 * M_PI;
         let t35 = t34 * t16;
         let t36 = xc_integrate(func1, NULL, 0.0, t35);
         let t38 = xc_integrate(func2, NULL, 0.0, t35);
         let t39 = t38 * t21;
-        let t44 = piecewise3(t31, 0.0, -0.07957747154594767 * (-t39 * t24 + t33 * t36) * t23);
+        let t44 = piecewise3::<f64>(t31, 0.0, -0.07957747154594767 * (-t39 * t24 + t33 * t36) * t23);
         let tzk0 = t29 + t44;
         zk[ip] += tzk0;
     }

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1082/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1082/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1082<F: Float>(t14666: F, t431: F, t5571: F, t5509: F, t925: F, t2061: F, t5512: F, t14646: F, t5592: F, t14639: F, t1686: F, t1852: F, t10: F, t14634: F, t14656: F, t14658: F, t14660: F, t14781: F, t14783: F, t3222: F, t426: F) -> (F,) {
-    let t14787 = t431 * t5571 * t14666;
-    let t14795 = t5509 * t925;
-    let t14796 = 2.93808 * t14795;
-    let t14797 = t5512 * t2061;
-    let t14799 = t5592 * t14646;
-    let t14802 = t1686 * t1852 * t14639;
-    let t14803 = 5.87616 * t14802;
-    let t14804 = -0.97936 * t14781 - 88.1424 * t14783 * t14658 + t14656 - t14660 + 44.0712 * t14787 + 30.0 * t426 * t10 * t5571 * t3222 - t426 * t14634 / 2.0 - t14796 + 1.95872 * t14797 - 8.81424 * t14799 + t14803;
-    (t14804,)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1082<F: Float>(t2171: F, t3880: F, t3884: F, t9602: F, t1383: F, t1960: F, t3657: F, t822: F, t9619: F, t1289: F, t6851: F, t9621: F) -> (F, F, F, F, F, F, F, F) {
+    let t12665 = t2171 * t3880;
+    let t12666 = F::new(8.0) / F::new(45.0) * t12665;
+    let t12667 = t2171 * t3884;
+    let t12668 = F::new(8.0) / F::new(27.0) * t12667;
+    let t12669 = F::new(8.0) / F::new(15.0) * t9602;
+    let t12671 = F::new(2.0) / F::new(5.0) * t1960 * t1383;
+    let t12673 = F::new(2.0) / F::new(15.0) * t822 * t3657;
+    let t12674 = F::new(8.0) / F::new(45.0) * t9619;
+    let t12676 = F::new(4.0) / F::new(5.0) * t6851 * t1289;
+    let t12677 = F::new(8.0) / F::new(15.0) * t9621;
+    (t12666, t12668, t12669, t12671, t12673, t12674, t12676, t12677)
 }

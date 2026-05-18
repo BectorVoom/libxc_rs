@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 613/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 613/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk613<F: Float>(t119: F, t646: F, t3920: F, t1423: F, t3862: F, t3866: F, t3871: F, t3875: F, t3877: F, t3879: F, t3882: F, t3886: F, t3890: F, t3898: F, t3902: F, t3907: F, t3908: F, t3910: F, t3912: F, t3917: F, t3919: F) -> (F, F, F) {
-    let t3921 = t119 * t646;
-    let t3923 = 0.001515438175925926 * t3920 * t3921;
-    let t3924 = t3862 - t3866 + t3871 + t3875 + t3877 + t3879 + t3882 + t3886 + t3890 + t3898 - t3902 - t3907 + 2.0 / 3.0 * t3908 + 4.0 / 3.0 * t3910 + 2e-21 * t1423 * t3912 + t3917 + t3919 + t3923;
-    (t3921, t3923, t3924)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk613<F: Float>(t1247: F, t325: F, t1458: F, t56: F, t3519: F, t11: F, t1124: F, t174: F, t177: F, t25: F, t3508: F, t3510: F, t3512: F, t3520: F, t3524: F, t3528: F, t3530: F, t3532: F) -> (F, F, F, F, F, F, F, F) {
+    let t3534 = t325 * t1247;
+    let t3536 = t56 * t1458;
+    let t3537 = t3536 * t3519;
+    let t3538 = t11 * t3537;
+    let t3540 = t1124 * t56;
+    let t3542 = t174 * t3540 * t177;
+    let t3543 = F::new(0.11197407407407407) * t3542;
+    let t3544 = -F::new(0.022222222222222223) * t3508 + F::new(0.013333333333333334) * t3510 + F::new(0.0044444444444444444) * t3512 - F::new(0.002962962962962963) * t25 * t3520 - F::new(0.006666666666666667) * t25 * t3524 - F::new(0.035991666666666665) * t3528 - F::new(0.047988888888888886) * t3530 + F::new(0.035991666666666665) * t3532 + F::new(0.023994444444444443) * t3534 - F::new(0.03999074074074074) * t3538 - t3543;
+    (t3534, t3536, t3537, t3538, t3540, t3542, t3543, t3544)
 }

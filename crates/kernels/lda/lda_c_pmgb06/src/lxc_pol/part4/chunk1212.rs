@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1212/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1212/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1212<F: Float>(t12657: F, t16429: F, t16431: F, t16433: F, t16438: F, t16439: F, t16440: F, t16441: F, t16443: F, t16445: F, t16449: F, t16453: F, t16456: F, t16458: F, t16463: F, t12659: F, t12661: F, t16467: F, t16468: F, t16472: F, t16475: F, t16478: F, t16481: F, t16483: F, t16487: F, t16490: F, t16494: F, t16497: F, t16499: F, t16505: F) -> (F, F) {
-    let t18236 = -t16429 - t16431 - t16433 + t16438 - t16439 + t16440 + t16441 + t16443 + t16445 - t16449 - t16453 + t16456 + t16458 + t16463 - 16.0 / 405.0 * t12657;
-    let t18241 = -4.0 / 45.0 * t12659 + 8.0 / 135.0 * t12661 - t16467 - t16468 - t16472 - t16475 - t16478 - t16481 + t16483 + t16487 + t16490 + t16494 + t16497 - t16499 - t16505;
-    (t18236, t18241)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1212<F: Float>(t10288: F, t439: F, t6523: F, t1444: F, t6518: F, t1382: F, t6134: F, t11914: F, t11917: F, t2948: F, t6364: F, t2010: F, t6371: F) -> (F, F, F, F, F, F, F) {
+    let t15978 = F::new(4.0) / F::new(45.0) * t439 * t10288 * t6523;
+    let t15980 = F::new(4.0) / F::new(45.0) * t1444 * t6518;
+    let t15982 = F::new(2.0) / F::new(45.0) * t6134 * t1382;
+    let t15983 = F::new(4.0) / F::new(135.0) * t11914;
+    let t15984 = F::new(4.0) / F::new(135.0) * t11917;
+    let t15987 = F::new(4.0) / F::new(45.0) * t439 * t2948 * t6364;
+    let t15990 = F::new(8.0) / F::new(45.0) * t2010 * t2948 * t6371;
+    (t15978, t15980, t15982, t15983, t15984, t15987, t15990)
 }

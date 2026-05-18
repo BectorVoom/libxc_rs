@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1183/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1183/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1183<F: Float>(t14019: F, t1916: F, t5194: F, t1972: F, t5333: F, t1920: F, t1594: F, t2570: F, t439: F, t9084: F, t15349: F, t1897: F, t2578: F, t2864: F, t1420: F, t6788: F) -> (F, F, F, F, F, F, F, F) {
-    let t17885 = 4.0 / 45.0 * t14019;
-    let t17886 = t5194 * t1916;
-    let t17887 = 16.0 / 135.0 * t17886;
-    let t17889 = 4.0 / 15.0 * t1972 * t5333;
-    let t17890 = t5194 * t1920;
-    let t17891 = 8.0 / 81.0 * t17890;
-    let t17895 = 2.0 / 27.0 * t439 * t9084 * t2570 * t1594;
-    let t17898 = 2.0 / 15.0 * t439 * t1897 * t15349;
-    let t17902 = 2.0 / 45.0 * t439 * t2864 * t2578 * t1594;
-    let t17904 = 4.0 / 45.0 * t1420 * t6788;
-    (t17885, t17887, t17889, t17891, t17895, t17898, t17902, t17904)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1183<F: Float>(t103: F, t12360: F, t12362: F, t12364: F, t12366: F, t12368: F, t15347: F, t15351: F, t15355: F, t15358: F, t15363: F, t15367: F, t15411: F, t1619: F, t3404: F) -> F {
+    let t15585 = F::new(0.015996296296296297) * t12360 + F::new(0.026660493827160493) * t12362 + F::new(0.14396666666666666) * t12364 + F::new(0.12797037037037037) * t12366 - F::new(0.04265679012345679) * t12368 + F::new(0.013333333333333334) * t103 * t1619 * t15358 - F::new(0.0044444444444444444) * t103 * t1619 * t15363 - F::new(0.0022222222222222222) * t103 * t1619 * t15367 - F::new(0.002962962962962963) * t103 * t3404 * t15411 + F::new(0.8638) * t15347 - F::new(0.21595) * t15351 + F::new(0.07198333333333333) * t15355;
+    t15585
 }

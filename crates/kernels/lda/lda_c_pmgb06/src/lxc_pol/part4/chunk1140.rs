@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1140/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1140/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1140<F: Float>(t15223: F, t36: F, t506: F, t1476: F, t16003: F, t16359: F, t2909: F, t103: F, t13382: F, t14110: F, t14150: F, t15200: F, t15548: F, t17070: F, t525: F, t9577: F, t9956: F, t9958: F, t9981: F, t9986: F) -> (F, F, F, F) {
-    let t17107 = t36 * t506 * t15223;
-    let t17110 = t36 * t1476 * t16003;
-    let t17113 = t36 * t2909 * t16359;
-    let t17121 = -0.007407407407407408 * t9956 - 0.0024691358024691358 * t9958 - 0.047988888888888886 * t13382 + t9981 + 0.03199259259259259 * t9577 + t9986 + 0.023703703703703703 * t15548 * t14110 * t17070 - 0.017777777777777778 * t14150 + 0.8638 * t17107 - 0.8638 * t17110 + 0.47988888888888886 * t17113 - 0.04 * t103 * t525 * t15200 + 0.16 * t103 * t525 * t15223;
-    (t17107, t17110, t17113, t17121)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1140<F: Float>(t27: F, t6067: F, t693: F, t1112: F, t6078: F, t248: F, t686: F, t14935: F, t285: F, t8590: F, t8594: F, t8598: F, t8603: F, t8610: F, t8612: F, t8614: F, t8616: F, t8621: F, t8626: F, t8629: F, t8633: F, t8637: F) -> F {
+    let t14971 = t6067 * t27 * t693;
+    let t14973 = t6078 * t1112;
+    let t14977 = t248 * t6067 * t686;
+    let t14981 = -F::new(24.0) * t8590 - t8594 - t8598 + t8603 + t8610 - t8612 - F::new(160.0) * t8614 - F::new(0.0003662289461201309) * t14971 + F::new(0.00024415263074675396) * t14973 + F::new(20.0) * t8616 + t8621 - t8626 + F::new(2.0) * t14977 + t248 * t14935 * t285 - t8629 - t8633 - t8637;
+    t14981
 }

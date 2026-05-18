@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1198/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1198/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1198<F: Float>(t15173: F, t15176: F, t15179: F, t15181: F, t15183: F, t15185: F, t15188: F, t15190: F, t15195: F, t15197: F, t15199: F, t15203: F, t15207: F, t15209: F, t15215: F, t15217: F, t15222: F, t15226: F, t15230: F, t15233: F, t15236: F, t15238: F, t15243: F, t15245: F, t15247: F, t15249: F, t15257: F, t15258: F, t15259: F, t15260: F) -> (F, F) {
-    let t18159 = t15173 + t15176 + t15179 - t15181 - t15183 - t15185 + t15188 - t15190 + t15195 - t15197 + t15199 + t15203 + t15207 + t15209 - t15215;
-    let t18160 = t15217 - t15222 - t15226 - t15230 + t15233 + t15236 - t15238 + t15243 - t15245 + t15247 - t15249 - t15257 + t15258 + t15259 - t15260;
-    (t18159, t18160)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1198<F: Float>(t9350: F, t9352: F, t9379: F, t9381: F, t11897: F, t161: F, t489: F, t6231: F, t5110: F, t831: F, t1069: F, t1438: F, t2648: F, t2960: F, t439: F) -> (F, F, F, F, F, F, F, F) {
+    let t15801 = F::new(8.0) / F::new(405.0) * t9350;
+    let t15802 = F::new(8.0) / F::new(405.0) * t9352;
+    let t15803 = F::new(2.0) / F::new(405.0) * t9379;
+    let t15804 = F::new(2.0) / F::new(243.0) * t9381;
+    let t15805 = F::new(4.0) / F::new(135.0) * t11897;
+    let t15807 = t161 * t489 * t6231;
+    let t15808 = F::new(2.0) / F::new(45.0) * t15807;
+    let t15810 = F::new(2.0) / F::new(15.0) * t831 * t5110;
+    let t15815 = t439 * t2960 * t2648 * t1438 * t1069 / F::new(27.0);
+    (t15801, t15802, t15803, t15804, t15805, t15808, t15810, t15815)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 855/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 855/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk855<F: Float>(t1597: F, t2881: F, t2916: F, t1: F, t2872: F, t482: F, t485: F, t1128: F, t19: F, t1098: F, t2830: F, t2833: F, t2819: F, t2853: F, t473: F, t483: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10778 = t2881 * t2916 * t1597;
-    let t10780 = t2872 * t1;
-    let t10783 = 0.007901556131563792 * t482 * t10780 * t485;
-    let t10784 = t1128 * t19;
-    let t10787 = 0.002972565416694299 * t1098 * t10784 * t1597;
-    let t10788 = t2830 * t485;
-    let t10791 = 0.10359818039161417 * t2833 * t485;
-    let t10793 = 0.02267957317922317 * t2819 * t1597;
-    let t10796 = t473 * t2853 * t483 * t485;
-    (t10778, t10780, t10783, t10784, t10787, t10788, t10791, t10793, t10796)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk855<F: Float>(t4296: F, t4300: F, t2994: F, t2999: F, t3008: F, t3015: F, t3155: F, t14: F, t2: F, t41: F, t174: F, t2824: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t8120 = F::new(7.302458460456296) * t4296;
+    let t8121 = F::new(12.654485932329694) * t4300;
+    let t8122 = F::new(14.03573615389249) * t2994;
+    let t8123 = F::new(207.78907079251036) * t2999;
+    let t8126 = F::new(0.0022787712934626155) * t3008;
+    let t8130 = F::new(0.013780452414814815) * t3015;
+    let t8134 = F::new(4.0) * t3155;
+    let t8138 = F::new(1.0) / t14 / t2 / t41 / F::new(48.0);
+    let t8141 = t8138 * t2 * t2824 * t174;
+    (t8120, t8121, t8122, t8123, t8126, t8130, t8134, t8138, t8141)
 }

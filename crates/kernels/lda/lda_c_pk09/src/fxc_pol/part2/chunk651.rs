@@ -1,4 +1,4 @@
-//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 651/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 651/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk651<F: Float>(t1468: F, t536: F, t1747: F, t6302: F, t1798: F, t6488: F, t543: F, t1887: F, t337: F, t1782: F, t1672: F, t1778: F, t6501: F, t6505: F, t6522: F, t6319: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t7332 = t536 * t1468;
-    let t7333 = t7332 * t1747;
-    let t7335 = 4.4281498357666145 * t7333 * t6302;
-    let t7337 = 1.4760499452555382 * t1798 * t6488;
-    let t7339 = t543 * t543;
-    let t7340 = 1.0 / t7339;
-    let t7345 = t1887 * t337;
-    let t7346 = t7345 * t1782;
-    let t7353 = t1778 * t1672;
-    let t7362 = 6.25 * t6501;
-    let t7363 = 6.25 * t6505;
-    let t7367 = 8.333333333333334 * t6522;
-    let t7371 = 1.2466946262544771 * t6319;
-    (t7335, t7337, t7340, t7346, t7353, t7362, t7363, t7367, t7371)
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk651<F: Float>(t317: F, t337: F, t280: F, t1632: F, t1625: F, t4764: F, t5039: F, t5045: F, t5068: F, t4944: F, t4980: F, t4996: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t5686 = t317 * t337;
+    let t5687 = t5686 * t280;
+    let t5688 = t1632 * t5687;
+    let t5689 = t5688 * t1625;
+    let t5691 = F::new(0.06655833038988691) * t4764;
+    let t5693 = F::new(0.10237773105191754) * t5039;
+    let t5694 = F::new(0.06825182070127836) * t5045;
+    let t5696 = F::new(0.02275060690042612) * t5068;
+    let t5701 = F::new(0.04933718966136796) * t4944;
+    let t5703 = F::new(0.14975624337724558) * t4980;
+    let t5706 = F::new(0.1110086767380779) * t4996;
+    (t5687, t5689, t5691, t5693, t5694, t5696, t5701, t5703, t5706)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1242/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1242/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1242<F: Float>(t110: F, t360: F, t7031: F, t2707: F, t348: F, t5772: F, t7035: F, t7027: F, t365: F, t6989: F, t18588: F, t5770: F, t1227: F, t1234: F, t2712: F, t2715: F, t342: F, t35: F, t4394: F, t6996: F, t7018: F, t780: F, t8263: F) -> (F, F) {
-    let t18609 = t360 * t110 * t7031;
-    let t18615 = t348 * t2707 * t5772;
-    let t18616 = 1.9486833333333333 * t18615;
-    let t18622 = t360 * t110 * t7035;
-    let t18625 = t360 * t110 * t7027;
-    let t18628 = t365 * t6989 * t5772;
-    let t18630 = t5770 * t18588;
-    let t18632 = -6.0 * t360 * t35 * t6996 * t1234 + 30.0 * t360 * t35 * t6989 * t1234 - 6.0 * t360 * t35 * t2712 * t1227 + 3.0 * t360 * t35 * t780 * t4394 - t18609 + 3.0 / 2.0 * t360 * t35 * t2715 * t1227 - t18616 + 3.0 * t360 * t35 * t7018 * t342 + 4.0 * t18622 - 2.0 * t18625 + 29.3808 * t18628 - 11.75232 * t18630 + t8263;
-    (t18616, t18632)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1242<F: Float>(t16354: F, t1919: F, t493: F, t1080: F, t2386: F, t9525: F, t5470: F, t1444: F, t6509: F, t12580: F, t6508: F, t16321: F, t16336: F, t16338: F, t16339: F, t16340: F, t16342: F, t16345: F, t16347: F, t16349: F, t16351: F, t16353: F) -> (F, F, F, F, F, F) {
+    let t16357 = F::new(2.0) / F::new(9.0) * t493 * t1919 * t16354;
+    let t16359 = t9525 * t2386 * t1080;
+    let t16362 = F::new(32.0) / F::new(27.0) * t493 * t5470 * t16359;
+    let t16364 = F::new(16.0) / F::new(81.0) * t1444 * t6509;
+    let t16367 = F::new(16.0) / F::new(81.0) * t493 * t12580 * t6508;
+    let t16368 = -t16321 + t16336 + t16338 - t16339 - t16340 + t16342 + t16345 + t16347 + t16349 + t16351 + t16353 - t16357 - t16362 + t16364 + t16367;
+    (t16357, t16359, t16362, t16364, t16367, t16368)
 }

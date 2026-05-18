@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 776/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 776/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk776<F: Float>(t168: F, t2292: F, t635: F, t1905: F, t632: F, t1143: F, t781: F, t1896: F, t242: F, t5446: F, t1901: F, t245: F, t3375: F, t3378: F, t4084: F, t4087: F, t4091: F, t5451: F, t5880: F) -> (F,) {
-    let t5887 = 0.039794582218349216 * t168 * t635 * t2292;
-    let t5891 = 0.1675256410710088 * t1905 * t632;
-    let t5892 = t781 * t1143;
-    let t5894 = t1896 * t242;
-    let t5897 = 0.1675256410710088 * t5446 * t242;
-    let t5898 = t1901 * t632;
-    let t5902 = 0.019897291109174608 * t4087 + t4091 - 0.011938374665504766 * t168 * t245 * t5880 - 0.10611888591559791 * t4084 + t5887 + 2.657442045789236 * t3378 - 0.5694518669548363 * t3375 - t5891 - 0.0837628205355044 * t5892 - 0.1675256410710088 * t5894 + t5897 + 0.1675256410710088 * t5898 - 0.0837628205355044 * t5451 * t242;
-    (t5902,)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk776<F: Float>(t3965: F, t5138: F, t1251: F, t4722: F, t348: F, t5136: F, t1458: F, t197: F, t1245: F, t3975: F, t833: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t5140 = F::new(16.0) / F::new(45.0) * t3965 * t5138;
+    let t5141 = t4722 * t1251;
+    let t5142 = t5136 * t348;
+    let t5143 = t5141 * t5142;
+    let t5145 = F::new(32.0) / F::new(45.0) * t3965 * t5143;
+    let t5146 = t1458 * t197;
+    let t5147 = t5146 * t1245;
+    let t5148 = t5147 * t5142;
+    let t5150 = F::new(16.0) / F::new(27.0) * t3965 * t5148;
+    let t5151 = t3975 * t833;
+    (t5140, t5141, t5143, t5145, t5146, t5147, t5148, t5150, t5151)
 }

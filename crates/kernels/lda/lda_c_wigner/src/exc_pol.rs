@@ -33,11 +33,11 @@ pub fn lda_c_wigner_exc_pol(
         let t8 = t7 * param_a;
         let t9 = M_CBRT3;
         let t10 = 1.0 / M_PI;
-        let t11 = pow_1_3(t10);
+        let t11 = pow_1_3::<f64>(t10);
         let t12 = t9 * t11;
         let t13 = M_CBRT4;
         let t14 = t13 * t13;
-        let t15 = pow_1_3(t3);
+        let t15 = pow_1_3::<f64>(t3);
         let t16 = 1.0 / t15;
         let t20 = param_b + t12 * t14 * t16 / 4.0;
         let t21 = 1.0 / t20;

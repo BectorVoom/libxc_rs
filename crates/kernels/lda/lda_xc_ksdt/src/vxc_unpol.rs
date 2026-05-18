@@ -63,9 +63,9 @@ pub fn lda_xc_ksdt_vxc_unpol(
         let t2 = M_CBRT4;
         let t3 = t2 * t2;
         let t4 = t1 * t3;
-        let t5 = pow_1_3(9.0);
+        let t5 = pow_1_3::<f64>(9.0);
         let t6 = t4 * t5;
-        let t7 = pow_1_3(t1);
+        let t7 = pow_1_3::<f64>(t1);
         let t8 = 1.0 / t7;
         let t9 = t5 * t5;
         let t10 = t7 * t1;
@@ -74,7 +74,7 @@ pub fn lda_xc_ksdt_vxc_unpol(
         let t13 = 1.0 / param_T;
         let t14 = M_CBRT3;
         let t15 = t13 * t14;
-        let t16 = pow_1_3(rho[ip]);
+        let t16 = pow_1_3::<f64>(rho[ip]);
         let t17 = t16 * t16;
         let t18 = t15 * t17;
         let t21 = f64::tanh(t12 * t18 / 6.0);
@@ -169,7 +169,7 @@ pub fn lda_xc_ksdt_vxc_unpol(
         let t199 = f64::exp(-2.0 / 9.0 * t190 * t191 * t195);
         let t201 = -t189 * t199 + 2.0;
         let t202 = f64::powf(zeta_threshold, t201);
-        let t203 = piecewise3(t183, t202, 1.0);
+        let t203 = piecewise3::<f64>(t183, t202, 1.0);
         let t205 = 2.0 * t203 - 2.0;
         let t206 = f64::powf(2.0, t201);
         let t207 = t206 - 2.0;
@@ -358,7 +358,7 @@ pub fn lda_xc_ksdt_vxc_unpol(
         let t588 = -0.0011605083333333334 * t558 * t559 * t199 - 0.015267333333333334 * t566 * t450 - t189 * t586;
         let t589 = t202 * t588;
         let t590 = f64::ln(zeta_threshold);
-        let t592 = piecewise3(t183, t589 * t590, 0.0);
+        let t592 = piecewise3::<f64>(t183, t589 * t590, 0.0);
         let t593 = t592 * t208;
         let t595 = t207 * t207;
         let t596 = 1.0 / t595;

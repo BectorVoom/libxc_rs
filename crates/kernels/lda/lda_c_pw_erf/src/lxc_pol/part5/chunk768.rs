@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 768/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 768/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk768<F: Float>(t2396: F, t4479: F, t3965: F, t2388: F, t4475: F, t3974: F, t6791: F, t2499: F, t795: F, t1268: F, t7639: F, t7643: F, t538: F, t7647: F, t7651: F, t7655: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t7749 = t4479 * t2396;
-    let t7751 = 16.0 / 15.0 * t3965 * t7749;
-    let t7752 = t4475 * t2388;
-    let t7754 = 16.0 / 15.0 * t3974 * t7752;
-    let t7755 = 8.0 / 15.0 * t6791;
-    let t7757 = 2.0 / 5.0 * t795 * t2499;
-    let t7758 = t1268 * t7639;
-    let t7761 = t1268 * t7643;
-    let t7764 = t538 * t7647;
-    let t7767 = t538 * t7651;
-    let t7770 = t538 * t7655;
-    (t7749, t7751, t7752, t7754, t7755, t7757, t7758, t7761, t7764, t7767, t7770)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk768<F: Float>(t169: F, t2208: F, t2211: F, t2595: F, t2785: F, t279: F, t299: F, t301: F, t4441: F, t4454: F, t4455: F, t4457: F, t5679: F, t5682: F, t5735: F, t5740: F, t6080: F, t6126: F, t6130: F, t6136: F, t6140: F, t6154: F, t6156: F, t7049: F, t7057: F, t777: F) -> F {
+    let t7060 = F::new(6.0) * t6126 * t2595 - t777 * t6130 + t4454 + F::new(0.07982822673503073) * t4455 - F::new(0.10643763564670763) * t4457 + t2785 - F::new(0.054045904796391424) * t6136 - F::new(0.0002905674151788692) * t6140 + F::new(0.020267214298646783) * t169 * t299 * t6080 * t301 + F::new(6.0) * t5735 * t2208 + F::new(6.0) * t2211 * t4441 + F::new(6.0) * t2211 * t5740 - t5679 - F::new(0.02394846802050922) * t5682 + F::new(2.0) * t6154 * t6156 + (t7049 + t7057) * t279;
+    t7060
 }

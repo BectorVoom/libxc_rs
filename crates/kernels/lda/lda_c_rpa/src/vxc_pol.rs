@@ -24,12 +24,12 @@ pub fn lda_c_rpa_vxc_pol(
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = M_CBRT3;
-        let t3 = pow_1_3(1.0 / M_PI);
+        let t3 = pow_1_3::<f64>(1.0 / M_PI);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
         let t7 = rho0 + rho1;
-        let t8 = pow_1_3(t7);
+        let t8 = pow_1_3::<f64>(t7);
         let t10 = t6 / t8;
         let t11 = t4 * t10;
         let t13 = f64::ln(t11 / 4.0);

@@ -1,4 +1,4 @@
-//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 579/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 579/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk579<F: Float>(t5212: F, t5068: F, t1427: F, t1435: F, t395: F, t5031: F, t1406: F, t5081: F, t353: F, t371: F, t1468: F, t381: F, t1284: F, t5012: F, t364: F, t1319: F, t4998: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5213 = 2.0 * t5212;
-    let t5215 = 0.112392408718662 * t5068;
-    let t5225 = t1427 * t1435;
-    let t5227 = t395 * t5031;
-    let t5235 = t1406 * t5081;
-    let t5238 = t353 * t353;
-    let t5239 = 1.0 / t5238;
-    let t5247 = t371 * t371;
-    let t5248 = 1.0 / t5247;
-    let t5253 = t381 * t1468;
-    let t5254 = t5253 * t1284;
-    let t5256 = 37.27051603526593 * t5254 * t5012;
-    let t5257 = t364 * t1468;
-    let t5258 = t5257 * t1284;
-    let t5260 = 9.87466743489671 * t5258 * t5012;
-    let t5262 = 3.2915558116322368 * t1319 * t4998;
-    (t5213, t5215, t5225, t5227, t5235, t5239, t5248, t5256, t5260, t5262)
+pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk579<F: Float>(t3130: F, t1106: F, t3290: F, t1098: F, t1101: F, t3230: F, t3233: F, t3522: F, t91: F, t114: F, t3163: F, t1063: F, t3498: F) -> (F, F, F, F, F, F, F, F) {
+    let t4138 = F::new(0.032891459774245305) * t3130;
+    let t4144 = t1106 * t3290 / F::new(6.0);
+    let t4146 = t1098 * t3290 / F::new(6.0);
+    let t4147 = t1101 * t3230;
+    let t4149 = t1101 * t3233;
+    let t4165 = t3522 * t91;
+    let t4166 = t114 * t4165;
+    let t4168 = t4166 * t3163 / F::new(3.0);
+    let t4170 = F::new(2.0) / F::new(9.0) * t1063 * t3498;
+    (t4138, t4144, t4146, t4147, t4149, t4165, t4168, t4170)
 }

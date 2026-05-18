@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 709/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 709/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk709<F: Float>(t159: F, t285: F, t6039: F, t2363: F, t477: F, t281: F, t2675: F, t2805: F, t2375: F, t684: F, t1881: F, t2676: F, t2822: F, t2828: F, t2831: F, t2835: F, t2838: F, t2841: F, t2842: F, t2847: F, t2864: F, t2876: F, t777: F) -> (F, F, F, F, F, F) {
-    let t7067 = t6039 * t159 * t285;
-    let t7071 = t2363 * t477 * t285;
-    let t7072 = t281 * t7071;
-    let t7075 = t2805 * t2675;
-    let t7077 = t684 * t2375;
-    let t7079 = -t2822 + t2828 - 1.82185769317151e-05 * t2831 - t2835 + 0.039914113367515366 * t2838 - t2841 - 0.05321881782335382 * t2842 + t2847 - 0.01197423401025461 * t2864 - t2876 - 0.01197423401025461 * t281 * t7067 - 0.01197423401025461 * t7072 - t1881 * t2676 - t777 * t7075 + 0.019957056683757683 * t7077;
-    (t7067, t7071, t7072, t7075, t7077, t7079)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk709<F: Float>(t2437: F, t542: F, t1313: F, t519: F, t1251: F, t2329: F, t348: F, t1326: F, t1245: F, t1991: F, t3682: F, t3706: F, t4583: F, t5806: F, t5837: F, t6312: F, t6313: F, t6316: F, t6317: F, t6318: F, t6319: F, t6320: F, t6321: F, t6325: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t6326 = t2437 * t542;
+    let t6327 = t1313 * t6326;
+    let t6329 = F::new(4.0) / F::new(45.0) * t519 * t6327;
+    let t6330 = t1251 * t2329;
+    let t6331 = t6330 * t348;
+    let t6332 = t1326 * t6331;
+    let t6334 = F::new(8.0) / F::new(45.0) * t519 * t6332;
+    let t6335 = t1245 * t2329;
+    let t6336 = t6335 * t348;
+    let t6337 = t1991 * t6336;
+    let t6339 = F::new(4.0) / F::new(27.0) * t519 * t6337;
+    let t6340 = -t6312 + t6313 + F::new(4.0) / F::new(135.0) * t5806 + F::new(2.0) / F::new(135.0) * t3682 - t3706 - t5837 - t6316 - t6317 + t6318 - t6319 + t6320 - t6321 + t4583 + t6325 - t6329 - t6334 + t6339;
+    (t6326, t6327, t6329, t6330, t6331, t6332, t6334, t6335, t6336, t6337, t6339, t6340)
 }

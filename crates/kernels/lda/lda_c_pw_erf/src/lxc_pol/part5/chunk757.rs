@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 757/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 757/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk757<F: Float>(t6944: F, t784: F, t1440: F, t1325: F, t2146: F, t2540: F, t2544: F, t6963: F, t811: F, t1466: F, t1318: F, t6979: F, t806: F, t6988: F, t799: F, t2558: F, t4738: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t7576 = t6944 * t784;
-    let t7577 = t1440 * t7576;
-    let t7579 = 8.0 / 5.0 * t1325 * t7577;
-    let t7581 = 4.0 / 15.0 * t2146 * t2540;
-    let t7583 = 4.0 / 9.0 * t2146 * t2544;
-    let t7584 = t6963 * t811;
-    let t7585 = t1466 * t7584;
-    let t7587 = 8.0 / 5.0 * t1318 * t7585;
-    let t7588 = t6979 * t806;
-    let t7589 = t1440 * t7588;
-    let t7591 = 4.0 / 5.0 * t1325 * t7589;
-    let t7593 = 8.0 / 15.0 * t6988 * t799;
-    let t7595 = 8.0 / 5.0 * t4738 * t2558;
-    (t7576, t7577, t7579, t7581, t7583, t7584, t7585, t7587, t7588, t7589, t7591, t7593, t7595)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk757<F: Float>(t523: F, t5992: F, t522: F, t519: F, t1446: F, t2554: F, t1390: F, t2471: F, t494: F, t1440: F, t1325: F, t2532: F, t4753: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t6938 = t523 * t5992;
+    let t6939 = t522 * t6938;
+    let t6941 = F::new(4.0) / F::new(45.0) * t519 * t6939;
+    let t6943 = F::new(4.0) / F::new(27.0) * t1446 * t2554;
+    let t6944 = t1390 * t2471;
+    let t6945 = t6944 * t494;
+    let t6946 = t1440 * t6945;
+    let t6948 = F::new(8.0) / F::new(15.0) * t1325 * t6946;
+    let t6950 = F::new(8.0) / F::new(15.0) * t4753 * t2532;
+    (t6938, t6939, t6941, t6943, t6944, t6945, t6946, t6948, t6950)
 }

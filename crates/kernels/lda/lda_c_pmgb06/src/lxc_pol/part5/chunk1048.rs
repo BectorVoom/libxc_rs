@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1048/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1048/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1048<F: Float>(t27: F, t693: F, t7402: F, t8545: F, t8548: F, t8552: F, t8553: F, t8555: F, t8559: F, t8560: F, t8564: F, t8567: F, t8570: F, t8576: F, t8580: F, t8583: F, t8586: F, t8589: F, t8594: F) -> (F,) {
-    let t21727 = t7402 * t27 * t693;
-    let t21729 = -12.0 * t8545 + t8548 - t8552 + 0.01626537195045261 * t8553 - 0.03253074390090522 * t8555 - t8559 - 0.02168716260060348 * t8560 - t8564 - t8567 + t8570 + 0.4815973313767657 * t8576 + t8580 + t8583 + t8586 + t8589 - t8594 - 0.00018311447306006544 * t21727;
-    (t21729,)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1048<F: Float>(t15840: F, t15842: F, t1423: F, t7585: F, t15850: F, t15887: F, t15891: F, t15893: F, t15895: F, t15897: F, t15899: F, t10681: F, t10684: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t19532 = F::new(4.0) / F::new(45.0) * t15840;
+    let t19533 = F::new(4.0) / F::new(45.0) * t15842;
+    let t19534 = t1423 * t7585;
+    let t19535 = F::new(16.0) / F::new(243.0) * t19534;
+    let t19536 = t15850 / F::new(15.0);
+    let t19538 = F::new(8.0) / F::new(45.0) * t15887;
+    let t19539 = F::new(4.0) / F::new(45.0) * t15891;
+    let t19540 = F::new(4.0) / F::new(45.0) * t15893;
+    let t19541 = F::new(8.0) / F::new(45.0) * t15895;
+    let t19542 = F::new(4.0) / F::new(45.0) * t15897;
+    let t19543 = F::new(4.0) / F::new(45.0) * t15899;
+    let t19544 = t19532 + t19533 + t19535 + t19536 - F::new(0.011181742741110338) * t10681 - t10684 + t19538 - t19539 - t19540 - t19541 - t19542 - t19543;
+    (t19532, t19533, t19535, t19536, t19538, t19539, t19540, t19541, t19542, t19543, t19544)
 }

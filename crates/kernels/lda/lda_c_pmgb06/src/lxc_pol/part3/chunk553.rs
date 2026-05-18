@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 553/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 553/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk553<F: Float>(t1392: F, t432: F, t1397: F, t1396: F, t435: F, t132: F, t1512: F, t479: F, t1490: F, t489: F, t161: F, t1541: F, t134: F, t138: F, t2897: F, t455: F, t947: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3064 = t432 * t1392;
-    let t3065 = 2.0 / 15.0 * t3064;
-    let t3067 = t432 * t1397 / 5.0;
-    let t3068 = t435 * t1396;
-    let t3069 = t132 * t3068;
-    let t3070 = 2.0 / 15.0 * t3069;
-    let t3072 = t1512 * t479 / 10.0;
-    let t3073 = t489 * t1490;
-    let t3074 = t161 * t3073;
-    let t3075 = t3074 / 15.0;
-    let t3076 = t435 * t1541;
-    let t3077 = t132 * t3076;
-    let t3078 = t3077 / 15.0;
-    let t3080 = t138 * t2897 * t134;
-    let t3081 = 0.005877407407407408 * t3080;
-    let t3082 = t947 * t455;
-    (t3064, t3065, t3067, t3068, t3069, t3070, t3072, t3073, t3074, t3075, t3076, t3077, t3078, t3080, t3081, t3082)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk553<F: Float>(t161: F, t2887: F, t1499: F, t531: F, t513: F, t1491: F, t486: F, t2854: F, t2856: F, t2859: F, t2861: F, t2863: F, t2868: F, t2870: F, t2875: F, t2879: F, t2882: F, t2884: F) -> (F, F, F, F, F) {
+    let t2889 = t161 * t2887 / F::new(10.0);
+    let t2891 = t1499 * t531 / F::new(10.0);
+    let t2893 = t1499 * t513 / F::new(10.0);
+    let t2895 = t486 * t1491 / F::new(10.0);
+    let t2896 = t2854 - t2856 - t2859 - t2861 - t2863 + t2868 - t2870 + t2875 + t2879 - t2882 - t2884 - t2889 - t2891 + t2893 + t2895;
+    (t2889, t2891, t2893, t2895, t2896)
 }

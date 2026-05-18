@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1245/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1245/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1245<F: Float>(t1227: F, t2703: F, t38: F, t4394: F, t776: F, t342: F, t6979: F, t11376: F, t11379: F, t11390: F, t11370: F, t11373: F, t11382: F, t11388: F, t11393: F, t1282: F, t5980: F, t63: F, t6996: F) -> (F, F, F, F, F, F, F) {
-    let t18671 = 17.53815 * t38 * t2703 * t1227;
-    let t18674 = 11.6921 * t38 * t776 * t4394;
-    let t18677 = 11.6921 * t38 * t6979 * t342;
-    let t18684 = 0.9743416666666667 * t11376;
-    let t18685 = 1.2991222222222223 * t11379;
-    let t18688 = 3.031285185185185 * t11390;
-    let t18690 = 5.87616 * t63 * t6996 * t1227 - t18671 + t18674 + t18677 + 11.75232 * t63 * t1282 * t5980 * t342 + 1.46904 * t11370 - 1.95872 * t11373 + t18684 + t18685 + t11382 / 3.0 + 4.570346666666667 * t11388 + t18688 + 28.0 / 27.0 * t11393;
-    (t18671, t18674, t18677, t18684, t18685, t18688, t18690)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1245<F: Float>(t1894: F, t5187: F, t2002: F, t5287: F, t5291: F, t5295: F, t6275: F, t1898: F, t1925: F, t5305: F, t1972: F, t5477: F) -> (F, F, F, F, F, F, F) {
+    let t16396 = F::new(4.0) / F::new(45.0) * t5187 * t1894;
+    let t16398 = F::new(4.0) / F::new(45.0) * t2002 * t5287;
+    let t16400 = F::new(2.0) / F::new(45.0) * t2002 * t5291;
+    let t16402 = F::new(8.0) / F::new(45.0) * t6275 * t5295;
+    let t16404 = F::new(8.0) / F::new(45.0) * t5187 * t1898;
+    let t16406 = F::new(4.0) / F::new(45.0) * t5305 * t1925;
+    let t16408 = F::new(4.0) / F::new(45.0) * t1972 * t5477;
+    (t16396, t16398, t16400, t16402, t16404, t16406, t16408)
 }

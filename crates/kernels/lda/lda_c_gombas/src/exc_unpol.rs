@@ -19,7 +19,7 @@ pub fn lda_c_gombas_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = pow_1_3(rho[ip]);
+        let t1 = pow_1_3::<f64>(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = 1.0 + 0.0562 * t2;
         let t6 = 0.0357 / t4;

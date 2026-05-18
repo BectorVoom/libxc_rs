@@ -19,7 +19,7 @@ pub fn lda_xc_zlp_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = pow_1_3(rho[ip]);
+        let t1 = pow_1_3::<f64>(rho[ip]);
         let t4 = 1.0 + 105.5562709925034 / t1;
         let t5 = f64::ln(t4);
         let t8 = 1.0 - 0.00947362 * t5 * t1;

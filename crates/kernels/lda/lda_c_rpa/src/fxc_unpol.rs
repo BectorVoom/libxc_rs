@@ -23,11 +23,11 @@ pub fn lda_c_rpa_fxc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t1 = M_CBRT3;
-        let t3 = pow_1_3(1.0 / M_PI);
+        let t3 = pow_1_3::<f64>(1.0 / M_PI);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
         let t12 = f64::ln(t10 / 4.0);

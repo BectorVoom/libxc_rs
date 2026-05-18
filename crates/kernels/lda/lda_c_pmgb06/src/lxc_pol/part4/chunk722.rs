@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 722/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 722/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk722<F: Float>(t1594: F, t5118: F, t137: F, t132: F, t1604: F, t831: F, t1392: F, t802: F, t1631: F, t3051: F, t3056: F, t3064: F, t4146: F, t4148: F, t4151: F, t5101: F, t5104: F, t5107: F, t5112: F, t5114: F, t5117: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5119 = t5118 * t1594;
-    let t5120 = t137 * t5119;
-    let t5122 = t132 * t5120 / 15.0;
-    let t5124 = t831 * t1604 / 15.0;
-    let t5126 = 2.0 / 45.0 * t802 * t1392;
-    let t5128 = t802 * t1631 / 30.0;
-    let t5129 = t3051 / 45.0;
-    let t5130 = 2.0 / 135.0 * t3056;
-    let t5131 = 2.0 / 45.0 * t3064;
-    let t5132 = -2.0 / 45.0 * t4146 + 4.0 / 135.0 * t4148 - t4151 + t5101 - t5104 - t5107 + t5112 - t5114 - t5117 + t5122 + t5124 - t5126 - t5128 - t5129 + t5130 - t5131;
-    (t5119, t5120, t5122, t5124, t5126, t5128, t5129, t5130, t5131, t5132)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk722<F: Float>(t3941: F, t3945: F, t3948: F, t3955: F, t3877: F, t3881: F, t3884: F, t3888: F, t3939: F, t3944: F, t3954: F, t3959: F, t3962: F, t3965: F, t3968: F, t3970: F) -> (F, F, F, F, F) {
+    let t4568 = F::new(12.0) * t3941;
+    let t4569 = F::new(48.0) * t3945;
+    let t4570 = F::new(80.0) * t3948;
+    let t4571 = F::new(32.0) * t3955;
+    let t4573 = t3877 + t3881 - t3884 - t3888 - F::new(24.0) * t3939 - t4568 - t3944 + t4569 + t4570 - t3954 - t4571 - t3959 - t3962 + t3965 + t3968 + F::new(0.02168716260060348) * t3970;
+    (t4568, t4569, t4570, t4571, t4573)
 }

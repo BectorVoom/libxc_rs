@@ -1,4 +1,4 @@
-//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 337/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 337/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk337<F: Float>(t44: F, t51: F, t420: F, t630: F, t1207: F, t1204: F, t1709: F, t1713: F, t425: F, t1711: F, t620: F, t1197: F, t1193: F, t427: F, zeta_threshold: F) -> (F, F, F) {
-    let t45 = t44 <= zeta_threshold;
-    let t52 = t51 <= zeta_threshold;
-    let t1714 = t420 * t630;
-    let t1715 = t1714 * t1207;
-    let t1718 = t1709 * t1204 + 1.28 * t1713 * t1715;
-    let t1719 = t425 * t1718;
-    let t1720 = piecewise3(t52, t1711, t1719);
-    let t1722 = t420 * t620;
-    let t1723 = t1722 * t1197;
-    let t1726 = t1709 * t1193 + 1.28 * t1713 * t1723;
-    let t1727 = t427 * t1726;
-    let t1728 = piecewise3(t45, t1711, t1727);
-    let t1729 = t1720 + t1728;
-    (t1719, t1727, t1729)
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk337<F: Float>(t1610: F, t93: F, t303: F, t305: F, t1303: F, t1272: F, t1217: F, t1451: F, t1562: F, t1565: F, t1568: F, t1581: F, t1594: F, t1597: F, t1601: F, t1602: F, t1604: F, t1606: F, t1608: F, t1609: F, t311: F) -> (F, F, F, F, F) {
+    let t1611 = t93 * t1610;
+    let t1614 = t303 * t305;
+    let t1615 = t1303 * t1614;
+    let t1618 = F::new(0.03412591035063918) * t1272;
+    let t1619 = -t1562 * t311 / F::new(6.0) - t1565 * t311 / F::new(6.0) - t1568 * t311 / F::new(6.0) - t1581 * t311 / F::new(6.0) + t1594 * t311 / F::new(6.0) + t1597 * t311 / F::new(6.0) + F::new(0.14975624337724558) * t1217 - t1601 - t1602 + t1604 - t1606 + t1608 + t1609 * t1611 / F::new(12.0) - t1615 * t1451 / F::new(6.0) - t1618;
+    (t1611, t1614, t1615, t1618, t1619)
 }

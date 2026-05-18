@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1080/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1080/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1080<F: Float>(t2771: F, t4351: F, t247: F, t4344: F, t927: F, t101: F, t5915: F, t754: F, t757: F, t10960: F, t10964: F, t10967: F, t10976: F, t10980: F, t10985: F, t10991: F, t10993: F, t11582: F, t11637: F, t11664: F, t11684: F, t14564: F, t14606: F, t14625: F, t14752: F, t2: F, t328: F, t8024: F, t8028: F, t8032: F, t8034: F, t8039: F, t8043: F, t8047: F) -> (F,) {
-    let t14758 = t4351 * t2771;
-    let t14761 = t247 * t927 * t4344;
-    let t14765 = t101 * t5915 * t754 * t757;
-    let tv4rho41 = 1.4220018064581168 * t10967 - 1.2654485932329695 * t10980 + t10985 + t8024 + 0.41076328840066667 * t10960 + 1.898172889849454 * t10964 + t10991 + 0.41076328840066667 * t8028 + 3.0 * t10993 + t2 * (t11582 + t11637 + t11664 + t11684 + t14564 + t14606 + t14625 + t14752) * t328 - 0.22820182688925925 * t14758 + t10976 + 0.4740006021527056 * t14761 + t8047 - t8039 + 1.232289865202 * t14765 - 3.796345779698908 * t8032 - 0.6846054806677778 * t8034 + t8043;
-    (tv4rho41,)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1080<F: Float>(t12831: F, t9760: F, t9762: F, t9765: F, t9771: F, t12823: F, t12824: F, t12826: F, t12827: F, t12829: F, t9759: F, t9770: F) -> (F, F, F, F, F, F) {
+    let t12832 = t12831 / F::new(45.0);
+    let t12833 = t9760 / F::new(15.0);
+    let t12834 = F::new(4.0) / F::new(135.0) * t9762;
+    let t12835 = F::new(4.0) / F::new(135.0) * t9765;
+    let t12836 = t9771 / F::new(15.0);
+    let t12837 = -t12823 - t12824 - t12826 + t12827 + t9759 - t12829 - t12832 + t12833 + t12834 + t12835 - t9770 + t12836;
+    (t12832, t12833, t12834, t12835, t12836, t12837)
 }

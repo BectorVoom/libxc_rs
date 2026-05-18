@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 808/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 808/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk808<F: Float>(t343: F, t465: F, t159: F, t285: F, t4137: F, t477: F, t169: F, t274: F, t301: F, t8363: F, t1112: F, t39: F, t3309: F, t3310: F, t3318: F, t3319: F) -> (F, F, F, F, F, F, F) {
-    let t8832 = t343 * t465;
-    let t8834 = t8832 * t159 * t285;
-    let t8838 = 0.026861343269868797 * t4137 * t477 * t285;
-    let t8842 = 5.240451065072324 * t169 * t8363 * t274 * t301;
-    let t8845 = t39 * t1112 * t159 * t285;
-    let t8862 = 2.6116266666666665 * t3309 * t3310 * t343;
-    let t8865 = 15.589466666666667 * t3318 * t3319 * t343;
-    (t8832, t8834, t8838, t8842, t8845, t8862, t8865)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk808<F: Float>(t426: F, t5521: F, t3234: F, t739: F, t1558: F, t34: F, t3243: F, t743: F, t1563: F, t1820: F, t1823: F, t1826: F, t1829: F, t39: F, t406: F, t408: F, t4356: F, t4371: F, t462: F, t940: F, t945: F, t951: F, t954: F) -> (F, F, F, F, F, F) {
+    let t5523 = t426 * t5521 / F::new(3.0);
+    let t5524 = t3234 * t739;
+    let t5527 = t1558 * t34;
+    let t5536 = t3243 * t743;
+    let t5539 = t1563 * t34;
+    let t5548 = F::new(4.0) / F::new(27.0) * t5524 * t940 - F::new(4.0) / F::new(9.0) * t5527 * t4356 - t1820 * t945 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t406 * t462 - F::new(2.0) * t1823 * t39 + F::new(4.0) / F::new(27.0) * t5536 * t951 + F::new(4.0) / F::new(9.0) * t5539 * t4371 - t1826 * t954 / F::new(9.0) - F::new(2.0) / F::new(3.0) * t408 * t462 + F::new(2.0) * t1829 * t39;
+    (t5523, t5524, t5527, t5536, t5539, t5548)
 }

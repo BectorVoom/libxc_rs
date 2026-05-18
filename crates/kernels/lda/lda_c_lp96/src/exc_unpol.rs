@@ -22,7 +22,7 @@ pub fn lda_c_lp96_exc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t1 = pow_1_3(rho[ip]);
+        let t1 = pow_1_3::<f64>(rho[ip]);
         let t3 = param_C2 / t1;
         let t4 = t1 * t1;
         let t6 = param_C3 / t4;

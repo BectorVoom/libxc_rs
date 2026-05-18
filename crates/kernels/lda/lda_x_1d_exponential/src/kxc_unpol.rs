@@ -27,7 +27,7 @@ pub fn lda_x_1d_exponential_kxc_unpol(
         let t3 = 1.0 <= zeta_threshold;
         let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
         let t5 = zeta_threshold - 1.0;
-        let t7 = piecewise5(t3, t5, t3, -t5, 0.0);
+        let t7 = piecewise5::<f64>(t3, t5, t3, -t5, 0.0);
         let t8 = 1.0 + t7;
         let t11 = t8 * M_PI * param_beta * rho[ip];
         let t12 = xc_integrate(func1, NULL, 1e-20, t11);
@@ -35,7 +35,7 @@ pub fn lda_x_1d_exponential_kxc_unpol(
         let t16 = t14 / M_PI;
         let t17 = 1.0 / param_beta;
         let t18 = 1.0 / rho[ip];
-        let t24 = piecewise3(t4, 0.0, -0.07957747154594767 * (-t16 * t17 * t18 + t8 * t12) * t17);
+        let t24 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * (-t16 * t17 * t18 + t8 * t12) * t17);
         let tzk0 = 2.0 * t24;
         zk[ip] += tzk0;
         let t25 = param_beta * param_beta;
@@ -43,7 +43,7 @@ pub fn lda_x_1d_exponential_kxc_unpol(
         let t27 = rho[ip] * rho[ip];
         let t28 = 1.0 / t27;
         let t29 = t26 * t28;
-        let t32 = piecewise3(t4, 0.0, -0.07957747154594767 * t16 * t29);
+        let t32 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * t16 * t29);
         let tvrho0 = 2.0 * rho[ip] * t32 + 2.0 * t24;
         vrho[ip] += tvrho0;
         let t36 = t8 * t8;
@@ -52,7 +52,7 @@ pub fn lda_x_1d_exponential_kxc_unpol(
         let t42 = xc_E1_scaled(t36 * t38 * t25 * t27);
         let t47 = 1.0 / t27 / rho[ip];
         let t48 = t26 * t47;
-        let t52 = piecewise3(t4, 0.0, -0.07957747154594767 * t37 * t42 * t18 + 0.15915494309189535 * t16 * t48);
+        let t52 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * t37 * t42 * t18 + 0.15915494309189535 * t16 * t48);
         let tv2rho20 = 2.0 * rho[ip] * t52 + 4.0 * t32;
         v2rho2[ip] += tv2rho20;
         let t56 = t36 * t36;
@@ -61,7 +61,7 @@ pub fn lda_x_1d_exponential_kxc_unpol(
         let t63 = -t61 * t29 + t42;
         let t64 = t63 * t25;
         let t70 = t27 * t27;
-        let t76 = piecewise3(t4, 0.0, -0.15915494309189535 * t58 * t64 + 0.238732414637843 * t37 * t42 * t28 - 0.477464829275686 * t16 * t26 / t70);
+        let t76 = piecewise3::<f64>(t4, 0.0, -0.15915494309189535 * t58 * t64 + 0.238732414637843 * t37 * t42 * t28 - 0.477464829275686 * t16 * t26 / t70);
         let tv3rho30 = 2.0 * rho[ip] * t76 + 6.0 * t52;
         v3rho3[ip] += tv3rho30;
     }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1228/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1228/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1228<F: Float>(t5: F, t10: F, t1069: F, t1074: F, t1100: F, t12939: F, t1941: F, t2435: F, t2437: F, t2799: F, t332: F, t395: F, t4745: F, t5961: F, t6329: F, t6334: F, t761: F, t79: F, zeta_threshold: F) -> (F,) {
-    let t6 = t5 <= zeta_threshold;
-    let t18355 = piecewise3(t6, 0.0, -80.0 / 81.0 * t2435 * t1069 + 640.0 / 27.0 * t761 * t4745 + 80.0 / 27.0 * t6329 * t1074 + 320.0 / 9.0 * t10 * t79 * t1100 + 160.0 / 9.0 * t1941 * t395 - 160.0 / 3.0 * t1941 * t2799 + 80.0 / 27.0 * t2437 * t1069 + 80.0 / 9.0 * t10 * t5961 * t332 + 40.0 / 9.0 * t6334 * t1074 + t12939);
-    (t18355,)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1228<F: Float>(t12112: F, t4836: F, t802: F, t4830: F, t1554: F, t161: F, t2600: F, t132: F, t435: F, t6583: F, t6571: F, t16145: F, t16149: F, t16151: F, t16153: F, t16157: F, t16159: F, t16162: F, t16167: F, t16171: F) -> (F, F, F, F, F, F, F) {
+    let t16172 = F::new(4.0) / F::new(135.0) * t12112;
+    let t16173 = t802 * t4836;
+    let t16174 = F::new(2.0) / F::new(135.0) * t16173;
+    let t16176 = F::new(4.0) / F::new(45.0) * t802 * t4830;
+    let t16178 = t161 * t1554 * t2600;
+    let t16179 = F::new(2.0) / F::new(135.0) * t16178;
+    let t16181 = t132 * t435 * t6583;
+    let t16182 = F::new(2.0) / F::new(45.0) * t16181;
+    let t16184 = t132 * t435 * t6571;
+    let t16185 = F::new(4.0) / F::new(45.0) * t16184;
+    let t16186 = -t16145 + t16149 - t16151 - t16153 + t16157 - t16159 - t16162 + t16167 - t16171 + t16172 + t16174 + t16176 - t16179 - t16182 - t16185;
+    (t16172, t16174, t16176, t16179, t16182, t16185, t16186)
 }

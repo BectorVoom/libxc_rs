@@ -25,18 +25,18 @@ pub fn lda_xc_teter93_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t2 = pow_1_3(zeta_threshold);
-        let t4 = piecewise3(1.0 <= zeta_threshold, t2 * zeta_threshold, 1.0);
+        let t2 = pow_1_3::<f64>(zeta_threshold);
+        let t4 = piecewise3::<f64>(1.0 <= zeta_threshold, t2 * zeta_threshold, 1.0);
         let t7 = M_CBRT2;
         let t11 = (2.0 * t4 - 2.0) / (2.0 * t7 - 2.0);
         let t15 = M_CBRT3;
         let t16 = (2.217058676663745 + 0.6157402568883344 * t11) * t15;
         let t17 = 1.0 / M_PI;
-        let t18 = pow_1_3(t17);
+        let t18 = pow_1_3::<f64>(t17);
         let t19 = M_CBRT4;
         let t20 = t19 * t19;
         let t21 = t18 * t20;
-        let t22 = pow_1_3(rho[ip]);
+        let t22 = pow_1_3::<f64>(rho[ip]);
         let t23 = 1.0 / t22;
         let t29 = t15 * t15;
         let t30 = (0.7405551735357053 + 0.1574201515892867 * t11) * t29;

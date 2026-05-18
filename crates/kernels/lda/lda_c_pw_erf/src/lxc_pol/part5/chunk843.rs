@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 843/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 843/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk843<F: Float>(t1143: F, t695: F, t2929: F, t466: F, t10953: F, t148: F, t1198: F, t458: F, t116: F, t1191: F, t731: F, t732: F, t2693: F, t2695: F, t726: F, t4291: F, t4299: F) -> (F, F, F, F, F, F, F, F) {
-    let t11222 = 1.0051538464260528 * t695 * t1143;
-    let t11229 = t466 * t2929;
-    let t11232 = 0.0837628205355044 * t148 * t10953;
-    let t11233 = t1198 * t1143;
-    let t11236 = 0.3350512821420176 * t458 * t2929;
-    let t11250 = 6.693920255418272 * t731 * t732 * t1191 * t116;
-    let t11254 = t726 * t2693 * t2695;
-    let t11256 = t4291 * t4299;
-    (t11222, t11229, t11232, t11233, t11236, t11250, t11254, t11256)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk843<F: Float>(t1268: F, t7639: F, t7643: F, t538: F, t7647: F, t7651: F, t7655: F, t3516: F, t7635: F, t25: F, t3472: F, t3543: F, t4600: F, t7641: F, t7645: F) -> (F, F, F, F, F, F, F) {
+    let t7758 = t1268 * t7639;
+    let t7761 = t1268 * t7643;
+    let t7764 = t538 * t7647;
+    let t7767 = t538 * t7651;
+    let t7770 = t538 * t7655;
+    let t7773 = t3516 * t7635;
+    let t7779 = F::new(0.013333333333333334) * t25 * t7758 - F::new(0.006666666666666667) * t25 * t7761 - F::new(0.04) * t25 * t7764 + F::new(0.04) * t25 * t7767 - F::new(0.006666666666666667) * t25 * t7770 - F::new(0.002962962962962963) * t25 * t7773 - t3472 - F::new(0.047988888888888886) * t4600 - t3543 + F::new(0.14396666666666666) * t7641 - F::new(0.07198333333333333) * t7645;
+    (t7758, t7761, t7764, t7767, t7770, t7773, t7779)
 }

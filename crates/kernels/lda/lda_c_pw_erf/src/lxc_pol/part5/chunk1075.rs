@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1075/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1075/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1075<F: Float>(t1325: F, t3787: F, t7576: F, t2120: F, t6220: F, t6209: F, t18138: F, t21577: F, t2504: F, t266: F, t514: F, t548: F, t7837: F, t18158: F, t18163: F, t15582: F, t2193: F) -> (F, F, F, F, F, F, F, F) {
-    let t22349 = t1325 * t3787 * t7576;
-    let t22350 = 16.0 / 15.0 * t22349;
-    let t22351 = t2120 * t6220;
-    let t22352 = 8.0 / 15.0 * t22351;
-    let t22353 = t6209 * t6220;
-    let t22354 = 8.0 / 15.0 * t22353;
-    let t22358 = 4.0 / 5.0 * t21577 * t18138 * t266 * t2504;
-    let t22360 = t548 * t514 * t7837;
-    let t22361 = 8.0 / 45.0 * t22360;
-    let t22362 = 16.0 / 15.0 * t18158;
-    let t22363 = 8.0 / 15.0 * t18163;
-    let t22367 = 4.0 / 5.0 * t15582 * t2193;
-    (t22350, t22352, t22354, t22358, t22361, t22362, t22363, t22367)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1075<F: Float>(t8464: F, t8482: F, t8486: F, t14435: F, t11250: F, t11254: F, t11256: F, t14432: F, t14433: F, t14437: F, t14439: F, t8469: F, t8473: F, t8477: F, t8481: F, t8491: F, t8505: F, t8509: F, t8516: F) -> (F, F, F, F, F) {
+    let t20090 = F::new(0.0005696928233656539) * t8464;
+    let t20091 = F::new(3.5089340384731225) * t8482;
+    let t20092 = F::new(51.94726769812759) * t8486;
+    let t20094 = F::new(180.0) * t14435;
+    let t20096 = -t20090 + t8469 + t8473 - t8477 + t11250 - t8481 + t20091 - t20092 + t8491 + t14432 + t14433 - F::new(0.4740006021527056) * t11254 - t8505 + t8509 + t20094 + F::new(3.1636214830824234) * t11256 + t14437 + t8516 + t14439;
+    (t20090, t20091, t20092, t20094, t20096)
 }

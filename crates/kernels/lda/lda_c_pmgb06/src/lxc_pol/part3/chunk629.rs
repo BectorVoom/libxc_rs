@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 629/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 629/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk629<F: Float>(t1698: F, t591: F, t1701: F, t4111: F, t208: F, t315: F, t586: F, t584: F, t1691: F, t213: F, t4079: F, t4082: F, t4084: F, t4089: F, t4091: F, t4095: F, t4097: F, t4099: F, t4102: F, t4105: F, t4106: F, t4108: F) -> (F, F, F, F, F) {
-    let t4115 = 2.0 / 3.0 * t1698 * t591;
-    let t4117 = 2e-21 * t1701 * t4111;
-    let t4119 = t586 * t315 * t208;
-    let t4121 = 0.013506172839506173 * t584 * t4119;
-    let t4122 = t4079 + t4082 + t4084 * t213 / 3.0 + t4089 + 0.18233333333333332 * t4091 + t4095 + 0.36466666666666664 * t4097 - 2.0 / 9.0 * t4099 - t4102 + t4105 + 2.0 / 3.0 * t4106 + 4.0 / 3.0 * t4108 + 2e-21 * t1691 * t4111 + t4115 + t4117 - t4121;
-    (t4115, t4117, t4119, t4121, t4122)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk629<F: Float>(t3530: F, t69: F, t3533: F, t1227: F, t342: F, t3585: F, t2247: F, t2248: F, t3505: F, t3508: F, t3517: F, t3525: F, t3561: F, t3578: F, t3580: F, t3590: F, t3602: F, t3604: F, t3607: F, t3613: F, t3643: F) -> (F, F, F, F, F) {
+    let t3644 = t69 * t3530;
+    let t3646 = t69 * t3533;
+    let t3650 = t342 * t1227;
+    let t3654 = t69 * t3585;
+    let t3656 = -F::new(1.724255) * t69 * t3561 - t3643 - F::new(2.2990066666666666) * t3644 + F::new(1.724255) * t3646 - t3505 - t3613 + t3508 - F::new(20.69106) * t69 * t3590 + F::new(15.518295) * t2247 * t2248 * t3650 - F::new(5.172765) * t3654 - t3517 + t3578 + t3525 + t3580 - t3607 - t3602 - t3604;
+    (t3644, t3646, t3650, t3654, t3656)
 }

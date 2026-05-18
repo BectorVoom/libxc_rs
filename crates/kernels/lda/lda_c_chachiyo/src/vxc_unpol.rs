@@ -31,10 +31,10 @@ pub fn lda_c_chachiyo_vxc_unpol(
         let t1 = M_CBRT3;
         let t2 = t1 * t1;
         let t3 = param_bp * t2;
-        let t5 = pow_1_3(1.0 / M_PI);
+        let t5 = pow_1_3::<f64>(1.0 / M_PI);
         let t7 = M_CBRT4;
         let t8 = 1.0 / t5 * t7;
-        let t9 = pow_1_3(rho[ip]);
+        let t9 = pow_1_3::<f64>(rho[ip]);
         let t10 = t8 * t9;
         let t13 = param_cp * t1;
         let t14 = t5 * t5;
@@ -49,8 +49,8 @@ pub fn lda_c_chachiyo_vxc_unpol(
         let t28 = param_cf * t1;
         let t31 = 1.0 + t25 * t10 / 3.0 + t28 * t19 / 3.0;
         let t32 = f64::ln(t31);
-        let t36 = pow_1_3(zeta_threshold);
-        let t38 = piecewise3(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
+        let t36 = pow_1_3::<f64>(zeta_threshold);
+        let t38 = piecewise3::<f64>(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
         let t40 = 2.0 * t38 - 2.0;
         let t42 = M_CBRT2;
         let t45 = 1.0 / (2.0 * t42 - 2.0);

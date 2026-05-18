@@ -33,7 +33,7 @@ pub fn lda_c_2d_amgb_vxc_pol(
         let t12 = f64::sqrt(M_PI);
         let t13 = 1.0 / t12;
         let t14 = t13 * t3;
-        let t15 = pow_3_2(t14);
+        let t15 = pow_3_2::<f64>(t14);
         let t19 = 0.5654308006315614 * t3 - 0.02069 * t15 + 0.10821581200590331 * t5 + 0.00313738702352666 * t8;
         let t21 = 1.0 + 1.0 / t19;
         let t22 = f64::ln(t21);
@@ -70,12 +70,12 @@ pub fn lda_c_2d_amgb_vxc_pol(
         let t70 = t69 * zeta_threshold;
         let t71 = f64::sqrt(t67);
         let t72 = t71 * t67;
-        let t73 = piecewise3(t68, t70, t72);
+        let t73 = piecewise3::<f64>(t68, t70, t72);
         let t75 = 1.0 - t66;
         let t76 = t75 <= zeta_threshold;
         let t77 = f64::sqrt(t75);
         let t78 = t77 * t75;
-        let t79 = piecewise3(t76, t70, t78);
+        let t79 = piecewise3::<f64>(t76, t70, t78);
         let t85 = t73 / 2.0 + t79 / 2.0 - 1.0 - 3.0 / 8.0 * t38 * t41 - 3.0 / 128.0 * t55 * t58;
         let t88 = 4.0 / 3.0 * t64 * t65 * t85;
         let tzk0 = -0.1925 + t23 + t42 + t59 - t88;
@@ -135,9 +135,9 @@ pub fn lda_c_2d_amgb_vxc_pol(
         let t166 = 2.0 / 3.0 * t165;
         let t167 = t37 * t41;
         let t168 = t5 - t167;
-        let t171 = piecewise3(t68, 0.0, 3.0 / 2.0 * t71 * t168);
+        let t171 = piecewise3::<f64>(t68, 0.0, 3.0 / 2.0 * t71 * t168);
         let t173 = -t168;
-        let t176 = piecewise3(t76, 0.0, 3.0 / 2.0 * t77 * t173);
+        let t176 = piecewise3::<f64>(t76, 0.0, 3.0 / 2.0 * t77 * t173);
         let t178 = 3.0 / 4.0 * t167;
         let t180 = 3.0 / 4.0 * t38 * t132;
         let t182 = 3.0 / 32.0 * t152 * t58;
@@ -149,9 +149,9 @@ pub fn lda_c_2d_amgb_vxc_pol(
         let tvrho0 = -0.1925 + t23 + t42 + t59 - t88 + t1 * t189;
         vrho[ip * 2] += tvrho0;
         let t191 = -t5 - t167;
-        let t194 = piecewise3(t68, 0.0, 3.0 / 2.0 * t71 * t191);
+        let t194 = piecewise3::<f64>(t68, 0.0, 3.0 / 2.0 * t71 * t191);
         let t196 = -t191;
-        let t199 = piecewise3(t76, 0.0, 3.0 / 2.0 * t77 * t196);
+        let t199 = piecewise3::<f64>(t76, 0.0, 3.0 / 2.0 * t77 * t196);
         let t201 = t194 / 2.0 + t199 / 2.0 + t178 + t180 + t182 + t184;
         let t203 = t64 * t65 * t201;
         let t204 = 4.0 / 3.0 * t203;

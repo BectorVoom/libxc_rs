@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 727/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 727/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk727<F: Float>(t5305: F, t951: F, t1308: F, t571: F, t2026: F, t3859: F, t1325: F, t1469: F, t4763: F, t2065: F, t581: F, t549: F, t1466: F, t1318: F, t1401: F, t593: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t5306 = t5305 * t951;
-    let t5307 = t1308 * t5306;
-    let t5309 = 8.0 / 45.0 * t571 * t5307;
-    let t5310 = t3859 * t2026;
-    let t5312 = 32.0 / 135.0 * t1325 * t5310;
-    let t5314 = 8.0 / 15.0 * t4763 * t1469;
-    let t5315 = t581 * t2065;
-    let t5316 = t5315 * t549;
-    let t5317 = t1466 * t5316;
-    let t5319 = 8.0 / 15.0 * t1318 * t5317;
-    let t5320 = t1401 * t2065;
-    let t5321 = t5320 * t593;
-    (t5306, t5307, t5309, t5310, t5312, t5314, t5315, t5316, t5317, t5319, t5320, t5321)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk727<F: Float>(t2001: F, t3854: F, t1318: F, t3804: F, t3856: F, t3861: F, t3865: F, t1511: F, t793: F, t184: F, t199: F, t1519: F, t795: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t4581 = t3854 * t2001;
+    let t4583 = F::new(32.0) / F::new(135.0) * t1318 * t4581;
+    let t4584 = F::new(16.0) / F::new(135.0) * t3804;
+    let t4585 = F::new(32.0) / F::new(135.0) * t3856;
+    let t4586 = F::new(32.0) / F::new(135.0) * t3861;
+    let t4587 = F::new(16.0) / F::new(135.0) * t3865;
+    let t4588 = t1511 * t793;
+    let t4589 = t4588 * t184;
+    let t4591 = F::new(4.0) / F::new(15.0) * t4589 * t199;
+    let t4592 = t795 * t1519;
+    (t4581, t4583, t4584, t4585, t4586, t4587, t4588, t4589, t4591, t4592)
 }

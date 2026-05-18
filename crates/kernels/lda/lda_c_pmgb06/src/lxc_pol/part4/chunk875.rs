@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 875/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 875/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk875<F: Float>(t5117: F, t5126: F, t5650: F, t5654: F, t5656: F, t5658: F, t6455: F, t6457: F, t6459: F, t6463: F, t6467: F, t6474: F, t6477: F, t6480: F, t6482: F, t6484: F) -> (F,) {
-    let t7200 = 0.022363485482220676 * t5650 + t5654 + 0.4328416544945937 * t5656 + 0.1442805514981979 * t5658 - t5117 - t5126 + t6455 - t6457 - t6459 - t6463 - t6467 - t6474 + t6477 + t6480 - t6482 + t6484;
-    (t7200,)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk875<F: Float>(t2642: F, t405: F, t2645: F, t2639: F, t443: F, t5961: F, t473: F, t453: F, t36: F, t103: F, t2060: F, t6177: F, t6180: F, t6183: F, t6187: F, t6191: F, t6193: F, t6196: F, t6199: F, t6202: F, t6205: F, t6207: F, t6209: F) -> (F, F, F, F, F) {
+    let t6211 = t405 * t2642;
+    let t6213 = t405 * t2645;
+    let t6215 = t405 * t2639;
+    let t6217 = t443 * t5961;
+    let t6218 = t473 * t6217;
+    let t6221 = t453 * t6217;
+    let t6222 = t36 * t6221;
+    let t6224 = F::new(0.14396666666666666) * t6177 - F::new(0.03999074074074074) * t6180 - F::new(0.09597777777777777) * t6183 - F::new(0.21595) * t6187 + F::new(0.2879333333333333) * t6191 - F::new(0.04) * t103 * t6193 + F::new(0.05333333333333334) * t2060 * t6196 + F::new(0.013333333333333334) * t103 * t6199 - F::new(0.0022222222222222222) * t103 * t6202 + F::new(0.007998148148148148) * t6205 - F::new(0.023994444444444443) * t6207 + F::new(0.011997222222222222) * t6209 - F::new(0.008888888888888889) * t6211 + F::new(0.0044444444444444444) * t6213 + F::new(0.0014814814814814814) * t6215 - F::new(0.006666666666666667) * t103 * t6218 - F::new(0.035991666666666665) * t6222;
+    (t6217, t6218, t6221, t6222, t6224)
 }

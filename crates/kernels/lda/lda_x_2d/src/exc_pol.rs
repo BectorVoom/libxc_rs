@@ -36,12 +36,12 @@ pub fn lda_x_2d_exc_pol(
         let t12 = t11 * zeta_threshold;
         let t13 = f64::sqrt(t9);
         let t14 = t13 * t9;
-        let t15 = piecewise3(t10, t12, t14);
+        let t15 = piecewise3::<f64>(t10, t12, t14);
         let t16 = 1.0 - t8;
         let t17 = t16 <= zeta_threshold;
         let t18 = f64::sqrt(t16);
         let t19 = t18 * t16;
-        let t20 = piecewise3(t17, t12, t19);
+        let t20 = piecewise3::<f64>(t17, t12, t19);
         let t22 = t15 / 2.0 + t20 / 2.0;
         let t23 = f64::sqrt(t6);
         let t25 = t4 * t22 * t23;

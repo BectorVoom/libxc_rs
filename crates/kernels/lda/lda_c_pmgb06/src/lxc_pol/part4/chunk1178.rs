@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1178/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1178/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1178<F: Float>(t4731: F, t493: F, t5486: F, t1981: F, t5441: F, t1444: F, t6748: F, t176: F, t1826: F, t5312: F, t13836: F, t13838: F, t13840: F, t13842: F, t13844: F, t13846: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t17819 = 2.0 / 45.0 * t493 * t5486 * t4731;
-    let t17822 = 8.0 / 45.0 * t1981 * t5486 * t5441;
-    let t17824 = 8.0 / 45.0 * t1444 * t6748;
-    let t17828 = 8.0 / 45.0 * t493 * t5312 * t176 * t1826;
-    let t17829 = 8.0 / 135.0 * t13836;
-    let t17830 = 8.0 / 27.0 * t13838;
-    let t17831 = 32.0 / 135.0 * t13840;
-    let t17832 = 8.0 / 81.0 * t13842;
-    let t17833 = 8.0 / 81.0 * t13844;
-    let t17834 = 4.0 / 81.0 * t13846;
-    (t17819, t17822, t17824, t17828, t17829, t17830, t17831, t17832, t17833, t17834)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1178<F: Float>(t1848: F, t1933: F, t1420: F, t6491: F, t12772: F, t1893: F, t439: F, t5290: F, t5482: F, t2010: F, t5294: F, t15468: F, t15469: F, t15470: F, t15471: F, t15473: F, t15474: F, t15475: F, t15476: F, t15480: F) -> (F, F, F, F, F, F) {
+    let t15481 = t1848 * t1933;
+    let t15482 = F::new(4.0) / F::new(45.0) * t15481;
+    let t15484 = F::new(4.0) / F::new(45.0) * t1420 * t6491;
+    let t15487 = F::new(4.0) / F::new(45.0) * t439 * t12772 * t1893;
+    let t15490 = F::new(2.0) / F::new(45.0) * t439 * t5482 * t5290;
+    let t15493 = F::new(8.0) / F::new(45.0) * t2010 * t5482 * t5294;
+    let t15494 = -t15468 + t15469 - t15470 - t15471 - t15473 - t15474 - t15475 - t15476 - t15480 + t15482 - t15484 - t15487 - t15490 - t15493;
+    (t15482, t15484, t15487, t15490, t15493, t15494)
 }

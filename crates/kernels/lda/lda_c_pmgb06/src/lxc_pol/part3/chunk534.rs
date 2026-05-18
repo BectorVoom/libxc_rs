@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 534/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 534/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk534<F: Float>(t2885: F, t529: F, t166: F, t161: F, t1499: F, t531: F, t513: F, t1491: F, t486: F, t2854: F, t2856: F, t2859: F, t2861: F, t2863: F, t2868: F, t2870: F, t2875: F, t2879: F, t2882: F, t2884: F) -> (F, F, F, F, F, F, F) {
-    let t2886 = t2885 * t529;
-    let t2887 = t166 * t2886;
-    let t2889 = t161 * t2887 / 10.0;
-    let t2891 = t1499 * t531 / 10.0;
-    let t2893 = t1499 * t513 / 10.0;
-    let t2895 = t486 * t1491 / 10.0;
-    let t2896 = t2854 - t2856 - t2859 - t2861 - t2863 + t2868 - t2870 + t2875 + t2879 - t2882 - t2884 - t2889 - t2891 + t2893 + t2895;
-    (t2886, t2887, t2889, t2891, t2893, t2895, t2896)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk534<F: Float>(t2341: F, t2352: F, t2354: F, t2358: F, t117: F, t118: F, t123: F, t125: F, t1328: F, t1330: F, t1333: F, t1337: F, t1341: F, t1345: F, t1349: F, t1352: F, t1356: F, t1360: F, t1363: F, t1799: F, t2323: F, t2327: F, t2331: F, t2338: F) -> (F, F) {
+    let t2360 = t2341 + t2352 + t2354 + t2358;
+    let t2365 = -t1328 + F::new(0.031505407223141116) * t1330 + t1333 + t1337 + F::new(0.031505407223141116) * t2323 - F::new(0.031505407223141116) * t1799 * t118 - F::new(0.031505407223141116) * t2327 - F::new(0.001975389032890948) * t2331 - F::new(0.031505407223141116) * t1341 - t1349 - t1352 - F::new(0.001975389032890948) * t1345 - t1356 - t1360 + F::new(0.008980675507690957) * t1363 + F::new(0.008980675507690957) * t2338 - F::new(0.005388405304614574) * t123 * t125 * t2360 * t117;
+    (t2360, t2365)
 }

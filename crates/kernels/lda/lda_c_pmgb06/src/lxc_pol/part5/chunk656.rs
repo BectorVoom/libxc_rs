@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 656/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 656/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk656<F: Float>(t1380: F, t6390: F, t493: F, t1831: F, t851: F, t1981: F, t2545: F, t529: F, t2541: F, t337: F, t1915: F, t1: F, t1825: F, t1420: F, t2501: F, t2578: F, t477: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t6391 = t1380 * t6390;
-    let t6393 = 2.0 / 45.0 * t493 * t6391;
-    let t6394 = t1831 * t851;
-    let t6395 = t1380 * t6394;
-    let t6397 = 4.0 / 45.0 * t1981 * t6395;
-    let t6398 = t2545 * t529;
-    let t6399 = t1380 * t6398;
-    let t6401 = 2.0 / 45.0 * t493 * t6399;
-    let t6402 = t2541 * t337;
-    let t6403 = t1915 * t6402;
-    let t6405 = 2.0 / 15.0 * t493 * t6403;
-    let t6406 = t1825 * t1;
-    let t6407 = t1915 * t6406;
-    let t6409 = 8.0 / 45.0 * t1981 * t6407;
-    let t6411 = 2.0 / 45.0 * t1420 * t2501;
-    let t6412 = t2578 * t477;
-    (t6391, t6393, t6394, t6395, t6397, t6398, t6399, t6401, t6402, t6403, t6405, t6406, t6407, t6409, t6411, t6412)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk656<F: Float>(t5770: F, t5772: F, t348: F, t776: F, t110: F, t2217: F, t360: F, t2186: F, t947: F, t410: F, t2233: F, t365: F) -> (F, F, F, F, F, F, F, F) {
+    let t5774 = F::new(5.87616) * t5770 * t5772;
+    let t5783 = t348 * t776;
+    let t5785 = F::new(1.9486833333333333) * t5783 * t5772;
+    let t5787 = t360 * t110 * t2217;
+    let t5788 = t2186 * t947;
+    let t5790 = t410 * t776;
+    let t5791 = t360 * t5790;
+    let t5793 = t365 * t2233;
+    (t5774, t5783, t5785, t5787, t5788, t5790, t5791, t5793)
 }

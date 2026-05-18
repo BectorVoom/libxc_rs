@@ -24,11 +24,11 @@ pub fn lda_c_vwn_3_vxc_unpol(
     if ip < zk.len() {
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t7 = pow_1_3(rho[ip]);
+        let t7 = pow_1_3::<f64>(rho[ip]);
         let t8 = 1.0 / t7;
         let t9 = t6 * t8;
         let t10 = t4 * t9;
@@ -85,8 +85,8 @@ pub fn lda_c_vwn_3_vxc_unpol(
         let t106 = t105 * t105;
         let t108 = f64::ln(t106 * t95);
         let t110 = t99 + 0.32323836906055065 * t103 + 0.021608710360898266 * t108;
-        let t112 = pow_1_3(zeta_threshold);
-        let t114 = piecewise3(1.0 <= zeta_threshold, t112 * zeta_threshold, 1.0);
+        let t112 = pow_1_3::<f64>(zeta_threshold);
+        let t114 = piecewise3::<f64>(1.0 <= zeta_threshold, t112 * zeta_threshold, 1.0);
         let t116 = 2.0 * t114 - 2.0;
         let t118 = M_CBRT2;
         let t119 = t118 - 1.0;

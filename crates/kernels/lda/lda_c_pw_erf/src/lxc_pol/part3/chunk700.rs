@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 700/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 700/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk700<F: Float>(t213: F, t473: F, t34: F, t581: F, t593: F, t1318: F, t1336: F, t2146: F, t1124: F, t573: F, t2152: F, t571: F, t1446: F, t2143: F, t521: F, t2177: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4892 = t473 * t213;
-    let t4893 = t581 * t34;
-    let t4894 = t4893 * t593;
-    let t4895 = t4892 * t4894;
-    let t4897 = 8.0 / 15.0 * t1318 * t4895;
-    let t4899 = 8.0 / 45.0 * t2146 * t1336;
-    let t4900 = t1124 * t573;
-    let t4901 = t4900 * t2152;
-    let t4902 = t571 * t4901;
-    let t4903 = 8.0 / 27.0 * t4902;
-    let t4905 = 16.0 / 135.0 * t1446 * t2143;
-    let t4906 = t1124 * t521;
-    let t4907 = t4906 * t2177;
-    (t4892, t4893, t4894, t4895, t4897, t4899, t4900, t4901, t4903, t4905, t4906, t4907)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk700<F: Float>(t4383: F, t87: F, t40: F, t2705: F, t1081: F, t1772: F, t1051: F, t1765: F, t1055: F, t1798: F, t75: F, t402: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t4384 = t4383 * t87;
+    let t4385 = t40 * t4384;
+    let t4386 = F::new(0.021687161765563047) * t2705;
+    let t4387 = t1772 * t1081;
+    let t4388 = F::new(0.0002441540671567088) * t4387;
+    let t4389 = t1765 * t1051;
+    let t4390 = F::new(0.5848223397455204) * t4389;
+    let t4391 = t1765 * t1055;
+    let t4392 = F::new(17.315755899375862) * t4391;
+    let t4393 = t1798 * t75;
+    let t4394 = t4393 * t402;
+    (t4384, t4385, t4386, t4387, t4388, t4389, t4390, t4391, t4392, t4393, t4394)
 }

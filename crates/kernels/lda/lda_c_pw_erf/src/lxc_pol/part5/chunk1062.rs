@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1062/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1062/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1062<F: Float>(t17985: F, t15824: F, t3965: F, t4479: F, t5424: F, t14014: F, t5220: F, t12968: F, t2021: F, t3974: F, t4516: F, t15727: F, t4475: F, t5305: F, t14030: F, t4818: F) -> (F, F, F, F, F, F) {
-    let t22121 = 8.0 / 15.0 * t17985;
-    let t22125 = 32.0 / 15.0 * t3965 * t4479 * t5424 * t15824;
-    let t22129 = 16.0 / 9.0 * t3965 * t14014 * t5220 * t15824;
-    let t22133 = 32.0 / 15.0 * t3974 * t12968 * t2021 * t4516;
-    let t22137 = 32.0 / 15.0 * t3974 * t4475 * t5305 * t15727;
-    let t22141 = 16.0 / 9.0 * t3974 * t14030 * t4818 * t15727;
-    (t22121, t22125, t22129, t22133, t22137, t22141)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1062<F: Float>(t11307: F, t11309: F, t1: F, t397: F, t7376: F, t8180: F, t11313: F, t11315: F, t11317: F, t11319: F, t15341: F, t15344: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t19972 = F::new(10.526802115419367) * t11307;
+    let t19973 = F::new(155.84180309438278) * t11309;
+    let t19975 = t7376 * t1 * t397;
+    let t19976 = F::new(0.0001831155503675316) * t19975;
+    let t19977 = F::new(1025.3897021007795) * t8180;
+    let t19978 = F::new(0.06506148529668915) * t11313;
+    let t19979 = F::new(0.09759222794503372) * t11315;
+    let t19980 = F::new(0.04879611397251686) * t11317;
+    let t19981 = F::new(1.4447833828541736) * t11319;
+    let t19982 = F::new(51.94726769812759) * t15341;
+    let t19983 = F::new(1.7544670192365612) * t15344;
+    (t19972, t19973, t19976, t19977, t19978, t19979, t19980, t19981, t19982, t19983)
 }

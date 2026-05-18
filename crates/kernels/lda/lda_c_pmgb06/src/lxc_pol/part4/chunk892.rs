@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 892/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 892/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk892<F: Float>(t3566: F, t8323: F, t3576: F, t28: F, t3: F, t37: F, t27: F, t4238: F, t55: F, t3502: F, t3500: F, t3510: F, t61: F, t1179: F, t342: F, t1276: F) -> (F, F, F, F, F, F, F, F) {
-    let t8324 = t3566 * t8323;
-    let t8328 = t3576 * t8323;
-    let t8333 = 1.0 / t37 / t28 / t3 / 48.0;
-    let t8337 = t4238 * t27 * t55;
-    let t8339 = 1.6239027777777777 * param_hyb_omega_0 * t8333 * t3502 * t8337;
-    let t8346 = 0.16322666666666666 * t61 * t3500 * t3510 * t8337;
-    let t8352 = t55 * t1179 * t342;
-    let t8353 = t1276 * t8352;
-    (t8324, t8328, t8333, t8337, t8339, t8346, t8352, t8353)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk892<F: Float>(t1423: F, t2501: F, t1447: F, t2497: F, t4837: F, t4845: F, t5045: F, t5047: F, t4786: F, t4788: F, t4792: F, t4794: F, t4807: F, t4809: F, t4812: F, t4814: F, t4950: F, t4970: F) -> (F, F, F, F, F, F, F) {
+    let t6423 = t1423 * t2501;
+    let t6424 = F::new(4.0) / F::new(135.0) * t6423;
+    let t6425 = t1447 * t2497;
+    let t6426 = F::new(4.0) / F::new(135.0) * t6425;
+    let t6427 = F::new(2.0) / F::new(135.0) * t4837;
+    let t6428 = F::new(2.0) / F::new(135.0) * t4845;
+    let t6429 = F::new(2.0) / F::new(135.0) * t5045;
+    let t6430 = F::new(2.0) / F::new(135.0) * t5047;
+    let t6431 = -t6424 - t6426 + t4786 + t4788 + t4792 + t4794 + t4807 + t4809 + t4812 + t4814 + t6427 + t6428 - t4950 - t4970 - t6429 - t6430;
+    (t6424, t6426, t6427, t6428, t6429, t6430, t6431)
 }

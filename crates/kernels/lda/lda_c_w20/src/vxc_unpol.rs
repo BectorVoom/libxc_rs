@@ -33,11 +33,11 @@ pub fn lda_c_w20_vxc_unpol(
         let t13 = M_CBRT3;
         let t14 = t13 * t13;
         let t15 = 1.0 / M_PI;
-        let t16 = pow_1_3(t15);
+        let t16 = pow_1_3::<f64>(t15);
         let t17 = t16 * t16;
         let t18 = t14 * t17;
         let t19 = M_CBRT4;
-        let t20 = pow_1_3(rho[ip]);
+        let t20 = pow_1_3::<f64>(rho[ip]);
         let t21 = t20 * t20;
         let t22 = 1.0 / t21;
         let t24 = t18 * t19 * t22;
@@ -45,7 +45,7 @@ pub fn lda_c_w20_vxc_unpol(
         let t27 = 1.0 - t26;
         let t28 = M_CBRTPI;
         let t29 = t28 * t28;
-        let t31 = pow_1_3(9.0);
+        let t31 = pow_1_3::<f64>(9.0);
         let t32 = 1.0 / t29 * t31;
         let t33 = t19 * t19;
         let t39 = t12 / 2.0;
@@ -75,10 +75,10 @@ pub fn lda_c_w20_vxc_unpol(
         let t81 = t5 * t79 / 2.0;
         let t82 = t52 * t33;
         let t83 = t53 * t26;
-        let t84 = pow_1_4(4.0);
+        let t84 = pow_1_4::<f64>(4.0);
         let t85 = t84 * t84;
         let t86 = t85 * t84;
-        let t87 = pow_1_4(t55);
+        let t87 = pow_1_4::<f64>(t55);
         let t91 = t26 + 5.0 / 8.0 * t86 * t87 * t55;
         let t92 = 1.0 / t91;
         let t93 = t3 * M_PI;
@@ -106,8 +106,8 @@ pub fn lda_c_w20_vxc_unpol(
         let t156 = 13.0 / 12.0 * t3 - t97 + 1.0 / 2.0;
         let t157 = t95 * t156;
         let t159 = t154 * t157 * t105;
-        let t164 = pow_1_3(zeta_threshold);
-        let t166 = piecewise3(1.0 <= zeta_threshold, t164 * zeta_threshold, 1.0);
+        let t164 = pow_1_3::<f64>(zeta_threshold);
+        let t166 = piecewise3::<f64>(1.0 <= zeta_threshold, t164 * zeta_threshold, 1.0);
         let t168 = 2.0 * t166 - 2.0;
         let t172 = 1.0 / (2.0 * t119 - 2.0);
         let t173 = (-t5 * t149 / 4.0 - t52 * t83 * t92 * t159 / 144.0 + t81 - t113) * t168 * t172;

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 624/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 624/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,18 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk624<F: Float>(t173: F, t4008: F, t184: F, t199: F, t3638: F, t3625: F, t3627: F, t3629: F, t3631: F, t3635: F, t3641: F, t3644: F, t3646: F, t3649: F, t3652: F, t203: F) -> (F, F, F, F, F, F) {
-    let t4009 = t173 * t4008;
-    let t4010 = t4009 * t184;
-    let t4012 = 2.0 / 15.0 * t4010 * t199;
-    let t4013 = 0.005877407407407408 * t3638;
-    let t4024 = t4013 + 0.002518888888888889 * t3627 - 0.0012594444444444445 * t3631 + 0.003778333333333333 * t3646 - 0.0018891666666666666 * t3629 + 0.002099074074074074 * t3635 - 0.007556666666666666 * t3649 + 0.003778333333333333 * t3652 + 0.011335 * t3641 - 0.011335 * t3644 + 0.0018891666666666666 * t3625;
-    let t4025 = t203 * t4024;
-    (t4009, t4010, t4012, t4013, t4024, t4025)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk624<F: Float>(t3623: F, t3654: F, t582: F, t186: F, t211: F, t1518: F, t550: F, t548: F, t594: F, t580: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t3655 = t3623 + t3654;
+    let t3656 = t582 * t3655;
+    let t3657 = t186 * t3656;
+    let t3659 = F::new(2.0) / F::new(15.0) * t211 * t3657;
+    let t3660 = t1518 * t550;
+    let t3661 = t548 * t3660;
+    let t3662 = F::new(8.0) / F::new(45.0) * t3661;
+    let t3663 = t1518 * t594;
+    let t3664 = t211 * t3663;
+    let t3665 = F::new(4.0) / F::new(45.0) * t3664;
+    let t3666 = t580 * t580;
+    let t3667 = F::new(1.0) / t3666;
+    (t3655, t3656, t3657, t3659, t3660, t3661, t3662, t3663, t3664, t3665, t3666, t3667)
 }

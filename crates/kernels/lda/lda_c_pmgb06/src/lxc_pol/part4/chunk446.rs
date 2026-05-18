@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 446/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 446/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk446<F: Float>(t391: F, t868: F, t1185: F, t1189: F, t1192: F, t1197: F, t1199: F, t81: F) -> (F, F) {
-    let t1804 = t391 * t868;
-    let t1808 = t1185 + t1189 - t1192 + t1197 - t81 + t1199;
-    (t1804, t1808)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk446<F: Float>(t5: F, t12: F, t1710: F, t223: F, t10: F, t1069: F, t1074: F, t594: F, t1080: F, t1083: F, t15: F, t598: F, t44: F, t208: F, t81: F, zeta_threshold: F) -> (F, F, F) {
+    let t6 = t5 <= zeta_threshold;
+    let t13 = t12 <= zeta_threshold;
+    let t1712 = F::new(2.0) / F::new(135.0) * t223 * t1710;
+    let t1718 = piecewise3::<f64>(t6, F::new(0.0), F::new(40.0) / F::new(9.0) * t10 * t1069 + F::new(8.0) / F::new(3.0) * t594 * t1074);
+    let t1724 = piecewise3::<f64>(t13, F::new(0.0), F::new(40.0) / F::new(9.0) * t15 * t1080 + F::new(8.0) / F::new(3.0) * t598 * t1083);
+    let t1727 = (t1718 / F::new(2.0) + t1724 / F::new(2.0)) * t44;
+    let t1730 = t81 * t208;
+    (t1712, t1727, t1730)
 }

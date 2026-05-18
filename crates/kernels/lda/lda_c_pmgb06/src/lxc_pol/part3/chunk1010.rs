@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1010/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 1010/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1010<F: Float>(t13836: F, t1447: F, t5454: F, t5458: F, t5499: F, t1920: F, t3226: F, t5464: F, t5467: F, t5471: F, t5474: F, t1380: F, t337: F, t493: F, t4935: F, t497: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t13837 = 4.0 / 45.0 * t13836;
-    let t13838 = t1447 * t5454;
-    let t13839 = 4.0 / 9.0 * t13838;
-    let t13840 = t5499 * t5458;
-    let t13841 = 4.0 / 9.0 * t13840;
-    let t13842 = t3226 * t1920;
-    let t13843 = 4.0 / 27.0 * t13842;
-    let t13844 = t1447 * t5464;
-    let t13845 = 4.0 / 27.0 * t13844;
-    let t13846 = t1447 * t5467;
-    let t13847 = 2.0 / 27.0 * t13846;
-    let t13848 = t1447 * t5471;
-    let t13849 = 16.0 / 81.0 * t13848;
-    let t13850 = t5499 * t5474;
-    let t13851 = 10.0 / 27.0 * t13850;
-    let t13856 = t493 * t1380 * t4935 * t497 * t337 / 15.0;
-    (t13837, t13839, t13841, t13843, t13845, t13847, t13849, t13851, t13856)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1010<F: Float>(t517: F, t5312: F, t1381: F, t493: F, t1382: F, t5305: F, t1972: F, t2980: F, t1420: F, t5483: F, t1423: F, t5345: F) -> (F, F, F, F, F) {
+    let t12012 = t5312 * t517;
+    let t12015 = F::new(2.0) / F::new(15.0) * t493 * t12012 * t1381;
+    let t12017 = F::new(2.0) / F::new(15.0) * t5305 * t1382;
+    let t12019 = F::new(2.0) / F::new(15.0) * t1972 * t2980;
+    let t12021 = F::new(2.0) / F::new(15.0) * t1420 * t5483;
+    let t12022 = t1423 * t5345;
+    (t12015, t12017, t12019, t12021, t12022)
 }

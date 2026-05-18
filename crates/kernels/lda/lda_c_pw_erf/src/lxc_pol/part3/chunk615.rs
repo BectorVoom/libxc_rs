@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 615/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 615/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk615<F: Float>(t3945: F, t644: F, t647: F, t1432: F, t639: F, t256: F, t1423: F, t1427: F, t1991: F, t3482: F, t519: F, t1498: F, t568: F, t646: F, t695: F, t1198: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3946 = t3945 * t644;
-    let t3947 = t3946 * t647;
-    let t3949 = t639 * t1432;
-    let t3950 = t3949 * t256;
-    let t3951 = t1423 * t1427;
-    let t3953 = t1991 * t3482;
-    let t3955 = 4.0 / 9.0 * t519 * t3953;
-    let t3956 = t1498 * t568;
-    let t3957 = 4.0 / 15.0 * t3956;
-    let t3959 = 0.06649088888888889 * t695 * t646;
-    let t3960 = t1198 * t646;
-    (t3946, t3947, t3949, t3950, t3951, t3953, t3955, t3956, t3957, t3959, t3960)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk615<F: Float>(t3557: F, t1383: F, t565: F, t1284: F, t1289: F, t3464: F, t220: F, t186: F, t548: F, t3442: F, t3444: F, t3447: F, t3449: F, t3451: F, t3453: F, t3457: F, t3459: F, t3461: F, t3463: F, t3468: F, t3549: F, t3552: F, t3555: F) -> (F, F, F, F, F, F, F, F) {
+    let t3558 = F::new(4.0) / F::new(15.0) * t3557;
+    let t3560 = F::new(2.0) / F::new(5.0) * t565 * t1383;
+    let t3562 = F::new(4.0) / F::new(5.0) * t1284 * t1289;
+    let t3563 = -t3464;
+    let t3564 = t220 * t3563;
+    let t3565 = t186 * t3564;
+    let t3567 = F::new(4.0) / F::new(15.0) * t548 * t3565;
+    let t3568 = t3442 + t3444 + t3447 - t3449 + t3451 - t3453 + t3457 - t3459 - t3461 + t3463 + t3468 - t3549 - t3552 + t3555 - t3558 - t3560 + t3562 + t3567;
+    (t3558, t3560, t3562, t3563, t3564, t3565, t3567, t3568)
 }

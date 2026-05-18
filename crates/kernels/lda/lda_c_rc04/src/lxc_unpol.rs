@@ -25,17 +25,17 @@ pub fn lda_c_rc04_lxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t2 = pow_1_3(zeta_threshold);
+        let t2 = pow_1_3::<f64>(zeta_threshold);
         let t3 = t2 * t2;
-        let t4 = piecewise3(1.0 <= zeta_threshold, t3, 1.0);
+        let t4 = piecewise3::<f64>(1.0 <= zeta_threshold, t3, 1.0);
         let t5 = t4 * t4;
         let t6 = t5 * t4;
         let t7 = M_CBRT3;
-        let t9 = pow_1_3(1.0 / M_PI);
+        let t9 = pow_1_3::<f64>(1.0 / M_PI);
         let t10 = t7 * t9;
         let t11 = M_CBRT4;
         let t12 = t11 * t11;
-        let t13 = pow_1_3(rho[ip]);
+        let t13 = pow_1_3::<f64>(rho[ip]);
         let t18 = 4.88827 + 0.79425925 * t10 * t12 / t13;
         let t19 = f64::atan(t18);
         let t23 = t7 * t7;

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1023/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1023/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1023<F: Float>(t14016: F, t14465: F, t14467: F, t14472: F, t21050: F, t21052: F, t21055: F, t21059: F, t21061: F, t21065: F, t21066: F, t17886: F, t17890: F, t1444: F, t7715: F, t2979: F, t493: F, t7714: F) -> (F, F, F, F, F) {
-    let t21067 = t21050 - t21052 - t21055 - t21059 + 12.0 * t14465 + 4.0 / 3.0 * t21061 + 0.0033101111111111113 * t14467 + t14472 + t21065 - t21066 + t14016;
-    let t21068 = 8.0 / 45.0 * t17886;
-    let t21069 = 4.0 / 27.0 * t17890;
-    let t21071 = 2.0 / 15.0 * t1444 * t7715;
-    let t21074 = 2.0 / 15.0 * t493 * t2979 * t7714;
-    (t21067, t21068, t21069, t21071, t21074)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1023<F: Float>(t15467: F, t11777: F, t15472: F, t6688: F, t853: F, t1447: F, t7671: F, t1423: F, t7667: F, t7640: F, t19224: F, t19227: F, t19231: F, t19233: F, t19236: F) -> (F, F, F, F, F, F, F, F) {
+    let t19237 = F::new(2.0) / F::new(45.0) * t15467;
+    let t19238 = F::new(4.0) / F::new(135.0) * t11777;
+    let t19239 = F::new(2.0) / F::new(15.0) * t15472;
+    let t19241 = t6688 * t853 / F::new(10.0);
+    let t19242 = t1447 * t7671;
+    let t19243 = F::new(4.0) / F::new(45.0) * t19242;
+    let t19244 = t1423 * t7667;
+    let t19245 = F::new(4.0) / F::new(45.0) * t19244;
+    let t19246 = t1447 * t7640;
+    let t19247 = F::new(2.0) / F::new(135.0) * t19246;
+    let t19248 = -t19224 - t19227 - t19231 - t19233 + t19236 - t19237 + t19238 - t19239 - t19241 + t19243 + t19245 + t19247;
+    (t19237, t19238, t19239, t19241, t19243, t19245, t19247, t19248)
 }

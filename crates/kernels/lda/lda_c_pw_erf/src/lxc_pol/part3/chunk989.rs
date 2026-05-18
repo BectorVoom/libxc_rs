@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 989/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 989/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk989<F: Float>(t13217: F, t1325: F, t1991: F, t2954: F, t4804: F, t5418: F, t3794: F, t1976: F, t4829: F, t945: F, t11766: F, t5256: F, t1446: F, t5421: F, t13201: F, t13206: F, t13208: F, t13210: F, t13212: F, t13214: F, t13216: F) -> (F, F, F, F, F, F, F) {
-    let t13221 = 16.0 / 9.0 * t1325 * t1991 * t13217 * t2954;
-    let t13223 = 16.0 / 15.0 * t4804 * t5418;
-    let t13225 = 16.0 / 15.0 * t3794 * t5418;
-    let t13229 = 8.0 / 15.0 * t1325 * t4829 * t1976 * t945;
-    let t13232 = 8.0 / 9.0 * t1325 * t5256 * t11766;
-    let t13233 = t1446 * t5421;
-    let t13234 = 16.0 / 45.0 * t13233;
-    let t13235 = t13201 + t13206 + t13208 + t13210 + t13212 - t13214 - t13216 - t13221 + t13223 + t13225 + t13229 + t13232 - t13234;
-    (t13221, t13223, t13225, t13229, t13232, t13234, t13235)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk989<F: Float>(t10829: F, t10874: F, t5783: F, t6154: F, t8759: F, t8771: F, t8774: F, t8785: F, t8789: F, t8793: F, t8805: F, t8808: F, t8812: F, t8813: F, t8816: F, t8821: F, t9121: F) -> F {
+    let t11530 = F::new(6.0) * t6154 * t9121 - F::new(9.0) * t5783 * t10874 - F::new(9.0) * t5783 * t10829 + t8759 + F::new(0.17961351015381913) * t8771 + t8774 - F::new(0.01197423401025461) * t8785 - F::new(0.03592270203076383) * t8789 - F::new(0.03592270203076383) * t8793 - t8805 - F::new(1.370765728342244e-05) * t8808 - t8812 + F::new(0.019957056683757683) * t8813 + F::new(0.11974234010254609) * t8816 + t8821;
+    t11530
 }

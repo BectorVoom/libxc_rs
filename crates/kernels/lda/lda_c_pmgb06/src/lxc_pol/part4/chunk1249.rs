@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1249/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 1249/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1249<F: Float>(t18744: F, t360: F, t6973: F, t947: F, t6976: F, t110: F, t6979: F, t2703: F, t410: F, t6967: F, t6970: F, t18725: F, t18729: F, t18732: F, t18735: F, t18737: F, t18741: F) -> (F, F, F, F, F) {
-    let t18745 = t360 * t18744;
-    let t18747 = t6973 * t947;
-    let t18748 = 1.2991222222222223 * t18747;
-    let t18749 = t6976 * t947;
-    let t18750 = 0.6495611111111111 * t18749;
-    let t18751 = t110 * t6979;
-    let t18752 = t360 * t18751;
-    let t18754 = t410 * t2703;
-    let t18755 = t360 * t18754;
-    let t18757 = t6967 * t947;
-    let t18759 = t6970 * t947;
-    let t18761 = -0.48968 * t18725 - t18729 + t18732 + t18735 - t360 * t18737 / 2.0 + 3.0 * t360 * t18741 - 2.0 / 9.0 * t18745 + t18748 - t18750 + t18752 / 3.0 + 2.0 / 3.0 * t18755 + 3.91744 * t18757 - 0.97936 * t18759;
-    (t18748, t18750, t18751, t18754, t18761)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1249<F: Float>(t9596: F, t9598: F, t9601: F, t490: F, t6688: F, t1504: F, t2563: F, t1366: F, t7193: F, t5102: F, t831: F, t161: F, t166: F, t2623: F, t2885: F) -> (F, F, F, F, F, F, F, F) {
+    let t16439 = F::new(8.0) / F::new(405.0) * t9596;
+    let t16440 = F::new(2.0) / F::new(135.0) * t9598;
+    let t16441 = F::new(2.0) / F::new(135.0) * t9601;
+    let t16442 = t6688 * t490;
+    let t16443 = F::new(2.0) / F::new(45.0) * t16442;
+    let t16444 = t2563 * t1504;
+    let t16445 = F::new(2.0) / F::new(45.0) * t16444;
+    let t16446 = t7193 * t1366;
+    let t16448 = t831 * t5102;
+    let t16449 = F::new(4.0) / F::new(45.0) * t16448;
+    let t16453 = t161 * t166 * t2885 * t2623 / F::new(30.0);
+    (t16439, t16440, t16441, t16443, t16445, t16446, t16449, t16453)
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1067/1157 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1067/1365 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1067<F: Float>(t518: F, t7660: F, t525: F, t18011: F, t4804: F, t7577: F, t3794: F, t2540: F, t5334: F, t2550: F, t5327: F, t2171: F, t6939: F, t22189: F, t22192: F, t22194: F, t22196: F, t22200: F, t22204: F) -> (F, F, F, F, F, F, F, F) {
-    let t22205 = t7660 * t518;
-    let t22207 = 4.0 / 45.0 * t22205 * t525;
-    let t22208 = 8.0 / 15.0 * t18011;
-    let t22210 = 8.0 / 5.0 * t4804 * t7577;
-    let t22212 = 8.0 / 5.0 * t3794 * t7577;
-    let t22214 = 4.0 / 15.0 * t5334 * t2540;
-    let t22216 = 4.0 / 15.0 * t5327 * t2550;
-    let t22218 = 4.0 / 15.0 * t2171 * t6939;
-    let t22219 = -t22189 + t22192 - t22194 - t22196 - t22200 - t22204 + t22207 + t22208 + t22210 + t22212 + t22214 + t22216 + t22218;
-    (t22207, t22208, t22210, t22212, t22214, t22216, t22218, t22219)
+pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1067<F: Float>(t50: F, t17673: F, t1789: F, t20019: F, t20027: F, t352: F, t4367: F, t4370: F, t52: F, t5997: F, t6005: F, t7365: F, t7370: F, t8334: F, t943: F, t950: F, zeta_threshold: F) -> F {
+    let t51 = t50 <= zeta_threshold;
+    let t20031 = piecewise3::<f64>(t51, F::new(0.0), F::new(40.0) / F::new(81.0) * t8334 * t7365 * t352 + F::new(16.0) / F::new(9.0) * t5997 * t943 - F::new(8.0) / F::new(9.0) * t4367 * t17673 - F::new(8.0) / F::new(3.0) * t4370 * t20019 + F::new(4.0) / F::new(3.0) * t1789 * t6005 + F::new(4.0) / F::new(9.0) * t950 * t7370 * t352 + F::new(4.0) / F::new(3.0) * t52 * t20027);
+    t20031
 }

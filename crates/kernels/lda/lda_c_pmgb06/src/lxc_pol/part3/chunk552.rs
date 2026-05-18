@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 552/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 552/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk552<F: Float>(t132: F, t3050: F, t1631: F, t432: F, t1547: F, t478: F, t1540: F, t464: F, t477: F, t137: F, t188: F, t3007: F, t3009: F, t3014: F, t3015: F, t3019: F, t3026: F, t3028: F, t3037: F, t3042: F, t3045: F, t3049: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3051 = t132 * t3050;
-    let t3052 = t3051 / 15.0;
-    let t3054 = t432 * t1631 / 10.0;
-    let t3055 = t1547 * t478;
-    let t3056 = t132 * t3055;
-    let t3057 = t3056 / 45.0;
-    let t3058 = t1540 * t464;
-    let t3059 = t3058 * t477;
-    let t3060 = t137 * t3059;
-    let t3062 = t132 * t3060 / 10.0;
-    let t3063 = t3007 - t3009 + t3014 + 4.0 / 3.0 * t3015 * t188 + 4.0 * t3019 + t3026 + 4.0 * t3028 - t3037 + t3042 + t3045 - t3049 - t3052 - t3054 + t3057 - t3062;
-    (t3051, t3052, t3054, t3055, t3056, t3057, t3058, t3059, t3060, t3062, t3063)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk552<F: Float>(t1380: F, t2876: F, t493: F, t1640: F, t489: F, t161: F, t1641: F, t486: F, t1489: F, t517: F, t529: F, t166: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t2877 = t1380 * t2876;
+    let t2879 = F::new(2.0) / F::new(15.0) * t493 * t2877;
+    let t2880 = t489 * t1640;
+    let t2881 = t161 * t2880;
+    let t2882 = F::new(2.0) / F::new(15.0) * t2881;
+    let t2884 = t486 * t1641 / F::new(5.0);
+    let t2885 = t1489 * t517;
+    let t2886 = t2885 * t529;
+    let t2887 = t166 * t2886;
+    (t2877, t2879, t2880, t2881, t2882, t2884, t2885, t2886, t2887)
 }

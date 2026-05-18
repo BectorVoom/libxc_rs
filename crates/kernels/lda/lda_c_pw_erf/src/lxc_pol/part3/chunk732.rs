@@ -1,4 +1,4 @@
-//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 732/1138 (D-02 tuple-return <F: Float>).
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 732/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk732<F: Float>(t1472: F, t2153: F, t1287: F, t2156: F, t1466: F, t1318: F, t1278: F, t2186: F, t1440: F, t519: F, t2192: F, t3899: F, t1381: F, t2191: F, t5329: F, t5331: F, t5333: F, t5336: F, t5338: F, t5341: F, t5344: F, t5346: F, t5348: F, t5350: F, t5352: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t5354 = 16.0 / 45.0 * t1472 * t2153;
-    let t5355 = t2156 * t1287;
-    let t5356 = t1466 * t5355;
-    let t5358 = 4.0 / 15.0 * t1318 * t5356;
-    let t5359 = t2186 * t1278;
-    let t5360 = t1440 * t5359;
-    let t5362 = 4.0 / 15.0 * t519 * t5360;
-    let t5363 = t3899 * t2192;
-    let t5365 = 16.0 / 45.0 * t1318 * t5363;
-    let t5366 = t2191 * t1381;
-    let t5367 = t1466 * t5366;
-    let t5369 = 4.0 / 15.0 * t1318 * t5367;
-    let t5370 = t5329 - t5331 + t5333 + t5336 + t5338 - t5341 - t5344 + t5346 + t5348 + t5350 + t5352 - t5354 - t5358 + t5362 - t5365 - t5369;
-    (t5354, t5355, t5356, t5358, t5359, t5360, t5362, t5363, t5365, t5366, t5367, t5369, t5370)
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk732<F: Float>(t173: F, t4645: F, t184: F, t199: F, t4206: F, t4209: F, t4563: F, t4566: F, t4570: F, t4573: F, t4578: F, t4580: F, t4583: F, t4584: F, t4585: F, t4586: F, t4587: F, t4591: F, t4593: F, t4595: F) -> (F, F, F, F) {
+    let t4646 = t173 * t4645;
+    let t4647 = t4646 * t184;
+    let t4649 = F::new(2.0) / F::new(15.0) * t4647 * t199;
+    let t4650 = t4206 - t4209 + t4563 - t4566 - t4570 - t4573 - t4578 - t4580 + t4583 - t4584 + t4585 + t4586 - t4587 + t4591 - t4593 - t4595 + t4649;
+    (t4646, t4647, t4649, t4650)
 }

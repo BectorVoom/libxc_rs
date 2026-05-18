@@ -1,4 +1,4 @@
-//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 569/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 569/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,16 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk569<F: Float>(t1315: F, t4998: F, t1468: F, t300: F, t1284: F, t5012: F, t1285: F, t1329: F, t1387: F, t1472: F, t5039: F, t5045: F, t5068: F, t1413: F, t1416: F, t390: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t5115 = 2.507382812916709 * t1315 * t4998;
-    let t5116 = t300 * t1468;
-    let t5117 = t5116 * t1284;
-    let t5119 = 38.978347549160304 * t5117 * t5012;
-    let t5121 = 12.992782516386768 * t1285 * t4998;
-    let t5122 = t1329 * t1468;
-    let t5123 = t5122 * t1387;
-    let t5124 = t5123 * t1472;
-    let t5126 = 0.9421211958699838 * t5039;
-    let t5128 = 0.6280807972466558 * t5045;
-    let t5134 = 0.20936026574888528 * t5068;
-    let t5139 = t1413 * t1416;
-    let t5141 = t390 * t390;
-    (t5115, t5119, t5121, t5123, t5124, t5126, t5128, t5134, t5139, t5141)
+pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk569<F: Float>(t3194: F, t3820: F, t3330: F, t3332: F, t3339: F, t655: F, t658: F, t186: F, t187: F, t183: F, t3384: F, t3388: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t3908 = t3820 * t3194;
+    let t3917 = F::new(0.9421211958699838) * t3330;
+    let t3918 = F::new(1.2561615944933116) * t3332;
+    let t3920 = F::new(0.20936026574888528) * t3339;
+    let t3928 = t655 * t658;
+    let t3930 = t186 * t186;
+    let t3932 = F::new(1.0) / t187 / t3930;
+    let t3933 = t183 * t3932;
+    let t3943 = F::new(24.0) * t3384;
+    let t3944 = F::new(24.0) * t3388;
+    (t3908, t3917, t3918, t3920, t3928, t3930, t3933, t3943, t3944)
 }

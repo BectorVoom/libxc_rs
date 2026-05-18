@@ -25,12 +25,12 @@ pub fn lda_c_gk72_exc_pol(
         let rho1 = rho[ip * 2 + 1];
         let t1 = M_CBRT3;
         let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
+        let t3 = pow_1_3::<f64>(t2);
         let t4 = t1 * t3;
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
         let t7 = rho0 + rho1;
-        let t8 = pow_1_3(t7);
+        let t8 = pow_1_3::<f64>(t7);
         let t10 = t6 / t8;
         let t11 = t4 * t10;
         let t12 = t11 / 4.0;
@@ -47,7 +47,7 @@ pub fn lda_c_gk72_exc_pol(
         let t43 = t24 * t36;
         let t45 = t5 / t39;
         let t49 = 1.0 / t31 / t43 / t45 / 4.0;
-        let tzk0 = piecewise5(t13, 0.0311 * t14 - 0.048 + 0.00225 * t4 * t10 * t14 - 0.00425 * t11, t21, -0.06156 + 0.01898 * t14, 0.146 * t26 * t5 * t8 + 5.3 * t30 / t31 / t11 - 0.49 * t38 * t6 * t39 - 6.4 * t30 * t49);
+        let tzk0 = piecewise5::<f64>(t13, 0.0311 * t14 - 0.048 + 0.00225 * t4 * t10 * t14 - 0.00425 * t11, t21, -0.06156 + 0.01898 * t14, 0.146 * t26 * t5 * t8 + 5.3 * t30 / t31 / t11 - 0.49 * t38 * t6 * t39 - 6.4 * t30 * t49);
         zk[ip] += tzk0;
     }
 }

@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 754/1097 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 754/1267 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk754<F: Float>(t2093: F, t2623: F, t166: F, t161: F, t2625: F, t831: F, t2592: F, t824: F, t2631: F, t802: F, t6611: F, t6614: F, t6617: F, t6619: F, t6622: F, t6624: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t7747 = t2093 * t2623;
-    let t7748 = t166 * t7747;
-    let t7750 = t161 * t7748 / 10.0;
-    let t7752 = t831 * t2625 / 10.0;
-    let t7754 = t2592 * t824 / 10.0;
-    let t7756 = t802 * t2631 / 5.0;
-    let t7758 = 2.0 / 15.0 * t6611;
-    let t7759 = 2.0 / 15.0 * t6614;
-    let t7760 = t6617 / 15.0;
-    let t7761 = 2.0 / 15.0 * t6619;
-    let t7762 = t6622 / 15.0;
-    let t7763 = 2.0 / 15.0 * t6624;
-    (t7747, t7748, t7750, t7752, t7754, t7756, t7758, t7759, t7760, t7761, t7762, t7763)
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk754<F: Float>(t2414: F, t315: F, t123: F, t199: F, t125: F, t6716: F, t2415: F, t4252: F, t4254: F, t4257: F, t4427: F, t4431: F, t4441: F, t4444: F, t4457: F, t4460: F, t566: F) -> (F, F, F, F) {
+    let t7113 = t315 * t2414;
+    let t7115 = t123 * t7113 * t199;
+    let t7117 = t125 * t6716;
+    let t7124 = t4252 - F::new(0.14149184788746388) * t4254 - F::new(0.14149184788746388) * t4257 - F::new(0.28298369577492777) * t4431 + t4457 + t4460 - F::new(0.28298369577492777) * t4427 + t4441 + t4444 + F::new(0.053059442957798957) * t7115 - F::new(0.031835665774679375) * t123 * t7117 * t199 - F::new(0.031835665774679375) * t123 * t2415 * t566;
+    (t7113, t7115, t7117, t7124)
 }

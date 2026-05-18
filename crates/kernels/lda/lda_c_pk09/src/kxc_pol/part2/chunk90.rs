@@ -1,4 +1,4 @@
-//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 90/979 (D-02 tuple-return <F: Float>).
+//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 90/1113 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,9 +12,9 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk90<F: Float>(t44: F, t51: F, t274:
     let t45 = t44 <= zeta_threshold;
     let t52 = t51 <= zeta_threshold;
     let t276 = f64::powf(t44, t274);
-    let t277 = piecewise3(t45, t275, t276);
+    let t277 = piecewise3::<f64>(t45, t275, t276);
     let t278 = f64::powf(t51, t274);
-    let t279 = piecewise3(t52, t275, t278);
+    let t279 = piecewise3::<f64>(t52, t275, t278);
     let t280 = t277 + t279;
     (t276, t278, t280)
 }

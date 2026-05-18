@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 934/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 934/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk934<F: Float>(t1147: F, t117: F, t123: F, t550: F, t1366: F, t3312: F, t3319: F, t3333: F, t3325: F, t184: F, t186: F, t247: F, t187: F, t3024: F, t3389: F, t534: F) -> (F, F, F, F, F, F, F) {
-    let t10670 = t123 * t1147 * t550 * t117;
-    let t10679 = t3312 * t1366;
-    let t10681 = t3319 * t3333;
-    let t10684 = 0.04472697096444135 * t3325 * t3333;
-    let t10687 = 0.004413481481481482 * t184 * t247 * t186;
-    let t10690 = 16.0 / 3.0 * t3024 * t187;
-    let t10693 = t534 * t3389;
-    (t10670, t10679, t10681, t10684, t10687, t10690, t10693)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk934<F: Float>(t1795: F, t868: F, t2422: F, t391: F, t2414: F, t81: F, t199: F, t1799: F, t1808: F, t2454: F, t399: F, t4187: F, t4212: F, t4214: F, t5542: F, t5551: F, t5553: F, t566: F, t6928: F, t6939: F, t795: F, t84: F) -> (F, F) {
+    let t6942 = t1795 * t868;
+    let t6944 = t391 * t2422;
+    let t6946 = t81 * t2414;
+    let t6947 = t6946 * t199;
+    let t6951 = t5542 + t5551 + t5553 - F::new(0.0837628205355044) * t6928 * t199 - F::new(0.0837628205355044) * t2454 * t566 - F::new(0.1675256410710088) * t1799 * t868 - F::new(0.1675256410710088) * t795 * t1808 - F::new(0.0837628205355044) * t399 * t2422 - F::new(0.0837628205355044) * t84 * t6939 + F::new(0.1675256410710088) * t6942 + F::new(0.0837628205355044) * t6944 + F::new(0.0837628205355044) * t6947 + t4187 - F::new(0.1675256410710088) * t4212 - F::new(0.1675256410710088) * t4214;
+    (t6946, t6951)
 }

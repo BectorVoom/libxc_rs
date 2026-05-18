@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 776/1265 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 4 (v4rho4_2) CSE chunk 776/1478 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk776<F: Float>(t1799: F, t415: F, t1347: F, t795: F, t118: F, t5522: F, t1795: F, t117: F, t123: F, t125: F, t2777: F, t2814: F, t3474: F, t3478: F, t3481: F, t5543: F, t5610: F, t5615: F, t5620: F, t5622: F, t5625: F, t5627: F, t5689: F) -> (F, F, F, F, F) {
-    let t5697 = 0.06301081444628223 * t1799 * t415;
-    let t5698 = t795 * t1347;
-    let t5701 = 0.06301081444628223 * t5522 * t118;
-    let t5702 = t1795 * t415;
-    let t5705 = t5610 - 0.04789693604101844 * t3474 + 0.008980675507690957 * t3478 + 0.006584630109636494 * t5615 - t5620 - 0.003950778065781896 * t5622 - 0.0004954275694490498 * t5625 - 0.06301081444628223 * t5627 - 0.005388405304614574 * t123 * t125 * t5689 * t117 - 0.031505407223141116 * t5543 * t118 - t5697 - 0.031505407223141116 * t5698 + t5701 + 0.06301081444628223 * t5702 + t2777 + t3481 + 0.031505407223141116 * t2814;
-    (t5697, t5698, t5701, t5702, t5705)
+pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk776<F: Float>(t3201: F, t3214: F, t3221: F, t3224: F, t5136: F, t5142: F, t5143: F, t5144: F, t5145: F, t5146: F, t5147: F, t5148: F, t5149: F, t5150: F, t5151: F) -> (F, F, F, F, F) {
+    let t5152 = F::new(4.0) / F::new(135.0) * t3201;
+    let t5153 = F::new(4.0) / F::new(405.0) * t3214;
+    let t5154 = F::new(4.0) / F::new(135.0) * t3221;
+    let t5155 = F::new(4.0) / F::new(405.0) * t3224;
+    let t5156 = -t5136 - t5142 + t5143 + t5144 + t5145 + t5146 + t5147 - t5148 + t5149 + t5150 + t5151 - t5152 - t5153 + t5154 - t5155;
+    (t5152, t5153, t5154, t5155, t5156)
 }

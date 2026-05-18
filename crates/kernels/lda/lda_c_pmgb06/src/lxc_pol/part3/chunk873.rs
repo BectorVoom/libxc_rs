@@ -1,4 +1,4 @@
-//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 873/1081 (D-02 tuple-return <F: Float>).
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 873/1239 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk873<F: Float>(t4320: F, t909: F, t123: F, t317: F, t4001: F, t902: F, t113: F, t1798: F, t247: F, t301: F, t1147: F, t2164: F, t11583: F, t11586: F, t11589: F, t11596: F, t11601: F, t11604: F, t11609: F, t11611: F, t11615: F, t1233: F, t1316: F, t2258: F, t297: F, t4017: F, t4358: F, t4360: F, t8473: F) -> (F,) {
-    let t11617 = t4320 * t909;
-    let t11624 = t123 * t4001 * t902 * t317;
-    let t11628 = t247 * t1798 * t113 * t301;
-    let t11629 = 0.004067943812504169 * t11628;
-    let t11632 = t123 * t1147 * t2164 * t317;
-    let t11633 = 0.5945049527603057 * t11632;
-    let t11637 = 36.0 * t4358 * t11583 + 18.0 * t4358 * t11586 - 0.01197423401025461 * t297 * t11589 * t113 * t301 - 0.03592270203076383 * t11596 - t11601 - 0.01197423401025461 * t11604 - t11609 - 5.4655730795145296e-05 * t11611 - 4.569219094474146e-06 * t11615 + 0.19513566535229734 * t11617 + 9.0 * t1316 * t2258 * t4017 - 0.9247854820715865 * t11624 + t11629 + t11633 + 18.0 * t1233 * t8473 * t4360;
-    (t11637,)
+pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk873<F: Float>(t286: F, t3951: F, t637: F, t8131: F, t3734: F, t974: F, t1022: F, t1039: F, t232: F, t3669: F, t8595: F, t696: F, t8522: F, t963: F, t967: F) -> (F, F, F, F, F) {
+    let t8781 = t637 * t3951 * t286;
+    let t8785 = t8131 * t286;
+    let t8787 = t974 * t3734;
+    let t8794 = F::new(6207.121550312808) * t232 / t1039 / t1022 * t8595 * t3669;
+    let t8798 = F::new(51.94757731704439) * t696 * t963 * t8522 * t967;
+    (t8781, t8785, t8787, t8794, t8798)
 }

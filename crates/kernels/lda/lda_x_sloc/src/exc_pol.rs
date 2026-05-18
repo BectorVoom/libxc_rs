@@ -35,11 +35,11 @@ pub fn lda_x_sloc_exc_pol(
         let t11 = t10 <= zeta_threshold;
         let t12 = f64::powf(zeta_threshold, t1);
         let t13 = f64::powf(t10, t1);
-        let t14 = piecewise3(t11, t12, t13);
+        let t14 = piecewise3::<f64>(t11, t12, t13);
         let t15 = 1.0 - t9;
         let t16 = t15 <= zeta_threshold;
         let t17 = f64::powf(t15, t1);
-        let t18 = piecewise3(t16, t12, t17);
+        let t18 = piecewise3::<f64>(t16, t12, t17);
         let t19 = t14 + t18;
         let tzk0 = -t4 * t6 * t19;
         zk[ip] += tzk0;
