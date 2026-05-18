@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 448/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 448/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk448<F: Float>(t5102: F, t876: F, t1357: F, t866: F, t1652: F, t874: F, t352: F, t1615: F, t333: F, t1614: F, t338: F, t321: F, t118: F, t305: F, t326: F, t3814: F, t4974: F, t4977: F, t4982: F, t5005: F, t5008: F, t5029: F, t5033: F, t5052: F, t5064: F, t5072: F, t5076: F, t5095: F, t5099: F, t793: F, t797: F, t838: F) -> (F,) {
-    let t5103 = t5102 * t876;
-    let t5108 = t1357 * t866;
-    let t5115 = t874 * t1652;
-    let t5116 = t5115 * t352;
-    let t5121 = t1615 * t333;
-    let t5126 = t338 * t1614;
-    let t5127 = t5126 * t352;
-    let t5130 = t1615 * t321;
-    let t5133 = -0.11974241701863808564e0 * t793 * t5008 - 0.11974241701863808564e0 * t305 * t5033 + 0.17961362552795712846e0 * t797 * t5005 - 0.23948483403727617128e0 * t793 * t5072 + 0.59871208509319042821e-1 * t305 * t4977 + 0.35922725105591425692e0 * t797 * t5076 - 0.23948483403727617128e0 * t838 * t5095 + 0.11974241701863808564e0 * t305 * t5099 + 0.11974241701863808564e0 * t118 * t5103 + 0.11974241701863808564e0 * t793 * t5052 - 0.39914139006212695214e-1 * t118 * t5108 - 0.71845450211182851384e0 * t3814 * t5064 - 0.11974241701863808564e0 * t326 * t4974 - 0.79828278012425390428e-1 * t118 * t5116 - 0.59871208509319042821e-1 * t326 * t5029 - 0.47896966807455234256e0 * t838 * t5121 + 0.59871208509319042821e-1 * t305 * t4982 - 0.11974241701863808564e0 * t326 * t5127 + 0.35922725105591425692e0 * t797 * t5130;
-    (t5133,)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk448<F: Float>(t1327: F, t31: F, t263: F, t78: F, t9: F, t1315: F, t1323: F, t1326: F, t255: F, t261: F, t262: F, t331: F, t3900: F, t4710: F, t4712: F, t4720: F, t4724: F, t4729: F, t4732: F, t4737: F, t4739: F, t4742: F, t4747: F, t4750: F, t4754: F, t4757: F, t4765: F, t846: F) -> (F, F, F, F) {
+    let t4766 = t1327 * t31;
+    let t4767 = t78 * t263;
+    let t4768 = F::new(1.0) / t4767;
+    let t4773 = F::new(1.0) / t9 / t78;
+    let t4781 = -F::new(6.0) * t4710 * t255 + F::new(6.0) * t4712 * t4724 - F::new(6.0) * t4729 * t255 - F::new(0.8535056841750543333e-1) * t4732 * t331 - F::new(1.0) * t4720 * t255 + F::new(3.0) * t4737 * t4739 + F::new(0.42675284208752716665e-1) * t4742 * t331 - F::new(1.0) * t4747 * t255 - F::new(0.42675284208752716665e-1) * t4750 * t331 + F::new(0.60705996076593966083e-2) * t4754 * t4757 - F::new(0.1564760420987599611e0) * t1315 * t846 - F::new(0.31914626549668908611e-4) * t4765 * t4766 * t4768 + F::new(0.22258865228084454231e-1) * t1323 * t1326 * t1327 * t4773 - F::new(0.24340717659807105061e0) * t261 * t262 * t3900;
+    (t4766, t4768, t4773, t4781)
 }

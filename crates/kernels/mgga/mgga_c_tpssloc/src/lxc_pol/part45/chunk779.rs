@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 779/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 779/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk779<F: Float>(t1332: F, t8465: F, t8467: F, t1338: F, t240: F, t241: F, t1336: F, t3806: F, t5248: F, t550: F, t553: F, t835: F, t544: F, t1369: F, t8466: F, t6883: F, t8480: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t31165 = t1332 * t8465;
-    let t31166 = t31165 * t8467;
-    let t31169 = t1338 * t240 * t241;
-    let t31170 = t1336 * t31169;
-    let t31172 = t5248 * t3806 * t550;
-    let t31173 = t31170 * t31172;
-    let t31175 = t553 * t835;
-    let t31176 = t544 * t31175;
-    let t31177 = t31176 * t8467;
-    let t31179 = t8466 * t1369;
-    let t31192 = 0.38381794893125283518e-1 * t6883 * t8480;
-    (t31165, t31166, t31169, t31170, t31172, t31173, t31175, t31176, t31177, t31179, t31192)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk779<F: Float>(t1933: F, t607: F, t1937: F, t1000: F, t1025: F, t23414: F, t23419: F, t23422: F, t23425: F, t23433: F, t23437: F, t3073: F, t3098: F, t3123: F, t3143: F, t3148: F, t6717: F, t6755: F, t6765: F) -> F {
+    let t23442 = t1933 * t607;
+    let t23443 = t23442 * t1937;
+    let t23445 = F::new(0.10093189023535097714e-3) * t23414 * t1937 + t23419 * t3073 / F::new(1152.0) - t23422 * t1000 / F::new(54.0) + t23425 / F::new(432.0) + t6717 * t3143 / F::new(288.0) + t6717 * t3148 / F::new(216.0) + t6755 * t3123 / F::new(1536.0) + t23433 * t1025 / F::new(768.0) - t23437 * t1025 / F::new(144.0) - t6765 * t3098 / F::new(1152.0) + F::new(0.20186378047070195428e-3) * t23443;
+    t23445
 }

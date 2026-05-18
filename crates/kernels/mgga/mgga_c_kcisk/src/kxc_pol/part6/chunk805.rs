@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 805/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 805/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk805<F: Float>(t1869: F, t28952: F, t23969: F, t23976: F, t23978: F, t28790: F, t28794: F, t28797: F, t28803: F, t28807: F, t28811: F, t28815: F, t28818: F, t652: F, t743: F, t719: F, sigma2: F) -> (F, F, F, F, F) {
-    let t28953 = t1869 * t28952;
-    let t28955 = 0.99491666666666666664e-2 * t23969 + 0.99491666666666666664e-2 * t28790 + 0.2653111111111111111e-1 * t28794 + 0.2653111111111111111e-1 * t28797 + 0.2653111111111111111e-1 * t23976 - 0.16581944444444444444e-2 * t28803 - 0.13265555555555555555e-1 * t28807 - 0.22109259259259259258e-1 * t28811 - 0.16581944444444444444e-1 * t28815 - 0.99491666666666666664e-2 * t28818 + 0.66327777777777777776e-2 * t23978 - 0.24872916666666666666e-2 * t28953;
-    let t28957 = 1.0 / t652 / t743;
-    let t28958 = sigma2 * t28957;
-    let t28959 = t28958 * t719;
-    (t28953, t28955, t28957, t28958, t28959)
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk805<F: Float>(t122: F, t8832: F, t649: F, t1769: F, t8825: F, t4998: F, t8806: F, t1773: F, t10886: F, t8810: F, t8801: F, t7208: F, t7253: F) -> (F, F, F, F, F, F, F) {
+    let t23768 = t8832 * t122;
+    let t23769 = t649 * t23768;
+    let t23779 = t8825 * t1769;
+    let t23801 = t4998 * t8806;
+    let t23802 = t1773 * t23801;
+    let t23804 = t10886 * t8810;
+    let t23805 = t1773 * t23804;
+    let t23807 = t4998 * t8801;
+    let t23808 = t1773 * t23807;
+    let t23811 = t7208 * t7253;
+    (t23768, t23769, t23779, t23802, t23805, t23808, t23811)
 }

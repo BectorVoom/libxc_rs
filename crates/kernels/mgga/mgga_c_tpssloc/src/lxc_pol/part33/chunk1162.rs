@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1162/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1162/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1162<F: Float>(t23204: F, t28263: F, t6562: F, t28299: F, t81979: F, t28273: F, t6547: F, t28264: F, t225: F, t28282: F, t28272: F, t794: F, t23164: F, t7479: F, t86893: F, t1625: F, t7577: F) -> (F, F, F, F, F, F, F, F) {
-    let t98983 = t6562 * t23204 * t28263;
-    let t98993 = t81979 * t28299;
-    let t98995 = t6547 * t28273;
-    let t99003 = t6547 * t28264;
-    let t99010 = t28282 * t225;
-    let t99022 = t6562 * t794 * t28272;
-    let t99036 = t23164 * t86893 * t7479;
-    let t99131 = t7577 * t1625;
-    (t98983, t98993, t98995, t99003, t99010, t99022, t99036, t99131)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1162<F: Float>(t28155: F, t28185: F, t1378: F, t1375: F, t1843: F, t20029: F, t20044: F, t2016: F, t22646: F, t26184: F, t26345: F, t26477: F, t26988: F, t26993: F, t28051: F, t28053: F, t28108: F, t28111: F, t28118: F, t5215: F, t568: F, t6461: F, t6958: F, t7729: F, t7750: F) -> (F, F, F) {
+    let t28186 = t28155 + t28185;
+    let t28187 = t1378 * t28186;
+    let t28190 = F::new(0.76763589786250567036e-1) * t26184 + t26988 + t28051 * t568 + t26993 + F::new(2.0) * t28053 * t568 + t28108 * t568 + F::new(2.0) * t1375 * t28111 - F::new(2.0) * t5215 * t7750 - t22646 + F::new(0.3289868133696452873e-1) * t28118 - F::new(2.0) * t26477 * t1843 - t6958 * t6461 + F::new(4.0) * t5215 * t7729 - t20044 * t2016 - F::new(2.0) * t20029 * t2016 - t1375 * t28187 + F::new(0.82246703342411321824e-2) * t26345;
+    (t28186, t28187, t28190)
 }

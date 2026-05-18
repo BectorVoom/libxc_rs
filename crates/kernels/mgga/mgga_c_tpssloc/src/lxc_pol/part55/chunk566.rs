@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 566/1154 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 566/1304 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk566<F: Float>(t3449: F, t4904: F, t3448: F, t461: F, t4729: F, t1178: F, t3966: F, t1177: F, t135: F, t1716: F, t1174: F, t1714: F, t3451: F, t3295: F, t3464: F, t4770: F, t4773: F, t4776: F, t4779: F) -> (F, F, F, F, F, F) {
-    let t4905 = t3449 * t4904;
-    let t4908 = t3448 * t461;
-    let t4909 = t4908 * t4729;
-    let t4912 = t1178 * t3966;
-    let t4913 = t1177 * t4912;
-    let t4916 = t135 * t1716;
-    let t4917 = t1174 * t4916;
-    let t4919 = t3448 * t1714;
-    let t4920 = t4919 * t3451;
-    let t4928 = -t3464 + t3295 / 9.0 + t4770 / 9.0 + t4773 / 18.0 - t4776 / 3.0 - t4779 / 6.0;
-    (t4905, t4909, t4913, t4917, t4920, t4928)
+pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk566<F: Float>(t1409: F, t2770: F, t607: F, t2768: F, t123: F, t2775: F, t882: F, t3966: F, t883: F, t2765: F, t2766: F, t4335: F) -> (F, F, F, F, F, F, F) {
+    let t4337 = t2770 * t1409;
+    let t4338 = t4337 * t607;
+    let t4339 = t2768 * t4338;
+    let t4340 = t123 * t4339;
+    let t4342 = t2775 * t1409;
+    let t4343 = t4342 * t607;
+    let t4344 = t882 * t4343;
+    let t4345 = t123 * t4344;
+    let t4347 = t883 * t3966;
+    let t4348 = t882 * t4347;
+    let t4349 = t123 * t4348;
+    let t4351 = t2765 + F::new(0.5936111111111111111e-2) * t2766 + F::new(0.5936111111111111111e-2) * t4335 - F::new(0.11872222222222222222e-1) * t4340 + F::new(0.35616666666666666666e-1) * t4345 - F::new(0.17808333333333333333e-1) * t4349;
+    (t4338, t4340, t4343, t4345, t4347, t4349, t4351)
 }

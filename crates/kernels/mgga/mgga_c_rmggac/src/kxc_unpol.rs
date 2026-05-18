@@ -59,11 +59,11 @@ pub fn mgga_c_rmggac_kxc_unpol(
     if ip < zk.len() {
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
+        let t4 = pow_1_3::<f64>(t3);
         let t5 = t2 * t4;
         let t6 = M_CBRT4;
         let t7 = t6 * t6;
-        let t8 = pow_1_3(rho[ip]);
+        let t8 = pow_1_3::<f64>(rho[ip]);
         let t11 = t5 * t7 / t8;
         let t12 = f64::sqrt(t11);
         let t15 = 1.0 + 0.4445e-1 * t12 + 0.3138525e-1 * t11;
@@ -72,7 +72,7 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t20 = t19 - 1.0;
         let t21 = M_CBRT6;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t25 = 1.0 / t24;
         let t26 = t21 * t25;
@@ -84,14 +84,14 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t33 = 1.0 / t31 / t30;
         let t35 = t26 * t29 * t33;
         let t37 = 1.0 + 0.21337642104376358333e-1 * t35;
-        let t38 = pow_1_4(t37);
+        let t38 = pow_1_4::<f64>(t37);
         let t40 = 1.0 - 1.0 / t38;
         let t42 = t20 * t40 + 1.0;
         let t43 = f64::ln(t42);
         let t46 = t27 - 1.0;
         let t47 = 1.0 <= zeta_threshold;
-        let t48 = pow_1_3(zeta_threshold);
-        let t50 = piecewise3(t47, t48 * zeta_threshold, 1.0);
+        let t48 = pow_1_3::<f64>(zeta_threshold);
+        let t50 = piecewise3::<f64>(t47, t48 * zeta_threshold, 1.0);
         let t52 = 2.0 * t50 - 2.0;
         let t55 = 1.0 / t46 / 2.0;
         let t58 = 1.0 - 0.2363e1 * t46 * t52 * t55;
@@ -115,7 +115,7 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t90 = 1.0 - 0.19957069503106347607e-1 * t88;
         let t91 = t59 * t90;
         let t93 = 1.0 + 0.53425e-1 * t11;
-        let t96 = pow_3_2(t11);
+        let t96 = pow_3_2::<f64>(t11);
         let t98 = t2 * t2;
         let t99 = t4 * t4;
         let t100 = t98 * t99;
@@ -131,7 +131,7 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t123 = f64::ln(t122);
         let t126 = 0.19751673498613801407e-1 * t112 * t114 * t123;
         let t127 = t48 * t48;
-        let t128 = piecewise3(t47, t127, 1.0);
+        let t128 = piecewise3::<f64>(t47, t127, 1.0);
         let t129 = t128 * t128;
         let t130 = t129 * t128;
         let t131 = -t111 + t126;
@@ -152,7 +152,7 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t155 = t154 * t6;
         let t156 = t27 * t151 * t155;
         let t159 = 1.0 + 0.27439556402611977244e-1 * t146 * sigma[ip] * t148 * t156;
-        let t160 = pow_1_4(t159);
+        let t160 = pow_1_4::<f64>(t159);
         let t162 = 1.0 - 1.0 / t160;
         let t164 = t136 * t162 + 1.0;
         let t165 = f64::ln(t164);
@@ -1054,7 +1054,7 @@ pub fn mgga_c_rmggac_kxc_unpol(
         let t1647 = t176 * t1646;
         let t1649 = t7 * t316;
         let t1650 = t5 * t1649;
-        let t1652 = 1.0/pow_3_2(t11);
+        let t1652 = 1.0/pow_3_2::<f64>(t11);
         let t1653 = t1652 * t3;
         let t1654 = t1653 * t1278;
         let t1656 = t606 * t1643;

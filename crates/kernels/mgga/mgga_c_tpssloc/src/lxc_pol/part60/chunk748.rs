@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 748/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 748/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk748<F: Float>(t6420: F, t7208: F, t6415: F, t1825: F, t27097: F, t1336: F, t24108: F, t24110: F, t26427: F, t26429: F, t26437: F, t28161: F, t28165: F, t28169: F, t28183: F, t5234: F, t7932: F) -> (F,) {
-    let t29343 = t7208 * t6420;
-    let t29345 = t7208 * t6415;
-    let t29349 = t27097 * t1825;
-    let t29359 = -t1336 * t29343 - t1336 * t29345 - 2.0 * t5234 * t7932 - 2.0 * t1336 * t29349 + 0.16449340668482264365e-1 * t26427 - 0.76763589786250567036e-1 * t26429 - 0.16449340668482264365e-1 * t26437 + 0.16449340668482264365e-1 * t28161 + t24108 + t24110 - 0.3289868133696452873e-1 * t28165 - 0.16449340668482264365e-1 * t28169 - 0.16449340668482264365e-1 * t28183;
-    (t29359,)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk748<F: Float>(t1860: F, t26959: F, t26198: F, t12020: F, t2091: F, t26200: F, t225: F, t7910: F, t26231: F, t26251: F, t26255: F, t26266: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t26960 = t1860 * t26959;
+    let t26988 = F::new(0.16449340668482264365e-1) * t26198;
+    let t26989 = t12020 * t2091;
+    let t26993 = F::new(0.38381794893125283518e-1) * t26200;
+    let t27009 = t7910 * t225;
+    let t27012 = F::new(7.0) / F::new(1152.0) * t26231;
+    let t27019 = F::new(7.0) / F::new(1152.0) * t26251;
+    let t27022 = F::new(7.0) / F::new(288.0) * t26255;
+    let t27027 = F::new(7.0) / F::new(72.0) * t26266;
+    (t26960, t26988, t26989, t26993, t27009, t27012, t27019, t27022, t27027)
 }

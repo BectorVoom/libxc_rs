@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1131/1190 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1131/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1131<F: Float>(t28: F, t12000: F, t1649: F, t2: F, t3711: F, t1302: F, t15956: F, t16: F, t3231: F, t3673: F, t5178: F, t5181: F, t584: F, t16002: F, zeta_threshold: F) -> (F,) {
-    let t29 = t28 <= zeta_threshold;
-    let t16003 = t12000 * t1649;
-    let t16006 = t3711 * t2;
-    let t16016 = piecewise3(t29, 0.0, 8.0 / 27.0 * t16003 * t3673 + 8.0 / 9.0 * t16006 * t15956 - 2.0 / 9.0 * t5178 * t3231 - 4.0 / 3.0 * t1302 * t584 + 4.0 * t5181 * t16);
-    let t16018 = t16002 / 2.0 + t16016 / 2.0;
-    (t16018,)
+pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1131<F: Float>(t14164: F, t14165: F, t4582: F, t10263: F, t10403: F, t1041: F, t10413: F, t10896: F, t14122: F, t14126: F, t14130: F, t14136: F, t14139: F, t14143: F, t14147: F, t14152: F, t14158: F, t14160: F, t1607: F, t2960: F, t3070: F, t3117: F, t4562: F, t4565: F, t4585: F, t973: F) -> F {
+    let t14166 = t14164 * t14165;
+    let t14167 = t4582 * t14166;
+    let t14170 = t10403 * t14122 / F::new(2304.0) - t10413 * t14126 / F::new(4608.0) - t3070 * t14130 / F::new(2304.0) - t10896 / F::new(4608.0) - t14136 + t14139 - t3117 * t4585 / F::new(1152.0) - t1041 * t14143 / F::new(1152.0) - t1041 * t14147 / F::new(2304.0) + t2960 * t4562 / F::new(27.0) + t973 * t14152 / F::new(48.0) - F::new(2.0) / F::new(81.0) * t2960 * t4565 - t14158 - t14160 / F::new(1296.0) + F::new(11.0) / F::new(324.0) * t10263 * t1607 + t1041 * t14167 / F::new(768.0);
+    t14170
 }

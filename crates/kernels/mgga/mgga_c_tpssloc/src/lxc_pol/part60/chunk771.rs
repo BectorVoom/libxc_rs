@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 771/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 771/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk771<F: Float>(t29506: F, t29864: F, t3: F, t1458: F, t24972: F, t27921: F, t28888: F, t28890: F, t28892: F, t28895: F, t28898: F, t28901: F, t28903: F, t5456: F, t5493: F, t577: F, t7423: F) -> (F, F, F) {
-    let t29865 = t29506 + t29864;
-    let t29866 = t3 * t29865;
-    let t29884 = 0.45e1 * t29865 * t577 + 27.0 * t27921 * t1458 + 27.0 * t24972 * t5456 + 0.135e2 * t7423 * t5493 + t28888 + t28890 + t28892 + t28895 + t28898 + t28901 + t28903;
-    (t29865, t29866, t29884)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk771<F: Float>(t28142: F, t6637: F, t22685: F, t1799: F, t26395: F, t6888: F, t6415: F, t6987: F, t1336: F, t1814: F, t2013: F, t22693: F, t26381: F, t26427: F, t27082: F, t27088: F, t28132: F, t28136: F, t28140: F, t6378: F, t7747: F) -> (F, F, F) {
+    let t28143 = t6637 * t28142;
+    let t28144 = t22685 * t28143;
+    let t28148 = t26395 * t1799;
+    let t28149 = t6637 * t28148;
+    let t28150 = t6888 * t28149;
+    let t28152 = t6987 * t6415;
+    let t28155 = F::new(0.76763589786250567036e-1) * t26381 - t22693 + t6378 * t2013 + t27082 + F::new(0.3289868133696452873e-1) * t28132 + F::new(0.16449340668482264365e-1) * t28136 + t27088 - F::new(0.16449340668482264365e-1) * t28140 + F::new(0.49348022005446793095e-1) * t28144 + F::new(2.0) * t1814 * t7747 - F::new(0.3289868133696452873e-1) * t28150 - t1336 * t28152 + F::new(0.82246703342411321824e-2) * t26427;
+    (t28144, t28150, t28155)
 }

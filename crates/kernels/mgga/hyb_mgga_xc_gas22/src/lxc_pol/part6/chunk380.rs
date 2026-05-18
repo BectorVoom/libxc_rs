@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 380/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 380/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk380<F: Float>(t1394: F, t1400: F, t1403: F, t1407: F, t981: F, t984: F) -> (F,) {
-    let t1421 = 0.3529725e1 * t1400 - t981 + 0.1549425e1 * t1394 + 0.6311625e0 * t1403 - t984 + 0.312585e0 * t1407;
-    (t1421,)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk380<F: Float>(t1396: F, t361: F, t1394: F, t951: F) -> (F, F) {
+    let t1398 = F::new(0.621814e-1) * t1396 * t361;
+    let t1399 = -t951 + t1394;
+    (t1398, t1399)
 }

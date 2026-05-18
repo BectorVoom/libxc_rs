@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 900/1228 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 900/1378 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk900<F: Float>(t23019: F, t23041: F, t1427: F, t10157: F, t14091: F, t14097: F, t14105: F, t1424: F, t14280: F, t14290: F, t14294: F, t14297: F, t1904: F, t22390: F, t22428: F, t22447: F, t22450: F, t22454: F, t5715: F, t6919: F) -> (F, F, F) {
-    let t23042 = t23019 + t23041;
-    let t23043 = t1427 * t23042;
-    let t23058 = 0.39029762157531132076e-1 * t14091 + 0.21951497276451705329e-1 * t14097 - 0.34697458558045176417e-2 * t14105 - 0.65854491829355115987e0 * t1424 * t23043 + 0.32927245914677557992e-1 * t22428 - 0.19756347548806534796e1 * t5715 * t6919 - t10157 - 0.39029762157531132076e-1 * t14280 - 0.19756347548806534796e1 * t22390 * t1904 - 0.16463622957338778996e-1 * t22447 - 0.32927245914677557992e-1 * t22450 + 0.58544643236296698113e-1 * t22454 - 0.21951497276451705329e-1 * t14290 + 0.34697458558045176417e-2 * t14294 + 0.19514881078765566038e-2 * t14297;
-    (t23042, t23043, t23058)
+pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk900<F: Float>(t221: F, t2485: F, t5978: F, t2484: F, t5819: F, t750: F, t2611: F, t5825: F, t706: F, t4305: F, t4311: F, t5941: F, t72: F) -> (F, F, F, F, F, F) {
+    let t18531 = t2485 * t221 * t5978;
+    let t18532 = t2484 * t18531;
+    let t18539 = t750 * t5819;
+    let t18540 = t2611 * t18539;
+    let t18544 = t750 * t5825;
+    let t18545 = t706 * t18544;
+    let t18547 = t4311 * t4305;
+    let t18555 = t5941 * t72;
+    (t18531, t18532, t18540, t18545, t18547, t18555)
 }

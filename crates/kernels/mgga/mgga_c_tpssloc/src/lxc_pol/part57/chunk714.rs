@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 714/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 714/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk714<F: Float>(t23593: F, t28491: F, t23394: F, t5919: F, t6704: F, t5681: F, t6690: F, t6689: F, t1945: F, t5848: F, t25810: F, t7553: F, t5685: F, t1922: F, t5844: F, t1052: F, t1635: F, t1920: F, t25450: F, t25736: F, t25755: F, t25778: F, t28470: F, t28475: F, t28481: F, t28485: F, t28488: F, t388: F, t4660: F, t6687: F, t7600: F, t7625: F) -> (F,) {
-    let t28492 = t23593 * t28491;
-    let t28495 = t23394 * t5919;
-    let t28496 = t6704 * t28495;
-    let t28499 = t6690 * t5681;
-    let t28500 = t6689 * t28499;
-    let t28505 = t5848 * t1945;
-    let t28510 = t25810 * t7553;
-    let t28515 = t6690 * t5685;
-    let t28516 = t6689 * t28515;
-    let t28519 = t5844 * t1922;
-    let t28523 = 0.16449340668482264365e-1 * t6687 * t28470 + 0.82246703342411321825e-2 * t1920 * t28475 + 4.0 * t4660 * t7600 - 0.82246703342411321825e-2 * t6687 * t28481 + 4.0 * t1052 * t28485 + 2.0 * t28488 * t388 + 0.36554090374405031923e-2 * t6687 * t28492 + 0.16449340668482264365e-1 * t6687 * t28496 - 0.54831135561607547884e-2 * t6687 * t28500 - 2.0 * t4660 * t7625 + t28505 * t388 + 0.18277045187202515961e-2 * t25450 - 2.0 * t25778 * t1635 + 0.54831135561607547884e-2 * t6687 * t28510 - 2.0 * t25755 * t1635 + 0.27415567780803773942e-2 * t6687 * t28516 - 0.82246703342411321825e-2 * t6687 * t28519 - 0.54831135561607547884e-2 * t25736;
-    (t28523,)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk714<F: Float>(t33: F, t625: F, t2240: F, t240: F, t67: F, t1864: F, t1860: F, t22819: F, t22825: F, t22858: F, t22863: F, t22867: F) -> (F, F, F, F, F, F, F, F) {
+    let t23966 = t33 * t625;
+    let t23967 = t2240 * t23966;
+    let t23992 = t240 * t67;
+    let t23993 = t23992 * t1864;
+    let t23995 = F::new(88.0) / F::new(27.0) * t1860 * t23993;
+    let t24049 = F::new(0.33643963411783659044e-4) * t22819;
+    let t24050 = F::new(0.10541775202358879834e-2) * t22825;
+    let t24058 = F::new(119.0) / F::new(3456.0) * t22858;
+    let t24060 = F::new(35.0) / F::new(216.0) * t22863;
+    let t24061 = F::new(0.22608743412718618878e-1) * t22867;
+    (t23966, t23967, t23995, t24049, t24050, t24058, t24060, t24061)
 }

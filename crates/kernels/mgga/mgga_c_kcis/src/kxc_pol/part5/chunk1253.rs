@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1253/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1253/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1253<F: Float>(t22411: F, t22413: F, t22415: F, t22417: F, t22420: F, t22423: F, t22425: F, t22428: F, t22431: F, t22433: F, t22437: F, t22471: F, t22632: F, t22634: F, t22638: F, t22641: F, t22643: F, t22645: F, t22647: F, t22650: F, t22653: F, t22655: F) -> (F, F) {
-    let t23321 = -0.20833333333333333333e-1 * t22411 + 0.26979166666666666666e-1 * t22413 - 0.20234375e-1 * t22415 - 0.125e0 * t22417 + 0.61111111111111111111e0 * t22420 - 0.45564814814814814815e0 * t22423 + 0.20234375e-1 * t22425 + 0.34173611111111111111e0 * t22428 - 0.4046875e-1 * t22431 - 0.20833333333333333333e-1 * t22433 + 0.625e-1 * t22437;
-    let t23346 = -0.44965277777777777777e-2 * t22471 + 0.9375e-1 * t22632 + 0.1875e0 * t22634 - 0.101171875e-1 * t22638 + 0.13489583333333333333e-1 * t22641 + 0.10791666666666666667e0 * t22643 - 0.1875e0 * t22645 + 0.5e0 * t22647 + 0.60703125e-1 * t22650 - 0.10791666666666666667e0 * t22653 + 0.101171875e-1 * t22655;
-    (t23321, t23346)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1253<F: Float>(t1468: F, t20943: F, t1464: F, t5748: F, t5881: F, t5752: F, t5769: F, t1394: F, t5737: F, t5885: F, t1489: F, t7202: F) -> (F, F, F, F, F) {
+    let t20944 = t1468 * t20943;
+    let t20945 = t1464 * t20944;
+    let t20947 = t5748 * t5881;
+    let t20948 = t1464 * t20947;
+    let t20950 = t5752 * t5769;
+    let t20951 = t1394 * t20950;
+    let t20953 = t5885 * t5737;
+    let t20956 = t7202 * t1489;
+    (t20945, t20948, t20951, t20953, t20956)
 }

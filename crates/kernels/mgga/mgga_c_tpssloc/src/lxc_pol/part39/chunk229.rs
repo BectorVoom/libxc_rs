@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 229/1190 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 229/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk229<F: Float>(t123: F, t67
     let t692 = f64::sqrt(t123);
     let t693 = t692 * t67;
     let t694 = t693 * t687;
-    let t697 = 1.0 / t61 / t3;
+    let t697 = F::new(1.0) / t61 / t3;
     let t698 = t119 * t697;
     (t693, t694, t697, t698)
 }

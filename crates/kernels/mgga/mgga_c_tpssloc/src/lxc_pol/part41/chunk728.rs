@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 728/1183 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 728/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk728<F: Float>(t1343: F, t5287: F, t820: F, t1352: F, t5248: F, t5249: F, t120: F, t1799: F, t3805: F, t1831: F, t3866: F, t1307: F, t3870: F, t1367: F, t5187: F, t1341: F, t1363: F, t3781: F, t3783: F, t3800: F, t3803: F, t3864: F, t3867: F, t5259: F) -> (F, F, F, F, F, F, F, F) {
-    let t5289 = t1343 * t820 * t5287;
-    let t5293 = t5248 * t5249 * t1352;
-    let t5301 = t120 * t1799;
-    let t5303 = t3805 * t5301 * t1352;
-    let t5306 = t3866 * t1831;
-    let t5308 = t1799 * t1307;
-    let t5310 = t3870 * t820 * t5308;
-    let t5314 = t1367 * t820 * t5187;
-    let t5317 = t3803 * t5259 / 768.0 - t1341 * t5289 / 3072.0 - t3803 * t5293 / 3072.0 - 7.0 / 4608.0 * t3781 + 7.0 / 4608.0 * t3800 + t3864 + 7.0 / 1152.0 * t3867 - t3783 * t1831 / 768.0 + t3803 * t5303 / 768.0 + 7.0 / 1152.0 * t5306 + 5.0 / 768.0 * t1363 * t5310 - t1363 * t5314 / 768.0;
-    (t5289, t5293, t5303, t5306, t5308, t5310, t5314, t5317)
+pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk728<F: Float>(t3449: F, t4904: F, t3448: F, t461: F, t4729: F, t1178: F, t3966: F, t1177: F, t135: F, t1716: F, t1174: F, t1714: F) -> (F, F, F, F, F, F, F, F) {
+    let t4905 = t3449 * t4904;
+    let t4908 = t3448 * t461;
+    let t4909 = t4908 * t4729;
+    let t4912 = t1178 * t3966;
+    let t4913 = t1177 * t4912;
+    let t4916 = t135 * t1716;
+    let t4917 = t1174 * t4916;
+    let t4919 = t3448 * t1714;
+    (t4905, t4908, t4909, t4912, t4913, t4916, t4917, t4919)
 }

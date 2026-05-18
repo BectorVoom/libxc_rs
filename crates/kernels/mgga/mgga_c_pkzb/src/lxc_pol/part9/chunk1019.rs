@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1019/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1019/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1019<F: Float>(t2100: F, t5945: F, t2099: F, t5725: F, t5730: F, t5915: F, t757: F, t5722: F, t768: F, t5954: F, t5957: F, t5933: F, t5935: F, t2003: F, t67: F, t154: F, t276: F, t5635: F) -> (F, F, F, F, F, F, F) {
-    let t18142 = t5945 * t2100;
-    let t18145 = t5725 * t2099 * t5730;
-    let t18150 = t757 * t2099 * t5915;
-    let t18152 = t768 * t5722;
-    let t18158 = t5954 * t2099 * t5957;
-    let t18167 = t5933 * t2099 * t5935;
-    let t18182 = t67 * t2003;
-    let t18185 = t276 * t154 * t18182 * t5635;
-    (t18142, t18145, t18150, t18152, t18158, t18167, t18185)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1019<F: Float>(t3160: F, t6337: F, t898: F, t2313: F, t3152: F, t8098: F, t881: F, t890: F, t2298: F, t2328: F, t3153: F, t8147: F, t8185: F, t8187: F, t8191: F, t8194: F, t8197: F, t8201: F, t8204: F, t8208: F, t8216: F, t8218: F, t8221: F, t8237: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t8293 = t3160 * t6337;
+    let t8295 = F::new(0.17315859105681463759e2) * t898 * t8293;
+    let t8296 = t3152 * t2313;
+    let t8298 = F::new(0.11696447245269292414e1) * t898 * t8296;
+    let t8300 = t881 * t8098 * t890;
+    let t8302 = F::new(0.5848223622634646207e0) * t898 * t8300;
+    let t8303 = t3160 * t2298;
+    let t8305 = F::new(0.35089341735807877242e1) * t898 * t8303;
+    let t8307 = F::new(0.23392894490538584828e1) * t2328 * t3153;
+    let t8308 = -t8295 + t8147 - t8185 + t8187 - t8191 - t8194 - t8197 + t8201 + t8204 + t8208 + t8298 + t8216 + t8218 + t8221 - t8237 - t8302 - t8305 + t8307;
+    (t8293, t8295, t8296, t8298, t8300, t8302, t8303, t8305, t8307, t8308)
 }

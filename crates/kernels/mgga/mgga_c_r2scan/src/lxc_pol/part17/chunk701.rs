@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 701/1120 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 701/1293 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk701<F: Float>(t495: F, t6212: F, t6211: F, t6209: F, t2182: F, t489: F, t548: F, t2090: F, t57: F, t128: F, t524: F, t540: F, t108: F, t119: F, t6100: F, t122: F, t507: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t6213 = t6212 * t495;
-    let t6214 = t6211 * t6213;
-    let t6215 = t6209 * t6214;
-    let t6217 = t2182 * t489;
-    let t6218 = t6217 * t548;
-    let t6238 = t2090 * t57;
-    let t6239 = t6238 * t128;
-    let t6240 = t524 * t6239;
-    let t6241 = t6240 * t540;
-    let t6243 = t489 * t108;
-    let t6257 = t6100 * t119;
-    let t6260 = 0.98171973930797904389e-1 * t6257 * t122 * t507;
-    (t6213, t6214, t6215, t6217, t6218, t6238, t6239, t6240, t6241, t6243, t6257, t6260)
+pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk701<F: Float>(t5290: F, t76: F, t1982: F, t5270: F, t1917: F, t695: F, t5266: F, t224: F, t5269: F, t1743: F, t720: F, t4742: F, t4745: F, t4747: F, t4749: F, t4752: F, t5309: F, t5312: F, t5315: F) -> (F, F, F, F, F, F, F) {
+    let t5530 = t76 * t5290;
+    let t5531 = t1982 * t5270;
+    let t5534 = t1917 * t695;
+    let t5537 = t76 * t5266;
+    let t5538 = t224 * t5269;
+    let t5539 = t5538 * t5270;
+    let t5542 = t1743 * t720;
+    let t5543 = t5542 * t695;
+    let t5549 = -F::new(0.235315e1) * t5309 + F::new(0.15687666666666666667e1) * t5312 - F::new(0.7320911111111111111e1) * t5315 - t4742 + t4745 - t4747 - t4749 - t4752;
+    (t5530, t5531, t5534, t5537, t5539, t5543, t5549)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 984/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 984/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk984<F: Float>(t24202: F, t25042: F, t1518: F, t6765: F, t118: F, t1502: F, t1519: F, t18245: F, t1843: F, t1847: F, t1911: F, t22578: F, t22634: F, t22639: F, t22747: F, t22758: F, t23094: F, t4248: F, t508: F, t511: F, t569: F, t5877: F, t5884: F, t5887: F, t5921: F, t651: F, t6773: F, t6934: F, t7732: F) -> (F, F, F) {
-    let t25043 = t24202 + t25042;
-    let t25045 = t6765 * t1518;
-    let t25048 = -t118 * t25043 - 3.0 * t1502 * t6765 - 6.0 * t1519 * t18245 - 3.0 * t1843 * t5877 - 6.0 * t1843 * t5884 + 3.0 * t1847 * t6934 + 3.0 * t1911 * t6773 - 6.0 * t22578 * t651 - 2.0 * t22634 * t651 - 6.0 * t22639 * t508 - t22747 * t508 + t22758 * t569 + t23094 * t511 - 6.0 * t25045 * t651 - 12.0 * t4248 * t5887 - 6.0 * t4248 * t5921 - 6.0 * t5921 * t7732;
-    (t25043, t25045, t25048)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk984<F: Float>(t11465: F, t23451: F, t3014: F, t981: F, t3011: F, t973: F, t1610: F, t19056: F, t4590: F, t6142: F, t15421: F, t6145: F) -> (F, F, F, F, F) {
+    let t23452 = t11465 * t23451;
+    let t23453 = t23452 * t3014;
+    let t23455 = F::new(0.10389515463408878255e3) * t981 * t23453;
+    let t23457 = t3011 * t23451 * t973;
+    let t23459 = F::new(0.35089341735807877242e1) * t981 * t23457;
+    let t23461 = F::new(3.0) * t19056 * t1610;
+    let t23463 = F::new(3.0) * t4590 * t6142;
+    let t23465 = F::new(0.48245938496077605201e2) * t15421 * t6145;
+    (t23455, t23459, t23461, t23463, t23465)
 }

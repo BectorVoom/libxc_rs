@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 965/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 965/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk965<F: Float>(t10459: F, t333: F, t1356: F, t1668: F, t43722: F, t43745: F, t43746: F, t43974: F, t44405: F, t47306: F, t47310: F, t47316: F, t47321: F, t47325: F, t47327: F, t47331: F, t47333: F, t47335: F, t47340: F, t530: F, t5888: F, t884: F, t9639: F) -> (F, F) {
-    let t48976 = t10459 * t333;
-    let t48990 = 0.85129199786595678799e-5 * t47306 - 0.77813409179935112652e-4 * t47310 - t43722 + 0.2993560425465952141e-1 * t47316 - 0.23948483403727617128e0 * t1356 * t43974 * t5888 + 0.59871208509319042821e-1 * t884 * t48976 - 0.5107751987195740728e-4 * t47321 - 0.3405167991463827152e-4 * t47325 + 0.1702583995731913576e-4 * t47327 + 0.1702583995731913576e-4 * t47331 + 0.212822999466489197e-4 * t47333 + 0.212822999466489197e-4 * t47335 - 0.4726e1 * t530 * t44405 - 0.4726e1 * t1668 * t9639 + t43745 + t43746 + 0.17961362552795712846e0 * t47340;
-    (t48976, t48990)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk965<F: Float>(t6400: F, t649: F, t8746: F, t6382: F, t36107: F, t6387: F, t36119: F, t36103: F, t36110: F, t36: F, t5840: F, t262: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t46101 = t649 * t6400;
+    let t46102 = t8746 * t46101;
+    let t46106 = t649 * t6382;
+    let t46107 = t36107 * t46106;
+    let t46109 = t649 * t6387;
+    let t46110 = t36119 * t46109;
+    let t46112 = t36103 * t46106;
+    let t46114 = t36110 * t46109;
+    let t46116 = t36 * t5840;
+    let t46117 = t262 * t46116;
+    (t46101, t46102, t46106, t46107, t46109, t46110, t46112, t46114, t46116, t46117)
 }

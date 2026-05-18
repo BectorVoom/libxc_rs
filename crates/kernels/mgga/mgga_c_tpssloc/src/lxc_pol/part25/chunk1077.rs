@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1077/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1077/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1077<F: Float>(t2047: F, t9971: F, t2627: F, t7084: F, t24251: F, t24270: F, t24273: F, t2617: F, t2633: F, t4182: F, t4281: F, t7101: F, t7102: F, t812: F, t81617: F, t81623: F, t81627: F, t81630: F, t81633: F, t81637: F, t81642: F, t81645: F, t81648: F, t81653: F, t84842: F, t9612: F, t9661: F, t9976: F) -> (F,) {
-    let t84953 = t9971 * t2047;
-    let t84962 = t2627 * t7084;
-    let t84981 = -0.11514538467937585055e0 * t81617 - 3.0 * t9612 * t7102 - 6.0 * t812 * t84953 * t9976 - 3.0 * t2617 * t24273 + 6.0 * t4281 * t84842 * t4182 + 6.0 * t812 * t84962 * t2633 + 0.46058153871750340221e0 * t81623 - 0.3289868133696452873e-1 * t81627 + 0.49348022005446793095e-1 * t81630 - 0.76763589786250567036e0 * t81633 - 0.9869604401089358619e-1 * t81637 - 0.14804406601634037928e0 * t81642 - 6.0 * t2617 * t24270 - t812 * t7101 * t9661 + 0.9869604401089358619e-1 * t81645 - 0.49348022005446793095e-1 * t81648 - 0.9869604401089358619e-1 * t81653 - 3.0 * t2617 * t24251;
-    (t84981,)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1077<F: Float>(t2678: F, t852: F, t225: F, t9520: F, t112: F, t12512: F, t111: F, t3931: F, t2311: F, t671: F, t2363: F, t649: F) -> (F, F, F, F, F, F) {
+    let t40955 = t852 * t2678;
+    let t41554 = t9520 * t225;
+    let t45557 = t12512 * t112;
+    let t45560 = t3931 * t111;
+    let t45602 = t2311 * t671;
+    let t45637 = t649 * t2363;
+    (t40955, t41554, t45557, t45560, t45602, t45637)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 910/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 910/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk910<F: Float>(t38872: F, t38881: F, t38886: F, t34803: F, t34810: F, t34820: F, t37228: F, t38874: F, t38876: F, t38889: F, t38899: F, t38901: F, t38908: F, t38913: F, t38918: F, t38922: F, t38926: F) -> (F,) {
-    let t42767 = 0.20496175532535769482e-3 * t38872;
-    let t42771 = 0.86737941314158990616e-4 * t38881;
-    let t42772 = 0.86737941314158990616e-4 * t38886;
-    let t42783 = -t42767 - 0.3842256877732895568e-2 * t38874 + 0.92232789896410962669e-3 * t38876 - 0.53337116123857557162e0 * t34803 + t42771 + t42772 + 0.162600798888400151e-2 * t38889 + 0.20455996240684006298e-1 * t38899 - t37228 - 0.2727466165424534173e-1 * t38901 - 0.1333427903096438929e0 * t34810 - 0.36366215538993788974e-1 * t34820 - 0.638468998399467591e-4 * t38908 - 0.638468998399467591e-4 * t38913 - 0.5107751987195740728e-4 * t38918 + 0.15323255961587222184e-3 * t38922 - 0.10215503974391481456e-3 * t38926;
-    (t42783,)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk910<F: Float>(t40081: F, t7720: F, t7487: F, t8343: F, t8358: F, t8362: F, t2001: F, t2281: F, t326: F, t333: F, t495: F, t515: F, t7230: F, t7231: F, t9109: F) -> (F, F, F, F, F, F) {
+    let t40082 = t7720 * t40081;
+    let t40084 = t7487 * t8343;
+    let t40086 = t7487 * t8358;
+    let t40088 = t7487 * t8362;
+    let t40092 = t2001 * t326 * t2281 * t333;
+    let t40093 = t7720 * t40092;
+    let t40098 = t7230 * t7231 * t515 * t9109 * t495;
+    (t40082, t40084, t40086, t40088, t40093, t40098)
 }

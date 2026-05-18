@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 465/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 465/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk465<F: Float>(t28: F, t1649: F, t3672: F, t517: F, t5966: F, t157: F, t6311: F, t182: F, t2408: F, t2417: F, t2423: F, t2426: F, t3686: F, t3688: F, t3690: F, t3695: F, t3813: F, t3918: F, t6299: F, t6300: F, t6301: F, t6304: F, zeta_threshold: F) -> (F, F, F, F) {
-    let t29 = t28 <= zeta_threshold;
-    let t6312 = t1649 * t1649;
-    let t6318 = piecewise3(t29, 0.0, 4.0 / 9.0 * t3672 * t6312 + 4.0 / 3.0 * t517 * t5966);
-    let t6320 = (t6311 + t6318) * t157;
-    let t6322 = 0.19751673498613801407e-1 * t6320 * t182;
-    let t6323 = 6.0 * t3918 * t6301 + t2408 + t2417 - t2423 - t2426 + t3686 + t3688 - t3690 - t3695 + t3813 - t6299 - t6300 + t6304 + t6322;
-    (t6312, t6320, t6322, t6323)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk465<F: Float>(t5742: F, t932: F, t2868: F, t2875: F, t4335: F, t4384: F, t5679: F, t5683: F, t5687: F, t5699: F, t5706: F, t5712: F, t5714: F, t5718: F, t5721: F, t5724: F) -> (F, F) {
+    let t5743 = t5742 * t932;
+    let t5758 = -F::new(0.17648625e1) * t5699 + F::new(0.3529725e1) * t5706 + t2868 + F::new(0.34431666666666666666e0) * t4335 - F::new(0.34431666666666666667e0) * t5679 + F::new(0.103295e1) * t5683 - F::new(0.516475e0) * t5687 + F::new(0.31558125e0) * t5712 + F::new(0.6311625e0) * t5714 + t2875 + F::new(0.13892666666666666667e0) * t4384 - F::new(0.34731666666666666667e-1) * t5718 + F::new(0.20839e0) * t5721 - F::new(0.104195e0) * t5724;
+    (t5743, t5758)
 }

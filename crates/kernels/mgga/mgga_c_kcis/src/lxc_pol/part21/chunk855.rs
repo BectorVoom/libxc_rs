@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 855/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 855/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk855<F: Float>(t13480: F, t4565: F, t13475: F, t4579: F, t13511: F, t3255: F, t4597: F, t1035: F, t3293: F, t1727: F, t934: F, t1045: F, t1071: F, t2630: F, t3274: F, t10271: F, t10282: F, t10414: F, t1102: F, t14115: F, t14119: F, t14125: F, t14127: F, t14129: F, t14134: F, t14137: F, t14141: F, t14145: F, t14150: F, t14155: F, t4587: F, t4768: F, t975: F) -> (F,) {
-    let t14158 = t4565 * t13480;
-    let t14161 = t4579 * t13475;
-    let t14164 = t4579 * t13511;
-    let t14168 = 0.13140859333333333333e-2 * t3255 * t4597;
-    let t14170 = t3293 * t1035;
-    let t14171 = t1727 * t934;
-    let t14172 = t14171 * t1045;
-    let t14173 = t14170 * t14172;
-    let t14177 = t1727 * t1071 * t2630;
-    let t14178 = t3274 * t14177;
-    let t14181 = t10271 - 0.14600954814814814815e-3 * t14115 - 0.36958666875e-3 * t1102 * t14119 - 8.0 * t975 * t4768 + t14125 - t14127 + 0.26281718666666666666e-2 * t10414 * t14129 + 0.1478346675e-2 * t1102 * t14134 - 0.8760572888888888889e-3 * t14137 - 0.13140859333333333333e-2 * t1102 * t14141 - 0.65704296666666666667e-3 * t1102 * t14145 - 0.10950716111111111111e-2 * t1102 * t14150 - 0.19711289e-2 * t1102 * t14155 - 0.65704296666666666666e-2 * t1102 * t14158 - 0.13140859333333333333e-2 * t1102 * t14161 - 0.52563437333333333332e-2 * t4587 * t14164 + t14168 + 0.492782225e-3 * t10282 + 0.59133867e-2 * t1102 * t14173 + 0.13140859333333333333e-2 * t1102 * t14178;
-    (t14181,)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk855<F: Float>(t1134: F, t13181: F, t1092: F, t1800: F, t2850: F, t3202: F, t3200: F, t1018: F, t1747: F, t1017: F, t86: F, t3214: F) -> (F, F, F, F, F) {
+    let t13182 = t13181 * t1134;
+    let t13183 = t1092 * t13182;
+    let t13186 = t1800 * t2850;
+    let t13187 = t3202 * t13186;
+    let t13188 = t3200 * t13187;
+    let t13190 = t1018 * t1747;
+    let t13192 = t86 * t1017 * t13190;
+    let t13193 = t13192 * t3214;
+    (t13183, t13186, t13188, t13192, t13193)
 }

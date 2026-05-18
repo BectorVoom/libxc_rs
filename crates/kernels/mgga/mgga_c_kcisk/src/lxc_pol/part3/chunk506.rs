@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 506/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 506/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk506<F: Float>(t529: F, t1555: F, t547: F, t524: F, t1596: F, t544: F, t3729: F, t41: F, t1287: F, t1558: F, t382: F, t4144: F, t4148: F, t525: F, t526: F, t79: F, t534: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t530 = t529 < -0.66725e-1;
-    let t4346 = 1.0 / t1555 / t547;
-    let t4347 = t524 * t4346;
-    let t4348 = t1596 * t1596;
-    let t4349 = t544 * t544;
-    let t4350 = 1.0 / t4349;
-    let t4351 = t4348 * t4350;
-    let t4354 = t3729 * t41;
-    let t4368 = piecewise3(t530, 0.0, 10.0 / 9.0 * t525 * t4354 * t382 - 20.0 / 27.0 * t525 * t1558 * t1287 + 40.0 / 81.0 * t525 * t526 * t4144 - 10.0 / 27.0 * t525 * t526 * t4148);
-    let t4369 = t79 * t4368;
-    let t4370 = t4369 * t534;
-    (t4346, t4347, t4348, t4349, t4350, t4351, t4354, t4369, t4370)
+pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk506<F: Float>(t10: F, t1337: F, t1224: F, t3575: F, t1225: F, t3579: F, t3583: F, t4008: F, t4011: F, t1229: F, t1233: F, t1232: F, t357: F) -> (F, F, F, F, F, F, F) {
+    let t4013 = t10 * t1337;
+    let t4015 = t1224 * t4013 * t3575;
+    let t4018 = t1224 * t1225 * t3579;
+    let t4021 = t1224 * t1225 * t3583;
+    let t4023 = t4008 + F::new(0.11872222222222222222e-1) * t4011 - F::new(0.11872222222222222222e-1) * t4015 + F::new(0.35616666666666666666e-1) * t4018 - F::new(0.17808333333333333333e-1) * t4021;
+    let t4026 = t1229 * t1233;
+    let t4029 = t1232 * t357;
+    (t4013, t4015, t4018, t4021, t4023, t4026, t4029)
 }

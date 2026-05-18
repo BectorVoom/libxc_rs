@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 899/1228 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 899/1378 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk899<F: Float>(t4003: F, t6843: F, t10114: F, t10117: F, t10126: F, t10129: F, t14243: F, t14252: F, t1883: F, t213: F, t22009: F, t22329: F, t22333: F, t22337: F, t22353: F, t22362: F, t22366: F, t22370: F, t22374: F, t22381: F, t22964: F, t546: F, t5735: F, t5745: F, t5755: F) -> (F,) {
-    let t23037 = t4003 * t6843;
-    let t23041 = -0.58544643236296698113e-1 * t22329 - 0.29272321618148349057e-1 * t22333 - 0.29272321618148349057e-1 * t22337 + 0.39029762157531132076e-1 * t14243 + t10114 + 0.65854491829355115987e0 * t213 * t546 * t22964 - t10117 - 0.16463622957338778996e-1 * t22353 - t10126 - t10129 - 0.39029762157531132076e-1 * t14252 - 0.32927245914677557992e-1 * t22362 + 0.32927245914677557992e-1 * t22366 + 0.16463622957338778996e-1 * t22370 + 0.16463622957338778996e-1 * t22374 + 0.29272321618148349057e-1 * t22381 - 0.19756347548806534796e1 * t5755 * t22009 * t1883 + 0.39512695097613069591e1 * t5745 * t5735 * t23037;
-    (t23041,)
+pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk899<F: Float>(t125: F, t6016: F, t2741: F, t5980: F, t5966: F, t2652: F, t5993: F, t6030: F, t10858: F, t6024: F, t6019: F, t10811: F, t6037: F) -> (F, F, F, F, F, F, F, F) {
+    let t18444 = t125 * t6016;
+    let t18459 = t2741 * t5980;
+    let t18469 = t125 * t5966;
+    let t18475 = t2652 * t5993;
+    let t18485 = t2652 * t6030;
+    let t18487 = t10858 * t6024;
+    let t18491 = t2741 * t6019;
+    let t18518 = t10811 * t6037;
+    (t18444, t18459, t18469, t18475, t18485, t18487, t18491, t18518)
 }

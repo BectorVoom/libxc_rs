@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 619/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 619/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk619<F: Float>(t1043: F, t2863: F, t2862: F, t392: F, t395: F, t1027: F, t2834: F, t2836: F, t2843: F, t2848: F, t2852: F, t1025: F, t1032: F, t2509: F, t275: F, t400: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t2864 = t2863 * t1043;
-    let t2866 = 2.0 * t2862 * t2864;
-    let t2868 = 1.0 / t395 / t392;
-    let t2869 = t1027 * t1027;
-    let t2870 = t2868 * t2869;
-    let t2872 = 4.0 / 9.0 * t2834;
-    let t2877 = t2872 - 2.0 / 9.0 * t2836 - 2.0 / 9.0 * t2843 + 2.0 / 3.0 * t2848 + t2852 / 3.0;
-    let t2878 = t1025 * t2877;
-    let t2880 = 0.39862222222222222223e0 * t2834;
-    let t2885 = 1.0/f64::sqrt(t392);
-    let t2886 = t2885 * t2869;
-    let t2888 = t1032 * t2877;
-    let t2891 = t275 * t2509 * t400;
-    (t2864, t2866, t2868, t2869, t2870, t2872, t2877, t2878, t2880, t2885, t2886, t2888, t2891)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk619<F: Float>(t2724: F, t2785: F, t948: F, t975: F, t2703: F, t366: F, t2712: F, t940: F, t2711: F, t345: F, t220: F, t2768: F, t2782: F, t2783: F, t368: F, t983: F, t985: F) -> (F, F, F, F) {
+    let t2786 = t2785 * t2724;
+    let t2790 = t975 * t948;
+    let t2794 = t366 * t2703;
+    let t2797 = t2712 * t940;
+    let t2798 = t2711 * t2797;
+    let t2799 = t2785 * t345;
+    let t2804 = t220 * t2768 * t368 + F::new(2.0) * t2782 * t2783 * t2786 - t2783 * t2798 * t2799 + F::new(2.0) * t2790 * t983 * t985 + t2794 * t983 * t985;
+    (t2786, t2798, t2799, t2804)
 }

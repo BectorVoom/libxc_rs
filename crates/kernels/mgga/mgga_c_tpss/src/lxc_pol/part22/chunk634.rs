@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 634/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 634/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk634<F: Float>(t1091: F, t3009: F, t1081: F, t2973: F, t2975: F, t1089: F, t1072: F, t2993: F, t2998: F, t3001: F, t215: F, t442: F, t671: F, t441: F, t1102: F, t140: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t3011 = 0.11696447245269292414e1 * t3009 * t1091;
-    let t3013 = t2973 * t2975 * t1081;
-    let t3015 = 0.11696447245269292414e1 * t1089 * t3013;
-    let t3017 = t1072 * t2993 * t1081;
-    let t3019 = 0.5848223622634646207e0 * t1089 * t3017;
-    let t3020 = t2998 * t2975;
-    let t3021 = t3020 * t3001;
-    let t3023 = 0.17315859105681463759e2 * t1089 * t3021;
-    let t3025 = t215 * t671 * t442;
-    let t3027 = t441 * t3025 / 432.0;
-    let t3028 = t140 * t1102;
-    (t3011, t3013, t3015, t3017, t3019, t3021, t3023, t3025, t3027, t3028)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk634<F: Float>(t2835: F, t2836: F, t2843: F, t2848: F, t2852: F, t408: F, t1019: F, t1023: F, t1044: F, t1022: F, t404: F, t394: F) -> (F, F, F, F, F, F) {
+    let t2854 = t2835 - F::new(0.11872222222222222222e-1) * t2836 - F::new(0.11872222222222222222e-1) * t2843 + F::new(0.35616666666666666666e-1) * t2848 + F::new(0.17808333333333333333e-1) * t2852;
+    let t2856 = F::new(0.621814e-1) * t2854 * t408;
+    let t2857 = t1019 * t1023;
+    let t2859 = F::new(2.0) * t2857 * t1044;
+    let t2860 = t1022 * t404;
+    let t2861 = F::new(1.0) / t2860;
+    let t2862 = t394 * t2861;
+    (t2854, t2856, t2857, t2859, t2861, t2862)
 }

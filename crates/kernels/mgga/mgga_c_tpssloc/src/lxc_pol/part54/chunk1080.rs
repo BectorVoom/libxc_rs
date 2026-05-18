@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1080/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1080/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1080<F: Float>(t1266: F, t31055: F, t31057: F, t31060: F, t31671: F, t31733: F, t31737: F, t31746: F, t31749: F, t31750: F, t32349: F, t510: F, t7171: F, t7220: F, t8329: F, t8690: F, t8829: F) -> (F,) {
-    let t32378 = -t1266 * t8829 - t32349 * t510 + 3.0 * t7171 * t8690 - t7220 * t8690 - t31055 - t31057 - t31060 + t31671 - t31733 + t31737 - t31746 - t31749 - t31750 - t8329;
-    (t32378,)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1080<F: Float>(t26429: F, t1338: F, t7918: F, t1352: F, t5287: F, t7208: F, t27051: F, t553: F, t1332: F, t1336: F, t1814: F, t2089: F, t22728: F, t22731: F, t22746: F, t22753: F, t22896: F, t24108: F, t24110: F, t26434: F, t26437: F, t26449: F, t26463: F, t26468: F, t5230: F, t544: F, t7211: F, t7934: F) -> F {
+    let t27096 = F::new(0.38381794893125283518e-1) * t26429;
+    let t27097 = t1338 * t7918;
+    let t27098 = t27097 * t1352;
+    let t27103 = t7208 * t5287;
+    let t27105 = t553 * t27051;
+    let t27113 = -t27096 - t1336 * t27098 + F::new(0.16449340668482264365e-1) * t26434 - F::new(0.82246703342411321825e-2) * t26437 + t24108 + t24110 - F::new(0.82246703342411321825e-2) * t22728 - t22731 - t1336 * t27103 + t544 * t27105 + F::new(0.9869604401089358619e-1) * t26449 + t22746 + t22753 + t1332 * t7934 - F::new(0.16449340668482264365e-1) * t26463 + t1814 * t7211 + t22896 + t5230 * t2089 - F::new(0.16449340668482264365e-1) * t26468;
+    t27113
 }

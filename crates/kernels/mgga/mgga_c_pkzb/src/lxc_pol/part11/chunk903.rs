@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 903/1208 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 903/1340 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk903<F: Float>(t10556: F, t50: F, t581: F, t10502: F, t1024: F, t3396: F, t1034: F, t3441: F, t164: F, t179: F, t2593: F, t1020: F, t8904: F, t2600: F, t10487: F, t10488: F, t10489: F, t10490: F, t10491: F, t10492: F, t4867: F, t4870: F, t4876: F, t4879: F, t4881: F, t4884: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10557 = t50 * t10556;
-    let t10558 = t581 * t10557;
-    let t10561 = t50 * t10502;
-    let t10562 = t581 * t10561;
-    let t10566 = t581 * t1024 * t3396;
-    let t10572 = t3441 * t1034;
-    let t10573 = t10572 * t164;
-    let t10574 = t179 * t10573;
-    let t10577 = t2593 * t3441;
-    let t10578 = t179 * t10577;
-    let t10582 = t179 * t8904 * t1020;
-    let t10586 = t179 * t2600 * t3396;
-    let t10589 = t4867 + t4870 - t4876 - t4879 - t10487 + t10488 - t4881 - t10489 - t4884 + t10490 + t10491 + t10492;
-    (t10557, t10558, t10561, t10562, t10566, t10572, t10573, t10574, t10577, t10578, t10582, t10586, t10589)
+pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk903<F: Float>(t6090: F, t6156: F, t7955: F, t7957: F, t9782: F, t9797: F, t834: F, t3743: F, t6165: F, t836: F, t3046: F, t3052: F) -> (F, F, F, F, F) {
+    let t9798 = -t6156 + F::new(4.0) / F::new(9.0) * t6090 + F::new(8.0) / F::new(9.0) * t7955 - t7957 - t9782 / F::new(3.0) + t9797;
+    let t9799 = t834 * t9798;
+    let t9805 = t6165 * t3743;
+    let t9806 = t9805 * t836;
+    let t9808 = t3052 * t3046;
+    (t9798, t9799, t9805, t9806, t9808)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1249/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1249/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1249<F: Float>(t17730: F, t17737: F, t3626: F, t3584: F, t471: F, t5351: F, t3720: F, t13142: F, t17708: F, t3601: F, t3603: F, t17710: F, t13127: F, t5046: F, t12787: F, t1260: F, t5261: F) -> (F, F, F, F, F, F, F, F) {
-    let t17738 = t17737 * t17730;
-    let t17739 = t3626 * t17738;
-    let t17742 = t471 * t3584;
-    let t17743 = t5351 * t17742;
-    let t17744 = t3720 * t17743;
-    let t17747 = t13142 * t17708;
-    let t17748 = t3601 * t3603;
-    let t17749 = t17710 * t17748;
-    let t17750 = t3720 * t17749;
-    let t17753 = t13127 * t17708;
-    let t17754 = t3601 * t471;
-    let t17755 = t17710 * t17754;
-    let t17756 = t3720 * t17755;
-    let t17759 = t5046 * t17730;
-    let t17760 = t12787 * t17759;
-    let t17763 = t5261 * t1260;
-    (t17739, t17744, t17747, t17750, t17753, t17756, t17760, t17763)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1249<F: Float>(t15513: F, t291: F, t11399: F, t15406: F, t15413: F, t15418: F, t15420: F, t15423: F, t15425: F, t15427: F, t15477: F, t15495: F, t1622: F, t2938: F, t2963: F, t2971: F, t2989: F, t4647: F, t4670: F) -> (F, F) {
+    let t15515 = F::new(0.621814e-1) * t15513 * t291;
+    let t15516 = F::new(1.0) * t4647 * t2963 + F::new(0.32163958997385070134e2) * t15406 * t2971 + F::new(1.0) * t11399 * t1622 + F::new(2.0) * t2938 * t4670 - F::new(0.11696447245269292414e1) * t15413 * t2989 - t15418 - t15420 - t15423 - t15425 - t15427 - t15477 - F::new(0.19751673498613801407e-1) * t15495 + t15515;
+    (t15515, t15516)
 }

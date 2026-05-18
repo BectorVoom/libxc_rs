@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 825/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 825/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk825<F: Float>(t11: F, t2: F, t22: F, t1958: F, t563: F, t27: F, t559: F, t20: F, t571: F, t12: F, t558: F, t1965: F, t1971: F, t567: F, t1970: F, t3: F) -> (F, F, F, F, F, F, F, F) {
-    let t7657 = t11 * t2;
-    let t7659 = 24.0 * t7657 * t22;
-    let t7660 = t1958 * t563;
-    let t7662 = t559 * t27;
-    let t7665 = 120.0 * t20 * t571;
-    let t7666 = t12 * t558;
-    let t7668 = 120.0 * t7666 * t27;
-    let t7669 = t1965 * t571;
-    let t7671 = t567 * t1971;
-    let t7673 = t1970 * t3;
-    (t7659, t7660, t7662, t7665, t7668, t7669, t7671, t7673)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk825<F: Float>(t30: F, t259: F, t379: F, t207: F, t5848: F, t1692: F, t1812: F, t198: F, t2439: F, t5853: F, t750: F, t821: F, t823: F, t1819: F, t45: F, t5539: F, t5591: F, t580: F, t581: F, t5849: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t120 = rho0 <= dens_threshold || t31;
+    let t380 = t259 < t379;
+    let t5864 = t207 * t5848;
+    let t5869 = -t1692 * t5853 * t821 + F::new(3.0) * t1812 * t2439 * t750 + t198 * t5864 * t823;
+    let t5870 = piecewise3::<f64>(t380, F::new(0.0), t5869);
+    let t5875 = piecewise3::<f64>(t120, F::new(3.0) / F::new(2.0) * t2439 * t1812 * t5539 + t1692 * t5849 * t30 / F::new(2.0) - t1692 * t5853 * t5591 / F::new(2.0) + t1692 * t1812 * t580 / F::new(2.0), t1819 * t581 / F::new(2.0) + t5870 * t45 / F::new(2.0));
+    (t5869, t5870, t5875)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 621/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 621/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk621<F: Float>(t6177: F, t974: F, t1196: F, t5398: F, t3555: F, t5392: F, t1653: F, t1735: F, t3578: F, t1174: F, t1726: F, t1737: F, t3577: F, t488: F, t4889: F, t4957: F, t4959: F, t4994: F, t4998: F, t5002: F, t6158: F, t6165: F, t6170: F) -> (F, F, F, F, F, F, F, F) {
-    let t6178 = t974 * t6177;
-    let t6183 = t1196 * t5398;
-    let t6184 = t974 * t6183;
-    let t6187 = t3555 * t5392;
-    let t6188 = t974 * t6187;
-    let t6191 = t1735 * t1653;
-    let t6192 = t3578 * t6191;
-    let t6197 = -t6158 * t488 / 288.0 + 19.0 / 1728.0 * t6165 * t488 + t6170 * t488 / 3072.0 + t4957 / 2304.0 - t4959 / 432.0 - t4994 / 3456.0 + t4998 / 2304.0 + t1174 * t6178 / 216.0 + t4889 * t1726 / 54.0 - t1174 * t6184 / 288.0 - t1174 * t6188 / 144.0 - t3577 * t6192 / 2304.0 + t5002 * t1737 / 1536.0;
-    (t6178, t6183, t6184, t6187, t6188, t6191, t6192, t6197)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk621<F: Float>(t381: F, t5848: F, t1603: F, t1625: F, t1044: F, t248: F, t5685: F, t3062: F, t5677: F, t5691: F, t5693: F, t5697: F, t5729: F, t5732: F, t5798: F, t5800: F, t5802: F, t5806: F, t5810: F, t5814: F) -> (F, F, F, F, F) {
+    let t5849 = t5848 * t381;
+    let t5851 = t1603 * t1625;
+    let t5857 = t248 * t1044 * t5685;
+    let t5861 = t248 * t3062 * t5677;
+    let t5866 = -t5691 + t5693 - t5697 + t5729 + t5732 + t5798 + t5800 - t5802 + t5806 - t5810 - t5814;
+    (t5849, t5851, t5857, t5861, t5866)
 }

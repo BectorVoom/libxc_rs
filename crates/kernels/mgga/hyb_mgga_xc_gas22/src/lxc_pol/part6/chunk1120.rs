@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1120/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1120/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1120<F: Float>(t1057: F, t7313: F, t2643: F, t7242: F, t1068: F, t7544: F, t1097: F, t1110: F, t2647: F, t7410: F, t7269: F, t2699: F, t7520: F, t7516: F, t2635: F, t7515: F) -> (F, F, F, F, F, F, F, F) {
-    let t21997 = t1057 * t7313;
-    let t21999 = t2643 * t7242;
-    let t22004 = t7544 * t1068;
-    let t22009 = 0.46785788981077169656e1 * t1110 * t2647 * t7410 * t1097;
-    let t22010 = t2643 * t7269;
-    let t22012 = t2699 * t7520;
-    let t22014 = t2643 * t7516;
-    let t22019 = 0.69263436422725855036e2 * t1110 * t2635 * t7410 * t7515;
-    (t21997, t21999, t22004, t22009, t22010, t22012, t22014, t22019)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1120<F: Float>(t1410: F, t3513: F, t2478: F, t4273: F, t967: F, t7075: F, t4270: F, t2523: F, t4269: F, t2521: F, t3517: F, t4243: F, t7150: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t11022 = t1410 * t3513;
+    let t11024 = F::new(4.0) * t2478 * t11022;
+    let t11025 = t4273 * t967;
+    let t11027 = F::new(0.96491876992155210402e2) * t7075 * t11025;
+    let t11028 = t4270 * t967;
+    let t11030 = F::new(2.0) * t2478 * t11028;
+    let t11031 = t4269 * t2523;
+    let t11032 = t11031 * t967;
+    let t11034 = F::new(0.16081979498692535067e2) * t2521 * t11032;
+    let t11035 = t3517 * t3513;
+    let t11037 = F::new(0.32163958997385070134e2) * t2521 * t11035;
+    let t11038 = t4243 * t7150;
+    (t11022, t11024, t11025, t11027, t11028, t11030, t11031, t11032, t11034, t11035, t11037, t11038)
 }

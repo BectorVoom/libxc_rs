@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 656/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 656/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk656<F: Float>(t1390: F, t4057: F, t828: F, t1389: F, t1408: F, t2736: F, t1388: F, t1410: F, t3970: F, t3976: F, t3982: F, t3987: F, t3990: F, t3996: F, t4002: F, t4006: F, t4014: F, t4022: F) -> (F, F, F) {
-    let t4059 = t1390 * t828 * t4057;
-    let t4062 = t1408 * t1389;
-    let t4064 = 0.25410001404642664112e-5 * t2736 * t4062;
-    let t4065 = -0.85748036236139473944e-3 * t1410 * t3970 - t3976 - 0.10164000561857065645e-3 * t3982 + t3987 + 0.80031500487063509015e-2 * t3990 + 0.14291339372689912324e-4 * t3996 + 0.42874018118069736972e-3 * t4002 * t4006 + 0.42874018118069736972e-2 * t1410 * t4014 - 0.25410001404642664112e-4 * t4022 - 0.21437009059034868486e-3 * t1388 * t4059 - t4064;
-    (t4059, t4062, t4065)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk656<F: Float>(t30: F, t33: F, t2630: F, t3869: F, t1337: F, t2619: F, t514: F, t1344: F, t2257: F, t3834: F, t517: F, t1348: F, t3351: F, t3842: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t34 = t33 <= zeta_threshold;
+    let t3871 = F::new(0.10843581300301739842e-1) * t3869 * t2630;
+    let t3873 = F::new(0.24415263074675393405e-3) * t1337 * t2619;
+    let t3874 = F::new(1.0) / t514;
+    let t3880 = piecewise3::<f64>(t31, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3874 * t3834 + F::new(2.0) / F::new(3.0) * t1344 * t2257);
+    let t3881 = F::new(1.0) / t517;
+    let t3887 = piecewise3::<f64>(t34, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3881 * t3842 + F::new(2.0) / F::new(3.0) * t1348 * t3351);
+    (t3871, t3873, t3874, t3880, t3881, t3887)
 }

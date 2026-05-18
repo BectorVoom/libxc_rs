@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1041/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1041/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1041<F: Float>(t31195: F, t6888: F, t794: F, t8479: F, t6897: F, t1351: F, t2006: F, t550: F, t6976: F, t1992: F, t1998: F, t6955: F, t214: F, t1985: F, t2314: F, t8326: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t31197 = 0.3289868133696452873e-1 * t6888 * t31195;
-    let t31198 = t794 * t8479;
-    let t31200 = 0.82246703342411321825e-2 * t6897 * t31198;
-    let t31201 = t2006 * t1351;
-    let t31202 = t31201 * t550;
-    let t31203 = t6976 * t31202;
-    let t31205 = 0.16449340668482264365e-1 * t1992 * t31203;
-    let t31206 = t1998 * t6955;
-    let t31207 = t214 * t31206;
-    let t31209 = 0.16449340668482264365e-1 * t1985 * t31207;
-    let t31236 = t2314 * t8326;
-    (t31197, t31198, t31200, t31202, t31203, t31205, t31206, t31207, t31209, t31236)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1041<F: Float>(t26414: F, t6976: F, t22633: F, t5345: F, t1992: F, t1799: F, t562: F, t1352: F, t22705: F, t7736: F, t22704: F, t6883: F, t7741: F) -> (F, F, F, F, F, F) {
+    let t26415 = t6976 * t26414;
+    let t26416 = t22633 * t26415;
+    let t26418 = t6976 * t5345;
+    let t26419 = t1992 * t26418;
+    let t26421 = t562 * t1799;
+    let t26422 = t26421 * t1352;
+    let t26423 = t6976 * t26422;
+    let t26424 = t22633 * t26423;
+    let t26426 = t22705 * t7736;
+    let t26427 = t22704 * t26426;
+    let t26429 = t6883 * t7741;
+    (t26416, t26419, t26421, t26424, t26427, t26429)
 }

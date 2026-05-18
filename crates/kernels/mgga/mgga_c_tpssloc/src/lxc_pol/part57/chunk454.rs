@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 454/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 454/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk454<F: Float>(t300: F, t6091: F, t6064: F, t1703: F, t4869: F, t1156: F, t3375: F, t6068: F, t1164: F, t1147: F, t6084: F, t3400: F, t3403: F, t338: F, t5416: F, t3441: F, t5392: F) -> (F, F, F, F, F, F, F, F) {
-    let t6092 = t300 * t6091;
-    let t6094 = 0.19751673498613801407e-1 * t300 * t6064;
-    let t6096 = 0.11696447245269292414e1 * t4869 * t1703;
-    let t6098 = t3375 * t6068 * t1156;
-    let t6100 = 0.11696447245269292414e1 * t1164 * t6098;
-    let t6102 = t1147 * t6084 * t1156;
-    let t6104 = 0.5848223622634646207e0 * t1164 * t6102;
-    let t6105 = t3400 * t6068;
-    let t6106 = t6105 * t3403;
-    let t6108 = 0.17315859105681463759e2 * t1164 * t6106;
-    let t6109 = t5416 * t338;
-    let t6119 = t3441 * t5392;
-    (t6092, t6094, t6096, t6100, t6104, t6108, t6109, t6119)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk454<F: Float>(t2718: F, t5636: F, t2728: F, t5585: F, t1510: F, t4295: F, t5612: F, t860: F, t5617: F, t235: F, t5631: F, t1499: F, t1523: F, t1525: F, t226: F, t255: F, t4166: F, t5575: F, t812: F) -> (F, F) {
+    let t5637 = t2718 * t5636;
+    let t5645 = t2728 * t5585;
+    let t5648 = t4295 * t1510;
+    let t5651 = t860 * t5612;
+    let t5653 = t860 * t5617;
+    let t5655 = t235 * t5631;
+    let t5657 = F::new(2.0) * t1499 * t1525 - F::new(2.0) * t1523 * t4166 + t226 * t5655 + t255 * t5575 + F::new(2.0) * t5645 * t812 - F::new(2.0) * t5648 * t812 - t5651 * t812 - t5653 * t812;
+    (t5637, t5657)
 }

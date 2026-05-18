@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 800/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 800/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk800<F: Float>(t1368: F, t16503: F, t3369: F, t7448: F, t34761: F, t9159: F, t2318: F, t34975: F, t7482: F, t7244: F, t9171: F, t1528: F, t1970: F, t209: F, t236: F, t476: F, t7231: F) -> (F, F, F, F, F) {
-    let t39915 = t16503 * t3369 * t1368 * t7448;
-    let t39917 = t34761 * t9159;
-    let t39921 = t34975 * t3369 * t2318 * t7482;
-    let t39926 = t7244 * t9171;
-    let t39932 = t1970 * t7231 * t236 * t1528 * t476 * t209;
-    (t39915, t39917, t39921, t39926, t39932)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk800<F: Float>(t7387: F, t7492: F, t7559: F, t7562: F, t7767: F, t8201: F, t7901: F, t34687: F, t34704: F, t34706: F, t34710: F, t34752: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t37108 = F::new(0.91462949374725084936e-3) * t7387;
+    let t37134 = F::new(0.18292589874945016987e-2) * t7492;
+    let t37147 = F::new(0.26021382394247697185e-3) * t7559;
+    let t37148 = F::new(0.20001418546446583935e0) * t7562;
+    let t37179 = F::new(0.18292589874945016987e-2) * t7767;
+    let t37183 = F::new(3.0) * t8201;
+    let t37186 = F::new(0.87811105813667929468e0) * t7901;
+    let t37200 = F::new(0.205201155180140685e-5) * t34687;
+    let t37201 = F::new(0.18292589874945016987e-2) * t34704;
+    let t37202 = F::new(0.91462949374725084936e-3) * t34706;
+    let t37203 = F::new(0.13010691197123848592e-3) * t34710;
+    let t37214 = F::new(0.205201155180140685e-5) * t34752;
+    (t37108, t37134, t37147, t37148, t37179, t37183, t37186, t37200, t37201, t37202, t37203, t37214)
 }

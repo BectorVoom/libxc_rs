@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1174/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1174/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1174<F: Float>(t30676: F, t4119: F, t6552: F, t6637: F, t22893: F, t23164: F, t32818: F, t112983: F, t1888: F, t25262: F, t6646: F, t112991: F, t112997: F, t32827: F, t6547: F, t1880: F, t1894: F, t214: F, t25160: F) -> (F, F, F, F, F, F, F, F) {
-    let t118725 = 0.3289868133696452873e-1 * t6552 * t6637 * t30676 * t4119;
-    let t118727 = t23164 * t22893 * t32818;
-    let t118728 = 0.16449340668482264365e-1 * t118727;
-    let t118730 = 0.82246703342411321825e-2 * t112983;
-    let t118735 = 0.16449340668482264365e-1 * t1888 * t6646 * t25262;
-    let t118736 = 0.38381794893125283518e-1 * t112991;
-    let t118737 = 0.82246703342411321825e-2 * t112997;
-    let t118738 = t6547 * t32827;
-    let t118739 = 0.38381794893125283518e-1 * t118738;
-    let t118743 = 0.16449340668482264365e-1 * t1880 * t214 * t1894 * t25160;
-    (t118725, t118728, t118730, t118735, t118736, t118737, t118739, t118743)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1174<F: Float>(t31160: F, t31177: F, t31157: F, t31163: F, t31166: F, t31173: F, t31179: F, t31576: F, t539: F, t225: F, t567: F, t7191: F) -> (F, F, F, F, F) {
+    let t31578 = F::new(0.26915170729426927235e-3) * t31160;
+    let t31582 = F::new(7.0) / F::new(1152.0) * t31177;
+    let t31584 = -t31576 - F::new(0.96894614625936938046e-2) * t31157 - t31578 - F::new(0.16149102437656156341e-2) * t31163 + t31166 / F::new(768.0) - t31173 / F::new(768.0) - t31582 - t31179 / F::new(192.0);
+    let t31585 = t539 * t31584;
+    let t31589 = t7191 * t225 * t567;
+    (t31578, t31582, t31584, t31585, t31589)
 }

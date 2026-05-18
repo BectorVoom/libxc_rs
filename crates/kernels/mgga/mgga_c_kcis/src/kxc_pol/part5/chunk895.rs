@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 895/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 895/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk895<F: Float>(t977: F, t278: F, t2835: F, t975: F, t119: F, t251: F, t85: F, t361: F, t1127: F, t3245: F, t1138: F, t3329: F, t1140: F, t364: F, t357: F, t359: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10461 = t977 * t977;
-    let t10462 = 1.0 / t10461;
-    let t10463 = t278 * t10462;
-    let t10466 = t975 * t2835;
-    let t10470 = t85 * t119 * t251;
-    let t10471 = t10470 * t361;
-    let t10472 = 0.73697530864197530862e-3 * t10471;
-    let t10473 = t3245 * t1127;
-    let t10491 = t1138 * t3329;
-    let t10496 = t1140 * t1140;
-    let t10497 = 1.0 / t10496;
-    let t10498 = t364 * t10497;
-    let t10506 = 1.0 / t359 / t357;
-    (t10463, t10466, t10470, t10471, t10472, t10473, t10491, t10498, t10506)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk895<F: Float>(t7515: F, t7532: F, t2128: F, t7276: F, t7278: F, t7280: F, t7284: F, t7288: F, t7290: F, t7292: F, t7294: F, t7297: F, t7300: F, t7302: F, t7306: F) -> (F, F, F) {
+    let t7533 = t7515 + t7532;
+    let t7537 = t2128 * t2128;
+    let t7552 = -F::new(0.44965277777777777777e-2) * t7276 - F::new(0.5e0) * t7278 + F::new(0.125e0) * t7280 - F::new(0.9375e-1) * t7284 - F::new(0.13489583333333333333e-1) * t7288 + F::new(0.10791666666666666667e0) * t7290 - F::new(0.26979166666666666666e-1) * t7292 + F::new(0.20234375e-1) * t7294 - F::new(0.10791666666666666667e0) * t7297 + F::new(0.26979166666666666666e-1) * t7300 - F::new(0.1875e0) * t7302 + F::new(0.101171875e-1) * t7306;
+    (t7533, t7537, t7552)
 }

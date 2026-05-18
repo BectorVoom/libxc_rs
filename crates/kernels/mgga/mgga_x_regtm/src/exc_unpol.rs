@@ -29,12 +29,12 @@ pub fn mgga_x_regtm_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t21 = M_CBRT2;
         let t22 = t21 * t21;
@@ -50,7 +50,7 @@ pub fn mgga_x_regtm_exc_unpol(
         let t35 = M_CBRT6;
         let t36 = t34 * t35;
         let t37 = M_PI * M_PI;
-        let t38 = pow_1_3(t37);
+        let t38 = pow_1_3::<f64>(t37);
         let t39 = t38 * t38;
         let t40 = 1.0 / t39;
         let t41 = t35 * t40;
@@ -102,13 +102,13 @@ pub fn mgga_x_regtm_exc_unpol(
         let t124 = 1.0 / tau[ip];
         let t126 = t123 * t124 / 8.0;
         let t127 = t126 < 1.0;
-        let t128 = piecewise3(t127, t126, 1.0);
+        let t128 = piecewise3::<f64>(t127, t126, 1.0);
         let t129 = t119 * t128;
         let t130 = 1.0 - t128;
         let t133 = 1.0 + 5.0 / 12.0 * t114 * t32 + 292.0 / 405.0 * t120 - 146.0 / 135.0 * t129 * t130;
         let t134 = f64::powf(t133, 1.0 / 10.0);
         let t136 = t108 * t79 + t110 * t134;
-        let t140 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t136);
+        let t140 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t136);
         let tzk0 = 2.0 * t140;
         zk[ip] += tzk0;
     }

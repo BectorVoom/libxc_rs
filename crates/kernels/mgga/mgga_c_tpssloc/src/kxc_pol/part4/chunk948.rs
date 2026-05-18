@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 948/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 948/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk948<F: Float>(t17349: F, t932: F, t5769: F, t942: F, t17297: F, t951: F, t13515: F, t1557: F, t4354: F, t4396: F, t10747: F, t10765: F, t10825: F, t14332: F, t1581: F, t17197: F, t2900: F, t4449: F, t4472: F, t5762: F, t5775: F, t5791: F, t5794: F, t924: F, t943: F, t952: F) -> (F, F, F) {
-    let t17350 = t17349 * t932;
-    let t17355 = t5769 * t942;
-    let t17366 = t17297 * t951;
-    let t17372 = 2.0 * t13515 * t1557;
-    let t17374 = 2.0 * t4354 * t4396;
-    let t17375 = -t17197 + 1.0 * t924 * t17350 + 0.32163958997385070134e2 * t10765 * t5762 + 0.5848223622634646207e0 * t17355 * t952 + 0.11696447245269292414e1 * t14332 * t1581 + 0.11696447245269292414e1 * t4449 * t4472 - 0.11696447245269292414e1 * t10747 * t5775 + 0.5848223622634646207e0 * t2900 * t5791 + 0.5848223622634646207e0 * t943 * t17366 + 0.17315859105681463759e2 * t10825 * t5794 - t17372 - t17374;
-    (t17372, t17374, t17375)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk948<F: Float>(t13969: F, t4599: F, t3039: F, t3069: F, t4669: F, t10231: F, t4338: F, t973: F, t4595: F, t3130: F, t3048: F, t4571: F) -> (F, F, F, F, F) {
+    let t13970 = t13969 * t4599;
+    let t13972 = t3039 * t13970 / F::new(2304.0);
+    let t13995 = t4669 * t3069;
+    let t13998 = t10231 * t4338;
+    let t14000 = t973 * t13998 / F::new(324.0);
+    let t14025 = t13969 * t4595;
+    let t14027 = t3130 * t14025 / F::new(1152.0);
+    let t14049 = t3048 * t4571 / F::new(648.0);
+    (t13972, t13995, t14000, t14027, t14049)
 }

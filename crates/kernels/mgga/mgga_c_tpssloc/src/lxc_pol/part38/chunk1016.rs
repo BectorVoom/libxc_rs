@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1016/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1016/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1016<F: Float>(t13969: F, t4599: F, t3039: F, t376: F, t4649: F, t4594: F, t4582: F, t3120: F, t3131: F, t4593: F, t10482: F, t3040: F, t3132: F, t3069: F, t4669: F, t10231: F, t4338: F) -> (F, F, F, F, F, F, F, F) {
-    let t13970 = t13969 * t4599;
-    let t13972 = t3039 * t13970 / 2304.0;
-    let t13975 = t376 * t4649;
-    let t13976 = t13975 * t4594;
-    let t13977 = t4582 * t13976;
-    let t13980 = t3131 * t3120;
-    let t13981 = t4593 * t13980;
-    let t13982 = t4582 * t13981;
-    let t13985 = t10482 * t3040;
-    let t13986 = t4593 * t13985;
-    let t13987 = t4582 * t13986;
-    let t13990 = t4593 * t3132;
-    let t13991 = t4582 * t13990;
-    let t13995 = t4669 * t3069;
-    let t13998 = t10231 * t4338;
-    (t13972, t13975, t13977, t13982, t13987, t13991, t13995, t13998)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1016<F: Float>(t5107: F, t671: F, t1266: F, t4072: F, t1774: F, t2363: F, t584: F, t9212: F, t9214: F, t9216: F, t9218: F, t9220: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t12545 = t5107 * t671;
+    let t12550 = t1266 * t4072;
+    let t12557 = t1774 * t2363;
+    let t12560 = F::new(0.348e1) * t584;
+    let t12561 = F::new(0.156e1) * t9212;
+    let t12562 = F::new(0.312e1) * t9214;
+    let t12563 = F::new(0.2312e3) * t9216;
+    let t12564 = F::new(0.3468e3) * t9218;
+    let t12565 = F::new(0.56952e3) * t9220;
+    (t12545, t12550, t12557, t12560, t12561, t12562, t12563, t12564, t12565)
 }

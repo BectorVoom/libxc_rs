@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 810/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 810/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk810<F: Float>(t259: F, t2649: F, t546: F, t565: F, t1551: F, t2562: F, t360: F, t2526: F, t537: F, t2124: F, t495: F, t2719: F, t277: F, t2567: F, t1567: F, t2530: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t7983 = t2649 * t259;
-    let t7984 = t546 * t7983;
-    let t7987 = t565 * t7983;
-    let t7990 = t2562 * t1551;
-    let t7991 = t360 * t7990;
-    let t7994 = t537 * t2526;
-    let t7996 = t2124 * t7994 * t495;
-    let t8001 = t277 * t2719;
-    let t8002 = t8001 * t495;
-    let t8003 = t360 * t8002;
-    let t8006 = t2567 * t1551;
-    let t8007 = t360 * t8006;
-    let t8012 = t1567 * t2530;
-    (t7984, t7987, t7990, t7991, t7996, t8001, t8002, t8003, t8006, t8007, t8012)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk810<F: Float>(t2747: F, t468: F, t1411: F, t963: F, t1385: F, t5034: F, t4873: F, t5032: F, t5039: F, t7095: F, t7097: F, t7108: F, t7110: F, t7112: F, t7126: F, t7128: F, t7149: F, t7150: F) -> (F, F, F, F, F) {
+    let t7155 = t2747 * t468;
+    let t7156 = F::new(0.11696447245269292414e1) * t7155;
+    let t7157 = t963 * t1411;
+    let t7158 = F::new(0.5848223622634646207e0) * t7157;
+    let t7159 = t963 * t1385;
+    let t7160 = F::new(0.17315859105681463759e2) * t7159;
+    let t7161 = F::new(0.23392894490538584828e1) * t5034;
+    let t7162 = t7095 - t7097 - t7108 + t7110 + t7112 + t7126 + t7128 - t7149 - t7150 + t4873 - t7156 - t7158 - t7160 + t5032 + t7161 + t5039;
+    (t7156, t7158, t7160, t7161, t7162)
 }

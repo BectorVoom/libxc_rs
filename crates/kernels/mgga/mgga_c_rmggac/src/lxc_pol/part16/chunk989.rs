@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 989/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 989/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk989<F: Float>(t43970: F, t570: F, t1704: F, t2228: F, t118: F, t27094: F, t27176: F, t321: F, t333: F, t352: F, t41500: F, t44232: F, t44239: F, t4669: F, t46702: F, t46707: F, t49407: F, t49411: F, t49469: F, t5155: F, t5266: F, t558: F, t793: F) -> (F, F, F) {
-    let t49507 = t43970 * t570;
-    let t49510 = t2228 * t1704;
-    let t49533 = 0.11974241701863808564e0 * t5266 * t49411 * t333 - 0.79828278012425390428e-1 * t118 * t49507 + 0.11974241701863808564e0 * t793 * t49510 - 0.17961362552795712846e0 * t4669 * t49407 * t321 + 0.23948483403727617128e0 * t5155 * t49407 * t333 + 0.5987120850931904282e-1 * t46702 - 0.15965655602485078085e0 * t46707 - t41500 - 0.11974241701863808564e1 * t27094 * t49469 * t333 - 0.47896966807455234256e0 * t27176 * t49469 * t352 + 0.23948483403727617128e0 * t5266 * t44232 * t570 - 0.35922725105591425692e0 * t4669 * t44239 * t558;
-    (t49507, t49510, t49533)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk989<F: Float>(t6444: F, t9765: F, t5840: F, t645: F, t793: F, t46453: F, t4669: F, t44736: F, t5259: F, t46181: F, t7844: F, t1763: F, t262: F, t265: F, t7835: F) -> (F, F, F, F, F, F, F) {
+    let t46609 = t6444 * t9765;
+    let t46611 = t645 * t5840;
+    let t46612 = t793 * t46611;
+    let t46614 = t4669 * t46453;
+    let t46634 = t5259 * t44736;
+    let t46642 = t7844 * t46181;
+    let t46646 = t7835 * t262 * t265 * t1763;
+    (t46609, t46611, t46612, t46614, t46634, t46642, t46646)
 }

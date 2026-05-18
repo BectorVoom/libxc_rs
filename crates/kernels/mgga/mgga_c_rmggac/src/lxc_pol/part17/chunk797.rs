@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 797/964 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 797/1111 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk797<F: Float>(t1614: F, t1970: F, t1971: F, t209: F, t511: F, t605: F, t1494: F, t558: F, t10030: F, t7255: F, t1652: F, t515: F, t570: F, t352: F, t6172: F, t118: F, t128: F, t1888: F, t1986: F) -> (F, F, F, F, F, F, F) {
-    let t45012 = t1970 * t1971 * t511 * t1614 * t605 * t209;
-    let t45018 = t1970 * t1971 * t511 * t558 * t1494 * t209;
-    let t45020 = t7255 * t10030;
-    let t45026 = t1970 * t1971 * t515 * t1652 * t605 * t209;
-    let t45032 = t1970 * t1971 * t515 * t570 * t1494 * t209;
-    let t45038 = t1970 * t1971 * t515 * t6172 * t352;
-    let t45043 = t1986 * t118 * t128 * t1888 * t209;
-    (t45012, t45018, t45020, t45026, t45032, t45038, t45043)
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk797<F: Float>(t2010: F, t38855: F, t7756: F, t34715: F, t8465: F, t35215: F, t35623: F, t7349: F, t7760: F, t8342: F, t2415: F, t35210: F) -> (F, F, F, F, F, F) {
+    let t38857 = t2010 * t38855 * t7756;
+    let t38858 = F::new(0.72042316457491791906e-3) * t38857;
+    let t38860 = t2010 * t8465 * t34715;
+    let t38861 = F::new(0.72042316457491791906e-3) * t38860;
+    let t38863 = t2010 * t8465 * t35215;
+    let t38864 = F::new(0.72042316457491791906e-3) * t38863;
+    let t38866 = t2010 * t8465 * t35623;
+    let t38869 = t7349 * t8342 * t7760;
+    let t38870 = F::new(0.10248087766267884742e-3) * t38869;
+    let t38872 = t7349 * t2415 * t35210;
+    (t38858, t38861, t38864, t38866, t38870, t38872)
 }

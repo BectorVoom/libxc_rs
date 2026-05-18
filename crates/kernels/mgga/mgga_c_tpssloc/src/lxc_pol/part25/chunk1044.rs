@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1044/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1044/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1044<F: Float>(t33: F, t39046: F, t608: F, t9239: F, t1864: F, t2241: F, t9231: F, t645: F, t6509: F, t22530: F, t72: F, t2307: F, t641: F, t9228: F, t2303: F, t2240: F, t2251: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t83710 = t39046 * t33;
-    let t83717 = t9239 * t608;
-    let t83718 = t1864 * t2241;
-    let t83722 = t9231 * t608;
-    let t83728 = t6509 * t645;
-    let t83734 = t72 * t22530 * t645;
-    let t83737 = t1864 * t2307;
-    let t83745 = t72 * t641 * t2241;
-    let t83748 = t9228 * t608;
-    let t83771 = t72 * t2303 * t645;
-    let t83778 = t2240 * t2251;
-    (t83710, t83717, t83718, t83722, t83728, t83734, t83737, t83745, t83748, t83771, t83778)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1044<F: Float>(t5: F, t24006: F, t112: F, t1268: F, t12734: F, t12739: F, t2039: F, t2314: F, t2363: F, t23917: F, t23938: F, t23941: F, t5113: F, t671: F, t7042: F, t7056: F, t9348: F) -> (F, F, F) {
+    let t7 = piecewise3::<f64>(F::new(0.0) < t5, t5, -t5);
+    let t8 = -t7 <= -F::new(0.999999999999e0);
+    let t24007 = piecewise3::<f64>(t8, F::new(0.0), t24006);
+    let t24008 = t24007 * t112;
+    let t24026 = F::new(2.0) * t1268 * t23917 + F::new(4.0) * t12734 * t2039 + F::new(2.0) * t12739 * t2039 + F::new(2.0) * t2039 * t9348 + F::new(4.0) * t2314 * t7056 + F::new(2.0) * t2363 * t7042 + F::new(4.0) * t23938 * t671 + F::new(4.0) * t5113 * t7056 + F::new(2.0) * t23941 + t24008;
+    (t24007, t24008, t24026)
 }

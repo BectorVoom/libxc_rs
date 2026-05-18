@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 15 (v4rho3sigma_5) CSE chunk 672/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 15 (v4rho3sigma_5) CSE chunk 672/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part15_v4rho3sigma_5_chunk672<F: Float>(t1691: F, t713: F, t5270: F, t721: F, t1923: F, t1945: F, t1957: F, t1981: F, t2017: F, t202: F, t208: F, t390: F, t5444: F, t5451: F, t5513: F, t5524: F, t5527: F, t5530: F, t5531: F, t5534: F, t5537: F, t5539: F, t5543: F, t5549: F, t674: F, t705: F, t718: F) -> (F,) {
-    let t5556 = t713 * t1691;
-    let t5559 = t721 * t5270;
-    let t5562 = -0.30822e0 * t390 * t5513 + 1.0 * t202 * t5524 - 0.31168546390226634765e3 * t1945 * t5527 - 0.12304822629859687989e5 * t5530 * t5531 - 0.35089341735807877242e1 * t705 * t5534 + t5444 + 0.91082604192152556044e5 * t5537 * t5539 + 0.51947577317044391277e2 * t718 * t5543 - 2.0 * t674 * t208 * t5549 - 0.57895126195293126242e3 * t1957 * t2017 * t1923 + 0.10526802520742363173e2 * t718 * t5556 + 0.6233709278045326953e3 * t1981 * t5559 + t5451;
-    (t5562,)
+pub fn mgga_c_r2scan_lxc_pol_part15_v4rho3sigma_5_chunk672<F: Float>(t48: F, t4902: F, t35: F, t40: F, t51: F, t53: F, t139: F, t141: F, t1524: F, t378: F, t735: F, t1385: F) -> (F, F, F, F, F, F, F) {
+    let t4904 = F::new(1.0) / t48 / t4902;
+    let t4911 = t35 * t40;
+    let t4918 = t51 * t51;
+    let t4920 = F::new(1.0) / t53 / t4918;
+    let t4938 = F::new(1.0) / t139;
+    let t4948 = F::new(1.0) / t141;
+    let t4962 = t378 * t1524;
+    let t4963 = t735 * t4962;
+    let t4964 = F::new(0.32530743900905219526e-1) * t4963;
+    let t4965 = t378 * t1385;
+    (t4904, t4911, t4920, t4938, t4948, t4964, t4965)
 }

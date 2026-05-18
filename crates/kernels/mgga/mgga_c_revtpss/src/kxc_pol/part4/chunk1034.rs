@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1034/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1034/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1034<F: Float>(t13920: F, t543: F, t1390: F, t828: F, t1398: F, t1882: F, t3938: F, t13789: F, t13869: F, t13874: F, t1388: F, t13880: F, t1410: F, t3934: F, t9753: F, t9762: F, t9766: F, t9771: F, t9776: F, t9780: F, t9786: F, t9791: F) -> (F, F, F) {
-    let t13921 = t13920 * t543;
-    let t13923 = t1390 * t828 * t13921;
-    let t13926 = t1882 * t1398;
-    let t13927 = t13926 * t3938;
-    let t13928 = t13789 * t13927;
-    let t13931 = -0.20007875121765877254e-1 * t9753 - 0.50820002809285328224e-4 * t9762 + 0.10841600599314203354e-2 * t9766 + 0.71456696863449561619e-5 * t9771 - 0.15244095330869239812e-3 * t9776 - 0.45351183609335988442e-1 * t9780 + 0.85748036236139473944e-2 * t1410 * t13869 + 0.42874018118069736972e-2 * t1410 * t13874 + t13880 - 0.21437009059034868486e-3 * t1388 * t13923 + 0.17149607247227894789e-2 * t3934 * t13928 - t9786 - t9791;
-    (t13921, t13926, t13931)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1034<F: Float>(t11200: F, t378: F, t3043: F, t3042: F, t993: F, t1071: F, t989: F, t3056: F, t988: F, t1031: F) -> (F, F, F, F, F, F, F, F) {
+    let t11201 = t11200 * t378;
+    let t11210 = t3043 * t378;
+    let t11213 = t3042 * t993;
+    let t11214 = t11213 * t378;
+    let t11220 = t989 * t1071;
+    let t11223 = t988 * t3056;
+    let t11224 = t11223 * t378;
+    let t11238 = t1031 * t1031;
+    let t11239 = F::new(1.0) / t11238;
+    (t11201, t11210, t11213, t11214, t11220, t11223, t11224, t11239)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1039/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1039/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1039<F: Float>(t331: F, t6310: F, t6272: F, t829: F, t1646: F, t167: F, t6452: F, t738: F, t6455: F, t743: F, t6458: F, t733: F, t10033: F, t10093: F, t10099: F, t10108: F, t13472: F, t13473: F, t13492: F, t13493: F, t13499: F, t13502: F, t13532: F, t13535: F, t13567: F, t18508: F, t3061: F, t3150: F) -> (F, F, F, F) {
-    let t19381 = t331 * t6310;
-    let t19396 = t6272 * t829;
-    let t19399 = t1646 * t167;
-    let t19416 = t738 * t6452;
-    let t19418 = t743 * t6455;
-    let t19420 = t733 * t6458;
-    let t19422 = -0.62154466893555682512e-3 * t10099 * t19396 + 0.62154466893555682512e-3 * t13567 * t19399 - 0.23911438650126355246e-1 * t3061 * t18508 + 0.15538616723388920628e-3 * t3150 * t18508 + 0.71734315950379065738e-1 * t10093 * t19396 - 0.95645754600505420984e-1 * t10108 * t19399 + 0.39210208333333333333e-4 * t10033 + t13472 + 0.31368166666666666667e-4 * t13473 - t13492 - 0.31226666666666666667e-2 * t13493 - 0.47822877300252710492e-1 * t13499 + 0.41436311262370455008e-3 * t13502 + 0.52833333333333333332e-2 * t13532 + t13535 + 0.26416666666666666667e-2 * t19416 + 0.23526125e-4 * t19418 - 0.9368e-2 * t19420;
-    (t19381, t19396, t19399, t19422)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1039<F: Float>(t3255: F, t5460: F, t5465: F, t11633: F, t1897: F, t518: F, t5481: F, t10338: F, t1988: F, t1890: F, t2323: F) -> (F, F, F, F, F, F) {
+    let t16001 = F::new(0.98556445e-3) * t3255 * t5460;
+    let t16003 = F::new(0.19711289e-2) * t3255 * t5465;
+    let t16025 = t11633 * t1897;
+    let t16029 = t518 * t5481;
+    let t16038 = t10338 * t1988;
+    let t16046 = t2323 * t1890;
+    (t16001, t16003, t16025, t16029, t16038, t16046)
 }

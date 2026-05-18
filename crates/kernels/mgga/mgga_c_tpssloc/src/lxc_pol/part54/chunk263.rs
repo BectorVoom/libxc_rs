@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 263/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 263/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk263<F: Float>(t1155: F, t1156: F, t1096: F, t1121: F, t1124: F, t1129: F, t1138: F, t1144: F, t1148: F, t300: F, t436: F, t440: F) -> (F, F, F, F) {
-    let t1157 = t1155 * t1156;
-    let t1161 = t300 * (-0.310907e-1 * t1124 * t436 + 1.0 * t1129 * t1138 + t1096 - t1121 - 0.19751673498613801407e-1 * t1144 + 0.5848223622634646207e0 * t1148 * t1157);
-    let t1163 = 0.19751673498613801407e-1 * t300 * t1144;
-    let t1164 = t300 * t440;
-    (t1157, t1161, t1163, t1164)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk263<F: Float>(t25: F, t265: F, t394: F, t390: F, t1068: F, t193: F, t336: F, t873: F, t890: F, t916: F, t956: F, t958: F, t963: F, t396: F, t40: F, t606: F, t607: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t1070 = F::new(1.0) / t390;
+    let t1074 = piecewise3::<f64>(t395, t1068 * t1070 * t193 * t336 - t890 + t916 + t956 + t958 - t963, t873);
+    let t1079 = piecewise3::<f64>(t115, t873 * t25 / F::new(2.0) + t265 * t606 / F::new(2.0), t1074 * t40 / F::new(2.0) + t396 * t607 / F::new(2.0));
+    (t1070, t1074, t1079)
 }

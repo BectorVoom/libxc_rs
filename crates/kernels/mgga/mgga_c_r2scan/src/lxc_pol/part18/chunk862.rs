@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 18 (v4rho3sigma_8) CSE chunk 862/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 18 (v4rho3sigma_8) CSE chunk 862/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk862<F: Float>(t2289: F, t3428: F, t3430: F, t2317: F, t3436: F, t158: F, t122: F, t166: F, t874: F, t3434: F, t502: F, t58: F, t875: F) -> (F, F, F, F, F, F, F) {
-    let t10922 = t2289 * t3428;
-    let t10923 = t10922 * t3430;
-    let t10924 = 0.15243824895787514157e-3 * t10923;
-    let t10927 = t3436 * t2317;
-    let t10928 = t10927 * t158;
-    let t10929 = t166 * t122;
-    let t10930 = t10929 * t874;
-    let t10932 = t3434 * t10928 * t10930;
-    let t10933 = 0.43368970657079495312e-4 * t10932;
-    let t10935 = t502 * t875 * t58;
-    (t10922, t10924, t10928, t10929, t10930, t10933, t10935)
+pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk862<F: Float>(t146: F, t147: F, t9083: F, t279: F, t5123: F, t5150: F, t5179: F, t5183: F, t6062: F, t7419: F, t7459: F, t7468: F, t7472: F, t7475: F, t7479: F, t7482: F, t8861: F, t8863: F, t8867: F, t8874: F) -> (F, F) {
+    let t9085 = t146 * t147 * t9083;
+    let t9088 = F::new(0.58544643236296698112e-1) * t5123 + F::new(0.81312004494856525156e-4) * t5150 + F::new(0.23115257973478049502e0) * t8861 + F::new(0.12805040077930161442e0) * t8863 - F::new(0.23115257973478049502e0) * t8867 - F::new(0.57829097596741960691e-3) * t7419 + F::new(0.679213007128961539e-1) * t5179 + F::new(0.2037639021386884617e0) * t5183 - t7459 - t7468 + t7472 - F::new(0.13869154784086829701e1) * t8874 - t7475 - t7479 - t7482 + F::new(0.43341108700271342816e-1) * t9085 * t279 - t6062;
+    (t9085, t9088)
 }

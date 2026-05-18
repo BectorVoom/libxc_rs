@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1066/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1066/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1066<F: Float>(t2157: F, t36543: F, t695: F, t2728: F, t2740: F, t8786: F, t887: F, t26463: F, t2746: F, t882: F, t888: F, t91909: F, t91913: F, t91916: F, t91919: F, t91922: F, t91925: F, t91929: F, t91932: F, t91935: F, t91938: F, t91941: F, t91944: F, t91948: F) -> (F, F) {
-    let t91951 = t36543 * t695 * t2157;
-    let t91955 = t8786 * t2728 * t2740 * t887;
-    let t91956 = t26463 * t91955;
-    let t91961 = t26463 * t8786 * t888 * t882 * t2746;
-    let t91963 = -0.55715333333333333331e-1 * t91909 - 0.41786499999999999999e-1 * t91913 - 0.65001222222222222219e-1 * t91916 - 0.27857666666666666666e-1 * t91919 + 0.27857666666666666666e-1 * t91922 + 0.69644166666666666665e-2 * t91925 - 0.69644166666666666665e-2 * t91929 + 0.55715333333333333331e-1 * t91932 + 0.41786499999999999999e-1 * t91935 - 0.2089325e-1 * t91938 - 0.2089325e-1 * t91941 + 0.65001222222222222219e-1 * t91944 + 0.41786499999999999999e-1 * t91948 - 0.69505208333333333333e-3 * t91951 + 0.41703125000000000001e-2 * t91956 - 0.41703125000000000001e-2 * t91961;
-    (t91955, t91963)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1066<F: Float>(t26651: F, t783: F, t26392: F, t26400: F, t26410: F, t26520: F, t26556: F, t26558: F, t26561: F, t26633: F, t26634: F, t2771: F, t7660: F, t899: F, t9010: F) -> (F, F) {
+    let t26652 = t783 * t26651;
+    let t26653 = -t26556 * t899 + F::new(4.0) * t26561 * t2771 + F::new(2.0) * t26634 * t2771 + F::new(4.0) * t7660 * t9010 + t26392 - t26400 + t26410 + t26520 + t26558 - t26633 + t26652;
+    (t26652, t26653)
 }

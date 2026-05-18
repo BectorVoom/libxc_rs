@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 536/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 536/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk536<F: Float>(t177: F, t752: F, t762: F, t717: F, t750: F, t675: F, t723: F, t169: F, t722: F, t164: F, t729: F, t730: F, t2435: F, t2439: F, t2502: F, t2504: F, t2509: F, t2511: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t2523 = t752 * t177;
-    let t2524 = t2523 * t762;
-    let t2525 = 0.11696447245269292414e1 * t2524;
-    let t2526 = t717 * t750;
-    let t2527 = 2.0 * t2526;
-    let t2531 = t675 * t723;
-    let t2535 = t722 * t169;
-    let t2536 = 1.0 / t2535;
-    let t2537 = t164 * t2536;
-    let t2538 = t729 * t729;
-    let t2539 = t2538 * t730;
-    let t2548 = -0.78438333333333333333e0 * t2502 + 0.15687666666666666667e1 * t2504 + 0.68863333333333333333e0 * t2435 + 0.14025833333333333333e0 * t2509 + 0.28051666666666666667e0 * t2511 + 0.17365833333333333333e0 * t2439;
-    (t2523, t2524, t2525, t2526, t2527, t2531, t2536, t2537, t2538, t2539, t2548)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk536<F: Float>(t251: F, t785: F, t780: F, t2439: F, t212: F, t860: F, t689: F, t779: F, t887: F, t211: F, t784: F, t209: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t2440 = t785 * t251;
+    let t2441 = t2440 * t780;
+    let t2443 = F::new(0.65049603595885220126e-3) * t2439 * t2441;
+    let t2444 = t212 * t860;
+    let t2445 = t2444 * t780;
+    let t2446 = t689 * t2445;
+    let t2448 = t779 * t887;
+    let t2449 = t689 * t2448;
+    let t2452 = F::new(1.0) / t784 / t211;
+    let t2453 = t209 * t2452;
+    (t2440, t2441, t2443, t2444, t2445, t2446, t2448, t2449, t2452, t2453)
 }

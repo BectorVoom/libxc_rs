@@ -26,11 +26,11 @@ pub fn mgga_x_2d_js17_exc_unpol(
         let t4 = f64::sqrt(M_PI);
         let t6 = 1.0 <= zeta_threshold;
         let t7 = zeta_threshold - 1.0;
-        let t9 = piecewise5(t6, t7, t6, -t7, 0.0);
+        let t9 = piecewise5::<f64>(t6, t7, t6, -t7, 0.0);
         let t10 = 1.0 + t9;
         let t12 = f64::sqrt(zeta_threshold);
         let t14 = f64::sqrt(t10);
-        let t16 = piecewise3(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
+        let t16 = piecewise3::<f64>(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
         let t17 = 1.0 / t4 * t16;
         let t18 = M_SQRT2;
         let t19 = f64::sqrt(rho[ip]);
@@ -48,7 +48,7 @@ pub fn mgga_x_2d_js17_exc_unpol(
         let t44 = f64::powf(t32, 1.0 / 5.0);
         let t45 = 1.0 / t44;
         let t48 = 1.0 / t33 + 2.0 / 5.0 * t43 * t45;
-        let t52 = piecewise3(t3, 0.0, -2.0 / 3.0 * t17 * t20 * t48);
+        let t52 = piecewise3::<f64>(t3, 0.0, -2.0 / 3.0 * t17 * t20 * t48);
         let tzk0 = 2.0 * t52;
         zk[ip] += tzk0;
     }

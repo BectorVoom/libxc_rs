@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 1173/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 1173/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk1173<F: Float>(t1300: F, t2132: F, t2233: F, t27325: F, t28876: F, t3707: F, t3708: F, t446: F, t5407: F, t8014: F, t8130: F, t8255: F, t91885: F, t91895: F, t91901: F, t92157: F, t92379: F, t97561: F) -> (F,) {
-    let t99758 = -t91885 - t446 * t1300 * t28876 / 8.0 + t97561 - t2233 * t3707 * t2132 / 16.0 + t91895 - t91901 + t92379 - t446 * t3708 * t8255 / 16.0 + t92157 - t446 * t5407 * t8014 / 8.0 + t8130 * t27325 / 16.0;
-    (t99758,)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk1173<F: Float>(t7583: F, t92241: F, t26597: F, t26611: F, t92256: F, t92258: F, t92260: F, t92263: F, t92266: F, t92268: F, t92271: F, t92273: F, t92276: F, t92278: F, t92280: F, t92282: F, t92284: F, t92286: F) -> F {
+    let t92288 = t92241 * t7583;
+    let t92290 = t26597 * t26611;
+    let t92292 = -F::new(0.8347923046875e-3) * t92256 - F::new(0.41703125000000000001e-2) * t92258 + F::new(0.12985658072916666667e-2) * t92260 - F::new(0.16217881944444444444e-1) * t92263 + F::new(0.48653645833333333332e-2) * t92266 - F::new(0.48653645833333333332e-2) * t92268 + F::new(0.208515625e-2) * t92271 + F::new(0.208515625e-2) * t92273 + F::new(0.2782641015625e-3) * t92276 - F::new(0.41703125000000000001e-2) * t92278 + F::new(0.208515625e-2) * t92280 + F::new(0.97307291666666666666e-2) * t92282 - F::new(0.83479230468750000001e-3) * t92284 + F::new(0.2782641015625e-3) * t92286 - F::new(0.97307291666666666666e-2) * t92288 - F::new(0.48653645833333333332e-2) * t92290;
+    t92292
 }

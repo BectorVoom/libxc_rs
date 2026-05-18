@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 985/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 985/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk985<F: Float>(t38322: F, t10641: F, t3308: F, t3429: F, t10655: F, t10946: F, t10810: F, t3457: F, t10922: F, t10992: F, t158: F, t2312: F, t3446: F, t37428: F, t3428: F, t3430: F, t6836: F) -> (F, F, F, F, F, F, F) {
-    let t38323 = 0.13010691197123848594e-3 * t38322;
-    let t38334 = t3429 * t3308 * t10641;
-    let t38336 = t10655 * t10946;
-    let t38337 = 0.12195059916630011326e-2 * t38336;
-    let t38339 = t3429 * t10810 * t3457;
-    let t38341 = t10922 * t10946;
-    let t38342 = 0.12195059916630011326e-2 * t38341;
-    let t38346 = t3446 * t10992 * t158 * t37428 * t2312;
-    let t38347 = 0.91462949374725084942e-3 * t38346;
-    let t38349 = t6836 * t3428 * t3430;
-    (t38323, t38334, t38337, t38339, t38342, t38347, t38349)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk985<F: Float>(t11555: F, t3276: F, t3275: F, t2867: F, t792: F, t158: F, t955: F, t874: F, t3446: F, t3447: F, t122: F, t3434: F, t3437: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t11556 = t3276 * t11555;
+    let t11557 = t3275 * t11556;
+    let t11558 = F::new(5.0) / F::new(16.0) * t11557;
+    let t11559 = t2867 * t792;
+    let t11560 = t3276 * t11559;
+    let t11561 = t3275 * t11560;
+    let t11562 = F::new(5.0) / F::new(16.0) * t11561;
+    let t11563 = t158 * t955;
+    let t11564 = t11563 * t874;
+    let t11566 = t3446 * t3447 * t11564;
+    let t11568 = t11563 * t122;
+    let t11570 = t3434 * t3437 * t11568;
+    (t11556, t11557, t11558, t11559, t11560, t11561, t11562, t11563, t11564, t11566, t11568, t11570)
 }

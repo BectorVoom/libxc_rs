@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 1170/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 1170/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1170<F: Float>(t3981: F, t94443: F, t7271: F, t9944: F, t25986: F, t2661: F, t9930: F, t9757: F, t94418: F, t94420: F, t94424: F, t94426: F, t94430: F, t94432: F, t94434: F, t94436: F, t94438: F, t94440: F) -> (F,) {
-    let t94444 = t94443 * t3981;
-    let t94446 = t7271 * t9944;
-    let t94449 = t2661 * t25986 * t9930;
-    let t94451 = t7271 * t9757;
-    let t94453 = 0.51448821741683684367e-2 * t94418 + 0.51448821741683684367e-2 * t94420 + 0.6098400337114239387e-3 * t94424 - 0.25724410870841842184e-1 * t94426 - 0.48018900292238105409e-1 * t94430 - 0.10289764348336736873e-1 * t94432 + 0.25724410870841842183e-2 * t94434 - 0.12862205435420921092e-2 * t94436 + 0.51448821741683684367e-2 * t94438 + 0.25724410870841842183e-2 * t94440 + 0.32524801797942610064e-2 * t94444 - 0.51448821741683684367e-1 * t94446 + 0.42874018118069736972e-4 * t94449 - 0.17149607247227894789e-2 * t94451;
-    (t94453,)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1170<F: Float>(t7235: F, t7313: F, t2322: F, t7003: F, t18163: F, t1937: F, t4254: F, t6993: F, t7239: F, t25832: F, t508: F, t651: F) -> (F, F, F, F, F, F, F) {
+    let t25838 = F::new(2.0) * t7235 * t7313;
+    let t25840 = F::new(4.0) * t2322 * t7003;
+    let t25842 = F::new(2.0) * t18163 * t1937;
+    let t25844 = F::new(4.0) * t4254 * t6993;
+    let t25846 = F::new(6.0) * t7235 * t7239;
+    let t25851 = t508 * t25832;
+    let t25853 = F::new(2.0) * t651 * t25851;
+    (t25838, t25840, t25842, t25844, t25846, t25851, t25853)
 }

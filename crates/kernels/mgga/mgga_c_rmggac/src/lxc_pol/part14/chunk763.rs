@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 763/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 763/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk763<F: Float>(t35207: F, t8469: F, t1591: F, t2046: F, t2050: F, t31: F, t34799: F, t34803: F, t38833: F, t38838: F, t38841: F, t38846: F, t38850: F, t38854: F, t38858: F, t38861: F, t38864: F, t38866: F, t38870: F, t38873: F, t38874: F) -> (F,) {
-    let t38876 = t35207 * t8469;
-    let t38881 = t2046 * t2050 * t1591 * t31;
-    let t38882 = 0.43368970657079495312e-4 * t38881;
-    let t38883 = -0.14408463291498358381e-2 * t34799 + 0.30487649791575028314e-3 * t38833 + t38838 - 0.43368970657079495312e-4 * t38841 - 0.43368970657079495312e-4 * t38846 - 0.72042316457491791906e-3 * t38850 - t38854 + t38858 + t38861 + t38864 + 0.36021158228745895953e-3 * t38866 - t38870 - t38873 - 0.19211284388664477842e-2 * t38874 + 0.46116394948205481339e-3 * t38876 - 0.2666855806192877858e0 * t34803 + t38882;
-    (t38883,)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk763<F: Float>(t35696: F, t7491: F, t7927: F, t20: F, t2018: F, t2021: F, t4710: F, t261: F, t7581: F, t2013: F, t7338: F, t20963: F, t82: F) -> (F, F, F, F, F, F, F) {
+    let t35697 = F::new(0.44715219694310041527e-2) * t35696;
+    let t35698 = t7491 * t7927;
+    let t35699 = F::new(0.24390119833260022651e-2) * t35698;
+    let t35702 = t4710 * t20 * t2018 * t2021;
+    let t35703 = F::new(0.91462949374725084942e-3) * t35702;
+    let t35704 = t261 * t7581;
+    let t35705 = t35704 * t2013;
+    let t35707 = t7491 * t7338;
+    let t35709 = t20963 * t82;
+    (t35697, t35699, t35703, t35704, t35705, t35707, t35709)
 }

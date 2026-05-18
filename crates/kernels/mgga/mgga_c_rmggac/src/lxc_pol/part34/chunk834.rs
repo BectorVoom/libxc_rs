@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 834/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 834/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk834<F: Float>(t2329: F, t71400: F, t14585: F, t8562: F, t2333: F, t71608: F, t2344: F, t71198: F, t14580: F, t1679: F, t2136: F, t2447: F, t3351: F, t498: F, t515: F, t7231: F) -> (F, F, F, F, F, F) {
-    let t77369 = t71400 * t2329;
-    let t77370 = 0.13637330827122670864e-1 * t77369;
-    let t77371 = t14585 * t8562;
-    let t77372 = 0.13637330827122670864e-1 * t77371;
-    let t77373 = t71608 * t2333;
-    let t77374 = 0.68186654135613354322e-2 * t77373;
-    let t77375 = t71198 * t2344;
-    let t77376 = 0.10227998120342003148e-1 * t77375;
-    let t77377 = t1679 * t14580;
-    let t77378 = t77377 * t2136;
-    let t77379 = 0.10227998120342003148e-1 * t77378;
-    let t77383 = t3351 * t7231 * t515 * t2447 * t498;
-    (t77370, t77372, t77374, t77376, t77379, t77383)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk834<F: Float>(t15098: F, t352: F, t1326: F, t70585: F, t69049: F, t15241: F, t4601: F, t15314: F, t56828: F, t69057: F, t3140: F, t3144: F, t9086: F) -> (F, F, F, F, F, F, F, F) {
+    let t74977 = t15098 * t352;
+    let t74978 = t1326 * t74977;
+    let t74979 = t70585 * t74978;
+    let t74981 = F::new(0.15965655602485078085e0) * t69049;
+    let t74983 = F::new(0.8980681276397856423e-1) * t4601 * t15241;
+    let t74984 = t56828 * t15314;
+    let t74986 = F::new(0.59590439850616975158e-4) * t69057;
+    let t74994 = t9086 * t3140 * t3144;
+    (t74977, t74978, t74979, t74981, t74983, t74984, t74986, t74994)
 }

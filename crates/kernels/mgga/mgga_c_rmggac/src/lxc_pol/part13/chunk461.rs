@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 461/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 461/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk461<F: Float>(t344: F, t349: F, t3810: F, t3814: F, t3826: F, t3839: F, t3851: F, t4895: F, t4928: F, t5163: F, t5169: F, t5178: F, t5181: F, t5184: F, t5187: F, t5194: F, t5199: F, t5204: F, t5207: F, t793: F, t797: F, t838: F, t854: F, t861: F) -> (F,) {
-    let t5210 = -0.15931384926072697607e-1 * t3826 * t5169 + 0.2230393889650177665e-1 * t3810 * t5163 + 0.47896966807455234256e0 * t3814 * t5163 - 0.23948483403727617128e0 * t3851 * t5169 + 0.53104616420242325356e-2 * t3839 * t5178 + 0.11151969448250888325e-1 * t3810 * t5181 + 0.18586615747084813875e-2 * t861 * t5184 - 0.31862769852145395214e-2 * t854 * t5187 + 0.26552308210121162678e-3 * t344 * t4895 - 0.26552308210121162678e-3 * t349 * t4928 + 0.15965655602485078086e0 * t838 * t5194 + 0.79828278012425390428e-1 * t838 * t5184 - 0.59871208509319042821e-1 * t797 * t5199 - 0.11974241701863808564e0 * t797 * t5187 + 0.79828278012425390428e-1 * t793 * t5204 + 0.39914139006212695214e-1 * t793 * t5207;
-    (t5210,)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk461<F: Float>(t504: F, t837: F, t4035: F, t529: F, t1368: F, t866: F, t551: F, t874: F, t876: F, t559: F, t833: F, t124: F, t235: F) -> (F, F, F, F, F, F) {
+    let t5019 = t504 * t837;
+    let t5026 = t4035 * t529;
+    let t5029 = t1368 * t866;
+    let t5032 = t874 * t551;
+    let t5033 = t5032 * t876;
+    let t5041 = t559 * t833;
+    let t5048 = t235 * t124;
+    (t5019, t5026, t5029, t5033, t5041, t5048)
 }

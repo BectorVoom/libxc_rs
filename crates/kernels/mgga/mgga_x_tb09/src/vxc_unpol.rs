@@ -33,7 +33,7 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t3 = param_c * t2;
         let t4 = M_CBRT2;
         let t5 = t4 * t4;
-        let t6 = pow_1_3(rho[ip]);
+        let t6 = pow_1_3::<f64>(rho[ip]);
         let t7 = t6 * t6;
         let t9 = 1.0 / t7 / rho[ip];
         let t14 = rho[ip] * rho[ip];
@@ -46,9 +46,9 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t29 = sigma[ip] * t5;
         let t32 = t23 * t9 / 6.0 - 0.53333333333333333333e0 * t27 + 0.66666666666666666667e-1 * t29 * t16;
         let t33 = 0.0 < t32;
-        let t34 = piecewise3(t33, 0.5e-12, -0.5e-12);
-        let t35 = piecewise3(t22, t34, t32);
-        let t36 = xc_mgga_x_br89_get_x(t35);
+        let t34 = piecewise3::<f64>(t33, 0.5e-12, -0.5e-12);
+        let t35 = piecewise3::<f64>(t22, t34, t32);
+        let t36 = xc_mgga_x_br89_get_x::<f64>(t35);
         let t38 = f64::exp(t36 / 3.0);
         let t39 = f64::exp(-t36);
         let t41 = 1.0 + t36 / 2.0;
@@ -66,7 +66,7 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t57 = t5 * t16;
         let t60 = t27 - t56 * t57 / 8.0;
         let t61 = 0.1e-9 < t60;
-        let t62 = piecewise3(t61, t60, 0.1e-9);
+        let t62 = piecewise3::<f64>(t61, t60, 0.1e-9);
         let t63 = f64::sqrt(t62);
         let t68 = (-2.0 * t3 * t46 + t52 * t55 * t63 / 6.0) * t5;
         let tvrho0 = t68 * t6 / 2.0;

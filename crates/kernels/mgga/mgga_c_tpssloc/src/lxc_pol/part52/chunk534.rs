@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 534/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 534/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk534<F: Float>(t1243: F, t3534: F, t3032: F, t3502: F, t3499: F, t1932: F, t3508: F, t1209: F, t500: F, t526: F, t528: F, t118: F, t521: F, t2375: F, t1294: F, t2371: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t3604 = t3534 * t1243;
-    let t3609 = t3032 * t3502;
-    let t3610 = t3499 * t3609;
-    let t3612 = t1932 * t3508;
-    let t3623 = t3032 * t1209;
-    let t3624 = t3499 * t3623;
-    let t3639 = t500 * t500;
-    let t3640 = 1.0 / t3639;
-    let t3664 = 1.0 / t526;
-    let t3672 = 1.0 / t528;
-    let t3684 = t521 * t118;
-    let t3686 = 0.10843581300301739842e-1 * t3684 * t2375;
-    let t3688 = 0.11696447245269292414e1 * t1294 * t2371;
-    (t3604, t3610, t3612, t3624, t3639, t3640, t3664, t3672, t3686, t3688)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk534<F: Float>(t2903: F, t315: F, t2764: F, t2822: F, t941: F, t323: F, t300: F, t938: F, t964: F, t969: F, t615: F, t972: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t2904 = F::new(1.0) / t2903;
+    let t2905 = t315 * t2904;
+    let t2912 = F::new(0.40256666666666666667e0) * t2764;
+    let t2919 = F::new(0.137975e0) * t2822;
+    let t2928 = t941 * t941;
+    let t2929 = F::new(1.0) / t2928;
+    let t2930 = t315 * t2929;
+    let t2931 = t323 * t323;
+    let t2932 = F::new(1.0) / t2931;
+    let t2940 = t300 * t938;
+    let t2958 = t964 * t969;
+    let t2960 = t615 * t972;
+    (t2904, t2905, t2912, t2919, t2929, t2930, t2932, t2940, t2958, t2960)
 }

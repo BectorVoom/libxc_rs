@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 861/910 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 861/1034 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk861<F: Float>(t28: F, t265: F, t504: F, t115099: F, t115143: F, t115184: F, t2250: F, t31512: F, t52: F, t607: F, t8591: F, t113: F, t115107: F, t31540: F, t7057: F, t23909: F, t8526: F, t23918: F, t1873: F, t24428: F, t652: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F) {
-    let t29 = t28 <= zeta_threshold;
-    let t401 = rho1 <= dens_threshold || t29;
-    let t505 = t265 < t504;
-    let t115186 = piecewise3(t505, 0.0, t115099);
-    let t115193 = piecewise3(t401, t115143 + t115184, t115186 * t52 / 2.0 - t31512 * t607 - t8591 * t2250 / 2.0);
-    let t115195 = t113 * (t115107 + t115193);
-    let t115208 = 4.0 * t31540 * t7057;
-    let t115210 = 2.0 * t8526 * t23909;
-    let t115212 = 2.0 * t8526 * t23918;
-    let t115217 = 2.0 * t652 * t24428 * t1873;
-    (t115195, t115208, t115210, t115212, t115217)
+pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk861<F: Float>(t2040: F, t31537: F, t6534: F, t89: F, t7050: F, t8526: F, t6535: F, t7042: F, t1377: F, t2091: F, t1307: F, t22635: F) -> (F, F, F, F, F, F, F, F) {
+    let t31539 = F::new(2.0) * t31537 * t2040;
+    let t31540 = t89 * t6534;
+    let t31542 = F::new(2.0) * t31540 * t2040;
+    let t31544 = F::new(2.0) * t8526 * t7050;
+    let t31548 = F::new(2.0) * t7042 * t6535;
+    let t31549 = t1377 * t2091;
+    let t31550 = t31549 * t1307;
+    let t31551 = t22635 * t31550;
+    (t31539, t31540, t31542, t31544, t31548, t31549, t31550, t31551)
 }

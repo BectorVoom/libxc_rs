@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1244/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1244/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1244<F: Float>(t6390: F, t91388: F, t1339: F, t1824: F, t22827: F, t550: F, t6347: F, t1799: F, t6414: F, t26288: F, t6330: F, t6420: F, t1825: F, t6936: F, t107133: F, t107135: F, t107139: F, t107143: F, t107145: F, t107147: F, t80848: F, t80886: F, t91305: F, t91312: F, t91323: F, t91346: F, t97378: F, t97380: F) -> (F,) {
-    let t107151 = t91388 * t6390;
-    let t107159 = t22827 * t1339 * t6347 * t1824 * t550;
-    let t107164 = t22827 * t1339 * t1799 * t6414 * t550;
-    let t107169 = t26288 * t1339 * t6330 * t1824 * t550;
-    let t107174 = t22827 * t1339 * t6420 * t1799;
-    let t107178 = t6936 * t1339 * t1825 * t6414;
-    let t107180 = -t107133 / 384.0 - t107135 / 128.0 - t80848 - 0.67826230238155856634e-1 * t107139 - 0.72670960969452703536e-2 * t107143 + t107145 / 64.0 - 5.0 / 128.0 * t107147 + 119.0 / 2304.0 * t91305 - 0.15812662803538319751e-2 * t91312 + t107151 / 256.0 + 7.0 / 768.0 * t97378 - 7.0 / 384.0 * t97380 + 0.3027956707060529314e-3 * t91323 + 0.36335480484726351768e-2 * t107159 + 0.36335480484726351768e-2 * t107164 - 0.25434836339308446237e-1 * t107169 + 0.50465945117675488567e-4 * t91346 - t80886 + 0.36335480484726351768e-2 * t107174 - 0.60559134141210586281e-3 * t107178;
-    (t107180,)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1244<F: Float>(t1453: F, t81439: F, t111: F, t7758: F, t1408: F, t2752: F, t193: F, t201: F, t7540: F, t25345: F, t82038: F, t1519: F, t213: F, t225: F) -> (F, F, F, F, F, F) {
+    let t86586 = t81439 * t1453;
+    let t86647 = t7758 * t111;
+    let t86721 = t2752 * t1408;
+    let t86736 = t193 * t201 * t7540;
+    let t86870 = t82038 * t25345;
+    let t86873 = t213 * t1519 * t225;
+    (t86586, t86647, t86721, t86736, t86870, t86873)
 }

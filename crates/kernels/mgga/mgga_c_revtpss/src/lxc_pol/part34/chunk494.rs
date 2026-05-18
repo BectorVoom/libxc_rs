@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 494/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 494/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk494<F: Float>(t1275: F, t493: F, t225: F, t1284: F, t487: F, t1209: F, t3140: F, t3596: F, t460: F, t3303: F, t3603: F, t1243: F, t471: F, t498: F, t530: F, t566: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3736 = 1.0 / t1275 / t493;
-    let t3737 = t225 * t3736;
-    let t3754 = t1284 * t487;
-    let t3755 = t1209 * t3754;
-    let t3766 = t3140 * t3596;
-    let t3767 = t460 * t3766;
-    let t3769 = t3303 * t3603;
-    let t3781 = t3140 * t1243;
-    let t3782 = t460 * t3781;
-    let t3783 = t3303 * t471;
-    let t3800 = t498 * t498;
-    let t3801 = 1.0 / t3800;
-    let t3828 = t530 * t566;
-    (t3737, t3754, t3755, t3766, t3767, t3769, t3781, t3782, t3783, t3800, t3801, t3828)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk494<F: Float>(t421: F, t3356: F, t1159: F, t431: F, t426: F, t3413: F, t434: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t3434 = t421 * t421;
+    let t3435 = F::new(1.0) / t3434;
+    let t3439 = F::new(0.22831111111111111111e-1) * t3356;
+    let t3450 = t1159 * t431;
+    let t3451 = F::new(1.0) / t3450;
+    let t3452 = t426 * t3451;
+    let t3459 = F::new(0.68863333333333333333e0) * t3356;
+    let t3466 = F::new(0.17365833333333333333e0) * t3413;
+    let t3475 = t1159 * t1159;
+    let t3476 = F::new(1.0) / t3475;
+    let t3477 = t426 * t3476;
+    let t3478 = t434 * t434;
+    let t3479 = F::new(1.0) / t3478;
+    (t3434, t3435, t3439, t3451, t3452, t3459, t3466, t3475, t3476, t3477, t3478, t3479)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 1100/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 1100/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1100<F: Float>(t3774: F, t6767: F, t12351: F, t1338: F, t6755: F, t11302: F, t11314: F, t11993: F, t12348: F, t12355: F, t2438: F, t31929: F, t3549: F, t3556: F, t3675: F, t38953: F, t38966: F, t42101: F, t6751: F, t8481: F, t9760: F) -> (F,) {
-    let t42106 = t6767 * t3774;
-    let t42121 = t1338 * t12351;
-    let t42128 = t6755 * t3774;
-    let t42131 = -0.126e2 * t11314 * t11993 - 0.315e1 * t42101 * t2438 - 0.1575e1 * t12355 * t6751 - 0.23625e1 * t42106 * t8481 - 0.1575e1 * t38966 * t3675 - 0.315e1 * t11314 * t9760 - 0.1575e1 * t3556 * t31929 - 0.21e1 * t38953 * t3675 - 0.42e1 * t11302 * t9760 - 0.21e1 * t3549 * t31929 - 0.42e1 * t42121 * t2438 - 0.21e1 * t12348 * t6751 - 0.63e1 * t12355 * t8481 - 0.945e1 * t42128 * t8481;
-    (t42131,)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1100<F: Float>(t3270: F, t39014: F, t1114: F, t6897: F, t2330: F, t3492: F, t5086: F, t37358: F, t37386: F, t37397: F, t37406: F, t37412: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t39015 = t3270 * t39014;
+    let t39030 = t1114 * t6897;
+    let t39032 = t3270 * t39030 * t2330;
+    let t39040 = t5086 * t3492;
+    let t39046 = F::new(0.26021382394247697185e-3) * t37358;
+    let t39054 = F::new(0.205201155180140685e-5) * t37386;
+    let t39059 = F::new(0.487802396665200453e-2) * t37397;
+    let t39061 = F::new(0.11709622077411463733e-2) * t37406;
+    let t39062 = F::new(0.18292589874945016987e-2) * t37412;
+    (t39015, t39030, t39032, t39040, t39046, t39054, t39059, t39061, t39062)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 815/1178 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 815/1303 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk815<F: Float>(t109: F, t659: F, t8138: F, t64: F, t8127: F, t8128: F, t8130: F, t8134: F, t8137: F) -> (F, F) {
-    let t110 = 1.0 < t109;
-    let t8139 = t8138 * t659;
-    let t8143 = piecewise3(t110, 0.0, t8127 + t8128 * t8130 / 4.0 + 5.0 / 24.0 * t64 * t8134 - 5.0 / 24.0 * t8137 * t8139);
-    (t8139, t8143)
+pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk815<F: Float>(t5828: F, t977: F, t3003: F, t4384: F, t5718: F, t5721: F, t5724: F, t340: F, t343: F, t974: F, t1597: F, t2969: F, t2986: F, t4507: F, t4529: F, t5818: F, t5821: F, t5825: F, t973: F) -> (F, F, F, F, F, F, F, F) {
+    let t5829 = t977 * t5828;
+    let t5836 = -t3003 - F::new(2.0) / F::new(9.0) * t4384 + t5718 / F::new(18.0) - t5721 / F::new(3.0) + t5724 / F::new(6.0);
+    let t5837 = t340 * t5836;
+    let t5838 = t5837 * t343;
+    let t5839 = t974 * t5838;
+    let t5842 = t1597 * t1597;
+    let t5843 = t340 * t5842;
+    let t5844 = t5843 * t343;
+    let t5845 = t974 * t5844;
+    let t5848 = -t2969 + F::new(0.18518518518518518518e-3) * t4507 - F::new(0.55555555555555555554e-3) * t4529 + F::new(0.37037037037037037036e-3) * t973 * t5818 - F::new(0.55555555555555555554e-3) * t2986 * t5821 - F::new(0.55555555555555555554e-3) * t973 * t5825 + F::new(0.27777777777777777777e-3) * t973 * t5829 - F::new(0.83333333333333333332e-3) * t973 * t5839 - F::new(0.83333333333333333332e-3) * t973 * t5845;
+    (t5829, t5836, t5838, t5839, t5842, t5844, t5845, t5848)
 }

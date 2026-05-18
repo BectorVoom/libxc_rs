@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 986/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 986/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk986<F: Float>(t2183: F, t37754: F, t2195: F, t37769: F, t7606: F, t11842: F, t1584: F, t10868: F, t7628: F, t7629: F, t2096: F, t2665: F, t565: F, t10711: F, t11696: F, t37936: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t39922 = t2183 * t37754;
-    let t39935 = t2195 * t37754;
-    let t39939 = t37769 * t7606;
-    let t39940 = 0.10975748638225852664e-1 * t39939;
-    let t39941 = t1584 * t11842;
-    let t39942 = 0.23115257973478049502e0 * t39941;
-    let t39958 = t7628 * t10868 * t7629;
-    let t39960 = t2665 * t2096;
-    let t39961 = t565 * t39960;
-    let t39962 = t39961 * t10711;
-    let t39963 = 0.14282990759302185292e-1 * t39962;
-    let t39964 = t37936 * t11696;
-    (t39922, t39935, t39940, t39942, t39958, t39960, t39961, t39963, t39964)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk986<F: Float>(t10846: F, t10850: F, t10854: F, t10857: F, t10864: F, t10867: F, t11817: F, t11819: F, t11822: F, t11826: F, t11831: F, t1584: F, t3597: F) -> (F, F) {
+    let t11833 = F::new(0.23804984598836975486e-2) * t11817 + F::new(0.54878743191129263322e-1) * t11819 + F::new(0.65495539973149862688e-2) * t11822 + F::new(0.65495539973149862688e-2) * t11826 - F::new(0.23287303101564395623e-1) * t10846 - F::new(0.69861909304693186869e-1) * t10850 - t10854 - F::new(0.48787202696913915093e-2) * t10857 + F::new(0.21831846657716620896e-2) * t11831 + t10864 + t10867;
+    let t11835 = t1584 * t3597;
+    (t11833, t11835)
 }

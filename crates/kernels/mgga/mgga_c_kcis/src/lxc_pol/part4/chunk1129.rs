@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1129/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1129/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk1129<F: Float>(t11543: F, t5546: F, t11576: F, t5578: F, t1334: F, t5574: F, t3861: F, t1907: F, t3893: F, t3862: F, t5577: F, t11581: F, t3901: F, t5573: F, t3899: F, t11516: F, t1906: F) -> (F, F, F, F, F, F, F, F) {
-    let t16251 = 4.0 * t11543 * t5546;
-    let t16253 = 0.32163648644302209644e2 * t11576 * t5578;
-    let t16254 = t5574 * t1334;
-    let t16256 = 4.0 * t3861 * t16254;
-    let t16257 = t1907 * t3893;
-    let t16259 = 2.0 * t3861 * t16257;
-    let t16260 = t5577 * t3862;
-    let t16262 = 0.96490945932906628932e2 * t11581 * t16260;
-    let t16263 = t5573 * t3901;
-    let t16264 = t16263 * t1334;
-    let t16266 = 0.32163648644302209644e2 * t3899 * t16264;
-    let t16267 = t5577 * t3893;
-    let t16269 = 0.16081824322151104822e2 * t3899 * t16267;
-    let t16270 = t1906 * t11516;
-    (t16251, t16253, t16256, t16259, t16262, t16266, t16269, t16270)
+pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk1129<F: Float>(t1045: F, t14282: F, t3293: F, t1728: F, t3096: F, t4642: F, t2952: F, t4637: F, t4852: F, t1762: F, t3251: F, t1071: F, t1109: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t14283 = t14282 * t1045;
+    let t14284 = t3293 * t14283;
+    let t14287 = t1728 * t3096;
+    let t14288 = t4642 * t14287;
+    let t14291 = t4637 * t2952;
+    let t14292 = t3293 * t14291;
+    let t14295 = t4852 * t1045;
+    let t14296 = t4642 * t14295;
+    let t14299 = t3251 * t1762;
+    let t14301 = t1109 * t1071;
+    (t14283, t14284, t14287, t14288, t14291, t14292, t14295, t14296, t14299, t14301)
 }

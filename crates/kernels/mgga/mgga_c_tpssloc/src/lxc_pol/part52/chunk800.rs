@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 800/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 800/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk800<F: Float>(t2130: F, t1932: F, t2133: F, t2132: F, t7573: F, t1714: F, t460: F, t7320: F, t1734: F, t68: F, t475: F, t7328: F, t1730: F, t2140: F, t1742: F, t2139: F, rho1: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t8025 = t2130 * rho1;
-    let t8026 = 1.0 / t8025;
-    let t8027 = t8026 * t1932;
-    let t8028 = t8027 * t2133;
-    let t8031 = t2132 * t7573;
-    let t8034 = t1714 * t460;
-    let t8035 = t8034 * t7320;
-    let t8038 = t1734 * t68;
-    let t8039 = t8038 * t475;
-    let t8040 = t7328 * t8039;
-    let t8043 = t1730 * t2140;
-    let t8048 = t2139 * t1742;
-    (t8026, t8027, t8028, t8031, t8034, t8035, t8039, t8040, t8043, t8048)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk800<F: Float>(t1245: F, t7376: F, t7375: F, t1235: F, t2147: F, t462: F, t1215: F, t2144: F, t1246: F, t493: F, t7348: F, t1201: F, t1244: F, t2121: F, t2152: F, t470: F, t7283: F, t7361: F, t7365: F, t7368: F, t7373: F) -> (F, F, F, F, F, F, F) {
+    let t7377 = t1245 * t7376;
+    let t7378 = t7375 * t7377;
+    let t7381 = t2147 * t1235;
+    let t7382 = t462 * t7381;
+    let t7386 = t2144 * t1215;
+    let t7387 = t7386 * t1246;
+    let t7389 = t493 * t7348;
+    let t7391 = t7361 - F::new(0.27415567780803773942e-2) * t7283 * t7365 - F::new(0.82246703342411321825e-2) * t7283 * t7368 + F::new(0.82246703342411321825e-2) * t7373 * t7378 + F::new(0.82246703342411321825e-2) * t2121 * t7382 + t1201 * t2152 + t1244 * t7387 + t470 * t7389;
+    (t7377, t7378, t7381, t7382, t7387, t7389, t7391)
 }

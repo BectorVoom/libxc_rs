@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 1114/1149 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 1114/1294 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk1114<F: Float>(t22633: F, t31100: F, t90566: F, t32704: F, t81228: F, t81326: F, t22704: F, t32693: F, t80650: F, t114285: F, t26338: F, t1992: F, t22635: F, t26226: F, t26331: F, t31099: F, t5308: F) -> (F, F, F, F, F, F, F) {
-    let t120213 = 0.3289868133696452873e-1 * t22633 * t90566 * t31100;
-    let t120217 = t81228 * t81326 * t32704;
-    let t120218 = 0.16449340668482264365e-1 * t120217;
-    let t120220 = t22704 * t81326 * t32693;
-    let t120221 = 0.16449340668482264365e-1 * t120220;
-    let t120226 = 0.3289868133696452873e-1 * t22633 * t80650 * t32704;
-    let t120229 = 0.3289868133696452873e-1 * t22633 * t114285 * t26338;
-    let t120232 = 0.9869604401089358619e-1 * t1992 * t22635 * t26226;
-    let t120239 = 0.9869604401089358619e-1 * t26331 * t22635 * t31099 * t5308;
-    (t120213, t120218, t120221, t120226, t120229, t120232, t120239)
+pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk1114<F: Float>(t6517: F, t7468: F, t12571: F, t8301: F, t1437: F, t8307: F, t8513: F, t1409: F, t31011: F, t7440: F, t1433: F, t79: F) -> (F, F, F, F, F, F, F, F) {
+    let t33101 = t6517 * t7468;
+    let t33103 = t12571 * t8301;
+    let t33106 = t8307 * t1437;
+    let t33107 = t8513 * t33106;
+    let t33111 = t8513 * t31011 * t1409;
+    let t33114 = t8307 * t7440;
+    let t33115 = t8513 * t33114;
+    let t33118 = t79 * t1433;
+    (t33101, t33103, t33106, t33107, t33111, t33114, t33115, t33118)
 }

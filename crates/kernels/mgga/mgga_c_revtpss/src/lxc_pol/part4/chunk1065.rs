@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1065/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1065/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1065<F: Float>(t14476: F, t780: F, t689: F, t1579: F, t2769: F, t886: F, t252: F, t2782: F, t2470: F, t4480: F, t2465: F, t11008: F, t2771: F, t1558: F, t836: F, t231: F) -> (F, F, F, F, F, F) {
-    let t14477 = t14476 * t780;
-    let t14479 = 0.10975748638225852664e-1 * t689 * t14477;
-    let t14480 = t2769 * t1579;
-    let t14481 = t14480 * t886;
-    let t14482 = t252 * t14481;
-    let t14484 = 0.21951497276451705328e-1 * t2782 * t14482;
-    let t14485 = t4480 * t2470;
-    let t14486 = t2465 * t14485;
-    let t14489 = t11008 * t1579 * t2771;
-    let t14494 = t1558 * t836;
-    let t14495 = t14494 * t231;
-    (t14479, t14484, t14486, t14489, t14494, t14495)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1065<F: Float>(t159: F, t3617: F, t409: F, t416: F, t406: F, t12295: F, t11335: F, t281: F, t414: F, t1126: F, t3383: F, t1160: F, t3444: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t12305 = t159 * t3617;
+    let t12327 = F::new(1.0) / t409 / t416 / F::new(4.0);
+    let t12331 = F::new(1.0)/pow_3_2::<f64>(t406);
+    let t12349 = F::new(0.93011851851851851854e0) * t12295;
+    let t12351 = t281 * t11335 * t414;
+    let t12352 = F::new(0.36514074074074074075e0) * t12351;
+    let t12361 = t1126 * t3383;
+    let t12367 = F::new(0.28842592592592592592e-1) * t12295;
+    let t12382 = F::new(0.55403703703703703703e-1) * t12295;
+    let t12397 = F::new(0.53272592592592592592e-1) * t12295;
+    let t12418 = t3444 * t1160;
+    (t12305, t12327, t12331, t12349, t12351, t12352, t12361, t12367, t12382, t12397, t12418)
 }

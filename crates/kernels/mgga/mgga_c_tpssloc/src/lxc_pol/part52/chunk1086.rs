@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1086/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1086/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1086<F: Float>(t22635: F, t32704: F, t22633: F, t1807: F, t8470: F, t1799: F, t1998: F, t59: F, t6926: F, t1825: F, t6943: F, t6936: F, t1814: F, t8465: F, t8467: F, t5248: F, t5249: F, t550: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t32705 = t22635 * t32704;
-    let t32707 = 0.3289868133696452873e-1 * t22633 * t32705;
-    let t32708 = t1807 * t8470;
-    let t32711 = t1998 * t59 * t1799;
-    let t32712 = t6926 * t32711;
-    let t32714 = t6943 * t1825;
-    let t32715 = t6936 * t32714;
-    let t32717 = t1814 * t8465;
-    let t32718 = t32717 * t8467;
-    let t32721 = t5248 * t5249 * t550;
-    (t32705, t32707, t32708, t32711, t32712, t32714, t32715, t32717, t32718, t32721)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1086<F: Float>(t1375: F, t16460: F, t2016: F, t26224: F, t26226: F, t26229: F, t26329: F, t26335: F, t26340: F, t26345: F, t26348: F, t26352: F, t26357: F, t26361: F, t3882: F, t5321: F, t568: F, t6963: F, t7729: F) -> F {
+    let t26364 = -F::new(6.0) * t26224 * t26226 + t26229 * t568 + t26329 * t568 + F::new(0.49348022005446793095e-1) * t26335 + F::new(0.16449340668482264365e-1) * t26340 + F::new(2.0) * t3882 * t7729 + F::new(0.41123351671205660912e-2) * t26345 + F::new(2.0) * t1375 * t26348 - F::new(0.82246703342411321825e-2) * t26352 + F::new(0.16449340668482264365e-1) * t26357 + F::new(2.0) * t5321 * t6963 - F::new(0.19190897446562641759e-1) * t26361 - t16460 * t2016;
+    t26364
 }

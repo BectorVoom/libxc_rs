@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 1220/1291 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 1220/1438 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk1220<F: Float>(t22979: F, t2597: F, t82150: F, t82154: F, t82156: F, t82161: F, t82165: F, t82169: F, t82172: F, t82174: F, t82179: F, t82182: F, t225: F, t23202: F, t6556: F, t81632: F) -> (F, F, F) {
-    let t82186 = 0.11514538467937585055e0 * t82150 - t82154 - 0.24674011002723396548e-1 * t82156 + 0.9869604401089358619e-1 * t82161 - 0.82246703342411321825e-2 * t82165 - 0.16449340668482264365e-1 * t82169 + 0.24674011002723396548e-1 * t82172 + 0.23029076935875170111e0 * t82174 + 0.49348022005446793095e-1 * t82179 - 0.24674011002723396548e-1 * t82182 + 12.0 * t2597 * t22979;
-    let t82197 = t23202 * t225;
-    let t82209 = t81632 * t6556;
-    (t82186, t82197, t82209)
+pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk1220<F: Float>(t6876: F, t6880: F, t1873: F, t9348: F, t12734: F, t2314: F, t6534: F, t12739: F, t5113: F, t1268: F, t22479: F, t22461: F, t22559: F, t22600: F, t2363: F, t6517: F, t671: F) -> (F, F) {
+    let t23837 = F::new(6.0) * t6876 * t6880;
+    let t23844 = F::new(2.0) * t9348 * t1873;
+    let t23846 = F::new(4.0) * t12734 * t1873;
+    let t23848 = F::new(4.0) * t2314 * t6534;
+    let t23850 = F::new(2.0) * t12739 * t1873;
+    let t23852 = F::new(4.0) * t5113 * t6534;
+    let t23854 = F::new(2.0) * t1268 * t22479;
+    let t23855 = F::new(4.0) * t22461 * t671 + F::new(2.0) * t2363 * t6517 + t22559 + F::new(2.0) * t22600 + t23844 + t23846 + t23848 + t23850 + t23852 + t23854;
+    (t23837, t23855)
 }

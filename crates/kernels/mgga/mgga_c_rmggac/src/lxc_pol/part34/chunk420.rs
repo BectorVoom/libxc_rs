@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 420/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 420/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk420<F: Float>(t8729: F, t8731: F, t8733: F, t8739: F, t8744: F, t8748: F, t8752: F, t8755: F, t9457: F, t9458: F, t9460: F, t7597: F, t7618: F, t7620: F, t8129: F, t8759: F, t8762: F, t8765: F, t8767: F, t8769: F, t8771: F, t8773: F) -> (F, F) {
-    let t9465 = 0.2993560425465952141e-1 * t8729 - 0.19957069503106347607e-1 * t8731 - 0.19957069503106347607e-1 * t8733 + t9457 - t9458 - 0.79828278012425390427e-1 * t8739 + t9460 - 0.2727466165424534173e-1 * t8744 + 0.45457769423742236216e-1 * t8748 + 0.9072038638458063915e-3 * t8752 - 0.12700854093841289481e-2 * t8755;
-    let t9477 = -0.12700854093841289481e-2 * t8759 + 0.16934472125121719308e-2 * t8762 + 0.13637330827122670865e-1 * t8765 - 0.2727466165424534173e-1 * t8767 + t8129 + 0.59871208509319042821e-1 * t8769 - 0.26552308210121162678e-2 * t8771 + 0.39828462315181744017e-2 * t8773 + 0.53218852008283593618e-1 * t7597 - 0.79828278012425390427e-1 * t7618 + 0.17701538806747441786e-2 * t7620;
-    (t9465, t9477)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk420<F: Float>(t262: F, t8645: F, t2347: F, t352: F, t1679: F, t511: F, t498: F, t615: F, t236: F, t2084: F, t558: F, t27: F) -> (F, F, F, F, F, F) {
+    let t8646 = t262 * t8645;
+    let t8649 = t2347 * t352;
+    let t8650 = t262 * t8649;
+    let t8659 = t1679 * t511;
+    let t8666 = t615 * t498;
+    let t8667 = t236 * t8666;
+    let t8671 = t2084 * t558;
+    let t8672 = t27 * t8671;
+    (t8646, t8649, t8650, t8659, t8667, t8672)
 }

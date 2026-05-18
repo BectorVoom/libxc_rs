@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 4 (v3rho3_2) CSE chunk 1096/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 4 (v3rho3_2) CSE chunk 1096/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk1096<F: Float>(t19755: F, t20021: F, t1378: F, t1385: F, t6460: F, t3887: F, t225: F, t6364: F, t20009: F, t539: F, t1375: F, t1386: F, t16030: F, t16439: F, t1843: F, t19635: F, t19644: F, t19648: F, t3882: F, t5321: F, t5326: F, t5354: F, t568: F, t6461: F) -> (F,) {
-    let t20022 = t19755 + t20021;
-    let t20023 = t1378 * t20022;
-    let t20025 = t6460 * t1385;
-    let t20026 = t3887 * t20025;
-    let t20029 = t6364 * t225;
-    let t20032 = t539 * t20009;
-    let t20034 = 4.0 * t1375 * t19648 - t1375 * t20023 + 2.0 * t1375 * t20026 - 2.0 * t1386 * t20029 - 2.0 * t16030 * t1843 - 2.0 * t16439 * t1843 + 2.0 * t19635 * t568 + 2.0 * t19644 * t568 + t20032 * t568 - t3882 * t6461 + 4.0 * t5321 * t5326 - 2.0 * t5321 * t5354;
-    (t20034,)
+pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk1096<F: Float>(t18124: F, t18164: F, t1055: F, t1052: F, t1066: F, t14529: F, t14545: F, t14552: F, t14555: F, t1635: F, t18053: F, t18057: F, t18059: F, t18062: F, t18065: F, t18071: F, t18074: F, t388: F, t4660: F, t4665: F) -> F {
+    let t18165 = t18124 + t18164;
+    let t18166 = t1055 * t18165;
+    let t18168 = F::new(2.0) * t1052 * t18062 - F::new(6.0) * t1052 * t18071 - t1052 * t18166 - t1066 * t18074 - F::new(2.0) * t14529 * t1635 - F::new(2.0) * t14545 * t1635 - F::new(2.0) * t14552 * t1635 - F::new(2.0) * t14555 * t1635 + t18053 * t388 + t18057 * t388 + t18059 * t388 + F::new(2.0) * t18065 * t388 + F::new(4.0) * t4660 * t4665;
+    t18168
 }

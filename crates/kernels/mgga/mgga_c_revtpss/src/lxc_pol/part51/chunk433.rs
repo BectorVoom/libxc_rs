@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 433/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 433/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk433<F: Float>(t1065: F, t159: F, t631: F, t2297: F, t910: F, t914: F, t287: F, t913: F, t275: F, t273: F, t276: F, t2846: F, t240: F, t68: F, t281: F, t283: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t2850 = t159 * t1065;
-    let t2851 = t631 * t631;
-    let t2852 = 1.0 / t2851;
-    let t2857 = 1.0 / t2297;
-    let t2869 = t910 * t914;
-    let t2872 = t913 * t287;
-    let t2873 = 1.0 / t2872;
-    let t2874 = t275 * t2873;
-    let t2880 = 1.0 / t276 / t273;
-    let t2884 = 4.0 / 9.0 * t2846;
-    let t2892 = 0.39862222222222222223e0 * t2846;
-    let t2897 = 1.0/f64::sqrt(t273);
-    let t2902 = t68 * t240;
-    let t2904 = t281 * t2902 * t283;
-    (t2850, t2852, t2857, t2869, t2874, t2880, t2884, t2892, t2897, t2902, t2904)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk433<F: Float>(t2482: F, t27: F, t823: F, t136: F, t826: F, t221: F, t837: F, t737: F, t744: F, t185: F, t760: F, t128: F, t131: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t2484 = t2482 * t823 * t27;
+    let t2485 = t826 * t136;
+    let t2487 = t2485 * t221 * t837;
+    let t2488 = t2484 * t2487;
+    let t2490 = t737 * t737;
+    let t2491 = F::new(1.0) / t2490;
+    let t2492 = t744 * t744;
+    let t2494 = t185 * t185;
+    let t2495 = F::new(1.0) / t2494;
+    let t2496 = t2491 * t2492 * t2495;
+    let t2498 = F::new(0.17315859105681463759e2) * t760 * t2496;
+    let t2501 = F::new(1.0) / t131 / t128 * t136;
+    (t2484, t2485, t2487, t2488, t2491, t2492, t2495, t2496, t2498, t2501)
 }

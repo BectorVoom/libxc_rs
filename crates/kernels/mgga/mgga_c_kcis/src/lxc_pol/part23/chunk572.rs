@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 572/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 572/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk572<F: Float>(t486: F, t1371: F, t167: F, t5713: F, t1939: F, t25: F, t493: F, t1938: F, t531: F, t833: F, t3984: F, t3999: F, t1380: F, t613: F, t5623: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t495 = 0.0 < t486;
-    let t5714 = t1371 * t167;
-    let t5715 = t5713 * t5714;
-    let t5718 = t25 * t1939;
-    let t5719 = t493 * t5718;
-    let t5721 = t1938 * t531;
-    let t5722 = t5721 * t833;
-    let t5723 = t3984 * t5722;
-    let t5726 = t3999 * t1938;
-    let t5727 = t5726 * t1380;
-    let t5728 = t613 * t5727;
-    let t5732 = piecewise3(t495, t5623, -t5623);
-    (t5714, t5715, t5719, t5721, t5722, t5723, t5726, t5727, t5728, t5732)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk572<F: Float>(t509: F, t543: F, t1419: F, t1962: F, t1319: F, t1897: F, t1317: F, t1958: F, t3820: F, t5481: F, t3795: F, t3833: F, t5469: F, t5472: F, t5475: F, t5479: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t5498 = t509 * t543;
+    let t5499 = t1962 * t1419;
+    let t5500 = t5498 * t5499;
+    let t5503 = t1897 * t1319;
+    let t5510 = t1317 * t1958;
+    let t5513 = t3820 * t1897;
+    let t5514 = t5513 * t1319;
+    let t5516 = t1317 * t5481;
+    let t5523 = -F::new(0.991e-2) * t5514 + F::new(0.1982e-1) * t5516 + t3833 + F::new(0.13758333333333333333e-2) * t3795 + F::new(0.13758333333333333333e-2) * t5469 - F::new(0.27516666666666666667e-2) * t5472 + F::new(0.8255e-2) * t5475 + F::new(0.8255e-2) * t5479;
+    (t5498, t5499, t5500, t5503, t5510, t5513, t5514, t5516, t5523)
 }

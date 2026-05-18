@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 903/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 903/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,7 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk903<F: Float>(t1270: F, t1282: F, t172: F, t184: F, t2104: F, t2112: F, t2116: F, t2133: F, t2144: F, t3227: F, t3231: F, t3232: F, t3264: F, t6363: F, t740: F, t742: F, t756: F, t8354: F, t8367: F, t8370: F, t8373: F, t8431: F) -> (F,) {
-    let t8434 = 7.0 / 2.0 * t2133 * t3232 - t8367 * t3232 / 2.0 - t8370 * t3232 / 4.0 - t3231 * t8373 - 6.0 * t6363 * t1270 * t2112 + 4.0 * t2116 * t3227 * t740 + 2.0 * t2116 * t1270 * t2104 - t742 * t8354 + 2.0 * t8354 * t184 + 4.0 * t3227 * t756 + 2.0 * t1270 * t2144 + 2.0 * t2104 * t1282 + 4.0 * t740 * t3264 + 2.0 * t172 * t8431;
-    (t8434,)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk903<F: Float>(t2951: F, t7884: F, t1181: F, t1816: F, t2970: F, t2972: F, t2974: F, t2986: F, t555: F, t5862: F, t7831: F, t7835: F, t7837: F, t7842: F, t7843: F, t7851: F, t7852: F, t7857: F, t7861: F, t7866: F, t7868: F, t7874: F, t7879: F, t7881: F) -> (F, F, F) {
+    let t7885 = t7884 * t2951;
+    let t7887 = t1181 * t1816;
+    let t7889 = -F::new(3.0) / F::new(32.0) * t7831 * t2951 - t2970 * t7835 * t7837 / F::new(12.0) + t7842 * t2972 * t7843 / F::new(16.0) - t7851 - t2970 * t7852 * t2974 / F::new(24.0) - t2970 * t2972 * t7857 / F::new(24.0) - t2970 * t2972 * t7861 / F::new(48.0) - F::new(7.0) / F::new(144.0) * t7866 * t7868 * t7843 - t5862 / F::new(64.0) - t555 * t2986 * t7874 / F::new(32.0) - t7879 + t7881 / F::new(96.0) + F::new(7.0) / F::new(32.0) * t7885 + t7887 / F::new(96.0);
+    (t7885, t7887, t7889)
 }

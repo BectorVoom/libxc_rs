@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 658/963 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 658/1110 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk658<F: Float>(t10153: F, t10193: F, t82: F, t72: F, t10148: F, t884: F, t2405: F, t534: F, t2292: F, t5928: F, t2376: F, t2868: F, t8500: F, t8692: F, t8698: F, t9037: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10194 = t10153 + t10193;
-    let t10195 = t82 * t10194;
-    let t10196 = t72 * t10195;
-    let t10197 = t884 * t10148;
-    let t10198 = 0.59871208509319042821e-1 * t10197;
-    let t10199 = t534 * t2405;
-    let t10200 = t72 * t10199;
-    let t10201 = 2.0 * t10200;
-    let t10203 = t5928 * t2292;
-    let t10204 = 0.79828278012425390428e-1 * t10203;
-    let t10205 = t2868 * t2376;
-    let t10206 = 0.11974241701863808564e0 * t10205;
-    let t10280 = 0.39726959900411316772e-4 * t8500;
-    let t10357 = 0.39726959900411316772e-4 * t8692;
-    let t10360 = 0.39726959900411316772e-4 * t8698;
-    let t10383 = 0.49658699875514145965e-4 * t9037;
-    (t10194, t10195, t10196, t10198, t10199, t10201, t10204, t10206, t10280, t10357, t10360, t10383)
+pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk658<F: Float>(t2295: F, t9128: F, t2292: F, t4965: F, t7204: F, t8902: F, t7192: F, t8906: F, t5888: F, t875: F, t1971: F, t3351: F) -> (F, F, F, F, F, F) {
+    let t9129 = t9128 * t2295;
+    let t9131 = t4965 * t2292;
+    let t9133 = t7204 * t8902;
+    let t9135 = t7192 * t8906;
+    let t9137 = t875 * t5888;
+    let t9138 = t1971 * t9137;
+    let t9139 = t3351 * t9138;
+    (t9129, t9131, t9133, t9135, t9138, t9139)
 }

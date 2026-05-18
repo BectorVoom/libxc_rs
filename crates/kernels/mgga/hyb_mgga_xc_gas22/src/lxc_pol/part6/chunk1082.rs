@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1082/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1082/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,18 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1082<F: Float>(t1539: F, t2850: F, t3742: F, t412: F, t7580: F, t3957: F, t647: F, t3664: F, t2824: F, t4576: F, t1535: F, t11343: F, t11349: F, t11354: F, t3757: F, t7811: F, t9521: F, t9533: F, t9542: F, t9575: F, t9632: F, t9639: F, t9642: F, t9654: F, t9667: F, t9670: F, sigma0: F, sigma2: F, tau0: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t11360 = t1539 * t2850 * sigma2;
-    let t11361 = t11360 * t3742;
-    let t11376 = t7580 * t412;
-    let t11377 = t3957 * sigma0;
-    let t11378 = t11377 * t647;
-    let t11379 = t11376 * t11378;
-    let t11382 = t1539 * tau0;
-    let t11383 = t11382 * t3664;
-    let t11386 = t4576 * t2824;
-    let t11391 = t1535 * tau0;
-    let t11392 = t11391 * t3664;
-    let t11399 = 128.0 / 81.0 * t9667 * t11361 + 800.0 / 81.0 * t9670 * t11349 - 128.0 / 27.0 * t9642 * t11343 + 800.0 / 27.0 * t9632 * t11349 - 64.0 / 9.0 * t9632 * t11354 + 128.0 / 27.0 * t9654 * t11361 + 800.0 / 27.0 * t9639 * t11349 - 64.0 / 27.0 * t3757 * t11379 + 700.0 / 3.0 * t9575 * t11383 + 32.0 / 9.0 * t7811 * t11386 + 200.0 / 9.0 * t9521 * t11383 - 200.0 / 9.0 * t9521 * t11392 + 100.0 / 3.0 * t9533 * t11383 - 500.0 / 3.0 * t9542 * t11392;
-    (t11360, t11376, t11377, t11378, t11379, t11382, t11383, t11386, t11391, t11392, t11399)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1082<F: Float>(t7: F, t3814: F, t6536: F, t2170: F, t3804: F, t1794: F, t3302: F, t545: F, t776: F, t9909: F, t222: F, t37: F, zeta_threshold: F) -> (F, F, F, F) {
+    let t8 = t7 <= zeta_threshold;
+    let t10536 = t6536 * t3814;
+    let t10541 = t2170 * t3804;
+    let t10547 = piecewise3::<f64>(t8, F::new(0.0), -F::new(28.0) / F::new(27.0) * t10536 * t545 + F::new(16.0) / F::new(9.0) * t3302 * t1794 + F::new(4.0) / F::new(9.0) * t10541 * t545 - t776 * t9909 / F::new(3.0));
+    let t10549 = t222 * t37 * t10547;
+    (t10536, t10541, t10547, t10549)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 934/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 934/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk934<F: Float>(t7930: F, t6090: F, t6093: F, t6156: F, t7947: F, t7955: F, t834: F, t841: F, t2203: F, t3046: F, t836: F, t6161: F, t6180: F, t6183: F, t7931: F, t7950: F) -> (F, F, F, F, F, F) {
-    let t7957 = 2.0 / 3.0 * t7930;
-    let t7958 = -t6156 + 8.0 / 9.0 * t6090 - t6093 / 3.0 + 4.0 / 9.0 * t7955 - t7957 + t7947;
-    let t7959 = t834 * t7958;
-    let t7961 = t841 * t7958;
-    let t7966 = t2203 * t3046;
-    let t7967 = t7966 * t836;
-    let t7969 = -t6161 + 0.79724444444444444446e0 * t6090 - 0.29896666666666666667e0 * t6093 - t7931 + 0.8969e0 * t7947 + 0.27385555555555555555e0 * t7950 + 0.1898925e1 * t7959 + 0.3071625e0 * t7961 - 0.16431333333333333333e0 * t6180 - 0.16431333333333333333e0 * t6183 + 0.39862222222222222223e0 * t7955 - 0.1898925e1 * t7967;
-    (t7958, t7959, t7961, t7966, t7967, t7969)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk934<F: Float>(t1058: F, t5165: F, t2706: F, t639: F, t1535: F, t1673: F, t2536: F, t4996: F, t5005: F, t5011: F, t5019: F, t5022: F, t5148: F, t5154: F, t5170: F, t568: F, t7023: F, t7025: F, t7030: F, t7031: F, t7032: F, t7034: F, t7037: F, t7039: F, t7041: F, t7042: F) -> (F, F, F) {
+    let t7197 = t1058 * t5165;
+    let t7201 = t2706 * t639;
+    let t7205 = F::new(6.0) * t1535 * t568 * t7201 + F::new(2.0) * t1673 * t2536 * t7197 + t4996 + t5005 - t5011 + t5019 - t5022 - t5148 - t5154 + t5170 + t7023 + t7025 + t7030 - t7031 - t7032 - t7034 - t7037 - t7039 + t7041 - t7042;
+    (t7197, t7201, t7205)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 20/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 20/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,11 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk20<F: Float>(t12: F, t15: F, t18: F, t26: F, t14: F, zeta_threshold: F) -> (F, F, F, F, F) {
-    let t28 = 0.379785e1 * t15 + 0.8969e0 * t12 + 0.204775e0 * t18 + 0.123235e0 * t26;
-    let t31 = 1.0 + 0.16081824322151104822e2 / t28;
+    let t28 = F::new(0.379785e1) * t15 + F::new(0.8969e0) * t12 + F::new(0.204775e0) * t18 + F::new(0.123235e0) * t26;
+    let t31 = F::new(1.0) + F::new(0.16081824322151104822e2) / t28;
     let t32 = f64::ln(t31);
-    let t34 = 0.62182e-1 * t14 * t32;
-    let t36 = pow_1_3(zeta_threshold);
+    let t34 = F::new(0.62182e-1) * t14 * t32;
+    let t36 = pow_1_3::<f64>(zeta_threshold);
     let t37 = t36 * zeta_threshold;
     (t28, t31, t32, t34, t37)
 }

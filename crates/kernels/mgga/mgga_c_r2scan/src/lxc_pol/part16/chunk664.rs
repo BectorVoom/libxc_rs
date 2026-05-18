@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 664/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 664/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk664<F: Float>(t5465: F, t612: F, t1883: F, t621: F, t632: F, t1891: F, t5448: F, t653: F, t219: F, t518: F, t201: F, t673: F, t681: F, t1932: F, t1966: F, t207: F) -> (F, F, F, F, F, F, F) {
-    let t5467 = 0.26345324029629629628e-2 * t612 * t5465;
-    let t5474 = 6.0 * t632 * t1883 * t621;
-    let t5479 = 0.57895126195293126241e3 * t1891 * t653 * t5448;
-    let t5486 = t518 * t219;
-    let t5490 = t518 * t201;
-    let t5503 = t673 * t681;
-    let t5504 = t5503 * t1932;
-    let t5507 = t207 * t1966;
-    (t5467, t5474, t5479, t5486, t5490, t5504, t5507)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk664<F: Float>(t4823: F, t4825: F, t4741: F, t4744: F, t4746: F, t4748: F, t4751: F, t4733: F, t4736: F, t4739: F, t401: F, t384: F) -> (F, F, F, F, F, F, F) {
+    let t4826 = t4823 * t4825;
+    let t4827 = F::new(0.96491876992155210402e2) * t4826;
+    let t4831 = F::new(0.93011851851851851854e0) * t4741;
+    let t4832 = F::new(0.13651666666666666667e0) * t4744;
+    let t4833 = F::new(0.27303333333333333333e0) * t4746;
+    let t4834 = F::new(0.3185388888888888889e0) * t4748;
+    let t4835 = F::new(0.36514074074074074075e0) * t4751;
+    let t4836 = -F::new(0.25319e1) * t4733 + F::new(0.16879333333333333333e1) * t4736 - F::new(0.19692555555555555555e1) * t4739 - t4831 + t4832 - t4833 - t4834 - t4835;
+    let t4837 = t4836 * t401;
+    let t4838 = t384 * t4837;
+    (t4827, t4831, t4832, t4833, t4834, t4835, t4838)
 }

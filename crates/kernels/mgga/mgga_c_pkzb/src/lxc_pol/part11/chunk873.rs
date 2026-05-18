@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 873/1208 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 873/1340 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk873<F: Float>(t10075: F, t3207: F, t406: F, t2411: F, t3757: F, t824: F, t2888: F, t3026: F, t3175: F, t3730: F, t931: F, t6517: F, t919: F, t154: F, t6431: F, t385: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10102 = t10075 * t3207;
-    let t10103 = t406 * t10102;
-    let t10106 = t2411 * t3757;
-    let t10107 = t10106 * t824;
-    let t10108 = t2888 * t10107;
-    let t10111 = t3175 * t3026;
-    let t10112 = t2888 * t10111;
-    let t10115 = t931 * t3730;
-    let t10116 = t10115 * t824;
-    let t10117 = t2888 * t10116;
-    let t10121 = t6517 * t919;
-    let t10122 = t10075 * t10121;
-    let t10123 = t406 * t10122;
-    let t10131 = t154 * t6431 * t3757;
-    let t10132 = t385 * t10131;
-    (t10102, t10103, t10106, t10107, t10108, t10111, t10112, t10115, t10116, t10117, t10121, t10122, t10123, t10131, t10132)
+pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk873<F: Float>(t9378: F, t9388: F, t684: F, t664: F, t3554: F, t5771: F, t2860: F, t2875: F, t3591: F, t5498: F, t2874: F, t730: F) -> (F, F, F, F, F, F, F, F) {
+    let t9389 = t9378 + t9388;
+    let t9390 = t9389 * t684;
+    let t9392 = F::new(1.0) * t664 * t9390;
+    let t9394 = F::new(0.16081979498692535067e2) * t5771 * t3554;
+    let t9396 = F::new(0.34631718211362927517e2) * t2860 * t2875;
+    let t9397 = t5498 * t3591;
+    let t9398 = t9397 * t2874;
+    let t9400 = F::new(0.10389515463408878255e3) * t730 * t9398;
+    (t9389, t9390, t9392, t9394, t9396, t9397, t9398, t9400)
 }

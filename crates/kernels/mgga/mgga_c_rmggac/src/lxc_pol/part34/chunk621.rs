@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 621/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 621/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk621<F: Float>(t7778: F, t7879: F, t903: F, t641: F, t7553: F, t7555: F, t2013: F, t7349: F, t2000: F, t838: F, t14113: F, t68621: F, t68523: F, t7229: F, t14233: F, t14161: F, t221: F) -> (F, F, F, F, F, F, F, F) {
-    let t69574 = t903 * t7778 * t7879;
-    let t69583 = t7553 * t7555 * t641;
-    let t69586 = t7349 * t2013;
-    let t69588 = t2000 * t838;
-    let t69594 = t14113 * t68621;
-    let t69598 = t7229 * t68523;
-    let t69599 = t69598 * t14233;
-    let t69608 = t14161 * t221;
-    (t69574, t69583, t69586, t69588, t69594, t69598, t69599, t69608)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk621<F: Float>(t15164: F, t15167: F, t15170: F, t15172: F, t14516: F, t2344: F, t14509: F, t2329: F, t14512: F, t2333: F, t15526: F, t305: F) -> (F, F, F, F, F, F, F, F) {
+    let t15559 = F::new(0.20455996240684006298e-1) * t15164;
+    let t15560 = F::new(0.2727466165424534173e-1) * t15167;
+    let t15561 = F::new(0.13637330827122670865e-1) * t15170;
+    let t15562 = F::new(0.14967802127329760705e-1) * t15172;
+    let t15563 = t14516 * t2344;
+    let t15564 = F::new(0.10227998120342003148e-1) * t15563;
+    let t15565 = t14509 * t2329;
+    let t15566 = F::new(0.13637330827122670864e-1) * t15565;
+    let t15567 = t14512 * t2333;
+    let t15568 = F::new(0.68186654135613354322e-2) * t15567;
+    let t15570 = t305 * t15526;
+    (t15559, t15560, t15561, t15562, t15564, t15566, t15568, t15570)
 }

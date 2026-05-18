@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 559/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 559/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk559<F: Float>(t210: F, t214: F, t3734: F, t1314: F, t792: F, t118: F, t1307: F, t794: F, t3719: F, t116: F, t534: F, t212: F, t2586: F, t1315: F, t3725: F, t3727: F, t3731: F, t3733: F) -> (F, F, F, F, F, F, F) {
-    let t3736 = t210 * t214 * t3734;
-    let t3739 = t792 * t1314;
-    let t3741 = t118 * t794 * t1307;
-    let t3742 = t3739 * t3741;
-    let t3745 = t210 * t214 * t3719;
-    let t3748 = t534 * t116;
-    let t3749 = t3748 * t212;
-    let t3751 = 0.83333333333333333332e-3 * t2586 * t3749;
-    let t3752 = t3725 + 0.77777777777777777775e-2 * t3727 + t3731 + 0.49999999999999999998e-2 * t3733 * t3736 + 0.16666666666666666666e-2 * t3742 - 0.16666666666666666666e-2 * t1315 * t3745 - t3751;
-    (t3736, t3739, t3741, t3745, t3748, t3749, t3752)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk559<F: Float>(t300: F, t3407: F, t3369: F, t1143: F, t1166: F, t1156: F, t3375: F, t3377: F, t1164: F, t1147: F, t3395: F, t3400: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t3408 = t300 * t3407;
+    let t3410 = F::new(0.19751673498613801407e-1) * t300 * t3369;
+    let t3411 = t300 * t1143;
+    let t3413 = F::new(0.11696447245269292414e1) * t3411 * t1166;
+    let t3415 = t3375 * t3377 * t1156;
+    let t3417 = F::new(0.11696447245269292414e1) * t1164 * t3415;
+    let t3419 = t1147 * t3395 * t1156;
+    let t3421 = F::new(0.5848223622634646207e0) * t1164 * t3419;
+    let t3422 = t3400 * t3377;
+    (t3408, t3410, t3411, t3413, t3415, t3417, t3419, t3421, t3422)
 }

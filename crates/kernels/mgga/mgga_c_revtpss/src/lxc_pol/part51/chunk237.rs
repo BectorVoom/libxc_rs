@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 237/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 237/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk237<F: Float>(t1043: F, t373: F, t357: F, t73: F) -> (F, F) {
-    let t1044 = t373 * t1043;
-    let t1045 = t73 * t357;
-    (t1044, t1045)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk237<F: Float>(t1035: F, t360: F, t336: F, t368: F) -> (F, F) {
+    let t1036 = t1035 * t360;
+    let t1038 = F::new(1.0) / t368 / t336;
+    (t1036, t1038)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 966/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 966/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk966<F: Float>(t23956: F, t24446: F, t3: F, t112: F, t7222: F, t111: F, t2098: F, t671: F, t7056: F, t2039: F, t2363: F, t12521: F, t12524: F, t1401: F, t16535: F, t2319: F, t23917: F, t3938: F, t3941: F, t577: F, t7230: F, t7235: F) -> (F, F, F, F, F, F, F) {
-    let t24447 = t23956 + t24446;
-    let t24448 = t3 * t24447;
-    let t24462 = t7222 * t112;
-    let t24465 = t2098 * t111;
-    let t24478 = t7056 * t671;
-    let t24481 = t2039 * t2363;
-    let t24486 = 0.45e1 * t24447 * t577 + 27.0 * t24462 * t671 + 27.0 * t24465 * t2319 + 0.135e2 * t7230 * t2363 + 0.135e2 * t12521 * t2039 + 54.0 * t12524 * t7235 + 27.0 * t3938 * t7056 + 27.0 * t16535 * t2039 + 54.0 * t3941 * t24478 + 27.0 * t3941 * t24481 + 0.135e2 * t1401 * t23917;
-    (t24447, t24448, t24462, t24465, t24478, t24481, t24486)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk966<F: Float>(t1388: F, t3698: F, t3700: F, t570: F, t11976: F, t11978: F, t11980: F, t11982: F, t11984: F, t12012: F, t12044: F, t12046: F, t12156: F, t12451: F, t1297: F, t1390: F, t193: F, t533: F, t571: F, t9457: F, t9476: F, t9484: F, t9780: F) -> (F, F, F) {
+    let t12458 = t3698 * t1388;
+    let t12461 = F::new(1.0) / t3700 / t570;
+    let t12465 = t12451 * t1390 * t193 * t533 + F::new(2.0) * t12458 * t12461 * t193 * t533 + F::new(3.0) * t12012 * t1297 * t193 + F::new(6.0) * t12156 * t193 * t571 + t11976 - t11978 - t11980 - t11982 - t11984 + t12044 - t12046 - t9457 + t9476 + t9484 + t9780;
+    (t12458, t12461, t12465)
 }

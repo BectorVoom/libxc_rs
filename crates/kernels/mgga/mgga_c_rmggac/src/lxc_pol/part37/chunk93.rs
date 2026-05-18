@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 93/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 93/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,6 +12,6 @@ pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk93<F: Float>(t128: F, t
     let t334 = t128 * t333;
     let t335 = t326 * t334;
     let t337 = t127 * t127;
-    let t338 = 1.0 / t337;
+    let t338 = F::new(1.0) / t337;
     (t334, t335, t337, t338)
 }

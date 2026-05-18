@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 812/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 812/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk812<F: Float>(t15878: F, t21003: F, t4160: F, t21002: F, t5426: F, t5661: F, t12286: F, t15844: F, t20970: F, t20977: F, t20982: F, t20987: F, t20991: F, t20996: F, t21000: F, t7043: F) -> (F, F, F, F) {
-    let t21004 = t15878 * t21003;
-    let t21005 = t4160 * t21004;
-    let t21007 = t5426 * t21002;
-    let t21008 = t15878 * t21007;
-    let t21009 = t5661 * t21008;
-    let t21011 = -0.11054629629629629629e-2 * t20970 + 0.890445125e-2 * t12286 * t7043 + 0.33163888888888888888e-2 * t20977 - 0.22109259259259259259e-2 * t20982 + 0.99491666666666666664e-2 * t20987 + 0.13265555555555555555e-1 * t20991 + 0.22109259259259259259e-2 * t15844 + 0.66327777777777777776e-2 * t20996 - 0.22109259259259259259e-2 * t21000 + 0.66327777777777777776e-2 * t21005 - 0.55273148148148148147e-2 * t21009;
-    (t21005, t21007, t21009, t21011)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk812<F: Float>(t4121: F, t491: F, t1457: F, t509: F, t86: F, t9526: F, t1499: F, t1491: F, t1495: F, t4161: F, t1360: F, t3960: F, sigma2: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t12240 = t4121 * sigma2;
+    let t12241 = t12240 * t491;
+    let t12265 = t1457 * t4121;
+    let t12266 = t12265 * sigma2;
+    let t12274 = t86 * t9526 * t509;
+    let t12275 = t12274 * t1499;
+    let t12279 = t12274 * t1491;
+    let t12281 = t4161 * t1495;
+    let t12286 = t1360 * t3960;
+    (t12240, t12241, t12265, t12266, t12274, t12275, t12279, t12281, t12286)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 229/963 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 229/1110 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk229<F: Float>(t245: F, t395: F, t163: F, t394: F, t158: F, t401: F, t402: F, t954: F, t957: F, t960: F, t964: F, t966: F, t969: F, t166: F, t363: F, t1054: F, t378: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t1055 = t245 * t395;
-    let t1059 = t394 * t163;
-    let t1060 = 1.0 / t1059;
-    let t1061 = t158 * t1060;
-    let t1062 = t401 * t401;
-    let t1063 = t1062 * t402;
-    let t1072 = -0.78438333333333333333e0 * t954 + 0.15687666666666666667e1 * t957 + 0.68863333333333333333e0 * t960 + 0.14025833333333333333e0 * t964 + 0.28051666666666666667e0 * t966 + 0.17365833333333333333e0 * t969;
-    let t1073 = t1072 * t402;
-    let t1076 = t394 * t394;
-    let t1077 = 1.0 / t1076;
-    let t1078 = t158 * t1077;
-    let t1079 = t166 * t166;
-    let t1080 = 1.0 / t1079;
-    let t1081 = t1062 * t1080;
-    let t1084 = t245 * t363;
-    let t1087 = 0.35616666666666666666e-1 * t1054 * t1084 * t378;
-    (t1055, t1060, t1061, t1062, t1063, t1072, t1073, t1076, t1077, t1078, t1079, t1080, t1081, t1084, t1087)
+pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk229<F: Float>(t1038: F, t1041: F, t978: F, t431: F, t171: F, t388: F, t433: F, t151: F, t5: F, t959: F) -> (F, F, F, F, F) {
+    let t1042 = t1038 * t978 * t1041;
+    let t1044 = F::new(0.17315859105681463759e2) * t431 * t1042;
+    let t1045 = t388 * t171;
+    let t1046 = t1045 * t433;
+    let t1050 = F::new(0.14764627977777777777e-2) * t5 * t959 * t151;
+    (t1042, t1044, t1045, t1046, t1050)
 }

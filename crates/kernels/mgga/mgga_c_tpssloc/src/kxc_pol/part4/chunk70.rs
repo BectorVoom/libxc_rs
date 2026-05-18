@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 70/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 70/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,9 +12,9 @@ pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk70<F: Float>(t40: F, t52: F, t
     let t146 = t40 <= zeta_threshold;
     let t150 = t52 <= zeta_threshold;
     let t195 = t73 * t73;
-    let t196 = piecewise3(t146, t194, t195);
+    let t196 = piecewise3::<f64>(t146, t194, t195);
     let t197 = t76 * t76;
-    let t198 = piecewise3(t150, t194, t197);
-    let t200 = t196 / 2.0 + t198 / 2.0;
+    let t198 = piecewise3::<f64>(t150, t194, t197);
+    let t200 = t196 / F::new(2.0) + t198 / F::new(2.0);
     (t195, t197, t200)
 }

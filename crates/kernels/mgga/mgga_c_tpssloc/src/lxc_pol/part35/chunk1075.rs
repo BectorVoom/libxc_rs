@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1075/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1075/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1075<F: Float>(t4993: F, t7345: F, t5040: F, t7310: F, t27607: F, t460: F, t24682: F, t24658: F, t3: F, t24719: F, t3030: F, t1734: F, t3503: F, t1210: F, t1409: F, t2132: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t27622 = t7345 * t4993;
-    let t27626 = t7310 * t5040;
-    let t27628 = t27607 * t460;
-    let t27629 = t24682 * t27628;
-    let t27634 = t24658 * t3;
-    let t27635 = t24719 * t3030;
-    let t27636 = t27634 * t27635;
-    let t27637 = t3503 * t1734;
-    let t27642 = t1210 * t1734;
-    let t27650 = t2132 * t1409;
-    (t27622, t27626, t27628, t27629, t27634, t27635, t27636, t27637, t27642, t27650)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1075<F: Float>(t1760: F, t6267: F, t3598: F, t6243: F, t11606: F, t11764: F, t20234: F, t974: F, t1743: F, t6169: F, t11487: F, t14766: F, t18494: F, t18505: F, t18512: F, t21747: F, t21751: F, t21789: F, t21792: F, t21795: F, t21802: F) -> (F, F, F, F, F, F, F) {
+    let t22003 = t1760 * t6267;
+    let t22004 = t3598 * t22003;
+    let t22007 = t6243 * t1760;
+    let t22008 = t11606 * t22007;
+    let t22011 = t11764 * t20234;
+    let t22012 = t974 * t22011;
+    let t22015 = t6169 * t1743;
+    let t22032 = t11487 - F::new(5.0) / F::new(9.0) * t14766 - t18494 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t18505 + t18512 / F::new(3.0) - F::new(2.0) / F::new(27.0) * t21802 + t21789 / F::new(3.0) + t21747 / F::new(6.0) - t21792 - t21751 - t21795 / F::new(6.0);
+    (t22003, t22004, t22007, t22008, t22012, t22015, t22032)
 }

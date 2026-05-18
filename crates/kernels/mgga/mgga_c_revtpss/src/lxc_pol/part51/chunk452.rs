@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 452/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 452/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk452<F: Float>(t1263: F, t159: F, t635: F, t2304: F, t1126: F, t1130: F, t1129: F, t418: F, t408: F, t406: F, t409: F, t3356: F, t281: F, t2902: F, t414: F, t1146: F, t698: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3360 = t159 * t1263;
-    let t3361 = t635 * t635;
-    let t3362 = 1.0 / t3361;
-    let t3367 = 1.0 / t2304;
-    let t3379 = t1126 * t1130;
-    let t3382 = t1129 * t418;
-    let t3383 = 1.0 / t3382;
-    let t3384 = t408 * t3383;
-    let t3390 = 1.0 / t409 / t406;
-    let t3394 = 4.0 / 9.0 * t3356;
-    let t3402 = 0.39862222222222222223e0 * t3356;
-    let t3407 = 1.0/f64::sqrt(t406);
-    let t3413 = t281 * t2902 * t414;
-    let t3414 = 0.13692777777777777778e0 * t3413;
-    let t3415 = t698 * t1146;
-    (t3360, t3362, t3367, t3379, t3384, t3390, t3394, t3402, t3407, t3413, t3414, t3415)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk452<F: Float>(t225: F, t2769: F, t2435: F, t871: F, t785: F, t870: F, t2439: F, t123: F, t212: F, t676: F, t822: F, t251: F, t836: F) -> (F, F, F, F, F, F, F) {
+    let t2770 = t225 * t2769;
+    let t2776 = F::new(0.73171657588172351096e-2) * t2435 * t871;
+    let t2777 = t785 * t225;
+    let t2778 = t2777 * t870;
+    let t2780 = F::new(0.65049603595885220126e-3) * t2439 * t2778;
+    let t2782 = t123 * t676 * t212;
+    let t2783 = t225 * t822;
+    let t2784 = t251 * t836;
+    (t2770, t2776, t2777, t2780, t2782, t2783, t2784)
 }

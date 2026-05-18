@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 723/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 723/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk723<F: Float>(t10022: F, t786: F, t3923: F, t675: F, t268: F, t4003: F, t2435: F, t4093: F, t4083: F, t9303: F, t4066: F, t545: F, t869: F, t689: F, t2777: F, t4092: F) -> (F, F, F, F, F, F) {
-    let t10023 = t786 * t10022;
-    let t10024 = t675 * t3923;
-    let t10026 = t268 * t10024 * t4003;
-    let t10027 = t10023 * t10026;
-    let t10032 = t2435 * t4093;
-    let t10035 = 0.26019841438354088051e-2 * t9303 * t4083;
-    let t10039 = t545 * t4066;
-    let t10040 = t869 * t10039;
-    let t10041 = t689 * t10040;
-    let t10043 = t2777 * t4092;
-    (t10024, t10027, t10032, t10035, t10041, t10043)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk723<F: Float>(t185: F, t2494: F, t9367: F, t9368: F, t1340: F, t2516: F, t4038: F, t9283: F, t9286: F, t9289: F, t9292: F, t9296: F, t9298: F, t9300: F, t9303: F) -> (F, F, F, F, F) {
+    let t9371 = F::new(1.0) / t2494 / t185;
+    let t9372 = t9367 * t9368 * t9371;
+    let t9374 = F::new(0.10254018858216406658e4) * t1340 * t9372;
+    let t9375 = t4038 * t2516;
+    let t9376 = F::new(0.17544670867903938621e1) * t9375;
+    let t9385 = -F::new(0.34523333333333333333e1) * t9283 + F::new(0.23015555555555555556e1) * t9286 - F::new(0.26851481481481481482e1) * t9289 - F::new(0.93932222222222222223e0) * t9292 + F::new(0.73355e-1) * t9296 - F::new(0.14671e0) * t9298 - F::new(0.17116166666666666667e0) * t9300 - F::new(0.36793333333333333333e0) * t9303;
+    (t9371, t9372, t9374, t9376, t9385)
 }

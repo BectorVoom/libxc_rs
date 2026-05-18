@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1192/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1192/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1192<F: Float>(t28359: F, t838: F, t23069: F, t5572: F, t23062: F, t28383: F, t5568: F, t81956: F, t28389: F, t81963: F, t23083: F, t28356: F, t23133: F, t5628: F, t23041: F, t5614: F) -> (F, F, F, F, F, F, F, F) {
-    let t98690 = t28359 * t838;
-    let t98694 = t23069 * t5572;
-    let t98696 = t23062 * t28383;
-    let t98709 = t81956 * t5568;
-    let t98711 = t81963 * t28389;
-    let t98725 = t23083 * t28356;
-    let t98733 = t23133 * t5628;
-    let t98736 = t23041 * t5614;
-    (t98690, t98694, t98696, t98709, t98711, t98725, t98733, t98736)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1192<F: Float>(t6420: F, t6987: F, t1825: F, t26458: F, t19743: F, t550: F, t6976: F, t1992: F, t1336: F, t22718: F, t22726: F, t26437: F, t27096: F, t28156: F, t28161: F, t28165: F, t28169: F, t28171: F, t5234: F, t544: F, t7745: F) -> (F, F, F, F, F) {
+    let t28174 = t6987 * t6420;
+    let t28178 = t26458 * t1825;
+    let t28181 = t19743 * t550;
+    let t28182 = t6976 * t28181;
+    let t28183 = t1992 * t28182;
+    let t28185 = t544 * t28156 - t27096 - F::new(0.82246703342411321824e-2) * t26437 + F::new(0.82246703342411321825e-2) * t28161 + t22718 + t22726 - F::new(0.16449340668482264365e-1) * t28165 - F::new(0.82246703342411321825e-2) * t28169 + F::new(2.0) * t1336 * t28171 - t1336 * t28174 - F::new(2.0) * t5234 * t7745 - F::new(2.0) * t1336 * t28178 - F::new(0.82246703342411321825e-2) * t28183;
+    (t28174, t28178, t28181, t28182, t28185)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1154/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1154/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1154<F: Float>(t21333: F, t5619: F, t1578: F, t7024: F, t45: F, t6996: F, t1345: F, t1357: F, t21172: F, t21174: F, t21176: F, t21178: F, t21180: F, t21293: F, t21295: F, t21311: F, t21316: F, t21320: F, t21324: F, t21327: F, t21330: F, t5590: F, t5615: F) -> (F, F, F) {
-    let t21334 = t21333 * t5619;
-    let t21337 = t7024 * t1578;
-    let t21342 = t45 * t6996;
-    let t21345 = t21172 + t21174 + t21176 - t21178 + t21180 + t21293 + t21295 + 0.19751789702565206229e-1 * t45 * t21311 - 0.1025389702100779493e4 * t1345 * t21316 + 0.1038945353962551798e3 * t1345 * t21320 + 0.11696446794910408142e1 * t1345 * t21324 + 0.23392893589820816284e1 * t1345 * t21327 - 0.34631511798751726598e2 * t1345 * t21330 - 0.17315755899375863299e2 * t1345 * t21334 - 0.35089340384731224426e1 * t1345 * t21337 - 0.11696446794910408142e1 * t5590 * t5615 - 0.58482233974552040708e0 * t21342 * t1357;
-    (t21334, t21337, t21345)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1154<F: Float>(t6436: F, t733: F, t6439: F, t1056: F, t18681: F, t1064: F, t1079: F, t6470: F, t743: F, t6461: F, t738: F, t6464: F) -> (F, F, F, F, F, F, F, F) {
+    let t19423 = t733 * t6436;
+    let t19425 = t733 * t6439;
+    let t19427 = t1056 * t18681;
+    let t19430 = t1064 * t18681;
+    let t19433 = t1079 * t18681;
+    let t19436 = t743 * t6470;
+    let t19438 = t738 * t6461;
+    let t19440 = t738 * t6464;
+    (t19423, t19425, t19427, t19430, t19433, t19436, t19438, t19440)
 }

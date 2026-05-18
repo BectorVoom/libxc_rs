@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1050/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1050/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1050<F: Float>(t214: F, t31315: F, t1880: F, t794: F, t8537: F, t6562: F, t23237: F, t8547: F, t2053: F, t2717: F) -> (F, F, F, F, F, F, F) {
-    let t31316 = t214 * t31315;
-    let t31317 = t1880 * t31316;
-    let t31319 = t794 * t8537;
-    let t31320 = t6562 * t31319;
-    let t31321 = 0.41123351671205660912e-2 * t31320;
-    let t31329 = t23237 * t8547;
-    let t31330 = t1880 * t31329;
-    let t31332 = t2717 * t2053;
-    (t31316, t31317, t31319, t31321, t31329, t31330, t31332)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1050<F: Float>(t26043: F, t67: F, t1864: F, t6509: F, t7441: F, t12571: F, t6489: F, t1860: F, t1865: F, t22544: F, t22549: F, t22551: F, t26009: F, t26013: F, t26016: F, t26021: F, t26025: F, t26028: F, t6486: F, t6492: F, t6506: F, t6510: F, t7428: F, t7442: F, t7446: F) -> F {
+    let t26044 = t26043 * t67;
+    let t26045 = t26044 * t1864;
+    let t26048 = t7441 * t6509;
+    let t26051 = t12571 * t6489;
+    let t26054 = -F::new(5.0) * t22544 * t26009 - F::new(5.0) / F::new(3.0) * t22549 * t26013 - F::new(5.0) / F::new(3.0) * t26016 * t22551 - t6486 * t7446 / F::new(6.0) - t1860 * t26021 / F::new(6.0) - t1860 * t26025 / F::new(6.0) - t26028 * t1865 / F::new(6.0) - t7428 * t6506 / F::new(6.0) - t7428 * t6510 / F::new(6.0) - t6486 * t7442 / F::new(6.0) - t1860 * t26045 / F::new(6.0) - t1860 * t26048 / F::new(6.0) + F::new(5.0) / F::new(6.0) * t26051 * t6492;
+    t26054
 }

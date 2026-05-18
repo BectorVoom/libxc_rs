@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 410/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 410/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk410<F: Float>(t1389: F, t1396: F, t253: F, t809: F) -> (F,) {
-    let t1398 = t1389 * t253 - t1396 * t809;
-    (t1398,)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk410<F: Float>(t1388: F, t1379: F, t220: F, t229: F, t339: F, t813: F) -> (F, F) {
+    let t1389 = param_beta * t1388;
+    let t1395 = -t1379 * t339 * t813 + t1388 * t220 * t229;
+    (t1389, t1395)
 }

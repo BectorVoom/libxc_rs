@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 770/1183 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 770/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk770<F: Float>(t3131: F, t5872: F, t1021: F, t248: F, t360: F, t3151: F, t5392: F, t974: F, t5398: F, t998: F, t3146: F, t1044: F, t5681: F, t225: F, t5848: F, t68: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t5873 = t5872 * t3131;
-    let t5875 = t248 * t1021 * t5873;
-    let t5878 = t5872 * t360;
-    let t5880 = t248 * t1021 * t5878;
-    let t5884 = t3151 * t5392;
-    let t5885 = t974 * t5884;
-    let t5889 = t998 * t5398;
-    let t5890 = t974 * t5889;
-    let t5893 = t3146 * t5392;
-    let t5894 = t974 * t5893;
-    let t5900 = t248 * t1044 * t5681;
-    let t5903 = t5848 * t225;
-    let t5904 = t5903 * t68;
-    (t5873, t5875, t5878, t5880, t5884, t5885, t5889, t5890, t5893, t5894, t5900, t5903, t5904)
+pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk770<F: Float>(t3870: F, t5308: F, t820: F, t1367: F, t5187: F, t1341: F, t1363: F, t1831: F, t3781: F, t3783: F, t3800: F, t3803: F, t3864: F, t3867: F, t5259: F, t5289: F, t5293: F, t5303: F, t5306: F) -> (F, F, F) {
+    let t5310 = t3870 * t820 * t5308;
+    let t5314 = t1367 * t820 * t5187;
+    let t5317 = t3803 * t5259 / F::new(768.0) - t1341 * t5289 / F::new(3072.0) - t3803 * t5293 / F::new(3072.0) - F::new(7.0) / F::new(4608.0) * t3781 + F::new(7.0) / F::new(4608.0) * t3800 + t3864 + F::new(7.0) / F::new(1152.0) * t3867 - t3783 * t1831 / F::new(768.0) + t3803 * t5303 / F::new(768.0) + F::new(7.0) / F::new(1152.0) * t5306 + F::new(5.0) / F::new(768.0) * t1363 * t5310 - t1363 * t5314 / F::new(768.0);
+    (t5310, t5314, t5317)
 }

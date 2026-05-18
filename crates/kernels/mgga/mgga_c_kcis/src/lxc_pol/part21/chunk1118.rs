@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1118/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1118/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1118<F: Float>(t3452: F, t5026: F, t1817: F, t9568: F, t8072: F, t92415: F, t1189: F, t13106: F, t14853: F, t26930: F, t14839: F, t7754: F, t3348: F, t4999: F, t14703: F, t26896: F) -> (F, F, F, F, F, F, F, F) {
-    let t95432 = t5026 * t3452;
-    let t95434 = t9568 * t1817;
-    let t95436 = t92415 * t8072;
-    let t95438 = t13106 * t1189;
-    let t95440 = t26930 * t14853;
-    let t95442 = t7754 * t14839;
-    let t95444 = t4999 * t3348;
-    let t95446 = t26896 * t14703;
-    (t95432, t95434, t95436, t95438, t95440, t95442, t95444, t95446)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1118<F: Float>(t26991: F, t27037: F, t27058: F, t27093: F, t1281: F, t7807: F, t1291: F, t7823: F, t26889: F, t26892: F, t26894: F, t26898: F, t26900: F, t26902: F, t26904: F, t26906: F, t26908: F, t26910: F, t26912: F, t26914: F) -> (F, F, F, F) {
+    let t27095 = t26991 + t27037 + t27058 + t27093;
+    let t27100 = t7807 * t1281;
+    let t27105 = t7823 * t1291;
+    let t27120 = -F::new(0.4046875e-1) * t26889 + F::new(0.5e0) * t26892 - F::new(0.125e0) * t26894 + F::new(0.1875e0) * t26898 - F::new(0.26979166666666666667e-1) * t26900 + F::new(0.20234375e-1) * t26902 + F::new(0.21583333333333333334e0) * t26904 - F::new(0.53958333333333333334e-1) * t26906 + F::new(0.4046875e-1) * t26908 + F::new(0.28777777777777777778e0) * t26910 - F::new(0.68347222222222222224e0) * t26912 - F::new(0.89930555555555555557e-2) * t26914;
+    (t27095, t27100, t27105, t27120)
 }

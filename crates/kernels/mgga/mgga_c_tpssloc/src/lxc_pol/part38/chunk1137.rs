@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1137/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1137/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1137<F: Float>(t16080: F, t16121: F, t225: F, t3856: F, t5335: F, t3851: F, t5348: F, t1332: F, t1336: F, t1381: F, t16033: F, t16037: F, t16041: F, t16044: F, t16047: F, t16049: F, t16052: F, t16055: F, t16060: F, t16065: F, t16068: F, t3777: F, t3902: F, t5234: F, t5334: F, t5336: F, t5344: F, t5345: F, t5349: F, t5351: F, t564: F) -> (F, F, F) {
-    let t16122 = t16080 + t16121;
-    let t16123 = t16122 * t225;
-    let t16125 = t5335 * t3856;
-    let t16127 = t5348 * t3851;
-    let t16131 = 2.0 * t1332 * t5351 - t1336 * t16127 - 2.0 * t1381 * t16060 - 2.0 * t16033 * t5345 + 4.0 * t16037 * t5334 + 4.0 * t16041 * t5334 - t16044 * t5344 - 6.0 * t16047 * t16049 + 6.0 * t16052 * t5334 + 4.0 * t16055 * t5336 + 2.0 * t16065 * t5334 - 2.0 * t16068 * t5344 + t16123 * t564 - t16125 * t5344 - 2.0 * t3777 * t5349 - 2.0 * t3902 * t5234;
-    (t16122, t16123, t16131)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1137<F: Float>(t14228: F, t4337: F, t10408: F, t13510: F, t13512: F, t13514: F, t13517: F, t13519: F, t13522: F, t13524: F, t13526: F, t13657: F, t13661: F, t13665: F, t13720: F, t13722: F, t13726: F, t13729: F, t13731: F, t13734: F) -> (F, F) {
+    let t14234 = t4337 * t14228;
+    let t14235 = t10408 * t14234;
+    let t14238 = -t13510 + t13512 - t13514 + t13517 + t13519 + t13522 + t13524 + t13526 + t13657 - t13661 + t13665 - t13720 + t13722 + t13726 - t13729 - t13731 + t13734;
+    (t14235, t14238)
 }

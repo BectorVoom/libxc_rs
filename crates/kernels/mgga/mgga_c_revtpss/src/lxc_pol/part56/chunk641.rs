@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 641/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 641/1203 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk641<F: Float>(t225: F, t7910: F, t1892: F, t1955: F, t1903: F, t2022: F, t7296: F, t1882: F, t543: F, t7301: F, t545: F, t2028: F, t1904: F, t2027: F, t2030: F, t213: F, t561: F, t7245: F, t7248: F, t7279: F, t7288: F, t7291: F, t7295: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t7911 = t7910 * t225;
-    let t7917 = t1955 * t1892;
-    let t7920 = t2022 * t1903;
-    let t7921 = t7296 * t7920;
-    let t7925 = t2022 * t1882 * t543;
-    let t7926 = t7301 * t7925;
-    let t7929 = t545 * t7910;
-    let t7930 = t2028 * t7929;
-    let t7933 = -t7245 + t7248 + 0.65854491829355115987e0 * t213 * t7911 * t561 - 0.65854491829355115987e0 * t7279 * t1904 + t7288 - t7291 - 0.4336814094102599731e0 * t7917 * t2030 + 0.8673628188205199462e0 * t7295 * t7921 + 0.4336814094102599731e0 * t7295 * t7926 - 0.4336814094102599731e0 * t2027 * t7930;
-    (t7911, t7917, t7920, t7921, t7925, t7926, t7929, t7930, t7933)
+pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk641<F: Float>(t218: F, t7021: F, t816: F, t1941: F, t228: F, t802: F, t240: F, t64: F, t234: F, t243: F, t807: F, t1945: F, t786: F) -> (F, F, F, F, F, F, F) {
+    let t7023 = t7021 * t218 * t816;
+    let t7024 = F::new(7.0) / F::new(288.0) * t7023;
+    let t7025 = t1941 * t228;
+    let t7026 = t7025 * t802;
+    let t7028 = t64 * t240;
+    let t7030 = t234 * t7028 * t243;
+    let t7031 = t807 * t7030;
+    let t7032 = F::new(0.14291339372689912324e-4) * t7031;
+    let t7033 = t786 * t1945;
+    (t7024, t7025, t7026, t7028, t7030, t7032, t7033)
 }

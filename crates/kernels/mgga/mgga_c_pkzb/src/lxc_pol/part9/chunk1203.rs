@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1203/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1203/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1203<F: Float>(t10044: F, t10047: F, t1220: F, t18979: F, t19026: F, t19030: F, t2185: F, t22938: F, t23017: F, t23093: F, t23104: F, t23122: F, t23163: F, t23236: F, t23275: F, t23333: F, t23338: F, t23341: F, t23345: F, t23355: F, t23362: F, t23390: F, t2371: F, t2380: F, t2381: F, t2382: F, t2387: F, t2396: F, t2888: F, t3026: F, t3174: F, t3175: F, t3185: F, t3206: F, t3214: F, t6106: F, t6419: F, t6438: F, t6472: F, t6509: F, t7945: F, t824: F, t8254: F, t8276: F, t8450: F, t919: F, t921: F, t931: F) -> (F,) {
-    let t23394 = -0.68598428988911579154e-2 * t10044 * t6419 + 0.34299214494455789577e-2 * t10047 * t6472 + t1220 * t6438 / 6.0 - 0.11433071498151929859e-2 * t3214 * t6509 - 0.33875767401931644027e-3 * t23355 + 0.91464571985215438872e-2 * t23362 + t23093 + t23341 + t23236 + 0.63517063878621832551e-4 * t23345 + t23017 + t23390 + t23275 + t23163 - 5.0 / 1296.0 * t23338 + 0.42874018118069736972e-3 * t23122 + t23333 + t22938 - 0.12862205435420921092e-2 * t2380 * t2381 * t7945 * t919 * t921 - 0.12862205435420921092e-2 * t2380 * t2381 * t3026 * t2387 * t921 + t3174 * t2888 * t931 * t7945 * t824 / 16.0 - 5.0 / 432.0 * t19026 + t19030 / 144.0 + t3174 * t2888 * t8276 * t2185 / 16.0 + t3174 * t2888 * t3175 * t6106 / 48.0 - 0.12862205435420921092e-2 * t8450 * t8254 * t18979 * t2382 - 0.25724410870841842183e-2 * t3185 * t2381 * t23104 * t2371 + 0.12862205435420921092e-2 * t3206 * t2381 * t23104 * t2396;
-    (t23394,)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1203<F: Float>(t2783: F, t5766: F, t1850: F, t7444: F, t1095: F, t1938: F, t5830: F, t1070: F, t5775: F, t5777: F, t1893: F, t1899: F, t7278: F) -> (F, F, F, F, F, F) {
+    let t20902 = F::new(3.0) * t5766 * t2783;
+    let t20904 = F::new(3.0) * t1850 * t7444;
+    let t20905 = t1938 * t1095;
+    let t20908 = t5830 * t1095;
+    let t20911 = t1070 * t5775;
+    let t20913 = F::new(0.96491876992155210402e2) * t20911 * t5777;
+    let t20916 = F::new(0.48245938496077605201e2) * t1899 * t7278 * t1893;
+    (t20902, t20904, t20905, t20908, t20913, t20916)
 }

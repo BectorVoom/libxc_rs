@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 673/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 673/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk673<F: Float>(t11525: F, t435: F, t437: F, t11529: F, t447: F, t445: F, t3845: F, t429: F, t431: F, t1049: F, t442: F, t13964: F, t12951: F, t167: F, t3532: F, t967: F) -> (F, F, F, F, F, F, F) {
-    let t14056 = 0.77488888888888888888e-2 * t435 * t11525 * t437;
-    let t14057 = t11529 * t447;
-    let t14059 = 0.72818958333333333333e-4 * t445 * t14057;
-    let t14062 = 0.27323333333333333333e-1 * t429 * t3845 * t431;
-    let t14082 = t1049 * t442;
-    let t14083 = 0.62154466893555682512e-3 * t14082;
-    let t14084 = 0.71734315950379065738e-1 * t13964;
-    let t14085 = t167 * t12951;
-    let t14090 = t967 * t3532;
-    (t14056, t14059, t14062, t14083, t14084, t14085, t14090)
+pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk673<F: Float>(t10568: F, t5005: F, t79: F, t311: F, t3841: F, t579: F, t571: F, t574: F, t581: F, t4786: F, t596: F, t1675: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t10569 = F::new(0.55403703703703703703e-1) * t10568;
+    let t10621 = t79 * t5005;
+    let t10639 = F::new(0.93932222222222222223e0) * t10568;
+    let t10641 = t311 * t3841 * t579;
+    let t10642 = F::new(0.36793333333333333333e0) * t10641;
+    let t10649 = F::new(28.0) / F::new(27.0) * t10568;
+    let t10663 = F::new(1.0)/pow_3_2::<f64>(t571);
+    let t10671 = F::new(1.0) / t574 / t581 / F::new(4.0);
+    let t10690 = F::new(1.0) / t4786 / t596;
+    let t10696 = F::new(1.0) / t4786 / t1675;
+    (t10569, t10621, t10639, t10641, t10642, t10649, t10663, t10671, t10690, t10696)
 }

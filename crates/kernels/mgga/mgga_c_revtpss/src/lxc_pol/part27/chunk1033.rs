@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 1033/1170 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 1033/1333 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk1033<F: Float>(t1285: F, t26866: F, t3717: F, t3707: F, t7617: F, t2134: F, t3682: F, t1234: F, t7623: F, t1252: F, t1266: F, t26849: F, t26852: F, t26855: F, t26863: F, t3591: F, t3613: F, t3620: F, t3631: F, t3640: F, t3644: F, t3714: F, t3723: F, t7618: F, t7624: F) -> (F, F, F, F, F) {
-    let t26867 = t1285 * t26866;
-    let t26870 = t3717 * t26866;
-    let t26873 = t3707 * t7617;
-    let t26877 = t2134 * t3682 / 432.0;
-    let t26880 = t1234 * t7623;
-    let t26883 = -0.42874018118069736972e-3 * t26849 * t3613 - 0.57165357490759649296e-3 * t26852 * t1266 - 0.3811023832717309953e-3 * t26855 - 0.28582678745379824648e-3 * t7624 * t3640 - 0.57165357490759649296e-3 * t7624 * t3644 + 0.47637797908966374413e-3 * t7624 * t3620 + 0.57165357490759649296e-3 * t26863 - 0.57165357490759649296e-3 * t26867 * t3631 - 0.85748036236139473944e-3 * t26870 * t3723 + 0.85748036236139473944e-3 * t26873 * t1252 - t26877 + 0.42874018118069736972e-3 * t7618 * t3591 + 0.57165357490759649296e-3 * t26880 * t3714;
-    (t26867, t26870, t26873, t26880, t26883)
+pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk1033<F: Float>(t12426: F, t12559: F, t300: F, t12224: F, t12233: F, t12237: F, t12240: F, t12242: F, t12245: F, t12251: F, t12360: F, t12363: F, t12366: F, t12381: F, t12395: F) -> (F, F) {
+    let t12561 = t300 * (t12426 + t12559);
+    let t12562 = -t12224 + t12233 + t12237 + t12240 + t12242 + t12245 - t12251 + t12360 - t12363 + t12366 + t12381 - t12395 + t12561;
+    (t12561, t12562)
 }

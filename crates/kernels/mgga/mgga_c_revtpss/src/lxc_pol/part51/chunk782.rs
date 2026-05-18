@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 782/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 782/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk782<F: Float>(t213: F, t7910: F, t5629: F, t7271: F, t1885: F, t26024: F, t25972: F, t5622: F, t1889: F, t25978: F, t25986: F, t5609: F, t2661: F, t25973: F, t25979: F, t25988: F, t25998: F, t26003: F, t26005: F, t26011: F, t26022: F, t26025: F) -> (F, F) {
-    let t27909 = t213 * t7910;
-    let t27919 = t7271 * t5629;
-    let t27921 = t26024 * t1885;
-    let t27924 = t25972 * t5622;
-    let t27926 = t25978 * t1889;
-    let t27928 = t25986 * t5609;
-    let t27929 = t2661 * t27928;
-    let t27931 = -0.25410001404642664113e-4 * t25998 + t26003 + 0.20007875121765877254e-2 * t26025 + t26022 - 0.10164000561857065645e-3 * t25973 + 0.80031500487063509016e-2 * t25979 + 0.14291339372689912324e-4 * t25988 + 0.85748036236139473945e-2 * t27919 + 0.20007875121765877254e-2 * t27921 + 7.0 / 144.0 * t26005 - t26011 - 0.10164000561857065645e-3 * t27924 + 0.80031500487063509015e-2 * t27926 + 0.14291339372689912324e-4 * t27929;
-    (t27909, t27931)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk782<F: Float>(t10301: F, t6957: F, t38: F, t6972: F, t2247: F, t48: F, t613: F, t2275: F, t43: F, t239: F, t10309: F, t607: F) -> (F, F, F, F, F, F, F) {
+    let t25099 = t10301 * t6957;
+    let t25105 = t38 * t6972;
+    let t25106 = t2247 * t25105;
+    let t25129 = t613 * t48;
+    let t25132 = t43 * t2275;
+    let t25137 = F::new(88.0) / F::new(9.0) * t239;
+    let t25157 = t10309 * t6957;
+    let t25162 = t2247 * t607;
+    (t25099, t25106, t25129, t25132, t25137, t25157, t25162)
 }

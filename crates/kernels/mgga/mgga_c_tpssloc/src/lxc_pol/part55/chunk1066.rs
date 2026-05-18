@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 1066/1154 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 1066/1304 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk1066<F: Float>(t118830: F, t10110: F, t112863: F, t118802: F, t118810: F, t118814: F, t118825: F, t118828: F, t13042: F, t13053: F, t1492: F, t1912: F, t23278: F, t25184: F, t259: F, t2597: F, t30725: F, t32804: F, t4300: F, t6627: F, t7517: F, t8352: F, t8353: F, t8363: F, t855: F, t86988: F) -> (F,) {
-    let t118831 = 0.82246703342411321825e-2 * t118830;
-    let t118832 = -6.0 * t10110 * t4300 * t8352 * t855 + t1492 * t259 * t30725 + 2.0 * t13042 * t8353 - t13053 * t8363 - 2.0 * t1912 * t86988 + 4.0 * t23278 * t7517 + 4.0 * t25184 * t6627 + 2.0 * t2597 * t32804 + t112863 + t118802 - t118810 + t118814 + t118825 + t118828 + t118831;
-    (t118832,)
+pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk1066<F: Float>(t25: F, t265: F, t394: F, t30952: F, t30776: F, t40: F, t607: F, t8678: F, t191: F, t192: F, t7412: F, t2020: F, t6997: F, t8690: F, t7000: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t31823 = piecewise3::<f64>(t395, F::new(0.0), t30952);
+    let t31828 = piecewise3::<f64>(t115, t30776, t31823 * t40 / F::new(2.0) + t8678 * t607 / F::new(2.0));
+    let t31832 = t7412 * t191 * t192;
+    let t31833 = t31832 * t2020;
+    let t31834 = t8690 * t6997;
+    let t31835 = t8690 * t7000;
+    (t31823, t31828, t31832, t31833, t31834, t31835)
 }

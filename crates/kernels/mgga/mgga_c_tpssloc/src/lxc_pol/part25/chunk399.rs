@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 399/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 399/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,21 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk399<F: Float>(t2098: F, t3: F, t1401: F, t2039: F, t577: F, t11: F, t2: F, t584: F, t16: F, t9: F, t587: F, t591: F, t14: F, t21: F, t594: F, t598: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t2099 = t3 * t2098;
-    let t2105 = 0.45e1 * t2098 * t577 + 0.135e2 * t1401 * t2039;
-    let t2218 = 0.174e1 * t11;
-    let t2219 = t2 * t584;
-    let t2220 = 0.696e1 * t2219;
-    let t2221 = t9 * t16;
-    let t2222 = 0.1122e2 * t2221;
-    let t2223 = t587 * t591;
-    let t2224 = 16.0 * t2223;
-    let t2225 = t14 * t21;
-    let t2226 = 0.778e2 * t2225;
-    let t2228 = 0.16272e3 * t594 * t598;
-    (t2099, t2105, t2218, t2219, t2220, t2221, t2222, t2223, t2224, t2225, t2226, t2228)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk399<F: Float>(t25: F, t28: F, t265: F, t394: F, t504: F, t2057: F, t202: F, t2056: F, t193: F, t870: F, t1877: F, t40: F, t52: F, dens_threshold: F, rho0: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t29 = t28 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t401 = rho1 <= dens_threshold || t29;
+    let t505 = t265 < t504;
+    let t2058 = t2057 * t25;
+    let t2061 = t202 * t2056;
+    let t2063 = t193 * t2061 * t870;
+    let t2064 = piecewise3::<f64>(t395, F::new(0.0), t2063);
+    let t2067 = piecewise3::<f64>(t115, t1877 * t2058 / F::new(2.0), t2064 * t40 / F::new(2.0));
+    let t2068 = t2057 * t28;
+    let t2071 = piecewise3::<f64>(t505, F::new(0.0), t2063);
+    let t2074 = piecewise3::<f64>(t401, t1877 * t2068 / F::new(2.0), t2071 * t52 / F::new(2.0));
+    let t2075 = t2067 + t2074;
+    (t2058, t2061, t2064, t2068, t2071, t2075)
 }

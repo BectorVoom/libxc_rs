@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1199/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 1199/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1199<F: Float>(t96005: F, t1646: F, t28110: F, t3616: F, t5310: F, t96018: F, t13173: F, t15231: F, t2192: F, t2197: F, t26960: F, t26961: F, t28123: F, t3515: F, t3611: F, t46577: F, t92964: F, t92976: F, t92981: F, t96000: F, t96003: F, t96021: F) -> (F, F) {
-    let t97173 = 0.15476481481481481481e-2 * t96005;
-    let t97188 = t5310 * t28110 * t1646 * t3616;
-    let t97193 = 0.23214722222222222222e-2 * t96018;
-    let t97195 = 0.38691203703703703703e-3 * t96000 + 0.11607361111111111111e-2 * t96003 + t97173 - 0.34752604166666666667e-3 * t46577 * t2192 * t2197 - t92964 - 0.61782407407407407408e-3 * t26960 * t15231 * t28123 * t13173 + 0.11584201388888888889e-3 * t26960 * t3515 * t26961 * t1646 * t3611 + 0.11584201388888888889e-3 * t26960 * t97188 - 0.11584201388888888889e-3 * t92976 - 0.41270617283950617284e-2 * t92981 - t97193 + 0.92858888888888888886e-2 * t96021;
-    (t97188, t97195)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk1199<F: Float>(t2157: F, t2720: F, t9194: F, t2398: F, t8939: F, t26459: F, t7639: F, t36533: F, t695: F, t26477: F, t7642: F, t209: F, t213: F, t36902: F, t8762: F) -> (F, F, F, F, F, F) {
+    let t92002 = t2720 * t9194 * t2157;
+    let t92005 = t8939 * t2398 * t2157;
+    let t92007 = t26459 * t7639;
+    let t92010 = t36533 * t695 * t7639;
+    let t92012 = t7642 * t26477;
+    let t92016 = t209 * t213 * t36902 * t8762;
+    (t92002, t92005, t92007, t92010, t92012, t92016)
 }

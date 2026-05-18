@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 978/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 978/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk978<F: Float>(t12282: F, t5312: F, t1260: F, t3650: F, t3588: F, t73: F, t5352: F, t3720: F, t1209: F, t3781: F, t5330: F, t3153: F, t3601: F, t12269: F, t247: F, t3618: F) -> (F, F, F, F, F, F, F, F) {
-    let t12797 = t5312 * t12282;
-    let t12800 = t3650 * t1260;
-    let t12803 = t3588 * t73;
-    let t12804 = t12803 * t5352;
-    let t12805 = t3720 * t12804;
-    let t12808 = t1209 * t3781;
-    let t12809 = t12808 * t5330;
-    let t12810 = t3601 * t3153;
-    let t12811 = t12810 * t5352;
-    let t12812 = t3720 * t12811;
-    let t12816 = t247 * t3618 * t12269;
-    (t12797, t12800, t12803, t12805, t12809, t12810, t12812, t12816)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk978<F: Float>(t11291: F, t11293: F, t11296: F, t11303: F, t11382: F, t11390: F, t11521: F, t11525: F, t11530: F, t11533: F, t11547: F, t11548: F, t11551: F, t11554: F, t11557: F, t11572: F, t11585: F, t2945: F, t2968: F, t2987: F, t2989: F, t3012: F, t311: F) -> F {
+    let t11588 = -F::new(0.35089341735807877242e1) * t2987 * t11521 + F::new(0.51947577317044391277e2) * t3012 * t11525 + t11530 - t11533 + t11547 - t11291 - t11293 - t11296 + t11303 - t11382 - t11390 - F::new(6.0) * t11548 * t2945 + F::new(6.0) * t2968 * t11551 - F::new(0.35089341735807877242e1) * t11554 * t2989 + F::new(0.35089341735807877242e1) * t3012 * t11557 - F::new(0.19751673498613801407e-1) * t11572 - F::new(0.310907e-1) * t11585 * t311;
+    t11588
 }

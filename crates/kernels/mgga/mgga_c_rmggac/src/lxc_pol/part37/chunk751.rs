@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 751/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 751/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk751<F: Float>(t1550: F, t2060: F, t40983: F, t69894: F, t27: F, t9151: F, t16064: F, t69609: F, t11703: F, t14236: F, t14249: F, t2067: F, t14117: F, t69839: F, t8456: F, t14116: F, t14125: F, t9170: F) -> (F, F, F, F, F, F) {
-    let t75602 = 0.5987120850931904282e-1 * t1550 * t2060 * t40983;
-    let t75607 = 0.79828278012425390427e-1 * t69894;
-    let t75609 = t27 * t9151;
-    let t75611 = t69609 * t16064 * t75609;
-    let t75615 = t14236 * t14249 * t2067 * t11703;
-    let t75620 = t69839 * t14117 * t8456;
-    let t75623 = t14116 * t14125 * t9170;
-    (t75602, t75607, t75611, t75615, t75620, t75623)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk751<F: Float>(t72177: F, t70612: F, t14953: F, t942: F, t3285: F, t934: F, t68751: F, t68808: F, t69027: F, t69082: F, t69085: F, t69674: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t72178 = F::new(0.30487649791575028314e-3) * t72177;
+    let t72193 = F::new(0.30487649791575028312e-3) * t70612;
+    let t73234 = t942 * t14953;
+    let t73255 = t934 * t3285;
+    let t73266 = F::new(0.81700459932833791249e-6) * t68751;
+    let t73276 = F::new(0.26021382394247697186e-4) * t68808;
+    let t73309 = F::new(0.22800128353348965e-6) * t69027;
+    let t73321 = F::new(0.69390353051327192495e-4) * t69082;
+    let t73322 = F::new(0.65053455985619242964e-5) * t69085;
+    let t73344 = F::new(0.1135168950387742861e-7) * t69674;
+    (t72178, t72193, t73234, t73255, t73266, t73276, t73309, t73321, t73322, t73344)
 }

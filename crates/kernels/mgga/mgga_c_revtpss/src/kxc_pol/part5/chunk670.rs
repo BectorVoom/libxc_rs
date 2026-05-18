@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 670/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 670/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk670<F: Float>(t4533: F, t868: F, t1580: F, t213: F, t2437: F, t2443: F, t2446: F, t2449: F, t2460: F, t2462: F, t2468: F, t2473: F, t257: F, t2765: F, t4323: F, t4326: F, t4470: F, t4474: F, t4478: F, t4482: F, t4487: F, t865: F, t887: F) -> (F, F) {
-    let t4534 = t868 * t4533;
-    let t4537 = t2437 - t2443 - 0.54878743191129263322e-2 * t2446 + 0.54878743191129263322e-2 * t2449 + t2460 + 0.9757440539382783019e-2 * t2462 - 0.9757440539382783019e-2 * t2468 - t2473 - 0.54878743191129263322e-2 * t4323 + 0.9757440539382783019e-2 * t4326 + 0.65854491829355115987e0 * t213 * t4470 * t257 - 0.65854491829355115987e0 * t4474 * t887 + 0.54878743191129263322e-2 * t4478 - 0.9757440539382783019e-2 * t4482 - 0.65854491829355115987e0 * t2765 * t1580 + 0.13170898365871023197e1 * t865 * t4487 - 0.65854491829355115987e0 * t865 * t4534;
-    (t4534, t4537)
+pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk670<F: Float>(t4292: F, t508: F, t1843: F, t670: F, t2616: F, t2524: F, t1534: F, t72: F, t757: F, t1469: F, t750: F, t706: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t4293 = t508 * t4292;
+    let t4297 = t1843 * t670;
+    let t4300 = F::new(4.0) * t2616;
+    let t4301 = F::new(0.5848223622634646207e0) * t2524;
+    let t4302 = t1534 * t72;
+    let t4303 = t4302 * t757;
+    let t4304 = F::new(0.18311447306006545054e-3) * t4303;
+    let t4305 = t750 * t1469;
+    let t4306 = t706 * t4305;
+    (t4293, t4297, t4300, t4301, t4302, t4303, t4304, t4305, t4306)
 }

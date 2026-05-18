@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1025/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1025/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1025<F: Float>(t1878: F, t557: F, t556: F, t598: F, t213: F, t281: F, t6931: F, t2003: F, t3862: F, t1887: F, t22715: F, t534: F, t1995: F, t9223: F, t1999: F, t117: F, t547: F, t67: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t22839 = t1878 * t557;
-    let t22842 = t556 * t556;
-    let t22843 = 1.0 / t22842;
-    let t22844 = t598 * t22843;
-    let t22845 = t22844 * t213;
-    let t22852 = t6931 * t281;
-    let t22858 = t2003 * t3862;
-    let t22859 = 119.0 / 6912.0 * t22858;
-    let t22863 = t22715 * t534 * t1887;
-    let t22864 = 35.0 / 432.0 * t22863;
-    let t22865 = t9223 * t1995;
-    let t22866 = t22865 * t213;
-    let t22867 = t22866 * t1999;
-    let t22868 = 0.11304371706359309439e-1 * t22867;
-    let t22891 = t547 * t67 * t117;
-    (t22839, t22842, t22843, t22844, t22845, t22852, t22859, t22863, t22864, t22865, t22868, t22891)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1025<F: Float>(t17817: F, t4531: F, t17804: F, t4514: F, t10295: F, t13642: F, t17286: F, t17288: F, t17290: F, t21120: F, t21132: F, t21136: F, t21140: F, t21161: F, t21168: F) -> (F, F, F) {
+    let t21430 = t4531 * t17817;
+    let t21433 = t17804 * t4514;
+    let t21444 = t10295 + F::new(5.0) / F::new(9.0) * t13642 - t17286 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t17288 - t17290 / F::new(3.0) + F::new(2.0) / F::new(27.0) * t21132 - t21120 / F::new(3.0) + t21168 / F::new(6.0) + t21140 - t21161 + t21136 / F::new(6.0);
+    (t21430, t21433, t21444)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 491/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 491/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk491<F: Float>(t1378: F, t6460: F, t1375: F, t1843: F, t5215: F, t5321: F, t568: F, t6362: F, t6364: F, t6435: F, t6440: F, t1297: F, t1390: F, t193: F, t2486: F, t3701: F, t3819: F, t3821: F, t3823: F, t3825: F, t3832: F, t3836: F, t3924: F, t533: F, t6324: F, t6329: F, t6330: F, t6347: F, t6399: F, t6400: F) -> (F, F, F) {
-    let t6461 = t1378 * t6460;
-    let t6463 = 2.0 * t1375 * t6440 - t1375 * t6461 - 2.0 * t1843 * t5215 - 2.0 * t1843 * t5321 + t568 * t6362 + 2.0 * t568 * t6364 + t568 * t6435;
-    let t6467 = t1390 * t193 * t533 * t6463 - t193 * t3701 * t533 * t6324 + 3.0 * t1297 * t193 * t6347 + 6.0 * t193 * t3924 * t6330 - t2486 + t3819 + t3821 + t3823 + t3825 - t3832 - t3836 + t6329 - t6399 - t6400;
-    (t6461, t6463, t6467)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk491<F: Float>(t1088: F, t5979: F, t123: F, t3237: F, t4721: F, t5973: F, t5977: F, t423: F, t1671: F, t4740: F, t1670: F, t1118: F) -> (F, F, F, F, F) {
+    let t5980 = t1088 * t5979;
+    let t5981 = t123 * t5980;
+    let t5983 = t3237 - F::new(0.11872222222222222222e-1) * t4721 - F::new(0.11872222222222222222e-1) * t5973 + F::new(0.35616666666666666666e-1) * t5977 + F::new(0.17808333333333333333e-1) * t5981;
+    let t5985 = F::new(0.621814e-1) * t5983 * t423;
+    let t5987 = F::new(2.0) * t4740 * t1671;
+    let t5988 = t1670 * t1670;
+    let t5989 = t5988 * t1118;
+    (t5981, t5985, t5987, t5988, t5989)
 }

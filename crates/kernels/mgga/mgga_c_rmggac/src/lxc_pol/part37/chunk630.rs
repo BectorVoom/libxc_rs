@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 630/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 630/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk630<F: Float>(t26078: F, t3046: F, t3056: F, t71: F, t7311: F, t14063: F, t2190: F, t3151: F, t1327: F, t640: F, t668: F, t7323: F, t3154: F, t7921: F, t14040: F, t14367: F) -> (F, F, F, F, F) {
-    let t69819 = t3056 * t3046 * t26078 * t71 * t7311;
-    let t69827 = t2190 * t14063 * t3151;
-    let t69828 = 0.29085809927086856922e-4 * t69827;
-    let t69832 = t7323 * t640 * t668 * t1327;
-    let t69835 = 0.66211599834018861287e-4 * t7921 * t3154;
-    let t69836 = t14040 * t14367;
-    (t69819, t69828, t69832, t69835, t69836)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk630<F: Float>(t15904: F, t15881: F, t515: F, t235: F, t15303: F, t15307: F, t15331: F, t15337: F, t15342: F, t15345: F, t15348: F, t15351: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t15905 = F::new(0.2363e1) * t15904;
+    let t15907 = t515 * t15881;
+    let t15908 = t235 * t15907;
+    let t15909 = F::new(0.19957069503106347607e-1) * t15908;
+    let t15910 = F::new(0.93188427318671584242e-2) * t15303;
+    let t15911 = F::new(0.15531404553111930707e-1) * t15307;
+    let t15914 = F::new(0.58171619854173713844e-5) * t15331;
+    let t15915 = F::new(0.87596530464506835932e-6) * t15337;
+    let t15916 = F::new(0.87596530464506835932e-6) * t15342;
+    let t15917 = F::new(0.17519306092901367187e-6) * t15345;
+    let t15918 = F::new(0.43798265232253417968e-6) * t15348;
+    let t15919 = F::new(0.35038612185802734374e-6) * t15351;
+    (t15905, t15907, t15909, t15910, t15911, t15914, t15915, t15916, t15917, t15918, t15919)
 }

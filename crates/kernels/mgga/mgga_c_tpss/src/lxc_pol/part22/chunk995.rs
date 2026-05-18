@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 995/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 995/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk995<F: Float>(t2976: F, t4205: F, t1089: F, t3009: F, t4198: F, t1542: F, t9172: F, t2975: F, t9176: F, t2973: F, t4180: F, t1082: F, t2998: F, t4206: F, t9384: F, t4101: F, t673: F) -> (F, F, F, F, F, F, F) {
-    let t11819 = t4205 * t2976;
-    let t11821 = 0.35089341735807877242e1 * t1089 * t11819;
-    let t11823 = 0.23392894490538584828e1 * t3009 * t4198;
-    let t11824 = t9172 * t1542;
-    let t11825 = t9176 * t2975;
-    let t11826 = t11824 * t11825;
-    let t11828 = 0.10254018858216406658e4 * t1089 * t11826;
-    let t11829 = t2973 * t4180;
-    let t11830 = t11829 * t1082;
-    let t11832 = 0.23392894490538584828e1 * t1089 * t11830;
-    let t11833 = t2998 * t4180;
-    let t11834 = t11833 * t4206;
-    let t11836 = 0.34631718211362927518e2 * t1089 * t11834;
-    let t11837 = t4205 * t9384;
-    let t11839 = 0.17315859105681463759e2 * t1089 * t11837;
-    let t11844 = t673 * t4101;
-    (t11821, t11823, t11828, t11832, t11836, t11839, t11844)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk995<F: Float>(t10695: F, t681: F, t3589: F, t680: F, t682: F, t2345: F, t3557: F, t10557: F, t10559: F, t10561: F, t10566: F, t10568: F, t10686: F, t10688: F, t10692: F, t10693: F, t10694: F, t8126: F, t8222: F) -> (F, F, F, F) {
+    let t10697 = F::new(4.0) * t681 * t10695;
+    let t10698 = t680 * t3589;
+    let t10700 = F::new(8.0) * t10698 * t682;
+    let t10701 = t3557 * t2345;
+    let t10702 = F::new(0.11696447245269292414e1) * t10701;
+    let t10703 = t10557 - t8126 - t10559 - t10561 + t10566 + t10568 - t10686 + t10688 + t10692 - t10693 + t10694 + t10697 + t10700 + t10702 + t8222;
+    (t10697, t10700, t10702, t10703)
 }

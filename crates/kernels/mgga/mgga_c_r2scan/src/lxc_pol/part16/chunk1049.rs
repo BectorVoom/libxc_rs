@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1049/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1049/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1049<F: Float>(t3308: F, t37782: F, t8774: F, t11811: F, t39378: F, t3179: F, t3316: F, t43144: F, t43146: F, t43149: F, t43151: F, t43153: F, t43155: F, t43157: F, t43160: F, t43162: F) -> (F,) {
-    let t43165 = t37782 * t3308 * t8774;
-    let t43167 = t39378 * t11811;
-    let t43169 = t3179 * t3316;
-    let t43171 = 0.10975748638225852664e0 * t43144 - 0.16463622957338778997e0 * t43146 - 0.2600466522016280569e0 * t43149 + 0.86682217400542685632e-1 * t43151 + 0.54878743191129263322e-1 * t43153 - 0.27439371595564631661e-1 * t43155 - 0.16463622957338778997e0 * t43157 + 0.86682217400542685632e-1 * t43160 + 0.10975748638225852664e0 * t43162 - 0.86682217400542685632e-1 * t43165 + 0.2600466522016280569e0 * t43167 - 0.11557628986739024751e0 * t43169;
-    (t43171,)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1049<F: Float>(t2279: F, t357: F, t10647: F, t10652: F, t2289: F, t2281: F, t1615: F, t2317: F, t269: F, t3438: F, t6855: F, t874: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t37364 = t2279 * t357;
+    let t37365 = t37364 * t10647;
+    let t37366 = t37365 * t10652;
+    let t37368 = t2289 * t357;
+    let t37369 = t37368 * t10647;
+    let t37370 = t37369 * t10652;
+    let t37372 = t2281 * t357;
+    let t37373 = t37372 * t10647;
+    let t37374 = t37373 * t10652;
+    let t37386 = t6855 * t1615 * t2317 * t3438 * t269 * t874;
+    (t37364, t37365, t37366, t37368, t37369, t37370, t37372, t37373, t37374, t37386)
 }

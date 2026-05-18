@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 878/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 878/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk878<F: Float>(t23019: F, t23041: F, t1427: F, t10157: F, t14091: F, t14097: F, t14105: F, t1424: F, t14280: F, t14290: F, t14294: F, t14297: F, t1904: F, t22390: F, t22428: F, t22447: F, t22450: F, t22454: F, t5715: F, t6919: F) -> (F, F, F) {
-    let t23042 = t23019 + t23041;
-    let t23043 = t1427 * t23042;
-    let t23058 = 0.39029762157531132076e-1 * t14091 + 0.21951497276451705329e-1 * t14097 - 0.34697458558045176417e-2 * t14105 - 0.65854491829355115987e0 * t1424 * t23043 + 0.32927245914677557992e-1 * t22428 - 0.19756347548806534796e1 * t5715 * t6919 - t10157 - 0.39029762157531132076e-1 * t14280 - 0.19756347548806534796e1 * t22390 * t1904 - 0.16463622957338778996e-1 * t22447 - 0.32927245914677557992e-1 * t22450 + 0.58544643236296698113e-1 * t22454 - 0.21951497276451705329e-1 * t14290 + 0.34697458558045176417e-2 * t14294 + 0.19514881078765566038e-2 * t14297;
-    (t23042, t23043, t23058)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk878<F: Float>(t125: F, t6016: F, t2741: F, t5980: F, t5966: F, t2652: F, t5993: F, t6030: F, t10858: F, t6024: F, t6019: F, t10811: F, t6037: F) -> (F, F, F, F, F, F, F, F) {
+    let t18444 = t125 * t6016;
+    let t18459 = t2741 * t5980;
+    let t18469 = t125 * t5966;
+    let t18475 = t2652 * t5993;
+    let t18485 = t2652 * t6030;
+    let t18487 = t10858 * t6024;
+    let t18491 = t2741 * t6019;
+    let t18518 = t10811 * t6037;
+    (t18444, t18459, t18469, t18475, t18485, t18487, t18491, t18518)
 }

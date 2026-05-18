@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1209/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1209/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1209<F: Float>(t14202: F, t17964: F, t14212: F, t63920: F, t14216: F, t19703: F, t14171: F, t14185: F, t14304: F, t5547: F, t14229: F, t14234: F, t14176: F, t4708: F, t61072: F, t17946: F, t4712: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t69960 = t17964 * t14202;
-    let t69962 = t63920 * t14212;
-    let t69964 = t19703 * t14216;
-    let t69966 = t17964 * t14171;
-    let t69968 = t17964 * t14185;
-    let t69972 = t5547 * t14304;
-    let t69974 = t17964 * t14229;
-    let t69976 = t17964 * t14234;
-    let t69978 = t19703 * t14176;
-    let t69981 = t61072 * t4708;
-    let t69983 = t17946 * t4712;
-    (t69960, t69962, t69964, t69966, t69968, t69972, t69974, t69976, t69978, t69981, t69983)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1209<F: Float>(t19466: F, t19479: F, t19491: F, t18438: F, t18452: F, t18466: F, t18934: F, t18943: F, t19471: F, t19473: F, t19477: F, t19481: F, t19483: F, t19485: F, t19489: F, t19493: F, t19495: F) -> F {
+    let t20142 = F::new(7.0) / F::new(72.0) * t19466;
+    let t20146 = F::new(7.0) / F::new(1152.0) * t19479;
+    let t20151 = F::new(7.0) / F::new(288.0) * t19491;
+    let t20154 = t18934 + t18438 + t20142 + t19471 / F::new(8.0) - t19473 / F::new(24.0) + t19477 / F::new(384.0) + t20146 + t19481 / F::new(192.0) - t19483 / F::new(768.0) - t19485 / F::new(768.0) + t18452 + t18943 + t18466 + t19489 / F::new(192.0) + t20151 + F::new(5.0) / F::new(192.0) * t19493 - t19495 / F::new(192.0);
+    t20154
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 12 (v4rho3sigma_3) CSE chunk 903/951 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 12 (v4rho3sigma_3) CSE chunk 903/1088 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk903<F: Float>(t25854: F, t40887: F, t4905: F, t8975: F, t2301: F, t5245: F, t2295: F, t30510: F, t40883: F, t5259: F, t333: F, t352: F, t36013: F, t36035: F, t41015: F, t41059: F, t41122: F, t4669: F, t5148: F, t5155: F, t5266: F) -> (F, F) {
-    let t41458 = t25854 * t40887;
-    let t41460 = t8975 * t4905;
-    let t41463 = t5245 * t2301;
-    let t41475 = t30510 * t2295;
-    let t41477 = t5259 * t40883;
-    let t41482 = 0.23948483403727617128e0 * t5266 * t41015 * t333 - 0.8980681276397856423e-1 * t41458 + 0.71845450211182851384e0 * t25854 * t41460 - 0.2993560425465952141e-1 * t41463 + 0.11974241701863808564e0 * t36013 + t36035 - 0.35922725105591425692e0 * t4669 * t41059 * t333 - 0.23948483403727617128e0 * t5148 * t41059 * t352 + 0.47896966807455234256e0 * t5155 * t41122 * t333 + 0.2993560425465952141e-1 * t41475 - 0.2993560425465952141e-1 * t41477 + 0.23948483403727617128e0 * t5266 * t41122 * t352;
-    (t41460, t41482)
+pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk903<F: Float>(t1475: F, t1970: F, t1971: F, t515: F, t866: F, t36769: F, t8443: F, t36924: F, t9082: F, t7255: F, t8447: F, t236: F, t495: F, t5605: F, t7453: F) -> (F, F, F, F, F) {
+    let t39605 = t1970 * t1971 * t515 * t1475 * t866;
+    let t39607 = t36769 * t8443;
+    let t39609 = t36924 * t9082;
+    let t39615 = t7255 * t8447;
+    let t39620 = t7453 * t1971 * t236 * t5605 * t495;
+    (t39605, t39607, t39609, t39615, t39620)
 }

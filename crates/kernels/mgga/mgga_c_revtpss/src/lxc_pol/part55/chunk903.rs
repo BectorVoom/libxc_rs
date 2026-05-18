@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 903/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 903/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk903<F: Float>(t2163: F, t4292: F, t670: F, t8233: F, t1519: F, t1911: F, t2165: F, t28183: F, t28186: F, t28188: F, t28190: F, t28192: F, t28193: F, t28201: F, t28202: F, t29432: F, t4248: F, t4257: F, t5787: F, t651: F, t7586: F, t7591: F, t7687: F) -> (F, F, F) {
-    let t29456 = t2163 * t4292;
-    let t29459 = t8233 * t670;
-    let t29466 = -2.0 * t1519 * t29432 + t1911 * t7687 + t2165 * t5787 - 2.0 * t29456 * t651 - 2.0 * t29459 * t651 - 2.0 * t4248 * t7591 - 2.0 * t4257 * t7586 - t28183 + t28186 - t28188 - t28190 + t28192 - t28193 + t28201 - t28202;
-    (t29456, t29459, t29466)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk903<F: Float>(t27291: F, t7076: F, t1959: F, t25297: F, t25303: F, t25307: F, t25311: F, t25333: F, t25337: F, t25340: F, t25353: F, t25356: F, t25383: F, t27275: F, t27280: F, t27287: F, t7070: F, t7775: F) -> (F, F) {
+    let t27292 = t7076 * t27291;
+    let t27297 = F::new(0.72280234901709995518e-2) * t25297 + t25303 - t25307 + F::new(0.72280234901709995518e-2) * t25311 - F::new(0.4336814094102599731e0) * t27275 * t1959 + t25333 - F::new(0.12851425765524037203e-1) * t27280 - t25337 - F::new(0.54878743191129263322e-2) * t25340 + F::new(0.4336814094102599731e0) * t25383 * t7775 + F::new(0.4336814094102599731e0) * t7070 * t27287 + F::new(0.4336814094102599731e0) * t7070 * t27292 + F::new(0.54878743191129263322e-2) * t25353 + F::new(0.9757440539382783019e-2) * t25356;
+    (t27292, t27297)
 }

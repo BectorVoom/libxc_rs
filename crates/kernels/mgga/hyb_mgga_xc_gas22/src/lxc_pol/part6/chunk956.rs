@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 956/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 956/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk956<F: Float>(t1006: F, t9195: F, t3557: F, t997: F, t1007: F, t2594: F, t3560: F, t8988: F, t8992: F, t8995: F, t8999: F, t9101: F, t9103: F, t9106: F, t9108: F, t9110: F, t9170: F, t998: F) -> (F, F, F) {
-    let t9196 = t9195 * t1006;
-    let t9199 = t3557 * t997;
-    let t9204 = t8988 - t8992 - t8995 - t8999 - t9101 - t9103 - t9106 - t9108 - t9110 - t9170 + 0.5848223622634646207e0 * t998 * t9196 + 0.11696447245269292414e1 * t9199 * t1007 + 0.5848223622634646207e0 * t3560 * t2594;
-    (t9196, t9199, t9204)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk956<F: Float>(t1347: F, t2189: F, t2234: F, t1379: F, t2322: F, t2326: F, t2334: F, t3430: F, t3436: F, t3440: F, t6759: F, t856: F, t858: F, t8601: F, t8605: F, t8608: F, t8613: F, t8616: F, t8620: F, t8623: F, t8627: F, t8711: F, t8725: F, t8726: F) -> (F, F, F) {
+    let t8731 = t1347 * t2189;
+    let t8733 = F::new(6.0) * t2234 * t8731;
+    let t8734 = -F::new(0.10254018858216406658e4) * t856 * t8601 - F::new(0.34631718211362927518e2) * t856 * t8605 - F::new(0.17315859105681463759e2) * t856 * t8608 - t8613 - t8616 + t8620 + t8623 + t8627 - F::new(0.5848223622634646207e0) * t6759 * t1379 + F::new(0.11696447245269292414e1) * t3430 * t2326 - F::new(0.5848223622634646207e0) * t856 * t8711 - F::new(0.17315859105681463759e2) * t3430 * t2334 + F::new(0.23392894490538584828e1) * t2322 * t3436 - t8725 - F::new(0.11696447245269292414e1) * t8726 * t858 - F::new(0.11696447245269292414e1) * t2322 * t3440 + t8733;
+    (t8731, t8733, t8734)
 }

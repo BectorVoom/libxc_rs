@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 877/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 877/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk877<F: Float>(t4003: F, t6843: F, t10114: F, t10117: F, t10126: F, t10129: F, t14243: F, t14252: F, t1883: F, t213: F, t22009: F, t22329: F, t22333: F, t22337: F, t22353: F, t22362: F, t22366: F, t22370: F, t22374: F, t22381: F, t22964: F, t546: F, t5735: F, t5745: F, t5755: F) -> (F,) {
-    let t23037 = t4003 * t6843;
-    let t23041 = -0.58544643236296698113e-1 * t22329 - 0.29272321618148349057e-1 * t22333 - 0.29272321618148349057e-1 * t22337 + 0.39029762157531132076e-1 * t14243 + t10114 + 0.65854491829355115987e0 * t213 * t546 * t22964 - t10117 - 0.16463622957338778996e-1 * t22353 - t10126 - t10129 - 0.39029762157531132076e-1 * t14252 - 0.32927245914677557992e-1 * t22362 + 0.32927245914677557992e-1 * t22366 + 0.16463622957338778996e-1 * t22370 + 0.16463622957338778996e-1 * t22374 + 0.29272321618148349057e-1 * t22381 - 0.19756347548806534796e1 * t5755 * t22009 * t1883 + 0.39512695097613069591e1 * t5745 * t5735 * t23037;
-    (t23041,)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk877<F: Float>(t18423: F, t2674: F, t125: F, t5977: F, t221: F, t2485: F, t6022: F, t10850: F, t14718: F, t6035: F, t2662: F, t2661: F) -> (F, F, F, F, F, F) {
+    let t18424 = t2674 * t18423;
+    let t18426 = t125 * t5977;
+    let t18432 = t2485 * t221 * t6022;
+    let t18433 = t10850 * t18432;
+    let t18440 = t14718 * t6035;
+    let t18441 = t2662 * t18440;
+    let t18442 = t2661 * t18441;
+    (t18424, t18426, t18432, t18433, t18440, t18442)
 }

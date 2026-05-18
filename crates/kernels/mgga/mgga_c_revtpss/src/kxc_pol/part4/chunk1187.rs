@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1187/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1187/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1187<F: Float>(t16655: F, t3384: F, t3385: F, t5108: F, t12248: F, t3435: F, t5104: F, t1149: F, t3433: F, t3427: F, t12230: F, t1732: F, t12227: F, t3520: F, t5180: F, t5206: F) -> (F, F, F, F, F, F) {
-    let t16657 = 2.0 * t3384 * t16655;
-    let t16658 = t5108 * t3385;
-    let t16660 = 0.96491876992155210402e2 * t12248 * t16658;
-    let t16661 = t5104 * t3435;
-    let t16662 = t16661 * t1149;
-    let t16664 = 0.32163958997385070134e2 * t3433 * t16662;
-    let t16665 = t5108 * t3427;
-    let t16667 = 0.16081979498692535067e2 * t3433 * t16665;
-    let t16668 = t1732 * t12230;
-    let t16669 = t16668 * t3385;
-    let t16671 = 0.51726012919273400301e3 * t12227 * t16669;
-    let t16672 = t3520 * t5180;
-    let t16673 = t16672 * t5206;
-    (t16657, t16660, t16664, t16667, t16671, t16673)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1187<F: Float>(t10673: F, t10676: F, t14668: F, t14675: F, t14678: F, t14682: F, t14690: F, t14693: F, t14697: F, t14703: F, t14705: F, t14707: F, t2745: F, t4362: F) -> F {
+    let t14711 = F::new(0.42874018118069736972e-3) * t4362 * t14668 + t14675 - F::new(0.42874018118069736972e-3) * t2745 * t14678 - F::new(0.21437009059034868486e-3) * t2745 * t14682 - t14690 + F::new(0.17149607247227894789e-2) * t2745 * t14693 + F::new(0.85748036236139473944e-3) * t2745 * t14697 + t14703 + t14705 + F::new(0.17149607247227894789e-2) * t2745 * t14707 + t10673 - F::new(0.14291339372689912324e-3) * t10676;
+    t14711
 }

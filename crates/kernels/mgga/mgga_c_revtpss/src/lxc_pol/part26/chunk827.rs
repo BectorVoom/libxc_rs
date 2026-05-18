@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 827/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 827/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk827<F: Float>(t11659: F, t11661: F, t3092: F, t3095: F, t1052: F, t360: F, t3089: F, t1087: F, t3090: F, t3278: F, t3133: F, t73: F, t2858: F, t4786: F, t3153: F, t4894: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11662 = t11659 * t11661;
-    let t11663 = t3092 * t11662;
-    let t11666 = t11659 * t3095;
-    let t11667 = t3092 * t11666;
-    let t11670 = t360 * t1052;
-    let t11671 = t11670 * t3089;
-    let t11672 = t1087 * t11671;
-    let t11675 = t3278 * t3090;
-    let t11678 = t3133 * t73;
-    let t11679 = t11678 * t3095;
-    let t11680 = t3092 * t11679;
-    let t11683 = t2858 * t4786;
-    let t11684 = t3092 * t11683;
-    let t11687 = t3133 * t3153;
-    let t11688 = t11687 * t4894;
-    (t11663, t11667, t11671, t11672, t11675, t11678, t11680, t11684, t11687, t11688)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk827<F: Float>(t10605: F, t2612: F, t2523: F, t2626: F, t760: F, t9425: F, t2609: F, t606: F, t706: F, t10592: F, t10594: F, t10596: F, t10598: F, t10602: F, t10604: F, t9542: F) -> (F, F, F, F, F) {
+    let t10607 = F::new(36.0) * t10605 * t2612;
+    let t10608 = t2523 * t2626;
+    let t10609 = F::new(0.35089341735807877242e1) * t10608;
+    let t10611 = F::new(0.35089341735807877242e1) * t760 * t9425;
+    let t10612 = t2609 * t606;
+    let t10613 = t706 * t10612;
+    let t10614 = F::new(12.0) * t10613;
+    let t10615 = t10592 - t10594 - t10596 - t10598 + t10602 - t10604 + t9542 + t10607 + t10609 - t10611 + t10614;
+    (t10607, t10609, t10611, t10614, t10615)
 }

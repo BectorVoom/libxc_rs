@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 594/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 594/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk594<F: Float>(t339: F, t63: F, t67: F, t378: F, t4143: F, t3951: F, t9: F, t403: F, t3936: F, t1310: F, t398: F, t1173: F, t476: F, t458: F, t139: F, t201: F, t41: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t6141 = t339 * t63 * t67;
-    let t6142 = t378 * t4143;
-    let t6174 = t9 * t3951;
-    let t6175 = t6174 * t403;
-    let t6183 = t3936 * t403;
-    let t6204 = t1310 * t398;
-    let t6256 = t476 * t1173;
-    let t6267 = t476 * t458;
-    let t6278 = t139 * t201 * t41;
-    (t6141, t6142, t6174, t6175, t6183, t6204, t6256, t6267, t6278)
+pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk594<F: Float>(t1791: F, t5043: F, t1801: F, t4648: F, t1800: F, t1799: F, t1693: F, t1792: F, t4583: F, t4794: F, t4800: F, t4806: F, t4809: F, t4812: F, t4814: F, t4819: F, t4823: F, t4827: F, t4830: F, t671: F) -> (F, F, F, F, F) {
+    let t5044 = t5043 * t1791;
+    let t5048 = t1801 * t4648;
+    let t5049 = t1800 * t5048;
+    let t5050 = t1799 * t5049;
+    let t5052 = F::new(0.33163888888888888888e-2) * t4583 - F::new(0.24872916666666666666e-2) * t4800 + F::new(0.16581944444444444444e-2) * t4806 - t4809 - F::new(0.33163888888888888888e-2) * t4812 + F::new(0.22109259259259259258e-2) * t4814 - F::new(0.49745833333333333332e-2) * t4819 + F::new(0.74498e-1) * t4823 * t4827 - F::new(0.386e0) * t4830 * t1792 - F::new(0.193e0) * t1693 * t5044 + t4794 * t671 + F::new(0.16581944444444444444e-2) * t5050;
+    (t5044, t5048, t5049, t5050, t5052)
 }

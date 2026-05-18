@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 1056/1093 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 1056/1234 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk1056<F: Float>(t22815: F, t7271: F, t1903: F, t6874: F, t1882: F, t543: F, t6918: F, t6844: F, t6862: F, t6895: F, t196: F, t197: F, t22758: F, t1450: F, t22809: F, t1907: F, t6922: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t114586 = t7271 * t22815;
-    let t114621 = t6874 * t1903;
-    let t114636 = t6918 * t1882 * t543;
-    let t114640 = t6844 * t1903;
-    let t114660 = t6862 * t1903;
-    let t114666 = t6895 * t1882 * t543;
-    let t114752 = t22758 * t196 * t197;
-    let t114776 = t1450 * t22809;
-    let t114780 = t1907 * t6922;
-    (t114586, t114621, t114636, t114640, t114660, t114666, t114752, t114776, t114780)
+pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk1056<F: Float>(t2061: F, t785: F, t780: F, t2439: F, t2435: F, t7385: F, t25219: F, t25231: F, t25242: F, t25253: F, t25275: F, t25283: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t26434 = t785 * t2061;
+    let t26435 = t26434 * t780;
+    let t26437 = F::new(0.65049603595885220126e-3) * t2439 * t26435;
+    let t26439 = F::new(0.73171657588172351096e-2) * t2435 * t7385;
+    let t26450 = F::new(0.22675591804667994221e-1) * t25219;
+    let t26454 = F::new(0.54208002996571016773e-3) * t25231;
+    let t26457 = F::new(0.18071592998981862717e-4) * t25242;
+    let t26462 = F::new(0.30488190661738479625e-3) * t25253;
+    let t26468 = F::new(35.0) / F::new(216.0) * t25275;
+    let t26471 = F::new(0.10164000561857065645e-4) * t25283;
+    (t26434, t26435, t26437, t26439, t26450, t26454, t26457, t26462, t26468, t26471)
 }

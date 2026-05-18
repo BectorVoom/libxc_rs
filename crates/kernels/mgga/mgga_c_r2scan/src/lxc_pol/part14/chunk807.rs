@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 807/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 807/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk807<F: Float>(t1554: F, t2124: F, t2550: F, t2294: F, t2583: F, t2582: F, t1551: F, t2572: F, t360: F, t113: F, t1234: F, t6063: F, t7605: F, t2155: F, t551: F, t552: F, t7591: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t7934 = t2124 * t2550 * t1554;
-    let t7937 = t2294 * t2583;
-    let t7939 = 0.23115257973478049502e0 * t2582 * t7937;
-    let t7940 = t2572 * t1551;
-    let t7941 = t360 * t7940;
-    let t7944 = t113 * t1234;
-    let t7945 = t2572 * t7944;
-    let t7946 = t360 * t7945;
-    let t7949 = t6063 * t7605;
-    let t7951 = 0.19514881078765566037e-1 * t2155 * t7949;
-    let t7953 = t551 * t552 * t7591;
-    (t7934, t7939, t7940, t7941, t7944, t7945, t7946, t7951, t7953)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk807<F: Float>(t1048: F, t2262: F, t2867: F, t1234: F, t2859: F, t2858: F, t481: F, t795: F, t2266: F, t5027: F, t5029: F, t4703: F, t4721: F, t4880: F, t4891: F, t4901: F, t4964: F, t4967: F, t6943: F, t6946: F, t6947: F, t6948: F, t6949: F, t6950: F, t6951: F, t6952: F, t6954: F) -> (F, F, F, F, F, F) {
+    let t7141 = t1048 * t2867 * t2262;
+    let t7142 = t2859 * t1234;
+    let t7143 = t2858 * t7142;
+    let t7144 = F::new(6.0) * t7143;
+    let t7145 = t481 * t795;
+    let t7147 = t2266 * t2867 * t7145;
+    let t7148 = F::new(6.0) * t7147;
+    let t7149 = F::new(16.0) * t5027;
+    let t7150 = F::new(0.11696447245269292414e1) * t5029;
+    let t7151 = t6943 + t4880 - t6946 + t6947 + t6948 - t4891 - t6949 - t6950 + t4703 - t6951 - t6952 + t4901 + t4721 - t4964 + t4967 + t6954;
+    (t7141, t7144, t7148, t7149, t7150, t7151)
 }

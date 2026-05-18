@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 952/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 952/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk952<F: Float>(t26463: F, t26467: F, t26462: F, t2725: F) -> (F, F) {
-    let t26468 = t26463 * t26467;
-    let t26470 = t2725 * t26462;
-    (t26468, t26470)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk952<F: Float>(t22035: F, t542: F, t1098: F, t7250: F, t1102: F, t15994: F, t16001: F, t16003: F, t16038: F, t21983: F, t21987: F, t21990: F, t21993: F, t21996: F, t22001: F, t22006: F, t22011: F, t22015: F, t22018: F, t22021: F, t22025: F, t22029: F, t22032: F, t344: F, t4587: F) -> F {
+    let t22036 = t542 * t22035;
+    let t22039 = t1098 * t7250;
+    let t22043 = F::new(0.16426074166666666666e-2) * t1102 * t21983 - F::new(0.10950716111111111111e-2) * t1102 * t21987 - F::new(0.65704296666666666666e-2) * t1102 * t21990 + F::new(0.29201909629629629629e-2) * t1102 * t21993 - F::new(0.43802864444444444444e-2) * t4587 * t21996 - F::new(0.65704296666666666667e-3) * t1102 * t22001 + F::new(0.98556445e-3) * t1102 * t22006 + F::new(0.13140859333333333333e-2) * t1102 * t22011 + F::new(0.13140859333333333333e-2) * t1102 * t22015 + F::new(0.39422577999999999999e-2) * t1102 * t22018 + F::new(0.52563437333333333332e-2) * t4587 * t22021 + F::new(0.98556445e-3) * t1102 * t22025 - F::new(0.65704296666666666667e-3) * t1102 * t22029 - F::new(0.13140859333333333333e-2) * t1102 * t22032 - F::new(0.98556445e-3) * t344 * t22036 - F::new(0.65704296666666666667e-3) * t22039 - F::new(0.17521145777777777778e-2) * t15994 + t16001 - t16003 - F::new(0.2920190962962962963e-3) * t16038;
+    t22043
 }

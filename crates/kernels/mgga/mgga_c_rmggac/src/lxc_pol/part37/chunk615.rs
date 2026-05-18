@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 615/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 615/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk615<F: Float>(t14199: F, t16156: F, t13962: F, t2046: F, t7311: F, t14185: F, t2040: F, t2048: F, t3056: F, t4789: F, t71: F, t7385: F, t7301: F, t7305: F, t34: F, t79: F) -> (F, F, F, F, F, F, F, F) {
-    let t69064 = t16156 * t14199;
-    let t69067 = t2046 * t13962 * t7311;
-    let t69069 = t16156 * t14185;
-    let t69082 = t3056 * t2048 * t4789 * t71 * t2040;
-    let t69085 = t3056 * t13962 * t7385;
-    let t69091 = t3056 * t13962 * t7301;
-    let t69092 = 0.65053455985619242964e-5 * t69091;
-    let t69094 = t3056 * t13962 * t7305;
-    let t69095 = 0.65053455985619242964e-5 * t69094;
-    let t69097 = 1.0 / t34 / t79;
-    (t69064, t69067, t69069, t69082, t69085, t69092, t69095, t69097)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk615<F: Float>(t15517: F, t2412: F, t3219: F, t1986: F, t2472: F, t675: F, t2471: F, t36: F, t739: F, t15281: F, t2211: F, t2367: F) -> (F, F, F, F, F, F, F, F) {
+    let t15518 = F::new(0.39914139006212695214e-1) * t15517;
+    let t15521 = t2412 * t3219;
+    let t15522 = F::new(0.42564599893297839398e-5) * t15521;
+    let t15523 = t1986 * t2472;
+    let t15524 = t675 * t15523;
+    let t15525 = F::new(0.42564599893297839398e-5) * t15524;
+    let t15526 = t2471 * t36;
+    let t15527 = t739 * t15526;
+    let t15528 = F::new(0.14967802127329760705e-1) * t15527;
+    let t15529 = F::new(0.14967802127329760705e-1) * t15281;
+    let t15530 = t2211 * t2367;
+    (t15518, t15522, t15523, t15525, t15526, t15528, t15529, t15530)
 }

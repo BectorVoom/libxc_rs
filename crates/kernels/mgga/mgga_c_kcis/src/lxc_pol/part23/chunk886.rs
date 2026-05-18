@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 886/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 886/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk886<F: Float>(t187: F, t5586: F, t1357: F, t1585: F, t16100: F, t16108: F, t16112: F, t16259: F, t16262: F, t16266: F, t16269: F, t16273: F, t16276: F, t16277: F, t16281: F, t16332: F, t16337: F, t16345: F, t4381: F, t5596: F, t5615: F, t5620: F) -> (F,) {
-    let t17942 = t187 * t5586;
-    let t17959 = -t16259 - t16262 + t16266 + t16269 + t16273 + t16276 + 0.11696446794910408142e1 * t1585 * t16100 - 0.34631511798751726598e2 * t1585 * t16112 - 0.17315755899375863299e2 * t1585 * t16277 - 0.11696446794910408142e1 * t4381 * t5615 - 0.11696446794910408142e1 * t17942 * t1357 + 0.23392893589820816284e1 * t4381 * t5596 - 0.1025389702100779493e4 * t1585 * t16108 + 0.23392893589820816284e1 * t1585 * t16345 - 0.58482233974552040708e0 * t1585 * t16332 + 0.1038945353962551798e3 * t1585 * t16281 - 0.35089340384731224426e1 * t1585 * t16337 - 0.34631511798751726598e2 * t4381 * t5620;
-    (t17959,)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk886<F: Float>(t1495: F, t16653: F, t1468: F, t1464: F, t2011: F, t3722: F, t4135: F, t1395: F, t3728: F, t5877: F, t1489: F, t5627: F) -> (F, F, F, F, F) {
+    let t16654 = t1495 * t16653;
+    let t16655 = t1468 * t16654;
+    let t16656 = t1464 * t16655;
+    let t16658 = t2011 * t3722;
+    let t16659 = t4135 * t16658;
+    let t16660 = t1395 * t16659;
+    let t16661 = t1464 * t16660;
+    let t16663 = t3728 * t5877;
+    let t16665 = t5627 * t1489;
+    (t16656, t16658, t16661, t16663, t16665)
 }

@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1051/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1051/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,18 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1051<F: Float>(t2314: F, t4193: F, t847: F, t3418: F, t3422: F, t4180: F, t6669: F, t4154: F, t828: F, t1359: F, t3385: F, t4170: F, t4167: F, t2275: F, t4166: F, t10534: F, t10549: F, t6530: F, t6749: F, t8676: F, t8808: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t10802 = t4193 * t2314;
-    let t10803 = t10802 * t847;
-    let t10806 = t3422 * t3418;
-    let t10809 = t4180 * t6669;
-    let t10810 = t10809 * t847;
-    let t10817 = t4154 * t828;
-    let t10820 = t1359 * t3385;
-    let t10823 = t4170 * t828;
-    let t10826 = t4167 * t828;
-    let t10829 = t4166 * t2275;
-    let t10830 = t10829 * t828;
-    let t10838 = -t6749 + 0.22831111111111111111e-1 * t6530 + 0.45662222222222222221e-1 * t8676 - t8808 - 0.17123333333333333333e-1 * t10534 + 0.5137e-1 * t10549;
-    (t10802, t10803, t10806, t10809, t10810, t10817, t10820, t10823, t10826, t10829, t10830, t10838)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1051<F: Float>(t43: F, t9914: F, t3844: F, t51: F, t3827: F, t592: F, t54: F, t596: F, t57: F, t3002: F, t3029: F, t3032: F, t3037: F, t565: F, t584: F, t588: F, t600: F, t604: F, t608: F, t612: F) -> (F, F, F, F, F, F, F) {
+    let t45 = F::new(0.135e1) < t43;
+    let t9915 = piecewise3::<f64>(t45, t9914, F::new(0.0));
+    let t9934 = t51 * t3844;
+    let t9937 = t592 * t3827;
+    let t9942 = t54 * t3844;
+    let t9945 = t596 * t3827;
+    let t9950 = t57 * t3844;
+    let t9953 = -t592 * t9915 / F::new(4480.0) + t596 * t9915 / F::new(103680.0) - t600 * t9915 / F::new(2838528.0) + t604 * t9915 / F::new(89456640.0) - t608 * t9915 / F::new(0.31850496e10) + t612 * t9915 / F::new(0.1263403008e12) - t565 * t9915 / F::new(18.0) + t588 * t9915 / F::new(240.0) + t3002 * t3029 / F::new(3.0) + t9934 * t584 / F::new(6.0) + t9937 * t584 / F::new(8.0) - t3032 * t3029 / F::new(24.0) - t9942 * t584 / F::new(48.0) - t9945 * t584 / F::new(80.0) + t3037 * t3029 / F::new(320.0) + t9950 * t584 / F::new(640.0);
+    (t9915, t9934, t9937, t9942, t9945, t9950, t9953)
 }

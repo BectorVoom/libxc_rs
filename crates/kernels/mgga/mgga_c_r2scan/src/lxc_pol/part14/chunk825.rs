@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 825/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 825/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk825<F: Float>(t2605: F, t5100: F, t1604: F, t8071: F, t6086: F, t7624: F, t2147: F, t2252: F, t910: F, t551: F, t552: F, t1591: F, t2666: F, t1568: F, t8089: F, t7623: F) -> (F, F, F, F, F, F, F) {
-    let t8227 = t5100 * t2605;
-    let t8231 = 0.54878743191129263322e-2 * t1604 * t8071;
-    let t8232 = t6086 * t7624;
-    let t8234 = 0.11643651550782197811e-1 * t2147 * t8232;
-    let t8235 = t910 * t2252;
-    let t8237 = t551 * t552 * t8235;
-    let t8240 = t1591 * t2666;
-    let t8243 = t1568 * t8089;
-    let t8245 = 0.10975748638225852664e-1 * t7623 * t8243;
-    (t8227, t8231, t8234, t8237, t8240, t8243, t8245)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk825<F: Float>(t6243: F, t7406: F, t1604: F, t2122: F, t2198: F, t5117: F, t5121: F, t6106: F, t6139: F, t7367: F, t7369: F, t7373: F, t7377: F, t7380: F, t7383: F, t7388: F, t7393: F, t7395: F, t7397: F, t7399: F, t7401: F, t7405: F) -> (F, F) {
+    let t7407 = t6243 * t7406;
+    let t7408 = t1604 * t7407;
+    let t7412 = -t7367 - F::new(0.2600466522016280569e0) * t6139 * t7369 + F::new(0.54878743191129263322e-1) * t2122 * t7373 - t7377 - F::new(0.5200933044032561138e0) * t6106 * t7380 + F::new(0.5200933044032561138e0) * t7383 * t2198 - F::new(0.42377972951376424087e0) * t7388 + t7393 + t7395 + t7397 + t7399 + t7401 - t7405 - F::new(0.32927245914677557994e-1) * t7408 + F::new(0.27439371595564631661e-2) * t5117 + F::new(0.29272321618148349056e-1) * t5121;
+    (t7407, t7412)
 }

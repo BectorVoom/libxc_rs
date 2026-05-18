@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1270/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1270/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1270<F: Float>(t106982: F, t106986: F, t106991: F, t107024: F, t107048: F, t107220: F, t107230: F, t107238: F, t107270: F, t107466: F, t107486: F, t12021: F, t1375: F, t1390: F, t1983: F, t20609: F, t26477: F, t28111: F, t28224: F, t3887: F, t5215: F, t533: F, t6439: F, t6460: F, t6461: F, t6958: F, t7749: F, t90503: F, t90521: F, t96848: F, t96868: F, t96878: F, t96893: F, t97571: F, t97573: F, t97599: F) -> (F,) {
-    let t107492 = t1983 * t533 * (-3.0 * t26477 * t6461 - 6.0 * t6958 * t20609 - 18.0 * t5215 * t28224 + 6.0 * t5215 * t28111 - 0.38381794893125283518e0 * t90521 + 0.19190897446562641759e0 * t90503 + t107220 + t107270 - 0.74022033008170189643e-1 * t96848 - 0.24674011002723396548e-1 * t106986 + 0.57572692339687925277e-1 * t96868 + 0.12337005501361698274e-1 * t96878 + t107048 + t107466 - 0.49348022005446793095e-1 * t107230 - 0.14804406601634037928e0 * t106991 - 0.12337005501361698274e-1 * t97599 + 0.24674011002723396548e-1 * t96893 + 0.49348022005446793095e-1 * t106982 + t107486 - 0.49348022005446793095e-1 * t107238 + t107024 - 18.0 * t1375 * t12021 * t7749 * t6439 + 6.0 * t1375 * t3887 * t7749 * t6460 - 0.24674011002723396548e-1 * t97571 + 0.11514538467937585055e0 * t97573) * t1390;
-    (t107492,)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1270<F: Float>(t131: F, t845: F, t1878: F, t209: F, t1902: F, t9971: F, t6604: F, t206: F, t22723: F, t268: F, t23163: F, t1879: F, t80845: F) -> (F, F, F, F, F, F) {
+    let t81982 = t845 * t131;
+    let t81984 = t1878 * t81982 * t209;
+    let t81991 = t9971 * t1902;
+    let t82018 = t6604 * t9971;
+    let t82031 = t22723 * t206 * t268;
+    let t82038 = t22723 * t23163;
+    let t82045 = t80845 * t1879;
+    (t81984, t81991, t82018, t82031, t82038, t82045)
 }

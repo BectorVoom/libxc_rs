@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 843/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 843/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk843<F: Float>(t2033: F, t9593: F, t1448: F, t1907: F, t28196: F, t7316: F, t7898: F, t13426: F, t1936: F, t18227: F, t4248: F, t7002: F, t27123: F, t4292: F, t93: F, t7889: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t28197 = t2033 * t9593;
-    let t28198 = t1907 * t1448;
-    let t28199 = t28197 * t28198;
-    let t28201 = 2.0 * t28196 * t28199;
-    let t28202 = t7898 * t7316;
-    let t28212 = 2.0 * t13426 * t1936;
-    let t28214 = 2.0 * t18227 * t1936;
-    let t28216 = 2.0 * t4248 * t7002;
-    let t28218 = 2.0 * t27123 * t1936;
-    let t28219 = t93 * t4292;
-    let t28221 = 2.0 * t28219 * t1936;
-    let t28223 = 2.0 * t7889 * t7002;
-    (t28198, t28199, t28201, t28202, t28212, t28214, t28216, t28218, t28219, t28221, t28223)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk843<F: Float>(t25231: F, t2482: F, t27: F, t7043: F, t2677: F, t2712: F, t64: F, t2710: F, t826: F, t7036: F, t2487: F, t2689: F, t7030: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t25232 = F::new(0.27104001498285508387e-3) * t25231;
+    let t25234 = t2482 * t7043 * t27;
+    let t25235 = t25234 * t2677;
+    let t25236 = F::new(0.2032800112371413129e-3) * t25235;
+    let t25240 = t64 * t2712;
+    let t25242 = t2710 * t25240 * t826;
+    let t25243 = F::new(0.90357964994909313586e-5) * t25242;
+    let t25245 = t2482 * t7036 * t27;
+    let t25246 = t25245 * t2487;
+    let t25253 = t2689 * t7030;
+    (t25232, t25234, t25235, t25236, t25240, t25242, t25243, t25245, t25246, t25253)
 }

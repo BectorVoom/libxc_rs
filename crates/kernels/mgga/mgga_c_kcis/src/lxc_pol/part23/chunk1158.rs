@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 1158/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 1158/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk1158<F: Float>(t27567: F, t99291: F, t11425: F, t1616: F, t28788: F, t7974: F, t12617: F, t16685: F, t16694: F, t27583: F, t28701: F, t28758: F, t28805: F, t3797: F, t6151: F, t6159: F, t94931: F, t95088: F, t98543: F, t98553: F, t99224: F, t99419: F) -> (F,) {
-    let t99437 = 0.10306077835648148148e-4 * t27567 * t99291;
-    let t99446 = t1616 * t11425;
-    let t99452 = 0.23168402777777777778e-3 * t28788 * t7974;
-    let t99461 = t99437 + 0.11584201388888888889e-3 * t27583 * t99224 - 0.46377350260416666666e-4 * t27567 * t99419 + 0.23168402777777777778e-3 * t27583 * t6159 * t28758 * t16685 + 0.92673611111111111112e-3 * t27583 * t6151 * t99446 * t16694 - t99452 + 0.15445601851851851852e-3 * t27583 * t12617 * t28805 * t3797 + 0.30918233506944444444e-4 * t94931 * t28701 - 0.38691203703703703703e-3 * t98543 - 0.11607361111111111111e-2 * t98553 + t95088;
-    (t99461,)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk1158<F: Float>(t2398: F, t7639: F, t8759: F, t26490: F, t7633: F, t26450: F, t7647: F, t26477: F, t7636: F, t92016: F, t26501: F, t2155: F, t92055: F) -> (F, F, F, F, F, F, F, F) {
+    let t92066 = t8759 * t2398 * t7639;
+    let t92068 = t7633 * t26490;
+    let t92070 = t26450 * t7647;
+    let t92072 = t26450 * t7639;
+    let t92074 = t7633 * t26477;
+    let t92076 = t7636 * t92016;
+    let t92078 = t7633 * t26501;
+    let t92080 = t2155 * t92055;
+    (t92066, t92068, t92070, t92072, t92074, t92076, t92078, t92080)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1033/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1033/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1033<F: Float>(t10918: F, t12570: F, t3262: F, t10610: F, t12414: F, t3275: F, t8601: F, t114: F, t481: F, t97: F, t12415: F, t2847: F, t3574: F, t3276: F, t2995: F, t3250: F, t3424: F, t3461: F, t42871: F, t42874: F, t42876: F, t42881: F, t42885: F, t42889: F, t42893: F, t42897: F, t42900: F, t42904: F) -> (F, F, F, F, F, F) {
-    let t42908 = 3.0 / 4.0 * t3262 * t10918 * t12570;
-    let t42911 = 3.0 / 2.0 * t10610 * t10918 * t12414;
-    let t42914 = t3275 * t10918 * t8601 / 4.0;
-    let t42916 = t97 * t481 * t114;
-    let t42918 = 3.0 / 2.0 * t42916 * t12415;
-    let t42919 = t3574 * t2847;
-    let t42922 = 15.0 / 8.0 * t3262 * t3276 * t42919;
-    let t42924 = t2995 * t3461 + t3250 * t3424 + t42871 - t42874 + t42876 - t42881 + t42885 + t42889 - t42893 + t42897 - t42900 - t42904 + t42908 + t42911 - t42914 + t42918 - t42922;
-    (t42908, t42911, t42914, t42918, t42922, t42924)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1033<F: Float>(t19790: F, t921: F, t2654: F, t6212: F, t2625: F, t2634: F, t2612: F, t2531: F, t2599: F, t3433: F, t10855: F, t110: F) -> (F, F, F, F, F, F, F, F) {
+    let t25397 = t19790 * t921;
+    let t25480 = t6212 * t2654;
+    let t25486 = t6212 * t2625;
+    let t25499 = t6212 * t2634;
+    let t25503 = t6212 * t2612;
+    let t25737 = t6212 * t2531;
+    let t25826 = t3433 * t2599;
+    let t25851 = t10855 * t110;
+    (t25397, t25480, t25486, t25499, t25503, t25737, t25826, t25851)
 }

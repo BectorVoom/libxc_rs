@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 524/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 524/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk524<F: Float>(t169: F, t2797: F, t1296: F, t911: F, t2635: F, t234: F, t441: F, t233: F, t1295: F, t915: F, t1008: F, t296: F, t1121: F, t1133: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t170 = t169 <= zeta_threshold;
-    let t2798 = t2797 / 8.0;
-    let t2799 = t911 * t1296;
-    let t2800 = t2799 / 8.0;
-    let t2801 = piecewise3(t170, 0.0, t2635);
-    let t2802 = t234 * t2801;
-    let t2803 = t2802 * t441;
-    let t2804 = t233 * t2803;
-    let t2805 = t2804 / 16.0;
-    let t2806 = t915 * t1295;
-    let t2807 = t233 * t2806;
-    let t2808 = t2807 / 8.0;
-    let t2809 = t1008 * t1008;
-    let t2810 = t296 * t296;
-    let t2811 = 1.0 / t2810;
-    let t2812 = t2809 * t2811;
-    let t2815 = t1121 * t1133;
-    (t2798, t2800, t2802, t2805, t2808, t2809, t2810, t2811, t2812, t2815)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk524<F: Float>(t165: F, t2531: F, t779: F, t782: F, t826: F, t164: F, t781: F, t142: F, t143: F, t2379: F, t126: F, t684: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t2532 = t2531 * t165;
+    let t2533 = t779 * t782;
+    let t2534 = t2533 * t826;
+    let t2535 = F::new(2.0) * t2534;
+    let t2537 = F::new(1.0) / t781 / t164;
+    let t2538 = t142 * t2537;
+    let t2539 = t826 * t826;
+    let t2540 = t2538 * t2539;
+    let t2541 = F::new(2.0) * t2540;
+    let t2542 = t2379 * t143;
+    let t2545 = t684 * t126;
+    (t2532, t2533, t2534, t2535, t2537, t2538, t2539, t2540, t2541, t2542, t2545)
 }

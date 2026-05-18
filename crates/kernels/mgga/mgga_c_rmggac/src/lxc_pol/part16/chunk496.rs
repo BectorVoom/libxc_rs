@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 496/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 496/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk496<F: Float>(t352: F, t6557: F, t321: F, t6522: F, t333: F, t305: F, t326: F, t3814: F, t3839: F, t4669: F, t5148: F, t5162: F, t5259: F, t5266: F, t5271: F, t5942: F, t5945: F, t5954: F, t5957: F, t5963: F, t6308: F, t6311: F, t6315: F, t6332: F, t6335: F, t6339: F, t6382: F, t6387: F, t6482: F, t6523: F, t6530: F, t797: F, t838: F) -> (F, F, F, F) {
-    let t6558 = t6557 * t352;
-    let t6561 = t6522 * t321;
-    let t6564 = t6522 * t333;
-    let t6567 = -0.23948483403727617128e0 * t5148 * t6523 + 0.71845450211182851384e0 * t5271 * t6382 - 0.14369090042236570277e1 * t5162 * t6387 - 0.35922725105591425692e0 * t4669 * t6530 - 0.11974241701863808564e0 * t326 * t5945 - 0.59871208509319042821e-1 * t326 * t6339 - 0.11974241701863808564e0 * t305 * t5963 - 0.11974241701863808564e0 * t326 * t6308 - 0.71845450211182851384e0 * t3814 * t5954 + 0.11974241701863808564e1 * t3839 * t5957 + 0.17961362552795712846e0 * t797 * t6332 - 0.23948483403727617128e0 * t838 * t6335 + 0.11974241701863808564e0 * t305 * t6482 + 0.35922725105591425692e0 * t797 * t6311 + 0.35922725105591425692e0 * t797 * t6315 + 0.11974241701863808564e0 * t305 * t5942 + 0.23948483403727617128e0 * t5266 * t6558 + 0.23948483403727617128e0 * t5259 * t6561 - 0.35922725105591425692e0 * t4669 * t6564;
-    (t6558, t6561, t6564, t6567)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk496<F: Float>(t4179: F, t498: F, t1818: F, t195: F, t1835: F, t500: F, t1022: F, t1532: F, t1819: F, t1911: F, t4183: F, t4214: F, t4220: F, t4232: F, t4252: F, t4255: F, t4259: F, t4336: F, t4338: F, t4351: F, t5407: F, t5409: F, t5998: F, t6000: F, t6001: F, t6002: F, t6003: F) -> F {
+    let t6284 = t4179 * t498;
+    let t6287 = t195 * t1818;
+    let t6290 = t500 * t1835;
+    let t6293 = t4336 - t4338 - F::new(0.31091e-1) * t1911 * t1532 + t5998 - t6000 + F::new(0.62182e-1) * t1819 * t6284 - F::new(0.93273e-1) * t6287 * t4183 + t4214 - t4220 - t6001 - t5407 - t5409 + t6002 + t6003 + F::new(0.93273e-1) * t1022 * t6290 + t4232 + t4252 - t4255 - t4259 - t4351;
+    t6293
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 886/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 886/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk886<F: Float>(t1333: F, t3862: F, t10022: F, t248: F, t557: F, t555: F, t10027: F, t541: F, t12267: F, t1362: F, t3777: F, t3865: F, t1369: F, t1361: F, t2690: F, t1336: F) -> (F, F, F, F, F, F, F) {
-    let t12325 = t1333 * t3862;
-    let t12328 = t10022 * t557 * t248;
-    let t12330 = 595.0 / 10368.0 * t555 * t12328;
-    let t12335 = 455.0 / 1296.0 * t10027 * t541;
-    let t12336 = t12267 * t1362;
-    let t12339 = t3777 * t3865;
-    let t12340 = t12339 * t1369;
-    let t12344 = t1361 * t2690;
-    let t12345 = t1336 * t12344;
-    (t12325, t12330, t12335, t12336, t12339, t12340, t12345)
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk886<F: Float>(t731: F, t9751: F, t746: F, t9490: F, t172: F, t9489: F, t9493: F, t9720: F, t2512: F, t9711: F, t9689: F, t9692: F, t9695: F, t9698: F, t9702: F, t9704: F, t9706: F, t9709: F) -> (F, F, F, F, F, F, F, F) {
+    let t9752 = t9751 * t731;
+    let t9755 = t9490 * t746;
+    let t9758 = t172 * t9489;
+    let t9759 = t9490 * t9493;
+    let t9762 = t172 * t9720;
+    let t9763 = t9490 * t2512;
+    let t9766 = t9711 * t746;
+    let t9777 = -F::new(0.25319e1) * t9689 + F::new(0.16879333333333333333e1) * t9692 - F::new(0.19692555555555555555e1) * t9695 - F::new(0.93011851851851851854e0) * t9698 + F::new(0.13651666666666666667e0) * t9702 - F::new(0.27303333333333333333e0) * t9704 - F::new(0.3185388888888888889e0) * t9706 - F::new(0.36514074074074074075e0) * t9709;
+    (t9752, t9755, t9758, t9759, t9762, t9763, t9766, t9777)
 }

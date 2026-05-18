@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 416/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 416/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk416<F: Float>(t377: F, t704: F, t706: F, t1762: F, t717: F, t722: F, t595: F, t766: F, t637: F, t160: F, t36: F, t164: F, t601: F, t604: F, t1414: F, t162: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t1763 = t377 * t704;
-    let t1764 = t1763 * t706;
-    let t1766 = 0.21687162600603479684e-1 * t1762 * t1764;
-    let t1767 = t377 * t717;
-    let t1768 = t1767 * t722;
-    let t1770 = 0.32106488758451047386e0 * t1762 * t1768;
-    let t1771 = t595 * t766;
-    let t1772 = t1771 * t637;
-    let t1774 = t160 * t36;
-    let t1776 = 132.0 * t1774 * t164;
-    let t1778 = 288.0 * t601 * t604;
-    let t1779 = t162 * t1414;
-    (t1763, t1764, t1766, t1767, t1768, t1770, t1771, t1772, t1774, t1776, t1778, t1779)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk416<F: Float>(t732: F, t745: F, t1419: F, t230: F, t1422: F, t1376: F, t1650: F, t1651: F, t1655: F, t1662: F, t1667: F, t1671: F, t1674: F, t1688: F, t1695: F, t1696: F, t216: F, t236: F, t596: F, t598: F) -> (F, F, F) {
+    let t1699 = t732 * t745;
+    let t1702 = F::new(12.0) * t1419 * t230;
+    let t1704 = F::new(32.0) * t1422 * t230;
+    let t1705 = t1650 - F::new(0.675260332e-1) * t1651 * t598 - F::new(0.1350520664e0) * t596 * t1655 - t1662 + t1667 - t1671 + F::new(0.16936279733333333333e-2) * t1674 + t1688 - F::new(0.21973736767207854065e-2) * t1376 * t216 - t1695 + F::new(0.5848223622634646207e0) * t1696 * t236 + F::new(0.11696447245269292414e1) * t1699 - t1702 + t1704;
+    (t1699, t1702, t1705)
 }

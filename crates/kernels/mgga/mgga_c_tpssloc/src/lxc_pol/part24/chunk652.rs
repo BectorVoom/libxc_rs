@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 652/1291 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 652/1438 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk652<F: Float>(t2221: F, t522: F, t2223: F, t2516: F, t521: F, t17: F, t1284: F, t750: F, t1285: F, t592: F, t1287: F, t588: F, t2423: F, t3686: F, t3697: F, t3819: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t3821 = 12.0 * t2221 * t522;
-    let t3823 = 32.0 * t2223 * t522;
-    let t3824 = t521 * t2516;
-    let t3825 = t17 * t3824;
-    let t3826 = t1284 * t750;
-    let t3827 = t17 * t3826;
-    let t3828 = 2.0 * t3827;
-    let t3829 = t592 * t1285;
-    let t3830 = 8.0 * t3829;
-    let t3832 = 8.0 * t592 * t1287;
-    let t3833 = t588 * t1285;
-    let t3834 = 8.0 * t3833;
-    let t3836 = 8.0 * t588 * t1287;
-    let t3837 = t3686 + t3819 + t3821 - t3823 - t2423 + t3825 + t3697 + t3828 - t3830 - t3832 + t3834 + t3836;
-    (t3821, t3823, t3824, t3825, t3826, t3828, t3830, t3832, t3834, t3836, t3837)
+pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk652<F: Float>(t28: F, t265: F, t504: F, t2756: F, t3643: F, t1081: F, t1260: F, t2250: F, t3231: F, t506: F, t52: F, t607: F, t873: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F) {
+    let t29 = t28 <= zeta_threshold;
+    let t401 = rho1 <= dens_threshold || t29;
+    let t505 = t265 < t504;
+    let t3644 = piecewise3::<f64>(t505, t3643, t2756);
+    let t3651 = piecewise3::<f64>(t401, t2756 * t28 / F::new(2.0) + t873 * t1081 + t265 * t3231 / F::new(2.0), t3644 * t52 / F::new(2.0) - t1260 * t607 - t506 * t2250 / F::new(2.0));
+    (t3644, t3651)
 }

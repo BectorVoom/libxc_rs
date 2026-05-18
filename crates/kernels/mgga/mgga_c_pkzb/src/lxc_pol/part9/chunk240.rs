@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 240/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 240/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,6 +12,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk240<F: Float>(t301: F, t759: F, t
     let t762 = t301 * t759 * t761;
     let t763 = t758 * t762;
     let t766 = t291 * t2;
-    let t768 = 1.0 / t3 / t766;
+    let t768 = F::new(1.0) / t3 / t766;
     (t762, t763, t768)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 994/1102 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 994/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk994<F: Float>(t81852: F, t81920: F, t81954: F, t2047: F, t9971: F, t81688: F, t81716: F, t82046: F, t82122: F, t82153: F, t82218: F, t1453: F, t81439: F, t1408: F, t2752: F, t25345: F, t82038: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t84897 = 455.0 / 648.0 * t81852;
-    let t84921 = 595.0 / 2592.0 * t81920;
-    let t84932 = 0.67287926823567318088e-4 * t81954;
-    let t84953 = t9971 * t2047;
-    let t84995 = 0.27415567780803773942e-2 * t81688;
-    let t85003 = 0.19739208802178717238e0 * t81716;
-    let t85027 = 0.55440370401180965083e0 * t82046;
-    let t85060 = 0.3244175520728446583e0 * t82122;
-    let t85101 = 0.27415567780803773942e-2 * t82153;
-    let t85129 = 0.55440370401180965083e0 * t82218;
-    let t86586 = t81439 * t1453;
-    let t86721 = t2752 * t1408;
-    let t86870 = t82038 * t25345;
-    (t84897, t84921, t84932, t84953, t84995, t85003, t85027, t85060, t85101, t85129, t86586, t86721, t86870)
+pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk994<F: Float>(t1878: F, t557: F, t556: F, t598: F, t213: F, t281: F, t6931: F, t2003: F, t3862: F, t1887: F, t22715: F, t534: F) -> (F, F, F, F, F, F, F, F) {
+    let t22839 = t1878 * t557;
+    let t22842 = t556 * t556;
+    let t22843 = F::new(1.0) / t22842;
+    let t22844 = t598 * t22843;
+    let t22845 = t22844 * t213;
+    let t22852 = t6931 * t281;
+    let t22858 = t2003 * t3862;
+    let t22863 = t22715 * t534 * t1887;
+    (t22839, t22842, t22843, t22844, t22845, t22852, t22858, t22863)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 623/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 623/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk623<F: Float>(t3139: F, t465: F, t7472: F, t1986: F, t305: F, t7476: F, t118: F, t2001: F, t498: F, t665: F, t2000: F, t797: F, t201: F, t14056: F, t14371: F, t13889: F, t14368: F) -> (F, F, F, F, F, F, F, F) {
-    let t69618 = t465 * t3139;
-    let t69619 = t7472 * t69618;
-    let t69621 = t1986 * t305 * t7476;
-    let t69626 = t2001 * t118 * t665 * t498;
-    let t69629 = t2000 * t797;
-    let t69635 = t201 * t201;
-    let t69648 = t14371 * t14056;
-    let t69662 = t14368 * t13889;
-    (t69618, t69619, t69621, t69626, t69629, t69635, t69648, t69662)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk623<F: Float>(t15110: F, t15112: F, t15114: F, t15120: F, t14478: F, t14481: F, t14484: F, t14487: F, t14490: F, t14493: F, t15101: F, t15103: F, t15116: F, t15118: F, t15122: F, t15585: F, t15586: F, t15589: F) -> F {
+    let t15590 = F::new(0.5177134851037310236e-2) * t15110;
+    let t15591 = F::new(0.66380770525302906696e-3) * t15112;
+    let t15592 = F::new(0.99571155787954360044e-3) * t15114;
+    let t15595 = F::new(0.14464861606874801909e-3) * t15120;
+    let t15597 = t15585 - t15586 - t14478 - F::new(0.68186654135613354322e-2) * t15101 + F::new(0.13637330827122670864e-1) * t15103 + t14481 + t15589 - t15590 - t14484 + t15591 - t15592 - t14487 - F::new(0.45360193192290319574e-3) * t15116 + F::new(0.63504270469206447404e-3) * t15118 + t14490 + t15595 - F::new(0.19286482142499735878e-3) * t15122 - t14493;
+    t15597
 }

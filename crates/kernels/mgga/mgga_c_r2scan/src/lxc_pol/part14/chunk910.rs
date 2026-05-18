@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 910/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 910/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk910<F: Float>(t2568: F, t3308: F, t10772: F, t2574: F, t10776: F, t2578: F, t10710: F, t8128: F, t10768: F, t10781: F, t2547: F, t2207: F, t3336: F, t3606: F, t1060: F, t2526: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t11805 = t3308 * t2568;
-    let t11806 = t10772 * t11805;
-    let t11808 = t3308 * t2574;
-    let t11809 = t10776 * t11808;
-    let t11811 = t3308 * t2578;
-    let t11812 = t10772 * t11811;
-    let t11816 = t10710 * t8128;
-    let t11817 = t10768 * t11816;
-    let t11819 = t10781 * t2547;
-    let t11822 = t2207 * t3336 * t3606;
-    let t11824 = t1060 * t2526;
-    (t11805, t11806, t11808, t11809, t11811, t11812, t11816, t11817, t11819, t11822, t11824)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk910<F: Float>(t1020: F, t1312: F, t1022: F, t1024: F, t1026: F, t1028: F, t1310: F, t2414: F, t2418: F, t2422: F, t839: F, t8438: F) -> (F, F) {
+    let t8440 = t1312 * t1020;
+    let t8454 = F::new(0.734774460522e2) * t1022 * t1312 - F::new(0.11494261417236e3) * t1024 * t1312 + F::new(0.6202613620464e2) * t1026 * t1312 - F::new(0.1088826475632e2) * t1028 * t1312 - F::new(0.64e0) * t8438 - F::new(0.9214113627294e1) * t8440 - F::new(0.18428227254588e2) * t2414 * t839 - F::new(0.9214113627294e1) * t1022 * t1310 + F::new(0.734774460522e2) * t2418 * t839 + F::new(0.367387230261e2) * t1024 * t1310 - F::new(0.7662840944824e2) * t2422 * t839 - F::new(0.3831420472412e2) * t1026 * t1310;
+    (t8440, t8454)
 }

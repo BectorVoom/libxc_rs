@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 936/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 936/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk936<F: Float>(t305: F, t326: F, t77875: F, t77878: F, t77881: F, t77883: F, t77884: F, t77887: F, t77888: F, t77889: F, t77898: F, t77899: F, t77900: F, t77904: F, t80280: F, t80341: F) -> (F,) {
-    let t80426 = 0.59871208509319042821e-1 * t305 * t80341 - 0.59871208509319042821e-1 * t326 * t80280 - t77875 - t77878 - t77881 - t77883 - t77884 + t77887 + t77888 + t77889 - t77898 + t77899 + t77900 - t77904;
-    (t80426,)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk936<F: Float>(t76945: F, t74259: F, t74262: F, t74267: F, t74269: F, t74272: F, t74275: F, t74278: F, t74287: F, t74295: F, t74316: F, t74324: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t76946 = F::new(0.15243824895787514157e-3) * t76945;
+    let t76947 = F::new(0.30487649791575028312e-3) * t74259;
+    let t76948 = F::new(0.72042316457491791901e-3) * t74262;
+    let t76949 = F::new(0.16263363996404810741e-4) * t74267;
+    let t76950 = F::new(0.38430329123504567781e-4) * t74269;
+    let t76951 = F::new(0.16263363996404810741e-4) * t74272;
+    let t76952 = F::new(0.72042316457491791901e-3) * t74275;
+    let t76955 = F::new(0.72042316457491791901e-3) * t74278;
+    let t76957 = F::new(0.2553875993597870364e-4) * t74287;
+    let t76959 = F::new(0.1702583995731913576e-4) * t74295;
+    let t76965 = F::new(0.85129199786595678799e-5) * t74316;
+    let t76968 = F::new(0.15961724959986689775e-4) * t74324;
+    (t76946, t76947, t76948, t76949, t76950, t76951, t76952, t76955, t76957, t76959, t76965, t76968)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 859/1120 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 859/1293 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk859<F: Float>(t10868: F, t2150: F, t2147: F, t545: F, t775: F, t2206: F, t774: F, t146: F, t2190: F, t261: F, t3299: F, t2218: F, t3304: F, t503: F, t505: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t10869 = t10868 * t2150;
-    let t10870 = t2147 * t10869;
-    let t10871 = 0.46574606203128791246e-1 * t10870;
-    let t10872 = t545 * t775;
-    let t10878 = t2206 * t774;
-    let t10879 = t146 * t10878;
-    let t10885 = t261 * t2190;
-    let t10886 = t3299 * t10885;
-    let t10887 = 0.23115257973478049502e0 * t10886;
-    let t10891 = t261 * t2218;
-    let t10892 = t3304 * t10891;
-    let t10893 = 0.69345773920434148506e0 * t10892;
-    let t10894 = t503 * t505;
-    (t10869, t10871, t10872, t10878, t10879, t10885, t10887, t10891, t10893, t10894)
+pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk859<F: Float>(t166: F, t8590: F, t3034: F, t607: F, t2483: F, t955: F, t2461: F, t898: F, t6030: F, t7126: F, t765: F, t7898: F, t7904: F, t8649: F, t8651: F, t8652: F) -> (F, F, F, F, F) {
+    let t9063 = t8590 * t166;
+    let t9066 = t3034 * t607;
+    let t9069 = t2483 * t955;
+    let t9072 = t898 * t2461;
+    let t9075 = -F::new(0.1143056e0) * t7898 + F::new(0.1350520664e0) * t6030 - t8649 + t8651 + F::new(0.675260332e-1) * t765 * t9063 + F::new(0.675260332e-1) * t765 * t9066 + F::new(0.1350520664e0) * t765 * t9069 + F::new(0.1350520664e0) * t765 * t9072 - t7126 - t8652 - t7904;
+    (t9063, t9066, t9069, t9072, t9075)
 }

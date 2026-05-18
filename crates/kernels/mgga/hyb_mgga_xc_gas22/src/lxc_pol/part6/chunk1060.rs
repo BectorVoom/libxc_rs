@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1060/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1060/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1060<F: Float>(t10948: F, t238: F, t242: F, t10928: F, t10930: F, t10935: F, t10939: F, t10942: F, t10946: F, t7037: F, t7089: F, t9113: F, t9116: F, t9159: F, t10926: F, t968: F) -> (F, F, F) {
-    let t10950 = t238 * t242 * t10948;
-    let t10952 = 0.15358125e0 * t10928 + 0.3071625e0 * t10930 - t7089 + 0.27385555555555555556e0 * t7037 + 0.5477111111111111111e0 * t9159 - t9113 - t9116 - 0.16431333333333333333e0 * t10935 + 0.49294e0 * t10939 - 0.16431333333333333333e0 * t10942 + 0.24647e0 * t10946 + 0.24647e0 * t10950;
-    let t10953 = t10926 + t10952;
-    let t10954 = t10953 * t968;
-    (t10950, t10953, t10954)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1060<F: Float>(t1804: F, t3815: F, t6214: F, t125: F, t3916: F, t545: F, t10102: F, t10105: F, t10107: F, t10111: F, t10115: F, t10119: F, t10123: F, t1807: F, t2987: F, t555: F, t558: F, t5886: F, t5889: F, t7903: F) -> (F, F, F) {
+    let t10129 = t1804 * t6214 * t3815;
+    let t10131 = t3916 * t125;
+    let t10132 = t10131 * t545;
+    let t10136 = t5886 / F::new(96.0) + t5889 / F::new(96.0) - t10102 / F::new(96.0) - t10105 / F::new(192.0) - t1804 * t1807 * t10107 / F::new(48.0) - t1804 * t1807 * t10111 / F::new(48.0) - t555 * t558 * t10115 / F::new(32.0) - t555 * t558 * t10119 / F::new(32.0) - t555 * t2987 * t10123 / F::new(16.0) + t7903 / F::new(144.0) - t10129 / F::new(144.0) - t555 * t558 * t10132 / F::new(64.0);
+    (t10131, t10132, t10136)
 }

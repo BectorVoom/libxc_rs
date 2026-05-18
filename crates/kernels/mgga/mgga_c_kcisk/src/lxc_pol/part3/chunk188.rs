@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 188/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 188/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,7 +12,7 @@ pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk188<F: Float>(t718: F, t719: F, 
     let t720 = t718 * t719;
     let t721 = t717 * t720;
     let t722 = t415 * t721;
-    let t724 = t604 * t671 + 0.24872916666666666666e-2 * t722;
+    let t724 = t604 * t671 + F::new(0.24872916666666666666e-2) * t722;
     let t725 = t604 * t196;
     (t720, t721, t722, t724, t725)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1166/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1166/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1166<F: Float>(t1692: F, t1812: F, t1989: F, t1288: F, t18728: F, t18807: F, t19672: F, t19678: F, t19681: F, t19685: F, t19810: F, t19819: F, t19821: F, t19825: F, t19829: F, t19836: F, t20417: F, t20510: F, t20514: F, t20526: F, t2439: F, t30: F, t5539: F, t5591: F, t580: F, t5849: F, t5853: F, t6120: F, t6153: F, t6354: F) -> (F, F) {
-    let t20544 = t1692 * t1812 * t1989;
-    let t20545 = 3.0 * t20417 * t19672 + 3.0 / 2.0 * t2439 * t5849 * t6120 - 3.0 / 2.0 * t18728 * t19678 + 3.0 / 2.0 * t2439 * t1812 * t19681 + 3.0 / 2.0 * t2439 * t1812 * t19685 + 3.0 / 2.0 * t2439 * t6354 * t5539 + t1692 * t20510 * t30 / 2.0 - t1692 * t20514 * t5591 / 2.0 + t1692 * t6354 * t580 / 2.0 - 3.0 / 2.0 * t18728 * t19810 - t1692 * t18807 * t6153 / 2.0 + t20526 * t19819 - t1692 * t5853 * t19821 / 2.0 - t1692 * t5853 * t19825 / 2.0 + 3.0 / 2.0 * t2439 * t1812 * t19829 + t1692 * t5849 * t1288 / 2.0 - t1692 * t5853 * t19836 / 2.0 + t20544;
-    (t20544, t20545)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1166<F: Float>(t12856: F, t12963: F, t12994: F, t13030: F, t219: F, t4488: F, t10180: F, t1656: F, t3366: F, t1265: F, t4516: F, t3365: F) -> (F, F, F, F, F) {
+    let t13032 = t12856 + t12963 + t12994 + t13030;
+    let t13033 = param_beta * t13032;
+    let t13035 = t4488 * t219;
+    let t13047 = t10180 * t1656 * t3366;
+    let t13050 = t4516 * t1265;
+    let t13051 = t3365 * t13050;
+    (t13032, t13033, t13035, t13047, t13051)
 }

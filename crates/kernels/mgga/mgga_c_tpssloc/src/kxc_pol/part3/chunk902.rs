@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 902/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 902/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk902<F: Float>(t16: F, t4053: F, t1449: F, t2350: F, t9398: F, t100: F, t2349: F, t2219: F, t662: F, t2354: F, t4059: F, t103: F, t584: F, t4063: F, t12771: F, t12774: F, t12775: F, t12778: F, t12781: F, t1445: F, t1447: F, t2336: F, t2351: F, t2355: F, t4050: F, t4054: F, t657: F, t92: F) -> (F,) {
-    let t12784 = t4053 * t16;
-    let t12792 = t9398 * t1449 * t2350;
-    let t12795 = t100 * t2349;
-    let t12796 = t2219 * t662;
-    let t12799 = t4059 * t2354;
-    let t12802 = t103 * t584;
-    let t12805 = t4063 * t16;
-    let t12808 = 200.0 / 27.0 * t2336 * t1445 - 100.0 / 27.0 * t657 * t4050 - 50.0 / 9.0 * t657 * t4054 - 10.0 / 27.0 * t92 * t12771 + 20.0 / 9.0 * t12774 * t12775 + 10.0 / 9.0 * t92 * t12778 + 5.0 / 3.0 * t92 * t12781 - 5.0 * t92 * t12784 - 50.0 / 27.0 * t1447 * t2351 - 25.0 / 9.0 * t1447 * t2355 - 10.0 / 27.0 * t100 * t12792 - 20.0 / 9.0 * t12795 * t12796 + 10.0 / 9.0 * t100 * t12799 - 5.0 / 3.0 * t100 * t12802 + 5.0 * t100 * t12805;
-    (t12808,)
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk902<F: Float>(t2697: F, t2703: F, t842: F, t9612: F, t2617: F, t2696: F, t849: F, t232: F, t2553: F, t2614: F, t838: F, t2693: F, t809: F) -> (F, F, F, F, F, F, F) {
+    let t9988 = t2697 * t2703;
+    let t9990 = t9612 * t842;
+    let t9993 = t2617 * t2696;
+    let t9994 = t9993 * t849;
+    let t10007 = t232 * t2553;
+    let t10012 = t2614 * t838;
+    let t10014 = t809 * t2693;
+    (t9988, t9990, t9993, t9994, t10007, t10012, t10014)
 }

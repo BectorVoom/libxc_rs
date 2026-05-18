@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 1103/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 1103/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1103<F: Float>(t39244: F, t39251: F, t39255: F, t39247: F, t41160: F, t41162: F, t41165: F, t41168: F, t41170: F, t41173: F, t41176: F, t41179: F, t41182: F, t41185: F, t41188: F, t39260: F) -> (F, F) {
-    let t42162 = 0.1440846329149835838e-2 * t39244;
-    let t42164 = 0.1440846329149835838e-2 * t39251;
-    let t42165 = 0.1440846329149835838e-2 * t39255;
-    let t42166 = -t41160 - t41162 - t41165 + t41168 + t41170 + t41173 + t42162 - 0.72042316457491791901e-3 * t39247 + t42164 + t42165 + t41176 + t41179 + t41182 + t41185 - t41188;
-    let t42170 = 0.162600798888400151e-2 * t39260;
-    (t42166, t42170)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1103<F: Float>(t38311: F, t38322: F, t38336: F, t38341: F, t38346: F, t38349: F, t38362: F, t11554: F, t2262: F, t6897: F, t910: F, t2330: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t39121 = F::new(0.13010691197123848592e-3) * t38311;
+    let t39122 = F::new(0.26021382394247697185e-3) * t38322;
+    let t39127 = F::new(0.2439011983326002265e-2) * t38336;
+    let t39129 = F::new(0.2439011983326002265e-2) * t38341;
+    let t39130 = F::new(0.18292589874945016987e-2) * t38346;
+    let t39131 = F::new(0.30487649791575028312e-3) * t38349;
+    let t39134 = F::new(0.91462949374725084936e-3) * t38362;
+    let t39178 = t11554 * t2262;
+    let t39182 = t6897 * t910;
+    let t39183 = t39182 * t2330;
+    (t39121, t39122, t39127, t39129, t39130, t39131, t39134, t39178, t39183)
 }

@@ -69,18 +69,18 @@ pub fn mgga_x_mn12_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t22 = param_c_1;
         let t23 = M_CBRT6;
         let t24 = t23 * t23;
         let t25 = M_PI * M_PI;
-        let t26 = pow_1_3(t25);
+        let t26 = pow_1_3::<f64>(t25);
         let t27 = t26 * t26;
         let t29 = 3.0 / 10.0 * t24 * t27;
         let t30 = M_CBRT2;
@@ -166,7 +166,7 @@ pub fn mgga_x_mn12_exc_unpol(
         let t144 = t143 * t55;
         let t146 = t135 * t40 + t138 * t46 + t141 * t52 + t144 * t58 + param_c_18;
         let t149 = 1.0 / t12;
-        let t150 = pow_1_3(t149);
+        let t150 = pow_1_3::<f64>(t149);
         let t153 = 1.0 + 0.39999999999999999998e0 / t19 * t30 * t150;
         let t154 = 1.0 / t153;
         let t157 = param_c_24;
@@ -214,7 +214,7 @@ pub fn mgga_x_mn12_exc_unpol(
         let t222 = t198 * t153;
         let t223 = 1.0 / t222;
         let t225 = param_c_0 + t38 * t40 + t44 * t46 + t50 * t52 + t56 * t58 + t62 * t64 + 0.4e-2 * t80 * t90 + 0.32e-4 * t105 * t113 + 0.256e-6 * t125 * t130 + t146 * t154 + 0.4e-2 * t168 * t170 + 0.32e-4 * t182 * t184 + t197 * t199 + 0.4e-2 * t210 * t211 + t221 * t223;
-        let t229 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t225);
+        let t229 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t225);
         let tzk0 = 2.0 * t229;
         zk[ip] += tzk0;
     }

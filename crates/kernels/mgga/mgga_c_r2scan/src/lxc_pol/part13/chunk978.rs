@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 978/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 978/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk978<F: Float>(t38145: F, t6085: F, t6087: F, t2161: F, t5148: F, t37638: F, t2111: F, t6461: F, t6072: F, t6064: F, t6093: F, t10698: F, t10805: F, t10869: F, t6395: F, t20421: F, t6162: F, t6327: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t38147 = t6085 * t38145 * t6087;
-    let t38149 = t2161 * t5148;
-    let t38150 = t38149 * t37638;
-    let t38152 = t2111 * t6461;
-    let t38153 = t38152 * t6072;
-    let t38156 = t6093 * t38145 * t6064;
-    let t38158 = t10698 * t10805;
-    let t38161 = t6395 * t10869;
-    let t38164 = t6327 * t20421 * t6162;
-    (t38147, t38149, t38150, t38152, t38153, t38156, t38158, t38161, t38164)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk978<F: Float>(t11479: F, t3275: F, t3352: F, t3270: F, t3618: F, t3269: F, t3574: F, t792: F, t3276: F, t3262: F, t10918: F, t3263: F, t7040: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t11481 = t3275 * t11479 * t3352;
+    let t11482 = t11481 / F::new(4.0);
+    let t11483 = t3270 * t3618;
+    let t11484 = t3269 * t11483;
+    let t11485 = t11484 / F::new(4.0);
+    let t11486 = t3574 * t792;
+    let t11487 = t3276 * t11486;
+    let t11488 = t3262 * t11487;
+    let t11489 = F::new(15.0) / F::new(16.0) * t11488;
+    let t11491 = t3262 * t10918 * t3574;
+    let t11492 = F::new(3.0) / F::new(4.0) * t11491;
+    let t11494 = t3275 * t3263 * t7040;
+    (t11481, t11482, t11483, t11484, t11485, t11486, t11487, t11488, t11489, t11491, t11492, t11494)
 }

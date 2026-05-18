@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1161/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1161/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1161<F: Float>(t5: F, t21784: F, t117: F, t4525: F, t6436: F, t18934: F, t18943: F, t19466: F, t19479: F, t19491: F, t21036: F, t21038: F, t21040: F, t21042: F, t21044: F, t21046: F, t21048: F, t21050: F) -> (F, F, F, F) {
-    let t7 = piecewise3(0.0 < t5, t5, -t5);
-    let t8 = -t7 <= -0.999999999999e0;
-    let t21785 = piecewise3(t8, 0.0, t21784);
-    let t21786 = t21785 * t117;
-    let t21790 = t6436 * t4525;
-    let t21804 = t18934 + 7.0 / 36.0 * t19466 + t21036 / 8.0 - t21038 / 24.0 + t21040 / 384.0 + 7.0 / 576.0 * t19479 + t21042 / 96.0 - t21044 / 768.0 - t21046 / 768.0 + t18943 + 7.0 / 144.0 * t19491 + 5.0 / 192.0 * t21048 - t21050 / 192.0;
-    (t21785, t21786, t21790, t21804)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1161<F: Float>(t15220: F, t16036: F, t1168: F, t118: F, t1273: F, t13133: F, t1339: F, t13554: F, t13565: F, t13974: F, t14001: F, t1604: F, t1663: F, t2056: F, t3493: F, t3502: F, t3538: F, t3542: F, t4352: F, t4541: F, t4641: F, t488: F, t5322: F, t544: F, t5463: F, t6103: F, t646: F) -> (F, F) {
+    let t16037 = t15220 + t16036;
+    let t16039 = t1168 * t5463 - t118 * t16037 + t1273 * t5322 - F::new(4.0) * t13133 * t1339 - F::new(4.0) * t1339 * t13554 - F::new(2.0) * t13565 * t646 + t13974 * t488 + t14001 * t544 + F::new(2.0) * t1604 * t4541 + F::new(2.0) * t1663 * t4352 - F::new(4.0) * t2056 * t4641 - F::new(4.0) * t3493 * t3502 - F::new(4.0) * t3493 * t3538 - F::new(4.0) * t3493 * t3542 - F::new(4.0) * t3538 * t6103;
+    (t16037, t16039)
 }

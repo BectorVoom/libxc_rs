@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1280/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1280/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1280<F: Float>(t3513: F, t2478: F, t968: F, t2477: F, t4238: F, t2480: F, t2521: F, t2523: F, t25468: F, t8990: F, t2479: F, t4244: F, t7075: F, t8973: F, t9104: F, t2515: F, t4273: F) -> (F, F, F, F, F, F, F) {
-    let t29993 = t3513 * t3513;
-    let t29996 = 4.0 * t2478 * t29993 * t968;
-    let t29997 = t4238 * t2477;
-    let t29999 = 2.0 * t29997 * t2480;
-    let t30002 = 0.32163958997385070134e2 * t2521 * t29993 * t2523;
-    let t30004 = 0.38596750796862084161e3 * t25468 * t8990;
-    let t30007 = 24.0 * t7075 * t4244 * t2479;
-    let t30009 = 12.0 * t9104 * t8973;
-    let t30012 = 0.96491876992155210402e2 * t7075 * t4273 * t2515;
-    (t29996, t29999, t30002, t30004, t30007, t30009, t30012)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1280<F: Float>(t20022: F, t20070: F, t20073: F, t23100: F, t23102: F, t23105: F, t23108: F, t23111: F, t23113: F, t23116: F, t23118: F, t23120: F, t23124: F, t23128: F, t23139: F, t23572: F, t23575: F, t7831: F, t9858: F) -> F {
+    let t27706 = -t23100 / F::new(16.0) - t23102 / F::new(16.0) - t23105 / F::new(32.0) - t23108 / F::new(32.0) - t23111 / F::new(48.0) + t23113 / F::new(24.0) - F::new(5.0) / F::new(144.0) * t23116 - t23118 / F::new(16.0) - t23120 / F::new(32.0) - F::new(5.0) / F::new(432.0) * t20022 - F::new(3.0) / F::new(16.0) * t7831 * t9858 - F::new(5.0) / F::new(144.0) * t23124 - F::new(41.0) / F::new(48.0) * t23128 - t23139 / F::new(36.0) + t20070 / F::new(144.0) + t20073 / F::new(144.0) + t23572 / F::new(24.0) + t23575 / F::new(24.0);
+    t27706
 }

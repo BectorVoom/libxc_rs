@@ -358,10 +358,10 @@ pub fn mgga_c_revtpss_lxc_pol(
     mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11(rho, sigma, lapl, tau, v4rho3sigma, dens_threshold, zeta_threshold);
     mgga_c_revtpss_lxc_pol_part37_v4rho3lapl_v4rho3tau_0(rho, sigma, lapl, tau, v4rho3lapl, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
     mgga_c_revtpss_lxc_pol_part38_v4rho3tau_1(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
-    mgga_c_revtpss_lxc_pol_part39_v4rho3tau_2(rho, sigma, lapl, tau, v4rho3tau, dens_threshold, zeta_threshold);
-    mgga_c_revtpss_lxc_pol_part40_v4rho3tau_3(rho, sigma, lapl, tau, v4rho3tau, dens_threshold, zeta_threshold);
-    mgga_c_revtpss_lxc_pol_part41_v4rho3tau_4(rho, sigma, lapl, tau, v4rho3tau, dens_threshold, zeta_threshold);
-    mgga_c_revtpss_lxc_pol_part42_v4rho3tau_5(rho, sigma, lapl, tau, v4rho3tau, dens_threshold, zeta_threshold);
+    mgga_c_revtpss_lxc_pol_part39_v4rho3tau_2(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
+    mgga_c_revtpss_lxc_pol_part40_v4rho3tau_3(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
+    mgga_c_revtpss_lxc_pol_part41_v4rho3tau_4(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
+    mgga_c_revtpss_lxc_pol_part42_v4rho3tau_5(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
     mgga_c_revtpss_lxc_pol_part43_v4rho3tau_6(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
     mgga_c_revtpss_lxc_pol_part44_v4rho3tau_7(rho, sigma, lapl, tau, v4rho3tau, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);
     mgga_c_revtpss_lxc_pol_part45_v4rho2sigma2_0(rho, sigma, lapl, tau, v4rho2sigma2, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_d, dens_threshold, zeta_threshold);

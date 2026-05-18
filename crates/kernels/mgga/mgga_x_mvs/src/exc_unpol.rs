@@ -33,13 +33,13 @@ pub fn mgga_x_mvs_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
         let t19 = t7 * t18;
-        let t20 = pow_1_3(rho[ip]);
+        let t20 = pow_1_3::<f64>(rho[ip]);
         let t21 = M_CBRT2;
         let t22 = t21 * t21;
         let t23 = tau[ip] * t22;
@@ -51,7 +51,7 @@ pub fn mgga_x_mvs_exc_unpol(
         let t34 = t23 * t26 - t28 * t31 / 8.0;
         let t35 = M_CBRT6;
         let t37 = M_PI * M_PI;
-        let t38 = pow_1_3(t37);
+        let t38 = pow_1_3::<f64>(t37);
         let t39 = t38 * t38;
         let t40 = 1.0 / t39;
         let t44 = param_k0 * (1.0 - 5.0 / 9.0 * t34 * t35 * t40);
@@ -66,7 +66,7 @@ pub fn mgga_x_mvs_exc_unpol(
         let t59 = 1.0 / t39 / t57;
         let t60 = t35 * t59;
         let t63 = t54 + 1250.0 / 2187.0 * param_c1 * t55 * t60;
-        let t64 = pow_1_4(t63);
+        let t64 = pow_1_4::<f64>(t63);
         let t65 = 1.0 / t64;
         let t67 = t44 * t65 + 1.0;
         let t71 = sigma[ip] * sigma[ip];
@@ -76,7 +76,7 @@ pub fn mgga_x_mvs_exc_unpol(
         let t80 = 1.0 + param_b * t47 * t49 * t71 * t21 * t76 / 288.0;
         let t81 = f64::powf(t80, 1.0 / 8.0);
         let t82 = 1.0 / t81;
-        let t86 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t67 * t82);
+        let t86 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t67 * t82);
         let tzk0 = 2.0 * t86;
         zk[ip] += tzk0;
     }

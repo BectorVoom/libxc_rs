@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 745/1171 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 745/1322 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk745<F: Float>(t3255: F, t4608: F, t1071: F, t1114: F, t4634: F, t4597: F, t1035: F, t3293: F, t1727: F, t934: F, t313: F, t4600: F, t4639: F, t4644: F, t1670: F, t4572: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t14127 = 0.19711289e-2 * t3255 * t4608;
-    let t14128 = t1114 * t1071;
-    let t14137 = t3255 * t4634;
-    let t14168 = 0.13140859333333333333e-2 * t3255 * t4597;
-    let t14170 = t3293 * t1035;
-    let t14171 = t1727 * t934;
-    let t14196 = t4600 * t313;
-    let t14202 = 0.19711289e-2 * t3255 * t4639;
-    let t14204 = 0.26281718666666666666e-2 * t3255 * t4644;
-    let t14215 = t1035 * t1670;
-    let t14232 = 0.13140859333333333334e-2 * t3255 * t4572;
-    (t14127, t14128, t14137, t14168, t14170, t14171, t14196, t14202, t14204, t14215, t14232)
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk745<F: Float>(t60: F, t9060: F, t9184: F, t20: F, t2394: F, t63: F, t697: F, t2404: F, t700: F, t209: F, t2403: F, t2410: F, t8747: F) -> (F, F, F, F, F, F, F, F) {
+    let t70 = F::new(0.0) < t60;
+    let t9185 = t9060 + t9184;
+    let t9194 = t2394 * t20;
+    let t9195 = t63 * t9194;
+    let t9202 = t697 * t697;
+    let t9203 = F::new(1.0) / t9202;
+    let t9204 = t2404 * t700;
+    let t9206 = t209 * t9203 * t9204;
+    let t9209 = t2403 * t700;
+    let t9211 = t209 * t9209 * t2410;
+    let t9215 = piecewise3::<f64>(t70, t8747, -t8747);
+    (t9185, t9194, t9195, t9203, t9204, t9206, t9211, t9215)
 }

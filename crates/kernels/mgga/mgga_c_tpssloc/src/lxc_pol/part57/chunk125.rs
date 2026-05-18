@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 125/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 125/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,14 +12,14 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk125<F: Float>(t25: F, 
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
-    let t390 = t382 * t388 + 1.0;
+    let t390 = t382 * t388 + F::new(1.0);
     let t391 = f64::ln(t390);
     let t394 = t193 * t336 * t391 - t293 + t328 + t330;
     let t395 = t265 < t394;
-    let t396 = piecewise3(t395, t394, t265);
-    let t399 = piecewise3(t115, t265 * t25 / 2.0, t396 * t40 / 2.0);
+    let t396 = piecewise3::<f64>(t395, t394, t265);
+    let t399 = piecewise3::<f64>(t115, t265 * t25 / F::new(2.0), t396 * t40 / F::new(2.0));
     let t401 = rho1 <= dens_threshold || t29;
-    let t404 = 1.0 / t52;
-    let t405 = pow_1_3(t404);
+    let t404 = F::new(1.0) / t52;
+    let t405 = pow_1_3::<f64>(t404);
     (t390, t396, t399, t404, t405)
 }

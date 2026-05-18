@@ -73,23 +73,23 @@ pub fn mgga_c_vsxc_kxc_unpol(
     if ip < zk.len() {
         let t4 = 1.0 <= zeta_threshold;
         let t5 = rho[ip] / 2.0 <= dens_threshold || t4;
-        let t6 = piecewise3(t4, zeta_threshold, 1.0);
+        let t6 = piecewise3::<f64>(t4, zeta_threshold, 1.0);
         let t7 = M_CBRT3;
         let t8 = 1.0 / M_PI;
-        let t9 = pow_1_3(t8);
+        let t9 = pow_1_3::<f64>(t8);
         let t10 = t7 * t9;
         let t11 = M_CBRT4;
         let t12 = t11 * t11;
         let t13 = t10 * t12;
-        let t14 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(rho[ip]);
         let t15 = 1.0 / t14;
         let t16 = M_CBRT2;
-        let t18 = pow_1_3(zeta_threshold);
-        let t20 = piecewise3(t4, 1.0 / t18, 1.0);
+        let t18 = pow_1_3::<f64>(zeta_threshold);
+        let t20 = piecewise3::<f64>(t4, 1.0 / t18, 1.0);
         let t22 = t13 * t15 * t16 * t20;
         let t24 = 1.0 + 0.53425e-1 * t22;
         let t25 = f64::sqrt(t22);
-        let t28 = pow_3_2(t22);
+        let t28 = pow_3_2::<f64>(t22);
         let t30 = t7 * t7;
         let t31 = t9 * t9;
         let t32 = t30 * t31;
@@ -104,8 +104,8 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t46 = f64::ln(t45);
         let t48 = 0.621814e-1 * t24 * t46;
         let t50 = t18 * zeta_threshold;
-        let t52 = piecewise3(2.0 <= zeta_threshold, t50, 2.0 * t16);
-        let t54 = piecewise3(0.0 <= zeta_threshold, t50, 0.0);
+        let t52 = piecewise3::<f64>(2.0 <= zeta_threshold, t50, 2.0 * t16);
+        let t54 = piecewise3::<f64>(0.0 <= zeta_threshold, t50, 0.0);
         let t58 = 1.0 / (2.0 * t16 - 2.0);
         let t59 = (t52 + t54 - 2.0) * t58;
         let t61 = 1.0 + 0.5137e-1 * t22;
@@ -117,7 +117,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t82 = 1.0 + 0.29608749977793437516e2 / t79;
         let t83 = f64::ln(t82);
         let t84 = t74 * t83;
-        let t93 = piecewise3(t5, 0.0, t6 * (-t48 + t59 * (-0.310907e-1 * t61 * t70 + t48 - 0.19751673498613801407e-1 * t84) + 0.19751673498613801407e-1 * t59 * t84) / 2.0);
+        let t93 = piecewise3::<f64>(t5, 0.0, t6 * (-t48 + t59 * (-0.310907e-1 * t61 * t70 + t48 - 0.19751673498613801407e-1 * t84) + 0.19751673498613801407e-1 * t59 * t84) / 2.0);
         let t94 = param_dss_0;
         let t95 = sigma[ip] * t36;
         let t96 = rho[ip] * rho[ip];
@@ -130,7 +130,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t105 = M_CBRT6;
         let t106 = t105 * t105;
         let t107 = M_PI * M_PI;
-        let t108 = pow_1_3(t107);
+        let t108 = pow_1_3::<f64>(t107);
         let t109 = t108 * t108;
         let t110 = t106 * t109;
         let t111 = 3.0 / 5.0 * t110;
@@ -167,12 +167,12 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t160 = t10 * t12 * t15;
         let t162 = 1.0 + 0.53425e-1 * t160;
         let t163 = f64::sqrt(t160);
-        let t166 = pow_3_2(t160);
+        let t166 = pow_3_2::<f64>(t160);
         let t169 = t32 * t11 * t35;
         let t171 = 0.379785e1 * t163 + 0.8969e0 * t160 + 0.204775e0 * t166 + 0.123235e0 * t169;
         let t174 = 1.0 + 0.16081979498692535067e2 / t171;
         let t175 = f64::ln(t174);
-        let t178 = piecewise3(t4, t50, 1.0);
+        let t178 = piecewise3::<f64>(t4, t50, 1.0);
         let t181 = (2.0 * t178 - 2.0) * t58;
         let t183 = 1.0 + 0.278125e-1 * t160;
         let t188 = 0.51785e1 * t163 + 0.905775e0 * t160 + 0.1100325e0 * t166 + 0.1241775e0 * t169;
@@ -244,7 +244,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t306 = t250 * t83;
         let t310 = t59 * t74;
         let t312 = t292 * t298 * t299;
-        let t318 = piecewise3(t5, 0.0, t6 * (t242 + t270 + t59 * (0.53237641966666666666e-3 * t13 * t238 * t271 + 1.0 * t277 * t284 - t242 - t270 + 0.18311447306006545054e-3 * t13 * t238 * t287 + 0.5848223622634646207e0 * t293 * t300) - 0.18311447306006545054e-3 * t305 * t249 * t306 - 0.5848223622634646207e0 * t310 * t312) / 2.0);
+        let t318 = piecewise3::<f64>(t5, 0.0, t6 * (t242 + t270 + t59 * (0.53237641966666666666e-3 * t13 * t238 * t271 + 1.0 * t277 * t284 - t242 - t270 + 0.18311447306006545054e-3 * t13 * t238 * t287 + 0.5848223622634646207e0 * t293 * t300) - 0.18311447306006545054e-3 * t305 * t249 * t306 - 0.5848223622634646207e0 * t310 * t312) / 2.0);
         let t319 = t318 * t149;
         let t320 = t319 * t156;
         let t322 = t94 * t126;
@@ -432,7 +432,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t698 = t674 * t659;
         let t699 = t698 * t677;
         let t702 = -t566 - t571 - t578 + t608 + t616 + t59 * t681 + 0.24415263074675393405e-3 * t305 * t588 * t306 + 0.10843581300301739842e-1 * t686 * t254 * t312 + 0.11696447245269292414e1 * t310 * t691 - 0.5848223622634646207e0 * t310 * t695 - 0.17315859105681463759e2 * t310 * t699;
-        let t705 = piecewise3(t5, 0.0, t6 * t702 / 2.0);
+        let t705 = piecewise3::<f64>(t5, 0.0, t6 * t702 / 2.0);
         let t706 = t705 * t149;
         let t707 = t706 * t156;
         let t709 = t318 * t366;
@@ -717,7 +717,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t1312 = t1211 * t16;
         let t1313 = t1312 * t20;
         let t1314 = t13 * t1313;
-        let t1316 = 1.0/pow_3_2(t22);
+        let t1316 = 1.0/pow_3_2::<f64>(t22);
         let t1317 = t1316 * t8;
         let t1318 = t1317 * t1301;
         let t1320 = t597 * t1305;
@@ -773,7 +773,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t1485 = 0.53424999999999999999e-1 * t387 * t1483;
         let t1486 = -t1354 + 0.51947577317044391277e2 * t675 * t1433 - 6.0 * t627 * t1436 + 0.96491876992155210402e2 * t644 * t1440 - 0.35089341735807877242e1 * t658 * t1443 + t1336 + 0.21687162600603479684e-1 * t808 * t653 - 0.16265371950452609763e-1 * t387 * t1448 - 0.48159733137676571078e0 * t387 * t1451 - 0.16522625736956710527e1 * t387 * t1456 + 0.68493333333333333332e-1 * t808 * t622 - 0.51369999999999999999e-1 * t387 * t1463 + 0.32530743900905219526e-1 * t387 * t1466 - t1473 + 0.10274e0 * t387 * t1476 - t1480 + t1485;
         let t1501 = t1354 + t59 * (t1431 + t1486) - 0.21687162600603479684e-1 * t686 * t592 * t312 + 0.16265371950452609763e-1 * t686 * t254 * t695 + 0.48159733137676571078e0 * t686 * t254 * t699 - t1374 + t1386 + t1394 - 0.56968947174242584612e-3 * t305 * t1308 * t306 + t1473 + t1480 - t1485;
-        let t1505 = piecewise3(t5, 0.0, t6 * (t1350 + t1501) / 2.0);
+        let t1505 = piecewise3::<f64>(t5, 0.0, t6 * (t1350 + t1501) / 2.0);
         let t1506 = t1505 * t149;
         let t1507 = t1506 * t156;
         let t1509 = t705 * t366;
@@ -827,7 +827,7 @@ pub fn mgga_c_vsxc_kxc_unpol(
         let t1633 = t383 * t1211;
         let t1634 = t382 * t1633;
         let t1636 = t10 * t1308;
-        let t1638 = 1.0/pow_3_2(t160);
+        let t1638 = 1.0/pow_3_2::<f64>(t160);
         let t1639 = t1638 * t8;
         let t1640 = t1639 * t1299;
         let t1642 = t811 * t1630;

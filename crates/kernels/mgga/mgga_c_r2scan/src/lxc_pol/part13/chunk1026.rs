@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 1026/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 1026/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk1026<F: Float>(t37841: F, t2833: F, t545: F, t3300: F, t10875: F, t11744: F, t146: F, t2206: F, t2832: F, t3305: F, t10760: F, t22820: F, t25697: F, t37848: F, t37851: F, t37823: F, t37834: F, t37835: F, t37838: F, t37843: F) -> (F,) {
-    let t39738 = 0.13506635798907349461e1 * t37841;
-    let t39739 = t545 * t2833;
-    let t39740 = t39739 * t3300;
-    let t39742 = t11744 * t10875;
-    let t39745 = t146 * t2206 * t2832;
-    let t39746 = t39745 * t3305;
-    let t39749 = t22820 * t10760 * t25697;
-    let t39752 = 0.84755945902752848174e0 * t37848;
-    let t39753 = 0.25426783770825854452e1 * t37851;
-    let t39754 = t37823 + t37834 + 0.58544643236296698112e-1 * t37835 + 0.45022119329691164872e0 * t37838 + t39738 - 0.86682217400542685632e-1 * t39740 - 0.43341108700271342816e-1 * t39742 - 0.2600466522016280569e0 * t39746 + 0.13099107994629972538e-1 * t39749 + 0.27439371595564631661e-2 * t37843 - t39752 - t39753;
-    (t39754,)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk1026<F: Float>(t146: F, t2078: F, t2145: F, t1543: F, t6212: F, t133: F, t5052: F, t10878: F, t545: F, t128: F, t20094: F, t2182: F, t3303: F) -> (F, F, F, F, F, F) {
+    let t20825 = t146 * t2145 * t2078;
+    let t20853 = t6212 * t1543;
+    let t20946 = t5052 * t133;
+    let t22731 = t545 * t10878;
+    let t22766 = t20094 * t128;
+    let t22790 = t2182 * t3303;
+    (t20825, t20853, t20946, t22731, t22766, t22790)
 }

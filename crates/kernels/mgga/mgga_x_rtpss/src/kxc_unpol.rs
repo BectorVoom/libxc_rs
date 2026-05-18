@@ -68,12 +68,12 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t21 = sigma[ip] * sigma[ip];
         let t22 = param_c * t21;
@@ -91,7 +91,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t38 = M_CBRT6;
         let t39 = (10.0 / 81.0 + t22 * t34 / 64.0) * t38;
         let t40 = M_PI * M_PI;
-        let t41 = pow_1_3(t40);
+        let t41 = pow_1_3::<f64>(t40);
         let t42 = t41 * t41;
         let t43 = 1.0 / t42;
         let t44 = t39 * t43;
@@ -142,7 +142,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t122 = 1.0 / t121;
         let t125 = f64::exp(-t115 * t122 * t96);
         let t128 = 1.0 + param_kappa * (1.0 - t125);
-        let t132 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t128);
+        let t132 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t128);
         let tzk0 = 2.0 * t132;
         zk[ip] += tzk0;
         let t133 = 1.0 / t48;
@@ -189,7 +189,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t224 = t115 * t221 * t223;
         let t227 = -t217 * t122 * t96 - 2.0 / 9.0 * t224 * t187;
         let t228 = t227 * t125;
-        let t233 = piecewise3(t3, 0.0, -t7 * t134 * t128 / 8.0 + 3.0 / 8.0 * t138 * t139 * t228);
+        let t233 = piecewise3::<f64>(t3, 0.0, -t7 * t134 * t128 / 8.0 + 3.0 / 8.0 * t138 * t139 * t228);
         let tvrho0 = 2.0 * rho[ip] * t233 + 2.0 * t132;
         vrho[ip] += tvrho0;
         let t236 = param_c * sigma[ip];
@@ -222,7 +222,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t296 = t247 * t51 / 24.0 + t39 * t251 / 24.0 + 292.0 / 2025.0 * t76 * t272 - 73.0 / 97200.0 * t272 * t93 - 73.0 / 194400.0 * t195 * t284 + 25.0 / 236196.0 * t98 * t281 + t289 * t27 / 360.0 + t105 * t292 * t111 / 192.0;
         let t301 = -t296 * t122 * t96 + t224 * t270 / 12.0;
         let t302 = t301 * t125;
-        let t306 = piecewise3(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t302);
+        let t306 = piecewise3::<f64>(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t302);
         let tvsigma0 = 2.0 * rho[ip] * t306;
         vsigma[ip] += tvsigma0;
         let tvlapl0 = 0.0;
@@ -243,7 +243,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t342 = t28 * t309;
         let t347 = t322 * t51 / 24.0 + 292.0 / 2025.0 * t76 * t337 - 73.0 / 97200.0 * t337 * t93 + 73.0 / 600.0 * t195 * t342 - t102 * t310 / 360.0;
         let t349 = t122 * t125;
-        let t353 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t347 * t349);
+        let t353 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t347 * t349);
         let tvtau0 = 2.0 * rho[ip] * t353;
         vtau[ip] += tvtau0;
         let t356 = t18 * t56;
@@ -300,7 +300,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t482 = t481 * t125;
         let t486 = t227 * t227;
         let t487 = t486 * t125;
-        let t492 = piecewise3(t3, 0.0, t7 * t356 * t128 / 12.0 + t138 * t360 * t228 / 4.0 + 3.0 / 8.0 * t138 * t139 * t482 + 3.0 / 8.0 * t138 * t139 * t487);
+        let t492 = piecewise3::<f64>(t3, 0.0, t7 * t356 * t128 / 12.0 + t138 * t360 * t228 / 4.0 + 3.0 / 8.0 * t138 * t139 * t482 + 3.0 / 8.0 * t138 * t139 * t487);
         let tv2rho20 = 2.0 * rho[ip] * t492 + 4.0 * t233;
         v2rho2[ip] += tv2rho20;
         let t502 = t146 * sigma[ip];
@@ -336,7 +336,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t595 = t7 * t20;
         let t596 = param_kappa * t301;
         let t597 = t596 * t228;
-        let t601 = piecewise3(t3, 0.0, t138 * t360 * t302 / 8.0 + 3.0 / 8.0 * t138 * t139 * t591 + 3.0 / 8.0 * t595 * t597);
+        let t601 = piecewise3::<f64>(t3, 0.0, t138 * t360 * t302 / 8.0 + 3.0 / 8.0 * t138 * t139 * t591 + 3.0 / 8.0 * t595 * t597);
         let tv2rhosigma0 = 2.0 * rho[ip] * t601 + 2.0 * t306;
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2rholapl0 = 0.0;
@@ -365,7 +365,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t681 = t125 * t101 * t38 * t680;
         let t684 = t347 * t122;
         let t685 = t684 * t228;
-        let t689 = piecewise3(t3, 0.0, -t138 * t133 * t347 * t349 / 8.0 - 3.0 / 8.0 * t138 * t19 * t667 * t349 - t676 * t681 / 12.0 - 3.0 / 8.0 * t595 * t685);
+        let t689 = piecewise3::<f64>(t3, 0.0, -t138 * t133 * t347 * t349 / 8.0 - 3.0 / 8.0 * t138 * t19 * t667 * t349 - t676 * t681 / 12.0 - 3.0 / 8.0 * t595 * t685);
         let tv2rhotau0 = 2.0 * rho[ip] * t689 + 2.0 * t353;
         v2rhotau[ip] += tv2rhotau0;
         let t692 = param_c * t24;
@@ -392,7 +392,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t755 = t754 * t125;
         let t758 = t301 * t301;
         let t759 = t758 * t125;
-        let t764 = piecewise3(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t755 + 3.0 / 8.0 * t138 * t139 * t759);
+        let t764 = piecewise3::<f64>(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t755 + 3.0 / 8.0 * t138 * t139 * t759);
         let tv2sigma20 = 2.0 * rho[ip] * t764;
         v2sigma2[ip] += tv2sigma20;
         let tv2sigmalapl0 = 0.0;
@@ -415,7 +415,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t825 = t65 * t46;
         let t826 = t221 * t125 * t101 * t825;
         let t829 = t684 * t302;
-        let t833 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t813 * t349 + t7 * t820 * t347 * t826 / 32.0 - 3.0 / 8.0 * t595 * t829);
+        let t833 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t813 * t349 + t7 * t820 * t347 * t826 / 32.0 - 3.0 / 8.0 * t595 * t829);
         let tv2sigmatau0 = 2.0 * rho[ip] * t833;
         v2sigmatau[ip] += tv2sigmatau0;
         let tv2lapl20 = 0.0;
@@ -444,7 +444,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t886 = t885 * t473;
         let t887 = t96 * t125;
         let t888 = t886 * t887;
-        let t892 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t881 * t349 + 3.0 / 8.0 * t595 * t888);
+        let t892 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t881 * t349 + 3.0 / 8.0 * t595 * t888);
         let tv2tau20 = 2.0 * rho[ip] * t892;
         v2tau2[ip] += tv2tau20;
         let t899 = t56 * param_kappa;
@@ -501,7 +501,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1059 = param_kappa * t481;
         let t1060 = t1059 * t228;
         let t1064 = t486 * t227 * t125;
-        let t1069 = piecewise3(t3, 0.0, -5.0 / 36.0 * t7 * t18 * t50 * t128 - t138 * t899 * t228 / 4.0 + 3.0 / 8.0 * t138 * t360 * t482 + 3.0 / 8.0 * t138 * t360 * t487 + 3.0 / 8.0 * t138 * t139 * t1055 + 9.0 / 8.0 * t595 * t1060 + 3.0 / 8.0 * t138 * t139 * t1064);
+        let t1069 = piecewise3::<f64>(t3, 0.0, -5.0 / 36.0 * t7 * t18 * t50 * t128 - t138 * t899 * t228 / 4.0 + 3.0 / 8.0 * t138 * t360 * t482 + 3.0 / 8.0 * t138 * t360 * t487 + 3.0 / 8.0 * t138 * t139 * t1055 + 9.0 / 8.0 * t595 * t1060 + 3.0 / 8.0 * t138 * t139 * t1064);
         let tv3rho30 = 2.0 * rho[ip] * t1069 + 6.0 * t492;
         v3rho3[ip] += tv3rho30;
         let t1079 = t7 * t134;
@@ -552,7 +552,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1237 = t1236 * t228;
         let t1240 = t596 * t482;
         let t1243 = t596 * t487;
-        let t1247 = piecewise3(t3, 0.0, -t138 * t899 * t302 / 12.0 + t138 * t360 * t591 / 4.0 + t1079 * t597 / 4.0 + 3.0 / 8.0 * t138 * t139 * t1232 + 3.0 / 4.0 * t595 * t1237 + 3.0 / 8.0 * t595 * t1240 + 3.0 / 8.0 * t595 * t1243);
+        let t1247 = piecewise3::<f64>(t3, 0.0, -t138 * t899 * t302 / 12.0 + t138 * t360 * t591 / 4.0 + t1079 * t597 / 4.0 + 3.0 / 8.0 * t138 * t139 * t1232 + 3.0 / 4.0 * t595 * t1237 + 3.0 / 8.0 * t595 * t1240 + 3.0 / 8.0 * t595 * t1243);
         let tv3rho2sigma0 = 2.0 * rho[ip] * t1247 + 4.0 * t601;
         v3rho2sigma[ip] += tv3rho2sigma0;
         let tv3rho2lapl0 = 0.0;
@@ -595,7 +595,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1393 = t684 * t482;
         let t1396 = t684 * t487;
         let t1399 = t138 * t56 * t347 * t349 / 12.0 - t138 * t133 * t667 * t349 / 4.0 + t1261 * t681 / 4.0 - t1079 * t685 / 4.0 - 3.0 / 8.0 * t138 * t19 * t1364 * t349 - t1371 * t681 / 6.0 - 3.0 / 4.0 * t595 * t1375 - t1380 * t1385 / 18.0 - t676 * t1390 / 6.0 - 3.0 / 8.0 * t595 * t1393 - 3.0 / 8.0 * t595 * t1396;
-        let t1400 = piecewise3(t3, 0.0, t1399);
+        let t1400 = piecewise3::<f64>(t3, 0.0, t1399);
         let tv3rho2tau0 = 2.0 * rho[ip] * t1400 + 4.0 * t689;
         v3rho2tau[ip] += tv3rho2tau0;
         let t1406 = param_c * t141;
@@ -641,7 +641,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1543 = t596 * t591;
         let t1546 = param_kappa * t758;
         let t1547 = t1546 * t228;
-        let t1551 = piecewise3(t3, 0.0, t138 * t360 * t755 / 8.0 + 3.0 / 8.0 * t138 * t139 * t1532 + 3.0 / 8.0 * t595 * t1537 + t138 * t360 * t759 / 8.0 + 3.0 / 4.0 * t595 * t1543 + 3.0 / 8.0 * t595 * t1547);
+        let t1551 = piecewise3::<f64>(t3, 0.0, t138 * t360 * t755 / 8.0 + 3.0 / 8.0 * t138 * t139 * t1532 + 3.0 / 8.0 * t595 * t1537 + t138 * t360 * t759 / 8.0 + 3.0 / 4.0 * t595 * t1543 + 3.0 / 8.0 * t595 * t1547);
         let tv3rhosigma20 = 2.0 * rho[ip] * t1551 + 2.0 * t764;
         v3rhosigma2[ip] += tv3rhosigma20;
         let tv3rhosigmalapl0 = 0.0;
@@ -687,7 +687,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1710 = t301 * t227 * t125;
         let t1711 = t684 * t1710;
         let t1714 = -t138 * t133 * t813 * t349 / 8.0 - 3.0 / 8.0 * t138 * t19 * t1661 * t349 - t1668 * t681 / 12.0 - 3.0 / 8.0 * t595 * t1672 - 7.0 / 96.0 * t7 * t1675 * t347 * t826 + t7 * t820 * t667 * t826 / 32.0 + t1686 * t1688 / 48.0 + t1693 * t1694 / 32.0 - t1079 * t829 / 8.0 - 3.0 / 8.0 * t595 * t1699 - t676 * t1703 / 12.0 - 3.0 / 8.0 * t595 * t1706 - 3.0 / 8.0 * t595 * t1711;
-        let t1715 = piecewise3(t3, 0.0, t1714);
+        let t1715 = piecewise3::<f64>(t3, 0.0, t1714);
         let tv3rhosigmatau0 = 2.0 * rho[ip] * t1715 + 2.0 * t833;
         v3rhosigmatau[ip] += tv3rhosigmatau0;
         let tv3rholapl20 = 0.0;
@@ -731,7 +731,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1833 = t1832 * t1389;
         let t1837 = t96 * t227 * t125;
         let t1838 = t886 * t1837;
-        let t1842 = piecewise3(t3, 0.0, -t138 * t133 * t881 * t349 / 8.0 - 3.0 / 8.0 * t138 * t19 * t1808 * t349 - t1815 * t681 / 12.0 - 3.0 / 8.0 * t595 * t1819 + t1079 * t888 / 8.0 + 3.0 / 4.0 * t595 * t1826 + t1831 * t1833 / 6.0 + 3.0 / 8.0 * t595 * t1838);
+        let t1842 = piecewise3::<f64>(t3, 0.0, -t138 * t133 * t881 * t349 / 8.0 - 3.0 / 8.0 * t138 * t19 * t1808 * t349 - t1815 * t681 / 12.0 - 3.0 / 8.0 * t595 * t1819 + t1079 * t888 / 8.0 + 3.0 / 4.0 * t595 * t1826 + t1831 * t1833 / 6.0 + 3.0 / 8.0 * t595 * t1838);
         let tv3rhotau20 = 2.0 * rho[ip] * t1842 + 2.0 * t892;
         v3rhotau2[ip] += tv3rhotau20;
         let t1845 = param_c * t240;
@@ -758,7 +758,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t1911 = t1536 * t302;
         let t1914 = t758 * t301;
         let t1915 = t1914 * t125;
-        let t1920 = piecewise3(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t1907 + 9.0 / 8.0 * t595 * t1911 + 3.0 / 8.0 * t138 * t139 * t1915);
+        let t1920 = piecewise3::<f64>(t3, 0.0, 3.0 / 8.0 * t138 * t139 * t1907 + 9.0 / 8.0 * t595 * t1911 + 3.0 / 8.0 * t138 * t139 * t1915);
         let tv3sigma30 = 2.0 * rho[ip] * t1920;
         v3sigma3[ip] += tv3sigma30;
         let tv3sigma2lapl0 = 0.0;
@@ -788,7 +788,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t2013 = t1702 * t825;
         let t2016 = t684 * t755;
         let t2019 = t684 * t759;
-        let t2023 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t1992 * t349 + t7 * t820 * t813 * t826 / 16.0 - 3.0 / 4.0 * t595 * t2001 - t7 * t2004 * t347 * t2010 / 128.0 + t1693 * t2013 / 16.0 - 3.0 / 8.0 * t595 * t2016 - 3.0 / 8.0 * t595 * t2019);
+        let t2023 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t1992 * t349 + t7 * t820 * t813 * t826 / 16.0 - 3.0 / 4.0 * t595 * t2001 - t7 * t2004 * t347 * t2010 / 128.0 + t1693 * t2013 / 16.0 - 3.0 / 8.0 * t595 * t2016 - 3.0 / 8.0 * t595 * t2019);
         let tv3sigma2tau0 = 2.0 * rho[ip] * t2023;
         v3sigma2tau[ip] += tv3sigma2tau0;
         let tv3sigmalapl20 = 0.0;
@@ -817,7 +817,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t2112 = t1832 * t825;
         let t2116 = t96 * t301 * t125;
         let t2117 = t886 * t2116;
-        let t2121 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t2093 * t349 + t7 * t820 * t881 * t826 / 32.0 - 3.0 / 8.0 * t595 * t2102 + 3.0 / 4.0 * t595 * t2106 - t2111 * t2112 / 16.0 + 3.0 / 8.0 * t595 * t2117);
+        let t2121 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t2093 * t349 + t7 * t820 * t881 * t826 / 32.0 - 3.0 / 8.0 * t595 * t2102 + 3.0 / 4.0 * t595 * t2106 - t2111 * t2112 / 16.0 + 3.0 / 8.0 * t595 * t2117);
         let tv3sigmatau20 = 2.0 * rho[ip] * t2121;
         v3sigmatau2[ip] += tv3sigmatau20;
         let tv3lapl30 = 0.0;
@@ -854,7 +854,7 @@ pub fn mgga_x_rtpss_kxc_unpol(
         let t2197 = 1.0 / t2196;
         let t2198 = t2197 * t125;
         let t2199 = t2195 * t2198;
-        let t2203 = piecewise3(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t2181 * t349 + 9.0 / 8.0 * t595 * t2189 - 3.0 / 8.0 * t595 * t2199);
+        let t2203 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t138 * t19 * t2181 * t349 + 9.0 / 8.0 * t595 * t2189 - 3.0 / 8.0 * t595 * t2199);
         let tv3tau30 = 2.0 * rho[ip] * t2203;
         v3tau3[ip] += tv3tau30;
     }

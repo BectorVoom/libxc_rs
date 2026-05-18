@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1006/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1006/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1006<F: Float>(t22833: F, t3809: F, t2002: F, t3773: F, t559: F, t1878: F, t557: F, t3766: F, t556: F, t598: F, t213: F, t1998: F, t236: F, t3734: F, t3872: F, t6952: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t22834 = t22833 * t3809;
-    let t22836 = t3773 * t2002;
-    let t22837 = t22836 * t559;
-    let t22839 = t1878 * t557;
-    let t22840 = t22839 * t3766;
-    let t22842 = t556 * t556;
-    let t22843 = 1.0 / t22842;
-    let t22844 = t598 * t22843;
-    let t22845 = t22844 * t213;
-    let t22847 = t1998 * t236 * t3734;
-    let t22848 = t22845 * t22847;
-    let t22850 = t6952 * t3872;
-    (t22834, t22836, t22837, t22839, t22840, t22842, t22843, t22844, t22847, t22848, t22850)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1006<F: Float>(t1174: F, t11761: F, t11766: F, t11770: F, t11774: F, t11781: F, t11787: F, t11792: F, t11794: F, t11798: F, t11802: F, t11805: F, t11809: F, t11814: F, t1218: F, t1227: F, t3515: F) -> F {
+    let t11817 = t1174 * t11761 / F::new(36.0) - F::new(7.0) / F::new(648.0) * t1174 * t11766 - t3515 * t11770 / F::new(1024.0) + F::new(5.0) / F::new(4608.0) * t1227 * t11774 - F::new(5.0) / F::new(5184.0) * t1227 * t11781 + F::new(5.0) / F::new(6912.0) * t11787 + t11792 / F::new(6912.0) + t11794 / F::new(768.0) - t11798 / F::new(2304.0) - t11802 / F::new(1152.0) - t1227 * t11805 / F::new(4608.0) - t1227 * t11809 / F::new(768.0) + t11814 * t1218 / F::new(1024.0);
+    t11817
 }

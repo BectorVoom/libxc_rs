@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1207/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1207/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1207<F: Float>(t12910: F, t17283: F, t17375: F, t17448: F, t17605: F, t1791: F, t21001: F, t21004: F, t21008: F, t21014: F, t21017: F, t21022: F, t3625: F, t5320: F, t5323: F, t5335: F, t5343: F, t5402: F, t5407: F) -> (F,) {
-    let t21027 = 0.22866142996303859718e-2 * t17283 * t1791 + 0.22866142996303859718e-2 * t5323 * t5320 - 0.28582678745379824648e-3 * t17448 * t5407 + t17375 + 0.10162730220579493208e-2 * t21001 + 0.85748036236139473944e-3 * t12910 * t21004 + 0.23818898954483187207e-3 * t3625 * t21008 + 0.15244095330869239812e-2 * t17605 * t5407 - 0.45732285992607719436e-2 * t21014 * t5343 + 0.22866142996303859718e-2 * t21017 * t5335 - 0.28582678745379824648e-3 * t3625 * t21022 - 0.28582678745379824648e-3 * t17448 * t5402;
-    (t21027,)
+pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1207<F: Float>(t19021: F, t973: F, t11461: F, t11554: F, t15343: F, t1634: F, t19029: F, t19031: F, t19058: F, t19060: F, t19062: F, t19156: F, t2982: F, t4685: F, t4708: F, t6190: F, t6206: F, t6209: F, t965: F, t974: F) -> F {
+    let t19167 = t19021 * t973;
+    let t19172 = t19029 - t19031 + F::new(0.5848223622634646207e0) * t19156 * t974 + F::new(0.11696447245269292414e1) * t15343 * t1634 + F::new(0.11696447245269292414e1) * t4685 * t4708 - F::new(0.11696447245269292414e1) * t11554 * t6190 + F::new(0.5848223622634646207e0) * t2982 * t6206 + F::new(0.5848223622634646207e0) * t965 * t19167 + F::new(0.17315859105681463759e2) * t11461 * t6209 - t19058 - t19060 - t19062;
+    t19172
 }

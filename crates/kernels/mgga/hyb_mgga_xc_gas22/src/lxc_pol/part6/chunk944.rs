@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 944/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 944/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,13 +9,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk944<F: Float>(t132: F, t9011: F, t1238: F, t6975: F, t2460: F, t3: F, t1793: F, t675: F, t2002: F, t2028: F, t3463: F, t3466: F, t461: F, t937: F, t222: F, t37: F, zeta_threshold: F) -> (F, F, F, F, F) {
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk944<F: Float>(t7: F, t132: F, t8473: F, t8530: F, t8553: F, t8583: F, t1793: F, t5891: F, t1370: F, t6666: F, t2291: F, t6669: F, t2311: F, t3418: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F) {
+    let t8 = t7 <= zeta_threshold;
     let t133 = t132 <= zeta_threshold;
-    let t9012 = 0.18541666666666666667e-1 * t9011;
-    let t9013 = t6975 * t1238;
-    let t9016 = t2460 * t3;
-    let t9017 = t1793 * t675;
-    let t9027 = piecewise3(t133, 0.0, -28.0 / 27.0 * t9013 * t2028 - 16.0 / 9.0 * t9016 * t9017 + 4.0 / 9.0 * t3463 * t2002 + 2.0 / 3.0 * t937 * t1793 - 2.0 * t3466 * t461);
-    let t9029 = t222 * t37 * t9027;
-    (t9012, t9013, t9017, t9027, t9029)
+    let t134 = rho1 <= dens_threshold || t133;
+    let t8586 = piecewise3::<f64>(t134, F::new(0.0), t8473 + t8530 + t8553 + t8583);
+    let t8587 = F::new(2.0) * t1793;
+    let t8588 = F::new(6.0) * t5891;
+    let t8589 = t8587 - t8588;
+    let t8590 = piecewise3::<f64>(t8, F::new(0.0), t8589);
+    let t8599 = t6666 * t1370;
+    let t8600 = t6669 * t2291;
+    let t8601 = t8599 * t8600;
+    let t8604 = t2311 * t3418;
+    (t8586, t8587, t8588, t8589, t8590, t8600, t8601, t8604)
 }

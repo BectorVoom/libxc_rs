@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 944/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 944/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk944<F: Float>(t1540: F, t1550: F, t2211: F, t2448: F, t3928: F, t39609: F, t43042: F, t43043: F, t45648: F, t45656: F, t45660: F, t45664: F, t45667: F, t45670: F, t45672: F, t45674: F, t45676: F, t45678: F, t45686: F, t45688: F, t47124: F, t6403: F, t699: F) -> (F,) {
-    let t48587 = -0.5107751987195740728e-4 * t45648 - t43042 - 0.4726e1 * t43043 - 0.10215503974391481456e-3 * t45656 + 0.15323255961587222184e-3 * t45660 + 0.10215503974391481456e-3 * t45664 - 0.5107751987195740728e-4 * t45667 + 0.1702583995731913576e-4 * t45670 - 0.5107751987195740728e-4 * t45672 + 0.5107751987195740728e-4 * t45674 + 0.1702583995731913576e-4 * t45676 - 0.1702583995731913576e-4 * t45678 + 0.5107751987195740728e-4 * t45686 - 0.39914139006212695214e-1 * t1540 * t2448 + 0.35922725105591425692e0 * t3928 * t699 * t6403 + 0.23948483403727617128e0 * t1550 * t2211 * t47124 - 0.49658699875514145967e-4 * t45688 - 0.2881692658299671676e-2 * t39609;
-    (t48587,)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk944<F: Float>(t2010: F, t45707: F, t7756: F, t7349: F, t7760: F, t9719: F, t1587: F, t2347: F, t262: F, t8640: F, t34724: F, t9709: F) -> (F, F, F, F, F, F) {
+    let t45709 = t2010 * t45707 * t7756;
+    let t45716 = t7349 * t9719 * t7760;
+    let t45720 = t2347 * t1587;
+    let t45721 = t262 * t45720;
+    let t45722 = t8640 * t45721;
+    let t45724 = t34724 * t9709;
+    (t45709, t45716, t45720, t45721, t45722, t45724)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 857/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 857/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk857<F: Float>(t17349: F, t4292: F, t2061: F, t4287: F, t4286: F, t4266: F, t6016: F, t16665: F, t6028: F, t6027: F, t12505: F, t2039: F, t2062: F, t4278: F, t12568: F, t5919: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t17350 = t4292 * t17349;
-    let t17352 = t2061 * t4287;
-    let t17353 = t4286 * t17352;
-    let t17355 = t6016 * t4266;
-    let t17357 = t6028 * t16665;
-    let t17358 = t6027 * t17357;
-    let t17360 = t12505 * t2039;
-    let t17362 = t4278 * t2062;
-    let t17364 = t12568 * t5919;
-    (t17350, t17352, t17353, t17355, t17357, t17358, t17360, t17362, t17364)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk857<F: Float>(t1330: F, t16082: F, t26: F, t1324: F, t16194: F, t494: F, t531: F, t250: F, t3106: F, t11608: F, t11609: F, t16195: F, t16198: F, t16201: F, t16204: F, t16207: F, t16210: F) -> (F, F, F, F) {
+    let t16212 = t1330 * t16082;
+    let t16213 = t26 * t16212;
+    let t16215 = t1324 * t16194;
+    let t16217 = t494 * t531;
+    let t16219 = t250 * t3106 * t16217;
+    let t16221 = F::new(0.1898925e1) * t16195 + F::new(0.16431333333333333333e0) * t16198 - F::new(0.49293999999999999999e0) * t16201 - F::new(0.27385555555555555556e-1) * t16204 - F::new(0.36514074074074074075e-1) * t16207 + F::new(0.10954222222222222222e0) * t16210 + F::new(0.16431333333333333333e0) * t16213 + F::new(0.3071625e0) * t16215 - t11608 - t11609 + F::new(0.16431333333333333333e0) * t16219;
+    (t16213, t16215, t16219, t16221)
 }

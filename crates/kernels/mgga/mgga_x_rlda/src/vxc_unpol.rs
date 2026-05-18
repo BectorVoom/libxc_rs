@@ -33,14 +33,14 @@ pub fn mgga_x_rlda_vxc_unpol(
         let t5 = t4 * t4;
         let t6 = 1.0 <= zeta_threshold;
         let t7 = zeta_threshold - 1.0;
-        let t9 = piecewise5(t6, t7, t6, -t7, 0.0);
+        let t9 = piecewise5::<f64>(t6, t7, t6, -t7, 0.0);
         let t10 = 1.0 + t9;
-        let t12 = pow_1_3(zeta_threshold);
-        let t14 = pow_1_3(t10);
-        let t16 = piecewise3(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
+        let t12 = pow_1_3::<f64>(zeta_threshold);
+        let t14 = pow_1_3::<f64>(t10);
+        let t16 = piecewise3::<f64>(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
         let t17 = t5 * t16;
-        let t18 = pow_1_3(rho[ip]);
-        let t21 = pow_1_3(1.0 / M_PI);
+        let t18 = pow_1_3::<f64>(rho[ip]);
+        let t21 = pow_1_3::<f64>(1.0 / M_PI);
         let t22 = 1.0 / t21;
         let t23 = param_prefactor * t22;
         let t24 = M_CBRT4;
@@ -52,7 +52,7 @@ pub fn mgga_x_rlda_vxc_unpol(
         let t33 = lapl[ip] * t26;
         let t36 = 2.0 * t27 * t30 - t33 * t30 / 4.0;
         let t39 = t23 * t24 / t36;
-        let t42 = piecewise3(t3, 0.0, -15.0 / 16.0 * t17 * t18 * t39);
+        let t42 = piecewise3::<f64>(t3, 0.0, -15.0 / 16.0 * t17 * t18 * t39);
         let tzk0 = 2.0 * t42;
         zk[ip] += tzk0;
         let t43 = 1.0 / t28;
@@ -64,7 +64,7 @@ pub fn mgga_x_rlda_vxc_unpol(
         let t54 = 1.0 / t28 / t52;
         let t59 = -10.0 / 3.0 * t27 * t54 + 5.0 / 12.0 * t33 * t54;
         let t61 = t49 * t51 * t59;
-        let t65 = piecewise3(t3, 0.0, -5.0 / 16.0 * t17 * t43 * t39 + 15.0 / 16.0 * t48 * t61);
+        let t65 = piecewise3::<f64>(t3, 0.0, -5.0 / 16.0 * t17 * t43 * t39 + 15.0 / 16.0 * t48 * t61);
         let tvrho0 = 2.0 * rho[ip] * t65 + 2.0 * t42;
         vrho[ip] += tvrho0;
         let tvsigma0 = 0.0;
@@ -73,10 +73,10 @@ pub fn mgga_x_rlda_vxc_unpol(
         let t71 = t17 * t70;
         let t73 = t49 * t51 * t26;
         let t74 = t71 * t73;
-        let t76 = piecewise3(t3, 0.0, -15.0 / 64.0 * t74);
+        let t76 = piecewise3::<f64>(t3, 0.0, -15.0 / 64.0 * t74);
         let tvlapl0 = 2.0 * rho[ip] * t76;
         vlapl[ip] += tvlapl0;
-        let t79 = piecewise3(t3, 0.0, 15.0 / 8.0 * t74);
+        let t79 = piecewise3::<f64>(t3, 0.0, 15.0 / 8.0 * t74);
         let tvtau0 = 2.0 * rho[ip] * t79;
         vtau[ip] += tvtau0;
     }

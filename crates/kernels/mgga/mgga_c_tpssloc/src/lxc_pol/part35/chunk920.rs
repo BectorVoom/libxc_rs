@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 920/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 920/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk920<F: Float>(t21013: F, t235: F, t20986: F, t4282: F, t4295: F, t5612: F, t1499: F, t1523: F, t1525: F, t16673: F, t20806: F, t20854: F, t20858: F, t20862: F, t20867: F, t20871: F, t20873: F, t20876: F, t20937: F, t226: F, t255: F, t4166: F, t4281: F, t4291: F, t5575: F, t5645: F, t5648: F, t5651: F, t5653: F, t5655: F, t812: F) -> (F, F) {
-    let t21014 = t235 * t21013;
-    let t21025 = t4282 * t20986;
-    let t21028 = t4295 * t5612;
-    let t21033 = 3.0 * t1499 * t5655 - 3.0 * t1523 * t16673 + 3.0 * t1525 * t5575 - 3.0 * t20806 * t812 - t20854 * t812 - 6.0 * t20858 * t812 + 6.0 * t20862 * t812 + 6.0 * t20867 * t812 - t20871 * t812 - 3.0 * t20873 * t4291 - 3.0 * t20876 * t812 + t20937 * t255 + t21014 * t226 + 6.0 * t21025 * t4281 - 3.0 * t21028 * t812 + 6.0 * t4166 * t5645 - 6.0 * t4166 * t5648 - 3.0 * t4166 * t5651 - 3.0 * t4166 * t5653;
-    (t21025, t21033)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk920<F: Float>(t135: F, t6183: F, t1174: F, t6177: F, t248: F, t3570: F, t6225: F, t3506: F, t11697: F, t6191: F, t3577: F, t6219: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t18329 = t135 * t6183;
+    let t18330 = t1174 * t18329;
+    let t18332 = t135 * t6177;
+    let t18333 = t1174 * t18332;
+    let t18356 = t248 * t3570 * t6225;
+    let t18357 = t3506 * t18356;
+    let t18371 = t11697 * t6191;
+    let t18372 = t3577 * t18371;
+    let t18375 = t248 * t3570 * t6219;
+    (t18329, t18330, t18332, t18333, t18356, t18357, t18371, t18372, t18375)
 }

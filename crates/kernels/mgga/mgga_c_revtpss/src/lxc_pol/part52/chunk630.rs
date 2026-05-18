@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 630/1144 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 630/1292 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk630<F: Float>(t546: F, t550: F, t7028: F, t807: F, t2018: F, t786: F, t1381: F, t1385: F, t64: F) -> (F, F, F, F, F, F, F) {
-    let t7256 = t546 * t7028 * t550;
-    let t7257 = t807 * t7256;
-    let t7258 = 0.14291339372689912324e-4 * t7257;
-    let t7259 = t786 * t2018;
-    let t7260 = t7259 * t1381;
-    let t7261 = 0.25410001404642664113e-4 * t7260;
-    let t7262 = t1385 * t64;
-    (t7256, t7257, t7258, t7259, t7260, t7261, t7262)
+pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk630<F: Float>(t125: F, t1882: F, t1398: F, t4003: F, t5673: F, t1388: F, t1410: F, t3931: F, t3956: F, t4022: F, t4064: F, t5606: F, t5611: F, t5614: F, t5619: F, t5623: F, t5625: F, t5629: F, t5661: F, t5666: F, t5671: F) -> (F, F, F, F, F) {
+    let t5674 = t125 * t1882;
+    let t5675 = t4003 * t1398;
+    let t5676 = t5674 * t5675;
+    let t5677 = t5673 * t5676;
+    let t5680 = t3956 + F::new(0.40015750243531754507e-2) * t5606 + F::new(0.71456696863449561619e-5) * t5611 - F::new(0.85748036236139473944e-3) * t1410 * t5614 - t4064 + F::new(0.28582678745379824648e-4) * t5619 - F::new(0.50820002809285328225e-4) * t5623 + F::new(0.10003937560882938627e-2) * t5625 + F::new(0.42874018118069736972e-2) * t1410 * t5629 - F::new(0.21437009059034868486e-3) * t1388 * t5661 - F::new(0.12705000702321332056e-4) * t5666 + F::new(0.10003937560882938627e-2) * t3931 - F::new(0.12705000702321332056e-4) * t4022 + F::new(0.42874018118069736972e-3) * t5671 * t5677;
+    (t5674, t5675, t5676, t5677, t5680)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 480/939 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 480/1059 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk480<F: Float>(t381: F, t4649: F, t1060: F, t1022: F, t1932: F, t360: F, t1629: F, t1625: F, t383: F, t4657: F, t1003: F, t1058: F, t1061: F, t1063: F, t1610: F, t1630: F, t1632: F, t3180: F, t3186: F, t3200: F, t353: F, t384: F, t4615: F, t4669: F, t4674: F, t4678: F) -> (F,) {
-    let t4680 = t381 * t4649;
-    let t4681 = t4680 * t1060;
-    let t4684 = t1932 * t1022 * t360;
-    let t4685 = t1629 * t4684;
-    let t4688 = t1625 * t1022;
-    let t4689 = t4688 * t1060;
-    let t4691 = t383 * t4657;
-    let t4693 = t1003 * t1632 + t1058 * t4678 + t1058 * t4681 + t1058 * t4689 + t1061 * t4669 + t1063 * t1610 + t1630 * t3180 + 2.0 * t3186 * t4674 - t3200 * t4685 + t353 * t4691 + t384 * t4615;
-    (t4693,)
+pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk480<F: Float>(t40: F, t182: F, t4095: F, t145: F, t4094: F, t185: F, t1472: F, t751: F, t1409: F, t707: F, t75: F, t3966: F, t607: F, t767: F, zeta_threshold: F) -> (F, F, F, F, F) {
+    let t146 = t40 <= zeta_threshold;
+    let t4097 = F::new(0.19751673498613801407e-1) * t4095 * t182;
+    let t4098 = t145 * t4094;
+    let t4099 = t4098 * t185;
+    let t4100 = t1472 * t751;
+    let t4101 = t751 * t1409;
+    let t4102 = t707 * t4101;
+    let t4103 = F::new(4.0) * t4102;
+    let t4104 = t75 * t1409;
+    let t4110 = piecewise3::<f64>(t146, F::new(0.0), -F::new(2.0) / F::new(9.0) * t4104 * t607 + F::new(2.0) / F::new(3.0) * t767 * t3966);
+    (t4097, t4099, t4100, t4103, t4110)
 }

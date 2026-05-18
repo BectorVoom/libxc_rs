@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 1055/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 1055/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1055<F: Float>(t33: F, t265: F, t502: F, t25743: F, t2003: F, t2258: F, t25791: F, t57: F, t606: F, t7215: F, t25751: F, t4135: F, t4147: F, t2034: F, t2014: F, t116: F, t6982: F, t10416: F, t1936: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F, F, F) {
-    let t34 = t33 <= zeta_threshold;
-    let t400 = rho1 <= dens_threshold || t34;
-    let t503 = t265 < t502;
-    let t25792 = piecewise3(t503, 0.0, t25743);
-    let t25799 = piecewise3(t400, t25791, t25792 * t57 / 2.0 - t7215 * t606 - t2003 * t2258 / 2.0);
-    let t25800 = t25751 + t25799;
-    let t25802 = t4147 * t4135;
-    let t25803 = t2034 * t25802;
-    let t25804 = t2014 * t25803;
-    let t25805 = t6982 * t116;
-    let t25812 = 2.0 * t10416 * t1936;
-    (t25792, t25800, t25802, t25803, t25804, t25805, t25812)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1055<F: Float>(t1196: F, t12581: F, t1298: F, t3798: F, t3800: F, t498: F, t12487: F, t12552: F, t12555: F, t1188: F, t3520: F, t1294: F, t3568: F) -> (F, F, F, F, F, F) {
+    let t12583 = F::new(0.10389515463408878255e3) * t1196 * t12581;
+    let t12584 = t3798 * t1298;
+    let t12587 = F::new(1.0) / t3800 / t498;
+    let t12592 = t12552 * t12487 * t12555;
+    let t12594 = F::new(0.10254018858216406658e4) * t1196 * t12592;
+    let t12596 = t3520 * t12487 * t1188;
+    let t12598 = F::new(0.35089341735807877242e1) * t1196 * t12596;
+    let t12599 = t3568 * t1294;
+    (t12583, t12584, t12587, t12594, t12598, t12599)
 }

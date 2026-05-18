@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 287/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 287/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk287<F: Float>(t1163: F, t1375: F, t79: F, t963: F, t435: F, t437: F, t313: F) -> (F, F, F, F) {
-    let t1376 = t1375 * t1163;
-    let t1379 = t963 * t79;
-    let t1382 = 0.7925e-3 * t435 * t1379 * t437;
-    let t1383 = t79 * t313;
-    (t1376, t1379, t1382, t1383)
+pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk287<F: Float>(t1163: F, t1341: F, t1340: F, t1339: F, t167: F, t300: F) -> (F, F, F, F) {
+    let t1342 = t1341 * t1163;
+    let t1343 = t1340 * t1342;
+    let t1344 = t1339 * t1343;
+    let t1346 = t167 * t300;
+    (t1342, t1343, t1344, t1346)
 }

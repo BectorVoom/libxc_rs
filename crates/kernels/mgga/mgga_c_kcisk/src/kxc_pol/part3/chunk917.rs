@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 917/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 917/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk917<F: Float>(t12485: F, t873: F, t12476: F, t80: F, t15292: F, t15294: F, t15296: F, t15298: F, t15302: F, t15304: F, t891: F, t898: F, t2977: F, t85: F, t73: F, t2950: F, t879: F) -> (F, F, F, F, F) {
-    let t15306 = t873 * t12485;
-    let t15308 = t80 * t12476;
-    let t15310 = -0.69046666666666666667e1 * t15292 + 0.23015555555555555556e1 * t15294 - 0.26851481481481481482e1 * t15296 - 0.93932222222222222223e0 * t15298 + 0.14671e0 * t15302 - 0.14671e0 * t15304 - 0.17116166666666666667e0 * t15306 - 0.36793333333333333333e0 * t15308;
-    let t15312 = t891 * t15310 * t898;
-    let t15316 = 1.0 / t2977 / t85;
-    let t15317 = t73 * t15316;
-    let t15318 = t2950 * t879;
-    (t15306, t15308, t15312, t15317, t15318)
+pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk917<F: Float>(t13523: F, t13526: F, t13530: F, t13533: F, t13536: F, t13540: F, t13543: F, t13546: F, t13549: F, t13552: F, t13555: F, t1265: F, t4125: F) -> (F, F) {
+    let t13557 = -t13523 - F::new(0.23744444444444444444e-1) * t13526 + F::new(0.11872222222222222222e-1) * t13530 - F::new(0.35616666666666666666e-1) * t13533 + F::new(0.17808333333333333333e-1) * t13536 - F::new(0.19787037037037037037e-1) * t13540 + F::new(0.71233333333333333332e-1) * t13543 - F::new(0.35616666666666666666e-1) * t13546 - F::new(0.10685e0) * t13549 + F::new(0.10685e0) * t13552 - F::new(0.17808333333333333333e-1) * t13555;
+    let t13561 = F::new(1.0) / t4125 / t1265;
+    (t13557, t13561)
 }

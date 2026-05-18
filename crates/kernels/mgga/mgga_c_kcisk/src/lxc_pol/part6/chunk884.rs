@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 884/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 884/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk884<F: Float>(t1254: F, t30318: F, t2129: F, t7959: F, t2128: F, t26344: F, t2141: F, t4129: F, t26302: F, t13523: F, t20292: F, t26138: F, t26150: F, t26159: F, t30288: F, t30292: F, t30296: F, t30300: F, t30303: F, t30306: F) -> (F, F, F, F, F) {
-    let t30442 = t30318 * t1254;
-    let t30445 = t2129 * t7959;
-    let t30448 = t26344 * t2128;
-    let t30451 = t4129 * t2141;
-    let t30452 = t26302 * t30451;
-    let t30465 = -t13523 - 0.23744444444444444444e-1 * t20292 + 0.11872222222222222222e-1 * t26138 - 0.35616666666666666666e-1 * t26150 + 0.17808333333333333333e-1 * t26159 - 0.19787037037037037037e-1 * t30288 + 0.71233333333333333332e-1 * t30292 - 0.35616666666666666666e-1 * t30296 - 0.10685e0 * t30300 + 0.10685e0 * t30303 - 0.17808333333333333333e-1 * t30306;
-    (t30442, t30445, t30448, t30452, t30465)
+pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk884<F: Float>(t1801: F, t28389: F, t1800: F, t1799: F, t28369: F, t10461: F, t22254: F, t2473: F, t6719: F, t8954: F, t6974: F, t8677: F) -> (F, F, F, F, F) {
+    let t28756 = t1801 * t28389;
+    let t28757 = t1800 * t28756;
+    let t28758 = t1799 * t28757;
+    let t28760 = t1801 * t28369;
+    let t28761 = t1800 * t28760;
+    let t28762 = t10461 * t28761;
+    let t28764 = t22254 * t2473;
+    let t28765 = t1799 * t28764;
+    let t28767 = t6719 * t8954;
+    let t28768 = t1799 * t28767;
+    let t28775 = t6974 * t8677;
+    (t28758, t28762, t28765, t28768, t28775)
 }

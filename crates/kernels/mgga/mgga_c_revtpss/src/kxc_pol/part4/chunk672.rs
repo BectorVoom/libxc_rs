@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 672/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 672/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk672<F: Float>(t1169: F, t3471: F, t1159: F, t426: F, t434: F, t3453: F, t3356: F, t3358: F, t3365: F, t3370: F, t3374: F, t448: F, t1175: F, t1179: F, t1178: F, t444: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t3472 = t3471 * t1169;
-    let t3475 = t1159 * t1159;
-    let t3476 = 1.0 / t3475;
-    let t3477 = t426 * t3476;
-    let t3478 = t434 * t434;
-    let t3479 = 1.0 / t3478;
-    let t3480 = t3453 * t3479;
-    let t3483 = 0.12361111111111111111e-1 * t3356;
-    let t3488 = t3483 - 0.61805555555555555556e-2 * t3358 - 0.61805555555555555555e-2 * t3365 + 0.18541666666666666667e-1 * t3370 + 0.92708333333333333333e-2 * t3374;
-    let t3489 = t3488 * t448;
-    let t3491 = t1175 * t1179;
-    let t3494 = t1178 * t444;
-    (t3472, t3475, t3476, t3477, t3478, t3479, t3480, t3483, t3488, t3489, t3491, t3494)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk672<F: Float>(t30: F, t265: F, t393: F, t2838: F, t3339: F, t1106: F, t2257: F, t2258: F, t395: F, t45: F, t605: F, t606: F, t895: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t120 = rho0 <= dens_threshold || t31;
+    let t394 = t265 < t393;
+    let t3340 = piecewise3::<f64>(t394, t3339, t2838);
+    let t3347 = piecewise3::<f64>(t120, t2838 * t30 / F::new(2.0) + t895 * t605 + t265 * t2257 / F::new(2.0), t3340 * t45 / F::new(2.0) + t1106 * t606 + t395 * t2258 / F::new(2.0));
+    (t3340, t3347)
 }

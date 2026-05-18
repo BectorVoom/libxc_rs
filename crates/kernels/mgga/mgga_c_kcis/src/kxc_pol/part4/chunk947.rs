@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 947/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 947/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk947<F: Float>(t1014: F, t4789: F, t2820: F, t4552: F, t86: F, t4557: F, t4792: F, t9415: F, t3200: F, t1133: F, t167: F, t3211: F, t3210: F, t13172: F, t4793: F, t9425: F) -> (F, F, F, F, F, F) {
-    let t13238 = t1014 * t4789;
-    let t13241 = t86 * t2820 * t4552;
-    let t13242 = t13241 * t4557;
-    let t13243 = 0.3684876543209876543e-2 * t13242;
-    let t13246 = t9415 * t4792;
-    let t13247 = t3200 * t13246;
-    let t13249 = t167 * t1133;
-    let t13250 = t3211 * t13249;
-    let t13251 = t3210 * t13250;
-    let t13252 = t13172 * t13251;
-    let t13254 = t9425 * t4793;
-    (t13238, t13242, t13243, t13247, t13252, t13254)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk947<F: Float>(t161: F, t9175: F, t2491: F, t823: F, t2490: F, t2584: F, t754: F, t809: F, t9062: F, t9066: F, t9150: F, t9152: F, t9155: F, t9158: F, t9163: F, t9166: F, t9168: F, t9170: F, t9173: F) -> (F, F, F, F) {
+    let t9176 = t9175 * t161;
+    let t9178 = t823 * t2491;
+    let t9179 = t2490 * t9178;
+    let t9181 = t2584 * t754;
+    let t9182 = t9181 * t809;
+    let t9184 = -F::new(0.1875e0) * t9062 - F::new(0.1125e1) * t9066 + F::new(0.1875e0) * t9150 - F::new(0.5625e0) * t9152 + F::new(0.2428125e0) * t9155 + F::new(0.4046875e-1) * t9158 + F::new(0.485625e1) * t9163 - F::new(0.225e1) * t9166 - F::new(0.1125e1) * t9168 + F::new(0.12140625e0) * t9170 + F::new(0.1125e1) * t9173 - F::new(0.4046875e-1) * t9176 + F::new(0.97125e0) * t9179 - F::new(0.5625e0) * t9182;
+    (t9176, t9179, t9182, t9184)
 }

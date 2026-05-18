@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1057/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1057/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1057<F: Float>(t14325: F, t4403: F, t2626: F, t4398: F, t10439: F, t162: F, t2251: F, t4402: F, t2516: F, t2496: F, t10443: F, t10552: F, t10554: F, t14312: F, t14313: F, t14315: F, t14317: F, t14318: F, t14324: F, t4541: F, t775: F, t9278: F, t9308: F, t9316: F, t9329: F, t9333: F) -> (F, F, F, F, F, F) {
-    let t14327 = 24.0 * t14325 * t4403;
-    let t14328 = t4398 * t2626;
-    let t14329 = 0.11696447245269292414e1 * t14328;
-    let t14330 = t10439 * t162;
-    let t14331 = t4402 * t2251;
-    let t14333 = 24.0 * t14330 * t14331;
-    let t14334 = t4398 * t2516;
-    let t14335 = 0.5848223622634646207e0 * t14334;
-    let t14336 = t4398 * t2496;
-    let t14337 = 0.17315859105681463759e2 * t14336;
-    let t14338 = 12.0 * t14318 * t4541 * t775 + t10443 - t10552 + t10554 + t14312 + t14313 + t14315 + t14317 - t14324 + t14327 + t14329 + t14333 - t14335 - t14337 - t9278 + t9308 + t9316 + t9329 + t9333;
-    (t14327, t14329, t14333, t14335, t14337, t14338)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1057<F: Float>(t1043: F, t3153: F, t3133: F, t4982: F, t3046: F, t3286: F, t3057: F, t1071: F, t1086: F, t994: F, t3316: F, t989: F) -> (F, F, F, F, F, F) {
+    let t12131 = t1043 * t3153;
+    let t12132 = t4982 * t3133;
+    let t12146 = t3046 * t3286;
+    let t12149 = t3057 * t3286;
+    let t12153 = t1086 * t1071;
+    let t12154 = t994 * t12153;
+    let t12160 = t989 * t3316;
+    (t12131, t12132, t12146, t12149, t12154, t12160)
 }

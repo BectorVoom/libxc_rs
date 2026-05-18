@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 883/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 883/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,17 +9,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk883<F: Float>(t3025: F, t7942: F, t39: F, t6023: F, t1179: F, t6025: F, t1808: F, t6033: F, t3008: F, t1897: F, t3: F, t545: F, t1796: F, t3009: F, t3014: F, t1802: F) -> (F, F, F, F, F, F, F, F) {
-    let t7943 = t7942 * t3025;
-    let t7945 = t6023 * t39;
-    let t7946 = t6025 * t1179;
-    let t7948 = t7945 * t7946 * t1808;
-    let t7951 = t6033 * t1179;
-    let t7953 = t3008 * t7951 * t1808;
-    let t7956 = t1897 * t3;
-    let t7958 = t3008 * t7956 * t545;
-    let t7962 = t3008 * t3009 * t1796;
-    let t7966 = t3014 * t3009 * t1808;
-    let t7969 = t1802 * t3;
-    (t7943, t7945, t7948, t7953, t7958, t7962, t7966, t7969)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk883<F: Float>(t7393: F, t7481: F, t468: F, t462: F, t1025: F, t2649: F, t2630: F, t1112: F, t2662: F, t2676: F, t2640: F, t1067: F, t221: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t7482 = t7393 + t7481;
+    let t7483 = t468 * t7482;
+    let t7484 = t462 * t7483;
+    let t7485 = t1025 * t2649;
+    let t7487 = F::new(0.32530743900905219526e-1) * t2630 * t7485;
+    let t7488 = t2662 * t1112;
+    let t7490 = F::new(0.21687162600603479684e-1) * t2630 * t7488;
+    let t7491 = t1025 * t2676;
+    let t7493 = F::new(0.16265371950452609763e-1) * t2630 * t7491;
+    let t7494 = t1025 * t2640;
+    let t7496 = F::new(0.48159733137676571078e0) * t2630 * t7494;
+    let t7497 = t1067 * t221;
+    (t7482, t7483, t7484, t7485, t7487, t7488, t7490, t7491, t7493, t7494, t7496, t7497)
 }

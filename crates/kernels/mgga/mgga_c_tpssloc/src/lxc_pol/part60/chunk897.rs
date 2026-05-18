@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 897/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 897/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk897<F: Float>(t1888: F, t23270: F, t26728: F, t5636: F, t121401: F, t1880: F, t7488: F, t101551: F, t113038: F, t113045: F, t121749: F, t121753: F, t126518: F, t126520: F, t126521: F, t1492: F, t17052: F, t17090: F, t17092: F, t25168: F, t259: F, t2718: F, t28306: F, t29091: F, t33395: F, t5657: F, t6627: F, t7516: F, t855: F, t8553: F, t8562: F, t8563: F) -> (F,) {
-    let t128049 = t1888 * t23270 * t26728 * t5636;
-    let t128070 = t1880 * t121401 * t7488;
-    let t128072 = -t17090 * t8563 + t113038 + 2.0 * t1492 * t33395 * t259 - 0.49348022005446793095e-1 * t128049 - 12.0 * t25168 * t26728 * t28306 - t113045 - 12.0 * t25168 * t101551 * t7516 + t126518 + 2.0 * t17052 * t8553 + 4.0 * t17092 * t8553 - 0.82246703342411321824e-2 * t121749 + 0.82246703342411321824e-2 * t121753 + 2.0 * t855 * t2718 * t8562 * t5657 - 6.0 * t6627 * t29091 - t126520 - 0.16449340668482264365e-1 * t128070 + t126521;
-    (t128072,)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk897<F: Float>(t25: F, t265: F, t394: F, t33512: F, t1408: F, t1409: F, t1877: F, t24191: F, t2522: F, t26744: F, t26756: F, t31434: F, t32899: F, t33466: F, t33477: F, t33484: F, t33486: F, t40: F, t7114: F, t7475: F, t7545: F, t8566: F, t8569: F, t8580: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t33513 = piecewise3::<f64>(t395, F::new(0.0), t33512);
+    let t33518 = piecewise3::<f64>(t115, F::new(3.0) / F::new(2.0) * t2522 * t8566 * t7475 + t1877 * t33466 * t25 / F::new(2.0) - t1877 * t31434 * t7545 / F::new(2.0) + t1877 * t8566 * t1408 / F::new(2.0) - F::new(3.0) / F::new(2.0) * t24191 * t33477 - t1877 * t26744 * t8569 / F::new(2.0) + t26756 * t33484 - t1877 * t7114 * t33486 / F::new(2.0) - t1877 * t7114 * t32899 / F::new(2.0), t8580 * t1409 / F::new(2.0) + t33513 * t40 / F::new(2.0));
+    (t33513, t33518)
 }

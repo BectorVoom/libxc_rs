@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 987/1178 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 987/1303 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk987<F: Float>(t13642: F, t13709: F, t17154: F, t17159: F, t17163: F, t17169: F, t17211: F, t17213: F, t17216: F, t17219: F, t17221: F, t17224: F, t17238: F, t17241: F, t17244: F, t17247: F, t17250: F, t17253: F, t17256: F, t17272: F, t17274: F, t17295: F) -> (F,) {
-    let t17297 = 0.19419375e1 * t17211 - 0.258925e1 * t17213 - 0.1294625e1 * t17216 - 0.412621875e-1 * t17219 + 0.16504875e0 * t17221 + 0.82524375e-1 * t17224 - 0.33547222222222222222e0 * t17154 + 0.12077e1 * t17159 - 0.40256666666666666666e0 * t17163 - 0.181155e1 * t17169 + t17238 - 0.5519e-1 * t17241 - 0.36793333333333333333e-1 * t17244 - 0.49671e0 * t17247 + 0.33114e0 * t17250 + 0.16557e0 * t17253 - 0.27595e-1 * t17256 + 0.258925e1 * t17272 + 0.16504875e0 * t17274 - 0.18396666666666666667e0 * t13642 + t13709 + t17295;
-    (t17297,)
+pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk987<F: Float>(t13913: F, t973: F, t13552: F, t13550: F, t13644: F, t1036: F, t4622: F, t3117: F, t4571: F, t248: F, t3051: F, t4347: F) -> (F, F, F, F, F, F, F) {
+    let t13915 = F::new(0.55555555555555555554e-3) * t973 * t13913;
+    let t13921 = F::new(2.0) / F::new(27.0) * t13552;
+    let t13922 = F::new(4.0) / F::new(9.0) * t13550;
+    let t13923 = F::new(2.0) / F::new(9.0) * t13644;
+    let t13946 = t4622 * t1036 / F::new(432.0);
+    let t13948 = t3117 * t4571 / F::new(3456.0);
+    let t13950 = t248 * t3051 * t4347;
+    (t13915, t13921, t13922, t13923, t13946, t13948, t13950)
 }

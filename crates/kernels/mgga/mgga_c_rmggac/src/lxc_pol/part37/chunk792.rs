@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 792/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 792/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk792<F: Float>(t76732: F, t15502: F, t3351: F, t352: F, t7231: F, t875: F, t118: F, t2001: F, t618: F, t699: F, t7720: F, t73851: F, t73854: F, t73865: F, t73871: F, t73873: F) -> (F, F, F, F, F, F, F, F) {
-    let t76733 = 0.12769379967989351819e-4 * t76732;
-    let t76737 = t3351 * t7231 * t875 * t15502 * t352;
-    let t76738 = 0.85129199786595678796e-5 * t76737;
-    let t76741 = t2001 * t118 * t699 * t618;
-    let t76742 = t7720 * t76741;
-    let t76743 = 0.42564599893297839398e-5 * t76742;
-    let t76744 = 0.2627895913935205078e-5 * t73851;
-    let t76745 = 0.2627895913935205078e-5 * t73854;
-    let t76748 = 0.19709219354514038085e-5 * t73865;
-    let t76749 = 0.64054962902170623776e-5 * t73871;
-    let t76750 = 0.85129199786595678799e-5 * t73873;
-    (t76733, t76738, t76743, t76744, t76745, t76748, t76749, t76750)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk792<F: Float>(t74283: F, t1971: F, t2144: F, t3351: F, t41006: F, t68422: F, t68440: F, t9122: F, t2367: F, t352: F, t875: F, t14025: F, t21713: F, t40167: F, t9212: F) -> (F, F, F, F, F, F) {
+    let t74284 = F::new(0.24829349937757072983e-4) * t74283;
+    let t74287 = t3351 * t1971 * t2144 * t41006;
+    let t74290 = t68440 * t68422 * t9122;
+    let t74292 = t2367 * t352;
+    let t74295 = t3351 * t1971 * t875 * t74292;
+    let t74299 = t21713 * t14025 * t40167 * t9212;
+    (t74284, t74287, t74290, t74292, t74295, t74299)
 }

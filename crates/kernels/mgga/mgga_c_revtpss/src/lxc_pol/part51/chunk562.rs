@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 562/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 562/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk562<F: Float>(t30: F, t33: F, t1317: F, t1857: F, t1320: F, t1468: F, t3833: F, t2: F, t513: F, t580: F, t605: F, t1711: F, t3841: F, t516: F, t1113: F, t162: F, t189: F, t512: F, zeta_threshold: F) -> (F, F, F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t34 = t33 <= zeta_threshold;
-    let t5545 = t1317 * t1857;
-    let t5546 = 4.0 * t5545;
-    let t5547 = t1320 * t1857;
-    let t5548 = 4.0 * t5547;
-    let t5549 = t3833 * t1468;
-    let t5552 = t513 * t2;
-    let t5556 = piecewise3(t31, 0.0, 4.0 / 9.0 * t5549 * t605 + 8.0 / 3.0 * t5552 * t580);
-    let t5557 = t3841 * t1711;
-    let t5560 = t516 * t2;
-    let t5564 = piecewise3(t34, 0.0, 4.0 / 9.0 * t5557 * t1113 - 8.0 / 3.0 * t5560 * t580);
-    let t5566 = (t5556 + t5564) * t162;
-    let t5567 = t5566 * t189;
-    let t5568 = t512 * t5567;
-    (t5546, t5548, t5566, t5568)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk562<F: Float>(t3317: F, t4891: F, t1043: F, t357: F, t4893: F, t3117: F, t1651: F, t1045: F, t999: F, t4781: F, t1012: F, t1014: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t4899 = t3317 * t4891;
+    let t4900 = t1043 * t357;
+    let t4901 = t4893 * t4900;
+    let t4902 = t3117 * t4901;
+    let t4905 = t1651 * t1043;
+    let t4906 = t4905 * t1045;
+    let t4907 = t3117 * t4906;
+    let t4910 = t357 * t999;
+    let t4911 = t4781 * t4910;
+    let t4912 = t3117 * t4911;
+    let t4915 = t1012 * t1014;
+    (t4899, t4901, t4902, t4905, t4906, t4907, t4911, t4912, t4915)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1086/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1086/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1086<F: Float>(t1137: F, t15117: F, t1147: F, t4832: F, t1687: F, t3400: F, t1156: F, t14829: F, t3375: F, t1129: F, t11356: F, t1148: F, t1157: F, t14840: F, t14847: F, t14849: F, t14852: F, t1695: F, t3371: F, t3378: F, t3396: F, t3404: F, t4835: F, t4858: F) -> (F,) {
-    let t15118 = t15117 * t1137;
-    let t15121 = t4832 * t1147;
-    let t15126 = t1687 * t3400;
-    let t15133 = t14829 * t1156;
-    let t15136 = t1687 * t3375;
-    let t15139 = 1.0 * t1129 * t15118 + 0.11696447245269292414e1 * t15121 * t1157 + 0.5848223622634646207e0 * t4835 * t3396 + 0.17315859105681463759e2 * t15126 * t3404 + 0.5848223622634646207e0 * t11356 * t1695 + 0.11696447245269292414e1 * t3371 * t4858 + 0.5848223622634646207e0 * t1148 * t15133 + t14840 - 0.11696447245269292414e1 * t15136 * t3378 - t14847 - t14849 - t14852;
-    (t15139,)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1086<F: Float>(t13532: F, t2826: F, t136: F, t10216: F, t1409: F, t2244: F, t10304: F, t2775: F, t3966: F, t607: F, t908: F, t2250: F, t4342: F) -> (F, F, F, F, F, F) {
+    let t13533 = t2826 * t13532;
+    let t13534 = t136 * t13533;
+    let t13536 = t10216 * t1409;
+    let t13537 = t13536 * t2244;
+    let t13538 = t10304 * t13537;
+    let t13539 = t136 * t13538;
+    let t13541 = t2775 * t3966;
+    let t13542 = t13541 * t607;
+    let t13543 = t908 * t13542;
+    let t13544 = t136 * t13543;
+    let t13546 = t4342 * t2250;
+    (t13534, t13537, t13539, t13542, t13544, t13546)
 }

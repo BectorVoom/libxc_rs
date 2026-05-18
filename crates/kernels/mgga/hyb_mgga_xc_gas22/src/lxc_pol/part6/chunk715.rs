@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 715/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 715/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk715<F: Float>(t3742: F, t3748: F, t2849: F, t525: F, t524: F) -> (F, F, F) {
-    let t3749 = t3748 * t3742;
-    let t3752 = t525 * t2849;
-    let t3753 = t524 * t3752;
-    (t3749, t3752, t3753)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk715<F: Float>(t2700: F, t2705: F, t2709: F, t2716: F, t2726: F, t2734: F, t2738: F, t2741: F, t2743: F, t2745: F, t2753: F, t2756: F, t2762: F, t2815: F) -> F {
+    let t3655 = -F::new(0.18311447306006545054e-3) * t2700 - t2705 + t2709 - t2716 + t2726 + t2734 - F::new(4.0) * t2738 - t2741 + t2743 - F::new(4.0) * t2745 + t2753 - t2756 - t2762 + t2815;
+    t3655
 }

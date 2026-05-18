@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 255/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 255/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk255<F: Float>(t198: F, t673: F, t1193: F, t209: F, t476: F, t446: F, t221: F, t1149: F, t205: F, t1156: F, t23: F, t1144: F, t472: F, t998: F, t206: F, t207: F, t470: F, t473: F) -> (F, F, F, F, F, F, F, F) {
-    let t1194 = t673 * t198;
-    let t1195 = t1193 * t1194;
-    let t1196 = t476 * t209;
-    let t1197 = t1196 * t446;
-    let t1198 = t221 * t1197;
-    let t1201 = t1149 * t205;
-    let t1205 = t23 * t1156;
-    let t1206 = t1205 * t1144;
-    let t1209 = t472 * t998;
-    let t1212 = -t1201 * t207 - 12.0 * t1206 * t206 + 3.0 * t1209 * t206 + 6.0 * t470 * t473;
-    (t1194, t1195, t1196, t1198, t1201, t1206, t1209, t1212)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk255<F: Float>(t1173: F, t202: F, t495: F) -> (F, F) {
+    let t1174 = t202 * t1173;
+    let t1175 = t495 * t495;
+    (t1174, t1175)
 }

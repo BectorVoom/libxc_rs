@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 813/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 813/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk813<F: Float>(t74456: F, t74459: F, t74465: F, t637: F, t8641: F, t71772: F, t8645: F, t71163: F, t8649: F, t71167: F, t70948: F, t74487: F, t2080: F, t739: F, t9530: F, t15439: F, t2604: F, t68582: F, t68602: F, t74462: F, t74468: F, t74471: F, t74477: F, t74491: F) -> (F,) {
-    let t77014 = 0.5107751987195740728e-4 * t74456;
-    let t77015 = 0.1702583995731913576e-4 * t74459;
-    let t77017 = 0.15961724959986689775e-4 * t74465;
-    let t77018 = t637 * t8641;
-    let t77019 = t71772 * t77018;
-    let t77020 = 0.20455996240684006296e-1 * t77019;
-    let t77021 = t637 * t8645;
-    let t77022 = t71163 * t77021;
-    let t77023 = 0.40911992481368012592e-1 * t77022;
-    let t77024 = t637 * t8649;
-    let t77025 = t71167 * t77024;
-    let t77026 = 0.20455996240684006296e-1 * t77025;
-    let t77031 = 0.90915538847484472429e-2 * t70948;
-    let t77034 = 0.40911992481368012592e-1 * t74487;
-    let t77036 = t739 * t9530 * t2080;
-    let t77037 = 0.2993560425465952141e-1 * t77036;
-    let t77038 = -t77014 + t77015 + 0.35038612185802734376e-6 * t74462 - t77017 + t74468 - t77020 + t77023 + t77026 + 0.72714524817717142308e-5 * t74471 + 0.70077224371605468752e-6 * t74477 - 0.40878380883436523436e-5 * t68582 - 0.81756761766873046877e-6 * t68602 + t77031 - 0.59871208509319042821e-1 * t2604 * t15439 + t77034 - t77037 - t74491;
-    (t77038,)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk813<F: Float>(t2060: F, t40940: F, t903: F, t15244: F, t2604: F, t41122: F, t13954: F, t5055: F, t13958: F, t2868: F, t15272: F, t69054: F) -> (F, F, F, F, F, F) {
+    let t74598 = F::new(0.8980681276397856423e-1) * t903 * t2060 * t40940;
+    let t74600 = F::new(0.5987120850931904282e-1) * t2604 * t15244;
+    let t74603 = F::new(0.8980681276397856423e-1) * t903 * t2060 * t41122;
+    let t74605 = F::new(0.8980681276397856423e-1) * t5055 * t13954;
+    let t74609 = F::new(0.5987120850931904282e-1) * t2868 * t13958;
+    let t74610 = t69054 * t15272;
+    (t74598, t74600, t74603, t74605, t74609, t74610)
 }

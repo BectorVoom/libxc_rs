@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 705/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 705/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk705<F: Float>(t1616: F, t4468: F, t1592: F, t1617: F, t4132: F, t4139: F, t4143: F, t4146: F, t4150: F, t4156: F, t4167: F, t4175: F, t4179: F, t4315: F, t4409: F, t4414: F) -> (F, F) {
-    let t4469 = t4468 * t1616;
-    let t4472 = -0.23214722222222222222e-2 * t4132 - 0.38691203703703703703e-3 * t4139 + 0.15476481481481481481e-2 * t4143 + 0.23214722222222222222e-2 * t4146 + 0.11607361111111111111e-2 * t4150 + 0.19345601851851851852e-2 * t4156 - 0.13345e0 * t4409 * t1617 + 0.890445125e-2 * t4414 * t4315 - 0.23214722222222222222e-2 * t4167 + 0.15476481481481481481e-2 * t4175 - 0.23214722222222222222e-2 * t4179 - 0.66725e-1 * t1592 * t4469;
-    (t4469, t4472)
+pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk705<F: Float>(t1430: F, t3801: F, t1437: F, t1451: F, t104: F, t111: F, t120: F, t2642: F, t4023: F, t4073: F, t4075: F, t4078: F, t4081: F, t4083: F, t4086: F, t4089: F, t4093: F) -> (F, F, F, F) {
+    let t4096 = t1430 * t3801;
+    let t4099 = t1437 * t3801;
+    let t4102 = t1451 * t3801;
+    let t4105 = -F::new(0.23526125e-4) * t4073 + F::new(0.50413125e-5) * t120 * t4075 - F::new(0.672175e-5) * t120 * t4078 + F::new(0.9368e-2) * t4081 - F::new(0.3513e-2) * t104 * t4083 + F::new(0.1171e-2) * t104 * t4086 - F::new(0.26416666666666666666e-2) * t4089 - F::new(0.23911438650126355246e-1) * t4023 * t2642 + F::new(0.15538616723388920628e-3) * t4093 * t2642 + F::new(0.7026e-2) * t104 * t4096 - F::new(0.1585e-2) * t111 * t4099 - F::new(0.10082625e-4) * t120 * t4102;
+    (t4096, t4099, t4102, t4105)
 }

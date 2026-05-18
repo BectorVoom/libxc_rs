@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 702/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 702/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk702<F: Float>(t5248: F, t5249: F, t5250: F, t1827: F, t3799: F, t1315: F, t1354: F, t1369: F, t3733: F, t3762: F, t3763: F, t3778: F, t5220: F, t5223: F, t5227: F, t5231: F, t5235: F, t5238: F, t5240: F, t5246: F, t559: F) -> (F, F, F) {
-    let t5252 = t5248 * t5249 * t5250;
-    let t5255 = t3799 * t1827;
-    let t5257 = t3762 + 7.0 / 144.0 * t3763 + 7.0 / 144.0 * t5220 + t3733 * t5223 / 16.0 - t1315 * t5227 / 48.0 + t5231 * t559 / 3072.0 - t5235 * t1354 / 3072.0 - 7.0 / 4608.0 * t5238 - t5240 * t1369 / 768.0 - t3778 * t1827 / 3072.0 + t5246 * t5252 / 1536.0 + 7.0 / 4608.0 * t5255;
-    (t5252, t5255, t5257)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk702<F: Float>(t1147: F, t1687: F, t1155: F, t1695: F, t3238: F, t3295: F, t3383: F, t3390: F, t4721: F, t4726: F, t4731: F, t4735: F, t4749: F, t4757: F, t4765: F, t4767: F, t4770: F, t4773: F, t4776: F, t4779: F) -> (F, F, F) {
+    let t4835 = t1687 * t1147;
+    let t4840 = t1695 * t1155;
+    let t4857 = -F::new(0.1294625e1) * t4749 + F::new(0.258925e1) * t4757 + t3383 - F::new(0.10064166666666666667e0) * t3238 - F::new(0.10064166666666666667e0) * t4721 - F::new(0.20128333333333333333e0) * t4726 + F::new(0.60385e0) * t4731 + F::new(0.301925e0) * t4735 + F::new(0.82524375e-1) * t4765 + F::new(0.16504875e0) * t4767 + t3390 - F::new(0.5519e-1) * t3295 - F::new(0.5519e-1) * t4770 - F::new(0.27595e-1) * t4773 + F::new(0.16557e0) * t4776 + F::new(0.82785e-1) * t4779;
+    (t4835, t4840, t4857)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 534/1149 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 534/1294 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk534<F: Float>(t136: F, t4386: F, t4343: F, t908: F, t4347: F, t2766: F, t2810: F, t2823: F, t2824: F, t4335: F, t4340: F, t4345: F, t4349: F, t4363: F, t4371: F, t4379: F, t4381: F, t4384: F) -> (F, F, F, F) {
-    let t4387 = t136 * t4386;
-    let t4389 = t908 * t4343;
-    let t4390 = t136 * t4389;
-    let t4392 = t908 * t4347;
-    let t4393 = t136 * t4392;
-    let t4395 = -0.9494625e0 * t4363 + 0.1898925e1 * t4371 + t2810 + 0.99655555555555555557e-1 * t2766 + 0.99655555555555555557e-1 * t4335 - 0.19931111111111111111e0 * t4340 + 0.59793333333333333334e0 * t4345 - 0.29896666666666666667e0 * t4349 + 0.15358125e0 * t4379 + 0.3071625e0 * t4381 + t2823 + 0.54771111111111111111e-1 * t2824 + 0.54771111111111111111e-1 * t4384 - 0.27385555555555555556e-1 * t4387 + 0.16431333333333333333e0 * t4390 - 0.82156666666666666667e-1 * t4393;
-    (t4387, t4390, t4393, t4395)
+pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk534<F: Float>(t33: F, t3997: F, t1409: F, t2291: F, t3966: F, t634: F, t2298: F, t638: F, t607: F, t72: F, t1411: F, t1427: F, t1434: F, t3962: F, t3968: F, t3971: F, t3976: F, t609: F, t629: F, t642: F, t66: F, t80: F) -> (F, F) {
+    let t3998 = t33 * t3997;
+    let t4007 = t2291 * t1409;
+    let t4010 = t634 * t3966;
+    let t4012 = t2298 * t1409;
+    let t4015 = t638 * t3966;
+    let t4017 = F::new(28.0) / F::new(9.0) * t4007 * t607 - F::new(4.0) / F::new(3.0) * t4010 + F::new(28.0) / F::new(9.0) * t4012 * t607 + F::new(4.0) / F::new(3.0) * t4015;
+    let t4018 = t72 * t4017;
+    let t4021 = -t3962 * t80 / F::new(12.0) - t3968 * t80 / F::new(12.0) - t3971 * t80 / F::new(12.0) - t1411 * t642 / F::new(12.0) - t3976 * t80 / F::new(12.0) + t3998 * t80 / F::new(24.0) + t1427 * t642 / F::new(24.0) - t609 * t1434 / F::new(12.0) + t629 * t1434 / F::new(24.0) + t66 * t4018 / F::new(24.0);
+    (t4017, t4021)
 }

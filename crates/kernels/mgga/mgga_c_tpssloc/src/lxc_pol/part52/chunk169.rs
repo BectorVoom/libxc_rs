@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 169/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 169/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,11 +12,11 @@ pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk169<F: Float>(t25: F, t
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
     let t523 = t17 * t522;
-    let t525 = 0.19751673498613801407e-1 * t521 * t182;
+    let t525 = F::new(0.19751673498613801407e-1) * t521 * t182;
     let t526 = t514 * t514;
-    let t527 = piecewise3(t26, t194, t526);
+    let t527 = piecewise3::<f64>(t26, t194, t526);
     let t528 = t517 * t517;
-    let t529 = piecewise3(t29, t194, t528);
-    let t531 = t527 / 2.0 + t529 / 2.0;
+    let t529 = piecewise3::<f64>(t29, t194, t528);
+    let t531 = t527 / F::new(2.0) + t529 / F::new(2.0);
     (t523, t525, t526, t528, t531)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 918/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 918/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk918<F: Float>(t22633: F, t33272: F, t90566: F, t1985: F, t214: F, t225: F, t29286: F, t567: F, t28205: F, t31611: F, t102466: F, t114178: F, t115540: F, t122247: F, t122251: F, t127325: F, t127328: F, t1375: F, t20044: F, t26224: F, t26477: F, t27068: F, t31653: F, t3887: F, t6460: F, t6461: F, t7728: F, t7729: F, t7749: F, t7750: F, t7925: F, t7936: F, t8636: F, t8637: F) -> (F,) {
-    let t128740 = t22633 * t90566 * t33272;
-    let t128745 = t1985 * t214 * t29286 * t225 * t567;
-    let t128758 = t1985 * t31611 * t28205;
-    let t128761 = 4.0 * t27068 * t7729 + 2.0 * t1375 * t3887 * t8636 * t6460 + 4.0 * t26477 * t7925 - 2.0 * t27068 * t7750 + 0.3289868133696452873e-1 * t128740 + 0.82246703342411321825e-2 * t128745 + t127325 - 12.0 * t26224 * t102466 * t7728 - t127328 - t20044 * t8637 - t114178 + 4.0 * t1375 * t3887 * t7936 * t7749 - t31653 * t6461 - t115540 + 0.82246703342411321824e-2 * t122247 - 0.82246703342411321825e-2 * t128758 + 0.76763589786250567036e-1 * t122251;
-    (t128761,)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk918<F: Float>(t1509: F, t7510: F, t1902: F, t5584: F, t1493: F, t254: F, t225: F, t28282: F, t10143: F, t1649: F, t112: F, t29395: F) -> (F, F, F, F, F, F) {
+    let t98524 = t7510 * t1509;
+    let t98541 = t1902 * t5584;
+    let t98975 = t1493 * t254;
+    let t99010 = t28282 * t225;
+    let t100688 = t10143 * t1649;
+    let t100996 = t29395 * t112;
+    (t98524, t98541, t98975, t99010, t100688, t100996)
 }

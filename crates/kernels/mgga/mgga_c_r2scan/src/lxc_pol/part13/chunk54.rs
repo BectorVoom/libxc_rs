@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 54/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 54/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -15,10 +15,10 @@ pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk54<F: Float>(t44: F, t51:
     let t135 = t129 * t130 * t134;
     let t138 = t98 * zeta_threshold;
     let t139 = t99 * t44;
-    let t140 = piecewise3(t45, t138, t139);
+    let t140 = piecewise3::<f64>(t45, t138, t139);
     let t141 = t101 * t51;
-    let t142 = piecewise3(t52, t138, t141);
-    let t144 = t140 / 2.0 + t142 / 2.0;
+    let t142 = piecewise3::<f64>(t52, t138, t141);
+    let t144 = t140 / F::new(2.0) + t142 / F::new(2.0);
     let t146 = t108 / t144;
     (t134, t135, t139, t141, t144, t146)
 }

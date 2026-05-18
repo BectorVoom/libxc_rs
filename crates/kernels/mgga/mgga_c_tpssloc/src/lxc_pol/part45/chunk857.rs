@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 857/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 857/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk857<F: Float>(t114291: F, t31120: F, t6883: F, t31108: F, t6897: F, t794: F, t114172: F, t22892: F, t6891: F, t1307: F, t6995: F, t22573: F, t8449: F, t31236: F, t31238: F, t8326: F, t9348: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t114292 = 0.76763589786250567036e-1 * t114291;
-    let t114296 = t6883 * t31120;
-    let t114297 = 0.76763589786250567036e-1 * t114296;
-    let t114299 = t6897 * t794 * t31108;
-    let t114300 = 0.16449340668482264365e-1 * t114299;
-    let t114316 = t22892 * t114172 * t6891;
-    let t114317 = 0.3289868133696452873e-1 * t114316;
-    let t114335 = t1307 * t6995;
-    let t114360 = t8449 * t22573;
-    let t114387 = 4.0 * t31236;
-    let t114388 = 4.0 * t31238;
-    let t114405 = 2.0 * t9348 * t8326;
-    (t114292, t114297, t114300, t114317, t114335, t114360, t114387, t114388, t114405)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk857<F: Float>(t31104: F, t6897: F, t225: F, t567: F, t6955: F, t214: F, t1985: F, t6883: F, t8455: F, t8459: F, t22666: F, t8458: F) -> (F, F, F, F, F, F, F) {
+    let t31106 = F::new(0.82246703342411321825e-2) * t6897 * t31104;
+    let t31108 = t6955 * t225 * t567;
+    let t31109 = t214 * t31108;
+    let t31111 = F::new(0.16449340668482264365e-1) * t1985 * t31109;
+    let t31113 = F::new(0.38381794893125283518e-1) * t6883 * t8455;
+    let t31115 = F::new(0.38381794893125283518e-1) * t6883 * t8459;
+    let t31120 = t22666 * t8458;
+    (t31106, t31108, t31109, t31111, t31113, t31115, t31120)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 530/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 530/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk530<F: Float>(t2956: F, t333: F, t2958: F, t335: F, t337: F, t339: F, t341: F, t343: F, t1035: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t2960 = t333 * t2956;
-    let t2962 = t333 * t2958;
-    let t2964 = t335 * t2956;
-    let t2966 = t335 * t2958;
-    let t2968 = t337 * t2956;
-    let t2970 = t337 * t2958;
-    let t2972 = t339 * t2956;
-    let t2974 = t339 * t2958;
-    let t2976 = t341 * t2956;
-    let t2982 = -0.64e0 * t2956 - 0.8704e0 * t2958 - 0.8704e0 * t2960 - 0.9214113627294e1 * t2962 - 0.4607056813647e1 * t2964 + 0.367387230261e2 * t2966 + 0.122462410087e2 * t2968 - 0.3831420472412e2 * t2970 - 0.957855118103e1 * t2972 + 0.1550653405116e2 * t2974 + 0.3101306810232e1 * t2976 - 0.2177652951264e1 * t341 * t2958 - 0.362942158544e0 * t343 * t2956;
-    let t2983 = t1035 * t1035;
-    (t2960, t2962, t2964, t2966, t2968, t2970, t2972, t2974, t2976, t2982, t2983)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk530<F: Float>(t288: F, t910: F, t2858: F, t481: F, t2526: F, t471: F, t97: F, t1356: F, t1387: F, t1413: F, t1418: F, t2272: F, t2322: F, t2451: F, t2453: F, t2455: F, t2458: F, t2460: F, t2461: F, t2465: F, t2485: F, t2487: F, t2488: F, t2853: F, t2857: F, t372: F) -> (F, F) {
+    let t2859 = t288 * t910;
+    let t2861 = t2858 * t2859 * t481;
+    let t2862 = F::new(6.0) * t2861;
+    let t2864 = t97 * t471 * t2526;
+    let t2865 = F::new(3.0) * t2864;
+    let t2866 = -F::new(0.2363e1) * t2272 + t2460 + t1356 + t2451 + t372 * t2461 - t2453 - t2455 - t2458 + t2465 - t2853 - t2485 + t2487 + t1387 + t2488 + t1413 + t2322 - t2857 - t2862 - t2865 - t1418;
+    (t2859, t2866)
 }

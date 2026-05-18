@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 955/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 955/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk955<F: Float>(t15016: F, t15018: F, t15386: F, t15660: F, t15665: F, t15922: F, t15923: F, t15924: F, t15925: F, t15927: F, t15928: F, t15929: F, t70745: F, t70746: F, t73678: F, t14275: F, t14702: F, t14709: F, t14712: F, t14918: F, t14919: F, t15667: F, t15671: F, t15674: F, t15677: F, t15930: F, t15932: F, t15934: F, t15936: F, t73679: F, t73680: F) -> (F, F) {
-    let t80552 = -t70745 + t15016 + t15018 - t15922 + t15923 - t15660 - t15924 + t15925 + t15386 - t15927 + t15928 + t15665 - t15929 + t73678 + t70746;
-    let t80553 = t15667 - t15930 + t15932 + t73679 + t15671 - t15674 - t15677 + t14702 + t14275 - t15934 + t14918 + t14919 + t73680 - t14709 - t14712 - t15936;
-    (t80552, t80553)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk955<F: Float>(t74953: F, t74957: F, t3351: F, t498: F, t515: F, t7248: F, t9523: F, t9188: F, t9527: F, t71210: F, t74961: F, t74965: F) -> (F, F, F, F, F, F, F) {
+    let t77287 = F::new(0.2553875993597870364e-4) * t74953;
+    let t77288 = F::new(0.7661627980793611092e-4) * t74957;
+    let t77292 = t3351 * t7248 * t515 * t9523 * t498;
+    let t77293 = F::new(0.12769379967989351819e-4) * t77292;
+    let t77296 = t3351 * t9188 * t515 * t9527;
+    let t77297 = F::new(0.25538759935978703638e-4) * t77296;
+    let t77299 = F::new(0.36021158228745895953e-3) * t71210;
+    let t77300 = F::new(0.20455996240684006298e-1) * t74961;
+    let t77301 = F::new(0.2727466165424534173e-1) * t74965;
+    (t77287, t77288, t77293, t77297, t77299, t77300, t77301)
 }

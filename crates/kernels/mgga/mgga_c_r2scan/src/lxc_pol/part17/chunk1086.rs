@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 1086/1120 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 1086/1293 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk1086<F: Float>(t3579: F, t42234: F, t11506: F, t42318: F, t3719: F, t983: F, t11002: F, t3269: F, t3245: F, t3270: F, t39030: F, t1115: F, t3016: F, t10667: F, t11342: F, t42389: F) -> (F, F, F, F, F, F) {
-    let t44560 = t3579 * t42234 / 2.0;
-    let t44562 = 3.0 / 2.0 * t11506 * t42318;
-    let t44563 = t3719 * t983;
-    let t44564 = t11002 * t44563;
-    let t44566 = 5.0 / 8.0 * t3269 * t44564;
-    let t44568 = t3270 * t39030 * t3245;
-    let t44570 = t3269 * t44568 / 2.0;
-    let t44572 = t3270 * t1115 * t3016;
-    let t44574 = 3.0 / 4.0 * t10667 * t44572;
-    let t44576 = 3.0 / 4.0 * t42389 * t11342;
-    (t44560, t44562, t44566, t44570, t44574, t44576)
+pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk1086<F: Float>(t10684: F, t38355: F, t10648: F, t10958: F, t10971: F, t10962: F, t37599: F, t37822: F, t37833: F, t37919: F, t38001: F, t38054: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t38356 = t38355 * t10684;
+    let t38359 = t10648 * t10971 * t10958;
+    let t38362 = t10648 * t10971 * t10962;
+    let t38452 = F::new(0.42952285777298855708e-4) * t37599;
+    let t38528 = F::new(0.14224135994914204065e1) * t37822;
+    let t38532 = F::new(0.17888640988868435534e-2) * t37833;
+    let t38568 = F::new(0.18496169001454677638e1) * t37919;
+    let t38597 = F::new(0.31806003678208078381e-2) * t38001;
+    let t38617 = F::new(0.39552774754617995815e1) * t38054;
+    (t38356, t38359, t38362, t38452, t38528, t38532, t38568, t38597, t38617)
 }

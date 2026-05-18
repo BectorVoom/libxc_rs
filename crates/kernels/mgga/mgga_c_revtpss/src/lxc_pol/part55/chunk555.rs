@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 555/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 555/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk555<F: Float>(t3767: F, t5330: F, t1248: F, t3603: F, t5332: F, t3720: F, t1774: F, t1250: F, t1794: F, t73: F, t1214: F, t471: F, t140: F, t1781: F, t1222: F, t127: F, t1789: F, t371: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t5340 = t3767 * t5330;
-    let t5341 = t3603 * t1248;
-    let t5342 = t5332 * t5341;
-    let t5343 = t3720 * t5342;
-    let t5346 = t1774 * t1248;
-    let t5347 = t5346 * t1250;
-    let t5348 = t3720 * t5347;
-    let t5351 = t1794 * t73;
-    let t5352 = t471 * t1214;
-    let t5353 = t5351 * t5352;
-    let t5354 = t3720 * t5353;
-    let t5357 = t140 * t1781;
-    let t5358 = t1222 * t5357;
-    let t5362 = t371 * t127 * t1789;
-    (t5340, t5343, t5346, t5348, t5351, t5354, t5357, t5358, t5362)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk555<F: Float>(t4631: F, t935: F, t915: F, t1609: F, t2926: F, t934: F, t2924: F, t2848: F, t2930: F, t4571: F, t4576: F, t4581: F, t4585: F) -> (F, F, F) {
+    let t4632 = t4631 * t935;
+    let t4634 = F::new(1.0) * t915 * t4632;
+    let t4635 = t1609 * t2926;
+    let t4636 = t4635 * t934;
+    let t4638 = F::new(0.16081979498692535067e2) * t2924 * t4636;
+    let t4644 = t2930 + F::new(0.57077777777777777777e-2) * t2848 + F::new(0.57077777777777777777e-2) * t4571 - F::new(0.11415555555555555555e-1) * t4576 + F::new(0.34246666666666666666e-1) * t4581 - F::new(0.17123333333333333333e-1) * t4585;
+    (t4634, t4638, t4644)
 }

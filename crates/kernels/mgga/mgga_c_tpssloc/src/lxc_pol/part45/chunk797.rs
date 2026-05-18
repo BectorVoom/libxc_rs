@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 797/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 797/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk797<F: Float>(t28: F, t265: F, t504: F, t23788: F, t31441: F, t25927: F, t31448: F, t1081: F, t1914: F, t31477: F, t1877: F, t24191: F, t24339: F, t2522: F, t26756: F, t30974: F, t31430: F, t31434: F, t52: F, t607: F, t6841: F, t6848: F, t7114: F, t8566: F, t8586: F, t8591: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F) {
-    let t29 = t28 <= zeta_threshold;
-    let t401 = rho1 <= dens_threshold || t29;
-    let t505 = t265 < t504;
-    let t31496 = t23788 * t31441;
-    let t31502 = t25927 * t31448;
-    let t31504 = t1081 * t1914;
-    let t31512 = piecewise3(t505, 0.0, t31477);
-    let t31517 = piecewise3(t401, 3.0 / 2.0 * t2522 * t8566 * t6841 + t1877 * t31430 * t28 / 2.0 - t1877 * t31434 * t6848 / 2.0 + t1877 * t8566 * t1081 / 2.0 - 3.0 / 2.0 * t24191 * t31496 - t1877 * t24339 * t8586 / 2.0 + t26756 * t31502 - t1877 * t7114 * t31504 / 2.0 - t1877 * t7114 * t30974 / 2.0, t31512 * t52 / 2.0 - t8591 * t607 / 2.0);
-    (t31496, t31502, t31504, t31512, t31517)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk797<F: Float>(t2771: F, t6785: F, t23696: F, t23661: F, t3188: F, t1945: F, t3120: F, t1060: F, t23571: F, t383: F, t23384: F, t6787: F) -> (F, F, F, F, F) {
+    let t23697 = t6785 * t2771;
+    let t23698 = t23696 * t23697;
+    let t23701 = t23661 * t3188;
+    let t23704 = t1945 * t3120;
+    let t23705 = t23704 * t1060;
+    let t23707 = t383 * t23571;
+    let t23712 = t23384 * t6787;
+    (t23698, t23701, t23705, t23707, t23712)
 }

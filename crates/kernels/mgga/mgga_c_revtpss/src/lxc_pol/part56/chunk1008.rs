@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 1008/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 1008/1203 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk1008<F: Float>(t30: F, t265: F, t393: F, t27126: F, t8749: F, t32866: F, t7732: F, t13426: F, t18227: F, t4248: F, t32822: F, t7935: F, t28021: F, t8764: F, t122820: F, t27154: F, t127181: F, t126434: F, t1469: F, t32785: F, t34388: F, t4186: F, t45: F, t606: F, t8752: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t120 = rho0 <= dens_threshold || t31;
-    let t394 = t265 < t393;
-    let t129255 = t27126 * t8749;
-    let t129257 = t7732 * t32866;
-    let t129273 = t13426 * t8749;
-    let t129277 = t18227 * t8749;
-    let t129279 = t4248 * t32866;
-    let t129281 = t32822 * t7935;
-    let t129283 = t8764 * t28021;
-    let t129285 = t122820 * t27154;
-    let t129301 = piecewise3(t394, 0.0, t127181);
-    let t129308 = piecewise3(t120, t126434, t129301 * t45 / 2.0 + t32785 * t1469 / 2.0 + t34388 * t606 / 2.0 + t8752 * t4186 / 2.0);
-    (t129255, t129257, t129273, t129277, t129279, t129281, t129283, t129285, t129308)
+pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk1008<F: Float>(t117: F, t34873: F, t1518: F, t33346: F, t33640: F, t33642: F, t33644: F, t33646: F, t34453: F, t34455: F, t34457: F, t8564: F) -> (F, F) {
+    let t34874 = t34873 * t117;
+    let t34880 = F::new(2.0) * t1518 * t33346 + t33640 + t33642 + t33644 + t33646 + F::new(4.0) * t34453 + F::new(4.0) * t34455 + F::new(4.0) * t34457 + t34874 + t8564;
+    (t34874, t34880)
 }

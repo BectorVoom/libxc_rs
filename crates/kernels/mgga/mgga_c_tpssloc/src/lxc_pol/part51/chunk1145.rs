@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1145/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1145/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1145<F: Float>(t113987: F, t22804: F, t31156: F, t31169: F, t3777: F, t1336: F, t1338: F, t241: F, t835: F, t31172: F, t240: F, t3787: F, t22824: F, t31159: F, t22866: F, t8462: F) -> (F, F, F, F, F, F, F, F) {
-    let t113988 = 7.0 / 288.0 * t113987;
-    let t114000 = t22804 * t31156;
-    let t114002 = t3777 * t31169;
-    let t114011 = t1336 * t1338 * t835 * t241;
-    let t114012 = t114011 * t31172;
-    let t114013 = 7.0 / 1152.0 * t114012;
-    let t114016 = t1336 * t3787 * t240 * t241;
-    let t114025 = t22824 * t31159;
-    let t114027 = t22866 * t8462;
-    (t113988, t114000, t114002, t114011, t114013, t114016, t114025, t114027)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1145<F: Float>(t1385: F, t31090: F, t22635: F, t1992: F, t1377: F, t2015: F, t1307: F, t22633: F, t794: F, t8454: F, t6897: F, t225: F, t567: F, t6955: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t31091 = t31090 * t1385;
+    let t31092 = t22635 * t31091;
+    let t31094 = F::new(0.3289868133696452873e-1) * t1992 * t31092;
+    let t31099 = t1377 * t2015;
+    let t31100 = t31099 * t1307;
+    let t31101 = t22635 * t31100;
+    let t31103 = F::new(0.3289868133696452873e-1) * t22633 * t31101;
+    let t31104 = t794 * t8454;
+    let t31106 = F::new(0.82246703342411321825e-2) * t6897 * t31104;
+    let t31108 = t6955 * t225 * t567;
+    (t31091, t31092, t31094, t31099, t31100, t31101, t31103, t31104, t31106, t31108)
 }

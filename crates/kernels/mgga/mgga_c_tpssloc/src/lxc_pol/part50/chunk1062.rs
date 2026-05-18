@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 1062/1149 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 1062/1294 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk1062<F: Float>(t112741: F, t112743: F, t113053: F, t118672: F, t118729: F, t118768: F, t13053: F, t13065: F, t1528: F, t25348: F, t2597: F, t2713: F, t2718: F, t30630: F, t30647: F, t30729: F, t32796: F, t4147: F, t4268: F, t6632: F, t6662: F, t6663: F, t7537: F, t8353: F, t855: F, t858: F) -> (F,) {
-    let t118791 = 0.82246703342411321825e-2 * t112741;
-    let t118792 = 0.76763589786250567036e-1 * t112743;
-    let t118793 = -t113053 * t1528 - t118672 + 4.0 * t855 * t2718 * t6662 * t7537 - t855 * t858 * (t118729 + t118768) + 4.0 * t4147 * t30630 - 6.0 * t2713 * t32796 - 2.0 * t25348 * t6663 - t4268 * t30729 + 4.0 * t25348 * t6632 - 6.0 * t2597 * t32796 + 2.0 * t4147 * t30647 + 2.0 * t13053 * t8353 + 2.0 * t13065 * t8353 + 4.0 * t4268 * t30630 + t118791 + t118792;
-    (t118793,)
+pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk1062<F: Float>(t31104: F, t6897: F, t225: F, t567: F, t6955: F, t214: F, t1985: F, t6883: F, t8455: F, t8459: F, t1385: F, t8475: F) -> (F, F, F, F, F, F, F) {
+    let t31106 = F::new(0.82246703342411321825e-2) * t6897 * t31104;
+    let t31108 = t6955 * t225 * t567;
+    let t31109 = t214 * t31108;
+    let t31111 = F::new(0.16449340668482264365e-1) * t1985 * t31109;
+    let t31113 = F::new(0.38381794893125283518e-1) * t6883 * t8455;
+    let t31115 = F::new(0.38381794893125283518e-1) * t6883 * t8459;
+    let t31116 = t8475 * t1385;
+    (t31106, t31108, t31109, t31111, t31113, t31115, t31116)
 }

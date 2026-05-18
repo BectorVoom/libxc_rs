@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 452/1190 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 452/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,20 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk452<F: Float>(t1499: F, t237: F, t1464: F, t1473: F, t1476: F, t225: F, t680: F, t705: F, t752: F, t760: F, t765: F, t1484: F, t824: F, t228: F, t230: F) -> (F, F, F, F) {
-    let t1500 = t1499 * t237;
-    let t1504 = (t680 + t705 + t1464 + t1473 + t752 + t1476 - t760 - t765) * t225;
-    let t1506 = t824 * t1484;
-    let t1509 = -t1504 * t230 + 3.0 * t1506 * t228;
-    (t1500, t1504, t1506, t1509)
+pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk452<F: Float>(t40: F, t52: F, t1458: F, t510: F, t1409: F, t185: F, t707: F, t73: F, t76: F, t145: F, t157: F, t182: F, t767: F, t771: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t146 = t40 <= zeta_threshold;
+    let t150 = t52 <= zeta_threshold;
+    let t1459 = t510 * t1458;
+    let t1462 = t185 * t1409;
+    let t1464 = F::new(4.0) * t707 * t1462;
+    let t1467 = piecewise3::<f64>(t146, F::new(0.0), F::new(4.0) / F::new(3.0) * t73 * t1409);
+    let t1470 = piecewise3::<f64>(t150, F::new(0.0), -F::new(4.0) / F::new(3.0) * t76 * t1409);
+    let t1471 = t1467 + t1470;
+    let t1472 = t145 * t1471;
+    let t1473 = t1472 * t185;
+    let t1474 = t1471 * t157;
+    let t1476 = F::new(0.19751673498613801407e-1) * t1474 * t182;
+    let t1479 = piecewise3::<f64>(t146, F::new(0.0), F::new(2.0) / F::new(3.0) * t767 * t1409);
+    let t1482 = piecewise3::<f64>(t150, F::new(0.0), -F::new(2.0) / F::new(3.0) * t771 * t1409);
+    (t1459, t1462, t1464, t1471, t1472, t1473, t1474, t1476, t1479, t1482)
 }

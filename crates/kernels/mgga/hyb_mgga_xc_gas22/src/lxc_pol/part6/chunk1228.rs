@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1228/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1228/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1228<F: Float>(t7: F, t2213: F, t238: F, t4135: F, t10607: F, t801: F, t10611: F, t2176: F, t242: F, t4104: F, t10547: F, t779: F, t1793: F, t27037: F, t10536: F, t10541: F, t1796: F, t1808: F, t20666: F, t2170: F, t24587: F, t2750: F, t3302: F, t3804: F, t3814: F, t457: F, t545: F, t5891: F, t6536: F, t8632: F, t9909: F, zeta_threshold: F) -> (F, F, F, F, F, F, F) {
-    let t8 = t7 <= zeta_threshold;
-    let t28794 = t238 * t2213 * t4135;
-    let t28797 = t238 * t801 * t10607;
-    let t28800 = t238 * t801 * t10611;
-    let t28804 = t238 * t242 * t2176 * t4104;
-    let t28808 = t238 * t242 * t779 * t10547;
-    let t28813 = t27037 * t1793;
-    let t28834 = piecewise3(t8, 0.0, 280.0 / 81.0 * t20666 * t3814 * t1808 - 224.0 / 27.0 * t8632 * t28813 - 28.0 / 27.0 * t10536 * t1796 + 32.0 / 9.0 * t2170 * t457 * t2750 + 16.0 / 9.0 * t3302 * t1793 - 16.0 / 3.0 * t3302 * t5891 - 28.0 / 27.0 * t6536 * t3804 * t1808 + 8.0 / 9.0 * t2170 * t9909 * t545 + 4.0 / 9.0 * t10541 * t1796 - t24587);
-    (t28794, t28797, t28800, t28804, t28808, t28813, t28834)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1228<F: Float>(t1890: F, t8299: F, t19746: F, t35: F, t8330: F, t2054: F, t8329: F, t1238: F, t675: F, t2051: F, t39: F, t6299: F) -> (F, F, F, F, F) {
+    let t24137 = t1890 * t8299;
+    let t24140 = t35 * t19746 * t8330;
+    let t24142 = t8329 * t2054;
+    let t24143 = t1238 * t675;
+    let t24149 = t2051 * t39 * t6299;
+    (t24137, t24140, t24142, t24143, t24149)
 }

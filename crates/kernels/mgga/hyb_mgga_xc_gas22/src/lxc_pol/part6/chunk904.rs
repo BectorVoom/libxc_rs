@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 904/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 904/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,10 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk904<F: Float>(t143: F, t1270: F, t1285: F, t172: F, t187: F, t2104: F, t2147: F, t3227: F, t3267: F, t740: F, t759: F, t8266: F, t8352: F, t8354: F, t8434: F, t139: F, t214: F) -> (F, F, F) {
-    let t144 = 0.135e1 <= t143;
-    let t8438 = piecewise3(t144, t8266 + t8352, -8.0 / 3.0 * t8354 * t187 - 16.0 / 3.0 * t3227 * t759 - 8.0 / 3.0 * t1270 * t2147 - 8.0 / 3.0 * t2104 * t1285 - 16.0 / 3.0 * t740 * t3267 - 8.0 / 3.0 * t172 * t8434);
-    let t8439 = t139 * t8438;
-    let t8440 = t8439 * t214;
-    (t8438, t8439, t8440)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk904<F: Float>(t1787: F, t3: F, t1184: F, t555: F, t6160: F, t1782: F, t1179: F, t6164: F, t125: F, t3112: F, t545: F, t2987: F, t558: F, t5871: F, t5874: F, t5876: F, t5880: F, t5881: F, t5883: F, t5886: F, t5889: F, t5904: F) -> (F, F, F, F, F, F, F) {
+    let t7898 = t1787 * t3;
+    let t7903 = t555 * t6160 * t1184;
+    let t7905 = t1782 * t3;
+    let t7909 = t6164 * t1179;
+    let t7913 = t3112 * t125;
+    let t7914 = t7913 * t545;
+    let t7918 = -t5871 / F::new(32.0) - t5874 / F::new(64.0) + t5876 / F::new(48.0) - t5880 - t5881 / F::new(32.0) - t5883 / F::new(32.0) + t5886 / F::new(48.0) + t5889 / F::new(48.0) - t5904 / F::new(64.0) - t555 * t2987 * t7898 / F::new(16.0) + t7903 / F::new(288.0) - t555 * t2987 * t7905 / F::new(16.0) - t555 * t558 * t7909 / F::new(64.0) - t555 * t558 * t7914 / F::new(32.0);
+    (t7898, t7903, t7905, t7909, t7913, t7914, t7918)
 }

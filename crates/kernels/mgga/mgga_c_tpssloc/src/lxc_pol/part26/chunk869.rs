@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 869/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 869/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk869<F: Float>(t11023: F, t3201: F, t1003: F, t10359: F, t1058: F, t1061: F, t1063: F, t11024: F, t11028: F, t11031: F, t11034: F, t11037: F, t11040: F, t11043: F, t11046: F, t11049: F, t11051: F, t11055: F, t11059: F, t11061: F, t11065: F, t11067: F, t11078: F, t3076: F, t3180: F, t3186: F, t3189: F, t3193: F, t3197: F, t3200: F, t3202: F, t3204: F, t353: F, t384: F) -> (F,) {
-    let t11081 = t11023 * t3201;
-    let t11084 = 3.0 * t3180 * t3197 + 6.0 * t3186 * t11024 + t1058 * t11028 + 3.0 * t1058 * t11031 + 6.0 * t11034 * t3189 - 3.0 * t11037 * t3202 - 3.0 * t3200 * t11040 + t353 * t11043 + t11046 * t11049 + 3.0 * t11051 * t1061 + 6.0 * t3186 * t11055 + 6.0 * t11059 * t11061 - 6.0 * t11065 * t11067 + 3.0 * t1003 * t3204 + 3.0 * t3076 * t1063 + t10359 * t384 + 6.0 * t3180 * t3193 + 3.0 * t1058 * t11078 - 3.0 * t3200 * t11081;
-    (t11084,)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk869<F: Float>(t271: F, t2775: F, t974: F, t2769: F, t632: F, t344: F, t9288: F, t698: F, t976: F, t979: F, t973: F, t2970: F, t2999: F) -> (F, F, F, F, F) {
+    let t10213 = F::new(1.0) / t271 / t2775;
+    let t10214 = t974 * t10213;
+    let t10216 = F::new(1.0) / t2769 / t632;
+    let t10217 = t344 * t10216;
+    let t10218 = t10217 * t9288;
+    let t10219 = t10214 * t10218;
+    let t10224 = t698 * t976;
+    let t10225 = t10224 * t979;
+    let t10226 = t973 * t10225;
+    let t10228 = t2970 * t2999;
+    (t10213, t10216, t10219, t10226, t10228)
 }

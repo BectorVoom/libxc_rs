@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 932/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 932/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk932<F: Float>(t127109: F, t127111: F, t128387: F, t128393: F, t128397: F, t128401: F, t128404: F, t128406: F, t128413: F, t128415: F, t19451: F, t2075: F, t2114: F, t2165: F, t27863: F, t28959: F, t29197: F, t29214: F, t29219: F, t29486: F, t33690: F, t7266: F, t7802: F, t8835: F) -> (F,) {
-    let t130342 = -2.0 * t19451 * t8835 - t2075 * t29486 - t2114 * t29197 - 2.0 * t2165 * t28959 - 4.0 * t27863 * t7802 - 2.0 * t29214 * t7266 - 4.0 * t29219 * t7266 - 4.0 * t33690 * t7802 - t127109 - t127111 - t128387 + t128393 + t128397 - t128401 - t128404 - t128406 - t128413 - t128415;
-    (t130342,)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk932<F: Float>(t115390: F, t22724: F, t31623: F, t22716: F, t8631: F, t113981: F, t114025: F, t114027: F, t114038: F, t3787: F, t8617: F, t31594: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t115391 = F::new(0.82246703342411321824e-2) * t115390;
+    let t115432 = t22724 * t31623;
+    let t115433 = F::new(0.26044789391763585244e-1) * t115432;
+    let t115434 = t22716 * t8631;
+    let t115435 = F::new(0.63969658155208805863e-1) * t115434;
+    let t115447 = F::new(0.13457585364713463618e-3) * t113981;
+    let t115461 = F::new(0.42167100809435519335e-2) * t114025;
+    let t115462 = F::new(0.90434973650874475512e-1) * t114027;
+    let t115465 = F::new(119.0) / F::new(3456.0) * t114038;
+    let t115494 = t3787 * t8617;
+    let t115539 = t22724 * t31594;
+    (t115391, t115433, t115435, t115447, t115461, t115462, t115465, t115494, t115539)
 }

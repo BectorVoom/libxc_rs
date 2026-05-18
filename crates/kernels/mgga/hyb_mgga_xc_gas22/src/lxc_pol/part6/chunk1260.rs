@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1260/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1260/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1260<F: Float>(t7: F, t10517: F, t10846: F, t1325: F, t1382: F, t2159: F, t220: F, t2337: F, t28698: F, t28740: F, t28779: F, t28968: F, t29061: F, t291: F, t29493: F, t29508: F, t29510: F, t29526: F, t3294: F, t3448: F, t4094: F, t4218: F, t771: F, t8590: F, t861: F, t8945: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F,) {
-    let t8 = t7 <= zeta_threshold;
-    let t9 = rho0 <= dens_threshold || t8;
-    let t29533 = piecewise3(t9, 0.0, t28698 * t291 / 2.0 + t10517 * t861 + t4094 * t2337 / 2.0 + t8590 * t1382 + 2.0 * t3294 * t3448 + t1325 * t8945 + t2159 * t4218 / 2.0 + t771 * t10846 + t220 * (t28740 + t28779 + t28968 + t29061 + t29493 + t29508 + t29510 + t29526) / 2.0);
-    (t29533,)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1260<F: Float>(t26727: F, t2927: F, t1128: F, t9761: F, t2881: F, t2868: F, t10154: F, t10516: F, t11261: F, t11263: F, t11265: F, t8586: F, t8951: F, t8953: F, t9315: F, t9316: F, t9412: F, t9413: F, t9415: F) -> (F, F, F, F, F) {
+    let t26886 = t2927 * t26727;
+    let t26927 = t9761 * t1128;
+    let t26973 = t2881 * t26727;
+    let t26976 = t2868 * t26727;
+    let t27002 = F::new(2.0) * t10154 + F::new(2.0) * t10516 + F::new(2.0) * t9315 + F::new(2.0) * t9316 + F::new(2.0) * t9412 + F::new(4.0) * t8951 + F::new(2.0) * t8953 + F::new(4.0) * t9413 + F::new(2.0) * t9415 + F::new(4.0) * t11263 + F::new(2.0) * t11265 + F::new(2.0) * t8586 + F::new(4.0) * t11261;
+    (t26886, t26927, t26973, t26976, t27002)
 }

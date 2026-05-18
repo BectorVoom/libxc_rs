@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 721/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 721/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk721<F: Float>(t2097: F, t547: F, t546: F, t560: F, t6212: F, t6211: F, t565: F, t481: F, t133: F, t2078: F, t255: F, t2168: F, t2195: F, t2169: F, t2219: F, t1543: F, t1632: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t6474 = t547 * t2097;
-    let t6475 = t546 * t6474;
-    let t6476 = t6212 * t560;
-    let t6477 = t6211 * t6476;
-    let t6478 = t6475 * t6477;
-    let t6480 = t565 * t6474;
-    let t6481 = t6212 * t481;
-    let t6482 = t6211 * t6481;
-    let t6483 = t6480 * t6482;
-    let t6486 = t133 * t2078 * t255;
-    let t6487 = t546 * t6486;
-    let t6490 = t565 * t6486;
-    let t6493 = t2195 * t2168;
-    let t6496 = t2169 * t2219;
-    let t6499 = t1632 * t1543;
-    (t6475, t6476, t6478, t6480, t6481, t6483, t6487, t6490, t6493, t6496, t6499)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk721<F: Float>(t5673: F, t188: F, t5448: F, t5672: F, t1893: F, t644: F, t1647: F, t1891: F, t4831: F, t4832: F, t4833: F, t4834: F, t4835: F, t5309: F, t5312: F, t5315: F) -> (F, F, F) {
+    let t5674 = F::new(1.0) / t5673;
+    let t5675 = t188 * t5674;
+    let t5678 = F::new(0.24955700379505800916e5) * t5672 * t5675 * t5448;
+    let t5679 = t644 * t1893;
+    let t5682 = F::new(0.1551780387578202009e4) * t1891 * t5679 * t1647;
+    let t5686 = -F::new(0.126595e1) * t5309 + F::new(0.84396666666666666667e0) * t5312 - F::new(0.3938511111111111111e1) * t5315 - t4831 + t4832 - t4833 - t4834 - t4835;
+    (t5678, t5682, t5686)
 }

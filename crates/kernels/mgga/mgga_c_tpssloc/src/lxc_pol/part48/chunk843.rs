@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 843/910 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 843/1034 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk843<F: Float>(t112820: F, t112773: F, t112782: F, t112784: F, t112788: F, t112795: F, t112798: F, t112807: F, t112811: F, t112814: F, t114714: F, t114720: F, t114724: F, t112834: F, t112840: F, t112846: F) -> (F, F, F, F) {
-    let t114725 = 7.0 / 144.0 * t112820;
-    let t114726 = t112773 / 96.0 + t114714 + 0.67826230238155856632e-1 * t112782 + 0.13565246047631171327e0 * t112784 - 0.96894614625936938046e-2 * t112788 + t112795 / 384.0 - t112798 / 384.0 + t114720 - t112807 / 768.0 - t112811 / 768.0 + 0.32298204875312312682e-2 * t112814 + t114724 + t114725;
-    let t114732 = 0.42167100809435519335e-2 * t112834;
-    let t114734 = 0.13457585364713463618e-3 * t112840;
-    let t114736 = 7.0 / 576.0 * t112846;
-    (t114726, t114732, t114734, t114736)
+pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk843<F: Float>(t31337: F, t776: F, t23270: F, t22986: F, t1911: F, t7106: F, t2718: F, t1912: F, t24305: F, t30655: F, t30659: F, t30662: F, t30666: F, t30669: F, t31330: F, t31335: F, t6627: F, t7107: F, t855: F) -> (F, F, F, F) {
+    let t31338 = t31337 * t776;
+    let t31339 = t23270 * t31338;
+    let t31340 = t22986 * t31339;
+    let t31342 = t7106 * t1911;
+    let t31343 = t2718 * t31342;
+    let t31347 = -t24305 * t1912 - F::new(0.82246703342411321825e-2) * t31330 + F::new(0.16449340668482264365e-1) * t31335 - t30655 + F::new(0.16449340668482264365e-1) * t31340 + F::new(2.0) * t855 * t31343 - t30659 - t6627 * t7107 + t30662 - t30666 - t30669;
+    (t31338, t31339, t31343, t31347)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 507/1170 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 507/1333 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk507<F: Float>(t2847: F, t2848: F, t2855: F, t2860: F, t2864: F, t291: F, t910: F, t914: F, t936: F, t287: F, t913: F, t275: F, t934: F, t935: F, t273: F, t276: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t2866 = t2847 + 0.11872222222222222222e-1 * t2848 - 0.11872222222222222222e-1 * t2855 + 0.35616666666666666666e-1 * t2860 - 0.17808333333333333333e-1 * t2864;
-    let t2868 = 0.621814e-1 * t2866 * t291;
-    let t2869 = t910 * t914;
-    let t2871 = 2.0 * t2869 * t936;
-    let t2872 = t913 * t287;
-    let t2873 = 1.0 / t2872;
-    let t2874 = t275 * t2873;
-    let t2875 = t934 * t934;
-    let t2876 = t2875 * t935;
-    let t2878 = 2.0 * t2874 * t2876;
-    let t2880 = 1.0 / t276 / t273;
-    (t2866, t2868, t2869, t2871, t2873, t2874, t2875, t2876, t2878, t2880)
+pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk507<F: Float>(t213: F, t2437: F, t2443: F, t2446: F, t2449: F, t2460: F, t2462: F, t2468: F, t2473: F, t257: F, t2761: F, t2765: F, t2772: F, t2829: F, t865: F, t887: F) -> F {
+    let t2832 = t2437 - t2443 - F::new(0.10975748638225852664e-1) * t2446 + F::new(0.10975748638225852664e-1) * t2449 + t2460 + F::new(0.19514881078765566038e-1) * t2462 - F::new(0.19514881078765566038e-1) * t2468 - t2473 + F::new(0.65854491829355115987e0) * t213 * t2761 * t257 - F::new(0.13170898365871023197e1) * t2765 * t887 + F::new(0.13170898365871023197e1) * t865 * t2772 - F::new(0.65854491829355115987e0) * t865 * t2829;
+    t2832
 }

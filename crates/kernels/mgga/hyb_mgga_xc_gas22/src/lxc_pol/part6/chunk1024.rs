@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1024/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1024/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1024<F: Float>(t1890: F, t4006: F, t2054: F, t3925: F, t3177: F, t675: F, t3: F, t3178: F, t4010: F, t3938: F, t3171: F, t2022: F, t9909: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t10302 = t1890 * t4006;
-    let t10304 = t2054 * t3925;
-    let t10306 = t3177 * t10304 * t675;
-    let t10310 = t3177 * t3178 * t3;
-    let t10313 = t1890 * t4010;
-    let t10315 = t2054 * t3938;
-    let t10317 = t3171 * t10315 * t675;
-    let t10320 = t2022 * t3938;
-    let t10322 = t3177 * t10320 * t675;
-    let t10325 = -t9909;
-    (t10302, t10304, t10306, t10310, t10313, t10315, t10317, t10320, t10322, t10325)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1024<F: Float>(t3663: F, t4711: F, t2880: F, t510: F, t4714: F, t521: F, t2903: F, t1139: F, t1134: F, t3747: F, t3753: F, t7806: F, t7811: F, t9504: F, t9521: F, t9535: F, t9545: F, t9552: F, t9562: F, t9568: F, t9575: F, t9587: F, t9588: F, t9594: F, t9598: F, tau0: F) -> (F, F, F, F, F, F, F) {
+    let t9599 = t3663 * t4711;
+    let t9602 = t2880 * tau0;
+    let t9603 = t510 * t9602;
+    let t9604 = t3663 * t4714;
+    let t9607 = t521 * tau0;
+    let t9608 = t2903 * t9607;
+    let t9611 = t1139 * tau0;
+    let t9612 = t1134 * t9611;
+    let t9617 = F::new(32.0) * t7806 * t9568 + F::new(32.0) / F::new(9.0) * t7811 * t9568 + F::new(700.0) / F::new(3.0) * t9575 * t9535 + F::new(32.0) / F::new(9.0) * t7811 * t9545 + F::new(200.0) / F::new(9.0) * t9521 * t9535 + F::new(32.0) / F::new(9.0) * t7811 * t9552 - F::new(64.0) / F::new(27.0) * t3747 * t9504 - F::new(512.0) / F::new(729.0) * t9587 * t9588 - F::new(128.0) / F::new(81.0) * t3753 * t9562 - F::new(512.0) / F::new(729.0) * t9594 * t9588 - F::new(400.0) / F::new(9.0) * t9598 * t9599 + F::new(200.0) / F::new(3.0) * t9603 * t9604 - F::new(1000.0) / F::new(3.0) * t9608 * t9599 + F::new(400.0) * t9612 * t9604 - F::new(400.0) * t9612 * t9599;
+    (t9602, t9603, t9604, t9608, t9611, t9612, t9617)
 }

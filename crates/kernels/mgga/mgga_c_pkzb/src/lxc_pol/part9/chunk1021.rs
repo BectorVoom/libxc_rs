@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1021/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1021/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1021<F: Float>(t5674: F, t771: F, t310: F, t5999: F, t5989: F, t751: F, t2021: F, t296: F, t2030: F, t5913: F, t2970: F, t2177: F, t91: F, t204: F, t3981: F, t824: F) -> (F, F, F, F, F, F, F, F) {
-    let t18236 = t771 * t5674;
-    let t18258 = 1.0 / t5999 / t310;
-    let t18284 = t751 * t5989;
-    let t18290 = 1.0 / t2021 / t296;
-    let t18331 = t2030 * t5913;
-    let t18332 = t2970 * t18331;
-    let t18406 = t2177 * t2177;
-    let t18408 = 1.0 / t91 / t18406;
-    let t18427 = t204 * t3981 * t824;
-    (t18236, t18258, t18284, t18290, t18331, t18332, t18408, t18427)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1021<F: Float>(t2380: F, t2384: F, t3174: F, t3185: F, t3206: F, t404: F, t6379: F, t6383: F, t6392: F, t8247: F, t8249: F, t8256: F, t8261: F, t8265: F, t8270: F, t8275: F, t8278: F, t8282: F, t8285: F, t8312: F, t8317: F, t8319: F, t918: F) -> F {
+    let t8322 = -t8247 - F::new(0.42874018118069736972e-3) * t404 * t8249 + t6379 + F::new(0.19055119163586549765e-3) * t6383 + F::new(0.85748036236139473944e-3) * t3206 * t8256 - F::new(0.17149607247227894789e-2) * t3185 * t8261 + F::new(0.25724410870841842184e-2) * t2380 * t8265 - F::new(0.28582678745379824648e-3) * t6392 + t3174 * t8270 / F::new(48.0) + t8275 + t3174 * t8278 / F::new(24.0) - t3174 * t8282 / F::new(16.0) + F::new(0.2540682555144873302e-3) * t8285 + F::new(0.21437009059034868486e-3) * t918 * t8312 + t8317 + F::new(0.45732285992607719436e-2) * t8319 * t2384;
+    t8322
 }

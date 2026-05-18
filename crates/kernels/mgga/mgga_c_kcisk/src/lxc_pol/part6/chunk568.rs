@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 568/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 568/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk568<F: Float>(t227: F, t8463: F, t807: F, t2356: F, t2361: F, t2671: F, t7718: F, t565: F, t806: F, t564: F, t2360: F, t2670: F, t2063: F, t2527: F, t5185: F, t5184: F, t5182: F, sigma2: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t228 = t227 <= zeta_threshold;
-    let t8464 = sigma2 * t8463;
-    let t8465 = t8464 * t807;
-    let t8467 = t2356 * t2361;
-    let t8469 = t2356 * t2671;
-    let t8471 = piecewise3(t228, 0.0, t7718);
-    let t8472 = t565 * t8471;
-    let t8473 = t8472 * t806;
-    let t8474 = t564 * t8473;
-    let t8476 = t2360 * t2670;
-    let t8477 = t564 * t8476;
-    let t8479 = t2063 * t2527;
-    let t8480 = t5185 * t8479;
-    let t8481 = t5184 * t8480;
-    let t8482 = t5182 * t8481;
-    (t8464, t8465, t8467, t8469, t8472, t8473, t8474, t8476, t8477, t8480, t8481, t8482)
+pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk568<F: Float>(t1341: F, t7906: F, t1415: F, t1411: F, t1224: F, t4013: F, t7736: F, t1225: F, t7740: F, t7744: F, t4008: F, t6020: F) -> (F, F, F, F, F, F, F) {
+    let t7907 = t1341 * t7906;
+    let t7908 = t1415 * t7907;
+    let t7909 = t1411 * t7908;
+    let t7914 = t1224 * t4013 * t7736;
+    let t7917 = t1224 * t1225 * t7740;
+    let t7920 = t1224 * t1225 * t7744;
+    let t7922 = t4008 + F::new(0.11872222222222222222e-1) * t6020 - F::new(0.11872222222222222222e-1) * t7914 + F::new(0.35616666666666666666e-1) * t7917 - F::new(0.17808333333333333333e-1) * t7920;
+    (t7907, t7908, t7909, t7914, t7917, t7920, t7922)
 }

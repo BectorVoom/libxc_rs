@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 729/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 3 (v3rho3_0) CSE chunk 729/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk729<F: Float>(t11764: F, t11767: F, t11770: F, t11772: F, t11778: F, t11782: F, t11784: F, t11787: F, t11790: F, t11792: F, t11796: F, t11800: F, t11804: F, t11810: F, t11813: F, t11925: F, t11930: F, t11932: F) -> (F,) {
-    let t12396 = -0.375e0 * t11764 - 0.62499999999999999999e-1 * t11767 - 0.60703125e-1 * t11770 - 0.625e-1 * t11772 - 0.5625e0 * t11778 - 0.13489583333333333333e-1 * t11782 + 0.303515625e-1 * t11784 + 0.40468749999999999999e-1 * t11787 + 0.13489583333333333333e-1 * t11790 - 0.28125e0 * t11792 + 0.27777777777777777777e-1 * t11796 - 0.28125e0 * t11800 - 0.9375e-1 * t11804 + 0.29976851851851851851e-2 * t11810 - 0.13489583333333333333e-1 * t11813 + 0.9375e-1 * t11925 + 0.60703125e-1 * t11930 + 0.1875e0 * t11932;
-    (t12396,)
+pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk729<F: Float>(t11287: F, t11290: F, t11294: F, t11298: F, t11302: F, t11306: F, t11309: F, t11314: F, t11316: F, t11318: F, t11320: F, t1421: F) -> F {
+    let t11322 = -F::new(0.32852148333333333333e-2) * t1421 * t11287 + F::new(0.32852148333333333333e-2) * t1421 * t11290 + F::new(0.295669335e-2) * t1421 * t11294 + F::new(0.295669335e-2) * t1421 * t11298 - F::new(0.19711289e-2) * t1421 * t11302 - F::new(0.19711289e-2) * t1421 * t11306 - F::new(0.39422577999999999999e-2) * t1421 * t11309 - F::new(0.43802864444444444445e-3) * t11314 + F::new(0.13140859333333333334e-2) * t11316 + F::new(0.21901432222222222222e-2) * t11318 - F::new(0.59133867e-2) * t11320;
+    t11322
 }

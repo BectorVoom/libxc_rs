@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 720/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 720/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk720<F: Float>(t124: F, t5119: F, t1535: F, t4867: F, t4870: F, t4873: F, t4876: F, t4879: F, t4881: F, t4884: F, t4887: F, t5077: F, t5079: F, t5081: F, t5082: F, t5087: F, t5091: F, t568: F) -> (F, F) {
-    let t5121 = 0.19751673498613801407e-1 * t5119 * t124;
-    let t5122 = -9.0 * t1535 * t5082 * t568 + t4867 + t4870 + t4873 - t4876 - t4879 + t4881 + t4884 + t4887 + t5077 + t5079 - t5081 - t5087 + t5091 + t5121;
-    (t5121, t5122)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk720<F: Float>(t123: F, t1570: F, t1581: F, t1587: F, t1589: F, t1614: F, t1621: F, t4888: F, t4892: F, t49: F, t4902: F, t4907: F, t4912: F, t4916: F, t4921: F, t4922: F, t4953: F, t4958: F, t4961: F, t4966: F, t4967: F, t4979: F, t4982: F, t4996: F, t5005: F, t5011: F, t520: F, t525: F, t527: F, t535: F) -> F {
+    let t5012 = -F::new(0.35089341735807877242e1) * t1614 * t4888 + F::new(0.51947577317044391277e2) * t1621 * t4892 + F::new(0.96491876992155210402e2) * t1587 * t1581 * t1589 * t525 - F::new(6.0) * t1570 * t527 * t1581 + F::new(0.56968947174242584612e-3) * t49 * t4902 * t123 + F::new(6.0) * t1587 * t4907 + F::new(0.10254018858216406658e4) * t4912 * t4916 - F::new(0.10389515463408878255e3) * t4921 * t4922 + F::new(0.5848223622634646207e0) * t535 * t4953 + F::new(0.2069040516770936012e4) * t4958 * t4961 - F::new(0.19298375398431042081e3) * t4966 * t4967 + F::new(1.0) * t520 * t4979 + F::new(0.35089341735807877242e1) * t1621 * t4982 - t4996 - t5005 + t5011;
+    t5012
 }

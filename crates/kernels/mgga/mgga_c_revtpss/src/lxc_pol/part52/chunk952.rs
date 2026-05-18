@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 952/1144 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 952/1292 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk952<F: Float>(t1936: F, t26399: F, t28658: F, t7002: F, t7359: F, t2055: F, t32392: F, t93: F, t7373: F, t8692: F, t25805: F, t28025: F, t32176: F, t32178: F, t32389: F, t32609: F, t670: F, t6985: F, t8564: F) -> (F, F) {
-    let t32642 = 2.0 * t26399 * t1936;
-    let t32644 = 2.0 * t28658 * t1936;
-    let t32646 = 2.0 * t7359 * t7002;
-    let t32654 = 2.0 * t32392 * t2055;
-    let t32655 = t93 * t7002;
-    let t32657 = 2.0 * t32655 * t2055;
-    let t32659 = 2.0 * t8692 * t7373;
-    let t32660 = 2.0 * t2055 * t25805 + 2.0 * t2055 * t28025 + 2.0 * t32389 * t670 + 2.0 * t6985 * t7373 + t32176 + t32178 + t32609 + t32642 + t32644 + t32646 + t32654 + t32657 + t32659 + t8564;
-    (t32655, t32660)
+pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk952<F: Float>(t28042: F, t508: F, t651: F, t118: F, t1519: F, t25805: F, t27145: F, t27152: F, t27156: F, t27830: F, t27834: F, t27835: F, t28022: F, t28025: F, t28030: F, t4254: F, t4257: F, t4293: F, t4297: F, t671: F, t6985: F, t7746: F) -> (F, F) {
+    let t28043 = t508 * t28042;
+    let t28045 = F::new(2.0) * t651 * t28043;
+    let t28046 = -t118 * t27830 - F::new(2.0) * t1519 * t25805 - F::new(2.0) * t1519 * t28025 - F::new(2.0) * t27145 * t651 - F::new(2.0) * t28030 * t671 - F::new(2.0) * t4254 * t7746 - F::new(2.0) * t4257 * t6985 - F::new(2.0) * t4293 * t6985 - F::new(2.0) * t4297 * t6985 + t27152 - t27156 + t27834 + t27835 + t28022 - t28045;
+    (t28043, t28046)
 }

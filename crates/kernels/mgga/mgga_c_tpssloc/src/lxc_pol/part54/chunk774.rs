@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 774/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 774/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk774<F: Float>(t533: F, t7939: F, t1390: F, t2095: F, t5161: F, t113: F, t1442: F, t1459: F, t1774: F, t1849: F, t1983: F, t2036: F, t2040: F, t2075: F, t2079: F, t2096: F, t4028: F, t510: F, t574: F, t652: F, t7042: F, t7458: F, t7685: F, t7787: F, t7796: F, t7802: F, t7806: F, t7890: F, t7900: F, t7904: F) -> (F, F, F, F) {
-    let t7940 = t533 * t7939;
-    let t7941 = t7940 * t1390;
-    let t7943 = t2095 * t5161;
-    let t7945 = -t113 * t7890 - t1442 * t2075 - 2.0 * t1459 * t7042 - t1774 * t2036 + t1849 * t2079 + 3.0 * t1983 * t7904 + t1983 * t7941 - t1983 * t7943 - 2.0 * t2040 * t4028 - 2.0 * t2040 * t7458 + t2096 * t7685 - t510 * t7787 + t574 * t7900 - 2.0 * t652 * t7796 - 2.0 * t652 * t7802 - 2.0 * t652 * t7806;
-    (t7940, t7941, t7943, t7945)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk774<F: Float>(t1241: F, t7391: F, t1238: F, t1252: F, t2121: F, t2155: F, t3487: F, t3593: F, t498: F, t7282: F, t7283: F, t7288: F, t7291: F, t7296: F, t7303: F, t7306: F, t7349: F, t7351: F, t7356: F) -> (F, F) {
+    let t7392 = t1241 * t7391;
+    let t7394 = t7282 - F::new(0.27415567780803773942e-2) * t7283 * t7288 - F::new(0.82246703342411321825e-2) * t7283 * t7291 + F::new(0.82246703342411321825e-2) * t2121 * t7296 - F::new(0.82246703342411321825e-2) * t7283 * t7303 + t7306 * t498 + t7349 * t498 - t7351 * t1252 - t3487 * t2155 - t3593 * t2155 + F::new(2.0) * t1238 * t7356 - t1238 * t7392;
+    (t7392, t7394)
 }

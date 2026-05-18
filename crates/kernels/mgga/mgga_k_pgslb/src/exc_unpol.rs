@@ -32,19 +32,19 @@ pub fn mgga_k_pgslb_exc_unpol(
         let t8 = t5 * t6 * M_PI;
         let t9 = 1.0 <= zeta_threshold;
         let t10 = zeta_threshold - 1.0;
-        let t12 = piecewise5(t9, t10, t9, -t10, 0.0);
+        let t12 = piecewise5::<f64>(t9, t10, t9, -t10, 0.0);
         let t13 = 1.0 + t12;
-        let t15 = pow_1_3(zeta_threshold);
+        let t15 = pow_1_3::<f64>(zeta_threshold);
         let t16 = t15 * t15;
-        let t18 = pow_1_3(t13);
+        let t18 = pow_1_3::<f64>(t13);
         let t19 = t18 * t18;
-        let t21 = piecewise3(t13 <= zeta_threshold, t16 * zeta_threshold, t19 * t13);
-        let t22 = pow_1_3(rho[ip]);
+        let t21 = piecewise3::<f64>(t13 <= zeta_threshold, t16 * zeta_threshold, t19 * t13);
+        let t22 = pow_1_3::<f64>(rho[ip]);
         let t23 = t22 * t22;
         let t24 = t21 * t23;
         let t25 = M_CBRT6;
         let t26 = M_PI * M_PI;
-        let t27 = pow_1_3(t26);
+        let t27 = pow_1_3::<f64>(t26);
         let t28 = t27 * t27;
         let t29 = 1.0 / t28;
         let t30 = t25 * t29;
@@ -65,7 +65,7 @@ pub fn mgga_k_pgslb_exc_unpol(
         let t52 = t34 * rho[ip];
         let t54 = 1.0 / t22 / t52;
         let t58 = 5.0 / 72.0 * t30 * t37 + t44 + t49 * t51 * t54 / 288.0;
-        let t62 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t58);
+        let t62 = piecewise3::<f64>(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t58);
         let tzk0 = 2.0 * t62;
         zk[ip] += tzk0;
     }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 1019/1183 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 1019/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk1019<F: Float>(t17157: F, t4510: F, t17161: F, t13798: F, t17152: F, t10236: F, t5392: F, t10235: F, t13851: F, t4514: F, t10287: F, t10333: F, t10339: F, t13893: F, t13896: F, t13907: F, t13909: F, t13915: F, t2986: F) -> (F,) {
-    let t17854 = t4510 * t17157;
-    let t17857 = t4510 * t17161;
-    let t17860 = t13798 * t17152;
-    let t17863 = t10236 * t5392;
-    let t17864 = t10235 * t17863;
-    let t17867 = t13851 * t4514;
-    let t17873 = -t13893 - 0.12345679012345679012e-3 * t13896 - 0.22222222222222222221e-2 * t2986 * t17854 + 0.74074074074074074072e-3 * t2986 * t17857 + 0.86419753086419753084e-3 * t2986 * t17860 - 0.37037037037037037036e-3 * t2986 * t17864 - 0.55555555555555555554e-3 * t2986 * t17867 + 0.18518518518518518518e-3 * t10287 + 0.49382716049382716048e-3 * t10333 + t10339 + t13907 + 0.37037037037037037036e-3 * t13909 - t13915;
-    (t17873,)
+pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk1019<F: Float>(t11981: F, t2528: F, t5154: F, t172: F, t5151: F, t763: F, t2535: F, t5166: F, t592: F, t118: F, t1787: F, t2375: F) -> (F, F, F, F, F, F) {
+    let t15889 = F::new(32.0) * t11981;
+    let t15890 = t5154 * t2528;
+    let t15892 = t5151 * t172;
+    let t15894 = F::new(0.11696447245269292414e1) * t15892 * t763;
+    let t15895 = t5154 * t2535;
+    let t15898 = F::new(8.0) * t592 * t5166;
+    let t15908 = t1787 * t118;
+    let t15909 = t15908 * t2375;
+    (t15889, t15890, t15894, t15895, t15898, t15909)
 }

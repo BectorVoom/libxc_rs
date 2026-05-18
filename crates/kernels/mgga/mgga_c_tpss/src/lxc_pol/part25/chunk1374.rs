@@ -1,0 +1,18 @@
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1374/1383 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1374<F: Float>(t33: F, t259: F, t479: F, t72412: F, t1289: F, t13335: F, t1826: F, t20632: F, t21742: F, t3431: F, t4579: F, t57: F, t581: F, t5889: F, t6393: F, t72460: F, t72495: F, t72531: F, t72561: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> F {
+    let t34 = t33 <= zeta_threshold;
+    let t386 = rho1 <= dens_threshold || t34;
+    let t480 = t259 < t479;
+    let t72564 = piecewise3::<f64>(t480, F::new(0.0), t72412);
+    let t72576 = piecewise3::<f64>(t386, t72460 + t72495 + t72531 + t72561, t72564 * t57 / F::new(2.0) - t21742 * t581 / F::new(2.0) - t20632 * t1289 - t6393 * t3431 - t5889 * t4579 / F::new(2.0) - t1826 * t13335 / F::new(2.0));
+    t72576
+}

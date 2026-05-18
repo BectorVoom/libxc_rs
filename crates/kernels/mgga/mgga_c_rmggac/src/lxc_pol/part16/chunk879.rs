@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 879/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 879/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk879<F: Float>(t10082: F, t236: F, t495: F, t7230: F, t7248: F, t1916: F, t2144: F, t2147: F, t1763: F, t2084: F, t27: F, t7263: F, t2191: F, t9817: F, t1986: F, t6599: F, t675: F) -> (F, F, F, F, F) {
-    let t46974 = t7230 * t7248 * t236 * t10082 * t495;
-    let t46976 = t1916 * t2144;
-    let t46977 = t46976 * t2147;
-    let t46981 = t7263 * t27 * t2084 * t1763;
-    let t46985 = t2191 * t9817;
-    let t46989 = t675 * t1986 * t6599;
-    (t46974, t46977, t46981, t46985, t46989)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk879<F: Float>(t9154: F, t9160: F, t9166: F, t9172: F, t9659: F, t9185: F, t9191: F, t9195: F, t9199: F, t9202: F, t9207: F, t9214: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t44476 = F::new(0.5107751987195740728e-4) * t9154;
+    let t44477 = F::new(0.5107751987195740728e-4) * t9160;
+    let t44478 = F::new(0.1702583995731913576e-4) * t9166;
+    let t44479 = F::new(0.1702583995731913576e-4) * t9172;
+    let t44482 = F::new(2.0) * t9659;
+    let t44485 = F::new(0.5107751987195740728e-4) * t9185;
+    let t44486 = F::new(0.10215503974391481456e-3) * t9191;
+    let t44487 = F::new(0.15323255961587222184e-3) * t9195;
+    let t44488 = F::new(0.5107751987195740728e-4) * t9199;
+    let t44489 = F::new(0.5107751987195740728e-4) * t9202;
+    let t44490 = F::new(0.638468998399467591e-4) * t9207;
+    let t44492 = F::new(0.3405167991463827152e-4) * t9214;
+    (t44476, t44477, t44478, t44479, t44482, t44485, t44486, t44487, t44488, t44489, t44490, t44492)
 }

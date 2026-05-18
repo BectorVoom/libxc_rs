@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 658/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 658/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk658<F: Float>(t5325: F, t591: F, t5363: F, t1726: F, t1727: F, t608: F, t1859: F, t766: F, t2: F, t636: F, t1758: F, t188: F, t1907: F, t1800: F, t652: F, t621: F) -> (F, F, F, F, F, F, F) {
-    let t5364 = t5325 * t591;
-    let t5366 = 0.5143752e0 * t5363 * t5364;
-    let t5373 = t1726 * t608 * t1727;
-    let t5375 = t1859 * t766;
-    let t5376 = t636 * t2;
-    let t5377 = t5376 * t1758;
-    let t5378 = t5375 * t5377;
-    let t5380 = t1907 * t188;
-    let t5381 = t652 * t1800;
-    let t5382 = t5381 * t621;
-    (t5366, t5373, t5377, t5378, t5380, t5381, t5382)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk658<F: Float>(t4741: F, t1736: F, t3: F, t40: F, t1401: F, t4735: F, t392: F, t4738: F, t22: F, t502: F, t6: F, t4733: F, t4736: F, t4739: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t4742 = F::new(0.16068111111111111111e1) * t4741;
+    let t4743 = t1736 * t3;
+    let t4744 = t4743 * t40;
+    let t4745 = F::new(0.28051666666666666666e0) * t4744;
+    let t4746 = t1401 * t4735;
+    let t4747 = F::new(0.56103333333333333332e0) * t4746;
+    let t4748 = t392 * t4738;
+    let t4749 = F::new(0.6545388888888888889e0) * t4748;
+    let t4751 = t22 * t6 * t502;
+    let t4752 = F::new(0.46308888888888888888e0) * t4751;
+    let t4753 = -F::new(0.47063e1) * t4733 + F::new(0.31375333333333333334e1) * t4736 - F::new(0.36604555555555555556e1) * t4739 - t4742 + t4745 - t4747 - t4749 - t4752;
+    (t4742, t4744, t4745, t4746, t4747, t4748, t4749, t4751, t4752, t4753)
 }

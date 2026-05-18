@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1051/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1051/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1051<F: Float>(t1873: F, t3652: F, t652: F, t6876: F, t7000: F, t6880: F, t9348: F, t12734: F, t2314: F, t6534: F, t12739: F, t5113: F, t1268: F, t22479: F, t12461: F, t3698: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t23831 = t3652 * t1873;
-    let t23833 = 2.0 * t652 * t23831;
-    let t23835 = 2.0 * t6876 * t7000;
-    let t23837 = 6.0 * t6876 * t6880;
-    let t23844 = 2.0 * t9348 * t1873;
-    let t23846 = 4.0 * t12734 * t1873;
-    let t23848 = 4.0 * t2314 * t6534;
-    let t23850 = 2.0 * t12739 * t1873;
-    let t23852 = 4.0 * t5113 * t6534;
-    let t23854 = 2.0 * t1268 * t22479;
-    let t23857 = t12461 * t3698;
-    (t23831, t23833, t23835, t23837, t23844, t23846, t23848, t23850, t23852, t23854, t23857)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1051<F: Float>(t12279: F, t12284: F, t12286: F, t12291: F, t12293: F, t12297: F, t12301: F, t12305: F, t12308: F, t12310: F, t12313: F, t12348: F, t12390: F, t12432: F, t1315: F, t1363: F, t3790: F, t3795: F, t5246: F) -> F {
+    let t12434 = t5246 * t12279 / F::new(512.0) - F::new(7.0) / F::new(192.0) * t12284 + t12286 * t3795 / F::new(512.0) - t12291 * t12293 / F::new(512.0) + t3790 * t12297 / F::new(512.0) + F::new(7.0) / F::new(768.0) * t12301 + F::new(5.0) / F::new(256.0) * t1363 * t12305 - F::new(35.0) / F::new(72.0) * t12308 + F::new(7.0) / F::new(48.0) * t12310 - t1315 * t12313 / F::new(48.0) + t12348 + t12390 + t12432;
+    t12434
 }

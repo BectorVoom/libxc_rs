@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 567/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 567/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk567<F: Float>(t25: F, t265: F, t394: F, t4324: F, t4704: F, t1074: F, t1408: F, t1409: F, t1534: F, t1642: F, t396: F, t3966: F, t40: F, t4332: F, t606: F, t607: F, t873: F, t1654: F, t690: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
-    let t26 = t25 <= zeta_threshold;
-    let t115 = rho0 <= dens_threshold || t26;
-    let t395 = t265 < t394;
-    let t4705 = piecewise3(t395, t4704, t4324);
-    let t4712 = piecewise3(t115, t4324 * t25 / 2.0 + t1534 * t606 / 2.0 + t873 * t1408 / 2.0 + t4332, t1074 * t1409 / 2.0 + t1642 * t607 / 2.0 + t396 * t3966 / 2.0 + t4705 * t40 / 2.0);
-    let t4721 = t690 * t1654;
-    (t4712, t4721)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk567<F: Float>(t2701: F, t4255: F, t820: F, t4119: F, t847: F, t1516: F, t2621: F, t2623: F, t2640: F, t2643: F, t2695: F, t2698: F, t4191: F, t4236: F, t4240: F, t4250: F, t4253: F, t817: F, t843: F) -> (F, F, F) {
+    let t4257 = t2701 * t820 * t4255;
+    let t4261 = t847 * t820 * t4119;
+    let t4264 = t2643 * t4191 / F::new(768.0) - t817 * t4236 / F::new(3072.0) - t2643 * t4240 / F::new(3072.0) - F::new(7.0) / F::new(4608.0) * t2621 + F::new(7.0) / F::new(4608.0) * t2640 + t2695 + F::new(7.0) / F::new(1152.0) * t2698 - t2623 * t1516 / F::new(768.0) + t2643 * t4250 / F::new(768.0) + F::new(7.0) / F::new(1152.0) * t4253 + F::new(5.0) / F::new(768.0) * t843 * t4257 - t843 * t4261 / F::new(768.0);
+    (t4257, t4261, t4264)
 }

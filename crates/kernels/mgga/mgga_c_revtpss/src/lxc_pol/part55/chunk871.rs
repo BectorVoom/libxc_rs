@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 871/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 871/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk871<F: Float>(t1444: F, t7296: F, t8085: F, t8094: F, t25924: F, t2103: F, t25921: F, t26274: F, t26279: F, t26280: F, t26294: F, t26295: F, t26302: F, t26309: F, t27837: F, t28008: F, t5728: F, t7295: F, t7511: F, t7523: F, t7528: F, t8095: F) -> (F,) {
-    let t28806 = t7296 * t8085 * t1444;
-    let t28814 = t8094 * t1444;
-    let t28815 = t25924 * t28814;
-    let t28822 = -0.12851425765524037203e-1 * t26274 + t26279 - 0.12851425765524037203e-1 * t26280 - 0.4336814094102599731e0 * t28008 * t2103 - t26294 + 0.25702851531048074406e-1 * t26295 + 0.8673628188205199462e0 * t7295 * t28806 + 0.54878743191129263322e-2 * t26302 + 0.8673628188205199462e0 * t25921 * t8095 + 0.8673628188205199462e0 * t27837 * t7523 - 0.26020884564615598386e1 * t7295 * t28815 + 0.4336814094102599731e0 * t27837 * t7528 + t26309 + 0.13170898365871023197e1 * t7511 * t5728;
-    (t28822,)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk871<F: Float>(t72: F, t7531: F, t686: F, t7284: F, t7289: F, t136: F, t2102: F, t2457: F, t25944: F, t25950: F, t7515: F, t213: F, t7506: F) -> (F, F, F, F, F, F) {
+    let t26270 = t7531 * t72;
+    let t26271 = t26270 * t686;
+    let t26272 = t7284 * t26271;
+    let t26274 = t7289 * t26271;
+    let t26276 = t2102 * t136;
+    let t26277 = t26276 * t2457;
+    let t26279 = F::new(0.17135234354032049604e-2) * t25944 * t26277;
+    let t26280 = t25950 * t7515;
+    let t26282 = t213 * t7506;
+    (t26272, t26274, t26277, t26279, t26280, t26282)
 }

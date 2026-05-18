@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 743/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 743/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk743<F: Float>(t15382: F, t1971: F, t2144: F, t333: F, t7230: F, t352: F, t875: F, t118: F, t1986: F, t615: F, t665: F, t7717: F, t2046: F, t2049: F, t2323: F, t15039: F, t2160: F, t638: F) -> (F, F, F, F, F) {
-    let t75490 = 0.3192344991997337955e-4 * t7230 * t1971 * t2144 * t15382 * t333;
-    let t75495 = 0.212822999466489197e-4 * t7230 * t1971 * t875 * t15382 * t352;
-    let t75498 = t1986 * t118 * t665 * t615;
-    let t75500 = 0.1064114997332445985e-4 * t7717 * t75498;
-    let t75508 = t2046 * t2049 * t2323;
-    let t75513 = t638 * t2160 * t15039;
-    (t75490, t75495, t75500, t75508, t75513)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk743<F: Float>(t69934: F, t69936: F, t69938: F, t69940: F, t69942: F, t14696: F, t7335: F, t2019: F, t3180: F, t7926: F, t14572: F, t7487: F) -> (F, F, F, F, F, F, F, F) {
+    let t71544 = F::new(0.30487649791575028312e-3) * t69934;
+    let t71545 = F::new(0.32526727992809621482e-4) * t69936;
+    let t71546 = F::new(0.60975299583150056624e-3) * t69938;
+    let t71551 = F::new(0.16263363996404810741e-4) * t69940;
+    let t71552 = F::new(0.16263363996404810741e-4) * t69942;
+    let t71564 = t7335 * t14696;
+    let t71565 = F::new(0.15243824895787514157e-3) * t71564;
+    let t71581 = t2019 * t7926 * t3180;
+    let t71582 = F::new(0.81300399444200075504e-3) * t71581;
+    let t71583 = t7487 * t14572;
+    (t71544, t71545, t71546, t71551, t71552, t71565, t71582, t71583)
 }

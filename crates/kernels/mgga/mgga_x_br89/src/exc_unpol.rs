@@ -29,14 +29,14 @@ pub fn mgga_x_br89_exc_unpol(
         let t3 = rho[ip] / 2.0 <= dens_threshold;
         let t4 = 1.0 <= zeta_threshold;
         let t5 = zeta_threshold - 1.0;
-        let t7 = piecewise5(t4, t5, t4, -t5, 0.0);
+        let t7 = piecewise5::<f64>(t4, t5, t4, -t5, 0.0);
         let t8 = 1.0 + t7;
-        let t10 = pow_1_3(zeta_threshold);
-        let t12 = pow_1_3(t8);
-        let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
-        let t15 = pow_1_3(rho[ip]);
+        let t10 = pow_1_3::<f64>(zeta_threshold);
+        let t12 = pow_1_3::<f64>(t8);
+        let t14 = piecewise3::<f64>(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
+        let t15 = pow_1_3::<f64>(rho[ip]);
         let t16 = t14 * t15;
-        let t18 = pow_1_3(1.0 / M_PI);
+        let t18 = pow_1_3::<f64>(1.0 / M_PI);
         let t19 = 1.0 / t18;
         let t20 = M_CBRT4;
         let t21 = t19 * t20;
@@ -56,9 +56,9 @@ pub fn mgga_x_br89_exc_unpol(
         let t50 = t24 * t36;
         let t53 = t44 * t27 / 6.0 - 2.0 / 3.0 * t30 * t47 + t33 * t50 / 12.0;
         let t54 = 0.0 < t53;
-        let t55 = piecewise3(t54, 0.5e-12, -0.5e-12);
-        let t56 = piecewise3(t43, t55, t53);
-        let t57 = xc_mgga_x_br89_get_x(t56);
+        let t55 = piecewise3::<f64>(t54, 0.5e-12, -0.5e-12);
+        let t56 = piecewise3::<f64>(t43, t55, t53);
+        let t57 = xc_mgga_x_br89_get_x::<f64>(t56);
         let t59 = f64::exp(t57 / 3.0);
         let t60 = f64::exp(-t57);
         let t62 = 1.0 + t57 / 2.0;
@@ -69,7 +69,7 @@ pub fn mgga_x_br89_exc_unpol(
         let t67 = M_CBRT6;
         let t68 = t67 * t67;
         let t69 = M_PI * M_PI;
-        let t70 = pow_1_3(t69);
+        let t70 = pow_1_3::<f64>(t69);
         let t71 = t70 * t70;
         let t73 = 3.0 / 10.0 * t68 * t71;
         let t74 = tau[ip] * t24;
@@ -89,7 +89,7 @@ pub fn mgga_x_br89_exc_unpol(
         let t95 = 1.0 + param_at * (t76 * t78 - 2.0 * t81 * t84 + t88 * t91);
         let t96 = t66 * t95;
         let t97 = t65 * t96;
-        let t100 = piecewise3(t3, 0.0, -t22 * t97 / 4.0);
+        let t100 = piecewise3::<f64>(t3, 0.0, -t22 * t97 / 4.0);
         let tzk0 = 2.0 * t100;
         zk[ip] += tzk0;
     }

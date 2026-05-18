@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 186/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 186/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk186<F: Float>(t1179: F, t205: F, t209: F, t28: F, t484: F, t465: F, t479: F, t31: F, t198: F, t673: F, t476: F, t77: F, t9: F, t212: F, t222: F, t492: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t1180 = t205 * t1179;
-    let t1184 = t209 * t209;
-    let t1189 = t484 * t28;
-    let t1190 = t465 * t1189;
-    let t1191 = t1190 * t479;
-    let t1193 = t465 * t31;
-    let t1194 = t673 * t198;
-    let t1195 = t1193 * t1194;
-    let t1196 = t476 * t209;
-    let t1223 = 1.0 / t9 / t77;
-    let t1224 = t31 * t1223;
-    let t1227 = 0.21341877202031537856e0 * t212 * t1224 * t222;
-    let t1228 = t212 * t1189;
-    let t1229 = t1228 * t492;
-    (t1180, t1184, t1190, t1191, t1193, t1195, t1196, t1223, t1227, t1228, t1229)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk186<F: Float>(t388: F, t421: F, t155: F, t385: F, t389: F, t409: F, t179: F, t978: F, t431: F, t171: F, t433: F, t151: F, t5: F, t959: F) -> (F, F, F, F, F, F, F) {
+    let t1028 = t388 * t421;
+    let t1029 = t155 * t1028;
+    let t1031 = t385 * t389;
+    let t1037 = t409 * t409;
+    let t1038 = F::new(1.0) / t1037;
+    let t1040 = t179 * t179;
+    let t1041 = F::new(1.0) / t1040;
+    let t1042 = t1038 * t978 * t1041;
+    let t1044 = F::new(0.17315859105681463759e2) * t431 * t1042;
+    let t1045 = t388 * t171;
+    let t1046 = t1045 * t433;
+    let t1050 = F::new(0.14764627977777777777e-2) * t5 * t959 * t151;
+    (t1029, t1031, t1038, t1041, t1044, t1046, t1050)
 }

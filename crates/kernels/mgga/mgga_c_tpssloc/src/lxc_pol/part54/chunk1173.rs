@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1173/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1173/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1173<F: Float>(t118690: F, t22986: F, t6646: F, t829: F, t112968: F, t25261: F, t2647: F, t112974: F, t32826: F, t6562: F, t794: F, t1888: F, t232: F, t7510: F, t828: F, t25038: F, t25248: F, t776: F) -> (F, F, F, F, F, F, F) {
-    let t118694 = 0.3289868133696452873e-1 * t22986 * t6646 * t118690 * t829;
-    let t118695 = 0.76763589786250567036e-1 * t112968;
-    let t118699 = 0.3289868133696452873e-1 * t22986 * t6646 * t25261 * t2647;
-    let t118700 = 0.38381794893125283518e-1 * t112974;
-    let t118709 = t6562 * t794 * t32826;
-    let t118710 = 0.82246703342411321825e-2 * t118709;
-    let t118715 = 0.16449340668482264365e-1 * t1888 * t6646 * t7510 * t828 * t232;
-    let t118719 = 0.9869604401089358619e-1 * t25038 * t25248 * t118690 * t776;
-    (t118694, t118695, t118699, t118700, t118710, t118715, t118719)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1173<F: Float>(t1385: F, t31558: F, t22635: F, t1992: F, t8636: F, t3887: F, t794: F, t8611: F, t6897: F, t1323: F, t8617: F, t31153: F) -> (F, F, F, F, F, F, F, F) {
+    let t31559 = t31558 * t1385;
+    let t31560 = t22635 * t31559;
+    let t31561 = t1992 * t31560;
+    let t31563 = t8636 * t1385;
+    let t31564 = t3887 * t31563;
+    let t31569 = t794 * t8611;
+    let t31570 = t6897 * t31569;
+    let t31571 = F::new(0.41123351671205660912e-2) * t31570;
+    let t31573 = t1323 * t8617;
+    let t31576 = F::new(0.11304371706359309439e-1) * t31153;
+    (t31559, t31560, t31561, t31564, t31569, t31571, t31573, t31576)
 }

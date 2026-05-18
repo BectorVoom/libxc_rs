@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1012/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1012/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,15 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1012<F: Float>(t3881: F, t6092: F, t3876: F, t81: F, t6116: F, t1967: F, t1975: F, t6127: F, t1211: F, t82: F, t79: F, t3068: F, t3086: F, t3087: F, t3093: F, t3096: F, t3099: F, t3882: F, t623: F, t627: F, t74: F, t8080: F, t9999: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10013 = t6092 * t3881;
-    let t10022 = t81 * t3876;
-    let t10043 = t6116 * t3881;
-    let t10046 = t1967 * t3876;
-    let t10052 = t1975 * t3876;
-    let t10057 = t6127 * t3881;
-    let t10060 = t1211 * t82;
-    let t10063 = t79 * t1211;
-    let t10073 = 15.0 / 2.0 * t3882 * t3087 - 4.0 * t3086 * t8080 - 5.0 / 2.0 * t10043 * t3087 - 2.0 * t10046 * t3087 + t623 * t9999 * t81 / 2.0 + t10052 * t3087 / 4.0 + t3093 * t8080 / 2.0 + t10057 * t3087 / 8.0 - 8.0 * t10060 * t3068 - 2.0 * t10063 * t8080 - 4.0 * t3096 * t3876 - t3099 * t10022 - 4.0 * t627 * t9999 - t74 * t9999 * t81;
-    (t10013, t10022, t10043, t10046, t10052, t10057, t10060, t10063, t10073)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1012<F: Float>(t1535: F, t2869: F, t1539: F, t2889: F, t1145: F, t1555: F, t2876: F, t1161: F, t3676: F, t7785: F, t3683: F, t647: F, tau1: F) -> (F, F, F, F, F, F, F, F) {
+    let t9468 = t1535 * t2869;
+    let t9474 = t1539 * t2889;
+    let t9475 = t1145 * t9474;
+    let t9478 = t1555 * t2876;
+    let t9479 = t1161 * t9478;
+    let t9482 = t3676 * t7785;
+    let t9485 = t3683 * t7785;
+    let t9488 = t647 * tau1;
+    (t9468, t9474, t9475, t9478, t9479, t9482, t9485, t9488)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 882/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 882/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk882<F: Float>(t1123: F, t9528: F, t1085: F, t3225: F, t2861: F, t3221: F, t1094: F, t3168: F, t329: F, t64: F, t358: F, t283: F, t1135: F, t2817: F, t2822: F, t2857: F, sigma0: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t9529 = t9528 * t1123;
-    let t9531 = t1085 * t3225;
-    let t9532 = t9531 * sigma0;
-    let t9536 = t2861 * t3221;
-    let t9538 = t3168 * t1094;
-    let t9539 = t9538 * sigma0;
-    let t9543 = t64 * t329;
-    let t9545 = 1.0 / t358 / t9543;
-    let t9546 = t283 * t9545;
-    let t9552 = t9528 * t1135;
-    let t9557 = t2861 * t2817;
-    let t9559 = t2822 * t2857;
-    (t9529, t9531, t9532, t9536, t9538, t9539, t9545, t9546, t9552, t9557, t9559)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk882<F: Float>(t5963: F, t5996: F, t552: F, t573: F, t5747: F, t577: F, t1548: F, t5906: F, t5911: F, t5914: F, t5917: F, t5920: F, t5922: F, t5924: F, t5926: F, t5930: F, t5933: F, t5936: F, sigma2: F) -> (F, F, F, F, F, F) {
+    let t5997 = t5963 + t5996;
+    let t5998 = t5997 * t552;
+    let t5999 = t5998 * sigma2;
+    let t6000 = t5999 * t573;
+    let t6002 = t5747 * t577;
+    let t6003 = t6002 * t1548;
+    let t6005 = -t5906 / F::new(576.0) - t5911 / F::new(72.0) + t5914 / F::new(192.0) + t5917 / F::new(192.0) - t5920 / F::new(24.0) - t5922 / F::new(192.0) + t5924 / F::new(256.0) - t5926 / F::new(16.0) + t5930 / F::new(256.0) - t5933 / F::new(24.0) + t5936 / F::new(36.0) + t6000 / F::new(16.0) + t6003 / F::new(256.0);
+    (t5997, t5999, t6000, t6002, t6003, t6005)
 }

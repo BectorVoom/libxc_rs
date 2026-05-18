@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 705/964 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 705/1111 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk705<F: Float>(t36796: F, t35207: F, t7354: F, t2019: F, t2165: F, t7926: F, t2169: F, t7334: F, t7932: F, t7936: F, t2190: F, t678: F, t7920: F, t2160: F, t49: F, t7933: F, t7935: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t36797 = 0.12195059916630011326e-2 * t36796;
-    let t36801 = t35207 * t7354;
-    let t36802 = 0.5854811038705731867e-3 * t36801;
-    let t36804 = t2019 * t7926 * t2165;
-    let t36809 = t2019 * t7926 * t2169;
-    let t36912 = t7334 * t7932;
-    let t36913 = t36912 * t7936;
-    let t36916 = t2190 * t7920 * t678;
-    let t36920 = t2160 * t49;
-    let t36922 = t7933 * t36920 * t7935;
-    (t36797, t36802, t36804, t36809, t36912, t36913, t36916, t36920, t36922)
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk705<F: Float>(t10054: F, t2344: F, t8659: F, t2329: F, t8365: F, t209: F, t605: F, t615: F, t236: F, t1971: F, t7453: F, t618: F) -> (F, F, F, F, F, F) {
+    let t10055 = F::new(0.17961362552795712846e0) * t10054;
+    let t10056 = t8659 * t2344;
+    let t10057 = F::new(0.20455996240684006296e-1) * t10056;
+    let t10058 = t8365 * t2329;
+    let t10059 = F::new(0.27274661654245341728e-1) * t10058;
+    let t10064 = t615 * t605 * t209;
+    let t10065 = t236 * t10064;
+    let t10066 = t1971 * t10065;
+    let t10067 = t7453 * t10066;
+    let t10068 = F::new(0.1064114997332445985e-4) * t10067;
+    let t10070 = t618 * t605 * t209;
+    (t10055, t10057, t10059, t10066, t10068, t10070)
 }

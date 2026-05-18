@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 443/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 443/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk443<F: Float>(t3243: F, t3297: F, t136: F, t1113: F, t3248: F, t3252: F, t3238: F, t3245: F, t3250: F, t3254: F, t3272: F, t3280: F, t3282: F, t3288: F, t3290: F, t3294: F, t3295: F) -> (F, F, F, F) {
-    let t3298 = t3297 * t3243;
-    let t3299 = t136 * t3298;
-    let t3301 = t1113 * t3248;
-    let t3302 = t136 * t3301;
-    let t3304 = t1113 * t3252;
-    let t3305 = t136 * t3304;
-    let t3307 = -0.9494625e0 * t3272 + 0.1898925e1 * t3280 + t3282 - 0.19931111111111111111e0 * t3238 - 0.19931111111111111111e0 * t3245 + 0.59793333333333333334e0 * t3250 + 0.29896666666666666667e0 * t3254 + 0.15358125e0 * t3288 + 0.3071625e0 * t3290 + t3294 - 0.10954222222222222222e0 * t3295 - 0.27385555555555555556e-1 * t3299 + 0.16431333333333333333e0 * t3302 + 0.82156666666666666667e-1 * t3305;
-    (t3299, t3302, t3305, t3307)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk443<F: Float>(t2988: F, t2990: F, t2775: F, t344: F, t2244: F, t977: F, t2250: F, t978: F, t2822: F, t2824: F, t2828: F, t2831: F, t2834: F) -> (F, F, F, F) {
+    let t2991 = t2988 * t2990;
+    let t2994 = t344 * t2775;
+    let t2995 = t2994 * t2244;
+    let t2996 = t977 * t2995;
+    let t2999 = t978 * t2250;
+    let t3000 = t977 * t2999;
+    let t3003 = F::new(5.0) / F::new(18.0) * t2822;
+    let t3008 = -t3003 - F::new(2.0) / F::new(9.0) * t2824 + t2828 / F::new(18.0) - t2831 / F::new(3.0) + t2834 / F::new(6.0);
+    (t2991, t2996, t3000, t3008)
 }

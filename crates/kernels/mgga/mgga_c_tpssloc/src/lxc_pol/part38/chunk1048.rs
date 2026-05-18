@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1048/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1048/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1048<F: Float>(t4677: F, t4684: F, t14506: F, t3185: F, t1932: F, t3120: F, t360: F, t1629: F, t1625: F, t3040: F, t3201: F, t6739: F, t14526: F, t383: F, t1022: F, t4657: F) -> (F, F, F, F, F, F, F, F) {
-    let t14615 = t4677 * t4684;
-    let t14618 = t14506 * t3185;
-    let t14622 = t1932 * t3120 * t360;
-    let t14623 = t1629 * t14622;
-    let t14626 = t1625 * t3040;
-    let t14627 = t14626 * t3201;
-    let t14630 = t6739 * t3040 * t360;
-    let t14631 = t1629 * t14630;
-    let t14640 = t383 * t14526;
-    let t14644 = t4657 * t1022;
-    (t14615, t14618, t14623, t14626, t14627, t14631, t14640, t14644)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1048<F: Float>(t12997: F, t792: F, t12984: F, t686: F, t776: F, t12986: F, t12990: F, t12994: F, t4127: F, t9526: F, t9540: F, t9542: F, t9544: F, t9547: F, t9552: F, t9556: F) -> F {
+    let t12998 = t792 * t12997;
+    let t13000 = t686 * t12984 * t776;
+    let t13002 = F::new(0.49999999999999999998e-2) * t12998 * t13000;
+    let t13003 = F::new(0.33333333333333333332e-2) * t9526 - t9540 - F::new(0.25925925925925925926e-1) * t9542 + F::new(0.38888888888888888888e-2) * t9544 - F::new(0.10555555555555555555e-1) * t9547 - F::new(0.25e-2) * t9552 + F::new(0.83333333333333333332e-3) * t9556 + F::new(0.16666666666666666666e-2) * t12986 + F::new(0.99999999999999999996e-2) * t4127 * t12990 + F::new(0.49999999999999999998e-2) * t4127 * t12994 - t13002;
+    t13003
 }

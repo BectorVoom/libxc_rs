@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 882/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 882/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk882<F: Float>(t76381: F, t69213: F, t69234: F, t69241: F, t69250: F, t69261: F, t75300: F, t75304: F, t69274: F, t75308: F, t69201: F, t69206: F, t69245: F, t71269: F, t71270: F, t71271: F, t71272: F) -> (F, F) {
-    let t78120 = 0.54549323308490683461e-1 * t76381;
-    let t78122 = 0.77145928569998943516e-3 * t69213;
-    let t78123 = 0.16566831523319392755e-1 * t69234;
-    let t78124 = 0.27611385872198987926e-1 * t69241;
-    let t78125 = 0.72732431077987577944e-1 * t69250;
-    let t78126 = 0.10286123809333192469e-2 * t69261;
-    let t78127 = 0.77145928569998943515e-3 * t75300;
-    let t78128 = 0.10286123809333192468e-2 * t75304;
-    let t78129 = 0.26609426004141796809e-1 * t69274;
-    let t78130 = 0.19914231157590872009e-2 * t75308;
-    let t78131 = t69201 - 0.33868944250243438615e-2 * t69206 - t78122 - t78123 + t78124 + t69245 - t78125 + t78126 + t71269 + t71270 - t71271 + t71272 - t78127 + t78128 - t78129 + t78130;
-    (t78120, t78131)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk882<F: Float>(t1322: F, t75770: F, t880: F, t899: F, t1326: F, t75311: F, t68815: F, t15105: F, t352: F, t68729: F, t14011: F, t14052: F, t8615: F) -> (F, F, F, F, F, F) {
+    let t75771 = t899 * t880 * t1322 * t75770;
+    let t75773 = t1326 * t75311;
+    let t75774 = t68815 * t75773;
+    let t75779 = t1326 * t15105 * t352;
+    let t75780 = t68729 * t75779;
+    let t75789 = t14052 * t14011 * t8615;
+    (t75771, t75773, t75774, t75779, t75780, t75789)
 }

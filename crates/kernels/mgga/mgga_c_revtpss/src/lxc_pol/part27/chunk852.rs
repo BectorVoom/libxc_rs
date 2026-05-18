@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 852/1170 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 852/1333 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk852<F: Float>(t11133: F, t11134: F, t11136: F, t11138: F, t11140: F, t11147: F, t11153: F, t11158: F, t11162: F, t11167: F, t11171: F, t996: F, t1096: F, t3325: F, t3269: F, t3075: F) -> (F, F, F, F) {
-    let t11173 = -t11133 - 0.19755555555555555556e-1 * t11134 + 0.9877777777777777778e-2 * t11136 - 0.29633333333333333334e-1 * t11138 + 0.14816666666666666667e-1 * t11140 - 0.16462962962962962963e-1 * t11147 + 0.59266666666666666668e-1 * t11153 - 0.29633333333333333334e-1 * t11158 - 0.88900000000000000002e-1 * t11162 + 0.88900000000000000002e-1 * t11167 - 0.14816666666666666667e-1 * t11171;
-    let t11174 = t996 * t11173;
-    let t11177 = t1096 * t3325;
-    let t11178 = t3269 * t11177;
-    let t11183 = t3075 * t1096;
-    (t11173, t11174, t11178, t11183)
+pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk852<F: Float>(t10276: F, t22: F, t2224: F, t588: F, t27: F, t584: F, t20: F, t596: F, t12: F, t583: F, t2231: F, t2237: F, t592: F) -> (F, F, F, F, F, F, F) {
+    let t10278 = F::new(24.0) * t10276 * t22;
+    let t10279 = t2224 * t588;
+    let t10280 = F::new(144.0) * t10279;
+    let t10281 = t584 * t27;
+    let t10282 = F::new(240.0) * t10281;
+    let t10284 = F::new(120.0) * t20 * t596;
+    let t10285 = t12 * t583;
+    let t10287 = F::new(120.0) * t10285 * t27;
+    let t10288 = t2231 * t596;
+    let t10289 = F::new(540.0) * t10288;
+    let t10290 = t592 * t2237;
+    (t10278, t10280, t10282, t10284, t10287, t10289, t10290)
 }

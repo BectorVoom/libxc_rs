@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 697/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 697/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk697<F: Float>(t6330: F, t6890: F, t6889: F, t22685: F, t26193: F, t7700: F, t1985: F, t225: F, t567: F, t6434: F, t214: F, t6460: F, t6906: F, t6347: F, t6888: F, t7691: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t28191 = t6890 * t6330;
-    let t28192 = t6889 * t28191;
-    let t28193 = t22685 * t28192;
-    let t28195 = t26193 * t7700;
-    let t28196 = t1985 * t28195;
-    let t28199 = t6434 * t225 * t567;
-    let t28200 = t214 * t28199;
-    let t28201 = t1985 * t28200;
-    let t28205 = t6906 * t6460;
-    let t28206 = t6889 * t28205;
-    let t28207 = t1985 * t28206;
-    let t28209 = t6890 * t6347;
-    let t28210 = t6889 * t28209;
-    let t28211 = t6888 * t28210;
-    let t28213 = t26193 * t7691;
-    (t28191, t28193, t28196, t28201, t28205, t28207, t28209, t28211, t28213)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk697<F: Float>(t243: F, t598: F, t213: F, t6584: F, t6604: F, t1891: F, t22822: F, t133: F, t6601: F, t6590: F, t22813: F, t22816: F) -> (F, F, F, F, F, F, F) {
+    let t23075 = t243 * t243;
+    let t23076 = F::new(1.0) / t23075;
+    let t23077 = t598 * t23076;
+    let t23078 = t23077 * t213;
+    let t23083 = t6584 * t6604;
+    let t23093 = t22822 * t1891;
+    let t23094 = t23093 * t133;
+    let t23095 = t23094 * t6601;
+    let t23096 = F::new(0.52708876011794399171e-3) * t23095;
+    let t23097 = t6590 * t6604;
+    let t23102 = t22813 * t1891;
+    let t23103 = t23102 * t22816;
+    (t23078, t23083, t23094, t23095, t23096, t23097, t23103)
 }

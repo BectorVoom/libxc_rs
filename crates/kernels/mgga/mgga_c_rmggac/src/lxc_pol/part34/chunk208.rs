@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 208/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 208/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk208<F: Float>(t321: F, t552: F, t333: F, t529: F, t941: F, t537: F, t809: F, t312: F, t50: F, t90: F, t814: F, t547: F, t820: F, t316: F, t101: F, t309: F, t317: F, t538: F, t544: F, t832: F, t87: F, t98: F) -> (F, F, F, F) {
-    let t1551 = t552 * t321;
-    let t1554 = t552 * t333;
-    let t1562 = t941 * t529;
-    let t1569 = t809 * t537;
-    let t1570 = t1569 * t312;
-    let t1573 = t90 * t50;
-    let t1574 = t1573 * t814;
-    let t1579 = t820 * t547;
-    let t1580 = t1579 * t316;
-    let t1583 = t101 * t50;
-    let t1584 = t1583 * t814;
-    let t1587 = -50.0 / 9.0 * t309 * t538 + 20.0 / 9.0 * t87 * t1570 + 10.0 / 3.0 * t87 * t1574 - 50.0 / 9.0 * t544 * t317 + 20.0 / 9.0 * t98 * t1580 - 10.0 / 3.0 * t98 * t1584 - t832;
-    (t1551, t1554, t1562, t1587)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk208<F: Float>(t1413: F, t155: F, t421: F, t577: F, t381: F, t578: F, t385: F, t1020: F, t1031: F, t1011: F, t1014: F, t1027: F, t1029: F, t1044: F, t1374: F, t1392: F, t436: F, t948: F, t975: F, t982: F) -> (F, F, F, F, F, F, F) {
+    let t1414 = t155 * t1413;
+    let t1415 = t577 * t421;
+    let t1416 = t155 * t1415;
+    let t1417 = t381 * t578;
+    let t1418 = F::new(4.0) * t1417;
+    let t1419 = t385 * t578;
+    let t1420 = F::new(4.0) * t1419;
+    let t1421 = F::new(4.0) * t1020;
+    let t1422 = F::new(4.0) * t1031;
+    let t1423 = t948 - t975 - t1374 + F::new(0.93273e-1) * t436 * t1392 + t1414 + t1416 + t1418 - t1420 + t982 + t1011 - t1014 - t1421 - t1027 + t1029 - t1422 - t1044;
+    (t1414, t1416, t1418, t1420, t1421, t1422, t1423)
 }

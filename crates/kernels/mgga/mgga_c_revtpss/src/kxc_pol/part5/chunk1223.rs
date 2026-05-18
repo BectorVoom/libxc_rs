@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1223/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1223/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1223<F: Float>(t21332: F, t459: F, t225: F, t480: F, t12832: F, t17401: F, t17736: F, t17767: F, t17771: F, t17791: F, t17792: F, t21300: F, t21306: F, t21310: F, t21313: F, t21316: F, t3718: F, t484: F, t5335: F, t5348: F, t6690: F) -> (F, F) {
-    let t21333 = t21332 * t459;
-    let t21334 = t21333 * t225;
-    let t21335 = t21334 * t480;
-    let t21338 = -0.42874018118069736972e-3 * t17401 * t5348 - 0.21437009059034868486e-3 * t3718 * t21300 - 0.42874018118069736972e-3 * t12832 * t6690 - t17767 - t17771 - t17791 + t17792 / 81.0 - 0.42874018118069736972e-3 * t21306 * t5335 - 0.57165357490759649296e-3 * t17736 * t21310 + 0.72409452821628889107e-2 * t21313 * t484 - 0.22866142996303859718e-2 * t21316 * t484 + 0.21437009059034868486e-3 * t21335 * t484;
-    (t21333, t21338)
+pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1223<F: Float>(t3011: F, t6205: F, t4733: F, t981: F, t15258: F, t4732: F, t4719: F, t4729: F, t19136: F, t19143: F, t19145: F, t19149: F, t19152: F, t19252: F, t19258: F, t19315: F, t19317: F, t19320: F, t19323: F, t19326: F, t19329: F, t19333: F, t19337: F) -> (F, F, F, F) {
+    let t19467 = t3011 * t6205;
+    let t19468 = t19467 * t4733;
+    let t19470 = F::new(0.17315859105681463759e2) * t981 * t19468;
+    let t19471 = t4732 * t15258;
+    let t19473 = F::new(0.34631718211362927518e2) * t981 * t19471;
+    let t19475 = F::new(0.11696447245269292414e1) * t4719 * t4729;
+    let t19476 = t19136 + t19143 - t19145 + t19149 + t19152 + t19337 + t19252 + t19258 - t19315 + t19317 + t19320 - t19323 - t19326 - t19329 + t19333 - t19470 - t19473 - t19475;
+    (t19470, t19473, t19475, t19476)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1170/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1170/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1170<F: Float>(t23030: F, t23253: F, t23204: F, t23241: F, t81640: F, t22986: F, t23270: F, t2742: F, t776: F, t857: F, t23273: F, t81591: F, t10112: F, t10115: F, t1912: F, t23281: F, t25168: F, t25169: F, t2720: F, t41554: F, t6627: F, t6663: F, t82087: F, t82092: F, t9590: F) -> (F,) {
-    let t82099 = t23030 * t23253;
-    let t82108 = t81640 * t23204 * t23241;
-    let t82113 = t22986 * t23270 * t857 * t2742 * t776;
-    let t82115 = t81591 * t23273;
-    let t82117 = -0.24674011002723396547e-1 * t82087 - 0.9869604401089358619e-1 * t82092 - 18.0 * t25168 * t25169 * t10115 - 3.0 * t41554 * t1912 + 0.78134368175290755733e-1 * t82099 - 3.0 * t9590 * t6663 - 6.0 * t6627 * t10112 + 6.0 * t23281 * t2720 - 0.74022033008170189643e-1 * t82108 + 0.49348022005446793095e-1 * t82113 - 0.23029076935875170111e0 * t82115;
-    (t82117,)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1170<F: Float>(t24702: F, t24756: F, t466: F, t24574: F, t7368: F, t2148: F, t3477: F, t1186: F, t7381: F, t3427: F, t2121: F, t225: F, t24594: F) -> (F, F, F, F, F, F, F) {
+    let t24757 = t24702 + t24756;
+    let t24758 = t466 * t24757;
+    let t24760 = t24574 * t7368;
+    let t24762 = t3477 * t2148;
+    let t24765 = t1186 * t7381;
+    let t24771 = t3427 * t2148;
+    let t24773 = F::new(0.18277045187202515961e-2) * t2121 * t24771;
+    let t24776 = t24594 * t225;
+    (t24757, t24758, t24760, t24762, t24765, t24773, t24776)
 }

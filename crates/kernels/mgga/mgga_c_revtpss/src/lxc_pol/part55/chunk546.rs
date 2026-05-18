@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 546/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 546/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk546<F: Float>(t1188: F, t5180: F, t1756: F, t3523: F, t1187: F, t1161: F, t1170: F, t1180: F, t1189: F, t1745: F, t1757: F, t3447: F, t3452: F, t3477: F, t3491: F, t3496: F, t3521: F, t435: F, t5062: F, t5065: F, t5067: F, t5070: F, t5107: F, t5111: F, t5117: F, t5120: F, t5125: F, t5143: F, t5147: F, t5156: F, t5158: F, t5163: F) -> (F,) {
-    let t5181 = t5180 * t1188;
-    let t5184 = t1756 * t3523;
-    let t5185 = t5184 * t1187;
-    let t5188 = -0.310907e-1 * t5117 * t435 + 1.0 * t5120 * t1170 + 1.0 * t3447 * t1745 - 2.0 * t3452 * t5125 + 1.0 * t1161 * t5143 + 0.32163958997385070134e2 * t3477 * t5147 + t5062 - t5065 - t5067 + t5070 - t5107 - t5111 - 0.19751673498613801407e-1 * t5156 + 0.5848223622634646207e0 * t5158 * t1189 + 0.5848223622634646207e0 * t3491 * t1757 - 0.11696447245269292414e1 * t3496 * t5163 + 0.5848223622634646207e0 * t1180 * t5181 + 0.17315859105681463759e2 * t3521 * t5185;
-    (t5188,)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk546<F: Float>(t198: F, t205: F, t1544: F, t262: F, t1583: F, t892: F, t2404: F, t2411: F, t1940: F, t207: F, t2403: F, t2621: F, t2628: F, t2632: F, t4316: F, t4343: F, t4394: F, t4396: F, t4397: F, t4400: F, t4405: F, t4406: F, t4537: F, t765: F, t775: F, t890: F) -> (F, F) {
+    let t4541 = t198 * t205;
+    let t4542 = t262 * t1544;
+    let t4546 = t1583 * t892;
+    let t4553 = t2404 * t1544;
+    let t4556 = t1583 * t2411;
+    let t4559 = t198 * t207 * t4537 * t892 - t1940 * t4556 * t890 + F::new(3.0) * t198 * t4343 * t765 + F::new(3.0) * t2403 * t4546 * t775 + F::new(6.0) * t4541 * t4542 * t775 + F::new(3.0) * t2403 * t4553 + t2621 + t2628 + t2632 + t4316 + t4394 + t4396 + t4397 - t4400 + t4405 - t4406;
+    (t4541, t4559)
 }

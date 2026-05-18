@@ -40,16 +40,16 @@ pub fn mgga_x_task_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = t11 + 1.0;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t21 = M_CBRT6;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t26 = t21 / t24;
         let t27 = M_CBRT2;
@@ -61,10 +61,10 @@ pub fn mgga_x_task_exc_unpol(
         let t33 = 1.0 / t32;
         let t36 = t26 * t29 * t33 / 24.0;
         let t37 = 0.0 < t36;
-        let t38 = piecewise3(t37, t36, 0.0);
-        let t39 = pow_1_4(t38);
+        let t38 = piecewise3::<f64>(t37, t36, 0.0);
+        let t39 = pow_1_4::<f64>(t38);
         let t42 = f64::exp(-param_task_c / t39);
-        let t44 = piecewise3(t37, 1.0 - t42, 0.0);
+        let t44 = piecewise3::<f64>(t37, 1.0 - t42, 0.0);
         let t46 = tau[ip] * tau[ip];
         let t47 = t46 * t46;
         let t48 = t47 * t4;
@@ -80,7 +80,7 @@ pub fn mgga_x_task_exc_unpol(
         let t63 = 0.0 < (0.9999999999e0 * t55 - 0.125e0 * sigma[ip]) * t59 * t61;
         let t65 = 8.0 * t55 - sigma[ip];
         let t66 = t65 * t59;
-        let t69 = piecewise3(t63, t66 * t61 / 8.0, 0.1e-9);
+        let t69 = piecewise3::<f64>(t63, t66 * t61 / 8.0, 0.1e-9);
         let t70 = t69 * t69;
         let t71 = t70 * t70;
         let t72 = t54 * t71;
@@ -140,7 +140,7 @@ pub fn mgga_x_task_exc_unpol(
         let t159 = f64::powf(t44, param_task_d);
         let t160 = t158 * t159;
         let t161 = param_task_h0x * t44 + t160;
-        let t165 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t161);
+        let t165 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t161);
         let tzk0 = 2.0 * t165;
         zk[ip] += tzk0;
     }

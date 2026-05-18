@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 863/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 863/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk863<F: Float>(t2440: F, t887: F, t2439: F, t866: F, t225: F, t2771: F, t886: F, t2461: F, t2471: F, t788: F, t9288: F, t787: F, t2453: F, t861: F, t2458: F, t2761: F, t786: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t11003 = t2440 * t887;
-    let t11004 = t2439 * t11003;
-    let t11006 = t866 * t866;
-    let t11007 = 1.0 / t11006;
-    let t11008 = t225 * t11007;
-    let t11009 = t2771 * t886;
-    let t11010 = t11008 * t11009;
-    let t11013 = t2461 * t2471;
-    let t11015 = t788 * t9288;
-    let t11017 = 0.30356481678079769392e-1 * t787 * t11015;
-    let t11018 = t2453 * t861;
-    let t11019 = t11018 * t2458;
-    let t11021 = t786 * t2761;
-    (t11004, t11006, t11007, t11009, t11010, t11013, t11015, t11017, t11019, t11021)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk863<F: Float>(t10178: F, t9689: F, t3889: F, t566: F, t1343: F, t1353: F, t1450: F, t198: F, t4139: F, t4140: F, t532: F, t5536: F, t9524: F, t9542: F, t9590: F, t9593: F, t9598: F, t9599: F, t9628: F, t9854: F, t9857: F, t9859: F, t9862: F, t9865: F, t9868: F) -> (F, F) {
+    let t10179 = t9689 + t10178;
+    let t10186 = t566 * t3889;
+    let t10190 = t10179 * t1450 * t198 * t532 + F::new(2.0) * t198 * t532 * t9590 * t9593 + F::new(18.0) * t10186 * t1353 * t5536 + F::new(3.0) * t1343 * t198 * t9628 - F::new(9.0) * t1353 * t4139 * t9599 + F::new(9.0) * t3889 * t4139 * t4140 - t9524 + t9542 + t9598 + t9854 - t9857 - t9859 + t9862 + t9865 + t9868;
+    (t10179, t10190)
 }

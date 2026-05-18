@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 1003/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 1003/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1003<F: Float>(t126138: F, t2747: F, t31767: F, t31772: F, t119928: F, t126221: F, t119894: F, t119904: F, t119912: F, t119914: F, t119920: F, t119931: F, t119936: F, t119957: F, t119960: F, t119966: F, t120058: F, t126208: F, t126210: F, t126214: F, t126222: F, t126226: F, t126228: F, t14495: F, t31812: F, t32463: F, t4533: F, t8471: F, t8649: F) -> (F,) {
-    let t126232 = t31767 * t2747 * t31772 * t126138;
-    let t126239 = t119928 * t126221;
-    let t126241 = -0.33467254597718846885e-4 * t119894 + t119904 - 0.17354086964223805049e-2 * t119912 - 0.76169170176413987216e-1 * t126208 + 0.131760844872908846e-2 * t126210 + 0.86770434821119025247e-3 * t119914 + 0.3718732920905101082e-3 * t126214 - 0.17135921299530705785e1 * t8649 * t31812 * t8471 * t4533 + 0.51405703062096148813e-1 * t126222 - 0.14279934416275588154e-1 * t119920 - 0.17354086964223805049e-2 * t126226 + 0.28912093960683998207e-1 * t126228 + 0.112937867033921868e-2 * t126232 - 0.28912093960683998208e-1 * t119931 - 0.11423947533020470523e1 * t32463 * t120058 * t14495 + 0.131760844872908846e-2 * t119936 - 0.28912093960683998207e-1 * t126239 + t119957 - t119960 + t119966;
-    (t126241,)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1003<F: Float>(t33: F, t265: F, t502: F, t33866: F, t1469: F, t33896: F, t57: F, t8553: F, t33872: F, t6985: F, t7742: F, t7935: F, t8568: F, t196: F, t197: F, t7894: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F) {
+    let t34 = t33 <= zeta_threshold;
+    let t400 = rho1 <= dens_threshold || t34;
+    let t503 = t265 < t502;
+    let t33897 = piecewise3::<f64>(t503, F::new(0.0), t33866);
+    let t33902 = piecewise3::<f64>(t400, t33896, -t8553 * t1469 / F::new(2.0) + t33897 * t57 / F::new(2.0));
+    let t33903 = t33872 + t33902;
+    let t33906 = t6985 * t7742;
+    let t33910 = t8568 * t7935;
+    let t33913 = t7894 * t196 * t197;
+    (t33897, t33903, t33906, t33910, t33913)
 }

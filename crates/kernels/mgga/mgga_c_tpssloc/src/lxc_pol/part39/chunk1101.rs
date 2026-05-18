@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1101/1190 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1101/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1101<F: Float>(t1714: F, t4899: F, t11571: F, t11545: F, t60: F, t461: F, t14726: F, t11589: F, t4904: F, t3447: F, t11588: F, t4729: F, t14736: F, t4900: F, t14740: F, t14731: F) -> (F, F, F, F, F, F, F) {
-    let t15390 = t4899 * t1714;
-    let t15391 = t15390 * t11571;
-    let t15394 = t60 * t11545;
-    let t15395 = t15394 * t461;
-    let t15396 = t15395 * t14726;
-    let t15399 = t11589 * t4904;
-    let t15401 = 0.18518518518518518518e-3 * t3447 * t15399;
-    let t15402 = t11588 * t461;
-    let t15403 = t15402 * t4729;
-    let t15405 = 0.37037037037037037036e-3 * t3447 * t15403;
-    let t15406 = t4900 * t14736;
-    let t15409 = t4900 * t14740;
-    let t15412 = t4900 * t14731;
-    (t15391, t15396, t15401, t15405, t15406, t15409, t15412)
+pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1101<F: Float>(t13654: F, t913: F, t893: F, t2929: F, t4471: F, t4497: F, t959: F, t2904: F, t952: F, t3216: F, t4696: F, t13550: F) -> (F, F, F, F, F) {
+    let t13655 = t13654 * t913;
+    let t13657 = F::new(1.0) * t893 * t13655;
+    let t13658 = t2929 * t4471;
+    let t13659 = t13658 * t4497;
+    let t13661 = F::new(0.34631718211362927518e2) * t959 * t13659;
+    let t13662 = t2904 * t4471;
+    let t13663 = t13662 * t952;
+    let t13665 = F::new(0.23392894490538584828e1) * t959 * t13663;
+    let t13666 = t4696 * t3216;
+    let t13675 = F::new(0.22076e0) * t13550;
+    (t13657, t13661, t13665, t13666, t13675)
 }

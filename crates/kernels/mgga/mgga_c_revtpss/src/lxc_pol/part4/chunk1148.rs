@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1148/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1148/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1148<F: Float>(t15837: F, t247: F, t3116: F, t1066: F, t15193: F, t1062: F, t4797: F, t1047: F, t1063: F, t1068: F, t11991: F, t15817: F, t15823: F, t15829: F, t15830: F, t15834: F, t1675: F, t3136: F, t3157: F, t3177: F, t3188: F, t4831: F, t4834: F, t4837: F, t4879: F) -> (F,) {
-    let t15839 = t247 * t3116 * t15837;
-    let t15847 = t247 * t1066 * t15193;
-    let t15850 = t4797 * t1062;
-    let t15855 = 0.42874018118069736972e-3 * t15817 * t1047 + 0.21437009059034868486e-3 * t4879 * t3136 + 0.42874018118069736972e-3 * t15823 * t3157 + t15829 - 0.15244095330869239812e-2 * t15830 * t1068 + 0.47637797908966374414e-3 * t1063 * t15834 + 0.42874018118069736972e-3 * t4837 * t15839 + 0.14291339372689912324e-3 * t11991 * t1675 + 0.28582678745379824648e-3 * t3188 * t4831 + 0.14291339372689912324e-3 * t1063 * t15847 + 0.28582678745379824648e-3 * t15850 * t1068 + 0.14291339372689912324e-3 * t4834 * t3177;
-    (t15855,)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1148<F: Float>(t2777: F, t5759: F, t2439: F, t1398: F, t1892: F, t4086: F, t543: F, t2782: F, t5659: F, t72: F, t686: F, t4101: F) -> (F, F, F) {
+    let t14202 = t2777 * t5759;
+    let t14203 = t2439 * t14202;
+    let t14207 = t4086 * t1892 * t1398 * t543;
+    let t14209 = F::new(0.10975748638225852664e-1) * t2782 * t14207;
+    let t14215 = t5659 * t72;
+    let t14216 = t14215 * t686;
+    let t14218 = F::new(0.19514881078765566038e-1) * t4101 * t14216;
+    (t14203, t14209, t14218)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 781/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 781/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk781<F: Float>(t1000: F, t1020: F, t1025: F, t10263: F, t1041: F, t1046: F, t10517: F, t10860: F, t10863: F, t10866: F, t10871: F, t10873: F, t10876: F, t10879: F, t10883: F, t10886: F, t10891: F, t10896: F, t10898: F, t10904: F, t10909: F, t10915: F, t10919: F, t10923: F, t10927: F, t3043: F, t3057: F, t3109: F, t3117: F, t3123: F, t3134: F) -> (F,) {
-    let t10929 = 19.0 / 576.0 * t10517 * t1025 + t1020 * t10860 / 3072.0 - t10863 * t1046 / 144.0 + t10866 / 1152.0 - t10871 / 6912.0 - t10873 / 216.0 - t10876 * t10879 / 512.0 + t10883 * t10886 / 3072.0 + t10891 * t3043 / 192.0 - t10896 / 1536.0 - t10898 * t1025 / 96.0 - t3109 * t3123 / 192.0 - t10904 * t3134 / 96.0 + t10909 / 1536.0 + t3117 * t3057 / 1536.0 - t1041 * t10915 / 768.0 + 5.0 / 4608.0 * t1041 * t10919 - t10923 / 432.0 + 11.0 / 108.0 * t10263 * t1000 - t10927 / 54.0;
-    (t10929,)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk781<F: Float>(t10121: F, t193: F, t202: F, t2379: F, t2522: F, t2523: F, t2553: F, t262: F, t4314: F, t766: F, t776: F, t870: F, t9450: F, t9457: F, t9458: F, t9463: F, t9469: F, t9470: F, t9476: F, t9484: F, t9496: F, t9516: F) -> F {
+    let t10125 = t10121 * t193 * t202 * t870 + F::new(6.0) * t193 * t262 * t9458 + F::new(3.0) * t193 * t766 * t9516 + F::new(18.0) * t2379 * t2523 * t4314 + F::new(9.0) * t2522 * t2523 * t2553 - F::new(9.0) * t2522 * t776 * t9470 + t9450 - t9457 + t9463 - t9469 + t9476 + t9484 - t9496;
+    t10125
 }

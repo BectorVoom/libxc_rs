@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1049/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 1049/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1049<F: Float>(t1060: F, t14644: F, t14626: F, t3188: F, t1057: F, t14205: F, t11054: F, t1629: F, t1003: F, t1058: F, t1061: F, t1063: F, t11037: F, t11046: F, t13940: F, t14615: F, t14618: F, t14623: F, t14627: F, t14631: F, t14640: F, t1610: F, t3180: F, t3186: F, t3189: F, t3197: F, t3200: F, t3204: F, t353: F, t384: F, t4615: F, t4669: F, t4685: F, t4689: F, t4691: F) -> (F,) {
-    let t14645 = t14644 * t1060;
-    let t14648 = t14626 * t3188;
-    let t14651 = t14205 * t1057;
-    let t14654 = t1629 * t11054;
-    let t14657 = 2.0 * t1003 * t4691 + 2.0 * t1058 * t14645 + 2.0 * t1061 * t14651 + 2.0 * t1063 * t4615 - 2.0 * t11037 * t4685 + t11046 * t14631 + t13940 * t384 - 2.0 * t14615 * t3200 + 2.0 * t14618 * t3189 - t14623 * t3200 - t14627 * t3200 + t14640 * t353 + 2.0 * t14648 * t3186 + 2.0 * t14654 * t3186 + t1610 * t3204 + 2.0 * t3180 * t4689 + t3197 * t4669;
-    (t14657,)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk1049<F: Float>(t131: F, t9558: F, t205: F, t221: F, t2379: F, t4128: F, t1489: F, t9541: F, t4126: F, t782: F, t4130: F, t12971: F, t210: F, t214: F) -> (F, F, F, F, F) {
+    let t13004 = t9558 * t131;
+    let t13005 = t205 * t13004;
+    let t13007 = t221 * t4128 * t2379;
+    let t13010 = t9541 * t1489;
+    let t13012 = t782 * t4126;
+    let t13014 = F::new(0.23333333333333333332e-1) * t13012 * t4130;
+    let t13017 = t210 * t214 * t12971;
+    (t13005, t13007, t13010, t13014, t13017)
 }

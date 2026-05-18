@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 882/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 882/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk882<F: Float>(t1178: F, t3519: F, t439: F, t3522: F, t447: F, t12487: F, t1161: F, t1180: F, t1189: F, t12429: F, t12431: F, t12465: F, t12470: F, t12473: F, t12476: F, t12481: F, t12486: F, t12488: F, t12491: F, t12494: F, t12497: F, t12501: F, t12504: F, t12508: F, t12511: F, t12514: F, t12548: F, t3452: F, t3454: F, t3477: F, t3491: F, t3496: F, t3498: F, t3516: F, t3521: F, t3524: F) -> (F, F, F) {
-    let t12552 = 1.0 / t3519 / t1178;
-    let t12553 = t439 * t12552;
-    let t12555 = 1.0 / t3522 / t447;
-    let t12556 = t12487 * t12555;
-    let t12559 = -0.19298375398431042081e3 * t12429 * t12431 + 1.0 * t1161 * t12465 + 0.2069040516770936012e4 * t12470 * t12473 + 0.17544670867903938621e1 * t12476 * t1189 + 0.17544670867903938621e1 * t3491 * t3516 + 0.51947577317044391276e2 * t12481 * t3524 - 0.10389515463408878255e3 * t12486 * t12488 - 0.35089341735807877242e1 * t12491 * t3498 + 0.35089341735807877242e1 * t3521 * t12494 - 0.35089341735807877242e1 * t3496 * t12497 + 0.51947577317044391277e2 * t3521 * t12501 - 6.0 * t3452 * t12504 + 0.96491876992155210402e2 * t3477 * t12508 - 6.0 * t12511 * t3454 + 6.0 * t3477 * t12514 + 0.5848223622634646207e0 * t1180 * t12548 + 0.10254018858216406658e4 * t12553 * t12556;
-    (t12552, t12555, t12559)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk882<F: Float>(t1071: F, t989: F, t3056: F, t988: F, t378: F, t2258: F, t606: F, t4801: F, t1042: F, t1031: F) -> (F, F, F, F, F, F) {
+    let t11220 = t989 * t1071;
+    let t11223 = t988 * t3056;
+    let t11224 = t11223 * t378;
+    let t11231 = t606 * t2258;
+    let t11232 = t4801 * t11231;
+    let t11233 = t1042 * t11232;
+    let t11238 = t1031 * t1031;
+    let t11239 = F::new(1.0) / t11238;
+    (t11220, t11223, t11224, t11231, t11233, t11239)
 }

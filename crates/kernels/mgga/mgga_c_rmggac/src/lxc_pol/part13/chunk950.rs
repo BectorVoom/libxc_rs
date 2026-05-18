@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 950/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 950/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk950<F: Float>(t41338: F, t41347: F, t41355: F, t36158: F, t36160: F, t36166: F, t36168: F, t37536: F, t37544: F, t41336: F, t41340: F, t41342: F, t41344: F, t41349: F, t41351: F, t41353: F) -> (F,) {
-    let t43606 = 0.31931311204970156172e0 * t41338;
-    let t43611 = 0.9676841214355268176e-3 * t41347;
-    let t43615 = 0.88895193539762595267e-1 * t41355;
-    let t43619 = -0.23948483403727617128e0 * t41336 - t43606 - 0.21241846568096930142e-1 * t41340 + 0.63862622409940312342e0 * t41342 - 0.23948483403727617128e0 * t41344 + t37536 + 0.53218852008283593618e-1 * t36158 - t43611 + 0.1814407727691612783e-3 * t41349 + 0.68186654135613354324e-2 * t41351 - 0.90915538847484472432e-2 * t41353 - t43615 - 0.79828278012425390427e-1 * t36160 - 0.39027158139407968654e0 * t36166 + 0.5854073720911195298e0 * t36168 - t37544;
-    (t43619,)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk950<F: Float>(t39056: F, t7844: F, t39876: F, t39060: F, t7785: F, t39880: F, t39064: F, t7788: F, t2347: F, t866: F, t262: F, t2350: F, t876: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t40872 = t7844 * t39056;
+    let t40874 = t7844 * t39876;
+    let t40877 = t7785 * t39060;
+    let t40879 = t7785 * t39880;
+    let t40881 = t7788 * t39064;
+    let t40883 = t2347 * t866;
+    let t40884 = t262 * t40883;
+    let t40885 = t7788 * t40884;
+    let t40887 = t2350 * t876;
+    (t40872, t40874, t40877, t40879, t40881, t40883, t40884, t40885, t40887)
 }

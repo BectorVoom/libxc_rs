@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1089/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1089/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1089<F: Float>(t10824: F, t10826: F, t10833: F, t10838: F, t10842: F, t10846: F, t10853: F, t10855: F, t10859: F, t10881: F, t10885: F, t10888: F, t10868: F, t241: F, t820: F, t14547: F, t4364: F, t4365: F) -> (F, F, F) {
-    let t14889 = -t10824 + t10826 - 0.12705000702321332056e-4 * t10833 - 0.57165357490759649296e-4 * t10838 - 0.12705000702321332056e-4 * t10842 + 0.27104001498285508387e-3 * t10846 + 0.25410001404642664112e-4 * t10853 + 0.10003937560882938627e-2 * t10855 - 0.20007875121765877254e-2 * t10859 + 0.10003937560882938627e-2 * t10881 - t10885 + 0.2032800112371413129e-4 * t10888;
-    let t14894 = t820 * t10868 * t241;
-    let t14896 = t4364 * t4365 * t14547;
-    (t14889, t14894, t14896)
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1089<F: Float>(t10389: F, t1469: F, t2299: F, t4186: F, t10398: F, t2306: F, t13312: F, t2251: F, t2258: F, t4227: F, t4232: F, t606: F, t633: F, t637: F) -> F {
+    let t13368 = t10389 * t1469;
+    let t13371 = t2299 * t4186;
+    let t13378 = t10398 * t1469;
+    let t13381 = t2306 * t4186;
+    let t13388 = -F::new(280.0) / F::new(27.0) * t13368 * t2251 + F::new(56.0) / F::new(9.0) * t13371 * t606 + F::new(28.0) / F::new(9.0) * t4227 * t2258 - F::new(4.0) / F::new(3.0) * t633 * t13312 + F::new(280.0) / F::new(27.0) * t13378 * t2251 + F::new(56.0) / F::new(9.0) * t13381 * t606 + F::new(28.0) / F::new(9.0) * t4232 * t2258 + F::new(4.0) / F::new(3.0) * t637 * t13312;
+    t13388
 }

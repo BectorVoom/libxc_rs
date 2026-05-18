@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 1076/1228 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 1076/1378 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk1076<F: Float>(t1936: F, t30138: F, t4248: F, t7741: F, t5920: F, t93: F, t7889: F, t1312: F, t30004: F, t18245: F, t1937: F, t7735: F, t2042: F, t6941: F, t1916: F, t7950: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t30140 = 4.0 * t30138 * t1936;
-    let t30142 = 4.0 * t4248 * t7741;
-    let t30143 = t93 * t5920;
-    let t30145 = 2.0 * t30143 * t1936;
-    let t30147 = 4.0 * t7889 * t7741;
-    let t30149 = 2.0 * t1312 * t30004;
-    let t30154 = 2.0 * t18245 * t1937;
-    let t30156 = 4.0 * t30138 * t1937;
-    let t30158 = 4.0 * t4248 * t7735;
-    let t30180 = 3.0 * t6941 * t2042;
-    let t30182 = 12.0 * t1916 * t7950;
-    (t30140, t30142, t30143, t30145, t30147, t30149, t30154, t30156, t30158, t30180, t30182)
+pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk1076<F: Float>(t5192: F, t6552: F, t1188: F, t24375: F, t3520: F, t1196: F, t1765: F, t20400: F, t5197: F, t6535: F, t6556: F, t12485: F) -> (F, F, F, F, F, F) {
+    let t24478 = F::new(0.17544670867903938621e1) * t5192 * t6552;
+    let t24480 = t3520 * t24375 * t1188;
+    let t24482 = F::new(0.35089341735807877242e1) * t1196 * t24480;
+    let t24484 = F::new(0.17544670867903938621e1) * t20400 * t1765;
+    let t24488 = t5197 * t6535;
+    let t24490 = F::new(0.35089341735807877242e1) * t1196 * t24488;
+    let t24492 = F::new(0.51947577317044391276e2) * t5192 * t6556;
+    let t24493 = t12485 * t24375;
+    (t24478, t24482, t24484, t24490, t24492, t24493)
 }

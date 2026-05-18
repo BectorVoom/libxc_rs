@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1116/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1116/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,21 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1116<F: Float>(t19818: F, t20047: F, t1006: F, t1398: F, t33: F, t3724: F, t1497: F, t750: F, t821: F, t4478: F, t7383: F, t18710: F, t6245: F, t19466: F, t19479: F, t19491: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t20048 = t20047 * t19818;
-    let t20050 = t1006 * t1398;
-    let t20054 = t33 * t3724;
-    let t20058 = t1497 * t750;
-    let t20065 = t1497 * t821;
-    let t20134 = t7383 * t4478;
-    let t20137 = t18710 * t6245;
-    let t20142 = 7.0 / 72.0 * t19466;
-    let t20146 = 7.0 / 1152.0 * t19479;
-    let t20151 = 7.0 / 288.0 * t19491;
-    (t20048, t20050, t20054, t20058, t20065, t20134, t20137, t20142, t20146, t20151)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1116<F: Float>(t1038: F, t15275: F, t141: F, t15271: F, t15286: F, t15266: F, t2895: F, t15262: F, t15257: F, t9185: F, t15281: F, t11938: F, t12129: F, t15264: F, t15268: F, t15273: F, t15277: F, t15283: F, t15288: F) -> (F, F, F, F, F, F, F, F) {
+    let t15320 = t1038 * t15275;
+    let t15321 = t141 * t15320;
+    let t15323 = t1038 * t15271;
+    let t15324 = t141 * t15323;
+    let t15326 = t1038 * t15286;
+    let t15327 = t141 * t15326;
+    let t15329 = t2895 * t15266;
+    let t15330 = t141 * t15329;
+    let t15333 = t2895 * t15262;
+    let t15334 = t141 * t15333;
+    let t15338 = t9185 * t15257;
+    let t15339 = t141 * t15338;
+    let t15341 = t2895 * t15281;
+    let t15342 = t141 * t15341;
+    let t15349 = -F::new(0.16557e0) * t15334 + F::new(0.26837777777777777779e0) * t11938 - t12129 - F::new(0.20128333333333333333e0) * t15283 + F::new(0.36793333333333333333e-1) * t15339 - F::new(0.27595e-1) * t15342 - F::new(0.40256666666666666666e0) * t15268 - F::new(0.12077e1) * t15264 + F::new(0.12077e1) * t15277 + F::new(0.181155e1) * t15273 + F::new(0.60385e0) * t15288;
+    (t15321, t15324, t15327, t15330, t15334, t15339, t15342, t15349)
 }

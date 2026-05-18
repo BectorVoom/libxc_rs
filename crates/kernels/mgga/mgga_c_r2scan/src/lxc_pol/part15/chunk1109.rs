@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 15 (v4rho3sigma_5) CSE chunk 1109/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 15 (v4rho3sigma_5) CSE chunk 1109/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part15_v4rho3sigma_5_chunk1109<F: Float>(t322: F, t40892: F, t40923: F, t40954: F, t40986: F, t41019: F, t41054: F, t41086: F, t2449: F, t3461: F, t374: F, t40505: F, t40509: F, t40526: F, t40528: F, t40532: F, t40536: F, t40539: F, t40541: F, t40544: F, t40547: F, t40551: F, t40554: F, t40569: F, t40571: F, t40578: F) -> (F,) {
-    let t323 = t322 <= 0.0;
-    let t331 = t322 <= 0.25e1;
-    let t41088 = piecewise5(t323, t40892, t331, t40923 + t40954 + t40986 + t41019, t41054 + t41086);
-    let t41090 = 2.0 * t2449 * t3461 + t374 * t41088 + t40505 - t40509 - t40526 - t40528 - t40532 - t40536 - t40539 + t40541 + t40544 + t40547 + t40551 - t40554 + t40569 + t40571 - t40578;
-    (t41090,)
+pub fn mgga_c_r2scan_lxc_pol_part15_v4rho3sigma_5_chunk1109<F: Float>(t3270: F, t39311: F, t3269: F, t10634: F, t11629: F, t3262: F, t1563: F, t3582: F, t3275: F, t37299: F, t37390: F, t39276: F, t39278: F, t39282: F, t39284: F, t39289: F, t39290: F, t39295: F, t39298: F, t39303: F, t39306: F, t39309: F) -> (F, F, F, F) {
+    let t39312 = t3270 * t39311;
+    let t39314 = t3269 * t39312 / F::new(2.0);
+    let t39317 = F::new(15.0) / F::new(8.0) * t3262 * t11629 * t10634;
+    let t39318 = t3582 * t1563;
+    let t39321 = F::new(585.0) / F::new(256.0) * t3275 * t37299 * t39318;
+    let t39322 = -t39276 + t39278 - t39282 - t39284 + F::new(0.19211284388664477842e-2) * t37390 - t39289 + F::new(0.30487649791575028314e-3) * t39290 - t39295 - t39298 - t39303 - t39306 + F::new(0.15243824895787514157e-3) * t39309 + t39314 + t39317 + t39321;
+    (t39314, t39317, t39321, t39322)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 802/1170 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 802/1333 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk802<F: Float>(t213: F, t2760: F, t215: F, t231: F, t268: F, t836: F, t2798: F, t2722: F, t675: F, t251: F, t4503: F, t786: F, t2723: F, t2453: F, t2797: F, t281: F, t68: F) -> (F, F, F, F, F, F) {
-    let t10513 = t213 * t2760;
-    let t10518 = t268 * t215 * t836 * t231;
-    let t10519 = t2798 * t10518;
-    let t10521 = t675 * t2722;
-    let t10523 = t268 * t10521 * t231;
-    let t10524 = t2798 * t10523;
-    let t10529 = t4503 * t251;
-    let t10530 = t786 * t10529;
-    let t10532 = t268 * t10521 * t2723;
-    let t10533 = t10530 * t10532;
-    let t10535 = t2453 * t2797;
-    let t10538 = t281 * t68 * t836 * t231;
-    (t10513, t10519, t10524, t10533, t10535, t10538)
+pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk802<F: Float>(t1424: F, t4071: F, t4132: F, t9632: F, t9636: F, t9639: F, t9642: F, t9650: F, t9652: F, t9659: F, t9666: F, t9668: F, t9672: F, t9677: F, t9683: F, t9687: F) -> F {
+    let t9689 = F::new(0.21951497276451705329e-1) * t9632 - F::new(0.16463622957338778996e-1) * t9636 + t9639 - F::new(0.19514881078765566038e-2) * t9642 + t9650 + F::new(0.39512695097613069591e1) * t1424 * t9652 - F::new(0.39512695097613069591e1) * t1424 * t9659 - F::new(0.19756347548806534796e1) * t4071 * t4132 - t9666 + F::new(0.16463622957338778996e-1) * t9668 - F::new(0.29272321618148349057e-1) * t9672 - F::new(0.34697458558045176417e-2) * t9677 + F::new(0.58544643236296698113e-1) * t9683 + F::new(0.39029762157531132076e-1) * t9687;
+    t9689
 }

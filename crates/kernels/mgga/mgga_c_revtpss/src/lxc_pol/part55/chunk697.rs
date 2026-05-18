@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 697/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 697/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk697<F: Float>(t30: F, t265: F, t393: F, t1544: F, t2071: F, t207: F, t8019: F, t1583: F, t1940: F, t198: F, t2403: F, t7432: F, t892: F, t1468: F, t1469: F, t2078: F, t45: F, t7787: F, t7991: F, t8020: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t120 = rho0 <= dens_threshold || t31;
-    let t394 = t265 < t393;
-    let t8031 = t2071 * t1544;
-    let t8034 = t207 * t8019;
-    let t8039 = -t1583 * t1940 * t7432 + t198 * t8034 * t892 + 3.0 * t2403 * t8031;
-    let t8040 = piecewise3(t394, 0.0, t8039);
-    let t8045 = piecewise3(t120, 3.0 / 2.0 * t2403 * t7991 + t1940 * t8020 * t30 / 2.0 - t1940 * t7432 * t7787 / 2.0 + t1940 * t2071 * t1468 / 2.0, t2078 * t1469 / 2.0 + t8040 * t45 / 2.0);
-    (t8034, t8039, t8040, t8045)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk697<F: Float>(t2089: F, t670: F, t2061: F, t212: F, t780: F, t689: F, t2062: F, t786: F, t789: F, t7023: F, t7031: F, t7034: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t7378 = t2089 * t670;
+    let t7384 = t212 * t2061;
+    let t7385 = t7384 * t780;
+    let t7387 = F::new(0.54878743191129263322e-2) * t689 * t7385;
+    let t7388 = t786 * t2062;
+    let t7390 = F::new(0.9757440539382783019e-2) * t7388 * t789;
+    let t7391 = F::new(7.0) / F::new(144.0) * t7023;
+    let t7393 = F::new(0.28582678745379824648e-4) * t7031;
+    let t7394 = F::new(0.50820002809285328225e-4) * t7034;
+    (t7378, t7384, t7385, t7387, t7388, t7390, t7391, t7393, t7394)
 }

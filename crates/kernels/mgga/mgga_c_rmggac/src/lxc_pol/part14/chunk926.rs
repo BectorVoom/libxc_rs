@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 926/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 926/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk926<F: Float>(t36701: F, t36715: F, t36718: F, t36735: F, t41414: F, t41883: F, t41885: F, t41887: F, t41891: F, t41893: F, t41895: F, t41897: F, t41902: F, t41905: F, t41906: F, t41915: F, t41920: F, t41922: F, t884: F) -> (F,) {
-    let t41924 = -t36701 + t41883 + t41885 + 0.13637330827122670864e-1 * t41887 - 0.54549323308490683458e-1 * t36715 - 0.85129199786595678796e-5 * t41891 - 0.42564599893297839398e-5 * t41893 + 0.1064114997332445985e-4 * t41895 + 0.25538759935978703638e-4 * t41897 + 0.42564599893297839398e-5 * t41902 + t41905 - 0.10227998120342003148e-1 * t41906 - 0.40650199722100037752e-3 * t36718 + 0.59871208509319042821e-1 * t884 * t41414 + 0.19863479950205658386e-4 * t36735 + 0.17025839957319135759e-4 * t41915 + 0.31923449919973379548e-4 * t41920 + 0.59590439850616975156e-4 * t41922;
-    (t41924,)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk926<F: Float>(t2147: F, t39953: F, t5055: F, t7524: F, t36895: F, t8571: F, t35535: F, t36450: F, t8443: F, t36734: F, t1475: F, t1970: F, t1971: F, t875: F, t876: F) -> (F, F, F, F, F, F, F) {
+    let t39954 = t39953 * t2147;
+    let t39956 = t5055 * t7524;
+    let t39964 = t8571 * t36895;
+    let t39966 = t8571 * t35535;
+    let t39968 = t36450 * t8443;
+    let t39970 = t36734 * t8443;
+    let t39971 = F::new(0.19863479950205658386e-4) * t39970;
+    let t39975 = t1970 * t1971 * t875 * t1475 * t876;
+    (t39954, t39956, t39964, t39966, t39968, t39971, t39975)
 }

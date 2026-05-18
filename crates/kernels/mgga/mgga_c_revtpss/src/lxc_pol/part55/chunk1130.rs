@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1130/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1130/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1130<F: Float>(t104115: F, t111734: F, t124169: F, t128240: F, t128242: F, t128244: F, t128245: F, t128251: F, t128254: F, t128256: F, t128260: F, t128261: F, t128266: F, t128270: F, t128273: F, t130928: F, t130929: F, t130932: F, t130946: F, t1518: F, t2055: F, t29427: F, t32175: F, t32177: F, t33287: F, t33645: F, t4292: F, t569: F, t670: F, t7367: F, t8563: F) -> (F,) {
-    let t130951 = -2.0 * t29427 * t7367 + t128240 + t128242 - t128244 - t128245 - t128251 - t128254 - t128256 + t128260 - t128261 - t128266 + t128270 - t128273 + (2.0 * t104115 * t2055 + 2.0 * t111734 * t2055 + 2.0 * t124169 * t1518 + 2.0 * t130929 * t670 + 2.0 * t130932 * t1518 + 2.0 * t33287 * t4292 + t130928 + 2.0 * t130946 + 2.0 * t32175 + 2.0 * t32177 + 2.0 * t33645 + 2.0 * t8563) * t569;
-    (t130951,)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1130<F: Float>(t120002: F, t240: F, t27: F, t822: F, t119967: F, t119837: F, t14686: F, t837: F, t119833: F, t814: F, t853: F, t802: F) -> (F, F, F, F, F, F, F) {
+    let t120003 = F::new(0.66119071333692697238e-4) * t120002;
+    let t120010 = t822 * t27 * t240;
+    let t120011 = t119967 * t120010;
+    let t120013 = t14686 * t119837 * t837;
+    let t120014 = t120011 * t120013;
+    let t120016 = t119833 * t120010;
+    let t120017 = t120016 * t120013;
+    let t120042 = t814 * t853;
+    let t120043 = t120042 * t802;
+    (t120003, t120011, t120014, t120016, t120017, t120042, t120043)
 }

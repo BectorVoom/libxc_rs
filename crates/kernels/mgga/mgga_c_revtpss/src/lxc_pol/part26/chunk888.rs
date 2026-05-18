@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 888/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 888/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk888<F: Float>(t1209: F, t3727: F, t460: F, t12295: F, t12292: F, t12297: F, t12299: F, t12301: F, t12303: F, t12307: F, t12310: F, t12314: F, t12317: F, t12320: F, t459: F, t1294: F, t3790: F) -> (F, F, F, F) {
-    let t12666 = t1209 * t3727;
-    let t12673 = t460 * t3727;
-    let t12678 = 0.25925925925925925926e-1 * t12295;
-    let t12689 = -t12678 + 0.11111111111111111111e-1 * t12297 + 0.55555555555555555555e-2 * t12299 - 0.16666666666666666667e-1 * t12301 - 0.83333333333333333334e-2 * t12303 + 0.92592592592592592592e-2 * t12307 - 0.33333333333333333333e-1 * t12310 - 0.16666666666666666666e-1 * t12292 + 0.50000000000000000001e-1 * t12314 + 0.50000000000000000001e-1 * t12317 + 0.83333333333333333333e-2 * t12320;
-    let t12690 = t12689 * t459;
-    let t12695 = t1294 * t3790;
-    (t12666, t12673, t12690, t12695)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk888<F: Float>(t11315: F, t923: F, t11156: F, t2908: F, t141: F, t11165: F, t930: F, t2912: F, t698: F, t11151: F, t11160: F, t11132: F) -> (F, F, F, F, F, F, F) {
+    let t11316 = t923 * t11315;
+    let t11318 = t2908 * t11156;
+    let t11319 = t141 * t11318;
+    let t11321 = t930 * t11165;
+    let t11322 = t141 * t11321;
+    let t11326 = t698 * t2912;
+    let t11328 = t2908 * t11151;
+    let t11329 = t141 * t11328;
+    let t11331 = t930 * t11160;
+    let t11332 = t141 * t11331;
+    let t11334 = F::new(0.93011851851851851854e0) * t11132;
+    (t11316, t11319, t11322, t11326, t11329, t11332, t11334)
 }

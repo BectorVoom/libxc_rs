@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 622/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 622/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk622<F: Float>(t1322: F, t838: F, t874: F, t25525: F, t3065: F, t14327: F, t3814: F, t2566: F, t69184: F, t797: F, t68740: F, t14298: F, t2123: F, t7778: F, t305: F, t5148: F, t68684: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t69428 = t838 * t874 * t1322;
-    let t69433 = t25525 * t3065;
-    let t69436 = t3814 * t14327;
-    let t69437 = t69436 * t2566;
-    let t69439 = t797 * t69184;
-    let t69444 = t797 * t68740;
-    let t69445 = t69444 * t14298;
-    let t69452 = t7778 * t2123;
-    let t69453 = t305 * t69452;
-    let t69463 = t5148 * t68684;
-    (t69428, t69433, t69436, t69437, t69439, t69444, t69445, t69452, t69453, t69463)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk622<F: Float>(t15624: F, t515: F, t1971: F, t7230: F, t14581: F, t2344: F, t14585: F, t2329: F, t14589: F, t2333: F, t15311: F, t15315: F) -> (F, F, F, F, F, F, F) {
+    let t15625 = t515 * t15624;
+    let t15626 = t1971 * t15625;
+    let t15627 = t7230 * t15626;
+    let t15628 = F::new(0.53205749866622299248e-5) * t15627;
+    let t15632 = t14581 * t2344;
+    let t15633 = F::new(0.10227998120342003148e-1) * t15632;
+    let t15634 = t14585 * t2329;
+    let t15635 = F::new(0.13637330827122670864e-1) * t15634;
+    let t15636 = t14589 * t2333;
+    let t15637 = F::new(0.68186654135613354322e-2) * t15636;
+    let t15640 = F::new(0.10227998120342003148e-1) * t15311;
+    let t15643 = F::new(0.40911992481368012592e-1) * t15315;
+    (t15626, t15628, t15633, t15635, t15637, t15640, t15643)
 }

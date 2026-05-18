@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 970/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 970/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk970<F: Float>(t40951: F, t40970: F, t40976: F, t35845: F, t35848: F, t40963: F, t40966: F, t40968: F, t40973: F, t40979: F, t40981: F, t40991: F, t41041: F, t41057: F, t40993: F, t41001: F, t41004: F, t41021: F, t41024: F, t41029: F, t41033: F, t41037: F, t41045: F, t41049: F, t41053: F) -> (F, F) {
-    let t44089 = 0.2927036860455597649e0 * t40951;
-    let t44093 = 0.10909864661698136692e0 * t40970;
-    let t44095 = 0.1454648621559751559e0 * t40976;
-    let t44101 = -t44089 - 0.17961362552795712846e0 * t40963 + 0.72732431077987577947e-1 * t40966 + 0.40911992481368012596e-1 * t40968 - t44093 + 0.13637330827122670865e0 * t40973 + t44095 + 0.40911992481368012595e-1 * t40979 + 0.17961362552795712846e0 * t40981 + 0.3193131120497015617e0 * t35845 - 0.47896966807455234256e0 * t35848 - 0.17961362552795712846e0 * t40991;
-    let t44110 = 0.36366215538993788974e-1 * t41041;
-    let t44114 = 0.10909864661698136692e0 * t41057;
-    let t44115 = 0.35922725105591425692e0 * t40993 - 0.8182398496273602519e0 * t41001 - 0.16364796992547205038e0 * t41004 + 0.66671395154821946452e-1 * t41021 - 0.40911992481368012596e-1 * t41024 - 0.20001418546446583936e0 * t41029 + 0.26668558061928778581e0 * t41033 - 0.14546486215597515589e0 * t41037 - t44110 - 0.20455996240684006298e-1 * t41045 + 0.2727466165424534173e-1 * t41049 + 0.68186654135613354325e-2 * t41053 + t44114;
-    (t44101, t44115)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk970<F: Float>(t2118: F, t41032: F, t22: F, t2353: F, t26531: F, t5184: F, t649: F, t8746: F, t41209: F, t8750: F, t41212: F, t41215: F, t7603: F) -> (F, F, F, F, F, F, F) {
+    let t41271 = t2118 * t41032;
+    let t41274 = t26531 * t22 * t2353;
+    let t41276 = t649 * t5184;
+    let t41277 = t8746 * t41276;
+    let t41279 = t8750 * t41209;
+    let t41281 = t8750 * t41212;
+    let t41283 = t7603 * t41215;
+    (t41271, t41274, t41276, t41277, t41279, t41281, t41283)
 }

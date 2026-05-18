@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 512/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 512/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk512<F: Float>(t14530: F, t82: F, t72: F, t13851: F, t13854: F, t13856: F, t13859: F, t13864: F, t13869: F, t13873: F, t13877: F, t13881: F, t13885: F, t13890: F, t13893: F, t302: F, t3207: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t14531 = t82 * t14530;
-    let t14532 = t72 * t14531;
-    let t14533 = 0.1276937996798935182e-4 * t13851;
-    let t14534 = 0.58171619854173713846e-5 * t13854;
-    let t14535 = 0.85129199786595678799e-5 * t13856;
-    let t14536 = 0.85129199786595678799e-5 * t13859;
-    let t14537 = 0.17519306092901367188e-6 * t13864;
-    let t14538 = 0.15961724959986689775e-4 * t13869;
-    let t14539 = 0.1276937996798935182e-4 * t13873;
-    let t14540 = 0.2553875993597870364e-4 * t13877;
-    let t14541 = 0.3830813990396805546e-4 * t13881;
-    let t14542 = 0.1276937996798935182e-4 * t13885;
-    let t14545 = 0.35038612185802734376e-6 * t13890;
-    let t14546 = 0.52557918278704101564e-6 * t13893;
-    let t14547 = t302 * t3207;
-    (t14531, t14532, t14533, t14534, t14535, t14536, t14537, t14538, t14539, t14540, t14541, t14542, t14545, t14546, t14547)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk512<F: Float>(t236: F, t458: F, t14125: F, t14124: F, t14121: F, t3128: F, t14115: F) -> (F, F, F, F) {
+    let t14126 = t236 * t458;
+    let t14127 = t14125 * t14126;
+    let t14128 = t14124 * t14127;
+    let t14130 = t3128 * t14121;
+    let t14131 = t14130 * t14115;
+    (t14127, t14128, t14130, t14131)
 }

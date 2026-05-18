@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 983/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 983/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk983<F: Float>(t4147: F, t7535: F, t2645: F, t4366: F, t837: F, t211: F, t9644: F, t138: F, t785: F, t9302: F, t10818: F, t221: F, t2452: F, t9720: F, t675: F, t886: F) -> (F, F, F, F, F, F, F, F) {
-    let t33183 = t4147 * t7535;
-    let t39588 = t4366 * t2645;
-    let t39620 = t837 * t2645;
-    let t39643 = 1.0 / t9644 / t211;
-    let t40270 = t138 * t9302 * t785;
-    let t40419 = t221 * t10818;
-    let t40688 = t9720 * t2452;
-    let t41040 = t675 * t886;
-    (t33183, t39588, t39620, t39643, t40270, t40419, t40688, t41040)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk983<F: Float>(t12599: F, t1277: F, t1204: F, t1269: F, t1294: F, t3584: F, t12295: F, t12292: F, t12297: F, t12299: F, t12301: F, t12303: F, t12307: F, t12310: F, t12314: F, t12317: F, t12320: F) -> (F, F, F, F) {
+    let t12600 = t1277 * t12599;
+    let t12603 = t1204 * t1269;
+    let t12606 = t3584 * t1294;
+    let t12607 = t1277 * t12606;
+    let t12610 = F::new(0.46096296296296296297e-1) * t12295;
+    let t12621 = -t12610 + F::new(0.19755555555555555556e-1) * t12297 + F::new(0.9877777777777777778e-2) * t12299 - F::new(0.29633333333333333334e-1) * t12301 - F::new(0.14816666666666666667e-1) * t12303 + F::new(0.16462962962962962963e-1) * t12307 - F::new(0.59266666666666666668e-1) * t12310 - F::new(0.29633333333333333334e-1) * t12292 + F::new(0.88900000000000000002e-1) * t12314 + F::new(0.88900000000000000002e-1) * t12317 + F::new(0.14816666666666666667e-1) * t12320;
+    (t12600, t12603, t12607, t12621)
 }

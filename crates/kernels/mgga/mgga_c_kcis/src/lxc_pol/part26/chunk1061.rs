@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1061/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1061/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1061<F: Float>(t27636: F, t7429: F, t6176: F, t1889: F, t6207: F, t6159: F, t2256: F, t23036: F, t1650: F, t2104: F, t27584: F, t4440: F, t6944: F, t7979: F, t1600: F, t6937: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t29568 = t27636 * t7429;
-    let t29569 = t6176 * t29568;
-    let t29574 = t6207 * t1889;
-    let t29575 = t6159 * t29574;
-    let t29578 = t23036 * t2256;
-    let t29581 = t1650 * t2104;
-    let t29582 = t27584 * t29581;
-    let t29583 = t4440 * t29582;
-    let t29590 = t7979 * t6944;
-    let t29591 = t1600 * t29590;
-    let t29594 = t7979 * t6937;
-    (t29568, t29569, t29574, t29575, t29578, t29582, t29583, t29590, t29591, t29594)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1061<F: Float>(t26592: F, t26631: F, t165: F, t2165: F, t2789: F, t26521: F, t26523: F, t26525: F, t26528: F, t26531: F, t26534: F, t26536: F, t26538: F, t26540: F, t26542: F, t26545: F, t26548: F, t26551: F, t26554: F) -> (F, F, F, F) {
+    let t26632 = t26592 + t26631;
+    let t26633 = t26632 * t165;
+    let t26634 = t2165 * t2789;
+    let t26651 = t26521 / F::new(8.0) - t26523 / F::new(4.0) - t26525 / F::new(2.0) + t26528 / F::new(4.0) + t26531 / F::new(2.0) - t26534 / F::new(8.0) + F::new(3.0) / F::new(4.0) * t26536 - t26538 / F::new(32.0) + t26540 / F::new(16.0) + t26542 / F::new(4.0) - t26545 / F::new(16.0) - t26548 / F::new(4.0) + t26551 / F::new(32.0) - F::new(5.0) / F::new(8.0) * t26554;
+    (t26632, t26633, t26634, t26651)
 }

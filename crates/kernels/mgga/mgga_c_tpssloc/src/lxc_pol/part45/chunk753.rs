@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 753/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 753/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk753<F: Float>(t23173: F, t7084: F, t814: F, t829: F, t2679: F, t7101: F, t235: F, t24234: F, t2051: F, t226: F, t23156: F, t23160: F, t23166: F, t23169: F, t23178: F, t23182: F, t23187: F, t2613: F, t7104: F, t808: F, t812: F) -> (F,) {
-    let t24265 = 0.16449340668482264365e-1 * t23173;
-    let t24269 = t814 * t7084;
-    let t24270 = t24269 * t829;
-    let t24273 = t7101 * t2679;
-    let t24278 = t235 * t24234;
-    let t24280 = -0.6579736267392905746e-1 * t23156 - 0.3289868133696452873e-1 * t23160 + 0.3289868133696452873e-1 * t23166 + 0.15352717957250113407e0 * t23169 - t24265 - 0.3289868133696452873e-1 * t23178 - 0.16449340668482264365e-1 * t23182 + 0.16449340668482264365e-1 * t23187 - 2.0 * t812 * t24270 - t812 * t24273 + 2.0 * t808 * t7104 + t2613 * t2051 + t226 * t24278;
-    (t24280,)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk753<F: Float>(t23132: F, t812: F, t849: F, t2707: F, t6621: F, t1891: F, t9223: F, t213: F, t1895: F, t1887: F, t206: F, t22715: F) -> (F, F, F, F, F, F, F) {
+    let t23133 = t812 * t23132;
+    let t23134 = t23133 * t849;
+    let t23135 = F::new(7.0) / F::new(288.0) * t23134;
+    let t23136 = t6621 * t2707;
+    let t23138 = t9223 * t1891;
+    let t23139 = t23138 * t213;
+    let t23140 = t23139 * t1895;
+    let t23141 = F::new(0.11304371706359309439e-1) * t23140;
+    let t23143 = t22715 * t206 * t1887;
+    (t23134, t23135, t23136, t23139, t23140, t23141, t23143)
 }

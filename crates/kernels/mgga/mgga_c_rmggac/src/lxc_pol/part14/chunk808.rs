@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 808/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 808/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk808<F: Float>(t2392: F, t262: F, t794: F, t34738: F, t321: F, t8915: F, t7204: F, t333: F, t8700: F, t8630: F, t352: F, t7192: F, t2157: F, t5011: F, t2350: F, t866: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t39662 = t262 * t2392 * t794;
-    let t39663 = t34738 * t39662;
-    let t39665 = t8915 * t321;
-    let t39666 = t262 * t39665;
-    let t39667 = t7204 * t39666;
-    let t39670 = t8700 * t333;
-    let t39671 = t262 * t39670;
-    let t39672 = t8630 * t39671;
-    let t39674 = t8700 * t352;
-    let t39675 = t262 * t39674;
-    let t39676 = t7192 * t39675;
-    let t39678 = t5011 * t2157;
-    let t39679 = 0.79828278012425390426e-1 * t39678;
-    let t39680 = t2350 * t866;
-    (t39662, t39663, t39665, t39666, t39667, t39670, t39671, t39672, t39674, t39675, t39676, t39679, t39680)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk808<F: Float>(t8651: F, t38274: F, t38275: F, t38276: F, t38277: F, t38278: F, t38279: F, t7545: F, t7550: F, t8653: F, t9381: F, t7670: F, t7674: F, t7679: F, t7681: F, t7684: F, t7686: F, t7689: F, t7693: F, t7698: F, t8673: F, t9412: F) -> (F, F) {
+    let t38280 = F::new(0.20455996240684006296e-1) * t8651;
+    let t38282 = t38274 - t38275 + t38276 + t38277 + t38278 - t38279 - t38280 - F::new(0.25538759935978703638e-4) * t8653 - t9381 + t7545 + t7550;
+    let t38290 = -t7670 + F::new(0.72732431077987577942e-1) * t8673 + t7674 - t7679 - t7681 - t7684 - t7686 - t7689 - t7693 - t7698 - t9412;
+    (t38282, t38290)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 695/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 695/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk695<F: Float>(t25: F, t28: F, t184: F, t5151: F, t17: F, t1787: F, t750: F, t1408: F, t3704: F, t1298: F, t2: F, t584: F, t606: F, t1649: F, t3711: F, t1302: F, t1081: F, zeta_threshold: F) -> (F, F, F, F, F, F, F) {
-    let t26 = t25 <= zeta_threshold;
-    let t29 = t28 <= zeta_threshold;
-    let t5166 = t5151 * t184;
-    let t5167 = t17 * t5166;
-    let t5168 = t1787 * t750;
-    let t5169 = t17 * t5168;
-    let t5170 = t3704 * t1408;
-    let t5173 = t1298 * t2;
-    let t5177 = piecewise3(t26, 0.0, -2.0 / 9.0 * t5170 * t606 + 4.0 / 3.0 * t5173 * t584);
-    let t5178 = t3711 * t1649;
-    let t5181 = t1302 * t2;
-    let t5185 = piecewise3(t29, 0.0, -2.0 / 9.0 * t5178 * t1081 - 4.0 / 3.0 * t5181 * t584);
-    let t5187 = t5177 / 2.0 + t5185 / 2.0;
-    (t5166, t5167, t5168, t5169, t5170, t5178, t5187)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk695<F: Float>(t1088: F, t4733: F, t123: F, t3237: F, t3238: F, t4721: F, t4726: F, t4731: F, t423: F, t1098: F, t1657: F, t1119: F) -> (F, F, F, F, F, F) {
+    let t4734 = t1088 * t4733;
+    let t4735 = t123 * t4734;
+    let t4737 = t3237 - F::new(0.5936111111111111111e-2) * t3238 - F::new(0.5936111111111111111e-2) * t4721 - F::new(0.11872222222222222222e-1) * t4726 + F::new(0.35616666666666666666e-1) * t4731 + F::new(0.17808333333333333333e-1) * t4735;
+    let t4739 = F::new(0.621814e-1) * t4737 * t423;
+    let t4740 = t1657 * t1098;
+    let t4742 = F::new(1.0) * t4740 * t1119;
+    (t4734, t4735, t4737, t4739, t4740, t4742)
 }

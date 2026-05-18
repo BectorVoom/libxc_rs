@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 982/1154 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 55 (v4rho2sigma2_11) CSE chunk 982/1304 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk982<F: Float>(t31233: F, t31235: F, t31237: F, t31239: F, t31883: F, t31885: F, t31887: F, t32595: F, t32609: F, t671: F, t8446: F, t1393: F, t31055: F, t31057: F, t31060: F, t31077: F, t31088: F, t31089: F, t31223: F, t31249: F, t31898: F, t31900: F, t31902: F, t31904: F, t31906: F, t31909: F, t31916: F, t31919: F, t574: F, t672: F, t8916: F) -> (F, F) {
-    let t32623 = 2.0 * t32609 * t671 + t31233 + t31235 + t31237 + t31239 + 4.0 * t31883 + 4.0 * t31885 + 4.0 * t31887 + t32595 + t8446;
-    let t32628 = t1393 * t8916 - 2.0 * t32609 * t672 + t32623 * t574 - t31055 - t31057 - t31060 - t31077 - t31088 + t31089 + t31223 - t31249 - 4.0 * t31898 - 4.0 * t31900 - 4.0 * t31902 - 4.0 * t31904 - 4.0 * t31906 - 4.0 * t31909 + 6.0 * t31916 - 4.0 * t31919;
-    (t32623, t32628)
+pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk982<F: Float>(t16439: F, t1843: F, t2016: F, t22656: F, t22907: F, t22909: F, t22921: F, t22924: F, t22926: F, t22928: F, t22940: F, t3758: F, t5215: F, t5321: F, t5354: F, t6958: F, t6963: F, t6993: F, t7729: F) -> F {
+    let t26500 = F::new(0.38381794893125283518e-1) * t22907 + F::new(0.19190897446562641759e-1) * t22909 - t6958 * t5354 - t5321 * t6993 + F::new(2.0) * t5215 * t6963 - t22656 * t1843 + F::new(0.82246703342411321824e-2) * t22921 - t16439 * t2016 + t22924 + t22926 - F::new(0.41123351671205660912e-2) * t22928 + F::new(2.0) * t3758 * t7729 - t5215 * t6993 - F::new(0.19190897446562641759e-1) * t22940;
+    t26500
 }

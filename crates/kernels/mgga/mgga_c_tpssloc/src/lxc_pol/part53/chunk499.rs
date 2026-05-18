@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 499/939 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 499/1059 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk499<F: Float>(t1011: F, t5000: F, t1212: F, t1226: F, t1730: F, t1174: F, t1218: F, t1227: F, t1232: F, t1737: F, t3506: F, t3515: F, t3536: F, t3577: F, t488: F, t4950: F, t4954: F, t4957: F, t4959: F, t4961: F, t4966: F, t4969: F, t4974: F, t4980: F, t4984: F, t4989: F, t4994: F, t4998: F) -> (F,) {
-    let t5001 = t5000 * t1011;
-    let t5002 = t5001 * t1212;
-    let t5005 = t1730 * t1226;
-    let t5010 = -t3577 * t4950 / 4608.0 - t3577 * t4954 / 4608.0 + t4957 / 4608.0 - t4959 / 864.0 - t4961 * t488 / 576.0 + t4966 * t488 / 3072.0 - t1174 * t4969 / 144.0 - t1227 * t4974 / 2304.0 + t3506 * t4980 / 1536.0 - t3515 * t4984 / 3072.0 + 5.0 / 13824.0 * t1227 * t4989 - t4994 / 6912.0 + t4998 / 4608.0 + t5002 * t1218 / 3072.0 - t5005 * t1232 / 4608.0 + t3536 * t1737 / 3072.0;
-    (t5010,)
+pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk499<F: Float>(t68: F, t814: F, t226: F, t4282: F, t829: F, t1519: F, t235: F, t4265: F, t1499: F, t1523: F, t1525: F, t255: F, t2617: F, t4162: F, t4166: F, t4281: F, t4283: F, t4286: F, t4288: F, t808: F, t812: F, t861: F, t863: F) -> (F, F, F) {
+    let t4290 = t68 * t814;
+    let t4291 = t226 * t4290;
+    let t4292 = t4282 * t829;
+    let t4295 = t814 * t1519;
+    let t4296 = t4295 * t829;
+    let t4298 = t235 * t4265;
+    let t4300 = t1499 * t863 - t1523 * t2617 + t1525 * t808 + t226 * t4298 + t255 * t4162 - t4166 * t861 + F::new(2.0) * t4281 * t4283 - t4286 * t812 - t4288 * t812 - t4291 * t4292 - t4296 * t812;
+    (t4291, t4292, t4300)
 }

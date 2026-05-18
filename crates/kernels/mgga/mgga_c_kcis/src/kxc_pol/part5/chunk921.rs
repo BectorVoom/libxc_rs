@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 921/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 921/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk921<F: Float>(t4904: F, t743: F, t4907: F, t4910: F, t733: F, t4913: F, t10114: F, t167: F, t1071: F, t2622: F, t4898: F, t738: F, t4901: F, t1072: F, t4547: F, t10096: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t13472 = 0.4705225e-4 * t743 * t4904;
-    let t13473 = t743 * t4907;
-    let t13492 = 0.18736e-1 * t733 * t4910;
-    let t13493 = t733 * t4913;
-    let t13499 = t10114 * t167;
-    let t13501 = t2622 * t1071;
-    let t13502 = t13501 * t167;
-    let t13532 = t738 * t4898;
-    let t13535 = 0.17611111111111111111e-2 * t738 * t4901;
-    let t13558 = 0.47822877300252710492e-1 * t1072 * t4547;
-    let t13564 = 0.62154466893555682512e-3 * t10096 * t4547;
-    (t13472, t13473, t13492, t13493, t13499, t13502, t13532, t13535, t13558, t13564)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk921<F: Float>(t2354: F, t88: F, t66: F, t673: F, t2680: F, t844: F, t4620: F, t4714: F, t8594: F, t8596: F, t8598: F, t8691: F, t8693: F, t8695: F) -> (F, F, F, F, F) {
+    let t8850 = t88 * t2354;
+    let t8858 = t66 * t673;
+    let t8862 = t88 * t2680;
+    let t8866 = t66 * t844;
+    let t8881 = -F::new(0.47063e1) * t8594 + F::new(0.31375333333333333334e1) * t8596 - F::new(0.36604555555555555556e1) * t8598 - F::new(0.16068111111111111111e1) * t4620 + F::new(0.28051666666666666666e0) * t8691 - F::new(0.56103333333333333332e0) * t8693 - F::new(0.6545388888888888889e0) * t8695 - F::new(0.46308888888888888888e0) * t4714;
+    (t8850, t8858, t8862, t8866, t8881)
 }

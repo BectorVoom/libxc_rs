@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 873/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 873/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk873<F: Float>(t1287: F, t487: F, t6622: F, t3783: F, t6726: F, t489: F, t6695: F, t1234: F, t1285: F, t1770: F, t1818: F, t1822: F, t1825: F, t3670: F, t3755: F, t3767: F, t3782: F, t460: F, t490: F, t5326: F, t5436: F, t6564: F, t6714: F, t6717: F, t6720: F, t6723: F, t6727: F, t6731: F) -> (F, F, F, F) {
-    let t6735 = t487 * t6622 * t1287;
-    let t6738 = t6726 * t3783;
-    let t6741 = t489 * t6695;
-    let t6744 = 0.65854491829355115987e0 * t6564 * t490 - 0.13170898365871023197e1 * t5326 * t1818 + 0.13170898365871023197e1 * t5436 * t1822 + 0.13170898365871023197e1 * t1770 * t1825 + 0.13170898365871023197e1 * t3670 * t6714 - 0.13170898365871023197e1 * t3755 * t6717 - 0.13170898365871023197e1 * t1234 * t6720 - 0.65854491829355115987e0 * t1234 * t6723 + 0.13170898365871023197e1 * t3767 * t6727 + 0.13170898365871023197e1 * t1285 * t6731 + 0.65854491829355115987e0 * t1285 * t6735 - 0.65854491829355115987e0 * t3782 * t6738 + 0.65854491829355115987e0 * t460 * t6741;
-    (t6735, t6738, t6741, t6744)
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk873<F: Float>(t6258: F, t996: F, t1592: F, t4823: F, t1042: F, t1469: F, t3094: F, t4781: F, t3092: F, t1651: F, t1668: F) -> (F, F, F, F, F, F, F) {
+    let t6259 = t996 * t6258;
+    let t6262 = t4823 * t1592;
+    let t6263 = t1042 * t6262;
+    let t6266 = t3094 * t1469;
+    let t6267 = t4781 * t6266;
+    let t6268 = t3092 * t6267;
+    let t6271 = t1651 * t1668;
+    (t6259, t6262, t6263, t6266, t6267, t6268, t6271)
 }

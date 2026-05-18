@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 470/964 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 470/1111 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk470<F: Float>(t196: F, t6261: F, t231: F, t446: F, t1839: F, t500: F, t1910: F, t195: F, t1023: F, t1143: F, t1535: F, t4155: F, t4163: F, t4187: F, t4585: F, t5385: F, t5388: F, t5402: F, t5452: F, t5981: F, t5985: F, t5988: F, t5989: F, t5990: F, t5992: F, t5994: F, t6034: F, t6039: F) -> (F,) {
-    let t6262 = t196 * t6261;
-    let t6265 = t446 * t231;
-    let t6268 = t500 * t1839;
-    let t6275 = t195 * t1910;
-    let t6280 = t5981 - t5385 + 0.31091e-1 * t6262 * t500 + 0.186546e0 * t6265 * t1839 + t5388 - t5985 + 0.186546e0 * t4585 * t6268 + t5988 + 0.186546e0 * t1143 * t6039 - t4155 - t4163 - t5989 - t5990 + 0.186546e0 * t5452 * t1535 + 0.93273e-1 * t6275 * t1023 + 0.373092e0 * t1143 * t6034 - t5402 + t5992 + t5994 + t4187;
-    (t6280,)
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk470<F: Float>(t60: F, t1805: F, t921: F, t5860: F, t1403: F, t284: F, t5865: F, t62: F, t815: F, t5864: F, t277: F, t352: F, t570: F, zeta_threshold: F) -> (F, F, F, F) {
+    let t61 = t60 <= zeta_threshold;
+    let t5870 = t921 * t1805;
+    let t5873 = -t5860;
+    let t5877 = piecewise3::<f64>(t61, F::new(0.0), -F::new(8.0) / F::new(27.0) * t5865 * t284 - F::new(16.0) / F::new(9.0) * t1403 * t815 + F::new(4.0) / F::new(9.0) * t5870 * t284 + F::new(4.0) / F::new(3.0) * t62 * t5873);
+    let t5878 = t5864 + t5877;
+    let t5879 = t277 * t5878;
+    let t5888 = t570 * t352;
+    (t5873, t5878, t5879, t5888)
 }

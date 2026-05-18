@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 1013/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 1013/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk1013<F: Float>(t10760: F, t24714: F, t6535: F, t3295: F, t7520: F, t3308: F, t6362: F, t8030: F, t2834: F, t3344: F, t3290: F, t7301: F, t3591: F, t37972: F, t10872: F, t11736: F) -> (F, F, F, F, F, F, F) {
-    let t39540 = t6535 * t10760 * t24714;
-    let t39542 = t3295 * t7520;
-    let t39545 = t6362 * t3308 * t8030;
-    let t39548 = t2834 * t3344;
-    let t39549 = 0.47609969197673950972e-2 * t39548;
-    let t39550 = t3290 * t7301;
-    let t39552 = t37972 * t3591;
-    let t39554 = t10872 * t11736;
-    (t39540, t39542, t39545, t39549, t39550, t39552, t39554)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk1013<F: Float>(t11880: F, t11882: F, t1010: F, t3366: F, t1276: F, t1070: F, t2391: F, t11032: F, t11034: F, t11045: F, t11051: F, t11058: F, t11866: F, t11868: F, t11870: F, t11872: F, t11874: F, t11876: F, t11878: F) -> (F, F, F) {
+    let t11883 = t11880 * t11882;
+    let t11885 = t3366 * t1010;
+    let t11886 = t1276 * t11885;
+    let t11888 = t1070 * t2391;
+    let t11889 = t1276 * t11888;
+    let t11893 = -t11032 - t11034 / F::new(3.0) - t11866 / F::new(3.0) - t11868 / F::new(4.0) + t11870 / F::new(8.0) - t11872 / F::new(8.0) + t11874 / F::new(4.0) + t11876 / F::new(3.0) + t11878 / F::new(4.0) - F::new(3.0) / F::new(4.0) * t11883 - F::new(2.0) / F::new(3.0) * t11886 + t11889 / F::new(4.0) + t11045 / F::new(3.0) - F::new(2.0) / F::new(3.0) * t11051 - t11058;
+    (t11885, t11888, t11893)
 }

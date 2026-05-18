@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 898/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 898/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk898<F: Float>(t12884: F, t247: F, t3363: F, t1261: F, t12690: F, t225: F, t480: F, t1231: F, t3655: F, t1256: F, t3651: F, t2434: F, t371: F, t482: F, t481: F, t3172: F, t3605: F) -> (F, F, F, F, F, F) {
-    let t12886 = t247 * t12884 * t3363;
-    let t12887 = t1261 * t12886;
-    let t12889 = t12690 * t225;
-    let t12890 = t12889 * t480;
-    let t12893 = t1231 * t3655;
-    let t12895 = t3651 * t1256;
-    let t12898 = t371 * t2434 * t482;
-    let t12900 = 0.63517063878621832551e-4 * t481 * t12898;
-    let t12901 = t3172 * t3605;
-    (t12887, t12890, t12893, t12895, t12900, t12901)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk898<F: Float>(t11467: F, t3014: F, t11132: F, t11337: F, t11158: F, t11162: F, t11167: F, t11316: F, t11319: F, t11322: F, t11326: F, t11329: F, t11332: F, t11339: F, t11343: F, t11346: F) -> (F, F) {
+    let t11468 = t11467 * t3014;
+    let t11479 = F::new(0.93932222222222222223e0) * t11132;
+    let t11480 = F::new(0.36793333333333333333e0) * t11337;
+    let t11485 = F::new(0.16504875e0) * t11316 - F::new(0.82785e-1) * t11319 + F::new(0.49671e0) * t11322 + F::new(0.181155e1) * t11167 - F::new(0.60384999999999999999e0) * t11158 - F::new(0.33114e0) * t11326 + F::new(0.16557e0) * t11329 - F::new(0.49671e0) * t11332 - t11479 - t11480 + F::new(0.5519e-1) * t11339 - F::new(0.36793333333333333333e-1) * t11343 - F::new(0.82785e-1) * t11346 - F::new(0.181155e1) * t11162;
+    (t11468, t11485)
 }

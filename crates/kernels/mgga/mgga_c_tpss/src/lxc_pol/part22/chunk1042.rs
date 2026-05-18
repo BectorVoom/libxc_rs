@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1042/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1042/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1042<F: Float>(t33: F, t259: F, t479: F, t10937: F, t12277: F, t12649: F, t1006: F, t10353: F, t10947: F, t10948: F, t10950: F, t1157: F, t1289: F, t1402: F, t1497: F, t1594: F, t1992: F, t2445: F, t2829: F, t3158: F, t3431: F, t3735: F, t4333: F, t481: F, t57: F, t581: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F,) {
-    let t34 = t33 <= zeta_threshold;
-    let t386 = rho1 <= dens_threshold || t34;
-    let t480 = t259 < t479;
-    let t12651 = piecewise3(t480, t12277 + t12649, t10937);
-    let t12663 = piecewise3(t386, t10937 * t33 / 2.0 + t3735 * t1006 + t1402 * t2829 / 2.0 + t2445 * t1497 / 2.0 - t10947 - t10948 + t10950, t12651 * t57 / 2.0 - t4333 * t581 - t1594 * t1992 / 2.0 - t3158 * t1289 / 2.0 - t1157 * t3431 - t481 * t10353 / 2.0);
-    (t12663,)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1042<F: Float>(t3819: F, t876: F, t1429: F, t2574: F, t10982: F, t10989: F, t11049: F, t10992: F, t10994: F, t11041: F, t11044: F, t11047: F, t11051: F, t8647: F, t8871: F, t8872: F) -> (F, F, F, F) {
+    let t11289 = t3819 * t876;
+    let t11294 = t1429 * t2574;
+    let t11309 = F::new(0.34431666666666666666e0) * t10982;
+    let t11312 = F::new(0.13892666666666666667e0) * t10989;
+    let t11319 = F::new(0.27785333333333333334e0) * t11049;
+    let t11321 = t11312 - F::new(0.104195e0) * t10992 - F::new(0.11577222222222222222e0) * t10994 - F::new(0.13892666666666666667e0) * t8647 - t8871 - t8872 + F::new(0.3529725e1) * t11041 - F::new(0.62517e0) * t11044 + F::new(0.20839e0) * t11047 - t11319 + F::new(0.46308888888888888889e-1) * t11051;
+    (t11289, t11294, t11309, t11321)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 961/1183 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 961/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk961<F: Float>(t120: F, t5544: F, t2645: F, t829: F, t16839: F, t2647: F, t13177: F, t13251: F, t13260: F, t13275: F, t13277: F, t13280: F, t13287: F, t13320: F, t13330: F, t1512: F, t16872: F, t16877: F, t16879: F, t16888: F, t16893: F, t16898: F, t2643: F, t4167: F, t4178: F, t4191: F, t4236: F, t4240: F, t4250: F, t831: F) -> (F,) {
-    let t16901 = t120 * t5544;
-    let t16903 = t2645 * t16901 * t829;
-    let t16907 = t2645 * t16839 * t2647;
-    let t16910 = -t4167 * t4236 / 1536.0 - t16872 * t831 / 3072.0 - t13177 * t1512 / 1536.0 + 7.0 / 2304.0 * t16877 - 7.0 / 2304.0 * t16879 - t13260 + t13275 + t13277 + t13280 - t13287 + t13251 * t4191 / 384.0 - t13251 * t4240 / 1536.0 + t13251 * t4250 / 384.0 - 5.0 / 384.0 * t2643 * t16888 + t4178 * t16893 / 1536.0 - 5.0 / 768.0 * t2643 * t16898 + t2643 * t16903 / 768.0 + t13320 - t13330 + t2643 * t16907 / 768.0;
-    (t16910,)
+pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk961<F: Float>(t1307: F, t212: F, t12225: F, t2586: F, t535: F, t9534: F, t9538: F, t1337: F, t3792: F, t550: F, t1339: F, t836: F) -> (F, F, F, F, F) {
+    let t12226 = t212 * t1307;
+    let t12227 = t12225 * t12226;
+    let t12228 = t2586 * t12227;
+    let t12236 = F::new(0.13888888888888888889e-3) * t9534 * t535 * t9538;
+    let t12247 = t1337 * t1337;
+    let t12248 = F::new(1.0) / t12247;
+    let t12250 = t3792 * t550;
+    let t12282 = t1339 * t836;
+    (t12228, t12236, t12248, t12250, t12282)
 }

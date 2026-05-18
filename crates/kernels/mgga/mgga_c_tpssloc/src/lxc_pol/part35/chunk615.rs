@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 615/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 615/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk615<F: Float>(t1156: F, t6084: F, t3403: F, t6068: F, t1129: F, t1148: F, t1683: F, t1695: F, t3332: F, t3357: F, t3376: F, t3401: F, t436: F, t4797: F, t4835: F, t5985: F, t5987: F, t5991: F, t6023: F, t6026: F, t6031: F, t6037: F, t6053: F, t6056: F, t6064: F, t6069: F) -> (F, F, F) {
-    let t6085 = t6084 * t1156;
-    let t6088 = t6068 * t3403;
-    let t6091 = -0.310907e-1 * t6031 * t436 + 2.0 * t4797 * t1683 - 2.0 * t3332 * t6037 + 1.0 * t1129 * t6053 + 0.32163958997385070134e2 * t3357 * t6056 + t5985 - t5987 + t5991 - t6023 - t6026 - 0.19751673498613801407e-1 * t6064 + 0.11696447245269292414e1 * t4835 * t1695 - 0.11696447245269292414e1 * t3376 * t6069 + 0.5848223622634646207e0 * t1148 * t6085 + 0.17315859105681463759e2 * t3401 * t6088;
-    (t6085, t6088, t6091)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk615<F: Float>(t5685: F, t882: F, t123: F, t2765: F, t4335: F, t5679: F, t5683: F, t291: F, t1557: F, t4354: F, t1556: F, t913: F) -> (F, F, F, F, F, F, F) {
+    let t5686 = t882 * t5685;
+    let t5687 = t123 * t5686;
+    let t5689 = t2765 + F::new(0.11872222222222222222e-1) * t4335 - F::new(0.11872222222222222222e-1) * t5679 + F::new(0.35616666666666666666e-1) * t5683 - F::new(0.17808333333333333333e-1) * t5687;
+    let t5691 = F::new(0.621814e-1) * t5689 * t291;
+    let t5693 = F::new(2.0) * t4354 * t1557;
+    let t5694 = t1556 * t1556;
+    let t5695 = t5694 * t913;
+    (t5686, t5687, t5689, t5691, t5693, t5694, t5695)
 }

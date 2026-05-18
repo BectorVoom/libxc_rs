@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 778/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 778/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk778<F: Float>(t34922: F, t34927: F, t34931: F, t39079: F, t39084: F, t39089: F, t39094: F, t39099: F, t39104: F, t39108: F, t39112: F, t39119: F, t39122: F, t39127: F, t39132: F, t39137: F, t39142: F, t39147: F) -> (F,) {
-    let t39149 = 0.71827762319940103985e-4 * t39079 + 0.42564599893297839398e-5 * t39084 - 0.12769379967989351819e-4 * t39089 + 0.95770349759920138644e-4 * t39094 + 0.31923449919973379548e-4 * t39099 - 0.31923449919973379548e-4 * t39104 - 0.25538759935978703638e-4 * t39108 - 0.85129199786595678796e-5 * t39112 - t34922 + 0.68400385060046895006e-6 * t34927 + 0.68400385060046895006e-6 * t34931 + 0.10248087766267884742e-3 * t39119 + 0.33105799917009430643e-4 * t39122 + 0.25538759935978703638e-4 * t39127 - 0.1064114997332445985e-4 * t39132 + 0.31923449919973379548e-4 * t39137 + 0.31923449919973379548e-4 * t39142 - 0.63846899839946759096e-4 * t39147;
-    (t39149,)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk778<F: Float>(t36204: F, t7778: F, t866: F, t305: F, t2067: F, t25525: F, t2078: F, t3839: F, t262: F, t35917: F, t7785: F, t35844: F) -> (F, F, F, F, F, F, F, F) {
+    let t36205 = F::new(0.51855529564861513904e-1) * t36204;
+    let t36247 = t7778 * t866;
+    let t36248 = t305 * t36247;
+    let t36250 = t25525 * t2067;
+    let t36254 = t3839 * t2078;
+    let t36268 = t262 * t35917;
+    let t36269 = t7785 * t36268;
+    let t36271 = t262 * t35844;
+    (t36205, t36247, t36248, t36250, t36254, t36268, t36269, t36271)
 }

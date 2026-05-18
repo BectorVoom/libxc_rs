@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 4 (v3rho3_2) CSE chunk 1028/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 4 (v3rho3_2) CSE chunk 1028/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk1028<F: Float>(t11424: F, t5989: F, t3259: F, t6021: F, t11136: F, t11137: F, t14702: F, t14922: F, t14923: F, t14924: F, t18203: F, t18208: F, t18213: F, t18217: F, t18219: F, t18223: F, t18227: F, t18229: F, t18234: F, t18239: F, t18243: F) -> (F, F, F) {
-    let t18694 = 2.0 * t11424 * t5989;
-    let t18696 = 1.0 * t3259 * t6021;
-    let t18710 = -t11136 + 0.41203703703703703703e-2 * t11137 + 0.82407407407407407408e-2 * t14702 + t14922 - t14923 - t14924 + 0.20601851851851851852e-2 * t18203 + 0.10300925925925925926e-1 * t18208 - 0.37083333333333333333e-1 * t18213 - 0.12361111111111111111e-1 * t18217 - 0.61805555555555555557e-2 * t18219 + 0.55625000000000000001e-1 * t18223 + 0.37083333333333333334e-1 * t18227 - 0.30902777777777777778e-2 * t18229 - 0.61805555555555555555e-2 * t18234 + 0.18541666666666666667e-1 * t18239 + 0.92708333333333333333e-2 * t18243;
-    (t18694, t18696, t18710)
+pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk1028<F: Float>(t10143: F, t5664: F, t12895: F, t13121: F, t1484: F, t16697: F, t16699: F, t16700: F, t16703: F, t16705: F, t16707: F, t16708: F, t16709: F, t16712: F, t16715: F, t16719: F, t1877: F, t193: F, t2522: F, t262: F, t5527: F, t776: F, t868: F, t9853: F, t9859: F, t9894: F, t9907: F, t9921: F) -> F {
+    let t17120 = t5664 * t10143;
+    let t17131 = F::new(6.0) * t193 * t262 * t5527 * t776 + F::new(6.0) * t12895 * t1484 * t2522 + F::new(2.0) * t17120 * t1877 * t868 - t13121 - t16697 + t16699 - t16700 + t16703 + t16705 + t16707 - t16708 + t16709 - t16712 + t16715 + t16719 + t9853 + t9859 - t9894 + t9907 - t9921;
+    t17131
 }

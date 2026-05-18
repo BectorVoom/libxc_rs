@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 695/964 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 695/1111 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk695<F: Float>(t35776: F, t1343: F, t2040: F, t638: F, t71: F, t830: F, t2046: F, t2051: F, t271: F, t4773: F, t7292: F, t7385: F, t2067: F, t25640: F, t2078: F, t3851: F) -> (F, F, F, F, F, F) {
-    let t35777 = 0.15243824895787514157e-3 * t35776;
-    let t35781 = t638 * t830 * t1343 * t71 * t2040;
-    let t35782 = 0.44715219694310041527e-2 * t35781;
-    let t35786 = t2046 * t4773 * t271 * t71 * t2051;
-    let t35787 = 0.16432021104515675446e-2 * t35786;
-    let t35798 = t638 * t7292 * t7385;
-    let t35799 = 0.12195059916630011326e-2 * t35798;
-    let t35810 = t25640 * t2067;
-    let t35815 = t3851 * t2078;
-    (t35777, t35782, t35787, t35799, t35810, t35815)
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk695<F: Float>(t675: F, t9938: F, t2402: F, t558: F, t884: F, t1707: F, t645: F, t3928: F, t2060: F, t6522: F, t1550: F, t2024: F, t6557: F) -> (F, F, F, F, F, F, F, F) {
+    let t9939 = t675 * t9938;
+    let t9940 = F::new(0.51077519871957407276e-4) * t9939;
+    let t9944 = t2402 * t558;
+    let t9945 = t884 * t9944;
+    let t9946 = F::new(0.11974241701863808564e0) * t9945;
+    let t9948 = t645 * t1707;
+    let t9949 = t3928 * t9948;
+    let t9950 = F::new(0.17961362552795712846e0) * t9949;
+    let t9951 = t2060 * t6522;
+    let t9952 = t1550 * t9951;
+    let t9953 = F::new(0.5987120850931904282e-1) * t9952;
+    let t9954 = t2024 * t6557;
+    (t9940, t9944, t9946, t9948, t9950, t9951, t9953, t9954)
 }

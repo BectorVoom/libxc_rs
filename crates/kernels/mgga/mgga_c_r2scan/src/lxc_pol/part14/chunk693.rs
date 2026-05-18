@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 693/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 693/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk693<F: Float>(t1762: F, t5957: F, t1835: F, t377: F, t1946: F, t1767: F, t1987: F, t424: F, t625: F, t1764: F, t1768: F, t1693: F, t5714: F, t61: F, t1793: F, t410: F) -> (F, F, F, F, F, F, F, F) {
-    let t5959 = 0.32530743900905219526e-1 * t1762 * t5957;
-    let t5960 = t377 * t1835;
-    let t5961 = t5960 * t1946;
-    let t5963 = 0.28895839882605942646e1 * t1762 * t5961;
-    let t5964 = t1767 * t1987;
-    let t5966 = 0.96319466275353142157e0 * t1762 * t5964;
-    let t5967 = t424 * t625;
-    let t5968 = t5967 * t1764;
-    let t5970 = t5967 * t1768;
-    let t5972 = t424 * t1693;
-    let t5975 = 0.11558335953042377058e2 * t61 * t5714;
-    let t5976 = t410 * t1793;
-    (t5959, t5963, t5966, t5968, t5970, t5972, t5975, t5976)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk693<F: Float>(t1836: F, t5285: F, t234: F, t703: F, t716: F, t224: F, t1821: F, t5270: F, t1809: F, t1841: F, t720: F, t1819: F) -> (F, F, F, F, F) {
+    let t5286 = t1836 * t5285;
+    let t5288 = F::new(0.14035736694323150897e2) * t234 * t5286;
+    let t5290 = F::new(1.0) / t716 / t703;
+    let t5291 = t5290 * t224;
+    let t5292 = t1821 * t5270;
+    let t5293 = t5291 * t5292;
+    let t5295 = F::new(0.12304822629859687989e5) * t234 * t5293;
+    let t5296 = t1841 * t1809;
+    let t5298 = F::new(0.10526802520742363173e2) * t234 * t5296;
+    let t5299 = t720 * t5270;
+    let t5300 = t1819 * t5299;
+    (t5288, t5290, t5295, t5298, t5300)
 }

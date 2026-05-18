@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1057/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1057/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1057<F: Float>(t25: F, t265: F, t394: F, t31477: F, t1877: F, t24191: F, t24339: F, t2522: F, t26756: F, t30767: F, t31430: F, t31434: F, t31442: F, t31449: F, t31451: F, t40: F, t606: F, t607: F, t6542: F, t6671: F, t7114: F, t8566: F, t8569: F, t8580: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
-    let t26 = t25 <= zeta_threshold;
-    let t115 = rho0 <= dens_threshold || t26;
-    let t395 = t265 < t394;
-    let t31478 = piecewise3(t395, 0.0, t31477);
-    let t31483 = piecewise3(t115, 3.0 / 2.0 * t2522 * t8566 * t6542 + t1877 * t31430 * t25 / 2.0 - t1877 * t31434 * t6671 / 2.0 + t1877 * t8566 * t606 / 2.0 - 3.0 / 2.0 * t24191 * t31442 - t1877 * t24339 * t8569 / 2.0 + t26756 * t31449 - t1877 * t7114 * t31451 / 2.0 - t1877 * t7114 * t30767 / 2.0, t31478 * t40 / 2.0 + t8580 * t607 / 2.0);
-    (t31478, t31483)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1057<F: Float>(t2053: F, t2718: F, t4300: F, t13463: F, t1528: F, t2054: F, t23207: F, t23209: F, t23233: F, t23236: F, t24291: F, t24305: F, t25194: F, t2713: F, t4147: F, t4268: F, t4301: F, t7087: F, t7092: F, t7107: F, t7842: F, t855: F) -> (F, F) {
+    let t26690 = t2718 * t2053 * t4300;
+    let t26698 = F::new(2.0) * t4147 * t7092 + t23207 + F::new(0.82246703342411321825e-2) * t23209 - t2713 * t7842 + F::new(2.0) * t855 * t26690 - t13463 * t2054 - t7087 * t4301 - t24291 + t23233 + F::new(0.3289868133696452873e-1) * t25194 + t23236 - t24305 * t1528 - t4268 * t7107;
+    (t26690, t26698)
 }

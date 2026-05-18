@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1023/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1023/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1023<F: Float>(t23030: F, t6643: F, t131: F, t244: F, t209: F, t1878: F, t2379: F, t6638: F, t6637: F, t6612: F, t835: F, t812: F, t831: F, t2686: F, t6614: F, t2627: F, t59: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t23031 = t23030 * t6643;
-    let t23032 = 0.26044789391763585244e-1 * t23031;
-    let t23033 = t244 * t131;
-    let t23034 = t23033 * t209;
-    let t23035 = t1878 * t23034;
-    let t23036 = t6638 * t2379;
-    let t23037 = t6637 * t23036;
-    let t23038 = t23035 * t23037;
-    let t23040 = t6612 * t835;
-    let t23041 = t812 * t23040;
-    let t23042 = t23041 * t831;
-    let t23043 = 7.0 / 1152.0 * t23042;
-    let t23044 = t6614 * t2686;
-    let t23046 = t2627 * t59;
-    (t23032, t23033, t23034, t23035, t23036, t23037, t23038, t23040, t23041, t23043, t23044, t23046)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1023<F: Float>(t1285: F, t2221: F, t1287: F, t522: F, t9216: F, t9218: F, t1294: F, t9713: F, t25: F, t526: F, t3664: F, t606: F) -> (F, F, F, F, F, F, F) {
+    let t12050 = t2221 * t1285;
+    let t12051 = F::new(36.0) * t12050;
+    let t12052 = t2221 * t1287;
+    let t12053 = F::new(36.0) * t12052;
+    let t12054 = t9216 * t522;
+    let t12055 = F::new(240.0) * t12054;
+    let t12057 = F::new(120.0) * t9218 * t522;
+    let t12059 = F::new(0.5848223622634646207e0) * t1294 * t9713;
+    let t12061 = F::new(1.0) / t526 / t25;
+    let t12064 = t3664 * t606;
+    (t12051, t12053, t12055, t12057, t12059, t12061, t12064)
 }

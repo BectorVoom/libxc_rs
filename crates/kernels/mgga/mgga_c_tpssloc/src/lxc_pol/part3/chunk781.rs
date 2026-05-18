@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 3 (v3rho3_1) CSE chunk 781/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 3 (v3rho3_1) CSE chunk 781/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk781<F: Float>(t671: F, t88: F, t1268: F, t1458: F, t2314: F, t4026: F, t4028: F, t4072: F, t1390: F, t1845: F, t193: F, t531: F, t1799: F, t571: F, t3919: F, t1408: F, t3664: F) -> (F, F, F, F, F, F, F) {
-    let t5113 = t88 * t671;
-    let t5118 = 2.0 * t1268 * t4072 + 2.0 * t1458 * t2314 + 2.0 * t1458 * t5113 + 2.0 * t4028 * t671 + t4026;
-    let t5122 = t1845 * t1390;
-    let t5126 = t193 * t531;
-    let t5127 = t571 * t1799;
-    let t5131 = t3919 * t1799;
-    let t5134 = t3664 * t1408;
-    (t5113, t5118, t5122, t5126, t5127, t5131, t5134)
+pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk781<F: Float>(t1561: F, t923: F, t1569: F, t931: F, t2766: F, t2824: F, t2868: F, t2875: F, t4335: F, t4340: F, t4345: F, t4349: F, t4363: F, t4371: F, t4379: F, t4381: F, t4384: F, t4387: F, t4390: F, t4393: F) -> (F, F, F) {
+    let t4411 = t1561 * t923;
+    let t4416 = t1569 * t931;
+    let t4433 = -F::new(0.17648625e1) * t4363 + F::new(0.3529725e1) * t4371 + t2868 + F::new(0.17215833333333333333e0) * t2766 + F::new(0.17215833333333333333e0) * t4335 - F::new(0.34431666666666666667e0) * t4340 + F::new(0.103295e1) * t4345 - F::new(0.516475e0) * t4349 + F::new(0.31558125e0) * t4379 + F::new(0.6311625e0) * t4381 + t2875 + F::new(0.69463333333333333333e-1) * t2824 + F::new(0.69463333333333333333e-1) * t4384 - F::new(0.34731666666666666667e-1) * t4387 + F::new(0.20839e0) * t4390 - F::new(0.104195e0) * t4393;
+    (t4411, t4416, t4433)
 }

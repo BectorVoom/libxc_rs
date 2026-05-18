@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 942/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 942/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk942<F: Float>(t30: F, t265: F, t393: F, t32534: F, t1940: F, t2403: F, t26425: F, t26585: F, t28472: F, t31873: F, t32487: F, t32491: F, t32499: F, t32506: F, t32508: F, t45: F, t605: F, t606: F, t7010: F, t7092: F, t7432: F, t8657: F, t8660: F, t8671: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t120 = rho0 <= dens_threshold || t31;
-    let t394 = t265 < t393;
-    let t32535 = piecewise3(t394, 0.0, t32534);
-    let t32540 = piecewise3(t120, 3.0 / 2.0 * t2403 * t8657 * t7010 + t1940 * t32487 * t30 / 2.0 - t1940 * t32491 * t7092 / 2.0 + t1940 * t8657 * t605 / 2.0 - 3.0 / 2.0 * t26425 * t32499 - t1940 * t26585 * t8660 / 2.0 + t28472 * t32506 - t1940 * t7432 * t32508 / 2.0 - t1940 * t7432 * t31873 / 2.0, t32535 * t45 / 2.0 + t8671 * t606 / 2.0);
-    (t32535, t32540)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk942<F: Float>(t28271: F, t572: F, t1459: F, t7953: F, t116: F, t7741: F, t670: F, t117: F, t28042: F, t2106: F, t9593: F) -> (F, F, F, F, F, F, F) {
+    let t28273 = F::new(6.0) * t572 * t28271;
+    let t28275 = F::new(3.0) * t1459 * t7953;
+    let t28276 = t116 * t7741;
+    let t28277 = t28276 * t670;
+    let t28279 = F::new(6.0) * t572 * t28277;
+    let t28280 = t117 * t28042;
+    let t28282 = F::new(3.0) * t572 * t28280;
+    let t28286 = t2106 * t9593;
+    (t28273, t28275, t28277, t28279, t28280, t28282, t28286)
 }

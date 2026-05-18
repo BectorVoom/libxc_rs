@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 577/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 577/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk577<F: Float>(t2075: F, t671: F, t6548: F, t6564: F, t2047: F, t798: F, t6579: F, t6586: F, t6602: F, t6617: F, t6582: F, t6594: F, t6607: F, t6610: F, t6615: F, t6622: F) -> (F, F, F, F, F) {
-    let t7061 = t2075 * t671;
-    let t7067 = 0.38381794893125283518e-1 * t6548;
-    let t7069 = 0.82246703342411321825e-2 * t6564;
-    let t7072 = t798 * t2047;
-    let t7074 = 7.0 / 144.0 * t6579;
-    let t7076 = 0.28260929265898273597e-2 * t6586;
-    let t7078 = 0.67287926823567318088e-4 * t6602;
-    let t7082 = 7.0 / 1152.0 * t6617;
-    let t7084 = -t7074 - t6582 / 24.0 - t7076 - 0.24223653656484234512e-2 * t6594 - t7078 - 0.40372756094140390853e-3 * t6607 + t6610 / 768.0 - t6615 / 768.0 - t7082 - t6622 / 192.0;
-    (t7061, t7067, t7069, t7072, t7084)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk577<F: Float>(t344: F, t976: F, t381: F, t225: F, t387: F, t884: F, t1922: F, t986: F, t1049: F, t345: F, t340: F, t1054: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t6688 = t976 * t344;
+    let t6689 = t6688 * t381;
+    let t6690 = t225 * t387;
+    let t6691 = t6690 * t884;
+    let t6692 = t6689 * t6691;
+    let t6695 = t986 * t1922;
+    let t6698 = t1049 * t225;
+    let t6699 = t6698 * t387;
+    let t6700 = t345 * t6699;
+    let t6703 = t340 * t344;
+    let t6704 = t6703 * t381;
+    let t6705 = t225 * t1054;
+    (t6688, t6689, t6690, t6691, t6692, t6695, t6699, t6700, t6703, t6704, t6705)
 }

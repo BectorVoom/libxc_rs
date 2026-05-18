@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 885/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 885/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk885<F: Float>(t1068: F, t2998: F, t425: F, t9347: F, t9172: F, t2993: F, t3001: F, t9213: F, t1053: F, t2922: F, t1049: F, t2954: F, t2953: F, t417: F, t412: F, t9181: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t9370 = t1068 * t2998;
-    let t9373 = t425 * t9347;
-    let t9380 = t425 * t9172;
-    let t9384 = t2993 * t3001;
-    let t9399 = 0.55403703703703703703e-1 * t9213;
-    let t9414 = t2922 * t1053;
-    let t9419 = t1049 * t2954;
-    let t9423 = 1.0 / t2953 / t417;
-    let t9424 = t412 * t9423;
-    let t9429 = 0.46308888888888888888e0 * t9181;
-    (t9370, t9373, t9380, t9384, t9399, t9414, t9419, t9424, t9429)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk885<F: Float>(t2257: F, t704: F, t172: F, t2274: F, t182: F, t2209: F, t177: F, t2214: F, t7813: F, t7821: F, t7824: F, t7827: F, t7830: F, t7834: F, t7836: F, t7838: F, t7841: F) -> (F, F, F, F, F, F) {
+    let t7850 = t2257 * t704;
+    let t7852 = F::new(1.0) / t2274 / t172;
+    let t7853 = t7850 * t7852;
+    let t7857 = F::new(1.0) / t2209 / t182;
+    let t7858 = t177 * t7857;
+    let t7859 = t7813 * t2214;
+    let t7870 = -F::new(0.34523333333333333333e1) * t7821 + F::new(0.23015555555555555556e1) * t7824 - F::new(0.26851481481481481482e1) * t7827 - F::new(0.93932222222222222223e0) * t7830 + F::new(0.73355e-1) * t7834 - F::new(0.14671e0) * t7836 - F::new(0.17116166666666666667e0) * t7838 - F::new(0.36793333333333333333e0) * t7841;
+    (t7850, t7853, t7857, t7858, t7859, t7870)
 }

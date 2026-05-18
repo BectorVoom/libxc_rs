@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1090/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1090/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1090<F: Float>(t214: F, t32761: F, t1985: F, t2015: F, t7749: F, t3887: F, t26193: F, t8458: F, t1375: F, t2016: F, t26366: F, t31115: F, t31129: F, t32737: F, t32758: F, t5215: F, t5321: F, t6958: F, t7729: F, t8476: F, t8486: F) -> (F, F, F, F) {
-    let t32762 = t214 * t32761;
-    let t32764 = 0.16449340668482264365e-1 * t1985 * t32762;
-    let t32765 = t2015 * t7749;
-    let t32766 = t3887 * t32765;
-    let t32769 = t26193 * t8458;
-    let t32771 = 0.16449340668482264365e-1 * t1985 * t32769;
-    let t32780 = -t1375 * t32758 + 4.0 * t1375 * t32766 - 2.0 * t2016 * t26366 + 2.0 * t5215 * t8476 - t5215 * t8486 + 2.0 * t5321 * t8476 - t5321 * t8486 + 4.0 * t6958 * t7729 + t31115 + t31129 - t32737 + t32764 - t32771;
-    (t32762, t32766, t32769, t32780)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1090<F: Float>(t26414: F, t6976: F, t22633: F, t5345: F, t1992: F, t1799: F, t562: F, t1352: F, t22705: F, t7736: F, t22704: F, t6883: F, t7741: F) -> (F, F, F, F, F, F) {
+    let t26415 = t6976 * t26414;
+    let t26416 = t22633 * t26415;
+    let t26418 = t6976 * t5345;
+    let t26419 = t1992 * t26418;
+    let t26421 = t562 * t1799;
+    let t26422 = t26421 * t1352;
+    let t26423 = t6976 * t26422;
+    let t26424 = t22633 * t26423;
+    let t26426 = t22705 * t7736;
+    let t26427 = t22704 * t26426;
+    let t26429 = t6883 * t7741;
+    (t26416, t26419, t26421, t26424, t26427, t26429)
 }

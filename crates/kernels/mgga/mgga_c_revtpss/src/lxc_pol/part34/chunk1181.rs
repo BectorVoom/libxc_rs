@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 1181/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 1181/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk1181<F: Float>(t22860: F, t94493: F, t22854: F, t7271: F, t22956: F, t7264: F, t22822: F, t22815: F, t108604: F, t108608: F, t108623: F, t108625: F, t108627: F, t108629: F, t94569: F, t94571: F, t98285: F) -> (F,) {
-    let t114573 = t94493 * t22860;
-    let t114575 = t7271 * t22854;
-    let t114577 = t7264 * t22956;
-    let t114584 = t7271 * t22822;
-    let t114586 = t7271 * t22815;
-    let t114588 = -0.85748036236139473944e-4 * t108604 - 0.30492001685571196935e-3 * t108608 - 0.25724410870841842183e-2 * t114573 + 0.25724410870841842184e-1 * t114575 - 0.42874018118069736972e-3 * t114577 - t94569 - t94571 - 0.1084295579938911763e-3 * t98285 + 0.42874018118069736972e-4 * t108623 + 0.15246000842785598468e-2 * t108625 - 0.12004725073059526352e0 * t108627 + 0.24009450146119052704e-1 * t108629 - 0.17149607247227894789e-2 * t114584 - 0.51448821741683684367e-1 * t114586;
-    (t114588,)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk1181<F: Float>(t18245: F, t1937: F, t30138: F, t4248: F, t7735: F, t1519: F, t1911: F, t2011: F, t28030: F, t29993: F, t29998: F, t30007: F, t30015: F, t30113: F, t30116: F, t30119: F, t30125: F, t30127: F, t30130: F, t30150: F, t569: F, t5887: F, t5921: F, t651: F, t6934: F, t6985: F, t7746: F, t7894: F) -> F {
+    let t30154 = F::new(2.0) * t18245 * t1937;
+    let t30156 = F::new(4.0) * t30138 * t1937;
+    let t30158 = F::new(4.0) * t4248 * t7735;
+    let t30159 = -F::new(4.0) * t1519 * t28030 + F::new(2.0) * t1911 * t7894 + t2011 * t6934 - F::new(4.0) * t30116 * t651 - F::new(2.0) * t30119 * t651 + t30150 * t569 - F::new(4.0) * t4248 * t7746 - F::new(4.0) * t5887 * t6985 - F::new(2.0) * t5921 * t6985 - t29993 - t29998 - t30007 + t30015 + t30113 - t30125 - t30127 - t30130 - t30154 - t30156 - t30158;
+    t30159
 }

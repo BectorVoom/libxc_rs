@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 640/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 640/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk640<F: Float>(t4784: F, t4877: F, t61: F, t41: F, t1419: F, t458: F, t1416: F, t425: F, t1415: F, t405: F, t89: F, t2098: F, t37: F, t1422: F, t44: F, t48: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t4878 = t4784 + t4877;
-    let t4879 = t61 * t4878;
-    let t4880 = t41 * t4879;
-    let t4881 = t1419 * t458;
-    let t4883 = t1416 * t425;
-    let t4885 = t405 * t1415;
-    let t4886 = t4885 * t89;
-    let t4888 = 1.0 / t2098;
-    let t4889 = t37 * t4888;
-    let t4890 = t4889 * t89;
-    let t4891 = 120.0 * t4890;
-    let t4896 = t1422 * t458;
-    let t4898 = t1419 * t425;
-    let t4900 = t1416 * t458;
-    let t4901 = 60.0 * t4900;
-    let t4902 = t44 * t44;
-    let t4904 = 1.0 / t48 / t4902;
-    (t4880, t4881, t4883, t4885, t4886, t4889, t4891, t4896, t4898, t4901, t4904)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk640<F: Float>(t1048: F, t3618: F, t499: F, t2867: F, t3263: F, t3275: F, t1010: F, t3358: F, t1070: F, t2378: F, t1276: F, t3357: F, t3368: F) -> (F, F, F, F) {
+    let t3620 = t1048 * t499 * t3618;
+    let t3621 = t3620 / F::new(4.0);
+    let t3623 = t3275 * t3263 * t2867;
+    let t3624 = t3623 / F::new(4.0);
+    let t3625 = t3358 * t1010;
+    let t3627 = t2378 * t1070;
+    let t3629 = t1070 * t1010;
+    let t3630 = t1276 * t3629;
+    let t3632 = t3357 + t3625 / F::new(8.0) - t3627 / F::new(8.0) + t3630 / F::new(4.0) + t3368;
+    (t3621, t3624, t3629, t3632)
 }

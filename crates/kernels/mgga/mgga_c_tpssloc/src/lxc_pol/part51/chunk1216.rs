@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1216/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1216/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1216<F: Float>(t5: F, t121072: F, t121126: F, t112: F, t31304: F, t7688: F, t31537: F, t7796: F, t31540: F, t27163: F, t8526: F, t119832: F, t26161: F, t26558: F, t15868: F, t1983: F, t8640: F) -> (F, F, F, F, F, F, F) {
-    let t7 = piecewise3(0.0 < t5, t5, -t5);
-    let t8 = -t7 <= -0.999999999999e0;
-    let t121128 = piecewise3(t8, 0.0, t121072 + t121126);
-    let t121129 = t121128 * t112;
-    let t121132 = 3.0 * t31304 * t7688;
-    let t121134 = 2.0 * t31537 * t7796;
-    let t121136 = 2.0 * t31540 * t7796;
-    let t121138 = 2.0 * t8526 * t27163;
-    let t121142 = 2.0 * t26161 * t26558 * t119832;
-    let t121144 = t1983 * t8640 * t15868;
-    (t121129, t121132, t121134, t121136, t121138, t121142, t121144)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1216<F: Float>(t214: F, t33245: F, t1985: F, t1842: F, t31558: F, t22635: F, t1992: F, t1807: F, t8617: F, t31576: F, t31578: F, t31582: F, t32712: F, t32715: F, t32718: F, t32722: F, t32724: F) -> (F, F, F, F, F, F, F) {
+    let t33246 = t214 * t33245;
+    let t33247 = t1985 * t33246;
+    let t33249 = t31558 * t1842;
+    let t33250 = t22635 * t33249;
+    let t33251 = t1992 * t33250;
+    let t33259 = t1807 * t8617;
+    let t33266 = -t31576 - F::new(0.96894614625936938046e-2) * t32712 - t31578 - F::new(0.16149102437656156341e-2) * t32715 + t32718 / F::new(768.0) - t32722 / F::new(768.0) - t31582 - t32724 / F::new(192.0);
+    (t33246, t33247, t33249, t33250, t33251, t33259, t33266)
 }

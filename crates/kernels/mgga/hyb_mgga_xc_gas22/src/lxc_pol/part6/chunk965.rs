@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 965/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 965/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,14 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk965<F: Float>(t2631: F, t9324: F, t1100: F, t3636: F, t462: F, t1524: F, t2754: F, t2757: F, t2751: F, t7272: F, t7244: F, t7246: F, t7251: F, t7257: F, t7258: F, t7263: F, t7267: F, t7271: F, t9319: F, t9323: F) -> (F, F, F, F, F, F, F) {
-    let t9325 = t9324 * t2631;
-    let t9327 = t3636 * t1100;
-    let t9329 = 2.0 * t462 * t9327;
-    let t9330 = t2754 * t1524;
-    let t9332 = t2757 * t1524;
-    let t9334 = t2751 * t1524;
-    let t9336 = 12.0 * t7272;
-    let t9337 = -t7244 - 0.5848223622634646207e0 * t7246 - t7251 + t7257 + 0.23392894490538584828e1 * t7258 + 0.24415263074675393405e-3 * t9319 - t9323 + 0.10843581300301739842e-1 * t9325 + t7263 + t7267 + t7271 + t9329 + 12.0 * t9330 - 32.0 * t9332 + 20.0 * t9334 - t9336;
-    (t9325, t9327, t9329, t9330, t9334, t9336, t9337)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk965<F: Float>(t848: F, t8709: F, t8651: F, t6530: F, t6533: F, t6616: F, t6619: F, t6622: F, t6698: F, t8648: F, t8654: F, t8656: F, t8659: F, t8661: F) -> (F, F, F) {
+    let t8869 = t8709 * t848;
+    let t8877 = F::new(0.103295e1) * t8651;
+    let t8887 = F::new(0.1549425e1) * t8648 - t8877 - F::new(0.3529725e1) * t8654 - F::new(0.17648625e1) * t8656 + F::new(0.6311625e0) * t8659 + F::new(0.31558125e0) * t8661 + F::new(0.13772666666666666667e1) * t6530 - F::new(0.516475e0) * t6533 - t6698 + F::new(0.69463333333333333333e0) * t6616 - F::new(0.20839e0) * t6619 - F::new(0.20839e0) * t6622;
+    (t8869, t8877, t8887)
 }

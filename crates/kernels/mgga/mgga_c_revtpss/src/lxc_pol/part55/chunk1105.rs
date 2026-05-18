@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1105/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1105/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1105<F: Float>(t125609: F, t8477: F, t1955: F, t32715: F, t128617: F, t1426: F, t7286: F, t786: F, t122391: F, t122393: F, t122399: F, t125717: F, t125721: F, t125732: F, t128618: F, t26304: F, t27840: F, t27869: F, t28012: F, t32720: F, t46361: F, t7304: F, t8702: F, t8705: F) -> (F, F, F) {
-    let t128691 = t8477 * t125609;
-    let t128694 = t1955 * t32715;
-    let t128709 = t128617 * t1426;
-    let t128711 = t786 * t128709 * t7286;
-    let t128713 = 0.8673628188205199462e0 * t128618 * t7304 - 0.11423947533020470523e1 * t128691 * t32720 + 0.8673628188205199462e0 * t128694 * t27869 + 0.6854368519812282314e1 * t8477 * t8705 * t46361 * t26304 * t27840 - 0.22312397525430606492e-2 * t125717 - 0.7437465841810202164e-2 * t125721 - 0.69416347856895220197e-2 * t125732 - 0.8673628188205199462e0 * t8702 * t28012 + 0.14456046980341999104e-1 * t122391 - 0.25702851531048074406e-1 * t122393 + 0.14456046980341999104e-1 * t128711 + t122399;
-    (t128694, t128709, t128713)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1105<F: Float>(t2247: F, t34409: F, t1518: F, t2126: F, t4147: F, t8107: F, t1497: F, t8621: F, t8881: F, t1469: F, t33268: F, t8442: F) -> (F, F, F, F, F) {
+    let t34410 = t2247 * t34409;
+    let t34446 = t2126 * t1518;
+    let t34495 = t4147 * t8107;
+    let t34761 = t8621 * t8881 * t1497;
+    let t34764 = t33268 * t1469;
+    let t34765 = t8442 * t34764;
+    (t34410, t34446, t34495, t34761, t34765)
 }

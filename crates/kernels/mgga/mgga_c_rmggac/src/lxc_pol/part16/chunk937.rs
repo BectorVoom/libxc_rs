@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 937/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 937/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk937<F: Float>(t39308: F, t42909: F, t43723: F, t45309: F, t45316: F, t45318: F, t45323: F, t45325: F, t45327: F, t45329: F, t45331: F, t45333: F, t45337: F, t45339: F, t45341: F, t45345: F, t45349: F, t530: F) -> (F,) {
-    let t48429 = 0.212822999466489197e-4 * t45309 + 0.638468998399467591e-4 * t45316 + t42909 - 0.39726959900411316773e-4 * t45318 - 0.13242319966803772257e-3 * t39308 - 0.3192344991997337955e-4 * t45323 + 0.5107751987195740728e-4 * t45325 + 0.1702583995731913576e-4 * t45327 - 0.1702583995731913576e-4 * t45329 - 0.11918087970123395032e-3 * t45331 + 0.11918087970123395032e-3 * t45333 - 0.2553875993597870364e-4 * t45337 + 0.2553875993597870364e-4 * t45339 - 0.4726e1 * t530 * t43723 - 0.39726959900411316773e-4 * t45341 - 0.1702583995731913576e-4 * t45345 - 0.85129199786595678799e-5 * t45349;
-    (t48429,)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk937<F: Float>(t333: F, t9888: F, t262: F, t41634: F, t352: F, t36634: F, t10093: F, t495: F, t515: F, t7230: F, t7231: F, t10082: F, t3351: F, t7248: F) -> (F, F, F, F, F, F, F, F) {
+    let t45572 = t9888 * t333;
+    let t45573 = t262 * t45572;
+    let t45574 = t41634 * t45573;
+    let t45577 = t9888 * t352;
+    let t45578 = t262 * t45577;
+    let t45579 = t36634 * t45578;
+    let t45584 = t7230 * t7231 * t515 * t10093 * t495;
+    let t45589 = t3351 * t7248 * t515 * t10082 * t352;
+    (t45572, t45573, t45574, t45577, t45578, t45579, t45584, t45589)
 }

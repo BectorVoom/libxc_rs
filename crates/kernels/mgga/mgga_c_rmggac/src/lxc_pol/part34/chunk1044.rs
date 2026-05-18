@@ -1,0 +1,21 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 1044/1097 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3};
+use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk1044<F: Float>(t72027: F, t118: F, t77416: F, t76313: F, t76315: F, t352: F, t77960: F, t8940: F, t25877: F, t77094: F, t25854: F, t77097: F) -> (F, F, F, F, F, F, F) {
+    let t78036 = F::new(0.11974241701863808564e0) * t72027;
+    let t78038 = F::new(0.39914139006212695214e-1) * t118 * t77416;
+    let t78039 = F::new(0.20455996240684006296e-1) * t76313;
+    let t78040 = F::new(0.20455996240684006296e-1) * t76315;
+    let t78046 = F::new(0.11974241701863808564e0) * t8940 * t77960 * t352;
+    let t78047 = t25877 * t77094;
+    let t78048 = F::new(0.17961362552795712846e0) * t78047;
+    let t78049 = t25854 * t77097;
+    (t78036, t78038, t78039, t78040, t78046, t78048, t78049)
+}

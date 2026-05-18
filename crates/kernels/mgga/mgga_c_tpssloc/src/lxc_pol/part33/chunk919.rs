@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 919/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 919/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk919<F: Float>(t21300: F, t893: F, t10704: F, t21252: F, t10702: F, t1568: F, t17547: F, t1581: F, t5790: F, t1580: F, t17492: F, t1557: F, t5726: F, t2792: F, t1556: F, t17520: F) -> (F, F, F, F, F, F, F) {
-    let t21302 = 1.0 * t893 * t21300;
-    let t21303 = t21252 * t10704;
-    let t21305 = 0.51726012919273400301e3 * t10702 * t21303;
-    let t21306 = t17547 * t1568;
-    let t21309 = t1581 * t5790;
-    let t21312 = t17492 * t1580;
-    let t21315 = t1557 * t5726;
-    let t21317 = 6.0 * t2792 * t21315;
-    let t21318 = t17520 * t1556;
-    (t21302, t21305, t21306, t21309, t21312, t21317, t21318)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk919<F: Float>(t15875: F, t15877: F, t15890: F, t15895: F, t19591: F, t11982: F, t11984: F, t1799: F, t193: F, t20077: F, t20354: F, t20355: F, t20356: F, t3918: F, t5160: F, t5161: F, t571: F, t6463: F, t9457: F, t9476: F, t9484: F) -> (F, F, F, F, F, F) {
+    let t20360 = F::new(24.0) * t15875;
+    let t20361 = F::new(24.0) * t15877;
+    let t20365 = F::new(0.51947577317044391276e2) * t15890;
+    let t20366 = F::new(0.17544670867903938621e1) * t15895;
+    let t20370 = F::new(12.0) * t19591;
+    let t20371 = -F::new(9.0) * t1799 * t20077 * t3918 + F::new(6.0) * t193 * t20356 * t571 - F::new(3.0) * t5160 * t5161 * t6463 + t11982 - t11984 - t20354 + t20355 - t20360 - t20361 - t20365 - t20366 - t20370 - t9457 + t9476 + t9484;
+    (t20360, t20361, t20365, t20366, t20370, t20371)
 }

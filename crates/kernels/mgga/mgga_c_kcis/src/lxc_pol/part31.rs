@@ -35,12 +35,12 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let tau1 = tau[ip * 2 + 1];
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
+        let t4 = pow_1_3::<f64>(t3);
         let t5 = t2 * t4;
         let t6 = M_CBRT4;
         let t7 = t6 * t6;
         let t8 = rho0 + rho1;
-        let t9 = pow_1_3(t8);
+        let t9 = pow_1_3::<f64>(t8);
         let t10 = 1.0 / t9;
         let t11 = t7 * t10;
         let t12 = t5 * t11;
@@ -51,9 +51,9 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t24 = 1.0 / t23;
         let t25 = t6 * t24;
         let t26 = t22 * t25;
-        let t36 = pow_1_3(zeta_threshold);
+        let t36 = pow_1_3::<f64>(zeta_threshold);
         let t37 = t36 * zeta_threshold;
-        let t38 = piecewise3(1.0 <= zeta_threshold, t37, 1.0);
+        let t38 = piecewise3::<f64>(1.0 <= zeta_threshold, t37, 1.0);
         let t41 = M_CBRT2;
         let t44 = 1.0 / (2.0 * t41 - 2.0);
         let t45 = (2.0 * t38 - 2.0) * t44;
@@ -89,21 +89,21 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t168 = t167 * t89;
         let t169 = 1.0 + t168;
         let t170 = t169 <= zeta_threshold;
-        let t183 = piecewise3(2.0 <= zeta_threshold, t37, 2.0 * t41);
-        let t185 = piecewise3(0.0 <= zeta_threshold, t37, 0.0);
+        let t183 = piecewise3::<f64>(2.0 <= zeta_threshold, t37, 2.0 * t41);
+        let t185 = piecewise3::<f64>(0.0 <= zeta_threshold, t37, 0.0);
         let t187 = (t183 + t185 - 2.0) * t44;
         let t209 = t68 * t6;
         let t232 = 1.0 / rho0;
         let t233 = sigma0 * t232;
-        let t235 = piecewise3(t170, zeta_threshold, t169);
+        let t235 = piecewise3::<f64>(t170, zeta_threshold, t169);
         let t237 = t5 * t7;
         let t238 = t10 * t41;
         let t239 = 1.0 / t169;
-        let t240 = pow_1_3(t239);
+        let t240 = pow_1_3::<f64>(t239);
         let t242 = t237 * t238 * t240;
         let t244 = 1.0 + 0.53425e-1 * t242;
         let t245 = f64::sqrt(t242);
-        let t248 = pow_3_2(t242);
+        let t248 = pow_3_2::<f64>(t242);
         let t250 = t22 * t6;
         let t251 = t41 * t41;
         let t252 = t24 * t251;
@@ -120,7 +120,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t275 = t265 * t274;
         let t278 = -t263 + 0.19751789702565206229e-1 * t45 * t275;
         let t279 = rho0 * rho0;
-        let t280 = pow_1_3(rho0);
+        let t280 = pow_1_3::<f64>(rho0);
         let t281 = t280 * t280;
         let t283 = 1.0 / t281 / t279;
         let t284 = sigma0 * t283;
@@ -128,7 +128,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t286 = t6 * t9;
         let t287 = 1.0 / t240;
         let t288 = 0.0 < t278;
-        let t290 = piecewise3(t288, t278, -t278);
+        let t290 = piecewise3::<f64>(t288, t278, -t278);
         let t291 = 1.0 / t290;
         let t292 = t287 * t291;
         let t293 = t286 * t292;
@@ -170,7 +170,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t355 = 1.0 / t354;
         let t356 = t342 * t355;
         let t357 = t8 * t169;
-        let t358 = pow_1_3(t357);
+        let t358 = pow_1_3::<f64>(t357);
         let t359 = t358 * t358;
         let t360 = t284 * t359;
         let t361 = t356 * t360;
@@ -208,7 +208,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t416 = t414 * t415;
         let t417 = t9 * t287;
         let t418 = 0.0 < t413;
-        let t420 = piecewise3(t418, t413, -t413);
+        let t420 = piecewise3::<f64>(t418, t413, -t413);
         let t421 = 1.0 / t420;
         let t423 = t209 * t417 * t421;
         let t426 = 1.0 + t416 * t423 / 192.0;
@@ -237,7 +237,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t829 = t89 - t828;
         let t910 = 1.0 / t279;
         let t911 = sigma0 * t910;
-        let t914 = piecewise3(t170, 0.0, t829);
+        let t914 = piecewise3::<f64>(t170, 0.0, t829);
         let t920 = t237 * t318 * t240;
         let t921 = 0.17808333333333333333e-1 * t920;
         let t922 = t330 * t829;
@@ -294,7 +294,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t999 = t290 * t290;
         let t1000 = 1.0 / t999;
         let t1001 = t287 * t1000;
-        let t1003 = piecewise3(t288, t975, -t975);
+        let t1003 = piecewise3::<f64>(t288, t975, -t975);
         let t1004 = t1001 * t1003;
         let t1005 = t286 * t1004;
         let t1008 = -t984 * t293 / 36.0 + t989 + t991 * t996 / 288.0 - t285 * t1005 / 96.0;
@@ -451,7 +451,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t1258 = t420 * t420;
         let t1259 = 1.0 / t1258;
         let t1260 = t287 * t1259;
-        let t1262 = piecewise3(t418, t1236, -t1236);
+        let t1262 = piecewise3::<f64>(t418, t1236, -t1236);
         let t1263 = t1260 * t1262;
         let t1264 = t286 * t1263;
         let t1267 = -t1242 * t423 / 72.0 + t1249 + t1251 * t1255 / 576.0 - t1251 * t1264 / 192.0;
@@ -465,7 +465,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t1291 = 0.9375e-1 * t1167 - 0.9375e-1 * t1173 - 0.25e0 * t1177 + 0.625e-1 * t1181 - 0.101171875e-1 * t1185 + 0.101171875e-1 * t1190 + 0.53958333333333333333e-1 * t1197 - 0.13489583333333333333e-1 * t1201;
         let t1295 = t1139 - t1204 + t187 * (t1278 * t437 - t1282 * t1291 - t1139 + t1204);
         let t1646 = -t89 - t828;
-        let t1657 = piecewise3(t170, 0.0, t1646);
+        let t1657 = piecewise3::<f64>(t170, 0.0, t1646);
         let t1662 = t330 * t1646;
         let t1663 = t345 * t1662;
         let t1664 = t12 * t1663;
@@ -486,7 +486,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t1697 = -t1668 + t1682 + 0.19751789702565206229e-1 * t45 * t1685 - 0.58482233974552040708e0 * t960 * t1694;
         let t1699 = t994 * t1646;
         let t1700 = t993 * t1699;
-        let t1704 = piecewise3(t288, t1697, -t1697);
+        let t1704 = piecewise3::<f64>(t288, t1697, -t1697);
         let t1705 = t1001 * t1704;
         let t1706 = t286 * t1705;
         let t1709 = t989 + t991 * t1700 / 288.0 - t285 * t1706 / 96.0;
@@ -554,7 +554,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t1844 = -t1668 + t1682 + t187 * (-0.3109e-1 * t1823 * t405 + 1.0 * t1212 * t1831 + t1668 - t1682 - 0.19751789702565206229e-1 * t1685 + 0.58482233974552040708e0 * t1225 * t1835) + 0.19751789702565206229e-1 * t187 * t1685 - 0.58482233974552040708e0 * t1233 * t1694;
         let t1846 = t1253 * t1646;
         let t1847 = t1252 * t1846;
-        let t1851 = piecewise3(t418, t1844, -t1844);
+        let t1851 = piecewise3::<f64>(t418, t1844, -t1844);
         let t1852 = t1260 * t1851;
         let t1853 = t286 * t1852;
         let t1856 = t1249 + t1251 * t1847 / 576.0 - t1251 * t1853 / 192.0;
@@ -586,7 +586,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t2635 = -2.0 * t113 + 2.0 * t2633;
         let t2793 = 1.0 / t980;
         let t2794 = sigma0 * t2793;
-        let t2801 = piecewise3(t170, 0.0, t2635);
+        let t2801 = piecewise3::<f64>(t170, 0.0, t2635);
         let t2809 = t1008 * t1008;
         let t2810 = t296 * t296;
         let t2811 = 1.0 / t2810;
@@ -724,7 +724,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t3034 = 1.0 / t3033;
         let t3035 = t3032 * t3034;
         let t3038 = -t2932 + t2935 - t2942 + t2983 + t2991 + 0.19751789702565206229e-1 * t45 * t2998 - 0.11696446794910408142e1 * t3001 * t972 + 0.11696446794910408142e1 * t960 * t3008 - 0.58482233974552040708e0 * t960 * t3027 - 0.17315755899375863299e2 * t960 * t3035;
-        let t3040 = piecewise3(t288, t3038, -t3038);
+        let t3040 = piecewise3::<f64>(t288, t3038, -t3038);
         let t3041 = t1001 * t3040;
         let t3042 = t286 * t3041;
         let t3045 = 11.0 / 108.0 * t2867 * t293 - t2870 / 54.0 - t2872 * t996 / 54.0 + t984 * t1005 / 18.0 - t2879 + t2882 / 432.0 - t2885 / 144.0 + t991 * t2891 / 216.0 - t991 * t2896 / 144.0 - t991 * t2901 / 144.0 + t991 * t2905 / 288.0 + t285 * t2913 / 48.0 - t285 * t3042 / 96.0;
@@ -1036,7 +1036,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t3596 = -0.3109e-1 * t3542 * t405 + 2.0 * t3545 * t1221 - 2.0 * t3550 * t3552 + 1.0 * t1212 * t3570 + 0.32164683177870697974e2 * t3575 * t3578 + t2932 - t2935 + t2942 - t2983 - t2991 - 0.19751789702565206229e-1 * t2998 + 0.11696446794910408142e1 * t3582 * t1226 - 0.11696446794910408142e1 * t3585 * t3586 + 0.58482233974552040708e0 * t1225 * t3589 + 0.17315755899375863299e2 * t3592 * t3593;
         let t3600 = t187 * t956;
         let t3609 = -t2932 + t2935 - t2942 + t2983 + t2991 + t187 * t3596 + 0.19751789702565206229e-1 * t187 * t2998 - 0.11696446794910408142e1 * t3600 * t972 + 0.11696446794910408142e1 * t1233 * t3008 - 0.58482233974552040708e0 * t1233 * t3027 - 0.17315755899375863299e2 * t1233 * t3035;
-        let t3611 = piecewise3(t418, t3609, -t3609);
+        let t3611 = piecewise3::<f64>(t418, t3609, -t3609);
         let t3612 = t1260 * t3611;
         let t3613 = t286 * t3612;
         let t3616 = 11.0 / 216.0 * t3484 * t423 - t3487 / 108.0 - t3490 * t1255 / 108.0 + t3490 * t1264 / 36.0 - t3499 + t3502 / 864.0 - t3505 / 288.0 + t1251 * t3510 / 432.0 - t3514 * t3517 / 288.0 - t1251 * t3522 / 288.0 + t1251 * t3526 / 576.0 + t1251 * t3534 / 96.0 - t1251 * t3613 / 192.0;
@@ -1061,7 +1061,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t3699 = t3685 + t3698;
         let t3703 = t3324 - t3327 + t3333 - t3482 + t187 * (-t1282 * t3699 - 2.0 * t1291 * t3664 + t3662 * t437 + 2.0 * t3669 * t3670 - t3324 + t3327 - t3333 + t3482);
         let t4532 = 2.0 * t2633;
-        let t4533 = piecewise3(t170, 0.0, t4532);
+        let t4533 = piecewise3::<f64>(t170, 0.0, t4532);
         let t4546 = t359 * t1071;
         let t4547 = t1646 * t829;
         let t4548 = t4546 * t4547;
@@ -1262,7 +1262,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t4966 = t2909 * t1704;
         let t4967 = t4966 * t1003;
         let t4968 = t417 * t4967;
-        let t4972 = piecewise3(t288, t4768, -t4768);
+        let t4972 = piecewise3::<f64>(t288, t4768, -t4768);
         let t4973 = t1001 * t4972;
         let t4974 = t286 * t4973;
         let t4977 = -t2870 / 108.0 - t2879 + t2882 / 864.0 - t2885 / 288.0 - t2872 * t1700 / 108.0 + t4937 / 864.0 + t991 * t4940 / 216.0 - t991 * t4944 / 288.0 - t991 * t4948 / 144.0 + t991 * t4953 / 144.0 + t984 * t1706 / 36.0 - t4959 / 288.0 - t991 * t4963 / 288.0 + t991 * t4968 / 48.0 - t285 * t4974 / 96.0;
@@ -1427,7 +1427,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t5330 = t3530 * t1851;
         let t5331 = t5330 * t1262;
         let t5332 = t5329 * t5331;
-        let t5336 = piecewise3(t418, t5272, -t5272);
+        let t5336 = piecewise3::<f64>(t418, t5272, -t5272);
         let t5337 = t1260 * t5336;
         let t5338 = t286 * t5337;
         let t5341 = -t3487 / 216.0 - t3499 + t3502 / 1728.0 - t3505 / 576.0 - t3490 * t1847 / 216.0 + t5300 / 1728.0 + t3514 * t5303 / 432.0 - t3514 * t5307 / 576.0 - t3514 * t5311 / 288.0 + t1251 * t5316 / 288.0 + t3490 * t1853 / 72.0 - t5322 / 576.0 - t3514 * t5326 / 576.0 + t1251 * t5332 / 96.0 - t1251 * t5338 / 192.0;
@@ -1526,7 +1526,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t9728 = t250 * t3106 * t253;
         let t9729 = 0.36514074074074074075e0 * t9728;
         let t9736 = 28.0 / 27.0 * t9725;
-        let t9752 = 1.0/pow_3_2(t242);
+        let t9752 = 1.0/pow_3_2::<f64>(t242);
         let t9758 = 1.0 / t245 / t255 / 4.0;
         let t9767 = 1.0 / t2984 / t929;
         let t9768 = t244 * t9767;
@@ -2356,7 +2356,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t14407 = t2887 * t1000;
         let t14408 = t14407 * t2844;
         let t14409 = t14408 * t14403;
-        let t14413 = piecewise3(t288, t14051, -t14051);
+        let t14413 = piecewise3::<f64>(t288, t14051, -t14051);
         let t14414 = t1001 * t14413;
         let t14415 = t286 * t14414;
         let t14422 = t110 * t1705;
@@ -2791,7 +2791,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t15464 = t13866 - t13869 - t13871 - t13874 - t13876 - t13878 - t13956 - t14035 - t14038 - t14042 + t14044 - t14046 + t14049;
         let t15468 = t13869 + t13871 + t13874 + t13876 + t13878 + t13956 - 0.34631511798751726598e2 * t1233 * t13807 - 0.34631511798751726598e2 * t3600 * t4765 - 0.11696446794910408142e1 * t15296 * t972 - 0.58482233974552040708e0 * t5261 * t3027 + 0.23392893589820816284e1 * t3600 * t4741 + t14035 + t14038 + t14042 - t14044 + t14046 - t14049 + t187 * (t15326 + t15367 + t15463 + t15464);
         let t15469 = t15291 + t15468;
-        let t15471 = piecewise3(t418, t15469, -t15469);
+        let t15471 = piecewise3::<f64>(t418, t15469, -t15469);
         let t15472 = t1260 * t15471;
         let t15473 = t286 * t15472;
         let t15476 = t110 * t1852;
@@ -2869,7 +2869,7 @@ pub fn mgga_c_kcis_lxc_pol_part31_v4rho3tau_2(
         let t18374 = 2.0 * t740;
         let t18375 = 6.0 * t9323;
         let t18376 = -t18374 + t18375;
-        let t18401 = piecewise3(t170, 0.0, -t18376);
+        let t18401 = piecewise3::<f64>(t170, 0.0, -t18376);
         let t29694 = t2277 * t2793;
         let t29701 = t2280 * t2801;
         let t29702 = t29701 * t441;

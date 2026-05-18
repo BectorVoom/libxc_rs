@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1100/1312 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 54 (v4rho2sigma2_10) CSE chunk 1100/1484 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1100<F: Float>(t33334: F, t533: F, t1390: F, t1983: F, t7802: F, t8526: F, t1799: F, t2018: F, t24432: F, t22574: F, t7685: F, t8644: F, t191: F, t192: F, t7900: F, t2020: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t33335 = t533 * t33334;
-    let t33336 = t33335 * t1390;
-    let t33337 = t1983 * t33336;
-    let t33345 = 2.0 * t8526 * t7802;
-    let t33357 = t2018 * t1799;
-    let t33358 = t24432 * t33357;
-    let t33360 = 3.0 * t22574 * t33358;
-    let t33361 = t7685 * t8644;
-    let t33363 = t7900 * t191 * t192;
-    let t33364 = t33363 * t2020;
-    (t33335, t33336, t33337, t33345, t33357, t33358, t33360, t33361, t33363, t33364)
+pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1100<F: Float>(t27473: F, t7362: F, t1215: F, t8054: F, t1246: F, t1244: F, t24760: F, t24773: F, t27406: F, t27451: F, t27455: F, t27462: F, t27466: F, t27471: F, t5064: F, t7283: F, t7365: F, t7387: F) -> F {
+    let t27474 = t7362 * t27473;
+    let t27477 = t8054 * t1215;
+    let t27478 = t27477 * t1246;
+    let t27480 = -F::new(0.27415567780803773942e-2) * t24760 - F::new(0.91385225936012579807e-3) * t27451 - F::new(0.82246703342411321825e-2) * t7283 * t27455 + F::new(0.73108180748810063843e-2) * t27406 * t7365 - F::new(0.27415567780803773942e-2) * t7283 * t27462 - F::new(0.27415567780803773942e-2) * t7283 * t27466 + t5064 * t7387 + t1244 * t27471 - t24773 - F::new(0.27415567780803773942e-2) * t7283 * t27474 + t1244 * t27478;
+    t27480
 }

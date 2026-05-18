@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 460/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 460/1203 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk460<F: Float>(t2630: F, t3869: F, t1337: F, t2619: F, t514: F, t517: F, t1359: F, t2435: F, t555: F, t785: F, t1358: F, t2439: F, t1419: F, t212: F, t689: F, t1357: F, t1445: F) -> (F, F, F, F, F, F, F, F) {
-    let t3871 = 0.10843581300301739842e-1 * t3869 * t2630;
-    let t3873 = 0.24415263074675393405e-3 * t1337 * t2619;
-    let t3874 = 1.0 / t514;
-    let t3881 = 1.0 / t517;
-    let t3894 = 0.73171657588172351096e-2 * t2435 * t1359;
-    let t3895 = t785 * t555;
-    let t3896 = t3895 * t1358;
-    let t3898 = 0.65049603595885220126e-3 * t2439 * t3896;
-    let t3899 = t212 * t1419;
-    let t3900 = t3899 * t1358;
-    let t3901 = t689 * t3900;
-    let t3903 = t1357 * t1445;
-    (t3871, t3873, t3874, t3881, t3894, t3898, t3901, t3903)
+pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk460<F: Float>(t2846: F, t273: F, t240: F, t68: F, t281: F, t283: F, t698: F, t931: F, t1014: F, t913: F, t275: F, t290: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t2892 = F::new(0.39862222222222222223e0) * t2846;
+    let t2897 = F::new(1.0)/f64::sqrt(t273);
+    let t2902 = t68 * t240;
+    let t2904 = t281 * t2902 * t283;
+    let t2905 = F::new(0.13692777777777777778e0) * t2904;
+    let t2906 = t698 * t931;
+    let t2908 = t240 * t1014;
+    let t2922 = t913 * t913;
+    let t2923 = F::new(1.0) / t2922;
+    let t2924 = t275 * t2923;
+    let t2925 = t290 * t290;
+    (t2892, t2897, t2902, t2904, t2905, t2906, t2908, t2924, t2925)
 }

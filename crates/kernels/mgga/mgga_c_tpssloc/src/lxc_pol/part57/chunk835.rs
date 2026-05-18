@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 835/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 835/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk835<F: Float>(t3886: F, t7936: F, t33246: F, t6883: F, t214: F, t7918: F, t225: F, t33259: F, t22704: F, t33249: F, t81326: F, t33297: F, t22674: F, t33296: F, t6897: F, t22751: F, t33307: F) -> (F, F, F, F, F, F, F, F) {
-    let t122142 = t3886 * t7936;
-    let t122152 = t6883 * t33246;
-    let t122166 = t214 * t7918;
-    let t122172 = t33259 * t225;
-    let t122178 = t22704 * t81326 * t33249;
-    let t122210 = t6883 * t33297;
-    let t122247 = t6897 * t22674 * t33296;
-    let t122251 = t22751 * t33307;
-    (t122142, t122152, t122166, t122172, t122178, t122210, t122247, t122251)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk835<F: Float>(t29210: F, t29394: F, t3: F, t1458: F, t7801: F, t2039: F, t5493: F, t1401: F, t16524: F, t20162: F, t24465: F, t27254: F, t28893: F, t28951: F, t3941: F, t5371: F, t5456: F, t577: F, t7230: F, t7956: F) -> (F, F, F, F, F) {
+    let t29395 = t29210 + t29394;
+    let t29396 = t3 * t29395;
+    let t29422 = t7801 * t1458;
+    let t29425 = t2039 * t5493;
+    let t29430 = F::new(0.45e1) * t29395 * t577 + F::new(27.0) * t27254 * t1458 + F::new(27.0) * t24465 * t5456 + F::new(0.135e2) * t7230 * t5493 + F::new(0.135e2) * t20162 * t2039 + F::new(54.0) * t16524 * t7956 + F::new(27.0) * t5371 * t7801 + F::new(27.0) * t28893 * t2039 + F::new(54.0) * t3941 * t29422 + F::new(27.0) * t3941 * t29425 + F::new(0.135e2) * t1401 * t28951;
+    (t29395, t29396, t29422, t29425, t29430)
 }

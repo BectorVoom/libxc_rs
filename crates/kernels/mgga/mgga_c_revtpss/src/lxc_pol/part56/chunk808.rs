@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 808/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 56 (v4rho2sigma2_11) CSE chunk 808/1203 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk808<F: Float>(t31772: F, t4364: F, t886: F, t31767: F, t1032: F, t8471: F, t867: F, t786: F, t233: F, t72: F, t686: F, t7063: F, t1949: F, t1955: F, t25373: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t31774 = t4364 * t31772 * t886;
-    let t31775 = t31767 * t31774;
-    let t31777 = t8471 * t1032;
-    let t31778 = t31777 * t867;
-    let t31779 = t786 * t31778;
-    let t31780 = t233 * t72;
-    let t31781 = t31780 * t686;
-    let t31783 = 0.14456046980341999104e-1 * t31779 * t31781;
-    let t31784 = t7063 * t31778;
-    let t31786 = 0.25702851531048074406e-1 * t31784 * t31781;
-    let t31787 = t1955 * t1949;
-    let t31791 = t25373 * t233 * t886;
-    let t31794 = t1955 * t31777;
-    (t31774, t31775, t31777, t31778, t31779, t31780, t31783, t31784, t31786, t31787, t31791, t31794)
+pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk808<F: Float>(t26021: F, t7262: F, t820: F, t843: F, t1401: F, t241: F, t3920: F, t7246: F, t2023: F, t2453: F, t3908: F, t72: F, t7307: F) -> (F, F, F, F, F, F, F) {
+    let t26022 = F::new(0.90357964994909313586e-5) * t26021;
+    let t26024 = t820 * t7262 * t843;
+    let t26025 = t26024 * t1401;
+    let t26028 = t820 * t7262 * t241;
+    let t26040 = F::new(0.13009920719177044025e-1) * t7246 * t3920;
+    let t26041 = t2453 * t2023;
+    let t26043 = F::new(0.11565819519348392139e-2) * t26041 * t3908;
+    let t26049 = t7307 * t72;
+    (t26022, t26024, t26025, t26028, t26040, t26043, t26049)
 }

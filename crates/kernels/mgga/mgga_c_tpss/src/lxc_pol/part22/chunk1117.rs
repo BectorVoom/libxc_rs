@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1117/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1117/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1117<F: Float>(t30: F, t259: F, t379: F, t18847: F, t1819: F, t18823: F, t1992: F, t45: F, t581: F, t5870: F, t1006: F, t1692: F, t1812: F, t18239: F, t18247: F, t18250: F, t18254: F, t18265: F, t18268: F, t18271: F, t18728: F, t18803: F, t18807: F, t18812: F, t2439: F, t2829: F, t33: F, t3552: F, t5671: F, t5678: F, t5849: F, t5853: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t120 = rho0 <= dens_threshold || t31;
-    let t380 = t259 < t379;
-    let t18848 = piecewise3(t380, 0.0, t18847);
-    let t18855 = piecewise3(t120, t18823, t18848 * t45 / 2.0 + t5870 * t581 + t1819 * t1992 / 2.0);
-    let t18887 = 3.0 * t3552 * t1812 * t18239 + 3.0 * t2439 * t5849 * t5671 - 3.0 * t18728 * t18247 + 3.0 * t2439 * t1812 * t18250 + 3.0 / 2.0 * t2439 * t1812 * t18254 + t1692 * t18803 * t33 / 2.0 - t1692 * t18807 * t5678 + t1692 * t5849 * t1006 + t1692 * t18812 * t18265 - t1692 * t5853 * t18268 - t1692 * t5853 * t18271 / 2.0 + t1692 * t1812 * t2829 / 2.0;
-    (t18848, t18855, t18887)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1117<F: Float>(t1542: F, t9347: F, t3002: F, t1089: F, t2994: F, t4197: F, t3009: F, t4207: F, t3021: F, t4192: F, t1551: F, t9589: F) -> (F, F, F, F, F) {
+    let t12334 = t9347 * t1542;
+    let t12335 = t12334 * t3002;
+    let t12337 = F::new(0.10389515463408878255e3) * t1089 * t12335;
+    let t12338 = t4197 * t2994;
+    let t12340 = F::new(0.11696447245269292414e1) * t1089 * t12338;
+    let t12342 = F::new(0.34631718211362927518e2) * t3009 * t4207;
+    let t12344 = F::new(0.17315859105681463759e2) * t4192 * t3021;
+    let t12346 = F::new(0.5848223622634646207e0) * t9589 * t1551;
+    (t12337, t12340, t12342, t12344, t12346)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 774/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 774/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk774<F: Float>(t5084: F, t5087: F, t5089: F, t5092: F, t5094: F, t5097: F, t5100: F, t5166: F, t5170: F, t5173: F, t5178: F, t5183: F, t5186: F, t5379: F, t1282: F, t1291: F, t187: F, t1872: F, t3664: F, t3669: F, t437: F, t5035: F, t5037: F, t5038: F, t5041: F, t5190: F, t5358: F, t5360: F, t5363: F) -> (F, F) {
-    let t5393 = -0.9375e-1 * t5084 + 0.71944444444444444443e-1 * t5087 + 0.101171875e-1 * t5089 - 0.625e-1 * t5092 + 0.53958333333333333333e-1 * t5094 - 0.53958333333333333333e-1 * t5097 + 0.13489583333333333333e-1 * t5100 + 0.9375e-1 * t5166 - 0.101171875e-1 * t5170 + 0.101171875e-1 * t5173 - 0.20234375e-1 * t5178 - 0.44965277777777777777e-2 * t5183 - 0.16666666666666666667e0 * t5186;
-    let t5394 = t5379 + t5393;
-    let t5398 = t5035 - t5037 - t5038 + t5041 - t5190 + t187 * (-t1282 * t5394 - t1291 * t5360 - t1872 * t3664 + 2.0 * t3669 * t5363 + t437 * t5358 - t5035 + t5037 + t5038 - t5041 + t5190);
-    (t5394, t5398)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk774<F: Float>(t4685: F, t951: F, t1680: F, t2933: F, t949: F, t2938: F, t1670: F, t2960: F, t934: F, t4625: F, t939: F, t1676: F, t659: F) -> (F, F, F, F, F, F, F, F) {
+    let t4687 = F::new(1.0) * t4685 * t951;
+    let t4689 = F::new(1.0) * t2933 * t1680;
+    let t4690 = t1680 * t949;
+    let t4692 = F::new(2.0) * t2938 * t4690;
+    let t4700 = t2960 * t1670;
+    let t4701 = t4700 * t934;
+    let t4703 = t939 * t4625;
+    let t4706 = t659 * t1676;
+    (t4687, t4689, t4690, t4692, t4700, t4701, t4703, t4706)
 }

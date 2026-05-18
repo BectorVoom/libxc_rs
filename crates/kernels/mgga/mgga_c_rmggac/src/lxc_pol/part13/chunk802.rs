@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 802/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 802/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk802<F: Float>(t2147: F, t39953: F, t5055: F, t7524: F, t36895: F, t8571: F, t35535: F, t36450: F, t8443: F, t36734: F, t1475: F, t1970: F, t1971: F, t875: F, t876: F, t7244: F, t8437: F) -> (F, F, F, F, F, F, F, F) {
-    let t39954 = t39953 * t2147;
-    let t39956 = t5055 * t7524;
-    let t39964 = t8571 * t36895;
-    let t39966 = t8571 * t35535;
-    let t39968 = t36450 * t8443;
-    let t39970 = t36734 * t8443;
-    let t39975 = t1970 * t1971 * t875 * t1475 * t876;
-    let t39977 = t7244 * t8437;
-    (t39954, t39956, t39964, t39966, t39968, t39970, t39975, t39977)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk802<F: Float>(t2227: F, t4616: F, t35861: F, t36156: F, t36173: F, t36200: F, t36204: F, t36034: F, t275: F, t8202: F, t35496: F, t8048: F, t942: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t37423 = t4616 * t2227;
+    let t37439 = F::new(0.13659505348792789029e1) * t35861;
+    let t37536 = F::new(0.60578599471980134109e-2) * t36156;
+    let t37544 = F::new(0.13798458768617697214e-2) * t36173;
+    let t37558 = F::new(0.45531684495975963429e0) * t36200;
+    let t37560 = F::new(0.10371105912972302781e0) * t36204;
+    let t37584 = F::new(0.31113317738916908344e0) * t36034;
+    let t37720 = t275 * t8202;
+    let t37731 = F::new(0.12649025447177706166e-6) * t35496;
+    let t37764 = t942 * t8048;
+    (t37423, t37439, t37536, t37544, t37558, t37560, t37584, t37720, t37731, t37764)
 }

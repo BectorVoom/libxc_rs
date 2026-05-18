@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 1161/1208 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 11 (v4rho4_3) CSE chunk 1161/1340 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk1161<F: Float>(t31230: F, t31275: F, t833: F, t852: F, t11264: F, t18612: F, t11311: F, t862: F, t10012: F, t11167: F, t11222: F, t11296: F, t11299: F, t1196: F, t1197: F, t18882: F, t2257: F, t2279: F, t27812: F, t3102: F, t3103: F, t31196: F, t31198: F, t3780: F, t3792: F, t6272: F, t6308: F, t6313: F, t8107: F, t870: F, t872: F, t9875: F, t9958: F) -> (F, F, F) {
-    let t31279 = 1.0 * t833 * (t31230 + t31275) * t852;
-    let t31281 = 0.51726012919273400301e3 * t18612 * t11264;
-    let t31282 = t11311 * t862;
-    let t31309 = 0.2069040516770936012e4 * t18882 * t11167 + t31196 - t31198 - t31279 - t31281 + 1.0 * t31282 * t872 - 24.0 * t6313 * t11222 * t870 + 18.0 * t2279 * t3780 * t3102 - 6.0 * t6272 * t11296 - 6.0 * t2257 * t3103 * t3792 - 6.0 * t2257 * t1197 * t9958 + 0.96491876992155210402e2 * t6308 * t11299 + 0.96491876992155210402e2 * t2279 * t27812 * t1196 + 0.96491876992155210402e2 * t2279 * t10012 * t3102 + 0.10526802520742363173e2 * t8107 * t9875;
-    (t31279, t31281, t31309)
+pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk1161<F: Float>(t2023: F, t3857: F, t3214: F, t8315: F, t3882: F, t5939: F, t918: F, t10197: F, t2376: F, t179: F, t19155: F, t3757: F, t404: F) -> (F, F, F, F, F) {
+    let t28287 = t3857 * t2023;
+    let t28295 = t3214 * t8315;
+    let t28303 = t918 * t5939 * t3882;
+    let t28305 = t10197 * t2376;
+    let t28316 = t404 * t179 * t19155 * t3757;
+    (t28287, t28295, t28303, t28305, t28316)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 838/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 838/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk838<F: Float>(t1045: F, t6271: F, t3117: F, t373: F, t6258: F, t371: F, t372: F, t3236: F, t5819: F, t1012: F, t1015: F, t5825: F, t3253: F, t1011: F, t1025: F, t1665: F, t3082: F, t3091: F, t3115: F, t3127: F, t4792: F, t4818: F, t4821: F, t4858: F, t6263: F, t6268: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t6272 = t6271 * t1045;
-    let t6273 = t3117 * t6272;
-    let t6276 = t373 * t6258;
-    let t6278 = t371 * t372 * t6276;
-    let t6284 = t3236 * t5819;
-    let t6285 = t1012 * t6284;
-    let t6288 = t1015 * t5825;
-    let t6289 = t1012 * t6288;
-    let t6292 = t3253 * t5819;
-    let t6293 = t1012 * t6292;
-    let t6298 = -t3082 - 0.28582678745379824648e-3 * t3127 * t6263 + 0.28582678745379824648e-3 * t3091 * t6268 - 0.42874018118069736972e-3 * t3115 * t6273 - 0.21437009059034868486e-3 * t1025 * t6278 - 0.42874018118069736972e-3 * t4858 * t1665 + 0.28582678745379824648e-3 * t4792 - t1011 * t6285 / 144.0 + t1011 * t6289 / 288.0 + t1011 * t6293 / 216.0 + 0.19055119163586549765e-3 * t4818 + 0.28582678745379824648e-3 * t4821;
-    (t6272, t6273, t6276, t6278, t6284, t6285, t6288, t6289, t6292, t6293, t6298)
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk838<F: Float>(t508: F, t5920: F, t4303: F, t4306: F, t2498: F, t2518: F, t2522: F, t2562: F, t2569: F, t2579: F, t2587: F, t2610: F, t2628: F, t2632: F) -> (F, F, F, F) {
+    let t5921 = t508 * t5920;
+    let t5924 = F::new(0.36622894612013090108e-3) * t4303;
+    let t5925 = F::new(8.0) * t4306;
+    let t5926 = -t2569 + t2579 + t2587 - t2522 - t2498 - t2518 + t2610 - t5924 - t2562 + t5925 + t2632 + t2628;
+    (t5921, t5924, t5925, t5926)
 }

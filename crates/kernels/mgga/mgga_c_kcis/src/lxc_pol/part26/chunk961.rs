@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 961/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 961/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk961<F: Float>(t2386: F, t26579: F, t7583: F, t26576: F, t7580: F, t2140: F, t3110: F, t688: F, t1075: F, t2381: F, t26434: F, t26437: F, t26441: F, t26444: F, t26448: F, t26454: F, t26572: F, t26577: F) -> (F, F) {
-    let t26580 = t2386 * t26579;
-    let t26581 = t26580 * t7583;
-    let t26583 = t7580 * t26576;
-    let t26586 = t688 * t3110 * t2140;
-    let t26589 = t2381 * t1075 * t2140;
-    let t26592 = 0.2653111111111111111e-1 * t26434 + 0.99491666666666666664e-2 * t26437 + 0.19898333333333333333e-1 * t26441 - 0.19898333333333333333e-1 * t26444 - 0.99491666666666666664e-2 * t26448 - 0.13901041666666666667e-2 * t26572 - 0.13901041666666666667e-2 * t26577 - 0.43285526909722222222e-3 * t26581 - 0.2782641015625e-3 * t26583 - 0.5405960648148148148e-2 * t26586 + 0.32435763888888888888e-2 * t26589 - 0.2653111111111111111e-1 * t26454;
-    (t26580, t26592)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk961<F: Float>(t518: F, t6957: F, t1419: F, t5457: F, t5458: F, t5481: F, t1098: F, t7242: F, t3814: F, t531: F, t21641: F, t16373: F, t21625: F) -> (F, F, F, F, F, F, F) {
+    let t22164 = t518 * t6957;
+    let t22165 = t22164 * t1419;
+    let t22166 = t5457 * t22165;
+    let t22169 = t5458 * t5481;
+    let t22170 = t5457 * t22169;
+    let t22175 = t1098 * t7242;
+    let t22177 = t3814 * t531;
+    let t22178 = t22177 * t21641;
+    let t22181 = t16373 * t21625;
+    (t22165, t22166, t22169, t22170, t22175, t22178, t22181)
 }

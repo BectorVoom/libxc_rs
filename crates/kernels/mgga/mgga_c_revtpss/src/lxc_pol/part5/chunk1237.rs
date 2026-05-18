@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1237/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1237/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk1237<F: Float>(t33: F, t265: F, t502: F, t18884: F, t20691: F, t21643: F, t1113: F, t1304: F, t1469: F, t1711: F, t18281: F, t1837: F, t18892: F, t20256: F, t4186: F, t4560: F, t504: F, t5509: F, t57: F, t5825: F, t606: F, t6084: F, t6416: F, t6757: F, t895: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F,) {
-    let t34 = t33 <= zeta_threshold;
-    let t400 = rho1 <= dens_threshold || t34;
-    let t503 = t265 < t502;
-    let t21645 = piecewise3(t503, t20691 + t21643, t18884);
-    let t21657 = piecewise3(t400, t18884 * t33 / 2.0 + t6084 * t1113 / 2.0 + t4560 * t1711 - t18892 + t895 * t6416 / 2.0 + t265 * t20256 / 2.0, t21645 * t57 / 2.0 - t6757 * t606 / 2.0 - t5509 * t1469 - t1837 * t4186 - t1304 * t5825 / 2.0 - t504 * t18281 / 2.0);
-    (t21657,)
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk1237<F: Float>(t19705: F, t4873: F, t3092: F, t357: F, t4866: F, t4893: F, t3117: F, t19450: F, t4900: F, t11661: F, t19501: F, t1047: F, t1063: F, t12013: F, t16067: F, t16089: F, t19688: F, t19693: F, t19697: F, t19702: F, t3127: F, t4803: F, t4808: F, t4834: F, t4892: F, t4899: F, t6308: F) -> F {
+    let t19706 = t19705 * t4873;
+    let t19707 = t3092 * t19706;
+    let t19716 = t357 * t4866;
+    let t19717 = t4893 * t19716;
+    let t19718 = t3117 * t19717;
+    let t19721 = t19450 * t4900;
+    let t19722 = t3117 * t19721;
+    let t19725 = t19501 * t11661;
+    let t19726 = t3092 * t19725;
+    let t19729 = F::new(0.23818898954483187207e-3) * t1063 * t19688 - F::new(0.23818898954483187207e-3) * t3127 * t19693 + F::new(0.21437009059034868486e-3) * t19697 * t1047 - F::new(0.14291339372689912324e-3) * t3127 * t19702 + F::new(0.57165357490759649296e-3) * t16089 * t19707 - F::new(0.22866142996303859718e-2) * t12013 * t6308 - F::new(0.57165357490759649296e-3) * t4834 * t4803 + F::new(0.47637797908966374413e-3) * t4834 * t4808 - F::new(0.42874018118069736972e-3) * t4899 * t19718 + F::new(0.21437009059034868486e-3) * t16067 * t19722 + F::new(0.28582678745379824648e-3) * t4892 * t19726;
+    t19729
 }

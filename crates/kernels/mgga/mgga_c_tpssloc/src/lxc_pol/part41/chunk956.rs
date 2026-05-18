@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 956/1183 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 41 (v4rho3tau_5) CSE chunk 956/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk956<F: Float>(t16783: F, t9549: F, t16662: F, t210: F, t214: F, t118: F, t5544: F, t794: F, t2576: F, t2563: F, t5555: F, t213: F, t221: F, t776: F, t13014: F, t13020: F, t13022: F, t13027: F, t4127: F, t787: F, t9579: F, t9583: F) -> (F,) {
-    let t16784 = t9549 * t16783;
-    let t16787 = t210 * t214 * t16662;
-    let t16791 = t118 * t794 * t5544;
-    let t16792 = t2576 * t16791;
-    let t16794 = t2563 * t5555;
-    let t16796 = t213 * t5544;
-    let t16798 = t221 * t16796 * t776;
-    let t16803 = -t13014 - 0.24999999999999999999e-2 * t16784 - 0.16666666666666666666e-2 * t787 * t16787 + 0.8333333333333333333e-3 * t16792 + t9579 + 0.38888888888888888887e-2 * t16794 + 0.49999999999999999998e-2 * t4127 * t16798 + 0.77777777777777777775e-2 * t13020 - 0.10555555555555555555e-1 * t13022 + t13027 - t9583;
-    (t16803,)
+pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk956<F: Float>(t1294: F, t9919: F, t2663: F, t3814: F, t9905: F, t9892: F, t3826: F, t588: F, t3684: F, t9467: F, t118: F, t1284: F) -> (F, F, F, F, F, F, F) {
+    let t12094 = F::new(0.35089341735807877242e1) * t1294 * t9919;
+    let t12097 = t3814 * t2663;
+    let t12103 = F::new(0.35089341735807877242e1) * t1294 * t9905;
+    let t12105 = F::new(0.51947577317044391277e2) * t1294 * t9892;
+    let t12106 = t588 * t3826;
+    let t12109 = F::new(0.21687162600603479684e-1) * t3684 * t9467;
+    let t12110 = t1284 * t118;
+    (t12094, t12097, t12103, t12105, t12106, t12109, t12110)
 }

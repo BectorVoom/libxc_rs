@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 978/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 978/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk978<F: Float>(t11475: F, t11476: F, t3931: F, t11013: F, t3919: F, t11456: F, t11459: F, t11462: F, t11464: F, t11468: F, t2748: F, t3974: F, t3979: F, t8531: F, t8586: F, t925: F, t967: F) -> (F,) {
-    let t11477 = t11475 * t11476;
-    let t11478 = t3931 * t11477;
-    let t11481 = t3919 * t11013;
-    let t11486 = -t11456 - t11459 + t11462 + 5.0 / 6912.0 * t967 * t11464 + 5.0 / 13824.0 * t967 * t11468 + t2748 * t3979 / 216.0 - 5.0 / 1296.0 * t2748 * t3974 - 5.0 / 2304.0 * t967 * t11478 - t925 * t11481 / 36.0 + 5.0 / 20736.0 * t8531 + 11.0 / 324.0 * t8586;
-    (t11486,)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk978<F: Float>(t10498: F, t187: F, t8043: F, t1398: F, t8096: F, t8077: F, t123: F, t1354: F, t2349: F, t10470: F, t10471: F, t10472: F, t1692: F, t2133: F, t2433: F, t2439: F, t3548: F, t7929: F, t7932: F, t7936: F, t7945: F, t8000: F, t8001: F, t8019: F, t8023: F, t8029: F, t8040: F) -> (F, F, F, F, F, F) {
+    let t10500 = F::new(0.19751673498613801407e-1) * t10498 * t187;
+    let t10501 = F::new(12.0) * t8043;
+    let t10502 = t1398 * t8096;
+    let t10509 = F::new(8.0) * t8077;
+    let t10510 = t1354 * t123;
+    let t10511 = t10510 * t2349;
+    let t10512 = F::new(0.10843581300301739842e-1) * t10511;
+    let t10513 = F::new(2.0) * t10502 * t1692 * t2433 + F::new(3.0) * t2133 * t2439 * t3548 - t10470 + t10471 - t10472 + t10500 + t10501 + t10509 + t10512 + t7929 - t7932 - t7936 + t7945 + t8000 + t8001 - t8019 + t8023 - t8029 - t8040;
+    (t10500, t10501, t10502, t10509, t10512, t10513)
 }

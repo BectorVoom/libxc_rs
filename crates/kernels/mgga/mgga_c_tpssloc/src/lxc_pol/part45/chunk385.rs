@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 385/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 385/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk385<F: Float>(t2633: F, t819: F, t820: F, t815: F, t835: F, t812: F, t831: F, t242: F, t67: F, t845: F, t246: F, t120: F, t828: F, t232: F, t776: F, t753: F) -> (F, F, F, F, F, F) {
-    let t2635 = t819 * t820 * t2633;
-    let t2638 = t815 * t835;
-    let t2639 = t812 * t2638;
-    let t2640 = t2639 * t831;
-    let t2642 = t815 * t242;
-    let t2643 = t812 * t2642;
-    let t2644 = t845 * t67;
-    let t2645 = t2644 * t246;
-    let t2646 = t120 * t828;
-    let t2647 = t232 * t776;
-    let t2649 = t2645 * t2646 * t2647;
-    let t2652 = t753 * t67;
-    (t2635, t2640, t2643, t2646, t2649, t2652)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk385<F: Float>(t40: F, t52: F, t706: F, t717: F, t708: F, t607: F, t751: F, t707: F, t195: F, t2244: F, t2250: F, t73: F, t197: F, t76: F, zeta_threshold: F) -> (F, F, F, F) {
+    let t146 = t40 <= zeta_threshold;
+    let t150 = t52 <= zeta_threshold;
+    let t2427 = t706 * t717;
+    let t2429 = F::new(8.0) * t2427 * t708;
+    let t2430 = t751 * t607;
+    let t2431 = t707 * t2430;
+    let t2432 = F::new(8.0) * t2431;
+    let t2433 = F::new(1.0) / t195;
+    let t2439 = piecewise3::<f64>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t2433 * t2244 + F::new(4.0) / F::new(3.0) * t73 * t2250);
+    let t2440 = F::new(1.0) / t197;
+    let t2446 = piecewise3::<f64>(t150, F::new(0.0), F::new(4.0) / F::new(9.0) * t2440 * t2244 - F::new(4.0) / F::new(3.0) * t76 * t2250);
+    (t2429, t2432, t2439, t2446)
 }

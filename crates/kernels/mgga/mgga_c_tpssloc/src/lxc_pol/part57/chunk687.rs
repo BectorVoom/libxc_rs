@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 687/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 687/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk687<F: Float>(t1874: F, t28030: F, t7458: F, t7461: F, t4028: F, t7468: F, t28002: F, t19451: F, t1774: F, t7467: F, t652: F, t2006: F, t6361: F, t1807: F, t7722: F, t3788: F, t6388: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t28032 = 2.0 * t28030 * t1874;
-    let t28034 = 4.0 * t7458 * t7461;
-    let t28036 = 4.0 * t4028 * t7468;
-    let t28038 = 4.0 * t28002 * t1874;
-    let t28040 = 4.0 * t4028 * t7461;
-    let t28042 = 2.0 * t19451 * t1874;
-    let t28045 = t1774 * t7467;
-    let t28047 = 4.0 * t652 * t28045;
-    let t28051 = t6361 * t2006;
-    let t28053 = t1807 * t7722;
-    let t28057 = t3788 * t6388;
-    (t28032, t28034, t28036, t28038, t28040, t28042, t28045, t28047, t28051, t28053, t28057)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk687<F: Float>(t22814: F, t22816: F, t1999: F, t794: F, t61: F, t9222: F, t1995: F, t133: F, t6933: F, t6604: F, t6925: F, t242: F, t6943: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t22817 = t22814 * t22816;
+    let t22818 = t794 * t1999;
+    let t22819 = t22817 * t22818;
+    let t22820 = F::new(0.16821981705891829522e-4) * t22819;
+    let t22822 = F::new(1.0) / t61 / t9222;
+    let t22823 = t22822 * t1995;
+    let t22824 = t22823 * t133;
+    let t22825 = t22824 * t6933;
+    let t22826 = F::new(0.52708876011794399171e-3) * t22825;
+    let t22827 = t6925 * t6604;
+    let t22832 = t6943 * t242;
+    (t22817, t22819, t22820, t22822, t22824, t22825, t22826, t22827, t22832)
 }

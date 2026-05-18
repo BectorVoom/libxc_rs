@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 594/1093 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 594/1234 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk594<F: Float>(t1277: F, t6744: F, t1210: F, t1274: F, t1770: F, t1775: F, t1813: F, t1829: F, t3567: F, t460: F, t495: F, t5220: F, t5225: F, t5251: F, t5417: F, t6564: F, t6574: F, t6580: F, t6588: F, t6697: F, t6703: F) -> (F, F) {
-    let t6745 = t1277 * t6744;
-    let t6748 = 0.65854491829355115987e0 * t6564 * t495 - 0.13170898365871023197e1 * t5220 * t1775 + 0.13170898365871023197e1 * t1770 * t1813 - 0.13170898365871023197e1 * t5225 * t1829 + 0.13170898365871023197e1 * t3567 * t6574 - 0.13170898365871023197e1 * t5251 * t1775 + 0.13170898365871023197e1 * t1210 * t6580 - 0.65854491829355115987e0 * t1210 * t6588 + 0.65854491829355115987e0 * t460 * t6697 - 0.13170898365871023197e1 * t5417 * t1829 + 0.13170898365871023197e1 * t1274 * t6703 - 0.65854491829355115987e0 * t1274 * t6745;
-    (t6745, t6748)
+pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk594<F: Float>(t30: F, t265: F, t393: F, t6084: F, t6404: F, t1468: F, t1469: F, t1587: F, t1704: F, t395: F, t45: F, t5824: F, t5825: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t120 = rho0 <= dens_threshold || t31;
+    let t394 = t265 < t393;
+    let t6405 = piecewise3::<f64>(t394, t6404, t6084);
+    let t6412 = piecewise3::<f64>(t120, t6084 * t30 / F::new(2.0) + t1587 * t1468 + t265 * t5824 / F::new(2.0), t6405 * t45 / F::new(2.0) + t1704 * t1469 + t395 * t5825 / F::new(2.0));
+    (t6405, t6412)
 }

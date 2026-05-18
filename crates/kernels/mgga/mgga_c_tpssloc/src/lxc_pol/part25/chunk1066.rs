@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1066/1094 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 25 (v4rho3sigma_1) CSE chunk 1066/1226 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1066<F: Float>(t12248: F, t2085: F, t12238: F, t12251: F, t12255: F, t1332: F, t1336: F, t2089: F, t24103: F, t24117: F, t24121: F, t24127: F, t3777: F, t81187: F, t81189: F, t81193: F, t81197: F, t81209: F, t81213: F, t81216: F, t81218: F, t81222: F, t81225: F, t81230: F, t81234: F, t81238: F) -> (F,) {
-    let t84627 = t12248 * t2085;
-    let t84634 = t12238 * t2089 - 0.76763589786250567036e0 * t81187 + 0.46058153871750340221e0 * t81189 + 0.29608813203268075857e0 * t81193 + 0.9869604401089358619e-1 * t81197 - 0.9869604401089358619e-1 * t81209 - 0.3289868133696452873e-1 * t81213 + 0.49348022005446793095e-1 * t81216 + 0.23029076935875170111e0 * t81218 - 0.19739208802178717238e0 * t81222 - 0.49348022005446793095e-1 * t81225 + 3.0 * t1332 * t24121 - 0.9869604401089358619e-1 * t81230 + 0.19739208802178717238e0 * t81234 + 0.9869604401089358619e-1 * t81238 - 6.0 * t3777 * t24117 - 3.0 * t3777 * t24103 - 6.0 * t1336 * t84627 * t12251 + 6.0 * t1336 * t24127 * t12255;
-    (t84634,)
+pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1066<F: Float>(t25: F, t265: F, t394: F, t24379: F, t2064: F, t2250: F, t24355: F, t40: F, t607: F, t7131: F, t1081: F, t1877: F, t2057: F, t23781: F, t23789: F, t23792: F, t23796: F, t23807: F, t23810: F, t23813: F, t24191: F, t24335: F, t24339: F, t24344: F, t2522: F, t28: F, t3231: F, t4314: F, t6841: F, t6848: F, t7110: F, t7114: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t24380 = piecewise3::<f64>(t395, F::new(0.0), t24379);
+    let t24387 = piecewise3::<f64>(t115, t24355, t24380 * t40 / F::new(2.0) + t7131 * t607 + t2064 * t2250 / F::new(2.0));
+    let t24419 = F::new(3.0) * t4314 * t2057 * t23781 + F::new(3.0) * t2522 * t7110 * t6841 - F::new(3.0) * t24191 * t23789 + F::new(3.0) * t2522 * t2057 * t23792 + F::new(3.0) / F::new(2.0) * t2522 * t2057 * t23796 + t1877 * t24335 * t28 / F::new(2.0) - t1877 * t24339 * t6848 + t1877 * t7110 * t1081 + t1877 * t24344 * t23807 - t1877 * t7114 * t23810 - t1877 * t7114 * t23813 / F::new(2.0) + t1877 * t2057 * t3231 / F::new(2.0);
+    (t24380, t24387, t24419)
 }

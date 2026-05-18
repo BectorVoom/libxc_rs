@@ -41,12 +41,12 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t22 = param_cx_local_1;
         let t23 = t22 * sigma[ip];
@@ -87,7 +87,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t76 = M_CBRT6;
         let t77 = t76 * t76;
         let t78 = M_PI * M_PI;
-        let t79 = pow_1_3(t78);
+        let t79 = pow_1_3::<f64>(t78);
         let t80 = t79 * t79;
         let t82 = 3.0 / 10.0 * t77 * t80;
         let t83 = tau[ip] * t25;
@@ -107,7 +107,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t102 = 1.0 / t100 / t88;
         let t104 = t99 * t102 + t87 * t89 - 2.0 * t92 * t95;
         let t106 = param_cx_local_0 + 0.4e-2 * t23 * t36 + 0.32e-4 * t41 * t49 + 0.256e-6 * t54 * t59 + t75 * t104;
-        let t110 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t106);
+        let t110 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t106);
         let tzk0 = 2.0 * t110;
         zk[ip] += tzk0;
         let t111 = 1.0 / t27;
@@ -147,7 +147,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t189 = t99 * t188;
         let t192 = 5.0 / 3.0 * t83 * t29 * t89 + 5.0 / 3.0 * t173 * t174 - 10.0 * t177 * t174 - 10.0 * t181 * t174 + 25.0 / 3.0 * t184 * t174 + 25.0 / 3.0 * t189 * t174;
         let t194 = -0.10666666666666666667e-1 * t23 * t120 + 0.85333333333333333336e-4 * t123 * t128 - 0.17066666666666666667e-3 * t41 * t128 + 0.13653333333333333334e-5 * t133 * t136 - 0.2048e-5 * t54 * t136 + 0.81920000000000000003e-8 * t142 * t149 + t167 * t104 + t75 * t192;
-        let t199 = piecewise3(t3, 0.0, -t7 * t112 * t106 / 8.0 - 3.0 / 8.0 * t7 * t20 * t194);
+        let t199 = piecewise3::<f64>(t3, 0.0, -t7 * t112 * t106 / 8.0 - 3.0 / 8.0 * t7 * t20 * t194);
         let tvrho0 = 2.0 * rho[ip] * t199 + 2.0 * t110;
         vrho[ip] += tvrho0;
         let t202 = t22 * t25;
@@ -162,7 +162,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t233 = t71 * t40;
         let t238 = 0.4e-2 * t223 * t203 - 0.32e-4 * t64 * t49 + 0.64e-4 * t228 * t49 - 0.512e-6 * t68 * t59 + 0.768e-6 * t233 * t59 - 0.3072e-8 * t72 * t220;
         let t240 = 0.4e-2 * t202 * t203 - 0.32e-4 * t23 * t49 + 0.64e-4 * t208 * t49 - 0.512e-6 * t41 * t59 + 0.768e-6 * t213 * t59 - 0.3072e-8 * t54 * t220 + t238 * t104;
-        let t244 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t240);
+        let t244 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t240);
         let tvsigma0 = 2.0 * rho[ip] * t244;
         vsigma[ip] += tvsigma0;
         let tvlapl0 = 0.0;
@@ -171,7 +171,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
         let t247 = t19 * t75;
         let t248 = t25 * t85;
         let t259 = -t173 * t248 + 6.0 * t177 * t248 + 6.0 * t181 * t248 - 5.0 * t184 * t248 - 5.0 * t189 * t248 - t248 * t89;
-        let t263 = piecewise3(t3, 0.0, -3.0 / 8.0 * t246 * t247 * t259);
+        let t263 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t246 * t247 * t259);
         let tvtau0 = 2.0 * rho[ip] * t263;
         vtau[ip] += tvtau0;
     }

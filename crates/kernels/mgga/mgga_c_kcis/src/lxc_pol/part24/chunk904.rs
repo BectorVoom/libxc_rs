@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 904/1171 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 904/1322 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,22 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk904<F: Float>(t2153: F, t2539: F, t9275: F, t2146: F, t2537: F, t7612: F, t8522: F, t2533: F, t7630: F, t2161: F, t2770: F, t2626: F, t2538: F, t826: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t26390 = t2153 * t2539;
-    let t26391 = t9275 * t26390;
-    let t26392 = 6.0 * t26391;
-    let t26398 = t2146 * t2537;
-    let t26399 = t26398 * t2539;
-    let t26400 = 2.0 * t26399;
-    let t26401 = t8522 * t7612;
-    let t26402 = 4.0 * t26401;
-    let t26409 = t2533 * t7630;
-    let t26410 = 2.0 * t26409;
-    let t26411 = t2161 * t2770;
-    let t26416 = t2153 * t2626;
-    let t26417 = t2538 * t26416;
-    let t26418 = 2.0 * t26417;
-    let t26419 = t7630 * t826;
-    let t26420 = t2538 * t26419;
-    (t26390, t26391, t26392, t26398, t26399, t26400, t26401, t26402, t26409, t26410, t26411, t26416, t26417, t26418, t26419, t26420)
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk904<F: Float>(t19422: F, t19471: F, t19521: F, t19534: F, t10187: F, t10188: F, t10190: F, t1083: F, t13658: F, t13665: F, t13667: F, t13682: F, t13684: F, t13686: F, t13689: F, t14053: F, t14055: F, t1697: F, t1745: F, t18619: F, t19107: F, t19381: F, t278: F, t339: F, t4768: F, t4920: F, t6432: F, t6478: F, t975: F) -> (F, F) {
+    let t19536 = t19422 + t19471 + t19521 + t19534;
+    let t19539 = -F::new(0.93706135855523581992e-2) * t19381 - F::new(0.46853067927761790996e-2) * t10188 - F::new(0.93706135855523581992e-2) * t10190 - t13665 - t13667 - t13682 - t13684 + F::new(0.93706135855523581992e-2) * t13686 + t13689 - F::new(2.0) * t1697 * t4920 - F::new(2.0) * t4768 * t1745 - t975 * t6478 - F::new(0.28111840756657074598e-1) * t13658 * t18619 - t10187 - F::new(0.18741227171104716398e-1) * t14053 - F::new(0.93706135855523581992e-2) * t14055 - t6432 * t1083 - t278 * t19536 - t19107 * t339;
+    (t19536, t19539)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 837/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 837/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk837<F: Float>(t1880: F, t23237: F, t30656: F, t1888: F, t23270: F, t2742: F, t30633: F, t112660: F, t6552: F, t6555: F, t23030: F, t30638: F, t1902: F, t212: F, t23171: F, t6554: F) -> (F, F, F, F, F) {
-    let t112920 = 0.3289868133696452873e-1 * t1880 * t23237 * t30656;
-    let t112927 = 0.3289868133696452873e-1 * t1888 * t23270 * t30633 * t2742;
-    let t112932 = 0.6579736267392905746e-1 * t6552 * t112660 * t6555;
-    let t112936 = 0.52089578783527170489e-1 * t23030 * t30638;
-    let t112942 = 0.16449340668482264365e-1 * t23171 * t212 * t1902 * t6554;
-    (t112920, t112927, t112932, t112936, t112942)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk837<F: Float>(t25: F, t265: F, t394: F, t24379: F, t2064: F, t2250: F, t24355: F, t40: F, t607: F, t7131: F, t1081: F, t1877: F, t2057: F, t23781: F, t23789: F, t23792: F, t23796: F, t23807: F, t23810: F, t23813: F, t24191: F, t24335: F, t24339: F, t24344: F, t2522: F, t28: F, t3231: F, t4314: F, t6841: F, t6848: F, t7110: F, t7114: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t115 = rho0 <= dens_threshold || t26;
+    let t395 = t265 < t394;
+    let t24380 = piecewise3::<f64>(t395, F::new(0.0), t24379);
+    let t24387 = piecewise3::<f64>(t115, t24355, t24380 * t40 / F::new(2.0) + t7131 * t607 + t2064 * t2250 / F::new(2.0));
+    let t24419 = F::new(3.0) * t4314 * t2057 * t23781 + F::new(3.0) * t2522 * t7110 * t6841 - F::new(3.0) * t24191 * t23789 + F::new(3.0) * t2522 * t2057 * t23792 + F::new(3.0) / F::new(2.0) * t2522 * t2057 * t23796 + t1877 * t24335 * t28 / F::new(2.0) - t1877 * t24339 * t6848 + t1877 * t7110 * t1081 + t1877 * t24344 * t23807 - t1877 * t7114 * t23810 - t1877 * t7114 * t23813 / F::new(2.0) + t1877 * t2057 * t3231 / F::new(2.0);
+    (t24387, t24419)
 }

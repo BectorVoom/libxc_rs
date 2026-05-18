@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 868/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 868/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk868<F: Float>(t1411: F, t30194: F, t19849: F, t8073: F, t5606: F, t7832: F, t10519: F, t10520: F, t30158: F, t8: F, t1450: F, t1340: F, t2075: F, t8247: F, t3796: F, t3482: F) -> (F, F, F, F, F, F) {
-    let t30195 = t1411 * t30194;
-    let t30197 = t19849 * t8073;
-    let t30198 = t1411 * t30197;
-    let t30201 = t5606 * t7832;
-    let t30202 = t1411 * t30201;
-    let t30205 = t30158 * t8 + t10519 + t10520;
-    let t30206 = t1450 * t30205;
-    let t30207 = t1340 * t30206;
-    let t30208 = t1411 * t30207;
-    let t30212 = t8247 * t2075;
-    let t30213 = t3796 * t30212;
-    let t30214 = t3482 * t30213;
-    (t30195, t30198, t30202, t30205, t30208, t30214)
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk868<F: Float>(t28492: F, t28506: F, t1676: F, t1685: F, t10569: F, t15989: F, t22564: F, t22575: F, t22583: F, t28371: F, t28375: F, t28379: F, t28383: F, t28387: F, t28391: F) -> (F, F, F) {
+    let t28507 = t28492 + t28506;
+    let t28509 = t1676 * t28507 * t1685;
+    let t28528 = -t10569 - F::new(0.23744444444444444444e-1) * t15989 + F::new(0.11872222222222222222e-1) * t22564 - F::new(0.35616666666666666666e-1) * t22575 + F::new(0.17808333333333333333e-1) * t22583 - F::new(0.19787037037037037037e-1) * t28371 + F::new(0.71233333333333333332e-1) * t28375 - F::new(0.35616666666666666666e-1) * t28379 - F::new(0.10685e0) * t28383 + F::new(0.10685e0) * t28387 - F::new(0.17808333333333333333e-1) * t28391;
+    (t28507, t28509, t28528)
 }

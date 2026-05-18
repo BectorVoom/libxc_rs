@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 676/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 676/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk676<F: Float>(t13399: F, t13064: F, t325: F, t12884: F, t4459: F, t512: F, t507: F, t12998: F, t12974: F, t1527: F, t4462: F, t515: F, t1588: F, t3532: F, t12829: F, t539: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t14665 = 0.51588271604938271604e-3 * t13399;
-    let t14736 = t325 * t13064;
-    let t14743 = t325 * t12884;
-    let t14756 = 1.0 / t4459 / t512;
-    let t14757 = t507 * t14756;
-    let t14784 = 0.46308888888888888888e0 * t12998;
-    let t14785 = 0.16068111111111111111e1 * t12974;
-    let t14797 = 1.0 / t4459 / t1527;
-    let t14798 = t507 * t14797;
-    let t14800 = 1.0 / t4462 / t515;
-    let t14831 = 0.53272592592592592592e-1 * t12974;
-    let t14909 = t1588 * t3532;
-    let t14935 = t539 * t12829;
-    (t14665, t14736, t14743, t14757, t14784, t14785, t14798, t14800, t14831, t14909, t14935)
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk676<F: Float>(t1781: F, t657: F, t164: F, t1774: F, t25: F, t5005: F, t1736: F, t4953: F, t4956: F, t633: F, t630: F, t1704: F, t4907: F) -> (F, F, F, F, F, F, F) {
+    let t10871 = t1781 * t1781;
+    let t10872 = F::new(1.0) / t10871;
+    let t10873 = t657 * t10872;
+    let t10879 = t164 * t1774;
+    let t10886 = t25 * t5005;
+    let t10902 = F::new(1.0) / t4953 / t1736;
+    let t10906 = F::new(1.0) / t4956 / t633;
+    let t10913 = F::new(1.0) / t4953 / t630;
+    let t10924 = F::new(1.0) / t4907 / t1704;
+    (t10873, t10879, t10886, t10902, t10906, t10913, t10924)
 }

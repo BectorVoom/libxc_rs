@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 950/1093 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 35 (v4rho3sigma_10) CSE chunk 950/1234 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk950<F: Float>(t26292: F, t7289: F, t25969: F, t25975: F, t26002: F, t26010: F, t26012: F, t26021: F, t2097: F, t785: F, t1358: F, t2439: F, t2435: F, t7493: F, t26069: F, t26277: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t26309 = 0.17135234354032049604e-1 * t7289 * t26292;
-    let t26310 = 0.54208002996571016773e-3 * t25969;
-    let t26312 = 0.22675591804667994221e-1 * t25975;
-    let t26321 = 35.0 / 216.0 * t26002;
-    let t26324 = 0.10164000561857065645e-4 * t26010;
-    let t26325 = 0.30488190661738479625e-3 * t26012;
-    let t26328 = 0.18071592998981862717e-4 * t26021;
-    let t26358 = t785 * t2097;
-    let t26359 = t26358 * t1358;
-    let t26361 = 0.65049603595885220126e-3 * t2439 * t26359;
-    let t26363 = 0.73171657588172351096e-2 * t2435 * t7493;
-    let t26365 = 0.22849835011101738147e-2 * t26069 * t26277;
-    (t26309, t26310, t26312, t26321, t26324, t26325, t26328, t26358, t26359, t26361, t26363, t26365)
+pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk950<F: Float>(t23740: F, t23753: F, t954: F, t1621: F, t19275: F, t1634: F, t6205: F, t1633: F, t19303: F, t1610: F, t6141: F, t2874: F) -> (F, F, F, F, F) {
+    let t23754 = t23740 + t23753;
+    let t23755 = t23754 * t954;
+    let t23758 = t19275 * t1621;
+    let t23761 = t1634 * t6205;
+    let t23764 = t19303 * t1633;
+    let t23767 = t1610 * t6141;
+    let t23769 = F::new(6.0) * t2874 * t23767;
+    (t23755, t23758, t23761, t23764, t23769)
 }

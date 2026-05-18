@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1167/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1167/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1167<F: Float>(t11409: F, t11746: F, t16046: F, t16050: F, t16052: F, t16523: F, t21268: F, t21273: F, t21275: F, t21278: F, t21581: F, t11727: F, t11730: F, t1319: F, t1410: F, t16500: F, t16503: F, t1897: F, t21267: F, t21537: F, t21542: F, t21551: F, t21558: F, t3821: F, t3824: F, t456: F, t5481: F, t5503: F, t5510: F, t6957: F, t6964: F) -> (F,) {
-    let t21582 = 0.14865e-1 * t21273 - 0.1982e-1 * t21275 - 0.991e-2 * t21278 + 0.1982e-1 * t21268 - t11746 - 0.18344444444444444444e-2 * t11409 - 0.36688888888888888888e-2 * t16046 + t16523 - 0.55033333333333333332e-2 * t16050 - 0.55033333333333333332e-2 * t16052 + t21581;
-    let t21585 = 3.0 / 16.0 * t11727 * t21537 - t11730 * t6957 / 8.0 - t3821 * t21542 / 4.0 - t16500 * t5503 / 4.0 + t16503 * t1897 / 2.0 + t5510 * t5481 / 2.0 - t3821 * t21551 / 8.0 + t3824 * t6964 / 4.0 + t1410 * t21267 / 4.0 + t21558 * t1319 / 4.0 + t456 * t21582 / 2.0;
-    (t21585,)
+pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1167<F: Float>(t3178: F, t6492: F, t1092: F, t1773: F, t4772: F, t1131: F, t1096: F, t1023: F, t18463: F, t1020: F, t6689: F, t922: F) -> (F, F, F, F, F) {
+    let t19627 = t3178 * t6492;
+    let t19628 = t1092 * t19627;
+    let t19630 = t4772 * t1773;
+    let t19631 = t1131 * t19630;
+    let t19632 = t1096 * t19631;
+    let t19633 = t1092 * t19632;
+    let t19635 = t18463 * t1023;
+    let t19636 = t1020 * t19635;
+    let t19638 = t6689 * t922;
+    (t19628, t19630, t19633, t19636, t19638)
 }

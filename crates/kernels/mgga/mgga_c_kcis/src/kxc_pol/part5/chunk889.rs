@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 889/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 889/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk889<F: Float>(t9725: F, t9728: F, t999: F, t292: F, t737: F, t285: F, t1071: F, t240: F, t9: F, t109: F, t992: F, t995: F, t991: F, t2909: F, t993: F, t1000: F, t2888: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t9851 = 0.93932222222222222223e0 * t9725;
-    let t9852 = 0.36793333333333333333e0 * t9728;
-    let t9873 = t999 * t999;
-    let t9874 = 1.0 / t9873;
-    let t9881 = t737 * t292;
-    let t9883 = 5.0 / 1296.0 * t285 * t9881;
-    let t9896 = 1.0 / t240 / t1071;
-    let t9897 = t9 * t9896;
-    let t9916 = t109 * t992;
-    let t9917 = t9916 * t995;
-    let t9918 = t991 * t9917;
-    let t9924 = t993 * t2909;
-    let t9933 = t2888 * t1000;
-    (t9851, t9852, t9874, t9883, t9897, t9916, t9918, t9924, t9933)
+pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk889<F: Float>(t2079: F, t1572: F, t4338: F, t4345: F, t5469: F, t5562: F, t6939: F, t6942: F, t6946: F, t6958: F, t6965: F, t6971: F, t6973: F, t6977: F, t6980: F, t6983: F) -> (F, F, F) {
+    let t7443 = t2079 * t2079;
+    let t7444 = t7443 * t1572;
+    let t7459 = -F::new(0.17648625e1) * t6958 + F::new(0.3529725e1) * t6965 + t4338 + F::new(0.34431666666666666666e0) * t5469 - F::new(0.34431666666666666667e0) * t6939 + F::new(0.103295e1) * t6942 - F::new(0.516475e0) * t6946 + F::new(0.31558125e0) * t6971 + F::new(0.6311625e0) * t6973 + t4345 + F::new(0.13892666666666666667e0) * t5562 - F::new(0.34731666666666666667e-1) * t6977 + F::new(0.20839e0) * t6980 - F::new(0.104195e0) * t6983;
+    (t7443, t7444, t7459)
 }

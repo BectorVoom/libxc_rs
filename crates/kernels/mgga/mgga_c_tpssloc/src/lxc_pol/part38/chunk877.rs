@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 877/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 877/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk877<F: Float>(t2617: F, t2696: F, t849: F, t232: F, t2553: F, t2614: F, t838: F, t2693: F, t809: F, t597: F, t61: F, t241: F, t244: F, t248: F, t238: F, t154: F, t9569: F) -> (F, F, F, F, F, F, F, F) {
-    let t9993 = t2617 * t2696;
-    let t9994 = t9993 * t849;
-    let t10007 = t232 * t2553;
-    let t10012 = t2614 * t838;
-    let t10014 = t809 * t2693;
-    let t10021 = 1.0 / t61 / t597;
-    let t10022 = t10021 * t241;
-    let t10024 = t10022 * t244 * t248;
-    let t10026 = 595.0 / 10368.0 * t238 * t10024;
-    let t10027 = t9569 * t154;
-    (t9993, t9994, t10007, t10012, t10014, t10022, t10026, t10027)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk877<F: Float>(t1307: F, t1799: F, t3870: F, t820: F, t1367: F, t5187: F, t1341: F, t1363: F, t1831: F, t3781: F, t3783: F, t3800: F, t3803: F, t3864: F, t3867: F, t5259: F, t5289: F, t5293: F, t5303: F, t5306: F) -> (F, F, F, F) {
+    let t5308 = t1799 * t1307;
+    let t5310 = t3870 * t820 * t5308;
+    let t5314 = t1367 * t820 * t5187;
+    let t5317 = t3803 * t5259 / F::new(768.0) - t1341 * t5289 / F::new(3072.0) - t3803 * t5293 / F::new(3072.0) - F::new(7.0) / F::new(4608.0) * t3781 + F::new(7.0) / F::new(4608.0) * t3800 + t3864 + F::new(7.0) / F::new(1152.0) * t3867 - t3783 * t1831 / F::new(768.0) + t3803 * t5303 / F::new(768.0) + F::new(7.0) / F::new(1152.0) * t5306 + F::new(5.0) / F::new(768.0) * t1363 * t5310 - t1363 * t5314 / F::new(768.0);
+    (t5308, t5310, t5314, t5317)
 }

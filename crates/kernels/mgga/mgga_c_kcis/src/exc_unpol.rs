@@ -25,17 +25,17 @@ pub fn mgga_c_kcis_exc_unpol(
     if ip < zk.len() {
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
+        let t4 = pow_1_3::<f64>(t3);
         let t5 = t2 * t4;
         let t6 = M_CBRT4;
         let t7 = t6 * t6;
-        let t8 = pow_1_3(rho[ip]);
+        let t8 = pow_1_3::<f64>(rho[ip]);
         let t9 = 1.0 / t8;
         let t10 = t7 * t9;
         let t11 = t5 * t10;
         let t13 = 1.0 + 0.53425e-1 * t11;
         let t14 = f64::sqrt(t11);
-        let t17 = pow_3_2(t11);
+        let t17 = pow_3_2::<f64>(t11);
         let t19 = t2 * t2;
         let t20 = t4 * t4;
         let t21 = t19 * t20;
@@ -48,9 +48,9 @@ pub fn mgga_c_kcis_exc_unpol(
         let t31 = f64::ln(t30);
         let t33 = 0.62182e-1 * t13 * t31;
         let t34 = 1.0 <= zeta_threshold;
-        let t35 = pow_1_3(zeta_threshold);
+        let t35 = pow_1_3::<f64>(zeta_threshold);
         let t36 = t35 * zeta_threshold;
-        let t37 = piecewise3(t34, t36, 1.0);
+        let t37 = piecewise3::<f64>(t34, t36, 1.0);
         let t40 = M_CBRT2;
         let t43 = 1.0 / (2.0 * t40 - 2.0);
         let t44 = (2.0 * t37 - 2.0) * t43;
@@ -67,7 +67,7 @@ pub fn mgga_c_kcis_exc_unpol(
         let t65 = 1.0 / t4;
         let t66 = t19 * t65;
         let t67 = 0.0 < t59;
-        let t69 = piecewise3(t67, t59, -t59);
+        let t69 = piecewise3::<f64>(t67, t59, -t59);
         let t70 = 1.0 / t69;
         let t71 = t6 * t70;
         let t72 = t66 * t71;
@@ -124,8 +124,8 @@ pub fn mgga_c_kcis_exc_unpol(
         let t161 = 1.0 + t152 / 8.0 - t159 / 64.0;
         let t162 = 1.0 / t161;
         let t163 = t139 * t162;
-        let t166 = piecewise3(2.0 <= zeta_threshold, t36, 2.0 * t40);
-        let t168 = piecewise3(0.0 <= zeta_threshold, t36, 0.0);
+        let t166 = piecewise3::<f64>(2.0 <= zeta_threshold, t36, 2.0 * t40);
+        let t168 = piecewise3::<f64>(0.0 <= zeta_threshold, t36, 0.0);
         let t170 = (t166 + t168 - 2.0) * t43;
         let t172 = 1.0 + 0.5137e-1 * t11;
         let t177 = 0.705945e1 * t14 + 0.1549425e1 * t11 + 0.420775e0 * t17 + 0.1562925e0 * t25;
@@ -136,7 +136,7 @@ pub fn mgga_c_kcis_exc_unpol(
         let t191 = t190 * t19;
         let t192 = t65 * t6;
         let t193 = 0.0 < t189;
-        let t195 = piecewise3(t193, t189, -t189);
+        let t195 = piecewise3::<f64>(t193, t189, -t189);
         let t196 = 1.0 / t195;
         let t197 = t192 * t196;
         let t200 = 1.0 + t191 * t197 / 96.0;
@@ -149,12 +149,12 @@ pub fn mgga_c_kcis_exc_unpol(
         let t214 = t44 * (t207 * t211 - t163);
         let t215 = sigma[ip] * t86;
         let t216 = 1.0 / tau[ip];
-        let t217 = piecewise3(t34, zeta_threshold, 1.0);
+        let t217 = piecewise3::<f64>(t34, zeta_threshold, 1.0);
         let t218 = t216 * t217;
         let t220 = t5 * t10 * t40;
         let t222 = 1.0 + 0.53425e-1 * t220;
         let t223 = f64::sqrt(t220);
-        let t226 = pow_3_2(t220);
+        let t226 = pow_3_2::<f64>(t220);
         let t228 = t40 * t40;
         let t230 = t21 * t24 * t228;
         let t232 = 0.379785e1 * t223 + 0.8969e0 * t220 + 0.204775e0 * t226 + 0.123235e0 * t230;
@@ -168,7 +168,7 @@ pub fn mgga_c_kcis_exc_unpol(
         let t250 = t240 * t249;
         let t253 = -t238 + 0.19751789702565206229e-1 * t44 * t250;
         let t254 = 0.0 < t253;
-        let t256 = piecewise3(t254, t253, -t253);
+        let t256 = piecewise3::<f64>(t254, t253, -t253);
         let t257 = 1.0 / t256;
         let t258 = t228 * t257;
         let t259 = t192 * t258;
@@ -213,7 +213,7 @@ pub fn mgga_c_kcis_exc_unpol(
         let t336 = f64::ln(t335);
         let t344 = -t238 + t170 * (-0.3109e-1 * t327 * t336 + t238 - 0.19751789702565206229e-1 * t250) + 0.19751789702565206229e-1 * t170 * t250;
         let t345 = 0.0 < t344;
-        let t347 = piecewise3(t345, t344, -t344);
+        let t347 = piecewise3::<f64>(t345, t344, -t344);
         let t348 = 1.0 / t347;
         let t349 = t6 * t348;
         let t350 = t66 * t349;

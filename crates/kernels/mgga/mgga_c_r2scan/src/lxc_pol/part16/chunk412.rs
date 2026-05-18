@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 412/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 412/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk412<F: Float>(t2008: F, t206: F, t1806: F, t1851: F, t1856: F, t1923: F, t1978: F, t1981: F, t1983: F, t1987: F, t1990: F, t2000: F, t2006: F, t208: F, t226: F, t625: F, t668: F, t682: F, t699: F, t713: F, t718: F) -> (F, F) {
-    let t2009 = t206 * t2008;
-    let t2013 = -t1806 + 0.17315859105681463759e2 * t718 * t1978 + 0.10254018858216406658e4 * t1981 * t1983 + 0.34631718211362927518e2 * t718 * t1987 + 0.72290542002011598948e-2 * t625 * t1990 * t226 - 0.10843581300301739842e-1 * t625 * t699 * t713 - 0.34246666666666666666e-1 * t625 * t668 * t682 + t1851 - t1856 + 0.22831111111111111111e-1 * t625 * t2000 * t208 + 0.2069040516770936012e4 * t2006 * t2009 * t1923;
-    (t2009, t2013)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk412<F: Float>(t206: F, t673: F, t207: F, t664: F, t1650: F, t1662: F, t1667: F, t1693: F, t1707: F, t1721: F, t1917: F, t1923: F, t220: F, t390: F, t741: F, t750: F) -> (F, F, F, F) {
+    let t1931 = t673 * t206;
+    let t1932 = t207 * t664;
+    let t1933 = t1931 * t1932;
+    let t1936 = F::new(0.5848223622634646207e0) * t220 * t1917 + F::new(0.19263893255070628431e1) * t1707 + F::new(0.65061487801810439052e-1) * t1721 - F::new(0.1301229756036208781e0) * t1693 - F::new(0.41096e0) * t673 * t1923 * t207 + t1650 + F::new(0.21687162600603479684e-1) * t390 * t741 - F::new(0.32106488758451047386e0) * t390 * t750 - t1662 + t1667 + F::new(0.68493333333333333332e-1) * t390 * t1933;
+    (t1931, t1932, t1933, t1936)
 }

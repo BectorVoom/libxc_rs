@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 770/1115 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 13 (v4rho3sigma_3) CSE chunk 770/1253 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk770<F: Float>(t1604: F, t7470: F, t1610: F, t2201: F, t2687: F, t2719: F, t788: F, t785: F, t2202: F, t2837: F, t2139: F, t2582: F, t6062: F, t6066: F, t6073: F, t6075: F, t6084: F, t6089: F, t6095: F, t7450: F, t7454: F, t7459: F, t7461: F, t7463: F, t7468: F) -> (F,) {
-    let t7472 = 0.10975748638225852664e-1 * t1604 * t7470;
-    let t7475 = 0.11643651550782197811e-1 * t2201 * t1610 * t2687;
-    let t7476 = t788 * t2719;
-    let t7479 = 0.11643651550782197811e-1 * t2201 * t785 * t7476;
-    let t7482 = 0.11643651550782197811e-1 * t2201 * t2837 * t2202;
-    let t7488 = 0.2600466522016280569e0 * t2139 * t7450 - 0.86682217400542685632e-1 * t2582 * t7454 - t7459 - 0.10401866088065122276e1 * t7461 * t7463 - t7468 + t7472 - t7475 - t7479 - t7482 - t6062 + 0.19514881078765566037e-1 * t6066 + 0.32524801797942610062e-3 * t6073 + 0.12695991786046386926e-1 * t6075 - t6084 + 0.11643651550782197811e-1 * t6089 + 0.34930954652346593434e-1 * t6095;
-    (t7488,)
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk770<F: Float>(t2078: F, t784: F, t783: F, t788: F, t1607: F, t5100: F, t512: F, t6101: F, t507: F, t1591: F, t2168: F, t1584: F, t1634: F) -> (F, F, F, F, F) {
+    let t6416 = t2078 * t784;
+    let t6418 = t783 * t6416 * t788;
+    let t6420 = t5100 * t1607;
+    let t6422 = t512 * t6101;
+    let t6424 = F::new(0.174549769648958674e0) * t6422 * t507;
+    let t6425 = t1591 * t2168;
+    let t6440 = t1584 * t1634;
+    (t6418, t6420, t6424, t6425, t6440)
 }

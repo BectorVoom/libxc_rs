@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 702/963 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 15 (v4rho3sigma_6) CSE chunk 702/1110 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,19 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk702<F: Float>(t1990: F, t7921: F, t1993: F, t7920: F, t1997: F, t7335: F, t7927: F, t3924: F, t504: F, t1347: F, t2153: F, t2185: F, t7407: F, t507: F, t8629: F, t124: F, t338: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t36515 = t7921 * t1990;
-    let t36520 = t1993 * t7920;
-    let t36521 = t36520 * t1997;
-    let t36527 = t7335 * t7927;
-    let t36528 = 0.12195059916630011326e-2 * t36527;
-    let t36596 = t504 * t3924;
-    let t36601 = t1347 * t2153;
-    let t36612 = t7407 * t2185;
-    let t36629 = t507 * t8629;
-    let t36632 = t124 * t338;
-    (t36515, t36520, t36521, t36528, t36596, t36601, t36612, t36629, t36632)
+pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk702<F: Float>(t10014: F, t7365: F, t236: F, t6182: F, t1971: F, t1970: F, t209: F, t558: F, t605: F, t511: F, t570: F, t515: F) -> (F, F, F, F, F, F) {
+    let t10015 = t7365 * t10014;
+    let t10016 = F::new(0.85129199786595678796e-5) * t10015;
+    let t10017 = t236 * t6182;
+    let t10018 = t1971 * t10017;
+    let t10019 = t1970 * t10018;
+    let t10020 = F::new(0.42564599893297839398e-5) * t10019;
+    let t10022 = t558 * t605 * t209;
+    let t10023 = t511 * t10022;
+    let t10024 = t1971 * t10023;
+    let t10025 = t1970 * t10024;
+    let t10026 = F::new(0.25538759935978703638e-4) * t10025;
+    let t10028 = t570 * t605 * t209;
+    let t10029 = t515 * t10028;
+    (t10016, t10018, t10020, t10024, t10026, t10029)
 }

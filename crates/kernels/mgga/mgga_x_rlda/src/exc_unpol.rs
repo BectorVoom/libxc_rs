@@ -29,14 +29,14 @@ pub fn mgga_x_rlda_exc_unpol(
         let t5 = t4 * t4;
         let t6 = 1.0 <= zeta_threshold;
         let t7 = zeta_threshold - 1.0;
-        let t9 = piecewise5(t6, t7, t6, -t7, 0.0);
+        let t9 = piecewise5::<f64>(t6, t7, t6, -t7, 0.0);
         let t10 = 1.0 + t9;
-        let t12 = pow_1_3(zeta_threshold);
-        let t14 = pow_1_3(t10);
-        let t16 = piecewise3(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
+        let t12 = pow_1_3::<f64>(zeta_threshold);
+        let t14 = pow_1_3::<f64>(t10);
+        let t16 = piecewise3::<f64>(t10 <= zeta_threshold, t12 * zeta_threshold, t14 * t10);
         let t17 = t5 * t16;
-        let t18 = pow_1_3(rho[ip]);
-        let t21 = pow_1_3(1.0 / M_PI);
+        let t18 = pow_1_3::<f64>(rho[ip]);
+        let t21 = pow_1_3::<f64>(1.0 / M_PI);
         let t22 = 1.0 / t21;
         let t23 = param_prefactor * t22;
         let t24 = M_CBRT4;
@@ -48,7 +48,7 @@ pub fn mgga_x_rlda_exc_unpol(
         let t33 = lapl[ip] * t26;
         let t36 = 2.0 * t27 * t30 - t33 * t30 / 4.0;
         let t39 = t23 * t24 / t36;
-        let t42 = piecewise3(t3, 0.0, -15.0 / 16.0 * t17 * t18 * t39);
+        let t42 = piecewise3::<f64>(t3, 0.0, -15.0 / 16.0 * t17 * t18 * t39);
         let tzk0 = 2.0 * t42;
         zk[ip] += tzk0;
     }

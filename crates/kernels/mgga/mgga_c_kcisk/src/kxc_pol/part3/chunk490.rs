@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 490/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 490/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk490<F: Float>(t1275: F, t4100: F, t4101: F, t4007: F, t4060: F, t4011: F, t4015: F, t4018: F, t4021: F, t4039: F, t4047: F, t4055: F, t4057: F, t4063: F, t4067: F, t4070: F, t4073: F) -> (F, F) {
-    let t4103 = t4100 * t4101 * t1275;
-    let t4108 = 0.40256666666666666667e0 * t4007;
-    let t4115 = 0.27595e0 * t4060;
-    let t4120 = -0.1294625e1 * t4039 + 0.258925e1 * t4047 + t4108 + 0.20128333333333333334e0 * t4011 - 0.20128333333333333333e0 * t4015 + 0.60385e0 * t4018 - 0.301925e0 * t4021 + 0.82524375e-1 * t4055 + 0.16504875e0 * t4057 + t4115 + 0.22076e0 * t4063 - 0.5519e-1 * t4067 + 0.33114e0 * t4070 - 0.16557e0 * t4073;
-    (t4103, t4120)
+pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk490<F: Float>(t213: F, t442: F, t1390: F, t967: F, t1056: F, t1399: F, t970: F, t1398: F, t3583: F, t1349: F, t1391: F, t173: F, t3283: F, t3844: F, t3848: F, t3851: F, t3852: F, t3853: F) -> (F, F, F) {
+    let t3857 = t213 * t442;
+    let t3858 = F::new(0.15538616723388920628e-3) * t3857;
+    let t3859 = t967 * t1390;
+    let t3860 = t3859 * t1056;
+    let t3864 = t970 * t1399;
+    let t3866 = t1398 * t3583;
+    let t3869 = -t3844 - t3848 + t3851 - t3852 - F::new(0.23911438650126355246e-1) * t3853 + F::new(0.11955719325063177623e-1) * t1349 * t3283 + t3858 + F::new(0.20718155631185227504e-3) * t3860 - F::new(0.5179538907796306876e-4) * t1391 * t3283 - F::new(0.23526125e-4) * t3864 + F::new(0.50413125e-5) * t173 * t3866;
+    (t3859, t3866, t3869)
 }

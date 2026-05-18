@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 930/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 930/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk930<F: Float>(t10136: F, t4101: F, t2453: F, t4100: F, t1398: F, t281: F, t543: F, t68: F, t10115: F, t562: F, t2435: F, t3903: F, t1445: F, t3895: F, t2439: F, t1420: F) -> (F, F, F, F, F, F, F) {
-    let t10137 = t4101 * t10136;
-    let t10139 = t2453 * t4100;
-    let t10142 = t281 * t68 * t1398 * t543;
-    let t10143 = t10139 * t10142;
-    let t10157 = 0.11044544084478153697e-3 * t10115 * t562;
-    let t10160 = t2435 * t3903;
-    let t10162 = t3895 * t1445;
-    let t10163 = t2439 * t10162;
-    let t10165 = t2453 * t1420;
-    (t10137, t10139, t10143, t10157, t10160, t10163, t10165)
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk930<F: Float>(t1390: F, t6874: F, t828: F, t4012: F, t6836: F, t124: F, t6816: F, t800: F, t1370: F, t1388: F, t1410: F, t3934: F, t3976: F, t3987: F, t4002: F, t4064: F, t5611: F, t5619: F, t5623: F, t6864: F, t6871: F) -> (F, F, F, F, F) {
+    let t6876 = t1390 * t828 * t6874;
+    let t6880 = t4012 * t828 * t6836;
+    let t6883 = t124 * t6816;
+    let t6884 = t800 * t6883;
+    let t6887 = -t3976 + t3987 + F::new(0.14291339372689912324e-4) * t5611 + F::new(0.42874018118069736972e-3) * t4002 * t6864 + F::new(0.57165357490759649296e-4) * t5619 - F::new(0.10164000561857065645e-3) * t5623 + F::new(0.17149607247227894789e-2) * t3934 * t6871 - F::new(0.21437009059034868486e-3) * t1388 * t6876 + F::new(0.42874018118069736972e-2) * t1410 * t6880 - t1370 * t6884 / F::new(48.0) - t4064;
+    (t6876, t6880, t6883, t6884, t6887)
 }

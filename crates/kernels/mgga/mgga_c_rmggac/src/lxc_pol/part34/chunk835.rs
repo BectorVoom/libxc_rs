@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 835/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 835/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk835<F: Float>(t77383: F, t3351: F, t3352: F, t44244: F, t515: F, t1971: F, t2144: F, t44293: F, t2447: F, t352: F, t875: F, t15523: F, t7720: F, t1550: F, t2069: F, t2471: F) -> (F, F, F, F, F, F) {
-    let t77384 = 0.42564599893297839398e-5 * t77383;
-    let t77387 = t3351 * t3352 * t515 * t44244;
-    let t77388 = 0.12769379967989351819e-4 * t77387;
-    let t77391 = t3351 * t1971 * t2144 * t44293;
-    let t77392 = 0.12769379967989351819e-4 * t77391;
-    let t77393 = t2447 * t352;
-    let t77396 = t3351 * t1971 * t875 * t77393;
-    let t77397 = 0.85129199786595678796e-5 * t77396;
-    let t77398 = t7720 * t15523;
-    let t77399 = 0.42564599893297839398e-5 * t77398;
-    let t77401 = t1550 * t2471 * t2069;
-    (t77384, t77388, t77392, t77397, t77399, t77401)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk835<F: Float>(t1587: F, t234: F, t3157: F, t69064: F, t69069: F, t13949: F, t6355: F, t13975: F, t38530: F, t27: F, t9169: F, t16058: F, t69609: F) -> (F, F, F, F, F, F) {
+    let t74996 = t234 * t1587;
+    let t74997 = t74996 * t3157;
+    let t75002 = F::new(0.39726959900411316772e-4) * t69064;
+    let t75003 = F::new(0.19863479950205658386e-4) * t69069;
+    let t75005 = F::new(0.5987120850931904282e-1) * t6355 * t13949;
+    let t75006 = t38530 * t13975;
+    let t75008 = t27 * t9169;
+    let t75010 = t69609 * t16058 * t75008;
+    (t74997, t75002, t75003, t75005, t75006, t75010)
 }

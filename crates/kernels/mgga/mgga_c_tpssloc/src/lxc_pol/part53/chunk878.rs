@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 878/939 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 53 (v4rho2sigma2_9) CSE chunk 878/1059 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk878<F: Float>(t33380: F, t6579: F, t1888: F, t22996: F, t26657: F, t232: F, t6646: F, t7823: F, t828: F, t1880: F, t1894: F, t214: F, t26653: F, t92552: F, t26676: F, t33384: F, t6547: F) -> (F, F, F, F, F, F, F) {
-    let t121536 = t6579 * t33380;
-    let t121541 = t1888 * t22996 * t26657;
-    let t121546 = t1888 * t6646 * t7823 * t828 * t232;
-    let t121550 = t1880 * t214 * t1894 * t26653;
-    let t121560 = t1888 * t6646 * t92552 * t232;
-    let t121563 = t1888 * t6646 * t26676;
-    let t121574 = t6547 * t33384;
-    (t121536, t121541, t121546, t121550, t121560, t121563, t121574)
+pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk878<F: Float>(t30697: F, t30704: F, t30721: F, t30701: F, t30707: F, t30710: F, t30717: F, t30723: F, t218: F, t31374: F, t31382: F, t814: F, t8728: F) -> (F, F, F, F, F, F, F, F) {
+    let t31976 = F::new(0.22608743412718618877e-1) * t30697;
+    let t31978 = F::new(0.5383034145885385447e-3) * t30704;
+    let t31982 = F::new(7.0) / F::new(576.0) * t30721;
+    let t31984 = -t31976 - F::new(0.19378922925187387609e-1) * t30701 - t31978 - F::new(0.32298204875312312682e-2) * t30707 + t30710 / F::new(384.0) - t30717 / F::new(384.0) - t31982 - t30723 / F::new(96.0);
+    let t31985 = t218 * t31984;
+    let t31987 = F::new(0.76763589786250567037e-1) * t31374;
+    let t31989 = F::new(0.16449340668482264365e-1) * t31382;
+    let t31993 = t814 * t8728;
+    (t31976, t31978, t31982, t31984, t31985, t31987, t31989, t31993)
 }

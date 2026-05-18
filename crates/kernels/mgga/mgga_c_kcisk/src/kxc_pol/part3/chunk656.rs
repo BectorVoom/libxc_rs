@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 656/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 656/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk656<F: Float>(t10488: F, t1224: F, t4840: F, t10585: F, t10442: F, t1697: F, t10593: F, t10450: F, t10934: F, t10937: F, t10941: F, t10944: F, t10947: F, t10951: F, t1705: F, t4850: F) -> (F, F, F, F, F, F, F) {
-    let t10954 = t1224 * t4840 * t10488;
-    let t10957 = t1224 * t4840 * t10585;
-    let t10960 = t1224 * t1697 * t10442;
-    let t10963 = t1224 * t1697 * t10593;
-    let t10966 = t1224 * t1697 * t10450;
-    let t10968 = -t10934 - 0.12361111111111111111e-1 * t10937 + 0.61805555555555555556e-2 * t10941 - 0.18541666666666666667e-1 * t10944 + 0.92708333333333333334e-2 * t10947 - 0.10300925925925925926e-1 * t10951 + 0.37083333333333333333e-1 * t10954 - 0.18541666666666666666e-1 * t10957 - 0.55625000000000000001e-1 * t10960 + 0.55625000000000000001e-1 * t10963 - 0.92708333333333333333e-2 * t10966;
-    let t10972 = t4850 * t1705;
-    (t10954, t10957, t10960, t10963, t10966, t10968, t10972)
+pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk656<F: Float>(t10450: F, t1801: F, t1800: F, t1799: F, t4581: F, t5055: F, t5054: F, t1849: F, t579: F, t1336: F, t140: F, t4596: F, t694: F) -> (F, F, F, F, F) {
+    let t10451 = t1801 * t10450;
+    let t10452 = t1800 * t10451;
+    let t10453 = t1799 * t10452;
+    let t10455 = t4581 * t5055;
+    let t10456 = t5054 * t10455;
+    let t10459 = F::new(1.0) / t579 / t1849;
+    let t10461 = t140 * t1336 * t10459;
+    let t10463 = F::new(1.0) / t4596 / t694;
+    (t10453, t10456, t10459, t10461, t10463)
 }

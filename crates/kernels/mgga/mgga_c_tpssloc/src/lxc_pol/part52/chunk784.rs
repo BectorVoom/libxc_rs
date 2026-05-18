@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 784/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 784/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk784<F: Float>(t6889: F, t7700: F, t1985: F, t1807: F, t2006: F, t1811: F, t6916: F, t1799: F, t236: F, t1998: F, t6926: F, t1339: F, t1825: F, t6936: F, t1814: F, t2002: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t7701 = t6889 * t7700;
-    let t7702 = t1985 * t7701;
-    let t7704 = t1807 * t2006;
-    let t7706 = t6916 * t1811;
-    let t7708 = t236 * t1799;
-    let t7709 = t1998 * t7708;
-    let t7710 = t6926 * t7709;
-    let t7712 = t1339 * t1825;
-    let t7713 = t6936 * t7712;
-    let t7715 = t1814 * t2002;
-    (t7701, t7702, t7704, t7706, t7709, t7710, t7712, t7713, t7715)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk784<F: Float>(t5: F, t2240: F, t7245: F, t50: F, t55: F, t607: F, t6503: F, t67: F, t1864: F, t2109: F, t6509: F, t1860: F, t2110: F, t6486: F, t6492: F, t6495: F) -> (F, F, F, F, F, F, F) {
+    let t7 = piecewise3::<f64>(F::new(0.0) < t5, t5, -t5);
+    let t8 = -t7 <= -F::new(0.999999999999e0);
+    let t7246 = t2240 * t7245;
+    let t7251 = t50 * t55;
+    let t7254 = -F::new(5.0) / F::new(6.0) * t7251 * t607 + t6503;
+    let t7255 = t7254 * t67;
+    let t7256 = t7255 * t1864;
+    let t7259 = t2109 * t6509;
+    let t7263 = piecewise3::<f64>(t8, F::new(0.0), -t6486 * t2110 / F::new(6.0) + F::new(5.0) / F::new(6.0) * t7246 * t6492 + t6495 * t2110 / F::new(3.0) - t1860 * t7256 / F::new(6.0) - t1860 * t7259 / F::new(6.0));
+    (t7246, t7251, t7254, t7255, t7256, t7259, t7263)
 }

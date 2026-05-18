@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 848/1102 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 848/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk848<F: Float>(t21762: F, t3297: F, t136: F, t1113: F, t21769: F, t21776: F, t11219: F, t21758: F, t11243: F, t21785: F, t21760: F, t21764: F, t21767: F, t21771: F, t21774: F, t21778: F, t21781: F, t21783: F, t21786: F) -> (F, F, F, F, F, F) {
-    let t21788 = t3297 * t21762;
-    let t21789 = t136 * t21788;
-    let t21791 = t1113 * t21769;
-    let t21792 = t136 * t21791;
-    let t21794 = t1113 * t21776;
-    let t21795 = t136 * t21794;
-    let t21801 = t11219 * t21758;
-    let t21802 = t136 * t21801;
-    let t21804 = t11243 * t21785;
-    let t21808 = 0.3071625e0 * t21781 + 0.1898925e1 * t21783 + 0.142419375e1 * t21786 - 0.16431333333333333333e0 * t21789 + 0.49293999999999999999e0 * t21792 + 0.82156666666666666667e-1 * t21795 + 0.33218518518518518518e0 * t21760 - 0.11958666666666666667e1 * t21764 + 0.17938e1 * t21771 + 0.29896666666666666667e0 * t21778 + 0.36514074074074074075e-1 * t21802 - 0.76790625e-1 * t21804 - 0.59793333333333333333e0 * t21767 + 0.17938e1 * t21774;
-    (t21789, t21792, t21795, t21802, t21804, t21808)
+pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk848<F: Float>(t20594: F, t225: F, t554: F, t12215: F, t1341: F, t1363: F, t16285: F, t1827: F, t19855: F, t19940: F, t19942: F, t20512: F, t20516: F, t20556: F, t20565: F, t20570: F, t3733: F, t5235: F, t559: F, t6390: F, t6422: F) -> (F, F) {
+    let t20595 = t20594 * t225;
+    let t20596 = t20595 * t554;
+    let t20599 = -F::new(35.0) / F::new(384.0) * t19940 + F::new(7.0) / F::new(384.0) * t19942 - t12215 * t20512 / F::new(4.0) + F::new(3.0) / F::new(16.0) * t3733 * t20516 - t1341 * t20556 / F::new(3072.0) - t5235 * t6422 / F::new(1024.0) + t16285 * t6390 / F::new(512.0) + F::new(5.0) / F::new(256.0) * t1363 * t20565 - t1341 * t20570 / F::new(3072.0) - t19855 * t1827 / F::new(1024.0) + t20596 * t559 / F::new(3072.0);
+    (t20595, t20599)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1108/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1108/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1108<F: Float>(t19127: F, t935: F, t915: F, t11294: F, t6145: F, t11465: F, t6189: F, t4733: F, t981: F, t11108: F, t6400: F, t1100: F, t18902: F, t19025: F, t19027: F, t19029: F, t19031: F, t19048: F, t19051: F, t19053: F, t19055: F, t19058: F, t19060: F, t19062: F, t19079: F, t19081: F, t19084: F, t5023: F) -> (F, F, F, F) {
-    let t19128 = t19127 * t935;
-    let t19130 = 1.0 * t915 * t19128;
-    let t19132 = 0.16081979498692535067e2 * t11294 * t6145;
-    let t19133 = t11465 * t6189;
-    let t19134 = t19133 * t4733;
-    let t19136 = 0.10389515463408878255e3 * t981 * t19134;
-    let t19137 = t6400 * t11108;
-    let t19141 = 2.0 * t1100 * t19137 * t5023 - t18902 - t19025 - t19027 - t19029 + t19031 + t19048 - t19051 - t19053 + t19055 + t19058 + t19060 + t19062 - t19079 - t19081 - t19084 + t19130 + t19132 + t19136;
-    (t19130, t19132, t19136, t19141)
+pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1108<F: Float>(t15993: F, t4574: F, t1011: F, t1012: F, t11821: F, t11922: F, t4906: F, t3115: F, t4895: F, t4892: F, t140: F, t4886: F) -> (F, F, F, F, F) {
+    let t15994 = t15993 * t4574;
+    let t15996 = t1011 * t15994 / F::new(324.0);
+    let t16012 = t1012 * t11821;
+    let t16035 = t11922 * t4906;
+    let t16037 = F::new(0.28582678745379824648e-3) * t3115 * t16035;
+    let t16055 = t11922 * t4895;
+    let t16057 = F::new(0.57165357490759649296e-3) * t4892 * t16055;
+    let t16060 = t140 * t4886;
+    (t15996, t16012, t16037, t16057, t16060)
 }

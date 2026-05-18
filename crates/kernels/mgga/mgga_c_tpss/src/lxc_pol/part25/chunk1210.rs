@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1210/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1210/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1210<F: Float>(t14207: F, t17964: F, t14247: F, t5559: F, t14258: F, t17960: F, t4761: F, t4766: F, t14300: F, t5552: F, t4718: F, t61057: F, t14242: F, t1395: F, t226: F, t3664: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t69985 = t17964 * t14207;
-    let t69989 = t5559 * t14247;
-    let t69991 = t5559 * t14258;
-    let t69993 = t17960 * t4761;
-    let t69995 = t17960 * t4766;
-    let t69997 = t5552 * t14300;
-    let t69999 = t61057 * t4718;
-    let t70001 = t5559 * t14242;
-    let t70030 = t1395 * t3664 * t226;
-    (t69985, t69989, t69991, t69993, t69995, t69997, t69999, t70001, t70030)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1210<F: Float>(t20154: F, t219: F, t6420: F, t1265: F, t18490: F, t6424: F, t18967: F, t19521: F, t1266: F, t1657: F, t1842: F, t18483: F, t18496: F, t18950: F, t19507: F, t19509: F, t4494: F, t4517: F, t538: F, t5739: F, t5921: F, t5925: F, t5930: F, t5933: F, t6260: F, t6425: F) -> (F, F, F, F, F) {
+    let t20155 = param_beta * t20154;
+    let t20157 = t6420 * t219;
+    let t20171 = t18490 * t6424 * t1265;
+    let t20174 = t18967 * t19521;
+    let t20177 = -t1266 * t20157 - t1657 * t18950 - t1842 * t19507 + F::new(2.0) * t18483 * t6425 - F::new(2.0) * t18496 * t20174 + F::new(2.0) * t19509 * t5925 + t19509 * t5930 + t20155 * t538 - F::new(6.0) * t20171 * t5739 + F::new(2.0) * t4494 * t5921 - t4517 * t5921 - t5933 * t6260;
+    (t20155, t20157, t20171, t20174, t20177)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1131/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1131/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1131<F: Float>(t1307: F, t567: F, t22635: F, t26331: F, t3719: F, t6888: F, t6891: F, t80707: F, t1377: F, t1385: F, t22633: F, t12033: F, t1386: F, t2016: F, t22630: F, t3752: F, t3758: F, t39916: F, t568: F, t6955: F, t6963: F, t81315: F, t81318: F, t81319: F, t81328: F) -> (F,) {
-    let t81330 = t567 * t1307;
-    let t81333 = t26331 * t22635 * t81330 * t3719;
-    let t81339 = t6888 * t80707 * t6891;
-    let t81346 = t22633 * t22635 * t1377 * t3719 * t1385;
-    let t81348 = 0.49348022005446793095e-1 * t81315 - t81318 - 3.0 * t81319 * t1386 - 3.0 * t39916 * t2016 - 18.0 * t3758 * t22630 - 0.49348022005446793095e-1 * t81328 + 0.14804406601634037928e0 * t81333 + 3.0 * t3752 * t6955 * t568 - 0.49348022005446793095e-1 * t81339 + 6.0 * t12033 * t6963 + 0.49348022005446793095e-1 * t81346;
-    (t81348,)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1131<F: Float>(t23092: F, t23149: F, t235: F, t234: F, t852: F, t776: F, t6637: F, t6552: F, t2553: F, t6638: F, t117: F, t229: F, t67: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t23150 = t23092 + t23149;
+    let t23151 = t235 * t23150;
+    let t23153 = t234 * t852;
+    let t23154 = t23153 * t776;
+    let t23155 = t6637 * t23154;
+    let t23156 = t6552 * t23155;
+    let t23158 = t6638 * t2553;
+    let t23159 = t6637 * t23158;
+    let t23160 = t6552 * t23159;
+    let t23163 = t229 * t67 * t117;
+    (t23150, t23151, t23153, t23154, t23155, t23156, t23158, t23159, t23160, t23163)
 }

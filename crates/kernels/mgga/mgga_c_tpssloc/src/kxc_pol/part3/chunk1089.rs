@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 1089/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 1089/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk1089<F: Float>(t16100: F, t205: F, t221: F, t3734: F, t5196: F, t3726: F, t5206: F, t12199: F, t5202: F, t118: F, t5187: F, t794: F, t3739: F, t16018: F, t210: F, t214: F) -> (F, F, F, F, F, F) {
-    let t16101 = t205 * t16100;
-    let t16103 = t221 * t5196 * t3734;
-    let t16106 = t3726 * t5206;
-    let t16108 = t12199 * t5202;
-    let t16111 = t118 * t794 * t5187;
-    let t16113 = 0.16666666666666666666e-2 * t3739 * t16111;
-    let t16115 = t210 * t214 * t16018;
-    (t16101, t16103, t16106, t16108, t16113, t16115)
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk1089<F: Float>(t14164: F, t14165: F, t4582: F, t10263: F, t10403: F, t1041: F, t10413: F, t10896: F, t14122: F, t14126: F, t14130: F, t14136: F, t14139: F, t14143: F, t14147: F, t14152: F, t14158: F, t14160: F, t1607: F, t2960: F, t3070: F, t3117: F, t4562: F, t4565: F, t4585: F, t973: F) -> F {
+    let t14166 = t14164 * t14165;
+    let t14167 = t4582 * t14166;
+    let t14170 = t10403 * t14122 / F::new(2304.0) - t10413 * t14126 / F::new(4608.0) - t3070 * t14130 / F::new(2304.0) - t10896 / F::new(4608.0) - t14136 + t14139 - t3117 * t4585 / F::new(1152.0) - t1041 * t14143 / F::new(1152.0) - t1041 * t14147 / F::new(2304.0) + t2960 * t4562 / F::new(27.0) + t973 * t14152 / F::new(48.0) - F::new(2.0) / F::new(81.0) * t2960 * t4565 - t14158 - t14160 / F::new(1296.0) + F::new(11.0) / F::new(324.0) * t10263 * t1607 + t1041 * t14167 / F::new(768.0);
+    t14170
 }

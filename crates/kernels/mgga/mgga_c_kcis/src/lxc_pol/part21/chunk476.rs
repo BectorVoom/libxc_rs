@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 476/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 476/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk476<F: Float>(t3110: F, t335: F, t333: F, t1057: F, t733: F, t1056: F, t2829: F, t2845: F, t345: F, t1065: F, t738: F, t1064: F, t945: F, t1080: F, t743: F, t2850: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t3111 = t3110 * t335;
-    let t3113 = 0.16804375e-4 * t333 * t3111;
-    let t3114 = t733 * t1057;
-    let t3116 = t1056 * t2829;
-    let t3119 = t345 * t2845;
-    let t3122 = t738 * t1065;
-    let t3124 = t1064 * t2829;
-    let t3127 = t945 * t2845;
-    let t3130 = t743 * t1080;
-    let t3132 = t1064 * t2850;
-    (t3111, t3113, t3114, t3116, t3119, t3122, t3124, t3127, t3130, t3132)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk476<F: Float>(t3005: F, t3006: F, t971: F, t2917: F, t2966: F, t2919: F, t2922: F, t2925: F, t2928: F, t2945: F, t2953: F, t2961: F, t2963: F, t2968: F, t2972: F, t2975: F, t2978: F) -> (F, F, F, F) {
+    let t3008 = t3005 * t3006 * t971;
+    let t3013 = F::new(0.40256666666666666667e0) * t2917;
+    let t3020 = F::new(0.137975e0) * t2966;
+    let t3025 = -F::new(0.1294625e1) * t2945 + F::new(0.258925e1) * t2953 + t3013 + F::new(0.20128333333333333334e0) * t2919 - F::new(0.20128333333333333333e0) * t2922 + F::new(0.60385e0) * t2925 - F::new(0.301925e0) * t2928 + F::new(0.82524375e-1) * t2961 + F::new(0.16504875e0) * t2963 + t3020 + F::new(0.11038e0) * t2968 - F::new(0.27595e-1) * t2972 + F::new(0.16557e0) * t2975 - F::new(0.82785e-1) * t2978;
+    (t3008, t3013, t3020, t3025)
 }

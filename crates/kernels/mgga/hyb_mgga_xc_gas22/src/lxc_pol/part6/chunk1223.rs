@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1223/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1223/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,11 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1223<F: Float>(t10450: F, t680: F, t2018: F, t3990: F, t10472: F, t677: F, t136: F, t1815: F, t3946: F, t10168: F, t1240: F, t1243: F, t139: F, t2002: F, t2024: F, t2027: F, t2028: F, t214: F, t23809: F, t24021: F, t24026: F, t24426: F, t24439: F, t26: F, t28136: F, t28150: F, t28153: F, t28156: F, t28628: F, t2949: F, t2950: F, t3287: F, t675: F, t684: F, t687: F, t8536: F) -> (F,) {
-    let t28634 = t10450 * t680;
-    let t28636 = t3990 * t2018;
-    let t28638 = t677 * t10472;
-    let t28642 = t136 * t1815 * t3946;
-    let t28645 = -3.0 / 32.0 * t1240 * t8536 + 3.0 / 8.0 * t2949 * t2950 * t3287 + t24021 / 24.0 - t684 * t687 * t28136 * t675 / 32.0 - t684 * t687 * t10168 * t2002 / 64.0 - t2024 * t2027 * t10168 * t2028 / 48.0 - t28150 / 96.0 - t28153 / 96.0 - t28156 / 96.0 + t2024 * t23809 * t1243 / 12.0 - t24026 / 32.0 - 3.0 / 64.0 * t136 * t26 * t139 * t28628 * t214 - t28634 / 32.0 - t28636 / 32.0 - t28638 / 16.0 - t24426 / 32.0 + t28642 / 48.0 - t24439 / 32.0;
-    (t28645,)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1223<F: Float>(t191: F, t240: F, t6452: F, t8511: F, t8514: F, t2026: F, t6610: F, t3138: F, t8521: F, t763: F, t8512: F, t8518: F) -> (F, F, F, F, F, F) {
+    let t23889 = t240 * t6452 * t191;
+    let t23891 = t8511 * t23889 * t8514;
+    let t23894 = t6610 * t2026 * t191;
+    let t23896 = t3138 * t23894 * t8521;
+    let t23905 = t8512 * t763;
+    let t23909 = t8518 * t763;
+    (t23889, t23891, t23894, t23896, t23905, t23909)
 }

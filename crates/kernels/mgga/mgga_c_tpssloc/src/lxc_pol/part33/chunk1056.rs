@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1056/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1056/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1056<F: Float>(t5493: F, t89: F, t1874: F, t7458: F, t7461: F, t4028: F, t7468: F, t28002: F, t19451: F, t1774: F, t7467: F, t652: F, t2006: F, t6361: F, t1807: F, t7722: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t28030 = t89 * t5493;
-    let t28032 = 2.0 * t28030 * t1874;
-    let t28034 = 4.0 * t7458 * t7461;
-    let t28036 = 4.0 * t4028 * t7468;
-    let t28038 = 4.0 * t28002 * t1874;
-    let t28040 = 4.0 * t4028 * t7461;
-    let t28042 = 2.0 * t19451 * t1874;
-    let t28045 = t1774 * t7467;
-    let t28047 = 4.0 * t652 * t28045;
-    let t28051 = t6361 * t2006;
-    let t28053 = t1807 * t7722;
-    (t28030, t28032, t28034, t28036, t28038, t28040, t28042, t28045, t28047, t28051, t28053)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1056<F: Float>(t22228: F, t3403: F, t1164: F, t1147: F, t1156: F, t21938: F, t11282: F, t21906: F, t11285: F, t4869: F, t6102: F, t21726: F, t21728: F, t21730: F, t21732: F, t21897: F, t21901: F, t21990: F, t21993: F) -> (F, F, F, F, F) {
+    let t22229 = t22228 * t3403;
+    let t22231 = F::new(0.10389515463408878255e3) * t1164 * t22229;
+    let t22233 = t1147 * t21938 * t1156;
+    let t22235 = F::new(0.5848223622634646207e0) * t1164 * t22233;
+    let t22236 = t11282 * t21906;
+    let t22237 = t22236 * t11285;
+    let t22239 = F::new(0.10254018858216406658e4) * t1164 * t22237;
+    let t22241 = F::new(0.17544670867903938621e1) * t4869 * t6102;
+    let t22242 = t22231 - t22235 - t22239 + t21726 - t21897 + t21901 - t21730 - t22241 - t21728 - t21990 + t21732 + t21993;
+    (t22231, t22235, t22239, t22241, t22242)
 }

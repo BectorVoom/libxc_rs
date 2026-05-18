@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 887/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 887/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk887<F: Float>(t16043: F, t9051: F, t9055: F, t34847: F, t9123: F, t9213: F, t9218: F, t9106: F, t10792: F, t2301: F, t8340: F, t7213: F, t7245: F, t8021: F, t8022: F, t8023: F, t8024: F, t8025: F, t8027: F, t8028: F, t8029: F) -> (F, F, F, F, F, F, F, F) {
-    let t42260 = t16043 * t9051;
-    let t42262 = t16043 * t9055;
-    let t42264 = t34847 * t9123;
-    let t42266 = t16043 * t9213;
-    let t42268 = t16043 * t9218;
-    let t42270 = t16043 * t9106;
-    let t42272 = t10792 * t2301;
-    let t42369 = 0.13637330827122670865e-1 * t8340;
-    let t42370 = -0.325201597776800302e-2 * t7213 + t8021 + t8022 + t8023 + t8024 - t8025 + 0.79453919800822633544e-4 * t7245 - t8027 - t8028 - t8029 + t42369;
-    (t42260, t42262, t42264, t42266, t42268, t42270, t42272, t42370)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk887<F: Float>(t352: F, t8700: F, t262: F, t7192: F, t2157: F, t5011: F, t2350: F, t866: F, t848: F, t8630: F, t833: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t39674 = t8700 * t352;
+    let t39675 = t262 * t39674;
+    let t39676 = t7192 * t39675;
+    let t39678 = t5011 * t2157;
+    let t39680 = t2350 * t866;
+    let t39681 = t262 * t39680;
+    let t39682 = t7192 * t39681;
+    let t39684 = t2350 * t848;
+    let t39685 = t262 * t39684;
+    let t39686 = t8630 * t39685;
+    let t39688 = t2350 * t833;
+    let t39689 = t262 * t39688;
+    (t39674, t39675, t39676, t39678, t39680, t39681, t39682, t39684, t39685, t39686, t39688, t39689)
 }

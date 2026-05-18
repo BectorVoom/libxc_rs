@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1203/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1203/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1203<F: Float>(t24465: F, t26550: F, t55353: F, t8657: F, t1983: F, t24990: F, t31758: F, t24991: F, t8607: F, t4026: F, t8595: F, t1442: F, t31518: F, t22574: F, t31299: F, t33899: F) -> (F, F, F, F, F, F, F) {
-    let t120869 = 27.0 * t24465 * t26550;
-    let t120871 = 27.0 * t55353 * t8657;
-    let t120874 = 3.0 * t1983 * t31758 * t24990;
-    let t120876 = 3.0 * t8607 * t24991;
-    let t120877 = t4026 * t8595;
-    let t120878 = t1442 * t31518;
-    let t120881 = 3.0 * t22574 * t33899 * t31299;
-    (t120869, t120871, t120874, t120876, t120877, t120878, t120881)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1203<F: Float>(t1998: F, t7722: F, t214: F, t1985: F, t225: F, t567: F, t26193: F, t8458: F, t30663: F, t7479: F, t6552: F, t7488: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t32748 = t1998 * t7722;
+    let t32749 = t214 * t32748;
+    let t32751 = F::new(0.16449340668482264365e-1) * t1985 * t32749;
+    let t32761 = t7722 * t225 * t567;
+    let t32762 = t214 * t32761;
+    let t32764 = F::new(0.16449340668482264365e-1) * t1985 * t32762;
+    let t32769 = t26193 * t8458;
+    let t32771 = F::new(0.16449340668482264365e-1) * t1985 * t32769;
+    let t32789 = t30663 * t7479;
+    let t32791 = F::new(0.3289868133696452873e-1) * t6552 * t32789;
+    let t32792 = t30663 * t7488;
+    (t32748, t32749, t32751, t32761, t32762, t32764, t32769, t32771, t32789, t32791, t32792)
 }

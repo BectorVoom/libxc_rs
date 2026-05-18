@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 520/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 520/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk520<F: Float>(t14935: F, t515: F, t235: F, t13825: F, t13833: F, t13837: F, t13842: F, t13844: F, t13854: F, t13864: F, t13890: F, t13893: F, t290: F, t3285: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t14936 = t515 * t14935;
-    let t14937 = t235 * t14936;
-    let t14938 = 0.19957069503106347607e-1 * t14937;
-    let t14939 = 0.76860658247009135562e-5 * t13825;
-    let t14940 = 0.93188427318671584242e-2 * t13833;
-    let t14941 = 0.15531404553111930707e-1 * t13837;
-    let t14942 = 0.31062809106223861414e-2 * t13842;
-    let t14944 = 0.31062809106223861414e-2 * t13844;
-    let t14945 = 0.58171619854173713844e-5 * t13854;
-    let t14946 = 0.17519306092901367187e-6 * t13864;
-    let t14947 = 0.35038612185802734374e-6 * t13890;
-    let t14950 = 0.52557918278704101561e-6 * t13893;
-    let t14953 = t290 * t3285;
-    (t14936, t14938, t14939, t14940, t14941, t14942, t14944, t14945, t14946, t14947, t14950, t14953)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk520<F: Float>(t14174: F, t1550: F, t495: F, t664: F, t515: F, t1971: F, t7230: F, t498: F, t7231: F, t3351: F, t7799: F, t3352: F) -> (F, F, F, F, F, F) {
+    let t14175 = t1550 * t14174;
+    let t14178 = t664 * t495;
+    let t14179 = t515 * t14178;
+    let t14180 = t1971 * t14179;
+    let t14181 = t7230 * t14180;
+    let t14182 = F::new(0.1064114997332445985e-4) * t14181;
+    let t14183 = t664 * t498;
+    let t14184 = t515 * t14183;
+    let t14185 = t7231 * t14184;
+    let t14186 = t3351 * t14185;
+    let t14188 = t515 * t7799;
+    let t14189 = t3352 * t14188;
+    (t14175, t14180, t14182, t14185, t14186, t14189)
 }

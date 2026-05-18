@@ -29,16 +29,16 @@ pub fn mgga_x_mcml_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = t11 + 1.0;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t21 = M_CBRT6;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t25 = 1.0 / t24;
         let t26 = t21 * t25;
@@ -65,13 +65,13 @@ pub fn mgga_x_mcml_exc_unpol(
         let t60 = 5.0 / 9.0 * (t52 * t54 - t36 / 8.0) * t21 * t25;
         let t61 = 10000.0 <= t60;
         let t62 = 10000.0 < t60;
-        let t63 = piecewise3(t62, t60, 10000.0);
+        let t63 = piecewise3::<f64>(t62, t60, 10000.0);
         let t64 = t63 * t63;
         let t67 = t64 * t63;
         let t68 = 1.0 / t67;
         let t70 = t64 * t64;
         let t71 = 1.0 / t70;
-        let t74 = piecewise3(t62, 10000.0, t60);
+        let t74 = piecewise3::<f64>(t62, 10000.0, t60);
         let t75 = t74 * t74;
         let t76 = 1.0 - t75;
         let t77 = t76 * t76;
@@ -80,7 +80,7 @@ pub fn mgga_x_mcml_exc_unpol(
         let t81 = 1.0 + 4.0 * t79;
         let t83 = t79 * t81 + 1.0;
         let t84 = 1.0 / t83;
-        let t86 = piecewise3(t61, 3.0 / 4.0 / t64 + t68 / 16.0 - 3.0 / 4.0 * t71 - 1.0 / 4.0, t78 * t84);
+        let t86 = piecewise3::<f64>(t61, 3.0 / 4.0 / t64 + t68 / 16.0 - 3.0 / 4.0 * t71 - 1.0 / 4.0, t78 * t84);
         let t88 = t86 * t86;
         let t89 = t88 * t88;
         let t90 = t89 * t86;
@@ -113,7 +113,7 @@ pub fn mgga_x_mcml_exc_unpol(
         let t238 = t130 * t86;
         let t250 = 0.13502664484515602222e1 - 0.2721968500889238e-3 * t214 * t147 + 0.4187827907710905e-3 * t214 * t112 + 0.1282471852770764e-2 * t214 * t117 + 0.137028863545747e-3 * t214 * t121 + 0.1683215086686233e-1 * t228 + 0.4312411759243052e-3 * t154 * t135 - 0.6058496834176058e-3 * t154 * t141 - 0.6510071882485726e-2 * t130 * t117 - 0.5498112922165805e-2 * t130 * t121 + 0.2334616776649133e-2 * t238 - 0.2202759704065197e-3 * t207 * t135 - 0.1622621390953226e-2 * t207 * t141 - 0.5869916483960576e-3 * t207 * t147 - 0.1009981263546227e-2 * t207 * t112 + 0.2262886186270548e-3 * t207 * t117;
         let t252 = t124 + t179 + t219 + t250;
-        let t256 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t252);
+        let t256 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t252);
         let tzk0 = 2.0 * t256;
         zk[ip] += tzk0;
     }

@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 417/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK lxc pol — lxc_pol part 6 (v3rho3_3) CSE chunk 417/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk417<F: Float>(t116: F, t3174: F, t982: F, t979: F, t136: F, t2925: F, t2927: F, t2932: F, t2936: F, t3064: F, t3071: F, t3075: F, t3078: F, t3130: F, t3134: F, t3142: F, t856: F, t934: F) -> (F, F, F, F) {
-    let t3175 = t116 * t3174;
-    let t3176 = t982 * t3175;
-    let t3177 = t979 * t3176;
-    let t3179 = t2925 * t136 - 0.386e0 * t2927 * t934 + 0.74498e-1 * t2932 * t2936 - 0.193e0 * t856 * t3064 + 0.193e0 * t856 * t2936 + 0.30952962962962962962e-1 * t3071 - 0.2653111111111111111e-1 * t3075 + 0.2653111111111111111e-1 * t3078 + 0.99491666666666666664e-2 * t3130 - 0.19898333333333333333e-1 * t3134 + 0.19898333333333333333e-1 * t3142 - 0.99491666666666666664e-2 * t3177;
-    (t3175, t3176, t3177, t3179)
+pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk417<F: Float>(t71: F, t20: F, t79: F, t2863: F, t2866: F, t873: F, t80: F, t2958: F, t2960: F, t2962: F, t880: F, t861: F) -> (F, F, F, F, F, F, F) {
+    let t2964 = F::new(1.0)/f64::sqrt(t71);
+    let t2966 = t2964 * t79 * t20;
+    let t2967 = t2966 * t2863;
+    let t2969 = t873 * t2866;
+    let t2971 = t80 * t2863;
+    let t2973 = -F::new(0.42198333333333333333e0) * t2958 + F::new(0.84396666666666666666e0) * t2960 + F::new(0.39862222222222222223e0) * t2962 + F::new(0.68258333333333333333e-1) * t2967 + F::new(0.13651666666666666667e0) * t2969 + F::new(0.13692777777777777778e0) * t2971;
+    let t2974 = t2973 * t880;
+    let t2977 = t861 * t861;
+    (t2966, t2967, t2969, t2971, t2973, t2974, t2977)
 }

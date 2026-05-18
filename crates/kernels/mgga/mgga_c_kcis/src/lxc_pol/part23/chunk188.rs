@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 188/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 188/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -16,6 +16,6 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk188<F: Float>(t10: F, t128:
     let t763 = t69 * t762;
     let t764 = t24 * t15;
     let t768 = t97 * t728;
-    let t774 = 0.13140859333333333333e-2 * t127 * t756 * t130 - 0.98556444999999999995e-3 * t763 * t764 * t130 - 0.19711288999999999999e-2 * t127 * t129 * t768 - 4.0 * t60 * t684;
+    let t774 = F::new(0.13140859333333333333e-2) * t127 * t756 * t130 - F::new(0.98556444999999999995e-3) * t763 * t764 * t130 - F::new(0.19711288999999999999e-2) * t127 * t129 * t768 - F::new(4.0) * t60 * t684;
     (t756, t762, t763, t764, t768, t774)
 }

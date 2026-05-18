@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1033/1244 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 52 (v4rho2sigma2_8) CSE chunk 1033/1400 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1033<F: Float>(t460: F, t491: F, t7286: F, t27453: F, t27721: F, t466: F, t7280: F, t7999: F, t1186: F, t8010: F, t1170: F, t2121: F, t8034: F, t7287: F, t24567: F, t8014: F) -> (F, F, F, F, F, F, F) {
-    let t27798 = t460 * t491;
-    let t27799 = t27798 * t7286;
-    let t27800 = t27453 * t27799;
-    let t27805 = t466 * t27721;
-    let t27808 = t7999 * t7280;
-    let t27812 = t1186 * t8010;
-    let t27817 = t1170 * t8010;
-    let t27818 = t2121 * t27817;
-    let t27820 = t8034 * t491;
-    let t27821 = t27820 * t7287;
-    let t27826 = t24567 * t8014;
-    (t27800, t27805, t27808, t27812, t27818, t27821, t27826)
+pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1033<F: Float>(t1937: F, t25628: F, t1618: F, t1622: F, t1935: F, t23433: F, t23443: F, t23447: F, t23449: F, t23463: F, t23469: F, t23529: F, t25609: F, t25616: F, t25618: F, t25622: F, t25625: F, t378: F, t6730: F, t7578: F) -> F {
+    let t25629 = t25628 * t1937;
+    let t25631 = -F::new(0.10093189023535097714e-3) * t6730 * t7578 - F::new(0.10093189023535097714e-3) * t1935 * t25609 + F::new(0.10093189023535097714e-3) * t23443 - t23447 - F::new(0.80745512188280781712e-3) * t23449 - t23529 * t1622 / F::new(432.0) + t25616 / F::new(3456.0) + t25618 / F::new(2304.0) + t23433 * t1618 / F::new(1536.0) - t25622 * t378 / F::new(288.0) + t25625 / F::new(2304.0) - t23463 / F::new(108.0) + F::new(0.10093189023535097714e-3) * t25629 - t23469;
+    t25631
 }

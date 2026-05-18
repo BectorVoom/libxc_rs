@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1158/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1158/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1158<F: Float>(t11922: F, t4906: F, t3115: F, t15957: F, t4910: F, t3117: F, t3075: F, t357: F, t4781: F, t11670: F, t4890: F, t3317: F, t3299: F, t4895: F, t4892: F, t140: F, t4886: F) -> (F, F, F, F, F, F, F) {
-    let t16035 = t11922 * t4906;
-    let t16037 = 0.28582678745379824648e-3 * t3115 * t16035;
-    let t16039 = t15957 * t4910;
-    let t16040 = t3117 * t16039;
-    let t16043 = t357 * t3075;
-    let t16044 = t4781 * t16043;
-    let t16045 = t3117 * t16044;
-    let t16048 = t11670 * t4890;
-    let t16049 = t3317 * t16048;
-    let t16052 = t3299 * t16048;
-    let t16055 = t11922 * t4895;
-    let t16057 = 0.57165357490759649296e-3 * t4892 * t16055;
-    let t16060 = t140 * t4886;
-    (t16037, t16040, t16045, t16049, t16052, t16057, t16060)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk1158<F: Float>(t14334: F, t2496: F, t4398: F, t10443: F, t10552: F, t10554: F, t14312: F, t14313: F, t14315: F, t14317: F, t14318: F, t14324: F, t14327: F, t14329: F, t14333: F, t4541: F, t775: F, t9278: F, t9308: F, t9316: F, t9329: F, t9333: F) -> (F, F, F) {
+    let t14335 = F::new(0.5848223622634646207e0) * t14334;
+    let t14336 = t4398 * t2496;
+    let t14337 = F::new(0.17315859105681463759e2) * t14336;
+    let t14338 = F::new(12.0) * t14318 * t4541 * t775 + t10443 - t10552 + t10554 + t14312 + t14313 + t14315 + t14317 - t14324 + t14327 + t14329 + t14333 - t14335 - t14337 - t9278 + t9308 + t9316 + t9329 + t9333;
+    (t14335, t14337, t14338)
 }

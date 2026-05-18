@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 474/943 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 474/1064 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk474<F: Float>(t28: F, t265: F, t504: F, t5669: F, t6278: F, t1409: F, t1534: F, t1649: F, t1768: F, t506: F, t52: F, t5398: F, t5966: F, t5962: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F,) {
-    let t29 = t28 <= zeta_threshold;
-    let t401 = rho1 <= dens_threshold || t29;
-    let t505 = t265 < t504;
-    let t6279 = piecewise3(t505, t6278, t5669);
-    let t6286 = piecewise3(t401, t5669 * t28 / 2.0 + t1534 * t1649 + t265 * t5966 / 2.0, t6279 * t52 / 2.0 - t1768 * t1409 - t506 * t5398 / 2.0);
-    let t6287 = t5962 + t6286;
-    (t6287,)
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk474<F: Float>(t5790: F, t951: F, t2932: F, t5774: F, t1569: F, t1581: F, t2861: F, t2886: F, t2905: F, t2930: F, t311: F, t4411: F, t4449: F, t5691: F, t5693: F, t5697: F, t5729: F, t5732: F, t5737: F, t5743: F, t5759: F, t5762: F, t5770: F, t5775: F, t924: F, t943: F) -> F {
+    let t5791 = t5790 * t951;
+    let t5794 = t5774 * t2932;
+    let t5797 = -F::new(0.310907e-1) * t5737 * t311 + F::new(2.0) * t4411 * t1569 - F::new(2.0) * t2861 * t5743 + F::new(1.0) * t924 * t5759 + F::new(0.32163958997385070134e2) * t2886 * t5762 + t5691 - t5693 + t5697 - t5729 - t5732 - F::new(0.19751673498613801407e-1) * t5770 + F::new(0.11696447245269292414e1) * t4449 * t1581 - F::new(0.11696447245269292414e1) * t2905 * t5775 + F::new(0.5848223622634646207e0) * t943 * t5791 + F::new(0.17315859105681463759e2) * t2930 * t5794;
+    t5797
 }

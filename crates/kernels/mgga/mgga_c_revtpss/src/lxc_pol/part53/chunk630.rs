@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 630/1089 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 630/1244 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk630<F: Float>(t2014: F, t7239: F, t2022: F, t212: F, t1358: F, t689: F, t2023: F, t786: F, t1364: F, t533: F, t7021: F, t816: F, t1941: F, t540: F, t1372: F, t546: F, t550: F, t7028: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t7241 = 3.0 * t2014 * t7239;
-    let t7242 = t212 * t2022;
-    let t7243 = t7242 * t1358;
-    let t7245 = 0.54878743191129263322e-2 * t689 * t7243;
-    let t7246 = t786 * t2023;
-    let t7248 = 0.9757440539382783019e-2 * t7246 * t1364;
-    let t7250 = t7021 * t533 * t816;
-    let t7251 = 7.0 / 288.0 * t7250;
-    let t7252 = t1941 * t540;
-    let t7253 = t7252 * t1372;
-    let t7256 = t546 * t7028 * t550;
-    (t7241, t7242, t7243, t7245, t7246, t7248, t7251, t7252, t7253, t7256)
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk630<F: Float>(t30: F, t1317: F, t1857: F, t1320: F, t1468: F, t3833: F, t2: F, t513: F, t580: F, t605: F, t1711: F, t3841: F, t516: F, zeta_threshold: F) -> (F, F, F, F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t5545 = t1317 * t1857;
+    let t5546 = F::new(4.0) * t5545;
+    let t5547 = t1320 * t1857;
+    let t5548 = F::new(4.0) * t5547;
+    let t5549 = t3833 * t1468;
+    let t5552 = t513 * t2;
+    let t5556 = piecewise3::<f64>(t31, F::new(0.0), F::new(4.0) / F::new(9.0) * t5549 * t605 + F::new(8.0) / F::new(3.0) * t5552 * t580);
+    let t5557 = t3841 * t1711;
+    let t5560 = t516 * t2;
+    (t5546, t5548, t5556, t5557, t5560)
 }

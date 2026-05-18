@@ -37,15 +37,15 @@ pub fn mgga_c_cs_fxc_unpol(
 ) {
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
-        let t2 = pow_1_3(rho[ip]);
+        let t2 = pow_1_3::<f64>(rho[ip]);
         let t3 = 1.0 / t2;
         let t5 = 1.0 + 0.34899999999999999998e0 * t3;
         let t6 = 1.0 / t5;
         let t8 = f64::exp(-0.2533e0 * t3);
         let t10 = zeta_threshold * zeta_threshold;
-        let t11 = pow_1_3(zeta_threshold);
+        let t11 = pow_1_3::<f64>(zeta_threshold);
         let t12 = t11 * t11;
-        let t14 = piecewise3(1.0 <= zeta_threshold, t12 * t10, 1.0);
+        let t14 = piecewise3::<f64>(1.0 <= zeta_threshold, t12 * t10, 1.0);
         let t15 = M_CBRT2;
         let t16 = t14 * t15;
         let t17 = t15 * t15;

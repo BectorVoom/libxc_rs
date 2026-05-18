@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 870/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 870/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk870<F: Float>(t121349: F, t1527: F, t1888: F, t23270: F, t1880: F, t214: F, t225: F, t258: F, t29040: F, t118578: F, t118580: F, t123566: F, t123571: F, t123572: F, t126294: F, t126298: F, t126302: F, t126306: F, t126309: F, t126312: F, t126316: F, t126320: F) -> (F, F, F) {
-    let t127889 = t1888 * t23270 * t121349 * t1527;
-    let t127896 = t1880 * t214 * t29040 * t225 * t258;
-    let t127908 = -t126294 / 384.0 - t126298 / 768.0 + t126302 / 384.0 - t126306 / 768.0 - 0.16149102437656156341e-2 * t126309 + t123566 + t126312 / 96.0 + 0.22608743412718618878e-1 * t118578 + 0.13565246047631171327e0 * t118580 + t126316 / 768.0 - 0.96894614625936938046e-2 * t126320 + t123571 + t123572;
-    (t127889, t127896, t127908)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk870<F: Float>(t214: F, t33284: F, t1985: F, t1825: F, t31636: F, t33266: F, t553: F, t1336: F, t1814: F, t31192: F, t31200: F, t31617: F, t31625: F, t32743: F, t32747: F, t32751: F, t33278: F, t33282: F, t544: F, t8634: F) -> (F, F, F, F) {
+    let t33285 = t214 * t33284;
+    let t33286 = t1985 * t33285;
+    let t33289 = t31636 * t1825;
+    let t33291 = t553 * t33266;
+    let t33293 = -t31192 - t32743 - t31200 - t32747 + t32751 - t31617 - F::new(0.16449340668482264365e-1) * t33278 - t31625 - F::new(0.82246703342411321825e-2) * t33282 + F::new(0.82246703342411321825e-2) * t33286 + t1814 * t8634 - t1336 * t33289 + t544 * t33291;
+    (t33285, t33289, t33291, t33293)
 }

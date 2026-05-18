@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 701/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 701/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk701<F: Float>(t1335: F, t5573: F, t1316: F, t1906: F, t3901: F, t1334: F, t3899: F, t3795: F, t3905: F, t5469: F, t5472: F, t5475: F, t5479: F, t482: F, t1911: F, t45: F) -> (F, F, F, F, F, F, F, F) {
-    let t5574 = t5573 * t1335;
-    let t5576 = 1.0 * t1316 * t5574;
-    let t5577 = t1906 * t3901;
-    let t5578 = t5577 * t1334;
-    let t5580 = 0.16081824322151104822e2 * t3899 * t5578;
-    let t5586 = t3905 + 0.30902777777777777778e-2 * t3795 + 0.30902777777777777778e-2 * t5469 - 0.61805555555555555555e-2 * t5472 + 0.18541666666666666667e-1 * t5475 + 0.18541666666666666667e-1 * t5479;
-    let t5587 = t5586 * t482;
-    let t5590 = t45 * t1911;
-    (t5574, t5576, t5577, t5578, t5580, t5586, t5587, t5590)
+pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk701<F: Float>(t1153: F, t2429: F, t3392: F, t3394: F, t3397: F, t368: F, t5130: F, t5133: F, t5135: F, t5139: F, t5143: F, t5147: F, t5151: F, t5155: F, t5158: F, t86: F) -> F {
+    let t5162 = t3392 - F::new(0.17687407407407407407e-1) * t3394 - F::new(0.26531111111111111111e-1) * t3397 - F::new(0.17687407407407407407e-1) * t5130 - F::new(0.44218518518518518518e-1) * t5133 * t5135 - F::new(0.26531111111111111111e-1) * t1153 * t5139 + F::new(0.53062222222222222222e-1) * t5133 * t5143 - F::new(0.53062222222222222222e-1) * t2429 * t5147 - F::new(0.26531111111111111111e-1) * t5151 - F::new(0.26531111111111111111e-1) * t1153 * t5155 - F::new(0.39796666666666666666e-1) * t86 * t368 * t5158;
+    t5162
 }

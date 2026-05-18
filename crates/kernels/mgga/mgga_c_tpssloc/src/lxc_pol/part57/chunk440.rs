@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 440/919 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 57 (v4rho2sigma2_13) CSE chunk 440/1049 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk440<F: Float>(t340: F, t5842: F, t343: F, t974: F, t2969: F, t2986: F, t4507: F, t4529: F, t5818: F, t5821: F, t5825: F, t5829: F, t5839: F, t973: F, t381: F, t1603: F, t1625: F) -> (F, F, F, F) {
-    let t5843 = t340 * t5842;
-    let t5844 = t5843 * t343;
-    let t5845 = t974 * t5844;
-    let t5848 = -t2969 + 0.18518518518518518518e-3 * t4507 - 0.55555555555555555554e-3 * t4529 + 0.37037037037037037036e-3 * t973 * t5818 - 0.55555555555555555554e-3 * t2986 * t5821 - 0.55555555555555555554e-3 * t973 * t5825 + 0.27777777777777777777e-3 * t973 * t5829 - 0.83333333333333333332e-3 * t973 * t5839 - 0.83333333333333333332e-3 * t973 * t5845;
-    let t5849 = t5848 * t381;
-    let t5851 = t1603 * t1625;
-    (t5844, t5848, t5849, t5851)
+pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk440<F: Float>(t40: F, t510: F, t5493: F, t4100: F, t4102: F, t185: F, t5392: F, t2658: F, t1484: F, t4310: F, t1462: F, t4205: F, t2433: F, t5398: F, t73: F, zeta_threshold: F) -> (F, F, F, F, F, F, F) {
+    let t146 = t40 <= zeta_threshold;
+    let t5494 = t510 * t5493;
+    let t5497 = F::new(2.0) * t4100;
+    let t5498 = F::new(8.0) * t4102;
+    let t5499 = t185 * t5392;
+    let t5501 = F::new(12.0) * t2658 * t5499;
+    let t5502 = t4310 * t1484;
+    let t5506 = F::new(8.0) * t4205 * t1462;
+    let t5512 = piecewise3::<f64>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t2433 * t5392 + F::new(4.0) / F::new(3.0) * t73 * t5398);
+    (t5494, t5497, t5498, t5501, t5502, t5506, t5512)
 }

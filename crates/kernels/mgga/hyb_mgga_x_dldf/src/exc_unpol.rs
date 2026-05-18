@@ -27,16 +27,16 @@ pub fn hyb_mgga_x_dldf_exc_unpol(
         let t4 = M_CBRT3;
         let t5 = 1.0 <= zeta_threshold;
         let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+        let t8 = piecewise5::<f64>(t5, t6, t5, -t6, 0.0);
         let t9 = 1.0 + t8;
-        let t11 = pow_1_3(zeta_threshold);
-        let t13 = pow_1_3(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+        let t11 = pow_1_3::<f64>(zeta_threshold);
+        let t13 = pow_1_3::<f64>(t9);
+        let t15 = piecewise3::<f64>(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
         let t16 = t4 * t15;
-        let t17 = pow_1_3(rho[ip]);
+        let t17 = pow_1_3::<f64>(rho[ip]);
         let t18 = M_CBRT6;
         let t19 = M_PI * M_PI;
-        let t20 = pow_1_3(t19);
+        let t20 = pow_1_3::<f64>(t19);
         let t21 = t20 * t20;
         let t23 = t18 / t21;
         let t24 = M_CBRT2;
@@ -66,7 +66,7 @@ pub fn hyb_mgga_x_dldf_exc_unpol(
         let t62 = t52 * t52;
         let t63 = 1.0 / t62;
         let t66 = 1.0 - 0.1637571e0 * t46 * t48 - 0.1880028e0 * t51 * t53 - 0.4490609e0 * t56 * t58 - 0.82359e-2 * t61 * t63;
-        let t70 = piecewise3(t3, 0.0, -0.98727272578809758046e-1 * t16 * t38 * t66);
+        let t70 = piecewise3::<f64>(t3, 0.0, -0.98727272578809758046e-1 * t16 * t38 * t66);
         let tzk0 = 2.0 * t70;
         zk[ip] += tzk0;
     }

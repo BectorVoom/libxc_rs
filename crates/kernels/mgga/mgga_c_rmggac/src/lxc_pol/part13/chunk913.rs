@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 913/988 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 13 (v4rho3sigma_4) CSE chunk 913/1127 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk913<F: Float>(t39031: F, t34903: F, t34905: F, t34907: F, t34911: F, t34913: F, t39033: F, t39036: F, t39039: F, t39042: F, t39046: F, t39048: F, t39057: F, t39061: F, t39065: F, t39068: F, t39073: F, t39079: F) -> (F,) {
-    let t42823 = 0.10909864661698136692e0 * t39031;
-    let t42841 = -t42823 - 0.68186654135613354325e-2 * t39033 + 0.16364796992547205038e0 * t39036 + 0.81823984962736025191e-1 * t39039 + 0.5987120850931904282e-1 * t39042 + 0.40911992481368012596e-1 * t39046 + 0.14546486215597515589e0 * t39048 + 0.49658699875514145964e-4 * t34903 + 0.24829349937757072982e-4 * t34905 + 0.39726959900411316772e-4 * t34907 + 0.59590439850616975158e-4 * t34911 - 0.59590439850616975158e-4 * t34913 + 0.81823984962736025192e-1 * t39057 - 0.16364796992547205038e0 * t39061 - 0.40911992481368012596e-1 * t39065 + 0.81823984962736025192e-1 * t39068 - 0.47885174879960069324e-4 * t39073 + 0.14365552463988020797e-3 * t39079;
-    (t42841,)
+pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk913<F: Float>(t40138: F, t7284: F, t34975: F, t34976: F, t571: F, t7455: F, t39850: F, t7229: F, t4550: F, t495: F, t8440: F, t35039: F, t39851: F, t498: F) -> (F, F, F, F) {
+    let t40139 = t40138 * t7284;
+    let t40143 = t34975 * t34976 * t571 * t7455;
+    let t40145 = t7229 * t39850;
+    let t40149 = t40145 * t34976 * t8440 * t4550 * t495;
+    let t40154 = t39851 * t35039 * t8440 * t4550 * t498;
+    (t40139, t40143, t40149, t40154)
 }

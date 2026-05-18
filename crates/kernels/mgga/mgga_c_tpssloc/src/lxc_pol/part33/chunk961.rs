@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 961/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 961/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk961<F: Float>(t21898: F, t21991: F, t300: F, t1763: F, t6274: F, t11947: F, t193: F, t21726: F, t21728: F, t21730: F, t21732: F, t21812: F, t21815: F, t21829: F, t21832: F, t21835: F, t21897: F, t21901: F, t336: F) -> (F, F) {
-    let t21993 = t300 * (t21898 + t21991);
-    let t21994 = t6274 * t1763;
-    let t21999 = 2.0 * t11947 * t193 * t21994 * t336 + t21726 - t21728 - t21730 + t21732 + t21812 + t21815 + t21829 - t21832 + t21835 - t21897 + t21901 + t21993;
-    (t21993, t21999)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk961<F: Float>(t16839: F, t20981: F, t2645: F, t2632: F, t5611: F, t4180: F, t4181: F, t119: F, t20800: F, t210: F, t13251: F, t16940: F, t20963: F, t20969: F, t20974: F, t20978: F, t2630: F, t2643: F, t4167: F, t4178: F, t5593: F, t5614: F, t5619: F, t787: F, t817: F) -> (F, F, F, F, F) {
+    let t20983 = t2645 * t16839 * t20981;
+    let t20986 = t2632 * t5611;
+    let t20988 = t4180 * t4181 * t20986;
+    let t20993 = t119 * t20800;
+    let t20994 = t210 * t20993;
+    let t20998 = -t4167 * t5614 / F::new(1024.0) + t2630 * t20963 / F::new(512.0) - t4167 * t5619 / F::new(1024.0) - t817 * t20969 / F::new(3072.0) - F::new(5.0) / F::new(256.0) * t2643 * t20974 + t2643 * t20978 / F::new(256.0) - t4178 * t20983 / F::new(128.0) + t4178 * t20988 / F::new(512.0) + t13251 * t5593 / F::new(128.0) - t787 * t20994 / F::new(48.0) + F::new(7.0) / F::new(1536.0) * t16940;
+    (t20983, t20986, t20988, t20994, t20998)
 }

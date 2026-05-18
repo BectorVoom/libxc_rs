@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1024/1236 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 26 (v4rho3sigma_2) CSE chunk 1024/1384 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1024<F: Float>(t23046: F, t240: F, t812: F, t2635: F, t2681: F, t6614: F, t2617: F, t6613: F, t831: F, t1878: F, t244: F, t2606: F, t2610: F, t6581: F, t2230: F, t6589: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t23047 = t23046 * t240;
-    let t23048 = t812 * t23047;
-    let t23049 = t23048 * t2635;
-    let t23051 = t6614 * t2681;
-    let t23053 = t2617 * t6613;
-    let t23054 = t23053 * t831;
-    let t23056 = t1878 * t244;
-    let t23057 = t23056 * t2606;
-    let t23059 = t6581 * t2610;
-    let t23061 = t2230 * t6589;
-    (t23047, t23048, t23049, t23051, t23053, t23054, t23056, t23057, t23059, t23061)
+pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk1024<F: Float>(t25: F, t28: F, t11988: F, t12061: F, t12064: F, t2249: F, t514: F, t9257: F, t528: F, t1081: F, t3672: F, t11122: F, t12001: F, t3231: F, t517: F, zeta_threshold: F) -> (F, F) {
+    let t26 = t25 <= zeta_threshold;
+    let t29 = t28 <= zeta_threshold;
+    let t12070 = piecewise3::<f64>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12061 * t11988 + F::new(4.0) / F::new(3.0) * t12064 * t2249 + F::new(4.0) / F::new(3.0) * t514 * t9257);
+    let t12072 = F::new(1.0) / t528 / t28;
+    let t12075 = t3672 * t1081;
+    let t12081 = piecewise3::<f64>(t29, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12072 * t12001 + F::new(4.0) / F::new(3.0) * t12075 * t3231 + F::new(4.0) / F::new(3.0) * t517 * t11122);
+    (t12070, t12081)
 }

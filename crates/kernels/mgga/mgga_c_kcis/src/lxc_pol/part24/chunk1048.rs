@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 1048/1171 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 1048/1322 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1048<F: Float>(t26576: F, t26580: F, t92039: F, t92294: F, t92300: F, t92302: F, t92305: F, t92307: F, t92310: F, t92312: F, t92314: F, t92316: F, t92319: F, t92321: F, t92325: F, t92327: F, t92329: F, t92332: F) -> (F,) {
-    let t92334 = t26580 * t26576;
-    let t92336 = 0.23425829475308641975e-1 * t92294 - 0.10317654320987654321e0 * t92039 + 0.41703125000000000001e-2 * t92300 + 0.97307291666666666666e-2 * t92302 + 0.1299702052373046875e-3 * t92305 + 0.111403033060546875e-3 * t92307 - 0.55701516530273437501e-4 * t92310 - 0.41703125000000000001e-2 * t92312 + 0.92754700520833333333e-4 * t92314 + 0.10203017057291666667e-2 * t92316 - 0.12985658072916666667e-2 * t92319 - 0.64928290364583333333e-3 * t92321 + 0.69505208333333333333e-3 * t92325 + 0.208515625e-2 * t92327 + 0.41703125000000000001e-2 * t92329 + 0.2164276345486111111e-2 * t92332 + 0.19478487109375e-2 * t92334;
-    (t92336,)
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1048<F: Float>(t1009: F, t1704: F, t1003: F, t27772: F, t2811: F, t1008: F, t26686: F, t4796: F, t7718: F, t1020: F, t1121: F, t1804: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t27773 = t1009 * t1704;
+    let t27774 = t27773 * t1003;
+    let t27775 = t27772 * t27774;
+    let t27778 = t2811 * t1704;
+    let t27779 = t27778 * t1008;
+    let t27780 = t26686 * t27779;
+    let t27785 = t7718 * t4796;
+    let t27786 = t1020 * t27785;
+    let t27788 = t1804 * t1121;
+    (t27773, t27774, t27775, t27778, t27779, t27780, t27785, t27786, t27788)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 491/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 491/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,22 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk491<F: Float>(t4343: F, t828: F, t855: F, t1544: F, t221: F, t2675: F, t2674: F, t1558: F, t243: F, t231: F, t2662: F, t2661: F, t1565: F, t2652: F, t1561: F, t2741: F) -> (F, F, F, F, F, F, F) {
-    let t4345 = t855 * t828 * t4343;
-    let t4349 = t2675 * t221 * t1544;
-    let t4350 = t2674 * t4349;
-    let t4352 = t243 * t1558;
-    let t4353 = t4352 * t231;
-    let t4354 = t2662 * t4353;
-    let t4355 = t2661 * t4354;
-    let t4357 = t2652 * t1565;
-    let t4359 = t2741 * t1561;
-    (t4345, t4349, t4350, t4353, t4355, t4357, t4359)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk491<F: Float>(t3434: F, t3356: F, t1156: F, t1160: F, t1159: F, t431: F, t426: F, t3413: F, t434: F, t1175: F, t1179: F, t1178: F, t444: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t3435 = F::new(1.0) / t3434;
+    let t3439 = F::new(0.22831111111111111111e-1) * t3356;
+    let t3447 = t1156 * t1160;
+    let t3450 = t1159 * t431;
+    let t3451 = F::new(1.0) / t3450;
+    let t3452 = t426 * t3451;
+    let t3459 = F::new(0.68863333333333333333e0) * t3356;
+    let t3466 = F::new(0.17365833333333333333e0) * t3413;
+    let t3475 = t1159 * t1159;
+    let t3476 = F::new(1.0) / t3475;
+    let t3477 = t426 * t3476;
+    let t3478 = t434 * t434;
+    let t3479 = F::new(1.0) / t3478;
+    let t3483 = F::new(0.12361111111111111111e-1) * t3356;
+    let t3491 = t1175 * t1179;
+    let t3494 = t1178 * t444;
+    (t3435, t3439, t3447, t3452, t3459, t3466, t3477, t3479, t3483, t3491, t3494)
 }

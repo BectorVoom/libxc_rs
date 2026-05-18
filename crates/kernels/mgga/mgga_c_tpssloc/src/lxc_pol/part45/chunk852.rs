@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 852/930 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 45 (v4rho2sigma2_1) CSE chunk 852/1056 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk852<F: Float>(t114121: F, t1351: F, t1992: F, t550: F, t6955: F, t6976: F, t31091: F, t80650: F, t22633: F, t31100: F, t1985: F, t22666: F, t31123: F, t22674: F, t6897: F, t22635: F, t31090: F, t3911: F) -> (F, F, F, F, F, F, F) {
-    let t114122 = 0.16449340668482264365e-1 * t114121;
-    let t114127 = 0.3289868133696452873e-1 * t1992 * t6976 * t6955 * t1351 * t550;
-    let t114140 = 0.6579736267392905746e-1 * t1992 * t80650 * t31091;
-    let t114145 = 0.6579736267392905746e-1 * t22633 * t80650 * t31100;
-    let t114150 = 0.3289868133696452873e-1 * t1985 * t22666 * t31123;
-    let t114154 = t6897 * t22674 * t31123;
-    let t114155 = 0.16449340668482264365e-1 * t114154;
-    let t114159 = 0.3289868133696452873e-1 * t1992 * t22635 * t31090 * t3911;
-    (t114122, t114127, t114140, t114145, t114150, t114155, t114159)
+pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk852<F: Float>(t214: F, t30689: F, t1880: F, t6585: F, t8339: F, t1894: F, t59: F, t776: F, t6591: F, t6600: F, t6599: F, t6612: F, t829: F) -> (F, F, F, F, F, F, F, F) {
+    let t30690 = t214 * t30689;
+    let t30692 = F::new(0.16449340668482264365e-1) * t1880 * t30690;
+    let t30697 = t6585 * t8339;
+    let t30700 = t1894 * t59 * t776;
+    let t30701 = t6591 * t30700;
+    let t30703 = t6600 * t8339;
+    let t30704 = t6599 * t30703;
+    let t30706 = t6612 * t829;
+    (t30690, t30692, t30697, t30700, t30701, t30703, t30704, t30706)
 }

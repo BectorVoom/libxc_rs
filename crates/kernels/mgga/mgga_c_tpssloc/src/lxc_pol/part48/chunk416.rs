@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 416/910 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 48 (v4rho2sigma2_4) CSE chunk 416/1034 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk416<F: Float>(t1055: F, t3206: F, t1052: F, t1066: F, t3021: F, t3023: F, t3026: F, t3167: F, t3169: F, t3176: F, t388: F, t1068: F, t390: F, t1070: F, t193: F, t2786: F, t2789: F, t2796: F, t2839: F, t2847: F, t2937: F, t2939: F, t2942: F, t2946: F, t2950: F, t2954: F, t336: F) -> (F,) {
-    let t3207 = t1055 * t3206;
-    let t3209 = 2.0 * t1052 * t3176 - t1052 * t3207 - 2.0 * t1066 * t3026 - 2.0 * t1066 * t3169 + t3021 * t388 + 2.0 * t3023 * t388 + t3167 * t388;
-    let t3213 = t1068 * t1068;
-    let t3215 = t390 * t390;
-    let t3216 = 1.0 / t3215;
-    let t3219 = t1070 * t193 * t3209 * t336 - t193 * t3213 * t3216 * t336 - t2786 + t2789 - t2796 + t2839 + t2847 + t2937 + t2939 - t2942 + t2946 - t2950 - t2954;
-    (t3219,)
+pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk416<F: Float>(t912: F, t913: F, t2792: F, t273: F, t276: F, t896: F, t2764: F, t2766: F, t2773: F, t2778: F, t2782: F, t894: F) -> (F, F, F, F, F, F) {
+    let t2793 = t912 * t912;
+    let t2794 = t2793 * t913;
+    let t2796 = F::new(2.0) * t2792 * t2794;
+    let t2798 = F::new(1.0) / t276 / t273;
+    let t2799 = t896 * t896;
+    let t2800 = t2798 * t2799;
+    let t2802 = F::new(4.0) / F::new(9.0) * t2764;
+    let t2807 = t2802 + F::new(2.0) / F::new(9.0) * t2766 - F::new(2.0) / F::new(9.0) * t2773 + F::new(2.0) / F::new(3.0) * t2778 - t2782 / F::new(3.0);
+    let t2808 = t894 * t2807;
+    (t2793, t2796, t2799, t2800, t2807, t2808)
 }

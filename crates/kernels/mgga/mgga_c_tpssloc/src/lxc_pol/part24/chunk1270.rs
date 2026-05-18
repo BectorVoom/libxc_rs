@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 1270/1291 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 1270/1438 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk1270<F: Float>(t25927: F, t46320: F, t10140: F, t28: F, t3231: F, t776: F, t1081: F, t2553: F, t868: F, t1877: F, t1915: F, t22959: F, t23290: F, t23781: F, t23792: F, t23796: F, t23807: F, t23810: F, t2522: F, t4314: F, t6666: F, t6670: F, t81539: F, t82308: F, t82312: F, t83556: F, t83559: F, t83566: F, t83579: F) -> (F,) {
-    let t83582 = t25927 * t46320;
-    let t83585 = t28 * t10140;
-    let t83592 = t3231 * t776;
-    let t83596 = t1081 * t2553;
-    let t83603 = t3231 * t868;
-    let t83607 = -9.0 * t22959 * t83556 - t1877 * t6670 * t83559 / 2.0 + 9.0 * t2522 * t6666 * t23792 + 9.0 * t4314 * t1915 * t83566 + t1877 * t82308 * t28 / 2.0 + 9.0 * t4314 * t6666 * t23781 - 3.0 * t1877 * t23290 * t23810 - 9.0 / 2.0 * t22959 * t83579 + 9.0 * t22959 * t83582 - 3.0 * t1877 * t82312 * t83585 + 3.0 * t1877 * t81539 * t23807 + 9.0 / 2.0 * t2522 * t1915 * t83592 + 9.0 / 2.0 * t2522 * t1915 * t83596 + 9.0 / 2.0 * t2522 * t6666 * t23796 - 3.0 / 2.0 * t1877 * t6670 * t83603;
-    (t83607,)
+pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk1270<F: Float>(t80803: F, t80874: F, t80942: F, t81009: F, t22633: F, t22732: F, t3856: F, t6976: F, t12241: F, t1992: F, t22897: F, t22704: F, t22898: F, t80798: F) -> (F, F, F, F) {
+    let t81011 = t80803 + t80874 + t80942 + t81009;
+    let t81016 = t22633 * t6976 * t22732 * t3856;
+    let t81019 = t1992 * t22897 * t12241;
+    let t81022 = t22704 * t80798 * t22898;
+    (t81011, t81016, t81019, t81022)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1227/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1227/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1227<F: Float>(t10514: F, t10552: F, t10662: F, t10667: F, t10897: F, t1692: F, t1812: F, t18728: F, t18812: F, t198: F, t19818: F, t20514: F, t207: F, t2133: F, t2428: F, t2433: F, t2439: F, t3552: F, t35525: F, t3683: F, t5849: F, t5853: F, t62807: F, t62829: F, t6354: F, t63844: F, t64248: F, t64296: F, t64770: F, t66299: F, t66603: F, t823: F) -> (F,) {
-    let t66750 = t198 * t207 * t66603 * t823 - 3.0 * t2439 * t5853 * t35525 + 12.0 * t3552 * t5849 * t3683 + 2.0 * t1692 * t18812 * t63844 + 3.0 * t2439 * t1812 * t10552 - 6.0 * t2439 * t20514 * t10514 + 2.0 * t1692 * t66299 * t2433 + 12.0 * t3552 * t1812 * t10662 + 6.0 * t3552 * t1812 * t10667 - 6.0 * t1692 * t62807 * t64248 + 3.0 * t2439 * t6354 * t2133 - 3.0 * t2439 * t5853 * t64296 - t1692 * t5853 * t10897 + 12.0 * t18728 * t64770 + 4.0 * t1692 * t62829 * t19818 - t1692 * t20514 * t2428;
-    (t66750,)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1227<F: Float>(t1795: F, t2061: F, t10456: F, t1165: F, t13146: F, t1799: F, t18627: F, t18680: F, t18898: F, t2056: F, t2105: F, t4347: F, t5801: F, t5815: F, t645: F, t7798: F) -> (F, F) {
+    let t18903 = t1795 * t2061;
+    let t18919 = F::new(4.0) * t10456 * t1799 + F::new(2.0) * t1165 * t18627 + F::new(2.0) * t13146 * t1799 + F::new(2.0) * t1799 * t7798 + F::new(4.0) * t18898 * t645 + F::new(4.0) * t2056 * t5815 + F::new(2.0) * t2105 * t5801 + F::new(4.0) * t4347 * t5815 + t18680 + F::new(2.0) * t18903;
+    (t18903, t18919)
 }

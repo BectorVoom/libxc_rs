@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1068/1151 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 55 (v4rho2sigma2_10) CSE chunk 1068/1306 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1068<F: Float>(t27279: F, t32478: F, t1032: F, t7997: F, t1955: F, t126250: F, t8477: F, t126210: F, t119894: F, t119913: F, t121891: F, t121896: F, t121897: F, t27300: F, t27322: F, t32434: F, t32464: F, t7079: F) -> (F, F, F) {
-    let t127698 = t32478 * t27279;
-    let t127703 = t7997 * t1032;
-    let t127704 = t1955 * t127703;
-    let t127707 = t8477 * t126250;
-    let t127710 = 0.263521689745817692e-2 * t126210;
-    let t127711 = 0.17347256376410398924e1 * t32434 * t27322 + t121891 + 0.14456046980341999104e-1 * t127698 - 0.66934509195437693771e-4 * t119894 + t121896 + t121897 - 0.52041769129231196772e1 * t32434 * t27300 + 0.8673628188205199462e0 * t127704 * t7079 - t119913 - 0.11423947533020470523e1 * t127707 * t32464 + t127710;
-    (t127703, t127704, t127711)
+pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1068<F: Float>(t32698: F, t32732: F, t532: F, t1450: F, t2014: F, t1353: F, t2033: F, t26405: F, t25082: F, t2042: F, t7547: F, t2113: F, t7331: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t32733 = t32698 + t32732;
+    let t32734 = t532 * t32733;
+    let t32735 = t32734 * t1450;
+    let t32736 = t2014 * t32735;
+    let t32737 = t2033 * t1353;
+    let t32738 = t26405 * t32737;
+    let t32740 = F::new(3.0) * t25082 * t32738;
+    let t32760 = F::new(3.0) * t7547 * t2042;
+    let t32762 = F::new(6.0) * t2113 * t7331;
+    (t32733, t32734, t32735, t32736, t32737, t32738, t32740, t32760, t32762)
 }

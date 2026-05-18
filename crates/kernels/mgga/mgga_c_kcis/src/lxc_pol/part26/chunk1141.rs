@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1141/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1141/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1141<F: Float>(t18432: F, t1881: F, t2233: F, t28313: F, t28322: F, t28883: F, t28886: F, t446: F, t5407: F, t637: F, t8130: F, t8255: F, t92165: F, t92168: F, t92170: F, t92339: F, t92344: F, t92351: F, t93826: F) -> (F,) {
-    let t101823 = t8130 * t28886 / 8.0 + t8130 * t28883 / 8.0 - t92165 + t93826 + t92168 + t92170 + t92339 - t2233 * t18432 * t637 / 16.0 + t1881 * t28313 / 8.0 + t1881 * t28322 / 8.0 + t92344 - t92351 - t446 * t5407 * t8255 / 8.0;
-    (t101823,)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1141<F: Float>(t187: F, t28557: F, t28559: F, t28560: F, t28562: F, t28563: F, t28564: F, t28566: F, t28567: F, t28569: F, t28572: F, t28575: F, t28578: F, t28579: F, t28582: F, t28645: F, t28654: F, t28873: F) -> F {
+    let t28876 = t28557 - t28559 - t28560 + t28562 - t28563 - t28564 + t28566 - t28567 + t28569 - t28572 + t28575 + t28578 - t28579 + t28582 - t28645 + t187 * (t28654 + t28873);
+    t28876
 }

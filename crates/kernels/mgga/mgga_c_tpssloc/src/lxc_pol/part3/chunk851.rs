@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 3 (v3rho3_1) CSE chunk 851/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 3 (v3rho3_1) CSE chunk 851/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk851<F: Float>(t2853: F, t923: F, t2885: F, t919: F, t2884: F, t307: F, t302: F, t10294: F, t10544: F, t922: F, t2887: F, t310: F, t2791: F, t888: F, t2897: F, t942: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t10760 = t2853 * t923;
-    let t10765 = t919 * t2885;
-    let t10770 = 1.0 / t2884 / t307;
-    let t10771 = t302 * t10770;
-    let t10784 = 0.46308888888888888888e0 * t10294;
-    let t10785 = 0.16068111111111111111e1 * t10544;
-    let t10810 = 1.0 / t2884 / t922;
-    let t10811 = t302 * t10810;
-    let t10813 = 1.0 / t2887 / t310;
-    let t10817 = t888 * t2791;
-    let t10820 = t2897 * t942;
-    (t10760, t10765, t10771, t10784, t10785, t10811, t10813, t10817, t10820)
+pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk851<F: Float>(t5248: F, t5249: F, t5250: F, t1827: F, t3799: F, t1315: F, t1354: F, t1369: F, t3733: F, t3762: F, t3763: F, t3778: F, t5220: F, t5223: F, t5227: F, t5231: F, t5235: F, t5238: F, t5240: F, t5246: F, t559: F) -> (F, F) {
+    let t5252 = t5248 * t5249 * t5250;
+    let t5255 = t3799 * t1827;
+    let t5257 = t3762 + F::new(7.0) / F::new(144.0) * t3763 + F::new(7.0) / F::new(144.0) * t5220 + t3733 * t5223 / F::new(16.0) - t1315 * t5227 / F::new(48.0) + t5231 * t559 / F::new(3072.0) - t5235 * t1354 / F::new(3072.0) - F::new(7.0) / F::new(4608.0) * t5238 - t5240 * t1369 / F::new(768.0) - t3778 * t1827 / F::new(3072.0) + t5246 * t5252 / F::new(1536.0) + F::new(7.0) / F::new(4608.0) * t5255;
+    (t5252, t5257)
 }

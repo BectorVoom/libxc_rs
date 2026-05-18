@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1245/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 5 (v3rho3_2) CSE chunk 1245/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,8 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1245<F: Float>(t21720: F, t21808: F, t10301: F, t10309: F, t13269: F, t13272: F, t1497: F, t21661: F, t21663: F, t21674: F, t21677: F, t21682: F, t2242: F, t2247: F, t4173: F, t4178: F, t4241: F, t5816: F, t5872: F, t603: F, t644: F, t91: F) -> (F,) {
-    let t21809 = t21720 + t21808;
-    let t21812 = 20.0 * t10301 * t5816 - 120.0 * t10309 * t21674 - 8.0 * t13269 * t1497 + 40.0 * t13272 * t4178 + t21661 * t91 - 4.0 * t21663 * t644 + 40.0 * t21677 * t2247 + 20.0 * t21682 * t2247 - 4.0 * t21809 * t603 - 4.0 * t2242 * t5872 - 8.0 * t4173 * t4241;
-    (t21812,)
+pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1245<F: Float>(t11134: F, t11890: F, t15189: F, t15874: F, t15875: F, t15876: F, t18906: F, t18911: F, t18915: F, t18919: F, t18924: F, t18928: F, t18932: F, t18934: F, t18939: F, t18944: F, t18948: F) -> F {
+    let t19855 = -t11890 - F::new(0.37037037037037037037e-2) * t11134 - F::new(0.74074074074074074074e-2) * t15189 + t15874 - t15875 + t15876 + F::new(0.18518518518518518518e-2) * t18919 - F::new(0.92592592592592592592e-2) * t18906 + F::new(0.33333333333333333333e-1) * t18911 - F::new(0.11111111111111111111e-1) * t18915 - F::new(0.55555555555555555557e-2) * t18924 - F::new(0.50000000000000000001e-1) * t18928 + F::new(0.33333333333333333334e-1) * t18932 + F::new(0.27777777777777777778e-2) * t18934 - F::new(0.55555555555555555555e-2) * t18939 + F::new(0.16666666666666666667e-1) * t18944 - F::new(0.83333333333333333333e-2) * t18948;
+    t19855
 }

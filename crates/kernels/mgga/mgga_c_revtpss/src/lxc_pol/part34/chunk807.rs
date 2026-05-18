@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 807/1196 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 807/1341 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk807<F: Float>(t1086: F, t4746: F, t3090: F, t15822: F, t3160: F, t1655: F, t697: F, t1011: F, t1678: F, t3057: F, t3286: F, t1647: F, t3298: F, t994: F, t3316: F, t15669: F, t378: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t15925 = t4746 * t1086;
-    let t15926 = t15925 * t3090;
-    let t15932 = t15822 * t3160;
-    let t16219 = t697 * t1655;
-    let t16220 = t1011 * t16219;
-    let t16284 = t3057 * t1678;
-    let t16502 = t4746 * t3286;
-    let t16509 = t1647 * t3298;
-    let t16543 = t1086 * t1678;
-    let t16544 = t994 * t16543;
-    let t16584 = t1647 * t3316;
-    let t16600 = t15669 * t378;
-    (t15925, t15926, t15932, t16219, t16220, t16284, t16502, t16509, t16544, t16584, t16600)
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk807<F: Float>(t760: F, t9318: F, t162: F, t9544: F, t158: F, t755: F, t9586: F, t2629: F, t9863: F, t9866: F, t9575: F, t9572: F) -> (F, F, F, F, F, F, F) {
+    let t10554 = F::new(0.35089341735807877242e1) * t760 * t9318;
+    let t10565 = t162 * t9544;
+    let t10566 = t158 * t10565;
+    let t10568 = F::new(0.56968947174242584612e-3) * t755 * t9586;
+    let t10577 = F::new(0.16265371950452609763e-1) * t2629 * t9863;
+    let t10582 = F::new(0.48159733137676571078e0) * t2629 * t9866;
+    let t10584 = F::new(0.21687162600603479684e-1) * t2629 * t9575;
+    let t10586 = F::new(0.32530743900905219526e-1) * t2629 * t9572;
+    (t10554, t10566, t10568, t10577, t10582, t10584, t10586)
 }

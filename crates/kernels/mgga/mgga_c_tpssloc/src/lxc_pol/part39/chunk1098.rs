@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1098/1190 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 39 (v4rho3tau_3) CSE chunk 1098/1328 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1098<F: Float>(t14753: F, t4908: F, t14744: F, t11588: F, t1714: F, t3451: F, t3447: F, t14818: F, t14781: F, t14710: F, t11211: F, t11213: F, t11215: F, t11217: F, t11487: F, t14713: F, t14766: F, t14779: F, t14784: F, t14787: F, t14790: F, t14793: F, t14796: F, t14799: F) -> (F, F, F, F) {
-    let t15332 = t4908 * t14753;
-    let t15335 = t4908 * t14744;
-    let t15338 = t11588 * t1714;
-    let t15339 = t15338 * t3451;
-    let t15341 = 0.18518518518518518518e-3 * t3447 * t15339;
-    let t15347 = 2.0 / 27.0 * t14818;
-    let t15348 = 4.0 / 9.0 * t14781;
-    let t15349 = 2.0 / 9.0 * t14710;
-    let t15357 = t11487 - 10.0 / 27.0 * t11211 - t11213 / 27.0 + 2.0 / 9.0 * t11215 + t11217 / 9.0 - 5.0 / 27.0 * t14766 - t15347 + t15348 + t15349 - 2.0 / 27.0 * t14779 + t14790 / 3.0 + t14784 / 9.0 + t14787 / 18.0 - t14799 - 2.0 / 3.0 * t14793 - t14796 / 3.0 - t14713 / 6.0;
-    (t15332, t15335, t15341, t15357)
+pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1098<F: Float>(t13615: F, t901: F, t2815: F, t4370: F, t896: F, t2807: F, t4378: F, t2798: F, t4362: F, t10595: F, t1547: F, t2799: F) -> (F, F, F, F, F, F) {
+    let t13616 = t901 * t13615;
+    let t13623 = t2815 * t4370;
+    let t13624 = t13623 * t896;
+    let t13626 = t4378 * t2807;
+    let t13629 = t2798 * t4370;
+    let t13630 = t13629 * t896;
+    let t13632 = t4362 * t2807;
+    let t13634 = t10595 * t1547;
+    let t13635 = t13634 * t2799;
+    (t13616, t13624, t13626, t13630, t13632, t13635)
 }

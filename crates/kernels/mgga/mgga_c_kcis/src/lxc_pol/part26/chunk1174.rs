@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1174/1243 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 1174/1397 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1174<F: Float>(t102190: F, t7968: F, t1464: F, t1489: F, t27387: F, t7313: F, t18210: F, t29568: F, t7978: F, t28727: F, t28778: F, t28714: F, t28721: F, t28772: F, t28835: F, t8226: F, t99013: F, t99476: F, t99478: F, t99480: F, t99494: F) -> (F, F) {
-    let t102494 = t7968 * t102190;
-    let t102498 = t1464 * t27387 * t7313 * t1489;
-    let t102503 = t7978 * t18210 * t29568;
-    let t102507 = t28727 * t28778;
-    let t102509 = -0.41188271604938271605e-3 * t99476 - t99478 - t99480 + 0.69505208333333333334e-3 * t99013 * t8226 + 0.69505208333333333334e-3 * t28714 * t28835 + 0.15459116753472222222e-4 * t102494 - 0.11607361111111111111e-2 * t102498 + 0.92754700520833333334e-4 * t28721 * t28772 + t99494 - 0.23168402777777777778e-3 * t102503 - 0.18534722222222222222e-2 * t28727 * t28772 - 0.61782407407407407407e-3 * t102507;
-    (t102498, t102509)
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1174<F: Float>(t29671: F, t8130: F, t8133: F, t1881: F, t8256: F, t637: F, t6895: F, t2233: F, t12861: F, t1607: F, t4314: F, t4455: F) -> (F, F, F, F, F, F) {
+    let t29672 = t29671 / F::new(8.0);
+    let t29673 = t8130 * t8133;
+    let t29674 = t29673 / F::new(8.0);
+    let t29675 = t1881 * t8256;
+    let t29676 = t29675 / F::new(8.0);
+    let t29677 = t6895 * t637;
+    let t29678 = t2233 * t29677;
+    let t29679 = t29678 / F::new(16.0);
+    let t30409 = t1607 * t12861;
+    let t30424 = t4455 * t4314;
+    (t29672, t29674, t29676, t29679, t30409, t30424)
 }

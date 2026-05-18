@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1045/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1045/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1045<F: Float>(t22852: F, t26245: F, t1358: F, t7715: F, t1831: F, t22783: F, t5234: F, t6951: F, t1811: F, t22797: F, t22804: F, t7709: F, t1361: F, t1799: F, t22690: F, t22792: F) -> (F, F, F, F, F, F, F, F) {
-    let t26246 = t22852 * t26245;
-    let t26251 = t7715 * t1358;
-    let t26255 = t22783 * t1831;
-    let t26257 = t5234 * t6951;
-    let t26266 = t22797 * t1811;
-    let t26268 = t22804 * t7709;
-    let t26271 = t22690 * t1361 * t1799;
-    let t26272 = t22792 * t26271;
-    (t26246, t26251, t26255, t26257, t26266, t26268, t26271, t26272)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1045<F: Float>(t1760: F, t6267: F, t3598: F, t6243: F, t11606: F, t11764: F, t20234: F, t974: F, t1743: F, t6169: F, t11487: F, t14766: F, t18494: F, t18505: F, t18512: F, t21747: F, t21751: F, t21789: F, t21792: F, t21795: F, t21802: F) -> (F, F, F, F, F) {
+    let t22003 = t1760 * t6267;
+    let t22004 = t3598 * t22003;
+    let t22007 = t6243 * t1760;
+    let t22008 = t11606 * t22007;
+    let t22011 = t11764 * t20234;
+    let t22012 = t974 * t22011;
+    let t22015 = t6169 * t1743;
+    let t22032 = t11487 - F::new(5.0) / F::new(9.0) * t14766 - t18494 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t18505 + t18512 / F::new(3.0) - F::new(2.0) / F::new(27.0) * t21802 + t21789 / F::new(3.0) + t21747 / F::new(6.0) - t21792 - t21751 - t21795 / F::new(6.0);
+    (t22004, t22008, t22012, t22015, t22032)
 }

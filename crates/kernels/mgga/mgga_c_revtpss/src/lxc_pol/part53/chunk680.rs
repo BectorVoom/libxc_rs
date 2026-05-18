@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 680/1089 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 680/1244 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk680<F: Float>(t7160: F, t7828: F, t1089: F, t1668: F, t7168: F, t1984: F, t359: F, t7810: F, t1647: F, t1652: F, t1696: F, t1978: F, t1983: F, t1986: F, t342: F, t7102: F, t7140: F, t7144: F, t7151: F, t7159: F, t7167: F, t7812: F, t7818: F, t7822: F, t7825: F) -> (F, F, F, F) {
-    let t7829 = t7160 * t7828;
-    let t7833 = t7168 * t1668 * t1089;
-    let t7837 = t1984 * t359 * t7810;
-    let t7840 = 0.65854491829355115987e0 * t1647 * t1978 - 0.65854491829355115987e0 * t7102 * t1652 + 0.65854491829355115987e0 * t342 * t7812 - 0.65854491829355115987e0 * t7140 * t1696 - 0.8673628188205199462e0 * t7144 * t7818 + 0.8673628188205199462e0 * t7151 * t7822 - 0.4336814094102599731e0 * t7825 * t1986 + 0.8673628188205199462e0 * t7159 * t7829 - 0.4336814094102599731e0 * t7167 * t7833 - 0.4336814094102599731e0 * t1983 * t7837;
-    (t7829, t7833, t7837, t7840)
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk680<F: Float>(t1017: F, t1028: F, t1047: F, t1068: F, t348: F, t375: F, t7106: F, t7110: F, t7111: F, t7114: F, t7117: F, t7122: F, t7126: F, t7130: F, t7132: F) -> F {
+    let t7135 = -t7106 * t348 / F::new(36.0) + t7110 + t7111 * t1017 / F::new(288.0) + F::new(0.42874018118069736972e-3) * t7114 * t375 - F::new(0.42874018118069736972e-3) * t7117 * t1028 + F::new(0.42874018118069736972e-3) * t7122 * t1047 - F::new(0.22866142996303859718e-2) * t7126 * t375 + t7130 + F::new(0.28582678745379824648e-3) * t7132 * t1068;
+    t7135
 }

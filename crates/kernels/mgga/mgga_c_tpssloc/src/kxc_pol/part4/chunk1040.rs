@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 1040/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 1040/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk1040<F: Float>(t1157: F, t18933: F, t1164: F, t3411: F, t6102: F, t18682: F, t18685: F, t18688: F, t18690: F, t18692: F, t18694: F, t18696: F, t18837: F, t18839: F, t18917: F, t18920: F, t18922: F, t18924: F, t18928: F, t18930: F, t18932: F) -> (F, F, F) {
-    let t18934 = t18933 * t1157;
-    let t18936 = 0.11696447245269292414e1 * t1164 * t18934;
-    let t18938 = 0.5848223622634646207e0 * t3411 * t6102;
-    let t18939 = -t18682 - t18685 - t18917 + t18920 + t18922 - t18924 + t18688 + t18690 + t18692 - t18694 + t18696 - t18928 + t18930 + t18932 + t18837 + t18839 + t18936 - t18938;
-    (t18936, t18938, t18939)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk1040<F: Float>(t10556: F, t10608: F, t13598: F, t14352: F, t14353: F, t14354: F, t17149: F, t17154: F, t17159: F, t17163: F, t17165: F, t17169: F, t17173: F, t17175: F, t17180: F, t17185: F, t17189: F) -> F {
+    let t17191 = -t10608 - F::new(0.41203703703703703703e-2) * t10556 - F::new(0.82407407407407407408e-2) * t13598 + t14352 - t14353 + t14354 + F::new(0.20601851851851851852e-2) * t17149 - F::new(0.10300925925925925926e-1) * t17154 + F::new(0.37083333333333333333e-1) * t17159 - F::new(0.12361111111111111111e-1) * t17163 - F::new(0.61805555555555555557e-2) * t17165 - F::new(0.55625000000000000001e-1) * t17169 + F::new(0.37083333333333333334e-1) * t17173 + F::new(0.30902777777777777778e-2) * t17175 - F::new(0.61805555555555555555e-2) * t17180 + F::new(0.18541666666666666667e-1) * t17185 - F::new(0.92708333333333333333e-2) * t17189;
+    t17191
 }

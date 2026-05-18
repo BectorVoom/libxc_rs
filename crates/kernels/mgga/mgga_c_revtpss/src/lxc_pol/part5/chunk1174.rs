@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1174/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1174/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk1174<F: Float>(t1134: F, t20361: F, t12331: F, t6442: F, t5079: F, t5087: F, t3407: F, t6449: F, t1139: F, t20337: F, t12254: F, t20293: F, t141: F, t12542: F, t12543: F, t16710: F, t16931: F, t17131: F, t17140: F) -> (F, F, F, F, F, F, F) {
-    let t20362 = t20361 * t1134;
-    let t20365 = t12331 * t6442;
-    let t20366 = t20365 * t1134;
-    let t20368 = t5087 * t5079;
-    let t20370 = t3407 * t6449;
-    let t20371 = t20370 * t1134;
-    let t20373 = t1139 * t20337;
-    let t20377 = t12254 * t20293;
-    let t20378 = t141 * t20377;
-    let t20380 = -0.412621875e-1 * t20366 + 0.16504875e0 * t20368 + 0.82524375e-1 * t20371 - t17131 - t12542 - t12543 + 0.16504875e0 * t20373 - 0.40256666666666666668e0 * t16710 + t17140 + 0.36793333333333333333e-1 * t16931 + 0.36793333333333333333e-1 * t20378;
-    (t20362, t20366, t20368, t20371, t20373, t20378, t20380)
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk1174<F: Float>(t6017: F, t72: F, t686: F, t2798: F, t5978: F, t14568: F, t4500: F, t18699: F, t231: F, t2783: F, t2782: F, t18677: F) -> (F, F, F, F, F) {
+    let t18725 = t6017 * t72;
+    let t18726 = t18725 * t686;
+    let t18727 = t2798 * t18726;
+    let t18729 = t5978 * t72;
+    let t18730 = t18729 * t686;
+    let t18731 = t2798 * t18730;
+    let t18733 = t14568 * t4500;
+    let t18738 = t2783 * t18699 * t231;
+    let t18739 = t2782 * t18738;
+    let t18742 = t2783 * t18677 * t231;
+    (t18727, t18731, t18733, t18739, t18742)
 }

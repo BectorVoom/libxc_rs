@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 436/1089 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 436/1244 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,20 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk436<F: Float>(t2482: F, t27: F, t823: F, t136: F, t826: F, t221: F, t837: F, t737: F, t744: F, t185: F, t760: F, t128: F, t131: F, t2457: F, t2470: F, t684: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t2484 = t2482 * t823 * t27;
-    let t2485 = t826 * t136;
-    let t2487 = t2485 * t221 * t837;
-    let t2488 = t2484 * t2487;
-    let t2490 = t737 * t737;
-    let t2491 = 1.0 / t2490;
-    let t2492 = t744 * t744;
-    let t2494 = t185 * t185;
-    let t2495 = 1.0 / t2494;
-    let t2496 = t2491 * t2492 * t2495;
-    let t2498 = 0.17315859105681463759e2 * t760 * t2496;
-    let t2501 = 1.0 / t131 / t128 * t136;
-    let t2502 = t2501 * t2457;
-    let t2504 = t684 * t2470;
-    (t2484, t2485, t2487, t2488, t2491, t2492, t2495, t2496, t2498, t2502, t2504)
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk436<F: Float>(t30: F, t265: F, t393: F, t1995: F, t1966: F, t45: F, t343: F, t55: F, t136: F, t473: F, t479: F, dens_threshold: F, rho0: F, sigma2: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t120 = rho0 <= dens_threshold || t31;
+    let t394 = t265 < t393;
+    let t2129 = piecewise3::<f64>(t394, F::new(0.0), t1995);
+    let t2132 = piecewise3::<f64>(t120, t1966, t2129 * t45 / F::new(2.0));
+    let t2133 = t55 * t343;
+    let t2134 = t2133 * t136;
+    let t2137 = t473 * sigma2;
+    let t2138 = t2137 * t479;
+    (t2129, t2132, t2133, t2134, t2137, t2138)
 }

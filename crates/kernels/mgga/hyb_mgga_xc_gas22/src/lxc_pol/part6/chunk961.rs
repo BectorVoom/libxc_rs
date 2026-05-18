@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 961/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 961/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,9 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk961<F: Float>(t2576: F, t3579: F, t1007: F, t1014: F, t260: F, t2617: F, t3591: F, t8965: F, t8968: F, t8975: F, t8977: F, t8979: F, t8982: F, t8985: F, t8988: F, t8992: F, t8995: F, t8999: F, t9002: F, t9032: F, t9070: F, t9097: F, t9101: F, t9204: F, t9269: F) -> (F, F) {
-    let t9273 = t2576 * t3579;
-    let t9274 = t9273 * t1007;
-    let t9279 = 0.10389515463408878255e3 * t1014 * t8965 - 0.35089341735807877242e1 * t1014 * t8968 - 0.5848223622634646207e0 * t3591 * t2617 + t8975 - t8977 + t8979 - t8982 - t8985 - t8988 + t8992 + t8995 + t8999 - 0.10254018858216406658e4 * t1014 * t9002 + t260 * (t9070 + t9097 + t9204 + t9269) + 0.23392894490538584828e1 * t1014 * t9274 + 0.19751673498613801407e-1 * t260 * t9032 + t9101;
-    (t9274, t9279)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk961<F: Float>(t2251: F, t2273: F, t271: F, t3371: F, t3390: F, t6678: F, t6683: F, t6710: F, t6722: F, t8623: F, t8627: F, t8725: F, t8733: F, t8785: F, t8788: F, t8791: F, t8795: F, t8798: F, t8802: F, t8810: F) -> F {
+    let t8813 = -t8623 - t8627 - F::new(4.0) * t6722 * t3371 + F::new(0.64327917994770140268e2) * t6678 * t3390 - F::new(4.0) * t2251 * t8785 - F::new(2.0) * t2251 * t8788 - F::new(0.19298375398431042081e3) * t6683 * t8791 + F::new(0.64327917994770140268e2) * t2273 * t8795 + F::new(0.32163958997385070134e2) * t2273 * t8798 + F::new(0.2069040516770936012e4) * t6710 * t8802 - F::new(0.310907e-1) * t8810 * t271 + t8725 - t8733;
+    t8813
 }

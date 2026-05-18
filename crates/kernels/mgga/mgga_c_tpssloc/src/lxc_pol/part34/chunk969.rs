@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 969/1102 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 969/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk969<F: Float>(t29342: F, t29359: F, t1378: F, t2091: F, t3887: F, t6460: F, t1375: F, t20029: F, t20044: F, t20060: F, t2092: F, t24156: F, t24157: F, t26361: F, t26475: F, t28207: F, t28211: F, t28214: F, t28234: F, t5215: F, t5321: F, t6440: F, t6461: F, t7194: F, t7925: F, t7937: F) -> (F, F, F, F) {
-    let t29360 = t29342 + t29359;
-    let t29361 = t1378 * t29360;
-    let t29372 = t3887 * t2091 * t6460;
-    let t29375 = -2.0 * t20029 * t2092 + 4.0 * t5215 * t7925 - 0.16449340668482264365e-1 * t28207 + 2.0 * t7194 * t6440 - 0.3289868133696452873e-1 * t28211 - 0.6579736267392905746e-1 * t28214 - 0.76763589786250567036e-1 * t26361 - t20044 * t2092 - t1375 * t29361 - t20060 * t2092 - 0.16449340668482264365e-1 * t26475 - 2.0 * t5215 * t7937 - 2.0 * t5321 * t7937 + 0.3289868133696452873e-1 * t28234 - t7194 * t6461 + t24156 + t24157 + 2.0 * t1375 * t29372;
-    (t29360, t29361, t29372, t29375)
+pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk969<F: Float>(t22152: F, t22202: F, t22267: F, t22325: F, t466: F, t1720: F, t6238: F, t1751: F, t6150: F, t1734: F, t1246: F, t22298: F, t491: F) -> (F, F, F, F, F, F) {
+    let t22327 = t22152 + t22202 + t22267 + t22325;
+    let t22328 = t466 * t22327;
+    let t22334 = t1720 * t6238;
+    let t22337 = t6150 * t1751;
+    let t22340 = t6238 * t1734;
+    let t22341 = t22340 * t1246;
+    let t22348 = t491 * t22298;
+    (t22327, t22328, t22334, t22337, t22341, t22348)
 }

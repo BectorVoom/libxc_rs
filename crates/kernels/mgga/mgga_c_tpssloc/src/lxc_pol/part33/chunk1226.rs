@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1226/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1226/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1226<F: Float>(t28: F, t265: F, t504: F, t106667: F, t106716: F, t106606: F, t1409: F, t1972: F, t20217: F, t28803: F, t52: F, t5398: F, t7664: F, t1441: F, t5493: F, t1874: F, t20347: F, t89: F, t28030: F, t7461: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F, F, F, F) {
-    let t29 = t28 <= zeta_threshold;
-    let t401 = rho1 <= dens_threshold || t29;
-    let t505 = t265 < t504;
-    let t106717 = t106667 + t106716;
-    let t106718 = piecewise3(t505, 0.0, t106606);
-    let t106728 = piecewise3(t401, t106717, t106718 * t52 / 2.0 - 3.0 / 2.0 * t28803 * t1409 - 3.0 / 2.0 * t7664 * t5398 - t1972 * t20217 / 2.0);
-    let t106731 = t1441 * t5493;
-    let t106733 = 6.0 * t106731 * t1874;
-    let t106734 = t89 * t20347;
-    let t106736 = 2.0 * t106734 * t1874;
-    let t106738 = 6.0 * t28030 * t7461;
-    (t106728, t106731, t106733, t106736, t106738)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1226<F: Float>(t2331: F, t625: F, t63: F, t9365: F, t22641: F, t9523: F, t1887: F, t23069: F, t6561: F, t80741: F, t6643: F, t2588: F) -> (F, F, F, F, F, F, F) {
+    let t81442 = t625 * t2331;
+    let t81446 = t63 * t9365;
+    let t81573 = t22641 * t9523;
+    let t81591 = t23069 * t1887;
+    let t81597 = t80741 * t6561;
+    let t81598 = t81597 * t6643;
+    let t81599 = F::new(0.16220877603642232915e0) * t81598;
+    let t81612 = t22641 * t2588;
+    (t81442, t81446, t81573, t81591, t81597, t81599, t81612)
 }

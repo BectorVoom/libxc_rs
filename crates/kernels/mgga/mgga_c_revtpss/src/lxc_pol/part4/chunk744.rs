@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 744/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 744/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk744<F: Float>(t1390: F, t4057: F, t828: F, t1389: F, t1408: F, t2736: F, t1388: F, t1410: F, t3970: F, t3976: F, t3982: F, t3987: F, t3990: F, t3996: F, t4002: F, t4006: F, t4014: F, t4022: F) -> (F, F, F, F) {
-    let t4059 = t1390 * t828 * t4057;
-    let t4062 = t1408 * t1389;
-    let t4064 = 0.25410001404642664112e-5 * t2736 * t4062;
-    let t4065 = -0.85748036236139473944e-3 * t1410 * t3970 - t3976 - 0.10164000561857065645e-3 * t3982 + t3987 + 0.80031500487063509015e-2 * t3990 + 0.14291339372689912324e-4 * t3996 + 0.42874018118069736972e-3 * t4002 * t4006 + 0.42874018118069736972e-2 * t1410 * t4014 - 0.25410001404642664112e-4 * t4022 - 0.21437009059034868486e-3 * t1388 * t4059 - t4064;
-    (t4059, t4062, t4064, t4065)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk744<F: Float>(t30: F, t33: F, t525: F, t605: F, t2257: F, t513: F, t527: F, t1113: F, t3351: F, t516: F, t162: F, zeta_threshold: F) -> (F, F, F, F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t34 = t33 <= zeta_threshold;
+    let t3833 = F::new(1.0) / t525;
+    let t3834 = t605 * t605;
+    let t3840 = piecewise3::<f64>(t31, F::new(0.0), F::new(4.0) / F::new(9.0) * t3833 * t3834 + F::new(4.0) / F::new(3.0) * t513 * t2257);
+    let t3841 = F::new(1.0) / t527;
+    let t3842 = t1113 * t1113;
+    let t3848 = piecewise3::<f64>(t34, F::new(0.0), F::new(4.0) / F::new(9.0) * t3841 * t3842 + F::new(4.0) / F::new(3.0) * t516 * t3351);
+    let t3850 = (t3840 + t3848) * t162;
+    (t3833, t3834, t3841, t3842, t3850)
 }

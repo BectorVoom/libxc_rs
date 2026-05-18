@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 994/1266 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 994/1395 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk994<F: Float>(t30: F, t259: F, t379: F, t10937: F, t11219: F, t11796: F, t10353: F, t10947: F, t10948: F, t10950: F, t1288: F, t1289: F, t1402: F, t1490: F, t1991: F, t1992: F, t2445: F, t2818: F, t3431: F, t3735: F, t381: F, t4028: F, t45: F, t580: F, t581: F, t999: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F,) {
-    let t31 = t30 <= zeta_threshold;
-    let t120 = rho0 <= dens_threshold || t31;
-    let t380 = t259 < t379;
-    let t11798 = piecewise3(t380, t11219 + t11796, t10937);
-    let t11810 = piecewise3(t120, t10937 * t30 / 2.0 + t3735 * t580 + t1402 * t1991 / 2.0 + t2445 * t1288 / 2.0 + t10947 + t10948 - t10950, t11798 * t45 / 2.0 + t4028 * t581 + t1490 * t1992 / 2.0 + t2818 * t1289 / 2.0 + t999 * t3431 + t381 * t10353 / 2.0);
-    (t11810,)
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk994<F: Float>(t3590: F, t72: F, t732: F, t2222: F, t3560: F, t1289: F, t724: F, t581: F, t3564: F, t8212: F, t8218: F, t10353: F, t190: F) -> (F, F, F, F, F, F) {
+    let t10684 = t3590 * t72;
+    let t10686 = F::new(0.36622894612013090108e-3) * t10684 * t732;
+    let t10687 = t3560 * t2222;
+    let t10688 = F::new(0.24415263074675393405e-3) * t10687;
+    let t10689 = t724 * t1289;
+    let t10690 = t10689 * t581;
+    let t10692 = F::new(24.0) * t3564 * t10690;
+    let t10693 = F::new(0.34631718211362927518e2) * t8212;
+    let t10694 = F::new(0.23392894490538584828e1) * t8218;
+    let t10695 = t190 * t10353;
+    (t10686, t10688, t10692, t10693, t10694, t10695)
 }

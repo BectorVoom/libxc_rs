@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 955/1291 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 24 (v4rho3sigma_0) CSE chunk 955/1438 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk955<F: Float>(t1222: F, t3567: F, t1203: F, t3540: F, t2393: F, t374: F, t486: F, t485: F, t248: F, t3516: F, t3570: F, t3515: F, t11154: F, t3585: F, t3493: F, t4978: F) -> (F, F, F, F, F, F, F) {
-    let t11642 = t3567 * t1222;
-    let t11644 = t1203 * t3540;
-    let t11647 = t374 * t2393 * t486;
-    let t11649 = t485 * t11647 / 10368.0;
-    let t11651 = t248 * t3570 * t3516;
-    let t11652 = t3515 * t11651;
-    let t11655 = t248 * t3585 * t11154;
-    let t11660 = t486 * t3493;
-    let t11661 = t11660 * t4978;
-    (t11642, t11644, t11649, t11652, t11655, t11660, t11661)
+pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk955<F: Float>(t10620: F, t10649: F, t10652: F, t10654: F, t10657: F, t10665: F, t10699: F, t10707: F, t10771: F, t10772: F, t10806: F, t10811: F, t10814: F, t10819: F, t10820: F, t10825: F, t10828: F, t10829: F, t10843: F, t2900: F, t2925: F, t2933: F, t311: F, t924: F, t952: F) -> F {
+    let t10847 = -F::new(0.19298375398431042081e3) * t10771 * t10772 + F::new(1.0) * t924 * t10806 + F::new(0.2069040516770936012e4) * t10811 * t10814 + t10819 + t10649 - t10652 - t10654 - t10657 + t10665 - t10699 - t10707 + F::new(0.17544670867903938621e1) * t10820 * t952 + F::new(0.17544670867903938621e1) * t2900 * t2925 + F::new(0.51947577317044391276e2) * t10825 * t2933 - F::new(0.10389515463408878255e3) * t10828 * t10829 - F::new(0.310907e-1) * t10843 * t311 - F::new(0.19751673498613801407e-1) * t10620;
+    t10847
 }

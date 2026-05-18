@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 214/1286 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 214/1422 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk214<F: Float>(t128: F, t72: F,
     let t691 = f64::sqrt(t128);
     let t692 = t691 * t72;
     let t693 = t692 * t686;
-    let t696 = 1.0 / t66 / t3;
+    let t696 = F::new(1.0) / t66 / t3;
     let t697 = t124 * t696;
     (t692, t693, t696, t697)
 }

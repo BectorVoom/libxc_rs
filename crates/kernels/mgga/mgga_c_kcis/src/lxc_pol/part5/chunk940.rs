@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 940/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 940/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk940<F: Float>(t119: F, t41: F, t85: F, t339: F, t9368: F, t238: F, t5158: F, t86: F, t284: F, t5082: F, t10506: F, t251: F, t1281: F, t5358: F, t13101: F, t13103: F) -> (F, F, F, F, F, F, F, F) {
-    let t15007 = t119 * t41;
-    let t15008 = t85 * t15007;
-    let t15022 = t9368 * t339;
-    let t15046 = 0.53062222222222222222e-1 * t86 * t238 * t5158;
-    let t15068 = t5082 * t284;
-    let t15085 = t251 * t10506;
-    let t15109 = t5358 * t1281;
-    let t15112 = 0.23214722222222222222e-2 * t13101;
-    let t15113 = 0.15476481481481481481e-2 * t13103;
-    (t15008, t15022, t15046, t15068, t15085, t15109, t15112, t15113)
+pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk940<F: Float>(t647: F, t9129: F, t794: F, t8604: F, t103: F, t11: F, t144: F, t148: F, t2477: F, t2542: F, t2546: F, t2555: F, t2561: F, t2565: F, t2569: F, t745: F, t784: F, t791: F, t795: F, t85: F, t8996: F, t9113: F, t9118: F, t9120: F, t9124: F) -> F {
+    let t9130 = t9129 * t647;
+    let t9144 = t794 * t8604;
+    let t9147 = F::new(0.74295e-1) * t9113 * t2561 + F::new(0.4953e-1) * t2546 * t2565 - F::new(0.619125e-2) * t9118 * t9120 - F::new(0.371475e-1) * t9124 * t791 + F::new(0.371475e-1) * t784 * t2569 + F::new(0.619125e-2) * t9130 * t2555 - F::new(0.79593333333333333331e-1) * t85 * t148 * t8996 + F::new(0.5306222222222222222e-1) * t85 * t103 * t745 - F::new(0.15918666666666666666e0) * t85 * t11 * t2477 - F::new(0.1857375e-1) * t2542 * t795 - F::new(0.619125e-2) * t144 * t9144;
+    t9147
 }

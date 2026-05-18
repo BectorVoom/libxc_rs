@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 522/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 522/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk522<F: Float>(t895: F, t898: F, t227: F, t897: F, t224: F, t906: F, t2586: F, t2589: F, t2591: F, t2595: F, t2598: F, t2601: F, t2603: F, t2606: F, t2608: F, t2610: F, t2613: F, t2616: F, t2619: F, t2624: F) -> (F, F, F, F, F) {
-    let t2766 = t895 * t898;
-    let t2770 = 1.0 / t897 / t227;
-    let t2771 = t224 * t2770;
-    let t2772 = t906 * t906;
-    let t2789 = 0.1875e0 * t2586 - 0.375e0 * t2589 - 0.75e0 * t2591 + 0.375e0 * t2595 + 0.75e0 * t2598 - 0.1875e0 * t2601 + 0.1125e1 * t2603 - 0.4046875e-1 * t2606 + 0.809375e-1 * t2608 + 0.32375e0 * t2610 - 0.809375e-1 * t2613 - 0.32375e0 * t2616 + 0.4046875e-1 * t2619 - 0.809375e0 * t2624;
-    (t2766, t2770, t2771, t2772, t2789)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk522<F: Float>(t2440: F, t717: F, t2459: F, t97: F, t684: F, t127: F, t129: F, t130: F, t2379: F, t2496: F, t2500: F, t2507: F, t2508: F, t60: F, t756: F, t763: F, t764: F, t768: F) -> (F, F, F) {
+    let t2514 = t717 * t2440;
+    let t2518 = t97 * t2459;
+    let t2522 = t684 * t684;
+    let t2526 = -F::new(0.43802864444444444443e-3) * t127 * t2496 * t130 - F::new(0.2e-22) * t763 * t2500 * t130 - F::new(0.26281718666666666666e-2) * t127 * t756 * t768 + F::new(0.19711288999999999999e-2) * t2507 * t2508 + F::new(0.19711288999999999999e-2) * t763 * t764 * t768 + F::new(0.39422577999999999998e-2) * t127 * t129 * t2514 - F::new(0.19711288999999999999e-2) * t127 * t129 * t2518 - F::new(4.0) * t2522 - F::new(4.0) * t60 * t2379;
+    (t2514, t2518, t2526)
 }

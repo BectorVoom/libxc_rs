@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 580/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 580/1086 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk580<F: Float>(t4726: F, t8510: F, t26: F, t1659: F, t8514: F, t8518: F, t4711: F, t4723: F, t6756: F, t6823: F, t8512: F, t8516: F, t8520: F, t8525: F, t8527: F, t8559: F, t8561: F) -> (F, F, F, F, F, F, F) {
-    let t8564 = t4726 * t8510;
-    let t8565 = t26 * t8564;
-    let t8567 = t1659 * t8514;
-    let t8568 = t26 * t8567;
-    let t8570 = t1659 * t8518;
-    let t8571 = t26 * t8570;
-    let t8573 = -0.9494625e0 * t8525 + 0.1898925e1 * t8527 + t4711 + 0.19931111111111111111e0 * t6756 - 0.19931111111111111111e0 * t8512 + 0.59793333333333333334e0 * t8516 - 0.29896666666666666667e0 * t8520 + 0.15358125e0 * t8559 + 0.3071625e0 * t8561 + t4723 + 0.10954222222222222222e0 * t6823 - 0.27385555555555555556e-1 * t8565 + 0.16431333333333333333e0 * t8568 - 0.82156666666666666667e-1 * t8571;
-    (t8564, t8565, t8567, t8568, t8570, t8571, t8573)
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk580<F: Float>(t1341: F, t8072: F, t3785: F, t1411: F, t2152: F, t2231: F, t1450: F, t1415: F, t3776: F, t8010: F, t1340: F, t2177: F, t5606: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t8073 = t1341 * t8072;
+    let t8074 = t3785 * t8073;
+    let t8075 = t1411 * t8074;
+    let t8077 = t2231 * t2152;
+    let t8078 = t1450 * t8077;
+    let t8079 = t1415 * t8078;
+    let t8080 = t1411 * t8079;
+    let t8082 = t3776 * t8010;
+    let t8083 = t1340 * t8082;
+    let t8084 = t1411 * t8083;
+    let t8086 = t5606 * t2177;
+    (t8073, t8074, t8075, t8077, t8078, t8079, t8080, t8082, t8083, t8084, t8086)
 }

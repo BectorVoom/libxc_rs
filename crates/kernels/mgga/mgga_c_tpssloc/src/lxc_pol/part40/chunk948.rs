@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 948/1178 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 948/1303 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk948<F: Float>(t13109: F, t13113: F, t5398: F, t751: F, t707: F, t13133: F, t1462: F, t2427: F, t5597: F, t9922: F, t13124: F, t5522: F, t67: F, t758: F, t3966: F, t4195: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t16699 = 0.48830526149350786811e-3 * t13109;
-    let t16700 = 0.11696447245269292414e1 * t13113;
-    let t16701 = t751 * t5398;
-    let t16702 = t707 * t16701;
-    let t16703 = 4.0 * t16702;
-    let t16705 = 8.0 * t13133 * t1462;
-    let t16707 = 4.0 * t2427 * t5597;
-    let t16708 = 0.5848223622634646207e0 * t9922;
-    let t16709 = 0.21687162600603479684e-1 * t13124;
-    let t16710 = t5522 * t67;
-    let t16711 = t16710 * t758;
-    let t16712 = 0.18311447306006545054e-3 * t16711;
-    let t16713 = t4195 * t3966;
-    (t16699, t16700, t16703, t16705, t16707, t16708, t16709, t16712, t16713)
+pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk948<F: Float>(t11707: F, t3032: F, t3505: F, t10469: F, t466: F, t10471: F, t1208: F, t478: F, t10477: F, t483: F, t3508: F, t475: F) -> (F, F, F, F, F, F, F, F) {
+    let t11708 = t11707 * t3032;
+    let t11709 = t11708 * t3505;
+    let t11712 = t466 * t10469;
+    let t11713 = t11712 * t10471;
+    let t11714 = t1208 * t1208;
+    let t11715 = F::new(1.0) / t11714;
+    let t11716 = t11715 * t478;
+    let t11717 = t483 * t10477;
+    let t11718 = t11716 * t11717;
+    let t11719 = t11713 * t11718;
+    let t11721 = t3508 * t475;
+    (t11708, t11709, t11712, t11713, t11715, t11717, t11719, t11721)
 }

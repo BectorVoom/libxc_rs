@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 12 (v4rho3sigma_3) CSE chunk 292/951 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 12 (v4rho3sigma_3) CSE chunk 292/1088 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk292<F: Float>(t321: F, t552: F, t333: F, t529: F, t941: F, t537: F, t809: F, t312: F, t50: F, t90: F, t814: F, t547: F, t820: F, t316: F, t101: F, t309: F, t317: F, t538: F, t544: F, t832: F, t87: F, t98: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t1551 = t552 * t321;
-    let t1554 = t552 * t333;
-    let t1562 = t941 * t529;
-    let t1569 = t809 * t537;
-    let t1570 = t1569 * t312;
-    let t1573 = t90 * t50;
-    let t1574 = t1573 * t814;
-    let t1579 = t820 * t547;
-    let t1580 = t1579 * t316;
-    let t1583 = t101 * t50;
-    let t1584 = t1583 * t814;
-    let t1587 = -50.0 / 9.0 * t309 * t538 + 20.0 / 9.0 * t87 * t1570 + 10.0 / 3.0 * t87 * t1574 - 50.0 / 9.0 * t544 * t317 + 20.0 / 9.0 * t98 * t1580 - 10.0 / 3.0 * t98 * t1584 - t832;
-    (t1551, t1554, t1562, t1569, t1570, t1573, t1574, t1579, t1583, t1587)
+pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk292<F: Float>(t1475: F, t446: F, t221: F, t1439: F, t205: F, t206: F, t23: F, t1156: F, t589: F, t1392: F, t472: F, t207: F, t470: F, t473: F, t600: F, t602: F) -> (F, F, F, F, F, F, F) {
+    let t1476 = t1475 * t446;
+    let t1477 = t221 * t1476;
+    let t1480 = t1439 * t205;
+    let t1486 = t206 * t23;
+    let t1487 = t1156 * t589;
+    let t1488 = t1487 * t446;
+    let t1491 = t472 * t1392;
+    let t1494 = -t1480 * t207 - F::new(12.0) * t1486 * t1488 + F::new(3.0) * t1491 * t206 + F::new(3.0) * t470 * t602 + F::new(3.0) * t473 * t600;
+    (t1477, t1480, t1486, t1487, t1488, t1491, t1494)
 }

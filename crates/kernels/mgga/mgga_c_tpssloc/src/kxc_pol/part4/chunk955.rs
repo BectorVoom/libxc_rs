@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 955/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 955/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk955<F: Float>(t1557: F, t4395: F, t2792: F, t5730: F, t912: F, t10661: F, t10756: F, t10828: F, t17192: F, t17451: F, t17454: F, t17471: F, t17490: F, t17493: F, t17496: F, t17500: F, t17504: F, t17506: F, t17509: F, t2905: F, t2930: F, t311: F) -> (F, F, F) {
-    let t17510 = t1557 * t4395;
-    let t17512 = 4.0 * t2792 * t17510;
-    let t17513 = t5730 * t912;
-    let t17515 = 0.96491876992155210402e2 * t10661 * t17513;
-    let t17516 = -0.10389515463408878255e3 * t10828 * t17451 - 0.11696447245269292414e1 * t2905 * t17454 - 0.310907e-1 * t17471 * t311 + t17490 - 0.19751673498613801407e-1 * t17192 + 0.17315859105681463759e2 * t2930 * t17493 + 0.34631718211362927518e2 * t2930 * t17496 + 0.10254018858216406658e4 * t10756 * t17500 + t17504 - t17506 - t17509 + t17512 + t17515;
-    (t17512, t17515, t17516)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk955<F: Float>(t14506: F, t3032: F, t3129: F, t3038: F, t225: F, t4658: F, t4553: F, t4559: F, t4555: F, t3199: F, t3185: F, t1057: F, t14205: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t14507 = t14506 * t3032;
+    let t14508 = t14507 * t3129;
+    let t14511 = t14507 * t3038;
+    let t14529 = t4658 * t225;
+    let t14545 = t4553 * t225;
+    let t14552 = t4559 * t225;
+    let t14555 = t4555 * t225;
+    let t14608 = t14506 * t3199;
+    let t14618 = t14506 * t3185;
+    let t14651 = t14205 * t1057;
+    (t14508, t14511, t14529, t14545, t14552, t14555, t14608, t14618, t14651)
 }

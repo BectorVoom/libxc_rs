@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 759/1171 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 759/1322 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk759<F: Float>(t1211: F, t5208: F, t1823: F, t3574: F, t13908: F, t13712: F, t13714: F, t4731: F, t962: F, t1684: F, t3031: F, t3549: F, t110: F, t1852: F, t1251: F, t3490: F, t5321: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t15362 = t5208 * t1211;
-    let t15369 = t1823 * t3574;
-    let t15397 = 0.27785333333333333334e0 * t13908;
-    let t15411 = 0.22954444444444444444e0 * t13712;
-    let t15432 = 0.2283111111111111111e-1 * t13714;
-    let t15445 = t4731 * t962;
-    let t15450 = t1684 * t3031;
-    let t15460 = t1823 * t3549;
-    let t15476 = t110 * t1852;
-    let t15477 = t1251 * t15476;
-    let t15493 = t3490 * t5321 / 108.0;
-    (t15362, t15369, t15397, t15411, t15432, t15445, t15450, t15460, t15477, t15493)
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk759<F: Float>(t9725: F, t2937: F, t926: F, t270: F, t3030: F, t9728: F, t999: F, t292: F, t737: F, t285: F, t1071: F, t240: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t9775 = F::new(0.28842592592592592592e-1) * t9725;
+    let t9790 = F::new(0.55403703703703703703e-1) * t9725;
+    let t9804 = t926 * t2937;
+    let t9825 = F::new(1.0) / t3030 / t270;
+    let t9851 = F::new(0.93932222222222222223e0) * t9725;
+    let t9852 = F::new(0.36793333333333333333e0) * t9728;
+    let t9873 = t999 * t999;
+    let t9874 = F::new(1.0) / t9873;
+    let t9881 = t737 * t292;
+    let t9883 = F::new(5.0) / F::new(1296.0) * t285 * t9881;
+    let t9896 = F::new(1.0) / t240 / t1071;
+    (t9775, t9790, t9804, t9825, t9851, t9852, t9874, t9883, t9896)
 }

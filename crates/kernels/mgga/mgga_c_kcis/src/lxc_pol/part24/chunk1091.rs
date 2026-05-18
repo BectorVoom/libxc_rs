@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 1091/1171 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 1091/1322 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1091<F: Float>(t5026: F, t5068: F, t6717: F, t9532: F, t19870: F, t7748: F, t99904: F, t99906: F, t99908: F, t99910: F, t99912: F, t99914: F, t99917: F, t99919: F, t99921: F, t99923: F, t99925: F, t99927: F, t99929: F, t99931: F, t99933: F, t99935: F) -> (F, F, F, F) {
-    let t99937 = t5026 * t5068;
-    let t99939 = t9532 * t6717;
-    let t99941 = t7748 * t19870;
-    let t99943 = t99904 / 432.0 + t99906 / 64.0 - t99908 / 8.0 - t99910 / 24.0 + t99912 / 12.0 + t99914 / 4.0 + t99917 / 24.0 - t99919 / 288.0 + t99921 / 48.0 + t99923 / 96.0 + t99925 / 128.0 - t99927 / 96.0 + t99929 / 8.0 + t99931 / 18.0 - t99933 / 72.0 + 2.0 / 9.0 * t99935 + t99937 / 64.0 - t99939 / 64.0 - t99941 / 24.0;
-    (t99937, t99939, t99941, t99943)
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1091<F: Float>(t26685: F, t27799: F, t27804: F, t27849: F, t27857: F, t28905: F, t28909: F, t28913: F, t28917: F, t28920: F, t28925: F, t28928: F) -> F {
+    let t28931 = F::new(0.22109259259259259258e-2) * t27799 - F::new(0.15445601851851851852e-3) * t27804 + F::new(0.33163888888888888888e-2) * t28905 + F::new(0.16581944444444444444e-2) * t28909 + F::new(0.27636574074074074073e-2) * t28913 - F::new(0.33163888888888888888e-2) * t28917 + F::new(0.24872916666666666666e-2) * t28920 + F::new(0.22109259259259259258e-2) * t27849 + F::new(0.46336805555555555556e-3) * t27857 - F::new(0.33163888888888888888e-2) * t28925 + F::new(0.61836467013888888889e-4) * t26685 * t28928;
+    t28931
 }

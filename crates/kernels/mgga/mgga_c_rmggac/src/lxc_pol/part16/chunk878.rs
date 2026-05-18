@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 878/1012 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 878/1158 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk878<F: Float>(t352: F, t515: F, t7230: F, t7231: F, t9988: F, t118: F, t2001: F, t2281: F, t615: F, t7717: F, t1818: F, t1970: F, t209: F, t236: F, t476: F, t9210: F) -> (F, F, F) {
-    let t46958 = t7230 * t7231 * t515 * t9988 * t352;
-    let t46962 = t2001 * t118 * t2281 * t615;
-    let t46963 = t7717 * t46962;
-    let t46969 = t1970 * t9210 * t236 * t1818 * t476 * t209;
-    (t46958, t46963, t46969)
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk878<F: Float>(t42238: F, t42242: F, t42246: F, t42258: F, t9640: F, t9642: F, t9126: F, t9129: F, t9135: F, t9139: F, t9143: F, t9148: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t44444 = F::new(0.1440846329149835838e-2) * t42238;
+    let t44445 = F::new(0.1440846329149835838e-2) * t42242;
+    let t44446 = F::new(0.1440846329149835838e-2) * t42246;
+    let t44450 = F::new(0.39726959900411316772e-4) * t42258;
+    let t44466 = F::new(0.4726e1) * t9640;
+    let t44467 = F::new(0.39914139006212695214e-1) * t9642;
+    let t44468 = F::new(0.5987120850931904282e-1) * t9126;
+    let t44470 = F::new(0.11974241701863808564e0) * t9129;
+    let t44472 = F::new(0.5454932330849068346e-1) * t9135;
+    let t44473 = F::new(0.3405167991463827152e-4) * t9139;
+    let t44474 = F::new(0.1702583995731913576e-4) * t9143;
+    let t44475 = F::new(0.212822999466489197e-4) * t9148;
+    (t44444, t44445, t44446, t44450, t44466, t44467, t44468, t44470, t44472, t44473, t44474, t44475)
 }

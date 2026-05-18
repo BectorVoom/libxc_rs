@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 962/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 962/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk962<F: Float>(t10255: F, t4531: F, t343: F, t4540: F, t984: F, t4546: F, t12606: F, t978: F, t977: F, t135: F, t340: F, t4548: F, t973: F, t2970: F, t4522: F, t6733: F, t884: F) -> (F, F, F, F, F, F) {
-    let t13806 = t4531 * t10255;
-    let t13812 = t4540 * t984 * t343;
-    let t13813 = t4546 * t13812;
-    let t13816 = t978 * t12606;
-    let t13817 = t977 * t13816;
-    let t13822 = t135 * t340;
-    let t13823 = t13822 * t4548;
-    let t13825 = 0.55555555555555555554e-3 * t973 * t13823;
-    let t13828 = t2970 * t4522;
-    let t13830 = 0.18518518518518518518e-3 * t973 * t13828;
-    let t13831 = t6733 * t884;
-    (t13806, t13813, t13817, t13825, t13830, t13831)
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk962<F: Float>(t1294: F, t9905: F, t9892: F, t3684: F, t9467: F, t118: F, t1284: F, t2375: F, t9882: F, t9888: F, t9885: F, t3824: F, t588: F) -> (F, F, F, F, F, F, F, F) {
+    let t12103 = F::new(0.35089341735807877242e1) * t1294 * t9905;
+    let t12105 = F::new(0.51947577317044391277e2) * t1294 * t9892;
+    let t12109 = F::new(0.21687162600603479684e-1) * t3684 * t9467;
+    let t12110 = t1284 * t118;
+    let t12111 = t12110 * t2375;
+    let t12114 = F::new(0.32530743900905219526e-1) * t3684 * t9882;
+    let t12116 = F::new(0.48159733137676571078e0) * t3684 * t9888;
+    let t12118 = F::new(0.16265371950452609763e-1) * t3684 * t9885;
+    let t12120 = t588 * t3824;
+    (t12103, t12105, t12109, t12111, t12114, t12116, t12118, t12120)
 }

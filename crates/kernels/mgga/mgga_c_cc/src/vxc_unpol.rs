@@ -29,15 +29,15 @@ pub fn mgga_c_cc_vxc_unpol(
     if ip < zk.len() {
         let t2 = M_CBRT3;
         let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
+        let t4 = pow_1_3::<f64>(t3);
         let t5 = t2 * t4;
         let t6 = M_CBRT4;
         let t7 = t6 * t6;
-        let t8 = pow_1_3(rho[ip]);
+        let t8 = pow_1_3::<f64>(rho[ip]);
         let t11 = t5 * t7 / t8;
         let t13 = 1.0 + 0.53425e-1 * t11;
         let t14 = f64::sqrt(t11);
-        let t17 = pow_3_2(t11);
+        let t17 = pow_3_2::<f64>(t11);
         let t19 = t2 * t2;
         let t20 = t4 * t4;
         let t21 = t19 * t20;
@@ -47,8 +47,8 @@ pub fn mgga_c_cc_vxc_unpol(
         let t30 = 1.0 + 0.16081979498692535067e2 / t27;
         let t31 = f64::ln(t30);
         let t33 = 0.621814e-1 * t13 * t31;
-        let t35 = pow_1_3(zeta_threshold);
-        let t37 = piecewise3(1.0 <= zeta_threshold, t35 * zeta_threshold, 1.0);
+        let t35 = pow_1_3::<f64>(zeta_threshold);
+        let t37 = piecewise3::<f64>(1.0 <= zeta_threshold, t35 * zeta_threshold, 1.0);
         let t40 = M_CBRT2;
         let t44 = (2.0 * t37 - 2.0) / (2.0 * t40 - 2.0);
         let t46 = 1.0 + 0.278125e-1 * t11;

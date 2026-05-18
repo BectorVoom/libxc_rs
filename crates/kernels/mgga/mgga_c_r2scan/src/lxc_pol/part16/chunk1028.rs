@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1028/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 1028/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1028<F: Float>(t11506: F, t39324: F, t12574: F, t481: F, t10997: F, t3262: F, t40677: F, t3579: F, t39332: F, t1065: F, t2892: F, t3270: F, t36986: F, t2530: F, t3060: F, t36967: F) -> (F, F, F, F, F, F, F) {
-    let t42818 = 3.0 / 2.0 * t11506 * t39324;
-    let t42819 = t12574 * t481;
-    let t42822 = 135.0 / 64.0 * t3262 * t10997 * t42819;
-    let t42824 = 3.0 / 2.0 * t11506 * t40677;
-    let t42826 = 5.0 / 8.0 * t3579 * t39332;
-    let t42829 = t1065 * t2892;
-    let t42830 = t3270 * t42829;
-    let t42832 = 3.0 / 2.0 * t36986 * t42830;
-    let t42836 = t3579 * t3270 * t1065 * t2530 / 2.0;
-    let t42837 = t1065 * t3060;
-    let t42838 = t36967 * t42837;
-    (t42818, t42822, t42824, t42826, t42832, t42836, t42838)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk1028<F: Float>(t19790: F, t560: F, t545: F, t6534: F, t1567: F, t489: F, t146: F, t252: F, t108: F, t2214: F, t10979: F, t128: F) -> (F, F, F, F, F) {
+    let t20146 = t19790 * t560;
+    let t20298 = t545 * t6534;
+    let t20303 = t489 * t1567;
+    let t20305 = t146 * t20303 * t252;
+    let t20407 = t2214 * t108;
+    let t20421 = t10979 * t128;
+    (t20146, t20298, t20305, t20407, t20421)
 }

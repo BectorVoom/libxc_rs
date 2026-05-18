@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1226/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 1226/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1226<F: Float>(t25341: F, t31366: F, t6552: F, t1880: F, t26679: F, t6553: F, t6571: F, t114592: F, t118476: F, t118479: F, t118481: F, t118484: F, t121296: F, t121299: F, t121302: F, t121305: F, t121308: F, t121311: F) -> (F,) {
-    let t121314 = t6552 * t31366 * t25341;
-    let t121318 = t1880 * t6553 * t6571 * t26679;
-    let t121320 = t118476 + t118479 - 0.82246703342411321824e-2 * t114592 - t118481 + 0.19190897446562641759e-1 * t121296 + 0.16449340668482264365e-1 * t121299 + t118484 - 0.82246703342411321825e-2 * t121302 + 0.41123351671205660912e-2 * t121305 - 0.82246703342411321825e-2 * t121308 - 0.16449340668482264365e-1 * t121311 - 0.16449340668482264365e-1 * t121314 - 0.82246703342411321825e-2 * t121318;
-    (t121320,)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk1226<F: Float>(t33379: F, t6646: F, t1888: F, t1894: F, t7823: F, t214: F, t1880: F, t1510: F, t31394: F, t31353: F, t31355: F, t31359: F, t32835: F, t32838: F, t32841: F, t32845: F, t32847: F) -> (F, F, F, F, F, F, F) {
+    let t33380 = t6646 * t33379;
+    let t33381 = t1888 * t33380;
+    let t33383 = t1894 * t7823;
+    let t33384 = t214 * t33383;
+    let t33385 = t1880 * t33384;
+    let t33388 = t31394 * t1510;
+    let t33395 = -t31353 - F::new(0.96894614625936938046e-2) * t32835 - t31355 - F::new(0.16149102437656156341e-2) * t32838 + t32841 / F::new(768.0) - t32845 / F::new(768.0) - t31359 - t32847 / F::new(192.0);
+    (t33380, t33381, t33383, t33384, t33385, t33388, t33395)
 }

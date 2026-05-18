@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 1138/1178 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 40 (v4rho3tau_4) CSE chunk 1138/1303 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk1138<F: Float>(t12346: F, t12366: F, t12429: F, t1363: F, t16233: F, t16394: F, t16400: F, t19940: F, t19942: F, t19945: F, t19951: F, t19958: F, t19962: F, t19966: F, t19972: F, t19976: F, t19981: F, t19986: F, t19991: F, t19996: F, t20000: F, t20004: F, t3803: F, t5246: F, t5259: F, t6396: F) -> (F,) {
-    let t20007 = -35.0 / 1152.0 * t19940 + 7.0 / 1152.0 * t19942 + t5246 * t19945 / 768.0 + t12429 * t6396 / 384.0 + t3803 * t19951 / 384.0 - 119.0 / 3456.0 * t12346 - 119.0 / 13824.0 * t12366 + t3803 * t19958 / 768.0 - t3803 * t19962 / 3072.0 + t5246 * t19966 / 1536.0 + t16394 * t5259 / 384.0 - t3803 * t19972 / 1536.0 - t3803 * t19976 / 3072.0 - 5.0 / 768.0 * t3803 * t19981 + t3803 * t19986 / 768.0 + t3803 * t19991 / 384.0 + 5.0 / 768.0 * t1363 * t19996 - t16400 - t16233 * t20000 / 512.0 - t5246 * t20004 / 384.0;
-    (t20007,)
+pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk1138<F: Float>(t18050: F, t18168: F, t1068: F, t1070: F, t17194: F, t17197: F, t17198: F, t17202: F, t17209: F, t17301: F, t17303: F, t17306: F, t17372: F, t17374: F, t17377: F, t17379: F, t17425: F, t17427: F, t17561: F, t17563: F, t17568: F, t193: F, t336: F, t4696: F, t4700: F, t4701: F) -> F {
+    let t18169 = t18050 + t18168;
+    let t18173 = t1070 * t18169 * t193 * t336 + F::new(2.0) * t1068 * t17198 * t4700 - t1068 * t17202 * t4700 - F::new(2.0) * t4696 * t4700 * t4701 + t17194 + t17197 - t17209 - t17301 - t17303 - t17306 + t17372 + t17374 - t17377 + t17379 + t17425 + t17427 + t17561 - t17563 - t17568;
+    t18173
 }

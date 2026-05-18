@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 797/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 797/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk797<F: Float>(t2475: F, t723: F, t159: F, t2461: F, t730: F, t167: F, t2478: F, t164: F, t2479: F, t9689: F, t9692: F, t9695: F, t9698: F, t9702: F, t9704: F, t9706: F, t9709: F) -> (F, F, F, F, F, F) {
-    let t9729 = 1.0 / t2475 / t723;
-    let t9730 = t159 * t9729;
-    let t9731 = t2461 * t730;
-    let t9733 = 1.0 / t2478 / t167;
-    let t9734 = t9731 * t9733;
-    let t9738 = 1.0 / t2475 / t164;
-    let t9739 = t159 * t9738;
-    let t9740 = t9731 * t2479;
-    let t9751 = -0.47063e1 * t9689 + 0.31375333333333333334e1 * t9692 - 0.36604555555555555556e1 * t9695 - 0.16068111111111111111e1 * t9698 + 0.28051666666666666666e0 * t9702 - 0.56103333333333333332e0 * t9704 - 0.6545388888888888889e0 * t9706 - 0.46308888888888888888e0 * t9709;
-    (t9730, t9731, t9734, t9739, t9740, t9751)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk797<F: Float>(t3131: F, t5872: F, t1021: F, t248: F, t360: F, t3151: F, t5392: F, t974: F, t5398: F, t998: F, t3146: F, t1044: F, t5681: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t5873 = t5872 * t3131;
+    let t5875 = t248 * t1021 * t5873;
+    let t5878 = t5872 * t360;
+    let t5880 = t248 * t1021 * t5878;
+    let t5884 = t3151 * t5392;
+    let t5885 = t974 * t5884;
+    let t5889 = t998 * t5398;
+    let t5890 = t974 * t5889;
+    let t5893 = t3146 * t5392;
+    let t5894 = t974 * t5893;
+    let t5900 = t248 * t1044 * t5681;
+    (t5873, t5875, t5878, t5880, t5884, t5885, t5889, t5890, t5893, t5894, t5900)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 979/1089 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 979/1244 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk979<F: Float>(t121089: F, t7063: F, t26050: F, t2470: F, t32219: F, t32223: F, t1419: F, t31805: F, t1381: F, t8590: F, t27: F, t3999: F, t8589: F, t25875: F, t4021: F, t32268: F) -> (F, F, F, F, F, F, F, F) {
-    let t121093 = t7063 * t121089;
-    let t121094 = t121093 * t26050;
-    let t121096 = t32219 * t2470;
-    let t121098 = 0.34270468708064099208e-1 * t32223 * t121096;
-    let t121099 = t31805 * t1419;
-    let t121101 = t121099 * t8590 * t1381;
-    let t121106 = t8589 * t3999 * t27;
-    let t121107 = t25875 * t121106;
-    let t121108 = t121107 * t4021;
-    let t121110 = t32268 * t121106;
-    (t121093, t121094, t121096, t121098, t121101, t121107, t121108, t121110)
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk979<F: Float>(t5: F, t29387: F, t29419: F, t117: F, t1310: F, t1843: F, t2127: F, t27136: F, t27139: F, t27152: F, t27156: F, t27834: F, t27835: F, t28022: F, t28045: F, t28058: F, t28060: F, t508: F, t5517: F, t649: F, t7584: F, t8152: F, t8233: F) -> (F, F, F) {
+    let t7 = piecewise3::<f64>(F::new(0.0) < t5, t5, -t5);
+    let t8 = -t7 <= -F::new(0.999999999999e0);
+    let t29421 = piecewise3::<f64>(t8, F::new(0.0), t29387 + t29419);
+    let t29422 = t29421 * t117;
+    let t29425 = -t1310 * t8152 - t1843 * t7584 - t2127 * t5517 - t29422 * t508 - t649 * t8233 - t27136 - t27139 + t27152 - t27156 + t27834 + t27835 + t28022 - t28045 - t28058 - t28060;
+    (t29421, t29422, t29425)
 }

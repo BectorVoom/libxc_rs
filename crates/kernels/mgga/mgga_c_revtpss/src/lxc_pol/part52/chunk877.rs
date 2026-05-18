@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 877/1144 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 877/1292 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk877<F: Float>(t233: F, t28340: F, t1957: F, t2061: F, t231: F, t4423: F, t7076: F, t25317: F, t8006: F, t886: F, t4533: F, t7071: F, t27213: F, t7407: F, t1956: F, t26508: F, t26521: F, t26522: F, t26529: F, t26534: F, t26536: F, t26538: F, t27199: F, t4487: F, t7070: F, t7403: F, t7420: F) -> (F,) {
-    let t28399 = t233 * t28340;
-    let t28400 = t1957 * t28399;
-    let t28404 = t2061 * t4423 * t231;
-    let t28405 = t7076 * t28404;
-    let t28411 = t25317 * t8006 * t886;
-    let t28417 = t2061 * t4533;
-    let t28418 = t7071 * t28417;
-    let t28422 = t27213 * t7407;
-    let t28424 = -0.4336814094102599731e0 * t1956 * t28400 + 0.4336814094102599731e0 * t7070 * t28405 + 0.4336814094102599731e0 * t27199 * t7420 - 0.26020884564615598386e1 * t7070 * t28411 + t26508 + 0.13170898365871023197e1 * t7403 * t4487 + t26521 - 0.12851425765524037203e-1 * t26522 + 0.8673628188205199462e0 * t7070 * t28418 + 0.72280234901709995518e-2 * t26529 - t26534 - t26536 - t26538 + 0.72280234901709995518e-2 * t28422;
-    (t28424,)
+pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk877<F: Float>(t72: F, t7531: F, t686: F, t7284: F, t7289: F, t136: F, t2102: F, t2457: F, t25944: F, t25950: F, t7515: F, t213: F, t7506: F) -> (F, F, F, F, F, F) {
+    let t26270 = t7531 * t72;
+    let t26271 = t26270 * t686;
+    let t26272 = t7284 * t26271;
+    let t26274 = t7289 * t26271;
+    let t26276 = t2102 * t136;
+    let t26277 = t26276 * t2457;
+    let t26279 = F::new(0.17135234354032049604e-2) * t25944 * t26277;
+    let t26280 = t25950 * t7515;
+    let t26282 = t213 * t7506;
+    (t26272, t26274, t26277, t26279, t26280, t26282)
 }

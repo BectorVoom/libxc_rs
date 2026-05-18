@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 984/1089 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 984/1244 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk984<F: Float>(t121211: F, t121197: F, t32244: F, t121096: F, t32218: F, t32265: F, t3974: F, t121184: F, t7063: F, t32240: F, t119967: F, t121173: F, t121206: F, t121177: F, t3999: F, t8584: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t121212 = 0.23511941766261123138e-4 * t121211;
-    let t121214 = 0.33852964522850660984e-1 * t32244 * t121197;
-    let t121219 = 0.19274729307122665472e-1 * t32218 * t121096;
-    let t121227 = t32265 * t3974;
-    let t121228 = 0.19833242244827205771e-3 * t121227;
-    let t121229 = t7063 * t121184;
-    let t121230 = t121229 * t32240;
-    let t121232 = t119967 * t121173;
-    let t121233 = t121232 * t121206;
-    let t121235 = t121232 * t121177;
-    let t121239 = t8584 * t3999;
-    (t121212, t121214, t121219, t121228, t121230, t121232, t121233, t121235, t121239)
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk984<F: Float>(t2163: F, t4292: F, t670: F, t8233: F, t1519: F, t1911: F, t2165: F, t28183: F, t28186: F, t28188: F, t28190: F, t28192: F, t28193: F, t28201: F, t28202: F, t29432: F, t4248: F, t4257: F, t5787: F, t651: F, t7586: F, t7591: F, t7687: F) -> (F, F, F) {
+    let t29456 = t2163 * t4292;
+    let t29459 = t8233 * t670;
+    let t29466 = -F::new(2.0) * t1519 * t29432 + t1911 * t7687 + t2165 * t5787 - F::new(2.0) * t29456 * t651 - F::new(2.0) * t29459 * t651 - F::new(2.0) * t4248 * t7591 - F::new(2.0) * t4257 * t7586 - t28183 + t28186 - t28188 - t28190 + t28192 - t28193 + t28201 - t28202;
+    (t29456, t29459, t29466)
 }

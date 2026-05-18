@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 988/1116 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 988/1255 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk988<F: Float>(t14363: F, t324: F, t2924: F, t4475: F, t10632: F, t1580: F, t2906: F, t10756: F, t10820: F, t13729: F, t14257: F, t14329: F, t14332: F, t14337: F, t14344: F, t1581: F, t2856: F, t2900: F, t2925: F, t2930: F, t2933: F, t4434: F, t4449: F, t4472: F, t924: F, t943: F, t952: F) -> (F, F) {
-    let t14364 = t14363 * t324;
-    let t14366 = t4475 * t2924;
-    let t14369 = t1580 * t10632;
-    let t14370 = t14369 * t2906;
-    let t14373 = 2.0 * t2856 * t4434 + 1.0 * t924 * t14329 + 0.11696447245269292414e1 * t14332 * t952 + 0.5848223622634646207e0 * t4449 * t2925 + 0.17315859105681463759e2 * t14337 * t2933 + 0.5848223622634646207e0 * t10820 * t1581 + 0.11696447245269292414e1 * t2900 * t4472 + 0.5848223622634646207e0 * t943 * t14344 + t13729 + t14257 - 0.19751673498613801407e-1 * t14364 + 0.17315859105681463759e2 * t2930 * t14366 + 0.10254018858216406658e4 * t10756 * t14370;
-    (t14364, t14373)
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk988<F: Float>(t4044: F, t626: F, t4068: F, t1453: F, t2332: F, t9365: F, t2331: F, t4067: F, t666: F, t2358: F, t4043: F, t1444: F, t2342: F, t9384: F) -> (F, F, F, F, F, F) {
+    let t12750 = F::new(4.0) / F::new(3.0) * t626 * t4044;
+    let t12752 = F::new(2.0) / F::new(3.0) * t626 * t4068;
+    let t12754 = t9365 * t1453 * t2332;
+    let t12757 = t2331 * t4067;
+    let t12758 = t12757 * t666;
+    let t12761 = t4043 * t2358;
+    let t12771 = t9384 * t1444 * t2342;
+    (t12750, t12752, t12754, t12758, t12761, t12771)
 }

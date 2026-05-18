@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 769/1274 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 769/1428 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk769<F: Float>(t4365: F, t4366: F, t4364: F, t1544: F, t854: F, t236: F, t807: F, t2498: F, t2518: F, t2522: F, t2526: F, t2562: F, t2569: F, t2579: F, t2587: F, t2610: F, t4300: F, t4301: F, t4304: F) -> (F, F, F, F, F) {
-    let t4367 = t4365 * t4366;
-    let t4368 = t4364 * t4367;
-    let t4371 = t854 * t1544;
-    let t4372 = t236 * t4371;
-    let t4373 = t807 * t4372;
-    let t4376 = t4300 - t2569 + t2579 + t2587 - t2522 - t2498 - t2518 - t4301 + t2526 + t2610 - t4304 - t2562;
-    (t4368, t4371, t4372, t4373, t4376)
+pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk769<F: Float>(t1330: F, t749: F, t512: F, t1320: F, t1331: F, t1340: F, t2516: F, t2496: F, t177: F, t762: F, t2626: F, t3827: F, t3856: F, t3859: F, t3862: F, t3865: F, t3867: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t4029 = t1330 * t749;
+    let t4030 = t512 * t4029;
+    let t4031 = F::new(2.0) * t4030;
+    let t4032 = t1320 * t1331;
+    let t4033 = F::new(8.0) * t4032;
+    let t4035 = F::new(0.5848223622634646207e0) * t1340 * t2516;
+    let t4037 = F::new(0.17315859105681463759e2) * t1340 * t2496;
+    let t4038 = t1330 * t177;
+    let t4039 = t4038 * t762;
+    let t4040 = F::new(0.11696447245269292414e1) * t4039;
+    let t4042 = F::new(0.11696447245269292414e1) * t1340 * t2626;
+    let t4043 = t3856 + t4031 - t4033 - t3867 - t4035 - t4037 - t4040 + t3859 + t3862 - t3865 - t3827 + t4042;
+    (t4029, t4030, t4031, t4032, t4033, t4035, t4037, t4038, t4039, t4040, t4042, t4043)
 }

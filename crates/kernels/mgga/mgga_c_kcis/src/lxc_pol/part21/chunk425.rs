@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 425/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 425/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk425<F: Float>(t169: F, t980: F, t2635: F, t234: F, t1008: F, sigma0: F, zeta_threshold: F) -> (F, F, F, F, F) {
-    let t170 = t169 <= zeta_threshold;
-    let t2793 = 1.0 / t980;
-    let t2794 = sigma0 * t2793;
-    let t2801 = piecewise3(t170, 0.0, t2635);
-    let t2802 = t234 * t2801;
-    let t2809 = t1008 * t1008;
-    (t2793, t2794, t2801, t2802, t2809)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk425<F: Float>(t2354: F, t47: F, t2355: F, t680: F, t2366: F, t2372: F, t2375: F, t119: F, t198: F, t2302: F, t2306: F, t2313: F, t2336: F, t2344: F, t237: F, t2658: F, t2664: F, t2666: F, t2676: F, t2681: F, t2684: F, t2690: F, t5: F, t56: F, t845: F, t852: F, t858: F, t859: F) -> (F, F, F, F, F, F) {
+    let t2694 = t47 * t2354;
+    let t2695 = t2355 * t680;
+    let t2698 = t2366 * t680;
+    let t2701 = t47 * t2372;
+    let t2702 = t2355 * t2375;
+    let t2705 = -F::new(0.70981924444444444442e-3) * t5 * t119 * t198 - F::new(0.34246666666666666666e-1) * t237 * t2658 * t852 - F::new(2.0) * t2664 * t2666 + F::new(1.0) * t845 * t2676 + F::new(0.32164683177870697974e2) * t2681 * t2684 + t2302 + t2306 + t2313 - t2336 - t2344 - F::new(0.24415406715670879921e-3) * t5 * t119 * t56 - F::new(0.10843580882781524214e-1) * t237 * t2690 * t859 - F::new(0.11696446794910408142e1) * t2694 * t2695 + F::new(0.58482233974552040708e0) * t858 * t2698 + F::new(0.17315755899375863299e2) * t2701 * t2702;
+    (t2694, t2695, t2698, t2701, t2702, t2705)
 }

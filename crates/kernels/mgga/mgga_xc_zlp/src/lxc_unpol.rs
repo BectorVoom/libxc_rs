@@ -92,12 +92,12 @@ pub fn mgga_xc_zlp_lxc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t2 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
+        let t4 = pow_1_3::<f64>(1.0 / M_PI);
         let t5 = t2 * t4;
         let t6 = M_CBRT4;
         let t7 = t6 * t6;
         let t10 = rho[ip] * rho[ip];
-        let t11 = pow_1_3(rho[ip]);
+        let t11 = pow_1_3::<f64>(rho[ip]);
         let t12 = t11 * t11;
         let t14 = 1.0 / t12 / t10;
         let t17 = 1.0 / t12 / rho[ip];

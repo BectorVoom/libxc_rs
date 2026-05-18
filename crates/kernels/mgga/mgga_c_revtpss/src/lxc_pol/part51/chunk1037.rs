@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 1037/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 1037/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1037<F: Float>(t27126: F, t8457: F, t32311: F, t7732: F, t32298: F, t7898: F, t118: F, t125345: F, t125945: F, t125948: F, t125950: F, t127189: F, t127296: F, t127299: F, t127302: F, t127305: F, t127306: F, t127308: F, t127313: F, t127314: F, t127318: F, t127324: F, t127326: F, t32162: F, t4293: F, t671: F) -> (F,) {
-    let t127328 = t27126 * t8457;
-    let t127330 = t7732 * t32311;
-    let t127332 = t7898 * t32298;
-    let t127333 = -4.0 * t125945 - t125948 - t125950 - t118 * (t127189 + t127296) - 2.0 * t127299 + t127302 + t127305 - 2.0 * t127306 + 6.0 * t127308 + t127313 + 2.0 * t127314 + 2.0 * t127318 - 2.0 * t125345 * t671 - 2.0 * t32162 * t4293 - 4.0 * t127324 - 4.0 * t127326 - 4.0 * t127328 - 4.0 * t127330 + t127332;
-    (t127333,)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1037<F: Float>(t2718: F, t8471: F, t119993: F, t31779: F, t1955: F, t2681: F, t8464: F, t8468: F, t596: F, t31746: F, t786: F, t7063: F) -> (F, F, F, F, F) {
+    let t120058 = t2718 * t8471;
+    let t120063 = F::new(0.19274729307122665472e-1) * t31779 * t119993;
+    let t120066 = t1955 * t8464 * t2681 * t8468;
+    let t120067 = F::new(0.74664478761315012733e-2) * t120066;
+    let t120068 = t8464 * t596;
+    let t120070 = t786 * t120068 * t31746;
+    let t120071 = F::new(0.20077843028252776532e-3) * t120070;
+    let t120073 = t7063 * t120068 * t31746;
+    (t120058, t120063, t120067, t120071, t120073)
 }

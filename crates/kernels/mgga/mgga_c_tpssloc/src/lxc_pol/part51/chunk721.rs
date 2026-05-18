@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 721/1308 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 51 (v4rho2sigma2_7) CSE chunk 721/1475 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk721<F: Float>(t6966: F, t6974: F, t1338: F, t2085: F, t1352: F, t553: F, t7191: F, t1332: F, t1336: F, t2089: F, t544: F, t6971: F, t6980: F, t6984: F) -> (F, F, F, F, F, F) {
-    let t7202 = 0.38381794893125283518e-1 * t6966;
-    let t7204 = 0.82246703342411321825e-2 * t6974;
-    let t7208 = t1338 * t2085;
-    let t7209 = t7208 * t1352;
-    let t7211 = t553 * t7191;
-    let t7213 = -t7202 - 0.3289868133696452873e-1 * t6971 - t7204 - 0.16449340668482264365e-1 * t6980 + 0.16449340668482264365e-1 * t6984 + t1332 * t2089 - t1336 * t7209 + t544 * t7211;
-    (t7202, t7204, t7208, t7209, t7211, t7213)
+pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk721<F: Float>(t1059: F, t6800: F, t6799: F, t1049: F, t1948: F, t345: F, t1022: F, t1945: F, t1060: F, t383: F, t6768: F, t1003: F, t1058: F, t1920: F, t1950: F, t1953: F, t353: F, t6680: F, t6687: F, t6783: F, t6787: F, t6790: F, t6797: F) -> (F, F, F, F, F, F) {
+    let t6801 = t1059 * t6800;
+    let t6802 = t6799 * t6801;
+    let t6805 = t1948 * t1049;
+    let t6806 = t345 * t6805;
+    let t6810 = t1945 * t1022;
+    let t6811 = t6810 * t1060;
+    let t6813 = t383 * t6768;
+    let t6815 = -F::new(0.21932454224643019153e-1) * t6680 * t1950 + t6783 + F::new(0.27415567780803773942e-2) * t6687 * t6787 - F::new(0.82246703342411321825e-2) * t6687 * t6790 + F::new(0.82246703342411321825e-2) * t6797 * t6802 + F::new(0.82246703342411321825e-2) * t1920 * t6806 + t1003 * t1953 + t1058 * t6811 + t353 * t6813;
+    (t6801, t6802, t6805, t6811, t6813, t6815)
 }

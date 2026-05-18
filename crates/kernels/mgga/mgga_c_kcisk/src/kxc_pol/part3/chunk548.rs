@@ -1,4 +1,4 @@
-//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 548/938 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCISK kxc pol — kxc_pol part 3 (v3rho3_0) CSE chunk 548/1063 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,21 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk548<F: Float>(t1724: F, t1725: F, t606: F, t609: F, t1709: F, t4834: F, t4838: F, t4842: F, t4845: F, t4848: F, t1707: F, t1714: F, t353: F, t579: F, t964: F, t163: F, t657: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t4859 = t1724 * t1724;
-    let t4860 = t4859 * t1725;
-    let t4864 = 1.0 / t609 / t606;
-    let t4865 = t1709 * t1709;
-    let t4866 = t4864 * t4865;
-    let t4868 = 4.0 / 9.0 * t4834;
-    let t4873 = t4868 + 2.0 / 9.0 * t4838 - 2.0 / 9.0 * t4842 + 2.0 / 3.0 * t4845 - t4848 / 3.0;
-    let t4874 = t1707 * t4873;
-    let t4876 = 0.39862222222222222223e0 * t4834;
-    let t4881 = 1.0/f64::sqrt(t606);
-    let t4882 = t4881 * t4865;
-    let t4884 = t1714 * t4873;
-    let t4887 = t353 * t964 * t579;
-    let t4888 = 0.27385555555555555555e0 * t4887;
-    let t4889 = t163 * t657;
-    (t4859, t4860, t4864, t4865, t4866, t4873, t4874, t4876, t4881, t4882, t4884, t4887, t4888, t4889)
+pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk548<F: Float>(t4597: F, t708: F, t3290: F, t4595: F, t1797: F, t574: F, t1636: F, t1648: F, t1876: F, t682: F, t1824: F, t1849: F) -> (F, F, F, F, F, F, F) {
+    let t4598 = t708 * t4597;
+    let t4600 = t4595 * t4598 * t3290;
+    let t4603 = t1797 * t574;
+    let t4604 = t4603 * t708;
+    let t4605 = t1636 * t1648;
+    let t4606 = t4604 * t4605;
+    let t4609 = t1876 * t682;
+    let t4610 = t1636 * t1824;
+    let t4611 = t4609 * t4610;
+    let t4614 = t708 * t1849;
+    (t4598, t4600, t4604, t4606, t4609, t4611, t4614)
 }

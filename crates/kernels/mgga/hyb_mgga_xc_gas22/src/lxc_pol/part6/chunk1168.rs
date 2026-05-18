@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1168/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1168/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,16 +9,20 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1168<F: Float>(t1409: F, t7148: F, t1056: F, t3622: F, t3630: F, t2707: F, t9321: F, t7488: F, t9324: F, t7494: F, t221: F, t2631: F, t3636: F, t7491: F, t7485: F, t1100: F, t462: F, t9369: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t25826 = t7148 * t1409;
-    let t25907 = 32.0 * t3622 * t1056;
-    let t25930 = 32.0 * t3630 * t1056;
-    let t25937 = t9321 * t2707;
-    let t25939 = t9324 * t7488;
-    let t25941 = t9324 * t7494;
-    let t25944 = t3636 * t221 * t2631;
-    let t25946 = t9324 * t7491;
-    let t25948 = t9324 * t7485;
-    let t25951 = t462 * t9369 * t1100;
-    (t25826, t25907, t25930, t25937, t25939, t25941, t25944, t25946, t25948, t25951)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1168<F: Float>(t20624: F, t2288: F, t2310: F, t2313: F, t6561: F, t783: F, t2232: F, t230: F, t2235: F, t2180: F, t2233: F, t2187: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t20714 = F::new(280.0) / F::new(81.0) * t20624;
+    let t20730 = F::new(1.0) / t2310 / t2288;
+    let t20740 = t2310 * t2310;
+    let t20741 = F::new(1.0) / t20740;
+    let t20743 = t2313 * t2313;
+    let t20744 = F::new(1.0) / t20743;
+    let t20770 = F::new(0.18467901234567901234e0) * t20624;
+    let t20824 = t783 * t6561;
+    let t20827 = t2232 * t2232;
+    let t20829 = t230 / t20827;
+    let t20831 = t2235 * t2235;
+    let t20832 = F::new(1.0) / t20831;
+    let t20838 = t2180 * t2233;
+    let t20843 = t2180 * t2187;
+    (t20714, t20730, t20741, t20744, t20770, t20824, t20829, t20832, t20838, t20843)
 }

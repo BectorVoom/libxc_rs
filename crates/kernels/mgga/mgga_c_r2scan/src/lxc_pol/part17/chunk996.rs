@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 996/1120 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 17 (v4rho3sigma_7) CSE chunk 996/1293 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk996<F: Float>(t11592: F, t37400: F, t10680: F, t11587: F, t37421: F, t2768: F, t874: F, t10682: F, t10978: F, t10980: F, t11568: F, t122: F, t10673: F, t10675: F, t10954: F, t11564: F, t3446: F) -> (F, F, F, F, F, F, F, F) {
-    let t40305 = t37400 * t11592;
-    let t40308 = t10680 * t11587 * t37421;
-    let t40310 = t2768 * t874;
-    let t40312 = t10680 * t10682 * t40310;
-    let t40315 = t10978 * t10980 * t11568;
-    let t40317 = t2768 * t122;
-    let t40319 = t10673 * t10675 * t40317;
-    let t40331 = t3446 * t10954 * t11564;
-    (t40305, t40308, t40310, t40312, t40315, t40317, t40319, t40331)
+pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk996<F: Float>(t12069: F, t12089: F, t12107: F, t12225: F, t354: F, t11866: F, t11876: F, t11886: F, t11035: F, t11046: F, t11052: F, t11206: F, t11215: F, t11868: F, t11870: F, t11872: F, t11874: F, t11878: F, t11883: F, t11889: F) -> (F, F, F) {
+    let t12227 = t12069 + t12089 + t12107 + t12225;
+    let t12228 = t354 * t12227;
+    let t12230 = F::new(2.0) / F::new(3.0) * t11866;
+    let t12235 = F::new(2.0) / F::new(3.0) * t11876;
+    let t12238 = F::new(4.0) / F::new(3.0) * t11886;
+    let t12240 = -t11206 - t11035 - t12230 - t11868 / F::new(2.0) + t11870 / F::new(4.0) - t11872 / F::new(4.0) + t11874 / F::new(2.0) + t12235 + t11878 / F::new(2.0) - F::new(3.0) / F::new(2.0) * t11883 - t12238 + t11889 / F::new(2.0) + t11046 - t11052 - t11215;
+    (t12227, t12228, t12240)
 }

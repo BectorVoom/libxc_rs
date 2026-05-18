@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1106/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1106/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,21 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1106<F: Float>(t2249: F, t2271: F, t262: F, t20624: F, t20688: F, t2274: F, t7147: F, t944: F, t2519: F, t347: F, t2522: F, t2470: F, t2477: F, t7074: F, t19746: F, t222: F, t343: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t21053 = t262 / t2271 / t2249;
-    let t21057 = 0.5356037037037037037e1 * t20624;
-    let t21071 = 0.16979925925925925926e1 * t20688;
-    let t21087 = t2271 * t2271;
-    let t21089 = t262 / t21087;
-    let t21090 = t2274 * t2274;
-    let t21091 = 1.0 / t21090;
-    let t21366 = t944 * t7147;
-    let t21369 = t2519 * t2519;
-    let t21371 = t347 / t21369;
-    let t21373 = t2522 * t2522;
-    let t21374 = 1.0 / t21373;
-    let t21378 = t2470 * t2477;
-    let t21382 = t944 * t7074;
-    let t21389 = t222 * t19746 * t343;
-    (t21053, t21057, t21071, t21089, t21091, t21366, t21371, t21374, t21378, t21382, t21389)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1106<F: Float>(t132: F, t10850: F, t338: F, t4222: F, t930: F, t10325: F, t2598: F, t4323: F, t3605: F, t3604: F, t9057: F, t4310: F, t6992: F, zeta_threshold: F) -> (F, F, F, F, F, F, F) {
+    let t133 = t132 <= zeta_threshold;
+    let t10851 = t10850 * t338;
+    let t10852 = t4222 * t930;
+    let t10853 = piecewise3::<f64>(t133, F::new(0.0), t10325);
+    let t10864 = t2598 * t4323;
+    let t10865 = t10864 * t3605;
+    let t10868 = t3604 * t9057;
+    let t10871 = t6992 * t4310;
+    (t10851, t10852, t10853, t10864, t10865, t10868, t10871)
 }

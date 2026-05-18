@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1150/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1150/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1150<F: Float>(t12: F, t82: F, t16129: F, t1151: F, t1153: F, t20668: F, t20698: F, t21266: F, t21284: F, t21287: F, t21309: F, t21321: F, t2159: F, t2163: F, t22129: F, t3000: F, t3005: F, t318: F, t319: F, t6071: F, t6078: F, t7897: F, t7909: F, t808: F, t810: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
-    let t84 = t12 <= zeta_threshold;
-    let t203 = rho0 <= dens_threshold || t84;
-    let t22147 = 12.0 * t82;
-    let t22148 = 24.0 * t16129;
-    let t22149 = -t22147 + t22148;
-    let t22150 = piecewise3(t84, 0.0, t22149);
-    let t22154 = piecewise3(t203, 0.0, (t20668 + t20698 + t21266 + t21284 + t21287 + t21309 + t21321 + t22129) * t319 / 2.0 + 3.0 / 2.0 * t7897 * t810 + 3.0 / 2.0 * t3000 * t2163 + t1151 * t6078 / 2.0 + t6071 * t1153 / 2.0 + 3.0 / 2.0 * t2159 * t3005 + 3.0 / 2.0 * t808 * t7909 + t318 * t22150 / 2.0);
-    (t22149, t22154)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1150<F: Float>(t6966: F, t6981: F, t164: F, t7084: F, t5257: F, t6972: F, t6882: F, t6891: F, t6895: F, t6899: F, t6963: F, t1721: F, t19965: F) -> (F, F, F, F, F, F, F) {
+    let t19995 = t6966 * t6981;
+    let t19997 = t7084 * t164;
+    let t20002 = t5257 * t6972;
+    let t20004 = t6966 * t6882;
+    let t20010 = t6895 * t6891;
+    let t20011 = t20010 * t6899;
+    let t20017 = t5257 * t6963;
+    let t20019 = t19965 * t1721;
+    (t19995, t19997, t20002, t20004, t20011, t20017, t20019)
 }

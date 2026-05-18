@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 697/1102 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 34 (v4rho3sigma_10) CSE chunk 697/1250 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk697<F: Float>(t10471: F, t10474: F, t10470: F, t10482: F, t6739: F, t3127: F, t3131: F, t3215: F, t390: F, t268: F, t405: F, t6546: F, t154: F, t3584: F, t3241: F, t636: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t11058 = t10471 * t10474;
-    let t11059 = t10470 * t11058;
-    let t11060 = t6739 * t10482;
-    let t11064 = t10471 * t3127;
-    let t11065 = t10470 * t11064;
-    let t11066 = t6739 * t3131;
-    let t11094 = 1.0 / t3215 / t390;
-    let t11135 = t268 * t6546 * t405;
-    let t11136 = 0.28842592592592592592e-1 * t11135;
-    let t11145 = t154 * t3584;
-    let t11147 = 1.0 / t3241 / t636;
-    (t11059, t11060, t11065, t11066, t11094, t11135, t11136, t11145, t11147)
+pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk697<F: Float>(t28: F, t265: F, t504: F, t2057: F, t7649: F, t7864: F, t1409: F, t1649: F, t1877: F, t2071: F, t2522: F, t52: F, t7114: F, t7656: F, t7845: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F) {
+    let t29 = t28 <= zeta_threshold;
+    let t401 = rho1 <= dens_threshold || t29;
+    let t505 = t265 < t504;
+    let t7871 = t2057 * t7649;
+    let t7884 = piecewise3::<f64>(t505, F::new(0.0), t7864);
+    let t7889 = piecewise3::<f64>(t401, F::new(3.0) / F::new(2.0) * t2522 * t7871 + t1877 * t7845 * t28 / F::new(2.0) - t1877 * t7114 * t7656 / F::new(2.0) + t1877 * t2057 * t1649 / F::new(2.0), -t2071 * t1409 / F::new(2.0) + t7884 * t52 / F::new(2.0));
+    (t7884, t7889)
 }

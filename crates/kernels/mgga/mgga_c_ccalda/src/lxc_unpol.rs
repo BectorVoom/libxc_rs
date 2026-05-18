@@ -94,7 +94,7 @@ pub fn mgga_c_ccalda_lxc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t2 = 1.0 + param_c;
-        let t3 = pow_1_3(rho[ip]);
+        let t3 = pow_1_3::<f64>(rho[ip]);
         let t4 = t3 * t3;
         let t6 = 1.0 / t4 / rho[ip];
         let t8 = rho[ip] * rho[ip];
@@ -104,7 +104,7 @@ pub fn mgga_c_ccalda_lxc_unpol(
         let t15 = M_CBRT6;
         let t16 = t14 * t15;
         let t17 = M_PI * M_PI;
-        let t18 = pow_1_3(t17);
+        let t18 = pow_1_3::<f64>(t17);
         let t19 = t18 * t18;
         let t20 = 1.0 / t19;
         let t21 = M_CBRT2;
@@ -115,14 +115,14 @@ pub fn mgga_c_ccalda_lxc_unpol(
         let t30 = 1.0 / t29;
         let t31 = M_CBRT3;
         let t32 = 1.0 / M_PI;
-        let t33 = pow_1_3(t32);
+        let t33 = pow_1_3::<f64>(t32);
         let t34 = t31 * t33;
         let t35 = M_CBRT4;
         let t36 = t35 * t35;
         let t39 = t34 * t36 / t3;
         let t41 = 1.0 + 0.53425e-1 * t39;
         let t42 = f64::sqrt(t39);
-        let t45 = pow_3_2(t39);
+        let t45 = pow_3_2::<f64>(t39);
         let t47 = t31 * t31;
         let t48 = t33 * t33;
         let t49 = t47 * t48;
@@ -130,8 +130,8 @@ pub fn mgga_c_ccalda_lxc_unpol(
         let t54 = 0.379785e1 * t42 + 0.8969e0 * t39 + 0.204775e0 * t45 + 0.123235e0 * t52;
         let t57 = 1.0 + 0.16081979498692535067e2 / t54;
         let t58 = f64::ln(t57);
-        let t62 = pow_1_3(zeta_threshold);
-        let t64 = piecewise3(1.0 <= zeta_threshold, t62 * zeta_threshold, 1.0);
+        let t62 = pow_1_3::<f64>(zeta_threshold);
+        let t64 = piecewise3::<f64>(1.0 <= zeta_threshold, t62 * zeta_threshold, 1.0);
         let t70 = (2.0 * t64 - 2.0) / (2.0 * t21 - 2.0);
         let t72 = 1.0 + 0.278125e-1 * t39;
         let t77 = 0.51785e1 * t42 + 0.905775e0 * t39 + 0.1100325e0 * t45 + 0.1241775e0 * t52;
@@ -395,7 +395,7 @@ pub fn mgga_c_ccalda_lxc_unpol(
         let t526 = t130 * t525;
         let t528 = t36 * t482;
         let t529 = t34 * t528;
-        let t531 = 1.0/pow_3_2(t39);
+        let t531 = 1.0/pow_3_2::<f64>(t39);
         let t532 = t531 * t32;
         let t533 = t532 * t519;
         let t535 = t293 * t522;

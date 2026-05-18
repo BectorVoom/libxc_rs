@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 912/1105 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 4 (v3rho3_2) CSE chunk 912/1228 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk912<F: Float>(t16783: F, t9549: F, t16662: F, t210: F, t214: F, t118: F, t5544: F, t794: F, t2576: F, t2563: F, t5555: F, t213: F, t221: F, t776: F, t13014: F, t13020: F, t13022: F, t13027: F, t4127: F, t787: F, t9579: F, t9583: F) -> (F,) {
-    let t16784 = t9549 * t16783;
-    let t16787 = t210 * t214 * t16662;
-    let t16791 = t118 * t794 * t5544;
-    let t16792 = t2576 * t16791;
-    let t16794 = t2563 * t5555;
-    let t16796 = t213 * t5544;
-    let t16798 = t221 * t16796 * t776;
-    let t16803 = -t13014 - 0.24999999999999999999e-2 * t16784 - 0.16666666666666666666e-2 * t787 * t16787 + 0.8333333333333333333e-3 * t16792 + t9579 + 0.38888888888888888887e-2 * t16794 + 0.49999999999999999998e-2 * t4127 * t16798 + 0.77777777777777777775e-2 * t13020 - 0.10555555555555555555e-1 * t13022 + t13027 - t9583;
-    (t16803,)
+pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk912<F: Float>(t28: F, t517: F, t1376: F, t68: F, t522: F, t9212: F, t9214: F, t3824: F, t592: F, t1285: F, t2221: F, t1287: F) -> (F, F, F, F, F, F, F) {
+    let t11998 = t28 * t28;
+    let t12000 = F::new(1.0) / t517 / t11998;
+    let t12019 = t1376 * t1376;
+    let t12020 = F::new(1.0) / t12019;
+    let t12021 = t68 * t12020;
+    let t12044 = F::new(24.0) * t9212 * t522;
+    let t12045 = t9214 * t522;
+    let t12048 = F::new(12.0) * t592 * t3824;
+    let t12050 = t2221 * t1285;
+    let t12052 = t2221 * t1287;
+    (t12000, t12021, t12044, t12045, t12048, t12050, t12052)
 }

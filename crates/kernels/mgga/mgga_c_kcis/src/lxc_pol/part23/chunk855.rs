@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 855/1177 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 855/1323 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk855<F: Float>(t12335: F, t2069: F, t12338: F, t5900: F, t4184: F, t6048: F, t4190: F, t12345: F, t1555: F, t4189: F, t4310: F, t17253: F, t552: F, t577: F, t585: F, t1489: F, t5880: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t17315 = t12335 * t2069;
-    let t17317 = 4.0 * t12338 * t5900;
-    let t17319 = 2.0 * t4184 * t6048;
-    let t17320 = t2069 * t4190;
-    let t17322 = 6.0 * t12345 * t17320;
-    let t17323 = t6048 * t1555;
-    let t17325 = 4.0 * t4189 * t17323;
-    let t17326 = t2069 * t4310;
-    let t17328 = 2.0 * t4189 * t17326;
-    let t17329 = t17253 * t552;
-    let t17330 = t17329 * t577;
-    let t17331 = t17330 * t585;
-    let t17333 = t5880 * t1489;
-    (t17315, t17317, t17319, t17320, t17322, t17323, t17325, t17326, t17328, t17329, t17331, t17333)
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk855<F: Float>(t3873: F, t5481: F, t1319: F, t3809: F, t5556: F, t11402: F, t1897: F, t3781: F, t16048: F, t16050: F, t11408: F, t11409: F, t11411: F, t11413: F, t11415: F, t16046: F, t16052: F, t16057: F, t16062: F, t16067: F, t16071: F, t16075: F, t16080: F, t16084: F, t16088: F) -> (F, F, F, F) {
+    let t16162 = t3873 * t5481;
+    let t16163 = t16162 * t1319;
+    let t16165 = t5556 * t3809;
+    let t16167 = t11402 * t1897;
+    let t16168 = t16167 * t3781;
+    let t16183 = F::new(4.0) / F::new(27.0) * t16048;
+    let t16184 = F::new(4.0) / F::new(9.0) * t16050;
+    let t16194 = -t11408 - F::new(8.0) / F::new(27.0) * t11409 + F::new(2.0) / F::new(27.0) * t11411 - F::new(2.0) / F::new(9.0) * t11413 + t11415 / F::new(9.0) - F::new(4.0) / F::new(27.0) * t16046 + t16183 - t16184 - F::new(22.0) / F::new(9.0) * t16052 - F::new(10.0) / F::new(27.0) * t16057 + F::new(4.0) / F::new(3.0) * t16062 + F::new(8.0) / F::new(9.0) * t16067 - F::new(2.0) / F::new(9.0) * t16071 - F::new(2.0) * t16075 - F::new(8.0) / F::new(3.0) * t16080 + F::new(2.0) / F::new(3.0) * t16084 + F::new(2.0) / F::new(3.0) * t16088;
+    (t16163, t16165, t16168, t16194)
 }

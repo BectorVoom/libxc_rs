@@ -29,16 +29,16 @@ pub fn mgga_x_mbeef_exc_unpol(
         let t7 = t4 / t5;
         let t8 = 1.0 <= zeta_threshold;
         let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+        let t11 = piecewise5::<f64>(t8, t9, t8, -t9, 0.0);
         let t12 = t11 + 1.0;
-        let t14 = pow_1_3(zeta_threshold);
-        let t16 = pow_1_3(t12);
-        let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-        let t19 = pow_1_3(rho[ip]);
+        let t14 = pow_1_3::<f64>(zeta_threshold);
+        let t16 = pow_1_3::<f64>(t12);
+        let t18 = piecewise3::<f64>(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
+        let t19 = pow_1_3::<f64>(rho[ip]);
         let t20 = t18 * t19;
         let t21 = M_CBRT6;
         let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
+        let t23 = pow_1_3::<f64>(t22);
         let t24 = t23 * t23;
         let t25 = 1.0 / t24;
         let t26 = t21 * t25;
@@ -60,13 +60,13 @@ pub fn mgga_x_mbeef_exc_unpol(
         let t52 = 5.0 / 9.0 * (t44 * t46 - t36 / 8.0) * t21 * t25;
         let t53 = 10000.0 <= t52;
         let t54 = 10000.0 < t52;
-        let t55 = piecewise3(t54, t52, 10000.0);
+        let t55 = piecewise3::<f64>(t54, t52, 10000.0);
         let t56 = t55 * t55;
         let t59 = t56 * t55;
         let t60 = 1.0 / t59;
         let t61 = t56 * t56;
         let t62 = 1.0 / t61;
-        let t65 = piecewise3(t54, 10000.0, t52);
+        let t65 = piecewise3::<f64>(t54, 10000.0, t52);
         let t66 = t65 * t65;
         let t67 = 1.0 - t66;
         let t68 = t67 * t67;
@@ -75,7 +75,7 @@ pub fn mgga_x_mbeef_exc_unpol(
         let t71 = 1.0 + t70;
         let t73 = t70 * t71 + 1.0;
         let t74 = 1.0 / t73;
-        let t76 = piecewise3(t53, 1.0 - 3.0 / t56 - t60 + 3.0 * t62, -t69 * t74);
+        let t76 = piecewise3::<f64>(t53, 1.0 - 3.0 / t56 - t60 + 3.0 * t62, -t69 * t74);
         let t77 = t76 * t76;
         let t78 = t77 * t76;
         let t79 = t77 * t77;
@@ -113,7 +113,7 @@ pub fn mgga_x_mbeef_exc_unpol(
         let t239 = t226 * t76;
         let t248 = 0.1380567225218996875e1 - 0.879090772e-2 * t83 * t130 + 0.100339208e0 * t221 - 0.691592964e-8 * t226 * t103 + 0.694482484e-8 * t226 * t110 + 0.236391411e-7 * t226 * t116 - 0.416393106e-7 * t226 * t121 - 0.265114646e-7 * t226 * t126 + 0.169805915e-6 * t226 * t130 - 0.957417512e-2 * t239 + 0.850272392e-8 * t139 * t103 + 0.106025815520625e0 * t91 - 0.80008813355625e-4 * t106 + 0.3020715669803125e-2 * t79 + 0.7031826877565625e-2 * t77 - 0.92294814328125e-1 * t84;
         let t250 = t146 + t185 + t218 + t248;
-        let t254 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t250);
+        let t254 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t250);
         let tzk0 = 2.0 * t254;
         zk[ip] += tzk0;
     }

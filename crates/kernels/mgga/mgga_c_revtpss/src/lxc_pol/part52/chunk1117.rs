@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 1117/1144 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 1117/1292 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,7 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk1117<F: Float>(t102397: F, t121076: F, t121178: F, t122346: F, t122413: F, t125749: F, t125753: F, t125767: F, t14230: F, t2022: F, t2097: F, t27864: F, t27960: F, t28888: F, t32686: F, t32719: F, t34231: F, t7274: F, t8085: F, t8706: F, t8707: F) -> (F,) {
-    let t128742 = 0.34271842599061411569e1 * t32719 * t102397 * t2022 * t14230 - 0.22312397525430606492e-2 * t125749 - 0.14874931683620404328e-2 * t125753 + 0.57119737665102352616e0 * t8706 * t8707 * t28888 * t2022 + 0.57119737665102352616e0 * t8706 * t8707 * t8085 * t7274 - t122413 - 0.17135921299530705785e1 * t34231 * t32686 + 0.57119737665102352616e0 * t8706 * t8707 * t2097 * t27960 + 0.34271842599061411569e1 * t121076 * t122346 * t27864 - 0.66934509195437693771e-4 * t121178 - 0.34708173928447610099e-2 * t125767;
-    (t128742,)
+pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk1117<F: Float>(t119777: F, t2487: F, t31752: F, t31753: F, t826: F, t231: F, t886: F, t119776: F, t31830: F, t8478: F, t8479: F, t2769: F, t32425: F) -> (F, F, F, F, F, F, F) {
+    let t119778 = t119777 * t2487;
+    let t119779 = F::new(0.7437465841810202164e-4) * t119778;
+    let t119781 = t31752 * t31753 * t826;
+    let t119783 = t231 * t886;
+    let t119788 = t31830 * t119776;
+    let t119789 = t119788 * t2487;
+    let t119790 = F::new(0.13223814266738539448e-3) * t119789;
+    let t119792 = t8478 * t8479 * t31753;
+    let t119808 = t32425 * t2769;
+    (t119779, t119781, t119783, t119788, t119790, t119792, t119808)
 }

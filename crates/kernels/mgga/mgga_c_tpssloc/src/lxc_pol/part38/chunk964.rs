@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 964/1193 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 38 (v4rho3tau_2) CSE chunk 964/1335 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk964<F: Float>(t1462: F, t9912: F, t9871: F, t2427: F, t4101: F, t9880: F, t2528: F, t4199: F, t2663: F, t4211: F, t9793: F, t9797: F, t9820: F, t9824: F, t9876: F, t9884: F, t9887: F, t9890: F, t9894: F) -> (F, F, F, F, F, F, F) {
-    let t13102 = 4.0 * t9912 * t1462;
-    let t13103 = 0.4883052614935078681e-3 * t9871;
-    let t13105 = 8.0 * t2427 * t4101;
-    let t13106 = 0.21687162600603479684e-1 * t9880;
-    let t13107 = t4199 * t2528;
-    let t13108 = 0.17315859105681463759e2 * t13107;
-    let t13109 = t4211 * t2663;
-    let t13110 = 0.24415263074675393405e-3 * t13109;
-    let t13111 = t13102 + t13103 + t9793 + t9797 - t9876 + t13105 - t9820 - t9824 + t13106 - t9884 + t9887 + t9890 - t13108 - t9894 + t13110;
-    (t13102, t13103, t13105, t13106, t13108, t13110, t13111)
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk964<F: Float>(t10544: F, t2784: F, t892: F, t2841: F, t888: F, t2840: F, t287: F, t275: F, t10294: F, t891: F, t2843: F, t290: F) -> (F, F, F, F, F, F, F, F) {
+    let t10636 = F::new(0.55403703703703703703e-1) * t10544;
+    let t10650 = t2784 * t892;
+    let t10655 = t888 * t2841;
+    let t10660 = F::new(1.0) / t2840 / t287;
+    let t10661 = t275 * t10660;
+    let t10675 = F::new(0.36514074074074074075e0) * t10294;
+    let t10676 = F::new(0.93011851851851851854e0) * t10544;
+    let t10701 = F::new(1.0) / t2840 / t891;
+    let t10702 = t275 * t10701;
+    let t10704 = F::new(1.0) / t2843 / t290;
+    (t10636, t10650, t10655, t10661, t10675, t10676, t10702, t10704)
 }

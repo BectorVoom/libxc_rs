@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 475/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 475/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,23 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk475<F: Float>(t287: F, t891: F, t275: F, t273: F, t276: F, t2764: F, t241: F, t63: F, t281: F, t283: F, t976: F, t290: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t2790 = t891 * t287;
-    let t2791 = 1.0 / t2790;
-    let t2792 = t275 * t2791;
-    let t2798 = 1.0 / t276 / t273;
-    let t2802 = 4.0 / 9.0 * t2764;
-    let t2810 = 0.39862222222222222223e0 * t2764;
-    let t2815 = 1.0/f64::sqrt(t273);
-    let t2820 = t63 * t241;
-    let t2822 = t281 * t2820 * t283;
-    let t2823 = 0.13692777777777777778e0 * t2822;
-    let t2826 = t241 * t976;
-    let t2840 = t891 * t891;
-    let t2841 = 1.0 / t2840;
-    let t2842 = t275 * t2841;
-    let t2843 = t290 * t290;
-    let t2844 = 1.0 / t2843;
-    let t2848 = 0.22831111111111111111e-1 * t2764;
-    (t2791, t2792, t2798, t2802, t2810, t2815, t2820, t2822, t2823, t2826, t2840, t2841, t2842, t2843, t2844, t2848)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk475<F: Float>(t59: F, t835: F, t154: F, t116: F, t206: F, t212: F, t2559: F, t222: F, t233: F, t813: F) -> (F, F, F, F, F, F, F, F) {
+    let t2585 = t59 * t835;
+    let t2586 = t2585 * t154;
+    let t2587 = t206 * t116;
+    let t2588 = t2587 * t212;
+    let t2590 = F::new(0.83333333333333333332e-3) * t2586 * t2588;
+    let t2600 = t2559 * t154;
+    let t2602 = F::new(35.0) / F::new(432.0) * t2600 * t222;
+    let t2627 = F::new(1.0) / t813 / t233;
+    (t2585, t2586, t2587, t2588, t2590, t2600, t2602, t2627)
 }

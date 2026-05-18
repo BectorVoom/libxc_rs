@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1229/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 1229/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1229<F: Float>(t20284: F, t71: F, t33: F, t75284: F, t1437: F, t5441: F, t72: F, t3953: F, t5392: F, t1860: F, t1863: F, t1864: F, t1865: F, t20217: F, t20234: F, t21510: F, t22505: F, t26084: F, t27949: F, t27950: F, t27953: F, t27956: F, t27957: F, t27972: F, t6490: F, t6500: F, t67: F, t7428: F, t7435: F, t7441: F, t7445: F, t83796: F, t83803: F) -> (F,) {
-    let t106800 = t71 * t20284;
-    let t106804 = t75284 * t33;
-    let t106813 = t72 * t5441 * t1437;
-    let t106816 = t3953 * t5392;
-    let t106819 = -t7428 * t27957 / 2.0 - t1860 * (-5.0 / 108.0 * t83796 * t20234 + 5.0 / 6.0 * t22505 * t21510 + 5.0 / 6.0 * t6500 * t20217 + t83803) * t67 * t1864 / 6.0 - t1860 * t27949 * t7445 / 2.0 - t1860 * t7441 * t27956 / 2.0 - t1860 * t1863 * t106800 / 6.0 - t106804 * t1865 / 6.0 + t7435 * t27950 + 5.0 * t26084 * t27972 + 2.0 * t7435 * t27953 + 5.0 / 2.0 * t6490 * t106813 + t106816 * t1865 + t7435 * t27957;
-    (t106819,)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk1229<F: Float>(t81742: F, t6612: F, t812: F, t836: F, t2690: F, t6619: F, t131: F, t23121: F, t9537: F, t236: F, t81613: F, t22822: F, t281: F, t6589: F) -> (F, F, F, F, F, F) {
+    let t81743 = F::new(0.43737152435318756759e-3) * t81742;
+    let t81749 = t812 * t6612 * t836;
+    let t81763 = t812 * t6619 * t2690;
+    let t81782 = t23121 * t131 * t9537;
+    let t81783 = t81613 * t236;
+    let t81788 = t22822 * t6589 * t281;
+    (t81743, t81749, t81763, t81782, t81783, t81788)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1227/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 1227/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,12 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1227<F: Float>(t21139: F, t5791: F, t20275: F, t6080: F, t1675: F, t21165: F, t5790: F, t21146: F, t6073: F, t1791: F, t21756: F, t5483: F, t5785: F, t67474: F, t67480: F, t67491: F, t67496: F, t69338: F, t69355: F) -> (F,) {
-    let t71503 = t21139 * t5791;
-    let t71505 = t6080 * t20275;
-    let t71508 = t1675 * t5790 * t21165;
-    let t71510 = t21146 * t5791;
-    let t71512 = t6073 * t20275;
-    let t71520 = -5.0 / 3.0 * t5785 * t69355 + 16.0 / 9.0 * t71503 + 32.0 / 9.0 * t71505 - t67474 - 8.0 / 9.0 * t71508 - 8.0 / 9.0 * t71510 - 16.0 / 9.0 * t71512 + t67480 + t67491 + 176.0 / 27.0 * t67496 + t5483 * t21756 / 3.0 + t1675 * t1791 * t69338 / 3.0;
-    (t71520,)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1227<F: Float>(t19693: F, t19706: F, t19718: F, t17948: F, t17962: F, t17976: F, t18737: F, t18746: F, t19698: F, t19700: F, t19704: F, t19708: F, t19710: F, t19712: F, t19716: F, t19720: F, t19722: F) -> F {
+    let t20434 = F::new(7.0) / F::new(72.0) * t19693;
+    let t20438 = F::new(7.0) / F::new(1152.0) * t19706;
+    let t20443 = F::new(7.0) / F::new(288.0) * t19718;
+    let t20446 = t18737 + t17948 + t20434 + t19698 / F::new(8.0) - t19700 / F::new(24.0) + t19704 / F::new(384.0) + t20438 + t19708 / F::new(192.0) - t19710 / F::new(768.0) - t19712 / F::new(768.0) + t17962 + t18746 + t17976 + t19716 / F::new(192.0) + t20443 + F::new(5.0) / F::new(192.0) * t19720 - t19722 / F::new(192.0);
+    t20446
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 926/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSS lxc pol — lxc_pol part 25 (v4rho3sigma_7) CSE chunk 926/1383 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk926<F: Float>(t30: F, t12677: F, t1170: F, t5393: F, t1173: F, t12689: F, t12692: F, t9841: F, t3184: F, t5371: F, t5328: F, t9856: F, t3282: F, t4578: F, t13334: F, t1989: F, t4360: F, t490: F, t580: F, zeta_threshold: F) -> (F, F, F, F, F, F, F, F) {
-    let t31 = t30 <= zeta_threshold;
-    let t13568 = 0.48830526149350786811e-3 * t12677;
-    let t13569 = t1170 * t5393;
-    let t13570 = 4.0 * t13569;
-    let t13571 = t1173 * t5393;
-    let t13572 = 4.0 * t13571;
-    let t13573 = 16.0 * t12689;
-    let t13574 = 2.0 * t12692;
-    let t13575 = 0.10843581300301739842e-1 * t9841;
-    let t13576 = t3184 * t5371;
-    let t13583 = t9856 * t5328;
-    let t13588 = t3282 * t4578;
-    let t13594 = piecewise3(t31, 0.0, -8.0 / 27.0 * t13583 * t580 + 16.0 / 9.0 * t4360 * t1989 + 4.0 / 9.0 * t13588 * t580 + 4.0 / 3.0 * t490 * t13334);
-    (t13568, t13570, t13572, t13573, t13574, t13575, t13576, t13594)
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk926<F: Float>(t555: F, t7622: F, t123: F, t1354: F, t2349: F, t3645: F, t725: F, t1352: F, t2332: F, t2206: F, t3557: F, t2215: F) -> (F, F, F, F, F, F, F) {
+    let t10350 = F::new(2.0) * t555;
+    let t10351 = F::new(6.0) * t7622;
+    let t10510 = t1354 * t123;
+    let t10511 = t10510 * t2349;
+    let t10520 = F::new(2.0) * t3645 * t725;
+    let t10521 = t1352 * t2332;
+    let t10558 = t3557 * t2206;
+    let t10560 = t3557 * t2215;
+    (t10350, t10351, t10511, t10520, t10521, t10558, t10560)
 }

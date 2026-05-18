@@ -1,4 +1,4 @@
-//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1172/1213 (D-02 tuple-return <F: Float>).
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1172/1336 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1172<F: Float>(t18796: F, t3038: F, t6317: F, t8189: F, t8192: F, t18790: F, t8195: F, t18609: F, t3074: F, t6137: F, t8199: F, t8202: F, t18612: F, t8206: F, t2197: F, t8004: F, t851: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t22530 = 6.0 * t18796 * t3038;
-    let t22532 = 12.0 * t6317 * t8189;
-    let t22534 = 6.0 * t6317 * t8192;
-    let t22536 = 0.28947563097646563121e3 * t18790 * t8195;
-    let t22538 = 0.48245938496077605201e2 * t18609 * t3074;
-    let t22540 = 0.96491876992155210402e2 * t6137 * t8199;
-    let t22542 = 0.48245938496077605201e2 * t6137 * t8202;
-    let t22544 = 0.1551780387578202009e4 * t18612 * t8206;
-    let t22547 = 6.0 * t2197 * t8004 * t851;
-    (t22530, t22532, t22534, t22536, t22538, t22540, t22542, t22544, t22547)
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1172<F: Float>(t1029: F, t160: F, t1634: F, t1692: F, t1747: F, t1750: F, t1773: F, t19867: F, t20397: F, t2575: F, t2625: F, t2631: F, t5357: F, t5361: F, t568: F, t596: F, t614: F, t6853: F, t7065: F, t7074: F, t7075: F, t7078: F, t8865: F) -> F {
+    let t20398 = F::new(180.0) * t1634 * t1773 * t2575 * t2631 - F::new(36.0) * t2631 * t568 * t614 * t6853 + F::new(3.0) * t160 * t19867 * t596 - F::new(36.0) * t1692 * t2631 * t7074 + F::new(60.0) * t1029 * t5357 - F::new(36.0) * t1747 * t2625 + F::new(9.0) * t1750 * t2625 - F::new(36.0) * t5361 * t8865 - F::new(72.0) * t7065 * t7075 - F::new(36.0) * t7065 * t7078 + t20397;
+    t20398
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 836/1080 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 836/1225 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk836<F: Float>(t283: F, t2857: F, t66: F, t11145: F, t247: F, t3298: F, t994: F, t4891: F, t3154: F, t999: F, t11659: F, t3117: F, t1086: F, t3046: F, t3090: F, t1043: F, t3075: F) -> (F, F, F, F, F) {
-    let t11852 = 1.0 / t283 / t2857;
-    let t11853 = t66 * t11852;
-    let t11855 = t247 * t11853 * t11145;
-    let t11858 = t994 * t3298;
-    let t11859 = t11858 * t4891;
-    let t11860 = t3154 * t999;
-    let t11861 = t11659 * t11860;
-    let t11862 = t3117 * t11861;
-    let t11865 = t3046 * t1086;
-    let t11866 = t11865 * t3090;
-    let t11869 = t3075 * t1043;
-    (t11855, t11859, t11862, t11866, t11869)
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk836<F: Float>(t10722: F, t857: F, t10673: F, t10676: F, t10678: F, t10682: F, t10687: F, t10692: F, t10693: F, t10700: F, t10706: F, t10711: F, t10713: F, t10717: F, t10719: F, t851: F) -> F {
+    let t10723 = t10722 * t857;
+    let t10725 = t10673 - F::new(0.42874018118069736972e-3) * t10676 - F::new(0.91464571985215438873e-3) * t10678 + F::new(0.85748036236139473944e-4) * t10682 - t10687 + t10692 - F::new(0.60023625365297631762e-1) * t10693 - F::new(0.25724410870841842183e-1) * t851 * t10700 + F::new(0.76230004213927992338e-3) * t10706 + F::new(0.21437009059034868486e-4) * t10711 + F::new(0.12004725073059526352e-1) * t10713 + F::new(0.16262400898971305032e-2) * t10717 - F::new(0.22866142996303859718e-3) * t10719 - F::new(0.68026775414003982663e-1) * t10723;
+    t10725
 }

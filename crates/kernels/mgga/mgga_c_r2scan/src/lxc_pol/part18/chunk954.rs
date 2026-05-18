@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 18 (v4rho3sigma_8) CSE chunk 954/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 18 (v4rho3sigma_8) CSE chunk 954/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk954<F: Float>(t2101: F, t547: F, t2096: F, t265: F, t267: F, t546: F, t6476: F, t565: F, t6481: F, t2111: F, t409: F, t5148: F, t2157: F, t625: F, t1583: F, t2195: F, t573: F) -> (F, F, F, F, F, F, F) {
-    let t37625 = t547 * t2101;
-    let t37628 = t2096 * t265 * t267;
-    let t37630 = t546 * t37625 * t37628 * t6476;
-    let t37634 = t565 * t37625 * t37628 * t6481;
-    let t37637 = t2111 * t409 * t5148;
-    let t37638 = t2157 * t625;
-    let t37639 = t37637 * t37638;
-    let t37641 = t565 * t1583;
-    let t37652 = t2195 * t573;
-    (t37630, t37634, t37637, t37638, t37639, t37641, t37652)
+pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk954<F: Float>(t11479: F, t3275: F, t3352: F, t3270: F, t3618: F, t3269: F, t3574: F, t792: F, t3276: F, t3262: F, t10918: F, t3263: F, t7040: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t11481 = t3275 * t11479 * t3352;
+    let t11482 = t11481 / F::new(4.0);
+    let t11483 = t3270 * t3618;
+    let t11484 = t3269 * t11483;
+    let t11485 = t11484 / F::new(4.0);
+    let t11486 = t3574 * t792;
+    let t11487 = t3276 * t11486;
+    let t11488 = t3262 * t11487;
+    let t11489 = F::new(15.0) / F::new(16.0) * t11488;
+    let t11491 = t3262 * t10918 * t3574;
+    let t11492 = F::new(3.0) / F::new(4.0) * t11491;
+    let t11494 = t3275 * t3263 * t7040;
+    (t11481, t11482, t11483, t11484, t11485, t11486, t11487, t11488, t11489, t11491, t11492, t11494)
 }

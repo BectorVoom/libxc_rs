@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1279/1310 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 35 (v4rho3sigma_11) CSE chunk 1279/1466 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1279<F: Float>(t5: F, t25: F, t265: F, t394: F, t108939: F, t108983: F, t109004: F, t109025: F, t112: F, t106606: F, t105830: F, t1409: F, t20217: F, t2116: F, t29507: F, t40: F, t5398: F, t7992: F, t1760: F, t5392: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F) {
-    let t7 = piecewise3(0.0 < t5, t5, -t5);
-    let t8 = -t7 <= -0.999999999999e0;
-    let t26 = t25 <= zeta_threshold;
-    let t115 = rho0 <= dens_threshold || t26;
-    let t395 = t265 < t394;
-    let t109028 = piecewise3(t8, 0.0, t108939 + t108983 + t109004 + t109025);
-    let t109029 = t109028 * t112;
-    let t109045 = piecewise3(t395, 0.0, t106606);
-    let t109055 = piecewise3(t115, t105830, t109045 * t40 / 2.0 + 3.0 / 2.0 * t29507 * t1409 + 3.0 / 2.0 * t7992 * t5398 + t2116 * t20217 / 2.0);
-    let t109060 = t5392 * t1760;
-    (t109029, t109055, t109060)
+pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1279<F: Float>(t11832: F, t2127: F, t10401: F, t24739: F, t3610: F, t3624: F, t11553: F, t2121: F, t2123: F, t2157: F, t43706: F, t1453: F, t81439: F) -> (F, F, F, F, F, F) {
+    let t86278 = F::new(5.0) / F::new(1296.0) * t2127 * t11832;
+    let t86323 = t24739 * t10401;
+    let t86324 = t3610 * t86323;
+    let t86327 = t3624 * t86323;
+    let t86451 = F::new(0.30461741978670859935e-2) * t2121 * t11553 * t2123;
+    let t86524 = t2157 * t43706;
+    let t86586 = t81439 * t1453;
+    (t86278, t86324, t86327, t86451, t86524, t86586)
 }

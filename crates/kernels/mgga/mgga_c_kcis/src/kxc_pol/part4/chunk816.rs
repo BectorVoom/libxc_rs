@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 816/1239 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 816/1420 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,18 +8,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk816<F: Float>(t5741: F, t5894: F, t589: F, t1505: F, t2016: F, t1555: F, t2069: F, t4184: F, t4189: F, t4291: F, t576: F, t251: F, t4301: F, t5875: F, t492: F, t570: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t5895 = t5741 + t5894;
-    let t5896 = t5895 * t589;
-    let t5897 = t2016 * t1505;
-    let t5898 = t5897 * t1555;
-    let t5899 = t4184 * t2069;
-    let t5900 = t2069 * t1555;
-    let t5902 = 2.0 * t4189 * t5900;
-    let t5903 = t576 * t4291;
-    let t5904 = t251 * t4301;
-    let t5905 = t5904 * t5875;
-    let t5906 = t5903 * t5905;
-    let t5908 = t570 * t492;
-    (t5895, t5896, t5897, t5898, t5899, t5900, t5902, t5903, t5904, t5905, t5906, t5908)
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk816<F: Float>(t251: F, t388: F, t4818: F, t5175: F, t3436: F, t380: F, t3346: F, t4813: F, t1175: F, t1804: F, t375: F, t5084: F, t5087: F, t5089: F, t5092: F, t5094: F, t5097: F, t5100: F, t5166: F, t5170: F, t5173: F) -> (F, F, F, F, F, F, F, F, F, F) {
+    let t5176 = t251 * t388;
+    let t5177 = t5176 * t4818;
+    let t5178 = t5175 * t5177;
+    let t5180 = t380 * t3436;
+    let t5181 = t251 * t3346;
+    let t5182 = t5181 * t4813;
+    let t5183 = t5180 * t5182;
+    let t5185 = t1175 * t1804;
+    let t5186 = t375 * t5185;
+    let t5188 = -t5084 / F::new(16.0) + t5087 / F::new(36.0) + t5089 / F::new(256.0) - t5092 / F::new(24.0) + t5094 / F::new(48.0) - t5097 / F::new(48.0) + t5100 / F::new(192.0) + t5166 / F::new(16.0) - t5170 / F::new(256.0) + t5173 / F::new(256.0) - t5178 / F::new(128.0) - t5183 / F::new(576.0) - t5186 / F::new(9.0);
+    (t5176, t5177, t5178, t5180, t5181, t5182, t5183, t5185, t5186, t5188)
 }

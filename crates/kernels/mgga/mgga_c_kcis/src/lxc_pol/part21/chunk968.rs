@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 968/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 968/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,10 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk968<F: Float>(t2173: F, t26717: F, t3220: F, t356: F, t303: F, t26673: F, t26677: F, t26681: F, t26685: F, t26688: F, t26692: F, t26697: F, t26703: F, t26708: F, t26712: F, t26715: F, t7687: F, t7703: F, t7706: F, t7711: F) -> (F, F, F, F) {
-    let t26718 = t2173 * t26717;
-    let t26720 = t356 * t3220;
-    let t26721 = t303 * t26720;
-    let t26725 = -0.88437037037037037034e-2 * t26673 - 0.33163888888888888888e-2 * t26677 + 0.46336805555555555556e-3 * t7703 * t26681 - 0.18550940104166666667e-3 * t26685 * t26688 + 0.12356481481481481482e-2 * t26692 * t7706 - 0.30891203703703703704e-3 * t7703 * t26697 - 0.13901041666666666667e-2 * t7703 * t26688 + 0.61836467013888888889e-4 * t26685 * t26703 + 0.16581944444444444444e-2 * t26708 + 0.27636574074074074073e-2 * t26712 + 0.46336805555555555556e-3 * t26715 + 0.46336805555555555556e-3 * t26718 - 0.55273148148148148147e-3 * t26721 + 0.13901041666666666667e-2 * t7687 * t7711;
-    (t26718, t26720, t26721, t26725)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk968<F: Float>(t14663: F, t393: F, t1141: F, t5034: F, t1203: F, t1778: F, t3329: F, t3331: F, t3481: F, t5036: F, t10488: F, t1820: F) -> (F, F, F, F, F, F, F) {
+    let t14664 = t14663 * t393;
+    let t14665 = t5034 * t1141;
+    let t14667 = F::new(2.0) * t14665 * t1203;
+    let t14668 = t1778 * t3329;
+    let t14670 = F::new(2.0) * t14668 * t3331;
+    let t14671 = t5036 * t3481;
+    let t14672 = t10488 * t1820;
+    (t14664, t14665, t14667, t14668, t14670, t14671, t14672)
 }

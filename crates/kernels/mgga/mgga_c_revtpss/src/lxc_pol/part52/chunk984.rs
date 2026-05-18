@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 984/1144 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 52 (v4rho2sigma2_7) CSE chunk 984/1292 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk984<F: Float>(t34216: F, t34240: F, t532: F, t1450: F, t2014: F, t1519: F, t1843: F, t1932: F, t2089: F, t2108: F, t32389: F, t33913: F, t34168: F, t34188: F, t34191: F, t34193: F, t34195: F, t34198: F, t34203: F, t508: F, t7725: F, t8065: F, t8109: F, t8568: F, t8627: F) -> (F, F, F, F) {
-    let t34241 = t34216 + t34240;
-    let t34242 = t532 * t34241;
-    let t34243 = t34242 * t1450;
-    let t34244 = t2014 * t34243;
-    let t34245 = -2.0 * t1519 * t32389 - t1843 * t8627 - t1932 * t8065 - t2089 * t7725 + t2108 * t33913 - t34188 * t508 + t8109 * t8568 - t34168 + t34191 - t34193 - t34195 - t34198 + t34203 + t34244;
-    (t34241, t34242, t34243, t34245)
+pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk984<F: Float>(t30: F, t265: F, t393: F, t28522: F, t1469: F, t2078: F, t28491: F, t4186: F, t45: F, t606: F, t7449: F, t8040: F, t1113: F, t1711: F, t1940: F, t2071: F, t2403: F, t26425: F, t26585: F, t27764: F, t27770: F, t27773: F, t27777: F, t27793: F, t27800: F, t27802: F, t27806: F, t27810: F, t27817: F, t28291: F, t28456: F, t28460: F, t28472: F, t28490: F, t33: F, t7200: F, t7207: F, t7428: F, t7432: F, t7862: F, t7869: F, t8020: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
+    let t31 = t30 <= zeta_threshold;
+    let t120 = rho0 <= dens_threshold || t31;
+    let t394 = t265 < t393;
+    let t28523 = piecewise3::<f64>(t394, F::new(0.0), t28522);
+    let t28530 = piecewise3::<f64>(t120, t28491, t7449 * t1469 / F::new(2.0) + t2078 * t4186 / F::new(2.0) + t28523 * t45 / F::new(2.0) + t8040 * t606 / F::new(2.0));
+    let t28577 = F::new(3.0) * t28291 * t27764 + F::new(3.0) / F::new(2.0) * t2403 * t7428 * t7862 - F::new(3.0) / F::new(2.0) * t26425 * t27770 + F::new(3.0) / F::new(2.0) * t2403 * t2071 * t27773 + F::new(3.0) / F::new(2.0) * t2403 * t2071 * t27777 + F::new(3.0) / F::new(2.0) * t2403 * t8020 * t7200 + t1940 * t28456 * t33 / F::new(2.0) - t1940 * t28460 * t7207 / F::new(2.0) + t1940 * t8020 * t1113 / F::new(2.0) - F::new(3.0) / F::new(2.0) * t26425 * t27793 - t1940 * t26585 * t7869 / F::new(2.0) + t28472 * t27800 - t1940 * t7432 * t27802 / F::new(2.0) - t1940 * t7432 * t27806 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t2403 * t2071 * t27810 + t1940 * t7428 * t1711 / F::new(2.0) - t1940 * t7432 * t27817 / F::new(2.0) - t28490;
+    (t28530, t28577)
 }

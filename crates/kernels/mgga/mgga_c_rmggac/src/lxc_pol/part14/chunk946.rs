@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 946/952 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 946/1089 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,19 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk946<F: Float>(t8852: F, t8856: F, t8860: F, t8864: F, t8867: F, t8870: F, t8874: F, t8877: F, t8879: F, t8888: F, t9032: F, t9033: F, t7886: F, t8197: F, t9501: F, t9600: F, t9601: F) -> (F, F, F, F, F, F, F) {
-    let t42289 = 0.30487649791575028314e-3 * t8852;
-    let t42290 = 0.30487649791575028314e-3 * t8856;
-    let t42291 = 0.30487649791575028314e-3 * t8860;
-    let t42292 = 0.30487649791575028314e-3 * t8864;
-    let t42293 = 0.11974241701863808564e0 * t8867;
-    let t42294 = 2.0 * t8870;
-    let t42296 = 0.79828278012425390428e-1 * t8874;
-    let t42297 = 0.4726e1 * t8877;
-    let t42298 = 0.11974241701863808564e0 * t8879;
-    let t42299 = 2.0 * t8888;
-    let t42300 = 2.0 * t9032;
-    let t42301 = 0.11974241701863808564e0 * t9033;
-    let t42302 = -t8197 + t9501 + t42296 + t7886 - t42297 + t42298 + t9600 + t9601 + t42299 + t42300 - t42301;
-    (t42289, t42290, t42291, t42292, t42293, t42294, t42302)
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk946<F: Float>(t36343: F, t8457: F, t1981: F, t3142: F, t508: F, t8512: F, t1652: F, t2084: F, t2145: F, t27: F, t16156: F, t9213: F) -> (F, F, F, F) {
+    let t40250 = t36343 * t8457;
+    let t40251 = F::new(0.24829349937757072982e-4) * t40250;
+    let t40254 = t8512 * t1981 * t3142 * t508;
+    let t40259 = t2145 * t27 * t2084 * t1652;
+    let t40260 = F::new(0.18183107769496894486e-1) * t40259;
+    let t40262 = t16156 * t9213;
+    (t40251, t40254, t40260, t40262)
 }

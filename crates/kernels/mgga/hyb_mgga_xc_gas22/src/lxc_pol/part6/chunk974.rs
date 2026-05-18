@@ -1,4 +1,4 @@
-//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 974/1345 (D-02 tuple-return <F: Float>).
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 974/1455 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -9,19 +9,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk974<F: Float>(t1535: F, t2869: F, t1539: F, t2889: F, t1145: F, t1555: F, t2876: F, t1161: F, t3676: F, t7785: F, t3683: F, t647: F, t198: F, t3662: F, t7580: F, t1297: F, t313: F, sigma2: F, tau1: F) -> (F, F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t9468 = t1535 * t2869;
-    let t9474 = t1539 * t2889;
-    let t9475 = t1145 * t9474;
-    let t9478 = t1555 * t2876;
-    let t9479 = t1161 * t9478;
-    let t9482 = t3676 * t7785;
-    let t9485 = t3683 * t7785;
-    let t9488 = t647 * tau1;
-    let t9489 = t9488 * t198;
-    let t9490 = t3662 * t9489;
-    let t9493 = t1555 * t2869;
-    let t9501 = t7580 * sigma2;
-    let t9502 = t1297 * t313;
-    (t9468, t9474, t9475, t9478, t9479, t9482, t9485, t9488, t9489, t9490, t9493, t9501, t9502)
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk974<F: Float>(t7075: F, t8986: F, t2523: F, t3513: F, t967: F, t2521: F, t2515: F, t3517: F, t1409: F, t7150: F, t2479: F, t7148: F) -> (F, F, F, F, F, F, F) {
+    let t8988 = F::new(0.96491876992155210402e2) * t7075 * t8986;
+    let t8989 = t3513 * t2523;
+    let t8990 = t8989 * t967;
+    let t8992 = F::new(0.32163958997385070134e2) * t2521 * t8990;
+    let t8993 = t3517 * t2515;
+    let t8995 = F::new(0.16081979498692535067e2) * t2521 * t8993;
+    let t8996 = t1409 * t7150;
+    let t8997 = t8996 * t2479;
+    let t8999 = F::new(0.51726012919273400301e3) * t7148 * t8997;
+    (t8988, t8990, t8992, t8993, t8995, t8997, t8999)
 }

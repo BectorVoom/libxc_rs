@@ -201,9 +201,9 @@ pub fn mgga_c_r2scan_lxc_pol(
     mgga_c_r2scan_lxc_pol_part3_v3rho2tau_v3rhosigma2_v3rhosigmalapl_v3rhosigmatau_v3rholapl_etc(rho, sigma, lapl, tau, v3rho2tau, v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part4_v3sigma2tau_v3sigmalapl2_v3sigmalapltau_v3sigmatau2_v3lapl3__etc(rho, sigma, lapl, tau, v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part5_v4rho4_0(rho, sigma, lapl, tau, v4rho4, param_eta, dens_threshold, zeta_threshold);
-    mgga_c_r2scan_lxc_pol_part6_v4rho4_1(rho, sigma, lapl, tau, v4rho4, dens_threshold, zeta_threshold);
+    mgga_c_r2scan_lxc_pol_part6_v4rho4_1(rho, sigma, lapl, tau, v4rho4, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part7_v4rho4_2(rho, sigma, lapl, tau, v4rho4, param_eta, dens_threshold, zeta_threshold);
-    mgga_c_r2scan_lxc_pol_part8_v4rho4_3(rho, sigma, lapl, tau, v4rho4, dens_threshold, zeta_threshold);
+    mgga_c_r2scan_lxc_pol_part8_v4rho4_3(rho, sigma, lapl, tau, v4rho4, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part9_v4rho4_4(rho, sigma, lapl, tau, v4rho4, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part10_v4rho3sigma_0(rho, sigma, lapl, tau, v4rho3sigma, param_eta, dens_threshold, zeta_threshold);
     mgga_c_r2scan_lxc_pol_part11_v4rho3sigma_1(rho, sigma, lapl, tau, v4rho3sigma, param_eta, dens_threshold, zeta_threshold);

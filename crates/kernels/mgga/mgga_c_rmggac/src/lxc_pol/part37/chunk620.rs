@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 620/957 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 620/1128 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,15 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk620<F: Float>(t1330: F, t637: F, t797: F, t3093: F, t35206: F, t2048: F, t6444: F, t2044: F, t25525: F, t25640: F, t3068: F, t854: F, t3102: F, t3851: F, t69239: F, t25518: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t69270 = t797 * t1330 * t637;
-    let t69272 = t3093 * t35206;
-    let t69274 = t6444 * t2048;
-    let t69276 = t25525 * t2044;
-    let t69279 = t25640 * t3068;
-    let t69287 = t854 * t1330 * t637;
-    let t69289 = t3102 * t35206;
-    let t69294 = t3851 * t69239;
-    let t69296 = t25518 * t3068;
-    (t69270, t69272, t69274, t69276, t69279, t69287, t69289, t69294, t69296)
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk620<F: Float>(t15284: F, t15288: F, t15292: F, t3225: F, t8368: F, t22: F, t2447: F, t656: F, t2145: F, t15297: F, t2265: F, t2415: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t15609 = F::new(0.68186654135613354325e-2) * t15284;
+    let t15610 = F::new(0.68186654135613354325e-2) * t15288;
+    let t15611 = F::new(0.20455996240684006296e-1) * t15292;
+    let t15614 = t8368 * t3225;
+    let t15615 = F::new(0.34093327067806677161e-2) * t15614;
+    let t15616 = t2447 * t22;
+    let t15617 = t15616 * t656;
+    let t15618 = t2145 * t15617;
+    let t15619 = F::new(0.34093327067806677161e-2) * t15618;
+    let t15620 = F::new(0.1276937996798935182e-4) * t15297;
+    let t15621 = t2415 * t2265;
+    (t15609, t15610, t15611, t15615, t15616, t15617, t15619, t15620, t15621)
 }

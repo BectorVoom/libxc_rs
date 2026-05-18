@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1124/1260 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 1124/1419 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1124<F: Float>(t5752: F, t5781: F, t5780: F, t3738: F, t7033: F, t1394: F, t18431: F, t531: F) -> (F, F, F) {
-    let t21014 = t5752 * t5781;
-    let t21015 = t5780 * t21014;
-    let t21017 = t3738 * t7033;
-    let t21018 = t1394 * t21017;
-    let t21020 = t531 * t18431;
-    (t21015, t21018, t21020)
+pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1124<F: Float>(t18944: F, t950: F, t931: F, t6393: F, t9655: F, t13710: F, t13717: F, t13962: F, t13963: F, t18645: F, t18650: F, t18655: F, t18659: F, t18661: F, t18664: F, t18667: F, t18669: F, t18674: F, t18679: F, t18683: F, t9691: F, t9775: F) -> (F, F, F) {
+    let t18945 = t18944 * t950;
+    let t18947 = F::new(1.0) * t931 * t18945;
+    let t18949 = F::new(0.16081824322151104822e2) * t9655 * t6393;
+    let t18964 = -t9775 - F::new(0.41203703703703703703e-2) * t9691 - F::new(0.82407407407407407408e-2) * t13710 + t13962 - t13963 + F::new(0.12361111111111111111e-1) * t13717 + F::new(0.20601851851851851852e-2) * t18645 - F::new(0.10300925925925925926e-1) * t18650 + F::new(0.37083333333333333333e-1) * t18655 - F::new(0.24722222222222222222e-1) * t18659 - F::new(0.61805555555555555557e-2) * t18661 - F::new(0.55625000000000000001e-1) * t18664 + F::new(0.74166666666666666668e-1) * t18667 + F::new(0.30902777777777777778e-2) * t18669 - F::new(0.61805555555555555555e-2) * t18674 + F::new(0.18541666666666666667e-1) * t18679 - F::new(0.92708333333333333333e-2) * t18683;
+    (t18947, t18949, t18964)
 }

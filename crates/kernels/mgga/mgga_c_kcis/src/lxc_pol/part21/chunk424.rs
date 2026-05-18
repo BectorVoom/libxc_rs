@@ -1,4 +1,4 @@
-//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 424/1221 (D-02 tuple-return <F: Float>).
+//! MGGA_C_KCIS lxc pol — lxc_pol part 21 (v4rho3sigma_3) CSE chunk 424/1389 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk424<F: Float>(t224: F, t2770: F, t906: F, t2586: F, t2589: F, t2591: F, t2595: F, t2598: F, t2601: F, t2603: F, t2606: F, t2608: F, t2610: F, t2613: F, t2616: F, t2619: F, t2624: F) -> (F, F, F) {
-    let t2771 = t224 * t2770;
-    let t2772 = t906 * t906;
-    let t2789 = 0.1875e0 * t2586 - 0.375e0 * t2589 - 0.75e0 * t2591 + 0.375e0 * t2595 + 0.75e0 * t2598 - 0.1875e0 * t2601 + 0.1125e1 * t2603 - 0.4046875e-1 * t2606 + 0.809375e-1 * t2608 + 0.32375e0 * t2610 - 0.809375e-1 * t2613 - 0.32375e0 * t2616 + 0.4046875e-1 * t2619 - 0.809375e0 * t2624;
-    (t2771, t2772, t2789)
+pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk424<F: Float>(t850: F, t851: F, t2318: F, t2321: F, t2323: F, t2327: F, t2329: F, t2331: F, t843: F, t189: F, t197: F, t673: F, t88: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+    let t2665 = t850 * t850;
+    let t2666 = t2665 * t851;
+    let t2675 = -F::new(0.78438333333333333333e0) * t2318 + F::new(0.15687666666666666667e1) * t2321 + F::new(0.68863333333333333333e0) * t2323 + F::new(0.14025833333333333333e0) * t2327 + F::new(0.28051666666666666667e0) * t2329 + F::new(0.17365833333333333333e0) * t2331;
+    let t2676 = t2675 * t851;
+    let t2679 = t843 * t843;
+    let t2680 = F::new(1.0) / t2679;
+    let t2681 = t189 * t2680;
+    let t2682 = t197 * t197;
+    let t2683 = F::new(1.0) / t2682;
+    let t2684 = t2665 * t2683;
+    let t2690 = t88 * t673;
+    (t2665, t2666, t2675, t2676, t2679, t2680, t2681, t2682, t2683, t2684, t2690)
 }

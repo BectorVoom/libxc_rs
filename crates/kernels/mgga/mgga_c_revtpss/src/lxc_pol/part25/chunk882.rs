@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 882/1212 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 25 (v4rho3sigma_0) CSE chunk 882/1360 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,11 +8,18 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk882<F: Float>(t11133: F, t11134: F, t11136: F, t11138: F, t11140: F, t11147: F, t11153: F, t11158: F, t11162: F, t11167: F, t11171: F, t996: F, t1096: F, t3325: F, t3269: F, t3075: F) -> (F, F, F, F) {
-    let t11173 = -t11133 - 0.19755555555555555556e-1 * t11134 + 0.9877777777777777778e-2 * t11136 - 0.29633333333333333334e-1 * t11138 + 0.14816666666666666667e-1 * t11140 - 0.16462962962962962963e-1 * t11147 + 0.59266666666666666668e-1 * t11153 - 0.29633333333333333334e-1 * t11158 - 0.88900000000000000002e-1 * t11162 + 0.88900000000000000002e-1 * t11167 - 0.14816666666666666667e-1 * t11171;
-    let t11174 = t996 * t11173;
-    let t11177 = t1096 * t3325;
-    let t11178 = t3269 * t11177;
-    let t11183 = t3075 * t1096;
-    (t11173, t11174, t11178, t11183)
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk882<F: Float>(t2398: F, t2414: F, t10326: F, t190: F, t706: F, t2258: F, t750: F, t157: F, t36: F, t10356: F, t2401: F, t200: F, t45: F) -> (F, F, F, F, F, F) {
+    let t10432 = F::new(12.0) * t2398 * t2414;
+    let t10433 = t190 * t10326;
+    let t10435 = F::new(4.0) * t706 * t10433;
+    let t10436 = t750 * t2258;
+    let t10437 = t706 * t10436;
+    let t10438 = F::new(12.0) * t10437;
+    let t10439 = t36 * t157;
+    let t10440 = t190 * t10356;
+    let t10442 = F::new(24.0) * t10439 * t10440;
+    let t10443 = t2401 * t750;
+    let t10444 = F::new(3.0) * t10443;
+    let t10446 = F::new(1.0) / t200 / t45;
+    (t10432, t10435, t10438, t10442, t10444, t10446)
 }

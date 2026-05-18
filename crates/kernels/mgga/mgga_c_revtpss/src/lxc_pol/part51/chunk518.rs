@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 518/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 518/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk518<F: Float>(t247: F, t4830: F, t1062: F, t1659: F, t3204: F, t3116: F, t4757: F, t127: F, t1663: F, t371: F, t1025: F, t1063: F, t1068: F, t1675: F, t3106: F, t3112: F, t3127: F, t3174: F, t3188: F, t4818: F, t4821: F, t4825: F) -> (F, F, F, F, F) {
-    let t4831 = t247 * t4830;
-    let t4834 = t1659 * t1062;
-    let t4837 = t3204 * t1062;
-    let t4838 = t3116 * t4757;
-    let t4839 = t247 * t4838;
-    let t4845 = t371 * t127 * t1663;
-    let t4846 = t1025 * t4845;
-    let t4848 = 0.95275595817932748827e-4 * t3112 + 0.14291339372689912324e-3 * t3174 + 0.95275595817932748827e-4 * t4818 + 0.14291339372689912324e-3 * t4821 - 0.14291339372689912324e-3 * t3127 * t4825 + 0.14291339372689912324e-3 * t3188 * t1675 + 0.14291339372689912324e-3 * t1063 * t4831 + 0.14291339372689912324e-3 * t4834 * t1068 + 0.42874018118069736972e-3 * t4837 * t4839 - 0.76220476654346199061e-3 * t3106 * t1675 - 0.14291339372689912324e-3 * t4846;
-    (t4831, t4838, t4839, t4845, t4848)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk518<F: Float>(t4306: F, t190: F, t4186: F, t706: F, t1531: F, t705: F, t707: F, t2498: F, t2518: F, t2522: F, t2526: F, t2562: F, t2569: F, t2579: F, t2587: F, t2610: F, t4300: F, t4301: F, t4304: F) -> (F, F, F, F) {
+    let t4307 = F::new(4.0) * t4306;
+    let t4308 = t190 * t4186;
+    let t4310 = F::new(4.0) * t706 * t4308;
+    let t4311 = t705 * t1531;
+    let t4313 = F::new(4.0) * t4311 * t707;
+    let t4314 = t4300 - t2569 + t2579 + t2587 - t2522 - t2498 - t2518 - t4301 + t2526 + t2610 - t4304 - t2562 + t4307 + t4310 + t4313;
+    (t4307, t4310, t4313, t4314)
 }

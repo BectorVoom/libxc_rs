@@ -22,7 +22,7 @@ pub fn mgga_xc_lp90_exc_unpol(
     let ip = ABSOLUTE_POS;
     if ip < zk.len() {
         let t2 = rho[ip] * rho[ip];
-        let t3 = pow_1_3(rho[ip]);
+        let t3 = pow_1_3::<f64>(rho[ip]);
         let t4 = t3 * t3;
         let t6 = 1.0 / t4 / t2;
         let t10 = 1.0 / t4 / rho[ip];

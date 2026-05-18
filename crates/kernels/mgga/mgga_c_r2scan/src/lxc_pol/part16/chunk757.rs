@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 757/1112 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 757/1264 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,16 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk757<F: Float>(t44: F, t51: F, t1216: F, t4911: F, t1217: F, t2466: F, t415: F, t48: F, t8561: F, t8566: F, t3007: F, t4948: F, t1368: F, t3010: F, t2474: F, t419: F, t53: F, t60: F, zeta_threshold: F) -> (F, F, F, F) {
-    let t45 = t44 <= zeta_threshold;
-    let t52 = t51 <= zeta_threshold;
-    let t8571 = -2.0 * t1216 - 6.0 * t4911;
-    let t8575 = piecewise3(t45, 0.0, -8.0 / 27.0 * t8561 * t415 + 16.0 / 9.0 * t2466 * t1217 + 4.0 / 9.0 * t8566 * t415 + 4.0 / 3.0 * t48 * t8571);
-    let t8576 = t4948 * t3007;
-    let t8581 = t1368 * t3010;
-    let t8584 = -t8571;
-    let t8588 = piecewise3(t52, 0.0, -8.0 / 27.0 * t8576 * t419 - 16.0 / 9.0 * t2474 * t1217 + 4.0 / 9.0 * t8581 * t419 + 4.0 / 3.0 * t53 * t8584);
-    let t8589 = t8575 + t8588;
-    let t8590 = t8589 * t60;
-    (t8571, t8584, t8589, t8590)
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk757<F: Float>(t2132: F, t2183: F, t296: F, t297: F, t306: F, t307: F, t6101: F, t1275: F, t815: F, t817: F, t312: F, t317: F, t6100: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t6583 = t2183 * t2132;
+    let t6621 = F::new(1.0) / t297 / t296;
+    let t6635 = F::new(1.0) / t307 / t306;
+    let t6648 = F::new(154.0) / F::new(27.0) * t6101;
+    let t6654 = t815 * t1275;
+    let t6659 = t817 * t817;
+    let t6660 = F::new(1.0) / t6659;
+    let t6661 = t312 * t6660;
+    let t6678 = F::new(154.0) / F::new(27.0) * t317 * t6100;
+    (t6583, t6621, t6635, t6648, t6654, t6659, t6660, t6661, t6678)
 }

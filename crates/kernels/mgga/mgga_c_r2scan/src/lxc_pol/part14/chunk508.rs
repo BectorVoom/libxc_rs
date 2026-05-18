@@ -1,4 +1,4 @@
-//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 508/1124 (D-02 tuple-return <F: Float>).
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 14 (v4rho3sigma_4) CSE chunk 508/1276 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,14 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk508<F: Float>(t322: F, t1035: F, t1348: F, t2406: F, t2408: F, t2436: F, t2437: F, t2438: F, t2441: F, t352: F, t855: F, t1357: F, t457: F, t898: F, t41: F, t406: F, t899: F) -> (F, F, F, F, F, F) {
-    let t323 = t322 <= 0.0;
-    let t331 = t322 <= 0.25e1;
-    let t2445 = t1348 * t1035;
-    let t2449 = piecewise5(t323, t2406 + t2408, t331, t2436, -0.21e1 * t2437 * t2438 - 0.105e1 * t855 * t2441 * t352 - 0.1575e1 * t2445 * t2438);
-    let t2451 = 4.0 * t1357;
-    let t2452 = t898 * t457;
-    let t2453 = t41 * t2452;
-    let t2454 = t406 * t899;
-    (t2445, t2449, t2451, t2452, t2453, t2454)
+pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk508<F: Float>(t1267: F, t2104: F, t2279: F, t2281: F, t2289: F, t2293: F, t2295: F, t2302: F, t2304: F, t269: F, t550: F, t864: F, t870: F) -> F {
+    let t2312 = F::new(2.0) * t2279 * t864 - F::new(1.0) * t2281 * t864 + F::new(1.0) * t2289 * t864 + F::new(0.2845018947250181111e-1) * t2293 * t2295 - F::new(0.20235332025531322028e-2) * t2302 * t2104 * t269 * t2304 + F::new(0.52158680699586653702e-1) * t870 * t550 * t1267;
+    t2312
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 524/1170 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 27 (v4rho3sigma_2) CSE chunk 524/1333 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,13 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk524<F: Float>(t3075: F, t996: F, t221: F, t346: F, t696: F, t345: F, t2270: F, t344: F, t1003: F, t1007: F, t360: F, t365: F, t1038: F, t72: F) -> (F, F, F, F, F, F, F) {
-    let t3076 = t996 * t3075;
-    let t3080 = t221 * t696 * t346;
-    let t3082 = t345 * t3080 / 432.0;
-    let t3083 = t2270 * t344;
-    let t3086 = t1003 * t1007;
-    let t3088 = t360 * t365;
-    let t3089 = t1038 * t72;
-    (t3076, t3080, t3082, t3083, t3086, t3088, t3089)
+pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk524<F: Float>(t2853: F, t2908: F, t141: F, t2858: F, t930: F, t2862: F, t2848: F, t2855: F, t2860: F, t2864: F, t2882: F, t2890: F, t2892: F, t2898: F, t2900: F, t2905: F, t2906: F) -> (F, F, F, F, F, F, F) {
+    let t2909 = t2908 * t2853;
+    let t2910 = t141 * t2909;
+    let t2912 = t930 * t2858;
+    let t2913 = t141 * t2912;
+    let t2915 = t930 * t2862;
+    let t2916 = t141 * t2915;
+    let t2918 = -F::new(0.9494625e0) * t2882 + F::new(0.1898925e1) * t2890 + t2892 + F::new(0.19931111111111111111e0) * t2848 - F::new(0.19931111111111111111e0) * t2855 + F::new(0.59793333333333333334e0) * t2860 - F::new(0.29896666666666666667e0) * t2864 + F::new(0.15358125e0) * t2898 + F::new(0.3071625e0) * t2900 + t2905 + F::new(0.10954222222222222222e0) * t2906 - F::new(0.27385555555555555556e-1) * t2910 + F::new(0.16431333333333333333e0) * t2913 - F::new(0.82156666666666666667e-1) * t2916;
+    (t2909, t2910, t2912, t2913, t2915, t2916, t2918)
 }

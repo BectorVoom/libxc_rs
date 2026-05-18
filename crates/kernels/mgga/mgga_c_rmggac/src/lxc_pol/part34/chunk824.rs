@@ -1,4 +1,4 @@
-//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 824/916 (D-02 tuple-return <F: Float>).
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 34 (v4rho2sigma2_7) CSE chunk 824/1097 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk824<F: Float>(t14451: F, t5144: F, t30204: F, t74791: F, t15605: F, t290: F, t74793: F, t74795: F, t74797: F, t34975: F, t34976: F, t699: F, t8455: F, t16503: F, t35039: F, t9169: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t77204 = t14451 * t5144;
-    let t77205 = t30204 * t77204;
-    let t77206 = 0.5987120850931904282e-1 * t77205;
-    let t77208 = 0.21814357445315142692e-4 * t74791;
-    let t77209 = t290 * t15605;
-    let t77212 = 0.68186654135613354325e-2 * t74793;
-    let t77213 = 0.68186654135613354325e-2 * t74795;
-    let t77214 = 0.12263514265030957031e-4 * t74797;
-    let t77217 = t34975 * t34976 * t699 * t8455;
-    let t77218 = 0.53205749866622299248e-5 * t77217;
-    let t77221 = t16503 * t35039 * t699 * t9169;
-    (t77204, t77206, t77208, t77209, t77212, t77213, t77214, t77218, t77221)
+pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk824<F: Float>(t14371: F, t15214: F, t11905: F, t3072: F, t14314: F, t558: F, t262: F, t7192: F, t1614: F, t3080: F, t15169: F, t41886: F) -> (F, F, F, F, F, F, F, F, F) {
+    let t74797 = t14371 * t15214;
+    let t74800 = F::new(0.2993560425465952141e-1) * t11905 * t3072;
+    let t74801 = t14314 * t558;
+    let t74802 = t262 * t74801;
+    let t74803 = t7192 * t74802;
+    let t74805 = t3080 * t1614;
+    let t74806 = t262 * t74805;
+    let t74807 = t7192 * t74806;
+    let t74809 = t41886 * t15169;
+    (t74797, t74800, t74801, t74802, t74803, t74805, t74806, t74807, t74809)
 }

@@ -1,4 +1,4 @@
-//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 717/1050 (D-02 tuple-return <F: Float>).
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 51 (v4rho2sigma2_6) CSE chunk 717/1200 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,17 +8,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk717<F: Float>(t25266: F, t839: F, t241: F, t7036: F, t820: F, t159: F, t2698: F, t218: F, t816: F, t228: F, t7021: F, t802: F, t7043: F, t826: F, t2736: F, t7082: F, t72: F) -> (F, F, F, F, F, F, F, F) {
-    let t25267 = t25266 * t839;
-    let t25270 = t820 * t7036 * t241;
-    let t25273 = t2698 * t159;
-    let t25275 = t25273 * t218 * t816;
-    let t25276 = 35.0 / 432.0 * t25275;
-    let t25277 = t7021 * t228;
-    let t25278 = t25277 * t802;
-    let t25282 = t7043 * t826;
-    let t25283 = t2736 * t25282;
-    let t25284 = 0.50820002809285328225e-5 * t25283;
-    let t25295 = t7082 * t72;
-    (t25267, t25270, t25273, t25276, t25277, t25278, t25284, t25295)
+pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk717<F: Float>(t532: F, t7933: F, t1450: F, t2014: F, t2034: F, t5542: F, t118: F, t1502: F, t1519: F, t1843: F, t1911: F, t1932: F, t2007: F, t2011: F, t508: F, t569: F, t651: F, t6985: F, t7725: F, t7731: F, t7734: F, t7737: F, t7744: F, t7746: F, t7883: F, t7894: F, t7899: F, t7903: F) -> (F, F, F, F) {
+    let t7934 = t532 * t7933;
+    let t7935 = t7934 * t1450;
+    let t7936 = t2014 * t7935;
+    let t7937 = t2034 * t5542;
+    let t7938 = t2014 * t7937;
+    let t7939 = -t118 * t7883 - t1502 * t2007 - F::new(2.0) * t1519 * t6985 - t1843 * t1932 + t1911 * t2011 - t508 * t7725 + t569 * t7894 - F::new(2.0) * t651 * t7746 - t7731 - t7734 - t7737 - t7744 + t7899 + t7903 + t7936 - t7938;
+    (t7934, t7935, t7937, t7939)
 }

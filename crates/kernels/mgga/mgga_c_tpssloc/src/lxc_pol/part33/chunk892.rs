@@ -1,4 +1,4 @@
-//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 892/1265 (D-02 tuple-return <F: Float>).
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 33 (v4rho3sigma_9) CSE chunk 892/1415 (D-02 tuple-return <F: Float>).
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
@@ -8,9 +8,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk892<F: Float>(t1495: F, t210: F, t5544: F, t10026: F, t10029: F, t13368: F, t16942: F, t16954: F, t16988: F, t16990: F, t16993: F, t16995: F, t17000: F, t2571: F, t13087: F, t13182: F, t13234: F, t16848: F, t16877: F, t16879: F, t20882: F, t20887: F, t20891: F, t20896: F, t20958: F, t20998: F, t2643: F, t843: F) -> (F,) {
-    let t21008 = t210 * t1495 * t5544;
-    let t21011 = 7.0 / 1536.0 * t16942 + 7.0 / 384.0 * t16954 - 35.0 / 384.0 * t16988 + 7.0 / 192.0 * t16990 - t10026 - 7.0 / 16.0 * t16993 + 7.0 / 48.0 * t16995 - 7.0 / 1536.0 * t17000 - t10029 - 119.0 / 1152.0 * t13368 + 3.0 / 16.0 * t2571 * t21008;
-    let t21013 = -35.0 / 72.0 * t13087 - 119.0 / 4608.0 * t13182 + t2643 * t20882 / 256.0 + t2643 * t20887 / 256.0 - t2643 * t20891 / 1024.0 - 7.0 / 192.0 * t16848 - 5.0 / 128.0 * t843 * t20896 + 119.0 / 4608.0 * t13234 + 7.0 / 768.0 * t16877 - 7.0 / 768.0 * t16879 + t20958 + t20998 + t21011;
-    (t21013,)
+pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk892<F: Float>(t1213: F, t18375: F, t248: F, t3521: F, t5975: F, t1227: F, t3450: F, t5398: F, t3448: F, t6138: F, t6144: F, t11583: F, t5392: F) -> (F, F, F, F, F, F) {
+    let t18376 = t1213 * t18375;
+    let t18392 = t248 * t3521 * t5975;
+    let t18393 = t1227 * t18392;
+    let t18409 = t3450 * t5398;
+    let t18416 = t3448 * t6138;
+    let t18420 = t3448 * t6144;
+    let t18427 = t11583 * t5392;
+    (t18376, t18393, t18409, t18416, t18420, t18427)
 }
