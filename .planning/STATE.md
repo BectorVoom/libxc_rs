@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Paused mid-execution — 11-06 Session 1 done (Tasks 1-4 + structural unblocks); resume in fresh session for Task 5
-stopped_at: Phase 11 11-06 5th-iter Session 1 complete; math/ + mgga_c_b94 canary compile-green for first time in history
-last_updated: "2026-05-18T15:30:00.000Z"
-last_activity: 2026-05-18 -- Phase 11 11-06 5th-iter Session 1 (Tasks 1-4 + 3 structural blockers fixed)
+status: Paused mid-execution — 11-06 Session 2 done (Task 5 all 9 sub-steps); Tasks 6-8 deferred to fresh Session 3
+stopped_at: Phase 11 11-06 5th-iter Session 2 complete; ALL 9 math/ Phase-2 files now generic <F: Float>, green at f64+f32
+last_updated: "2026-05-18T20:00:00.000Z"
+last_activity: 2026-05-18 -- Phase 11 11-06 5th-iter Session 2 (Task 5: 9 atomic per-file commits, aggregate gates green)
 progress:
   total_phases: 11
   completed_phases: 6
@@ -26,14 +26,41 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 11 (splitter-v2-unified-5k-cap) — PAUSED mid-11-06 5th-iter execution
-Plan: 11-06 5th-iter Session 1 complete (Tasks 1-4 + 3 structural unblocks); Tasks 5-8 deferred to fresh Session 2
-Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Session 1 PARTIAL (`8cb80ce49`).
+Plan: 11-06 5th-iter Session 2 complete (Task 5: all 9 sub-steps); Tasks 6-8 deferred to fresh Session 3
+Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Session 1 PARTIAL (`8cb80ce49`, Tasks 1-4 + structural unblocks); 11-06 5th-iter Session 2 PARTIAL (`1bf0e3bf1`, Task 5 all 9 sub-steps).
+
 5th-iter Session 1 outcome (2026-05-18, 8 commits): math/ baseline now compile-green for FIRST TIME IN HISTORY; mgga_c_b94 canary regenerated and compile-green at both precisions; PATTERN.md amended with Rule 9 (cross-fn turbofish, MANDATORY) and Rule 10 (translator carry-forward). Three structural blockers fixed:
   (1) dcb7d517d 436-file scope → path-scoped reset (Deviation A)
   (2) Phase-1 baseline never compiled (turbofish missing) → 27 surgical edits to powers/spin/lambert_w/dft_quantities (Deviation C, commit 38b5bc1ee)
   (3) Generated chunk tree never compiled → translator-side turbofish emission in translate_{lda_v2,gga,mgga}.py (Deviation D, commit e7d1bdce4) + mgga_c_b94 canonical regen (commit 00b5380a1)
-Next step: fresh session — `/gsd:execute-phase 11` (continues with Task 5 of 11-06 since SUMMARY.md is PARTIAL not complete; gsd-tools will see 11-06 as incomplete because SUMMARY frontmatter has `status: PARTIAL`). See `11-06-SUMMARY.md` "What a fresh session needs to know" section for resume instructions. Apply 11-PATTERN.md Rules 1-9 from the start of every Task 5 file conversion (Rule 9 — cross-fn turbofish — was the missing structural piece that caused every prior HALT).
-Plans: 8/8 written; 5/8 executed; 1/8 IN PROGRESS (11-06 PARTIAL). 11-07/08 blocked behind 11-06 completion (and 11-07 needs to also pick up the translator-emitted turbofish for the other 91 MGGA + 131 GGA + 43 LDA functionals via full-tree regen).
+
+5th-iter Session 2 outcome (2026-05-18, 9 commits): ALL 9 Phase-2 files in `crates/kernels/math/src/` manually converted to generic `<F: Float>` per 11-PATTERN.md Rules 1-9. Per-file gates GREEN at f64 AND f32 (compile + spike_cse_emit_q01). Aggregate sanity sweep: all 9 files have `<F: Float>` signatures, ZERO `F::new(<NAMED_CONST>)` Rule 3 violations. Phase-1 files (powers/piecewise/lambert_w/polynomials/spin) UNTOUCHED across all 9 commits (Step F verified after each commit). Per-file atomic commits in plan-mandated easiest-first order (bspline first, bessel LAST per D-26):
+  1. `9e7544efb` bspline.rs (5 fns, 21 cast sites)
+  2. `6570d948d` dft_quantities.rs (4 fns, ~13 cast sites; swapped ::<f64>→::<F> per Session 1 carry-forward)
+  3. `9f8bb2000` erf.rs (3 fns, 78 F::cast_from + 21 F::new)
+  4. `8a995fb99` special.rs (4 fns, 4-fn Chebyshev+Faddeeva; F::cast_from for >5-digit let-binding coefficients)
+  5. `5c35eb711` mbrxc.rs (2 fns, 60 unrolled Brent iterations via Edit replace_all)
+  6. `74c5321ed` br89.rs (2 fns, mixed multi-line + compact iteration layouts)
+  7. `19882e5b1` integrate.rs (9 fns, 176 cross-fn turbofish sites, 32-pt GL × 4 helpers)
+  8. `de49d7b59` expint_e1.rs (7 fns, 150 Clenshaw inline-coeff F::cast_from sites)
+  9. `1bf0e3bf1` bessel.rs (10 fns, "highest symbol-class diversity" per D-26; 109 Clenshaw coeffs + 4 named consts)
+
+Pattern decisions codified during conversion:
+- Long-precision let-binding constants (Chebyshev/SLATEC coefficients with >5 significant digits): use F::cast_from(<f64-literal>) to preserve f64 precision in f64 mode; F::new(f32) would catastrophically truncate
+- Short exact-representable literals (0.0, 0.5, 1.0, 2.0, 3.0, powers-of-2 fractions): F::new(...) per Rule 2
+- Module-level `const X: f64 = ...` declarations: kept f64-typed; in-body usage wraps with F::cast_from per Rule 3
+- u32-to-F casts (e.g. `idx as f64` → bspline): `F::cast_from(idx)` works via CubeCL's blanket `impl<P: CubePrimitive> Cast for P`
+- cfg(test) test kernels (concrete-f64 launch path): add `::<f64>` turbofish at helper call sites (Rule 9 concrete caller form)
+- cfg(test) pure-CPU code (bessel/mbrxc/br89 reference impls): UNCHANGED
+
+Next step: fresh session — `/gsd:execute-phase 11` (continues with Task 6 of 11-06: Gate 3 EXIT 4 legs):
+- Leg 1 (compile): already proven for f64+f32 at commit `00b5380a1` (mgga_c_b94 canary)
+- Leg 2 (parity f64): `LIBXC_RS_BYPASS_DEFERRED=1 cargo test -p libxc_rs-verify --test parity_phase11 phase11_worst_case`
+- Leg 3 (parity f32): `LIBXC_RS_BYPASS_DEFERRED=1 LIBXC_RS_F32=1 cargo test ... phase11_worst_case_f32`
+- Leg 4 (idempotency): re-run `translate_mgga.emit_per_functional('mgga_c_b94')` → expect zero git diff
+Then Task 7 (D-28 classifier preservation headers, ~5 min), then Task 8 (final SUMMARY rewrite overwriting current PARTIAL).
+
+Plans: 8/8 written; 5/8 executed; 1/8 IN PROGRESS (11-06 PARTIAL — Task 5 done, Tasks 6-8 pending). 11-07/08 blocked behind 11-06 completion (and 11-07 needs to also pick up the translator-emitted turbofish for the other 91 MGGA + 131 GGA + 43 LDA functionals via full-tree regen).
 
 Plan 11-03 outcome (2026-05-15):
 
