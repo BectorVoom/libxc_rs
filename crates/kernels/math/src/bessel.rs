@@ -34,171 +34,171 @@ const TWO_SQRT2_SQRT_DBL_EPSILON: f64 = 4.214684242274519e-8;
 
 /// `bi0_data` (12 coefficients) — series for I0(x) on |x| <= 3.
 #[cube]
-fn cheb_bi0(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000245;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000053339;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000009579451;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000001396650044;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000161384906966;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000014340062895106;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000942265768600193;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00043442709008164874;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.01304891466707290428;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.22826445869203013390;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  1.92733795399380827000;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.07660547252839144951;
-    0.5 * (b0 - b2)
+fn cheb_bi0<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000245_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000053339_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000009579451_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000001396650044_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000161384906966_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000014340062895106_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000942265768600193_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00043442709008164874_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.01304891466707290428_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.22826445869203013390_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 1.92733795399380827000_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.07660547252839144951_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 /// `ai0_data` (21 coefficients) — series for I0(x) scaled, 3 <= |x| <= 8.
 #[cube]
-fn cheb_ai0(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000007;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000071;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000314;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000608;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000002415;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000027155;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000114684;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000112822;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000001757854;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000011916228;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000022925563;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000155964859;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000001204463945;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000825247260;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000027838499429;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000078261435014;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000790117997921;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000001070076463439;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000041531313389237;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00759138081082334;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.07575994494023796;
-    0.5 * (b0 - b2)
+fn cheb_ai0<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000007_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000071_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000314_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000608_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000002415_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000027155_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000114684_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000112822_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000001757854_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000011916228_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000022925563_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000155964859_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000001204463945_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000825247260_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000027838499429_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000078261435014_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000790117997921_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000001070076463439_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000041531313389237_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00759138081082334_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.07575994494023796_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 /// `ai02_data` (22 coefficients) — series for I0(x) scaled, |x| > 8.
 #[cube]
-fn cheb_ai02(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000003;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000027;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000034;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000176;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000382;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000954;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000004151;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000001539;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000038529;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000071801;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000179419;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001321580;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000003149915;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000001188914;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000049406022;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000339623203;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000002266668991;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000020489185893;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000289137052082;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000006889758346918;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00336911647825569;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.05449041101410882;
-    0.5 * (b0 - b2)
+fn cheb_ai02<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000003_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000027_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000034_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000176_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000382_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000954_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000004151_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000001539_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000038529_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000071801_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000179419_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000001321580_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000003149915_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000001188914_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000049406022_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000339623203_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000002266668991_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000020489185893_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000289137052082_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000006889758346918_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00336911647825569_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.05449041101410882_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 /// `bi1_data` (11 coefficients) — series for I1(x) on |x| <= 3.
 #[cube]
-fn cheb_bi1(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000000000000024;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000000000004741;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000000000766380;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000000099322077;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000010042493924;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000000764902676483;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.000041888521098377;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.001545394556300123;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.034838994299959456;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.407348876675464810;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.001971713261099859;
-    0.5 * (b0 - b2)
+fn cheb_bi1<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000000024_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000004741_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000766380_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000099322077_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000010042493924_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000764902676483_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000041888521098377_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.001545394556300123_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.034838994299959456_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.407348876675464810_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.001971713261099859_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 /// `ai1_data` (21 coefficients) — series for I1(x) scaled, 3 <= |x| <= 8.
 #[cube]
-fn cheb_ai1(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000006;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000071;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000333;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000730;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000002023;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000027315;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000124260;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000166665;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001664947;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000012663889;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000029085122;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000144842341;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000001318012367;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000001559378146;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000029183389184;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000104949824671;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000858561914581;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000002069971253350;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000061151858579437;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.01922953231443221;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.02846744181881479;
-    0.5 * (b0 - b2)
+fn cheb_ai1<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000006_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000071_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000333_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000730_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000002023_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000027315_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000124260_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000166665_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000001664947_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000012663889_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000029085122_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000144842341_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000001318012367_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000001559378146_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000029183389184_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000104949824671_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000858561914581_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000002069971253350_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000061151858579437_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.01922953231443221_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.02846744181881479_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 /// `ai12_data` (22 coefficients) — series for I1(x) scaled, |x| > 8.
 #[cube]
-fn cheb_ai12(x: f64) -> f64 {
-    let twox = 2.0 * x;
-    let mut b0 = 0.0f64;
-    let mut b1 = 0.0f64;
-    let mut b2: f64 = 0.0;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000003;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000028;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000000033;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000186;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000000382;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000001041;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000004273;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000002101;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000040836;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000000071985;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000000203564;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000001412580;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.00000000000003252602;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000001897495;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000055897433;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000000383538039;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000002631468847;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000025122362377;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000000388256480887;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00000011058893876263;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + -0.00976109749136147;
-    b2 = b1; b1 = b0; b0 = twox * b1 - b2 +  0.02857623501828014;
-    0.5 * (b0 - b2)
+fn cheb_ai12<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000003_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000028_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000033_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000186_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000382_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000001041_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000004273_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000002101_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000040836_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000071985_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000203564_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000001412580_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000003252602_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000001897495_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000055897433_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000383538039_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000002631468847_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000025122362377_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000388256480887_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000011058893876263_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00976109749136147_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.02857623501828014_f64);
+    F::new(0.5) * (b0 - b2)
 }
 
 // ---------------------------------------------------------------------------
@@ -210,18 +210,18 @@ fn cheb_ai12(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I0_scaled` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I0_scaled(x: f64) -> f64 {
-    let y = f64::abs(x);
-    let mut r = 0.0f64;
+pub fn xc_bessel_I0_scaled<F: Float>(x: F) -> F {
+    let y = F::abs(x);
+    let mut r: F = F::new(0.0);
 
-    if y < 2.0 * SQRT_DBL_EPSILON {
-        r = 1.0 - y;
-    } else if y <= 3.0 {
-        r = f64::exp(-y) * (2.75 + cheb_bi0(y * y / 4.5 - 1.0));
-    } else if y <= 8.0 {
-        r = (0.375 + cheb_ai0((48.0 / y - 11.0) / 5.0)) / f64::sqrt(y);
+    if y < F::new(2.0) * F::cast_from(SQRT_DBL_EPSILON) {
+        r = F::new(1.0) - y;
+    } else if y <= F::new(3.0) {
+        r = F::exp(-y) * (F::new(2.75) + cheb_bi0::<F>(y * y / F::new(4.5) - F::new(1.0)));
+    } else if y <= F::new(8.0) {
+        r = (F::new(0.375) + cheb_ai0::<F>((F::new(48.0) / y - F::new(11.0)) / F::new(5.0))) / F::sqrt(y);
     } else {
-        r = (0.375 + cheb_ai02(16.0 / y - 1.0)) / f64::sqrt(y);
+        r = (F::new(0.375) + cheb_ai02::<F>(F::new(16.0) / y - F::new(1.0))) / F::sqrt(y);
     }
 
     r
@@ -235,16 +235,16 @@ pub fn xc_bessel_I0_scaled(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I0` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I0(x: f64) -> f64 {
-    let y = f64::abs(x);
-    let mut r = 0.0f64;
+pub fn xc_bessel_I0<F: Float>(x: F) -> F {
+    let y = F::abs(x);
+    let mut r: F = F::new(0.0);
 
-    if y < 2.0 * SQRT_DBL_EPSILON {
-        r = 1.0;
-    } else if y <= 3.0 {
-        r = 2.75 + cheb_bi0(y * y / 4.5 - 1.0);
-    } else if y < LOG_DBL_MAX - 1.0 {
-        r = f64::exp(y) * xc_bessel_I0_scaled(x);
+    if y < F::new(2.0) * F::cast_from(SQRT_DBL_EPSILON) {
+        r = F::new(1.0);
+    } else if y <= F::new(3.0) {
+        r = F::new(2.75) + cheb_bi0::<F>(y * y / F::new(4.5) - F::new(1.0));
+    } else if y < F::cast_from(LOG_DBL_MAX) - F::new(1.0) {
+        r = F::exp(y) * xc_bessel_I0_scaled::<F>(x);
     }
     // else: overflow path — leave r = 0.0 (no stderr in #[cube]).
 
@@ -256,27 +256,27 @@ pub fn xc_bessel_I0(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I1_scaled` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I1_scaled(x: f64) -> f64 {
-    let y = f64::abs(x);
-    let mut r = 0.0f64;
+pub fn xc_bessel_I1_scaled<F: Float>(x: F) -> F {
+    let y = F::abs(x);
+    let mut r: F = F::new(0.0);
 
-    if y == 0.0 {
-        r = 0.0;
-    } else if y < TWO_DBL_MIN {
+    if y == F::new(0.0) {
+        r = F::new(0.0);
+    } else if y < F::cast_from(TWO_DBL_MIN) {
         // Underflow: leave r = 0.0 (libxc prints to stderr; not available here).
-        r = 0.0;
-    } else if y < TWO_SQRT2_SQRT_DBL_EPSILON {
-        r = 0.5 * x * f64::exp(-y);
-    } else if y <= 3.0 {
-        r = x * f64::exp(-y) * (0.875 + cheb_bi1(y * y / 4.5 - 1.0));
+        r = F::new(0.0);
+    } else if y < F::cast_from(TWO_SQRT2_SQRT_DBL_EPSILON) {
+        r = F::new(0.5) * x * F::exp(-y);
+    } else if y <= F::new(3.0) {
+        r = x * F::exp(-y) * (F::new(0.875) + cheb_bi1::<F>(y * y / F::new(4.5) - F::new(1.0)));
     } else {
-        let mut rr = 0.0f64;
-        if y <= 8.0 {
-            rr = (0.375 + cheb_ai1((48.0 / y - 11.0) / 5.0)) / f64::sqrt(y);
+        let mut rr: F = F::new(0.0);
+        if y <= F::new(8.0) {
+            rr = (F::new(0.375) + cheb_ai1::<F>((F::new(48.0) / y - F::new(11.0)) / F::new(5.0))) / F::sqrt(y);
         } else {
-            rr = (0.375 + cheb_ai12(16.0 / y - 1.0)) / f64::sqrt(y);
+            rr = (F::new(0.375) + cheb_ai12::<F>(F::new(16.0) / y - F::new(1.0))) / F::sqrt(y);
         }
-        if x > 0.0 { r = rr; } else { r = -rr; }
+        if x > F::new(0.0) { r = rr; } else { r = -rr; }
     }
 
     r
@@ -286,21 +286,21 @@ pub fn xc_bessel_I1_scaled(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I1` in `bessel.c`.
 #[cube]
-pub fn xc_bessel_I1(x: f64) -> f64 {
-    let y = f64::abs(x);
-    let mut r = 0.0f64;
+pub fn xc_bessel_I1<F: Float>(x: F) -> F {
+    let y = F::abs(x);
+    let mut r: F = F::new(0.0);
 
-    if y == 0.0 {
-        r = 0.0;
-    } else if y < TWO_DBL_MIN {
+    if y == F::new(0.0) {
+        r = F::new(0.0);
+    } else if y < F::cast_from(TWO_DBL_MIN) {
         // Underflow: leave r = 0.0.
-        r = 0.0;
-    } else if y < TWO_SQRT2_SQRT_DBL_EPSILON {
-        r = 0.5 * x;
-    } else if y <= 3.0 {
-        r = x * (0.875 + cheb_bi1(y * y / 4.5 - 1.0));
+        r = F::new(0.0);
+    } else if y < F::cast_from(TWO_SQRT2_SQRT_DBL_EPSILON) {
+        r = F::new(0.5) * x;
+    } else if y <= F::new(3.0) {
+        r = x * (F::new(0.875) + cheb_bi1::<F>(y * y / F::new(4.5) - F::new(1.0)));
     } else {
-        r = f64::exp(x) * xc_bessel_I1_scaled(x);
+        r = F::exp(x) * xc_bessel_I1_scaled::<F>(x);
     }
 
     r
