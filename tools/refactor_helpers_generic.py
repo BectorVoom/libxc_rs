@@ -1,4 +1,64 @@
 #!/usr/bin/env python3
+# ============================================================================
+# STATUS: PRESERVED IN TREE PER D-28 (fallback / future-use, not actively used)
+# ============================================================================
+#
+# This script is the cast_from policy classifier (D-20 A1 path). It was
+# implemented across commits:
+#   - a3aacdbec — feat(11-06): extend refactor_helpers_generic.py with D-20 cast_from policy
+#   - cf59c2c08 — feat(11-06): extend cast_from script — sibling-scan + use-line skip
+#                              + classify_and_wrap_identifiers
+#
+# It is ARCHITECTURALLY CORRECT (Gate 1 GREEN per commit 7e9391eff fixture;
+# 180 → 68 E0308 reduction empirically demonstrated at D-22 Gate 2 attempt
+# during the 4th-iter recovery). The classifier transforms
+# F::new(<f64-IDENT>) → F::cast_from(<f64-IDENT>) per the symbol-class
+# matrix documented in:
+#   .planning/phases/11-splitter-v2-unified-5k-cap/11-CONTEXT.md D-20
+#
+# WHY IT IS NOT ACTIVELY USED IN PHASE 11
+# ---------------------------------------
+# The 5th-iter discuss-phase locked Direction A (D-25) — manual Phase-2 redo
+# — because the Phase-2 baseline at commit 7a65f3bc6 contains 4 corruption
+# categories that the classifier alone cannot clear:
+#   1. mixed-precision generic-fn signatures (F-typed return on f64-bodied fn)
+#   2. non-pub #[cube] helpers (CubeCL macro accessibility check fails)
+#   3. broken `(` brackets in signatures
+#   4. missed literal-wrap sites in deeply-nested arithmetic
+#
+# Error count progression on 4th-iter recovery: 234 → 121 → 84 → 1755 → 507.
+# The non-monotonic 121 → 507 trip is the canonical AP-8 signature (CONTEXT.md
+# 5th-iter): "Automation-extension as architectural rescue." The classifier
+# was the right tool for the wrong baseline.
+#
+# WHEN TO RE-ACTIVATE THIS SCRIPT
+# -------------------------------
+# If a FUTURE plan introduces a regression that re-wraps clean generic helpers
+# back to the broken F::new(IDENT) form (e.g., an auto-generated migration
+# script regresses), this classifier can rescue them — re-apply with the
+# D-22 Gate 1 fixture (`tools/refactor_test_fixtures/symbol_class_matrix.rs`)
+# as a regression-test floor.
+#
+# DO NOT EXTEND THIS SCRIPT WITHOUT AP-8 AWARENESS (CONTEXT.md fifth session)
+# --------------------------------------------------------------------------
+# AP-8 is BLOCKING. Trigger threshold: non-monotonic decrease across 2
+# consecutive automation-extension passes. If you find yourself adding a
+# "smart signature rewrite" or "sibling-scan v2" pass to clear residual
+# errors that didn't shrink under the previous pass — STOP. Manual conversion
+# mirroring the Phase-1 clean pattern (11-PATTERN.md) is the structural
+# response.
+#
+# REFERENCES
+# ----------
+# - CONTEXT.md D-25 (Direction A lock)
+# - CONTEXT.md D-28 (this script's preservation policy)
+# - CONTEXT.md D-29 (commit-preservation policy — a3aacdbec/7e9391eff/cf59c2c08)
+# - CONTEXT.md D-30 / AP-8 (automation-extension anti-pattern)
+# - 11-06-SUMMARY-HALT.md (3rd-iter HALT; pre-cast_from baseline)
+# - 11-06-SUMMARY.md (4th-iter HALT; cast_from policy applied but Gate 2 unreachable)
+# - 11-PATTERN.md (5th-iter Direction A canonical reference)
+# ============================================================================
+
 """
 Batch refactor math/src/ helpers from concrete f64 to generic <F: Float>.
 

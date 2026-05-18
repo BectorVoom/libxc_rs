@@ -1,3 +1,42 @@
+// ============================================================================
+// STATUS: PRESERVED IN TREE PER D-28 (Gate 1 fixture — fallback evidence)
+// ============================================================================
+//
+// This file is the D-22 Gate 1 synthetic-fixture coverage matrix
+// (committed at 7e9391eff during the 4th-iter recovery).
+//
+// It encodes 9 symbol classes:
+//   1. f64 const declaration + usage (in generic body)
+//   2. f32 const declaration + usage (in generic body)
+//   3. Doc-comment with constant-like text (`LDA`, `MGGA`, `ID`, `BR89`, ...)
+//   4. String literal with constant-like text (`"17.5K"`, `"BR89 model"`, ...)
+//   5. Range operator `..` (`for _ in 0..500`)
+//   6. `_f64` literal suffix (`3.0_f64`)
+//   7. Double-wrap pattern (`f64::MAX`)
+//   8. Non-generic helper context (`pub fn is_deferred(id: u16) -> bool`)
+//   9. Mixed: f64 const used inside generic body with arithmetic against F
+//
+// Gate 1 VERDICT (per 11-06-SUMMARY.md 4th-iter): GREEN
+//   The classifier in tools/refactor_helpers_generic.py correctly transforms
+//   each symbol class per the D-20 policy table.
+//
+// WHY IT IS PRESERVED
+// -------------------
+// Per D-28: the cast_from classifier is architecturally correct (Gate 1 GREEN
+// is empirical evidence). The 5th-iter Direction A doesn't USE the classifier
+// (the bulk-script direction was abandoned per D-25), but the classifier and
+// its test fixture remain in tree as documented fallback if a future
+// regression re-introduces the Phase-2-corruption shape.
+//
+// REFERENCES
+// ----------
+// - CONTEXT.md D-22 (original 3-gate sequence; Gate 1 amended/retired in 5th-iter)
+// - CONTEXT.md D-28 (this fixture's preservation policy)
+// - tools/refactor_helpers_generic.py (the classifier this fixture validates)
+// - 11-06-SUMMARY.md (Gate 1 GREEN, Gate 2 FAIL — the proximate cause of
+//   Direction A's lock)
+// ============================================================================
+
 //! D-22 Gate 1 fixture: symbol class coverage matrix for the cast_from policy.
 //!
 //! Per CONTEXT.md D-22, this file covers every known symbol class the
