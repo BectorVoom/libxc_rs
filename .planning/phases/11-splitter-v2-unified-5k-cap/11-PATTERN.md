@@ -127,6 +127,73 @@ pub fn compute_zeta<F: Float>(rho_up: F, rho_down: F, threshold: F) -> F { ... }
 Default expectation: fully-generic over `<F: Float>`. Mixed-precision is a case-by-case
 deviation requiring a header-comment justification.
 
+### Rule 9 — Cross-function turbofish (NEW per 11-06 Task 4 discovery)
+
+**The CubeCL `#[cube]` macro's expand-time path cannot infer `F: Float` across
+cross-function generic calls.** Every call to a generic `#[cube]` helper from
+inside another `#[cube]` body MUST use explicit turbofish:
+
+BROKEN (E0282 `type annotations needed`):
+```rust
+#[cube]
+pub fn pow_2_3<F: Float>(x: F) -> F {
+    let c = safe_cbrt(x);    // ERROR: cannot infer F at expand time
+    c * c
+}
+```
+
+CORRECT:
+```rust
+#[cube]
+pub fn pow_2_3<F: Float>(x: F) -> F {
+    let c = safe_cbrt::<F>(x);    // OK: explicit turbofish
+    c * c
+}
+```
+
+**When the caller is concrete f64** (e.g., a Phase-2 file pre-conversion that
+calls a Phase-1 generic helper):
+```rust
+#[cube]
+pub fn wigner_seitz_rs(rho: f64) -> f64 {
+    RS_CONST * pow_1_3::<f64>(1.0 / rho)   // OK: concrete turbofish
+}
+```
+
+**Why this rule exists:** Phase-1 commits `466e074d0` and `d8cc4da0c` left bare
+calls everywhere; `cargo build -p libxc-kernel-math` failed with 11× E0282 errors
+on the d8cc4da0c baseline. 11-06 Task 4 (Direction A prerequisite commit 38b5bc1ee)
+fixed the math/ crate via surgical turbofish. **Task 5 conversions MUST apply this
+rule from the start** — concrete callers use `::<f64>`, generic callers use `::<F>`.
+
+This rule is the structural mitigation for an entire class of false-completion
+patterns previously hidden in "logical completion" SUMMARY claims.
+
+**Reference:** `docs/manual/Cubecl/cubecl_macro_fanout_manual.md §6` documents
+`expand::<F>()` and `I::Instruction::<F>::execute()` as the canonical idioms.
+
+### Rule 10 — Generated chunk → helper turbofish (translator-side; 11-06 carry-forward to 11-07)
+
+**Generated chunks in `crates/kernels/{lda,gga,mgga}/*` are emitted by
+`tools/translate_v2/`.** The translator emits chunk-to-chunk calls with
+`::<f64>` turbofish (per `tools/translate_v2/per_functional.py:367`) but emits
+chunk-to-HELPER calls bare (helpers like `piecewise5`, `pow_1_3`, `safe_cbrt`
+inside chunk bodies arrive from Maple symbolic translation through `cse.py`).
+
+11-06 Task 4 discovered ~258+ generated kernel crates with bare helper calls
+that don't compile against the now-generic math layer. This is **out of 11-06
+scope** (D-25 explicitly excludes translator changes) but unblocks 11-07's
+full-tree regen entry gate. The carry-forward:
+
+- 11-06 ships a compile-green `libxc-kernel-math` and per-file gate green for
+  the 9 manually-converted Phase-2 files.
+- 11-07 (or a discuss-phase carve-out before 11-07) adds the translator-side
+  turbofish emission in `tools/translate_v2/cse.py` (or wherever helper-call
+  emission lives) + runs full-tree regen.
+- Gate 3 EXIT gate (Task 6) on `mgga_c_b94` is restricted to whatever PASSES
+  at 11-06's end-state; chunks that can't compile due to Rule 10 are documented
+  as 11-07-blocking, not 11-06-blocking.
+
 ### Rule 8 — Non-generic file exclusion list
 
 The following files in `crates/kernels/math/src/` are **NOT** generic-over-F and are NOT
