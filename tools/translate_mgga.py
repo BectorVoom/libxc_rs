@@ -225,6 +225,24 @@ def detect_imports(c_src: str) -> list:
         imports.append(('case21_xbspline', 'libxc_kernel_math::bspline'))
     if re.search(r'\bcbspline\(', c_src):
         imports.append(('case21_cbspline', 'libxc_kernel_math::bspline'))
+    # Phase 11.1 (2026-05-19): detect Bessel imports — mgga_x_2d_prhg07 uses
+    # xc_bessel_I0/I1, and future MGGA functionals may pull K0/K1 too.
+    if re.search(r'\bxc_bessel_I0\b', c_src):
+        imports.append(('xc_bessel_I0', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_I0_scaled\b', c_src):
+        imports.append(('xc_bessel_I0_scaled', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_I1\b', c_src):
+        imports.append(('xc_bessel_I1', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_I1_scaled\b', c_src):
+        imports.append(('xc_bessel_I1_scaled', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_K0\b', c_src):
+        imports.append(('xc_bessel_K0', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_K0_scaled\b', c_src):
+        imports.append(('xc_bessel_K0_scaled', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_K1\b', c_src):
+        imports.append(('xc_bessel_K1', 'libxc_kernel_math::bessel'))
+    if re.search(r'\bxc_bessel_K1_scaled\b', c_src):
+        imports.append(('xc_bessel_K1_scaled', 'libxc_kernel_math::bessel'))
 
     # Cross-functional MGGA helper calls (root-finders defined in other crates).
     # Without these imports the consumer kernel files fail to compile.
@@ -379,9 +397,12 @@ def translate_line(line: str, is_pol: bool) -> str:
         'erf_approx', 'erfc_approx',                     # erf.rs (math_map output)
         'xc_dilogarithm', 'xc_erfcx',                    # special.rs (math_map output)
         'xc_e1_scaled',                                  # expint_e1.rs (math_map output)
-        'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
+        'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs (gga_x_fd_lb94)
         'xc_bessel_I0_scaled', 'xc_bessel_I0',
-        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs
+        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs (I)
+        'xc_bessel_K0_scaled', 'xc_bessel_K0',
+        'xc_bessel_K1_scaled', 'xc_bessel_K1',           # bessel.rs (K, added 2026-05-19 Phase 11.1)
+        'lambert_w',                                     # lambert_w.rs (added 2026-05-19 Phase 11.1; used by mgga_x_2d_prhg07)
         'case21_xbspline', 'case21_cbspline',            # bspline.rs
     ]:
         s = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', s)

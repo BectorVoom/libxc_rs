@@ -267,8 +267,20 @@ def translate_expr(expr: str, is_pol: bool) -> str:
         (r'\bpow\(', 'f64::powf('),
         (r'\berfc\(', 'erfc_approx('),
         (r'\berf\(', 'erf_approx('),
+        (r'\bLambertW\(', 'lambert_w('),
     ]:
         result = re.sub(c_fn, rust_fn, result)
+
+    # 7b. xc_integrate(funcN, NULL, 0.0, X) → xc_integrate_lda_soft_funcN(X)
+    # Phase 11.1 (2026-05-19): lda_x_1d_soft references two local-static
+    # function pointers `func1` and `func2` whose integrand is K0-based
+    # (see crates/kernels/math/src/integrate.rs § lda_soft). The integrand
+    # has NO beta dependence (beta is folded into the upper limit X in the
+    # maple-generated code), so the Rust counterparts take only `(b: F)`.
+    result = re.sub(r'\bxc_integrate\(func1,\s*NULL,\s*0\.0,\s*([^)]+)\)',
+                    r'xc_integrate_lda_soft_func1(\1)', result)
+    result = re.sub(r'\bxc_integrate\(func2,\s*NULL,\s*0\.0,\s*([^)]+)\)',
+                    r'xc_integrate_lda_soft_func2(\1)', result)
 
     # 8. Numeric literals: 0.XeN
     result = re.sub(
@@ -301,8 +313,12 @@ def translate_expr(expr: str, is_pol: bool) -> str:
         'xc_dilogarithm', 'xc_erfcx',                    # special.rs
         'xc_e1_scaled',                                  # expint_e1.rs
         'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
+        'xc_integrate_lda_soft_func1', 'xc_integrate_lda_soft_func2',  # integrate.rs (lda_x_1d_soft, added 2026-05-19)
         'xc_bessel_I0_scaled', 'xc_bessel_I0',
-        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs
+        'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs (I)
+        'xc_bessel_K0_scaled', 'xc_bessel_K0',
+        'xc_bessel_K1_scaled', 'xc_bessel_K1',           # bessel.rs (K, added 2026-05-19)
+        'lambert_w',                                     # lambert_w.rs (added 2026-05-19)
         'case21_xbspline', 'case21_cbspline',            # bspline.rs
     ]:
         result = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', result)
@@ -345,6 +361,37 @@ def detect_imports(c_source: str) -> dict:
     if re.search(r'\bM_C\b', c_source):
         imports['M_C'] = 'constants'
 
+    # Phase 11.1 (2026-05-19): detect cross-module math helpers used by LDA
+    # functionals (e.g., lda_x_1d_soft uses xc_bessel_K0; gga_x_am05-style
+    # patterns may also appear in LDA in the future via shared maple includes).
+    if re.search(r'\bLambertW\(', c_source):
+        imports['lambert_w'] = 'lambert_w'
+    if re.search(r'\bxc_bessel_I0\b', c_source):
+        imports['xc_bessel_I0'] = 'bessel'
+    if re.search(r'\bxc_bessel_I0_scaled\b', c_source):
+        imports['xc_bessel_I0_scaled'] = 'bessel'
+    if re.search(r'\bxc_bessel_I1\b', c_source):
+        imports['xc_bessel_I1'] = 'bessel'
+    if re.search(r'\bxc_bessel_I1_scaled\b', c_source):
+        imports['xc_bessel_I1_scaled'] = 'bessel'
+    if re.search(r'\bxc_bessel_K0\b', c_source):
+        imports['xc_bessel_K0'] = 'bessel'
+    if re.search(r'\bxc_bessel_K0_scaled\b', c_source):
+        imports['xc_bessel_K0_scaled'] = 'bessel'
+    if re.search(r'\bxc_bessel_K1\b', c_source):
+        imports['xc_bessel_K1'] = 'bessel'
+    if re.search(r'\bxc_bessel_K1_scaled\b', c_source):
+        imports['xc_bessel_K1_scaled'] = 'bessel'
+    # lda_x_1d_soft pattern: xc_integrate(func1, NULL, 0.0, X) / xc_integrate(func2, ...)
+    # Match the literal "0.0" lower bound so we DON'T trip the K0-based variants
+    # for lda_x_1d_exponential (which uses lower bound 1e-20 with an E1-based
+    # integrand). That functional is a separate, pre-existing defect handled
+    # via its own variant in a follow-up.
+    if re.search(r'\bxc_integrate\(func1,\s*NULL,\s*0\.0,', c_source):
+        imports['xc_integrate_lda_soft_func1'] = 'integrate'
+    if re.search(r'\bxc_integrate\(func2,\s*NULL,\s*0\.0,', c_source):
+        imports['xc_integrate_lda_soft_func2'] = 'integrate'
+
     return imports
 
 
@@ -354,14 +401,16 @@ def generate_import_lines(imports: dict) -> list:
     for name, module in imports.items():
         by_module.setdefault(module, []).append(name)
 
-    if 'constants' in by_module:
-        lines.append(f'use libxc_kernel_math::constants::{{{", ".join(sorted(by_module["constants"]))}}};')
-    if 'powers' in by_module:
-        lines.append(f'use libxc_kernel_math::powers::{{{", ".join(sorted(by_module["powers"]))}}};')
-    if 'piecewise' in by_module:
-        lines.append(f'use libxc_kernel_math::piecewise::{{{", ".join(sorted(by_module["piecewise"]))}}};')
-    if 'erf' in by_module:
-        lines.append(f'use libxc_kernel_math::erf::{{{", ".join(sorted(by_module["erf"]))}}};')
+    # Emit one `use` per module in a stable order. Phase 11.1 (2026-05-19):
+    # extended to cover lambert_w / bessel / integrate / special / expint_e1
+    # / bspline so LDA can route lda_x_1d_soft (K0/K1 + xc_integrate) and any
+    # future LDA functional that pulls cross-module helpers.
+    for module in ('constants', 'powers', 'piecewise', 'erf',
+                   'lambert_w', 'bessel', 'integrate',
+                   'special', 'expint_e1', 'bspline'):
+        if module in by_module:
+            names = ', '.join(sorted(by_module[module]))
+            lines.append(f'use libxc_kernel_math::{module}::{{{names}}};')
 
     return lines
 

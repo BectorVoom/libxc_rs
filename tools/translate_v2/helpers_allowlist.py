@@ -77,6 +77,8 @@ GENERIC_HELPERS: dict = {
     },
     "integrate": {
         "xc_integrate_func0", "xc_integrate_func1",
+        # lda_x_1d_soft integrands (added 2026-05-19, Phase 11.1 translator fix)
+        "xc_integrate_lda_soft_func1", "xc_integrate_lda_soft_func2",
     },
     "expint_e1": {
         "xc_e1_scaled",
@@ -84,6 +86,9 @@ GENERIC_HELPERS: dict = {
     "bessel": {
         "xc_bessel_I0_scaled", "xc_bessel_I0",
         "xc_bessel_I1_scaled", "xc_bessel_I1",
+        # Modified Bessel of the 2nd kind (added 2026-05-19, Phase 11.1 translator fix)
+        "xc_bessel_K0_scaled", "xc_bessel_K0",
+        "xc_bessel_K1_scaled", "xc_bessel_K1",
     },
 }
 
