@@ -389,3 +389,258 @@ pub fn xc_integrate_func1<F: Float>(b: F, beta: F) -> F {
 
     analytical + smooth
 }
+
+// ============================================================================
+// FT_inter integrand for lda_x_1d_soft (libxc src/lda_x_1d_soft.c)
+//
+//   FT_inter(x) = 2 * xc_bessel_K0(x)
+//   func1(x)    = FT_inter(x)         = 2*K0(x)
+//   func2(x)    = x * FT_inter(x)     = 2*x*K0(x)
+//
+// The maple2c output for lda_x_1d_soft emits:
+//   xc_integrate(func1, NULL, 0.0, b)
+//   xc_integrate(func2, NULL, 0.0, b)
+//
+// Both integrate from 0 to b. K0(x) has a logarithmic singularity at x=0
+// (K0(x) ~ -ln(x/2) - γ near 0), so naive composite GL is slow to converge.
+// We use the same singularity-subtraction trick as `xc_integrate_func1` above:
+// subtract the leading log term analytically and integrate the smooth
+// remainder with 32-panel composite 32-point GL (1024 quadrature points).
+// ============================================================================
+
+use crate::bessel::xc_bessel_K0;
+
+/// Smooth remainder for ∫₀ᵇ 2·K0(x) dx after subtracting -2·ln(x/2):
+///   g1(x) = 2·K0(x) + 2·ln(x/2)
+/// Limit as x→0: g1 → -2γ (Euler-Mascheroni). Smooth and bounded on [0, b].
+#[cube]
+fn lda_soft_g1<F: Float>(x: F) -> F {
+    F::new(2.0) * xc_bessel_K0::<F>(x) + F::new(2.0) * F::ln(F::new(0.5) * x)
+}
+
+/// Smooth remainder for ∫₀ᵇ 2·x·K0(x) dx after subtracting -2·x·ln(x/2):
+///   g2(x) = 2·x·K0(x) + 2·x·ln(x/2)
+/// Limit as x→0: g2 → 0 (linear in x). Smooth and bounded on [0, b].
+#[cube]
+fn lda_soft_g2<F: Float>(x: F) -> F {
+    F::new(2.0) * x * xc_bessel_K0::<F>(x) + F::new(2.0) * x * F::ln(F::new(0.5) * x)
+}
+
+/// Apply 32-point GL to the lda_soft g1 remainder on sub-interval [a, a+h].
+#[cube]
+fn gl32_lda_soft_1<F: Float>(a: F, h: F) -> F {
+    let half = h * F::new(0.5);
+    let mid = a + half;
+
+    let n01: F = F::cast_from(0.0483076656877383162_f64); let w01: F = F::cast_from(0.0965400885147278006_f64);
+    let n02: F = F::cast_from(0.1444719615827964935_f64); let w02: F = F::cast_from(0.0956387200792748594_f64);
+    let n03: F = F::cast_from(0.2392873622521370745_f64); let w03: F = F::cast_from(0.0938443990808045656_f64);
+    let n04: F = F::cast_from(0.3318686022821276498_f64); let w04: F = F::cast_from(0.0911738786957638847_f64);
+    let n05: F = F::cast_from(0.4213512761306353454_f64); let w05: F = F::cast_from(0.0876520930044038111_f64);
+    let n06: F = F::cast_from(0.5068999089322293900_f64); let w06: F = F::cast_from(0.0833119242269467552_f64);
+    let n07: F = F::cast_from(0.5877157572407623210_f64); let w07: F = F::cast_from(0.0781938957870703065_f64);
+    let n08: F = F::cast_from(0.6630442669302152009_f64); let w08: F = F::cast_from(0.0723457941088485062_f64);
+    let n09: F = F::cast_from(0.7321821187402896804_f64); let w09: F = F::cast_from(0.0658222227763618468_f64);
+    let n10: F = F::cast_from(0.7944837959679424070_f64); let w10: F = F::cast_from(0.0586840934785355471_f64);
+    let n11: F = F::cast_from(0.8493676137325699701_f64); let w11: F = F::cast_from(0.0509980592623761762_f64);
+    let n12: F = F::cast_from(0.8963211557660521239_f64); let w12: F = F::cast_from(0.0428358980222266807_f64);
+    let n13: F = F::cast_from(0.9349060759377396892_f64); let w13: F = F::cast_from(0.0342738629130214331_f64);
+    let n14: F = F::cast_from(0.9647622555875064308_f64); let w14: F = F::cast_from(0.0253920653092620595_f64);
+    let n15: F = F::cast_from(0.9856115115452683354_f64); let w15: F = F::cast_from(0.0162743947309056706_f64);
+    let n16: F = F::cast_from(0.9972638618494815635_f64); let w16: F = F::cast_from(0.0070186100094700966_f64);
+
+    let mut s: F = F::new(0.0);
+    s = s + w01 * lda_soft_g1::<F>(mid + half * n01);
+    s = s + w02 * lda_soft_g1::<F>(mid + half * n02);
+    s = s + w03 * lda_soft_g1::<F>(mid + half * n03);
+    s = s + w04 * lda_soft_g1::<F>(mid + half * n04);
+    s = s + w05 * lda_soft_g1::<F>(mid + half * n05);
+    s = s + w06 * lda_soft_g1::<F>(mid + half * n06);
+    s = s + w07 * lda_soft_g1::<F>(mid + half * n07);
+    s = s + w08 * lda_soft_g1::<F>(mid + half * n08);
+    s = s + w09 * lda_soft_g1::<F>(mid + half * n09);
+    s = s + w10 * lda_soft_g1::<F>(mid + half * n10);
+    s = s + w11 * lda_soft_g1::<F>(mid + half * n11);
+    s = s + w12 * lda_soft_g1::<F>(mid + half * n12);
+    s = s + w13 * lda_soft_g1::<F>(mid + half * n13);
+    s = s + w14 * lda_soft_g1::<F>(mid + half * n14);
+    s = s + w15 * lda_soft_g1::<F>(mid + half * n15);
+    s = s + w16 * lda_soft_g1::<F>(mid + half * n16);
+    s = s + w01 * lda_soft_g1::<F>(mid - half * n01);
+    s = s + w02 * lda_soft_g1::<F>(mid - half * n02);
+    s = s + w03 * lda_soft_g1::<F>(mid - half * n03);
+    s = s + w04 * lda_soft_g1::<F>(mid - half * n04);
+    s = s + w05 * lda_soft_g1::<F>(mid - half * n05);
+    s = s + w06 * lda_soft_g1::<F>(mid - half * n06);
+    s = s + w07 * lda_soft_g1::<F>(mid - half * n07);
+    s = s + w08 * lda_soft_g1::<F>(mid - half * n08);
+    s = s + w09 * lda_soft_g1::<F>(mid - half * n09);
+    s = s + w10 * lda_soft_g1::<F>(mid - half * n10);
+    s = s + w11 * lda_soft_g1::<F>(mid - half * n11);
+    s = s + w12 * lda_soft_g1::<F>(mid - half * n12);
+    s = s + w13 * lda_soft_g1::<F>(mid - half * n13);
+    s = s + w14 * lda_soft_g1::<F>(mid - half * n14);
+    s = s + w15 * lda_soft_g1::<F>(mid - half * n15);
+    s = s + w16 * lda_soft_g1::<F>(mid - half * n16);
+    half * s
+}
+
+/// Apply 32-point GL to the lda_soft g2 remainder on sub-interval [a, a+h].
+#[cube]
+fn gl32_lda_soft_2<F: Float>(a: F, h: F) -> F {
+    let half = h * F::new(0.5);
+    let mid = a + half;
+
+    let n01: F = F::cast_from(0.0483076656877383162_f64); let w01: F = F::cast_from(0.0965400885147278006_f64);
+    let n02: F = F::cast_from(0.1444719615827964935_f64); let w02: F = F::cast_from(0.0956387200792748594_f64);
+    let n03: F = F::cast_from(0.2392873622521370745_f64); let w03: F = F::cast_from(0.0938443990808045656_f64);
+    let n04: F = F::cast_from(0.3318686022821276498_f64); let w04: F = F::cast_from(0.0911738786957638847_f64);
+    let n05: F = F::cast_from(0.4213512761306353454_f64); let w05: F = F::cast_from(0.0876520930044038111_f64);
+    let n06: F = F::cast_from(0.5068999089322293900_f64); let w06: F = F::cast_from(0.0833119242269467552_f64);
+    let n07: F = F::cast_from(0.5877157572407623210_f64); let w07: F = F::cast_from(0.0781938957870703065_f64);
+    let n08: F = F::cast_from(0.6630442669302152009_f64); let w08: F = F::cast_from(0.0723457941088485062_f64);
+    let n09: F = F::cast_from(0.7321821187402896804_f64); let w09: F = F::cast_from(0.0658222227763618468_f64);
+    let n10: F = F::cast_from(0.7944837959679424070_f64); let w10: F = F::cast_from(0.0586840934785355471_f64);
+    let n11: F = F::cast_from(0.8493676137325699701_f64); let w11: F = F::cast_from(0.0509980592623761762_f64);
+    let n12: F = F::cast_from(0.8963211557660521239_f64); let w12: F = F::cast_from(0.0428358980222266807_f64);
+    let n13: F = F::cast_from(0.9349060759377396892_f64); let w13: F = F::cast_from(0.0342738629130214331_f64);
+    let n14: F = F::cast_from(0.9647622555875064308_f64); let w14: F = F::cast_from(0.0253920653092620595_f64);
+    let n15: F = F::cast_from(0.9856115115452683354_f64); let w15: F = F::cast_from(0.0162743947309056706_f64);
+    let n16: F = F::cast_from(0.9972638618494815635_f64); let w16: F = F::cast_from(0.0070186100094700966_f64);
+
+    let mut s: F = F::new(0.0);
+    s = s + w01 * lda_soft_g2::<F>(mid + half * n01);
+    s = s + w02 * lda_soft_g2::<F>(mid + half * n02);
+    s = s + w03 * lda_soft_g2::<F>(mid + half * n03);
+    s = s + w04 * lda_soft_g2::<F>(mid + half * n04);
+    s = s + w05 * lda_soft_g2::<F>(mid + half * n05);
+    s = s + w06 * lda_soft_g2::<F>(mid + half * n06);
+    s = s + w07 * lda_soft_g2::<F>(mid + half * n07);
+    s = s + w08 * lda_soft_g2::<F>(mid + half * n08);
+    s = s + w09 * lda_soft_g2::<F>(mid + half * n09);
+    s = s + w10 * lda_soft_g2::<F>(mid + half * n10);
+    s = s + w11 * lda_soft_g2::<F>(mid + half * n11);
+    s = s + w12 * lda_soft_g2::<F>(mid + half * n12);
+    s = s + w13 * lda_soft_g2::<F>(mid + half * n13);
+    s = s + w14 * lda_soft_g2::<F>(mid + half * n14);
+    s = s + w15 * lda_soft_g2::<F>(mid + half * n15);
+    s = s + w16 * lda_soft_g2::<F>(mid + half * n16);
+    s = s + w01 * lda_soft_g2::<F>(mid - half * n01);
+    s = s + w02 * lda_soft_g2::<F>(mid - half * n02);
+    s = s + w03 * lda_soft_g2::<F>(mid - half * n03);
+    s = s + w04 * lda_soft_g2::<F>(mid - half * n04);
+    s = s + w05 * lda_soft_g2::<F>(mid - half * n05);
+    s = s + w06 * lda_soft_g2::<F>(mid - half * n06);
+    s = s + w07 * lda_soft_g2::<F>(mid - half * n07);
+    s = s + w08 * lda_soft_g2::<F>(mid - half * n08);
+    s = s + w09 * lda_soft_g2::<F>(mid - half * n09);
+    s = s + w10 * lda_soft_g2::<F>(mid - half * n10);
+    s = s + w11 * lda_soft_g2::<F>(mid - half * n11);
+    s = s + w12 * lda_soft_g2::<F>(mid - half * n12);
+    s = s + w13 * lda_soft_g2::<F>(mid - half * n13);
+    s = s + w14 * lda_soft_g2::<F>(mid - half * n14);
+    s = s + w15 * lda_soft_g2::<F>(mid - half * n15);
+    s = s + w16 * lda_soft_g2::<F>(mid - half * n16);
+    half * s
+}
+
+/// Integrate ∫₀ᵇ 2·K0(x) dx using singularity subtraction + composite GL.
+///
+/// Maps libxc's `xc_integrate(func1, NULL, 0.0, b)` for `lda_x_1d_soft`.
+///
+/// Analytical part: ∫₀ᵇ -2·ln(x/2) dx = -2·b·ln(b/2) + 2·b.
+/// Smooth remainder g1(x) = 2·K0(x) + 2·ln(x/2) integrated by 32-panel
+/// composite 32-point GL (1024 quadrature points) for ≤ 10⁻¹² rel error.
+#[cube]
+pub fn xc_integrate_lda_soft_func1<F: Float>(b: F) -> F {
+    // Analytical: ∫₀ᵇ -2·ln(x/2) dx = -2·(b·ln(b/2) - b)
+    let analytical = F::new(-2.0) * (b * F::ln(F::new(0.5) * b) - b);
+
+    let h = b / F::new(32.0);
+    let smooth =
+          gl32_lda_soft_1::<F>( F::new( 0.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 1.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 2.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 3.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 4.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 5.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 6.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 7.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 8.0) * h, h)
+        + gl32_lda_soft_1::<F>( F::new( 9.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(10.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(11.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(12.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(13.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(14.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(15.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(16.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(17.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(18.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(19.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(20.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(21.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(22.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(23.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(24.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(25.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(26.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(27.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(28.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(29.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(30.0) * h, h)
+        + gl32_lda_soft_1::<F>(F::new(31.0) * h, h);
+
+    analytical + smooth
+}
+
+/// Integrate ∫₀ᵇ 2·x·K0(x) dx using singularity subtraction + composite GL.
+///
+/// Maps libxc's `xc_integrate(func2, NULL, 0.0, b)` for `lda_x_1d_soft`.
+///
+/// Analytical part: ∫₀ᵇ -2·x·ln(x/2) dx = -b²·ln(b/2) + b²/2.
+/// Smooth remainder g2(x) = 2·x·K0(x) + 2·x·ln(x/2) integrated by 32-panel
+/// composite 32-point GL (1024 quadrature points) for ≤ 10⁻¹² rel error.
+#[cube]
+pub fn xc_integrate_lda_soft_func2<F: Float>(b: F) -> F {
+    // Analytical: ∫₀ᵇ -2·x·ln(x/2) dx = -2·[x²/2·ln(x/2) - x²/4]₀ᵇ
+    //           = -b²·ln(b/2) + b²/2
+    let analytical = F::new(-1.0) * b * b * F::ln(F::new(0.5) * b) + F::new(0.5) * b * b;
+
+    let h = b / F::new(32.0);
+    let smooth =
+          gl32_lda_soft_2::<F>( F::new( 0.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 1.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 2.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 3.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 4.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 5.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 6.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 7.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 8.0) * h, h)
+        + gl32_lda_soft_2::<F>( F::new( 9.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(10.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(11.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(12.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(13.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(14.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(15.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(16.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(17.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(18.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(19.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(20.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(21.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(22.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(23.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(24.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(25.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(26.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(27.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(28.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(29.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(30.0) * h, h)
+        + gl32_lda_soft_2::<F>(F::new(31.0) * h, h);
+
+    analytical + smooth
+}

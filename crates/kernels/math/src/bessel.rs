@@ -307,6 +307,254 @@ pub fn xc_bessel_I1<F: Float>(x: F) -> F {
 }
 
 // ---------------------------------------------------------------------------
+// Modified Bessel of the second kind: Chebyshev series tables (K0, K1)
+// ---------------------------------------------------------------------------
+
+/// `bk0_data` (11 coefficients) — series for K0(x) on x ≤ 2.
+#[cube]
+fn cheb_bk0<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000035_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000013744_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000004259816_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000001034969525_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000190451637722_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000025347910790261_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00002286212103119451_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00126461541144692592_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.03597993651536150163_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.34428989992462848690_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.03532739323390276872_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+/// `ak0_data` (17 coefficients) — series for K0(x) scaled, 2 ≤ x ≤ 8.
+#[cube]
+fn cheb_ak0<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000005_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000033_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000215_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000001427_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000009744_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000068895_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000506804_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000003902353_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000031694296_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000274270554_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000002563713036_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000026393672220_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000308170017386_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00004281006688886_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00077341811546938_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.02235652605699819_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.07643947903327941_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+/// `ak02_data` (14 coefficients) — series for K0(x) scaled, x > 8.
+#[cube]
+fn cheb_ak02<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000002_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000020_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000192_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000001925_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000020743_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000243501_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000003158592_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000046111825_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000777011043_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000015678318108_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000401361417543_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00014445509317750_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00917485269102569_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.01201869826307592_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+/// `bk1_data` (11 coefficients) — series for K1(x) on x ≤ 2.
+#[cube]
+fn cheb_bk1<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000000000070_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000000024274_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000006666901_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000001411488392_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000221338763073_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000024334061415659_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0001730288957513052_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0069757238596398643_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.1226111808226571480_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.3531559607765448760_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.0253002273389477705_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+/// `ak1_data` (17 coefficients) — series for K1(x) scaled, 2 ≤ x ≤ 8.
+#[cube]
+fn cheb_ak1<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000006_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000038_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000248_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000001654_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000011386_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000081284_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000604783_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000004720819_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000038989323_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000344597758_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000003311163779_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000035402774997_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000436998470952_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00006650116955125_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00144105155647540_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.07571989953199368_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.27443134069738830_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+/// `ak12_data` (14 coefficients) — series for K1(x) scaled, x > 8.
+#[cube]
+fn cheb_ak12<F: Float>(x: F) -> F {
+    let twox = F::new(2.0) * x;
+    let mut b0: F = F::new(0.0);
+    let mut b1: F = F::new(0.0);
+    let mut b2: F = F::new(0.0);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000002_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000022_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000215_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000002176_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000023720_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000282505_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000003732996_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000055853361_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000973998344_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000020689392195_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000577197245160_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00024753706739052_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.02832887813049721_f64);
+    b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.06379308343739001_f64);
+    F::new(0.5) * (b0 - b2)
+}
+
+// ---------------------------------------------------------------------------
+// Public API (K0, K1)
+// ---------------------------------------------------------------------------
+
+/// Exponentially scaled modified Bessel function of the second kind, order 0:
+/// `exp(x) * K0(x)`. Stays bounded for x > 0.
+///
+/// Mirrors libxc `xc_bessel_K0_scaled` in `bessel.c`. Domain error for x ≤ 0
+/// silently returns 0 (libxc emits stderr; not available in `#[cube]`).
+#[cube]
+pub fn xc_bessel_K0_scaled<F: Float>(x: F) -> F {
+    let mut r: F = F::new(0.0);
+
+    if x <= F::new(0.0) {
+        // Domain error: leave r = 0.0.
+        r = F::new(0.0);
+    } else if x <= F::new(2.0) {
+        r = F::exp(x) * (-F::ln(F::new(0.5) * x) * xc_bessel_I0::<F>(x) - F::new(0.25)
+            + cheb_bk0::<F>(F::new(0.5) * x * x - F::new(1.0)));
+    } else if x <= F::new(8.0) {
+        r = (F::new(1.25) + cheb_ak0::<F>((F::new(16.0) / x - F::new(5.0)) / F::new(3.0))) / F::sqrt(x);
+    } else {
+        r = (F::new(1.25) + cheb_ak02::<F>(F::new(16.0) / x - F::new(1.0))) / F::sqrt(x);
+    }
+
+    r
+}
+
+/// Modified Bessel function of the second kind, order 0: `K0(x)`.
+///
+/// Defined for x > 0; `K0(x) → +∞` as `x → 0⁺`. For x ≤ 0 silently returns 0
+/// (libxc emits stderr; not available in `#[cube]`).
+///
+/// Mirrors libxc `xc_bessel_K0` in `bessel.c`.
+#[cube]
+pub fn xc_bessel_K0<F: Float>(x: F) -> F {
+    let mut r: F = F::new(0.0);
+
+    if x <= F::new(0.0) {
+        // Domain error: leave r = 0.0.
+        r = F::new(0.0);
+    } else if x <= F::new(2.0) {
+        r = -F::ln(F::new(0.5) * x) * xc_bessel_I0::<F>(x) - F::new(0.25)
+            + cheb_bk0::<F>(F::new(0.5) * x * x - F::new(1.0));
+    } else {
+        r = F::exp(-x) * xc_bessel_K0_scaled::<F>(x);
+    }
+
+    r
+}
+
+/// Exponentially scaled modified Bessel function of the second kind, order 1:
+/// `exp(x) * K1(x)`.
+///
+/// Mirrors libxc `xc_bessel_K1_scaled` in `bessel.c`.
+#[cube]
+pub fn xc_bessel_K1_scaled<F: Float>(x: F) -> F {
+    let mut r: F = F::new(0.0);
+
+    if x <= F::new(0.0) {
+        // Domain error: leave r = 0.0.
+        r = F::new(0.0);
+    } else if x <= F::new(2.0) {
+        r = F::exp(x) * (F::ln(F::new(0.5) * x) * xc_bessel_I1::<F>(x)
+            + (F::new(0.75) + cheb_bk1::<F>(F::new(0.5) * x * x - F::new(1.0))) / x);
+    } else if x <= F::new(8.0) {
+        r = (F::new(1.25) + cheb_ak1::<F>((F::new(16.0) / x - F::new(5.0)) / F::new(3.0))) / F::sqrt(x);
+    } else {
+        r = (F::new(1.25) + cheb_ak12::<F>(F::new(16.0) / x - F::new(1.0))) / F::sqrt(x);
+    }
+
+    r
+}
+
+/// Modified Bessel function of the second kind, order 1: `K1(x)`.
+///
+/// Defined for x > 0; `K1(x) → +∞` as `x → 0⁺`. For x ≤ 0 or underflow silently
+/// returns 0 (libxc emits stderr; not available in `#[cube]`).
+///
+/// Mirrors libxc `xc_bessel_K1` in `bessel.c`.
+#[cube]
+pub fn xc_bessel_K1<F: Float>(x: F) -> F {
+    let mut r: F = F::new(0.0);
+
+    if x <= F::new(0.0) {
+        // Domain error: leave r = 0.0.
+        r = F::new(0.0);
+    } else if x < F::cast_from(TWO_DBL_MIN) {
+        // Overflow error: leave r = 0.0.
+        r = F::new(0.0);
+    } else if x <= F::new(2.0) {
+        r = F::ln(F::new(0.5) * x) * xc_bessel_I1::<F>(x)
+            + (F::new(0.75) + cheb_bk1::<F>(F::new(0.5) * x * x - F::new(1.0))) / x;
+    } else {
+        r = F::exp(-x) * xc_bessel_K1_scaled::<F>(x);
+    }
+
+    r
+}
+
+// ---------------------------------------------------------------------------
 // CPU-side reference tests (run on libxc-cpu backend)
 // ---------------------------------------------------------------------------
 
