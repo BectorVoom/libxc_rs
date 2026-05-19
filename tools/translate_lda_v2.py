@@ -268,6 +268,7 @@ def translate_expr(expr: str, is_pol: bool) -> str:
         (r'\berfc\(', 'erfc_approx('),
         (r'\berf\(', 'erf_approx('),
         (r'\bLambertW\(', 'lambert_w('),
+        (r'\bxc_E1_scaled\(', 'xc_e1_scaled('),
     ]:
         result = re.sub(c_fn, rust_fn, result)
 
@@ -281,6 +282,18 @@ def translate_expr(expr: str, is_pol: bool) -> str:
                     r'xc_integrate_lda_soft_func1(\1)', result)
     result = re.sub(r'\bxc_integrate\(func2,\s*NULL,\s*0\.0,\s*([^)]+)\)',
                     r'xc_integrate_lda_soft_func2(\1)', result)
+
+    # 7c. xc_integrate(funcN, NULL, 1e-20, X) → xc_integrate_lda_exponential_funcN(X)
+    # Phase 11.1 (2026-05-19 follow-up): lda_x_1d_exponential references two
+    # local-static function pointers `func1` and `func2` whose integrand is
+    # E1_scaled-based (see crates/kernels/math/src/integrate.rs § lda_exp).
+    # Lower bound is 1e-20 (not 0.0) — the integrand has an integrable
+    # log singularity at x=0, mirrored via singularity subtraction in the
+    # Rust counterpart. The integrand has NO beta dependence.
+    result = re.sub(r'\bxc_integrate\(func1,\s*NULL,\s*1e-20,\s*([^)]+)\)',
+                    r'xc_integrate_lda_exponential_func1(\1)', result)
+    result = re.sub(r'\bxc_integrate\(func2,\s*NULL,\s*1e-20,\s*([^)]+)\)',
+                    r'xc_integrate_lda_exponential_func2(\1)', result)
 
     # 8. Numeric literals: 0.XeN
     result = re.sub(
@@ -314,6 +327,7 @@ def translate_expr(expr: str, is_pol: bool) -> str:
         'xc_e1_scaled',                                  # expint_e1.rs
         'xc_integrate_func0', 'xc_integrate_func1',      # integrate.rs
         'xc_integrate_lda_soft_func1', 'xc_integrate_lda_soft_func2',  # integrate.rs (lda_x_1d_soft, added 2026-05-19)
+        'xc_integrate_lda_exponential_func1', 'xc_integrate_lda_exponential_func2',  # integrate.rs (lda_x_1d_exponential, added 2026-05-19 follow-up)
         'xc_bessel_I0_scaled', 'xc_bessel_I0',
         'xc_bessel_I1_scaled', 'xc_bessel_I1',           # bessel.rs (I)
         'xc_bessel_K0_scaled', 'xc_bessel_K0',
@@ -385,12 +399,27 @@ def detect_imports(c_source: str) -> dict:
     # lda_x_1d_soft pattern: xc_integrate(func1, NULL, 0.0, X) / xc_integrate(func2, ...)
     # Match the literal "0.0" lower bound so we DON'T trip the K0-based variants
     # for lda_x_1d_exponential (which uses lower bound 1e-20 with an E1-based
-    # integrand). That functional is a separate, pre-existing defect handled
-    # via its own variant in a follow-up.
+    # integrand — handled by the lda_exponential variant just below).
     if re.search(r'\bxc_integrate\(func1,\s*NULL,\s*0\.0,', c_source):
         imports['xc_integrate_lda_soft_func1'] = 'integrate'
     if re.search(r'\bxc_integrate\(func2,\s*NULL,\s*0\.0,', c_source):
         imports['xc_integrate_lda_soft_func2'] = 'integrate'
+
+    # lda_x_1d_exponential pattern: xc_integrate(func1/func2, NULL, 1e-20, X)
+    # The 1e-20 lower bound distinguishes the E1_scaled(x²)-based integrand
+    # from the lda_soft K0 variant above. Implementation in
+    # crates/kernels/math/src/integrate.rs uses singularity subtraction
+    # (E1_scaled has -2·ln(x) - γ leading behavior at x→0).
+    if re.search(r'\bxc_integrate\(func1,\s*NULL,\s*1e-20,', c_source):
+        imports['xc_integrate_lda_exponential_func1'] = 'integrate'
+    if re.search(r'\bxc_integrate\(func2,\s*NULL,\s*1e-20,', c_source):
+        imports['xc_integrate_lda_exponential_func2'] = 'integrate'
+
+    # xc_E1_scaled appears in functionals whose integrand uses the exponential
+    # integral (e.g., lda_x_1d_exponential calls it directly in body expressions
+    # outside the xc_integrate wrapper).
+    if re.search(r'\bxc_E1_scaled\(', c_source):
+        imports['xc_e1_scaled'] = 'expint_e1'
 
     return imports
 

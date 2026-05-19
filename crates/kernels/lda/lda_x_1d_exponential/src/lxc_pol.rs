@@ -8,6 +8,8 @@
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::integrate::{xc_integrate_lda_exponential_func1, xc_integrate_lda_exponential_func2};
+use libxc_kernel_math::expint_e1::{xc_e1_scaled};
 
 /// LDA_X_1D_EXPONENTIAL lxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
@@ -41,8 +43,8 @@ pub fn lda_x_1d_exponential_lxc_pol(
         let t15 = t14 * M_PI;
         let t16 = param_beta * t3;
         let t17 = t15 * t16;
-        let t18 = xc_integrate(func1, NULL, 1e-20, t17);
-        let t20 = xc_integrate(func2, NULL, 1e-20, t17);
+        let t18 = xc_integrate_lda_exponential_func1::<f64>(t17);
+        let t20 = xc_integrate_lda_exponential_func2::<f64>(t17);
         let t21 = 1.0 / M_PI;
         let t22 = t20 * t21;
         let t23 = 1.0 / param_beta;
@@ -53,8 +55,8 @@ pub fn lda_x_1d_exponential_lxc_pol(
         let t33 = 1.0 + t32;
         let t34 = t33 * M_PI;
         let t35 = t34 * t16;
-        let t36 = xc_integrate(func1, NULL, 1e-20, t35);
-        let t38 = xc_integrate(func2, NULL, 1e-20, t35);
+        let t36 = xc_integrate_lda_exponential_func1::<f64>(t35);
+        let t38 = xc_integrate_lda_exponential_func2::<f64>(t35);
         let t39 = t38 * t21;
         let t44 = piecewise3::<f64>(t31, 0.0, -0.07957747154594767 * (-t39 * t24 + t33 * t36) * t23);
         let tzk0 = t29 + t44;
@@ -92,7 +94,7 @@ pub fn lda_x_1d_exponential_lxc_pol(
         let t99 = t97 * t98;
         let t100 = param_beta * param_beta;
         let t101 = t100 * t45;
-        let t103 = xc_E1_scaled(t99 * t101);
+        let t103 = xc_e1_scaled::<f64>(t99 * t101);
         let t105 = t95 * t103;
         let t106 = t14 * t4;
         let t107 = t105 * t106;
@@ -106,7 +108,7 @@ pub fn lda_x_1d_exponential_lxc_pol(
         let t122 = t58 * t121;
         let t123 = t33 * t33;
         let t124 = t123 * t98;
-        let t126 = xc_E1_scaled(t124 * t101);
+        let t126 = xc_e1_scaled::<f64>(t124 * t101);
         let t128 = t121 * t126;
         let t129 = t33 * t4;
         let t130 = t128 * t129;

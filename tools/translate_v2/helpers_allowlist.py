@@ -79,6 +79,8 @@ GENERIC_HELPERS: dict = {
         "xc_integrate_func0", "xc_integrate_func1",
         # lda_x_1d_soft integrands (added 2026-05-19, Phase 11.1 translator fix)
         "xc_integrate_lda_soft_func1", "xc_integrate_lda_soft_func2",
+        # lda_x_1d_exponential integrands (added 2026-05-19 follow-up)
+        "xc_integrate_lda_exponential_func1", "xc_integrate_lda_exponential_func2",
     },
     "expint_e1": {
         "xc_e1_scaled",

@@ -8,6 +8,8 @@
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::integrate::{xc_integrate_lda_exponential_func1, xc_integrate_lda_exponential_func2};
+use libxc_kernel_math::expint_e1::{xc_e1_scaled};
 
 /// LDA_X_1D_EXPONENTIAL lxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
@@ -31,8 +33,8 @@ pub fn lda_x_1d_exponential_lxc_unpol(
         let t7 = piecewise5::<f64>(t3, t5, t3, -t5, 0.0);
         let t8 = 1.0 + t7;
         let t11 = t8 * M_PI * param_beta * rho[ip];
-        let t12 = xc_integrate(func1, NULL, 1e-20, t11);
-        let t14 = xc_integrate(func2, NULL, 1e-20, t11);
+        let t12 = xc_integrate_lda_exponential_func1::<f64>(t11);
+        let t14 = xc_integrate_lda_exponential_func2::<f64>(t11);
         let t16 = t14 / M_PI;
         let t17 = 1.0 / param_beta;
         let t18 = 1.0 / rho[ip];
@@ -50,7 +52,7 @@ pub fn lda_x_1d_exponential_lxc_unpol(
         let t36 = t8 * t8;
         let t37 = t36 * M_PI;
         let t38 = M_PI * M_PI;
-        let t42 = xc_E1_scaled(t36 * t38 * t25 * t27);
+        let t42 = xc_e1_scaled::<f64>(t36 * t38 * t25 * t27);
         let t47 = 1.0 / t27 / rho[ip];
         let t48 = t26 * t47;
         let t52 = piecewise3::<f64>(t4, 0.0, -0.07957747154594767 * t37 * t42 * t18 + 0.15915494309189535 * t16 * t48);
