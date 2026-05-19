@@ -33,6 +33,7 @@ twice produces byte-identical files.
 Build env source of truth: .cargo/config.toml (do not duplicate values here).
 """
 
+import shutil
 from pathlib import Path
 
 # Repo `crates/kernels` root. Overridable for the selftest via set_kernels_root.
@@ -121,6 +122,26 @@ def emit_lib_rs(family: str, func: str, output_modules: list) -> None:
     for om in output_modules:
         lines.append(f"pub mod {om};")
     _write(d / "src" / "lib.rs", "\n".join(lines))
+
+
+def clean_subcrate_src(family: str, func: str) -> None:
+    """Wipe ``<func>/src/`` before regenerating to prevent stale-file conflicts.
+
+    Phase 11.1-02-fix5: per_functional.emit_functional may shift a given output
+    between flat (`<output>.rs`) and chunked (`<output>/mod.rs`) layouts across
+    regens — and similarly for each part within an output (`partN.rs` vs
+    `partN/mod.rs`). The emitter only writes the NEW form; the OLD form
+    persists on disk and produces ``error[E0761]: file for module `partN`
+    found at both ...`` at compile time. Wiping ``<func>/src/`` before regen
+    eliminates that whole class of bug.
+
+    Cargo.toml is preserved (it lives at the subcrate root, not under src/).
+    Discovered: gga_c_ft97/lxc_pol/part{18,20,21,23} after iter5 regen —
+    sweep HALT at batch 2 in 11.1-02 G1 sample sweep.
+    """
+    src = subcrate_dir(family, func) / "src"
+    if src.exists():
+        shutil.rmtree(src)
 
 
 def emit_single_output(family: str, func: str, output: str, cube_fn_src: str) -> None:

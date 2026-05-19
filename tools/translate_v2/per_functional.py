@@ -370,6 +370,30 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     ambient_pool = set(pol_loads) | {"dens_threshold", "zeta_threshold"}
     ow_vars = [adapter.ow_var(ow) for ow in output_writes]
 
+    # --- Phase 11.1-02-fix6: param_* threading for CSE-chunked emit.
+    # Translators emit `param_field`, `param_field_i`, `param_field_i_j`,
+    # `param_cx_<i>`, `param_cc_<i>` for parameter references (from
+    # `params->field` / `p->field[i]` / etc. in the Maple source). Per the
+    # D-02 ABI RISK note (top of file), the original CSE wrapper did NOT
+    # thread these — they're not in `_POL_LOADS` nor in `dens_threshold` /
+    # `zeta_threshold`. Surfaces as E0425 "cannot find value `param_beta`
+    # in this scope" inside chunk bodies. Pre-scan the whole compute_lines
+    # set, collect every `param_*` identifier referenced after
+    # `adapter.translate_line`, and extend `ambient_pool` so the per-chunk
+    # `referenced & ambient_pool` filter threads each used param as an
+    # `in_args` entry. The wrapper sig (in `_build_chunk_wrapper`) also
+    # needs to declare these as `f64` parameters — see `wrapper_params_*`.
+    param_pool = set()
+    for ln in compute_lines:
+        _v, _expr = _parse_assign(ln)
+        if _expr is None:
+            continue
+        rust_expr = adapter.translate_line(_expr, is_pol)
+        param_pool.update(
+            re.findall(r'\bparam_[A-Za-z_][A-Za-z0-9_]*\b', rust_expr)
+        )
+    ambient_pool = ambient_pool | param_pool
+
     chunk_srcs = []
     wrapper_calls = []
     for ch in chunks:
@@ -479,7 +503,8 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
                                    part_out_bufs, output_writes, wrapper_calls,
                                    is_pol, len(chunks),
                                    fn_suffix=f"_part{part_idx}_{suffix}",
-                                   is_part=True)
+                                   is_part=True,
+                                   params=sorted(param_pool))
 
     # If the CSE attempt cannot get its OWN output under the cap — the chunk
     # count made the wrapper itself oversized, or a chunk stayed oversized —
@@ -499,7 +524,7 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
 
 def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
                          output_writes, wrapper_calls, is_pol, n_chunks,
-                         fn_suffix="", is_part=False):
+                         fn_suffix="", is_part=False, params=None):
     """`#[cube]` wrapper over a set of D-02 CSE tuple-return chunks: loads
     inputs, calls each chunk destructuring its tuple return, writes outputs.
 
@@ -508,7 +533,16 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
     plain ``#[cube]``, because a ``_part`` helper is never a launch entry point
     (`audit_cube_launch.sh` baseline must not move). With ``is_part=False`` it
     builds a whole-output entry wrapper and the routing verdict picks
-    ``#[cube(launch_unchecked)]`` vs ``#[cube]``."""
+    ``#[cube(launch_unchecked)]`` vs ``#[cube]``.
+
+    ``params`` (Phase 11.1-02-fix6): sorted list of every `param_*`
+    identifier referenced by any chunk in the body. Each is declared as
+    `f64` in the wrapper signature, between `out_bufs` and the threshold
+    params. The chunks receive them as F-typed args via the
+    `ambient_pool` mechanism in `_cse_chunk_part`; the wrapper passes its
+    own `param_*: f64` values through the `chunk_fn::<f64>(...)`
+    concretization (D-10 nuance) so the chunk's F generic unifies with f64.
+    """
     fn_name = f"{func_name}_{level}_{spin}{fn_suffix}"
     cube_attr = "#[cube]" if is_part else (
         "#[cube(launch_unchecked)]" if adapter.is_routed else "#[cube]")
@@ -535,6 +569,10 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
         lines.append(f"    {arr}: &Array<f64>,")
     for buf in out_bufs:
         lines.append(f"    {buf}: &mut Array<f64>,")
+    # Phase 11.1-02-fix6: declare every param_* referenced anywhere in any
+    # chunk body so the wrapper has the params in scope to thread to chunks.
+    for p in (params or []):
+        lines.append(f"    {p}: f64,")
     lines.append("    dens_threshold: f64,")
     lines.append("    zeta_threshold: f64,")
     lines.append(") {")
@@ -572,7 +610,14 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
 def emit_functional(adapter, func_name, is_vxc_only, split_threshold):
     """Family-agnostic per-functional emission driver. Returns the list of
     emitted output module names. Writes the complete per-functional subcrate
-    (Cargo.toml + lib.rs + per-output files) via translate_v2.emit."""
+    (Cargo.toml + lib.rs + per-output files) via translate_v2.emit.
+
+    Phase 11.1-02-fix5: wipes <func>/src/ before any emit so stale `partN.rs`
+    files from a prior regen (where the part was flat) cannot collide with
+    the new regen's `partN/mod.rs` (CSE-chunked) — E0761 ambiguity.
+    Discovered on gga_c_ft97 in the 11.1-02 G1 sample sweep.
+    """
+    emit.clean_subcrate_src(adapter.family, func_name)
     output_modules = []
     re_assign = re.compile(r'(\w+)\s*=')
 
