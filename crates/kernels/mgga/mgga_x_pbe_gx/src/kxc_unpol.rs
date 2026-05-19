@@ -96,12 +96,12 @@ pub fn mgga_x_pbe_gx_kxc_unpol(
         let t57 = t26 + 5.0 / 9.0 * t46 * t54;
         let t58 = 5.0 / 9.0 * t46;
         let t59 = 1.0 - t58;
-        let t60 = Heaviside(t59);
+        let t60 = Heaviside::<f64>(t59);
         let t62 = 1.0 + t58;
         let t63 = 1.0 / t62;
         let t66 = 1.0 + 0.148e0 * t59 * t63;
         let t67 = -t59;
-        let t68 = Heaviside(t67);
+        let t68 = Heaviside::<f64>(t67);
         let t70 = t57 * t60 + t66 * t68;
         let t73 = 1.0 + 0.1015549e-2 * t37;
         let t74 = 1.0 / t73;

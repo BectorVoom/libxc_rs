@@ -67,14 +67,14 @@ pub fn mgga_x_gx_exc_unpol(
         let t63 = t26 + 5.0 / 9.0 * t46 * t60;
         let t64 = 5.0 / 9.0 * t46;
         let t65 = 1.0 - t64;
-        let t66 = Heaviside(t65);
+        let t66 = Heaviside::<f64>(t65);
         let t68 = 1.0 - param_alphainf;
         let t69 = t68 * t65;
         let t70 = 1.0 + t64;
         let t71 = 1.0 / t70;
         let t73 = t69 * t71 + 1.0;
         let t74 = -t65;
-        let t75 = Heaviside(t74);
+        let t75 = Heaviside::<f64>(t74);
         let t77 = t63 * t66 + t73 * t75;
         let t81 = piecewise3::<f64>(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t77);
         let tzk0 = 2.0 * t81;

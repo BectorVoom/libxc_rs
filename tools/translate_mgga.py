@@ -403,6 +403,7 @@ def translate_line(line: str, is_pol: bool) -> str:
         'xc_bessel_K0_scaled', 'xc_bessel_K0',
         'xc_bessel_K1_scaled', 'xc_bessel_K1',           # bessel.rs (K, added 2026-05-19 Phase 11.1)
         'lambert_w',                                     # lambert_w.rs (added 2026-05-19 Phase 11.1; used by mgga_x_2d_prhg07)
+        'Heaviside',                                     # piecewise.rs (added 2026-05-19 Phase 11.1 follow-up; used by mgga_x_gx + mgga_x_pbe_gx)
         'case21_xbspline', 'case21_cbspline',            # bspline.rs
     ]:
         s = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', s)

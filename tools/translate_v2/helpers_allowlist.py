@@ -44,6 +44,9 @@ GENERIC_HELPERS: dict = {
     },
     "piecewise": {
         "piecewise3", "piecewise5",
+        # Heaviside step function (added 2026-05-19 Phase 11.1 follow-up;
+        # used by mgga_x_gx + mgga_x_pbe_gx)
+        "Heaviside",
     },
     "lambert_w": {
         "lambert_w",
