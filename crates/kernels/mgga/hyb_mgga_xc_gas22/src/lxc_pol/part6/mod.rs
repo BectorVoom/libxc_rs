@@ -2927,6 +2927,20 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
     lapl: &Array<f64>,
     tau: &Array<f64>,
     v4rho4: &mut Array<f64>,
+    param_c_os_0: f64,
+    param_c_os_1: f64,
+    param_c_os_2: f64,
+    param_c_os_3: f64,
+    param_c_os_4: f64,
+    param_c_ss_0: f64,
+    param_c_ss_1: f64,
+    param_c_ss_2: f64,
+    param_c_ss_3: f64,
+    param_c_ss_4: f64,
+    param_c_x_0: f64,
+    param_c_x_1: f64,
+    param_c_x_2: f64,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -2959,7 +2973,7 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
         let (t27, t28) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk15::<f64>(t7);
         let t29 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk16::<f64>(t28);
         let (t32, t33) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk17::<f64>(t13);
-        let t34 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk18::<f64>(t10);
+        let t34 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk18::<f64>(t10, param_hyb_omega_0);
         let t35 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk19::<f64>(t33, t34);
         let (t36, t37) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk20::<f64>(t25, t17);
         let t39 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk21::<f64>(t17, t21, zeta_threshold);
@@ -2985,12 +2999,12 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
         let t85 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk41::<f64>(t78, t81, t82);
         let t88 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk42::<f64>(t72, t73, t76, t85);
         let t92 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk43::<f64>(t43, t47, t51, t54, t57, t60, t63, t66, t69, t72, t88);
-        let (t93, t94, t95) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk44::<f64>(t29, t92);
+        let (t93, t94, t95) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk44::<f64>(t29, t92, param_c_x_0, param_c_x_1);
         let (t96, t97) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk45::<f64>(t95, rho0, sigma0);
         let t98 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk46::<f64>(rho0);
         let t99 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk47::<f64>(t98);
         let t101 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk48::<f64>(t97, t99);
-        let (t102, t104, t105, t109) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk49::<f64>(t101, sigma0);
+        let (t102, t104, t105, t109) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk49::<f64>(t101, param_c_x_2, sigma0);
         let t115 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk50::<f64>();
         let (t116, t119) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk51::<f64>(t115, t99, rho0, tau0);
         let t120 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk52::<f64>(t116, t119);
@@ -3053,16 +3067,16 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
         let t275 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk109::<f64>(t228);
         let (t280, t283, t284) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk110::<f64>(t228, t231, t234, t245);
         let t291 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk111::<f64>(t275, t284, t253, t260, t262, t271);
-        let (t294, t295) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk112::<f64>(t7, t220, t291, dens_threshold, rho0, zeta_threshold);
-        let (t296, t298, t299, t303) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk113::<f64>(t295, t102, sigma0);
-        let (t304, t306) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk114::<f64>(t120, t303);
-        let (t307, t308, t309, t310, t312) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk115::<f64>(t120, t306, t122);
+        let (t294, t295) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk112::<f64>(t7, t220, t291, dens_threshold, param_c_ss_0, rho0, zeta_threshold);
+        let (t296, t298, t299, t303) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk113::<f64>(t295, t102, param_c_ss_1, sigma0);
+        let (t304, t306) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk114::<f64>(t120, t303, param_c_ss_2);
+        let (t307, t308, t309, t310, t312) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk115::<f64>(t120, t306, t122, param_c_ss_3);
         let t313 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk116::<f64>(sigma0);
         let (t314, t315) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk117::<f64>(t313);
         let (t316, t317) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk118::<f64>(t312, t315, t97);
         let (t318, t319) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk119::<f64>(t317);
         let (t320, t321, t322, t324) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk120::<f64>(t319, t298);
-        let (t325, t328) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk121::<f64>(t320, t324);
+        let (t325, t328) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk121::<f64>(t320, t324, param_c_ss_4);
         let (t330, t331, t332, t333, t338) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk122::<f64>(t307, t328, t309, t101, t123, t296, t299, t304, t308, t310, t315, t316, t320, t324, t325);
         let t340 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk123::<f64>(t132, zeta_threshold);
         let t341 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk124::<f64>(t132);
@@ -3101,27 +3115,27 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
         let t493 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk157::<f64>(t483, t492);
         let t495 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk158::<f64>(t456, t470, t479, t493);
         let t496 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk159::<f64>(t468, t495);
-        let (t500, t502) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk160::<f64>(t294, t397, t456, t462, t468, t493, t496);
+        let (t500, t502) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk160::<f64>(t294, t397, t456, t462, t468, t493, t496, param_c_os_1);
         let (t505, t507, t508) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk161::<f64>(t115, t119, t208);
         let t509 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk162::<f64>(t508);
         let t510 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk163::<f64>(t502, t509);
         let (t511, t512) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk164::<f64>(t505, t507);
         let t513 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk165::<f64>(t512);
-        let t515 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk166::<f64>();
+        let t515 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk166::<f64>(param_c_os_2);
         let (t516, t517, t518) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk167::<f64>(t509, t515);
         let t519 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk168::<f64>(t512);
         let t521 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk169::<f64>(t512, t519);
-        let t523 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk170::<f64>();
+        let t523 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk170::<f64>(param_c_os_3);
         let t524 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk171::<f64>(t517, t523);
         let t525 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk172::<f64>(t17, t521);
         let t526 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk173::<f64>(t102, t199);
         let t527 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk174::<f64>(t526);
         let (t528, t529, t530) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk175::<f64>(t527);
         let t531 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk176::<f64>(t530);
-        let (t532, t535) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk177::<f64>(t525, t531);
+        let (t532, t535) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk177::<f64>(t525, t531, param_c_os_4);
         let t536 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk178::<f64>(t509, t535);
         let t537 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk179::<f64>(t17, t513);
-        let (t538, t541, t543, t544, t545) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk180::<f64>(t531, t537, t510, t513, t518, t521, t524, t532, t536, t459, t3, t5);
+        let (t538, t541, t543, t544, t545) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk180::<f64>(t531, t537, t510, t513, t518, t521, t524, t532, t536, t459, t3, t5, param_c_os_0);
         let t547 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk181::<f64>(t10, t18, t545);
         let t550 = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk182::<f64>(t24, t240);
         let (t551, t555) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk183::<f64>(t126, t550, t10, t18, t27);
@@ -4153,7 +4167,7 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2(
         let (t23108, t23111, t23113, t23116, t23118, t23120) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1209::<f64>(t1181, t5861, t555, t7874, t8184, t547, t7880, t1232, t19, t2986, t5870, t5873);
         let (t23124, t23127, t23128, t23139, t23253) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1210::<f64>(t1181, t5878, t20685, t222, t3, t2951, t2970, t7848, t7857, t19746, t35, t7979);
         let (t23255, t23257, t23284, t23295, t23311, t23313, t23315, t23317) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1211::<f64>(t1890, t7953, t7966, t3011, t6012, t19754, t39, t7962, t7948, t7942, t7958, t7975);
-        let (t23319, t23321, t23323, t23328, t23329, t23335) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1212::<f64>(t7942, t7971, t3017, t6012, t33, t39, t6022, t6025, t1179, t545, t1894, t6033);
+        let (t23319, t23321, t23323, t23328, t23329, t23335) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1212::<f64>(t7942, t7971, t3017, t6012, t33, t39, t6022, t6025, t1179, t545, t1894, t6033, param_hyb_omega_0);
         let (t23340, t23341, t23351, t23355, t23453, t23488) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1213::<f64>(t21862, t33, t34, t3025, t1189, t3023, t1897, t7978, t1211, t6092, t8061, t81);
         let (t23572, t23575, t23577, t23588, t23591, t23622) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1214::<f64>(t1815, t19, t3114, t3118, t7884, t8169, t1819, t555, t7909, t7898, t8185, t20685, t24);
         let (t23625, t23647, t23649, t23655) = hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1215::<f64>(t23622, t2988, t555, t557, t13, t20075, t2969, t20078, t25, t92, t2212, t6184);

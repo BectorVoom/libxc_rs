@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1358<F: Float>(t2371: F, t28264: F, t572: F, t2327: F, t7002: F, t1459: F, t26120: F, t26124: F, t26127: F, t13240: F, t13244: F, t13247: F, t1461: F, t2040: F, t26106: F, t4162: F, t4165: F, t573: F, t7324: F, t95119: F, t95131: F, t95136: F, t95140: F, t95143: F, t95147: F, t95149: F, t95153: F, t95157: F) -> F {
+pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1358<F: Float>(t2371: F, t28264: F, t572: F, t2327: F, t7002: F, t1459: F, t26120: F, t26124: F, t26127: F, t13240: F, t13244: F, t13247: F, t1461: F, t2040: F, t26106: F, t4162: F, t4165: F, t573: F, t7324: F, t95119: F, t95131: F, t95136: F, t95140: F, t95143: F, t95147: F, t95149: F, t95153: F, t95157: F, param_d: F) -> F {
     let t95160 = F::new(18.0) * t572 * t28264 * t2371;
     let t95163 = F::new(18.0) * t572 * t2327 * t7002;
     let t95171 = F::new(18.0) * t1459 * t26120;

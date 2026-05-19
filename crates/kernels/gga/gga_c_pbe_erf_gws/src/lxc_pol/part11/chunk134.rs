@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk134<F: Float>(t318: F, t319: F) -> (F, F) {
+pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk134<F: Float>(t318: F, t319: F, param_gamma: F) -> (F, F) {
     let t320 = t319 * t318;
     let t321 = param_gamma * t320;
     (t320, t321)

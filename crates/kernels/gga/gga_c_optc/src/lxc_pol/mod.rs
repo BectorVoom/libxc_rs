@@ -88,11 +88,11 @@ pub fn gga_c_optc_lxc_pol(
     gga_c_optc_lxc_pol_part4_v3rho3_3(rho, sigma, v3rho3, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part5_v3rho2sigma(rho, sigma, v3rho2sigma, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part6_v3rhosigma2_v3sigma3(rho, sigma, v3rhosigma2, v3sigma3, param_c1, param_c2, dens_threshold, zeta_threshold);
-    gga_c_optc_lxc_pol_part7_v4rho4_0(rho, sigma, v4rho4, dens_threshold, zeta_threshold);
+    gga_c_optc_lxc_pol_part7_v4rho4_0(rho, sigma, v4rho4, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part8_v4rho4_1(rho, sigma, v4rho4, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part9_v4rho4_2(rho, sigma, v4rho4, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part10_v4rho4_3(rho, sigma, v4rho4, param_c1, param_c2, dens_threshold, zeta_threshold);
-    gga_c_optc_lxc_pol_part11_v4rho4_4(rho, sigma, v4rho4, dens_threshold, zeta_threshold);
+    gga_c_optc_lxc_pol_part11_v4rho4_4(rho, sigma, v4rho4, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part12_v4rho3sigma_0_v4rho3sigma_1(rho, sigma, v4rho3sigma, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part13_v4rho3sigma_2(rho, sigma, v4rho3sigma, param_c1, param_c2, dens_threshold, zeta_threshold);
     gga_c_optc_lxc_pol_part14_v4rho3sigma_3(rho, sigma, v4rho3sigma, param_c1, param_c2, dens_threshold, zeta_threshold);

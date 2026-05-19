@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk873<F: Float>(t11: F, t5: F, t5193: F, t5195: F, t5198: F, t7637: F, t7641: F, t7854: F, t7858: F, t7862: F, t7869: F, t7880: F, t7884: F, t7895: F, t7905: F, t7910: F) -> F {
+pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk873<F: Float>(t11: F, t5: F, t5193: F, t5195: F, t5198: F, t7637: F, t7641: F, t7854: F, t7858: F, t7862: F, t7869: F, t7880: F, t7884: F, t7895: F, t7905: F, t7910: F, param_eta: F) -> F {
     let t7916 = -t5193 + F::new(40.0) / F::new(9.0) * t5195 - F::new(5.0) / F::new(3.0) * t5198 + F::new(20.0) / F::new(9.0) * t7637 - t7641 + F::new(5.0) * t5 * t11 * t7854 - F::new(45.0) * param_eta * (t7858 + t7862 + t7869 + t7880 + t7884 + t7895 + t7905 + t7910);
     t7916
 }

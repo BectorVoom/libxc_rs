@@ -302,10 +302,10 @@ pub fn mgga_c_tpss_lxc_pol(
     mgga_c_tpss_lxc_pol_part19_v4rho3sigma_1(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part20_v4rho3sigma_2(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part21_v4rho3sigma_3(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
-    mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4(rho, sigma, lapl, tau, v4rho3sigma, dens_threshold, zeta_threshold);
+    mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part23_v4rho3sigma_5(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part24_v4rho3sigma_6(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
-    mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7(rho, sigma, lapl, tau, v4rho3sigma, dens_threshold, zeta_threshold);
+    mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part26_v4rho3sigma_8(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part27_v4rho3sigma_9(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);
     mgga_c_tpss_lxc_pol_part28_v4rho3sigma_10(rho, sigma, lapl, tau, v4rho3sigma, param_C0_c_0, param_C0_c_1, param_C0_c_2, param_C0_c_3, param_beta, param_d, dens_threshold, zeta_threshold);

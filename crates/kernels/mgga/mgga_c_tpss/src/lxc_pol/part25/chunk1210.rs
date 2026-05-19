@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1210<F: Float>(t20154: F, t219: F, t6420: F, t1265: F, t18490: F, t6424: F, t18967: F, t19521: F, t1266: F, t1657: F, t1842: F, t18483: F, t18496: F, t18950: F, t19507: F, t19509: F, t4494: F, t4517: F, t538: F, t5739: F, t5921: F, t5925: F, t5930: F, t5933: F, t6260: F, t6425: F) -> (F, F, F, F, F) {
+pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1210<F: Float>(t20154: F, t219: F, t6420: F, t1265: F, t18490: F, t6424: F, t18967: F, t19521: F, t1266: F, t1657: F, t1842: F, t18483: F, t18496: F, t18950: F, t19507: F, t19509: F, t4494: F, t4517: F, t538: F, t5739: F, t5921: F, t5925: F, t5930: F, t5933: F, t6260: F, t6425: F, param_beta: F) -> (F, F, F, F, F) {
     let t20155 = param_beta * t20154;
     let t20157 = t6420 * t219;
     let t20171 = t18490 * t6424 * t1265;

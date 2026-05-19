@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1263<F: Float>(t13781: F, t3222: F, t3306: F, t3972: F, t14657: F, t50891: F, t1114: F, t51916: F, t51919: F, t13888: F, t2408: F, t51505: F, t51507: F, t53526: F, t53529: F, t53531: F, t53537: F, t53542: F, t53544: F, t53546: F, t53549: F, t53553: F, t8764: F, t9283: F) -> F {
+pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1263<F: Float>(t13781: F, t3222: F, t3306: F, t3972: F, t14657: F, t50891: F, t1114: F, t51916: F, t51919: F, t13888: F, t2408: F, t51505: F, t51507: F, t53526: F, t53529: F, t53531: F, t53537: F, t53542: F, t53544: F, t53546: F, t53549: F, t53553: F, t8764: F, t9283: F, param_a_c: F) -> F {
     let t53562 = t3972 * t13781 * t3306 * param_a_c * t3222;
     let t53564 = t14657 * t50891;
     let t53566 = t1114 * t51916;

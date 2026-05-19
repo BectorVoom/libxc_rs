@@ -39,8 +39,8 @@ pub fn lda_c_pmgb06_lxc_pol(
     lda_c_pmgb06_lxc_pol_part0_zk_vrho_v2rho2(rho, zk, vrho, v2rho2, param_hyb_omega_0, dens_threshold, zeta_threshold);
     lda_c_pmgb06_lxc_pol_part1_v3rho3(rho, v3rho3, param_hyb_omega_0, dens_threshold, zeta_threshold);
     lda_c_pmgb06_lxc_pol_part2_v4rho4_0(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
-    lda_c_pmgb06_lxc_pol_part3_v4rho4_1(rho, v4rho4, dens_threshold, zeta_threshold);
-    lda_c_pmgb06_lxc_pol_part4_v4rho4_2(rho, v4rho4, dens_threshold, zeta_threshold);
-    lda_c_pmgb06_lxc_pol_part5_v4rho4_3(rho, v4rho4, dens_threshold, zeta_threshold);
+    lda_c_pmgb06_lxc_pol_part3_v4rho4_1(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    lda_c_pmgb06_lxc_pol_part4_v4rho4_2(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    lda_c_pmgb06_lxc_pol_part5_v4rho4_3(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
     lda_c_pmgb06_lxc_pol_part6_v4rho4_4(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
 }

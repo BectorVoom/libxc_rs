@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1348<F: Float>(t66398: F, t66411: F, t66425: F, t66439: F, t2157: F, t5831: F, t1395: F, t18770: F, t10841: F, t1378: F, t1707: F, t1708: F, t17993: F, t18000: F, t18006: F, t18009: F, t1809: F, t18784: F, t18800: F, t19736: F, t19767: F, t19769: F, t20446: F, t20466: F, t20470: F, t20482: F, t20488: F, t20503: F, t226: F, t228: F, t2364: F, t2407: F, t253: F, t44584: F, t44610: F, t5571: F, t5577: F, t5834: F, t61195: F, t61222: F, t61226: F, t6135: F, t6337: F, t6342: F, t63893: F, t64008: F, t64050: F, t64198: F, t782: F, t818: F) -> F {
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1348<F: Float>(t66398: F, t66411: F, t66425: F, t66439: F, t2157: F, t5831: F, t1395: F, t18770: F, t10841: F, t1378: F, t1707: F, t1708: F, t17993: F, t18000: F, t18006: F, t18009: F, t1809: F, t18784: F, t18800: F, t19736: F, t19767: F, t19769: F, t20446: F, t20466: F, t20470: F, t20482: F, t20488: F, t20503: F, t226: F, t228: F, t2364: F, t2407: F, t253: F, t44584: F, t44610: F, t5571: F, t5577: F, t5834: F, t61195: F, t61222: F, t61226: F, t6135: F, t6337: F, t6342: F, t63893: F, t64008: F, t64050: F, t64198: F, t782: F, t818: F, param_beta: F) -> F {
     let t66441 = t66398 + t66411 + t66425 + t66439;
     let t66469 = t2157 * t5831;
     let t66480 = t18770 * t1395;

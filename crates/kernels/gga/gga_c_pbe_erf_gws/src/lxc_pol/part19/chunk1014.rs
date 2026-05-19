@@ -8,7 +8,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1014<F: Float>(t11339: F, t326: F, t826: F, t2365: F, t3747: F, t1114: F, t833: F, t1115: F, t2397: F, t2401: F, t3207: F, t335: F, t3913: F, t4487: F, t844: F, t8740: F, t8745: F, t8747: F, t8751: F, t9948: F, t9953: F, t9956: F, t9958: F, t9962: F, t9965: F, t9969: F, t9973: F, t9978: F) -> (F, F, F, F) {
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1014<F: Float>(t11339: F, t326: F, t826: F, t2365: F, t3747: F, t1114: F, t833: F, t1115: F, t2397: F, t2401: F, t3207: F, t335: F, t3913: F, t4487: F, t844: F, t8740: F, t8745: F, t8747: F, t8751: F, t9948: F, t9953: F, t9956: F, t9958: F, t9962: F, t9965: F, t9969: F, t9973: F, t9978: F, param_a_c: F) -> (F, F, F, F) {
     let t11340 = param_a_c * t11339;
     let t11341 = t326 * t11340;
     let t11342 = t11341 * t826;

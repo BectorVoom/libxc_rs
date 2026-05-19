@@ -2491,6 +2491,7 @@ use chunk1238::lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1238;
 pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
     rho: &Array<f64>,
     v4rho4: &mut Array<f64>,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -2522,13 +2523,13 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let t35 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk21::<f64>(t32, t34);
         let t36 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk22::<f64>(t30, t35);
         let t37 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk23::<f64>(t36);
-        let t38 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk24::<f64>(t37);
+        let t38 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk24::<f64>(t37, param_hyb_omega_0);
         let (t39, t41, t44) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk25::<f64>(t18, t38);
-        let t52 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk26::<f64>();
+        let t52 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk26::<f64>(param_hyb_omega_0);
         let (t53, t54) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk27::<f64>(t22, t29, t31, t44, t52, t27);
         let t55 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk28::<f64>(t29, t32);
         let t56 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk29::<f64>(t19);
-        let t61 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk30::<f64>(t52);
+        let t61 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk30::<f64>(t52, param_hyb_omega_0);
         let (t62, t63) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk31::<f64>(t36, t37, t61);
         let t64 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk32::<f64>(t20);
         let t67 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk33::<f64>(t34, t41, t54, t55, t56, t63, t64);
@@ -2622,7 +2623,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let t290 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk121::<f64>(t244, t248, t258, t283, t286);
         let t295 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk122::<f64>(t52);
         let t297 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk123::<f64>(t122, t202);
-        let (t299, t301) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk124::<f64>(t115, t117, t295);
+        let (t299, t301) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk124::<f64>(t115, t117, t295, param_hyb_omega_0);
         let t302 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk125::<f64>(t113, t301, t83);
         let t305 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk126::<f64>(t125, t83);
         let t312 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk127::<f64>(t295, t52);
@@ -2638,7 +2639,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let t337 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk137::<f64>(t332);
         let t342 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk138::<f64>(t12, t336, t337, t335, zeta_threshold);
         let t346 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk139::<f64>(t24, t26);
-        let (t347, t348) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk140::<f64>(t37);
+        let (t347, t348) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk140::<f64>(t37, param_hyb_omega_0);
         let (t349, t350) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk141::<f64>(t348, t39, t110, t30);
         let (t352, t355, t359, t360) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk142::<f64>(t349, t350, t342, t38, t56, t109, t54, t55, t30, t53);
         let t361 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk143::<f64>(t342, t64);
@@ -2842,7 +2843,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let t1227 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk341::<f64>(t12, t1080, t1083, t1219, t336, t1218, zeta_threshold);
         let (t1228, t1233) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk342::<f64>(t1227, t77, t18, t23);
         let t1234 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk343::<f64>(t342);
-        let t1238 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk344::<f64>(t939);
+        let t1238 = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk344::<f64>(t939, param_hyb_omega_0);
         let (t1239, t1241, t1243) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk345::<f64>(t1238, t39, t955, t27, t348, t56);
         let (t1245, t1246, t1247, t1249, t1252, t1255, t1259) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk346::<f64>(t109, t342, t55, t1243, t349, t947, t1234, t38, t64, t1227, t56, t409, t54);
         let (t1260, t1261, t1263, t1264, t1267, t1268, t1271) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk347::<f64>(t110, t361, t360, t1234, t370, t35, t1227, t64, t347, t61);
@@ -3115,7 +3116,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let (t3458, t3459, t3460, t3461, t3463, t3464) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk614::<f64>(t170, t3457, t1602, t529, t166, t161, t3320, t3324, t3327, t3328, t3331, t3335, t3386, t3387, t3391, t3392, t3395, t3445, t3449, t3452, t3455);
         let (t3467, t3474) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk615::<f64>(t2896, t3002, t3063, t3160, t3207, t3268, t3318, t3464, t117, t123, t550, t740);
         let (t3478, t3481, t3482) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk616::<f64>(t117, t123, t1650, t315, t1135, t118, t125, t2825, t2828, t2831, t2835, t2840, t2844, t2846, t2849, t3467, t3474);
-        let (t3494, t3500, t3501, t3502, t3505, t3508, t3509) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk617::<f64>(t1282, t342, t103, t37, t28, t39, t247, t1227, t361, t38, t61, t939);
+        let (t3494, t3500, t3501, t3502, t3505, t3508, t3509) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk617::<f64>(t1282, t342, t103, t37, t28, t39, t247, t1227, t361, t38, t61, t939, param_hyb_omega_0);
         let (t3510, t3513, t3515, t3517, t3521, t3523) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk618::<f64>(t28, t64, t247, t3509, t1830, t366, t349, t1179, t54, t55, t56, t1272, t2060);
         let (t3525, t3526, t3530, t3531, t3533, t3534, t3537, t3540) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk619::<f64>(t1239, t2060, t1227, t371, t361, t410, t360, t110, t1267, t127, t9, t1212, t332);
         let (t3546, t3548, t3557) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk620::<f64>(t5, t12, t1074, t3010, t3115, t330, t3537, t3540, t14, t158, t1219, t337, t1083, t2912, t2938, t336, zeta_threshold);
@@ -3346,7 +3347,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1(
         let (t8276, t8279, t8281, t8282, t8285, t8287, t8291) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk845::<f64>(t3501, t56, t247, t28, t342, t3509, t370, t366, t4641, t349, t1767, t54, t55);
         let (t8293, t8295, t8299, t8300, t8305, t8306) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk846::<f64>(t1272, t4913, t1239, t1234, t315, t934, t1238, t64, t97, t342, t740, t3576);
         let (t8309, t8310, t8312, t8313, t8315, t8316, t8323) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk847::<f64>(t109, t3559, t55, t1243, t1267, t410, t360, t110, t3560, t1227, t315, t934);
-        let (t8324, t8326, t8328, t8333, t8337, t8339) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk848::<f64>(t3566, t8323, t1276, t8309, t3576, t28, t3, t37, t27, t4238, t55, t3502);
+        let (t8324, t8326, t8328, t8333, t8337, t8339) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk848::<f64>(t3566, t8323, t1276, t8309, t3576, t28, t3, t37, t27, t4238, t55, t3502, param_hyb_omega_0);
         let (t8341, t8346, t8348, t8352) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk849::<f64>(t348, t350, t3611, t3500, t3510, t61, t8337, t3616, t365, t1179, t342, t55);
         let (t8353, t8355, t8357, t8358, t8370, t8373, t8374, t8376) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk850::<f64>(t1276, t8352, t1243, t1180, t361, t360, t1234, t409, t55, t3600, t1227, t3594);
         let (t8378, t8379, t8381, t8382, t8386, t8388, t8390) = lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk851::<f64>(t110, t3589, t360, t1263, t410, t1271, t1282, t8299, t97, t3566, t8305, t1276, t8373);

@@ -2466,6 +2466,11 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
     lapl: &Array<f64>,
     tau: &Array<f64>,
     v4rho3sigma: &mut Array<f64>,
+    param_C0_c_0: f64,
+    param_C0_c_1: f64,
+    param_C0_c_2: f64,
+    param_C0_c_3: f64,
+    param_d: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -2482,9 +2487,9 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let tau1 = tau[ip * 2 + 1];
         let t2 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk0::<f64>(rho0, rho1);
         let t3 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1::<f64>(rho0, rho1);
-        let (t4, t5, t9, t10) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk2::<f64>(t3, t2);
-        let t11 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk3::<f64>();
-        let t12 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk4::<f64>();
+        let (t4, t5, t9, t10) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk2::<f64>(t3, t2, param_C0_c_0, param_C0_c_1);
+        let t11 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk3::<f64>(param_C0_c_2);
+        let t12 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk4::<f64>(param_C0_c_3);
         let t14 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk5::<f64>(t2);
         let (t15, t16) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk6::<f64>(t10, t14, t3);
         let t17 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk7::<f64>(t16);
@@ -2655,7 +2660,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let (t557, t560, t561) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk172::<f64>(t546, t555, t213);
         let (t562, t565, t566) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk173::<f64>(t556, t561, t213);
         let t569 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk174::<f64>(t149, t198, t522, t524, t532, t566);
-        let (t571, t572) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk175::<f64>(t118, t508, t511, t569);
+        let (t571, t572) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk175::<f64>(t118, t508, t511, t569, param_d);
         let t573 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk176::<f64>(t116, t117);
         let (t575, t576, t578, t579, t580) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk177::<f64>(t572, t573, t10, t2, t17, t16, t3);
         let (t582, t583) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk178::<f64>(t15, t580, t14, t2);
@@ -2856,7 +2861,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let t1450 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk373::<f64>(t565);
         let t1453 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk374::<f64>(t1319, t1322, t1332, t1334, t1336, t1339, t1342, t1343, t1353, t1448, t1450, t198, t532, t679, t704);
         let (t1455, t1456, t1458) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk375::<f64>(t118, t1310, t1315, t1453, t508, t511, t569, t649, t651, t671, t3, t571);
-        let t1459 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk376::<f64>(t1455);
+        let t1459 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk376::<f64>(t1455, param_d);
         let t1461 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk377::<f64>(t117, t670);
         let (t1464, t1923) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk378::<f64>(t1459, t1461, t572, t573, t38, t603);
         let t1927 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk379::<f64>(t76, t84);
@@ -2885,7 +2890,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let t2106 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk402::<f64>(t2027, t2099, t2103, t213);
         let t2107 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk403::<f64>(t2106, t532);
         let (t2108, t2110, t2111) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk404::<f64>(t1450, t2107, t118, t2014, t2052, t2056, t2089, t2093, t508, t569, t651, t3);
-        let (t2113, t2115, t2118, t2219, t2221, t2223, t2224) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk405::<f64>(t2110, t117, t2055, t572, t573, t10, t17, t576, t580, t15, t22, t11, t14);
+        let (t2113, t2115, t2118, t2219, t2221, t2223, t2224) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk405::<f64>(t2110, t117, t2055, t572, t573, t10, t17, t576, t580, t15, t22, t11, t14, param_d);
         let (t2226, t2228, t2230, t2231, t2233, t2235, t2236, t2237, t2239) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk406::<f64>(t22, t2224, t584, t588, t20, t27, t12, t19, t592, t596, t21, t25);
         let (t2240, t2242) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk407::<f64>(t2219, t2221, t2223, t2226, t2228, t2230, t2233, t2235, t2239, t599, t602);
         let (t2246, t2247) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk408::<f64>(t89, t90, t29);
@@ -3125,7 +3130,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let (t4146, t4147) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk642::<f64>(t565);
         let t4150 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk643::<f64>(t1343, t1353, t1450, t198, t3871, t3873, t3889, t4025, t4027, t4031, t4033, t4035, t4037, t4040, t4042, t4135, t4139, t4140, t4144, t4147, t532);
         let (t4151, t4153) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk644::<f64>(t3868, t4150, t118, t1310, t1315, t1453, t2320, t2322, t2328, t2331, t2372, t3813, t3821, t508, t511, t569, t649, t651, t671);
-        let (t4154, t4158, t4162, t4165, t4168, t4254) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk645::<f64>(t3, t4153, t116, t2327, t117, t2371, t1459, t1461, t572, t573, t670, t94);
+        let (t4154, t4158, t4162, t4165, t4168, t4254) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk645::<f64>(t3, t4153, t116, t2327, t117, t2371, t1459, t1461, t572, t573, t670, t94, param_d);
         let (t4362, t4364, t4366, t4401, t4415) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk646::<f64>(t241, t2719, t820, t243, t72, t245, t2723, t836, t162, t2611, t227, t73);
         let (t4503, t4504, t4514, t4541) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk647::<f64>(t225, t2718, t213, t2783, t198, t205);
         let (t4733, t4786, t4801, t4806, t4837, t4890) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk648::<f64>(t3014, t972, t3093, t357, t1065, t2857, t2852, t3181, t1062, t3204, t3147, t72);
@@ -3189,7 +3194,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let (t7517, t7519, t7522, t7523, t7527, t7528, t7531, t7532) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk706::<f64>(t7284, t7515, t7289, t1444, t2097, t7296, t1398, t543, t7301, t545, t7506, t2028);
         let t7535 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk707::<f64>(t1445, t2027, t2103, t213, t561, t7292, t7295, t7495, t7498, t7507, t7511, t7517, t7519, t7523, t7528, t7532);
         let (t7536, t7537, t7539, t7541) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk708::<f64>(t532, t7535, t1450, t2107, t7315, t118, t1310, t1453, t2014, t2052, t2056, t2089, t2093, t2108, t2322, t4254, t508, t569, t649, t651, t671, t7235, t7357, t7359, t7367, t7374, t7378, t7474, t7484, t7489);
-        let (t7542, t7547, t7553, t7554, t7557, t7560) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk709::<f64>(t3, t7541, t116, t2055, t670, t117, t7373, t1459, t1461, t2113, t2115, t572, t573);
+        let (t7542, t7547, t7553, t7554, t7557, t7560) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk709::<f64>(t3, t7541, t116, t2055, t670, t117, t7373, t1459, t1461, t2113, t2115, t572, t573, param_d);
         let (t8779, t8995, t9069, t9274, t9275, t9276) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk710::<f64>(t587, t65, t197, t532, t1450, t2106, t143, t2580, t130, t2566, t700, t2584);
         let t9278 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk711::<f64>(t9274, t9276);
         let (t9283, t9285) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk712::<f64>(t121, t131, t141, t22, t2456, t624);
@@ -3506,7 +3511,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let t13194 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1023::<f64>(t12663, t13189, t12413, t12417, t12566, t12573, t12575, t12577, t12579, t12583, t12584, t12587, t12594, t12598, t1298, t1300, t198, t336, t3794, t3801, t5023);
         let t13206 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1024::<f64>(t33, t265, t502, t11095, t12562, t13194, t10326, t1113, t1304, t2258, t2838, t3351, t3805, t504, t57, t606, t895, t9357, dens_threshold, rho1, zeta_threshold);
         let (t13207, t13216, t13225) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1025::<f64>(t12211, t13206, t1310, t2371, t10192, t10194, t10260, t10263, t10415, t10416, t10426, t118, t1315, t1453, t2320, t2322, t2328, t2331, t2372, t3813, t3821, t4151, t4254, t508, t511, t569, t649, t651, t671);
-        let (t13226, t13232, t13240, t13244, t13247, t13250) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1026::<f64>(t13225, t3, t2327, t670, t116, t2371, t10259, t117, t1459, t1461, t4158, t4162, t4165, t572, t573);
+        let (t13226, t13232, t13240, t13244, t13247, t13250) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1026::<f64>(t13225, t3, t2327, t670, t116, t2371, t10259, t117, t1459, t1461, t4158, t4162, t4165, t572, t573, param_d);
         let t13435 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1027::<f64>(t648, t670);
         let (t13440, t13625, t13846, t14365) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1028::<f64>(t2371, t93, t1353, t1448, t136, t550, t775, t890);
         let (t14685, t18163, t25081, t25082, t25089, t25102, t25110) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1029::<f64>(t136, t243, t2371, t94, t197, t531, t2013, t1450, t3889, t2242, t607, t640, t644, t77);
@@ -3580,7 +3585,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let (t26666, t26674, t26676, t26679) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1097::<f64>(t33, t265, t502, t26625, t2085, t2258, t26665, t57, t606, t7468, t26633, t2051, t2327, t2107, t25177, dens_threshold, rho1, zeta_threshold);
         let t26699 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1098::<f64>(t10416, t1312, t13435, t13440, t2055, t2322, t2371, t26153, t26210, t26399, t26676, t5523, t670, t7359, t7373);
         let t26702 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1099::<f64>(t10416, t118, t13435, t1453, t2014, t2052, t2056, t2108, t2322, t2331, t25082, t25188, t26380, t26383, t26392, t26396, t26399, t26406, t26412, t26415, t26674, t26676, t26679, t26699, t3813, t508, t569, t651, t671, t7235, t7359, t7367, t7484, t7537);
-        let (t26703, t26704, t26716, t26730, t26733, t26734, t26737, t26740) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1100::<f64>(t26379, t26702, t3, t2055, t2327, t116, t7373, t670, t2371, t7553, t117, t26153);
+        let (t26703, t26704, t26716, t26730, t26733, t26734, t26737, t26740) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1100::<f64>(t26379, t26702, t3, t2055, t2327, t116, t7373, t670, t2371, t7553, t117, t26153, param_d);
         let t26743 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1101::<f64>(t1459, t1461, t2113, t2115, t26716, t26730, t26734, t26737, t26740, t4158, t4162, t4165, t572, t573, t7547, t7554, t7557);
         let (t27159, t27221, t27261, t27353, t27383, t27763, t27799, t27868) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1102::<f64>(t30, t892, t14685, t1941, t241, t25260, t820, t1955, t7057, t11064, t33, t7283);
         let (t27932, t27940, t28167, t28196, t28286, t28291) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1103::<f64>(t13846, t1941, t241, t25981, t820, t197, t530, t2013, t8995, t2106, t9593, t198, t205, t2070);
@@ -3703,7 +3708,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1(
         let (t96567, t96570, t96577, t96584, t96588) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1220::<f64>(t25899, t96431, t1445, t26354, t689, t1426, t7507, t786, t3917, t94701, t96204, t25878, t96242);
         let t96594 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1221::<f64>(t26359, t9303, t10146, t2097, t25921, t25930, t26304, t26371, t7295, t7296, t94721, t94868, t96556, t96559, t96561, t96564, t96565, t96567, t96570, t96577, t96584, t96588);
         let t96626 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1222::<f64>(t10192, t10259, t10416, t118, t1310, t13435, t1450, t18163, t2014, t2056, t2089, t2093, t2322, t2371, t2372, t25082, t25188, t26392, t26399, t26405, t26415, t26676, t28167, t28286, t4151, t4254, t46126, t49560, t49616, t49640, t49851, t532, t651, t7235, t7367, t7374, t7474, t7484, t7537, t96083, t96178, t96231, t96274, t96377, t96420, t96466, t96508, t96554, t96594);
-        let (t96628, t96633, t96682) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1223::<f64>(t95362, t95446, t95499, t96626, t2118, t4153, t116, t26153, t10259, t117, t13232, t13240, t13244, t13247, t1459, t1461, t2113, t2115, t2327, t2371, t26716, t26730, t26733, t26734, t26737, t26740, t28974, t4158, t4162, t4165, t572, t573, t670, t7373, t7547, t7553, t7554, t7557, t95405);
+        let (t96628, t96633, t96682) = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1223::<f64>(t95362, t95446, t95499, t96626, t2118, t4153, t116, t26153, t10259, t117, t13232, t13240, t13244, t13247, t1459, t1461, t2113, t2115, t2327, t2371, t26716, t26730, t26733, t26734, t26737, t26740, t28974, t4158, t4162, t4165, t572, t573, t670, t7373, t7547, t7553, t7554, t7557, t95405, param_d);
         let tv4rho3sigma1 = mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1224::<f64>(t13226, t13250, t1456, t1458, t1464, t2111, t2118, t26704, t26743, t3, t4154, t4168, t575, t7542, t7560, t95182, t95184, t95186, t95190, t95196, t96628, t96633, t96682);
         v4rho3sigma[ip * 12 + 1] += tv4rho3sigma1;
     }
