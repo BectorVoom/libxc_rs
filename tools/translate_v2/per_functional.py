@@ -80,7 +80,12 @@ _ASSIGN_RE = re.compile(r'^\s*(\w+)\s*=\s*(.*)$')
 # Validated 2026-05-15 against the spike file `crates/kernels/math/tests/
 # spike_cse_emit_q01.rs` (Q4a/b/c) and the q01 canary set.
 _F64_LITERAL_RE = re.compile(
-    r'(?<![A-Za-z_\d.])(\d+\.\d+(?:[eE][+-]?\d+)?)(?![A-Za-z_\d.])'
+    # Decimal-point form: `0.5`, `0.1e-3`, `137.0359996287515`
+    # OR integer-mantissa exponent form: `1e-21`, `2e5` (Phase 11.1-01-fix4 —
+    # Maple translations include exponent-only floats; the original regex
+    # required a decimal point and missed these, surfacing as E0277
+    # "cannot multiply {float} by F" in lda_c_pk09/fxc_pol/part2/chunk517.rs).
+    r'(?<![A-Za-z_\d.])(\d+\.\d+(?:[eE][+-]?\d+)?|\d+[eE][+-]?\d+)(?![A-Za-z_\d.])'
 )
 
 # D-06 long-literal precision-split cutoff. Literals with > this many
@@ -99,6 +104,25 @@ _CHUNK_TO_CHUNK_CALL_RE = re.compile(r'\b([a-z_][a-z_0-9]*_chunk\d+)\(')
 # from biting into a fully-qualified `f64::ln(` or an already-substituted
 # `pow_1_3::<F>(`. The identifier shape is the same as a Rust snake_case fn.
 _HELPER_CALL_RE = re.compile(r'(?<!::)\b([a-z_][a-z_0-9]*)\(')
+
+# Phase 11.1-01 fix1 — family translators (translate_lda_v2 / translate_gga /
+# translate_mgga) emit `name::<f64>(...)` for math/ helper calls because the
+# FLAT emission path needs concrete-f64 turbofish (the flat fn signature is
+# `pub fn ..._pol(rho: &Array<f64>, ...)`, not generic). For the CHUNKED path
+# the same translated line lands inside a `<F: Float>` chunk fn — calling
+# `pow_1_3::<f64>(t1: F)` would fail at any F != f64. This regex picks up the
+# `name::<f64>(` upstream form so the chunked emit can retarget it to
+# `name::<F>(` for every allowlist member.
+_FN_F64_TURBOFISH_RE = re.compile(r'\b([a-z_][a-z_0-9]*)::<f64>\(')
+
+# Phase 11.1-01 fix3 — family translators map C `sqrt`/`log`/`exp`/`atan` etc.
+# to `f64::sqrt(`/`f64::ln(`/`f64::exp(`/`f64::atan(`. Correct for the flat
+# emission path (concrete-f64). Inside a generic `<F: Float>` chunk body,
+# the same call shape fails because `f64::sqrt` expects f64 and the arg is
+# F-typed. CubeCL's `Float` trait exposes associated methods (`F::sqrt`,
+# `F::ln`, `F::exp`, ...) AND associated constants (`F::EPSILON`, `F::MAX`,
+# ...) — retarget all `f64::IDENT` to `F::IDENT` inside chunked bodies.
+_F64_QUALIFIED_RE = re.compile(r'\bf64::([A-Za-z_][A-Za-z_0-9]*)\b')
 
 
 def _significant_digit_count(lit: str) -> int:
@@ -152,7 +176,29 @@ def _wrap_f64_literals_v2(rust_expr: str,
         return f"F::new({lit})"
     out = _F64_LITERAL_RE.sub(_wrap_literal, out)
 
+    # Step D-pre1 — retarget upstream `name::<f64>(` (emitted by family
+    # translators for the flat path) to `name::<F>(` for every allowlist
+    # member. The flat emission stays correct (concrete-f64 wrapper), and
+    # the chunked emission now propagates F as required.
+    def _retarget_f64(m):
+        name = m.group(1)
+        if is_generic_helper_call(name):
+            return f"{name}::<F>("
+        return m.group(0)
+    out = _FN_F64_TURBOFISH_RE.sub(_retarget_f64, out)
+
+    # Step D-pre2 — retarget `f64::IDENT` to `F::IDENT` (Phase 11.1-01 fix3).
+    # Family translators emit `f64::sqrt(`, `f64::ln(`, `f64::EPSILON`, etc.
+    # for the flat path. Chunked bodies use the Float-trait associated method
+    # / constant form (`F::sqrt`, `F::ln`, `F::EPSILON`). This swap is sound
+    # because the chunk body is `<F: Float>` generic and every `f64::IDENT`
+    # in the family-translator math_map has a `Float::IDENT` counterpart in
+    # the CubeCL `Float` trait.
+    out = _F64_QUALIFIED_RE.sub(r'F::\1', out)
+
     # Step D — D-08 native math/ helper turbofish via D-09 allowlist.
+    # Catches any bare allowlist call that did not carry an upstream `::<f64>`
+    # (defensive — translator-emitted form is always `::<f64>` now).
     def _wrap_helper(m):
         name = m.group(1)
         if is_generic_helper_call(name):

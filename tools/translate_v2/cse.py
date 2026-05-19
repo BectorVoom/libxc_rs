@@ -306,6 +306,46 @@ def partition_compute_lines(compute_lines, var_deps, est_line_fn, *,
 
         chunks.append(Chunk(index=idx, lines=lines, inputs=inputs,
                              outputs=outputs, est_lines=est_line_fn(lines)))
+
+    # --- pass 2.5: cross-chunk input/output reconciliation (Phase 11.1-01-fix2)
+    # Bool rematerialization in pass 2 creates NEW refs to non-bool tN vars in
+    # the using chunk (the bool's def line is copied in; its RHS-deps are now
+    # referenced from inside that chunk). Pass-1's `last_use` was computed
+    # before rematerialization, so the DEFINING chunk's outputs may not
+    # include vars that a downstream rematerialized bool def now consumes.
+    # Walk every chunk's inputs and ensure the defining chunk's outputs
+    # include each one. Without this, the wrapper emits `chunkN::<f64>(t213,
+    # ...)` while chunk{N-X} (where t213 is defined) doesn't return t213 —
+    # surfaces as E0425 "cannot find value `t213` in this scope". Bug observed
+    # on gga_c_gaploc/lxc_pol/part18/mod.rs:3079 (and ~1100 other sites).
+
+    # Build `var -> first-defining chunk index` map.
+    chunk_of_def = {}
+    for c in chunks:
+        # Use only the chunk's OWN lines (not rematerialized bool def lines).
+        # The rematerialized lines define bool vars only; bool_vars are
+        # excluded from chunk_of_def by construction (see the `_parse_assign`
+        # + bool_vars filter below).
+        for ln in c.lines:
+            pa = _parse_assign(ln)
+            if pa is None:
+                continue
+            v, _ = pa
+            if v is None or v in bool_vars:
+                continue
+            if v not in chunk_of_def:
+                chunk_of_def[v] = c.index
+
+    # For every chunk's inputs, ensure the defining chunk exports it.
+    for c in chunks:
+        for inp in c.inputs:
+            di = chunk_of_def.get(inp)
+            if di is None or di == c.index:
+                continue
+            defining = chunks[di]
+            if inp not in defining.outputs:
+                defining.outputs.append(inp)
+
     return chunks
 
 

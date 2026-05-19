@@ -194,21 +194,33 @@ full-tree regen entry gate. The carry-forward:
   at 11-06's end-state; chunks that can't compile due to Rule 10 are documented
   as 11-07-blocking, not 11-06-blocking.
 
-**SUPERSEDED 2026-05-19 (Phase 11.1 D-08):** Turbofish at chunk→helper call
-sites is now emitted natively by
-`tools/translate_v2/per_functional.py::_wrap_f64_literals_v2` via the
-`tools/translate_v2/helpers_allowlist.py` hardcoded `GENERIC_HELPERS`
-allowlist. The Deviation E/F post-emit substitution blocks in
-`tools/translate_lda_v2.py`, `tools/translate_gga.py`, and
-`tools/translate_mgga.py` were removed in Phase 11.1 Plan 01 Task 3 (Block A
-reduced to Maple-uppercase → Rust-lowercase name-remap only; Block B deleted
-outright). Rule 10's principle — every chunk→helper call site carries an
-explicit turbofish — stands; only the implementation moved from post-emit
-substitution to native emit. The "11-06 carry-forward to 11-07" language is
-now historical; translator-side native emit lands in 11.1. The wrapper→chunk
-call site at `per_functional.py:367` STAYS `::<f64>` per the Phase 11.1 D-10
-nuance (the wrapper is concrete-f64; chunk→chunk INSIDE chunk bodies is the
-position that propagates `::<F>`).
+**SUPERSEDED 2026-05-19 (Phase 11.1 D-08 + fix1):** Turbofish at chunk→helper
+call sites is now produced by a **two-stage cooperation**:
+
+1. **Family translator stage** (`tools/translate_lda_v2.py`,
+   `tools/translate_gga.py`, `tools/translate_mgga.py`'s `translate_line` —
+   Block A + Block B preserved): every math/ helper call gets `::<f64>`
+   turbofish at emit time. This stage is necessary because the FLAT
+   emission path (small functionals that fit without CSE subdivision)
+   ends up inside a concrete-f64 fn signature (`pub fn ..._pol(rho:
+   &Array<f64>, ...)`) where Rule 9 concrete-caller form requires
+   `::<f64>` against the generic `<F: Float>` math callee.
+2. **Chunked emit retarget stage**
+   (`tools/translate_v2/per_functional.py::_wrap_f64_literals_v2` —
+   `_FN_F64_TURBOFISH_RE` pass): for every CSE-chunked body (which lives
+   inside a generic `<F: Float>` chunk fn), rewrites `name::<f64>(` →
+   `name::<F>(` for every allowlist member (D-09
+   `helpers_allowlist.GENERIC_HELPERS`). The chunk's F generic now
+   propagates correctly through helper calls at any concrete F.
+
+Rule 10's principle — every chunk→helper call site carries an explicit
+turbofish — stands. The two-stage mechanism is a Phase 11.1-01-fix1
+correction over the initial single-stage attempt (which removed Block A/B
+turbofish and produced bare calls on the flat path that failed to
+compile). The wrapper→chunk call site at `per_functional.py` (≈ line 510)
+STAYS `::<f64>` per the Phase 11.1 D-10 nuance (the wrapper is itself
+concrete-f64; chunk→chunk INSIDE chunk bodies is the position that
+propagates `::<F>`).
 
 ### Rule 8 — Non-generic file exclusion list
 
