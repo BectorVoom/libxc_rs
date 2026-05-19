@@ -7,6 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
+use libxc_kernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_kernel_math::constants::{M_PI, M_SQRT2};
 use libxc_kernel_math::lambert_w::{lambert_w};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
@@ -107,7 +108,7 @@ pub fn mgga_x_2d_prhg07_lxc_pol_part0_zk_vrho_vsigma_vlapl_vtau_v2rho2_v2rhosigm
         let t39 = -0.9999999999e0 < t38;
         let t40 = piecewise3::<f64>(t39, t38, -0.9999999999e0);
         let t41 = f64::exp(-1.0);
-        let t43 = lambert_w(t40 * t41);
+        let t43 = lambert_w::<f64>(t40 * t41);
         let t44 = t43 + 1.0;
         let t45 = t44 / 2.0;
         let t46 = xc_bessel_I0::<f64>(t45);
@@ -129,7 +130,7 @@ pub fn mgga_x_2d_prhg07_lxc_pol_part0_zk_vrho_vsigma_vlapl_vtau_v2rho2_v2rhosigm
         let t71 = (lapl1 * t62 / 4.0 - tau1 * t62 + sigma2 * t67 / 8.0) * t37;
         let t72 = -0.9999999999e0 < t71;
         let t73 = piecewise3::<f64>(t72, t71, -0.9999999999e0);
-        let t75 = lambert_w(t73 * t41);
+        let t75 = lambert_w::<f64>(t73 * t41);
         let t76 = t75 + 1.0;
         let t77 = t76 / 2.0;
         let t78 = xc_bessel_I0::<f64>(t77);

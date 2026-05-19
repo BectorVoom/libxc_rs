@@ -6,6 +6,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use cubecl::prelude::*;
+use libxc_kernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_kernel_math::constants::{M_PI, M_SQRT2};
 use libxc_kernel_math::lambert_w::{lambert_w};
 use libxc_kernel_math::piecewise::{piecewise3};
@@ -45,7 +46,7 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t14 = -0.9999999999e0 < t13;
         let t15 = piecewise3::<f64>(t14, t13, -0.9999999999e0);
         let t16 = f64::exp(-1.0);
-        let t18 = lambert_w(t15 * t16);
+        let t18 = lambert_w::<f64>(t15 * t16);
         let t19 = t18 + 1.0;
         let t20 = t19 / 2.0;
         let t21 = xc_bessel_I0::<f64>(t20);
@@ -65,7 +66,7 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t42 = (lapl1 * t33 / 4.0 - t36 + t40) * t12;
         let t43 = -0.9999999999e0 < t42;
         let t44 = piecewise3::<f64>(t43, t42, -0.9999999999e0);
-        let t46 = lambert_w(t44 * t16);
+        let t46 = lambert_w::<f64>(t44 * t16);
         let t47 = t46 + 1.0;
         let t48 = t47 / 2.0;
         let t49 = xc_bessel_I0::<f64>(t48);

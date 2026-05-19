@@ -5,6 +5,7 @@ mod part0;
 mod part1;
 
 use cubecl::prelude::*;
+use libxc_kernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_kernel_math::constants::{M_PI, M_SQRT2};
 use libxc_kernel_math::lambert_w::{lambert_w};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};

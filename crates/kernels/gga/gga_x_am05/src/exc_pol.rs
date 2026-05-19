@@ -84,7 +84,7 @@ pub fn gga_x_am05_exc_pol(
         let t72 = t70 * t59 * t62;
         let t73 = f64::sqrt(t72);
         let t76 = f64::sqrt(6.0);
-        let t79 = lambert_w(t69 * t73 * t72 * t76 / 1728.0);
+        let t79 = lambert_w::<f64>(t69 * t73 * t72 * t76 / 1728.0);
         let t80 = pow_1_3::<f64>(t79);
         let t81 = t80 * t80;
         let t83 = t68 * t68;
@@ -123,7 +123,7 @@ pub fn gga_x_am05_exc_pol(
         let t138 = 1.0 / t116 / rho1;
         let t142 = t70 * t135 * t138;
         let t143 = f64::sqrt(t142);
-        let t148 = lambert_w(t69 * t143 * t142 * t76 / 1728.0);
+        let t148 = lambert_w::<f64>(t69 * t143 * t142 * t76 / 1728.0);
         let t149 = pow_1_3::<f64>(t148);
         let t150 = t149 * t149;
         let t155 = 0.2823705740248932030511071641312341561894e2 + 3.0 / 4.0 * t84 * t149 * t148;

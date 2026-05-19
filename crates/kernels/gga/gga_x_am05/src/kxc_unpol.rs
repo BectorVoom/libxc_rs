@@ -85,7 +85,7 @@ pub fn gga_x_am05_kxc_unpol(
         let t68 = t52 * t54 * t55 * t27 * t60;
         let t69 = f64::sqrt(t68);
         let t72 = f64::sqrt(6.0);
-        let t75 = lambert_w(t64 * t69 * t68 * t72 / 1728.0);
+        let t75 = lambert_w::<f64>(t64 * t69 * t68 * t72 / 1728.0);
         let t76 = pow_1_3::<f64>(t75);
         let t77 = t76 * t76;
         let t83 = 0.2823705740248932030511071641312341561894e2 + 3.0 / 4.0 * t3 * t28 * t76 * t75;

@@ -8,6 +8,8 @@
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::bessel::{xc_bessel_K0, xc_bessel_K1};
+use libxc_kernel_math::integrate::{xc_integrate_lda_soft_func1, xc_integrate_lda_soft_func2};
 
 /// LDA_X_1D_SOFT vxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
@@ -38,8 +40,8 @@ pub fn lda_x_1d_soft_vxc_pol(
         let t15 = t14 * M_PI;
         let t16 = param_beta * t3;
         let t17 = t15 * t16;
-        let t18 = xc_integrate(func1, NULL, 0.0, t17);
-        let t20 = xc_integrate(func2, NULL, 0.0, t17);
+        let t18 = xc_integrate_lda_soft_func1::<f64>(t17);
+        let t20 = xc_integrate_lda_soft_func2::<f64>(t17);
         let t21 = 1.0 / M_PI;
         let t22 = t20 * t21;
         let t23 = 1.0 / param_beta;
@@ -50,8 +52,8 @@ pub fn lda_x_1d_soft_vxc_pol(
         let t33 = 1.0 + t32;
         let t34 = t33 * M_PI;
         let t35 = t34 * t16;
-        let t36 = xc_integrate(func1, NULL, 0.0, t35);
-        let t38 = xc_integrate(func2, NULL, 0.0, t35);
+        let t36 = xc_integrate_lda_soft_func1::<f64>(t35);
+        let t38 = xc_integrate_lda_soft_func2::<f64>(t35);
         let t39 = t38 * t21;
         let t44 = piecewise3::<f64>(t31, 0.0, -0.07957747154594767 * (-t39 * t24 + t33 * t36) * t23);
         let tzk0 = t29 + t44;

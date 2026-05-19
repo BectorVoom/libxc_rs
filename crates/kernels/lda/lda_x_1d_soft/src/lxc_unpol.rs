@@ -8,6 +8,8 @@
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::bessel::{xc_bessel_K0, xc_bessel_K1};
+use libxc_kernel_math::integrate::{xc_integrate_lda_soft_func1, xc_integrate_lda_soft_func2};
 
 /// LDA_X_1D_SOFT lxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
@@ -31,8 +33,8 @@ pub fn lda_x_1d_soft_lxc_unpol(
         let t7 = piecewise5::<f64>(t3, t5, t3, -t5, 0.0);
         let t8 = 1.0 + t7;
         let t11 = t8 * M_PI * param_beta * rho[ip];
-        let t12 = xc_integrate(func1, NULL, 0.0, t11);
-        let t14 = xc_integrate(func2, NULL, 0.0, t11);
+        let t12 = xc_integrate_lda_soft_func1::<f64>(t11);
+        let t14 = xc_integrate_lda_soft_func2::<f64>(t11);
         let t15 = 1.0 / M_PI;
         let t16 = t14 * t15;
         let t17 = 1.0 / param_beta;
@@ -49,13 +51,13 @@ pub fn lda_x_1d_soft_lxc_unpol(
         let tvrho0 = 2.0 * rho[ip] * t32 + 2.0 * t24;
         vrho[ip] += tvrho0;
         let t36 = t8 * t8;
-        let t37 = xc_bessel_K0( t11);
+        let t37 = xc_bessel_K0::<f64>( t11);
         let t38 = t36 * t37;
         let t42 = 1.0 / t27 / rho[ip];
         let t47 = piecewise3::<f64>(t4, 0.0, -0.5 * t38 * t18 + 0.15915494309189535 * t16 * t26 * t42);
         let tv2rho20 = 2.0 * rho[ip] * t47 + 4.0 * t32;
         v2rho2[ip] += tv2rho20;
-        let t52 = xc_bessel_K1( t11);
+        let t52 = xc_bessel_K1::<f64>( t11);
         let t53 = t36 * t8 * t52;
         let t54 = M_PI * param_beta;
         let t60 = t27 * t27;

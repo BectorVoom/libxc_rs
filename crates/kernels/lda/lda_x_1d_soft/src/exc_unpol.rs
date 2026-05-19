@@ -8,6 +8,8 @@
 use cubecl::prelude::*;
 use libxc_kernel_math::constants::{M_PI};
 use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::bessel::{xc_bessel_K0, xc_bessel_K1};
+use libxc_kernel_math::integrate::{xc_integrate_lda_soft_func1, xc_integrate_lda_soft_func2};
 
 /// LDA_X_1D_SOFT exc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
@@ -27,8 +29,8 @@ pub fn lda_x_1d_soft_exc_unpol(
         let t7 = piecewise5::<f64>(t3, t5, t3, -t5, 0.0);
         let t8 = 1.0 + t7;
         let t11 = t8 * M_PI * param_beta * rho[ip];
-        let t12 = xc_integrate(func1, NULL, 0.0, t11);
-        let t14 = xc_integrate(func2, NULL, 0.0, t11);
+        let t12 = xc_integrate_lda_soft_func1::<f64>(t11);
+        let t14 = xc_integrate_lda_soft_func2::<f64>(t11);
         let t15 = 1.0 / M_PI;
         let t16 = t14 * t15;
         let t17 = 1.0 / param_beta;
