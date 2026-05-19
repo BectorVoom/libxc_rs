@@ -9,15 +9,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk404<F: Float>(t1672: F, t538: F, t132: F, t242: F, t142: F, t550: F, t546: F, t1684: F, t1735: F, t1666: F, t1669: F, t1905: F, t309: F, t633: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t2019 = F::new(0.7380249726277691) * t538 * t1672;
+    let t2019 = F::cast_from(0.7380249726277691_f64) * t538 * t1672;
     let t2020 = t242 * t132;
     let t2021 = t142 * t2020;
-    let t2023 = F::new(2.3693919160612835) * t550 * t2021;
-    let t2025 = F::new(0.8091720650647759) * t546 * t1672;
-    let t2026 = F::new(0.10237773105191754) * t1684;
-    let t2027 = F::new(0.03412591035063918) * t1735;
-    let t2029 = F::new(0.04991874779241519) * t1666;
-    let t2030 = F::new(0.01233429741534199) * t1669;
+    let t2023 = F::cast_from(2.3693919160612835_f64) * t550 * t2021;
+    let t2025 = F::cast_from(0.8091720650647759_f64) * t546 * t1672;
+    let t2026 = F::cast_from(0.10237773105191754_f64) * t1684;
+    let t2027 = F::cast_from(0.03412591035063918_f64) * t1735;
+    let t2029 = F::cast_from(0.04991874779241519_f64) * t1666;
+    let t2030 = F::cast_from(0.01233429741534199_f64) * t1669;
     let t2032 = t309 * t1905 * t633;
     (t2019, t2021, t2023, t2025, t2026, t2027, t2029, t2030, t2032)
 }

@@ -15,6 +15,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1263<F: Float>(t114: F, t13
     let t21894 = t5314 * t1799;
     let t21897 = t1830 * t4674;
     let t21900 = t18690 * t21011;
-    let t21907 = piecewise3::<f64>(t115, F::new(0.0), t18622 + F::new(4.0) / F::new(3.0) * t19588 + t21185 / F::new(2.0) - t21187 / F::new(4.0));
+    let t21907 = piecewise3::<F>(t115, F::new(0.0), t18622 + F::new(4.0) / F::new(3.0) * t19588 + t21185 / F::new(2.0) - t21187 / F::new(4.0));
     (t21880, t21883, t21894, t21897, t21900, t21907)
 }

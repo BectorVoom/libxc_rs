@@ -13,6 +13,6 @@ pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk625<F: Float>(t12: F, t3505: F, 
     let t3507 = t3505 + t3506;
     let t3510 = t1837 * t3363;
     let t3512 = t652 * t3366;
-    let t3515 = piecewise3::<f64>(t84, F::new(0.0), F::new(4.0) / F::new(9.0) * t3510 - t3512 / F::new(3.0));
+    let t3515 = piecewise3::<F>(t84, F::new(0.0), F::new(4.0) / F::new(9.0) * t3510 - t3512 / F::new(3.0));
     (t3507, t3510, t3512, t3515)
 }

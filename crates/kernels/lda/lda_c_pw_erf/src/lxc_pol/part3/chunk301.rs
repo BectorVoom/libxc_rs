@@ -11,10 +11,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk301<F: Float>(t973: F, t991: F, t31: F, t4: F, t474: F, t155: F, t318: F, t174: F, t335: F, t379: F, t378: F, t80: F) -> (F, F, F, F, F, F) {
     let t992 = t973 * t991;
     let t996 = t4 * t474 * t31;
-    let t997 = F::new(0.0014764770444444443) * t996;
+    let t997 = F::cast_from(0.0014764770444444443_f64) * t996;
     let t998 = t155 * t318;
     let t1000 = t174 * t998 * t335;
-    let t1001 = F::new(0.035616666666666665) * t1000;
+    let t1001 = F::cast_from(0.035616666666666665_f64) * t1000;
     let t1005 = t155 * t379;
     let t1009 = t378 * t80;
     (t992, t997, t998, t1001, t1005, t1009)

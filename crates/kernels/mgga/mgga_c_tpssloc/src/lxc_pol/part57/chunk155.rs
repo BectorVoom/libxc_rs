@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk155<F: Float>(t547: F, t68: F, t546: F) -> (F, F) {
     let t548 = t68 * t547;
-    let t550 = f64::exp(-t546 * t548);
+    let t550 = F::exp(-t546 * t548);
     (t548, t550)
 }

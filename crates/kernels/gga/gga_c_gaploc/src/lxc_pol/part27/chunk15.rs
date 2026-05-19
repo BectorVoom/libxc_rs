@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk15<F: Float>(t21: F, t23: F, t5: F, t11: F, t14: F, t17: F, t13: F) -> (F, F, F, F, F) {
     let t25 = t21 * t5 * t23;
     let t27 = F::new(0.379785e1) * t14 + F::new(0.8969e0) * t11 + F::new(0.204775e0) * t17 + F::new(0.123235e0) * t25;
-    let t30 = F::new(1.0) + F::new(0.16081824322151104822e2) / t27;
-    let t31 = f64::ln(t30);
+    let t30 = F::new(1.0) + F::cast_from(0.16081824322151104822e2_f64) / t27;
+    let t31 = F::ln(t30);
     let t33 = F::new(0.62182e-1) * t13 * t31;
     (t25, t27, t30, t31, t33)
 }

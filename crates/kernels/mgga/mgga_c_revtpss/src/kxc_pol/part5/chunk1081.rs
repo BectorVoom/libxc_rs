@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_kxc_pol_part5_v3rho3_2_chunk1081<F: Float>(t14732: F, t2484: F, t2652: F, t4435: F, t4343: F, t854: F, t236: F, t807: F, t221: F, t4433: F, t10703: F, t2674: F) -> (F, F, F, F) {
-    let t14734 = F::new(0.25410001404642664112e-4) * t2484 * t14732;
-    let t14736 = F::new(0.40015750243531754508e-1) * t2652 * t4435;
+    let t14734 = F::cast_from(0.25410001404642664112e-4_f64) * t2484 * t14732;
+    let t14736 = F::cast_from(0.40015750243531754508e-1_f64) * t2652 * t4435;
     let t14741 = t854 * t4343;
     let t14742 = t236 * t14741;
-    let t14744 = F::new(0.57165357490759649296e-4) * t807 * t14742;
+    let t14744 = F::cast_from(0.57165357490759649296e-4_f64) * t807 * t14742;
     let t14756 = t221 * t4433;
     let t14757 = t10703 * t14756;
-    let t14759 = F::new(0.50820002809285328225e-3) * t2674 * t14757;
+    let t14759 = F::cast_from(0.50820002809285328225e-3_f64) * t2674 * t14757;
     (t14734, t14736, t14744, t14759)
 }

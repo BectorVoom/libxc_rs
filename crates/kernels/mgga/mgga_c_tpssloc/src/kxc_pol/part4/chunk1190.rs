@@ -11,10 +11,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk1190<F: Float>(t25: F, t3701: F, t6463: F, t15909: F, t5127: F, t5187: F, t11987: F, t6305: F, t3704: F, t5397: F, t1298: F, t16557: F, t2219: F, t5170: F, t606: F, zeta_threshold: F) -> (F, F, F, F) {
     let t26 = t25 <= zeta_threshold;
     let t19596 = t6463 * t3701;
-    let t19599 = F::new(0.21687162600603479684e-1) * t15909;
+    let t19599 = F::cast_from(0.21687162600603479684e-1_f64) * t15909;
     let t19603 = t5127 * t5187;
     let t19606 = t11987 * t6305;
     let t19611 = t3704 * t5397;
-    let t19617 = piecewise3::<f64>(t26, F::new(0.0), F::new(8.0) / F::new(27.0) * t19606 * t606 - F::new(8.0) / F::new(9.0) * t5170 * t2219 - F::new(2.0) / F::new(9.0) * t19611 * t606 + F::new(2.0) / F::new(3.0) * t1298 * t16557);
+    let t19617 = piecewise3::<F>(t26, F::new(0.0), F::new(8.0) / F::new(27.0) * t19606 * t606 - F::new(8.0) / F::new(9.0) * t5170 * t2219 - F::new(2.0) / F::new(9.0) * t19611 * t606 + F::new(2.0) / F::new(3.0) * t1298 * t16557);
     (t19596, t19599, t19603, t19617)
 }

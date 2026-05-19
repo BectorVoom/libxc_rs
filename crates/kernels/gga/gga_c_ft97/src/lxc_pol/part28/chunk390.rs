@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk390<F: Float>(t140: F, t5841: F) -> F {
     let t141 = F::new(0.1e-59) < t140;
-    let t5842 = piecewise3::<f64>(t141, t5841, F::new(0.0));
+    let t5842 = piecewise3::<F>(t141, t5841, F::new(0.0));
     t5842
 }

@@ -13,6 +13,6 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk234<F: Float>(t79: F, t409: F, t9
     let t80 = F::new(0.1e-59) < t79;
     let t939 = t409 * t938;
     let t940 = t64 * t939;
-    let t942 = piecewise3::<f64>(t80, -F::new(0.11627450473218896e-1) * t372 * t931 - t940, F::new(0.0));
+    let t942 = piecewise3::<F>(t80, -F::cast_from(0.11627450473218896e-1_f64) * t372 * t931 - t940, F::new(0.0));
     t942
 }

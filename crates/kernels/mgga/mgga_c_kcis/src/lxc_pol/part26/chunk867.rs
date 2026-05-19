@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk867<F: Float>(t174: F, t2641: F, t6284: F, t176: F, t18431: F, t20840: F, t2633: F, t4518: F, t833: F, t20839: F, t44: F, t1489: F, t4163: F, zeta_threshold: F) -> (F, F) {
     let t175 = t174 <= zeta_threshold;
     let t20845 = t2641 * t6284;
-    let t20851 = piecewise3::<f64>(t175, F::new(0.0), -F::new(8.0) / F::new(27.0) * t20840 * t833 - F::new(16.0) / F::new(9.0) * t4518 * t2633 + F::new(4.0) / F::new(9.0) * t20845 * t833 + F::new(4.0) / F::new(3.0) * t176 * t18431);
+    let t20851 = piecewise3::<F>(t175, F::new(0.0), -F::new(8.0) / F::new(27.0) * t20840 * t833 - F::new(16.0) / F::new(9.0) * t4518 * t2633 + F::new(4.0) / F::new(9.0) * t20845 * t833 + F::new(4.0) / F::new(3.0) * t176 * t18431);
     let t20853 = (t20839 + t20851) * t44;
     let t20873 = t4163 * t6284 * t1489;
     (t20853, t20873)

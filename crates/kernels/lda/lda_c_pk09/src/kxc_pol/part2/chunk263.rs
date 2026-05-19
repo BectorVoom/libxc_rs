@@ -12,6 +12,6 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk263<F: Float>(t1180: F, t1185: F, 
     let t1186 = t1180 * t1185;
     let t1189 = t1153 - t1164 + F::new(1.28) * t253 * t1175 - F::new(1.28) * t253 * t1186;
     let t1190 = t275 * t1189;
-    let t1191 = f64::ln(zeta_threshold);
+    let t1191 = F::ln(zeta_threshold);
     (t1186, t1189, t1190, t1191)
 }

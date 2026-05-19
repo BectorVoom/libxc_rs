@@ -8,20 +8,20 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk35<F: Float>(t24: F, t81: F, t80: F, t71: F, t74: F, t77: F, t45: F, t67: F, t73: F, t10: F, t64: F, t41: F) -> (F, F, F, F, F, F, F, F, F, F) {
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk35<F: Float>(t24: F, t81: F, t80: F, t71: F, t74: F, t77: F, t45: F, t67: F, t73: F, t10: F, t64: F, t41: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t82 = t81 * t24;
     let t83 = t80 * t82;
     let t85 = F::new(0.379785e1) * t74 + F::new(0.8969e0) * t71 + F::new(0.204775e0) * t77 + F::new(0.123235e0) * t83;
-    let t88 = F::new(1.0) + F::new(0.16081824322151104822e2) / t85;
-    let t89 = f64::ln(t88);
+    let t88 = F::new(1.0) + F::cast_from(0.16081824322151104822e2_f64) / t85;
+    let t89 = F::ln(t88);
     let t93 = F::new(1.0) + F::new(0.278125e-1) * t71;
     let t98 = F::new(0.51785e1) * t74 + F::new(0.905775e0) * t71 + F::new(0.1100325e0) * t77 + F::new(0.1241775e0) * t83;
-    let t101 = F::new(1.0) + F::new(0.29608574643216675549e2) / t98;
-    let t102 = f64::ln(t101);
-    let t107 = t67 * (-F::new(0.62182e-1) * t73 * t89 + F::new(0.19751789702565206229e-1) * t45 * t93 * t102);
+    let t101 = F::new(1.0) + F::cast_from(0.29608574643216675549e2_f64) / t98;
+    let t102 = F::ln(t101);
+    let t107 = t67 * (-F::new(0.62182e-1) * t73 * t89 + F::cast_from(0.19751789702565206229e-1_f64) * t45 * t93 * t102);
     let t110 = F::new(10.0) / F::new(9.0) * t64 * t107 * t10;
     let t111 = t110 < -F::new(0.66725e-1);
-    let t113 = piecewise3::<f64>(t111, F::new(0.0), F::new(0.66725e-1) + t110);
+    let t113 = piecewise3::<F>(t111, F::new(0.0), F::new(0.66725e-1) + t110);
     let t114 = t113 * t41;
-    (t83, t85, t88, t89, t93, t98, t101, t102, t107, t114)
+    (t83, t85, t88, t89, t93, t98, t101, t102, t107, t114, t110)
 }

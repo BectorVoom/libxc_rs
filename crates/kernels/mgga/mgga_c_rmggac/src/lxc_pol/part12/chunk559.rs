@@ -12,7 +12,7 @@ pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk559<F: Float>(t236: F, t7
     let t7462 = t236 * t7461;
     let t7463 = t7231 * t7462;
     let t7464 = t1970 * t7463;
-    let t7465 = F::new(0.85129199786595678796e-5) * t7464;
+    let t7465 = F::cast_from(0.85129199786595678796e-5_f64) * t7464;
     let t7467 = t321 * t476 * t209;
     (t7463, t7465, t7467)
 }

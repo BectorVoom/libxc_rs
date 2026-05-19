@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk707<F: Float>(t28: F, t528: F,
     let t29 = t28 <= zeta_threshold;
     let t3672 = F::new(1.0) / t528;
     let t3673 = t1081 * t1081;
-    let t3679 = piecewise3::<f64>(t29, F::new(0.0), F::new(4.0) / F::new(9.0) * t3672 * t3673 + F::new(4.0) / F::new(3.0) * t517 * t3231);
+    let t3679 = piecewise3::<F>(t29, F::new(0.0), F::new(4.0) / F::new(9.0) * t3672 * t3673 + F::new(4.0) / F::new(3.0) * t517 * t3231);
     let t3681 = (t3671 + t3679) * t157;
     (t3672, t3673, t3681)
 }

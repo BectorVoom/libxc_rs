@@ -12,8 +12,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk997<F: Float>(t25: F, t
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
     let t395 = t265 < t394;
-    let t115100 = piecewise3::<f64>(t395, F::new(0.0), t115099);
-    let t115107 = piecewise3::<f64>(t115, t114991 + t115040, t115100 * t40 / F::new(2.0) + t31478 * t607 + t8580 * t2250 / F::new(2.0));
+    let t115100 = piecewise3::<F>(t395, F::new(0.0), t115099);
+    let t115107 = piecewise3::<F>(t115, t114991 + t115040, t115100 * t40 / F::new(2.0) + t31478 * t607 + t8580 * t2250 / F::new(2.0));
     let t115143 = -F::new(3.0) / F::new(2.0) * t24191 * t23788 * t115000 + F::new(3.0) * t4314 * t8566 * t23781 - t1877 * t84791 * t8586 / F::new(2.0) - t1877 * t31434 * t23810 - F::new(3.0) * t24191 * t83555 * t31441 - F::new(3.0) * t115009 * t23789 - F::new(3.0) * t26756 * t89953 * t115012 - t1877 * t7114 * t113751 + F::new(2.0) * t26756 * t113764 + F::new(2.0) * t26756 * t89849 * t31448 - F::new(3.0) * t26563 * t23788 * t114977 - t1877 * t24339 * t31504 - F::new(3.0) * t24191 * t113772 + t1877 * t31430 * t1081;
     (t115107, t115143)
 }

@@ -13,10 +13,10 @@ pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk207<F: Float>(t53: F, t
     let t61 = t60 <= zeta_threshold;
     let t1395 = t912 * t521;
     let t1398 = t57 * t50;
-    let t1402 = piecewise3::<f64>(t54, F::new(0.0), F::new(4.0) / F::new(9.0) * t1395 * t280 + F::new(8.0) / F::new(3.0) * t1398 * t814);
+    let t1402 = piecewise3::<F>(t54, F::new(0.0), F::new(4.0) / F::new(9.0) * t1395 * t280 + F::new(8.0) / F::new(3.0) * t1398 * t814);
     let t1403 = t921 * t525;
     let t1406 = t62 * t50;
-    let t1410 = piecewise3::<f64>(t61, F::new(0.0), F::new(4.0) / F::new(9.0) * t1403 * t284 - F::new(8.0) / F::new(3.0) * t1406 * t814);
+    let t1410 = piecewise3::<F>(t61, F::new(0.0), F::new(4.0) / F::new(9.0) * t1403 * t284 - F::new(8.0) / F::new(3.0) * t1406 * t814);
     let t1411 = t1402 + t1410;
     let t1412 = t1411 * t68;
     let t1413 = t1412 * t183;

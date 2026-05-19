@@ -9,12 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk516<F: Float>(t7403: F, t959: F, t7340: F, t3281: F, t5676: F, t2530: F, t2610: F, t2365: F, t2033: F, t1645: F, t2586: F, t3307: F, t9420: F) -> (F, F, F, F, F, F) {
-    let t9935 = F::new(0.29792074959875355558e-1) * t7403 * t959;
-    let t9937 = F::new(0.29792074959875355558e-1) * t7340 * t959;
-    let t9942 = F::new(0.29792074959875355558e-1) * t5676 * t3281;
+    let t9935 = F::cast_from(0.29792074959875355558e-1_f64) * t7403 * t959;
+    let t9937 = F::cast_from(0.29792074959875355558e-1_f64) * t7340 * t959;
+    let t9942 = F::cast_from(0.29792074959875355558e-1_f64) * t5676 * t3281;
     let t9943 = t2610 * t2530;
     let t9944 = t2365 * t9943;
-    let t9946 = F::new(0.29792074959875355558e-1) * t2033 * t9944;
+    let t9946 = F::cast_from(0.29792074959875355558e-1_f64) * t2033 * t9944;
     let t9972 = t1645 * t2586;
     let t9981 = t9420 * t3307;
     (t9935, t9937, t9942, t9946, t9972, t9981)

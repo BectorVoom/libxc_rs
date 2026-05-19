@@ -12,6 +12,6 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk854<F: Float>(t2060: F, t
     let t9033 = t2060 * t3033;
     let t9034 = t9033 * t2062;
     let t9036 = t2823 * t7902;
-    let t9038 = -t4695 - t4880 + t6946 - t8545 - F::new(0.675260332e-1) * t9034 - F::new(0.1350520664e0) * t9036 + t6948 + t4891 - t4703 - t6951 - t8547;
+    let t9038 = -t4695 - t4880 + t6946 - t8545 - F::cast_from(0.675260332e-1_f64) * t9034 - F::cast_from(0.1350520664e0_f64) * t9036 + t6948 + t4891 - t4703 - t6951 - t8547;
     t9038
 }

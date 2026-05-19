@@ -11,6 +11,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk176<F: Float>(t453: F, t454: F, t36: F, t452: F) -> (F, F, F) {
     let t455 = t453 * t454;
     let t456 = t36 * t455;
-    let t458 = t452 + F::new(0.0018891666666666666) * t456;
+    let t458 = t452 + F::cast_from(0.0018891666666666666_f64) * t456;
     (t455, t456, t458)
 }

@@ -16,7 +16,7 @@ pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk904<F: Float>(t45: F, t
     let t23127 = F::new(36.0) * t18540;
     let t23128 = F::new(12.0) * t18545;
     let t23129 = F::new(24.0) * t18547;
-    let t23130 = F::new(0.32530743900905219526e-1) * t14363;
-    let t23138 = piecewise3::<f64>(t151, F::new(0.0), F::new(8.0) / F::new(27.0) * t633 * t22688 - F::new(2.0) / F::new(3.0) * t4328 * t5825 + F::new(2.0) / F::new(3.0) * t766 * t22671);
+    let t23130 = F::cast_from(0.32530743900905219526e-1_f64) * t14363;
+    let t23138 = piecewise3::<F>(t151, F::new(0.0), F::new(8.0) / F::new(27.0) * t633 * t22688 - F::new(2.0) / F::new(3.0) * t4328 * t5825 + F::new(2.0) / F::new(3.0) * t766 * t22671);
     (t23123, t23124, t23127, t23128, t23129, t23130, t23138)
 }

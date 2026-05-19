@@ -14,7 +14,7 @@ pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk1078<F: Float>(t3073: F, t831: F
     let t12294 = F::new(48.0) * t1842 * t642;
     let t12304 = t5375 * t591;
     let t12306 = t5378 * t4111;
-    let t12307 = 2e-21 * t12306;
+    let t12307 = F::new(2e-21) * t12306;
     let t12308 = t5382 * t591;
     (t12278, t12281, t12294, t12304, t12307, t12308)
 }

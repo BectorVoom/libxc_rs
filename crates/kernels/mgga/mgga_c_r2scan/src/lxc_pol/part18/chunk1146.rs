@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk1146<F: Float>(t322: F, t42521: F, t42546: F, t1013: F, t11063: F, t11066: F, t11897: F, t2394: F, t2400: F, t2941: F, t2944: F, t327: F, t3373: F, t37020: F, t37023: F, t40764: F, t40770: F, t42478: F, t829: F, t834: F, t9676: F, t9687: F, t9690: F) -> (F, F) {
     let t324 = F::new(0.0) < t322;
     let t42547 = t42521 + t42546;
-    let t42548 = piecewise3::<f64>(t324, F::new(0.0), t42547);
+    let t42548 = piecewise3::<F>(t324, F::new(0.0), t42547);
     let t42559 = -F::new(0.128e1) * t42478 * t829 - F::new(0.256e1) * t40764 * t1013 - F::new(0.256e1) * t11897 * t2394 - F::new(0.384e1) * t37020 * t2944 - F::new(0.128e1) * t11063 * t2941 - F::new(0.128e1) * t3373 * t9676 - F::new(0.64e0) * t834 * t42548 - F::new(0.64e0) * t42548 * t327 - F::new(0.768e1) * t40770 * t2400 - F::new(0.768e1) * t11066 * t9690 - F::new(0.1536e2) * t37023 * t9687;
     (t42547, t42559)
 }

@@ -9,9 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk903<F: Float>(t18442: F, t470: F, t4800: F, t174: F, t388: F, t405: F, t837: F, t1290: F, t1294: F, t331: F, t1305: F, t1314: F, t1319: F) -> (F, F, F, F) {
-    let t18445 = F::new(0.69263023597503453196e2) * t470 * t4800 * t18442;
-    let t18452 = F::new(0.22161481481481481481e0) * t174 * t837 * t388 * t405;
-    let t18456 = F::new(0.2291123905095794067e1) * t174 * t331 * t1290 * t1294;
-    let t18460 = F::new(0.21053604230838734656e2) * t470 * t1319 * t1314 * t1305;
+    let t18445 = F::cast_from(0.69263023597503453196e2_f64) * t470 * t4800 * t18442;
+    let t18452 = F::cast_from(0.22161481481481481481e0_f64) * t174 * t837 * t388 * t405;
+    let t18456 = F::cast_from(0.2291123905095794067e1_f64) * t174 * t331 * t1290 * t1294;
+    let t18460 = F::cast_from(0.21053604230838734656e2_f64) * t470 * t1319 * t1314 * t1305;
     (t18445, t18452, t18456, t18460)
 }

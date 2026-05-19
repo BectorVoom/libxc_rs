@@ -15,7 +15,7 @@ pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk799<F: Float>(t7244: F, t
     let t38965 = t7921 * t2283;
     let t38967 = t8675 * t2185;
     let t38968 = t38967 * t1997;
-    let t38969 = F::new(0.24829349937757072982e-4) * t38968;
+    let t38969 = F::cast_from(0.24829349937757072982e-4_f64) * t38968;
     let t38973 = t1540 * t880;
     (t38934, t38943, t38946, t38965, t38967, t38969, t38973)
 }

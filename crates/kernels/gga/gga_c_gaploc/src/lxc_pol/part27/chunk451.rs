@@ -13,10 +13,10 @@ pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk451<F: Float>(t213: F, t
     let t219 = t218 <= zeta_threshold;
     let t2214 = t1654 * t847;
     let t2217 = t215 * t211;
-    let t2221 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2214 * t608 + F::new(8.0) / F::new(3.0) * t2217 * t408);
+    let t2221 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2214 * t608 + F::new(8.0) / F::new(3.0) * t2217 * t408);
     let t2222 = t1666 * t851;
     let t2225 = t220 * t211;
-    let t2229 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2222 * t612 - F::new(8.0) / F::new(3.0) * t2225 * t408);
+    let t2229 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2222 * t612 - F::new(8.0) / F::new(3.0) * t2225 * t408);
     let t2231 = (t2221 + t2229) * t43;
     let t2264 = t894 * t448;
     (t2231, t2264)

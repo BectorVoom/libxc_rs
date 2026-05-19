@@ -13,7 +13,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk476<F: Float>(t1: F, 
     let t1997 = t1996 * t672;
     let t1999 = t225 * t677;
     let t2000 = t10 * t1999;
-    let t2002 = F::new(0.21642082724729686754e0) * t670 * t2000;
+    let t2002 = F::cast_from(0.21642082724729686754e0_f64) * t670 * t2000;
     let t2003 = t711 * t20;
     let t2004 = t245 * t671;
     (t1996, t1997, t1999, t2000, t2002, t2003, t2004)

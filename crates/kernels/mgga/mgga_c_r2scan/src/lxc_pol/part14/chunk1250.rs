@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1250<F: Float>(t322: F, t41940: F, t41971: F, t42003: F, t42035: F, t42067: F, t42098: F, t42131: F, t12029: F, t37271: F, t12094: F, t37282: F, t12215: F, t40549: F) -> (F, F, F, F) {
     let t323 = t322 <= F::new(0.0);
     let t331 = t322 <= F::new(0.25e1);
-    let t42133 = piecewise5::<f64>(t323, t41940, t331, t41971 + t42003 + t42035 + t42067, t42098 + t42131);
+    let t42133 = piecewise5::<F>(t323, t41940, t331, t41971 + t42003 + t42035 + t42067, t42098 + t42131);
     let t42136 = F::new(5.0) / F::new(8.0) * t37271 * t12029;
     let t42138 = F::new(15.0) / F::new(8.0) * t37282 * t12094;
     let t42140 = F::new(3.0) * t40549 * t12215;

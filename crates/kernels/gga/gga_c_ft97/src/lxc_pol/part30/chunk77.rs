@@ -13,6 +13,6 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk77<F: Float>(t2: F, t295: 
     let t302 = t295 * t2;
     let t303 = t192 * t302;
     let t304 = t92 * t303;
-    let t305 = f64::sqrt(t304);
+    let t305 = F::sqrt(t304);
     (t303, t304, t305)
 }

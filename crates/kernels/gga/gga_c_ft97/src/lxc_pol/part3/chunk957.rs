@@ -10,9 +10,9 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk957<F: Float>(t245: F, t18759: F, t18772: F, t1178: F, t18: F, t15625: F, t1577: F, t21: F, t267: F, t363: F, t4011: F, t4431: F, t5: F, t5186: F, t776: F, t920: F) -> F {
-    let t246 = F::new(10000000.0) <= t245;
+    let t246 = F::cast_from(10000000.0_f64) <= t245;
     let t18773 = t18759 + t18772;
     let t18783 = t1178 * t18;
-    let t18793 = piecewise3::<f64>(t246, F::new(0.0), t5 * t18773 * t21 / F::new(4.0) + t5 * t5186 * t363 / F::new(4.0) + t5 * t4011 * t920 / F::new(2.0) + t5 * t18783 * t1577 + t5 * t776 * t4431 / F::new(4.0) + t5 * t267 * t15625 / F::new(4.0));
+    let t18793 = piecewise3::<F>(t246, F::new(0.0), t5 * t18773 * t21 / F::new(4.0) + t5 * t5186 * t363 / F::new(4.0) + t5 * t4011 * t920 / F::new(2.0) + t5 * t18783 * t1577 + t5 * t776 * t4431 / F::new(4.0) + t5 * t267 * t15625 / F::new(4.0));
     t18793
 }

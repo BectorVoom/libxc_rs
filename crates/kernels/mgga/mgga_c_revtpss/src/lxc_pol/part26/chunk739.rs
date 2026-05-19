@@ -15,7 +15,7 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk739<F: Float>(t9484: F, 
     let t9547 = t4135 * t1450;
     let t9551 = t3850 * t177;
     let t9552 = t9551 * t762;
-    let t9553 = F::new(0.17544670867903938621e1) * t9552;
+    let t9553 = F::cast_from(0.17544670867903938621e1_f64) * t9552;
     let t9554 = t3850 * t749;
     let t9555 = t512 * t9554;
     let t9556 = F::new(3.0) * t9555;

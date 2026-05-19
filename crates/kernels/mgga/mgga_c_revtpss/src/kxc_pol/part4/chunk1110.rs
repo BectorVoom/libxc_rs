@@ -15,6 +15,6 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1110<F: Float>(t30: F, t5566: 
     let t13683 = F::new(48.0) * t9856;
     let t13687 = t9605 * t1468;
     let t13690 = t3874 * t2;
-    let t13700 = piecewise3::<f64>(t31, F::new(0.0), F::new(8.0) / F::new(27.0) * t13687 * t3834 - F::new(8.0) / F::new(9.0) * t13690 * t13554 - F::new(2.0) / F::new(9.0) * t5574 * t2257 + F::new(4.0) / F::new(3.0) * t1344 * t580 - F::new(4.0) * t5577 * t22);
+    let t13700 = piecewise3::<F>(t31, F::new(0.0), F::new(8.0) / F::new(27.0) * t13687 * t3834 - F::new(8.0) / F::new(9.0) * t13690 * t13554 - F::new(2.0) / F::new(9.0) * t5574 * t2257 + F::new(4.0) / F::new(3.0) * t1344 * t580 - F::new(4.0) * t5577 * t22);
     (t13682, t13683, t13700)
 }

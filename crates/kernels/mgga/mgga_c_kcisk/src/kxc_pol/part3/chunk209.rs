@@ -19,7 +19,7 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk209<F: Float>(t135: F, t60: F, t
     let t866 = F::new(1.0) / t74 * t41 * t2;
     let t867 = t866 * t818;
     let t869 = t68 * t818;
-    let t871 = f64::sqrt(t71);
+    let t871 = F::sqrt(t71);
     let t873 = t871 * t41 * t2;
     let t874 = t873 * t818;
     (t854, t855, t856, t857, t861, t862, t863, t866, t867, t869, t873, t874)

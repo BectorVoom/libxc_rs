@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk143<F: Float>(t221: F, 
     let t467 = t221 * t458;
     let t470 = t466 * t225;
     let t471 = t470 * t68;
-    let t475 = f64::exp(-(-t425 + t453 + t455) * t225 * t358);
+    let t475 = F::exp(-(-t425 + t453 + t455) * t225 * t358);
     (t467, t470, t471, t475)
 }

@@ -13,7 +13,7 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk267<F: Float>(t44: F, t1196: F, t1
     let t1198 = t1196 * t1197;
     let t1201 = t1189 * t1193 + F::new(1.28) * t1195 * t1198;
     let t1202 = t276 * t1201;
-    let t1203 = piecewise3::<f64>(t45, t1192, t1202);
-    let t1204 = f64::ln(t51);
+    let t1203 = piecewise3::<F>(t45, t1192, t1202);
+    let t1204 = F::ln(t51);
     (t1202, t1203, t1204)
 }

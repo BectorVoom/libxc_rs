@@ -13,8 +13,8 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk290<F: Float>(t44: F, t51
     let t52 = t51 <= zeta_threshold;
     let t927 = t538 * t921;
     let t928 = t529 * t927;
-    let t933 = piecewise3::<f64>(t45, F::new(0.0), F::new(5.0) / F::new(3.0) * t99 * t889);
-    let t936 = piecewise3::<f64>(t52, F::new(0.0), F::new(5.0) / F::new(3.0) * t101 * t893);
+    let t933 = piecewise3::<F>(t45, F::new(0.0), F::new(5.0) / F::new(3.0) * t99 * t889);
+    let t936 = piecewise3::<F>(t52, F::new(0.0), F::new(5.0) / F::new(3.0) * t101 * t893);
     let t938 = t933 / F::new(2.0) + t936 / F::new(2.0);
     (t927, t928, t938)
 }

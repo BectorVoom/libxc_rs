@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk619<F: Float>(t299: F, t332: F, t4375: F, t113: F, t1273: F, t909: F, t1274: F, t505: F, t910: F, t992: F, t18: F, t1577: F, t1259: F, t1275: F, t2904: F, t4318: F, t4322: F, t5: F, t886: F, t889: F, t911: F) -> (F, F, F, F, F, F, F, F, F, F) {
-    let t300 = F::new(10000000.0) <= t299;
+    let t300 = F::cast_from(10000000.0_f64) <= t299;
     let t4376 = t4375 * t332;
     let t4377 = t4376 * t113;
     let t4380 = t1273 * t909;
@@ -20,6 +20,6 @@ pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk619<F: Float>(t299: F, t332: F, t4
     let t4391 = t910 * t992;
     let t4394 = t332 * t18;
     let t4395 = t4394 * t1577;
-    let t4399 = piecewise3::<f64>(t300, F::new(0.0), t5 * t4318 * t113 / F::new(4.0) + t4322 * t911 / F::new(4.0) + t5 * t1259 * t505 / F::new(4.0) + t2904 * t1275 / F::new(4.0) + t889 * t4377 / F::new(4.0) + t889 * t4382 / F::new(4.0) + t889 * t4385 / F::new(4.0) + t5 * t886 * t992 / F::new(4.0) + t889 * t4391 / F::new(4.0) - t889 * t4395 / F::new(2.0));
+    let t4399 = piecewise3::<F>(t300, F::new(0.0), t5 * t4318 * t113 / F::new(4.0) + t4322 * t911 / F::new(4.0) + t5 * t1259 * t505 / F::new(4.0) + t2904 * t1275 / F::new(4.0) + t889 * t4377 / F::new(4.0) + t889 * t4382 / F::new(4.0) + t889 * t4385 / F::new(4.0) + t5 * t886 * t992 / F::new(4.0) + t889 * t4391 / F::new(4.0) - t889 * t4395 / F::new(2.0));
     (t4376, t4377, t4380, t4381, t4382, t4385, t4391, t4394, t4395, t4399)
 }

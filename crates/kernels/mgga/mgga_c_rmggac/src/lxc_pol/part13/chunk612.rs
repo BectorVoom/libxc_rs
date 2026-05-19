@@ -11,10 +11,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk612<F: Float>(t8041: F, t876: F, t1356: F, t699: F, t839: F, t1364: F, t702: F, t934: F) -> (F, F, F, F, F) {
     let t8042 = t8041 * t876;
     let t8043 = t1356 * t8042;
-    let t8044 = F::new(0.11974241701863808564e0) * t8043;
+    let t8044 = F::cast_from(0.11974241701863808564e0_f64) * t8043;
     let t8045 = t699 * t839;
     let t8046 = t1364 * t8045;
-    let t8047 = F::new(0.23948483403727617128e0) * t8046;
+    let t8047 = F::cast_from(0.23948483403727617128e0_f64) * t8046;
     let t8048 = t934 * t702;
     (t8042, t8044, t8045, t8047, t8048)
 }

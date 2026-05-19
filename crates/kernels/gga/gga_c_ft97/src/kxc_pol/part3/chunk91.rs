@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk91<F: Float>(t224: F, t237: F) -> (F, F) {
     let t238 = t224 * t237;
     let t239 = F::new(0.1e-59) < t238;
-    let t240 = piecewise3::<f64>(t239, t238, F::new(0.1e-59));
+    let t240 = piecewise3::<F>(t239, t238, F::new(0.1e-59));
     (t238, t240)
 }

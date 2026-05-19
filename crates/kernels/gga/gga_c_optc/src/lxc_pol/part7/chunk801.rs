@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk801<F: Float>(t7514: F, t7517: F, t7520: F, t7529: F, t7538: F, t7544: F, t7553: F, t7555: F, t7558: F, t7560: F, t7563: F, t7566: F, t7571: F, t7573: F) -> F {
-    let t7575 = F::new(0.19419375e1) * t7514 - F::new(0.3883875e1) * t7517 + F::new(0.247573125e0) * t7520 + F::new(0.16504875e0) * t7553 + F::new(0.258925e1) * t7555 - F::new(0.412621875e-1) * t7558 - F::new(0.33114e0) * t7560 + F::new(0.16557e0) * t7563 - F::new(0.49671e0) * t7566 - F::new(0.60385000000000000001e0) * t7529 + F::new(0.12077e1) * t7538 - F::new(0.181155e1) * t7544 - F::new(0.27595e0) * t7571 + F::new(0.16557e0) * t7573;
+    let t7575 = F::new(0.19419375e1) * t7514 - F::new(0.3883875e1) * t7517 + F::cast_from(0.247573125e0_f64) * t7520 + F::new(0.16504875e0) * t7553 + F::new(0.258925e1) * t7555 - F::cast_from(0.412621875e-1_f64) * t7558 - F::new(0.33114e0) * t7560 + F::new(0.16557e0) * t7563 - F::new(0.49671e0) * t7566 - F::cast_from(0.60385000000000000001e0_f64) * t7529 + F::new(0.12077e1) * t7538 - F::new(0.181155e1) * t7544 - F::new(0.27595e0) * t7571 + F::new(0.16557e0) * t7573;
     t7575
 }

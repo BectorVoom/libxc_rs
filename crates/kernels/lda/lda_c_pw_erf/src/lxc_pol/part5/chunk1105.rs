@@ -9,6 +9,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1105<F: Float>(t11597: F, t14469: F, t14470: F, t1556: F, t1734: F, t1832: F, t1859: F, t18797: F, t1881: F, t2211: F, t2630: F, t2645: F, t2675: F, t2765: F, t411: F, t4441: F, t5735: F, t5783: F, t6086: F, t6087: F, t6089: F, t6129: F, t7075: F, t756: F, t770: F, t777: F, t7886: F, t7887: F, t7977: F, t8004: F, t9163: F) -> F {
-    let t20586 = F::new(9.0) * t5735 * t8004 - F::new(2.0) * t2645 * t6087 - F::new(3.0) * t5783 * t2765 * t2630 * t411 - F::new(2.7743564462147594) * t11597 + t1881 * t7887 - F::new(9.0) * t5783 * t2765 * t770 * t1832 - F::new(2.0) * t777 * t18797 * t2675 - F::new(2.0) * t777 * t6086 * t6129 - F::new(9.0) * t5783 * t2765 * t1859 * t756 - F::new(2.0) * t2645 * t7075 - t9163 + F::new(9.0) * t6089 * t4441 - t7977 * t1556 + F::new(3.0) * t2211 * t7886 * t1734 + t14469 + F::new(0.17961351015381913) * t14470;
+    let t20586 = F::new(9.0) * t5735 * t8004 - F::new(2.0) * t2645 * t6087 - F::new(3.0) * t5783 * t2765 * t2630 * t411 - F::cast_from(2.7743564462147594_f64) * t11597 + t1881 * t7887 - F::new(9.0) * t5783 * t2765 * t770 * t1832 - F::new(2.0) * t777 * t18797 * t2675 - F::new(2.0) * t777 * t6086 * t6129 - F::new(9.0) * t5783 * t2765 * t1859 * t756 - F::new(2.0) * t2645 * t7075 - t9163 + F::new(9.0) * t6089 * t4441 - t7977 * t1556 + F::new(3.0) * t2211 * t7886 * t1734 + t14469 + F::cast_from(0.17961351015381913_f64) * t14470;
     t20586
 }

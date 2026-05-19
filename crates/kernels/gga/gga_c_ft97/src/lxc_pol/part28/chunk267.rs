@@ -15,7 +15,7 @@ pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk267<F: Float>(t630: F, t70:
     let t2266 = t71 * t639;
     let t2280 = t178 * t178;
     let t2281 = F::new(1.0) / t2280;
-    let t2289 = F::new(0.19257444444444444444e0) * t1638;
+    let t2289 = F::cast_from(0.19257444444444444444e0_f64) * t1638;
     let t2976 = t1537 * t947;
     let t2981 = t89 * t1546 * t921;
     (t2265, t2266, t2281, t2289, t2976, t2981)

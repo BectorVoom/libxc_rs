@@ -8,11 +8,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk173<F: Float>(t492: F, t498: F, t193: F, t336: F, t425: F, t453: F, t455: F, t265: F) -> (F, F) {
+pub fn mgga_c_tpssloc_lxc_pol_part38_v4rho3tau_2_chunk173<F: Float>(t492: F, t498: F, t193: F, t336: F, t425: F, t453: F, t455: F, t265: F) -> (F, F, F) {
     let t500 = t492 * t498 + F::new(1.0);
-    let t501 = f64::ln(t500);
+    let t501 = F::ln(t500);
     let t504 = t193 * t336 * t501 - t425 + t453 + t455;
     let t505 = t265 < t504;
-    let t506 = piecewise3::<f64>(t505, t504, t265);
-    (t500, t506)
+    let t506 = piecewise3::<F>(t505, t504, t265);
+    (t500, t506, t504)
 }

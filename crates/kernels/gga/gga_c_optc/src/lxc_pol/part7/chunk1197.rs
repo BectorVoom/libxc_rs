@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1197<F: Float>(t2418: F, t24303: F, t7669: F, t2409: F, t2416: F, t7681: F, t799: F, t2373: F, t2372: F, t2449: F, t2375: F, t2441: F, t7505: F) -> (F, F, F, F, F, F) {
-    let t24708 = F::new(0.57894567559743977359e3) * t7669 * t24303 * t2418;
+    let t24708 = F::cast_from(0.57894567559743977359e3_f64) * t7669 * t24303 * t2418;
     let t24709 = t2409 * t2409;
-    let t24712 = F::new(0.48245472966453314466e2) * t2416 * t24709 * t2418;
+    let t24712 = F::cast_from(0.48245472966453314466e2_f64) * t2416 * t24709 * t2418;
     let t24715 = F::new(24.0) * t7681 * t24303 * t799;
     let t24718 = F::new(6.0) * t2373 * t24709 * t799;
     let t24719 = t2449 * t2372;
     let t24721 = F::new(12.0) * t24719 * t2375;
-    let t24723 = F::new(0.41015588084031179722e4) * t2441 * t7505;
+    let t24723 = F::cast_from(0.41015588084031179722e4_f64) * t2441 * t7505;
     (t24708, t24712, t24715, t24718, t24721, t24723)
 }

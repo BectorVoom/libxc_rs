@@ -3017,7 +3017,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7(
         let (t86, t88) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk34::<f64>(t5, t85, t24);
         let t89 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk35::<f64>(t88);
         let (t92, t94, t95, t96, t100, t102, t103, t104, t106, t107) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk36::<f64>(t36, t25, t48, t28, rho0, rho1, tau0, tau1);
-        let t111 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk37::<f64>(t107, t64);
+        let (t111, t109) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk37::<f64>(t107, t64);
         let t112 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk38::<f64>(t111);
         let t113 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk39::<f64>(t112, t89);
         let (t116, t117) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk40::<f64>(t25, dens_threshold, rho0, zeta_threshold);
@@ -3116,7 +3116,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7(
         let (t382, t383) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk133::<f64>(t349, t381, t362, t68);
         let (t384, t386, t387) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk134::<f64>(t381, t383, t353);
         let t388 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk135::<f64>(t254, t387);
-        let (t390, t396, t399, t404, t405) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk136::<f64>(t25, t28, t382, t388, t193, t293, t328, t330, t336, t265, t40, t52, dens_threshold, rho0, rho1, zeta_threshold);
+        let (t390, t396, t399, t404, t405, t394) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk136::<f64>(t25, t28, t382, t388, t193, t293, t328, t330, t336, t265, t40, t52, dens_threshold, rho0, rho1, zeta_threshold);
         let t407 = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk137::<f64>(t268, t269, t405);
         let (t409, t410) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk138::<f64>(t407);
         let (t413, t415) = mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk139::<f64>(t407, t405);

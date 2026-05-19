@@ -12,7 +12,7 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk506<F: Float>(t12: F, t1079: F, 
     let t13 = t12 <= zeta_threshold;
     let t2133 = t1079 * t764;
     let t2136 = t14 * t1;
-    let t2140 = piecewise3::<f64>(t13, F::new(0.0), F::new(4.0) / F::new(9.0) * t2133 * t337 - F::new(8.0) / F::new(3.0) * t2136 * t395);
+    let t2140 = piecewise3::<F>(t13, F::new(0.0), F::new(4.0) / F::new(9.0) * t2133 * t337 - F::new(8.0) / F::new(3.0) * t2136 * t395);
     let t2142 = (t2132 + t2140) * t257;
     (t2133, t2136, t2142)
 }

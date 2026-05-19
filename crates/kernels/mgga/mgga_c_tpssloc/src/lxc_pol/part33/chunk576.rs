@@ -16,6 +16,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk576<F: Float>(t40: F, t4
     let t5501 = F::new(12.0) * t2658 * t5499;
     let t5502 = t4310 * t1484;
     let t5506 = F::new(8.0) * t4205 * t1462;
-    let t5512 = piecewise3::<f64>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t2433 * t5392 + F::new(4.0) / F::new(3.0) * t73 * t5398);
+    let t5512 = piecewise3::<F>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t2433 * t5392 + F::new(4.0) / F::new(3.0) * t73 * t5398);
     (t5497, t5498, t5499, t5501, t5502, t5506, t5512)
 }

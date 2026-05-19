@@ -10,17 +10,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk505<F: Float>(t6576: F, t9544: F, t2334: F, t2465: F, t2464: F, t587: F, t3177: F, t6985: F, t2487: F, t589: F, t2365: F, t6510: F) -> (F, F, F, F, F) {
     let t9545 = t6576 * t9544;
-    let t9546 = F::new(0.38342925953920749676e0) * t9545;
+    let t9546 = F::cast_from(0.38342925953920749676e0_f64) * t9545;
     let t9547 = t2465 * t2334;
     let t9548 = t2464 * t9547;
     let t9549 = t587 * t9548;
-    let t9550 = F::new(0.85206502119823888169e-1) * t9549;
+    let t9550 = F::cast_from(0.85206502119823888169e-1_f64) * t9549;
     let t9552 = t6985 * t3177;
     let t9553 = t2487 * t9552;
-    let t9554 = F::new(0.51123901271894332901e0) * t9553;
+    let t9554 = F::cast_from(0.51123901271894332901e0_f64) * t9553;
     let t9555 = t589 * t3177;
     let t9556 = t587 * t9555;
-    let t9557 = F::new(0.51123901271894332901e0) * t9556;
+    let t9557 = F::cast_from(0.51123901271894332901e0_f64) * t9556;
     let t9558 = t2365 * t6510;
     (t9546, t9550, t9554, t9557, t9558)
 }

@@ -13,8 +13,8 @@ pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk24<F: Float>(t8: F, t50
     let t52 = t50 * t51;
     let t53 = F::new(1.0) + t52;
     let t54 = t53 <= zeta_threshold;
-    let t55 = pow_1_3::<f64>(zeta_threshold);
+    let t55 = pow_1_3::<F>(zeta_threshold);
     let t56 = t55 * zeta_threshold;
-    let t57 = pow_1_3::<f64>(t53);
+    let t57 = pow_1_3::<F>(t53);
     (t51, t52, t53, t55, t56, t57)
 }

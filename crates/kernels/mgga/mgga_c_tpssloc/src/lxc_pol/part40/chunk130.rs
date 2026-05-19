@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk130<F: Float>(t353: F, t68
     let t354 = t353 * t68;
     let t357 = F::new(1.0) / t336;
     let t358 = t68 * t357;
-    let t360 = f64::exp(-(-t293 + t328 + t330) * t225 * t358);
+    let t360 = F::exp(-(-t293 + t328 + t330) * t225 * t358);
     (t354, t357, t358, t360)
 }

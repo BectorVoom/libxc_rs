@@ -15,9 +15,9 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk54<F: Float>(t44: F, t51:
     let t135 = t129 * t130 * t134;
     let t138 = t98 * zeta_threshold;
     let t139 = t99 * t44;
-    let t140 = piecewise3::<f64>(t45, t138, t139);
+    let t140 = piecewise3::<F>(t45, t138, t139);
     let t141 = t101 * t51;
-    let t142 = piecewise3::<f64>(t52, t138, t141);
+    let t142 = piecewise3::<F>(t52, t138, t141);
     let t144 = t140 / F::new(2.0) + t142 / F::new(2.0);
     let t146 = t108 / t144;
     (t134, t135, t139, t141, t144, t146)

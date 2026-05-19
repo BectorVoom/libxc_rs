@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk23<F: Float>(t37: F, t44: F, zeta_threshold: F) -> F {
-    let t38 = piecewise3::<f64>(F::new(1.0) <= zeta_threshold, t37, F::new(1.0));
+    let t38 = piecewise3::<F>(F::new(1.0) <= zeta_threshold, t37, F::new(1.0));
     let t45 = (F::new(2.0) * t38 - F::new(2.0)) * t44;
     t45
 }

@@ -14,9 +14,9 @@ pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk490<F: Float>(t213: F, t21
     let t2822 = t2551 + t2653 + t2740 + t2820;
     let t2851 = t978 * t978;
     let t2855 = F::new(2.0) * t88 + F::new(2.0) * t2018;
-    let t2859 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2014 * t2851 + F::new(4.0) / F::new(3.0) * t215 * t2855);
+    let t2859 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2014 * t2851 + F::new(4.0) / F::new(3.0) * t215 * t2855);
     let t2860 = t982 * t982;
     let t2863 = -t2855;
-    let t2867 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2026 * t2860 + F::new(4.0) / F::new(3.0) * t220 * t2863);
+    let t2867 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2026 * t2860 + F::new(4.0) / F::new(3.0) * t220 * t2863);
     (t2822, t2859, t2867)
 }

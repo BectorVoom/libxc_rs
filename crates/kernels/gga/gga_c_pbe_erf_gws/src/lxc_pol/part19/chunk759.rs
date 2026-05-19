@@ -14,10 +14,10 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk759<F: Float>(t1327: 
     let t4800 = t1319 * t455;
     let t4801 = t4800 * t4623;
     let t4802 = t470 * t4801;
-    let t4803 = F::new(0.51947267698127589897e2) * t4802;
+    let t4803 = F::cast_from(0.51947267698127589897e2_f64) * t4802;
     let t4805 = t1215 * t1314 * t457;
     let t4806 = t470 * t4805;
-    let t4807 = F::new(0.35089340384731224426e1) * t4806;
+    let t4807 = F::cast_from(0.35089340384731224426e1_f64) * t4806;
     let t4810 = t1434 * t1444;
     let t4813 = t119 * t837 * t84;
     (t4799, t4803, t4807, t4810, t4813)

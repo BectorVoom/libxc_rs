@@ -13,9 +13,9 @@ pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk949<F: Float>(t25: F, t
     let t29 = t28 <= zeta_threshold;
     let t20372 = F::new(12.0) * t19593;
     let t20376 = t6305 * t1408;
-    let t20384 = piecewise3::<f64>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12061 * t20376 + F::new(4.0) / F::new(3.0) * t5134 * t5397 + F::new(4.0) / F::new(3.0) * t514 * t20216);
+    let t20384 = piecewise3::<F>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12061 * t20376 + F::new(4.0) / F::new(3.0) * t5134 * t5397 + F::new(4.0) / F::new(3.0) * t514 * t20216);
     let t20385 = t6312 * t1649;
     let t20390 = -t20216;
-    let t20394 = piecewise3::<f64>(t29, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12072 * t20385 + F::new(4.0) / F::new(3.0) * t5142 * t5966 + F::new(4.0) / F::new(3.0) * t517 * t20390);
+    let t20394 = piecewise3::<F>(t29, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12072 * t20385 + F::new(4.0) / F::new(3.0) * t5142 * t5966 + F::new(4.0) / F::new(3.0) * t517 * t20390);
     (t20372, t20376, t20384, t20385, t20390, t20394)
 }

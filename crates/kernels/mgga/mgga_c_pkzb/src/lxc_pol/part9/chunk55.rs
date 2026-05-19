@@ -13,9 +13,9 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk55<F: Float>(t12: F, t24: F, t85:
     let t90 = t24 <= zeta_threshold;
     let t136 = t85 * t85;
     let t137 = t87 * t87;
-    let t138 = piecewise3::<f64>(t84, t136, t137);
+    let t138 = piecewise3::<F>(t84, t136, t137);
     let t139 = t91 * t91;
-    let t140 = piecewise3::<f64>(t90, t136, t139);
+    let t140 = piecewise3::<F>(t90, t136, t139);
     let t142 = t138 / F::new(2.0) + t140 / F::new(2.0);
     (t136, t137, t139, t142)
 }

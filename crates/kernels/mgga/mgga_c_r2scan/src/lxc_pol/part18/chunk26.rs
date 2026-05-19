@@ -9,10 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk26<F: Float>(t51: F, t53: F, t47: F, t50: F, zeta_threshold: F) -> (F, F, F) {
+    let cbrt2 = F::cast_from(M_CBRT2);
     let t52 = t51 <= zeta_threshold;
     let t54 = t53 * t51;
-    let t55 = piecewise3::<f64>(t52, t47, t54);
+    let t55 = piecewise3::<F>(t52, t47, t54);
     let t56 = t50 + t55 - F::new(2.0);
-    let t57 = M_CBRT2;
+    let t57 = cbrt2;
     (t54, t56, t57)
 }

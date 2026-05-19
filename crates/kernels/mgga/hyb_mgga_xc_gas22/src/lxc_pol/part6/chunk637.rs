@@ -13,6 +13,6 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk637<F: Float>(t43: F, t3: F
     let t45 = F::new(0.135e1) < t43;
     let t3025 = t575 * t578 * t3;
     let t3028 = t1888 + t1891 / F::new(162.0) + t3006 / F::new(162.0) - t572 * t3011 / F::new(81.0) + t572 * t3017 / F::new(27.0) - t3023 * t3025 / F::new(27.0);
-    let t3029 = piecewise3::<f64>(t45, t3028, F::new(0.0));
+    let t3029 = piecewise3::<F>(t45, t3028, F::new(0.0));
     (t3025, t3028, t3029)
 }

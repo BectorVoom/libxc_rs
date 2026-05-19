@@ -2183,7 +2183,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9(
         let (t86, t88) = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk32::<f64>(t5, t85, t24);
         let t89 = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk33::<f64>(t88);
         let (t92, t94, t95, t96, t100, t102, t103, t104, t106, t107) = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk34::<f64>(t36, t25, t48, t28, rho0, rho1, tau0, tau1);
-        let t111 = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk35::<f64>(t107, t64);
+        let (t111, t109) = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk35::<f64>(t107, t64);
         let t112 = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk36::<f64>(t111);
         let t113 = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk37::<f64>(t112, t89);
         let (t116, t117) = mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk38::<f64>(t25, dens_threshold, rho0, zeta_threshold);

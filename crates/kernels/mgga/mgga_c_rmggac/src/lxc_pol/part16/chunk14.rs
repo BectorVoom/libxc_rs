@@ -9,6 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk14<F: Float>() -> F {
-    let t28 = M_CBRT2;
+    let cbrt2 = F::cast_from(M_CBRT2);
+    let t28 = cbrt2;
     t28
 }

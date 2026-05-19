@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk977<F: Float>(t25: F, t28: F, 
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
     let t12604 = F::new(6.0) * t9212;
-    let t12606 = piecewise5::<f64>(t26, F::new(0.0), t29, F::new(0.0), t12603 - t12604);
+    let t12606 = piecewise5::<F>(t26, F::new(0.0), t29, F::new(0.0), t12603 - t12604);
     t12606
 }

@@ -13,10 +13,10 @@ pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk13<F: Float>(t40: F, t37: 
     let t44 = (F::new(2.0) * t37 - F::new(2.0)) * t43;
     let t46 = F::new(1.0) + F::new(0.278125e-1) * t11;
     let t51 = F::new(0.51785e1) * t14 + F::new(0.905775e0) * t11 + F::new(0.1100325e0) * t17 + F::new(0.1241775e0) * t25;
-    let t54 = F::new(1.0) + F::new(0.29608574643216675549e2) / t51;
-    let t55 = f64::ln(t54);
+    let t54 = F::new(1.0) + F::cast_from(0.29608574643216675549e2_f64) / t51;
+    let t55 = F::ln(t54);
     let t56 = t46 * t55;
-    let t58 = F::new(0.19751789702565206229e-1) * t44 * t56;
+    let t58 = F::cast_from(0.19751789702565206229e-1_f64) * t44 * t56;
     let t59 = t3 * t2;
     let t60 = F::new(1.0) / t59;
     (t43, t44, t46, t51, t54, t55, t56, t58, t59, t60)

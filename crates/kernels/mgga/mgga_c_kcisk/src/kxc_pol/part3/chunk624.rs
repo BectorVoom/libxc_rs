@@ -17,6 +17,6 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk624<F: Float>(t776: F, t2028: F,
     let t5444 = F::new(1.0) / t1992 / t794;
     let t5445 = t772 * t5444;
     let t5449 = t4794 * t41;
-    let t5463 = piecewise3::<f64>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t5449 * t642 - F::new(20.0) / F::new(27.0) * t525 * t1995 * t1758 + F::new(40.0) / F::new(81.0) * t525 * t773 * t4973 - F::new(10.0) / F::new(27.0) * t525 * t773 * t4977);
+    let t5463 = piecewise3::<F>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t5449 * t642 - F::new(20.0) / F::new(27.0) * t525 * t1995 * t1758 + F::new(40.0) / F::new(81.0) * t525 * t773 * t4973 - F::new(10.0) / F::new(27.0) * t525 * t773 * t4977);
     (t5437, t5438, t5439, t5440, t5444, t5445, t5449, t5463)
 }

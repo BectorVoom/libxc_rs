@@ -12,8 +12,8 @@ pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk361<F: Float>(t43: F, t50:
     let t44 = t43 <= zeta_threshold;
     let t51 = t50 <= zeta_threshold;
     let t1717 = t560 * t560;
-    let t1726 = piecewise3::<f64>(t44, F::new(0.0), -F::new(2.0) / F::new(9.0) * t817 * t1690 + F::new(2.0) / F::new(3.0) * t292 * t1694);
-    let t1732 = piecewise3::<f64>(t51, F::new(0.0), -F::new(2.0) / F::new(9.0) * t829 * t1699 + F::new(2.0) / F::new(3.0) * t296 * t1702);
+    let t1726 = piecewise3::<F>(t44, F::new(0.0), -F::new(2.0) / F::new(9.0) * t817 * t1690 + F::new(2.0) / F::new(3.0) * t292 * t1694);
+    let t1732 = piecewise3::<F>(t51, F::new(0.0), -F::new(2.0) / F::new(9.0) * t829 * t1699 + F::new(2.0) / F::new(3.0) * t296 * t1702);
     let t1734 = t1726 / F::new(2.0) + t1732 / F::new(2.0);
     (t1717, t1734)
 }

@@ -12,9 +12,9 @@ pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk409<F: Float>(t265: F, 
     let t394 = t265 < t393;
     let t1985 = t359 * t1976;
     let t1986 = t1984 * t1985;
-    let t1989 = F::new(0.65854491829355115987e0) * t342 * t1978 - F::new(0.4336814094102599731e0) * t1983 * t1986;
+    let t1989 = F::cast_from(0.65854491829355115987e0_f64) * t342 * t1978 - F::cast_from(0.4336814094102599731e0_f64) * t1983 * t1986;
     let t1993 = t207 * t1962;
     let t1995 = t198 * t1993 * t892;
-    let t1996 = piecewise3::<f64>(t394, t198 * t336 * t1989 * t1102, t1995);
+    let t1996 = piecewise3::<F>(t394, t198 * t336 * t1989 * t1102, t1995);
     (t1986, t1989, t1993, t1995, t1996)
 }

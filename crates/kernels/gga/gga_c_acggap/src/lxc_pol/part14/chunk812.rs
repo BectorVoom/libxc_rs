@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk812<F: Float>(t8694: F, t8706: F, t8710: F, t8712: F, t8714: F, t8716: F, t8718: F, t8722: F, t8742: F, t8744: F, t8772: F, t8829: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t9254 = F::new(0.17149607247227894789e-2) * t8694;
-    let t9261 = F::new(0.17149607247227894789e-2) * t8706;
-    let t9263 = F::new(0.34299214494455789578e-2) * t8710;
-    let t9264 = F::new(0.80031500487063509015e-2) * t8712;
-    let t9265 = F::new(0.80031500487063509015e-2) * t8714;
-    let t9266 = F::new(0.16006300097412701803e-1) * t8716;
-    let t9267 = F::new(0.34299214494455789578e-2) * t8718;
-    let t9269 = F::new(0.12862205435420921092e-2) * t8722;
+    let t9254 = F::cast_from(0.17149607247227894789e-2_f64) * t8694;
+    let t9261 = F::cast_from(0.17149607247227894789e-2_f64) * t8706;
+    let t9263 = F::cast_from(0.34299214494455789578e-2_f64) * t8710;
+    let t9264 = F::cast_from(0.80031500487063509015e-2_f64) * t8712;
+    let t9265 = F::cast_from(0.80031500487063509015e-2_f64) * t8714;
+    let t9266 = F::cast_from(0.16006300097412701803e-1_f64) * t8716;
+    let t9267 = F::cast_from(0.34299214494455789578e-2_f64) * t8718;
+    let t9269 = F::cast_from(0.12862205435420921092e-2_f64) * t8722;
     let t9277 = F::new(0.4584375e-1) * t8742;
     let t9278 = F::new(0.305625e-1) * t8744;
     let t9292 = F::new(0.1528125e-1) * t8772;

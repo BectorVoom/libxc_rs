@@ -14,6 +14,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk444<F: Float>(t2006: F,
     let t2010 = t214 * t2009;
     let t2011 = t1985 * t2010;
     let t2013 = t553 * t2006;
-    let t2015 = F::new(0.82246703342411321825e-2) * t2011 + t544 * t2013;
+    let t2015 = F::cast_from(0.82246703342411321825e-2_f64) * t2011 + t544 * t2013;
     (t2007, t2009, t2010, t2011, t2013, t2015)
 }

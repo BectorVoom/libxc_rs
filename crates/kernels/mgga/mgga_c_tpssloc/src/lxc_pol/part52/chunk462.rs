@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk462<F: Float>(t362: F, 
     let t1940 = t362 * sigma0;
     let t1941 = t1940 * t368;
     let t1942 = t354 * t1941;
-    let t1945 = t1927 / F::new(96.0) + F::new(0.10093189023535097714e-3) * t1935 * t1937 + t1942 * t378 / F::new(1536.0);
+    let t1945 = t1927 / F::new(96.0) + F::cast_from(0.10093189023535097714e-3_f64) * t1935 * t1937 + t1942 * t378 / F::new(1536.0);
     (t1940, t1941, t1942, t1945)
 }

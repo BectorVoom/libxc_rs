@@ -3004,7 +3004,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11(
         let (t86, t88) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk39::<f64>(t5, t85, t24);
         let t89 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk40::<f64>(t88);
         let (t92, t93, t94, t95, t100, t101, t102, t103, t104, t106, t107) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk41::<f64>(t36, t25, t48, t28, rho0, rho1, tau0, tau1);
-        let t111 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk42::<f64>(t107, t64);
+        let (t111, t109) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk42::<f64>(t107, t64);
         let t112 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk43::<f64>(t111);
         let t113 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk44::<f64>(t112, t89);
         let t116 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk45::<f64>(t25, dens_threshold, rho0, zeta_threshold);
@@ -3132,7 +3132,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11(
         let (t492, t493) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk167::<f64>(t466, t491, t477, t68);
         let (t494, t496, t497) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk168::<f64>(t491, t493, t470);
         let t498 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk169::<f64>(t254, t497);
-        let (t500, t506, t510) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk170::<f64>(t28, t492, t498, t193, t336, t425, t453, t455, t265, t52, t399, dens_threshold, rho1, zeta_threshold);
+        let (t500, t506, t510, t504) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk170::<f64>(t28, t492, t498, t193, t336, t425, t453, t455, t265, t52, t399, dens_threshold, rho1, zeta_threshold);
         let t513 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk171::<f64>(t112, t88);
         let t514 = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk172::<f64>(t25);
         let (t515, t516, t517) = mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk173::<f64>(t25, t514, t148, t28, zeta_threshold);

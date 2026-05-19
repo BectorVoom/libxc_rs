@@ -14,8 +14,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk390<F: Float>(t25: F, t28: F, 
     let t1271 = F::new(2.0) * t1268 * t671 + t650;
     let t1274 = F::new(4.0) * t588 * t522;
     let t1276 = F::new(4.0) * t592 * t522;
-    let t1279 = piecewise3::<f64>(t26, F::new(0.0), F::new(4.0) / F::new(3.0) * t514 * t606);
-    let t1282 = piecewise3::<f64>(t29, F::new(0.0), F::new(4.0) / F::new(3.0) * t517 * t1081);
+    let t1279 = piecewise3::<F>(t26, F::new(0.0), F::new(4.0) / F::new(3.0) * t514 * t606);
+    let t1282 = piecewise3::<F>(t29, F::new(0.0), F::new(4.0) / F::new(3.0) * t517 * t1081);
     let t1284 = (t1279 + t1282) * t157;
     (t1271, t1274, t1276, t1284)
 }

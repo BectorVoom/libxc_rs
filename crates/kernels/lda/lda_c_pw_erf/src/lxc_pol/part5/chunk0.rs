@@ -9,6 +9,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk0<F: Float>() -> F {
-    let t1 = M_CBRT3;
+    let cbrt3 = F::cast_from(M_CBRT3);
+    let t1 = cbrt3;
     t1
 }

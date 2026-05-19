@@ -9,7 +9,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk316<F: Float>(t1152: F, t123: F, t199: F, t315: F, t398: F, t566: F, t722: F, t81: F, t1072: F, t1105: F, t33: F, t394: F) -> (F, F, F, F, F, F, F, F) {
-    let t1155 = F::new(0.14149184788746388) * t123 * t1152 * t199;
+    let t1155 = F::cast_from(0.14149184788746388_f64) * t123 * t1152 * t199;
     let t1156 = t315 * t398;
     let t1158 = t123 * t1156 * t199;
     let t1161 = t123 * t722 * t566;

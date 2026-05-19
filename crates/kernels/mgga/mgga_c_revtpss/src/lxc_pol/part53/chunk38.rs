@@ -12,13 +12,13 @@ pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk38<F: Float>(t41: F, t3
     let t96 = F::new(1.0) / t41 / rho0;
     let t97 = tau0 * t96;
     let t98 = t30 / F::new(2.0);
-    let t99 = pow_1_3::<f64>(t98);
+    let t99 = pow_1_3::<F>(t98);
     let t100 = t99 * t99;
     let t101 = t100 * t98;
     let t104 = F::new(1.0) / t53 / rho1;
     let t105 = tau1 * t104;
     let t106 = t33 / F::new(2.0);
-    let t107 = pow_1_3::<f64>(t106);
+    let t107 = pow_1_3::<F>(t106);
     let t108 = t107 * t107;
     let t109 = t108 * t106;
     let t111 = t101 * t97 + t105 * t109;

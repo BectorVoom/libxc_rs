@@ -12,11 +12,11 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk506<F: Float>(t25: F, 
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
     let t6305 = t1408 * t1408;
-    let t6311 = piecewise3::<f64>(t26, F::new(0.0), F::new(4.0) / F::new(9.0) * t3664 * t6305 + F::new(4.0) / F::new(3.0) * t514 * t5397);
+    let t6311 = piecewise3::<F>(t26, F::new(0.0), F::new(4.0) / F::new(9.0) * t3664 * t6305 + F::new(4.0) / F::new(3.0) * t514 * t5397);
     let t6312 = t1649 * t1649;
-    let t6318 = piecewise3::<f64>(t29, F::new(0.0), F::new(4.0) / F::new(9.0) * t3672 * t6312 + F::new(4.0) / F::new(3.0) * t517 * t5966);
+    let t6318 = piecewise3::<F>(t29, F::new(0.0), F::new(4.0) / F::new(9.0) * t3672 * t6312 + F::new(4.0) / F::new(3.0) * t517 * t5966);
     let t6320 = (t6311 + t6318) * t157;
-    let t6322 = F::new(0.19751673498613801407e-1) * t6320 * t182;
+    let t6322 = F::cast_from(0.19751673498613801407e-1_f64) * t6320 * t182;
     let t6323 = F::new(6.0) * t3918 * t6301 + t2408 + t2417 - t2423 - t2426 + t3686 + t3688 - t3690 - t3695 + t3813 - t6299 - t6300 + t6304 + t6322;
     (t6305, t6312, t6320, t6322, t6323)
 }

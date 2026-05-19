@@ -12,7 +12,7 @@ pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk658<F: Float>(t1124: F, t780: F,
     let t5470 = t1124 * t780;
     let t5472 = t5470 * t483 * t485;
     let t5474 = t473 * t1904;
-    let t5477 = F::new(0.003950778065781896) * t5474 * t483 * t485;
+    let t5477 = F::cast_from(0.003950778065781896_f64) * t5474 * t483 * t485;
     let t5479 = t1910 * t1131 * t485;
     let t5495 = t142 * t1832;
     let t5502 = t1849 * t925;

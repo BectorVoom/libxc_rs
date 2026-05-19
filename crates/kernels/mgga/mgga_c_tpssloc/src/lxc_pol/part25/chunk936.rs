@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk936<F: Float>(t25: F, t28: F, t11988: F, t12061: F, t12064: F, t2249: F, t514: F, t9257: F, t528: F, t1081: F, t3672: F, t11122: F, t12001: F, t3231: F, t517: F, zeta_threshold: F) -> (F, F) {
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
-    let t12070 = piecewise3::<f64>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12061 * t11988 + F::new(4.0) / F::new(3.0) * t12064 * t2249 + F::new(4.0) / F::new(3.0) * t514 * t9257);
+    let t12070 = piecewise3::<F>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12061 * t11988 + F::new(4.0) / F::new(3.0) * t12064 * t2249 + F::new(4.0) / F::new(3.0) * t514 * t9257);
     let t12072 = F::new(1.0) / t528 / t28;
     let t12075 = t3672 * t1081;
-    let t12081 = piecewise3::<f64>(t29, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12072 * t12001 + F::new(4.0) / F::new(3.0) * t12075 * t3231 + F::new(4.0) / F::new(3.0) * t517 * t11122);
+    let t12081 = piecewise3::<F>(t29, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12072 * t12001 + F::new(4.0) / F::new(3.0) * t12075 * t3231 + F::new(4.0) / F::new(3.0) * t517 * t11122);
     (t12070, t12081)
 }

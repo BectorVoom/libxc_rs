@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk522<F: Float>(t2014: F, t2394: F, t2710: F, t4068: F, t4069: F, t4073: F, t4077: F, t4080: F, t4083: F, t807: F, t291: F, t800: F) -> (F, F, F) {
-    let t4088 = -F::new(0.11705142615505742e0) * t4068 * t4069 + F::new(0.23410285231011484e0) * t4073 - F::new(0.26564305359272358183e-2) * t2014 * t4077 + F::new(0.319782988780431561e-1) * t2710 * t4080 - F::new(0.532971647967385935e-1) * t807 * t4083 + F::new(0.13977476158628290272e-1) * t2394 * t4080;
+    let t4088 = -F::cast_from(0.11705142615505742e0_f64) * t4068 * t4069 + F::cast_from(0.23410285231011484e0_f64) * t4073 - F::cast_from(0.26564305359272358183e-2_f64) * t2014 * t4077 + F::cast_from(0.319782988780431561e-1_f64) * t2710 * t4080 - F::cast_from(0.532971647967385935e-1_f64) * t807 * t4083 + F::cast_from(0.13977476158628290272e-1_f64) * t2394 * t4080;
     let t4089 = t291 * t4088;
     let t4090 = t800 * t4089;
     (t4088, t4089, t4090)

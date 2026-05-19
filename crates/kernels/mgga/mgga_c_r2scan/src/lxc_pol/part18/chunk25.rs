@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk25<F: Float>(t51: F, zeta_threshold: F) -> F {
     let t52 = t51 <= zeta_threshold;
-    let t53 = pow_1_3::<f64>(t51);
+    let t53 = pow_1_3::<F>(t51);
     t53
 }

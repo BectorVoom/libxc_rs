@@ -16,7 +16,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk140<F: Float>(t349: F, 
     let t387 = F::new(1.0) / t386;
     let t388 = t254 * t387;
     let t390 = t382 * t388 + F::new(1.0);
-    let t391 = f64::ln(t390);
+    let t391 = F::ln(t390);
     let t394 = t193 * t336 * t391 - t293 + t328 + t330;
     let t395 = t265 < t394;
     (t382, t383, t384, t386, t388, t390, t394)

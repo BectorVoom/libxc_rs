@@ -13,8 +13,8 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk550<F: Float>(t44: F, t51
     let t52 = t51 <= zeta_threshold;
     let t3018 = t97 * t471 * t3016;
     let t3019 = F::new(3.0) * t3018;
-    let t3020 = F::new(0.11696447245269292414e1) * t2491;
-    let t3026 = piecewise3::<f64>(t45, F::new(0.0), F::new(4.0) / F::new(9.0) * t1361 * t2999 + F::new(4.0) / F::new(3.0) * t48 * t3002);
-    let t3032 = piecewise3::<f64>(t52, F::new(0.0), F::new(4.0) / F::new(9.0) * t1368 * t3007 + F::new(4.0) / F::new(3.0) * t53 * t3010);
+    let t3020 = F::cast_from(0.11696447245269292414e1_f64) * t2491;
+    let t3026 = piecewise3::<F>(t45, F::new(0.0), F::new(4.0) / F::new(9.0) * t1361 * t2999 + F::new(4.0) / F::new(3.0) * t48 * t3002);
+    let t3032 = piecewise3::<F>(t52, F::new(0.0), F::new(4.0) / F::new(9.0) * t1368 * t3007 + F::new(4.0) / F::new(3.0) * t53 * t3010);
     (t3019, t3020, t3026, t3032)
 }

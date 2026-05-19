@@ -13,6 +13,6 @@ pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk660<F: Float>(t776: F, t780: F, 
     let t9184 = t780 * t9183;
     let t9189 = t2629 * t2633;
     let t9192 = t8616 * t41;
-    let t9206 = piecewise3::<f64>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t9192 * t642 - F::new(20.0) / F::new(27.0) * t525 * t2620 * t2442 + F::new(40.0) / F::new(81.0) * t525 * t773 * t8781 - F::new(10.0) / F::new(27.0) * t525 * t773 * t8787);
+    let t9206 = piecewise3::<F>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t9192 * t642 - F::new(20.0) / F::new(27.0) * t525 * t2620 * t2442 + F::new(40.0) / F::new(81.0) * t525 * t773 * t8781 - F::new(10.0) / F::new(27.0) * t525 * t773 * t8787);
     (t9184, t9189, t9192, t9206)
 }

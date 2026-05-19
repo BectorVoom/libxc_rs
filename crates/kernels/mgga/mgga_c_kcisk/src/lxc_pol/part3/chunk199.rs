@@ -10,14 +10,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk199<F: Float>(t397: F, t658: F, t786: F, t782: F, t722: F, t772: F, t737: F, t749: F, t240: F, t753: F, t157: F, t32: F, t5: F) -> (F, F, F, F, F, F, F, F, F) {
     let t788 = t397 * t658 * t786;
-    let t791 = F::new(1.0) + F::new(0.2698618307426597582e-1) * t782 * t788;
-    let t792 = f64::ln(t791);
+    let t791 = F::new(1.0) + F::cast_from(0.2698618307426597582e-1_f64) * t782 * t788;
+    let t792 = F::ln(t791);
     let t794 = F::new(1.0) + F::new(0.193e0) * t792;
     let t795 = F::new(1.0) / t794;
-    let t798 = t772 * t795 + F::new(0.17411041666666666666e-2) * t722;
-    let t801 = F::new(1.0) + F::new(0.9375e-1) * t737 - F::new(0.101171875e-1) * t749;
+    let t798 = t772 * t795 + F::cast_from(0.17411041666666666666e-2_f64) * t722;
+    let t801 = F::new(1.0) + F::new(0.9375e-1) * t737 - F::cast_from(0.101171875e-1_f64) * t749;
     let t802 = F::new(1.0) / t801;
     let t806 = t753 + t240 * (t798 * t802 - t753);
-    let t812 = F::new(0.11073577833333333333e-2) * t5 * t157 * t32;
+    let t812 = F::cast_from(0.11073577833333333333e-2_f64) * t5 * t157 * t32;
     (t788, t791, t794, t795, t798, t801, t802, t806, t812)
 }

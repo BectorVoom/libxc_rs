@@ -15,6 +15,6 @@ pub fn gga_c_gaploc_lxc_pol_part33_v4rho2sigma2_16_chunk128<F: Float>(t155: F, t
     let t465 = t464 * t135;
     let t467 = t455 * t145 * t458;
     let t470 = -F::new(7.0) / F::new(128.0) * t456 * t145 * t459 + F::new(7.0) / F::new(384.0) * t465 * t467;
-    let t471 = f64::ln(t134);
+    let t471 = F::ln(t134);
     (t462, t463, t464, t465, t467, t470, t471)
 }

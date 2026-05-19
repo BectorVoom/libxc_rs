@@ -16,15 +16,15 @@ pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk409<F: Float>(t213: F, t218
     let t2015 = t690 * t690;
     let t2018 = t211 * t414;
     let t2020 = -F::new(2.0) * t88 + F::new(2.0) * t2018;
-    let t2024 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2014 * t2015 + F::new(4.0) / F::new(3.0) * t215 * t2020);
+    let t2024 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2014 * t2015 + F::new(4.0) / F::new(3.0) * t215 * t2020);
     let t2025 = t220 * t220;
     let t2026 = F::new(1.0) / t2025;
     let t2027 = t694 * t694;
     let t2030 = -t2020;
-    let t2034 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2026 * t2027 + F::new(4.0) / F::new(3.0) * t220 * t2030);
+    let t2034 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2026 * t2027 + F::new(4.0) / F::new(3.0) * t220 * t2030);
     let t2036 = (t2024 + t2034) * t43;
     let t2040 = t231 * t4;
-    let t2042 = F::new(0.10843580882781524214e-1) * t2040 * t1220;
+    let t2042 = F::cast_from(0.10843580882781524214e-1_f64) * t2040 * t1220;
     let t2043 = t482 * t283;
     (t2036, t2042, t2043)
 }

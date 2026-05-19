@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk31<F: Float>(t61: F) -> F {
-    let t65 = f64::exp(-t61);
+    let t65 = F::exp(-t61);
     let t66 = t65 * t65;
     t66
 }

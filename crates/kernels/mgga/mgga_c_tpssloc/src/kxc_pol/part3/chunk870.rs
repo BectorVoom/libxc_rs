@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk870<F: Float>(t138: F, t2409: 
     let t9453 = t125 * t9452;
     let t9454 = t2412 * t701;
     let t9455 = t9454 * t2414;
-    let t9457 = F::new(0.96491876992155210402e2) * t9453 * t9455;
+    let t9457 = F::cast_from(0.96491876992155210402e2_f64) * t9453 * t9455;
     (t9454, t9457)
 }

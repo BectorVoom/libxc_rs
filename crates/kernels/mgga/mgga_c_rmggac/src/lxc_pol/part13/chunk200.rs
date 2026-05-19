@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk200<F: Float>(t118: F, t699: F, t646: F, t651: F) -> F {
     let t700 = t118 * t699;
-    let t702 = F::new(0.2993560425465952141e-1) * t646 - F::new(0.68186654135613354325e-2) * t651 + F::new(0.19957069503106347607e-1) * t700;
+    let t702 = F::cast_from(0.2993560425465952141e-1_f64) * t646 - F::cast_from(0.68186654135613354325e-2_f64) * t651 + F::cast_from(0.19957069503106347607e-1_f64) * t700;
     t702
 }

@@ -16,6 +16,6 @@ pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk714<F: Float>(t5: F, t247: F, t9
     let t4485 = F::new(8.0) * t643 * t2158;
     let t4486 = t3912 * t760;
     let t4489 = t1068 * t1;
-    let t4499 = piecewise3::<f64>(t6, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4486 * t1069 + F::new(16.0) / F::new(9.0) * t4489 * t4367 + F::new(4.0) / F::new(9.0) * t2125 * t1074 + F::new(8.0) / F::new(3.0) * t9 * t395 - F::new(8.0) * t2128 * t247);
+    let t4499 = piecewise3::<F>(t6, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4486 * t1069 + F::new(16.0) / F::new(9.0) * t4489 * t4367 + F::new(4.0) / F::new(9.0) * t2125 * t1074 + F::new(8.0) / F::new(3.0) * t9 * t395 - F::new(8.0) * t2128 * t247);
     (t4472, t4481, t4483, t4485, t4486, t4499)
 }

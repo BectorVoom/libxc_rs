@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk497<F: Float>(t28: F, t
     let t29 = t28 <= zeta_threshold;
     let t401 = rho1 <= dens_threshold || t29;
     let t505 = t265 < t504;
-    let t3644 = piecewise3::<f64>(t505, t3643, t2756);
-    let t3651 = piecewise3::<f64>(t401, t2756 * t28 / F::new(2.0) + t873 * t1081 + t265 * t3231 / F::new(2.0), t3644 * t52 / F::new(2.0) - t1260 * t607 - t506 * t2250 / F::new(2.0));
+    let t3644 = piecewise3::<F>(t505, t3643, t2756);
+    let t3651 = piecewise3::<F>(t401, t2756 * t28 / F::new(2.0) + t873 * t1081 + t265 * t3231 / F::new(2.0), t3644 * t52 / F::new(2.0) - t1260 * t607 - t506 * t2250 / F::new(2.0));
     t3651
 }

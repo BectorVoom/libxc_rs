@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1248<F: Float>(t322: F, t41891: F, t11305: F, t11319: F, t11993: F, t31912: F, t352: F, t3556: F, t38958: F, t38961: F, t38971: F, t38976: F, t41058: F, t41065: F, t855: F) -> F {
     let t332 = F::new(0.25e1) < t322;
-    let t42070 = piecewise3::<f64>(t332, t41891, F::new(0.0));
+    let t42070 = piecewise3::<F>(t332, t41891, F::new(0.0));
     let t42098 = -F::new(0.105e1) * t855 * t42070 * t352 - F::new(0.126e2) * t3556 * t31912 - F::new(0.63e1) * t3556 * t41065 - F::new(0.252e2) * t11305 * t41058 - F::new(0.567e2) * t11319 * t41058 - F::new(0.189e2) * t38958 * t11993 - F::new(0.945e1) * t11305 * t41065 - F::new(0.189e2) * t11305 * t31912 - F::new(0.2835e2) * t38961 * t41058 - F::new(0.4725e1) * t38971 * t11993 - F::new(0.4725e1) * t11319 * t31912 - F::new(0.23625e1) * t11319 * t41065 - F::new(0.354375e1) * t38976 * t41058;
     t42098
 }

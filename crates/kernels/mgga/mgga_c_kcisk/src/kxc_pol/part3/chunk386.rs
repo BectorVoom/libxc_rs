@@ -14,7 +14,7 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk386<F: Float>(t776: F, t794: F, 
     let t1993 = F::new(1.0) / t1992;
     let t1994 = t772 * t1993;
     let t1995 = t1689 * t41;
-    let t2003 = piecewise3::<f64>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t1995 * t642 - F::new(10.0) / F::new(27.0) * t525 * t773 * t1758);
+    let t2003 = piecewise3::<F>(t777, F::new(0.0), F::new(10.0) / F::new(9.0) * t525 * t1995 * t642 - F::new(10.0) / F::new(27.0) * t525 * t773 * t1758);
     let t2004 = t79 * t2003;
     let t2005 = t2004 * t781;
     (t1992, t1993, t1994, t1995, t2004, t2005)

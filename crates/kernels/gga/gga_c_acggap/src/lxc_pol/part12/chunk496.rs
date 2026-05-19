@@ -12,7 +12,7 @@ pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk496<F: Float>(t203: F, t32
     let t2676 = t203 * t328;
     let t2677 = t202 * t2676;
     let t2679 = t4 * t2607;
-    let t2681 = F::new(1.0)/pow_3_2::<f64>(t11);
+    let t2681 = F::new(1.0)/pow_3_2::<F>(t11);
     let t2682 = t2681 * t2;
     let t2683 = t2682 * t39;
     let t2685 = t672 * t2673;

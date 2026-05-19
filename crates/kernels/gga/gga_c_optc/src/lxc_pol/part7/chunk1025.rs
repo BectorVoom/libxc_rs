@@ -15,6 +15,6 @@ pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1025<F: Float>(t43: F, t40: F, t59
     let t22305 = t40 * t1906 * t1871;
     let t22306 = F::new(6.0) * t22305;
     let t22308 = F::new(1.0) / t97 / t768;
-    let t22321 = piecewise3::<f64>(t44, F::new(0.0), F::new(40.0) / F::new(81.0) * t22308 * t22015 - F::new(16.0) / F::new(9.0) * t6713 * t1885 * t1891 + F::new(4.0) / F::new(3.0) * t1884 * t22021 + F::new(16.0) / F::new(9.0) * t6716 * t6541 + F::new(4.0) / F::new(3.0) * t47 * t22028);
+    let t22321 = piecewise3::<F>(t44, F::new(0.0), F::new(40.0) / F::new(81.0) * t22308 * t22015 - F::new(16.0) / F::new(9.0) * t6713 * t1885 * t1891 + F::new(4.0) / F::new(3.0) * t1884 * t22021 + F::new(16.0) / F::new(9.0) * t6716 * t6541 + F::new(4.0) / F::new(3.0) * t47 * t22028);
     (t22303, t22306, t22321)
 }

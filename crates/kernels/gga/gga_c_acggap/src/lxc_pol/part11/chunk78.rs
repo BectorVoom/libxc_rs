@@ -12,7 +12,7 @@ pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk78<F: Float>(t132: F, t203
     let t204 = t203 * t132;
     let t205 = t202 * t204;
     let t207 = t4 * t195;
-    let t209 = f64::sqrt(t11);
+    let t209 = F::sqrt(t11);
     let t210 = t209 * t1;
     let t211 = t210 * t204;
     let t216 = t21 * t5 / t22 / t7;

@@ -2685,7 +2685,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5(
         let t100 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk40::<f64>(t99, tau1);
         let (t101, t102, t103) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk41::<f64>(t28);
         let t104 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk42::<f64>(t101, t103);
-        let (t106, t107, t111) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk43::<f64>(t100, t104, t92, t96, t64);
+        let (t106, t107, t111, t109) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk43::<f64>(t100, t104, t92, t96, t64);
         let t112 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk44::<f64>(t111);
         let t113 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk45::<f64>(t112, t89);
         let t116 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk46::<f64>(t25, dens_threshold, rho0, zeta_threshold);
@@ -2785,7 +2785,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5(
         let (t382, t383) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk140::<f64>(t349, t381, t362, t68);
         let t384 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk141::<f64>(t381, t383);
         let (t386, t388) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk142::<f64>(t353, t384, t254);
-        let (t390, t396) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk143::<f64>(t382, t388, t193, t293, t328, t330, t336, t265);
+        let (t390, t396, t394) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk143::<f64>(t382, t388, t193, t293, t328, t330, t336, t265);
         let (t399, t404, t405) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk144::<f64>(t25, t28, t265, t396, t40, t52, dens_threshold, rho0, rho1, zeta_threshold);
         let t407 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk145::<f64>(t268, t269, t405);
         let t409 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk146::<f64>(t407);
@@ -2815,7 +2815,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5(
         let (t492, t493) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk170::<f64>(t466, t491, t477, t68);
         let t494 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk171::<f64>(t491, t493);
         let (t496, t498) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk172::<f64>(t470, t494, t254);
-        let (t500, t506) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk173::<f64>(t492, t498, t193, t336, t425, t453, t455, t265);
+        let (t500, t506, t504) = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk173::<f64>(t492, t498, t193, t336, t425, t453, t455, t265);
         let t510 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk174::<f64>(t28, t265, t506, t52, t399, dens_threshold, rho1, zeta_threshold);
         let t513 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk175::<f64>(t112, t88);
         let t514 = mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk176::<f64>(t25);

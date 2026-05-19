@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk89<F: Float>(t141: F, t165: F, zeta_threshold: F) -> (F, F, F) {
     let t225 = F::new(2.0) <= zeta_threshold;
     let t228 = F::new(0.0) <= zeta_threshold;
-    let t280 = piecewise3::<f64>(t225, t141, t165);
-    let t281 = piecewise3::<f64>(t228, t141, F::new(0.0));
+    let t280 = piecewise3::<F>(t225, t141, t165);
+    let t281 = piecewise3::<F>(t228, t141, F::new(0.0));
     let t283 = t280 / F::new(2.0) + t281 / F::new(2.0);
     let t284 = t283 * t283;
     let t286 = F::new(1.0) / t284 / t283;

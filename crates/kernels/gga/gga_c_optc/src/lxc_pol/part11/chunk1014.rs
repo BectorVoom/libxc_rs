@@ -12,7 +12,7 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1014<F: Float>(t1764: F, t22512: 
     let t22513 = t1764 * t22512;
     let t22515 = t518 * t2002;
     let t22516 = t517 * t22515;
-    let t22519 = f64::powf(t11, -F::new(0.25e1));
+    let t22519 = F::powf(t11, -F::new(0.25e1));
     let t22522 = t22519 * t2 * t6567 * t209;
     let t22524 = t6374 * t543;
     let t22526 = t1776 * t22512;

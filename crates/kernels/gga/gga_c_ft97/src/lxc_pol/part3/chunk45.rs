@@ -13,7 +13,7 @@ pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk45<F: Float>(t2: F, t82: F, t24: F
     let t93 = t82 * t2;
     let t94 = t24 * t93;
     let t95 = t92 * t94;
-    let t96 = f64::sqrt(t95);
+    let t96 = F::sqrt(t95);
     let t97 = t91 * t96;
     let t100 = F::new(3.0) + t97 / F::new(3.0) + t85 / F::new(3.0);
     (t94, t95, t96, t97, t100)

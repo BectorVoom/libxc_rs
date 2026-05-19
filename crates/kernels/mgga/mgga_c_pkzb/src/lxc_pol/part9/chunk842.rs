@@ -12,6 +12,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk842<F: Float>(t24: F, t2177: F, t
     let t90 = t24 <= zeta_threshold;
     let t6097 = F::new(1.0) / t91 / t2177 / t24;
     let t6100 = t2179 * t507;
-    let t6106 = piecewise3::<f64>(t90, F::new(0.0), -F::new(28.0) / F::new(27.0) * t6097 * t5107 + F::new(4.0) / F::new(3.0) * t6100 * t1655 - t821 * t5113 / F::new(3.0));
+    let t6106 = piecewise3::<F>(t90, F::new(0.0), -F::new(28.0) / F::new(27.0) * t6097 * t5107 + F::new(4.0) / F::new(3.0) * t6100 * t1655 - t821 * t5113 / F::new(3.0));
     (t6097, t6106)
 }

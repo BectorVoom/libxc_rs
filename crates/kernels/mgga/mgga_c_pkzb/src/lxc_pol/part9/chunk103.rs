@@ -12,6 +12,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk103<F: Float>(t154: F, t277: F, t
     let t279 = t154 * t52 * t277;
     let t284 = F::new(1.0) / t273;
     let t285 = t133 * t284;
-    let t287 = f64::exp(-(-t230 + t265 + t267) * t158 * t285);
+    let t287 = F::exp(-(-t230 + t265 + t267) * t158 * t285);
     (t279, t284, t285, t287)
 }

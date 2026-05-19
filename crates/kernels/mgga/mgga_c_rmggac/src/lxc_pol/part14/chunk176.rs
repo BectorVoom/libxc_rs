@@ -12,9 +12,9 @@ pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk176<F: Float>(t53: F, t60
     let t54 = t53 <= zeta_threshold;
     let t61 = t60 <= zeta_threshold;
     let t579 = t155 * t578;
-    let t581 = F::new(0.19751673498613801407e-1) * t577 * t181;
-    let t584 = piecewise3::<f64>(t54, F::new(0.0), F::new(2.0) / F::new(3.0) * t437 * t521);
-    let t587 = piecewise3::<f64>(t61, F::new(0.0), F::new(2.0) / F::new(3.0) * t441 * t525);
+    let t581 = F::cast_from(0.19751673498613801407e-1_f64) * t577 * t181;
+    let t584 = piecewise3::<F>(t54, F::new(0.0), F::new(2.0) / F::new(3.0) * t437 * t521);
+    let t587 = piecewise3::<F>(t61, F::new(0.0), F::new(2.0) / F::new(3.0) * t441 * t525);
     let t589 = t584 / F::new(2.0) + t587 / F::new(2.0);
     (t579, t581, t589)
 }

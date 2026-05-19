@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk1030<F: Float>(t30: F, t
     let t31 = t30 <= zeta_threshold;
     let t120 = rho0 <= dens_threshold || t31;
     let t394 = t265 < t393;
-    let t24192 = piecewise3::<f64>(t394, t23560 + t24190, t23436);
-    let t24202 = piecewise3::<f64>(t120, t23436 * t30 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t6084 * t1468 + F::new(3.0) / F::new(2.0) * t1587 * t5824 + t265 * t22670 / F::new(2.0), t24192 * t45 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t6405 * t1469 + F::new(3.0) / F::new(2.0) * t1704 * t5825 + t395 * t22671 / F::new(2.0));
+    let t24192 = piecewise3::<F>(t394, t23560 + t24190, t23436);
+    let t24202 = piecewise3::<F>(t120, t23436 * t30 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t6084 * t1468 + F::new(3.0) / F::new(2.0) * t1587 * t5824 + t265 * t22670 / F::new(2.0), t24192 * t45 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t6405 * t1469 + F::new(3.0) / F::new(2.0) * t1704 * t5825 + t395 * t22671 / F::new(2.0));
     t24202
 }

@@ -13,10 +13,10 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk375<F: Float>(t43: F, t50: F, t4
     let t51 = t50 <= zeta_threshold;
     let t1361 = t886 * t474;
     let t1364 = t47 * t34;
-    let t1368 = piecewise3::<f64>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1361 * t234 + F::new(8.0) / F::new(3.0) * t1364 * t821);
+    let t1368 = piecewise3::<F>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1361 * t234 + F::new(8.0) / F::new(3.0) * t1364 * t821);
     let t1369 = t893 * t478;
     let t1372 = t52 * t34;
-    let t1376 = piecewise3::<f64>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t1369 * t238 - F::new(8.0) / F::new(3.0) * t1372 * t821);
+    let t1376 = piecewise3::<F>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t1369 * t238 - F::new(8.0) / F::new(3.0) * t1372 * t821);
     let t1378 = (t1368 + t1376) * t59;
     (t1361, t1364, t1369, t1372, t1378)
 }

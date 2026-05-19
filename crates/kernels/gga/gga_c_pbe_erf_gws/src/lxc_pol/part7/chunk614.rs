@@ -16,7 +16,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk614<F: Float>(t43: F, t1336
     let t4756 = F::new(36.0) * t4755;
     let t4757 = F::new(1.0) / t726;
     let t4760 = t1402 * t418;
-    let t4766 = piecewise3::<f64>(t44, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4757 * t4352 + F::new(4.0) / F::new(3.0) * t4760 * t1407 + F::new(4.0) / F::new(3.0) * t47 * t4360);
+    let t4766 = piecewise3::<F>(t44, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4757 * t4352 + F::new(4.0) / F::new(3.0) * t4760 * t1407 + F::new(4.0) / F::new(3.0) * t47 * t4360);
     let t4767 = F::new(1.0) / t728;
     let t4770 = t1412 * t422;
     (t4753, t4754, t4755, t4756, t4757, t4760, t4766, t4767, t4770)

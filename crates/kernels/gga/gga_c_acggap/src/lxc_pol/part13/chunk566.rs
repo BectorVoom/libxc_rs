@@ -13,6 +13,6 @@ pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk566<F: Float>(t50: F, t287
     let t4011 = t2876 * t478;
     let t4014 = t893 * t34;
     let t4015 = t821 * t238;
-    let t4025 = piecewise3::<f64>(t51, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4011 * t830 - F::new(16.0) / F::new(9.0) * t4014 * t4015 + F::new(4.0) / F::new(9.0) * t1369 * t833 - F::new(8.0) / F::new(3.0) * t52 * t821 + F::new(8.0) * t1372 * t39);
+    let t4025 = piecewise3::<F>(t51, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4011 * t830 - F::new(16.0) / F::new(9.0) * t4014 * t4015 + F::new(4.0) / F::new(9.0) * t1369 * t833 - F::new(8.0) / F::new(3.0) * t52 * t821 + F::new(8.0) * t1372 * t39);
     (t4015, t4025)
 }

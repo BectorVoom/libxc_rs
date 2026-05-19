@@ -14,8 +14,8 @@ pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk416<F: Float>(t33: F, t2
     let t503 = t265 < t502;
     let t2000 = t1963 * t33;
     let t2002 = t1940 * t2000 / F::new(2.0);
-    let t2003 = piecewise3::<f64>(t503, F::new(0.0), t1995);
-    let t2006 = piecewise3::<f64>(t400, t2002, t2003 * t57 / F::new(2.0));
+    let t2003 = piecewise3::<F>(t503, F::new(0.0), t1995);
+    let t2006 = piecewise3::<F>(t400, t2002, t2003 * t57 / F::new(2.0));
     let t2007 = t1999 + t2006;
     (t2000, t2003, t2007)
 }

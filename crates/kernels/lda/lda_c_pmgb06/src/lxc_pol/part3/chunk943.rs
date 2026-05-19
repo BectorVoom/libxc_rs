@@ -12,6 +12,6 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk943<F: Float>(t5: F, t1074: F, t
     let t6 = t5 <= zeta_threshold;
     let t11024 = t395 * t1074;
     let t11032 = F::new(32.0) * t2128 * t642;
-    let t11034 = piecewise3::<f64>(t6, F::new(0.0), F::new(40.0) / F::new(81.0) * t8485 * t760 * t3010 - F::new(16.0) / F::new(9.0) * t3912 * t1 * t11013 - F::new(8.0) / F::new(9.0) * t4486 * t3127 + F::new(8.0) / F::new(3.0) * t1068 * t395 * t332 - F::new(8.0) * t4489 * t11021 + F::new(8.0) / F::new(3.0) * t4489 * t11024 + F::new(4.0) / F::new(9.0) * t2125 * t3115 - F::new(16.0) * t9 * t247 + t11032);
+    let t11034 = piecewise3::<F>(t6, F::new(0.0), F::new(40.0) / F::new(81.0) * t8485 * t760 * t3010 - F::new(16.0) / F::new(9.0) * t3912 * t1 * t11013 - F::new(8.0) / F::new(9.0) * t4486 * t3127 + F::new(8.0) / F::new(3.0) * t1068 * t395 * t332 - F::new(8.0) * t4489 * t11021 + F::new(8.0) / F::new(3.0) * t4489 * t11024 + F::new(4.0) / F::new(9.0) * t2125 * t3115 - F::new(16.0) * t9 * t247 + t11032);
     (t11024, t11034)
 }

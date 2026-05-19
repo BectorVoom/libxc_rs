@@ -9,9 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
-pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk60<F: Float>(t133: F, t139: F) -> F {
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk60<F: Float>(t133: F, t139: F) -> (F, F) {
     let t140 = t133 * t139;
     let t141 = F::new(0.1e-59) < t140;
-    let t142 = piecewise3::<f64>(t141, t140, F::new(0.1e-59));
-    t142
+    let t142 = piecewise3::<F>(t141, t140, F::new(0.1e-59));
+    (t142, t140)
 }

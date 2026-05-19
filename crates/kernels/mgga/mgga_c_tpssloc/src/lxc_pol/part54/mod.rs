@@ -3035,7 +3035,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10(
         let (t86, t88) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk34::<f64>(t5, t85, t24);
         let t89 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk35::<f64>(t88);
         let (t92, t94, t95, t96, t100, t102, t103, t104, t106, t107) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk36::<f64>(t36, t25, t48, t28, rho0, rho1, tau0, tau1);
-        let t111 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk37::<f64>(t107, t64);
+        let (t111, t109) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk37::<f64>(t107, t64);
         let t112 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk38::<f64>(t111);
         let t113 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk39::<f64>(t112, t89);
         let (t116, t117) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk40::<f64>(t25, dens_threshold, rho0, zeta_threshold);
@@ -3150,7 +3150,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10(
         let (t492, t493) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk149::<f64>(t466, t491, t477, t68);
         let (t494, t496, t497) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk150::<f64>(t491, t493, t470);
         let t498 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk151::<f64>(t254, t497);
-        let (t500, t506, t510) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk152::<f64>(t28, t492, t498, t193, t336, t425, t453, t455, t265, t52, t399, dens_threshold, rho1, zeta_threshold);
+        let (t500, t506, t510, t504) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk152::<f64>(t28, t492, t498, t193, t336, t425, t453, t455, t265, t52, t399, dens_threshold, rho1, zeta_threshold);
         let t513 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk153::<f64>(t112, t88);
         let t514 = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk154::<f64>(t25);
         let (t515, t516, t517) = mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk155::<f64>(t25, t514, t148, t28, zeta_threshold);

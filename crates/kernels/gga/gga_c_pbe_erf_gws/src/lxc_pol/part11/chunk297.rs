@@ -15,7 +15,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk297<F: Float>(t1022: F, t2
     let t1027 = t626 * t954;
     let t1028 = t625 * t1027;
     let t1029 = t11 * t1028;
-    let t1031 = t624 + F::new(0.18891666666666666667e-2) * t1029;
+    let t1031 = t624 + F::cast_from(0.18891666666666666667e-2_f64) * t1029;
     let t1032 = t203 * t1031;
     let t1033 = t1032 * t184;
     (t1023, t1024, t1026, t1027, t1028, t1029, t1031, t1032, t1033)

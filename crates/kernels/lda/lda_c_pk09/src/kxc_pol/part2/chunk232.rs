@@ -12,11 +12,11 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk232<F: Float>(t609: F, t62: F, t89
     let t918 = t62 * t609;
     let t919 = t891 * t918;
     let t920 = t917 * t919;
-    let t921 = F::new(1.800081713982063) * t920;
+    let t921 = F::cast_from(1.800081713982063_f64) * t920;
     let t922 = t61 * t609;
     let t923 = t96 * t922;
     let t924 = t839 * t923;
-    let t925 = F::new(22.07984838129906) * t924;
+    let t925 = F::cast_from(22.07984838129906_f64) * t924;
     let t932 = t861 * t125;
     let t933 = t932 * t204;
     (t919, t920, t921, t923, t924, t925, t932, t933)

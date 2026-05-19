@@ -9,10 +9,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk386<F: Float>(t1800: F, t1877: F, t1684: F, t1735: F, t1732: F, t1738: F, t532: F, t533: F, t529: F, t1792: F, t534: F, t452: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
-    let t1879 = F::new(19.489173774580152) * t1877 * t1800;
-    let t1880 = F::new(0.9421211958699838) * t1684;
-    let t1882 = F::new(0.3140403986233279) * t1735;
-    let t1884 = t1880 - F::new(0.9421211958699838) * t1732 + t1882 + F::new(0.9421211958699838) * t1738;
+    let t1879 = F::cast_from(19.489173774580152_f64) * t1877 * t1800;
+    let t1880 = F::cast_from(0.9421211958699838_f64) * t1684;
+    let t1882 = F::cast_from(0.3140403986233279_f64) * t1735;
+    let t1884 = t1880 - F::cast_from(0.9421211958699838_f64) * t1732 + t1882 + F::cast_from(0.9421211958699838_f64) * t1738;
     let t1887 = F::new(1.0) / t533 / t532;
     let t1888 = t529 * t1887;
     let t1891 = t1884 * t534 - t1888 * t1792 / F::new(2.0);

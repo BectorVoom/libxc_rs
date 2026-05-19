@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk820<F: Float>(t2715: F, t401: F, t2712: F, t2775: F, t2778: F, t1001: F, t1243: F, t2769: F, t7271: F, t2762: F, t395: F, t2765: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t7288 = F::new(0.17777777777777777778e-1) * t401 * t2715;
-    let t7290 = F::new(0.2962962962962962963e-2) * t401 * t2712;
-    let t7335 = F::new(0.2962962962962962963e-2) * t401 * t2775;
-    let t7364 = F::new(0.17777777777777777778e-1) * t401 * t2778;
+    let t7288 = F::cast_from(0.17777777777777777778e-1_f64) * t401 * t2715;
+    let t7290 = F::cast_from(0.2962962962962962963e-2_f64) * t401 * t2712;
+    let t7335 = F::cast_from(0.2962962962962962963e-2_f64) * t401 * t2775;
+    let t7364 = F::cast_from(0.17777777777777777778e-1_f64) * t401 * t2778;
     let t7374 = t1243 * t1001;
     let t7376 = t7271 * t2769;
     let t7378 = t395 * t2762;
-    let t7379 = F::new(0.15996296296296296296e-1) * t7378;
+    let t7379 = F::cast_from(0.15996296296296296296e-1_f64) * t7378;
     let t7380 = t395 * t2765;
     (t7288, t7290, t7335, t7364, t7374, t7376, t7378, t7379, t7380)
 }

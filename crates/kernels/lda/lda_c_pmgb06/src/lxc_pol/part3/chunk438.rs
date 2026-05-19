@@ -12,8 +12,8 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk438<F: Float>(t5: F, t12: F, t17
     let t6 = t5 <= zeta_threshold;
     let t13 = t12 <= zeta_threshold;
     let t1712 = F::new(2.0) / F::new(135.0) * t223 * t1710;
-    let t1718 = piecewise3::<f64>(t6, F::new(0.0), F::new(40.0) / F::new(9.0) * t10 * t1069 + F::new(8.0) / F::new(3.0) * t594 * t1074);
-    let t1724 = piecewise3::<f64>(t13, F::new(0.0), F::new(40.0) / F::new(9.0) * t15 * t1080 + F::new(8.0) / F::new(3.0) * t598 * t1083);
+    let t1718 = piecewise3::<F>(t6, F::new(0.0), F::new(40.0) / F::new(9.0) * t10 * t1069 + F::new(8.0) / F::new(3.0) * t594 * t1074);
+    let t1724 = piecewise3::<F>(t13, F::new(0.0), F::new(40.0) / F::new(9.0) * t15 * t1080 + F::new(8.0) / F::new(3.0) * t598 * t1083);
     let t1727 = (t1718 / F::new(2.0) + t1724 / F::new(2.0)) * t44;
     let t1730 = t81 * t208;
     (t1712, t1727, t1730)

@@ -2929,7 +2929,7 @@ pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1(
         let (t98, t99, t100) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk40::<f64>(t30);
         let (t101, t105) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk41::<f64>(t100, t98, t53, rho1, tau1);
         let (t106, t107, t108) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk42::<f64>(t33);
-        let (t109, t111, t112, t116) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk43::<f64>(t106, t108, t101, t105, t97, t69);
+        let (t109, t111, t112, t116, t114) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk43::<f64>(t106, t108, t101, t105, t97, t69);
         let t117 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk44::<f64>(t116);
         let t118 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk45::<f64>(t117, t94);
         let (t121, t122) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk46::<f64>(t30, dens_threshold, rho0, zeta_threshold);
@@ -3024,7 +3024,7 @@ pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1(
         let t381 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk135::<f64>(t378, t380);
         let (t384, t385) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk136::<f64>(t342, t381);
         let t386 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk137::<f64>(t379, t385);
-        let (t389, t395) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk138::<f64>(t342, t386, t198, t293, t328, t330, t336, t265);
+        let (t389, t395, t393) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk138::<f64>(t342, t386, t198, t293, t328, t330, t336, t265);
         let (t398, t403, t404) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk139::<f64>(t30, t33, t265, t395, t45, t57, dens_threshold, rho0, rho1, zeta_threshold);
         let t406 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk140::<f64>(t268, t269, t404);
         let t408 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk141::<f64>(t406);
@@ -3050,7 +3050,7 @@ pub fn mgga_c_revtpss_lxc_pol_part4_v3rho3_1(
         let t490 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk161::<f64>(t487, t489);
         let (t493, t494) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk162::<f64>(t460, t490);
         let t495 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk163::<f64>(t488, t494);
-        let (t498, t504) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk164::<f64>(t460, t495, t198, t336, t424, t452, t454, t265);
+        let (t498, t504, t502) = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk164::<f64>(t460, t495, t198, t336, t424, t452, t454, t265);
         let t508 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk165::<f64>(t33, t265, t504, t57, t398, dens_threshold, rho1, zeta_threshold);
         let t511 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk166::<f64>(t117, t93);
         let t512 = mgga_c_revtpss_lxc_pol_part4_v3rho3_1_chunk167::<f64>(t19, t22);

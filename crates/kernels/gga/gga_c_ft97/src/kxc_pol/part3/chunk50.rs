@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk50<F: Float>(t29: F) -> F {
-    let t118 = f64::sqrt(t29);
+    let t118 = F::sqrt(t29);
     t118
 }

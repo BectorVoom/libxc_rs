@@ -12,7 +12,7 @@ pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk524<F: Float>(t322: F, t1
     let t323 = t322 <= F::new(0.0);
     let t331 = t322 <= F::new(0.25e1);
     let t2445 = t1348 * t1035;
-    let t2449 = piecewise5::<f64>(t323, t2406 + t2408, t331, t2436, -F::new(0.21e1) * t2437 * t2438 - F::new(0.105e1) * t855 * t2441 * t352 - F::new(0.1575e1) * t2445 * t2438);
+    let t2449 = piecewise5::<F>(t323, t2406 + t2408, t331, t2436, -F::new(0.21e1) * t2437 * t2438 - F::new(0.105e1) * t855 * t2441 * t352 - F::new(0.1575e1) * t2445 * t2438);
     let t2451 = F::new(4.0) * t1357;
     let t2452 = t898 * t457;
     (t2445, t2449, t2451, t2452)

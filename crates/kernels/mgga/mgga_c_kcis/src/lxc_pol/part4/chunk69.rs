@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk69<F: Float>(t169: F, t171: F, t37: F, t168: F, zeta_threshold: F) -> (F, F) {
     let t170 = t169 <= zeta_threshold;
-    let t173 = piecewise3::<f64>(t170, t37, t171 * t169);
+    let t173 = piecewise3::<F>(t170, t37, t171 * t169);
     let t174 = F::new(1.0) - t168;
     (t173, t174)
 }

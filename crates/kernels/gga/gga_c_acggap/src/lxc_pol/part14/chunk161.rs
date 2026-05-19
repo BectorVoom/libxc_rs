@@ -13,9 +13,9 @@ pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk161<F: Float>(t43: F, t50:
     let t51 = t50 <= zeta_threshold;
     let t485 = t40 * t484;
     let t486 = t483 * t85;
-    let t487 = F::new(0.19751673498613801407e-1) * t486;
-    let t490 = piecewise3::<f64>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t292 * t474);
-    let t493 = piecewise3::<f64>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t296 * t478);
+    let t487 = F::cast_from(0.19751673498613801407e-1_f64) * t486;
+    let t490 = piecewise3::<F>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t292 * t474);
+    let t493 = piecewise3::<F>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t296 * t478);
     let t495 = t490 / F::new(2.0) + t493 / F::new(2.0);
     (t485, t487, t495)
 }

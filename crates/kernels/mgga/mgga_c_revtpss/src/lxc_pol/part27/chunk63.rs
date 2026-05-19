@@ -9,7 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk63<F: Float>(t150: F, t157: F) -> (F, F) {
+    let cbrt2 = F::cast_from(M_CBRT2);
     let t158 = t150 * t157;
-    let t159 = M_CBRT2;
+    let t159 = cbrt2;
     (t158, t159)
 }

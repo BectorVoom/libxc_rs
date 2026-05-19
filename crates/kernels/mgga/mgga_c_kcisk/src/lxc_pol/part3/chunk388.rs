@@ -16,6 +16,6 @@ pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk388<F: Float>(t772: F, t695: F, 
     let t2019 = t785 * t785;
     let t2020 = F::new(1.0) / t2019;
     let t2021 = t657 * t2020;
-    let t2023 = piecewise3::<f64>(t783, t1990, -t1990);
+    let t2023 = piecewise3::<F>(t783, t1990, -t1990);
     (t2014, t2015, t2016, t2019, t2020, t2021, t2023)
 }

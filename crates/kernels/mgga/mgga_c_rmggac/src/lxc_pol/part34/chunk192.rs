@@ -14,7 +14,7 @@ pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk192<F: Float>(t1131: F, 
     let t1134 = t388 * t2;
     let t1135 = t1134 * t428;
     let t1138 = t243 * t214 * t180;
-    let t1140 = F::new(0.24415263074675393405e-3) * t426 * t1138;
+    let t1140 = F::cast_from(0.24415263074675393405e-3_f64) * t426 * t1138;
     let t1143 = t194 * t231;
     (t1133, t1135, t1140, t1143)
 }

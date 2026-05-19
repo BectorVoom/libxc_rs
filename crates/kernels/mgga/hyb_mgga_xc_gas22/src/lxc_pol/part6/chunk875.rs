@@ -15,7 +15,7 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk875<F: Float>(t2654: F, t73
     let t7343 = t1033 * t7342;
     let t7345 = t15 * t3021;
     let t7346 = t221 * t7345;
-    let t7348 = F::new(1.0)/pow_3_2::<f64>(t439);
+    let t7348 = F::new(1.0)/pow_3_2::<F>(t439);
     let t7349 = t7348 * t12;
     let t7350 = t7349 * t461;
     let t7352 = t2666 * t7339;

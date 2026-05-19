@@ -18,10 +18,10 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk668<F: Float>(t25: F, t
     let t8569 = t25 * t1914;
     let t8574 = t202 * t8565;
     let t8579 = -t1877 * t1914 * t7114 + t193 * t8574 * t870;
-    let t8580 = piecewise3::<f64>(t395, F::new(0.0), t8579);
-    let t8583 = piecewise3::<f64>(t115, t1877 * t8566 * t25 / F::new(2.0) - t1877 * t7114 * t8569 / F::new(2.0), t8580 * t40 / F::new(2.0));
+    let t8580 = piecewise3::<F>(t395, F::new(0.0), t8579);
+    let t8583 = piecewise3::<F>(t115, t1877 * t8566 * t25 / F::new(2.0) - t1877 * t7114 * t8569 / F::new(2.0), t8580 * t40 / F::new(2.0));
     let t8586 = t28 * t1914;
-    let t8591 = piecewise3::<f64>(t505, F::new(0.0), t8579);
-    let t8594 = piecewise3::<f64>(t401, t1877 * t8566 * t28 / F::new(2.0) - t1877 * t7114 * t8586 / F::new(2.0), t8591 * t52 / F::new(2.0));
+    let t8591 = piecewise3::<F>(t505, F::new(0.0), t8579);
+    let t8594 = piecewise3::<F>(t401, t1877 * t8566 * t28 / F::new(2.0) - t1877 * t7114 * t8586 / F::new(2.0), t8591 * t52 / F::new(2.0));
     (t8569, t8580, t8583, t8586, t8591, t8594)
 }

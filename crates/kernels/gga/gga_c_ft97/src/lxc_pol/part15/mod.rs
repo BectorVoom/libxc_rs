@@ -2505,10 +2505,10 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4(
         let (t69, t70) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk33::<f64>(t14, t47, t17);
         let t71 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk34::<f64>(t23);
         let t72 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk35::<f64>(t70, t71);
-        let (t74, t76, t77, t78, t81) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk36::<f64>(t69, t72, t68, t66, t64);
+        let (t74, t76, t77, t78, t81, t79) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk36::<f64>(t69, t72, t68, t66, t64);
         let t82 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk37::<f64>(t81);
         let t83 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk38::<f64>(t24, t82);
-        let (t85, t88) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk39::<f64>(t10, t16, t83);
+        let (t85, t88, t86) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk39::<f64>(t10, t16, t83);
         let t89 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk40::<f64>(t26, t5);
         let t91 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk41::<f64>(t7);
         let t92 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk42::<f64>(t16, t9);
@@ -2529,10 +2529,10 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4(
         let t133 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk57::<f64>(t129, t132);
         let t135 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk58::<f64>(t130);
         let (t137, t139) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk59::<f64>(t74, t135);
-        let t142 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk60::<f64>(t133, t139);
+        let (t142, t140) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk60::<f64>(t133, t139);
         let t143 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk61::<f64>(t142);
         let t144 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk62::<f64>(t143, t24);
-        let (t146, t149) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk63::<f64>(t10, t144, t16);
+        let (t146, t149, t147) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk63::<f64>(t10, t144, t16);
         let t151 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk64::<f64>(t143, t2, t24);
         let (t152, t153) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk65::<f64>(t151, t92);
         let (t154, t157) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk66::<f64>(t153, t91, t146);
@@ -2579,7 +2579,7 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4(
         let t240 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk107::<f64>(t238);
         let t241 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk108::<f64>(t240);
         let t242 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk109::<f64>(t192, t241);
-        let (t244, t247) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk110::<f64>(t10, t16, t242);
+        let (t244, t247, t245) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk110::<f64>(t10, t16, t242);
         let t249 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk111::<f64>(t2, t241, t192);
         let (t250, t251) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk112::<f64>(t249, t92);
         let (t252, t255) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk113::<f64>(t251, t91, t244);
@@ -2602,7 +2602,7 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4(
         let t294 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk130::<f64>(t292);
         let t295 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk131::<f64>(t294);
         let t296 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk132::<f64>(t192, t295);
-        let (t298, t301) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk133::<f64>(t10, t16, t296);
+        let (t298, t301, t299) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk133::<f64>(t10, t16, t296);
         let t303 = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk134::<f64>(t2, t295, t192);
         let (t304, t305) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk135::<f64>(t303, t92);
         let (t306, t309) = gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk136::<f64>(t305, t91, t298);

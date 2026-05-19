@@ -12,7 +12,7 @@ pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk185<F: Float>(t255: F, t
     let t656 = F::new(1.0) / t256 / t255;
     let t657 = t64 * t656;
     let t659 = t341 * t252 * t1;
-    let t664 = -F::new(0.14921166666666666667e-3) * t345 - F::new(0.39332083333333333333e-2) * t347;
+    let t664 = -F::cast_from(0.14921166666666666667e-3_f64) * t345 - F::cast_from(0.39332083333333333333e-2_f64) * t347;
     let t667 = -t659 * t344 / F::new(12.0) + t14 * t664 / F::new(2.0);
     (t656, t657, t659, t664, t667)
 }

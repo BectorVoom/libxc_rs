@@ -13,7 +13,7 @@ pub fn gga_c_gapc_lxc_pol_part27_v4rho2sigma2_6_chunk493<F: Float>(t213: F, t255
     let t2822 = t2551 + t2653 + t2740 + t2820;
     let t2828 = t2014 * t978;
     let t2831 = t215 * t211;
-    let t2835 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2828 * t690 + F::new(8.0) / F::new(3.0) * t2831 * t414);
+    let t2835 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2828 * t690 + F::new(8.0) / F::new(3.0) * t2831 * t414);
     let t2836 = t2026 * t982;
     (t2822, t2835, t2836)
 }

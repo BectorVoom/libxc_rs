@@ -12,9 +12,9 @@ pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk65<F: Float>(t40: F, t
     let t146 = t40 <= zeta_threshold;
     let t150 = t52 <= zeta_threshold;
     let t195 = t73 * t73;
-    let t196 = piecewise3::<f64>(t146, t194, t195);
+    let t196 = piecewise3::<F>(t146, t194, t195);
     let t197 = t76 * t76;
-    let t198 = piecewise3::<f64>(t150, t194, t197);
+    let t198 = piecewise3::<F>(t150, t194, t197);
     let t200 = t196 / F::new(2.0) + t198 / F::new(2.0);
     (t195, t197, t200)
 }

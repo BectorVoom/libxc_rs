@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part4_v3rho3_2_chunk989<F: Float>(t25: F, t28: F, t16557: F, zeta_threshold: F) -> F {
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
-    let t16558 = piecewise5::<f64>(t26, F::new(0.0), t29, F::new(0.0), t16557);
+    let t16558 = piecewise5::<F>(t26, F::new(0.0), t29, F::new(0.0), t16557);
     t16558
 }

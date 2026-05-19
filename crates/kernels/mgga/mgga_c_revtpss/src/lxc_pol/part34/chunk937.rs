@@ -14,7 +14,7 @@ pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk937<F: Float>(t30: F, t3
     let t22789 = (t22777 + t22787) * t162;
     let t22790 = t22789 * t189;
     let t22791 = t512 * t22790;
-    let t22799 = piecewise3::<f64>(t31, F::new(0.0), F::new(8.0) / F::new(27.0) * t9605 * t22769 - F::new(2.0) / F::new(3.0) * t5574 * t5824 + F::new(2.0) / F::new(3.0) * t1344 * t22670);
-    let t22807 = piecewise3::<f64>(t34, F::new(0.0), F::new(8.0) / F::new(27.0) * t9617 * t22778 - F::new(2.0) / F::new(3.0) * t5582 * t6416 + F::new(2.0) / F::new(3.0) * t1348 * t22783);
+    let t22799 = piecewise3::<F>(t31, F::new(0.0), F::new(8.0) / F::new(27.0) * t9605 * t22769 - F::new(2.0) / F::new(3.0) * t5574 * t5824 + F::new(2.0) / F::new(3.0) * t1344 * t22670);
+    let t22807 = piecewise3::<F>(t34, F::new(0.0), F::new(8.0) / F::new(27.0) * t9617 * t22778 - F::new(2.0) / F::new(3.0) * t5582 * t6416 + F::new(2.0) / F::new(3.0) * t1348 * t22783);
     (t22789, t22791, t22799, t22807)
 }

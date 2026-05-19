@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk973<F: Float>(t50: F, t9232: F, t9263: F, t9265: F, t9343: F, t6554: F, t1018: F, t1020: F, t1226: F, t1228: F, t208: F, t2828: F, t2832: F, t3294: F, t3298: F, t367: F, t368: F, t501: F, t502: F, t8399: F, t8406: F, zeta_threshold: F) -> (F, F, F) {
     let t51 = t50 <= zeta_threshold;
     let t9345 = t9232 + t9263 + t9265 + t9343;
-    let t9352 = piecewise3::<f64>(t51, F::new(0.0), t6554);
+    let t9352 = piecewise3::<F>(t51, F::new(0.0), t6554);
     let t9356 = t208 * (t8399 * t368 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t2828 * t1020 + F::new(3.0) / F::new(2.0) * t1018 * t2832 + t367 * t8406 / F::new(2.0) + t9345 * t502 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t3294 * t1228 + F::new(3.0) / F::new(2.0) * t1226 * t3298 + t501 * t9352 / F::new(2.0));
     (t9345, t9352, t9356)
 }

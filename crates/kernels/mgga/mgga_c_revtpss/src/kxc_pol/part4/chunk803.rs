@@ -12,12 +12,12 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk803<F: Float>(t45: F, t57: F, 
     let t151 = t45 <= zeta_threshold;
     let t155 = t57 <= zeta_threshold;
     let t4377 = t2375 * t1469;
-    let t4383 = piecewise3::<f64>(t151, F::new(0.0), F::new(4.0) / F::new(9.0) * t4377 * t606 + F::new(4.0) / F::new(3.0) * t78 * t4186);
+    let t4383 = piecewise3::<F>(t151, F::new(0.0), F::new(4.0) / F::new(9.0) * t4377 * t606 + F::new(4.0) / F::new(3.0) * t78 * t4186);
     let t4384 = t2382 * t1469;
-    let t4390 = piecewise3::<f64>(t155, F::new(0.0), F::new(4.0) / F::new(9.0) * t4384 * t606 - F::new(4.0) / F::new(3.0) * t81 * t4186);
+    let t4390 = piecewise3::<F>(t155, F::new(0.0), F::new(4.0) / F::new(9.0) * t4384 * t606 - F::new(4.0) / F::new(3.0) * t81 * t4186);
     let t4391 = t4383 + t4390;
     let t4392 = t4391 * t162;
-    let t4394 = F::new(0.19751673498613801407e-1) * t4392 * t187;
+    let t4394 = F::cast_from(0.19751673498613801407e-1_f64) * t4392 * t187;
     let t4395 = t150 * t4391;
     let t4396 = t4395 * t190;
     let t4397 = t1532 * t750;

@@ -13,7 +13,7 @@ pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk537<F: Float>(t235: F, t7
     let t7264 = t649 * t876;
     let t7265 = t27 * t7264;
     let t7266 = t7263 * t7265;
-    let t7267 = F::new(0.68186654135613354322e-2) * t7266;
+    let t7267 = F::cast_from(0.68186654135613354322e-2_f64) * t7266;
     let t7268 = t2084 * t352;
     let t7269 = t27 * t7268;
     let t7270 = t2145 * t7269;
@@ -21,7 +21,7 @@ pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk537<F: Float>(t235: F, t7
     let t7274 = t649 * t839;
     let t7275 = t27 * t7274;
     let t7276 = t7273 * t7275;
-    let t7277 = F::new(0.6818665413561335432e-1) * t7276;
+    let t7277 = F::cast_from(0.6818665413561335432e-1_f64) * t7276;
     let t7278 = t2084 * t333;
     let t7279 = t27 * t7278;
     let t7280 = t2139 * t7279;

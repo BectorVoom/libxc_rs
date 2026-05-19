@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1076<F: Float>(t143: F, t10261: F, t10348: F, t10350: F, t10427: F, t1270: F, t1285: F, t172: F, t187: F, t3227: F, t3267: F, t4046: F, t4082: F, t740: F, t759: F) -> F {
     let t144 = F::new(0.135e1) <= t143;
-    let t10431 = piecewise3::<f64>(t144, t10261 + t10348, -F::new(8.0) / F::new(3.0) * t10350 * t187 - F::new(8.0) / F::new(3.0) * t4046 * t759 - F::new(16.0) / F::new(3.0) * t3227 * t1285 - F::new(16.0) / F::new(3.0) * t1270 * t3267 - F::new(8.0) / F::new(3.0) * t740 * t4082 - F::new(8.0) / F::new(3.0) * t172 * t10427);
+    let t10431 = piecewise3::<F>(t144, t10261 + t10348, -F::new(8.0) / F::new(3.0) * t10350 * t187 - F::new(8.0) / F::new(3.0) * t4046 * t759 - F::new(16.0) / F::new(3.0) * t3227 * t1285 - F::new(16.0) / F::new(3.0) * t1270 * t3267 - F::new(8.0) / F::new(3.0) * t740 * t4082 - F::new(8.0) / F::new(3.0) * t172 * t10427);
     t10431
 }

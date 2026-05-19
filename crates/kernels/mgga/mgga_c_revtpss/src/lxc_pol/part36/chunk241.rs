@@ -13,11 +13,11 @@ pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk241<F: Float>(t287: F, 
     let t914 = F::new(1.0) / t913;
     let t915 = t275 * t914;
     let t916 = F::new(1.0) / t276;
-    let t921 = F::new(0.29896666666666666667e0) * t902;
-    let t923 = f64::sqrt(t273);
+    let t921 = F::cast_from(0.29896666666666666667e0_f64) * t902;
+    let t923 = F::sqrt(t273);
     let t926 = t696 * t240;
     let t928 = t281 * t926 * t283;
-    let t929 = F::new(0.82156666666666666667e-1) * t928;
+    let t929 = F::cast_from(0.82156666666666666667e-1_f64) * t928;
     let t930 = t240 * t346;
     (t913, t914, t915, t916, t921, t923, t926, t928, t929, t930)
 }

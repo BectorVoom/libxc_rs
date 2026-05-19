@@ -17,7 +17,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk737<F: Float>(t3783: F, t394: F,
     let t14364 = t484 * t13328;
     let t14365 = t14364 * sigma0;
     let t14374 = F::new(1.0) / t470 / t380;
-    let t14409 = F::new(0.11791604938271604938e-1) * t140 * t446 * t480;
+    let t14409 = F::cast_from(0.11791604938271604938e-1_f64) * t140 * t446 * t480;
     let t14484 = t451 * t12951;
     (t14265, t14294, t14365, t14374, t14409, t14484)
 }

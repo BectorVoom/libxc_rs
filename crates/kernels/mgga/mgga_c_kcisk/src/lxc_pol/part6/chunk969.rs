@@ -20,7 +20,7 @@ pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk969<F: Float>(t227: F, t30125: F
     let t30133 = F::new(3.0) / F::new(8.0) * t30132;
     let t30134 = t8464 * t2361;
     let t30135 = F::new(3.0) / F::new(8.0) * t30134;
-    let t30136 = piecewise3::<f64>(t228, F::new(0.0), t28312);
+    let t30136 = piecewise3::<F>(t228, F::new(0.0), t28312);
     let t30137 = t565 * t30136;
     let t30138 = t30137 * t806;
     let t30139 = t564 * t30138;

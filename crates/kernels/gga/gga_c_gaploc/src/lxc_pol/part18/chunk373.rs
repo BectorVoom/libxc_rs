@@ -16,12 +16,12 @@ pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk373<F: Float>(t213: F, t2
     let t1655 = t608 * t608;
     let t1658 = t211 * t408;
     let t1660 = -F::new(2.0) * t90 + F::new(2.0) * t1658;
-    let t1664 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t1654 * t1655 + F::new(4.0) / F::new(3.0) * t215 * t1660);
+    let t1664 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t1654 * t1655 + F::new(4.0) / F::new(3.0) * t215 * t1660);
     let t1665 = t220 * t220;
     let t1666 = F::new(1.0) / t1665;
     let t1667 = t612 * t612;
     let t1670 = -t1660;
-    let t1674 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t1666 * t1667 + F::new(4.0) / F::new(3.0) * t220 * t1670);
+    let t1674 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t1666 * t1667 + F::new(4.0) / F::new(3.0) * t220 * t1670);
     let t1676 = (t1664 + t1674) * t43;
     let t1681 = t1228 * t286 * t708;
     let t1683 = t284 * t284;

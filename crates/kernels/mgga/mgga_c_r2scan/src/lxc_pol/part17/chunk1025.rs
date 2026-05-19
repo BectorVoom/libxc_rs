@@ -12,6 +12,6 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk1025<F: Float>(t322: F, t
     let t332 = F::new(0.25e1) < t322;
     let t12890 = t2956 * t1127;
     let t12892 = t1020 * t3745;
-    let t12894 = piecewise3::<f64>(t332, F::new(0.0), t12828);
+    let t12894 = piecewise3::<F>(t332, F::new(0.0), t12828);
     (t12890, t12892, t12894)
 }

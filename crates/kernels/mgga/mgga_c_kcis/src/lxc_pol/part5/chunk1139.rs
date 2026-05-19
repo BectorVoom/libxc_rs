@@ -18,6 +18,6 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1139<F: Float>(t278: F, t19160: F
     let t19171 = t14395 * t330;
     let t19173 = t19171 * t19164 * t1003;
     let t19176 = t14401 * t19165;
-    let t19180 = piecewise3::<f64>(t288, t19107, -t19107);
+    let t19180 = piecewise3::<F>(t288, t19107, -t19107);
     (t19162, t19166, t19173, t19176, t19180)
 }

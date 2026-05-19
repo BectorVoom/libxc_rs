@@ -13,7 +13,7 @@ pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk1059<F: Float>(t14109: F, t391
     let t14111 = t9680 * t14110;
     let t14113 = t1437 * t1882;
     let t14114 = t2482 * t14113;
-    let t14116 = F::new(0.19514881078765566038e-1) * t14114 * t4104;
+    let t14116 = F::cast_from(0.19514881078765566038e-1_f64) * t14114 * t4104;
     let t14120 = t10073 * t5737;
     let t14122 = t1419 * t1882;
     let t14124 = t4086 * t14122 * t543;

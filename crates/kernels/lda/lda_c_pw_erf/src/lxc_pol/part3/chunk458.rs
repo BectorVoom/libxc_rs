@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk458<F: Float>(t50: F, t34: F, t52: F, t1789: F, t352: F, t462: F, t1788: F, t59: F, zeta_threshold: F) -> (F, F) {
     let t51 = t50 <= zeta_threshold;
     let t1792 = t52 * t34;
-    let t1796 = piecewise3::<f64>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t1789 * t352 - F::new(8.0) / F::new(3.0) * t1792 * t462);
+    let t1796 = piecewise3::<F>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t1789 * t352 - F::new(8.0) / F::new(3.0) * t1792 * t462);
     let t1798 = (t1788 + t1796) * t59;
     (t1792, t1798)
 }

@@ -13,7 +13,7 @@ pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk685<F: Float>(t1736: F, t2248: F, 
     let t11273 = t2248 * t1736;
     let t11280 = t2248 * t422;
     let t11296 = t1725 * t3085;
-    let t11297 = F::new(0.1134997482304526749e-1) * t11296;
+    let t11297 = F::cast_from(0.1134997482304526749e-1_f64) * t11296;
     let t11298 = t626 * t934;
     let t11299 = t419 * t11298;
     let t11303 = t8715 * t3095;

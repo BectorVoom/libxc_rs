@@ -13,9 +13,9 @@ pub fn gga_c_gapc_lxc_pol_part21_v4rho2sigma2_0_chunk199<F: Float>(t213: F, t218
     let t219 = t218 <= zeta_threshold;
     let t689 = t211 * t88;
     let t690 = t62 - t689;
-    let t693 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t690);
+    let t693 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t690);
     let t694 = -t690;
-    let t697 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t694);
+    let t697 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t694);
     let t699 = (t693 + t697) * t43;
     let t704 = t238 * t238;
     let t705 = F::new(1.0) / t704;

@@ -9,10 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk843<F: Float>(t1445: F, t1562: F, t2854: F, t9127: F, t12886: F, t4614: F, t574: F, t12890: F, t597: F, t12922: F, t26935: F, t2877: F, t40251: F) -> (F, F, F, F, F) {
-    let t41927 = F::new(0.69017266717057349418e1) * t1562 * t1445 * t2854 * t9127;
-    let t41930 = F::new(0.12269736305254639897e2) * t574 * t4614 * t12886;
-    let t41933 = F::new(0.58281247449959539508e2) * t597 * t4614 * t12890;
-    let t41941 = F::new(0.42900587942220512003e1) * t26935 * t12922;
-    let t41945 = F::new(0.35750489951850426669e0) * t40251 * t2877;
+    let t41927 = F::cast_from(0.69017266717057349418e1_f64) * t1562 * t1445 * t2854 * t9127;
+    let t41930 = F::cast_from(0.12269736305254639897e2_f64) * t574 * t4614 * t12886;
+    let t41933 = F::cast_from(0.58281247449959539508e2_f64) * t597 * t4614 * t12890;
+    let t41941 = F::cast_from(0.42900587942220512003e1_f64) * t26935 * t12922;
+    let t41945 = F::cast_from(0.35750489951850426669e0_f64) * t40251 * t2877;
     (t41927, t41930, t41933, t41941, t41945)
 }

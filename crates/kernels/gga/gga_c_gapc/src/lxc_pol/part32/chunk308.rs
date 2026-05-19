@@ -15,6 +15,6 @@ pub fn gga_c_gapc_lxc_pol_part32_v4rho2sigma2_11_chunk308<F: Float>(t345: F, t13
     let t1210 = t30 * t30;
     let t1211 = F::new(1.0) / t1210;
     let t1212 = t1188 * t1211;
-    let t1214 = F::new(0.16081824322151104822e2) * t1209 * t1212;
+    let t1214 = F::cast_from(0.16081824322151104822e2_f64) * t1209 * t1212;
     t1214
 }

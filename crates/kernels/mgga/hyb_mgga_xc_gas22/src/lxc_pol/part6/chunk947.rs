@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk947<F: Float>(t7: F, t1793: F, t545: F, t1796: F, t1808: F, t3302: F, t3305: F, t461: F, t776: F, t8632: F, t8635: F, t222: F, t37: F, zeta_threshold: F) -> (F, F, F) {
     let t8 = t7 <= zeta_threshold;
     let t8636 = t1793 * t545;
-    let t8646 = piecewise3::<f64>(t8, F::new(0.0), -F::new(28.0) / F::new(27.0) * t8632 * t1808 + F::new(16.0) / F::new(9.0) * t8635 * t8636 + F::new(4.0) / F::new(9.0) * t3302 * t1796 - F::new(2.0) / F::new(3.0) * t776 * t1793 + F::new(2.0) * t3305 * t461);
+    let t8646 = piecewise3::<F>(t8, F::new(0.0), -F::new(28.0) / F::new(27.0) * t8632 * t1808 + F::new(16.0) / F::new(9.0) * t8635 * t8636 + F::new(4.0) / F::new(9.0) * t3302 * t1796 - F::new(2.0) / F::new(3.0) * t776 * t1793 + F::new(2.0) * t3305 * t461);
     let t8648 = t222 * t37 * t8646;
     (t8636, t8646, t8648)
 }

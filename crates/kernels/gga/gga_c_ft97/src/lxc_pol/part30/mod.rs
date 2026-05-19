@@ -2453,7 +2453,7 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11(
         let t240 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk57::<f64>(t238);
         let t241 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk58::<f64>(t240);
         let t242 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk59::<f64>(t192, t241);
-        let (t244, t247) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk60::<f64>(t10, t16, t242);
+        let (t244, t247, t245) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk60::<f64>(t10, t16, t242);
         let (t249, t250, t251) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk61::<f64>(t2, t241, t192, t92);
         let (t252, t255) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk62::<f64>(t251, t91, t244);
         let (t256, t257, t258) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk63::<f64>(t241, t255, t244, t252);
@@ -2469,7 +2469,7 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11(
         let t294 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk73::<f64>(t292);
         let t295 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk74::<f64>(t294);
         let t296 = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk75::<f64>(t192, t295);
-        let (t298, t301) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk76::<f64>(t10, t16, t296);
+        let (t298, t301, t299) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk76::<f64>(t10, t16, t296);
         let (t303, t304, t305) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk77::<f64>(t2, t295, t192, t92);
         let (t306, t309) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk78::<f64>(t305, t91, t298);
         let (t310, t311, t312) = gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk79::<f64>(t295, t309, t298, t306);

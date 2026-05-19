@@ -13,6 +13,6 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk325<F: Float>(t524: F, t538: F, 
     let t1587 = t538 * t538;
     let t1588 = F::new(1.0) / t1587;
     let t1589 = t398 * t1588;
-    let t1591 = piecewise3::<f64>(t536, t1553, -t1553);
+    let t1591 = piecewise3::<F>(t536, t1553, -t1553);
     (t1587, t1588, t1589, t1591)
 }

@@ -13,9 +13,9 @@ pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk139<F: Float>(t213: F, t21
     let t219 = t218 <= zeta_threshold;
     let t607 = t211 * t90;
     let t608 = t64 - t607;
-    let t611 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t608);
+    let t611 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t608);
     let t612 = -t608;
-    let t615 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t612);
+    let t615 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t612);
     let t617 = (t611 + t615) * t43;
     let t622 = t238 * t238;
     let t623 = F::new(1.0) / t622;

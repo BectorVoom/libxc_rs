@@ -12,7 +12,7 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1119<F: Float>(t11878: F, t224: 
     let t20019 = F::new(160.0) * t11878;
     let t20020 = t224 * t6008;
     let t20021 = F::new(8.0) * t20020;
-    let t20022 = F::new(0.69263436422725855034e2) * t15043;
+    let t20022 = F::cast_from(0.69263436422725855034e2_f64) * t15043;
     let t20023 = F::new(8.0) * t11889;
     let t20024 = t709 * t1711;
     let t20025 = F::new(20.0) * t20024;

@@ -2237,7 +2237,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let t74 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk32::<f64>(t71);
         let (t77, t79) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk33::<f64>(t71, t41);
         let (t80, t81) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk34::<f64>(t20, t79, t21, t6);
-        let (t83, t85, t88, t89, t93, t98, t101, t102, t107, t114) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk35::<f64>(t24, t81, t80, t71, t74, t77, t45, t67, t73, t10, t64, t41);
+        let (t83, t85, t88, t89, t93, t98, t101, t102, t107, t114, t110) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk35::<f64>(t24, t81, t80, t71, t74, t77, t45, t67, t73, t10, t64, t41);
         let t116 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk36::<f64>(sigma0, sigma1, sigma2);
         let t117 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk37::<f64>(t8);
         let t119 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk38::<f64>(t117, t9);
@@ -2284,7 +2284,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let t242 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk79::<f64>(t12);
         let (t247, t250, t251, t259) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk80::<f64>(t12, t15, t18, t26, t240, t242, t34, t57);
         let t260 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk81::<f64>(t3, t63);
-        let (t261, t268) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk82::<f64>(t60, t67, t10, t260, t116);
+        let (t261, t268, t264) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk82::<f64>(t60, t67, t10, t260, t116);
         let (t272, t275, t278, t281, t282, t285, t288, t289, t291, t294) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk83::<f64>(t259, t6, t123, t119, t268, t193, t208, t215, t219, rho0, sigma0);
         let (t295, t297, t298) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk84::<f64>(t222, t5, t7, tau0, zeta_threshold);
         let t299 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk85::<f64>(t10, t41);
@@ -2305,7 +2305,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let (t350, t352, t353) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk100::<f64>(t344, t20, t41, t21);
         let (t355, t357, t360, t361, t365, t370, t373, t374, t378, t379, t380, t381) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk101::<f64>(t25, t313, t353, t344, t347, t350, t346, t45, t67, t222, t8);
         let t382 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk102::<f64>(t381);
-        let (t389, t390, t391, t394) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk103::<f64>(t340, t379, t382, rho0, sigma0);
+        let (t389, t390, t391, t394, t385) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk103::<f64>(t340, t379, t382, rho0, sigma0);
         let t395 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk104::<f64>(t20, t394);
         let (t396, t397) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk105::<f64>(t389, t395, t122, t6);
         let t398 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk106::<f64>(t301);
@@ -2346,7 +2346,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let (t500, t501, t503, t504, t505, t507) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk141::<f64>(t498, t499, t493, t489, t475, t303);
         let (t512, t515, t516, t524) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk142::<f64>(t303, t306, t309, t315, t240, t323, t335, t507);
         let t525 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk143::<f64>(t260, t67);
-        let (t526, t533, t534, t535) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk144::<f64>(t338, t41, t382, t525, t79, t20, t469);
+        let (t526, t533, t534, t535, t529) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk144::<f64>(t338, t41, t382, t525, t79, t20, t469);
         let (t538, t539) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk145::<f64>(t524);
         let (t541, t544, t547, t548, t551, t554, t555, t559, t564) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk146::<f64>(t397, t399, t539, t535, t473, t524, t489, t501, t240, t505, rho1, sigma2);
         let (t565, t567, t568) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk147::<f64>(t227, tau1, zeta_threshold);
@@ -2362,7 +2362,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let t609 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk157::<f64>(t606);
         let (t615, t617, t620, t621, t625, t630, t633, t634, t638, t639, t640, t641) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk158::<f64>(t606, t25, t353, t579, t609, t45, t608, t67, t227, t8);
         let t642 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk159::<f64>(t641);
-        let t649 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk160::<f64>(t340, t639, t642, sigma2);
+        let (t649, t645) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk160::<f64>(t340, t639, t642, sigma2);
         let t650 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk161::<f64>(rho1);
         let t651 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk162::<f64>(rho1);
         let (t652, t654) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk163::<f64>(t651, t650);
@@ -2398,7 +2398,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3(
         let t747 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk193::<f64>(t640, t641);
         let (t748, t749, t751, t752, t753, t755) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk194::<f64>(t746, t747, t741, t737, t724, t571);
         let (t760, t763, t764, t772) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk195::<f64>(t571, t574, t577, t581, t240, t589, t601, t755);
-        let (t773, t780) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk196::<f64>(t41, t604, t525, t642, t79);
+        let (t773, t780, t776) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk196::<f64>(t41, t604, t525, t642, t79);
         let (t781, t782) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk197::<f64>(t20, t718, t780);
         let (t785, t786) = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk198::<f64>(t772);
         let t788 = mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk199::<f64>(t397, t658, t786);

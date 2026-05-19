@@ -13,10 +13,10 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk735<F: Float>(t38: F,
     let t4259 = F::new(1.0) / t4258;
     let t4339 = t2060 * t1477 * t279;
     let t4340 = t2059 * t4339;
-    let t4341 = F::new(0.31636214830824236053e1) * t4340;
+    let t4341 = F::cast_from(0.31636214830824236053e1_f64) * t4340;
     let t4347 = t799 * t784 * t116;
     let t4348 = t798 * t4347;
-    let t4349 = F::new(0.18256146151140740741e1) * t4348;
+    let t4349 = F::cast_from(0.18256146151140740741e1_f64) * t4348;
     let t4351 = F::new(1.0) / t47 / t259;
     (t4258, t4259, t4341, t4349, t4351)
 }

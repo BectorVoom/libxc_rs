@@ -15,6 +15,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk439<F: Float>(t259: F, t479
     let t1586 = t1141 * t1143 * t1581 + t1578 * t220 * t468;
     let t1587 = t1139 * t1586;
     let t1589 = -t1136 * t1587 + t1579 * t473;
-    let t1594 = piecewise3::<f64>(t480, t1153 * t1589 * t198 * t330 - t1507 + t1521 + t1547 + t1549 - t1553, t1402);
+    let t1594 = piecewise3::<F>(t480, t1153 * t1589 * t198 * t330 - t1507 + t1521 + t1547 + t1549 - t1553, t1402);
     (t1579, t1581, t1586, t1587, t1589, t1594)
 }

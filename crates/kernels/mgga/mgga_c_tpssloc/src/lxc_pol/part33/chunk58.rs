@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk58<F: Float>(t32: F, t40: F, zeta_threshold: F) -> (F, F, F) {
     let t145 = t32 * t32;
     let t146 = t40 <= zeta_threshold;
-    let t147 = pow_1_3::<f64>(zeta_threshold);
+    let t147 = pow_1_3::<F>(zeta_threshold);
     let t148 = t147 * zeta_threshold;
     (t145, t147, t148)
 }

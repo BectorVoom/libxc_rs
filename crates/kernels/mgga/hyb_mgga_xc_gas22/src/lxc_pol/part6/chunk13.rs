@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk13<F: Float>(t4: F) -> F {
-    let t25 = pow_1_3::<f64>(t4);
+    let t25 = pow_1_3::<F>(t4);
     t25
 }

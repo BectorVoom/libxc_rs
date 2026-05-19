@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk123<F: Float>(t132: F, zeta_threshold: F) -> F {
     let t133 = t132 <= zeta_threshold;
-    let t340 = piecewise3::<f64>(t133, zeta_threshold, t132);
+    let t340 = piecewise3::<F>(t133, zeta_threshold, t132);
     t340
 }

@@ -12,6 +12,6 @@ pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1181<F: Float>(t5: F, t11228: F,
     let t6 = t5 <= zeta_threshold;
     let t21317 = F::new(5.84605) * t11228;
     let t21326 = t395 * t2381;
-    let t21337 = piecewise3::<f64>(t6, F::new(0.0), -F::new(56.0) / F::new(81.0) * t8119 * t7284 * t332 + F::new(16.0) / F::new(9.0) * t5953 * t1072 + F::new(8.0) / F::new(9.0) * t4363 * t6698 - F::new(4.0) / F::new(3.0) * t4366 * t21326 - F::new(2.0) / F::new(3.0) * t2192 * t5961 - F::new(2.0) / F::new(9.0) * t1212 * t7290 * t332 + F::new(2.0) / F::new(3.0) * t330 * t19870);
+    let t21337 = piecewise3::<F>(t6, F::new(0.0), -F::new(56.0) / F::new(81.0) * t8119 * t7284 * t332 + F::new(16.0) / F::new(9.0) * t5953 * t1072 + F::new(8.0) / F::new(9.0) * t4363 * t6698 - F::new(4.0) / F::new(3.0) * t4366 * t21326 - F::new(2.0) / F::new(3.0) * t2192 * t5961 - F::new(2.0) / F::new(9.0) * t1212 * t7290 * t332 + F::new(2.0) / F::new(3.0) * t330 * t19870);
     (t21317, t21326, t21337)
 }

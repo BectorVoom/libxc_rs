@@ -12,7 +12,7 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk483<F: Float>(t51: F, t2524: F, t2
     let t52 = t51 <= zeta_threshold;
     let t2695 = t2524 + t2634 + t2673 + t2693;
     let t2696 = t213 * t2695;
-    let t2700 = piecewise3::<f64>(t52, F::new(0.0), F::new(2.0) * t51 * t2146);
+    let t2700 = piecewise3::<F>(t52, F::new(0.0), F::new(2.0) * t51 * t2146);
     let t2701 = t2700 * t555;
     let t2703 = t1165 + t1166 + t1167 + t1169 + t1173;
     (t2695, t2696, t2700, t2701, t2703)

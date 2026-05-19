@@ -12,11 +12,11 @@ pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk573<F: Float>(t45: F, t5
     let t151 = t45 <= zeta_threshold;
     let t155 = t57 <= zeta_threshold;
     let t5927 = F::new(2.0) * t4397;
-    let t5933 = piecewise3::<f64>(t151, F::new(0.0), F::new(4.0) / F::new(9.0) * t2375 * t5819 + F::new(4.0) / F::new(3.0) * t78 * t5825);
-    let t5939 = piecewise3::<f64>(t155, F::new(0.0), F::new(4.0) / F::new(9.0) * t2382 * t5819 - F::new(4.0) / F::new(3.0) * t81 * t5825);
+    let t5933 = piecewise3::<F>(t151, F::new(0.0), F::new(4.0) / F::new(9.0) * t2375 * t5819 + F::new(4.0) / F::new(3.0) * t78 * t5825);
+    let t5939 = piecewise3::<F>(t155, F::new(0.0), F::new(4.0) / F::new(9.0) * t2382 * t5819 - F::new(4.0) / F::new(3.0) * t81 * t5825);
     let t5940 = t5933 + t5939;
     let t5941 = t5940 * t162;
-    let t5943 = F::new(0.19751673498613801407e-1) * t5941 * t187;
+    let t5943 = F::cast_from(0.19751673498613801407e-1_f64) * t5941 * t187;
     let t5944 = t150 * t5940;
     let t5945 = t5944 * t190;
     let t5947 = F::new(8.0) * t4311 * t1522;

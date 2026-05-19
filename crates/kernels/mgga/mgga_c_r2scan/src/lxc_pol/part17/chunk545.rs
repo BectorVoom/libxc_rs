@@ -12,10 +12,10 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk545<F: Float>(t322: F, t2
     let t323 = t322 <= F::new(0.0);
     let t331 = t322 <= F::new(0.25e1);
     let t332 = F::new(0.25e1) < t322;
-    let t2987 = piecewise3::<f64>(t332, t2940, F::new(0.0));
+    let t2987 = piecewise3::<F>(t332, t2940, F::new(0.0));
     let t2991 = t1348 * t2983;
-    let t2995 = piecewise5::<f64>(t323, t2952 + t2954, t331, t2982, -F::new(0.21e1) * t1338 * t2983 * t352 - F::new(0.105e1) * t855 * t2987 * t352 - F::new(0.1575e1) * t2991 * t352);
-    let t2997 = F::new(0.36622894612013090108e-3) * t2464;
+    let t2995 = piecewise5::<F>(t323, t2952 + t2954, t331, t2982, -F::new(0.21e1) * t1338 * t2983 * t352 - F::new(0.105e1) * t855 * t2987 * t352 - F::new(0.1575e1) * t2991 * t352);
+    let t2997 = F::cast_from(0.36622894612013090108e-3_f64) * t2464;
     let t2998 = F::new(8.0) * t2486;
     let t2999 = t889 * t889;
     (t2987, t2991, t2995, t2997, t2998, t2999)

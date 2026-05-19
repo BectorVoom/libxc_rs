@@ -12,8 +12,8 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk660<F: Float>(t12: F, t1430: F, t
     let t84 = t12 <= zeta_threshold;
     let t203 = rho0 <= dens_threshold || t84;
     let t3004 = F::new(2.0) * t1430;
-    let t3005 = piecewise3::<f64>(t84, F::new(0.0), t3004);
-    let t3009 = piecewise3::<f64>(t203, F::new(0.0), t1151 * t810 / F::new(2.0) + t808 * t1153 / F::new(2.0) + t3000 * t319 / F::new(2.0) + t318 * t3005 / F::new(2.0));
+    let t3005 = piecewise3::<F>(t84, F::new(0.0), t3004);
+    let t3009 = piecewise3::<F>(t203, F::new(0.0), t1151 * t810 / F::new(2.0) + t808 * t1153 / F::new(2.0) + t3000 * t319 / F::new(2.0) + t318 * t3005 / F::new(2.0));
     let t3010 = t201 * t3009;
     let t3017 = t204 * t648 * t1167;
     (t3004, t3005, t3010, t3017)

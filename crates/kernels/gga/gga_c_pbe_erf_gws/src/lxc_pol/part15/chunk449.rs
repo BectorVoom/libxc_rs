@@ -9,12 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk449<F: Float>(t1689: F, t1694: F, t1700: F, t1704: F, t1743: F, t203: F, t184: F, t221: F, t174: F, t177: F, t332: F, t395: F, t574: F) -> (F, F, F, F, F, F, F) {
-    let t1748 = -t1743 - F::new(0.12594444444444444445e-2) * t1689 + F::new(0.12594444444444444445e-2) * t1694 - F::new(0.37783333333333333334e-2) * t1700 + F::new(0.18891666666666666667e-2) * t1704;
+    let t1748 = -t1743 - F::cast_from(0.12594444444444444445e-2_f64) * t1689 + F::cast_from(0.12594444444444444445e-2_f64) * t1694 - F::cast_from(0.37783333333333333334e-2_f64) * t1700 + F::cast_from(0.18891666666666666667e-2_f64) * t1704;
     let t1749 = t203 * t1748;
     let t1750 = t1749 * t184;
     let t1752 = F::new(2.0) / F::new(15.0) * t1750 * t221;
     let t1754 = t174 * t332 * t177;
-    let t1755 = F::new(0.25188888888888888889e-2) * t1754;
+    let t1755 = F::cast_from(0.25188888888888888889e-2_f64) * t1754;
     let t1756 = t395 * t574;
     (t1748, t1749, t1750, t1752, t1754, t1755, t1756)
 }

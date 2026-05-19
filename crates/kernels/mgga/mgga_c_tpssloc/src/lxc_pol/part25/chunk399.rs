@@ -18,11 +18,11 @@ pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk399<F: Float>(t25: F, t2
     let t2058 = t2057 * t25;
     let t2061 = t202 * t2056;
     let t2063 = t193 * t2061 * t870;
-    let t2064 = piecewise3::<f64>(t395, F::new(0.0), t2063);
-    let t2067 = piecewise3::<f64>(t115, t1877 * t2058 / F::new(2.0), t2064 * t40 / F::new(2.0));
+    let t2064 = piecewise3::<F>(t395, F::new(0.0), t2063);
+    let t2067 = piecewise3::<F>(t115, t1877 * t2058 / F::new(2.0), t2064 * t40 / F::new(2.0));
     let t2068 = t2057 * t28;
-    let t2071 = piecewise3::<f64>(t505, F::new(0.0), t2063);
-    let t2074 = piecewise3::<f64>(t401, t1877 * t2068 / F::new(2.0), t2071 * t52 / F::new(2.0));
+    let t2071 = piecewise3::<F>(t505, F::new(0.0), t2063);
+    let t2074 = piecewise3::<F>(t401, t1877 * t2068 / F::new(2.0), t2071 * t52 / F::new(2.0));
     let t2075 = t2067 + t2074;
     (t2058, t2061, t2064, t2068, t2071, t2075)
 }

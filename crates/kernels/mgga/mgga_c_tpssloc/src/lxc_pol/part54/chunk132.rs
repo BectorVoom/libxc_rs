@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk132<F: Float>(t407: F, t410: F, t413: F, t417: F, t440: F, t300: F, t425: F, t427: F, t436: F, t338: F, t51: F) -> (F, F, F, F, F, F) {
     let t445 = F::new(0.51785e1) * t410 + F::new(0.905775e0) * t407 + F::new(0.1100325e0) * t413 + F::new(0.1241775e0) * t417;
-    let t448 = F::new(1.0) + F::new(0.29608749977793437516e2) / t445;
-    let t449 = f64::ln(t448);
+    let t448 = F::new(1.0) + F::cast_from(0.29608749977793437516e2_f64) / t445;
+    let t449 = F::ln(t448);
     let t450 = t440 * t449;
-    let t453 = t300 * (-F::new(0.310907e-1) * t427 * t436 + t425 - F::new(0.19751673498613801407e-1) * t450);
-    let t455 = F::new(0.19751673498613801407e-1) * t300 * t450;
+    let t453 = t300 * (-F::new(0.310907e-1) * t427 * t436 + t425 - F::cast_from(0.19751673498613801407e-1_f64) * t450);
+    let t455 = F::cast_from(0.19751673498613801407e-1_f64) * t300 * t450;
     let t456 = t51 * t338;
     (t445, t448, t449, t453, t455, t456)
 }

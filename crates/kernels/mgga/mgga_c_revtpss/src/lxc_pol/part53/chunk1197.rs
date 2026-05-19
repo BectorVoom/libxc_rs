@@ -13,8 +13,8 @@ pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk1197<F: Float>(t33: F, 
     let t400 = rho1 <= dens_threshold || t34;
     let t503 = t265 < t502;
     let t127288 = t127236 + t127287;
-    let t127289 = piecewise3::<f64>(t503, F::new(0.0), t127181);
-    let t127296 = piecewise3::<f64>(t400, t127288, t127289 * t57 / F::new(2.0) - t32089 * t1469 / F::new(2.0) - t33897 * t606 / F::new(2.0) - t8553 * t4186 / F::new(2.0));
+    let t127289 = piecewise3::<F>(t503, F::new(0.0), t127181);
+    let t127296 = piecewise3::<F>(t400, t127288, t127289 * t57 / F::new(2.0) - t32089 * t1469 / F::new(2.0) - t33897 * t606 / F::new(2.0) - t8553 * t4186 / F::new(2.0));
     let t127299 = t8568 * t28189;
     (t127296, t127299)
 }

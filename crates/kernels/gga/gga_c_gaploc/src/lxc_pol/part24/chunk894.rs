@@ -12,7 +12,7 @@ pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk894<F: Float>(t8911: F, t
     let t9032 = t8911 + t8957 + t8988 + t9030;
     let t9034 = t1052 * t2208;
     let t9070 = t2300 * t2317;
-    let t9072 = F::new(0.23712505529730124666e-2) * t6525 * t9070;
+    let t9072 = F::cast_from(0.23712505529730124666e-2_f64) * t6525 * t9070;
     let t9074 = t481 * t880 * t122;
     (t9032, t9034, t9070, t9072, t9074)
 }

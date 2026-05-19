@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk146<F: Float>(t397: F, t399: F, t539: F, t535: F, t473: F, t524: F, t489: F, t501: F, t240: F, t505: F, rho1: F, sigma2: F) -> (F, F, F, F, F, F, F, F, F) {
     let t541 = t397 * t399 * t539;
-    let t544 = F::new(1.0) + F::new(0.2698618307426597582e-1) * t535 * t541;
-    let t545 = f64::ln(t544);
+    let t544 = F::new(1.0) + F::cast_from(0.2698618307426597582e-1_f64) * t535 * t541;
+    let t545 = F::ln(t544);
     let t547 = F::new(1.0) + F::new(0.193e0) * t545;
     let t548 = F::new(1.0) / t547;
-    let t551 = t524 * t548 + F::new(0.17411041666666666666e-2) * t473;
-    let t554 = F::new(1.0) + F::new(0.9375e-1) * t489 - F::new(0.101171875e-1) * t501;
+    let t551 = t524 * t548 + F::cast_from(0.17411041666666666666e-2_f64) * t473;
+    let t554 = F::new(1.0) + F::new(0.9375e-1) * t489 - F::cast_from(0.101171875e-1_f64) * t501;
     let t555 = F::new(1.0) / t554;
     let t559 = t505 + t240 * (t551 * t555 - t505);
     let t563 = F::new(1.0) / rho1;

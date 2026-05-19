@@ -12,9 +12,9 @@ pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk249<F: Float>(t213: F, t21
     let t214 = t213 <= zeta_threshold;
     let t219 = t218 <= zeta_threshold;
     let t978 = -t62 - t689;
-    let t981 = piecewise3::<f64>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t978);
+    let t981 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t978);
     let t982 = -t978;
-    let t985 = piecewise3::<f64>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t982);
+    let t985 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t982);
     let t987 = (t981 + t985) * t43;
     let t991 = t126 * t173;
     (t978, t982, t987, t991)

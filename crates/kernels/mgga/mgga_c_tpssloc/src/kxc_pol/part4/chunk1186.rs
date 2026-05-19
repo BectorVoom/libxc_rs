@@ -12,9 +12,9 @@ pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk1186<F: Float>(t25: F, t6320: 
     let t26 = t25 <= zeta_threshold;
     let t19541 = t6320 * t67;
     let t19542 = t19541 * t758;
-    let t19543 = F::new(0.18311447306006545054e-3) * t19542;
+    let t19543 = F::cast_from(0.18311447306006545054e-3_f64) * t19542;
     let t19547 = t12061 * t6305;
     let t19552 = t3664 * t5397;
-    let t19558 = piecewise3::<f64>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t19547 * t606 + F::new(16.0) / F::new(9.0) * t5134 * t2219 + F::new(4.0) / F::new(9.0) * t19552 * t606 + F::new(4.0) / F::new(3.0) * t514 * t16557);
+    let t19558 = piecewise3::<F>(t26, F::new(0.0), -F::new(8.0) / F::new(27.0) * t19547 * t606 + F::new(16.0) / F::new(9.0) * t5134 * t2219 + F::new(4.0) / F::new(9.0) * t19552 * t606 + F::new(4.0) / F::new(3.0) * t514 * t16557);
     (t19543, t19558)
 }

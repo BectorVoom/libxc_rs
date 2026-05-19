@@ -12,7 +12,7 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk575<F: Float>(t385: F, t4143: F,
     let t386 = t385 < -F::new(0.66725e-1);
     let t8011 = t4143 * t8010;
     let t8015 = t1284 * t7831;
-    let t8020 = piecewise3::<f64>(t386, F::new(0.0), F::new(10.0) / F::new(9.0) * t340 * t8003 * t382 - F::new(20.0) / F::new(27.0) * t340 * t2147 * t2153 + F::new(40.0) / F::new(81.0) * t340 * t379 * t8011 - F::new(10.0) / F::new(27.0) * t340 * t379 * t8015);
+    let t8020 = piecewise3::<F>(t386, F::new(0.0), F::new(10.0) / F::new(9.0) * t340 * t8003 * t382 - F::new(20.0) / F::new(27.0) * t340 * t2147 * t2153 + F::new(40.0) / F::new(81.0) * t340 * t379 * t8011 - F::new(10.0) / F::new(27.0) * t340 * t379 * t8015);
     let t8021 = t8020 * sigma0;
     let t8022 = t8021 * t395;
     let t8032 = t3953 * t7706;

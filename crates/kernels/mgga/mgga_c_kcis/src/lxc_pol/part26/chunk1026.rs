@@ -13,7 +13,7 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1026<F: Float>(t609: F, t44
     let t23191 = t4425 * t7421;
     let t23192 = t1599 * t23191;
     let t23194 = t6141 * t6148;
-    let t23198 = piecewise3::<f64>(t614, t23024, -t23024);
+    let t23198 = piecewise3::<F>(t614, t23024, -t23024);
     let t23199 = t1608 * t23198;
     let t23200 = t286 * t23199;
     let t23207 = t25 * t7493;

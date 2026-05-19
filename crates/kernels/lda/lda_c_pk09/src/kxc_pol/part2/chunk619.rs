@@ -13,7 +13,7 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk619<F: Float>(t1322: F, t5081: F, 
     let t5084 = t747 * t1477;
     let t5085 = t1513 * t5084;
     let t5087 = t1216 * t1223;
-    let t5090 = F::new(1.8805371096875316) * t1311 * t4979;
+    let t5090 = F::cast_from(1.8805371096875316_f64) * t1311 * t4979;
     let t5091 = t1314 * t5031;
     let t5092 = t5091 * t1287;
     (t5082, t5084, t5085, t5087, t5090, t5092)

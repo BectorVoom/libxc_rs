@@ -12,7 +12,7 @@ pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk57<F: Float>(t135: F, t1
     let t34 = F::new(1.0) <= zeta_threshold;
     let t140 = t135 * t139;
     let t141 = t35 * t35;
-    let t142 = piecewise3::<f64>(t34, t141, F::new(1.0));
+    let t142 = piecewise3::<F>(t34, t141, F::new(1.0));
     let t143 = t142 * t142;
     let t145 = F::new(1.0) / t143 / t142;
     (t140, t141, t142, t143, t145)

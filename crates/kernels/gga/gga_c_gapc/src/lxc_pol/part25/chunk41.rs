@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk41<F: Float>(t35: F, zeta_threshold: F) -> (F, F) {
     let t34 = F::new(1.0) <= zeta_threshold;
     let t117 = t35 * t35;
-    let t118 = piecewise3::<f64>(t34, t117, F::new(1.0));
+    let t118 = piecewise3::<F>(t34, t117, F::new(1.0));
     (t117, t118)
 }

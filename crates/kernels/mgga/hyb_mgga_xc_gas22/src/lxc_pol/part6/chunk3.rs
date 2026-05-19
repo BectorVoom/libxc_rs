@@ -10,8 +10,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk3<F: Float>(t7: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> F {
+    let cbrt3 = F::cast_from(M_CBRT3);
     let t8 = t7 <= zeta_threshold;
     let t9 = rho0 <= dens_threshold || t8;
-    let t10 = M_CBRT3;
+    let t10 = cbrt3;
     t10
 }

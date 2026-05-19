@@ -16,7 +16,7 @@ pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk906<F: Float>(t2464: F, t
     let t9555 = t589 * t3177;
     let t9556 = t587 * t9555;
     let t9558 = t2365 * t6510;
-    let t9560 = F::new(0.59584149919750711116e-1) * t4391 * t9558;
+    let t9560 = F::cast_from(0.59584149919750711116e-1_f64) * t4391 * t9558;
     let t9561 = t544 * t6851;
     (t9548, t9549, t9552, t9553, t9555, t9556, t9558, t9560, t9561)
 }

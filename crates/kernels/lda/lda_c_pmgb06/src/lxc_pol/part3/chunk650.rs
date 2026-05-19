@@ -12,9 +12,9 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk650<F: Float>(t5: F, t12: F, t10
     let t6 = t5 <= zeta_threshold;
     let t13 = t12 <= zeta_threshold;
     let t3915 = t1068 * t332;
-    let t3921 = piecewise3::<f64>(t6, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3912 * t3010 + F::new(4.0) / F::new(3.0) * t3915 * t1074 + F::new(4.0) / F::new(3.0) * t9 * t3115);
+    let t3921 = piecewise3::<F>(t6, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3912 * t3010 + F::new(4.0) / F::new(3.0) * t3915 * t1074 + F::new(4.0) / F::new(3.0) * t9 * t3115);
     let t3922 = F::new(1.0) / t598;
     let t3925 = t1079 * t337;
-    let t3931 = piecewise3::<f64>(t13, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3922 * t2912 + F::new(4.0) / F::new(3.0) * t3925 * t1083 + F::new(4.0) / F::new(3.0) * t14 * t2938);
+    let t3931 = piecewise3::<F>(t13, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3922 * t2912 + F::new(4.0) / F::new(3.0) * t3925 * t1083 + F::new(4.0) / F::new(3.0) * t14 * t2938);
     (t3921, t3922, t3931)
 }

@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4_chunk1234<F: Float>(t28: F, t12
     let t29 = t28 <= zeta_threshold;
     let t19618 = t12000 * t6312;
     let t19623 = t3711 * t5966;
-    let t19629 = piecewise3::<f64>(t29, F::new(0.0), F::new(8.0) / F::new(27.0) * t19618 * t1081 + F::new(8.0) / F::new(9.0) * t5178 * t2219 - F::new(2.0) / F::new(9.0) * t19623 * t1081 + F::new(2.0) / F::new(3.0) * t1302 * t18196);
+    let t19629 = piecewise3::<F>(t29, F::new(0.0), F::new(8.0) / F::new(27.0) * t19618 * t1081 + F::new(8.0) / F::new(9.0) * t5178 * t2219 - F::new(2.0) / F::new(9.0) * t19623 * t1081 + F::new(2.0) / F::new(3.0) * t1302 * t18196);
     let t19631 = t19617 / F::new(2.0) + t19629 / F::new(2.0);
     t19631
 }

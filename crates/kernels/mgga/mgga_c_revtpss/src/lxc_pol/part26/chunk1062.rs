@@ -16,6 +16,6 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk1062<F: Float>(t114: F, 
     let t26072 = t786 * t25949;
     let t26079 = t1426 * t3999;
     let t26148 = F::new(22.0) / F::new(9.0) * t25821;
-    let t26153 = piecewise3::<f64>(t115, F::new(0.0), t26148 + F::new(4.0) / F::new(3.0) * t25824 + t25827 / F::new(2.0) - t25829 / F::new(4.0));
+    let t26153 = piecewise3::<F>(t115, F::new(0.0), t26148 + F::new(4.0) / F::new(3.0) * t25824 + t25827 / F::new(2.0) - t25829 / F::new(4.0));
     (t26029, t26031, t26069, t26072, t26079, t26153)
 }

@@ -15,7 +15,7 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk578<F: Float>(t44: F, t51
     let t3192 = t551 * t3191;
     let t3197 = t506 * t3016;
     let t3198 = t529 * t3197;
-    let t3208 = piecewise3::<f64>(t45, F::new(0.0), F::new(10.0) / F::new(9.0) * t472 * t2999 + F::new(5.0) / F::new(3.0) * t99 * t3002);
-    let t3214 = piecewise3::<f64>(t52, F::new(0.0), F::new(10.0) / F::new(9.0) * t476 * t3007 + F::new(5.0) / F::new(3.0) * t101 * t3010);
+    let t3208 = piecewise3::<F>(t45, F::new(0.0), F::new(10.0) / F::new(9.0) * t472 * t2999 + F::new(5.0) / F::new(3.0) * t99 * t3002);
+    let t3214 = piecewise3::<F>(t52, F::new(0.0), F::new(10.0) / F::new(9.0) * t476 * t3007 + F::new(5.0) / F::new(3.0) * t101 * t3010);
     (t3191, t3192, t3197, t3198, t3208, t3214)
 }

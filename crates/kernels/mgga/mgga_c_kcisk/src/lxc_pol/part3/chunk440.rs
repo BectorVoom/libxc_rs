@@ -16,7 +16,7 @@ pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk440<F: Float>(t222: F, t233: F, 
     let t3466 = t3465 * t560;
     let t3468 = t1152 * t1157;
     let t3470 = t1152 * t1625;
-    let t3472 = piecewise3::<f64>(t223, F::new(0.0), t3283);
+    let t3472 = piecewise3::<F>(t223, F::new(0.0), t3283);
     let t3473 = t295 * t3472;
     let t3474 = t3473 * t559;
     let t3475 = t294 * t3474;

@@ -10,6 +10,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk31<F: Float>(t50: F, zeta_threshold: F) -> F {
     let t51 = t50 <= zeta_threshold;
-    let t52 = pow_1_3::<f64>(t50);
+    let t52 = pow_1_3::<F>(t50);
     t52
 }

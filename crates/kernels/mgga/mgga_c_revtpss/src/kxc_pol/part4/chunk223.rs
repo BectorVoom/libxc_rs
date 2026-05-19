@@ -13,8 +13,8 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk223<F: Float>(t45: F, t57: F, 
     let t155 = t57 <= zeta_threshold;
     let t707 = t190 * t606;
     let t709 = F::new(4.0) * t706 * t707;
-    let t712 = piecewise3::<f64>(t151, F::new(0.0), F::new(4.0) / F::new(3.0) * t78 * t606);
-    let t715 = piecewise3::<f64>(t155, F::new(0.0), -F::new(4.0) / F::new(3.0) * t81 * t606);
+    let t712 = piecewise3::<F>(t151, F::new(0.0), F::new(4.0) / F::new(3.0) * t78 * t606);
+    let t715 = piecewise3::<F>(t155, F::new(0.0), -F::new(4.0) / F::new(3.0) * t81 * t606);
     let t716 = t712 + t715;
     let t717 = t150 * t716;
     let t718 = t717 * t190;

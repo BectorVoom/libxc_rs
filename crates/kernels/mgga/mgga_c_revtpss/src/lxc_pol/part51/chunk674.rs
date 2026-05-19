@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk674<F: Float>(t265: F, 
     let t394 = t265 < t393;
     let t7188 = t207 * t7086;
     let t7193 = -t1940 * t7091 * t890 + F::new(3.0) * t1963 * t2403 * t775 + t198 * t7188 * t892;
-    let t7194 = piecewise3::<f64>(t394, t1102 * t198 * t336 * t7177 - t1100 * t5023 * t7181, t7193);
+    let t7194 = piecewise3::<F>(t394, t1102 * t198 * t336 * t7177 - t1100 * t5023 * t7181, t7193);
     (t7193, t7194)
 }

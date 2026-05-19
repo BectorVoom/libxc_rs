@@ -12,6 +12,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk623<F: Float>(t50: F, t2910: F, 
     let t51 = t50 <= zeta_threshold;
     let t4084 = t2910 * t478;
     let t4087 = t829 * t34;
-    let t4097 = piecewise3::<f64>(t51, F::new(0.0), F::new(8.0) / F::new(27.0) * t4084 * t830 + F::new(8.0) / F::new(9.0) * t4087 * t4015 - F::new(2.0) / F::new(9.0) * t1289 * t833 - F::new(4.0) / F::new(3.0) * t296 * t821 + F::new(4.0) * t1292 * t39);
+    let t4097 = piecewise3::<F>(t51, F::new(0.0), F::new(8.0) / F::new(27.0) * t4084 * t830 + F::new(8.0) / F::new(9.0) * t4087 * t4015 - F::new(2.0) / F::new(9.0) * t1289 * t833 - F::new(4.0) / F::new(3.0) * t296 * t821 + F::new(4.0) * t1292 * t39);
     (t4084, t4097)
 }

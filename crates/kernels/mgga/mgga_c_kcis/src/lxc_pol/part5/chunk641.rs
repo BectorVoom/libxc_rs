@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk641<F: Float>(t169: F, t1659: F, 
     let t170 = t169 <= zeta_threshold;
     let t4530 = t911 * t1659;
     let t4532 = F::new(2.0) * t2633;
-    let t4533 = piecewise3::<f64>(t170, F::new(0.0), t4532);
+    let t4533 = piecewise3::<F>(t170, F::new(0.0), t4532);
     let t4534 = t234 * t4533;
     let t4535 = t4534 * t441;
     let t4536 = t233 * t4535;

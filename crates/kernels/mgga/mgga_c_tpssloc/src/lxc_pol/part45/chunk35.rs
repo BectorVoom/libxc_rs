@@ -12,13 +12,13 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk35<F: Float>(t36: F, t2
     let t91 = F::new(1.0) / t36 / rho0;
     let t92 = tau0 * t91;
     let t93 = t25 / F::new(2.0);
-    let t94 = pow_1_3::<f64>(t93);
+    let t94 = pow_1_3::<F>(t93);
     let t95 = t94 * t94;
     let t96 = t95 * t93;
     let t99 = F::new(1.0) / t48 / rho1;
     let t100 = tau1 * t99;
     let t101 = t28 / F::new(2.0);
-    let t102 = pow_1_3::<f64>(t101);
+    let t102 = pow_1_3::<F>(t101);
     let t103 = t102 * t102;
     let t104 = t103 * t101;
     let t106 = t100 * t104 + t92 * t96;

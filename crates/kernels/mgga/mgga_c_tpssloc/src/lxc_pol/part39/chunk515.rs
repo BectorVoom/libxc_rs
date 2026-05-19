@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk515<F: Float>(t109: F, t53
     let t1995 = F::new(1.0) / t556 / t532;
     let t2195 = t656 * t99;
     let t2196 = t2195 * t104;
-    let t2199 = piecewise3::<f64>(t110, F::new(0.0), -t64 * t2196 / F::new(8.0));
+    let t2199 = piecewise3::<F>(t110, F::new(0.0), -t64 * t2196 / F::new(8.0));
     (t1995, t2195, t2196, t2199)
 }

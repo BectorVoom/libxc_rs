@@ -14,6 +14,6 @@ pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk984<F: Float>(t50: F, t462: F, t
     let t11445 = t39 * t352;
     let t11448 = t462 * t954;
     let t11456 = F::new(32.0) * t1792 * t343;
-    let t11458 = piecewise3::<f64>(t51, F::new(0.0), F::new(40.0) / F::new(81.0) * t8334 * t743 * t2967 + F::new(16.0) / F::new(9.0) * t2966 * t34 * t11437 - F::new(8.0) / F::new(9.0) * t4367 * t9456 - F::new(8.0) / F::new(3.0) * t950 * t462 * t352 + F::new(8.0) * t4370 * t11445 - F::new(8.0) / F::new(3.0) * t4370 * t11448 + F::new(4.0) / F::new(9.0) * t1789 * t2973 + F::new(16.0) * t52 * t39 - t11456);
+    let t11458 = piecewise3::<F>(t51, F::new(0.0), F::new(40.0) / F::new(81.0) * t8334 * t743 * t2967 + F::new(16.0) / F::new(9.0) * t2966 * t34 * t11437 - F::new(8.0) / F::new(9.0) * t4367 * t9456 - F::new(8.0) / F::new(3.0) * t950 * t462 * t352 + F::new(8.0) * t4370 * t11445 - F::new(8.0) / F::new(3.0) * t4370 * t11448 + F::new(4.0) / F::new(9.0) * t1789 * t2973 + F::new(16.0) * t52 * t39 - t11456);
     (t11437, t11445, t11448, t11458)
 }

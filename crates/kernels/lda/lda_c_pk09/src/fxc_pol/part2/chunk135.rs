@@ -11,10 +11,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk135<F: Float>(t44: F, t51: F, t423: F, t424: F, zeta_threshold: F) -> (F, F, F) {
     let t45 = t44 <= zeta_threshold;
     let t52 = t51 <= zeta_threshold;
-    let t425 = f64::powf(t51, t423);
-    let t426 = piecewise3::<f64>(t52, t424, t425);
-    let t427 = f64::powf(t44, t423);
-    let t428 = piecewise3::<f64>(t45, t424, t427);
+    let t425 = F::powf(t51, t423);
+    let t426 = piecewise3::<F>(t52, t424, t425);
+    let t427 = F::powf(t44, t423);
+    let t428 = piecewise3::<F>(t45, t424, t427);
     let t429 = t426 + t428;
     (t425, t427, t429)
 }

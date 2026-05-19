@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk766<F: Float>(t292: F, t10292: F, t10297: F, t10359: F, t10364: F, t10365: F, t10369: F, t10384: F, t2688: F, t2691: F, t2692: F, t2720: F, t2726: F, t2735: F, t285: F, t4061: F, t4113: F, t800: F, t817: F, t821: F) -> F {
     let t293 = F::new(0.1e-59) < t292;
-    let t10388 = piecewise3::<f64>(t293, F::new(12.0) * t10292 * t2691 * t2726 - F::new(6.0) * t10364 * t10365 * t285 + F::new(6.0) * t10369 * t2735 * t4113 - t10384 * t285 * t817 - F::new(6.0) * t2691 * t2692 * t2735 - F::new(6.0) * t10297 * t2691 + F::new(2.0) * t10359 * t800 - F::new(6.0) * t2688 * t821 + F::new(6.0) * t2720 * t4061, F::new(0.0));
+    let t10388 = piecewise3::<F>(t293, F::new(12.0) * t10292 * t2691 * t2726 - F::new(6.0) * t10364 * t10365 * t285 + F::new(6.0) * t10369 * t2735 * t4113 - t10384 * t285 * t817 - F::new(6.0) * t2691 * t2692 * t2735 - F::new(6.0) * t10297 * t2691 + F::new(2.0) * t10359 * t800 - F::new(6.0) * t2688 * t821 + F::new(6.0) * t2720 * t4061, F::new(0.0));
     t10388
 }

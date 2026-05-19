@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk0<F: Float>() -> F {
-    let t1 = f64::ln(F::new(2.0));
+    let t1 = F::ln(F::new(2.0));
     let t2 = F::new(1.0) - t1;
     t2
 }

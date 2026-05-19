@@ -18,6 +18,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk674<F: Float>(t109: F, 
     let t22473 = t63 * t2331;
     let t22474 = t22473 * t2332;
     let t22476 = t6530 * t2358;
-    let t22479 = piecewise3::<f64>(t110, F::new(0.0), t22469 + t22472 + t22474 / F::new(4.0) - t22476 / F::new(8.0));
+    let t22479 = piecewise3::<F>(t110, F::new(0.0), t22469 + t22472 + t22474 / F::new(4.0) - t22476 / F::new(8.0));
     (t22468, t22471, t22474, t22476, t22479)
 }

@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk363<F: Float>(t7: F, t1319: F, t26: F, t1179: F, zeta_threshold: F) -> (F, F) {
     let t8 = t7 <= zeta_threshold;
     let t1320 = t26 * t1319;
-    let t1325 = piecewise3::<f64>(t8, F::new(0.0), t1179);
+    let t1325 = piecewise3::<F>(t8, F::new(0.0), t1179);
     (t1320, t1325)
 }

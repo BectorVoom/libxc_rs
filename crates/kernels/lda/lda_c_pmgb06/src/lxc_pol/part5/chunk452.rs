@@ -11,10 +11,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk452<F: Float>(t5: F, t12: F, t2192: F, t2195: F, t332: F, t395: F, t1219: F, t764: F, t1: F, t336: F, t337: F, zeta_threshold: F) -> (F, F) {
     let t6 = t5 <= zeta_threshold;
     let t13 = t12 <= zeta_threshold;
-    let t2199 = piecewise3::<f64>(t6, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2192 * t332 + F::new(4.0) / F::new(3.0) * t2195 * t395);
+    let t2199 = piecewise3::<F>(t6, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2192 * t332 + F::new(4.0) / F::new(3.0) * t2195 * t395);
     let t2200 = t1219 * t764;
     let t2203 = t336 * t1;
-    let t2207 = piecewise3::<f64>(t13, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2200 * t337 - F::new(4.0) / F::new(3.0) * t2203 * t395);
+    let t2207 = piecewise3::<F>(t13, F::new(0.0), -F::new(2.0) / F::new(9.0) * t2200 * t337 - F::new(4.0) / F::new(3.0) * t2203 * t395);
     let t2209 = t2199 / F::new(2.0) + t2207 / F::new(2.0);
     (t2200, t2209)
 }

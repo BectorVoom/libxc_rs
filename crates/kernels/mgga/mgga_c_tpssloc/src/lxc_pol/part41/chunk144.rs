@@ -12,9 +12,9 @@ pub fn mgga_c_tpssloc_lxc_pol_part41_v4rho3tau_5_chunk144<F: Float>(t25: F, t28:
     let t26 = t25 <= zeta_threshold;
     let t29 = t28 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
-    let t399 = piecewise3::<f64>(t115, t265 * t25 / F::new(2.0), t396 * t40 / F::new(2.0));
+    let t399 = piecewise3::<F>(t115, t265 * t25 / F::new(2.0), t396 * t40 / F::new(2.0));
     let t401 = rho1 <= dens_threshold || t29;
     let t404 = F::new(1.0) / t52;
-    let t405 = pow_1_3::<f64>(t404);
+    let t405 = pow_1_3::<F>(t404);
     (t399, t404, t405)
 }

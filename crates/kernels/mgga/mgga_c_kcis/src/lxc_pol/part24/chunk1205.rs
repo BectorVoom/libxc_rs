@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1205<F: Float>(t7772: F, t96727: F, t7794: F, t993: F, t2888: F, t27028: F, t15573: F, t28178: F, t7788: F, t28183: F, t11061: F, t8090: F) -> (F, F, F, F, F, F, F, F) {
-    let t97060 = F::new(0.92754700520833333333e-4) * t7772 * t96727;
+    let t97060 = F::cast_from(0.92754700520833333333e-4_f64) * t7772 * t96727;
     let t97083 = t993 * t7794;
     let t97089 = t2888 * t7794;
     let t97093 = t993 * t27028;
-    let t97102 = F::new(0.46336805555555555556e-3) * t7788 * t15573 * t28178;
+    let t97102 = F::cast_from(0.46336805555555555556e-3_f64) * t7788 * t15573 * t28178;
     let t97103 = t15573 * t28183;
-    let t97105 = F::new(0.23168402777777777778e-3) * t7788 * t97103;
+    let t97105 = F::cast_from(0.23168402777777777778e-3_f64) * t7788 * t97103;
     let t97106 = t7772 * t97103;
     let t97153 = t7788 * t11061 * t8090;
     (t97060, t97083, t97089, t97093, t97102, t97105, t97106, t97153)

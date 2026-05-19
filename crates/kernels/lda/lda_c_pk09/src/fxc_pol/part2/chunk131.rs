@@ -12,7 +12,7 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk131<F: Float>(t51: F, t213: F, t41
     let t52 = t51 <= zeta_threshold;
     let t414 = t213 * t413;
     let t416 = t51 * t51;
-    let t417 = piecewise3::<f64>(t52, t211, t416);
-    let t418 = -F::new(0.32481568604919886) - t254 - t255 - t260 - t265;
+    let t417 = piecewise3::<F>(t52, t211, t416);
+    let t418 = -F::cast_from(0.32481568604919886_f64) - t254 - t255 - t260 - t265;
     (t414, t416, t417, t418)
 }

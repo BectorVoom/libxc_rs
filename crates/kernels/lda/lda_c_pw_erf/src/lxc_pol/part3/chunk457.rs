@@ -17,7 +17,7 @@ pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk457<F: Float>(t43: F, t1775: F, 
     let t1780 = F::new(4.0) * t1779;
     let t1781 = t939 * t739;
     let t1784 = t47 * t34;
-    let t1788 = piecewise3::<f64>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1781 * t348 + F::new(8.0) / F::new(3.0) * t1784 * t462);
+    let t1788 = piecewise3::<F>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1781 * t348 + F::new(8.0) / F::new(3.0) * t1784 * t462);
     let t1789 = t950 * t743;
     (t1776, t1778, t1780, t1781, t1784, t1788, t1789)
 }

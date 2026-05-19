@@ -11,8 +11,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk498<F: Float>(t5: F, t12: F, t10: F, t2377: F, t2381: F, t594: F, t15: F, t2386: F, t2389: F, t598: F, t44: F, t1929: F, t1931: F, t1934: F, zeta_threshold: F) -> (F, F, F, F) {
     let t6 = t5 <= zeta_threshold;
     let t13 = t12 <= zeta_threshold;
-    let t2510 = piecewise3::<f64>(t6, F::new(0.0), F::new(40.0) / F::new(9.0) * t10 * t2377 + F::new(8.0) / F::new(3.0) * t594 * t2381);
-    let t2516 = piecewise3::<f64>(t13, F::new(0.0), F::new(40.0) / F::new(9.0) * t15 * t2386 + F::new(8.0) / F::new(3.0) * t598 * t2389);
+    let t2510 = piecewise3::<F>(t6, F::new(0.0), F::new(40.0) / F::new(9.0) * t10 * t2377 + F::new(8.0) / F::new(3.0) * t594 * t2381);
+    let t2516 = piecewise3::<F>(t13, F::new(0.0), F::new(40.0) / F::new(9.0) * t15 * t2386 + F::new(8.0) / F::new(3.0) * t598 * t2389);
     let t2519 = (t2510 / F::new(2.0) + t2516 / F::new(2.0)) * t44;
     let t2522 = F::new(2.0) / F::new(45.0) * t1929;
     let t2523 = F::new(2.0) / F::new(45.0) * t1931;

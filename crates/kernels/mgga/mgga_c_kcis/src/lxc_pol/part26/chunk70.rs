@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk70<F: Float>(t167: F, t89: 
     let t168 = t167 * t89;
     let t169 = F::new(1.0) + t168;
     let t170 = t169 <= zeta_threshold;
-    let t171 = pow_1_3::<f64>(t169);
+    let t171 = pow_1_3::<F>(t169);
     (t168, t169, t171)
 }

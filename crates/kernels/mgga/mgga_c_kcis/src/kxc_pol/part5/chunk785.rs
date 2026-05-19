@@ -13,7 +13,7 @@ pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk785<F: Float>(t609: F, t2104: F, 
     let t6177 = t4455 * t2104;
     let t6178 = t6177 * t1610;
     let t6179 = t6176 * t6178;
-    let t6183 = piecewise3::<f64>(t614, t6136, -t6136);
+    let t6183 = piecewise3::<F>(t614, t6136, -t6136);
     let t6184 = t1608 * t6183;
     let t6185 = t286 * t6184;
     let t6188 = -t6138 / F::new(216.0) - t6141 * t1603 / F::new(216.0) + t6141 * t1612 / F::new(72.0) - t4424 + t4427 / F::new(1728.0) - t4430 / F::new(576.0) + t6149 / F::new(1728.0) + t4439 * t6152 / F::new(432.0) - t4439 * t6156 / F::new(576.0) - t4439 * t6160 / F::new(288.0) - t1599 * t6165 / F::new(288.0) - t6169 / F::new(576.0) - t4439 * t6173 / F::new(576.0) + t1599 * t6179 / F::new(96.0) - t1599 * t6185 / F::new(192.0);

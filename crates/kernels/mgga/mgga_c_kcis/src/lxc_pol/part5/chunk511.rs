@@ -15,7 +15,7 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk511<F: Float>(t60: F, t20: F, t69
     let t2403 = F::new(1.0) / t697 / t72;
     let t2404 = t700 * t700;
     let t2406 = t209 * t2403 * t2404;
-    let t2410 = piecewise3::<f64>(t70, t2379, -t2379);
+    let t2410 = piecewise3::<F>(t70, t2379, -t2379);
     let t2412 = t209 * t698 * t2410;
     let t2415 = F::new(35.0) / F::new(432.0) * t63 * t2394 * t75 + F::new(7.0) / F::new(144.0) * t2399 * t702 + t696 * t2406 / F::new(48.0) - t696 * t2412 / F::new(96.0);
     (t2399, t2403, t2404, t2406, t2410, t2412, t2415)

@@ -2091,7 +2091,7 @@ pub fn gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3(
         let t201 = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk58::<f64>(t200, t62);
         let (t202, t203) = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk59::<f64>(t171);
         let t204 = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk60::<f64>(t201, t203);
-        let (t205, t208, t209, t211, t215, t220, t224, t231) = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk61::<f64>(t204, t61, t190, t193, t199, t64, t36, t43, t40, rho0, rho1, zeta_threshold);
+        let (t205, t208, t209, t211, t215, t220, t224, t231, t213, t218) = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk61::<f64>(t204, t61, t190, t193, t199, t64, t36, t43, t40, rho0, rho1, zeta_threshold);
         let (t233, t238, t241, t242, t247, t249, t252, t255, t256, t257, t260) = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk62::<f64>(t11, t14, t17, t25, t231, t33, t56);
         let (t266, t268) = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk63::<f64>(t64, t80, t87, t90, t99, t257, t260);
         let t270 = gga_c_gaploc_lxc_pol_part38_v4rhosigma3_3_chunk64::<f64>(t268, t61, t63);

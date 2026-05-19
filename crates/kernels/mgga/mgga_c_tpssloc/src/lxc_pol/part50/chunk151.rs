@@ -16,7 +16,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk151<F: Float>(t466: F, 
     let t497 = F::new(1.0) / t496;
     let t498 = t254 * t497;
     let t500 = t492 * t498 + F::new(1.0);
-    let t501 = f64::ln(t500);
+    let t501 = F::ln(t500);
     let t504 = t193 * t336 * t501 - t425 + t453 + t455;
     let t505 = t265 < t504;
     (t492, t493, t494, t496, t498, t500, t504)

@@ -12,7 +12,7 @@ pub fn gga_c_gaploc_lxc_pol_part48_v4rhosigma3_13_chunk685<F: Float>(t13253: F, 
     let t13254 = t2343 * t13253;
     let t13258 = t2325 * t883 * t11167;
     let t13259 = t882 * t13258;
-    let t13260 = F::new(0.11856252764865062333e-2) * t13259;
+    let t13260 = F::cast_from(0.11856252764865062333e-2_f64) * t13259;
     let t13261 = t11254 * t874;
     (t13254, t13258, t13260, t13261)
 }

@@ -13,8 +13,8 @@ pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk684<F: Float>(t30: F, t
     let t34 = t33 <= zeta_threshold;
     let t6801 = t6800 * t189;
     let t6802 = t512 * t6801;
-    let t6808 = piecewise3::<f64>(t31, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3874 * t6785 + F::new(2.0) / F::new(3.0) * t1344 * t5824);
-    let t6814 = piecewise3::<f64>(t34, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3881 * t6792 + F::new(2.0) / F::new(3.0) * t1348 * t6416);
+    let t6808 = piecewise3::<F>(t31, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3874 * t6785 + F::new(2.0) / F::new(3.0) * t1344 * t5824);
+    let t6814 = piecewise3::<F>(t34, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3881 * t6792 + F::new(2.0) / F::new(3.0) * t1348 * t6416);
     let t6816 = t6808 / F::new(2.0) + t6814 / F::new(2.0);
     (t6801, t6802, t6816)
 }
