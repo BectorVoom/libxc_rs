@@ -33,6 +33,7 @@ Build env source of truth: .cargo/config.toml (do not duplicate values here).
 
 from dataclasses import dataclass, field
 from pathlib import Path
+import os
 import re
 import sys
 
@@ -517,7 +518,41 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     # become documented D-LOCK-B exceptions — see tools/kernel_size_exceptions.txt.
     wrapper_lines = wrapper.count("\n") + 1
     max_chunk_lines = max((c.count("\n") + 1 for c in chunk_srcs), default=0)
-    if wrapper_lines > split_threshold or max_chunk_lines > split_threshold:
+    # 260520-a0c: decouple wrapper cap from chunk cap when explicitly enabled.
+    #
+    # For dense single-output 4th-derivative components (mgga_c_tpssloc lxc_pol
+    # v4rho4_*/v4rho3sigma_*, also mgga_c_kcis/revtpss/rmggac lxc_pol, lda_c_pk09
+    # kxc_pol), MAX_TUPLE_ARITY=12 forces the chunker to cut every ~27 lines →
+    # thousands of tiny chunks → wrapper grows to 6-10K lines of `mod chunk{i};`
+    # + `use chunk{i}::...;` + simple let-call plumbing. The wrapper body is
+    # CHEAP to macro-expand (each statement is a plain call+bind, no nested RHS
+    # arithmetic), so it doesn't drive the per-`#[cube]` RAM peak the way the
+    # flat-emit fallback does (which has 10K let-bindings with deeply-nested
+    # RHS expressions, OOMs at ~25 GB RSS during cubecl-macros 0.10 expansion).
+    #
+    # Set LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER=1 to raise the wrapper cap to a
+    # higher hard limit (15000 lines, above the observed tpssloc part21
+    # max of 9699L — see .planning/quick/260520-a0c-.../260520-a0c-cse-diag.log).
+    # Default behavior unchanged so an unintentional full-tree regen does not
+    # mass-flip the D-LOCK-B set; opt-in keeps the blast radius scoped to the
+    # functional being regenerated (today: mgga_c_tpssloc).
+    if os.environ.get("LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER"):
+        wrapper_cap = 15000
+    else:
+        wrapper_cap = split_threshold
+    if wrapper_lines > wrapper_cap or max_chunk_lines > split_threshold:
+        if os.environ.get("LIBXC_RS_CSE_DIAG"):
+            chunk_sizes = sorted(
+                (c.count("\n") + 1 for c in chunk_srcs), reverse=True)
+            top5 = chunk_sizes[:5]
+            print(
+                f"  CSE-REJECT {adapter.family}/{func_name} {level}_{spin} "
+                f"part{part_idx} ({suffix}): wrapper={wrapper_lines}L "
+                f"(cap={wrapper_cap}), n_chunks={len(chunks)}, "
+                f"max_chunk={max_chunk_lines}L (cap={split_threshold}), "
+                f"top5_chunk_lines={top5}",
+                file=sys.stderr,
+            )
         return None
     return wrapper, chunk_srcs
 
