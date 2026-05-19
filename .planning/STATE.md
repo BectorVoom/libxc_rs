@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
+status: Executing Phase 11.1
 stopped_at: Phase 11.1 context gathered
-last_updated: "2026-05-18T22:40:27.310Z"
-last_activity: 2026-05-18
+last_updated: "2026-05-19T10:46:31.689Z"
+last_activity: 2026-05-19
 progress:
   total_phases: 12
   completed_phases: 7
   total_plans: 56
-  completed_plans: 44
-  percent: 79
+  completed_plans: 47
+  percent: 84
 ---
 
 # Project State
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 11 — splitter-v2-unified-5k-cap
+**Current focus:** Phase 11.1 — translator-rule-3-emit-fix-sweep-to-green
 
 ## Current Position
 
-Phase: 11 (splitter-v2-unified-5k-cap) — PARTIAL CLOSE, awaiting phase 11.1 translator-fix follow-up
-Plan: 11-07 + 11-08 closed as PARTIAL (`6667a0731b`, `a470529c8c`, `ac9729a51d`); 11-06 stays PARTIAL (`.continue-here.md` at `92ddcebe90` documents Leg 2 HALT)
+Phase: 11.1 (translator-rule-3-emit-fix-sweep-to-green) — EXECUTING
+Plan: 1 of 4
 Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Sessions 1+2 PARTIAL; 11-06 6th-iter Deviations E+F at `cc324c6fa..d26efabda`; 11-06 Task 7 at `265bf03b55`.
 
 ## Phase 11 execute-phase run — 2026-05-18 evening session
@@ -123,7 +123,7 @@ Plan 11-03 outcome (2026-05-15):
 Wave 2 is finished under D-13. Next plan: 11-04.
 
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-18
+Last activity: 2026-05-19
 
 ## Phase 11 — PAUSED at Plan 11-05, Option A → Option C Pivot (2026-05-18)
 
@@ -238,11 +238,17 @@ None yet.
 | 260512-q01 | Routing-aware translator emit: emit `#[cube]` for unrouted functionals (closes regen-reintroduces-launch_unchecked loop); fix `demote_unrouted_kernels.py` glob (was no-op since `crates/kernel-* → crates/kernels/*` move); 32 lda-2 entry kernels demoted | 2026-05-12 | 61c9f620 | [260512-q01-routing-aware-translator-emit](.planning/quick/260512-q01-routing-aware-translator-emit/) |
 | 260512-q02 | Fix translator merge-suffix filename overflow (was hitting Linux 255-byte path limit on lxc-level kernels with 40+ output fields); regen mgga-14's mgga_x_br89_explicit + mgga_x_r4scan at SPLIT_THRESHOLD=6000 (max line 21,679 → 5,352, unblocks mgga-14 OOM) | 2026-05-12 | 22640588 | [260512-q02-fix-merge-filename-overflow](.planning/quick/260512-q02-fix-merge-filename-overflow/) |
 | 260514-q01 | Split mgga-2 and nearby large MGGA kernels: re-emitted all mgga-2 functionals plus mgga_c_ccalda; targeted files now ≤5K lines | 2026-05-14 | 0506d0e5 | [260514-q01-split-mgga-2-large-kernels](.planning/quick/260514-q01-split-mgga-2-large-kernels/) |
+| 260520-a0c | mgga_c_tpssloc memory spike fix — PARTIAL: Path A (env-gated wrapper-cap raise, commit 799bd5d94a) cuts ~10 GB off the proc-macro OOM peak (25 GB → 16 GB) but is insufficient; Path E (defer tpssloc from default-members, commit 491a87193d) lands as immediate unblock; Path B (hierarchical sub-wrappers) planned follow-up | 2026-05-20 | 491a87193d | [260520-a0c-mgga-c-tpssloc-memory-spike-fix](.planning/quick/260520-a0c-mgga-c-tpssloc-memory-spike-fix/) |
 
 ## Session Continuity
 
-Last session: 2026-05-18T21:38:22.940Z
-Stopped at: Phase 11.1 context gathered
-Resume file: .planning/phases/11.1-translator-rule-3-emit-fix-sweep-to-green/11.1-CONTEXT.md
+Last session: 2026-05-20 (quick task 260520-a0c)
+Stopped at: mgga_c_tpssloc deferred from default-members; Path B (hierarchical sub-wrappers) planned as follow-up; Phase 11.1 Plan 03 still pending
+Resume file: .planning/quick/260520-a0c-mgga-c-tpssloc-memory-spike-fix/260520-a0c-SUMMARY.md
 
-⚠ Working-tree anomaly: `.cargo/config.toml` shows uncommitted `jobs = 10` (vs committed `jobs = 1`). Per `feedback_ram_constraints` memory ("user manages config by hand"), agent did NOT touch it. User must restore `jobs = 1` before any cargo work runs in 11-06 Task 6 or new 11-07.
+⚠ Working-tree note: `.cargo/config.toml` had `jobs` commented out during this session (cargo used default num_cpus parallelism). The single-crate `-p` builds only ran one rustc, so OOM was driven by per-`#[cube] fn` macro expansion, not by parallel rustcs. User manages this file by hand per `feedback_ram_constraints` memory.
+
+⚠ Follow-up tracking: mgga_c_tpssloc OOM is BLOCKING Plan 11.1-03 G4 (full-649 f32 oracle) until either:
+  (a) Path B hierarchical sub-wrappers lands → tpssloc compiles → re-add to default-members; OR
+  (b) Oracle harness gets a documented skip for mgga_c_tpssloc with rationale in f32_tolerance_overrides.toml + skip list.
+Plan 11.1-03 G3 canary (mgga_c_b94) is unaffected by this deferral.

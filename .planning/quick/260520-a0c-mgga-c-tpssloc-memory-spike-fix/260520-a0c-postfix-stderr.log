@@ -1,0 +1,48 @@
+# Post-fix reproduction — mgga_c_tpssloc with raised wrapper cap (Path A)
+
+**Date:** 2026-05-19/20
+**Translator change:** `tools/translate_v2/per_functional.py` env-gated wrapper cap (commit `799bd5d94a`); regen run with `LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER=1`.
+**Working tree:** `.cargo/config.toml` `jobs` commented out (cargo default).
+**Tpssloc layout after regen:** 9 lxc_pol parts converted from single-`#[cube] fn` flat (7.9K-10K lines) -> CSE-chunked dirs (mod.rs wrapper 4.5K-9.7K lines + 1497-3221 chunk files, each 26-29 lines).
+**Total chunk files in tpssloc:** ~56K .rs files (vs. 123 pre-regen).
+
+## Live cargo stderr (truncated by OOM kill)
+
+```
+   Compiling libxc-kernel-mgga_c_tpssloc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc)
+```
+
+(rustc terminated by SIGKILL before completing -- `/usr/bin/time -v` summary not written.)
+
+## Observed timeline
+
+| Elapsed | rustc RSS | Notes |
+|---|---|---|
+| 1:04 | 15.5 GB | RSS growing slowly, well below baseline's 23 GB at same point |
+| 1:09 | 15.8 GB | holding steady around 16 GB |
+| later | grew past safe ceiling | **OOM-killed by kernel** (user report) |
+
+**Peak observed RSS during ps sampling:** ~16 GB (likely higher just before kill).
+**Improvement vs baseline:** ~10 GB lower peak -- but still insufficient for the 30 GB box's effective memory ceiling.
+**Failure mode:** OOM kill (same as baseline).
+**Likely failing point:** macro expansion of one of the 9 chunk-wrappers (each `#[cube] fn` body containing 1500-3221 sequential `let X = chunkN::<f64>(args)` statements). cubecl-macros 0.10 holds full body syn AST + Scope/Context per expansion; 3221 statements x per-statement overhead is still too much accumulated state.
+
+## Diagnosis
+
+Path A reduced per-chunk macro expansion cost (each chunk is tiny -- 4-9 lines of trivial arithmetic), but the **wrapper itself is still one large `#[cube] fn` with 3221 sequential statements**. The wrapper's macro expansion holds:
+- 3221 `syn::Stmt::Local` nodes
+- 3221 `ExprCall` RHS expressions (each with ~15-40 path args)
+- 3221 Scope entries (variable name registration)
+- Plus intermediate `quote!` token streams during expansion
+
+This still accumulates multi-GB working set. Approximate peak: 15-18 GB observed, but kernel OOM-killer fires only when allocation requests EXCEED available memory -- so true peak is higher, just unobservable.
+
+## Next-step options surfaced
+
+A. **(current) Lift wrapper cap** -> done, insufficient.
+B. **Hierarchical / recursive sub-wrappers** -- group N chunks into a sub-wrapper, top wrapper calls sub-wrappers. Reduces top-level statement count ~12x. Cross-sub-wrapper live-set may still exceed 12-tuple ABI in dense 4th-derivative -- requires smart cross-boundary analysis.
+C. **Wide-struct ABI** -- `#[derive(CubeType)] struct` with hundreds of fields. Untested in CubeCL 0.10 (existing comment in cse.py:34 verifies tuples <=12 fail, says nothing about structs).
+D. **Local `Array<F>` scratch** -- chunks read/write a shared local array. ABI untested.
+E. **Defer tpssloc from default-members** -- exclude from build by default. Plan 11.1-03 G3 canary (`mgga_c_b94`) doesn't need tpssloc. G4 oracle would need workaround.
+
+EXIT=137 (SIGKILL by oom_killer)
