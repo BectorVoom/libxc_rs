@@ -497,7 +497,16 @@ default-members = [
     "crates/kernels/mgga/mgga_c_rscan",
     "crates/kernels/mgga/mgga_c_scan",
     "crates/kernels/mgga/mgga_c_tpss",
-    "crates/kernels/mgga/mgga_c_tpssloc",
+    # mgga_c_tpssloc excluded from default-members (quick task 260520-a0c):
+    # the 9 lxc_pol v4rho4_*/v4rho3sigma_* parts (7.9K-10K-line flat-emit
+    # single-`#[cube] fn`) OOM cubecl-macros 0.10 expansion on the dev box
+    # (~25 GB peak RSS observed before SIGKILL on a 30 GB machine). Path A
+    # (env-gated wrapper-cap raise, commit 799bd5d94a) cuts ~10 GB off the
+    # peak but is still insufficient; Path B (hierarchical sub-wrappers)
+    # is a planned follow-up. The crate stays a workspace member via the
+    # [dependencies] path-dep above so `cargo build -p libxc-kernel-mgga_c_tpssloc`
+    # remains available on demand for follow-up experiments.
+    # "crates/kernels/mgga/mgga_c_tpssloc",
     "crates/kernels/mgga/mgga_c_vsxc",
     "crates/kernels/mgga/mgga_k_csk",
     "crates/kernels/mgga/mgga_k_csk_loc",
