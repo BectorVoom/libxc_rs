@@ -1,0 +1,39 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part27_v4rho3sigma_3 meta236 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+mod chunk7;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1126;
+use chunk1::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1127;
+use chunk2::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1128;
+use chunk3::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1129;
+use chunk4::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1130;
+use chunk5::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1131;
+use chunk6::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1132;
+use chunk7::mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1133;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_meta236<F: Float>(t1458: F, t671: F, t1401: F, t3938: F, t3941: F, t4072: F, t5363: F, t5371: F, t577: F, t2235: F, t33: F, t1862: F, t2240: F, t645: F, t79: F, t72: F, t605: F, t608: F, t38: F, t43: F, t625: F, t44: F, t607: F, t614: F, t67: F, t1864: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+        let (t5376, t5381, t6486) = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1126::<F>(t1458, t671, t1401, t3938, t3941, t4072, t5363, t5371, t577, t2235, t33);
+        let t6489 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1127::<F>(t1862, t33);
+        let t6490 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1128::<F>(t2240, t6489);
+        let t6492 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1129::<F>(t645, t79, t72);
+        let t6495 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1130::<F>(t605, t608);
+        let t6500 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1131::<F>(t38, t43);
+        let (t6503, t6504, t6505) = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1132::<F>(t625, t44, t607, t614, t6500, t67);
+        let t6506 = mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1133::<F>(t1864, t6505);
+    (t5376, t5381, t6486, t6489, t6490, t6492, t6495, t6500, t6503, t6504, t6505, t6506)
+}

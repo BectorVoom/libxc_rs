@@ -1,0 +1,21 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part28_v4rho3sigma_4 meta430 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk1607;
+use chunk1::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk1608;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_meta430<F: Float>(t23053: F, t831: F, t1878: F, t244: F, t2606: F, t2610: F, t6581: F, t2230: F, t6589: F, t213: F, t6593: F, t1894: F, t236: F, t2553: F, t6591: F, t229: F, t6546: F) -> (F, F, F, F, F, F, F, F, F, F) {
+        let (t23054, t23056, t23057, t23059, t23061, t23062, t23063, t23066) = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk1607::<F>(t23053, t831, t1878, t244, t2606, t2610, t6581, t2230, t6589, t213, t6593, t1894, t236, t2553);
+        let (t23067, t23069) = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk1608::<F>(t23066, t6591, t229, t6546);
+    (t23054, t23056, t23057, t23059, t23061, t23062, t23063, t23066, t23067, t23069)
+}

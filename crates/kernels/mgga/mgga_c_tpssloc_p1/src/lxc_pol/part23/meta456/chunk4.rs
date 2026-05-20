@@ -1,0 +1,14 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 23 (v4rho4_4) CSE chunk 1323/1527 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part23_v4rho4_4_chunk1323<F: Float>(t41209: F, t41212: F, t46806: F, t59195: F, t59204: F, t59206: F, t59218: F, t59221: F, t59224: F, t68116: F, t68118: F, t68122: F, t68131: F) -> F {
+    let t76371 = F::cast_from(0.11111111111111111111e-2_f64) * t46806 - F::cast_from(0.77777777777777777775e-1_f64) * t59195 + F::cast_from(0.15555555555555555555e-1_f64) * t68116 + F::cast_from(0.18666666666666666665e0_f64) * t68118 + F::cast_from(0.39999999999999999998e-1_f64) * t68122 + F::cast_from(0.33333333333333333332e-2_f64) * t68131 + t41209 + t41212 + F::cast_from(0.23333333333333333332e0_f64) * t59204 + F::cast_from(0.94999999999999999997e-1_f64) * t59206 - F::cast_from(0.31666666666666666666e-1_f64) * t59218 - F::cast_from(0.29999999999999999998e-1_f64) * t59221 + F::cast_from(0.99999999999999999996e-2_f64) * t59224;
+    t76371
+}

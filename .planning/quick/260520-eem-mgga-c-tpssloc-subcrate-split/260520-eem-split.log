@@ -1,0 +1,42 @@
+Shard plan for mgga_c_tpssloc (7 shards):
+  mgga_c_tpssloc_p0: parts 0..=20 (21 parts, 7816 files)
+  mgga_c_tpssloc_p1: parts 21..=23 (3 parts, 9627 files)
+  mgga_c_tpssloc_p2: parts 24..=28 (5 parts, 9774 files)
+  mgga_c_tpssloc_p3: parts 29..=31 (3 parts, 8813 files)
+  mgga_c_tpssloc_p4: parts 32..=39 (8 parts, 9900 files)
+  mgga_c_tpssloc_p5: parts 40..=53 (14 parts, 9941 files)
+  mgga_c_tpssloc_p6: parts 54..=121 (68 parts, 4969 files)
+Largest shard: mgga_c_tpssloc_p5 (9941 files) — the Task 3 canary.
+
+Done. Sharded mgga_c_tpssloc/lxc_pol: 122 parts -> 7 shards. Facade keeps name libxc-kernel-mgga_c_tpssloc.
+
+=========================================================================
+TASK 2 STEP D — SANITY CHECK (budget=10000, regen=63360 files / 7366 meta dirs)
+=========================================================================
+Regen shape (matches 260520-c91 expectation):
+  total .rs files in facade pre-split: 63360 (expected ~63K)  OK
+  meta dirs:                           7366  (exact match)    OK
+  largest single .rs:                  4487L part54/mod.rs     OK
+  facade pre-split: 122 mod partN; / 122 use / 122 calls       OK
+  E0761 collisions: NONE                                       OK
+  all 122 mod decls had matching on-disk units                 OK
+
+Shard layout (per-shard recursive *.rs count incl shard lib.rs + mod.rs):
+  p0: parts 0..=20   7818 files
+  p1: parts 21..=23  9629 files
+  p2: parts 24..=28  9776 files
+  p3: parts 29..=31  8815 files
+  p4: parts 32..=39  9902 files
+  p5: parts 40..=53  9943 files   <- LARGEST = Task 3 CANARY
+  p6: parts 54..=121 4971 files
+
+7 sanity checks:
+  1. 7 shard dirs exist (N>1)                                  PASS
+  2. each shard has Cargo.toml + src/lib.rs + src/lxc_pol/mod.rs PASS
+  3. all shards <= 10000 budget; largest p5 = 9943 files       PASS (no over-budget solo shard needed)
+  4. facade mod.rs: 0 'mod partN;', 122 shard-sourced 'use', 0 leftover 'use partN::' PASS
+  5. facade #[cube] body retains 122 part call statements      PASS
+  6. facade Cargo.toml + root Cargo.toml per-shard deps; 0 shards in default-members PASS
+  7. re-run splitter -> idempotency guard no-op; zero git churn PASS
+
+ALL 7 SANITY CHECKS PASS -> proceed to Task 3 compile sweep.

@@ -1,0 +1,21 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part21_v4rho4_2 meta279 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_chunk1560;
+use chunk1::mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_chunk1561;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_meta279<F: Float>(t849: F, t9993: F, t232: F, t2553: F, t2614: F, t838: F, t2693: F, t809: F, t597: F, t61: F, t241: F, t244: F, t248: F, t238: F, t154: F, t9569: F, t222: F, t2606: F, t9573: F, t805: F, t9541: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+        let (t9994, t10007, t10012, t10014, t10021) = mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_chunk1560::<F>(t849, t9993, t232, t2553, t2614, t838, t2693, t809, t597, t61);
+        let (t10022, t10024, t10026, t10027, t10029, t10030, t10036) = mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_chunk1561::<F>(t10021, t241, t244, t248, t238, t154, t9569, t222, t2606, t9573, t805, t9541);
+    (t9994, t10007, t10012, t10014, t10021, t10022, t10024, t10026, t10027, t10029, t10030, t10036)
+}

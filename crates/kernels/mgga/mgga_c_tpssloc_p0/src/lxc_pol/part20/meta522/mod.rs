@@ -1,0 +1,18 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part20_v4rho4_1 meta522 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2056;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_meta522<F: Float>(t12440: F, t225: F, t32253: F, t59: F, t154: F, t541: F, t12289: F, t1336: F, t835: F, t12293: F, t12364: F, t3777: F) -> (F, F, F, F, F, F) {
+        let (t39919, t39933, t39934, t39936, t39945, t39947) = mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2056::<F>(t12440, t225, t32253, t59, t154, t541, t12289, t1336, t835, t12293, t12364, t3777);
+    (t39919, t39933, t39934, t39936, t39945, t39947)
+}
