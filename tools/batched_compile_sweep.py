@@ -317,8 +317,13 @@ def run_sweep(args: argparse.Namespace) -> int:
         if not roster_path.is_file():
             print(f"ABORT: roster file not found: {roster_path}", file=sys.stderr)
             return 2
-        raw = [ln.strip() for ln in roster_path.read_text().splitlines() if ln.strip()]
         # Roster file: one package per line, no family prefix info; infer family from pkg name.
+        # Skip blank lines and `#` comments (full-line or trailing) so documented rosters parse clean.
+        raw = []
+        for ln in roster_path.read_text().splitlines():
+            ln = ln.split("#", 1)[0].strip()
+            if ln:
+                raw.append(ln)
         roster = []
         for pkg in raw:
             name = pkg[len(PKG_PREFIX):] if pkg.startswith(PKG_PREFIX) else pkg
