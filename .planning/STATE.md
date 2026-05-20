@@ -123,7 +123,7 @@ Plan 11-03 outcome (2026-05-15):
 Wave 2 is finished under D-13. Next plan: 11-04.
 
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-19
+Last activity: 2026-05-20 - Completed quick task 260520-c91: mgga_c_tpssloc hierarchical sub-wrapper chunker (PARTIAL — translator infra landed; call-site gate defect deferred)
 
 ## Phase 11 — PAUSED at Plan 11-05, Option A → Option C Pivot (2026-05-18)
 
@@ -239,12 +239,13 @@ None yet.
 | 260512-q02 | Fix translator merge-suffix filename overflow (was hitting Linux 255-byte path limit on lxc-level kernels with 40+ output fields); regen mgga-14's mgga_x_br89_explicit + mgga_x_r4scan at SPLIT_THRESHOLD=6000 (max line 21,679 → 5,352, unblocks mgga-14 OOM) | 2026-05-12 | 22640588 | [260512-q02-fix-merge-filename-overflow](.planning/quick/260512-q02-fix-merge-filename-overflow/) |
 | 260514-q01 | Split mgga-2 and nearby large MGGA kernels: re-emitted all mgga-2 functionals plus mgga_c_ccalda; targeted files now ≤5K lines | 2026-05-14 | 0506d0e5 | [260514-q01-split-mgga-2-large-kernels](.planning/quick/260514-q01-split-mgga-2-large-kernels/) |
 | 260520-a0c | mgga_c_tpssloc memory spike fix — PARTIAL: Path A (env-gated wrapper-cap raise, commit 799bd5d94a) cuts ~10 GB off the proc-macro OOM peak (25 GB → 16 GB) but is insufficient; Path E (defer tpssloc from default-members, commit 491a87193d) lands as immediate unblock; Path B (hierarchical sub-wrappers) planned follow-up | 2026-05-20 | 491a87193d | [260520-a0c-mgga-c-tpssloc-memory-spike-fix](.planning/quick/260520-a0c-mgga-c-tpssloc-memory-spike-fix/) |
+| 260520-c91 | mgga_c_tpssloc hierarchical sub-wrapper chunker (Path B) — PARTIAL: full translator infra landed at commit 2c7d3a0a48 (grouper, meta-fn emitter, hier-wrapper, `cse-hier` emit kind, env gating `LIBXC_RS_HIERARCHICAL_CSE`, selftests PASS, default-OFF byte-identical to HEAD) but call-site gate defect caught at post-regen sanity-check: hier branch is nested inside the wrapper-cap-rejection block which Path A's raised cap (15000) defeats for tpssloc (max wrapper 9698L ≤ 15000); regen produced zero meta directories, identical to Path A's OOM shape. No compile attempted (no information value). Fix is ~5-10 LoC: gate hier on `wrapper_lines > BASE split_threshold` AND env-var, independent of Path A. | 2026-05-20 | d1287fdfe4 | [260520-c91-mgga-c-tpssloc-hierarchical-sub-wrapper](.planning/quick/260520-c91-mgga-c-tpssloc-hierarchical-sub-wrapper/) |
 
 ## Session Continuity
 
-Last session: 2026-05-20 (quick task 260520-a0c)
-Stopped at: mgga_c_tpssloc deferred from default-members; Path B (hierarchical sub-wrappers) planned as follow-up; Phase 11.1 Plan 03 still pending
-Resume file: .planning/quick/260520-a0c-mgga-c-tpssloc-memory-spike-fix/260520-a0c-SUMMARY.md
+Last session: 2026-05-20 (quick task 260520-c91)
+Stopped at: Path B translator infrastructure landed (`LIBXC_RS_HIERARCHICAL_CSE`) but call-site gate defect deferred — hier branch is unreachable for tpssloc under Path A's raised wrapper cap. Fix is ~5-10 LoC in `per_functional.py:_cse_chunk_part`: re-gate hier on `wrapper_lines > BASE split_threshold` AND env-var, independent of Path A. After that, re-run regen + compile (still ~10-15 GB peak expected, hopefully under 12 GB target).
+Resume file: .planning/quick/260520-c91-mgga-c-tpssloc-hierarchical-sub-wrapper/260520-c91-SUMMARY.md
 
 ⚠ Working-tree note: `.cargo/config.toml` had `jobs` commented out during this session (cargo used default num_cpus parallelism). The single-crate `-p` builds only ran one rustc, so OOM was driven by per-`#[cube] fn` macro expansion, not by parallel rustcs. User manages this file by hand per `feedback_ram_constraints` memory.
 
