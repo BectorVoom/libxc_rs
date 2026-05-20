@@ -187,12 +187,21 @@ def emit_output_dir(family: str, func: str, output: str,
           -> ``<output>/part{idx}/mod.rs``      the ``#[cube]`` part wrapper
              ``<output>/part{idx}/chunk{n}.rs`` one per D-02 CSE chunk
 
+      ``{"kind": "cse-hier", "wrapper": <str>,
+        "metas": [{"wrapper": <str>, "chunks": [<str>, ...]}, ...]}``
+          -> ``<output>/part{idx}/mod.rs``                top part wrapper
+             ``<output>/part{idx}/meta{M}/mod.rs``        per-meta wrapper
+             ``<output>/part{idx}/meta{M}/chunk{n}.rs``   per-leaf chunk
+
     The ``<output>/mod.rs`` ``mod part{idx};`` declaration resolves to either
     ``part{idx}.rs`` or ``part{idx}/mod.rs`` transparently — this is the THIRD
     nesting level, used when a single output *component* still exceeds
     SPLIT_THRESHOLD after the per-component cut and must be D-02 CSE-chunked.
-    partNN / chunkNN indices are 0-based sequence order (reset per output /
-    per part), so a double-emit stays byte-identical (D-LOCK-D)."""
+    The ``cse-hier`` kind (260520-c91) adds a FOURTH nesting level under each
+    part for hierarchical meta-grouping — opt-in via
+    ``LIBXC_RS_HIERARCHICAL_CSE=1`` in `_cse_chunk_part`. partNN / metaMM /
+    chunkNN indices are 0-based sequence order (reset per output / per part /
+    per meta), so a double-emit stays byte-identical (D-LOCK-D)."""
     out_dir = subcrate_dir(family, func) / "src" / output
     _write(out_dir / "mod.rs", wrapper_src)
     for idx, part in enumerate(parts):
@@ -204,6 +213,18 @@ def emit_output_dir(family: str, func: str, output: str,
             _write(part_dir / "mod.rs", part["wrapper"])
             for nn, chunk_src in enumerate(part["chunks"]):
                 _write(part_dir / f"chunk{nn}.rs", chunk_src)
+        elif kind == "cse-hier":
+            # 260520-c91: hierarchical meta layer. Top wrapper calls
+            # `meta{M}::<f64>(...)`; each meta wrapper calls
+            # `chunk{N}::<F>(...)`. Indices reset per meta — same D-LOCK-D
+            # determinism contract as the flat `cse` kind.
+            part_dir = out_dir / f"part{idx}"
+            _write(part_dir / "mod.rs", part["wrapper"])
+            for mm, meta in enumerate(part["metas"]):
+                meta_dir = part_dir / f"meta{mm}"
+                _write(meta_dir / "mod.rs", meta["wrapper"])
+                for nn, chunk_src in enumerate(meta["chunks"]):
+                    _write(meta_dir / f"chunk{nn}.rs", chunk_src)
         else:
             raise ValueError(
                 f"emit_output_dir: unknown part kind {kind!r} at index {idx}")
@@ -263,12 +284,47 @@ def _selftest() -> int:
          ]},
     ]
 
+    # 260520-c91: a separate output exercising the cse-hier kind with two
+    # metas of two leaves each — minimal shape that still covers all four
+    # nesting levels (output/part/meta/chunk) + the double-emit contract.
+    hier_wrapper_src = (
+        "//! MGGA_X_SELFTEST kxc_pol kernel (260520-c91 hierarchical CSE).\n"
+        f"{CRATE_ALLOW}\n"
+        "mod part0;\n"
+        "use cubecl::prelude::*;\n"
+        "#[cube(launch_unchecked)]\n"
+        "pub fn mgga_x_selftest_fxc_pol(rho: &Array<f64>) {}\n"
+    )
+    hier_parts = [
+        {"kind": "cse-hier",
+         "wrapper": ("//! part 0 hierarchical part wrapper.\n"
+                     "mod meta0;\nmod meta1;\n"
+                     "#[cube]\npub fn p0_hier(rho: &Array<f64>) {}\n"),
+         "metas": [
+             {"wrapper": ("//! meta 0.\nmod chunk0;\nmod chunk1;\n"
+                          "#[cube]\nfn m0<F: Float>(x: F) -> F { x }\n"),
+              "chunks": [
+                  "//! meta0 chunk0.\n#[cube]\nfn c0<F: Float>(x: F) -> F { x }\n",
+                  "//! meta0 chunk1.\n#[cube]\nfn c1<F: Float>(x: F) -> F { x }\n",
+              ]},
+             {"wrapper": ("//! meta 1.\nmod chunk0;\nmod chunk1;\n"
+                          "#[cube]\nfn m1<F: Float>(x: F) -> F { x }\n"),
+              "chunks": [
+                  "//! meta1 chunk0.\n#[cube]\nfn c0<F: Float>(x: F) -> F { x }\n",
+                  "//! meta1 chunk1.\n#[cube]\nfn c1<F: Float>(x: F) -> F { x }\n",
+              ]},
+         ]},
+    ]
+
     def _do_emit():
         emit_cargo_toml(fam, func, needs_libm=True)
-        emit_lib_rs(fam, func, ["exc_unpol", "kxc_pol", "lxc_pol"])
+        emit_lib_rs(fam, func,
+                    ["exc_unpol", "kxc_pol", "lxc_pol", "fxc_pol"])
         emit_single_output(fam, func, "exc_unpol", single_src)
         emit_chunked_output(fam, func, "kxc_pol", wrapper_src, part_srcs)
         emit_output_dir(fam, func, "lxc_pol", out_dir_wrapper_src, mixed_parts)
+        # 260520-c91 hierarchical CSE coverage.
+        emit_output_dir(fam, func, "fxc_pol", hier_wrapper_src, hier_parts)
 
     def _snapshot(root):
         snap = {}
@@ -295,6 +351,7 @@ def _selftest() -> int:
 
         lib = (d / "src" / "lib.rs").read_text()
         for needle in ("pub mod exc_unpol;", "pub mod kxc_pol;",
+                       "pub mod fxc_pol;",
                        "clippy::needless_return"):
             if needle not in lib:
                 print(f"SELFTEST FAIL: lib.rs missing {needle!r}")
@@ -311,6 +368,15 @@ def _selftest() -> int:
             d / "src" / "lxc_pol" / "part1" / "mod.rs",
             d / "src" / "lxc_pol" / "part1" / "chunk0.rs",
             d / "src" / "lxc_pol" / "part1" / "chunk1.rs",
+            # 260520-c91 hierarchical CSE layout: part0/meta{M}/chunk{N}.rs
+            d / "src" / "fxc_pol" / "mod.rs",
+            d / "src" / "fxc_pol" / "part0" / "mod.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta0" / "mod.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta0" / "chunk0.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta0" / "chunk1.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta1" / "mod.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta1" / "chunk0.rs",
+            d / "src" / "fxc_pol" / "part0" / "meta1" / "chunk1.rs",
         ]
         for f in expected_files:
             if not f.exists():

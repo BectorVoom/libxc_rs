@@ -125,6 +125,32 @@ _FN_F64_TURBOFISH_RE = re.compile(r'\b([a-z_][a-z_0-9]*)::<f64>\(')
 # ...) — retarget all `f64::IDENT` to `F::IDENT` inside chunked bodies.
 _F64_QUALIFIED_RE = re.compile(r'\bf64::([A-Za-z_][A-Za-z_0-9]*)\b')
 
+# 260520-c91: hierarchical CSE meta-grouping default fan-out (leaves per meta).
+# Matches MAX_TUPLE_ARITY=12 so a meta's tuple-return arity cannot exceed the
+# CubeCL ABI cap even in the worst case (every leaf in a meta produces exactly
+# one cross-meta output). Tunable via LIBXC_RS_HIERARCHICAL_META_FANOUT env
+# (lower values reduce per-meta body size at the cost of more metas).
+META_FANOUT_DEFAULT = 12
+
+
+def _meta_fanout() -> int:
+    """Read the META_FANOUT env override; default to META_FANOUT_DEFAULT.
+
+    A misformed env value (non-int, < 1) is silently coerced to the default —
+    these are batch-tunable knobs, not user-typed args, and a stricter parse
+    here would surface as a hard regen failure rather than a translator-side
+    warning. The hierarchical branch is opt-in; if the user sets the env var
+    they accept the responsibility for a sensible value.
+    """
+    raw = os.environ.get("LIBXC_RS_HIERARCHICAL_META_FANOUT")
+    if not raw:
+        return META_FANOUT_DEFAULT
+    try:
+        v = int(raw)
+        return v if v >= 1 else META_FANOUT_DEFAULT
+    except ValueError:
+        return META_FANOUT_DEFAULT
+
 
 def _significant_digit_count(lit: str) -> int:
     """Count significant digits in an f64 literal string (decimal-form input).
@@ -341,6 +367,343 @@ def _build_part_wrapper(adapter, func_name, level, spin, output,
     return "\n".join(lines) + "\n"
 
 
+@dataclass
+class MetaGroup:
+    """260520-c91: one meta-group in a hierarchical CSE wrapper.
+
+    A meta-group bundles `META_FANOUT` consecutive leaf chunks under a single
+    `#[cube] fn ..._meta{M}` wrapper. The meta fn takes the union of its
+    leaves' inputs and returns the union of those leaf outputs that ANY
+    downstream consumer (later meta OR the wrapper's `output_writes`) reads.
+    Cross-meta tuple arity is bounded by 12 (MAX_TUPLE_ARITY).
+
+    Fields:
+      meta_idx     -- 0-based sequence index within the part (deterministic).
+      wrapper_calls-- the slice of the 5-tuple wrapper_calls list bundled here.
+      meta_inputs  -- sorted list of identifier names this meta must receive.
+      meta_outputs -- ordered list of identifier names this meta must return
+                       (length <= MAX_TUPLE_ARITY by construction).
+      bind_decls   -- per-leaf wrapper_bind expressions (single-name or tuple)
+                       so the meta body can `let r = chunkN::<F>(args);` and
+                       still match the leaf's signature.
+    """
+    meta_idx: int
+    wrapper_calls: list
+    meta_inputs: list
+    meta_outputs: list
+    bind_decls: list
+
+
+def _group_leaves_into_metas(wrapper_calls, output_writes, ow_var_fn,
+                              meta_fanout):
+    """260520-c91: hierarchical meta-grouping pass.
+
+    Greedy walk over `wrapper_calls` (5-tuple shape: (bind, chunk_fn, args_str,
+    out_vars, in_args)) in emission order. For each leaf K compute the set of
+    its outputs that are referenced by any leaf K+1..N-1's in_args OR by any
+    output_writes entry — these are the "future-reads" that the meta must
+    surface as a cross-meta output if K's meta closes before they are consumed.
+
+    Returns a list of MetaGroup, or None if at any open-meta-of-size-1 the
+    live-out set already exceeds 12 (the CubeCL ABI cap). In that case the
+    caller falls back to the existing flat / Path A behavior.
+
+    Algorithm:
+      1. Pre-compute, for each leaf K, the set `future_reads[K]` =
+         union(out_vars[K]) ∩ (union of in_args[K+1..]) ∪ set(ow_var(ow) for
+         ow in output_writes).
+      2. Walk leaves in order, accumulating a current meta. For each candidate
+         leaf, compute the meta's live-out = union over leaves-in-meta of
+         their future-reads MINUS any of those names that are consumed by a
+         later leaf within the SAME meta (those don't cross the meta
+         boundary). If accepting the leaf would push live-out > 12, close
+         the meta first.
+      3. Close the meta on size == meta_fanout OR on live-set overflow.
+      4. If a 1-leaf meta already has live-out > 12, return None (fallback).
+
+    The algorithm reuses the data already produced by the leaf chunker — no
+    separate dep-graph pass needed.
+    """
+    n = len(wrapper_calls)
+    if n == 0:
+        return []
+
+    # output_writes consumers (always live across all metas).
+    ow_consumers = {ow_var_fn(ow) for ow in output_writes}
+
+    # For each leaf K, set of its in_args (its out_vars are read on demand
+    # from wrapper_calls[K][3] inside _flush / _meta_outputs_after_add).
+    leaf_ins = [set(wc[4]) for wc in wrapper_calls]
+
+    # Build a "consumed-after-K" running set so future_reads[K] is computable
+    # in O(N). Walk right-to-left: future_consumers[K] = leaf_ins[K+1] ∪
+    # future_consumers[K+1] ∪ ow_consumers.
+    future_consumers = [set() for _ in range(n + 1)]
+    future_consumers[n] = set(ow_consumers)
+    for K in range(n - 1, -1, -1):
+        future_consumers[K] = leaf_ins[K] | future_consumers[K + 1]
+    # Now future_consumers[K+1] is "anyone reading after leaf K".
+
+    groups = []
+    cur_leaves = []          # indices K bundled into current meta
+
+    def _flush(current):
+        """Close current meta into a MetaGroup. `current` is a list of leaf
+        indices. Recomputes meta_inputs / meta_outputs / bind_decls from
+        wrapper_calls slices to keep the data structure self-contained."""
+        slice_wcs = [wrapper_calls[K] for K in current]
+        # meta_outputs = union of each leaf's outputs that are read by anyone
+        # AFTER this meta (i.e. in any later meta OR ow_writes). Order is
+        # determined by emission order within the meta + first appearance.
+        last_K = current[-1]
+        downstream = future_consumers[last_K + 1]
+        meta_outputs_set = set()
+        meta_outputs_ordered = []
+        for K in current:
+            for v in wrapper_calls[K][3]:  # out_vars in declared order
+                if v in downstream and v not in meta_outputs_set:
+                    meta_outputs_set.add(v)
+                    meta_outputs_ordered.append(v)
+        # meta_inputs = union of each leaf's in_args that is NOT produced by
+        # a leaf in this same meta (those are local lets, not meta inputs).
+        produced_in_meta = set()
+        for K in current:
+            produced_in_meta.update(wrapper_calls[K][3])
+        meta_inputs_set = set()
+        meta_inputs_ordered = []
+        for K in current:
+            for a in wrapper_calls[K][4]:  # in_args declared order
+                if a not in produced_in_meta and a not in meta_inputs_set:
+                    meta_inputs_set.add(a)
+                    meta_inputs_ordered.append(a)
+        # bind_decls: re-emit each leaf's wrapper_bind (single name or tuple
+        # form) so the meta body looks identical to today's leaf wrapper body.
+        bind_decls = [wrapper_calls[K][0] for K in current]
+        return MetaGroup(
+            meta_idx=len(groups),
+            wrapper_calls=slice_wcs,
+            meta_inputs=meta_inputs_ordered,
+            meta_outputs=meta_outputs_ordered,
+            bind_decls=bind_decls,
+        )
+
+    def _meta_outputs_after_add(current_plus_one):
+        """Compute would-be meta_outputs if the meta closed RIGHT NOW with
+        `current_plus_one` (a list of indices including the new candidate).
+        Returns the count (used for the live-set guard)."""
+        last_K = current_plus_one[-1]
+        downstream = future_consumers[last_K + 1]
+        seen = set()
+        for K in current_plus_one:
+            for v in wrapper_calls[K][3]:
+                if v in downstream:
+                    seen.add(v)
+        return len(seen)
+
+    for K in range(n):
+        candidate = cur_leaves + [K]
+        live = _meta_outputs_after_add(candidate)
+        if live > 12:
+            # Would overflow if we add this leaf.
+            if not cur_leaves:
+                # 1-leaf meta already at >12 outputs — irreducible at this
+                # level. Signal fallback.
+                return None
+            # Close current meta, then start a new one with K.
+            groups.append(_flush(cur_leaves))
+            cur_leaves = [K]
+            # Re-check the new 1-leaf meta's live-out:
+            live_solo = _meta_outputs_after_add(cur_leaves)
+            if live_solo > 12:
+                return None
+        else:
+            cur_leaves = candidate
+        if len(cur_leaves) >= meta_fanout:
+            groups.append(_flush(cur_leaves))
+            cur_leaves = []
+
+    if cur_leaves:
+        groups.append(_flush(cur_leaves))
+
+    # Renumber meta_idx after the in-place mutations above (the dataclass
+    # `meta_idx` was set during _flush against pre-renumber `len(groups)`,
+    # which is correct — but re-assert for safety in case future edits
+    # reorder).
+    for i, g in enumerate(groups):
+        g.meta_idx = i
+    return groups
+
+
+def _build_meta_fn(adapter, func_name, level, spin, fn_suffix, meta_group):
+    """260520-c91: emit one `#[cube] fn ..._meta{M}<F: Float>(...)` source.
+
+    The meta fn body mirrors today's leaf-wrapper body shape — a sequence of
+    `let r = chunkN::<F>(args);` lines — but lives one tier above the leaves
+    so the top wrapper sees ~N_LEAVES / META_FANOUT meta calls instead of
+    N_LEAVES leaf calls. Each chunk-call uses `::<F>` (not `::<f64>`) because
+    the meta fn is GENERIC `<F: Float>` (Rule 9 cross-fn turbofish: generic
+    caller calling a generic callee propagates F).
+
+    Note on F vs f64 at the meta boundary: the top wrapper still calls each
+    meta with `::<f64>` (concrete-f64 → generic, Rule 10 form), so the meta
+    body's F is concretized to f64 at the top boundary — identical to how
+    today's top wrapper concretizes the leaves' F at the wrapper→leaf call.
+    """
+    meta_idx = meta_group.meta_idx
+    meta_fn = f"{func_name}_{level}_{spin}{fn_suffix}_meta{meta_idx}"
+    sig_in = ", ".join(f"{a}: F" for a in meta_group.meta_inputs)
+    n_outs = len(meta_group.meta_outputs)
+    if n_outs == 0:
+        # Defensive: should not happen for a closed meta (the grouper would
+        # have collapsed an empty-output meta into a sibling), but emit a
+        # valid unit-return signature so a downstream regen doesn't crash.
+        ret = "()"
+        ret_expr = "()"
+    elif n_outs == 1:
+        # Single-output meta: scalar F return (CubeCL 0.10 single-element
+        # tuple-return inference bug — same constraint as the leaf chunker).
+        ret = "F"
+        ret_expr = meta_group.meta_outputs[0]
+    else:
+        ret = "(" + ", ".join("F" for _ in meta_group.meta_outputs) + ")"
+        ret_expr = "(" + ", ".join(meta_group.meta_outputs) + ")"
+
+    # mod chunk{n}; declarations for the chunks consumed by this meta.
+    # Note: chunk module indices are reset PER META (D-LOCK-D determinism,
+    # see emit.py top-comment) — they map to the per-meta directory
+    # `<output>/part{idx}/meta{M}/chunk{n}.rs`.
+    mod_decls = []
+    use_decls = []
+    body_calls = []
+    for nn, wc in enumerate(meta_group.wrapper_calls):
+        bind, chunk_fn, args_str = wc[0], wc[1], wc[2]
+        mod_decls.append(f"mod chunk{nn};")
+        use_decls.append(f"use chunk{nn}::{chunk_fn};")
+        # Rule 9 form: generic caller → generic callee uses `::<F>` so F
+        # propagates from this meta down into the leaf.
+        body_calls.append(f"        let {bind} = {chunk_fn}::<F>({args_str});")
+
+    src_lines = [
+        f"//! {func_name.upper()} {level} {spin} kernel — {fn_suffix} "
+        f"meta{meta_idx} (260520-c91 hierarchical CSE).",
+        adapter.file_header,
+        "",
+    ]
+    src_lines.extend(mod_decls)
+    src_lines.append("")
+    src_lines.append(adapter.imports_str)
+    src_lines.append("")
+    src_lines.extend(use_decls)
+    src_lines.append("")
+    src_lines.append("#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]")
+    src_lines.append("#[cube]")
+    src_lines.append(f"pub fn {meta_fn}<F: Float>({sig_in}) -> {ret} {{")
+    src_lines.extend(body_calls)
+    src_lines.append(f"    {ret_expr}")
+    src_lines.append("}")
+    return meta_fn, "\n".join(src_lines) + "\n"
+
+
+def _build_hier_wrapper(adapter, func_name, level, spin, output, out_bufs,
+                         output_writes, meta_groups, is_pol, fn_suffix,
+                         params=None):
+    """260520-c91: top-level part wrapper that calls metas instead of leaves.
+
+    Structurally identical to `_build_chunk_wrapper` (same header / imports /
+    ABSOLUTE_POS / ip < buf.len() guard / param_* threading / output_writes
+    emission), only the inner-body call shape changes:
+
+      Today (leaf wrapper):
+        let r = chunk0::<f64>(args);     # x N leaves
+        ...
+        vrho[ip] += t1234;               # output_writes
+
+      Hierarchical (this fn):
+        let (a, b, c) = meta0::<f64>(args);   # x M metas
+        ...
+        vrho[ip] += t1234;               # output_writes (unchanged)
+
+    The meta-call form picks scalar-F vs tuple destructure to match
+    `_build_meta_fn`'s return shape (scalar for 1-output metas — matches the
+    CubeCL 0.10 single-element-tuple inference workaround the leaf chunker
+    already applies).
+
+    Cross-fn turbofish: top wrapper is concrete-f64 (its `&Array<f64>` typed
+    I/O fixes F = f64), so meta calls use `::<f64>` (Rule 10 form). Inside
+    each meta, leaf calls use `::<F>` (Rule 9 form, handled in `_build_meta_fn`).
+    """
+    fn_name = f"{func_name}_{level}_{spin}{fn_suffix}"
+    # is_part=True for an `_part*` helper — never a launch entry point.
+    cube_attr = "#[cube]"
+    input_arrays = _INPUT_ARRAYS[adapter.family]
+    n_metas = len(meta_groups)
+    lines = [
+        f"//! {func_name.upper()} {level} {spin} kernel — {output} "
+        f"(260520-c91 hierarchical CSE, {n_metas} metas).",
+        adapter.file_header,
+        "",
+    ]
+    for i in range(n_metas):
+        lines.append(f"mod meta{i};")
+    lines.append("")
+    lines.append(adapter.imports_str)
+    lines.append("")
+    # Each meta module exposes its `..._meta{M}` function via the meta wrapper
+    # `mod.rs`. Use the meta_fn name as recorded in the meta group's bookkeeping.
+    for i, mg in enumerate(meta_groups):
+        meta_fn_name = (f"{func_name}_{level}_{spin}{fn_suffix}_meta{i}")
+        lines.append(f"use meta{i}::{meta_fn_name};")
+    lines.append("")
+    lines.append("#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]")
+    lines.append(cube_attr)
+    lines.append(f"pub fn {fn_name}(")
+    for arr in input_arrays:
+        lines.append(f"    {arr}: &Array<f64>,")
+    for buf in out_bufs:
+        lines.append(f"    {buf}: &mut Array<f64>,")
+    for p in (params or []):
+        lines.append(f"    {p}: f64,")
+    lines.append("    dens_threshold: f64,")
+    lines.append("    zeta_threshold: f64,")
+    lines.append(") {")
+    bounds = out_bufs[0] if out_bufs else "vrho"
+    lines.append("    let ip = ABSOLUTE_POS;")
+    lines.append(f"    if ip < {bounds}.len() {{")
+    if is_pol:
+        for ld in _POL_LOADS.get(adapter.family, []):
+            base, idx = ld[:-1], int(ld[-1])
+            stride = _LOAD_STRIDE.get(base, {}).get(adapter.family, 2)
+            off = f" + {idx}" if idx else ""
+            lines.append(f"        let {ld} = {base}[ip * {stride}{off}];")
+    # Meta calls — concretize F → f64 at the top→meta boundary (Rule 10).
+    for i, mg in enumerate(meta_groups):
+        meta_fn_name = f"{func_name}_{level}_{spin}{fn_suffix}_meta{i}"
+        args_str = ", ".join(mg.meta_inputs)
+        n_outs = len(mg.meta_outputs)
+        if n_outs == 0:
+            # Unit return (defensive — see _build_meta_fn).
+            lines.append(f"        {meta_fn_name}::<f64>({args_str});")
+        elif n_outs == 1:
+            bind = mg.meta_outputs[0]
+            lines.append(
+                f"        let {bind} = {meta_fn_name}::<f64>({args_str});")
+        else:
+            bind = "(" + ", ".join(mg.meta_outputs) + ")"
+            lines.append(
+                f"        let {bind} = {meta_fn_name}::<f64>({args_str});")
+    for ow in output_writes:
+        var, fld, comp = adapter.ow_var(ow), adapter.ow_field(ow), adapter.ow_component(ow)
+        pd = adapter.pol_dims.get(fld, 1)
+        if is_pol and pd > 1:
+            off = "" if comp == 0 else f" + {comp}"
+            lines.append(f"        {fld}[ip * {pd}{off}] += {var};")
+        else:
+            lines.append(f"        {fld}[ip] += {var};")
+    lines.append("    }")
+    lines.append("}")
+    return "\n".join(lines) + "\n"
+
+
 def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
                     compute_lines, output_writes, part_out_bufs,
                     split_threshold):
@@ -498,7 +861,12 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             + ("\n".join(body) + "\n" if body else "")
             + f"    {ret_expr}\n}}\n"
         )
-        wrapper_calls.append((wrapper_bind, chunk_fn, ", ".join(in_args)))
+        # 260520-c91: track out_vars + in_args as structured fields so the
+        # hierarchical meta-grouper (downstream) can compute cross-meta
+        # live-sets from variable names directly. wrapper_bind / args strings
+        # remain for the existing leaf-wrapper emit path; nothing else changes.
+        wrapper_calls.append((wrapper_bind, chunk_fn, ", ".join(in_args),
+                              list(out_vars), list(in_args)))
 
     wrapper = _build_chunk_wrapper(adapter, func_name, level, spin, output,
                                    part_out_bufs, output_writes, wrapper_calls,
@@ -541,6 +909,68 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     else:
         wrapper_cap = split_threshold
     if wrapper_lines > wrapper_cap or max_chunk_lines > split_threshold:
+        # 260520-c91 hierarchical branch — env-gated, additive.
+        #
+        # Before falling through to the existing flat-fallback path, try a
+        # meta-level grouping: bundle ~META_FANOUT (default 12) leaves under
+        # a single `#[cube] fn ..._meta{M}` wrapper, then have the top
+        # wrapper call metas instead of leaves. For tpssloc part21 (3221
+        # leaves), this collapses a 9699-line top wrapper into ~270 meta
+        # calls (~800 lines) plus ~270 meta bodies of ~13 lines each — no
+        # `#[cube] fn` body exceeds ~500 lines.
+        #
+        # Composability: this fires only inside the wrapper-cap-rejection
+        # branch, so reaching it ALSO requires the raised cap from
+        # LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER. Typical hierarchical-mode
+        # invocations set BOTH env vars; the hierarchical branch is
+        # purely additive on top of Path A.
+        #
+        # Fallback: if the grouper can't keep any meta's live-out <= 12
+        # (returns None), drop into the existing flat-fallback path below
+        # — no regression.
+        if os.environ.get("LIBXC_RS_HIERARCHICAL_CSE"):
+            meta_groups = _group_leaves_into_metas(
+                wrapper_calls, output_writes, adapter.ow_var, _meta_fanout())
+            if meta_groups is not None:
+                # Build per-meta `#[cube] fn` sources keyed by meta_idx.
+                meta_sources = []
+                for mg in meta_groups:
+                    _meta_fn_name, meta_src = _build_meta_fn(
+                        adapter, func_name, level, spin,
+                        fn_suffix=f"_part{part_idx}_{suffix}",
+                        meta_group=mg)
+                    meta_sources.append({
+                        "wrapper": meta_src,
+                        # Chunks belonging to this meta — re-slice from
+                        # the global chunk_srcs list. Order is preserved
+                        # because the grouper walked wrapper_calls in
+                        # emission order, and chunk_srcs / wrapper_calls
+                        # were built in lock-step in the loop above.
+                        "chunks": [
+                            chunk_srcs[wrapper_calls.index(wc)]
+                            for wc in mg.wrapper_calls
+                        ],
+                    })
+                hier_wrapper = _build_hier_wrapper(
+                    adapter, func_name, level, spin, output, part_out_bufs,
+                    output_writes, meta_groups, is_pol,
+                    fn_suffix=f"_part{part_idx}_{suffix}",
+                    params=sorted(param_pool))
+                # Sentinel 3-tuple — `emit_functional` discriminates by
+                # length. The metas list carries per-meta sources +
+                # chunk sources for emit.emit_output_dir's `cse-hier` kind.
+                return hier_wrapper, chunk_srcs, meta_sources
+            else:
+                # Grouper rejected (1-leaf meta with > 12 outputs). Log a
+                # short signal so a future tune can find the case, then
+                # drop through to the existing flat-fallback path.
+                print(
+                    f"  CSE-HIER-REJECT {adapter.family}/{func_name} "
+                    f"{level}_{spin} part{part_idx} ({suffix}): "
+                    f"meta grouper could not keep live-out <= 12 "
+                    f"(falling back to flat / Path A behavior)",
+                    file=sys.stderr,
+                )
         if os.environ.get("LIBXC_RS_CSE_DIAG"):
             chunk_sizes = sorted(
                 (c.count("\n") + 1 for c in chunk_srcs), reverse=True)
@@ -593,7 +1023,12 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
     lines.append("")
     lines.append(adapter.imports_str)
     lines.append("")
-    for _bind, chunk_fn, _args in wrapper_calls:
+    for wc in wrapper_calls:
+        # 260520-c91: wrapper_calls may be a 3-tuple (legacy) or 5-tuple
+        # (new — carries out_vars + in_args for the hier grouper). Only
+        # chunk_fn is needed here, so positional indexing keeps both shapes
+        # working without a version flag.
+        chunk_fn = wc[1]
         mod_i = chunk_fn.rsplit("chunk", 1)[1]
         lines.append(f"use chunk{mod_i}::{chunk_fn};")
     lines.append("")
@@ -627,7 +1062,8 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
     # different position — those are handled by
     # `_wrap_f64_literals_v2`'s `_CHUNK_TO_CHUNK_CALL_RE` pass and emit
     # `::<F>` to propagate the chunk's F generic.
-    for bind, chunk_fn, args in wrapper_calls:
+    for wc in wrapper_calls:
+        bind, chunk_fn, args = wc[0], wc[1], wc[2]
         lines.append(f"        let {bind} = {chunk_fn}::<f64>({args});")
     for ow in output_writes:
         var, fld, comp = adapter.ow_var(ow), adapter.ow_field(ow), adapter.ow_component(ow)
@@ -716,10 +1152,21 @@ def emit_functional(adapter, func_name, is_vxc_only, split_threshold):
                         adapter, func_name, level, spin, output, idx, suffix,
                         sub_c, sub_o, sub_b, split_threshold)
                 if cse_part is not None:
-                    wrapper_src, chunk_srcs = cse_part
-                    parts.append({"kind": "cse", "wrapper": wrapper_src,
-                                  "chunks": chunk_srcs})
-                    part_sig_codes.append(wrapper_src)
+                    # 260520-c91: length-based discriminant — 2-tuple is the
+                    # legacy flat-CSE return; 3-tuple carries the new
+                    # hierarchical meta layer. No version bumping of the
+                    # _cse_chunk_part signature.
+                    if len(cse_part) == 3:
+                        wrapper_src, _chunk_srcs, meta_sources = cse_part
+                        parts.append({"kind": "cse-hier",
+                                      "wrapper": wrapper_src,
+                                      "metas": meta_sources})
+                        part_sig_codes.append(wrapper_src)
+                    else:
+                        wrapper_src, chunk_srcs = cse_part
+                        parts.append({"kind": "cse", "wrapper": wrapper_src,
+                                      "chunks": chunk_srcs})
+                        part_sig_codes.append(wrapper_src)
                 else:
                     if sub_est > split_threshold:
                         # CSE could not get this component under the cap (<=1
