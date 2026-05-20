@@ -1,7 +1,16 @@
 # Phase 10: Workspace-Level Modular Split — Context
 
 **Gathered:** 2026-05-07
-**Status:** Ready for planning
+**Updated:** 2026-05-21 — re-discussed against the post-Phase-11 281-crate reality (see "Restructure Update" below).
+**Status:** Ready for planning (EXECUTION gated on Phase 11.1 reaching workspace-green — D-13)
+
+> ## Restructure Update (2026-05-21)
+>
+> When this CONTEXT was first gathered, the kernel layer was ~170 flat `crates/kernel-{lda,gga,mgga}*` crates reachable behind 4 umbrella façade deps. **Phase 11's clean-slate restructure (D-10a) replaced that with 281 per-functional crates** under `crates/kernels/{lda,gga,mgga,math}/`, deleted the umbrella façade crates, added a new `libxc-sys` oracle crate, and left the workspace partially red mid-11.1.
+>
+> **Still holds unchanged:** D-01/01a/01b (error → libxc-core), D-02/02a (delete `src/math/mod.rs`), D-03/04/05/06/06a (xtask string-emitter + paths), D-07/08/09/09a (libxc-compat cdylib + hand-written `xc_rs.h`).
+>
+> **New / superseding:** D-10 through D-14 (Areas 5–8) below capture the delta. **Where an older line conflicts with a higher-numbered decision, the higher number wins.**
 
 <domain>
 ## Phase Boundary
@@ -13,7 +22,7 @@ Refactor the monolithic root `libxc_rs` crate into a layered Cargo workspace whe
 3. **`crates/libxc-compat/`** owns the extern "C" shim — the ~85 entry points, `FunctionalSlot` machinery, thread-local errno, `xc_rs_last_error_*` accessors, `catch_unwind` wrapper, opaque `xc_func_type`/`xc_func_info_type`. Depends on `libxc-eval` + `libxc-core`. **Nothing depends on `libxc-compat` except its own cdylib output** (success criterion 4).
 4. **Root `libxc_rs` crate** becomes a thin facade: `api/` (Phase 6 Layer 3 — `BatchEvaluator`, `FunctionalBuilder`, `EvaluateInput`) + curated public re-exports of `libxc-core` + `libxc-eval` types so downstream `use libxc_rs::...` paths still resolve.
 
-The 170 existing kernel sub-crates (`kernel-{lda,gga,mgga}*` + `kernel-math`) are NOT touched. The Phase 8/9 sub-crate explosion stays exactly as-is.
+**[Superseded by D-10/D-11, 2026-05-21]** ~~The 170 existing kernel sub-crates...~~ Reality is now **281 per-functional kernel crates** under `crates/kernels/{lda,gga,mgga,math}/` (Phase 11 D-10a clean-slate restructure). Phase 10 does NOT restructure them, with **one surgical exception**: `libxc-kernel-math` loses its `deferred` module (relocated to `libxc-core`, D-11). All 281 kernel **path-deps** migrate root → `libxc-eval` (D-10).
 
 **In scope:**
 
@@ -28,6 +37,9 @@ The 170 existing kernel sub-crates (`kernel-{lda,gga,mgga}*` + `kernel-math`) ar
 - Hand-write `crates/libxc-compat/include/xc_rs.h` covering the extern "C" symbols Phase 6 ships.
 - Update `verify/Cargo.toml`, integration tests, and `[workspace] default-members` to reflect the new crate names.
 - Verify success criteria: `cargo tree -p libxc-core` shows zero CubeCL/kernel-* deps; `cargo tree -p libxc-eval` shows libxc-core but not libxc-compat; `cargo tree -p libxc-compat` shows both; root `libxc_rs::...` paths still resolve; `cargo test --workspace` matches pre-refactor pass/fail set; oracle parity at 1e-12 preserved on representative LDA/GGA/MGGA.
+- **[2026-05-21]** Migrate all 281 `libxc-kernel-*` path-deps from root `Cargo.toml [dependencies]` into `crates/libxc-eval/Cargo.toml` (D-10).
+- **[2026-05-21]** Relocate `crates/kernels/math/src/deferred.rs` (id-table + `is_deferred`) into `libxc-core`; update the 4 consumers; delete the module from `libxc-kernel-math` (D-11).
+- **[2026-05-21]** Set `[workspace] default-members` = kernels (minus 7 D-11-deferred) + `libxc-core` + `libxc-eval` + root facade; **exclude `libxc-compat`** (D-10a).
 
 **Out of scope (deferred to future phases):**
 
@@ -71,6 +83,36 @@ The 170 existing kernel sub-crates (`kernel-{lda,gga,mgga}*` + `kernel-math`) ar
 - **D-09:** **C header is hand-written** at `crates/libxc-compat/include/xc_rs.h`, **committed**. Mirrors `libxc-master/src/xc.h` 1:1 minus the `void → int` signature changes. Surface is small (~100 declarations); cbindgen produces noisy output for a stable surface and adds a build-time dep. Phase 6 context already recommended this; Phase 10 confirms and pins the location to live alongside the cdylib it documents.
 - **D-09a:** Phase 10 ships the header **only if Phase 6 has produced/committed it before Phase 10 starts**. If Phase 6 hasn't, Phase 10 does NOT block on writing one — the header generation is a Phase 6 deliverable per `06-CONTEXT.md` `### What Phase 6 Creates`, just relocated. Planner verifies state of the header at plan time.
 
+### Area 5 — libxc-eval kernel wiring (2026-05-21 update; supersedes "4 umbrella deps")
+
+- **D-10:** All **281** `libxc-kernel-*` per-functional path-deps in root `Cargo.toml [dependencies]` (active functionals + the 7 D-11-deferred kept as deps-only + `libxc-kernel-math`; exact count via `grep -cE "^libxc-kernel-" Cargo.toml`) migrate into `crates/libxc-eval/Cargo.toml`. They move together with the `src/kernel/{mod,lda,gga,mgga}.rs` dispatch glue (which `use`s 270 of them) — `kernel/` was always slated for libxc-eval. After the split, **root `libxc_rs` depends on NO kernel crate directly**; it reaches them transitively via `libxc_rs → libxc-eval → libxc-kernel-*`. **Supersedes** the original domain/code-context claim that libxc-eval inherits only 4 umbrella deps (`libxc-kernel-{math,lda,gga,mgga}`) — those façade crates were deleted by Phase 11 D-10a.
+- **D-10a:** Post-split `[workspace] default-members` = the per-functional kernel enumeration **minus the 7 D-11-deferred kernels** (`mgga_c_b94, mgga_x_br89, mgga_x_mbr, mgga_x_mbrxc_bg, mgga_x_mbrxh_bg, mgga_x_mggac, mgga_x_br89_explicit` — preserve Phase 11 D-11's exclusion list AND its explanatory comment block VERBATIM) **+ `crates/libxc-core` + `crates/libxc-eval` + root `libxc_rs`**. `crates/libxc-compat` is **EXCLUDED** from default-members: its cdylib links all 281 kernels into one `.so`, the OOM risk at `jobs=1` (RAM-constraint memory). Build on demand: `cargo build -p libxc-compat`. The 7 deferred kernels keep their `[dependencies]` entries in libxc-eval (so `-p` builds them) but stay out of default-members.
+- **D-10b:** `[workspace] members` currently = `xtask, verify, libxc-sys`; kernels are members implicitly via path-deps. Phase 10 makes `libxc-core`, `libxc-eval`, `libxc-compat` members (root path-deps them). `default-members ⊆ members` must hold; planner handles exact Cargo mechanics.
+
+### Area 6 — libxc-core purity vs `deferred` (2026-05-21; NEW boundary violation)
+
+- **D-11:** Relocate the `deferred` registry (`crates/kernels/math/src/deferred.rs` — id-table + `is_deferred(raw_id)` predicate for LDA/MGGA) **out of `libxc-kernel-math` into `libxc-core`**. It is pure metadata (which functional ids are not-yet-translated), not compute. Update the **4 consumers**: `src/model/lda_functional.rs` + `src/model/mgga_functional.rs` (post-move they live in libxc-core, so a `crate::`-local reference) and `verify/tests/lda_oracle.rs` + `verify/tests/mgga_oracle.rs` (via root facade, e.g. `libxc_rs::...::is_deferred`, or libxc-core direct — planner picks). `libxc-kernel-math` deletes its `deferred` module.
+  - **Why required:** `model/` moves into `libxc-core`, and `libxc-kernel-math` depends on `cubecl` (verified: `crates/kernels/math/Cargo.toml` has `cubecl = { version = "0.10.0", ... }`). If `model/` kept calling `libxc_kernel_math::deferred::is_deferred`, `libxc-core` would gain a `kernel-math` dep → pull CubeCL → **break success criterion 2 ("zero CubeCL imports")**. Relocation is the only resolution that keeps SC2 true. (Allowing libxc-core → kernel-math, and splitting `model/` across core+eval, were both considered and rejected.)
+  - **Verified safe:** no `crates/kernels/*` source consumes `deferred` (only the 4 consumers above) — `grep -rlE "deferred::" crates/kernels/ | grep -v math/src/deferred.rs` → empty. No re-export shim needed in kernel-math.
+  - **Not generated:** `deferred.rs` is hand-written (its `//!` header documents its provenance from the Phase-11-deleted per-family façade crates), so the relocation does NOT touch the xtask write-path set — **D-03 unaffected**.
+  - **Provenance:** Phase 11 placed `deferred` in kernel-math reasoning "the root model layer depends on kernel-math anyway." Phase 10 reverses that premise (model → libxc-core, which must not dep kernel-math), so this relocation corrects a placement Phase 10 specifically invalidates.
+  - **Scope:** This is the ONE intentional touch of a kernel crate by Phase 10 — a surgical extraction of one pure-data module, NOT a kernel restructure. Supersedes the original blanket "kernel-math is NOT touched."
+
+### Area 7 — libxc-sys + verify wiring (2026-05-21; new crate)
+
+- **D-12:** `libxc-sys` (oracle FFI — `bindgen 0.72.1` + `cmake 0.1.58` build-deps wrapping libxc-master C source) is a **standalone workspace member OUTSIDE** the `libxc-core` / `libxc-eval` / `libxc-compat` production layering. It is verify-side only. Phase 10 does NOT move, rename, or re-layer it.
+- **D-12a:** `verify/` keeps its current deps unchanged: `libxc-sys = { path = "../libxc-sys" }`, `libxc_rs = { path = ".." }`, **and its curated ~17-kernel dev-dep subset** (deliberate OOM-avoidance per the verify-crate-OOM memory — `libxc-kernel-{lda,mgga}` umbrella dev-deps OOM-killed the verify build, so verify pulls only specific kernels: `lda_x, lda_c_pw, lda_xc_teter93, gga_x_pbe, gga_c_pbe, gga_x_b88, mgga_x_lta/tpss/pkzb/th, mgga_c_revtpss/kcisk/b94, mgga_x_r4scan/br89_explicit, mgga_xc_b97mv`). Phase 10 must NOT expand this to all 281. verify routes through the root facade (`libxc_rs::eval::dispatch_*`, `libxc_rs::kernel::...`), so line-for-line facade re-export preservation keeps verify green with **zero test-source changes** expected. **Supersedes** the original "verify only deps the root `libxc_rs` path."
+
+### Area 8 — execution gate + dependency refresh (2026-05-21)
+
+- **D-13:** Phase 10 is **planned now but EXECUTION is hard-blocked on Phase 11.1 reaching full workspace green.** Rationale: (1) refactoring module homes on top of an actively-changing, partially-red kernel set is bisect-hostile; (2) success criteria **6** (`cargo test --workspace` parity) and **7** (1e-12 oracle parity on representative LDA/GGA/MGGA) **cannot be verified until the kernels compile and evaluate correctly** — exactly what 11.1 fixes (translator Rule 3 emit gap). The original per-commit `cargo check --workspace` GREEN invariant (see `<specifics>` "Bisectability") is RETAINED unchanged — it becomes satisfiable once 11.1 lands. **Executor precondition:** refuse to start Phase 10 unless `cargo check --workspace` is green at HEAD. Planner records this as an explicit plan precondition.
+- **D-14:** The three new crates' `Cargo.toml` use **current** pinned versions, not the 0.9.0-era pins in the original D-07 sample / CLAUDE.md:
+  - `cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }`; `bitflags = "2.10.0"`; `bytemuck = { version = "1.25.0", features = ["derive"] }`; `thiserror = "2.0.18"`.
+  - **`libxc-core`** carries NO `cubecl` dep (purity, guaranteed by D-11); needs `bitflags` + `bytemuck` (+ `thiserror` for `LibxcRsError`).
+  - **`libxc-eval`** carries `cubecl` + `bytemuck` + all 281 `libxc-kernel-*` path-deps + `libxc-core`.
+  - **`libxc-compat`** carries `thiserror` + `libxc-core` + `libxc-eval` + `[lib] crate-type = ["rlib","cdylib","staticlib"]` (D-07).
+  - Planner reads the current root `Cargo.toml` and partitions exactly. **Supersedes** the D-07 sample's 0.9.0 reference.
+
 ### Claude's Discretion
 
 These were left to the planner/researcher (not pinned by this discussion):
@@ -106,7 +148,7 @@ These were left to the planner/researcher (not pinned by this discussion):
 
 ### Phase 10 origin docs (resolved during this discussion)
 
-- `.planning/notes/workspace-modular-architecture.md` — **Architecture lock.** Crate names, responsibilities (per-module mapping), one-way dependency invariant, and risks called out for planning. Read first.
+- `.planning/notes/workspace-modular-architecture.md` — **Architecture lock** for crate names, responsibilities (per-module mapping), and the one-way dependency invariant. ⚠ **STALE on kernel topology (2026-05-21):** its "Target shape" diagram still shows ~170 flat `libxc-kernel-*` + `kernel-math` crates and "Modules whose homes are not yet decided" for `error/`+`math/`. Those are resolved (D-01/D-02) and the kernel layer is now 281 per-functional crates under `crates/kernels/`. **For kernel wiring + deferred placement, this CONTEXT (D-10/D-11) is authoritative over the note.** Read the note for the layering *principle*, this file for the *topology*.
 - `.planning/research/questions.md` §"How to handle generated.rs files across the modular workspace split" — research question 1-5; resolved by D-03 through D-06.
 - `.planning/todos/pending/audit-error-math-placement.md` — blocker todo; resolved by D-01 + D-02. Mark resolved on commit.
 
@@ -124,6 +166,10 @@ These were left to the planner/researcher (not pinned by this discussion):
 - `Cargo.toml` (root) — workspace + dependencies + `[default-members]` to update.
 - `src/error/mod.rs` — 24-variant `LibxcRsError` enum; moves to `crates/libxc-core/src/error/mod.rs` per D-01.
 - `src/math/mod.rs` — 12-line dead shim; deleted per D-02.
+- `crates/kernels/math/src/deferred.rs` — **[2026-05-21, D-11]** hand-written deferred-id registry + `is_deferred`; relocate to `libxc-core`, delete from kernel-math. Consumers: `src/model/{lda,mgga}_functional.rs`, `verify/tests/{lda,mgga}_oracle.rs`.
+- `crates/kernels/math/Cargo.toml` — **[2026-05-21]** confirms `kernel-math` depends on `cubecl` (why D-11's relocation is mandatory, not optional).
+- `libxc-sys/Cargo.toml` — **[2026-05-21, D-12]** new oracle-FFI crate (bindgen+cmake). Standalone member, OUTSIDE the layering; Phase 10 leaves it untouched.
+- `verify/Cargo.toml` — **[2026-05-21, D-12a]** now deps `libxc-sys` + root `libxc_rs` + a curated ~17-kernel subset; preserve the curation (OOM).
 - `xtask/src/main.rs:291,329,355,387` — 4 hard-coded write paths; update per D-03.
 - `xtask/src/generate_metadata.rs:445,595,643` — 3 hard-coded write paths; update per D-03.
 - `xtask/Cargo.toml` — NOTE comment explains the no-libxc_rs-dep stance; preserve per D-06.
@@ -149,7 +195,7 @@ These were left to the planner/researcher (not pinned by this discussion):
 - **xtask path-rewrite is small and isolated.** 7 hard-coded paths total across 2 files (`xtask/src/main.rs:291,329,355,387` + `xtask/src/generate_metadata.rs:445,595,643`). Confirmed via `grep -n` during scout. No xtask logic changes needed.
 - **`LibxcRsError` already obeys the libxc-core boundary.** Its imports (`use crate::model::{DerivativeOrder, Family, FunctionalId, Spin};`) are all libxc-core types. Moving the file into `crates/libxc-core/src/error/` requires zero import changes — just `crate::model::` references resolve via the same crate.
 - **Phase 6 already partitioned `src/compat/` into the right shape for extraction**: `c_layout.rs` (opaque types), `errno.rs` (thread-local), `ids.rs` (discovery — currently stub), `legacy_eval.rs` (33 evaluate functions), `macros.rs` (`extern_c_wrapper!`), `mod.rs`, `raw_handle.rs` (`FunctionalSlot` + alloc/init/end/free), `removed.rs`. The directory moves as a unit into `crates/libxc-compat/src/`.
-- **`crates/kernel-{lda,gga,mgga}*` and `kernel-math` are stable.** Phase 8/9 finished the sub-crate explosion. `libxc-eval`'s Cargo.toml carries the path-deps that root `libxc_rs/Cargo.toml` carries today (`libxc-kernel-math`, `libxc-kernel-lda`, `libxc-kernel-gga`, `libxc-kernel-mgga`).
+- **[Updated 2026-05-21 — supersedes the line below]** The kernel layer is **281 per-functional crates** under `crates/kernels/{lda,gga,mgga,math}/` (Phase 11 D-10a), each named `libxc-kernel-<functional>`. `libxc-eval`'s Cargo.toml carries **all 281 path-deps** that root `Cargo.toml` carries today, not 4 umbrella deps (D-10). The dispatch glue in `src/kernel/{mod,lda,gga,mgga}.rs` (`use`s 270 of them) moves with them. ~~`crates/kernel-{lda,gga,mgga}*` ... 4 umbrella path-deps~~ — those façade crates were deleted by Phase 11.
 
 ### Established Patterns to Continue
 
@@ -164,7 +210,7 @@ These were left to the planner/researcher (not pinned by this discussion):
 
 ### Integration Points
 
-- **`verify/` ↔ root `libxc_rs`** — `verify/Cargo.toml` has `libxc_rs = { path = ".." }`. Path stays the same; the curated re-exports through root preserve `use libxc_rs::LdaInput` etc. No verify/ test source changes expected if the facade re-exports are line-for-line preserved (planner discretion item).
+- **`verify/` ↔ root `libxc_rs` + `libxc-sys` + curated kernels** — **[Updated 2026-05-21, D-12a]** `verify/Cargo.toml` now has `libxc_rs = { path = ".." }` **plus** `libxc-sys = { path = "../libxc-sys" }` (oracle FFI) **plus a curated ~17-kernel dev-dep subset** (OOM-avoidance — do NOT expand to all 281). Paths stay the same; curated re-exports through root preserve `use libxc_rs::LdaInput` etc. No verify/ test source changes expected if facade re-exports are line-for-line preserved (planner discretion item).
 - **`xtask/` ↔ libxc-core (post-split)** — xtask continues to write into a fixed crate's `src/`, just under a different prefix. xtask/Cargo.toml does NOT add a path-dep on libxc-core (D-06).
 - **`libxc-compat` ↔ cdylib output** — `cargo build -p libxc-compat` produces `target/debug/libxc_rs.so` + `libxc_rs.a` + `libxc_rs.rlib`. The C header `crates/libxc-compat/include/xc_rs.h` documents the `.so` surface.
 - **Root `libxc_rs` ↔ everything below** — `[lib]` is rlib-only (no override). Re-export curation makes downstream `use libxc_rs::...` paths resolve. The cdylib lives in libxc-compat (D-07).
@@ -255,3 +301,4 @@ None — `audit-error-math-placement` was the only Phase-10-relevant todo and it
 *Phase: 10-workspace-level-modular-split*
 *Context gathered: 2026-05-07 (assistant: Opus 4.7 1M)*
 *Discussion length: 4 selected gray areas (error/, math/, generated-files+xtask, libxc-compat crate-type+cdylib); 9 batched AskUserQuestion subquestions; all resolved on first answer with no scope creep*
+*Restructure update: 2026-05-21 (assistant: Opus 4.7 1M) — re-discussed 4 areas (kernel wiring, deferred relocation, libxc-sys/verify, execution gate) against the post-Phase-11 281-crate reality; added D-10–D-14; existing D-01..D-09a unchanged. Plans 10-00..10-03 are now stale and must be re-planned.*

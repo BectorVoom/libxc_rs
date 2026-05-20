@@ -169,3 +169,73 @@ Items left to the planner / researcher (called out explicitly in CONTEXT.md `###
 ### Reviewed Todos (not folded)
 
 None — `audit-error-math-placement` was the only Phase-10-relevant todo and it was folded (resolved via D-01 + D-02).
+
+---
+
+# Restructure Update — Discussion Log (2026-05-21)
+
+> **Audit trail only.** Re-discussion of Phase 10 against the post-Phase-11 281-crate reality. Decisions captured as D-10–D-14 in CONTEXT.md. Original D-01..D-09a unchanged.
+
+**Date:** 2026-05-21
+**Trigger:** Plans 10-00..10-03 + original CONTEXT assumed ~170 flat umbrella kernel crates; Phase 11 D-10a restructured to 281 per-functional crates, added `libxc-sys`, left workspace partially red mid-11.1.
+**Areas discussed:** A kernel wiring, B deferred relocation, C libxc-sys/verify, D execution gate (all 4 selected via multiSelect).
+
+---
+
+## Gate: existing CONTEXT.md found
+
+| Option | Selected |
+|--------|----------|
+| Update it | ✓ |
+| View it first | |
+| Skip — use as-is | |
+
+**User's choice:** Update it.
+
+## A. libxc-eval kernel wiring → default-members composition
+
+| Option | Selected |
+|--------|----------|
+| Add core+eval+root, exclude compat (cdylib link = OOM risk at jobs=1) | ✓ |
+| Add all 3 new crates | |
+| Kernels-only (add none) | |
+
+**User's choice:** Add core+eval+root, exclude libxc-compat. → **D-10, D-10a, D-10b.**
+
+## B. libxc-core purity vs `is_deferred`
+
+| Option | Selected |
+|--------|----------|
+| Relocate `deferred` to libxc-core (pure metadata) | ✓ |
+| Split model across core+eval | |
+| Relax SC2 (allow core→kernel-math) — NOT ADVISED (pulls CubeCL) | |
+
+**User's choice:** Relocate to libxc-core. → **D-11.**
+**Notes:** Verified no kernel crate consumes `deferred`; `deferred.rs` is hand-written (not xtask-generated); kernel-math depends on cubecl (so relaxing SC2 is non-viable, not merely undesirable).
+
+## C. libxc-sys + verify wiring
+
+| Option | Selected |
+|--------|----------|
+| Leave both untouched (libxc-sys outside layering; verify via root facade) | ✓ |
+| Re-point verify to inner crates | |
+
+**User's choice:** Leave untouched. → **D-12, D-12a.**
+
+## D. Green-gate vs Phase 11.1
+
+| Option | Selected |
+|--------|----------|
+| Hard-block execution on 11.1 green | ✓ |
+| Re-baseline gate, start now | |
+
+**User's choice:** Hard-block on 11.1 green. → **D-13.** (cubecl 0.9→0.10 dep refresh folded into **D-14** regardless.)
+
+## Wrap-up
+
+| Option | Selected |
+|--------|----------|
+| Write updated CONTEXT | ✓ |
+| Revisit an area | |
+
+**User's choice:** Write updated CONTEXT.
