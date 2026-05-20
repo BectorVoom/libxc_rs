@@ -1,0 +1,296 @@
+=========================================================================
+TASK 3 COMPILE SWEEP — budget 10000, 7 shards, jobs=1 (per .cargo/config.toml)
+Order: CANARY (largest shard p5) -> remaining shards -> facade
+Started: 2026-05-20T01:46:32Z
+Free mem snapshot:
+               total        used        free      shared  buff/cache   available
+Mem:              30           3          19           0           8          27
+Swap:              7           0           7
+=========================================================================
+
+##### STEP 1 — CANARY: libxc-kernel-mgga_c_tpssloc_p5 (parts 40..=53, 9943 files) #####
+cmd: cargo build -p libxc-kernel-mgga_c_tpssloc_p5
+   Compiling libxc-kernel-mgga_c_tpssloc_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p5)
+    Finished `dev` profile [unoptimized] target(s) in 2m 10s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p5"
+	User time (seconds): 161.44
+	System time (seconds): 6.58
+	Percent of CPU this job got: 129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:10.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9441296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 700
+	Minor (reclaiming a frame) page faults: 7280927
+	Voluntary context switches: 1314
+	Involuntary context switches: 1891
+	Swaps: 0
+	File system inputs: 136696
+	File system outputs: 3156000
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== CANARY p5 EXIT: 0 =====
+
+##### STEP 2 — REMAINING SHARDS (p0,p1,p2,p3,p4,p6), jobs=1 #####
+
+----- libxc-kernel-mgga_c_tpssloc_p0 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p0)
+    Finished `dev` profile [unoptimized] target(s) in 2m 38s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p0"
+	User time (seconds): 197.72
+	System time (seconds): 7.12
+	Percent of CPU this job got: 129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:38.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 10186360
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 8047826
+	Voluntary context switches: 385
+	Involuntary context switches: 2284
+	Swaps: 0
+	File system inputs: 128
+	File system outputs: 2753752
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p0 EXIT: 0 =====
+
+----- libxc-kernel-mgga_c_tpssloc_p1 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p1)
+    Finished `dev` profile [unoptimized] target(s) in 1m 29s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p1"
+	User time (seconds): 113.61
+	System time (seconds): 5.17
+	Percent of CPU this job got: 133%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:29.13
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7826180
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5410685
+	Voluntary context switches: 254
+	Involuntary context switches: 1540
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2898440
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p1 EXIT: 0 =====
+
+----- libxc-kernel-mgga_c_tpssloc_p2 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p2)
+    Finished `dev` profile [unoptimized] target(s) in 1m 24s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p2"
+	User time (seconds): 106.46
+	System time (seconds): 5.09
+	Percent of CPU this job got: 132%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:24.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7255872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 5317326
+	Voluntary context switches: 254
+	Involuntary context switches: 1268
+	Swaps: 0
+	File system inputs: 24
+	File system outputs: 2897648
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p2 EXIT: 0 =====
+
+----- libxc-kernel-mgga_c_tpssloc_p3 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p3)
+    Finished `dev` profile [unoptimized] target(s) in 1m 17s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p3"
+	User time (seconds): 98.42
+	System time (seconds): 4.71
+	Percent of CPU this job got: 133%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:17.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6941936
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4931114
+	Voluntary context switches: 243
+	Involuntary context switches: 1134
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2629432
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p3 EXIT: 0 =====
+
+----- libxc-kernel-mgga_c_tpssloc_p4 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p4)
+    Finished `dev` profile [unoptimized] target(s) in 1m 41s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p4"
+	User time (seconds): 124.79
+	System time (seconds): 5.78
+	Percent of CPU this job got: 128%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:41.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7848372
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 6207538
+	Voluntary context switches: 301
+	Involuntary context switches: 1723
+	Swaps: 0
+	File system inputs: 72
+	File system outputs: 2991032
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p4 EXIT: 0 =====
+
+----- libxc-kernel-mgga_c_tpssloc_p6 -----
+   Compiling libxc-kernel-mgga_c_tpssloc_p6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p6)
+    Finished `dev` profile [unoptimized] target(s) in 6m 24s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc_p6"
+	User time (seconds): 481.74
+	System time (seconds): 15.90
+	Percent of CPU this job got: 129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:24.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 17334780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 18901206
+	Voluntary context switches: 896
+	Involuntary context switches: 5887
+	Swaps: 0
+	File system inputs: 264
+	File system outputs: 3112744
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== libxc-kernel-mgga_c_tpssloc_p6 EXIT: 0 =====
+
+##### STEP 3 — FACADE (LOAD-BEARING): libxc-kernel-mgga_c_tpssloc #####
+Theory: links against shard expand fns (cheap) + type-checks 122 cross-crate #[cube] calls.
+cmd: cargo build -p libxc-kernel-mgga_c_tpssloc
+mem snapshot before facade build:
+               total        used        free      shared  buff/cache   available
+Mem:              30           4          14           0          12          26
+Swap:              7           0           7
+    Blocking waiting for file lock on artifact directory
+   Compiling libxc-kernel-mgga_c_tpssloc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc)
+    Finished `dev` profile [unoptimized] target(s) in 3m 05s
+	Command being timed: "cargo build -p libxc-kernel-mgga_c_tpssloc"
+	User time (seconds): 220.25
+	System time (seconds): 8.95
+	Percent of CPU this job got: 123%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:05.88
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9439904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 4496
+	Minor (reclaiming a frame) page faults: 9537296
+	Voluntary context switches: 4954
+	Involuntary context switches: 2475
+	Swaps: 0
+	File system inputs: 744376
+	File system outputs: 1492512
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== FACADE EXIT: 0 =====
+
+=========================================================================
+TASK 3 DISPOSITION — COMPILE SWEEP COMPLETE (single pass, no retry loop)
+Completed: see per-build Finished timestamps above.
+=========================================================================
+Per-build peak RSS (Maximum resident set size):
+
+  build                                  parts   files  peak RSS    wall    exit
+  ------------------------------------   -----   -----  --------    -----   ----
+  CANARY p5 (parts 40..=53)              14      9943   ~9.0 GB     2m10s   0  PASS
+  p0       (parts 0..=20)                21      7818   ~9.7 GB     ~2m     0  PASS
+  p1       (parts 21..=23)               3       9629   ~7.5 GB     ~2m     0  PASS
+  p2       (parts 24..=28)               5       9776   ~6.9 GB     ~2m     0  PASS
+  p3       (parts 29..=31)               3       8815   ~6.6 GB     ~2m     0  PASS
+  p4       (parts 32..=39)               8       9902   ~7.5 GB     ~2m     0  PASS
+  p6       (parts 54..=121)              68      4971   ~16.5 GB    6m24s   0  PASS  <- highest RSS
+  FACADE   libxc-kernel-mgga_c_tpssloc   (links 122 shard fns)  ~9.0 GB  3m05s  0  PASS
+
+Exact peak RSS (KB):
+  p5  9441296   (~9.0 GB)
+  p0  10186360  (~9.7 GB)
+  p1  7826180   (~7.5 GB)
+  p2  7255872   (~6.9 GB)
+  p3  6941936   (~6.6 GB)
+  p4  7848372   (~7.5 GB)
+  p6  17334780  (~16.5 GB)  <- worst case across all builds, still well under 30 GB
+  facade 9439904 (~9.0 GB)
+
+KEY FINDING — RSS scales with PART COUNT (distinct #[cube] fns to expand +
+monomorphize in one rustc process), NOT raw file count:
+  p6 has the FEWEST files (4971) but the MOST parts (68) -> highest RSS (16.5 GB).
+  p5 has the MOST files (9943) but only 14 parts -> 9.0 GB.
+The file-count budget (10000) chosen as a conservative proxy still left ample
+headroom; the canary-by-file-count was NOT actually the worst case, but every
+shard (incl. the 68-part p6) compiled comfortably under 30 GB.
+
+FACADE (load-bearing, key_risk 1): PASS at ~9.0 GB. Confirms verified_structural_fact 3
+— the facade LINKS against the shards' already-expanded part fns and type-checks the
+122 cross-crate #[cube] calls cheaply; it does NOT re-expand the part bodies. The
+~9 GB is the facade's own 9 remaining output modules (exc/vxc/fxc/kxc unpol + pol,
+lxc_unpol) being compiled in the same crate, not the lxc_pol parts.
+
+BOTTOM LINE: `cargo build -p libxc-kernel-mgga_c_tpssloc` SUCCEEDS under jobs=1 on
+the 30 GB box. The Option A sub-crate split is VALIDATED. Plan 11.1-03 G4 (full-649
+f32 oracle) is unblocked w.r.t. mgga_c_tpssloc compilation.
+
+NO OOM anywhere. NO retry loop needed. NO verify/ crate or oracle tests run (out of
+scope; correctness is G3/G4).
+
+Follow-up candidates (deferred — separate decision, not executed here):
+  - Re-add libxc-kernel-mgga_c_tpssloc to default-members (now compiles).
+  - Revisit the 9 tpssloc entries in tools/kernel_size_exceptions.txt (size audit).
+=========================================================================
