@@ -1,0 +1,24 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part33_v4rho3sigma_8 meta246 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1092;
+use chunk1::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1093;
+use chunk2::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1094;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_meta246<F: Float>(t1235: F, t1247: F, t1791: F, t1797: F, t3600: F, t3610: F, t3625: F, t3671: F, t3711: F, t484: F, t5254: F, t5256: F, t5266: F, t5274: F, t5293: F, t5323: F, t5327: F, t6595: F, t6598: F, t6602: F, t6611: F, t6619: F, t6625: F, t6631: F, t6635: F, t6640: F, t6647: F, t3699: F, t5819: F, t1012: F, t1225: F, t5825: F, t3692: F, t344: F, t5843: F, t3618: F, t6421: F, t247: F, t1264: F, t6429: F, t6425: F, t1774: F, t1794: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+        let t6651 = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1092::<F>(t1235, t1247, t1791, t1797, t3600, t3610, t3625, t3671, t3711, t484, t5254, t5256, t5266, t5274, t5293, t5323, t5327, t6595, t6598, t6602, t6611, t6619, t6625, t6631, t6635, t6640, t6647);
+        let (t6652, t6653, t6658, t6659, t6662, t6663, t6667, t6673, t6678) = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1093::<F>(t3699, t5819, t1012, t1225, t5825, t3692, t344, t5843, t3618, t6421, t247, t1264, t6429);
+        let (t6679, t6683, t6688) = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1094::<F>(t247, t6678, t1264, t6425, t1774, t1794);
+    (t6651, t6652, t6653, t6658, t6659, t6662, t6663, t6667, t6673, t6679, t6683, t6688)
+}

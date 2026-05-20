@@ -6,3 +6,10 @@ edition = "2024"
 [dependencies]
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 libxc-kernel-math = { path = "../../math" }
+libxc-kernel-mgga_c_revtpss_p0 = { path = "../mgga_c_revtpss_p0" }
+libxc-kernel-mgga_c_revtpss_p1 = { path = "../mgga_c_revtpss_p1" }
+libxc-kernel-mgga_c_revtpss_p2 = { path = "../mgga_c_revtpss_p2" }
+libxc-kernel-mgga_c_revtpss_p3 = { path = "../mgga_c_revtpss_p3" }
+libxc-kernel-mgga_c_revtpss_p4 = { path = "../mgga_c_revtpss_p4" }
+libxc-kernel-mgga_c_revtpss_p5 = { path = "../mgga_c_revtpss_p5" }
+libxc-kernel-mgga_c_revtpss_p6 = { path = "../mgga_c_revtpss_p6" }

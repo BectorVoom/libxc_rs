@@ -1,0 +1,21 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part30_v4rho3sigma_5 meta579 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_chunk2031;
+use chunk1::mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_chunk2032;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_meta579<F: Float>(t2482: F, t25981: F, t27: F, t10003: F, t25997: F, t9970: F, t550: F, t7021: F, t3946: F, t25273: F, t540: F, t1372: F, t2019: F, t9951: F, t2018: F, t9646: F, t9723: F, t26014: F, t2689: F, t807: F, t9714: F, t9703: F, t3994: F, t7028: F, t9845: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
+        let (t94509, t94511, t94514, t94519, t94520) = mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_chunk2031::<F>(t2482, t25981, t27, t10003, t25997, t9970, t550, t7021, t3946, t25273, t540, t1372);
+        let (t94523, t94526, t94527, t94530, t94534, t94537) = mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_chunk2032::<F>(t2019, t9951, t2018, t9646, t9723, t26014, t2689, t807, t9714, t9703, t3994, t7028, t9845);
+    (t94509, t94511, t94514, t94519, t94520, t94523, t94526, t94527, t94530, t94534, t94537)
+}

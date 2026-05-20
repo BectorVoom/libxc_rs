@@ -1,0 +1,18 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 31 (v4rho3sigma_6) CSE chunk 1992/2259 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk1992<F: Float>(t251: F, t281: F, t93238: F, t25410: F, t7078: F, t2453: F, t2458: F, t7049: F, t1950: F, t2769: F, t786: F, t25404: F, t40270: F) -> (F, F, F, F, F) {
+    let t93240 = t281 * t93238 * t251;
+    let t93242 = t93240 * t25410 * t7078;
+    let t93252 = t2453 * t7049 * t2458;
+    let t93261 = t786 * t1950 * t2769;
+    let t93272 = F::cast_from(0.96373646535613327356e-3_f64) * t40270 * t25404;
+    (t93240, t93242, t93252, t93261, t93272)
+}

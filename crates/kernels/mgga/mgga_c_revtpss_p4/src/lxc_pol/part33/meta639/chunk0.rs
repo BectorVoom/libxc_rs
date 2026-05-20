@@ -1,0 +1,25 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 33 (v4rho3sigma_8) CSE chunk 2088/2275 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk2088<F: Float>(t98260: F, t98285: F, t98964: F, t98976: F, t98979: F, t99009: F, t99013: F, t99035: F, t99044: F, t99050: F, t99091: F, t99113: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+    let t102549 = F::new(35.0) / F::new(108.0) * t98260;
+    let t102569 = F::cast_from(0.72286371995927450867e-4_f64) * t98285;
+    let t103264 = F::cast_from(0.30488190661738479625e-3_f64) * t98964;
+    let t103269 = F::cast_from(0.72286371995927450867e-4_f64) * t98976;
+    let t103270 = F::cast_from(0.10164000561857065645e-4_f64) * t98979;
+    let t103285 = F::cast_from(0.90702367218671976884e-1_f64) * t99009;
+    let t103287 = F::cast_from(0.2168320119862840671e-2_f64) * t99013;
+    let t103297 = F::cast_from(0.22675591804667994221e-1_f64) * t99035;
+    let t103302 = F::cast_from(0.40656002247428262579e-4_f64) * t99044;
+    let t103305 = F::new(35.0) / F::new(108.0) * t99050;
+    let t103329 = F::cast_from(0.1219527626469539185e-2_f64) * t99091;
+    let t103347 = F::cast_from(0.18071592998981862717e-4_f64) * t99113;
+    (t102549, t102569, t103264, t103269, t103270, t103285, t103287, t103297, t103302, t103305, t103329, t103347)
+}

@@ -1,0 +1,22 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 39 (v4rho3tau_2) CSE chunk 1417/1507 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part39_v4rho3tau_2_chunk1417<F: Float>(t16696: F, t5332: F, t3720: F, t12772: F, t5406: F, t3625: F, t1248: F, t5245: F, t1250: F, t1802: F, t474: F, t3089: F) -> (F, F, F, F, F) {
+    let t17380 = t5332 * t16696;
+    let t17381 = t3720 * t17380;
+    let t17384 = t12772 * t5406;
+    let t17386 = F::cast_from(0.19055119163586549765e-3_f64) * t3625 * t17384;
+    let t17389 = t5245 * t1248;
+    let t17390 = t17389 * t1250;
+    let t17391 = t3720 * t17390;
+    let t17394 = t474 * t1802;
+    let t17395 = t17394 * t3089;
+    (t17381, t17386, t17389, t17391, t17395)
+}

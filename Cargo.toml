@@ -209,6 +209,13 @@ libxc-kernel-mgga_c_pkzb = { path = "crates/kernels/mgga/mgga_c_pkzb" }
 libxc-kernel-mgga_c_r2scan = { path = "crates/kernels/mgga/mgga_c_r2scan" }
 libxc-kernel-mgga_c_revscan = { path = "crates/kernels/mgga/mgga_c_revscan" }
 libxc-kernel-mgga_c_revtpss = { path = "crates/kernels/mgga/mgga_c_revtpss" }
+libxc-kernel-mgga_c_revtpss_p0 = { path = "crates/kernels/mgga/mgga_c_revtpss_p0" }
+libxc-kernel-mgga_c_revtpss_p1 = { path = "crates/kernels/mgga/mgga_c_revtpss_p1" }
+libxc-kernel-mgga_c_revtpss_p2 = { path = "crates/kernels/mgga/mgga_c_revtpss_p2" }
+libxc-kernel-mgga_c_revtpss_p3 = { path = "crates/kernels/mgga/mgga_c_revtpss_p3" }
+libxc-kernel-mgga_c_revtpss_p4 = { path = "crates/kernels/mgga/mgga_c_revtpss_p4" }
+libxc-kernel-mgga_c_revtpss_p5 = { path = "crates/kernels/mgga/mgga_c_revtpss_p5" }
+libxc-kernel-mgga_c_revtpss_p6 = { path = "crates/kernels/mgga/mgga_c_revtpss_p6" }
 libxc-kernel-mgga_c_rmggac = { path = "crates/kernels/mgga/mgga_c_rmggac" }
 libxc-kernel-mgga_c_rppscan = { path = "crates/kernels/mgga/mgga_c_rppscan" }
 libxc-kernel-mgga_c_rregtm = { path = "crates/kernels/mgga/mgga_c_rregtm" }

@@ -1,0 +1,33 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part21_v4rho4_1 meta370 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1754;
+use chunk1::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1755;
+use chunk2::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1756;
+use chunk3::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1757;
+use chunk4::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1758;
+use chunk5::mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1759;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_meta370<F: Float>(t12108: F, t12172: F, t1079: F, t1096: F, t3059: F, t1073: F, t1076: F, t1097: F, t11220: F, t11224: F, t11902: F, t12034: F, t12040: F, t12043: F, t3043: F, t3047: F, t3052: F, t3058: F, t3060: F, t3063: F, t3067: F, t3076: F, t3264: F, t3271: F, t3326: F, t342: F, t386: F, t995: F, t11217: F, t1100: F, t1102: F, t11105: F, t11108: F, t11114: F, t11118: F, t11398: F, t11530: F, t11533: F, t11547: F, t11608: F, t11612: F, t11614: F, t11618: F, t198: F, t3329: F, t3336: F, t336: F, t5023: F, t11291: F, t11293: F, t11296: F, t11303: F, t11382: F, t11390: F, t11392: F, t11394: F, t11590: F, t11593: F, t11596: F, t11600: F, t11604: F, t30: F, t265: F, t393: F, t11095: F, t10326: F, t1106: F, t2257: F, t2258: F, t2838: F, t3340: F, t395: F, t45: F, t605: F, t606: F, t895: F, t9344: F, dens_threshold: F, rho0: F, zeta_threshold: F, t3515: F, t3520: F, t5206: F, t1196: F, t1129: F, t3431: F, t408: F, t1149: F, t3385: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+        let (t12173, t12174, t12177, t12178, t12189) = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1754::<F>(t12108, t12172, t1079, t1096, t3059, t1073, t1076, t1097, t11220, t11224, t11902, t12034, t12040, t12043, t3043, t3047, t3052, t3058, t3060, t3063, t3067, t3076, t3264, t3271, t3326, t342, t386, t995);
+        let (t12190, t12198) = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1755::<F>(t11217, t12189, t1100, t1102, t11105, t11108, t11114, t11118, t11398, t11530, t11533, t11547, t11608, t11612, t11614, t11618, t198, t3329, t3336, t336, t5023);
+        let t12199 = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1756::<F>(t11291, t11293, t11296, t11303, t11382, t11390, t11392, t11394, t11590, t11593, t11596, t11600, t11604);
+        let (t12201, t12211) = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1757::<F>(t30, t265, t393, t11095, t12198, t12199, t10326, t1106, t2257, t2258, t2838, t3340, t395, t45, t605, t606, t895, t9344, dens_threshold, rho0, zeta_threshold);
+        let (t12222, t12224, t12226, t12227) = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1758::<F>(t3515, t3520, t5206, t1196, t1129, t3431, t408);
+        let t12228 = mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1759::<F>(t1149, t3385);
+    (t12173, t12174, t12177, t12178, t12190, t12201, t12211, t12222, t12224, t12226, t12227, t12228)
+}

@@ -1,0 +1,14 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 23 (v4rho4_3) CSE chunk 3073/3317 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3073<F: Float>(t43888: F, t56236: F, t57872: F, t57874: F, t57889: F, t68332: F, t68334: F, t68336: F, t68389: F, t68399: F, t68454: F, t68456: F, t81224: F, t81228: F, t81230: F, t81232: F, t81234: F, t81236: F, t81242: F, t81245: F) -> F {
+    let t81304 = F::cast_from(0.11872222222222222222e-1_f64) * t68332 + F::cast_from(0.23744444444444444444e-1_f64) * t68334 + F::cast_from(0.71233333333333333332e-1_f64) * t68336 - t57872 + t57874 + F::new(0.32055e0) * t81224 + F::cast_from(0.17808333333333333333e-1_f64) * t81228 - F::cast_from(0.65956790123456790123e-2_f64) * t81230 + F::cast_from(0.23744444444444444444e-1_f64) * t81232 - F::cast_from(0.35616666666666666667e-1_f64) * t81234 - F::cast_from(0.5936111111111111111e-2_f64) * t81236 + t57889 - F::cast_from(0.55403703703703703703e-1_f64) * t56236 - F::cast_from(0.17808333333333333333e-1_f64) * t68389 + F::cast_from(0.47488888888888888888e-1_f64) * t68399 + F::cast_from(0.5936111111111111111e-1_f64) * t81242 - F::cast_from(0.21369999999999999999e0_f64) * t81245 - F::cast_from(0.18467901234567901234e-1_f64) * t43888 - F::cast_from(0.71233333333333333332e-1_f64) * t68454 - F::new(0.10685e0) * t68456;
+    t81304
+}

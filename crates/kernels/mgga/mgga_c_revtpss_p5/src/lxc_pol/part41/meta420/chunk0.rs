@@ -1,0 +1,21 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 41 (v4rho3tau_4) CSE chunk 1475/1497 (D-02 tuple-return <F: Float>).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part41_v4rho3tau_4_chunk1475<F: Float>(t2178: F, t6765: F, t6934: F, t5891: F, t8259: F, t1504: F, t1513: F, t8268: F, t5915: F, t31058: F, t5895: F, t5823: F) -> (F, F, F, F, F, F, F, F) {
+    let t31518 = t6765 * t2178;
+    let t31533 = t2178 * t6934;
+    let t31538 = t8259 * t5891;
+    let t31541 = t1513 * t1504;
+    let t31542 = t8268 * t31541;
+    let t31545 = t8259 * t5915;
+    let t31548 = t31058 * t5895;
+    let t31551 = t8268 * t5823;
+    (t31518, t31533, t31538, t31541, t31542, t31545, t31548, t31551)
+}

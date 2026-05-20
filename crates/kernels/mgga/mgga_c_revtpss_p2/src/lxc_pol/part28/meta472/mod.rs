@@ -1,0 +1,30 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part28_v4rho3sigma_3 meta472 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+
+use cubecl::prelude::*;
+use libxc_kernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_kernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1785;
+use chunk1::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1786;
+use chunk2::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1787;
+use chunk3::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1788;
+use chunk4::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1789;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+#[cube]
+pub fn mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_meta472<F: Float>(t2471: F, t7018: F, t25331: F, t7058: F, t25309: F, t7063: F, t7060: F, t25296: F, t7064: F, t2435: F, t7015: F, t251: F, t786: F, t1032: F, t2769: F, t233: F, t122: F, t1949: F, t72: F, t2466: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
+        let (t25362, t25364, t25365, t25366, t25368, t25371, t25372) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1785::<F>(t2471, t7018, t25331, t7058, t25309, t7063, t7060, t25296, t7064, t2435, t7015, t251, t786);
+        let (t25373, t25374) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1786::<F>(t1032, t2769, t233);
+        let t25375 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1787::<F>(t25372, t25374);
+        let t25377 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1788::<F>(t122, t1949, t72);
+        let t25378 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1789::<F>(t2466, t25377);
+    (t25362, t25364, t25365, t25366, t25368, t25371, t25372, t25373, t25374, t25375, t25377, t25378)
+}
