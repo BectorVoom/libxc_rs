@@ -1,0 +1,82 @@
+# 260520-c91 Task 2 regen log — mgga_c_tpssloc with hierarchical CSE
+#
+# Command:
+#   LIBXC_RS_HIERARCHICAL_CSE=1 LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER=1 \
+#     python3 .planning/quick/260520-a0c-mgga-c-tpssloc-memory-spike-fix/run_regen.py
+#
+# stdout/stderr captured (combined via 2>&1):
+
+emit_per_functional returned 10 output modules: ['exc_unpol', 'vxc_unpol', 'fxc_unpol', 'kxc_unpol', 'lxc_unpol', 'exc_pol', 'vxc_pol', 'fxc_pol', 'kxc_pol', 'lxc_pol']
+
+# === Outcome: HIERARCHICAL BRANCH NEVER FIRED ===
+#
+# Sanity-check after regen showed:
+#   - find ...mgga_c_tpssloc/src/lxc_pol -type d -name 'meta*' | wc -l  →  0
+#   - part21/mod.rs is 9698 lines (Path A's flat CSE wrapper shape)
+#   - parts 19-23, 27-32 emitted as flat-CSE directories
+#     (cse kind, chunkN.rs siblings) — IDENTICAL TO PATH A's failed regen
+#
+# Root cause (design defect in Task 1 wiring):
+#
+#   The hier branch is gated inside the wrapper-cap rejection block:
+#
+#       if wrapper_lines > wrapper_cap or max_chunk_lines > split_threshold:
+#           if os.environ.get("LIBXC_RS_HIERARCHICAL_CSE"):
+#               meta_groups = _group_leaves_into_metas(...)
+#               ...
+#
+#   With LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER=1, wrapper_cap=15000.
+#   For tpssloc's worst part (part21):
+#       wrapper_lines = 9698   (≤ wrapper_cap=15000   → condition FALSE)
+#       max_chunk_lines = 28   (≤ split_threshold=4500 → condition FALSE)
+#   ⇒ the rejection block is never entered ⇒ the hier branch is unreachable.
+#
+#   The plan intended the hier branch to fire "inside the wrapper-cap-
+#   rejection branch", but Path A's raised cap (15000) is now ABOVE
+#   tpssloc's max problem-part wrapper (9699). With the raised cap, no
+#   tpssloc part ever exceeds it ⇒ no rejection ⇒ no hier opportunity.
+#
+#   This was not visible until the regen because Path A's cap was raised
+#   specifically to swallow these wrappers; the hier branch was placed
+#   beyond a gate that Path A itself defeats.
+#
+# Per task instructions:
+#   "If sanity-check fails (no meta dirs, files still 7-10K, etc.), STOP —
+#    translator branch isn't firing as designed; do NOT proceed to the
+#    compile."
+#
+# STOP — no cargo build attempted. Regen artifacts reverted (git checkout
+# HEAD -- crates/kernels/mgga/mgga_c_tpssloc/) so the working tree matches
+# HEAD. No compile-time RAM measurement was taken (would have been
+# meaningless — same shape as Path A's known ~16 GB OOM).
+#
+# Sanity-check evidence (recorded after regen, before revert):
+#
+#   $ find crates/kernels/mgga/mgga_c_tpssloc/src -name '*.rs' -exec wc -l {} + | sort -n | tail -10
+#       8171 .../lxc_pol/part20/mod.rs
+#       8198 .../lxc_pol/part22/mod.rs
+#       9698 .../lxc_pol/part21/mod.rs
+#     259604 (file-count subtotal)
+#    1220619 total
+#
+#   $ find crates/kernels/mgga/mgga_c_tpssloc/src/lxc_pol -type d -name 'meta*' | wc -l
+#   0
+#
+# Required design fix (NEXT SESSION — not in scope for this quick task):
+#   Move the hier branch OUTSIDE the wrapper-cap rejection gate, so it
+#   fires whenever LIBXC_RS_HIERARCHICAL_CSE is set AND the wrapper would
+#   exceed the BASE split_threshold (4500), independent of the raised
+#   wrapper cap. The raised cap currently swallows the very wrappers the
+#   hier branch was supposed to subdivide.
+#
+#   Alternative: gate the hier branch on a separate condition like
+#   `wrapper_lines > split_threshold AND LIBXC_RS_HIERARCHICAL_CSE` and
+#   evaluate it BEFORE the existing rejection check.
+#
+#   This is a 5-10 line plumbing change in per_functional.py:_cse_chunk_part
+#   — the grouper, _build_meta_fn, _build_hier_wrapper, and emit.py's
+#   cse-hier path are all in place and tested (per_functional.py and
+#   emit.py selftests both PASS). Only the call-site gating is wrong.
+#
+#   Per Rule 4 (architectural decision) the design fix is deferred to
+#   user disposition before re-attempt.

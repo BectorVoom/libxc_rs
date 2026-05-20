@@ -1,0 +1,41 @@
+# 260520-c91 default-OFF verification log
+#
+# Goal: confirm that with LIBXC_RS_HIERARCHICAL_CSE unset (and
+# LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER unset), the translator emits
+# byte-identical output for an unrelated functional (gga_c_pbe).
+# This is Task 1's HARD GATE.
+
+# === Initial executor run (before dead-code cleanup) ===
+# The executor's verification command in PLAN.md used `translate_mgga`
+# to regen `gga_c_pbe`, which is the WRONG driver (mgga driver produces a
+# header path `mgga_exc/...` instead of `gga_exc/...` plus an MGGA
+# function signature). The executor's "ZERO DIFF CONFIRMED" line below
+# was emitted by that flawed command — kept for audit completeness;
+# superseded by the corrected run further down.
+
+gga_c_pbe regen ok: ['exc_unpol', 'vxc_unpol', 'fxc_unpol', 'kxc_unpol', 'lxc_unpol', 'exc_pol', 'vxc_pol', 'fxc_pol', 'kxc_pol', 'lxc_pol']
+ZERO DIFF CONFIRMED   (← executor's original, via wrong translate_mgga driver)
+
+# === Post-cleanup re-verification (corrected to translate_gga driver) ===
+# Cleaned 5 dead-code locals from the new grouper that pyright flagged
+# (per_functional.py: removed `future_reads`, `cur_live_out`,
+# `cur_internal_consumers`, `body_lines`, and the dangling `leaf_outs`
+# that lost its only consumer when `future_reads` was deleted).
+# Then re-ran the default-OFF check with the CORRECT driver:
+#
+#   LIBXC_RS_HIERARCHICAL_CSE=  LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER= \
+#     python3 -c "import sys; sys.path.insert(0, 'tools'); \
+#       import translate_gga; \
+#       translate_gga.emit_per_functional( \
+#         'libxc-master/src/maple2c/gga_exc/gga_c_pbe.c', \
+#         'gga_c_pbe', family='gga', is_vxc_only=False)"
+#
+#   git diff -- crates/kernels/gga/gga_c_pbe/  →  empty
+
+gga_c_pbe regen ok (corrected): ['exc_unpol', 'vxc_unpol', 'fxc_unpol', 'kxc_unpol', 'lxc_unpol', 'exc_pol', 'vxc_pol', 'fxc_pol', 'kxc_pol', 'lxc_pol']
+DEFAULT-OFF zero diff CONFIRMED — translator change is byte-identical to HEAD
+with env unset (via correct translate_gga driver).
+
+# === Selftests after cleanup ===
+emit.py --selftest          → SELFTEST PASS: per-functional subcrate emitted, double-emit byte-identical, layout matches q02 golden spec
+per_functional.py --selftest → SELFTEST PASS: emit_functional drives single-file, flat nested-by-output, and D-02 CSE-chunked-part layouts
