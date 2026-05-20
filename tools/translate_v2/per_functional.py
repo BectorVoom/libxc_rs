@@ -886,6 +886,73 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     # become documented D-LOCK-B exceptions — see tools/kernel_size_exceptions.txt.
     wrapper_lines = wrapper.count("\n") + 1
     max_chunk_lines = max((c.count("\n") + 1 for c in chunk_srcs), default=0)
+
+    # 260520-c91 hierarchical branch — env-gated, additive. Fires BEFORE the
+    # Path A wrapper-cap calculation so it is reachable independent of Path
+    # A's raised cap (the predecessor 260520-c91 placed it inside the cap-
+    # rejection block, where Path A's raised cap swallowed exactly the
+    # wrappers it was meant to subdivide — see SUMMARY for the gate defect).
+    #
+    # Gate: LIBXC_RS_HIERARCHICAL_CSE=1 AND wrapper_lines > split_threshold
+    # (the BASE 4500 cap, NOT Path A's raised 15000). This catches every
+    # wrapper that Path A would have raised the cap for, plus the cases
+    # where Path A itself was insufficient.
+    #
+    # Behavior: bundle ~META_FANOUT (default 12) leaves under a single
+    # `#[cube] fn ..._meta{M}` wrapper; the top wrapper then calls metas
+    # instead of leaves. For tpssloc part21 (3221 leaves), this collapses
+    # a 9699-line top wrapper into ~270 meta calls (~800 lines) plus ~270
+    # meta bodies of ~13 lines each — no `#[cube] fn` body exceeds ~500
+    # lines. See _group_leaves_into_metas + _build_hier_wrapper.
+    #
+    # Fallback: if the grouper can't keep any meta's live-out <= 12
+    # (returns None) we log CSE-HIER-REJECT and drop through to the
+    # existing Path A / flat-fallback chain below — no regression.
+    if (os.environ.get("LIBXC_RS_HIERARCHICAL_CSE")
+            and wrapper_lines > split_threshold):
+        meta_groups = _group_leaves_into_metas(
+            wrapper_calls, output_writes, adapter.ow_var, _meta_fanout())
+        if meta_groups is not None:
+            # Build per-meta `#[cube] fn` sources keyed by meta_idx.
+            meta_sources = []
+            for mg in meta_groups:
+                _meta_fn_name, meta_src = _build_meta_fn(
+                    adapter, func_name, level, spin,
+                    fn_suffix=f"_part{part_idx}_{suffix}",
+                    meta_group=mg)
+                meta_sources.append({
+                    "wrapper": meta_src,
+                    # Chunks belonging to this meta — re-slice from
+                    # the global chunk_srcs list. Order is preserved
+                    # because the grouper walked wrapper_calls in
+                    # emission order, and chunk_srcs / wrapper_calls
+                    # were built in lock-step in the loop above.
+                    "chunks": [
+                        chunk_srcs[wrapper_calls.index(wc)]
+                        for wc in mg.wrapper_calls
+                    ],
+                })
+            hier_wrapper = _build_hier_wrapper(
+                adapter, func_name, level, spin, output, part_out_bufs,
+                output_writes, meta_groups, is_pol,
+                fn_suffix=f"_part{part_idx}_{suffix}",
+                params=sorted(param_pool))
+            # Sentinel 3-tuple — `emit_functional` discriminates by
+            # length. The metas list carries per-meta sources +
+            # chunk sources for emit.emit_output_dir's `cse-hier` kind.
+            return hier_wrapper, chunk_srcs, meta_sources
+        else:
+            # Grouper rejected (1-leaf meta with > 12 outputs). Log a
+            # short signal so a future tune can find the case, then
+            # drop through to the existing Path A / flat-fallback path.
+            print(
+                f"  CSE-HIER-REJECT {adapter.family}/{func_name} "
+                f"{level}_{spin} part{part_idx} ({suffix}): "
+                f"meta grouper could not keep live-out <= 12 "
+                f"(falling back to flat / Path A behavior)",
+                file=sys.stderr,
+            )
+
     # 260520-a0c: decouple wrapper cap from chunk cap when explicitly enabled.
     #
     # For dense single-output 4th-derivative components (mgga_c_tpssloc lxc_pol
@@ -909,68 +976,6 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
     else:
         wrapper_cap = split_threshold
     if wrapper_lines > wrapper_cap or max_chunk_lines > split_threshold:
-        # 260520-c91 hierarchical branch — env-gated, additive.
-        #
-        # Before falling through to the existing flat-fallback path, try a
-        # meta-level grouping: bundle ~META_FANOUT (default 12) leaves under
-        # a single `#[cube] fn ..._meta{M}` wrapper, then have the top
-        # wrapper call metas instead of leaves. For tpssloc part21 (3221
-        # leaves), this collapses a 9699-line top wrapper into ~270 meta
-        # calls (~800 lines) plus ~270 meta bodies of ~13 lines each — no
-        # `#[cube] fn` body exceeds ~500 lines.
-        #
-        # Composability: this fires only inside the wrapper-cap-rejection
-        # branch, so reaching it ALSO requires the raised cap from
-        # LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER. Typical hierarchical-mode
-        # invocations set BOTH env vars; the hierarchical branch is
-        # purely additive on top of Path A.
-        #
-        # Fallback: if the grouper can't keep any meta's live-out <= 12
-        # (returns None), drop into the existing flat-fallback path below
-        # — no regression.
-        if os.environ.get("LIBXC_RS_HIERARCHICAL_CSE"):
-            meta_groups = _group_leaves_into_metas(
-                wrapper_calls, output_writes, adapter.ow_var, _meta_fanout())
-            if meta_groups is not None:
-                # Build per-meta `#[cube] fn` sources keyed by meta_idx.
-                meta_sources = []
-                for mg in meta_groups:
-                    _meta_fn_name, meta_src = _build_meta_fn(
-                        adapter, func_name, level, spin,
-                        fn_suffix=f"_part{part_idx}_{suffix}",
-                        meta_group=mg)
-                    meta_sources.append({
-                        "wrapper": meta_src,
-                        # Chunks belonging to this meta — re-slice from
-                        # the global chunk_srcs list. Order is preserved
-                        # because the grouper walked wrapper_calls in
-                        # emission order, and chunk_srcs / wrapper_calls
-                        # were built in lock-step in the loop above.
-                        "chunks": [
-                            chunk_srcs[wrapper_calls.index(wc)]
-                            for wc in mg.wrapper_calls
-                        ],
-                    })
-                hier_wrapper = _build_hier_wrapper(
-                    adapter, func_name, level, spin, output, part_out_bufs,
-                    output_writes, meta_groups, is_pol,
-                    fn_suffix=f"_part{part_idx}_{suffix}",
-                    params=sorted(param_pool))
-                # Sentinel 3-tuple — `emit_functional` discriminates by
-                # length. The metas list carries per-meta sources +
-                # chunk sources for emit.emit_output_dir's `cse-hier` kind.
-                return hier_wrapper, chunk_srcs, meta_sources
-            else:
-                # Grouper rejected (1-leaf meta with > 12 outputs). Log a
-                # short signal so a future tune can find the case, then
-                # drop through to the existing flat-fallback path.
-                print(
-                    f"  CSE-HIER-REJECT {adapter.family}/{func_name} "
-                    f"{level}_{spin} part{part_idx} ({suffix}): "
-                    f"meta grouper could not keep live-out <= 12 "
-                    f"(falling back to flat / Path A behavior)",
-                    file=sys.stderr,
-                )
         if os.environ.get("LIBXC_RS_CSE_DIAG"):
             chunk_sizes = sorted(
                 (c.count("\n") + 1 for c in chunk_srcs), reverse=True)
