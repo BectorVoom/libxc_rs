@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11.1 COMPLETE — milestone v1.0 IN PROGRESS (Phases 5, 6, 7, 11 remain; Phase 11 re-opens for 11.1 hand-back items). NOTE: `gsd-tools.cjs phase complete 11.1` wrongly set this to "Milestone complete" (it miscounted decimal sub-phase 11.1 as the final phase); corrected here.
-stopped_at: "Phase 11.1 CLOSED. G3 mgga_c_b94 PASS at 1e-12 via new standalone `verify-canary/` crate (builds 1 kernel, not the 281-kernel umbrella). Root-caused the pt0 divergence to the missing libxc work_mgga von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — fixed in the canary host driver; PRODUCTION dispatch still lacks it (systemic MGGA gap → Phase 11). G4 + D-LOCK-D idempotency + full-266 sweep DEFERRED to re-opened Phase 11. Next: `/gsd:execute-phase 11` re-open — add work_mgga input regularization (τ-clamp) to the translator/dispatch FIRST (gates G4), then G4 + full sweep + idempotency + 11-06 Legs 2/3/4 + Task 8 + 11-08 Task 2 + phase.complete 11."
-last_updated: "2026-05-21T22:22:53.589Z"
-last_activity: 2026-05-21
+status: Phase 11 RE-OPENED — PLANNED (5 gap-closure plans 11-09..13 ready). Milestone v1.0 IN PROGRESS (Phases 5, 6, 7 + Phase 11 closure remain). [Phase 11.1 COMPLETE 2026-05-22 — its hand-back items are now the Phase 11 re-open scope.]
+stopped_at: "Phase 11 re-open PLANNED via /gsd:plan-phase 11 --gaps (2026-05-22). All 8 original 11-0x plans already had SUMMARYs (execute-phase found nothing to run), so the 5 hand-back items from 11.1 were planned as NEW gap_closure plans 11-09..13 (commit 6097e4182f; plan-checker-revised 84812718b5: count 266→280 shard-aware, oracle filenames, conditional f32 run). Gap source = .planning/phases/11-splitter-v2-unified-5k-cap/11-VERIFICATION.md (synthesized index). Waves: W1 = 11-09 (G-1 work_mgga von Weizsäcker τ-clamp in PRODUCTION src/eval/mgga_dispatch, gates G-2; autonomous=false) + 11-10 (G-3 full-280 compile sweep, resumable/chunked) + 11-11 (G-4 D-LOCK-D idempotency proof); W2 = 11-12 (G-2 memory-safe family-chunked full-649 f32 oracle ≤1e-3; autonomous=false); W3 = 11-13 (G-5 closure: 11-06 SUMMARY PARTIAL→COMPLETE + 11-08 Task 2 cleanup + manual phase.complete 11). Next: `/gsd:execute-phase 11 --gaps-only` — start Wave 1 (11-09 is the critical path). HARD: inline sequential, jobs=1 (never edit .cargo/config.toml), NO monolithic 281-kernel umbrella build, verify-canary single-kernel escape hatch, per-`-p` compile as ENTRY gate."
+last_updated: "2026-05-21T23:19:32.000Z"
+last_activity: 2026-05-22
 progress:
   total_phases: 12
   completed_phases: 7
-  total_plans: 56
+  total_plans: 61
   completed_plans: 49
-  percent: 88
+  percent: 80
 ---
 
 # Project State
@@ -21,12 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluation of all 649 XC functionals from a single pure-Rust codebase that runs on both CPU and GPU without code duplication.
-**Current focus:** Phase 11.1 — translator-rule-3-emit-fix-sweep-to-green
+**Current focus:** Phase 11 (re-opened) — gap closure (5 plans 11-09..13 PLANNED, ready to execute)
 
 ## Current Position
 
-Phase: 11.1 (translator-rule-3-emit-fix-sweep-to-green) — COMPLETE (2026-05-22)
-Plan: 11.1-01..04 all executed; 11.1-SUMMARY.md committed
+Phase: 11 (splitter-v2-unified-5k-cap) — RE-OPENED, PLANNED (2026-05-22). 5 gap_closure plans 11-09..13 created + checker-passed (0 blockers; 3 warnings fixed). Awaiting `/gsd:execute-phase 11 --gaps-only`.
+Gap plans: 11-09 (G-1 τ-clamp, W1, autonomous=false), 11-10 (G-3 full-280 sweep, W1), 11-11 (G-4 idempotency, W1), 11-12 (G-2 family-chunked f32 oracle, W2, autonomous=false), 11-13 (G-5 closure + phase.complete, W3). Original 11-01..08 untouched (all have SUMMARYs).
+Prior: Phase 11.1 (translator-rule-3-emit-fix-sweep-to-green) — COMPLETE (2026-05-22); 11.1-01..04 all executed; 11.1-SUMMARY.md committed
 Previous execution: 11.1-01 ✓ (translator amend); 11.1-02 ✓ (regen + G1 f64 + G2 f32 ALL_OK on 50-sample; idempotency DEFERRED); 11.1-03 ✓ (G3 mgga_c_b94 PASS at 1e-12 — rewritten as standalone verify-canary crate building 1 kernel; G4 DEFERRED); 11.1-04 ✓ (phase close).
 Key finding (→ Phase 11): the Rust dispatch omits libxc work_mgga's von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — systemic MGGA parity gap; gates a meaningful G4. See memory project_translator_missing_workmgga_tau_clamp.
 Hand-back to re-opened Phase 11: work_mgga τ-clamp, G4 full-649 f32 oracle, full-266 sweep, D-LOCK-D idempotency proof, 11-06 Legs 2/3/4 + Task 8, 11-08 Task 2, phase.complete 11.
