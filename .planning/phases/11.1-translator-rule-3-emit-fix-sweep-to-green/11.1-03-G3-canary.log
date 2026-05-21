@@ -1,0 +1,14 @@
+   Compiling libxc_rs-verify-canary v0.1.0 (/home/user/Documents/workspace/libxc_rs/verify-canary)
+    Finished `test` profile [unoptimized] target(s) in 3.44s
+     Running tests/g3_mgga_c_b94_parity.rs (.cache/cargo-target/debug/deps/g3_mgga_c_b94_parity-ccbd37aa7e4ab436)
+
+running 1 test
+G3_TUPLE: mgga_c_b94 exc unpol zk[0] rust=-2.205446238811266e-2 c=-2.205446238812656e-2 rel_err=6.302e-13
+G3_TUPLE: mgga_c_b94 exc unpol zk[1] rust=-2.808387539865205e-2 c=-2.808387539865101e-2 rel_err=3.719e-14
+G3_TUPLE: mgga_c_b94 exc unpol zk[2] rust=-3.071735788885114e-2 c=-3.071735788883767e-2 rel_err=4.385e-13
+G3_TUPLE: mgga_c_b94 exc unpol zk[3] rust=-3.492677415627527e-2 c=-3.492677415629482e-2 rel_err=5.597e-13
+G3_SUMMARY: mgga_c_b94 exc unpol np=4 max_rel_err=6.302e-13 tol=1e-12 verdict=PASS
+test g3_mgga_c_b94_f64_parity_1e12 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.09s
+
