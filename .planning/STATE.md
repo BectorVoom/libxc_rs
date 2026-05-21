@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Executing Phase 11.1
-stopped_at: Phase 11.1 context gathered
-last_updated: "2026-05-19T10:46:31.689Z"
-last_activity: 2026-05-19
+status: Phase 11.1 COMPLETE — translator Rule-3 emit fix shipped + G3 canary PASS; Phase 11 ready to re-open for closure items
+stopped_at: Phase 11.1 closed; awaiting /gsd:execute-phase 11 re-open for work_mgga τ-clamp + G4 + full sweep + idempotency + 11-06/11-08 + phase.complete 11
+last_updated: "2026-05-22T00:00:00.000Z"
+last_activity: 2026-05-22 -- Phase 11.1 closed (G3 PASS @1e-12; G4/idempotency deferred to Phase 11)
 progress:
   total_phases: 12
   completed_phases: 7
   total_plans: 56
-  completed_plans: 47
-  percent: 84
+  completed_plans: 51
+  percent: 91
 ---
 
 # Project State
@@ -25,9 +25,11 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 ## Current Position
 
-Phase: 11.1 (translator-rule-3-emit-fix-sweep-to-green) — EXECUTING
-Plan: 1 of 4
-Previous execution: 11-01..05 ✓; 11-06 HALTED THIRD-iter (`75c0f5112`); 11-06 HALTED FOURTH-iter (`3494c80fc` → archived as `11-06-SUMMARY-HALT-4TH.md`); 11-06 5th-iter Sessions 1+2 PARTIAL; 11-06 6th-iter Deviations E+F at `cc324c6fa..d26efabda`; 11-06 Task 7 at `265bf03b55`.
+Phase: 11.1 (translator-rule-3-emit-fix-sweep-to-green) — COMPLETE (2026-05-22)
+Plan: 11.1-01..04 all executed; 11.1-SUMMARY.md committed
+Previous execution: 11.1-01 ✓ (translator amend); 11.1-02 ✓ (regen + G1 f64 + G2 f32 ALL_OK on 50-sample; idempotency DEFERRED); 11.1-03 ✓ (G3 mgga_c_b94 PASS at 1e-12 — rewritten as standalone verify-canary crate building 1 kernel; G4 DEFERRED); 11.1-04 ✓ (phase close).
+Key finding (→ Phase 11): the Rust dispatch omits libxc work_mgga's von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — systemic MGGA parity gap; gates a meaningful G4. See memory project_translator_missing_workmgga_tau_clamp.
+Hand-back to re-opened Phase 11: work_mgga τ-clamp, G4 full-649 f32 oracle, full-266 sweep, D-LOCK-D idempotency proof, 11-06 Legs 2/3/4 + Task 8, 11-08 Task 2, phase.complete 11.
 
 ## Phase 11 execute-phase run — 2026-05-18 evening session
 
@@ -245,6 +247,12 @@ None yet.
 
 ## Session Continuity
 
+Last session: 2026-05-22 (Phase 11.1 execute — G3 canary rewrite + τ-clamp root-cause; phase close)
+Stopped at: Phase 11.1 CLOSED. G3 mgga_c_b94 PASS at 1e-12 via new standalone `verify-canary/` crate (builds 1 kernel, not the 281-kernel umbrella). Root-caused the pt0 divergence to the missing libxc work_mgga von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — fixed in the canary host driver; PRODUCTION dispatch still lacks it (systemic MGGA gap → Phase 11). G4 + D-LOCK-D idempotency + full-266 sweep DEFERRED to re-opened Phase 11. Next: `/gsd:execute-phase 11` re-open — add work_mgga input regularization (τ-clamp) to the translator/dispatch FIRST (gates G4), then G4 + full sweep + idempotency + 11-06 Legs 2/3/4 + Task 8 + 11-08 Task 2 + phase.complete 11.
+Resume file: .planning/phases/11.1-translator-rule-3-emit-fix-sweep-to-green/11.1-SUMMARY.md
+Next step: /gsd:execute-phase 11 (re-opens for the deferred items per CONTEXT.md D-01)
+
+--- prior session note (kept for history) ---
 Last session: 2026-05-20 (quick task 260520-k1q — revtpss sub-crate split, recipe replay)
 Stopped at: mgga_c_revtpss OOM RESOLVED — second dense D-LOCK-B functional fixed with the proven hier-CSE + facade/shard recipe. `cargo build -p libxc-kernel-mgga_c_revtpss` compiles under jobs=1 (~9.5 GB facade, worst shard 15.3 GB / 61 parts). revtpss stays in default-members (it compiles). The recipe is now 2/2 (tpssloc + revtpss); the ≲70-parts/shard heuristic held both times. NEXT candidate steps (none blocking, none executed): (a) re-add libxc-kernel-mgga_c_tpssloc to default-members (it compiles but is still excluded from 260520-a0c); (b) revisit the stale kernel_size_exceptions.txt entries for BOTH tpssloc (9) and revtpss (11) — they reference pre-split flat paths; (c) Plan 11.1-03 G4 full-649 f32 oracle unblocked for both functionals' COMPILATION (numeric parity still G3/G4's job); (d) apply the same recipe to the remaining D-LOCK-B candidates (gga_c_ft97, mgga_c_kcis/kcisk/rmggac lxc_pol, lda_c_pk09 kxc_pol) if/when they hit the wall — tooling + driver pattern are ready.
 Resume file: .planning/quick/260520-k1q-mgga-c-revtpss-subcrate-split/260520-k1q-SUMMARY.md

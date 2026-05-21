@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 - [ ] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
-- [ ] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
+- [x] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED, 2026-05-22 — narrow scope shipped; idempotency/G4/full-sweep/closure hand back to re-opened Phase 11)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
 
 ## Phase Details
 
@@ -303,11 +303,22 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
   7. If 11.1 absorbs the deferred 11-08 Task 3 — D-24 full-649 f32 oracle sweep PASSES under hard ceiling 1e-3
   8. Phase 11 `phase.complete` invocation unblocked (whether via 11.1 absorbing closure or 11.1 handing back to a re-opened 11)
 
-**Plans:** 4 plans
-  - [ ] 11.1-01-PLAN.md — Translator amend (D-04..D-10, D-15, D-17): helpers_allowlist.py + cse.py AST classifier + per_functional.py emit fix + Deviation E/F removal
-  - [ ] 11.1-02-PLAN.md — Full-tree regen + G1 f64 sweep + G2 f32 sweep + D-LOCK-D idempotency proof (D-13, D-16, D-18, D-LOCK-D)
-  - [ ] 11.1-03-PLAN.md — G3 mgga_c_b94 f64 parity at 1e-12 + G4 full-649 f32 oracle with tolerance overrides (D-02, D-03, D-12, D-20)
-  - [ ] 11.1-04-PLAN.md — SUMMARY rollup + ROADMAP/STATE update + phase.complete (D-01 hand-back)
+**Plans:** 4 plans (all executed)
+  - [x] 11.1-01-PLAN.md — Translator amend (D-04..D-10, D-15, D-17): helpers_allowlist.py + cse.py AST classifier + per_functional.py emit fix + Deviation E/F removal
+  - [x] 11.1-02-PLAN.md — Full-tree regen + G1 f64 sweep + G2 f32 sweep (both ALL_OK on 50-sample); D-LOCK-D idempotency DEFERRED → Phase 11
+  - [x] 11.1-03-PLAN.md — G3 mgga_c_b94 f64 parity at 1e-12 (PASS, rewritten as standalone canary); G4 full-649 f32 oracle DEFERRED → Phase 11
+  - [x] 11.1-04-PLAN.md — SUMMARY rollup + ROADMAP/STATE update + D-01 hand-back
+
+**Closure Status (2026-05-22):** Phase 11.1 COMPLETE for its narrow translator-Rule-3-emit scope. Success-criteria disposition:
+  1. [x] Rule 3 emit to all f64-literal positions (P1/P2/P3) — Plan 01
+  2. [!] Idempotency proof — DEFERRED → Phase 11 (11.1-02-IDEMPOTENCY-DEFERRAL.md)
+  3. [~] Compile sweep ALL_OK — G1 f64 + G2 f32 ALL_OK on 50-subcrate sample (full-266 sweep DEFERRED → Phase 11)
+  4. [~] gga_c_gaploc/lda_c_pk09 green — covered by the Rule-3 regen + sample sweep; full per-`-p` confirmation in the deferred full sweep
+  5. [~] SPEC-11-R4 (all 266 per-`-p` build) — sample-validated; full sweep DEFERRED → Phase 11
+  6. [x] SPEC-11-R5 parity at chosen gate — G3 mgga_c_b94 PASS at 1e-12 (11.1-03-G3-PARITY-LOG.md)
+  7. [!] D-24 full-649 f32 oracle — DEFERRED → Phase 11 (11.1-03-G4-DEFERRAL.md; gated on the work_mgga τ-clamp finding)
+  8. [x] Phase 11 phase.complete unblocked — 11.1 hands back per D-01; see 11.1-SUMMARY.md hand-back list
+  NEW systemic finding: the Rust dispatch omits libxc work_mgga's von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — gates a meaningful G4; → Phase 11.
 
 **Canonical refs:**
   - .planning/phases/11-splitter-v2-unified-5k-cap/11-FINAL-METRICS.md § "Phase 11.1 Follow-Up Scope (translator fix)"
