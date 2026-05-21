@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11.1 COMPLETE — translator Rule-3 emit fix shipped + G3 canary PASS; Phase 11 ready to re-open for closure items
-stopped_at: Phase 11.1 closed; awaiting /gsd:execute-phase 11 re-open for work_mgga τ-clamp + G4 + full sweep + idempotency + 11-06/11-08 + phase.complete 11
-last_updated: "2026-05-22T00:00:00.000Z"
-last_activity: 2026-05-22 -- Phase 11.1 closed (G3 PASS @1e-12; G4/idempotency deferred to Phase 11)
+status: Phase 11.1 COMPLETE — milestone v1.0 IN PROGRESS (Phases 5, 6, 7, 11 remain; Phase 11 re-opens for 11.1 hand-back items). NOTE: `gsd-tools.cjs phase complete 11.1` wrongly set this to "Milestone complete" (it miscounted decimal sub-phase 11.1 as the final phase); corrected here.
+stopped_at: "Phase 11.1 CLOSED. G3 mgga_c_b94 PASS at 1e-12 via new standalone `verify-canary/` crate (builds 1 kernel, not the 281-kernel umbrella). Root-caused the pt0 divergence to the missing libxc work_mgga von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — fixed in the canary host driver; PRODUCTION dispatch still lacks it (systemic MGGA gap → Phase 11). G4 + D-LOCK-D idempotency + full-266 sweep DEFERRED to re-opened Phase 11. Next: `/gsd:execute-phase 11` re-open — add work_mgga input regularization (τ-clamp) to the translator/dispatch FIRST (gates G4), then G4 + full sweep + idempotency + 11-06 Legs 2/3/4 + Task 8 + 11-08 Task 2 + phase.complete 11."
+last_updated: "2026-05-21T22:22:53.589Z"
+last_activity: 2026-05-21
 progress:
   total_phases: 12
   completed_phases: 7
   total_plans: 56
-  completed_plans: 51
-  percent: 91
+  completed_plans: 49
+  percent: 88
 ---
 
 # Project State
@@ -125,7 +125,7 @@ Plan 11-03 outcome (2026-05-15):
 Wave 2 is finished under D-13. Next plan: 11-04.
 
 Plans: Phase 06 still has 3 of 4 executed (09-04, 09-05, 09-06 ✓; 09-07 oracle parity sweep pending; old 09-01/02/03 archived under `archive-pre-round4/`) — paused while Phase 11 is in flight.
-Last activity: 2026-05-20 - Completed quick task 260520-k1q: mgga_c_revtpss sub-crate split — SUCCESS. Replayed the proven tpssloc recipe (hier CSE + facade/7-shard split); `cargo build -p libxc-kernel-mgga_c_revtpss` now compiles under jobs=1 (~9.5 GB facade peak, worst shard 15.3 GB). Second dense D-LOCK-B functional fixed; stays in default-members.
+Last activity: 2026-05-21
 
 ## Phase 11 — PAUSED at Plan 11-05, Option A → Option C Pivot (2026-05-18)
 
@@ -164,7 +164,7 @@ Outstanding: re-run `/gsd-verify-work 5` to upgrade `05-VERIFICATION.md`
 
 **Velocity:**
 
-- Total plans completed: 16
+- Total plans completed: 21
 - Average duration: --
 - Total execution time: 0 hours
 
@@ -176,6 +176,7 @@ Outstanding: re-run `/gsd-verify-work 5` to upgrade `05-VERIFICATION.md`
 | 02 | 5 | - | - |
 | 03 | 3 | - | - |
 | 04 | 5 | - | - |
+| 11.1 | 5 | - | - |
 
 **Recent Trend:**
 

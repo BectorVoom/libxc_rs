@@ -303,7 +303,7 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
   7. If 11.1 absorbs the deferred 11-08 Task 3 — D-24 full-649 f32 oracle sweep PASSES under hard ceiling 1e-3
   8. Phase 11 `phase.complete` invocation unblocked (whether via 11.1 absorbing closure or 11.1 handing back to a re-opened 11)
 
-**Plans:** 4 plans (all executed)
+**Plans:** 5/4 plans complete
   - [x] 11.1-01-PLAN.md — Translator amend (D-04..D-10, D-15, D-17): helpers_allowlist.py + cse.py AST classifier + per_functional.py emit fix + Deviation E/F removal
   - [x] 11.1-02-PLAN.md — Full-tree regen + G1 f64 sweep + G2 f32 sweep (both ALL_OK on 50-sample); D-LOCK-D idempotency DEFERRED → Phase 11
   - [x] 11.1-03-PLAN.md — G3 mgga_c_b94 f64 parity at 1e-12 (PASS, rewritten as standalone canary); G4 full-649 f32 oracle DEFERRED → Phase 11
