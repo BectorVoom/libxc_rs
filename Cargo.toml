@@ -302,6 +302,7 @@ libxc_rs-verify = { path = "verify" }
 [workspace]
 members=[    "xtask",
     "verify",
+    "verify-canary",
     "libxc-sys",]
 # default-members = crates/kernels/math + every per-functional subcrate EXCEPT
 # the 7 D-11 deferred kernels (mgga_c_b94, mgga_x_br89, mgga_x_mbr,

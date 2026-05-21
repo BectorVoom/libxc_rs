@@ -1,0 +1,25 @@
+[package]
+name = "libxc_rs-verify-canary"
+version = "0.1.0"
+edition = "2024"
+
+# Phase 11.1 Plan 03 G3 canary — a STANDALONE parity test for the single
+# `mgga_c_b94` functional that does NOT depend on the `libxc_rs` umbrella crate.
+#
+# Rationale (see .planning memory project_g3_b94_hollow_gate):
+#   `verify/` depends on `libxc_rs = { path = ".." }`, whose 281 unconditional
+#   kernel deps force ALL kernels to compile for ANY verify test. The original
+#   G3 routed `mgga_c_b94` through `libxc_rs::eval::dispatch_mgga`, but b94 is
+#   deferred + UNROUTED (no dispatch arm) and the entry hard-coded the wrong id
+#   (568 vs real 397), so it silently SKIPPED — a hollow gate that still cost a
+#   full 281-kernel build. This crate calls the kernel directly, building ONE
+#   kernel, and actually evaluates parity vs the libxc id=397 oracle at 1e-12.
+#
+# NOT a workspace default-member: built on demand via
+#   `cargo test -p libxc_rs-verify-canary`.
+
+[dependencies]
+cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
+bytemuck = "1.25"
+libxc-kernel-mgga_c_b94 = { path = "../crates/kernels/mgga/mgga_c_b94" }
+libxc-sys = { path = "../libxc-sys" }
