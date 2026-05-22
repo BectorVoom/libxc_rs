@@ -1,12 +1,58 @@
 # 11-12 (G-2) — Family-chunked oracle: log
 
-**Status:** PARTIAL — Task 1 *mechanism* landed + proven; source-cfg, harness repair,
-and the f32 sweeps (Task 2) + tolerance checkpoint (Task 3) are DEFERRED (turnkey spec below).
-**Session:** 2026-05-22, `/gsd:execute-phase 11 --gaps-only` (user scope: "11-12 only, then reassess";
-sub-scope: "Path A infra now, defer heavy builds").
-**Machine constraints honored:** `.cargo/config.toml` UNTOUCHED; **no build/test was run** (only
-`cargo tree`, which resolves the dependency graph WITHOUT compiling); jobs policy not exercised
-(no compilation). No monolithic all-281 build.
+**Status (2026-05-23, RE-SCOPED):** G-2 = the memory-safe **family-chunked f64 oracle**, and its
+infrastructure is BUILT + cfg-validated (D1 source-cfg ✓, D2 harness repair ✓, S1 launch.rs generic ✓).
+The **f32 sweep (G4 / Task 2/3) is RE-DEFERRED as milestone-scale** — see the 2026-05-23 update below:
+the kernels are f64-concrete by design (2491 files, 0 generic), so real f32 needs a translator
+re-architecture + full kernel regen, not a dispatch change, and is in tension with the f64-only/1e-12
+core value. REMAINING for G-2: run the per-family f64 oracle (heavy, user-run) to validate the harness
+bodies, then write 11-12-SUMMARY.md.
+**Sessions:** 2026-05-22 (Path A Cargo mechanism, cargo-tree-proven) + 2026-05-23 (D1/D2/S1 source,
+user-run compile gates).
+**Machine constraints honored:** `.cargo/config.toml` UNTOUCHED; the assistant ran only `cargo tree`
+(no compile); all compiling checks were user-run.
+
+---
+
+## UPDATE 2026-05-23 — f32/G4 RE-DEFERRED (milestone-scale); G-2 re-scoped to the f64 oracle
+
+While implementing the f32 path (user chose "implement f32 dispatch/launch now"), a foundational
+blocker surfaced that invalidates the whole f32-as-a-dispatch-task premise:
+
+**The kernels are f64-concrete by design — they are NOT generic over the float type.**
+- `crates/kernels/.../src/*.rs` kernel fns are `pub fn k(rho: &Array<f64>, …, scalar: f64, …)` with
+  hardcoded `pow_1_3::<f64>` / `piecewise::<f64>` helper calls.
+- Repo-wide: **2491** kernel files use `&Array<f64>`; **0** use generic `&Array<F>`.
+- This is intentional: CLAUDE.md mandates "Precision: **f64 only**"; the core value is "energy rel
+  err ≤ 1e-12" (unreachable in f32's ~1e-7); the translator preserves "exact maple2c FP operation
+  order" in f64. `LIBXC_RS_F32` / D-19a "f32 secondary" was an aspiration never realized at the kernel
+  layer — its only reader (`parity_phase11.rs`) flips a tolerance but computes in f64 (placeholder).
+
+The launch infers `F` from argument types, so an f64-concrete kernel CANNOT be launched as f32 (no f32
+monomorphization exists). Real f32 would require: re-architect the translator (`tools/translate_v2`)
+to emit float-generic kernels → regenerate all ~2491 kernel files → reconcile FP-operation-order →
+then the dispatch f32 path. That is **milestone-scale, OOM-heavy, and in tension with the f64-only/
+1e-12 design** — not part of 11-12.
+
+**Disposition (user, 2026-05-23):** RE-DEFER f32/G4 as out-of-scope/milestone-scale. **G-2 is
+re-scoped to the memory-safe family-chunked f64 oracle** (the genuinely valuable, on-design
+deliverable). Keep S1 (`launch.rs` generic over `F: Pod`, commit 86cf732e09) as a harmless
+backward-compatible foundation should generic kernels ever be pursued. The f32 wiring tasks below
+(D3/D4/D5) are SUPERSEDED by this re-defer.
+
+**Remaining for G-2 (f64):** run the per-family f64 oracle (heavy, user-run) — this also validates the
+D2 harness-body repair (the Phase-05 oracle harnesses had not compiled since the D-10a restructure):
+```
+cargo test -p libxc_rs-verify --no-default-features -F oracle-lda  --test lda_oracle  -j1 -- --test-threads=1 --nocapture
+cargo test -p libxc_rs-verify --no-default-features -F oracle-gga  --test gga_oracle  -j1 -- --test-threads=1 --nocapture
+cargo test -p libxc_rs-verify --no-default-features -F oracle-mgga --test mgga_oracle -j1 -- --test-threads=1 --nocapture
+```
+Each pulls only its family's kernels (+ math + the fixed 6-witness dev-dep floor) — memory-safe,
+paced per family. If a harness body shows further Phase-05 drift, fix and re-run. When all three pass
+at the f64 tolerance tiers (exc 1e-12 / vxc 1e-10 / …), write 11-12-SUMMARY.md and close G-2 (f64).
+
+The ROADMAP G4/SC-#5 wording ("full-649 f32 oracle") should be corrected to reflect that f32 is a
+milestone-scale follow-up, not a Phase-11 gate (route via 11-13 / G-5 closure).
 
 ---
 
