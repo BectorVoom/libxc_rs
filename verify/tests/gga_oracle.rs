@@ -21,6 +21,9 @@
 //! constructor only. Tuple syntax `FunctionalId(x)` fails to compile from
 //! this crate because the inner field's visibility is `pub(crate)`.
 
+// 11-12 (G-2): gate so a single-family verify build compiles only its oracle.
+#![cfg(feature = "oracle-gga")]
+
 use libxc_rs::eval::dispatch_gga;
 use libxc_rs::input::GgaInput;
 use libxc_rs::model::{DerivativeOrder, FunctionalId, GgaFunctional, Spin, Thresholds};

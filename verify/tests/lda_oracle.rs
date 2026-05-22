@@ -21,6 +21,9 @@
 //! syntax `FunctionalId(id)`, which fails to compile from this verify
 //! crate due to the inner field's `pub(crate)` visibility.
 
+// 11-12 (G-2): gate so a single-family verify build compiles only its oracle.
+#![cfg(feature = "oracle-lda")]
+
 use libxc_rs::eval::{dispatch_lda, LdaFunctionalParams};
 use libxc_rs::input::LdaInput;
 use libxc_rs::model::{DerivativeOrder, FunctionalId, LdaFunctional, Spin, Thresholds};
@@ -30,7 +33,7 @@ use libxc_rs_verify::{
     FLAGS_HAVE_LXC, FLAGS_HAVE_VXC, LdaOracleOutput,
 };
 
-use libxc_kernel_lda::deferred::is_deferred;
+use libxc_kernel_math::deferred::lda::is_deferred;
 
 struct FunctionalTestCase {
     id: i32,
