@@ -40,7 +40,7 @@ use crate::model::{DerivativeOrder, MggaFunctional, Spin, Thresholds};
 use crate::output::MggaOutput;
 use cubecl::client::ComputeClient;
 use cubecl::cpu::CpuRuntime;
-use cubecl::prelude::{CubeCount, CubeDim, LaunchError};
+use cubecl::prelude::{CubeCount, CubeDim};
 use cubecl::server::Handle;
 
 pub mod funcs;
@@ -74,10 +74,6 @@ pub(crate) struct MggaLaunchCtx<'a> {
     pub vtau_len: usize,
     pub dt: f64,
     pub zt: f64,
-}
-
-pub(crate) fn map_mgga_launch_err(e: LaunchError) -> LibxcRsError {
-    LibxcRsError::KernelLaunchFailed { reason: e.to_string() }
 }
 
 /// Launch helper macro for MGGA unpolarized `Exc`+`Vxc` arms on a

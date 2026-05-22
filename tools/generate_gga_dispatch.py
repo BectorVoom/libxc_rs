@@ -85,7 +85,7 @@ use crate::model::{DerivativeOrder, GgaFunctional, Thresholds};
 use crate::output::GgaOutput;
 use cubecl::client::ComputeClient;
 use cubecl::cpu::CpuRuntime;
-use cubecl::prelude::{CubeCount, CubeDim, LaunchError};
+use cubecl::prelude::{CubeCount, CubeDim};
 use cubecl::server::Handle;
 
 '''
@@ -134,10 +134,6 @@ pub(crate) struct GgaLaunchCtx<'a> {
     pub v4sigma4_len: usize,
     pub dt: f64,
     pub zt: f64,
-}
-
-pub(crate) fn map_gga_launch_err(e: LaunchError) -> LibxcRsError {
-    LibxcRsError::KernelLaunchFailed { reason: e.to_string() }
 }
 
 '''

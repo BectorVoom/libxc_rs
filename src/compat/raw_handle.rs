@@ -46,6 +46,11 @@ impl FunctionalSlot {
     /// Same contract as [`as_initialized_const`]. The caller must guarantee
     /// no aliasing references to the slot exist for the duration of the
     /// returned borrow (CONTEXT D-A1-3 — single-threaded per handle).
+    //
+    // Intended C-ABI compat API: mutable counterpart to `as_initialized_const`,
+    // not yet wired to a C entry point (no mutable C op exists yet). Retained so
+    // the path is ready when one lands; allow under crate `#![deny(warnings)]`.
+    #[allow(dead_code)]
     pub(crate) unsafe fn as_initialized_mut<'a>(
         p: *mut xc_func_type,
     ) -> Result<&'a mut Functional, LibxcRsError> {

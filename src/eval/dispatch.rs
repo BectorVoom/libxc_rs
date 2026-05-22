@@ -25,7 +25,7 @@ use crate::model::{DerivativeOrder, LdaFunctional, Spin, Thresholds};
 use crate::output::LdaOutput;
 use cubecl::client::ComputeClient;
 use cubecl::cpu::CpuRuntime;
-use cubecl::prelude::{ArrayArg, CubeCount, CubeDim, LaunchError};
+use cubecl::prelude::{ArrayArg, CubeCount, CubeDim};
 use cubecl::server::Handle;
 
 // The historical `LdaFunctionalParams` struct has been retired: `LdaXParams`
@@ -277,10 +277,6 @@ struct LaunchCtx<'a> {
     v4rho4_len: usize,
     dt: f64,
     zt: f64,
-}
-
-fn map_launch_err(e: LaunchError) -> LibxcRsError {
-    LibxcRsError::KernelLaunchFailed { reason: e.to_string() }
 }
 
 // ----------------------------------------------------------------------------
