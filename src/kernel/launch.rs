@@ -39,43 +39,74 @@ pub fn cpu_client() -> ComputeClient<CpuRuntime> {
     CpuRuntime::client(&device)
 }
 
-/// Upload an f64 slice to device memory, returning a handle.
-///
-/// Uses bytemuck for safe byte-level casting. Bit patterns are preserved
-/// exactly through the round-trip (per T-02-05 mitigation).
-pub fn create_input_buffer(
+// ---- Buffer helpers ---------------------------------------------------------
+//
+// 11-12 (G-2 / G4): the buffer helpers are generic over the element type so the
+// f32 oracle leg can upload/read f32 device buffers. The kernels are
+// `#[cube] fn k<F: Float>(...)`; the launch infers F from the argument element
+// types (ArrayArg element + bare scalars + dt/zt). The f64 entry points below
+// preserve the existing API (266 dispatch call sites pass f64 and are
+// unchanged); the f32 path calls the `_generic` forms with `F = f32`.
+//
+// Bound is `bytemuck::Pod` only: buffer create/read move raw bytes
+// (`create_from_slice`/`read_one` are byte-oriented); the CubeCL element type
+// is fixed at the kernel-launch ArrayArg, not here.
+
+/// Upload a slice of any Pod element type to device memory, returning a handle.
+/// Bit patterns are preserved exactly through the round-trip (T-02-05).
+pub fn create_input_buffer_generic<F: bytemuck::Pod>(
     client: &ComputeClient<CpuRuntime>,
-    data: &[f64],
+    data: &[F],
 ) -> cubecl::server::Handle {
     client.create_from_slice(bytemuck::cast_slice(data))
 }
 
-/// Create a zero-initialized output buffer of `n` f64 elements.
-///
-/// CRITICAL per T-02-06 mitigation: output buffers MUST be zero-initialized
-/// because kernels use += accumulation. Using `client.empty()` would return
-/// uninitialized memory, causing += to produce garbage results.
-pub fn create_zero_output_buffer(
+/// Create a zero-initialized output buffer of `n` elements of `F`.
+/// Zero-init is CRITICAL (T-02-06): kernels use `+=` accumulation.
+pub fn create_zero_output_buffer_generic<F: bytemuck::Pod>(
     client: &ComputeClient<CpuRuntime>,
     n: usize,
 ) -> cubecl::server::Handle {
-    let zeros = vec![0.0f64; n];
+    let zeros = vec![<F as bytemuck::Zeroable>::zeroed(); n];
     client.create_from_slice(bytemuck::cast_slice(&zeros))
 }
 
-/// Read an f64 buffer back from device to host.
-///
-/// Bit patterns are preserved exactly through the round-trip
-/// (per T-02-05 mitigation).
-pub fn read_output_buffer(
+/// Read a buffer of `F` elements back from device to host.
+/// Bit patterns are preserved exactly through the round-trip (T-02-05).
+pub fn read_output_buffer_generic<F: bytemuck::Pod>(
     client: &ComputeClient<CpuRuntime>,
     handle: cubecl::server::Handle,
     _n: usize,
-) -> Vec<f64> {
+) -> Vec<F> {
     let bytes = client
         .read_one(handle)
         .expect("read_one failed during output buffer read-back");
     bytemuck::cast_slice(&bytes).to_vec()
+}
+
+/// Upload an f64 slice to device memory, returning a handle.
+pub fn create_input_buffer(
+    client: &ComputeClient<CpuRuntime>,
+    data: &[f64],
+) -> cubecl::server::Handle {
+    create_input_buffer_generic(client, data)
+}
+
+/// Create a zero-initialized output buffer of `n` f64 elements.
+pub fn create_zero_output_buffer(
+    client: &ComputeClient<CpuRuntime>,
+    n: usize,
+) -> cubecl::server::Handle {
+    create_zero_output_buffer_generic::<f64>(client, n)
+}
+
+/// Read an f64 buffer back from device to host.
+pub fn read_output_buffer(
+    client: &ComputeClient<CpuRuntime>,
+    handle: cubecl::server::Handle,
+    n: usize,
+) -> Vec<f64> {
+    read_output_buffer_generic::<f64>(client, handle, n)
 }
 
 #[cfg(test)]
