@@ -6,7 +6,17 @@ edition = "2024"
 [dependencies]
 anyhow = "1.0.100"
 libxc-sys = { path = "../libxc-sys" }
-libxc_rs = { path = ".." }
+# Phase 11 / 11-12 (G-2, Path A): default-features = false so a single-family
+# verify build forwards only that family's umbrella feature -> resolves only
+# that family's kernels (memory-safe; provable via `cargo tree -e no-dev`).
+# default = all three preserves the prior full-umbrella verify build.
+libxc_rs = { path = "..", default-features = false }
+
+[features]
+default = ["oracle-lda", "oracle-gga", "oracle-mgga"]
+oracle-lda = ["libxc_rs/oracle-lda"]
+oracle-gga = ["libxc_rs/oracle-gga"]
+oracle-mgga = ["libxc_rs/oracle-mgga"]
 
 # Dev-dep narrowing per Phase 11 D-05 (11-CONTEXT.md): verify/ must depend on
 # INDIVIDUAL per-functional kernel subcrates, NEVER on umbrella/family kernel
