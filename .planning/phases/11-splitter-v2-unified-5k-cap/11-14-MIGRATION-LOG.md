@@ -80,28 +80,39 @@ Source-level verification (PLAN `<verification>`, all cargo-free checks PASS):
 | `tau_von_weizsacker` in generator + emitted mgga mod.rs (11-09 preserved) | 1 / 1 |
 | full-tree stale-form sweep (generators+handwritten+emitted) | **0 stale forms** |
 
-## Task 3 umbrella ENTRY gate — DEFERRED (NOT RUN)
+## Task 3 umbrella ENTRY gate — RUN #1 (user-driven, jobs=1): 3031 → 4
 
-`cargo check -p libxc_rs --lib` (the 3031→0 exit-0 gate that closes G-6) has **NOT been run**.
-Pre-emptive HALT per the plan's machine constraints (Task 3: "if RSS threatens OOM, HALT"):
+`/usr/bin/time -v cargo check -p libxc_rs --lib --jobs 1` (user-run, `/tmp/11-14-umbrella-check.log`):
 
-- At gate time the box had **~16 parallel `rustc` processes consuming ~29/30 GB** (an external build
-  this executor did not start). Launching `cargo check` on top would OOM the 30 GB box — the project's
-  recurring failure mode.
-- `.cargo/config.toml` `jobs` is **uncapped** in the working tree (`# jobs = 5`, commented); the
-  committed value is `jobs = 1`. Per project RAM constraints the user caps `jobs` by hand; I must not
-  edit that file.
+- **Exit status: 101** — `error[` count **4** (down from 3031; the migration killed all 3027 genuine
+  launch-ABI errors: E0107 1046 / E0061 1046 / E0599 804 / E0432 131 all → 0).
+- **Peak RSS: 30,002,596 kB (~30 GB)** — hit the box ceiling but survived (no OOM-kill; Swaps: 0,
+  heavy minor page faults). jobs=1 was essential.
 
-**To close G-6, on a clear box with `jobs = 1`:**
+### The 4 residuals — ALL pre-existing, NONE launch-ABI-shaped
+
+Confirmed present in the original `log/libxc_rs_check.log` (lines 2107, 79015/79036/79053), so they
+are NOT regen-introduced and the migration transforms correctly left them untouched. Both classes are
+cubecl-0.10-adjacent / signature-consistency issues, fixed **in 11-14 scope** (commit `e3954802cd`):
+
+| Error | Site | Root cause | Fix |
+|-------|------|-----------|-----|
+| E0308 ×1 | `src/kernel/launch.rs:76` `read_output_buffer` (real code) | cubecl-0.10 readback drift: `client.read_one()` now returns `Result<Bytes, ServerError>` (was `Bytes`) | `.expect(...)` — mirrors the passing 11-09 canary read-back |
+| E0061 ×3 | `mix.rs:502/718`, `evaluate.rs:67` calling `dispatch_gga` | GGA generator never gained the `params: &dyn FunctionalParams` arg that `dispatch_mgga`/`dispatch_lda` already carry, yet all callers pass `&*params` | added the arg + `let _ = params;` **in the GENERATOR** (`generate_gga_dispatch.py`) + regen + updated 2 emitted test calls to `&NoParams`. Fixes callers WITHOUT touching out-of-scope `mix.rs`/`evaluate.rs` |
+
+Deviation note: the plan assumed all 3031 were launch-ABI. 4 were not (1 readback + 3 dispatch_gga
+signature). Both fixed within 11-14's own files (launch.rs + the GGA generator/regen). No out-of-scope
+files touched.
+
+## Task 3 — RUN #2 needed (re-confirm exit 0)
+
+After `e3954802cd`, RE-RUN the gate (user-driven, jobs=1, clear box):
 
 ```
-/usr/bin/time -v cargo check -p libxc_rs --lib 2>&1 | tee /tmp/11-14-umbrella-check.log
+/usr/bin/time -v cargo check -p libxc_rs --lib --jobs 1 2>&1 | tee /tmp/11-14-umbrella-check.log
 grep -c 'error\[' /tmp/11-14-umbrella-check.log   # MUST be 0
 ```
 
-Then record here: exit code, 3031→0 delta, peak-RSS ("Maximum resident set size"). G-6 closes and
-G-2/11-12 unblocks only when this is exit 0 / zero `error[`.
-
-_Weak positive signal (not authoritative): rust-analyzer reported NO new diagnostics on the migrated
-dispatch.rs / launch.rs / gga_dispatch / mgga_dispatch files after the edits — only the pre-existing
-test-gated math-crate drift (out of scope, see above)._
+Then record: exit code, 4→0 delta, peak-RSS. **G-6 closes and G-2/11-12 unblocks only when this is
+exit 0 / zero `error[`.** (Expected: 4→0 — the 4 residuals are addressed; no new errors anticipated
+since cargo reported exactly "4 previous errors" with no cascade.)
