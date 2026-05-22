@@ -104,15 +104,39 @@ Deviation note: the plan assumed all 3031 were launch-ABI. 4 were not (1 readbac
 signature). Both fixed within 11-14's own files (launch.rs + the GGA generator/regen). No out-of-scope
 files touched.
 
-## Task 3 — RUN #2 needed (re-confirm exit 0)
+## Task 3 — RUN #2 (after e3954802cd): 4 type errors → 0, but 4 dead_code errors
 
-After `e3954802cd`, RE-RUN the gate (user-driven, jobs=1, clear box):
+`cargo check -p libxc_rs --lib --jobs 1` (`/tmp/11-14-fix-check.log`): **0 `error[`** (the 4 residual
+type errors fixed), peak RSS **~543 MB** (warm dep cache; only `libxc_rs` re-checked) — BUT **exit 101**
+on **4 `dead_code` errors** (crate is `#![deny(warnings)]`, lib.rs:1):
 
-```
-/usr/bin/time -v cargo check -p libxc_rs --lib --jobs 1 2>&1 | tee /tmp/11-14-umbrella-check.log
-grep -c 'error\[' /tmp/11-14-umbrella-check.log   # MUST be 0
-```
+| dead_code item | Origin | Fix |
+|----------------|--------|-----|
+| `map_launch_err` (dispatch.rs), `map_gga_launch_err` (gga gen), `map_mgga_launch_err` (mgga gen) | **orphaned by this migration** — dropping `.map_err(..)?` removed their only callers (0.10 launch returns `()`) | removed the 3 fns + now-unused `LaunchError` imports — in the GENERATORS + regen, and hand-written dispatch.rs (commit `1ad364b612`) |
+| `as_initialized_mut` (src/compat/raw_handle.rs:49) | **pre-existing**, newly EXPOSED (crate now type-checks far enough to reach dead-code analysis) — intended C-ABI compat API, unwired | `#[allow(dead_code)]` (non-destructive; preserves API). **DEVIATION**: out-of-scope file, minimal allow; flagged for compat-layer review |
 
-Then record: exit code, 4→0 delta, peak-RSS. **G-6 closes and G-2/11-12 unblocks only when this is
-exit 0 / zero `error[`.** (Expected: 4→0 — the 4 residuals are addressed; no new errors anticipated
-since cargo reported exactly "4 previous errors" with no cascade.)
+(The plan's "leave them, `allow(unused)` is present" guidance was incorrect — the crate denies dead_code.)
+
+## Task 3 — RUN #3 (after 1ad364b612): ✅ EXIT 0 — G-6 CLOSED
+
+`/usr/bin/time -v cargo check -p libxc_rs --lib --jobs 1` (`/tmp/11-14-fix2-check.log`):
+
+- **Exit status: 0** — **`error[` count 0**, no `error:` lines (dead_code cleared).
+- **3031 → 0** total errors. The umbrella `libxc_rs` lib compiles clean under cubecl 0.10.
+- **Peak RSS: 548,588 kB (~536 MB)** at jobs=1 (run #1 warmed the 281 kernel `.rmeta`; runs #2/#3
+  re-check only `libxc_rs` itself — far under the 30 GB ceiling).
+- 24 warnings remain, **all in dependency kernel crates** (none in `libxc_rs`'s own `src/`); not denied
+  here, non-blocking.
+
+**G-6 CLOSED.** The per-`-p` umbrella ENTRY gate is green (memory `project_phase11_structural_without_compile`
+satisfied). **G-2 / plan 11-12 is now unblocked.** Durability holds: the 0.10 ABI lives in the GGA+MGGA
+generators (a future dispatch regen preserves it); the 11-09 von Weizsäcker tau-clamp survived the regen.
+
+### Error-count trajectory (jobs=1 throughout)
+| Run | Commit base | error[ | dead_code | exit | peak RSS |
+|-----|-------------|-------:|----------:|-----:|----------|
+| #1 | f9c4ff05a8 | 4 | 0* | 101 | ~30 GB (cold; built all 281 kernel deps) |
+| #2 | e3954802cd | 0 | 4 | 101 | ~543 MB |
+| #3 | 1ad364b612 | 0 | 0 | **0** | ~536 MB |
+
+\* run #1 halted on type errors before dead-code analysis ran.
