@@ -175,7 +175,7 @@ fn run_rust_lda(
     rho: &[f64],
 ) -> Option<LdaOracleOutput> {
     let np = if spin == Spin::Unpolarized { rho.len() } else { rho.len() / 2 };
-    let input = LdaInput::new(rho, np, spin).ok()?;
+    let input = LdaInput::new(&rho, np, spin).ok()?;
 
     let (d_vrho, d_v2rho2, d_v3rho3, d_v4rho4) = if spin == Spin::Unpolarized {
         (1, 1, 1, 1)
