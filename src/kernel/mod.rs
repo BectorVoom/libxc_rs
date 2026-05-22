@@ -7,8 +7,15 @@
 //! subcrate under the family namespace, so `crate::kernel::<family>::<func>`
 //! still resolves. Regenerate them with `tools/generate_kernel_reexports.py`.
 
+// Phase 11 / 11-12 (G-2, Path A): family kernel re-exports are gated behind
+// per-family features so a `--no-default-features -F oracle-<fam>` build pulls
+// (and references) only that family's kernels. default = all three, so the full
+// umbrella build is unchanged.
+#[cfg(feature = "oracle-lda")]
 pub mod lda;
+#[cfg(feature = "oracle-gga")]
 pub mod gga;
+#[cfg(feature = "oracle-mgga")]
 pub mod mgga;
 pub mod launch;
 pub mod dispatch_key;

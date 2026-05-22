@@ -12,9 +12,11 @@
 //! `from_id` helpers.
 
 use crate::error::LibxcRsError;
-use crate::eval::dispatch::dispatch_lda;
-use crate::eval::gga_dispatch::dispatch_gga;
-use crate::eval::mgga_dispatch::dispatch_mgga;
+// 11-12 (G-2): import the eval-level dispatch_* (real under the family feature,
+// stub when off) so this router needs no per-family cfg.
+use crate::eval::dispatch_lda;
+use crate::eval::dispatch_gga;
+use crate::eval::dispatch_mgga;
 use crate::eval::mix::{evaluate_mixed_gga, evaluate_mixed_lda_functional, evaluate_mixed_mgga};
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::functional::Functional;

@@ -11,9 +11,10 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
-use crate::eval::dispatch::dispatch_lda;
-use crate::eval::gga_dispatch::dispatch_gga;
-use crate::eval::mgga_dispatch::dispatch_mgga;
+// 11-12 (G-2): eval-level dispatch_* (real under family feature, stub when off).
+use crate::eval::dispatch_lda;
+use crate::eval::dispatch_gga;
+use crate::eval::dispatch_mgga;
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::functional::params_lda::LdaXParams;
 use crate::functional::Functional;
@@ -832,7 +833,7 @@ pub fn evaluate_mixed_mgga(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::eval::dispatch::dispatch_lda;
+    use crate::eval::dispatch_lda;
     use crate::input::LdaInput;
     use crate::model::{DerivativeOrder, Spin, Thresholds};
     use crate::output::LdaOutput;
