@@ -10,7 +10,6 @@ use crate::eval::gga_dispatch::{GgaLaunchCtx, ten_arm_dispatch_gga};
 use crate::error::LibxcRsError;
 use crate::model::{DerivativeOrder, Spin};
 use cubecl::cpu::CpuRuntime;
-use cubecl::frontend::ScalarArg;
 use cubecl::prelude::ArrayArg;
 
 /// Dispatch `gga_c_op_b88` (libxc id 87).

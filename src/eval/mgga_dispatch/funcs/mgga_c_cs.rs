@@ -10,7 +10,6 @@ use crate::eval::mgga_dispatch::{MggaLaunchCtx, mgga_zero_scalar_unpol_dispatch}
 use crate::error::LibxcRsError;
 use crate::model::{DerivativeOrder, Spin};
 use cubecl::cpu::CpuRuntime;
-use cubecl::frontend::ScalarArg;
 use cubecl::prelude::ArrayArg;
 
 /// Dispatch `mgga_c_cs` (libxc id 72).

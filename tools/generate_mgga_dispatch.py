@@ -169,10 +169,10 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
                          (translated *_pol kernels have pre-existing bugs — see GGA plan 04-03 deferred-items)",
             });
         }
-        let rho_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.rho, $ctx.rho_len, 1) };
-        let sigma_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.sigma, $ctx.sigma_len, 1) };
-        let lapl_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.lapl, $ctx.lapl_len, 1) };
-        let tau_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.tau, $ctx.tau_len, 1) };
+        let rho_arg = || unsafe { ArrayArg::from_raw_parts($ctx.rho.clone(), $ctx.rho_len) };
+        let sigma_arg = || unsafe { ArrayArg::from_raw_parts($ctx.sigma.clone(), $ctx.sigma_len) };
+        let lapl_arg = || unsafe { ArrayArg::from_raw_parts($ctx.lapl.clone(), $ctx.lapl_len) };
+        let tau_arg = || unsafe { ArrayArg::from_raw_parts($ctx.tau.clone(), $ctx.tau_len) };
         // CR-07: each handle accessor surfaces a typed
         // `LibxcRsError::KernelLaunchFailed` when the corresponding `Option`
         // is `None`, instead of panicking. Use `$crate::error::LibxcRsError`
@@ -181,41 +181,41 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
             let h = $ctx.zk.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
                 reason: "zk handle missing for Exc+ order on exc-bearing functional".to_string(),
             })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.zk_len, 1) })
+            Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.zk_len) })
         };
         let vrho_arg = || -> Result<_, $crate::error::LibxcRsError> {
             let h = $ctx.vrho.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vrho handle missing for Vxc+ order".to_string(),
             })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) })
+            Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vrho_len) })
         };
         let vsigma_arg = || -> Result<_, $crate::error::LibxcRsError> {
             let h = $ctx.vsigma.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vsigma handle missing for Vxc+ order".to_string(),
             })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vsigma_len, 1) })
+            Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vsigma_len) })
         };
         let vlapl_arg = || -> Result<_, $crate::error::LibxcRsError> {
             let h = $ctx.vlapl.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vlapl handle missing for Vxc+ order".to_string(),
             })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vlapl_len, 1) })
+            Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vlapl_len) })
         };
         let vtau_arg = || -> Result<_, $crate::error::LibxcRsError> {
             let h = $ctx.vtau.ok_or_else(|| $crate::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vtau handle missing for Vxc+ order".to_string(),
             })?;
-            Ok(unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vtau_len, 1) })
+            Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vtau_len) })
         };
-        let dt = ScalarArg { elem: $ctx.dt };
-        let zt = ScalarArg { elem: $ctx.zt };
+        let dt = $ctx.dt;
+        let zt = $ctx.zt;
         match $order {
             DerivativeOrder::Exc => unsafe {
                 $($exc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), sigma_arg(), lapl_arg(), tau_arg(), zk_arg()?,
                     dt, zt,
-                ).map_err(crate::eval::mgga_dispatch::map_mgga_launch_err)?;
+                );
             }
             DerivativeOrder::Vxc => unsafe {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
@@ -223,7 +223,7 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
                     rho_arg(), sigma_arg(), lapl_arg(), tau_arg(),
                     zk_arg()?, vrho_arg()?, vsigma_arg()?, vlapl_arg()?, vtau_arg()?,
                     dt, zt,
-                ).map_err(crate::eval::mgga_dispatch::map_mgga_launch_err)?;
+                );
             }
             DerivativeOrder::Fxc | DerivativeOrder::Kxc | DerivativeOrder::Lxc => {
                 // CR-07 follow-up: structurally panic-free constructor for the
@@ -672,7 +672,6 @@ def main():
         lines.append("use crate::error::LibxcRsError;")
         lines.append("use crate::model::{DerivativeOrder, Spin};")
         lines.append("use cubecl::cpu::CpuRuntime;")
-        lines.append("use cubecl::frontend::ScalarArg;")
         lines.append("use cubecl::prelude::ArrayArg;")
         lines.append("")
         lines.extend(emit_launch_helper(name, libxc_id, has_exc, scalars))

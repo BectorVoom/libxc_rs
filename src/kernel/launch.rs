@@ -115,10 +115,9 @@ mod tests {
                 &client,
                 cube_count,
                 cube_dim,
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            )
-            .unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
         read_output_buffer(&client, output_handle, n)

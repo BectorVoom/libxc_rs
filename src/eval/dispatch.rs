@@ -25,7 +25,6 @@ use crate::model::{DerivativeOrder, LdaFunctional, Spin, Thresholds};
 use crate::output::LdaOutput;
 use cubecl::client::ComputeClient;
 use cubecl::cpu::CpuRuntime;
-use cubecl::frontend::ScalarArg;
 use cubecl::prelude::{ArrayArg, CubeCount, CubeDim, LaunchError};
 use cubecl::server::Handle;
 
@@ -307,9 +306,9 @@ fn map_launch_err(e: LaunchError) -> LibxcRsError {
 // kernel functions by their explicit names.
 
 /// Compact 10-arm match emitter for exc-bearing functionals with the
-/// supplied parameter list (a tuple of `ScalarArg`s pre-built by the
-/// caller). Each arm pulls the same parameter list, threading the
-/// per-level `ArrayArg` slots in.
+/// supplied parameter list (a tuple of bare scalar values — cubecl 0.10
+/// passes scalars bare, no `ScalarArg` wrapper). Each arm pulls the same
+/// parameter list, threading the per-level `ArrayArg` slots in.
 macro_rules! ten_arm_dispatch {
     // Variant: same parameter list across unpol and pol kernels.
     (
@@ -337,106 +336,106 @@ macro_rules! ten_arm_dispatch {
         params_unpol = ( $( $scalar_u:expr ),* $(,)? ),
         params_pol   = ( $( $scalar_p:expr ),* $(,)? ) $(,)?
     ) => {{
-        let rho_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.rho, $ctx.rho_len, 1) };
-        let zk_arg  = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.zk,  $ctx.zk_len,  1) };
+        let rho_arg = || unsafe { ArrayArg::from_raw_parts($ctx.rho.clone(), $ctx.rho_len) };
+        let zk_arg  = || unsafe { ArrayArg::from_raw_parts($ctx.zk.clone(), $ctx.zk_len) };
         let vrho_arg = || {
             let h = $ctx.vrho.expect("vrho handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vrho_len) }
         };
         let v2_arg = || {
             let h = $ctx.v2rho2.expect("v2rho2 handle missing for Fxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v2rho2_len) }
         };
         let v3_arg = || {
             let h = $ctx.v3rho3.expect("v3rho3 handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v3rho3_len) }
         };
         let v4_arg = || {
             let h = $ctx.v4rho4.expect("v4rho4 handle missing for Lxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v4rho4_len) }
         };
-        let dt = ScalarArg { elem: $ctx.dt };
-        let zt = ScalarArg { elem: $ctx.zt };
+        let dt = $ctx.dt;
+        let zt = $ctx.zt;
         match ($order, $spin) {
             (DerivativeOrder::Exc, Spin::Unpolarized) => unsafe {
                 $($exc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(),
-                    $( ScalarArg { elem: $scalar_u }, )*
+                    $( $scalar_u, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Vxc, Spin::Unpolarized) => unsafe {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(),
-                    $( ScalarArg { elem: $scalar_u }, )*
+                    $( $scalar_u, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Fxc, Spin::Unpolarized) => unsafe {
                 $($fxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(),
-                    $( ScalarArg { elem: $scalar_u }, )*
+                    $( $scalar_u, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Kxc, Spin::Unpolarized) => unsafe {
                 $($kxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(), v3_arg(),
-                    $( ScalarArg { elem: $scalar_u }, )*
+                    $( $scalar_u, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Lxc, Spin::Unpolarized) => unsafe {
                 $($lxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(), v3_arg(), v4_arg(),
-                    $( ScalarArg { elem: $scalar_u }, )*
+                    $( $scalar_u, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Exc, Spin::Polarized) => unsafe {
                 $($exc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(),
-                    $( ScalarArg { elem: $scalar_p }, )*
+                    $( $scalar_p, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Vxc, Spin::Polarized) => unsafe {
                 $($vxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(),
-                    $( ScalarArg { elem: $scalar_p }, )*
+                    $( $scalar_p, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Fxc, Spin::Polarized) => unsafe {
                 $($fxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(),
-                    $( ScalarArg { elem: $scalar_p }, )*
+                    $( $scalar_p, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Kxc, Spin::Polarized) => unsafe {
                 $($kxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(), v3_arg(),
-                    $( ScalarArg { elem: $scalar_p }, )*
+                    $( $scalar_p, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Lxc, Spin::Polarized) => unsafe {
                 $($lxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), zk_arg(), vrho_arg(), v2_arg(), v3_arg(), v4_arg(),
-                    $( ScalarArg { elem: $scalar_p }, )*
+                    $( $scalar_p, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
         }
     }};
@@ -452,25 +451,25 @@ macro_rules! eight_arm_vxc_only_dispatch {
         [$($vxc_p:tt)::+], [$($fxc_p:tt)::+], [$($kxc_p:tt)::+], [$($lxc_p:tt)::+],
         params = ( $( $scalar:expr ),* $(,)? )
     ) => {{
-        let rho_arg = || unsafe { ArrayArg::from_raw_parts::<f64>($ctx.rho, $ctx.rho_len, 1) };
+        let rho_arg = || unsafe { ArrayArg::from_raw_parts($ctx.rho.clone(), $ctx.rho_len) };
         let vrho_arg = || {
             let h = $ctx.vrho.expect("vrho handle missing for Vxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.vrho_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vrho_len) }
         };
         let v2_arg = || {
             let h = $ctx.v2rho2.expect("v2rho2 handle missing for Fxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v2rho2_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v2rho2_len) }
         };
         let v3_arg = || {
             let h = $ctx.v3rho3.expect("v3rho3 handle missing for Kxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v3rho3_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v3rho3_len) }
         };
         let v4_arg = || {
             let h = $ctx.v4rho4.expect("v4rho4 handle missing for Lxc+ order");
-            unsafe { ArrayArg::from_raw_parts::<f64>(h, $ctx.v4rho4_len, 1) }
+            unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.v4rho4_len) }
         };
-        let dt = ScalarArg { elem: $ctx.dt };
-        let zt = ScalarArg { elem: $ctx.zt };
+        let dt = $ctx.dt;
+        let zt = $ctx.zt;
         match ($order, $spin) {
             (DerivativeOrder::Exc, _) => unreachable!(
                 "dispatch_lda already validated has_exc() before calling vxc-only helper"
@@ -479,65 +478,65 @@ macro_rules! eight_arm_vxc_only_dispatch {
                 $($vxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Fxc, Spin::Unpolarized) => unsafe {
                 $($fxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Kxc, Spin::Unpolarized) => unsafe {
                 $($kxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(), v3_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Lxc, Spin::Unpolarized) => unsafe {
                 $($lxc_u)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(), v3_arg(), v4_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Vxc, Spin::Polarized) => unsafe {
                 $($vxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Fxc, Spin::Polarized) => unsafe {
                 $($fxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Kxc, Spin::Polarized) => unsafe {
                 $($kxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(), v3_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
             (DerivativeOrder::Lxc, Spin::Polarized) => unsafe {
                 $($lxc_p)::+::launch_unchecked::<CpuRuntime>(
                     $ctx.client, $ctx.cube_count.clone(), $ctx.cube_dim,
                     rho_arg(), vrho_arg(), v2_arg(), v3_arg(), v4_arg(),
-                    $( ScalarArg { elem: $scalar }, )*
+                    $( $scalar, )*
                     dt, zt,
-                ).map_err(map_launch_err)?;
+                );
             }
         }
     }};
