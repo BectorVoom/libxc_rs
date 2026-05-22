@@ -273,10 +273,10 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
 - [ ] 11-08-PLAN.md — BLOCKED behind 11-06 architectural decision. Was: Per-`-p` cargo build sweep across ~258 routed subcrates + 5-audit final sweep + CLAUDE.md (D-03a) + ROADMAP success criteria #1/#4/#7 correction (D-12/D-13) + delete 5 obsolete tools + phase close
 
 **Re-opened 2026-05-22 (gap closure — 5 plans 11-09..13 per 11-VERIFICATION.md G-1..G-5):** Phase 11 closed PARTIAL (`ac9729a51d`); Phase 11.1 shipped the translator Rule-3 emit fix and handed 5 closure items back. Plans 01-08 are executed history (have SUMMARYs) — DO NOT renumber/replan them. The gap-closure plans:
-- [ ] 11-09-PLAN.md — G-1 (CRITICAL PATH): add libxc work_mgga von Weizsacker tau-clamp (tau>=sigma/(8 rho)) to PRODUCTION mgga_dispatch + direct-call single-kernel parity check on a sub-vW point (Wave 1; gates G-2)
-- [ ] 11-10-PLAN.md — G-3: drive batched_compile_sweep.py to VERDICT: ALL_OK across all 266 subcrates at f64+f32 (11.1 ran a 50-sample); resumable/chunked per family -> merged manifest (Wave 1; no dep)
-- [ ] 11-11-PLAN.md — G-4: D-LOCK-D idempotency proof — 264 non-sharded zero-diff + tpssloc/revtpss shard disposition without clobbering the OOM fix (Wave 1; translator-only, no cargo build)
-- [ ] 11-12-PLAN.md — G-2: memory-safe family-chunked full-649 oracle path (no OOMing umbrella) + G4 f32 sweep within the 1e-3 hard ceiling, tau-clamp inherited from G-1 (Wave 2; depends on 11-09)
+- [x] 11-09-PLAN.md — G-1 (CRITICAL PATH): von Weizsacker tau-clamp in PRODUCTION mgga_dispatch + canary parity (DONE 2026-05-22, canary PASS 1e-12). ⚠ Entry gate found a systemic cubecl-0.10 launch-ABI drift that blocks the umbrella compile (gates G-2) — see memory project_umbrella_cubecl010_launch_abi_drift
+- [ ] 11-10-PLAN.md — G-3: drive batched_compile_sweep.py to VERDICT: ALL_OK across all 266 subcrates at f64+f32 (11.1 ran a 50-sample); resumable/chunked per family -> merged manifest (Wave 1; no dep) — DEFERRED pending umbrella re-plan (won't catch the umbrella drift; builds kernel subcrates only)
+- [x] 11-11-PLAN.md — G-4: D-LOCK-D idempotency proof — 264 non-sharded zero-diff + tpssloc/revtpss Option A shard disposition (DONE 2026-05-22, SATISFIED)
+- [ ] 11-12-PLAN.md — G-2: memory-safe family-chunked full-649 oracle path (no OOMing umbrella) + G4 f32 sweep within the 1e-3 hard ceiling, tau-clamp inherited from G-1 (Wave 2; depends on 11-09) — BLOCKED by the cubecl-0.10 umbrella launch-ABI drift; needs a launch-ABI migration plan first
 - [ ] 11-13-PLAN.md — G-5: closure (GATED on G-1..G-4) — 11-06 SUMMARY PARTIAL->COMPLETE + 11-08 Task 2 (CLAUDE.md/ROADMAP wording, delete 5 obsolete tools, remove LIBXC_RS_BYPASS_DEFERRED) + manual phase.complete 11 (Wave 3; depends on 11-09..12)
 
 **Canonical refs:**
