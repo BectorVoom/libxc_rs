@@ -72,7 +72,9 @@ pub fn read_output_buffer(
     handle: cubecl::server::Handle,
     _n: usize,
 ) -> Vec<f64> {
-    let bytes = client.read_one(handle);
+    let bytes = client
+        .read_one(handle)
+        .expect("read_one failed during output buffer read-back");
     bytemuck::cast_slice(&bytes).to_vec()
 }
 

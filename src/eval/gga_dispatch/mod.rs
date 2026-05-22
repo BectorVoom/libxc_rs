@@ -25,6 +25,7 @@
 
 use crate::dims::Dimensions;
 use crate::error::LibxcRsError;
+use crate::functional::params::FunctionalParams;
 use crate::input::GgaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
@@ -297,8 +298,13 @@ pub fn dispatch_gga(
     input: &GgaInput,
     order: DerivativeOrder,
     output: &mut GgaOutput,
+    params: &dyn FunctionalParams,
     thresholds: &Thresholds,
 ) -> Result<(), LibxcRsError> {
+    // `params` is currently unused by GGA dispatch: routed functionals that
+    // take ext_params are deferred (return UnsupportedFunctional) until the
+    // libxc 7.0.0 defaults are wired (B3 follow-up). Mirrors dispatch_mgga.
+    let _ = params;
     // 1. Validate functional can satisfy the requested order.
     if order == DerivativeOrder::Exc && !functional.has_exc() {
         return Err(LibxcRsError::UnsupportedDerivativeOrder {
@@ -611,6 +617,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         ).unwrap_err();
         assert!(matches!(err, LibxcRsError::UnsupportedDerivativeOrder { .. }));
@@ -634,6 +641,7 @@ mod tests {
             &input,
             DerivativeOrder::Exc,
             &mut output,
+            &crate::functional::params::NoParams,
             &Thresholds::default(),
         );
         // Accept either Ok (when scalar defaults are wired) or a typed
