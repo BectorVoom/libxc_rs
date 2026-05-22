@@ -44,6 +44,7 @@ use cubecl::prelude::{CubeCount, CubeDim, LaunchError};
 use cubecl::server::Handle;
 
 pub mod funcs;
+pub(crate) mod prepare;
 
 
 /// Bag of CubeCL handles + scalar args shared across all per-functional
@@ -278,8 +279,12 @@ pub fn dispatch_mgga(
     let sigma_len = input.sigma().len();
     let lapl_handle = create_input_buffer(&client, input.lapl());
     let lapl_len = input.lapl().len();
-    let tau_handle = create_input_buffer(&client, input.tau());
-    let tau_len = input.tau().len();
+    // G-1: regularize τ to its von Weizsäcker lower bound (τ ≥ σ/(8ρ)) before
+    // the kernel launch, mirroring libxc's MGGA work-driver. See prepare.rs.
+    let tau_clamped =
+        prepare::tau_von_weizsacker(input.rho(), input.sigma(), input.tau(), thresholds.density);
+    let tau_handle = create_input_buffer(&client, &tau_clamped);
+    let tau_len = tau_clamped.len();
 
     // 6. Output handle sizing (Exc + Vxc tiers only).
     let zk_len = np * dims.zk as usize;
