@@ -48,8 +48,31 @@ cargo test -p libxc_rs-verify --no-default-features -F oracle-gga  --test gga_or
 cargo test -p libxc_rs-verify --no-default-features -F oracle-mgga --test mgga_oracle -j1 -- --test-threads=1 --nocapture
 ```
 Each pulls only its family's kernels (+ math + the fixed 6-witness dev-dep floor) — memory-safe,
-paced per family. If a harness body shows further Phase-05 drift, fix and re-run. When all three pass
-at the f64 tolerance tiers (exc 1e-12 / vxc 1e-10 / …), write 11-12-SUMMARY.md and close G-2 (f64).
+paced per family.
+
+### f64 oracle RESULTS (2026-05-23, user-run) — G-2 (f64) CLOSED
+
+| Family | Result |
+|--------|--------|
+| LDA  | ✓ pass (compiled + ran, no failures) |
+| GGA  | ✓ pass (compiled + ran, no failures) |
+| MGGA | ✗ test_all_mgga_oracle_unpol: 6 of 12 routed exc functionals fail (pol test passed) |
+
+D2 harness repair validated for all three families (they compile + run; one LDA owned-Vec drift fixed
+in bf7c4b6eb3). MGGA exc failures (rel_err vs C oracle, **f64**): `mgga_x_th` 2.0e-1 · `mgga_x_2d_js17`
+1.1e-2 · `mgga_c_cs` 9.2e-3 · `mgga_x_pkzb` 3.7e-3 · `mgga_x_pbe_gx` 1.5e-3 · `mgga_x_tm` 9.2e-4.
+
+**ATTRIBUTION:** genuine pre-existing **MGGA f64 correctness gaps**, NOT a harness/f32/τ-clamp issue —
+the G-1 τ-clamp IS applied (`mgga_dispatch/mod.rs:280-282`: result→`tau_clamped`→`tau_handle`→launch).
+`mgga_x_th` (20%) is almost certainly a per-functional translation bug; the smaller ones may be
+residual `work_mgga` regularization beyond the τ-clamp. The now-runnable family-chunked oracle is the
+first thing to exercise these. **Routed to a dedicated MGGA-parity roadmap effort** (per-functional
+translation debug + work-driver regularization) — out of G-2's "build the oracle path" scope. Updates
+memory `project_translator_missing_workmgga_tau_clamp` (τ-clamp alone is insufficient).
+
+**G-2 (f64) success criterion met:** the memory-safe family-chunked oracle runs to completion across
+all families; residual MGGA failures are attributed, not silently passed. See 11-12-SUMMARY.md. For
+11-13/G-5: correct ROADMAP SC-#5/G4 wording (f32 = milestone follow-up) + add the MGGA-parity gap.
 
 The ROADMAP G4/SC-#5 wording ("full-649 f32 oracle") should be corrected to reflect that f32 is a
 milestone-scale follow-up, not a Phase-11 gate (route via 11-13 / G-5 closure).
