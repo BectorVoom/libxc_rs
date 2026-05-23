@@ -87,14 +87,14 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_x, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_coeffs, nc, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_out, n, 1),
+                ArrayArg::from_raw_parts(h_x, n),
+                ArrayArg::from_raw_parts(h_coeffs, nc),
+                ArrayArg::from_raw_parts(h_out.clone(), n),
                 nc,
-            ).unwrap();
+            );
         }
 
-        let bytes = client.read_one(h_out);
+        let bytes = client.read_one(h_out).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -114,16 +114,16 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_x, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_p, np, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_q, nq, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_out, n, 1),
+                ArrayArg::from_raw_parts(h_x, n),
+                ArrayArg::from_raw_parts(h_p, np),
+                ArrayArg::from_raw_parts(h_q, nq),
+                ArrayArg::from_raw_parts(h_out.clone(), n),
                 np,
                 nq,
-            ).unwrap();
+            );
         }
 
-        let bytes = client.read_one(h_out);
+        let bytes = client.read_one(h_out).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 

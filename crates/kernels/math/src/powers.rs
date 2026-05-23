@@ -92,63 +92,63 @@ mod tests {
     #[cube(launch_unchecked)]
     fn test_safe_cbrt_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = safe_cbrt(input[idx]);
+        output[idx] = safe_cbrt::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_2_3 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_2_3_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_2_3(input[idx]);
+        output[idx] = pow_2_3::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_4_3 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_4_3_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_4_3(input[idx]);
+        output[idx] = pow_4_3::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_5_3 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_5_3_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_5_3(input[idx]);
+        output[idx] = pow_5_3::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_3_2 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_3_2_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_3_2(input[idx]);
+        output[idx] = pow_3_2::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_1_4 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_1_4_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_1_4(input[idx]);
+        output[idx] = pow_1_4::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_7_3 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_7_3_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_7_3(input[idx]);
+        output[idx] = pow_7_3::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_2 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_2_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_2(input[idx]);
+        output[idx] = pow_2::<f64>(input[idx]);
     }
 
     /// Test kernel that applies pow_3 element-wise.
     #[cube(launch_unchecked)]
     fn test_pow_3_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = pow_3(input[idx]);
+        output[idx] = pow_3::<f64>(input[idx]);
     }
 
     fn make_client() -> ComputeClient<CpuRuntime> {
@@ -167,12 +167,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -187,12 +187,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -207,12 +207,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -227,12 +227,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -323,12 +323,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -343,12 +343,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -363,12 +363,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -383,12 +383,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -403,12 +403,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 

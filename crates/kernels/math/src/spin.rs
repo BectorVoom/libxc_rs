@@ -71,14 +71,14 @@ mod tests {
         out_zeta: &mut Array<f64>,
     ) {
         let idx = ABSOLUTE_POS;
-        out_total[idx] = compute_total(rho_up[idx], rho_down[idx]);
-        out_zeta[idx] = compute_zeta(rho_up[idx], rho_down[idx], threshold[idx]);
+        out_total[idx] = compute_total::<f64>(rho_up[idx], rho_down[idx]);
+        out_zeta[idx] = compute_zeta::<f64>(rho_up[idx], rho_down[idx], threshold[idx]);
     }
 
     #[cube(launch_unchecked)]
     fn test_spin_scaling_kernel(input: &Array<f64>, output: &mut Array<f64>) {
         let idx = ABSOLUTE_POS;
-        output[idx] = spin_scaling(input[idx]);
+        output[idx] = spin_scaling::<f64>(input[idx]);
     }
 
     #[cube(launch_unchecked)]
@@ -88,7 +88,7 @@ mod tests {
         output: &mut Array<f64>,
     ) {
         let idx = ABSOLUTE_POS;
-        output[idx] = clamp_zeta(zeta[idx], threshold[idx]);
+        output[idx] = clamp_zeta::<f64>(zeta[idx], threshold[idx]);
     }
 
     fn make_client() -> ComputeClient<CpuRuntime> {
@@ -112,16 +112,16 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_up, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_down, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_thr, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_total, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_zeta, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(h_up, n),
+                ArrayArg::from_raw_parts(h_down, n),
+                ArrayArg::from_raw_parts(h_thr, n),
+                ArrayArg::from_raw_parts(h_total.clone(), n),
+                ArrayArg::from_raw_parts(h_zeta.clone(), n),
+            );
         }
 
-        let total_bytes = client.read_one(h_total);
-        let zeta_bytes = client.read_one(h_zeta);
+        let total_bytes = client.read_one(h_total).expect("read_one failed during output buffer read-back");
+        let zeta_bytes = client.read_one(h_zeta).expect("read_one failed during output buffer read-back");
         (
             bytemuck::cast_slice(&total_bytes).to_vec(),
             bytemuck::cast_slice(&zeta_bytes).to_vec(),
@@ -139,12 +139,12 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&input_handle, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&output_handle, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(input_handle, n),
+                ArrayArg::from_raw_parts(output_handle.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(output_handle);
+        let bytes = client.read_one(output_handle).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -160,13 +160,13 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_zeta, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_thr, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_out, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(h_zeta, n),
+                ArrayArg::from_raw_parts(h_thr, n),
+                ArrayArg::from_raw_parts(h_out.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(h_out);
+        let bytes = client.read_one(h_out).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 

@@ -49,7 +49,7 @@ mod tests {
     ) {
         let idx = ABSOLUTE_POS;
         let cond = cond_flag[idx] > 0.0;
-        output[idx] = piecewise3(cond, val_true[idx], val_false[idx]);
+        output[idx] = piecewise3::<f64>(cond, val_true[idx], val_false[idx]);
     }
 
     #[cube(launch_unchecked)]
@@ -64,7 +64,7 @@ mod tests {
         let idx = ABSOLUTE_POS;
         let c1 = c1_flag[idx] > 0.0;
         let c2 = c2_flag[idx] > 0.0;
-        output[idx] = piecewise5(c1, v1[idx], c2, v2[idx], v_else[idx]);
+        output[idx] = piecewise5::<f64>(c1, v1[idx], c2, v2[idx], v_else[idx]);
     }
 
     fn make_client() -> ComputeClient<CpuRuntime> {
@@ -86,14 +86,14 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_cond, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_true, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_false, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_out, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(h_cond, n),
+                ArrayArg::from_raw_parts(h_true, n),
+                ArrayArg::from_raw_parts(h_false, n),
+                ArrayArg::from_raw_parts(h_out.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(h_out);
+        let bytes = client.read_one(h_out).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
@@ -115,16 +115,16 @@ mod tests {
                 &client,
                 CubeCount::new_1d(n as u32),
                 CubeDim::new_1d(1),
-                ArrayArg::from_raw_parts::<f64>(&h_c1, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_v1, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_c2, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_v2, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_ve, n, 1),
-                ArrayArg::from_raw_parts::<f64>(&h_out, n, 1),
-            ).unwrap();
+                ArrayArg::from_raw_parts(h_c1, n),
+                ArrayArg::from_raw_parts(h_v1, n),
+                ArrayArg::from_raw_parts(h_c2, n),
+                ArrayArg::from_raw_parts(h_v2, n),
+                ArrayArg::from_raw_parts(h_ve, n),
+                ArrayArg::from_raw_parts(h_out.clone(), n),
+            );
         }
 
-        let bytes = client.read_one(h_out);
+        let bytes = client.read_one(h_out).expect("read_one failed during output buffer read-back");
         bytemuck::cast_slice(&bytes).to_vec()
     }
 
