@@ -22,4 +22,11 @@ edition = "2024"
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 bytemuck = "1.25"
 libxc-kernel-mgga_c_b94 = { path = "../crates/kernels/mgga/mgga_c_b94" }
+# Phase 12 single-kernel parity canaries — one kernel each, memory-safe at jobs=1.
+libxc-kernel-mgga_x_th = { path = "../crates/kernels/mgga/mgga_x_th" }
+libxc-kernel-mgga_x_2d_js17 = { path = "../crates/kernels/mgga/mgga_x_2d_js17" }
+libxc-kernel-mgga_c_cs = { path = "../crates/kernels/mgga/mgga_c_cs" }
+libxc-kernel-mgga_x_pkzb = { path = "../crates/kernels/mgga/mgga_x_pkzb" }
+libxc-kernel-mgga_x_pbe_gx = { path = "../crates/kernels/mgga/mgga_x_pbe_gx" }
+libxc-kernel-mgga_x_tm = { path = "../crates/kernels/mgga/mgga_x_tm" }
 libxc-sys = { path = "../libxc-sys" }
