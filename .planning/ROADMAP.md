@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Math Core and CubeCL Substrate** - All #[cube] math building blocks, CubeCL CPU backend, LDA_X canary kernel validation
 - [ ] **Phase 3: Input/Output and Evaluation Framework** - I/O bundle types, output masks, dispatch routing, mixed functional accumulation
 - [x] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
-- [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
+- [x] **Phase 5: Functional Lifecycle and Hybrid Properties** *(COMPLETE 2026-04-28 — verified 5/5 must-haves; 4 live-FFI oracle tests deferred to warm-cache run, see 05-HUMAN-UAT.md)* - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 - [x] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED, COMPLETE 2026-05-25)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
@@ -164,7 +164,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 2. Math Core and CubeCL Substrate | 0/5 | Not started | - |
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
 | 4. Bulk Kernel Translation | 5/5 | Complete | 2026-04-24 |
-| 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
+| 5. Functional Lifecycle and Hybrid Properties | 7/7 | Complete | 2026-04-28 |
 | 6. Public API and C Compatibility | 1/4 | In progress | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
 | 10. Workspace-Level Modular Split | 0/4 | Planned | - |
