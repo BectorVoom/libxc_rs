@@ -2,7 +2,7 @@
 phase: 11-splitter-v2-unified-5k-cap
 plan: 06
 subsystem: direction-a-prerequisites-unblocked, task-5-pending
-status: PARTIAL — Tasks 1-4 done with major scope expansion (turbofish blockers discovered + fixed); Tasks 5-8 pending fresh session
+status: COMPLETE — closed 2026-05-25 via the re-opened gap-closure plans (11-09..15, G-1..G-6 at f64). Tasks 5-8 / Gate-3 Legs resolved per the Closure Update below; Leg 3 (f32) DISPOSITIONED as a milestone follow-up (NOT passed). Session-1 PARTIAL record + FAILED-iteration history PRESERVED verbatim (AP-5)
 captured: 2026-05-18
 tags: [direction-A, 5th-iter, D-25, D-26, D-27, D-28, D-29, AP-7, AP-8, partial, turbofish-rule-9, translator-rule-10, math-baseline-green, mgga_c_b94-canary-green]
 requires:
@@ -25,7 +25,39 @@ deferred_to_11-07:
   - Full-tree regen via `python3 tools/maple_to_kernels.py translate --family all` (the 91 other MGGA + 131 GGA + 43 LDA functionals will pick up Rule 10 turbofish at that pass)
 ---
 
-# Phase 11 Plan 06: Direction A — PARTIAL (Tasks 1-4 + structural unblocking; Tasks 5-8 pending)
+# Phase 11 Plan 06: Direction A — CLOSED COMPLETE 2026-05-25 (see Closure Update; Session-1 PARTIAL record preserved below)
+
+## Closure Update (2026-05-25) — COMPLETE
+
+Phase 11 closed COMPLETE via the re-opened gap-closure plans (11-09..15). The Session-1
+PARTIAL state below is **preserved verbatim as history (AP-5)**; this section records how the
+then-pending Tasks 5-8 and the Gate-3 Legs were ultimately resolved **at f64**.
+
+**Gate 3 EXIT — final disposition:**
+- **Leg 1 (compile):** ✓ — proven for the canary at Session 1; generalized by **11-10 (G-3)**'s
+  full-roster f64 compile sweep — VERDICT ALL_OK across **305** on-disk packages, 0 fail, 0 pass=-1.
+- **Leg 2 (parity f64):** ✓ CLOSED — the von Weizsäcker τ-clamp landed in the **PRODUCTION**
+  `mgga_dispatch` (**11-09, G-1**; canary parity PASS at 1e-12), and the family-chunked f64 oracle
+  (**11-12, G-2**) ran end-to-end: LDA ✓, GGA ✓. Parity is now demonstrated via the production
+  dispatch path with the G-1 τ-clamp — not the canary host-driver workaround.
+- **Leg 3 (parity f32):** **DISPOSITIONED — NOT passed.** Re-deferred as a MILESTONE-scale
+  follow-up (kernels are f64-concrete by design; an f32 oracle would be a false f64-vs-f64 pass —
+  threat T-11-12-01, 11-12-SUMMARY §Deviations). Explicitly NOT claimed as a Phase-11 pass.
+- **Leg 4 (idempotency):** ✓ CLOSED — **11-11 (G-4)** D-LOCK-D proof SATISFIED (264 zero-diff +
+  sharded-pair disposition).
+
+**Task 8 (final SUMMARY rewrite):** this Closure Update + the COMPLETE status. The
+`LIBXC_RS_BYPASS_DEFERRED` bypass (Task-4 infra) was removed at close (11-13 Task 2 Step 5; D-11
+restored). **G-6 (11-14)** migrated the umbrella to the cubecl-0.10 launch ABI.
+
+**6 MGGA f64-parity residuals routed to Phase 12 (RECORDED, not fixed here):** the 11-12 f64 oracle
+surfaced 6 routed MGGA `exc` functionals failing vs the libxc C oracle at f64 — `mgga_x_th` (2.0e-1),
+`mgga_x_2d_js17` (1.1e-2), `mgga_c_cs` (9.2e-3), `mgga_x_pkzb` (3.7e-3), `mgga_x_pbe_gx` (1.5e-3),
+`mgga_x_tm` (9.2e-4). Root cause = per-functional translation + residual `work_mgga` regularization
+beyond the τ-clamp (which IS applied @ `mgga_dispatch/mod.rs:280-282` and is NOT the cause). Tracked
+as the new ROADMAP "Phase 12 — MGGA f64 Parity" entry.
+
+_Everything below this line is the Session-1 (2026-05-18) PARTIAL record, preserved unchanged._
 
 ## Outcome
 

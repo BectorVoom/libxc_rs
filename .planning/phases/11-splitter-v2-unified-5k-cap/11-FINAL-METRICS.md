@@ -4,6 +4,25 @@
 **Source:** structural audit tools + 11-07 partial sweep manifest ingest.
 **Phase status:** PARTIAL — translator Rule 3 emit gap blocks SPEC-11-R4 (clean per-`-p` compile of all 266 on-disk subcrates) and SPEC-11-R5 (parity tests). All structural goals achieved; codegen correctness pending phase 11.1 follow-up.
 
+> ## Closure Update (2026-05-25) — Phase 11 COMPLETE
+>
+> The 2026-05-18 metrics below are **preserved as history (AP-5)**. Final dispositions after the
+> re-opened gap-closure plans (11-09..15):
+> - **Manifest-ingest (SPEC-11-R4):** the 2026-05-18 "13 records (12 OK + 1 FAIL)" partial is
+>   superseded by **11-10**'s merged `.cache/batched-compile-sweep-manifest.json` — record count ==
+>   `len(build_roster())` = **305** on-disk packages at f64, **VERDICT ALL_OK** (0 fail, 0 pass=-1).
+>   (Roster grew 266→305: per-functional restructure + the 25 `_pK` shards 11-10 added for
+>   rmggac/tpss/kcisk to clear the 30 GB OOM ceiling.)
+> - **F32 smoke / F32 full-649 sweep (D-24):** re-dispositioned as a **MILESTONE-scale follow-up,
+>   NOT a Phase-11 gate** (the kernels are f64-concrete; an f32 oracle would be a false f64-vs-f64
+>   pass — T-11-12-01). **NOT passed**, not a deliverable of this phase.
+> - **test_idempotency:** closed by **11-11 (G-4)** — D-LOCK-D proof SATISFIED (264 zero-diff +
+>   sharded-pair disposition); the historical `split_lda_subcrates.py` tool-staleness FAIL is moot
+>   (that tool is obsolete post-D-10a).
+> - **SPEC-11-R5 parity:** demonstrated at **f64** via the production τ-clamp (11-09) + the
+>   family-chunked f64 oracle (11-12: LDA ✓ GGA ✓); 6 MGGA exc residuals routed to Phase 12 — MGGA
+>   f64 Parity. Phase status is now **COMPLETE** (see 11-13-SUMMARY.md).
+
 ## Per-Invariant Status
 
 | Metric | 11-BASELINE | 11-08 End | Phase Goal | Status |
