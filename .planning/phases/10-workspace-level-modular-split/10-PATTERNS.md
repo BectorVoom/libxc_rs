@@ -1,114 +1,160 @@
-# Phase 10: Workspace-Level Modular Split — Pattern Map
+# Phase 10: Workspace-Level Modular Split - Pattern Map
 
-**Mapped:** 2026-05-07
-**Phase:** 10 — Workspace-Level Modular Split
-**Bias:** This is a **pure refactor**. Almost nothing is net-new code; the bulk of the work is `git mv` of existing trees plus three new `Cargo.toml` + `lib.rs` skeletons, a thin facade reduction at root, 7 xtask path-string edits, and (conditionally) a hand-written C header. The pattern map is therefore biased toward **structural analogs** for the 3 new crate skeletons and toward **mechanical edit recipes** for the rest.
+**Mapped:** 2026-05-25 (FORCE-REFRESH — overwrites stale 2026-05-07 map that referenced deleted `crates/kernel-{lda,gga,mgga}*` umbrella crates)
+**Files analyzed:** 11 created / 5 modified / 3 deleted (per CONTEXT "What Phase 10 Creates/Modifies/Deletes")
+**Analogs found:** 14 / 14 created-or-modified files have an in-repo analog (this is a pure refactor — every target is modeled on something that exists at HEAD `31eb1dc6cb`)
+**HEAD verification:** every file:line cited below was read live this session.
 
-**Files analyzed:**
-- 3 new Cargo.toml (`crates/libxc-{core,eval,compat}/Cargo.toml`)
-- 3 new lib.rs (`crates/libxc-{core,eval,compat}/src/lib.rs`)
-- 1 modified root lib.rs (`src/lib.rs` → thin facade)
-- 1 modified root Cargo.toml (`Cargo.toml` deps + members)
-- 7 modified xtask path strings (4 in `xtask/src/main.rs`, 3 in `xtask/src/generate_metadata.rs`)
-- 1 conditionally new C header (`crates/libxc-compat/include/xc_rs.h`)
-- ~133 cross-module imports rewritten via mechanical pattern (described, not enumerated)
-
-**Analogs found:** 11 / 11 distinct file roles (all have strong in-repo analogs).
-
----
+> This phase is a PURE REFACTOR. Almost nothing is net-new logic. The "patterns to copy"
+> are: (1) the closest existing `Cargo.toml` + `lib.rs` skeletons to model the 3 new crates on,
+> (2) mechanical Cargo-graph + path-string edit recipes, and (3) the one cross-crate visibility
+> fix. Source-code bodies (`model/`, `eval/`, `compat/`, …) MOVE verbatim via `git mv` — they
+> are not re-authored, so there is no "core pattern / error handling" body to copy for them.
 
 ## File Classification
 
-| File / Edit | Role | Closest Analog | Match Quality |
-|-------------|------|----------------|---------------|
-| `crates/libxc-core/Cargo.toml` | rlib crate root (data + meta, no compute) | `crates/kernel-math/Cargo.toml` | role-match (both rlib, simple deps; ours has no cubecl) |
-| `crates/libxc-eval/Cargo.toml` | rlib orchestration crate (depends on core + many kernel-* crates) | `crates/kernel-mgga/Cargo.toml` + root `Cargo.toml:6-14` | exact (both aggregate path-deps on kernel-* tree) |
-| `crates/libxc-compat/Cargo.toml` | rlib + cdylib + staticlib FFI shim | **none — net-new shape** (no current crate declares cdylib) | structural pattern from CONTEXT D-07 specifics block |
-| `crates/libxc-core/src/lib.rs` | rlib facade declaring child modules | `crates/kernel-math/src/lib.rs` | exact |
-| `crates/libxc-eval/src/lib.rs` | rlib facade declaring child modules | `crates/kernel-math/src/lib.rs` | exact |
-| `crates/libxc-compat/src/lib.rs` | rlib facade re-publishing the moved compat module tree | `src/compat/mod.rs` (current) | exact (same `pub mod` shape) |
-| `src/lib.rs` (post-reduction) | **thin re-export facade** of three child crates | `src/eval/mod.rs:6-13` (in-repo "module aggregator" via `pub use`) and current `src/lib.rs:23-38` (today's re-export block) | partial (no current crate is a 100%-re-export facade; closest is `src/eval/mod.rs`) |
-| `Cargo.toml` (root, post-edit) | thinned-out workspace root | current `Cargo.toml:6-14, 21-24, 25-196` | self-modification (analog is its own current shape) |
-| `xtask/src/main.rs:291,329,355,387` | path-string edit (4 sites, identical pattern) | the lines themselves | self-pattern (mechanical s/src/crates\/libxc-core\/src/) |
-| `xtask/src/generate_metadata.rs:445,595,643` | path-string edit (3 sites, identical pattern) | the lines themselves | self-pattern |
-| `crates/libxc-compat/include/xc_rs.h` (conditional) | hand-written C declarations mirroring extern fns | `libxc-master/src/xc.h:1-80` (pre-image) + `src/compat/raw_handle.rs:67-149` (extern fn signatures to mirror) | **pre-image only** — no in-repo `.h` exists today (verified: `find . -name '*.h' -not -path './target/*' -not -path './libxc-master/*'` returned empty) |
-| `~133 cross-module imports` | mechanical rewrite (`use crate::X` → `use libxc_core::X`) | `src/eval/gga_dispatch/batch14.rs:1-2`, `src/functional/evaluate.rs:1-4`, `src/eval/mgga_dispatch/mod.rs:1-5` | exact (all 105 cross-module imports follow one of three shapes) |
+| New/Modified File | Role | Data Flow | Closest Analog | Match Quality |
+|-------------------|------|-----------|----------------|---------------|
+| `crates/libxc-core/Cargo.toml` (new) | config (leaf rlib) | n/a | `crates/kernels/math/Cargo.toml` + root `Cargo.toml:6-11` | role-match (dep partition) |
+| `crates/libxc-core/src/lib.rs` (new) | config (module decls) | n/a | `crates/kernels/math/src/lib.rs:1-23` + root `src/lib.rs:1-21` | exact (module-decl skeleton) |
+| `crates/libxc-eval/Cargo.toml` (new) | config (rlib + 306 deps + `[features]`) | n/a | root `Cargo.toml:6-377` (deps + `[features]` block) | exact (whole machinery moves) |
+| `crates/libxc-eval/src/lib.rs` (new) | config (module decls) | n/a | root `src/lib.rs:1-21` | exact |
+| `crates/libxc-compat/Cargo.toml` (new) | config (cdylib/staticlib) | n/a | `libxc-sys/Cargo.toml` (member shape) + CONTEXT D-07 sample | role-match (no existing cdylib in repo) |
+| `crates/libxc-compat/src/lib.rs` (new) | config (module decls) | n/a | root `src/lib.rs:1-21` | exact |
+| `crates/libxc-compat/include/xc_rs.h` (new, conditional) | header | n/a | `libxc-master/src/xc.h` (1:1 minus `void→int`) — Phase-6 deliverable | external-mirror (D-09a: only if Phase 6 shipped it) |
+| `crates/libxc-core/src/deferred*` (relocated) | model (pure metadata) | lookup | `crates/kernels/math/src/deferred.rs` (move verbatim) | exact (`git mv`, preserve `lda::`/`mgga::` shape) |
+| `src/lib.rs` (root, reduced to facade) | config (re-export facade) | n/a | current `src/lib.rs:23-38` (preserve surface, repoint paths) + RESEARCH "Public Surface" | exact (line-for-line strategy (a)) |
+| root `Cargo.toml` (deps shrink + members + `[features]` re-forward) | config (workspace) | n/a | `verify/Cargo.toml:13-19` (re-forward pattern) + current `Cargo.toml:652-662` | exact |
+| `xtask/src/main.rs` (4 path strings) | utility (codegen emitter) | file-I/O | `xtask/src/main.rs:291,329,355,387` (self — prefix edit) | exact (mechanical) |
+| `xtask/src/generate_metadata.rs` (3 path strings) | utility (codegen emitter) | file-I/O | `xtask/src/generate_metadata.rs:445,595,643` (self — prefix edit) | exact (mechanical) |
+| `meta/generated_propagation` visibility (in xtask emitter) | model (generated const) | n/a | RESEARCH Pitfall 2 (emitter token OR re-export) | role-match |
+| `verify/tests/{lda,mgga}_oracle.rs` (deferred import repoint) | test | lookup | `verify/tests/lda_oracle.rs:36`, `mgga_oracle.rs:44` (self — `use` path swap) | exact |
 
----
+## Pattern Assignments
 
-## A. New Cargo.toml files (3)
+### `crates/libxc-core/Cargo.toml` (config, leaf rlib — ZERO cubecl, ZERO kernel deps; SC 2)
 
-### `crates/libxc-core/Cargo.toml`
+**Analog:** `crates/kernels/math/Cargo.toml` (package shape) + root `Cargo.toml:6-11` (the deps to partition IN).
 
-**Role:** rlib data-layer crate (no compute, no CubeCL).
-
-**Closest analog:** `crates/kernel-math/Cargo.toml:1-13`
-
-**Excerpt (verbatim):**
+**Package header to copy** (`crates/kernels/math/Cargo.toml:1-4`):
 ```toml
 [package]
-name = "libxc-kernel-math"
+name = "libxc-core"      # (analog uses libxc-kernel-math)
 version = "0.1.0"
 edition = "2024"
-
-[dependencies]
-cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
-
-[dev-dependencies]
-approx = "0.5.1"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-libm = "0.2"
 ```
 
-**Notes for planner:**
-- **Mirror:** `[package]` block (name, version, edition 2024) verbatim, just change `name = "libxc-core"`.
-- **Diverge — drop `cubecl`:** RESEARCH §2 dependency partition (lines 84-93) and CONTEXT D-criterion 2 say libxc-core has zero cubecl deps. Verification: `cargo tree -p libxc-core --depth 1 | grep -E "cubecl|libxc-kernel"` MUST be empty.
-- **Add the three deps that move from root `Cargo.toml:6-10`** that libxc-core actually consumes:
-  - `bitflags = "2.10.0"` — used by `model::FunctionalFlags` and `output::OutputMask`.
-  - `bytemuck = { version = "1.25.0", features = ["derive"] }` — used by Pod/Zeroable derives on input/output structs (RESEARCH §4 notes zero current derives, but bytemuck is also re-imported via path through libxc-eval; safe to keep here for input/output types).
-  - `thiserror = "2.0.18"` — required by `LibxcRsError` (already imported via `#[derive(thiserror::Error)]` at `src/error/mod.rs:3`).
-- **Convention:** Use **literal version strings**, not `workspace = true`. RESEARCH §2 line 79: "**No `[workspace.dependencies]` table is in use.** Each leaf crate declares its dep with a literal version string ... Don't introduce `workspace = true` patterns in this phase — that's scope creep."
-- **Dev-deps:** None required for libxc-core (existing test modules inside `src/error/`, `src/model/`, etc. don't pull dev-deps today; verify with `cargo check -p libxc-core --tests`).
-
----
-
-### `crates/libxc-eval/Cargo.toml`
-
-**Role:** rlib orchestration crate (depends on libxc-core + the 4 kernel-* aggregator crates).
-
-**Closest analog:** Root `Cargo.toml:6-14` (today's `[dependencies]` block — this **IS** what the libxc-eval Cargo.toml's deps block becomes after partitioning).
-
-**Excerpt (verbatim) — root Cargo.toml lines 6-14:**
+**Dependency partition** — pull EXACTLY these three from root `Cargo.toml:7,8,10` (NOT line 9's cubecl, NOT line 11's kernel-math — D-11/D-14 forbid cubecl in core):
 ```toml
 [dependencies]
-bitflags = "2.10.0"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
+bitflags  = "2.10.0"
+bytemuck  = { version = "1.25.0", features = ["derive"] }
 thiserror = "2.0.18"
-libxc-kernel-math = { path = "crates/kernel-math" }
-libxc-kernel-lda = { path = "crates/kernel-lda" }
-libxc-kernel-gga = { path = "crates/kernel-gga" }
-libxc-kernel-mgga = { path = "crates/kernel-mgga" }
 ```
+> Why these three: `LibxcRsError` needs `thiserror`; `OutputMask`/`FunctionalFlags` need `bitflags`; GPU-byte casts in `output/`/`layout/` need `bytemuck`. cubecl is excluded BY DESIGN (SC 2) — the D-11 `deferred` relocation is the enabling move (it was the only core-bound caller of `libxc_kernel_math::`).
 
-**Secondary structural analog (kernel-* aggregator shape):** `crates/kernel-mgga/Cargo.toml:1-15` shows the path-dep pattern for the kernel- aggregator crates. libxc-eval is structurally similar but at one level higher.
-
-**Notes for planner:**
-- **Mirror the path-deps for the four kernel aggregators** verbatim (`libxc-kernel-{math,lda,gga,mgga}`); their paths from `crates/libxc-eval/` are `../kernel-math`, `../kernel-lda`, etc. (one extra `../` because libxc-eval is at `crates/libxc-eval/` not the workspace root).
-- **Add the new path-dep:** `libxc-core = { path = "../libxc-core" }` (consumed via `use libxc_core::error::LibxcRsError;` etc.).
-- **Drop `bitflags` + `thiserror`:** per RESEARCH §2 partition table — neither is used inside libxc-eval directly (LibxcRsError lives in libxc-core; eval uses it via the path-dep, which transitively brings thiserror's runtime trait impl).
-- **Keep `cubecl` and `bytemuck`:** RESEARCH §2 marks both YES for libxc-eval (cubecl: `kernel/launch.rs` uses `ComputeClient`; bytemuck: `bytemuck::cast_slice` invocation in `kernel/launch.rs`).
-- **Trap:** the existing `[dev-dependencies]` block at root (`Cargo.toml:16-19`) — `approx`, `libm`, `libxc_rs-verify` — does NOT move into libxc-eval. Those test deps stay at root because they're for root's own integration tests. libxc-eval's per-module `#[cfg(test)] mod tests` likely needs `approx` if any moved test asserts numerics; planner verifies with `cargo check -p libxc-eval --tests` and adds dev-deps as warnings surface.
+**Verification (SC 2, cheap, no compile):**
+```bash
+! cargo tree -p libxc-core -e no-dev | grep -qE 'cubecl|libxc-kernel'
+```
 
 ---
 
-### `crates/libxc-compat/Cargo.toml`
+### `crates/libxc-core/src/lib.rs` (config, module-decl skeleton)
 
-**Role:** rlib + cdylib + staticlib FFI shim. **Net-new crate-type shape** — no other crate in this workspace declares cdylib today.
+**Analog:** `crates/kernels/math/src/lib.rs:1-23` (the `pub mod X;` list shape) + root `src/lib.rs:1` (`#![deny(warnings)]`).
 
-**Closest analog:** None in repo. Use the exact shape pinned by **CONTEXT.md specifics block lines 209-223** (D-07 reference Cargo.toml).
+**Skeleton to write** (module names from CONTEXT "What Phase 10 Creates" + the D-11 `deferred` addition):
+```rust
+#![deny(warnings)]
+// (copy the 3 clippy allows from root src/lib.rs:5-7 only if a moved module triggers them;
+//  core is cubecl-free so likely needs none — add if a cargo check surfaces a lint.)
 
-**Excerpt (verbatim from CONTEXT D-07):**
+pub mod model;
+pub mod meta;
+pub mod error;
+pub mod dims;
+pub mod registry;
+pub mod input;
+pub mod output;
+pub mod layout;     // present in src/ today; CONTEXT lists it in the core set
+pub mod deferred;   // NEW — relocated from libxc-kernel-math (D-11)
+```
+> The `pub mod` list mirrors how `crates/kernels/math/src/lib.rs:7-22` declares its 17 submodules. Do NOT add `pub use` item re-exports here — those live in the ROOT facade (`src/lib.rs:23-38`), not in core (the facade's whole job is surface preservation, SC 5).
+
+---
+
+### `crates/libxc-eval/Cargo.toml` (config — cubecl + 306 kernel deps + the WHOLE `[features]` machinery)
+
+**Analog:** root `Cargo.toml` — the deps block (`6-321`) and the `[features]` block (`323-377…645`) MOVE here near-verbatim. This is the highest-risk edit in the phase.
+
+**Package header** (model on `crates/kernels/math/Cargo.toml:1-4`, name `libxc-eval`).
+
+**Dependency partition** — pull from root `Cargo.toml`:
+```toml
+[dependencies]
+libxc-core = { path = "../libxc-core" }                                  # NEW one-way dep
+cubecl     = { version = "0.10.0", default-features = false, features = ["cpu"] }  # root:9
+bytemuck   = { version = "1.25.0", features = ["derive"] }               # root:8
+libxc-kernel-math = { path = "../kernels/math" }                         # root:11 — NON-optional, KEEP non-optional
+# … all 305 optional per-functional kernel lines from root:16-321 …
+```
+
+**CRITICAL path-prefix rewrite** (RESEARCH Pitfall 3). Root deps are root-relative; from `crates/libxc-eval/` they need `../`:
+```
+root  Cargo.toml:16:  path = "crates/kernels/gga/gga_c_acgga"
+                                ↓ (uniform bulk edit, all 306 lines)
+eval  Cargo.toml:     path = "../kernels/gga/gga_c_acgga"
+```
+(i.e. `crates/kernels/...` → `../kernels/...`; and `crates/kernels/math` → `../kernels/math` for the non-optional line 11.)
+
+**`[features]` block — MOVE VERBATIM** from root `Cargo.toml:323-645` (block starts line 323, `default` line 331, `oracle-lda` 333-377, `oracle-gga` 379-…, `oracle-mgga` 513-…). The `dep:libxc-kernel-*` entries (e.g. `Cargo.toml:334` `"dep:libxc-kernel-hyb_lda_xc_bn05"`) resolve against eval's now-local deps. Keep the explanatory comment block (`Cargo.toml:324-330`) verbatim.
+```toml
+[features]
+default     = ["oracle-lda", "oracle-gga", "oracle-mgga"]   # root:331
+oracle-lda  = [ "dep:libxc-kernel-…", … ]                   # root:333-377 verbatim
+oracle-gga  = [ … ]                                          # root:379-…
+oracle-mgga = [ … ]                                          # root:513-…
+```
+
+**Failure-mode checklist** (RESEARCH "Feature-Forwarding Chain" — all `cargo tree`, no compile, no OOM):
+```bash
+cargo tree -p libxc-eval -e no-dev --no-default-features        # should show ONLY core + kernel-math
+cargo tree -p libxc-eval -e no-dev | grep -c libxc-compat       # MUST be 0 (SC 3)
+cargo tree -p libxc-eval -e no-dev | grep libxc-core            # MUST be present (SC 3)
+```
+- `libxc-kernel-math` must stay NON-optional (it has no `optional = true` today, root:11).
+- The 305 per-functional lines keep `optional = true`.
+- Keep `dep:` prefix on every `[features]` entry (prevents implicit-feature collision).
+
+---
+
+### `crates/libxc-eval/src/lib.rs` (config, module-decl skeleton)
+
+**Analog:** root `src/lib.rs:1-7` (attrs) + the `eval/functional/kernel/workspace` mod set.
+
+**Skeleton:**
+```rust
+#![deny(warnings)]
+#![allow(clippy::excessive_precision)]    // root src/lib.rs:5 — CubeCL macro expansion triggers these
+#![allow(clippy::needless_late_init)]     // root:6
+#![allow(clippy::too_many_arguments)]     // root:7
+
+pub mod eval;
+pub mod functional;
+pub mod kernel;
+pub mod workspace;   // top-level placeholder (dead, zero consumers) — distinct from eval::workspace
+```
+> Copy ALL THREE clippy allows here (unlike core) — eval owns the `kernel/` dispatch glue whose CubeCL `#[cube]` macro expansion is exactly what root `src/lib.rs:2-4` documents these allows for.
+> NAMING TRAP (RESEARCH): `pub mod workspace;` here = the dead top-level `src/workspace/` placeholder. The LIVE `EvaluationWorkspace` is `eval::workspace` (declared inside `eval/mod.rs:13`, moves with `eval/`). Two different modules — do not conflate or drop the live one.
+
+---
+
+### `crates/libxc-compat/Cargo.toml` (config — cdylib + staticlib; D-07/D-08)
+
+**Analog:** No existing cdylib crate in the repo (this is the one genuinely-new artifact shape). Closest member-shape analog is `libxc-sys/Cargo.toml` (a small standalone member). The `[lib] crate-type` triple is from CONTEXT D-07 (`<specifics>` lines 254-269).
+
+**Full Cargo.toml to write:**
 ```toml
 [package]
 name = "libxc-compat"
@@ -117,652 +163,232 @@ edition = "2024"
 
 [lib]
 crate-type = ["rlib", "cdylib", "staticlib"]
-# default name = "libxc_rs" (no override) → libxc_rs.so / libxc_rs.a / libxc_rs.rlib
+# NO `name =` override → default crate name "libxc_rs" → libxc_rs.so / libxc_rs.a / libxc_rs.rlib (D-08)
+# NO [bin] target (D-07)
 
 [dependencies]
 libxc-core = { path = "../libxc-core" }
 libxc-eval = { path = "../libxc-eval" }
-thiserror = "2.0"
+thiserror  = "2.0.18"   # root Cargo.toml:10 pin
 ```
-
-**Notes for planner:**
-- **No `[lib] name = "..."` override** (D-08). Default name = the package name with `-` → `_`, i.e. `libxc_compat`. **WAIT — re-read D-08: "cdylib name = `libxc_rs` (Rust default — no `[lib] name = "..."` override)."** That phrasing is ambiguous because Rust's actual default is the package name (`libxc-compat` → `libxc_compat`), NOT `libxc_rs`. **PLANNER MUST RECONCILE:** to get `libxc_rs.so`, `[lib] name = "libxc_rs"` override IS required, despite D-08's "no override" phrasing. Cross-check with CONTEXT line 27: "default name `libxc_rs` (so output is `libxc_rs.so` / `libxc_rs.a`)" — strongly implies they want override `name = "libxc_rs"`. **Recommend planner add `[lib] name = "libxc_rs"` and flag this in plan 10-03 as a reconciliation note.**
-- **Add `thiserror = "2.0.18"` to match** the version pin elsewhere in the workspace (CONTEXT specifics block writes `thiserror = "2.0"` but root `Cargo.toml:10` pins `2.0.18` — match the root pin for consistency).
-- **No dev-deps** mentioned in D-07 spec; existing `#[cfg(test)] mod tests` inside `src/compat/macros.rs:51-74` and `src/compat/raw_handle.rs:177-332` use only `std::ffi::CStr` and `crate::*` — no external test crate needed. Planner confirms with `cargo check -p libxc-compat --tests`.
-- **Bytemuck NOT needed here** (RESEARCH §2 partition table — libxc-compat row, all `—`).
+> SC 4: nothing depends on libxc-compat. It is EXCLUDED from `[workspace] default-members` (D-10a — its cdylib links all 306 kernels → OOM at jobs=1). Build on demand: `cargo build -p libxc-compat`.
 
 ---
 
-## B. New lib.rs files (3)
+### `crates/libxc-compat/src/lib.rs` (config, module-decl skeleton)
 
-### `crates/libxc-core/src/lib.rs`
+**Analog:** root `src/lib.rs:1-7` attrs. The `compat/` directory moves as a unit (`c_layout, errno, ids, legacy_eval, macros, mod, raw_handle, removed` — already correctly partitioned by Phase 6).
 
-**Role:** Module aggregator for the data layer.
-
-**Closest analog:** `crates/kernel-math/src/lib.rs:1-21`
-
-**Excerpt (verbatim):**
-```rust
-#![allow(clippy::excessive_precision)]
-#![allow(clippy::needless_late_init)]
-#![allow(clippy::too_many_arguments)]
-#![allow(non_snake_case)]
-#![allow(unused_assignments)]
-
-pub mod constants;
-pub mod powers;
-pub mod piecewise;
-pub mod polynomials;
-pub mod erf;
-pub mod spin;
-pub mod dft_quantities;
-pub mod bspline;
-pub mod lambert_w;
-pub mod expint_e1;
-pub mod special;
-pub mod integrate;
-pub mod br89;
-pub mod mbrxc;
-```
-
-**Secondary analog for the `#![deny(warnings)]` line:** `src/lib.rs:1` (current root sets `#![deny(warnings)]`).
-
-**Notes for planner:**
-- **Mirror the structure exactly**, but use the libxc-core module list from CONTEXT.md `### What Phase 10 Creates` lines 175-177:
-  ```rust
-  #![deny(warnings)]
-  #![allow(clippy::excessive_precision)]
-  #![allow(clippy::needless_late_init)]
-  #![allow(clippy::too_many_arguments)]
-
-  pub mod model;
-  pub mod meta;
-  pub mod registry;
-  pub mod input;
-  pub mod output;
-  pub mod layout;
-  pub mod dims;
-  pub mod error;
-  ```
-- **CRITICAL — R1 from RESEARCH §Plan Sequencing & Risk:** add a `pub use` re-export for `PROPAGATION_RULES` so `libxc-eval`'s `lifecycle.rs` can resolve it across the crate boundary. Either:
-  - **(recommended)** in `crates/libxc-core/src/meta/mod.rs`, change line 3 from `pub(crate) mod generated_propagation;` and add at the bottom: `pub use generated_propagation::{PropagationRule, PROPAGATION_RULES};`
-  - or widen line 3 to `pub mod generated_propagation;`
-- **`#![deny(warnings)]` carries through verbatim from `src/lib.rs:1`.** Both `kernel-math/src/lib.rs` and `kernel-lda/src/lib.rs` opt **out** of deny(warnings) by NOT setting it (they only have `#![allow(...)]`); this is acceptable. RESEARCH §6 line 141 says "Each new leaf crate's `lib.rs` should mirror this — same line at top, plus the same three `#![allow(clippy::...)]` exemptions copied from current root." **Follow RESEARCH §6, not the kernel-math precedent.**
-- **`#![allow(non_snake_case)]` and `#![allow(unused_assignments)]`** from kernel-math/lib.rs are **NOT needed** in libxc-core (those are CubeCL `#[cube]`-expansion warnings; libxc-core has zero CubeCL).
+**Skeleton:** declare the moved `compat` submodules at the crate root (the planner picks whether to keep a `compat` module wrapper or flatten — moving `src/compat/mod.rs` → `crates/libxc-compat/src/lib.rs` and re-rooting its `pub mod`s is the lowest-churn option). Copy `#![deny(warnings)]` + the 3 clippy allows (compat re-exports eval types whose CubeCL-derived signatures can trip `too_many_arguments`).
 
 ---
 
-### `crates/libxc-eval/src/lib.rs`
+### `crates/libxc-core/src/deferred*` (relocated module — D-11; the ONE intentional kernel-crate touch)
 
-**Role:** Module aggregator for the orchestration layer.
+**Analog:** `crates/kernels/math/src/deferred.rs` — `git mv` it verbatim into libxc-core; delete the `pub mod deferred;` line from `crates/kernels/math/src/lib.rs:22`.
 
-**Closest analog:** `crates/kernel-math/src/lib.rs:1-21` (same shape as libxc-core).
+**PRESERVE the two-submodule shape** (RESEARCH Pitfall 6 — `deferred.rs:15` `pub mod lda {`, `:109` `pub mod mgga {`, each with `pub fn is_deferred(id: u16) -> bool` at `:77` / `:186`):
+```rust
+// crates/kernels/math/src/deferred.rs (head — moves verbatim, EXCEPT the //! provenance):
+pub mod lda  { /* … pub struct DeferredLda; pub fn is_deferred(id: u16) -> bool { … } */ }
+pub mod mgga { /* … pub fn is_deferred(id: u16) -> bool { … } */ }
+```
+> Update the `//!` header (`deferred.rs:1-13`) — it currently says "Relocated here from the per-family façade crates … the root crate's model layer depends on it too, so this is the natural home." Phase 10 REVERSES that premise (model → core, core must NOT dep kernel-math), so note the Phase-10 relocation in the header.
 
-**Notes for planner:**
-- Module list per CONTEXT.md `### What Phase 10 Creates` line 179:
-  ```rust
-  #![deny(warnings)]
-  #![allow(clippy::excessive_precision)]
-  #![allow(clippy::needless_late_init)]
-  #![allow(clippy::too_many_arguments)]
-
-  pub mod eval;
-  pub mod functional;
-  pub mod kernel;
-  pub mod workspace;
-  ```
-- **Note:** today's `src/eval/mod.rs:1-13` includes `pub mod workspace;` *as a sub-module of eval*, AND there's a separate top-level `src/workspace/` (a placeholder per `src/workspace/mod.rs:1`). The planner must verify whether **both** workspaces survive the move or whether they're merged. **Confirmed via read:** `src/eval/mod.rs:5` is `pub mod workspace;` (eval's own scratch-buffer workspace) and `src/workspace/` at top level is the separate planner/host/scratch_map module. Both are in libxc-eval's domain per CONTEXT line 12 ("`eval/`, `functional/`, `kernel/` glue, `workspace/`") so both move; the top-level `pub mod workspace;` in libxc-eval/lib.rs refers to the **outer** `src/workspace/` tree.
+**Consumer repoint** (4 sites, all verified at HEAD):
+```rust
+// src/model/lda_functional.rs:80  (model/ now in libxc-core → crate-local):
+//   BEFORE: if libxc_kernel_math::deferred::lda::is_deferred(id.raw()) {
+//   AFTER:  if crate::deferred::lda::is_deferred(id.raw()) {
+// src/model/mgga_functional.rs:43  (use alias):
+//   BEFORE: use libxc_kernel_math::deferred::mgga::is_deferred as is_deferred_mgga;
+//   AFTER:  use crate::deferred::mgga::is_deferred as is_deferred_mgga;
+// verify/tests/lda_oracle.rs:36:
+//   BEFORE: use libxc_kernel_math::deferred::lda::is_deferred;
+//   AFTER:  use libxc_rs::deferred::lda::is_deferred;   (via facade re-export — see root lib.rs)
+// verify/tests/mgga_oracle.rs:44:
+//   BEFORE: use libxc_kernel_math::deferred::mgga::is_deferred as is_deferred_mgga;
+//   AFTER:  use libxc_rs::deferred::mgga::is_deferred as is_deferred_mgga;
+```
+> Also: doc-comment lines reference the old path — `src/model/lda_functional.rs:13`, `src/model/mgga_functional.rs:30`. Update for accuracy (non-load-bearing).
+> Open Q (RESEARCH): after this move, `verify/Cargo.toml:41`'s `libxc-kernel-math` dev-dep ("for the deferred registry") may be droppable — grep verify for any OTHER `libxc_kernel_math::` symbol before removing.
 
 ---
 
-### `crates/libxc-compat/src/lib.rs`
+### `src/lib.rs` (root, reduced to thin facade — SC 5 surface preservation)
 
-**Role:** Re-publishes the moved compat-module tree through the cdylib's crate root (so `#[macro_export]` macros and `extern "C"` symbols sit at the cdylib's symbol table top).
+**Analog:** the CURRENT `src/lib.rs:23-38` IS the spec. Strategy (a) (CONTEXT-recommended): preserve the item re-export list line-for-line, repointing `model::`→`libxc_core::model::`, `eval::`→`libxc_eval::eval::`, etc. `api/` stays local.
 
-**Closest analog:** `src/compat/mod.rs:1-10` (current — the file becomes `crates/libxc-compat/src/lib.rs`'s body, with one tweak).
+**Attrs to keep** (`src/lib.rs:1-7`): `#![deny(warnings)]` + the 3 clippy allows (verbatim).
 
-**Excerpt (verbatim):**
+**Module-path re-exports** (preserve the `pub mod` namespace surface from `src/lib.rs:9-21` — these paths are PART of the API):
 ```rust
-//! C-ABI compatibility layer for libxc_rs (phase 6 plan 02a/02b/03).
+pub mod api;   // stays LOCAL (references BOTH core and eval — see below)
 
-pub mod c_layout;
-pub mod errno;
-pub mod ids;
-pub mod legacy_eval;
-pub mod macros;
-pub mod raw_handle;
-pub mod removed;
+pub use libxc_core::{model, meta, error, dims, registry, input, output};  // + layout if it was pub
+pub use libxc_eval::{eval, functional, kernel, workspace};
+pub use libxc_core::deferred;     // NEW (D-11) — verify *_oracle.rs route through this
+pub use libxc_compat as compat;   // preserves libxc_rs::compat::* (RESEARCH Open Q 1 — re-export to be safe)
+// pub use libxc_kernel_math as math;  // OMIT — D-02 deletes src/math, zero consumers found (D-02a)
 ```
 
-**Notes for planner:**
-- **Add `#![deny(warnings)]` + the three `#![allow(clippy::...)]` exemptions** at the top (same as libxc-core/libxc-eval). RESEARCH §6 line 141.
-- **Mirror the `pub mod` list verbatim** — the 8 child modules already exist in `src/compat/` (verified via `ls src/compat/`: `c_layout.rs errno.rs ids.rs legacy_eval.rs macros.rs mod.rs raw_handle.rs removed.rs`). After `git mv src/compat/* crates/libxc-compat/src/`, the original `mod.rs` becomes the new `lib.rs` (rename `mod.rs` → `lib.rs` after move) — or delete `mod.rs` and create a fresh `lib.rs` with the deny+allow lines + the 8 `pub mod` declarations. Both options work; the second is cleaner because it doesn't lose the module declarations and the `git mv mod.rs lib.rs` preserves blame.
-- **`#[macro_export] macro_rules! extern_c_wrapper` survives the move at `crates/libxc-compat/src/macros.rs:9-21`** with no rewrite. RESEARCH §Plan Sequencing R3 line 295: "After move that resolves to `libxc_compat::extern_c_wrapper` — works because `#[macro_export]` exports at the crate root."
-- **However:** the macro body (`src/compat/macros.rs:11-49`) references `$crate::compat::errno::LIBXC_RS_NULL_HANDLE`, `$crate::LibxcRsError`, etc. After the move, `$crate` resolves to `libxc_compat`, but `compat::errno::*` no longer exists at that path — it's now `errno::*` (the `compat::` prefix dropped because the whole compat tree IS the libxc-compat crate root). **PLANNER MUST REWRITE the macro body's `$crate::compat::errno::*` → `$crate::errno::*` and `$crate::LibxcRsError` → `libxc_core::error::LibxcRsError`** (the typed error enum lives in libxc-core post-D-01). Sample diff:
-  ```rust
-  // Before (src/compat/macros.rs:12-13):
-  $crate::compat::errno::set_error(
-      $crate::compat::errno::LIBXC_RS_NULL_HANDLE,
-  // After (crates/libxc-compat/src/macros.rs:12-13):
-  $crate::errno::set_error(
-      $crate::errno::LIBXC_RS_NULL_HANDLE,
-  ```
-  Same fix at lines 16, 33, 35 (`$crate::compat::errno::*` 4 occurrences total) and at lines 28, 38 (`$crate::LibxcRsError` 2 occurrences) — use `libxc_core::error::LibxcRsError` instead, or expose it as `pub use libxc_core::error::LibxcRsError;` near the top of `crates/libxc-compat/src/lib.rs` so `$crate::LibxcRsError` keeps resolving.
-- **Internal callers of the macro:** `src/compat/raw_handle.rs:13` is `use crate::extern_c_wrapper;` — survives unchanged because after move, `crate::extern_c_wrapper` resolves at the new crate root (the macro is `#[macro_export]`, so it's published at `libxc_compat::` and `crate::` inside libxc-compat IS `libxc_compat::`).
-
----
-
-## C. Modified files
-
-### `src/lib.rs` (root — reduced to thin facade)
-
-**Role:** Curated re-export facade preserving today's public surface.
-
-**Closest analog (in-repo):** `src/eval/mod.rs:1-19` — the only file in this codebase that is bulk `pub use` re-exports of submodules/child crates. The current root `src/lib.rs:23-38` re-export block is also a self-analog for the *flat* re-exports.
-
-**Excerpt 1 — the existing eval aggregator pattern (`src/eval/mod.rs:1-19`):**
+**Item re-exports** — repoint each line of current `src/lib.rs:23-38`:
 ```rust
-pub mod dispatch;
-pub mod gga_dispatch;
-pub mod mgga_dispatch;
-pub mod mix;
-pub mod workspace;
-pub use dispatch::dispatch_lda;
-pub use gga_dispatch::dispatch_gga;
-pub use mgga_dispatch::dispatch_mgga;
-pub use mix::{
-    add_to_mix, evaluate_mixed_gga, evaluate_mixed_lda, evaluate_mixed_lda_functional,
-    evaluate_mixed_mgga, AuxiliaryConfig,
-};
-pub use workspace::EvaluationWorkspace;
-
-// Alias kept for backward compat with verify/tests/lda_oracle.rs and other
-// external callers that imported `LdaFunctionalParams` from the old
-// dispatch module. New code should reference `LdaXParams` directly from
-// `crate::functional::params_lda::LdaXParams`.
-pub use crate::functional::params_lda::LdaXParams as LdaFunctionalParams;
-```
-
-**Excerpt 2 — current root re-export list to preserve (`src/lib.rs:23-38`):**
-```rust
-pub use model::{
+pub use libxc_core::model::{                       // was: pub use model::{   (src/lib.rs:23)
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
     HybridType, HybridTermKind, Dimensionality, Thresholds,
     LdaFunctional, GgaFunctional, MggaFunctional,
 };
-pub use meta::{FunctionalMeta, Reference, ExtParamSpec, HybridTerm};
-pub use error::LibxcRsError;
-pub use dims::Dimensions;
-pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, version_string};
-pub use input::{LdaInput, GgaInput, MggaInput};
-pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
-pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};
-pub use functional::{
+pub use libxc_core::meta::{FunctionalMeta, Reference, ExtParamSpec, HybridTerm};   // src/lib.rs:28
+pub use libxc_core::error::LibxcRsError;                                           // :29
+pub use libxc_core::dims::Dimensions;                                             // :30
+pub use libxc_core::registry::{lookup_by_id, lookup_by_name, functional_count, version, version_string}; // :31
+pub use libxc_core::input::{LdaInput, GgaInput, MggaInput};                       // :32
+pub use libxc_core::output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};       // :33
+pub use libxc_eval::eval::{dispatch_lda, dispatch_gga, dispatch_mgga};            // :34
+pub use libxc_eval::functional::{                                                 // :35
     classify_hybrid, CamCoefficients, Functional, FunctionalParams, NlcCoefficients, NoParams,
 };
-pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};
+pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};                  // :38 — local
 ```
 
-**Notes for planner:**
-- **Use RESEARCH §7's "shape (c) split-by-module" verbatim** (RESEARCH lines 174-211). It is the only shape that preserves both the namespace-shape paths (`libxc_rs::math::constants::*`, `libxc_rs::eval::dispatch_lda`) AND the flat top-level re-exports.
-- **Specific path requirements** (each path used externally per RESEARCH §7 survey lines 152-170):
-  | External path | Source crate after split |
-  |---|---|
-  | `libxc_rs::LibxcRsError` | libxc-core |
-  | `libxc_rs::eval::EvaluationWorkspace` | libxc-eval |
-  | `libxc_rs::eval::{dispatch_gga, dispatch_lda, dispatch_mgga}` | libxc-eval |
-  | `libxc_rs::eval::LdaFunctionalParams` | libxc-eval (re-export of `libxc-eval::functional::params_lda::LdaXParams`) |
-  | `libxc_rs::functional::Functional` | libxc-eval |
-  | `libxc_rs::functional::classify_hybrid` | libxc-eval |
-  | `libxc_rs::input::{LdaInput, GgaInput, MggaInput}` | libxc-core |
-  | `libxc_rs::math::constants::{KF_CONST, RS_CONST}` | **libxc-kernel-math** (via `pub mod math { pub use libxc_kernel_math::*; }`) |
-  | `libxc_rs::math::{dft_quantities, erf, powers, spin}::*` | libxc-kernel-math |
-  | `libxc_rs::meta::{ExtParamSpec, FunctionalMeta, HybridTerm, Reference}` | libxc-core |
-  | `libxc_rs::model::{Spin, FunctionalId, ...}` (12 names) | libxc-core |
-  | `libxc_rs::output::{LdaOutput, GgaOutput, MggaOutput, OutputMask}` | libxc-core |
-  | `libxc_rs::registry::{lookup_by_id, lookup_by_name, all_functional_ids}` | libxc-core |
-- **R2 trap:** the `pub mod math { pub use libxc_kernel_math::*; }` re-export is required because `tests/math_integration.rs` uses `libxc_rs::math::*` paths (RESEARCH §7 line 162-166), but `src/math/mod.rs` is being deleted under D-02. Easy to forget — **must be in the new root lib.rs**. Today's `src/math/mod.rs:1-12` is exactly this re-export pattern (`pub use libxc_kernel_math::constants;` x12), so the planner can copy that file's body into `pub mod math { ... }` block as-is.
-- **Drop these `pub mod` declarations** from current `src/lib.rs:9-21`: `model, meta, error, dims, registry, kernel, input, output, eval, functional, compat`. Replace with `pub mod model { pub use libxc_core::model::*; }` etc. **Keep:** `pub mod api;` (root still owns `src/api/`).
-- **Drop `pub mod compat;`** entirely — libxc-compat is the cdylib and root must not depend on it (success criterion 4, RESEARCH §2 partition table line 93).
-- **Drop `pub mod kernel;`** — it's a re-export shim (`src/kernel/mod.rs:1-3`: `pub use libxc_kernel_lda as lda;` etc.); decide whether to keep it through root or let downstream consumers go direct to `libxc_kernel_lda`. RESEARCH §7's external-survey grep returned no hits on `libxc_rs::kernel::*`, so it's safe to drop. Planner verifies.
+**`api/` path repoint** (RESEARCH "api/ dual-dependency fact"): `src/api/{batch,builder,evaluate}.rs` reference `crate::error/model/input/output/registry` (→ now `libxc_core::`) AND `crate::eval::workspace::EvaluationWorkspace` + `crate::functional::Functional` (→ now `libxc_eval::`). Both libxc-core AND libxc-eval must be root direct deps. `api/` has ZERO `crate::compat` refs — so root needs a libxc-compat dep ONLY for the surface `pub use libxc_compat as compat;` re-export, not for `api/` to compile (SC-4-friendly).
+
+**SC 5 verification (cheap, per-`-p`):**
+```bash
+cargo check -p libxc_rs --lib -j1     # umbrella, ~536 MB peak per 11-14 — NOT --workspace (OOMs)
+```
 
 ---
 
-### `Cargo.toml` (root — workspace + thinned deps)
+### root `Cargo.toml` (deps shrink + members + `[features]` re-forward)
 
-**Role:** Workspace declaration + thin facade deps.
+**Analog:** `verify/Cargo.toml:13-19` is the EXACT re-forward pattern to copy; current `Cargo.toml:652-662` is the members/default-members block to amend.
 
-**Closest analog (self-modification):** Current root `Cargo.toml` itself.
-
-**Excerpts to modify:**
-
-**Lines 6-14 (`[dependencies]` block) — partition per RESEARCH §2 lines 84-93:**
+**`[dependencies]` shrinks** to the facade set (cubecl/bitflags/kernel deps move OUT to leaf crates):
 ```toml
 [dependencies]
-bitflags = "2.10.0"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
-thiserror = "2.0.18"
-libxc-kernel-math = { path = "crates/kernel-math" }
-libxc-kernel-lda = { path = "crates/kernel-lda" }
-libxc-kernel-gga = { path = "crates/kernel-gga" }
-libxc-kernel-mgga = { path = "crates/kernel-mgga" }
+libxc-core   = { path = "crates/libxc-core" }
+libxc-eval   = { path = "crates/libxc-eval", default-features = false }  # ← default-features=false is LOAD-BEARING
+libxc-compat = { path = "crates/libxc-compat" }   # only for `pub use libxc_compat as compat;` surface
 ```
 
-**Replace with (post-split):**
+**`[features]` re-forward block** — copy the SHAPE from `verify/Cargo.toml:15-19` (which forwards to `libxc_rs/oracle-*`); root forwards one level down to `libxc-eval/oracle-*`:
 ```toml
-[dependencies]
-libxc-core = { path = "crates/libxc-core" }
-libxc-eval = { path = "crates/libxc-eval" }
-# libxc-kernel-math is needed by the root's `pub mod math { pub use libxc_kernel_math::*; }`
-# re-export shim that preserves tests/math_integration.rs paths (D-02a, RESEARCH §7).
-libxc-kernel-math = { path = "crates/kernel-math" }
-# Note: NO libxc-compat — success criterion 4 requires that nothing depends on libxc-compat
-# except the cdylib output itself.
+[features]
+default     = ["oracle-lda", "oracle-gga", "oracle-mgga"]   # mirror verify/Cargo.toml:16
+oracle-lda  = ["libxc-eval/oracle-lda"]                     # mirror verify/Cargo.toml:17 (s/libxc_rs/libxc-eval/)
+oracle-gga  = ["libxc-eval/oracle-gga"]
+oracle-mgga = ["libxc-eval/oracle-mgga"]
 ```
+> RESEARCH Pitfall 1 — the `default-features = false` on the `libxc-eval` dep line is MANDATORY. Without it, eval's own `default = [oracle-lda,oracle-gga,oracle-mgga]` re-fires regardless of verify's `--no-default-features` request → all 306 compile → OOM.
+> verify/Cargo.toml needs ZERO feature-forward changes: it still says `libxc_rs/oracle-lda` (`verify/Cargo.toml:17`); root now relays that to `libxc-eval/oracle-lda`.
 
-**Lines 21-24 (`[workspace] members`):**
+**`[workspace] members`** (`Cargo.toml:652-656`) — ADD the 3 new crates; PRESERVE `verify-canary` (RESEARCH Pitfall 5 — it postdates CONTEXT, not in CONTEXT's D-10b list):
 ```toml
 [workspace]
-members=[    "xtask",
-    "verify",
-    "libxc-sys",]
+members = [ "xtask", "verify", "verify-canary", "libxc-sys",
+            "crates/libxc-core", "crates/libxc-eval", "crates/libxc-compat" ]
 ```
 
-**Replace with:**
-```toml
-[workspace]
-members=[
-    "xtask",
-    "verify",
-    "libxc-sys",
-    "crates/libxc-core",
-    "crates/libxc-eval",
-    "crates/libxc-compat",
-]
+**`[workspace] default-members`** (`Cargo.toml:662-…`) — append `crates/libxc-core`, `crates/libxc-eval`, root `.` to the existing kernel enumeration; EXCLUDE `crates/libxc-compat` (D-10a, OOM). PRESERVE the explanatory comment block (`Cargo.toml:657-661`) and the 7-deferred-kernel exclusion VERBATIM. `default-members ⊆ members` must hold.
+
+**Boundary proofs (SC 2/3/4, cheap):**
+```bash
+cargo tree -p libxc_rs --no-default-features --features oracle-lda  | grep -c libxc-kernel   # 43 LDA only
+cargo tree -p libxc_rs --no-default-features --features oracle-mgga | grep -c libxc-kernel   # MGGA incl _pK shards
+cargo tree -p libxc-compat -e no-dev | grep -E 'libxc-(core|eval)'                           # both present (SC 4)
 ```
-
-**Lines 25-196 (`default-members`):** APPEND the three new crate paths to the existing kernel-* enumeration. Per CONTEXT discretion line 81: "Add `crates/libxc-core`, `crates/libxc-eval`, `crates/libxc-compat`. Optional cleanup: collapse the kernel-* enumeration via `crates/kernel-*` glob (Cargo doesn't support glob in default-members today — workaround is the explicit list, so leave alone)."
-
-**Lines 197-234 (resolver, profile blocks):** **DO NOT TOUCH.** RESEARCH §Open Questions §7 line 370: "Workspace inheritance: `[profile.*]` blocks at workspace root apply to ALL members. Confirmed by Cargo docs ... New leaf crates need NO profile blocks."
 
 ---
 
-### `xtask/src/main.rs` — 4 path-string edits
+### `xtask/src/main.rs` + `xtask/src/generate_metadata.rs` (utility, file-I/O — D-03 mechanical edits)
 
-**Role:** Mechanical s/src/crates\/libxc-core\/src/.
+**Analog:** the files themselves (self-modeled). 7 hard-coded `root.join("src/...")` strings get a `crates/libxc-core/` prefix. The `root` arg is the workspace/output root (`find_output_root()`, `main.rs:264-274`, walks up to the dir containing top-level `Cargo.toml`) — D-06a leaves that walking-up logic UNCHANGED.
 
-**Closest analog:** The lines themselves.
-
-**Excerpts (verbatim):**
-
-```
-xtask/src/main.rs:291:    let path = root.join("src/meta/generated.rs");
-xtask/src/main.rs:329:    let path = root.join("src/registry/by_id.rs");
-xtask/src/main.rs:355:    let path = root.join("src/registry/by_name.rs");
-xtask/src/main.rs:387:    let path = root.join("src/registry/removed.rs");
+**`xtask/src/main.rs`** (4 edits — verified `:291,329,355,387`):
+```rust
+// :291  let path = root.join("src/meta/generated.rs");      → root.join("crates/libxc-core/src/meta/generated.rs");
+// :329  let path = root.join("src/registry/by_id.rs");      → root.join("crates/libxc-core/src/registry/by_id.rs");
+// :355  let path = root.join("src/registry/by_name.rs");    → root.join("crates/libxc-core/src/registry/by_name.rs");
+// :387  let path = root.join("src/registry/removed.rs");    → root.join("crates/libxc-core/src/registry/removed.rs");
 ```
 
-**Replacement:** prefix each path with `crates/libxc-core/`:
-
+**`xtask/src/generate_metadata.rs`** (3 edits — verified `:445,595,643`):
+```rust
+// :445  let path = root.join("src/meta/generated.rs");             → crates/libxc-core/src/meta/generated.rs
+// :595  let path = root.join("src/meta/generated_hybrid.rs");      → crates/libxc-core/src/meta/generated_hybrid.rs
+// :643  let path = root.join("src/meta/generated_propagation.rs"); → crates/libxc-core/src/meta/generated_propagation.rs
 ```
-xtask/src/main.rs:291:    let path = root.join("crates/libxc-core/src/meta/generated.rs");
-xtask/src/main.rs:329:    let path = root.join("crates/libxc-core/src/registry/by_id.rs");
-xtask/src/main.rs:355:    let path = root.join("crates/libxc-core/src/registry/by_name.rs");
-xtask/src/main.rs:387:    let path = root.join("crates/libxc-core/src/registry/removed.rs");
-```
-
-**Notes for planner:**
-- **No xtask logic change.** D-06 / RESEARCH §xtask Verification Recipe (lines 336-337): the emitted `use crate::model::...` and `use crate::meta::...` headers in the generated files (verified at `xtask/src/main.rs:296-297` and `xtask/src/generate_metadata.rs:454-455`) resolve correctly inside libxc-core's source tree because `crate::` refers to the containing crate (libxc-core), and `model`/`meta` are sibling modules in libxc-core after the move.
-- **Verification recipe** (RESEARCH §xtask Verification Recipe lines 304-333): byte-equivalent diff of pre/post regeneration — should produce zero diff if path edits are correct.
-- **`find_workspace_root()` (`xtask/src/main.rs:280-288`) is unchanged.** D-06a: `if dir.join("libxc-master").exists() { return Ok(dir); }` — still finds the workspace root the same way.
+> No xtask LOGIC change (D-03/D-06a). xtask/Cargo.toml gets NO path-dep on libxc-core (D-06) — preserve the NOTE comment (`xtask/Cargo.toml:14-18`) verbatim.
+> RUNTIME-ORDER TRAP (RESEARCH "Runtime State Inventory"): the D-03 path edits MUST land in the SAME plan/commit as the `meta/` + `registry/` move (the 10-01 core plan). If `cargo xtask` runs post-move but pre-edit, it regenerates into the now-empty root `src/meta/` — silent stale orphans.
 
 ---
 
-### `xtask/src/generate_metadata.rs` — 3 path-string edits
+### `meta::generated_propagation` visibility (the ONE confirmed cross-crate break)
 
-**Role:** Same as above.
+**Analog:** RESEARCH Pitfall 2 — two survivable options. This is an xtask-EMITTED file (`generate_metadata.rs:643`), so a plain in-file edit gets reverted on next regen.
 
-**Excerpts (verbatim):**
+**The break** (verified):
+- `src/meta/mod.rs:3` — `pub(crate) mod generated_propagation;`
+- `src/meta/generated_propagation.rs:8` — `pub(crate) const PROPAGATION_RULES: &[PropagationRule] = …;`
+- Consumed cross-crate by `src/functional/lifecycle.rs:13` (`use crate::meta::generated_propagation::PROPAGATION_RULES;`) which moves to **libxc-eval**.
 
-```
-xtask/src/generate_metadata.rs:445:    let path = root.join("src/meta/generated.rs");
-xtask/src/generate_metadata.rs:595:    let path = root.join("src/meta/generated_hybrid.rs");
-xtask/src/generate_metadata.rs:643:    let path = root.join("src/meta/generated_propagation.rs");
-```
-
-**Replacement:** same prefix:
-
-```
-xtask/src/generate_metadata.rs:445:    let path = root.join("crates/libxc-core/src/meta/generated.rs");
-xtask/src/generate_metadata.rs:595:    let path = root.join("crates/libxc-core/src/meta/generated_hybrid.rs");
-xtask/src/generate_metadata.rs:643:    let path = root.join("crates/libxc-core/src/meta/generated_propagation.rs");
-```
-
-**Notes for planner:**
-- The `super::PropagationRule` reference emitted at `xtask/src/generate_metadata.rs:653` (verified) resolves correctly inside the moved file because `super::` is `libxc-core::meta`, where `PropagationRule` is defined at `src/meta/mod.rs:41`. **No xtask emission change needed.**
-- The emitted `use crate::model::FunctionalId;` (line 654) likewise resolves inside libxc-core.
-
----
-
-### `src/main.rs` — optional deletion (planner discretion)
-
-**Role:** Vestigial 3-line "Hello, world!" binary.
-
-**Excerpt (full file, `src/main.rs:1-3`):**
-```rust
-fn main() {
-    println!("Hello, world!");
-}
-```
-
-**Notes for planner:** CONTEXT discretion item line 82. RESEARCH §Open Questions item 1 line 358: "Recommend deletion in plan 10-03 task 0 cleanup; no compile/test impact either way." If kept, it produces a `libxc_rs` binary alongside the rlib facade — cosmetic only.
-
----
-
-## D. C header (`crates/libxc-compat/include/xc_rs.h`)
-
-**Role:** Hand-written C header mirroring the `extern "C"` surface, **conditional on Phase 6 not having shipped one** (D-09a).
-
-**Closest analog in-repo:** **None — no `.h` file is committed today.** Verified:
-
-```
-$ find /home/user/Documents/workspace/libxc_rs -name '*.h' \
-    -not -path '*/target/*' -not -path '*/libxc-master/*' -not -path '*/.git/*'
-(empty output)
-```
-
-**Pre-image (per D-09):** `libxc-master/src/xc.h` (607 lines).
-
-**Excerpt 1 — `libxc-master/src/xc.h:1-30` (top-level shape to mirror):**
-```c
-/*
- Copyright (C) 2006-2007 M.A.L. Marques
-
- This Source Code Form is subject to the terms of the Mozilla Public
- License, v. 2.0. If a copy of the MPL was not distributed with this
- file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
-
-#ifndef _XC_H
-#define _XC_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Get the literature reference for libxc */
-const char *xc_reference();
-/* Get the doi for the literature reference for libxc */
-const char *xc_reference_doi();
-/* Get the key for the literature reference for libxc */
-const char *xc_reference_key();
-
-/* Get the major, minor, and micro version of libxc */
-void xc_version(int *major, int *minor, int *micro);
-/* Get the version of libxc as a string */
-const char *xc_version_string();
-
-#include <xc_version.h>
-#include <stddef.h>
-
-#define XC_UNPOLARIZED          1
-#define XC_POLARIZED            2
-```
-
-**Excerpt 2 — `libxc-master/src/xc.h:42-70` (constants the header must include):**
-```c
-#define XC_FAMILY_UNKNOWN      -1
-#define XC_FAMILY_LDA           1
-#define XC_FAMILY_GGA           2
-#define XC_FAMILY_MGGA          4
-#define XC_FAMILY_LCA           8
-#define XC_FAMILY_OEP          16
-
-/* flags that can be used in info.flags. ... */
-#define XC_FLAGS_HAVE_EXC         (1 <<  0) /*     1 */
-#define XC_FLAGS_HAVE_VXC         (1 <<  1) /*     2 */
-#define XC_FLAGS_HAVE_FXC         (1 <<  2) /*     4 */
-#define XC_FLAGS_HAVE_KXC         (1 <<  3) /*     8 */
-...
-```
-
-**Excerpt 3 — Rust-side extern fn signatures the header declares (`src/compat/raw_handle.rs:67,79,112,129,149`):**
-```rust
-pub extern "C" fn xc_func_alloc() -> *mut xc_func_type;
-pub unsafe extern "C" fn xc_func_init(p: *mut xc_func_type, functional: i32, nspin: i32) -> i32;
-pub unsafe extern "C" fn xc_func_end(p: *mut xc_func_type) -> i32;
-pub unsafe extern "C" fn xc_func_free(p: *mut xc_func_type);
-pub unsafe extern "C" fn xc_func_get_info(p: *const xc_func_type) -> *const xc_func_info_type;
-```
-
-**Notes for planner:**
-- **Per D-09a, verify Phase 6 status at plan time before deciding to write this file.** RESEARCH §Open Questions item 3 line 362: "no header file is present in the repo [VERIFIED via `find . -name "xc_rs.h" -o -name "xc.h"` returning only libxc-master sources]. Phase 6's plan 06-03 owns the header." Re-run the find at plan execution time.
-- **Required deviations from libxc xc.h** (per CONTEXT D-08 / Phase 6 D-A4-1):
-  - libxc's `void xc_func_end(...)` → ours is `int xc_func_end(...)` (signature widened to allow errno reporting).
-  - Same widening for any `void` extern Phase 6 widened to `int`.
-  - Rename guard `_XC_H` → `_XC_RS_H` (avoid collision when both headers are on a system).
-  - **No `#include <xc_version.h>`** — drop or stub; we don't ship that file.
-- **`xc_func_type` and `xc_func_info_type`:** opaque forward declarations only (`typedef struct xc_func_type xc_func_type;`). Per `src/compat/c_layout.rs` (forward decls in Rust are `#[repr(C)] pub struct xc_func_type { _private: [u8; 0] }` per Phase 6 D-A1-2; in C they're `struct xc_func_type;`).
-- **Add `xc_rs_last_error_code()` and `xc_rs_last_error_message()` declarations** — these are libxc_rs-specific extension entry points (not in libxc xc.h). Their signatures live at `src/compat/errno.rs` (read full file at plan time to get exact signatures).
-- **Total declaration count:** ~85-100 (CONTEXT line 28 says ~85 entry points; D-09 line 71 says ~100 declarations). Manageable for a single hand-written file.
-- **File location finalized at `crates/libxc-compat/include/xc_rs.h`** per D-09 / D-09a. Renamed `xc.h → xc_rs.h` to avoid collision with libxc's own `xc.h`.
-
----
-
-## E. Bulk import rewrites (~133 callsites)
-
-**Role:** Mechanical `use crate::X` → `use libxc_core::X` rewrite across the moved files.
-
-**Scope (from RESEARCH §1 line 69 + verified):** ~133 cross-module imports across `eval/`, `functional/`, `kernel/`, `workspace/`, `api/`, `compat/`. Re-verified during pattern mapping:
-- `grep -rE "^use crate::(error|model|meta|dims|input|output|registry|layout)" src/{eval,functional,kernel,workspace,api,compat}/ | wc -l` → **105 lines**
-- `grep -rE "^use crate::" src/{eval,functional,kernel,workspace,api,compat}/ | wc -l` → **142 lines** (the difference is intra-libxc-eval imports like `use crate::functional::*`, `use crate::eval::*`, `use crate::kernel::*` which remain `crate::` because they resolve inside libxc-eval).
-
-**The mechanical pattern (3 representative excerpts):**
-
-**Excerpt 1 — typical batch dispatcher (`src/eval/gga_dispatch/batch14.rs:1-2`):**
-```rust
-use crate::error::LibxcRsError;
-use crate::model::{DerivativeOrder, Spin};
-```
-
-**After move into libxc-eval:**
-```rust
-use libxc_core::error::LibxcRsError;
-use libxc_core::model::{DerivativeOrder, Spin};
-```
-
-**Excerpt 2 — multi-module consumer (`src/functional/evaluate.rs:1-4`):**
-```rust
-use crate::error::LibxcRsError;
-use crate::input::{GgaInput, LdaInput, MggaInput};
-use crate::model::{DerivativeOrder, GgaFunctional, LdaFunctional, MggaFunctional};
-use crate::output::{GgaOutput, LdaOutput, MggaOutput};
-```
-
-**After move:**
-```rust
-use libxc_core::error::LibxcRsError;
-use libxc_core::input::{GgaInput, LdaInput, MggaInput};
-use libxc_core::model::{DerivativeOrder, GgaFunctional, LdaFunctional, MggaFunctional};
-use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
-```
-
-**Excerpt 3 — dispatch entry-point (`src/eval/mgga_dispatch/mod.rs:1-5`):**
-```rust
-use crate::dims::Dimensions;
-use crate::error::LibxcRsError;
-use crate::input::MggaInput;
-use crate::model::{DerivativeOrder, MggaFunctional, Spin, Thresholds};
-use crate::output::MggaOutput;
-```
-
-**After move:**
-```rust
-use libxc_core::dims::Dimensions;
-use libxc_core::error::LibxcRsError;
-use libxc_core::input::MggaInput;
-use libxc_core::model::{DerivativeOrder, MggaFunctional, Spin, Thresholds};
-use libxc_core::output::MggaOutput;
-```
-
-**Mechanical recipe (single sed-friendly transform that catches all 105 lines):**
-
-For files moved into `crates/libxc-eval/src/` and `crates/libxc-compat/src/`:
-```
-s|^use crate::error::|use libxc_core::error::|
-s|^use crate::model::|use libxc_core::model::|
-s|^use crate::meta::|use libxc_core::meta::|
-s|^use crate::dims::|use libxc_core::dims::|
-s|^use crate::input::|use libxc_core::input::|
-s|^use crate::output::|use libxc_core::output::|
-s|^use crate::registry::|use libxc_core::registry::|
-s|^use crate::layout::|use libxc_core::layout::|
-```
-
-For libxc-compat additionally needs:
-```
-s|^use crate::eval::|use libxc_eval::eval::|
-s|^use crate::functional::|use libxc_eval::functional::|
-s|^use crate::kernel::|use libxc_eval::kernel::|
-s|^use crate::workspace::|use libxc_eval::workspace::|
-```
-
-**Notes for planner:**
-- **Imports within the SAME crate stay as `crate::*`.** Inside libxc-eval, `use crate::functional::*` and `use crate::eval::*` are fine because they reference siblings inside the same crate after the move. Inside libxc-compat, `use crate::compat::errno::*` becomes `use crate::errno::*` (drop the `compat::` prefix since the compat tree IS the libxc-compat crate root) — this is a separate s-pattern (search `src/compat/` for `crate::compat::` references; only `macros.rs` had them per the macro analysis above).
-- **`#[cfg(test)] mod tests`** blocks at the bottom of moved files have their own `use crate::*` lines — same rules apply (verify with `cargo check --workspace --tests`).
-- **`use libxc_kernel_*` references inside the moved files** stay unchanged (e.g., `src/eval/dispatch.rs:556: use libxc_kernel_lda::lda_x::*;`) — these are external-crate paths that resolve identically before and after the move.
-- **Trap: `pub use crate::functional::params_lda::LdaXParams as LdaFunctionalParams;`** at `src/eval/mod.rs:19` — after move into libxc-eval, this becomes `pub use crate::functional::params_lda::LdaXParams as LdaFunctionalParams;` (UNCHANGED — it's intra-libxc-eval). The root facade re-exports it as `pub use libxc_eval::eval::LdaFunctionalParams;` per RESEARCH §7 line 191.
-- **Bisectability invariant** (CONTEXT specifics line 226): every commit MUST leave `cargo check --workspace` green. The planner should structure the rewrite as one commit per moved tree (e.g., `git mv src/error → crates/libxc-core/src/error` + immediate import rewrite + cargo check + commit), not in a single big-bang commit.
-- **Watch for `dead_code` warnings post-rewrite** (RESEARCH §6 line 143): an item used cross-module pre-split may become unused inside its new crate if the consumer crossed a boundary. Treat dead_code warnings as load-bearing — they signal a missing `pub use` re-export.
-
----
+**Two fix options** (planner picks; option B is regen-proof and preferred):
+- **A — patch the emitter token:** change the `pub(crate)` the xtask writes for this file (in `generate_metadata.rs`) to `pub`. Risk: must touch the emitter, not just the file (Pitfall 2).
+- **B — hand-written re-export (survives regen):** keep the generated const `pub(crate)`, and add to `src/meta/mod.rs` (which becomes `crates/libxc-core/src/meta/mod.rs`):
+  ```rust
+  pub use generated_propagation::PROPAGATION_RULES;   // re-export makes it cross-crate reachable
+  ```
+  then eval imports `libxc_core::meta::PROPAGATION_RULES` (or `libxc_eval`'s `crate::meta` if routed via facade). Also bump `pub(crate) mod` → `pub mod` for the module path if eval imports the module path rather than the re-exported symbol.
+> Everything else audited is already `pub`: `registry::all_functional_ids` (`registry/mod.rs:72`), `eval::workspace` (`eval/mod.rs:13`), `Functional`/`meta()` (`functional/mod.rs:30,53`), `FunctionalMeta` (`meta/mod.rs:51`). `meta::generated`/`generated_hybrid` stay `pub(crate)` — consumed only within core. Net visibility work = ~2 edits.
 
 ## Shared Patterns
 
-### `#![deny(warnings)]` + clippy allowances
-
-**Source:** `src/lib.rs:1-7` (today's root).
-
-**Apply to:** All three new lib.rs files (libxc-core, libxc-eval, libxc-compat).
-
-**Excerpt (verbatim):**
+### Edition + lint header (all 3 new `lib.rs` + moved bodies)
+**Source:** root `src/lib.rs:1-7`; `crates/kernels/math/src/lib.rs:1-5`
+**Apply to:** every new crate `lib.rs`.
 ```rust
 #![deny(warnings)]
-// CubeCL #[cube] macro expansion generates code that triggers these lints.
-// The excessive_precision lint is also inappropriate for scientific constants
-// where trailing digits are intentional for documentation clarity.
-#![allow(clippy::excessive_precision)]
+#![allow(clippy::excessive_precision)]   // CubeCL #[cube] macro expansion (eval/compat); core may omit
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::too_many_arguments)]
 ```
+- Edition `2024` (MSRV 1.85+) in every `[package]` — copy from any analog `Cargo.toml:4`.
+- libxc-core MAY drop the 3 clippy allows (cubecl-free); add back if a `cargo check -p libxc-core` lint appears.
 
-### Edition 2024 + literal version pins
-
-**Source:** All `crates/kernel-*/Cargo.toml` files.
-
-**Apply to:** All three new Cargo.toml files.
-
-**Excerpt:**
+### Dependency-version pins (D-14 — already at target in root; MOVE not bump)
+**Source:** root `Cargo.toml:7-10`
+**Apply to:** the per-crate partition.
 ```toml
-[package]
-name = "<crate-name>"
-version = "0.1.0"
-edition = "2024"
+bitflags  = "2.10.0"                                                     # core
+bytemuck  = { version = "1.25.0", features = ["derive"] }                # core + eval
+thiserror = "2.0.18"                                                     # core + compat
+cubecl    = { version = "0.10.0", default-features = false, features = ["cpu"] }  # eval only
 ```
 
-Plus literal versions for shared deps (no `[workspace.dependencies]`):
-```toml
-bitflags = "2.10.0"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-cubecl = { version = "0.9.0", default-features = false, features = ["cpu"] }
-thiserror = "2.0.18"
+### Feature re-forward chain (the 4-link mechanic)
+**Source:** `verify/Cargo.toml:13-19` (links 1-2) + root `Cargo.toml:323-377…` (links 3-4)
+**Apply to:** root facade `[features]` (forwards `oracle-*` → `libxc-eval/oracle-*`) + the `default-features = false` pin on the root's `libxc-eval` dep.
 ```
-
-### Cargo verification recipe per commit
-
-**Source:** RESEARCH §Validation Architecture lines 234-261.
-
-**Apply to:** Every commit in this phase.
-
-```bash
-# Per-commit (bisect invariant)
-cargo check --workspace 2>&1 | tee log/10-NN-NN-task.log
-# Per-plan (full suite)
-cargo test --workspace 2>&1 | tee log/10-NN-merge-test.log
-# Per-plan (no new warnings)
-cargo check --workspace --message-format=short 2>&1 | tee log/10-NN-warnings.log
-! grep -E "^warning:" log/10-NN-warnings.log
+verify ──libxc_rs/oracle-lda──▶ root ──libxc-eval/oracle-lda──▶ eval ──dep:libxc-kernel-lda_x──▶ kernel
 ```
+Get any link wrong → either `--no-default-features` stops resolving (missing forward) or all 306 compile (missing `default-features=false`).
 
-### `cargo tree` invariants (success criteria 2-4)
-
-**Source:** RESEARCH §Validation Architecture lines 248-251.
-
-**Apply to:** Phase gate.
-
-```bash
-# Criterion 2: libxc-core has no cubecl/kernel-* deps
-cargo tree -p libxc-core --depth 1 2>&1 | tee log/10-final-cargo-tree-core.log
-! grep -E "cubecl|libxc-kernel" log/10-final-cargo-tree-core.log
-
-# Criterion 3: libxc-eval has libxc-core but NOT libxc-compat
-cargo tree -p libxc-eval --depth 2 2>&1 | tee log/10-final-cargo-tree-eval.log
-grep -q "libxc-core" log/10-final-cargo-tree-eval.log
-! grep -q "libxc-compat" log/10-final-cargo-tree-eval.log
-
-# Criterion 4: libxc-compat has both; nothing depends on libxc-compat
-cargo tree -p libxc-compat --depth 2 2>&1 | tee log/10-final-cargo-tree-compat.log
-cargo tree -i -p libxc-compat 2>&1 | tee log/10-final-cargo-tree-compat-inverse.log
-# inverse tree should show only libxc-compat itself
-```
-
-### Symbol-export sanity check (cdylib)
-
-**Source:** RESEARCH §Implementation Knowledge §5 line 136.
-
-**Apply to:** Plan 10-03 verification.
-
-```bash
-nm -D --defined-only target/debug/libxc_rs.so | grep ' T ' | sort > log/10-final-cdylib-symbols.log
-# Assert ≥85 xc_*/xc_rs_* exported symbols (count varies as Phase 6 lands more)
-```
-
----
+### `git mv` per-directory move (preserve blame; CONTEXT-recommended)
+**Apply to:** every moved subtree (`model/ meta/ registry/ input/ output/ layout/ dims/ error/` → core; `eval/ functional/ kernel/ workspace/` → eval; `compat/` → compat; `crates/kernels/math/src/deferred.rs` → core). Each commit must leave a per-`-p` `cargo check` green (RESEARCH Pitfall 4 — `--workspace` OOMs; NEVER use it as a gate).
 
 ## No Analog Found
 
-No file in this phase lacks a usable analog. All 11 distinct file roles map to either:
-- An exact in-repo analog (8 files: kernel-math/Cargo.toml, kernel-mgga/Cargo.toml, kernel-math/src/lib.rs (×2 for libxc-core and libxc-eval), src/compat/mod.rs, src/eval/mod.rs, root src/lib.rs:23-38, root Cargo.toml).
-- A pre-image outside the workspace (`libxc-master/src/xc.h`) for the C header.
-- A self-pattern for the 7 xtask path-string edits.
-- A mechanical transform pattern documented in §E for the 105 cross-module imports.
-
-The single net-new shape (cdylib + staticlib + rlib in one crate) has no in-repo analog but is fully specified by CONTEXT D-07 lines 209-223, with the **one outstanding planner reconciliation:** the "default name `libxc_rs`" requirement (CONTEXT line 27, D-08) likely requires `[lib] name = "libxc_rs"` despite D-08's "no override" phrasing — flagged in §A above for plan-time reconciliation.
-
----
+| File | Role | Data Flow | Reason |
+|------|------|-----------|--------|
+| `crates/libxc-compat/Cargo.toml` `[lib] crate-type = ["rlib","cdylib","staticlib"]` | config | n/a | No existing cdylib/staticlib crate in the repo. The triple is from CONTEXT D-07 (`<specifics>:254-269`), not an in-repo analog. Member-shape modeled on `libxc-sys/Cargo.toml`; the crate-type stanza is novel. |
+| `crates/libxc-compat/include/xc_rs.h` | header | n/a | Hand-written, mirrors `libxc-master/src/xc.h` 1:1 minus `void→int` (D-09). It is a Phase-6 deliverable; Phase 10 only RELOCATES it (D-09a) — write only if Phase 6 has not committed it by execution time. No Rust-side analog. |
 
 ## Metadata
 
-**Analog search scope:**
-- `crates/kernel-math/Cargo.toml`, `crates/kernel-lda/Cargo.toml`, `crates/kernel-mgga/Cargo.toml`, `crates/kernel-gga/Cargo.toml`
-- `crates/kernel-math/src/lib.rs`, `crates/kernel-lda/src/lib.rs`
-- `src/lib.rs`, `Cargo.toml` (root)
-- `src/compat/{mod,macros,raw_handle,errno,legacy_eval}.rs`
-- `src/eval/{mod,gga_dispatch/batch14,mgga_dispatch/mod,gga_dispatch/batch1a}.rs`
-- `src/functional/{mod,evaluate}.rs`
-- `src/error/mod.rs`, `src/meta/mod.rs`, `src/math/mod.rs`, `src/main.rs`
-- `src/api/mod.rs`, `src/kernel/mod.rs`, `src/workspace/mod.rs`
-- `xtask/Cargo.toml`, `xtask/src/main.rs:280-388`, `xtask/src/generate_metadata.rs:435-655`
-- `libxc-master/src/xc.h:1-80`
-
-**Files scanned:** 25 (all Read calls were single-pass, no re-reads).
-
-**Verification of "no analog .h":**
-```
-$ find /home/user/Documents/workspace/libxc_rs -name '*.h' \
-    -not -path '*/target/*' -not -path '*/libxc-master/*' -not -path '*/.git/*'
-(empty — confirms RESEARCH §Open Questions item 3)
-```
-
-**Pattern extraction date:** 2026-05-07
+**Analog search scope:** `crates/kernels/math/`, `libxc-sys/`, `verify/`, `verify-canary/`, `xtask/`, root `Cargo.toml`, root `src/lib.rs`, `src/meta/`, `src/functional/lifecycle.rs`, `src/model/{lda,mgga}_functional.rs`, `verify/tests/{lda,mgga}_oracle.rs`, `crates/kernels/math/src/deferred.rs`.
+**Files scanned (read or grepped at HEAD):** 16.
+**HEAD:** `31eb1dc6cb`; kernel-dep count `grep -cE "^libxc-kernel-" Cargo.toml` = **306** (do not hardcode in plans — re-derive).
+**Pattern extraction date:** 2026-05-25.
+**Note on a CONTEXT/RESEARCH drift:** both cite `find_workspace_root()` at `xtask/src/main.rs:265-278`; the LIVE function is `find_output_root()` (`main.rs:264-274`) walking up to the top-level `Cargo.toml`. Semantics are identical (workspace root). D-06a "unchanged" still holds — just under the live function name.
