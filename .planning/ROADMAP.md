@@ -367,6 +367,10 @@ Root cause (per 11-12-SUMMARY.md): per-functional translation bug (`mgga_x_th` m
   1. Each of `mgga_x_th`, `mgga_x_2d_js17`, `mgga_c_cs`, `mgga_x_pkzb`, `mgga_x_pbe_gx`, `mgga_x_tm` passes the MGGA oracle at the f64 tier (energy relative error <= 1e-12 vs libxc).
   2. No regression in the LDA / GGA / other-MGGA f64 oracle results.
 
-**Plans:** TBD (decompose during `/gsd-plan-phase 12`).
+**Plans:** 4 plans in 4 waves (inline-sequential, jobs=1)
+  - [ ] 12-01-PLAN.md — D-01 core fix: replace tau-up clamp with libxc sigma-down regularization in prepare.rs + rewire mod.rs chokepoint; reconcile g1/g3 canaries (D-02) [wave 1]
+  - [ ] 12-02-PLAN.md — D-05 cluster: 6 single-kernel canary deps + 5 small-error canaries (2d_js17, c_cs, pkzb, pbe_gx, tm) + th skeleton; family-oracle cluster confirm [wave 2]
+  - [ ] 12-03-PLAN.md — D-09/D-03 mgga_x_th (decoupled): verify D-01 closure else root-cause + translator fix + regen; family-oracle confirm [wave 3]
+  - [ ] 12-04-PLAN.md — D-04 full-tree idempotent regen + D-13 2D escape hatch + D-06 final per-family regression gate (SC-1 + SC-2) [wave 4, autonomous:false]
 
 **Status**: RECORDED at Phase 11 closure (11-13, 2026-05-25) — no fix implemented yet. Source: `.planning/phases/11-splitter-v2-unified-5k-cap/11-12-SUMMARY.md`.
