@@ -253,10 +253,10 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-22 (Phase 11.1 execute — G3 canary rewrite + τ-clamp root-cause; phase close)
-Stopped at: Phase 11.1 CLOSED. G3 mgga_c_b94 PASS at 1e-12 via new standalone `verify-canary/` crate (builds 1 kernel, not the 281-kernel umbrella). Root-caused the pt0 divergence to the missing libxc work_mgga von Weizsäcker τ-clamp (τ≥σ/(8ρ)) — fixed in the canary host driver; PRODUCTION dispatch still lacks it (systemic MGGA gap → Phase 11). G4 + D-LOCK-D idempotency + full-266 sweep DEFERRED to re-opened Phase 11. Next: `/gsd:execute-phase 11` re-open — add work_mgga input regularization (τ-clamp) to the translator/dispatch FIRST (gates G4), then G4 + full sweep + idempotency + 11-06 Legs 2/3/4 + Task 8 + 11-08 Task 2 + phase.complete 11.
-Resume file: .planning/phases/11.1-translator-rule-3-emit-fix-sweep-to-green/11.1-SUMMARY.md
-Next step: /gsd:execute-phase 11 (re-opens for the deferred items per CONTEXT.md D-01)
+Last session: 2026-05-25 (Phase 12 discuss — MGGA f64 parity context gathered)
+Stopped at: Phase 12 context gathered (12-CONTEXT.md committed bd6835aeea). KEY LEAD verified during discussion: the Rust production dispatch clamps τ-UP (`prepare.rs:43`, τ←max(τ,σ/8ρ)) where libxc's work_mgga driver clamps σ-DOWN (`work_mgga_inc.c:67`, σ←min(σ,8ρτ)) + applies σ/τ threshold floors — same boundary, DIFFERENT (ρ,σ,τ) fed to the kernel. Prime suspect for the 5 small-error functionals; mgga_x_th (20%) is likely a separate per-functional translation bug. Locked decisions: D-01 mirror libxc's full regularization at the dispatch chokepoint (REVISITS the Phase-11 G-1 τ-clamp, D-02); D-03 root-cause-routed fixes (driver→prepare.rs, kernel bug→translator+regen); D-04 selective-loop/full-tree-close regen; D-05 verify-canary loop + family mgga_oracle gate; D-06 full-family oracle re-run for no-regression; D-07 all-6-at-1e-12 capped N=3 then HALT; D-08 exc-unpol only; D-13 mgga_x_2d_js17 attempt-then-defer-if-2D-structural.
+Resume file: .planning/phases/12-mgga-f64-parity/12-CONTEXT.md
+Next step: /clear then /gsd:plan-phase 12
 
 --- prior session note (kept for history) ---
 Last session: 2026-05-20 (quick task 260520-k1q — revtpss sub-crate split, recipe replay)
