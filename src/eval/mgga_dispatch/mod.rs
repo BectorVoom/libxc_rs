@@ -271,16 +271,23 @@ pub fn dispatch_mgga(
     let client = cpu_client();
     let rho_handle = create_input_buffer(&client, input.rho());
     let rho_len = input.rho().len();
-    let sigma_handle = create_input_buffer(&client, input.sigma());
-    let sigma_len = input.sigma().len();
+    // D-01: mirror libxc work_mgga input regularization — sigma-floor, tau-floor, then the
+    // sigma-DOWN Fermi-hole curvature clamp (sigma <- min(sigma, 8*rho*tau)). Supersedes the
+    // Phase-11 G-1 tau-up clamp (was on the wrong variable vs libxc). One edit here propagates
+    // to every routed MGGA functional. See prepare.rs + work_mgga_inc.c:54-68.
+    let (sigma_reg, tau_reg) = prepare::regularize_inputs(
+        input.rho(),
+        input.sigma(),
+        input.tau(),
+        thresholds.density,
+        thresholds.tau,
+    );
+    let sigma_handle = create_input_buffer(&client, &sigma_reg);
+    let sigma_len = sigma_reg.len();
     let lapl_handle = create_input_buffer(&client, input.lapl());
     let lapl_len = input.lapl().len();
-    // G-1: regularize τ to its von Weizsäcker lower bound (τ ≥ σ/(8ρ)) before
-    // the kernel launch, mirroring libxc's MGGA work-driver. See prepare.rs.
-    let tau_clamped =
-        prepare::tau_von_weizsacker(input.rho(), input.sigma(), input.tau(), thresholds.density);
-    let tau_handle = create_input_buffer(&client, &tau_clamped);
-    let tau_len = tau_clamped.len();
+    let tau_handle = create_input_buffer(&client, &tau_reg);
+    let tau_len = tau_reg.len();
 
     // 6. Output handle sizing (Exc + Vxc tiers only).
     let zk_len = np * dims.zk as usize;
