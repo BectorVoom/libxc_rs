@@ -167,6 +167,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
 | 6. Public API and C Compatibility | 1/4 | In progress | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
+| 10. Workspace-Level Modular Split | 0/4 | Planned | - |
 | 11. Splitter v2 — 5K Line Cap | 15/15 | Complete | 2026-05-25 |
 | 11.1. Translator Rule 3 Emit Fix | 4/4 | Complete | 2026-05-22 |
 | 12. MGGA f64 Parity | 0/TBD | Not started | - |
@@ -214,30 +215,34 @@ Plans:
 
 **Goal:** Refactor the root `libxc_rs` crate into a layered Cargo workspace where types and metadata are separated from compute orchestration by compiler-enforced crate boundaries. After this phase, `libxc-core` (model, meta, registry, input, output, layout, dims) contains zero compute logic and zero CubeCL imports; `libxc-eval` (eval, functional, kernel glue, workspace) depends one-way on `libxc-core`; `libxc-compat` (extern "C" shim) depends on both but is depended on by neither; the root `libxc_rs` crate becomes a thin facade over `api/` re-exporting a curated public surface.
 **Driver:** Coupling / unclear boundaries — eval orchestration currently reaches into model and registry types with no compiler wall. Captured via /gsd-explore on 2026-05-07. See `.planning/notes/workspace-modular-architecture.md`.
-**Depends on:** Phase 6 (Public API and C Compatibility) being at a stable seam — best executed after 06-02a settles to avoid colliding with the in-flight extern "C" wrapper work.
-**Pre-planning blockers:**
-  1. Resolve `src/error/` and `src/math/` placement (todo: `audit-error-math-placement`)
-  2. Answer generated-files research question (`.planning/research/questions.md`) — affects xtask codegen flow
+**Depends on:** Phase 6 (Public API and C Compatibility) being at a stable seam — best executed after 06-02a settles to avoid colliding with the in-flight extern "C" wrapper work. **EXECUTION gate (D-13) LIFTED 2026-05-25** — Phase 11 is COMPLETE and `cargo check -p libxc_rs --lib` is green at HEAD.
+**Pre-planning blockers:** (both resolved)
+  1. `src/error/` and `src/math/` placement — resolved by D-01 (error → libxc-core) + D-02 (delete math/)
+  2. Generated-files research question — resolved by D-03..D-06 (xtask string-emitter writes into libxc-core)
 **Success Criteria** (what must be TRUE):
   1. Four target crates exist: `crates/libxc-core`, `crates/libxc-eval`, `crates/libxc-compat`, plus the root `libxc_rs` facade
   2. `cargo tree -p libxc-core` shows zero CubeCL or kernel-* dependencies (pure data layer)
   3. `cargo tree -p libxc-eval` shows `libxc-core` as a dependency but `libxc-compat` is not in the dependency closure
   4. `cargo tree -p libxc-compat` shows `libxc-eval` and `libxc-core` as dependencies; nothing depends on `libxc-compat` except the cdylib output
   5. The root `libxc_rs` crate's public surface is unchanged from a downstream consumer's perspective (existing `use libxc_rs::...` paths still resolve via re-export)
-  6. All existing tests pass: `cargo test --workspace` matches pre-refactor pass/fail set
+  6. All existing tests pass: per-family verify pass/fail set matches pre-refactor snapshot (NOT `cargo test --workspace` — OOMs on this box; per-`-p`/per-family at -j1)
   7. Oracle parity preserved: `verify/` regression sweep at 1e-12 strict relative error on representative LDA/GGA/MGGA functionals
-  8. `cargo build --workspace` succeeds with zero new warnings
-**Plans:** TBD (will be decomposed during /gsd-plan-phase)
+  8. `cargo build` (per-`-p`, not `--workspace` — OOMs) succeeds with zero new warnings
+**Plans:** 4 plans (replanned 2026-05-25 from scratch — prior 10-00..10-03 archived to archive-pre-restructure-2026-05-25/; pure refactor, inline-sequential, all cargo per-`-p`/per-family at -j1)
 
 Plans:
-**Wave 2**
-- [ ] 10-01-PLAN.md — TBD: extract libxc-core (pure data layer)
 
-**Wave 3** *(blocked on Wave 2 completion)*
-- [ ] 10-02-PLAN.md — TBD: extract libxc-eval (orchestration layer)
+**Wave 1**
+- [ ] 10-00-PLAN.md — Pre-refactor baseline snapshot (public surface, dep closure, generated-file bytes, per-family oracle pass/fail incl. expected fails) + phase-start green gate; USER-RUN oracle baseline checkpoint
 
-**Wave 4** *(blocked on Wave 3 completion)*
-- [ ] 10-03-PLAN.md — TBD: extract libxc-compat (FFI shim) and reduce root to facade
+**Wave 2** *(blocked on Wave 1)*
+- [ ] 10-01-PLAN.md — Extract libxc-core (model/meta/registry/input/output/layout/dims/error) + relocate `deferred` (D-11) + xtask write-path edits (D-03) + PROPAGATION_RULES visibility fix; SC-2 via cargo tree
+
+**Wave 3** *(blocked on Wave 2)*
+- [ ] 10-02-PLAN.md — Extract libxc-eval (eval/functional/kernel/workspace) + migrate all 306 kernel deps + the [features] oracle-* machinery (D-10) + default-members surgery (D-10a) + delete math shim (D-02); SC-3 + feature-chain via cargo tree
+
+**Wave 4** *(blocked on Wave 3)*
+- [ ] 10-03-PLAN.md — Extract libxc-compat (cdylib/staticlib, D-07/08) + reduce root to thin facade (SC-5 line-for-line) + finalize the 4-link feature-forward chain + repoint verify deferred imports; SC-4 via inverted cargo tree; USER-RUN per-family oracle parity gate (SC-6/SC-7)
 
 ### Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap
 
