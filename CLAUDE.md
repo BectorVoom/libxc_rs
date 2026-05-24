@@ -11,6 +11,7 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 
 - **Tech stack**: Pure Rust + CubeCL 0.9.0; no C/Fortran in production path
 - **Precision**: f64 only; energy relative error <= 10^-12 vs libxc oracle
+- **f32 support**: a documented MILESTONE-scale follow-up (translator re-architecture to emit float-generic kernels + full ~2491-file regen + FP-order reconciliation), NOT a current target — the kernels are f64-concrete by design (2491 files &Array<f64>, 0 generic). See memory project_kernels_f64_concrete_f32_milestone.
 - **Dependencies**: cubecl 0.9.0, thiserror 2.0, bitflags 2.10, bytemuck 1.25 (production); bindgen, anyhow, criterion, rayon (verification/benchmark only)
 - **Compatibility**: Must provide extern "C" layer for drop-in replacement in C/Fortran DFT codes
 - **Operation order**: Maple2c formula translations must preserve floating-point operation order for bit-level equivalence
