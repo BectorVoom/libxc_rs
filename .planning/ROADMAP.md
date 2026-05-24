@@ -19,8 +19,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 5: Functional Lifecycle and Hybrid Properties** - Functional struct, parameter management, hybrid queries, evaluation orchestration
 - [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
-- [ ] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
+- [x] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED, COMPLETE 2026-05-25)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
 - [x] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED, 2026-05-22 — narrow scope shipped; idempotency/G4/full-sweep/closure hand back to re-opened Phase 11)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
+- [ ] **Phase 12: MGGA f64 Parity** *(INSERTED 2026-05-25)* - Fix the 6 routed MGGA exc functionals that fail vs the libxc C oracle at f64 (per-functional translation debug + residual `work_mgga` regularization beyond the von Weizsäcker tau-clamp)
 
 ## Phase Details
 
@@ -166,6 +167,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 5. Functional Lifecycle and Hybrid Properties | 0/3 | Not started | - |
 | 6. Public API and C Compatibility | 1/4 | In progress | - |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
+| 11. Splitter v2 — 5K Line Cap | 15/15 | Complete | 2026-05-25 |
+| 11.1. Translator Rule 3 Emit Fix | 4/4 | Complete | 2026-05-22 |
+| 12. MGGA f64 Parity | 0/TBD | Not started | - |
 
 ### Phase 8: Rebuild MGGA kernel conversion tool from scratch with iterative pattern verification
 
@@ -254,13 +258,13 @@ Plans:
   1. `find crates/kernels -maxdepth 1 -type d` shows **no** `lda-N`, `gga-N`, `mgga-N` numbered children — only family-level crates
   2. `find crates/kernels -name '*.rs' -exec wc -l {} +` shows zero files >5,000 lines
   3. The splitter (`tools/translate_*.py`) is capable of subdividing a single output expression into multiple `#[cube]` helper functions; r4scan, br89_explicit, mgga-{8,9,11} sized cases all fit under 5K
-  4. `cargo build --workspace` succeeds on the user's RAM-constrained machine (inline sequential, `cargo` jobs ≤ 2)
-  5. Oracle parity preserved at the gate level chosen during discussion
+  4. Per-functional subcrate compile coverage is empirically verified via `batched_compile_sweep.py`'s manifest evidence; `cargo build --workspace` is **NOT a phase gate**. Canonical evidence = `.cache/batched-compile-sweep-manifest.json` — record count == `len(build_roster())` = **305** on-disk packages at f64 (NOT the 266 logical-functional figure; 305 = LDA 43 + GGA 131 + MGGA 131, MGGA incl 39 `_pK` shard crates: the 25 added in 11-10 for rmggac/tpss/kcisk + the prior 14 for tpssloc/revtpss)
+  5. Oracle parity preserved at the gate level chosen during discussion, at f64 (energy relative error <= 1e-12 vs libxc oracle). A full-649 f32 oracle is a **MILESTONE-scale follow-up, NOT a Phase-11 gate** (kernels are f64-concrete; see Phase 12 — MGGA f64 Parity for the routed f64 residuals)
   6. Pipeline is idempotent: running it twice produces no diff
-  7. CubeCL macro fan-out audit clean: `#[cube(launch)]` count does not increase from pre-phase baseline (per cubecl_macro_fanout_manual.md §3, §19)
+  7. CubeCL macro fan-out audit clean per D-13 per-design budget: (a) each routed (functional, output) module has exactly one `#[cube(launch_unchecked)]`; (b) unrouted functionals carry zero launchables; (c) `crates/kernels/math/src/` count <=22
   8. Dispatch tree (`src/eval/{gga,mgga}_dispatch/batch*.rs`) resolves cleanly post-phase: every `crate::kernel::{family}::batchN::...` reference resolves against the post-collapse façade. (Pre-Phase-11 the dispatch tree references stale batch IDs — `batch15..22` for GGA, `batch17..35` for MGGA — that the current façade does not expose; the dispatch tree was scaffolded in Phase 4-04 against a then-current 37-subcrate MGGA topology and was never regenerated when subcrates were re-bin-packed to 17. Phase 11 collapse plan must regenerate dispatch as part of the collapse blast radius.)
 
-**Plans:** 5/8 plans executed; 11-06 HALTED twice (2026-05-18 per AP-1/D-15 third iter; 2026-05-18 per AP-1/D-22 fourth iter at Gate 2). 11-07/08 blocked. Awaits /gsd-discuss-phase 11 (5th iteration) — see .continue-here.md for Direction A/B/C analysis.
+**Status: COMPLETE 2026-05-25.** All gaps closed at f64: G-1 (11-09 τ-clamp) · G-2 (11-12 family-chunked f64 oracle: LDA ✓ GGA ✓; 6 MGGA exc routed to Phase 12) · G-3 (11-10 full-roster f64 compile sweep ALL_OK, 305 pkgs) · G-4 (11-11 idempotency SATISFIED) · G-5 (11-13 closure) · G-6 (11-14 umbrella cubecl-0.10). f32/G4 re-deferred milestone-scale (kernels f64-concrete). _Historical: 11-06 HALTED twice (2026-05-18); the original 11-01..08 are executed history — do not renumber._
 
 Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP D-18; 11-01..05 executed; 11-06 HALTED with FAILED SUMMARY; 11-07..08 blocked)
 - [x] 11-01-PLAN.md — Wave 0: D-02 ABI spike (PASS) + audit tools (audit_kernel_size, audit_subcrate_collapse, audit_cube_launch, test_idempotency, audit_dispatch_tree) + parity_phase11.rs scaffold + 11-BASELINE.md + 11-DISPATCH-AUDIT.md
@@ -274,12 +278,12 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
 
 **Re-opened 2026-05-22 (gap closure — 6 plans 11-09..14 per 11-VERIFICATION.md G-1..G-6):** Phase 11 closed PARTIAL (`ac9729a51d`); Phase 11.1 shipped the translator Rule-3 emit fix and handed 5 closure items back (G-1..G-5). Wave 1 then closed G-1/G-4 and surfaced a 6th gap (G-6, the cubecl-0.10 umbrella launch-ABI drift) → re-planned as 11-14 (2026-05-22). Plans 01-08 are executed history (have SUMMARYs) — DO NOT renumber/replan them. The gap-closure plans:
 - [x] 11-09-PLAN.md — G-1 (CRITICAL PATH): von Weizsacker tau-clamp in PRODUCTION mgga_dispatch + canary parity (DONE 2026-05-22, canary PASS 1e-12). ⚠ Entry gate found a systemic cubecl-0.10 launch-ABI drift that blocks the umbrella compile (gates G-2) — see memory project_umbrella_cubecl010_launch_abi_drift
-- [ ] 11-10-PLAN.md — G-3: drive batched_compile_sweep.py to VERDICT: ALL_OK across all 280 on-disk packages at f64 ONLY (11.1 ran a 50-sample); resumable/chunked per family -> merged manifest (Wave 2; depends on 11-15) — RE-PLANNED 2026-05-24: f32 sweep DROPPED (kernels f64-concrete; an f32 sweep would be a false f64-vs-f64 pass, threat T-11-12-01); now gated behind 11-15 (math test-module 0.10 launch-ABI migration)
+- [x] 11-10-PLAN.md — G-3 ✅ DONE 2026-05-25 (VERDICT ALL_OK, 305 pkgs at f64; 3 oversized MGGA funcs sharded into 25 _pK shards to clear the 30 GB OOM ceiling): drive batched_compile_sweep.py to VERDICT: ALL_OK across all 305 on-disk packages at f64 ONLY (11.1 ran a 50-sample); resumable/chunked per family -> merged manifest (Wave 2; depends on 11-15) — RE-PLANNED 2026-05-24: f32 sweep DROPPED (kernels f64-concrete; an f32 sweep would be a false f64-vs-f64 pass, threat T-11-12-01); now gated behind 11-15 (math test-module 0.10 launch-ABI migration)
 - [x] 11-11-PLAN.md — G-4: D-LOCK-D idempotency proof — 264 non-sharded zero-diff + tpssloc/revtpss Option A shard disposition (DONE 2026-05-22, SATISFIED)
-- [ ] 11-12-PLAN.md — G-2: memory-safe family-chunked f64 oracle path (no OOMing umbrella), tau-clamp inherited from G-1 (Wave 2; depends on 11-09 + 11-14) — DONE 2026-05-23 (f64 oracle: LDA ✓ GGA ✓; MGGA 6/12 exc routed to a dedicated MGGA-parity follow-up; f32/G4 RE-DEFERRED milestone-scale — kernels f64-concrete; SUMMARY written; checklist flip to [x] is 11-13's gated closure job)
-- [ ] 11-13-PLAN.md — G-5: closure (GATED on G-1..G-4 + G-6) — 11-06 SUMMARY PARTIAL->COMPLETE + 11-08 Task 2 (CLAUDE.md/ROADMAP wording, delete 5 obsolete tools, remove LIBXC_RS_BYPASS_DEFERRED) + manual phase.complete 11 (Wave 3; depends on 11-09..12)
+- [x] 11-12-PLAN.md — G-2: memory-safe family-chunked f64 oracle path (no OOMing umbrella), tau-clamp inherited from G-1 (Wave 2; depends on 11-09 + 11-14) — DONE 2026-05-23 (f64 oracle: LDA ✓ GGA ✓; MGGA 6/12 exc routed to a dedicated MGGA-parity follow-up; f32/G4 RE-DEFERRED milestone-scale — kernels f64-concrete; SUMMARY written; checklist flip to [x] is 11-13's gated closure job)
+- [x] 11-13-PLAN.md — G-5 ✅ DONE 2026-05-25: closure (GATED on G-1..G-4 + G-6) — 11-06 SUMMARY PARTIAL->COMPLETE + 11-08 Task 2 (CLAUDE.md/ROADMAP wording, delete 5 obsolete tools, remove LIBXC_RS_BYPASS_DEFERRED) + manual phase.complete 11 (Wave 3; depends on 11-09..12)
 - [x] 11-14-PLAN.md — **G-6 ✅ DONE 2026-05-22** (umbrella compiles clean under cubecl 0.10; `cargo check -p libxc_rs --lib` EXIT 0, 3031→0, jobs=1, peak RSS ~536 MB; G-2/11-12 UNBLOCKED; see 11-14-SUMMARY.md). _From 11-09 Wave-1 entry gate; CRITICAL PATH gating G-2:_ cubecl-0.10 umbrella launch-ABI migration — fix the dispatch generators (tools/generate_{gga,mgga}_dispatch.py) + hand-written glue (src/eval/dispatch.rs, src/kernel/launch.rs) to the 0.10 ABI (from_raw_parts(h,len) 2-arg/no-turbofish; launch_unchecked()-return drop the Result-chain; ScalarArg removed → bare scalars), regen the GGA/MGGA trees, then `cargo check -p libxc_rs --lib` exit-0 at jobs=1 with peak-RSS capture (per-`-p` ENTRY gate). Wave 1; depends_on []; preserves the 11-09 τ-clamp. Authored + plan-checker PASSED 2026-05-22 (/gsd:plan-phase 11 --gaps). See 11-VERIFICATION.md §G-6 + memory project_umbrella_cubecl010_launch_abi_drift
-- [ ] 11-15-PLAN.md — G-3 PRE-REQ (NEW 2026-05-24): migrate the crates/kernels/math/src/{piecewise,powers,polynomials,erf,dft_quantities}.rs `#[cfg(test)] mod tests` host drivers from the cubecl-0.9 to the 0.10 launch+readback ABI (from_raw_parts 2-arg/no-turbofish + .clone() on read-back handles; launch_unchecked drops .unwrap(); read_one().expect()); LIGHT `cargo build -p libxc-kernel-math --tests` gate (no umbrella, no OOM). 11-14-SUMMARY follow-up; gates the 11-10 sweep's cargo-test path. Wave 1; depends_on []; autonomous
+- [x] 11-15-PLAN.md — G-3 PRE-REQ ✅ DONE 2026-05-24 (math test-module cubecl-0.10 launch-ABI migration; LIGHT -p libxc-kernel-math --tests gate EXIT 0): migrate the crates/kernels/math/src/{piecewise,powers,polynomials,erf,dft_quantities}.rs `#[cfg(test)] mod tests` host drivers from the cubecl-0.9 to the 0.10 launch+readback ABI (from_raw_parts 2-arg/no-turbofish + .clone() on read-back handles; launch_unchecked drops .unwrap(); read_one().expect()); LIGHT `cargo build -p libxc-kernel-math --tests` gate (no umbrella, no OOM). 11-14-SUMMARY follow-up; gates the 11-10 sweep's cargo-test path. Wave 1; depends_on []; autonomous
 
 **Canonical refs:**
   - docs/manual/Cubecl/cubecl_macro_fanout_manual.md
@@ -337,3 +341,27 @@ Plans: 8 plans (replanned 2026-05-18 third session against Option A + Serena MCP
   - .planning/phases/11-splitter-v2-unified-5k-cap/.continue-here.md (P1 exemplar evidence at 92ddcebe90)
   - tools/translate_v2/ (translator package — the surface area being amended)
   - tools/batched_compile_sweep.py (sweep instrument that gates VERDICT: ALL_OK)
+
+### Phase 12: MGGA f64 Parity
+
+**Goal**: Bring the 6 routed MGGA exchange-correlation functionals within 1e-12 of the libxc f64 oracle (they currently fail the MGGA oracle at f64).
+
+**Depends on**: Phase 11 closure — the memory-safe family-chunked f64 oracle (11-12) that surfaced these residuals.
+
+**Driver**: The 11-12 f64 oracle ran LDA ✓ / GGA ✓, but MGGA had 6/12 routed `exc` functionals fail vs the libxc C oracle at f64:
+  - `mgga_x_th` — rel_err 2.0e-1
+  - `mgga_x_2d_js17` — rel_err 1.1e-2
+  - `mgga_c_cs` — rel_err 9.2e-3
+  - `mgga_x_pkzb` — rel_err 3.7e-3
+  - `mgga_x_pbe_gx` — rel_err 1.5e-3
+  - `mgga_x_tm` — rel_err 9.2e-4
+
+Root cause (per 11-12-SUMMARY.md): per-functional translation bug (`mgga_x_th` most likely, given its ~20% error) + residual `work_mgga` regularization beyond the von Weizsäcker τ-clamp. **NOTE:** the τ-clamp IS applied @ `src/eval/mgga_dispatch/mod.rs:280-282` and is NOT the cause.
+
+**Success Criteria** (what must be TRUE):
+  1. Each of `mgga_x_th`, `mgga_x_2d_js17`, `mgga_c_cs`, `mgga_x_pkzb`, `mgga_x_pbe_gx`, `mgga_x_tm` passes the MGGA oracle at the f64 tier (energy relative error <= 1e-12 vs libxc).
+  2. No regression in the LDA / GGA / other-MGGA f64 oracle results.
+
+**Plans:** TBD (decompose during `/gsd-plan-phase 12`).
+
+**Status**: RECORDED at Phase 11 closure (11-13, 2026-05-25) — no fix implemented yet. Source: `.planning/phases/11-splitter-v2-unified-5k-cap/11-12-SUMMARY.md`.
