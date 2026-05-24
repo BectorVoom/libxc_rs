@@ -201,6 +201,12 @@ libxc-kernel-mgga_c_ccalda = { path = "crates/kernels/mgga/mgga_c_ccalda", optio
 libxc-kernel-mgga_c_cs = { path = "crates/kernels/mgga/mgga_c_cs", optional = true }
 libxc-kernel-mgga_c_kcis = { path = "crates/kernels/mgga/mgga_c_kcis", optional = true }
 libxc-kernel-mgga_c_kcisk = { path = "crates/kernels/mgga/mgga_c_kcisk", optional = true }
+libxc-kernel-mgga_c_kcisk_p0 = { path = "crates/kernels/mgga/mgga_c_kcisk_p0", optional = true }
+libxc-kernel-mgga_c_kcisk_p1 = { path = "crates/kernels/mgga/mgga_c_kcisk_p1", optional = true }
+libxc-kernel-mgga_c_kcisk_p2 = { path = "crates/kernels/mgga/mgga_c_kcisk_p2", optional = true }
+libxc-kernel-mgga_c_kcisk_p3 = { path = "crates/kernels/mgga/mgga_c_kcisk_p3", optional = true }
+libxc-kernel-mgga_c_kcisk_p4 = { path = "crates/kernels/mgga/mgga_c_kcisk_p4", optional = true }
+libxc-kernel-mgga_c_kcisk_p5 = { path = "crates/kernels/mgga/mgga_c_kcisk_p5", optional = true }
 libxc-kernel-mgga_c_ltapw = { path = "crates/kernels/mgga/mgga_c_ltapw", optional = true }
 libxc-kernel-mgga_c_m05 = { path = "crates/kernels/mgga/mgga_c_m05", optional = true }
 libxc-kernel-mgga_c_m06l = { path = "crates/kernels/mgga/mgga_c_m06l", optional = true }
@@ -217,11 +223,30 @@ libxc-kernel-mgga_c_revtpss_p4 = { path = "crates/kernels/mgga/mgga_c_revtpss_p4
 libxc-kernel-mgga_c_revtpss_p5 = { path = "crates/kernels/mgga/mgga_c_revtpss_p5", optional = true }
 libxc-kernel-mgga_c_revtpss_p6 = { path = "crates/kernels/mgga/mgga_c_revtpss_p6", optional = true }
 libxc-kernel-mgga_c_rmggac = { path = "crates/kernels/mgga/mgga_c_rmggac", optional = true }
+libxc-kernel-mgga_c_rmggac_p0 = { path = "crates/kernels/mgga/mgga_c_rmggac_p0", optional = true }
+libxc-kernel-mgga_c_rmggac_p1 = { path = "crates/kernels/mgga/mgga_c_rmggac_p1", optional = true }
+libxc-kernel-mgga_c_rmggac_p2 = { path = "crates/kernels/mgga/mgga_c_rmggac_p2", optional = true }
+libxc-kernel-mgga_c_rmggac_p3 = { path = "crates/kernels/mgga/mgga_c_rmggac_p3", optional = true }
+libxc-kernel-mgga_c_rmggac_p4 = { path = "crates/kernels/mgga/mgga_c_rmggac_p4", optional = true }
+libxc-kernel-mgga_c_rmggac_p5 = { path = "crates/kernels/mgga/mgga_c_rmggac_p5", optional = true }
+libxc-kernel-mgga_c_rmggac_p6 = { path = "crates/kernels/mgga/mgga_c_rmggac_p6", optional = true }
+libxc-kernel-mgga_c_rmggac_p7 = { path = "crates/kernels/mgga/mgga_c_rmggac_p7", optional = true }
+libxc-kernel-mgga_c_rmggac_p8 = { path = "crates/kernels/mgga/mgga_c_rmggac_p8", optional = true }
+libxc-kernel-mgga_c_rmggac_p9 = { path = "crates/kernels/mgga/mgga_c_rmggac_p9", optional = true }
+libxc-kernel-mgga_c_rmggac_p10 = { path = "crates/kernels/mgga/mgga_c_rmggac_p10", optional = true }
+libxc-kernel-mgga_c_rmggac_p11 = { path = "crates/kernels/mgga/mgga_c_rmggac_p11", optional = true }
+libxc-kernel-mgga_c_rmggac_p12 = { path = "crates/kernels/mgga/mgga_c_rmggac_p12", optional = true }
 libxc-kernel-mgga_c_rppscan = { path = "crates/kernels/mgga/mgga_c_rppscan", optional = true }
 libxc-kernel-mgga_c_rregtm = { path = "crates/kernels/mgga/mgga_c_rregtm", optional = true }
 libxc-kernel-mgga_c_rscan = { path = "crates/kernels/mgga/mgga_c_rscan", optional = true }
 libxc-kernel-mgga_c_scan = { path = "crates/kernels/mgga/mgga_c_scan", optional = true }
 libxc-kernel-mgga_c_tpss = { path = "crates/kernels/mgga/mgga_c_tpss", optional = true }
+libxc-kernel-mgga_c_tpss_p0 = { path = "crates/kernels/mgga/mgga_c_tpss_p0", optional = true }
+libxc-kernel-mgga_c_tpss_p1 = { path = "crates/kernels/mgga/mgga_c_tpss_p1", optional = true }
+libxc-kernel-mgga_c_tpss_p2 = { path = "crates/kernels/mgga/mgga_c_tpss_p2", optional = true }
+libxc-kernel-mgga_c_tpss_p3 = { path = "crates/kernels/mgga/mgga_c_tpss_p3", optional = true }
+libxc-kernel-mgga_c_tpss_p4 = { path = "crates/kernels/mgga/mgga_c_tpss_p4", optional = true }
+libxc-kernel-mgga_c_tpss_p5 = { path = "crates/kernels/mgga/mgga_c_tpss_p5", optional = true }
 libxc-kernel-mgga_c_tpssloc = { path = "crates/kernels/mgga/mgga_c_tpssloc", optional = true }
 libxc-kernel-mgga_c_tpssloc_p0 = { path = "crates/kernels/mgga/mgga_c_tpssloc_p0", optional = true }
 libxc-kernel-mgga_c_tpssloc_p1 = { path = "crates/kernels/mgga/mgga_c_tpssloc_p1", optional = true }
@@ -500,6 +525,12 @@ oracle-mgga = [
     "dep:libxc-kernel-mgga_c_cs",
     "dep:libxc-kernel-mgga_c_kcis",
     "dep:libxc-kernel-mgga_c_kcisk",
+    "dep:libxc-kernel-mgga_c_kcisk_p0",
+    "dep:libxc-kernel-mgga_c_kcisk_p1",
+    "dep:libxc-kernel-mgga_c_kcisk_p2",
+    "dep:libxc-kernel-mgga_c_kcisk_p3",
+    "dep:libxc-kernel-mgga_c_kcisk_p4",
+    "dep:libxc-kernel-mgga_c_kcisk_p5",
     "dep:libxc-kernel-mgga_c_ltapw",
     "dep:libxc-kernel-mgga_c_m05",
     "dep:libxc-kernel-mgga_c_m06l",
@@ -516,11 +547,30 @@ oracle-mgga = [
     "dep:libxc-kernel-mgga_c_revtpss_p5",
     "dep:libxc-kernel-mgga_c_revtpss_p6",
     "dep:libxc-kernel-mgga_c_rmggac",
+    "dep:libxc-kernel-mgga_c_rmggac_p0",
+    "dep:libxc-kernel-mgga_c_rmggac_p1",
+    "dep:libxc-kernel-mgga_c_rmggac_p2",
+    "dep:libxc-kernel-mgga_c_rmggac_p3",
+    "dep:libxc-kernel-mgga_c_rmggac_p4",
+    "dep:libxc-kernel-mgga_c_rmggac_p5",
+    "dep:libxc-kernel-mgga_c_rmggac_p6",
+    "dep:libxc-kernel-mgga_c_rmggac_p7",
+    "dep:libxc-kernel-mgga_c_rmggac_p8",
+    "dep:libxc-kernel-mgga_c_rmggac_p9",
+    "dep:libxc-kernel-mgga_c_rmggac_p10",
+    "dep:libxc-kernel-mgga_c_rmggac_p11",
+    "dep:libxc-kernel-mgga_c_rmggac_p12",
     "dep:libxc-kernel-mgga_c_rppscan",
     "dep:libxc-kernel-mgga_c_rregtm",
     "dep:libxc-kernel-mgga_c_rscan",
     "dep:libxc-kernel-mgga_c_scan",
     "dep:libxc-kernel-mgga_c_tpss",
+    "dep:libxc-kernel-mgga_c_tpss_p0",
+    "dep:libxc-kernel-mgga_c_tpss_p1",
+    "dep:libxc-kernel-mgga_c_tpss_p2",
+    "dep:libxc-kernel-mgga_c_tpss_p3",
+    "dep:libxc-kernel-mgga_c_tpss_p4",
+    "dep:libxc-kernel-mgga_c_tpss_p5",
     "dep:libxc-kernel-mgga_c_tpssloc",
     "dep:libxc-kernel-mgga_c_tpssloc_p0",
     "dep:libxc-kernel-mgga_c_tpssloc_p1",
