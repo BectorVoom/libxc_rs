@@ -82,21 +82,37 @@ fn rel_err_with_floor(rust_val: f64, c_val: f64) -> f64 {
     }
 }
 
-/// libxc work-driver input preprocessing: enforce the von Weizsäcker lower bound
-/// τ ≥ τ_W = σ/(8ρ) before evaluating the functional.
+/// Mirror the production D-01 regularization
+/// (`src/eval/mgga_dispatch/prepare.rs::regularize_inputs`): rho-floor ->
+/// sigma-floor -> tau-floor -> sigma-DOWN Fermi-hole clamp
+/// (`sigma <- min(sigma, 8*rho*tau)`). Returns the regularized `(sigma, tau)`.
 ///
-/// libxc's MGGA work driver regularizes the kinetic-energy density to its von
-/// Weizsäcker minimum; the maple2c expression itself uses raw τ. The Rust
-/// per-functional dispatch (src/eval/mgga_dispatch) does NOT yet replicate this
-/// driver-side regularization — a SYSTEMIC gap affecting every MGGA functional
-/// for inputs with τ < τ_W (see memory project_translator_missing_workmgga_tau_clamp;
-/// hands back to re-opened Phase 11). Applied here so the G3 canary mirrors libxc
-/// faithfully. Confirmed against the libxc id=397 oracle to ~5e-13 on 4 distinct
-/// τ < τ_W points; a no-op on points already satisfying the bound.
-fn tau_von_weizsacker(rho: &[f64], sigma: &[f64], tau: &[f64]) -> Vec<f64> {
-    (0..tau.len())
-        .map(|i| tau[i].max(sigma[i] / (8.0 * rho[i])))
-        .collect()
+/// libxc's MGGA work driver (`work_mgga_inc.c:54-68`) applies this exact sequence
+/// internally before evaluating the maple2c expression; the oracle receives RAW
+/// inputs and regularizes them, so to reach 1e-12 parity the Rust canary must feed
+/// the kernel the SAME regularized `(sigma, tau)` that production now feeds. Under
+/// sigma-down the kernel gets the identical triple libxc evaluates internally.
+fn regularize_inputs(rho: &[f64], sigma: &[f64], tau: &[f64]) -> (Vec<f64>, Vec<f64>) {
+    let dens_threshold = DENS_THRESHOLD; // 1e-15
+    let tau_threshold = 1e-20_f64; // libxc hardcoded
+    let sigma_threshold = dens_threshold.powf(4.0 / 3.0);
+    let sigma_floor = sigma_threshold * sigma_threshold;
+    let mut sigma_out = Vec::with_capacity(sigma.len());
+    let mut tau_out = Vec::with_capacity(tau.len());
+    for i in 0..rho.len() {
+        if rho[i] < dens_threshold {
+            sigma_out.push(sigma[i]);
+            tau_out.push(tau[i]);
+            continue;
+        }
+        let my_rho = dens_threshold.max(rho[i]);
+        let my_sigma = sigma_floor.max(sigma[i]);
+        let my_tau = tau_threshold.max(tau[i]);
+        let my_sigma = my_sigma.min(8.0 * my_rho * my_tau);
+        sigma_out.push(my_sigma);
+        tau_out.push(my_tau);
+    }
+    (sigma_out, tau_out)
 }
 
 /// Evaluate `mgga_c_b94_exc_unpol` on the matched grids via direct CubeCL launch.
@@ -104,11 +120,11 @@ fn rust_b94_zk() -> Vec<f64> {
     let np = RHO.len();
     let client = CpuRuntime::client(&CpuDevice);
 
-    let tau_vw = tau_von_weizsacker(RHO, SIGMA, TAU);
+    let (sigma_reg, tau_reg) = regularize_inputs(RHO, SIGMA, TAU);
     let rho_h = client.create_from_slice(bytemuck::cast_slice(RHO));
-    let sigma_h = client.create_from_slice(bytemuck::cast_slice(SIGMA));
+    let sigma_h = client.create_from_slice(bytemuck::cast_slice(&sigma_reg));
     let lapl_h = client.create_from_slice(bytemuck::cast_slice(LAPL));
-    let tau_h = client.create_from_slice(bytemuck::cast_slice(&tau_vw));
+    let tau_h = client.create_from_slice(bytemuck::cast_slice(&tau_reg));
     let zeros = vec![0.0f64; np];
     let zk_h = client.create_from_slice(bytemuck::cast_slice(&zeros));
     let zk_read = zk_h.clone();
