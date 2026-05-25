@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 - [x] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED, COMPLETE 2026-05-25)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
 - [x] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED, 2026-05-22 — narrow scope shipped; idempotency/G4/full-sweep/closure hand back to re-opened Phase 11)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
-- [ ] **Phase 12: MGGA f64 Parity** *(INSERTED 2026-05-25)* - Fix the 6 routed MGGA exc functionals that fail vs the libxc C oracle at f64 (per-functional translation debug + residual `work_mgga` regularization beyond the von Weizsäcker tau-clamp)
+- [x] **Phase 12: MGGA f64 Parity** *(INSERTED 2026-05-25; COMPLETE 2026-05-25)* - Fixed the 6 routed MGGA exc functionals via D-01 σ-down regularization (libxc work_mgga_inc.c:54-68, NEEDS_TAU-gated); all pass the f64 oracle at 1e-12, no LDA/GGA/other-MGGA regression
 
 ## Phase Details
 
@@ -170,7 +170,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 10. Workspace-Level Modular Split | 0/4 | Planned | - |
 | 11. Splitter v2 — 5K Line Cap | 15/15 | Complete | 2026-05-25 |
 | 11.1. Translator Rule 3 Emit Fix | 4/4 | Complete | 2026-05-22 |
-| 12. MGGA f64 Parity | 0/TBD | Not started | - |
+| 12. MGGA f64 Parity | 4/4 | Complete | 2026-05-25 |
 
 ### Phase 8: Rebuild MGGA kernel conversion tool from scratch with iterative pattern verification
 
@@ -368,9 +368,9 @@ Root cause (per 11-12-SUMMARY.md): per-functional translation bug (`mgga_x_th` m
   2. No regression in the LDA / GGA / other-MGGA f64 oracle results.
 
 **Plans:** 4 plans in 4 waves (inline-sequential, jobs=1)
-  - [ ] 12-01-PLAN.md — D-01 core fix: replace tau-up clamp with libxc sigma-down regularization in prepare.rs + rewire mod.rs chokepoint; reconcile g1/g3 canaries (D-02) [wave 1]
-  - [ ] 12-02-PLAN.md — D-05 cluster: 6 single-kernel canary deps + 5 small-error canaries (2d_js17, c_cs, pkzb, pbe_gx, tm) + th skeleton; family-oracle cluster confirm [wave 2]
-  - [ ] 12-03-PLAN.md — D-09/D-03 mgga_x_th (decoupled): verify D-01 closure else root-cause + translator fix + regen; family-oracle confirm [wave 3]
-  - [ ] 12-04-PLAN.md — D-04 full-tree idempotent regen + D-13 2D escape hatch + D-06 final per-family regression gate (SC-1 + SC-2) [wave 4, autonomous:false]
+  - [x] 12-01-PLAN.md — D-01 core fix: replace tau-up clamp with libxc sigma-down regularization in prepare.rs + rewire mod.rs chokepoint; reconcile g1/g3 canaries (D-02) [wave 1]
+  - [x] 12-02-PLAN.md — D-05 cluster: 6 single-kernel canary deps + 5 small-error canaries (2d_js17, c_cs, pkzb, pbe_gx, tm) + th skeleton; family-oracle cluster confirm [wave 2]
+  - [x] 12-03-PLAN.md — D-09/D-03 mgga_x_th (decoupled): verify D-01 closure else root-cause + translator fix + regen; family-oracle confirm [wave 3]
+  - [x] 12-04-PLAN.md — D-04 full-tree idempotent regen + D-13 2D escape hatch + D-06 final per-family regression gate (SC-1 + SC-2) [wave 4, autonomous:false]
 
 **Status**: RECORDED at Phase 11 closure (11-13, 2026-05-25) — no fix implemented yet. Source: `.planning/phases/11-splitter-v2-unified-5k-cap/11-12-SUMMARY.md`.
