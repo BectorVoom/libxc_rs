@@ -12,9 +12,9 @@ use crate::compat::raw_handle::FunctionalSlot;
 use crate::dims::Dimensions;
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::extern_c_wrapper;
-use crate::input::LdaInput;
+use crate::input::{GgaInput, LdaInput};
 use crate::model::DerivativeOrder;
-use crate::output::LdaOutput;
+use crate::output::{GgaOutput, LdaOutput};
 use std::ffi::{c_char, CStr};
 
 // === 4 threshold setters — each forwards to the Phase-5 setter (which now
@@ -594,6 +594,296 @@ mod lda_evaluate_tests {
             assert_eq!(xc_lda_exc_vxc(p, 4, rho.as_ptr(), zk.as_mut_ptr(), NULL_F64), 0);
             for v in &zk {
                 assert!(*v < 0.0);
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+}
+
+// =====================================================================
+// 06-03-T2a: 12 GGA evaluate functions
+// =====================================================================
+
+/// Build GgaInput + GgaOutput + workspace, run `evaluate_gga`. NULL outputs skipped.
+/// Output-pointer order matches `GgaOutput::new`.
+unsafe fn gga_evaluate(
+    p: *const xc_func_type,
+    np: usize,
+    rho: *const f64,
+    sigma: *const f64,
+    order: DerivativeOrder,
+    zk: *mut f64,
+    vrho: *mut f64,
+    vsigma: *mut f64,
+    v2rho2: *mut f64,
+    v2rhosigma: *mut f64,
+    v2sigma2: *mut f64,
+    v3rho3: *mut f64,
+    v3rho2sigma: *mut f64,
+    v3rhosigma2: *mut f64,
+    v3sigma3: *mut f64,
+    v4rho4: *mut f64,
+    v4rho3sigma: *mut f64,
+    v4rho2sigma2: *mut f64,
+    v4rhosigma3: *mut f64,
+    v4sigma4: *mut f64,
+) -> Result<i32, crate::LibxcRsError> {
+    // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
+    let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
+    let spin = f.spin();
+    let dims = Dimensions::gga(spin);
+    // SAFETY: rho/sigma cover np * dims.{rho,sigma} per the C-ABI contract.
+    let rho_slice = unsafe { input_slice(rho, np, dims.rho as usize) };
+    let sigma_slice = unsafe { input_slice(sigma, np, dims.sigma as usize) };
+    let input = GgaInput::new(rho_slice, sigma_slice, np, spin)?;
+    let mut output = GgaOutput::new(
+        unsafe { ptr_to_opt_slice(zk, np, dims.zk as usize) },
+        unsafe { ptr_to_opt_slice(vrho, np, dims.vrho as usize) },
+        unsafe { ptr_to_opt_slice(vsigma, np, dims.vsigma as usize) },
+        unsafe { ptr_to_opt_slice(v2rho2, np, dims.v2rho2 as usize) },
+        unsafe { ptr_to_opt_slice(v2rhosigma, np, dims.v2rhosigma as usize) },
+        unsafe { ptr_to_opt_slice(v2sigma2, np, dims.v2sigma2 as usize) },
+        unsafe { ptr_to_opt_slice(v3rho3, np, dims.v3rho3 as usize) },
+        unsafe { ptr_to_opt_slice(v3rho2sigma, np, dims.v3rho2sigma as usize) },
+        unsafe { ptr_to_opt_slice(v3rhosigma2, np, dims.v3rhosigma2 as usize) },
+        unsafe { ptr_to_opt_slice(v3sigma3, np, dims.v3sigma3 as usize) },
+        unsafe { ptr_to_opt_slice(v4rho4, np, dims.v4rho4 as usize) },
+        unsafe { ptr_to_opt_slice(v4rho3sigma, np, dims.v4rho3sigma as usize) },
+        unsafe { ptr_to_opt_slice(v4rho2sigma2, np, dims.v4rho2sigma2 as usize) },
+        unsafe { ptr_to_opt_slice(v4rhosigma3, np, dims.v4rhosigma3 as usize) },
+        unsafe { ptr_to_opt_slice(v4sigma4, np, dims.v4sigma4 as usize) },
+        np,
+        spin,
+    )?;
+    let mut ws = EvaluationWorkspace::new(np, spin);
+    f.evaluate_gga(&input, order, &mut output, &mut ws)?;
+    Ok(0)
+}
+
+/// `xc_gga_out_params` — struct-of-pointers for the `xc_gga_new` API entry.
+#[repr(C)]
+pub struct XcGgaOutParams {
+    pub zk: *mut f64,
+    pub vrho: *mut f64,
+    pub vsigma: *mut f64,
+    pub v2rho2: *mut f64,
+    pub v2rhosigma: *mut f64,
+    pub v2sigma2: *mut f64,
+    pub v3rho3: *mut f64,
+    pub v3rho2sigma: *mut f64,
+    pub v3rhosigma2: *mut f64,
+    pub v3sigma3: *mut f64,
+    pub v4rho4: *mut f64,
+    pub v4rho3sigma: *mut f64,
+    pub v4rho2sigma2: *mut f64,
+    pub v4rhosigma3: *mut f64,
+    pub v4sigma4: *mut f64,
+}
+
+/// `void xc_gga_exc(p, np, rho, sigma, zk);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_exc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_exc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Exc, zk,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_exc_vxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Vxc, zk, vrho, vsigma,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_vxc(p, np, rho, sigma, vrho, vsigma);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_vxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Vxc, NULL_F64, vrho, vsigma,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_exc_vxc_fxc(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_exc_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_exc_vxc_fxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Fxc, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_vxc_fxc(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_vxc_fxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Fxc, NULL_F64, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_fxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Fxc, NULL_F64, NULL_F64, NULL_F64, v2rho2, v2rhosigma, v2sigma2,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_exc_vxc_fxc_kxc(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_exc_vxc_fxc_kxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Kxc, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2,
+                v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_vxc_fxc_kxc(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_vxc_fxc_kxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Kxc, NULL_F64, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2,
+                v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_kxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Kxc, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64,
+                v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64)
+        }
+    })
+}
+
+/// `void xc_gga_lxc(p, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_lxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v4rho4: *mut f64, v4rho3sigma: *mut f64, v4rho2sigma2: *mut f64, v4rhosigma3: *mut f64, v4sigma4: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_lxc", {
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, DerivativeOrder::Lxc, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64,
+                NULL_F64, NULL_F64, NULL_F64, NULL_F64, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
+        }
+    })
+}
+
+/// `void xc_gga(p, np, rho, sigma, zk … v4sigma4);` — family-summary, order inferred (Pitfall 8).
+#[unsafe(no_mangle)]
+#[allow(clippy::too_many_arguments)]
+pub unsafe extern "C" fn xc_gga(
+    p: *const xc_func_type,
+    np: usize,
+    rho: *const f64,
+    sigma: *const f64,
+    zk: *mut f64,
+    vrho: *mut f64,
+    vsigma: *mut f64,
+    v2rho2: *mut f64,
+    v2rhosigma: *mut f64,
+    v2sigma2: *mut f64,
+    v3rho3: *mut f64,
+    v3rho2sigma: *mut f64,
+    v3rhosigma2: *mut f64,
+    v3sigma3: *mut f64,
+    v4rho4: *mut f64,
+    v4rho3sigma: *mut f64,
+    v4rho2sigma2: *mut f64,
+    v4rhosigma3: *mut f64,
+    v4sigma4: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_gga", {
+        let order = if !v4rho4.is_null() {
+            DerivativeOrder::Lxc
+        } else if !v3rho3.is_null() {
+            DerivativeOrder::Kxc
+        } else if !v2rho2.is_null() {
+            DerivativeOrder::Fxc
+        } else if !vrho.is_null() {
+            DerivativeOrder::Vxc
+        } else if !zk.is_null() {
+            DerivativeOrder::Exc
+        } else {
+            return Ok(0);
+        };
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, order, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2,
+                v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
+        }
+    })
+}
+
+/// `void xc_gga_new(p, order, np, rho, sigma, xc_gga_out_params *out);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_gga_new(
+    p: *const xc_func_type,
+    order: i32,
+    np: usize,
+    rho: *const f64,
+    sigma: *const f64,
+    out: *const XcGgaOutParams,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_gga_new", {
+        if out.is_null() {
+            return Err(crate::LibxcRsError::OutputBufferSizeMismatch {
+                field: "out",
+                expected: 1,
+                actual: 0,
+            });
+        }
+        // SAFETY: out non-null + caller contract (valid XcGgaOutParams).
+        let o: &XcGgaOutParams = unsafe { &*out };
+        let der_order = unsafe { lda_order_from_int(order, p) }?;
+        unsafe {
+            gga_evaluate(p, np, rho, sigma, der_order, o.zk, o.vrho, o.vsigma, o.v2rho2, o.v2rhosigma, o.v2sigma2,
+                o.v3rho3, o.v3rho2sigma, o.v3rhosigma2, o.v3sigma3, o.v4rho4, o.v4rho3sigma, o.v4rho2sigma2, o.v4rhosigma3, o.v4sigma4)
+        }
+    })
+}
+
+#[cfg(test)]
+mod gga_evaluate_tests {
+    use super::*;
+    use crate::compat::raw_handle::*;
+
+    #[test]
+    fn gga_exc_smoke() {
+        unsafe {
+            let p = xc_func_alloc();
+            let pbe_x_id = crate::registry::lookup_by_name("gga_x_pbe").unwrap().raw() as i32;
+            assert_eq!(xc_func_init(p, pbe_x_id, 1), 0);
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let sigma = [0.01f64, 0.02, 0.03, 0.04];
+            let mut zk = [0.0f64; 4];
+            assert_eq!(xc_gga_exc(p, 4, rho.as_ptr(), sigma.as_ptr(), zk.as_mut_ptr()), 0);
+            for v in &zk {
+                assert!(*v < 0.0, "gga_x_pbe exc must be negative; got {v}");
             }
             xc_func_end(p);
             xc_func_free(p);
