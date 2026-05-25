@@ -2,8 +2,11 @@
 
 pub mod c_layout;
 pub mod errno;
+pub mod hybrid;
 pub mod ids;
+pub mod info;
 pub mod legacy_eval;
+pub mod library;
 pub mod macros;
 pub mod raw_handle;
 pub mod removed;
