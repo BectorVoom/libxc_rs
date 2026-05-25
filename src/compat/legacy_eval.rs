@@ -12,9 +12,9 @@ use crate::compat::raw_handle::FunctionalSlot;
 use crate::dims::Dimensions;
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::extern_c_wrapper;
-use crate::input::{GgaInput, LdaInput};
+use crate::input::{GgaInput, LdaInput, MggaInput};
 use crate::model::DerivativeOrder;
-use crate::output::{GgaOutput, LdaOutput};
+use crate::output::{GgaOutput, LdaOutput, MggaOutput};
 use std::ffi::{c_char, CStr};
 
 // === 4 threshold setters — each forwards to the Phase-5 setter (which now
@@ -884,6 +884,339 @@ mod gga_evaluate_tests {
             assert_eq!(xc_gga_exc(p, 4, rho.as_ptr(), sigma.as_ptr(), zk.as_mut_ptr()), 0);
             for v in &zk {
                 assert!(*v < 0.0, "gga_x_pbe exc must be negative; got {v}");
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+}
+
+// =====================================================================
+// 06-03-T2b: 11 MGGA evaluate functions
+// =====================================================================
+//
+// MggaOutput has ~70 Option<&mut [f64]> derivative fields. Rather than a 70-arg
+// constructor, each entry point builds the struct via `mgga_out!` (struct-literal
+// + ..Default::default()), listing only the fields it exposes. The macro relies
+// on `param name == MggaOutput field name == Dimensions field name` (the libxc
+// canonical naming used throughout this crate); `cargo check` validates every
+// name. NULL pointers map to None (skip-derivative). No `xc_mgga_new` exists in
+// libxc's xc.h, so none is provided here.
+
+/// Build an `MggaOutput` from a set of NULL-able output pointers. Each `$field`
+/// names a fn parameter, an `MggaOutput` field, and a `Dimensions::mgga` stride.
+macro_rules! mgga_out {
+    ($np:expr, $dims:expr; $($field:ident),* $(,)?) => {
+        MggaOutput {
+            $( $field: unsafe { ptr_to_opt_slice($field, $np, $dims.$field as usize) }, )*
+            ..Default::default()
+        }
+    };
+}
+
+/// Read the functional once to derive the MGGA `Dimensions` (strides) for output sizing.
+unsafe fn mgga_dims(p: *const xc_func_type) -> Result<Dimensions, crate::LibxcRsError> {
+    // SAFETY: p non-null + initialized (wrapper macro enforced).
+    let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
+    Ok(Dimensions::mgga(f.spin()))
+}
+
+/// Build MggaInput + workspace, validate the (pre-built) output, run `evaluate_mgga`.
+unsafe fn mgga_run(
+    p: *const xc_func_type,
+    np: usize,
+    rho: *const f64,
+    sigma: *const f64,
+    lapl: *const f64,
+    tau: *const f64,
+    order: DerivativeOrder,
+    mut output: MggaOutput,
+) -> Result<i32, crate::LibxcRsError> {
+    // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
+    let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
+    let spin = f.spin();
+    let dims = Dimensions::mgga(spin);
+    // SAFETY: rho/sigma/lapl/tau cover np * dims.{field} per the C-ABI contract.
+    let rho_slice = unsafe { input_slice(rho, np, dims.rho as usize) };
+    let sigma_slice = unsafe { input_slice(sigma, np, dims.sigma as usize) };
+    let lapl_slice = unsafe { input_slice(lapl, np, dims.lapl as usize) };
+    let tau_slice = unsafe { input_slice(tau, np, dims.tau as usize) };
+    let input = MggaInput::new(rho_slice, sigma_slice, lapl_slice, tau_slice, np, spin)?;
+    output.validate(np, spin)?;
+    let mut ws = EvaluationWorkspace::new(np, spin);
+    f.evaluate_mgga(&input, order, &mut output, &mut ws)?;
+    Ok(0)
+}
+
+/// `void xc_mgga_exc(p, np, rho, sigma, lapl, tau, zk);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_exc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, zk: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_exc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims; zk);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Exc, output) }
+    })
+}
+
+/// `void xc_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_exc_vxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims; zk, vrho, vsigma, vlapl, vtau);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Vxc, output) }
+    })
+}
+
+/// `void xc_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_vxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims; vrho, vsigma, vlapl, vtau);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Vxc, output) }
+    })
+}
+
+/// `void xc_mgga_exc_vxc_fxc(...)` — orders 0,1,2.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_exc_vxc_fxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            zk, vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Fxc, output) }
+    })
+}
+
+/// `void xc_mgga_vxc_fxc(...)` — orders 1,2.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_vxc_fxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_vxc_fxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Fxc, output) }
+    })
+}
+
+/// `void xc_mgga_fxc(...)` — order 2 only.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_fxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_fxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Fxc, output) }
+    })
+}
+
+/// `void xc_mgga_exc_vxc_fxc_kxc(...)` — orders 0,1,2,3.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc_kxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+    v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rho2lapl: *mut f64, v3rho2tau: *mut f64,
+    v3rhosigma2: *mut f64, v3rhosigmalapl: *mut f64, v3rhosigmatau: *mut f64,
+    v3rholapl2: *mut f64, v3rholapltau: *mut f64, v3rhotau2: *mut f64, v3sigma3: *mut f64,
+    v3sigma2lapl: *mut f64, v3sigma2tau: *mut f64, v3sigmalapl2: *mut f64, v3sigmalapltau: *mut f64,
+    v3sigmatau2: *mut f64, v3lapl3: *mut f64, v3lapl2tau: *mut f64, v3lapltau2: *mut f64,
+    v3tau3: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_exc_vxc_fxc_kxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            zk, vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
+            v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2,
+            v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Kxc, output) }
+    })
+}
+
+/// `void xc_mgga_vxc_fxc_kxc(...)` — orders 1,2,3.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_vxc_fxc_kxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+    v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rho2lapl: *mut f64, v3rho2tau: *mut f64,
+    v3rhosigma2: *mut f64, v3rhosigmalapl: *mut f64, v3rhosigmatau: *mut f64,
+    v3rholapl2: *mut f64, v3rholapltau: *mut f64, v3rhotau2: *mut f64, v3sigma3: *mut f64,
+    v3sigma2lapl: *mut f64, v3sigma2tau: *mut f64, v3sigmalapl2: *mut f64, v3sigmalapltau: *mut f64,
+    v3sigmatau2: *mut f64, v3lapl3: *mut f64, v3lapl2tau: *mut f64, v3lapltau2: *mut f64,
+    v3tau3: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_vxc_fxc_kxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
+            v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2,
+            v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Kxc, output) }
+    })
+}
+
+/// `void xc_mgga_kxc(...)` — order 3 only.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_kxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rho2lapl: *mut f64, v3rho2tau: *mut f64,
+    v3rhosigma2: *mut f64, v3rhosigmalapl: *mut f64, v3rhosigmatau: *mut f64,
+    v3rholapl2: *mut f64, v3rholapltau: *mut f64, v3rhotau2: *mut f64, v3sigma3: *mut f64,
+    v3sigma2lapl: *mut f64, v3sigma2tau: *mut f64, v3sigmalapl2: *mut f64, v3sigmalapltau: *mut f64,
+    v3sigmatau2: *mut f64, v3lapl3: *mut f64, v3lapl2tau: *mut f64, v3lapltau2: *mut f64,
+    v3tau3: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_kxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
+            v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2,
+            v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Kxc, output) }
+    })
+}
+
+/// `void xc_mgga_lxc(...)` — order 4 only (35 fields).
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_mgga_lxc(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    v4rho4: *mut f64, v4rho3sigma: *mut f64, v4rho3lapl: *mut f64, v4rho3tau: *mut f64, v4rho2sigma2: *mut f64,
+    v4rho2sigmalapl: *mut f64, v4rho2sigmatau: *mut f64, v4rho2lapl2: *mut f64, v4rho2lapltau: *mut f64,
+    v4rho2tau2: *mut f64, v4rhosigma3: *mut f64, v4rhosigma2lapl: *mut f64, v4rhosigma2tau: *mut f64,
+    v4rhosigmalapl2: *mut f64, v4rhosigmalapltau: *mut f64, v4rhosigmatau2: *mut f64,
+    v4rholapl3: *mut f64, v4rholapl2tau: *mut f64, v4rholapltau2: *mut f64, v4rhotau3: *mut f64,
+    v4sigma4: *mut f64, v4sigma3lapl: *mut f64, v4sigma3tau: *mut f64, v4sigma2lapl2: *mut f64,
+    v4sigma2lapltau: *mut f64, v4sigma2tau2: *mut f64, v4sigmalapl3: *mut f64, v4sigmalapl2tau: *mut f64,
+    v4sigmalapltau2: *mut f64, v4sigmatau3: *mut f64, v4lapl4: *mut f64, v4lapl3tau: *mut f64,
+    v4lapl2tau2: *mut f64, v4lapltau3: *mut f64, v4tau4: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga_lxc", {
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau,
+            v4rho2lapl2, v4rho2lapltau, v4rho2tau2, v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau,
+            v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2,
+            v4rhotau3, v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau, v4sigma2tau2,
+            v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau, v4lapl2tau2,
+            v4lapltau3, v4tau4);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, DerivativeOrder::Lxc, output) }
+    })
+}
+
+/// `void xc_mgga(p, np, rho, sigma, lapl, tau, zk … v4tau4);` — family-summary,
+/// order inferred from highest non-NULL output (Pitfall 8). All 70 output pointers.
+#[unsafe(no_mangle)]
+// This entry point specifies every MggaOutput field, so the macro's trailing
+// `..Default::default()` is a no-op here (harmless; the macro is shared with the
+// partial-field entry points above).
+#[allow(clippy::needless_update)]
+pub unsafe extern "C" fn xc_mgga(
+    p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
+    zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
+    v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
+    v2sigma2: *mut f64, v2sigmalapl: *mut f64, v2sigmatau: *mut f64, v2lapl2: *mut f64,
+    v2lapltau: *mut f64, v2tau2: *mut f64,
+    v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rho2lapl: *mut f64, v3rho2tau: *mut f64,
+    v3rhosigma2: *mut f64, v3rhosigmalapl: *mut f64, v3rhosigmatau: *mut f64,
+    v3rholapl2: *mut f64, v3rholapltau: *mut f64, v3rhotau2: *mut f64, v3sigma3: *mut f64,
+    v3sigma2lapl: *mut f64, v3sigma2tau: *mut f64, v3sigmalapl2: *mut f64, v3sigmalapltau: *mut f64,
+    v3sigmatau2: *mut f64, v3lapl3: *mut f64, v3lapl2tau: *mut f64, v3lapltau2: *mut f64,
+    v3tau3: *mut f64,
+    v4rho4: *mut f64, v4rho3sigma: *mut f64, v4rho3lapl: *mut f64, v4rho3tau: *mut f64, v4rho2sigma2: *mut f64,
+    v4rho2sigmalapl: *mut f64, v4rho2sigmatau: *mut f64, v4rho2lapl2: *mut f64, v4rho2lapltau: *mut f64,
+    v4rho2tau2: *mut f64, v4rhosigma3: *mut f64, v4rhosigma2lapl: *mut f64, v4rhosigma2tau: *mut f64,
+    v4rhosigmalapl2: *mut f64, v4rhosigmalapltau: *mut f64, v4rhosigmatau2: *mut f64,
+    v4rholapl3: *mut f64, v4rholapl2tau: *mut f64, v4rholapltau2: *mut f64, v4rhotau3: *mut f64,
+    v4sigma4: *mut f64, v4sigma3lapl: *mut f64, v4sigma3tau: *mut f64, v4sigma2lapl2: *mut f64,
+    v4sigma2lapltau: *mut f64, v4sigma2tau2: *mut f64, v4sigmalapl3: *mut f64, v4sigmalapl2tau: *mut f64,
+    v4sigmalapltau2: *mut f64, v4sigmatau3: *mut f64, v4lapl4: *mut f64, v4lapl3tau: *mut f64,
+    v4lapl2tau2: *mut f64, v4lapltau3: *mut f64, v4tau4: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_mgga", {
+        let order = if !v4rho4.is_null() {
+            DerivativeOrder::Lxc
+        } else if !v3rho3.is_null() {
+            DerivativeOrder::Kxc
+        } else if !v2rho2.is_null() {
+            DerivativeOrder::Fxc
+        } else if !vrho.is_null() {
+            DerivativeOrder::Vxc
+        } else if !zk.is_null() {
+            DerivativeOrder::Exc
+        } else {
+            return Ok(0);
+        };
+        let dims = unsafe { mgga_dims(p) }?;
+        let output = mgga_out!(np, dims;
+            zk, vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
+            v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2,
+            v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3,
+            v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau,
+            v4rho2lapl2, v4rho2lapltau, v4rho2tau2, v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau,
+            v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2,
+            v4rhotau3, v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau, v4sigma2tau2,
+            v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau, v4lapl2tau2,
+            v4lapltau3, v4tau4);
+        unsafe { mgga_run(p, np, rho, sigma, lapl, tau, order, output) }
+    })
+}
+
+#[cfg(test)]
+mod mgga_evaluate_tests {
+    use super::*;
+    use crate::compat::raw_handle::*;
+
+    #[test]
+    fn mgga_exc_smoke() {
+        unsafe {
+            let p = xc_func_alloc();
+            let mgga_id = crate::registry::lookup_by_name("mgga_x_scan")
+                .or_else(|_| crate::registry::lookup_by_name("mgga_x_tpss"))
+                .expect("at least one MGGA functional compiled")
+                .raw() as i32;
+            assert_eq!(xc_func_init(p, mgga_id, 1), 0);
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let sigma = [0.01f64, 0.02, 0.03, 0.04];
+            let lapl = [0.0f64; 4];
+            let tau = [0.05f64, 0.06, 0.07, 0.08];
+            let mut zk = [0.0f64; 4];
+            assert_eq!(
+                xc_mgga_exc(p, 4, rho.as_ptr(), sigma.as_ptr(), lapl.as_ptr(), tau.as_ptr(), zk.as_mut_ptr()),
+                0
+            );
+            for v in &zk {
+                assert!(*v < 0.0, "MGGA exc must be negative; got {v}");
             }
             xc_func_end(p);
             xc_func_free(p);
