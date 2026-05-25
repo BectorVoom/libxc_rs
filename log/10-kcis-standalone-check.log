@@ -1,0 +1,10 @@
+    Checking thiserror v2.0.18
+    Checking cubecl-runtime v0.10.0
+    Checking cubecl-core v0.10.0
+    Checking cubecl-opt v0.10.0
+    Checking cubecl-std v0.10.0
+    Checking cubecl-cpu v0.10.0
+    Checking cubecl v0.10.0
+    Checking libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/math)
+    Checking libxc-kernel-mgga_c_kcis v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcis)
+    Finished `dev` profile [unoptimized] target(s) in 9m 41s
