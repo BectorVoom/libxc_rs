@@ -275,12 +275,23 @@ pub fn dispatch_mgga(
     // sigma-DOWN Fermi-hole curvature clamp (sigma <- min(sigma, 8*rho*tau)). Supersedes the
     // Phase-11 G-1 tau-up clamp (was on the wrong variable vs libxc). One edit here propagates
     // to every routed MGGA functional. See prepare.rs + work_mgga_inc.c:54-68.
+    //
+    // The tau-floor + sigma-DOWN clamp are gated on XC_FLAGS_NEEDS_TAU exactly like libxc
+    // (work_mgga_inc.c:62): a laplacian-only / kinetic functional that does NOT read tau
+    // must keep its raw sigma — clamping it down corrupts a value the functional reads
+    // (regression caught by the mgga_oracle gate: mgga_k_gea2/gea4, mgga_xc_zlp/lp90).
+    let needs_tau = functional
+        .to_id()
+        .meta()
+        .flags
+        .contains(crate::model::FunctionalFlags::NEEDS_TAU);
     let (sigma_reg, tau_reg) = prepare::regularize_inputs(
         input.rho(),
         input.sigma(),
         input.tau(),
         thresholds.density,
         thresholds.tau,
+        needs_tau,
     );
     let sigma_handle = create_input_buffer(&client, &sigma_reg);
     let sigma_len = sigma_reg.len();
