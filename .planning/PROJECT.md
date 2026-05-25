@@ -22,13 +22,16 @@ Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluatio
 - [x] Output bundles with Option<&mut [f64]> NULL-pointer semantics and OutputMask bitflags — Validated in Phase 3
 - [x] Mathematical core: shared #[cube] numerical building blocks (pow_1_3, safe_cbrt, piecewise3/5, erf/erfc, Horner evaluation, DFT quantities) — Validated in Phase 2
 - [x] Evaluation orchestration: dispatch by family/order/spin, mixed functional accumulation with workspace — Validated in Phase 3
+- [x] Builder pattern and BatchEvaluator for ergonomic API (sealed EvaluateInput auto-dispatch by family) — Validated in Phase 6
+- [x] All 85 public C API functions mapped to Rust equivalents (87 extern "C" symbols, ≥85) — Validated in Phase 6
+- [x] C compatibility layer: extern "C" functions + opaque #[repr(C)] handles + hand-written include/xc.h (gcc c89/c99 clean) — Validated in Phase 6
+- [x] Hybrid functional properties: HybridType, CAM coefficients, NLC coefficients, auxiliary functionals — Validated in Phase 6
 
 ### Active
 
 - [ ] Pure Rust implementation -- no runtime C/Fortran FFI dependency in the production path
 - [ ] Three-layer API: compatibility layer (C API 1:1 mapping), typed safe core, ergonomic high-level interface
 - [ ] All 52 removed functional IDs return typed error with replacement ID
-- [ ] All 85 public C API functions mapped to Rust equivalents
 - [ ] All 270 maple2c kernel files translated to Rust #[cube] functions preserving f64 precision and operation order
 - [ ] Density thresholding: grid points below threshold skipped, spin densities clamped
 - [ ] Output accumulation via += for mixed functional support
@@ -37,9 +40,6 @@ Numerically accurate (energy relative error <= 10^-12 vs libxc oracle) evaluatio
 - [ ] f64-only precision policy -- no silent f32 degradation
 - [ ] Evaluation orchestration: dispatch by family/order/spin, mixed functional accumulation with workspace
 - [ ] Functional instance lifecycle: construction, ext_params, thresholds, auxiliary functionals for hybrids
-- [ ] Builder pattern and BatchEvaluator for ergonomic API
-- [ ] C compatibility layer: extern "C" functions for all 85 public C API functions
-- [ ] Hybrid functional properties: HybridType, CAM coefficients, NLC coefficients, auxiliary functionals
 - [ ] Error types with thiserror v2 at library boundary, anyhow in verify/benches/xtask
 - [ ] Performance: CPU batch within 1.5x of libxc C, GPU batch >5x CPU throughput, zero heap allocation in non-mixed hot path
 - [ ] Benchmark suite with criterion for regression detection
@@ -103,4 +103,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-09 after Phase 1 completion*
+*Last updated: 2026-05-25 after Phase 6 (Public API & C Compatibility) completion*

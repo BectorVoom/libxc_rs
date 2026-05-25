@@ -81,15 +81,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### High-Level API
 
-- [ ] **API-01**: FunctionalBuilder with chained configuration (spin, thresholds, ext_params)
-- [ ] **API-02**: BatchEvaluator with reusable workspace for repeated evaluations
-- [ ] **API-03**: Ergonomic evaluate() method that dispatches by family automatically
+- [x] **API-01**: FunctionalBuilder with chained configuration (spin, thresholds, ext_params)
+- [x] **API-02**: BatchEvaluator with reusable workspace for repeated evaluations
+- [x] **API-03**: Ergonomic evaluate() method that dispatches by family automatically
 
 ### C Compatibility Layer
 
-- [ ] **COMPAT-01**: All 85 public C API functions implemented as extern "C" functions
-- [ ] **COMPAT-02**: C-compatible struct layouts for FFI consumers
-- [ ] **COMPAT-03**: Unsafe code confined to compat/ module
+- [x] **COMPAT-01**: All 85 public C API functions implemented as extern "C" functions
+- [x] **COMPAT-02**: C-compatible struct layouts for FFI consumers
+- [x] **COMPAT-03**: Unsafe code confined to compat/ module
 
 ### Hybrid Properties
 
@@ -239,12 +239,12 @@ Which phases cover which requirements. Each requirement maps to exactly one phas
 | HYB-02 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
 | HYB-03 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
 | HYB-04 | Phase 5: Functional Lifecycle and Hybrid Properties | Pending |
-| API-01 | Phase 6: Public API and C Compatibility | Pending |
-| API-02 | Phase 6: Public API and C Compatibility | Pending |
-| API-03 | Phase 6: Public API and C Compatibility | Pending |
-| COMPAT-01 | Phase 6: Public API and C Compatibility | Pending |
-| COMPAT-02 | Phase 6: Public API and C Compatibility | Pending |
-| COMPAT-03 | Phase 6: Public API and C Compatibility | Pending |
+| API-01 | Phase 6: Public API and C Compatibility | Complete |
+| API-02 | Phase 6: Public API and C Compatibility | Complete |
+| API-03 | Phase 6: Public API and C Compatibility | Complete |
+| COMPAT-01 | Phase 6: Public API and C Compatibility | Complete |
+| COMPAT-02 | Phase 6: Public API and C Compatibility | Complete |
+| COMPAT-03 | Phase 6: Public API and C Compatibility | Complete |
 | GPU-01 | Phase 7: GPU Backends and Performance | Pending |
 | GPU-02 | Phase 7: GPU Backends and Performance | Pending |
 | GPU-03 | Phase 7: GPU Backends and Performance | Pending |

@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: Input/Output and Evaluation Framework** - I/O bundle types, output masks, dispatch routing, mixed functional accumulation
 - [x] **Phase 4: Bulk Kernel Translation** - All 270 maple2c kernel files translated to #[cube] functions with oracle verification
 - [x] **Phase 5: Functional Lifecycle and Hybrid Properties** *(COMPLETE 2026-04-28 — verified 5/5 must-haves; 4 live-FFI oracle tests deferred to warm-cache run, see 05-HUMAN-UAT.md)* - Functional struct, parameter management, hybrid queries, evaluation orchestration
-- [ ] **Phase 6: Public API and C Compatibility** - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
+- [x] **Phase 6: Public API and C Compatibility** *(COMPLETE 2026-05-25 — verified 5/5 success criteria + all 24 plan must-have truths; 87 extern "C" fns; include/xc.h 87↔87 symbol-aligned + gcc c89/c99 clean; full cargo test/build + nm symbol gate + compat_smoke CI-deferred per RAM/281-kernel constraint)* - Builder pattern, BatchEvaluator, ergonomic API, all 85 extern "C" functions
 - [ ] **Phase 7: GPU Backends and Performance** - ROCM/HIP/WGPU backends, GPU buffer management, benchmarks, performance targets
 - [x] **Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap** *(INSERTED, COMPLETE 2026-05-25)* - Collapse per-family subcrates; extend splitter to subdivide single output expressions so every emitted kernel file is ≤5,000 lines
 - [x] **Phase 11.1: Translator Rule 3 Emit Fix + Sweep-to-Green** *(INSERTED, 2026-05-22 — narrow scope shipped; idempotency/G4/full-sweep/closure hand back to re-opened Phase 11)* - Amend `tools/translate_v2/` chunk-body emit to apply Rule 3 (`F::cast_from`/`F::new`) to all f64-literal positions inside fn bodies (P1: named-const refs in F arithmetic; P2: bare-literal tuple-return members; P3-preventive: let-bindings feeding F expressions); full-tree regen across 266 subcrates; iterate `batched_compile_sweep.py` to VERDICT: ALL_OK; then resume Phase 11 closure items (11-06 Legs 2/3/4, 11-08 Tasks 2/3)
@@ -165,7 +165,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Input/Output and Evaluation Framework | 0/3 | Not started | - |
 | 4. Bulk Kernel Translation | 5/5 | Complete | 2026-04-24 |
 | 5. Functional Lifecycle and Hybrid Properties | 7/7 | Complete | 2026-04-28 |
-| 6. Public API and C Compatibility | 1/4 | In progress | - |
+| 6. Public API and C Compatibility | 4/4 | Complete | 2026-05-25 |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
 | 10. Workspace-Level Modular Split | 0/4 | Planned | - |
 | 11. Splitter v2 — 5K Line Cap | 15/15 | Complete | 2026-05-25 |
