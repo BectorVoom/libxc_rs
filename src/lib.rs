@@ -38,5 +38,4 @@ pub use functional::{
 pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};
 // Opaque C-ABI handle types (compat layer). Re-exported at the crate root so
 // Rust-side callers and the include/xc.h generator can name them directly.
-#[allow(non_camel_case_types)]
 pub use compat::c_layout::{xc_func_info_type, xc_func_type};

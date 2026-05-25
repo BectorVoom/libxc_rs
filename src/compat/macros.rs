@@ -5,8 +5,15 @@
 /// Forms:
 ///   1. With handle: `extern_c_wrapper!(p, "fn_name", { body returning Result<i32, LibxcRsError> })`
 ///   2. No handle:   `extern_c_wrapper!(_, "fn_name", { body })`
+///
+/// The no-handle `(_, ...)` arm MUST come first: since Rust 1.59 the underscore
+/// is a valid `:expr` fragment (destructuring-assignment grammar), so a `$p:expr`
+/// arm placed first would greedily capture a literal `_` and expand to the
+/// invalid `if _.is_null()`. Ordering the literal-`_` arm first keeps the
+/// no-handle form working while a real pointer expression still falls through.
 #[macro_export]
 macro_rules! extern_c_wrapper {
+    (_, $name:literal, $body:block) => {{ $crate::__extern_c_wrapper_body!($name, $body) }};
     ($p:expr, $name:literal, $body:block) => {{
         if $p.is_null() {
             $crate::compat::errno::set_error(
@@ -17,7 +24,6 @@ macro_rules! extern_c_wrapper {
         }
         $crate::__extern_c_wrapper_body!($name, $body)
     }};
-    (_, $name:literal, $body:block) => {{ $crate::__extern_c_wrapper_body!($name, $body) }};
 }
 
 /// Internal: shared catch_unwind body for both forms.
