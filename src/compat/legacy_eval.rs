@@ -9,7 +9,12 @@
 use crate::compat::c_layout::{xc_func_type, LIBXC_EXT_PARAMS_DEFAULT};
 use crate::compat::errno::{self, set_error};
 use crate::compat::raw_handle::FunctionalSlot;
+use crate::dims::Dimensions;
+use crate::eval::workspace::EvaluationWorkspace;
 use crate::extern_c_wrapper;
+use crate::input::LdaInput;
+use crate::model::DerivativeOrder;
+use crate::output::LdaOutput;
 use std::ffi::{c_char, CStr};
 
 // === 4 threshold setters — each forwards to the Phase-5 setter (which now
@@ -300,6 +305,295 @@ mod tests {
                     "aux {} did not receive threshold via FFI path",
                     aux.meta().name
                 );
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+}
+
+// =====================================================================
+// 06-03-T1: 12 LDA evaluate functions (+ shared pointer helpers)
+// =====================================================================
+
+/// Convert a NULL-able `*mut f64` to `Option<&mut [f64]>` of length `np * stride`.
+/// NULL maps to `None` (libxc "skip this derivative" semantics — Pitfall 8).
+unsafe fn ptr_to_opt_slice<'a>(ptr: *mut f64, np: usize, stride: usize) -> Option<&'a mut [f64]> {
+    if ptr.is_null() {
+        None
+    } else {
+        let len = np.checked_mul(stride).expect("np * stride overflow");
+        // SAFETY: caller asserts `ptr` covers `np * stride` f64s with no aliasing.
+        Some(unsafe { std::slice::from_raw_parts_mut(ptr, len) })
+    }
+}
+
+/// Build a required (`*const f64`) input slice of length `np * stride`.
+unsafe fn input_slice<'a>(ptr: *const f64, np: usize, stride: usize) -> &'a [f64] {
+    let len = np.checked_mul(stride).expect("np * stride overflow");
+    // SAFETY: caller asserts `ptr` covers `np * stride` f64s.
+    unsafe { std::slice::from_raw_parts(ptr, len) }
+}
+
+/// Build LdaInput + LdaOutput + workspace, run `evaluate_lda`. NULL outputs skipped.
+unsafe fn lda_evaluate(
+    p: *const xc_func_type,
+    np: usize,
+    rho: *const f64,
+    order: DerivativeOrder,
+    zk: *mut f64,
+    vrho: *mut f64,
+    v2rho2: *mut f64,
+    v3rho3: *mut f64,
+    v4rho4: *mut f64,
+) -> Result<i32, crate::LibxcRsError> {
+    // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
+    let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
+    let spin = f.spin();
+    let dims = Dimensions::lda(spin);
+    // SAFETY: rho covers np * dims.rho per the C-ABI contract.
+    let rho_slice = unsafe { input_slice(rho, np, dims.rho as usize) };
+    let input = LdaInput::new(rho_slice, np, spin)?;
+    let mut output = LdaOutput::new(
+        unsafe { ptr_to_opt_slice(zk, np, dims.zk as usize) },
+        unsafe { ptr_to_opt_slice(vrho, np, dims.vrho as usize) },
+        unsafe { ptr_to_opt_slice(v2rho2, np, dims.v2rho2 as usize) },
+        unsafe { ptr_to_opt_slice(v3rho3, np, dims.v3rho3 as usize) },
+        unsafe { ptr_to_opt_slice(v4rho4, np, dims.v4rho4 as usize) },
+        np,
+        spin,
+    )?;
+    let mut ws = EvaluationWorkspace::new(np, spin);
+    f.evaluate_lda(&input, order, &mut output, &mut ws)?;
+    Ok(0)
+}
+
+/// `xc_lda_out_params` — struct-of-pointers for the `xc_lda_new` API entry.
+#[repr(C)]
+pub struct XcLdaOutParams {
+    pub zk: *mut f64,
+    pub vrho: *mut f64,
+    pub v2rho2: *mut f64,
+    pub v3rho3: *mut f64,
+    pub v4rho4: *mut f64,
+}
+
+const NULL_F64: *mut f64 = std::ptr::null_mut();
+
+/// `void xc_lda_exc(p, np, rho, zk);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_exc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_exc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Exc, zk, NULL_F64, NULL_F64, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_exc_vxc(p, np, rho, zk, vrho);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_exc_vxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Vxc, zk, vrho, NULL_F64, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_vxc(p, np, rho, vrho);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_vxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_vxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Vxc, NULL_F64, vrho, NULL_F64, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_exc_vxc_fxc(p, np, rho, zk, vrho, v2rho2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_exc_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64, v2rho2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_exc_vxc_fxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, zk, vrho, v2rho2, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_vxc_fxc(p, np, rho, vrho, v2rho2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64, v2rho2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_vxc_fxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, NULL_F64, vrho, v2rho2, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_fxc(p, np, rho, v2rho2);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_fxc(p: *const xc_func_type, np: usize, rho: *const f64, v2rho2: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_fxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, NULL_F64, NULL_F64, v2rho2, NULL_F64, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_exc_vxc_fxc_kxc(p, np, rho, zk, vrho, v2rho2, v3rho3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64, v2rho2: *mut f64, v3rho3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_exc_vxc_fxc_kxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, zk, vrho, v2rho2, v3rho3, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_vxc_fxc_kxc(p, np, rho, vrho, v2rho2, v3rho3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64, v2rho2: *mut f64, v3rho3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_vxc_fxc_kxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, NULL_F64, vrho, v2rho2, v3rho3, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_kxc(p, np, rho, v3rho3);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_kxc(p: *const xc_func_type, np: usize, rho: *const f64, v3rho3: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_kxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, NULL_F64, NULL_F64, NULL_F64, v3rho3, NULL_F64) }
+    })
+}
+
+/// `void xc_lda_lxc(p, np, rho, v4rho4);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_lxc(p: *const xc_func_type, np: usize, rho: *const f64, v4rho4: *mut f64) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_lxc", {
+        unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Lxc, NULL_F64, NULL_F64, NULL_F64, NULL_F64, v4rho4) }
+    })
+}
+
+/// `void xc_lda(p, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);`
+/// Family-summary: infers `order` from the highest non-NULL output (Pitfall 8).
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda(
+    p: *const xc_func_type,
+    np: usize,
+    rho: *const f64,
+    zk: *mut f64,
+    vrho: *mut f64,
+    v2rho2: *mut f64,
+    v3rho3: *mut f64,
+    v4rho4: *mut f64,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_lda", {
+        let order = if !v4rho4.is_null() {
+            DerivativeOrder::Lxc
+        } else if !v3rho3.is_null() {
+            DerivativeOrder::Kxc
+        } else if !v2rho2.is_null() {
+            DerivativeOrder::Fxc
+        } else if !vrho.is_null() {
+            DerivativeOrder::Vxc
+        } else if !zk.is_null() {
+            DerivativeOrder::Exc
+        } else {
+            return Ok(0); // all NULL: no-op (libxc parity)
+        };
+        unsafe { lda_evaluate(p, np, rho, order, zk, vrho, v2rho2, v3rho3, v4rho4) }
+    })
+}
+
+/// `void xc_lda_new(p, order, np, rho, xc_lda_out_params *out);`
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn xc_lda_new(
+    p: *const xc_func_type,
+    order: i32,
+    np: usize,
+    rho: *const f64,
+    out: *const XcLdaOutParams,
+) -> i32 {
+    extern_c_wrapper!(p, "xc_lda_new", {
+        if out.is_null() {
+            return Err(crate::LibxcRsError::OutputBufferSizeMismatch {
+                field: "out",
+                expected: 1,
+                actual: 0,
+            });
+        }
+        // SAFETY: out is non-null + caller contract (valid XcLdaOutParams).
+        let o: &XcLdaOutParams = unsafe { &*out };
+        let der_order = unsafe { lda_order_from_int(order, p) }?;
+        unsafe { lda_evaluate(p, np, rho, der_order, o.zk, o.vrho, o.v2rho2, o.v3rho3, o.v4rho4) }
+    })
+}
+
+/// Map the integer `order` argument (0..=4) of `xc_*_new` to `DerivativeOrder`.
+unsafe fn lda_order_from_int(order: i32, p: *const xc_func_type) -> Result<DerivativeOrder, crate::LibxcRsError> {
+    Ok(match order {
+        0 => DerivativeOrder::Exc,
+        1 => DerivativeOrder::Vxc,
+        2 => DerivativeOrder::Fxc,
+        3 => DerivativeOrder::Kxc,
+        4 => DerivativeOrder::Lxc,
+        _ => {
+            // SAFETY: p non-null + initialized (wrapper macro enforced).
+            let id = unsafe { FunctionalSlot::as_initialized_const(p)? }.meta().id;
+            return Err(crate::LibxcRsError::UnsupportedDerivativeOrder {
+                id,
+                order: DerivativeOrder::Lxc,
+                max: DerivativeOrder::Lxc,
+            });
+        }
+    })
+}
+
+#[cfg(test)]
+mod lda_evaluate_tests {
+    use super::*;
+    use crate::compat::raw_handle::*;
+
+    #[test]
+    fn lda_exc_smoke() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 1, 1), 0); // lda_x unpolarized
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let mut zk = [0.0f64; 4];
+            assert_eq!(xc_lda_exc(p, 4, rho.as_ptr(), zk.as_mut_ptr()), 0);
+            for v in &zk {
+                assert!(*v < 0.0, "lda_x exc must be negative; got {v}");
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+
+    #[test]
+    fn xc_lda_infers_order_from_outputs() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 1, 1), 0);
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let mut zk = [0.0f64; 4];
+            let mut vrho = [0.0f64; 4];
+            assert_eq!(
+                xc_lda(p, 4, rho.as_ptr(), zk.as_mut_ptr(), vrho.as_mut_ptr(), NULL_F64, NULL_F64, NULL_F64),
+                0
+            );
+            for v in &zk {
+                assert!(*v < 0.0);
+            }
+            for v in &vrho {
+                assert!(*v < 0.0);
+            }
+            // All-NULL: no-op, return 0.
+            assert_eq!(
+                xc_lda(p, 4, rho.as_ptr(), NULL_F64, NULL_F64, NULL_F64, NULL_F64, NULL_F64),
+                0
+            );
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+
+    #[test]
+    fn null_skips_derivative_in_exc_vxc() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 1, 1), 0);
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let mut zk = [0.0f64; 4];
+            assert_eq!(xc_lda_exc_vxc(p, 4, rho.as_ptr(), zk.as_mut_ptr(), NULL_F64), 0);
+            for v in &zk {
+                assert!(*v < 0.0);
             }
             xc_func_end(p);
             xc_func_free(p);
