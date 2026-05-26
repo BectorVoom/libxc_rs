@@ -5,7 +5,7 @@
 //! `xc_rs_last_error_message()` to retrieve the typed discriminant + the
 //! Display-formatted error message for the most recent error on this thread.
 
-use crate::error::LibxcRsError;
+use libxc_core::error::LibxcRsError;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::ffi::{c_char, CString};
@@ -111,7 +111,7 @@ pub extern "C" fn xc_rs_last_error_message() -> *const c_char {
 
 #[cfg(test)] mod tests {
     use super::*;
-    use crate::error::LibxcRsError;
+    use libxc_core::error::LibxcRsError;
 
     #[test]
     fn errno_round_trip() {
@@ -139,8 +139,8 @@ pub extern "C" fn xc_rs_last_error_message() -> *const c_char {
     fn cache_cstring_holds_649_pointers_stable() {
         std::thread::spawn(|| {
             // Collect 649 distinct &'static str via the registry.
-            let names: Vec<&'static str> = crate::registry::all_functional_ids()
-                .filter_map(|fid| crate::registry::lookup_by_id(fid.raw()).ok().map(|m| m.name))
+            let names: Vec<&'static str> = libxc_core::registry::all_functional_ids()
+                .filter_map(|fid| libxc_core::registry::lookup_by_id(fid.raw()).ok().map(|m| m.name))
                 .collect();
             assert!(names.len() >= 649, "registry must have ≥ 649 names; got {}", names.len());
             // Insert all 649 (or more) and snapshot pointers.

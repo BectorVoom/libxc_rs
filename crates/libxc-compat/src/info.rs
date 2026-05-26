@@ -6,9 +6,9 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::compat::c_layout::{func_reference_type, xc_func_info_type};
-use crate::compat::errno::cache_cstring;
-use crate::meta::{FunctionalMeta, Reference};
+use crate::c_layout::{func_reference_type, xc_func_info_type};
+use crate::errno::cache_cstring;
+use libxc_core::meta::{FunctionalMeta, Reference};
 use std::ffi::c_char;
 
 unsafe fn info_ref<'a>(info: *const xc_func_info_type) -> Option<&'a FunctionalMeta> {
@@ -143,7 +143,7 @@ pub unsafe extern "C" fn xc_func_reference_get_key(r: *const func_reference_type
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::compat::raw_handle::*;
+    use crate::raw_handle::*;
     use std::ffi::CStr;
 
     #[test]

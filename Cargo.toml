@@ -4,12 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bitflags = "2.10.0"
-bytemuck = { version = "1.25.0", features = ["derive"] }
-cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
-thiserror = "2.0.18"
-libxc-core = { path = "crates/libxc-core" }
-libxc-eval = { path = "crates/libxc-eval", default-features = false }
+# Phase 10: thin facade — deps reduced to the 3 leaf crates. bitflags/bytemuck/
+# cubecl/thiserror are no longer direct root deps (they live in the leaf crates;
+# api/ and the facade re-exports use none of them directly).
+libxc-core   = { path = "crates/libxc-core" }
+libxc-eval   = { path = "crates/libxc-eval", default-features = false }
+libxc-compat = { path = "crates/libxc-compat", default-features = false }
 
 
 [features]
@@ -32,7 +32,8 @@ members=[    "xtask",
     "verify-canary",
     "libxc-sys",
     "crates/libxc-core",
-    "crates/libxc-eval",]
+    "crates/libxc-eval",
+    "crates/libxc-compat",]
 # default-members = crates/kernels/math + every per-functional subcrate EXCEPT
 # the 7 D-11 deferred kernels (mgga_c_b94, mgga_x_br89, mgga_x_mbr,
 # mgga_x_mbrxc_bg, mgga_x_mbrxh_bg, mgga_x_mggac, mgga_x_br89_explicit). Those

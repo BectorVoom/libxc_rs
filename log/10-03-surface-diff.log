@@ -1,0 +1,3 @@
+1a2,3
+> use libxc_rs::deferred::lda::is_deferred
+> use libxc_rs::deferred::mgga::is_deferred

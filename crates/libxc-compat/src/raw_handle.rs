@@ -7,12 +7,12 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::LibxcRsError;
-use crate::compat::c_layout::{xc_func_info_type, xc_func_type};
-use crate::compat::errno::{self, set_error};
+use libxc_core::error::LibxcRsError;
+use crate::c_layout::{xc_func_info_type, xc_func_type};
+use crate::errno::{self, set_error};
 use crate::extern_c_wrapper;
-use crate::functional::Functional;
-use crate::model::{FunctionalId, Spin};
+use libxc_eval::functional::Functional;
+use libxc_core::model::{FunctionalId, Spin};
 
 /// Two-state slot: `Empty` (allocated but not initialized) or `Initialized(Functional)`.
 ///
@@ -160,7 +160,7 @@ pub unsafe extern "C" fn xc_func_get_info(p: *const xc_func_type) -> *const xc_f
         // SAFETY: p is non-null and per caller contract points to a valid
         // Box<FunctionalSlot>.
         unsafe { FunctionalSlot::as_initialized_const(p) }
-            .map(|f| f.meta() as *const crate::meta::FunctionalMeta as *const xc_func_info_type)
+            .map(|f| f.meta() as *const libxc_core::meta::FunctionalMeta as *const xc_func_info_type)
     }));
     match result {
         Ok(Ok(info)) => info,
@@ -181,7 +181,7 @@ pub unsafe extern "C" fn xc_func_get_info(p: *const xc_func_type) -> *const xc_f
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::compat::errno::xc_rs_last_error_code;
+    use crate::errno::xc_rs_last_error_code;
 
     #[test]
     fn lifecycle_round_trip() {

@@ -9,12 +9,12 @@
 //! so this helper reaches the data through the public `registry::lookup_by_id`
 //! error path rather than importing the table directly.
 
-use crate::error::LibxcRsError;
+use libxc_core::error::LibxcRsError;
 
 /// Returns `Some((replacement_id, replacement_name))` if `id` is a removed functional ID,
 /// `None` if `id` is a live functional (or simply unknown).
 pub fn replacement_for(id: u16) -> Option<(u16, &'static str)> {
-    match crate::registry::lookup_by_id(id) {
+    match libxc_core::registry::lookup_by_id(id) {
         Err(LibxcRsError::RemovedFunctionalId {
             replacement_id,
             replacement_name,

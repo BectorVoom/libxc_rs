@@ -41,7 +41,7 @@ use libxc_rs::eval::dispatch_mgga;
 use libxc_rs::input::MggaInput;
 use libxc_rs::model::{DerivativeOrder, FunctionalId, MggaFunctional, Spin, Thresholds};
 use libxc_rs::output::MggaOutput;
-use libxc_kernel_math::deferred::mgga::is_deferred as is_deferred_mgga;
+use libxc_rs::deferred::mgga::is_deferred as is_deferred_mgga;
 use libxc_rs_verify::{
     FLAGS_HAVE_EXC, FLAGS_HAVE_VXC, MggaOracleOutput, oracle_func_flags, oracle_mgga_all,
 };

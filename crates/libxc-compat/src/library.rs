@@ -2,7 +2,7 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::registry;
+use libxc_core::registry;
 use std::ffi::{c_char, CStr};
 
 static VERSION_STRING: &CStr = c"7.0.0";

@@ -11,7 +11,7 @@
 //!
 //! The 4 deferred LDA functionals (lda_c_pk09=554, lda_xc_ksdt=259,
 //! lda_c_pw_erf=654, lda_c_pmgb06=590) are skipped via
-//! `libxc_kernel_lda::deferred::is_deferred`. Functionals whose registry IDs
+//! `libxc_rs::deferred::lda::is_deferred`. Functionals whose registry IDs
 //! aren't routable through `LdaFunctional::from_id` are also skipped (e.g.
 //! `lda_c_xalpha`, `lda_x_rae`) — these aren't compiled into kernel-lda yet.
 //! Skipped counts are surfaced in test output for coverage drift detection.
@@ -33,7 +33,7 @@ use libxc_rs_verify::{
     FLAGS_HAVE_LXC, FLAGS_HAVE_VXC, LdaOracleOutput,
 };
 
-use libxc_kernel_math::deferred::lda::is_deferred;
+use libxc_rs::deferred::lda::is_deferred;
 
 struct FunctionalTestCase {
     id: i32,

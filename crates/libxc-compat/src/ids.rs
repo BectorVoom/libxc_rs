@@ -3,9 +3,9 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::compat::errno::{self, cache_cstring, set_error};
+use crate::errno::{self, cache_cstring, set_error};
 use crate::extern_c_wrapper;
-use crate::registry;
+use libxc_core::registry;
 use std::ffi::{c_char, CStr};
 
 /// `int xc_functional_get_number(const char *name);`
@@ -19,7 +19,7 @@ pub unsafe extern "C" fn xc_functional_get_number(name: *const c_char) -> i32 {
         // SAFETY: name non-null; caller contract = valid C string.
         let s = unsafe { CStr::from_ptr(name) }
             .to_str()
-            .map_err(|_| crate::LibxcRsError::UnknownFunctionalName("non-utf8".into()))?;
+            .map_err(|_| libxc_core::error::LibxcRsError::UnknownFunctionalName("non-utf8".into()))?;
         let id = registry::lookup_by_name(s)?;
         Ok(id.raw() as i32)
     })
@@ -56,7 +56,7 @@ pub unsafe extern "C" fn xc_functional_get_name(number: i32) -> *const c_char {
 pub unsafe extern "C" fn xc_family_from_id(id: i32, family: *mut i32, number: *mut i32) -> i32 {
     extern_c_wrapper!(_, "xc_family_from_id", {
         if id < 0 || id > u16::MAX as i32 {
-            return Err(crate::LibxcRsError::UnknownFunctionalId(0));
+            return Err(libxc_core::error::LibxcRsError::UnknownFunctionalId(0));
         }
         let meta = registry::lookup_by_id(id as u16)?;
         if !family.is_null() {

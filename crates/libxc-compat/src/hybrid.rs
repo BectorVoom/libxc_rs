@@ -6,11 +6,11 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::compat::c_layout::xc_func_type;
-use crate::compat::errno::{self, set_error};
-use crate::compat::raw_handle::FunctionalSlot;
+use crate::c_layout::xc_func_type;
+use crate::errno::{self, set_error};
+use crate::raw_handle::FunctionalSlot;
 use crate::extern_c_wrapper;
-use crate::model::HybridType;
+use libxc_core::model::HybridType;
 
 /// libxc `XC_HYB_*` integer constants. VERIFIED against libxc-master/src/xc.h:94-100.
 /// Exhaustive over every `HybridType` variant (no `_` arm) so a future variant
@@ -44,7 +44,7 @@ pub unsafe extern "C" fn xc_hyb_exx_coef(p: *const xc_func_type) -> f64 {
         return f64::NAN;
     }
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(
-        || -> Result<f64, crate::LibxcRsError> {
+        || -> Result<f64, libxc_core::error::LibxcRsError> {
             let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
             Ok(f.exx_coefficient().unwrap_or(0.0))
         },
@@ -75,7 +75,7 @@ pub unsafe extern "C" fn xc_hyb_cam_coef(
         return;
     }
     let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(
-        || -> Result<(), crate::LibxcRsError> {
+        || -> Result<(), libxc_core::error::LibxcRsError> {
             let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
             if let Some(c) = f.cam_coefficients() {
                 if !omega.is_null() {
@@ -92,9 +92,9 @@ pub unsafe extern "C" fn xc_hyb_cam_coef(
                 }
                 Ok(())
             } else {
-                Err(crate::LibxcRsError::FamilyMismatch {
+                Err(libxc_core::error::LibxcRsError::FamilyMismatch {
                     id: f.meta().id,
-                    expected: crate::Family::Gga,
+                    expected: libxc_core::model::Family::Gga,
                     actual: f.meta().family,
                 })
             }

@@ -11,7 +11,7 @@
 
 #![allow(non_camel_case_types)]
 
-use crate::model::{Family, Kind, Spin};
+use libxc_core::model::{Family, Kind, Spin};
 
 /// Opaque forward-declared functional handle. C callers see `*mut xc_func_type`;
 /// Rust treats it as `*mut FunctionalSlot` after pointer cast.

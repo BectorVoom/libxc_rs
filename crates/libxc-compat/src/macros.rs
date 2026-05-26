@@ -16,11 +16,11 @@ macro_rules! extern_c_wrapper {
     (_, $name:literal, $body:block) => {{ $crate::__extern_c_wrapper_body!($name, $body) }};
     ($p:expr, $name:literal, $body:block) => {{
         if $p.is_null() {
-            $crate::compat::errno::set_error(
-                $crate::compat::errno::LIBXC_RS_NULL_HANDLE,
+            $crate::errno::set_error(
+                $crate::errno::LIBXC_RS_NULL_HANDLE,
                 concat!($name, ": null xc_func_type pointer"),
             );
-            return $crate::compat::errno::LIBXC_RS_NULL_HANDLE;
+            return $crate::errno::LIBXC_RS_NULL_HANDLE;
         }
         $crate::__extern_c_wrapper_body!($name, $body)
     }};
@@ -31,23 +31,23 @@ macro_rules! extern_c_wrapper {
 #[macro_export]
 macro_rules! __extern_c_wrapper_body {
     ($name:literal, $body:block) => {{
-        let result: ::std::result::Result<i32, $crate::LibxcRsError> =
+        let result: ::std::result::Result<i32, libxc_core::error::LibxcRsError> =
             ::std::panic::catch_unwind(::std::panic::AssertUnwindSafe(|| $body))
             .unwrap_or_else(|payload| {
                 let msg = if let Some(s) = payload.downcast_ref::<&str>() { (*s).to_string() }
                           else if let Some(s) = payload.downcast_ref::<String>() { s.clone() }
                           else { "unknown panic in libxc_rs compat layer".to_string() };
-                $crate::compat::errno::set_error(
-                    $crate::compat::errno::LIBXC_RS_PANIC,
+                $crate::errno::set_error(
+                    $crate::errno::LIBXC_RS_PANIC,
                     &format!("{}: panic — {}", $name, msg),
                 );
-                Err($crate::LibxcRsError::Panicked { message: msg })
+                Err(libxc_core::error::LibxcRsError::Panicked { message: msg })
             });
         match result {
             Ok(code) => code,
             Err(e) => {
-                let code = $crate::compat::errno::discriminant(&e);
-                $crate::compat::errno::set_error(code, &e.to_string());
+                let code = $crate::errno::discriminant(&e);
+                $crate::errno::set_error(code, &e.to_string());
                 code
             }
         }
@@ -55,14 +55,14 @@ macro_rules! __extern_c_wrapper_body {
 }
 
 #[cfg(test)] mod tests {
-    use crate::compat::errno;
+    use crate::errno;
 
     #[unsafe(no_mangle)]
     unsafe extern "C" fn __test_compat_panic_fn() -> i32 {
         crate::extern_c_wrapper!(_, "__test_compat_panic_fn", {
             panic!("test panic from wrapper");
             #[allow(unreachable_code)]
-            Ok::<i32, crate::LibxcRsError>(0)
+            Ok::<i32, libxc_core::error::LibxcRsError>(0)
         })
     }
 

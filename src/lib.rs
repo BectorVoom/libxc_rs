@@ -16,8 +16,11 @@ pub use libxc_core::deferred;
 pub use libxc_eval::{eval, functional, kernel};
 pub use libxc_eval::math;
 
-pub mod api;
-pub mod compat;
+pub mod api; // the only module that stays LOCAL in the facade
+
+// C-ABI shim moved to libxc-compat (Phase 10); re-exported so libxc_rs::compat::*
+// is preserved. default-features=false at the root dep keeps the umbrella kernel-free.
+pub use libxc_compat as compat;
 
 pub use model::{
     Family, Kind, Spin, DerivativeOrder, FunctionalId, FunctionalFlags,
@@ -37,4 +40,4 @@ pub use functional::{
 pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};
 // Opaque C-ABI handle types (compat layer). Re-exported at the crate root so
 // Rust-side callers and the include/xc.h generator can name them directly.
-pub use compat::c_layout::{xc_func_info_type, xc_func_type};
+pub use libxc_compat::c_layout::{xc_func_info_type, xc_func_type};

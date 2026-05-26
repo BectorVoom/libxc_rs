@@ -6,15 +6,15 @@
 
 #![allow(clippy::missing_safety_doc)]
 
-use crate::compat::c_layout::{xc_func_type, LIBXC_EXT_PARAMS_DEFAULT};
-use crate::compat::errno::{self, set_error};
-use crate::compat::raw_handle::FunctionalSlot;
-use crate::dims::Dimensions;
-use crate::eval::workspace::EvaluationWorkspace;
+use crate::c_layout::{xc_func_type, LIBXC_EXT_PARAMS_DEFAULT};
+use crate::errno::{self, set_error};
+use crate::raw_handle::FunctionalSlot;
+use libxc_core::dims::Dimensions;
+use libxc_eval::eval::workspace::EvaluationWorkspace;
 use crate::extern_c_wrapper;
-use crate::input::{GgaInput, LdaInput, MggaInput};
-use crate::model::DerivativeOrder;
-use crate::output::{GgaOutput, LdaOutput, MggaOutput};
+use libxc_core::input::{GgaInput, LdaInput, MggaInput};
+use libxc_core::model::DerivativeOrder;
+use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
 use std::ffi::{c_char, CStr};
 
 // === 4 threshold setters — each forwards to the Phase-5 setter (which now
@@ -75,7 +75,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params(p: *mut xc_func_type, ext_params
             return Ok(0); // no ext_params on this functional; nothing to do
         }
         if ext_params.is_null() {
-            return Err(crate::LibxcRsError::ExtParamCountMismatch {
+            return Err(libxc_core::error::LibxcRsError::ExtParamCountMismatch {
                 id: f.meta().id,
                 expected: n,
                 actual: 0,
@@ -107,7 +107,7 @@ pub unsafe extern "C" fn xc_func_get_ext_params(p: *const xc_func_type, ext_para
             return Ok(0);
         }
         if ext_params.is_null() {
-            return Err(crate::LibxcRsError::ExtParamCountMismatch {
+            return Err(libxc_core::error::LibxcRsError::ExtParamCountMismatch {
                 id: f.meta().id,
                 expected: n,
                 actual: 0,
@@ -136,7 +136,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params_name(
     extern_c_wrapper!(p, "xc_func_set_ext_params_name", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
         if name.is_null() {
-            return Err(crate::LibxcRsError::UnknownExtParamName {
+            return Err(libxc_core::error::LibxcRsError::UnknownExtParamName {
                 id: f.meta().id,
                 name: "<null>".to_string(),
             });
@@ -144,7 +144,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params_name(
         // SAFETY: name is non-null; caller contract = valid C string.
         let s = unsafe { CStr::from_ptr(name) }
             .to_str()
-            .map_err(|_| crate::LibxcRsError::UnknownExtParamName {
+            .map_err(|_| libxc_core::error::LibxcRsError::UnknownExtParamName {
                 id: f.meta().id,
                 name: "<non-utf8>".to_string(),
             })?;
@@ -155,7 +155,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params_name(
                 .ext_params
                 .iter()
                 .position(|spec| spec.name == s)
-                .ok_or_else(|| crate::LibxcRsError::UnknownExtParamName {
+                .ok_or_else(|| libxc_core::error::LibxcRsError::UnknownExtParamName {
                     id: f.meta().id,
                     name: s.to_string(),
                 })?;
@@ -185,11 +185,11 @@ pub unsafe extern "C" fn xc_func_get_ext_params_name(
         return f64::NAN;
     }
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(
-        || -> Result<f64, crate::LibxcRsError> {
+        || -> Result<f64, libxc_core::error::LibxcRsError> {
             // SAFETY: p and name are non-null (checked above); caller contract.
             let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
             let s = unsafe { CStr::from_ptr(name) }.to_str().map_err(|_| {
-                crate::LibxcRsError::UnknownExtParamName {
+                libxc_core::error::LibxcRsError::UnknownExtParamName {
                     id: f.meta().id,
                     name: "<non-utf8>".to_string(),
                 }
@@ -226,7 +226,7 @@ pub unsafe extern "C" fn xc_func_get_ext_params_value(p: *const xc_func_type, nu
         return f64::NAN;
     }
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(
-        || -> Result<f64, crate::LibxcRsError> {
+        || -> Result<f64, libxc_core::error::LibxcRsError> {
             // SAFETY: p is non-null (checked above); caller contract.
             let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
             f.ext_param_by_index(number as usize)
@@ -251,16 +251,16 @@ pub unsafe extern "C" fn xc_func_get_ext_params_value(p: *const xc_func_type, nu
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::compat::raw_handle::*;
+    use crate::raw_handle::*;
 
     /// Pitfall 10: passing `LIBXC_EXT_PARAMS_DEFAULT` for every parameter must
     /// substitute the per-spec default values.
     #[test]
     fn ext_params_default_marker_substitution() {
         // Pick the first registered functional that has at least one ext_param.
-        let target_id = crate::registry::all_functional_ids()
+        let target_id = libxc_core::registry::all_functional_ids()
             .find(|fid| {
-                crate::registry::lookup_by_id(fid.raw())
+                libxc_core::registry::lookup_by_id(fid.raw())
                     .map(|m| !m.ext_params.is_empty())
                     .unwrap_or(false)
             })
@@ -268,7 +268,7 @@ mod tests {
         unsafe {
             let p = xc_func_alloc();
             assert_eq!(xc_func_init(p, target_id.raw() as i32, 1), 0);
-            let meta = crate::registry::lookup_by_id(target_id.raw()).unwrap();
+            let meta = libxc_core::registry::lookup_by_id(target_id.raw()).unwrap();
             let n = meta.ext_params.len();
             let vals: Vec<f64> = vec![LIBXC_EXT_PARAMS_DEFAULT; n];
             assert_eq!(xc_func_set_ext_params(p, vals.as_ptr()), 0);
@@ -291,7 +291,7 @@ mod tests {
     fn xc_func_set_dens_threshold_propagates_to_aux_b3lyp() {
         unsafe {
             let p = xc_func_alloc();
-            let id = crate::registry::lookup_by_name("hyb_gga_xc_b3lyp")
+            let id = libxc_core::registry::lookup_by_name("hyb_gga_xc_b3lyp")
                 .unwrap()
                 .raw() as i32;
             assert_eq!(xc_func_init(p, id, 1), 0);
@@ -346,7 +346,7 @@ unsafe fn lda_evaluate(
     v2rho2: *mut f64,
     v3rho3: *mut f64,
     v4rho4: *mut f64,
-) -> Result<i32, crate::LibxcRsError> {
+) -> Result<i32, libxc_core::error::LibxcRsError> {
     // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
     let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
     let spin = f.spin();
@@ -502,7 +502,7 @@ pub unsafe extern "C" fn xc_lda_new(
 ) -> i32 {
     extern_c_wrapper!(p, "xc_lda_new", {
         if out.is_null() {
-            return Err(crate::LibxcRsError::OutputBufferSizeMismatch {
+            return Err(libxc_core::error::LibxcRsError::OutputBufferSizeMismatch {
                 field: "out",
                 expected: 1,
                 actual: 0,
@@ -516,7 +516,7 @@ pub unsafe extern "C" fn xc_lda_new(
 }
 
 /// Map the integer `order` argument (0..=4) of `xc_*_new` to `DerivativeOrder`.
-unsafe fn lda_order_from_int(order: i32, p: *const xc_func_type) -> Result<DerivativeOrder, crate::LibxcRsError> {
+unsafe fn lda_order_from_int(order: i32, p: *const xc_func_type) -> Result<DerivativeOrder, libxc_core::error::LibxcRsError> {
     Ok(match order {
         0 => DerivativeOrder::Exc,
         1 => DerivativeOrder::Vxc,
@@ -526,7 +526,7 @@ unsafe fn lda_order_from_int(order: i32, p: *const xc_func_type) -> Result<Deriv
         _ => {
             // SAFETY: p non-null + initialized (wrapper macro enforced).
             let id = unsafe { FunctionalSlot::as_initialized_const(p)? }.meta().id;
-            return Err(crate::LibxcRsError::UnsupportedDerivativeOrder {
+            return Err(libxc_core::error::LibxcRsError::UnsupportedDerivativeOrder {
                 id,
                 order: DerivativeOrder::Lxc,
                 max: DerivativeOrder::Lxc,
@@ -538,7 +538,7 @@ unsafe fn lda_order_from_int(order: i32, p: *const xc_func_type) -> Result<Deriv
 #[cfg(test)]
 mod lda_evaluate_tests {
     use super::*;
-    use crate::compat::raw_handle::*;
+    use crate::raw_handle::*;
 
     #[test]
     fn lda_exc_smoke() {
@@ -628,7 +628,7 @@ unsafe fn gga_evaluate(
     v4rho2sigma2: *mut f64,
     v4rhosigma3: *mut f64,
     v4sigma4: *mut f64,
-) -> Result<i32, crate::LibxcRsError> {
+) -> Result<i32, libxc_core::error::LibxcRsError> {
     // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
     let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
     let spin = f.spin();
@@ -851,7 +851,7 @@ pub unsafe extern "C" fn xc_gga_new(
 ) -> i32 {
     extern_c_wrapper!(p, "xc_gga_new", {
         if out.is_null() {
-            return Err(crate::LibxcRsError::OutputBufferSizeMismatch {
+            return Err(libxc_core::error::LibxcRsError::OutputBufferSizeMismatch {
                 field: "out",
                 expected: 1,
                 actual: 0,
@@ -870,13 +870,13 @@ pub unsafe extern "C" fn xc_gga_new(
 #[cfg(test)]
 mod gga_evaluate_tests {
     use super::*;
-    use crate::compat::raw_handle::*;
+    use crate::raw_handle::*;
 
     #[test]
     fn gga_exc_smoke() {
         unsafe {
             let p = xc_func_alloc();
-            let pbe_x_id = crate::registry::lookup_by_name("gga_x_pbe").unwrap().raw() as i32;
+            let pbe_x_id = libxc_core::registry::lookup_by_name("gga_x_pbe").unwrap().raw() as i32;
             assert_eq!(xc_func_init(p, pbe_x_id, 1), 0);
             let rho = [0.1f64, 0.2, 0.3, 0.4];
             let sigma = [0.01f64, 0.02, 0.03, 0.04];
@@ -915,7 +915,7 @@ macro_rules! mgga_out {
 }
 
 /// Read the functional once to derive the MGGA `Dimensions` (strides) for output sizing.
-unsafe fn mgga_dims(p: *const xc_func_type) -> Result<Dimensions, crate::LibxcRsError> {
+unsafe fn mgga_dims(p: *const xc_func_type) -> Result<Dimensions, libxc_core::error::LibxcRsError> {
     // SAFETY: p non-null + initialized (wrapper macro enforced).
     let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
     Ok(Dimensions::mgga(f.spin()))
@@ -931,7 +931,7 @@ unsafe fn mgga_run(
     tau: *const f64,
     order: DerivativeOrder,
     mut output: MggaOutput,
-) -> Result<i32, crate::LibxcRsError> {
+) -> Result<i32, libxc_core::error::LibxcRsError> {
     // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
     let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
     let spin = f.spin();
@@ -1195,14 +1195,14 @@ pub unsafe extern "C" fn xc_mgga(
 #[cfg(test)]
 mod mgga_evaluate_tests {
     use super::*;
-    use crate::compat::raw_handle::*;
+    use crate::raw_handle::*;
 
     #[test]
     fn mgga_exc_smoke() {
         unsafe {
             let p = xc_func_alloc();
-            let mgga_id = crate::registry::lookup_by_name("mgga_x_scan")
-                .or_else(|_| crate::registry::lookup_by_name("mgga_x_tpss"))
+            let mgga_id = libxc_core::registry::lookup_by_name("mgga_x_scan")
+                .or_else(|_| libxc_core::registry::lookup_by_name("mgga_x_tpss"))
                 .expect("at least one MGGA functional compiled")
                 .raw() as i32;
             assert_eq!(xc_func_init(p, mgga_id, 1), 0);

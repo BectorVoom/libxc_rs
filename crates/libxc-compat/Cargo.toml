@@ -1,0 +1,24 @@
+[package]
+name = "libxc-compat"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["rlib", "cdylib", "staticlib"]
+# default name "libxc_rs" -> libxc_rs.so / .a / .rlib (D-08); NO [bin] (D-07).
+
+[dependencies]
+libxc-core = { path = "../libxc-core" }
+# Pin default-features=false + forward the family features here. A functional
+# cdylib needs all families (build libxc-compat directly with --features, or via
+# the `default` below — OOM-heavy, which is why compat is EXCLUDED from
+# [workspace] default-members). The pin keeps the umbrella `cargo check -p
+# libxc_rs` kernel-free: root deps libxc-compat default-features=false, so
+# compat contributes ZERO kernels unless its features are explicitly activated.
+libxc-eval = { path = "../libxc-eval", default-features = false }
+
+[features]
+default     = ["oracle-lda", "oracle-gga", "oracle-mgga"]
+oracle-lda  = ["libxc-eval/oracle-lda"]
+oracle-gga  = ["libxc-eval/oracle-gga"]
+oracle-mgga = ["libxc-eval/oracle-mgga"]
