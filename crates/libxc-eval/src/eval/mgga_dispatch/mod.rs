@@ -95,7 +95,7 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
             // registry lookup, structurally panic-free) for the placeholder id
             // carried in the typed error.
             return Err(LibxcRsError::UnsupportedFunctional {
-                id: $libxc_core::model::FunctionalId(1),
+                id: libxc_core::model::FunctionalId(1),
                 reason: "MGGA polarized dispatch deferred pending Phase 4 follow-up \
                          (translated *_pol kernels have pre-existing bugs — see GGA plan 04-03 deferred-items)",
             });
@@ -106,34 +106,34 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
         let tau_arg = || unsafe { ArrayArg::from_raw_parts($ctx.tau.clone(), $ctx.tau_len) };
         // CR-07: each handle accessor surfaces a typed
         // `LibxcRsError::KernelLaunchFailed` when the corresponding `Option`
-        // is `None`, instead of panicking. Use `$libxc_core::error::LibxcRsError`
+        // is `None`, instead of panicking. Use `libxc_core::error::LibxcRsError`
         // for macro hygiene (path resolves at macro-user call site).
-        let zk_arg = || -> Result<_, $libxc_core::error::LibxcRsError> {
-            let h = $ctx.zk.ok_or_else(|| $libxc_core::error::LibxcRsError::KernelLaunchFailed {
+        let zk_arg = || -> Result<_, libxc_core::error::LibxcRsError> {
+            let h = $ctx.zk.ok_or_else(|| libxc_core::error::LibxcRsError::KernelLaunchFailed {
                 reason: "zk handle missing for Exc+ order on exc-bearing functional".to_string(),
             })?;
             Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.zk_len) })
         };
-        let vrho_arg = || -> Result<_, $libxc_core::error::LibxcRsError> {
-            let h = $ctx.vrho.ok_or_else(|| $libxc_core::error::LibxcRsError::KernelLaunchFailed {
+        let vrho_arg = || -> Result<_, libxc_core::error::LibxcRsError> {
+            let h = $ctx.vrho.ok_or_else(|| libxc_core::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vrho handle missing for Vxc+ order".to_string(),
             })?;
             Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vrho_len) })
         };
-        let vsigma_arg = || -> Result<_, $libxc_core::error::LibxcRsError> {
-            let h = $ctx.vsigma.ok_or_else(|| $libxc_core::error::LibxcRsError::KernelLaunchFailed {
+        let vsigma_arg = || -> Result<_, libxc_core::error::LibxcRsError> {
+            let h = $ctx.vsigma.ok_or_else(|| libxc_core::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vsigma handle missing for Vxc+ order".to_string(),
             })?;
             Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vsigma_len) })
         };
-        let vlapl_arg = || -> Result<_, $libxc_core::error::LibxcRsError> {
-            let h = $ctx.vlapl.ok_or_else(|| $libxc_core::error::LibxcRsError::KernelLaunchFailed {
+        let vlapl_arg = || -> Result<_, libxc_core::error::LibxcRsError> {
+            let h = $ctx.vlapl.ok_or_else(|| libxc_core::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vlapl handle missing for Vxc+ order".to_string(),
             })?;
             Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vlapl_len) })
         };
-        let vtau_arg = || -> Result<_, $libxc_core::error::LibxcRsError> {
-            let h = $ctx.vtau.ok_or_else(|| $libxc_core::error::LibxcRsError::KernelLaunchFailed {
+        let vtau_arg = || -> Result<_, libxc_core::error::LibxcRsError> {
+            let h = $ctx.vtau.ok_or_else(|| libxc_core::error::LibxcRsError::KernelLaunchFailed {
                 reason: "vtau handle missing for Vxc+ order".to_string(),
             })?;
             Ok(unsafe { ArrayArg::from_raw_parts(h.clone(), $ctx.vtau_len) })
@@ -160,7 +160,7 @@ macro_rules! mgga_zero_scalar_unpol_dispatch {
                 // CR-07 follow-up: structurally panic-free constructor for the
                 // placeholder `FunctionalId` carried in the typed error.
                 return Err(LibxcRsError::UnsupportedDerivativeOrder {
-                    id: $libxc_core::model::FunctionalId(1),
+                    id: libxc_core::model::FunctionalId(1),
                     order: $order,
                     max: DerivativeOrder::Vxc,
                 });
