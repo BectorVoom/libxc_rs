@@ -78,7 +78,7 @@ pub enum Dimensionality {
 
 /// A validated functional ID. Only constructible from the known set of 649 IDs.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct FunctionalId(pub(crate) u16);
+pub struct FunctionalId(pub u16);
 
 impl std::fmt::Display for FunctionalId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -89,12 +89,12 @@ impl std::fmt::Display for FunctionalId {
 impl FunctionalId {
     /// Look up a functional by its integer ID.
     /// Returns Ok(FunctionalId) for valid IDs, Err for unknown or removed.
-    pub fn from_raw(id: u16) -> Result<Self, crate::LibxcRsError> {
+    pub fn from_raw(id: u16) -> Result<Self, crate::error::LibxcRsError> {
         crate::registry::lookup_by_id(id).map(|meta| meta.id)
     }
 
     /// Look up a functional by its canonical name (case-insensitive).
-    pub fn from_name(name: &str) -> Result<Self, crate::LibxcRsError> {
+    pub fn from_name(name: &str) -> Result<Self, crate::error::LibxcRsError> {
         crate::registry::lookup_by_name(name)
     }
 

@@ -1,0 +1,17 @@
+libxc-core v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/libxc-core)
+├── bitflags v2.11.1
+├── bytemuck v1.25.0
+│   └── bytemuck_derive v1.10.2 (proc-macro)
+│       ├── proc-macro2 v1.0.106
+│       │   └── unicode-ident v1.0.24
+│       ├── quote v1.0.45
+│       │   └── proc-macro2 v1.0.106 (*)
+│       └── syn v2.0.117
+│           ├── proc-macro2 v1.0.106 (*)
+│           ├── quote v1.0.45 (*)
+│           └── unicode-ident v1.0.24
+└── thiserror v2.0.18
+    └── thiserror-impl v2.0.18 (proc-macro)
+        ├── proc-macro2 v1.0.106 (*)
+        ├── quote v1.0.45 (*)
+        └── syn v2.0.117 (*)

@@ -19,4 +19,3 @@ pub mod bessel;
 pub mod integrate;
 pub mod br89;
 pub mod mbrxc;
-pub mod deferred;

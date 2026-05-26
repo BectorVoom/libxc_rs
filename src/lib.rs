@@ -6,15 +6,13 @@
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::too_many_arguments)]
 
-pub mod model;
-pub mod meta;
-pub mod error;
-pub mod dims;
-pub mod registry;
+// Data layer moved to libxc-core (Phase 10); re-exported so sibling root
+// modules and downstream `crate::model::`/`crate::meta::` paths keep resolving.
+pub use libxc_core::{model, meta, error, dims, registry, input, output};
+pub use libxc_core::deferred;
+
 pub mod math;
 pub mod kernel;
-pub mod input;
-pub mod output;
 pub mod eval;
 pub mod functional;
 pub mod api;

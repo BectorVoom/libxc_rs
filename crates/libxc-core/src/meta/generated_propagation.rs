@@ -5,7 +5,7 @@
 use super::PropagationRule;
 use crate::model::FunctionalId;
 
-pub(crate) const PROPAGATION_RULES: &[PropagationRule] = &[
+pub const PROPAGATION_RULES: &[PropagationRule] = &[
     PropagationRule { parent_id: FunctionalId(433), parent_param_name: "_omega", parent_param_index: 3, aux_slot: 1, aux_param_name: "_omega" },
     PropagationRule { parent_id: FunctionalId(470), parent_param_name: "_omega", parent_param_index: 3, aux_slot: 1, aux_param_name: "_omega" },
     PropagationRule { parent_id: FunctionalId(395), parent_param_name: "_omega", parent_param_index: 5, aux_slot: 1, aux_param_name: "_omega" },

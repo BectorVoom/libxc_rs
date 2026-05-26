@@ -1,6 +1,7 @@
 pub(crate) mod generated;
 pub(crate) mod generated_hybrid;
-pub(crate) mod generated_propagation;
+pub mod generated_propagation;
+pub use generated_propagation::PROPAGATION_RULES;
 
 use crate::model::{
     DerivativeOrder, Family, FunctionalFlags, FunctionalId, HybridTermKind, HybridType, Kind,

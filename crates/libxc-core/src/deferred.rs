@@ -1,10 +1,11 @@
 //! Registry of XC functionals deferred from translation.
 //!
-//! Relocated here from the per-family façade crates (`libxc_kernel_lda`,
-//! `libxc_kernel_mgga`) which were deleted by Phase 11 D-10a's clean-slate
-//! restructure. Every per-functional kernel subcrate already depends on
-//! `libxc-kernel-math`, and the root crate's model layer depends on it too,
-//! so this is the natural home for the cross-cutting deferral registry.
+//! Relocated into `libxc-core` by Phase 10 (D-11): the model layer moved into
+//! this crate, and `libxc-core` must stay CubeCL-free (SC-2), so the deferred
+//! registry — pure metadata, not compute — moves here from `libxc-kernel-math`
+//! (which depends on cubecl). Previously it lived in `libxc-kernel-math` after
+//! Phase 11 D-10a deleted the per-family façade crates (`libxc_kernel_lda`,
+//! `libxc_kernel_mgga`).
 //!
 //! The registry drives runtime routing rejection: `LdaFunctional::from_id`
 //! and `MggaFunctional::from_id` consult `lda::is_deferred` / `mgga::is_deferred`
