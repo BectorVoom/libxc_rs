@@ -167,7 +167,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 5. Functional Lifecycle and Hybrid Properties | 7/7 | Complete | 2026-04-28 |
 | 6. Public API and C Compatibility | 4/4 | Complete | 2026-05-25 |
 | 7. GPU Backends and Performance | 0/3 | Not started | - |
-| 10. Workspace-Level Modular Split | 0/4 | Planned | - |
+| 10. Workspace-Level Modular Split | 4/4 | Complete | 2026-05-26 |
 | 11. Splitter v2 — 5K Line Cap | 15/15 | Complete | 2026-05-25 |
 | 11.1. Translator Rule 3 Emit Fix | 4/4 | Complete | 2026-05-22 |
 | 12. MGGA f64 Parity | 4/4 | Complete | 2026-05-25 |
@@ -233,16 +233,16 @@ Plans:
 Plans:
 
 **Wave 1**
-- [ ] 10-00-PLAN.md — Pre-refactor baseline snapshot (public surface, dep closure, generated-file bytes, per-family oracle pass/fail incl. expected fails) + phase-start green gate; USER-RUN oracle baseline checkpoint
+- [x] 10-00-PLAN.md — Pre-refactor baseline snapshot (public surface, dep closure, generated-file bytes, per-family oracle pass/fail incl. expected fails) + phase-start green gate; USER-RUN oracle baseline checkpoint
 
 **Wave 2** *(blocked on Wave 1)*
-- [ ] 10-01-PLAN.md — Extract libxc-core (model/meta/registry/input/output/layout/dims/error) + relocate `deferred` (D-11) + xtask write-path edits (D-03) + PROPAGATION_RULES visibility fix; SC-2 via cargo tree
+- [x] 10-01-PLAN.md — Extract libxc-core (model/meta/registry/input/output/layout/dims/error) + relocate `deferred` (D-11) + xtask write-path edits (D-03) + PROPAGATION_RULES visibility fix; SC-2 via cargo tree
 
 **Wave 3** *(blocked on Wave 2)*
-- [ ] 10-02-PLAN.md — Extract libxc-eval (eval/functional/kernel/workspace) + migrate all 306 kernel deps + the [features] oracle-* machinery (D-10) + default-members surgery (D-10a) + delete math shim (D-02); SC-3 + feature-chain via cargo tree
+- [x] 10-02-PLAN.md — Extract libxc-eval (eval/functional/kernel/workspace) + migrate all 306 kernel deps + the [features] oracle-* machinery (D-10) + default-members surgery (D-10a) + delete math shim (D-02); SC-3 + feature-chain via cargo tree
 
 **Wave 4** *(blocked on Wave 3)*
-- [ ] 10-03-PLAN.md — Extract libxc-compat (cdylib/staticlib, D-07/08) + reduce root to thin facade (SC-5 line-for-line) + finalize the 4-link feature-forward chain + repoint verify deferred imports; SC-4 via inverted cargo tree; USER-RUN per-family oracle parity gate (SC-6/SC-7)
+- [x] 10-03-PLAN.md — Extract libxc-compat (cdylib/staticlib, D-07/08) + reduce root to thin facade (SC-5 line-for-line) + finalize the 4-link feature-forward chain + repoint verify deferred imports; SC-4 via inverted cargo tree; USER-RUN per-family oracle parity gate (SC-6/SC-7)
 
 ### Phase 11: Splitter v2 — Unified Kernels with 5K Line Cap
 
