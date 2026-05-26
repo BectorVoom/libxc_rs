@@ -1,0 +1,644 @@
+[package]
+name = "libxc-eval"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libxc-core = { path = "../libxc-core" }
+cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
+bytemuck = { version = "1.25.0", features = ["derive"] }
+# libxc-kernel-math + the 305 optional per-functional deps + the [features]
+# oracle-{lda,gga,mgga} block are appended in Task 2 (10-02).
+
+# === 306 per-functional kernel deps (moved from root, Phase 10 D-10; paths ../kernels/, optional=true preserved on the 305; math non-optional) ===
+libxc-kernel-math = { path = "../kernels/math" }
+libxc-kernel-gga_c_acgga = { path = "../kernels/gga/gga_c_acgga", optional = true }
+libxc-kernel-gga_c_acggap = { path = "../kernels/gga/gga_c_acggap", optional = true }
+libxc-kernel-gga_c_am05 = { path = "../kernels/gga/gga_c_am05", optional = true }
+libxc-kernel-gga_c_bmk = { path = "../kernels/gga/gga_c_bmk", optional = true }
+libxc-kernel-gga_c_ccdf = { path = "../kernels/gga/gga_c_ccdf", optional = true }
+libxc-kernel-gga_c_chachiyo = { path = "../kernels/gga/gga_c_chachiyo", optional = true }
+libxc-kernel-gga_c_cs1 = { path = "../kernels/gga/gga_c_cs1", optional = true }
+libxc-kernel-gga_c_ft97 = { path = "../kernels/gga/gga_c_ft97", optional = true }
+libxc-kernel-gga_c_gapc = { path = "../kernels/gga/gga_c_gapc", optional = true }
+libxc-kernel-gga_c_gaploc = { path = "../kernels/gga/gga_c_gaploc", optional = true }
+libxc-kernel-gga_c_hcth_a = { path = "../kernels/gga/gga_c_hcth_a", optional = true }
+libxc-kernel-gga_c_lm = { path = "../kernels/gga/gga_c_lm", optional = true }
+libxc-kernel-gga_c_lyp = { path = "../kernels/gga/gga_c_lyp", optional = true }
+libxc-kernel-gga_c_lypr = { path = "../kernels/gga/gga_c_lypr", optional = true }
+libxc-kernel-gga_c_op_b88 = { path = "../kernels/gga/gga_c_op_b88", optional = true }
+libxc-kernel-gga_c_op_g96 = { path = "../kernels/gga/gga_c_op_g96", optional = true }
+libxc-kernel-gga_c_op_pbe = { path = "../kernels/gga/gga_c_op_pbe", optional = true }
+libxc-kernel-gga_c_op_pw91 = { path = "../kernels/gga/gga_c_op_pw91", optional = true }
+libxc-kernel-gga_c_op_xalpha = { path = "../kernels/gga/gga_c_op_xalpha", optional = true }
+libxc-kernel-gga_c_optc = { path = "../kernels/gga/gga_c_optc", optional = true }
+libxc-kernel-gga_c_p86 = { path = "../kernels/gga/gga_c_p86", optional = true }
+libxc-kernel-gga_c_p86vwn = { path = "../kernels/gga/gga_c_p86vwn", optional = true }
+libxc-kernel-gga_c_pbe = { path = "../kernels/gga/gga_c_pbe", optional = true }
+libxc-kernel-gga_c_pbe_erf_gws = { path = "../kernels/gga/gga_c_pbe_erf_gws", optional = true }
+libxc-kernel-gga_c_pbe_vwn = { path = "../kernels/gga/gga_c_pbe_vwn", optional = true }
+libxc-kernel-gga_c_pbeloc = { path = "../kernels/gga/gga_c_pbeloc", optional = true }
+libxc-kernel-gga_c_pw91 = { path = "../kernels/gga/gga_c_pw91", optional = true }
+libxc-kernel-gga_c_q2d = { path = "../kernels/gga/gga_c_q2d", optional = true }
+libxc-kernel-gga_c_regtpss = { path = "../kernels/gga/gga_c_regtpss", optional = true }
+libxc-kernel-gga_c_revtca = { path = "../kernels/gga/gga_c_revtca", optional = true }
+libxc-kernel-gga_c_scan_e0 = { path = "../kernels/gga/gga_c_scan_e0", optional = true }
+libxc-kernel-gga_c_sg4 = { path = "../kernels/gga/gga_c_sg4", optional = true }
+libxc-kernel-gga_c_sogga11 = { path = "../kernels/gga/gga_c_sogga11", optional = true }
+libxc-kernel-gga_c_tca = { path = "../kernels/gga/gga_c_tca", optional = true }
+libxc-kernel-gga_c_w94 = { path = "../kernels/gga/gga_c_w94", optional = true }
+libxc-kernel-gga_c_wi = { path = "../kernels/gga/gga_c_wi", optional = true }
+libxc-kernel-gga_c_wl = { path = "../kernels/gga/gga_c_wl", optional = true }
+libxc-kernel-gga_c_zpbeint = { path = "../kernels/gga/gga_c_zpbeint", optional = true }
+libxc-kernel-gga_c_zvpbeint = { path = "../kernels/gga/gga_c_zvpbeint", optional = true }
+libxc-kernel-gga_c_zvpbeloc = { path = "../kernels/gga/gga_c_zvpbeloc", optional = true }
+libxc-kernel-gga_k_apbe = { path = "../kernels/gga/gga_k_apbe", optional = true }
+libxc-kernel-gga_k_apbeint = { path = "../kernels/gga/gga_k_apbeint", optional = true }
+libxc-kernel-gga_k_dk = { path = "../kernels/gga/gga_k_dk", optional = true }
+libxc-kernel-gga_k_exp4 = { path = "../kernels/gga/gga_k_exp4", optional = true }
+libxc-kernel-gga_k_lc94 = { path = "../kernels/gga/gga_k_lc94", optional = true }
+libxc-kernel-gga_k_lgap = { path = "../kernels/gga/gga_k_lgap", optional = true }
+libxc-kernel-gga_k_lgap_ge = { path = "../kernels/gga/gga_k_lgap_ge", optional = true }
+libxc-kernel-gga_k_lkt = { path = "../kernels/gga/gga_k_lkt", optional = true }
+libxc-kernel-gga_k_llp = { path = "../kernels/gga/gga_k_llp", optional = true }
+libxc-kernel-gga_k_meyer = { path = "../kernels/gga/gga_k_meyer", optional = true }
+libxc-kernel-gga_k_mpbe = { path = "../kernels/gga/gga_k_mpbe", optional = true }
+libxc-kernel-gga_k_ol1 = { path = "../kernels/gga/gga_k_ol1", optional = true }
+libxc-kernel-gga_k_ol2 = { path = "../kernels/gga/gga_k_ol2", optional = true }
+libxc-kernel-gga_k_pearson = { path = "../kernels/gga/gga_k_pearson", optional = true }
+libxc-kernel-gga_k_pg = { path = "../kernels/gga/gga_k_pg", optional = true }
+libxc-kernel-gga_k_pw86 = { path = "../kernels/gga/gga_k_pw86", optional = true }
+libxc-kernel-gga_k_rational_p = { path = "../kernels/gga/gga_k_rational_p", optional = true }
+libxc-kernel-gga_k_tflw = { path = "../kernels/gga/gga_k_tflw", optional = true }
+libxc-kernel-gga_k_thakkar = { path = "../kernels/gga/gga_k_thakkar", optional = true }
+libxc-kernel-gga_k_vt84f = { path = "../kernels/gga/gga_k_vt84f", optional = true }
+libxc-kernel-gga_x_2d_b86 = { path = "../kernels/gga/gga_x_2d_b86", optional = true }
+libxc-kernel-gga_x_2d_b86_mgc = { path = "../kernels/gga/gga_x_2d_b86_mgc", optional = true }
+libxc-kernel-gga_x_2d_b88 = { path = "../kernels/gga/gga_x_2d_b88", optional = true }
+libxc-kernel-gga_x_2d_pbe = { path = "../kernels/gga/gga_x_2d_pbe", optional = true }
+libxc-kernel-gga_x_airy = { path = "../kernels/gga/gga_x_airy", optional = true }
+libxc-kernel-gga_x_ak13 = { path = "../kernels/gga/gga_x_ak13", optional = true }
+libxc-kernel-gga_x_am05 = { path = "../kernels/gga/gga_x_am05", optional = true }
+libxc-kernel-gga_x_b86 = { path = "../kernels/gga/gga_x_b86", optional = true }
+libxc-kernel-gga_x_b88 = { path = "../kernels/gga/gga_x_b88", optional = true }
+libxc-kernel-gga_x_bayesian = { path = "../kernels/gga/gga_x_bayesian", optional = true }
+libxc-kernel-gga_x_beefvdw = { path = "../kernels/gga/gga_x_beefvdw", optional = true }
+libxc-kernel-gga_x_bpccac = { path = "../kernels/gga/gga_x_bpccac", optional = true }
+libxc-kernel-gga_x_c09x = { path = "../kernels/gga/gga_x_c09x", optional = true }
+libxc-kernel-gga_x_cap = { path = "../kernels/gga/gga_x_cap", optional = true }
+libxc-kernel-gga_x_chachiyo = { path = "../kernels/gga/gga_x_chachiyo", optional = true }
+libxc-kernel-gga_x_dk87 = { path = "../kernels/gga/gga_x_dk87", optional = true }
+libxc-kernel-gga_x_ev93 = { path = "../kernels/gga/gga_x_ev93", optional = true }
+libxc-kernel-gga_x_fd_lb94 = { path = "../kernels/gga/gga_x_fd_lb94", optional = true }
+libxc-kernel-gga_x_ft97 = { path = "../kernels/gga/gga_x_ft97", optional = true }
+libxc-kernel-gga_x_g96 = { path = "../kernels/gga/gga_x_g96", optional = true }
+libxc-kernel-gga_x_gg99 = { path = "../kernels/gga/gga_x_gg99", optional = true }
+libxc-kernel-gga_x_hcth_a = { path = "../kernels/gga/gga_x_hcth_a", optional = true }
+libxc-kernel-gga_x_herman = { path = "../kernels/gga/gga_x_herman", optional = true }
+libxc-kernel-gga_x_hjs = { path = "../kernels/gga/gga_x_hjs", optional = true }
+libxc-kernel-gga_x_hjs_b88_v2 = { path = "../kernels/gga/gga_x_hjs_b88_v2", optional = true }
+libxc-kernel-gga_x_htbs = { path = "../kernels/gga/gga_x_htbs", optional = true }
+libxc-kernel-gga_x_ityh = { path = "../kernels/gga/gga_x_ityh", optional = true }
+libxc-kernel-gga_x_ityh_optx = { path = "../kernels/gga/gga_x_ityh_optx", optional = true }
+libxc-kernel-gga_x_ityh_pbe = { path = "../kernels/gga/gga_x_ityh_pbe", optional = true }
+libxc-kernel-gga_x_kt = { path = "../kernels/gga/gga_x_kt", optional = true }
+libxc-kernel-gga_x_lag = { path = "../kernels/gga/gga_x_lag", optional = true }
+libxc-kernel-gga_x_lb = { path = "../kernels/gga/gga_x_lb", optional = true }
+libxc-kernel-gga_x_lcgau = { path = "../kernels/gga/gga_x_lcgau", optional = true }
+libxc-kernel-gga_x_lg93 = { path = "../kernels/gga/gga_x_lg93", optional = true }
+libxc-kernel-gga_x_lspbe = { path = "../kernels/gga/gga_x_lspbe", optional = true }
+libxc-kernel-gga_x_lsrpbe = { path = "../kernels/gga/gga_x_lsrpbe", optional = true }
+libxc-kernel-gga_x_lv_rpw86 = { path = "../kernels/gga/gga_x_lv_rpw86", optional = true }
+libxc-kernel-gga_x_mpbe = { path = "../kernels/gga/gga_x_mpbe", optional = true }
+libxc-kernel-gga_x_n12 = { path = "../kernels/gga/gga_x_n12", optional = true }
+libxc-kernel-gga_x_ncap = { path = "../kernels/gga/gga_x_ncap", optional = true }
+libxc-kernel-gga_x_ol2 = { path = "../kernels/gga/gga_x_ol2", optional = true }
+libxc-kernel-gga_x_optx = { path = "../kernels/gga/gga_x_optx", optional = true }
+libxc-kernel-gga_x_pbe = { path = "../kernels/gga/gga_x_pbe", optional = true }
+libxc-kernel-gga_x_pbe_erf_gws = { path = "../kernels/gga/gga_x_pbe_erf_gws", optional = true }
+libxc-kernel-gga_x_pbea = { path = "../kernels/gga/gga_x_pbea", optional = true }
+libxc-kernel-gga_x_pbeint = { path = "../kernels/gga/gga_x_pbeint", optional = true }
+libxc-kernel-gga_x_pbepow = { path = "../kernels/gga/gga_x_pbepow", optional = true }
+libxc-kernel-gga_x_pbetrans = { path = "../kernels/gga/gga_x_pbetrans", optional = true }
+libxc-kernel-gga_x_pw86 = { path = "../kernels/gga/gga_x_pw86", optional = true }
+libxc-kernel-gga_x_pw91 = { path = "../kernels/gga/gga_x_pw91", optional = true }
+libxc-kernel-gga_x_q1d = { path = "../kernels/gga/gga_x_q1d", optional = true }
+libxc-kernel-gga_x_q2d = { path = "../kernels/gga/gga_x_q2d", optional = true }
+libxc-kernel-gga_x_rge2 = { path = "../kernels/gga/gga_x_rge2", optional = true }
+libxc-kernel-gga_x_rpbe = { path = "../kernels/gga/gga_x_rpbe", optional = true }
+libxc-kernel-gga_x_s12 = { path = "../kernels/gga/gga_x_s12", optional = true }
+libxc-kernel-gga_x_sfat = { path = "../kernels/gga/gga_x_sfat", optional = true }
+libxc-kernel-gga_x_sfat_pbe = { path = "../kernels/gga/gga_x_sfat_pbe", optional = true }
+libxc-kernel-gga_x_sg4 = { path = "../kernels/gga/gga_x_sg4", optional = true }
+libxc-kernel-gga_x_sogga11 = { path = "../kernels/gga/gga_x_sogga11", optional = true }
+libxc-kernel-gga_x_ssb_sw = { path = "../kernels/gga/gga_x_ssb_sw", optional = true }
+libxc-kernel-gga_x_vmt = { path = "../kernels/gga/gga_x_vmt", optional = true }
+libxc-kernel-gga_x_vmt84 = { path = "../kernels/gga/gga_x_vmt84", optional = true }
+libxc-kernel-gga_x_wc = { path = "../kernels/gga/gga_x_wc", optional = true }
+libxc-kernel-gga_x_wpbeh = { path = "../kernels/gga/gga_x_wpbeh", optional = true }
+libxc-kernel-gga_xc_b97 = { path = "../kernels/gga/gga_xc_b97", optional = true }
+libxc-kernel-gga_xc_th1 = { path = "../kernels/gga/gga_xc_th1", optional = true }
+libxc-kernel-gga_xc_th2 = { path = "../kernels/gga/gga_xc_th2", optional = true }
+libxc-kernel-gga_xc_th3 = { path = "../kernels/gga/gga_xc_th3", optional = true }
+libxc-kernel-hyb_gga_x_cam_s12 = { path = "../kernels/gga/hyb_gga_x_cam_s12", optional = true }
+libxc-kernel-hyb_gga_xc_case21 = { path = "../kernels/gga/hyb_gga_xc_case21", optional = true }
+libxc-kernel-hyb_gga_xc_wb97 = { path = "../kernels/gga/hyb_gga_xc_wb97", optional = true }
+libxc-kernel-hyb_lda_xc_bn05 = { path = "../kernels/lda/hyb_lda_xc_bn05", optional = true }
+libxc-kernel-hyb_mgga_x_dldf = { path = "../kernels/mgga/hyb_mgga_x_dldf", optional = true }
+libxc-kernel-hyb_mgga_x_js18 = { path = "../kernels/mgga/hyb_mgga_x_js18", optional = true }
+libxc-kernel-hyb_mgga_x_m05 = { path = "../kernels/mgga/hyb_mgga_x_m05", optional = true }
+libxc-kernel-hyb_mgga_x_pjs18 = { path = "../kernels/mgga/hyb_mgga_x_pjs18", optional = true }
+libxc-kernel-hyb_mgga_xc_gas22 = { path = "../kernels/mgga/hyb_mgga_xc_gas22", optional = true }
+libxc-kernel-hyb_mgga_xc_wb97mv = { path = "../kernels/mgga/hyb_mgga_xc_wb97mv", optional = true }
+libxc-kernel-lda_c_1d_csc = { path = "../kernels/lda/lda_c_1d_csc", optional = true }
+libxc-kernel-lda_c_1d_loos = { path = "../kernels/lda/lda_c_1d_loos", optional = true }
+libxc-kernel-lda_c_2d_amgb = { path = "../kernels/lda/lda_c_2d_amgb", optional = true }
+libxc-kernel-lda_c_2d_prm = { path = "../kernels/lda/lda_c_2d_prm", optional = true }
+libxc-kernel-lda_c_chachiyo = { path = "../kernels/lda/lda_c_chachiyo", optional = true }
+libxc-kernel-lda_c_chachiyo_mod = { path = "../kernels/lda/lda_c_chachiyo_mod", optional = true }
+libxc-kernel-lda_c_gk72 = { path = "../kernels/lda/lda_c_gk72", optional = true }
+libxc-kernel-lda_c_gombas = { path = "../kernels/lda/lda_c_gombas", optional = true }
+libxc-kernel-lda_c_hl = { path = "../kernels/lda/lda_c_hl", optional = true }
+libxc-kernel-lda_c_lp96 = { path = "../kernels/lda/lda_c_lp96", optional = true }
+libxc-kernel-lda_c_ml1 = { path = "../kernels/lda/lda_c_ml1", optional = true }
+libxc-kernel-lda_c_pk09 = { path = "../kernels/lda/lda_c_pk09", optional = true }
+libxc-kernel-lda_c_pmgb06 = { path = "../kernels/lda/lda_c_pmgb06", optional = true }
+libxc-kernel-lda_c_pw = { path = "../kernels/lda/lda_c_pw", optional = true }
+libxc-kernel-lda_c_pw_erf = { path = "../kernels/lda/lda_c_pw_erf", optional = true }
+libxc-kernel-lda_c_pz = { path = "../kernels/lda/lda_c_pz", optional = true }
+libxc-kernel-lda_c_rc04 = { path = "../kernels/lda/lda_c_rc04", optional = true }
+libxc-kernel-lda_c_rpa = { path = "../kernels/lda/lda_c_rpa", optional = true }
+libxc-kernel-lda_c_vwn = { path = "../kernels/lda/lda_c_vwn", optional = true }
+libxc-kernel-lda_c_vwn_1 = { path = "../kernels/lda/lda_c_vwn_1", optional = true }
+libxc-kernel-lda_c_vwn_2 = { path = "../kernels/lda/lda_c_vwn_2", optional = true }
+libxc-kernel-lda_c_vwn_3 = { path = "../kernels/lda/lda_c_vwn_3", optional = true }
+libxc-kernel-lda_c_vwn_4 = { path = "../kernels/lda/lda_c_vwn_4", optional = true }
+libxc-kernel-lda_c_vwn_rpa = { path = "../kernels/lda/lda_c_vwn_rpa", optional = true }
+libxc-kernel-lda_c_w20 = { path = "../kernels/lda/lda_c_w20", optional = true }
+libxc-kernel-lda_c_wigner = { path = "../kernels/lda/lda_c_wigner", optional = true }
+libxc-kernel-lda_k_gds08_worker = { path = "../kernels/lda/lda_k_gds08_worker", optional = true }
+libxc-kernel-lda_k_tf = { path = "../kernels/lda/lda_k_tf", optional = true }
+libxc-kernel-lda_k_zlp = { path = "../kernels/lda/lda_k_zlp", optional = true }
+libxc-kernel-lda_x = { path = "../kernels/lda/lda_x", optional = true }
+libxc-kernel-lda_x_1d_exponential = { path = "../kernels/lda/lda_x_1d_exponential", optional = true }
+libxc-kernel-lda_x_1d_soft = { path = "../kernels/lda/lda_x_1d_soft", optional = true }
+libxc-kernel-lda_x_2d = { path = "../kernels/lda/lda_x_2d", optional = true }
+libxc-kernel-lda_x_erf = { path = "../kernels/lda/lda_x_erf", optional = true }
+libxc-kernel-lda_x_rel = { path = "../kernels/lda/lda_x_rel", optional = true }
+libxc-kernel-lda_x_sloc = { path = "../kernels/lda/lda_x_sloc", optional = true }
+libxc-kernel-lda_x_yukawa = { path = "../kernels/lda/lda_x_yukawa", optional = true }
+libxc-kernel-lda_xc_1d_ehwlrg = { path = "../kernels/lda/lda_xc_1d_ehwlrg", optional = true }
+libxc-kernel-lda_xc_ksdt = { path = "../kernels/lda/lda_xc_ksdt", optional = true }
+libxc-kernel-lda_xc_teter93 = { path = "../kernels/lda/lda_xc_teter93", optional = true }
+libxc-kernel-lda_xc_tih = { path = "../kernels/lda/lda_xc_tih", optional = true }
+libxc-kernel-lda_xc_zlp = { path = "../kernels/lda/lda_xc_zlp", optional = true }
+libxc-kernel-mgga_c_b88 = { path = "../kernels/mgga/mgga_c_b88", optional = true }
+libxc-kernel-mgga_c_b94 = { path = "../kernels/mgga/mgga_c_b94", optional = true }
+libxc-kernel-mgga_c_bc95 = { path = "../kernels/mgga/mgga_c_bc95", optional = true }
+libxc-kernel-mgga_c_cc = { path = "../kernels/mgga/mgga_c_cc", optional = true }
+libxc-kernel-mgga_c_ccalda = { path = "../kernels/mgga/mgga_c_ccalda", optional = true }
+libxc-kernel-mgga_c_cs = { path = "../kernels/mgga/mgga_c_cs", optional = true }
+libxc-kernel-mgga_c_kcis = { path = "../kernels/mgga/mgga_c_kcis", optional = true }
+libxc-kernel-mgga_c_kcisk = { path = "../kernels/mgga/mgga_c_kcisk", optional = true }
+libxc-kernel-mgga_c_kcisk_p0 = { path = "../kernels/mgga/mgga_c_kcisk_p0", optional = true }
+libxc-kernel-mgga_c_kcisk_p1 = { path = "../kernels/mgga/mgga_c_kcisk_p1", optional = true }
+libxc-kernel-mgga_c_kcisk_p2 = { path = "../kernels/mgga/mgga_c_kcisk_p2", optional = true }
+libxc-kernel-mgga_c_kcisk_p3 = { path = "../kernels/mgga/mgga_c_kcisk_p3", optional = true }
+libxc-kernel-mgga_c_kcisk_p4 = { path = "../kernels/mgga/mgga_c_kcisk_p4", optional = true }
+libxc-kernel-mgga_c_kcisk_p5 = { path = "../kernels/mgga/mgga_c_kcisk_p5", optional = true }
+libxc-kernel-mgga_c_ltapw = { path = "../kernels/mgga/mgga_c_ltapw", optional = true }
+libxc-kernel-mgga_c_m05 = { path = "../kernels/mgga/mgga_c_m05", optional = true }
+libxc-kernel-mgga_c_m06l = { path = "../kernels/mgga/mgga_c_m06l", optional = true }
+libxc-kernel-mgga_c_m08 = { path = "../kernels/mgga/mgga_c_m08", optional = true }
+libxc-kernel-mgga_c_pkzb = { path = "../kernels/mgga/mgga_c_pkzb", optional = true }
+libxc-kernel-mgga_c_r2scan = { path = "../kernels/mgga/mgga_c_r2scan", optional = true }
+libxc-kernel-mgga_c_revscan = { path = "../kernels/mgga/mgga_c_revscan", optional = true }
+libxc-kernel-mgga_c_revtpss = { path = "../kernels/mgga/mgga_c_revtpss", optional = true }
+libxc-kernel-mgga_c_revtpss_p0 = { path = "../kernels/mgga/mgga_c_revtpss_p0", optional = true }
+libxc-kernel-mgga_c_revtpss_p1 = { path = "../kernels/mgga/mgga_c_revtpss_p1", optional = true }
+libxc-kernel-mgga_c_revtpss_p2 = { path = "../kernels/mgga/mgga_c_revtpss_p2", optional = true }
+libxc-kernel-mgga_c_revtpss_p3 = { path = "../kernels/mgga/mgga_c_revtpss_p3", optional = true }
+libxc-kernel-mgga_c_revtpss_p4 = { path = "../kernels/mgga/mgga_c_revtpss_p4", optional = true }
+libxc-kernel-mgga_c_revtpss_p5 = { path = "../kernels/mgga/mgga_c_revtpss_p5", optional = true }
+libxc-kernel-mgga_c_revtpss_p6 = { path = "../kernels/mgga/mgga_c_revtpss_p6", optional = true }
+libxc-kernel-mgga_c_rmggac = { path = "../kernels/mgga/mgga_c_rmggac", optional = true }
+libxc-kernel-mgga_c_rmggac_p0 = { path = "../kernels/mgga/mgga_c_rmggac_p0", optional = true }
+libxc-kernel-mgga_c_rmggac_p1 = { path = "../kernels/mgga/mgga_c_rmggac_p1", optional = true }
+libxc-kernel-mgga_c_rmggac_p2 = { path = "../kernels/mgga/mgga_c_rmggac_p2", optional = true }
+libxc-kernel-mgga_c_rmggac_p3 = { path = "../kernels/mgga/mgga_c_rmggac_p3", optional = true }
+libxc-kernel-mgga_c_rmggac_p4 = { path = "../kernels/mgga/mgga_c_rmggac_p4", optional = true }
+libxc-kernel-mgga_c_rmggac_p5 = { path = "../kernels/mgga/mgga_c_rmggac_p5", optional = true }
+libxc-kernel-mgga_c_rmggac_p6 = { path = "../kernels/mgga/mgga_c_rmggac_p6", optional = true }
+libxc-kernel-mgga_c_rmggac_p7 = { path = "../kernels/mgga/mgga_c_rmggac_p7", optional = true }
+libxc-kernel-mgga_c_rmggac_p8 = { path = "../kernels/mgga/mgga_c_rmggac_p8", optional = true }
+libxc-kernel-mgga_c_rmggac_p9 = { path = "../kernels/mgga/mgga_c_rmggac_p9", optional = true }
+libxc-kernel-mgga_c_rmggac_p10 = { path = "../kernels/mgga/mgga_c_rmggac_p10", optional = true }
+libxc-kernel-mgga_c_rmggac_p11 = { path = "../kernels/mgga/mgga_c_rmggac_p11", optional = true }
+libxc-kernel-mgga_c_rmggac_p12 = { path = "../kernels/mgga/mgga_c_rmggac_p12", optional = true }
+libxc-kernel-mgga_c_rppscan = { path = "../kernels/mgga/mgga_c_rppscan", optional = true }
+libxc-kernel-mgga_c_rregtm = { path = "../kernels/mgga/mgga_c_rregtm", optional = true }
+libxc-kernel-mgga_c_rscan = { path = "../kernels/mgga/mgga_c_rscan", optional = true }
+libxc-kernel-mgga_c_scan = { path = "../kernels/mgga/mgga_c_scan", optional = true }
+libxc-kernel-mgga_c_tpss = { path = "../kernels/mgga/mgga_c_tpss", optional = true }
+libxc-kernel-mgga_c_tpss_p0 = { path = "../kernels/mgga/mgga_c_tpss_p0", optional = true }
+libxc-kernel-mgga_c_tpss_p1 = { path = "../kernels/mgga/mgga_c_tpss_p1", optional = true }
+libxc-kernel-mgga_c_tpss_p2 = { path = "../kernels/mgga/mgga_c_tpss_p2", optional = true }
+libxc-kernel-mgga_c_tpss_p3 = { path = "../kernels/mgga/mgga_c_tpss_p3", optional = true }
+libxc-kernel-mgga_c_tpss_p4 = { path = "../kernels/mgga/mgga_c_tpss_p4", optional = true }
+libxc-kernel-mgga_c_tpss_p5 = { path = "../kernels/mgga/mgga_c_tpss_p5", optional = true }
+libxc-kernel-mgga_c_tpssloc = { path = "../kernels/mgga/mgga_c_tpssloc", optional = true }
+libxc-kernel-mgga_c_tpssloc_p0 = { path = "../kernels/mgga/mgga_c_tpssloc_p0", optional = true }
+libxc-kernel-mgga_c_tpssloc_p1 = { path = "../kernels/mgga/mgga_c_tpssloc_p1", optional = true }
+libxc-kernel-mgga_c_tpssloc_p2 = { path = "../kernels/mgga/mgga_c_tpssloc_p2", optional = true }
+libxc-kernel-mgga_c_tpssloc_p3 = { path = "../kernels/mgga/mgga_c_tpssloc_p3", optional = true }
+libxc-kernel-mgga_c_tpssloc_p4 = { path = "../kernels/mgga/mgga_c_tpssloc_p4", optional = true }
+libxc-kernel-mgga_c_tpssloc_p5 = { path = "../kernels/mgga/mgga_c_tpssloc_p5", optional = true }
+libxc-kernel-mgga_c_tpssloc_p6 = { path = "../kernels/mgga/mgga_c_tpssloc_p6", optional = true }
+libxc-kernel-mgga_c_vsxc = { path = "../kernels/mgga/mgga_c_vsxc", optional = true }
+libxc-kernel-mgga_k_csk = { path = "../kernels/mgga/mgga_k_csk", optional = true }
+libxc-kernel-mgga_k_csk_loc = { path = "../kernels/mgga/mgga_k_csk_loc", optional = true }
+libxc-kernel-mgga_k_gea2 = { path = "../kernels/mgga/mgga_k_gea2", optional = true }
+libxc-kernel-mgga_k_gea4 = { path = "../kernels/mgga/mgga_k_gea4", optional = true }
+libxc-kernel-mgga_k_lk = { path = "../kernels/mgga/mgga_k_lk", optional = true }
+libxc-kernel-mgga_k_pc07 = { path = "../kernels/mgga/mgga_k_pc07", optional = true }
+libxc-kernel-mgga_k_pgslb = { path = "../kernels/mgga/mgga_k_pgslb", optional = true }
+libxc-kernel-mgga_k_rda = { path = "../kernels/mgga/mgga_k_rda", optional = true }
+libxc-kernel-mgga_x_2d_js17 = { path = "../kernels/mgga/mgga_x_2d_js17", optional = true }
+libxc-kernel-mgga_x_2d_prhg07 = { path = "../kernels/mgga/mgga_x_2d_prhg07", optional = true }
+libxc-kernel-mgga_x_2d_prp10 = { path = "../kernels/mgga/mgga_x_2d_prp10", optional = true }
+libxc-kernel-mgga_x_br89 = { path = "../kernels/mgga/mgga_x_br89", optional = true }
+libxc-kernel-mgga_x_br89_explicit = { path = "../kernels/mgga/mgga_x_br89_explicit", optional = true }
+libxc-kernel-mgga_x_edmgga = { path = "../kernels/mgga/mgga_x_edmgga", optional = true }
+libxc-kernel-mgga_x_ft98 = { path = "../kernels/mgga/mgga_x_ft98", optional = true }
+libxc-kernel-mgga_x_gdme = { path = "../kernels/mgga/mgga_x_gdme", optional = true }
+libxc-kernel-mgga_x_gvt4 = { path = "../kernels/mgga/mgga_x_gvt4", optional = true }
+libxc-kernel-mgga_x_gx = { path = "../kernels/mgga/mgga_x_gx", optional = true }
+libxc-kernel-mgga_x_jk = { path = "../kernels/mgga/mgga_x_jk", optional = true }
+libxc-kernel-mgga_x_lta = { path = "../kernels/mgga/mgga_x_lta", optional = true }
+libxc-kernel-mgga_x_m06l = { path = "../kernels/mgga/mgga_x_m06l", optional = true }
+libxc-kernel-mgga_x_m08 = { path = "../kernels/mgga/mgga_x_m08", optional = true }
+libxc-kernel-mgga_x_m11 = { path = "../kernels/mgga/mgga_x_m11", optional = true }
+libxc-kernel-mgga_x_m11_l = { path = "../kernels/mgga/mgga_x_m11_l", optional = true }
+libxc-kernel-mgga_x_mbeef = { path = "../kernels/mgga/mgga_x_mbeef", optional = true }
+libxc-kernel-mgga_x_mbeefvdw = { path = "../kernels/mgga/mgga_x_mbeefvdw", optional = true }
+libxc-kernel-mgga_x_mbr = { path = "../kernels/mgga/mgga_x_mbr", optional = true }
+libxc-kernel-mgga_x_mbrxc_bg = { path = "../kernels/mgga/mgga_x_mbrxc_bg", optional = true }
+libxc-kernel-mgga_x_mbrxh_bg = { path = "../kernels/mgga/mgga_x_mbrxh_bg", optional = true }
+libxc-kernel-mgga_x_mcml = { path = "../kernels/mgga/mgga_x_mcml", optional = true }
+libxc-kernel-mgga_x_mggac = { path = "../kernels/mgga/mgga_x_mggac", optional = true }
+libxc-kernel-mgga_x_mn12 = { path = "../kernels/mgga/mgga_x_mn12", optional = true }
+libxc-kernel-mgga_x_ms = { path = "../kernels/mgga/mgga_x_ms", optional = true }
+libxc-kernel-mgga_x_msb = { path = "../kernels/mgga/mgga_x_msb", optional = true }
+libxc-kernel-mgga_x_mvs = { path = "../kernels/mgga/mgga_x_mvs", optional = true }
+libxc-kernel-mgga_x_mvsb = { path = "../kernels/mgga/mgga_x_mvsb", optional = true }
+libxc-kernel-mgga_x_pbe_gx = { path = "../kernels/mgga/mgga_x_pbe_gx", optional = true }
+libxc-kernel-mgga_x_pkzb = { path = "../kernels/mgga/mgga_x_pkzb", optional = true }
+libxc-kernel-mgga_x_r2scan = { path = "../kernels/mgga/mgga_x_r2scan", optional = true }
+libxc-kernel-mgga_x_r4scan = { path = "../kernels/mgga/mgga_x_r4scan", optional = true }
+libxc-kernel-mgga_x_regtm = { path = "../kernels/mgga/mgga_x_regtm", optional = true }
+libxc-kernel-mgga_x_regtpss = { path = "../kernels/mgga/mgga_x_regtpss", optional = true }
+libxc-kernel-mgga_x_revtm = { path = "../kernels/mgga/mgga_x_revtm", optional = true }
+libxc-kernel-mgga_x_rlda = { path = "../kernels/mgga/mgga_x_rlda", optional = true }
+libxc-kernel-mgga_x_rppscan = { path = "../kernels/mgga/mgga_x_rppscan", optional = true }
+libxc-kernel-mgga_x_rscan = { path = "../kernels/mgga/mgga_x_rscan", optional = true }
+libxc-kernel-mgga_x_rtpss = { path = "../kernels/mgga/mgga_x_rtpss", optional = true }
+libxc-kernel-mgga_x_sa_tpss = { path = "../kernels/mgga/mgga_x_sa_tpss", optional = true }
+libxc-kernel-mgga_x_scan = { path = "../kernels/mgga/mgga_x_scan", optional = true }
+libxc-kernel-mgga_x_task = { path = "../kernels/mgga/mgga_x_task", optional = true }
+libxc-kernel-mgga_x_tau_hcth = { path = "../kernels/mgga/mgga_x_tau_hcth", optional = true }
+libxc-kernel-mgga_x_tb09 = { path = "../kernels/mgga/mgga_x_tb09", optional = true }
+libxc-kernel-mgga_x_th = { path = "../kernels/mgga/mgga_x_th", optional = true }
+libxc-kernel-mgga_x_tm = { path = "../kernels/mgga/mgga_x_tm", optional = true }
+libxc-kernel-mgga_x_tpss = { path = "../kernels/mgga/mgga_x_tpss", optional = true }
+libxc-kernel-mgga_x_vcml = { path = "../kernels/mgga/mgga_x_vcml", optional = true }
+libxc-kernel-mgga_x_vt84 = { path = "../kernels/mgga/mgga_x_vt84", optional = true }
+libxc-kernel-mgga_xc_b97mv = { path = "../kernels/mgga/mgga_xc_b97mv", optional = true }
+libxc-kernel-mgga_xc_b98 = { path = "../kernels/mgga/mgga_xc_b98", optional = true }
+libxc-kernel-mgga_xc_cc06 = { path = "../kernels/mgga/mgga_xc_cc06", optional = true }
+libxc-kernel-mgga_xc_lp90 = { path = "../kernels/mgga/mgga_xc_lp90", optional = true }
+libxc-kernel-mgga_xc_zlp = { path = "../kernels/mgga/mgga_xc_zlp", optional = true }
+
+[features]
+# Phase 11 / 11-12 (G-2, Path A): family-chunked oracle builds.
+# default activates all families -> bare `cargo build -p libxc_rs`
+# is unchanged. `--no-default-features --features oracle-<fam>`
+# resolves ONLY that family's kernels (memory-safe; provable via
+# `cargo tree`). The umbrella SOURCE cfg-gating that lets a single
+# family actually COMPILE is the deferred follow-up (see
+# .planning/phases/11-splitter-v2-unified-5k-cap/11-12-ORACLE-F32-LOG.md).
+default = ["oracle-lda", "oracle-gga", "oracle-mgga"]
+
+oracle-lda = [
+    "dep:libxc-kernel-hyb_lda_xc_bn05",
+    "dep:libxc-kernel-lda_c_1d_csc",
+    "dep:libxc-kernel-lda_c_1d_loos",
+    "dep:libxc-kernel-lda_c_2d_amgb",
+    "dep:libxc-kernel-lda_c_2d_prm",
+    "dep:libxc-kernel-lda_c_chachiyo",
+    "dep:libxc-kernel-lda_c_chachiyo_mod",
+    "dep:libxc-kernel-lda_c_gk72",
+    "dep:libxc-kernel-lda_c_gombas",
+    "dep:libxc-kernel-lda_c_hl",
+    "dep:libxc-kernel-lda_c_lp96",
+    "dep:libxc-kernel-lda_c_ml1",
+    "dep:libxc-kernel-lda_c_pk09",
+    "dep:libxc-kernel-lda_c_pmgb06",
+    "dep:libxc-kernel-lda_c_pw",
+    "dep:libxc-kernel-lda_c_pw_erf",
+    "dep:libxc-kernel-lda_c_pz",
+    "dep:libxc-kernel-lda_c_rc04",
+    "dep:libxc-kernel-lda_c_rpa",
+    "dep:libxc-kernel-lda_c_vwn",
+    "dep:libxc-kernel-lda_c_vwn_1",
+    "dep:libxc-kernel-lda_c_vwn_2",
+    "dep:libxc-kernel-lda_c_vwn_3",
+    "dep:libxc-kernel-lda_c_vwn_4",
+    "dep:libxc-kernel-lda_c_vwn_rpa",
+    "dep:libxc-kernel-lda_c_w20",
+    "dep:libxc-kernel-lda_c_wigner",
+    "dep:libxc-kernel-lda_k_gds08_worker",
+    "dep:libxc-kernel-lda_k_tf",
+    "dep:libxc-kernel-lda_k_zlp",
+    "dep:libxc-kernel-lda_x",
+    "dep:libxc-kernel-lda_x_1d_exponential",
+    "dep:libxc-kernel-lda_x_1d_soft",
+    "dep:libxc-kernel-lda_x_2d",
+    "dep:libxc-kernel-lda_x_erf",
+    "dep:libxc-kernel-lda_x_rel",
+    "dep:libxc-kernel-lda_x_sloc",
+    "dep:libxc-kernel-lda_x_yukawa",
+    "dep:libxc-kernel-lda_xc_1d_ehwlrg",
+    "dep:libxc-kernel-lda_xc_ksdt",
+    "dep:libxc-kernel-lda_xc_teter93",
+    "dep:libxc-kernel-lda_xc_tih",
+    "dep:libxc-kernel-lda_xc_zlp",
+]
+
+oracle-gga = [
+    "dep:libxc-kernel-gga_c_acgga",
+    "dep:libxc-kernel-gga_c_acggap",
+    "dep:libxc-kernel-gga_c_am05",
+    "dep:libxc-kernel-gga_c_bmk",
+    "dep:libxc-kernel-gga_c_ccdf",
+    "dep:libxc-kernel-gga_c_chachiyo",
+    "dep:libxc-kernel-gga_c_cs1",
+    "dep:libxc-kernel-gga_c_ft97",
+    "dep:libxc-kernel-gga_c_gapc",
+    "dep:libxc-kernel-gga_c_gaploc",
+    "dep:libxc-kernel-gga_c_hcth_a",
+    "dep:libxc-kernel-gga_c_lm",
+    "dep:libxc-kernel-gga_c_lyp",
+    "dep:libxc-kernel-gga_c_lypr",
+    "dep:libxc-kernel-gga_c_op_b88",
+    "dep:libxc-kernel-gga_c_op_g96",
+    "dep:libxc-kernel-gga_c_op_pbe",
+    "dep:libxc-kernel-gga_c_op_pw91",
+    "dep:libxc-kernel-gga_c_op_xalpha",
+    "dep:libxc-kernel-gga_c_optc",
+    "dep:libxc-kernel-gga_c_p86",
+    "dep:libxc-kernel-gga_c_p86vwn",
+    "dep:libxc-kernel-gga_c_pbe",
+    "dep:libxc-kernel-gga_c_pbe_erf_gws",
+    "dep:libxc-kernel-gga_c_pbe_vwn",
+    "dep:libxc-kernel-gga_c_pbeloc",
+    "dep:libxc-kernel-gga_c_pw91",
+    "dep:libxc-kernel-gga_c_q2d",
+    "dep:libxc-kernel-gga_c_regtpss",
+    "dep:libxc-kernel-gga_c_revtca",
+    "dep:libxc-kernel-gga_c_scan_e0",
+    "dep:libxc-kernel-gga_c_sg4",
+    "dep:libxc-kernel-gga_c_sogga11",
+    "dep:libxc-kernel-gga_c_tca",
+    "dep:libxc-kernel-gga_c_w94",
+    "dep:libxc-kernel-gga_c_wi",
+    "dep:libxc-kernel-gga_c_wl",
+    "dep:libxc-kernel-gga_c_zpbeint",
+    "dep:libxc-kernel-gga_c_zvpbeint",
+    "dep:libxc-kernel-gga_c_zvpbeloc",
+    "dep:libxc-kernel-gga_k_apbe",
+    "dep:libxc-kernel-gga_k_apbeint",
+    "dep:libxc-kernel-gga_k_dk",
+    "dep:libxc-kernel-gga_k_exp4",
+    "dep:libxc-kernel-gga_k_lc94",
+    "dep:libxc-kernel-gga_k_lgap",
+    "dep:libxc-kernel-gga_k_lgap_ge",
+    "dep:libxc-kernel-gga_k_lkt",
+    "dep:libxc-kernel-gga_k_llp",
+    "dep:libxc-kernel-gga_k_meyer",
+    "dep:libxc-kernel-gga_k_mpbe",
+    "dep:libxc-kernel-gga_k_ol1",
+    "dep:libxc-kernel-gga_k_ol2",
+    "dep:libxc-kernel-gga_k_pearson",
+    "dep:libxc-kernel-gga_k_pg",
+    "dep:libxc-kernel-gga_k_pw86",
+    "dep:libxc-kernel-gga_k_rational_p",
+    "dep:libxc-kernel-gga_k_tflw",
+    "dep:libxc-kernel-gga_k_thakkar",
+    "dep:libxc-kernel-gga_k_vt84f",
+    "dep:libxc-kernel-gga_x_2d_b86",
+    "dep:libxc-kernel-gga_x_2d_b86_mgc",
+    "dep:libxc-kernel-gga_x_2d_b88",
+    "dep:libxc-kernel-gga_x_2d_pbe",
+    "dep:libxc-kernel-gga_x_airy",
+    "dep:libxc-kernel-gga_x_ak13",
+    "dep:libxc-kernel-gga_x_am05",
+    "dep:libxc-kernel-gga_x_b86",
+    "dep:libxc-kernel-gga_x_b88",
+    "dep:libxc-kernel-gga_x_bayesian",
+    "dep:libxc-kernel-gga_x_beefvdw",
+    "dep:libxc-kernel-gga_x_bpccac",
+    "dep:libxc-kernel-gga_x_c09x",
+    "dep:libxc-kernel-gga_x_cap",
+    "dep:libxc-kernel-gga_x_chachiyo",
+    "dep:libxc-kernel-gga_x_dk87",
+    "dep:libxc-kernel-gga_x_ev93",
+    "dep:libxc-kernel-gga_x_fd_lb94",
+    "dep:libxc-kernel-gga_x_ft97",
+    "dep:libxc-kernel-gga_x_g96",
+    "dep:libxc-kernel-gga_x_gg99",
+    "dep:libxc-kernel-gga_x_hcth_a",
+    "dep:libxc-kernel-gga_x_herman",
+    "dep:libxc-kernel-gga_x_hjs",
+    "dep:libxc-kernel-gga_x_hjs_b88_v2",
+    "dep:libxc-kernel-gga_x_htbs",
+    "dep:libxc-kernel-gga_x_ityh",
+    "dep:libxc-kernel-gga_x_ityh_optx",
+    "dep:libxc-kernel-gga_x_ityh_pbe",
+    "dep:libxc-kernel-gga_x_kt",
+    "dep:libxc-kernel-gga_x_lag",
+    "dep:libxc-kernel-gga_x_lb",
+    "dep:libxc-kernel-gga_x_lcgau",
+    "dep:libxc-kernel-gga_x_lg93",
+    "dep:libxc-kernel-gga_x_lspbe",
+    "dep:libxc-kernel-gga_x_lsrpbe",
+    "dep:libxc-kernel-gga_x_lv_rpw86",
+    "dep:libxc-kernel-gga_x_mpbe",
+    "dep:libxc-kernel-gga_x_n12",
+    "dep:libxc-kernel-gga_x_ncap",
+    "dep:libxc-kernel-gga_x_ol2",
+    "dep:libxc-kernel-gga_x_optx",
+    "dep:libxc-kernel-gga_x_pbe",
+    "dep:libxc-kernel-gga_x_pbe_erf_gws",
+    "dep:libxc-kernel-gga_x_pbea",
+    "dep:libxc-kernel-gga_x_pbeint",
+    "dep:libxc-kernel-gga_x_pbepow",
+    "dep:libxc-kernel-gga_x_pbetrans",
+    "dep:libxc-kernel-gga_x_pw86",
+    "dep:libxc-kernel-gga_x_pw91",
+    "dep:libxc-kernel-gga_x_q1d",
+    "dep:libxc-kernel-gga_x_q2d",
+    "dep:libxc-kernel-gga_x_rge2",
+    "dep:libxc-kernel-gga_x_rpbe",
+    "dep:libxc-kernel-gga_x_s12",
+    "dep:libxc-kernel-gga_x_sfat",
+    "dep:libxc-kernel-gga_x_sfat_pbe",
+    "dep:libxc-kernel-gga_x_sg4",
+    "dep:libxc-kernel-gga_x_sogga11",
+    "dep:libxc-kernel-gga_x_ssb_sw",
+    "dep:libxc-kernel-gga_x_vmt",
+    "dep:libxc-kernel-gga_x_vmt84",
+    "dep:libxc-kernel-gga_x_wc",
+    "dep:libxc-kernel-gga_x_wpbeh",
+    "dep:libxc-kernel-gga_xc_b97",
+    "dep:libxc-kernel-gga_xc_th1",
+    "dep:libxc-kernel-gga_xc_th2",
+    "dep:libxc-kernel-gga_xc_th3",
+    "dep:libxc-kernel-hyb_gga_x_cam_s12",
+    "dep:libxc-kernel-hyb_gga_xc_case21",
+    "dep:libxc-kernel-hyb_gga_xc_wb97",
+]
+
+oracle-mgga = [
+    "dep:libxc-kernel-hyb_mgga_x_dldf",
+    "dep:libxc-kernel-hyb_mgga_x_js18",
+    "dep:libxc-kernel-hyb_mgga_x_m05",
+    "dep:libxc-kernel-hyb_mgga_x_pjs18",
+    "dep:libxc-kernel-hyb_mgga_xc_gas22",
+    "dep:libxc-kernel-hyb_mgga_xc_wb97mv",
+    "dep:libxc-kernel-mgga_c_b88",
+    "dep:libxc-kernel-mgga_c_b94",
+    "dep:libxc-kernel-mgga_c_bc95",
+    "dep:libxc-kernel-mgga_c_cc",
+    "dep:libxc-kernel-mgga_c_ccalda",
+    "dep:libxc-kernel-mgga_c_cs",
+    "dep:libxc-kernel-mgga_c_kcis",
+    "dep:libxc-kernel-mgga_c_kcisk",
+    "dep:libxc-kernel-mgga_c_kcisk_p0",
+    "dep:libxc-kernel-mgga_c_kcisk_p1",
+    "dep:libxc-kernel-mgga_c_kcisk_p2",
+    "dep:libxc-kernel-mgga_c_kcisk_p3",
+    "dep:libxc-kernel-mgga_c_kcisk_p4",
+    "dep:libxc-kernel-mgga_c_kcisk_p5",
+    "dep:libxc-kernel-mgga_c_ltapw",
+    "dep:libxc-kernel-mgga_c_m05",
+    "dep:libxc-kernel-mgga_c_m06l",
+    "dep:libxc-kernel-mgga_c_m08",
+    "dep:libxc-kernel-mgga_c_pkzb",
+    "dep:libxc-kernel-mgga_c_r2scan",
+    "dep:libxc-kernel-mgga_c_revscan",
+    "dep:libxc-kernel-mgga_c_revtpss",
+    "dep:libxc-kernel-mgga_c_revtpss_p0",
+    "dep:libxc-kernel-mgga_c_revtpss_p1",
+    "dep:libxc-kernel-mgga_c_revtpss_p2",
+    "dep:libxc-kernel-mgga_c_revtpss_p3",
+    "dep:libxc-kernel-mgga_c_revtpss_p4",
+    "dep:libxc-kernel-mgga_c_revtpss_p5",
+    "dep:libxc-kernel-mgga_c_revtpss_p6",
+    "dep:libxc-kernel-mgga_c_rmggac",
+    "dep:libxc-kernel-mgga_c_rmggac_p0",
+    "dep:libxc-kernel-mgga_c_rmggac_p1",
+    "dep:libxc-kernel-mgga_c_rmggac_p2",
+    "dep:libxc-kernel-mgga_c_rmggac_p3",
+    "dep:libxc-kernel-mgga_c_rmggac_p4",
+    "dep:libxc-kernel-mgga_c_rmggac_p5",
+    "dep:libxc-kernel-mgga_c_rmggac_p6",
+    "dep:libxc-kernel-mgga_c_rmggac_p7",
+    "dep:libxc-kernel-mgga_c_rmggac_p8",
+    "dep:libxc-kernel-mgga_c_rmggac_p9",
+    "dep:libxc-kernel-mgga_c_rmggac_p10",
+    "dep:libxc-kernel-mgga_c_rmggac_p11",
+    "dep:libxc-kernel-mgga_c_rmggac_p12",
+    "dep:libxc-kernel-mgga_c_rppscan",
+    "dep:libxc-kernel-mgga_c_rregtm",
+    "dep:libxc-kernel-mgga_c_rscan",
+    "dep:libxc-kernel-mgga_c_scan",
+    "dep:libxc-kernel-mgga_c_tpss",
+    "dep:libxc-kernel-mgga_c_tpss_p0",
+    "dep:libxc-kernel-mgga_c_tpss_p1",
+    "dep:libxc-kernel-mgga_c_tpss_p2",
+    "dep:libxc-kernel-mgga_c_tpss_p3",
+    "dep:libxc-kernel-mgga_c_tpss_p4",
+    "dep:libxc-kernel-mgga_c_tpss_p5",
+    "dep:libxc-kernel-mgga_c_tpssloc",
+    "dep:libxc-kernel-mgga_c_tpssloc_p0",
+    "dep:libxc-kernel-mgga_c_tpssloc_p1",
+    "dep:libxc-kernel-mgga_c_tpssloc_p2",
+    "dep:libxc-kernel-mgga_c_tpssloc_p3",
+    "dep:libxc-kernel-mgga_c_tpssloc_p4",
+    "dep:libxc-kernel-mgga_c_tpssloc_p5",
+    "dep:libxc-kernel-mgga_c_tpssloc_p6",
+    "dep:libxc-kernel-mgga_c_vsxc",
+    "dep:libxc-kernel-mgga_k_csk",
+    "dep:libxc-kernel-mgga_k_csk_loc",
+    "dep:libxc-kernel-mgga_k_gea2",
+    "dep:libxc-kernel-mgga_k_gea4",
+    "dep:libxc-kernel-mgga_k_lk",
+    "dep:libxc-kernel-mgga_k_pc07",
+    "dep:libxc-kernel-mgga_k_pgslb",
+    "dep:libxc-kernel-mgga_k_rda",
+    "dep:libxc-kernel-mgga_x_2d_js17",
+    "dep:libxc-kernel-mgga_x_2d_prhg07",
+    "dep:libxc-kernel-mgga_x_2d_prp10",
+    "dep:libxc-kernel-mgga_x_br89",
+    "dep:libxc-kernel-mgga_x_br89_explicit",
+    "dep:libxc-kernel-mgga_x_edmgga",
+    "dep:libxc-kernel-mgga_x_ft98",
+    "dep:libxc-kernel-mgga_x_gdme",
+    "dep:libxc-kernel-mgga_x_gvt4",
+    "dep:libxc-kernel-mgga_x_gx",
+    "dep:libxc-kernel-mgga_x_jk",
+    "dep:libxc-kernel-mgga_x_lta",
+    "dep:libxc-kernel-mgga_x_m06l",
+    "dep:libxc-kernel-mgga_x_m08",
+    "dep:libxc-kernel-mgga_x_m11",
+    "dep:libxc-kernel-mgga_x_m11_l",
+    "dep:libxc-kernel-mgga_x_mbeef",
+    "dep:libxc-kernel-mgga_x_mbeefvdw",
+    "dep:libxc-kernel-mgga_x_mbr",
+    "dep:libxc-kernel-mgga_x_mbrxc_bg",
+    "dep:libxc-kernel-mgga_x_mbrxh_bg",
+    "dep:libxc-kernel-mgga_x_mcml",
+    "dep:libxc-kernel-mgga_x_mggac",
+    "dep:libxc-kernel-mgga_x_mn12",
+    "dep:libxc-kernel-mgga_x_ms",
+    "dep:libxc-kernel-mgga_x_msb",
+    "dep:libxc-kernel-mgga_x_mvs",
+    "dep:libxc-kernel-mgga_x_mvsb",
+    "dep:libxc-kernel-mgga_x_pbe_gx",
+    "dep:libxc-kernel-mgga_x_pkzb",
+    "dep:libxc-kernel-mgga_x_r2scan",
+    "dep:libxc-kernel-mgga_x_r4scan",
+    "dep:libxc-kernel-mgga_x_regtm",
+    "dep:libxc-kernel-mgga_x_regtpss",
+    "dep:libxc-kernel-mgga_x_revtm",
+    "dep:libxc-kernel-mgga_x_rlda",
+    "dep:libxc-kernel-mgga_x_rppscan",
+    "dep:libxc-kernel-mgga_x_rscan",
+    "dep:libxc-kernel-mgga_x_rtpss",
+    "dep:libxc-kernel-mgga_x_sa_tpss",
+    "dep:libxc-kernel-mgga_x_scan",
+    "dep:libxc-kernel-mgga_x_task",
+    "dep:libxc-kernel-mgga_x_tau_hcth",
+    "dep:libxc-kernel-mgga_x_tb09",
+    "dep:libxc-kernel-mgga_x_th",
+    "dep:libxc-kernel-mgga_x_tm",
+    "dep:libxc-kernel-mgga_x_tpss",
+    "dep:libxc-kernel-mgga_x_vcml",
+    "dep:libxc-kernel-mgga_x_vt84",
+    "dep:libxc-kernel-mgga_xc_b97mv",
+    "dep:libxc-kernel-mgga_xc_b98",
+    "dep:libxc-kernel-mgga_xc_cc06",
+    "dep:libxc-kernel-mgga_xc_lp90",
+    "dep:libxc-kernel-mgga_xc_zlp",
+]
+

@@ -11,10 +11,11 @@
 pub use libxc_core::{model, meta, error, dims, registry, input, output};
 pub use libxc_core::deferred;
 
-pub mod math;
-pub mod kernel;
-pub mod eval;
-pub mod functional;
+// Orchestration layer moved to libxc-eval (Phase 10); re-exported so api/compat
+// and downstream `crate::eval::`/`crate::kernel::`/`libxc_rs::math` keep resolving.
+pub use libxc_eval::{eval, functional, kernel};
+pub use libxc_eval::math;
+
 pub mod api;
 pub mod compat;
 
