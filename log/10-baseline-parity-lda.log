@@ -1,0 +1,13 @@
+   Compiling libxc_rs-verify v0.1.0 (/home/user/Documents/workspace/libxc_rs/verify)
+   Compiling libxc_rs v0.1.0 (/home/user/Documents/workspace/libxc_rs)
+    Finished `test` profile [unoptimized] target(s) in 6.26s
+     Running tests/lda_oracle.rs (.cache/cargo-target/debug/deps/lda_oracle-32714ca5adcda78c)
+
+running 2 tests
+test test_all_lda_oracle_pol has been running for over 60 seconds
+test test_all_lda_oracle_unpol has been running for over 60 seconds
+test test_all_lda_oracle_pol ... ok
+test test_all_lda_oracle_unpol ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 287.70s
+

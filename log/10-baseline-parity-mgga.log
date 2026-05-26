@@ -1,0 +1,459 @@
+   Compiling thiserror v2.0.18
+   Compiling indexmap v2.14.0
+   Compiling cubecl-runtime v0.10.0
+   Compiling cubecl-core v0.10.0
+   Compiling petgraph v0.8.3
+   Compiling cubecl-opt v0.10.0
+   Compiling cubecl-std v0.10.0
+   Compiling cubecl-cpu v0.10.0
+   Compiling cubecl v0.10.0
+   Compiling libxc-kernel-math v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/math)
+   Compiling bindgen v0.72.1
+   Compiling cmake v0.1.58
+   Compiling libxc-sys v0.1.0 (/home/user/Documents/workspace/libxc_rs/libxc-sys)
+   Compiling libxc-kernel-mgga_c_tpssloc_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p3)
+   Compiling libxc-kernel-mgga_c_revtpss_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p4)
+   Compiling libxc-kernel-mgga_c_rmggac_p12 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p12)
+   Compiling libxc-kernel-mgga_c_revtpss_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p3)
+   Compiling libxc-kernel-mgga_c_revtpss_p6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p6)
+   Compiling libxc-kernel-mgga_c_rmggac_p8 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p8)
+   Compiling libxc-kernel-mgga_c_tpssloc_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p5)
+   Compiling libxc-kernel-mgga_c_rmggac_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p3)
+   Compiling libxc-kernel-mgga_c_tpssloc_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p0)
+   Compiling libxc-kernel-mgga_c_tpss_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p0)
+   Compiling libxc-kernel-mgga_c_tpssloc_p6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p6)
+   Compiling libxc-kernel-mgga_c_tpssloc_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p2)
+   Compiling libxc-kernel-mgga_c_tpss_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p3)
+   Compiling libxc-kernel-mgga_c_revtpss_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p0)
+   Compiling libxc-kernel-mgga_c_rmggac_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p1)
+   Compiling libxc-kernel-mgga_c_tpss_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p1)
+   Compiling libxc-kernel-mgga_c_kcisk_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p1)
+   Compiling libxc-kernel-mgga_c_rmggac_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p5)
+   Compiling libxc-kernel-mgga_c_tpss_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p2)
+   Compiling libxc-kernel-mgga_c_kcisk_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p0)
+   Compiling libxc-kernel-mgga_c_kcisk_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p5)
+   Compiling libxc-kernel-mgga_c_tpss_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p4)
+   Compiling libxc-kernel-mgga_c_revtpss_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p2)
+   Compiling libxc-kernel-mgga_c_kcisk_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p2)
+   Compiling libxc-kernel-mgga_c_tpssloc_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p4)
+   Compiling libxc-kernel-mgga_c_rmggac_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p4)
+   Compiling libxc-kernel-mgga_c_rmggac_p10 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p10)
+   Compiling libxc-kernel-mgga_c_tpss_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss_p5)
+   Compiling libxc-kernel-mgga_c_rmggac_p7 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p7)
+   Compiling libxc-kernel-mgga_c_revtpss_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p1)
+   Compiling libxc-kernel-mgga_c_rmggac_p11 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p11)
+   Compiling libxc-kernel-mgga_c_rmggac_p0 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p0)
+   Compiling libxc-kernel-mgga_c_rmggac_p2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p2)
+   Compiling libxc-kernel-mgga_c_kcisk_p4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p4)
+   Compiling libxc-kernel-mgga_c_tpssloc_p1 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc_p1)
+   Compiling libxc-kernel-mgga_c_revtpss_p5 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss_p5)
+   Compiling libxc-kernel-mgga_c_kcisk_p3 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk_p3)
+   Compiling libxc-kernel-mgga_c_rmggac_p6 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p6)
+   Compiling libxc-kernel-mgga_c_rmggac_p9 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac_p9)
+   Compiling libxc-kernel-mgga_c_rmggac v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rmggac)
+   Compiling libxc-kernel-mgga_c_kcisk v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcisk)
+   Compiling libxc-kernel-mgga_c_revtpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revtpss)
+   Compiling libxc-kernel-mgga_c_tpssloc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpssloc)
+   Compiling libxc-kernel-mgga_c_tpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_tpss)
+   Compiling libxc-kernel-hyb_mgga_x_pjs18 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_x_pjs18)
+   Compiling libxc-kernel-mgga_x_mggac v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mggac)
+   Compiling libxc-kernel-mgga_x_tm v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_tm)
+   Compiling libxc-kernel-mgga_x_rlda v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_rlda)
+   Compiling libxc-kernel-mgga_c_vsxc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_vsxc)
+   Compiling libxc-kernel-mgga_c_revscan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_revscan)
+   Compiling libxc-kernel-mgga_c_rregtm v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rregtm)
+   Compiling libxc-kernel-mgga_k_csk v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_csk)
+   Compiling libxc-kernel-mgga_xc_zlp v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_xc_zlp)
+   Compiling libxc-kernel-mgga_x_m08 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_m08)
+   Compiling libxc-kernel-mgga_k_lk v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_lk)
+   Compiling libxc-kernel-hyb_mgga_xc_wb97mv v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_xc_wb97mv)
+   Compiling libxc-kernel-mgga_x_mcml v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mcml)
+   Compiling libxc-kernel-mgga_x_gdme v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_gdme)
+   Compiling libxc-kernel-mgga_x_gvt4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_gvt4)
+   Compiling libxc-kernel-mgga_x_task v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_task)
+   Compiling libxc-kernel-mgga_c_bc95 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_bc95)
+   Compiling libxc-kernel-mgga_x_sa_tpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_sa_tpss)
+   Compiling libxc-kernel-mgga_x_m11 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_m11)
+   Compiling libxc-kernel-mgga_x_pkzb v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_pkzb)
+   Compiling libxc-kernel-mgga_xc_b97mv v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_xc_b97mv)
+   Compiling libxc-kernel-mgga_x_pbe_gx v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_pbe_gx)
+   Compiling libxc-kernel-mgga_x_mbr v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mbr)
+   Compiling libxc-kernel-mgga_c_scan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_scan)
+   Compiling libxc-kernel-mgga_x_mbrxc_bg v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mbrxc_bg)
+   Compiling libxc-kernel-mgga_x_mbrxh_bg v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mbrxh_bg)
+   Compiling libxc-kernel-mgga_x_tau_hcth v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_tau_hcth)
+   Compiling libxc-kernel-mgga_x_br89 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_br89)
+   Compiling libxc-kernel-mgga_x_m11_l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_m11_l)
+   Compiling libxc-kernel-mgga_c_pkzb v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_pkzb)
+   Compiling libxc-kernel-mgga_c_r2scan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_r2scan)
+   Compiling libxc-kernel-mgga_c_ccalda v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_ccalda)
+   Compiling libxc-kernel-mgga_c_rppscan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rppscan)
+   Compiling libxc-kernel-mgga_c_kcis v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_kcis)
+   Compiling libxc-kernel-mgga_x_r2scan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_r2scan)
+   Compiling libxc-kernel-mgga_x_mn12 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mn12)
+   Compiling libxc-kernel-mgga_x_rscan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_rscan)
+   Compiling libxc-kernel-mgga_xc_lp90 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_xc_lp90)
+   Compiling libxc-kernel-mgga_x_2d_js17 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_2d_js17)
+   Compiling libxc-kernel-mgga_x_jk v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_jk)
+   Compiling libxc-kernel-mgga_x_2d_prp10 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_2d_prp10)
+   Compiling libxc-kernel-mgga_x_edmgga v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_edmgga)
+   Compiling libxc-kernel-hyb_mgga_x_m05 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_x_m05)
+   Compiling libxc-kernel-mgga_x_ft98 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_ft98)
+   Compiling libxc-kernel-mgga_x_gx v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_gx)
+   Compiling libxc-kernel-mgga_x_mbeefvdw v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mbeefvdw)
+   Compiling libxc-kernel-mgga_x_scan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_scan)
+   Compiling libxc-kernel-mgga_c_m06l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_m06l)
+   Compiling libxc-kernel-mgga_c_rscan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_rscan)
+   Compiling libxc-kernel-mgga_x_r4scan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_r4scan)
+   Compiling libxc-kernel-mgga_x_tpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_tpss)
+   Compiling libxc-kernel-mgga_c_cc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_cc)
+   Compiling libxc-kernel-mgga_k_pgslb v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_pgslb)
+   Compiling libxc-kernel-mgga_k_rda v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_rda)
+   Compiling libxc-kernel-mgga_k_pc07 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_pc07)
+   Compiling libxc-kernel-mgga_x_regtpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_regtpss)
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/fxc_unpol.rs:287:20
+    |
+287 |         let t457 = (t24);
+    |                    ^   ^
+    |
+    = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+help: remove these parentheses
+    |
+287 -         let t457 = (t24);
+287 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/kxc_unpol.rs:307:20
+    |
+307 |         let t457 = (t24);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+307 -         let t457 = (t24);
+307 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_unpol.rs:342:20
+    |
+342 |         let t457 = (t24);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+342 -         let t457 = (t24);
+342 +         let t457 = t24;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/fxc_pol.rs:525:20
+    |
+525 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+525 -         let t913 = (t32);
+525 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/fxc_pol.rs:679:21
+    |
+679 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+679 -         let t1287 = (t166);
+679 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/kxc_pol.rs:545:20
+    |
+545 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+545 -         let t913 = (t32);
+545 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/kxc_pol.rs:699:21
+    |
+699 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+699 -         let t1287 = (t166);
+699 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part0.rs:541:20
+    |
+541 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+541 -         let t913 = (t32);
+541 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part0.rs:695:21
+    |
+695 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+695 -         let t1287 = (t166);
+695 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part1.rs:361:20
+    |
+361 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+361 -         let t913 = (t32);
+361 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part1.rs:395:21
+    |
+395 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+395 -         let t1287 = (t166);
+395 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part2.rs:432:20
+    |
+432 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+432 -         let t913 = (t32);
+432 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part2.rs:566:21
+    |
+566 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+566 -         let t1287 = (t166);
+566 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part3.rs:454:20
+    |
+454 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+454 -         let t913 = (t32);
+454 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part3.rs:587:21
+    |
+587 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+587 -         let t1287 = (t166);
+587 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part4.rs:420:20
+    |
+420 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+420 -         let t913 = (t32);
+420 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part4.rs:548:21
+    |
+548 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+548 -         let t1287 = (t166);
+548 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part5.rs:440:20
+    |
+440 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+440 -         let t913 = (t32);
+440 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part5.rs:497:21
+    |
+497 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+497 -         let t1287 = (t166);
+497 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part6.rs:445:20
+    |
+445 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+445 -         let t913 = (t32);
+445 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part6.rs:498:21
+    |
+498 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+498 -         let t1287 = (t166);
+498 +         let t1287 = t166;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part7.rs:365:20
+    |
+365 |         let t913 = (t32);
+    |                    ^   ^
+    |
+help: remove these parentheses
+    |
+365 -         let t913 = (t32);
+365 +         let t913 = t32;
+    |
+
+warning: unnecessary parentheses around assigned value
+   --> crates/kernels/mgga/mgga_x_regtpss/src/lxc_pol/part7.rs:410:21
+    |
+410 |         let t1287 = (t166);
+    |                     ^    ^
+    |
+help: remove these parentheses
+    |
+410 -         let t1287 = (t166);
+410 +         let t1287 = t166;
+    |
+
+warning: `libxc-kernel-mgga_x_regtpss` (lib) generated 23 warnings (run `cargo fix --lib -p libxc-kernel-mgga_x_regtpss` to apply 23 suggestions)
+   Compiling libxc-kernel-mgga_x_vcml v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_vcml)
+   Compiling libxc-kernel-hyb_mgga_xc_gas22 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_xc_gas22)
+   Compiling libxc-kernel-mgga_c_m05 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_m05)
+   Compiling libxc-kernel-mgga_x_th v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_th)
+   Compiling libxc-kernel-mgga_x_regtm v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_regtm)
+   Compiling libxc-kernel-mgga_x_m06l v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_m06l)
+   Compiling libxc-kernel-mgga_c_m08 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_m08)
+   Compiling libxc-kernel-mgga_k_gea4 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_gea4)
+   Compiling libxc-kernel-mgga_x_revtm v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_revtm)
+   Compiling libxc-kernel-mgga_x_br89_explicit v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_br89_explicit)
+   Compiling libxc-kernel-mgga_x_ms v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_ms)
+   Compiling libxc-kernel-mgga_c_cs v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_cs)
+   Compiling libxc-kernel-mgga_x_msb v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_msb)
+   Compiling libxc-kernel-mgga_x_vt84 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_vt84)
+   Compiling libxc-kernel-hyb_mgga_x_js18 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_x_js18)
+   Compiling libxc-kernel-mgga_x_mvsb v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mvsb)
+   Compiling libxc-kernel-mgga_x_mvs v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mvs)
+   Compiling libxc-kernel-mgga_c_ltapw v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_ltapw)
+   Compiling libxc-kernel-mgga_c_b94 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_b94)
+   Compiling libxc-kernel-mgga_x_rppscan v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_rppscan)
+   Compiling libxc-kernel-mgga_x_tb09 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_tb09)
+   Compiling libxc-kernel-mgga_x_lta v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_lta)
+   Compiling libxc-kernel-mgga_xc_cc06 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_xc_cc06)
+   Compiling libxc-kernel-mgga_x_mbeef v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_mbeef)
+   Compiling libxc-kernel-mgga_c_b88 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_c_b88)
+   Compiling libxc-kernel-mgga_x_rtpss v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_rtpss)
+   Compiling libxc-kernel-mgga_k_gea2 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_gea2)
+   Compiling libxc-kernel-mgga_x_2d_prhg07 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_x_2d_prhg07)
+   Compiling libxc-kernel-hyb_mgga_x_dldf v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/hyb_mgga_x_dldf)
+   Compiling libxc-kernel-mgga_xc_b98 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_xc_b98)
+   Compiling libxc-kernel-mgga_k_csk_loc v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/mgga/mgga_k_csk_loc)
+   Compiling anyhow v1.0.102
+   Compiling libxc_rs-verify v0.1.0 (/home/user/Documents/workspace/libxc_rs/verify)
+   Compiling libxc_rs v0.1.0 (/home/user/Documents/workspace/libxc_rs)
+   Compiling serde_spanned v0.6.9
+   Compiling toml_datetime v0.6.11
+   Compiling winnow v0.7.15
+   Compiling toml_write v0.1.2
+   Compiling toml_edit v0.22.27
+   Compiling toml v0.8.23
+   Compiling libxc-kernel-lda_x v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/lda/lda_x)
+   Compiling libxc-kernel-lda_c_pw v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/lda/lda_c_pw)
+   Compiling libxc-kernel-lda_xc_teter93 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/lda/lda_xc_teter93)
+   Compiling libxc-kernel-gga_x_pbe v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/gga/gga_x_pbe)
+   Compiling libxc-kernel-gga_x_b88 v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/gga/gga_x_b88)
+   Compiling libxc-kernel-gga_c_pbe v0.1.0 (/home/user/Documents/workspace/libxc_rs/crates/kernels/gga/gga_c_pbe)
+   Compiling approx v0.5.1
+warning: variant `SkippedDeferred` is never constructed
+   --> verify/tests/mgga_oracle.rs:364:5
+    |
+356 | enum CompareResult {
+    |      ------------- variant in this enum
+...
+364 |     SkippedDeferred,
+    |     ^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `libxc_rs-verify` (test "mgga_oracle") generated 1 warning
+    Finished `test` profile [unoptimized] target(s) in 322m 26s
+     Running tests/mgga_oracle.rs (.cache/cargo-target/debug/deps/mgga_oracle-79f68daef50fcf16)
+
+running 2 tests
+test test_all_mgga_oracle_pol ... ok
+test test_all_mgga_oracle_unpol ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.82s
+
