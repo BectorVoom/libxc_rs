@@ -138,10 +138,35 @@ def discover_maple_sources(family: str) -> list[tuple[Path, str, bool]]:
     return found
 
 
-def translate_family(family: str, split_threshold: int, dry_run: bool) -> int:
+def load_thresholds_map(path):
+    """Load the per-functional decision map produced by
+    `tools/adaptive_split.py --all` (the size-band selector). Returns
+    ``{"family/func": decision_dict}`` (each decision carries at least
+    ``threshold`` and ``status``), or ``None`` when ``path`` is falsy.
+
+    Wiring this in lets regen use each functional's own split_threshold instead
+    of a single global one — capturing the super-linear per-part RSS win where a
+    functional's cliff allows it, and falling back to the global value for any
+    functional absent from the map. See memory
+    project_compile_rss_model_chunk_sizing."""
+    if not path:
+        return None
+    import json
+    with open(path) as f:
+        m = json.load(f)
+    print(f"[thresholds] loaded {len(m)} per-functional decisions from {path}")
+    return m
+
+
+def translate_family(family: str, split_threshold: int, dry_run: bool,
+                     thresholds: dict | None = None) -> int:
     """Drive `family`'s translator directly: iterate Maple sources, call the
     translator's `emit_per_functional` for each, emitting one per-functional
-    subcrate per source into crates/kernels/{family}/<func>/."""
+    subcrate per source into crates/kernels/{family}/<func>/.
+
+    When ``thresholds`` (the adaptive_split decision map) is supplied, each
+    functional regenerates at its OWN ``threshold`` (falling back to the global
+    ``split_threshold`` when absent from the map)."""
     translator_mod = {
         "lda": "translate_lda_v2",
         "gga": "translate_gga",
@@ -149,19 +174,28 @@ def translate_family(family: str, split_threshold: int, dry_run: bool) -> int:
     }[family]
     mod = __import__(translator_mod)
     sources = discover_maple_sources(family)
+    src = "per-functional map" if thresholds else f"global={split_threshold}"
     print(f"[{family}] {len(sources)} Maple source(s) discovered "
-          f"(split_threshold={split_threshold})")
+          f"(split_threshold: {src})")
     ok = skipped = failed = 0
+    needs_sharding = []
     for c_path, func_name, is_vxc in sources:
+        dec = (thresholds or {}).get(f"{family}/{func_name}")
+        thr = dec.get("threshold", split_threshold) if dec else split_threshold
+        note = ""
+        if dec:
+            note = f" [thr={thr} {dec.get('status', '?')}]"
+            if dec.get("status") == "needs-sharding":
+                needs_sharding.append(func_name)
         if dry_run:
             print(f"  [dry-run] would emit {family}/{func_name} "
-                  f"(vxc_only={is_vxc}) from {c_path.name}")
+                  f"(vxc_only={is_vxc}) from {c_path.name}{note}")
             ok += 1
             continue
         try:
             mods = mod.emit_per_functional(
-                str(c_path), func_name, family, is_vxc, split_threshold)
-            print(f"  OK: {family}/{func_name} ({len(mods)} output module(s))")
+                str(c_path), func_name, family, is_vxc, thr)
+            print(f"  OK: {family}/{func_name} ({len(mods)} output module(s)){note}")
             ok += 1
         except RuntimeError as e:
             # check_unimplemented_math and similar expected skips.
@@ -172,6 +206,10 @@ def translate_family(family: str, split_threshold: int, dry_run: bool) -> int:
                   file=sys.stderr)
             failed += 1
     print(f"[{family}] ok={ok} skipped={skipped} failed={failed}")
+    if needs_sharding:
+        print(f"[{family}] {len(needs_sharding)} functional(s) flagged "
+              f"needs-sharding (run `split` next): {', '.join(needs_sharding)}",
+              file=sys.stderr)
     return 1 if failed else 0
 
 
@@ -215,10 +253,12 @@ def do_translate(args: argparse.Namespace) -> int:
     """Phase 11 D-10: drive the per-family translators directly (no subprocess,
     no regen_phase09.py). Each family's emit_per_functional writes complete
     per-functional subcrates under crates/kernels/{family}/<func>/."""
+    thresholds = load_thresholds_map(getattr(args, "thresholds_map", None))
     rc = 0
     families = list(FAMILIES) if args.family == "all" else [args.family]
     for fam in families:
-        rc = translate_family(fam, args.split_threshold, args.dry_run) or rc
+        rc = translate_family(fam, args.split_threshold, args.dry_run,
+                              thresholds) or rc
         if rc and not args.dry_run:
             return rc
     return rc
@@ -276,7 +316,16 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             f"Per-cube-fn line cap (default {DEFAULT_SPLIT_THRESHOLD}). "
             "Larger ⇒ fewer per-functional .rs files. LDA translator does "
-            "not honor this; non-default value warns and falls back."
+            "not honor this; non-default value warns and falls back. "
+            "Used as the FALLBACK for functionals absent from --thresholds-map."
+        ),
+    )
+    p_t.add_argument(
+        "--thresholds-map", default=None, metavar="PATH",
+        help=(
+            "JSON decision map from `adaptive_split.py --all` (per-functional "
+            "size-band thresholds). When given, each functional regenerates at "
+            "its own threshold; --split-threshold is the fallback."
         ),
     )
     p_t.set_defaults(func=do_translate)
@@ -297,6 +346,11 @@ def build_parser() -> argparse.ArgumentParser:
     add_family(p_a)
     p_a.add_argument(
         "--split-threshold", type=int, default=DEFAULT_SPLIT_THRESHOLD,
+    )
+    p_a.add_argument(
+        "--thresholds-map", default=None, metavar="PATH",
+        help="Per-functional size-band map from adaptive_split.py --all "
+             "(fallback: --split-threshold).",
     )
     p_a.add_argument(
         "--target-max", type=int, default=DEFAULT_TARGET_MAX,
