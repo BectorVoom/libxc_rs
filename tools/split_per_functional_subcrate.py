@@ -23,10 +23,16 @@ name (D-10 public-interface invariant).
 Design (locked, from 260520-eem PLAN):
   - Parts are the atomic shardable unit: a flat ``partN.rs`` FILE or a
     ``partN/`` DIRECTORY. NEVER split a part across shards.
-  - Bin-packing weight = recursive ``*.rs`` file count per unit (the OOM scaled
-    with module/file count, not line count).
+  - Bin-packing weight = SIZE-AWARE (default): ``sum_file max(1,
+    (lines/NORM)**EXP)``. Each file costs >= 1 (the original 260520-eem
+    file-count weight — RSS scaled with module COUNT for the dense meta/chunk
+    FAN-OUT regime), and a file LARGER than NORM lines is up-weighted
+    super-linearly so a huge flat CSE-irreducible part (the D-LOCK-B regime —
+    one big ``#[cube]`` fn drives per-process RSS ~lines^2.5, see memory
+    project_compile_rss_model_chunk_sizing) SELF-ISOLATES instead of OOM-ing the
+    shard it was packed into. ``--weight-mode files`` restores the legacy count.
   - CONTIGUOUS part ranges per shard (keeps the facade ``use`` list readable).
-    A single part dir that alone exceeds budget gets its own solo shard.
+    A single part that alone exceeds budget gets its own solo shard.
   - Shard naming is a pure function of (part order, file counts, budget) so
     re-runs are byte-identical (D-LOCK-D determinism).
   - Workspace membership is by a ROOT [dependencies] path-dep (not an explicit
@@ -34,7 +40,7 @@ Design (locked, from 260520-eem PLAN):
 
 Usage:
     python3 tools/split_per_functional_subcrate.py <family> <func> <output> \\
-        --budget <files-per-shard> [--dry-run]
+        --budget <weight-per-shard> [--weight-mode size|files] [--dry-run]
     python3 tools/split_per_functional_subcrate.py --selftest
 
 Example:
@@ -125,12 +131,41 @@ def shard_dir(family: str, func: str, k: int) -> Path:
 
 
 # --- scanning ----------------------------------------------------------------
+# Size-weight defaults. A `.rs` file of <= NORM lines costs 1 weight unit (so
+# weight == file count for normal-sized files — backward-compatible with the
+# legacy file-count budget and the meta/fan-out regime where RSS scaled with
+# module COUNT). A file LARGER than NORM additionally costs (lines/NORM)**EXP, a
+# super-linear penalty for the flat D-LOCK-B regime where ONE huge `#[cube]` fn
+# drives per-process rustc RSS super-linearly (measured ~lines^2.5; see memory
+# project_compile_rss_model_chunk_sizing). NORM ~= the per-cube-fn line cap.
+DEFAULT_WEIGHT_NORM = 2500
+DEFAULT_WEIGHT_EXP = 2.0
+
+
 def _rs_count(path: Path) -> int:
-    """Bin-packing weight: a flat ``partN.rs`` is 1; a ``partN/`` dir is its
-    recursive ``*.rs`` file count."""
+    """A flat ``partN.rs`` is 1; a ``partN/`` dir is its recursive ``*.rs`` file
+    count. (Kept for reporting; bin-packing now uses :func:`_part_weight`.)"""
     if path.is_file():
         return 1
     return sum(1 for _ in path.rglob("*.rs"))
+
+
+def _line_count(path: Path) -> int:
+    try:
+        return path.read_text(encoding="utf-8").count("\n") + 1
+    except OSError:
+        return 0
+
+
+def _part_weight(path: Path, norm: int, exp: float) -> int:
+    """Size-aware shard weight: ``sum_file max(1, round((lines/norm)**exp))``
+    over the part's recursive ``*.rs`` files. Each file costs >= 1 (legacy
+    file-count floor); a file over ``norm`` lines is up-weighted super-linearly
+    so a huge flat (CSE-irreducible) part self-isolates into its own shard
+    rather than OOM-ing a shard it was packed into. Deterministic: a pure
+    function of file line counts + (norm, exp)."""
+    files = [path] if path.is_file() else sorted(path.rglob("*.rs"))
+    return sum(max(1, int(round((_line_count(f) / norm) ** exp))) for f in files)
 
 
 def _part_fn_name(unit_path: Path) -> str:
@@ -144,7 +179,8 @@ def _part_fn_name(unit_path: Path) -> str:
     return m.group(1)
 
 
-def scan_parts(out_dir: Path):
+def scan_parts(out_dir: Path, norm: int = DEFAULT_WEIGHT_NORM,
+               exp: float = DEFAULT_WEIGHT_EXP):
     """Enumerate part UNITS in ``out_dir`` ordered by part index.
 
     Returns a list of dicts ordered by part index:
@@ -180,19 +216,22 @@ def scan_parts(out_dir: Path):
             "path": path,
             "is_dir": path.is_dir(),
             "files": _rs_count(path),
+            "weight": _part_weight(path, norm, exp),
             "fn": _part_fn_name(path),
         })
     return parts
 
 
 # --- bin-packing -------------------------------------------------------------
-def bin_pack(parts, budget: int):
-    """Pack contiguous part ranges into shards under ``budget`` files-per-shard.
+def bin_pack(parts, budget: int, weight_key: str = "weight"):
+    """Pack contiguous part ranges into shards under ``budget`` per shard.
 
+    ``weight_key`` selects the unit weight: ``"weight"`` (size-aware, default —
+    a huge flat part self-isolates) or ``"files"`` (legacy recursive file count).
     Walk parts in index order; start a new shard when adding the next unit would
     exceed budget. A unit that alone exceeds budget gets its OWN solo shard
     (a part is atomic — NEVER split it across shards). Pure function of
-    (part order, file counts, budget) -> deterministic (D-LOCK-D).
+    (part order, weights, budget) -> deterministic (D-LOCK-D).
 
     Returns a list of shards; each shard is a list of part dicts (in order).
     """
@@ -200,7 +239,7 @@ def bin_pack(parts, budget: int):
     current = []
     current_files = 0
     for p in parts:
-        w = p["files"]
+        w = p[weight_key]
         if not current:
             current = [p]
             current_files = w
@@ -381,23 +420,26 @@ def plan_summary(func: str, shards) -> str:
     if not shards:
         return f"Shard plan for {func}: no part units found (nothing to shard)."
     out = [f"Shard plan for {func} ({len(shards)} shards):"]
-    longest_k, longest_files = 0, -1
+    longest_k, longest_w = 0, -1
     for k, sp in enumerate(shards):
         files = sum(p["files"] for p in sp)
-        if files > longest_files:
-            longest_k, longest_files = k, files
+        weight = sum(p["weight"] for p in sp)
+        if weight > longest_w:
+            longest_k, longest_w = k, weight
         out.append(
             f"  {shard_name(func, k)}: parts {sp[0]['idx']}..={sp[-1]['idx']} "
-            f"({len(sp)} parts, {files} files)")
+            f"({len(sp)} parts, {files} files, weight {weight})")
     out.append(
         f"Largest shard: {shard_name(func, longest_k)} "
-        f"({longest_files} files) — the Task 3 canary.")
+        f"(weight {longest_w}) — the compile-RSS canary.")
     return "\n".join(out)
 
 
 # --- main split orchestration ------------------------------------------------
 def run_split(family: str, func: str, output: str, budget: int,
-              dry_run: bool) -> int:
+              dry_run: bool, weight_mode: str = "size",
+              norm: int = DEFAULT_WEIGHT_NORM,
+              exp: float = DEFAULT_WEIGHT_EXP) -> int:
     out_dir = output_dir(family, func, output)
     if not out_dir.is_dir():
         print(f"ERROR: output dir not found: {out_dir}", file=sys.stderr)
@@ -413,11 +455,11 @@ def run_split(family: str, func: str, output: str, budget: int,
               "(facade mod.rs has zero `mod partN;` lines) — nothing to do.")
         return 0
 
-    parts = scan_parts(out_dir)
+    parts = scan_parts(out_dir, norm, exp)
     if not parts:
         print(f"ERROR: no part units found in {out_dir}", file=sys.stderr)
         return 1
-    shards = bin_pack(parts, budget)
+    shards = bin_pack(parts, budget, "weight" if weight_mode == "size" else "files")
 
     print(plan_summary(func, shards))
 
@@ -704,7 +746,20 @@ def main() -> int:
     ap.add_argument("func", help="functional id (e.g. mgga_c_tpssloc)")
     ap.add_argument("output", help="output module to shard (e.g. lxc_pol)")
     ap.add_argument("--budget", type=int, required=True,
-                    help="max recursive *.rs files per shard")
+                    help="max shard WEIGHT per shard. In the default 'size' "
+                         "mode weight == file count for normal files but a huge "
+                         "flat part counts (lines/--weight-norm)**--weight-exp "
+                         "files; in 'files' mode it is the raw recursive *.rs "
+                         "count.")
+    ap.add_argument("--weight-mode", choices=("size", "files"), default="size",
+                    help="shard weight metric: 'size' (per-file, super-linear "
+                         "over --weight-norm; default) or 'files' (legacy).")
+    ap.add_argument("--weight-norm", type=int, default=DEFAULT_WEIGHT_NORM,
+                    help=f"lines at which a file costs 1 weight unit "
+                         f"(size mode; default {DEFAULT_WEIGHT_NORM}).")
+    ap.add_argument("--weight-exp", type=float, default=DEFAULT_WEIGHT_EXP,
+                    help=f"super-linear exponent for files over --weight-norm "
+                         f"(size mode; default {DEFAULT_WEIGHT_EXP}).")
     ap.add_argument("--dry-run", action="store_true",
                     help="print the shard plan; make NO filesystem changes")
     ap.add_argument("--selftest", action="store_true",
@@ -716,7 +771,8 @@ def main() -> int:
         return 1
 
     return run_split(args.family, args.func, args.output,
-                     args.budget, args.dry_run)
+                     args.budget, args.dry_run, args.weight_mode,
+                     args.weight_norm, args.weight_exp)
 
 
 if __name__ == "__main__":
