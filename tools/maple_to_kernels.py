@@ -159,7 +159,8 @@ def load_thresholds_map(path):
 
 
 def translate_family(family: str, split_threshold: int, dry_run: bool,
-                     thresholds: dict | None = None) -> int:
+                     thresholds: dict | None = None,
+                     func_filter: str | None = None) -> int:
     """Drive `family`'s translator directly: iterate Maple sources, call the
     translator's `emit_per_functional` for each, emitting one per-functional
     subcrate per source into crates/kernels/{family}/<func>/.
@@ -180,6 +181,8 @@ def translate_family(family: str, split_threshold: int, dry_run: bool,
     ok = skipped = failed = 0
     needs_sharding = []
     for c_path, func_name, is_vxc in sources:
+        if func_filter and func_name != func_filter:
+            continue
         dec = (thresholds or {}).get(f"{family}/{func_name}")
         thr = dec.get("threshold", split_threshold) if dec else split_threshold
         note = ""
@@ -258,7 +261,7 @@ def do_translate(args: argparse.Namespace) -> int:
     families = list(FAMILIES) if args.family == "all" else [args.family]
     for fam in families:
         rc = translate_family(fam, args.split_threshold, args.dry_run,
-                              thresholds) or rc
+                              thresholds, getattr(args, "only_func", None)) or rc
         if rc and not args.dry_run:
             return rc
     return rc
@@ -327,6 +330,11 @@ def build_parser() -> argparse.ArgumentParser:
             "size-band thresholds). When given, each functional regenerates at "
             "its own threshold; --split-threshold is the fallback."
         ),
+    )
+    p_t.add_argument(
+        "--func", dest="only_func", default=None, metavar="NAME",
+        help="Regenerate only this one functional (e.g. gga_c_pbe) — useful for "
+             "spot-checks and incremental compile-gating.",
     )
     p_t.set_defaults(func=do_translate)
 
