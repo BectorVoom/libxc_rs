@@ -1011,7 +1011,8 @@ def translate_functional(c_file: str, func_name: str, out_dir: str,
 
 def emit_per_functional(c_file: str, func_name: str, family: str = 'gga',
                         is_vxc_only: bool = False,
-                        split_threshold: int = None) -> list:
+                        split_threshold: int = None,
+                        count_only: bool = False):
     """Emit `func_name` as a per-functional subcrate under
     crates/kernels/{family}/<func>/ in the q02 nested-by-output layout, via
     translate_v2.emit. Single outputs still over the cap after the per-output
@@ -1058,6 +1059,9 @@ def emit_per_functional(c_file: str, func_name: str, family: str = 'gga',
         ow_component=lambda ow: ow[1],
         pol_dims=POL_DIMS,
     )
+    if count_only:
+        return per_functional.count_functional(adapter, func_name,
+                                               is_vxc_only, split_threshold)
     return per_functional.emit_functional(adapter, func_name, is_vxc_only,
                                           split_threshold)
 

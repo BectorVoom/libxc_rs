@@ -1083,6 +1083,130 @@ def _build_chunk_wrapper(adapter, func_name, level, spin, output, out_bufs,
     return "\n".join(lines) + "\n"
 
 
+def _chunk_wrapper_const(adapter, sub_c, out_bufs, is_pol):
+    """Constant (non-per-chunk) line count of a ``_build_chunk_wrapper`` — used
+    by ``count_functional`` to predict the CSE-REJECT (``wrapper > cap``). The
+    per-chunk cost is ~3 lines (``mod`` + ``use`` + ``let``-call); this is
+    everything else: header, imports, signature, input/output/pol/param/threshold
+    decls, braces. Calibrated against LIBXC_RS_CSE_DIAG (pk09: 3*2254 + 26 =
+    6788). Exactness barely matters — real components sit far from the
+    ``n_chunks ~= (cap-const)/3`` reject boundary (tens of chunks vs thousands)."""
+    n_in = len(_INPUT_ARRAYS.get(adapter.family, []))
+    n_pol = len(_POL_LOADS.get(adapter.family, [])) if is_pol else 0
+    n_params = len(set(re.findall(r'params->[A-Za-z_]\w*', " ".join(sub_c))))
+    imports_lines = adapter.imports_str.count("\n") + 1
+    return 16 + imports_lines + n_in + len(out_bufs) + n_params + 2 + n_pol
+
+
+def count_functional(adapter, func_name, is_vxc_only, split_threshold):
+    """Dry-run part counter — the cheap twin of ``emit_functional``.
+
+    Returns ``(part_count, max_part_lines, max_part_irreducible)``: the number
+    of ``#[cube]`` fns the real emit WOULD produce at ``split_threshold``, the
+    largest part's estimated line count, and whether that largest part is a
+    CSE-REJECTED (over-threshold but emitted flat) D-LOCK-B part — i.e.
+    genuinely irreducible, so lowering the threshold cannot shrink it (the
+    `needs-sharding` signal). It mirrors ``emit_functional``'s branch structure but
+    NEVER assembles Rust source or writes files — for CSE parts it calls
+    ``cse.partition_compute_lines`` directly (a cheap chunk PLAN of line lists)
+    instead of ``_cse_chunk_part`` (which translates+wraps+stringifies every
+    chunk). That is what makes a full-tree sweep affordable and keeps an
+    exploding functional from OOM-ing the host (no thousands of source strings,
+    no thousands of file writes).
+
+    Counting convention (matches the `#[cube]` occurrences the real emit writes):
+      * flat single-output (est <= threshold)         -> 1
+      * oversized output                              -> 1 (output wrapper)
+        + per part: flat part                         -> 1
+                    CSE part (chunks > 1)             -> 1 (part wrapper) + Nchunks
+                    CSE fell back to flat (chunks<=1) -> 1
+    Assumes the default (non-hierarchical) CSE path, i.e. LIBXC_RS_HIERARCHICAL_CSE
+    unset — the same env adaptive_split runs under. See emit_functional for the
+    authoritative control flow; keep the two in sync.
+    """
+    re_assign = re.compile(r'(\w+)\s*=')
+    chunk_est = lambda ls: len(ls) + 25      # same est as _cse_chunk_part
+    parts = 0
+    max_lines = 0
+    max_irred = False   # is the current max_lines an over-threshold CSE-rejected part?
+
+    for spin in ("unpol", "pol"):
+        is_pol = (spin == "pol")
+        for level in adapter.levels:
+            key = (level, spin)
+            if key not in adapter.bodies:
+                continue
+            if adapter.level_ord[level] > adapter.max_order:
+                continue
+            compute, outs = adapter.parse(adapter.bodies[key], level, spin,
+                                          is_vxc_only)
+            est = adapter.estimate(compute, outs)
+
+            if est <= split_threshold:
+                parts += 1
+                if est > max_lines:
+                    max_lines, max_irred = est, False
+                continue
+
+            # oversized: per-output-array cut, merge, per-component sub-split
+            splits = adapter.split_by_output(compute, outs, is_pol)
+            splits = adapter.merge_small(splits, split_threshold)
+            final = []
+            for suffix, sub_c, sub_o, sub_b in splits:
+                sub_est = adapter.estimate(sub_c, sub_o)
+                if sub_est > split_threshold and len(sub_o) > 1:
+                    for ow in sub_o:
+                        var = adapter.ow_var(ow)
+                        fld = adapter.ow_field(ow)
+                        comp = adapter.ow_component(ow)
+                        _vo, vdeps = adapter.build_dep_graph(sub_c, is_pol)
+                        ovars = {var} | set(vdeps.get(var, set()))
+                        needed = adapter.transitive_deps(ovars, vdeps)
+                        cc = [cl for cl in sub_c
+                              if re_assign.match(cl.rstrip(';').strip())
+                              and re_assign.match(cl.rstrip(';').strip()).group(1) in needed]
+                        final.append((f"{fld}_{comp}", cc, [ow], [fld]))
+                    final = adapter.merge_small(final, split_threshold)
+                else:
+                    final.append((suffix, sub_c, sub_o, sub_b))
+
+            parts += 1   # output-level wrapper (_build_part_wrapper)
+            for suffix, sub_c, sub_o, sub_b in final:
+                sub_est = adapter.estimate(sub_c, sub_o)
+                if sub_est > split_threshold and len(sub_o) == 1:
+                    _vo, vdeps = adapter.build_dep_graph(sub_c, is_pol)
+                    chunks = cse.partition_compute_lines(
+                        sub_c, vdeps, chunk_est,
+                        chunk_max_lines=split_threshold)
+                    n_ch = len(chunks)
+                    max_chunk = max((c.est_lines for c in chunks), default=0)
+                    # Replicate _cse_chunk_part's CSE-REJECT -> flat (D-LOCK-B
+                    # exception): <=1 chunk, OR the chunk-wrapper would exceed
+                    # the cap (it is ~3 lines/chunk — `mod`/`use`/`let call` —
+                    # so a component cut into thousands of tiny chunks reverts
+                    # to one flat part; this is the dominant pk09/tpssloc case),
+                    # OR a single chunk still exceeds the cap. Wrapper cap =
+                    # split_threshold under the default env (no
+                    # LIBXC_RS_ACCEPT_OVERSIZED_WRAPPER / HIERARCHICAL_CSE).
+                    wrapper_est = 3 * n_ch + _chunk_wrapper_const(
+                        adapter, sub_c, sub_b, is_pol)
+                    if (n_ch <= 1 or wrapper_est > split_threshold
+                            or max_chunk > split_threshold):
+                        parts += 1                 # CSE-rejected -> flat
+                        if sub_est > max_lines:
+                            max_lines, max_irred = sub_est, True   # irreducible
+                    else:
+                        parts += 1 + n_ch          # part wrapper + chunks
+                        if max_chunk > max_lines:
+                            max_lines, max_irred = max_chunk, False
+                else:
+                    parts += 1
+                    if sub_est > max_lines:
+                        max_lines, max_irred = sub_est, False
+
+    return parts, max_lines, max_irred
+
+
 def emit_functional(adapter, func_name, is_vxc_only, split_threshold):
     """Family-agnostic per-functional emission driver. Returns the list of
     emitted output module names. Writes the complete per-functional subcrate

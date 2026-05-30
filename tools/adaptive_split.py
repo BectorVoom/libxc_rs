@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prototype: per-functional size-band split-threshold selector.
+"""Per-functional size-band split-threshold selector.
 
 WHY
 ---
@@ -21,29 +21,27 @@ the default. Functionals whose largest part is CSE-IRREDUCIBLE *and* whose cliff
 is near the default are flagged `needs-sharding` (threshold can't help them — the
 fix is split_per_functional_subcrate.py, a separate process per part).
 
-HOW (robust)
-------------
-Walk a descending threshold ladder; for each candidate, emit the functional to a
-temp dir IN AN ISOLATED SUBPROCESS (RLIMIT_AS memory cap + wall-clock timeout)
-and count `#[cube]` parts + max part size (lines). Isolation matters: an
-exploding functional builds tens of thousands of part-source strings and will
-OOM the host otherwise (observed). A killed/timed-out subprocess IS the cliff
-signal. Stop at the cliff (back off to the last safe threshold) or once the max
-part is within the size band; emit a {(family,func): threshold} decision map.
+HOW
+---
+Walk a descending threshold ladder; for each candidate use the DRY-RUN part
+counter `per_functional.count_functional` (via `emit_per_functional(...,
+count_only=True)`) — it computes the exact `#[cube]` part count + max part size
+from the split PLAN, with NO Rust source assembled and NO files written
+(validated exact vs real emit, ~1 s even on functionals that explode to thousands
+of parts). Stop at the cliff (part count jumps >= EXPLOSION_FACTOR) or once the
+largest part lands in the size band; emit a {(family,func): decision} JSON map
+consumed by `maple_to_kernels.py translate --thresholds-map`.
 
-This is a PROTOTYPE: the selection uses real emits for fidelity (slow on big
-functionals). A production version would add a dry-run part counter to
-per_functional.emit_functional (count the split plan without assembling source).
+Requires the `src/model` routing symlink (same prereq as regen — see memory
+project_kernel_routing_model_path_stale): `ln -sfn ../crates/libxc-core/src/model
+src/model`.
 """
 
 import argparse
-import glob
+import importlib
 import json
 import os
-import resource
-import subprocess
 import sys
-import tempfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOOLS = os.path.join(REPO, "tools")
@@ -56,93 +54,49 @@ LADDER = [4250, 4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000]
 EXPLOSION_FACTOR = 5           # part-count jump >= this vs the previous (safe)
                                # candidate == cliff
 SKIP_IF_MAX_PART_UNDER = 2500  # functional already fine -> keep default
-SUBPROC_MEM_GB = 6             # RLIMIT_AS per isolated emit (normal regen << 1 GB;
-                               # an explosion blows past this and is killed)
-SUBPROC_TIMEOUT_S = 120        # wall-clock cap per isolated emit
 
 _MOD = {"gga": "translate_gga", "lda": "translate_lda_v2", "mgga": "translate_mgga"}
+_MODS = {}
 
 
-# --- in-process emit + measure (the subprocess body) -------------------------
-def _emit_measure(family, func, cfile, is_vxc, threshold):
-    """Emit one functional at one threshold to a temp dir; return
-    (part_count, max_part_lines). Run ONLY inside an isolated subprocess."""
-    import importlib
-    sys.path.insert(0, TOOLS)
-    from translate_v2 import emit
-    root = tempfile.mkdtemp(prefix="adaptive_")
-    try:
-        emit.set_kernels_root(root)
-        mod = importlib.import_module(_MOD[family])
-        mod.emit_per_functional(cfile, func, family, is_vxc, threshold)
-        parts = 0
-        max_lines = 0
-        for p in glob.glob(os.path.join(root, family, func, "src", "**", "*.rs"),
-                           recursive=True):
-            with open(p) as f:
-                text = f.read()
-            parts += text.count("#[cube")
-            n = text.count("\n")
-            if n > max_lines:
-                max_lines = n
-        return parts, max_lines
-    finally:
-        subprocess.run(["rm", "-rf", root], check=False)
+def _mod(family):
+    if family not in _MODS:
+        sys.path.insert(0, TOOLS)
+        _MODS[family] = importlib.import_module(_MOD[family])
+    return _MODS[family]
 
 
-def _emit_count_isolated(family, func, cfile, is_vxc, threshold):
-    """Spawn `_emit_measure` in a memory-capped, time-limited subprocess.
-
-    Returns (parts, max_lines) on success, or None when the subprocess is
-    killed / times out / errors -> treated as an EXPLOSION (cliff) signal."""
-    def _limit():
-        cap = SUBPROC_MEM_GB * 1024 * 1024 * 1024
-        try:
-            resource.setrlimit(resource.RLIMIT_AS, (cap, cap))
-        except (ValueError, OSError):
-            pass
-
-    env = dict(os.environ, PYTHONPATH=TOOLS)
-    try:
-        r = subprocess.run(
-            [sys.executable, os.path.abspath(__file__), "--emit-count",
-             family, func, cfile, "1" if is_vxc else "0", str(threshold)],
-            capture_output=True, text=True, env=env, cwd=REPO,
-            preexec_fn=_limit, timeout=SUBPROC_TIMEOUT_S,
-        )
-    except subprocess.TimeoutExpired:
-        return None
-    if r.returncode != 0:
-        return None
-    for line in r.stdout.splitlines():
-        if line.startswith("COUNT "):
-            _, parts, maxl = line.split()
-            return int(parts), int(maxl)
-    return None
+def _count(family, func, cfile, is_vxc, threshold):
+    """Exact (#[cube] parts, max_part_lines, max_part_irreducible) via the
+    dry-run counter — no emit, no disk. Cheap enough to call across the whole
+    ladder for every functional."""
+    return _mod(family).emit_per_functional(
+        cfile, func, family, is_vxc, threshold, count_only=True)
 
 
 # --- per-functional selection ------------------------------------------------
 def select_threshold(family, func, cfile, is_vxc):
     """Return a decision dict for one functional."""
-    base = _emit_count_isolated(family, func, cfile, is_vxc, DEFAULT_THRESHOLD)
-    if base is None:
-        return {"family": family, "func": func, "threshold": DEFAULT_THRESHOLD,
-                "parts": None, "max_part": None, "status": "base-emit-failed"}
-    base_parts, base_max = base
+    base_parts, base_max, base_irred = _count(
+        family, func, cfile, is_vxc, DEFAULT_THRESHOLD)
 
     # Already small enough: nothing worth splitting; keep the default.
     if base_max <= SKIP_IF_MAX_PART_UNDER:
         return {"family": family, "func": func, "threshold": DEFAULT_THRESHOLD,
                 "parts": base_parts, "max_part": base_max, "status": "default-ok"}
 
+    # The dominant part is ALREADY CSE-irreducible at the loosest (default) cap.
+    # A lower cap only cuts it into MORE tiny chunks that reject the same way, so
+    # it is irreducible at every threshold -> tuning can't shrink it. Keep the
+    # default and flag needs-sharding (and skip the whole ladder — the big speed
+    # win for pk09/tpssloc-class monsters).
+    if base_irred:
+        return _decide(family, func, DEFAULT_THRESHOLD, base_parts, base_max,
+                       cliff_at=None)
+
     prev_t, prev_parts, prev_max = DEFAULT_THRESHOLD, base_parts, base_max
     for t in LADDER:
-        res = _emit_count_isolated(family, func, cfile, is_vxc, t)
-        if res is None:
-            # cliff: this candidate exploded past the memory/time cap.
-            return _decide(family, func, prev_t, prev_parts, prev_max,
-                           cliff_at=t)
-        parts, maxl = res
+        parts, maxl, irred = _count(family, func, cfile, is_vxc, t)
         if parts >= EXPLOSION_FACTOR * max(prev_parts, 1):
             # cliff: part count jumped -> back off to the last safe threshold.
             return _decide(family, func, prev_t, prev_parts, prev_max,
@@ -151,6 +105,10 @@ def select_threshold(family, func, cfile, is_vxc):
             # size band reached without exploding -> this is the pick.
             return {"family": family, "func": func, "threshold": t,
                     "parts": parts, "max_part": maxl, "status": "in-band"}
+        if irred:
+            # the dominant part just became CSE-irreducible -> stop; lowering
+            # further only fragments OTHER parts without shrinking the max.
+            return _decide(family, func, t, parts, maxl, cliff_at=None)
         prev_t, prev_parts, prev_max = t, parts, maxl
     # walked the whole ladder without reaching the band or a cliff.
     return _decide(family, func, prev_t, prev_parts, prev_max, cliff_at=None)
@@ -160,20 +118,29 @@ def _decide(family, func, t, parts, maxl, cliff_at):
     """Last-safe threshold reached without landing in the size band. If the
     largest part is still big, it is CSE-irreducible at this threshold -> the
     functional needs SHARDING, not finer chunking."""
-    if maxl > SIZE_TARGET:
-        status = "needs-sharding"   # big irreducible part; threshold can't help
-    else:
-        status = "in-band"
+    status = "needs-sharding" if maxl > SIZE_TARGET else "in-band"
     return {"family": family, "func": func, "threshold": t, "parts": parts,
-            "max_part": maxl, "status": status,
-            "cliff_below": cliff_at}
+            "max_part": maxl, "status": status, "cliff_below": cliff_at}
 
 
 # --- CLI ---------------------------------------------------------------------
+def _ensure_routing():
+    """The dry counter builds the FamilyAdapter, which consults kernel_routing
+    (src/model). Fail early with an actionable hint when the symlink is absent."""
+    if not os.path.exists(os.path.join(REPO, "src", "model")):
+        moved = os.path.join(REPO, "crates", "libxc-core", "src", "model")
+        hint = (" — create it: `ln -sfn ../crates/libxc-core/src/model src/model`"
+                if os.path.isdir(moved) else "")
+        print(f"ERROR: src/model routing path missing{hint}", file=sys.stderr)
+        return False
+    return True
+
+
 def _discover(family):
     sys.path.insert(0, TOOLS)
     import maple_to_kernels as mk
-    return [(str(cf), fn, is_vxc) for cf, fn, is_vxc in mk.discover_maple_sources(family)]
+    return [(str(cf), fn, is_vxc)
+            for cf, fn, is_vxc in mk.discover_maple_sources(family)]
 
 
 DEMO = [
@@ -181,6 +148,7 @@ DEMO = [
     ("gga", "gga_c_acgga", "libxc-master/src/maple2c/gga_exc/gga_c_acgga.c", False),
     ("gga", "gga_x_optx", "libxc-master/src/maple2c/gga_exc/gga_x_optx.c", False),
     ("mgga", "mgga_x_task", "libxc-master/src/maple2c/mgga_exc/mgga_x_task.c", False),
+    ("lda", "lda_c_pk09", "libxc-master/src/maple2c/lda_exc/lda_c_pk09.c", False),
 ]
 
 
@@ -195,24 +163,17 @@ def _print_row(d):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--emit-count", nargs=5,
-                    metavar=("FAM", "FUNC", "CFILE", "ISVXC", "THR"),
-                    help="(internal) emit one functional at THR; print COUNT parts maxlines")
     ap.add_argument("--demo", action="store_true",
                     help="run selection on a small built-in sample")
-    ap.add_argument("--select", nargs="+",
-                    metavar="FAM FUNC CFILE [ISVXC]",
+    ap.add_argument("--select", nargs="+", metavar="FAM FUNC CFILE [ISVXC]",
                     help="select threshold for one functional")
     ap.add_argument("--all", choices=("lda", "gga", "mgga", "all"),
                     help="select for every functional in a family; write JSON map")
     ap.add_argument("--out", default="tools/adaptive_thresholds.json")
     args = ap.parse_args()
 
-    if args.emit_count:
-        fam, func, cfile, isvxc, thr = args.emit_count
-        parts, maxl = _emit_measure(fam, func, cfile, isvxc == "1", int(thr))
-        print(f"COUNT {parts} {maxl}")
-        return 0
+    if not _ensure_routing():
+        return 1
 
     if args.demo:
         print(f"size-band selector (SIZE_TARGET={SIZE_TARGET}L, "
@@ -230,14 +191,24 @@ def main():
     if args.all:
         fams = ["lda", "gga", "mgga"] if args.all == "all" else [args.all]
         decisions = {}
+        tuned = sharding = 0
         for fam in fams:
             for cfile, func, isvxc in _discover(fam):
-                d = select_threshold(fam, func, cfile, isvxc)
+                try:
+                    d = select_threshold(fam, func, cfile, isvxc)
+                except RuntimeError as e:        # check_unimplemented_math etc.
+                    print(f"  SKIP {fam}/{func}: {e}", file=sys.stderr)
+                    continue
                 _print_row(d)
                 decisions[f"{fam}/{func}"] = d
+                if d["status"] == "needs-sharding":
+                    sharding += 1
+                elif d["threshold"] != DEFAULT_THRESHOLD:
+                    tuned += 1
         with open(args.out, "w") as f:
             json.dump(decisions, f, indent=2)
-        print(f"\nwrote {len(decisions)} decisions -> {args.out}")
+        print(f"\nwrote {len(decisions)} decisions -> {args.out}  "
+              f"({tuned} tuned below default, {sharding} need sharding)")
         return 0
 
     ap.print_help()

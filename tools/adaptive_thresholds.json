@@ -1,0 +1,2187 @@
+{
+  "lda/hyb_lda_xc_bn05": {
+    "family": "lda",
+    "func": "hyb_lda_xc_bn05",
+    "threshold": 2500,
+    "parts": 17,
+    "max_part": 1897,
+    "status": "in-band"
+  },
+  "lda/lda_c_1d_csc": {
+    "family": "lda",
+    "func": "lda_c_1d_csc",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 481,
+    "status": "default-ok"
+  },
+  "lda/lda_c_1d_loos": {
+    "family": "lda",
+    "func": "lda_c_1d_loos",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 137,
+    "status": "default-ok"
+  },
+  "lda/lda_c_2d_amgb": {
+    "family": "lda",
+    "func": "lda_c_2d_amgb",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 834,
+    "status": "default-ok"
+  },
+  "lda/lda_c_2d_prm": {
+    "family": "lda",
+    "func": "lda_c_2d_prm",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 189,
+    "status": "default-ok"
+  },
+  "lda/lda_c_chachiyo": {
+    "family": "lda",
+    "func": "lda_c_chachiyo",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 303,
+    "status": "default-ok"
+  },
+  "lda/lda_c_chachiyo_mod": {
+    "family": "lda",
+    "func": "lda_c_chachiyo_mod",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 382,
+    "status": "default-ok"
+  },
+  "lda/lda_c_gk72": {
+    "family": "lda",
+    "func": "lda_c_gk72",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 126,
+    "status": "default-ok"
+  },
+  "lda/lda_c_gombas": {
+    "family": "lda",
+    "func": "lda_c_gombas",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 113,
+    "status": "default-ok"
+  },
+  "lda/lda_c_hl": {
+    "family": "lda",
+    "func": "lda_c_hl",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 324,
+    "status": "default-ok"
+  },
+  "lda/lda_c_lp96": {
+    "family": "lda",
+    "func": "lda_c_lp96",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 69,
+    "status": "default-ok"
+  },
+  "lda/lda_c_ml1": {
+    "family": "lda",
+    "func": "lda_c_ml1",
+    "threshold": 2750,
+    "parts": 16,
+    "max_part": 2585,
+    "status": "needs-sharding",
+    "cliff_below": 2500
+  },
+  "lda/lda_c_pk09": {
+    "family": "lda",
+    "func": "lda_c_pk09",
+    "threshold": 4500,
+    "parts": 2246,
+    "max_part": 13167,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "lda/lda_c_pmgb06": {
+    "family": "lda",
+    "func": "lda_c_pmgb06",
+    "threshold": 4250,
+    "parts": 2523,
+    "max_part": 5908,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "lda/lda_c_pw": {
+    "family": "lda",
+    "func": "lda_c_pw",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1110,
+    "status": "default-ok"
+  },
+  "lda/lda_c_pw_erf": {
+    "family": "lda",
+    "func": "lda_c_pw_erf",
+    "threshold": 4500,
+    "parts": 2719,
+    "max_part": 6573,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "lda/lda_c_pz": {
+    "family": "lda",
+    "func": "lda_c_pz",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 326,
+    "status": "default-ok"
+  },
+  "lda/lda_c_rc04": {
+    "family": "lda",
+    "func": "lda_c_rc04",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 406,
+    "status": "default-ok"
+  },
+  "lda/lda_c_rpa": {
+    "family": "lda",
+    "func": "lda_c_rpa",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 84,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn": {
+    "family": "lda",
+    "func": "lda_c_vwn",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1374,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn_1": {
+    "family": "lda",
+    "func": "lda_c_vwn_1",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 622,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn_2": {
+    "family": "lda",
+    "func": "lda_c_vwn_2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1583,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn_3": {
+    "family": "lda",
+    "func": "lda_c_vwn_3",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2187,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn_4": {
+    "family": "lda",
+    "func": "lda_c_vwn_4",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1374,
+    "status": "default-ok"
+  },
+  "lda/lda_c_vwn_rpa": {
+    "family": "lda",
+    "func": "lda_c_vwn_rpa",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 622,
+    "status": "default-ok"
+  },
+  "lda/lda_c_w20": {
+    "family": "lda",
+    "func": "lda_c_w20",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 965,
+    "status": "default-ok"
+  },
+  "lda/lda_c_wigner": {
+    "family": "lda",
+    "func": "lda_c_wigner",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 176,
+    "status": "default-ok"
+  },
+  "lda/lda_k_gds08_worker": {
+    "family": "lda",
+    "func": "lda_k_gds08_worker",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 639,
+    "status": "default-ok"
+  },
+  "lda/lda_k_tf": {
+    "family": "lda",
+    "func": "lda_k_tf",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 221,
+    "status": "default-ok"
+  },
+  "lda/lda_k_zlp": {
+    "family": "lda",
+    "func": "lda_k_zlp",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 292,
+    "status": "default-ok"
+  },
+  "lda/lda_x": {
+    "family": "lda",
+    "func": "lda_x",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 410,
+    "status": "default-ok"
+  },
+  "lda/lda_x_1d_exponential": {
+    "family": "lda",
+    "func": "lda_x_1d_exponential",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 428,
+    "status": "default-ok"
+  },
+  "lda/lda_x_1d_soft": {
+    "family": "lda",
+    "func": "lda_x_1d_soft",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 370,
+    "status": "default-ok"
+  },
+  "lda/lda_x_2d": {
+    "family": "lda",
+    "func": "lda_x_2d",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 211,
+    "status": "default-ok"
+  },
+  "lda/lda_x_erf": {
+    "family": "lda",
+    "func": "lda_x_erf",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1469,
+    "status": "default-ok"
+  },
+  "lda/lda_x_rel": {
+    "family": "lda",
+    "func": "lda_x_rel",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 522,
+    "status": "default-ok"
+  },
+  "lda/lda_x_sloc": {
+    "family": "lda",
+    "func": "lda_x_sloc",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 351,
+    "status": "default-ok"
+  },
+  "lda/lda_x_yukawa": {
+    "family": "lda",
+    "func": "lda_x_yukawa",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1898,
+    "status": "default-ok"
+  },
+  "lda/lda_xc_1d_ehwlrg": {
+    "family": "lda",
+    "func": "lda_xc_1d_ehwlrg",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 73,
+    "status": "default-ok"
+  },
+  "lda/lda_xc_ksdt": {
+    "family": "lda",
+    "func": "lda_xc_ksdt",
+    "threshold": 4500,
+    "parts": 25,
+    "max_part": 9468,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "lda/lda_xc_teter93": {
+    "family": "lda",
+    "func": "lda_xc_teter93",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 541,
+    "status": "default-ok"
+  },
+  "lda/lda_xc_zlp": {
+    "family": "lda",
+    "func": "lda_xc_zlp",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 78,
+    "status": "default-ok"
+  },
+  "lda/lda_xc_tih": {
+    "family": "lda",
+    "func": "lda_xc_tih",
+    "threshold": 4500,
+    "parts": 8,
+    "max_part": 85,
+    "status": "default-ok"
+  },
+  "gga/gga_c_acgga": {
+    "family": "gga",
+    "func": "gga_c_acgga",
+    "threshold": 3750,
+    "parts": 41,
+    "max_part": 3514,
+    "status": "needs-sharding",
+    "cliff_below": 3500
+  },
+  "gga/gga_c_acggap": {
+    "family": "gga",
+    "func": "gga_c_acggap",
+    "threshold": 4000,
+    "parts": 9669,
+    "max_part": 4968,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_am05": {
+    "family": "gga",
+    "func": "gga_c_am05",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1450,
+    "status": "default-ok"
+  },
+  "gga/gga_c_bmk": {
+    "family": "gga",
+    "func": "gga_c_bmk",
+    "threshold": 2500,
+    "parts": 28,
+    "max_part": 2653,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_ccdf": {
+    "family": "gga",
+    "func": "gga_c_ccdf",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 582,
+    "status": "default-ok"
+  },
+  "gga/gga_c_chachiyo": {
+    "family": "gga",
+    "func": "gga_c_chachiyo",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1172,
+    "status": "default-ok"
+  },
+  "gga/gga_c_cs1": {
+    "family": "gga",
+    "func": "gga_c_cs1",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1508,
+    "status": "default-ok"
+  },
+  "gga/gga_c_ft97": {
+    "family": "gga",
+    "func": "gga_c_ft97",
+    "threshold": 4500,
+    "parts": 8903,
+    "max_part": 10899,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_gapc": {
+    "family": "gga",
+    "func": "gga_c_gapc",
+    "threshold": 4500,
+    "parts": 24444,
+    "max_part": 8279,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_gaploc": {
+    "family": "gga",
+    "func": "gga_c_gaploc",
+    "threshold": 4250,
+    "parts": 10751,
+    "max_part": 6207,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_hcth_a": {
+    "family": "gga",
+    "func": "gga_c_hcth_a",
+    "threshold": 4500,
+    "parts": 19,
+    "max_part": 4413,
+    "status": "needs-sharding",
+    "cliff_below": 4250
+  },
+  "gga/gga_c_lm": {
+    "family": "gga",
+    "func": "gga_c_lm",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1493,
+    "status": "default-ok"
+  },
+  "gga/gga_c_lyp": {
+    "family": "gga",
+    "func": "gga_c_lyp",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1841,
+    "status": "default-ok"
+  },
+  "gga/gga_c_lypr": {
+    "family": "gga",
+    "func": "gga_c_lypr",
+    "threshold": 3500,
+    "parts": 13,
+    "max_part": 2211,
+    "status": "in-band"
+  },
+  "gga/gga_c_op_b88": {
+    "family": "gga",
+    "func": "gga_c_op_b88",
+    "threshold": 3000,
+    "parts": 13,
+    "max_part": 2327,
+    "status": "in-band"
+  },
+  "gga/gga_c_op_g96": {
+    "family": "gga",
+    "func": "gga_c_op_g96",
+    "threshold": 3000,
+    "parts": 13,
+    "max_part": 2263,
+    "status": "in-band"
+  },
+  "gga/gga_c_op_pbe": {
+    "family": "gga",
+    "func": "gga_c_op_pbe",
+    "threshold": 3000,
+    "parts": 13,
+    "max_part": 2312,
+    "status": "in-band"
+  },
+  "gga/gga_c_op_pw91": {
+    "family": "gga",
+    "func": "gga_c_op_pw91",
+    "threshold": 3250,
+    "parts": 13,
+    "max_part": 2413,
+    "status": "in-band"
+  },
+  "gga/gga_c_op_xalpha": {
+    "family": "gga",
+    "func": "gga_c_op_xalpha",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1068,
+    "status": "default-ok"
+  },
+  "gga/gga_c_optc": {
+    "family": "gga",
+    "func": "gga_c_optc",
+    "threshold": 4500,
+    "parts": 2906,
+    "max_part": 9563,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_p86": {
+    "family": "gga",
+    "func": "gga_c_p86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1890,
+    "status": "default-ok"
+  },
+  "gga/gga_c_p86vwn": {
+    "family": "gga",
+    "func": "gga_c_p86vwn",
+    "threshold": 2500,
+    "parts": 13,
+    "max_part": 2368,
+    "status": "in-band"
+  },
+  "gga/gga_c_pbe": {
+    "family": "gga",
+    "func": "gga_c_pbe",
+    "threshold": 3250,
+    "parts": 14,
+    "max_part": 2458,
+    "status": "in-band"
+  },
+  "gga/gga_c_pbe_erf_gws": {
+    "family": "gga",
+    "func": "gga_c_pbe_erf_gws",
+    "threshold": 4500,
+    "parts": 10843,
+    "max_part": 10775,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_c_pbe_vwn": {
+    "family": "gga",
+    "func": "gga_c_pbe_vwn",
+    "threshold": 2750,
+    "parts": 18,
+    "max_part": 2444,
+    "status": "in-band"
+  },
+  "gga/gga_c_pbeloc": {
+    "family": "gga",
+    "func": "gga_c_pbeloc",
+    "threshold": 2750,
+    "parts": 44,
+    "max_part": 2375,
+    "status": "in-band"
+  },
+  "gga/gga_c_pw91": {
+    "family": "gga",
+    "func": "gga_c_pw91",
+    "threshold": 2750,
+    "parts": 32,
+    "max_part": 2620,
+    "status": "needs-sharding",
+    "cliff_below": 2500
+  },
+  "gga/gga_c_q2d": {
+    "family": "gga",
+    "func": "gga_c_q2d",
+    "threshold": 4250,
+    "parts": 64,
+    "max_part": 4183,
+    "status": "needs-sharding",
+    "cliff_below": 4000
+  },
+  "gga/gga_c_regtpss": {
+    "family": "gga",
+    "func": "gga_c_regtpss",
+    "threshold": 3000,
+    "parts": 35,
+    "max_part": 2906,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "gga/gga_c_revtca": {
+    "family": "gga",
+    "func": "gga_c_revtca",
+    "threshold": 3000,
+    "parts": 14,
+    "max_part": 2411,
+    "status": "in-band"
+  },
+  "gga/gga_c_scan_e0": {
+    "family": "gga",
+    "func": "gga_c_scan_e0",
+    "threshold": 2750,
+    "parts": 18,
+    "max_part": 2022,
+    "status": "in-band"
+  },
+  "gga/gga_c_sg4": {
+    "family": "gga",
+    "func": "gga_c_sg4",
+    "threshold": 3500,
+    "parts": 53,
+    "max_part": 3395,
+    "status": "needs-sharding",
+    "cliff_below": 3250
+  },
+  "gga/gga_c_sogga11": {
+    "family": "gga",
+    "func": "gga_c_sogga11",
+    "threshold": 3000,
+    "parts": 31,
+    "max_part": 2995,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "gga/gga_c_tca": {
+    "family": "gga",
+    "func": "gga_c_tca",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1787,
+    "status": "default-ok"
+  },
+  "gga/gga_c_w94": {
+    "family": "gga",
+    "func": "gga_c_w94",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1230,
+    "status": "default-ok"
+  },
+  "gga/gga_c_wi": {
+    "family": "gga",
+    "func": "gga_c_wi",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 831,
+    "status": "default-ok"
+  },
+  "gga/gga_c_wl": {
+    "family": "gga",
+    "func": "gga_c_wl",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2025,
+    "status": "default-ok"
+  },
+  "gga/gga_c_zpbeint": {
+    "family": "gga",
+    "func": "gga_c_zpbeint",
+    "threshold": 3000,
+    "parts": 29,
+    "max_part": 2455,
+    "status": "in-band"
+  },
+  "gga/gga_c_zvpbeint": {
+    "family": "gga",
+    "func": "gga_c_zvpbeint",
+    "threshold": 3000,
+    "parts": 44,
+    "max_part": 2487,
+    "status": "in-band"
+  },
+  "gga/gga_c_zvpbeloc": {
+    "family": "gga",
+    "func": "gga_c_zvpbeloc",
+    "threshold": 2750,
+    "parts": 42,
+    "max_part": 2471,
+    "status": "in-band"
+  },
+  "gga/gga_k_apbe": {
+    "family": "gga",
+    "func": "gga_k_apbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 881,
+    "status": "default-ok"
+  },
+  "gga/gga_k_apbeint": {
+    "family": "gga",
+    "func": "gga_k_apbeint",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1068,
+    "status": "default-ok"
+  },
+  "gga/gga_k_dk": {
+    "family": "gga",
+    "func": "gga_k_dk",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1360,
+    "status": "default-ok"
+  },
+  "gga/gga_k_exp4": {
+    "family": "gga",
+    "func": "gga_k_exp4",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 803,
+    "status": "default-ok"
+  },
+  "gga/gga_k_lc94": {
+    "family": "gga",
+    "func": "gga_k_lc94",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1173,
+    "status": "default-ok"
+  },
+  "gga/gga_k_lgap": {
+    "family": "gga",
+    "func": "gga_k_lgap",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 961,
+    "status": "default-ok"
+  },
+  "gga/gga_k_lgap_ge": {
+    "family": "gga",
+    "func": "gga_k_lgap_ge",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 761,
+    "status": "default-ok"
+  },
+  "gga/gga_k_lkt": {
+    "family": "gga",
+    "func": "gga_k_lkt",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 865,
+    "status": "default-ok"
+  },
+  "gga/gga_k_llp": {
+    "family": "gga",
+    "func": "gga_k_llp",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 937,
+    "status": "default-ok"
+  },
+  "gga/gga_k_meyer": {
+    "family": "gga",
+    "func": "gga_k_meyer",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1545,
+    "status": "default-ok"
+  },
+  "gga/gga_k_mpbe": {
+    "family": "gga",
+    "func": "gga_k_mpbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 976,
+    "status": "default-ok"
+  },
+  "gga/gga_k_ol1": {
+    "family": "gga",
+    "func": "gga_k_ol1",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 757,
+    "status": "default-ok"
+  },
+  "gga/gga_k_ol2": {
+    "family": "gga",
+    "func": "gga_k_ol2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 818,
+    "status": "default-ok"
+  },
+  "gga/gga_k_pearson": {
+    "family": "gga",
+    "func": "gga_k_pearson",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 835,
+    "status": "default-ok"
+  },
+  "gga/gga_k_pg": {
+    "family": "gga",
+    "func": "gga_k_pg",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 800,
+    "status": "default-ok"
+  },
+  "gga/gga_k_pw86": {
+    "family": "gga",
+    "func": "gga_k_pw86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 936,
+    "status": "default-ok"
+  },
+  "gga/gga_k_rational_p": {
+    "family": "gga",
+    "func": "gga_k_rational_p",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1044,
+    "status": "default-ok"
+  },
+  "gga/gga_k_tflw": {
+    "family": "gga",
+    "func": "gga_k_tflw",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 715,
+    "status": "default-ok"
+  },
+  "gga/gga_k_thakkar": {
+    "family": "gga",
+    "func": "gga_k_thakkar",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1027,
+    "status": "default-ok"
+  },
+  "gga/gga_k_vt84f": {
+    "family": "gga",
+    "func": "gga_k_vt84f",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1626,
+    "status": "default-ok"
+  },
+  "gga/gga_x_2d_b86": {
+    "family": "gga",
+    "func": "gga_x_2d_b86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1053,
+    "status": "default-ok"
+  },
+  "gga/gga_x_2d_b86_mgc": {
+    "family": "gga",
+    "func": "gga_x_2d_b86_mgc",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 793,
+    "status": "default-ok"
+  },
+  "gga/gga_x_2d_b88": {
+    "family": "gga",
+    "func": "gga_x_2d_b88",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 941,
+    "status": "default-ok"
+  },
+  "gga/gga_x_2d_pbe": {
+    "family": "gga",
+    "func": "gga_x_2d_pbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 852,
+    "status": "default-ok"
+  },
+  "gga/gga_x_airy": {
+    "family": "gga",
+    "func": "gga_x_airy",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1285,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ak13": {
+    "family": "gga",
+    "func": "gga_x_ak13",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 988,
+    "status": "default-ok"
+  },
+  "gga/gga_x_am05": {
+    "family": "gga",
+    "func": "gga_x_am05",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1732,
+    "status": "default-ok"
+  },
+  "gga/gga_x_b86": {
+    "family": "gga",
+    "func": "gga_x_b86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 905,
+    "status": "default-ok"
+  },
+  "gga/gga_x_b88": {
+    "family": "gga",
+    "func": "gga_x_b88",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 936,
+    "status": "default-ok"
+  },
+  "gga/gga_x_bayesian": {
+    "family": "gga",
+    "func": "gga_x_bayesian",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1033,
+    "status": "default-ok"
+  },
+  "gga/gga_x_beefvdw": {
+    "family": "gga",
+    "func": "gga_x_beefvdw",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1802,
+    "status": "default-ok"
+  },
+  "gga/gga_x_bpccac": {
+    "family": "gga",
+    "func": "gga_x_bpccac",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1531,
+    "status": "default-ok"
+  },
+  "gga/gga_x_c09x": {
+    "family": "gga",
+    "func": "gga_x_c09x",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 823,
+    "status": "default-ok"
+  },
+  "gga/gga_x_cap": {
+    "family": "gga",
+    "func": "gga_x_cap",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1067,
+    "status": "default-ok"
+  },
+  "gga/gga_x_chachiyo": {
+    "family": "gga",
+    "func": "gga_x_chachiyo",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2436,
+    "status": "default-ok"
+  },
+  "gga/gga_x_dk87": {
+    "family": "gga",
+    "func": "gga_x_dk87",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 983,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ev93": {
+    "family": "gga",
+    "func": "gga_x_ev93",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1383,
+    "status": "default-ok"
+  },
+  "gga/gga_x_fd_lb94": {
+    "family": "gga",
+    "func": "gga_x_fd_lb94",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 891,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ft97": {
+    "family": "gga",
+    "func": "gga_x_ft97",
+    "threshold": 2750,
+    "parts": 26,
+    "max_part": 2564,
+    "status": "needs-sharding",
+    "cliff_below": 2500
+  },
+  "gga/gga_x_g96": {
+    "family": "gga",
+    "func": "gga_x_g96",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 872,
+    "status": "default-ok"
+  },
+  "gga/gga_x_gg99": {
+    "family": "gga",
+    "func": "gga_x_gg99",
+    "threshold": 3750,
+    "parts": 15,
+    "max_part": 2286,
+    "status": "in-band"
+  },
+  "gga/gga_x_hcth_a": {
+    "family": "gga",
+    "func": "gga_x_hcth_a",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 930,
+    "status": "default-ok"
+  },
+  "gga/gga_x_herman": {
+    "family": "gga",
+    "func": "gga_x_herman",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 692,
+    "status": "default-ok"
+  },
+  "gga/gga_x_hjs": {
+    "family": "gga",
+    "func": "gga_x_hjs",
+    "threshold": 3750,
+    "parts": 31,
+    "max_part": 3749,
+    "status": "needs-sharding",
+    "cliff_below": 3500
+  },
+  "gga/gga_x_hjs_b88_v2": {
+    "family": "gga",
+    "func": "gga_x_hjs_b88_v2",
+    "threshold": 4000,
+    "parts": 32,
+    "max_part": 3836,
+    "status": "needs-sharding",
+    "cliff_below": 3750
+  },
+  "gga/gga_x_htbs": {
+    "family": "gga",
+    "func": "gga_x_htbs",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1263,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ityh": {
+    "family": "gga",
+    "func": "gga_x_ityh",
+    "threshold": 3250,
+    "parts": 14,
+    "max_part": 2016,
+    "status": "in-band"
+  },
+  "gga/gga_x_ityh_optx": {
+    "family": "gga",
+    "func": "gga_x_ityh_optx",
+    "threshold": 3250,
+    "parts": 14,
+    "max_part": 1905,
+    "status": "in-band"
+  },
+  "gga/gga_x_ityh_pbe": {
+    "family": "gga",
+    "func": "gga_x_ityh_pbe",
+    "threshold": 3500,
+    "parts": 14,
+    "max_part": 2159,
+    "status": "in-band"
+  },
+  "gga/gga_x_kt": {
+    "family": "gga",
+    "func": "gga_x_kt",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1504,
+    "status": "default-ok"
+  },
+  "gga/gga_x_lag": {
+    "family": "gga",
+    "func": "gga_x_lag",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1535,
+    "status": "default-ok"
+  },
+  "gga/gga_x_lcgau": {
+    "family": "gga",
+    "func": "gga_x_lcgau",
+    "threshold": 2500,
+    "parts": 34,
+    "max_part": 2420,
+    "status": "in-band"
+  },
+  "gga/gga_x_lg93": {
+    "family": "gga",
+    "func": "gga_x_lg93",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1618,
+    "status": "default-ok"
+  },
+  "gga/gga_x_lspbe": {
+    "family": "gga",
+    "func": "gga_x_lspbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 825,
+    "status": "default-ok"
+  },
+  "gga/gga_x_lsrpbe": {
+    "family": "gga",
+    "func": "gga_x_lsrpbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 829,
+    "status": "default-ok"
+  },
+  "gga/gga_x_lv_rpw86": {
+    "family": "gga",
+    "func": "gga_x_lv_rpw86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1235,
+    "status": "default-ok"
+  },
+  "gga/gga_x_mpbe": {
+    "family": "gga",
+    "func": "gga_x_mpbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 974,
+    "status": "default-ok"
+  },
+  "gga/gga_x_n12": {
+    "family": "gga",
+    "func": "gga_x_n12",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1704,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ncap": {
+    "family": "gga",
+    "func": "gga_x_ncap",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2216,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ol2": {
+    "family": "gga",
+    "func": "gga_x_ol2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 816,
+    "status": "default-ok"
+  },
+  "gga/gga_x_optx": {
+    "family": "gga",
+    "func": "gga_x_optx",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 786,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbe": {
+    "family": "gga",
+    "func": "gga_x_pbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 879,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbe_erf_gws": {
+    "family": "gga",
+    "func": "gga_x_pbe_erf_gws",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1536,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbea": {
+    "family": "gga",
+    "func": "gga_x_pbea",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 828,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbeint": {
+    "family": "gga",
+    "func": "gga_x_pbeint",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1066,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbepow": {
+    "family": "gga",
+    "func": "gga_x_pbepow",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 956,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pbetrans": {
+    "family": "gga",
+    "func": "gga_x_pbetrans",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1423,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pw86": {
+    "family": "gga",
+    "func": "gga_x_pw86",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 947,
+    "status": "default-ok"
+  },
+  "gga/gga_x_pw91": {
+    "family": "gga",
+    "func": "gga_x_pw91",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1171,
+    "status": "default-ok"
+  },
+  "gga/gga_x_q1d": {
+    "family": "gga",
+    "func": "gga_x_q1d",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1177,
+    "status": "default-ok"
+  },
+  "gga/gga_x_q2d": {
+    "family": "gga",
+    "func": "gga_x_q2d",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1630,
+    "status": "default-ok"
+  },
+  "gga/gga_x_rge2": {
+    "family": "gga",
+    "func": "gga_x_rge2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 924,
+    "status": "default-ok"
+  },
+  "gga/gga_x_rpbe": {
+    "family": "gga",
+    "func": "gga_x_rpbe",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 894,
+    "status": "default-ok"
+  },
+  "gga/gga_x_s12": {
+    "family": "gga",
+    "func": "gga_x_s12",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 992,
+    "status": "default-ok"
+  },
+  "gga/gga_x_sfat": {
+    "family": "gga",
+    "func": "gga_x_sfat",
+    "threshold": 2500,
+    "parts": 24,
+    "max_part": 2178,
+    "status": "in-band"
+  },
+  "gga/gga_x_sfat_pbe": {
+    "family": "gga",
+    "func": "gga_x_sfat_pbe",
+    "threshold": 2500,
+    "parts": 24,
+    "max_part": 2260,
+    "status": "in-band"
+  },
+  "gga/gga_x_sg4": {
+    "family": "gga",
+    "func": "gga_x_sg4",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 956,
+    "status": "default-ok"
+  },
+  "gga/gga_x_sogga11": {
+    "family": "gga",
+    "func": "gga_x_sogga11",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1516,
+    "status": "default-ok"
+  },
+  "gga/gga_x_ssb_sw": {
+    "family": "gga",
+    "func": "gga_x_ssb_sw",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 923,
+    "status": "default-ok"
+  },
+  "gga/gga_x_vmt": {
+    "family": "gga",
+    "func": "gga_x_vmt",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 933,
+    "status": "default-ok"
+  },
+  "gga/gga_x_vmt84": {
+    "family": "gga",
+    "func": "gga_x_vmt84",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1058,
+    "status": "default-ok"
+  },
+  "gga/gga_x_wc": {
+    "family": "gga",
+    "func": "gga_x_wc",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1037,
+    "status": "default-ok"
+  },
+  "gga/gga_x_wpbeh": {
+    "family": "gga",
+    "func": "gga_x_wpbeh",
+    "threshold": 4500,
+    "parts": 59,
+    "max_part": 7591,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "gga/gga_xc_b97": {
+    "family": "gga",
+    "func": "gga_xc_b97",
+    "threshold": 3250,
+    "parts": 23,
+    "max_part": 3163,
+    "status": "needs-sharding",
+    "cliff_below": 3000
+  },
+  "gga/gga_xc_th1": {
+    "family": "gga",
+    "func": "gga_xc_th1",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1584,
+    "status": "default-ok"
+  },
+  "gga/gga_xc_th2": {
+    "family": "gga",
+    "func": "gga_xc_th2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1451,
+    "status": "default-ok"
+  },
+  "gga/gga_xc_th3": {
+    "family": "gga",
+    "func": "gga_xc_th3",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1533,
+    "status": "default-ok"
+  },
+  "gga/hyb_gga_x_cam_s12": {
+    "family": "gga",
+    "func": "hyb_gga_x_cam_s12",
+    "threshold": 3500,
+    "parts": 14,
+    "max_part": 2015,
+    "status": "in-band"
+  },
+  "gga/hyb_gga_xc_case21": {
+    "family": "gga",
+    "func": "hyb_gga_xc_case21",
+    "threshold": 3250,
+    "parts": 13,
+    "max_part": 2424,
+    "status": "in-band"
+  },
+  "gga/hyb_gga_xc_wb97": {
+    "family": "gga",
+    "func": "hyb_gga_xc_wb97",
+    "threshold": 4250,
+    "parts": 23,
+    "max_part": 4094,
+    "status": "needs-sharding",
+    "cliff_below": 4000
+  },
+  "gga/gga_x_lb": {
+    "family": "gga",
+    "func": "gga_x_lb",
+    "threshold": 4500,
+    "parts": 8,
+    "max_part": 428,
+    "status": "default-ok"
+  },
+  "mgga/hyb_mgga_x_dldf": {
+    "family": "mgga",
+    "func": "hyb_mgga_x_dldf",
+    "threshold": 2000,
+    "parts": 11,
+    "max_part": 2589,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/hyb_mgga_x_js18": {
+    "family": "mgga",
+    "func": "hyb_mgga_x_js18",
+    "threshold": 4000,
+    "parts": 79,
+    "max_part": 4208,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/hyb_mgga_x_m05": {
+    "family": "mgga",
+    "func": "hyb_mgga_x_m05",
+    "threshold": 2750,
+    "parts": 12,
+    "max_part": 2435,
+    "status": "in-band"
+  },
+  "mgga/hyb_mgga_x_pjs18": {
+    "family": "mgga",
+    "func": "hyb_mgga_x_pjs18",
+    "threshold": 3250,
+    "parts": 49,
+    "max_part": 3322,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/hyb_mgga_xc_gas22": {
+    "family": "mgga",
+    "func": "hyb_mgga_xc_gas22",
+    "threshold": 4250,
+    "parts": 2590,
+    "max_part": 4790,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/hyb_mgga_xc_wb97mv": {
+    "family": "mgga",
+    "func": "hyb_mgga_xc_wb97mv",
+    "threshold": 4500,
+    "parts": 38,
+    "max_part": 4909,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_b88": {
+    "family": "mgga",
+    "func": "mgga_c_b88",
+    "threshold": 2500,
+    "parts": 29,
+    "max_part": 2270,
+    "status": "in-band"
+  },
+  "mgga/mgga_c_b94": {
+    "family": "mgga",
+    "func": "mgga_c_b94",
+    "threshold": 2750,
+    "parts": 65,
+    "max_part": 2489,
+    "status": "in-band"
+  },
+  "mgga/mgga_c_bc95": {
+    "family": "mgga",
+    "func": "mgga_c_bc95",
+    "threshold": 2750,
+    "parts": 24,
+    "max_part": 2560,
+    "status": "needs-sharding",
+    "cliff_below": 2500
+  },
+  "mgga/mgga_c_cc": {
+    "family": "mgga",
+    "func": "mgga_c_cc",
+    "threshold": 2500,
+    "parts": 13,
+    "max_part": 2309,
+    "status": "in-band"
+  },
+  "mgga/mgga_c_ccalda": {
+    "family": "mgga",
+    "func": "mgga_c_ccalda",
+    "threshold": 2500,
+    "parts": 56,
+    "max_part": 2284,
+    "status": "in-band"
+  },
+  "mgga/mgga_c_cs": {
+    "family": "mgga",
+    "func": "mgga_c_cs",
+    "threshold": 2000,
+    "parts": 12,
+    "max_part": 2639,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_kcis": {
+    "family": "mgga",
+    "func": "mgga_c_kcis",
+    "threshold": 4500,
+    "parts": 11179,
+    "max_part": 14121,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_kcisk": {
+    "family": "mgga",
+    "func": "mgga_c_kcisk",
+    "threshold": 4500,
+    "parts": 4377,
+    "max_part": 16132,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_ltapw": {
+    "family": "mgga",
+    "func": "mgga_c_ltapw",
+    "threshold": 3500,
+    "parts": 46,
+    "max_part": 3424,
+    "status": "needs-sharding",
+    "cliff_below": 3250
+  },
+  "mgga/mgga_c_m05": {
+    "family": "mgga",
+    "func": "mgga_c_m05",
+    "threshold": 3000,
+    "parts": 29,
+    "max_part": 3140,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "mgga/mgga_c_m06l": {
+    "family": "mgga",
+    "func": "mgga_c_m06l",
+    "threshold": 3250,
+    "parts": 42,
+    "max_part": 3223,
+    "status": "needs-sharding",
+    "cliff_below": 3000
+  },
+  "mgga/mgga_c_m08": {
+    "family": "mgga",
+    "func": "mgga_c_m08",
+    "threshold": 2500,
+    "parts": 50,
+    "max_part": 2473,
+    "status": "in-band"
+  },
+  "mgga/mgga_c_pkzb": {
+    "family": "mgga",
+    "func": "mgga_c_pkzb",
+    "threshold": 4500,
+    "parts": 2723,
+    "max_part": 5374,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_r2scan": {
+    "family": "mgga",
+    "func": "mgga_c_r2scan",
+    "threshold": 4500,
+    "parts": 7671,
+    "max_part": 6224,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_revscan": {
+    "family": "mgga",
+    "func": "mgga_c_revscan",
+    "threshold": 4000,
+    "parts": 51,
+    "max_part": 3825,
+    "status": "needs-sharding",
+    "cliff_below": 3750
+  },
+  "mgga/mgga_c_revtpss": {
+    "family": "mgga",
+    "func": "mgga_c_revtpss",
+    "threshold": 4500,
+    "parts": 19969,
+    "max_part": 12637,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_rmggac": {
+    "family": "mgga",
+    "func": "mgga_c_rmggac",
+    "threshold": 3500,
+    "parts": 19952,
+    "max_part": 5073,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_rppscan": {
+    "family": "mgga",
+    "func": "mgga_c_rppscan",
+    "threshold": 3000,
+    "parts": 59,
+    "max_part": 2751,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "mgga/mgga_c_rregtm": {
+    "family": "mgga",
+    "func": "mgga_c_rregtm",
+    "threshold": 3000,
+    "parts": 58,
+    "max_part": 2757,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "mgga/mgga_c_rscan": {
+    "family": "mgga",
+    "func": "mgga_c_rscan",
+    "threshold": 4000,
+    "parts": 77,
+    "max_part": 3965,
+    "status": "needs-sharding",
+    "cliff_below": 3750
+  },
+  "mgga/mgga_c_scan": {
+    "family": "mgga",
+    "func": "mgga_c_scan",
+    "threshold": 3000,
+    "parts": 58,
+    "max_part": 2760,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "mgga/mgga_c_tpss": {
+    "family": "mgga",
+    "func": "mgga_c_tpss",
+    "threshold": 4500,
+    "parts": 2894,
+    "max_part": 7708,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_tpssloc": {
+    "family": "mgga",
+    "func": "mgga_c_tpssloc",
+    "threshold": 4500,
+    "parts": 30794,
+    "max_part": 10082,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_c_vsxc": {
+    "family": "mgga",
+    "func": "mgga_c_vsxc",
+    "threshold": 2500,
+    "parts": 46,
+    "max_part": 2673,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_k_csk": {
+    "family": "mgga",
+    "func": "mgga_k_csk",
+    "threshold": 2750,
+    "parts": 15,
+    "max_part": 2272,
+    "status": "in-band"
+  },
+  "mgga/mgga_k_csk_loc": {
+    "family": "mgga",
+    "func": "mgga_k_csk_loc",
+    "threshold": 2750,
+    "parts": 15,
+    "max_part": 2264,
+    "status": "in-band"
+  },
+  "mgga/mgga_k_gea2": {
+    "family": "mgga",
+    "func": "mgga_k_gea2",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1972,
+    "status": "default-ok"
+  },
+  "mgga/mgga_k_gea4": {
+    "family": "mgga",
+    "func": "mgga_k_gea4",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2089,
+    "status": "default-ok"
+  },
+  "mgga/mgga_k_lk": {
+    "family": "mgga",
+    "func": "mgga_k_lk",
+    "threshold": 2000,
+    "parts": 12,
+    "max_part": 2102,
+    "status": "in-band"
+  },
+  "mgga/mgga_k_pc07": {
+    "family": "mgga",
+    "func": "mgga_k_pc07",
+    "threshold": 2750,
+    "parts": 40,
+    "max_part": 2311,
+    "status": "in-band"
+  },
+  "mgga/mgga_k_pgslb": {
+    "family": "mgga",
+    "func": "mgga_k_pgslb",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2096,
+    "status": "default-ok"
+  },
+  "mgga/mgga_k_rda": {
+    "family": "mgga",
+    "func": "mgga_k_rda",
+    "threshold": 2500,
+    "parts": 12,
+    "max_part": 2323,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_2d_js17": {
+    "family": "mgga",
+    "func": "mgga_x_2d_js17",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2282,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_2d_prhg07": {
+    "family": "mgga",
+    "func": "mgga_x_2d_prhg07",
+    "threshold": 2750,
+    "parts": 16,
+    "max_part": 2495,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_br89": {
+    "family": "mgga",
+    "func": "mgga_x_br89",
+    "threshold": 3250,
+    "parts": 120,
+    "max_part": 3197,
+    "status": "needs-sharding",
+    "cliff_below": 3000
+  },
+  "mgga/mgga_x_br89_explicit": {
+    "family": "mgga",
+    "func": "mgga_x_br89_explicit",
+    "threshold": 2250,
+    "parts": 110,
+    "max_part": 2147,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_edmgga": {
+    "family": "mgga",
+    "func": "mgga_x_edmgga",
+    "threshold": 2750,
+    "parts": 14,
+    "max_part": 2404,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_ft98": {
+    "family": "mgga",
+    "func": "mgga_x_ft98",
+    "threshold": 2500,
+    "parts": 34,
+    "max_part": 2436,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_gdme": {
+    "family": "mgga",
+    "func": "mgga_x_gdme",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1973,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_gvt4": {
+    "family": "mgga",
+    "func": "mgga_x_gvt4",
+    "threshold": 2000,
+    "parts": 11,
+    "max_part": 2555,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_x_gx": {
+    "family": "mgga",
+    "func": "mgga_x_gx",
+    "threshold": 2750,
+    "parts": 12,
+    "max_part": 2233,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_jk": {
+    "family": "mgga",
+    "func": "mgga_x_jk",
+    "threshold": 2250,
+    "parts": 12,
+    "max_part": 2000,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_lta": {
+    "family": "mgga",
+    "func": "mgga_x_lta",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2035,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_m06l": {
+    "family": "mgga",
+    "func": "mgga_x_m06l",
+    "threshold": 2750,
+    "parts": 13,
+    "max_part": 2437,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_m08": {
+    "family": "mgga",
+    "func": "mgga_x_m08",
+    "threshold": 2500,
+    "parts": 13,
+    "max_part": 2190,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_m11": {
+    "family": "mgga",
+    "func": "mgga_x_m11",
+    "threshold": 2750,
+    "parts": 20,
+    "max_part": 2424,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_m11_l": {
+    "family": "mgga",
+    "func": "mgga_x_m11_l",
+    "threshold": 2500,
+    "parts": 30,
+    "max_part": 2140,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mbeef": {
+    "family": "mgga",
+    "func": "mgga_x_mbeef",
+    "threshold": 2500,
+    "parts": 33,
+    "max_part": 2243,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mbeefvdw": {
+    "family": "mgga",
+    "func": "mgga_x_mbeefvdw",
+    "threshold": 2750,
+    "parts": 20,
+    "max_part": 2483,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mbr": {
+    "family": "mgga",
+    "func": "mgga_x_mbr",
+    "threshold": 2250,
+    "parts": 70,
+    "max_part": 2264,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mbrxc_bg": {
+    "family": "mgga",
+    "func": "mgga_x_mbrxc_bg",
+    "threshold": 2500,
+    "parts": 56,
+    "max_part": 2443,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mbrxh_bg": {
+    "family": "mgga",
+    "func": "mgga_x_mbrxh_bg",
+    "threshold": 2250,
+    "parts": 69,
+    "max_part": 2241,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mcml": {
+    "family": "mgga",
+    "func": "mgga_x_mcml",
+    "threshold": 2500,
+    "parts": 33,
+    "max_part": 2243,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mggac": {
+    "family": "mgga",
+    "func": "mgga_x_mggac",
+    "threshold": 2750,
+    "parts": 86,
+    "max_part": 3013,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_x_mn12": {
+    "family": "mgga",
+    "func": "mgga_x_mn12",
+    "threshold": 2500,
+    "parts": 21,
+    "max_part": 2457,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_ms": {
+    "family": "mgga",
+    "func": "mgga_x_ms",
+    "threshold": 2500,
+    "parts": 13,
+    "max_part": 2161,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_msb": {
+    "family": "mgga",
+    "func": "mgga_x_msb",
+    "threshold": 2750,
+    "parts": 13,
+    "max_part": 2232,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mvs": {
+    "family": "mgga",
+    "func": "mgga_x_mvs",
+    "threshold": 2500,
+    "parts": 12,
+    "max_part": 2204,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_mvsb": {
+    "family": "mgga",
+    "func": "mgga_x_mvsb",
+    "threshold": 2500,
+    "parts": 13,
+    "max_part": 2175,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_pbe_gx": {
+    "family": "mgga",
+    "func": "mgga_x_pbe_gx",
+    "threshold": 2750,
+    "parts": 13,
+    "max_part": 2242,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_pkzb": {
+    "family": "mgga",
+    "func": "mgga_x_pkzb",
+    "threshold": 2000,
+    "parts": 11,
+    "max_part": 2545,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_x_r2scan": {
+    "family": "mgga",
+    "func": "mgga_x_r2scan",
+    "threshold": 2750,
+    "parts": 18,
+    "max_part": 2453,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_r4scan": {
+    "family": "mgga",
+    "func": "mgga_x_r4scan",
+    "threshold": 2500,
+    "parts": 56,
+    "max_part": 2378,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_regtm": {
+    "family": "mgga",
+    "func": "mgga_x_regtm",
+    "threshold": 2500,
+    "parts": 34,
+    "max_part": 2491,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_regtpss": {
+    "family": "mgga",
+    "func": "mgga_x_regtpss",
+    "threshold": 2500,
+    "parts": 42,
+    "max_part": 2419,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_revtm": {
+    "family": "mgga",
+    "func": "mgga_x_revtm",
+    "threshold": 2500,
+    "parts": 21,
+    "max_part": 1992,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_rlda": {
+    "family": "mgga",
+    "func": "mgga_x_rlda",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2285,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_rppscan": {
+    "family": "mgga",
+    "func": "mgga_x_rppscan",
+    "threshold": 2750,
+    "parts": 19,
+    "max_part": 2439,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_rscan": {
+    "family": "mgga",
+    "func": "mgga_x_rscan",
+    "threshold": 3750,
+    "parts": 42,
+    "max_part": 3592,
+    "status": "needs-sharding",
+    "cliff_below": 3500
+  },
+  "mgga/mgga_x_rtpss": {
+    "family": "mgga",
+    "func": "mgga_x_rtpss",
+    "threshold": 3000,
+    "parts": 13,
+    "max_part": 2415,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_sa_tpss": {
+    "family": "mgga",
+    "func": "mgga_x_sa_tpss",
+    "threshold": 2500,
+    "parts": 39,
+    "max_part": 2477,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_scan": {
+    "family": "mgga",
+    "func": "mgga_x_scan",
+    "threshold": 2500,
+    "parts": 20,
+    "max_part": 2243,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_task": {
+    "family": "mgga",
+    "func": "mgga_x_task",
+    "threshold": 2750,
+    "parts": 14,
+    "max_part": 2469,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_tau_hcth": {
+    "family": "mgga",
+    "func": "mgga_x_tau_hcth",
+    "threshold": 2000,
+    "parts": 11,
+    "max_part": 2594,
+    "status": "needs-sharding",
+    "cliff_below": null
+  },
+  "mgga/mgga_x_th": {
+    "family": "mgga",
+    "func": "mgga_x_th",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 2228,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_tm": {
+    "family": "mgga",
+    "func": "mgga_x_tm",
+    "threshold": 2750,
+    "parts": 15,
+    "max_part": 2462,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_tpss": {
+    "family": "mgga",
+    "func": "mgga_x_tpss",
+    "threshold": 3000,
+    "parts": 14,
+    "max_part": 2481,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_vcml": {
+    "family": "mgga",
+    "func": "mgga_x_vcml",
+    "threshold": 2500,
+    "parts": 33,
+    "max_part": 2243,
+    "status": "in-band"
+  },
+  "mgga/mgga_x_vt84": {
+    "family": "mgga",
+    "func": "mgga_x_vt84",
+    "threshold": 2750,
+    "parts": 29,
+    "max_part": 2421,
+    "status": "in-band"
+  },
+  "mgga/mgga_xc_b97mv": {
+    "family": "mgga",
+    "func": "mgga_xc_b97mv",
+    "threshold": 3750,
+    "parts": 37,
+    "max_part": 3663,
+    "status": "needs-sharding",
+    "cliff_below": 3500
+  },
+  "mgga/mgga_xc_b98": {
+    "family": "mgga",
+    "func": "mgga_xc_b98",
+    "threshold": 3000,
+    "parts": 54,
+    "max_part": 2925,
+    "status": "needs-sharding",
+    "cliff_below": 2750
+  },
+  "mgga/mgga_xc_cc06": {
+    "family": "mgga",
+    "func": "mgga_xc_cc06",
+    "threshold": 2750,
+    "parts": 12,
+    "max_part": 2259,
+    "status": "in-band"
+  },
+  "mgga/mgga_xc_lp90": {
+    "family": "mgga",
+    "func": "mgga_xc_lp90",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1892,
+    "status": "default-ok"
+  },
+  "mgga/mgga_xc_zlp": {
+    "family": "mgga",
+    "func": "mgga_xc_zlp",
+    "threshold": 4500,
+    "parts": 10,
+    "max_part": 1930,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_2d_prp10": {
+    "family": "mgga",
+    "func": "mgga_x_2d_prp10",
+    "threshold": 4500,
+    "parts": 8,
+    "max_part": 1588,
+    "status": "default-ok"
+  },
+  "mgga/mgga_x_tb09": {
+    "family": "mgga",
+    "func": "mgga_x_tb09",
+    "threshold": 3000,
+    "parts": 11,
+    "max_part": 2363,
+    "status": "in-band"
+  }
+}
