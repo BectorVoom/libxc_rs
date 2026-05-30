@@ -43,6 +43,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from translate_v2 import cse
 from translate_v2 import emit
+from translate_v2 import array_pack
 from translate_v2.cse import (PositionContext,
                               collect_named_const_uses,
                               HOIST_PRELUDE_TEMPLATE)
@@ -800,16 +801,34 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             if ov in chunk_defined and ov not in out_vars:
                 out_vars.append(ov)
         sig_in = ", ".join(f"{a}: F" for a in in_args)
+
+        # Array-packing (compile-speed): pack this chunk's numeric, non-bool,
+        # non-INPUT temporaries into one `let mut t = Array::<F>::new(N)`. Inputs
+        # arrive as `F` params (not slots); bools stay `let`; OUTPUT temps ARE
+        # packed, so the in-chunk return expression indexes them
+        # (`(t[102], t[113])`) while the caller-side `wrapper_bind` keeps the
+        # bare names it binds (`let (t102, t113) = chunk::<f64>(..)`).
+        chunk_parsed = []
+        for ln in ch.lines:
+            pa = _parse_assign(ln)
+            if pa is not None and pa[0] is not None:
+                chunk_parsed.append(pa)
+        packed, packed_len = array_pack.compute_packed(chunk_parsed,
+                                                       set(ch.inputs))
+
+        def _ret_tok(v, _packed=packed):
+            return f"t[{_packed[v]}]" if v in _packed else v
+
         # q01 Fix #3: single-output chunks return scalar F (CubeCL 0.10
         # macro return-type inference fails on ANY `let` inside `-> (F,)`).
         if len(out_vars) == 1:
             ret = "F"
-            ret_expr = out_vars[0]
+            ret_expr = _ret_tok(out_vars[0])
             wrapper_bind = out_vars[0]
         else:
             ret = "(" + ", ".join("F" for _ in out_vars) + ")"
-            ret_expr = "(" + ", ".join(out_vars) + ")"
-            wrapper_bind = ret_expr
+            ret_expr = "(" + ", ".join(_ret_tok(v) for v in out_vars) + ")"
+            wrapper_bind = "(" + ", ".join(out_vars) + ")"
 
         # --- D-05 hoisting prelude: pre-scan the joined translated body for
         # named-const references, then emit `let <local> = F::cast_from(SYM);`
@@ -833,6 +852,8 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
         # chunk bodies are pure arithmetic — no doc-comments, no string
         # literals — so the Rule-4 guards stay False.
         body = []
+        if packed:
+            body.append(array_pack.decl('F', packed_len, '    '))
         for sym, local_name in hoisted.items():
             body.append(HOIST_PRELUDE_TEMPLATE.format(name=local_name,
                                                       symbol=sym))
@@ -847,8 +868,13 @@ def _cse_chunk_part(adapter, func_name, level, spin, output, part_idx, suffix,
             if entry is None:
                 continue
             var, rust_expr = entry
+            # Wrap f64 literals -> F FIRST (the array element type is F, so the
+            # RHS must still be F-typed whether the LHS is `let var` or `t[N]`),
+            # THEN rewrite packed `tN` refs to `t[N]`. Wrapping never emits a
+            # `tN` token, so the ordering is safe.
             rust_expr = _wrap_f64_literals_v2(rust_expr, ctx, hoisted)
-            body.append(f"    let {var} = {rust_expr};")
+            rust_expr = array_pack.remap(rust_expr, packed)
+            body.append(array_pack.emit_line(var, rust_expr, packed, '    '))
 
         chunk_srcs.append(
             f"//! {func_name.upper()} {level} {spin} — {output} part "

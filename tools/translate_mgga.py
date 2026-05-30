@@ -25,6 +25,7 @@ from kernel_routing import cached_routed_funcnames
 from translate_v2.cse import partition_compute_lines, Chunk
 from translate_v2 import emit
 from translate_v2 import per_functional
+from translate_v2 import array_pack
 KERNEL_FAMILY = "mgga"
 
 
@@ -794,6 +795,21 @@ def generate_function(func_name: str, level: str, spin: str,
         lines.append(f'        let tau0 = tau[ip * 2];')
         lines.append(f'        let tau1 = tau[ip * 2 + 1];')
 
+    # Array-packing (compile-speed): aggregate the dense `let tN` scalar
+    # temporaries into one `let mut t = Array::<f64>::new(N)` and emit
+    # `t[N] = ...`. Output-write vars stay `let` (the `+= var` write below and
+    # the wrapper signature stay unchanged); bool temporaries stay `let` (an
+    # f64 array cannot hold a bool). See tools/translate_v2/array_pack.py.
+    _parsed = []
+    for cline in compute_lines:
+        _s = cline.rstrip(';').strip()
+        _m = re.match(r'(\w+)\s*=\s*(.*)', _s)
+        if _m:
+            _parsed.append((_m.group(1), _m.group(2)))
+    packed, packed_len = array_pack.compute_packed(_parsed, set(out_map))
+    if packed:
+        lines.append(array_pack.decl('f64', packed_len, '        '))
+
     # Translate computation lines and insert output writes
     for cline in compute_lines:
         stripped = cline.rstrip(';').strip()
@@ -803,8 +819,8 @@ def generate_function(func_name: str, level: str, spin: str,
 
         var_name = m.group(1)
         expr = m.group(2)
-        translated = translate_line(expr, is_pol)
-        lines.append(f'        let {var_name} = {translated};')
+        translated = array_pack.remap(translate_line(expr, is_pol), packed)
+        lines.append(array_pack.emit_line(var_name, translated, packed, '        '))
 
         # If this variable is an output write, emit the += line
         if var_name in out_map:
