@@ -11,10 +11,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1259<F: Float>(t12: F, t82: F, t16129: F, t1151: F, t1153: F, t20668: F, t20698: F, t21266: F, t21284: F, t21287: F, t21309: F, t21321: F, t2159: F, t2163: F, t22129: F, t3000: F, t3005: F, t318: F, t319: F, t6071: F, t6078: F, t7897: F, t7909: F, t808: F, t810: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F) {
     let t84 = t12 <= zeta_threshold;
     let t203 = rho0 <= dens_threshold || t84;
-    let t22147 = F::new(12.0) * t82;
-    let t22148 = F::new(24.0) * t16129;
+    let t22147 = F::cast_from(12.0_f64) * t82;
+    let t22148 = F::cast_from(24.0_f64) * t16129;
     let t22149 = -t22147 + t22148;
-    let t22150 = piecewise3::<F>(t84, F::new(0.0), t22149);
-    let t22154 = piecewise3::<F>(t203, F::new(0.0), (t20668 + t20698 + t21266 + t21284 + t21287 + t21309 + t21321 + t22129) * t319 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t7897 * t810 + F::new(3.0) / F::new(2.0) * t3000 * t2163 + t1151 * t6078 / F::new(2.0) + t6071 * t1153 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t2159 * t3005 + F::new(3.0) / F::new(2.0) * t808 * t7909 + t318 * t22150 / F::new(2.0));
+    let t22150 = piecewise3::<F>(t84, F::cast_from(0.0_f64), t22149);
+    let t22154 = piecewise3::<F>(t203, F::cast_from(0.0_f64), (t20668 + t20698 + t21266 + t21284 + t21287 + t21309 + t21321 + t22129) * t319 / F::cast_from(2.0_f64) + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t7897 * t810 + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t3000 * t2163 + t1151 * t6078 / F::cast_from(2.0_f64) + t6071 * t1153 / F::cast_from(2.0_f64) + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2159 * t3005 + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t808 * t7909 + t318 * t22150 / F::cast_from(2.0_f64));
     (t22149, t22154)
 }

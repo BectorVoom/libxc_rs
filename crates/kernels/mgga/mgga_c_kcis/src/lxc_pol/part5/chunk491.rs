@@ -14,7 +14,7 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk491<F: Float>(t2051: F, t585: F, 
     let t2055 = t583 * t2054;
     let t2056 = t1546 * t2055;
     let t2058 = t579 * t487;
-    let t2060 = F::new(1.0) / t488 / t2058;
+    let t2060 = F::cast_from(1.0_f64) / t488 / t2058;
     let t2061 = t2060 * t251;
     (t2052, t2054, t2055, t2056, t2060, t2061)
 }

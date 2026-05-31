@@ -9,9 +9,9 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk746<F: Float>(t2425: F, t595: F, t2443: F, t515: F, t3985: F, t3988: F, t3992: F, t5039: F, t5055: F, t5859: F, t6751: F, t6755: F, t6758: F, t6761: F, t6765: F, t6769: F, t6773: F, t6776: F, t6778: F) -> (F, F, F, F) {
-    let t6780 = F::new(2.0) / F::new(15.0) * t2425 * t595;
+    let t6780 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t2425 * t595;
     let t6781 = t2443 * t515;
-    let t6782 = F::new(4.0) / F::new(45.0) * t6781;
-    let t6784 = -t6751 + t6755 - t6758 - t6761 - t6765 + t6769 - t6773 - F::new(2.0) / F::new(27.0) * t3985 - t3988 + t3992 - t6776 - t6778 - t6780 + t6782 + F::cast_from(0.06649088888888889_f64) * t5859 + t5039 - t5055;
+    let t6782 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t6781;
+    let t6784 = -t6751 + t6755 - t6758 - t6761 - t6765 + t6769 - t6773 - F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t3985 - t3988 + t3992 - t6776 - t6778 - t6780 + t6782 + F::cast_from(0.06649088888888889_f64) * t5859 + t5039 - t5055;
     (t6780, t6781, t6782, t6784)
 }

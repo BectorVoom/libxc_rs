@@ -14,14 +14,14 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1033<F: Float>(t23685: F, t346: F
     let t23769 = F::cast_from(0.75383950617283950617e4_f64) * t23682;
     let t23770 = F::cast_from(0.12819753086419753086e4_f64) * t23685;
     let t23800 = t2471 * t2471;
-    let t23801 = F::new(1.0) / t23800;
+    let t23801 = F::cast_from(1.0_f64) / t23800;
     let t23803 = t2475 * t2475;
-    let t23804 = F::new(1.0) / t23803;
-    let t23844 = F::powf(t214, -F::new(0.25e1));
-    let t23860 = F::new(280.0) / F::new(81.0) * t23682;
-    let t23913 = F::new(1.0) / t217 / t22502 / t211 / F::new(96.0);
+    let t23804 = F::cast_from(1.0_f64) / t23803;
+    let t23844 = F::powf(t214, -F::cast_from(0.25e1_f64));
+    let t23860 = F::cast_from(280.0_f64) / F::cast_from(81.0_f64) * t23682;
+    let t23913 = F::cast_from(1.0_f64) / t217 / t22502 / t211 / F::cast_from(96.0_f64);
     let t23926 = F::cast_from(0.31310740740740740741e1_f64) * t23682;
     let t23927 = F::cast_from(0.13490888888888888889e1_f64) * t23685;
-    let t24021 = F::new(1.0) / t2471 / t2528;
+    let t24021 = F::cast_from(1.0_f64) / t2471 / t2528;
     (t23686, t23708, t23769, t23770, t23801, t23804, t23844, t23860, t23913, t23926, t23927, t24021)
 }

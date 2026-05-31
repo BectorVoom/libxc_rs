@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk750<F: Float>(t12782: F, t471: F, t3334: F, t871: F, t12383: F, t12386: F, t12397: F, t12400: F, t12412: F, t10318: F, t2321: F, t9074: F) -> (F, F, F, F, F, F, F, F, F) {
     let t12783 = t12782 * t471;
     let t12784 = t3334 * t871;
-    let t12787 = F::new(9.0) / F::new(256.0) * t12383;
-    let t12788 = F::new(9.0) / F::new(8192.0) * t12386;
-    let t12789 = F::new(3.0) / F::new(8192.0) * t12397;
-    let t12790 = F::new(3.0) / F::new(256.0) * t12400;
-    let t12791 = F::new(2.0) * t12412;
+    let t12787 = F::cast_from(9.0_f64) / F::cast_from(256.0_f64) * t12383;
+    let t12788 = F::cast_from(9.0_f64) / F::cast_from(8192.0_f64) * t12386;
+    let t12789 = F::cast_from(3.0_f64) / F::cast_from(8192.0_f64) * t12397;
+    let t12790 = F::cast_from(3.0_f64) / F::cast_from(256.0_f64) * t12400;
+    let t12791 = F::cast_from(2.0_f64) * t12412;
     let t12797 = t10318 * t2321;
     let t12798 = t9074 * t12797;
     (t12783, t12784, t12787, t12788, t12789, t12790, t12791, t12797, t12798)

@@ -15,6 +15,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk769<F: Float>(t2255: F, t62
     let t6305 = t2255 * t6304;
     let t6308 = t6 * t2189;
     let t6310 = t3235 * t6308 * t875;
-    let t6313 = -t6246 + t6251 - t6255 - t6260 + t902 * t6262 / F::new(768.0) + t902 * t6266 / F::new(1536.0) + t6273 + t6275 * t6279 / F::new(32.0) + t2343 * t6284 / F::new(128.0) - F::new(3.0) / F::new(128.0) * t3247 * t6289 - t2253 * t6293 / F::new(256.0) - t2253 * t6299 / F::new(256.0) - t2253 * t6305 / F::new(256.0) - t2343 * t6310 / F::new(512.0);
+    let t6313 = -t6246 + t6251 - t6255 - t6260 + t902 * t6262 / F::cast_from(768.0_f64) + t902 * t6266 / F::cast_from(1536.0_f64) + t6273 + t6275 * t6279 / F::cast_from(32.0_f64) + t2343 * t6284 / F::cast_from(128.0_f64) - F::cast_from(3.0_f64) / F::cast_from(128.0_f64) * t3247 * t6289 - t2253 * t6293 / F::cast_from(256.0_f64) - t2253 * t6299 / F::cast_from(256.0_f64) - t2253 * t6305 / F::cast_from(256.0_f64) - t2343 * t6310 / F::cast_from(512.0_f64);
     (t6299, t6303, t6305, t6308, t6310, t6313)
 }

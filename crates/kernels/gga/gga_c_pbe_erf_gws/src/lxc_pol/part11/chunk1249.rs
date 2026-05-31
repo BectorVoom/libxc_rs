@@ -9,10 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1249<F: Float>(t13126: F, t3786: F, t4395: F, t860: F, t13293: F, t36962: F, t45584: F, t28269: F, t3065: F, t49794: F, t858: F, t45133: F, t9016: F) -> (F, F, F, F, F) {
-    let t49819 = t13126 * t4395 * t3786 * t860 / F::new(16.0);
-    let t49826 = F::new(11.0) / F::new(96.0) * t36962 * t13293;
-    let t49828 = F::new(7.0) / F::new(4.0) * t45584;
-    let t49832 = t28269 * t3065 * t858 * t49794 / F::new(8.0);
-    let t49837 = t9016 * t45133 / F::new(4.0);
+    let t49819 = t13126 * t4395 * t3786 * t860 / F::cast_from(16.0_f64);
+    let t49826 = F::cast_from(11.0_f64) / F::cast_from(96.0_f64) * t36962 * t13293;
+    let t49828 = F::cast_from(7.0_f64) / F::cast_from(4.0_f64) * t45584;
+    let t49832 = t28269 * t3065 * t858 * t49794 / F::cast_from(8.0_f64);
+    let t49837 = t9016 * t45133 / F::cast_from(4.0_f64);
     (t49819, t49826, t49828, t49832, t49837)
 }

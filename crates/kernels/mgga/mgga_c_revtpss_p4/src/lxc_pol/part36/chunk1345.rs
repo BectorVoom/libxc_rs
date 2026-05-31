@@ -9,11 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk1345<F: Float>(t29589: F, t7898: F, t30005: F, t4248: F, t651: F, t6765: F, t7741: F, t1868: F, t6781: F, t25082: F, t28197: F, t6922: F) -> (F, F, F, F, F) {
-    let t114785 = F::new(3.0) * t7898 * t29589;
-    let t114787 = F::new(6.0) * t4248 * t30005;
-    let t114790 = F::new(6.0) * t651 * t6765 * t7741;
+    let t114785 = F::cast_from(3.0_f64) * t7898 * t29589;
+    let t114787 = F::cast_from(6.0_f64) * t4248 * t30005;
+    let t114790 = F::cast_from(6.0_f64) * t651 * t6765 * t7741;
     let t114791 = t1868 * t6781;
-    let t114794 = F::new(18.0) * t25082 * t28197 * t114791;
+    let t114794 = F::cast_from(18.0_f64) * t25082 * t28197 * t114791;
     let t114800 = t1868 * t6922;
     (t114785, t114787, t114790, t114794, t114800)
 }

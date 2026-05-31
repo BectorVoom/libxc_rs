@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1001<F: Float>(t30: F, 
     let t31 = t30 <= zeta_threshold;
     let t120 = rho0 <= dens_threshold || t31;
     let t394 = t265 < t393;
-    let t33867 = piecewise3::<F>(t394, t1102 * t198 * t336 * t33836 - t1699 * t32030 * t5023 + F::new(2.0) * t1699 * t32036 * t5023 - F::new(2.0) * t5023 * t7181 * t7840, t33866);
-    let t33872 = piecewise3::<F>(t120, t33748, t8543 * t1469 / F::new(2.0) + t33867 * t45 / F::new(2.0));
+    let t33867 = piecewise3::<F>(t394, t1102 * t198 * t336 * t33836 - t1699 * t32030 * t5023 + F::cast_from(2.0_f64) * t1699 * t32036 * t5023 - F::cast_from(2.0_f64) * t5023 * t7181 * t7840, t33866);
+    let t33872 = piecewise3::<F>(t120, t33748, t8543 * t1469 / F::cast_from(2.0_f64) + t33867 * t45 / F::cast_from(2.0_f64));
     (t33867, t33872)
 }

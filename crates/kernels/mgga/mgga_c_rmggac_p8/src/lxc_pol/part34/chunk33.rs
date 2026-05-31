@@ -11,20 +11,20 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_rmggac_lxc_pol_part34_v4rho2sigma2_7_chunk33<F: Float>(t53: F, t60: F, t31: F, t36: F, rho0: F, rho1: F, tau0: F, tau1: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t83 = pow_1_3::<F>(rho0);
     let t84 = t83 * t83;
-    let t86 = F::new(1.0) / t84 / rho0;
+    let t86 = F::cast_from(1.0_f64) / t84 / rho0;
     let t87 = tau0 * t86;
-    let t88 = t53 / F::new(2.0);
+    let t88 = t53 / F::cast_from(2.0_f64);
     let t89 = pow_1_3::<F>(t88);
     let t90 = t89 * t89;
     let t91 = t90 * t88;
     let t94 = pow_1_3::<F>(rho1);
     let t95 = t94 * t94;
-    let t97 = F::new(1.0) / t95 / rho1;
+    let t97 = F::cast_from(1.0_f64) / t95 / rho1;
     let t98 = tau1 * t97;
-    let t99 = t60 / F::new(2.0);
+    let t99 = t60 / F::cast_from(2.0_f64);
     let t100 = pow_1_3::<F>(t99);
     let t101 = t100 * t100;
     let t102 = t101 * t99;
-    let t107 = F::new(2.0) * t87 * t91 + F::new(2.0) * t98 * t102 - t31 * t36 / F::new(4.0);
+    let t107 = F::cast_from(2.0_f64) * t87 * t91 + F::cast_from(2.0_f64) * t98 * t102 - t31 * t36 / F::cast_from(4.0_f64);
     (t84, t87, t89, t90, t91, t95, t98, t100, t101, t102, t107)
 }

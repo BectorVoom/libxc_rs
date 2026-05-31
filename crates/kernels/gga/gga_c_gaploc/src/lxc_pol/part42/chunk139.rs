@@ -13,13 +13,13 @@ pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk139<F: Float>(t213: F, t21
     let t219 = t218 <= zeta_threshold;
     let t607 = t211 * t90;
     let t608 = t64 - t607;
-    let t611 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(3.0) * t215 * t608);
+    let t611 = piecewise3::<F>(t214, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t215 * t608);
     let t612 = -t608;
-    let t615 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(3.0) * t220 * t612);
+    let t615 = piecewise3::<F>(t219, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t220 * t612);
     let t617 = (t611 + t615) * t43;
     let t622 = t238 * t238;
-    let t623 = F::new(1.0) / t622;
+    let t623 = F::cast_from(1.0_f64) / t622;
     let t624 = t233 * t623;
-    let t629 = -F::new(0.1176575e1) * t345 - F::new(0.516475e0) * t347 - F::new(0.2103875e0) * t351 - F::new(0.104195e0) * t353;
+    let t629 = -F::cast_from(0.1176575e1_f64) * t345 - F::cast_from(0.516475e0_f64) * t347 - F::cast_from(0.2103875e0_f64) * t351 - F::cast_from(0.104195e0_f64) * t353;
     (t617, t624, t629)
 }

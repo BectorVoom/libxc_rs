@@ -13,8 +13,8 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk301<F: Float>(t43: F, t50: F, t12
     let t51 = t50 <= zeta_threshold;
     let t1246 = t40 * t1245;
     let t1248 = F::cast_from(0.19751789702565206229e-1_f64) * t1244 * t85;
-    let t1251 = piecewise3::<F>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t607 * t1235);
-    let t1254 = piecewise3::<F>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t611 * t1239);
-    let t1256 = t1251 / F::new(2.0) + t1254 / F::new(2.0);
+    let t1251 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t607 * t1235);
+    let t1254 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t611 * t1239);
+    let t1256 = t1251 / F::cast_from(2.0_f64) + t1254 / F::cast_from(2.0_f64);
     (t1246, t1248, t1256)
 }

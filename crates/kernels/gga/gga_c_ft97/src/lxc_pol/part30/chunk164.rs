@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk164<F: Float>(t1160: F, t241: F, t258: F, t1089: F, t1134: F, t1156: F, t764: F) -> (F, F) {
     let t1162 = t241 * t1160 * t258;
-    let t1168 = t1156 / F::new(2.0) - t764 - t1089 / F::new(3.0) - t1134;
+    let t1168 = t1156 / F::cast_from(2.0_f64) - t764 - t1089 / F::cast_from(3.0_f64) - t1134;
     (t1162, t1168)
 }

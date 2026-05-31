@@ -14,7 +14,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk744<F: Float>(t13: F,
     let t4511 = t4510 * t1293;
     let t4512 = t4509 * t4511;
     let t4513 = F::cast_from(0.96490945932906628932e2_f64) * t4512;
-    let t4516 = F::new(1.0) / t14 / t25 / F::new(4.0);
+    let t4516 = F::cast_from(1.0_f64) / t14 / t25 / F::cast_from(4.0_f64);
     let t4517 = t4516 * t2;
     let t4518 = t4517 * t39;
     let t4520 = t799 * t784;

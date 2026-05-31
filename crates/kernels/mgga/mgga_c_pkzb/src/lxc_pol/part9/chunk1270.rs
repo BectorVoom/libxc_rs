@@ -13,10 +13,10 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1270<F: Float>(t218: F, t675: F, 
     let t22287 = t218 * t675 * t7988;
     let t22290 = t218 * t5555 * t1180;
     let t22293 = t218 * t1878 * t3061;
-    let t22294 = F::new(0.82785e0) * t22293;
+    let t22294 = F::cast_from(0.82785e0_f64) * t22293;
     let t22296 = t218 * t1878 * t3065;
-    let t22297 = F::new(0.82785e0) * t22296;
-    let t22302 = F::new(4.0) / F::new(3.0) * t22233;
-    let t22303 = t18468 - F::new(28.0) / F::new(9.0) * t18427 + F::new(4.0) / F::new(3.0) * t18430 - t18433 / F::new(3.0) - F::new(28.0) / F::new(27.0) * t22230 + t22302 - t22236 + t22262;
+    let t22297 = F::cast_from(0.82785e0_f64) * t22296;
+    let t22302 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t22233;
+    let t22303 = t18468 - F::cast_from(28.0_f64) / F::cast_from(9.0_f64) * t18427 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t18430 - t18433 / F::cast_from(3.0_f64) - F::cast_from(28.0_f64) / F::cast_from(27.0_f64) * t22230 + t22302 - t22236 + t22262;
     (t22284, t22287, t22290, t22293, t22294, t22296, t22297, t22303)
 }

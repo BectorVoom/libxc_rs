@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk776<F: Float>(t12623: F, t639: F, t1022: F, t3465: F, t2677: F, t1620: F, t3429: F, t995: F, t1821: F, t1820: F, t1017: F, t1827: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t12625 = F::new(4.0) / F::new(9.0) * t639 * t12623;
+    let t12625 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t639 * t12623;
     let t12626 = t3465 * t1022;
     let t12627 = t2677 * t12626;
-    let t12629 = F::new(8.0) / F::new(9.0) * t1620 * t12627;
+    let t12629 = F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t1620 * t12627;
     let t12630 = t3429 * t995;
     let t12631 = t1821 * t12630;
-    let t12633 = F::new(8.0) / F::new(15.0) * t1820 * t12631;
+    let t12633 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t1820 * t12631;
     let t12634 = t3429 * t1017;
     let t12635 = t1827 * t12634;
     (t12625, t12626, t12627, t12629, t12630, t12631, t12633, t12634, t12635)

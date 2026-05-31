@@ -15,8 +15,8 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk664<F: Float>(t1131: F, t540: F,
     let t4484 = t960 * t4483;
     let t4487 = t1313 * t922;
     let t4488 = t960 * t4487;
-    let t4492 = F::new(7.0) / F::new(72.0) * t1137 * t1324;
-    let t4494 = F::new(7.0) / F::new(72.0) * t1140 * t1328;
+    let t4492 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t1137 * t1324;
+    let t4494 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t1140 * t1328;
     let t4495 = t1322 * t839;
     let t4496 = t960 * t4495;
     let t4503 = t398 * t429 * t1350;

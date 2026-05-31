@@ -12,6 +12,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk471<F: Float>(t1917: F, t703: F, 
     let t1918 = t1917 * t703;
     let t1923 = F::cast_from(0.68863333333333333333e0_f64) * t1830;
     let t1928 = F::cast_from(0.17365833333333333333e0_f64) * t1880;
-    let t1932 = -F::new(0.17648625e1) * t1863 + F::new(0.3529725e1) * t1868 + t1923 - F::new(0.103295e1) * t1833 + F::new(0.1549425e1) * t1845 + F::new(0.31558125e0) * t1874 + F::new(0.6311625e0) * t1876 + t1928 - F::new(0.41678e0) * t1883 + F::new(0.312585e0) * t1887 + F::new(0.312585e0) * t1891;
+    let t1932 = -F::cast_from(0.17648625e1_f64) * t1863 + F::cast_from(0.3529725e1_f64) * t1868 + t1923 - F::cast_from(0.103295e1_f64) * t1833 + F::cast_from(0.1549425e1_f64) * t1845 + F::cast_from(0.31558125e0_f64) * t1874 + F::cast_from(0.6311625e0_f64) * t1876 + t1928 - F::cast_from(0.41678e0_f64) * t1883 + F::cast_from(0.312585e0_f64) * t1887 + F::cast_from(0.312585e0_f64) * t1891;
     (t1918, t1923, t1928, t1932)
 }

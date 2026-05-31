@@ -12,11 +12,11 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk917<F: Float>(t4810: 
     let t8008 = F::cast_from(0.48830813431341759842e-3_f64) * t4810;
     let t8009 = F::cast_from(0.18311555036753159941e-3_f64) * t4817;
     let t8010 = t409 * t2513;
-    let t8011 = F::new(8.0) * t8010;
+    let t8011 = F::cast_from(8.0_f64) * t8010;
     let t8012 = t414 * t2515;
-    let t8013 = F::new(8.0) * t8012;
+    let t8013 = F::cast_from(8.0_f64) * t8012;
     let t8014 = t1336 * t960;
-    let t8015 = F::new(12.0) * t8014;
+    let t8015 = F::cast_from(12.0_f64) * t8014;
     let t8016 = t2840 * t1396;
     let t8017 = F::cast_from(0.58482233974552040708e0_f64) * t8016;
     let t8018 = t2840 * t1392;

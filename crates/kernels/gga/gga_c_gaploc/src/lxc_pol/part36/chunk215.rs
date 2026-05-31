@@ -13,9 +13,9 @@ pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk215<F: Float>(t1232: F, t1
     let t1233 = t1232 * t129;
     let t1234 = t453 * t453;
     let t1238 = t143 * t143;
-    let t1240 = F::new(1.0) / t1238 / t143;
+    let t1240 = F::cast_from(1.0_f64) / t1238 / t143;
     let t1242 = t1240 * pi * t463;
-    let t1246 = F::new(1.0) / t462 / t155;
+    let t1246 = F::cast_from(1.0_f64) / t462 / t155;
     let t1247 = t153 * t1246;
     let t1338 = t122 * t594;
     let t1339 = t169 * t599;

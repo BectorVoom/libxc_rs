@@ -13,8 +13,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2517<F: Float>(t136: F, t3297
     let t51051 = t2403 * t4772;
     let t51053 = t699 * t14792;
     let t51056 = t136 * t1113 * t50929;
-    let t51058 = F::new(4.0) / F::new(9.0) * t50826;
-    let t51073 = F::new(8.0) / F::new(27.0) * t50919;
-    let t51078 = t51058 - t50828 / F::new(3.0) + t50832 / F::new(3.0) - F::new(28.0) / F::new(81.0) * t50834 + F::new(2.0) / F::new(9.0) * t43727 - F::new(2.0) / F::new(3.0) * t43729 - F::new(8.0) / F::new(27.0) * t43748 - F::new(10.0) / F::new(81.0) * t43750 - F::new(2.0) / F::new(9.0) * t50897 - F::new(8.0) * t50900 - F::new(4.0) / F::new(3.0) * t50903 - F::new(2.0) / F::new(3.0) * t50905 - F::new(2.0) * t50907 + F::new(10.0) / F::new(9.0) * t50912 + F::new(40.0) / F::new(9.0) * t50917 - t51073 - F::new(10.0) / F::new(27.0) * t50921 - F::new(80.0) / F::new(81.0) * t50926 + F::new(2.0) * t50931 + F::new(2.0) * t50934;
+    let t51058 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t50826;
+    let t51073 = F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t50919;
+    let t51078 = t51058 - t50828 / F::cast_from(3.0_f64) + t50832 / F::cast_from(3.0_f64) - F::cast_from(28.0_f64) / F::cast_from(81.0_f64) * t50834 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t43727 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t43729 - F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t43748 - F::cast_from(10.0_f64) / F::cast_from(81.0_f64) * t43750 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t50897 - F::cast_from(8.0_f64) * t50900 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t50903 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t50905 - F::cast_from(2.0_f64) * t50907 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t50912 + F::cast_from(40.0_f64) / F::cast_from(9.0_f64) * t50917 - t51073 - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t50921 - F::cast_from(80.0_f64) / F::cast_from(81.0_f64) * t50926 + F::cast_from(2.0_f64) * t50931 + F::cast_from(2.0_f64) * t50934;
     (t51049, t51051, t51053, t51056, t51078)
 }

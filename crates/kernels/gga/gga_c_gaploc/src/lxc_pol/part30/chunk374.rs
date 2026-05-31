@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk374<F: Float>(t293: F, t711: F, t291: F, t1233: F, t1236: F, t1685: F, t1227: F, t286: F, t458: F, t714: F, t1237: F, t1681: F, t1687: F) -> (F, F, F, F, F, F) {
     let pi = F::cast_from(M_PI);
-    let t1691 = F::new(1.0) / t711 / t293;
+    let t1691 = F::cast_from(1.0_f64) / t711 / t293;
     let t1692 = t291 * t1691;
     let t1693 = t1692 * t1233;
     let t1695 = t1236 * t1685 * pi;
     let t1699 = t1227 * t286 * t458;
     let t1700 = t714 * t1699;
-    let t1702 = F::new(63.0) / F::new(256.0) * t1681 - F::new(49.0) / F::new(8192.0) * t1237 * t1687 + F::new(49.0) / F::new(24576.0) * t1693 * t1695 - F::new(21.0) / F::new(256.0) * t1700;
+    let t1702 = F::cast_from(63.0_f64) / F::cast_from(256.0_f64) * t1681 - F::cast_from(49.0_f64) / F::cast_from(8192.0_f64) * t1237 * t1687 + F::cast_from(49.0_f64) / F::cast_from(24576.0_f64) * t1693 * t1695 - F::cast_from(21.0_f64) / F::cast_from(256.0_f64) * t1700;
     (t1691, t1692, t1695, t1699, t1700, t1702)
 }

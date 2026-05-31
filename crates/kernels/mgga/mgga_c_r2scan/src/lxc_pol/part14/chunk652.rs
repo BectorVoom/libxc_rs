@@ -15,6 +15,6 @@ pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk652<F: Float>(t1020: F, t
     let t3757 = t337 * t3745;
     let t3761 = t339 * t3745;
     let t3765 = t341 * t3745;
-    let t3771 = -F::new(0.64e0) * t3745 - F::new(0.8704e0) * t3747 - F::new(0.8704e0) * t3749 - F::cast_from(0.9214113627294e1_f64) * t1129 * t1020 - F::cast_from(0.4607056813647e1_f64) * t3753 + F::cast_from(0.367387230261e2_f64) * t1131 * t1020 + F::cast_from(0.122462410087e2_f64) * t3757 - F::cast_from(0.3831420472412e2_f64) * t1133 * t1020 - F::cast_from(0.957855118103e1_f64) * t3761 + F::cast_from(0.1550653405116e2_f64) * t1135 * t1020 + F::cast_from(0.3101306810232e1_f64) * t3765 - F::cast_from(0.2177652951264e1_f64) * t1137 * t1020 - F::cast_from(0.362942158544e0_f64) * t343 * t3745;
+    let t3771 = -F::cast_from(0.64e0_f64) * t3745 - F::cast_from(0.8704e0_f64) * t3747 - F::cast_from(0.8704e0_f64) * t3749 - F::cast_from(0.9214113627294e1_f64) * t1129 * t1020 - F::cast_from(0.4607056813647e1_f64) * t3753 + F::cast_from(0.367387230261e2_f64) * t1131 * t1020 + F::cast_from(0.122462410087e2_f64) * t3757 - F::cast_from(0.3831420472412e2_f64) * t1133 * t1020 - F::cast_from(0.957855118103e1_f64) * t3761 + F::cast_from(0.1550653405116e2_f64) * t1135 * t1020 + F::cast_from(0.3101306810232e1_f64) * t3765 - F::cast_from(0.2177652951264e1_f64) * t1137 * t1020 - F::cast_from(0.362942158544e0_f64) * t343 * t3745;
     (t3749, t3753, t3757, t3761, t3765, t3771)
 }

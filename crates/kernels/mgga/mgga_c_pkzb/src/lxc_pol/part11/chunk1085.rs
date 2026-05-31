@@ -10,16 +10,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk1085<F: Float>(t2316: F, t2319: F, t2294: F, t18439: F, t18442: F, t2238: F, t338: F, t2241: F, t6198: F, t828: F, t2195: F, t2411: F, t54: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t18508 = t2316 * t2316;
-    let t18509 = F::new(1.0) / t18508;
+    let t18509 = F::cast_from(1.0_f64) / t18508;
     let t18512 = t2319 * t2319;
-    let t18513 = F::new(1.0) / t18512;
-    let t18520 = F::new(1.0) / t2316 / t2294;
+    let t18513 = F::cast_from(1.0_f64) / t18512;
+    let t18520 = F::cast_from(1.0_f64) / t2316 / t2294;
     let t18554 = F::cast_from(0.31003950617283950618e1_f64) * t18439;
     let t18555 = F::cast_from(0.13388493827160493828e1_f64) * t18442;
     let t18587 = t2238 * t2238;
     let t18589 = t338 / t18587;
     let t18591 = t2241 * t2241;
-    let t18592 = F::new(1.0) / t18591;
+    let t18592 = F::cast_from(1.0_f64) / t18591;
     let t18596 = F::cast_from(0.96141975308641975307e-1_f64) * t18439;
     let t18612 = t828 * t6198;
     let t18617 = t338 / t2238 / t2195;

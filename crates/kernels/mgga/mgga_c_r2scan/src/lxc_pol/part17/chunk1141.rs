@@ -12,11 +12,11 @@ pub fn mgga_c_r2scan_lxc_pol_part17_v4rho3sigma_7_chunk1141<F: Float>(t40260: F,
     let t41776 = F::cast_from(0.27944763721877274748e0_f64) * t40260;
     let t41791 = t5086 * t3718;
     let t41816 = t11002 * t1115 * t2847;
-    let t41859 = F::new(8.0) / F::new(3.0) * t40781;
-    let t41867 = F::new(8.0) / F::new(3.0) * t40797;
-    let t41870 = F::new(8.0) / F::new(3.0) * t40804;
-    let t41871 = F::new(8.0) / F::new(3.0) * t40806;
-    let t41877 = F::new(8.0) * t40821;
-    let t41885 = F::new(4.0) / F::new(3.0) * t40840;
+    let t41859 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t40781;
+    let t41867 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t40797;
+    let t41870 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t40804;
+    let t41871 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t40806;
+    let t41877 = F::cast_from(8.0_f64) * t40821;
+    let t41885 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t40840;
     (t41776, t41791, t41816, t41859, t41867, t41870, t41871, t41877, t41885)
 }

@@ -10,9 +10,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk17<F: Float>(t36: F, zeta_threshold: F) -> (F, F, F) {
     let cbrt2 = F::cast_from(M_CBRT2);
-    let t34 = F::new(1.0) <= zeta_threshold;
-    let t37 = piecewise3::<F>(t34, t36, F::new(1.0));
+    let t34 = F::cast_from(1.0_f64) <= zeta_threshold;
+    let t37 = piecewise3::<F>(t34, t36, F::cast_from(1.0_f64));
     let t40 = cbrt2;
-    let t43 = F::new(1.0) / (F::new(2.0) * t40 - F::new(2.0));
+    let t43 = F::cast_from(1.0_f64) / (F::cast_from(2.0_f64) * t40 - F::cast_from(2.0_f64));
     (t37, t40, t43)
 }

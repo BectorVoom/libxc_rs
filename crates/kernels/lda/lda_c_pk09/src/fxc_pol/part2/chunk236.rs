@@ -14,8 +14,8 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk236<F: Float>(t721: F, t957: F, t6
     let t967 = F::cast_from(7.919542066025344_f64) * t616;
     let t971 = t966 + t967 + F::cast_from(11.879313099038017_f64) * t626 + F::cast_from(11.879313099038017_f64) * t636 - F::cast_from(11.879313099038017_f64) * t653;
     let t972 = t82 * t82;
-    let t973 = t972 + F::new(1.0);
-    let t974 = F::new(1.0) / t973;
+    let t973 = t972 + F::cast_from(1.0_f64);
+    let t974 = F::cast_from(1.0_f64) / t973;
     let t975 = t971 * t974;
     (t959, t966, t967, t971, t973, t974, t975)
 }

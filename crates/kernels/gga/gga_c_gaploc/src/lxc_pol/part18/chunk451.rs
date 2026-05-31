@@ -13,7 +13,7 @@ pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk451<F: Float>(t535: F, t8
     let t2269 = t535 * t876;
     let t2272 = t130 * t455;
     let t2274 = t2272 * t145 * t459;
-    let t2276 = F::new(1.0) / t1234;
+    let t2276 = F::cast_from(1.0_f64) / t1234;
     let t2277 = t1232 * t2276;
     let t2278 = t2277 * t1242;
     let t2280 = t1247 * t1232;

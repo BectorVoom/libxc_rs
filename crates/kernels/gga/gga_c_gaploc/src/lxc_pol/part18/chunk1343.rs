@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part18_v4rho2sigma2_1_chunk1343<F: Float>(t19933: F, t8054: F, t2592: F, t8854: F, t10283: F, t1651: F, t2969: F, t7817: F, t10800: F, t2208: F, t32102: F, t32783: F, t32836: F, t32873: F, t32919: F, t32947: F, t32980: F, t33025: F, t33061: F, t33102: F, t33146: F, t33165: F, t33200: F, t33241: F, t33275: F, t33322: F, t33369: F, t33413: F, t33444: F, t33487: F, t33540: F, t33582: F, t33620: F, t33663: F, t33696: F, t33729: F, t33752: F, t33777: F, t33815: F, t33849: F, t33887: F, t33902: F, t33944: F, t33952: F, t33955: F, t33958: F, t33961: F, t33963: F, t33966: F, t33968: F, t33970: F, t33973: F, t33974: F, t33977: F, t748: F) -> (F, F, F) {
-    let t33979 = F::new(6.0) * t19933 * t8054;
+    let t33979 = F::cast_from(6.0_f64) * t19933 * t8054;
     let t33980 = t2592 * t8854;
     let t33981 = t10283 * t1651;
     let t33982 = t2969 * t7817;

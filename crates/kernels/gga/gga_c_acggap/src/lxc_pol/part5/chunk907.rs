@@ -14,6 +14,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk907<F: Float>(t3111: F, t3121: F
     let t13706 = t13703 * t1072 * t922 * t3126;
     let t13714 = t3124 * t1072 * t839 * t3126;
     let t13716 = t130 * t972;
-    let t13726 = t13716 * t136 / t14 / t1 / t3 / t195 * t721 / F::new(48.0);
+    let t13726 = t13716 * t136 / t14 / t1 / t3 / t195 * t721 / F::cast_from(48.0_f64);
     (t13701, t13703, t13706, t13714, t13726)
 }

@@ -16,6 +16,6 @@ pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk361<F: Float>(t1399: F, t
     let t1477 = -F::cast_from(0.42198333333333333333e0_f64) * t1393 + F::cast_from(0.84396666666666666666e0_f64) * t1396 + t1473 + t1474 + t1475 + t1476;
     let t1478 = t1477 * t401;
     let t1479 = t384 * t1478;
-    let t1480 = F::new(1.0) * t1479;
+    let t1480 = F::cast_from(1.0_f64) * t1479;
     (t1473, t1474, t1475, t1476, t1477, t1478, t1480)
 }

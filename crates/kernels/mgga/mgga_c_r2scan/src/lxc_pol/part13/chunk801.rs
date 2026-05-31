@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk801<F: Float>(t44: F, t2452: F, t406: F, t2267: F, t2625: F, t2858: F, t4904: F, t889: F, t1212: F, t35: F, t1216: F, t472: F, t1213: F, t1219: F, t2509: F, t2512: F, t40: F, t6980: F, zeta_threshold: F) -> (F, F, F) {
     let t45 = t44 <= zeta_threshold;
     let t7054 = t406 * t2452;
-    let t7055 = F::new(8.0) * t7054;
+    let t7055 = F::cast_from(8.0_f64) * t7054;
     let t7057 = t2858 * t2267 * t2625;
-    let t7058 = F::new(12.0) * t7057;
+    let t7058 = F::cast_from(12.0_f64) * t7057;
     let t7059 = t4904 * t889;
     let t7062 = t1212 * t35;
     let t7067 = t472 * t1216;
-    let t7072 = piecewise3::<F>(t45, F::new(0.0), F::new(8.0) / F::new(27.0) * t7059 * t1213 - F::new(8.0) / F::new(9.0) * t7062 * t6980 - F::new(2.0) / F::new(9.0) * t2509 * t1219 + F::new(4.0) / F::new(3.0) * t7067 - F::new(4.0) * t2512 * t40);
+    let t7072 = piecewise3::<F>(t45, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t7059 * t1213 - F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t7062 * t6980 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t2509 * t1219 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t7067 - F::cast_from(4.0_f64) * t2512 * t40);
     (t7055, t7058, t7072)
 }

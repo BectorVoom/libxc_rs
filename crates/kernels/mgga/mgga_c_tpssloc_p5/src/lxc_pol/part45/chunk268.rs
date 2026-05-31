@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk268<F: Float>(t1215: F,
     let t1216 = t1215 * t475;
     let t1218 = t248 * t1214 * t1216;
     let t1222 = t374 * t122 * t486;
-    let t1224 = t485 * t1222 / F::new(4608.0);
+    let t1224 = t485 * t1222 / F::cast_from(4608.0_f64);
     let t1225 = t483 * t372;
     let t1226 = t479 * t1225;
     let t1227 = t471 * t1226;

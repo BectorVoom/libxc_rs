@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk935<F: Float>(t133: F, t8199: F, t2911: F, t2912: F, t8152: F, t8177: F, t8181: F, t8182: F, t8186: F, t8193: F, t8198: F, t8231: F, t8232: F, t8238: F, t8240: F, t8244: F, t8249: F) -> F {
     let t8252 = t133 * t8199;
-    let t8254 = t8177 - t8181 - t8182 - F::new(0.2069106e2) * t2911 * t8231 * t8232 - t8186 - F::new(0.344851e1) * t8238 + F::new(0.1034553e2) * t2911 * t2912 * t8240 + F::new(0.5172765e1) * t2911 * t2912 * t8244 - t8193 - t8198 + t8249 - F::new(0.1724255e1) * t133 * t8152 - F::cast_from(0.76633555555555555556e0_f64) * t8252;
+    let t8254 = t8177 - t8181 - t8182 - F::cast_from(0.2069106e2_f64) * t2911 * t8231 * t8232 - t8186 - F::cast_from(0.344851e1_f64) * t8238 + F::cast_from(0.1034553e2_f64) * t2911 * t2912 * t8240 + F::cast_from(0.5172765e1_f64) * t2911 * t2912 * t8244 - t8193 - t8198 + t8249 - F::cast_from(0.1724255e1_f64) * t133 * t8152 - F::cast_from(0.76633555555555555556e0_f64) * t8252;
     t8254
 }

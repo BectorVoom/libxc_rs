@@ -15,7 +15,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk552<F: Float>(t3258: F, t3
     let t3763 = t3762 * t343;
     let t3764 = t1123 * t3763;
     let t3765 = t2255 * t3764;
-    let t3769 = t3123 * t3134 / F::new(48.0);
+    let t3769 = t3123 * t3134 / F::cast_from(48.0_f64);
     let t3770 = t1220 + t1328 - t1330 + t1335 + t1338 + t1450 - t1278 + t1288 + t1296 + t1440 - t3341 + t3362 - t3702;
     (t3759, t3763, t3765, t3769, t3770)
 }

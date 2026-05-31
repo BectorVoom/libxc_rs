@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk759<F: Float>(t2111: F, t4051: F, t2132: F, t173: F, t178: F, t180: F, t181: F, t2124: F, t4046: F, t747: F, t751: F, t1270: F, t1282: F, t172: F, t184: F, t2116: F, t742: F) -> (F, F, F, F) {
     let t4052 = t2111 * t4051;
     let t4068 = t2132 * t4051;
-    let t4079 = -F::new(2.0) * t2124 * t4051 * t180 + t747 * t4046 * t180 / F::new(2.0) + t4068 * t180 / F::new(4.0) - F::new(4.0) * t4051 * t181 - t178 * t4051 * t180 - F::new(4.0) * t751 * t4046 - t173 * t4046 * t180;
-    let t4082 = -t4052 * t180 / F::new(2.0) + F::new(2.0) * t2116 * t4051 - t742 * t4046 + F::new(2.0) * t4046 * t184 + F::new(4.0) * t1270 * t1282 + F::new(2.0) * t172 * t4079;
+    let t4079 = -F::cast_from(2.0_f64) * t2124 * t4051 * t180 + t747 * t4046 * t180 / F::cast_from(2.0_f64) + t4068 * t180 / F::cast_from(4.0_f64) - F::cast_from(4.0_f64) * t4051 * t181 - t178 * t4051 * t180 - F::cast_from(4.0_f64) * t751 * t4046 - t173 * t4046 * t180;
+    let t4082 = -t4052 * t180 / F::cast_from(2.0_f64) + F::cast_from(2.0_f64) * t2116 * t4051 - t742 * t4046 + F::cast_from(2.0_f64) * t4046 * t184 + F::cast_from(4.0_f64) * t1270 * t1282 + F::cast_from(2.0_f64) * t172 * t4079;
     (t4052, t4068, t4079, t4082)
 }

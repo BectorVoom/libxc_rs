@@ -16,6 +16,6 @@ pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk492<F: Float>(t2666: F, t2771: F,
     let t2781 = t2680 * t2;
     let t2783 = t192 * t2781 * t2682;
     let t2787 = t192 * t852 * t2739;
-    let t2789 = t2761 + F::new(2.0) / F::new(9.0) * t2762 + F::new(2.0) / F::new(3.0) * t2764 - F::new(2.0) / F::new(9.0) * t462 * t2767 + F::new(2.0) / F::new(3.0) * t462 * t2772 + F::new(2.0) / F::new(3.0) * t462 * t2775 - t462 * t2778 / F::new(3.0) + F::new(2.0) * t92 * t2783 - t92 * t2787;
+    let t2789 = t2761 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t2762 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t2764 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t462 * t2767 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t2772 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t2775 - t462 * t2778 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) * t92 * t2783 - t92 * t2787;
     (t2772, t2775, t2778, t2781, t2783, t2787, t2789)
 }

@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk1116<F: Float>(t25: F, t1409: F, t32907: F, t33750: F, t40: F, t8678: F, t7754: F, t8690: F, t1873: F, t27921: F, t24972: F, t7769: F, t7423: F, t7467: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F, F, F) {
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
-    let t33755 = piecewise3::<F>(t115, t32907, t8678 * t1409 / F::new(2.0) + t33750 * t40 / F::new(2.0));
+    let t33755 = piecewise3::<F>(t115, t32907, t8678 * t1409 / F::cast_from(2.0_f64) + t33750 * t40 / F::cast_from(2.0_f64));
     let t33758 = t8690 * t7754;
     let t33774 = t27921 * t1873;
     let t33776 = t24972 * t7769;

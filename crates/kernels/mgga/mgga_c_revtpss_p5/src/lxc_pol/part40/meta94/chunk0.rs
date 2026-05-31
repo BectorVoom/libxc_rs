@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part40_v4rho3tau_3_chunk530<F: Float>(t22: F, t2224: F, t584: F, t588: F, t20: F, t27: F, t12: F, t19: F, t592: F, t596: F, t21: F, t25: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t2226 = F::new(12.0) * t2224 * t22;
-    let t2228 = F::new(32.0) * t584 * t588;
-    let t2230 = F::new(20.0) * t20 * t27;
+    let t2226 = F::cast_from(12.0_f64) * t2224 * t22;
+    let t2228 = F::cast_from(32.0_f64) * t584 * t588;
+    let t2230 = F::cast_from(20.0_f64) * t20 * t27;
     let t2231 = t12 * t19;
-    let t2233 = F::new(30.0) * t2231 * t27;
-    let t2235 = F::new(72.0) * t592 * t596;
+    let t2233 = F::cast_from(30.0_f64) * t2231 * t27;
+    let t2235 = F::cast_from(72.0_f64) * t592 * t596;
     let t2236 = t21 * t21;
-    let t2237 = F::new(1.0) / t2236;
-    let t2239 = F::new(42.0) * t25 * t2237;
+    let t2237 = F::cast_from(1.0_f64) / t2236;
+    let t2239 = F::cast_from(42.0_f64) * t25 * t2237;
     (t2226, t2228, t2230, t2231, t2233, t2235, t2236, t2237, t2239)
 }

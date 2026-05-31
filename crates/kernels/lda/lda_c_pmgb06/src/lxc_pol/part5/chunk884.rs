@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk884<F: Float>(t2852: F, t432: F, t132: F, t2851: F, t459: F, t1179: F, t136: F, t154: F, t161: F, t3004: F, t530: F, t3457: F, t496: F) -> (F, F, F, F, F) {
     let t9762 = t432 * t2852;
     let t9765 = t132 * t2851 * t459;
-    let t9770 = F::new(28.0) / F::new(1215.0) * t132 * t1179 * t136 * t154;
+    let t9770 = F::cast_from(28.0_f64) / F::cast_from(1215.0_f64) * t132 * t1179 * t136 * t154;
     let t9890 = t161 * t3004 * t530;
     let t9908 = t496 * t3457;
     (t9762, t9765, t9770, t9890, t9908)

@@ -11,14 +11,14 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk726<F: Float>(t2130: F, t4567: F, t493: F, t1518: F, t812: F, t548: F, t219: F, t573: F, t558: F, t2070: F, t211: F, t1524: F, t835: F) -> (F, F, F, F, F, F, F, F, F) {
     let t4568 = t4567 * t2130;
     let t4569 = t493 * t4568;
-    let t4570 = F::new(4.0) / F::new(9.0) * t4569;
+    let t4570 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4569;
     let t4571 = t1518 * t812;
     let t4572 = t548 * t4571;
-    let t4573 = F::new(8.0) / F::new(135.0) * t4572;
+    let t4573 = F::cast_from(8.0_f64) / F::cast_from(135.0_f64) * t4572;
     let t4574 = t573 * t219;
     let t4575 = t4574 * t558;
     let t4576 = t2070 * t4575;
-    let t4578 = F::new(8.0) / F::new(45.0) * t211 * t4576;
-    let t4580 = F::new(4.0) / F::new(15.0) * t1524 * t835;
+    let t4578 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t211 * t4576;
+    let t4580 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1524 * t835;
     (t4568, t4570, t4571, t4573, t4574, t4575, t4576, t4578, t4580)
 }

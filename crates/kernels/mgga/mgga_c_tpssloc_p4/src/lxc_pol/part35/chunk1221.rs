@@ -9,11 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part35_v4rho3sigma_11_chunk1221<F: Float>(t5: F, t29484: F, t112: F, t2113: F, t5456: F, t1458: F, t27863: F, t28001: F, t28004: F, t28006: F, t28009: F, t28011: F, t28019: F, t5493: F, t7266: F) -> (F, F, F, F) {
-    let t7 = piecewise3::<F>(F::new(0.0) < t5, t5, -t5);
+    let t7 = piecewise3::<F>(F::cast_from(0.0_f64) < t5, t5, -t5);
     let t8 = -t7 <= -F::cast_from(0.999999999999e0_f64);
-    let t29485 = piecewise3::<F>(t8, F::new(0.0), t29484);
+    let t29485 = piecewise3::<F>(t8, F::cast_from(0.0_f64), t29484);
     let t29486 = t29485 * t112;
     let t29493 = t2113 * t5456;
-    let t29497 = F::new(4.0) * t1458 * t27863 + F::new(2.0) * t5493 * t7266 + t28001 + t28004 + t28006 + t28009 + t28011 + t28019 + t29486 + F::new(2.0) * t29493;
+    let t29497 = F::cast_from(4.0_f64) * t1458 * t27863 + F::cast_from(2.0_f64) * t5493 * t7266 + t28001 + t28004 + t28006 + t28009 + t28011 + t28019 + t29486 + F::cast_from(2.0_f64) * t29493;
     (t29485, t29486, t29493, t29497)
 }

@@ -19,6 +19,6 @@ pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk890<F: Float>(t1003: F, t19
     let t19284 = t991 * t19283;
     let t19288 = t2880 * t6529;
     let t19289 = t991 * t19288;
-    let t19292 = -t984 * t6535 / F::new(18.0) + t19256 / F::new(144.0) + t991 * t19260 / F::new(48.0) + t991 * t19264 / F::new(288.0) - t991 * t19269 / F::new(16.0) + t991 * t19273 / F::new(24.0) - t2872 * t6518 / F::new(81.0) + t19279 / F::new(648.0) + t2872 * t6526 / F::new(54.0) - t19284 / F::new(432.0) - t2872 * t6530 / F::new(108.0) + t19289 / F::new(864.0) + t9970 / F::new(162.0);
+    let t19292 = -t984 * t6535 / F::cast_from(18.0_f64) + t19256 / F::cast_from(144.0_f64) + t991 * t19260 / F::cast_from(48.0_f64) + t991 * t19264 / F::cast_from(288.0_f64) - t991 * t19269 / F::cast_from(16.0_f64) + t991 * t19273 / F::cast_from(24.0_f64) - t2872 * t6518 / F::cast_from(81.0_f64) + t19279 / F::cast_from(648.0_f64) + t2872 * t6526 / F::cast_from(54.0_f64) - t19284 / F::cast_from(432.0_f64) - t2872 * t6530 / F::cast_from(108.0_f64) + t19289 / F::cast_from(864.0_f64) + t9970 / F::cast_from(162.0_f64);
     t19292
 }

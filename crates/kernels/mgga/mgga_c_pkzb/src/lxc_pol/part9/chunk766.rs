@@ -12,7 +12,7 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk766<F: Float>(t5290: F, t5406: F,
     let t5407 = t5290 + t5406;
     let t5408 = t5407 * t158;
     let t5417 = t625 * t625;
-    let t5418 = F::new(1.0) / t5417;
+    let t5418 = F::cast_from(1.0_f64) / t5417;
     let t5419 = t1791 * t633;
     let t5420 = t5418 * t5419;
     let t5423 = t1790 * t633;

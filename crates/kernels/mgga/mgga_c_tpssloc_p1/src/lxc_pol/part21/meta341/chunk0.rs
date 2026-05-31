@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part21_v4rho4_2_chunk1733<F: Float>(t40: F, t1409:
     let t146 = t40 <= zeta_threshold;
     let t12862 = t9427 * t1409;
     let t12865 = t2433 * t3966;
-    let t12873 = piecewise3::<F>(t146, F::new(0.0), -F::new(8.0) / F::new(27.0) * t12862 * t2244 + F::new(8.0) / F::new(9.0) * t12865 * t607 + F::new(4.0) / F::new(9.0) * t4080 * t2250 + F::new(4.0) / F::new(3.0) * t73 * t12606);
+    let t12873 = piecewise3::<F>(t146, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t12862 * t2244 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t12865 * t607 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4080 * t2250 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t73 * t12606);
     let t12874 = t9438 * t1409;
     let t12877 = t2440 * t3966;
     (t12862, t12873, t12874, t12877)

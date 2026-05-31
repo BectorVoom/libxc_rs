@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk498<F: Float>(t448: F, t995: F, t459: F, t2490: F, t2494: F, t2500: F, t2504: F, t34: F, t38: F, t445: F, t454: F, t974: F, t991: F) -> (F, F, F) {
     let t2510 = t995 * t448;
     let t2513 = t995 * t459;
-    let t2528 = -F::new(25.0) / F::new(9.0) * t454 * t974 + F::new(10.0) / F::new(9.0) * t34 * t2490 + F::new(5.0) / F::new(3.0) * t34 * t2494 - F::new(25.0) / F::new(9.0) * t991 * t445 + F::new(10.0) / F::new(9.0) * t38 * t2500 - F::new(5.0) / F::new(3.0) * t38 * t2504;
+    let t2528 = -F::cast_from(25.0_f64) / F::cast_from(9.0_f64) * t454 * t974 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t34 * t2490 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t34 * t2494 - F::cast_from(25.0_f64) / F::cast_from(9.0_f64) * t991 * t445 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t38 * t2500 - F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t38 * t2504;
     (t2510, t2513, t2528)
 }

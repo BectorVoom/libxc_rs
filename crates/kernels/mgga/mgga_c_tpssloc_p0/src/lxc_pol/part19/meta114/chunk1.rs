@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk623<F: Float>(t1932: F, t360:
     let t3201 = t1932 * t360;
     let t3202 = t3187 * t3201;
     let t3204 = t383 * t3166;
-    let t3206 = F::new(2.0) * t1003 * t1063 + F::new(2.0) * t1058 * t3193 + t1058 * t3197 + F::new(2.0) * t1061 * t3180 + t3076 * t384 + F::new(2.0) * t3186 * t3189 - t3200 * t3202 + t3204 * t353;
+    let t3206 = F::cast_from(2.0_f64) * t1003 * t1063 + F::cast_from(2.0_f64) * t1058 * t3193 + t1058 * t3197 + F::cast_from(2.0_f64) * t1061 * t3180 + t3076 * t384 + F::cast_from(2.0_f64) * t3186 * t3189 - t3200 * t3202 + t3204 * t353;
     (t3201, t3202, t3204, t3206)
 }

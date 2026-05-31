@@ -15,7 +15,7 @@ pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk1451<F: Float>(t41491: F, t98
     let t41499 = t275 / t41497;
     let t41500 = t2875 * t2875;
     let t41501 = t2925 * t2925;
-    let t41502 = F::new(1.0) / t41501;
+    let t41502 = F::cast_from(1.0_f64) / t41501;
     let t41505 = F::cast_from(0.24955700379505800916e5_f64) * t41499 * t41500 * t41502;
     let t41509 = F::cast_from(0.61524113149298439947e4_f64) * t981 * t11506 * t3006 * t15542;
     (t41493, t41496, t41500, t41505, t41509)

@@ -10,8 +10,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk356<F: Float>(t43: F, t1402: F, t1403: F, t1407: F, t47: F, t93: F, t422: F, zeta_threshold: F) -> (F, F, F) {
     let t44 = t43 <= zeta_threshold;
-    let t1411 = piecewise3::<F>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1402 * t1403 + F::new(4.0) / F::new(3.0) * t47 * t1407);
-    let t1412 = F::new(1.0) / t93;
+    let t1411 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1402 * t1403 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t47 * t1407);
+    let t1412 = F::cast_from(1.0_f64) / t93;
     let t1413 = t422 * t422;
     (t1411, t1412, t1413)
 }

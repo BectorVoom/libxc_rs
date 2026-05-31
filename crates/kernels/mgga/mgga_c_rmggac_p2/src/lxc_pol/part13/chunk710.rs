@@ -12,7 +12,7 @@ pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk710<F: Float>(t8694: F, t
     let t10358 = F::cast_from(0.11918087970123395032e-3_f64) * t8694;
     let t10359 = F::cast_from(0.11918087970123395032e-3_f64) * t8696;
     let t10360 = F::cast_from(0.39726959900411316772e-4_f64) * t8698;
-    let t10376 = F::new(2.0) * t9499;
+    let t10376 = F::cast_from(2.0_f64) * t9499;
     let t10384 = F::cast_from(0.39726959900411316772e-4_f64) * t9040;
     let t10385 = F::cast_from(0.47896966807455234256e0_f64) * t9060;
     let t10386 = F::cast_from(0.3193131120497015617e0_f64) * t9062;
@@ -20,6 +20,6 @@ pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk710<F: Float>(t8694: F, t
     let t10496 = F::cast_from(0.15965655602485078085e0_f64) * t9079;
     let t10503 = F::cast_from(0.1440846329149835838e-2_f64) * t9083;
     let t10504 = F::cast_from(0.39726959900411316772e-4_f64) * t9091;
-    let t10508 = F::new(2.0) * t9650;
+    let t10508 = F::cast_from(2.0_f64) * t9650;
     (t10358, t10359, t10360, t10376, t10384, t10385, t10386, t10487, t10496, t10503, t10504, t10508)
 }

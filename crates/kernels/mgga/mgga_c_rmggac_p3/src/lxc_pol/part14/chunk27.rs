@@ -12,7 +12,7 @@ pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk27<F: Float>(t60: F, t62:
     let t61 = t60 <= zeta_threshold;
     let t63 = t62 * t60;
     let t64 = piecewise3::<F>(t61, t56, t63);
-    let t65 = t59 + t64 - F::new(2.0);
-    let t68 = F::new(1.0) / t49 / F::new(2.0);
+    let t65 = t59 + t64 - F::cast_from(2.0_f64);
+    let t68 = F::cast_from(1.0_f64) / t49 / F::cast_from(2.0_f64);
     (t63, t65, t68)
 }

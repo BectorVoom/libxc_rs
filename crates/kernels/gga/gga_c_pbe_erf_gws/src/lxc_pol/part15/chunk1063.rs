@@ -15,6 +15,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk1063<F: Float>(t2344:
     let t9671 = t9665 * t8886;
     let t9675 = t3235 * t3219 * t6360;
     let t9681 = t3235 * t9375 * t875;
-    let t9684 = t2343 * t9666 / F::new(192.0) + F::new(119.0) / F::new(6912.0) * t9669 + t9181 - t3247 * t9671 / F::new(64.0) + t9183 + t9187 + t3247 * t9675 / F::new(512.0) - t9190 - t9192 - F::new(7.0) / F::new(2304.0) * t6714 + F::new(119.0) / F::new(3456.0) * t6718 - t9196 - t2343 * t9681 / F::new(768.0);
+    let t9684 = t2343 * t9666 / F::cast_from(192.0_f64) + F::cast_from(119.0_f64) / F::cast_from(6912.0_f64) * t9669 + t9181 - t3247 * t9671 / F::cast_from(64.0_f64) + t9183 + t9187 + t3247 * t9675 / F::cast_from(512.0_f64) - t9190 - t9192 - F::cast_from(7.0_f64) / F::cast_from(2304.0_f64) * t6714 + F::cast_from(119.0_f64) / F::cast_from(3456.0_f64) * t6718 - t9196 - t2343 * t9681 / F::cast_from(768.0_f64);
     (t9666, t9671, t9675, t9681, t9684)
 }

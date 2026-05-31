@@ -13,7 +13,7 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk896<F: Float>(t299: F, t36
     let t300 = F::cast_from(10000000.0_f64) <= t299;
     let t36276 = t36047 + t36275;
     let t36277 = t36276 * t332;
-    let t36285 = piecewise3::<F>(t300, F::new(0.0), t5 * t36277 * t113 / F::new(4.0) + t5 * t7692 * t992 / F::new(4.0) + t34341 * t1275 / F::new(4.0));
+    let t36285 = piecewise3::<F>(t300, F::cast_from(0.0_f64), t5 * t36277 * t113 / F::cast_from(4.0_f64) + t5 * t7692 * t992 / F::cast_from(4.0_f64) + t34341 * t1275 / F::cast_from(4.0_f64));
     let t36452 = t7242 * t2;
     let t36791 = t7469 * t14;
     (t36276, t36277, t36285, t36452, t36791)

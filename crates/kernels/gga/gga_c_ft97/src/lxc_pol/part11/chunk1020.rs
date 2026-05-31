@@ -14,6 +14,6 @@ pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1020<F: Float>(t41435: F, t446: F
     let t41439 = t1882 * t9772;
     let t41441 = t10039 * t684;
     let t41443 = t446 * t9770 * t41441;
-    let t41446 = F::new(1.0) / t2346 / t2359;
+    let t41446 = F::cast_from(1.0_f64) / t2346 / t2359;
     (t41437, t41439, t41441, t41443, t41446)
 }

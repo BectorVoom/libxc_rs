@@ -11,13 +11,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk815<F: Float>(t6554: F, t822: F, t1966: F, t439: F, t4837: F, t4845: F, t5045: F, t5047: F, t183: F, t7364: F, t5049: F, t5052: F) -> (F, F, F, F, F, F, F, F, F, F) {
     let t7695 = t6554 * t822;
     let t7696 = t1966 * t7695;
-    let t7698 = t439 * t7696 / F::new(5.0);
-    let t7700 = t4837 / F::new(45.0);
-    let t7701 = t4845 / F::new(45.0);
-    let t7702 = t5045 / F::new(45.0);
-    let t7703 = t5047 / F::new(45.0);
+    let t7698 = t439 * t7696 / F::cast_from(5.0_f64);
+    let t7700 = t4837 / F::cast_from(45.0_f64);
+    let t7701 = t4845 / F::cast_from(45.0_f64);
+    let t7702 = t5045 / F::cast_from(45.0_f64);
+    let t7703 = t5047 / F::cast_from(45.0_f64);
     let t7704 = t7364 * t183;
-    let t7707 = t5049 / F::new(45.0);
-    let t7708 = t5052 / F::new(45.0);
+    let t7707 = t5049 / F::cast_from(45.0_f64);
+    let t7708 = t5052 / F::cast_from(45.0_f64);
     (t7695, t7696, t7698, t7700, t7701, t7702, t7703, t7704, t7707, t7708)
 }

@@ -11,15 +11,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk637<F: Float>(t3443: F, t598: F, t186: F, t185: F, t2790: F, t997: F, t198: F, t3345: F, t561: F, t1017: F, t1803: F, t225: F, t3379: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t3444 = t598 * t3443;
     let t3445 = t186 * t3444;
-    let t3447 = F::new(2.0) / F::new(15.0) * t185 * t3445;
-    let t3449 = F::new(8.0) / F::new(15.0) * t2790 * t997;
+    let t3447 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t185 * t3445;
+    let t3449 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t2790 * t997;
     let t3450 = t198 * t3345;
     let t3451 = t186 * t3450;
-    let t3453 = F::new(4.0) / F::new(15.0) * t561 * t3451;
+    let t3453 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t561 * t3451;
     let t3454 = t1017 * t1017;
     let t3455 = t1803 * t3454;
     let t3456 = t186 * t3455;
-    let t3458 = F::new(4.0) / F::new(15.0) * t185 * t3456;
+    let t3458 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t185 * t3456;
     let t3459 = t3379 * t225;
     (t3444, t3445, t3447, t3449, t3450, t3451, t3453, t3454, t3455, t3456, t3458, t3459)
 }

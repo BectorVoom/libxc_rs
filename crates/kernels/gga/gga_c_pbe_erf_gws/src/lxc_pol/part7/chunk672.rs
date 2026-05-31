@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk672<F: Float>(t203: F, t5371: F, t184: F, t221: F, t1750: F, t663: F, t172: F, t1773: F, t564: F, t5324: F, t5326: F, t5328: F, t5330: F, t5332: F, t5337: F, t5339: F, t5341: F, t5345: F, t5348: F, t5350: F, t5354: F, t5356: F, t5359: F) -> (F, F, F, F, F, F, F, F) {
     let t5372 = t203 * t5371;
     let t5373 = t5372 * t184;
-    let t5375 = F::new(2.0) / F::new(15.0) * t5373 * t221;
-    let t5377 = F::new(2.0) / F::new(5.0) * t1750 * t663;
+    let t5375 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t5373 * t221;
+    let t5377 = F::cast_from(2.0_f64) / F::cast_from(5.0_f64) * t1750 * t663;
     let t5378 = t172 * t1773;
     let t5379 = t5378 * t184;
-    let t5381 = F::new(4.0) / F::new(5.0) * t5379 * t564;
+    let t5381 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t5379 * t564;
     let t5382 = -t5324 - t5326 - t5328 + t5330 + t5332 + t5337 + t5339 + t5341 + t5345 + t5348 + t5350 + t5354 - t5356 + t5359 + t5375 - t5377 + t5381;
     (t5372, t5373, t5375, t5377, t5378, t5379, t5381, t5382)
 }

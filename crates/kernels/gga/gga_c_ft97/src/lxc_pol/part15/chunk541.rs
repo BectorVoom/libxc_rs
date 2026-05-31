@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk541<F: Float>(t5468: F, t898: F, t900: F, t2265: F, t2912: F, t4332: F, t4350: F, t5442: F, t5446: F, t5450: F, t5454: F, t5459: F, t631: F) -> (F, F) {
     let t5470 = t898 * t900 * t5468;
-    let t5473 = -t2912 - F::new(2.0) / F::new(9.0) * t4332 - F::new(2.0) / F::new(3.0) * t4350 + t631 * t5442 / F::new(18.0) - F::new(2.0) / F::new(3.0) * t2265 * t5446 - t631 * t5450 / F::new(3.0) + t631 * t5454 / F::new(6.0) - F::new(3.0) / F::new(2.0) * t631 * t5459 + t631 * t5470 / F::new(2.0);
+    let t5473 = -t2912 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t4332 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t4350 + t631 * t5442 / F::cast_from(18.0_f64) - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t2265 * t5446 - t631 * t5450 / F::cast_from(3.0_f64) + t631 * t5454 / F::cast_from(6.0_f64) - F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t631 * t5459 + t631 * t5470 / F::cast_from(2.0_f64);
     (t5470, t5473)
 }

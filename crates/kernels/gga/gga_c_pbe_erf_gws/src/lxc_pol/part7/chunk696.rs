@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk696<F: Float>(t168: F, t558
     let t5631 = t168 * t5589;
     let t5633 = F::cast_from(0.19513566535229733338e0_f64) * t5631 * t286;
     let t5636 = t4562 * t159 * t285;
-    let t5645 = F::new(4.0) / F::new(27.0) * t4353 - t4356 / F::new(3.0) + t4361 / F::new(3.0) + F::new(4.0) / F::new(27.0) * t4368 - t4371 / F::new(3.0) + t4374 / F::new(3.0);
+    let t5645 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t4353 - t4356 / F::cast_from(3.0_f64) + t4361 / F::cast_from(3.0_f64) + F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t4368 - t4371 / F::cast_from(3.0_f64) + t4374 / F::cast_from(3.0_f64);
     (t5631, t5633, t5636, t5645)
 }

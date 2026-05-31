@@ -10,12 +10,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1153<F: Float>(t15852: F, t739: F, t1326: F, t519: F, t34: F, t6330: F, t4829: F, t1446: F, t7698: F, t15867: F, t1991: F, t21159: F, t21161: F, t21165: F, t21169: F, t21173: F, t21175: F, t21179: F, t21183: F, t21185: F) -> (F, F, F, F, F, F, F, F) {
     let t21186 = t15852 * t739;
-    let t21189 = F::new(8.0) / F::new(15.0) * t519 * t1326 * t21186;
+    let t21189 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t519 * t1326 * t21186;
     let t21190 = t6330 * t34;
-    let t21193 = F::new(16.0) / F::new(15.0) * t519 * t4829 * t21190;
-    let t21195 = F::new(4.0) / F::new(9.0) * t1446 * t7698;
+    let t21193 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t519 * t4829 * t21190;
+    let t21195 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1446 * t7698;
     let t21196 = t15867 * t739;
-    let t21199 = F::new(4.0) / F::new(9.0) * t519 * t1991 * t21196;
+    let t21199 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t519 * t1991 * t21196;
     let t21200 = -t21159 - t21161 - t21165 - t21169 + t21173 - t21175 - t21179 - t21183 - t21185 - t21189 - t21193 + t21195 + t21199;
     (t21186, t21189, t21190, t21193, t21195, t21196, t21199, t21200)
 }

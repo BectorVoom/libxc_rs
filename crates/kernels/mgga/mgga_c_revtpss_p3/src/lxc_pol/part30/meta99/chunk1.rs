@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part30_v4rho3sigma_5_chunk628<F: Float>(t2251: F, 
     let t2283 = t2282 * t2251;
     let t2286 = t60 * t2258;
     let t2289 = t64 * t239;
-    let t2290 = F::new(88.0) / F::new(9.0) * t2289;
-    let t2291 = F::new(88.0) / F::new(9.0) * t2270 * t49 - F::new(40.0) / F::new(9.0) * t614 * t617 + F::new(5.0) / F::new(18.0) * t44 * t2276 + F::new(5.0) / F::new(6.0) * t44 * t2279 + F::new(5.0) / F::new(18.0) * t56 * t2283 - F::new(5.0) / F::new(6.0) * t56 * t2286 - t2290;
+    let t2290 = F::cast_from(88.0_f64) / F::cast_from(9.0_f64) * t2289;
+    let t2291 = F::cast_from(88.0_f64) / F::cast_from(9.0_f64) * t2270 * t49 - F::cast_from(40.0_f64) / F::cast_from(9.0_f64) * t614 * t617 + F::cast_from(5.0_f64) / F::cast_from(18.0_f64) * t44 * t2276 + F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t44 * t2279 + F::cast_from(5.0_f64) / F::cast_from(18.0_f64) * t56 * t2283 - F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t56 * t2286 - t2290;
     (t2283, t2286, t2289, t2290, t2291)
 }

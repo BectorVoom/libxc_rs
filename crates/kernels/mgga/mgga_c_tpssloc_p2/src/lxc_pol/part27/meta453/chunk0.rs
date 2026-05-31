@@ -14,7 +14,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1794<F: Float>(t23110: F
     let t23116 = t2613 * t1898;
     let t23117 = t23116 * t249;
     let t23119 = t6609 * t838;
-    let t23120 = F::new(7.0) / F::new(1152.0) * t23119;
+    let t23120 = F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t23119;
     let t23121 = t6597 * t6589;
     (t23113, t23114, t23116, t23117, t23119, t23120, t23121)
 }

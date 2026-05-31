@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk354<F: Float>(t1035: F, t702: F, t1024: F, t779: F, t2513: F, t2515: F, t2520: F, t2522: F, t1020: F, t471: F, t64: F) -> (F, F, F, F) {
     let t2909 = t1035 * t702;
     let t2912 = t779 * t1024;
-    let t2919 = -F::new(21.0) / F::new(128.0) * t2513 + F::new(21.0) / F::new(4096.0) * t2515 - F::new(7.0) / F::new(4096.0) * t2520 + F::new(7.0) / F::new(128.0) * t2522;
-    let t2925 = t2919 * t471 - F::new(4.0) / F::new(3.0) * t1020 * t64 - F::new(7.0) / F::new(128.0) * t2513 + F::new(7.0) / F::new(384.0) * t2522;
+    let t2919 = -F::cast_from(21.0_f64) / F::cast_from(128.0_f64) * t2513 + F::cast_from(21.0_f64) / F::cast_from(4096.0_f64) * t2515 - F::cast_from(7.0_f64) / F::cast_from(4096.0_f64) * t2520 + F::cast_from(7.0_f64) / F::cast_from(128.0_f64) * t2522;
+    let t2925 = t2919 * t471 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t1020 * t64 - F::cast_from(7.0_f64) / F::cast_from(128.0_f64) * t2513 + F::cast_from(7.0_f64) / F::cast_from(384.0_f64) * t2522;
     (t2909, t2912, t2919, t2925)
 }

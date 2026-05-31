@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk198<F: Float>(t33: F, t516: F
     let t34 = t33 <= zeta_threshold;
     let t517 = t516 * t33;
     let t518 = piecewise3::<F>(t34, t153, t517);
-    let t519 = t515 + t518 - F::new(2.0);
+    let t519 = t515 + t518 - F::cast_from(2.0_f64);
     let t520 = t519 * t162;
     (t517, t519, t520)
 }

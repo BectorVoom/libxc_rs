@@ -15,6 +15,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk970<F: Float>(t13335: F, t3
     let t13345 = t3426 * t1306;
     let t13348 = t3432 * t1306;
     let t13351 = t1290 * t3462;
-    let t13358 = -t13321 * t13322 / F::new(6.0) - t13325 * t85 / F::new(12.0) - t4574 * t616 / F::new(12.0) - t13331 * t85 / F::new(12.0) - t13337 * t85 / F::new(12.0) - t13340 * t85 / F::new(12.0) - t4581 * t616 / F::new(12.0) - t13345 * t85 / F::new(6.0) - t13348 * t85 / F::new(6.0) - t13351 * t85 / F::new(6.0) - t4584 * t616 / F::new(6.0) - t3427 * t1314 / F::new(6.0);
+    let t13358 = -t13321 * t13322 / F::cast_from(6.0_f64) - t13325 * t85 / F::cast_from(12.0_f64) - t4574 * t616 / F::cast_from(12.0_f64) - t13331 * t85 / F::cast_from(12.0_f64) - t13337 * t85 / F::cast_from(12.0_f64) - t13340 * t85 / F::cast_from(12.0_f64) - t4581 * t616 / F::cast_from(12.0_f64) - t13345 * t85 / F::cast_from(6.0_f64) - t13348 * t85 / F::cast_from(6.0_f64) - t13351 * t85 / F::cast_from(6.0_f64) - t4584 * t616 / F::cast_from(6.0_f64) - t3427 * t1314 / F::cast_from(6.0_f64);
     (t13336, t13358)
 }

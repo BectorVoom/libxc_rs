@@ -13,7 +13,7 @@ pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk320<F: Float>(t1670: F, t93
     let t1674 = t939 * t1670;
     let t1676 = t945 * t1662;
     let t1677 = t26 * t1676;
-    let t1679 = F::new(0.1898925e1) * t1671 - t937 - F::cast_from(0.29896666666666666667e0_f64) * t1664 + F::new(0.3071625e0) * t1674 - t944 - F::cast_from(0.82156666666666666667e-1_f64) * t1677;
+    let t1679 = F::cast_from(0.1898925e1_f64) * t1671 - t937 - F::cast_from(0.29896666666666666667e0_f64) * t1664 + F::cast_from(0.3071625e0_f64) * t1674 - t944 - F::cast_from(0.82156666666666666667e-1_f64) * t1677;
     let t1680 = t1679 * t950;
     (t1671, t1674, t1676, t1677, t1679, t1680)
 }

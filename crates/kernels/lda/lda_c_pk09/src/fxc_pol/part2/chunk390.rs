@@ -11,11 +11,11 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk390<F: Float>(t514: F, t633: F, t1905: F, t1754: F, t1765: F, t1684: F, t1735: F, t1732: F, t1738: F, t1762: F, t1769: F, t513: F) -> (F, F, F, F, F, F, F, F) {
     let t1906 = t514 * t633;
     let t1907 = t1905 * t1906;
-    let t1910 = F::new(4.0) * t1754;
+    let t1910 = F::cast_from(4.0_f64) * t1754;
     let t1912 = F::cast_from(1.3333333333333333_f64) * t1765;
     let t1914 = F::cast_from(0.821419393556371_f64) * t1684;
     let t1916 = F::cast_from(0.2738064645187903_f64) * t1735;
-    let t1918 = t1910 - F::new(4.0) * t1762 + t1912 + F::new(4.0) * t1769 + t1914 - F::cast_from(0.821419393556371_f64) * t1732 + t1916 + F::cast_from(0.821419393556371_f64) * t1738;
-    let t1919 = F::new(1.0) / t513;
+    let t1918 = t1910 - F::cast_from(4.0_f64) * t1762 + t1912 + F::cast_from(4.0_f64) * t1769 + t1914 - F::cast_from(0.821419393556371_f64) * t1732 + t1916 + F::cast_from(0.821419393556371_f64) * t1738;
+    let t1919 = F::cast_from(1.0_f64) / t513;
     (t1906, t1907, t1910, t1912, t1914, t1916, t1918, t1919)
 }

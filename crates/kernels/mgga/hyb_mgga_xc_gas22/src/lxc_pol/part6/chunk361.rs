@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk361<F: Float>(t201: F, t109: F, t198: F, t212: F, t410: F, t1297: F, t1301: F, t1304: F, t193: F, t202: F, t210: F, tau1: F) -> (F, F, F, F, F, F, F) {
     let t1305 = t201 * t201;
-    let t1306 = F::new(1.0) / t1305;
+    let t1306 = F::cast_from(1.0_f64) / t1305;
     let t1310 = t109 * tau1;
     let t1311 = t198 * t212;
     let t1314 = t410 * tau1;
     let t1315 = t1314 * t198;
-    let t1318 = -F::cast_from(0.10241644597362152e-1_f64) * t193 * t1297 * t202 + F::cast_from(0.39334231522004008709e-4_f64) * t1301 * t1304 * t1306 + F::new(5.0) / F::new(3.0) * t1310 * t1311 + F::new(5.0) / F::new(3.0) * t210 * t1315;
+    let t1318 = -F::cast_from(0.10241644597362152e-1_f64) * t193 * t1297 * t202 + F::cast_from(0.39334231522004008709e-4_f64) * t1301 * t1304 * t1306 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t1310 * t1311 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t210 * t1315;
     (t1305, t1306, t1310, t1311, t1314, t1315, t1318)
 }

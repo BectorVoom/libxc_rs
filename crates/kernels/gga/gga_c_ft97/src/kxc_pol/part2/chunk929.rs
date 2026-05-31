@@ -19,6 +19,6 @@ pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk929<F: Float>(t1273: F, t2961: F, 
     let t14408 = t332 * t505;
     let t14409 = t4380 * t14408;
     let t14412 = t2957 * t992;
-    let t14421 = F::new(4.0) / F::new(9.0) * t8675 * t4354;
+    let t14421 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t8675 * t4354;
     (t14391, t14395, t14403, t14409, t14412, t14421)
 }

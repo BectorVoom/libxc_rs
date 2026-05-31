@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk21<F: Float>(t37: F, zeta_threshold: F) -> F {
     let cbrt2 = F::cast_from(M_CBRT2);
-    let t38 = piecewise3::<F>(F::new(1.0) <= zeta_threshold, t37, F::new(1.0));
+    let t38 = piecewise3::<F>(F::cast_from(1.0_f64) <= zeta_threshold, t37, F::cast_from(1.0_f64));
     let t41 = cbrt2;
     t41
 }

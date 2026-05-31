@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk1314<F: Float>(t1368: F, t16857: 
     let t16858 = t1368 * t16857;
     let t16861 = t12159 * t1938 * t4001;
     let t16862 = t613 * t16861;
-    let t16866 = t5691 * t3971 / F::new(162.0);
-    let t16869 = t16830 * t16833 / F::new(72.0) - t493 * t16838 / F::new(144.0) + t16842 / F::new(432.0) + t16845 - t1930 * t4003 / F::new(18.0) + F::new(7.0) / F::new(432.0) * t16850 + t16854 + t5691 * t3991 / F::new(54.0) - t16858 / F::new(1296.0) - t1368 * t16862 / F::new(16.0) - t16866 - t5691 * t3995 / F::new(108.0);
+    let t16866 = t5691 * t3971 / F::cast_from(162.0_f64);
+    let t16869 = t16830 * t16833 / F::cast_from(72.0_f64) - t493 * t16838 / F::cast_from(144.0_f64) + t16842 / F::cast_from(432.0_f64) + t16845 - t1930 * t4003 / F::cast_from(18.0_f64) + F::cast_from(7.0_f64) / F::cast_from(432.0_f64) * t16850 + t16854 + t5691 * t3991 / F::cast_from(54.0_f64) - t16858 / F::cast_from(1296.0_f64) - t1368 * t16862 / F::cast_from(16.0_f64) - t16866 - t5691 * t3995 / F::cast_from(108.0_f64);
     t16869
 }

@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk150<F: Float>(t293: F, t291: F, t135: F, t286: F, t455: F, t458: F, t456: F, t708: F, t295: F, t471: F, t64: F) -> (F, F, F, F, F) {
     let t711 = t293 * t293;
-    let t712 = F::new(1.0) / t711;
+    let t712 = F::cast_from(1.0_f64) / t711;
     let t713 = t291 * t712;
     let t714 = t713 * t135;
     let t716 = t455 * t286 * t458;
-    let t719 = -F::new(7.0) / F::new(128.0) * t456 * t286 * t708 + F::new(7.0) / F::new(384.0) * t714 * t716;
-    let t723 = t719 * t471 - F::new(4.0) / F::new(3.0) * t295 * t64;
+    let t719 = -F::cast_from(7.0_f64) / F::cast_from(128.0_f64) * t456 * t286 * t708 + F::cast_from(7.0_f64) / F::cast_from(384.0_f64) * t714 * t716;
+    let t723 = t719 * t471 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t295 * t64;
     (t711, t712, t713, t716, t723)
 }

@@ -13,6 +13,6 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1000<F: Float>(t132: F, t92
     let t133 = t132 <= zeta_threshold;
     let t134 = rho1 <= dens_threshold || t133;
     let t9310 = t9279 + t9309;
-    let t9314 = piecewise3::<F>(t134, F::new(0.0), t8955 * t394 / F::new(2.0) + t3455 * t1019 + t1388 * t2624 / F::new(2.0) + t2449 * t1445 / F::new(2.0) + t932 * t3609 + t340 * t9310 / F::new(2.0));
+    let t9314 = piecewise3::<F>(t134, F::cast_from(0.0_f64), t8955 * t394 / F::cast_from(2.0_f64) + t3455 * t1019 + t1388 * t2624 / F::cast_from(2.0_f64) + t2449 * t1445 / F::cast_from(2.0_f64) + t932 * t3609 + t340 * t9310 / F::cast_from(2.0_f64));
     (t9310, t9314)
 }

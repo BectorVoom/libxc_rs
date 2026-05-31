@@ -17,6 +17,6 @@ pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk807<F: Float>(t1965: F, t
     let t39451 = t5016 * t9000;
     let t39452 = F::cast_from(0.15965655602485078085e0_f64) * t39451;
     let t39490 = t1986 * t1605;
-    let t39506 = F::new(0.4726e1) * t942 * t8817;
+    let t39506 = F::cast_from(0.4726e1_f64) * t942 * t8817;
     (t39393, t39406, t39437, t39452, t39490, t39506)
 }

@@ -13,6 +13,6 @@ pub fn mgga_c_revtpss_lxc_pol_part27_v4rho3sigma_2_chunk1170<F: Float>(t265: F, 
     let t27033 = t26968 + t27032;
     let t27037 = t7669 * t3801;
     let t27041 = t2155 * t12587;
-    let t27048 = piecewise3::<F>(t503, t1300 * t198 * t27033 * t336 - F::new(2.0) * t1298 * t27037 * t5023 + F::new(2.0) * t27041 * t3798 * t5023 - t3794 * t5023 * t7673, t25743);
+    let t27048 = piecewise3::<F>(t503, t1300 * t198 * t27033 * t336 - F::cast_from(2.0_f64) * t1298 * t27037 * t5023 + F::cast_from(2.0_f64) * t27041 * t3798 * t5023 - t3794 * t5023 * t7673, t25743);
     (t27033, t27037, t27041, t27048)
 }

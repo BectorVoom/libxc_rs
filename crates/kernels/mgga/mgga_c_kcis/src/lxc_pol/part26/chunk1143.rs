@@ -13,11 +13,11 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1143<F: Float>(t1881: F, t8
     let t29238 = t6290 * t2167;
     let t29247 = t1884 * t2132;
     let t29248 = t2233 * t29247;
-    let t29249 = t29248 / F::new(8.0);
+    let t29249 = t29248 / F::cast_from(8.0_f64);
     let t29250 = t8130 * t8136;
-    let t29251 = t29250 / F::new(8.0);
+    let t29251 = t29250 / F::cast_from(8.0_f64);
     let t29252 = t6888 * t2273;
-    let t29253 = t29252 / F::new(8.0);
+    let t29253 = t29252 / F::cast_from(8.0_f64);
     let t29254 = t1885 * t8255;
     (t28891, t29238, t29249, t29251, t29253, t29254)
 }

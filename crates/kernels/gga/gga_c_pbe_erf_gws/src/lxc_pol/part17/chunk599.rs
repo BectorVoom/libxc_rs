@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk599<F: Float>(t220: F, t34: F, t2735: F, t616: F, t1031: F, t202: F, t184: F, t619: F, t1019: F, t579: F, t1799: F, t1033: F, t636: F) -> (F, F, F, F, F, F, F, F, F) {
     let t2736 = t220 * t34;
     let t2737 = t2735 * t2736;
-    let t2739 = F::new(4.0) / F::new(15.0) * t616 * t2737;
+    let t2739 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t616 * t2737;
     let t2740 = t202 * t1031;
     let t2741 = t2740 * t184;
-    let t2743 = F::new(4.0) / F::new(15.0) * t2741 * t619;
-    let t2745 = F::new(2.0) / F::new(15.0) * t579 * t1019;
-    let t2746 = F::new(8.0) / F::new(45.0) * t1799;
+    let t2743 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t2741 * t619;
+    let t2745 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t579 * t1019;
+    let t2746 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t1799;
     let t2747 = t1033 * t636;
     (t2736, t2737, t2739, t2740, t2741, t2743, t2745, t2746, t2747)
 }

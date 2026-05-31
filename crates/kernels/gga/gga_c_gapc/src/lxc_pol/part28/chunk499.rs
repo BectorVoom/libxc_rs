@@ -13,10 +13,10 @@ pub fn gga_c_gapc_lxc_pol_part28_v4rho2sigma2_7_chunk499<F: Float>(t213: F, t218
     let t219 = t218 <= zeta_threshold;
     let t2828 = t2014 * t978;
     let t2831 = t215 * t211;
-    let t2835 = piecewise3::<F>(t214, F::new(0.0), F::new(4.0) / F::new(9.0) * t2828 * t690 + F::new(8.0) / F::new(3.0) * t2831 * t414);
+    let t2835 = piecewise3::<F>(t214, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2828 * t690 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t2831 * t414);
     let t2836 = t2026 * t982;
     let t2839 = t220 * t211;
-    let t2843 = piecewise3::<F>(t219, F::new(0.0), F::new(4.0) / F::new(9.0) * t2836 * t694 - F::new(8.0) / F::new(3.0) * t2839 * t414);
+    let t2843 = piecewise3::<F>(t219, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2836 * t694 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t2839 * t414);
     let t2845 = (t2835 + t2843) * t43;
     let t2874 = t385 * t991;
     (t2845, t2874)

@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk16<F: Float>(zeta_threshold: F) -> (F, F) {
-    let t34 = F::new(1.0) <= zeta_threshold;
+    let t34 = F::cast_from(1.0_f64) <= zeta_threshold;
     let t35 = pow_1_3::<F>(zeta_threshold);
     let t36 = t35 * zeta_threshold;
     (t35, t36)

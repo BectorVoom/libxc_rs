@@ -12,21 +12,21 @@ pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk398<F: Float>(t3293: F
     let t3294 = F::cast_from(0.13692777777777777778e0_f64) * t3293;
     let t3297 = t241 * t1176;
     let t3311 = t1097 * t1097;
-    let t3312 = F::new(1.0) / t3311;
+    let t3312 = F::cast_from(1.0_f64) / t3311;
     let t3313 = t409 * t3312;
     let t3314 = t422 * t422;
-    let t3315 = F::new(1.0) / t3314;
+    let t3315 = F::cast_from(1.0_f64) / t3314;
     let t3319 = F::cast_from(0.22831111111111111111e-1_f64) * t3236;
     let t3330 = t1127 * t432;
-    let t3331 = F::new(1.0) / t3330;
+    let t3331 = F::cast_from(1.0_f64) / t3330;
     let t3332 = t427 * t3331;
     let t3339 = F::cast_from(0.68863333333333333333e0_f64) * t3236;
     let t3346 = F::cast_from(0.17365833333333333333e0_f64) * t3293;
     let t3355 = t1127 * t1127;
-    let t3356 = F::new(1.0) / t3355;
+    let t3356 = F::cast_from(1.0_f64) / t3355;
     let t3357 = t427 * t3356;
     let t3358 = t435 * t435;
-    let t3359 = F::new(1.0) / t3358;
+    let t3359 = F::cast_from(1.0_f64) / t3358;
     let t3363 = F::cast_from(0.12361111111111111111e-1_f64) * t3236;
     let t3374 = t1146 * t445;
     (t3294, t3297, t3313, t3315, t3319, t3332, t3339, t3346, t3357, t3359, t3363, t3374)

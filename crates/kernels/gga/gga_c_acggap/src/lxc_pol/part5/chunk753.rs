@@ -19,6 +19,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk753<F: Float>(t1055: F, t5651: F
     let t5661 = t1060 * t5660;
     let t5663 = t346 * t5506;
     let t5664 = t345 * t5663;
-    let t5667 = -F::new(0.978e0) * t5639 - F::new(0.22005e1) * t5643 + F::new(0.1467e1) * t5647 + F::new(0.489e0) * t5649 + F::new(0.7335e0) * t5653 + F::new(0.12225e0) * t5657 - F::new(0.61125e-1) * t5661 + t4798 + t4800 - F::new(0.36675e0) * t5664 + F::new(0.489e0) * t4804;
+    let t5667 = -F::cast_from(0.978e0_f64) * t5639 - F::cast_from(0.22005e1_f64) * t5643 + F::cast_from(0.1467e1_f64) * t5647 + F::cast_from(0.489e0_f64) * t5649 + F::cast_from(0.7335e0_f64) * t5653 + F::cast_from(0.12225e0_f64) * t5657 - F::cast_from(0.61125e-1_f64) * t5661 + t4798 + t4800 - F::cast_from(0.36675e0_f64) * t5664 + F::cast_from(0.489e0_f64) * t4804;
     (t5652, t5653, t5656, t5657, t5660, t5661, t5663, t5664, t5667)
 }

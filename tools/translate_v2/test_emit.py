@@ -23,13 +23,18 @@ _let_rhs_F = PositionContext(
 
 
 # ---------------------------------------------------------------------------
-# Rule 2: short f64 literal in F arithmetic → F::new(<lit>)
+# All f64 literals in F arithmetic → F::cast_from(<lit>_f64)
 # ---------------------------------------------------------------------------
 
-def test_short_literal_wraps_as_f_new():
-    """`0.5 * t1` → `F::new(0.5) * t1` (D-06 Rule 2)."""
+def test_short_literal_wraps_as_cast_from():
+    """`0.5 * t1` → `F::cast_from(0.5_f64) * t1`.
+
+    The former Rule-2 `F::new(0.5)` form narrowed the literal to f32 (CubeCL
+    `Float::new(val: f32)`) and tripped rustc's f32-fallback lint #154024.
+    All literals now use the exact-f64 `cast_from(<lit>_f64)` form.
+    """
     out = per_functional._wrap_f64_literals_v2("0.5 * t1", _let_rhs_F, {})
-    assert out == "F::new(0.5) * t1"
+    assert out == "F::cast_from(0.5_f64) * t1"
 
 
 # ---------------------------------------------------------------------------
@@ -130,15 +135,15 @@ def test_integer_mantissa_exponent_literal_wraps():
     out = per_functional._wrap_f64_literals_v2(
         "1e-21 * t1", _let_rhs_F, {}
     )
-    assert out == "F::new(1e-21) * t1"
+    assert out == "F::cast_from(1e-21_f64) * t1"
 
 
 def test_integer_mantissa_positive_exponent_wraps():
-    """`2e5 * t1` -> `F::new(2e5) * t1`."""
+    """`2e5 * t1` -> `F::cast_from(2e5_f64) * t1`."""
     out = per_functional._wrap_f64_literals_v2(
         "2e5 * t1", _let_rhs_F, {}
     )
-    assert out == "F::new(2e5) * t1"
+    assert out == "F::cast_from(2e5_f64) * t1"
 
 
 # ---------------------------------------------------------------------------
@@ -174,15 +179,15 @@ def test_qualified_f64_call_retargets_to_F_in_chunked_body():
 
 
 # ---------------------------------------------------------------------------
-# D-06 long-literal precision split: > 8 significant digits → F::cast_from(_f64)
+# All literals (short and long) → F::cast_from(<lit>_f64), exact f64 bit pattern
 # ---------------------------------------------------------------------------
 
-def test_long_literal_uses_cast_from_with_f64_suffix():
-    """`0.5 * 1.7724538509055160` → mixed: F::new(short) and F::cast_from(long_f64)."""
+def test_all_literals_use_cast_from_with_f64_suffix():
+    """`0.5 * 1.7724538509055160` → both as F::cast_from(<lit>_f64)."""
     out = per_functional._wrap_f64_literals_v2(
         "0.5 * 1.7724538509055160", _let_rhs_F, {}
     )
-    assert out == "F::new(0.5) * F::cast_from(1.7724538509055160_f64)"
+    assert out == "F::cast_from(0.5_f64) * F::cast_from(1.7724538509055160_f64)"
 
 
 # ---------------------------------------------------------------------------
@@ -209,7 +214,7 @@ def test_doc_comment_context_leaves_expression_untouched():
 
 def test_backwards_compat_shim_wraps_short_literal():
     out = per_functional._wrap_f64_literals("0.5 * t1")
-    assert out == "F::new(0.5) * t1"
+    assert out == "F::cast_from(0.5_f64) * t1"
 
 
 # ---------------------------------------------------------------------------
@@ -244,5 +249,5 @@ def test_prelude_emitted_once_per_referenced_named_const():
         per_functional._wrap_f64_literals_v2(rhs, _let_rhs_F, hoisted)
         for rhs in ["M_PI * 2.0", "M_PI * t1"]
     ]
-    assert rewritten == ["pi * F::new(2.0)", "pi * t1"]
+    assert rewritten == ["pi * F::cast_from(2.0_f64)", "pi * t1"]
     assert all("M_PI" not in r for r in rewritten)

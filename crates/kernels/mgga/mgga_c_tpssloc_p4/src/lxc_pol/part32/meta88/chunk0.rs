@@ -13,8 +13,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk563<F: Float>(t25: F, t2
     let t29 = t28 <= zeta_threshold;
     let t1789 = t17 * t1788;
     let t1791 = F::cast_from(0.19751673498613801407e-1_f64) * t1787 * t182;
-    let t1794 = piecewise3::<F>(t26, F::new(0.0), F::new(2.0) / F::new(3.0) * t1298 * t1408);
-    let t1797 = piecewise3::<F>(t29, F::new(0.0), F::new(2.0) / F::new(3.0) * t1302 * t1649);
-    let t1799 = t1794 / F::new(2.0) + t1797 / F::new(2.0);
+    let t1794 = piecewise3::<F>(t26, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1298 * t1408);
+    let t1797 = piecewise3::<F>(t29, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1302 * t1649);
+    let t1799 = t1794 / F::cast_from(2.0_f64) + t1797 / F::cast_from(2.0_f64);
     (t1789, t1791, t1799)
 }

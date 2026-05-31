@@ -18,6 +18,6 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk703<F: Float>(t251: F, t388: F, t
     let t5183 = t5180 * t5182;
     let t5185 = t1175 * t1804;
     let t5186 = t375 * t5185;
-    let t5188 = -t5084 / F::new(16.0) + t5087 / F::new(36.0) + t5089 / F::new(256.0) - t5092 / F::new(24.0) + t5094 / F::new(48.0) - t5097 / F::new(48.0) + t5100 / F::new(192.0) + t5166 / F::new(16.0) - t5170 / F::new(256.0) + t5173 / F::new(256.0) - t5178 / F::new(128.0) - t5183 / F::new(576.0) - t5186 / F::new(9.0);
+    let t5188 = -t5084 / F::cast_from(16.0_f64) + t5087 / F::cast_from(36.0_f64) + t5089 / F::cast_from(256.0_f64) - t5092 / F::cast_from(24.0_f64) + t5094 / F::cast_from(48.0_f64) - t5097 / F::cast_from(48.0_f64) + t5100 / F::cast_from(192.0_f64) + t5166 / F::cast_from(16.0_f64) - t5170 / F::cast_from(256.0_f64) + t5173 / F::cast_from(256.0_f64) - t5178 / F::cast_from(128.0_f64) - t5183 / F::cast_from(576.0_f64) - t5186 / F::cast_from(9.0_f64);
     (t5176, t5177, t5178, t5180, t5181, t5182, t5183, t5185, t5186, t5188)
 }

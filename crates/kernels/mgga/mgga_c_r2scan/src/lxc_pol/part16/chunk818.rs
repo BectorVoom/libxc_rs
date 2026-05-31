@@ -14,6 +14,6 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk818<F: Float>(t44: F, t10
     let t8604 = t4904 * t2999;
     let t8609 = t1212 * t3002;
     let t8612 = t472 * t8571;
-    let t8615 = piecewise3::<F>(t45, F::new(0.0), F::new(8.0) / F::new(27.0) * t8604 * t415 - F::new(8.0) / F::new(9.0) * t2509 * t1217 - F::new(2.0) / F::new(9.0) * t8609 * t415 + F::new(2.0) / F::new(3.0) * t8612);
+    let t8615 = piecewise3::<F>(t45, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t8604 * t415 - F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t2509 * t1217 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t8609 * t415 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8612);
     (t8603, t8615)
 }

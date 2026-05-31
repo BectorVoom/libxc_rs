@@ -12,6 +12,6 @@ pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk12<F: Float>(t20: F, t23: F) -> 
     let pi = F::cast_from(M_PI);
     let t24 = t20 * t23;
     let t25 = pi * pi;
-    let t26 = F::new(1.0) / t25;
+    let t26 = F::cast_from(1.0_f64) / t25;
     (t24, t25, t26)
 }

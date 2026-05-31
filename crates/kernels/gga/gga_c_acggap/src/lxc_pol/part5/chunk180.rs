@@ -12,6 +12,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk180<F: Float>(t336: F, t337: F, 
     let t500 = t336 * t337 * t495;
     let t503 = t346 * t495;
     let t504 = t345 * t503;
-    let t506 = -t344 - t504 / F::new(4.0) + t359;
+    let t506 = -t344 - t504 / F::cast_from(4.0_f64) + t359;
     (t500, t503, t504, t506)
 }

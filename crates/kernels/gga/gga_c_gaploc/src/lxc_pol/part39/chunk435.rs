@@ -14,10 +14,10 @@ pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk435<F: Float>(t103: F, t8:
     let t3831 = t62 * t417;
     let t4061 = t1234 * t89;
     let t4072 = t1238 * t1238;
-    let t4074 = F::new(1.0) / t4072 / t142;
+    let t4074 = F::cast_from(1.0_f64) / t4072 / t142;
     let t4077 = pi * t1246 * t458;
     let t4080 = t462 * t462;
-    let t4081 = F::new(1.0) / t4080;
+    let t4081 = F::cast_from(1.0_f64) / t4080;
     let t4082 = t153 * t4081;
     (t3816, t3831, t4061, t4072, t4074, t4077, t4080, t4081, t4082)
 }

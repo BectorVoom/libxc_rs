@@ -12,6 +12,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1197<F: Float>(t1060: F, t355: F
     let t21755 = t1060 * t355 * t5506 * t721;
     let t21759 = t3124 * t1072 * t1734 * t3126;
     let t21762 = t16296 * t2297 * t4818;
-    let t21769 = -F::new(0.7335e0) * t21737 + F::new(0.489e0) * t21740 + F::new(0.2445e0) * t21743 - F::new(0.489e0) * t21745 + F::new(0.2445e0) * t21747 + F::new(0.2445e0) * t21751 - F::new(0.12225e0) * t21755 - F::new(0.12225e0) * t21759 - F::new(0.8802e1) * t21762 + F::new(0.1956e1) * t16288 - F::new(0.489e0) * t16292 - F::cast_from(0.21733333333333333333e1_f64) * t16294 + F::new(0.978e0) * t16300 - F::new(0.12225e0) * t16304;
+    let t21769 = -F::cast_from(0.7335e0_f64) * t21737 + F::cast_from(0.489e0_f64) * t21740 + F::cast_from(0.2445e0_f64) * t21743 - F::cast_from(0.489e0_f64) * t21745 + F::cast_from(0.2445e0_f64) * t21747 + F::cast_from(0.2445e0_f64) * t21751 - F::cast_from(0.12225e0_f64) * t21755 - F::cast_from(0.12225e0_f64) * t21759 - F::cast_from(0.8802e1_f64) * t21762 + F::cast_from(0.1956e1_f64) * t16288 - F::cast_from(0.489e0_f64) * t16292 - F::cast_from(0.21733333333333333333e1_f64) * t16294 + F::cast_from(0.978e0_f64) * t16300 - F::cast_from(0.12225e0_f64) * t16304;
     (t21755, t21759, t21762, t21769)
 }

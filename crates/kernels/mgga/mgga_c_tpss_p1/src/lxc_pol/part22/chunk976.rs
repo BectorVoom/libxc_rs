@@ -13,10 +13,10 @@ pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk976<F: Float>(t45: F, t1163
     let t10461 = t1163 * t3537;
     let t10464 = t3166 * t1338;
     let t10470 = F::cast_from(0.11696447245269292414e1_f64) * t8006;
-    let t10471 = F::new(2.0) * t8024;
+    let t10471 = F::cast_from(2.0_f64) * t8024;
     let t10472 = F::cast_from(0.5848223622634646207e0_f64) * t8035;
     let t10473 = t8050 * t1289;
     let t10476 = t2225 * t3431;
-    let t10484 = piecewise3::<F>(t151, F::new(0.0), -F::new(8.0) / F::new(27.0) * t10473 * t1985 + F::new(8.0) / F::new(9.0) * t10476 * t581 + F::new(4.0) / F::new(9.0) * t3575 * t1992 + F::new(4.0) / F::new(3.0) * t78 * t10353);
+    let t10484 = piecewise3::<F>(t151, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t10473 * t1985 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t10476 * t581 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t3575 * t1992 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t78 * t10353);
     (t10461, t10464, t10470, t10471, t10472, t10484)
 }

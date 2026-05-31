@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk617<F: Float>(t265: F, t394: F, t1964: F) -> F {
     let t395 = t265 < t394;
-    let t2116 = piecewise3::<F>(t395, F::new(0.0), t1964);
+    let t2116 = piecewise3::<F>(t395, F::cast_from(0.0_f64), t1964);
     t2116
 }

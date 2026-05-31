@@ -16,6 +16,6 @@ pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk655<F: Float>(t741: F, t9082: F,
     let t9089 = t719 * t8672;
     let t9090 = t735 * t9089;
     let t9091 = t5284 * t9090;
-    let t9093 = -t9048 / F::new(12.0) - t9052 / F::new(128.0) + F::new(11.0) / F::new(18.0) * t9056 - F::new(2.0) / F::new(9.0) * t9059 - t9063 / F::new(256.0) - t9067 / F::new(576.0) - t9070 / F::new(24.0) + t9073 / F::new(96.0) - F::new(19.0) / F::new(144.0) * t9080 + t9083 / F::new(18.0) - t9087 / F::new(192.0) + t9091 / F::new(8.0);
+    let t9093 = -t9048 / F::cast_from(12.0_f64) - t9052 / F::cast_from(128.0_f64) + F::cast_from(11.0_f64) / F::cast_from(18.0_f64) * t9056 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t9059 - t9063 / F::cast_from(256.0_f64) - t9067 / F::cast_from(576.0_f64) - t9070 / F::cast_from(24.0_f64) + t9073 / F::cast_from(96.0_f64) - F::cast_from(19.0_f64) / F::cast_from(144.0_f64) * t9080 + t9083 / F::cast_from(18.0_f64) - t9087 / F::cast_from(192.0_f64) + t9091 / F::cast_from(8.0_f64);
     (t9083, t9085, t9086, t9087, t9089, t9090, t9091, t9093)
 }

@@ -12,9 +12,9 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk71<F: Float>(t158: F, t190: F,
     let t191 = t158 * t190;
     let t192 = t157 * t162;
     let t194 = F::cast_from(0.19751673498613801407e-1_f64) * t192 * t187;
-    let t195 = F::ln(F::new(2.0));
-    let t196 = F::new(1.0) - t195;
-    let t197 = F::new(1.0) / t73;
+    let t195 = F::ln(F::cast_from(2.0_f64));
+    let t196 = F::cast_from(1.0_f64) - t195;
+    let t197 = F::cast_from(1.0_f64) / t73;
     let t198 = t196 * t197;
     (t191, t192, t194, t196, t198)
 }

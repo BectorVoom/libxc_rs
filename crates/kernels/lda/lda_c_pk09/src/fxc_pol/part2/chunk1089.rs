@@ -12,6 +12,6 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk1089<F: Float>(t11936: F, t11950: 
     let t11951 = t11936 + t11950;
     let t11952 = t11951 * t444;
     let t11953 = t11952 * t2036;
-    let t11956 = t11863 * t2116 / F::new(12.0) + t11866 * t455 / F::new(6.0) + t11900 * t455 / F::new(6.0) + t11903 * t455 / F::new(6.0) + t2114 * t11907 / F::new(12.0) + t11910 * t455 / F::new(6.0) + F::cast_from(0.14975624337724558_f64) * t11913 - t11915 * t1748 / F::new(6.0) + t2088 * t2783 / F::new(6.0) + t463 * t11733 / F::new(6.0) - t11953 * t1748 / F::new(6.0);
+    let t11956 = t11863 * t2116 / F::cast_from(12.0_f64) + t11866 * t455 / F::cast_from(6.0_f64) + t11900 * t455 / F::cast_from(6.0_f64) + t11903 * t455 / F::cast_from(6.0_f64) + t2114 * t11907 / F::cast_from(12.0_f64) + t11910 * t455 / F::cast_from(6.0_f64) + F::cast_from(0.14975624337724558_f64) * t11913 - t11915 * t1748 / F::cast_from(6.0_f64) + t2088 * t2783 / F::cast_from(6.0_f64) + t463 * t11733 / F::cast_from(6.0_f64) - t11953 * t1748 / F::cast_from(6.0_f64);
     (t11951, t11956)
 }

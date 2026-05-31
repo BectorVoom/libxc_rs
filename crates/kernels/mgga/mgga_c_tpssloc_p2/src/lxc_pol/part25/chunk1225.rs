@@ -14,6 +14,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk1225<F: Float>(t2105: F,
     let t85392 = t24447 * t580;
     let t85394 = t2098 * t3946;
     let t85397 = t1395 * t7240;
-    let tv4rho3sigma1 = t3 * t580 * t85372 + t12513 * t2105 + t12537 * t2099 + F::new(3.0) * t1396 * t24486 + t1398 * t85375 + F::new(3.0) * t1404 * t24448 + F::new(3.0) * t3932 * t7240 + F::new(3.0) * t3946 * t7223 + F::new(3.0) * t84031 + F::new(3.0) * t85379 + F::new(6.0) * t85381 + F::new(3.0) * t85392 + F::new(3.0) * t85394 + F::new(6.0) * t85397;
+    let tv4rho3sigma1 = t3 * t580 * t85372 + t12513 * t2105 + t12537 * t2099 + F::cast_from(3.0_f64) * t1396 * t24486 + t1398 * t85375 + F::cast_from(3.0_f64) * t1404 * t24448 + F::cast_from(3.0_f64) * t3932 * t7240 + F::cast_from(3.0_f64) * t3946 * t7223 + F::cast_from(3.0_f64) * t84031 + F::cast_from(3.0_f64) * t85379 + F::cast_from(6.0_f64) * t85381 + F::cast_from(3.0_f64) * t85392 + F::cast_from(3.0_f64) * t85394 + F::cast_from(6.0_f64) * t85397;
     tv4rho3sigma1
 }

@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part22_v4rho4_3_chunk709<F: Float>(t2764: F, t919:
     let t2848 = F::cast_from(0.22831111111111111111e-1_f64) * t2764;
     let t2856 = t919 * t923;
     let t2859 = t922 * t307;
-    let t2860 = F::new(1.0) / t2859;
+    let t2860 = F::cast_from(1.0_f64) / t2859;
     (t2848, t2856, t2859, t2860)
 }

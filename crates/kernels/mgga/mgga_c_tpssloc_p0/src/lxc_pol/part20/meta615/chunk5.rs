@@ -9,8 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2221<F: Float>(t5: F, t12568: F, t12585: F, t12588: F, t12719: F, t1437: F, t2235: F, t2240: F, t2307: F, t39046: F, t39063: F, t3958: F, t4021: F, t45844: F, t46114: F, t9228: F, t9231: F, t9239: F, t9240: F) -> F {
-    let t7 = piecewise3::<F>(F::new(0.0) < t5, t5, -t5);
+    let t7 = piecewise3::<F>(F::cast_from(0.0_f64) < t5, t5, -t5);
     let t8 = -t7 <= -F::cast_from(0.999999999999e0_f64);
-    let t46116 = piecewise3::<F>(t8, F::new(0.0), F::new(840.0) * t1437 * t39063 * t9240 + F::new(60.0) * t2240 * t2307 * t4021 - F::new(360.0) * t2307 * t3958 * t9239 - F::new(12.0) * t12568 * t2307 + F::new(120.0) * t12585 * t9231 + F::new(60.0) * t12588 * t9231 - F::new(12.0) * t12719 * t2235 - F::new(4.0) * t1437 * t39046 - F::new(12.0) * t4021 * t9228 - F::new(120.0) * t45844 * t9240 + t46114);
+    let t46116 = piecewise3::<F>(t8, F::cast_from(0.0_f64), F::cast_from(840.0_f64) * t1437 * t39063 * t9240 + F::cast_from(60.0_f64) * t2240 * t2307 * t4021 - F::cast_from(360.0_f64) * t2307 * t3958 * t9239 - F::cast_from(12.0_f64) * t12568 * t2307 + F::cast_from(120.0_f64) * t12585 * t9231 + F::cast_from(60.0_f64) * t12588 * t9231 - F::cast_from(12.0_f64) * t12719 * t2235 - F::cast_from(4.0_f64) * t1437 * t39046 - F::cast_from(12.0_f64) * t4021 * t9228 - F::cast_from(120.0_f64) * t45844 * t9240 + t46114);
     t46116
 }

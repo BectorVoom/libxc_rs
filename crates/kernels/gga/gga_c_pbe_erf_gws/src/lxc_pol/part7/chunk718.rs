@@ -10,13 +10,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk718<F: Float>(t2704: F, t2718: F, t7: F, t226: F, t225: F, t4562: F, t1989: F, t679: F, t1986: F, t666: F, t231: F, t4986: F, t4990: F, t4994: F, t4997: F, t5000: F, t5007: F, t5012: F, t5017: F, t5021: F, t5101: F, t5104: F, t5107: F, t5115: F) -> (F, F, F, F, F) {
     let pi = F::cast_from(M_PI);
-    let t5902 = F::cast_from(0.12833333333333333333e1_f64) * t2704 - F::new(20.0) / F::new(27.0) * t2718;
+    let t5902 = F::cast_from(0.12833333333333333333e1_f64) * t2704 - F::cast_from(20.0_f64) / F::cast_from(27.0_f64) * t2718;
     let t5903 = t5902 * pi;
     let t5904 = t5903 * t7;
-    let t5906 = F::new(4.0) / F::new(3.0) * t226 * t5904;
+    let t5906 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t226 * t5904;
     let t5907 = t4562 * t225;
     let t5910 = t1989 * t679;
     let t5912 = t666 * t1986;
-    let t5914 = t4986 - t4990 - t4994 - t4997 - t5000 - t5007 - t5012 - t5017 - t5021 - t5101 + t5104 + t5906 + F::new(4.0) / F::new(3.0) * t5907 * t231 + F::new(4.0) * t5910 + F::new(4.0) * t5912 + t5107 - t5115;
+    let t5914 = t4986 - t4990 - t4994 - t4997 - t5000 - t5007 - t5012 - t5017 - t5021 - t5101 + t5104 + t5906 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t5907 * t231 + F::cast_from(4.0_f64) * t5910 + F::cast_from(4.0_f64) * t5912 + t5107 - t5115;
     (t5902, t5903, t5904, t5907, t5914)
 }

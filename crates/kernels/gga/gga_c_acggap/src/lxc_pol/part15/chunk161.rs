@@ -14,8 +14,8 @@ pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk161<F: Float>(t43: F, t50:
     let t485 = t40 * t484;
     let t486 = t483 * t85;
     let t487 = F::cast_from(0.19751673498613801407e-1_f64) * t486;
-    let t490 = piecewise3::<F>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t292 * t474);
-    let t493 = piecewise3::<F>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t296 * t478);
-    let t495 = t490 / F::new(2.0) + t493 / F::new(2.0);
+    let t490 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t292 * t474);
+    let t493 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t296 * t478);
+    let t495 = t490 / F::cast_from(2.0_f64) + t493 / F::cast_from(2.0_f64);
     (t485, t487, t495)
 }

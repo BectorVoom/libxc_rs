@@ -13,10 +13,10 @@ pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk261<F: Float>(t53: F, t60
     let t61 = t60 <= zeta_threshold;
     let t1395 = t912 * t521;
     let t1398 = t57 * t50;
-    let t1402 = piecewise3::<F>(t54, F::new(0.0), F::new(4.0) / F::new(9.0) * t1395 * t280 + F::new(8.0) / F::new(3.0) * t1398 * t814);
+    let t1402 = piecewise3::<F>(t54, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1395 * t280 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t1398 * t814);
     let t1403 = t921 * t525;
     let t1406 = t62 * t50;
-    let t1410 = piecewise3::<F>(t61, F::new(0.0), F::new(4.0) / F::new(9.0) * t1403 * t284 - F::new(8.0) / F::new(3.0) * t1406 * t814);
+    let t1410 = piecewise3::<F>(t61, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1403 * t284 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t1406 * t814);
     let t1411 = t1402 + t1410;
     (t1395, t1403, t1411)
 }

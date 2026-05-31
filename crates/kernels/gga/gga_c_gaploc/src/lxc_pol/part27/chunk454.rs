@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part27_v4rho2sigma2_10_chunk454<F: Float>(t2274: F, t2278: F, t2283: F, t2285: F, t471: F, t64: F, t869: F) -> (F, F) {
-    let t2287 = -F::new(21.0) / F::new(256.0) * t2274 + F::new(21.0) / F::new(8192.0) * t2278 - F::new(7.0) / F::new(8192.0) * t2283 + F::new(7.0) / F::new(256.0) * t2285;
-    let t2293 = t2287 * t471 - F::new(4.0) / F::new(3.0) * t869 * t64 - F::new(7.0) / F::new(256.0) * t2274 + F::new(7.0) / F::new(768.0) * t2285;
+    let t2287 = -F::cast_from(21.0_f64) / F::cast_from(256.0_f64) * t2274 + F::cast_from(21.0_f64) / F::cast_from(8192.0_f64) * t2278 - F::cast_from(7.0_f64) / F::cast_from(8192.0_f64) * t2283 + F::cast_from(7.0_f64) / F::cast_from(256.0_f64) * t2285;
+    let t2293 = t2287 * t471 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t869 * t64 - F::cast_from(7.0_f64) / F::cast_from(256.0_f64) * t2274 + F::cast_from(7.0_f64) / F::cast_from(768.0_f64) * t2285;
     (t2287, t2293)
 }

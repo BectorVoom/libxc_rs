@@ -12,6 +12,6 @@ pub fn gga_c_acggap_lxc_pol_part16_v4rho3sigma_8_chunk328<F: Float>(t336: F, t42
     let t1511 = t336 * t429 * t513;
     let t1514 = t1140 * t515;
     let t1516 = t1137 * t500;
-    let t1524 = t1124 + F::new(0.489e0) * t1050 - t1126 + F::new(0.489e0) * t1474 + F::new(0.7335e0) * t1477 - F::new(0.61125e-1) * t1481 - F::new(0.36675e0) * t1484 - F::new(0.61125e-1) * t1063 + t1130;
+    let t1524 = t1124 + F::cast_from(0.489e0_f64) * t1050 - t1126 + F::cast_from(0.489e0_f64) * t1474 + F::cast_from(0.7335e0_f64) * t1477 - F::cast_from(0.61125e-1_f64) * t1481 - F::cast_from(0.36675e0_f64) * t1484 - F::cast_from(0.61125e-1_f64) * t1063 + t1130;
     (t1511, t1514, t1516, t1524)
 }

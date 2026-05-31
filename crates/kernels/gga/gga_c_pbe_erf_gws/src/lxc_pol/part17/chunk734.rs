@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk734<F: Float>(t1322: F, t4607: F, t2704: F, t2718: F, t4518: F, t4521: F, t4524: F, t4529: F, t4531: F, t4533: F, t456: F, t1314: F) -> (F, F, F, F) {
     let t4608 = t4607 * t1322;
-    let t4619 = -F::cast_from(0.34523333333333333333e1_f64) * t4518 + F::cast_from(0.23015555555555555556e1_f64) * t4521 - F::cast_from(0.26851481481481481482e1_f64) * t4524 - F::cast_from(0.93932222222222222223e0_f64) * t2704 + F::new(0.73355e-1) * t4529 - F::new(0.14671e0) * t4531 - F::cast_from(0.17116166666666666667e0_f64) * t4533 - F::cast_from(0.36793333333333333333e0_f64) * t2718;
+    let t4619 = -F::cast_from(0.34523333333333333333e1_f64) * t4518 + F::cast_from(0.23015555555555555556e1_f64) * t4521 - F::cast_from(0.26851481481481481482e1_f64) * t4524 - F::cast_from(0.93932222222222222223e0_f64) * t2704 + F::cast_from(0.73355e-1_f64) * t4529 - F::cast_from(0.14671e0_f64) * t4531 - F::cast_from(0.17116166666666666667e0_f64) * t4533 - F::cast_from(0.36793333333333333333e0_f64) * t2718;
     let t4620 = t4619 * t456;
     let t4623 = t1314 * t1322;
     (t4608, t4619, t4620, t4623)

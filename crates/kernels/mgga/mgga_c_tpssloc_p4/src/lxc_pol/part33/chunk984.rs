@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part33_v4rho3sigma_9_chunk984<F: Float>(t21126: F,
     let t21161 = t136 * t21160;
     let t21167 = t2826 * t21122;
     let t21168 = t136 * t21167;
-    let t21180 = -t10577 - F::new(4.0) / F::new(9.0) * t13598 + F::new(2.0) / F::new(9.0) * t17149 - F::new(2.0) / F::new(3.0) * t17165 + t17175 / F::new(3.0) - F::new(10.0) / F::new(27.0) * t21147 + F::new(4.0) / F::new(3.0) * t21150 - F::new(2.0) / F::new(3.0) * t21124 - F::new(2.0) * t21153 + F::new(2.0) * t21128 - t21156 / F::new(3.0);
+    let t21180 = -t10577 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t13598 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t17149 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t17165 + t17175 / F::cast_from(3.0_f64) - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t21147 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t21150 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t21124 - F::cast_from(2.0_f64) * t21153 + F::cast_from(2.0_f64) * t21128 - t21156 / F::cast_from(3.0_f64);
     (t21161, t21168, t21180)
 }

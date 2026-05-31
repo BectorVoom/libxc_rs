@@ -11,12 +11,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk842<F: Float>(t2415: F, t833: F, t1308: F, t571: F, t2396: F, t4479: F, t3965: F, t2388: F, t4475: F, t3974: F, t6791: F, t2499: F, t795: F) -> (F, F, F, F, F, F, F, F, F) {
     let t7745 = t2415 * t833;
     let t7746 = t1308 * t7745;
-    let t7748 = F::new(8.0) / F::new(15.0) * t571 * t7746;
+    let t7748 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t571 * t7746;
     let t7749 = t4479 * t2396;
-    let t7751 = F::new(16.0) / F::new(15.0) * t3965 * t7749;
+    let t7751 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t3965 * t7749;
     let t7752 = t4475 * t2388;
-    let t7754 = F::new(16.0) / F::new(15.0) * t3974 * t7752;
-    let t7755 = F::new(8.0) / F::new(15.0) * t6791;
-    let t7757 = F::new(2.0) / F::new(5.0) * t795 * t2499;
+    let t7754 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t3974 * t7752;
+    let t7755 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t6791;
+    let t7757 = F::cast_from(2.0_f64) / F::cast_from(5.0_f64) * t795 * t2499;
     (t7745, t7746, t7748, t7749, t7751, t7752, t7754, t7755, t7757)
 }

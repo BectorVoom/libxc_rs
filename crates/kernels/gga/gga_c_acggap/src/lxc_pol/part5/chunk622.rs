@@ -15,6 +15,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk622<F: Float>(t43: F, t40: F, t4
     let t4069 = t40 * t4068;
     let t4070 = t2898 * t474;
     let t4073 = t817 * t34;
-    let t4083 = piecewise3::<F>(t44, F::new(0.0), F::new(8.0) / F::new(27.0) * t4070 * t818 - F::new(8.0) / F::new(9.0) * t4073 * t4000 - F::new(2.0) / F::new(9.0) * t1281 * t824 + F::new(4.0) / F::new(3.0) * t292 * t821 - F::new(4.0) * t1284 * t39);
+    let t4083 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t4070 * t818 - F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t4073 * t4000 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t1281 * t824 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t292 * t821 - F::cast_from(4.0_f64) * t1284 * t39);
     (t4065, t4068, t4069, t4070, t4083)
 }

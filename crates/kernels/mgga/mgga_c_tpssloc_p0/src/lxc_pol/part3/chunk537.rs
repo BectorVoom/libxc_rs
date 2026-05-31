@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk537<F: Float>(t182: F, t2448: 
     let t2450 = F::cast_from(0.19751673498613801407e-1_f64) * t2448 * t182;
     let t2454 = t676 * t724;
     let t2458 = t723 * t164;
-    let t2459 = F::new(1.0) / t2458;
+    let t2459 = F::cast_from(1.0_f64) / t2458;
     let t2460 = t159 * t2459;
     let t2461 = t730 * t730;
     let t2462 = t2461 * t731;

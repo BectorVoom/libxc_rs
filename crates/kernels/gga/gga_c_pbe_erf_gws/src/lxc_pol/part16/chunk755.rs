@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk755<F: Float>(t1721: F, t401: F, t1715: F, t205: F, t626: F, t191: F, t1641: F, t261: F, t174: F, t838: F, t1243: F, t628: F) -> (F, F, F, F, F, F, F) {
     let t5054 = t401 * t1721;
     let t5056 = t401 * t1715;
-    let t5060 = F::new(1.0) / t205 / t626;
+    let t5060 = F::cast_from(1.0_f64) / t205 / t626;
     let t5061 = t191 * t5060;
-    let t5063 = F::new(1.0) / t1641 / t261;
+    let t5063 = F::cast_from(1.0_f64) / t1641 / t261;
     let t5081 = t174 * t838 * t205;
     let t5082 = F::cast_from(0.11197407407407407407e0_f64) * t5081;
     let t5083 = t1243 * t628;

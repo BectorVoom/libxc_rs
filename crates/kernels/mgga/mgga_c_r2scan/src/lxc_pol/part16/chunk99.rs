@@ -12,7 +12,7 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk99<F: Float>(t296: F, t29
     let t299 = t298 * t296;
     let t301 = pow_1_3::<F>(rho1);
     let t302 = t301 * t301;
-    let t304 = F::new(1.0) / t302 / rho1;
+    let t304 = F::cast_from(1.0_f64) / t302 / rho1;
     let t305 = tau1 * t304;
     (t299, t302, t305)
 }

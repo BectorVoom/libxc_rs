@@ -15,9 +15,9 @@ pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk687<F: Float>(t30: F, t33: 
     let t3277 = t3273 * t3276;
     let t3280 = t497 * t2331;
     let t3281 = t489 * t3280;
-    let t3282 = F::new(1.0) / t502;
-    let t3288 = piecewise3::<F>(t31, F::new(0.0), F::new(4.0) / F::new(9.0) * t3282 * t3218 + F::new(4.0) / F::new(3.0) * t490 * t1991);
-    let t3289 = F::new(1.0) / t504;
-    let t3295 = piecewise3::<F>(t34, F::new(0.0), F::new(4.0) / F::new(9.0) * t3289 * t3226 + F::new(4.0) / F::new(3.0) * t493 * t2829);
+    let t3282 = F::cast_from(1.0_f64) / t502;
+    let t3288 = piecewise3::<F>(t31, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t3282 * t3218 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t490 * t1991);
+    let t3289 = F::cast_from(1.0_f64) / t504;
+    let t3295 = piecewise3::<F>(t34, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t3289 * t3226 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t493 * t2829);
     (t3277, t3280, t3281, t3282, t3288, t3289, t3295)
 }

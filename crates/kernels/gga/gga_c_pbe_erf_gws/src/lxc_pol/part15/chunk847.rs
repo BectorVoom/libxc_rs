@@ -10,14 +10,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk847<F: Float>(t1621: F, t7160: F, t639: F, t1724: F, t2601: F, t2598: F, t4913: F, t172: F, t2824: F, t184: F, t564: F, t1872: F, t2790: F) -> (F, F, F, F, F) {
     let t7161 = t1621 * t7160;
-    let t7163 = F::new(8.0) / F::new(15.0) * t639 * t7161;
+    let t7163 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t639 * t7161;
     let t7164 = t2601 * t1724;
     let t7165 = t1621 * t7164;
-    let t7167 = F::new(4.0) / F::new(15.0) * t639 * t7165;
-    let t7169 = F::new(8.0) / F::new(15.0) * t4913 * t2598;
+    let t7167 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t639 * t7165;
+    let t7169 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t4913 * t2598;
     let t7170 = t172 * t2824;
     let t7171 = t7170 * t184;
-    let t7173 = F::new(8.0) / F::new(15.0) * t7171 * t564;
-    let t7175 = F::new(4.0) / F::new(15.0) * t2790 * t1872;
+    let t7173 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t7171 * t564;
+    let t7175 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t2790 * t1872;
     (t7163, t7167, t7169, t7173, t7175)
 }

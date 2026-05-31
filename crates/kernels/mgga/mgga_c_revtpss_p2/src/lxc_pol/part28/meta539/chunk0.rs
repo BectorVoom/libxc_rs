@@ -11,15 +11,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1987<F: Float>(t1936: F, t670: F, t1518: F, t572: F, t26123: F, t4292: F, t7330: F, t1459: F, t7953: F, t116: F, t7741: F, t117: F, t28042: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t28264 = t670 * t1936;
     let t28265 = t28264 * t1518;
-    let t28267 = F::new(6.0) * t572 * t28265;
+    let t28267 = F::cast_from(6.0_f64) * t572 * t28265;
     let t28268 = t26123 * t1518;
-    let t28270 = F::new(6.0) * t572 * t28268;
+    let t28270 = F::cast_from(6.0_f64) * t572 * t28268;
     let t28271 = t7330 * t4292;
-    let t28273 = F::new(6.0) * t572 * t28271;
-    let t28275 = F::new(3.0) * t1459 * t7953;
+    let t28273 = F::cast_from(6.0_f64) * t572 * t28271;
+    let t28275 = F::cast_from(3.0_f64) * t1459 * t7953;
     let t28276 = t116 * t7741;
     let t28277 = t28276 * t670;
-    let t28279 = F::new(6.0) * t572 * t28277;
+    let t28279 = F::cast_from(6.0_f64) * t572 * t28277;
     let t28280 = t117 * t28042;
     (t28264, t28265, t28267, t28268, t28270, t28271, t28273, t28275, t28276, t28277, t28279, t28280)
 }

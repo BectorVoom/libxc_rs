@@ -12,11 +12,11 @@ pub fn mgga_c_revtpss_lxc_pol_part39_v4rho3tau_2_chunk545<F: Float>(t658: F, t23
     let t2350 = t658 * t658;
     let t2351 = t2349 * t2350;
     let t2354 = t100 * t2256;
-    let t2357 = F::new(1.0) / t107;
+    let t2357 = F::cast_from(1.0_f64) / t107;
     let t2358 = t661 * t661;
     let t2359 = t2357 * t2358;
     let t2362 = -t2256;
     let t2363 = t108 * t2362;
-    let t2366 = F::new(40.0) / F::new(9.0) * t2344 * t101 - F::new(50.0) / F::new(9.0) * t656 * t659 + F::new(10.0) / F::new(9.0) * t97 * t2351 + F::new(5.0) / F::new(3.0) * t97 * t2354 + F::new(10.0) / F::new(9.0) * t105 * t2359 + F::new(5.0) / F::new(3.0) * t105 * t2363;
+    let t2366 = F::cast_from(40.0_f64) / F::cast_from(9.0_f64) * t2344 * t101 - F::cast_from(50.0_f64) / F::cast_from(9.0_f64) * t656 * t659 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t97 * t2351 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t97 * t2354 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t105 * t2359 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t105 * t2363;
     (t2350, t2357, t2358, t2359, t2362, t2363, t2366)
 }

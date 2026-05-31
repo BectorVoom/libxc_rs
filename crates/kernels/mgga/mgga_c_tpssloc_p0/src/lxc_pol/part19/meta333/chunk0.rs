@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk1194<F: Float>(t39358: F, t756: F, t706: F, t9448: F, t708: F, t187: F, t268: F, t39322: F, t39347: F, t39336: F, t761: F, t2652: F, t9874: F) -> (F, F, F, F, F, F) {
     let t40708 = F::cast_from(0.18989649058080861537e-2_f64) * t756 * t39358;
     let t40709 = t706 * t9448;
-    let t40711 = F::new(16.0) * t40709 * t708;
+    let t40711 = F::cast_from(16.0_f64) * t40709 * t708;
     let t40712 = t187 * t268;
     let t40714 = F::cast_from(0.1301229756036208781e0_f64) * t40712 * t39322;
     let t40716 = F::cast_from(0.19263893255070628431e1_f64) * t40712 * t39347;

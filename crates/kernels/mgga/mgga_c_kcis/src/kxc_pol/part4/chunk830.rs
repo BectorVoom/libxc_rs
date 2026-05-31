@@ -14,7 +14,7 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk830<F: Float>(t174: F, t236: F, t
     let t5400 = t233 * t5399;
     let t5402 = t1881 * t1301;
     let t5404 = t1881 * t1641;
-    let t5406 = piecewise3::<F>(t175, F::new(0.0), -t4532);
+    let t5406 = piecewise3::<F>(t175, F::cast_from(0.0_f64), -t4532);
     let t5407 = t447 * t5406;
     let t5408 = t5407 * t637;
     let t5409 = t446 * t5408;

@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part22_v4rho4_3_chunk2596<F: Float>(t1009: F, t221
     let t72361 = t22113 * t1009;
     let t72363 = t72361 * t1011 * t1212;
     let t72366 = t5002 * t18375;
-    let t72380 = -t65617 / F::new(2304.0) - t65619 / F::new(2304.0) + t72363 * t1218 / F::new(3072.0) + t72366 / F::new(1536.0) - t65628 / F::new(648.0) + t65632 / F::new(4608.0) + t65637 / F::new(27.0) + t5002 * t18943 / F::new(1024.0) + t65647 / F::new(6912.0) - t66159 * t1737 / F::new(96.0) - t19080 * t5014 / F::new(96.0) - t65649 / F::new(2304.0) - t65651 / F::new(144.0);
+    let t72380 = -t65617 / F::cast_from(2304.0_f64) - t65619 / F::cast_from(2304.0_f64) + t72363 * t1218 / F::cast_from(3072.0_f64) + t72366 / F::cast_from(1536.0_f64) - t65628 / F::cast_from(648.0_f64) + t65632 / F::cast_from(4608.0_f64) + t65637 / F::cast_from(27.0_f64) + t5002 * t18943 / F::cast_from(1024.0_f64) + t65647 / F::cast_from(6912.0_f64) - t66159 * t1737 / F::cast_from(96.0_f64) - t19080 * t5014 / F::cast_from(96.0_f64) - t65649 / F::cast_from(2304.0_f64) - t65651 / F::cast_from(144.0_f64);
     (t72361, t72380)
 }

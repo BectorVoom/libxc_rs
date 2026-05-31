@@ -14,6 +14,6 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk780<F: Float>(t2593: F, t62
     let t9054 = t9052 * t9053;
     let t9056 = t153 * t7627;
     let t9058 = t8755 * t818;
-    let t9060 = F::new(0.3375e1) * t9024 - F::new(0.2428125e1) * t9026 + F::new(0.225e1) * t9028 - F::new(0.485625e0) * t9031 + F::new(0.2428125e1) * t9034 - F::new(0.3375e1) * t9036 - F::new(0.97125e0) * t9038 + F::new(0.485625e0) * t9040 + F::new(0.1125e1) * t9043 - F::new(0.2428125e0) * t9048 - F::new(0.2428125e0) * t9050 + F::new(0.1125e1) * t9054 - F::new(0.45e1) * t9056 + F::new(0.12140625e0) * t9058;
+    let t9060 = F::cast_from(0.3375e1_f64) * t9024 - F::cast_from(0.2428125e1_f64) * t9026 + F::cast_from(0.225e1_f64) * t9028 - F::cast_from(0.485625e0_f64) * t9031 + F::cast_from(0.2428125e1_f64) * t9034 - F::cast_from(0.3375e1_f64) * t9036 - F::cast_from(0.97125e0_f64) * t9038 + F::cast_from(0.485625e0_f64) * t9040 + F::cast_from(0.1125e1_f64) * t9043 - F::cast_from(0.2428125e0_f64) * t9048 - F::cast_from(0.2428125e0_f64) * t9050 + F::cast_from(0.1125e1_f64) * t9054 - F::cast_from(0.45e1_f64) * t9056 + F::cast_from(0.12140625e0_f64) * t9058;
     (t9053, t9054, t9056, t9058, t9060)
 }

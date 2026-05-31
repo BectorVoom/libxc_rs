@@ -12,11 +12,11 @@ pub fn gga_c_gapc_lxc_pol_part21_v4rho2sigma2_0_chunk1054<F: Float>(t3406: F, t8
     let t30324 = t3406 * t8133;
     let t30325 = t2579 * t3412 * t30324;
     let t30472 = t2962 * t1615;
-    let t33091 = F::new(8.0) * t11295;
-    let t33093 = F::new(2.0) * t12007;
-    let t33094 = F::new(2.0) * t11282;
-    let t33095 = F::new(8.0) * t11285;
-    let t33096 = F::new(2.0) * t11610;
-    let t33097 = F::new(4.0) * t11289;
+    let t33091 = F::cast_from(8.0_f64) * t11295;
+    let t33093 = F::cast_from(2.0_f64) * t12007;
+    let t33094 = F::cast_from(2.0_f64) * t11282;
+    let t33095 = F::cast_from(8.0_f64) * t11285;
+    let t33096 = F::cast_from(2.0_f64) * t11610;
+    let t33097 = F::cast_from(4.0_f64) * t11289;
     (t30324, t30325, t30472, t33091, t33093, t33094, t33095, t33096, t33097)
 }

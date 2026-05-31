@@ -12,12 +12,12 @@ pub fn gga_c_gaploc_lxc_pol_part42_v4rhosigma3_7_chunk685<F: Float>(t13276: F, t
     let t13277 = t6320 * t13276;
     let t13279 = F::cast_from(0.17073003981405689759e0_f64) * t2268 * t13277;
     let t13280 = F::cast_from(0.47425011059460249332e-2_f64) * t12798;
-    let t13287 = -F::new(3.0) / F::new(128.0) * t12383 - F::new(27.0) / F::new(4096.0) * t12386 + F::new(27.0) / F::new(262144.0) * t12392 - F::new(9.0) / F::new(262144.0) * t12395 + F::new(9.0) / F::new(4096.0) * t12397 + t12400 / F::new(128.0);
+    let t13287 = -F::cast_from(3.0_f64) / F::cast_from(128.0_f64) * t12383 - F::cast_from(27.0_f64) / F::cast_from(4096.0_f64) * t12386 + F::cast_from(27.0_f64) / F::cast_from(262144.0_f64) * t12392 - F::cast_from(9.0_f64) / F::cast_from(262144.0_f64) * t12395 + F::cast_from(9.0_f64) / F::cast_from(4096.0_f64) * t12397 + t12400 / F::cast_from(128.0_f64);
     let t13288 = t13287 * t471;
-    let t13291 = F::new(9.0) / F::new(128.0) * t12383;
-    let t13292 = F::new(9.0) / F::new(4096.0) * t12386;
-    let t13293 = F::new(3.0) / F::new(4096.0) * t12397;
-    let t13294 = F::new(3.0) / F::new(128.0) * t12400;
-    let t13295 = F::new(4.0) * t12412;
+    let t13291 = F::cast_from(9.0_f64) / F::cast_from(128.0_f64) * t12383;
+    let t13292 = F::cast_from(9.0_f64) / F::cast_from(4096.0_f64) * t12386;
+    let t13293 = F::cast_from(3.0_f64) / F::cast_from(4096.0_f64) * t12397;
+    let t13294 = F::cast_from(3.0_f64) / F::cast_from(128.0_f64) * t12400;
+    let t13295 = F::cast_from(4.0_f64) * t12412;
     (t13277, t13279, t13280, t13287, t13288, t13291, t13292, t13293, t13294, t13295)
 }

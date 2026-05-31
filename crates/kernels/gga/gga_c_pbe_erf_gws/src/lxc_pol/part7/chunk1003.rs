@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk1003<F: Float>(t1903: F, t1
     let t18284 = t1907 * t1903;
     let t18286 = t1914 * t5441;
     let t18293 = t5444 * t719 * t256;
-    let t18295 = t17467 - t17469 + t17473 - t17476 - t17481 + t17484 - t17488 - F::new(4.0) / F::new(9.0) * t18284 - F::cast_from(0.5402469135802469136e-1_f64) * t18286 + t16580 * t247 * t251 * t256 / F::new(3.0) + F::new(4.0) / F::new(3.0) * t18293;
+    let t18295 = t17467 - t17469 + t17473 - t17476 - t17481 + t17484 - t17488 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t18284 - F::cast_from(0.5402469135802469136e-1_f64) * t18286 + t16580 * t247 * t251 * t256 / F::cast_from(3.0_f64) + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t18293;
     t18295
 }

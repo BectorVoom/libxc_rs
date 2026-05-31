@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk640<F: Float>(t139: F, t8894: F, t548: F, t135: F, t2059: F, t554: F, t8078: F, t8074: F, t8082: F, t8086: F, t8091: F, t8094: F, t8096: F, t8099: F, t8104: F, t8107: F, t8110: F, t8113: F, t8116: F, t8123: F, t8127: F, t8131: F, t8133: F, t8135: F, t8137: F) -> (F, F, F, F, F, F) {
     let t8895 = t8894 * t139;
     let t8906 = t548 * t548;
-    let t8907 = F::new(1.0) / t8906;
+    let t8907 = F::cast_from(1.0_f64) / t8906;
     let t8908 = t135 * t8907;
     let t8909 = t2059 * t554;
     let t8914 = F::cast_from(0.18521666970164609055e-1_f64) * t8078;

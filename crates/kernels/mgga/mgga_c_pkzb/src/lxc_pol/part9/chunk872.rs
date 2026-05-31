@@ -13,7 +13,7 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk872<F: Float>(t6366: F, t6368: F,
     let t6372 = t2434 * t2382;
     let t6373 = t2381 * t6372;
     let t6377 = t154 * t1478 * t386;
-    let t6379 = F::new(5.0) / F::new(1296.0) * t385 * t6377;
+    let t6379 = F::cast_from(5.0_f64) / F::cast_from(1296.0_f64) * t385 * t6377;
     let t6380 = t465 * t931;
     let t6382 = t179 * t6380 * t824;
     (t6369, t6372, t6373, t6377, t6379, t6380, t6382)

@@ -16,6 +16,6 @@ pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk484<F: Float>(t1396: F, t2001: F,
     let t2007 = t553 * t2006;
     let t2008 = t303 * t2007;
     let t2010 = t8 * t1650;
-    let t2011 = F::new(1.0) - t168 + t2010;
+    let t2011 = F::cast_from(1.0_f64) - t168 + t2010;
     (t2002, t2003, t2004, t2006, t2007, t2008, t2011)
 }

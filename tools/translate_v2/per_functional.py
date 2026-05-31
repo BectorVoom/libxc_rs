@@ -195,12 +195,19 @@ def _wrap_f64_literals_v2(rust_expr: str,
     for sym, local_name in hoisted.items():
         out = re.sub(rf'\b{re.escape(sym)}\b', local_name, out)
 
-    # Step C — f64-literal wrap with Rule-2 / Rule-3 length split.
+    # Step C — f64-literal wrap. ALL literals now route through
+    # `F::cast_from(<lit>_f64)`. The former short-literal `F::new(<lit>)` branch
+    # (Rule 2, <= 8 sig digits) was wrong on two counts: (1) CubeCL's
+    # `Float::new(val: f32)` narrows its argument to f32, so any non-exact-in-f32
+    # short coefficient (e.g. `0.82785e-1`, `0.301925e0`) was silently truncated
+    # to f32 precision inside the f64-concrete kernels — a latent accuracy bug;
+    # (2) bare `F::new(<lit>)` trips rustc's f32-fallback lint #154024 (set to
+    # become a hard error). `F::cast_from(<lit>_f64)` preserves the exact source
+    # f64 bit pattern for every literal and is lint-clean. The sig-digit split is
+    # retired (kept _significant_digit_count for callers / historical reference).
     def _wrap_literal(m):
         lit = m.group(1)
-        if _significant_digit_count(lit) > _LONG_LITERAL_SIGNIFICANT_DIGIT_THRESHOLD:
-            return f"F::cast_from({lit}_f64)"
-        return f"F::new({lit})"
+        return f"F::cast_from({lit}_f64)"
     out = _F64_LITERAL_RE.sub(_wrap_literal, out)
 
     # Step D-pre1 — retarget upstream `name::<f64>(` (emitted by family

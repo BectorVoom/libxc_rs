@@ -12,8 +12,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk586<F: Float>(t25: F, t2
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
     let t505 = t265 < t504;
-    let t2067 = piecewise3::<F>(t115, t1877 * t2058 / F::new(2.0), t2064 * t40 / F::new(2.0));
+    let t2067 = piecewise3::<F>(t115, t1877 * t2058 / F::cast_from(2.0_f64), t2064 * t40 / F::cast_from(2.0_f64));
     let t2068 = t2057 * t28;
-    let t2071 = piecewise3::<F>(t505, F::new(0.0), t2063);
+    let t2071 = piecewise3::<F>(t505, F::cast_from(0.0_f64), t2063);
     (t2067, t2068, t2071)
 }

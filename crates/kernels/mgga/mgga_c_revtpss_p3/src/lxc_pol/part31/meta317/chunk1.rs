@@ -13,6 +13,6 @@ pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk1320<F: Float>(t11200: F
     let t11223 = t988 * t3056;
     let t11224 = t11223 * t378;
     let t11238 = t1031 * t1031;
-    let t11239 = F::new(1.0) / t11238;
+    let t11239 = F::cast_from(1.0_f64) / t11238;
     (t11201, t11223, t11224, t11238, t11239)
 }

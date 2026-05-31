@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk990<F: Float>(t174: F, t176: F, t18431: F, t20840: F, t20845: F, t2633: F, t4518: F, t833: F, t20839: F, t44: F, t2153: F, t2539: F, t9275: F, zeta_threshold: F) -> (F, F, F) {
     let t175 = t174 <= zeta_threshold;
-    let t20851 = piecewise3::<F>(t175, F::new(0.0), -F::new(8.0) / F::new(27.0) * t20840 * t833 - F::new(16.0) / F::new(9.0) * t4518 * t2633 + F::new(4.0) / F::new(9.0) * t20845 * t833 + F::new(4.0) / F::new(3.0) * t176 * t18431);
+    let t20851 = piecewise3::<F>(t175, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t20840 * t833 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t4518 * t2633 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t20845 * t833 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t176 * t18431);
     let t20853 = (t20839 + t20851) * t44;
     let t26390 = t2153 * t2539;
     let t26391 = t9275 * t26390;

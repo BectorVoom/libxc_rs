@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk472<F: Float>(t2846: F,
     let t2847 = F::cast_from(0.23744444444444444444e-1_f64) * t2846;
     let t2850 = t159 * t1065;
     let t2851 = t631 * t631;
-    let t2852 = F::new(1.0) / t2851;
+    let t2852 = F::cast_from(1.0_f64) / t2851;
     (t2847, t2850, t2851, t2852)
 }

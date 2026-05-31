@@ -14,12 +14,12 @@ pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk811<F: Float>(t8556: F, t8
     let t9214 = F::cast_from(0.18868855373762491241e-2_f64) * t8580;
     let t9215 = F::cast_from(0.21437009059034868486e-3_f64) * t8582;
     let t9222 = F::cast_from(0.42874018118069736972e-3_f64) * t8607;
-    let t9226 = F::new(0.28015625e-1) * t8619;
-    let t9228 = F::new(7.0) / F::new(144.0) * t8625;
+    let t9226 = F::cast_from(0.28015625e-1_f64) * t8619;
+    let t9228 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t8625;
     let t9239 = F::cast_from(0.10718504529517434243e-2_f64) * t8650;
-    let t9248 = F::new(11.0) / F::new(192.0) * t8680;
-    let t9249 = F::new(11.0) / F::new(576.0) * t8682;
-    let t9250 = F::new(7.0) / F::new(72.0) * t8684;
+    let t9248 = F::cast_from(11.0_f64) / F::cast_from(192.0_f64) * t8680;
+    let t9249 = F::cast_from(11.0_f64) / F::cast_from(576.0_f64) * t8682;
+    let t9250 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t8684;
     let t9252 = F::cast_from(0.21437009059034868486e-3_f64) * t8690;
     (t9206, t9211, t9214, t9215, t9222, t9226, t9228, t9239, t9248, t9249, t9250, t9252)
 }

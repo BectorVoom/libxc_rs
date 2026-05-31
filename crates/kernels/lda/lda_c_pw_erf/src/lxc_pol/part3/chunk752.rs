@@ -11,12 +11,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk752<F: Float>(t1954: F, t593: F, t4841: F, t571: F, t1472: F, t2014: F, t2176: F, t529: F, t1976: F, t542: F, t519: F, t4801: F, t4803: F, t4806: F, t4809: F, t4812: F, t4815: F, t4817: F, t4822: F, t4824: F, t4828: F, t4833: F, t4836: F, t4840: F) -> (F, F, F, F, F, F, F, F, F) {
     let t4842 = t1954 * t593;
     let t4843 = t4841 * t4842;
-    let t4845 = F::new(16.0) / F::new(45.0) * t571 * t4843;
-    let t4847 = F::new(16.0) / F::new(45.0) * t1472 * t2014;
+    let t4845 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t571 * t4843;
+    let t4847 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t1472 * t2014;
     let t4848 = t2176 * t529;
     let t4849 = t1976 * t542;
     let t4850 = t4848 * t4849;
-    let t4852 = F::new(16.0) / F::new(45.0) * t519 * t4850;
+    let t4852 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t519 * t4850;
     let t4853 = -t4801 - t4803 + t4806 - t4809 - t4812 + t4815 + t4817 - t4822 + t4824 + t4828 + t4833 - t4836 - t4840 + t4845 - t4847 - t4852;
     (t4842, t4843, t4845, t4847, t4848, t4849, t4850, t4852, t4853)
 }

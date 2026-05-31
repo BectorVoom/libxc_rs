@@ -12,10 +12,10 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk751<F: Float>(t169: F, t449: F, t
     let t170 = t169 <= zeta_threshold;
     let t4505 = t449 * t4504;
     let t4506 = t446 * t4505;
-    let t4507 = t4506 / F::new(16.0);
+    let t4507 = t4506 / F::cast_from(16.0_f64);
     let t4510 = t2629 * t1646;
     let t4513 = t171 * t167;
-    let t4517 = piecewise3::<F>(t170, F::new(0.0), F::new(4.0) / F::new(9.0) * t4510 * t829 + F::new(8.0) / F::new(3.0) * t4513 * t740);
+    let t4517 = piecewise3::<F>(t170, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4510 * t829 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t4513 * t740);
     let t4518 = t2641 * t1650;
     let t4521 = t176 * t167;
     (t4505, t4507, t4510, t4513, t4517, t4518, t4521)

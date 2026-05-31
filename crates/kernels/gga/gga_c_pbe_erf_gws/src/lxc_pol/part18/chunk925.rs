@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk925<F: Float>(t3465: F, t422: F, t1809: F, t639: F, t2672: F, t34: F, t7194: F, t3411: F, t7136: F, t5312: F, t3345: F, t597: F) -> (F, F, F, F, F, F, F) {
     let t10353 = t3465 * t422;
     let t10354 = t1809 * t10353;
-    let t10356 = F::new(8.0) / F::new(15.0) * t639 * t10354;
+    let t10356 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t639 * t10354;
     let t10357 = t2672 * t34;
     let t10358 = t7194 * t10357;
-    let t10360 = F::new(32.0) / F::new(45.0) * t639 * t10358;
-    let t10362 = F::new(16.0) / F::new(45.0) * t7136 * t3411;
-    let t10364 = F::new(16.0) / F::new(45.0) * t5312 * t3411;
+    let t10360 = F::cast_from(32.0_f64) / F::cast_from(45.0_f64) * t639 * t10358;
+    let t10362 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t7136 * t3411;
+    let t10364 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t5312 * t3411;
     let t10365 = t597 * t3345;
     (t10353, t10356, t10357, t10360, t10362, t10364, t10365)
 }

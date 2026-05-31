@@ -15,6 +15,6 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1024<F: Float>(t23157: F, t
     let t23167 = t4455 * t7492;
     let t23168 = t23167 * t1610;
     let t23169 = t6176 * t23168;
-    let t23172 = t18142 / F::new(432.0) - t18148 + t18152 - t23155 / F::new(864.0) + F::new(11.0) / F::new(648.0) * t23158 * t1603 + t6141 * t6165 / F::new(54.0) + t23164 / F::new(1728.0) - t18164 / F::new(1296.0) - t18170 - t18174 + t18178 - t18205 + t18213 + t1599 * t23169 / F::new(96.0);
+    let t23172 = t18142 / F::cast_from(432.0_f64) - t18148 + t18152 - t23155 / F::cast_from(864.0_f64) + F::cast_from(11.0_f64) / F::cast_from(648.0_f64) * t23158 * t1603 + t6141 * t6165 / F::cast_from(54.0_f64) + t23164 / F::cast_from(1728.0_f64) - t18164 / F::cast_from(1296.0_f64) - t18170 - t18174 + t18178 - t18205 + t18213 + t1599 * t23169 / F::cast_from(96.0_f64);
     (t23158, t23172)
 }

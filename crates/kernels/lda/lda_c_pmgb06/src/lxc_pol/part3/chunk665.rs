@@ -19,6 +19,6 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk665<F: Float>(t208: F, t4087: F,
     let t4096 = t1687 * t97;
     let t4097 = t4096 * t588;
     let t4099 = t574 * t1680;
-    let t4102 = F::new(2.0) / F::new(9.0) * t581 * t1680;
+    let t4102 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t581 * t1680;
     (t4088, t4089, t4091, t4093, t4094, t4095, t4096, t4097, t4099, t4102)
 }

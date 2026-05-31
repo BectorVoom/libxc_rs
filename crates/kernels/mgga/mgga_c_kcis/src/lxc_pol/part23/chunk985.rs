@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk985<F: Float>(t18137: F, t7
     let t18138 = t737 * t18137;
     let t18141 = t110 * t2105;
     let t18142 = t1599 * t18141;
-    let t18144 = -t18093 - t4439 * t18096 / F::new(288.0) - t4439 * t18100 / F::new(576.0) + t4439 * t18105 / F::new(288.0) - t4439 * t18110 / F::new(432.0) - t1599 * t18116 / F::new(192.0) + t4439 * t18121 / F::new(144.0) - t4439 * t18125 / F::new(576.0) + t4439 * t18130 / F::new(144.0) - t4439 * t18133 / F::new(288.0) - t1599 * t18138 / F::new(288.0) + t18142 / F::new(864.0);
+    let t18144 = -t18093 - t4439 * t18096 / F::cast_from(288.0_f64) - t4439 * t18100 / F::cast_from(576.0_f64) + t4439 * t18105 / F::cast_from(288.0_f64) - t4439 * t18110 / F::cast_from(432.0_f64) - t1599 * t18116 / F::cast_from(192.0_f64) + t4439 * t18121 / F::cast_from(144.0_f64) - t4439 * t18125 / F::cast_from(576.0_f64) + t4439 * t18130 / F::cast_from(144.0_f64) - t4439 * t18133 / F::cast_from(288.0_f64) - t1599 * t18138 / F::cast_from(288.0_f64) + t18142 / F::cast_from(864.0_f64);
     t18144
 }

@@ -9,13 +9,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk739<F: Float>(t1513: F, t808: F, t1518: F, t807: F, t185: F, t1931: F, t230: F, t610: F, t838: F, t2007: F, t3794: F, t2119: F, t518: F) -> (F, F, F, F, F, F, F) {
-    let t4728 = F::new(4.0) / F::new(15.0) * t1513 * t808;
+    let t4728 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1513 * t808;
     let t4729 = t1518 * t807;
     let t4730 = t185 * t4729;
-    let t4731 = F::new(4.0) / F::new(135.0) * t4730;
-    let t4733 = F::new(8.0) / F::new(3.0) * t1931 * t230;
+    let t4731 = F::cast_from(4.0_f64) / F::cast_from(135.0_f64) * t4730;
+    let t4733 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t1931 * t230;
     let t4734 = t838 * t610;
-    let t4737 = F::new(16.0) / F::new(45.0) * t3794 * t2007;
+    let t4737 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t3794 * t2007;
     let t4738 = t2119 * t518;
     (t4728, t4729, t4731, t4733, t4734, t4737, t4738)
 }

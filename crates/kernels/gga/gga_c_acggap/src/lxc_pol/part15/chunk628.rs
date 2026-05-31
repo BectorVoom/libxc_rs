@@ -9,16 +9,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk628<F: Float>(t5034: F, t1708: F, t75: F, t288: F, t1: F, t283: F, t2996: F, t2998: F, t3000: F, t5040: F, t5045: F, t1711: F, t224: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t6020 = F::new(24.0) * t5034;
+    let t6020 = F::cast_from(24.0_f64) * t5034;
     let t6021 = t1708 * t75;
     let t6022 = t6021 * t288;
     let t6023 = F::cast_from(0.5848223622634646207e0_f64) * t6022;
     let t6024 = t1708 * t1;
     let t6025 = t6024 * t283;
     let t6026 = F::cast_from(0.18311447306006545054e-3_f64) * t6025;
-    let t6027 = F::new(32.0) * t2996;
-    let t6028 = F::new(20.0) * t2998;
-    let t6029 = F::new(8.0) * t3000;
+    let t6027 = F::cast_from(32.0_f64) * t2996;
+    let t6028 = F::cast_from(20.0_f64) * t2998;
+    let t6029 = F::cast_from(8.0_f64) * t3000;
     let t6030 = F::cast_from(0.34631718211362927517e2_f64) * t5040;
     let t6031 = F::cast_from(0.11696447245269292414e1_f64) * t5045;
     let t6032 = t224 * t1711;

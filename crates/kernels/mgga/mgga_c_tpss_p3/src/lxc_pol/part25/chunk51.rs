@@ -12,7 +12,7 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk51<F: Float>(t30: F, t72: F
     let pi = F::cast_from(M_PI);
     let t31 = t30 <= zeta_threshold;
     let t120 = rho0 <= dens_threshold || t31;
-    let t121 = F::new(1.0) / pi;
+    let t121 = F::cast_from(1.0_f64) / pi;
     let t122 = pow_1_3::<F>(t121);
     let t123 = t72 * t122;
     (t121, t122, t123)

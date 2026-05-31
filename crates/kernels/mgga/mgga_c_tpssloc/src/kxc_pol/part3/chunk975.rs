@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk975<F: Float>(t1266: F, t4072: F, t1774: F, t2363: F, t584: F, t9212: F, t9214: F, t9216: F, t9218: F, t9220: F, t9225: F, t3951: F, t604: F) -> (F, F, F, F) {
     let t12550 = t1266 * t4072;
     let t12557 = t1774 * t2363;
-    let t12560 = F::new(0.348e1) * t584;
-    let t12561 = F::new(0.156e1) * t9212;
-    let t12562 = F::new(0.312e1) * t9214;
-    let t12563 = F::new(0.2312e3) * t9216;
-    let t12564 = F::new(0.3468e3) * t9218;
-    let t12565 = F::new(0.56952e3) * t9220;
+    let t12560 = F::cast_from(0.348e1_f64) * t584;
+    let t12561 = F::cast_from(0.156e1_f64) * t9212;
+    let t12562 = F::cast_from(0.312e1_f64) * t9214;
+    let t12563 = F::cast_from(0.2312e3_f64) * t9216;
+    let t12564 = F::cast_from(0.3468e3_f64) * t9218;
+    let t12565 = F::cast_from(0.56952e3_f64) * t9220;
     let t12566 = t12560 - t12561 + t12562 - t12563 + t12564 + t12565 - t9225;
     let t12568 = t3951 * t604;
     (t12550, t12557, t12566, t12568)

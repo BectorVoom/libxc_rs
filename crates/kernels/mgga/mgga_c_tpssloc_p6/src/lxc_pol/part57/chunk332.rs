@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk332<F: Float>(t1997: F
     let t2002 = t553 * t59;
     let t2003 = t544 * t2002;
     let t2004 = t2003 * t559;
-    let t2006 = t1992 / F::new(96.0) + F::cast_from(0.20186378047070195427e-3_f64) * t2000 + t2004 / F::new(1536.0);
+    let t2006 = t1992 / F::cast_from(96.0_f64) + F::cast_from(0.20186378047070195427e-3_f64) * t2000 + t2004 / F::cast_from(1536.0_f64);
     (t2000, t2002, t2003, t2004, t2006)
 }

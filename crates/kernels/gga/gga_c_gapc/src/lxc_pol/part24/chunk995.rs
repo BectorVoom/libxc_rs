@@ -14,9 +14,9 @@ pub fn gga_c_gapc_lxc_pol_part24_v4rho2sigma2_3_chunk995<F: Float>(t12312: F, t1
     let t12329 = t3855 * t575;
     let t12330 = t12329 * t687;
     let t12331 = t10526 * t1112;
-    let t12332 = F::new(2.0) * t12331;
+    let t12332 = F::cast_from(2.0_f64) * t12331;
     let t12333 = t10529 * t3483;
-    let t12334 = F::new(4.0) * t12333;
+    let t12334 = F::cast_from(4.0_f64) * t12333;
     let t12335 = t3480 * t3537;
     (t12327, t12328, t12329, t12330, t12331, t12332, t12333, t12334, t12335)
 }

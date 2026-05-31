@@ -12,13 +12,13 @@ pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk103<F: Float>(t183: F, 
     let t389 = t388 * t183;
     let t390 = t155 * t389;
     let t394 = t163 * t163;
-    let t395 = F::new(1.0) / t394;
+    let t395 = F::cast_from(1.0_f64) / t394;
     let t396 = t158 * t395;
-    let t401 = -F::new(0.1176575e1) * t247 - F::new(0.516475e0) * t250 - F::new(0.2103875e0) * t369 - F::new(0.104195e0) * t374;
-    let t402 = F::new(1.0) / t166;
+    let t401 = -F::cast_from(0.1176575e1_f64) * t247 - F::cast_from(0.516475e0_f64) * t250 - F::cast_from(0.2103875e0_f64) * t369 - F::cast_from(0.104195e0_f64) * t374;
+    let t402 = F::cast_from(1.0_f64) / t166;
     let t403 = t401 * t402;
     let t409 = t176 * t176;
-    let t410 = F::new(1.0) / t409;
+    let t410 = F::cast_from(1.0_f64) / t409;
     let t411 = t171 * t410;
     (t389, t390, t394, t395, t396, t401, t402, t403, t409, t410, t411)
 }

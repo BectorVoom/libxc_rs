@@ -12,8 +12,8 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk36<F: Float>(t40: F, t88: F, t60
     let pi = F::cast_from(M_PI);
     let t89 = t40 * t88;
     let t91 = F::cast_from(0.19751673498613801407e-1_f64) * t60 * t85;
-    let t92 = F::ln(F::new(2.0));
-    let t93 = F::new(1.0) - t92;
+    let t92 = F::ln(F::cast_from(2.0_f64));
+    let t93 = F::cast_from(1.0_f64) - t92;
     let t94 = pi * pi;
     (t89, t91, t93, t94)
 }

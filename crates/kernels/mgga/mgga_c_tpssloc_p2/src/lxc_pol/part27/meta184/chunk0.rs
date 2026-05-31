@@ -14,9 +14,9 @@ pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk960<F: Float>(t40: F, t5
     let t4073 = t510 * t4072;
     let t4077 = t1774 * t671;
     let t4080 = t2433 * t1409;
-    let t4086 = piecewise3::<F>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t4080 * t607 + F::new(4.0) / F::new(3.0) * t73 * t3966);
+    let t4086 = piecewise3::<F>(t146, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4080 * t607 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t73 * t3966);
     let t4087 = t2440 * t1409;
-    let t4093 = piecewise3::<F>(t150, F::new(0.0), F::new(4.0) / F::new(9.0) * t4087 * t607 - F::new(4.0) / F::new(3.0) * t76 * t3966);
+    let t4093 = piecewise3::<F>(t150, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4087 * t607 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t76 * t3966);
     let t4094 = t4086 + t4093;
     let t4095 = t4094 * t157;
     (t4073, t4077, t4080, t4087, t4094, t4095)

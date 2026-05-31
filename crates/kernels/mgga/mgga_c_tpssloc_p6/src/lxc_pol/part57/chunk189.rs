@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk189<F: Float>(t241: F, t835: F, t244: F, t248: F, t238: F, t234: F, t236: F, t240: F, t812: F, t200: F, t243: F, t67: F) -> (F, F, F, F, F, F, F, F) {
     let t836 = t835 * t241;
     let t838 = t836 * t244 * t248;
-    let t840 = F::new(7.0) / F::new(4608.0) * t238 * t838;
+    let t840 = F::cast_from(7.0_f64) / F::cast_from(4608.0_f64) * t238 * t838;
     let t841 = t234 * t236;
     let t842 = t841 * t240;
     let t843 = t812 * t842;
-    let t845 = F::new(1.0) / t243 / t200;
+    let t845 = F::cast_from(1.0_f64) / t243 / t200;
     let t847 = t241 * t845 * t67;
     (t836, t838, t840, t841, t842, t843, t845, t847)
 }

@@ -14,9 +14,9 @@ pub fn mgga_c_tpssloc_lxc_pol_part26_v4rho3sigma_2_chunk143<F: Float>(t25: F, t2
     let t115 = rho0 <= dens_threshold || t26;
     let t395 = t265 < t394;
     let t396 = piecewise3::<F>(t395, t394, t265);
-    let t399 = piecewise3::<F>(t115, t265 * t25 / F::new(2.0), t396 * t40 / F::new(2.0));
+    let t399 = piecewise3::<F>(t115, t265 * t25 / F::cast_from(2.0_f64), t396 * t40 / F::cast_from(2.0_f64));
     let t401 = rho1 <= dens_threshold || t29;
-    let t404 = F::new(1.0) / t52;
+    let t404 = F::cast_from(1.0_f64) / t52;
     let t405 = pow_1_3::<F>(t404);
     (t396, t399, t404, t405)
 }

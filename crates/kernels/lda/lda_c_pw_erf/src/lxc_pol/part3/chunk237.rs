@@ -9,7 +9,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk237<F: Float>(t252: F, t656: F, t43: F, t92: F) -> (F, F) {
-    let t658 = F::new(2.0) / F::new(9.0) * t252 * t656;
+    let t658 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t252 * t656;
     let t659 = t92 * t43;
     (t658, t659)
 }

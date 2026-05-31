@@ -12,12 +12,12 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk257<F: Float>(t1539: F
     let t1540 = t882 * t1539;
     let t1541 = t123 * t1540;
     let t1543 = -t881 - F::cast_from(0.17808333333333333333e-1_f64) * t1541;
-    let t1545 = F::new(0.621814e-1) * t1543 * t291;
-    let t1547 = -t880 / F::new(3.0) - t1541 / F::new(3.0);
+    let t1545 = F::cast_from(0.621814e-1_f64) * t1543 * t291;
+    let t1547 = -t880 / F::cast_from(3.0_f64) - t1541 / F::cast_from(3.0_f64);
     let t1548 = t894 * t1547;
     let t1551 = t901 * t1547;
     let t1553 = t908 * t1539;
     let t1554 = t136 * t1553;
-    let t1556 = F::new(0.1898925e1) * t1548 - t899 - F::cast_from(0.29896666666666666667e0_f64) * t1541 + F::new(0.3071625e0) * t1551 - t907 - F::cast_from(0.82156666666666666667e-1_f64) * t1554;
+    let t1556 = F::cast_from(0.1898925e1_f64) * t1548 - t899 - F::cast_from(0.29896666666666666667e0_f64) * t1541 + F::cast_from(0.3071625e0_f64) * t1551 - t907 - F::cast_from(0.82156666666666666667e-1_f64) * t1554;
     (t1540, t1541, t1543, t1545, t1547, t1548, t1551, t1553, t1554, t1556)
 }

@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk343<F: Float>(t1266: F, t317: F, t1250: F, t1253: F, t1258: F, t1262: F, t313: F) -> (F, F) {
-    let t1288 = F::new(11.0) / F::new(9.0) * t317 * t1266;
-    let t1289 = F::new(3.0) / F::new(10.0) * t313 * (F::new(10.0) / F::new(9.0) * t1250 + F::new(5.0) / F::new(3.0) * t1253 + F::new(10.0) / F::new(9.0) * t1258 + F::new(5.0) / F::new(3.0) * t1262) + t1288;
+    let t1288 = F::cast_from(11.0_f64) / F::cast_from(9.0_f64) * t317 * t1266;
+    let t1289 = F::cast_from(3.0_f64) / F::cast_from(10.0_f64) * t313 * (F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t1250 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t1253 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t1258 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t1262) + t1288;
     (t1288, t1289)
 }

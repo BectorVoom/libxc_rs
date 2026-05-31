@@ -17,6 +17,6 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1034<F: Float>(t11200: F, t378
     let t11223 = t988 * t3056;
     let t11224 = t11223 * t378;
     let t11238 = t1031 * t1031;
-    let t11239 = F::new(1.0) / t11238;
+    let t11239 = F::cast_from(1.0_f64) / t11238;
     (t11201, t11210, t11213, t11214, t11220, t11223, t11224, t11239)
 }

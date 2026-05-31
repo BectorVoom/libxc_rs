@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk438<F: Float>(t1955: F, t1975: F, t1947: F, t1967: F, t623: F, t627: F, t74: F, t79: F, t81: F, t82: F, t1956: F, t1959: F, t616: F, t618: F, t632: F, t72: F, t85: F) -> (F, F, F) {
     let t1976 = t1975 * t1955;
-    let t1987 = -F::new(2.0) * t1967 * t1955 * t81 + t623 * t1947 * t81 / F::new(2.0) + t1976 * t81 / F::new(4.0) - F::new(4.0) * t1955 * t82 - t79 * t1955 * t81 - F::new(4.0) * t627 * t1947 - t74 * t1947 * t81;
-    let t1990 = -t1956 * t81 / F::new(2.0) + F::new(2.0) * t1959 * t1955 - t618 * t1947 + F::new(2.0) * t1947 * t85 + F::new(4.0) * t616 * t632 + F::new(2.0) * t72 * t1987;
+    let t1987 = -F::cast_from(2.0_f64) * t1967 * t1955 * t81 + t623 * t1947 * t81 / F::cast_from(2.0_f64) + t1976 * t81 / F::cast_from(4.0_f64) - F::cast_from(4.0_f64) * t1955 * t82 - t79 * t1955 * t81 - F::cast_from(4.0_f64) * t627 * t1947 - t74 * t1947 * t81;
+    let t1990 = -t1956 * t81 / F::cast_from(2.0_f64) + F::cast_from(2.0_f64) * t1959 * t1955 - t618 * t1947 + F::cast_from(2.0_f64) * t1947 * t85 + F::cast_from(4.0_f64) * t616 * t632 + F::cast_from(2.0_f64) * t72 * t1987;
     (t1976, t1987, t1990)
 }

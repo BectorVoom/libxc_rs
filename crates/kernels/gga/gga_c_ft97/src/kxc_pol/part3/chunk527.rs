@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk527<F: Float>(t4129: F, t799: F, t27: F, t89: F, t2653: F, t2655: F, t2658: F, t4032: F, t4035: F, t4039: F, t4042: F, t4046: F, t4049: F, t4054: F, t4059: F) -> (F, F, F) {
     let t4130 = t799 * t4129;
     let t4132 = t89 * t27 * t4130;
-    let t4134 = t2653 + t2655 / F::new(54.0) + t2658 / F::new(18.0) + t4032 / F::new(54.0) - t4035 / F::new(27.0) + t4039 / F::new(18.0) + t4042 / F::new(9.0) + t4046 / F::new(9.0) + t4049 / F::new(18.0) + t4054 / F::new(18.0) + t4059 / F::new(3.0) - t4132 / F::new(6.0);
+    let t4134 = t2653 + t2655 / F::cast_from(54.0_f64) + t2658 / F::cast_from(18.0_f64) + t4032 / F::cast_from(54.0_f64) - t4035 / F::cast_from(27.0_f64) + t4039 / F::cast_from(18.0_f64) + t4042 / F::cast_from(9.0_f64) + t4046 / F::cast_from(9.0_f64) + t4049 / F::cast_from(18.0_f64) + t4054 / F::cast_from(18.0_f64) + t4059 / F::cast_from(3.0_f64) - t4132 / F::cast_from(6.0_f64);
     (t4130, t4132, t4134)
 }

@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk597<F: Float>(t3455: F, t581: F, t3431: F, t60: F, t1294: F, t1300: F, t2024: F, t3447: F, t3450: F, t44: F, t56: F, t589: F, t595: F) -> (F, F, F) {
     let t3456 = t3455 * t581;
     let t3459 = t60 * t3431;
-    let t3462 = -F::new(20.0) / F::new(9.0) * t589 * t1294 + F::new(5.0) / F::new(18.0) * t44 * t3447 + F::new(5.0) / F::new(6.0) * t44 * t3450 + F::new(20.0) / F::new(9.0) * t1300 * t595 + F::new(5.0) / F::new(18.0) * t56 * t3456 - F::new(5.0) / F::new(6.0) * t56 * t3459 - t2024;
+    let t3462 = -F::cast_from(20.0_f64) / F::cast_from(9.0_f64) * t589 * t1294 + F::cast_from(5.0_f64) / F::cast_from(18.0_f64) * t44 * t3447 + F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t44 * t3450 + F::cast_from(20.0_f64) / F::cast_from(9.0_f64) * t1300 * t595 + F::cast_from(5.0_f64) / F::cast_from(18.0_f64) * t56 * t3456 - F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t56 * t3459 - t2024;
     (t3456, t3459, t3462)
 }

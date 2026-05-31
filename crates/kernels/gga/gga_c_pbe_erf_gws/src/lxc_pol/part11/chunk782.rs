@@ -12,13 +12,13 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk782<F: Float>(t12682: F, t
     let t12701 = t12682 + t12700;
     let t12702 = t598 * t12701;
     let t12703 = t186 * t12702;
-    let t12705 = F::new(2.0) / F::new(15.0) * t185 * t12703;
-    let t12707 = F::new(4.0) / F::new(5.0) * t2741 * t3564;
-    let t12709 = -F::new(3.0) * t12344;
+    let t12705 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t185 * t12703;
+    let t12707 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t2741 * t3564;
+    let t12709 = -F::cast_from(3.0_f64) * t12344;
     let t12710 = t220 * t12709;
     let t12711 = t186 * t12710;
-    let t12713 = F::new(4.0) / F::new(15.0) * t616 * t12711;
-    let t12715 = F::new(4.0) / F::new(5.0) * t10743 * t3564;
+    let t12713 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t616 * t12711;
+    let t12715 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t10743 * t3564;
     let t12716 = t10938 * t950;
     (t12701, t12702, t12703, t12705, t12707, t12709, t12710, t12711, t12713, t12715, t12716)
 }

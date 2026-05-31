@@ -13,7 +13,7 @@ pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk1046<F: Float>(t2206: F, t
     let t24398 = t761 * t6851;
     let t24499 = t3296 * t2254 * t19 * t147;
     let t24625 = t2153 * t2206;
-    let t24759 = F::new(1.0) / t8 / t5692;
+    let t24759 = F::cast_from(1.0_f64) / t8 / t5692;
     let t24760 = t5 * t24759;
     (t24352, t24398, t24499, t24625, t24759, t24760)
 }

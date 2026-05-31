@@ -11,10 +11,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[cube]
 pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk197<F: Float>(t637: F, t639: F, t643: F, t629: F, t631: F, t634: F, t184: F, t21: F, t231: F, t240: F, t247: F, t342: F, t343: F) -> (F, F, F, F, F, F) {
     let t645 = t637 * t639 * t643;
-    let t648 = t629 + t631 * t634 / F::new(6.0) + t631 * t645 / F::new(2.0);
+    let t648 = t629 + t631 * t634 / F::cast_from(6.0_f64) + t631 * t645 / F::cast_from(2.0_f64);
     let t649 = t648 * t184;
     let t650 = t649 * t21;
     let t657 = t231 * t240;
-    let t661 = t247 - t342 * t343 * t657 / F::new(4.0);
+    let t661 = t247 - t342 * t343 * t657 / F::cast_from(4.0_f64);
     (t645, t648, t649, t650, t657, t661)
 }

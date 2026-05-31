@@ -17,6 +17,6 @@ pub fn mgga_c_revtpss_lxc_pol_part42_v4rho3tau_5_chunk1466<F: Float>(t21660: F, 
     let t22564 = t116 * t5920;
     let t22565 = t22564 * t670;
     let t22568 = t117 * t21881;
-    let t22571 = F::new(6.0) * t1459 * t6945 + F::new(3.0) * t1459 * t6948 + F::new(3.0) * t1461 * t6941 + F::new(12.0) * t1916 * t5802 + F::new(6.0) * t1916 * t5805 + F::new(6.0) * t1918 * t5795 + t22544 * t573 + F::new(6.0) * t22556 * t572 + F::new(12.0) * t22559 * t572 + F::new(6.0) * t22565 * t572 + F::new(3.0) * t22568 * t572;
+    let t22571 = F::cast_from(6.0_f64) * t1459 * t6945 + F::cast_from(3.0_f64) * t1459 * t6948 + F::cast_from(3.0_f64) * t1461 * t6941 + F::cast_from(12.0_f64) * t1916 * t5802 + F::cast_from(6.0_f64) * t1916 * t5805 + F::cast_from(6.0_f64) * t1918 * t5795 + t22544 * t573 + F::cast_from(6.0_f64) * t22556 * t572 + F::cast_from(12.0_f64) * t22559 * t572 + F::cast_from(6.0_f64) * t22565 * t572 + F::cast_from(3.0_f64) * t22568 * t572;
     (t22533, t22544, t22556, t22559, t22565, t22568, t22571)
 }

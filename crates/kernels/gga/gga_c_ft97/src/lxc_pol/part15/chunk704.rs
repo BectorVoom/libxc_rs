@@ -14,6 +14,6 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk704<F: Float>(t20022: F, t8314: F
     let t20363 = t1780 * t20362;
     let t20366 = t3127 * t20031;
     let t20369 = t1787 * t20141;
-    let t20371 = -t92 * t20334 - t462 * t20337 / F::new(3.0) - F::new(6.0) * t92 * t20341 + F::new(6.0) * t462 * t20345 - F::new(10.0) / F::new(27.0) * t462 * t20349 - F::new(2.0) * t462 * t20353 + F::new(2.0) * t462 * t20356 + F::new(2.0) / F::new(3.0) * t462 * t20359 + F::new(4.0) / F::new(3.0) * t462 * t20363 - F::new(2.0) / F::new(3.0) * t462 * t20366 + t462 * t20369;
+    let t20371 = -t92 * t20334 - t462 * t20337 / F::cast_from(3.0_f64) - F::cast_from(6.0_f64) * t92 * t20341 + F::cast_from(6.0_f64) * t462 * t20345 - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t462 * t20349 - F::cast_from(2.0_f64) * t462 * t20353 + F::cast_from(2.0_f64) * t462 * t20356 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t20359 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t462 * t20363 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t20366 + t462 * t20369;
     (t20362, t20363, t20366, t20369, t20371)
 }

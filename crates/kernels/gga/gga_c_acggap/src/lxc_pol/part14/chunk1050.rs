@@ -13,6 +13,6 @@ pub fn gga_c_acggap_lxc_pol_part14_v4rho3sigma_6_chunk1050<F: Float>(t36602: F, 
     let t38534 = t1717 * t301;
     let t38538 = t694 * t9477;
     let t38540 = t560 * t1662;
-    let t38549 = -F::new(6.0) * t10409 * t7297 * t9476 - t19418 * t567 * t625 + F::new(2.0) * t2163 * t567 * t6596 - t2163 * t567 * t6614 - F::new(2.0) * t2355 * t5399 * t567 - F::new(6.0) * t36610 * t38519 * t9096 + F::new(6.0) * t38534 * t7297 * t9097 + F::new(4.0) * t38540 * t9096 * t9097 + F::new(6.0) * t5651 * t7278 * t8372 - t33357 + F::new(6.0) * t38524 - F::new(6.0) * t38538;
+    let t38549 = -F::cast_from(6.0_f64) * t10409 * t7297 * t9476 - t19418 * t567 * t625 + F::cast_from(2.0_f64) * t2163 * t567 * t6596 - t2163 * t567 * t6614 - F::cast_from(2.0_f64) * t2355 * t5399 * t567 - F::cast_from(6.0_f64) * t36610 * t38519 * t9096 + F::cast_from(6.0_f64) * t38534 * t7297 * t9097 + F::cast_from(4.0_f64) * t38540 * t9096 * t9097 + F::cast_from(6.0_f64) * t5651 * t7278 * t8372 - t33357 + F::cast_from(6.0_f64) * t38524 - F::cast_from(6.0_f64) * t38538;
     t38549
 }

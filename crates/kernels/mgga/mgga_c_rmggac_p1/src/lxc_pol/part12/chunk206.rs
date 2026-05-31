@@ -12,11 +12,11 @@ pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk206<F: Float>(t50: F, t81
     let t815 = t50 * t814;
     let t816 = -t278 + t815;
     let t817 = t90 * t816;
-    let t820 = F::new(1.0) / t100;
+    let t820 = F::cast_from(1.0_f64) / t100;
     let t821 = t316 * t316;
     let t822 = t820 * t821;
     let t825 = -t816;
     let t826 = t101 * t825;
-    let t830 = F::new(1.0) / t34 / t77;
+    let t830 = F::cast_from(1.0_f64) / t34 / t77;
     (t815, t816, t817, t820, t821, t822, t825, t826, t830)
 }

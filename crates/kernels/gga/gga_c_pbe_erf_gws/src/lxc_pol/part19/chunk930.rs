@@ -9,17 +9,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk930<F: Float>(t10426: F, t1820: F, t3429: F, t562: F, t1821: F, t610: F, t1827: F, t587: F, t1764: F, t3346: F, t418: F, t1663: F) -> (F, F, F, F, F, F) {
-    let t10428 = F::new(8.0) / F::new(45.0) * t1820 * t10426;
+    let t10428 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t1820 * t10426;
     let t10429 = t3429 * t562;
     let t10430 = t1821 * t10429;
-    let t10432 = F::new(8.0) / F::new(45.0) * t1820 * t10430;
+    let t10432 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t1820 * t10430;
     let t10433 = t3429 * t610;
     let t10434 = t1827 * t10433;
-    let t10436 = F::new(4.0) / F::new(45.0) * t587 * t10434;
+    let t10436 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t587 * t10434;
     let t10437 = t1764 * t3346;
     let t10438 = t10437 * t418;
     let t10439 = t1821 * t10438;
-    let t10441 = F::new(8.0) / F::new(45.0) * t587 * t10439;
+    let t10441 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t587 * t10439;
     let t10442 = t1663 * t3346;
     (t10428, t10432, t10436, t10438, t10441, t10442)
 }

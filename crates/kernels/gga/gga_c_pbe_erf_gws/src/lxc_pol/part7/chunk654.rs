@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk654<F: Float>(t1806: F, t579: F, t1730: F, t1798: F, t1734: F, t582: F, t616: F, t596: F, t188: F, t1804: F, t610: F, t186: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t5168 = F::new(4.0) / F::new(5.0) * t579 * t1806;
+    let t5168 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t579 * t1806;
     let t5169 = t1730 * t1798;
-    let t5170 = F::new(16.0) / F::new(15.0) * t5169;
+    let t5170 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t5169;
     let t5171 = t582 * t1734;
     let t5172 = t616 * t5171;
-    let t5173 = F::new(8.0) / F::new(15.0) * t5172;
+    let t5173 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t5172;
     let t5174 = t596 * t596;
-    let t5175 = F::new(1.0) / t5174;
+    let t5175 = F::cast_from(1.0_f64) / t5174;
     let t5176 = t188 * t5175;
     let t5177 = t1804 * t610;
     let t5178 = t5176 * t5177;

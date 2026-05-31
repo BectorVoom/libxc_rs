@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk554<F: Float>(t45: F, t57: F, t1522: F, t706: F, t1469: F, t78: F, t81: F, zeta_threshold: F) -> (F, F) {
     let t151 = t45 <= zeta_threshold;
     let t155 = t57 <= zeta_threshold;
-    let t1524 = F::new(4.0) * t706 * t1522;
-    let t1527 = piecewise3::<F>(t151, F::new(0.0), F::new(4.0) / F::new(3.0) * t78 * t1469);
-    let t1530 = piecewise3::<F>(t155, F::new(0.0), -F::new(4.0) / F::new(3.0) * t81 * t1469);
+    let t1524 = F::cast_from(4.0_f64) * t706 * t1522;
+    let t1527 = piecewise3::<F>(t151, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t78 * t1469);
+    let t1530 = piecewise3::<F>(t155, F::cast_from(0.0_f64), -F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t81 * t1469);
     let t1531 = t1527 + t1530;
     (t1524, t1531)
 }

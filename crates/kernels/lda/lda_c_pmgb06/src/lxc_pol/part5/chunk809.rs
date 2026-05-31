@@ -12,12 +12,12 @@ pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk809<F: Float>(t12: F, t176: F, t
     let t13 = t12 <= zeta_threshold;
     let t7617 = t7616 * t176;
     let t7618 = t166 * t7617;
-    let t7620 = t161 * t7618 / F::new(30.0);
+    let t7620 = t161 * t7618 / F::cast_from(30.0_f64);
     let t7621 = t764 * t2389;
-    let t7626 = piecewise3::<F>(t13, F::new(0.0), F::new(2.0) * t12 * t7300 + F::new(6.0) * t7621);
+    let t7626 = piecewise3::<F>(t13, F::cast_from(0.0_f64), F::cast_from(2.0_f64) * t12 * t7300 + F::cast_from(6.0_f64) * t7621);
     let t7627 = t7626 * t44;
     let t7628 = t7627 * t131;
-    let t7630 = t7628 * t178 / F::new(30.0);
+    let t7630 = t7628 * t178 / F::cast_from(30.0_f64);
     let t7631 = t7549 - t7553 - t7557 + t7561 + t7565 + t7569 + t7571 + t7573 + t7576 + t7579 + t7583 + t7587 + t7589 + t7620 + t7630;
     (t7617, t7618, t7620, t7621, t7627, t7628, t7630, t7631)
 }

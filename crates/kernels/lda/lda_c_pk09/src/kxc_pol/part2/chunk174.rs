@@ -11,8 +11,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk174<F: Float>(t119: F, t573: F, t17: F, t10: F, t12: F, t129: F, t26: F, t21: F, t13: F, t18: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t574 = t119 * t573;
     let t575 = F::cast_from(14.71989892086604_f64) * t574;
-    let t576 = F::powf(F::new(4.0), F::new(1.0) / F::new(12.0));
-    let t577 = F::powf(t17, F::new(1.0) / F::new(12.0));
+    let t576 = F::powf(F::cast_from(4.0_f64), F::cast_from(1.0_f64) / F::cast_from(12.0_f64));
+    let t577 = F::powf(t17, F::cast_from(1.0_f64) / F::cast_from(12.0_f64));
     let t578 = t577 * t577;
     let t579 = t578 * t578;
     let t580 = t579 * t577;
@@ -25,6 +25,6 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk174<F: Float>(t119: F, t573: F, t1
     let t593 = t592 * t26;
     let t595 = t21 * t590 / t593;
     let t596 = t13 * t129;
-    let t599 = F::new(1.0) / t18;
+    let t599 = F::cast_from(1.0_f64) / t18;
     (t574, t575, t576, t577, t580, t583, t584, t590, t593, t595, t596, t599)
 }

@@ -14,9 +14,9 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk590<F: Float>(t2653: 
     let t2657 = t1062 * t723;
     let t2659 = t562 * t181;
     let t2660 = t2659 * t184;
-    let t2662 = F::new(4.0) / F::new(15.0) * t2660 * t997;
-    let t2664 = F::new(4.0) / F::new(15.0) * t1879 * t997;
-    let t2665 = F::new(4.0) / F::new(45.0) * t1676;
+    let t2662 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t2660 * t997;
+    let t2664 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1879 * t997;
+    let t2665 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t1676;
     let t2666 = t1027 * t661;
     (t2654, t2655, t2657, t2659, t2660, t2662, t2664, t2665, t2666)
 }

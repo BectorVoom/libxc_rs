@@ -10,16 +10,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_rmggac_lxc_pol_part12_v4rho3sigma_3_chunk236<F: Float>(t33: F, t77: F, t74: F, t184: F, t154: F, t73: F, t294: F, t384: F, t381: F, t422: F, t389: F, t195: F, t498: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t1007 = t77 * t33;
-    let t1008 = F::new(1.0) / t1007;
+    let t1008 = F::cast_from(1.0_f64) / t1007;
     let t1009 = t74 * t1008;
-    let t1011 = F::new(20.0) * t1009 * t184;
+    let t1011 = F::cast_from(20.0_f64) * t1009 * t184;
     let t1012 = t73 * t154;
-    let t1014 = F::new(12.0) * t1012 * t184;
+    let t1014 = F::cast_from(12.0_f64) * t1012 * t184;
     let t1015 = t294 * t384;
-    let t1017 = F::new(32.0) * t1015 * t184;
-    let t1019 = F::new(8.0) * t381 * t422;
+    let t1017 = F::cast_from(32.0_f64) * t1015 * t184;
+    let t1019 = F::cast_from(8.0_f64) * t381 * t422;
     let t1020 = t381 * t389;
-    let t1021 = F::new(8.0) * t1020;
+    let t1021 = F::cast_from(8.0_f64) * t1020;
     let t1022 = t195 * t498;
     (t1007, t1008, t1009, t1011, t1012, t1014, t1015, t1017, t1019, t1020, t1021, t1022)
 }

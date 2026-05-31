@@ -12,7 +12,7 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk500<F: Float>(t3532: F, t403: F,
     let t3953 = t403 * t3532;
     let t3954 = t3953 * t3278;
     let t3955 = t3952 * t3954;
-    let t3959 = F::new(1.0) / t1318 / t402;
+    let t3959 = F::cast_from(1.0_f64) / t1318 / t402;
     let t3960 = t398 * t3959;
     let t3961 = t1322 * t1322;
     let t3962 = t3960 * t3961;

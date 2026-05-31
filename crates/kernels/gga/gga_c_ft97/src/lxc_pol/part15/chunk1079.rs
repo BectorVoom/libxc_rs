@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk1079<F: Float>(t64516: F, t78362: F, t78364: F, t78366: F, t78368: F, t78396: F, t87060: F, t87063: F, t87067: F, t87071: F, t87074: F, t87077: F, t87080: F, t87084: F) -> F {
-    let t87214 = F::new(4.0) / F::new(9.0) * t78362 - F::new(2.0) / F::new(9.0) * t78364 - F::new(2.0) / F::new(9.0) * t78366 + F::new(4.0) / F::new(27.0) * t78368 + t64516 + t87060 / F::new(3.0) + F::new(2.0) / F::new(9.0) * t87063 + F::new(20.0) / F::new(27.0) * t87067 + F::new(4.0) / F::new(9.0) * t78396 + F::new(4.0) / F::new(3.0) * t87071 + F::new(4.0) / F::new(3.0) * t87074 - F::new(10.0) / F::new(27.0) * t87077 + F::new(20.0) / F::new(81.0) * t87080 + F::new(4.0) * t87084;
+    let t87214 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t78362 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t78364 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t78366 + F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t78368 + t64516 + t87060 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t87063 + F::cast_from(20.0_f64) / F::cast_from(27.0_f64) * t87067 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t78396 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t87071 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t87074 - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t87077 + F::cast_from(20.0_f64) / F::cast_from(81.0_f64) * t87080 + F::cast_from(4.0_f64) * t87084;
     t87214
 }

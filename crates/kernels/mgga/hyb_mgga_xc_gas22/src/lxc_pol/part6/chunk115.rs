@@ -13,7 +13,7 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk115<F: Float>(t120: F, t306
     let t307 = t120 * t120;
     let t308 = t306 * t307;
     let t309 = t122 * t122;
-    let t310 = F::new(1.0) / t309;
+    let t310 = F::cast_from(1.0_f64) / t309;
     let t312 = param_c_ss_3;
     (t307, t308, t309, t310, t312)
 }

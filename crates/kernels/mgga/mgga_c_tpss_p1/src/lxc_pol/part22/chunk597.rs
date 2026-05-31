@@ -13,7 +13,7 @@ pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk597<F: Float>(t958: F, t962
     let t2662 = t2004 * t332;
     let t2665 = t917 * t921;
     let t2668 = t215 * t671 * t334;
-    let t2670 = t333 * t2668 / F::new(432.0);
+    let t2670 = t333 * t2668 / F::cast_from(432.0_f64);
     let t2671 = t970 * t2465;
     (t2660, t2662, t2665, t2668, t2670, t2671)
 }

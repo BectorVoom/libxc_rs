@@ -14,8 +14,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk696<F: Float>(t25: F, t
     let t395 = t265 < t394;
     let t7856 = t2057 * t1484;
     let t7859 = t202 * t7844;
-    let t7864 = -t1530 * t1877 * t7114 + t193 * t7859 * t870 + F::new(3.0) * t2522 * t7856;
-    let t7865 = piecewise3::<F>(t395, F::new(0.0), t7864);
-    let t7870 = piecewise3::<F>(t115, F::new(3.0) / F::new(2.0) * t2522 * t7809 + t1877 * t7845 * t25 / F::new(2.0) - t1877 * t7114 * t7545 / F::new(2.0) + t1877 * t2057 * t1408 / F::new(2.0), t2064 * t1409 / F::new(2.0) + t7865 * t40 / F::new(2.0));
+    let t7864 = -t1530 * t1877 * t7114 + t193 * t7859 * t870 + F::cast_from(3.0_f64) * t2522 * t7856;
+    let t7865 = piecewise3::<F>(t395, F::cast_from(0.0_f64), t7864);
+    let t7870 = piecewise3::<F>(t115, F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2522 * t7809 + t1877 * t7845 * t25 / F::cast_from(2.0_f64) - t1877 * t7114 * t7545 / F::cast_from(2.0_f64) + t1877 * t2057 * t1408 / F::cast_from(2.0_f64), t2064 * t1409 / F::cast_from(2.0_f64) + t7865 * t40 / F::cast_from(2.0_f64));
     (t7864, t7865, t7870)
 }

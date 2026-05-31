@@ -15,6 +15,6 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk1092<F: Float>(t13396: F, t70:
     let t13406 = t13405 * t70;
     let t13409 = t4187 * t627;
     let t13414 = t1470 * t2291;
-    let t13419 = t2292 * t1494 / F::new(24.0) + t628 * t4238 / F::new(12.0) + t71 * t13389 / F::new(24.0) - t13393 * t85 / F::new(12.0) - t13397 * t85 / F::new(6.0) - t13400 * t85 / F::new(6.0) - t4182 * t641 / F::new(6.0) - t13406 * t85 / F::new(12.0) - t13409 * t85 / F::new(6.0) - t4188 * t641 / F::new(6.0) - t13414 * t85 / F::new(12.0) - t4191 * t641 / F::new(6.0);
+    let t13419 = t2292 * t1494 / F::cast_from(24.0_f64) + t628 * t4238 / F::cast_from(12.0_f64) + t71 * t13389 / F::cast_from(24.0_f64) - t13393 * t85 / F::cast_from(12.0_f64) - t13397 * t85 / F::cast_from(6.0_f64) - t13400 * t85 / F::cast_from(6.0_f64) - t4182 * t641 / F::cast_from(6.0_f64) - t13406 * t85 / F::cast_from(12.0_f64) - t13409 * t85 / F::cast_from(6.0_f64) - t4188 * t641 / F::cast_from(6.0_f64) - t13414 * t85 / F::cast_from(12.0_f64) - t4191 * t641 / F::cast_from(6.0_f64);
     t13419
 }

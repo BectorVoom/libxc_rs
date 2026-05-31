@@ -15,8 +15,8 @@ pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1236<F: Float>(t1125: F, t763: F
     let t14585 = t133 * t14584;
     let t14587 = t156 * t5549;
     let t14588 = t133 * t14587;
-    let t14616 = F::new(8.0) * t1823 * t343;
-    let t14631 = F::new(8.0) * t1829 * t343;
-    let t14632 = -t1820 * t2961 / F::new(9.0) - F::new(4.0) * t406 * t39 - t1826 * t2973 / F::new(9.0) + F::new(4.0) * t408 * t39 + F::new(2.0) * t5527 * t11419 - F::new(2.0) * t5539 * t11445 - F::new(28.0) / F::new(81.0) * t8949 * t739 * t2954 + F::new(4.0) / F::new(9.0) * t5524 * t9481 + F::new(8.0) / F::new(9.0) * t3234 * t34 * t11411 - F::new(2.0) / F::new(3.0) * t1558 * t462 * t348 - F::new(2.0) / F::new(3.0) * t5527 * t11422 + t14616 - F::new(28.0) / F::new(81.0) * t8962 * t743 * t2967 + F::new(4.0) / F::new(9.0) * t5536 * t9456 - F::new(8.0) / F::new(9.0) * t3243 * t34 * t11437 + F::new(2.0) / F::new(3.0) * t1563 * t462 * t352 + F::new(2.0) / F::new(3.0) * t5539 * t11448 - t14631;
+    let t14616 = F::cast_from(8.0_f64) * t1823 * t343;
+    let t14631 = F::cast_from(8.0_f64) * t1829 * t343;
+    let t14632 = -t1820 * t2961 / F::cast_from(9.0_f64) - F::cast_from(4.0_f64) * t406 * t39 - t1826 * t2973 / F::cast_from(9.0_f64) + F::cast_from(4.0_f64) * t408 * t39 + F::cast_from(2.0_f64) * t5527 * t11419 - F::cast_from(2.0_f64) * t5539 * t11445 - F::cast_from(28.0_f64) / F::cast_from(81.0_f64) * t8949 * t739 * t2954 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t5524 * t9481 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t3234 * t34 * t11411 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1558 * t462 * t348 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t5527 * t11422 + t14616 - F::cast_from(28.0_f64) / F::cast_from(81.0_f64) * t8962 * t743 * t2967 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t5536 * t9456 - F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t3243 * t34 * t11437 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1563 * t462 * t352 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t5539 * t11448 - t14631;
     (t14581, t14582, t14584, t14585, t14587, t14588, t14632)
 }

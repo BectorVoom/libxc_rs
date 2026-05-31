@@ -10,8 +10,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk705<F: Float>(t2409: F, t3067: F, t4097: F, t4034: F, t4046: F, t4024: F, t4030: F, t4036: F, t4040: F, t4044: F, t4050: F) -> (F, F, F, F) {
     let t4099 = t2409 * t3067 * t4097;
-    let t4104 = F::new(7.0) / F::new(144.0) * t4034;
-    let t4108 = F::new(7.0) / F::new(1152.0) * t4046;
-    let t4110 = t4024 / F::new(48.0) - t4030 / F::new(48.0) - t4104 - t4036 / F::new(24.0) + t4040 / F::new(384.0) - t4044 / F::new(384.0) - t4108 - t4050 / F::new(192.0);
+    let t4104 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t4034;
+    let t4108 = F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t4046;
+    let t4110 = t4024 / F::cast_from(48.0_f64) - t4030 / F::cast_from(48.0_f64) - t4104 - t4036 / F::cast_from(24.0_f64) + t4040 / F::cast_from(384.0_f64) - t4044 / F::cast_from(384.0_f64) - t4108 - t4050 / F::cast_from(192.0_f64);
     (t4099, t4104, t4108, t4110)
 }

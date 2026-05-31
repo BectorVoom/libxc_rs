@@ -15,6 +15,6 @@ pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk618<F: Float>(t22993: F, t9
     let t25944 = t446 * t25943;
     let t25946 = t1882 * t6513;
     let t25948 = t23054 * t6501;
-    let t25952 = -t25926 / F::new(9.0) + t25931 / F::new(27.0) - t25935 / F::new(9.0) - t22980 / F::new(9.0) - t22991 / F::new(27.0) + t25940 / F::new(9.0) + t25944 / F::new(9.0) - t25946 / F::new(27.0) - t25948 / F::new(54.0) - t23016 / F::new(36.0) + t23029 / F::new(18.0) - t23114;
+    let t25952 = -t25926 / F::cast_from(9.0_f64) + t25931 / F::cast_from(27.0_f64) - t25935 / F::cast_from(9.0_f64) - t22980 / F::cast_from(9.0_f64) - t22991 / F::cast_from(27.0_f64) + t25940 / F::cast_from(9.0_f64) + t25944 / F::cast_from(9.0_f64) - t25946 / F::cast_from(27.0_f64) - t25948 / F::cast_from(54.0_f64) - t23016 / F::cast_from(36.0_f64) + t23029 / F::cast_from(18.0_f64) - t23114;
     (t25942, t25944, t25946, t25948, t25952)
 }

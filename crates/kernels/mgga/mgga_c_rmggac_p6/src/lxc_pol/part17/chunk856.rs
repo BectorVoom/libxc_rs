@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk856<F: Float>(t8867: F, t8870: F, t8874: F, t8877: F, t8879: F, t8888: F, t9032: F, t9033: F, t9035: F, t9042: F, t9052: F, t9058: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t42293 = F::cast_from(0.11974241701863808564e0_f64) * t8867;
-    let t42294 = F::new(2.0) * t8870;
+    let t42294 = F::cast_from(2.0_f64) * t8870;
     let t42296 = F::cast_from(0.79828278012425390428e-1_f64) * t8874;
-    let t42297 = F::new(0.4726e1) * t8877;
+    let t42297 = F::cast_from(0.4726e1_f64) * t8877;
     let t42298 = F::cast_from(0.11974241701863808564e0_f64) * t8879;
-    let t42299 = F::new(2.0) * t8888;
-    let t42300 = F::new(2.0) * t9032;
+    let t42299 = F::cast_from(2.0_f64) * t8888;
+    let t42300 = F::cast_from(2.0_f64) * t9032;
     let t42301 = F::cast_from(0.11974241701863808564e0_f64) * t9033;
     let t42306 = F::cast_from(0.11974241701863808564e0_f64) * t9035;
     let t42307 = F::cast_from(0.85129199786595678796e-5_f64) * t9042;

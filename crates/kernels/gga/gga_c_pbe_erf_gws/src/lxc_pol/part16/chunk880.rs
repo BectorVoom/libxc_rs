@@ -12,11 +12,11 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk880<F: Float>(t1802: 
     let t7589 = t1802 * t2784;
     let t7590 = t7589 * t610;
     let t7591 = t1885 * t7590;
-    let t7593 = F::new(8.0) / F::new(15.0) * t587 * t7591;
-    let t7595 = F::new(4.0) / F::new(45.0) * t2612 * t1635;
-    let t7597 = F::new(4.0) / F::new(27.0) * t2612 * t1645;
-    let t7599 = F::new(4.0) / F::new(45.0) * t2615 * t1656;
-    let t7601 = F::new(4.0) / F::new(27.0) * t2615 * t1666;
-    let t7603 = F::new(4.0) / F::new(45.0) * t5406 * t1010;
+    let t7593 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t587 * t7591;
+    let t7595 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t2612 * t1635;
+    let t7597 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t2612 * t1645;
+    let t7599 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t2615 * t1656;
+    let t7601 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t2615 * t1666;
+    let t7603 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t5406 * t1010;
     (t7593, t7595, t7597, t7599, t7601, t7603)
 }

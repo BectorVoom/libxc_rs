@@ -12,9 +12,9 @@ pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk164<F: Float>(t30: F, t33: F,
     let t31 = t30 <= zeta_threshold;
     let t34 = t33 <= zeta_threshold;
     let t120 = rho0 <= dens_threshold || t31;
-    let t398 = piecewise3::<F>(t120, t265 * t30 / F::new(2.0), t395 * t45 / F::new(2.0));
+    let t398 = piecewise3::<F>(t120, t265 * t30 / F::cast_from(2.0_f64), t395 * t45 / F::cast_from(2.0_f64));
     let t400 = rho1 <= dens_threshold || t34;
-    let t403 = F::new(1.0) / t57;
+    let t403 = F::cast_from(1.0_f64) / t57;
     let t404 = pow_1_3::<F>(t403);
     (t398, t403, t404)
 }

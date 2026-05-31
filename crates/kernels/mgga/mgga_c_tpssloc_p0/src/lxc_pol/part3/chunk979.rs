@@ -14,6 +14,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part3_v3rho3_1_chunk979<F: Float>(t12619: F, t72: 
     let t12630 = t2244 * t1426;
     let t12633 = t2251 * t1426;
     let t12636 = t608 * t3997;
-    let t12645 = t2284 * t1434 / F::new(24.0) + t629 * t4018 / F::new(12.0) + t66 * t12620 / F::new(24.0) - t12623 * t80 / F::new(12.0) - t3971 * t642 / F::new(6.0) - t1411 * t2304 / F::new(12.0) - t12630 * t80 / F::new(12.0) - t12633 * t80 / F::new(12.0) - t12636 * t80 / F::new(6.0) - t3976 * t642 / F::new(6.0) - t2245 * t1434 / F::new(12.0) - t2252 * t1434 / F::new(12.0);
+    let t12645 = t2284 * t1434 / F::cast_from(24.0_f64) + t629 * t4018 / F::cast_from(12.0_f64) + t66 * t12620 / F::cast_from(24.0_f64) - t12623 * t80 / F::cast_from(12.0_f64) - t3971 * t642 / F::cast_from(6.0_f64) - t1411 * t2304 / F::cast_from(12.0_f64) - t12630 * t80 / F::cast_from(12.0_f64) - t12633 * t80 / F::cast_from(12.0_f64) - t12636 * t80 / F::cast_from(6.0_f64) - t3976 * t642 / F::cast_from(6.0_f64) - t2245 * t1434 / F::cast_from(12.0_f64) - t2252 * t1434 / F::cast_from(12.0_f64);
     t12645
 }

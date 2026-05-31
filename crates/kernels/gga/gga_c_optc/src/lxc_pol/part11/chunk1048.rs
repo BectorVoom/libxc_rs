@@ -10,13 +10,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1048<F: Float>(t26264: F, t373: F, t26261: F, t56: F, t8950: F, t2848: F, t136: F, t8425: F, t22502: F, t370: F, t376: F, t2933: F, t2972: F, t393: F) -> (F, F, F, F, F, F, F, F, F, F) {
     let t26265 = F::cast_from(0.13388493827160493828e1_f64) * t26264;
-    let t26266 = F::powf(t373, -F::new(0.25e1));
-    let t26313 = F::new(280.0) / F::new(81.0) * t26261;
+    let t26266 = F::powf(t373, -F::cast_from(0.25e1_f64));
+    let t26313 = F::cast_from(280.0_f64) / F::cast_from(81.0_f64) * t26261;
     let t26334 = t56 * t8950;
     let t26335 = t2848 * t2848;
-    let t26336 = F::new(1.0) / t26335;
+    let t26336 = F::cast_from(1.0_f64) / t26335;
     let t26374 = t136 * t8425;
-    let t26424 = F::new(1.0) / t376 / t22502 / t370 / F::new(96.0);
+    let t26424 = F::cast_from(1.0_f64) / t376 / t22502 / t370 / F::cast_from(96.0_f64);
     let t26496 = F::cast_from(0.31310740740740740741e1_f64) * t26261;
     let t26497 = F::cast_from(0.13490888888888888889e1_f64) * t26264;
     let t26593 = t393 / t2972 / t2933;

@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk1207<F: Float>(t1198: F, t1218: F, t1232: F, t2134: F, t2136: F, t488: F, t7309: F, t7310: F, t7315: F, t7316: F, t7321: F, t7326: F, t7331: F, t7334: F, t7339: F, t7343: F, t7345: F) -> F {
-    let t7348 = t7309 - t7310 * t1198 / F::new(288.0) + t7315 - F::cast_from(0.10093189023535097714e-3_f64) * t7316 * t2136 - F::cast_from(0.10093189023535097714e-3_f64) * t2134 * t7321 + F::cast_from(0.10093189023535097714e-3_f64) * t7326 * t7331 + t7334 * t488 / F::new(1536.0) + t7339 * t1218 / F::new(1536.0) + t7343 - t7345 * t1232 / F::new(2304.0);
+    let t7348 = t7309 - t7310 * t1198 / F::cast_from(288.0_f64) + t7315 - F::cast_from(0.10093189023535097714e-3_f64) * t7316 * t2136 - F::cast_from(0.10093189023535097714e-3_f64) * t2134 * t7321 + F::cast_from(0.10093189023535097714e-3_f64) * t7326 * t7331 + t7334 * t488 / F::cast_from(1536.0_f64) + t7339 * t1218 / F::cast_from(1536.0_f64) + t7343 - t7345 * t1232 / F::cast_from(2304.0_f64);
     t7348
 }

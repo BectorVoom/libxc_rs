@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk51<F: Float>(t25: F, den
     let pi = F::cast_from(M_PI);
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
-    let t116 = F::new(1.0) / pi;
+    let t116 = F::cast_from(1.0_f64) / pi;
     t116
 }

@@ -15,9 +15,9 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk710<F: Float>(t7: F, t132: 
     let t3617 = t3616 * t1112;
     let t3619 = t2680 * t1179;
     let t3622 = t224 * t3;
-    let t3626 = piecewise3::<F>(t8, F::new(0.0), F::new(4.0) / F::new(9.0) * t3619 * t545 + F::new(8.0) / F::new(3.0) * t3622 * t1793);
+    let t3626 = piecewise3::<F>(t8, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t3619 * t545 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t3622 * t1793);
     let t3627 = t2688 * t1238;
     let t3630 = t341 * t3;
-    let t3634 = piecewise3::<F>(t133, F::new(0.0), F::new(4.0) / F::new(9.0) * t3627 * t675 - F::new(8.0) / F::new(3.0) * t3630 * t1793);
+    let t3634 = piecewise3::<F>(t133, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t3627 * t675 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t3630 * t1793);
     (t3617, t3619, t3622, t3626, t3627, t3630, t3634)
 }

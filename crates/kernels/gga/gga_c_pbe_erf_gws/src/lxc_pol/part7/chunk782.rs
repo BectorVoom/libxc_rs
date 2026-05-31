@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk782<F: Float>(t343: F, t6439: F, t858: F, t867: F, t866: F, t2164: F, t2197: F, t2192: F, t2074: F, t810: F) -> (F, F, F, F, F, F) {
     let t6440 = t6439 * t343;
     let t6442 = t867 * t858 * t6440;
-    let t6444 = t866 * t6442 / F::new(96.0);
+    let t6444 = t866 * t6442 / F::cast_from(96.0_f64);
     let t6445 = t2164 * t2197;
-    let t6446 = F::new(7.0) / F::new(96.0) * t6445;
+    let t6446 = F::cast_from(7.0_f64) / F::cast_from(96.0_f64) * t6445;
     let t6447 = t2164 * t2192;
-    let t6448 = F::new(7.0) / F::new(96.0) * t6447;
+    let t6448 = F::cast_from(7.0_f64) / F::cast_from(96.0_f64) * t6447;
     let t6449 = t2074 * t810;
     (t6440, t6442, t6444, t6446, t6448, t6449)
 }

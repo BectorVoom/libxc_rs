@@ -12,11 +12,11 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk784<F: Float>(t12709: F, t
     let t12729 = -t12709;
     let t12730 = t198 * t12729;
     let t12731 = t186 * t12730;
-    let t12733 = F::new(4.0) / F::new(15.0) * t561 * t12731;
-    let t12735 = F::new(4.0) / F::new(5.0) * t3399 * t1019;
-    let t12737 = F::new(4.0) / F::new(5.0) * t2790 * t3451;
-    let t12739 = F::new(4.0) / F::new(5.0) * t10326 * t3451;
-    let t12741 = F::new(2.0) / F::new(5.0) * t1006 * t3445;
-    let t12742 = t5933 - t5944 + F::new(8.0) * t8440 - t12705 + t12707 + t12713 + t12715 - t12719 + t12721 + t12725 - t12726 - t12728 + t12733 - t12735 + t12737 + t12739 - t12741;
+    let t12733 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t561 * t12731;
+    let t12735 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t3399 * t1019;
+    let t12737 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t2790 * t3451;
+    let t12739 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t10326 * t3451;
+    let t12741 = F::cast_from(2.0_f64) / F::cast_from(5.0_f64) * t1006 * t3445;
+    let t12742 = t5933 - t5944 + F::cast_from(8.0_f64) * t8440 - t12705 + t12707 + t12713 + t12715 - t12719 + t12721 + t12725 - t12726 - t12728 + t12733 - t12735 + t12737 + t12739 - t12741;
     (t12729, t12730, t12731, t12733, t12735, t12737, t12739, t12741, t12742)
 }

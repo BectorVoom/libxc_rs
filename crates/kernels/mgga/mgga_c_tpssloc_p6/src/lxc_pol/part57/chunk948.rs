@@ -12,13 +12,13 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk948<F: Float>(t2022: F
     let t122864 = t2022 * t7961;
     let t123566 = F::cast_from(0.32298204875312312682e-2_f64) * t118573;
     let t123571 = F::cast_from(0.5383034145885385447e-3_f64) * t118586;
-    let t123572 = F::new(7.0) / F::new(144.0) * t118588;
-    let t123576 = F::new(7.0) / F::new(576.0) * t118596;
-    let t123578 = F::new(7.0) / F::new(576.0) * t118602;
-    let t124139 = F::new(7.0) / F::new(576.0) * t120350;
+    let t123572 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t118588;
+    let t123576 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t118596;
+    let t123578 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t118602;
+    let t124139 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t120350;
     let t124142 = F::cast_from(0.5383034145885385447e-3_f64) * t120363;
-    let t124146 = F::new(7.0) / F::new(144.0) * t120375;
+    let t124146 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t120375;
     let t124154 = F::cast_from(0.32298204875312312682e-2_f64) * t120393;
-    let t124163 = F::new(7.0) / F::new(576.0) * t120416;
+    let t124163 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t120416;
     (t122864, t123566, t123571, t123572, t123576, t123578, t124139, t124142, t124146, t124154, t124163)
 }

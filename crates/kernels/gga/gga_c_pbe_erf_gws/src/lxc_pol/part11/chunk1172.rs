@@ -13,6 +13,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk1172<F: Float>(t3354: F, t
     let t48556 = t1528 * t47733;
     let t48558 = t2485 * t12355;
     let t48560 = t478 * t47372;
-    let t48562 = -F::new(28.0) / F::new(81.0) * t48542 + F::new(8.0) / F::new(9.0) * t48544 - t48546 / F::new(3.0) - F::new(4.0) / F::new(9.0) * t48548 + t48550 / F::new(3.0) - F::new(28.0) / F::new(81.0) * t48552 + F::new(8.0) / F::new(9.0) * t48554 - t48556 / F::new(3.0) - F::new(4.0) / F::new(9.0) * t48558 + t48560 / F::new(3.0);
+    let t48562 = -F::cast_from(28.0_f64) / F::cast_from(81.0_f64) * t48542 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t48544 - t48546 / F::cast_from(3.0_f64) - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t48548 + t48550 / F::cast_from(3.0_f64) - F::cast_from(28.0_f64) / F::cast_from(81.0_f64) * t48552 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t48554 - t48556 / F::cast_from(3.0_f64) - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t48558 + t48560 / F::cast_from(3.0_f64);
     (t48554, t48556, t48558, t48560, t48562)
 }

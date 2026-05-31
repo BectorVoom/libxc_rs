@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part48_v4rho2sigma2_4_chunk14<F: Float>(rho0: F, s
     let t34 = rho0 * rho0;
     let t35 = pow_1_3::<F>(rho0);
     let t36 = t35 * t35;
-    let t38 = F::new(1.0) / t36 / t34;
+    let t38 = F::cast_from(1.0_f64) / t36 / t34;
     let t39 = sigma0 * t38;
     (t34, t35, t36, t38, t39)
 }

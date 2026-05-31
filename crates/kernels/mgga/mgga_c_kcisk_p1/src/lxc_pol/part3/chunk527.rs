@@ -15,6 +15,6 @@ pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk527<F: Float>(t4309: F, t486: F,
     let t4314 = t486 * t4313;
     let t4316 = t1483 * t1493;
     let t4318 = t1483 * t1497;
-    let t4320 = t4224 / F::new(128.0) - t4227 / F::new(24.0) + t4233 / F::new(96.0) - t4238 / F::new(128.0) - t4242 / F::new(72.0) + t4298 / F::new(16.0) - t4302 / F::new(256.0) - t4307 / F::new(576.0) - F::new(2.0) / F::new(9.0) * t4310 + F::new(11.0) / F::new(18.0) * t4314 - t4316 / F::new(3.0) + t4318 / F::new(12.0);
+    let t4320 = t4224 / F::cast_from(128.0_f64) - t4227 / F::cast_from(24.0_f64) + t4233 / F::cast_from(96.0_f64) - t4238 / F::cast_from(128.0_f64) - t4242 / F::cast_from(72.0_f64) + t4298 / F::cast_from(16.0_f64) - t4302 / F::cast_from(256.0_f64) - t4307 / F::cast_from(576.0_f64) - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t4310 + F::cast_from(11.0_f64) / F::cast_from(18.0_f64) * t4314 - t4316 / F::cast_from(3.0_f64) + t4318 / F::cast_from(12.0_f64);
     (t4310, t4312, t4313, t4314, t4316, t4318, t4320)
 }

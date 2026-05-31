@@ -15,6 +15,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk903<F: Float>(t12: F, t4872: F, t
     let t6767 = t5093 * t972;
     let t6770 = t1642 * t8;
     let t6771 = t1429 * t439;
-    let t6781 = piecewise3::<F>(t84, F::new(0.0), -F::new(8.0) / F::new(27.0) * t6767 * t1643 + F::new(16.0) / F::new(9.0) * t6770 * t6771 + F::new(4.0) / F::new(9.0) * t2540 * t1646 + F::new(8.0) / F::new(3.0) * t87 * t1429 - F::new(8.0) * t2543 * t82);
+    let t6781 = piecewise3::<F>(t84, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t6767 * t1643 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t6770 * t6771 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2540 * t1646 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t87 * t1429 - F::cast_from(8.0_f64) * t2543 * t82);
     (t6762, t6763, t6767, t6770, t6771, t6781)
 }

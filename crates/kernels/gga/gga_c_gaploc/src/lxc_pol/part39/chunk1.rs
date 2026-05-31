@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk1<F: Float>() -> (F, F) {
     let pi = F::cast_from(M_PI);
-    let t2 = F::new(1.0) / pi;
+    let t2 = F::cast_from(1.0_f64) / pi;
     let t3 = pow_1_3::<F>(t2);
     (t2, t3)
 }

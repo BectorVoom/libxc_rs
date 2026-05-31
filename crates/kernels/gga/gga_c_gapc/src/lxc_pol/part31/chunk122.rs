@@ -13,9 +13,9 @@ pub fn gga_c_gapc_lxc_pol_part31_v4rho2sigma2_10_chunk122<F: Float>(t11: F, t1: 
     let t357 = t356 * t1;
     let t358 = t357 * t351;
     let t360 = t21 * t84;
-    let t362 = -F::new(0.632975e0) * t352 - F::cast_from(0.29896666666666666667e0_f64) * t354 - F::new(0.1023875e0) * t358 - F::cast_from(0.82156666666666666667e-1_f64) * t360;
-    let t363 = F::new(1.0) / t30;
+    let t362 = -F::cast_from(0.632975e0_f64) * t352 - F::cast_from(0.29896666666666666667e0_f64) * t354 - F::cast_from(0.1023875e0_f64) * t358 - F::cast_from(0.82156666666666666667e-1_f64) * t360;
+    let t363 = F::cast_from(1.0_f64) / t30;
     let t364 = t362 * t363;
-    let t366 = F::new(1.0) * t347 * t364;
+    let t366 = F::cast_from(1.0_f64) * t347 * t364;
     (t357, t358, t360, t362, t363, t364, t366)
 }

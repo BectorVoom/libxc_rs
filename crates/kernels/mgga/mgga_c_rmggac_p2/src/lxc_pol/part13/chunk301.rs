@@ -12,6 +12,6 @@ pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk301<F: Float>(t1579: F, t
     let t1580 = t1579 * t316;
     let t1583 = t101 * t50;
     let t1584 = t1583 * t814;
-    let t1587 = -F::new(50.0) / F::new(9.0) * t309 * t538 + F::new(20.0) / F::new(9.0) * t87 * t1570 + F::new(10.0) / F::new(3.0) * t87 * t1574 - F::new(50.0) / F::new(9.0) * t544 * t317 + F::new(20.0) / F::new(9.0) * t98 * t1580 - F::new(10.0) / F::new(3.0) * t98 * t1584 - t832;
+    let t1587 = -F::cast_from(50.0_f64) / F::cast_from(9.0_f64) * t309 * t538 + F::cast_from(20.0_f64) / F::cast_from(9.0_f64) * t87 * t1570 + F::cast_from(10.0_f64) / F::cast_from(3.0_f64) * t87 * t1574 - F::cast_from(50.0_f64) / F::cast_from(9.0_f64) * t544 * t317 + F::cast_from(20.0_f64) / F::cast_from(9.0_f64) * t98 * t1580 - F::cast_from(10.0_f64) / F::cast_from(3.0_f64) * t98 * t1584 - t832;
     (t1583, t1587)
 }

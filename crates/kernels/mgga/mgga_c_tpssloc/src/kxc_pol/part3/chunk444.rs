@@ -13,15 +13,15 @@ pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk444<F: Float>(t40: F, t52: F, 
     let t150 = t52 <= zeta_threshold;
     let t1459 = t510 * t1458;
     let t1462 = t185 * t1409;
-    let t1464 = F::new(4.0) * t707 * t1462;
-    let t1467 = piecewise3::<F>(t146, F::new(0.0), F::new(4.0) / F::new(3.0) * t73 * t1409);
-    let t1470 = piecewise3::<F>(t150, F::new(0.0), -F::new(4.0) / F::new(3.0) * t76 * t1409);
+    let t1464 = F::cast_from(4.0_f64) * t707 * t1462;
+    let t1467 = piecewise3::<F>(t146, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t73 * t1409);
+    let t1470 = piecewise3::<F>(t150, F::cast_from(0.0_f64), -F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t76 * t1409);
     let t1471 = t1467 + t1470;
     let t1472 = t145 * t1471;
     let t1473 = t1472 * t185;
     let t1474 = t1471 * t157;
     let t1476 = F::cast_from(0.19751673498613801407e-1_f64) * t1474 * t182;
-    let t1479 = piecewise3::<F>(t146, F::new(0.0), F::new(2.0) / F::new(3.0) * t767 * t1409);
-    let t1482 = piecewise3::<F>(t150, F::new(0.0), -F::new(2.0) / F::new(3.0) * t771 * t1409);
+    let t1479 = piecewise3::<F>(t146, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t767 * t1409);
+    let t1482 = piecewise3::<F>(t150, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t771 * t1409);
     (t1459, t1462, t1464, t1471, t1472, t1473, t1474, t1476, t1479, t1482)
 }

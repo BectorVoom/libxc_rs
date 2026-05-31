@@ -12,8 +12,8 @@ pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1163<F: Float>(t124: F, t12
     let t12995 = t124 * t12810;
     let t12996 = t762 * t12995;
     let t13000 = t4415 * t4416 * t10111;
-    let t13004 = F::new(7.0) / F::new(576.0) * t10117 * t4425;
-    let t13006 = F::new(7.0) / F::new(2304.0) * t10117 * t4466;
+    let t13004 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t10117 * t4425;
+    let t13006 = F::cast_from(7.0_f64) / F::cast_from(2304.0_f64) * t10117 * t4466;
     let t13009 = t3273 * t4471 * t3261;
     (t12996, t13000, t13004, t13006, t13009)
 }

@@ -14,7 +14,7 @@ pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk968<F: Float>(t1882: F, t32
     let t138176 = t1882 * t32617;
     let t138178 = t1882 * t32573;
     let t138184 = t1882 * t32524;
-    let t138208 = F::new(8.0) / F::new(27.0) * t8232 * t7231;
+    let t138208 = F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t8232 * t7231;
     let t138221 = t1882 * t32559;
     let t138223 = t1882 * t32564;
     let t138254 = t1882 * t32551;

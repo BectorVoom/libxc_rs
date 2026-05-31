@@ -10,8 +10,8 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1181<F: Float>(t5: F, t11228: F, t2381: F, t395: F, t1072: F, t1212: F, t19870: F, t2192: F, t330: F, t332: F, t4363: F, t4366: F, t5953: F, t5961: F, t6698: F, t7284: F, t7290: F, t8119: F, zeta_threshold: F) -> (F, F, F) {
     let t6 = t5 <= zeta_threshold;
-    let t21317 = F::new(5.84605) * t11228;
+    let t21317 = F::cast_from(5.84605_f64) * t11228;
     let t21326 = t395 * t2381;
-    let t21337 = piecewise3::<F>(t6, F::new(0.0), -F::new(56.0) / F::new(81.0) * t8119 * t7284 * t332 + F::new(16.0) / F::new(9.0) * t5953 * t1072 + F::new(8.0) / F::new(9.0) * t4363 * t6698 - F::new(4.0) / F::new(3.0) * t4366 * t21326 - F::new(2.0) / F::new(3.0) * t2192 * t5961 - F::new(2.0) / F::new(9.0) * t1212 * t7290 * t332 + F::new(2.0) / F::new(3.0) * t330 * t19870);
+    let t21337 = piecewise3::<F>(t6, F::cast_from(0.0_f64), -F::cast_from(56.0_f64) / F::cast_from(81.0_f64) * t8119 * t7284 * t332 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t5953 * t1072 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t4363 * t6698 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t4366 * t21326 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t2192 * t5961 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t1212 * t7290 * t332 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t330 * t19870);
     (t21317, t21326, t21337)
 }

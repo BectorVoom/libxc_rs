@@ -12,8 +12,8 @@ pub fn mgga_c_revtpss_lxc_pol_part35_v4rho3sigma_10_chunk544<F: Float>(t45: F, t
     let t151 = t45 <= zeta_threshold;
     let t155 = t57 <= zeta_threshold;
     let t5948 = F::cast_from(0.11696447245269292414e1_f64) * t4399;
-    let t5954 = piecewise3::<F>(t151, F::new(0.0), -F::new(2.0) / F::new(9.0) * t80 * t5819 + F::new(2.0) / F::new(3.0) * t766 * t5825);
-    let t5960 = piecewise3::<F>(t155, F::new(0.0), -F::new(2.0) / F::new(9.0) * t83 * t5819 - F::new(2.0) / F::new(3.0) * t770 * t5825);
-    let t5962 = t5954 / F::new(2.0) + t5960 / F::new(2.0);
+    let t5954 = piecewise3::<F>(t151, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t80 * t5819 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t766 * t5825);
+    let t5960 = piecewise3::<F>(t155, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t83 * t5819 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t770 * t5825);
+    let t5962 = t5954 / F::cast_from(2.0_f64) + t5960 / F::cast_from(2.0_f64);
     (t5948, t5962)
 }

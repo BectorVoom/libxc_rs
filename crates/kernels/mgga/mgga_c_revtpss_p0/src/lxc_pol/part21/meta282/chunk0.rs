@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1516<F: Float>(t10190: F, t93
     let t10192 = t9397 + t9557 + t9589 + t10190;
     let t10194 = t648 * t2327;
     let t10199 = t64 * t843;
-    let t10201 = F::new(154.0) / F::new(27.0) * t10199 * t112;
+    let t10201 = F::cast_from(154.0_f64) / F::cast_from(27.0_f64) * t10199 * t112;
     let t10202 = t2289 * t666;
     let t10204 = t625 * t2341;
     (t10192, t10194, t10199, t10201, t10202, t10204)

@@ -11,17 +11,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk1115<F: Float>(t11731: F, t11733: F, t14941: F, t11748: F, t11750: F, t11762: F, t229: F, t6012: F, t224: F, t6008: F, t14957: F, t14959: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t19977 = F::cast_from(0.5848223622634646207e0_f64) * t11731;
     let t19978 = F::cast_from(0.17315859105681463759e2_f64) * t11733;
-    let t19979 = F::new(80.0) * t14941;
-    let t19980 = F::new(8.0) * t11748;
-    let t19981 = F::new(20.0) * t11750;
-    let t19982 = F::new(32.0) * t11762;
+    let t19979 = F::cast_from(80.0_f64) * t14941;
+    let t19980 = F::cast_from(8.0_f64) * t11748;
+    let t19981 = F::cast_from(20.0_f64) * t11750;
+    let t19982 = F::cast_from(32.0_f64) * t11762;
     let t19983 = t229 * t6012;
-    let t19984 = F::new(8.0) * t19983;
+    let t19984 = F::cast_from(8.0_f64) * t19983;
     let t19985 = t224 * t6012;
-    let t19986 = F::new(8.0) * t19985;
+    let t19986 = F::cast_from(8.0_f64) * t19985;
     let t19987 = t229 * t6008;
-    let t19988 = F::new(8.0) * t19987;
-    let t19989 = F::new(24.0) * t14957;
-    let t19990 = F::new(24.0) * t14959;
+    let t19988 = F::cast_from(8.0_f64) * t19987;
+    let t19989 = F::cast_from(24.0_f64) * t14957;
+    let t19990 = F::cast_from(24.0_f64) * t14959;
     (t19977, t19978, t19979, t19980, t19981, t19982, t19984, t19986, t19988, t19989, t19990)
 }

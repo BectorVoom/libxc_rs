@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk642<F: Float>(t5076: F, t5078: F, t5044: F, t5049: F, t5051: F, t5054: F, t5056: F, t5058: F, t5060: F, t5063: F, t5065: F, t5069: F, t5071: F, t5074: F) -> (F, F) {
     let t5079 = t5076 * t5078;
-    let t5081 = -t5044 / F::new(16.0) + t5049 / F::new(8.0) - t5051 / F::new(192.0) + t5054 / F::new(6.0) - t5056 / F::new(6.0) + t5058 / F::new(24.0) + t5060 / F::new(24.0) - t5063 / F::new(24.0) - t5065 / F::new(192.0) + t5069 / F::new(256.0) - t5071 / F::new(16.0) + t5074 / F::new(192.0) - t5079 / F::new(72.0);
+    let t5081 = -t5044 / F::cast_from(16.0_f64) + t5049 / F::cast_from(8.0_f64) - t5051 / F::cast_from(192.0_f64) + t5054 / F::cast_from(6.0_f64) - t5056 / F::cast_from(6.0_f64) + t5058 / F::cast_from(24.0_f64) + t5060 / F::cast_from(24.0_f64) - t5063 / F::cast_from(24.0_f64) - t5065 / F::cast_from(192.0_f64) + t5069 / F::cast_from(256.0_f64) - t5071 / F::cast_from(16.0_f64) + t5074 / F::cast_from(192.0_f64) - t5079 / F::cast_from(72.0_f64);
     (t5079, t5081)
 }

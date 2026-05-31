@@ -12,12 +12,12 @@ pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk344<F: Float>(t1592: F
     let t1593 = t904 * t1592;
     let t1594 = t128 * t1593;
     let t1596 = -t903 - F::cast_from(0.17808333333333333333e-1_f64) * t1594;
-    let t1598 = F::new(0.621814e-1) * t1596 * t291;
-    let t1600 = -t902 / F::new(3.0) - t1594 / F::new(3.0);
+    let t1598 = F::cast_from(0.621814e-1_f64) * t1596 * t291;
+    let t1600 = -t902 / F::cast_from(3.0_f64) - t1594 / F::cast_from(3.0_f64);
     let t1601 = t916 * t1600;
     let t1604 = t923 * t1600;
     let t1606 = t930 * t1592;
     let t1607 = t141 * t1606;
-    let t1609 = F::new(0.1898925e1) * t1601 - t921 - F::cast_from(0.29896666666666666667e0_f64) * t1594 + F::new(0.3071625e0) * t1604 - t929 - F::cast_from(0.82156666666666666667e-1_f64) * t1607;
+    let t1609 = F::cast_from(0.1898925e1_f64) * t1601 - t921 - F::cast_from(0.29896666666666666667e0_f64) * t1594 + F::cast_from(0.3071625e0_f64) * t1604 - t929 - F::cast_from(0.82156666666666666667e-1_f64) * t1607;
     (t1593, t1594, t1596, t1598, t1600, t1601, t1604, t1606, t1607, t1609)
 }

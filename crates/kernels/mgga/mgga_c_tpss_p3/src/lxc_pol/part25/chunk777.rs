@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk777<F: Float>(t30: F, t33: F, t1197: F, t3217: F, t4578: F, t5328: F, t1201: F, t3225: F, t5059: F, t5335: F, zeta_threshold: F) -> F {
     let t31 = t30 <= zeta_threshold;
     let t34 = t33 <= zeta_threshold;
-    let t5358 = piecewise3::<F>(t31, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3217 * t5328 + F::new(2.0) / F::new(3.0) * t1197 * t4578);
-    let t5364 = piecewise3::<F>(t34, F::new(0.0), -F::new(2.0) / F::new(9.0) * t3225 * t5335 + F::new(2.0) / F::new(3.0) * t1201 * t5059);
-    let t5366 = t5358 / F::new(2.0) + t5364 / F::new(2.0);
+    let t5358 = piecewise3::<F>(t31, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t3217 * t5328 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1197 * t4578);
+    let t5364 = piecewise3::<F>(t34, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t3225 * t5335 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1201 * t5059);
+    let t5366 = t5358 / F::cast_from(2.0_f64) + t5364 / F::cast_from(2.0_f64);
     t5366
 }

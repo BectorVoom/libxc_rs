@@ -14,6 +14,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk1515<F: Float>(t17161: F
     let t17607 = t5904 * t1040;
     let t17611 = t248 * t3101 * t5867;
     let t17612 = t1020 * t17611;
-    let t17614 = -t973 * t17593 / F::new(144.0) + t973 * t17596 / F::new(216.0) + t973 * t17599 / F::new(108.0) + F::new(7.0) / F::new(648.0) * t973 * t17602 - t13750 + t10372 / F::new(2592.0) + t10377 + t10381 / F::new(162.0) + t10385 + t17607 * t1046 / F::new(4608.0) + t13758 + t13767 - t13946 + t17612 / F::new(4608.0);
+    let t17614 = -t973 * t17593 / F::cast_from(144.0_f64) + t973 * t17596 / F::cast_from(216.0_f64) + t973 * t17599 / F::cast_from(108.0_f64) + F::cast_from(7.0_f64) / F::cast_from(648.0_f64) * t973 * t17602 - t13750 + t10372 / F::cast_from(2592.0_f64) + t10377 + t10381 / F::cast_from(162.0_f64) + t10385 + t17607 * t1046 / F::cast_from(4608.0_f64) + t13758 + t13767 - t13946 + t17612 / F::cast_from(4608.0_f64);
     t17614
 }

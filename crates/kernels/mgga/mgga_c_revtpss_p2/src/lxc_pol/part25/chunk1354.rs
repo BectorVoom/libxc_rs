@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1354<F: Float>(t1937: F, t49856: F, t18163: F, t6993: F, t25188: F, t7239: F, t46126: F, t49851: F, t10416: F, t25081: F, t7234: F, t25083: F) -> (F, F, F, F, F, F, F) {
-    let t95073 = F::new(2.0) * t49856 * t1937;
-    let t95075 = F::new(6.0) * t18163 * t6993;
-    let t95081 = F::new(9.0) * t25188 * t7239;
-    let t95083 = F::new(2.0) * t46126 * t1937;
-    let t95085 = F::new(6.0) * t49851 * t1937;
-    let t95087 = F::new(6.0) * t10416 * t6993;
+    let t95073 = F::cast_from(2.0_f64) * t49856 * t1937;
+    let t95075 = F::cast_from(6.0_f64) * t18163 * t6993;
+    let t95081 = F::cast_from(9.0_f64) * t25188 * t7239;
+    let t95083 = F::cast_from(2.0_f64) * t46126 * t1937;
+    let t95085 = F::cast_from(6.0_f64) * t49851 * t1937;
+    let t95087 = F::cast_from(6.0_f64) * t10416 * t6993;
     let t95088 = t7234 * t25081;
-    let t95090 = F::new(18.0) * t95088 * t25083;
+    let t95090 = F::cast_from(18.0_f64) * t95088 * t25083;
     (t95073, t95075, t95081, t95083, t95085, t95087, t95090)
 }

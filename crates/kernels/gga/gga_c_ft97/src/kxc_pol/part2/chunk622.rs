@@ -16,6 +16,6 @@ pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk622<F: Float>(t1557: F, t81: F, t1
     let t7721 = t7720 * t1559;
     let t7725 = t1528 * t1580;
     let t7729 = t72 * t1755;
-    let t7733 = t1538 + t1761 + t7704 - t7707 / F::new(18.0) - t7710 / F::new(6.0) - t1526 * t3088 * t7713 / F::new(9.0) - t1526 * t1527 * t1565 / F::new(6.0) + t1526 * t1527 * t7721 / F::new(6.0) - t1526 * t1527 * t7725 / F::new(12.0) - t342 * t343 * t7729 / F::new(4.0);
+    let t7733 = t1538 + t1761 + t7704 - t7707 / F::cast_from(18.0_f64) - t7710 / F::cast_from(6.0_f64) - t1526 * t3088 * t7713 / F::cast_from(9.0_f64) - t1526 * t1527 * t1565 / F::cast_from(6.0_f64) + t1526 * t1527 * t7721 / F::cast_from(6.0_f64) - t1526 * t1527 * t7725 / F::cast_from(12.0_f64) - t342 * t343 * t7729 / F::cast_from(4.0_f64);
     t7733
 }

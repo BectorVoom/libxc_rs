@@ -13,8 +13,8 @@ pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk295<F: Float>(t12: F, t24: F, t1
     let t90 = t24 <= zeta_threshold;
     let t1010 = t83 * t1009;
     let t1012 = F::cast_from(0.19751673498613801407e-1_f64) * t1008 * t124;
-    let t1015 = piecewise3::<F>(t84, F::new(0.0), F::new(2.0) / F::new(3.0) * t207 * t972);
-    let t1018 = piecewise3::<F>(t90, F::new(0.0), F::new(2.0) / F::new(3.0) * t333 * t1003);
-    let t1020 = t1015 / F::new(2.0) + t1018 / F::new(2.0);
+    let t1015 = piecewise3::<F>(t84, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t207 * t972);
+    let t1018 = piecewise3::<F>(t90, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t333 * t1003);
+    let t1020 = t1015 / F::cast_from(2.0_f64) + t1018 / F::cast_from(2.0_f64);
     (t1010, t1012, t1020)
 }

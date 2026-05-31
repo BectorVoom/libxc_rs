@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk1003<F: Float>(t3116: F, t6535: F, t3139: F, t875: F, t8840: F, t2168: F, t2190: F, t3131: F, t1114: F, t6671: F, t6674: F, t6414: F) -> (F, F, F, F, F, F, F) {
-    let t9007 = t3116 * t6535 / F::new(24.0);
+    let t9007 = t3116 * t6535 / F::cast_from(24.0_f64);
     let t9009 = t3139 * t8840 * t875;
-    let t9011 = t2168 * t9009 / F::new(48.0);
+    let t9011 = t2168 * t9009 / F::cast_from(48.0_f64);
     let t9013 = t3139 * t3131 * t2190;
-    let t9015 = t2168 * t9013 / F::new(96.0);
+    let t9015 = t2168 * t9013 / F::cast_from(96.0_f64);
     let t9016 = t1114 * t6671;
-    let t9018 = t9016 * t6674 / F::new(24.0);
-    let t9019 = F::new(7.0) / F::new(288.0) * t6414;
+    let t9018 = t9016 * t6674 / F::cast_from(24.0_f64);
+    let t9019 = F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t6414;
     (t9007, t9009, t9011, t9013, t9015, t9018, t9019)
 }

@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk557<F: Float>(t1260: F, t3611: F, t286: F, t1251: F, t1255: F, t1264: F, t3484: F, t3487: F, t3490: F, t3499: F, t3502: F, t3505: F, t3510: F, t3514: F, t3517: F, t3522: F, t3526: F, t3534: F, t423: F) -> (F, F) {
     let t3612 = t1260 * t3611;
     let t3613 = t286 * t3612;
-    let t3616 = F::new(11.0) / F::new(216.0) * t3484 * t423 - t3487 / F::new(108.0) - t3490 * t1255 / F::new(108.0) + t3490 * t1264 / F::new(36.0) - t3499 + t3502 / F::new(864.0) - t3505 / F::new(288.0) + t1251 * t3510 / F::new(432.0) - t3514 * t3517 / F::new(288.0) - t1251 * t3522 / F::new(288.0) + t1251 * t3526 / F::new(576.0) + t1251 * t3534 / F::new(96.0) - t1251 * t3613 / F::new(192.0);
+    let t3616 = F::cast_from(11.0_f64) / F::cast_from(216.0_f64) * t3484 * t423 - t3487 / F::cast_from(108.0_f64) - t3490 * t1255 / F::cast_from(108.0_f64) + t3490 * t1264 / F::cast_from(36.0_f64) - t3499 + t3502 / F::cast_from(864.0_f64) - t3505 / F::cast_from(288.0_f64) + t1251 * t3510 / F::cast_from(432.0_f64) - t3514 * t3517 / F::cast_from(288.0_f64) - t1251 * t3522 / F::cast_from(288.0_f64) + t1251 * t3526 / F::cast_from(576.0_f64) + t1251 * t3534 / F::cast_from(96.0_f64) - t1251 * t3613 / F::cast_from(192.0_f64);
     (t3612, t3616)
 }

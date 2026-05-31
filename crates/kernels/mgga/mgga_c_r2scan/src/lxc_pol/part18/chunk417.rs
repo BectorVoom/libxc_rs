@@ -15,7 +15,7 @@ pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk417<F: Float>(t1821: F, t
     let t1987 = t1986 * t695;
     let t1990 = t124 * t219;
     let t2000 = t124 * t201;
-    let t2005 = F::new(1.0) / t685 / t200;
+    let t2005 = F::cast_from(1.0_f64) / t685 / t200;
     let t2006 = t63 * t2005;
     (t1982, t1983, t1986, t1987, t1990, t2000, t2005, t2006)
 }

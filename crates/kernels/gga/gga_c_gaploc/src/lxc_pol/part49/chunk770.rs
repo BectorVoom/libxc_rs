@@ -19,6 +19,6 @@ pub fn gga_c_gaploc_lxc_pol_part49_v4rhosigma3_14_chunk770<F: Float>(t13064: F, 
     let t13077 = t787 * t10924;
     let t13078 = t13077 * t9824;
     let t13079 = F::cast_from(0.29792074959875355558e-1_f64) * t13078;
-    let t13086 = -F::new(3.0) / F::new(256.0) * t12555 - F::new(27.0) / F::new(8192.0) * t12558 + F::new(27.0) / F::new(524288.0) * t12561 - F::new(9.0) / F::new(524288.0) * t12564 + F::new(9.0) / F::new(8192.0) * t12566 + t12569 / F::new(256.0);
+    let t13086 = -F::cast_from(3.0_f64) / F::cast_from(256.0_f64) * t12555 - F::cast_from(27.0_f64) / F::cast_from(8192.0_f64) * t12558 + F::cast_from(27.0_f64) / F::cast_from(524288.0_f64) * t12561 - F::cast_from(9.0_f64) / F::cast_from(524288.0_f64) * t12564 + F::cast_from(9.0_f64) / F::cast_from(8192.0_f64) * t12566 + t12569 / F::cast_from(256.0_f64);
     (t13065, t13066, t13069, t13070, t13072, t13074, t13077, t13079, t13086)
 }

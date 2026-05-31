@@ -15,6 +15,6 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk898<F: Float>(t1062: F, t2393: F, 
     let t9522 = t1106 * t8092;
     let t9526 = t2394 * t1067;
     let t9537 = t2380 * t1067;
-    let t9539 = t9513 / F::new(6.0) - t9515 * t4494 / F::new(18.0) - t9515 * t4426 / F::new(18.0) + t9515 * t4088 / F::new(18.0) + t9522 / F::new(6.0) - t8977 * t713 / F::new(6.0) + t9526 / F::new(9.0) - t1026 * t2341 / F::new(6.0) + t115 * t9159 / F::new(6.0) - t4497 / F::new(6.0) - t4499 / F::new(6.0) + t4504 / F::new(6.0) - t4512 / F::new(6.0) + t4519 / F::new(6.0) + t9537 / F::new(9.0);
+    let t9539 = t9513 / F::cast_from(6.0_f64) - t9515 * t4494 / F::cast_from(18.0_f64) - t9515 * t4426 / F::cast_from(18.0_f64) + t9515 * t4088 / F::cast_from(18.0_f64) + t9522 / F::cast_from(6.0_f64) - t8977 * t713 / F::cast_from(6.0_f64) + t9526 / F::cast_from(9.0_f64) - t1026 * t2341 / F::cast_from(6.0_f64) + t115 * t9159 / F::cast_from(6.0_f64) - t4497 / F::cast_from(6.0_f64) - t4499 / F::cast_from(6.0_f64) + t4504 / F::cast_from(6.0_f64) - t4512 / F::cast_from(6.0_f64) + t4519 / F::cast_from(6.0_f64) + t9537 / F::cast_from(9.0_f64);
     t9539
 }

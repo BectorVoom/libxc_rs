@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk908<F: Float>(t322: F, t8397: F, t2394: F, t833: F, t1013: F, t1299: F, t1295: F, t829: F, t1292: F, t1300: F, t2397: F, t327: F, t6693: F, t834: F) -> (F, F, F, F, F) {
-    let t324 = F::new(0.0) < t322;
-    let t8398 = piecewise3::<F>(t324, F::new(0.0), t8397);
+    let t324 = F::cast_from(0.0_f64) < t322;
+    let t8398 = piecewise3::<F>(t324, F::cast_from(0.0_f64), t8397);
     let t8401 = t2394 * t833;
     let t8404 = t1013 * t1299;
     let t8409 = t1013 * t1295;
     let t8412 = t2394 * t829;
     let t8415 = t1013 * t1292;
-    let t8420 = -F::new(0.64e0) * t8398 * t327 - F::new(0.256e1) * t8401 * t829 - F::new(0.384e1) * t8404 * t1295 - F::new(0.128e1) * t2397 * t1292 - F::new(0.384e1) * t6693 * t8409 - F::new(0.256e1) * t1300 * t8412 - F::new(0.128e1) * t1300 * t8415 - F::new(0.64e0) * t834 * t8398;
+    let t8420 = -F::cast_from(0.64e0_f64) * t8398 * t327 - F::cast_from(0.256e1_f64) * t8401 * t829 - F::cast_from(0.384e1_f64) * t8404 * t1295 - F::cast_from(0.128e1_f64) * t2397 * t1292 - F::cast_from(0.384e1_f64) * t6693 * t8409 - F::cast_from(0.256e1_f64) * t1300 * t8412 - F::cast_from(0.128e1_f64) * t1300 * t8415 - F::cast_from(0.64e0_f64) * t834 * t8398;
     (t8398, t8409, t8412, t8415, t8420)
 }

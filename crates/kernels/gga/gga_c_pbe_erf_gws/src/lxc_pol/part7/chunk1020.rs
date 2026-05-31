@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk1020<F: Float>(t18486: F, t18488: F, t18491: F, t18494: F, t18500: F, t18502: F, t18504: F, t18506: F, t389: F, t404: F, t7236: F, t7271: F) -> F {
-    let t18512 = F::new(1.0) * t389 * (-F::cast_from(0.21099166666666666667e1_f64) * t18486 + F::new(0.202552e2) * t18488 - F::cast_from(0.75019259259259259258e1_f64) * t18491 + F::cast_from(0.6564185185185185185e1_f64) * t18494 + F::cast_from(0.31003950617283950618e1_f64) * t7271 + F::cast_from(0.68258333333333333335e-1_f64) * t18500 - F::cast_from(0.10921333333333333333e1_f64) * t18502 + F::cast_from(0.12134814814814814815e1_f64) * t18504 + F::cast_from(0.10617962962962962963e1_f64) * t18506 + F::cast_from(0.13388493827160493828e1_f64) * t7236) * t404;
+    let t18512 = F::cast_from(1.0_f64) * t389 * (-F::cast_from(0.21099166666666666667e1_f64) * t18486 + F::cast_from(0.202552e2_f64) * t18488 - F::cast_from(0.75019259259259259258e1_f64) * t18491 + F::cast_from(0.6564185185185185185e1_f64) * t18494 + F::cast_from(0.31003950617283950618e1_f64) * t7271 + F::cast_from(0.68258333333333333335e-1_f64) * t18500 - F::cast_from(0.10921333333333333333e1_f64) * t18502 + F::cast_from(0.12134814814814814815e1_f64) * t18504 + F::cast_from(0.10617962962962962963e1_f64) * t18506 + F::cast_from(0.13388493827160493828e1_f64) * t7236) * t404;
     t18512
 }

@@ -13,6 +13,6 @@ pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk957<F: Float>(t245: F, t18759: F, 
     let t246 = F::cast_from(10000000.0_f64) <= t245;
     let t18773 = t18759 + t18772;
     let t18783 = t1178 * t18;
-    let t18793 = piecewise3::<F>(t246, F::new(0.0), t5 * t18773 * t21 / F::new(4.0) + t5 * t5186 * t363 / F::new(4.0) + t5 * t4011 * t920 / F::new(2.0) + t5 * t18783 * t1577 + t5 * t776 * t4431 / F::new(4.0) + t5 * t267 * t15625 / F::new(4.0));
+    let t18793 = piecewise3::<F>(t246, F::cast_from(0.0_f64), t5 * t18773 * t21 / F::cast_from(4.0_f64) + t5 * t5186 * t363 / F::cast_from(4.0_f64) + t5 * t4011 * t920 / F::cast_from(2.0_f64) + t5 * t18783 * t1577 + t5 * t776 * t4431 / F::cast_from(4.0_f64) + t5 * t267 * t15625 / F::cast_from(4.0_f64));
     t18793
 }

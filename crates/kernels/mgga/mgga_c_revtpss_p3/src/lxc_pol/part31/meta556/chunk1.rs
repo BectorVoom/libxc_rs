@@ -9,12 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk1964<F: Float>(t1936: F, t30138: F, t4248: F, t7741: F, t5920: F, t93: F, t7889: F, t1312: F, t30004: F, t1518: F, t28030: F, t29569: F, t29573: F, t30137: F, t6985: F) -> (F, F) {
-    let t30140 = F::new(4.0) * t30138 * t1936;
-    let t30142 = F::new(4.0) * t4248 * t7741;
+    let t30140 = F::cast_from(4.0_f64) * t30138 * t1936;
+    let t30142 = F::cast_from(4.0_f64) * t4248 * t7741;
     let t30143 = t93 * t5920;
-    let t30145 = F::new(2.0) * t30143 * t1936;
-    let t30147 = F::new(4.0) * t7889 * t7741;
-    let t30149 = F::new(2.0) * t1312 * t30004;
-    let t30150 = F::new(4.0) * t1518 * t28030 + F::new(2.0) * t5920 * t6985 + t29569 + F::new(2.0) * t29573 + t30137 + t30140 + t30142 + t30145 + t30147 + t30149;
+    let t30145 = F::cast_from(2.0_f64) * t30143 * t1936;
+    let t30147 = F::cast_from(4.0_f64) * t7889 * t7741;
+    let t30149 = F::cast_from(2.0_f64) * t1312 * t30004;
+    let t30150 = F::cast_from(4.0_f64) * t1518 * t28030 + F::cast_from(2.0_f64) * t5920 * t6985 + t29569 + F::cast_from(2.0_f64) * t29573 + t30137 + t30140 + t30142 + t30145 + t30147 + t30149;
     (t30143, t30150)
 }

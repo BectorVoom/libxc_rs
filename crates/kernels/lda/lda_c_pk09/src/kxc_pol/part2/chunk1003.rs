@@ -10,6 +10,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk1003<F: Float>(t365: F, t9739: F, t5047: F, t5071: F, t5426: F, t5439: F, t5440: F, t5445: F, t5448: F, t9628: F, t9746: F, t9753: F, t9756: F, t9922: F, t9925: F, t9929: F, t9933: F, t9936: F, t9943: F) -> (F, F) {
     let t10854 = t365 * t9739;
-    let t10869 = -t5440 + t5445 + t5426 + t5439 + F::cast_from(1.2466946262544771_f64) * t5047 - t5448 + F::cast_from(0.41556487541815906_f64) * t5071 + F::new(12.5) * t9922 - F::new(12.5) * t9925 - F::new(12.5) * t9929 + F::new(18.75) * t9933 - F::new(12.5) * t9936 + F::cast_from(1.2466946262544771_f64) * t9746 + F::cast_from(0.41556487541815906_f64) * t9753 + F::cast_from(1.2466946262544771_f64) * t9756 + F::cast_from(2.4933892525089543_f64) * t9628 - F::cast_from(4.166666666666667_f64) * t9943;
+    let t10869 = -t5440 + t5445 + t5426 + t5439 + F::cast_from(1.2466946262544771_f64) * t5047 - t5448 + F::cast_from(0.41556487541815906_f64) * t5071 + F::cast_from(12.5_f64) * t9922 - F::cast_from(12.5_f64) * t9925 - F::cast_from(12.5_f64) * t9929 + F::cast_from(18.75_f64) * t9933 - F::cast_from(12.5_f64) * t9936 + F::cast_from(1.2466946262544771_f64) * t9746 + F::cast_from(0.41556487541815906_f64) * t9753 + F::cast_from(1.2466946262544771_f64) * t9756 + F::cast_from(2.4933892525089543_f64) * t9628 - F::cast_from(4.166666666666667_f64) * t9943;
     (t10854, t10869)
 }

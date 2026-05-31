@@ -14,7 +14,7 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk820<F: Float>(t299: F, t34
     let t34337 = t34259 + t34336;
     let t34338 = t34337 * t332;
     let t34341 = t5 * t7691;
-    let t34347 = piecewise3::<F>(t300, F::new(0.0), t5 * t34338 * t113 / F::new(4.0) + t5 * t7692 * t505 / F::new(4.0) + t34341 * t911 / F::new(4.0));
+    let t34347 = piecewise3::<F>(t300, F::cast_from(0.0_f64), t5 * t34338 * t113 / F::cast_from(4.0_f64) + t5 * t7692 * t505 / F::cast_from(4.0_f64) + t34341 * t911 / F::cast_from(4.0_f64));
     let t35250 = t33535 * t1091;
     let t35251 = t2354 * t35250;
     (t34337, t34338, t34341, t34347, t35251)

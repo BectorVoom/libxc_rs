@@ -13,6 +13,6 @@ pub fn mgga_c_revtpss_lxc_pol_part42_v4rho3tau_5_chunk65<F: Float>(t45: F, t153:
     let t154 = piecewise3::<F>(t151, t153, t79);
     let t155 = t57 <= zeta_threshold;
     let t156 = piecewise3::<F>(t155, t153, t82);
-    let t157 = t154 + t156 - F::new(2.0);
+    let t157 = t154 + t156 - F::cast_from(2.0_f64);
     t157
 }

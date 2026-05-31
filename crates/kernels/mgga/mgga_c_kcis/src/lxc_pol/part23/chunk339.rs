@@ -15,6 +15,6 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk339<F: Float>(t1468: F, t20
     let t2007 = t553 * t2006;
     let t2008 = t303 * t2007;
     let t2010 = t8 * t1650;
-    let t2011 = F::new(1.0) - t168 + t2010;
+    let t2011 = F::cast_from(1.0_f64) - t168 + t2010;
     (t2003, t2004, t2006, t2007, t2008, t2011)
 }

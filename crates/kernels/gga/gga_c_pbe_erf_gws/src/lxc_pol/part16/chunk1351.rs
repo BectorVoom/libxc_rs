@@ -12,8 +12,8 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1351<F: Float>(t4227:
     let t55762 = t6781 * t4227;
     let t55764 = t829 * t830 * t55762;
     let t55769 = t4386 * t892 * t14886;
-    let t55773 = F::new(7.0) / F::new(72.0) * t19906 * t15036;
-    let t55781 = F::new(7.0) / F::new(576.0) * t54463;
-    let t55795 = -t827 * t55764 / F::new(48.0) + F::new(7.0) / F::new(72.0) * t51881 + t6793 * t55769 / F::new(24.0) - t55773 + t8793 * t52194 / F::new(24.0) - F::new(7.0) / F::new(1152.0) * t51896 - t2408 * t29751 * t15021 / F::new(12.0) + t54461 / F::new(1536.0) - t55781 + t54465 / F::new(24.0) - t54473 / F::new(192.0) + F::new(7.0) / F::new(144.0) * t52551 + t54484 / F::new(12.0) + t2408 * t2409 * t2376 * t15081 * t810 / F::new(24.0) + t3066 * t2409 * t8734 * t14935 / F::new(24.0);
+    let t55773 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t19906 * t15036;
+    let t55781 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t54463;
+    let t55795 = -t827 * t55764 / F::cast_from(48.0_f64) + F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t51881 + t6793 * t55769 / F::cast_from(24.0_f64) - t55773 + t8793 * t52194 / F::cast_from(24.0_f64) - F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t51896 - t2408 * t29751 * t15021 / F::cast_from(12.0_f64) + t54461 / F::cast_from(1536.0_f64) - t55781 + t54465 / F::cast_from(24.0_f64) - t54473 / F::cast_from(192.0_f64) + F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t52551 + t54484 / F::cast_from(12.0_f64) + t2408 * t2409 * t2376 * t15081 * t810 / F::cast_from(24.0_f64) + t3066 * t2409 * t8734 * t14935 / F::cast_from(24.0_f64);
     t55795
 }

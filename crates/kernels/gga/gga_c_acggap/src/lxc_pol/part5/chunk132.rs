@@ -12,7 +12,7 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk132<F: Float>(t301: F, t336: F, 
     let t339 = t336 * t337 * t301;
     let t342 = t130 * t123;
     let t343 = t342 * t138;
-    let t344 = t343 / F::new(3.0);
+    let t344 = t343 / F::cast_from(3.0_f64);
     let t345 = t133 * t134;
     (t339, t342, t343, t344, t345)
 }

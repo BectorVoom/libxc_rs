@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk197<F: Float>(t169: F, t113
     let t170 = t169 <= zeta_threshold;
     let t828 = t167 * t113;
     let t829 = t89 - t828;
-    let t832 = piecewise3::<F>(t170, F::new(0.0), F::new(4.0) / F::new(3.0) * t171 * t829);
+    let t832 = piecewise3::<F>(t170, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t171 * t829);
     let t833 = -t829;
     (t828, t829, t832, t833)
 }

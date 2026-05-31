@@ -12,11 +12,11 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk723<F: Float>(t2492: F, t265: F, t9802: F, t1882: F, t3983: F, t3839: F, t1140: F, t8232: F, t3848: F, t1170: F, t3953: F, t681: F, t89: F) -> (F, F, F, F, F, F, F, F) {
     let t14196 = t2492 * t265;
     let t14200 = t9802 * t265;
-    let t14212 = F::new(2.0) / F::new(9.0) * t1882 * t3983;
-    let t14223 = F::new(4.0) / F::new(9.0) * t1882 * t3839;
+    let t14212 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t1882 * t3983;
+    let t14223 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1882 * t3839;
     let t14224 = t8232 * t1140;
-    let t14232 = F::new(2.0) / F::new(27.0) * t1882 * t3848;
+    let t14232 = F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t1882 * t3848;
     let t14233 = t8232 * t1170;
-    let t14240 = F::new(2.0) / F::new(9.0) * t89 * t681 * t3953;
+    let t14240 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t89 * t681 * t3953;
     (t14196, t14200, t14212, t14223, t14224, t14232, t14233, t14240)
 }

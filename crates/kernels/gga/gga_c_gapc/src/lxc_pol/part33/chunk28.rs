@@ -12,6 +12,6 @@ pub fn gga_c_gapc_lxc_pol_part33_v4rho2sigma2_12_chunk28<F: Float>(t1: F, t3: F,
     let pi = F::cast_from(M_PI);
     let t90 = pi * pi;
     let t93 = t1 * t3 / t90;
-    let t95 = F::new(1.0) / t8 / t87;
+    let t95 = F::cast_from(1.0_f64) / t8 / t87;
     (t90, t93, t95)
 }

@@ -19,7 +19,7 @@ pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk974<F: Float>(t30886: F, t
     let t32670 = F::cast_from(0.7145669686344956162e-3_f64) * t31015;
     let t32671 = F::cast_from(0.10482697429868050689e-2_f64) * t31020;
     let t32672 = F::cast_from(0.12004725073059526352e-1_f64) * t31022;
-    let t32677 = F::new(311.0) / F::new(432.0) * t31036;
+    let t32677 = F::cast_from(311.0_f64) / F::cast_from(432.0_f64) * t31036;
     let t32739 = F::cast_from(0.51448821741683684367e-2_f64) * t31226;
     (t32621, t32622, t32627, t32628, t32635, t32664, t32668, t32670, t32671, t32672, t32677, t32739)
 }

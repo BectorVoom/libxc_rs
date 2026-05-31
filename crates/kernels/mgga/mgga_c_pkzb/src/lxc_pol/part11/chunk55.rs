@@ -16,6 +16,6 @@ pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk55<F: Float>(t12: F, t24: F, t85
     let t138 = piecewise3::<F>(t84, t136, t137);
     let t139 = t91 * t91;
     let t140 = piecewise3::<F>(t90, t136, t139);
-    let t142 = t138 / F::new(2.0) + t140 / F::new(2.0);
+    let t142 = t138 / F::cast_from(2.0_f64) + t140 / F::cast_from(2.0_f64);
     (t136, t137, t139, t142)
 }

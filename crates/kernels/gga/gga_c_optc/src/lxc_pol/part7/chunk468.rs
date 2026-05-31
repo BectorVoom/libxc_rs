@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk468<F: Float>(t349: F, t972: F, t346: F, t979: F) -> (F, F, F) {
-    let t2300 = F::new(1.0) / t972 / t349;
+    let t2300 = F::cast_from(1.0_f64) / t972 / t349;
     let t2301 = t346 * t2300;
     let t2302 = t979 * t979;
     (t2300, t2301, t2302)

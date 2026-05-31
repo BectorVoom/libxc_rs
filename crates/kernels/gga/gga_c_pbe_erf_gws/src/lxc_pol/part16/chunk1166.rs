@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1166<F: Float>(t15081
     let t15082 = t898 * t15081;
     let t15084 = t338 * t353 * t15082;
     let t15089 = t2409 * t8589 * t4088;
-    let t15094 = -t14129 - t335 * t15018 / F::new(96.0) - t2408 * t15022 / F::new(24.0) + t3066 * t15027 / F::new(48.0) + t8793 * t14182 / F::new(48.0) + t8629 * t14193 / F::new(96.0) + t6793 * t15036 / F::new(48.0) - t335 * t15084 / F::new(96.0) - t14131 + t14800 / F::new(768.0) + t2408 * t15089 / F::new(48.0) + t14806 / F::new(24.0) + t14812 / F::new(24.0);
+    let t15094 = -t14129 - t335 * t15018 / F::cast_from(96.0_f64) - t2408 * t15022 / F::cast_from(24.0_f64) + t3066 * t15027 / F::cast_from(48.0_f64) + t8793 * t14182 / F::cast_from(48.0_f64) + t8629 * t14193 / F::cast_from(96.0_f64) + t6793 * t15036 / F::cast_from(48.0_f64) - t335 * t15084 / F::cast_from(96.0_f64) - t14131 + t14800 / F::cast_from(768.0_f64) + t2408 * t15089 / F::cast_from(48.0_f64) + t14806 / F::cast_from(24.0_f64) + t14812 / F::cast_from(24.0_f64);
     (t15082, t15084, t15089, t15094)
 }

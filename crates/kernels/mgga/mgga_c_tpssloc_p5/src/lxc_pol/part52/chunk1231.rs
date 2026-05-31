@@ -15,8 +15,8 @@ pub fn mgga_c_tpssloc_lxc_pol_part52_v4rho2sigma2_8_chunk1231<F: Float>(t25: F, 
     let t33746 = t8107 * t191 * t192;
     let t33747 = t33746 * t2020;
     let t33748 = t8690 * t7688;
-    let t33750 = piecewise3::<F>(t395, F::new(0.0), t33043);
-    let t33755 = piecewise3::<F>(t115, t32907, t8678 * t1409 / F::new(2.0) + t33750 * t40 / F::new(2.0));
+    let t33750 = piecewise3::<F>(t395, F::cast_from(0.0_f64), t33043);
+    let t33755 = piecewise3::<F>(t115, t32907, t8678 * t1409 / F::cast_from(2.0_f64) + t33750 * t40 / F::cast_from(2.0_f64));
     let t33756 = t33755 + t33079;
     (t33746, t33747, t33748, t33750, t33756)
 }

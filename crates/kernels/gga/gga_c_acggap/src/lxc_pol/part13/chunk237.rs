@@ -15,9 +15,9 @@ pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk237<F: Float>(t43: F, t50:
     let t883 = t243 * t75;
     let t884 = t883 * t288;
     let t885 = F::cast_from(0.11696447245269292414e1_f64) * t884;
-    let t886 = F::new(1.0) / t98;
-    let t892 = piecewise3::<F>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t886 * t818 + F::new(4.0) / F::new(3.0) * t47 * t824);
-    let t893 = F::new(1.0) / t100;
-    let t899 = piecewise3::<F>(t51, F::new(0.0), F::new(4.0) / F::new(9.0) * t893 * t830 + F::new(4.0) / F::new(3.0) * t52 * t833);
+    let t886 = F::cast_from(1.0_f64) / t98;
+    let t892 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t886 * t818 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t47 * t824);
+    let t893 = F::cast_from(1.0_f64) / t100;
+    let t899 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t893 * t830 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t52 * t833);
     (t882, t883, t884, t885, t886, t892, t893, t899)
 }

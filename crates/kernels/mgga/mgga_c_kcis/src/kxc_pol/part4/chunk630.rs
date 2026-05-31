@@ -17,6 +17,6 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk630<F: Float>(t3423: F, t355: F, 
     let t3430 = t375 * t3429;
     let t3432 = t1195 * t1188;
     let t3433 = t1187 * t3432;
-    let t3435 = t3335 / F::new(3.0) - t3340 / F::new(12.0) + t3344 / F::new(24.0) - t3349 / F::new(576.0) - F::new(19.0) / F::new(144.0) * t3356 + t3359 / F::new(18.0) + F::new(11.0) / F::new(18.0) * t3363 - F::new(2.0) / F::new(9.0) * t3366 - t3370 / F::new(256.0) + t3426 / F::new(16.0) - t3430 / F::new(72.0) - t3433 / F::new(24.0);
+    let t3435 = t3335 / F::cast_from(3.0_f64) - t3340 / F::cast_from(12.0_f64) + t3344 / F::cast_from(24.0_f64) - t3349 / F::cast_from(576.0_f64) - F::cast_from(19.0_f64) / F::cast_from(144.0_f64) * t3356 + t3359 / F::cast_from(18.0_f64) + F::cast_from(11.0_f64) / F::cast_from(18.0_f64) * t3363 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t3366 - t3370 / F::cast_from(256.0_f64) + t3426 / F::cast_from(16.0_f64) - t3430 / F::cast_from(72.0_f64) - t3433 / F::cast_from(24.0_f64);
     (t3425, t3426, t3429, t3430, t3432, t3433, t3435)
 }

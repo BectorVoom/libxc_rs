@@ -15,9 +15,9 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk285<F: Float>(t44: F, t51
     let t901 = t898 * t86;
     let t902 = F::cast_from(0.19751673498613801407e-1_f64) * t901;
     let t903 = t472 * t889;
-    let t905 = piecewise3::<F>(t45, F::new(0.0), F::new(2.0) / F::new(3.0) * t903);
+    let t905 = piecewise3::<F>(t45, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t903);
     let t906 = t476 * t893;
-    let t908 = piecewise3::<F>(t52, F::new(0.0), F::new(2.0) / F::new(3.0) * t906);
-    let t910 = t905 / F::new(2.0) + t908 / F::new(2.0);
+    let t908 = piecewise3::<F>(t52, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t906);
+    let t910 = t905 / F::cast_from(2.0_f64) + t908 / F::cast_from(2.0_f64);
     (t900, t902, t903, t906, t910)
 }

@@ -12,12 +12,12 @@ pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk604<F: Float>(t227: F, t297: F, 
     let t228 = t227 <= zeta_threshold;
     let t8460 = t297 * t8459;
     let t8461 = t294 * t8460;
-    let t8463 = F::new(1.0) / t2452;
+    let t8463 = F::cast_from(1.0_f64) / t2452;
     let t8464 = sigma2 * t8463;
     let t8465 = t8464 * t807;
     let t8467 = t2356 * t2361;
     let t8469 = t2356 * t2671;
-    let t8471 = piecewise3::<F>(t228, F::new(0.0), t7718);
+    let t8471 = piecewise3::<F>(t228, F::cast_from(0.0_f64), t7718);
     let t8472 = t565 * t8471;
     let t8473 = t8472 * t806;
     let t8474 = t564 * t8473;

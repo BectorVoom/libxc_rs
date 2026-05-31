@@ -13,6 +13,6 @@ pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1263<F: Float>(t2822: F, t7214: F,
     let t26080 = t7325 * t7214;
     let t26084 = t10849 * t8272;
     let t26087 = t10845 * t7179;
-    let t26090 = -F::cast_from(0.77534644304710291488e-2_f64) * t95 * t277 * t26073 * t2569 - F::new(2.0) * t7263 * t2563 - F::new(200.0) / F::new(9.0) * t26080 + F::new(8.0) / F::new(3.0) * t10109 * t8273 + F::new(800.0) / F::new(81.0) * t2433 * t26084 - F::new(400.0) / F::new(27.0) * t2433 * t26087 + t24704 + t24708 + t24712 - t24715 - t24718;
+    let t26090 = -F::cast_from(0.77534644304710291488e-2_f64) * t95 * t277 * t26073 * t2569 - F::cast_from(2.0_f64) * t7263 * t2563 - F::cast_from(200.0_f64) / F::cast_from(9.0_f64) * t26080 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t10109 * t8273 + F::cast_from(800.0_f64) / F::cast_from(81.0_f64) * t2433 * t26084 - F::cast_from(400.0_f64) / F::cast_from(27.0_f64) * t2433 * t26087 + t24704 + t24708 + t24712 - t24715 - t24718;
     t26090
 }

@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk572<F: Float>(t378: F, t7973: F, t92: F, t7945: F, t7946: F, t7948: F, t7950: F, t7952: F, t7957: F, t7961: F, t7964: F, t7968: F, t7971: F) -> (F, F, F) {
     let t7974 = t378 * t7973;
     let t7975 = t92 * t7974;
-    let t7977 = -t7945 - F::new(4.0) / F::new(9.0) * t7946 + F::new(2.0) / F::new(9.0) * t7948 - F::new(2.0) / F::new(3.0) * t7950 + t7952 / F::new(3.0) - F::new(10.0) / F::new(27.0) * t7957 + F::new(4.0) / F::new(3.0) * t7961 - F::new(2.0) / F::new(3.0) * t7964 - F::new(2.0) * t7968 + F::new(2.0) * t7971 - t7975 / F::new(3.0);
+    let t7977 = -t7945 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t7946 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t7948 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t7950 + t7952 / F::cast_from(3.0_f64) - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t7957 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t7961 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t7964 - F::cast_from(2.0_f64) * t7968 + F::cast_from(2.0_f64) * t7971 - t7975 / F::cast_from(3.0_f64);
     (t7974, t7975, t7977)
 }

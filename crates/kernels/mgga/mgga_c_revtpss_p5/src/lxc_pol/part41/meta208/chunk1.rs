@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part41_v4rho3tau_4_chunk824<F: Float>(t33: F, t171
     let t34 = t33 <= zeta_threshold;
     let t5582 = t3881 * t1711;
     let t5585 = t1348 * t2;
-    let t5589 = piecewise3::<F>(t34, F::new(0.0), -F::new(2.0) / F::new(9.0) * t5582 * t1113 - F::new(4.0) / F::new(3.0) * t5585 * t580);
-    let t5591 = t5581 / F::new(2.0) + t5589 / F::new(2.0);
+    let t5589 = piecewise3::<F>(t34, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t5582 * t1113 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t5585 * t580);
+    let t5591 = t5581 / F::cast_from(2.0_f64) + t5589 / F::cast_from(2.0_f64);
     (t5582, t5591)
 }

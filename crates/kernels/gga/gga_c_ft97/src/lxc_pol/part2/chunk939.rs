@@ -13,6 +13,6 @@ pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk939<F: Float>(t14483: F, t14560: F
     let t14561 = t14483 + t14560;
     let t14562 = t14561 * t332;
     let t14563 = t14562 * t113;
-    let t14568 = t889 * t14391 / F::new(4.0) + t889 * t14395 / F::new(4.0) + t2904 * t4377 / F::new(2.0) + t2904 * t4385 / F::new(2.0) + t889 * t14403 / F::new(2.0) + t2904 * t4382 / F::new(2.0) + t889 * t14409 / F::new(2.0) + t889 * t14412 / F::new(4.0) + t2904 * t4391 / F::new(2.0) - t2904 * t4395 + t10829 * t1275 / F::new(4.0) + t889 * t14563 / F::new(4.0) + t4322 * t2963 / F::new(4.0);
+    let t14568 = t889 * t14391 / F::cast_from(4.0_f64) + t889 * t14395 / F::cast_from(4.0_f64) + t2904 * t4377 / F::cast_from(2.0_f64) + t2904 * t4385 / F::cast_from(2.0_f64) + t889 * t14403 / F::cast_from(2.0_f64) + t2904 * t4382 / F::cast_from(2.0_f64) + t889 * t14409 / F::cast_from(2.0_f64) + t889 * t14412 / F::cast_from(4.0_f64) + t2904 * t4391 / F::cast_from(2.0_f64) - t2904 * t4395 + t10829 * t1275 / F::cast_from(4.0_f64) + t889 * t14563 / F::cast_from(4.0_f64) + t4322 * t2963 / F::cast_from(4.0_f64);
     t14568
 }

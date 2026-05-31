@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk56<F: Float>(t131: F,
     let pi = F::cast_from(M_PI);
     let t140 = F::ln(t131 * t138);
     let t141 = pi * pi;
-    let t142 = F::new(1.0) / t141;
+    let t142 = F::cast_from(1.0_f64) / t141;
     (t140, t142)
 }

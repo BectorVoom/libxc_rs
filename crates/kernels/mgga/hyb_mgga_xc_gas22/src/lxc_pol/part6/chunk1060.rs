@@ -13,6 +13,6 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1060<F: Float>(t1804: F, t3
     let t10129 = t1804 * t6214 * t3815;
     let t10131 = t3916 * t125;
     let t10132 = t10131 * t545;
-    let t10136 = t5886 / F::new(96.0) + t5889 / F::new(96.0) - t10102 / F::new(96.0) - t10105 / F::new(192.0) - t1804 * t1807 * t10107 / F::new(48.0) - t1804 * t1807 * t10111 / F::new(48.0) - t555 * t558 * t10115 / F::new(32.0) - t555 * t558 * t10119 / F::new(32.0) - t555 * t2987 * t10123 / F::new(16.0) + t7903 / F::new(144.0) - t10129 / F::new(144.0) - t555 * t558 * t10132 / F::new(64.0);
+    let t10136 = t5886 / F::cast_from(96.0_f64) + t5889 / F::cast_from(96.0_f64) - t10102 / F::cast_from(96.0_f64) - t10105 / F::cast_from(192.0_f64) - t1804 * t1807 * t10107 / F::cast_from(48.0_f64) - t1804 * t1807 * t10111 / F::cast_from(48.0_f64) - t555 * t558 * t10115 / F::cast_from(32.0_f64) - t555 * t558 * t10119 / F::cast_from(32.0_f64) - t555 * t2987 * t10123 / F::cast_from(16.0_f64) + t7903 / F::cast_from(144.0_f64) - t10129 / F::cast_from(144.0_f64) - t555 * t558 * t10132 / F::cast_from(64.0_f64);
     (t10131, t10132, t10136)
 }

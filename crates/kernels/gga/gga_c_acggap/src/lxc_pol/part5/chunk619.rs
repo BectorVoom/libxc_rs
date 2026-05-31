@@ -13,9 +13,9 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk619<F: Float>(t4027: F, t85: F, 
     let t4029 = F::cast_from(0.19751673498613801407e-1_f64) * t4028;
     let t4030 = t1357 * t807;
     let t4031 = F::cast_from(0.24415263074675393405e-3_f64) * t4030;
-    let t4032 = F::new(24.0) * t2635;
+    let t4032 = F::cast_from(24.0_f64) * t2635;
     let t4034 = t694 * t695 * t1298;
-    let t4036 = F::new(2.0) * t2644;
+    let t4036 = F::cast_from(2.0_f64) * t2644;
     let t4038 = F::cast_from(0.23392894490538584828e1_f64) * t2835;
     let t4039 = t224 * t1390;
     (t4028, t4029, t4030, t4031, t4032, t4034, t4036, t4038, t4039)

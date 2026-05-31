@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part18_v4rho3sigma_8_chunk1138<F: Float>(t12557: F, t3270: F, t3269: F, t10619: F, t12422: F, t12556: F, t498: F, t3275: F, t3352: F, t11559: F, t11629: F, t11004: F) -> (F, F, F, F, F, F) {
     let t42439 = t3270 * t12557;
-    let t42441 = t3269 * t42439 / F::new(4.0);
-    let t42443 = t12422 * t10619 / F::new(4.0);
+    let t42441 = t3269 * t42439 / F::cast_from(4.0_f64);
+    let t42443 = t12422 * t10619 / F::cast_from(4.0_f64);
     let t42444 = t498 * t12556;
-    let t42447 = t3275 * t42444 * t3352 / F::new(4.0);
-    let t42450 = F::new(5.0) / F::new(8.0) * t3275 * t11629 * t11559;
-    let t42452 = F::new(5.0) / F::new(16.0) * t12422 * t11004;
+    let t42447 = t3275 * t42444 * t3352 / F::cast_from(4.0_f64);
+    let t42450 = F::cast_from(5.0_f64) / F::cast_from(8.0_f64) * t3275 * t11629 * t11559;
+    let t42452 = F::cast_from(5.0_f64) / F::cast_from(16.0_f64) * t12422 * t11004;
     (t42441, t42443, t42444, t42447, t42450, t42452)
 }

@@ -14,6 +14,6 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk1363<F: Float>(t22430: F, t6010: 
     let t22435 = t1494 * t21971;
     let t22436 = t572 * t22435;
     let t22437 = t571 * t22436;
-    let t22439 = -t22411 / F::new(72.0) + t22413 / F::new(96.0) - t22415 / F::new(128.0) - t22417 / F::new(12.0) + F::new(11.0) / F::new(27.0) * t22420 - F::new(19.0) / F::new(108.0) * t22423 + t22425 / F::new(128.0) + F::new(19.0) / F::new(144.0) * t22428 - t22431 / F::new(64.0) - t22433 / F::new(72.0) + t22437 / F::new(24.0);
+    let t22439 = -t22411 / F::cast_from(72.0_f64) + t22413 / F::cast_from(96.0_f64) - t22415 / F::cast_from(128.0_f64) - t22417 / F::cast_from(12.0_f64) + F::cast_from(11.0_f64) / F::cast_from(27.0_f64) * t22420 - F::cast_from(19.0_f64) / F::cast_from(108.0_f64) * t22423 + t22425 / F::cast_from(128.0_f64) + F::cast_from(19.0_f64) / F::cast_from(144.0_f64) * t22428 - t22431 / F::cast_from(64.0_f64) - t22433 / F::cast_from(72.0_f64) + t22437 / F::cast_from(24.0_f64);
     (t22431, t22433, t22437, t22439)
 }

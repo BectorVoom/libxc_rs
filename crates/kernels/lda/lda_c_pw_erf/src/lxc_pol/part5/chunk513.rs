@@ -9,6 +9,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk513<F: Float>(t2266: F, t2538: F, t2542: F, t2546: F, t2548: F, t2552: F, t2556: F, t2560: F, t2564: F, t2568: F, t2569: F, t2570: F) -> F {
-    let t2572 = t2538 + t2542 + t2546 + t2548 + t2552 + t2556 - t2560 - t2564 - t2568 + t2569 + t2570 - F::new(4.0) / F::new(45.0) * t2266;
+    let t2572 = t2538 + t2542 + t2546 + t2548 + t2552 + t2556 - t2560 - t2564 - t2568 + t2569 + t2570 - F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t2266;
     t2572
 }

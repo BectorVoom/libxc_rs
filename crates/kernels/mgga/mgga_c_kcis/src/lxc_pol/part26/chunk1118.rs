@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk1118<F: Float>(t2066: F, t3
     let t28608 = t3738 * t2066;
     let t28610 = t570 * t1928;
     let t28611 = t28610 * t7953;
-    let t28613 = -t28583 / F::new(24.0) + t28585 / F::new(128.0) + t28587 / F::new(18.0) - t28590 / F::new(16.0) - t28592 / F::new(128.0) + t28595 / F::new(6.0) - t28598 / F::new(16.0) + t28600 / F::new(128.0) + t28602 / F::new(8.0) - t28604 / F::new(96.0) - t28606 / F::new(24.0) - t28608 / F::new(96.0) - t28611 / F::new(9.0);
+    let t28613 = -t28583 / F::cast_from(24.0_f64) + t28585 / F::cast_from(128.0_f64) + t28587 / F::cast_from(18.0_f64) - t28590 / F::cast_from(16.0_f64) - t28592 / F::cast_from(128.0_f64) + t28595 / F::cast_from(6.0_f64) - t28598 / F::cast_from(16.0_f64) + t28600 / F::cast_from(128.0_f64) + t28602 / F::cast_from(8.0_f64) - t28604 / F::cast_from(96.0_f64) - t28606 / F::cast_from(24.0_f64) - t28608 / F::cast_from(96.0_f64) - t28611 / F::cast_from(9.0_f64);
     (t28608, t28610, t28611, t28613)
 }

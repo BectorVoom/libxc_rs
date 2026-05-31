@@ -9,13 +9,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk802<F: Float>(t439: F, t7525: F, t2002: F, t2501: F, t1972: F, t2497: F, t2500: F, t5482: F, t2496: F, t5486: F, t493: F, t6781: F, t764: F) -> (F, F, F, F, F, F, F, F) {
-    let t7527 = t439 * t7525 / F::new(15.0);
-    let t7529 = F::new(2.0) / F::new(15.0) * t2002 * t2501;
-    let t7531 = F::new(2.0) / F::new(15.0) * t1972 * t2497;
+    let t7527 = t439 * t7525 / F::cast_from(15.0_f64);
+    let t7529 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t2002 * t2501;
+    let t7531 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t1972 * t2497;
     let t7532 = t5482 * t2500;
-    let t7534 = F::new(2.0) / F::new(15.0) * t439 * t7532;
+    let t7534 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t439 * t7532;
     let t7535 = t5486 * t2496;
-    let t7537 = F::new(2.0) / F::new(15.0) * t493 * t7535;
+    let t7537 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t493 * t7535;
     let t7538 = t6781 * t764;
     (t7527, t7529, t7531, t7532, t7534, t7535, t7537, t7538)
 }

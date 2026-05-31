@@ -14,6 +14,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk687<F: Float>(t1055: F, t4818: F
     let t4822 = t495 * t839;
     let t4823 = t1055 * t4822;
     let t4824 = t345 * t4823;
-    let t4826 = t4798 + t4800 - F::new(0.36675e0) * t4802 + F::new(0.2445e0) * t4804 - t4809 - F::new(0.12225e0) * t4812 - F::new(0.1141e1) * t4814 - t4817 + F::new(0.1467e1) * t4820 + F::new(0.7335e0) * t4824 + t3579;
+    let t4826 = t4798 + t4800 - F::cast_from(0.36675e0_f64) * t4802 + F::cast_from(0.2445e0_f64) * t4804 - t4809 - F::cast_from(0.12225e0_f64) * t4812 - F::cast_from(0.1141e1_f64) * t4814 - t4817 + F::cast_from(0.1467e1_f64) * t4820 + F::cast_from(0.7335e0_f64) * t4824 + t3579;
     (t4819, t4820, t4822, t4823, t4824, t4826)
 }

@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part30_v4rho2sigma2_13_chunk1432<F: Float>(t224: F, t32721: F, t32741: F, t33983: F, t35243: F, t10289: F, t10299: F, t10293: F, t10302: F, t10625: F, t10292: F, t11143: F) -> (F, F, F, F, F, F, F, F) {
     let t35246 = t224 * (t32721 + t32741 + t33983 + t35243);
-    let t35252 = F::new(2.0) * t10289;
-    let t35253 = F::new(4.0) * t10299;
-    let t35254 = F::new(4.0) * t10293;
-    let t35255 = F::new(4.0) * t10302;
-    let t35256 = F::new(2.0) * t10625;
-    let t35257 = F::new(2.0) * t10292;
-    let t35259 = F::new(2.0) * t11143;
+    let t35252 = F::cast_from(2.0_f64) * t10289;
+    let t35253 = F::cast_from(4.0_f64) * t10299;
+    let t35254 = F::cast_from(4.0_f64) * t10293;
+    let t35255 = F::cast_from(4.0_f64) * t10302;
+    let t35256 = F::cast_from(2.0_f64) * t10625;
+    let t35257 = F::cast_from(2.0_f64) * t10292;
+    let t35259 = F::cast_from(2.0_f64) * t11143;
     (t35246, t35252, t35253, t35254, t35255, t35256, t35257, t35259)
 }

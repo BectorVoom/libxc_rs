@@ -17,6 +17,6 @@ pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk500<F: Float>(t299: F, t2956: F, t
     let t2962 = t2961 * t332;
     let t2963 = t2962 * t113;
     let t2966 = t910 * t505;
-    let t2973 = piecewise3::<F>(t300, F::new(0.0), t5 * t2900 * t113 / F::new(4.0) + t2904 * t911 / F::new(2.0) + t5 * t886 * t505 / F::new(2.0) + t889 * t2958 / F::new(4.0) + t889 * t2963 / F::new(4.0) + t889 * t2966 / F::new(2.0) + t5 * t333 * t1934 / F::new(4.0));
+    let t2973 = piecewise3::<F>(t300, F::cast_from(0.0_f64), t5 * t2900 * t113 / F::cast_from(4.0_f64) + t2904 * t911 / F::cast_from(2.0_f64) + t5 * t886 * t505 / F::cast_from(2.0_f64) + t889 * t2958 / F::cast_from(4.0_f64) + t889 * t2963 / F::cast_from(4.0_f64) + t889 * t2966 / F::cast_from(2.0_f64) + t5 * t333 * t1934 / F::cast_from(4.0_f64));
     (t2957, t2958, t2961, t2962, t2963, t2966, t2973)
 }

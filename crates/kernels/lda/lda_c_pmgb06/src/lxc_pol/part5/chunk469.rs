@@ -14,6 +14,6 @@ pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk469<F: Float>(t1798: F, t183: F,
     let t2346 = t2345 * t188;
     let t2349 = t856 * t27;
     let t2350 = t2349 * t545;
-    let t2352 = -t1918 + t1922 - t1927 + t1930 + t1932 + t1935 + t1937 - t1938 + F::new(4.0) / F::new(3.0) * t2342 * t188 + F::new(4.0) / F::new(3.0) * t2346 + F::new(4.0) / F::new(3.0) * t1404 + t1412 + F::cast_from(0.10821041362364843_f64) * t2350 + t1965 + t1971 + t1974 + t1976;
+    let t2352 = -t1918 + t1922 - t1927 + t1930 + t1932 + t1935 + t1937 - t1938 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t2342 * t188 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t2346 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t1404 + t1412 + F::cast_from(0.10821041362364843_f64) * t2350 + t1965 + t1971 + t1974 + t1976;
     (t2342, t2345, t2346, t2349, t2350, t2352)
 }

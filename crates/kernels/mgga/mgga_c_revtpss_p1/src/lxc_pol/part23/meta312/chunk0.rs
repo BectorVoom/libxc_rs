@@ -14,7 +14,7 @@ pub fn mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk1595<F: Float>(t12256: F, t13
     let t13033 = t13032 * t3599;
     let t13036 = t460 * t11239;
     let t13037 = t1242 * t1242;
-    let t13038 = F::new(1.0) / t13037;
+    let t13038 = F::cast_from(1.0_f64) / t13037;
     let t13039 = t13038 * t474;
     let t13040 = t479 * t11243;
     let t13041 = t13039 * t13040;

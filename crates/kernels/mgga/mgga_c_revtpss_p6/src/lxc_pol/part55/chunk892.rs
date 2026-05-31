@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk892<F: Float>(t1937: F, t27126: F, t6993: F, t7732: F, t7003: F, t2322: F, t7735: F, t4254: F, t1936: F, t5517: F, t651: F, t7235: F, t7935: F) -> (F, F, F, F, F, F, F, F) {
-    let t27128 = F::new(2.0) * t27126 * t1937;
-    let t27130 = F::new(2.0) * t7732 * t6993;
-    let t27132 = F::new(2.0) * t7732 * t7003;
-    let t27134 = F::new(2.0) * t2322 * t7735;
-    let t27136 = F::new(2.0) * t4254 * t7735;
+    let t27128 = F::cast_from(2.0_f64) * t27126 * t1937;
+    let t27130 = F::cast_from(2.0_f64) * t7732 * t6993;
+    let t27132 = F::cast_from(2.0_f64) * t7732 * t7003;
+    let t27134 = F::cast_from(2.0_f64) * t2322 * t7735;
+    let t27136 = F::cast_from(2.0_f64) * t4254 * t7735;
     let t27137 = t5517 * t1936;
-    let t27139 = F::new(2.0) * t651 * t27137;
+    let t27139 = F::cast_from(2.0_f64) * t651 * t27137;
     let t27152 = t7235 * t7935;
     (t27128, t27130, t27132, t27134, t27136, t27137, t27139, t27152)
 }

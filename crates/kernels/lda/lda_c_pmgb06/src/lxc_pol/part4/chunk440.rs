@@ -12,7 +12,7 @@ pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk440<F: Float>(t122: F, t1669: F,
     let t1672 = F::cast_from(0.053059442957798957_f64) * t122 * t1669 * t227;
     let t1674 = t122 * t569 * t610;
     let t1676 = t574 * t591;
-    let t1679 = F::new(4.0) / F::new(9.0) * t581 * t591;
+    let t1679 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t581 * t591;
     let t1680 = t211 * t110;
     (t1672, t1674, t1676, t1679, t1680)
 }

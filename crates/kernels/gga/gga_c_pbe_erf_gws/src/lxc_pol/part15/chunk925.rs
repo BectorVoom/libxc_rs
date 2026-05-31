@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part15_v4rho3sigma_3_chunk925<F: Float>(t8079: F, t8082: F, t8084: F, t8086: F, t8088: F, t8091: F, t8094: F, t8096: F, t8098: F, t8100: F, t142: F, t2873: F) -> (F, F) {
-    let t8102 = F::new(4.0) / F::new(27.0) * t8079 - F::new(4.0) / F::new(9.0) * t8082 - t8084 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t8086 - F::new(2.0) * t8088 + F::new(4.0) / F::new(27.0) * t8091 + F::new(4.0) / F::new(9.0) * t8094 - t8096 / F::new(9.0) - F::new(2.0) / F::new(3.0) * t8098 + F::new(2.0) * t8100;
+    let t8102 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t8079 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t8082 - t8084 / F::cast_from(9.0_f64) + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8086 - F::cast_from(2.0_f64) * t8088 + F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t8091 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t8094 - t8096 / F::cast_from(9.0_f64) - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8098 + F::cast_from(2.0_f64) * t8100;
     let t8108 = t142 * t2873;
     (t8102, t8108)
 }

@@ -12,13 +12,13 @@ pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk796<F: Float>(t2295: F, t3135: F
     let t8020 = t2295 * t3135;
     let t8028 = t237 * t3113;
     let t8038 = F::cast_from(0.18541666666666666667e-1_f64) * t7930;
-    let t8045 = F::new(0.103295e1) * t7930;
-    let t8059 = F::new(0.41678e0) * t7979;
-    let t8060 = F::new(0.41678e0) * t7982;
+    let t8045 = F::cast_from(0.103295e1_f64) * t7930;
+    let t8059 = F::cast_from(0.41678e0_f64) * t7979;
+    let t8060 = F::cast_from(0.41678e0_f64) * t7982;
     let t8071 = t1201 * t2295;
-    let t8076 = F::new(0.60385e0) * t7930;
-    let t8090 = F::new(0.33114e0) * t7979;
-    let t8091 = F::new(0.33114e0) * t7982;
+    let t8076 = F::cast_from(0.60385e0_f64) * t7930;
+    let t8090 = F::cast_from(0.33114e0_f64) * t7979;
+    let t8091 = F::cast_from(0.33114e0_f64) * t7982;
     let t8102 = t3113 * t881;
     let t8107 = t1201 * t2317;
     (t8020, t8028, t8038, t8045, t8059, t8060, t8071, t8076, t8090, t8091, t8102, t8107)

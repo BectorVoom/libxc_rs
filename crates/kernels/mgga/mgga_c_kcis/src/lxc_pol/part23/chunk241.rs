@@ -13,6 +13,6 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk241<F: Float>(t498: F, t531
     let t1372 = t1371 * t833;
     let t1373 = t1370 * t1372;
     let t1376 = t497 * t497;
-    let t1377 = F::new(1.0) / t1376;
+    let t1377 = F::cast_from(1.0_f64) / t1376;
     (t1371, t1372, t1373, t1376, t1377)
 }

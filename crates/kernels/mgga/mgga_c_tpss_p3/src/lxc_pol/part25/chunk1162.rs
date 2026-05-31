@@ -17,6 +17,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1162<F: Float>(t13551: F, t
     let t16072 = t116 * t4674;
     let t16073 = t16072 * t645;
     let t16076 = t117 * t13546;
-    let t16079 = F::new(6.0) * t1279 * t5474 + F::new(3.0) * t1279 * t5477 + F::new(3.0) * t1281 * t5470 + t16052 * t548 + F::new(6.0) * t16064 * t547 + F::new(12.0) * t16067 * t547 + F::new(6.0) * t16073 * t547 + F::new(3.0) * t16076 * t547 + F::new(12.0) * t1668 * t4556 + F::new(6.0) * t1668 * t4559 + F::new(6.0) * t1670 * t4549;
+    let t16079 = F::cast_from(6.0_f64) * t1279 * t5474 + F::cast_from(3.0_f64) * t1279 * t5477 + F::cast_from(3.0_f64) * t1281 * t5470 + t16052 * t548 + F::cast_from(6.0_f64) * t16064 * t547 + F::cast_from(12.0_f64) * t16067 * t547 + F::cast_from(6.0_f64) * t16073 * t547 + F::cast_from(3.0_f64) * t16076 * t547 + F::cast_from(12.0_f64) * t1668 * t4556 + F::cast_from(6.0_f64) * t1668 * t4559 + F::cast_from(6.0_f64) * t1670 * t4549;
     (t16041, t16052, t16064, t16067, t16073, t16076, t16079)
 }

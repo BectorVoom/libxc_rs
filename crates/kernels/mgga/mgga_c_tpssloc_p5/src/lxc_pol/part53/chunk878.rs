@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk878<F: Float>(t30697: F, t30704: F, t30721: F, t30701: F, t30707: F, t30710: F, t30717: F, t30723: F, t218: F, t31374: F, t31382: F, t814: F, t8728: F) -> (F, F, F, F, F, F, F, F) {
     let t31976 = F::cast_from(0.22608743412718618877e-1_f64) * t30697;
     let t31978 = F::cast_from(0.5383034145885385447e-3_f64) * t30704;
-    let t31982 = F::new(7.0) / F::new(576.0) * t30721;
-    let t31984 = -t31976 - F::cast_from(0.19378922925187387609e-1_f64) * t30701 - t31978 - F::cast_from(0.32298204875312312682e-2_f64) * t30707 + t30710 / F::new(384.0) - t30717 / F::new(384.0) - t31982 - t30723 / F::new(96.0);
+    let t31982 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t30721;
+    let t31984 = -t31976 - F::cast_from(0.19378922925187387609e-1_f64) * t30701 - t31978 - F::cast_from(0.32298204875312312682e-2_f64) * t30707 + t30710 / F::cast_from(384.0_f64) - t30717 / F::cast_from(384.0_f64) - t31982 - t30723 / F::cast_from(96.0_f64);
     let t31985 = t218 * t31984;
     let t31987 = F::cast_from(0.76763589786250567037e-1_f64) * t31374;
     let t31989 = F::cast_from(0.16449340668482264365e-1_f64) * t31382;

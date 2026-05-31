@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk1187<F: Float>(t274: F, t32
     let t21091 = t322 / t6094 / t274;
     let t21092 = t2108 * t2108;
     let t21098 = t1452 * t1452;
-    let t21105 = -F::new(36.0) * t1452 * t2108 * t6096 + F::new(8.0) * t2107 * t4867 * t745 - F::new(6.0) * t1452 * t6086 - t18987 * t818 + t20992 * t323 - F::new(4.0) * t2102 * t4867 + F::new(6.0) * t2107 * t21098 - F::new(4.0) * t21074 * t745 + F::new(12.0) * t21077 * t2108 - F::new(24.0) * t21082 * t6097 + F::new(24.0) * t21091 * t21092 + F::new(24.0) * t6089 * t6100;
+    let t21105 = -F::cast_from(36.0_f64) * t1452 * t2108 * t6096 + F::cast_from(8.0_f64) * t2107 * t4867 * t745 - F::cast_from(6.0_f64) * t1452 * t6086 - t18987 * t818 + t20992 * t323 - F::cast_from(4.0_f64) * t2102 * t4867 + F::cast_from(6.0_f64) * t2107 * t21098 - F::cast_from(4.0_f64) * t21074 * t745 + F::cast_from(12.0_f64) * t21077 * t2108 - F::cast_from(24.0_f64) * t21082 * t6097 + F::cast_from(24.0_f64) * t21091 * t21092 + F::cast_from(24.0_f64) * t6089 * t6100;
     t21105
 }

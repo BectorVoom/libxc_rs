@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part40_v4rho3tau_3_chunk974<F: Float>(t508: F, t84
     let t8407 = t508 * t8406;
     let t8411 = t8406 * t569;
     let t8413 = t2198 * t1911;
-    let t8416 = F::new(2.0) * t1312 * t8411 + F::new(2.0) * t1312 * t8413 - F::new(2.0) * t2199 * t4248 - F::new(2.0) * t2199 * t7732 + F::new(2.0) * t2201 * t4248 + F::new(2.0) * t2201 * t7889 - F::new(2.0) * t651 * t8393 - F::new(2.0) * t651 * t8407;
+    let t8416 = F::cast_from(2.0_f64) * t1312 * t8411 + F::cast_from(2.0_f64) * t1312 * t8413 - F::cast_from(2.0_f64) * t2199 * t4248 - F::cast_from(2.0_f64) * t2199 * t7732 + F::cast_from(2.0_f64) * t2201 * t4248 + F::cast_from(2.0_f64) * t2201 * t7889 - F::cast_from(2.0_f64) * t651 * t8393 - F::cast_from(2.0_f64) * t651 * t8407;
     (t8407, t8411, t8413, t8416)
 }

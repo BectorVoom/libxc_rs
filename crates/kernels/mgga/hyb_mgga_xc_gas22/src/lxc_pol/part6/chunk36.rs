@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk36<F: Float>(t72: F) -> (F, F) {
     let pi = F::cast_from(M_PI);
     let t73 = F::sqrt(pi);
-    let t74 = F::new(1.0) / t72;
+    let t74 = F::cast_from(1.0_f64) / t72;
     (t73, t74)
 }

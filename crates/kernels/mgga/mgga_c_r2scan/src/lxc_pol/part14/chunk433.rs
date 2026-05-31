@@ -18,6 +18,6 @@ pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk433<F: Float>(t1691: F, t
     let t1830 = t225 * t1719;
     let t1831 = t739 * t1830;
     let t1833 = F::cast_from(0.11696447245269292414e1_f64) * t234 * t1831;
-    let t1835 = F::new(1.0) / t716 / t212;
+    let t1835 = F::cast_from(1.0_f64) / t716 / t212;
     (t1822, t1823, t1825, t1826, t1827, t1829, t1830, t1831, t1833, t1835)
 }

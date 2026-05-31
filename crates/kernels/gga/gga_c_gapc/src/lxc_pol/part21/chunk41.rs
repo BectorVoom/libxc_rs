@@ -9,8 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gapc_lxc_pol_part21_v4rho2sigma2_0_chunk41<F: Float>(t35: F, zeta_threshold: F) -> (F, F) {
-    let t34 = F::new(1.0) <= zeta_threshold;
+    let t34 = F::cast_from(1.0_f64) <= zeta_threshold;
     let t117 = t35 * t35;
-    let t118 = piecewise3::<F>(t34, t117, F::new(1.0));
+    let t118 = piecewise3::<F>(t34, t117, F::cast_from(1.0_f64));
     (t117, t118)
 }

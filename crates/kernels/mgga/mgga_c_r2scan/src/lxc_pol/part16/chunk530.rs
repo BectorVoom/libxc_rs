@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk530<F: Float>(t288: F, t910: F, t2858: F, t481: F, t2526: F, t471: F, t97: F, t1356: F, t1387: F, t1413: F, t1418: F, t2272: F, t2322: F, t2451: F, t2453: F, t2455: F, t2458: F, t2460: F, t2461: F, t2465: F, t2485: F, t2487: F, t2488: F, t2853: F, t2857: F, t372: F) -> (F, F) {
     let t2859 = t288 * t910;
     let t2861 = t2858 * t2859 * t481;
-    let t2862 = F::new(6.0) * t2861;
+    let t2862 = F::cast_from(6.0_f64) * t2861;
     let t2864 = t97 * t471 * t2526;
-    let t2865 = F::new(3.0) * t2864;
-    let t2866 = -F::new(0.2363e1) * t2272 + t2460 + t1356 + t2451 + t372 * t2461 - t2453 - t2455 - t2458 + t2465 - t2853 - t2485 + t2487 + t1387 + t2488 + t1413 + t2322 - t2857 - t2862 - t2865 - t1418;
+    let t2865 = F::cast_from(3.0_f64) * t2864;
+    let t2866 = -F::cast_from(0.2363e1_f64) * t2272 + t2460 + t1356 + t2451 + t372 * t2461 - t2453 - t2455 - t2458 + t2465 - t2853 - t2485 + t2487 + t1387 + t2488 + t1413 + t2322 - t2857 - t2862 - t2865 - t1418;
     (t2859, t2866)
 }

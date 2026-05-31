@@ -10,15 +10,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk588<F: Float>(t1885: F, t2626: F, t1820: F, t1017: F, t1802: F, t610: F, t587: F, t597: F, t995: F, t1036: F, t1630: F, t639: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t2627 = t1885 * t2626;
-    let t2629 = F::new(4.0) / F::new(15.0) * t1820 * t2627;
+    let t2629 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1820 * t2627;
     let t2630 = t1802 * t1017;
     let t2631 = t2630 * t610;
     let t2632 = t1885 * t2631;
-    let t2634 = F::new(4.0) / F::new(15.0) * t587 * t2632;
+    let t2634 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t587 * t2632;
     let t2635 = t597 * t995;
     let t2636 = t2635 * t610;
     let t2637 = t1885 * t2636;
-    let t2639 = F::new(4.0) / F::new(15.0) * t1820 * t2637;
+    let t2639 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1820 * t2637;
     let t2640 = t1630 * t1036;
     let t2641 = t639 * t2640;
     (t2627, t2629, t2630, t2631, t2632, t2634, t2635, t2636, t2637, t2639, t2640, t2641)

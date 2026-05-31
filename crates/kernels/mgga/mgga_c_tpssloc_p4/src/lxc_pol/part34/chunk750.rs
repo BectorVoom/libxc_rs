@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part34_v4rho3sigma_10_chunk750<F: Float>(t11203: F, t241: F, t3439: F, t407: F, t11135: F, t410: F, t417: F, t1097: F, t3311: F, t409: F, t3314: F, t422: F) -> (F, F, F, F, F, F, F) {
     let t11204 = F::cast_from(0.36514074074074074075e0_f64) * t11203;
     let t11219 = t241 * t3439;
-    let t11243 = F::new(1.0)/pow_3_2::<F>(t407);
-    let t11247 = F::new(28.0) / F::new(27.0) * t11135;
-    let t11265 = F::new(1.0) / t410 / t417 / F::new(4.0);
-    let t11274 = F::new(1.0) / t3311 / t1097;
+    let t11243 = F::cast_from(1.0_f64)/pow_3_2::<F>(t407);
+    let t11247 = F::cast_from(28.0_f64) / F::cast_from(27.0_f64) * t11135;
+    let t11265 = F::cast_from(1.0_f64) / t410 / t417 / F::cast_from(4.0_f64);
+    let t11274 = F::cast_from(1.0_f64) / t3311 / t1097;
     let t11275 = t409 * t11274;
-    let t11277 = F::new(1.0) / t3314 / t422;
+    let t11277 = F::cast_from(1.0_f64) / t3314 / t422;
     (t11204, t11219, t11243, t11247, t11265, t11275, t11277)
 }

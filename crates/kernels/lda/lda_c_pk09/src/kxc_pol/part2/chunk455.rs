@@ -14,11 +14,11 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk455<F: Float>(t44: F, t2455: F, t2
     let t2457 = t2456 * t1191;
     let t2459 = t271 * t2140;
     let t2460 = t2459 * t1197;
-    let t2463 = t2455 * t1193 + F::new(1.28) * t1195 * t2460;
+    let t2463 = t2455 * t1193 + F::cast_from(1.28_f64) * t1195 * t2460;
     let t2464 = t276 * t2463;
     let t2465 = piecewise3::<F>(t45, t2457, t2464);
     let t2467 = t271 * t2146;
     let t2468 = t2467 * t1207;
-    let t2471 = t2455 * t1204 + F::new(1.28) * t1195 * t2468;
+    let t2471 = t2455 * t1204 + F::cast_from(1.28_f64) * t1195 * t2468;
     (t2457, t2459, t2460, t2463, t2465, t2467, t2468, t2471)
 }

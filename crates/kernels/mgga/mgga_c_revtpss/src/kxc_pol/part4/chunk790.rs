@@ -9,9 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk790<F: Float>(t5: F, t1497: F, t2242: F, t2247: F, t4171: F, t4173: F, t4178: F, t4241: F, t603: F, t644: F, t91: F, t117: F, t116: F, t1501: F) -> (F, F, F) {
-    let t7 = piecewise3::<F>(F::new(0.0) < t5, t5, -t5);
+    let t7 = piecewise3::<F>(F::cast_from(0.0_f64) < t5, t5, -t5);
     let t8 = -t7 <= -F::cast_from(0.999999999999e0_f64);
-    let t4245 = piecewise3::<F>(t8, F::new(0.0), -F::new(4.0) * t1497 * t2242 + F::new(20.0) * t2247 * t4178 + t4171 * t91 - F::new(4.0) * t4173 * t644 - F::new(4.0) * t4241 * t603);
+    let t4245 = piecewise3::<F>(t8, F::cast_from(0.0_f64), -F::cast_from(4.0_f64) * t1497 * t2242 + F::cast_from(20.0_f64) * t2247 * t4178 + t4171 * t91 - F::cast_from(4.0_f64) * t4173 * t644 - F::cast_from(4.0_f64) * t4241 * t603);
     let t4246 = t4245 * t117;
     let t4248 = t1501 * t116;
     (t4245, t4246, t4248)

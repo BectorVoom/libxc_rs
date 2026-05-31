@@ -12,6 +12,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk28<F: Float>(t43: F, 
     let t44 = t43 <= zeta_threshold;
     let t48 = t47 * t43;
     let t49 = piecewise3::<F>(t44, t46, t48);
-    let t50 = F::new(1.0) - t42;
+    let t50 = F::cast_from(1.0_f64) - t42;
     (t48, t49, t50)
 }

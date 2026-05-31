@@ -13,6 +13,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1149<F: Float>(t2494:
     let t14852 = t4233 * t945;
     let t14854 = t14852 * t810;
     let t14867 = t4414 * t4209;
-    let t14873 = -t2498 * t4083 / F::new(96.0) - t1115 * t14311 / F::new(96.0) - t14416 / F::new(768.0) - t14426 / F::new(768.0) - t3040 * t4083 / F::new(96.0) + F::new(7.0) / F::new(288.0) * t14198 + t14444 / F::new(1536.0) - F::new(7.0) / F::new(144.0) * t14867 + t14457 / F::new(384.0) - t14464 / F::new(24.0) - t14467 / F::new(24.0) - t14470 / F::new(24.0);
+    let t14873 = -t2498 * t4083 / F::cast_from(96.0_f64) - t1115 * t14311 / F::cast_from(96.0_f64) - t14416 / F::cast_from(768.0_f64) - t14426 / F::cast_from(768.0_f64) - t3040 * t4083 / F::cast_from(96.0_f64) + F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t14198 + t14444 / F::cast_from(1536.0_f64) - F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t14867 + t14457 / F::cast_from(384.0_f64) - t14464 / F::cast_from(24.0_f64) - t14467 / F::cast_from(24.0_f64) - t14470 / F::cast_from(24.0_f64);
     (t14849, t14852, t14854, t14873)
 }

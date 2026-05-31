@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk1052<F: Float>(t14517: F, t1960: F, t42506: F, t42509: F, t44202: F, t44207: F, t44221: F, t47096: F, t47097: F, t47105: F, t47112: F, t50930: F, t50931: F, t50933: F, t50934: F, t50983: F, t50984: F, t50985: F, t50986: F, t841: F) -> F {
-    let t51072 = F::new(2.0) * t14517 * t1960 * t841 - t42506 - t42509 + t44202 - t44207 - t44221 - F::new(2.0) * t47096 - F::new(2.0) * t47097 + F::new(4.0) * t47105 - F::new(2.0) * t47112 + t50930 + t50931 + t50933 - t50934 - t50983 - t50984 - t50985 - t50986;
+    let t51072 = F::cast_from(2.0_f64) * t14517 * t1960 * t841 - t42506 - t42509 + t44202 - t44207 - t44221 - F::cast_from(2.0_f64) * t47096 - F::cast_from(2.0_f64) * t47097 + F::cast_from(4.0_f64) * t47105 - F::cast_from(2.0_f64) * t47112 + t50930 + t50931 + t50933 - t50934 - t50983 - t50984 - t50985 - t50986;
     t51072
 }

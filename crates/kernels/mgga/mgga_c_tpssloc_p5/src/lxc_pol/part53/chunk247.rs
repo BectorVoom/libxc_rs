@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk247<F: Float>(t1049: F,
     let t1050 = t349 * t1049;
     let t1052 = t382 * t225;
     let t1053 = t386 * t386;
-    let t1054 = F::new(1.0) / t1053;
+    let t1054 = F::cast_from(1.0_f64) / t1053;
     let t1055 = t68 * t1054;
     let t1057 = t1011 * t1014;
     let t1058 = t1010 * t1057;

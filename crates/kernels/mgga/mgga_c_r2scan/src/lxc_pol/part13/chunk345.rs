@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk345<F: Float>(t326: F, t832: F) -> F {
-    let t1299 = F::new(1.0) / t832 / t326;
+    let t1299 = F::cast_from(1.0_f64) / t832 / t326;
     t1299
 }

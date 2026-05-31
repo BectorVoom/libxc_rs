@@ -12,11 +12,11 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part18_v4rho3sigma_6_chunk524<F: Float>(t331: F
     let t2591 = t331 * t641;
     let t2592 = t643 * t34;
     let t2593 = t2591 * t2592;
-    let t2595 = F::new(8.0) / F::new(45.0) * t639 * t2593;
+    let t2595 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t639 * t2593;
     let t2596 = t649 * t1044;
     let t2597 = t2596 * t617;
     let t2598 = t1621 * t2597;
-    let t2600 = F::new(4.0) / F::new(15.0) * t1620 * t2598;
+    let t2600 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t1620 * t2598;
     let t2601 = t1791 * t1044;
     let t2602 = t2601 * t661;
     (t2591, t2592, t2593, t2595, t2597, t2598, t2600, t2601, t2602)

@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk277<F: Float>(t3821: F, t676: F, t27: F, t89: F, t2335: F, t2338: F, t2341: F, t3688: F, t3693: F, t3697: F, t3702: F, t3707: F, t3710: F, t3715: F, t3720: F) -> (F, F) {
     let t3822 = t676 * t3821;
     let t3824 = t89 * t27 * t3822;
-    let t3826 = t2335 + t2338 / F::new(54.0) + t2341 / F::new(18.0) + t3688 / F::new(54.0) - t3693 / F::new(27.0) + t3697 / F::new(18.0) + t3702 / F::new(9.0) + t3707 / F::new(9.0) + t3710 / F::new(18.0) + t3715 / F::new(18.0) + t3720 / F::new(3.0) - t3824 / F::new(6.0);
+    let t3826 = t2335 + t2338 / F::cast_from(54.0_f64) + t2341 / F::cast_from(18.0_f64) + t3688 / F::cast_from(54.0_f64) - t3693 / F::cast_from(27.0_f64) + t3697 / F::cast_from(18.0_f64) + t3702 / F::cast_from(9.0_f64) + t3707 / F::cast_from(9.0_f64) + t3710 / F::cast_from(18.0_f64) + t3715 / F::cast_from(18.0_f64) + t3720 / F::cast_from(3.0_f64) - t3824 / F::cast_from(6.0_f64);
     (t3824, t3826)
 }

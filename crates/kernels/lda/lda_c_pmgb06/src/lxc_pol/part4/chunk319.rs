@@ -10,7 +10,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk319<F: Float>(t12: F, t1079: F, t1080: F, t1083: F, t14: F, t1078: F, t257: F, zeta_threshold: F) -> F {
     let t13 = t12 <= zeta_threshold;
-    let t1087 = piecewise3::<F>(t13, F::new(0.0), F::new(4.0) / F::new(9.0) * t1079 * t1080 + F::new(4.0) / F::new(3.0) * t14 * t1083);
+    let t1087 = piecewise3::<F>(t13, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1079 * t1080 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t14 * t1083);
     let t1089 = (t1078 + t1087) * t257;
     t1089
 }

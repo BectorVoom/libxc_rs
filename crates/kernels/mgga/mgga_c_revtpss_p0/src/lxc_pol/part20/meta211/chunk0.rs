@@ -10,10 +10,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk989<F: Float>(t10380: F, t38: F, t2851: F, t78: F, t2299: F, t606: F, t3361: F, t81: F, t2306: F, t10326: F, t10356: F, t2258: F, t633: F, t637: F) -> (F, F, F, F, F, F) {
     let t10381 = t38 * t10380;
-    let t10389 = F::new(1.0) / t78 / t2851;
+    let t10389 = F::cast_from(1.0_f64) / t78 / t2851;
     let t10392 = t2299 * t606;
-    let t10398 = F::new(1.0) / t81 / t3361;
+    let t10398 = F::cast_from(1.0_f64) / t81 / t3361;
     let t10401 = t2306 * t606;
-    let t10406 = -F::new(280.0) / F::new(27.0) * t10389 * t10356 + F::new(28.0) / F::new(3.0) * t10392 * t2258 - F::new(4.0) / F::new(3.0) * t633 * t10326 + F::new(280.0) / F::new(27.0) * t10398 * t10356 + F::new(28.0) / F::new(3.0) * t10401 * t2258 + F::new(4.0) / F::new(3.0) * t637 * t10326;
+    let t10406 = -F::cast_from(280.0_f64) / F::cast_from(27.0_f64) * t10389 * t10356 + F::cast_from(28.0_f64) / F::cast_from(3.0_f64) * t10392 * t2258 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t633 * t10326 + F::cast_from(280.0_f64) / F::cast_from(27.0_f64) * t10398 * t10356 + F::cast_from(28.0_f64) / F::cast_from(3.0_f64) * t10401 * t2258 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t637 * t10326;
     (t10381, t10389, t10392, t10398, t10401, t10406)
 }

@@ -10,10 +10,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1006<F: Float>(t1114: F, t6644: F, t6648: F, t3134: F, t6217: F, t3148: F, t6484: F, t6485: F, t4341: F, t4349: F, t4503: F, t4506: F, t4513: F, t4539: F, t4542: F, t6907: F, t6911: F, t6918: F, t6923: F, t6929: F, t6932: F, t6966: F, t6969: F, t7984: F, t8517: F, t8521: F) -> (F, F, F, F, F, F) {
     let t9035 = t1114 * t6644;
-    let t9037 = t9035 * t6648 / F::new(48.0);
-    let t9039 = t6217 * t3134 / F::new(96.0);
-    let t9041 = F::new(7.0) / F::new(72.0) * t6484 * t3148;
-    let t9042 = F::new(7.0) / F::new(72.0) * t6485;
+    let t9037 = t9035 * t6648 / F::cast_from(48.0_f64);
+    let t9039 = t6217 * t3134 / F::cast_from(96.0_f64);
+    let t9041 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t6484 * t3148;
+    let t9042 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t6485;
     let t9043 = t6907 + t4341 - t6911 - t4349 + t6918 + t4503 - t4506 - t4513 + t4539 - t6923 + t4542 - t6929 + t6932 + t6966 + t6969 - t8517 - t7984 - t8521;
     (t9035, t9037, t9039, t9041, t9042, t9043)
 }

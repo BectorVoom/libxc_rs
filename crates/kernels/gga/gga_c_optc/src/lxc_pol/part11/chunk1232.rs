@@ -12,7 +12,7 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1232<F: Float>(t43: F, t50: F, t3
     let t44 = t43 <= zeta_threshold;
     let t51 = t50 <= zeta_threshold;
     let t56263 = F::cast_from(0.70178680769462448852e1_f64) * t38346;
-    let t56275 = piecewise3::<F>(t44, F::new(0.0), F::new(40.0) / F::new(81.0) * t22308 * t55901 - F::new(16.0) / F::new(9.0) * t13064 * t4565 + F::new(4.0) / F::new(3.0) * t1884 * t55906 + F::new(16.0) / F::new(9.0) * t3365 * t16231 + F::new(4.0) / F::new(3.0) * t47 * t55912);
-    let t56287 = piecewise3::<F>(t51, F::new(0.0), F::new(40.0) / F::new(81.0) * t22323 * t55917 - F::new(16.0) / F::new(9.0) * t13076 * t4573 + F::new(4.0) / F::new(3.0) * t1896 * t55922 + F::new(16.0) / F::new(9.0) * t3373 * t16241 + F::new(4.0) / F::new(3.0) * t52 * t55927);
+    let t56275 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(40.0_f64) / F::cast_from(81.0_f64) * t22308 * t55901 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t13064 * t4565 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t1884 * t55906 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t3365 * t16231 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t47 * t55912);
+    let t56287 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(40.0_f64) / F::cast_from(81.0_f64) * t22323 * t55917 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t13076 * t4573 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t1896 * t55922 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t3373 * t16241 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t52 * t55927);
     (t56263, t56275, t56287)
 }

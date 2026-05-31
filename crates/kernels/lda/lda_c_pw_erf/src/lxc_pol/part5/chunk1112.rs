@@ -10,9 +10,9 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk1112<F: Float>(t34: F, t6723: F, t13771: F, t4522: F, t17645: F, t2034: F, t3974: F, t16612: F, t2010: F, t4506: F, t20688: F, t20689: F, t20691: F, t20693: F, t20695: F, t20700: F, t20704: F, t20707: F, t20710: F, t20715: F) -> (F, F, F, F, F) {
     let t20716 = t6723 * t34;
-    let t20719 = F::new(16.0) / F::new(9.0) * t13771 * t4522 * t20716;
-    let t20722 = F::new(16.0) / F::new(15.0) * t3974 * t17645 * t2034;
-    let t20725 = F::new(8.0) / F::new(5.0) * t4506 * t16612 * t2010;
+    let t20719 = F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t13771 * t4522 * t20716;
+    let t20722 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t3974 * t17645 * t2034;
+    let t20725 = F::cast_from(8.0_f64) / F::cast_from(5.0_f64) * t4506 * t16612 * t2010;
     let t20726 = t20688 + t20689 - t20691 - t20693 + t20695 - t20700 - t20704 + t20707 - t20710 - t20715 + t20719 + t20722 - t20725;
     (t20716, t20719, t20722, t20725, t20726)
 }

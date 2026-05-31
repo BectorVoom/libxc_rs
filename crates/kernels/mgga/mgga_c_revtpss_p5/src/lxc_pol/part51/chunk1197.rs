@@ -12,8 +12,8 @@ pub fn mgga_c_revtpss_lxc_pol_part51_v4rho2sigma2_6_chunk1197<F: Float>(t7334: F
     let t127496 = t7944 * t7334;
     let t127498 = t7324 * t7953;
     let t127500 = t7324 * t7950;
-    let t127503 = F::new(12.0) * t1459 * t34007;
-    let t127507 = F::new(6.0) * t1916 * t32366;
-    let t127508 = t127412 * t573 * param_d + F::new(3.0) * t5805 * t8607 + t127480 + F::new(12.0) * t127481 + F::new(12.0) * t127483 + t127489 + F::new(12.0) * t127490 + F::new(6.0) * t127492 + t127495 + F::new(6.0) * t127496 + F::new(6.0) * t127498 + F::new(12.0) * t127500 + t127503 + t127507 + t32373 + t34011 + t34014 + t8616;
+    let t127503 = F::cast_from(12.0_f64) * t1459 * t34007;
+    let t127507 = F::cast_from(6.0_f64) * t1916 * t32366;
+    let t127508 = t127412 * t573 * param_d + F::cast_from(3.0_f64) * t5805 * t8607 + t127480 + F::cast_from(12.0_f64) * t127481 + F::cast_from(12.0_f64) * t127483 + t127489 + F::cast_from(12.0_f64) * t127490 + F::cast_from(6.0_f64) * t127492 + t127495 + F::cast_from(6.0_f64) * t127496 + F::cast_from(6.0_f64) * t127498 + F::cast_from(12.0_f64) * t127500 + t127503 + t127507 + t32373 + t34011 + t34014 + t8616;
     t127508
 }

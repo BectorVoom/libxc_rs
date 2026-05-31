@@ -13,11 +13,11 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk554<F: Float>(t169: F, t174
     let t175 = t174 <= zeta_threshold;
     let t4510 = t2629 * t1646;
     let t4513 = t171 * t167;
-    let t4517 = piecewise3::<F>(t170, F::new(0.0), F::new(4.0) / F::new(9.0) * t4510 * t829 + F::new(8.0) / F::new(3.0) * t4513 * t740);
+    let t4517 = piecewise3::<F>(t170, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4510 * t829 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t4513 * t740);
     let t4518 = t2641 * t1650;
     let t4521 = t176 * t167;
-    let t4525 = piecewise3::<F>(t175, F::new(0.0), F::new(4.0) / F::new(9.0) * t4518 * t833 - F::new(8.0) / F::new(3.0) * t4521 * t740);
+    let t4525 = piecewise3::<F>(t175, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4518 * t833 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t4521 * t740);
     let t4527 = (t4517 + t4525) * t44;
-    let t4532 = F::new(2.0) * t2633;
+    let t4532 = F::cast_from(2.0_f64) * t2633;
     (t4510, t4513, t4518, t4521, t4527, t4532)
 }

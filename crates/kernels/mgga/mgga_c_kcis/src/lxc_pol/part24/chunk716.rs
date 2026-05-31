@@ -17,6 +17,6 @@ pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk716<F: Float>(t62: F, t8750
     let t8757 = t752 * t8756;
     let t8759 = t870 * t2724;
     let t8762 = t2726 * t887;
-    let t8764 = F::new(1.0) / t2727 / t217;
+    let t8764 = F::cast_from(1.0_f64) / t2727 / t217;
     (t8753, t8755, t8757, t8759, t8762, t8764)
 }

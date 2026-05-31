@@ -10,15 +10,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk627<F: Float>(t1815: F, t4882: F, t639: F, t1406: F, t572: F, t418: F, t1821: F, t1820: F, t1866: F, t1827: F, t587: F, t1724: F, t626: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t4883 = t1815 * t4882;
-    let t4885 = F::new(8.0) / F::new(15.0) * t639 * t4883;
+    let t4885 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t639 * t4883;
     let t4886 = t1406 * t572;
     let t4887 = t4886 * t418;
     let t4888 = t1821 * t4887;
-    let t4890 = F::new(8.0) / F::new(15.0) * t1820 * t4888;
+    let t4890 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t1820 * t4888;
     let t4891 = t1866 * t572;
     let t4892 = t4891 * t418;
     let t4893 = t1827 * t4892;
-    let t4895 = F::new(4.0) / F::new(15.0) * t587 * t4893;
+    let t4895 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t587 * t4893;
     let t4896 = t1724 * t626;
     (t4883, t4885, t4886, t4887, t4888, t4890, t4891, t4892, t4893, t4895, t4896)
 }

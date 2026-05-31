@@ -13,6 +13,6 @@ pub fn gga_c_acggap_lxc_pol_part5_v4rho4_2_chunk617<F: Float>(t50: F, t2876: F, 
     let t4011 = t2876 * t478;
     let t4014 = t893 * t34;
     let t4015 = t821 * t238;
-    let t4025 = piecewise3::<F>(t51, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4011 * t830 - F::new(16.0) / F::new(9.0) * t4014 * t4015 + F::new(4.0) / F::new(9.0) * t1369 * t833 - F::new(8.0) / F::new(3.0) * t52 * t821 + F::new(8.0) * t1372 * t39);
+    let t4025 = piecewise3::<F>(t51, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t4011 * t830 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t4014 * t4015 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1369 * t833 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t52 * t821 + F::cast_from(8.0_f64) * t1372 * t39);
     (t4011, t4015, t4025)
 }

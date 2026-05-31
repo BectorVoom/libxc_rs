@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1094<F: Float>(t10534: F, t10549: F, t10567: F, t10569: F, t10572: F, t10578: F, t10585: F, t10587: F, t6530: F, t6648: F, t8652: F, t8676: F) -> F {
-    let t10692 = F::new(0.19419375e1) * t10567 - F::new(0.258925e1) * t10569 - F::new(0.1294625e1) * t10572 + F::new(0.258925e1) * t10578 - t6648 + F::cast_from(0.40256666666666666667e0_f64) * t6530 + F::cast_from(0.80513333333333333333e0_f64) * t8676 - t8652 - F::new(0.301925e0) * t10534 + F::new(0.905775e0) * t10549 - F::cast_from(0.412621875e-1_f64) * t10585 + F::new(0.16504875e0) * t10587;
+    let t10692 = F::cast_from(0.19419375e1_f64) * t10567 - F::cast_from(0.258925e1_f64) * t10569 - F::cast_from(0.1294625e1_f64) * t10572 + F::cast_from(0.258925e1_f64) * t10578 - t6648 + F::cast_from(0.40256666666666666667e0_f64) * t6530 + F::cast_from(0.80513333333333333333e0_f64) * t8676 - t8652 - F::cast_from(0.301925e0_f64) * t10534 + F::cast_from(0.905775e0_f64) * t10549 - F::cast_from(0.412621875e-1_f64) * t10585 + F::cast_from(0.16504875e0_f64) * t10587;
     t10692
 }

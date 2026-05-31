@@ -10,15 +10,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1001<F: Float>(t12024: F, t3275: F, t11465: F, t3579: F, t11555: F, t3472: F, t11336: F, t3270: F, t986: F, t3269: F, t11325: F, t3582: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t12025 = t3275 * t12024;
-    let t12026 = F::new(45.0) / F::new(64.0) * t12025;
+    let t12026 = F::cast_from(45.0_f64) / F::cast_from(64.0_f64) * t12025;
     let t12027 = t3579 * t11465;
-    let t12028 = F::new(5.0) / F::new(16.0) * t12027;
+    let t12028 = F::cast_from(5.0_f64) / F::cast_from(16.0_f64) * t12027;
     let t12029 = t3472 * t11555;
     let t12030 = t3275 * t12029;
-    let t12031 = F::new(5.0) / F::new(16.0) * t12030;
+    let t12031 = F::cast_from(5.0_f64) / F::cast_from(16.0_f64) * t12030;
     let t12033 = t3270 * t11336 * t986;
     let t12034 = t3269 * t12033;
-    let t12035 = t12034 / F::new(4.0);
+    let t12035 = t12034 / F::cast_from(4.0_f64);
     let t12037 = t3275 * t11325 * t3582;
     (t12025, t12026, t12027, t12028, t12029, t12030, t12031, t12033, t12034, t12035, t12037)
 }

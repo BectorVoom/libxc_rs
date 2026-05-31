@@ -14,6 +14,6 @@ pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk650<F: Float>(t1964: F, t7765: F,
     let t9032 = t89 * t356 * t9030;
     let t9034 = t569 * t7789;
     let t9035 = t446 * t9034;
-    let t9037 = -F::new(2.0) / F::new(27.0) * t8796 + t8799 / F::new(18.0) + t8802 / F::new(27.0) - t8805 / F::new(3.0) - t9010 / F::new(6.0) - t9014 / F::new(18.0) - t9020 + t9024 - F::new(5.0) / F::new(81.0) * t9028 - t9032 / F::new(3.0) + t9035 / F::new(3.0);
+    let t9037 = -F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t8796 + t8799 / F::cast_from(18.0_f64) + t8802 / F::cast_from(27.0_f64) - t8805 / F::cast_from(3.0_f64) - t9010 / F::cast_from(6.0_f64) - t9014 / F::cast_from(18.0_f64) - t9020 + t9024 - F::cast_from(5.0_f64) / F::cast_from(81.0_f64) * t9028 - t9032 / F::cast_from(3.0_f64) + t9035 / F::cast_from(3.0_f64);
     (t9030, t9032, t9034, t9035, t9037)
 }

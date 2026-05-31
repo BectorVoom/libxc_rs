@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk709<F: Float>(t1203: F, t77
     let t7741 = t7740 * t1203;
     let t7742 = t3325 * t2189;
     let t7743 = t2189 * t1203;
-    let t7745 = F::new(2.0) * t3330 * t7743;
+    let t7745 = F::cast_from(2.0_f64) * t3330 * t7743;
     let t7746 = t1165 * t377;
     let t7748 = t1169 * t283;
     (t7741, t7742, t7743, t7745, t7746, t7748)

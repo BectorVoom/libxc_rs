@@ -13,6 +13,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk786<F: Float>(t1843: F, t655: F, 
     let t5570 = t218 * t219 * t5568;
     let t5572 = t208 * t5537;
     let t5574 = t218 * t219 * t5572;
-    let t5576 = F::new(0.19419375e1) * t5513 - F::new(0.3883875e1) * t5516 + F::new(0.258925e1) * t5541 - t5543 + F::new(0.12077e1) * t5522 - F::new(0.905775e0) * t5525 + F::new(0.905775e0) * t5539 - F::cast_from(0.412621875e-1_f64) * t5548 + F::cast_from(0.247573125e0_f64) * t5551 + F::new(0.16504875e0) * t5553 - t5558 + F::new(0.82785e0) * t5560 - F::new(0.49671e0) * t5563 - F::new(0.49671e0) * t5566 + F::new(0.745065e0) * t5570 + F::new(0.248355e0) * t5574;
+    let t5576 = F::cast_from(0.19419375e1_f64) * t5513 - F::cast_from(0.3883875e1_f64) * t5516 + F::cast_from(0.258925e1_f64) * t5541 - t5543 + F::cast_from(0.12077e1_f64) * t5522 - F::cast_from(0.905775e0_f64) * t5525 + F::cast_from(0.905775e0_f64) * t5539 - F::cast_from(0.412621875e-1_f64) * t5548 + F::cast_from(0.247573125e0_f64) * t5551 + F::cast_from(0.16504875e0_f64) * t5553 - t5558 + F::cast_from(0.82785e0_f64) * t5560 - F::cast_from(0.49671e0_f64) * t5563 - F::cast_from(0.49671e0_f64) * t5566 + F::cast_from(0.745065e0_f64) * t5570 + F::cast_from(0.248355e0_f64) * t5574;
     (t5568, t5570, t5572, t5574, t5576)
 }

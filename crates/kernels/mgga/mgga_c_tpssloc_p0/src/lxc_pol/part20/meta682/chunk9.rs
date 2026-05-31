@@ -9,8 +9,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2583<F: Float>(t51039: F, t51051: F, t43859: F, t43861: F, t43863: F, t50968: F, t50970: F, t50972: F, t50976: F, t50978: F, t50987: F, t50990: F, t51034: F, t51037: F, t51041: F, t51043: F, t51046: F, t51049: F, t51053: F, t51056: F) -> F {
-    let t52339 = F::new(10.0) / F::new(9.0) * t51039;
-    let t52343 = F::new(5.0) / F::new(27.0) * t51051;
-    let t52345 = F::new(40.0) / F::new(27.0) * t43859 - F::new(5.0) / F::new(9.0) * t43861 - F::new(10.0) / F::new(9.0) * t43863 - F::new(2.0) / F::new(9.0) * t50968 - t50970 / F::new(9.0) - F::new(2.0) / F::new(3.0) * t50972 + F::new(14.0) / F::new(81.0) * t50976 + F::new(4.0) / F::new(27.0) * t50978 - F::new(2.0) / F::new(9.0) * t50987 - F::new(8.0) / F::new(9.0) * t50990 - F::new(2.0) / F::new(9.0) * t51034 + t51037 - t52339 + F::new(2.0) / F::new(3.0) * t51041 + F::new(2.0) * t51043 + t51046 / F::new(6.0) + t51049 + t52343 + F::new(4.0) / F::new(3.0) * t51053 - t51056;
+    let t52339 = F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t51039;
+    let t52343 = F::cast_from(5.0_f64) / F::cast_from(27.0_f64) * t51051;
+    let t52345 = F::cast_from(40.0_f64) / F::cast_from(27.0_f64) * t43859 - F::cast_from(5.0_f64) / F::cast_from(9.0_f64) * t43861 - F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t43863 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t50968 - t50970 / F::cast_from(9.0_f64) - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t50972 + F::cast_from(14.0_f64) / F::cast_from(81.0_f64) * t50976 + F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t50978 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t50987 - F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t50990 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t51034 + t51037 - t52339 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t51041 + F::cast_from(2.0_f64) * t51043 + t51046 / F::cast_from(6.0_f64) + t51049 + t52343 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t51053 - t51056;
     t52345
 }

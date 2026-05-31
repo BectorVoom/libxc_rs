@@ -10,13 +10,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk795<F: Float>(t499: F, t5312: F, t493: F, t1444: F, t1989: F, t1586: F, t1993: F, t1992: F, t1450: F, t1982: F, t1981: F, t3306: F) -> (F, F, F, F, F, F, F, F, F) {
     let t5313 = t5312 * t499;
-    let t5315 = F::new(2.0) / F::new(45.0) * t493 * t5313;
-    let t5317 = F::new(2.0) / F::new(45.0) * t1444 * t1989;
+    let t5315 = F::cast_from(2.0_f64) / F::cast_from(45.0_f64) * t493 * t5313;
+    let t5317 = F::cast_from(2.0_f64) / F::cast_from(45.0_f64) * t1444 * t1989;
     let t5318 = t1993 * t1586;
     let t5319 = t1992 * t5318;
-    let t5321 = t493 * t5319 / F::new(15.0);
+    let t5321 = t493 * t5319 / F::cast_from(15.0_f64);
     let t5322 = t1450 * t1982;
-    let t5324 = F::new(4.0) / F::new(45.0) * t1981 * t5322;
-    let t5325 = F::new(2.0) / F::new(135.0) * t3306;
+    let t5324 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t1981 * t5322;
+    let t5325 = F::cast_from(2.0_f64) / F::cast_from(135.0_f64) * t3306;
     (t5313, t5315, t5317, t5318, t5319, t5321, t5322, t5324, t5325)
 }

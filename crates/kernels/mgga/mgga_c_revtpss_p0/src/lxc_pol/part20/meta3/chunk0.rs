@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk27<F: Float>(rho1: F, sigma2:
     let t51 = rho1 * rho1;
     let t52 = pow_1_3::<F>(rho1);
     let t53 = t52 * t52;
-    let t55 = F::new(1.0) / t53 / t51;
+    let t55 = F::cast_from(1.0_f64) / t53 / t51;
     let t56 = sigma2 * t55;
     (t51, t52, t53, t56)
 }

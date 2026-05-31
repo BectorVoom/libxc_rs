@@ -13,6 +13,6 @@ pub fn gga_c_acggap_lxc_pol_part16_v4rho3sigma_8_chunk210<F: Float>(t265: F, t27
     let t683 = t286 * t682;
     let t684 = F::cast_from(0.5848223622634646207e0_f64) * t683;
     let t685 = t264 * t264;
-    let t686 = F::new(1.0) / t685;
+    let t686 = F::cast_from(1.0_f64) / t685;
     (t682, t684, t685, t686)
 }

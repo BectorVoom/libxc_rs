@@ -15,7 +15,7 @@ pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk838<F: Float>(t25: F, t193: F,
     let t5131 = t3919 * t1799;
     let t5134 = t3664 * t1408;
     let t5137 = t514 * t2;
-    let t5141 = piecewise3::<F>(t26, F::new(0.0), F::new(4.0) / F::new(9.0) * t5134 * t606 + F::new(8.0) / F::new(3.0) * t5137 * t584);
+    let t5141 = piecewise3::<F>(t26, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t5134 * t606 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t5137 * t584);
     let t5142 = t3672 * t1649;
     (t5126, t5127, t5131, t5134, t5137, t5141, t5142)
 }

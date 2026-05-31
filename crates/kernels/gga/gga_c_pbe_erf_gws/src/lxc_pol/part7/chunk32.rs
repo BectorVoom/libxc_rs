@@ -13,7 +13,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk32<F: Float>(t50: F, t52: F
     let t51 = t50 <= zeta_threshold;
     let t53 = t52 * t50;
     let t54 = piecewise3::<F>(t51, t46, t53);
-    let t55 = t49 + t54 - F::new(2.0);
+    let t55 = t49 + t54 - F::cast_from(2.0_f64);
     let t56 = cbrt2;
     (t53, t55, t56)
 }

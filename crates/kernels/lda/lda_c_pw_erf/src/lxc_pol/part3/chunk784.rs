@@ -10,13 +10,13 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk784<F: Float>(t1967: F, t5237: F, t519: F, t1446: F, t2031: F, t1278: F, t789: F, t1313: F, t1991: F, t4624: F, t197: F, t3893: F) -> (F, F, F, F, F, F, F, F, F) {
     let t5238 = t5237 * t1967;
-    let t5240 = F::new(16.0) / F::new(81.0) * t519 * t5238;
-    let t5242 = F::new(8.0) / F::new(45.0) * t1446 * t2031;
+    let t5240 = F::cast_from(16.0_f64) / F::cast_from(81.0_f64) * t519 * t5238;
+    let t5242 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t1446 * t2031;
     let t5243 = t789 * t1278;
     let t5244 = t1313 * t5243;
-    let t5246 = F::new(4.0) / F::new(45.0) * t519 * t5244;
+    let t5246 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t519 * t5244;
     let t5247 = t1991 * t4624;
-    let t5249 = F::new(4.0) / F::new(27.0) * t519 * t5247;
+    let t5249 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t519 * t5247;
     let t5250 = t3893 * t197;
     (t5238, t5240, t5242, t5243, t5244, t5246, t5247, t5249, t5250)
 }

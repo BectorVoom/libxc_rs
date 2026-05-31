@@ -20,6 +20,6 @@ pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk480<F: Float>(t147: F, t184: F, t3
     let t3674 = t649 * t920;
     let t3677 = t184 * t18;
     let t3678 = t3677 * t1577;
-    let t3682 = piecewise3::<F>(t148, F::new(0.0), t5 * t3597 * t21 / F::new(4.0) + t3601 * t650 / F::new(4.0) + t5 * t1064 * t363 / F::new(4.0) + t2240 * t1080 / F::new(4.0) + t623 * t3660 / F::new(4.0) + t623 * t3665 / F::new(4.0) + t623 * t3668 / F::new(4.0) + t5 * t620 * t920 / F::new(4.0) + t623 * t3674 / F::new(4.0) + t623 * t3678 / F::new(2.0));
+    let t3682 = piecewise3::<F>(t148, F::cast_from(0.0_f64), t5 * t3597 * t21 / F::cast_from(4.0_f64) + t3601 * t650 / F::cast_from(4.0_f64) + t5 * t1064 * t363 / F::cast_from(4.0_f64) + t2240 * t1080 / F::cast_from(4.0_f64) + t623 * t3660 / F::cast_from(4.0_f64) + t623 * t3665 / F::cast_from(4.0_f64) + t623 * t3668 / F::cast_from(4.0_f64) + t5 * t620 * t920 / F::cast_from(4.0_f64) + t623 * t3674 / F::cast_from(4.0_f64) + t623 * t3678 / F::cast_from(2.0_f64));
     (t3659, t3660, t3663, t3664, t3665, t3668, t3674, t3678, t3682)
 }

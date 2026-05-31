@@ -12,9 +12,9 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk859<F: Float>(t833: F
     let t8747 = t8746 * t833;
     let t8749 = t3199 * t376;
     let t8751 = t829 * t830 * t8749;
-    let t8771 = F::new(7.0) / F::new(72.0) * t4414 * t3062;
+    let t8771 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t4414 * t3062;
     let t8775 = t4395 * t8652;
     let t8776 = t3074 * t8775;
-    let t8780 = F::new(7.0) / F::new(144.0) * t3083 * t2379;
+    let t8780 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t3083 * t2379;
     (t8747, t8749, t8751, t8771, t8776, t8780)
 }

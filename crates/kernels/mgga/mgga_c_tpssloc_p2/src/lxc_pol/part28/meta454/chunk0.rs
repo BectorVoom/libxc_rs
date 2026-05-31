@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk1651<F: Float>(t23095: F, t23105: F, t23107: F, t23140: F, t23143: F, t23100: F, t23114: F, t23117: F, t23119: F, t23125: F, t23128: F, t23130: F, t23134: F, t23136: F, t23147: F) -> (F, F, F, F, F, F) {
     let t24218 = F::cast_from(0.10541775202358879834e-2_f64) * t23095;
     let t24220 = F::cast_from(0.33643963411783659044e-4_f64) * t23105;
-    let t24221 = F::new(119.0) / F::new(3456.0) * t23107;
+    let t24221 = F::cast_from(119.0_f64) / F::cast_from(3456.0_f64) * t23107;
     let t24230 = F::cast_from(0.22608743412718618878e-1_f64) * t23140;
-    let t24231 = F::new(35.0) / F::new(216.0) * t23143;
-    let t24233 = t24218 + F::cast_from(0.48447307312968469024e-2_f64) * t23100 - t24220 + t24221 + F::cast_from(0.13457585364713463618e-3_f64) * t23114 + t23117 / F::new(768.0) - F::new(7.0) / F::new(576.0) * t23119 + F::cast_from(0.80745512188280781706e-3_f64) * t23125 - t23128 / F::new(96.0) + F::new(5.0) / F::new(192.0) * t23130 + F::new(7.0) / F::new(144.0) * t23134 - t23136 / F::new(192.0) + t24230 + t24231 + t23147 / F::new(96.0);
+    let t24231 = F::cast_from(35.0_f64) / F::cast_from(216.0_f64) * t23143;
+    let t24233 = t24218 + F::cast_from(0.48447307312968469024e-2_f64) * t23100 - t24220 + t24221 + F::cast_from(0.13457585364713463618e-3_f64) * t23114 + t23117 / F::cast_from(768.0_f64) - F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t23119 + F::cast_from(0.80745512188280781706e-3_f64) * t23125 - t23128 / F::cast_from(96.0_f64) + F::cast_from(5.0_f64) / F::cast_from(192.0_f64) * t23130 + F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t23134 - t23136 / F::cast_from(192.0_f64) + t24230 + t24231 + t23147 / F::cast_from(96.0_f64);
     (t24218, t24220, t24221, t24230, t24231, t24233)
 }

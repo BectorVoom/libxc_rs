@@ -12,6 +12,6 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk195<F: Float>(t11: F, t1: F, t519
     let t524 = F::sqrt(t11);
     let t525 = t524 * t1;
     let t526 = t525 * t519;
-    let t529 = F::new(1.0) / t22 / t7;
+    let t529 = F::cast_from(1.0_f64) / t22 / t7;
     (t525, t526, t529)
 }

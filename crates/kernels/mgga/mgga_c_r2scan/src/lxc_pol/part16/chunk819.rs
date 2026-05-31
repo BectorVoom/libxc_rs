@@ -13,7 +13,7 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk819<F: Float>(t51: F, t30
     let t8616 = t4920 * t3007;
     let t8621 = t1224 * t3010;
     let t8624 = t476 * t8584;
-    let t8627 = piecewise3::<F>(t52, F::new(0.0), F::new(8.0) / F::new(27.0) * t8616 * t419 + F::new(8.0) / F::new(9.0) * t2517 * t1217 - F::new(2.0) / F::new(9.0) * t8621 * t419 + F::new(2.0) / F::new(3.0) * t8624);
-    let t8629 = t8615 / F::new(2.0) + t8627 / F::new(2.0);
+    let t8627 = piecewise3::<F>(t52, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t8616 * t419 + F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t2517 * t1217 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t8621 * t419 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8624);
+    let t8629 = t8615 / F::cast_from(2.0_f64) + t8627 / F::cast_from(2.0_f64);
     t8629
 }

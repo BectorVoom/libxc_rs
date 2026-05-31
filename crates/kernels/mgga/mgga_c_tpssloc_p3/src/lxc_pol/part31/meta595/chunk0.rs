@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk1840<F: Float>(t12571: F, t23966: F, t6492: F, t7432: F, t84195: F, t23967: F, t26067: F, t23993: F, t7428: F, t23998: F, t1860: F, t23992: F, t7445: F) -> (F, F, F, F, F, F, F) {
     let t91957 = t12571 * t23966;
-    let t91959 = F::new(80.0) / F::new(9.0) * t91957 * t6492;
-    let t91961 = F::new(80.0) / F::new(9.0) * t84195 * t7432;
-    let t91980 = F::new(80.0) / F::new(9.0) * t23967 * t26067;
+    let t91959 = F::cast_from(80.0_f64) / F::cast_from(9.0_f64) * t91957 * t6492;
+    let t91961 = F::cast_from(80.0_f64) / F::cast_from(9.0_f64) * t84195 * t7432;
+    let t91980 = F::cast_from(80.0_f64) / F::cast_from(9.0_f64) * t23967 * t26067;
     let t91996 = t7428 * t23993;
-    let t92001 = F::new(16.0) / F::new(9.0) * t7428 * t23998;
+    let t92001 = F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t7428 * t23998;
     let t92003 = t1860 * t23992 * t7445;
     (t91957, t91959, t91961, t91980, t91996, t92001, t92003)
 }

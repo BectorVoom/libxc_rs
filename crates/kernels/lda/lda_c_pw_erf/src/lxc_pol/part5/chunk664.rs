@@ -13,13 +13,13 @@ pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk664<F: Float>(t1128: F, t285: F,
     let t5682 = t281 * t5681;
     let t5685 = t1798 * t390;
     let t5686 = t40 * t5685;
-    let t5687 = F::new(2.0) * t5686;
+    let t5687 = F::cast_from(2.0_f64) * t5686;
     let t5688 = t344 * t1799;
-    let t5689 = F::new(8.0) * t5688;
+    let t5689 = F::cast_from(8.0_f64) * t5688;
     let t5690 = t339 * t1775;
     let t5695 = t344 * t1775;
     let t5697 = t339 * t1799;
-    let t5698 = F::new(8.0) * t5697;
+    let t5698 = F::cast_from(8.0_f64) * t5697;
     let t5701 = t1798 * t1;
     (t5681, t5682, t5685, t5686, t5687, t5688, t5689, t5690, t5695, t5697, t5698, t5701)
 }

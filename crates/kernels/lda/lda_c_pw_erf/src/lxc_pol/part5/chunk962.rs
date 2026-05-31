@@ -13,7 +13,7 @@ pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk962<F: Float>(t4489: F, t784: F,
     let t12963 = t3966 * t34;
     let t12968 = t4507 * t811;
     let t12974 = t2104 * t4571;
-    let t12975 = F::new(8.0) / F::new(45.0) * t12974;
+    let t12975 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t12974;
     let t12976 = t10557 * t197;
     let t12984 = t493 * t2070 * t785;
     (t12956, t12963, t12968, t12975, t12976, t12984)

@@ -15,6 +15,6 @@ pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1318<F: Float>(t226: F, t23
     let t28844 = t238 * t242 * t1329 * t8646;
     let t28846 = t3329 * t3329;
     let t28847 = t2194 * t28846;
-    let t28849 = -F::cast_from(0.14717333333333333333e1_f64) * t20691 + F::new(0.27595e0) * t20697 + F::new(0.27595e0) * t28794 - F::new(0.33114e0) * t28797 - F::new(0.33114e0) * t28800 + F::new(0.248355e0) * t28804 + F::new(0.49671e0) * t28808 + F::new(0.248355e0) * t28837 - F::new(0.66228e0) * t28840 + F::new(0.49671e0) * t28844 - F::new(0.258925e1) * t28847;
+    let t28849 = -F::cast_from(0.14717333333333333333e1_f64) * t20691 + F::cast_from(0.27595e0_f64) * t20697 + F::cast_from(0.27595e0_f64) * t28794 - F::cast_from(0.33114e0_f64) * t28797 - F::cast_from(0.33114e0_f64) * t28800 + F::cast_from(0.248355e0_f64) * t28804 + F::cast_from(0.49671e0_f64) * t28808 + F::cast_from(0.248355e0_f64) * t28837 - F::cast_from(0.66228e0_f64) * t28840 + F::cast_from(0.49671e0_f64) * t28844 - F::cast_from(0.258925e1_f64) * t28847;
     (t28837, t28840, t28844, t28846, t28847, t28849)
 }

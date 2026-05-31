@@ -12,7 +12,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part53_v4rho2sigma2_9_chunk886<F: Float>(t25: F, t
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
     let t395 = t265 < t394;
-    let t32072 = piecewise3::<F>(t395, F::new(0.0), t32071);
-    let t32077 = piecewise3::<F>(t115, F::new(3.0) / F::new(2.0) * t2522 * t8744 * t6542 + t1877 * t32030 * t25 / F::new(2.0) - t1877 * t32034 * t6671 / F::new(2.0) + t1877 * t8744 * t606 / F::new(2.0) - F::new(3.0) / F::new(2.0) * t2522 * t8748 * t6542 - t1877 * t7114 * t32044 + t1877 * t32047 * t6671 - t1877 * t8748 * t606 / F::new(2.0), t32072 * t40 / F::new(2.0) + t8760 * t607 / F::new(2.0));
+    let t32072 = piecewise3::<F>(t395, F::cast_from(0.0_f64), t32071);
+    let t32077 = piecewise3::<F>(t115, F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2522 * t8744 * t6542 + t1877 * t32030 * t25 / F::cast_from(2.0_f64) - t1877 * t32034 * t6671 / F::cast_from(2.0_f64) + t1877 * t8744 * t606 / F::cast_from(2.0_f64) - F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2522 * t8748 * t6542 - t1877 * t7114 * t32044 + t1877 * t32047 * t6671 - t1877 * t8748 * t606 / F::cast_from(2.0_f64), t32072 * t40 / F::cast_from(2.0_f64) + t8760 * t607 / F::cast_from(2.0_f64));
     (t32072, t32077)
 }

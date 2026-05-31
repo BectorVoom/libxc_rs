@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk1356<F: Float>(t204: F, t376:
     let t43216 = t204 * t376;
     let t43219 = t1020 * t248 * t43216 * t1023;
     let t43221 = t3109 * t10510;
-    let t43223 = t3070 * t3071 * t10858 * t884 / F::new(1152.0) + t43186 / F::new(288.0) - t10390 * t10419 / F::new(192.0) - F::new(5.0) / F::new(576.0) * t3070 * t10408 * t10309 * t1023 + t10413 * t3071 * t3041 * t2776 / F::new(384.0) - t43200 / F::new(1728.0) - t10937 * t10398 / F::new(72.0) - F::new(5.0) / F::new(216.0) * t10937 * t10410 - t43206 / F::new(288.0) + t3117 * t10493 / F::new(192.0) - t43211 * t10886 / F::new(144.0) + t43214 / F::new(324.0) + t43219 / F::new(2592.0) + t43221 / F::new(216.0);
+    let t43223 = t3070 * t3071 * t10858 * t884 / F::cast_from(1152.0_f64) + t43186 / F::cast_from(288.0_f64) - t10390 * t10419 / F::cast_from(192.0_f64) - F::cast_from(5.0_f64) / F::cast_from(576.0_f64) * t3070 * t10408 * t10309 * t1023 + t10413 * t3071 * t3041 * t2776 / F::cast_from(384.0_f64) - t43200 / F::cast_from(1728.0_f64) - t10937 * t10398 / F::cast_from(72.0_f64) - F::cast_from(5.0_f64) / F::cast_from(216.0_f64) * t10937 * t10410 - t43206 / F::cast_from(288.0_f64) + t3117 * t10493 / F::cast_from(192.0_f64) - t43211 * t10886 / F::cast_from(144.0_f64) + t43214 / F::cast_from(324.0_f64) + t43219 / F::cast_from(2592.0_f64) + t43221 / F::cast_from(216.0_f64);
     t43223
 }

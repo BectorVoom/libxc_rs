@@ -12,10 +12,10 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk1052<F: Float>(t27: F, t34: F, t
     let t12514 = t27 * t34;
     let t12516 = t5075 * t12514 * t1435;
     let t12517 = t12516 * t5087;
-    let t12518 = F::new(4.0) / F::new(27.0) * t12517;
+    let t12518 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t12517;
     let t12519 = t1593 * t1438;
     let t12521 = t760 * t1594 * t332;
-    let t12524 = F::new(2.0) / F::new(9.0) * t5083 * t12519 * t12521;
-    let t12527 = t5138 * t5139 * t12501 / F::new(9.0);
+    let t12524 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t5083 * t12519 * t12521;
+    let t12527 = t5138 * t5139 * t12501 / F::cast_from(9.0_f64);
     (t12514, t12518, t12521, t12524, t12527)
 }

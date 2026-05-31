@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk69<F: Float>(t40: F, t148: F,
     let t149 = piecewise3::<F>(t146, t148, t74);
     let t150 = t52 <= zeta_threshold;
     let t151 = piecewise3::<F>(t150, t148, t77);
-    let t152 = t149 + t151 - F::new(2.0);
+    let t152 = t149 + t151 - F::cast_from(2.0_f64);
     t152
 }

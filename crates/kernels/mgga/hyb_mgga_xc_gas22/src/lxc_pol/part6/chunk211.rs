@@ -12,13 +12,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk211<F: Float>(t313: F, t95: F, t317: F, t97: F, t98: F, t104: F, t109: F, t101: F, t123: F, t310: F, t105: F, t121: F, t647: F, t96: F, tau0: F) -> (F, F, F, F, F, F, F, F, F, F) {
     let t651 = t95 * t313;
     let t652 = t317 * t97;
-    let t654 = F::new(1.0) / t98 / t652;
+    let t654 = F::cast_from(1.0_f64) / t98 / t652;
     let t655 = t104 * t104;
-    let t656 = F::new(1.0) / t655;
+    let t656 = F::cast_from(1.0_f64) / t655;
     let t660 = t109 * tau0;
     let t661 = t101 * t123;
     let t664 = t310 * tau0;
     let t665 = t664 * t101;
-    let t668 = -F::cast_from(0.10241644597362152e-1_f64) * t96 * t647 * t105 + F::cast_from(0.39334231522004008709e-4_f64) * t651 * t654 * t656 + F::new(5.0) / F::new(3.0) * t660 * t661 + F::new(5.0) / F::new(3.0) * t121 * t665;
+    let t668 = -F::cast_from(0.10241644597362152e-1_f64) * t96 * t647 * t105 + F::cast_from(0.39334231522004008709e-4_f64) * t651 * t654 * t656 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t660 * t661 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t121 * t665;
     (t651, t652, t654, t655, t656, t660, t661, t664, t665, t668)
 }

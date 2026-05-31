@@ -20,6 +20,6 @@ pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk619<F: Float>(t299: F, t332: F, t4
     let t4391 = t910 * t992;
     let t4394 = t332 * t18;
     let t4395 = t4394 * t1577;
-    let t4399 = piecewise3::<F>(t300, F::new(0.0), t5 * t4318 * t113 / F::new(4.0) + t4322 * t911 / F::new(4.0) + t5 * t1259 * t505 / F::new(4.0) + t2904 * t1275 / F::new(4.0) + t889 * t4377 / F::new(4.0) + t889 * t4382 / F::new(4.0) + t889 * t4385 / F::new(4.0) + t5 * t886 * t992 / F::new(4.0) + t889 * t4391 / F::new(4.0) - t889 * t4395 / F::new(2.0));
+    let t4399 = piecewise3::<F>(t300, F::cast_from(0.0_f64), t5 * t4318 * t113 / F::cast_from(4.0_f64) + t4322 * t911 / F::cast_from(4.0_f64) + t5 * t1259 * t505 / F::cast_from(4.0_f64) + t2904 * t1275 / F::cast_from(4.0_f64) + t889 * t4377 / F::cast_from(4.0_f64) + t889 * t4382 / F::cast_from(4.0_f64) + t889 * t4385 / F::cast_from(4.0_f64) + t5 * t886 * t992 / F::cast_from(4.0_f64) + t889 * t4391 / F::cast_from(4.0_f64) - t889 * t4395 / F::cast_from(2.0_f64));
     (t4376, t4377, t4380, t4381, t4382, t4385, t4391, t4394, t4395, t4399)
 }

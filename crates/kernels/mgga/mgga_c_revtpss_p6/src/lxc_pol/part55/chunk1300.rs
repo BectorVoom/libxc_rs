@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1300<F: Float>(t2110: 
     let t131133 = t2110 * t8249;
     let t131134 = t8113 * t2172;
     let t131135 = t2167 * t8130;
-    let t131148 = t131119 * t573 * param_d + F::new(6.0) * t2170 * t28987 + F::new(3.0) * t2170 * t28990 + F::new(3.0) * t5805 * t8905 + F::new(3.0) * t7557 * t8245 + F::new(6.0) * t7696 * t8124 + t127453 + t129018 + t129026 + t129029 + t129032 + t32377;
+    let t131148 = t131119 * t573 * param_d + F::cast_from(6.0_f64) * t2170 * t28987 + F::cast_from(3.0_f64) * t2170 * t28990 + F::cast_from(3.0_f64) * t5805 * t8905 + F::cast_from(3.0_f64) * t7557 * t8245 + F::cast_from(6.0_f64) * t7696 * t8124 + t127453 + t129018 + t129026 + t129029 + t129032 + t32377;
     (t131133, t131134, t131135, t131148)
 }

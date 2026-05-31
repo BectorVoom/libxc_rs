@@ -14,6 +14,6 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk536<F: Float>(t2910: F, t
     let t2917 = t1256 * t2916;
     let t2920 = -t2904;
     let t2921 = t308 * t2920;
-    let t2924 = F::new(10.0) / F::new(9.0) * t295 * t2901 + F::new(5.0) / F::new(3.0) * t295 * t2905 + F::new(40.0) / F::new(9.0) * t2911 * t309 - F::new(50.0) / F::new(9.0) * t997 * t1001 + F::new(10.0) / F::new(9.0) * t305 * t2917 + F::new(5.0) / F::new(3.0) * t305 * t2921 - t1268;
+    let t2924 = F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t295 * t2901 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t295 * t2905 + F::cast_from(40.0_f64) / F::cast_from(9.0_f64) * t2911 * t309 - F::cast_from(50.0_f64) / F::cast_from(9.0_f64) * t997 * t1001 + F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t305 * t2917 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t305 * t2921 - t1268;
     (t2911, t2916, t2917, t2920, t2921, t2924)
 }

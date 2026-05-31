@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk2102<F: Float>(t5915: F,
     let t105880 = t5915 * t665;
     let t105881 = t25826 * t105880;
     let t105883 = t6998 * t21876;
-    let t105885 = -t94974 - F::new(11.0) / F::new(9.0) * t94976 - t101754 - t101454 + t101456 - F::new(2.0) / F::new(3.0) * t105870 - F::new(3.0) / F::new(4.0) * t105873 + t105876 / F::new(2.0) + t105878 / F::new(3.0) + t105881 / F::new(4.0) - t105883 / F::new(8.0);
+    let t105885 = -t94974 - F::cast_from(11.0_f64) / F::cast_from(9.0_f64) * t94976 - t101754 - t101454 + t101456 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t105870 - F::cast_from(3.0_f64) / F::cast_from(4.0_f64) * t105873 + t105876 / F::cast_from(2.0_f64) + t105878 / F::cast_from(3.0_f64) + t105881 / F::cast_from(4.0_f64) - t105883 / F::cast_from(8.0_f64);
     t105885
 }

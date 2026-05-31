@@ -12,9 +12,9 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk276<F: Float>(t5: F, t12: F, t20
     let t6 = t5 <= zeta_threshold;
     let t13 = t12 <= zeta_threshold;
     let t872 = t871 * t208;
-    let t877 = piecewise3::<F>(t6, F::new(0.0), F::new(8.0) / F::new(3.0) * t594 * t760);
-    let t880 = piecewise3::<F>(t13, F::new(0.0), F::new(8.0) / F::new(3.0) * t598 * t764);
-    let t883 = (t877 / F::new(2.0) + t880 / F::new(2.0)) * t44;
-    let t886 = t804 + t438 + t808 + t817 - t826 + t833 + t492 + t837 + t846 - t855 + t872 * t213 / F::new(3.0) + t583 + t590 + t593 - t883 * t224 / F::new(15.0) - t609;
+    let t877 = piecewise3::<F>(t6, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t594 * t760);
+    let t880 = piecewise3::<F>(t13, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t598 * t764);
+    let t883 = (t877 / F::cast_from(2.0_f64) + t880 / F::cast_from(2.0_f64)) * t44;
+    let t886 = t804 + t438 + t808 + t817 - t826 + t833 + t492 + t837 + t846 - t855 + t872 * t213 / F::cast_from(3.0_f64) + t583 + t590 + t593 - t883 * t224 / F::cast_from(15.0_f64) - t609;
     (t872, t883, t886)
 }

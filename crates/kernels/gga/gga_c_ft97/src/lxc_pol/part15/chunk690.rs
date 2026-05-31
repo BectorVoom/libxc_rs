@@ -13,6 +13,6 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk690<F: Float>(t20153: F, t446: F,
     let t20154 = t446 * t20153;
     let t20157 = t359 * t20044;
     let t20159 = t89 * t356 * t20157;
-    let t20161 = -F::new(5.0) / F::new(81.0) * t20126 + t15891 / F::new(6.0) - t15894 / F::new(3.0) + t20132 / F::new(9.0) + F::new(2.0) / F::new(9.0) * t20136 - t20139 / F::new(9.0) + t20143 / F::new(6.0) + t20147 / F::new(6.0) - t20151 / F::new(3.0) + t20154 / F::new(3.0) - F::new(2.0) / F::new(27.0) * t11043 - t20159 / F::new(18.0);
+    let t20161 = -F::cast_from(5.0_f64) / F::cast_from(81.0_f64) * t20126 + t15891 / F::cast_from(6.0_f64) - t15894 / F::cast_from(3.0_f64) + t20132 / F::cast_from(9.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t20136 - t20139 / F::cast_from(9.0_f64) + t20143 / F::cast_from(6.0_f64) + t20147 / F::cast_from(6.0_f64) - t20151 / F::cast_from(3.0_f64) + t20154 / F::cast_from(3.0_f64) - F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t11043 - t20159 / F::cast_from(18.0_f64);
     (t20154, t20157, t20159, t20161)
 }

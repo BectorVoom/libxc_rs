@@ -13,6 +13,6 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk705<F: Float>(t1787: F, t20145: F
     let t20372 = t1787 * t20145;
     let t20381 = t8291 * t20103;
     let t20384 = t1787 * t20107;
-    let t20387 = t462 * t20372 - F::new(4.0) / F::new(9.0) * t11720 + t16404 - F::new(2.0) * t16406 - F::new(4.0) / F::new(3.0) * t11669 - F::new(2.0) / F::new(3.0) * t16373 - t8301 - F::new(2.0) / F::new(3.0) * t16442 + t16444 / F::new(3.0) + F::new(2.0) / F::new(9.0) * t16446 - F::new(2.0) * t462 * t20381 - F::new(2.0) * t462 * t20384;
+    let t20387 = t462 * t20372 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t11720 + t16404 - F::cast_from(2.0_f64) * t16406 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t11669 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t16373 - t8301 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t16442 + t16444 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t16446 - F::cast_from(2.0_f64) * t462 * t20381 - F::cast_from(2.0_f64) * t462 * t20384;
     (t20372, t20381, t20384, t20387)
 }

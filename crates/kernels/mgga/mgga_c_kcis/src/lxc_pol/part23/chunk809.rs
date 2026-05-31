@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk809<F: Float>(t174: F, t130
     let t175 = t174 <= zeta_threshold;
     let t13077 = t13014 * t1650;
     let t13080 = t2641 * t167;
-    let t13091 = piecewise3::<F>(t175, F::new(0.0), -F::new(8.0) / F::new(27.0) * t13077 * t2642 - F::new(16.0) / F::new(9.0) * t13080 * t740 * t833 + F::new(4.0) / F::new(9.0) * t4518 * t2645 - F::new(8.0) / F::new(3.0) * t176 * t740 + F::new(8.0) * t4521 * t160);
+    let t13091 = piecewise3::<F>(t175, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t13077 * t2642 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t13080 * t740 * t833 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4518 * t2645 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t176 * t740 + F::cast_from(8.0_f64) * t4521 * t160);
     t13091
 }

@@ -10,10 +10,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[cube]
 pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk1197<F: Float>(t106: F, t7194: F, t97: F, t3271: F, t10615: F, t11531: F, t3275: F, t3579: F, t37257: F, t11621: F, t37292: F, t11560: F, t37271: F) -> (F, F, F, F, F) {
     let t40358 = t97 * t106 * t7194;
-    let t40360 = t40358 * t3271 / F::new(4.0);
-    let t40363 = F::new(5.0) / F::new(8.0) * t3275 * t10615 * t11531;
-    let t40365 = F::new(5.0) / F::new(8.0) * t3579 * t37257;
-    let t40368 = F::new(45.0) / F::new(32.0) * t3275 * t37292 * t11621;
-    let t40370 = F::new(5.0) / F::new(8.0) * t37271 * t11560;
+    let t40360 = t40358 * t3271 / F::cast_from(4.0_f64);
+    let t40363 = F::cast_from(5.0_f64) / F::cast_from(8.0_f64) * t3275 * t10615 * t11531;
+    let t40365 = F::cast_from(5.0_f64) / F::cast_from(8.0_f64) * t3579 * t37257;
+    let t40368 = F::cast_from(45.0_f64) / F::cast_from(32.0_f64) * t3275 * t37292 * t11621;
+    let t40370 = F::cast_from(5.0_f64) / F::cast_from(8.0_f64) * t37271 * t11560;
     (t40360, t40363, t40365, t40368, t40370)
 }

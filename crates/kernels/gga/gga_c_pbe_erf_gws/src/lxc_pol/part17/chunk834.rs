@@ -10,13 +10,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk834<F: Float>(t2729: F, t586: F, t2609: F, t1037: F, t5467: F, t4913: F, t213: F, t331: F, t34: F, t649: F, t661: F, t1620: F) -> (F, F, F, F, F) {
     let t7011 = t2729 * t586;
-    let t7013 = F::new(8.0) / F::new(15.0) * t7011 * t2609;
-    let t7015 = F::new(8.0) / F::new(45.0) * t5467 * t1037;
-    let t7017 = F::new(8.0) / F::new(15.0) * t4913 * t2609;
+    let t7013 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t7011 * t2609;
+    let t7015 = F::cast_from(8.0_f64) / F::cast_from(45.0_f64) * t5467 * t1037;
+    let t7017 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t4913 * t2609;
     let t7018 = t331 * t213;
     let t7019 = t649 * t34;
     let t7020 = t7019 * t661;
     let t7021 = t7018 * t7020;
-    let t7023 = F::new(8.0) / F::new(15.0) * t1620 * t7021;
+    let t7023 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t1620 * t7021;
     (t7011, t7013, t7015, t7017, t7023)
 }

@@ -12,12 +12,12 @@ pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk723<F: Float>(t1627: F, t1926: F
     let t4544 = t1926 * t1627;
     let t4546 = t2259 * t20;
     let t4547 = t4546 * t1639;
-    let t4549 = F::new(16.0) / F::new(135.0) * t3707;
-    let t4550 = F::new(16.0) / F::new(135.0) * t3736;
-    let t4551 = F::new(16.0) / F::new(135.0) * t3749;
-    let t4552 = F::new(16.0) / F::new(135.0) * t3760;
-    let t4553 = F::new(16.0) / F::new(405.0) * t3764;
-    let t4554 = F::new(16.0) / F::new(405.0) * t3785;
-    let t4555 = F::new(16.0) / F::new(45.0) * t3789;
+    let t4549 = F::cast_from(16.0_f64) / F::cast_from(135.0_f64) * t3707;
+    let t4550 = F::cast_from(16.0_f64) / F::cast_from(135.0_f64) * t3736;
+    let t4551 = F::cast_from(16.0_f64) / F::cast_from(135.0_f64) * t3749;
+    let t4552 = F::cast_from(16.0_f64) / F::cast_from(135.0_f64) * t3760;
+    let t4553 = F::cast_from(16.0_f64) / F::cast_from(405.0_f64) * t3764;
+    let t4554 = F::cast_from(16.0_f64) / F::cast_from(405.0_f64) * t3785;
+    let t4555 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t3789;
     (t4544, t4546, t4547, t4549, t4550, t4551, t4552, t4553, t4554, t4555)
 }

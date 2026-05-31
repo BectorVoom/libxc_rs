@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk111<F: Float>(t256: F, t265: F, t234: F, t241: F, t243: F, t252: F, t136: F, t96: F, zeta_threshold: F) -> (F, F, F) {
-    let t235 = F::new(2.0) <= zeta_threshold;
-    let t238 = F::new(0.0) <= zeta_threshold;
+    let t235 = F::cast_from(2.0_f64) <= zeta_threshold;
+    let t238 = F::cast_from(0.0_f64) <= zeta_threshold;
     let t266 = t256 * t265;
-    let t269 = t241 * (-F::new(0.3109e-1) * t243 * t252 + t234 - F::cast_from(0.19751789702565206229e-1_f64) * t266);
+    let t269 = t241 * (-F::cast_from(0.3109e-1_f64) * t243 * t252 + t234 - F::cast_from(0.19751789702565206229e-1_f64) * t266);
     let t271 = F::cast_from(0.19751789702565206229e-1_f64) * t241 * t266;
     let t272 = piecewise3::<F>(t235, t96, t136);
-    let t273 = piecewise3::<F>(t238, t96, F::new(0.0));
-    let t275 = t272 / F::new(2.0) + t273 / F::new(2.0);
+    let t273 = piecewise3::<F>(t238, t96, F::cast_from(0.0_f64));
+    let t275 = t272 / F::cast_from(2.0_f64) + t273 / F::cast_from(2.0_f64);
     (t269, t271, t275)
 }

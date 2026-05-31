@@ -12,10 +12,10 @@ pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk1695<F: Float>(t30: F, t
     let t31 = t30 <= zeta_threshold;
     let t21882 = t508 * t21881;
     let t21891 = t5517 * t1518;
-    let t21901 = F::new(40.0) * t13584;
+    let t21901 = F::cast_from(40.0_f64) * t13584;
     let t21905 = F::cast_from(0.5848223622634646207e0_f64) * t9375;
     let t21906 = t9335 * t6785;
     let t21911 = t3833 * t5824;
-    let t21917 = piecewise3::<F>(t31, F::new(0.0), -F::new(8.0) / F::new(27.0) * t21906 * t605 + F::new(16.0) / F::new(9.0) * t5549 * t2255 + F::new(4.0) / F::new(9.0) * t21911 * t605 + F::new(4.0) / F::new(3.0) * t513 * t18280);
+    let t21917 = piecewise3::<F>(t31, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t21906 * t605 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t5549 * t2255 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t21911 * t605 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t513 * t18280);
     (t21882, t21891, t21901, t21905, t21917)
 }

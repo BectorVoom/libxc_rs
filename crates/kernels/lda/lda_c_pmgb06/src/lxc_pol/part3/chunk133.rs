@@ -9,6 +9,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk133<F: Float>(t9: F) -> F {
-    let t330 = F::new(1.0) / t9;
+    let t330 = F::cast_from(1.0_f64) / t9;
     t330
 }

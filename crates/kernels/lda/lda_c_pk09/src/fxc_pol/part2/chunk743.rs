@@ -13,6 +13,6 @@ pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk743<F: Float>(t51: F, t151: F, t76
     let t7694 = t151 * t7693;
     let t7697 = t3012 * t2146;
     let t7700 = t629 * t2;
-    let t7704 = piecewise3::<F>(t52, F::new(0.0), -F::new(2.0) / F::new(9.0) * t7697 * t630 - F::new(2.0) / F::new(3.0) * t7700 * t258);
+    let t7704 = piecewise3::<F>(t52, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t7697 * t630 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t7700 * t258);
     (t7694, t7704)
 }

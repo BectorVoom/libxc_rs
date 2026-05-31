@@ -13,6 +13,6 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk337<F: Float>(t1610: F, t93: F, t3
     let t1614 = t303 * t305;
     let t1615 = t1303 * t1614;
     let t1618 = F::cast_from(0.03412591035063918_f64) * t1272;
-    let t1619 = -t1562 * t311 / F::new(6.0) - t1565 * t311 / F::new(6.0) - t1568 * t311 / F::new(6.0) - t1581 * t311 / F::new(6.0) + t1594 * t311 / F::new(6.0) + t1597 * t311 / F::new(6.0) + F::cast_from(0.14975624337724558_f64) * t1217 - t1601 - t1602 + t1604 - t1606 + t1608 + t1609 * t1611 / F::new(12.0) - t1615 * t1451 / F::new(6.0) - t1618;
+    let t1619 = -t1562 * t311 / F::cast_from(6.0_f64) - t1565 * t311 / F::cast_from(6.0_f64) - t1568 * t311 / F::cast_from(6.0_f64) - t1581 * t311 / F::cast_from(6.0_f64) + t1594 * t311 / F::cast_from(6.0_f64) + t1597 * t311 / F::cast_from(6.0_f64) + F::cast_from(0.14975624337724558_f64) * t1217 - t1601 - t1602 + t1604 - t1606 + t1608 + t1609 * t1611 / F::cast_from(12.0_f64) - t1615 * t1451 / F::cast_from(6.0_f64) - t1618;
     (t1611, t1614, t1615, t1618, t1619)
 }

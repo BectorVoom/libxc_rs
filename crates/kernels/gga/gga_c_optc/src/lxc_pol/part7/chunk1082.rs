@@ -12,7 +12,7 @@ pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk1082<F: Float>(t2559: F, t7337: F,
     let t23459 = F::cast_from(0.70178680769462448852e1_f64) * t7337 * t2559;
     let t23460 = t2359 * t7284;
     let t23465 = F::cast_from(0.57894567559743977359e3_f64) * t7681 * t2419 * t2409;
-    let t23468 = F::new(36.0) * t2416 * t2375 * t2409;
+    let t23468 = F::cast_from(36.0_f64) * t2416 * t2375 * t2409;
     let t23469 = t2364 * t7275;
     let t23471 = t6 * t195;
     (t23459, t23460, t23465, t23468, t23469, t23471)

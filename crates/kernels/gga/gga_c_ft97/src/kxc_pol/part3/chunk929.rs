@@ -13,9 +13,9 @@ pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk929<F: Float>(t5092: F, t9890: F, 
     let t18370 = t9890 * t5092;
     let t18372 = t91 * t18370 * t747;
     let t18375 = t91 * t3902 * t3938;
-    let t18381 = t18168 / F::new(9.0);
-    let t18382 = F::new(2.0) / F::new(9.0) * t18171;
-    let t18383 = F::new(2.0) / F::new(27.0) * t18174;
-    let t18384 = F::new(3.0) / F::new(8.0) * t18372 - t18375 / F::new(2.0) + F::new(2.0) * t18153 - t18157 / F::new(3.0) - F::new(6.0) * t18162 + F::new(4.0) * t18165 + t18381 - t18382 + t18383 - t10119 - t14005;
+    let t18381 = t18168 / F::cast_from(9.0_f64);
+    let t18382 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t18171;
+    let t18383 = F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t18174;
+    let t18384 = F::cast_from(3.0_f64) / F::cast_from(8.0_f64) * t18372 - t18375 / F::cast_from(2.0_f64) + F::cast_from(2.0_f64) * t18153 - t18157 / F::cast_from(3.0_f64) - F::cast_from(6.0_f64) * t18162 + F::cast_from(4.0_f64) * t18165 + t18381 - t18382 + t18383 - t10119 - t14005;
     (t18372, t18375, t18384)
 }

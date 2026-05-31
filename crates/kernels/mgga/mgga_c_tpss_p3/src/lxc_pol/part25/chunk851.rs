@@ -13,7 +13,7 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk851<F: Float>(t33: F, t259:
     let t386 = rho1 <= dens_threshold || t34;
     let t480 = t259 < t479;
     let t6380 = t1812 * t6207;
-    let t6393 = piecewise3::<F>(t480, F::new(0.0), t6373);
-    let t6398 = piecewise3::<F>(t386, F::new(3.0) / F::new(2.0) * t2439 * t6380 + t1692 * t6354 * t33 / F::new(2.0) - t1692 * t5853 * t6214 / F::new(2.0) + t1692 * t1812 * t1497 / F::new(2.0), -t1826 * t1289 / F::new(2.0) + t6393 * t57 / F::new(2.0));
+    let t6393 = piecewise3::<F>(t480, F::cast_from(0.0_f64), t6373);
+    let t6398 = piecewise3::<F>(t386, F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2439 * t6380 + t1692 * t6354 * t33 / F::cast_from(2.0_f64) - t1692 * t5853 * t6214 / F::cast_from(2.0_f64) + t1692 * t1812 * t1497 / F::cast_from(2.0_f64), -t1826 * t1289 / F::cast_from(2.0_f64) + t6393 * t57 / F::cast_from(2.0_f64));
     (t6393, t6398)
 }

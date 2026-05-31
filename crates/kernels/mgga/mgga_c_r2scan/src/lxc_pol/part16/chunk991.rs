@@ -14,6 +14,6 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk991<F: Float>(t11880: F, 
     let t11886 = t1276 * t11885;
     let t11888 = t1070 * t2391;
     let t11889 = t1276 * t11888;
-    let t11893 = -t11032 - t11034 / F::new(3.0) - t11866 / F::new(3.0) - t11868 / F::new(4.0) + t11870 / F::new(8.0) - t11872 / F::new(8.0) + t11874 / F::new(4.0) + t11876 / F::new(3.0) + t11878 / F::new(4.0) - F::new(3.0) / F::new(4.0) * t11883 - F::new(2.0) / F::new(3.0) * t11886 + t11889 / F::new(4.0) + t11045 / F::new(3.0) - F::new(2.0) / F::new(3.0) * t11051 - t11058;
+    let t11893 = -t11032 - t11034 / F::cast_from(3.0_f64) - t11866 / F::cast_from(3.0_f64) - t11868 / F::cast_from(4.0_f64) + t11870 / F::cast_from(8.0_f64) - t11872 / F::cast_from(8.0_f64) + t11874 / F::cast_from(4.0_f64) + t11876 / F::cast_from(3.0_f64) + t11878 / F::cast_from(4.0_f64) - F::cast_from(3.0_f64) / F::cast_from(4.0_f64) * t11883 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t11886 + t11889 / F::cast_from(4.0_f64) + t11045 / F::cast_from(3.0_f64) - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t11051 - t11058;
     (t11885, t11886, t11888, t11893)
 }

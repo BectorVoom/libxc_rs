@@ -17,6 +17,6 @@ pub fn mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk2273<F: Float>(t24232: F, t34
     let t24295 = t141 * t24294;
     let t24297 = t3417 * t24236;
     let t24298 = t141 * t24297;
-    let t24312 = -t12296 + F::new(4.0) / F::new(9.0) * t16706 + F::new(2.0) / F::new(9.0) * t20283 - F::new(2.0) / F::new(3.0) * t20285 - t20287 / F::new(3.0) + F::new(10.0) / F::new(27.0) * t24230 - F::new(4.0) / F::new(3.0) * t24234 - F::new(2.0) / F::new(3.0) * t24238 + F::new(2.0) * t24242 + F::new(2.0) * t24246 + t24250 / F::new(3.0);
+    let t24312 = -t12296 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t16706 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t20283 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t20285 - t20287 / F::cast_from(3.0_f64) + F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t24230 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t24234 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t24238 + F::cast_from(2.0_f64) * t24242 + F::cast_from(2.0_f64) * t24246 + t24250 / F::cast_from(3.0_f64);
     (t24288, t24289, t24291, t24292, t24294, t24295, t24297, t24298, t24312)
 }

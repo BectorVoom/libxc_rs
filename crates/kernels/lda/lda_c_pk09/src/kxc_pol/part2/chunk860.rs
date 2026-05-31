@@ -11,9 +11,9 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk860<F: Float>(t2209: F, t340: F, t2213: F, t3141: F, t7795: F, t7797: F, t7799: F, t7801: F, t7805: F, t7809: F, t7811: F, t7814: F, t7817: F, t7834: F, t7838: F, t7842: F, t7846: F) -> (F, F, F) {
     let t8892 = t340 * t2209;
     let t8895 = t3141 * t2213;
-    let t8898 = F::new(16.0) * t7795;
-    let t8899 = F::new(16.0) * t7797;
-    let t8900 = F::new(16.0) * t7799;
-    let t8911 = -t8898 + t8899 + t8900 - F::cast_from(0.5476129290375806_f64) * t7801 - F::cast_from(0.821419393556371_f64) * t7805 - F::cast_from(0.821419393556371_f64) * t7809 - F::cast_from(0.821419393556371_f64) * t7811 - F::cast_from(0.821419393556371_f64) * t7814 - F::cast_from(0.821419393556371_f64) * t7817 - F::cast_from(0.821419393556371_f64) * t7834 - F::new(12.0) * t7838 + F::new(12.0) * t7842 + F::new(12.0) * t7846;
+    let t8898 = F::cast_from(16.0_f64) * t7795;
+    let t8899 = F::cast_from(16.0_f64) * t7797;
+    let t8900 = F::cast_from(16.0_f64) * t7799;
+    let t8911 = -t8898 + t8899 + t8900 - F::cast_from(0.5476129290375806_f64) * t7801 - F::cast_from(0.821419393556371_f64) * t7805 - F::cast_from(0.821419393556371_f64) * t7809 - F::cast_from(0.821419393556371_f64) * t7811 - F::cast_from(0.821419393556371_f64) * t7814 - F::cast_from(0.821419393556371_f64) * t7817 - F::cast_from(0.821419393556371_f64) * t7834 - F::cast_from(12.0_f64) * t7838 + F::cast_from(12.0_f64) * t7842 + F::cast_from(12.0_f64) * t7846;
     (t8892, t8895, t8911)
 }

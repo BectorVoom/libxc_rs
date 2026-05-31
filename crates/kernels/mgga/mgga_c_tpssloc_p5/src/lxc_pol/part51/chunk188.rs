@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part51_v4rho2sigma2_7_chunk188<F: Float>(t59: F, t625: F, t39: F, t44: F, t51: F, t615: F, t618: F, t621: F, t33: F, t40: F, t73: F, t52: F) -> (F, F, F, F, F, F, F) {
     let t626 = t59 * t625;
-    let t627 = F::new(8.0) / F::new(3.0) * t626;
-    let t628 = -F::new(8.0) / F::new(3.0) * t615 * t44 + F::new(5.0) / F::new(6.0) * t39 * t618 - F::new(5.0) / F::new(6.0) * t51 * t621 + t627;
+    let t627 = F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t626;
+    let t628 = -F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t615 * t44 + F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t39 * t618 - F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t51 * t621 + t627;
     let t629 = t33 * t628;
     let t632 = t40 * t40;
-    let t634 = F::new(1.0) / t73 / t632;
+    let t634 = F::cast_from(1.0_f64) / t73 / t632;
     let t636 = t52 * t52;
     (t626, t627, t628, t629, t632, t634, t636)
 }

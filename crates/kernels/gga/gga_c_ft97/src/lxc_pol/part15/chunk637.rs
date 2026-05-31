@@ -15,11 +15,11 @@ pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk637<F: Float>(t1882: F, t4617: F,
     let t16298 = t1882 * t4565;
     let t16300 = t1882 * t4561;
     let t16302 = t1882 * t4557;
-    let t16336 = F::new(2.0) / F::new(27.0) * t15606;
-    let t16337 = F::new(2.0) / F::new(9.0) * t15609;
-    let t16338 = t15612 / F::new(9.0);
-    let t16342 = t15891 / F::new(3.0);
-    let t16343 = F::new(2.0) / F::new(3.0) * t15894;
-    let t16346 = F::new(2.0) / F::new(9.0) * t15899;
+    let t16336 = F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t15606;
+    let t16337 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t15609;
+    let t16338 = t15612 / F::cast_from(9.0_f64);
+    let t16342 = t15891 / F::cast_from(3.0_f64);
+    let t16343 = F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t15894;
+    let t16346 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t15899;
     (t16255, t16296, t16298, t16300, t16302, t16336, t16337, t16338, t16342, t16343, t16346)
 }

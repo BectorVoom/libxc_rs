@@ -9,6 +9,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk827<F: Float>(t3319: F, t3323: F, t3326: F, t3598: F, t7896: F, t7919: F, t7923: F, t7926: F, t7928: F, t7931: F, t7935: F, t7939: F, t7942: F) -> F {
-    let t8373 = F::new(2.0) * t3319 + F::new(4.0) / F::new(3.0) * t3323 + F::new(4.0) / F::new(3.0) * t3326 + t3598 + F::new(4.0) * t7896 + F::new(2.0) * t7919 + F::new(2.0) * t7923 + F::new(2.0) * t7926 + F::new(2.0) * t7928 + F::new(2.0) * t7931 + F::new(2.0) * t7935 + F::new(4.0) / F::new(3.0) * t7939 + F::new(4.0) / F::new(3.0) * t7942;
+    let t8373 = F::cast_from(2.0_f64) * t3319 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t3323 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t3326 + t3598 + F::cast_from(4.0_f64) * t7896 + F::cast_from(2.0_f64) * t7919 + F::cast_from(2.0_f64) * t7923 + F::cast_from(2.0_f64) * t7926 + F::cast_from(2.0_f64) * t7928 + F::cast_from(2.0_f64) * t7931 + F::cast_from(2.0_f64) * t7935 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t7939 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t7942;
     t8373
 }

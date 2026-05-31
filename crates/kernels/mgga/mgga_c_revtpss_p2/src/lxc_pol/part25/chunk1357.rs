@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk1357<F: Float>(t116: F, t25832: F, t572: F, t670: F, t2371: F, t26123: F, t1459: F, t26130: F, t4158: F, t7331: F, t7334: F, t13232: F, t2042: F) -> (F, F, F, F, F, F) {
     let t95137 = t116 * t25832;
-    let t95140 = F::new(18.0) * t572 * t95137 * t670;
-    let t95143 = F::new(18.0) * t572 * t26123 * t2371;
-    let t95147 = F::new(9.0) * t1459 * t26130;
-    let t95149 = F::new(18.0) * t4158 * t7331;
-    let t95153 = F::new(9.0) * t4158 * t7334;
-    let t95157 = F::new(3.0) * t13232 * t2042;
+    let t95140 = F::cast_from(18.0_f64) * t572 * t95137 * t670;
+    let t95143 = F::cast_from(18.0_f64) * t572 * t26123 * t2371;
+    let t95147 = F::cast_from(9.0_f64) * t1459 * t26130;
+    let t95149 = F::cast_from(18.0_f64) * t4158 * t7331;
+    let t95153 = F::cast_from(9.0_f64) * t4158 * t7334;
+    let t95157 = F::cast_from(3.0_f64) * t13232 * t2042;
     (t95140, t95143, t95147, t95149, t95153, t95157)
 }

@@ -12,6 +12,6 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part28_v4rho2sigma2_6_chunk406<F: Float>(t5968: F, t605: F, t144: F, t1901: F, t28: F, t446: F, t5854: F, t5857: F, t5862: F, t5866: F, t5871: F, t5875: F, t5880: F, t5882: F, t5886: F, t5931: F, t5937: F, t5941: F, t5944: F, t5949: F, t5953: F, t5958: F, t89: F) -> (F, F) {
     let t5969 = t605 * t5968;
     let t5970 = t144 * t5969;
-    let t5973 = t5854 + t1901 * t5857 / F::new(9.0) + F::new(2.0) / F::new(3.0) * t446 * t5862 - t446 * t5866 / F::new(3.0) + t446 * t5871 / F::new(3.0) - t446 * t5875 / F::new(3.0) - t5880 - t446 * t5882 / F::new(9.0) - t446 * t5886 / F::new(3.0) + t89 * t28 * t5931 / F::new(3.0) - t446 * t5937 / F::new(3.0) + t5941 + t1901 * t5944 / F::new(9.0) + t446 * t5949 / F::new(3.0) - t446 * t5953 / F::new(3.0) + F::new(2.0) / F::new(3.0) * t446 * t5958 - t446 * t5970 / F::new(3.0);
+    let t5973 = t5854 + t1901 * t5857 / F::cast_from(9.0_f64) + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t446 * t5862 - t446 * t5866 / F::cast_from(3.0_f64) + t446 * t5871 / F::cast_from(3.0_f64) - t446 * t5875 / F::cast_from(3.0_f64) - t5880 - t446 * t5882 / F::cast_from(9.0_f64) - t446 * t5886 / F::cast_from(3.0_f64) + t89 * t28 * t5931 / F::cast_from(3.0_f64) - t446 * t5937 / F::cast_from(3.0_f64) + t5941 + t1901 * t5944 / F::cast_from(9.0_f64) + t446 * t5949 / F::cast_from(3.0_f64) - t446 * t5953 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t446 * t5958 - t446 * t5970 / F::cast_from(3.0_f64);
     (t5970, t5973)
 }

@@ -18,6 +18,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk491<F: Float>(t1987: F, t732: F, 
     let t1999 = t1998 * t1979;
     let t2001 = F::cast_from(0.17315859105681463759e2_f64) * t730 * t1999;
     let t2002 = t220 * t220;
-    let t2003 = F::new(1.0) / t2002;
+    let t2003 = F::cast_from(1.0_f64) / t2002;
     (t1989, t1991, t1993, t1995, t1997, t1999, t2001, t2002, t2003)
 }

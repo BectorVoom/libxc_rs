@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk546<F: Float>(t2454: F, t2502: F, t2457: F, t2468: F, t2486: F, t2491: F, t2497: F, t2499: F, t2505: F, t2509: F, t2513: F) -> (F, F, F) {
     let t2584 = F::cast_from(0.40256666666666666667e0_f64) * t2454;
-    let t2589 = F::new(0.137975e0) * t2502;
-    let t2593 = -F::new(0.1294625e1) * t2486 + F::new(0.258925e1) * t2491 + t2584 - F::new(0.60385e0) * t2457 + F::new(0.905775e0) * t2468 + F::new(0.82524375e-1) * t2497 + F::new(0.16504875e0) * t2499 + t2589 - F::new(0.33114e0) * t2505 + F::new(0.248355e0) * t2509 + F::new(0.248355e0) * t2513;
+    let t2589 = F::cast_from(0.137975e0_f64) * t2502;
+    let t2593 = -F::cast_from(0.1294625e1_f64) * t2486 + F::cast_from(0.258925e1_f64) * t2491 + t2584 - F::cast_from(0.60385e0_f64) * t2457 + F::cast_from(0.905775e0_f64) * t2468 + F::cast_from(0.82524375e-1_f64) * t2497 + F::cast_from(0.16504875e0_f64) * t2499 + t2589 - F::cast_from(0.33114e0_f64) * t2505 + F::cast_from(0.248355e0_f64) * t2509 + F::cast_from(0.248355e0_f64) * t2513;
     (t2584, t2589, t2593)
 }

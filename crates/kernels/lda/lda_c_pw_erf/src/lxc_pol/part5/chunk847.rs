@@ -11,12 +11,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk847<F: Float>(t6285: F, t743: F, t1308: F, t571: F, t2385: F, t4763: F, t6275: F, t1319: F, t1318: F, t2146: F, t2389: F, t225: F, t7337: F) -> (F, F, F, F, F, F, F, F, F) {
     let t7815 = t6285 * t743;
     let t7816 = t1308 * t7815;
-    let t7818 = F::new(4.0) / F::new(15.0) * t571 * t7816;
-    let t7820 = F::new(16.0) / F::new(15.0) * t4763 * t2385;
+    let t7818 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t571 * t7816;
+    let t7820 = F::cast_from(16.0_f64) / F::cast_from(15.0_f64) * t4763 * t2385;
     let t7821 = t6275 * t743;
     let t7822 = t1319 * t7821;
-    let t7824 = F::new(8.0) / F::new(15.0) * t1318 * t7822;
-    let t7826 = F::new(8.0) / F::new(15.0) * t2146 * t2389;
+    let t7824 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t1318 * t7822;
+    let t7826 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t2146 * t2389;
     let t7827 = t7337 * t225;
     (t7815, t7816, t7818, t7820, t7821, t7822, t7824, t7826, t7827)
 }

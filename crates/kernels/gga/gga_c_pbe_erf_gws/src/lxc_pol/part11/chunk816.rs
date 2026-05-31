@@ -14,7 +14,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk816<F: Float>(t43: F, t50:
     let t13070 = t13069 * t312;
     let t13071 = F::cast_from(0.20538164420033333334e1_f64) * t6906;
     let t13073 = t321 * t9772 * t1167;
-    let t13079 = piecewise3::<F>(t44, F::new(0.0), F::new(8.0) / F::new(27.0) * t12917 - F::new(2.0) / F::new(3.0) * t12919 + F::new(2.0) / F::new(3.0) * t12921);
-    let t13084 = piecewise3::<F>(t51, F::new(0.0), F::new(8.0) / F::new(27.0) * t12923 - F::new(2.0) / F::new(3.0) * t12925 + F::new(2.0) / F::new(3.0) * t12927);
+    let t13079 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t12917 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t12919 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t12921);
+    let t13084 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t12923 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t12925 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t12927);
     (t13070, t13071, t13073, t13079, t13084)
 }

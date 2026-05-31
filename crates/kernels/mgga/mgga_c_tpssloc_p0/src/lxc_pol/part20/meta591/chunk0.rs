@@ -16,7 +16,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk2170<F: Float>(t11277: F, t33
     let t44073 = t3311 * t3311;
     let t44075 = t409 / t44073;
     let t44076 = t3314 * t3314;
-    let t44077 = F::new(1.0) / t44076;
+    let t44077 = F::cast_from(1.0_f64) / t44076;
     let t44106 = t11399 * t3403;
     let t44131 = t3351 * t11352;
     (t43976, t43984, t44027, t44053, t44075, t44077, t44106, t44131)

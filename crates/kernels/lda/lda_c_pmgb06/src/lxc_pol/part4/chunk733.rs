@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part4_v4rho4_2_chunk733<F: Float>(t12: F, t1: F, t15: F, t1080: F, t1083: F, t1949: F, t1952: F, t247: F, t395: F, t4382: F, t598: F, t765: F, t44: F, t4697: F, zeta_threshold: F) -> F {
     let t13 = t12 <= zeta_threshold;
     let t4700 = t15 * t1;
-    let t4710 = piecewise3::<F>(t13, F::new(0.0), F::new(80.0) / F::new(27.0) * t765 * t1080 - F::new(160.0) / F::new(9.0) * t4700 * t4382 + F::new(40.0) / F::new(9.0) * t1949 * t1083 - F::new(16.0) / F::new(3.0) * t598 * t395 + F::new(16.0) * t1952 * t247);
-    let t4713 = (t4697 / F::new(2.0) + t4710 / F::new(2.0)) * t44;
+    let t4710 = piecewise3::<F>(t13, F::cast_from(0.0_f64), F::cast_from(80.0_f64) / F::cast_from(27.0_f64) * t765 * t1080 - F::cast_from(160.0_f64) / F::cast_from(9.0_f64) * t4700 * t4382 + F::cast_from(40.0_f64) / F::cast_from(9.0_f64) * t1949 * t1083 - F::cast_from(16.0_f64) / F::cast_from(3.0_f64) * t598 * t395 + F::cast_from(16.0_f64) * t1952 * t247);
+    let t4713 = (t4697 / F::cast_from(2.0_f64) + t4710 / F::cast_from(2.0_f64)) * t44;
     t4713
 }

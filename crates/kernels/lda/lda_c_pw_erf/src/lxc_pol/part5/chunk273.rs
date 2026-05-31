@@ -11,7 +11,7 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk273<F: Float>(t247: F, t780: F, t251: F, t108: F, t659: F, t661: F, t739: F, t743: F, t256: F, t267: F, t517: F, t570: F, t649: F, t655: F, t658: F, t670: F, t788: F, t797: F, t801: F, t810: F, t815: F, t824: F, t828: F, t837: F) -> (F, F, F, F) {
     let t850 = t780 * t247;
     let t851 = t850 * t251;
-    let t858 = (F::new(4.0) / F::new(3.0) * t659 * t739 + F::new(4.0) / F::new(3.0) * t661 * t743) * t108;
-    let t861 = t788 + t797 + t517 + t801 - t810 + t815 + t824 + t570 + t828 - t837 + t851 * t256 / F::new(3.0) + t649 + t655 + t658 - t858 * t267 / F::new(15.0) - t670;
+    let t858 = (F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t659 * t739 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t661 * t743) * t108;
+    let t861 = t788 + t797 + t517 + t801 - t810 + t815 + t824 + t570 + t828 - t837 + t851 * t256 / F::cast_from(3.0_f64) + t649 + t655 + t658 - t858 * t267 / F::cast_from(15.0_f64) - t670;
     (t850, t851, t858, t861)
 }

@@ -11,10 +11,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gapc_lxc_pol_part36_v4rho2sigma2_15_chunk405<F: Float>(t1729: F, t1819: F, t1920: F, t2009: F, t215: F, t211: F, t414: F, t220: F, t231: F, t4: F, t1220: F, t283: F, t482: F) -> (F, F, F, F, F, F) {
     let t2011 = t1729 + t1819 + t1920 + t2009;
     let t2013 = t215 * t215;
-    let t2014 = F::new(1.0) / t2013;
+    let t2014 = F::cast_from(1.0_f64) / t2013;
     let t2018 = t211 * t414;
     let t2025 = t220 * t220;
-    let t2026 = F::new(1.0) / t2025;
+    let t2026 = F::cast_from(1.0_f64) / t2025;
     let t2040 = t231 * t4;
     let t2042 = F::cast_from(0.10843580882781524214e-1_f64) * t2040 * t1220;
     let t2043 = t482 * t283;

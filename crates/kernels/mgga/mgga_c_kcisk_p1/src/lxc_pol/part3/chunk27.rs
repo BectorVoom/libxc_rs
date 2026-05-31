@@ -16,6 +16,6 @@ pub fn mgga_c_kcisk_lxc_pol_part3_v3rho3_0_chunk27<F: Float>(t3: F, t41: F) -> (
     let t64 = t41 * t3 * t63;
     let t65 = pi * pi;
     let t66 = pow_1_3::<F>(t65);
-    let t67 = F::new(1.0) / t66;
+    let t67 = F::cast_from(1.0_f64) / t66;
     (t63, t64, t65, t67)
 }

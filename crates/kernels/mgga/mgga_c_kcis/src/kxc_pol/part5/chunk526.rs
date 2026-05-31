@@ -12,12 +12,12 @@ pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk526<F: Float>(t165: F, t2531: F, 
     let t2532 = t2531 * t165;
     let t2533 = t779 * t782;
     let t2534 = t2533 * t826;
-    let t2535 = F::new(2.0) * t2534;
-    let t2537 = F::new(1.0) / t781 / t164;
+    let t2535 = F::cast_from(2.0_f64) * t2534;
+    let t2537 = F::cast_from(1.0_f64) / t781 / t164;
     let t2538 = t142 * t2537;
     let t2539 = t826 * t826;
     let t2540 = t2538 * t2539;
-    let t2541 = F::new(2.0) * t2540;
+    let t2541 = F::cast_from(2.0_f64) * t2540;
     let t2542 = t2379 * t143;
     let t2545 = t684 * t126;
     (t2532, t2533, t2534, t2535, t2537, t2538, t2539, t2540, t2541, t2542, t2545)

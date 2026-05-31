@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part52_v4rhosigma3_17_chunk525<F: Float>(t10205: F, t471: F, t3334: F, t64: F, t2748: F, t871: F, t9097: F, t9100: F, t9113: F, t9115: F, t1365: F, t7906: F) -> (F, F, F, F, F, F, F, F) {
     let t10206 = t10205 * t471;
-    let t10208 = F::new(4.0) / F::new(3.0) * t3334 * t64;
+    let t10208 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t3334 * t64;
     let t10209 = t2748 * t871;
-    let t10211 = F::new(7.0) / F::new(256.0) * t9097;
-    let t10212 = F::new(21.0) / F::new(8192.0) * t9100;
-    let t10213 = F::new(7.0) / F::new(8192.0) * t9113;
-    let t10214 = F::new(7.0) / F::new(768.0) * t9115;
+    let t10211 = F::cast_from(7.0_f64) / F::cast_from(256.0_f64) * t9097;
+    let t10212 = F::cast_from(21.0_f64) / F::cast_from(8192.0_f64) * t9100;
+    let t10213 = F::cast_from(7.0_f64) / F::cast_from(8192.0_f64) * t9113;
+    let t10214 = F::cast_from(7.0_f64) / F::cast_from(768.0_f64) * t9115;
     let t10227 = t1365 * t7906;
     (t10206, t10208, t10209, t10211, t10212, t10213, t10214, t10227)
 }

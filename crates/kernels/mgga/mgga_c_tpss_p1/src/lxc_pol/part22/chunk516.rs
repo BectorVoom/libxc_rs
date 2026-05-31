@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk516<F: Float>(t45: F, t57: F, t1985: F, t1992: F, t741: F, t80: F, t745: F, t83: F, zeta_threshold: F) -> F {
     let t151 = t45 <= zeta_threshold;
     let t155 = t57 <= zeta_threshold;
-    let t2125 = piecewise3::<F>(t151, F::new(0.0), -F::new(2.0) / F::new(9.0) * t80 * t1985 + F::new(2.0) / F::new(3.0) * t741 * t1992);
-    let t2131 = piecewise3::<F>(t155, F::new(0.0), -F::new(2.0) / F::new(9.0) * t83 * t1985 - F::new(2.0) / F::new(3.0) * t745 * t1992);
-    let t2133 = t2125 / F::new(2.0) + t2131 / F::new(2.0);
+    let t2125 = piecewise3::<F>(t151, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t80 * t1985 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t741 * t1992);
+    let t2131 = piecewise3::<F>(t155, F::cast_from(0.0_f64), -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t83 * t1985 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t745 * t1992);
+    let t2133 = t2125 / F::cast_from(2.0_f64) + t2131 / F::cast_from(2.0_f64);
     t2133
 }

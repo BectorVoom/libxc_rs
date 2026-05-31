@@ -12,6 +12,6 @@ pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk878<F: Float>(t16708: F, t2520: F
     let t16709 = t16708 * t2520;
     let t16715 = t4786 * t1333;
     let t16716 = t7557 * t16715;
-    let t16729 = -t7524 - F::new(4.0) / F::new(9.0) * t10188 + F::new(2.0) / F::new(9.0) * t13699 - F::new(2.0) / F::new(3.0) * t13701 + t13703 / F::new(3.0) - F::new(10.0) / F::new(27.0) * t16630 + F::new(4.0) / F::new(3.0) * t16634 - F::new(2.0) / F::new(3.0) * t16638 - F::new(2.0) * t16642 + F::new(2.0) * t16646 - t16650 / F::new(3.0);
+    let t16729 = -t7524 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t10188 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t13699 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t13701 + t13703 / F::cast_from(3.0_f64) - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t16630 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t16634 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t16638 - F::cast_from(2.0_f64) * t16642 + F::cast_from(2.0_f64) * t16646 - t16650 / F::cast_from(3.0_f64);
     (t16709, t16715, t16716, t16729)
 }

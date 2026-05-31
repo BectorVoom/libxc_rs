@@ -14,6 +14,6 @@ pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk637<F: Float>(t4501: F, t
     let t4525 = t120 * t4524;
     let t4526 = t4525 * t19;
     let t4527 = t196 * t4526;
-    let t4529 = F::new(1.0) / t1563 / t171;
+    let t4529 = F::cast_from(1.0_f64) / t1563 / t171;
     (t4502, t4524, t4525, t4527, t4529)
 }

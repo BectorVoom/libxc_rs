@@ -12,10 +12,10 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk683<F: Float>(t30: F, t33: 
     let t31 = t30 <= zeta_threshold;
     let t34 = t33 <= zeta_threshold;
     let t4363 = t490 * t2;
-    let t4367 = piecewise3::<F>(t31, F::new(0.0), F::new(4.0) / F::new(9.0) * t4360 * t580 + F::new(8.0) / F::new(3.0) * t4363 * t555);
+    let t4367 = piecewise3::<F>(t31, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4360 * t580 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t4363 * t555);
     let t4368 = t3289 * t1497;
     let t4371 = t493 * t2;
-    let t4375 = piecewise3::<F>(t34, F::new(0.0), F::new(4.0) / F::new(9.0) * t4368 * t1006 - F::new(8.0) / F::new(3.0) * t4371 * t555);
+    let t4375 = piecewise3::<F>(t34, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4368 * t1006 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t4371 * t555);
     let t4377 = (t4367 + t4375) * t162;
     (t4368, t4377)
 }

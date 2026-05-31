@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk708<F: Float>(t12310: F, t12327: F, t12356: F, t12365: F, t157: F, t526: F, t3421: F, t8392: F, t1045: F, t2101: F, t1055: F, t8232: F) -> (F, F, F, F, F, F, F, F) {
-    let t13102 = F::new(4.0) / F::new(27.0) * t12310;
-    let t13108 = F::new(2.0) / F::new(9.0) * t12327;
-    let t13117 = F::new(4.0) / F::new(3.0) * t12356;
-    let t13120 = F::new(2.0) / F::new(3.0) * t12365;
+    let t13102 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t12310;
+    let t13108 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t12327;
+    let t13117 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t12356;
+    let t13120 = F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t12365;
     let t13140 = t526 * t157;
-    let t13152 = F::new(2.0) / F::new(27.0) * t8392 * t3421;
+    let t13152 = F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t8392 * t3421;
     let t13153 = t2101 * t1045;
     let t13187 = t8232 * t1055;
     (t13102, t13108, t13117, t13120, t13140, t13152, t13153, t13187)

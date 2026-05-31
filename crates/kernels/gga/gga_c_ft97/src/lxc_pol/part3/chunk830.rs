@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part3_v3rho3_2_chunk830<F: Float>(t140: F, t16802: F, t16917: F, t526: F, t27: F, t89: F, t375: F, t4715: F, t4669: F, t12918: F, t16706: F, t16710: F, t16714: F, t16717: F, t16721: F, t16724: F, t16727: F, t16730: F, t16734: F, t16739: F, t16742: F, t16745: F, t16748: F, t16751: F, t16756: F, t16760: F) -> (F, F, F, F, F) {
-    let t141 = F::new(0.1e-59) < t140;
-    let t16919 = piecewise3::<F>(t141, t16802 + t16917, F::new(0.0));
+    let t141 = F::cast_from(0.1e-59_f64) < t140;
+    let t16919 = piecewise3::<F>(t141, t16802 + t16917, F::cast_from(0.0_f64));
     let t16920 = t526 * t16919;
     let t16922 = t89 * t27 * t16920;
     let t16925 = t89 * t375 * t4715;
     let t16928 = t89 * t375 * t4669;
-    let t16930 = -t12918 - t16706 / F::new(27.0) + F::new(2.0) / F::new(9.0) * t16710 - t16714 / F::new(9.0) - t16717 / F::new(3.0) + t16721 / F::new(27.0) + F::new(2.0) / F::new(9.0) * t16724 - F::new(5.0) / F::new(81.0) * t16727 - F::new(4.0) / F::new(27.0) * t16730 + t16734 / F::new(9.0) - t16739 + F::new(2.0) / F::new(3.0) * t16742 + t16745 / F::new(54.0) - t16748 / F::new(27.0) + t16751 / F::new(81.0) + t16756 / F::new(3.0) - t16760 / F::new(18.0) - t16922 / F::new(6.0) + t16925 / F::new(18.0) - t16928 / F::new(9.0);
+    let t16930 = -t12918 - t16706 / F::cast_from(27.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t16710 - t16714 / F::cast_from(9.0_f64) - t16717 / F::cast_from(3.0_f64) + t16721 / F::cast_from(27.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t16724 - F::cast_from(5.0_f64) / F::cast_from(81.0_f64) * t16727 - F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t16730 + t16734 / F::cast_from(9.0_f64) - t16739 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t16742 + t16745 / F::cast_from(54.0_f64) - t16748 / F::cast_from(27.0_f64) + t16751 / F::cast_from(81.0_f64) + t16756 / F::cast_from(3.0_f64) - t16760 / F::cast_from(18.0_f64) - t16922 / F::cast_from(6.0_f64) + t16925 / F::cast_from(18.0_f64) - t16928 / F::cast_from(9.0_f64);
     (t16919, t16922, t16925, t16928, t16930)
 }

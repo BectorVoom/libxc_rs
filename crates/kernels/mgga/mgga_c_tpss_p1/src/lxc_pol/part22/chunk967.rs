@@ -15,8 +15,8 @@ pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk967<F: Float>(t30: F, t33: 
     let t10343 = t2009 * t3431;
     let t10344 = t10343 * t581;
     let t10347 = t3446 * t1992;
-    let t10350 = F::new(2.0) * t555;
-    let t10351 = F::new(6.0) * t7622;
-    let t10353 = piecewise5::<F>(t31, F::new(0.0), t34, F::new(0.0), t10350 - t10351);
+    let t10350 = F::cast_from(2.0_f64) * t555;
+    let t10351 = F::cast_from(6.0_f64) * t7622;
+    let t10353 = piecewise5::<F>(t31, F::cast_from(0.0_f64), t34, F::cast_from(0.0_f64), t10350 - t10351);
     (t10340, t10344, t10347, t10353)
 }

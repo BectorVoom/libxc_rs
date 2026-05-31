@@ -12,13 +12,13 @@ pub fn mgga_c_tpssloc_lxc_pol_part24_v4rho3sigma_0_chunk480<F: Float>(t40: F, t5
     let t146 = t40 <= zeta_threshold;
     let t150 = t52 <= zeta_threshold;
     let t2427 = t706 * t717;
-    let t2429 = F::new(8.0) * t2427 * t708;
+    let t2429 = F::cast_from(8.0_f64) * t2427 * t708;
     let t2430 = t751 * t607;
     let t2431 = t707 * t2430;
-    let t2432 = F::new(8.0) * t2431;
-    let t2433 = F::new(1.0) / t195;
-    let t2439 = piecewise3::<F>(t146, F::new(0.0), F::new(4.0) / F::new(9.0) * t2433 * t2244 + F::new(4.0) / F::new(3.0) * t73 * t2250);
-    let t2440 = F::new(1.0) / t197;
-    let t2446 = piecewise3::<F>(t150, F::new(0.0), F::new(4.0) / F::new(9.0) * t2440 * t2244 - F::new(4.0) / F::new(3.0) * t76 * t2250);
+    let t2432 = F::cast_from(8.0_f64) * t2431;
+    let t2433 = F::cast_from(1.0_f64) / t195;
+    let t2439 = piecewise3::<F>(t146, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2433 * t2244 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t73 * t2250);
+    let t2440 = F::cast_from(1.0_f64) / t197;
+    let t2446 = piecewise3::<F>(t150, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2440 * t2244 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t76 * t2250);
     (t2427, t2429, t2430, t2432, t2433, t2439, t2440, t2446)
 }

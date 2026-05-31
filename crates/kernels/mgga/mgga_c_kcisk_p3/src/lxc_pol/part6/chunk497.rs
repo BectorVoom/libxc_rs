@@ -13,8 +13,8 @@ pub fn mgga_c_kcisk_lxc_pol_part6_v3rho3_3_chunk497<F: Float>(t568: F, t967: F, 
     let t5084 = F::cast_from(0.46853067927761790996e-2_f64) * t5082 * t682;
     let t5089 = t143 * t1849;
     let t5100 = t681 * t681;
-    let t5101 = F::new(1.0) / t5100;
-    let t5122 = F::new(0.8197e-2) * t429 * t1394 * t686;
+    let t5101 = F::cast_from(1.0_f64) / t5100;
+    let t5122 = F::cast_from(0.8197e-2_f64) * t429 * t1394 * t686;
     let t5125 = F::cast_from(0.21133333333333333333e-2_f64) * t435 * t3841 * t690;
     (t5082, t5084, t5089, t5100, t5101, t5122, t5125)
 }

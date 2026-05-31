@@ -12,7 +12,7 @@ pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk287<F: Float>(t696: F, t980: F, 
     let t982 = F::cast_from(1.1696447245269292_f64) * t696 * t980;
     let t986 = t109 * t660;
     let t990 = t659 * t265;
-    let t991 = F::new(1.0) / t990;
+    let t991 = F::cast_from(1.0_f64) / t990;
     let t992 = t260 * t991;
     let t993 = t666 * t666;
     (t982, t986, t990, t991, t992, t993)

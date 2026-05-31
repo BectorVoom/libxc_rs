@@ -12,6 +12,6 @@ pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk2000<F: Float>(t14652: F, t77
     let t14653 = t14652 * t775;
     let t14656 = t4416 * t2430;
     let t14659 = t832 * t14468;
-    let t14662 = -t14633 * t229 - F::new(24.0) * t14643 * t4417 + F::new(60.0) * t14649 * t4415 - F::new(24.0) * t14653 * t4415 - F::new(12.0) * t14656 * t4415 + F::new(3.0) * t14659 * t227 - F::new(12.0) * t1553 * t2639 + F::new(3.0) * t1553 * t2642 + F::new(3.0) * t1555 * t2634 + F::new(6.0) * t4409 * t833 + F::new(6.0) * t4420 * t830;
+    let t14662 = -t14633 * t229 - F::cast_from(24.0_f64) * t14643 * t4417 + F::cast_from(60.0_f64) * t14649 * t4415 - F::cast_from(24.0_f64) * t14653 * t4415 - F::cast_from(12.0_f64) * t14656 * t4415 + F::cast_from(3.0_f64) * t14659 * t227 - F::cast_from(12.0_f64) * t1553 * t2639 + F::cast_from(3.0_f64) * t1553 * t2642 + F::cast_from(3.0_f64) * t1555 * t2634 + F::cast_from(6.0_f64) * t4409 * t833 + F::cast_from(6.0_f64) * t4420 * t830;
     (t14653, t14656, t14659, t14662)
 }

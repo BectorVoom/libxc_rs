@@ -10,8 +10,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1325<F: Float>(t1205: F, t20173: F, t53645: F, t14918: F, t2367: F, t1115: F, t14185: F, t14321: F, t2408: F, t3066: F, t35566: F, t51530: F, t52350: F, t52353: F, t53631: F, t53639: F, t53643: F, t53664: F, t53668: F, t53671: F, t53675: F, t9283: F, t9297: F, t9702: F) -> F {
     let t55297 = t20173 * t1205;
-    let t55311 = F::new(7.0) / F::new(72.0) * t53645;
-    let t55315 = F::new(7.0) / F::new(144.0) * t2367 * t14918;
-    let t55321 = -F::new(35.0) / F::new(216.0) * t52353 - t53631 / F::new(192.0) + t3066 * t9283 * t55297 * t9297 / F::new(4.0) + t53639 / F::new(1536.0) - t2408 * t35566 * t14321 / F::new(12.0) - t2408 * t9283 * t14185 * t9702 / F::new(12.0) + t53643 / F::new(768.0) - t55311 - t1115 * t52350 / F::new(96.0) + t55315 - t53664 / F::new(192.0) - F::new(119.0) / F::new(864.0) * t51530 - t53668 / F::new(384.0) - t53671 / F::new(768.0) + t53675 / F::new(4.0);
+    let t55311 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t53645;
+    let t55315 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t2367 * t14918;
+    let t55321 = -F::cast_from(35.0_f64) / F::cast_from(216.0_f64) * t52353 - t53631 / F::cast_from(192.0_f64) + t3066 * t9283 * t55297 * t9297 / F::cast_from(4.0_f64) + t53639 / F::cast_from(1536.0_f64) - t2408 * t35566 * t14321 / F::cast_from(12.0_f64) - t2408 * t9283 * t14185 * t9702 / F::cast_from(12.0_f64) + t53643 / F::cast_from(768.0_f64) - t55311 - t1115 * t52350 / F::cast_from(96.0_f64) + t55315 - t53664 / F::cast_from(192.0_f64) - F::cast_from(119.0_f64) / F::cast_from(864.0_f64) * t51530 - t53668 / F::cast_from(384.0_f64) - t53671 / F::cast_from(768.0_f64) + t53675 / F::cast_from(4.0_f64);
     t55321
 }

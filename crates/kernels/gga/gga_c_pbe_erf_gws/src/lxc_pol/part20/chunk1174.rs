@@ -12,12 +12,12 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1174<F: Float>(t1167:
     let t14829 = t14149 * t1167;
     let t14831 = t1167 * t944;
     let t14835 = t4063 * t3324;
-    let t14898 = F::new(7.0) / F::new(2304.0) * t14605;
-    let t14931 = F::new(7.0) / F::new(2304.0) * t14611;
-    let t14962 = F::new(7.0) / F::new(576.0) * t14655;
-    let t14974 = F::new(7.0) / F::new(144.0) * t14689;
-    let t14978 = F::new(7.0) / F::new(144.0) * t14708;
-    let t14986 = F::new(7.0) / F::new(1152.0) * t14716;
-    let t14996 = F::new(7.0) / F::new(72.0) * t14745;
+    let t14898 = F::cast_from(7.0_f64) / F::cast_from(2304.0_f64) * t14605;
+    let t14931 = F::cast_from(7.0_f64) / F::cast_from(2304.0_f64) * t14611;
+    let t14962 = F::cast_from(7.0_f64) / F::cast_from(576.0_f64) * t14655;
+    let t14974 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t14689;
+    let t14978 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t14708;
+    let t14986 = F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t14716;
+    let t14996 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t14745;
     (t14829, t14831, t14835, t14898, t14931, t14962, t14974, t14978, t14986, t14996)
 }

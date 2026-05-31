@@ -14,6 +14,6 @@ pub fn mgga_c_kcis_lxc_pol_part5_v3rho3_2_chunk320<F: Float>(t1195: F, t388: F, 
     let t1199 = t358 * t1133;
     let t1200 = t387 * t1199;
     let t1201 = t382 * t1200;
-    let t1203 = t1167 / F::new(16.0) - t1173 / F::new(16.0) - t1177 / F::new(6.0) + t1181 / F::new(24.0) - t1185 / F::new(256.0) + t1190 / F::new(256.0) + t1197 / F::new(48.0) - t1201 / F::new(192.0);
+    let t1203 = t1167 / F::cast_from(16.0_f64) - t1173 / F::cast_from(16.0_f64) - t1177 / F::cast_from(6.0_f64) + t1181 / F::cast_from(24.0_f64) - t1185 / F::cast_from(256.0_f64) + t1190 / F::cast_from(256.0_f64) + t1197 / F::cast_from(48.0_f64) - t1201 / F::cast_from(192.0_f64);
     (t1196, t1197, t1200, t1201, t1203)
 }

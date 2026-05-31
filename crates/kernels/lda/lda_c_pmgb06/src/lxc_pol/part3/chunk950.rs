@@ -9,10 +9,10 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk950<F: Float>(t8781: F, t8785: F, t1105: F, t2160: F, t8738: F, t8743: F, t8746: F, t8749: F, t8751: F, t8755: F, t8759: F, t8760: F, t8762: F, t8769: F, t8774: F, t8779: F, t8787: F, t8794: F) -> F {
-    let t11132 = F::new(960.0) * t8781;
-    let t11133 = F::new(192.0) * t8785;
+    let t11132 = F::cast_from(960.0_f64) * t8781;
+    let t11133 = F::cast_from(192.0_f64) * t8785;
     let t11135 = t1105 * t2160;
-    let t11136 = F::new(36.0) * t11135;
-    let t11137 = -F::cast_from(10.526802520742363_f64) * t8738 - t8743 + t8746 - F::new(24.0) * t8749 - F::new(4.0) * t8751 - t8755 - t8759 + F::cast_from(10.526802520742363_f64) * t8760 - F::cast_from(155.84273195113317_f64) * t8762 + t8769 - t8774 + t8779 - t11132 + t11133 - F::cast_from(0.0017090684152272775_f64) * t8787 - t8794 + t11136;
+    let t11136 = F::cast_from(36.0_f64) * t11135;
+    let t11137 = -F::cast_from(10.526802520742363_f64) * t8738 - t8743 + t8746 - F::cast_from(24.0_f64) * t8749 - F::cast_from(4.0_f64) * t8751 - t8755 - t8759 + F::cast_from(10.526802520742363_f64) * t8760 - F::cast_from(155.84273195113317_f64) * t8762 + t8769 - t8774 + t8779 - t11132 + t11133 - F::cast_from(0.0017090684152272775_f64) * t8787 - t8794 + t11136;
     t11137
 }

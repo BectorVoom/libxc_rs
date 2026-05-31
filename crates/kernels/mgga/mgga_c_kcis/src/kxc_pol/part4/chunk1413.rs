@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk1413<F: Float>(t18367: F, t449: F
     let t18368 = t449 * t18367;
     let t18369 = t446 * t18368;
     let t18371 = t2794 * t1659;
-    let t18373 = t8524 + t9315 + t13045 / F::new(8.0) - t9313 - t13048 / F::new(16.0) - t13050 / F::new(8.0) - t13053 / F::new(8.0) + t13055 / F::new(8.0) + t13057 / F::new(8.0) - t13060 / F::new(8.0) - t9272 + t13094 + t13096 - t15795 / F::new(16.0) - t15798 / F::new(16.0) - t18369 / F::new(16.0) - t18371 / F::new(8.0);
+    let t18373 = t8524 + t9315 + t13045 / F::cast_from(8.0_f64) - t9313 - t13048 / F::cast_from(16.0_f64) - t13050 / F::cast_from(8.0_f64) - t13053 / F::cast_from(8.0_f64) + t13055 / F::cast_from(8.0_f64) + t13057 / F::cast_from(8.0_f64) - t13060 / F::cast_from(8.0_f64) - t9272 + t13094 + t13096 - t15795 / F::cast_from(16.0_f64) - t15798 / F::cast_from(16.0_f64) - t18369 / F::cast_from(16.0_f64) - t18371 / F::cast_from(8.0_f64);
     t18373
 }

@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk1968<F: Float>(t1448: F, t6922: F, t7897: F, t8995: F, t101448: F, t101451: F, t101755: F, t101756: F, t105870: F, t105873: F, t105876: F, t105878: F, t105881: F, t105883: F, t95397: F) -> (F, F, F) {
     let t109263 = t6922 * t1448;
     let t109269 = t7897 * t8995;
-    let t109367 = -t95397 - t101448 - F::new(44.0) / F::new(9.0) * t101451 - t101755 + t101756 - F::new(4.0) / F::new(3.0) * t105870 - F::new(3.0) / F::new(2.0) * t105873 + t105876 + F::new(2.0) / F::new(3.0) * t105878 + t105881 / F::new(2.0) - t105883 / F::new(4.0);
+    let t109367 = -t95397 - t101448 - F::cast_from(44.0_f64) / F::cast_from(9.0_f64) * t101451 - t101755 + t101756 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t105870 - F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t105873 + t105876 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t105878 + t105881 / F::cast_from(2.0_f64) - t105883 / F::cast_from(4.0_f64);
     (t109263, t109269, t109367)
 }

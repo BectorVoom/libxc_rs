@@ -14,10 +14,10 @@ pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk587<F: Float>(t1691: F, t3263: F
     let t3268 = t3267 * t3259;
     let t3269 = F::cast_from(0.9743416666666667_f64) * t3268;
     let t3270 = t1657 * t3263;
-    let t3271 = F::new(1.4615125) * t3270;
+    let t3271 = F::cast_from(1.4615125_f64) * t3270;
     let t3273 = t415 * t128 * t1;
     let t3274 = t3273 * t3212;
-    let t3275 = F::new(2.923025) * t3274;
+    let t3275 = F::cast_from(2.923025_f64) * t3274;
     let t3276 = t1657 * t3216;
     (t3264, t3267, t3268, t3269, t3270, t3271, t3273, t3274, t3275, t3276)
 }

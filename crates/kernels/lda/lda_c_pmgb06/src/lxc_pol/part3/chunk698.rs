@@ -12,10 +12,10 @@ pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk698<F: Float>(t5: F, t247: F, t9
     let t6 = t5 <= zeta_threshold;
     let t4472 = t247 * t902;
     let t4481 = t2142 * t686;
-    let t4483 = F::new(2.0) * t248 * t4481;
-    let t4485 = F::new(8.0) * t643 * t2158;
+    let t4483 = F::cast_from(2.0_f64) * t248 * t4481;
+    let t4485 = F::cast_from(8.0_f64) * t643 * t2158;
     let t4486 = t3912 * t760;
     let t4489 = t1068 * t1;
-    let t4499 = piecewise3::<F>(t6, F::new(0.0), -F::new(8.0) / F::new(27.0) * t4486 * t1069 + F::new(16.0) / F::new(9.0) * t4489 * t4367 + F::new(4.0) / F::new(9.0) * t2125 * t1074 + F::new(8.0) / F::new(3.0) * t9 * t395 - F::new(8.0) * t2128 * t247);
+    let t4499 = piecewise3::<F>(t6, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t4486 * t1069 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t4489 * t4367 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2125 * t1074 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t9 * t395 - F::cast_from(8.0_f64) * t2128 * t247);
     (t4472, t4481, t4483, t4485, t4486, t4489, t4499)
 }

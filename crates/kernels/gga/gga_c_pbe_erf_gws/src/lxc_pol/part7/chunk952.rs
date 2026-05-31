@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk952<F: Float>(t1640: F, t1791: F, t1413: F, t1642: F, t1793: F, t639: F, t1620: F, t4934: F, t5141: F, t5155: F, t7877: F, t17001: F, t2677: F) -> (F, F, F, F) {
     let t17646 = t1640 * t1791;
-    let t17651 = F::new(16.0) / F::new(9.0) * t639 * t17646 * t1793 * t1642 * t1413;
+    let t17651 = F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t639 * t17646 * t1793 * t1642 * t1413;
     let t17653 = t1620 * t4934 * t5141;
-    let t17654 = F::new(64.0) / F::new(45.0) * t17653;
+    let t17654 = F::cast_from(64.0_f64) / F::cast_from(45.0_f64) * t17653;
     let t17656 = t1620 * t7877 * t5155;
-    let t17657 = F::new(64.0) / F::new(27.0) * t17656;
-    let t17660 = F::new(16.0) / F::new(3.0) * t639 * t2677 * t17001;
+    let t17657 = F::cast_from(64.0_f64) / F::cast_from(27.0_f64) * t17656;
+    let t17660 = F::cast_from(16.0_f64) / F::cast_from(3.0_f64) * t639 * t2677 * t17001;
     (t17651, t17654, t17657, t17660)
 }

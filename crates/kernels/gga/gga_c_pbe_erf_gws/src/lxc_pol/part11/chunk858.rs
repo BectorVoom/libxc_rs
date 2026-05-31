@@ -9,13 +9,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk858<F: Float>(t11912: F, t11922: F, t12054: F, t3180: F, t3772: F, t5: F, t337: F, t2121: F, t3116: F, t13347: F, t2170: F, t3131: F) -> (F, F, F, F, F, F, F, F) {
-    let t13485 = F::new(7.0) / F::new(96.0) * t11912;
-    let t13486 = F::new(7.0) / F::new(16.0) * t11922;
-    let t13488 = t12054 * t3180 / F::new(16.0);
+    let t13485 = F::cast_from(7.0_f64) / F::cast_from(96.0_f64) * t11912;
+    let t13486 = F::cast_from(7.0_f64) / F::cast_from(16.0_f64) * t11922;
+    let t13488 = t12054 * t3180 / F::cast_from(16.0_f64);
     let t13489 = t5 * t3772;
     let t13490 = t337 * t13489;
     let t13491 = t2121 * t13490;
-    let t13493 = t3116 * t13491 / F::new(96.0);
+    let t13493 = t3116 * t13491 / F::cast_from(96.0_f64);
     let t13496 = t2170 * t3131 * t13347;
     (t13485, t13486, t13488, t13489, t13490, t13491, t13493, t13496)
 }

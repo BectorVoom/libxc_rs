@@ -10,12 +10,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk1178<F: Float>(t185: F, t5128: F, t514: F, t511: F, t5184: F, t12794: F, t2193: F, t12797: F, t1446: F, t4938: F, t1392: F, t1440: F, t2098: F, t3675: F, t519: F) -> (F, F, F, F, F, F) {
     let t13883 = t185 * t514 * t5128;
-    let t13884 = F::new(4.0) / F::new(15.0) * t13883;
+    let t13884 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t13883;
     let t13885 = t511 * t5184;
-    let t13886 = F::new(8.0) / F::new(15.0) * t13885;
-    let t13888 = F::new(4.0) / F::new(5.0) * t12794 * t2193;
-    let t13890 = F::new(8.0) / F::new(5.0) * t12797 * t2193;
-    let t13892 = F::new(12.0) / F::new(5.0) * t1446 * t4938;
-    let t13897 = F::new(12.0) / F::new(5.0) * t519 * t1440 * t3675 * t2098 * t1392;
+    let t13886 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t13885;
+    let t13888 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t12794 * t2193;
+    let t13890 = F::cast_from(8.0_f64) / F::cast_from(5.0_f64) * t12797 * t2193;
+    let t13892 = F::cast_from(12.0_f64) / F::cast_from(5.0_f64) * t1446 * t4938;
+    let t13897 = F::cast_from(12.0_f64) / F::cast_from(5.0_f64) * t519 * t1440 * t3675 * t2098 * t1392;
     (t13884, t13886, t13888, t13890, t13892, t13897)
 }

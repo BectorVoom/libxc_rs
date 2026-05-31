@@ -9,10 +9,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk514<F: Float>(t385: F, t3777: F, t4143: F, t1284: F, t3502: F, t1280: F, t1287: F, t340: F, t379: F, t382: F, t4134: F, t395: F, t1309: F, t1315: F, t1324: F, t3935: F, t3939: F, t3944: F, t3948: F, t3955: F, t3963: F, t3966: F, t3970: F, t3975: F, t3983: F, t3985: F, t3990: F, t3993: F, t3996: F, t4001: F, t4004: F, t405: F, sigma0: F) -> (F, F, F, F, F) {
-    let t386 = t385 < -F::new(0.66725e-1);
+    let t386 = t385 < -F::cast_from(0.66725e-1_f64);
     let t4144 = t4143 * t3777;
     let t4148 = t1284 * t3502;
-    let t4153 = piecewise3::<F>(t386, F::new(0.0), F::new(10.0) / F::new(9.0) * t340 * t4134 * t382 - F::new(20.0) / F::new(27.0) * t340 * t1280 * t1287 + F::new(40.0) / F::new(81.0) * t340 * t379 * t4144 - F::new(10.0) / F::new(27.0) * t340 * t379 * t4148);
+    let t4153 = piecewise3::<F>(t386, F::cast_from(0.0_f64), F::cast_from(10.0_f64) / F::cast_from(9.0_f64) * t340 * t4134 * t382 - F::cast_from(20.0_f64) / F::cast_from(27.0_f64) * t340 * t1280 * t1287 + F::cast_from(40.0_f64) / F::cast_from(81.0_f64) * t340 * t379 * t4144 - F::cast_from(10.0_f64) / F::cast_from(27.0_f64) * t340 * t379 * t4148);
     let t4154 = t4153 * sigma0;
     let t4155 = t4154 * t395;
     let t4158 = -F::cast_from(0.35981577432354634426e-1_f64) * t3935 * t3939 - F::cast_from(0.35981577432354634426e-1_f64) * t1309 * t3944 + F::cast_from(0.17990788716177317213e-1_f64) * t1309 * t3948 + F::cast_from(0.23987718288236422951e-1_f64) * t1309 * t3955 + F::cast_from(0.10794473229706390328e0_f64) * t1309 * t3963 + F::cast_from(0.35981577432354634426e-1_f64) * t3966 * t1315 - F::cast_from(0.95950873152945691804e-1_f64) * t3970 * t1315 + F::cast_from(0.11993859144118211475e-1_f64) * t3975 + F::cast_from(0.28785261945883707542e0_f64) * t3970 * t1324 - t3983 - F::cast_from(0.35981577432354634426e-1_f64) * t3985 - F::cast_from(0.5397236614853195164e-1_f64) * t1309 * t3990 - F::cast_from(0.28785261945883707542e0_f64) * t3993 * t405 + F::cast_from(0.35981577432354634426e-1_f64) * t3996 - F::cast_from(0.10794473229706390328e0_f64) * t3966 * t1324 + F::cast_from(0.52772980234120130494e0_f64) * t4001 * t405 - F::cast_from(0.95950873152945691804e-1_f64) * t4004 + F::cast_from(0.5397236614853195164e-1_f64) * t4155 * t405;

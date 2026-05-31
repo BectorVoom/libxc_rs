@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_kxc_pol_part4_v3rho3_2_chunk129<F: Float>(t362: F, t363: F
     let t364 = t362 * t363;
     let t365 = t34 * t34;
     let t366 = t365 * rho0;
-    let t368 = F::new(1.0) / t35 / t366;
+    let t368 = F::cast_from(1.0_f64) / t35 / t366;
     (t364, t365, t368)
 }

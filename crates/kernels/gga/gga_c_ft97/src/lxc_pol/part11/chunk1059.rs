@@ -12,7 +12,7 @@ use libxc_kernel_math::powers::{pow_1_3};
 pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk1059<F: Float>(t193: F, t2373: F, t2459: F, t7514: F, t89: F, t3704: F, t670: F, t41932: F, t41935: F, t41938: F, t41942: F, t41947: F, t41951: F, t41954: F, t41958: F, t41960: F, t41964: F, t41969: F, t41973: F) -> (F, F, F) {
     let t41978 = t89 * t193 * t7514 * t2373 * t2459;
     let t41981 = t89 * t3704 * t670;
-    let t41982 = F::new(56.0) / F::new(243.0) * t41981;
-    let t41983 = F::new(2.0) / F::new(9.0) * t41932 + F::new(4.0) / F::new(9.0) * t41935 - F::new(4.0) / F::new(27.0) * t41938 + F::new(4.0) / F::new(3.0) * t41942 + F::new(2.0) / F::new(9.0) * t41947 + t41951 - t41954 - t41958 - F::new(8.0) / F::new(27.0) * t41960 + F::new(20.0) / F::new(243.0) * t41964 + F::new(20.0) / F::new(27.0) * t41969 - t41973 / F::new(18.0) - F::new(6.0) * t41978 + t41982;
+    let t41982 = F::cast_from(56.0_f64) / F::cast_from(243.0_f64) * t41981;
+    let t41983 = F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t41932 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t41935 - F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t41938 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t41942 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t41947 + t41951 - t41954 - t41958 - F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t41960 + F::cast_from(20.0_f64) / F::cast_from(243.0_f64) * t41964 + F::cast_from(20.0_f64) / F::cast_from(27.0_f64) * t41969 - t41973 / F::cast_from(18.0_f64) - F::cast_from(6.0_f64) * t41978 + t41982;
     (t41978, t41981, t41983)
 }

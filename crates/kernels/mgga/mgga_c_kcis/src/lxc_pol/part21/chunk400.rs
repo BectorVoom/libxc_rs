@@ -12,6 +12,6 @@ pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk400<F: Float>(t20: F, t2314
     let t2444 = t2314 * t92 * t20;
     let t2448 = t647 * t725 * t2;
     let t2456 = -F::cast_from(0.44044444444444444445e-2_f64) * t2318 + F::cast_from(0.88088888888888888889e-2_f64) * t2321 + F::cast_from(0.55033333333333333333e-2_f64) * t2323;
-    let t2459 = -t2444 * t2317 / F::new(18.0) - t2448 * t650 / F::new(6.0) + t720 * t2320 / F::new(9.0) + t15 * t2456 / F::new(2.0);
+    let t2459 = -t2444 * t2317 / F::cast_from(18.0_f64) - t2448 * t650 / F::cast_from(6.0_f64) + t720 * t2320 / F::cast_from(9.0_f64) + t15 * t2456 / F::cast_from(2.0_f64);
     (t2444, t2448, t2456, t2459)
 }

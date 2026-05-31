@@ -14,9 +14,9 @@ pub fn mgga_c_kcisk_kxc_pol_part3_v3rho3_0_chunk347<F: Float>(t1724: F, t1725: F
     let t1731 = -t1729 - F::cast_from(0.92708333333333333333e-2_f64) * t1699;
     let t1735 = t45 * t625;
     let t1736 = t630 * t630;
-    let t1737 = F::new(1.0) / t1736;
-    let t1739 = F::new(0.301925e0) * t1695;
-    let t1742 = F::new(0.16557e0) * t1718;
-    let t1744 = F::new(0.258925e1) * t1710 - t1739 - F::new(0.301925e0) * t1699 + F::new(0.16504875e0) * t1715 - t1742 - F::new(0.16557e0) * t1722;
+    let t1737 = F::cast_from(1.0_f64) / t1736;
+    let t1739 = F::cast_from(0.301925e0_f64) * t1695;
+    let t1742 = F::cast_from(0.16557e0_f64) * t1718;
+    let t1744 = F::cast_from(0.258925e1_f64) * t1710 - t1739 - F::cast_from(0.301925e0_f64) * t1699 + F::cast_from(0.16504875e0_f64) * t1715 - t1742 - F::cast_from(0.16557e0_f64) * t1722;
     (t1726, t1731, t1735, t1736, t1737, t1744)
 }

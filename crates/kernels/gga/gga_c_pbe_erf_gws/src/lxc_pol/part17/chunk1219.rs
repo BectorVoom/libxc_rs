@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1219<F: Float>(t3324: F, t944: F, t1105: F, t13751: F, t13756: F, t14149: F, t14153: F, t14390: F, t2051: F, t2074: F, t30098: F, t3189: F, t3946: F, t4062: F, t50825: F, t50837: F, t50846: F, t52801: F, t52810: F, t52812: F, t52816: F, t52821: F, t52823: F) -> F {
     let t52829 = t3324 * t944;
-    let t52833 = F::new(3.0) * t1105 * t3946 * t50825 + F::new(12.0) * t13751 * t13756 * t3189 - F::new(2.0) * t14149 * t3324 * t4062 + F::new(4.0) * t14153 * t4062 * t52829 + F::new(3.0) * t14390 * t2074 * t3946 + F::new(2.0) * t2051 * t4062 * t52816 - F::new(12.0) * t30098 * t52823 + F::new(2.0) * t50837 - t50846 + t52801 - t52810 - t52812 - t52821;
+    let t52833 = F::cast_from(3.0_f64) * t1105 * t3946 * t50825 + F::cast_from(12.0_f64) * t13751 * t13756 * t3189 - F::cast_from(2.0_f64) * t14149 * t3324 * t4062 + F::cast_from(4.0_f64) * t14153 * t4062 * t52829 + F::cast_from(3.0_f64) * t14390 * t2074 * t3946 + F::cast_from(2.0_f64) * t2051 * t4062 * t52816 - F::cast_from(12.0_f64) * t30098 * t52823 + F::cast_from(2.0_f64) * t50837 - t50846 + t52801 - t52810 - t52812 - t52821;
     t52833
 }

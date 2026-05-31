@@ -12,13 +12,13 @@ pub fn gga_c_gapc_lxc_pol_part25_v4rho2sigma2_4_chunk1408<F: Float>(t35358: F, t
     let t37294 = F::cast_from(0.14759453667534722223e-5_f64) * t35358;
     let t37295 = F::cast_from(0.20220636637604418766e-5_f64) * t35361;
     let t37306 = t12191 * t883;
-    let t37308 = F::new(2.0) * t37306 * t972;
-    let t37317 = F::new(4.0) * t12050;
-    let t37318 = F::new(2.0) * t12045;
-    let t37323 = F::new(12.0) * t12053;
-    let t37324 = F::new(4.0) * t12043;
-    let t37325 = F::new(4.0) * t12047;
-    let t37327 = F::new(2.0) * t12046;
-    let t37328 = F::new(4.0) * t12059;
+    let t37308 = F::cast_from(2.0_f64) * t37306 * t972;
+    let t37317 = F::cast_from(4.0_f64) * t12050;
+    let t37318 = F::cast_from(2.0_f64) * t12045;
+    let t37323 = F::cast_from(12.0_f64) * t12053;
+    let t37324 = F::cast_from(4.0_f64) * t12043;
+    let t37325 = F::cast_from(4.0_f64) * t12047;
+    let t37327 = F::cast_from(2.0_f64) * t12046;
+    let t37328 = F::cast_from(4.0_f64) * t12059;
     (t37294, t37295, t37308, t37317, t37318, t37323, t37324, t37325, t37327, t37328)
 }

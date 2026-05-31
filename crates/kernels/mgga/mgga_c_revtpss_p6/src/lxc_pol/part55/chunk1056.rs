@@ -13,8 +13,8 @@ pub fn mgga_c_revtpss_lxc_pol_part55_v4rho2sigma2_10_chunk1056<F: Float>(t32540:
     let t32576 = t118 * t32575;
     let t32577 = t2033 * t1448;
     let t32578 = t28286 * t32577;
-    let t32580 = F::new(2.0) * t28196 * t32578;
-    let t32619 = F::new(2.0) * t7359 * t7003;
+    let t32580 = F::cast_from(2.0_f64) * t28196 * t32578;
+    let t32619 = F::cast_from(2.0_f64) * t7359 * t7003;
     let t32620 = t8698 * t7316;
     let t32626 = t7484 * t196 * t197;
     (t32575, t32576, t32577, t32578, t32580, t32619, t32620, t32626)

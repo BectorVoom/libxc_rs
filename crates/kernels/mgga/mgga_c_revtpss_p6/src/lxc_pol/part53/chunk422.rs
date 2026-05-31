@@ -14,11 +14,11 @@ pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk422<F: Float>(t30: F, t
     let t120 = rho0 <= dens_threshold || t31;
     let t400 = rho1 <= dens_threshold || t34;
     let t503 = t265 < t502;
-    let t1999 = piecewise3::<F>(t120, t1966, t1996 * t45 / F::new(2.0));
+    let t1999 = piecewise3::<F>(t120, t1966, t1996 * t45 / F::cast_from(2.0_f64));
     let t2000 = t1963 * t33;
-    let t2002 = t1940 * t2000 / F::new(2.0);
-    let t2003 = piecewise3::<F>(t503, F::new(0.0), t1995);
-    let t2006 = piecewise3::<F>(t400, t2002, t2003 * t57 / F::new(2.0));
+    let t2002 = t1940 * t2000 / F::cast_from(2.0_f64);
+    let t2003 = piecewise3::<F>(t503, F::cast_from(0.0_f64), t1995);
+    let t2006 = piecewise3::<F>(t400, t2002, t2003 * t57 / F::cast_from(2.0_f64));
     let t2007 = t1999 + t2006;
     (t2002, t2003, t2007)
 }

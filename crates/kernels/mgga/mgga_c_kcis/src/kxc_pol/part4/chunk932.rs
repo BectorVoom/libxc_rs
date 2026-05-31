@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk932<F: Float>(t138: F, t86: F, t8
     let t8965 = t86 * t8963 * t138;
     let t8969 = t740 * t717;
     let t8972 = t113 * t2438;
-    let t8978 = F::new(1.0) / t2437 / t95;
+    let t8978 = F::cast_from(1.0_f64) / t2437 / t95;
     let t8979 = t89 * t8978;
     let t8996 = F::cast_from(0.35867157975189532869e-1_f64) * t160 - F::cast_from(0.13661666666666666667e-1_f64) * t4858 + F::cast_from(0.38744444444444444446e-2_f64) * t4865 - F::cast_from(0.15538616723388920628e-3_f64) * t822 + F::cast_from(0.18204739583333333333e-4_f64) * t4881;
     (t8965, t8969, t8972, t8979, t8996)

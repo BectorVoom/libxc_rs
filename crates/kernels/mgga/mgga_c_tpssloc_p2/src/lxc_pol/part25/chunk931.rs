@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part25_v4rho3sigma_1_chunk931<F: Float>(t25: F, t514: F, t3665: F, t606: F, t3704: F, t1298: F, t2249: F, t9257: F, t28: F, t517: F, t1081: F, t3673: F, zeta_threshold: F) -> (F, F, F, F) {
     let t26 = t25 <= zeta_threshold;
     let t11985 = t25 * t25;
-    let t11987 = F::new(1.0) / t514 / t11985;
+    let t11987 = F::cast_from(1.0_f64) / t514 / t11985;
     let t11988 = t3665 * t606;
     let t11991 = t3704 * t606;
-    let t11997 = piecewise3::<F>(t26, F::new(0.0), F::new(8.0) / F::new(27.0) * t11987 * t11988 - F::new(2.0) / F::new(3.0) * t11991 * t2249 + F::new(2.0) / F::new(3.0) * t1298 * t9257);
+    let t11997 = piecewise3::<F>(t26, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t11987 * t11988 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t11991 * t2249 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t1298 * t9257);
     let t11998 = t28 * t28;
-    let t12000 = F::new(1.0) / t517 / t11998;
+    let t12000 = F::cast_from(1.0_f64) / t517 / t11998;
     let t12001 = t3673 * t1081;
     (t11988, t11997, t12000, t12001)
 }

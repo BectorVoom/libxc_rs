@@ -10,11 +10,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1124<F: Float>(t2367: F, t4083: F, t14072: F, t14084: F, t4094: F, t840: F, t13894: F, t1208: F, t2242: F, t4090: F, t4414: F, t1205: F, t6781: F) -> (F, F, F, F, F, F, F, F) {
     let t14198 = t2367 * t4083;
-    let t14229 = F::new(119.0) / F::new(3456.0) * t14072;
-    let t14233 = F::new(35.0) / F::new(216.0) * t14084;
+    let t14229 = F::cast_from(119.0_f64) / F::cast_from(3456.0_f64) * t14072;
+    let t14233 = F::cast_from(35.0_f64) / F::cast_from(216.0_f64) * t14084;
     let t14283 = t840 * t4094;
-    let t14295 = F::new(119.0) / F::new(6912.0) * t13894;
-    let t14302 = F::new(35.0) / F::new(432.0) * t2242 * t1208;
+    let t14295 = F::cast_from(119.0_f64) / F::cast_from(6912.0_f64) * t13894;
+    let t14302 = F::cast_from(35.0_f64) / F::cast_from(432.0_f64) * t2242 * t1208;
     let t14305 = t4414 * t4090;
     let t14309 = t6781 * t1205;
     (t14198, t14229, t14233, t14283, t14295, t14302, t14305, t14309)

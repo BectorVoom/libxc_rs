@@ -12,11 +12,11 @@ pub fn mgga_c_pkzb_lxc_pol_part11_v4rho4_3_chunk1010<F: Float>(t12: F, t11113: F
     let t84 = t12 <= zeta_threshold;
     let t203 = rho0 <= dens_threshold || t84;
     let t11118 = t11113 + t11117;
-    let t11125 = piecewise3::<F>(t84, F::new(0.0), t10518);
-    let t11129 = piecewise3::<F>(t203, F::new(0.0), t11118 * t319 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t3706 * t1153 + F::new(3.0) / F::new(2.0) * t1151 * t3710 + t318 * t11125 / F::new(2.0));
+    let t11125 = piecewise3::<F>(t84, F::cast_from(0.0_f64), t10518);
+    let t11129 = piecewise3::<F>(t203, F::cast_from(0.0_f64), t11118 * t319 / F::cast_from(2.0_f64) + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t3706 * t1153 + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t1151 * t3710 + t318 * t11125 / F::cast_from(2.0_f64));
     let t11130 = t201 * t11129;
     let t11131 = t199 * t11130;
-    let t11132 = F::new(0.2390625e-1) * t11131;
-    let t11133 = F::new(1.0) / t399;
+    let t11132 = F::cast_from(0.2390625e-1_f64) * t11131;
+    let t11133 = F::cast_from(1.0_f64) / t399;
     (t11118, t11125, t11130, t11132, t11133)
 }

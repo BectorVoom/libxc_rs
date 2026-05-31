@@ -11,13 +11,13 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk977<F: Float>(t1651: F, t3526: F, t587: F, t7942: F, t3465: F, t661: F, t5522: F, t639: F, t10524: F, t2677: F, t10535: F, t7853: F) -> (F, F, F, F, F) {
     let t11037 = t1651 * t3526;
     let t11038 = t587 * t11037;
-    let t11039 = F::new(8.0) / F::new(135.0) * t11038;
-    let t11040 = F::new(32.0) / F::new(135.0) * t7942;
+    let t11039 = F::cast_from(8.0_f64) / F::cast_from(135.0_f64) * t11038;
+    let t11040 = F::cast_from(32.0_f64) / F::cast_from(135.0_f64) * t7942;
     let t11041 = t3465 * t661;
     let t11042 = t5522 * t11041;
-    let t11044 = F::new(4.0) / F::new(27.0) * t639 * t11042;
+    let t11044 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t639 * t11042;
     let t11045 = t2677 * t10524;
-    let t11047 = F::new(8.0) / F::new(9.0) * t639 * t11045;
+    let t11047 = F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t639 * t11045;
     let t11048 = t7853 * t10535;
     (t11039, t11040, t11044, t11047, t11048)
 }

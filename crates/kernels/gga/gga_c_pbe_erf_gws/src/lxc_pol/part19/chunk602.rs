@@ -11,12 +11,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk602<F: Float>(t3166: F, t858: F, t867: F, t866: F, t3131: F, t3139: F, t875: F, t2168: F, t2143: F, t2165: F, t2207: F, t1105: F, t5: F) -> (F, F, F, F, F, F, F, F, F) {
     let t3167 = t858 * t3166;
     let t3168 = t867 * t3167;
-    let t3170 = t866 * t3168 / F::new(96.0);
+    let t3170 = t866 * t3168 / F::cast_from(96.0_f64);
     let t3172 = t3139 * t3131 * t875;
-    let t3174 = t2168 * t3172 / F::new(96.0);
-    let t3175 = F::new(7.0) / F::new(288.0) * t2143;
-    let t3176 = F::new(7.0) / F::new(288.0) * t2165;
-    let t3177 = F::new(7.0) / F::new(144.0) * t2207;
+    let t3174 = t2168 * t3172 / F::cast_from(96.0_f64);
+    let t3175 = F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t2143;
+    let t3176 = F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t2165;
+    let t3177 = F::cast_from(7.0_f64) / F::cast_from(144.0_f64) * t2207;
     let t3178 = t5 * t1105;
     (t3167, t3168, t3170, t3172, t3174, t3175, t3176, t3177, t3178)
 }

@@ -9,9 +9,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1171<F: Float>(t14558: F, t14563: F, t14060: F, t14081: F, t14229: F, t14233: F, t14556: F, t14560: F, t14568: F, t14571: F, t15072: F, t15049: F, t15060: F, t15071: F) -> F {
-    let t15074 = F::new(7.0) / F::new(288.0) * t14558;
-    let t15076 = F::new(7.0) / F::new(72.0) * t14563;
-    let t15079 = t15072 - t14556 / F::new(192.0) + t15074 - t14560 / F::new(96.0) + t14060 + t15076 + t14568 / F::new(48.0) - t14571 / F::new(48.0) + t14229 + t14081 + t14233;
+    let t15074 = F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t14558;
+    let t15076 = F::cast_from(7.0_f64) / F::cast_from(72.0_f64) * t14563;
+    let t15079 = t15072 - t14556 / F::cast_from(192.0_f64) + t15074 - t14560 / F::cast_from(96.0_f64) + t14060 + t15076 + t14568 / F::cast_from(48.0_f64) - t14571 / F::cast_from(48.0_f64) + t14229 + t14081 + t14233;
     let t15081 = t15049 + t15060 + t15071 + t15079;
     t15081
 }

@@ -13,6 +13,6 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1142<F: Float>(t1125:
     let t14522 = t3139 * t9026;
     let t14523 = t4028 * t14522;
     let t14525 = t14007 * t3261;
-    let t14527 = -F::new(7.0) / F::new(1152.0) * t14029 + F::new(7.0) / F::new(1152.0) * t14506 - t14508 / F::new(96.0) + t14510 / F::new(48.0) + t14512 / F::new(48.0) + t14514 / F::new(48.0) + F::new(5.0) / F::new(384.0) * t14516 + t14518 / F::new(192.0) - F::new(7.0) / F::new(288.0) * t14520 - t14523 / F::new(96.0) + t14525 / F::new(384.0);
+    let t14527 = -F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t14029 + F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t14506 - t14508 / F::cast_from(96.0_f64) + t14510 / F::cast_from(48.0_f64) + t14512 / F::cast_from(48.0_f64) + t14514 / F::cast_from(48.0_f64) + F::cast_from(5.0_f64) / F::cast_from(384.0_f64) * t14516 + t14518 / F::cast_from(192.0_f64) - F::cast_from(7.0_f64) / F::cast_from(288.0_f64) * t14520 - t14523 / F::cast_from(96.0_f64) + t14525 / F::cast_from(384.0_f64);
     (t14520, t14522, t14527)
 }

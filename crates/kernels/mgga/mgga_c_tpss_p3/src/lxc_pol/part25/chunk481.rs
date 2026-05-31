@@ -13,6 +13,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk481<F: Float>(t259: F, t379
     let t1813 = t1812 * t30;
     let t1816 = t207 * t1811;
     let t1818 = t198 * t1816 * t823;
-    let t1819 = piecewise3::<F>(t380, F::new(0.0), t1818);
+    let t1819 = piecewise3::<F>(t380, F::cast_from(0.0_f64), t1818);
     (t1813, t1816, t1818, t1819)
 }

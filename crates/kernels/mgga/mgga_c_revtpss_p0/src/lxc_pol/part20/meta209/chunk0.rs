@@ -13,6 +13,6 @@ pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk985<F: Float>(t30: F, t33: F,
     let t34 = t33 <= zeta_threshold;
     let t10318 = t1927 * t2258;
     let t10321 = t2251 * t627;
-    let t10326 = piecewise5::<F>(t31, F::new(0.0), t34, F::new(0.0), t9344);
+    let t10326 = piecewise5::<F>(t31, F::cast_from(0.0_f64), t34, F::cast_from(0.0_f64), t9344);
     (t10318, t10321, t10326)
 }

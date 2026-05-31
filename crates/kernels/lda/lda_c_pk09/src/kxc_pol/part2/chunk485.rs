@@ -14,11 +14,11 @@ pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk485<F: Float>(t51: F, t2711: F, t4
     let t2713 = t2712 * t1191;
     let t2715 = t420 * t2146;
     let t2716 = t2715 * t1207;
-    let t2719 = t2711 * t1204 + F::new(1.28) * t1713 * t2716;
+    let t2719 = t2711 * t1204 + F::cast_from(1.28_f64) * t1713 * t2716;
     let t2720 = t425 * t2719;
     let t2721 = piecewise3::<F>(t52, t2713, t2720);
     let t2723 = t420 * t2140;
     let t2724 = t2723 * t1197;
-    let t2727 = t2711 * t1193 + F::new(1.28) * t1713 * t2724;
+    let t2727 = t2711 * t1193 + F::cast_from(1.28_f64) * t1713 * t2724;
     (t2713, t2715, t2716, t2719, t2721, t2723, t2724, t2727)
 }

@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk1190<F: Float>(t52: F, t197: F, t636: F, t2244: F, t2250: F, t2440: F, t39097: F, t39103: F, t39110: F, t76: F, t9258: F, t9438: F, t9441: F, zeta_threshold: F) -> F {
     let t150 = t52 <= zeta_threshold;
-    let t40647 = F::new(1.0) / t197 / t636;
-    let t40660 = piecewise3::<F>(t150, F::new(0.0), F::new(40.0) / F::new(81.0) * t40647 * t39097 + F::new(16.0) / F::new(9.0) * t9438 * t2244 * t2250 + F::new(4.0) / F::new(3.0) * t2440 * t39103 + F::new(16.0) / F::new(9.0) * t9441 * t9258 - F::new(4.0) / F::new(3.0) * t76 * t39110);
+    let t40647 = F::cast_from(1.0_f64) / t197 / t636;
+    let t40660 = piecewise3::<F>(t150, F::cast_from(0.0_f64), F::cast_from(40.0_f64) / F::cast_from(81.0_f64) * t40647 * t39097 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t9438 * t2244 * t2250 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t2440 * t39103 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t9441 * t9258 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t76 * t39110);
     t40660
 }

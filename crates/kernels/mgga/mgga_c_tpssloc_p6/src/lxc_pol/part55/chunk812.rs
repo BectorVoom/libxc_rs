@@ -9,11 +9,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part55_v4rho2sigma2_11_chunk812<F: Float>(t1877: F, t25: F, t8366: F, t8370: F, t202: F, t8365: F, t8369: F, t193: F, t2752: F, t870: F, t28: F, t8319: F, t88: F) -> (F, F, F, F, F, F) {
-    let t8374 = t1877 * t8366 * t25 / F::new(2.0) - t1877 * t8370 * t25 / F::new(2.0);
+    let t8374 = t1877 * t8366 * t25 / F::cast_from(2.0_f64) - t1877 * t8370 * t25 / F::cast_from(2.0_f64);
     let t8418 = t202 * t8365;
     let t8421 = t202 * t8369;
     let t8424 = -t193 * t2752 * t8421 + t193 * t8418 * t870;
-    let t8434 = t1877 * t8366 * t28 / F::new(2.0) - t1877 * t8370 * t28 / F::new(2.0);
-    let t8444 = F::new(2.0) * t88 * t8319;
+    let t8434 = t1877 * t8366 * t28 / F::cast_from(2.0_f64) - t1877 * t8370 * t28 / F::cast_from(2.0_f64);
+    let t8444 = F::cast_from(2.0_f64) * t88 * t8319;
     (t8374, t8418, t8421, t8424, t8434, t8444)
 }

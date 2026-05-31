@@ -9,7 +9,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk536<F: Float>(t2682: F, t2665: F, t673: F, t88: F, t2354: F, t47: F, t2355: F, t680: F, t2366: F, t2372: F, t2375: F, t119: F, t198: F, t2302: F, t2306: F, t2313: F, t2336: F, t2344: F, t237: F, t2658: F, t2664: F, t2666: F, t2676: F, t2681: F, t5: F, t56: F, t845: F, t852: F, t858: F, t859: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t2683 = F::new(1.0) / t2682;
+    let t2683 = F::cast_from(1.0_f64) / t2682;
     let t2684 = t2665 * t2683;
     let t2690 = t88 * t673;
     let t2694 = t47 * t2354;
@@ -17,6 +17,6 @@ pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk536<F: Float>(t2682: F, t2665: F,
     let t2698 = t2366 * t680;
     let t2701 = t47 * t2372;
     let t2702 = t2355 * t2375;
-    let t2705 = -F::cast_from(0.70981924444444444442e-3_f64) * t5 * t119 * t198 - F::cast_from(0.34246666666666666666e-1_f64) * t237 * t2658 * t852 - F::new(2.0) * t2664 * t2666 + F::new(1.0) * t845 * t2676 + F::cast_from(0.32164683177870697974e2_f64) * t2681 * t2684 + t2302 + t2306 + t2313 - t2336 - t2344 - F::cast_from(0.24415406715670879921e-3_f64) * t5 * t119 * t56 - F::cast_from(0.10843580882781524214e-1_f64) * t237 * t2690 * t859 - F::cast_from(0.11696446794910408142e1_f64) * t2694 * t2695 + F::cast_from(0.58482233974552040708e0_f64) * t858 * t2698 + F::cast_from(0.17315755899375863299e2_f64) * t2701 * t2702;
+    let t2705 = -F::cast_from(0.70981924444444444442e-3_f64) * t5 * t119 * t198 - F::cast_from(0.34246666666666666666e-1_f64) * t237 * t2658 * t852 - F::cast_from(2.0_f64) * t2664 * t2666 + F::cast_from(1.0_f64) * t845 * t2676 + F::cast_from(0.32164683177870697974e2_f64) * t2681 * t2684 + t2302 + t2306 + t2313 - t2336 - t2344 - F::cast_from(0.24415406715670879921e-3_f64) * t5 * t119 * t56 - F::cast_from(0.10843580882781524214e-1_f64) * t237 * t2690 * t859 - F::cast_from(0.11696446794910408142e1_f64) * t2694 * t2695 + F::cast_from(0.58482233974552040708e0_f64) * t858 * t2698 + F::cast_from(0.17315755899375863299e2_f64) * t2701 * t2702;
     (t2683, t2684, t2690, t2694, t2695, t2698, t2701, t2702, t2705)
 }

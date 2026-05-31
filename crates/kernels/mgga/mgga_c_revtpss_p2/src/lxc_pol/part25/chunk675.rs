@@ -12,8 +12,8 @@ pub fn mgga_c_revtpss_lxc_pol_part25_v4rho3sigma_0_chunk675<F: Float>(t1399: F, 
     let t4021 = t4019 * t221 * t1399;
     let t4022 = t4018 * t4021;
     let t4024 = t1317 * t1331;
-    let t4025 = F::new(8.0) * t4024;
-    let t4027 = F::new(8.0) * t1317 * t1333;
+    let t4025 = F::cast_from(8.0_f64) * t4024;
+    let t4027 = F::cast_from(8.0_f64) * t1317 * t1333;
     let t4028 = t3873 - t2522 + t4025 + t4027 + t2579 + t2587 + t3871 + t3852 - t2562 - t2569 + t3854;
     (t4021, t4022, t4025, t4027, t4028)
 }

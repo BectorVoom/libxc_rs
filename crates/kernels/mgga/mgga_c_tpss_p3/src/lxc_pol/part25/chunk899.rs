@@ -10,16 +10,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk899<F: Float>(t8660: F, t2617: F, t314: F, t8664: F, t2574: F, t872: F, t2573: F, t301: F, t296: F, t875: F, t2576: F, t304: F) -> (F, F, F, F, F, F, F, F, F, F) {
     let t8756 = F::cast_from(0.28842592592592592592e-1_f64) * t8660;
-    let t8772 = F::new(1.0) / t2617 / t314;
+    let t8772 = F::cast_from(1.0_f64) / t2617 / t314;
     let t8796 = F::cast_from(0.93932222222222222223e0_f64) * t8660;
     let t8797 = F::cast_from(0.36793333333333333333e0_f64) * t8664;
     let t8842 = t872 * t2574;
-    let t8846 = F::new(1.0) / t2573 / t301;
+    let t8846 = F::cast_from(1.0_f64) / t2573 / t301;
     let t8847 = t296 * t8846;
     let t8871 = F::cast_from(0.16068111111111111111e1_f64) * t8660;
     let t8872 = F::cast_from(0.46308888888888888888e0_f64) * t8664;
-    let t8887 = F::new(1.0) / t2573 / t875;
+    let t8887 = F::cast_from(1.0_f64) / t2573 / t875;
     let t8888 = t296 * t8887;
-    let t8890 = F::new(1.0) / t2576 / t304;
+    let t8890 = F::cast_from(1.0_f64) / t2576 / t304;
     (t8756, t8772, t8796, t8797, t8842, t8847, t8871, t8872, t8888, t8890)
 }

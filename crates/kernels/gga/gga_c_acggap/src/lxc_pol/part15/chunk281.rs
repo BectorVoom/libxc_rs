@@ -12,6 +12,6 @@ pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk281<F: Float>(t157: F, t36
     let t1182 = t157 * t360;
     let t1188 = t157 * t372;
     let t1215 = t119 * t441;
-    let t1219 = F::new(1.0) / t447 / t186;
+    let t1219 = F::cast_from(1.0_f64) / t447 / t186;
     (t1182, t1188, t1215, t1219)
 }

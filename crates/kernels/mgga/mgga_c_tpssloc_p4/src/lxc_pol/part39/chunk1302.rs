@@ -14,6 +14,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part39_v4rho3tau_3_chunk1302<F: Float>(t3: F, t300
     let t30112 = t2205 * t111;
     let t30125 = t8189 * t671;
     let t30128 = t2199 * t2363;
-    let t30133 = F::new(0.45e1) * t30094 * t577 + F::new(27.0) * t30109 * t671 + F::new(27.0) * t30112 * t2319 + F::new(0.135e2) * t8207 * t2363 + F::new(0.135e2) * t12521 * t2199 + F::new(54.0) * t12524 * t8212 + F::new(27.0) * t3938 * t8189 + F::new(27.0) * t16535 * t2199 + F::new(54.0) * t3941 * t30125 + F::new(27.0) * t3941 * t30128 + F::new(0.135e2) * t1401 * t30071;
+    let t30133 = F::cast_from(0.45e1_f64) * t30094 * t577 + F::cast_from(27.0_f64) * t30109 * t671 + F::cast_from(27.0_f64) * t30112 * t2319 + F::cast_from(0.135e2_f64) * t8207 * t2363 + F::cast_from(0.135e2_f64) * t12521 * t2199 + F::cast_from(54.0_f64) * t12524 * t8212 + F::cast_from(27.0_f64) * t3938 * t8189 + F::cast_from(27.0_f64) * t16535 * t2199 + F::cast_from(54.0_f64) * t3941 * t30125 + F::cast_from(27.0_f64) * t3941 * t30128 + F::cast_from(0.135e2_f64) * t1401 * t30071;
     (t30095, t30109, t30112, t30125, t30128, t30133)
 }

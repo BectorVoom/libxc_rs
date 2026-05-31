@@ -12,7 +12,7 @@ pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk736<F: Float>(t5916: F, t
     let t5917 = t5916 * t722;
     let t5919 = F::cast_from(0.64212977516902094772e0_f64) * t1762 * t5917;
     let t5920 = t1771 * t1732;
-    let t5923 = F::new(120.0) * t4889 * t230;
+    let t5923 = F::cast_from(120.0_f64) * t4889 * t230;
     let t5925 = F::cast_from(0.3903689268108626343e0_f64) * t61 * t5836;
     let t5926 = t1376 * t725;
     let t5927 = t41 * t5926;

@@ -12,11 +12,11 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk247<F: Float>(t10: F, t671:
     let pi = F::cast_from(M_PI);
     let t672 = t10 * t671;
     let t674 = F::cast_from(0.10821041362364843377e0_f64) * t670 * t672;
-    let t677 = F::new(0.4125e0) * t395 - t401 / F::new(6.0);
+    let t677 = F::cast_from(0.4125e0_f64) * t395 - t401 / F::cast_from(6.0_f64);
     let t678 = t677 * pi;
     let t679 = t678 * t7;
-    let t681 = F::new(4.0) / F::new(3.0) * t226 * t679;
-    let t683 = F::new(4.0) / F::new(3.0) * t226 * t230;
-    let t684 = t566 + t581 + t585 + t595 - t614 + t621 + t635 + t638 + t647 - t665 + F::new(4.0) / F::new(3.0) * t666 * t231 + t674 + t681 + t683;
+    let t681 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t226 * t679;
+    let t683 = F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t226 * t230;
+    let t684 = t566 + t581 + t585 + t595 - t614 + t621 + t635 + t638 + t647 - t665 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t666 * t231 + t674 + t681 + t683;
     (t672, t677, t678, t679, t684)
 }

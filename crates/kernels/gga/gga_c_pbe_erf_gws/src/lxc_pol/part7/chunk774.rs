@@ -13,8 +13,8 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk774<F: Float>(t253: F, t636
     let t6367 = t6 * t2182;
     let t6369 = t6366 * t6367 * t875;
     let t6373 = t3139 * t6269 * t875;
-    let t6375 = t2168 * t6373 / F::new(32.0);
+    let t6375 = t2168 * t6373 / F::cast_from(32.0_f64);
     let t6377 = t2345 * t6308 * t2171;
-    let t6380 = t2343 * t6316 / F::new(128.0) - t6321 - t6324 + t6330 + t6334 - t6338 + t6344 - t2312 * t6347 / F::new(64.0) + t2277 * t6352 / F::new(256.0) + t2277 * t6357 / F::new(256.0) + F::new(3.0) / F::new(512.0) * t3247 * t6362 - F::new(5.0) / F::new(128.0) * t2343 * t6369 - t6375 + t2343 * t6377 / F::new(128.0);
+    let t6380 = t2343 * t6316 / F::cast_from(128.0_f64) - t6321 - t6324 + t6330 + t6334 - t6338 + t6344 - t2312 * t6347 / F::cast_from(64.0_f64) + t2277 * t6352 / F::cast_from(256.0_f64) + t2277 * t6357 / F::cast_from(256.0_f64) + F::cast_from(3.0_f64) / F::cast_from(512.0_f64) * t3247 * t6362 - F::cast_from(5.0_f64) / F::cast_from(128.0_f64) * t2343 * t6369 - t6375 + t2343 * t6377 / F::cast_from(128.0_f64);
     (t6366, t6367, t6369, t6373, t6375, t6377, t6380)
 }

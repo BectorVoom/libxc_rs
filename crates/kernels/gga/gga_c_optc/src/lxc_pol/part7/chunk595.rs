@@ -10,7 +10,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk595<F: Float>(t2941: F, t2942: F, t2843: F, t2845: F, t2852: F, t2858: F, t2862: F) -> (F, F) {
     let t2943 = t2941 * t2942;
-    let t2945 = F::new(4.0) / F::new(9.0) * t2843;
-    let t2950 = t2945 + F::new(2.0) / F::new(9.0) * t2845 - F::new(2.0) / F::new(9.0) * t2852 + F::new(2.0) / F::new(3.0) * t2858 - t2862 / F::new(3.0);
+    let t2945 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t2843;
+    let t2950 = t2945 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t2845 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t2852 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t2858 - t2862 / F::cast_from(3.0_f64);
     (t2943, t2950)
 }

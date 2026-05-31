@@ -11,8 +11,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part54_v4rho2sigma2_10_chunk1125<F: Float>(t28: F, t1409: F, t2161: F, t25949: F, t27850: F, t3966: F, t52: F, t607: F, t7402: F, t8097: F, t27380: F, t113: F, t24988: F, t24989: F, t24993: F, t24998: F, t25005: F, t25007: F, t25011: F, t25969: F, t25973: F, t27290: F, t27293: F, t27371: F, t510: F, t650: F, t652: F, t8103: F, dens_threshold: F, rho1: F, zeta_threshold: F) -> (F, F) {
     let t29 = t28 <= zeta_threshold;
     let t401 = rho1 <= dens_threshold || t29;
-    let t27857 = piecewise3::<F>(t401, t25949, -t7402 * t1409 / F::new(2.0) - t2161 * t3966 / F::new(2.0) + t27850 * t52 / F::new(2.0) - t8097 * t607 / F::new(2.0));
+    let t27857 = piecewise3::<F>(t401, t25949, -t7402 * t1409 / F::cast_from(2.0_f64) - t2161 * t3966 / F::cast_from(2.0_f64) + t27850 * t52 / F::cast_from(2.0_f64) - t8097 * t607 / F::cast_from(2.0_f64));
     let t27858 = t27380 + t27857;
-    let t27860 = -t113 * t27858 - F::new(2.0) * t27290 * t652 - F::new(2.0) * t27293 * t652 - t27371 * t510 - t650 * t8103 + t24988 + t24989 + t24993 + t24998 - t25005 - t25007 - t25011 - t25969 - t25973;
+    let t27860 = -t113 * t27858 - F::cast_from(2.0_f64) * t27290 * t652 - F::cast_from(2.0_f64) * t27293 * t652 - t27371 * t510 - t650 * t8103 + t24988 + t24989 + t24993 + t24998 - t25005 - t25007 - t25011 - t25969 - t25973;
     (t27858, t27860)
 }

@@ -9,14 +9,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk493<F: Float>(t1958: F, t22: F, t559: F, t563: F, t20: F, t27: F, t12: F, t19: F, t567: F, t571: F, t21: F, t25: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t1960 = F::new(12.0) * t1958 * t22;
-    let t1962 = F::new(32.0) * t559 * t563;
-    let t1964 = F::new(20.0) * t20 * t27;
+    let t1960 = F::cast_from(12.0_f64) * t1958 * t22;
+    let t1962 = F::cast_from(32.0_f64) * t559 * t563;
+    let t1964 = F::cast_from(20.0_f64) * t20 * t27;
     let t1965 = t12 * t19;
-    let t1967 = F::new(30.0) * t1965 * t27;
-    let t1969 = F::new(72.0) * t567 * t571;
+    let t1967 = F::cast_from(30.0_f64) * t1965 * t27;
+    let t1969 = F::cast_from(72.0_f64) * t567 * t571;
     let t1970 = t21 * t21;
-    let t1971 = F::new(1.0) / t1970;
-    let t1973 = F::new(42.0) * t25 * t1971;
+    let t1971 = F::cast_from(1.0_f64) / t1970;
+    let t1973 = F::cast_from(42.0_f64) * t25 * t1971;
     (t1960, t1962, t1964, t1965, t1967, t1969, t1970, t1971, t1973)
 }

@@ -17,6 +17,6 @@ pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk682<F: Float>(t28859: F, t
     let t28869 = t6222 * t28868;
     let t28870 = t193 * t28869;
     let t28873 = t681 * t7023;
-    let t28885 = t28491 / F::new(3.0) - t28494 / F::new(12.0) + t28499 + t28504 + t28509 + t28514 / F::new(4.0) - F::new(2.0) / F::new(3.0) * t28518 - F::new(2.0) / F::new(3.0) * t28522 + F::new(2.0) / F::new(9.0) * t28526 + t28529 / F::new(6.0) - t28531 / F::new(9.0) + t28536 / F::new(3.0);
+    let t28885 = t28491 / F::cast_from(3.0_f64) - t28494 / F::cast_from(12.0_f64) + t28499 + t28504 + t28509 + t28514 / F::cast_from(4.0_f64) - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t28518 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t28522 + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t28526 + t28529 / F::cast_from(6.0_f64) - t28531 / F::cast_from(9.0_f64) + t28536 / F::cast_from(3.0_f64);
     (t28860, t28863, t28868, t28870, t28873, t28885)
 }

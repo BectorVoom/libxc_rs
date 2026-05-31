@@ -11,15 +11,15 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk652<F: Float>(t1816: F, t5137: F, t639: F, t1702: F, t617: F, t1809: F, t1620: F, t661: F, t1815: F, t5038: F, t2677: F, t5029: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t5138 = t5137 * t1816;
     let t5139 = t639 * t5138;
-    let t5140 = F::new(16.0) / F::new(45.0) * t5139;
+    let t5140 = F::cast_from(16.0_f64) / F::cast_from(45.0_f64) * t5139;
     let t5141 = t1702 * t617;
     let t5142 = t1809 * t5141;
-    let t5144 = F::new(8.0) / F::new(15.0) * t1620 * t5142;
+    let t5144 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t1620 * t5142;
     let t5145 = t1702 * t661;
     let t5146 = t1815 * t5145;
-    let t5148 = F::new(4.0) / F::new(15.0) * t639 * t5146;
+    let t5148 = F::cast_from(4.0_f64) / F::cast_from(15.0_f64) * t639 * t5146;
     let t5149 = t1809 * t5038;
-    let t5151 = F::new(8.0) / F::new(15.0) * t639 * t5149;
+    let t5151 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t639 * t5149;
     let t5152 = t2677 * t5029;
     (t5138, t5140, t5141, t5142, t5144, t5145, t5146, t5148, t5149, t5151, t5152)
 }

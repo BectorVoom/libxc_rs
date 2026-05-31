@@ -14,10 +14,10 @@ pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk388<F: Float>(t3221: F, t3
     let t3223 = t3220 * t3222;
     let t3225 = t713 * t3091;
     let t3226 = t3225 * t928;
-    let t3227 = t3226 / F::new(256.0);
-    let t3228 = t3217 - F::new(9.0) / F::new(8192.0) * t3218 + F::new(3.0) / F::new(8192.0) * t3223 - t3227;
+    let t3227 = t3226 / F::cast_from(256.0_f64);
+    let t3228 = t3217 - F::cast_from(9.0_f64) / F::cast_from(8192.0_f64) * t3218 + F::cast_from(3.0_f64) / F::cast_from(8192.0_f64) * t3223 - t3227;
     let t3230 = t931 * t871;
     let t3232 = t295 * t3113;
-    let t3234 = t3228 * t471 + t3230 / F::new(2.0) + t3217 - t3227 - t3232 / F::new(2.0);
+    let t3234 = t3228 * t471 + t3230 / F::cast_from(2.0_f64) + t3217 - t3227 - t3232 / F::cast_from(2.0_f64);
     (t3222, t3223, t3225, t3226, t3228, t3230, t3232, t3234)
 }

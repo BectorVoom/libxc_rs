@@ -9,12 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_revtpss_lxc_pol_part56_v4rho2sigma2_11_chunk669<F: Float>(t5: F, t72: F, t7574: F, t1927: F, t2122: F, t6977: F, t1923: F, t2123: F, t6954: F, t6960: F, t6963: F, t7566: F, t117: F) -> (F, F, F, F, F) {
-    let t7 = piecewise3::<F>(F::new(0.0) < t5, t5, -t5);
+    let t7 = piecewise3::<F>(F::cast_from(0.0_f64) < t5, t5, -t5);
     let t8 = -t7 <= -F::cast_from(0.999999999999e0_f64);
     let t7575 = t7574 * t72;
     let t7576 = t7575 * t1927;
     let t7579 = t2122 * t6977;
-    let t7583 = piecewise3::<F>(t8, F::new(0.0), -t6954 * t2123 / F::new(6.0) + F::new(5.0) / F::new(6.0) * t7566 * t6960 + t6963 * t2123 / F::new(3.0) - t1923 * t7576 / F::new(6.0) - t1923 * t7579 / F::new(6.0));
+    let t7583 = piecewise3::<F>(t8, F::cast_from(0.0_f64), -t6954 * t2123 / F::cast_from(6.0_f64) + F::cast_from(5.0_f64) / F::cast_from(6.0_f64) * t7566 * t6960 + t6963 * t2123 / F::cast_from(3.0_f64) - t1923 * t7576 / F::cast_from(6.0_f64) - t1923 * t7579 / F::cast_from(6.0_f64));
     let t7584 = t7583 * t117;
     (t7575, t7576, t7579, t7583, t7584)
 }

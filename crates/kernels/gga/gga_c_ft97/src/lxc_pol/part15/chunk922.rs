@@ -10,13 +10,13 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk922<F: Float>(t66902: F, t1636: F, t4935: F, t89: F, t4926: F, t9733: F, t4930: F, t5106: F, t8282: F, t5099: F, t5110: F, t5102: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
-    let t66903 = F::new(4.0) / F::new(9.0) * t66902;
+    let t66903 = F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t66902;
     let t66905 = t89 * t1636 * t4935;
-    let t66906 = F::new(8.0) / F::new(9.0) * t66905;
+    let t66906 = F::cast_from(8.0_f64) / F::cast_from(9.0_f64) * t66905;
     let t66934 = t89 * t9733 * t4926;
-    let t66935 = F::new(8.0) / F::new(27.0) * t66934;
+    let t66935 = F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t66934;
     let t66945 = t89 * t9733 * t4930;
-    let t66946 = F::new(4.0) / F::new(27.0) * t66945;
+    let t66946 = F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t66945;
     let t67078 = t8282 * t5106;
     let t67097 = t8282 * t5099;
     let t67103 = t8282 * t5110;

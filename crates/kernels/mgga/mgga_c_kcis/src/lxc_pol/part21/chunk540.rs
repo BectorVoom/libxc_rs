@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_kcis_lxc_pol_part21_v4rho3sigma_3_chunk540<F: Float>(t1189: F, t3477: F, t3440: F, t3445: F, t3449: F, t3453: F, t3455: F, t3457: F, t3461: F, t3467: F, t3469: F, t3471: F, t3475: F) -> (F, F) {
     let t3478 = t3477 * t1189;
-    let t3480 = t3440 / F::new(96.0) - t3445 / F::new(128.0) - t3449 / F::new(192.0) + t3453 / F::new(256.0) + t3455 / F::new(24.0) - t3457 / F::new(96.0) - t3461 / F::new(16.0) + t3467 / F::new(8.0) - t3469 / F::new(3.0) + t3471 / F::new(12.0) - t3475 / F::new(8.0) + t3478 / F::new(128.0);
+    let t3480 = t3440 / F::cast_from(96.0_f64) - t3445 / F::cast_from(128.0_f64) - t3449 / F::cast_from(192.0_f64) + t3453 / F::cast_from(256.0_f64) + t3455 / F::cast_from(24.0_f64) - t3457 / F::cast_from(96.0_f64) - t3461 / F::cast_from(16.0_f64) + t3467 / F::cast_from(8.0_f64) - t3469 / F::cast_from(3.0_f64) + t3471 / F::cast_from(12.0_f64) - t3475 / F::cast_from(8.0_f64) + t3478 / F::cast_from(128.0_f64);
     (t3478, t3480)
 }

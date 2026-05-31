@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk651<F: Float>(t2563: F, t2567: F, t1935: F, t8973: F, t9017: F, t9021: F, t9023: F, t9025: F, t9027: F, t9031: F, t9033: F, t9037: F, t9039: F, t9041: F) -> (F, F, F) {
     let t9043 = t2567 * t2563;
     let t9044 = t1935 * t9043;
-    let t9046 = t8973 / F::new(256.0) + t9017 / F::new(16.0) - t9021 / F::new(72.0) + t9023 / F::new(128.0) - t9025 / F::new(3.0) + t9027 / F::new(12.0) - t9031 / F::new(16.0) - t9033 / F::new(8.0) + t9037 / F::new(24.0) + t9039 / F::new(24.0) - t9041 / F::new(96.0) + t9044 / F::new(3.0);
+    let t9046 = t8973 / F::cast_from(256.0_f64) + t9017 / F::cast_from(16.0_f64) - t9021 / F::cast_from(72.0_f64) + t9023 / F::cast_from(128.0_f64) - t9025 / F::cast_from(3.0_f64) + t9027 / F::cast_from(12.0_f64) - t9031 / F::cast_from(16.0_f64) - t9033 / F::cast_from(8.0_f64) + t9037 / F::cast_from(24.0_f64) + t9039 / F::cast_from(24.0_f64) - t9041 / F::cast_from(96.0_f64) + t9044 / F::cast_from(3.0_f64);
     (t9043, t9044, t9046)
 }

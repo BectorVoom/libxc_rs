@@ -14,12 +14,12 @@ pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk2628<F: Float>(t47133: F, t47
     let t48324 = t13665 * t9572;
     let t48325 = F::cast_from(0.32530743900905219526e-1_f64) * t48324;
     let t48326 = t1320 * t13680;
-    let t48327 = F::new(24.0) * t48326;
+    let t48327 = F::cast_from(24.0_f64) * t48326;
     let t48328 = F::cast_from(0.51947577317044391277e2_f64) * t47145;
     let t48329 = F::cast_from(0.30762056574649219973e4_f64) * t47147;
-    let t48330 = F::new(12.0) * t47149;
+    let t48330 = F::cast_from(12.0_f64) * t47149;
     let t48331 = t3863 * t5569;
-    let t48332 = F::new(96.0) * t48331;
+    let t48332 = F::cast_from(96.0_f64) * t48331;
     let t48333 = t3860 * t5569;
     (t48322, t48323, t48325, t48327, t48328, t48329, t48330, t48332, t48333)
 }

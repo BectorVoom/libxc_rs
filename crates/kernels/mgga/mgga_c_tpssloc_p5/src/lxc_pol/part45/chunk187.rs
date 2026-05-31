@@ -9,17 +9,17 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part45_v4rho2sigma2_1_chunk187<F: Float>(t109: F, t107: F, t626: F, t106: F, t38: F, t606: F, t95: F, t103: F, t100: F, t92: F, t96: F, t64: F, tau0: F) -> (F, F, F, F, F, F, F, F, F) {
-    let t110 = F::new(1.0) < t109;
-    let t654 = t626 * t107 / F::new(3.0);
+    let t110 = F::cast_from(1.0_f64) < t109;
+    let t654 = t626 * t107 / F::cast_from(3.0_f64);
     let t655 = t106 * t106;
-    let t656 = F::new(1.0) / t655;
+    let t656 = F::cast_from(1.0_f64) / t655;
     let t657 = tau0 * t38;
-    let t659 = t606 / F::new(2.0);
+    let t659 = t606 / F::cast_from(2.0_f64);
     let t660 = t95 * t659;
     let t662 = -t659;
     let t663 = t103 * t662;
-    let t666 = F::new(5.0) / F::new(3.0) * t100 * t663 - F::new(5.0) / F::new(3.0) * t657 * t96 + F::new(5.0) / F::new(3.0) * t92 * t660;
+    let t666 = F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t100 * t663 - F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t657 * t96 + F::cast_from(5.0_f64) / F::cast_from(3.0_f64) * t92 * t660;
     let t667 = t656 * t666;
-    let t671 = piecewise3::<F>(t110, F::new(0.0), -t654 - t64 * t667 / F::new(8.0));
+    let t671 = piecewise3::<F>(t110, F::cast_from(0.0_f64), -t654 - t64 * t667 / F::cast_from(8.0_f64));
     (t655, t656, t657, t659, t660, t662, t666, t667, t671)
 }

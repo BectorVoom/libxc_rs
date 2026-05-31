@@ -16,9 +16,9 @@ pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk529<F: Float>(t161: F, t2491: F, 
     let t2618 = t161 * t2526;
     let t2619 = t755 * t2618;
     let t2621 = t159 * t64;
-    let t2622 = F::new(1.0) / t2621;
+    let t2622 = F::cast_from(1.0_f64) / t2621;
     let t2623 = t158 * t2622;
     let t2624 = t157 * t2623;
-    let t2626 = t2586 / F::new(8.0) - t2589 / F::new(4.0) - t2591 / F::new(2.0) + t2595 / F::new(4.0) + t2598 / F::new(2.0) - t2601 / F::new(8.0) + F::new(3.0) / F::new(4.0) * t2603 - t2606 / F::new(64.0) + t2608 / F::new(32.0) + t2610 / F::new(8.0) - t2613 / F::new(32.0) - t2616 / F::new(8.0) + t2619 / F::new(64.0) - F::new(5.0) / F::new(16.0) * t2624;
+    let t2626 = t2586 / F::cast_from(8.0_f64) - t2589 / F::cast_from(4.0_f64) - t2591 / F::cast_from(2.0_f64) + t2595 / F::cast_from(4.0_f64) + t2598 / F::cast_from(2.0_f64) - t2601 / F::cast_from(8.0_f64) + F::cast_from(3.0_f64) / F::cast_from(4.0_f64) * t2603 - t2606 / F::cast_from(64.0_f64) + t2608 / F::cast_from(32.0_f64) + t2610 / F::cast_from(8.0_f64) - t2613 / F::cast_from(32.0_f64) - t2616 / F::cast_from(8.0_f64) + t2619 / F::cast_from(64.0_f64) - F::cast_from(5.0_f64) / F::cast_from(16.0_f64) * t2624;
     (t2612, t2613, t2615, t2616, t2618, t2619, t2621, t2622, t2623, t2624, t2626)
 }

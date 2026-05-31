@@ -12,8 +12,8 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk348<F: Float>(t43: F,
     let t44 = t43 <= zeta_threshold;
     let t51 = t50 <= zeta_threshold;
     let t1099 = t1098 * t312;
-    let t1101 = piecewise3::<F>(t44, F::new(0.0), F::new(2.0) / F::new(3.0) * t964);
-    let t1103 = piecewise3::<F>(t51, F::new(0.0), F::new(2.0) / F::new(3.0) * t965);
-    let t1105 = t1101 / F::new(2.0) + t1103 / F::new(2.0);
+    let t1101 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t964);
+    let t1103 = piecewise3::<F>(t51, F::cast_from(0.0_f64), F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t965);
+    let t1105 = t1101 / F::cast_from(2.0_f64) + t1103 / F::cast_from(2.0_f64);
     (t1099, t1105)
 }

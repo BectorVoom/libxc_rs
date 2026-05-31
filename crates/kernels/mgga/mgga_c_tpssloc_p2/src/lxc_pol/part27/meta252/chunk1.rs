@@ -11,9 +11,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1225<F: Float>(t25: F, t1965: F, t40: F, t607: F, t6678: F, t6835: F, t28: F, t776: F, t868: F, t1081: F, t1877: F, t1915: F, t2522: F, t6666: F, t6670: F, dens_threshold: F, rho0: F, zeta_threshold: F) -> (F, F, F, F) {
     let t26 = t25 <= zeta_threshold;
     let t115 = rho0 <= dens_threshold || t26;
-    let t6840 = piecewise3::<F>(t115, t6678, t1965 * t607 / F::new(2.0) + t6835 * t40 / F::new(2.0));
+    let t6840 = piecewise3::<F>(t115, t6678, t1965 * t607 / F::cast_from(2.0_f64) + t6835 * t40 / F::cast_from(2.0_f64));
     let t6841 = t28 * t776;
     let t6848 = t28 * t868;
-    let t6855 = F::new(3.0) / F::new(2.0) * t2522 * t1915 * t6841 + t1877 * t6666 * t28 / F::new(2.0) - t1877 * t6670 * t6848 / F::new(2.0) + t1877 * t1915 * t1081 / F::new(2.0);
+    let t6855 = F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2522 * t1915 * t6841 + t1877 * t6666 * t28 / F::cast_from(2.0_f64) - t1877 * t6670 * t6848 / F::cast_from(2.0_f64) + t1877 * t1915 * t1081 / F::cast_from(2.0_f64);
     (t6840, t6841, t6848, t6855)
 }

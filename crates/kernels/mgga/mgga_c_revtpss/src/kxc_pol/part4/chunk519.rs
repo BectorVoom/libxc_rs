@@ -12,12 +12,12 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk519<F: Float>(t2258: F, t36: F
     let t2259 = t36 * t2258;
     let t2260 = t2259 * t70;
     let t2263 = t607 * t627;
-    let t2269 = F::new(1.0) / t41 / t362;
+    let t2269 = F::cast_from(1.0_f64) / t41 / t362;
     let t2270 = sigma0 * t2269;
-    let t2275 = F::new(1.0) / t47;
+    let t2275 = F::cast_from(1.0_f64) / t47;
     let t2276 = t2275 * t2251;
     let t2279 = t48 * t2258;
-    let t2282 = F::new(1.0) / t59;
+    let t2282 = F::cast_from(1.0_f64) / t59;
     let t2283 = t2282 * t2251;
     let t2286 = t60 * t2258;
     (t2259, t2260, t2263, t2270, t2275, t2276, t2279, t2282, t2283, t2286)

@@ -12,7 +12,7 @@ pub fn mgga_c_kcis_kxc_pol_part5_v3rho3_2_chunk1035<F: Float>(t1251: F, t15554: 
     let t15555 = t1251 * t15554;
     let t15573 = t25 * t287;
     let t15574 = t15573 * t5331;
-    let t15576 = t1251 * t15574 / F::new(144.0);
+    let t15576 = t1251 * t15574 / F::cast_from(144.0_f64);
     let t15602 = F::cast_from(0.15476481481481481481e-2_f64) * t13391;
     let t15607 = F::cast_from(0.15476481481481481481e-2_f64) * t13408;
     let t15632 = F::cast_from(0.23214722222222222222e-2_f64) * t14078;

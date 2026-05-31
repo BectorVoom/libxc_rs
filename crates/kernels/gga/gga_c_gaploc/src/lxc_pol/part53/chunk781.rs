@@ -12,7 +12,7 @@ pub fn gga_c_gaploc_lxc_pol_part53_v4rhosigma3_18_chunk781<F: Float>(t12385: F, 
     let pi = F::cast_from(M_PI);
     let t39626 = t2281 * t12385;
     let t39632 = t9105 * t4074 * pi * t1246 * t135 * t458;
-    let t39635 = F::new(1.0) / t1234 / t3096;
+    let t39635 = F::cast_from(1.0_f64) / t1234 / t3096;
     let t39636 = t1233 * t39635;
     let t39637 = t39636 * t18091;
     let t39642 = t18096 * t1233 * t39635 * t18089 * t92;

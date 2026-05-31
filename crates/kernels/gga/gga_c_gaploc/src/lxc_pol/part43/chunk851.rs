@@ -10,12 +10,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_gaploc_lxc_pol_part43_v4rhosigma3_8_chunk851<F: Float>(t10205: F, t871: F, t39624: F, t39626: F, t39632: F, t39646: F, t39648: F, t39650: F, t40353: F, t9078: F, t986: F, t544: F) -> (F, F, F, F, F, F, F, F, F, F) {
     let t42114 = t10205 * t871;
-    let t42117 = F::new(7.0) / F::new(512.0) * t39624;
-    let t42118 = F::new(63.0) / F::new(16384.0) * t39626;
-    let t42119 = F::new(63.0) / F::new(1048576.0) * t39632;
-    let t42120 = F::new(21.0) / F::new(1048576.0) * t39646;
-    let t42121 = F::new(21.0) / F::new(16384.0) * t39648;
-    let t42122 = F::new(7.0) / F::new(1536.0) * t39650;
+    let t42117 = F::cast_from(7.0_f64) / F::cast_from(512.0_f64) * t39624;
+    let t42118 = F::cast_from(63.0_f64) / F::cast_from(16384.0_f64) * t39626;
+    let t42119 = F::cast_from(63.0_f64) / F::cast_from(1048576.0_f64) * t39632;
+    let t42120 = F::cast_from(21.0_f64) / F::cast_from(1048576.0_f64) * t39646;
+    let t42121 = F::cast_from(21.0_f64) / F::cast_from(16384.0_f64) * t39648;
+    let t42122 = F::cast_from(7.0_f64) / F::cast_from(1536.0_f64) * t39650;
     let t42144 = F::cast_from(0.11502877786176224903e1_f64) * t40353;
     let t42148 = t9078 * t986;
     let t42149 = t544 * t42148;

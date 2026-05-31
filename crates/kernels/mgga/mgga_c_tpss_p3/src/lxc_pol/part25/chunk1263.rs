@@ -9,12 +9,12 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk1263<F: Float>(t114: F, t1338: F, t6399: F, t21027: F, t5909: F, t1799: F, t5314: F, t1830: F, t4674: F, t18690: F, t21011: F, t18622: F, t19588: F, t21185: F, t21187: F) -> (F, F, F, F, F, F) {
-    let t115 = F::new(1.0) < t114;
+    let t115 = F::cast_from(1.0_f64) < t114;
     let t21880 = t6399 * t1338;
     let t21883 = t5909 * t21027;
     let t21894 = t5314 * t1799;
     let t21897 = t1830 * t4674;
     let t21900 = t18690 * t21011;
-    let t21907 = piecewise3::<F>(t115, F::new(0.0), t18622 + F::new(4.0) / F::new(3.0) * t19588 + t21185 / F::new(2.0) - t21187 / F::new(4.0));
+    let t21907 = piecewise3::<F>(t115, F::cast_from(0.0_f64), t18622 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t19588 + t21185 / F::cast_from(2.0_f64) - t21187 / F::cast_from(4.0_f64));
     (t21880, t21883, t21894, t21897, t21900, t21907)
 }

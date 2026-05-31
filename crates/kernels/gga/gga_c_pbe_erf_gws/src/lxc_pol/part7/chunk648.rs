@@ -12,15 +12,15 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk648<F: Float>(t5058: F, t50
     let t5097 = t5058 + t5096;
     let t5098 = t650 * t5097;
     let t5099 = t186 * t5098;
-    let t5101 = F::new(2.0) / F::new(15.0) * t211 * t5099;
+    let t5101 = F::cast_from(2.0_f64) / F::cast_from(15.0_f64) * t211 * t5099;
     let t5102 = t1672 * t662;
     let t5103 = t211 * t5102;
-    let t5104 = F::new(4.0) / F::new(45.0) * t5103;
+    let t5104 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t5103;
     let t5105 = t582 * t1794;
     let t5106 = t211 * t5105;
-    let t5107 = F::new(8.0) / F::new(15.0) * t5106;
+    let t5107 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t5106;
     let t5108 = t648 * t648;
-    let t5109 = F::new(1.0) / t5108;
+    let t5109 = F::cast_from(1.0_f64) / t5108;
     let t5110 = t213 * t5109;
     let t5111 = t1793 * t661;
     (t5097, t5098, t5099, t5101, t5102, t5104, t5105, t5107, t5108, t5109, t5110, t5111)

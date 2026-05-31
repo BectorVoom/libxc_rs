@@ -13,7 +13,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part57_v4rho2sigma2_13_chunk842<F: Float>(t6547: F
     let t31350 = F::cast_from(0.19190897446562641759e-1_f64) * t31349;
     let t31353 = F::cast_from(0.11304371706359309439e-1_f64) * t30697;
     let t31355 = F::cast_from(0.26915170729426927235e-3_f64) * t30704;
-    let t31359 = F::new(7.0) / F::new(1152.0) * t30721;
+    let t31359 = F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t30721;
     let t31366 = t214 * t2047;
     (t31350, t31353, t31355, t31359, t31366)
 }

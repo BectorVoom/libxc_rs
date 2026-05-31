@@ -10,10 +10,10 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1005<F: Float>(t22120: F, t587: F, t601: F, t6405: F, t2204: F, t2229: F, t1846: F, t1863: F, t6427: F, t2040: F, t8: F, t108: F, t117: F, t56: F) -> (F, F, F, F, F, F) {
     let t22124 = F::cast_from(0.1403573615389248977e2_f64) * t601 * t6405 * t22120 * t587;
-    let t22126 = F::new(70.0) / F::new(3.0) * t2229 * t2204;
-    let t22148 = F::new(1.0) / t1863 / t1846;
+    let t22126 = F::cast_from(70.0_f64) / F::cast_from(3.0_f64) * t2229 * t2204;
+    let t22148 = F::cast_from(1.0_f64) / t1863 / t1846;
     let t22152 = F::cast_from(0.12304676425209353917e5_f64) * t601 * t22148 * t22120 * t6427;
-    let t22154 = F::new(1.0) / t8 / t2040;
-    let t22158 = F::new(455.0) / F::new(243.0) * t108 * t22154 * t56 * t117;
+    let t22154 = F::cast_from(1.0_f64) / t8 / t2040;
+    let t22158 = F::cast_from(455.0_f64) / F::cast_from(243.0_f64) * t108 * t22154 * t56 * t117;
     (t22124, t22126, t22148, t22152, t22154, t22158)
 }

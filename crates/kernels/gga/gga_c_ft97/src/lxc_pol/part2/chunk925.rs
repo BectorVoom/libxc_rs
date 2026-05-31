@@ -10,10 +10,10 @@ use libxc_kernel_math::powers::{pow_1_3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn gga_c_ft97_lxc_pol_part2_v3rho3_1_chunk925<F: Float>(t13780: F, t13794: F, t13809: F, t13811: F, t13759: F, t13775: F, t13778: F, t13783: F, t13786: F, t13789: F, t13792: F, t13798: F, t13801: F, t13804: F, t13807: F, t13814: F, t13817: F, t13820: F, t13823: F, t9699: F) -> F {
-    let t14336 = t13780 / F::new(27.0);
-    let t14341 = F::new(2.0) / F::new(81.0) * t13794;
-    let t14346 = t13809 / F::new(27.0);
-    let t14347 = F::new(2.0) / F::new(27.0) * t13811;
-    let t14352 = -F::new(2.0) / F::new(9.0) * t13759 + t13775 / F::new(18.0) + t13778 / F::new(27.0) - t14336 + t13783 / F::new(9.0) - F::new(2.0) / F::new(9.0) * t13786 + t13789 / F::new(9.0) - F::new(4.0) / F::new(9.0) * t13792 + t14341 - t13798 / F::new(27.0) - F::new(5.0) / F::new(81.0) * t13801 + F::new(4.0) / F::new(27.0) * t13804 + t13807 / F::new(18.0) - t14346 - t9699 - t14347 - t13814 / F::new(9.0) - t13817 / F::new(3.0) + F::new(2.0) / F::new(9.0) * t13820 - t13823 / F::new(9.0);
+    let t14336 = t13780 / F::cast_from(27.0_f64);
+    let t14341 = F::cast_from(2.0_f64) / F::cast_from(81.0_f64) * t13794;
+    let t14346 = t13809 / F::cast_from(27.0_f64);
+    let t14347 = F::cast_from(2.0_f64) / F::cast_from(27.0_f64) * t13811;
+    let t14352 = -F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t13759 + t13775 / F::cast_from(18.0_f64) + t13778 / F::cast_from(27.0_f64) - t14336 + t13783 / F::cast_from(9.0_f64) - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t13786 + t13789 / F::cast_from(9.0_f64) - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t13792 + t14341 - t13798 / F::cast_from(27.0_f64) - F::cast_from(5.0_f64) / F::cast_from(81.0_f64) * t13801 + F::cast_from(4.0_f64) / F::cast_from(27.0_f64) * t13804 + t13807 / F::cast_from(18.0_f64) - t14346 - t9699 - t14347 - t13814 / F::cast_from(9.0_f64) - t13817 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t13820 - t13823 / F::cast_from(9.0_f64);
     t14352
 }

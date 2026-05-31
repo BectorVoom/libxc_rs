@@ -13,6 +13,6 @@ pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk829<F: Float>(t10626: F,
     let t10631 = t853 * t775;
     let t10632 = t10631 * t2430;
     let t10635 = t832 * t10489;
-    let t10638 = -t10618 * t229 + F::new(60.0) * t10628 * t227 - F::new(36.0) * t10632 * t4415 + F::new(3.0) * t10635 * t227 + F::new(9.0) * t2634 * t833 - F::new(36.0) * t2639 * t830 + F::new(9.0) * t2642 * t830;
+    let t10638 = -t10618 * t229 + F::cast_from(60.0_f64) * t10628 * t227 - F::cast_from(36.0_f64) * t10632 * t4415 + F::cast_from(3.0_f64) * t10635 * t227 + F::cast_from(9.0_f64) * t2634 * t833 - F::cast_from(36.0_f64) * t2639 * t830 + F::cast_from(9.0_f64) * t2642 * t830;
     (t10631, t10638)
 }

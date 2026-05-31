@@ -15,7 +15,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part11_v4rho4_4_chunk133<F: Float>(t43: F, t50:
     let t314 = t45 * t45;
     let t315 = piecewise3::<F>(t44, t314, t92);
     let t316 = piecewise3::<F>(t51, t314, t93);
-    let t318 = t315 / F::new(2.0) + t316 / F::new(2.0);
+    let t318 = t315 / F::cast_from(2.0_f64) + t316 / F::cast_from(2.0_f64);
     let t319 = t318 * t318;
     (t313, t318, t319)
 }

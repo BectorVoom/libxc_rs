@@ -18,7 +18,7 @@ pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk54<F: Float>(t44: F, t51:
     let t140 = piecewise3::<F>(t45, t138, t139);
     let t141 = t101 * t51;
     let t142 = piecewise3::<F>(t52, t138, t141);
-    let t144 = t140 / F::new(2.0) + t142 / F::new(2.0);
+    let t144 = t140 / F::cast_from(2.0_f64) + t142 / F::cast_from(2.0_f64);
     let t146 = t108 / t144;
     (t134, t135, t139, t141, t144, t146)
 }

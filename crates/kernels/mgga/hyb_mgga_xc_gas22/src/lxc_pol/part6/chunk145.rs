@@ -12,8 +12,8 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk145<F: Float>(t439: F, t14: F, t237: F, t240: F, t442: F) -> (F, F, F, F, F) {
     let t445 = pow_3_2::<F>(t439);
     let t448 = t237 * t14 * t240;
-    let t450 = F::new(0.379785e1) * t442 + F::new(0.8969e0) * t439 + F::new(0.204775e0) * t445 + F::new(0.123235e0) * t448;
-    let t453 = F::new(1.0) + F::cast_from(0.16081979498692535067e2_f64) / t450;
+    let t450 = F::cast_from(0.379785e1_f64) * t442 + F::cast_from(0.8969e0_f64) * t439 + F::cast_from(0.204775e0_f64) * t445 + F::cast_from(0.123235e0_f64) * t448;
+    let t453 = F::cast_from(1.0_f64) + F::cast_from(0.16081979498692535067e2_f64) / t450;
     let t454 = F::ln(t453);
     (t445, t448, t450, t453, t454)
 }

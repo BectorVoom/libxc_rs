@@ -11,15 +11,15 @@ use libxc_kernel_math::piecewise::{piecewise3};
 pub fn lda_c_pmgb06_lxc_pol_part3_v4rho4_1_chunk503<F: Float>(t2088: F, t518: F, t166: F, t161: F, t517: F, t842: F, t529: F, t486: F, t853: F, t1639: F, t851: F, t531: F, t831: F) -> (F, F, F, F, F, F, F, F, F, F, F, F) {
     let t2089 = t518 * t2088;
     let t2090 = t166 * t2089;
-    let t2092 = t161 * t2090 / F::new(30.0);
+    let t2092 = t161 * t2090 / F::cast_from(30.0_f64);
     let t2093 = t842 * t517;
     let t2094 = t2093 * t529;
     let t2095 = t166 * t2094;
-    let t2097 = t161 * t2095 / F::new(30.0);
-    let t2099 = t486 * t853 / F::new(30.0);
+    let t2097 = t161 * t2095 / F::cast_from(30.0_f64);
+    let t2099 = t486 * t853 / F::cast_from(30.0_f64);
     let t2100 = t1639 * t851;
     let t2101 = t166 * t2100;
-    let t2103 = t161 * t2101 / F::new(30.0);
-    let t2105 = t831 * t531 / F::new(30.0);
+    let t2103 = t161 * t2101 / F::cast_from(30.0_f64);
+    let t2105 = t831 * t531 / F::cast_from(30.0_f64);
     (t2089, t2090, t2092, t2093, t2094, t2095, t2097, t2099, t2100, t2101, t2103, t2105)
 }

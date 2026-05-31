@@ -12,9 +12,9 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk268<F: Float>(t7: F, t220: F, t291: F, t771: F, t861: F, t295: F, t313: F, t321: F, t303: F, t120: F, t306: F, t122: F, t309: F, dens_threshold: F, rho0: F, tau0: F, zeta_threshold: F) -> (F, F, F, F, F, F) {
     let t8 = t7 <= zeta_threshold;
     let t9 = rho0 <= dens_threshold || t8;
-    let t865 = piecewise3::<F>(t9, F::new(0.0), t220 * t861 / F::new(2.0) + t771 * t291 / F::new(2.0));
+    let t865 = piecewise3::<F>(t9, F::cast_from(0.0_f64), t220 * t861 / F::cast_from(2.0_f64) + t771 * t291 / F::cast_from(2.0_f64));
     let t870 = t295 * t313;
-    let t871 = F::new(1.0) / t321;
+    let t871 = F::cast_from(1.0_f64) / t321;
     let t875 = t303 * tau0;
     let t880 = t306 * t120;
     let t883 = t309 * t122;

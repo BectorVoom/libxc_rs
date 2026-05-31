@@ -18,10 +18,10 @@ pub fn mgga_c_revtpss_lxc_pol_part52_v4rho2sigma2_7_chunk813<F: Float>(t30: F, t
     let t8660 = t30 * t1962;
     let t8665 = t207 * t8656;
     let t8670 = -t1940 * t1962 * t7432 + t198 * t8665 * t892;
-    let t8671 = piecewise3::<F>(t394, F::new(0.0), t8670);
-    let t8674 = piecewise3::<F>(t120, t1940 * t8657 * t30 / F::new(2.0) - t1940 * t7432 * t8660 / F::new(2.0), t8671 * t45 / F::new(2.0));
+    let t8671 = piecewise3::<F>(t394, F::cast_from(0.0_f64), t8670);
+    let t8674 = piecewise3::<F>(t120, t1940 * t8657 * t30 / F::cast_from(2.0_f64) - t1940 * t7432 * t8660 / F::cast_from(2.0_f64), t8671 * t45 / F::cast_from(2.0_f64));
     let t8677 = t33 * t1962;
-    let t8682 = piecewise3::<F>(t503, F::new(0.0), t8670);
-    let t8685 = piecewise3::<F>(t400, t1940 * t8657 * t33 / F::new(2.0) - t1940 * t7432 * t8677 / F::new(2.0), t8682 * t57 / F::new(2.0));
+    let t8682 = piecewise3::<F>(t503, F::cast_from(0.0_f64), t8670);
+    let t8685 = piecewise3::<F>(t400, t1940 * t8657 * t33 / F::cast_from(2.0_f64) - t1940 * t7432 * t8677 / F::cast_from(2.0_f64), t8682 * t57 / F::cast_from(2.0_f64));
     (t8660, t8665, t8671, t8674, t8677, t8682, t8685)
 }

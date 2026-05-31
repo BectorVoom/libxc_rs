@@ -18,6 +18,6 @@ pub fn mgga_c_rmggac_lxc_pol_part13_v4rho3sigma_4_chunk62<F: Float>(t53: F, t60:
     let t190 = piecewise3::<F>(t54, t188, t189);
     let t191 = t62 * t62;
     let t192 = piecewise3::<F>(t61, t188, t191);
-    let t194 = t190 / F::new(2.0) + t192 / F::new(2.0);
+    let t194 = t190 / F::cast_from(2.0_f64) + t192 / F::cast_from(2.0_f64);
     (t185, t187, t189, t191, t194)
 }

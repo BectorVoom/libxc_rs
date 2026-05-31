@@ -13,7 +13,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk2084<F: Float>(t22643: F
     let t91620 = t532 * t26502;
     let t91655 = t7684 * t22573;
     let t91686 = t2018 * t40611;
-    let t92121 = F::new(22.0) / F::new(9.0) * t86586;
+    let t92121 = F::cast_from(22.0_f64) / F::cast_from(9.0_f64) * t86586;
     let t92383 = F::cast_from(0.10417915756705434098e0_f64) * t86870;
     let t92402 = F::cast_from(0.52089578783527170489e-1_f64) * t86911;
     (t91548, t91620, t91655, t91686, t92121, t92383, t92402)

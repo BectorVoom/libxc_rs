@@ -12,6 +12,6 @@ pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk674<F: Float>(t3113: F, t378: F, 
     let t3114 = t3113 * t378;
     let t3116 = t1201 * t881;
     let t3121 = t1209 * t889;
-    let t3135 = -F::new(0.1294625e1) * t3042 + F::new(0.258925e1) * t3047 + t2303 - F::new(0.301925e0) * t2175 - F::new(0.301925e0) * t3017 + F::new(0.905775e0) * t3028 + F::new(0.82524375e-1) * t3053 + F::new(0.16504875e0) * t3055 + t2308 - F::new(0.16557e0) * t2224 - F::new(0.16557e0) * t3059 + F::new(0.248355e0) * t3063 + F::new(0.248355e0) * t3067;
+    let t3135 = -F::cast_from(0.1294625e1_f64) * t3042 + F::cast_from(0.258925e1_f64) * t3047 + t2303 - F::cast_from(0.301925e0_f64) * t2175 - F::cast_from(0.301925e0_f64) * t3017 + F::cast_from(0.905775e0_f64) * t3028 + F::cast_from(0.82524375e-1_f64) * t3053 + F::cast_from(0.16504875e0_f64) * t3055 + t2308 - F::cast_from(0.16557e0_f64) * t2224 - F::cast_from(0.16557e0_f64) * t3059 + F::cast_from(0.248355e0_f64) * t3063 + F::cast_from(0.248355e0_f64) * t3067;
     (t3114, t3116, t3121, t3135)
 }

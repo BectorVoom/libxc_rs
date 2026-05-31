@@ -12,8 +12,8 @@ pub fn mgga_c_r2scan_lxc_pol_part13_v4rho3sigma_3_chunk36<F: Float>(t41: F, t89:
     let pi = F::cast_from(M_PI);
     let t90 = t41 * t89;
     let t92 = F::cast_from(0.19751673498613801407e-1_f64) * t61 * t86;
-    let t93 = F::ln(F::new(2.0));
-    let t94 = F::new(1.0) - t93;
+    let t93 = F::ln(F::cast_from(2.0_f64));
+    let t94 = F::cast_from(1.0_f64) - t93;
     let t95 = pi * pi;
     (t90, t92, t94, t95)
 }

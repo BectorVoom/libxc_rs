@@ -12,7 +12,7 @@ pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk46<F: Float>(t30: F, dens_thre
     let pi = F::cast_from(M_PI);
     let t31 = t30 <= zeta_threshold;
     let t120 = rho0 <= dens_threshold || t31;
-    let t121 = F::new(1.0) / pi;
+    let t121 = F::cast_from(1.0_f64) / pi;
     let t122 = pow_1_3::<F>(t121);
     (t121, t122)
 }

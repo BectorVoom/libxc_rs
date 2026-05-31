@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part17_v4rho3sigma_5_chunk1312<F: Float>(t51306: F, t9500: F, t54183: F, t54186: F, t54188: F, t54190: F, t54192: F, t54194: F, t54196: F, t54199: F, t54201: F, t54203: F, t54205: F, t54207: F) -> F {
     let t54209 = t51306 * t9500;
-    let t54211 = t54183 / F::new(96.0) + t54186 / F::new(48.0) + t54188 / F::new(24.0) + t54190 / F::new(96.0) + t54192 / F::new(128.0) + t54194 / F::new(128.0) - t54196 / F::new(32.0) - t54199 + t54201 / F::new(96.0) - t54203 / F::new(48.0) - t54205 / F::new(96.0) - t54207 / F::new(48.0) + t54209 / F::new(48.0);
+    let t54211 = t54183 / F::cast_from(96.0_f64) + t54186 / F::cast_from(48.0_f64) + t54188 / F::cast_from(24.0_f64) + t54190 / F::cast_from(96.0_f64) + t54192 / F::cast_from(128.0_f64) + t54194 / F::cast_from(128.0_f64) - t54196 / F::cast_from(32.0_f64) - t54199 + t54201 / F::cast_from(96.0_f64) - t54203 / F::cast_from(48.0_f64) - t54205 / F::cast_from(96.0_f64) - t54207 / F::cast_from(48.0_f64) + t54209 / F::cast_from(48.0_f64);
     t54211
 }

@@ -10,6 +10,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk909<F: Float>(t2039: F, t8103: F, t2096: F, t33605: F, t33611: F, t33615: F, t33619: F, t33622: F, t33624: F, t33746: F, t4028: F, t652: F, t7266: F, t7458: F, t7802: F, t7806: F, t7904: F, t7941: F, t8690: F, t8835: F) -> (F, F) {
     let t34170 = t8103 * t2039;
-    let t34173 = t2096 * t33746 - F::new(2.0) * t34170 * t652 - F::new(2.0) * t4028 * t8835 - F::new(2.0) * t7266 * t7802 - F::new(2.0) * t7266 * t7806 - F::new(2.0) * t7458 * t8835 + F::new(3.0) * t7904 * t8690 + t7941 * t8690 + t33605 - t33611 + t33615 - t33619 - t33622 - t33624;
+    let t34173 = t2096 * t33746 - F::cast_from(2.0_f64) * t34170 * t652 - F::cast_from(2.0_f64) * t4028 * t8835 - F::cast_from(2.0_f64) * t7266 * t7802 - F::cast_from(2.0_f64) * t7266 * t7806 - F::cast_from(2.0_f64) * t7458 * t8835 + F::cast_from(3.0_f64) * t7904 * t8690 + t7941 * t8690 + t33605 - t33611 + t33615 - t33619 - t33622 - t33624;
     (t34170, t34173)
 }

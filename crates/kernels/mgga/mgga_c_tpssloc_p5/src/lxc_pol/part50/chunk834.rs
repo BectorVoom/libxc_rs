@@ -12,6 +12,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk834<F: Float>(t533: F, 
     let t8493 = t533 * t8492;
     let t8494 = t8493 * t3701;
     let t8495 = t1983 * t8494;
-    let t8496 = -t113 * t8439 - F::new(2.0) * t1869 * t1976 - t510 * t8313 + t574 * t8447 - F::new(4.0) * t8315 - t8322 - F::new(4.0) * t8324 - t8329 + F::new(2.0) * t8451 + t8491 - t8495;
+    let t8496 = -t113 * t8439 - F::cast_from(2.0_f64) * t1869 * t1976 - t510 * t8313 + t574 * t8447 - F::cast_from(4.0_f64) * t8315 - t8322 - F::cast_from(4.0_f64) * t8324 - t8329 + F::cast_from(2.0_f64) * t8451 + t8491 - t8495;
     (t8493, t8494, t8496)
 }

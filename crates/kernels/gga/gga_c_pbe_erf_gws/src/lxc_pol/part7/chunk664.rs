@@ -10,16 +10,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk664<F: Float>(t5284: F, t587: F, t4360: F, t591: F, t590: F, t1764: F, t187: F, t22: F, t197: F, t4951: F, t4352: F, t1802: F, t1804: F) -> (F, F, F, F, F, F, F, F, F, F, F) {
     let t5285 = t587 * t5284;
-    let t5286 = F::new(8.0) / F::new(27.0) * t5285;
+    let t5286 = F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t5285;
     let t5287 = t591 * t4360;
     let t5288 = t590 * t5287;
-    let t5290 = F::new(4.0) / F::new(45.0) * t587 * t5288;
-    let t5292 = F::new(1.0) / t187 / t1764;
+    let t5290 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t587 * t5288;
+    let t5292 = F::cast_from(1.0_f64) / t187 / t1764;
     let t5293 = t22 * t5292;
     let t5294 = t197 * t4951;
     let t5295 = t5294 * t4352;
     let t5296 = t5293 * t5295;
-    let t5298 = F::new(32.0) / F::new(81.0) * t587 * t5296;
+    let t5298 = F::cast_from(32.0_f64) / F::cast_from(81.0_f64) * t587 * t5296;
     let t5299 = t1802 * t1804;
     (t5286, t5287, t5288, t5290, t5292, t5293, t5294, t5295, t5296, t5298, t5299)
 }

@@ -9,12 +9,12 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1134<F: Float>(t20613: F, t1447: F, t7674: F, t2485: F, t5187: F, t2002: F, t6250: F, t1420: F, t7574: F, t20601: F, t20602: F, t20603: F, t20604: F, t20608: F, t20610: F, t20612: F) -> (F, F, F, F, F, F) {
-    let t20614 = F::new(2.0) / F::new(45.0) * t20613;
+    let t20614 = F::cast_from(2.0_f64) / F::cast_from(45.0_f64) * t20613;
     let t20615 = t1447 * t7674;
-    let t20616 = F::new(2.0) / F::new(45.0) * t20615;
-    let t20618 = t5187 * t2485 / F::new(9.0);
-    let t20620 = t2002 * t6250 / F::new(9.0);
-    let t20622 = t1420 * t7574 / F::new(15.0);
+    let t20616 = F::cast_from(2.0_f64) / F::cast_from(45.0_f64) * t20615;
+    let t20618 = t5187 * t2485 / F::cast_from(9.0_f64);
+    let t20620 = t2002 * t6250 / F::cast_from(9.0_f64);
+    let t20622 = t1420 * t7574 / F::cast_from(15.0_f64);
     let t20623 = -t20601 - t20602 - t20603 + t20604 - t20608 + t20610 + t20612 + t20614 + t20616 + t20618 + t20620 + t20622;
     (t20614, t20616, t20618, t20620, t20622, t20623)
 }

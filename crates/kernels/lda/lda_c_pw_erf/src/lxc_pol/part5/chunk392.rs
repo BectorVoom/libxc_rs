@@ -12,12 +12,12 @@ pub fn lda_c_pw_erf_lxc_pol_part5_v4rho4_3_chunk392<F: Float>(t43: F, t1775: F, 
     let t44 = t43 <= zeta_threshold;
     let t1776 = t40 * t1775;
     let t1777 = t339 * t749;
-    let t1778 = F::new(4.0) * t1777;
+    let t1778 = F::cast_from(4.0_f64) * t1777;
     let t1779 = t344 * t749;
-    let t1780 = F::new(4.0) * t1779;
+    let t1780 = F::cast_from(4.0_f64) * t1779;
     let t1781 = t939 * t739;
     let t1784 = t47 * t34;
-    let t1788 = piecewise3::<F>(t44, F::new(0.0), F::new(4.0) / F::new(9.0) * t1781 * t348 + F::new(8.0) / F::new(3.0) * t1784 * t462);
+    let t1788 = piecewise3::<F>(t44, F::cast_from(0.0_f64), F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1781 * t348 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t1784 * t462);
     let t1789 = t950 * t743;
     (t1776, t1777, t1778, t1779, t1780, t1781, t1788, t1789)
 }

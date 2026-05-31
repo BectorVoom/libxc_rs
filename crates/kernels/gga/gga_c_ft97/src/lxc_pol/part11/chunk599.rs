@@ -14,6 +14,6 @@ pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk599<F: Float>(t2: F, t8326: F, t7
     let t8328 = t8327 * t7794;
     let t8331 = t1775 * t1788;
     let t8333 = t1775 * t1793;
-    let t8335 = -t8301 - F::new(4.0) / F::new(3.0) * t8302 - t92 * t8305 - F::new(2.0) * t462 * t8308 + F::new(2.0) * t462 * t8311 + F::new(4.0) / F::new(3.0) * t462 * t8316 - F::new(2.0) / F::new(3.0) * t462 * t8319 + t462 * t8322 + t462 * t8324 + F::new(2.0) / F::new(3.0) * t462 * t8328 - F::new(2.0) / F::new(3.0) * t8331 - F::new(2.0) / F::new(3.0) * t8333;
+    let t8335 = -t8301 - F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t8302 - t92 * t8305 - F::cast_from(2.0_f64) * t462 * t8308 + F::cast_from(2.0_f64) * t462 * t8311 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t462 * t8316 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t8319 + t462 * t8322 + t462 * t8324 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t462 * t8328 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8331 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t8333;
     (t8327, t8328, t8335)
 }

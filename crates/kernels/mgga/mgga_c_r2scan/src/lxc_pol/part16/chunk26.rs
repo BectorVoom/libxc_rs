@@ -13,7 +13,7 @@ pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk26<F: Float>(t51: F, t53:
     let t52 = t51 <= zeta_threshold;
     let t54 = t53 * t51;
     let t55 = piecewise3::<F>(t52, t47, t54);
-    let t56 = t50 + t55 - F::new(2.0);
+    let t56 = t50 + t55 - F::cast_from(2.0_f64);
     let t57 = cbrt2;
     (t54, t56, t57)
 }

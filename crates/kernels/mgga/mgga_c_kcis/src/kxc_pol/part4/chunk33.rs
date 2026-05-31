@@ -9,16 +9,16 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk33<F: Float>(t60: F, t6: F, t69: F, t63: F, t66: F, t21: F, t2: F) -> (F, F, F, F, F, F) {
-    let t70 = F::new(0.0) < t60;
+    let t70 = F::cast_from(0.0_f64) < t60;
     let t72 = piecewise3::<F>(t70, t60, -t60);
-    let t73 = F::new(1.0) / t72;
+    let t73 = F::cast_from(1.0_f64) / t72;
     let t74 = t6 * t73;
     let t75 = t69 * t74;
-    let t78 = F::new(1.0) + t63 * t66 * t75 / F::new(96.0);
+    let t78 = F::cast_from(1.0_f64) + t63 * t66 * t75 / F::cast_from(96.0_f64);
     let t79 = F::ln(t78);
-    let t81 = F::new(1.0) + F::new(0.66725e-1) * t79;
-    let t82 = F::new(1.0) / t81;
-    let t84 = F::new(1.0) / t21;
+    let t81 = F::cast_from(1.0_f64) + F::cast_from(0.66725e-1_f64) * t79;
+    let t82 = F::cast_from(1.0_f64) / t81;
+    let t84 = F::cast_from(1.0_f64) / t21;
     let t85 = t2 * t84;
     (t72, t75, t78, t81, t82, t85)
 }

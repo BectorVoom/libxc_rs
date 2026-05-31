@@ -16,6 +16,6 @@ pub fn gga_c_acggap_lxc_pol_part11_v4rho3sigma_3_chunk565<F: Float>(t43: F, t399
     let t3996 = t2861 * t474;
     let t3999 = t886 * t34;
     let t4000 = t821 * t234;
-    let t4010 = piecewise3::<F>(t44, F::new(0.0), -F::new(8.0) / F::new(27.0) * t3996 * t818 + F::new(16.0) / F::new(9.0) * t3999 * t4000 + F::new(4.0) / F::new(9.0) * t1361 * t824 + F::new(8.0) / F::new(3.0) * t47 * t821 - F::new(8.0) * t1364 * t39);
+    let t4010 = piecewise3::<F>(t44, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t3996 * t818 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t3999 * t4000 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t1361 * t824 + F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t47 * t821 - F::cast_from(8.0_f64) * t1364 * t39);
     (t3994, t3995, t4000, t4010)
 }

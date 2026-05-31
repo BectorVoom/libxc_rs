@@ -16,6 +16,6 @@ pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk34<F: Float>(t43: F, t50: 
     let t99 = piecewise3::<F>(t44, t97, t98);
     let t100 = t52 * t52;
     let t101 = piecewise3::<F>(t51, t97, t100);
-    let t103 = t99 / F::new(2.0) + t101 / F::new(2.0);
+    let t103 = t99 / F::cast_from(2.0_f64) + t101 / F::cast_from(2.0_f64);
     (t98, t100, t103)
 }

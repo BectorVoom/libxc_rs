@@ -10,14 +10,14 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 #[cube]
 pub fn gga_c_pbe_erf_gws_lxc_pol_part7_v4rho4_0_chunk670<F: Float>(t5346: F, t561: F, t1680: F, t583: F, t1781: F, t631: F, t184: F, t221: F, t1778: F, t633: F, t198: F, t2735: F) -> (F, F, F, F, F, F, F) {
     let t5347 = t561 * t5346;
-    let t5348 = F::new(8.0) / F::new(15.0) * t5347;
+    let t5348 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t5347;
     let t5349 = t1680 * t583;
-    let t5350 = F::new(8.0) / F::new(15.0) * t5349;
+    let t5350 = F::cast_from(8.0_f64) / F::cast_from(15.0_f64) * t5349;
     let t5351 = t1781 * t631;
     let t5352 = t5351 * t184;
-    let t5354 = F::new(4.0) / F::new(5.0) * t5352 * t221;
+    let t5354 = F::cast_from(4.0_f64) / F::cast_from(5.0_f64) * t5352 * t221;
     let t5355 = t633 * t1778;
-    let t5356 = F::new(4.0) / F::new(45.0) * t5355;
+    let t5356 = F::cast_from(4.0_f64) / F::cast_from(45.0_f64) * t5355;
     let t5357 = t2735 * t198;
     (t5348, t5350, t5351, t5352, t5354, t5356, t5357)
 }

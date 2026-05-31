@@ -13,7 +13,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part19_v4rho4_0_chunk1121<F: Float>(t28: F, t3673:
     let t39437 = t3673 * t3673;
     let t39443 = t3231 * t3231;
     let t39448 = -t39109;
-    let t39452 = piecewise3::<F>(t29, F::new(0.0), F::new(40.0) / F::new(81.0) * t39436 * t39437 - F::new(16.0) / F::new(9.0) * t12072 * t3673 * t3231 + F::new(4.0) / F::new(3.0) * t3672 * t39443 + F::new(16.0) / F::new(9.0) * t12075 * t11122 + F::new(4.0) / F::new(3.0) * t517 * t39448);
+    let t39452 = piecewise3::<F>(t29, F::cast_from(0.0_f64), F::cast_from(40.0_f64) / F::cast_from(81.0_f64) * t39436 * t39437 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t12072 * t3673 * t3231 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t3672 * t39443 + F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t12075 * t11122 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t517 * t39448);
     let t39454 = (t39434 + t39452) * t157;
     let t39456 = F::cast_from(0.19751673498613801407e-1_f64) * t39454 * t182;
     (t39437, t39443, t39448, t39454, t39456)

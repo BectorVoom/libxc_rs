@@ -11,7 +11,7 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part21_v4rho2sigma2_4_chunk871<F: Float>(t1628: F, t3060: F, t1589: F, t2963: F, t7088: F, t7090: F, t7093: F, t7096: F, t7098: F, t7100: F, t1020: F, t2919: F, t471: F, t64: F, t90: F) -> (F, F, F) {
     let t8693 = t1628 * t3060;
     let t8696 = t1589 * t2963;
-    let t8710 = F::new(189.0) / F::new(256.0) * t7088 - F::new(483.0) / F::new(8192.0) * t7090 + F::new(147.0) / F::new(524288.0) * t7093 - F::new(49.0) / F::new(524288.0) * t7096 + F::new(161.0) / F::new(8192.0) * t7098 - F::new(63.0) / F::new(256.0) * t7100;
-    let t8720 = t8710 * t471 - F::new(8.0) / F::new(3.0) * t2919 * t64 + F::new(4.0) / F::new(3.0) * t1020 * t90 + F::new(63.0) / F::new(256.0) * t7088 - F::new(49.0) / F::new(8192.0) * t7090 + F::new(49.0) / F::new(24576.0) * t7098 - F::new(21.0) / F::new(256.0) * t7100;
+    let t8710 = F::cast_from(189.0_f64) / F::cast_from(256.0_f64) * t7088 - F::cast_from(483.0_f64) / F::cast_from(8192.0_f64) * t7090 + F::cast_from(147.0_f64) / F::cast_from(524288.0_f64) * t7093 - F::cast_from(49.0_f64) / F::cast_from(524288.0_f64) * t7096 + F::cast_from(161.0_f64) / F::cast_from(8192.0_f64) * t7098 - F::cast_from(63.0_f64) / F::cast_from(256.0_f64) * t7100;
+    let t8720 = t8710 * t471 - F::cast_from(8.0_f64) / F::cast_from(3.0_f64) * t2919 * t64 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t1020 * t90 + F::cast_from(63.0_f64) / F::cast_from(256.0_f64) * t7088 - F::cast_from(49.0_f64) / F::cast_from(8192.0_f64) * t7090 + F::cast_from(49.0_f64) / F::cast_from(24576.0_f64) * t7098 - F::cast_from(21.0_f64) / F::cast_from(256.0_f64) * t7100;
     (t8693, t8696, t8720)
 }

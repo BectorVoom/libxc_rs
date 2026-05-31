@@ -12,7 +12,7 @@ pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1150<F: Float>(t560: F, t9
     let t36577 = t560 * t922;
     let t36611 = t560 * t811;
     let t36647 = t560 * t839;
-    let t36684 = F::new(6.0) * t694 * t9114;
-    let t36685 = -F::new(6.0) * t10761 * t7297 * t9089 - t15026 * t567 * t643 - t1680 * t567 * t8356 - F::new(2.0) * t2249 * t5399 * t567 + F::new(3.0) * t2254 * t33335 * t567 + F::new(4.0) * t24605 * t9096 * t9460 + F::new(6.0) * t24623 * t7297 * t9460 + F::new(12.0) * t4818 * t8034 * t8372 + F::new(6.0) * t4822 * t8034 * t8372 + F::new(2.0) * t32257 + F::new(6.0) * t32264 - t36684;
+    let t36684 = F::cast_from(6.0_f64) * t694 * t9114;
+    let t36685 = -F::cast_from(6.0_f64) * t10761 * t7297 * t9089 - t15026 * t567 * t643 - t1680 * t567 * t8356 - F::cast_from(2.0_f64) * t2249 * t5399 * t567 + F::cast_from(3.0_f64) * t2254 * t33335 * t567 + F::cast_from(4.0_f64) * t24605 * t9096 * t9460 + F::cast_from(6.0_f64) * t24623 * t7297 * t9460 + F::cast_from(12.0_f64) * t4818 * t8034 * t8372 + F::cast_from(6.0_f64) * t4822 * t8034 * t8372 + F::cast_from(2.0_f64) * t32257 + F::cast_from(6.0_f64) * t32264 - t36684;
     (t36577, t36611, t36647, t36685)
 }

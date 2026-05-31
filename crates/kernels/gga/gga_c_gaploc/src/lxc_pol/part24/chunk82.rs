@@ -11,11 +11,11 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_gaploc_lxc_pol_part24_v4rho2sigma2_7_chunk82<F: Float>(t218: F, t220: F, t36: F, t217: F, t43: F, t40: F, zeta_threshold: F) -> (F, F) {
     let t219 = t218 <= zeta_threshold;
     let t222 = piecewise3::<F>(t219, t36, t220 * t218);
-    let t224 = (t217 + t222 - F::new(2.0)) * t43;
-    let t225 = F::new(2.0) <= zeta_threshold;
-    let t227 = piecewise3::<F>(t225, t36, F::new(2.0) * t40);
-    let t228 = F::new(0.0) <= zeta_threshold;
-    let t229 = piecewise3::<F>(t228, t36, F::new(0.0));
-    let t231 = (t227 + t229 - F::new(2.0)) * t43;
+    let t224 = (t217 + t222 - F::cast_from(2.0_f64)) * t43;
+    let t225 = F::cast_from(2.0_f64) <= zeta_threshold;
+    let t227 = piecewise3::<F>(t225, t36, F::cast_from(2.0_f64) * t40);
+    let t228 = F::cast_from(0.0_f64) <= zeta_threshold;
+    let t229 = piecewise3::<F>(t228, t36, F::cast_from(0.0_f64));
+    let t231 = (t227 + t229 - F::cast_from(2.0_f64)) * t43;
     (t224, t231)
 }

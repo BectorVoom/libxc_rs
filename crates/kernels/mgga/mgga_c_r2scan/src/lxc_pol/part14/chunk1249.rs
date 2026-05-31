@@ -13,6 +13,6 @@ pub fn mgga_c_r2scan_lxc_pol_part14_v4rho3sigma_4_chunk1249<F: Float>(t12351: F,
     let t42106 = t6767 * t3774;
     let t42121 = t1338 * t12351;
     let t42128 = t6755 * t3774;
-    let t42131 = -F::new(0.126e2) * t11314 * t11993 - F::new(0.315e1) * t42101 * t2438 - F::new(0.1575e1) * t12355 * t6751 - F::new(0.23625e1) * t42106 * t8481 - F::new(0.1575e1) * t38966 * t3675 - F::new(0.315e1) * t11314 * t9760 - F::new(0.1575e1) * t3556 * t31929 - F::new(0.21e1) * t38953 * t3675 - F::new(0.42e1) * t11302 * t9760 - F::new(0.21e1) * t3549 * t31929 - F::new(0.42e1) * t42121 * t2438 - F::new(0.21e1) * t12348 * t6751 - F::new(0.63e1) * t12355 * t8481 - F::new(0.945e1) * t42128 * t8481;
+    let t42131 = -F::cast_from(0.126e2_f64) * t11314 * t11993 - F::cast_from(0.315e1_f64) * t42101 * t2438 - F::cast_from(0.1575e1_f64) * t12355 * t6751 - F::cast_from(0.23625e1_f64) * t42106 * t8481 - F::cast_from(0.1575e1_f64) * t38966 * t3675 - F::cast_from(0.315e1_f64) * t11314 * t9760 - F::cast_from(0.1575e1_f64) * t3556 * t31929 - F::cast_from(0.21e1_f64) * t38953 * t3675 - F::cast_from(0.42e1_f64) * t11302 * t9760 - F::cast_from(0.21e1_f64) * t3549 * t31929 - F::cast_from(0.42e1_f64) * t42121 * t2438 - F::cast_from(0.21e1_f64) * t12348 * t6751 - F::cast_from(0.63e1_f64) * t12355 * t8481 - F::cast_from(0.945e1_f64) * t42128 * t8481;
     t42131
 }

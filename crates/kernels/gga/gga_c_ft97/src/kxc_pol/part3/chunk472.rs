@@ -14,6 +14,6 @@ pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk472<F: Float>(t143: F, t160: F, t3
     let t3545 = t1882 * t1030;
     let t3548 = t574 * t167 * t3408;
     let t3551 = t1882 * t1055;
-    let t3565 = -t3493 / F::new(4.0) + t3528 / F::new(2.0) + t2149 + t1959 / F::new(9.0) + t1962 / F::new(3.0) + t3318 / F::new(9.0) - F::new(2.0) / F::new(9.0) * t3321 + t3325 / F::new(3.0) + F::new(2.0) / F::new(3.0) * t3328 - F::new(2.0) / F::new(3.0) * t3332 + t3335 / F::new(3.0) + t3340 / F::new(3.0) + F::new(2.0) * t3345 - t3411;
+    let t3565 = -t3493 / F::cast_from(4.0_f64) + t3528 / F::cast_from(2.0_f64) + t2149 + t1959 / F::cast_from(9.0_f64) + t1962 / F::cast_from(3.0_f64) + t3318 / F::cast_from(9.0_f64) - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t3321 + t3325 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t3328 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t3332 + t3335 / F::cast_from(3.0_f64) + t3340 / F::cast_from(3.0_f64) + F::cast_from(2.0_f64) * t3345 - t3411;
     (t3541, t3545, t3548, t3551, t3565)
 }

@@ -11,6 +11,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_3_2};
 pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk1322<F: Float>(t11516: F, t14011: F, t11934: F, t51222: F, t54053: F, t54073: F, t54088: F, t55469: F, t56910: F, t56912: F, t56914: F, t56917: F, t56920: F, t56922: F) -> F {
     let t56924 = t14011 * t11516;
     let t56926 = t14011 * t11934;
-    let t56928 = F::new(35.0) / F::new(432.0) * t51222 + t56910 / F::new(48.0) - t54053 + t56912 / F::new(192.0) + t56914 / F::new(24.0) + t54073 + t56917 / F::new(48.0) - t56920 / F::new(96.0) + F::new(7.0) / F::new(1152.0) * t56922 + t54088 + t55469 + t56924 / F::new(192.0) - t56926 / F::new(768.0);
+    let t56928 = F::cast_from(35.0_f64) / F::cast_from(432.0_f64) * t51222 + t56910 / F::cast_from(48.0_f64) - t54053 + t56912 / F::cast_from(192.0_f64) + t56914 / F::cast_from(24.0_f64) + t54073 + t56917 / F::cast_from(48.0_f64) - t56920 / F::cast_from(96.0_f64) + F::cast_from(7.0_f64) / F::cast_from(1152.0_f64) * t56922 + t54088 + t55469 + t56924 / F::cast_from(192.0_f64) - t56926 / F::cast_from(768.0_f64);
     t56928
 }

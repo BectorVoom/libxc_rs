@@ -10,6 +10,6 @@ use libxc_kernel_math::piecewise::{piecewise3};
 #[cube]
 pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk355<F: Float>(t127: F, t5: F) -> (F, F) {
     let t1530 = t127 * t5;
-    let t1531 = F::new(1.0) / t1530;
+    let t1531 = F::cast_from(1.0_f64) / t1530;
     (t1530, t1531)
 }

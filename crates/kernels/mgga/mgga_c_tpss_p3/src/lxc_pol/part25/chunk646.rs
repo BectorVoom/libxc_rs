@@ -16,6 +16,6 @@ pub fn mgga_c_tpss_lxc_pol_part25_v4rho3sigma_7_chunk646<F: Float>(t3426: F, t39
     let t3979 = t3931 * t3978;
     let t3982 = t970 * t3758;
     let t3983 = t242 * t3982;
-    let t3986 = t946 * t3952 / F::new(3072.0) - t2731 * t3956 / F::new(3072.0) + t2678 / F::new(4608.0) - t2660 / F::new(864.0) - t2652 + t2754 / F::new(6912.0) + t2740 * t3963 / F::new(4608.0) - t2748 * t1471 / F::new(864.0) + t3970 / F::new(6912.0) + F::new(5.0) / F::new(13824.0) * t967 * t3974 - t967 * t3979 / F::new(2304.0) + t967 * t3983 / F::new(4608.0);
+    let t3986 = t946 * t3952 / F::cast_from(3072.0_f64) - t2731 * t3956 / F::cast_from(3072.0_f64) + t2678 / F::cast_from(4608.0_f64) - t2660 / F::cast_from(864.0_f64) - t2652 + t2754 / F::cast_from(6912.0_f64) + t2740 * t3963 / F::cast_from(4608.0_f64) - t2748 * t1471 / F::cast_from(864.0_f64) + t3970 / F::cast_from(6912.0_f64) + F::cast_from(5.0_f64) / F::cast_from(13824.0_f64) * t967 * t3974 - t967 * t3979 / F::cast_from(2304.0_f64) + t967 * t3983 / F::cast_from(4608.0_f64);
     (t3973, t3977, t3978, t3986)
 }

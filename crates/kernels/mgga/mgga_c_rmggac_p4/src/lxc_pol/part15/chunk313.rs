@@ -9,6 +9,6 @@ use libxc_kernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
 #[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
 #[cube]
 pub fn mgga_c_rmggac_lxc_pol_part15_v4rho3sigma_6_chunk313<F: Float>(t1174: F, t1459: F, t1857: F, t1860: F, t1864: F, t1907: F, t228: F, t462: F, t598: F) -> F {
-    let t1910 = t1857 * t228 + t1860 * t228 + t598 * t1459 / F::new(2.0) - F::new(5.0) / F::new(16.0) * t1174 * t1864 + t462 * t1907 / F::new(4.0);
+    let t1910 = t1857 * t228 + t1860 * t228 + t598 * t1459 / F::cast_from(2.0_f64) - F::cast_from(5.0_f64) / F::cast_from(16.0_f64) * t1174 * t1864 + t462 * t1907 / F::cast_from(4.0_f64);
     t1910
 }

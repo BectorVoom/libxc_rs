@@ -16,6 +16,6 @@ pub fn gga_c_optc_lxc_pol_part7_v4rho4_0_chunk44<F: Float>(t43: F, t50: F, t45: 
     let t98 = piecewise3::<F>(t44, t96, t97);
     let t99 = t52 * t52;
     let t100 = piecewise3::<F>(t51, t96, t99);
-    let t102 = t98 / F::new(2.0) + t100 / F::new(2.0);
+    let t102 = t98 / F::cast_from(2.0_f64) + t100 / F::cast_from(2.0_f64);
     (t96, t97, t99, t102)
 }

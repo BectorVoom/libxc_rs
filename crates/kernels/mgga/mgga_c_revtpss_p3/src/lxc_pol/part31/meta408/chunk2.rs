@@ -13,9 +13,9 @@ pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk1464<F: Float>(t45: F, t
     let t155 = t57 <= zeta_threshold;
     let t18367 = t633 * t5819;
     let t18372 = t80 * t5825;
-    let t18378 = piecewise3::<F>(t151, F::new(0.0), F::new(8.0) / F::new(27.0) * t18367 * t606 - F::new(4.0) / F::new(9.0) * t4328 * t4186 - F::new(2.0) / F::new(9.0) * t18372 * t606 + F::new(2.0) / F::new(3.0) * t766 * t18281);
+    let t18378 = piecewise3::<F>(t151, F::cast_from(0.0_f64), F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t18367 * t606 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4328 * t4186 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t18372 * t606 + F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t766 * t18281);
     let t18379 = t637 * t5819;
     let t18384 = t83 * t5825;
-    let t18390 = piecewise3::<F>(t155, F::new(0.0), -F::new(8.0) / F::new(27.0) * t18379 * t606 - F::new(4.0) / F::new(9.0) * t4335 * t4186 - F::new(2.0) / F::new(9.0) * t18384 * t606 - F::new(2.0) / F::new(3.0) * t770 * t18281);
+    let t18390 = piecewise3::<F>(t155, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t18379 * t606 - F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t4335 * t4186 - F::cast_from(2.0_f64) / F::cast_from(9.0_f64) * t18384 * t606 - F::cast_from(2.0_f64) / F::cast_from(3.0_f64) * t770 * t18281);
     (t18378, t18390)
 }

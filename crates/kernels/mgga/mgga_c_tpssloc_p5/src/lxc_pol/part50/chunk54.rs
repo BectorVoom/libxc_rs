@@ -14,7 +14,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk54<F: Float>(t40: F, t1
     let t149 = piecewise3::<F>(t146, t148, t74);
     let t150 = t52 <= zeta_threshold;
     let t151 = piecewise3::<F>(t150, t148, t77);
-    let t152 = t149 + t151 - F::new(2.0);
+    let t152 = t149 + t151 - F::cast_from(2.0_f64);
     let t153 = t145 * t152;
     let t154 = cbrt2;
     (t152, t153, t154)

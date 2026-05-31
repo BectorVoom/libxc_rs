@@ -12,7 +12,7 @@ pub fn gga_c_pbe_erf_gws_lxc_pol_part20_v4rho3sigma_8_chunk897<F: Float>(t50: F,
     let t51 = t50 <= zeta_threshold;
     let t9993 = t4767 * t3351;
     let t9998 = t1412 * t3354;
-    let t10004 = piecewise3::<F>(t51, F::new(0.0), -F::new(8.0) / F::new(27.0) * t9993 * t422 - F::new(16.0) / F::new(9.0) * t2465 * t1351 + F::new(4.0) / F::new(9.0) * t9998 * t422 + F::new(4.0) / F::new(3.0) * t52 * t9801);
+    let t10004 = piecewise3::<F>(t51, F::cast_from(0.0_f64), -F::cast_from(8.0_f64) / F::cast_from(27.0_f64) * t9993 * t422 - F::cast_from(16.0_f64) / F::cast_from(9.0_f64) * t2465 * t1351 + F::cast_from(4.0_f64) / F::cast_from(9.0_f64) * t9998 * t422 + F::cast_from(4.0_f64) / F::cast_from(3.0_f64) * t52 * t9801);
     let t10006 = (t9992 + t10004) * t59;
     let t10007 = t10006 * t85;
     (t10006, t10007)

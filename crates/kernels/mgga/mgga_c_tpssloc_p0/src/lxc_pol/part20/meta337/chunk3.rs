@@ -13,6 +13,6 @@ pub fn mgga_c_tpssloc_lxc_pol_part20_v4rho4_1_chunk1635<F: Float>(t28: F, t265: 
     let t401 = rho1 <= dens_threshold || t29;
     let t505 = t265 < t504;
     let t11957 = piecewise3::<F>(t505, t11476 + t11955, t10150);
-    let t11967 = piecewise3::<F>(t401, t10150 * t28 / F::new(2.0) + F::new(3.0) / F::new(2.0) * t2756 * t1081 + F::new(3.0) / F::new(2.0) * t873 * t3231 + t265 * t11122 / F::new(2.0), t11957 * t52 / F::new(2.0) - F::new(3.0) / F::new(2.0) * t3644 * t607 - F::new(3.0) / F::new(2.0) * t1260 * t2250 - t506 * t9258 / F::new(2.0));
+    let t11967 = piecewise3::<F>(t401, t10150 * t28 / F::cast_from(2.0_f64) + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t2756 * t1081 + F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t873 * t3231 + t265 * t11122 / F::cast_from(2.0_f64), t11957 * t52 / F::cast_from(2.0_f64) - F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t3644 * t607 - F::cast_from(3.0_f64) / F::cast_from(2.0_f64) * t1260 * t2250 - t506 * t9258 / F::cast_from(2.0_f64));
     (t11957, t11967)
 }
