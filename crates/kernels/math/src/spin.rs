@@ -22,7 +22,7 @@ pub fn compute_total<F: Float>(rho_up: F, rho_down: F) -> F {
 pub fn compute_zeta<F: Float>(rho_up: F, rho_down: F, threshold: F) -> F {
     let total = rho_up + rho_down;
     let zeta = (rho_up - rho_down) / total;
-    select(total < threshold, F::new(0.0), zeta)
+    select(total < threshold, F::cast_from(0.0_f64), zeta)
 }
 
 /// Combined total+zeta computation (convenience wrapper).
@@ -37,9 +37,9 @@ pub fn to_total_zeta_total<F: Float>(rho_up: F, rho_down: F) -> F {
 /// Approaches 1.0 for unpolarized (zeta=0) and 2^(1/3) for fully polarized (zeta=1).
 #[cube]
 pub fn spin_scaling<F: Float>(zeta: F) -> F {
-    let up = F::new(1.0) + zeta;
-    let down = F::new(1.0) - zeta;
-    (pow_4_3::<F>(up) + pow_4_3::<F>(down)) / F::new(2.0)
+    let up = F::cast_from(1.0_f64) + zeta;
+    let down = F::cast_from(1.0_f64) - zeta;
+    (pow_4_3::<F>(up) + pow_4_3::<F>(down)) / F::cast_from(2.0_f64)
 }
 
 /// Clamp zeta to [-(1-threshold), (1-threshold)].
@@ -48,8 +48,8 @@ pub fn spin_scaling<F: Float>(zeta: F) -> F {
 /// one spin channel has nearly zero density.
 #[cube]
 pub fn clamp_zeta<F: Float>(zeta: F, threshold: F) -> F {
-    let upper = F::new(1.0) - threshold;
-    let lower = -(F::new(1.0) - threshold);
+    let upper = F::cast_from(1.0_f64) - threshold;
+    let lower = -(F::cast_from(1.0_f64) - threshold);
     let clamped = select(zeta > upper, upper, zeta);
     select(clamped < lower, lower, clamped)
 }

@@ -21,7 +21,7 @@ pub fn piecewise3<F: Float>(cond: bool, val_true: F, val_false: F) -> F {
 #[cube]
 #[allow(non_snake_case)]
 pub fn Heaviside<F: Float>(x: F) -> F {
-    select(x >= F::new(0.0), F::new(1.0), F::new(0.0))
+    select(x >= F::cast_from(0.0_f64), F::cast_from(1.0_f64), F::cast_from(0.0_f64))
 }
 
 /// Branch-free 3-way select: returns `v1` if `c1`, else `v2` if `c2`, else `v_else`.

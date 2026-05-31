@@ -12,7 +12,7 @@ use super::powers::{pow_1_3, pow_4_3, pow_5_3};
 /// RS_CONST = (3/(4*pi))^(1/3)
 #[cube]
 pub fn wigner_seitz_rs<F: Float>(rho: F) -> F {
-    F::cast_from(RS_CONST) * pow_1_3::<F>(F::new(1.0) / rho)
+    F::cast_from(RS_CONST) * pow_1_3::<F>(F::cast_from(1.0_f64) / rho)
 }
 
 /// Reduced density gradient: s = sqrt(sigma) / (2 * kf * rho^(4/3))
@@ -22,7 +22,7 @@ pub fn wigner_seitz_rs<F: Float>(rho: F) -> F {
 /// So s = sqrt(sigma) / (2 * KF_CONST * rho^(4/3))
 #[cube]
 pub fn reduced_gradient_s<F: Float>(rho: F, sigma: F) -> F {
-    F::sqrt(sigma) / (F::new(2.0) * F::cast_from(KF_CONST) * pow_4_3::<F>(rho))
+    F::sqrt(sigma) / (F::cast_from(2.0_f64) * F::cast_from(KF_CONST) * pow_4_3::<F>(rho))
 }
 
 /// Thomas-Fermi kinetic energy density: t_TF = (3/10) * (3*pi^2)^(2/3) * rho^(5/3)
@@ -30,7 +30,7 @@ pub fn reduced_gradient_s<F: Float>(rho: F, sigma: F) -> F {
 /// Note: (3*pi^2)^(2/3) = KF_CONST^2
 #[cube]
 pub fn tf_kinetic<F: Float>(rho: F) -> F {
-    F::new(0.3) * F::cast_from(KF_CONST) * F::cast_from(KF_CONST) * pow_5_3::<F>(rho)
+    F::cast_from(0.3_f64) * F::cast_from(KF_CONST) * F::cast_from(KF_CONST) * pow_5_3::<F>(rho)
 }
 
 /// Dimensionless inhomogeneity parameter alpha:
@@ -42,7 +42,7 @@ pub fn tf_kinetic<F: Float>(rho: F) -> F {
 /// alpha = 1 for the uniform electron gas (tau = tau_TF, sigma = 0).
 #[cube]
 pub fn dimensionless_alpha<F: Float>(rho: F, sigma: F, tau: F) -> F {
-    let tau_w = sigma / (F::new(8.0) * rho);
+    let tau_w = sigma / (F::cast_from(8.0_f64) * rho);
     let tau_tf = tf_kinetic::<F>(rho);
     (tau - tau_w) / tau_tf
 }

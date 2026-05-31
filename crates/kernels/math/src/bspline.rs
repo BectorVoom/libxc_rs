@@ -21,13 +21,13 @@ use cubecl::prelude::*;
 #[cube]
 fn knot<F: Float>(idx: u32) -> F {
     let i = F::cast_from(idx);
-    (i - F::new(3.0)) / F::new(7.0)
+    (i - F::cast_from(3.0_f64)) / F::cast_from(7.0_f64)
 }
 
 /// Safe division: returns 0 if denominator is 0, otherwise a/b.
 #[cube]
 fn safe_div<F: Float>(a: F, b: F) -> F {
-    select(b == F::new(0.0), F::new(0.0), a / b)
+    select(b == F::cast_from(0.0_f64), F::cast_from(0.0_f64), a / b)
 }
 
 /// Evaluate a single B-spline basis function N_{i,3}(u) for derivative order `ider`.
@@ -43,16 +43,16 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
     let ki3 = knot::<F>(i + 3);
     let ki4 = knot::<F>(i + 4);
 
-    let mut result = F::new(0.0);
+    let mut result = F::cast_from(0.0_f64);
 
     // Guard: only compute if u is in support [knots[i], knots[i+4])
     if u >= ki0 {
         if u < ki4 {
             // Degree 0: piecewise constants (always needed)
-            let n0_0 = select(u >= ki0, select(u < ki1, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_1 = select(u >= ki1, select(u < ki2, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_2 = select(u >= ki2, select(u < ki3, F::new(1.0), F::new(0.0)), F::new(0.0));
-            let n0_3 = select(u >= ki3, select(u < ki4, F::new(1.0), F::new(0.0)), F::new(0.0));
+            let n0_0 = select(u >= ki0, select(u < ki1, F::cast_from(1.0_f64), F::cast_from(0.0_f64)), F::cast_from(0.0_f64));
+            let n0_1 = select(u >= ki1, select(u < ki2, F::cast_from(1.0_f64), F::cast_from(0.0_f64)), F::cast_from(0.0_f64));
+            let n0_2 = select(u >= ki2, select(u < ki3, F::cast_from(1.0_f64), F::cast_from(0.0_f64)), F::cast_from(0.0_f64));
+            let n0_3 = select(u >= ki3, select(u < ki4, F::cast_from(1.0_f64), F::cast_from(0.0_f64)), F::cast_from(0.0_f64));
 
             if ider == 3 {
                 // Derivative order 3: only needs N[0] values, 3 triangular passes
@@ -66,11 +66,11 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                 let d3_c0 = safe_div::<F>(d3_b0, ki2 - ki0);
                 let d3_c1 = safe_div::<F>(d3_b1, ki3 - ki1);
                 let d3_c2 = safe_div::<F>(d3_b2, ki4 - ki2);
-                let d3_d0 = F::new(2.0) * (d3_c0 - d3_c1);
-                let d3_d1 = F::new(2.0) * (d3_c1 - d3_c2);
+                let d3_d0 = F::cast_from(2.0_f64) * (d3_c0 - d3_c1);
+                let d3_d1 = F::cast_from(2.0_f64) * (d3_c1 - d3_c2);
                 let d3_e0 = safe_div::<F>(d3_d0, ki3 - ki0);
                 let d3_e1 = safe_div::<F>(d3_d1, ki4 - ki1);
-                result = F::new(3.0) * (d3_e0 - d3_e1);
+                result = F::cast_from(3.0_f64) * (d3_e0 - d3_e1);
             } else {
                 // Degree 1: needed for ider <= 2
                 let n1_0 = safe_div::<F>((u - ki0) * n0_0, ki1 - ki0)
@@ -85,11 +85,11 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                     let d2_a0 = safe_div::<F>(n1_0, ki2 - ki0);
                     let d2_a1 = safe_div::<F>(n1_1, ki3 - ki1);
                     let d2_a2 = safe_div::<F>(n1_2, ki4 - ki2);
-                    let d2_b0 = F::new(2.0) * (d2_a0 - d2_a1);
-                    let d2_b1 = F::new(2.0) * (d2_a1 - d2_a2);
+                    let d2_b0 = F::cast_from(2.0_f64) * (d2_a0 - d2_a1);
+                    let d2_b1 = F::cast_from(2.0_f64) * (d2_a1 - d2_a2);
                     let d2_c0 = safe_div::<F>(d2_b0, ki3 - ki0);
                     let d2_c1 = safe_div::<F>(d2_b1, ki4 - ki1);
-                    result = F::new(3.0) * (d2_c0 - d2_c1);
+                    result = F::cast_from(3.0_f64) * (d2_c0 - d2_c1);
                 } else {
                     // Degree 2: needed for ider <= 1
                     let n2_0 = safe_div::<F>((u - ki0) * n1_0, ki2 - ki0)
@@ -101,7 +101,7 @@ fn bspline_k3_eval<F: Float>(i: u32, u: F, ider: u32) -> F {
                         // Derivative order 1: needs N[2] values
                         let d1_s0 = safe_div::<F>(n2_0, ki3 - ki0);
                         let d1_s1 = safe_div::<F>(n2_1, ki4 - ki1);
-                        result = F::new(3.0) * (d1_s0 - d1_s1);
+                        result = F::cast_from(3.0_f64) * (d1_s0 - d1_s1);
                     } else {
                         // ider == 0: function value, needs full N[3]
                         result = safe_div::<F>((u - ki0) * n2_0, ki3 - ki0)

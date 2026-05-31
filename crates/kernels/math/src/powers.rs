@@ -13,9 +13,9 @@ use cubecl::prelude::*;
 #[cube]
 pub fn safe_cbrt<F: Float>(x: F) -> F {
     let abs_x = F::abs(x);
-    let cbrt_abs = F::powf(abs_x, F::new(1.0) / F::new(3.0));
-    let sign = select(x < F::new(0.0), F::new(-1.0), F::new(1.0));
-    select(x == F::new(0.0), F::new(0.0), sign * cbrt_abs)
+    let cbrt_abs = F::powf(abs_x, F::cast_from(1.0_f64) / F::cast_from(3.0_f64));
+    let sign = select(x < F::cast_from(0.0_f64), F::cast_from(-1.0_f64), F::cast_from(1.0_f64));
+    select(x == F::cast_from(0.0_f64), F::cast_from(0.0_f64), sign * cbrt_abs)
 }
 
 /// x^(1/3) -- cube root via safe_cbrt

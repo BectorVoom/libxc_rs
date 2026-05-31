@@ -30,10 +30,10 @@ fn cheb_eval_38<F: Float>(x: F, c0: F, c1: F, c2: F, c3: F, c4: F,
     c30: F, c31: F, c32: F, c33: F, c34: F,
     c35: F, c36: F, c37: F,
 ) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
 
     // Clenshaw recurrence from last coefficient to first
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + c37;
@@ -75,7 +75,7 @@ fn cheb_eval_38<F: Float>(x: F, c0: F, c1: F, c2: F, c3: F, c4: F,
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + c1;
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + c0;
 
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 // ============================================================================
@@ -141,57 +141,57 @@ pub fn xc_dilogarithm<F: Float>(x: F) -> F {
     // FLT_RADIX/DBL_EPSILON ≈ 2/2.2e-16 ≈ 9.0e15
     let big: F = F::cast_from(9.007199254740992e15_f64);
 
-    let mut dspenc: F = F::new(0.0);
+    let mut dspenc: F = F::cast_from(0.0_f64);
 
-    if x > F::new(2.0) {
+    if x > F::cast_from(2.0_f64) {
         let aux = F::ln(x);
-        dspenc = F::new(2.0) * pi26 - F::new(0.5) * aux * aux;
+        dspenc = F::cast_from(2.0_f64) * pi26 - F::cast_from(0.5_f64) * aux * aux;
         if x < big {
-            dspenc = dspenc - (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) / x - F::new(1.0),
+            dspenc = dspenc - (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) / x - F::cast_from(1.0_f64),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
                 s30, s31, s32, s33, s34, s35, s36, s37)) / x;
         }
-    } else if x > F::new(1.0) {
-        let aux = x - F::new(1.0);
-        dspenc = pi26 - F::new(0.5) * F::ln(x) * F::ln(aux * aux / x)
-            + aux * (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) * aux / x - F::new(1.0),
+    } else if x > F::cast_from(1.0_f64) {
+        let aux = x - F::cast_from(1.0_f64);
+        dspenc = pi26 - F::cast_from(0.5_f64) * F::ln(x) * F::ln(aux * aux / x)
+            + aux * (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) * aux / x - F::cast_from(1.0_f64),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
                 s30, s31, s32, s33, s34, s35, s36, s37)) / x;
-    } else if x > F::new(0.5) {
+    } else if x > F::cast_from(0.5_f64) {
         // x != 1.0 case (x > 0.5 && x <= 1.0, and we already handled x > 1.0)
-        dspenc = pi26 - F::ln(x) * F::ln(F::new(1.0) - x)
-            - (F::new(1.0) - x) * (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) * (F::new(1.0) - x) - F::new(1.0),
+        dspenc = pi26 - F::ln(x) * F::ln(F::cast_from(1.0_f64) - x)
+            - (F::cast_from(1.0_f64) - x) * (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) * (F::cast_from(1.0_f64) - x) - F::cast_from(1.0_f64),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
                 s30, s31, s32, s33, s34, s35, s36, s37));
-    } else if x >= F::new(0.0) {
-        dspenc = x * (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) * x - F::new(1.0),
+    } else if x >= F::cast_from(0.0_f64) {
+        dspenc = x * (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) * x - F::cast_from(1.0_f64),
             s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
             s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
             s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
             s30, s31, s32, s33, s34, s35, s36, s37));
-    } else if x > F::new(-1.0) {
-        let aux = F::ln(F::new(1.0) - x);
-        dspenc = -F::new(0.5) * aux * aux
-            - x * (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) * x / (x - F::new(1.0)) - F::new(1.0),
+    } else if x > F::cast_from(-1.0_f64) {
+        let aux = F::ln(F::cast_from(1.0_f64) - x);
+        dspenc = -F::cast_from(0.5_f64) * aux * aux
+            - x * (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) * x / (x - F::cast_from(1.0_f64)) - F::cast_from(1.0_f64),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
-                s30, s31, s32, s33, s34, s35, s36, s37)) / (x - F::new(1.0));
+                s30, s31, s32, s33, s34, s35, s36, s37)) / (x - F::cast_from(1.0_f64));
     } else {
-        let aux = F::ln(F::new(1.0) - x);
-        dspenc = -pi26 - F::new(0.5) * aux * (F::new(2.0) * F::ln(-x) - aux);
+        let aux = F::ln(F::cast_from(1.0_f64) - x);
+        dspenc = -pi26 - F::cast_from(0.5_f64) * aux * (F::cast_from(2.0_f64) * F::ln(-x) - aux);
         if x > -big {
-            dspenc = dspenc + (F::new(1.0) + cheb_eval_38::<F>(F::new(4.0) / (F::new(1.0) - x) - F::new(1.0),
+            dspenc = dspenc + (F::cast_from(1.0_f64) + cheb_eval_38::<F>(F::cast_from(4.0_f64) / (F::cast_from(1.0_f64) - x) - F::cast_from(1.0_f64),
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
-                s30, s31, s32, s33, s34, s35, s36, s37)) / (F::new(1.0) - x);
+                s30, s31, s32, s33, s34, s35, s36, s37)) / (F::cast_from(1.0_f64) - x);
         }
     }
 
@@ -210,27 +210,27 @@ pub fn xc_dilogarithm<F: Float>(x: F) -> F {
 #[cube]
 pub fn xc_erfcx<F: Float>(x: F) -> F {
     let ispi: F = F::cast_from(0.56418958354775628694807945156_f64); // 1 / sqrt(pi)
-    let mut result: F = F::new(0.0);
+    let mut result: F = F::cast_from(0.0_f64);
 
-    if x >= F::new(0.0) {
-        if x > F::new(5.0e7) {
+    if x >= F::cast_from(0.0_f64) {
+        if x > F::cast_from(5.0e7_f64) {
             // 1-term continued fraction
             result = ispi / x;
-        } else if x > F::new(50.0) {
+        } else if x > F::cast_from(50.0_f64) {
             // 5-term continued fraction
-            result = ispi * ((x * x) * (x * x + F::new(4.5)) + F::new(2.0))
-                   / (x * ((x * x) * (x * x + F::new(5.0)) + F::new(3.75)));
+            result = ispi * ((x * x) * (x * x + F::cast_from(4.5_f64)) + F::cast_from(2.0_f64))
+                   / (x * ((x * x) * (x * x + F::cast_from(5.0_f64)) + F::cast_from(3.75_f64)));
         } else {
             // Core range
-            result = erfcx_y100::<F>(F::new(400.0) / (F::new(4.0) + x));
+            result = erfcx_y100::<F>(F::cast_from(400.0_f64) / (F::cast_from(4.0_f64) + x));
         }
     } else {
-        if x < F::new(-26.7) {
+        if x < F::cast_from(-26.7_f64) {
             result = F::cast_from(f64::MAX);
-        } else if x < F::new(-6.1) {
-            result = F::new(2.0) * F::exp(x * x);
+        } else if x < F::cast_from(-6.1_f64) {
+            result = F::cast_from(2.0_f64) * F::exp(x * x);
         } else {
-            result = F::new(2.0) * F::exp(x * x) - erfcx_y100::<F>(F::new(400.0) / (F::new(4.0) - x));
+            result = F::cast_from(2.0_f64) * F::exp(x * x) - erfcx_y100::<F>(F::cast_from(400.0_f64) / (F::cast_from(4.0_f64) - x));
         }
     }
 
@@ -241,16 +241,16 @@ pub fn xc_erfcx<F: Float>(x: F) -> F {
 /// y = 400/(4+x) maps x in [0, ∞) to y in (0, 100].
 #[cube]
 fn erfcx_y100<F: Float>(y: F) -> F {
-    let x = F::new(400.0) / y - F::new(4.0);
+    let x = F::cast_from(400.0_f64) / y - F::cast_from(4.0_f64);
     let ispi: F = F::cast_from(0.56418958354775628694807945156_f64);
     let x2 = x * x;
-    let mut result: F = F::new(0.0);
+    let mut result: F = F::cast_from(0.0_f64);
 
-    if x < F::new(1.0e-10) {
-        result = F::new(1.0);
-    } else if x < F::new(4.0) {
+    if x < F::cast_from(1.0e-10_f64) {
+        result = F::cast_from(1.0_f64);
+    } else if x < F::cast_from(4.0_f64) {
         let p: F = F::cast_from(0.3275911_f64);
-        let t = F::new(1.0) / (F::new(1.0) + p * x);
+        let t = F::cast_from(1.0_f64) / (F::cast_from(1.0_f64) + p * x);
         let a1: F = F::cast_from(0.254829592_f64);
         let a2: F = F::cast_from(-0.284496736_f64);
         let a3: F = F::cast_from(1.421413741_f64);
@@ -258,10 +258,10 @@ fn erfcx_y100<F: Float>(y: F) -> F {
         let a5: F = F::cast_from(1.061405429_f64);
         result = t * (a1 + t * (a2 + t * (a3 + t * (a4 + t * a5))));
     } else {
-        let ix2 = F::new(1.0) / x2;
-        result = ispi / x * (F::new(1.0) - F::new(0.5) * ix2 + F::new(0.75) * ix2 * ix2
-                    - F::new(1.875) * ix2 * ix2 * ix2
-                    + F::new(6.5625) * ix2 * ix2 * ix2 * ix2);
+        let ix2 = F::cast_from(1.0_f64) / x2;
+        result = ispi / x * (F::cast_from(1.0_f64) - F::cast_from(0.5_f64) * ix2 + F::cast_from(0.75_f64) * ix2 * ix2
+                    - F::cast_from(1.875_f64) * ix2 * ix2 * ix2
+                    + F::cast_from(6.5625_f64) * ix2 * ix2 * ix2 * ix2);
     }
 
     result

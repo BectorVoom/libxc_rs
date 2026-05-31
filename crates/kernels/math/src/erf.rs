@@ -84,18 +84,18 @@ const SB7: f64 = -2.24409524465858183362e+01;
 #[cube]
 pub fn erf_approx<F: Float>(x: F) -> F {
     let abs_x = F::abs(x);
-    let sign = select(x < F::new(0.0), F::new(-1.0), F::new(1.0));
+    let sign = select(x < F::cast_from(0.0_f64), F::cast_from(-1.0_f64), F::cast_from(1.0_f64));
 
     // Region 1: |x| < 0.84375
     let x2 = x * x;
     let pp = F::cast_from(PP0) + x2 * (F::cast_from(PP1) + x2 * (F::cast_from(PP2) + x2 * (F::cast_from(PP3) + x2 * F::cast_from(PP4))));
-    let qq = F::new(1.0) + x2 * (F::cast_from(QQ1) + x2 * (F::cast_from(QQ2) + x2 * (F::cast_from(QQ3) + x2 * (F::cast_from(QQ4) + x2 * F::cast_from(QQ5)))));
+    let qq = F::cast_from(1.0_f64) + x2 * (F::cast_from(QQ1) + x2 * (F::cast_from(QQ2) + x2 * (F::cast_from(QQ3) + x2 * (F::cast_from(QQ4) + x2 * F::cast_from(QQ5)))));
     let r1 = x + x * (pp / qq);
 
     // Region 2: 0.84375 <= |x| < 1.25
-    let s = abs_x - F::new(1.0);
+    let s = abs_x - F::cast_from(1.0_f64);
     let pa = F::cast_from(PA0) + s * (F::cast_from(PA1) + s * (F::cast_from(PA2) + s * (F::cast_from(PA3) + s * (F::cast_from(PA4) + s * (F::cast_from(PA5) + s * F::cast_from(PA6))))));
-    let qa = F::new(1.0) + s * (F::cast_from(QA1) + s * (F::cast_from(QA2) + s * (F::cast_from(QA3) + s * (F::cast_from(QA4) + s * (F::cast_from(QA5) + s * F::cast_from(QA6))))));
+    let qa = F::cast_from(1.0_f64) + s * (F::cast_from(QA1) + s * (F::cast_from(QA2) + s * (F::cast_from(QA3) + s * (F::cast_from(QA4) + s * (F::cast_from(QA5) + s * F::cast_from(QA6))))));
     let r2 = sign * (F::cast_from(ERX) + pa / qa);
 
     // Region 3: 1.25 <= |x| < 2.857142857
@@ -105,37 +105,37 @@ pub fn erf_approx<F: Float>(x: F) -> F {
     // Truncate to ~20 mantissa bits (matches fdlibm SET_LOW_WORD(z,0) which zeros
     // 32 low bits). x_hi^2 then has ~40 mantissa bits, fitting exactly in f64's 52-bit
     // mantissa, making exp(-x_hi^2) exact to full precision.
-    let x_hi = F::floor(abs_x * F::new(1048576.0)) / F::new(1048576.0);
+    let x_hi = F::floor(abs_x * F::cast_from(1048576.0_f64)) / F::cast_from(1048576.0_f64);
     let x_lo = abs_x - x_hi;
-    let s3 = F::new(1.0) / (abs_x * abs_x);
+    let s3 = F::cast_from(1.0_f64) / (abs_x * abs_x);
     let ra = F::cast_from(RA0) + s3 * (F::cast_from(RA1) + s3 * (F::cast_from(RA2) + s3 * (F::cast_from(RA3) + s3 * (F::cast_from(RA4) + s3 * (F::cast_from(RA5) + s3 * (F::cast_from(RA6) + s3 * F::cast_from(RA7)))))));
-    let sa = F::new(1.0) + s3 * (F::cast_from(SA1) + s3 * (F::cast_from(SA2) + s3 * (F::cast_from(SA3) + s3 * (F::cast_from(SA4) + s3 * (F::cast_from(SA5) + s3 * (F::cast_from(SA6) + s3 * (F::cast_from(SA7) + s3 * F::cast_from(SA8))))))));
+    let sa = F::cast_from(1.0_f64) + s3 * (F::cast_from(SA1) + s3 * (F::cast_from(SA2) + s3 * (F::cast_from(SA3) + s3 * (F::cast_from(SA4) + s3 * (F::cast_from(SA5) + s3 * (F::cast_from(SA6) + s3 * (F::cast_from(SA7) + s3 * F::cast_from(SA8))))))));
     let r_over_s_3 = ra / sa;
-    let erfc3 = F::exp(-x_hi * x_hi - F::new(0.5625)) * F::exp(-x_lo * (abs_x + x_hi) + r_over_s_3) / abs_x;
-    let r3 = sign * (F::new(1.0) - erfc3);
+    let erfc3 = F::exp(-x_hi * x_hi - F::cast_from(0.5625_f64)) * F::exp(-x_lo * (abs_x + x_hi) + r_over_s_3) / abs_x;
+    let r3 = sign * (F::cast_from(1.0_f64) - erfc3);
 
     // Region 4: 2.857142857 <= |x| < 6
-    let s4 = F::new(1.0) / (abs_x * abs_x);
+    let s4 = F::cast_from(1.0_f64) / (abs_x * abs_x);
     let rb = F::cast_from(RB0) + s4 * (F::cast_from(RB1) + s4 * (F::cast_from(RB2) + s4 * (F::cast_from(RB3) + s4 * (F::cast_from(RB4) + s4 * (F::cast_from(RB5) + s4 * F::cast_from(RB6))))));
-    let sb = F::new(1.0) + s4 * (F::cast_from(SB1) + s4 * (F::cast_from(SB2) + s4 * (F::cast_from(SB3) + s4 * (F::cast_from(SB4) + s4 * (F::cast_from(SB5) + s4 * (F::cast_from(SB6) + s4 * F::cast_from(SB7)))))));
+    let sb = F::cast_from(1.0_f64) + s4 * (F::cast_from(SB1) + s4 * (F::cast_from(SB2) + s4 * (F::cast_from(SB3) + s4 * (F::cast_from(SB4) + s4 * (F::cast_from(SB5) + s4 * (F::cast_from(SB6) + s4 * F::cast_from(SB7)))))));
     let r_over_s_4 = rb / sb;
-    let erfc4 = F::exp(-x_hi * x_hi - F::new(0.5625)) * F::exp(-x_lo * (abs_x + x_hi) + r_over_s_4) / abs_x;
-    let r4 = sign * (F::new(1.0) - erfc4);
+    let erfc4 = F::exp(-x_hi * x_hi - F::cast_from(0.5625_f64)) * F::exp(-x_lo * (abs_x + x_hi) + r_over_s_4) / abs_x;
+    let r4 = sign * (F::cast_from(1.0_f64) - erfc4);
 
     // Region 5: |x| >= 6
-    let r5 = sign * F::new(1.0);
+    let r5 = sign * F::cast_from(1.0_f64);
 
     // Branchless region selection using nested select
     select(
-        abs_x < F::new(0.84375),
+        abs_x < F::cast_from(0.84375_f64),
         r1,
         select(
-            abs_x < F::new(1.25),
+            abs_x < F::cast_from(1.25_f64),
             r2,
             select(
-                abs_x < F::new(2.857142857),
+                abs_x < F::cast_from(2.857142857_f64),
                 r3,
-                select(abs_x < F::new(6.0), r4, r5),
+                select(abs_x < F::cast_from(6.0_f64), r4, r5),
             ),
         ),
     )
@@ -161,54 +161,54 @@ pub fn erfc_approx<F: Float>(x: F) -> F {
     // Region 1: |x| < 0.84375 -> erfc = 1 - erf(x), no severe cancellation
     let x2 = x * x;
     let pp = F::cast_from(PP0) + x2 * (F::cast_from(PP1) + x2 * (F::cast_from(PP2) + x2 * (F::cast_from(PP3) + x2 * F::cast_from(PP4))));
-    let qq = F::new(1.0) + x2 * (F::cast_from(QQ1) + x2 * (F::cast_from(QQ2) + x2 * (F::cast_from(QQ3) + x2 * (F::cast_from(QQ4) + x2 * F::cast_from(QQ5)))));
-    let erfc1 = F::new(1.0) - (x + x * (pp / qq));
+    let qq = F::cast_from(1.0_f64) + x2 * (F::cast_from(QQ1) + x2 * (F::cast_from(QQ2) + x2 * (F::cast_from(QQ3) + x2 * (F::cast_from(QQ4) + x2 * F::cast_from(QQ5)))));
+    let erfc1 = F::cast_from(1.0_f64) - (x + x * (pp / qq));
 
     // Region 2: 0.84375 <= |x| < 1.25
-    let s = abs_x - F::new(1.0);
+    let s = abs_x - F::cast_from(1.0_f64);
     let pa = F::cast_from(PA0) + s * (F::cast_from(PA1) + s * (F::cast_from(PA2) + s * (F::cast_from(PA3) + s * (F::cast_from(PA4) + s * (F::cast_from(PA5) + s * F::cast_from(PA6))))));
-    let qa = F::new(1.0) + s * (F::cast_from(QA1) + s * (F::cast_from(QA2) + s * (F::cast_from(QA3) + s * (F::cast_from(QA4) + s * (F::cast_from(QA5) + s * F::cast_from(QA6))))));
+    let qa = F::cast_from(1.0_f64) + s * (F::cast_from(QA1) + s * (F::cast_from(QA2) + s * (F::cast_from(QA3) + s * (F::cast_from(QA4) + s * (F::cast_from(QA5) + s * F::cast_from(QA6))))));
     // erfc(|x|) = (1 - ERX) - pa/qa; for negative x: erfc = 1 + ERX + pa/qa
     let erfc2 = select(
-        x < F::new(0.0),
-        F::new(1.0) + F::cast_from(ERX) + pa / qa,
-        (F::new(1.0) - F::cast_from(ERX)) - pa / qa,
+        x < F::cast_from(0.0_f64),
+        F::cast_from(1.0_f64) + F::cast_from(ERX) + pa / qa,
+        (F::cast_from(1.0_f64) - F::cast_from(ERX)) - pa / qa,
     );
 
     // Region 3: 1.25 <= |x| < 2.857142857
     // erfc(x) = exp(-x_hi^2 - 0.5625) * exp(-x_lo*(x+x_hi) + R/S) / x
     // High-precision exp trick: split x to avoid precision loss in exp(-x^2)
-    let x_hi_c = F::floor(abs_x * F::new(1048576.0)) / F::new(1048576.0);
+    let x_hi_c = F::floor(abs_x * F::cast_from(1048576.0_f64)) / F::cast_from(1048576.0_f64);
     let x_lo_c = abs_x - x_hi_c;
-    let s3 = F::new(1.0) / (abs_x * abs_x);
+    let s3 = F::cast_from(1.0_f64) / (abs_x * abs_x);
     let ra = F::cast_from(RA0) + s3 * (F::cast_from(RA1) + s3 * (F::cast_from(RA2) + s3 * (F::cast_from(RA3) + s3 * (F::cast_from(RA4) + s3 * (F::cast_from(RA5) + s3 * (F::cast_from(RA6) + s3 * F::cast_from(RA7)))))));
-    let sa = F::new(1.0) + s3 * (F::cast_from(SA1) + s3 * (F::cast_from(SA2) + s3 * (F::cast_from(SA3) + s3 * (F::cast_from(SA4) + s3 * (F::cast_from(SA5) + s3 * (F::cast_from(SA6) + s3 * (F::cast_from(SA7) + s3 * F::cast_from(SA8))))))));
+    let sa = F::cast_from(1.0_f64) + s3 * (F::cast_from(SA1) + s3 * (F::cast_from(SA2) + s3 * (F::cast_from(SA3) + s3 * (F::cast_from(SA4) + s3 * (F::cast_from(SA5) + s3 * (F::cast_from(SA6) + s3 * (F::cast_from(SA7) + s3 * F::cast_from(SA8))))))));
     let r_over_s_3 = ra / sa;
-    let erfc3_pos = F::exp(-x_hi_c * x_hi_c - F::new(0.5625)) * F::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_3) / abs_x;
-    let erfc3 = select(x < F::new(0.0), F::new(2.0) - erfc3_pos, erfc3_pos);
+    let erfc3_pos = F::exp(-x_hi_c * x_hi_c - F::cast_from(0.5625_f64)) * F::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_3) / abs_x;
+    let erfc3 = select(x < F::cast_from(0.0_f64), F::cast_from(2.0_f64) - erfc3_pos, erfc3_pos);
 
     // Region 4: 2.857142857 <= |x| < 6
-    let s4 = F::new(1.0) / (abs_x * abs_x);
+    let s4 = F::cast_from(1.0_f64) / (abs_x * abs_x);
     let rb = F::cast_from(RB0) + s4 * (F::cast_from(RB1) + s4 * (F::cast_from(RB2) + s4 * (F::cast_from(RB3) + s4 * (F::cast_from(RB4) + s4 * (F::cast_from(RB5) + s4 * F::cast_from(RB6))))));
-    let sb = F::new(1.0) + s4 * (F::cast_from(SB1) + s4 * (F::cast_from(SB2) + s4 * (F::cast_from(SB3) + s4 * (F::cast_from(SB4) + s4 * (F::cast_from(SB5) + s4 * (F::cast_from(SB6) + s4 * F::cast_from(SB7)))))));
+    let sb = F::cast_from(1.0_f64) + s4 * (F::cast_from(SB1) + s4 * (F::cast_from(SB2) + s4 * (F::cast_from(SB3) + s4 * (F::cast_from(SB4) + s4 * (F::cast_from(SB5) + s4 * (F::cast_from(SB6) + s4 * F::cast_from(SB7)))))));
     let r_over_s_4 = rb / sb;
-    let erfc4_pos = F::exp(-x_hi_c * x_hi_c - F::new(0.5625)) * F::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_4) / abs_x;
-    let erfc4 = select(x < F::new(0.0), F::new(2.0) - erfc4_pos, erfc4_pos);
+    let erfc4_pos = F::exp(-x_hi_c * x_hi_c - F::cast_from(0.5625_f64)) * F::exp(-x_lo_c * (abs_x + x_hi_c) + r_over_s_4) / abs_x;
+    let erfc4 = select(x < F::cast_from(0.0_f64), F::cast_from(2.0_f64) - erfc4_pos, erfc4_pos);
 
     // Region 5: |x| >= 6
-    let erfc5 = select(x < F::new(0.0), F::new(2.0), F::new(0.0));
+    let erfc5 = select(x < F::cast_from(0.0_f64), F::cast_from(2.0_f64), F::cast_from(0.0_f64));
 
     // Branchless region selection
     select(
-        abs_x < F::new(0.84375),
+        abs_x < F::cast_from(0.84375_f64),
         erfc1,
         select(
-            abs_x < F::new(1.25),
+            abs_x < F::cast_from(1.25_f64),
             erfc2,
             select(
-                abs_x < F::new(2.857142857),
+                abs_x < F::cast_from(2.857142857_f64),
                 erfc3,
-                select(abs_x < F::new(6.0), erfc4, erfc5),
+                select(abs_x < F::cast_from(6.0_f64), erfc4, erfc5),
             ),
         ),
     )

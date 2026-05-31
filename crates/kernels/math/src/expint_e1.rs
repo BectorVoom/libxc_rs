@@ -16,10 +16,10 @@ use cubecl::prelude::*;
 /// Chebyshev eval for AE11 series (39 coefficients), x in [-10, -4] region mapped to [-1,1].
 #[cube]
 fn cheb_ae11<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     // Coefficients in reverse order (i = 38 down to 0)
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.000000000000000017_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.000000000000000082_f64);
@@ -60,16 +60,16 @@ fn cheb_ae11<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.004897651357459670_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.065088778513550150_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.121503239716065790_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Chebyshev eval for AE12 series (25 coefficients), x in [-4, -1] region.
 #[cube]
 fn cheb_ae12<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.000000000000000058_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.000000000000000244_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.000000000000000716_f64);
@@ -95,16 +95,16 @@ fn cheb_ae12<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.006764275590323141_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.158348850905782750_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.582417495134726740_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Chebyshev eval for E11 series (19 coefficients), x in [-1, 0] region.
 #[cube]
 fn cheb_e11<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000108_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.00000000000000002733_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000065457_f64);
@@ -124,16 +124,16 @@ fn cheb_e11<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-1.95540581886314195070_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(7.79407277874268027690_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-16.11346165557149402600_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Chebyshev eval for E12 series (16 coefficients), x in (0, 1] region.
 #[cube]
 fn cheb_e12<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.00000000000000000315_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000010148_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.00000000000000306291_f64);
@@ -150,16 +150,16 @@ fn cheb_e12<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.13031820798497005440_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.04272398606220957700_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.03739021479220279500_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Chebyshev eval for AE13 series (25 coefficients), x in [1, 4] region.
 #[cube]
 fn cheb_ae13<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.000000000000000023_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.000000000000000094_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.000000000000000383_f64);
@@ -185,16 +185,16 @@ fn cheb_ae13<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.013432266247902779_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.112535243483660900_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.605773246640603460_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Chebyshev eval for AE14 series (26 coefficients), x > 4 region.
 #[cube]
 fn cheb_ae14<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000005_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.00000000000000016_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000048_f64);
@@ -221,7 +221,7 @@ fn cheb_ae14<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(0.00722410154374659_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.08648117855259871_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.18929180007530170_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// Scaled exponential integral: exp(x) * E₁(x).
@@ -230,34 +230,34 @@ fn cheb_ae14<F: Float>(x: F) -> F {
 /// Uses `if/else` guards to evaluate only the active Chebyshev region.
 #[cube]
 pub fn xc_e1_scaled<F: Float>(x: F) -> F {
-    let mut e1: F = F::new(0.0);
+    let mut e1: F = F::cast_from(0.0_f64);
 
-    if x <= F::new(-10.0) {
+    if x <= F::cast_from(-10.0_f64) {
         // Region 1
-        let s = F::new(1.0) / x;
-        e1 = s * (F::new(1.0) + cheb_ae11::<F>(F::new(20.0) / x + F::new(1.0)));
-    } else if x <= F::new(-4.0) {
+        let s = F::cast_from(1.0_f64) / x;
+        e1 = s * (F::cast_from(1.0_f64) + cheb_ae11::<F>(F::cast_from(20.0_f64) / x + F::cast_from(1.0_f64)));
+    } else if x <= F::cast_from(-4.0_f64) {
         // Region 2
-        let s = F::new(1.0) / x;
-        e1 = s * (F::new(1.0) + cheb_ae12::<F>((F::new(40.0) / x + F::new(7.0)) / F::new(3.0)));
-    } else if x <= F::new(-1.0) {
+        let s = F::cast_from(1.0_f64) / x;
+        e1 = s * (F::cast_from(1.0_f64) + cheb_ae12::<F>((F::cast_from(40.0_f64) / x + F::cast_from(7.0_f64)) / F::cast_from(3.0_f64)));
+    } else if x <= F::cast_from(-1.0_f64) {
         // Region 3
-        e1 = F::exp(x) * (-F::ln(F::abs(x)) + cheb_e11::<F>((F::new(2.0) * x + F::new(5.0)) / F::new(3.0)));
-    } else if x <= F::new(0.0) {
+        e1 = F::exp(x) * (-F::ln(F::abs(x)) + cheb_e11::<F>((F::cast_from(2.0_f64) * x + F::cast_from(5.0_f64)) / F::cast_from(3.0_f64)));
+    } else if x <= F::cast_from(0.0_f64) {
         // Region 4 (x == 0 is undefined; guard with select)
-        let raw = F::exp(x) * (-F::ln(F::abs(x) + F::new(1.0e-300)) - F::new(0.6875) + x + cheb_e12::<F>(x));
-        e1 = select(x == F::new(0.0), F::new(0.0), raw);
-    } else if x <= F::new(1.0) {
+        let raw = F::exp(x) * (-F::ln(F::abs(x) + F::cast_from(1.0e-300_f64)) - F::cast_from(0.6875_f64) + x + cheb_e12::<F>(x));
+        e1 = select(x == F::cast_from(0.0_f64), F::cast_from(0.0_f64), raw);
+    } else if x <= F::cast_from(1.0_f64) {
         // Region 5
-        e1 = F::exp(x) * (-F::ln(x + F::new(1.0e-300)) - F::new(0.6875) + x + cheb_e12::<F>(x));
-    } else if x <= F::new(4.0) {
+        e1 = F::exp(x) * (-F::ln(x + F::cast_from(1.0e-300_f64)) - F::cast_from(0.6875_f64) + x + cheb_e12::<F>(x));
+    } else if x <= F::cast_from(4.0_f64) {
         // Region 6
-        let s = F::new(1.0) / x;
-        e1 = s * (F::new(1.0) + cheb_ae13::<F>((F::new(8.0) / x - F::new(5.0)) / F::new(3.0)));
+        let s = F::cast_from(1.0_f64) / x;
+        e1 = s * (F::cast_from(1.0_f64) + cheb_ae13::<F>((F::cast_from(8.0_f64) / x - F::cast_from(5.0_f64)) / F::cast_from(3.0_f64)));
     } else {
         // Region 7: x > 4
-        let s = F::new(1.0) / x;
-        e1 = s * (F::new(1.0) + cheb_ae14::<F>(F::new(8.0) / x - F::new(1.0)));
+        let s = F::cast_from(1.0_f64) / x;
+        e1 = s * (F::cast_from(1.0_f64) + cheb_ae14::<F>(F::cast_from(8.0_f64) / x - F::cast_from(1.0_f64)));
     }
 
     e1

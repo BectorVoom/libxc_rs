@@ -35,10 +35,10 @@ const TWO_SQRT2_SQRT_DBL_EPSILON: f64 = 4.214684242274519e-8;
 /// `bi0_data` (12 coefficients) — series for I0(x) on |x| <= 3.
 #[cube]
 fn cheb_bi0<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000245_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000053339_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000009579451_f64);
@@ -51,16 +51,16 @@ fn cheb_bi0<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.22826445869203013390_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 1.92733795399380827000_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.07660547252839144951_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ai0_data` (21 coefficients) — series for I0(x) scaled, 3 <= |x| <= 8.
 #[cube]
 fn cheb_ai0<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000007_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000071_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000314_f64);
@@ -82,16 +82,16 @@ fn cheb_ai0<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000041531313389237_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00759138081082334_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.07575994494023796_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ai02_data` (22 coefficients) — series for I0(x) scaled, |x| > 8.
 #[cube]
 fn cheb_ai02<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000003_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000027_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000034_f64);
@@ -114,16 +114,16 @@ fn cheb_ai02<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000006889758346918_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00336911647825569_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.05449041101410882_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `bi1_data` (11 coefficients) — series for I1(x) on |x| <= 3.
 #[cube]
 fn cheb_bi1<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000000024_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000004741_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.000000000000766380_f64);
@@ -135,16 +135,16 @@ fn cheb_bi1<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.034838994299959456_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.407348876675464810_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.001971713261099859_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ai1_data` (21 coefficients) — series for I1(x) scaled, 3 <= |x| <= 8.
 #[cube]
 fn cheb_ai1<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000006_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000071_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000333_f64);
@@ -166,16 +166,16 @@ fn cheb_ai1<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000061151858579437_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.01922953231443221_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.02846744181881479_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ai12_data` (22 coefficients) — series for I1(x) scaled, |x| > 8.
 #[cube]
 fn cheb_ai12<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000000003_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000028_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000033_f64);
@@ -198,7 +198,7 @@ fn cheb_ai12<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000011058893876263_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00976109749136147_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.02857623501828014_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 // ---------------------------------------------------------------------------
@@ -212,16 +212,16 @@ fn cheb_ai12<F: Float>(x: F) -> F {
 #[cube]
 pub fn xc_bessel_I0_scaled<F: Float>(x: F) -> F {
     let y = F::abs(x);
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if y < F::new(2.0) * F::cast_from(SQRT_DBL_EPSILON) {
-        r = F::new(1.0) - y;
-    } else if y <= F::new(3.0) {
-        r = F::exp(-y) * (F::new(2.75) + cheb_bi0::<F>(y * y / F::new(4.5) - F::new(1.0)));
-    } else if y <= F::new(8.0) {
-        r = (F::new(0.375) + cheb_ai0::<F>((F::new(48.0) / y - F::new(11.0)) / F::new(5.0))) / F::sqrt(y);
+    if y < F::cast_from(2.0_f64) * F::cast_from(SQRT_DBL_EPSILON) {
+        r = F::cast_from(1.0_f64) - y;
+    } else if y <= F::cast_from(3.0_f64) {
+        r = F::exp(-y) * (F::cast_from(2.75_f64) + cheb_bi0::<F>(y * y / F::cast_from(4.5_f64) - F::cast_from(1.0_f64)));
+    } else if y <= F::cast_from(8.0_f64) {
+        r = (F::cast_from(0.375_f64) + cheb_ai0::<F>((F::cast_from(48.0_f64) / y - F::cast_from(11.0_f64)) / F::cast_from(5.0_f64))) / F::sqrt(y);
     } else {
-        r = (F::new(0.375) + cheb_ai02::<F>(F::new(16.0) / y - F::new(1.0))) / F::sqrt(y);
+        r = (F::cast_from(0.375_f64) + cheb_ai02::<F>(F::cast_from(16.0_f64) / y - F::cast_from(1.0_f64))) / F::sqrt(y);
     }
 
     r
@@ -237,13 +237,13 @@ pub fn xc_bessel_I0_scaled<F: Float>(x: F) -> F {
 #[cube]
 pub fn xc_bessel_I0<F: Float>(x: F) -> F {
     let y = F::abs(x);
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if y < F::new(2.0) * F::cast_from(SQRT_DBL_EPSILON) {
-        r = F::new(1.0);
-    } else if y <= F::new(3.0) {
-        r = F::new(2.75) + cheb_bi0::<F>(y * y / F::new(4.5) - F::new(1.0));
-    } else if y < F::cast_from(LOG_DBL_MAX) - F::new(1.0) {
+    if y < F::cast_from(2.0_f64) * F::cast_from(SQRT_DBL_EPSILON) {
+        r = F::cast_from(1.0_f64);
+    } else if y <= F::cast_from(3.0_f64) {
+        r = F::cast_from(2.75_f64) + cheb_bi0::<F>(y * y / F::cast_from(4.5_f64) - F::cast_from(1.0_f64));
+    } else if y < F::cast_from(LOG_DBL_MAX) - F::cast_from(1.0_f64) {
         r = F::exp(y) * xc_bessel_I0_scaled::<F>(x);
     }
     // else: overflow path — leave r = 0.0 (no stderr in #[cube]).
@@ -258,25 +258,25 @@ pub fn xc_bessel_I0<F: Float>(x: F) -> F {
 #[cube]
 pub fn xc_bessel_I1_scaled<F: Float>(x: F) -> F {
     let y = F::abs(x);
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if y == F::new(0.0) {
-        r = F::new(0.0);
+    if y == F::cast_from(0.0_f64) {
+        r = F::cast_from(0.0_f64);
     } else if y < F::cast_from(TWO_DBL_MIN) {
         // Underflow: leave r = 0.0 (libxc prints to stderr; not available here).
-        r = F::new(0.0);
+        r = F::cast_from(0.0_f64);
     } else if y < F::cast_from(TWO_SQRT2_SQRT_DBL_EPSILON) {
-        r = F::new(0.5) * x * F::exp(-y);
-    } else if y <= F::new(3.0) {
-        r = x * F::exp(-y) * (F::new(0.875) + cheb_bi1::<F>(y * y / F::new(4.5) - F::new(1.0)));
+        r = F::cast_from(0.5_f64) * x * F::exp(-y);
+    } else if y <= F::cast_from(3.0_f64) {
+        r = x * F::exp(-y) * (F::cast_from(0.875_f64) + cheb_bi1::<F>(y * y / F::cast_from(4.5_f64) - F::cast_from(1.0_f64)));
     } else {
-        let mut rr: F = F::new(0.0);
-        if y <= F::new(8.0) {
-            rr = (F::new(0.375) + cheb_ai1::<F>((F::new(48.0) / y - F::new(11.0)) / F::new(5.0))) / F::sqrt(y);
+        let mut rr: F = F::cast_from(0.0_f64);
+        if y <= F::cast_from(8.0_f64) {
+            rr = (F::cast_from(0.375_f64) + cheb_ai1::<F>((F::cast_from(48.0_f64) / y - F::cast_from(11.0_f64)) / F::cast_from(5.0_f64))) / F::sqrt(y);
         } else {
-            rr = (F::new(0.375) + cheb_ai12::<F>(F::new(16.0) / y - F::new(1.0))) / F::sqrt(y);
+            rr = (F::cast_from(0.375_f64) + cheb_ai12::<F>(F::cast_from(16.0_f64) / y - F::cast_from(1.0_f64))) / F::sqrt(y);
         }
-        if x > F::new(0.0) { r = rr; } else { r = -rr; }
+        if x > F::cast_from(0.0_f64) { r = rr; } else { r = -rr; }
     }
 
     r
@@ -288,17 +288,17 @@ pub fn xc_bessel_I1_scaled<F: Float>(x: F) -> F {
 #[cube]
 pub fn xc_bessel_I1<F: Float>(x: F) -> F {
     let y = F::abs(x);
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if y == F::new(0.0) {
-        r = F::new(0.0);
+    if y == F::cast_from(0.0_f64) {
+        r = F::cast_from(0.0_f64);
     } else if y < F::cast_from(TWO_DBL_MIN) {
         // Underflow: leave r = 0.0.
-        r = F::new(0.0);
+        r = F::cast_from(0.0_f64);
     } else if y < F::cast_from(TWO_SQRT2_SQRT_DBL_EPSILON) {
-        r = F::new(0.5) * x;
-    } else if y <= F::new(3.0) {
-        r = x * (F::new(0.875) + cheb_bi1::<F>(y * y / F::new(4.5) - F::new(1.0)));
+        r = F::cast_from(0.5_f64) * x;
+    } else if y <= F::cast_from(3.0_f64) {
+        r = x * (F::cast_from(0.875_f64) + cheb_bi1::<F>(y * y / F::cast_from(4.5_f64) - F::cast_from(1.0_f64)));
     } else {
         r = F::exp(x) * xc_bessel_I1_scaled::<F>(x);
     }
@@ -313,10 +313,10 @@ pub fn xc_bessel_I1<F: Float>(x: F) -> F {
 /// `bk0_data` (11 coefficients) — series for K0(x) on x ≤ 2.
 #[cube]
 fn cheb_bk0<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000000035_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000013744_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000004259816_f64);
@@ -328,16 +328,16 @@ fn cheb_bk0<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.03597993651536150163_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.34428989992462848690_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.03532739323390276872_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ak0_data` (17 coefficients) — series for K0(x) scaled, 2 ≤ x ≤ 8.
 #[cube]
 fn cheb_ak0<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000005_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000033_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000215_f64);
@@ -355,16 +355,16 @@ fn cheb_ak0<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00077341811546938_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.02235652605699819_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.07643947903327941_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ak02_data` (14 coefficients) — series for K0(x) scaled, x > 8.
 #[cube]
 fn cheb_ak02<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000002_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000020_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000192_f64);
@@ -379,16 +379,16 @@ fn cheb_ak02<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00014445509317750_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00917485269102569_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.01201869826307592_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `bk1_data` (11 coefficients) — series for K1(x) on x ≤ 2.
 #[cube]
 fn cheb_bk1<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000000000070_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000000024274_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.0000000000006666901_f64);
@@ -400,16 +400,16 @@ fn cheb_bk1<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.1226111808226571480_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.3531559607765448760_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.0253002273389477705_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ak1_data` (17 coefficients) — series for K1(x) scaled, 2 ≤ x ≤ 8.
 #[cube]
 fn cheb_ak1<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000006_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000038_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000248_f64);
@@ -427,16 +427,16 @@ fn cheb_ak1<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00144105155647540_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.07571989953199368_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.27443134069738830_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 /// `ak12_data` (14 coefficients) — series for K1(x) scaled, x > 8.
 #[cube]
 fn cheb_ak12<F: Float>(x: F) -> F {
-    let twox = F::new(2.0) * x;
-    let mut b0: F = F::new(0.0);
-    let mut b1: F = F::new(0.0);
-    let mut b2: F = F::new(0.0);
+    let twox = F::cast_from(2.0_f64) * x;
+    let mut b0: F = F::cast_from(0.0_f64);
+    let mut b1: F = F::cast_from(0.0_f64);
+    let mut b2: F = F::cast_from(0.0_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000002_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00000000000000022_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.00000000000000215_f64);
@@ -451,7 +451,7 @@ fn cheb_ak12<F: Float>(x: F) -> F {
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from(-0.00024753706739052_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.02832887813049721_f64);
     b2 = b1; b1 = b0; b0 = twox * b1 - b2 + F::cast_from( 0.06379308343739001_f64);
-    F::new(0.5) * (b0 - b2)
+    F::cast_from(0.5_f64) * (b0 - b2)
 }
 
 // ---------------------------------------------------------------------------
@@ -465,18 +465,18 @@ fn cheb_ak12<F: Float>(x: F) -> F {
 /// silently returns 0 (libxc emits stderr; not available in `#[cube]`).
 #[cube]
 pub fn xc_bessel_K0_scaled<F: Float>(x: F) -> F {
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if x <= F::new(0.0) {
+    if x <= F::cast_from(0.0_f64) {
         // Domain error: leave r = 0.0.
-        r = F::new(0.0);
-    } else if x <= F::new(2.0) {
-        r = F::exp(x) * (-F::ln(F::new(0.5) * x) * xc_bessel_I0::<F>(x) - F::new(0.25)
-            + cheb_bk0::<F>(F::new(0.5) * x * x - F::new(1.0)));
-    } else if x <= F::new(8.0) {
-        r = (F::new(1.25) + cheb_ak0::<F>((F::new(16.0) / x - F::new(5.0)) / F::new(3.0))) / F::sqrt(x);
+        r = F::cast_from(0.0_f64);
+    } else if x <= F::cast_from(2.0_f64) {
+        r = F::exp(x) * (-F::ln(F::cast_from(0.5_f64) * x) * xc_bessel_I0::<F>(x) - F::cast_from(0.25_f64)
+            + cheb_bk0::<F>(F::cast_from(0.5_f64) * x * x - F::cast_from(1.0_f64)));
+    } else if x <= F::cast_from(8.0_f64) {
+        r = (F::cast_from(1.25_f64) + cheb_ak0::<F>((F::cast_from(16.0_f64) / x - F::cast_from(5.0_f64)) / F::cast_from(3.0_f64))) / F::sqrt(x);
     } else {
-        r = (F::new(1.25) + cheb_ak02::<F>(F::new(16.0) / x - F::new(1.0))) / F::sqrt(x);
+        r = (F::cast_from(1.25_f64) + cheb_ak02::<F>(F::cast_from(16.0_f64) / x - F::cast_from(1.0_f64))) / F::sqrt(x);
     }
 
     r
@@ -490,14 +490,14 @@ pub fn xc_bessel_K0_scaled<F: Float>(x: F) -> F {
 /// Mirrors libxc `xc_bessel_K0` in `bessel.c`.
 #[cube]
 pub fn xc_bessel_K0<F: Float>(x: F) -> F {
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if x <= F::new(0.0) {
+    if x <= F::cast_from(0.0_f64) {
         // Domain error: leave r = 0.0.
-        r = F::new(0.0);
-    } else if x <= F::new(2.0) {
-        r = -F::ln(F::new(0.5) * x) * xc_bessel_I0::<F>(x) - F::new(0.25)
-            + cheb_bk0::<F>(F::new(0.5) * x * x - F::new(1.0));
+        r = F::cast_from(0.0_f64);
+    } else if x <= F::cast_from(2.0_f64) {
+        r = -F::ln(F::cast_from(0.5_f64) * x) * xc_bessel_I0::<F>(x) - F::cast_from(0.25_f64)
+            + cheb_bk0::<F>(F::cast_from(0.5_f64) * x * x - F::cast_from(1.0_f64));
     } else {
         r = F::exp(-x) * xc_bessel_K0_scaled::<F>(x);
     }
@@ -511,18 +511,18 @@ pub fn xc_bessel_K0<F: Float>(x: F) -> F {
 /// Mirrors libxc `xc_bessel_K1_scaled` in `bessel.c`.
 #[cube]
 pub fn xc_bessel_K1_scaled<F: Float>(x: F) -> F {
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if x <= F::new(0.0) {
+    if x <= F::cast_from(0.0_f64) {
         // Domain error: leave r = 0.0.
-        r = F::new(0.0);
-    } else if x <= F::new(2.0) {
-        r = F::exp(x) * (F::ln(F::new(0.5) * x) * xc_bessel_I1::<F>(x)
-            + (F::new(0.75) + cheb_bk1::<F>(F::new(0.5) * x * x - F::new(1.0))) / x);
-    } else if x <= F::new(8.0) {
-        r = (F::new(1.25) + cheb_ak1::<F>((F::new(16.0) / x - F::new(5.0)) / F::new(3.0))) / F::sqrt(x);
+        r = F::cast_from(0.0_f64);
+    } else if x <= F::cast_from(2.0_f64) {
+        r = F::exp(x) * (F::ln(F::cast_from(0.5_f64) * x) * xc_bessel_I1::<F>(x)
+            + (F::cast_from(0.75_f64) + cheb_bk1::<F>(F::cast_from(0.5_f64) * x * x - F::cast_from(1.0_f64))) / x);
+    } else if x <= F::cast_from(8.0_f64) {
+        r = (F::cast_from(1.25_f64) + cheb_ak1::<F>((F::cast_from(16.0_f64) / x - F::cast_from(5.0_f64)) / F::cast_from(3.0_f64))) / F::sqrt(x);
     } else {
-        r = (F::new(1.25) + cheb_ak12::<F>(F::new(16.0) / x - F::new(1.0))) / F::sqrt(x);
+        r = (F::cast_from(1.25_f64) + cheb_ak12::<F>(F::cast_from(16.0_f64) / x - F::cast_from(1.0_f64))) / F::sqrt(x);
     }
 
     r
@@ -536,17 +536,17 @@ pub fn xc_bessel_K1_scaled<F: Float>(x: F) -> F {
 /// Mirrors libxc `xc_bessel_K1` in `bessel.c`.
 #[cube]
 pub fn xc_bessel_K1<F: Float>(x: F) -> F {
-    let mut r: F = F::new(0.0);
+    let mut r: F = F::cast_from(0.0_f64);
 
-    if x <= F::new(0.0) {
+    if x <= F::cast_from(0.0_f64) {
         // Domain error: leave r = 0.0.
-        r = F::new(0.0);
+        r = F::cast_from(0.0_f64);
     } else if x < F::cast_from(TWO_DBL_MIN) {
         // Overflow error: leave r = 0.0.
-        r = F::new(0.0);
-    } else if x <= F::new(2.0) {
-        r = F::ln(F::new(0.5) * x) * xc_bessel_I1::<F>(x)
-            + (F::new(0.75) + cheb_bk1::<F>(F::new(0.5) * x * x - F::new(1.0))) / x;
+        r = F::cast_from(0.0_f64);
+    } else if x <= F::cast_from(2.0_f64) {
+        r = F::ln(F::cast_from(0.5_f64) * x) * xc_bessel_I1::<F>(x)
+            + (F::cast_from(0.75_f64) + cheb_bk1::<F>(F::cast_from(0.5_f64) * x * x - F::cast_from(1.0_f64))) / x;
     } else {
         r = F::exp(-x) * xc_bessel_K1_scaled::<F>(x);
     }

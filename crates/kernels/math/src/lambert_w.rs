@@ -20,27 +20,27 @@ use cubecl::prelude::*;
 /// and initial guess selection, with 15 unrolled Halley iteration steps.
 #[cube]
 pub fn lambert_w<F: Float>(z: F) -> F {
-    let inv_e = F::new(1.0) / F::exp(F::new(1.0));
-    let eps = F::new(1e-15);
-    let cbrt_eps = F::powf(eps, F::new(1.0) / F::new(3.0));
+    let inv_e = F::cast_from(1.0_f64) / F::exp(F::cast_from(1.0_f64));
+    let eps = F::cast_from(1e-15_f64);
+    let cbrt_eps = F::powf(eps, F::cast_from(1.0_f64) / F::cast_from(3.0_f64));
 
-    let mut result = F::new(0.0);
+    let mut result = F::cast_from(0.0_f64);
 
-    if z + inv_e < F::new(-10.0) * eps {
+    if z + inv_e < F::cast_from(-10.0_f64) * eps {
         // Below branch: z < -1/e
-        result = F::new(-1.0);
+        result = F::cast_from(-1.0_f64);
     } else if F::abs(z) < cbrt_eps {
         // Small z: power expansion
-        result = z - z * z + F::new(1.5) * z * z * z;
+        result = z - z * z + F::cast_from(1.5_f64) * z * z * z;
     } else {
         // Initial guess based on region
-        let mut w0 = F::new(0.0);
-        if z <= F::new(-0.3140862435046707) {
+        let mut w0 = F::cast_from(0.0_f64);
+        if z <= F::cast_from(-0.3140862435046707_f64) {
             // Near branch point
-            w0 = F::sqrt(F::new(2.0) * F::exp(F::new(1.0)) * z + F::new(2.0)) - F::new(1.0);
-        } else if z <= F::new(1.149876485041417) {
+            w0 = F::sqrt(F::cast_from(2.0_f64) * F::exp(F::cast_from(1.0_f64)) * z + F::cast_from(2.0_f64)) - F::cast_from(1.0_f64);
+        } else if z <= F::cast_from(1.149876485041417_f64) {
             // Taylor around origin
-            w0 = z - z * z + F::new(1.5) * z * z * z;
+            w0 = z - z * z + F::cast_from(1.5_f64) * z * z * z;
         } else {
             // Asymptotic expansion
             let lnz = F::ln(z);
@@ -73,8 +73,8 @@ pub fn lambert_w<F: Float>(z: F) -> F {
 fn halley_step<F: Float>(w: F, z: F) -> F {
     let expmw = F::exp(-w);
     let residual = w - z * expmw;
-    let denom = w + F::new(1.0) - (w + F::new(2.0)) / (F::new(2.0) * w + F::new(2.0)) * residual;
+    let denom = w + F::cast_from(1.0_f64) - (w + F::cast_from(2.0_f64)) / (F::cast_from(2.0_f64) * w + F::cast_from(2.0_f64)) * residual;
     // Guard against w == -1 (denom would be 0)
-    let dw = select(F::abs(w + F::new(1.0)) < F::new(1.0e-300), F::new(0.0), -residual / denom);
+    let dw = select(F::abs(w + F::cast_from(1.0_f64)) < F::cast_from(1.0e-300_f64), F::cast_from(0.0_f64), -residual / denom);
     w + dw
 }
