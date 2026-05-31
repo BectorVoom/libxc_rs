@@ -217,6 +217,36 @@ def format_imports(imports: list) -> str:
 # Expression translation
 # ---------------------------------------------------------------------------
 
+def strip_redundant_outer_parens(expr: str) -> str:
+    """Remove parentheses that wrap the *entire* RHS expression.
+
+    libxc's maple2c output occasionally emits a CSE temp as a fully
+    parenthesized atom (e.g. ``t457 = (t24);``). Emitted verbatim as
+    ``let t457 = (t24);`` this trips rustc's `unused_parens` lint, which
+    every affected kernel then reports as a build warning. Strip the
+    outermost pair iff it encloses the whole expression — i.e. the first
+    ``(`` is balanced only at the final character. Meaningful inner
+    grouping such as ``(a + b) * c`` (first ``(`` closes early) is left
+    untouched. Idempotent.
+    """
+    s = expr.strip()
+    while len(s) >= 2 and s[0] == '(' and s[-1] == ')':
+        depth = 0
+        wraps_whole = True
+        for i, c in enumerate(s):
+            if c == '(':
+                depth += 1
+            elif c == ')':
+                depth -= 1
+                if depth == 0 and i != len(s) - 1:
+                    wraps_whole = False
+                    break
+        if not wraps_whole:
+            break
+        s = s[1:-1].strip()
+    return s
+
+
 def translate_line(line: str, is_pol: bool) -> str:
     """Translate a single C computation line to Rust."""
     s = line
@@ -361,6 +391,10 @@ def translate_line(line: str, is_pol: bool) -> str:
         'case21_xbspline', 'case21_cbspline',            # bspline.rs
     ]:
         s = re.sub(rf'\b{fn}\(', f'{fn}::<f64>(', s)
+
+    # Drop a fully-enclosing outer paren pair so `let tN = (atom);` emits as
+    # `let tN = atom;` — clears rustc's unused_parens lint at the source.
+    s = strip_redundant_outer_parens(s)
 
     return s
 

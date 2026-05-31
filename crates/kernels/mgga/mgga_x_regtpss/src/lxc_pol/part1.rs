@@ -358,7 +358,7 @@ pub fn mgga_x_regtpss_lxc_pol_part1_v3sigmatau2_v3lapl3_v3lapl2tau_v3lapltau2_v3
         let t855 = t854 * t237;
         let t863 = t253 * t255;
         let t909 = 1.0 / t295 / t115;
-        let t913 = (t32);
+        let t913 = t32;
         let t914 = t913 * t44;
         let t915 = 1.0 / t91;
         let t920 = t297 * t304;
@@ -392,7 +392,7 @@ pub fn mgga_x_regtpss_lxc_pol_part1_v3sigmatau2_v3lapl3_v3lapl2tau_v3lapltau2_v3
         let t1075 = 1.0 / t52 / t1062;
         let t1090 = t387 * t131;
         let t1283 = 1.0 / t467 / t239;
-        let t1287 = (t166);
+        let t1287 = t166;
         let t1288 = t1287 * t178;
         let t1289 = 1.0 / t215;
         let t1294 = t469 * t476;

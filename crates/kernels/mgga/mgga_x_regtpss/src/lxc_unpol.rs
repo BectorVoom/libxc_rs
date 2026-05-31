@@ -339,7 +339,7 @@ pub fn mgga_x_regtpss_lxc_unpol(
         let t453 = 1.0 / t154 / t110;
         let t454 = t237 * t237;
         let t456 = 0.1292832e1 * t453 * t454;
-        let t457 = (t24);
+        let t457 = t24;
         let t458 = t457 * t36;
         let t459 = 1.0 / t86;
         let t460 = t26 * t459;

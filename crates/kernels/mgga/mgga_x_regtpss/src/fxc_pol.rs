@@ -522,7 +522,7 @@ pub fn mgga_x_regtpss_fxc_pol(
         let t909 = 1.0 / t295 / t115;
         let t910 = t375 * t375;
         let t912 = 0.1292832e1 * t909 * t910;
-        let t913 = (t32);
+        let t913 = t32;
         let t914 = t913 * t44;
         let t915 = 1.0 / t91;
         let t916 = t34 * t915;
@@ -676,7 +676,7 @@ pub fn mgga_x_regtpss_fxc_pol(
         let t1283 = 1.0 / t467 / t239;
         let t1284 = t547 * t547;
         let t1286 = 0.1292832e1 * t1283 * t1284;
-        let t1287 = (t166);
+        let t1287 = t166;
         let t1288 = t1287 * t178;
         let t1289 = 1.0 / t215;
         let t1290 = t168 * t1289;
