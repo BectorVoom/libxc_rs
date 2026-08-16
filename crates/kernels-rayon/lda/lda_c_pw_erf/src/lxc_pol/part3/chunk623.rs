@@ -1,0 +1,22 @@
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 623/1335 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk623(t3638: f64, t3614: f64, t557: f64, t11: f64, t3619: f64, t1357: f64, t325: f64, t1349: f64, t3605: f64, t3610: f64, t3625: f64, t3627: f64, t3629: f64, t3631: f64, t3635: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t3639 = 0.11197407407407407_f64 * t3638;
+    let t3640 = t557 * t3614;
+    let t3641 = t11 * t3640;
+    let t3643 = t557 * t3619;
+    let t3644 = t11 * t3643;
+    let t3646 = t325 * t1357;
+    let t3648 = t1349 * t3605;
+    let t3649 = t11 * t3648;
+    let t3651 = t1349 * t3610;
+    let t3652 = t11 * t3651;
+    let t3654 = -0.035991666666666665_f64 * t3625 - 0.047988888888888886_f64 * t3627 + 0.035991666666666665_f64 * t3629 + 0.023994444444444443_f64 * t3631 - 0.03999074074074074_f64 * t3635 - t3639 - 0.21595_f64 * t3641 + 0.21595_f64 * t3644 - 0.07198333333333333_f64 * t3646 + 0.14396666666666666_f64 * t3649 - 0.07198333333333333_f64 * t3652;
+    (t3639, t3640, t3641, t3643, t3644, t3646, t3648, t3649, t3651, t3652, t3654)
+}

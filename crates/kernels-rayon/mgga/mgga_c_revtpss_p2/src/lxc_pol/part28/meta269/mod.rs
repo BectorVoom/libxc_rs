@@ -1,0 +1,34 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part28_v4rho3sigma_3 meta269 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1205;
+use chunk1::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1206;
+use chunk2::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1207;
+use chunk3::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1208;
+use chunk4::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1209;
+use chunk5::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1210;
+use chunk6::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1211;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_meta269(t1032: f64, t555: f64, t1426: f64, t786: f64, t2029: f64, t72: f64, t686: f64, t7063: f64, t1419: f64, t1955: f64, t4075: f64, t545: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let t7282 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1205(t1032, t555);
+        let t7283 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1206(t1426, t7282);
+        let t7284 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1207(t7283, t786);
+        let (t7285, t7286) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1208(t2029, t72, t686);
+        let (t7288, t7289) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1209(t7284, t7286, t7063, t7283);
+        let (t7291, t7292, t7295) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1210(t7286, t7289, t1419, t1955, t7282);
+        let t7296 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk1211(t4075, t545);
+    (t7282, t7283, t7284, t7285, t7286, t7288, t7289, t7291, t7292, t7295, t7296)
+}

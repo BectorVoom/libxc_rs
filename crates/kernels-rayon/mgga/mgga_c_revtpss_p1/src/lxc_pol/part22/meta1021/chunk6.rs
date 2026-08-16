@@ -1,0 +1,14 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 22 (v4rho4_2) CSE chunk 3555/3938 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk3555(t3298: f64, t6235: f64, t378: f64, t65481: f64, t11788: f64, t12097: f64, t12149: f64, t12154: f64, t16183: f64, t16406: f64, t16440: f64, t16465: f64, t16534: f64, t16544: f64, t19482: f64, t19509: f64, t19594: f64, t19597: f64, t19608: f64, t19836: f64, t20139: f64, t20146: f64, t3151: f64, t3305: f64, t3317: f64, t3318: f64, t43432: f64, t43443: f64, t43528: f64, t4893: f64, t4954: f64, t4976: f64, t4996: f64, t55569: f64, t55570: f64, t55593: f64, t55594: f64, t6383: f64, t64891: f64, t73: f64) -> (f64, f64) {
+    let t67725 = t6235 * t3298;
+    let t67748 = t378 * t65481;
+    let t67768 = 0.13170898365871023197e1_f64 * t67725 * t3305 + 0.13170898365871023197e1_f64 * t4954 * t16440 - 0.26341796731742046394e1_f64 * t19608 * t16534 + 0.52683593463484092788e1_f64 * t11788 * t19509 + 0.13170898365871023197e1_f64 * t4954 * t16465 - 0.52683593463484092788e1_f64 * t43432 * t19594 + 0.26341796731742046394e1_f64 * t43528 * t19597 + 0.52683593463484092788e1_f64 * t12149 * t19836 * t73 * t4976 + 0.26341796731742046394e1_f64 * t43443 * t20139 + 0.65854491829355115987e0_f64 * t12097 * t6383 - 0.13170898365871023197e1_f64 * t3317 * t67748 * t3318 - 0.13170898365871023197e1_f64 * t4996 * t4893 * t19482 * t16183 + 0.15805078039045227836e2_f64 * t55593 * t64891 * t55594 * t3151 - 0.23707617058567841754e2_f64 * t55569 * t64891 * t55570 * t3151 - 0.13170898365871023197e1_f64 * t16544 * t16406 - 0.26341796731742046394e1_f64 * t12154 * t20146;
+    (t67748, t67768)
+}

@@ -13,7 +13,12 @@ pub use libxc_core::deferred;
 
 // Orchestration layer moved to libxc-eval (Phase 10); re-exported so api/compat
 // and downstream `crate::eval::`/`crate::kernel::`/`libxc_rs::math` keep resolving.
-pub use libxc_eval::{eval, functional, kernel};
+pub use libxc_eval::{eval, functional};
+// `kernel` and `math` re-export the archived CubeCL backend; available only
+// with the cubecl-backend feature (ADR 0001).
+#[cfg(feature = "cubecl-backend")]
+pub use libxc_eval::kernel;
+#[cfg(feature = "cubecl-backend")]
 pub use libxc_eval::math;
 
 pub mod api; // the only module that stays LOCAL in the facade

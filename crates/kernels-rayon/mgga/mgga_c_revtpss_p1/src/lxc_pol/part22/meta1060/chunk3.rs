@@ -1,0 +1,14 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 22 (v4rho4_2) CSE chunk 3774/3938 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk3774(t5245: f64, t5457: f64, t3601: f64, t6695: f64, t1234: f64, t12717: f64, t1280: f64, t1287: f64, t1291: f64, t13133: f64, t16775: f64, t17289: f64, t17454: f64, t17846: f64, t21333: f64, t21484: f64, t21513: f64, t21610: f64, t3666: f64, t3670: f64, t3755: f64, t3782: f64, t3783: f64, t45654: f64, t45659: f64, t45683: f64, t45715: f64, t490: f64, t5346: f64, t5452: f64, t5486: f64, t59650: f64, t6573: f64, t6587: f64, t69655: f64, t70422: f64, t71179: f64, t71724: f64, t72044: f64, t72087: f64, t73: f64) -> (f64, f64) {
+    let t72143 = t5457 * t5245;
+    let t72165 = t6695 * t3601;
+    let t72187 = 0.52683593463484092788e1_f64 * t12717 * t5346 * t73 * t72143 - 0.52683593463484092788e1_f64 * t45715 * t21513 - 0.13170898365871023197e1_f64 * t3755 * t71724 * t1287 - 0.26341796731742046394e1_f64 * t45683 * t21484 + 0.65854491829355115987e0_f64 * t71179 * t490 - 0.26341796731742046394e1_f64 * t17289 * t5452 - 0.26341796731742046394e1_f64 * t3666 * t21610 + 0.13170898365871023197e1_f64 * t21333 * t1291 + 0.13170898365871023197e1_f64 * t3670 * t1280 * t70422 - 0.65854491829355115987e0_f64 * t3782 * t72165 * t3783 - 0.65854491829355115987e0_f64 * t1234 * t13133 * t6587 + 0.26341796731742046394e1_f64 * t3670 * t5486 * t16775 + 0.13170898365871023197e1_f64 * t3670 * t13133 * t6573 - 0.79025390195226139182e1_f64 * t45654 * t69655 * t72044 + 0.15805078039045227836e2_f64 * t17846 * t59650 * t72087 + 0.79025390195226139182e1_f64 * t45659 * t69655 * t17454;
+    (t72165, t72187)
+}

@@ -1,0 +1,13 @@
+//! GGA_C_GAPC lxc pol — lxc_pol part 32 (v4rho2sigma2_11) CSE chunk 1301/1311 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_gapc_lxc_pol_part32_v4rho2sigma2_11_chunk1301(t11613: f64, t2786: f64, t996: f64, t35966: f64, t35970: f64, t35973: f64, t35976: f64, t35979: f64, t35983: f64, t35986: f64, t35989: f64, t35992: f64, t35996: f64, t35999: f64, t36003: f64) -> f64 {
+    let t36006 = t996 * t2786 * t11613;
+    let t36008 = 0.14678726495025884871e-5_f64 * t35966 - 0.23485962392041415794e-4_f64 * t35970 + 0.73393632475129424356e-6_f64 * t35973 - 0.93943849568165663176e-4_f64 * t35976 + 0.4892908831675294957e-7_f64 * t35979 + 0.3324749971499610313e-7_f64 * t35983 - 0.23485962392041415794e-5_f64 * t35986 - 0.23485962392041415794e-5_f64 * t35989 + 0.13919347044349879094e-6_f64 * t35992 + 0.15467874403033803143e-7_f64 * t35996 + 0.16414765573575218917e-4_f64 * t35999 - 0.86995919027186744337e-8_f64 * t36003 - 0.16414765573575218917e-4_f64 * t36006;
+    t36008
+}

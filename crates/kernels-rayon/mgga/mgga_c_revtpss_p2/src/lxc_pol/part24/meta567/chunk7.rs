@@ -1,0 +1,12 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 24 (v4rho4_4) CSE chunk 1739/1850 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk1739(t1210: f64, t1277: f64, t13182: f64, t1774: f64, t17986: f64, t17987: f64, t18059: f64, t1828: f64, t1829: f64, t20697: f64, t20753: f64, t21394: f64, t21621: f64, t24514: f64, t24519: f64, t24524: f64, t24633: f64, t24892: f64, t24900: f64, t25016: f64, t25022: f64, t5220: f64, t5251: f64, t5417: f64, t6574: f64, t6580: f64, t6587: f64, t6588: f64, t6744: f64, t6745: f64, t72874: f64, t84952: f64) -> f64 {
+    let t89930 = -0.26341796731742046395e1_f64 * t84952 * t1829 + 0.15805078039045227836e2_f64 * t72874 * t6574 + 0.79025390195226139183e1_f64 * t5251 * t24900 + 0.15805078039045227836e2_f64 * t18059 * t24892 + 0.26341796731742046395e1_f64 * t1210 * t1277 * t24633 * t1828 - 0.39512695097613069592e1_f64 * t20697 * t6588 - 0.26341796731742046395e1_f64 * t5417 * t25016 + 0.79025390195226139183e1_f64 * t5220 * t24900 + 0.15805078039045227836e2_f64 * t1210 * t13182 * t24524 * t1774 + 0.79025390195226139183e1_f64 * t20697 * t6580 + 0.15805078039045227836e2_f64 * t21394 * t6580 - 0.39512695097613069592e1_f64 * t20753 * t6745 + 0.39512695097613069592e1_f64 * t1210 * t1277 * t6587 * t6744 - 0.15805078039045227836e2_f64 * t5251 * t24519 - 0.15805078039045227836e2_f64 * t17986 * t17987 * t24514 - 0.26341796731742046395e1_f64 * t5251 * t25022 - 0.39512695097613069592e1_f64 * t21621 * t6588;
+    t89930
+}

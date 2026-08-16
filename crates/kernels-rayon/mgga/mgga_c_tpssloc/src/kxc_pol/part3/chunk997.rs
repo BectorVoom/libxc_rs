@@ -1,0 +1,18 @@
+//! MGGA_C_TPSSLOC kxc pol — kxc_pol part 3 (v3rho3_1) CSE chunk 997/1255 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_kxc_pol_part3_v3rho3_1_chunk997(t12890: f64, t185: f64, t2250: f64, t4195: f64, t4194: f64, t4303: f64, t870: f64, t262: f64, t4119: f64, t2553: f64, t4315: f64, t9717: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t12891 = t12890 * t185;
+    let t12892 = t4195 * t2250;
+    let t12894 = 12.0_f64 * t4194 * t12892;
+    let t12895 = t4303 * t870;
+    let t12899 = t262 * t4119;
+    let t12903 = t4315 * t2553;
+    let t12906 = 0.5848223622634646207e0_f64 * t9717;
+    (t12891, t12894, t12895, t12899, t12903, t12906)
+}

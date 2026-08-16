@@ -1,0 +1,112 @@
+//! GGA_XC_TH1 vxc unpol kernel (rayon backend).
+//!
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th1.c`.
+//! Preserves exact maple2c variable names and FP operation order.
+//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case)]
+pub fn gga_xc_th1_vxc_unpol(
+    rho: &[f64],
+    sigma: &[f64],
+    zk: &mut [f64],
+    vrho: &mut [f64],
+    vsigma: &mut [f64],
+    param_omega_0: f64,
+    param_omega_1: f64,
+    param_omega_2: f64,
+    param_omega_3: f64,
+    param_omega_4: f64,
+    param_omega_5: f64,
+    param_omega_6: f64,
+    param_omega_7: f64,
+    param_omega_8: f64,
+    param_omega_9: f64,
+    param_omega_10: f64,
+    param_omega_11: f64,
+    param_omega_12: f64,
+    param_omega_13: f64,
+    param_omega_14: f64,
+    param_omega_15: f64,
+    param_omega_20: f64,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    for ip in 0..zk.len() {
+        let t2 = f64::powf(2.0, 1.0 / 6.0);
+        let t3 = t2 * t2;
+        let t4 = t3 * t3;
+        let t6 = param_omega_0 * t4 * t2;
+        let t7 = f64::powf(rho[ip], 1.0 / 6.0);
+        let t8 = t7 * rho[ip];
+        let t12 = M_CBRT2;
+        let t13 = t12 * t12;
+        let t14 = param_omega_1 * t13;
+        let t15 = pow_1_3(rho[ip]);
+        let t16 = t15 * rho[ip];
+        let t20 = M_SQRT2;
+        let t21 = param_omega_2 * t20;
+        let t22 = f64::sqrt(rho[ip]);
+        let t23 = t22 * rho[ip];
+        let t27 = param_omega_3 * t12;
+        let t28 = t15 * t15;
+        let t29 = t28 * rho[ip];
+        let t33 = param_omega_4 * t13;
+        let t34 = f64::sqrt(sigma[ip]);
+        let t36 = pow_1_3(zeta_threshold);
+        let t38 = piecewise3(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
+        let t43 = param_omega_5 * t20;
+        let t49 = param_omega_6 * t12;
+        let t55 = param_omega_7 * t2;
+        let t61 = param_omega_8 * t20;
+        let t62 = 1.0 / t8;
+        let t64 = t38 * t38;
+        let t69 = param_omega_9 * t12;
+        let t70 = 1.0 / rho[ip];
+        let t76 = param_omega_10 * t2;
+        let t77 = t7 * t7;
+        let t78 = t77 * t77;
+        let t79 = t78 * t7;
+        let t80 = 1.0 / t79;
+        let t85 = param_omega_11;
+        let t86 = 1.0 / t28;
+        let t87 = t85 * t86;
+        let t88 = sigma[ip] * t64;
+        let t92 = param_omega_12 * t20;
+        let t93 = rho[ip] * rho[ip];
+        let t95 = 1.0 / t28 / t93;
+        let t96 = sigma[ip] * t95;
+        let t98 = t96 * t64 - t96;
+        let t103 = param_omega_13 * t12;
+        let t108 = param_omega_14 * t2;
+        let t109 = t79 * rho[ip];
+        let t113 = param_omega_15;
+        let t114 = t113 * t93;
+        let t117 = param_omega_20;
+        let t119 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t33 * t34 * t38 / 4.0 + t43 * t7 * t34 * t38 / 4.0 + t49 * t15 * t34 * t38 / 4.0 + t55 * t22 * t34 * t38 / 4.0 + t61 * t62 * sigma[ip] * t64 / 8.0 + t69 * t70 * sigma[ip] * t64 / 8.0 + t76 * t80 * sigma[ip] * t64 / 8.0 + t87 * t88 / 8.0 + t92 * t23 * t98 / 2.0 + t103 * t29 * t98 / 2.0 + t108 * t109 * t98 / 2.0 + t114 * t98 / 2.0 + t117 * rho[ip];
+        let tzk0 = t119 * t70;
+        zk[ip] += tzk0;
+        let t136 = 1.0 / t22;
+        let t142 = 1.0 / t7 / t93;
+        let t147 = 1.0 / t93;
+        let t152 = 1.0 / t109;
+        let t157 = 1.0 / t29;
+        let t158 = t85 * t157;
+        let t164 = t93 * rho[ip];
+        let t166 = 1.0 / t28 / t164;
+        let t167 = sigma[ip] * t166;
+        let t170 = -8.0 / 3.0 * t167 * t64 + 8.0 / 3.0 * t167;
+        let t186 = t113 * rho[ip];
+        let tvrho0 = 7.0 / 12.0 * t6 * t7 + 2.0 / 3.0 * t14 * t15 + 3.0 / 4.0 * t21 * t22 + 5.0 / 6.0 * t27 * t28 + t43 * t80 * t34 * t38 / 24.0 + t49 * t86 * t34 * t38 / 12.0 + t55 * t136 * t34 * t38 / 8.0 - 7.0 / 48.0 * t61 * t142 * sigma[ip] * t64 - t69 * t147 * sigma[ip] * t64 / 8.0 - 5.0 / 48.0 * t76 * t152 * sigma[ip] * t64 - t158 * t88 / 12.0 + 3.0 / 4.0 * t92 * t22 * t98 + t92 * t23 * t170 / 2.0 + 5.0 / 6.0 * t103 * t28 * t98 + t103 * t29 * t170 / 2.0 + 11.0 / 12.0 * t108 * t79 * t98 + t108 * t109 * t170 / 2.0 + t186 * t98 + t114 * t170 / 2.0 + t117;
+        vrho[ip] += tvrho0;
+        let t190 = 1.0 / t34;
+        let t218 = t95 * t64 - t95;
+        let tvsigma0 = t33 * t190 * t38 / 8.0 + t43 * t7 * t190 * t38 / 8.0 + t49 * t15 * t190 * t38 / 8.0 + t55 * t22 * t190 * t38 / 8.0 + t61 * t62 * t64 / 8.0 + t69 * t70 * t64 / 8.0 + t76 * t80 * t64 / 8.0 + t87 * t64 / 8.0 + t92 * t23 * t218 / 2.0 + t103 * t29 * t218 / 2.0 + t108 * t109 * t218 / 2.0 + t114 * t218 / 2.0;
+        vsigma[ip] += tvsigma0;
+    }
+}

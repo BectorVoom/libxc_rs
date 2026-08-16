@@ -1,0 +1,18 @@
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1209/1455 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI, M_SQRT2};
+use libxc_rkernel_math::erf::{erf_approx};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1209(t1181: f64, t5861: f64, t555: f64, t7874: f64, t8184: f64, t547: f64, t7880: f64, t1232: f64, t19: f64, t2986: f64, t5870: f64, t5873: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t23108 = t1181 * t5861;
+    let t23111 = t555 * t8184 * t7874;
+    let t23113 = t547 * t7880;
+    let t23116 = t19 * t2986 * t1232;
+    let t23118 = t1181 * t5870;
+    let t23120 = t1181 * t5873;
+    (t23108, t23111, t23113, t23116, t23118, t23120)
+}

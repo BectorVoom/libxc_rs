@@ -1,0 +1,17 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 31 (v4rho3sigma_6) CSE chunk 2161/2259 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk2161(t1035: f64, t29807: f64, t29834: f64, t7166: f64, t1976: f64, t6305: f64, t3153: f64, t6235: f64, t100431: f64, t100658: f64, t1043: f64, t1089: f64, t1097: f64, t1668: f64, t1695: f64, t1696: f64, t19342: f64, t19579: f64, t20151: f64, t25461: f64, t25473: f64, t25611: f64, t27422: f64, t27579: f64, t27687: f64, t29728: f64, t29732: f64, t29844: f64, t6245: f64, t7102: f64, t7144: f64, t7159: f64, t7160: f64, t7167: f64, t7170: f64, t93884: f64, t93897: f64, t99629: f64, t99881: f64) -> (f64, f64, f64) {
+    let t107207 = t1035 * t29807;
+    let t107212 = t29834 * t7166;
+    let t107225 = t1976 * t6305;
+    let t107226 = t107225 * t3153;
+    let t107240 = t6235 * t1976;
+    let t107257 = -0.4336814094102599731e0_f64 * t7167 * t107207 * t1043 * t1089 - 0.8673628188205199462e0_f64 * t107212 * t7170 - 0.8673628188205199462e0_f64 * t7167 * t100431 * t1668 * t1089 - 0.13170898365871023197e1_f64 * t99881 * t1696 + 0.13170898365871023197e1_f64 * t93884 * t6245 + 0.34694512752820797848e1_f64 * t100658 * t29844 - 0.8673628188205199462e0_f64 * t93897 * t107226 * t19579 + 0.17347256376410398924e1_f64 * t25611 * t27687 * t1668 * t1089 + 0.17347256376410398924e1_f64 * t25611 * t27579 * t1668 * t1089 + 0.17347256376410398924e1_f64 * t25461 * t29728 - 0.65854491829355115987e0_f64 * t107240 * t1097 + 0.8673628188205199462e0_f64 * t25473 * t29732 - 0.13170898365871023197e1_f64 * t7102 * t19342 + 0.34694512752820797848e1_f64 * t7144 * t7160 * t27422 * t1695 - 0.13170898365871023197e1_f64 * t99629 * t1696 + 0.8673628188205199462e0_f64 * t7159 * t7160 * t1976 * t20151;
+    (t107225, t107226, t107257)
+}

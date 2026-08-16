@@ -1,0 +1,18 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 27 (v4rho3sigma_3) CSE chunk 1073/2372 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part27_v4rho3sigma_3_chunk1073(t1735: f64, t248: f64, t3570: f64, t1213: f64, t1009: f64, t1720: f64, t1011: f64, t1212: f64, t1226: f64, t1730: f64, t1174: f64, t1218: f64, t1227: f64, t1232: f64, t1737: f64, t3506: f64, t3515: f64, t3536: f64, t3577: f64, t488: f64, t4950: f64, t4954: f64, t4957: f64, t4959: f64, t4961: f64, t4966: f64, t4969: f64, t4974: f64, t4980: f64, t4984: f64, t4989: f64, t4994: f64) -> (f64, f64, f64, f64, f64) {
+    let t4997 = t248 * t3570 * t1735;
+    let t4998 = t1213 * t4997;
+    let t5000 = t1720 * t1009;
+    let t5001 = t5000 * t1011;
+    let t5002 = t5001 * t1212;
+    let t5005 = t1730 * t1226;
+    let t5010 = -t3577 * t4950 / 4608.0_f64 - t3577 * t4954 / 4608.0_f64 + t4957 / 4608.0_f64 - t4959 / 864.0_f64 - t4961 * t488 / 576.0_f64 + t4966 * t488 / 3072.0_f64 - t1174 * t4969 / 144.0_f64 - t1227 * t4974 / 2304.0_f64 + t3506 * t4980 / 1536.0_f64 - t3515 * t4984 / 3072.0_f64 + 5.0_f64 / 13824.0_f64 * t1227 * t4989 - t4994 / 6912.0_f64 + t4998 / 4608.0_f64 + t5002 * t1218 / 3072.0_f64 - t5005 * t1232 / 4608.0_f64 + t3536 * t1737 / 3072.0_f64;
+    (t4997, t5000, t5002, t5005, t5010)
+}

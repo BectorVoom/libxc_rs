@@ -17,7 +17,10 @@ libxc-compat = { path = "crates/libxc-compat", default-features = false }
 # Root re-forwards the family features; the libxc-eval dep is pinned
 # default-features=false (Pitfall 1) so no-feature builds do NOT pull all 306
 # kernels (OOM). verify activates a family via libxc_rs/oracle-<fam>.
-default     = ["oracle-lda", "oracle-gga", "oracle-mgga"]
+# Off by default since ADR 0001 -- see crates/libxc-compat/Cargo.toml. `verify`
+# activates a family explicitly via libxc_rs/oracle-<fam>.
+default     = []
+cubecl-backend = ["libxc-eval/cubecl-backend"]
 oracle-lda  = ["libxc-eval/oracle-lda"]
 oracle-gga  = ["libxc-eval/oracle-gga"]
 oracle-mgga = ["libxc-eval/oracle-mgga"]
@@ -27,292 +30,75 @@ libm = "0.2"
 libxc_rs-verify = { path = "verify" }
 
 [workspace]
-members=[    "xtask",
+resolver = "3"
+
+# Hand-written crates only. The two generated kernel trees (305 rayon crates,
+# 306 archived CubeCL crates) are deliberately NOT members -- see `exclude`.
+members = [
+    # --- core library ---------------------------------------------------
+    "crates/libxc-core",
+    "crates/libxc-compat",
+
+    # --- rayon backend (current) ----------------------------------------
+    "crates/libxc-reval",
+    "crates/kernels-rayon/math",
+
+    # --- CubeCL backend (archived, ADR 0001) ----------------------------
+    "crates/libxc-eval",
+
+    # --- tooling / harnesses --------------------------------------------
+    "xtask",
+    "libxc-sys",
+]
+
+# The generated kernel trees are excluded from the workspace, not merely kept
+# out of `default-members`.
+#
+# `default-members` only changes what a bare `cargo build` picks. It does not
+# affect `cargo check --workspace`, which is what rust-analyzer (Zed, VS Code)
+# runs -- with 611 generated crates as members that meant ~900 units checked
+# and every one of them indexed as workspace code on each editor session.
+#
+# Excluding them makes them ordinary path dependencies: still built when
+# something depends on them, but not enumerated by `--workspace` and not
+# indexed by rust-analyzer.
+#
+# Consequences to know about:
+#   * `cargo check -p libxc-rkernel-<f>` still works for any kernel reachable
+#     from a member (libxc-reval depends on 156 of them; libxc-eval on all 306
+#     archived ones under its oracle-* features).
+#   * For a kernel that nothing depends on, use
+#     `cargo check --manifest-path crates/kernels-rayon/<fam>/<f>/Cargo.toml`.
+exclude = [
+    "archive",
+    # On-demand verification tools. Both link the archived CubeCL backend by
+    # design -- kernels-rayon/verify is the bit-exactness gate that compares the
+    # two trees -- so keeping them as members put cubecl and its ~235
+    # transitive crates into every `cargo check --workspace`. Run them with
+    # --manifest-path:
+    #   cargo run --release --manifest-path crates/kernels-rayon/verify/Cargo.toml
+    #   cargo test --manifest-path verify/Cargo.toml --features oracle-gga --jobs 1
+    #   cargo test --manifest-path verify-canary/Cargo.toml
+    #
+    # `verify` belongs here even though its normal deps are light: it carries 17
+    # archived kernel crates as *dev-dependencies*, which `cargo check
+    # --all-targets` builds. `cargo tree -e normal` hides those, which is why an
+    # earlier measurement of this looked clean when it was not.
+    "crates/kernels-rayon/verify",
     "verify",
     "verify-canary",
-    "libxc-sys",
-    "crates/libxc-core",
-    "crates/libxc-eval",
-    "crates/libxc-compat",]
-# default-members = crates/kernels/math + every per-functional subcrate EXCEPT
-# the 7 D-11 deferred kernels (mgga_c_b94, mgga_x_br89, mgga_x_mbr,
-# mgga_x_mbrxc_bg, mgga_x_mbrxh_bg, mgga_x_mggac, mgga_x_br89_explicit). Those
-# stay workspace members via the [dependencies] path-deps above, so
-# `cargo build -p` builds them on demand, but a bare `cargo build` skips them.
-default-members = [
-    "crates/kernels/math",
-    "crates/libxc-core",
-    "crates/libxc-eval",
-    "crates/kernels/gga/gga_c_acgga",
-    "crates/kernels/gga/gga_c_acggap",
-    "crates/kernels/gga/gga_c_am05",
-    "crates/kernels/gga/gga_c_bmk",
-    "crates/kernels/gga/gga_c_ccdf",
-    "crates/kernels/gga/gga_c_chachiyo",
-    "crates/kernels/gga/gga_c_cs1",
-    "crates/kernels/gga/gga_c_ft97",
-    "crates/kernels/gga/gga_c_gapc",
-    "crates/kernels/gga/gga_c_gaploc",
-    "crates/kernels/gga/gga_c_hcth_a",
-    "crates/kernels/gga/gga_c_lm",
-    "crates/kernels/gga/gga_c_lyp",
-    "crates/kernels/gga/gga_c_lypr",
-    "crates/kernels/gga/gga_c_op_b88",
-    "crates/kernels/gga/gga_c_op_g96",
-    "crates/kernels/gga/gga_c_op_pbe",
-    "crates/kernels/gga/gga_c_op_pw91",
-    "crates/kernels/gga/gga_c_op_xalpha",
-    "crates/kernels/gga/gga_c_optc",
-    "crates/kernels/gga/gga_c_p86",
-    "crates/kernels/gga/gga_c_p86vwn",
-    "crates/kernels/gga/gga_c_pbe",
-    "crates/kernels/gga/gga_c_pbe_erf_gws",
-    "crates/kernels/gga/gga_c_pbe_vwn",
-    "crates/kernels/gga/gga_c_pbeloc",
-    "crates/kernels/gga/gga_c_pw91",
-    "crates/kernels/gga/gga_c_q2d",
-    "crates/kernels/gga/gga_c_regtpss",
-    "crates/kernels/gga/gga_c_revtca",
-    "crates/kernels/gga/gga_c_scan_e0",
-    "crates/kernels/gga/gga_c_sg4",
-    "crates/kernels/gga/gga_c_sogga11",
-    "crates/kernels/gga/gga_c_tca",
-    "crates/kernels/gga/gga_c_w94",
-    "crates/kernels/gga/gga_c_wi",
-    "crates/kernels/gga/gga_c_wl",
-    "crates/kernels/gga/gga_c_zpbeint",
-    "crates/kernels/gga/gga_c_zvpbeint",
-    "crates/kernels/gga/gga_c_zvpbeloc",
-    "crates/kernels/gga/gga_k_apbe",
-    "crates/kernels/gga/gga_k_apbeint",
-    "crates/kernels/gga/gga_k_dk",
-    "crates/kernels/gga/gga_k_exp4",
-    "crates/kernels/gga/gga_k_lc94",
-    "crates/kernels/gga/gga_k_lgap",
-    "crates/kernels/gga/gga_k_lgap_ge",
-    "crates/kernels/gga/gga_k_lkt",
-    "crates/kernels/gga/gga_k_llp",
-    "crates/kernels/gga/gga_k_meyer",
-    "crates/kernels/gga/gga_k_mpbe",
-    "crates/kernels/gga/gga_k_ol1",
-    "crates/kernels/gga/gga_k_ol2",
-    "crates/kernels/gga/gga_k_pearson",
-    "crates/kernels/gga/gga_k_pg",
-    "crates/kernels/gga/gga_k_pw86",
-    "crates/kernels/gga/gga_k_rational_p",
-    "crates/kernels/gga/gga_k_tflw",
-    "crates/kernels/gga/gga_k_thakkar",
-    "crates/kernels/gga/gga_k_vt84f",
-    "crates/kernels/gga/gga_x_2d_b86",
-    "crates/kernels/gga/gga_x_2d_b86_mgc",
-    "crates/kernels/gga/gga_x_2d_b88",
-    "crates/kernels/gga/gga_x_2d_pbe",
-    "crates/kernels/gga/gga_x_airy",
-    "crates/kernels/gga/gga_x_ak13",
-    "crates/kernels/gga/gga_x_am05",
-    "crates/kernels/gga/gga_x_b86",
-    "crates/kernels/gga/gga_x_b88",
-    "crates/kernels/gga/gga_x_bayesian",
-    "crates/kernels/gga/gga_x_beefvdw",
-    "crates/kernels/gga/gga_x_bpccac",
-    "crates/kernels/gga/gga_x_c09x",
-    "crates/kernels/gga/gga_x_cap",
-    "crates/kernels/gga/gga_x_chachiyo",
-    "crates/kernels/gga/gga_x_dk87",
-    "crates/kernels/gga/gga_x_ev93",
-    "crates/kernels/gga/gga_x_fd_lb94",
-    "crates/kernels/gga/gga_x_ft97",
-    "crates/kernels/gga/gga_x_g96",
-    "crates/kernels/gga/gga_x_gg99",
-    "crates/kernels/gga/gga_x_hcth_a",
-    "crates/kernels/gga/gga_x_herman",
-    "crates/kernels/gga/gga_x_hjs",
-    "crates/kernels/gga/gga_x_hjs_b88_v2",
-    "crates/kernels/gga/gga_x_htbs",
-    "crates/kernels/gga/gga_x_ityh",
-    "crates/kernels/gga/gga_x_ityh_optx",
-    "crates/kernels/gga/gga_x_ityh_pbe",
-    "crates/kernels/gga/gga_x_kt",
-    "crates/kernels/gga/gga_x_lag",
-    "crates/kernels/gga/gga_x_lb",
-    "crates/kernels/gga/gga_x_lcgau",
-    "crates/kernels/gga/gga_x_lg93",
-    "crates/kernels/gga/gga_x_lspbe",
-    "crates/kernels/gga/gga_x_lsrpbe",
-    "crates/kernels/gga/gga_x_lv_rpw86",
-    "crates/kernels/gga/gga_x_mpbe",
-    "crates/kernels/gga/gga_x_n12",
-    "crates/kernels/gga/gga_x_ncap",
-    "crates/kernels/gga/gga_x_ol2",
-    "crates/kernels/gga/gga_x_optx",
-    "crates/kernels/gga/gga_x_pbe",
-    "crates/kernels/gga/gga_x_pbe_erf_gws",
-    "crates/kernels/gga/gga_x_pbea",
-    "crates/kernels/gga/gga_x_pbeint",
-    "crates/kernels/gga/gga_x_pbepow",
-    "crates/kernels/gga/gga_x_pbetrans",
-    "crates/kernels/gga/gga_x_pw86",
-    "crates/kernels/gga/gga_x_pw91",
-    "crates/kernels/gga/gga_x_q1d",
-    "crates/kernels/gga/gga_x_q2d",
-    "crates/kernels/gga/gga_x_rge2",
-    "crates/kernels/gga/gga_x_rpbe",
-    "crates/kernels/gga/gga_x_s12",
-    "crates/kernels/gga/gga_x_sfat",
-    "crates/kernels/gga/gga_x_sfat_pbe",
-    "crates/kernels/gga/gga_x_sg4",
-    "crates/kernels/gga/gga_x_sogga11",
-    "crates/kernels/gga/gga_x_ssb_sw",
-    "crates/kernels/gga/gga_x_vmt",
-    "crates/kernels/gga/gga_x_vmt84",
-    "crates/kernels/gga/gga_x_wc",
-    "crates/kernels/gga/gga_x_wpbeh",
-    "crates/kernels/gga/gga_xc_b97",
-    "crates/kernels/gga/gga_xc_th1",
-    "crates/kernels/gga/gga_xc_th2",
-    "crates/kernels/gga/gga_xc_th3",
-    "crates/kernels/gga/hyb_gga_x_cam_s12",
-    "crates/kernels/gga/hyb_gga_xc_case21",
-    "crates/kernels/gga/hyb_gga_xc_wb97",
-    "crates/kernels/lda/hyb_lda_xc_bn05",
-    "crates/kernels/mgga/hyb_mgga_x_dldf",
-    "crates/kernels/mgga/hyb_mgga_x_js18",
-    "crates/kernels/mgga/hyb_mgga_x_m05",
-    "crates/kernels/mgga/hyb_mgga_x_pjs18",
-    "crates/kernels/mgga/hyb_mgga_xc_gas22",
-    "crates/kernels/mgga/hyb_mgga_xc_wb97mv",
-    "crates/kernels/lda/lda_c_1d_csc",
-    "crates/kernels/lda/lda_c_1d_loos",
-    "crates/kernels/lda/lda_c_2d_amgb",
-    "crates/kernels/lda/lda_c_2d_prm",
-    "crates/kernels/lda/lda_c_chachiyo",
-    "crates/kernels/lda/lda_c_chachiyo_mod",
-    "crates/kernels/lda/lda_c_gk72",
-    "crates/kernels/lda/lda_c_gombas",
-    "crates/kernels/lda/lda_c_hl",
-    "crates/kernels/lda/lda_c_lp96",
-    "crates/kernels/lda/lda_c_ml1",
-    "crates/kernels/lda/lda_c_pk09",
-    "crates/kernels/lda/lda_c_pmgb06",
-    "crates/kernels/lda/lda_c_pw",
-    "crates/kernels/lda/lda_c_pw_erf",
-    "crates/kernels/lda/lda_c_pz",
-    "crates/kernels/lda/lda_c_rc04",
-    "crates/kernels/lda/lda_c_rpa",
-    "crates/kernels/lda/lda_c_vwn",
-    "crates/kernels/lda/lda_c_vwn_1",
-    "crates/kernels/lda/lda_c_vwn_2",
-    "crates/kernels/lda/lda_c_vwn_3",
-    "crates/kernels/lda/lda_c_vwn_4",
-    "crates/kernels/lda/lda_c_vwn_rpa",
-    "crates/kernels/lda/lda_c_w20",
-    "crates/kernels/lda/lda_c_wigner",
-    "crates/kernels/lda/lda_k_gds08_worker",
-    "crates/kernels/lda/lda_k_tf",
-    "crates/kernels/lda/lda_k_zlp",
-    "crates/kernels/lda/lda_x",
-    "crates/kernels/lda/lda_x_1d_exponential",
-    "crates/kernels/lda/lda_x_1d_soft",
-    "crates/kernels/lda/lda_x_2d",
-    "crates/kernels/lda/lda_x_erf",
-    "crates/kernels/lda/lda_x_rel",
-    "crates/kernels/lda/lda_x_sloc",
-    "crates/kernels/lda/lda_x_yukawa",
-    "crates/kernels/lda/lda_xc_1d_ehwlrg",
-    "crates/kernels/lda/lda_xc_ksdt",
-    "crates/kernels/lda/lda_xc_teter93",
-    "crates/kernels/lda/lda_xc_tih",
-    "crates/kernels/lda/lda_xc_zlp",
-    "crates/kernels/mgga/mgga_c_b88",
-    "crates/kernels/mgga/mgga_c_bc95",
-    "crates/kernels/mgga/mgga_c_cc",
-    "crates/kernels/mgga/mgga_c_ccalda",
-    "crates/kernels/mgga/mgga_c_cs",
-    "crates/kernels/mgga/mgga_c_kcis",
-    "crates/kernels/mgga/mgga_c_kcisk",
-    "crates/kernels/mgga/mgga_c_ltapw",
-    "crates/kernels/mgga/mgga_c_m05",
-    "crates/kernels/mgga/mgga_c_m06l",
-    "crates/kernels/mgga/mgga_c_m08",
-    "crates/kernels/mgga/mgga_c_pkzb",
-    "crates/kernels/mgga/mgga_c_r2scan",
-    "crates/kernels/mgga/mgga_c_revscan",
-    "crates/kernels/mgga/mgga_c_revtpss",
-    "crates/kernels/mgga/mgga_c_rmggac",
-    "crates/kernels/mgga/mgga_c_rppscan",
-    "crates/kernels/mgga/mgga_c_rregtm",
-    "crates/kernels/mgga/mgga_c_rscan",
-    "crates/kernels/mgga/mgga_c_scan",
-    "crates/kernels/mgga/mgga_c_tpss",
-    # mgga_c_tpssloc excluded from default-members (quick task 260520-a0c):
-    # the 9 lxc_pol v4rho4_*/v4rho3sigma_* parts (7.9K-10K-line flat-emit
-    # single-`#[cube] fn`) OOM cubecl-macros 0.10 expansion on the dev box
-    # (~25 GB peak RSS observed before SIGKILL on a 30 GB machine). Path A
-    # (env-gated wrapper-cap raise, commit 799bd5d94a) cuts ~10 GB off the
-    # peak but is still insufficient; Path B (hierarchical sub-wrappers)
-    # is a planned follow-up. The crate stays a workspace member via the
-    # [dependencies] path-dep above so `cargo build -p libxc-kernel-mgga_c_tpssloc`
-    # remains available on demand for follow-up experiments.
-    # "crates/kernels/mgga/mgga_c_tpssloc",
-    "crates/kernels/mgga/mgga_c_vsxc",
-    "crates/kernels/mgga/mgga_k_csk",
-    "crates/kernels/mgga/mgga_k_csk_loc",
-    "crates/kernels/mgga/mgga_k_gea2",
-    "crates/kernels/mgga/mgga_k_gea4",
-    "crates/kernels/mgga/mgga_k_lk",
-    "crates/kernels/mgga/mgga_k_pc07",
-    "crates/kernels/mgga/mgga_k_pgslb",
-    "crates/kernels/mgga/mgga_k_rda",
-    "crates/kernels/mgga/mgga_x_2d_js17",
-    "crates/kernels/mgga/mgga_x_2d_prhg07",
-    "crates/kernels/mgga/mgga_x_2d_prp10",
-    "crates/kernels/mgga/mgga_x_edmgga",
-    "crates/kernels/mgga/mgga_x_ft98",
-    "crates/kernels/mgga/mgga_x_gdme",
-    "crates/kernels/mgga/mgga_x_gvt4",
-    "crates/kernels/mgga/mgga_x_gx",
-    "crates/kernels/mgga/mgga_x_jk",
-    "crates/kernels/mgga/mgga_x_lta",
-    "crates/kernels/mgga/mgga_x_m06l",
-    "crates/kernels/mgga/mgga_x_m08",
-    "crates/kernels/mgga/mgga_x_m11",
-    "crates/kernels/mgga/mgga_x_m11_l",
-    "crates/kernels/mgga/mgga_x_mbeef",
-    "crates/kernels/mgga/mgga_x_mbeefvdw",
-    "crates/kernels/mgga/mgga_x_mcml",
-    "crates/kernels/mgga/mgga_x_mn12",
-    "crates/kernels/mgga/mgga_x_ms",
-    "crates/kernels/mgga/mgga_x_msb",
-    "crates/kernels/mgga/mgga_x_mvs",
-    "crates/kernels/mgga/mgga_x_mvsb",
-    "crates/kernels/mgga/mgga_x_pbe_gx",
-    "crates/kernels/mgga/mgga_x_pkzb",
-    "crates/kernels/mgga/mgga_x_r2scan",
-    "crates/kernels/mgga/mgga_x_r4scan",
-    "crates/kernels/mgga/mgga_x_regtm",
-    "crates/kernels/mgga/mgga_x_regtpss",
-    "crates/kernels/mgga/mgga_x_revtm",
-    "crates/kernels/mgga/mgga_x_rlda",
-    "crates/kernels/mgga/mgga_x_rppscan",
-    "crates/kernels/mgga/mgga_x_rscan",
-    "crates/kernels/mgga/mgga_x_rtpss",
-    "crates/kernels/mgga/mgga_x_sa_tpss",
-    "crates/kernels/mgga/mgga_x_scan",
-    "crates/kernels/mgga/mgga_x_task",
-    "crates/kernels/mgga/mgga_x_tau_hcth",
-    "crates/kernels/mgga/mgga_x_tb09",
-    "crates/kernels/mgga/mgga_x_th",
-    "crates/kernels/mgga/mgga_x_tm",
-    "crates/kernels/mgga/mgga_x_tpss",
-    "crates/kernels/mgga/mgga_x_vcml",
-    "crates/kernels/mgga/mgga_x_vt84",
-    "crates/kernels/mgga/mgga_xc_b97mv",
-    "crates/kernels/mgga/mgga_xc_b98",
-    "crates/kernels/mgga/mgga_xc_cc06",
-    "crates/kernels/mgga/mgga_xc_lp90",
-    "crates/kernels/mgga/mgga_xc_zlp",
+    "crates/kernels-rayon/lda",
+    "crates/kernels-rayon/gga",
+    "crates/kernels-rayon/mgga",
 ]
-resolver = "3"
+
+# A bare `cargo build` builds the active library only.
+default-members = [
+    "crates/libxc-core",
+    "crates/libxc-compat",
+    "crates/libxc-reval",
+    "crates/kernels-rayon/math",
+]
 # Reduce peak memory: CubeCL proc macro expansion generates massive IR.
 # debug=0 skips LLVM debug scope tracking.
 # codegen-units=4 bounds per-unit memory.

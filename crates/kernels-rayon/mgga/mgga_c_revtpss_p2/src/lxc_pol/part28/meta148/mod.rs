@@ -1,0 +1,28 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part28_v4rho3sigma_3 meta148 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk798;
+use chunk1::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk799;
+use chunk2::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk800;
+use chunk3::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk801;
+use chunk4::mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk802;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_meta148(t1016: f64, t140: f64, t1011: f64, t1015: f64, t2258: f64, t1012: f64, t271: f64, t905: f64, t2852: f64, t2251: f64, t1017: f64, t1025: f64, t1028: f64, t1068: f64, t3188: f64, t3191: f64, t3194: f64, t3197: f64, t3203: f64, t3205: f64, t3208: f64, t3211: f64, t3216: f64, t3220: f64, t3224: f64, t3231: f64, t3234: f64, t3238: f64, t3241: f64, t375: f64, t3187: f64, t225: f64, t385: f64, t1071: f64, t342: f64, t1077: f64, t384: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t3244, t3245, t3247, t3248, t3252) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk798(t1016, t140, t1011, t1015, t2258, t1012, t271, t905);
+        let (t3254, t3255, t3258) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk799(t2852, t3252, t2251, t1012, t1011, t1017, t1025, t1028, t1068, t3188, t3191, t3194, t3197, t3203, t3205, t3208, t3211, t3216, t3220, t3224, t3231, t3234, t3238, t3241, t3245, t3248, t375);
+        let t3259 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk800(t3187, t3258);
+        let (t3261, t3264, t3268) = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk801(t225, t3259, t385, t1071, t342, t1077, t384);
+        let t3269 = mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk802(t225, t3268);
+    (t3244, t3245, t3247, t3248, t3252, t3254, t3255, t3259, t3261, t3264, t3268, t3269)
+}

@@ -1,0 +1,13 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 1360/1378 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk1360(t1828: f64, t5457: f64, t104529: f64, t105090: f64, t105509: f64, t111815: f64, t112075: f64, t112121: f64, t112686: f64, t112721: f64, t1287: f64, t1769: f64, t1774: f64, t1794: f64, t1829: f64, t21471: f64, t2148: f64, t2151: f64, t2152: f64, t24864: f64, t25019: f64, t26906: f64, t26922: f64, t26994: f64, t29122: f64, t29227: f64, t29304: f64, t30747: f64, t30860: f64, t30867: f64, t3769: f64, t3783: f64, t6580: f64, t6622: f64, t6628: f64, t6745: f64, t7637: f64, t7659: f64, t96861: f64, t97066: f64, t97318: f64) -> f64 {
+    let t116390 = t5457 * t1828;
+    let t116430 = -0.4336814094102599731e0_f64 * t2148 * t24864 * t2152 - 0.20816707651692478709e2_f64 * t97066 * t2151 * t112721 * t1774 + 0.52041769129231196772e1_f64 * t26922 * t112121 * t116390 + 0.26020884564615598386e1_f64 * t97318 * t111815 * t21471 * t1769 - 0.19756347548806534796e1_f64 * t29227 * t6745 - 0.39512695097613069591e1_f64 * t112075 * t1829 - 0.39512695097613069591e1_f64 * t96861 * t25019 + 0.39512695097613069591e1_f64 * t29304 * t6580 + 0.10408353825846239354e2_f64 * t26994 * t7637 * t30747 * t1769 - 0.13010442282307799193e1_f64 * t7659 * t112686 * t1794 * t1287 - 0.13010442282307799193e1_f64 * t7659 * t29122 * t6622 * t1287 - 0.26020884564615598386e1_f64 * t26906 * t105090 * t6628 * t3769 + 0.13010442282307799193e1_f64 * t26906 * t29122 * t6628 * t3783 + 0.13010442282307799193e1_f64 * t104529 * t30860 + 0.10408353825846239354e2_f64 * t105509 * t30867;
+    t116430
+}

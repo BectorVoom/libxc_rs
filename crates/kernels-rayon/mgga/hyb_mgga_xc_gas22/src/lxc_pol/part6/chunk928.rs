@@ -1,0 +1,22 @@
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 928/1455 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI, M_SQRT2};
+use libxc_rkernel_math::erf::{erf_approx};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk928(t2104: f64, t2111: f64, t2112: f64, t6359: f64, t180: f64, t3227: f64, t1270: f64, t2124: f64, t6383: f64, t2132: f64, t6394: f64, t181: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t8367 = t2111 * t2104;
+    let t8370 = t6359 * t2112;
+    let t8373 = t180 * t3227;
+    let t8395 = t2111 * t1270;
+    let t8396 = t180 * t2112;
+    let t8399 = t2124 * t3227;
+    let t8402 = t6383 * t1270;
+    let t8410 = t2132 * t3227;
+    let t8415 = t6394 * t1270;
+    let t8418 = t2104 * t181;
+    (t8367, t8370, t8373, t8395, t8396, t8399, t8402, t8410, t8415, t8418)
+}

@@ -1,0 +1,17 @@
+//! GGA_C_FT97 kxc pol — kxc_pol part 2 (v3rho3_1) CSE chunk 772/1007 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_kxc_pol_part2_v3rho3_1_chunk772(t1578: f64, t649: f64, t1073: f64, t1559: f64, t1570: f64, t2266: f64, t11050: f64, t3621: f64, t11059: f64, t3613: f64, t2282: f64, t8680: f64, t925: f64) -> (f64, f64, f64, f64, f64) {
+    let t12092 = t649 * t1578;
+    let t12099 = t2266 * t1073 * t1570 * t1559;
+    let t12102 = t3621 * t11050;
+    let t12104 = t3613 * t11059;
+    let t12108 = t8680 * t925 * t2282;
+    (t12092, t12099, t12102, t12104, t12108)
+}

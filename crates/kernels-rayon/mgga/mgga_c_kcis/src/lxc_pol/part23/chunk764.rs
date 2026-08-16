@@ -1,0 +1,19 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 764/1323 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk764(t9235: f64, t9265: f64, t2531: f64, t782: f64, t781: f64, t142: f64, t2539: f64, t826: f64, t2626: f64, t9024: f64, t9026: f64, t9028: f64, t9031: f64, t9034: f64, t9036: f64, t9038: f64, t9040: f64, t9043: f64, t9048: f64, t9050: f64, t9054: f64, t9056: f64, t9058: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t9266 = t9235 + t9265;
+    let t9268 = t2531 * t782;
+    let t9273 = t781 * t781;
+    let t9274 = 1.0_f64 / t9273;
+    let t9275 = t142 * t9274;
+    let t9276 = t2539 * t826;
+    let t9279 = t826 * t2626;
+    let t9296 = 9.0_f64 / 4.0_f64 * t9024 - 15.0_f64 / 16.0_f64 * t9026 + 3.0_f64 / 2.0_f64 * t9028 - 3.0_f64 / 16.0_f64 * t9031 + 15.0_f64 / 16.0_f64 * t9034 - 9.0_f64 / 4.0_f64 * t9036 - 3.0_f64 / 8.0_f64 * t9038 + 3.0_f64 / 16.0_f64 * t9040 + 3.0_f64 / 4.0_f64 * t9043 - 3.0_f64 / 32.0_f64 * t9048 - 3.0_f64 / 32.0_f64 * t9050 + 3.0_f64 / 4.0_f64 * t9054 - 3.0_f64 * t9056 + 3.0_f64 / 64.0_f64 * t9058;
+    (t9266, t9268, t9273, t9274, t9275, t9276, t9279, t9296)
+}

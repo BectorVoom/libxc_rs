@@ -1,0 +1,19 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 850/1404 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk850(t164: f64, t3013: f64, t8048: f64, t2519: f64, t547: f64, t2523: f64, t1964: f64, t992: f64, t2030: f64, t987: f64, t475: f64, t2932: f64, t751: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t8474 = t3013 * t164;
+    let t8477 = 0.63010814446282235668e-1_f64 * t8048 * t164;
+    let t8478 = t2519 * t547;
+    let t8489 = 0.63010814446282235668e-1_f64 * t2523 * t547;
+    let t8490 = t992 * t1964;
+    let t8496 = t987 * t2030;
+    let t8497 = t475 * t8496;
+    let t8502 = 0.39914113367515363646e-1_f64 * t751 * t2932;
+    (t8474, t8477, t8478, t8489, t8490, t8497, t8502)
+}

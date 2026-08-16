@@ -1,0 +1,14 @@
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1185/1267 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1185(t8279: f64, t11390: f64, t11318: f64, t11323: f64, t11355: f64, t11374: f64, t11380: f64, t11388: f64, t11393: f64, t11396: f64, t11398: f64, t11401: f64) -> (f64, f64, f64) {
+    let t21399 = 1.9486833333333333_f64 * t8279;
+    let t21403 = 4.5469277777777775_f64 * t11390;
+    let t21406 = t11318 + t11323 + t11355 - t11374 + t11380 + 6.85552_f64 * t11388 + t21403 + 14.0_f64 / 9.0_f64 * t11393 - t11396 + 5.87616_f64 * t11398 - t11401;
+    (t21399, t21403, t21406)
+}

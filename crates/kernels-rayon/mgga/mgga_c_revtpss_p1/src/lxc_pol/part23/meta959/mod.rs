@@ -1,0 +1,49 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part23_v4rho4_3 meta959 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+mod chunk7;
+mod chunk8;
+mod chunk9;
+mod chunk10;
+mod chunk11;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3221;
+use chunk1::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3222;
+use chunk2::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3223;
+use chunk3::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3224;
+use chunk4::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3225;
+use chunk5::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3226;
+use chunk6::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3227;
+use chunk7::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3228;
+use chunk8::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3229;
+use chunk9::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3230;
+use chunk10::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3231;
+use chunk11::mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3232;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part23_v4rho4_3_meta959(t1234: f64, t1280: f64, t12987: f64, t17192: f64, t17307: f64, t17958: f64, t21082: f64, t21448: f64, t21473: f64, t21491: f64, t21592: f64, t24912: f64, t24951: f64, t3666: f64, t45779: f64, t5443: f64, t5446: f64, t5459: f64, t5462: f64, t5466: f64, t5477: f64, t5481: f64, t5486: f64, t59674: f64, t6564: f64, t69637: f64, t72267: f64, t72386: f64, t82525: f64, t1287: f64, t1770: f64, t17949: f64, t20850: f64, t20956: f64, t21451: f64, t21455: f64, t21459: f64, t21599: f64, t25005: f64, t3755: f64, t45634: f64, t45718: f64, t45739: f64, t5284: f64, t5452: f64, t59686: f64, t59817: f64, t60008: f64, t60019: f64, t6717: f64, t82493: f64, t1248: f64, t12709: f64, t12723: f64, t12756: f64, t1285: f64, t1794: f64, t1818: f64, t20800: f64, t21342: f64, t21557: f64, t24986: f64, t24989: f64, t3670: f64, t3783: f64, t5412: f64, t5478: f64, t5494: f64, t59241: f64, t59864: f64, t59865: f64, t6622: f64, t6714: f64, t70209: f64, t82207: f64, t82321: f64, t82886: f64, t84175: f64, t1214: f64, t12717: f64, t13127: f64, t13129: f64, t17854: f64, t1811: f64, t20900: f64, t21439: f64, t21607: f64, t45659: f64, t5436: f64, t5449: f64, t5474: f64, t5491: f64, t59871: f64, t59872: f64, t6695: f64, t82293: f64, t82899: f64, t83662: f64, t84462: f64, t12050: f64, t12751: f64, t16695: f64, t17853: f64, t17861: f64, t1825: f64, t21333: f64, t21527: f64, t21583: f64, t21587: f64, t24934: f64, t24964: f64, t5458: f64, t59705: f64, t6731: f64, t70890: f64, t72429: f64, t72432: f64, t82476: f64, t82725: f64, t83792: f64, t84645: f64, t1284: f64, t24698: f64, t1288: f64, t20703: f64, t21480: f64, t21483: f64, t21484: f64, t21512: f64, t21595: f64, t24931: f64, t25009: f64, t3746: f64, t3782: f64, t45769: f64, t45859: f64, t460: f64, t487: f64, t489: f64, t5487: f64, t59749: f64, t82422: f64, t84203: f64, t84415: f64, t84457: f64, t1281: f64, t17864: f64, t17880: f64, t21507: f64, t21551: f64, t21565: f64, t24633: f64, t24948: f64, t24956: f64, t24999: f64, t3759: f64, t45385: f64, t45846: f64, t5326: f64, t59854: f64, t6738: f64, t72270: f64, t72435: f64, t82471: f64, t83108: f64, t83567: f64, t1210: f64, t1211: f64, t1274: f64, t1277: f64, t13182: f64, t1775: f64, t17973: f64, t17974: f64, t18037: f64, t1829: f64, t20710: f64, t21348: f64, t21365: f64, t21366: f64, t21394: f64, t21618: f64, t21621: f64, t24524: f64, t24525: f64, t25019: f64, t3732: f64, t3737: f64, t45427: f64, t5220: f64, t5225: f64, t5231: f64, t5237: f64, t5245: f64, t5251: f64, t5422: f64, t56327: f64, t56607: f64, t6574: f64, t6580: f64, t6702: f64, t72802: f64, t73137: f64, t73222: f64, t73236: f64, t84392: f64, t84425: f64, t84461: f64, t84506: f64, t84541: f64, t84570: f64, t84605: f64, t84641: f64, t84679: f64, t83107: f64, t1215: f64, t12633: f64, t12641: f64, t1271: f64, t1295: f64, t17986: f64, t18054: f64, t18087: f64, t18114: f64, t20741: f64, t20759: f64, t21389: f64, t21407: f64, t21408: f64, t24509: f64, t24906: f64, t25016: f64, t3561: f64, t45449: f64, t495: f64, t5417: f64, t6588: f64, t6703: f64, t6745: f64, t72874: f64, t72894: f64, t72933: f64, t73205: f64, t83232: f64, t1300: f64, t198: f64, t336: f64, t81646: f64, t81649: f64, t81653: f64, t81656: f64, t81660: f64, t82119: f64, t82169: f64, t82220: f64, t82266: f64, t82391: f64, t82394: f64, t82396: f64, t82398: f64, t84241: f64, t84290: f64, t84337: f64, t1298: f64, t1832: f64, t21639: f64, t24501: f64, t44126: f64, t5023: f64, t5501: f64, t73273: f64, t82060: f64, t82400: f64, t82402: f64, t82404: f64, t82406: f64, t82410: f64, t82415: f64, t82418: f64, t33: f64, t265: f64, t502: f64, t77472: f64, t81153: f64, t81318: f64, t81350: f64, t81583: f64, t81615: f64, t81642: f64, t1113: f64, t1304: f64, t1469: f64, t1587: f64, t1711: f64, t18281: f64, t1837: f64, t18884: f64, t20256: f64, t21645: f64, t22671: f64, t22783: f64, t23436: f64, t25032: f64, t4186: f64, t4560: f64, t504: f64, t5509: f64, t57: f64, t5825: f64, t606: f64, t6416: f64, t6757: f64, t76397: f64, t77481: f64, t81123: f64, t895: f64, dens_threshold: f64, rho1: f64, zeta_threshold: f64) -> f64 {
+        let t84710 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3221(t1234, t1280, t12987, t17192, t17307, t17958, t21082, t21448, t21473, t21491, t21592, t24912, t24951, t3666, t45779, t5443, t5446, t5459, t5462, t5466, t5477, t5481, t5486, t59674, t6564, t69637, t72267, t72386, t82525);
+        let t84741 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3222(t1287, t1770, t17949, t17958, t20850, t20956, t21451, t21455, t21459, t21599, t25005, t3755, t45634, t45718, t45739, t5284, t5452, t5466, t5481, t59686, t59817, t60008, t60019, t6717, t82493);
+        let t84778 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3223(t1234, t1248, t12709, t12723, t12756, t1280, t1285, t1287, t1794, t1818, t20800, t21342, t21557, t24986, t24989, t3670, t3783, t5412, t5478, t5494, t59241, t59864, t59865, t6564, t6622, t6714, t70209, t82207, t82321, t82886, t84175);
+        let t84816 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3224(t1214, t1248, t12717, t12723, t1285, t1287, t13127, t13129, t17854, t1811, t20850, t20900, t21439, t21607, t24989, t3755, t45659, t5284, t5436, t5449, t5474, t5491, t59871, t59872, t6695, t82293, t82886, t82899, t83662, t84462);
+        let t84851 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3225(t12050, t1214, t12751, t1287, t16695, t1770, t17853, t17854, t17861, t17949, t1825, t20956, t21333, t21527, t21583, t21587, t24934, t24964, t3666, t3755, t5284, t5458, t59705, t6717, t6731, t70890, t72429, t72432, t82476, t82725, t83792, t84645);
+        let t84887 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3226(t1284, t24698, t12751, t1285, t1287, t1288, t17192, t17958, t20703, t20850, t21448, t21480, t21483, t21484, t21512, t21595, t24931, t25009, t3670, t3746, t3782, t3783, t45769, t45859, t460, t487, t489, t5486, t5487, t59749, t82422, t84203, t84415, t84457);
+        let t84917 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3227(t1234, t1280, t1281, t1287, t17307, t17864, t17880, t21507, t21551, t21565, t24633, t24948, t24956, t24999, t3670, t3755, t3759, t45385, t45846, t5326, t5459, t59854, t6738, t72270, t72435, t82471, t83108, t83567);
+        let t84947 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3228(t1210, t1211, t1214, t1274, t1277, t13182, t1775, t17973, t17974, t18037, t1829, t20710, t21348, t21365, t21366, t21394, t21618, t21621, t24524, t24525, t25019, t3732, t3737, t45427, t5220, t5225, t5231, t5237, t5245, t5251, t5422, t56327, t56607, t6574, t6580, t6702, t72802, t73137, t73222, t73236, t84175, t84392, t84425, t84461, t84506, t84541, t84570, t84605, t84641, t84679, t84710, t84741, t84778, t84816, t84851, t84887, t84917);
+        let t84992 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3229(t24698, t487, t83107, t1215, t12633, t12641, t1271, t1295, t1775, t17986, t18054, t18087, t18114, t1829, t20741, t20759, t21389, t21407, t21408, t24509, t24906, t25016, t25019, t3561, t3732, t45449, t495, t5231, t5251, t5417, t6588, t6703, t6745, t72874, t72894, t72933, t73205, t83232);
+        let t84999 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3230(t1300, t198, t336, t81646, t81649, t81653, t81656, t81660, t82119, t82169, t82220, t82266, t82391, t82394, t82396, t82398, t84241, t84290, t84337, t84947, t84992);
+        let t85010 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3231(t1298, t1832, t21639, t24501, t44126, t5023, t5501, t73273, t82060, t82400, t82402, t82404, t82406, t82410, t82415, t82418);
+        let t85032 = mgga_c_revtpss_lxc_pol_part23_v4rho4_3_chunk3232(t33, t265, t502, t77472, t81153, t81318, t81350, t81583, t81615, t81642, t84999, t85010, t1113, t1304, t1469, t1587, t1711, t18281, t1837, t18884, t20256, t21645, t22671, t22783, t23436, t25032, t4186, t4560, t504, t5509, t57, t5825, t606, t6416, t6757, t76397, t77481, t81123, t895, dens_threshold, rho1, zeta_threshold);
+    t85032
+}

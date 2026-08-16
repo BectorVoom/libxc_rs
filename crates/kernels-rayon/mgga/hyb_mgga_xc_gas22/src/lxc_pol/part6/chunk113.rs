@@ -1,0 +1,16 @@
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 113/1455 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI, M_SQRT2};
+use libxc_rkernel_math::erf::{erf_approx};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk113(t295: f64, t102: f64, param_c_ss_1: f64, sigma0: f64) -> (f64, f64, f64, f64) {
+    let t296 = t295 * sigma0;
+    let t298 = 1.0_f64 + 0.46914023462026644e0_f64 * t102;
+    let t299 = 1.0_f64 / t298;
+    let t303 = param_c_ss_1;
+    (t296, t298, t299, t303)
+}

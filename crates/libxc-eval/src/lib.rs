@@ -16,5 +16,7 @@
 
 pub mod eval;
 pub mod functional;
+#[cfg(feature = "cubecl-backend")]
 pub mod kernel;
+#[cfg(feature = "cubecl-backend")]
 pub mod math; // re-export shim of libxc_kernel_math — preserves libxc_rs::math via the facade

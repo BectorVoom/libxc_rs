@@ -1,0 +1,44 @@
+//! HYB_LDA_XC_BN05 lxc pol kernel — lxc_pol (nested-by-output, 7 parts).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod part0;
+mod part1;
+mod part2;
+mod part3;
+mod part4;
+mod part5;
+mod part6;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+use part0::hyb_lda_xc_bn05_lxc_pol_part0_zk_vrho_v2rho2;
+use part1::hyb_lda_xc_bn05_lxc_pol_part1_v3rho3;
+use part2::hyb_lda_xc_bn05_lxc_pol_part2_v4rho4_0;
+use part3::hyb_lda_xc_bn05_lxc_pol_part3_v4rho4_1;
+use part4::hyb_lda_xc_bn05_lxc_pol_part4_v4rho4_2;
+use part5::hyb_lda_xc_bn05_lxc_pol_part5_v4rho4_3;
+use part6::hyb_lda_xc_bn05_lxc_pol_part6_v4rho4_4;
+
+/// HYB_LDA_XC_BN05 lxc -- polarized.
+#[allow(unused_variables, non_snake_case)]
+pub fn hyb_lda_xc_bn05_lxc_pol(
+    rho: &[f64],
+    zk: &mut [f64],
+    vrho: &mut [f64],
+    v2rho2: &mut [f64],
+    v3rho3: &mut [f64],
+    v4rho4: &mut [f64],
+    param_hyb_omega_0: f64,
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    hyb_lda_xc_bn05_lxc_pol_part0_zk_vrho_v2rho2(rho, zk, vrho, v2rho2, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part1_v3rho3(rho, v3rho3, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part2_v4rho4_0(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part3_v4rho4_1(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part4_v4rho4_2(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part5_v4rho4_3(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+    hyb_lda_xc_bn05_lxc_pol_part6_v4rho4_4(rho, v4rho4, param_hyb_omega_0, dens_threshold, zeta_threshold);
+}

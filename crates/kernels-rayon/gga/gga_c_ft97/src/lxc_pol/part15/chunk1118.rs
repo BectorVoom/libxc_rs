@@ -1,0 +1,14 @@
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 1118/1222 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk1118(t4960: f64, t5049: f64, t13582: f64, t17824: f64, t17836: f64, t17851: f64, t17870: f64, t18090: f64, t21134: f64, t21144: f64, t21145: f64, t21277: f64, t21281: f64, t21386: f64, t2379: f64, t238: f64, t2387: f64, t2394: f64, t4950: f64, t4951: f64, t4961: f64, t4982: f64, t4987: f64, t5016: f64, t66578: f64, t678: f64, t79439: f64, t80003: f64, t807: f64, t88413: f64, t88433: f64, t88444: f64, t88447: f64, t88456: f64, t88462: f64, t9533: f64) -> f64 {
+    let t88470 = t4960 * t5049;
+    let t88480 = 0.82704389902445944776e-3_f64 * t17870 * t21386 * t21134 - 0.16540877980489188956e-2_f64 * t21144 * t21277 * t21145 - 0.16540877980489188956e-2_f64 * t21144 * t21281 * t21145 + 0.23238868087529279928e-2_f64 * t18090 * t4982 + 0.82704389902445944777e-3_f64 * t17870 * t4950 * t4951 * t79439 + 0.93019603785751168e-2_f64 * t678 * t2394 * t88433 - 0.16223712540858999423e-2_f64 * t17851 * t66578 + 0.60826526699468500834e-9_f64 * t238 * t88444 + 0.23238868087529279928e-2_f64 * t9533 * t2379 * t88447 + 0.16864243845320605903e-2_f64 * t4987 * t5016 - 0.22941158433316392859e1_f64 * t238 * t88456 + 0.279058811357253504e-1_f64 * t9533 * t2394 * t88447 - 0.19352371901929178119e-4_f64 * t678 * t807 * t88462 + 0.279058811357253504e-1_f64 * t18090 * t4961 - 0.27020878774141382658e-4_f64 * t80003 * t13582 - 0.139529405678626752e-1_f64 * t2387 * t2394 * t88470 - 0.11619434043764639964e-2_f64 * t2387 * t2379 * t88470 + 0.33081755960978377911e-3_f64 * t17836 * t17824 * t88413;
+    t88480
+}

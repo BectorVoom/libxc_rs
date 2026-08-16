@@ -1,0 +1,17 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 50 (v4rho2sigma2_6) CSE chunk 546/1294 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part50_v4rho2sigma2_6_chunk546(t1519: f64, t798: f64, t1496: f64, t2563: f64, t1495: f64, t210: f64, t776: f64, t119: f64, t4119: f64, t225: f64, t4142: f64) -> (f64, f64, f64, f64, f64) {
+    let t4149 = t798 * t1519;
+    let t4152 = t2563 * t1496;
+    let t4155 = t210 * t1495 * t776;
+    let t4158 = t119 * t4119;
+    let t4159 = t210 * t4158;
+    let t4162 = t4142 * t225;
+    (t4149, t4152, t4155, t4159, t4162)
+}

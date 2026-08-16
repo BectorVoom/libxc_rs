@@ -1,0 +1,14 @@
+//! MGGA_C_KCIS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 1322/1420 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_kxc_pol_part4_v3rho3_1_chunk1322(t1380: f64, t16984: f64, t613: f64, t1368: f64, t16830: f64, t16940: f64, t16944: f64, t16946: f64, t16951: f64, t16954: f64, t16959: f64, t16965: f64, t16970: f64, t16976: f64, t16981: f64, t1930: f64, t3981: f64, t4009: f64, t493: f64, t5691: f64) -> f64 {
+    let t16985 = t16984 * t1380;
+    let t16986 = t613 * t16985;
+    let t16989 = -t16940 + t16944 - t1368 * t16946 / 288.0_f64 - t1368 * t16951 / 216.0_f64 + t16954 / 162.0_f64 - t5691 * t3981 / 81.0_f64 + t1368 * t16959 / 48.0_f64 - t16830 * t16965 / 108.0_f64 + t16830 * t16970 / 72.0_f64 - t493 * t16976 / 96.0_f64 - t16981 + t1930 * t4009 / 36.0_f64 + t1368 * t16986 / 24.0_f64;
+    t16989
+}

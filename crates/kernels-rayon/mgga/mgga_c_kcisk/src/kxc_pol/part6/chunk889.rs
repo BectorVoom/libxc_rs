@@ -1,0 +1,18 @@
+//! MGGA_C_KCISK kxc pol — kxc_pol part 6 (v3rho3_3) CSE chunk 889/1086 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcisk_kxc_pol_part6_v3rho3_3_chunk889(t28385: f64, t7012: f64, t2372: f64, t4604: f64, t8518: f64, t22927: f64, t2487: f64, t4629: f64, t7034: f64, t8536: f64, t16892: f64, t8500: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t28837 = t7012 * t28385;
+    let t28841 = t4604 * t8518 * t2372;
+    let t28846 = t22927 * t2487;
+    let t28847 = t4629 * t28846;
+    let t28851 = t7034 * t8536;
+    let t28852 = t4629 * t28851;
+    let t28855 = t16892 * t8500;
+    (t28837, t28841, t28846, t28847, t28851, t28852, t28855)
+}

@@ -1,0 +1,19 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 28 (v4rho3sigma_3) CSE chunk 735/2277 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part28_v4rho3sigma_3_chunk735(t2875: f64, t935: f64, t2874: f64, t273: f64, t276: f64, t918: f64, t2846: f64, t2848: f64, t2855: f64, t2860: f64, t2864: f64, t916: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t2876 = t2875 * t935;
+    let t2878 = 2.0_f64 * t2874 * t2876;
+    let t2880 = 1.0_f64 / t276 / t273;
+    let t2881 = t918 * t918;
+    let t2882 = t2880 * t2881;
+    let t2884 = 4.0_f64 / 9.0_f64 * t2846;
+    let t2889 = t2884 + 2.0_f64 / 9.0_f64 * t2848 - 2.0_f64 / 9.0_f64 * t2855 + 2.0_f64 / 3.0_f64 * t2860 - t2864 / 3.0_f64;
+    let t2890 = t916 * t2889;
+    (t2876, t2878, t2880, t2881, t2882, t2884, t2889, t2890)
+}

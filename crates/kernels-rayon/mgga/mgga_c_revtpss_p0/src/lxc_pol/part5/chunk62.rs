@@ -1,0 +1,16 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 5 (v3rho3_2) CSE chunk 62/1422 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part5_v3rho3_2_chunk62(t45: f64, t153: f64, t79: f64, t57: f64, t82: f64, zeta_threshold: f64) -> f64 {
+    let t151 = t45 <= zeta_threshold;
+    let t154 = piecewise3(t151, t153, t79);
+    let t155 = t57 <= zeta_threshold;
+    let t156 = piecewise3(t155, t153, t82);
+    let t157 = t154 + t156 - 2.0_f64;
+    t157
+}

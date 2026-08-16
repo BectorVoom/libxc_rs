@@ -1,0 +1,20 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 26 (v4rho3sigma_8) CSE chunk 869/1397 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_lxc_pol_part26_v4rho3sigma_8_chunk869(t20882: f64, t5653: f64, t4170: f64, t4160: f64, t5662: f64, t5661: f64, t4142: f64, t7030: f64, t11913: f64, t7101: f64, t3728: f64, t7207: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t20883 = t5653 * t20882;
+    let t20884 = t4170 * t20883;
+    let t20885 = t4160 * t20884;
+    let t20887 = t5662 * t20882;
+    let t20888 = t4170 * t20887;
+    let t20889 = t5661 * t20888;
+    let t20892 = t4142 * t7030;
+    let t20894 = t11913 * t7101;
+    let t20898 = t3728 * t7207;
+    (t20883, t20885, t20887, t20889, t20892, t20894, t20898)
+}

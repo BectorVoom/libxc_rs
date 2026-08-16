@@ -58,8 +58,11 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 # Repo `crates/kernels` root. Overridable for the selftest via set_kernels_root.
 KERNELS_ROOT = REPO_ROOT / "crates" / "kernels"
-# Workspace root manifest. Overridable for the selftest.
-WORKSPACE_CARGO = REPO_ROOT / "Cargo.toml"
+# Manifest that carries the per-kernel path-deps. Post-Phase-10 this is
+# crates/libxc-eval/Cargo.toml (optional deps + oracle-<family> features);
+# rewrite_root_cargo also still understands the legacy root-style dep lines.
+# Overridable for the selftest.
+WORKSPACE_CARGO = REPO_ROOT / "crates" / "libxc-eval" / "Cargo.toml"
 
 # cubecl dependency line — copied verbatim from emit.py (CUBECL_DEP), so the
 # shard manifests match the proven in-tree per-functional manifest shape.
@@ -322,6 +325,13 @@ def materialize_shard(family: str, func: str, output: str, k: int, shard_parts):
     for p in shard_parts:
         src = p["path"]
         dst = dst_out / src.name
+        # Re-split over a pre-existing shard tree: shutil.move into an existing
+        # directory NESTS the source inside it (partN/partN/), leaving stray
+        # duplicate trees. Replace the destination instead.
+        if dst.is_dir():
+            shutil.rmtree(dst)
+        elif dst.exists():
+            dst.unlink()
         # shutil.move (not copy) so the facade carries no duplicate part trees.
         shutil.move(str(src), str(dst))
 
@@ -378,33 +388,73 @@ def rewrite_facade_cargo(family: str, func: str, n_shards: int):
 
 
 def rewrite_root_cargo(family: str, func: str, n_shards: int):
-    """Add one root ``[dependencies]`` path-dep per shard, inserted immediately
+    """Add one ``[dependencies]`` path-dep per shard, inserted immediately
     after the facade's existing path-dep line. Makes each shard a workspace
     member (verified_structural_fact 7); shards are NOT added to default-members.
-    Idempotent: a shard line already present is not re-inserted."""
+    Idempotent: a shard line already present is not re-inserted.
+
+    Post-Phase-10, kernel workspace membership lives in
+    ``crates/libxc-eval/Cargo.toml`` as ``optional = true`` path-deps (relative
+    ``../kernels/...`` paths) gated behind the family's ``oracle-<family>``
+    feature. Both manifest dialects are recognized: the eval-style optional dep
+    (preferred) and the legacy root-style plain dep (kept for the selftest and
+    any pre-Phase-10 checkout). Shard dep lines mirror whichever facade line is
+    found; when the manifest also carries a ``"dep:libxc-kernel-<func>",``
+    feature entry, matching ``dep:`` entries are inserted for the shards."""
     text = WORKSPACE_CARGO.read_text(encoding="utf-8")
     lines = text.split("\n")
-    facade_dep = (f'libxc-kernel-{func} = '
-                  f'{{ path = "crates/kernels/{family}/{func}" }}')
-    # Locate the facade's existing path-dep line.
+    eval_facade_dep = (f'libxc-kernel-{func} = '
+                       f'{{ path = "../kernels/{family}/{func}", optional = true }}')
+    legacy_facade_dep = (f'libxc-kernel-{func} = '
+                         f'{{ path = "crates/kernels/{family}/{func}" }}')
     anchor = None
+    eval_style = None
     for i, ln in enumerate(lines):
-        if ln.strip() == facade_dep:
-            anchor = i
+        if ln.strip() == eval_facade_dep:
+            anchor, eval_style = i, True
+            break
+        if ln.strip() == legacy_facade_dep:
+            anchor, eval_style = i, False
             break
     if anchor is None:
         raise ValueError(
-            f"facade path-dep not found in {WORKSPACE_CARGO}: {facade_dep!r}")
+            f"facade path-dep not found in {WORKSPACE_CARGO}: "
+            f"{eval_facade_dep!r} (eval-style) or {legacy_facade_dep!r} (legacy)")
     new_deps = []
     for k in range(n_shards):
-        dep = (f'{shard_pkg(func, k)} = '
-               f'{{ path = "crates/kernels/{family}/{shard_name(func, k)}" }}')
+        if eval_style:
+            dep = (f'{shard_pkg(func, k)} = '
+                   f'{{ path = "../kernels/{family}/{shard_name(func, k)}", '
+                   f'optional = true }}')
+        else:
+            dep = (f'{shard_pkg(func, k)} = '
+                   f'{{ path = "crates/kernels/{family}/{shard_name(func, k)}" }}')
         if dep not in text:
             new_deps.append(dep)
-    if not new_deps:
-        return
-    lines[anchor + 1:anchor + 1] = new_deps
-    _write(WORKSPACE_CARGO, "\n".join(lines))
+    if new_deps:
+        lines[anchor + 1:anchor + 1] = new_deps
+
+    # Feature gating (eval-style manifests): mirror the facade's
+    # `"dep:libxc-kernel-<func>",` entry with one per shard.
+    feat_anchor = None
+    facade_feat = f'"dep:libxc-kernel-{func}",'
+    for i, ln in enumerate(lines):
+        if ln.strip() == facade_feat:
+            feat_anchor = i
+            break
+    new_feats = []
+    if feat_anchor is not None:
+        indent = lines[feat_anchor][:len(lines[feat_anchor])
+                                    - len(lines[feat_anchor].lstrip())]
+        for k in range(n_shards):
+            feat = f'{indent}"dep:{shard_pkg(func, k)}",'
+            if feat.strip() not in {ln.strip() for ln in lines}:
+                new_feats.append(feat)
+        if new_feats:
+            lines[feat_anchor + 1:feat_anchor + 1] = new_feats
+
+    if new_deps or new_feats:
+        _write(WORKSPACE_CARGO, "\n".join(lines))
 
 
 # --- idempotency guard -------------------------------------------------------

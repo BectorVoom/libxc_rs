@@ -1,0 +1,17 @@
+//! MGGA_C_TPSS lxc pol — lxc_pol part 22 (v4rho3sigma_4) CSE chunk 1236/1395 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpss_lxc_pol_part22_v4rho3sigma_4_chunk1236(t3537: f64, t94: f64, t6076: f64, t619: f64, t77: f64, t1317: f64, t1679: f64, t1290: f64, t1981: f64, t10289: f64, t38: f64, t3482: f64, t76: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t19308 = t94 * t3537;
+    let t19342 = t77 * t6076 * t619;
+    let t19345 = t1679 * t1317;
+    let t19349 = t1981 * t1290;
+    let t19352 = t10289 * t38;
+    let t19380 = t76 * t3482;
+    (t19308, t19342, t19345, t19349, t19352, t19380)
+}

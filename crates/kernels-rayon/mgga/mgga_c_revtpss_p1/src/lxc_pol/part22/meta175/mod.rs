@@ -1,0 +1,37 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part22_v4rho4_2 meta175 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+mod chunk7;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1148;
+use chunk1::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1149;
+use chunk2::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1150;
+use chunk3::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1151;
+use chunk4::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1152;
+use chunk5::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1153;
+use chunk6::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1154;
+use chunk7::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1155;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_meta175(t4101: f64, t4104: f64, t1419: f64, t72: f64, t1432: f64, t686: f64, t1433: f64, t2470: f64, t3999: f64, t555: f64, t1385: f64, t1399: f64, t1437: f64, t213: f64, t3924: f64, t4004: f64, t4057: f64, t4066: f64, t4082: f64, t4085: f64, t4090: f64, t4094: f64, t4099: f64, t546: f64, t820: f64, t1427: f64, t1424: f64, t1445: f64, t3894: f64, t3898: f64, t3901: f64, t3904: f64, t3910: f64, t3912: f64, t3918: f64, t3922: f64, t4067: f64, t4071: f64, t4078: f64, t561: f64, t198: f64, t531: f64, t1448: f64, t1450: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t4105, t4107, t4109, t4113, t4114) = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1148(t4101, t4104, t1419, t72, t1432, t686, t1433, t2470, t3999, t555);
+        let t4118 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1149(t1385, t1419);
+        let t4131 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1150(t1399, t1437, t213, t3924, t4004, t4057, t4066, t4082, t4085, t4090, t4094, t4099, t4105, t4109, t4113, t4114, t4118, t546, t820);
+        let t4132 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1151(t1427, t4131);
+        let t4135 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1152(t1424, t1445, t213, t3894, t3898, t3901, t3904, t3910, t3912, t3918, t3922, t4067, t4071, t4078, t4132, t561);
+        let t4139 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1153(t198, t531);
+        let t4140 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1154(t1448, t1450);
+        let t4144 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk1155(t1448);
+    (t4105, t4107, t4109, t4113, t4114, t4118, t4131, t4132, t4135, t4139, t4140, t4144)
+}

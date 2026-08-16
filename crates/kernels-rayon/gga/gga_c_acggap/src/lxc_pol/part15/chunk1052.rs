@@ -1,0 +1,23 @@
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 15 (v4rho3sigma_7) CSE chunk 1052/1278 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_acggap_lxc_pol_part15_v4rho3sigma_7_chunk1052(t35145: f64, t35148: f64, t35186: f64, t35194: f64, t35210: f64, t35212: f64, t35227: f64, t35230: f64, t35248: f64, t35250: f64, t35258: f64, t35286: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t37408 = 7.0_f64 / 36.0_f64 * t35145;
+    let t37409 = 7.0_f64 / 36.0_f64 * t35148;
+    let t37428 = 0.12862205435420921092e-1_f64 * t35186;
+    let t37430 = 0.37737710747524982482e-2_f64 * t35194;
+    let t37437 = 0.18868855373762491241e-1_f64 * t35210;
+    let t37438 = 0.42874018118069736972e-2_f64 * t35212;
+    let t37442 = 0.28582678745379824648e-2_f64 * t35227;
+    let t37443 = 0.34299214494455789578e-2_f64 * t35230;
+    let t37450 = 0.85748036236139473944e-2_f64 * t35248;
+    let t37451 = 0.32012600194825403606e-1_f64 * t35250;
+    let t37458 = 0.32012600194825403606e-1_f64 * t35258;
+    let t37475 = 0.85748036236139473944e-3_f64 * t35286;
+    (t37408, t37409, t37428, t37430, t37437, t37438, t37442, t37443, t37450, t37451, t37458, t37475)
+}

@@ -1,0 +1,18 @@
+//! GGA_C_GAPC lxc pol — lxc_pol part 31 (v4rho2sigma2_10) CSE chunk 1087/1447 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_gapc_lxc_pol_part31_v4rho2sigma2_10_chunk1087(t3412: f64, t8133: f64, t4978: f64, t7073: f64, t2188: f64, t314: f64, t959: f64, t7591: f64, t2205: f64, t6849: f64, t311: f64, t103: f64, t7875: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t17713 = t3412 * t8133;
+    let t17760 = t7073 * t4978;
+    let t17819 = t2188 * t959 * t314;
+    let t17874 = t7591 * t314;
+    let t17890 = 1.0_f64 / t6849 / t2205;
+    let t17891 = t311 * t17890;
+    let t17899 = t7875 * t314 * t103;
+    (t17713, t17760, t17819, t17874, t17890, t17891, t17899)
+}

@@ -1,0 +1,34 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part22_v4rho4_2 meta57 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk417;
+use chunk1::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk418;
+use chunk2::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk419;
+use chunk3::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk420;
+use chunk4::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk421;
+use chunk5::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk422;
+use chunk6::mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk423;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_meta57(t1121: f64, t606: f64, t1120: f64, t128: f64, t1119: f64, t422: f64, t418: f64, t408: f64, t409: f64, t1118: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let t1122 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk417(t1121, t606);
+        let (t1123, t1124) = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk418(t1120, t1122, t128);
+        let t1126 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk419(t1119, t1124);
+        let (t1128, t1129, t1130) = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk420(t1126, t422, t418);
+        let t1131 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk421(t1130, t408);
+        let t1132 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk422(t409);
+        let t1134 = mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk423(t1118, t1124);
+    (t1122, t1123, t1124, t1126, t1128, t1129, t1130, t1131, t1132, t1134)
+}

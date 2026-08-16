@@ -1,0 +1,15 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 21 (v4rho4_1) CSE chunk 1725/3259 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk1725(t3124: f64, t3173: f64, t11231: f64, t4806: f64, t1042: f64, t1065: f64, t675: f64) -> (f64, f64, f64, f64) {
+    let t11980 = t3124 * t3173;
+    let t11982 = t4806 * t11231;
+    let t11983 = t1042 * t11982;
+    let t11986 = t675 * t1065;
+    (t11980, t11982, t11983, t11986)
+}

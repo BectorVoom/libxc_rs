@@ -1,0 +1,19 @@
+//! GGA_C_GAPC lxc pol — lxc_pol part 24 (v4rho2sigma2_3) CSE chunk 790/1327 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_gapc_lxc_pol_part24_v4rho2sigma2_3_chunk790(t3382: f64, t9432: f64, t2660: f64, t9067: f64, t8135: f64, t1018: f64, t2619: f64, t2621: f64, t3096: f64, t3340: f64, t3424: f64, t8998: f64, t933: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t9433 = t3382 * t9432;
+    let t9435 = t2660 * t9067;
+    let t9436 = t9435 * t8135;
+    let t9438 = t2619 * t1018;
+    let t9439 = t3096 * t2621;
+    let t9440 = t9438 * t9439;
+    let t9442 = t3424 * t3340;
+    let t9444 = t933 * t8998;
+    (t9433, t9435, t9436, t9438, t9440, t9442, t9444)
+}

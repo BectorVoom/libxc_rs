@@ -1,0 +1,13 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 33 (v4rho3sigma_8) CSE chunk 2264/2275 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk2264(t112757: f64, t7642: f64, t104521: f64, t105046: f64, t105354: f64, t105409: f64, t105499: f64, t111825: f64, t111991: f64, t1203: f64, t1214: f64, t1294: f64, t1775: f64, t1828: f64, t21506: f64, t2151: f64, t26949: f64, t26979: f64, t29111: f64, t29118: f64, t29186: f64, t30758: f64, t30763: f64, t30886: f64, t30899: f64, t5497: f64, t6573: f64, t6579: f64, t7627: f64, t7636: f64, t7637: f64, t7643: f64, t7645: f64, t7648: f64, t7652: f64, t8197: f64, t8205: f64, t97066: f64, t97397: f64) -> f64 {
+    let t112880 = t7642 * t112757;
+    let t112899 = -0.4336814094102599731e0_f64 * t105354 * t111825 * t21506 - 0.4336814094102599731e0_f64 * t7648 * t30899 + 0.34694512752820797848e1_f64 * t7636 * t7652 * t29186 * t1828 + 0.10408353825846239354e2_f64 * t105046 * t2151 * t6579 * t1214 + 0.10408353825846239354e2_f64 * t105409 * t2151 * t6579 * t1294 - 0.17347256376410398924e1_f64 * t97397 * t30763 * t111991 - 0.34694512752820797848e1_f64 * t26979 * t30758 - 0.13170898365871023197e1_f64 * t104521 * t1775 - 0.26020884564615598386e1_f64 * t26949 * t7637 * t7627 * t6573 - 0.69389025505641595696e1_f64 * t97066 * t2151 * t6579 * t1203 + 0.8673628188205199462e0_f64 * t112880 * t7645 + 0.34694512752820797848e1_f64 * t7636 * t7652 * t8197 * t5497 - 0.13170898365871023197e1_f64 * t105499 * t1775 + 0.34694512752820797848e1_f64 * t7636 * t7652 * t30886 * t1203 - 0.34694512752820797848e1_f64 * t7643 * t7652 * t29118 * t1828 - 0.8673628188205199462e0_f64 * t8205 * t29111;
+    t112899
+}

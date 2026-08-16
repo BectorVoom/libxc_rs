@@ -1,0 +1,17 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 21 (v4rho4_1) CSE chunk 3097/3259 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part21_v4rho4_1_chunk3097(t12956: f64, t17209: f64, t3140: f64, t5216: f64, t3599: f64, t3609: f64, t1261: f64, t17198: f64, t3172: f64, t1042: f64, t12269: f64, t12800: f64, t12816: f64, t12953: f64, t13081: f64, t17381: f64, t17569: f64, t17710: f64, t17747: f64, t17794: f64, t17796: f64, t21203: f64, t3606: f64, t3613: f64, t3711: f64, t3720: f64, t44260: f64, t44664: f64, t5279: f64, t5304: f64, t53474: f64, t5381: f64, t56246: f64, t56766: f64, t56786: f64, t56787: f64, t56791: f64, t56793: f64, t56796: f64) -> f64 {
+    let t56798 = t12956 * t17209;
+    let t56802 = t5216 * t3140;
+    let t56803 = t56802 * t3599;
+    let t56806 = t56802 * t3609;
+    let t56812 = t1261 * t3172 * t17198;
+    let t56818 = -0.38586616306262763275e-2_f64 * t17747 * t3720 * t17710 * t56766 + 0.12862205435420921092e-2_f64 * t44664 * t17381 + 0.14291339372689912324e-2_f64 * t5381 * t12816 - 0.7145669686344956162e-3_f64 * t12956 * t17796 + 0.45732285992607719436e-2_f64 * t21203 * t13081 - 0.14291339372689912324e-2_f64 * t3711 * t1042 * t17794 * t12269 + 0.42874018118069736972e-3_f64 * t17569 * t12953 + t56786 + 0.57165357490759649295e-3_f64 * t56787 + t56791 - 0.1270341277572436651e-2_f64 * t56793 + 0.28582678745379824648e-3_f64 * t56796 + 0.57165357490759649295e-3_f64 * t56798 + 0.42874018118069736972e-3_f64 * t44260 * t5279 + 0.12862205435420921092e-2_f64 * t56803 * t3606 - 0.64311027177104605458e-3_f64 * t56806 * t3613 + 0.71456696863449561621e-3_f64 * t12800 * t5304 - 0.57165357490759649295e-3_f64 * t56812 + 0.85748036236139473944e-2_f64 * t1261 * t1042 * t56246 * t53474;
+    t56818
+}

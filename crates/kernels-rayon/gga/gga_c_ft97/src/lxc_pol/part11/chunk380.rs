@@ -1,0 +1,20 @@
+//! GGA_C_FT97 lxc pol — lxc_pol part 11 (v4rho4_0) CSE chunk 380/1173 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_lxc_pol_part11_v4rho4_0_chunk380(t538: f64, t549: f64, t554: f64, t118: f64, t29: f64, t1595: f64, t120: f64, t1655: f64, t528: f64, t341: f64, t343: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t2002 = t549 * t538;
+    let t2003 = t2002 * t554;
+    let t2007 = 1.0_f64 / t118 / t29;
+    let t2008 = t2007 * t1595;
+    let t2009 = t2008 * t120;
+    let t2011 = t528 * t1655;
+    let t2012 = t2011 * t120;
+    let t2014 = t341 * t343;
+    (t2002, t2003, t2007, t2008, t2009, t2011, t2012, t2014)
+}

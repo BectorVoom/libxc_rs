@@ -1,0 +1,20 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 34 (v4rho3sigma_9) CSE chunk 1135/1341 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part34_v4rho3sigma_9_chunk1135(t27884: f64, t7286: f64, t72: f64, t7929: f64, t686: f64, t7284: f64, t7289: f64, t27883: f64, t786: f64, t213: f64, t7910: f64, t1885: f64, t26024: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t27885 = t27884 * t7286;
+    let t27887 = t7929 * t72;
+    let t27888 = t27887 * t686;
+    let t27889 = t7284 * t27888;
+    let t27891 = t7289 * t27888;
+    let t27899 = t786 * t27883;
+    let t27900 = t27899 * t7286;
+    let t27909 = t213 * t7910;
+    let t27921 = t26024 * t1885;
+    (t27885, t27887, t27888, t27889, t27891, t27899, t27900, t27909, t27921)
+}

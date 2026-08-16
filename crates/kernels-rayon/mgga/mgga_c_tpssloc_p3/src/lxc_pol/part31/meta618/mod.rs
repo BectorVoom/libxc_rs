@@ -1,0 +1,19 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part31_v4rho3sigma_7 meta618 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk1867;
+use chunk1::mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk1868;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_meta618(t12020: f64, t1385: f64, t1992: f64, t22635: f64, t6439: f64, t28117: f64, t81159: f64, t1377: f64, t6330: f64, t26331: f64, t26332: f64, t5187: f64, t19885: f64, t90915: f64, t91004: f64, t28135: f64, t6914: f64, t550: f64, t57607: f64, t6976: f64, t28168: f64, t57704: f64, t562: f64, t6347: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t96910, t96920, t96925, t96929) = mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk1867(t12020, t1385, t1992, t22635, t6439, t28117, t81159, t1377, t6330, t26331, t26332, t5187);
+        let (t96935, t96937, t96941, t96945, t96949, t96951) = mgga_c_tpssloc_lxc_pol_part31_v4rho3sigma_7_chunk1868(t19885, t90915, t91004, t28135, t6914, t1992, t550, t57607, t6976, t28168, t57704, t562, t6347);
+    (t96910, t96920, t96925, t96929, t96935, t96937, t96941, t96945, t96949, t96951)
+}

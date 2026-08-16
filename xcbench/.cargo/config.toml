@@ -1,0 +1,8 @@
+# The measurement box is a Zen 5 (Ryzen AI 7 350): AVX-512 + FMA. Without this
+# the native legs compile for baseline x86-64 -- SSE2 only, 2-wide f64, and
+# `mul_add` lowers to a libm fma() CALL instead of a vfmadd instruction.
+# cubecl-cpu JIT-compiles at runtime and picks up native features on its own,
+# so leaving this off made the native-vs-cubecl comparison unfair.
+[build]
+rustflags = ["-C", "target-cpu=native"]
+target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target-xcbench"

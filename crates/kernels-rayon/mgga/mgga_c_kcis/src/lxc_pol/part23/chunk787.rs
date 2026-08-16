@@ -1,0 +1,18 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 23 (v4rho3sigma_5) CSE chunk 787/1323 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_lxc_pol_part23_v4rho3sigma_5_chunk787(t10138: f64, t534: f64, t333: f64, t3754: f64, t740: f64, t2642: f64, t113: f64, t11425: f64, t11966: f64, t518: f64, t1405: f64, t1441: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t12062 = t10138 * t534;
+    let t12064 = 0.72818958333333333333e-4_f64 * t333 * t12062;
+    let t12065 = t740 * t3754;
+    let t12066 = t12065 * t2642;
+    let t12070 = t113 * t11425;
+    let t12084 = 0.14055920378328537299e-1_f64 * t11966 * t518;
+    let t12085 = t1441 * t1405;
+    (t12064, t12065, t12066, t12070, t12084, t12085)
+}

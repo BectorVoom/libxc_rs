@@ -208,7 +208,10 @@ mod tests {
             Err(LibxcRsError::UnknownExtParamName { name, .. }) => {
                 assert_eq!(name, "definitely_not_a_real_param");
             }
-            other => panic!("expected UnknownExtParamName, got {other:?}"),
+            // `Functional` has no `Debug` impl, so the whole `Result` cannot be
+            // formatted; report the error (which does) or the Ok case by name.
+            Err(e) => panic!("expected UnknownExtParamName, got {e:?}"),
+            Ok(_) => panic!("expected UnknownExtParamName, got Ok(..)"),
         }
     }
 

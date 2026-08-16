@@ -1,0 +1,18 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 53 (v4rho2sigma2_8) CSE chunk 610/1244 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part53_v4rho2sigma2_8_chunk610(t371: f64, t372: f64, t5318: f64, t1234: f64, t1803: f64, t225: f64, t5219: f64, t480: f64, t3623: f64, t4890: f64, t3782: f64, t1794: f64, t3153: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t5320 = t371 * t372 * t5318;
+    let t5323 = t1234 * t1803;
+    let t5326 = t5219 * t225;
+    let t5327 = t5326 * t480;
+    let t5330 = t3623 * t4890;
+    let t5331 = t3782 * t5330;
+    let t5332 = t1794 * t3153;
+    (t5320, t5323, t5326, t5327, t5330, t5331, t5332)
+}

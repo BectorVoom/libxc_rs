@@ -1,0 +1,16 @@
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 1101/1250 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk1101(t7433: f64, t8481: f64, t4680: f64, t8463: f64, t8652: f64, t34161: f64, t8465: f64, t1992: f64, t7585: f64, t7842: f64, t8402: f64, t8787: f64) -> (f64, f64, f64, f64, f64) {
+    let t35596 = t7433 * t8481;
+    let t35599 = t8463 * t4680 * t8652;
+    let t35601 = t34161 * t8465;
+    let t35608 = t7585 * t7842 * t1992 * t8402;
+    let t35610 = t7433 * t8787;
+    (t35596, t35599, t35601, t35608, t35610)
+}

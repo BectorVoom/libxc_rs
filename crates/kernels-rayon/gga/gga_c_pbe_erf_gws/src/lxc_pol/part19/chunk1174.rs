@@ -1,0 +1,19 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 19 (v4rho3sigma_7) CSE chunk 1174/1404 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part19_v4rho3sigma_7_chunk1174(t3324: f64, t4120: f64, t1105: f64, t1167: f64, t13919: f64, t3764: f64, t13917: f64, t1161: f64, t824: f64, t1113: f64, t13781: f64, t3972: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t15113 = t4120 * t3324;
+    let t15124 = t1105 * t1167;
+    let t15134 = t13919 * t3764;
+    let t15135 = t13917 * t15134;
+    let t15144 = t824 * t1161;
+    let t15145 = t1113 * t15144;
+    let t15146 = t13781 * t15145;
+    let t15147 = t3972 * t15146;
+    (t15113, t15124, t15134, t15135, t15144, t15146, t15147)
+}

@@ -1,0 +1,19 @@
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 362/1451 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk362(t1758: f64, t534: f64, t1757: f64, t11: f64, t14: f64, t19: f64, t20: f64, t5: f64, t195: f64, t110: f64, t518: f64, t517: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t1759 = t1758 * t534;
+    let t1761 = 2.0_f64 * t1757 * t1759;
+    let t1764 = 1.0_f64 / t14 / t11 * t19;
+    let t1765 = t20 * t5;
+    let t1766 = t1765 * t195;
+    let t1767 = t1764 * t1766;
+    let t1769 = t518 * t110;
+    let t1770 = t517 * t1769;
+    (t1759, t1761, t1764, t1765, t1766, t1767, t1769, t1770)
+}

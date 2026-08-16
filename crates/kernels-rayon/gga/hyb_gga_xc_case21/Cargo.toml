@@ -1,0 +1,7 @@
+[package]
+name = "libxc-rkernel-hyb_gga_xc_case21"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libxc-rkernel-math = { path = "../../math" }

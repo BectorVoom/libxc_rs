@@ -29,7 +29,7 @@ use crate::functional::params::FunctionalParams;
 use libxc_core::input::GgaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
-    read_output_buffer,
+    read_output_buffer_into,
 };
 use libxc_core::model::{DerivativeOrder, GgaFunctional, Thresholds};
 use libxc_core::output::GgaOutput;
@@ -315,6 +315,12 @@ pub fn dispatch_gga(
     let dims = Dimensions::gga(spin);
 
     // 2. Zero caller-provided output buffers.
+    //
+    //    This looks redundant with step 5, which overwrites every field that
+    //    the functional actually produces, and dropping it would save ~0.5 ms
+    //    per call at n = 1e6. It is deliberately kept: step 4 dispatches through
+    //    ~105 `?` early-exit points, and on any of those the caller's buffers
+    //    must still read as zero rather than as stale data.
     if let Some(ref mut b) = output.zk { b.fill(0.0); }
     if let Some(ref mut b) = output.vrho { b.fill(0.0); }
     if let Some(ref mut b) = output.vsigma { b.fill(0.0); }
@@ -554,41 +560,39 @@ pub fn dispatch_gga(
         GgaFunctional::GgaXQ1d => funcs::gga_x_q1d::dispatch_gga_x_q1d(&ctx, order, spin)?,
     }
 
-    // 5. Read back results from CubeCL buffers into caller-provided slices.
-    if let (Some(buf), Some(h)) = (&mut output.zk, zk_handle) {
-        let result = read_output_buffer(&client, h, zk_len);
-        if buf.len() != result.len() {
-            return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "zk", expected: buf.len(), actual: result.len(),
-            });
-        }
-        buf.copy_from_slice(&result);
-    }
-    macro_rules! readback { ($field:ident, $handle:expr, $len:expr, $name:literal) => {
+    // 5. Read back results straight into the caller-provided slices.
+    //
+    //    `read_output_buffer_into` copies device bytes directly into `buf`.
+    //    The previous `read_output_buffer` returned a fresh `Vec` that was then
+    //    `copy_from_slice`d into `buf`, so each field was allocated once and
+    //    copied twice; `read_one` already hands back owned bytes.
+    //
+    //    Fields with no handle keep the zeros written in step 2.
+    macro_rules! readback { ($field:ident, $handle:expr, $name:literal) => {
         if let (Some(buf), Some(h)) = (&mut output.$field, $handle) {
-            let r = read_output_buffer(&client, h, $len);
-            if buf.len() != r.len() {
+            let expected = buf.len();
+            if let Err(actual) = read_output_buffer_into(&client, h, buf) {
                 return Err(LibxcRsError::OutputBufferSizeMismatch {
-                    field: $name, expected: buf.len(), actual: r.len(),
+                    field: $name, expected, actual,
                 });
             }
-            buf.copy_from_slice(&r);
         }
     }; }
-    readback!(vrho, vrho_handle, vrho_len, "vrho");
-    readback!(vsigma, vsigma_handle, vsigma_len, "vsigma");
-    readback!(v2rho2, v2rho2_handle, v2rho2_len, "v2rho2");
-    readback!(v2rhosigma, v2rhosigma_handle, v2rhosigma_len, "v2rhosigma");
-    readback!(v2sigma2, v2sigma2_handle, v2sigma2_len, "v2sigma2");
-    readback!(v3rho3, v3rho3_handle, v3rho3_len, "v3rho3");
-    readback!(v3rho2sigma, v3rho2sigma_handle, v3rho2sigma_len, "v3rho2sigma");
-    readback!(v3rhosigma2, v3rhosigma2_handle, v3rhosigma2_len, "v3rhosigma2");
-    readback!(v3sigma3, v3sigma3_handle, v3sigma3_len, "v3sigma3");
-    readback!(v4rho4, v4rho4_handle, v4rho4_len, "v4rho4");
-    readback!(v4rho3sigma, v4rho3sigma_handle, v4rho3sigma_len, "v4rho3sigma");
-    readback!(v4rho2sigma2, v4rho2sigma2_handle, v4rho2sigma2_len, "v4rho2sigma2");
-    readback!(v4rhosigma3, v4rhosigma3_handle, v4rhosigma3_len, "v4rhosigma3");
-    readback!(v4sigma4, v4sigma4_handle, v4sigma4_len, "v4sigma4");
+    readback!(zk, zk_handle, "zk");
+    readback!(vrho, vrho_handle, "vrho");
+    readback!(vsigma, vsigma_handle, "vsigma");
+    readback!(v2rho2, v2rho2_handle, "v2rho2");
+    readback!(v2rhosigma, v2rhosigma_handle, "v2rhosigma");
+    readback!(v2sigma2, v2sigma2_handle, "v2sigma2");
+    readback!(v3rho3, v3rho3_handle, "v3rho3");
+    readback!(v3rho2sigma, v3rho2sigma_handle, "v3rho2sigma");
+    readback!(v3rhosigma2, v3rhosigma2_handle, "v3rhosigma2");
+    readback!(v3sigma3, v3sigma3_handle, "v3sigma3");
+    readback!(v4rho4, v4rho4_handle, "v4rho4");
+    readback!(v4rho3sigma, v4rho3sigma_handle, "v4rho3sigma");
+    readback!(v4rho2sigma2, v4rho2sigma2_handle, "v4rho2sigma2");
+    readback!(v4rhosigma3, v4rhosigma3_handle, "v4rhosigma3");
+    readback!(v4sigma4, v4sigma4_handle, "v4sigma4");
 
     Ok(())
 }

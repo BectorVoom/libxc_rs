@@ -1,0 +1,18 @@
+//! GGA_C_FT97 lxc pol — lxc_pol part 15 (v4rho4_4) CSE chunk 364/1222 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_lxc_pol_part15_v4rho4_4_chunk364(t2: f64, t2360: f64, t2371: f64, t2334: f64, t2399: f64, t259: f64, t89: f64, t257: f64, t760: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t2497 = t2 * t2360;
+    let t2506 = t2371 * t2;
+    let t2518 = 4.0_f64 / 9.0_f64 * t2334;
+    let t2533 = 4.0_f64 / 27.0_f64 * t2334;
+    let t2553 = 4.0_f64 / 27.0_f64 * t89 * t2399 * t259;
+    let t2567 = 1.0_f64 / t760 / t257;
+    (t2497, t2506, t2518, t2533, t2553, t2567)
+}

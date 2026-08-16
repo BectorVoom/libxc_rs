@@ -1,0 +1,7 @@
+[package]
+name = "libxc-rkernel-gga_x_airy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libxc-rkernel-math = { path = "../../math" }

@@ -1,0 +1,21 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 17 (v4rho3sigma_8) CSE chunk 419/1111 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_rmggac_lxc_pol_part17_v4rho3sigma_8_chunk419(t1009: f64, t422: f64, t1015: f64, t389: f64, t1012: f64, t1132: f64, t381: f64, t13: f64, t145: f64, t3: f64, t154: f64, t265: f64, t952: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t4111 = 60.0_f64 * t1009 * t422;
+    let t4112 = t1015 * t389;
+    let t4114 = t1009 * t389;
+    let t4116 = t1012 * t422;
+    let t4118 = t1012 * t389;
+    let t4120 = t381 * t1132;
+    let t4124 = t1015 * t422;
+    let t4129 = 1.0_f64 / t13 / t145 * t3 / 4.0_f64;
+    let t4130 = t4129 * t154;
+    let t4132 = t952 * t265;
+    (t4111, t4112, t4114, t4116, t4118, t4120, t4124, t4130, t4132)
+}

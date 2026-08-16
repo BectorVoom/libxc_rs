@@ -1,0 +1,15 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 22 (v4rho4_2) CSE chunk 3462/3938 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk3462(t1647: f64, t16565: f64, t3133: f64, t6258: f64, t16183: f64, t1651: f64, t1082: f64, t1089: f64, t12127: f64, t16520: f64, t16537: f64, t16540: f64, t16552: f64, t16569: f64, t16573: f64, t16577: f64, t16581: f64, t19446: f64, t19450: f64, t19501: f64, t19521: f64, t19526: f64, t19593: f64, t20133: f64, t3059: f64, t3204: f64, t3223: f64, t3287: f64, t43438: f64, t43446: f64, t43512: f64, t43568: f64, t4964: f64, t4982: f64, t55646: f64, t55685: f64, t55732: f64, t56049: f64, t6375: f64, t64835: f64) -> (f64, f64, f64) {
+    let t65181 = t1647 * t16565;
+    let t65186 = t6258 * t3133;
+    let t65192 = t1651 * t16183;
+    let t65196 = 0.13170898365871023197e1_f64 * t12127 * t19593 * t16573 - 0.79025390195226139182e1_f64 * t43446 * t19446 * t16577 - 0.26341796731742046394e1_f64 * t56049 * t16537 + 0.13170898365871023197e1_f64 * t55732 * t16540 + 0.13170898365871023197e1_f64 * t3204 * t1082 * t64835 - 0.26341796731742046394e1_f64 * t3223 * t20133 + 0.13170898365871023197e1_f64 * t43512 * t6375 + 0.52683593463484092788e1_f64 * t16520 * t19521 + 0.26341796731742046394e1_f64 * t43438 * t19501 * t4982 * t3059 + 0.39512695097613069591e1_f64 * t16552 * t19450 * t43568 - 0.26341796731742046394e1_f64 * t55646 * t4964 + 0.13170898365871023197e1_f64 * t65181 * t16569 + 0.26341796731742046394e1_f64 * t19526 * t16581 - 0.65854491829355115987e0_f64 * t3287 * t65186 * t1089 - 0.26341796731742046394e1_f64 * t55685 * t4964 - 0.13170898365871023197e1_f64 * t3287 * t65192 * t1089;
+    (t65186, t65192, t65196)
+}

@@ -1,0 +1,21 @@
+//! LDA_C_PK09 kxc pol — kxc_pol part 2 (v2rho2_1) CSE chunk 603/1113 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pk09_kxc_pol_part2_v2rho2_1_chunk603(t1174: f64, t253: f64, t1185: f64, t1197: f64, t212: f64, t1161: f64, t1207: f64, t416: f64, t1471: f64, t747: f64, t1525: f64, t1435: f64, t1546: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t4882 = t253 * t1174;
+    let t4886 = t1197 * t1185;
+    let t4895 = 1.0_f64 / t212;
+    let t4910 = t1207 * t1161;
+    let t4917 = t1207 * t1185;
+    let t4926 = 1.0_f64 / t416;
+    let t4943 = t747 * t1471;
+    let t4944 = t1525 * t4943;
+    let t4945 = 7.200326855928252_f64 * t4944;
+    let t4950 = t1546 * t1435;
+    (t4882, t4886, t4895, t4910, t4917, t4926, t4943, t4944, t4945, t4950)
+}

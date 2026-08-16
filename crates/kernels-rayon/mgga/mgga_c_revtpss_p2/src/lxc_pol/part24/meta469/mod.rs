@@ -1,0 +1,19 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part24_v4rho4_4 meta469 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk1446;
+use chunk1::mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk1447;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part24_v4rho4_4_meta469(t18349: f64, t2689: f64, t124: f64, t5977: f64, t10760: f64, t18409: f64, t9794: f64, t18414: f64, t40799: f64, t18418: f64, t18643: f64, t40731: f64, t10744: f64, t808: f64, t40521: f64, t40791: f64, t5989: f64, t10890: f64, t5985: f64, t40627: f64, t61837: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t61924, t61956, t61981, t62012, t62015, t62029) = mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk1446(t18349, t2689, t124, t5977, t10760, t18409, t9794, t18414, t40799, t18418, t18643, t40731);
+        let (t62069, t62072, t62089, t62095, t62111) = mgga_c_revtpss_lxc_pol_part24_v4rho4_4_chunk1447(t10744, t18409, t808, t18414, t40521, t40791, t5989, t10890, t5985, t10760, t40627, t61837);
+    (t61924, t61956, t61981, t62012, t62015, t62029, t62069, t62072, t62089, t62095, t62111)
+}

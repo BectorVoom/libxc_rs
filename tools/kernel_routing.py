@@ -137,6 +137,29 @@ def routed_funcnames(family: str,
     return parse_routed_funcnames(_model_path(family), known_dirs)
 
 
+def maple_source_names(family: str) -> set[str]:
+    """Functional names from the Maple source inventory
+    (`libxc-master/src/maple2c/{family}_{exc,vxc}/*.c` stems).
+
+    Used to disambiguate LDA variant→snake-case names WITHOUT depending on
+    the on-disk crate layout: during a clean-slate regen the subcrate dirs
+    do not exist yet, and dir-only disambiguation silently demoted ambiguous
+    names (lda_c_vwn_1, lda_c_1d_csc, ...) to unrouted — flipping their
+    entry kernels from `#[cube(launch_unchecked)]` to `#[cube]`. The Maple
+    stems are exactly the names the regen will create dirs for, so this is
+    the authoritative set regardless of regen order."""
+    out: set[str] = set()
+    maple2c = REPO_ROOT / "libxc-master" / "src" / "maple2c"
+    for sub in (f"{family}_exc", f"{family}_vxc"):
+        d = maple2c / sub
+        if not d.is_dir():
+            continue
+        for c in d.glob("*.c"):
+            if "Zone" not in c.name:
+                out.add(c.stem)
+    return out
+
+
 # Module-level cache so translators don't re-parse on every kernel emit.
 _routed_cache: dict[str, set[str]] = {}
 
@@ -146,10 +169,11 @@ def cached_routed_funcnames(family: str) -> set[str]:
 
     Use this from translators where the same routed set is consulted once
     per emitted kernel. For LDA, `known_dirs` is auto-derived from the
-    in-tree crate layout so variant disambiguation works.
+    in-tree crate layout UNION the Maple source inventory, so variant
+    disambiguation works even on a clean-slate regen (no dirs yet).
     """
     if family not in _routed_cache:
-        known = set(collect_func_dirs(family))
+        known = set(collect_func_dirs(family)) | maple_source_names(family)
         _routed_cache[family] = routed_funcnames(family, known)
     return _routed_cache[family]
 

@@ -1,0 +1,25 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part33_v4rho3sigma_8 meta427 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1526;
+use chunk1::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1527;
+use chunk2::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1528;
+use chunk3::mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1529;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_meta427(t19045: f64, t324: f64, t300: f64, t6184: f64, t983: f64, t15547: f64, t1642: f64, t4719: f64, t4725: f64, t6104: f64, t914: f64, t936: f64, t15416: f64, t1610: f64, t4590: f64, t4632: f64, t11134: f64, t11534: f64, t15127: f64, t15189: f64, t15503: f64, t15504: f64, t18906: f64, t18911: f64, t18915: f64, t18919: f64, t18924: f64, t18928: f64, t18932: f64, t18934: f64, t18939: f64, t18944: f64, t18948: f64, t291: f64, t4734: f64, t6226: f64, t974: f64, t981: f64, t15170: f64, t15447: f64, t15457: f64, t15459: f64, t18961: f64, t18964: f64, t18967: f64, t18970: f64, t18973: f64, t11334: f64, t11338: f64, t11366: f64, t19002: f64, t19004: f64, t19007: f64, t19009: f64, t19014: f64, t19017: f64, t15123: f64, t15435: f64, t18951: f64, t18980: f64, t18982: f64, t18985: f64, t18988: f64, t18990: f64, t18993: f64, t18995: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t19046, t19048, t19051, t19053, t19055, t19058) = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1526(t19045, t324, t300, t6184, t983, t15547, t1642, t4719, t4725, t6104, t914, t936);
+        let (t19060, t19062, t19077) = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1527(t15416, t1610, t4590, t4632, t11134, t11534, t15127, t15189, t15503, t15504, t18906, t18911, t18915, t18919, t18924, t18928, t18932, t18934, t18939, t18944, t18948);
+        let (t19079, t19081, t19084, t19103) = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1528(t19077, t291, t4719, t4734, t6226, t974, t981, t15170, t15189, t15447, t15457, t15459, t18944, t18961, t18964, t18967, t18970, t18973);
+        let t19127 = mgga_c_revtpss_lxc_pol_part33_v4rho3sigma_8_chunk1529(t11134, t11334, t11338, t11366, t18948, t19002, t19004, t19007, t19009, t19014, t19017, t15123, t15127, t15435, t18906, t18911, t18915, t18919, t18924, t18928, t18932, t18934, t18939, t18951, t18980, t18982, t18985, t18988, t18990, t18993, t18995, t19103);
+    (t19046, t19048, t19051, t19053, t19055, t19058, t19060, t19062, t19079, t19081, t19084, t19127)
+}

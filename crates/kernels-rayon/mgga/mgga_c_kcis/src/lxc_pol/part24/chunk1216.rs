@@ -1,0 +1,17 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 24 (v4rho3sigma_6) CSE chunk 1216/1322 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_lxc_pol_part24_v4rho3sigma_6_chunk1216(t26924: f64, t29059: f64, t8072: f64, t95376: f64, t95321: f64, t19865: f64, t28029: f64, t13321: f64, t26929: f64, t5177: f64, t29051: f64, t92522: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t99865 = t26924 * t29059;
+    let t99867 = t95376 * t8072;
+    let t99869 = t95321 * t8072;
+    let t99871 = t28029 * t19865;
+    let t99874 = t13321 * t26929 * t5177;
+    let t99876 = t92522 * t29051;
+    (t99865, t99867, t99869, t99871, t99874, t99876)
+}

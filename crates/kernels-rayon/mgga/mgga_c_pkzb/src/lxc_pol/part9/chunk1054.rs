@@ -1,0 +1,17 @@
+//! MGGA_C_PKZB lxc pol — lxc_pol part 9 (v4rho4_1) CSE chunk 1054/1336 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_pkzb_lxc_pol_part9_v4rho4_1_chunk1054(t5241: f64, t6966: f64, t1727: f64, t5376: f64, t1756: f64, t5384: f64, t5370: f64, t1511: f64, t5331: f64, t1613: f64, t4952: f64, t542: f64, t555: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t16453 = t6966 * t5241;
+    let t16459 = t1727 * t5376;
+    let t16467 = t5384 * t1756;
+    let t16474 = t1727 * t5370;
+    let t16476 = t1511 * t5331;
+    let t16481 = 0.46785788981077169656e1_f64 * t555 * t1613 * t4952 * t542;
+    (t16453, t16459, t16467, t16474, t16476, t16481)
+}

@@ -1,3 +1,9 @@
+//! Gated behind `cubecl-backend` (ADR 0001): this test drives the archived
+//! CubeCL backend through `libxc_rs::kernel` / `libxc_rs::math`, which are only
+//! re-exported when that feature is on. Run with:
+//!   cargo test --features cubecl-backend
+#![cfg(feature = "cubecl-backend")]
+
 //! Integration tests for cross-module math function composition through CubeCL.
 //!
 //! These tests verify that #[cube] functions from different modules compose correctly

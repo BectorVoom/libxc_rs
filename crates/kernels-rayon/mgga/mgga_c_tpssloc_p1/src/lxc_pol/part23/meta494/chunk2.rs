@@ -1,0 +1,12 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 23 (v4rho4_4) CSE chunk 1521/1527 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part23_v4rho4_4_chunk1521(t12249: f64, t1336: f64, t1375: f64, t1378: f64, t1380: f64, t16047: f64, t16428: f64, t1814: f64, t1825: f64, t1834: f64, t1840: f64, t1842: f64, t1843: f64, t19657: f64, t19743: f64, t19815: f64, t20029: f64, t20060: f64, t20473: f64, t20495: f64, t20594: f64, t20595: f64, t20613: f64, t20616: f64, t20625: f64, t20635: f64, t20648: f64, t20651: f64, t20661: f64, t3887: f64, t3897: f64, t40541: f64, t5215: f64, t5234: f64, t5321: f64, t5334: f64, t562: f64, t564: f64, t568: f64, t57653: f64, t6361: f64, t6378: f64, t6388: f64, t6415: f64, t6434: f64, t6440: f64, t6448: f64, t6458: f64, t6461: f64, t74849: f64, t74930: f64, t75008: f64, t75124: f64, t79993: f64, t80048: f64, t80076: f64, t80164: f64, t80175: f64, t80181: f64, t80185: f64, t80189: f64, t80193: f64, t80482: f64) -> f64 {
+    let t80489 = -4.0_f64 * t74849 * t1843 - 4.0_f64 * t74930 * t1843 + 6.0_f64 * t1375 * t3887 * t79993 - 12.0_f64 * t20029 * t6461 + 8.0_f64 * t1375 * t3887 * t1842 * t20661 + 24.0_f64 * t5321 * t20613 + 24.0_f64 * t5215 * t20613 + 24.0_f64 * t20029 * t6440 + t80048 * t562 * t568 + 6.0_f64 * t6361 * t6434 * t568 + 4.0_f64 * t20594 * t1834 * t568 - t1375 * t1378 * (-3.0_f64 * t1336 * t1380 * t80076 + 24.0_f64 * t1336 * t16428 * t20495 - 4.0_f64 * t1336 * t75124 * t1825 - 6.0_f64 * t1336 * t19657 * t6415 + 12.0_f64 * t1336 * t57653 * t6388 + 12.0_f64 * t19815 * t6448 + 24.0_f64 * t5234 * t20625 - 12.0_f64 * t5234 * t20635 - 12.0_f64 * t5234 * t20648 + 24.0_f64 * t5234 * t20651 + t80164 - 36.0_f64 * t1336 * t12249 * t80189 - t1336 * t1380 * t80193 + 14.0_f64 * t1336 * t3897 * t80181 + 24.0_f64 * t1336 * t40541 * t80185 - 36.0_f64 * t16047 * t19743 * t75008 + 36.0_f64 * t5334 * t19743 * t20473 + 4.0_f64 * t1814 * t20616 + 4.0_f64 * t20595 * t1840 + t80175 * t564 + 6.0_f64 * t6378 * t6458 + t80482) - 6.0_f64 * t20060 * t6461;
+    t80489
+}

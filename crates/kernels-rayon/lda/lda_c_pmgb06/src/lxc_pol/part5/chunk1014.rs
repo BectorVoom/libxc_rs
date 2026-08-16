@@ -1,0 +1,14 @@
+//! LDA_C_PMGB06 lxc pol — lxc_pol part 5 (v4rho4_3) CSE chunk 1014/1267 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pmgb06_lxc_pol_part5_v4rho4_3_chunk1014(t409: f64, t419: f64, t421: f64, t7364: f64, t117: f64, t123: f64, t315: f64, t7869: f64, t10670: f64, t14275: f64, t14279: f64, t14284: f64, t14291: f64, t14293: f64, t14298: f64, t14300: f64, t14303: f64, t14306: f64, t14308: f64, t15152: f64, t15159: f64) -> f64 {
+    let t19109 = t409 * t7364 * t419 * t421;
+    let t19118 = t123 * t315 * t7869 * t117;
+    let t19124 = 0.0878110494085338_f64 * t10670 - 0.001975389032890948_f64 * t19109 - 0.07769863529371063_f64 * t14275 + 0.010403978958430045_f64 * t14279 - t14284 - t14291 - 0.01777850129601853_f64 * t14293 + t14298 + 0.059261670986728444_f64 * t14300 - 0.004458848125041448_f64 * t14303 + 0.008980675507690957_f64 * t19118 - 0.07184540406152766_f64 * t15152 + 0.5670973300165402_f64 * t14306 - 0.00035595929614954216_f64 * t14308 + 0.01975389032890948_f64 * t15159;
+    t19124
+}

@@ -1,0 +1,21 @@
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 12 (v4rho3sigma_4) CSE chunk 811/1250 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_acggap_lxc_pol_part12_v4rho3sigma_4_chunk811(t2288: f64, t301: f64, t4262: f64, t2030: f64, t1016: f64, t142: f64, t372: f64, t2060: f64, t336: f64, t4630: f64, t570: f64, t2020: f64, t2260: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t8923 = t2288 * t301;
+    let t8924 = t4262 * t8923;
+    let t8925 = t2030 * t8924;
+    let t8927 = t142 * t1016;
+    let t8928 = t2288 * t372;
+    let t8929 = t8927 * t8928;
+    let t8930 = t2060 * t8929;
+    let t8942 = t336 * t4630;
+    let t8943 = t570 * t8942;
+    let t8945 = t2020 * t2260;
+    (t8923, t8924, t8925, t8927, t8928, t8929, t8930, t8942, t8943, t8945)
+}

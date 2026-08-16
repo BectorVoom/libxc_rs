@@ -1,0 +1,12 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 20 (v4rho4_0) CSE chunk 1652/1798 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part20_v4rho4_0_chunk1652(t43858: f64, t43862: f64, t43865: f64, t43871: f64, t43877: f64, t43883: f64, t43909: f64, t43911: f64, t43914: f64, t43917: f64, t43920: f64, t43923: f64, t43926: f64, t43928: f64) -> f64 {
+    let t45134 = 0.3529725e1_f64 * t43909 - 0.23154444444444444445e0_f64 * t43911 - 0.104195e0_f64 * t43914 + 0.62517e0_f64 * t43917 - 0.13892666666666666667e0_f64 * t43920 - 0.125034e1_f64 * t43923 + 0.83356e0_f64 * t43926 + 0.27785333333333333333e0_f64 * t43928 - 0.76514814814814814814e0_f64 * t43858 - 0.15302962962962962963e1_f64 * t43862 - 0.91817777777777777776e0_f64 * t43865 - 0.103295e1_f64 * t43871 + 0.309885e1_f64 * t43877 + 0.27545333333333333332e1_f64 * t43883;
+    t45134
+}

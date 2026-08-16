@@ -1,0 +1,20 @@
+//! GGA_C_ACGGAP lxc pol — lxc_pol part 13 (v4rho3sigma_5) CSE chunk 732/1213 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_acggap_lxc_pol_part13_v4rho3sigma_5_chunk732(t409: f64, t7712: f64, t2118: f64, t932: f64, t2082: f64, t7538: f64, t1089: f64, t2080: f64, t429: f64, t2079: f64, t368: f64, t7542: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t7713 = t7712 * t409;
+    let t7714 = 0.85748036236139473944e-3_f64 * t7713;
+    let t7715 = t2118 * t932;
+    let t7717 = t7538 * t2082;
+    let t7718 = 0.21437009059034868486e-3_f64 * t7717;
+    let t7720 = t1089 * t429 * t2080;
+    let t7721 = t2079 * t7720;
+    let t7722 = 0.21437009059034868486e-3_f64 * t7721;
+    let t7724 = t1089 * t368 * t7542;
+    (t7713, t7714, t7715, t7718, t7720, t7721, t7722, t7724)
+}

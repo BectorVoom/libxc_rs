@@ -1,0 +1,19 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 14 (v4rho3sigma_5) CSE chunk 996/1089 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_rmggac_lxc_pol_part14_v4rho3sigma_5_chunk996(t39688: f64, t5271: f64, t39684: f64, t5162: f64, t2067: f64, t26: f64, t25525: f64, t5163: f64, t649: f64, t35960: f64, t5166: f64, t2367: f64, t333: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t40991 = t5271 * t39688;
+    let t40993 = t5162 * t39684;
+    let t40998 = t2067 * t26;
+    let t40999 = t25525 * t40998;
+    let t41000 = t649 * t5163;
+    let t41001 = t40999 * t41000;
+    let t41004 = t35960 * t649 * t5166;
+    let t41006 = t2367 * t333;
+    (t40991, t40993, t40998, t41000, t41001, t41004, t41006)
+}

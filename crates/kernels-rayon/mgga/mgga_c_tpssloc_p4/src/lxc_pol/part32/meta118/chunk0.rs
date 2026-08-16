@@ -1,0 +1,24 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 32 (v4rho3sigma_8) CSE chunk 700/2369 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part32_v4rho3sigma_8_chunk700(t290: f64, t2764: f64, t919: f64, t923: f64, t307: f64, t922: f64, t302: f64, t2822: f64, t310: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t2843 = t290 * t290;
+    let t2844 = 1.0_f64 / t2843;
+    let t2848 = 0.22831111111111111111e-1_f64 * t2764;
+    let t2856 = t919 * t923;
+    let t2859 = t922 * t307;
+    let t2860 = 1.0_f64 / t2859;
+    let t2861 = t302 * t2860;
+    let t2868 = 0.68863333333333333333e0_f64 * t2764;
+    let t2875 = 0.17365833333333333333e0_f64 * t2822;
+    let t2884 = t922 * t922;
+    let t2885 = 1.0_f64 / t2884;
+    let t2886 = t302 * t2885;
+    let t2887 = t310 * t310;
+    (t2843, t2844, t2848, t2856, t2860, t2861, t2868, t2875, t2884, t2885, t2886, t2887)
+}

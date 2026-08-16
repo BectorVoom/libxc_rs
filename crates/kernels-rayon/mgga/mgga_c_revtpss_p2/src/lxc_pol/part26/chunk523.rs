@@ -1,0 +1,20 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 26 (v4rho3sigma_1) CSE chunk 523/1225 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part26_v4rho3sigma_1_chunk523(t1043: f64, t999: f64, t1045: f64, t3117: f64, t1032: f64, t989: f64, t1040: f64, t1024: f64, t1062: f64, t1065: f64, t906: f64, t1042: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t3118 = t999 * t1043;
+    let t3119 = t3118 * t1045;
+    let t3120 = t3117 * t3119;
+    let t3123 = t989 * t1032;
+    let t3124 = t3123 * t1040;
+    let t3127 = t1024 * t1062;
+    let t3128 = t1065 * t999;
+    let t3129 = t3128 * t906;
+    let t3130 = t1042 * t3129;
+    (t3118, t3119, t3120, t3123, t3124, t3127, t3128, t3129, t3130)
+}

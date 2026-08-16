@@ -1,0 +1,49 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part28_v4rho3sigma_4 meta636 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+mod chunk7;
+mod chunk8;
+mod chunk9;
+mod chunk10;
+mod chunk11;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2020;
+use chunk1::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2021;
+use chunk2::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2022;
+use chunk3::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2023;
+use chunk4::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2024;
+use chunk5::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2025;
+use chunk6::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2026;
+use chunk7::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2027;
+use chunk8::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2028;
+use chunk9::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2029;
+use chunk10::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2030;
+use chunk11::mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2031;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_meta636(t91214: f64, t80761: f64, t80767: f64, t80769: f64, t80776: f64, t91183: f64, t91185: f64, t91187: f64, t91189: f64, t91192: f64, t91196: f64, t91200: f64, t91204: f64, t91206: f64, t91210: f64, t91212: f64, t91216: f64, t91218: f64, t91225: f64, t80780: f64, t80784: f64, t80789: f64, t80792: f64, t80794: f64, t80796: f64, t80801: f64, t80807: f64, t80814: f64, t80821: f64, t80828: f64, t84514: f64, t91229: f64, t91233: f64, t91237: f64, t91241: f64, t91256: f64, t91281: f64, t91283: f64, t91286: f64, t91290: f64, t91300: f64, t80837: f64, t80843: f64, t80857: f64, t80859: f64, t84520: f64, t91261: f64, t91263: f64, t91268: f64, t91272: f64, t91276: f64, t91279: f64, t91294: f64, t91298: f64, t91303: f64, t91305: f64, t91310: f64, t91312: f64, t91327: f64, t91344: f64, t80867: f64, t80870: f64, t80872: f64, t91317: f64, t91319: f64, t91321: f64, t91323: f64, t91330: f64, t91333: f64, t91336: f64, t91340: f64, t91346: f64, t91356: f64, t91358: f64, t91364: f64, t91386: f64, t80889: f64, t80915: f64, t84533: f64, t84536: f64, t91354: f64, t91362: f64, t91366: f64, t91370: f64, t91374: f64, t91378: f64, t91381: f64, t91384: f64, t91389: f64, t91391: f64, t91394: f64, t91398: f64, t91402: f64, t91404: f64, t80920: f64, t80922: f64, t80940: f64, t80943: f64, t80959: f64, t80989: f64, t80992: f64, t80998: f64, t81007: f64, t84555: f64, t84558: f64, t91400: f64, t91413: f64, t91416: f64, t93642: f64, t93661: f64, t16060: f64, t27086: f64, t3777: f64, t544: f64, t553: f64, t7209: f64, t81127: f64, t81140: f64, t81149: f64, t81160: f64, t81184: f64, t84595: f64, t84597: f64, t91002: f64, t91008: f64, t91014: f64, t91025: f64, t91036: f64, t93615: f64, t93618: f64, t91064: f64, t91076: f64, t91078: f64, t91081: f64, t3787: f64, t7918: f64, t1336: f64, t1814: f64, t24116: f64, t24121: f64, t3793: f64, t5230: f64, t5287: f64, t7211: f64, t81187: f64, t81189: f64, t81197: f64, t81216: f64, t81218: f64, t81230: f64, t91048: f64, t91052: f64, t91074: f64, t91091: f64, t12020: f64, t7213: f64, t90723: f64, t12444: f64, t1375: f64, t1385: f64, t16453: f64, t1807: f64, t2092: f64, t24063: f64, t26990: f64, t27114: f64, t3887: f64, t55093: f64, t568: f64, t7194: f64, t7937: f64, t81307: f64, t81311: f64, t90665: f64, t90728: f64, t90737: f64, t90741: f64, t91486: f64, t12030: f64, t16452: f64, t1843: f64, t24139: f64, t26224: f64, t26989: f64, t27068: f64, t3889: f64, t5215: f64, t55150: f64, t81365: f64, t81375: f64, t84700: f64, t91478: f64, t91482: f64, t91531: f64, t91548: f64, t12033: f64, t16022: f64, t27115: f64, t3752: f64, t3882: f64, t7199: f64, t7214: f64, t81393: f64, t81395: f64, t84705: f64, t91505: f64, t12545: f64, t1266: f64, t12724: f64, t12728: f64, t12823: f64, t1323: f64, t1378: f64, t1386: f64, t1390: f64, t16030: f64, t16437: f64, t16439: f64, t16460: f64, t16470: f64, t16471: f64, t1842: f64, t19577: f64, t1983: f64, t2075: f64, t22574: f64, t22607: f64, t2320: f64, t23951: f64, t24092: f64, t24138: f64, t24147: f64, t26161: f64, t26558: f64, t26875: f64, t26967: f64, t26969: f64, t27009: f64, t27051: f64, t27132: f64, t27145: f64, t27180: f64, t32193: f64, t3652: f64, t3758: f64, t3912: f64, t4034: f64, t510: f64, t5210: f64, t5321: f64, t5325: f64, t533: f64, t5353: f64, t53866: f64, t539: f64, t54825: f64, t55069: f64, t56404: f64, t6876: f64, t6879: f64, t7042: f64, t7191: f64, t7685: f64, t7787: f64, t7806: f64, t7890: f64, t7904: f64, t7925: f64, t7943: f64, t80683: f64, t80722: f64, t80725: f64, t80728: f64, t81284: f64, t81328: f64, t81350: f64, t81379: f64, t84433: f64, t84659: f64, t90442: f64, t90509: f64, t90519: f64, t90556: f64, t90560: f64, t90568: f64, t90571: f64, t90602: f64, t90612: f64, t90615: f64, t91449: f64, t91455: f64, t91469: f64, t91870: f64, t93286: f64, t93332: f64, t93333: f64, t93335: f64, t93337: f64, t93338: f64, t93341: f64, t93344: f64, t93363: f64, t93368: f64, t93399: f64, t93404: f64, t93407: f64, t93431: f64, t93465: f64, t93467: f64, t93492: f64, t93519: f64, t93546: f64, t93567: f64, t93587: f64, t93612: f64) -> f64 {
+        let t93681 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2020(t91214, t80761, t80767, t80769, t80776, t91183, t91185, t91187, t91189, t91192, t91196, t91200, t91204, t91206, t91210, t91212, t91216, t91218);
+        let t93699 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2021(t91225, t80780, t80784, t80789, t80792, t80794, t80796, t80801, t80807, t80814, t80821, t80828, t84514, t91229, t91233, t91237, t91241, t91256);
+        let t93719 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2022(t91281, t91283, t91286, t91290, t91300, t80837, t80843, t80857, t80859, t84520, t91261, t91263, t91268, t91272, t91276, t91279, t91294, t91298);
+        let t93738 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2023(t91303, t91305, t91310, t91312, t91327, t91344, t80867, t80870, t80872, t91317, t91319, t91321, t91323, t91330, t91333, t91336, t91340, t91346);
+        let t93756 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2024(t91356, t91358, t91364, t91386, t80889, t80915, t84533, t84536, t91354, t91362, t91366, t91370, t91374, t91378, t91381, t91384, t91389, t91391);
+        let t93773 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2025(t91394, t91398, t91402, t91404, t80920, t80922, t80940, t80943, t80959, t80989, t80992, t80998, t81007, t84555, t84558, t91400, t91413, t91416);
+        let (t93776, t93784) = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2026(t93642, t93661, t93681, t93699, t93719, t93738, t93756, t93773, t16060, t27086, t3777, t544, t553, t7209, t81127, t81140, t81149, t81160, t81184, t84595, t84597, t91002, t91008, t91014, t91025, t91036, t93615, t93618);
+        let t93809 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2027(t91064, t91076, t91078, t91081, t3787, t7918, t1336, t1814, t24116, t24121, t3793, t5230, t5287, t7211, t81187, t81189, t81197, t81216, t81218, t81230, t91048, t91052, t91074, t91091);
+        let (t93818, t93824, t93847) = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2028(t12020, t7213, t90723, t12444, t1375, t1385, t16453, t1807, t2092, t24063, t26990, t27114, t3887, t55093, t568, t7194, t7937, t81307, t81311, t90665, t90728, t90737, t90741);
+        let t93879 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2029(t91486, t12030, t16452, t1843, t2092, t24139, t26224, t26989, t27068, t3889, t5215, t55150, t7937, t81365, t81375, t84700, t91478, t91482);
+        let t93914 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2030(t91531, t91548, t12033, t16022, t26990, t27115, t3752, t3882, t568, t7199, t7214, t7918, t7937, t81393, t81395, t84705, t91505);
+        let t93930 = mgga_c_tpssloc_lxc_pol_part28_v4rho3sigma_4_chunk2031(t12030, t12444, t12545, t1266, t12724, t12728, t12823, t1323, t1375, t1378, t1386, t1390, t16030, t16437, t16439, t16460, t16470, t16471, t1842, t1843, t19577, t1983, t2075, t2092, t22574, t22607, t2320, t23951, t24092, t24138, t24139, t24147, t26161, t26224, t26558, t26875, t26967, t26969, t26989, t27009, t27051, t27132, t27145, t27180, t32193, t3652, t3758, t3882, t3887, t3889, t3912, t4034, t510, t5210, t5215, t5321, t5325, t533, t5353, t53866, t539, t54825, t55069, t56404, t568, t6876, t6879, t7042, t7191, t7194, t7199, t7213, t7214, t7685, t7787, t7806, t7890, t7904, t7925, t7943, t80683, t80722, t80725, t80728, t81284, t81328, t81350, t81379, t84433, t84659, t90442, t90509, t90519, t90556, t90560, t90568, t90571, t90602, t90612, t90615, t91449, t91455, t91469, t91870, t93286, t93332, t93333, t93335, t93337, t93338, t93341, t93344, t93363, t93368, t93399, t93404, t93407, t93431, t93465, t93467, t93492, t93519, t93546, t93567, t93587, t93612, t93776, t93784, t93809, t93818, t93824, t93847, t93879, t93914);
+    t93930
+}

@@ -18,7 +18,11 @@ libxc-core = { path = "../libxc-core" }
 libxc-eval = { path = "../libxc-eval", default-features = false }
 
 [features]
-default     = ["oracle-lda", "oracle-gga", "oracle-mgga"]
+# Off by default since ADR 0001. These features pull the archived CubeCL kernel
+# tree (306 crates) through libxc-eval, and libxc-compat only needs two
+# orchestration types from it (`Functional`, `EvaluationWorkspace`), which
+# compile without any kernels. `verify` opts in explicitly.
+default     = []
 oracle-lda  = ["libxc-eval/oracle-lda"]
 oracle-gga  = ["libxc-eval/oracle-gga"]
 oracle-mgga = ["libxc-eval/oracle-mgga"]

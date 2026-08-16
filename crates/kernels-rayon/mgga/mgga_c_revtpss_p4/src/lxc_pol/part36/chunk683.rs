@@ -1,0 +1,18 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 36 (v4rho3sigma_11) CSE chunk 683/1378 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part36_v4rho3sigma_11_chunk683(t30: f64, t33: f64, t1468: f64, t3833: f64, t513: f64, t5824: f64, t1711: f64, t3841: f64, t516: f64, t6416: f64, t162: f64, zeta_threshold: f64) -> (f64, f64, f64) {
+    let t31 = t30 <= zeta_threshold;
+    let t34 = t33 <= zeta_threshold;
+    let t6785 = t1468 * t1468;
+    let t6791 = piecewise3(t31, 0.0_f64, 4.0_f64 / 9.0_f64 * t3833 * t6785 + 4.0_f64 / 3.0_f64 * t513 * t5824);
+    let t6792 = t1711 * t1711;
+    let t6798 = piecewise3(t34, 0.0_f64, 4.0_f64 / 9.0_f64 * t3841 * t6792 + 4.0_f64 / 3.0_f64 * t516 * t6416);
+    let t6800 = (t6791 + t6798) * t162;
+    (t6785, t6792, t6800)
+}

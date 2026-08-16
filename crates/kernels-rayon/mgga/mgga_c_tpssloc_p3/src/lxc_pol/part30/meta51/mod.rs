@@ -1,0 +1,31 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — _part30_v4rho3sigma_6 meta51 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk351;
+use chunk1::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk352;
+use chunk2::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk353;
+use chunk3::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk354;
+use chunk4::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk355;
+use chunk5::mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk356;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_meta51(t607: f64, t978: f64, t977: f64, t906: f64, t910: f64, t340: f64, t343: f64, t974: f64, t346: f64, t964: f64, t971: f64, t973: f64, t381: f64, t221: f64, t967: f64, t339: f64, t883: f64, t976: f64, t225: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let (t979, t980, t984) = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk351(t607, t978, t977, t906, t910);
+        let t986 = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk352(t340, t984, t343);
+        let t990 = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk353(t974, t986, t346, t964, t971, t973, t980);
+        let (t991, t995) = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk354(t381, t990, t221, t967);
+        let (t997, t998) = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk355(t339, t995, t883, t976);
+        let (t999, t1000, t1003) = mgga_c_tpssloc_lxc_pol_part30_v4rho3sigma_6_chunk356(t607, t998, t974, t225, t990);
+    (t979, t984, t986, t990, t991, t995, t997, t998, t999, t1000, t1003)
+}

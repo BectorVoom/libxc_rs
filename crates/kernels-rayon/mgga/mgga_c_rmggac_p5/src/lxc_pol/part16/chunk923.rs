@@ -1,0 +1,18 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 16 (v4rho3sigma_7) CSE chunk 923/1158 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_rmggac_lxc_pol_part16_v4rho3sigma_7_chunk923(t45343: f64, t7473: f64, t7478: f64, t5542: f64, t9774: f64, t1756: f64, t1970: f64, t1971: f64, t209: f64, t476: f64, t515: f64, t1743: f64, t3351: f64, t498: f64, t511: f64, t7231: f64) -> (f64, f64, f64, f64, f64) {
+    let t45344 = t45343 * t7473;
+    let t45345 = t45344 * t7478;
+    let t45347 = t9774 * t5542;
+    let t45348 = t45347 * t7473;
+    let t45349 = t45348 * t7478;
+    let t45355 = t1970 * t1971 * t515 * t1756 * t476 * t209;
+    let t45361 = t3351 * t7231 * t511 * t1743 * t498;
+    (t45345, t45347, t45349, t45355, t45361)
+}

@@ -1,0 +1,14 @@
+//! MGGA_C_RMGGAC lxc pol — lxc_pol part 37 (v4rho2sigma2_10) CSE chunk 105/1128 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_rmggac_lxc_pol_part37_v4rho2sigma2_10_chunk105(t416: f64, t417: f64, t167: f64, t180: f64, t249: f64, t361: f64, t380: f64, t396: f64, t403: f64, t411: f64, t5: f64, t156: f64) -> (f64, f64, f64) {
+    let t418 = t416 * t417;
+    let t421 = 0.53237641966666666666e-3_f64 * t5 * t249 * t167 + 1.0_f64 * t396 * t403 - t361 - t380 + 0.18311447306006545054e-3_f64 * t5 * t249 * t180 + 0.5848223622634646207e0_f64 * t411 * t418;
+    let t422 = t156 * t421;
+    (t418, t421, t422)
+}

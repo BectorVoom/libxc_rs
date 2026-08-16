@@ -21,15 +21,15 @@ edition = "2024"
 [dependencies]
 cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
 bytemuck = "1.25"
-libxc-kernel-mgga_c_b94 = { path = "../crates/kernels/mgga/mgga_c_b94" }
+libxc-kernel-mgga_c_b94 = { path = "../archive/kernels-cubecl/mgga/mgga_c_b94" }
 # Phase 12 single-kernel parity canaries — one kernel each, memory-safe at jobs=1.
-libxc-kernel-mgga_x_th = { path = "../crates/kernels/mgga/mgga_x_th" }
-libxc-kernel-mgga_x_2d_js17 = { path = "../crates/kernels/mgga/mgga_x_2d_js17" }
-libxc-kernel-mgga_c_cs = { path = "../crates/kernels/mgga/mgga_c_cs" }
-libxc-kernel-mgga_x_pkzb = { path = "../crates/kernels/mgga/mgga_x_pkzb" }
-libxc-kernel-mgga_x_pbe_gx = { path = "../crates/kernels/mgga/mgga_x_pbe_gx" }
-libxc-kernel-mgga_x_tm = { path = "../crates/kernels/mgga/mgga_x_tm" }
+libxc-kernel-mgga_x_th = { path = "../archive/kernels-cubecl/mgga/mgga_x_th" }
+libxc-kernel-mgga_x_2d_js17 = { path = "../archive/kernels-cubecl/mgga/mgga_x_2d_js17" }
+libxc-kernel-mgga_c_cs = { path = "../archive/kernels-cubecl/mgga/mgga_c_cs" }
+libxc-kernel-mgga_x_pkzb = { path = "../archive/kernels-cubecl/mgga/mgga_x_pkzb" }
+libxc-kernel-mgga_x_pbe_gx = { path = "../archive/kernels-cubecl/mgga/mgga_x_pbe_gx" }
+libxc-kernel-mgga_x_tm = { path = "../archive/kernels-cubecl/mgga/mgga_x_tm" }
 # Phase 12 12-04 regression guard: a non-NEEDS_TAU functional (kinetic, laplacian-only)
 # that must NOT receive the sigma-down clamp (D-01 NEEDS_TAU gating fix).
-libxc-kernel-mgga_k_gea2 = { path = "../crates/kernels/mgga/mgga_k_gea2" }
+libxc-kernel-mgga_k_gea2 = { path = "../archive/kernels-cubecl/mgga/mgga_k_gea2" }
 libxc-sys = { path = "../libxc-sys" }

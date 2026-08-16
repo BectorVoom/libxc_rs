@@ -19,7 +19,7 @@ use crate::functional::params_lda::LdaXParams;
 use libxc_core::input::LdaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer,
-    create_zero_output_buffer, read_output_buffer,
+    create_zero_output_buffer, read_output_buffer_into,
 };
 use libxc_core::model::{DerivativeOrder, LdaFunctional, Spin, Thresholds};
 use libxc_core::output::LdaOutput;
@@ -204,49 +204,44 @@ pub fn dispatch_lda(
 
     // 5. Read back results from CubeCL buffers into caller-provided slices.
     if let Some(ref mut buf) = output.zk {
-        let result = read_output_buffer(&client, zk_handle, zk_len);
-        if buf.len() != result.len() {
+        let expected = buf.len();
+        if let Err(actual) = read_output_buffer_into(&client, zk_handle, buf) {
             return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "zk", expected: buf.len(), actual: result.len(),
+                field: "zk", expected, actual,
             });
         }
-        buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.vrho, vrho_handle) {
-        let result = read_output_buffer(&client, h, vrho_len);
-        if buf.len() != result.len() {
+        let expected = buf.len();
+        if let Err(actual) = read_output_buffer_into(&client, h, buf) {
             return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "vrho", expected: buf.len(), actual: result.len(),
+                field: "vrho", expected, actual,
             });
         }
-        buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v2rho2, v2rho2_handle) {
-        let result = read_output_buffer(&client, h, v2rho2_len);
-        if buf.len() != result.len() {
+        let expected = buf.len();
+        if let Err(actual) = read_output_buffer_into(&client, h, buf) {
             return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "v2rho2", expected: buf.len(), actual: result.len(),
+                field: "v2rho2", expected, actual,
             });
         }
-        buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v3rho3, v3rho3_handle) {
-        let result = read_output_buffer(&client, h, v3rho3_len);
-        if buf.len() != result.len() {
+        let expected = buf.len();
+        if let Err(actual) = read_output_buffer_into(&client, h, buf) {
             return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "v3rho3", expected: buf.len(), actual: result.len(),
+                field: "v3rho3", expected, actual,
             });
         }
-        buf.copy_from_slice(&result);
     }
     if let (Some(buf), Some(h)) = (&mut output.v4rho4, v4rho4_handle) {
-        let result = read_output_buffer(&client, h, v4rho4_len);
-        if buf.len() != result.len() {
+        let expected = buf.len();
+        if let Err(actual) = read_output_buffer_into(&client, h, buf) {
             return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "v4rho4", expected: buf.len(), actual: result.len(),
+                field: "v4rho4", expected, actual,
             });
         }
-        buf.copy_from_slice(&result);
     }
 
     Ok(())

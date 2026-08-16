@@ -1,0 +1,34 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part32_v4rho3sigma_7 meta627 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+mod chunk1;
+mod chunk2;
+mod chunk3;
+mod chunk4;
+mod chunk5;
+mod chunk6;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2002;
+use chunk1::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2003;
+use chunk2::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2004;
+use chunk3::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2005;
+use chunk4::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2006;
+use chunk5::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2007;
+use chunk6::mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2008;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_meta627(t108978: f64, t2047: f64, t108986: f64, t101230: f64, t101785: f64, t101955: f64, t101969: f64, t101972: f64, t10309: f64, t108966: f64, t108975: f64, t108983: f64, t108990: f64, t25162: f64, t26175: f64, t26182: f64, t28147: f64, t28628: f64, t34764: f64, t5: f64, t109895: f64, t109918: f64, t109945: f64, t109970: f64, t109992: f64, t110012: f64, t110027: f64, t117: f64, t108126: f64, t109263: f64, t109368: f64, t109399: f64, t109423: f64, t109446: f64, t109467: f64, t109493: f64, t109516: f64, t109533: f64, t109563: f64, t109598: f64, t109628: f64, t109656: f64, t109681: f64, t109704: f64, t109724: f64, t109756: f64, t109864: f64, t109874: f64, t1310: f64, t13426: f64, t1450: f64, t18227: f64, t2014: f64, t2089: f64, t21881: f64, t21882: f64, t25082: f64, t26405: f64, t28196: f64, t28286: f64, t28727: f64, t28750: f64, t28935: f64, t29498: f64, t30209: f64, t30511: f64, t30553: f64, t34251: f64, t4248: f64, t4254: f64, t4293: f64, t508: f64, t532: f64, t5517: f64, t649: f64, t651: f64, t7359: f64, t7898: f64, t7983: f64, t7988: f64, t95472: f64, t108688: f64, t1518: f64, t18235: f64, t18245: f64, t2056: f64, t2322: f64, t27123: f64, t27126: f64, t28586: f64, t28696: f64, t28760: f64, t29508: f64, t30570: f64, t30571: f64, t30578: f64, t4292: f64, t6765: f64, t7367: f64, t7373: f64, t7374: f64, t7378: f64, t75439: f64, t7732: f64, t7978: f64, t8065: f64, t85360: f64, t116: f64, t30552: f64, t1940: f64, t2255: f64, t8020: f64, t105928: f64, t28472: f64, t105902: f64, t105909: f64, t106510: f64, t18280: f64, t2071: f64, t2403: f64, t27169: f64, t27402: f64, t28456: f64, t28460: f64, t29591: f64, t29602: f64, t29606: f64, t29713: f64, t30420: f64, t4541: f64, t7010: f64, t7428: f64, t7432: f64, t7749: f64, t95976: f64, t198: f64, t8034: f64, t2411: f64, t30419: f64, t105898: f64, t105919: f64, t105924: f64, t106555: f64, t106566: f64, t106569: f64, t106611: f64, t106618: f64, t106626: f64, t26425: f64, t26585: f64, t27173: f64, t27385: f64, t28291: f64, t29716: f64, t30317: f64, t50080: f64, t5824: f64, t7092: f64, t105936: f64, t95822: f64, t102930: f64, t102934: f64, t102937: f64, t102939: f64, t102941: f64, t102943: f64, t102945: f64, t1579: f64, t18784: f64, t2061: f64, t25383: f64, t28340: f64, t29698: f64, t30342: f64, t4533: f64, t6071: f64, t7070: f64, t7071: f64, t7398: f64, t7424: f64, t7997: f64, t212: f64, t30379: f64, t689: f64, t780: f64, t95537: f64, t213: f64, t102947: f64, t102953: f64, t102956: f64, t102964: f64, t102969: f64, t103424: f64, t25317: f64, t25391: f64, t27312: f64, t6048: f64, t887: f64, t95542: f64, t95548: f64, t95551: f64, t95562: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+        let t110049 = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2002(t108978, t2047, t108986, t101230, t101785, t101955, t101969, t101972, t10309, t108966, t108975, t108983, t108990, t25162, t26175, t26182, t28147, t28628, t34764);
+        let (t110054, t110058) = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2003(t5, t109895, t109918, t109945, t109970, t109992, t110012, t110027, t110049, t117, t108126, t109263, t109368, t109399, t109423, t109446, t109467, t109493, t109516, t109533, t109563, t109598, t109628, t109656, t109681, t109704, t109724, t109756, t109864, t109874, t1310, t13426, t1450, t18227, t2014, t2089, t21881, t21882, t25082, t26405, t28196, t28286, t28727, t28750, t28935, t29498, t30209, t30511, t30553, t34251, t4248, t4254, t4293, t508, t532, t5517, t649, t651, t7359, t7898, t7983, t7988, t95472);
+        let t110102 = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2004(t108688, t1310, t1518, t18235, t18245, t2056, t2322, t27123, t27126, t28196, t28286, t28586, t28696, t28760, t29508, t30570, t30571, t30578, t4248, t4254, t4292, t651, t6765, t7359, t7367, t7373, t7374, t7378, t75439, t7732, t7978, t8065, t85360);
+        let (t110110, t110150, t110154, t110158) = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2005(t116, t30552, t1940, t2255, t8020, t105928, t28472, t105902, t105909, t106510, t18280, t2071, t2403, t27169, t27402, t28456, t28460, t29591, t29602, t29606, t29713, t30420, t4541, t7010, t7428, t7432, t7749, t95976);
+        let (t110165, t110177, t110196) = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2006(t198, t8034, t2411, t30419, t105898, t105919, t105924, t106555, t106566, t106569, t106611, t106618, t106626, t1940, t2071, t2403, t26425, t26585, t27173, t27385, t28291, t28472, t29716, t30317, t50080, t5824, t7092, t7428, t8020);
+        let t110242 = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2007(t105936, t95822, t102930, t102934, t102937, t102939, t102941, t102943, t102945, t1579, t18784, t2061, t25383, t28340, t29698, t30342, t4533, t6071, t7070, t7071, t7398, t7424, t7997);
+        let t110261 = mgga_c_revtpss_lxc_pol_part32_v4rho3sigma_7_chunk2008(t212, t30379, t689, t780, t105936, t95537, t213, t102947, t102953, t102956, t102964, t102969, t103424, t25317, t25391, t27312, t6048, t7070, t7398, t887, t95542, t95548, t95551, t95562);
+    (t110054, t110058, t110102, t110110, t110150, t110154, t110158, t110165, t110177, t110196, t110242, t110261)
+}

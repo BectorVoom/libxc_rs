@@ -1,0 +1,14 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 22 (v4rho4_2) CSE chunk 3461/3938 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part22_v4rho4_2_chunk3461(t4772: f64, t11249: f64, t6299: f64, t1024: f64, t1082: f64, t11788: f64, t11940: f64, t12073: f64, t15670: f64, t16152: f64, t16183: f64, t16399: f64, t16433: f64, t16449: f64, t16485: f64, t16496: f64, t1651: f64, t16566: f64, t16568: f64, t19556: f64, t19580: f64, t19617: f64, t3059: f64, t3143: f64, t3204: f64, t378: f64, t43154: f64, t43453: f64, t4893: f64, t4954: f64, t4977: f64, t4981: f64, t4982: f64, t55330: f64, t55701: f64, t55764: f64, t6244: f64, t64647: f64, t64772: f64, t65096: f64) -> (f64, f64, f64) {
+    let t65122 = t4772 * t4772;
+    let t65144 = t6299 * t11249;
+    let t65150 = -0.15805078039045227836e2_f64 * t55330 * t55764 * t16152 + 0.52683593463484092788e1_f64 * t15670 * t16399 + 0.13170898365871023197e1_f64 * t3204 * t12073 * t6244 - 0.39512695097613069591e1_f64 * t11940 * t1082 * t64772 - 0.26341796731742046394e1_f64 * t1024 * t16449 * t4772 - 0.26341796731742046394e1_f64 * t55701 * t4977 + 0.13170898365871023197e1_f64 * t3204 * t19556 * t3059 + 0.26341796731742046394e1_f64 * t3204 * t1082 * t65122 + 0.10536718692696818558e2_f64 * t65096 * t3143 * t378 * t1651 * t16433 + 0.26341796731742046394e1_f64 * t15670 * t16485 + 0.15805078039045227836e2_f64 * t43154 * t1082 * t64647 + 0.26341796731742046394e1_f64 * t4954 * t16496 + 0.26341796731742046394e1_f64 * t11788 * t19617 + 0.26341796731742046394e1_f64 * t4981 * t4893 * t4982 * t16183 + 0.65854491829355115987e0_f64 * t16566 * t65144 * t16568 + 0.13170898365871023197e1_f64 * t43453 * t19580;
+    (t65122, t65144, t65150)
+}

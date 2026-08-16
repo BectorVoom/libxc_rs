@@ -4,8 +4,10 @@
 # skipped on rebuild. Incremental compilation is disabled (see Cargo.toml
 # profiles) because sccache cannot cache incremental builds.
 #
-# jobs = 3: Each kernel sub-crate consumes 3-7 GB RAM during CubeCL proc macro
-# expansion. jobs=3 keeps peak memory under ~21 GB on 24 GB systems.
+# jobs = 1: each CubeCL kernel sub-crate consumes 3-7 GB RAM during proc-macro
+# expansion, so anything above 1 OOMs the 30 GB dev box. Do NOT override with
+# --jobs N when building the archived CubeCL tree or libxc-eval. The rayon
+# kernels (crates/kernels-rayon) are far cheaper and tolerate more.
 [build]
 jobs = 1
 target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"
@@ -13,7 +15,15 @@ target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"
 [env]
 # Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
 # deep through the CubeCL `#[cube]` proc-macro expansion. The default 8MB
-# rustc stack overflows (SIGSEGV); 64MB clears it with margin.
-RUST_MIN_STACK = "67108864"
+# rustc stack overflows (SIGSEGV); 64MB cleared it with margin.
+#
+# Raised 64MB -> 1GB (2026-08-15, chunk-first pilot): launching a chunk-first
+# kernel (wide-struct chunk interfaces, ~512 F fields) in a DEV build runs the
+# generated `expand` fn on cubecl-common's device-service thread ("DSD-0-0"),
+# whose stack comes from RUST_MIN_STACK (no explicit stack_size in
+# cubecl-common 0.10 channel.rs). At opt-level 0 that frame exceeds 64MB.
+# This is an address-space reservation, not committed memory — only touched
+# pages materialize — so 1GB is safe for rustc and runtime alike.
+RUST_MIN_STACK = "1073741824"
 # Share build artifacts across worktrees so isolated executors reuse the
 # main repo's compiled artifacts instead of rebuilding from scratch.

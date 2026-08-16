@@ -1,0 +1,12 @@
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 15 (v4rho3sigma_5) CSE chunk 81/1253 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_r2scan_lxc_pol_part15_v4rho3sigma_5_chunk81(t11: f64, t166: f64, t239: f64, t246: f64, t34: f64, t5: f64, t90: f64, t92: f64, param_eta: f64) -> f64 {
+    let t252 = 5.0_f64 * t5 * t11 * t239 - 45.0_f64 * param_eta * (-0.285764e-1_f64 * t246 * t166 + t34 - t90 - t92);
+    t252
+}

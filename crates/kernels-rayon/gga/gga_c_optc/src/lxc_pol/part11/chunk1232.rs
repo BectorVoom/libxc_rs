@@ -1,0 +1,16 @@
+//! GGA_C_OPTC lxc pol — lxc_pol part 11 (v4rho4_4) CSE chunk 1232/1451 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_optc_lxc_pol_part11_v4rho4_4_chunk1232(t43: f64, t50: f64, t38346: f64, t13064: f64, t16231: f64, t1884: f64, t22308: f64, t3365: f64, t4565: f64, t47: f64, t55901: f64, t55906: f64, t55912: f64, t13076: f64, t16241: f64, t1896: f64, t22323: f64, t3373: f64, t4573: f64, t52: f64, t55917: f64, t55922: f64, t55927: f64, zeta_threshold: f64) -> (f64, f64, f64) {
+    let t44 = t43 <= zeta_threshold;
+    let t51 = t50 <= zeta_threshold;
+    let t56263 = 0.70178680769462448852e1_f64 * t38346;
+    let t56275 = piecewise3(t44, 0.0_f64, 40.0_f64 / 81.0_f64 * t22308 * t55901 - 16.0_f64 / 9.0_f64 * t13064 * t4565 + 4.0_f64 / 3.0_f64 * t1884 * t55906 + 16.0_f64 / 9.0_f64 * t3365 * t16231 + 4.0_f64 / 3.0_f64 * t47 * t55912);
+    let t56287 = piecewise3(t51, 0.0_f64, 40.0_f64 / 81.0_f64 * t22323 * t55917 - 16.0_f64 / 9.0_f64 * t13076 * t4573 + 4.0_f64 / 3.0_f64 * t1896 * t55922 + 16.0_f64 / 9.0_f64 * t3373 * t16241 + 4.0_f64 / 3.0_f64 * t52 * t55927);
+    (t56263, t56275, t56287)
+}

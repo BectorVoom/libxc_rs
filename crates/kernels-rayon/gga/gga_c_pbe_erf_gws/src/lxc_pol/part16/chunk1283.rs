@@ -1,0 +1,17 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1283/1361 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1283(t3123: f64, t51338: f64, t1125: f64, t51292: f64, t14101: f64, t8921: f64, t14024: f64, t3120: f64, t14011: f64, t9626: f64, t14547: f64, t28024: f64, t6523: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t54265 = t3123 * t51338;
+    let t54267 = t1125 * t51292;
+    let t54269 = t14101 * t8921;
+    let t54271 = t3120 * t14024;
+    let t54273 = t14011 * t9626;
+    let t54276 = t14547 * t6523 * t28024;
+    (t54265, t54267, t54269, t54271, t54273, t54276)
+}

@@ -1,0 +1,18 @@
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 729/1113 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk729(t1800: f64, t7516: f64, t1828: f64, t6488: f64, t1859: f64, t6477: f64, t502: f64, t6601: f64, t1872: f64, t1947: f64, t2042: f64, t1877: f64, t6196: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t7517 = t7516 * t1800;
+    let t7522 = 1.2536914064583544_f64 * t1828 * t6488;
+    let t7523 = t1859 * t6477;
+    let t7526 = 8.661855010924512_f64 * t502 * t6601;
+    let t7527 = t1872 * t1947;
+    let t7528 = t7527 * t2042;
+    let t7530 = t1877 * t6196;
+    (t7517, t7522, t7523, t7526, t7528, t7530)
+}

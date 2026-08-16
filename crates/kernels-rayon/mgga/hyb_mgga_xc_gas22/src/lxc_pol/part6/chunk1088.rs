@@ -1,0 +1,17 @@
+//! HYB_MGGA_XC_GAS22 lxc pol — lxc_pol part 6 (v4rho4_2) CSE chunk 1088/1455 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI, M_SQRT2};
+use libxc_rkernel_math::erf::{erf_approx};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn hyb_mgga_xc_gas22_lxc_pol_part6_v4rho4_2_chunk1088(t4104: f64, t779: f64, t238: f64, t242: f64, t10547: f64, t226: f64, t10591: f64, t10593: f64, t10598: f64, t10602: f64, t10605: f64, t6614: f64, t6616: f64, t8706: f64, t8846: f64, t8847: f64) -> (f64, f64, f64, f64, f64) {
+    let t10607 = t779 * t4104;
+    let t10609 = t238 * t242 * t10607;
+    let t10611 = t226 * t10547;
+    let t10613 = t238 * t242 * t10611;
+    let t10615 = 0.15358125e0_f64 * t10591 + 0.3071625e0_f64 * t10593 - t6614 + 0.27385555555555555556e0_f64 * t6616 + 0.5477111111111111111e0_f64 * t8706 - t8846 - t8847 - 0.16431333333333333333e0_f64 * t10598 + 0.49294e0_f64 * t10602 - 0.16431333333333333333e0_f64 * t10605 + 0.24647e0_f64 * t10609 + 0.24647e0_f64 * t10613;
+    (t10607, t10609, t10611, t10613, t10615)
+}

@@ -1,0 +1,15 @@
+//! MGGA_C_REVTPSS lxc pol — lxc_pol part 31 (v4rho3sigma_6) CSE chunk 2144/2259 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk2144(t106655: f64, t7150: f64, t1668: f64, t7810: f64, t73: f64, t1043: f64, t106745: f64, t106764: f64, t1089: f64, t1695: f64, t19421: f64, t25611: f64, t25629: f64, t25640: f64, t25651: f64, t25692: f64, t27415: f64, t27606: f64, t27621: f64, t27652: f64, t27687: f64, t29739: f64, t29748: f64, t29812: f64, t29822: f64, t29830: f64, t29875: f64, t29883: f64, t4866: f64, t4976: f64, t6251: f64, t7151: f64, t7153: f64, t7156: f64, t7160: f64, t7174: f64, t7821: f64, t93502: f64) -> (f64, f64, f64) {
+    let t106787 = t7150 * t106655;
+    let t106823 = t7810 * t1668;
+    let t106824 = t106823 * t73;
+    let t106834 = 0.8673628188205199462e0_f64 * t106787 * t7153 - 0.13170898365871023197e1_f64 * t25651 * t19421 + 0.17347256376410398924e1_f64 * t25611 * t7821 * t4866 * t1089 + 0.8673628188205199462e0_f64 * t25611 * t29883 * t1043 * t1089 + 0.34694512752820797848e1_f64 * t93502 * t29739 * t106745 - 0.17347256376410398924e1_f64 * t27415 * t29748 + 0.13170898365871023197e1_f64 * t25692 * t6251 - 0.4336814094102599731e0_f64 * t29812 * t7174 - 0.34694512752820797848e1_f64 * t7151 * t7160 * t27687 * t1695 - 0.8673628188205199462e0_f64 * t25629 * t106764 * t27652 + 0.8673628188205199462e0_f64 * t25611 * t106764 * t4976 - 0.8673628188205199462e0_f64 * t25629 * t29875 * t1043 * t1089 - 0.17347256376410398924e1_f64 * t25629 * t106824 * t27652 - 0.4336814094102599731e0_f64 * t7156 * t29830 - 0.8673628188205199462e0_f64 * t27621 * t27606 - 0.8673628188205199462e0_f64 * t25640 * t29822;
+    (t106823, t106824, t106834)
+}

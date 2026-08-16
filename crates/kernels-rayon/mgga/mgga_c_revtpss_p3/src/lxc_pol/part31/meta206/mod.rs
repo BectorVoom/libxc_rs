@@ -1,0 +1,16 @@
+//! MGGA_C_REVTPSS lxc pol kernel — _part31_v4rho3sigma_6 meta206 (260520-c91 hierarchical CSE).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+mod chunk0;
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+use chunk0::mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk945;
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_meta206(t1280: f64, t5230: f64, t1287: f64, t5346: f64, t1774: f64, t3759: f64, t5245: f64, t354: f64, t471: f64, t1214: f64, t5351: f64, t3766: f64, t487: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+        let (t5443, t5446, t5449, t5452, t5458, t5459, t5462) = mgga_c_revtpss_lxc_pol_part31_v4rho3sigma_6_chunk945(t1280, t5230, t1287, t5346, t1774, t3759, t5245, t354, t471, t1214, t5351, t3766, t487);
+    (t5443, t5446, t5449, t5452, t5458, t5459, t5462)
+}

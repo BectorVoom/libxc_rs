@@ -1,0 +1,19 @@
+//! MGGA_C_KCIS lxc pol — lxc_pol part 4 (v3rho3_1) CSE chunk 1033/1420 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_kcis_lxc_pol_part4_v3rho3_1_chunk1033(t12938: f64, t629: f64, t2651: f64, t908: f64, t2791: f64, t838: f64, t169: f64, t2628: f64, t174: f64, t2640: f64, t2792: f64, t2627: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t12939 = 1.0_f64 / t12938;
+    let t12940 = t629 * t12939;
+    let t12998 = t2651 * t908;
+    let t13000 = t838 * t2791;
+    let t13003 = 1.0_f64 / t2628 / t169;
+    let t13014 = 1.0_f64 / t2640 / t174;
+    let t13031 = 3.0_f64 * t2792;
+    let t13034 = 3.0_f64 * t2627;
+    (t12940, t12998, t13000, t13003, t13014, t13031, t13034)
+}

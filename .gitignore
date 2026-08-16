@@ -27,3 +27,9 @@ __pycache__/
 .claude/worktrees/
 
 .git
+
+# Build artifacts. `target/` was commented out and `.cache/` was never listed,
+# so a `git add -A` would have swept in ~9.7 GB of compiled output. The 15
+# stale build logs previously tracked under .cache/ are removed from the index.
+target/
+.cache/

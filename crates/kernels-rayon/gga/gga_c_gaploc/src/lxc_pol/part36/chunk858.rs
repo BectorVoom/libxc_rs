@@ -1,0 +1,18 @@
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 36 (v4rhosigma3_1) CSE chunk 858/1029 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_gaploc_lxc_pol_part36_v4rhosigma3_1_chunk858(t10497: f64, t2437: f64, t2441: f64, t34131: f64, t895: f64, t41838: f64, t493: f64, t1441: f64, t590: f64, t4130: f64, t4781: f64, t41809: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t42030 = t2437 * t10497;
+    let t42032 = t2441 * t10497;
+    let t42034 = t895 * t34131;
+    let t42036 = t493 * t41838;
+    let t42038 = t1441 * t42036 * t590;
+    let t42042 = t4781 * t4130 * t41838 * t590;
+    let t42047 = 0.15337170381568299871e1_f64 * t4781 * t4130 * t41809 * t590;
+    (t42030, t42032, t42034, t42038, t42042, t42047)
+}

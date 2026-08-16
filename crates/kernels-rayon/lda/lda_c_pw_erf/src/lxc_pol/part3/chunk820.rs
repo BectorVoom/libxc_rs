@@ -1,0 +1,23 @@
+//! LDA_C_PW_ERF lxc pol — lxc_pol part 3 (v4rho4_1) CSE chunk 820/1335 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pw_erf_lxc_pol_part3_v4rho4_1_chunk820(t2990: f64, t1775: f64, t344: f64, t1799: f64, t339: f64, t3002: f64, t3004: f64, t1: f64, t1798: f64, t397: f64, t3010: f64, t3018: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t5694 = 34.631511798751724_f64 * t2990;
+    let t5695 = t344 * t1775;
+    let t5696 = 8.0_f64 * t5695;
+    let t5697 = t339 * t1799;
+    let t5698 = 8.0_f64 * t5697;
+    let t5699 = 0.0001831155503675316_f64 * t3002;
+    let t5700 = 0.0004883081343134176_f64 * t3004;
+    let t5701 = t1798 * t1;
+    let t5702 = t5701 * t397;
+    let t5703 = 0.0003662311007350632_f64 * t5702;
+    let t5704 = 4.0_f64 * t3010;
+    let t5705 = 2.0_f64 * t3018;
+    (t5694, t5695, t5696, t5697, t5698, t5699, t5700, t5701, t5702, t5703, t5704, t5705)
+}

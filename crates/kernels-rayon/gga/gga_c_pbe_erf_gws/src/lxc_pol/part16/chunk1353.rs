@@ -1,0 +1,15 @@
+//! GGA_C_PBE_ERF_GWS lxc pol — lxc_pol part 16 (v4rho3sigma_4) CSE chunk 1353/1361 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_pbe_erf_gws_lxc_pol_part16_v4rho3sigma_4_chunk1353(t54531: f64, t54535: f64, t54537: f64, t14182: f64, t14185: f64, t14188: f64, t14882: f64, t15036: f64, t19895: f64, t2408: f64, t29751: f64, t29775: f64, t3066: f64, t51928: f64, t52560: f64, t54519: f64, t54523: f64, t54529: f64, t54541: f64, t54561: f64, t9283: f64, t9326: f64) -> f64 {
+    let t55841 = 7.0_f64 / 72.0_f64 * t54531;
+    let t55850 = 7.0_f64 / 36.0_f64 * t54535;
+    let t55851 = 7.0_f64 / 36.0_f64 * t54537;
+    let t55861 = t54519 / 24.0_f64 + t54523 / 48.0_f64 + t54529 / 24.0_f64 + t55841 + 7.0_f64 / 2304.0_f64 * t51928 - t2408 * t9283 * t14185 * t9326 / 24.0_f64 - t3066 * t29751 * t14882 / 8.0_f64 - t55850 + t55851 + t54541 / 768.0_f64 + t29775 * t14182 / 24.0_f64 + t29775 * t14188 / 24.0_f64 + t19895 * t15036 / 48.0_f64 + t54561 / 48.0_f64 - 35.0_f64 / 216.0_f64 * t52560;
+    t55861
+}

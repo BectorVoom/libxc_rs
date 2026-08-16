@@ -1,0 +1,18 @@
+//! GGA_C_GAPLOC lxc pol — lxc_pol part 39 (v4rhosigma3_4) CSE chunk 837/1217 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_gaploc_lxc_pol_part39_v4rhosigma3_4_chunk837(t3338: f64, t475: f64, t6508: f64, t2787: f64, t6509: f64, t10215: f64, t599: f64, t123: f64, t25760: f64, t31590: f64, t426: f64, t1352: f64, t3339: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t31747 = t3338 * t475;
+    let t31748 = t6508 * t31747;
+    let t31769 = t2787 * t6509;
+    let t31828 = t599 * t10215;
+    let t31903 = t25760 * t123;
+    let t32005 = t31590 * t426;
+    let t32067 = t3339 * t1352;
+    (t31747, t31748, t31769, t31828, t31903, t32005, t32067)
+}

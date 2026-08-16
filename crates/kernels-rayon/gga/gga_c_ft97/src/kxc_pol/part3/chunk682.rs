@@ -1,0 +1,20 @@
+//! GGA_C_FT97 kxc pol — kxc_pol part 3 (v3rho3_2) CSE chunk 682/1032 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_kxc_pol_part3_v3rho3_2_chunk682(t11025: f64, t7775: f64, t8192: f64, t7773: f64, t89: f64, t921: f64, t3104: f64, t375: f64, t1636: f64, t943: f64, t3056: f64, t77: f64) -> (f64, f64, f64, f64, f64, f64, f64, f64) {
+    let t11026 = 2.0_f64 / 81.0_f64 * t11025;
+    let t11027 = 4.0_f64 / 81.0_f64 * t7775;
+    let t11031 = 4.0_f64 / 27.0_f64 * t8192;
+    let t11043 = t89 * t7773 * t921;
+    let t11069 = t89 * t375 * t3104;
+    let t11070 = t11069 / 9.0_f64;
+    let t11076 = t89 * t1636 * t943;
+    let t11135 = t77 * t3056;
+    (t11026, t11027, t11031, t11043, t11069, t11070, t11076, t11135)
+}

@@ -34,7 +34,7 @@ use crate::functional::params::FunctionalParams;
 use libxc_core::input::MggaInput;
 use crate::kernel::launch::{
     calculate_launch_config, cpu_client, create_input_buffer, create_zero_output_buffer,
-    read_output_buffer,
+    read_output_buffer_into,
 };
 use libxc_core::model::{DerivativeOrder, MggaFunctional, Spin, Thresholds};
 use libxc_core::output::MggaOutput;
@@ -386,30 +386,24 @@ pub fn dispatch_mgga(
     }
 
     // 8. Read back results from CubeCL buffers into caller-provided slices.
-    if let (Some(buf), Some(h)) = (&mut output.zk, zk_handle) {
-        let result = read_output_buffer(&client, h, zk_len);
-        if buf.len() != result.len() {
-            return Err(LibxcRsError::OutputBufferSizeMismatch {
-                field: "zk", expected: buf.len(), actual: result.len(),
-            });
-        }
-        buf.copy_from_slice(&result);
-    }
-    macro_rules! readback { ($field:ident, $handle:expr, $len:expr, $name:literal) => {
+    // `read_output_buffer_into` writes device bytes straight into the caller's
+    // slice. The previous helper returned a fresh `Vec` that was then copied
+    // into `buf`, allocating once and copying twice per field for nothing.
+    macro_rules! readback { ($field:ident, $handle:expr, $name:literal) => {
         if let (Some(buf), Some(h)) = (&mut output.$field, $handle) {
-            let r = read_output_buffer(&client, h, $len);
-            if buf.len() != r.len() {
+            let expected = buf.len();
+            if let Err(actual) = read_output_buffer_into(&client, h, buf) {
                 return Err(LibxcRsError::OutputBufferSizeMismatch {
-                    field: $name, expected: buf.len(), actual: r.len(),
+                    field: $name, expected, actual,
                 });
             }
-            buf.copy_from_slice(&r);
         }
     }; }
-    readback!(vrho, vrho_handle, vrho_len, "vrho");
-    readback!(vsigma, vsigma_handle, vsigma_len, "vsigma");
-    readback!(vlapl, vlapl_handle, vlapl_len, "vlapl");
-    readback!(vtau, vtau_handle, vtau_len, "vtau");
+    readback!(zk, zk_handle, "zk");
+    readback!(vrho, vrho_handle, "vrho");
+    readback!(vsigma, vsigma_handle, "vsigma");
+    readback!(vlapl, vlapl_handle, "vlapl");
+    readback!(vtau, vtau_handle, "vtau");
 
     Ok(())
 }

@@ -1,0 +1,48 @@
+[package]
+name = "xcbench"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+
+[dependencies]
+cubecl = { version = "0.10.0", default-features = false, features = ["cpu"] }
+cubecl-hip = { version = "0.10.0", optional = true }
+bytemuck = { version = "1.25.0", features = ["derive"] }
+rayon = "1.11"
+libxc-kernel-math = { path = "../archive/kernels-cubecl/math" }
+libxc-kernel-gga_x_pbe = { path = "../archive/kernels-cubecl/gga/gga_x_pbe" }
+libxc-kernel-mgga_x_tpss = { path = "../archive/kernels-cubecl/mgga/mgga_x_tpss", optional = true }
+
+[features]
+default = []
+hip = ["dep:cubecl-hip"]
+mgga = ["dep:libxc-kernel-mgga_x_tpss"]
+
+[[bin]]
+name = "gga"
+path = "src/bin/gga.rs"
+
+[[bin]]
+name = "mgga"
+path = "src/bin/mgga.rs"
+required-features = ["mgga"]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = 0
+
+# The MGGA kxc_pol body is one straight-line function with ~5,700 live
+# temporaries; codegen-units=1 + LTO sends LLVM's register allocator
+# superlinear on it (>45 min). Kernel crates only build the IR-constructing
+# `expand` fn -- the compute kernel is JIT-compiled at runtime -- so their
+# opt-level does not affect measured throughput.
+[profile.release.package.libxc-kernel-mgga_x_tpss]
+opt-level = 1
+codegen-units = 16
+
+[profile.release.package.libxc-kernel-gga_x_pbe]
+opt-level = 1
+codegen-units = 16

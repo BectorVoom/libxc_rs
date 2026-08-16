@@ -1,0 +1,19 @@
+//! GGA_C_FT97 lxc pol — lxc_pol part 30 (v4rho2sigma2_11) CSE chunk 830/1184 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::expint_e1::{xc_e1_scaled};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn gga_c_ft97_lxc_pol_part30_v4rho2sigma2_11_chunk830(t1419: f64, t35367: f64, t1410: f64, t203: f64, t6777: f64, t1128: f64, t7447: f64, t33367: f64, t6804: f64, t33404: f64, t1107: f64, t5011: f64) -> (f64, f64, f64, f64, f64, f64, f64) {
+    let t35368 = t35367 * t1419;
+    let t35371 = t203 * t1410;
+    let t35372 = t35371 * t6777;
+    let t35374 = t7447 * t1128;
+    let t35376 = t33367 * t6804;
+    let t35379 = t33404 * t6804;
+    let t35382 = t5011 * t1107;
+    (t35368, t35371, t35372, t35374, t35376, t35379, t35382)
+}

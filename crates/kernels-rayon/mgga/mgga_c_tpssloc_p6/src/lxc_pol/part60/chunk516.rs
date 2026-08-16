@@ -1,0 +1,20 @@
+//! MGGA_C_TPSSLOC lxc pol — lxc_pol part 60 (v4rho2sigma2_16) CSE chunk 516/1064 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part60_v4rho2sigma2_16_chunk516(t25: f64, t28: f64, t1408: f64, t3664: f64, t514: f64, t5397: f64, t1649: f64, t3672: f64, t517: f64, t5966: f64, t157: f64, t182: f64, t2408: f64, t2417: f64, t2423: f64, t2426: f64, t3686: f64, t3688: f64, t3690: f64, t3695: f64, t3813: f64, t3918: f64, t6299: f64, t6300: f64, t6301: f64, t6304: f64, zeta_threshold: f64) -> (f64, f64, f64, f64, f64) {
+    let t26 = t25 <= zeta_threshold;
+    let t29 = t28 <= zeta_threshold;
+    let t6305 = t1408 * t1408;
+    let t6311 = piecewise3(t26, 0.0_f64, 4.0_f64 / 9.0_f64 * t3664 * t6305 + 4.0_f64 / 3.0_f64 * t514 * t5397);
+    let t6312 = t1649 * t1649;
+    let t6318 = piecewise3(t29, 0.0_f64, 4.0_f64 / 9.0_f64 * t3672 * t6312 + 4.0_f64 / 3.0_f64 * t517 * t5966);
+    let t6320 = (t6311 + t6318) * t157;
+    let t6322 = 0.19751673498613801407e-1_f64 * t6320 * t182;
+    let t6323 = 6.0_f64 * t3918 * t6301 + t2408 + t2417 - t2423 - t2426 + t3686 + t3688 - t3690 - t3695 + t3813 - t6299 - t6300 + t6304 + t6322;
+    (t6305, t6312, t6320, t6322, t6323)
+}

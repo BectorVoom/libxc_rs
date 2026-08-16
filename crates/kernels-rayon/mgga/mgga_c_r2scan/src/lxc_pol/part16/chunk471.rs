@@ -1,0 +1,18 @@
+//! MGGA_C_R2SCAN lxc pol — lxc_pol part 16 (v4rho3sigma_6) CSE chunk 471/1264 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_r2scan_lxc_pol_part16_v4rho3sigma_6_chunk471(t1020: f64, t839: f64, t2410: f64, t333: f64, t335: f64, t337: f64, t339: f64, t341: f64, t1022: f64, t1024: f64, t1026: f64, t1028: f64, t1030: f64, t343: f64) -> (f64, f64) {
+    let t2412 = t839 * t1020;
+    let t2414 = t333 * t2410;
+    let t2418 = t335 * t2410;
+    let t2422 = t337 * t2410;
+    let t2426 = t339 * t2410;
+    let t2430 = t341 * t2410;
+    let t2436 = -0.64e0_f64 * t2410 - 0.8704e0_f64 * t2412 - 0.8704e0_f64 * t2414 - 0.9214113627294e1_f64 * t1022 * t839 - 0.4607056813647e1_f64 * t2418 + 0.367387230261e2_f64 * t1024 * t839 + 0.122462410087e2_f64 * t2422 - 0.3831420472412e2_f64 * t1026 * t839 - 0.957855118103e1_f64 * t2426 + 0.1550653405116e2_f64 * t1028 * t839 + 0.3101306810232e1_f64 * t2430 - 0.2177652951264e1_f64 * t1030 * t839 - 0.362942158544e0_f64 * t343 * t2410;
+    (t2412, t2436)
+}

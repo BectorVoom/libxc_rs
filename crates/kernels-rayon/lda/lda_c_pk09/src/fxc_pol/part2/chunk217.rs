@@ -1,0 +1,17 @@
+//! LDA_C_PK09 fxc pol — fxc_pol part 2 (v2rho2_1) CSE chunk 217/1113 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_rkernel_math::piecewise::{piecewise3};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn lda_c_pk09_fxc_pol_part2_v2rho2_1_chunk217(t721: f64, t810: f64, t666: f64, t670: f64, t612: f64, t616: f64, t626: f64, t636: f64, t653: f64, t676: f64, t681: f64, t687: f64) -> (f64, f64, f64, f64, f64, f64) {
+    let t812 = 19.489173774580152_f64 * t810 * t721;
+    let t813 = 12.0_f64 * t666;
+    let t814 = 8.0_f64 * t670;
+    let t818 = 0.821419393556371_f64 * t612;
+    let t819 = 0.5476129290375806_f64 * t616;
+    let t823 = t813 + t814 + 12.0_f64 * t676 + 12.0_f64 * t681 - 12.0_f64 * t687 + t818 + t819 + 0.821419393556371_f64 * t626 + 0.821419393556371_f64 * t636 - 0.821419393556371_f64 * t653;
+    (t812, t813, t814, t818, t819, t823)
+}

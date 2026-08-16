@@ -1,0 +1,14 @@
+//! MGGA_C_REVTPSS kxc pol — kxc_pol part 4 (v3rho3_1) CSE chunk 839/1428 (D-02 tuple-return ).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_revtpss_kxc_pol_part4_v3rho3_1_chunk839(t3095: f64, t4781: f64, t3092: f64, t3093: f64, t357: f64) -> (f64, f64, f64) {
+    let t4782 = t4781 * t3095;
+    let t4783 = t3092 * t4782;
+    let t4786 = t3093 * t357;
+    (t4782, t4783, t4786)
+}
