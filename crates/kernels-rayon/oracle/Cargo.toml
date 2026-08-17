@@ -1,0 +1,21 @@
+[package]
+name = "libxc-rkernel-oracle"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+
+[dependencies]
+# `libxc_rs-verify` is taken as a NORMAL dependency purely for its libxc FFI
+# helpers. That matters: it carries 17 archived CubeCL kernel crates as
+# *dev*-dependencies, and dev-deps of a dependency are never built -- so this
+# crate gets the oracle bindings without compiling any CubeCL kernels. Putting
+# this test inside verify/ instead made it wait on mgga_c_kcisk, one of the
+# slowest crates in the archived tree.
+libxc_rs-verify = { path = "../../../verify", default-features = false }
+libxc-reval = { path = "../../libxc-reval" }
+libxc-core = { path = "../../libxc-core" }
+
+[profile.release]
+opt-level = 2
+codegen-units = 16
