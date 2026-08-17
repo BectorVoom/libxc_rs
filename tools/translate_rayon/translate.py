@@ -271,7 +271,9 @@ def _collect_output_dir(src_dir: Path, rel: str, *, inline_shards: bool = False
 
 
 def translate_functional(family: str, func: str, *, dry_run: bool = False,
-                         cap: int = 0, inline_shards: bool = False) -> dict:
+                         cap: int = 0, inline_shards: bool = False,
+                         seg_target: int = 0,
+                         max_width: int = 1200) -> dict:
     src_dir = SRC_ROOT / family / func / "src"
     if not src_dir.is_dir():
         raise FileNotFoundError(src_dir)
@@ -330,7 +332,9 @@ def translate_functional(family: str, func: str, *, dry_run: bool = False,
         try:
             if any("/" in k for k in group):
                 raise MergeError(f"{m}: nested directories survived flattening")
-            text, _stats = merge_texts(m, group, cap=cap)
+            text, _stats = merge_texts(m, group, cap=cap,
+                                       seg_target=seg_target,
+                                       max_width=max_width)
         except MergeError as exc:
             unmerged.append(str(exc))
             continue
@@ -409,6 +413,19 @@ def main() -> int:
                          "far more on build wall-clock, because 39 crates that "
                          "compiled in parallel collapse into 5 serial ones "
                          "(mgga_c_rmggac alone: 26s -> 959s).")
+    ap.add_argument("--seg-target", type=int, default=0,
+                    help="split a merged output into contiguous segment "
+                         "functions of about this many definitions each, "
+                         "threading cut-crossing values through a scratch "
+                         "array. Unlike --cap this changes only the emitted "
+                         "shape, not the value numbering, so the operation "
+                         "count stays at the uncapped optimum while each "
+                         "segment gets its own module and therefore its own "
+                         "codegen unit.")
+    ap.add_argument("--seg-max-width", type=int, default=1200,
+                    help="refuse a segment cut with more than this many live "
+                         "values; each costs a store and a reload per grid "
+                         "point. An output with no cheap cut stays whole.")
     ap.add_argument("--cap", type=int, default=0,
                     help="max defs per merged function (0 = unlimited); "
                          "splits an output into several functions so they "
@@ -456,7 +473,9 @@ def main() -> int:
         try:
             r = translate_functional(fam, func, dry_run=args.dry_run,
                                      cap=args.cap,
-                                     inline_shards=args.inline_shards)
+                                     inline_shards=args.inline_shards,
+                                     seg_target=args.seg_target,
+                                     max_width=args.seg_max_width)
         except Exception as exc:  # noqa: BLE001
             print(f"FAIL {fam}/{func}: {exc}", file=sys.stderr)
             failures += 1

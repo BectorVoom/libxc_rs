@@ -62,6 +62,54 @@ That is also why `--inline-shards` is **off by default**. `mgga_c_{tpss,tpssloc,
 
 `vnmerge.py` also runs standalone (`vnmerge.py <crate>/src`) for debugging, and takes `--cap=N` to split a merged output into several functions so they can land in different codegen units. The default (uncapped) is deliberate: capping buys back less than it costs, because the duplication is a *global* shared prefix rather than part-local — `mgga_c_kcis` at cap 16k gave ~13% build time back for more than half the deduplication, and `mgga_c_rmggac` at cap 8k reached 135s wall against 244s uncapped and 26s sharded.
 
+### Do not split a merged output across functions (measured 2026-08-17)
+
+The obvious way to buy back build parallelism is to cut a merged output into
+several functions. **It does not work, and the reason is not the one you would
+guess.** `--seg-target=N` implements the best version of the idea — cut the
+merged statement list into contiguous segments, thread the values that cross a
+cut through a scratch array, keep the value numbering (and so the operation
+count) exactly at the uncapped optimum, one `mod` per segment so each gets its
+own codegen unit. It is **off by default and should stay off.**
+
+On `gga_c_gapc` (lxc_pol, 20,011 values from 164,601 definitions), all three
+forms bit-identical over 816,585 values, 0 mismatches including NaN payloads:
+
+| emission | defs | build wall | build CPU | build RSS | runtime |
+|---|---|---|---|---|---|
+| merged (default) | 20,011 | 31.2s | 54.8s | 729 MB | 7,915 ns/pt |
+| `--seg-target 6000` | 20,011 | **17.6s** | **33.9s** | 771 MB | 21,489 (2.7x worse) |
+| `--cap 6000` + one module per group | 176,487 | 38.9s | 293.7s | 1,937 MB | 52,430 (6.0x worse) |
+
+The build win is real and so is the price. Three explanations were measured and
+killed before the right one: rematerialising cheap crossings (only 0.2% of
+crossings are constants), blocked loop-invariant hoisting (only 1.1% of values
+are loop-invariant), and scratch memory traffic (narrowing the cut from 3,887
+crossing values to 758 barely moved runtime — 2.95x to 2.7x). The actual cause
+is **SLP vectorisation**: the merged basic block is 68% 2-wide packed SSE for
+this functional, and the split drops it to 3-5%. Sampling three more `lxc_pol`
+kernels puts the packed share at 24% (`mgga_x_br89`), 22% (`gga_x_wpbeh`) and
+11% (`mgga_c_r2scan`) — always present, always SSE (no AVX), but `gga_c_gapc`
+sits at the top of the range rather than being typical, so expect the runtime
+penalty for splitting to scale with how much SIMD the kernel had. See the risk
+table in CLAUDE.md.
+
+Two things from that work are worth keeping regardless:
+
+- **A cut is only affordable where the dataflow is narrow, and it almost never
+  is.** `--seg-max-width` (default 1200) refuses a cut with more live values
+  than that. Of the six largest outputs in the tree, exactly one (`gga_c_gapc
+  lxc_pol`, 2 segments, 758 slots) has a cheap cut at all; `mgga_c_kcis`,
+  `gga_c_ft97`, `mgga_x_br89`, `mgga_c_r2scan` and `lda_c_pk09` have none —
+  median live width on the big outputs runs 2.6k–8k values. So even setting the
+  runtime cost aside, the applicability is close to nil.
+- **rustc places each item in its defining module's codegen unit and only ever
+  *merges* CGUs — it never splits one.** Sibling free functions in one module
+  therefore compile as a single unit. This is why `--cap` never delivered the
+  parallelism it was supposed to, and why segmentation emits `mod segN`. Any
+  future attempt to parallelise a crate's codegen has to move items into
+  separate modules, not merely separate functions.
+
 
 ## Build and editor hygiene
 
