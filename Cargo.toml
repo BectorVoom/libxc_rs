@@ -85,6 +85,7 @@ exclude = [
     # --all-targets` builds. `cargo tree -e normal` hides those, which is why an
     # earlier measurement of this looked clean when it was not.
     "crates/kernels-rayon/verify",
+    "crates/kernels-rayon/oracle",
     "verify",
     "verify-canary",
     "crates/kernels-rayon/lda",
@@ -99,13 +100,21 @@ default-members = [
     "crates/libxc-reval",
     "crates/kernels-rayon/math",
 ]
-# Reduce peak memory: CubeCL proc macro expansion generates massive IR.
 # debug=0 skips LLVM debug scope tracking.
-# codegen-units=4 bounds per-unit memory.
 # incremental=false so sccache can cache compiled crates.
+#
+# codegen-units=16 (was 2, a CubeCL-era memory guard): the rayon kernel crates
+# are plain straight-line f64 code whose build time is almost entirely LLVM
+# codegen, which parallelises across units — mgga_c_kcis release drops 5m13s
+# -> 1m27s wall at CGU=16 with jobs>=8, with peak RSS flat (~2.2 GB, set by
+# the front end, not the backend). Runtime is unaffected (measured ns/pt and
+# checksums identical at CGU=2 vs 16): kernels never need cross-unit inlining
+# — math helpers are #[inline(always)] and crate-local ThinLTO still runs
+# across a crate's own units. Front-end memory of monster crates is unchanged
+# by this knob.
 [profile.dev]
 debug = 0
-codegen-units = 2
+codegen-units = 16
 incremental = false
 
 # Optimize proc-macros (and their build-dep tree) once at -O3 so each
@@ -120,7 +129,7 @@ debug = false
 [profile.release]
 debug = 0
 incremental = false
-codegen-units = 2
+codegen-units = 16
 
 [profile.release.build-override]
 opt-level = 3
@@ -129,7 +138,7 @@ debug = false
 
 [profile.test]
 debug = 0
-codegen-units = 2
+codegen-units = 16
 incremental = false
 
 [profile.test.build-override]

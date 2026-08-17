@@ -4,12 +4,19 @@
 # skipped on rebuild. Incremental compilation is disabled (see Cargo.toml
 # profiles) because sccache cannot cache incremental builds.
 #
-# jobs = 1: each CubeCL kernel sub-crate consumes 3-7 GB RAM during proc-macro
-# expansion, so anything above 1 OOMs the 30 GB dev box. Do NOT override with
-# --jobs N when building the archived CubeCL tree or libxc-eval. The rayon
-# kernels (crates/kernels-rayon) are far cheaper and tolerate more.
+# jobs = 12: sized for the rayon kernel tree (the default build). A rayon
+# kernel rustc peaks at ~0.2-2.3 GB (monsters like mgga_c_kcis hit ~2.3 GB in
+# the front end), so 12 concurrent jobs stay well inside the 30 GB box even if
+# several monsters overlap. jobs also caps rustc's codegen-unit parallelism
+# via the jobserver, so raising it speeds up the long-pole monster crates, not
+# just crate-level packing.
+#
+# CubeCL-side builds (archive/kernels-cubecl, libxc-eval oracle-* features,
+# verify/) are the exception: each CubeCL sub-crate consumes 3-7 GB during
+# proc-macro expansion, so those builds MUST pass --jobs 1 explicitly — the
+# config default no longer protects them.
 [build]
-jobs = 1
+jobs = 12
 target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"
 
 [env]
