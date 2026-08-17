@@ -12,7 +12,7 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 
 - **Tech stack**: Pure Rust + rayon; no C/Fortran in production path. (CubeCL retired, ADR 0001.)
 - **Precision**: f64 only; energy relative error <= 10^-12 vs libxc oracle
-- **f32 support**: a documented MILESTONE-scale follow-up (translator re-architecture to emit float-generic kernels + full ~2491-file regen + FP-order reconciliation), NOT a current target — the kernels are f64-concrete by design (2491 files &Array<f64>, 0 generic). See memory project_kernels_f64_concrete_f32_milestone.
+- **f32 support**: not a target. The kernels are f64-concrete by design — ~3.5k emitted files over `&[f64]` (the CubeCL tree's 254k-file chunk fan-out is flattened and then value-merged at translation; see `tools/translate_rayon/{flatten,vnmerge}.py`). Supporting f32 would mean re-architecting the translator to emit float-generic kernels, a full regen, and reconciling FP order. The CubeCL-era note about `&Array<f64>` no longer applies.
 - **Dependencies**: rayon 1.11, thiserror 2.0, bitflags 2.10, bytemuck 1.25 (production); bindgen, anyhow, criterion (verification/benchmark only)
 - **Compatibility**: Must provide extern "C" layer for drop-in replacement in C/Fortran DFT codes
 - **Operation order**: Maple2c formula translations must preserve floating-point operation order for bit-level equivalence
@@ -23,7 +23,14 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 ## Recommended Stack
 ### Compute Substrate
 
-**Superseded.** The table below records the CubeCL substrate as originally chosen; it was retired in ADR 0001. Kept for the reasoning, not as current guidance. The current substrate is plain Rust + rayon.
+#### Current: plain Rust + rayon
+
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| rayon | 1.11 | Parallelism over grid points | Kernels are elementwise and embarrassingly parallel. Splitting is stride-aware (each output array has its own elements-per-point count) and done by recursive halving through `rayon::join`, so workers get disjoint `&mut` slices and the generated tree contains no `unsafe`. |
+| (none) | - | Kernel authoring | Kernels are ordinary Rust functions over `&[f64]`. `ln`/`sqrt`/`exp`/`powf` resolve to the system libm — the same libm libxc calls — so this sits closer to the oracle than per-backend intrinsics did. |
+
+**Superseded.** The table below records the CubeCL substrate as originally chosen; it was retired in ADR 0001. Kept for the reasoning, not as current guidance.
 
 #### Historical: CubeCL (retired)
 | Technology | Version | Purpose | Why | Confidence |
@@ -37,7 +44,7 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
 | bitflags | 2.10.0 | OutputMask, FunctionalFlags bitfield types | De facto standard for type-safe bitflags in Rust. Supports bytemuck derive via feature flag. Zero overhead. | HIGH |
-| bytemuck | 1.25.0 | Safe casting between f64 slices and GPU byte buffers | Required for CubeCL `client.create(bytemuck::cast_slice(...))` pattern. derive feature enables `#[derive(Pod, Zeroable)]`. | HIGH |
+| bytemuck | 1.25.0 | Byte/f64 slice casting | Used by the C-ABI shim and the verification harnesses. No longer needed for kernel dispatch — the rayon path passes `&[f64]` directly. | HIGH |
 | thiserror | 2.0.18 | Typed error enums at library boundary | Standard for library error types. v2 supports `#[error(transparent)]`, automatic `provide()` for backtrace. 857M+ downloads. Use at public API boundary only. | HIGH |
 | num-traits | 0.2.19 | `Float`, `FromPrimitive` traits for generic numeric code | Provides `Float::powi()`, `Float::cbrt()` etc. for CPU-side reference implementations and testing. NOT used inside `#[cube]` kernels (CubeCL has its own type system). | MEDIUM |
 ### Verification / Test Dependencies (dev/build only)
@@ -63,39 +70,30 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 | float-cmp | Similar to approx but less widely adopted. approx is the ecosystem standard. | approx |
 ## Installation
 # Core production dependencies (already in Cargo.toml)
-# Optional GPU backends (feature-gated)
-# In Cargo.toml:
-# cubecl = { version = "0.10.0", features = ["cpu"] }
-# [features]
-# cuda = ["cubecl/cuda"]
-# hip = ["cubecl/hip"]
-# wgpu = ["cubecl/wgpu"]
-# Verify crate (dev/build deps -- already configured)
-# bindgen 0.72.1 (build-dep)
-# cmake 0.1.58 (build-dep)
-# anyhow 1.0.100
-# Add missing dev dependencies
-# Optional: numeric traits for CPU reference
-## Feature Flag Architecture
-## Rust Edition and Toolchain
+# No GPU backends. CubeCL was retired in ADR 0001; the only parallelism
+# dependency is rayon. The archived CubeCL path is still buildable behind
+# `--features cubecl-backend` plus a family feature, for oracle comparison only.
 | Setting | Value | Rationale |
 |---------|-------|-----------|
 | Edition | 2024 | Already set in Cargo.toml. Provides latest language features. |
-| MSRV | 1.85.0+ | Edition 2024 requires Rust 1.85+. CubeCL 0.10.0 likely requires similar. |
+| MSRV | 1.85.0+ | Edition 2024 requires Rust 1.85+. |
 | Profile | release with `lto = "thin"` | Thin LTO balances compile time with cross-crate optimization for numerical code. |
 ## Key Technical Risks
 | Risk | Severity | Mitigation |
 |------|----------|------------|
-| CubeCL lacks erf/erfc intrinsics | HIGH | Implement as pure `#[cube]` rational approximation. Verify against libm reference to 10^-15 relative error. Test early in Phase 2. |
-| WGPU backend lacks f64 on many GPUs | MEDIUM | Return `Error::F64NotSupported` at runtime device query. Document CUDA as primary GPU target. WGPU is best-effort. |
-| CubeCL 0.10.0 kernel compilation limits | MEDIUM | Some MGGA 4th-order polarized kernels produce massive IR. May need kernel splitting. Benchmark compilation times early. |
-| CubeCL `ComputeClient` thread safety | LOW | Verify `Send + Sync` bounds. If not thread-safe, wrap in `Arc<Mutex<>>` or use per-thread clients. |
+| Kernel loops do not vectorise | MEDIUM | The emitted body is division-throughput bound (17 scalar `divsd` per grid point, zero `divpd`); LLVM declines to widen it on register pressure even when the source is explicitly blocked. The ~3-4x SIMD ceiling is unclaimed. Real SIMD needs hand-written intrinsics, which do not generalise across the generated tree. |
+| Oracle parity unproven for the rayon tree | HIGH | Bit-exactness has been shown against the CubeCL tree, which only proves the migration was faithful. Run `crates/kernels-rayon/oracle` for parity against C libxc itself. |
+| 110 functionals unwired on ext_params | MEDIUM | Custom setters, C-expression defaults, or no libxc registration. Listed in `routing.rs::UNSUPPORTED` with reasons; they return `None` rather than run on guessed constants. |
 | Criterion 0.5 vs 0.8 stability | LOW | Pin to 0.5.1 (proven stable). Evaluate 0.8.x in later phase. |
 ## Sources
-- CubeCL GitHub: https://github.com/tracel-ai/cubecl (0.10.0 confirmed on crates.io)
+
+Historical (CubeCL era, retired in ADR 0001):
+- CubeCL GitHub: https://github.com/tracel-ai/cubecl (0.10.0)
 - CubeCL crates.io: https://crates.io/crates/cubecl
 - WebGPU f64 issue: https://github.com/gpuweb/gpuweb/issues/2805
 - wgpu SHADER_FLOAT64 feature: https://docs.rs/wgpu-types/latest/wgpu_types/struct.Features.html
+
+Current:
 - bindgen: https://crates.io/crates/bindgen (0.72.1)
 - thiserror: https://crates.io/crates/thiserror (2.0.18)
 - criterion: https://crates.io/crates/criterion
@@ -104,6 +102,7 @@ libxc_rs is a from-scratch Rust reimplementation of the libxc 7.0.0 exchange-cor
 - num-traits: https://crates.io/crates/num-traits (0.2.19)
 - bitflags: https://crates.io/crates/bitflags (2.10.0)
 - bytemuck: https://crates.io/crates/bytemuck
-- Vendored CubeCL docs: `docs/manual/Cubecl/cubecl_3d_dft.md` (confirms f64 usage in #[cube] kernels)
+- ADR 0001 (this migration): `docs/adr/0001-rayon-over-cubecl.md`
+- Vendored CubeCL docs: `docs/manual/Cubecl/` — historical only, the GPU path no longer exists
 
 @AGENTS.md
