@@ -458,6 +458,59 @@ def main() -> int:
             "",
         ]
 
+    # --- typed (enum) dispatch -------------------------------------------
+    # The facade and C-ABI take a `<Fam>Functional` enum, not a name. The enums
+    # cover only 168 of the 305 functionals in the kernel tree, so this is a
+    # partial view by construction: variants with no wired kernel return
+    # UnsupportedFunctional, which is the honest answer and carries the id the
+    # caller needs.
+    import re as _re
+    enum_variants = {}
+    for fam_, file_ in (("lda", "lda_functional.rs"), ("gga", "gga_functional.rs"),
+                        ("mgga", "mgga_functional.rs")):
+        src_ = (REPO / "crates/libxc-core/src/model" / file_).read_text()
+        m_ = _re.search(r"pub enum \w+Functional\s*\{(.*?)\n\}", src_, _re.S)
+        enum_variants[fam_] = set(_re.findall(r"^\s{4}([A-Z]\w*)\s*,", m_.group(1), _re.M))
+
+    def pascal(n: str) -> str:
+        return "".join(part.capitalize() for part in n.split("_"))
+
+    for fam in ("lda", "gga", "mgga"):
+        Fam = fam.capitalize()
+        wired = [f for g, f in emitted if g == fam]
+        typed = [f for f in wired if pascal(f) in enum_variants[fam]]
+        arms = "\n".join(
+            f"        {Fam}Functional::{pascal(f)} => "
+            f'crate::funcs::{f}::dispatch(input, output, order, spin, thresholds),'
+            for f in typed
+        )
+        lines += [
+            f"/// Dispatch a {fam.upper()} functional by enum -- the typed entry point the",
+            "/// facade and C-ABI use.",
+            "///",
+            f"/// {len(typed)} of the {len(wired)} wired {fam.upper()} functionals have an enum",
+            "/// variant; the rest are reachable only by name. Variants with no wired",
+            "/// kernel return `UnsupportedFunctional` carrying their own id.",
+            f"pub fn dispatch_{fam}<'a>(",
+            f"    functional: libxc_core::model::{Fam}Functional,",
+            f"    input: &'a libxc_core::input::{Fam}Input<'a>,",
+            f"    output: &'a mut libxc_core::output::{Fam}Output<'a>,",
+            "    order: libxc_core::model::DerivativeOrder,",
+            "    spin: libxc_core::model::Spin,",
+            "    thresholds: &libxc_core::model::Thresholds,",
+            ") -> Result<(), libxc_core::error::LibxcRsError> {",
+            f"    use libxc_core::model::{Fam}Functional;",
+            "    match functional {",
+            arms,
+            "        other => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {",
+            "            id: other.to_id(),",
+            '            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",',
+            "        }),",
+            "    }",
+            "}",
+            "",
+        ]
+
     (OUT / "routing.rs").write_text("\n".join(lines))
 
     # Cargo.toml: one optional dep + feature per wired functional.

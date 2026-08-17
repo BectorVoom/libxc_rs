@@ -21,7 +21,13 @@ Rules applied:
 
   1. drop `use cubecl::prelude::*;` and the `#[cube...]` attributes
   2. `&Array<f64>` -> `&[f64]`, `&mut Array<f64>` -> `&mut [f64]`
-  3. `let ip = ABSOLUTE_POS; if ip < G.len() { ... }` -> `for ip in 0..G.len() { ... }`
+  3. `let ip = ABSOLUTE_POS; if ip < G.len() { ... }` -> `for ip in 0..G.len() / D { ... }`
+     where D is G's per-grid-point element count, read off the body's own
+     index expressions (`G[ip * D + k]`; D omitted when 1, i.e. `G[ip]`).
+     The CubeCL guard was a padded-launch bounds check, so `ip < G.len()` was
+     merely *loose* there (launches were unpadded in practice); as a loop
+     bound it must be the grid-point count, or a part whose first output has
+     D > 1 sweeps D times too far and reads rho/sigma out of bounds.
      (brace structure is unchanged, so the tail of the file is untouched)
   4. strip the `::<f64>` turbofish from math-helper calls
   5. repoint `libxc_kernel_math::` at the plain-Rust math crate
@@ -219,6 +225,36 @@ class UnsupportedKernel(RuntimeError):
     """The source uses a construct the mechanical transform does not cover."""
 
 
+def _guard_stride(src: str, buf: str) -> int:
+    """Per-grid-point element count of the guard buffer, read off the body.
+
+    maple2c indexes every output uniformly per buffer: dim-1 buffers as
+    `buf[ip]`, dim-D buffers as `buf[ip * D]` / `buf[ip * D + k]`. The stride
+    is therefore the (unique) multiplier in the buffer's own index
+    expressions, or 1 when only plain `buf[ip]` accesses appear. A buffer
+    showing both forms, several multipliers, or no accesses at all would make
+    the grid-point count unrecoverable, so those raise rather than guess.
+    """
+    name = re.escape(buf)
+    mults = {int(x) for x in re.findall(rf"\b{name}\[ip \* (\d+)", src)}
+    plain = re.search(rf"\b{name}\[ip\]", src) is not None
+    if mults and plain:
+        raise UnsupportedKernel(
+            f"guard buffer `{buf}` mixes strided and plain indexing"
+        )
+    if len(mults) > 1:
+        raise UnsupportedKernel(
+            f"guard buffer `{buf}` has inconsistent strides {sorted(mults)}"
+        )
+    if mults:
+        return mults.pop()
+    if plain:
+        return 1
+    raise UnsupportedKernel(
+        f"guard buffer `{buf}` is never indexed; stride unrecoverable"
+    )
+
+
 def transform_kernel(src: str, *, math_crate: str = MATH_CRATE) -> str:
     """Return the plain-Rust form of a `#[cube]` kernel source file."""
     original = src
@@ -244,10 +280,16 @@ def transform_kernel(src: str, *, math_crate: str = MATH_CRATE) -> str:
     src = src.replace("&mut Array<f64>", "&mut [f64]")
     src = src.replace("&Array<f64>", "&[f64]")
 
-    # 3. thread-index guard -> loop over the grid
-    src, n_guards = _GUARD.subn(
-        lambda m: f"    for ip in 0..{m.group(1)}.len() {{", src
-    )
+    # 3. thread-index guard -> loop over the grid. The loop must run once per
+    #    grid point, so a guard buffer with D elements per point needs its
+    #    length divided by D (see module docstring, rule 3).
+    def _loop_header(m: re.Match) -> str:
+        buf = m.group(1)
+        d = _guard_stride(original, buf)
+        bound = f"{buf}.len()" if d == 1 else f"{buf}.len() / {d}"
+        return f"    for ip in 0..{bound} {{"
+
+    src, n_guards = _GUARD.subn(_loop_header, src)
 
     # 4. resolve `<F: Float>` scalar helpers (the CSE chunk functions) to f64.
     #    Must precede the turbofish strip: inside a generic helper the calls read

@@ -492,3 +492,172 @@ pub fn dispatch_mgga_by_name<'a>(
         _ => None,
     }
 }
+
+/// Dispatch a LDA functional by enum -- the typed entry point the
+/// facade and C-ABI use.
+///
+/// 24 of the 25 wired LDA functionals have an enum
+/// variant; the rest are reachable only by name. Variants with no wired
+/// kernel return `UnsupportedFunctional` carrying their own id.
+pub fn dispatch_lda<'a>(
+    functional: libxc_core::model::LdaFunctional,
+    input: &'a libxc_core::input::LdaInput<'a>,
+    output: &'a mut libxc_core::output::LdaOutput<'a>,
+    order: libxc_core::model::DerivativeOrder,
+    spin: libxc_core::model::Spin,
+    thresholds: &libxc_core::model::Thresholds,
+) -> Result<(), libxc_core::error::LibxcRsError> {
+    use libxc_core::model::LdaFunctional;
+    match functional {
+        LdaFunctional::LdaC1dLoos => crate::funcs::lda_c_1d_loos::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaC2dAmgb => crate::funcs::lda_c_2d_amgb::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCChachiyo => crate::funcs::lda_c_chachiyo::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCChachiyoMod => crate::funcs::lda_c_chachiyo_mod::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCGk72 => crate::funcs::lda_c_gk72::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCGombas => crate::funcs::lda_c_gombas::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCLp96 => crate::funcs::lda_c_lp96::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCMl1 => crate::funcs::lda_c_ml1::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCRc04 => crate::funcs::lda_c_rc04::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCRpa => crate::funcs::lda_c_rpa::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwn => crate::funcs::lda_c_vwn::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwn1 => crate::funcs::lda_c_vwn_1::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwn2 => crate::funcs::lda_c_vwn_2::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwn3 => crate::funcs::lda_c_vwn_3::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwn4 => crate::funcs::lda_c_vwn_4::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCVwnRpa => crate::funcs::lda_c_vwn_rpa::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCW20 => crate::funcs::lda_c_w20::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaCWigner => crate::funcs::lda_c_wigner::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaKZlp => crate::funcs::lda_k_zlp::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaX2d => crate::funcs::lda_x_2d::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaXRel => crate::funcs::lda_x_rel::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaXSloc => crate::funcs::lda_x_sloc::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaXcTeter93 => crate::funcs::lda_xc_teter93::dispatch(input, output, order, spin, thresholds),
+        LdaFunctional::LdaXcZlp => crate::funcs::lda_xc_zlp::dispatch(input, output, order, spin, thresholds),
+        other => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {
+            id: other.to_id(),
+            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",
+        }),
+    }
+}
+
+/// Dispatch a GGA functional by enum -- the typed entry point the
+/// facade and C-ABI use.
+///
+/// 56 of the 70 wired GGA functionals have an enum
+/// variant; the rest are reachable only by name. Variants with no wired
+/// kernel return `UnsupportedFunctional` carrying their own id.
+pub fn dispatch_gga<'a>(
+    functional: libxc_core::model::GgaFunctional,
+    input: &'a libxc_core::input::GgaInput<'a>,
+    output: &'a mut libxc_core::output::GgaOutput<'a>,
+    order: libxc_core::model::DerivativeOrder,
+    spin: libxc_core::model::Spin,
+    thresholds: &libxc_core::model::Thresholds,
+) -> Result<(), libxc_core::error::LibxcRsError> {
+    use libxc_core::model::GgaFunctional;
+    match functional {
+        GgaFunctional::GgaCCcdf => crate::funcs::gga_c_ccdf::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCChachiyo => crate::funcs::gga_c_chachiyo::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCCs1 => crate::funcs::gga_c_cs1::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCLyp => crate::funcs::gga_c_lyp::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCOpB88 => crate::funcs::gga_c_op_b88::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCOpG96 => crate::funcs::gga_c_op_g96::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCOpPbe => crate::funcs::gga_c_op_pbe::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCOpPw91 => crate::funcs::gga_c_op_pw91::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCOpXalpha => crate::funcs::gga_c_op_xalpha::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCScanE0 => crate::funcs::gga_c_scan_e0::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCTca => crate::funcs::gga_c_tca::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCW94 => crate::funcs::gga_c_w94::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCWi => crate::funcs::gga_c_wi::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaCWl => crate::funcs::gga_c_wl::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKExp4 => crate::funcs::gga_k_exp4::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKLc94 => crate::funcs::gga_k_lc94::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKLkt => crate::funcs::gga_k_lkt::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKMeyer => crate::funcs::gga_k_meyer::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKOl1 => crate::funcs::gga_k_ol1::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKPearson => crate::funcs::gga_k_pearson::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKPw86 => crate::funcs::gga_k_pw86::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKThakkar => crate::funcs::gga_k_thakkar::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaKVt84f => crate::funcs::gga_k_vt84f::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaX2dB86 => crate::funcs::gga_x_2d_b86::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaX2dB86Mgc => crate::funcs::gga_x_2d_b86_mgc::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaX2dB88 => crate::funcs::gga_x_2d_b88::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaX2dPbe => crate::funcs::gga_x_2d_pbe::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXAiry => crate::funcs::gga_x_airy::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXAk13 => crate::funcs::gga_x_ak13::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXB88 => crate::funcs::gga_x_b88::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXBayesian => crate::funcs::gga_x_bayesian::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXBeefvdw => crate::funcs::gga_x_beefvdw::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXBpccac => crate::funcs::gga_x_bpccac::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXC09x => crate::funcs::gga_x_c09x::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXChachiyo => crate::funcs::gga_x_chachiyo::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXEv93 => crate::funcs::gga_x_ev93::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXFdLb94 => crate::funcs::gga_x_fd_lb94::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXG96 => crate::funcs::gga_x_g96::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXGg99 => crate::funcs::gga_x_gg99::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXHcthA => crate::funcs::gga_x_hcth_a::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXHtbs => crate::funcs::gga_x_htbs::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXLag => crate::funcs::gga_x_lag::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXLg93 => crate::funcs::gga_x_lg93::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXLvRpw86 => crate::funcs::gga_x_lv_rpw86::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXPbea => crate::funcs::gga_x_pbea::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXPbepow => crate::funcs::gga_x_pbepow::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXPbetrans => crate::funcs::gga_x_pbetrans::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXPw86 => crate::funcs::gga_x_pw86::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXPw91 => crate::funcs::gga_x_pw91::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXQ1d => crate::funcs::gga_x_q1d::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXQ2d => crate::funcs::gga_x_q2d::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXRge2 => crate::funcs::gga_x_rge2::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXSg4 => crate::funcs::gga_x_sg4::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXSsbSw => crate::funcs::gga_x_ssb_sw::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXWc => crate::funcs::gga_x_wc::dispatch(input, output, order, spin, thresholds),
+        GgaFunctional::GgaXcTh2 => crate::funcs::gga_xc_th2::dispatch(input, output, order, spin, thresholds),
+        other => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {
+            id: other.to_id(),
+            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",
+        }),
+    }
+}
+
+/// Dispatch a MGGA functional by enum -- the typed entry point the
+/// facade and C-ABI use.
+///
+/// 20 of the 61 wired MGGA functionals have an enum
+/// variant; the rest are reachable only by name. Variants with no wired
+/// kernel return `UnsupportedFunctional` carrying their own id.
+pub fn dispatch_mgga<'a>(
+    functional: libxc_core::model::MggaFunctional,
+    input: &'a libxc_core::input::MggaInput<'a>,
+    output: &'a mut libxc_core::output::MggaOutput<'a>,
+    order: libxc_core::model::DerivativeOrder,
+    spin: libxc_core::model::Spin,
+    thresholds: &libxc_core::model::Thresholds,
+) -> Result<(), libxc_core::error::LibxcRsError> {
+    use libxc_core::model::MggaFunctional;
+    match functional {
+        MggaFunctional::HybMggaXDldf => crate::funcs::hyb_mgga_x_dldf::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaCCc => crate::funcs::mgga_c_cc::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaCCs => crate::funcs::mgga_c_cs::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaKGea2 => crate::funcs::mgga_k_gea2::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaKGea4 => crate::funcs::mgga_k_gea4::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaKRda => crate::funcs::mgga_k_rda::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaX2dJs17 => crate::funcs::mgga_x_2d_js17::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXJk => crate::funcs::mgga_x_jk::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXLta => crate::funcs::mgga_x_lta::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXMvs => crate::funcs::mgga_x_mvs::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXPbeGx => crate::funcs::mgga_x_pbe_gx::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXPkzb => crate::funcs::mgga_x_pkzb::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXRlda => crate::funcs::mgga_x_rlda::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXRtpss => crate::funcs::mgga_x_rtpss::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXTh => crate::funcs::mgga_x_th::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXTm => crate::funcs::mgga_x_tm::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXTpss => crate::funcs::mgga_x_tpss::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXcCc06 => crate::funcs::mgga_xc_cc06::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXcLp90 => crate::funcs::mgga_xc_lp90::dispatch(input, output, order, spin, thresholds),
+        MggaFunctional::MggaXcZlp => crate::funcs::mgga_xc_zlp::dispatch(input, output, order, spin, thresholds),
+        other => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {
+            id: other.to_id(),
+            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",
+        }),
+    }
+}
