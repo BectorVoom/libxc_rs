@@ -1,0 +1,9176 @@
+//! MGGA_C_TPSSLOC lxc pol kernel — lxc_pol (D-02 CSE-chunked, 1303 chunks).
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+
+
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+
+
+#[allow(unused_variables, non_snake_case, clippy::too_many_arguments)]
+pub fn mgga_c_tpssloc_lxc_pol_part40_v4rho3tau_4(
+    rho: &[f64],
+    sigma: &[f64],
+    lapl: &[f64],
+    tau: &[f64],
+    v4rho3tau: &mut [f64],
+    dens_threshold: f64,
+    zeta_threshold: f64,
+) {
+    for ip in 0..v4rho3tau.len() / 8 {
+        let rho0 = rho[ip * 2];
+        let rho1 = rho[ip * 2 + 1];
+        let sigma0 = sigma[ip * 3];
+        let sigma1 = sigma[ip * 3 + 1];
+        let sigma2 = sigma[ip * 3 + 2];
+        let lapl0 = lapl[ip * 2];
+        let lapl1 = lapl[ip * 2 + 1];
+        let tau0 = tau[ip * 2];
+        let tau1 = tau[ip * 2 + 1];
+        let t2 = {
+            let t2 = rho0 - rho1;
+            t2
+        };
+        let t3 = {
+            let t3 = rho0 + rho1;
+            t3
+        };
+        let (t4, t5, t9) = {
+            let t4 = 1.0_f64 / t3;
+            let t5 = t2 * t4;
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t9 = t2 * t2;
+            (t4, t5, t9)
+        };
+        let t10 = {
+            let t10 = t3 * t3;
+            t10
+        };
+        let (t11, t14) = {
+            let t11 = 1.0_f64 / t10;
+            let t14 = t9 * t9;
+            (t11, t14)
+        };
+        let t15 = {
+            let t15 = t10 * t10;
+            t15
+        };
+        let t16 = {
+            let t16 = 1.0_f64 / t15;
+            t16
+        };
+        let t17 = {
+            let t17 = t14 * t16;
+            t17
+        };
+        let (t19, t20, t21) = {
+            let t19 = t14 * t9;
+            let t20 = t15 * t10;
+            let t21 = 1.0_f64 / t20;
+            (t19, t20, t21)
+        };
+        let (t24, t25) = {
+            let t24 = 0.35e0_f64 + 0.87e0_f64 * t9 * t11 + 0.5e0_f64 * t17 + 0.226e1_f64 * t19 * t21;
+            let t25 = 1.0_f64 + t5;
+            (t24, t25)
+        };
+        let (t27, t28) = {
+            let t26 = t25 <= zeta_threshold;
+            let t27 = zeta_threshold - 1.0_f64;
+            let t28 = 1.0_f64 - t5;
+            (t27, t28)
+        };
+        let t31 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t31 = piecewise5(t26, t27, t29, -t27, t5);
+            t31
+        };
+        let t32 = {
+            let t32 = t31 * t31;
+            t32
+        };
+        let t33 = {
+            let t33 = 1.0_f64 - t32;
+            t33
+        };
+        let (t34, t35, t36, t38) = {
+            let t34 = rho0 * rho0;
+            let t35 = pow_1_3(rho0);
+            let t36 = t35 * t35;
+            let t38 = 1.0_f64 / t36 / t34;
+            (t34, t35, t36, t38)
+        };
+        let t39 = {
+            let t39 = sigma0 * t38;
+            t39
+        };
+        let t40 = {
+            let t40 = 1.0_f64 + t31;
+            t40
+        };
+        let (t41, t42, t43) = {
+            let t41 = t40 / 2.0_f64;
+            let t42 = pow_1_3(t41);
+            let t43 = t42 * t42;
+            (t41, t42, t43)
+        };
+        let (t44, t46, t47, t48, t50, t51) = {
+            let t44 = t43 * t41;
+            let t46 = rho1 * rho1;
+            let t47 = pow_1_3(rho1);
+            let t48 = t47 * t47;
+            let t50 = 1.0_f64 / t48 / t46;
+            let t51 = sigma2 * t50;
+            (t44, t46, t47, t48, t50, t51)
+        };
+        let t52 = {
+            let t52 = 1.0_f64 - t31;
+            t52
+        };
+        let (t53, t54, t55) = {
+            let t53 = t52 / 2.0_f64;
+            let t54 = pow_1_3(t53);
+            let t55 = t54 * t54;
+            (t53, t54, t55)
+        };
+        let (t56, t59) = {
+            let t56 = t55 * t53;
+            let t59 = sigma0 + 2.0_f64 * sigma1 + sigma2;
+            (t56, t59)
+        };
+        let t60 = {
+            let t60 = pow_1_3(t3);
+            t60
+        };
+        let t61 = {
+            let t61 = t60 * t60;
+            t61
+        };
+        let t63 = {
+            let t63 = 1.0_f64 / t61 / t10;
+            t63
+        };
+        let t64 = {
+            let t64 = t59 * t63;
+            t64
+        };
+        let t65 = {
+            let t65 = t39 * t44 + t51 * t56 - t64;
+            t65
+        };
+        let t66 = {
+            let t66 = t33 * t65;
+            t66
+        };
+        let t67 = {
+            let cbrt3 = (M_CBRT3 as f64);
+            let t67 = cbrt3;
+            t67
+        };
+        let t68 = {
+            let pi = (M_PI as f64);
+            let t68 = pi * pi;
+            t68
+        };
+        let (t71, t72) = {
+            let t69 = pow_1_3(t68);
+            let t70 = t69 * t69;
+            let t71 = 1.0_f64 / t70;
+            let t72 = t67 * t71;
+            (t71, t72)
+        };
+        let t73 = {
+            let t73 = pow_1_3(t40);
+            t73
+        };
+        let (t74, t75, t76) = {
+            let t74 = t73 * t40;
+            let t75 = 1.0_f64 / t74;
+            let t76 = pow_1_3(t52);
+            (t74, t75, t76)
+        };
+        let (t77, t78, t79, t80) = {
+            let t77 = t76 * t52;
+            let t78 = 1.0_f64 / t77;
+            let t79 = t75 + t78;
+            let t80 = t72 * t79;
+            (t77, t78, t79, t80)
+        };
+        let (t83, t84, t85, t86) = {
+            let t83 = 1.0_f64 + t66 * t80 / 24.0_f64;
+            let t84 = t83 * t83;
+            let t85 = t84 * t84;
+            let t86 = 1.0_f64 / t85;
+            (t83, t84, t85, t86)
+        };
+        let t88 = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t88 = piecewise3(t8, 0.398e1_f64, t24 * t86);
+            t88
+        };
+        let t89 = {
+            let t89 = 1.0_f64 + t88;
+            t89
+        };
+        let t91 = {
+            let t91 = 1.0_f64 / t36 / rho0;
+            t91
+        };
+        let t92 = {
+            let t92 = tau0 * t91;
+            t92
+        };
+        let (t93, t94, t95) = {
+            let t93 = t25 / 2.0_f64;
+            let t94 = pow_1_3(t93);
+            let t95 = t94 * t94;
+            (t93, t94, t95)
+        };
+        let t96 = {
+            let t96 = t95 * t93;
+            t96
+        };
+        let t100 = {
+            let t99 = 1.0_f64 / t48 / rho1;
+            let t100 = tau1 * t99;
+            t100
+        };
+        let (t101, t102, t103) = {
+            let t101 = t28 / 2.0_f64;
+            let t102 = pow_1_3(t101);
+            let t103 = t102 * t102;
+            (t101, t102, t103)
+        };
+        let (t104, t106, t107, t111, t109) = {
+            let t104 = t103 * t101;
+            let t106 = t100 * t104 + t92 * t96;
+            let t107 = 1.0_f64 / t106;
+            let t109 = t64 * t107 / 8.0_f64;
+            let t110 = 1.0_f64 < t109;
+            let t111 = piecewise3(t110, 1.0_f64, t109);
+            (t104, t106, t107, t111, t109)
+        };
+        let t112 = {
+            let t112 = t111 * t111;
+            t112
+        };
+        let t113 = {
+            let t113 = t89 * t112;
+            t113
+        };
+        let t116 = {
+            let pi = (M_PI as f64);
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t116 = 1.0_f64 / pi;
+            t116
+        };
+        let (t117, t118) = {
+            let t117 = pow_1_3(t116);
+            let t118 = t67 * t117;
+            (t117, t118)
+        };
+        let t119 = {
+            let cbrt4 = (M_CBRT4 as f64);
+            let t119 = cbrt4;
+            t119
+        };
+        let t120 = {
+            let t120 = t119 * t119;
+            t120
+        };
+        let t121 = {
+            let t121 = 1.0_f64 / t60;
+            t121
+        };
+        let (t122, t123) = {
+            let t122 = t120 * t121;
+            let t123 = t118 * t122;
+            (t122, t123)
+        };
+        let t125 = {
+            let t125 = 1.0_f64 + 0.53425e-1_f64 * t123;
+            t125
+        };
+        let t126 = {
+            let t126 = f64::sqrt(t123);
+            t126
+        };
+        let (t129, t131) = {
+            let t129 = pow_3_2(t123);
+            let t131 = t67 * t67;
+            (t129, t131)
+        };
+        let (t132, t133) = {
+            let t132 = t117 * t117;
+            let t133 = t131 * t132;
+            (t132, t133)
+        };
+        let t134 = {
+            let t134 = 1.0_f64 / t61;
+            t134
+        };
+        let t135 = {
+            let t135 = t119 * t134;
+            t135
+        };
+        let t136 = {
+            let t136 = t133 * t135;
+            t136
+        };
+        let (t138, t141, t142, t144) = {
+            let t138 = 0.379785e1_f64 * t126 + 0.8969e0_f64 * t123 + 0.204775e0_f64 * t129 + 0.123235e0_f64 * t136;
+            let t141 = 1.0_f64 + 0.16081979498692535067e2_f64 / t138;
+            let t142 = f64::ln(t141);
+            let t144 = 0.621814e-1_f64 * t125 * t142;
+            (t138, t141, t142, t144)
+        };
+        let t145 = {
+            let t145 = t32 * t32;
+            t145
+        };
+        let (t147, t148) = {
+            let t146 = t40 <= zeta_threshold;
+            let t147 = pow_1_3(zeta_threshold);
+            let t148 = t147 * zeta_threshold;
+            (t147, t148)
+        };
+        let t152 = {
+            let t146 = t40 <= zeta_threshold;
+            let t149 = piecewise3(t146, t148, t74);
+            let t150 = t52 <= zeta_threshold;
+            let t151 = piecewise3(t150, t148, t77);
+            let t152 = t149 + t151 - 2.0_f64;
+            t152
+        };
+        let (t153, t154) = {
+            let cbrt2 = (M_CBRT2 as f64);
+            let t153 = t145 * t152;
+            let t154 = cbrt2;
+            (t153, t154)
+        };
+        let t157 = {
+            let t157 = 1.0_f64 / (2.0_f64 * t154 - 2.0_f64);
+            t157
+        };
+        let t159 = {
+            let t159 = 1.0_f64 + 0.5137e-1_f64 * t123;
+            t159
+        };
+        let (t164, t167, t168, t172) = {
+            let t164 = 0.705945e1_f64 * t126 + 0.1549425e1_f64 * t123 + 0.420775e0_f64 * t129 + 0.1562925e0_f64 * t136;
+            let t167 = 1.0_f64 + 0.32163958997385070134e2_f64 / t164;
+            let t168 = f64::ln(t167);
+            let t172 = 1.0_f64 + 0.278125e-1_f64 * t123;
+            (t164, t167, t168, t172)
+        };
+        let (t177, t180, t181) = {
+            let t177 = 0.51785e1_f64 * t126 + 0.905775e0_f64 * t123 + 0.1100325e0_f64 * t129 + 0.1241775e0_f64 * t136;
+            let t180 = 1.0_f64 + 0.29608749977793437516e2_f64 / t177;
+            let t181 = f64::ln(t180);
+            (t177, t180, t181)
+        };
+        let t182 = {
+            let t182 = t172 * t181;
+            t182
+        };
+        let t184 = {
+            let t184 = -0.310907e-1_f64 * t159 * t168 + t144 - 0.19751673498613801407e-1_f64 * t182;
+            t184
+        };
+        let t185 = {
+            let t185 = t157 * t184;
+            t185
+        };
+        let (t186, t187, t189, t191, t193) = {
+            let t186 = t153 * t185;
+            let t187 = t152 * t157;
+            let t189 = 0.19751673498613801407e-1_f64 * t187 * t182;
+            let t190 = f64::ln(2.0_f64);
+            let t191 = 1.0_f64 - t190;
+            let t192 = 1.0_f64 / t68;
+            let t193 = t191 * t192;
+            (t186, t187, t189, t191, t193)
+        };
+        let t194 = {
+            let t194 = t147 * t147;
+            t194
+        };
+        let (t195, t197, t200) = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t195 = t73 * t73;
+            let t196 = piecewise3(t146, t194, t195);
+            let t197 = t76 * t76;
+            let t198 = piecewise3(t150, t194, t197);
+            let t200 = t196 / 2.0_f64 + t198 / 2.0_f64;
+            (t195, t197, t200)
+        };
+        let t201 = {
+            let t201 = t200 * t200;
+            t201
+        };
+        let t202 = {
+            let t202 = t201 * t200;
+            t202
+        };
+        let t204 = {
+            let t204 = 1.0_f64 / t60 / t10;
+            t204
+        };
+        let t205 = {
+            let t205 = t59 * t204;
+            t205
+        };
+        let (t206, t207) = {
+            let t206 = 1.0_f64 / t201;
+            let t207 = t154 * t206;
+            (t206, t207)
+        };
+        let (t209, t210) = {
+            let t209 = 1.0_f64 / t117;
+            let t210 = t131 * t209;
+            (t209, t210)
+        };
+        let t212 = {
+            let t212 = f64::exp(-t136 / 4.0_f64);
+            t212
+        };
+        let t213 = {
+            let t213 = 1.0_f64 - t212;
+            t213
+        };
+        let t214 = {
+            let t214 = t119 * t213;
+            t214
+        };
+        let t215 = {
+            let t215 = t210 * t214;
+            t215
+        };
+        let t218 = {
+            let t218 = 0.375e-1_f64 + 0.83333333333333333332e-3_f64 * t205 * t207 * t215;
+            t218
+        };
+        let (t219, t220, t221) = {
+            let t219 = t205 * t154;
+            let t220 = t206 * t131;
+            let t221 = t209 * t119;
+            (t219, t220, t221)
+        };
+        let (t222, t225) = {
+            let t222 = t220 * t221;
+            let t225 = 1.0_f64 / t191;
+            (t222, t225)
+        };
+        let t226 = {
+            let t226 = t218 * t225;
+            t226
+        };
+        let t228 = {
+            let t228 = (-t144 + t186 + t189) * t225;
+            t228
+        };
+        let (t229, t230) = {
+            let t229 = 1.0_f64 / t202;
+            let t230 = t68 * t229;
+            (t229, t230)
+        };
+        let t232 = {
+            let t232 = f64::exp(-t228 * t230);
+            t232
+        };
+        let (t233, t234, t235) = {
+            let t233 = t232 - 1.0_f64;
+            let t234 = 1.0_f64 / t233;
+            let t235 = t68 * t234;
+            (t233, t234, t235)
+        };
+        let t236 = {
+            let t236 = t59 * t59;
+            t236
+        };
+        let t237 = {
+            let t237 = t235 * t236;
+            t237
+        };
+        let (t238, t240) = {
+            let t238 = t226 * t237;
+            let t240 = 1.0_f64 / t61 / t15;
+            (t238, t240)
+        };
+        let t241 = {
+            let t241 = t154 * t154;
+            t241
+        };
+        let t242 = {
+            let t242 = t240 * t241;
+            t242
+        };
+        let (t243, t244) = {
+            let t243 = t201 * t201;
+            let t244 = 1.0_f64 / t243;
+            (t243, t244)
+        };
+        let t246 = {
+            let t246 = 1.0_f64 / t132;
+            t246
+        };
+        let (t247, t248) = {
+            let t247 = t67 * t246;
+            let t248 = t247 * t120;
+            (t247, t248)
+        };
+        let t249 = {
+            let t249 = t242 * t244 * t248;
+            t249
+        };
+        let t252 = {
+            let t252 = t219 * t222 / 96.0_f64 + t238 * t249 / 3072.0_f64;
+            t252
+        };
+        let (t253, t254, t255) = {
+            let t253 = t218 * t252;
+            let t254 = t225 * t68;
+            let t255 = t235 * t252;
+            (t253, t254, t255)
+        };
+        let (t257, t259) = {
+            let t257 = t226 * t255 + 1.0_f64;
+            let t258 = 1.0_f64 / t257;
+            let t259 = t254 * t258;
+            (t257, t259)
+        };
+        let (t261, t262) = {
+            let t261 = t253 * t259 + 1.0_f64;
+            let t262 = f64::ln(t261);
+            (t261, t262)
+        };
+        let t265 = {
+            let t265 = t193 * t202 * t262 - t144 + t186 + t189;
+            t265
+        };
+        let t268 = {
+            let t268 = t118 * t120;
+            t268
+        };
+        let (t269, t270, t271) = {
+            let t269 = t121 * t154;
+            let t270 = 1.0_f64 / t40;
+            let t271 = pow_1_3(t270);
+            (t269, t270, t271)
+        };
+        let t273 = {
+            let t273 = t268 * t269 * t271;
+            t273
+        };
+        let t275 = {
+            let t275 = 1.0_f64 + 0.53425e-1_f64 * t273;
+            t275
+        };
+        let t276 = {
+            let t276 = f64::sqrt(t273);
+            t276
+        };
+        let (t279, t281) = {
+            let t279 = pow_3_2(t273);
+            let t281 = t133 * t119;
+            (t279, t281)
+        };
+        let (t282, t283) = {
+            let t282 = t134 * t241;
+            let t283 = t271 * t271;
+            (t282, t283)
+        };
+        let t285 = {
+            let t285 = t281 * t282 * t283;
+            t285
+        };
+        let (t287, t290, t291) = {
+            let t287 = 0.379785e1_f64 * t276 + 0.8969e0_f64 * t273 + 0.204775e0_f64 * t279 + 0.123235e0_f64 * t285;
+            let t290 = 1.0_f64 + 0.16081979498692535067e2_f64 / t287;
+            let t291 = f64::ln(t290);
+            (t287, t290, t291)
+        };
+        let (t293, t300) = {
+            let t293 = 0.621814e-1_f64 * t275 * t291;
+            let t294 = 2.0_f64 <= zeta_threshold;
+            let t296 = piecewise3(t294, t148, 2.0_f64 * t154);
+            let t297 = 0.0_f64 <= zeta_threshold;
+            let t298 = piecewise3(t297, t148, 0.0_f64);
+            let t300 = (t296 + t298 - 2.0_f64) * t157;
+            (t293, t300)
+        };
+        let t302 = {
+            let t302 = 1.0_f64 + 0.5137e-1_f64 * t273;
+            t302
+        };
+        let (t307, t310, t311) = {
+            let t307 = 0.705945e1_f64 * t276 + 0.1549425e1_f64 * t273 + 0.420775e0_f64 * t279 + 0.1562925e0_f64 * t285;
+            let t310 = 1.0_f64 + 0.32163958997385070134e2_f64 / t307;
+            let t311 = f64::ln(t310);
+            (t307, t310, t311)
+        };
+        let t315 = {
+            let t315 = 1.0_f64 + 0.278125e-1_f64 * t273;
+            t315
+        };
+        let (t320, t323, t324) = {
+            let t320 = 0.51785e1_f64 * t276 + 0.905775e0_f64 * t273 + 0.1100325e0_f64 * t279 + 0.1241775e0_f64 * t285;
+            let t323 = 1.0_f64 + 0.29608749977793437516e2_f64 / t320;
+            let t324 = f64::ln(t323);
+            (t320, t323, t324)
+        };
+        let (t328, t330, t334, t335) = {
+            let t294 = 2.0_f64 <= zeta_threshold;
+            let t297 = 0.0_f64 <= zeta_threshold;
+            let t325 = t315 * t324;
+            let t328 = t300 * (-0.310907e-1_f64 * t302 * t311 + t293 - 0.19751673498613801407e-1_f64 * t325);
+            let t330 = 0.19751673498613801407e-1_f64 * t300 * t325;
+            let t331 = piecewise3(t294, t194, t241);
+            let t332 = piecewise3(t297, t194, 0.0_f64);
+            let t334 = t331 / 2.0_f64 + t332 / 2.0_f64;
+            let t335 = t334 * t334;
+            (t328, t330, t334, t335)
+        };
+        let t336 = {
+            let t336 = t335 * t334;
+            t336
+        };
+        let t337 = {
+            let t337 = 1.0_f64 / t335;
+            t337
+        };
+        let t338 = {
+            let t338 = t337 * t131;
+            t338
+        };
+        let t339 = {
+            let t339 = t39 * t338;
+            t339
+        };
+        let t340 = {
+            let t340 = 1.0_f64 / t271;
+            t340
+        };
+        let (t341, t343) = {
+            let t341 = t60 * t340;
+            let t343 = f64::exp(-t285 / 4.0_f64);
+            (t341, t343)
+        };
+        let t344 = {
+            let t344 = 1.0_f64 - t343;
+            t344
+        };
+        let (t346, t349) = {
+            let t345 = t341 * t344;
+            let t346 = t221 * t345;
+            let t349 = 0.375e-1_f64 + 0.83333333333333333332e-3_f64 * t339 * t346;
+            (t346, t349)
+        };
+        let (t350, t353) = {
+            let t350 = t221 * t341;
+            let t353 = t349 * t225;
+            (t350, t353)
+        };
+        let (t354, t357, t358, t360) = {
+            let t354 = t353 * t68;
+            let t357 = 1.0_f64 / t336;
+            let t358 = t68 * t357;
+            let t360 = f64::exp(-(-t293 + t328 + t330) * t225 * t358);
+            (t354, t357, t358, t360)
+        };
+        let (t361, t362, t363) = {
+            let t361 = t360 - 1.0_f64;
+            let t362 = 1.0_f64 / t361;
+            let t363 = sigma0 * sigma0;
+            (t361, t362, t363)
+        };
+        let (t364, t365, t368) = {
+            let t364 = t362 * t363;
+            let t365 = t34 * t34;
+            let t366 = t365 * rho0;
+            let t368 = 1.0_f64 / t35 / t366;
+            (t364, t365, t368)
+        };
+        let t369 = {
+            let t369 = t364 * t368;
+            t369
+        };
+        let (t370, t371) = {
+            let t370 = t354 * t369;
+            let t371 = t335 * t335;
+            (t370, t371)
+        };
+        let t372 = {
+            let t372 = 1.0_f64 / t371;
+            t372
+        };
+        let t374 = {
+            let t373 = t372 * t67;
+            let t374 = t373 * t246;
+            t374
+        };
+        let (t375, t376) = {
+            let t375 = t120 * t61;
+            let t376 = 1.0_f64 / t283;
+            (t375, t376)
+        };
+        let t378 = {
+            let t378 = t374 * t375 * t376;
+            t378
+        };
+        let t381 = {
+            let t381 = t339 * t350 / 96.0_f64 + t370 * t378 / 3072.0_f64;
+            t381
+        };
+        let (t382, t383) = {
+            let t382 = t349 * t381;
+            let t383 = t68 * t362;
+            (t382, t383)
+        };
+        let t384 = {
+            let t384 = t383 * t381;
+            t384
+        };
+        let (t386, t388) = {
+            let t386 = t353 * t384 + 1.0_f64;
+            let t387 = 1.0_f64 / t386;
+            let t388 = t254 * t387;
+            (t386, t388)
+        };
+        let (t390, t396, t394) = {
+            let t390 = t382 * t388 + 1.0_f64;
+            let t391 = f64::ln(t390);
+            let t394 = t193 * t336 * t391 - t293 + t328 + t330;
+            let t395 = t265 < t394;
+            let t396 = piecewise3(t395, t394, t265);
+            (t390, t396, t394)
+        };
+        let (t399, t404, t405) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t399 = piecewise3(t115, t265 * t25 / 2.0_f64, t396 * t40 / 2.0_f64);
+            let t401 = rho1 <= dens_threshold || t29;
+            let t404 = 1.0_f64 / t52;
+            let t405 = pow_1_3(t404);
+            (t399, t404, t405)
+        };
+        let t407 = {
+            let t407 = t268 * t269 * t405;
+            t407
+        };
+        let t409 = {
+            let t409 = 1.0_f64 + 0.53425e-1_f64 * t407;
+            t409
+        };
+        let t410 = {
+            let t410 = f64::sqrt(t407);
+            t410
+        };
+        let (t413, t415) = {
+            let t413 = pow_3_2(t407);
+            let t415 = t405 * t405;
+            (t413, t415)
+        };
+        let t417 = {
+            let t417 = t281 * t282 * t415;
+            t417
+        };
+        let (t419, t422, t423) = {
+            let t419 = 0.379785e1_f64 * t410 + 0.8969e0_f64 * t407 + 0.204775e0_f64 * t413 + 0.123235e0_f64 * t417;
+            let t422 = 1.0_f64 + 0.16081979498692535067e2_f64 / t419;
+            let t423 = f64::ln(t422);
+            (t419, t422, t423)
+        };
+        let (t425, t427) = {
+            let t425 = 0.621814e-1_f64 * t409 * t423;
+            let t427 = 1.0_f64 + 0.5137e-1_f64 * t407;
+            (t425, t427)
+        };
+        let (t432, t435, t436) = {
+            let t432 = 0.705945e1_f64 * t410 + 0.1549425e1_f64 * t407 + 0.420775e0_f64 * t413 + 0.1562925e0_f64 * t417;
+            let t435 = 1.0_f64 + 0.32163958997385070134e2_f64 / t432;
+            let t436 = f64::ln(t435);
+            (t432, t435, t436)
+        };
+        let t440 = {
+            let t440 = 1.0_f64 + 0.278125e-1_f64 * t407;
+            t440
+        };
+        let (t445, t448, t449) = {
+            let t445 = 0.51785e1_f64 * t410 + 0.905775e0_f64 * t407 + 0.1100325e0_f64 * t413 + 0.1241775e0_f64 * t417;
+            let t448 = 1.0_f64 + 0.29608749977793437516e2_f64 / t445;
+            let t449 = f64::ln(t448);
+            (t445, t448, t449)
+        };
+        let (t453, t455, t456) = {
+            let t450 = t440 * t449;
+            let t453 = t300 * (-0.310907e-1_f64 * t427 * t436 + t425 - 0.19751673498613801407e-1_f64 * t450);
+            let t455 = 0.19751673498613801407e-1_f64 * t300 * t450;
+            let t456 = t51 * t338;
+            (t453, t455, t456)
+        };
+        let t457 = {
+            let t457 = 1.0_f64 / t405;
+            t457
+        };
+        let (t458, t460) = {
+            let t458 = t60 * t457;
+            let t460 = f64::exp(-t417 / 4.0_f64);
+            (t458, t460)
+        };
+        let t461 = {
+            let t461 = 1.0_f64 - t460;
+            t461
+        };
+        let (t463, t466) = {
+            let t462 = t458 * t461;
+            let t463 = t221 * t462;
+            let t466 = 0.375e-1_f64 + 0.83333333333333333332e-3_f64 * t456 * t463;
+            (t463, t466)
+        };
+        let (t467, t470) = {
+            let t467 = t221 * t458;
+            let t470 = t466 * t225;
+            (t467, t470)
+        };
+        let t471 = {
+            let t471 = t470 * t68;
+            t471
+        };
+        let t475 = {
+            let t475 = f64::exp(-(-t425 + t453 + t455) * t225 * t358);
+            t475
+        };
+        let (t476, t477, t478) = {
+            let t476 = t475 - 1.0_f64;
+            let t477 = 1.0_f64 / t476;
+            let t478 = sigma2 * sigma2;
+            (t476, t477, t478)
+        };
+        let t479 = {
+            let t479 = t477 * t478;
+            t479
+        };
+        let (t480, t483) = {
+            let t480 = t46 * t46;
+            let t481 = t480 * rho1;
+            let t483 = 1.0_f64 / t47 / t481;
+            (t480, t483)
+        };
+        let t484 = {
+            let t484 = t479 * t483;
+            t484
+        };
+        let (t485, t486) = {
+            let t485 = t471 * t484;
+            let t486 = 1.0_f64 / t415;
+            (t485, t486)
+        };
+        let t488 = {
+            let t488 = t374 * t375 * t486;
+            t488
+        };
+        let t491 = {
+            let t491 = t456 * t467 / 96.0_f64 + t485 * t488 / 3072.0_f64;
+            t491
+        };
+        let (t492, t493) = {
+            let t492 = t466 * t491;
+            let t493 = t68 * t477;
+            (t492, t493)
+        };
+        let t494 = {
+            let t494 = t493 * t491;
+            t494
+        };
+        let (t496, t498) = {
+            let t496 = t470 * t494 + 1.0_f64;
+            let t497 = 1.0_f64 / t496;
+            let t498 = t254 * t497;
+            (t496, t498)
+        };
+        let (t500, t506, t504) = {
+            let t500 = t492 * t498 + 1.0_f64;
+            let t501 = f64::ln(t500);
+            let t504 = t193 * t336 * t501 - t425 + t453 + t455;
+            let t505 = t265 < t504;
+            let t506 = piecewise3(t505, t504, t265);
+            (t500, t506, t504)
+        };
+        let t510 = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t509 = piecewise3(t401, t265 * t28 / 2.0_f64, t506 * t52 / 2.0_f64);
+            let t510 = t399 + t509;
+            t510
+        };
+        let t513 = {
+            let t513 = t112 * t88 + 1.0_f64;
+            t513
+        };
+        let t514 = {
+            let t514 = pow_1_3(t25);
+            t514
+        };
+        let (t515, t516, t517) = {
+            let t26 = t25 <= zeta_threshold;
+            let t515 = t514 * t25;
+            let t516 = piecewise3(t26, t148, t515);
+            let t517 = pow_1_3(t28);
+            (t515, t516, t517)
+        };
+        let (t518, t521) = {
+            let t29 = t28 <= zeta_threshold;
+            let t518 = t517 * t28;
+            let t519 = piecewise3(t29, t148, t518);
+            let t520 = t516 + t519 - 2.0_f64;
+            let t521 = t520 * t157;
+            (t518, t521)
+        };
+        let t522 = {
+            let t522 = t521 * t184;
+            t522
+        };
+        let (t523, t525, t526, t528, t531) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t523 = t17 * t522;
+            let t525 = 0.19751673498613801407e-1_f64 * t521 * t182;
+            let t526 = t514 * t514;
+            let t527 = piecewise3(t26, t194, t526);
+            let t528 = t517 * t517;
+            let t529 = piecewise3(t29, t194, t528);
+            let t531 = t527 / 2.0_f64 + t529 / 2.0_f64;
+            (t523, t525, t526, t528, t531)
+        };
+        let t532 = {
+            let t532 = t531 * t531;
+            t532
+        };
+        let t533 = {
+            let t533 = t532 * t531;
+            t533
+        };
+        let (t534, t535) = {
+            let t534 = 1.0_f64 / t532;
+            let t535 = t154 * t534;
+            (t534, t535)
+        };
+        let t539 = {
+            let t539 = 0.375e-1_f64 + 0.83333333333333333332e-3_f64 * t205 * t535 * t215;
+            t539
+        };
+        let (t541, t544) = {
+            let t540 = t534 * t131;
+            let t541 = t540 * t221;
+            let t544 = t539 * t225;
+            (t541, t544)
+        };
+        let t546 = {
+            let t546 = (-t144 + t523 + t525) * t225;
+            t546
+        };
+        let (t547, t548) = {
+            let t547 = 1.0_f64 / t533;
+            let t548 = t68 * t547;
+            (t547, t548)
+        };
+        let t550 = {
+            let t550 = f64::exp(-t546 * t548);
+            t550
+        };
+        let (t551, t552, t553) = {
+            let t551 = t550 - 1.0_f64;
+            let t552 = 1.0_f64 / t551;
+            let t553 = t68 * t552;
+            (t551, t552, t553)
+        };
+        let t554 = {
+            let t554 = t553 * t236;
+            t554
+        };
+        let (t555, t556, t557) = {
+            let t555 = t544 * t554;
+            let t556 = t532 * t532;
+            let t557 = 1.0_f64 / t556;
+            (t555, t556, t557)
+        };
+        let t559 = {
+            let t559 = t242 * t557 * t248;
+            t559
+        };
+        let t562 = {
+            let t562 = t219 * t541 / 96.0_f64 + t555 * t559 / 3072.0_f64;
+            t562
+        };
+        let (t563, t564) = {
+            let t563 = t539 * t562;
+            let t564 = t553 * t562;
+            (t563, t564)
+        };
+        let (t566, t568) = {
+            let t566 = t544 * t564 + 1.0_f64;
+            let t567 = 1.0_f64 / t566;
+            let t568 = t254 * t567;
+            (t566, t568)
+        };
+        let (t570, t571) = {
+            let t570 = t563 * t568 + 1.0_f64;
+            let t571 = f64::ln(t570);
+            (t570, t571)
+        };
+        let t574 = {
+            let t574 = t193 * t533 * t571 - t144 + t523 + t525;
+            t574
+        };
+        let t576 = {
+            let t576 = -t113 * t510 + t513 * t574;
+            t576
+        };
+        let t577 = {
+            let t577 = t112 * t111;
+            t577
+        };
+        let (t580, t581, t582, t583, t584) = {
+            let t580 = 1.0_f64 + 0.45e1_f64 * t576 * t577;
+            let t581 = t2 * t11;
+            let t582 = 0.174e1_f64 * t581;
+            let t583 = t10 * t3;
+            let t584 = 1.0_f64 / t583;
+            (t580, t581, t582, t583, t584)
+        };
+        let (t586, t587, t588) = {
+            let t586 = 0.174e1_f64 * t9 * t584;
+            let t587 = t9 * t2;
+            let t588 = t587 * t16;
+            (t586, t587, t588)
+        };
+        let (t589, t590, t591, t592) = {
+            let t589 = 2.0_f64 * t588;
+            let t590 = t15 * t3;
+            let t591 = 1.0_f64 / t590;
+            let t592 = t14 * t591;
+            (t589, t590, t591, t592)
+        };
+        let (t593, t594, t596, t597, t598, t600, t601, t604) = {
+            let t593 = 2.0_f64 * t592;
+            let t594 = t14 * t2;
+            let t596 = 0.1356e2_f64 * t594 * t21;
+            let t597 = t15 * t583;
+            let t598 = 1.0_f64 / t597;
+            let t600 = 0.1356e2_f64 * t19 * t598;
+            let t601 = t582 - t586 + t589 - t593 + t596 - t600;
+            let t604 = 1.0_f64 / t85 / t83;
+            (t593, t594, t596, t597, t598, t600, t601, t604)
+        };
+        let t605 = {
+            let t605 = t24 * t604;
+            t605
+        };
+        let t606 = {
+            let t606 = t4 - t581;
+            t606
+        };
+        let t607 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t607 = piecewise5(t26, 0.0_f64, t29, 0.0_f64, t606);
+            t607
+        };
+        let (t608, t609, t615) = {
+            let t608 = t31 * t607;
+            let t609 = t608 * t65;
+            let t612 = t34 * rho0;
+            let t614 = 1.0_f64 / t36 / t612;
+            let t615 = sigma0 * t614;
+            (t608, t609, t615)
+        };
+        let (t618, t621, t625, t626) = {
+            let t618 = t43 * t607;
+            let t621 = t55 * t607;
+            let t625 = 1.0_f64 / t61 / t583;
+            let t626 = t59 * t625;
+            (t618, t621, t625, t626)
+        };
+        let (t627, t628, t629, t632) = {
+            let t627 = 8.0_f64 / 3.0_f64 * t626;
+            let t628 = -8.0_f64 / 3.0_f64 * t615 * t44 + 5.0_f64 / 6.0_f64 * t39 * t618 - 5.0_f64 / 6.0_f64 * t51 * t621 + t627;
+            let t629 = t33 * t628;
+            let t632 = t40 * t40;
+            (t627, t628, t629, t632)
+        };
+        let t634 = {
+            let t634 = 1.0_f64 / t73 / t632;
+            t634
+        };
+        let t636 = {
+            let t636 = t52 * t52;
+            t636
+        };
+        let t638 = {
+            let t638 = 1.0_f64 / t76 / t636;
+            t638
+        };
+        let (t642, t645) = {
+            let t641 = -4.0_f64 / 3.0_f64 * t634 * t607 + 4.0_f64 / 3.0_f64 * t638 * t607;
+            let t642 = t72 * t641;
+            let t645 = -t609 * t80 / 12.0_f64 + t629 * t80 / 24.0_f64 + t66 * t642 / 24.0_f64;
+            (t642, t645)
+        };
+        let t649 = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t649 = piecewise3(t8, 0.0_f64, t601 * t86 - 4.0_f64 * t605 * t645);
+            t649
+        };
+        let (t650, t652) = {
+            let t650 = t649 * t112;
+            let t652 = t89 * t111;
+            (t650, t652)
+        };
+        let (t654, t655, t656) = {
+            let t654 = t626 * t107 / 3.0_f64;
+            let t655 = t106 * t106;
+            let t656 = 1.0_f64 / t655;
+            (t654, t655, t656)
+        };
+        let (t657, t659) = {
+            let t657 = tau0 * t38;
+            let t659 = t606 / 2.0_f64;
+            (t657, t659)
+        };
+        let (t662, t663, t666) = {
+            let t660 = t95 * t659;
+            let t662 = -t659;
+            let t663 = t103 * t662;
+            let t666 = 5.0_f64 / 3.0_f64 * t100 * t663 - 5.0_f64 / 3.0_f64 * t657 * t96 + 5.0_f64 / 3.0_f64 * t92 * t660;
+            (t662, t663, t666)
+        };
+        let (t667, t671) = {
+            let t110 = 1.0_f64 < t109;
+            let t667 = t656 * t666;
+            let t671 = piecewise3(t110, 0.0_f64, -t654 - t64 * t667 / 8.0_f64);
+            (t667, t671)
+        };
+        let (t672, t676) = {
+            let t672 = t510 * t671;
+            let t675 = t60 * t3;
+            let t676 = 1.0_f64 / t675;
+            (t672, t676)
+        };
+        let t677 = {
+            let t677 = t120 * t676;
+            t677
+        };
+        let t680 = {
+            let t680 = 0.11073470983333333333e-2_f64 * t118 * t677 * t142;
+            t680
+        };
+        let (t681, t682, t683, t685, t686) = {
+            let t681 = t138 * t138;
+            let t682 = 1.0_f64 / t681;
+            let t683 = t125 * t682;
+            let t685 = 1.0_f64 / t126 * t67;
+            let t686 = t117 * t120;
+            (t681, t682, t683, t685, t686)
+        };
+        let (t687, t688, t690) = {
+            let t687 = t686 * t676;
+            let t688 = t685 * t687;
+            let t690 = t118 * t677;
+            (t687, t688, t690)
+        };
+        let (t693, t694, t697, t698) = {
+            let t692 = f64::sqrt(t123);
+            let t693 = t692 * t67;
+            let t694 = t693 * t687;
+            let t697 = 1.0_f64 / t61 / t3;
+            let t698 = t119 * t697;
+            (t693, t694, t697, t698)
+        };
+        let t699 = {
+            let t699 = t133 * t698;
+            t699
+        };
+        let (t701, t702) = {
+            let t701 = -0.632975e0_f64 * t688 - 0.29896666666666666667e0_f64 * t690 - 0.1023875e0_f64 * t694 - 0.82156666666666666667e-1_f64 * t699;
+            let t702 = 1.0_f64 / t141;
+            (t701, t702)
+        };
+        let (t703, t705) = {
+            let t703 = t701 * t702;
+            let t705 = 1.0_f64 * t683 * t703;
+            (t703, t705)
+        };
+        let t706 = {
+            let t706 = t32 * t31;
+            t706
+        };
+        let t707 = {
+            let t707 = t706 * t152;
+            t707
+        };
+        let (t708, t710, t717, t718, t719, t723, t724, t725, t730) = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t708 = t185 * t607;
+            let t710 = 4.0_f64 * t707 * t708;
+            let t713 = piecewise3(t146, 0.0_f64, 4.0_f64 / 3.0_f64 * t73 * t607);
+            let t716 = piecewise3(t150, 0.0_f64, -4.0_f64 / 3.0_f64 * t76 * t607);
+            let t717 = t713 + t716;
+            let t718 = t145 * t717;
+            let t719 = t718 * t185;
+            let t723 = t164 * t164;
+            let t724 = 1.0_f64 / t723;
+            let t725 = t159 * t724;
+            let t730 = -0.1176575e1_f64 * t688 - 0.516475e0_f64 * t690 - 0.2103875e0_f64 * t694 - 0.104195e0_f64 * t699;
+            (t708, t710, t717, t718, t719, t723, t724, t725, t730)
+        };
+        let t731 = {
+            let t731 = 1.0_f64 / t167;
+            t731
+        };
+        let (t732, t738, t739) = {
+            let t732 = t730 * t731;
+            let t738 = t177 * t177;
+            let t739 = 1.0_f64 / t738;
+            (t732, t738, t739)
+        };
+        let (t740, t745) = {
+            let t740 = t172 * t739;
+            let t745 = -0.86308333333333333334e0_f64 * t688 - 0.301925e0_f64 * t690 - 0.5501625e-1_f64 * t694 - 0.82785e-1_f64 * t699;
+            (t740, t745)
+        };
+        let t746 = {
+            let t746 = 1.0_f64 / t180;
+            t746
+        };
+        let (t747, t750) = {
+            let t747 = t745 * t746;
+            let t750 = 0.53237641966666666666e-3_f64 * t118 * t677 * t168 + 1.0_f64 * t725 * t732 - t680 - t705 + 0.18311447306006545054e-3_f64 * t118 * t677 * t181 + 0.5848223622634646207e0_f64 * t740 * t747;
+            (t747, t750)
+        };
+        let t751 = {
+            let t751 = t157 * t750;
+            t751
+        };
+        let (t752, t753, t755, t756, t758) = {
+            let t752 = t153 * t751;
+            let t753 = t717 * t157;
+            let t755 = 0.19751673498613801407e-1_f64 * t753 * t182;
+            let t756 = t187 * t67;
+            let t758 = t686 * t676 * t181;
+            (t752, t753, t755, t756, t758)
+        };
+        let (t760, t761) = {
+            let t760 = 0.18311447306006545054e-3_f64 * t756 * t758;
+            let t761 = t187 * t172;
+            (t760, t761)
+        };
+        let t763 = {
+            let t763 = t739 * t745 * t746;
+            t763
+        };
+        let (t765, t766) = {
+            let t765 = 0.5848223622634646207e0_f64 * t761 * t763;
+            let t766 = t201 * t262;
+            (t765, t766)
+        };
+        let t767 = {
+            let t767 = 1.0_f64 / t73;
+            t767
+        };
+        let (t770, t771) = {
+            let t146 = t40 <= zeta_threshold;
+            let t770 = piecewise3(t146, 0.0_f64, 2.0_f64 / 3.0_f64 * t767 * t607);
+            let t771 = 1.0_f64 / t76;
+            (t770, t771)
+        };
+        let t776 = {
+            let t150 = t52 <= zeta_threshold;
+            let t774 = piecewise3(t150, 0.0_f64, -2.0_f64 / 3.0_f64 * t771 * t607);
+            let t776 = t770 / 2.0_f64 + t774 / 2.0_f64;
+            t776
+        };
+        let t781 = {
+            let t781 = 1.0_f64 / t60 / t583;
+            t781
+        };
+        let t782 = {
+            let t782 = t59 * t781;
+            t782
+        };
+        let (t785, t786) = {
+            let t785 = 0.19444444444444444444e-2_f64 * t782 * t207 * t215;
+            let t786 = t154 * t229;
+            (t785, t786)
+        };
+        let t787 = {
+            let t787 = t205 * t786;
+            t787
+        };
+        let (t789, t792) = {
+            let t789 = t210 * t214 * t776;
+            let t792 = t59 * t16;
+            (t789, t792)
+        };
+        let t794 = {
+            let t794 = t120 * t212;
+            t794
+        };
+        let t795 = {
+            let t795 = t118 * t794;
+            t795
+        };
+        let (t797, t798, t799, t801, t803, t804) = {
+            let t797 = 0.41666666666666666666e-3_f64 * t792 * t207 * t795;
+            let t798 = -t785 - 0.16666666666666666666e-2_f64 * t787 * t789 - t797;
+            let t799 = t798 * t252;
+            let t801 = t782 * t154;
+            let t803 = 7.0_f64 / 288.0_f64 * t801 * t222;
+            let t804 = t119 * t776;
+            (t797, t798, t799, t801, t803, t804)
+        };
+        let (t805, t808) = {
+            let t805 = t210 * t804;
+            let t808 = t798 * t225;
+            (t805, t808)
+        };
+        let (t809, t812) = {
+            let t809 = t808 * t237;
+            let t812 = t226 * t68;
+            (t809, t812)
+        };
+        let (t813, t814) = {
+            let t813 = t233 * t233;
+            let t814 = 1.0_f64 / t813;
+            (t813, t814)
+        };
+        let t815 = {
+            let t815 = t814 * t236;
+            t815
+        };
+        let t816 = {
+            let t816 = t815 * t240;
+            t816
+        };
+        let t817 = {
+            let t817 = t812 * t816;
+            t817
+        };
+        let t819 = {
+            let t818 = t241 * t244;
+            let t819 = t818 * t67;
+            t819
+        };
+        let t820 = {
+            let t820 = t246 * t120;
+            t820
+        };
+        let (t822, t824) = {
+            let t822 = (t680 + t705 + t710 + t719 + t752 + t755 - t760 - t765) * t225;
+            let t824 = t68 * t244;
+            (t822, t824)
+        };
+        let (t825, t828) = {
+            let t825 = t824 * t776;
+            let t828 = 3.0_f64 * t228 * t825 - t230 * t822;
+            (t825, t828)
+        };
+        let t829 = {
+            let t829 = t828 * t232;
+            t829
+        };
+        let t831 = {
+            let t831 = t819 * t820 * t829;
+            t831
+        };
+        let t835 = {
+            let t835 = 1.0_f64 / t61 / t590;
+            t835
+        };
+        let t836 = {
+            let t836 = t835 * t241;
+            t836
+        };
+        let t838 = {
+            let t838 = t836 * t244 * t248;
+            t838
+        };
+        let (t840, t841, t842) = {
+            let t840 = 7.0_f64 / 4608.0_f64 * t238 * t838;
+            let t841 = t234 * t236;
+            let t842 = t841 * t240;
+            (t840, t841, t842)
+        };
+        let t843 = {
+            let t843 = t812 * t842;
+            t843
+        };
+        let t845 = {
+            let t845 = 1.0_f64 / t243 / t200;
+            t845
+        };
+        let t847 = {
+            let t847 = t241 * t845 * t67;
+            t847
+        };
+        let t849 = {
+            let t849 = t847 * t820 * t776;
+            t849
+        };
+        let t852 = {
+            let t852 = -t803 - t787 * t805 / 48.0_f64 + t809 * t249 / 3072.0_f64 - t817 * t831 / 3072.0_f64 - t840 - t843 * t849 / 768.0_f64;
+            t852
+        };
+        let (t853, t855) = {
+            let t853 = t218 * t852;
+            let t855 = t253 * t225;
+            (t853, t855)
+        };
+        let (t856, t858) = {
+            let t856 = t257 * t257;
+            let t857 = 1.0_f64 / t856;
+            let t858 = t68 * t857;
+            (t856, t858)
+        };
+        let t860 = {
+            let t860 = t814 * t252;
+            t860
+        };
+        let (t861, t863, t865, t866, t868) = {
+            let t861 = t860 * t829;
+            let t863 = t235 * t852;
+            let t865 = t226 * t863 + t255 * t808 - t812 * t861;
+            let t866 = t858 * t865;
+            let t868 = t259 * t799 + t259 * t853 - t855 * t866;
+            (t861, t863, t865, t866, t868)
+        };
+        let t870 = {
+            let t870 = 1.0_f64 / t261;
+            t870
+        };
+        let t873 = {
+            let t873 = t193 * t202 * t868 * t870 + 3.0_f64 * t193 * t766 * t776 + t680 + t705 + t710 + t719 + t752 + t755 - t760 - t765;
+            t873
+        };
+        let (t878, t880) = {
+            let t878 = t676 * t154;
+            let t880 = t268 * t878 * t271;
+            (t878, t880)
+        };
+        let (t881, t882) = {
+            let t881 = 0.17808333333333333333e-1_f64 * t880;
+            let t882 = t154 * t376;
+            (t881, t882)
+        };
+        let t883 = {
+            let t883 = 1.0_f64 / t632;
+            t883
+        };
+        let t884 = {
+            let t884 = t883 * t607;
+            t884
+        };
+        let (t885, t886, t888, t890, t891, t892) = {
+            let t885 = t882 * t884;
+            let t886 = t123 * t885;
+            let t888 = -t881 - 0.17808333333333333333e-1_f64 * t886;
+            let t890 = 0.621814e-1_f64 * t888 * t291;
+            let t891 = t287 * t287;
+            let t892 = 1.0_f64 / t891;
+            (t885, t886, t888, t890, t891, t892)
+        };
+        let t893 = {
+            let t893 = t275 * t892;
+            t893
+        };
+        let t894 = {
+            let t894 = 1.0_f64 / t276;
+            t894
+        };
+        let t896 = {
+            let t896 = -t880 / 3.0_f64 - t886 / 3.0_f64;
+            t896
+        };
+        let (t897, t899, t901) = {
+            let t897 = t894 * t896;
+            let t899 = 0.29896666666666666667e0_f64 * t880;
+            let t901 = f64::sqrt(t273);
+            (t897, t899, t901)
+        };
+        let (t902, t904, t906) = {
+            let t902 = t901 * t896;
+            let t904 = t697 * t241;
+            let t906 = t281 * t904 * t283;
+            (t902, t904, t906)
+        };
+        let (t907, t908) = {
+            let t907 = 0.82156666666666666667e-1_f64 * t906;
+            let t908 = t241 * t340;
+            (t907, t908)
+        };
+        let (t909, t910, t912) = {
+            let t909 = t908 * t884;
+            let t910 = t136 * t909;
+            let t912 = 0.1898925e1_f64 * t897 - t899 - 0.29896666666666666667e0_f64 * t886 + 0.3071625e0_f64 * t902 - t907 - 0.82156666666666666667e-1_f64 * t910;
+            (t909, t910, t912)
+        };
+        let t913 = {
+            let t913 = 1.0_f64 / t290;
+            t913
+        };
+        let (t914, t916, t917, t919, t922, t923) = {
+            let t914 = t912 * t913;
+            let t916 = 1.0_f64 * t893 * t914;
+            let t917 = 0.17123333333333333333e-1_f64 * t880;
+            let t919 = -t917 - 0.17123333333333333333e-1_f64 * t886;
+            let t922 = t307 * t307;
+            let t923 = 1.0_f64 / t922;
+            (t914, t916, t917, t919, t922, t923)
+        };
+        let t924 = {
+            let t924 = t302 * t923;
+            t924
+        };
+        let (t926, t929, t931) = {
+            let t926 = 0.516475e0_f64 * t880;
+            let t929 = 0.104195e0_f64 * t906;
+            let t931 = 0.3529725e1_f64 * t897 - t926 - 0.516475e0_f64 * t886 + 0.6311625e0_f64 * t902 - t929 - 0.104195e0_f64 * t910;
+            (t926, t929, t931)
+        };
+        let t932 = {
+            let t932 = 1.0_f64 / t310;
+            t932
+        };
+        let (t933, t936, t938) = {
+            let t933 = t931 * t932;
+            let t936 = 0.92708333333333333333e-2_f64 * t880;
+            let t938 = -t936 - 0.92708333333333333333e-2_f64 * t886;
+            (t933, t936, t938)
+        };
+        let (t939, t941, t942) = {
+            let t939 = t938 * t324;
+            let t941 = t320 * t320;
+            let t942 = 1.0_f64 / t941;
+            (t939, t941, t942)
+        };
+        let t943 = {
+            let t943 = t315 * t942;
+            t943
+        };
+        let (t945, t948, t950) = {
+            let t945 = 0.301925e0_f64 * t880;
+            let t948 = 0.82785e-1_f64 * t906;
+            let t950 = 0.258925e1_f64 * t897 - t945 - 0.301925e0_f64 * t886 + 0.16504875e0_f64 * t902 - t948 - 0.82785e-1_f64 * t910;
+            (t945, t948, t950)
+        };
+        let t951 = {
+            let t951 = 1.0_f64 / t323;
+            t951
+        };
+        let t952 = {
+            let t952 = t950 * t951;
+            t952
+        };
+        let (t956, t958, t959) = {
+            let t956 = t300 * (-0.310907e-1_f64 * t919 * t311 + 1.0_f64 * t924 * t933 + t890 - t916 - 0.19751673498613801407e-1_f64 * t939 + 0.5848223622634646207e0_f64 * t943 * t952);
+            let t958 = 0.19751673498613801407e-1_f64 * t300 * t939;
+            let t959 = t300 * t315;
+            (t956, t958, t959)
+        };
+        let (t961, t963, t964) = {
+            let t961 = t942 * t950 * t951;
+            let t963 = 0.5848223622634646207e0_f64 * t959 * t961;
+            let t964 = t615 * t338;
+            (t961, t963, t964)
+        };
+        let (t967, t969, t971, t972) = {
+            let t967 = t134 * t340;
+            let t968 = t967 * t344;
+            let t969 = t221 * t968;
+            let t971 = 0.27777777777777777777e-3_f64 * t339 * t969;
+            let t972 = t338 * t209;
+            (t967, t969, t971, t972)
+        };
+        let t973 = {
+            let t973 = t39 * t972;
+            t973
+        };
+        let t974 = {
+            let t974 = t119 * t60;
+            t974
+        };
+        let t976 = {
+            let t976 = 1.0_f64 / t271 / t270;
+            t976
+        };
+        let t977 = {
+            let t977 = t974 * t976;
+            t977
+        };
+        let t978 = {
+            let t978 = t344 * t883;
+            t978
+        };
+        let (t979, t980, t984) = {
+            let t979 = t978 * t607;
+            let t980 = t977 * t979;
+            let t984 = t906 / 6.0_f64 + t910 / 6.0_f64;
+            (t979, t980, t984)
+        };
+        let (t986, t990) = {
+            let t985 = t340 * t984;
+            let t986 = t985 * t343;
+            let t987 = t974 * t986;
+            let t990 = -0.22222222222222222222e-2_f64 * t964 * t346 + t971 + 0.27777777777777777777e-3_f64 * t973 * t980 - 0.83333333333333333332e-3_f64 * t973 * t987;
+            (t986, t990)
+        };
+        let (t991, t995, t997, t998) = {
+            let t991 = t990 * t381;
+            let t995 = t221 * t967;
+            let t997 = t339 * t995 / 288.0_f64;
+            let t998 = t976 * t883;
+            (t991, t995, t997, t998)
+        };
+        let (t999, t1000, t1003, t1004, t1005, t1008, t1009) = {
+            let t999 = t998 * t607;
+            let t1000 = t974 * t999;
+            let t1003 = t990 * t225;
+            let t1004 = t1003 * t68;
+            let t1005 = t1004 * t369;
+            let t1008 = t191 * t191;
+            let t1009 = 1.0_f64 / t1008;
+            (t999, t1000, t1003, t1004, t1005, t1008, t1009)
+        };
+        let (t1010, t1011) = {
+            let t1010 = t349 * t1009;
+            let t1011 = t68 * t68;
+            (t1010, t1011)
+        };
+        let (t1012, t1013, t1014, t1015) = {
+            let t1012 = t1010 * t1011;
+            let t1013 = t361 * t361;
+            let t1014 = 1.0_f64 / t1013;
+            let t1015 = t1014 * t363;
+            (t1012, t1013, t1014, t1015)
+        };
+        let t1017 = {
+            let t1016 = t371 * t336;
+            let t1017 = 1.0_f64 / t1016;
+            t1017
+        };
+        let t1019 = {
+            let t1018 = t368 * t1017;
+            let t1019 = t1015 * t1018;
+            t1019
+        };
+        let t1020 = {
+            let t1020 = t1012 * t1019;
+            t1020
+        };
+        let t1021 = {
+            let t1021 = t61 * t376;
+            t1021
+        };
+        let t1022 = {
+            let t1022 = -t890 + t916 + t956 + t958 - t963;
+            t1022
+        };
+        let t1023 = {
+            let t1023 = t1022 * t360;
+            t1023
+        };
+        let (t1025, t1030) = {
+            let t1025 = t248 * t1021 * t1023;
+            let t1028 = t365 * t34;
+            let t1030 = 1.0_f64 / t35 / t1028;
+            (t1025, t1030)
+        };
+        let (t1031, t1032, t1036) = {
+            let t1031 = t364 * t1030;
+            let t1032 = t354 * t1031;
+            let t1036 = t374 * t122 * t376;
+            (t1031, t1032, t1036)
+        };
+        let (t1038, t1040) = {
+            let t1038 = t370 * t1036 / 4608.0_f64;
+            let t1039 = t368 * t372;
+            let t1040 = t364 * t1039;
+            (t1038, t1040)
+        };
+        let t1041 = {
+            let t1041 = t354 * t1040;
+            t1041
+        };
+        let t1043 = {
+            let t1043 = 1.0_f64 / t283 / t270;
+            t1043
+        };
+        let t1044 = {
+            let t1044 = t61 * t1043;
+            t1044
+        };
+        let (t1046, t1049) = {
+            let t1046 = t248 * t1044 * t884;
+            let t1049 = -t964 * t350 / 36.0_f64 + t997 + t973 * t1000 / 288.0_f64 + t1005 * t378 / 3072.0_f64 + t1020 * t1025 / 3072.0_f64 - t1032 * t378 / 576.0_f64 + t1038 + t1041 * t1046 / 4608.0_f64;
+            (t1046, t1049)
+        };
+        let (t1050, t1052) = {
+            let t1050 = t349 * t1049;
+            let t1052 = t382 * t225;
+            (t1050, t1052)
+        };
+        let (t1053, t1055) = {
+            let t1053 = t386 * t386;
+            let t1054 = 1.0_f64 / t1053;
+            let t1055 = t68 * t1054;
+            (t1053, t1055)
+        };
+        let t1057 = {
+            let t1057 = t1011 * t1014;
+            t1057
+        };
+        let t1058 = {
+            let t1058 = t1010 * t1057;
+            t1058
+        };
+        let (t1059, t1060) = {
+            let t1059 = t381 * t1022;
+            let t1060 = t357 * t360;
+            (t1059, t1060)
+        };
+        let (t1061, t1063, t1065, t1066, t1068) = {
+            let t1061 = t1059 * t1060;
+            let t1063 = t383 * t1049;
+            let t1065 = t1003 * t384 + t1058 * t1061 + t1063 * t353;
+            let t1066 = t1055 * t1065;
+            let t1068 = t1050 * t388 - t1052 * t1066 + t388 * t991;
+            (t1061, t1063, t1065, t1066, t1068)
+        };
+        let t1070 = {
+            let t1070 = 1.0_f64 / t390;
+            t1070
+        };
+        let (t1074, t1079) = {
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t395 = t265 < t394;
+            let t1074 = piecewise3(t395, t1068 * t1070 * t193 * t336 - t890 + t916 + t956 + t958 - t963, t873);
+            let t1079 = piecewise3(t115, t873 * t25 / 2.0_f64 + t265 * t606 / 2.0_f64, t1074 * t40 / 2.0_f64 + t396 * t607 / 2.0_f64);
+            (t1074, t1079)
+        };
+        let t1081 = {
+            let t1081 = -t606;
+            t1081
+        };
+        let t1086 = {
+            let t1086 = t268 * t878 * t405;
+            t1086
+        };
+        let (t1087, t1088) = {
+            let t1087 = 0.17808333333333333333e-1_f64 * t1086;
+            let t1088 = t154 * t486;
+            (t1087, t1088)
+        };
+        let t1089 = {
+            let t1089 = 1.0_f64 / t636;
+            t1089
+        };
+        let t1090 = {
+            let t1090 = t1089 * t607;
+            t1090
+        };
+        let (t1091, t1092, t1094, t1096, t1097, t1098) = {
+            let t1091 = t1088 * t1090;
+            let t1092 = t123 * t1091;
+            let t1094 = -t1087 + 0.17808333333333333333e-1_f64 * t1092;
+            let t1096 = 0.621814e-1_f64 * t1094 * t423;
+            let t1097 = t419 * t419;
+            let t1098 = 1.0_f64 / t1097;
+            (t1091, t1092, t1094, t1096, t1097, t1098)
+        };
+        let t1099 = {
+            let t1099 = t409 * t1098;
+            t1099
+        };
+        let t1100 = {
+            let t1100 = 1.0_f64 / t410;
+            t1100
+        };
+        let t1102 = {
+            let t1102 = -t1086 / 3.0_f64 + t1092 / 3.0_f64;
+            t1102
+        };
+        let (t1103, t1105, t1107) = {
+            let t1103 = t1100 * t1102;
+            let t1105 = 0.29896666666666666667e0_f64 * t1086;
+            let t1107 = f64::sqrt(t407);
+            (t1103, t1105, t1107)
+        };
+        let (t1108, t1111) = {
+            let t1108 = t1107 * t1102;
+            let t1111 = t281 * t904 * t415;
+            (t1108, t1111)
+        };
+        let (t1112, t1113) = {
+            let t1112 = 0.82156666666666666667e-1_f64 * t1111;
+            let t1113 = t241 * t457;
+            (t1112, t1113)
+        };
+        let (t1114, t1115, t1117) = {
+            let t1114 = t1113 * t1090;
+            let t1115 = t136 * t1114;
+            let t1117 = 0.1898925e1_f64 * t1103 - t1105 + 0.29896666666666666667e0_f64 * t1092 + 0.3071625e0_f64 * t1108 - t1112 + 0.82156666666666666667e-1_f64 * t1115;
+            (t1114, t1115, t1117)
+        };
+        let t1118 = {
+            let t1118 = 1.0_f64 / t422;
+            t1118
+        };
+        let (t1119, t1121, t1122, t1124, t1127, t1128) = {
+            let t1119 = t1117 * t1118;
+            let t1121 = 1.0_f64 * t1099 * t1119;
+            let t1122 = 0.17123333333333333333e-1_f64 * t1086;
+            let t1124 = -t1122 + 0.17123333333333333333e-1_f64 * t1092;
+            let t1127 = t432 * t432;
+            let t1128 = 1.0_f64 / t1127;
+            (t1119, t1121, t1122, t1124, t1127, t1128)
+        };
+        let t1129 = {
+            let t1129 = t427 * t1128;
+            t1129
+        };
+        let (t1131, t1134, t1136) = {
+            let t1131 = 0.516475e0_f64 * t1086;
+            let t1134 = 0.104195e0_f64 * t1111;
+            let t1136 = 0.3529725e1_f64 * t1103 - t1131 + 0.516475e0_f64 * t1092 + 0.6311625e0_f64 * t1108 - t1134 + 0.104195e0_f64 * t1115;
+            (t1131, t1134, t1136)
+        };
+        let t1137 = {
+            let t1137 = 1.0_f64 / t435;
+            t1137
+        };
+        let (t1138, t1141, t1143) = {
+            let t1138 = t1136 * t1137;
+            let t1141 = 0.92708333333333333333e-2_f64 * t1086;
+            let t1143 = -t1141 + 0.92708333333333333333e-2_f64 * t1092;
+            (t1138, t1141, t1143)
+        };
+        let (t1144, t1146, t1147) = {
+            let t1144 = t1143 * t449;
+            let t1146 = t445 * t445;
+            let t1147 = 1.0_f64 / t1146;
+            (t1144, t1146, t1147)
+        };
+        let t1148 = {
+            let t1148 = t440 * t1147;
+            t1148
+        };
+        let (t1150, t1153, t1155) = {
+            let t1150 = 0.301925e0_f64 * t1086;
+            let t1153 = 0.82785e-1_f64 * t1111;
+            let t1155 = 0.258925e1_f64 * t1103 - t1150 + 0.301925e0_f64 * t1092 + 0.16504875e0_f64 * t1108 - t1153 + 0.82785e-1_f64 * t1115;
+            (t1150, t1153, t1155)
+        };
+        let t1156 = {
+            let t1156 = 1.0_f64 / t448;
+            t1156
+        };
+        let t1157 = {
+            let t1157 = t1155 * t1156;
+            t1157
+        };
+        let (t1161, t1163, t1164) = {
+            let t1161 = t300 * (-0.310907e-1_f64 * t1124 * t436 + 1.0_f64 * t1129 * t1138 + t1096 - t1121 - 0.19751673498613801407e-1_f64 * t1144 + 0.5848223622634646207e0_f64 * t1148 * t1157);
+            let t1163 = 0.19751673498613801407e-1_f64 * t300 * t1144;
+            let t1164 = t300 * t440;
+            (t1161, t1163, t1164)
+        };
+        let (t1166, t1168, t1169, t1171, t1173, t1174) = {
+            let t1166 = t1147 * t1155 * t1156;
+            let t1168 = 0.5848223622634646207e0_f64 * t1164 * t1166;
+            let t1169 = t134 * t457;
+            let t1170 = t1169 * t461;
+            let t1171 = t221 * t1170;
+            let t1173 = 0.27777777777777777777e-3_f64 * t456 * t1171;
+            let t1174 = t51 * t972;
+            (t1166, t1168, t1169, t1171, t1173, t1174)
+        };
+        let t1176 = {
+            let t1176 = 1.0_f64 / t405 / t404;
+            t1176
+        };
+        let t1177 = {
+            let t1177 = t974 * t1176;
+            t1177
+        };
+        let t1178 = {
+            let t1178 = t461 * t1089;
+            t1178
+        };
+        let (t1179, t1180, t1184) = {
+            let t1179 = t1178 * t607;
+            let t1180 = t1177 * t1179;
+            let t1184 = t1111 / 6.0_f64 - t1115 / 6.0_f64;
+            (t1179, t1180, t1184)
+        };
+        let (t1186, t1187, t1190) = {
+            let t1185 = t457 * t1184;
+            let t1186 = t1185 * t460;
+            let t1187 = t974 * t1186;
+            let t1190 = t1173 - 0.27777777777777777777e-3_f64 * t1174 * t1180 - 0.83333333333333333332e-3_f64 * t1174 * t1187;
+            (t1186, t1187, t1190)
+        };
+        let (t1191, t1193, t1195, t1196) = {
+            let t1191 = t1190 * t491;
+            let t1193 = t221 * t1169;
+            let t1195 = t456 * t1193 / 288.0_f64;
+            let t1196 = t1176 * t1089;
+            (t1191, t1193, t1195, t1196)
+        };
+        let (t1197, t1198, t1201, t1202) = {
+            let t1197 = t1196 * t607;
+            let t1198 = t974 * t1197;
+            let t1201 = t1190 * t225;
+            let t1202 = t1201 * t68;
+            (t1197, t1198, t1201, t1202)
+        };
+        let (t1203, t1206, t1207, t1208, t1209, t1210) = {
+            let t1203 = t1202 * t484;
+            let t1206 = t466 * t1009;
+            let t1207 = t1206 * t1011;
+            let t1208 = t476 * t476;
+            let t1209 = 1.0_f64 / t1208;
+            let t1210 = t1209 * t478;
+            (t1203, t1206, t1207, t1208, t1209, t1210)
+        };
+        let t1212 = {
+            let t1211 = t483 * t1017;
+            let t1212 = t1210 * t1211;
+            t1212
+        };
+        let t1213 = {
+            let t1213 = t1207 * t1212;
+            t1213
+        };
+        let t1214 = {
+            let t1214 = t61 * t486;
+            t1214
+        };
+        let t1215 = {
+            let t1215 = -t1096 + t1121 + t1161 + t1163 - t1168;
+            t1215
+        };
+        let t1216 = {
+            let t1216 = t1215 * t475;
+            t1216
+        };
+        let t1218 = {
+            let t1218 = t248 * t1214 * t1216;
+            t1218
+        };
+        let t1222 = {
+            let t1222 = t374 * t122 * t486;
+            t1222
+        };
+        let (t1224, t1226) = {
+            let t1224 = t485 * t1222 / 4608.0_f64;
+            let t1225 = t483 * t372;
+            let t1226 = t479 * t1225;
+            (t1224, t1226)
+        };
+        let t1227 = {
+            let t1227 = t471 * t1226;
+            t1227
+        };
+        let t1229 = {
+            let t1229 = 1.0_f64 / t415 / t404;
+            t1229
+        };
+        let t1230 = {
+            let t1230 = t61 * t1229;
+            t1230
+        };
+        let t1232 = {
+            let t1232 = t248 * t1230 * t1090;
+            t1232
+        };
+        let t1235 = {
+            let t1235 = t1195 - t1174 * t1198 / 288.0_f64 + t1203 * t488 / 3072.0_f64 + t1213 * t1218 / 3072.0_f64 + t1224 - t1227 * t1232 / 4608.0_f64;
+            t1235
+        };
+        let (t1236, t1238) = {
+            let t1236 = t466 * t1235;
+            let t1238 = t492 * t225;
+            (t1236, t1238)
+        };
+        let (t1239, t1241) = {
+            let t1239 = t496 * t496;
+            let t1240 = 1.0_f64 / t1239;
+            let t1241 = t68 * t1240;
+            (t1239, t1241)
+        };
+        let t1243 = {
+            let t1243 = t1011 * t1209;
+            t1243
+        };
+        let t1244 = {
+            let t1244 = t1206 * t1243;
+            t1244
+        };
+        let (t1245, t1246) = {
+            let t1245 = t491 * t1215;
+            let t1246 = t357 * t475;
+            (t1245, t1246)
+        };
+        let (t1247, t1249, t1251, t1252, t1254) = {
+            let t1247 = t1245 * t1246;
+            let t1249 = t493 * t1235;
+            let t1251 = t1201 * t494 + t1244 * t1247 + t1249 * t470;
+            let t1252 = t1241 * t1251;
+            let t1254 = t1191 * t498 + t1236 * t498 - t1238 * t1252;
+            (t1247, t1249, t1251, t1252, t1254)
+        };
+        let t1256 = {
+            let t1256 = 1.0_f64 / t500;
+            t1256
+        };
+        let (t1260, t1265) = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t505 = t265 < t504;
+            let t1260 = piecewise3(t505, t1254 * t1256 * t193 * t336 - t1096 + t1121 + t1161 + t1163 - t1168, t873);
+            let t1265 = piecewise3(t401, t265 * t1081 / 2.0_f64 + t873 * t28 / 2.0_f64, t1260 * t52 / 2.0_f64 - t506 * t607 / 2.0_f64);
+            (t1260, t1265)
+        };
+        let t1266 = {
+            let t1266 = t1079 + t1265;
+            t1266
+        };
+        let t1268 = {
+            let t1268 = t88 * t111;
+            t1268
+        };
+        let (t1271, t1274, t1276, t1284) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t1271 = 2.0_f64 * t1268 * t671 + t650;
+            let t1274 = 4.0_f64 * t588 * t522;
+            let t1276 = 4.0_f64 * t592 * t522;
+            let t1279 = piecewise3(t26, 0.0_f64, 4.0_f64 / 3.0_f64 * t514 * t606);
+            let t1282 = piecewise3(t29, 0.0_f64, 4.0_f64 / 3.0_f64 * t517 * t1081);
+            let t1284 = (t1279 + t1282) * t157;
+            (t1271, t1274, t1276, t1284)
+        };
+        let t1285 = {
+            let t1285 = t1284 * t184;
+            t1285
+        };
+        let (t1286, t1287) = {
+            let t1286 = t17 * t1285;
+            let t1287 = t521 * t750;
+            (t1286, t1287)
+        };
+        let (t1288, t1290, t1291, t1293, t1294) = {
+            let t1288 = t17 * t1287;
+            let t1290 = 0.19751673498613801407e-1_f64 * t1284 * t182;
+            let t1291 = t521 * t67;
+            let t1293 = 0.18311447306006545054e-3_f64 * t1291 * t758;
+            let t1294 = t521 * t172;
+            (t1288, t1290, t1291, t1293, t1294)
+        };
+        let (t1296, t1297) = {
+            let t1296 = 0.5848223622634646207e0_f64 * t1294 * t763;
+            let t1297 = t532 * t571;
+            (t1296, t1297)
+        };
+        let t1298 = {
+            let t1298 = 1.0_f64 / t514;
+            t1298
+        };
+        let (t1301, t1302) = {
+            let t26 = t25 <= zeta_threshold;
+            let t1301 = piecewise3(t26, 0.0_f64, 2.0_f64 / 3.0_f64 * t1298 * t606);
+            let t1302 = 1.0_f64 / t517;
+            (t1301, t1302)
+        };
+        let t1307 = {
+            let t29 = t28 <= zeta_threshold;
+            let t1305 = piecewise3(t29, 0.0_f64, 2.0_f64 / 3.0_f64 * t1302 * t1081);
+            let t1307 = t1301 / 2.0_f64 + t1305 / 2.0_f64;
+            t1307
+        };
+        let (t1313, t1314) = {
+            let t1313 = 0.19444444444444444444e-2_f64 * t782 * t535 * t215;
+            let t1314 = t154 * t547;
+            (t1313, t1314)
+        };
+        let t1315 = {
+            let t1315 = t205 * t1314;
+            t1315
+        };
+        let (t1317, t1322, t1323, t1324, t1327, t1328) = {
+            let t1317 = t210 * t214 * t1307;
+            let t1322 = 0.41666666666666666666e-3_f64 * t792 * t535 * t795;
+            let t1323 = -t1313 - 0.16666666666666666666e-2_f64 * t1315 * t1317 - t1322;
+            let t1324 = t1323 * t562;
+            let t1327 = 7.0_f64 / 288.0_f64 * t801 * t541;
+            let t1328 = t119 * t1307;
+            (t1317, t1322, t1323, t1324, t1327, t1328)
+        };
+        let (t1329, t1332) = {
+            let t1329 = t210 * t1328;
+            let t1332 = t1323 * t225;
+            (t1329, t1332)
+        };
+        let (t1333, t1336) = {
+            let t1333 = t1332 * t554;
+            let t1336 = t544 * t68;
+            (t1333, t1336)
+        };
+        let (t1337, t1338) = {
+            let t1337 = t551 * t551;
+            let t1338 = 1.0_f64 / t1337;
+            (t1337, t1338)
+        };
+        let t1339 = {
+            let t1339 = t1338 * t236;
+            t1339
+        };
+        let t1340 = {
+            let t1340 = t1339 * t240;
+            t1340
+        };
+        let t1341 = {
+            let t1341 = t1336 * t1340;
+            t1341
+        };
+        let t1343 = {
+            let t1342 = t241 * t557;
+            let t1343 = t1342 * t67;
+            t1343
+        };
+        let (t1345, t1347) = {
+            let t1345 = (t680 + t705 + t1274 - t1276 + t1286 + t1288 + t1290 - t1293 - t1296) * t225;
+            let t1347 = t68 * t557;
+            (t1345, t1347)
+        };
+        let (t1348, t1351) = {
+            let t1348 = t1347 * t1307;
+            let t1351 = -t1345 * t548 + 3.0_f64 * t1348 * t546;
+            (t1348, t1351)
+        };
+        let t1352 = {
+            let t1352 = t1351 * t550;
+            t1352
+        };
+        let t1354 = {
+            let t1354 = t1343 * t820 * t1352;
+            t1354
+        };
+        let t1358 = {
+            let t1358 = t836 * t557 * t248;
+            t1358
+        };
+        let (t1360, t1361, t1362) = {
+            let t1360 = 7.0_f64 / 4608.0_f64 * t555 * t1358;
+            let t1361 = t552 * t236;
+            let t1362 = t1361 * t240;
+            (t1360, t1361, t1362)
+        };
+        let t1363 = {
+            let t1363 = t1336 * t1362;
+            t1363
+        };
+        let t1365 = {
+            let t1365 = 1.0_f64 / t556 / t531;
+            t1365
+        };
+        let t1367 = {
+            let t1367 = t241 * t1365 * t67;
+            t1367
+        };
+        let t1369 = {
+            let t1369 = t1367 * t820 * t1307;
+            t1369
+        };
+        let t1372 = {
+            let t1372 = -t1327 - t1315 * t1329 / 48.0_f64 + t1333 * t559 / 3072.0_f64 - t1341 * t1354 / 3072.0_f64 - t1360 - t1363 * t1369 / 768.0_f64;
+            t1372
+        };
+        let (t1373, t1375) = {
+            let t1373 = t539 * t1372;
+            let t1375 = t563 * t225;
+            (t1373, t1375)
+        };
+        let (t1376, t1378) = {
+            let t1376 = t566 * t566;
+            let t1377 = 1.0_f64 / t1376;
+            let t1378 = t68 * t1377;
+            (t1376, t1378)
+        };
+        let t1380 = {
+            let t1380 = t1338 * t562;
+            t1380
+        };
+        let (t1381, t1383, t1385, t1386, t1388) = {
+            let t1381 = t1380 * t1352;
+            let t1383 = t553 * t1372;
+            let t1385 = t1332 * t564 - t1336 * t1381 + t1383 * t544;
+            let t1386 = t1378 * t1385;
+            let t1388 = t1324 * t568 + t1373 * t568 - t1375 * t1386;
+            (t1381, t1383, t1385, t1386, t1388)
+        };
+        let t1390 = {
+            let t1390 = 1.0_f64 / t570;
+            t1390
+        };
+        let t1393 = {
+            let t1393 = t1388 * t1390 * t193 * t533 + 3.0_f64 * t1297 * t1307 * t193 + t1274 - t1276 + t1286 + t1288 + t1290 - t1293 - t1296 + t680 + t705;
+            t1393
+        };
+        let t1395 = {
+            let t1395 = -t113 * t1266 + t1271 * t574 + t1393 * t513 - t510 * t650 - 2.0_f64 * t652 * t672;
+            t1395
+        };
+        let (t1396, t1398, t1401) = {
+            let t1396 = t3 * t1395;
+            let t1398 = t3 * t576;
+            let t1401 = t576 * t112;
+            (t1396, t1398, t1401)
+        };
+        let (t1404, t1406, t1408) = {
+            let t1404 = 0.45e1_f64 * t1395 * t577 + 0.135e2_f64 * t1401 * t671;
+            let t1406 = -t582 - t586 - t589 - t593 - t596 - t600;
+            let t1408 = -t4 - t581;
+            (t1404, t1406, t1408)
+        };
+        let t1409 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t1409 = piecewise5(t26, 0.0_f64, t29, 0.0_f64, t1408);
+            t1409
+        };
+        let (t1410, t1411, t1414, t1417, t1419, t1420) = {
+            let t1410 = t31 * t1409;
+            let t1411 = t1410 * t65;
+            let t1414 = t43 * t1409;
+            let t1417 = t46 * rho1;
+            let t1419 = 1.0_f64 / t48 / t1417;
+            let t1420 = sigma2 * t1419;
+            (t1410, t1411, t1414, t1417, t1419, t1420)
+        };
+        let (t1423, t1426) = {
+            let t1423 = t55 * t1409;
+            let t1426 = 5.0_f64 / 6.0_f64 * t39 * t1414 - 8.0_f64 / 3.0_f64 * t1420 * t56 - 5.0_f64 / 6.0_f64 * t51 * t1423 + t627;
+            (t1423, t1426)
+        };
+        let (t1427, t1434) = {
+            let t1427 = t33 * t1426;
+            let t1430 = t634 * t1409;
+            let t1431 = t638 * t1409;
+            let t1433 = -4.0_f64 / 3.0_f64 * t1430 + 4.0_f64 / 3.0_f64 * t1431;
+            let t1434 = t72 * t1433;
+            (t1427, t1434)
+        };
+        let t1437 = {
+            let t1437 = -t1411 * t80 / 12.0_f64 + t1427 * t80 / 24.0_f64 + t66 * t1434 / 24.0_f64;
+            t1437
+        };
+        let t1441 = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t1441 = piecewise3(t8, 0.0_f64, t1406 * t86 - 4.0_f64 * t1437 * t605);
+            t1441
+        };
+        let t1442 = {
+            let t1442 = t1441 * t112;
+            t1442
+        };
+        let t1444 = {
+            let t1444 = t1408 / 2.0_f64;
+            t1444
+        };
+        let (t1445, t1447, t1449, t1450, t1453) = {
+            let t1445 = t95 * t1444;
+            let t1447 = tau1 * t50;
+            let t1449 = -t1444;
+            let t1450 = t103 * t1449;
+            let t1453 = 5.0_f64 / 3.0_f64 * t100 * t1450 - 5.0_f64 / 3.0_f64 * t1447 * t104 + 5.0_f64 / 3.0_f64 * t92 * t1445;
+            (t1445, t1447, t1449, t1450, t1453)
+        };
+        let (t1454, t1458) = {
+            let t110 = 1.0_f64 < t109;
+            let t1454 = t656 * t1453;
+            let t1458 = piecewise3(t110, 0.0_f64, -t654 - t64 * t1454 / 8.0_f64);
+            (t1454, t1458)
+        };
+        let t1459 = {
+            let t1459 = t510 * t1458;
+            t1459
+        };
+        let (t1462, t1464, t1471, t1472, t1473, t1474, t1476, t1484) = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t1462 = t185 * t1409;
+            let t1464 = 4.0_f64 * t707 * t1462;
+            let t1467 = piecewise3(t146, 0.0_f64, 4.0_f64 / 3.0_f64 * t73 * t1409);
+            let t1470 = piecewise3(t150, 0.0_f64, -4.0_f64 / 3.0_f64 * t76 * t1409);
+            let t1471 = t1467 + t1470;
+            let t1472 = t145 * t1471;
+            let t1473 = t1472 * t185;
+            let t1474 = t1471 * t157;
+            let t1476 = 0.19751673498613801407e-1_f64 * t1474 * t182;
+            let t1479 = piecewise3(t146, 0.0_f64, 2.0_f64 / 3.0_f64 * t767 * t1409);
+            let t1482 = piecewise3(t150, 0.0_f64, -2.0_f64 / 3.0_f64 * t771 * t1409);
+            let t1484 = t1479 / 2.0_f64 + t1482 / 2.0_f64;
+            (t1462, t1464, t1471, t1472, t1473, t1474, t1476, t1484)
+        };
+        let (t1489, t1492) = {
+            let t1489 = t210 * t214 * t1484;
+            let t1492 = -t785 - 0.16666666666666666666e-2_f64 * t787 * t1489 - t797;
+            (t1489, t1492)
+        };
+        let (t1493, t1495, t1496, t1499) = {
+            let t1493 = t1492 * t252;
+            let t1495 = t119 * t1484;
+            let t1496 = t210 * t1495;
+            let t1499 = t1492 * t225;
+            (t1493, t1495, t1496, t1499)
+        };
+        let (t1500, t1504) = {
+            let t1500 = t1499 * t237;
+            let t1504 = (t680 + t705 + t1464 + t1473 + t752 + t1476 - t760 - t765) * t225;
+            (t1500, t1504)
+        };
+        let (t1506, t1509) = {
+            let t1506 = t824 * t1484;
+            let t1509 = -t1504 * t230 + 3.0_f64 * t1506 * t228;
+            (t1506, t1509)
+        };
+        let t1510 = {
+            let t1510 = t1509 * t232;
+            t1510
+        };
+        let t1512 = {
+            let t1512 = t819 * t820 * t1510;
+            t1512
+        };
+        let t1516 = {
+            let t1516 = t847 * t820 * t1484;
+            t1516
+        };
+        let t1519 = {
+            let t1519 = -t803 - t787 * t1496 / 48.0_f64 + t1500 * t249 / 3072.0_f64 - t817 * t1512 / 3072.0_f64 - t840 - t843 * t1516 / 768.0_f64;
+            t1519
+        };
+        let (t1520, t1523, t1525, t1527, t1528, t1530) = {
+            let t1520 = t218 * t1519;
+            let t1523 = t860 * t1510;
+            let t1525 = t235 * t1519;
+            let t1527 = t1499 * t255 - t1523 * t812 + t1525 * t226;
+            let t1528 = t858 * t1527;
+            let t1530 = t1493 * t259 + t1520 * t259 - t1528 * t855;
+            (t1520, t1523, t1525, t1527, t1528, t1530)
+        };
+        let t1534 = {
+            let t1534 = t1530 * t193 * t202 * t870 + 3.0_f64 * t1484 * t193 * t766 + t1464 + t1473 + t1476 + t680 + t705 + t752 - t760 - t765;
+            t1534
+        };
+        let t1539 = {
+            let t1539 = t883 * t1409;
+            t1539
+        };
+        let (t1540, t1541, t1543, t1545, t1547) = {
+            let t1540 = t882 * t1539;
+            let t1541 = t123 * t1540;
+            let t1543 = -t881 - 0.17808333333333333333e-1_f64 * t1541;
+            let t1545 = 0.621814e-1_f64 * t1543 * t291;
+            let t1547 = -t880 / 3.0_f64 - t1541 / 3.0_f64;
+            (t1540, t1541, t1543, t1545, t1547)
+        };
+        let (t1548, t1551, t1553, t1554, t1556, t1557) = {
+            let t1548 = t894 * t1547;
+            let t1551 = t901 * t1547;
+            let t1553 = t908 * t1539;
+            let t1554 = t136 * t1553;
+            let t1556 = 0.1898925e1_f64 * t1548 - t899 - 0.29896666666666666667e0_f64 * t1541 + 0.3071625e0_f64 * t1551 - t907 - 0.82156666666666666667e-1_f64 * t1554;
+            let t1557 = t1556 * t913;
+            (t1548, t1551, t1553, t1554, t1556, t1557)
+        };
+        let (t1559, t1561, t1568, t1569) = {
+            let t1559 = 1.0_f64 * t893 * t1557;
+            let t1561 = -t917 - 0.17123333333333333333e-1_f64 * t1541;
+            let t1568 = 0.3529725e1_f64 * t1548 - t926 - 0.516475e0_f64 * t1541 + 0.6311625e0_f64 * t1551 - t929 - 0.104195e0_f64 * t1554;
+            let t1569 = t1568 * t932;
+            (t1559, t1561, t1568, t1569)
+        };
+        let t1573 = {
+            let t1573 = -t936 - 0.92708333333333333333e-2_f64 * t1541;
+            t1573
+        };
+        let (t1574, t1580) = {
+            let t1574 = t1573 * t324;
+            let t1580 = 0.258925e1_f64 * t1548 - t945 - 0.301925e0_f64 * t1541 + 0.16504875e0_f64 * t1551 - t948 - 0.82785e-1_f64 * t1554;
+            (t1574, t1580)
+        };
+        let t1581 = {
+            let t1581 = t1580 * t951;
+            t1581
+        };
+        let (t1585, t1587, t1589) = {
+            let t1585 = t300 * (-0.310907e-1_f64 * t1561 * t311 + 1.0_f64 * t924 * t1569 + t1545 - t1559 - 0.19751673498613801407e-1_f64 * t1574 + 0.5848223622634646207e0_f64 * t943 * t1581);
+            let t1587 = 0.19751673498613801407e-1_f64 * t300 * t1574;
+            let t1589 = t942 * t1580 * t951;
+            (t1585, t1587, t1589)
+        };
+        let (t1591, t1592, t1593, t1597) = {
+            let t1591 = 0.5848223622634646207e0_f64 * t959 * t1589;
+            let t1592 = t978 * t1409;
+            let t1593 = t977 * t1592;
+            let t1597 = t906 / 6.0_f64 + t1554 / 6.0_f64;
+            (t1591, t1592, t1593, t1597)
+        };
+        let (t1599, t1600, t1603) = {
+            let t1598 = t340 * t1597;
+            let t1599 = t1598 * t343;
+            let t1600 = t974 * t1599;
+            let t1603 = t971 + 0.27777777777777777777e-3_f64 * t973 * t1593 - 0.83333333333333333332e-3_f64 * t973 * t1600;
+            (t1599, t1600, t1603)
+        };
+        let (t1604, t1606, t1607, t1610) = {
+            let t1604 = t1603 * t381;
+            let t1606 = t998 * t1409;
+            let t1607 = t974 * t1606;
+            let t1610 = t1603 * t225;
+            (t1604, t1606, t1607, t1610)
+        };
+        let (t1611, t1612, t1615) = {
+            let t1611 = t1610 * t68;
+            let t1612 = t1611 * t369;
+            let t1615 = -t1545 + t1559 + t1585 + t1587 - t1591;
+            (t1611, t1612, t1615)
+        };
+        let t1616 = {
+            let t1616 = t1615 * t360;
+            t1616
+        };
+        let (t1618, t1622) = {
+            let t1618 = t248 * t1021 * t1616;
+            let t1622 = t248 * t1044 * t1539;
+            (t1618, t1622)
+        };
+        let t1625 = {
+            let t1625 = t997 + t973 * t1607 / 288.0_f64 + t1612 * t378 / 3072.0_f64 + t1020 * t1618 / 3072.0_f64 + t1038 + t1041 * t1622 / 4608.0_f64;
+            t1625
+        };
+        let (t1626, t1629) = {
+            let t1626 = t349 * t1625;
+            let t1629 = t381 * t1615;
+            (t1626, t1629)
+        };
+        let (t1630, t1632, t1634, t1635, t1637) = {
+            let t1630 = t1629 * t1060;
+            let t1632 = t383 * t1625;
+            let t1634 = t1058 * t1630 + t1610 * t384 + t1632 * t353;
+            let t1635 = t1055 * t1634;
+            let t1637 = -t1052 * t1635 + t1604 * t388 + t1626 * t388;
+            (t1630, t1632, t1634, t1635, t1637)
+        };
+        let (t1642, t1647) = {
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t395 = t265 < t394;
+            let t1642 = piecewise3(t395, t1070 * t1637 * t193 * t336 - t1545 + t1559 + t1585 + t1587 - t1591, t1534);
+            let t1647 = piecewise3(t115, t265 * t1408 / 2.0_f64 + t1534 * t25 / 2.0_f64, t396 * t1409 / 2.0_f64 + t1642 * t40 / 2.0_f64);
+            (t1642, t1647)
+        };
+        let t1649 = {
+            let t1649 = -t1408;
+            t1649
+        };
+        let t1653 = {
+            let t1653 = t1089 * t1409;
+            t1653
+        };
+        let (t1654, t1655, t1657, t1659, t1661) = {
+            let t1654 = t1088 * t1653;
+            let t1655 = t123 * t1654;
+            let t1657 = -t1087 + 0.17808333333333333333e-1_f64 * t1655;
+            let t1659 = 0.621814e-1_f64 * t1657 * t423;
+            let t1661 = -t1086 / 3.0_f64 + t1655 / 3.0_f64;
+            (t1654, t1655, t1657, t1659, t1661)
+        };
+        let (t1662, t1665, t1667, t1668, t1670, t1671) = {
+            let t1662 = t1100 * t1661;
+            let t1665 = t1107 * t1661;
+            let t1667 = t1113 * t1653;
+            let t1668 = t136 * t1667;
+            let t1670 = 0.1898925e1_f64 * t1662 - t1105 + 0.29896666666666666667e0_f64 * t1655 + 0.3071625e0_f64 * t1665 - t1112 + 0.82156666666666666667e-1_f64 * t1668;
+            let t1671 = t1670 * t1118;
+            (t1662, t1665, t1667, t1668, t1670, t1671)
+        };
+        let (t1673, t1675, t1682, t1683) = {
+            let t1673 = 1.0_f64 * t1099 * t1671;
+            let t1675 = -t1122 + 0.17123333333333333333e-1_f64 * t1655;
+            let t1682 = 0.3529725e1_f64 * t1662 - t1131 + 0.516475e0_f64 * t1655 + 0.6311625e0_f64 * t1665 - t1134 + 0.104195e0_f64 * t1668;
+            let t1683 = t1682 * t1137;
+            (t1673, t1675, t1682, t1683)
+        };
+        let t1687 = {
+            let t1687 = -t1141 + 0.92708333333333333333e-2_f64 * t1655;
+            t1687
+        };
+        let (t1688, t1694) = {
+            let t1688 = t1687 * t449;
+            let t1694 = 0.258925e1_f64 * t1662 - t1150 + 0.301925e0_f64 * t1655 + 0.16504875e0_f64 * t1665 - t1153 + 0.82785e-1_f64 * t1668;
+            (t1688, t1694)
+        };
+        let t1695 = {
+            let t1695 = t1694 * t1156;
+            t1695
+        };
+        let (t1699, t1701, t1703) = {
+            let t1699 = t300 * (-0.310907e-1_f64 * t1675 * t436 + 1.0_f64 * t1129 * t1683 + t1659 - t1673 - 0.19751673498613801407e-1_f64 * t1688 + 0.5848223622634646207e0_f64 * t1148 * t1695);
+            let t1701 = 0.19751673498613801407e-1_f64 * t300 * t1688;
+            let t1703 = t1147 * t1694 * t1156;
+            (t1699, t1701, t1703)
+        };
+        let (t1705, t1706) = {
+            let t1705 = 0.5848223622634646207e0_f64 * t1164 * t1703;
+            let t1706 = t1420 * t338;
+            (t1705, t1706)
+        };
+        let (t1709, t1710, t1714) = {
+            let t1709 = t1178 * t1409;
+            let t1710 = t1177 * t1709;
+            let t1714 = t1111 / 6.0_f64 - t1668 / 6.0_f64;
+            (t1709, t1710, t1714)
+        };
+        let (t1716, t1717, t1720) = {
+            let t1715 = t457 * t1714;
+            let t1716 = t1715 * t460;
+            let t1717 = t974 * t1716;
+            let t1720 = -0.22222222222222222222e-2_f64 * t1706 * t463 + t1173 - 0.27777777777777777777e-3_f64 * t1174 * t1710 - 0.83333333333333333332e-3_f64 * t1174 * t1717;
+            (t1716, t1717, t1720)
+        };
+        let (t1721, t1725, t1726, t1729) = {
+            let t1721 = t1720 * t491;
+            let t1725 = t1196 * t1409;
+            let t1726 = t974 * t1725;
+            let t1729 = t1720 * t225;
+            (t1721, t1725, t1726, t1729)
+        };
+        let (t1730, t1731, t1734) = {
+            let t1730 = t1729 * t68;
+            let t1731 = t1730 * t484;
+            let t1734 = -t1659 + t1673 + t1699 + t1701 - t1705;
+            (t1730, t1731, t1734)
+        };
+        let t1735 = {
+            let t1735 = t1734 * t475;
+            t1735
+        };
+        let t1737 = {
+            let t1737 = t248 * t1214 * t1735;
+            t1737
+        };
+        let t1742 = {
+            let t1740 = t480 * t46;
+            let t1742 = 1.0_f64 / t47 / t1740;
+            t1742
+        };
+        let (t1743, t1744, t1748) = {
+            let t1743 = t479 * t1742;
+            let t1744 = t471 * t1743;
+            let t1748 = t248 * t1230 * t1653;
+            (t1743, t1744, t1748)
+        };
+        let t1751 = {
+            let t1751 = -t1706 * t467 / 36.0_f64 + t1195 - t1174 * t1726 / 288.0_f64 + t1731 * t488 / 3072.0_f64 + t1213 * t1737 / 3072.0_f64 - t1744 * t488 / 576.0_f64 + t1224 - t1227 * t1748 / 4608.0_f64;
+            t1751
+        };
+        let (t1752, t1755) = {
+            let t1752 = t466 * t1751;
+            let t1755 = t491 * t1734;
+            (t1752, t1755)
+        };
+        let (t1756, t1758, t1760, t1761) = {
+            let t1756 = t1755 * t1246;
+            let t1758 = t493 * t1751;
+            let t1760 = t1244 * t1756 + t1729 * t494 + t1758 * t470;
+            let t1761 = t1241 * t1760;
+            (t1756, t1758, t1760, t1761)
+        };
+        let (t1763, t1768) = {
+            let t505 = t265 < t504;
+            let t1763 = -t1238 * t1761 + t1721 * t498 + t1752 * t498;
+            let t1768 = piecewise3(t505, t1256 * t1763 * t193 * t336 - t1659 + t1673 + t1699 + t1701 - t1705, t1534);
+            (t1763, t1768)
+        };
+        let t1774 = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t1773 = piecewise3(t401, t1534 * t28 / 2.0_f64 + t265 * t1649 / 2.0_f64, -t506 * t1409 / 2.0_f64 + t1768 * t52 / 2.0_f64);
+            let t1774 = t1647 + t1773;
+            t1774
+        };
+        let (t1778, t1787) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t1778 = 2.0_f64 * t1268 * t1458 + t1442;
+            let t1782 = piecewise3(t26, 0.0_f64, 4.0_f64 / 3.0_f64 * t514 * t1408);
+            let t1785 = piecewise3(t29, 0.0_f64, 4.0_f64 / 3.0_f64 * t517 * t1649);
+            let t1787 = (t1782 + t1785) * t157;
+            (t1778, t1787)
+        };
+        let t1788 = {
+            let t1788 = t1787 * t184;
+            t1788
+        };
+        let (t1789, t1791, t1799) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t1789 = t17 * t1788;
+            let t1791 = 0.19751673498613801407e-1_f64 * t1787 * t182;
+            let t1794 = piecewise3(t26, 0.0_f64, 2.0_f64 / 3.0_f64 * t1298 * t1408);
+            let t1797 = piecewise3(t29, 0.0_f64, 2.0_f64 / 3.0_f64 * t1302 * t1649);
+            let t1799 = t1794 / 2.0_f64 + t1797 / 2.0_f64;
+            (t1789, t1791, t1799)
+        };
+        let (t1804, t1807) = {
+            let t1804 = t210 * t214 * t1799;
+            let t1807 = -t1313 - 0.16666666666666666666e-2_f64 * t1315 * t1804 - t1322;
+            (t1804, t1807)
+        };
+        let (t1808, t1810, t1811, t1814) = {
+            let t1808 = t1807 * t562;
+            let t1810 = t119 * t1799;
+            let t1811 = t210 * t1810;
+            let t1814 = t1807 * t225;
+            (t1808, t1810, t1811, t1814)
+        };
+        let (t1815, t1819) = {
+            let t1815 = t1814 * t554;
+            let t1819 = (t680 + t705 - t1274 - t1276 + t1789 + t1288 + t1791 - t1293 - t1296) * t225;
+            (t1815, t1819)
+        };
+        let (t1821, t1824) = {
+            let t1821 = t1347 * t1799;
+            let t1824 = -t1819 * t548 + 3.0_f64 * t1821 * t546;
+            (t1821, t1824)
+        };
+        let t1825 = {
+            let t1825 = t1824 * t550;
+            t1825
+        };
+        let t1827 = {
+            let t1827 = t1343 * t820 * t1825;
+            t1827
+        };
+        let t1831 = {
+            let t1831 = t1367 * t820 * t1799;
+            t1831
+        };
+        let t1834 = {
+            let t1834 = -t1327 - t1315 * t1811 / 48.0_f64 + t1815 * t559 / 3072.0_f64 - t1341 * t1827 / 3072.0_f64 - t1360 - t1363 * t1831 / 768.0_f64;
+            t1834
+        };
+        let (t1835, t1838, t1840, t1842, t1843) = {
+            let t1835 = t539 * t1834;
+            let t1838 = t1380 * t1825;
+            let t1840 = t553 * t1834;
+            let t1842 = -t1336 * t1838 + t1814 * t564 + t1840 * t544;
+            let t1843 = t1378 * t1842;
+            (t1835, t1838, t1840, t1842, t1843)
+        };
+        let (t1845, t1849) = {
+            let t1845 = -t1375 * t1843 + t1808 * t568 + t1835 * t568;
+            let t1849 = t1390 * t1845 * t193 * t533 + 3.0_f64 * t1297 * t1799 * t193 - t1274 - t1276 + t1288 - t1293 - t1296 + t1789 + t1791 + t680 + t705;
+            (t1845, t1849)
+        };
+        let t1851 = {
+            let t1851 = -t113 * t1774 - t1442 * t510 - 2.0_f64 * t1459 * t652 + t1778 * t574 + t1849 * t513;
+            t1851
+        };
+        let (t1852, t1858, t1864, t1877, t1878, t1887) = {
+            let t1852 = t3 * t1851;
+            let t1858 = 0.45e1_f64 * t1851 * t577 + 0.135e2_f64 * t1401 * t1458;
+            let t1864 = t71 * t79;
+            let t1877 = t193 * t202;
+            let t1878 = t204 * t154;
+            let t1887 = t210 * t119;
+            (t1852, t1858, t1864, t1877, t1878, t1887)
+        };
+        let (t1891, t1932) = {
+            let t1891 = 1.0_f64 / t243 / t201;
+            let t1932 = 1.0_f64 / t371 / t335;
+            (t1891, t1932)
+        };
+        let (t1995, t2177, t2180) = {
+            let t110 = 1.0_f64 < t109;
+            let t1995 = 1.0_f64 / t556 / t532;
+            let t2176 = t656 * t91;
+            let t2177 = t2176 * t96;
+            let t2180 = piecewise3(t110, 0.0_f64, -t64 * t2177 / 8.0_f64);
+            (t1995, t2177, t2180)
+        };
+        let t2181 = {
+            let t2181 = t510 * t2180;
+            t2181
+        };
+        let t2183 = {
+            let t2183 = t2180 * t574;
+            t2183
+        };
+        let t2186 = {
+            let t2186 = 2.0_f64 * t1268 * t2183 - 2.0_f64 * t2181 * t652;
+            t2186
+        };
+        let (t2187, t2193, t2218, t2219) = {
+            let t2187 = t3 * t2186;
+            let t2193 = 0.45e1_f64 * t2186 * t577 + 0.135e2_f64 * t1401 * t2180;
+            let t2218 = 0.174e1_f64 * t11;
+            let t2219 = t2 * t584;
+            (t2187, t2193, t2218, t2219)
+        };
+        let (t2220, t2221) = {
+            let t2220 = 0.696e1_f64 * t2219;
+            let t2221 = t9 * t16;
+            (t2220, t2221)
+        };
+        let (t2222, t2223, t2224, t2225) = {
+            let t2222 = 0.1122e2_f64 * t2221;
+            let t2223 = t587 * t591;
+            let t2224 = 16.0_f64 * t2223;
+            let t2225 = t14 * t21;
+            (t2222, t2223, t2224, t2225)
+        };
+        let (t2226, t2228, t2229, t2230, t2232, t2235, t2239, t2240, t2267, t2274) = {
+            let t2226 = 0.778e2_f64 * t2225;
+            let t2228 = 0.16272e3_f64 * t594 * t598;
+            let t2229 = t15 * t15;
+            let t2230 = 1.0_f64 / t2229;
+            let t2232 = 0.9492e2_f64 * t19 * t2230;
+            let t2235 = t601 * t604;
+            let t2239 = 1.0_f64 / t85 / t84;
+            let t2240 = t24 * t2239;
+            let t2267 = 1.0_f64 / t42;
+            let t2274 = 1.0_f64 / t54;
+            (t2226, t2228, t2229, t2230, t2232, t2235, t2239, t2240, t2267, t2274)
+        };
+        let t2281 = {
+            let t2281 = t59 * t240;
+            t2281
+        };
+        let (t2282, t2289, t2291, t2296, t2298, t2314) = {
+            let t2282 = 88.0_f64 / 9.0_f64 * t2281;
+            let t2289 = t632 * t40;
+            let t2291 = 1.0_f64 / t73 / t2289;
+            let t2296 = t636 * t52;
+            let t2298 = 1.0_f64 / t76 / t2296;
+            let t2314 = t649 * t111;
+            (t2282, t2289, t2291, t2296, t2298, t2314)
+        };
+        let (t2327, t2328, t2331) = {
+            let t2327 = 11.0_f64 / 9.0_f64 * t2281 * t107;
+            let t2328 = t626 * t667;
+            let t2331 = 1.0_f64 / t655 / t106;
+            (t2327, t2328, t2331)
+        };
+        let t2341 = {
+            let t2341 = 1.0_f64 / t94;
+            t2341
+        };
+        let (t2349, t2368, t2369) = {
+            let t2349 = 1.0_f64 / t102;
+            let t2367 = t738 * t177;
+            let t2368 = 1.0_f64 / t2367;
+            let t2369 = t745 * t745;
+            (t2349, t2368, t2369)
+        };
+        let t2371 = {
+            let t2371 = t2368 * t2369 * t746;
+            t2371
+        };
+        let (t2373, t2374) = {
+            let t2373 = 0.11696447245269292414e1_f64 * t761 * t2371;
+            let t2374 = t187 * t118;
+            (t2373, t2374)
+        };
+        let t2375 = {
+            let t2375 = t677 * t763;
+            t2375
+        };
+        let (t2377, t2378, t2385, t2386, t2387, t2388, t2390) = {
+            let t2377 = 0.10843581300301739842e-1_f64 * t2374 * t2375;
+            let t2378 = t200 * t262;
+            let t2385 = 1.0_f64 / t126 / t123 * t131;
+            let t2386 = t132 * t119;
+            let t2387 = t2386 * t63;
+            let t2388 = t2385 * t2387;
+            let t2390 = t686 * t204;
+            (t2377, t2378, t2385, t2386, t2387, t2388, t2390)
+        };
+        let (t2391, t2393) = {
+            let t2391 = t685 * t2390;
+            let t2393 = t120 * t204;
+            (t2391, t2393)
+        };
+        let t2394 = {
+            let t2394 = t118 * t2393;
+            t2394
+        };
+        let (t2397, t2398, t2400, t2403) = {
+            let t2396 = 1.0_f64/f64::sqrt(t123);
+            let t2397 = t2396 * t131;
+            let t2398 = t2397 * t2387;
+            let t2400 = t693 * t2390;
+            let t2402 = t119 * t63;
+            let t2403 = t133 * t2402;
+            (t2397, t2398, t2400, t2403)
+        };
+        let (t2405, t2406, t2408) = {
+            let t2405 = -0.42198333333333333333e0_f64 * t2388 + 0.84396666666666666666e0_f64 * t2391 + 0.39862222222222222223e0_f64 * t2394 + 0.68258333333333333333e-1_f64 * t2398 + 0.13651666666666666667e0_f64 * t2400 + 0.13692777777777777778e0_f64 * t2403;
+            let t2406 = t2405 * t702;
+            let t2408 = 1.0_f64 * t683 * t2406;
+            (t2405, t2406, t2408)
+        };
+        let (t2409, t2410, t2411, t2412, t2413, t2414, t2415, t2417) = {
+            let t2409 = t681 * t681;
+            let t2410 = 1.0_f64 / t2409;
+            let t2411 = t125 * t2410;
+            let t2412 = t701 * t701;
+            let t2413 = t141 * t141;
+            let t2414 = 1.0_f64 / t2413;
+            let t2415 = t2412 * t2414;
+            let t2417 = 0.16081979498692535067e2_f64 * t2411 * t2415;
+            (t2409, t2410, t2411, t2412, t2413, t2414, t2415, t2417)
+        };
+        let (t2419, t2420, t2421, t2423) = {
+            let t2418 = t681 * t138;
+            let t2419 = 1.0_f64 / t2418;
+            let t2420 = t125 * t2419;
+            let t2421 = t2412 * t702;
+            let t2423 = 2.0_f64 * t2420 * t2421;
+            (t2419, t2420, t2421, t2423)
+        };
+        let t2426 = {
+            let t2426 = 0.14764627977777777777e-2_f64 * t118 * t2393 * t142;
+            t2426
+        };
+        let (t2427, t2430, t2431, t2433, t2440, t2454, t2459, t2460) = {
+            let t2427 = t706 * t717;
+            let t2430 = t751 * t607;
+            let t2431 = t707 * t2430;
+            let t2433 = 1.0_f64 / t195;
+            let t2440 = 1.0_f64 / t197;
+            let t2454 = t676 * t724;
+            let t2458 = t723 * t164;
+            let t2459 = 1.0_f64 / t2458;
+            let t2460 = t159 * t2459;
+            (t2427, t2430, t2431, t2433, t2440, t2454, t2459, t2460)
+        };
+        let (t2461, t2462, t2471, t2472, t2475, t2476, t2477, t2478, t2479, t2480, t2483) = {
+            let t2461 = t730 * t730;
+            let t2462 = t2461 * t731;
+            let t2471 = -0.78438333333333333333e0_f64 * t2388 + 0.15687666666666666667e1_f64 * t2391 + 0.68863333333333333333e0_f64 * t2394 + 0.14025833333333333333e0_f64 * t2398 + 0.28051666666666666667e0_f64 * t2400 + 0.17365833333333333333e0_f64 * t2403;
+            let t2472 = t2471 * t731;
+            let t2475 = t723 * t723;
+            let t2476 = 1.0_f64 / t2475;
+            let t2477 = t159 * t2476;
+            let t2478 = t167 * t167;
+            let t2479 = 1.0_f64 / t2478;
+            let t2480 = t2461 * t2479;
+            let t2483 = t676 * t682;
+            (t2461, t2462, t2471, t2472, t2475, t2476, t2477, t2478, t2479, t2480, t2483)
+        };
+        let t2486 = {
+            let t2486 = 0.35616666666666666666e-1_f64 * t268 * t2483 * t703;
+            t2486
+        };
+        let (t2490, t2494, t2495, t2504) = {
+            let t2490 = t676 * t739;
+            let t2494 = t172 * t2368;
+            let t2495 = t2369 * t746;
+            let t2504 = -0.57538888888888888889e0_f64 * t2388 + 0.11507777777777777778e1_f64 * t2391 + 0.40256666666666666667e0_f64 * t2394 + 0.366775e-1_f64 * t2398 + 0.73355e-1_f64 * t2400 + 0.137975e0_f64 * t2403;
+            (t2490, t2494, t2495, t2504)
+        };
+        let (t2505, t2508, t2509) = {
+            let t2505 = t2504 * t746;
+            let t2508 = t738 * t738;
+            let t2509 = 1.0_f64 / t2508;
+            (t2505, t2508, t2509)
+        };
+        let (t2510, t2511, t2512) = {
+            let t2510 = t172 * t2509;
+            let t2511 = t180 * t180;
+            let t2512 = 1.0_f64 / t2511;
+            (t2510, t2511, t2512)
+        };
+        let (t2513, t2516) = {
+            let t2513 = t2369 * t2512;
+            let t2516 = -0.70983522622222222221e-3_f64 * t118 * t2393 * t168 - 0.34246666666666666666e-1_f64 * t268 * t2454 * t732 - 2.0_f64 * t2460 * t2462 + 1.0_f64 * t725 * t2472 + 0.32163958997385070134e2_f64 * t2477 * t2480 + t2426 + t2486 + t2423 - t2408 - t2417 - 0.24415263074675393405e-3_f64 * t118 * t2393 * t181 - 0.10843581300301739842e-1_f64 * t268 * t2490 * t747 - 0.11696447245269292414e1_f64 * t2494 * t2495 + 0.5848223622634646207e0_f64 * t740 * t2505 + 0.17315859105681463759e2_f64 * t2510 * t2513;
+            (t2513, t2516)
+        };
+        let t2517 = {
+            let t2517 = t157 * t2516;
+            t2517
+        };
+        let (t2518, t2522) = {
+            let t2518 = t153 * t2517;
+            let t2522 = t193 * t201;
+            (t2518, t2522)
+        };
+        let (t2523, t2528) = {
+            let t2523 = t868 * t870;
+            let t2527 = t2509 * t2369;
+            let t2528 = t2527 * t2512;
+            (t2523, t2528)
+        };
+        let (t2530, t2531, t2532, t2535) = {
+            let t2530 = 0.17315859105681463759e2_f64 * t761 * t2528;
+            let t2531 = t753 * t172;
+            let t2532 = t2531 * t763;
+            let t2535 = t739 * t2504 * t746;
+            (t2530, t2531, t2532, t2535)
+        };
+        let (t2537, t2538, t2559) = {
+            let t2537 = 0.5848223622634646207e0_f64 * t761 * t2535;
+            let t2538 = t718 * t751;
+            let t2558 = 1.0_f64 / t60 / t15;
+            let t2559 = t59 * t2558;
+            (t2537, t2538, t2559)
+        };
+        let (t2562, t2563) = {
+            let t2562 = 0.64814814814814814813e-2_f64 * t2559 * t207 * t215;
+            let t2563 = t782 * t786;
+            (t2562, t2563)
+        };
+        let (t2564, t2566, t2569, t2570) = {
+            let t2564 = t2563 * t789;
+            let t2566 = t59 * t591;
+            let t2569 = 0.26388888888888888888e-2_f64 * t2566 * t207 * t795;
+            let t2570 = t154 * t244;
+            (t2564, t2566, t2569, t2570)
+        };
+        let (t2571, t2576, t2578, t2579, t2585) = {
+            let t2571 = t205 * t2570;
+            let t2576 = t792 * t786;
+            let t2578 = t118 * t794 * t776;
+            let t2579 = t2576 * t2578;
+            let t2585 = t59 * t835;
+            (t2571, t2576, t2578, t2579, t2585)
+        };
+        let t2586 = {
+            let t2586 = t2585 * t154;
+            t2586
+        };
+        let (t2588, t2590, t2597, t2600, t2602, t2603, t2617) = {
+            let t2587 = t206 * t116;
+            let t2588 = t2587 * t212;
+            let t2590 = 0.83333333333333333332e-3_f64 * t2586 * t2588;
+            let t2597 = t799 * t225;
+            let t2600 = t2559 * t154;
+            let t2602 = 35.0_f64 / 432.0_f64 * t2600 * t222;
+            let t2603 = t2563 * t805;
+            let t2617 = t808 * t68;
+            (t2588, t2590, t2597, t2600, t2602, t2603, t2617)
+        };
+        let (t2618, t2621, t2623, t2627, t2628, t2629, t2630, t2632) = {
+            let t2618 = t2617 * t816;
+            let t2621 = t809 * t838;
+            let t2623 = t2617 * t842;
+            let t2627 = 1.0_f64 / t813 / t233;
+            let t2628 = t2627 * t236;
+            let t2629 = t2628 * t240;
+            let t2630 = t812 * t2629;
+            let t2632 = t232 * t232;
+            (t2618, t2621, t2623, t2627, t2628, t2629, t2630, t2632)
+        };
+        let (t2638, t2639) = {
+            let t2638 = t815 * t835;
+            let t2639 = t812 * t2638;
+            (t2638, t2639)
+        };
+        let (t2640, t2642, t2643) = {
+            let t2640 = t2639 * t831;
+            let t2642 = t815 * t242;
+            let t2643 = t812 * t2642;
+            (t2640, t2642, t2643)
+        };
+        let (t2644, t2645) = {
+            let t2644 = t845 * t67;
+            let t2645 = t2644 * t246;
+            (t2644, t2645)
+        };
+        let (t2647, t2652, t2653, t2658, t2663) = {
+            let t2647 = t232 * t776;
+            let t2652 = t753 * t67;
+            let t2653 = t2652 * t758;
+            let t2658 = t32 * t152;
+            let t2663 = t686 * t204 * t181;
+            (t2647, t2652, t2653, t2658, t2663)
+        };
+        let (t2665, t2671, t2690) = {
+            let t2665 = 0.24415263074675393405e-3_f64 * t756 * t2663;
+            let t2671 = t68 * t845;
+            let t2690 = 1.0_f64 / t61 / t20;
+            (t2665, t2671, t2690)
+        };
+        let (t2691, t2693, t2695, t2696, t2697) = {
+            let t2691 = t2690 * t241;
+            let t2693 = t2691 * t244 * t248;
+            let t2695 = 119.0_f64 / 13824.0_f64 * t238 * t2693;
+            let t2696 = t841 * t835;
+            let t2697 = t812 * t2696;
+            (t2691, t2693, t2695, t2696, t2697)
+        };
+        let (t2698, t2701, t2713, t2718, t2728) = {
+            let t2698 = t2697 * t849;
+            let t2700 = t241 * t1891;
+            let t2701 = t2700 * t67;
+            let t2713 = t853 * t225;
+            let t2717 = 1.0_f64 / t856 / t257;
+            let t2718 = t68 * t2717;
+            let t2728 = t2627 * t252;
+            (t2698, t2701, t2713, t2718, t2728)
+        };
+        let (t2732, t2751, t2752, t2764, t2765, t2766) = {
+            let t2732 = t814 * t852;
+            let t2751 = t261 * t261;
+            let t2752 = 1.0_f64 / t2751;
+            let t2764 = t268 * t1878 * t271;
+            let t2765 = 0.23744444444444444444e-1_f64 * t2764;
+            let t2766 = t690 * t885;
+            (t2732, t2751, t2752, t2764, t2765, t2766)
+        };
+        let t2768 = {
+            let t2768 = t154 * t1043;
+            t2768
+        };
+        let (t2769, t2770) = {
+            let t2769 = t632 * t632;
+            let t2770 = 1.0_f64 / t2769;
+            (t2769, t2770)
+        };
+        let t2775 = {
+            let t2775 = 1.0_f64 / t2289;
+            t2775
+        };
+        let (t2787, t2791, t2792, t2798, t2802, t2810, t2815, t2820, t2822) = {
+            let t2787 = t888 * t892;
+            let t2790 = t891 * t287;
+            let t2791 = 1.0_f64 / t2790;
+            let t2792 = t275 * t2791;
+            let t2798 = 1.0_f64 / t276 / t273;
+            let t2802 = 4.0_f64 / 9.0_f64 * t2764;
+            let t2810 = 0.39862222222222222223e0_f64 * t2764;
+            let t2815 = 1.0_f64/f64::sqrt(t273);
+            let t2820 = t63 * t241;
+            let t2822 = t281 * t2820 * t283;
+            (t2787, t2791, t2792, t2798, t2802, t2810, t2815, t2820, t2822)
+        };
+        let (t2823, t2824, t2826) = {
+            let t2823 = 0.13692777777777777778e0_f64 * t2822;
+            let t2824 = t699 * t909;
+            let t2826 = t241 * t976;
+            (t2823, t2824, t2826)
+        };
+        let (t2840, t2841, t2842) = {
+            let t2840 = t891 * t891;
+            let t2841 = 1.0_f64 / t2840;
+            let t2842 = t275 * t2841;
+            (t2840, t2841, t2842)
+        };
+        let (t2843, t2844, t2848, t2856, t2860, t2861, t2868, t2875, t2884, t2885, t2886, t2887) = {
+            let t2843 = t290 * t290;
+            let t2844 = 1.0_f64 / t2843;
+            let t2848 = 0.22831111111111111111e-1_f64 * t2764;
+            let t2856 = t919 * t923;
+            let t2859 = t922 * t307;
+            let t2860 = 1.0_f64 / t2859;
+            let t2861 = t302 * t2860;
+            let t2868 = 0.68863333333333333333e0_f64 * t2764;
+            let t2875 = 0.17365833333333333333e0_f64 * t2822;
+            let t2884 = t922 * t922;
+            let t2885 = 1.0_f64 / t2884;
+            let t2886 = t302 * t2885;
+            let t2887 = t310 * t310;
+            (t2843, t2844, t2848, t2856, t2860, t2861, t2868, t2875, t2884, t2885, t2886, t2887)
+        };
+        let (t2888, t2892, t2900, t2904) = {
+            let t2888 = 1.0_f64 / t2887;
+            let t2892 = 0.12361111111111111111e-1_f64 * t2764;
+            let t2900 = t938 * t942;
+            let t2903 = t941 * t320;
+            let t2904 = 1.0_f64 / t2903;
+            (t2888, t2892, t2900, t2904)
+        };
+        let (t2905, t2912, t2919, t2928, t2929) = {
+            let t2905 = t315 * t2904;
+            let t2912 = 0.40256666666666666667e0_f64 * t2764;
+            let t2919 = 0.137975e0_f64 * t2822;
+            let t2928 = t941 * t941;
+            let t2929 = 1.0_f64 / t2928;
+            (t2905, t2912, t2919, t2928, t2929)
+        };
+        let (t2930, t2931, t2932) = {
+            let t2930 = t315 * t2929;
+            let t2931 = t323 * t323;
+            let t2932 = 1.0_f64 / t2931;
+            (t2930, t2931, t2932)
+        };
+        let (t2940, t2958, t2960) = {
+            let t2940 = t300 * t938;
+            let t2958 = t964 * t969;
+            let t2960 = t615 * t972;
+            (t2940, t2958, t2960)
+        };
+        let (t2965, t2967, t2969, t2970) = {
+            let t2965 = t697 * t340;
+            let t2966 = t2965 * t344;
+            let t2967 = t221 * t2966;
+            let t2969 = 0.18518518518518518518e-3_f64 * t339 * t2967;
+            let t2970 = t135 * t976;
+            (t2965, t2967, t2969, t2970)
+        };
+        let (t2972, t2975, t2978) = {
+            let t2971 = t2970 * t979;
+            let t2972 = t973 * t2971;
+            let t2974 = t135 * t986;
+            let t2975 = t973 * t2974;
+            let t2978 = 1.0_f64 / t271 / t883;
+            (t2972, t2975, t2978)
+        };
+        let t2979 = {
+            let t2979 = t974 * t2978;
+            t2979
+        };
+        let (t2980, t2986) = {
+            let t2980 = t344 * t2770;
+            let t2985 = t39 * t337;
+            let t2986 = t2985 * t1887;
+            (t2980, t2986)
+        };
+        let t2987 = {
+            let t2987 = t60 * t976;
+            t2987
+        };
+        let (t2988, t2989, t2990, t2994, t3003, t3026, t3030) = {
+            let t2988 = t2987 * t984;
+            let t2989 = t343 * t883;
+            let t2990 = t2989 * t607;
+            let t2994 = t344 * t2775;
+            let t3003 = 5.0_f64 / 18.0_f64 * t2822;
+            let t3026 = t991 * t225;
+            let t3030 = 1.0_f64 / t1008 / t191;
+            (t2988, t2989, t2990, t2994, t3003, t3026, t3030)
+        };
+        let (t3031, t3032) = {
+            let t3031 = t349 * t3030;
+            let t3032 = t1011 * t68;
+            (t3031, t3032)
+        };
+        let (t3033, t3034, t3036) = {
+            let t3033 = t3031 * t3032;
+            let t3034 = t371 * t371;
+            let t3036 = 1.0_f64 / t3034 / t335;
+            (t3033, t3034, t3036)
+        };
+        let (t3037, t3038, t3039) = {
+            let t3037 = t368 * t3036;
+            let t3038 = t1015 * t3037;
+            let t3039 = t3033 * t3038;
+            (t3037, t3038, t3039)
+        };
+        let (t3047, t3048, t3051) = {
+            let t3046 = t1030 * t372;
+            let t3047 = t364 * t3046;
+            let t3048 = t354 * t3047;
+            let t3051 = t121 * t1043;
+            (t3047, t3048, t3051)
+        };
+        let (t3053, t3054, t3061) = {
+            let t3053 = t248 * t3051 * t884;
+            let t3054 = t1041 * t3053;
+            let t3061 = 1.0_f64 / t283 / t883;
+            (t3053, t3054, t3061)
+        };
+        let (t3062, t3067, t3068, t3069, t3070) = {
+            let t3062 = t61 * t3061;
+            let t3067 = t363 * t368;
+            let t3068 = t1017 * t67;
+            let t3069 = t3067 * t3068;
+            let t3070 = t1058 * t3069;
+            (t3062, t3067, t3068, t3069, t3070)
+        };
+        let t3071 = {
+            let t3071 = t820 * t1044;
+            t3071
+        };
+        let (t3082, t3084, t3092, t3101) = {
+            let t3082 = t374 * t677 * t376;
+            let t3084 = t370 * t3082 / 13824.0_f64;
+            let t3092 = t1032 * t1036;
+            let t3101 = t121 * t376;
+            (t3082, t3084, t3092, t3101)
+        };
+        let (t3103, t3104, t3108, t3109, t3112, t3114) = {
+            let t3103 = t248 * t3101 * t1023;
+            let t3104 = t1020 * t3103;
+            let t3107 = t1030 * t1017;
+            let t3108 = t1015 * t3107;
+            let t3109 = t1012 * t3108;
+            let t3112 = t990 * t1009;
+            let t3113 = t3112 * t1011;
+            let t3114 = t3113 * t1019;
+            (t3103, t3104, t3108, t3109, t3112, t3114)
+        };
+        let (t3117, t3127, t3128, t3129, t3130) = {
+            let t3117 = t1004 * t1040;
+            let t3127 = 1.0_f64 / t1013 / t361;
+            let t3128 = t3127 * t363;
+            let t3129 = t3128 * t3037;
+            let t3130 = t3033 * t3129;
+            (t3117, t3127, t3128, t3129, t3130)
+        };
+        let t3131 = {
+            let t3131 = t360 * t360;
+            t3131
+        };
+        let (t3140, t3146, t3151, t3156, t3158, t3160) = {
+            let t3139 = t135 * t999;
+            let t3140 = t973 * t3139;
+            let t3146 = t2978 * t2770;
+            let t3151 = t976 * t2775;
+            let t3156 = t1005 * t1036;
+            let t3158 = t221 * t2965;
+            let t3160 = t339 * t3158 / 432.0_f64;
+            (t3140, t3146, t3151, t3156, t3158, t3160)
+        };
+        let (t3163, t3169, t3174, t3180, t3185, t3186) = {
+            let t3163 = t964 * t995;
+            let t3169 = t1050 * t225;
+            let t3173 = 1.0_f64 / t1053 / t386;
+            let t3174 = t68 * t3173;
+            let t3180 = t3112 * t1057;
+            let t3185 = t3032 * t3127;
+            let t3186 = t3031 * t3185;
+            (t3163, t3169, t3174, t3180, t3185, t3186)
+        };
+        let (t3188, t3199, t3200) = {
+            let t3188 = t1932 * t3131;
+            let t3199 = t3032 * t1014;
+            let t3200 = t3031 * t3199;
+            (t3188, t3199, t3200)
+        };
+        let (t3201, t3215, t3216, t3236, t3237, t3238) = {
+            let t3201 = t1932 * t360;
+            let t3215 = t390 * t390;
+            let t3216 = 1.0_f64 / t3215;
+            let t3236 = t268 * t1878 * t405;
+            let t3237 = 0.23744444444444444444e-1_f64 * t3236;
+            let t3238 = t690 * t1091;
+            (t3201, t3215, t3216, t3236, t3237, t3238)
+        };
+        let t3240 = {
+            let t3240 = t154 * t1229;
+            t3240
+        };
+        let (t3241, t3242) = {
+            let t3241 = t636 * t636;
+            let t3242 = 1.0_f64 / t3241;
+            (t3241, t3242)
+        };
+        let t3247 = {
+            let t3247 = 1.0_f64 / t2296;
+            t3247
+        };
+        let (t3259, t3263, t3264, t3270, t3274, t3282, t3287, t3293, t3294, t3295) = {
+            let t3259 = t1094 * t1098;
+            let t3262 = t1097 * t419;
+            let t3263 = 1.0_f64 / t3262;
+            let t3264 = t409 * t3263;
+            let t3270 = 1.0_f64 / t410 / t407;
+            let t3274 = 4.0_f64 / 9.0_f64 * t3236;
+            let t3282 = 0.39862222222222222223e0_f64 * t3236;
+            let t3287 = 1.0_f64/f64::sqrt(t407);
+            let t3293 = t281 * t2820 * t415;
+            let t3294 = 0.13692777777777777778e0_f64 * t3293;
+            let t3295 = t699 * t1114;
+            (t3259, t3263, t3264, t3270, t3274, t3282, t3287, t3293, t3294, t3295)
+        };
+        let t3297 = {
+            let t3297 = t241 * t1176;
+            t3297
+        };
+        let (t3311, t3312, t3313) = {
+            let t3311 = t1097 * t1097;
+            let t3312 = 1.0_f64 / t3311;
+            let t3313 = t409 * t3312;
+            (t3311, t3312, t3313)
+        };
+        let (t3314, t3315, t3319, t3327, t3331, t3332, t3339, t3346, t3355, t3356, t3357, t3358) = {
+            let t3314 = t422 * t422;
+            let t3315 = 1.0_f64 / t3314;
+            let t3319 = 0.22831111111111111111e-1_f64 * t3236;
+            let t3327 = t1124 * t1128;
+            let t3330 = t1127 * t432;
+            let t3331 = 1.0_f64 / t3330;
+            let t3332 = t427 * t3331;
+            let t3339 = 0.68863333333333333333e0_f64 * t3236;
+            let t3346 = 0.17365833333333333333e0_f64 * t3293;
+            let t3355 = t1127 * t1127;
+            let t3356 = 1.0_f64 / t3355;
+            let t3357 = t427 * t3356;
+            let t3358 = t435 * t435;
+            (t3314, t3315, t3319, t3327, t3331, t3332, t3339, t3346, t3355, t3356, t3357, t3358)
+        };
+        let (t3359, t3363, t3371, t3375) = {
+            let t3359 = 1.0_f64 / t3358;
+            let t3363 = 0.12361111111111111111e-1_f64 * t3236;
+            let t3371 = t1143 * t1147;
+            let t3374 = t1146 * t445;
+            let t3375 = 1.0_f64 / t3374;
+            (t3359, t3363, t3371, t3375)
+        };
+        let (t3376, t3383, t3390, t3399, t3400) = {
+            let t3376 = t440 * t3375;
+            let t3383 = 0.40256666666666666667e0_f64 * t3236;
+            let t3390 = 0.137975e0_f64 * t3293;
+            let t3399 = t1146 * t1146;
+            let t3400 = 1.0_f64 / t3399;
+            (t3376, t3383, t3390, t3399, t3400)
+        };
+        let (t3401, t3402, t3403) = {
+            let t3401 = t440 * t3400;
+            let t3402 = t448 * t448;
+            let t3403 = 1.0_f64 / t3402;
+            (t3401, t3402, t3403)
+        };
+        let (t3411, t3426, t3428, t3430, t3431) = {
+            let t3411 = t300 * t1143;
+            let t3426 = t697 * t457;
+            let t3427 = t3426 * t461;
+            let t3428 = t221 * t3427;
+            let t3430 = 0.18518518518518518518e-3_f64 * t456 * t3428;
+            let t3431 = t135 * t1176;
+            (t3411, t3426, t3428, t3430, t3431)
+        };
+        let (t3432, t3433, t3435, t3436, t3439) = {
+            let t3432 = t3431 * t1179;
+            let t3433 = t1174 * t3432;
+            let t3435 = t135 * t1186;
+            let t3436 = t1174 * t3435;
+            let t3439 = 1.0_f64 / t405 / t1089;
+            (t3432, t3433, t3435, t3436, t3439)
+        };
+        let t3440 = {
+            let t3440 = t974 * t3439;
+            t3440
+        };
+        let (t3441, t3447) = {
+            let t3441 = t461 * t3242;
+            let t3446 = t51 * t337;
+            let t3447 = t3446 * t1887;
+            (t3441, t3447)
+        };
+        let t3448 = {
+            let t3448 = t60 * t1176;
+            t3448
+        };
+        let (t3449, t3450, t3451, t3455, t3464, t3487, t3490) = {
+            let t3449 = t3448 * t1184;
+            let t3450 = t460 * t1089;
+            let t3451 = t3450 * t607;
+            let t3455 = t461 * t3247;
+            let t3464 = 5.0_f64 / 18.0_f64 * t3293;
+            let t3487 = t1191 * t225;
+            let t3490 = t1202 * t1226;
+            (t3449, t3450, t3451, t3455, t3464, t3487, t3490)
+        };
+        let (t3499, t3500, t3502, t3503, t3504, t3505, t3506) = {
+            let t3499 = t466 * t3030;
+            let t3500 = t3499 * t3032;
+            let t3502 = 1.0_f64 / t1208 / t476;
+            let t3503 = t3502 * t478;
+            let t3504 = t483 * t3036;
+            let t3505 = t3503 * t3504;
+            let t3506 = t3500 * t3505;
+            (t3499, t3500, t3502, t3503, t3504, t3505, t3506)
+        };
+        let t3508 = {
+            let t3508 = t475 * t475;
+            t3508
+        };
+        let (t3514, t3515) = {
+            let t3514 = t1210 * t3504;
+            let t3515 = t3500 * t3514;
+            (t3514, t3515)
+        };
+        let t3521 = {
+            let t3521 = t121 * t1229;
+            t3521
+        };
+        let (t3523, t3524, t3534, t3535, t3536, t3540, t3542) = {
+            let t3523 = t248 * t3521 * t1090;
+            let t3524 = t1227 * t3523;
+            let t3534 = t1190 * t1009;
+            let t3535 = t3534 * t1011;
+            let t3536 = t3535 * t1212;
+            let t3540 = t374 * t677 * t486;
+            let t3542 = t485 * t3540 / 13824.0_f64;
+            (t3523, t3524, t3534, t3535, t3536, t3540, t3542)
+        };
+        let (t3543, t3545, t3547, t3548, t3549, t3555, t3560) = {
+            let t3543 = t1203 * t1222;
+            let t3545 = t221 * t3426;
+            let t3547 = t456 * t3545 / 432.0_f64;
+            let t3548 = t135 * t1197;
+            let t3549 = t1174 * t3548;
+            let t3555 = t1176 * t3247;
+            let t3560 = t3439 * t3242;
+            (t3543, t3545, t3547, t3548, t3549, t3555, t3560)
+        };
+        let t3570 = {
+            let t3570 = t121 * t486;
+            t3570
+        };
+        let (t3572, t3573, t3575, t3576, t3577) = {
+            let t3572 = t248 * t3570 * t1216;
+            let t3573 = t1213 * t3572;
+            let t3575 = t478 * t483;
+            let t3576 = t3575 * t3068;
+            let t3577 = t1244 * t3576;
+            (t3572, t3573, t3575, t3576, t3577)
+        };
+        let t3578 = {
+            let t3578 = t820 * t1230;
+            t3578
+        };
+        let t3584 = {
+            let t3584 = 1.0_f64 / t415 / t1089;
+            t3584
+        };
+        let (t3585, t3593, t3598, t3604, t3609, t3610) = {
+            let t3585 = t61 * t3584;
+            let t3593 = t1236 * t225;
+            let t3597 = 1.0_f64 / t1239 / t496;
+            let t3598 = t68 * t3597;
+            let t3604 = t3534 * t1243;
+            let t3609 = t3032 * t3502;
+            let t3610 = t3499 * t3609;
+            (t3585, t3593, t3598, t3604, t3609, t3610)
+        };
+        let (t3612, t3623, t3624, t3625, t3639, t3640, t3664, t3672, t3684) = {
+            let t3612 = t1932 * t3508;
+            let t3623 = t3032 * t1209;
+            let t3624 = t3499 * t3623;
+            let t3625 = t1932 * t475;
+            let t3639 = t500 * t500;
+            let t3640 = 1.0_f64 / t3639;
+            let t3664 = 1.0_f64 / t526;
+            let t3672 = 1.0_f64 / t528;
+            let t3684 = t521 * t118;
+            (t3612, t3623, t3624, t3625, t3639, t3640, t3664, t3672, t3684)
+        };
+        let (t3686, t3688, t3690, t3691, t3692, t3695, t3700, t3701, t3704, t3711) = {
+            let t3686 = 0.10843581300301739842e-1_f64 * t3684 * t2375;
+            let t3688 = 0.11696447245269292414e1_f64 * t1294 * t2371;
+            let t3690 = 0.17315859105681463759e2_f64 * t1294 * t2528;
+            let t3691 = t1284 * t172;
+            let t3692 = t3691 * t763;
+            let t3695 = 0.5848223622634646207e0_f64 * t1294 * t2535;
+            let t3700 = t570 * t570;
+            let t3701 = 1.0_f64 / t3700;
+            let t3704 = 1.0_f64 / t515;
+            let t3711 = 1.0_f64 / t518;
+            (t3686, t3688, t3690, t3691, t3692, t3695, t3700, t3701, t3704, t3711)
+        };
+        let (t3725, t3726) = {
+            let t3725 = 0.64814814814814814813e-2_f64 * t2559 * t535 * t215;
+            let t3726 = t782 * t1314;
+            (t3725, t3726)
+        };
+        let (t3727, t3731, t3732) = {
+            let t3727 = t3726 * t1317;
+            let t3731 = 0.26388888888888888888e-2_f64 * t2566 * t535 * t795;
+            let t3732 = t154 * t557;
+            (t3727, t3731, t3732)
+        };
+        let (t3733, t3739, t3741, t3742, t3749, t3751, t3758) = {
+            let t3733 = t205 * t3732;
+            let t3739 = t792 * t1314;
+            let t3741 = t118 * t794 * t1307;
+            let t3742 = t3739 * t3741;
+            let t3748 = t534 * t116;
+            let t3749 = t3748 * t212;
+            let t3751 = 0.83333333333333333332e-3_f64 * t2586 * t3749;
+            let t3758 = t1324 * t225;
+            (t3733, t3739, t3741, t3742, t3749, t3751, t3758)
+        };
+        let (t3762, t3763, t3777) = {
+            let t3762 = 35.0_f64 / 432.0_f64 * t2600 * t541;
+            let t3763 = t3726 * t1329;
+            let t3777 = t1332 * t68;
+            (t3762, t3763, t3777)
+        };
+        let (t3778, t3781, t3783, t3787, t3788, t3789, t3790, t3792) = {
+            let t3778 = t3777 * t1340;
+            let t3781 = t1333 * t1358;
+            let t3783 = t3777 * t1362;
+            let t3787 = 1.0_f64 / t1337 / t551;
+            let t3788 = t3787 * t236;
+            let t3789 = t3788 * t240;
+            let t3790 = t1336 * t3789;
+            let t3792 = t550 * t550;
+            (t3778, t3781, t3783, t3787, t3788, t3789, t3790, t3792)
+        };
+        let (t3798, t3799) = {
+            let t3798 = t1339 * t835;
+            let t3799 = t1336 * t3798;
+            (t3798, t3799)
+        };
+        let (t3800, t3802, t3803, t3804, t3805) = {
+            let t3800 = t3799 * t1354;
+            let t3802 = t1339 * t242;
+            let t3803 = t1336 * t3802;
+            let t3804 = t1365 * t67;
+            let t3805 = t3804 * t246;
+            (t3800, t3802, t3803, t3804, t3805)
+        };
+        let (t3807, t3813, t3814, t3815, t3819, t3821, t3823, t3824) = {
+            let t3807 = t550 * t1307;
+            let t3813 = 0.24415263074675393405e-3_f64 * t1291 * t2663;
+            let t3814 = t1284 * t67;
+            let t3815 = t3814 * t758;
+            let t3819 = 20.0_f64 * t2225 * t522;
+            let t3821 = 12.0_f64 * t2221 * t522;
+            let t3823 = 32.0_f64 * t2223 * t522;
+            let t3824 = t521 * t2516;
+            (t3807, t3813, t3814, t3815, t3819, t3821, t3823, t3824)
+        };
+        let (t3825, t3826, t3827, t3829, t3832, t3833, t3836, t3843, t3862) = {
+            let t3825 = t17 * t3824;
+            let t3826 = t1284 * t750;
+            let t3827 = t17 * t3826;
+            let t3829 = t592 * t1285;
+            let t3832 = 8.0_f64 * t592 * t1287;
+            let t3833 = t588 * t1285;
+            let t3836 = 8.0_f64 * t588 * t1287;
+            let t3843 = t68 * t1365;
+            let t3862 = t2691 * t557 * t248;
+            (t3825, t3826, t3827, t3829, t3832, t3833, t3836, t3843, t3862)
+        };
+        let (t3864, t3865, t3866) = {
+            let t3864 = 119.0_f64 / 13824.0_f64 * t555 * t3862;
+            let t3865 = t1361 * t835;
+            let t3866 = t1336 * t3865;
+            (t3864, t3865, t3866)
+        };
+        let (t3867, t3870, t3882, t3887, t3897) = {
+            let t3867 = t3866 * t1369;
+            let t3869 = t241 * t1995;
+            let t3870 = t3869 * t67;
+            let t3882 = t1373 * t225;
+            let t3886 = 1.0_f64 / t1376 / t566;
+            let t3887 = t68 * t3886;
+            let t3897 = t3787 * t562;
+            (t3867, t3870, t3882, t3887, t3897)
+        };
+        let (t3901, t3918) = {
+            let t3901 = t1338 * t1372;
+            let t3918 = t193 * t532;
+            (t3901, t3918)
+        };
+        let (t3919, t3924, t3938) = {
+            let t3919 = t1388 * t1390;
+            let t3924 = t531 * t571;
+            let t3938 = t1395 * t112;
+            (t3919, t3924, t3938)
+        };
+        let t3941 = {
+            let t3941 = t576 * t111;
+            t3941
+        };
+        let (t3951, t3953, t3958, t3961) = {
+            let t3951 = -t2218 - 0.78e0_f64 * t2221 - 0.578e2_f64 * t2225 + t2232;
+            let t3953 = t1406 * t604;
+            let t3958 = t1437 * t645;
+            let t3961 = t607 * t1409;
+            (t3951, t3953, t3958, t3961)
+        };
+        let (t3962, t3966) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t3962 = t3961 * t65;
+            let t3966 = piecewise5(t26, 0.0_f64, t29, 0.0_f64, 2.0_f64 * t2219);
+            (t3962, t3966)
+        };
+        let (t3967, t3968, t3971, t3976, t3981, t3982, t3985, t3990) = {
+            let t3967 = t31 * t3966;
+            let t3968 = t3967 * t65;
+            let t3971 = t1410 * t628;
+            let t3976 = t608 * t1426;
+            let t3981 = t2267 * t1409;
+            let t3982 = t3981 * t607;
+            let t3985 = t43 * t3966;
+            let t3990 = t2274 * t1409;
+            (t3967, t3968, t3971, t3976, t3981, t3982, t3985, t3990)
+        };
+        let (t3991, t3994, t3997) = {
+            let t3991 = t3990 * t607;
+            let t3994 = t55 * t3966;
+            let t3997 = -20.0_f64 / 9.0_f64 * t615 * t1414 + 5.0_f64 / 18.0_f64 * t39 * t3982 + 5.0_f64 / 6.0_f64 * t39 * t3985 + 20.0_f64 / 9.0_f64 * t1420 * t621 + 5.0_f64 / 18.0_f64 * t51 * t3991 - 5.0_f64 / 6.0_f64 * t51 * t3994 - t2282;
+            (t3991, t3994, t3997)
+        };
+        let (t3998, t4007, t4012, t4018, t4021) = {
+            let t3998 = t33 * t3997;
+            let t4007 = t2291 * t1409;
+            let t4010 = t634 * t3966;
+            let t4012 = t2298 * t1409;
+            let t4015 = t638 * t3966;
+            let t4017 = 28.0_f64 / 9.0_f64 * t4007 * t607 - 4.0_f64 / 3.0_f64 * t4010 + 28.0_f64 / 9.0_f64 * t4012 * t607 + 4.0_f64 / 3.0_f64 * t4015;
+            let t4018 = t72 * t4017;
+            let t4021 = -t3962 * t80 / 12.0_f64 - t3968 * t80 / 12.0_f64 - t3971 * t80 / 12.0_f64 - t1411 * t642 / 12.0_f64 - t3976 * t80 / 12.0_f64 + t3998 * t80 / 24.0_f64 + t1427 * t642 / 24.0_f64 - t609 * t1434 / 12.0_f64 + t629 * t1434 / 24.0_f64 + t66 * t4018 / 24.0_f64;
+            (t3998, t4007, t4012, t4018, t4021)
+        };
+        let (t4025, t4026, t4028) = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t4025 = piecewise3(t8, 0.0_f64, -4.0_f64 * t1437 * t2235 + 20.0_f64 * t2240 * t3958 + t3951 * t86 - 4.0_f64 * t3953 * t645 - 4.0_f64 * t4021 * t605);
+            let t4026 = t4025 * t112;
+            let t4028 = t1441 * t111;
+            (t4025, t4026, t4028)
+        };
+        let t4034 = {
+            let t4034 = t89 * t671;
+            t4034
+        };
+        let (t4037, t4041, t4043, t4044, t4050, t4053) = {
+            let t4037 = t1266 * t1458;
+            let t4041 = t626 * t1454;
+            let t4043 = t2331 * t1453;
+            let t4044 = t4043 * t666;
+            let t4049 = t2341 * t1444;
+            let t4050 = t4049 * t659;
+            let t4053 = t95 * t2;
+            (t4037, t4041, t4043, t4044, t4050, t4053)
+        };
+        let (t4060, t4064, t4067) = {
+            let t4054 = t4053 * t584;
+            let t4059 = t2349 * t1449;
+            let t4060 = t4059 * t662;
+            let t4063 = t103 * t2;
+            let t4064 = t4063 * t584;
+            let t4067 = -25.0_f64 / 9.0_f64 * t657 * t1445 + 10.0_f64 / 9.0_f64 * t92 * t4050 + 5.0_f64 / 3.0_f64 * t92 * t4054 - 25.0_f64 / 9.0_f64 * t1447 * t663 + 10.0_f64 / 9.0_f64 * t100 * t4060 - 5.0_f64 / 3.0_f64 * t100 * t4064;
+            (t4060, t4064, t4067)
+        };
+        let (t4068, t4072) = {
+            let t110 = 1.0_f64 < t109;
+            let t4068 = t656 * t4067;
+            let t4072 = piecewise3(t110, 0.0_f64, t2327 + t2328 / 3.0_f64 + t4041 / 3.0_f64 + t64 * t4044 / 4.0_f64 - t64 * t4068 / 8.0_f64);
+            (t4068, t4072)
+        };
+        let (t4073, t4077, t4080, t4087, t4094, t4095) = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t4073 = t510 * t4072;
+            let t4077 = t1774 * t671;
+            let t4080 = t2433 * t1409;
+            let t4086 = piecewise3(t146, 0.0_f64, 4.0_f64 / 9.0_f64 * t4080 * t607 + 4.0_f64 / 3.0_f64 * t73 * t3966);
+            let t4087 = t2440 * t1409;
+            let t4093 = piecewise3(t150, 0.0_f64, 4.0_f64 / 9.0_f64 * t4087 * t607 - 4.0_f64 / 3.0_f64 * t76 * t3966);
+            let t4094 = t4086 + t4093;
+            let t4095 = t4094 * t157;
+            (t4073, t4077, t4080, t4087, t4094, t4095)
+        };
+        let (t4097, t4098, t4099, t4100, t4101, t4102, t4103, t4104, t4110) = {
+            let t146 = t40 <= zeta_threshold;
+            let t4097 = 0.19751673498613801407e-1_f64 * t4095 * t182;
+            let t4098 = t145 * t4094;
+            let t4099 = t4098 * t185;
+            let t4100 = t1472 * t751;
+            let t4101 = t751 * t1409;
+            let t4102 = t707 * t4101;
+            let t4103 = 4.0_f64 * t4102;
+            let t4104 = t75 * t1409;
+            let t4110 = piecewise3(t146, 0.0_f64, -2.0_f64 / 9.0_f64 * t4104 * t607 + 2.0_f64 / 3.0_f64 * t767 * t3966);
+            (t4097, t4098, t4099, t4100, t4101, t4102, t4103, t4104, t4110)
+        };
+        let (t4111, t4119) = {
+            let t150 = t52 <= zeta_threshold;
+            let t4111 = t78 * t1409;
+            let t4117 = piecewise3(t150, 0.0_f64, -2.0_f64 / 9.0_f64 * t4111 * t607 - 2.0_f64 / 3.0_f64 * t771 * t3966);
+            let t4119 = t4110 / 2.0_f64 + t4117 / 2.0_f64;
+            (t4111, t4119)
+        };
+        let (t4124, t4126, t4127, t4128, t4130, t4134, t4135) = {
+            let t4124 = t2563 * t1489;
+            let t4126 = t2570 * t131;
+            let t4127 = t205 * t4126;
+            let t4128 = t213 * t1484;
+            let t4130 = t221 * t4128 * t776;
+            let t4134 = t118 * t794 * t1484;
+            let t4135 = t2576 * t4134;
+            (t4124, t4126, t4127, t4128, t4130, t4134, t4135)
+        };
+        let (t4138, t4142) = {
+            let t4138 = t210 * t214 * t4119;
+            let t4142 = t2562 + 0.38888888888888888888e-2_f64 * t2564 + t2569 + 0.38888888888888888887e-2_f64 * t4124 + 0.49999999999999999998e-2_f64 * t4127 * t4130 + 0.8333333333333333333e-3_f64 * t4135 - 0.16666666666666666666e-2_f64 * t787 * t4138 + 0.83333333333333333332e-3_f64 * t2579 - t2590;
+            (t4138, t4142)
+        };
+        let (t4143, t4145, t4147, t4149, t4152, t4155) = {
+            let t4143 = t4142 * t252;
+            let t4145 = t1492 * t852;
+            let t4147 = t1493 * t225;
+            let t4149 = t798 * t1519;
+            let t4152 = t2563 * t1496;
+            let t4155 = t210 * t1495 * t776;
+            (t4143, t4145, t4147, t4149, t4152, t4155)
+        };
+        let (t4159, t4162, t4163, t4166) = {
+            let t4158 = t119 * t4119;
+            let t4159 = t210 * t4158;
+            let t4162 = t4142 * t225;
+            let t4163 = t4162 * t237;
+            let t4166 = t1499 * t68;
+            (t4159, t4162, t4163, t4166)
+        };
+        let (t4167, t4170, t4172, t4177, t4178, t4180) = {
+            let t4167 = t4166 * t816;
+            let t4170 = t1500 * t838;
+            let t4172 = t4166 * t842;
+            let t4177 = t2628 * t242;
+            let t4178 = t812 * t4177;
+            let t4179 = t244 * t67;
+            let t4180 = t4179 * t246;
+            (t4167, t4170, t4172, t4177, t4178, t4180)
+        };
+        let t4181 = {
+            let t4181 = t120 * t1509;
+            t4181
+        };
+        let t4182 = {
+            let t4182 = t2632 * t828;
+            t4182
+        };
+        let (t4184, t4187, t4189) = {
+            let t4184 = t4180 * t4181 * t4182;
+            let t4187 = t2639 * t1512;
+            let t4189 = t2602 + 7.0_f64 / 144.0_f64 * t2603 + 7.0_f64 / 144.0_f64 * t4152 + t2571 * t4155 / 16.0_f64 - t787 * t4159 / 48.0_f64 + t4163 * t249 / 3072.0_f64 - t4167 * t831 / 3072.0_f64 - 7.0_f64 / 4608.0_f64 * t4170 - t4172 * t849 / 768.0_f64 - t2618 * t1512 / 3072.0_f64 + t4178 * t4184 / 1536.0_f64 + 7.0_f64 / 4608.0_f64 * t4187;
+            (t4184, t4187, t4189)
+        };
+        let (t4191, t4194, t4195, t4196, t4198, t4199, t4200, t4201, t4202) = {
+            let t4191 = t2645 * t4181 * t2647;
+            let t4194 = t2658 * t157;
+            let t4195 = t184 * t1409;
+            let t4196 = t4195 * t607;
+            let t4198 = 12.0_f64 * t4194 * t4196;
+            let t4199 = t1474 * t172;
+            let t4200 = t4199 * t763;
+            let t4201 = 0.5848223622634646207e0_f64 * t4200;
+            let t4202 = t185 * t3966;
+            (t4191, t4194, t4195, t4196, t4198, t4199, t4200, t4201, t4202)
+        };
+        let (t4204, t4205) = {
+            let t4204 = 4.0_f64 * t707 * t4202;
+            let t4205 = t706 * t1471;
+            (t4204, t4205)
+        };
+        let (t4207, t4209, t4210) = {
+            let t4207 = 4.0_f64 * t4205 * t708;
+            let t4209 = 4.0_f64 * t2427 * t1462;
+            let t4210 = t4097 + t4099 + t4100 + t4103 + t4198 - t4201 + t2373 + t2377 + t4204 + t4207 + t4209 + t2408;
+            (t4207, t4209, t4210)
+        };
+        let (t4211, t4212, t4213, t4214, t4215, t4216, t4217) = {
+            let t4211 = t1474 * t67;
+            let t4212 = t4211 * t758;
+            let t4213 = 0.18311447306006545054e-3_f64 * t4212;
+            let t4214 = 4.0_f64 * t2431;
+            let t4215 = 0.5848223622634646207e0_f64 * t2532;
+            let t4216 = 0.18311447306006545054e-3_f64 * t2653;
+            let t4217 = t2417 - t2423 - t2426 - t4213 + t4214 + t2518 - t2530 - t4215 - t2537 + t2538 + t2665 - t4216 - t2486;
+            (t4211, t4212, t4213, t4214, t4215, t4216, t4217)
+        };
+        let (t4219, t4225, t4226, t4227, t4230, t4233) = {
+            let t4219 = (t4210 + t4217) * t225;
+            let t4225 = t228 * t68;
+            let t4226 = t845 * t1484;
+            let t4227 = t4226 * t776;
+            let t4230 = t824 * t4119;
+            let t4233 = 3.0_f64 * t1504 * t825 + 3.0_f64 * t1506 * t822 + 3.0_f64 * t228 * t4230 - t230 * t4219 - 12.0_f64 * t4225 * t4227;
+            (t4219, t4225, t4226, t4227, t4230, t4233)
+        };
+        let t4234 = {
+            let t4234 = t4233 * t232;
+            t4234
+        };
+        let (t4236, t4240, t4250, t4253, t4255) = {
+            let t4236 = t819 * t820 * t4234;
+            let t4240 = t4180 * t4181 * t829;
+            let t4248 = t120 * t1484;
+            let t4250 = t2645 * t4248 * t829;
+            let t4253 = t2697 * t1516;
+            let t4255 = t1484 * t776;
+            (t4236, t4240, t4250, t4253, t4255)
+        };
+        let (t4257, t4261, t4264) = {
+            let t4257 = t2701 * t820 * t4255;
+            let t4261 = t847 * t820 * t4119;
+            let t4264 = t2643 * t4191 / 768.0_f64 - t817 * t4236 / 3072.0_f64 - t2643 * t4240 / 3072.0_f64 - 7.0_f64 / 4608.0_f64 * t2621 + 7.0_f64 / 4608.0_f64 * t2640 + t2695 + 7.0_f64 / 1152.0_f64 * t2698 - t2623 * t1516 / 768.0_f64 + t2643 * t4250 / 768.0_f64 + 7.0_f64 / 1152.0_f64 * t4253 + 5.0_f64 / 768.0_f64 * t843 * t4257 - t843 * t4261 / 768.0_f64;
+            (t4257, t4261, t4264)
+        };
+        let (t4265, t4266, t4268, t4273, t4280, t4281, t4282) = {
+            let t4265 = t4189 + t4264;
+            let t4266 = t218 * t4265;
+            let t4268 = t1520 * t225;
+            let t4272 = t1527 * t865;
+            let t4273 = t2718 * t4272;
+            let t4280 = t68 * t2627;
+            let t4281 = t226 * t4280;
+            let t4282 = t252 * t1509;
+            (t4265, t4266, t4268, t4273, t4280, t4281, t4282)
+        };
+        let (t4283, t4286, t4288, t4290, t4291, t4292, t4295, t4296, t4298) = {
+            let t4283 = t4282 * t4182;
+            let t4286 = t2732 * t1510;
+            let t4288 = t860 * t4234;
+            let t4290 = t68 * t814;
+            let t4291 = t226 * t4290;
+            let t4292 = t4282 * t829;
+            let t4295 = t814 * t1519;
+            let t4296 = t4295 * t829;
+            let t4298 = t235 * t4265;
+            (t4283, t4286, t4288, t4290, t4291, t4292, t4295, t4296, t4298)
+        };
+        let t4300 = {
+            let t4300 = t1499 * t863 - t1523 * t2617 + t1525 * t808 + t226 * t4298 + t255 * t4162 - t4166 * t861 + 2.0_f64 * t4281 * t4283 - t4286 * t812 - t4288 * t812 - t4291 * t4292 - t4296 * t812;
+            t4300
+        };
+        let (t4301, t4303) = {
+            let t4301 = t858 * t4300;
+            let t4303 = -t1528 * t2597 - t1528 * t2713 + t259 * t4143 + t259 * t4145 + t259 * t4149 + t259 * t4266 - t4147 * t866 - t4268 * t866 + 2.0_f64 * t4273 * t855 - t4301 * t855;
+            (t4301, t4303)
+        };
+        let (t4307, t4310, t4314, t4315, t4319) = {
+            let t4307 = t1530 * t2752;
+            let t4310 = t1530 * t870;
+            let t4314 = t193 * t200;
+            let t4315 = t262 * t1484;
+            let t4319 = t193 * t202 * t4303 * t870 - t1877 * t4307 * t868 + 3.0_f64 * t193 * t4119 * t766 + 3.0_f64 * t2522 * t4310 * t776 + 6.0_f64 * t4314 * t4315 * t776 + t2373 + t2377 + t4097 + t4099 + t4100 + t4103 + t4198 - t4201 + t4204 + t4207;
+            (t4307, t4310, t4314, t4315, t4319)
+        };
+        let t4323 = {
+            let t4320 = t2523 * t1484;
+            let t4323 = 3.0_f64 * t2522 * t4320 + t2408 + t2417 - t2423 - t2426 - t2486 + t2518 - t2530 - t2537 + t2538 + t2665 + t4209 - t4213 + t4214 - t4215 - t4216;
+            t4323
+        };
+        let t4324 = {
+            let t4324 = t4319 + t4323;
+            t4324
+        };
+        let (t4332, t4335) = {
+            let t4331 = t265 * t2;
+            let t4332 = t4331 * t584;
+            let t4335 = t690 * t1540;
+            (t4332, t4335)
+        };
+        let (t4337, t4338) = {
+            let t4337 = t2770 * t1409;
+            let t4338 = t4337 * t607;
+            (t4337, t4338)
+        };
+        let (t4339, t4340, t4342, t4343) = {
+            let t4339 = t2768 * t4338;
+            let t4340 = t123 * t4339;
+            let t4342 = t2775 * t1409;
+            let t4343 = t4342 * t607;
+            (t4339, t4340, t4342, t4343)
+        };
+        let (t4344, t4345, t4347) = {
+            let t4344 = t882 * t4343;
+            let t4345 = t123 * t4344;
+            let t4347 = t883 * t3966;
+            (t4344, t4345, t4347)
+        };
+        let (t4348, t4349, t4351, t4353, t4354, t4356) = {
+            let t4348 = t882 * t4347;
+            let t4349 = t123 * t4348;
+            let t4351 = t2765 + 0.5936111111111111111e-2_f64 * t2766 + 0.5936111111111111111e-2_f64 * t4335 - 0.11872222222222222222e-1_f64 * t4340 + 0.35616666666666666666e-1_f64 * t4345 - 0.17808333333333333333e-1_f64 * t4349;
+            let t4353 = 0.621814e-1_f64 * t4351 * t291;
+            let t4354 = t1543 * t892;
+            let t4356 = 1.0_f64 * t4354 * t914;
+            (t4348, t4349, t4351, t4353, t4354, t4356)
+        };
+        let (t4358, t4359, t4361, t4362, t4363, t4370) = {
+            let t4358 = 1.0_f64 * t2787 * t1557;
+            let t4359 = t1557 * t912;
+            let t4361 = 2.0_f64 * t2792 * t4359;
+            let t4362 = t2798 * t1547;
+            let t4363 = t4362 * t896;
+            let t4370 = t2802 + t2766 / 9.0_f64 + t4335 / 9.0_f64 - 2.0_f64 / 9.0_f64 * t4340 + 2.0_f64 / 3.0_f64 * t4345 - t4349 / 3.0_f64;
+            (t4358, t4359, t4361, t4362, t4363, t4370)
+        };
+        let (t4371, t4378, t4379, t4381, t4384) = {
+            let t4371 = t894 * t4370;
+            let t4378 = t2815 * t1547;
+            let t4379 = t4378 * t896;
+            let t4381 = t901 * t4370;
+            let t4384 = t699 * t1553;
+            (t4371, t4378, t4379, t4381, t4384)
+        };
+        let (t4386, t4387, t4389, t4390, t4392, t4393, t4395) = {
+            let t4386 = t2826 * t4338;
+            let t4387 = t136 * t4386;
+            let t4389 = t908 * t4343;
+            let t4390 = t136 * t4389;
+            let t4392 = t908 * t4347;
+            let t4393 = t136 * t4392;
+            let t4395 = -0.9494625e0_f64 * t4363 + 0.1898925e1_f64 * t4371 + t2810 + 0.99655555555555555557e-1_f64 * t2766 + 0.99655555555555555557e-1_f64 * t4335 - 0.19931111111111111111e0_f64 * t4340 + 0.59793333333333333334e0_f64 * t4345 - 0.29896666666666666667e0_f64 * t4349 + 0.15358125e0_f64 * t4379 + 0.3071625e0_f64 * t4381 + t2823 + 0.54771111111111111111e-1_f64 * t2824 + 0.54771111111111111111e-1_f64 * t4384 - 0.27385555555555555556e-1_f64 * t4387 + 0.16431333333333333333e0_f64 * t4390 - 0.82156666666666666667e-1_f64 * t4393;
+            (t4386, t4387, t4389, t4390, t4392, t4393, t4395)
+        };
+        let (t4396, t4398, t4399, t4400, t4402, t4408) = {
+            let t4396 = t4395 * t913;
+            let t4398 = 1.0_f64 * t893 * t4396;
+            let t4399 = t1556 * t2844;
+            let t4400 = t4399 * t912;
+            let t4402 = 0.16081979498692535067e2_f64 * t2842 * t4400;
+            let t4408 = t2848 + 0.57077777777777777777e-2_f64 * t2766 + 0.57077777777777777777e-2_f64 * t4335 - 0.11415555555555555555e-1_f64 * t4340 + 0.34246666666666666666e-1_f64 * t4345 - 0.17123333333333333333e-1_f64 * t4349;
+            (t4396, t4398, t4399, t4400, t4402, t4408)
+        };
+        let (t4411, t4416, t4433) = {
+            let t4411 = t1561 * t923;
+            let t4416 = t1569 * t931;
+            let t4433 = -0.17648625e1_f64 * t4363 + 0.3529725e1_f64 * t4371 + t2868 + 0.17215833333333333333e0_f64 * t2766 + 0.17215833333333333333e0_f64 * t4335 - 0.34431666666666666667e0_f64 * t4340 + 0.103295e1_f64 * t4345 - 0.516475e0_f64 * t4349 + 0.31558125e0_f64 * t4379 + 0.6311625e0_f64 * t4381 + t2875 + 0.69463333333333333333e-1_f64 * t2824 + 0.69463333333333333333e-1_f64 * t4384 - 0.34731666666666666667e-1_f64 * t4387 + 0.20839e0_f64 * t4390 - 0.104195e0_f64 * t4393;
+            (t4411, t4416, t4433)
+        };
+        let (t4434, t4437, t4438, t4446, t4447) = {
+            let t4434 = t4433 * t932;
+            let t4437 = t1568 * t2888;
+            let t4438 = t4437 * t931;
+            let t4446 = t2892 + 0.30902777777777777778e-2_f64 * t2766 + 0.30902777777777777778e-2_f64 * t4335 - 0.61805555555555555555e-2_f64 * t4340 + 0.18541666666666666667e-1_f64 * t4345 - 0.92708333333333333333e-2_f64 * t4349;
+            let t4447 = t4446 * t324;
+            (t4434, t4437, t4438, t4446, t4447)
+        };
+        let (t4449, t4454, t4471) = {
+            let t4449 = t1573 * t942;
+            let t4454 = t1581 * t950;
+            let t4471 = -0.1294625e1_f64 * t4363 + 0.258925e1_f64 * t4371 + t2912 + 0.10064166666666666667e0_f64 * t2766 + 0.10064166666666666667e0_f64 * t4335 - 0.20128333333333333333e0_f64 * t4340 + 0.60385e0_f64 * t4345 - 0.301925e0_f64 * t4349 + 0.82524375e-1_f64 * t4379 + 0.16504875e0_f64 * t4381 + t2919 + 0.5519e-1_f64 * t2824 + 0.5519e-1_f64 * t4384 - 0.27595e-1_f64 * t4387 + 0.16557e0_f64 * t4390 - 0.82785e-1_f64 * t4393;
+            (t4449, t4454, t4471)
+        };
+        let (t4472, t4475, t4476, t4479) = {
+            let t4472 = t4471 * t951;
+            let t4475 = t1580 * t2932;
+            let t4476 = t4475 * t950;
+            let t4479 = -0.310907e-1_f64 * t4408 * t311 + 1.0_f64 * t4411 * t933 + 1.0_f64 * t2856 * t1569 - 2.0_f64 * t2861 * t4416 + 1.0_f64 * t924 * t4434 + 0.32163958997385070134e2_f64 * t2886 * t4438 + t4353 - t4356 - t4358 + t4361 - t4398 - t4402 - 0.19751673498613801407e-1_f64 * t4447 + 0.5848223622634646207e0_f64 * t4449 * t952 + 0.5848223622634646207e0_f64 * t2900 * t1581 - 0.11696447245269292414e1_f64 * t2905 * t4454 + 0.5848223622634646207e0_f64 * t943 * t4472 + 0.17315859105681463759e2_f64 * t2930 * t4476;
+            (t4472, t4475, t4476, t4479)
+        };
+        let (t4480, t4482, t4483) = {
+            let t4480 = t300 * t4479;
+            let t4482 = 0.19751673498613801407e-1_f64 * t300 * t4447;
+            let t4483 = t300 * t1573;
+            (t4480, t4482, t4483)
+        };
+        let (t4485, t4487, t4488, t4489, t4491, t4493, t4495, t4496) = {
+            let t4485 = 0.5848223622634646207e0_f64 * t4483 * t961;
+            let t4487 = 0.5848223622634646207e0_f64 * t2940 * t1589;
+            let t4488 = t2904 * t1580;
+            let t4489 = t4488 * t952;
+            let t4491 = 0.11696447245269292414e1_f64 * t959 * t4489;
+            let t4493 = t942 * t4471 * t951;
+            let t4495 = 0.5848223622634646207e0_f64 * t959 * t4493;
+            let t4496 = t2929 * t1580;
+            (t4485, t4487, t4488, t4489, t4491, t4493, t4495, t4496)
+        };
+        let (t4497, t4498, t4500, t4506, t4507, t4509, t4510, t4511, t4514) = {
+            let t4497 = t2932 * t950;
+            let t4498 = t4496 * t4497;
+            let t4500 = 0.17315859105681463759e2_f64 * t959 * t4498;
+            let t4506 = t2970 * t1592;
+            let t4507 = t973 * t4506;
+            let t4509 = t60 * t2978;
+            let t4510 = t4509 * t344;
+            let t4511 = t4510 * t4338;
+            let t4514 = t2989 * t1409;
+            (t4497, t4498, t4500, t4506, t4507, t4509, t4510, t4511, t4514)
+        };
+        let (t4515, t4518, t4519, t4522, t4523, t4528, t4529, t4531) = {
+            let t4515 = t2988 * t4514;
+            let t4518 = t2987 * t344;
+            let t4519 = t4518 * t4343;
+            let t4522 = t978 * t3966;
+            let t4523 = t977 * t4522;
+            let t4528 = t135 * t1599;
+            let t4529 = t973 * t4528;
+            let t4531 = t2987 * t1597;
+            (t4515, t4518, t4519, t4522, t4523, t4528, t4529, t4531)
+        };
+        let (t4532, t4540, t4542, t4543, t4546, t4547) = {
+            let t4532 = t4531 * t2990;
+            let t4540 = -t3003 - t2824 / 9.0_f64 - t4384 / 9.0_f64 + t4387 / 18.0_f64 - t4390 / 3.0_f64 + t4393 / 6.0_f64;
+            let t4541 = t340 * t4540;
+            let t4542 = t4541 * t343;
+            let t4543 = t974 * t4542;
+            let t4546 = t974 * t340;
+            let t4547 = t1597 * t984;
+            (t4532, t4540, t4542, t4543, t4546, t4547)
+        };
+        let (t4548, t4552) = {
+            let t4548 = t4547 * t343;
+            let t4549 = t4546 * t4548;
+            let t4552 = -0.74074074074074074072e-3_f64 * t2958 - t2969 + 0.9259259259259259259e-4_f64 * t2972 - 0.27777777777777777777e-3_f64 * t2975 - 0.74074074074074074072e-3_f64 * t2960 * t1593 + 0.9259259259259259259e-4_f64 * t4507 + 0.37037037037037037036e-3_f64 * t2986 * t4511 - 0.27777777777777777777e-3_f64 * t2986 * t4515 - 0.55555555555555555554e-3_f64 * t2986 * t4519 + 0.27777777777777777777e-3_f64 * t973 * t4523 + 0.22222222222222222222e-2_f64 * t2960 * t1600 - 0.27777777777777777777e-3_f64 * t4529 - 0.27777777777777777777e-3_f64 * t2986 * t4532 - 0.83333333333333333332e-3_f64 * t973 * t4543 - 0.83333333333333333332e-3_f64 * t973 * t4549;
+            (t4548, t4552)
+        };
+        let (t4553, t4555, t4557, t4559, t4562, t4565) = {
+            let t4553 = t4552 * t381;
+            let t4555 = t1603 * t1049;
+            let t4557 = t1604 * t225;
+            let t4559 = t990 * t1625;
+            let t4562 = t977 * t4343;
+            let t4565 = t2979 * t4338;
+            (t4553, t4555, t4557, t4559, t4562, t4565)
+        };
+        let (t4571, t4572, t4574, t4575, t4578, t4579, t4582) = {
+            let t4571 = t248 * t3051 * t1539;
+            let t4572 = t1041 * t4571;
+            let t4574 = t1616 * t884;
+            let t4575 = t3071 * t4574;
+            let t4578 = t1539 * t1023;
+            let t4579 = t3071 * t4578;
+            let t4582 = t247 * t375;
+            (t4571, t4572, t4574, t4575, t4578, t4579, t4582)
+        };
+        let (t4583, t4584, t4585, t4588, t4589, t4590, t4593, t4594, t4595, t4596, t4599, t4600) = {
+            let t4583 = t1043 * t2775;
+            let t4584 = t4583 * t3961;
+            let t4585 = t4582 * t4584;
+            let t4588 = t3061 * t2770;
+            let t4589 = t4588 * t3961;
+            let t4590 = t4582 * t4589;
+            let t4593 = t376 * t1615;
+            let t4594 = t3131 * t1022;
+            let t4595 = t4593 * t4594;
+            let t4596 = t4582 * t4595;
+            let t4599 = t4593 * t1023;
+            let t4600 = t4582 * t4599;
+            (t4583, t4584, t4585, t4588, t4589, t4590, t4593, t4594, t4595, t4596, t4599, t4600)
+        };
+        let (t4603, t4604, t4608, t4613) = {
+            let t4603 = t135 * t1606;
+            let t4604 = t973 * t4603;
+            let t4608 = t998 * t3966;
+            let t4609 = t974 * t4608;
+            let t4613 = t3054 / 6912.0_f64 - t973 * t4562 / 144.0_f64 + t973 * t4565 / 216.0_f64 - t3048 * t1622 / 864.0_f64 + t4572 / 6912.0_f64 + t3070 * t4575 / 4608.0_f64 + t3070 * t4579 / 4608.0_f64 - t1041 * t4585 / 2304.0_f64 + 5.0_f64 / 13824.0_f64 * t1041 * t4590 + t3130 * t4596 / 1536.0_f64 - t3039 * t4600 / 3072.0_f64 + t4604 / 864.0_f64 - t2960 * t1607 / 108.0_f64 + t973 * t4609 / 288.0_f64 - t3084 - t3092 / 864.0_f64;
+            (t4603, t4604, t4608, t4613)
+        };
+        let (t4615, t4616, t4617, t4622, t4625, t4630, t4631) = {
+            let t4615 = t4552 * t225;
+            let t4616 = t4615 * t68;
+            let t4617 = t4616 * t369;
+            let t4622 = t1611 * t1031;
+            let t4625 = t1612 * t1036;
+            let t4630 = t248 * t3101 * t1616;
+            let t4631 = t1020 * t4630;
+            (t4615, t4616, t4617, t4622, t4625, t4630, t4631)
+        };
+        let (t4636, t4639, t4640, t4641) = {
+            let t4636 = t248 * t1044 * t4347;
+            let t4639 = t1603 * t1009;
+            let t4640 = t4639 * t1011;
+            let t4641 = t4640 * t1019;
+            (t4636, t4639, t4640, t4641)
+        };
+        let t4644 = {
+            let t4644 = t1611 * t1040;
+            t4644
+        };
+        let t4649 = {
+            let t4649 = -t4353 + t4356 + t4358 - t4361 + t4398 + t4402 + t4480 + t4482 - t4485 - t4487 + t4491 - t4495 - t4500;
+            t4649
+        };
+        let (t4650, t4652, t4656) = {
+            let t4650 = t4649 * t360;
+            let t4652 = t248 * t1021 * t4650;
+            let t4656 = t3104 / 4608.0_f64 + t4617 * t378 / 3072.0_f64 + t3140 / 864.0_f64 + t3156 / 4608.0_f64 - t4622 * t378 / 576.0_f64 + t4625 / 4608.0_f64 - t3109 * t1618 / 576.0_f64 + t4631 / 4608.0_f64 + t3117 * t1622 / 4608.0_f64 + t1041 * t4636 / 4608.0_f64 + t4641 * t1025 / 3072.0_f64 + t4644 * t1046 / 4608.0_f64 + t3114 * t1618 / 3072.0_f64 + t1020 * t4652 / 3072.0_f64 - t3160 - t3163 / 108.0_f64;
+            (t4650, t4652, t4656)
+        };
+        let (t4657, t4658, t4660, t4665, t4669, t4673) = {
+            let t4657 = t4613 + t4656;
+            let t4658 = t349 * t4657;
+            let t4660 = t1626 * t225;
+            let t4664 = t1634 * t1065;
+            let t4665 = t3174 * t4664;
+            let t4669 = t4639 * t1057;
+            let t4673 = t3188 * t1022;
+            (t4657, t4658, t4660, t4665, t4669, t4673)
+        };
+        let (t4674, t4678, t4681, t4684, t4685, t4689, t4691) = {
+            let t4674 = t1629 * t4673;
+            let t4677 = t1049 * t1615;
+            let t4678 = t4677 * t1060;
+            let t4680 = t381 * t4649;
+            let t4681 = t4680 * t1060;
+            let t4684 = t1932 * t1022 * t360;
+            let t4685 = t1629 * t4684;
+            let t4688 = t1625 * t1022;
+            let t4689 = t4688 * t1060;
+            let t4691 = t383 * t4657;
+            (t4674, t4678, t4681, t4684, t4685, t4689, t4691)
+        };
+        let t4693 = {
+            let t4693 = t1003 * t1632 + t1058 * t4678 + t1058 * t4681 + t1058 * t4689 + t1061 * t4669 + t1063 * t1610 + t1630 * t3180 + 2.0_f64 * t3186 * t4674 - t3200 * t4685 + t353 * t4691 + t384 * t4615;
+            t4693
+        };
+        let (t4694, t4696) = {
+            let t4694 = t1055 * t4693;
+            let t4696 = 2.0_f64 * t1052 * t4665 - t1052 * t4694 - t1066 * t4557 - t1066 * t4660 - t1635 * t3026 - t1635 * t3169 + t388 * t4553 + t388 * t4555 + t388 * t4559 + t388 * t4658;
+            (t4694, t4696)
+        };
+        let t4700 = {
+            let t4700 = t193 * t336;
+            t4700
+        };
+        let (t4701, t4704) = {
+            let t4701 = t1637 * t3216;
+            let t4704 = t1070 * t193 * t336 * t4696 - t1068 * t4700 * t4701 - t4353 + t4356 + t4358 - t4361 + t4398 + t4402 + t4480 + t4482 - t4485 - t4487 + t4491 - t4495 - t4500;
+            (t4701, t4704)
+        };
+        let (t4705, t4712) = {
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t395 = t265 < t394;
+            let t4705 = piecewise3(t395, t4704, t4324);
+            let t4712 = piecewise3(t115, t4324 * t25 / 2.0_f64 + t1534 * t606 / 2.0_f64 + t873 * t1408 / 2.0_f64 + t4332, t1074 * t1409 / 2.0_f64 + t1642 * t607 / 2.0_f64 + t396 * t3966 / 2.0_f64 + t4705 * t40 / 2.0_f64);
+            (t4705, t4712)
+        };
+        let t4721 = {
+            let t4721 = t690 * t1654;
+            t4721
+        };
+        let (t4723, t4724) = {
+            let t4723 = t3242 * t1409;
+            let t4724 = t4723 * t607;
+            (t4723, t4724)
+        };
+        let (t4725, t4726, t4728, t4729) = {
+            let t4725 = t3240 * t4724;
+            let t4726 = t123 * t4725;
+            let t4728 = t3247 * t1409;
+            let t4729 = t4728 * t607;
+            (t4725, t4726, t4728, t4729)
+        };
+        let (t4730, t4731, t4733) = {
+            let t4730 = t1088 * t4729;
+            let t4731 = t123 * t4730;
+            let t4733 = t1089 * t3966;
+            (t4730, t4731, t4733)
+        };
+        let (t4734, t4735, t4737, t4739, t4740, t4742) = {
+            let t4734 = t1088 * t4733;
+            let t4735 = t123 * t4734;
+            let t4737 = t3237 - 0.5936111111111111111e-2_f64 * t3238 - 0.5936111111111111111e-2_f64 * t4721 - 0.11872222222222222222e-1_f64 * t4726 + 0.35616666666666666666e-1_f64 * t4731 + 0.17808333333333333333e-1_f64 * t4735;
+            let t4739 = 0.621814e-1_f64 * t4737 * t423;
+            let t4740 = t1657 * t1098;
+            let t4742 = 1.0_f64 * t4740 * t1119;
+            (t4734, t4735, t4737, t4739, t4740, t4742)
+        };
+        let (t4744, t4745, t4747, t4748, t4749, t4756) = {
+            let t4744 = 1.0_f64 * t3259 * t1671;
+            let t4745 = t1671 * t1117;
+            let t4747 = 2.0_f64 * t3264 * t4745;
+            let t4748 = t3270 * t1661;
+            let t4749 = t4748 * t1102;
+            let t4756 = t3274 - t3238 / 9.0_f64 - t4721 / 9.0_f64 - 2.0_f64 / 9.0_f64 * t4726 + 2.0_f64 / 3.0_f64 * t4731 + t4735 / 3.0_f64;
+            (t4744, t4745, t4747, t4748, t4749, t4756)
+        };
+        let (t4757, t4764, t4765, t4767, t4770) = {
+            let t4757 = t1100 * t4756;
+            let t4764 = t3287 * t1661;
+            let t4765 = t4764 * t1102;
+            let t4767 = t1107 * t4756;
+            let t4770 = t699 * t1667;
+            (t4757, t4764, t4765, t4767, t4770)
+        };
+        let (t4772, t4773, t4775, t4776, t4778, t4779, t4781) = {
+            let t4772 = t3297 * t4724;
+            let t4773 = t136 * t4772;
+            let t4775 = t1113 * t4729;
+            let t4776 = t136 * t4775;
+            let t4778 = t1113 * t4733;
+            let t4779 = t136 * t4778;
+            let t4781 = -0.9494625e0_f64 * t4749 + 0.1898925e1_f64 * t4757 + t3282 - 0.99655555555555555557e-1_f64 * t3238 - 0.99655555555555555557e-1_f64 * t4721 - 0.19931111111111111111e0_f64 * t4726 + 0.59793333333333333334e0_f64 * t4731 + 0.29896666666666666667e0_f64 * t4735 + 0.15358125e0_f64 * t4765 + 0.3071625e0_f64 * t4767 + t3294 - 0.54771111111111111111e-1_f64 * t3295 - 0.54771111111111111111e-1_f64 * t4770 - 0.27385555555555555556e-1_f64 * t4773 + 0.16431333333333333333e0_f64 * t4776 + 0.82156666666666666667e-1_f64 * t4779;
+            (t4772, t4773, t4775, t4776, t4778, t4779, t4781)
+        };
+        let (t4782, t4784, t4785, t4786, t4788, t4794) = {
+            let t4782 = t4781 * t1118;
+            let t4784 = 1.0_f64 * t1099 * t4782;
+            let t4785 = t1670 * t3315;
+            let t4786 = t4785 * t1117;
+            let t4788 = 0.16081979498692535067e2_f64 * t3313 * t4786;
+            let t4794 = t3319 - 0.57077777777777777777e-2_f64 * t3238 - 0.57077777777777777777e-2_f64 * t4721 - 0.11415555555555555555e-1_f64 * t4726 + 0.34246666666666666666e-1_f64 * t4731 + 0.17123333333333333333e-1_f64 * t4735;
+            (t4782, t4784, t4785, t4786, t4788, t4794)
+        };
+        let (t4797, t4802, t4819) = {
+            let t4797 = t1675 * t1128;
+            let t4802 = t1683 * t1136;
+            let t4819 = -0.17648625e1_f64 * t4749 + 0.3529725e1_f64 * t4757 + t3339 - 0.17215833333333333333e0_f64 * t3238 - 0.17215833333333333333e0_f64 * t4721 - 0.34431666666666666667e0_f64 * t4726 + 0.103295e1_f64 * t4731 + 0.516475e0_f64 * t4735 + 0.31558125e0_f64 * t4765 + 0.6311625e0_f64 * t4767 + t3346 - 0.69463333333333333333e-1_f64 * t3295 - 0.69463333333333333333e-1_f64 * t4770 - 0.34731666666666666667e-1_f64 * t4773 + 0.20839e0_f64 * t4776 + 0.104195e0_f64 * t4779;
+            (t4797, t4802, t4819)
+        };
+        let (t4820, t4823, t4824, t4832, t4833) = {
+            let t4820 = t4819 * t1137;
+            let t4823 = t1682 * t3359;
+            let t4824 = t4823 * t1136;
+            let t4832 = t3363 - 0.30902777777777777778e-2_f64 * t3238 - 0.30902777777777777778e-2_f64 * t4721 - 0.61805555555555555555e-2_f64 * t4726 + 0.18541666666666666667e-1_f64 * t4731 + 0.92708333333333333333e-2_f64 * t4735;
+            let t4833 = t4832 * t449;
+            (t4820, t4823, t4824, t4832, t4833)
+        };
+        let (t4835, t4840, t4857) = {
+            let t4835 = t1687 * t1147;
+            let t4840 = t1695 * t1155;
+            let t4857 = -0.1294625e1_f64 * t4749 + 0.258925e1_f64 * t4757 + t3383 - 0.10064166666666666667e0_f64 * t3238 - 0.10064166666666666667e0_f64 * t4721 - 0.20128333333333333333e0_f64 * t4726 + 0.60385e0_f64 * t4731 + 0.301925e0_f64 * t4735 + 0.82524375e-1_f64 * t4765 + 0.16504875e0_f64 * t4767 + t3390 - 0.5519e-1_f64 * t3295 - 0.5519e-1_f64 * t4770 - 0.27595e-1_f64 * t4773 + 0.16557e0_f64 * t4776 + 0.82785e-1_f64 * t4779;
+            (t4835, t4840, t4857)
+        };
+        let (t4858, t4861, t4862, t4865) = {
+            let t4858 = t4857 * t1156;
+            let t4861 = t1694 * t3403;
+            let t4862 = t4861 * t1155;
+            let t4865 = -0.310907e-1_f64 * t4794 * t436 + 1.0_f64 * t4797 * t1138 + 1.0_f64 * t3327 * t1683 - 2.0_f64 * t3332 * t4802 + 1.0_f64 * t1129 * t4820 + 0.32163958997385070134e2_f64 * t3357 * t4824 + t4739 - t4742 - t4744 + t4747 - t4784 - t4788 - 0.19751673498613801407e-1_f64 * t4833 + 0.5848223622634646207e0_f64 * t4835 * t1157 + 0.5848223622634646207e0_f64 * t3371 * t1695 - 0.11696447245269292414e1_f64 * t3376 * t4840 + 0.5848223622634646207e0_f64 * t1148 * t4858 + 0.17315859105681463759e2_f64 * t3401 * t4862;
+            (t4858, t4861, t4862, t4865)
+        };
+        let (t4866, t4868, t4869) = {
+            let t4866 = t300 * t4865;
+            let t4868 = 0.19751673498613801407e-1_f64 * t300 * t4833;
+            let t4869 = t300 * t1687;
+            (t4866, t4868, t4869)
+        };
+        let (t4871, t4873, t4874, t4875, t4877, t4879, t4881, t4882) = {
+            let t4871 = 0.5848223622634646207e0_f64 * t4869 * t1166;
+            let t4873 = 0.5848223622634646207e0_f64 * t3411 * t1703;
+            let t4874 = t3375 * t1694;
+            let t4875 = t4874 * t1157;
+            let t4877 = 0.11696447245269292414e1_f64 * t1164 * t4875;
+            let t4879 = t1147 * t4857 * t1156;
+            let t4881 = 0.5848223622634646207e0_f64 * t1164 * t4879;
+            let t4882 = t3400 * t1694;
+            (t4871, t4873, t4874, t4875, t4877, t4879, t4881, t4882)
+        };
+        let (t4883, t4884, t4886, t4887, t4889) = {
+            let t4883 = t3403 * t1155;
+            let t4884 = t4882 * t4883;
+            let t4886 = 0.17315859105681463759e2_f64 * t1164 * t4884;
+            let t4887 = t1706 * t1171;
+            let t4889 = t1420 * t972;
+            (t4883, t4884, t4886, t4887, t4889)
+        };
+        let (t4896, t4897, t4899, t4900, t4901, t4904) = {
+            let t4896 = t3431 * t1709;
+            let t4897 = t1174 * t4896;
+            let t4899 = t60 * t3439;
+            let t4900 = t4899 * t461;
+            let t4901 = t4900 * t4724;
+            let t4904 = t3450 * t1409;
+            (t4896, t4897, t4899, t4900, t4901, t4904)
+        };
+        let (t4905, t4908, t4909, t4912, t4913, t4916, t4917, t4919) = {
+            let t4905 = t3449 * t4904;
+            let t4908 = t3448 * t461;
+            let t4909 = t4908 * t4729;
+            let t4912 = t1178 * t3966;
+            let t4913 = t1177 * t4912;
+            let t4916 = t135 * t1716;
+            let t4917 = t1174 * t4916;
+            let t4919 = t3448 * t1714;
+            (t4905, t4908, t4909, t4912, t4913, t4916, t4917, t4919)
+        };
+        let (t4920, t4928, t4930, t4931, t4934, t4935) = {
+            let t4920 = t4919 * t3451;
+            let t4928 = -t3464 + t3295 / 9.0_f64 + t4770 / 9.0_f64 + t4773 / 18.0_f64 - t4776 / 3.0_f64 - t4779 / 6.0_f64;
+            let t4929 = t457 * t4928;
+            let t4930 = t4929 * t460;
+            let t4931 = t974 * t4930;
+            let t4934 = t974 * t457;
+            let t4935 = t1714 * t1184;
+            (t4920, t4928, t4930, t4931, t4934, t4935)
+        };
+        let (t4936, t4937, t4940) = {
+            let t4936 = t4935 * t460;
+            let t4937 = t4934 * t4936;
+            let t4940 = -0.74074074074074074073e-3_f64 * t4887 + 0.74074074074074074073e-3_f64 * t4889 * t1180 + 0.22222222222222222222e-2_f64 * t4889 * t1187 - t3430 - 0.9259259259259259259e-4_f64 * t3433 - 0.27777777777777777777e-3_f64 * t3436 - 0.9259259259259259259e-4_f64 * t4897 + 0.37037037037037037036e-3_f64 * t3447 * t4901 + 0.27777777777777777777e-3_f64 * t3447 * t4905 - 0.55555555555555555554e-3_f64 * t3447 * t4909 - 0.27777777777777777777e-3_f64 * t1174 * t4913 - 0.27777777777777777777e-3_f64 * t4917 + 0.27777777777777777777e-3_f64 * t3447 * t4920 - 0.83333333333333333332e-3_f64 * t1174 * t4931 - 0.83333333333333333332e-3_f64 * t1174 * t4937;
+            (t4936, t4937, t4940)
+        };
+        let (t4941, t4943, t4945, t4947, t4949, t4950, t4953) = {
+            let t4941 = t4940 * t491;
+            let t4943 = t1720 * t1235;
+            let t4945 = t1721 * t225;
+            let t4947 = t1190 * t1751;
+            let t4949 = t1735 * t1090;
+            let t4950 = t3578 * t4949;
+            let t4953 = t1653 * t1216;
+            (t4941, t4943, t4945, t4947, t4949, t4950, t4953)
+        };
+        let (t4954, t4957, t4959, t4961, t4964, t4965, t4966, t4969) = {
+            let t4954 = t3578 * t4953;
+            let t4957 = t1731 * t1222;
+            let t4959 = t1744 * t1222;
+            let t4961 = t1202 * t1743;
+            let t4964 = t4940 * t225;
+            let t4965 = t4964 * t68;
+            let t4966 = t4965 * t484;
+            let t4969 = t1177 * t4729;
+            (t4954, t4957, t4959, t4961, t4964, t4965, t4966, t4969)
+        };
+        let (t4972, t4973, t4974, t4977, t4978, t4979, t4980, t4983, t4984, t4987, t4988, t4989) = {
+            let t4972 = t1229 * t3247;
+            let t4973 = t4972 * t3961;
+            let t4974 = t4582 * t4973;
+            let t4977 = t486 * t1734;
+            let t4978 = t3508 * t1215;
+            let t4979 = t4977 * t4978;
+            let t4980 = t4582 * t4979;
+            let t4983 = t4977 * t1216;
+            let t4984 = t4582 * t4983;
+            let t4987 = t3584 * t3242;
+            let t4988 = t4987 * t3961;
+            let t4989 = t4582 * t4988;
+            (t4972, t4973, t4974, t4977, t4978, t4979, t4980, t4983, t4984, t4987, t4988, t4989)
+        };
+        let (t4993, t4994, t4997, t4998, t5000, t5001, t5002) = {
+            let t4993 = t248 * t3521 * t1653;
+            let t4994 = t1227 * t4993;
+            let t4997 = t248 * t3570 * t1735;
+            let t4998 = t1213 * t4997;
+            let t5000 = t1720 * t1009;
+            let t5001 = t5000 * t1011;
+            let t5002 = t5001 * t1212;
+            (t4993, t4994, t4997, t4998, t5000, t5001, t5002)
+        };
+        let t5005 = {
+            let t5005 = t1730 * t1226;
+            t5005
+        };
+        let t5010 = {
+            let t5010 = -t3577 * t4950 / 4608.0_f64 - t3577 * t4954 / 4608.0_f64 + t4957 / 4608.0_f64 - t4959 / 864.0_f64 - t4961 * t488 / 576.0_f64 + t4966 * t488 / 3072.0_f64 - t1174 * t4969 / 144.0_f64 - t1227 * t4974 / 2304.0_f64 + t3506 * t4980 / 1536.0_f64 - t3515 * t4984 / 3072.0_f64 + 5.0_f64 / 13824.0_f64 * t1227 * t4989 - t4994 / 6912.0_f64 + t4998 / 4608.0_f64 + t5002 * t1218 / 3072.0_f64 - t5005 * t1232 / 4608.0_f64 + t3536 * t1737 / 3072.0_f64;
+            t5010
+        };
+        let t5011 = {
+            let t5011 = -t4739 + t4742 + t4744 - t4747 + t4784 + t4788 + t4866 + t4868 - t4871 - t4873 + t4877 - t4881 - t4886;
+            t5011
+        };
+        let (t5012, t5014, t5018, t5019) = {
+            let t5012 = t5011 * t475;
+            let t5014 = t248 * t1214 * t5012;
+            let t5017 = t1742 * t1017;
+            let t5018 = t1210 * t5017;
+            let t5019 = t1207 * t5018;
+            (t5012, t5014, t5018, t5019)
+        };
+        let (t5023, t5024) = {
+            let t5022 = t1742 * t372;
+            let t5023 = t479 * t5022;
+            let t5024 = t471 * t5023;
+            (t5023, t5024)
+        };
+        let (t5030, t5033, t5036, t5040, t5041, t5045) = {
+            let t5030 = t248 * t1230 * t4733;
+            let t5033 = t3440 * t4724;
+            let t5036 = t1706 * t1193;
+            let t5040 = t135 * t1725;
+            let t5041 = t1174 * t5040;
+            let t5045 = t1196 * t3966;
+            (t5030, t5033, t5036, t5040, t5041, t5045)
+        };
+        let (t5046, t5051) = {
+            let t5046 = t974 * t5045;
+            let t5051 = t1213 * t5014 / 3072.0_f64 - t5019 * t1218 / 576.0_f64 + t5024 * t1232 / 864.0_f64 - t3490 * t1748 / 4608.0_f64 - t1227 * t5030 / 4608.0_f64 + t1174 * t5033 / 216.0_f64 - t5036 / 108.0_f64 - t3524 / 6912.0_f64 + t3573 / 4608.0_f64 - t5041 / 864.0_f64 + t4889 * t1198 / 108.0_f64 - t1174 * t5046 / 288.0_f64 - t3549 / 864.0_f64 - t3542 + t3543 / 4608.0_f64 - t3547;
+            (t5046, t5051)
+        };
+        let (t5052, t5053, t5055, t5060, t5064) = {
+            let t5052 = t5010 + t5051;
+            let t5053 = t466 * t5052;
+            let t5055 = t1752 * t225;
+            let t5059 = t1760 * t1251;
+            let t5060 = t3598 * t5059;
+            let t5064 = t5000 * t1243;
+            (t5052, t5053, t5055, t5060, t5064)
+        };
+        let (t5068, t5069, t5073, t5076, t5079, t5080, t5084, t5086) = {
+            let t5068 = t3612 * t1215;
+            let t5069 = t1755 * t5068;
+            let t5072 = t1235 * t1734;
+            let t5073 = t5072 * t1246;
+            let t5075 = t491 * t5011;
+            let t5076 = t5075 * t1246;
+            let t5079 = t1932 * t1215 * t475;
+            let t5080 = t1755 * t5079;
+            let t5083 = t1751 * t1215;
+            let t5084 = t5083 * t1246;
+            let t5086 = t493 * t5052;
+            (t5068, t5069, t5073, t5076, t5079, t5080, t5084, t5086)
+        };
+        let t5088 = {
+            let t5088 = t1201 * t1758 + t1244 * t5073 + t1244 * t5076 + t1244 * t5084 + t1247 * t5064 + t1249 * t1729 + t1756 * t3604 + 2.0_f64 * t3610 * t5069 - t3624 * t5080 + t470 * t5086 + t494 * t4964;
+            t5088
+        };
+        let (t5089, t5091) = {
+            let t5089 = t1241 * t5088;
+            let t5091 = 2.0_f64 * t1238 * t5060 - t1238 * t5089 - t1252 * t4945 - t1252 * t5055 - t1761 * t3487 - t1761 * t3593 + t4941 * t498 + t4943 * t498 + t4947 * t498 + t498 * t5053;
+            (t5089, t5091)
+        };
+        let (t5095, t5098) = {
+            let t5095 = t1763 * t3640;
+            let t5098 = t1256 * t193 * t336 * t5091 - t1254 * t4700 * t5095 - t4739 + t4742 + t4744 - t4747 + t4784 + t4788 + t4866 + t4868 - t4871 - t4873 + t4877 - t4881 - t4886;
+            (t5095, t5098)
+        };
+        let (t5099, t5106) = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t505 = t265 < t504;
+            let t5099 = piecewise3(t505, t5098, t4324);
+            let t5106 = piecewise3(t401, t4324 * t28 / 2.0_f64 + t1534 * t1081 / 2.0_f64 + t873 * t1649 / 2.0_f64 - t4332, -t1260 * t1409 / 2.0_f64 - t1768 * t607 / 2.0_f64 - t506 * t3966 / 2.0_f64 + t5099 * t52 / 2.0_f64);
+            (t5099, t5106)
+        };
+        let t5107 = {
+            let t5107 = t4712 + t5106;
+            t5107
+        };
+        let t5113 = {
+            let t5113 = t88 * t671;
+            t5113
+        };
+        let (t5118, t5122, t5126) = {
+            let t5118 = 2.0_f64 * t1268 * t4072 + 2.0_f64 * t1458 * t2314 + 2.0_f64 * t1458 * t5113 + 2.0_f64 * t4028 * t671 + t4026;
+            let t5122 = t1845 * t1390;
+            let t5126 = t193 * t531;
+            (t5118, t5122, t5126)
+        };
+        let (t5127, t5131, t5134, t5141, t5142, t5145) = {
+            let t26 = t25 <= zeta_threshold;
+            let t5127 = t571 * t1799;
+            let t5131 = t3919 * t1799;
+            let t5134 = t3664 * t1408;
+            let t5137 = t514 * t2;
+            let t5141 = piecewise3(t26, 0.0_f64, 4.0_f64 / 9.0_f64 * t5134 * t606 + 8.0_f64 / 3.0_f64 * t5137 * t584);
+            let t5142 = t3672 * t1649;
+            let t5145 = t517 * t2;
+            (t5127, t5131, t5134, t5141, t5142, t5145)
+        };
+        let t5151 = {
+            let t29 = t28 <= zeta_threshold;
+            let t5149 = piecewise3(t29, 0.0_f64, 4.0_f64 / 9.0_f64 * t5142 * t1081 - 8.0_f64 / 3.0_f64 * t5145 * t584);
+            let t5151 = (t5141 + t5149) * t157;
+            t5151
+        };
+        let (t5153, t5154, t5155, t5156, t5157, t5158, t5159, t5160, t5161, t5164) = {
+            let t5153 = 0.19751673498613801407e-1_f64 * t5151 * t182;
+            let t5154 = t1787 * t172;
+            let t5155 = t5154 * t763;
+            let t5156 = 0.5848223622634646207e0_f64 * t5155;
+            let t5157 = t1787 * t67;
+            let t5158 = t5157 * t758;
+            let t5159 = 0.18311447306006545054e-3_f64 * t5158;
+            let t5160 = t193 * t533;
+            let t5161 = t1845 * t3701;
+            let t5164 = 0.5848223622634646207e0_f64 * t3692;
+            (t5153, t5154, t5155, t5156, t5157, t5158, t5159, t5160, t5161, t5164)
+        };
+        let t5165 = {
+            let t5165 = 3.0_f64 * t1307 * t3918 * t5122 + 6.0_f64 * t1307 * t5126 * t5127 - t1388 * t5160 * t5161 + 3.0_f64 * t3918 * t5131 + t2408 + t2417 - t2423 + t3686 + t3688 - t3690 - t3695 + t3813 + t5153 - t5156 - t5159 - t5164;
+            t5165
+        };
+        let (t5166, t5167, t5168, t5169, t5170, t5177, t5178) = {
+            let t26 = t25 <= zeta_threshold;
+            let t5166 = t5151 * t184;
+            let t5167 = t17 * t5166;
+            let t5168 = t1787 * t750;
+            let t5169 = t17 * t5168;
+            let t5170 = t3704 * t1408;
+            let t5173 = t1298 * t2;
+            let t5177 = piecewise3(t26, 0.0_f64, -2.0_f64 / 9.0_f64 * t5170 * t606 + 4.0_f64 / 3.0_f64 * t5173 * t584);
+            let t5178 = t3711 * t1649;
+            (t5166, t5167, t5168, t5169, t5170, t5177, t5178)
+        };
+        let t5187 = {
+            let t29 = t28 <= zeta_threshold;
+            let t5181 = t1302 * t2;
+            let t5185 = piecewise3(t29, 0.0_f64, -2.0_f64 / 9.0_f64 * t5178 * t1081 - 4.0_f64 / 3.0_f64 * t5181 * t584);
+            let t5187 = t5177 / 2.0_f64 + t5185 / 2.0_f64;
+            t5187
+        };
+        let (t5192, t5194, t5195, t5196, t5198, t5202, t5203) = {
+            let t5192 = t3726 * t1804;
+            let t5194 = t3732 * t131;
+            let t5195 = t205 * t5194;
+            let t5196 = t213 * t1799;
+            let t5198 = t221 * t5196 * t1307;
+            let t5202 = t118 * t794 * t1799;
+            let t5203 = t3739 * t5202;
+            (t5192, t5194, t5195, t5196, t5198, t5202, t5203)
+        };
+        let (t5206, t5210) = {
+            let t5206 = t210 * t214 * t5187;
+            let t5210 = t3725 + 0.38888888888888888888e-2_f64 * t3727 + t3731 + 0.38888888888888888887e-2_f64 * t5192 + 0.49999999999999999998e-2_f64 * t5195 * t5198 + 0.8333333333333333333e-3_f64 * t5203 - 0.16666666666666666666e-2_f64 * t1315 * t5206 + 0.83333333333333333332e-3_f64 * t3742 - t3751;
+            (t5206, t5210)
+        };
+        let (t5211, t5213, t5215, t5217, t5220, t5223) = {
+            let t5211 = t5210 * t562;
+            let t5213 = t1807 * t1372;
+            let t5215 = t1808 * t225;
+            let t5217 = t1323 * t1834;
+            let t5220 = t3726 * t1811;
+            let t5223 = t210 * t1810 * t1307;
+            (t5211, t5213, t5215, t5217, t5220, t5223)
+        };
+        let (t5227, t5230, t5231, t5234) = {
+            let t5226 = t119 * t5187;
+            let t5227 = t210 * t5226;
+            let t5230 = t5210 * t225;
+            let t5231 = t5230 * t554;
+            let t5234 = t1814 * t68;
+            (t5227, t5230, t5231, t5234)
+        };
+        let (t5235, t5238, t5240, t5245, t5246, t5248) = {
+            let t5235 = t5234 * t1340;
+            let t5238 = t1815 * t1358;
+            let t5240 = t5234 * t1362;
+            let t5245 = t3788 * t242;
+            let t5246 = t1336 * t5245;
+            let t5247 = t557 * t67;
+            let t5248 = t5247 * t246;
+            (t5235, t5238, t5240, t5245, t5246, t5248)
+        };
+        let t5249 = {
+            let t5249 = t120 * t1824;
+            t5249
+        };
+        let t5250 = {
+            let t5250 = t3792 * t1351;
+            t5250
+        };
+        let (t5252, t5255, t5257) = {
+            let t5252 = t5248 * t5249 * t5250;
+            let t5255 = t3799 * t1827;
+            let t5257 = t3762 + 7.0_f64 / 144.0_f64 * t3763 + 7.0_f64 / 144.0_f64 * t5220 + t3733 * t5223 / 16.0_f64 - t1315 * t5227 / 48.0_f64 + t5231 * t559 / 3072.0_f64 - t5235 * t1354 / 3072.0_f64 - 7.0_f64 / 4608.0_f64 * t5238 - t5240 * t1369 / 768.0_f64 - t3778 * t1827 / 3072.0_f64 + t5246 * t5252 / 1536.0_f64 + 7.0_f64 / 4608.0_f64 * t5255;
+            (t5252, t5255, t5257)
+        };
+        let (t5259, t5262) = {
+            let t5259 = t3805 * t5249 * t3807;
+            let t5262 = t3686 + t5153 - t5156 - t5159 + t3688 - t3690 - t5164 - t3695 + t3813 + t2408 + t2417 - t2423 + t5167;
+            (t5259, t5262)
+        };
+        let (t5263, t5264, t5265, t5266, t5267, t5268, t5269, t5270) = {
+            let t5263 = 0.18311447306006545054e-3_f64 * t3815;
+            let t5264 = t588 * t1788;
+            let t5265 = 4.0_f64 * t5264;
+            let t5266 = t592 * t1788;
+            let t5267 = 4.0_f64 * t5266;
+            let t5268 = 4.0_f64 * t3829;
+            let t5269 = 4.0_f64 * t3833;
+            let t5270 = t5169 - t5263 - t2426 + t3819 - t3821 + t3825 + t5265 - t5267 + t3827 - t5268 - t2486 - t3832 - t5269;
+            (t5263, t5264, t5265, t5266, t5267, t5268, t5269, t5270)
+        };
+        let (t5272, t5278, t5279, t5280, t5283, t5286) = {
+            let t5272 = (t5262 + t5270) * t225;
+            let t5278 = t546 * t68;
+            let t5279 = t1365 * t1799;
+            let t5280 = t5279 * t1307;
+            let t5283 = t1347 * t5187;
+            let t5286 = 3.0_f64 * t1345 * t1821 + 3.0_f64 * t1348 * t1819 - t5272 * t548 - 12.0_f64 * t5278 * t5280 + 3.0_f64 * t5283 * t546;
+            (t5272, t5278, t5279, t5280, t5283, t5286)
+        };
+        let t5287 = {
+            let t5287 = t5286 * t550;
+            t5287
+        };
+        let (t5289, t5293, t5303, t5306, t5308) = {
+            let t5289 = t1343 * t820 * t5287;
+            let t5293 = t5248 * t5249 * t1352;
+            let t5301 = t120 * t1799;
+            let t5303 = t3805 * t5301 * t1352;
+            let t5306 = t3866 * t1831;
+            let t5308 = t1799 * t1307;
+            (t5289, t5293, t5303, t5306, t5308)
+        };
+        let (t5310, t5314, t5317) = {
+            let t5310 = t3870 * t820 * t5308;
+            let t5314 = t1367 * t820 * t5187;
+            let t5317 = t3803 * t5259 / 768.0_f64 - t1341 * t5289 / 3072.0_f64 - t3803 * t5293 / 3072.0_f64 - 7.0_f64 / 4608.0_f64 * t3781 + 7.0_f64 / 4608.0_f64 * t3800 + t3864 + 7.0_f64 / 1152.0_f64 * t3867 - t3783 * t1831 / 768.0_f64 + t3803 * t5303 / 768.0_f64 + 7.0_f64 / 1152.0_f64 * t5306 + 5.0_f64 / 768.0_f64 * t1363 * t5310 - t1363 * t5314 / 768.0_f64;
+            (t5310, t5314, t5317)
+        };
+        let (t5318, t5319, t5321, t5326, t5333, t5334, t5335) = {
+            let t5318 = t5257 + t5317;
+            let t5319 = t539 * t5318;
+            let t5321 = t1835 * t225;
+            let t5325 = t1842 * t1385;
+            let t5326 = t3887 * t5325;
+            let t5333 = t68 * t3787;
+            let t5334 = t544 * t5333;
+            let t5335 = t562 * t1824;
+            (t5318, t5319, t5321, t5326, t5333, t5334, t5335)
+        };
+        let (t5336, t5339, t5341, t5343, t5344, t5345, t5348, t5349, t5351) = {
+            let t5336 = t5335 * t5250;
+            let t5339 = t3901 * t1825;
+            let t5341 = t1380 * t5287;
+            let t5343 = t68 * t1338;
+            let t5344 = t544 * t5343;
+            let t5345 = t5335 * t1352;
+            let t5348 = t1338 * t1834;
+            let t5349 = t5348 * t1352;
+            let t5351 = t553 * t5318;
+            (t5336, t5339, t5341, t5343, t5344, t5345, t5348, t5349, t5351)
+        };
+        let t5353 = {
+            let t5353 = t1332 * t1840 - t1336 * t5339 - t1336 * t5341 - t1336 * t5349 - t1381 * t5234 + t1383 * t1814 - t1838 * t3777 + t5230 * t564 + 2.0_f64 * t5334 * t5336 - t5344 * t5345 + t5351 * t544;
+            t5353
+        };
+        let (t5354, t5356) = {
+            let t5354 = t1378 * t5353;
+            let t5356 = 2.0_f64 * t1375 * t5326 - t1375 * t5354 - t1386 * t5215 - t1386 * t5321 - t1843 * t3758 - t1843 * t3882 + t5211 * t568 + t5213 * t568 + t5217 * t568 + t5319 * t568;
+            (t5354, t5356)
+        };
+        let t5360 = {
+            let t5360 = t1390 * t193 * t533 * t5356 + 3.0_f64 * t1297 * t193 * t5187 - t2426 - t2486 + t3819 - t3821 + t3825 + t3827 - t3832 + t5167 + t5169 - t5263 + t5265 - t5267 - t5268 - t5269;
+            t5360
+        };
+        let (t5361, t5363) = {
+            let t5361 = t5165 + t5360;
+            let t5363 = -t113 * t5107 - t1266 * t1442 + t1271 * t1849 + t1393 * t1778 - 2.0_f64 * t1459 * t2314 - 2.0_f64 * t1459 * t4034 - t1774 * t650 - t4026 * t510 - 2.0_f64 * t4028 * t672 - 2.0_f64 * t4037 * t652 - 2.0_f64 * t4073 * t652 - 2.0_f64 * t4077 * t652 + t5118 * t574 + t513 * t5361;
+            (t5361, t5363)
+        };
+        let (t5364, t5371) = {
+            let t5364 = t3 * t5363;
+            let t5371 = t1851 * t112;
+            (t5364, t5371)
+        };
+        let (t5376, t5381, t5385) = {
+            let t5376 = t1458 * t671;
+            let t5381 = 0.45e1_f64 * t5363 * t577 + 0.135e2_f64 * t5371 * t671 + 0.135e2_f64 * t3938 * t1458 + 27.0_f64 * t3941 * t5376 + 0.135e2_f64 * t1401 * t4072;
+            let t5385 = t2218 + t2220 + t2222 + t2224 + t2226 + t2228 + t2232;
+            (t5376, t5381, t5385)
+        };
+        let (t5389, t5392) = {
+            let t5389 = t1437 * t1437;
+            let t5392 = t1409 * t1409;
+            (t5389, t5392)
+        };
+        let (t5393, t5396) = {
+            let t5393 = t5392 * t65;
+            let t5396 = t11 + t2219;
+            (t5393, t5396)
+        };
+        let t5397 = {
+            let t5397 = 2.0_f64 * t5396;
+            t5397
+        };
+        let t5398 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t5398 = piecewise5(t26, 0.0_f64, t29, 0.0_f64, t5397);
+            t5398
+        };
+        let (t5399, t5400, t5403, t5408, t5411, t5416, t5421, t5424) = {
+            let t5399 = t31 * t5398;
+            let t5400 = t5399 * t65;
+            let t5403 = t1410 * t1426;
+            let t5408 = t2267 * t5392;
+            let t5411 = t43 * t5398;
+            let t5415 = 1.0_f64 / t48 / t480;
+            let t5416 = sigma2 * t5415;
+            let t5421 = t2274 * t5392;
+            let t5424 = t55 * t5398;
+            (t5399, t5400, t5403, t5408, t5411, t5416, t5421, t5424)
+        };
+        let (t5427, t5428) = {
+            let t5427 = 5.0_f64 / 18.0_f64 * t39 * t5408 + 5.0_f64 / 6.0_f64 * t39 * t5411 + 88.0_f64 / 9.0_f64 * t5416 * t56 + 40.0_f64 / 9.0_f64 * t1420 * t1423 + 5.0_f64 / 18.0_f64 * t51 * t5421 - 5.0_f64 / 6.0_f64 * t51 * t5424 - t2282;
+            let t5428 = t33 * t5427;
+            (t5427, t5428)
+        };
+        let (t5442, t5445) = {
+            let t5433 = t2291 * t5392;
+            let t5435 = t634 * t5398;
+            let t5437 = t2298 * t5392;
+            let t5439 = t638 * t5398;
+            let t5441 = 28.0_f64 / 9.0_f64 * t5433 - 4.0_f64 / 3.0_f64 * t5435 + 28.0_f64 / 9.0_f64 * t5437 + 4.0_f64 / 3.0_f64 * t5439;
+            let t5442 = t72 * t5441;
+            let t5445 = -t5393 * t80 / 12.0_f64 - t5400 * t80 / 12.0_f64 - t5403 * t80 / 6.0_f64 - t1411 * t1434 / 6.0_f64 + t5428 * t80 / 24.0_f64 + t1427 * t1434 / 12.0_f64 + t66 * t5442 / 24.0_f64;
+            (t5442, t5445)
+        };
+        let (t5449, t5450, t5456) = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t5449 = piecewise3(t8, 0.0_f64, -8.0_f64 * t1437 * t3953 + 20.0_f64 * t2240 * t5389 + t5385 * t86 - 4.0_f64 * t5445 * t605);
+            let t5450 = t5449 * t112;
+            let t5456 = t1458 * t1458;
+            (t5449, t5450, t5456)
+        };
+        let (t5457, t5460, t5464) = {
+            let t5457 = t89 * t5456;
+            let t5460 = t1774 * t1458;
+            let t5464 = t1453 * t1453;
+            (t5457, t5460, t5464)
+        };
+        let (t5465, t5468) = {
+            let t5465 = t2331 * t5464;
+            let t5468 = t1444 * t1444;
+            (t5465, t5468)
+        };
+        let (t5469, t5472, t5475, t5480, t5484, t5488) = {
+            let t5469 = t2341 * t5468;
+            let t5472 = t95 * t5396;
+            let t5475 = tau1 * t1419;
+            let t5480 = t1449 * t1449;
+            let t5481 = t2349 * t5480;
+            let t5484 = -t5396;
+            let t5485 = t103 * t5484;
+            let t5488 = 10.0_f64 / 9.0_f64 * t92 * t5469 + 5.0_f64 / 3.0_f64 * t92 * t5472 + 40.0_f64 / 9.0_f64 * t5475 * t104 - 50.0_f64 / 9.0_f64 * t1447 * t1450 + 10.0_f64 / 9.0_f64 * t100 * t5481 + 5.0_f64 / 3.0_f64 * t100 * t5485;
+            (t5469, t5472, t5475, t5480, t5484, t5488)
+        };
+        let (t5489, t5493) = {
+            let t110 = 1.0_f64 < t109;
+            let t5489 = t656 * t5488;
+            let t5493 = piecewise3(t110, 0.0_f64, t2327 + 2.0_f64 / 3.0_f64 * t4041 + t64 * t5465 / 4.0_f64 - t64 * t5489 / 8.0_f64);
+            (t5489, t5493)
+        };
+        let (t5494, t5497, t5498, t5499, t5501, t5502, t5506, t5512) = {
+            let t146 = t40 <= zeta_threshold;
+            let t5494 = t510 * t5493;
+            let t5497 = 2.0_f64 * t4100;
+            let t5498 = 8.0_f64 * t4102;
+            let t5499 = t185 * t5392;
+            let t5501 = 12.0_f64 * t2658 * t5499;
+            let t5502 = t4310 * t1484;
+            let t5506 = 8.0_f64 * t4205 * t1462;
+            let t5512 = piecewise3(t146, 0.0_f64, 4.0_f64 / 9.0_f64 * t2433 * t5392 + 4.0_f64 / 3.0_f64 * t73 * t5398);
+            (t5494, t5497, t5498, t5499, t5501, t5502, t5506, t5512)
+        };
+        let (t5519, t5520, t5521, t5522, t5524, t5525, t5526) = {
+            let t150 = t52 <= zeta_threshold;
+            let t5518 = piecewise3(t150, 0.0_f64, 4.0_f64 / 9.0_f64 * t2440 * t5392 - 4.0_f64 / 3.0_f64 * t76 * t5398);
+            let t5519 = t5512 + t5518;
+            let t5520 = t145 * t5519;
+            let t5521 = t5520 * t185;
+            let t5522 = t5519 * t157;
+            let t5524 = 0.19751673498613801407e-1_f64 * t5522 * t182;
+            let t5525 = 0.11696447245269292414e1_f64 * t4200;
+            let t5526 = 6.0_f64 * t2522 * t5502 + t2373 + t2377 + t2408 + t2417 + t5497 + t5498 + t5501 + t5506 + t5521 + t5524 - t5525;
+            (t5519, t5520, t5521, t5522, t5524, t5525, t5526)
+        };
+        let t5527 = {
+            let t5527 = t1484 * t1484;
+            t5527
+        };
+        let t5544 = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t5536 = piecewise3(t146, 0.0_f64, -2.0_f64 / 9.0_f64 * t75 * t5392 + 2.0_f64 / 3.0_f64 * t767 * t5398);
+            let t5542 = piecewise3(t150, 0.0_f64, -2.0_f64 / 9.0_f64 * t78 * t5392 - 2.0_f64 / 3.0_f64 * t771 * t5398);
+            let t5544 = t5536 / 2.0_f64 + t5542 / 2.0_f64;
+            t5544
+        };
+        let (t5550, t5555, t5558, t5559) = {
+            let t5550 = t210 * t214 * t5527;
+            let t5555 = t210 * t214 * t5544;
+            let t5558 = t2562 + 0.77777777777777777775e-2_f64 * t4124 + t2569 + 0.49999999999999999998e-2_f64 * t2571 * t5550 + 0.16666666666666666666e-2_f64 * t4135 - 0.16666666666666666666e-2_f64 * t787 * t5555 - t2590;
+            let t5559 = t5558 * t252;
+            (t5550, t5555, t5558, t5559)
+        };
+        let (t5561, t5567, t5568, t5571, t5572, t5575, t5576, t5584, t5585, t5587) = {
+            let t5561 = t1492 * t1519;
+            let t5567 = t119 * t5527;
+            let t5568 = t210 * t5567;
+            let t5571 = t119 * t5544;
+            let t5572 = t210 * t5571;
+            let t5575 = t5558 * t225;
+            let t5576 = t5575 * t237;
+            let t5584 = t1509 * t1509;
+            let t5585 = t5584 * t2632;
+            let t5587 = t819 * t820 * t5585;
+            (t5561, t5567, t5568, t5571, t5572, t5575, t5576, t5584, t5585, t5587)
+        };
+        let (t5591, t5593, t5596, t5597, t5599, t5600) = {
+            let t5591 = t232 * t1484;
+            let t5593 = t2645 * t4181 * t5591;
+            let t5596 = 0.36622894612013090108e-3_f64 * t4212;
+            let t5597 = t185 * t5398;
+            let t5599 = 4.0_f64 * t707 * t5597;
+            let t5600 = t2373 + t5524 + t5521 + t5498 + t2377 + t5497 - t2486 - t5596 - t5525 + t5506 + t2518 + t2408 + t2417 + t5501 - t2530 - t2537 - t2426 + t2665 - t2423 + t5599;
+            (t5591, t5593, t5596, t5597, t5599, t5600)
+        };
+        let (t5601, t5605, t5608, t5611, t5612, t5614) = {
+            let t5601 = t5600 * t225;
+            let t5605 = t2671 * t5527;
+            let t5608 = t824 * t5544;
+            let t5611 = 6.0_f64 * t1504 * t1506 - 12.0_f64 * t228 * t5605 + 3.0_f64 * t228 * t5608 - t230 * t5601;
+            let t5612 = t5611 * t232;
+            let t5614 = t819 * t820 * t5612;
+            (t5601, t5605, t5608, t5611, t5612, t5614)
+        };
+        let (t5617, t5619, t5624, t5628, t5631) = {
+            let t5617 = t5584 * t232;
+            let t5619 = t819 * t820 * t5617;
+            let t5624 = t2701 * t820 * t5527;
+            let t5628 = t847 * t820 * t5544;
+            let t5631 = t2602 + 7.0_f64 / 72.0_f64 * t4152 + t2571 * t5568 / 16.0_f64 - t787 * t5572 / 48.0_f64 + t5576 * t249 / 3072.0_f64 - t4167 * t1512 / 1536.0_f64 - 7.0_f64 / 2304.0_f64 * t4170 - t4172 * t1516 / 384.0_f64 + t2630 * t5587 / 1536.0_f64 + 7.0_f64 / 2304.0_f64 * t4187 + t2643 * t5593 / 384.0_f64 - t817 * t5614 / 3072.0_f64 - t817 * t5619 / 3072.0_f64 + t2695 + 7.0_f64 / 576.0_f64 * t4253 + 5.0_f64 / 768.0_f64 * t843 * t5624 - t843 * t5628 / 768.0_f64;
+            (t5617, t5619, t5624, t5628, t5631)
+        };
+        let (t5632, t5636, t5637, t5645, t5648, t5651, t5653, t5655) = {
+            let t5632 = t218 * t5631;
+            let t5636 = t1527 * t1527;
+            let t5637 = t2718 * t5636;
+            let t5645 = t2728 * t5585;
+            let t5648 = t4295 * t1510;
+            let t5651 = t860 * t5612;
+            let t5653 = t860 * t5617;
+            let t5655 = t235 * t5631;
+            (t5632, t5636, t5637, t5645, t5648, t5651, t5653, t5655)
+        };
+        let t5657 = {
+            let t5657 = 2.0_f64 * t1499 * t1525 - 2.0_f64 * t1523 * t4166 + t226 * t5655 + t255 * t5575 + 2.0_f64 * t5645 * t812 - 2.0_f64 * t5648 * t812 - t5651 * t812 - t5653 * t812;
+            t5657
+        };
+        let (t5658, t5660, t5664) = {
+            let t5658 = t858 * t5657;
+            let t5660 = -2.0_f64 * t1528 * t4147 - 2.0_f64 * t1528 * t4268 + t259 * t5559 + 2.0_f64 * t259 * t5561 + t259 * t5632 + 2.0_f64 * t5637 * t855 - t5658 * t855;
+            let t5664 = t1530 * t1530;
+            (t5658, t5660, t5664)
+        };
+        let t5668 = {
+            let t5668 = -t193 * t202 * t2752 * t5664 + t193 * t202 * t5660 * t870 + 6.0_f64 * t193 * t2378 * t5527 + 3.0_f64 * t193 * t5544 * t766 - t2423 - t2426 - t2486 + t2518 - t2530 - t2537 + t2665 - t5596 + t5599;
+            t5668
+        };
+        let t5669 = {
+            let t5669 = t5526 + t5668;
+            t5669
+        };
+        let t5677 = {
+            let t5677 = t2770 * t5392;
+            t5677
+        };
+        let (t5678, t5679, t5681) = {
+            let t5678 = t2768 * t5677;
+            let t5679 = t123 * t5678;
+            let t5681 = t2775 * t5392;
+            (t5678, t5679, t5681)
+        };
+        let (t5682, t5683, t5685) = {
+            let t5682 = t882 * t5681;
+            let t5683 = t123 * t5682;
+            let t5685 = t883 * t5398;
+            (t5682, t5683, t5685)
+        };
+        let (t5686, t5687, t5689, t5691, t5693, t5694, t5695) = {
+            let t5686 = t882 * t5685;
+            let t5687 = t123 * t5686;
+            let t5689 = t2765 + 0.11872222222222222222e-1_f64 * t4335 - 0.11872222222222222222e-1_f64 * t5679 + 0.35616666666666666666e-1_f64 * t5683 - 0.17808333333333333333e-1_f64 * t5687;
+            let t5691 = 0.621814e-1_f64 * t5689 * t291;
+            let t5693 = 2.0_f64 * t4354 * t1557;
+            let t5694 = t1556 * t1556;
+            let t5695 = t5694 * t913;
+            (t5686, t5687, t5689, t5691, t5693, t5694, t5695)
+        };
+        let (t5697, t5698, t5699, t5705, t5706, t5712, t5714) = {
+            let t5697 = 2.0_f64 * t2792 * t5695;
+            let t5698 = t1547 * t1547;
+            let t5699 = t2798 * t5698;
+            let t5705 = t2802 + 2.0_f64 / 9.0_f64 * t4335 - 2.0_f64 / 9.0_f64 * t5679 + 2.0_f64 / 3.0_f64 * t5683 - t5687 / 3.0_f64;
+            let t5706 = t894 * t5705;
+            let t5712 = t2815 * t5698;
+            let t5714 = t901 * t5705;
+            (t5697, t5698, t5699, t5705, t5706, t5712, t5714)
+        };
+        let (t5717, t5718, t5720, t5721, t5723, t5724, t5726) = {
+            let t5717 = t2826 * t5677;
+            let t5718 = t136 * t5717;
+            let t5720 = t908 * t5681;
+            let t5721 = t136 * t5720;
+            let t5723 = t908 * t5685;
+            let t5724 = t136 * t5723;
+            let t5726 = -0.9494625e0_f64 * t5699 + 0.1898925e1_f64 * t5706 + t2810 + 0.19931111111111111111e0_f64 * t4335 - 0.19931111111111111111e0_f64 * t5679 + 0.59793333333333333334e0_f64 * t5683 - 0.29896666666666666667e0_f64 * t5687 + 0.15358125e0_f64 * t5712 + 0.3071625e0_f64 * t5714 + t2823 + 0.10954222222222222222e0_f64 * t4384 - 0.27385555555555555556e-1_f64 * t5718 + 0.16431333333333333333e0_f64 * t5721 - 0.82156666666666666667e-1_f64 * t5724;
+            (t5717, t5718, t5720, t5721, t5723, t5724, t5726)
+        };
+        let (t5727, t5729, t5730, t5732, t5737, t5742) = {
+            let t5727 = t5726 * t913;
+            let t5729 = 1.0_f64 * t893 * t5727;
+            let t5730 = t5694 * t2844;
+            let t5732 = 0.16081979498692535067e2_f64 * t2842 * t5730;
+            let t5737 = t2848 + 0.11415555555555555555e-1_f64 * t4335 - 0.11415555555555555555e-1_f64 * t5679 + 0.34246666666666666666e-1_f64 * t5683 - 0.17123333333333333333e-1_f64 * t5687;
+            let t5742 = t1568 * t1568;
+            (t5727, t5729, t5730, t5732, t5737, t5742)
+        };
+        let (t5743, t5758) = {
+            let t5743 = t5742 * t932;
+            let t5758 = -0.17648625e1_f64 * t5699 + 0.3529725e1_f64 * t5706 + t2868 + 0.34431666666666666666e0_f64 * t4335 - 0.34431666666666666667e0_f64 * t5679 + 0.103295e1_f64 * t5683 - 0.516475e0_f64 * t5687 + 0.31558125e0_f64 * t5712 + 0.6311625e0_f64 * t5714 + t2875 + 0.13892666666666666667e0_f64 * t4384 - 0.34731666666666666667e-1_f64 * t5718 + 0.20839e0_f64 * t5721 - 0.104195e0_f64 * t5724;
+            (t5743, t5758)
+        };
+        let (t5759, t5762, t5769, t5770, t5774) = {
+            let t5759 = t5758 * t932;
+            let t5762 = t5742 * t2888;
+            let t5769 = t2892 + 0.61805555555555555556e-2_f64 * t4335 - 0.61805555555555555555e-2_f64 * t5679 + 0.18541666666666666667e-1_f64 * t5683 - 0.92708333333333333333e-2_f64 * t5687;
+            let t5770 = t5769 * t324;
+            let t5774 = t1580 * t1580;
+            (t5759, t5762, t5769, t5770, t5774)
+        };
+        let (t5775, t5790) = {
+            let t5775 = t5774 * t951;
+            let t5790 = -0.1294625e1_f64 * t5699 + 0.258925e1_f64 * t5706 + t2912 + 0.20128333333333333334e0_f64 * t4335 - 0.20128333333333333333e0_f64 * t5679 + 0.60385e0_f64 * t5683 - 0.301925e0_f64 * t5687 + 0.82524375e-1_f64 * t5712 + 0.16504875e0_f64 * t5714 + t2919 + 0.11038e0_f64 * t4384 - 0.27595e-1_f64 * t5718 + 0.16557e0_f64 * t5721 - 0.82785e-1_f64 * t5724;
+            (t5775, t5790)
+        };
+        let (t5791, t5794, t5797) = {
+            let t5791 = t5790 * t951;
+            let t5794 = t5774 * t2932;
+            let t5797 = -0.310907e-1_f64 * t5737 * t311 + 2.0_f64 * t4411 * t1569 - 2.0_f64 * t2861 * t5743 + 1.0_f64 * t924 * t5759 + 0.32163958997385070134e2_f64 * t2886 * t5762 + t5691 - t5693 + t5697 - t5729 - t5732 - 0.19751673498613801407e-1_f64 * t5770 + 0.11696447245269292414e1_f64 * t4449 * t1581 - 0.11696447245269292414e1_f64 * t2905 * t5775 + 0.5848223622634646207e0_f64 * t943 * t5791 + 0.17315859105681463759e2_f64 * t2930 * t5794;
+            (t5791, t5794, t5797)
+        };
+        let (t5798, t5800, t5802, t5804, t5806, t5808, t5810, t5811) = {
+            let t5798 = t300 * t5797;
+            let t5800 = 0.19751673498613801407e-1_f64 * t300 * t5770;
+            let t5802 = 0.11696447245269292414e1_f64 * t4483 * t1589;
+            let t5804 = t2904 * t5774 * t951;
+            let t5806 = 0.11696447245269292414e1_f64 * t959 * t5804;
+            let t5808 = t942 * t5790 * t951;
+            let t5810 = 0.5848223622634646207e0_f64 * t959 * t5808;
+            let t5811 = t2929 * t5774;
+            (t5798, t5800, t5802, t5804, t5806, t5808, t5810, t5811)
+        };
+        let (t5812, t5814, t5817, t5818, t5821, t5824, t5825, t5828) = {
+            let t5812 = t5811 * t2932;
+            let t5814 = 0.17315859105681463759e2_f64 * t959 * t5812;
+            let t5817 = t2980 * t5392;
+            let t5818 = t2979 * t5817;
+            let t5821 = t4531 * t4514;
+            let t5824 = t2994 * t5392;
+            let t5825 = t977 * t5824;
+            let t5828 = t978 * t5398;
+            (t5812, t5814, t5817, t5818, t5821, t5824, t5825, t5828)
+        };
+        let (t5829, t5836, t5838, t5839, t5842, t5844, t5845, t5848) = {
+            let t5829 = t977 * t5828;
+            let t5836 = -t3003 - 2.0_f64 / 9.0_f64 * t4384 + t5718 / 18.0_f64 - t5721 / 3.0_f64 + t5724 / 6.0_f64;
+            let t5837 = t340 * t5836;
+            let t5838 = t5837 * t343;
+            let t5839 = t974 * t5838;
+            let t5842 = t1597 * t1597;
+            let t5843 = t340 * t5842;
+            let t5844 = t5843 * t343;
+            let t5845 = t974 * t5844;
+            let t5848 = -t2969 + 0.18518518518518518518e-3_f64 * t4507 - 0.55555555555555555554e-3_f64 * t4529 + 0.37037037037037037036e-3_f64 * t973 * t5818 - 0.55555555555555555554e-3_f64 * t2986 * t5821 - 0.55555555555555555554e-3_f64 * t973 * t5825 + 0.27777777777777777777e-3_f64 * t973 * t5829 - 0.83333333333333333332e-3_f64 * t973 * t5839 - 0.83333333333333333332e-3_f64 * t973 * t5845;
+            (t5829, t5836, t5838, t5839, t5842, t5844, t5845, t5848)
+        };
+        let (t5849, t5851, t5857, t5861, t5866) = {
+            let t5849 = t5848 * t381;
+            let t5851 = t1603 * t1625;
+            let t5857 = t248 * t1044 * t5685;
+            let t5861 = t248 * t3062 * t5677;
+            let t5866 = -t5691 + t5693 - t5697 + t5729 + t5732 + t5798 + t5800 - t5802 + t5806 - t5810 - t5814;
+            (t5849, t5851, t5857, t5861, t5866)
+        };
+        let (t5867, t5869, t5872) = {
+            let t5867 = t5866 * t360;
+            let t5869 = t248 * t1021 * t5867;
+            let t5872 = t1615 * t1615;
+            (t5867, t5869, t5872)
+        };
+        let (t5873, t5875, t5878, t5880, t5884, t5885, t5889, t5890, t5893, t5894, t5900) = {
+            let t5873 = t5872 * t3131;
+            let t5875 = t248 * t1021 * t5873;
+            let t5878 = t5872 * t360;
+            let t5880 = t248 * t1021 * t5878;
+            let t5884 = t3151 * t5392;
+            let t5885 = t974 * t5884;
+            let t5889 = t998 * t5398;
+            let t5890 = t974 * t5889;
+            let t5893 = t3146 * t5392;
+            let t5894 = t974 * t5893;
+            let t5900 = t248 * t1044 * t5681;
+            (t5873, t5875, t5878, t5880, t5884, t5885, t5889, t5890, t5893, t5894, t5900)
+        };
+        let (t5903, t5904, t5905, t5908, t5909, t5914) = {
+            let t5903 = t5848 * t225;
+            let t5904 = t5903 * t68;
+            let t5905 = t5904 * t369;
+            let t5908 = t1616 * t1539;
+            let t5909 = t3071 * t5908;
+            let t5914 = t1041 * t5857 / 4608.0_f64 + 5.0_f64 / 13824.0_f64 * t1041 * t5861 + t4644 * t1622 / 2304.0_f64 + t1020 * t5869 / 3072.0_f64 + t3130 * t5875 / 1536.0_f64 - t3039 * t5880 / 3072.0_f64 - t3160 + t4625 / 2304.0_f64 - t973 * t5885 / 144.0_f64 + t4604 / 432.0_f64 + t973 * t5890 / 288.0_f64 + t973 * t5894 / 216.0_f64 + t4572 / 3456.0_f64 + t4631 / 2304.0_f64 - t1041 * t5900 / 2304.0_f64 - t3084 + t5905 * t378 / 3072.0_f64 + t3070 * t5909 / 2304.0_f64 + t4641 * t1618 / 1536.0_f64;
+            (t5903, t5904, t5905, t5908, t5909, t5914)
+        };
+        let (t5915, t5919, t5920, t5928) = {
+            let t5915 = t349 * t5914;
+            let t5919 = t1634 * t1634;
+            let t5920 = t3174 * t5919;
+            let t5928 = t381 * t5872;
+            (t5915, t5919, t5920, t5928)
+        };
+        let (t5929, t5932, t5933, t5936, t5937, t5939, t5941, t5943) = {
+            let t5929 = t5928 * t3188;
+            let t5932 = t1625 * t1615;
+            let t5933 = t5932 * t1060;
+            let t5936 = t381 * t5866;
+            let t5937 = t5936 * t1060;
+            let t5939 = t5928 * t3201;
+            let t5941 = t383 * t5914;
+            let t5943 = 2.0_f64 * t1058 * t5933 + t1058 * t5937 + 2.0_f64 * t1610 * t1632 + 2.0_f64 * t1630 * t4669 + 2.0_f64 * t3186 * t5929 - t3200 * t5939 + t353 * t5941 + t384 * t5903;
+            (t5929, t5932, t5933, t5936, t5937, t5939, t5941, t5943)
+        };
+        let (t5944, t5946, t5950) = {
+            let t5944 = t1055 * t5943;
+            let t5946 = 2.0_f64 * t1052 * t5920 - t1052 * t5944 - 2.0_f64 * t1635 * t4557 - 2.0_f64 * t1635 * t4660 + t388 * t5849 + 2.0_f64 * t388 * t5851 + t388 * t5915;
+            let t5950 = t1637 * t1637;
+            (t5944, t5946, t5950)
+        };
+        let t5954 = {
+            let t5954 = t1070 * t193 * t336 * t5946 - t193 * t3216 * t336 * t5950 - t5691 + t5693 - t5697 + t5729 + t5732 + t5798 + t5800 - t5802 + t5806 - t5810 - t5814;
+            t5954
+        };
+        let (t5955, t5962) = {
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t395 = t265 < t394;
+            let t5955 = piecewise3(t395, t5954, t5669);
+            let t5962 = piecewise3(t115, t5669 * t25 / 2.0_f64 + t1534 * t1408 + t265 * t5397 / 2.0_f64, t5955 * t40 / 2.0_f64 + t1642 * t1409 + t396 * t5398 / 2.0_f64);
+            (t5955, t5962)
+        };
+        let t5966 = {
+            let t5966 = -t5397;
+            t5966
+        };
+        let t5971 = {
+            let t5971 = t3242 * t5392;
+            t5971
+        };
+        let (t5972, t5973, t5975) = {
+            let t5972 = t3240 * t5971;
+            let t5973 = t123 * t5972;
+            let t5975 = t3247 * t5392;
+            (t5972, t5973, t5975)
+        };
+        let (t5976, t5977, t5979) = {
+            let t5976 = t1088 * t5975;
+            let t5977 = t123 * t5976;
+            let t5979 = t1089 * t5398;
+            (t5976, t5977, t5979)
+        };
+        let (t5980, t5981, t5983, t5985, t5987, t5988, t5989) = {
+            let t5980 = t1088 * t5979;
+            let t5981 = t123 * t5980;
+            let t5983 = t3237 - 0.11872222222222222222e-1_f64 * t4721 - 0.11872222222222222222e-1_f64 * t5973 + 0.35616666666666666666e-1_f64 * t5977 + 0.17808333333333333333e-1_f64 * t5981;
+            let t5985 = 0.621814e-1_f64 * t5983 * t423;
+            let t5987 = 2.0_f64 * t4740 * t1671;
+            let t5988 = t1670 * t1670;
+            let t5989 = t5988 * t1118;
+            (t5980, t5981, t5983, t5985, t5987, t5988, t5989)
+        };
+        let (t5991, t5992, t5993, t5999, t6000, t6006, t6008) = {
+            let t5991 = 2.0_f64 * t3264 * t5989;
+            let t5992 = t1661 * t1661;
+            let t5993 = t3270 * t5992;
+            let t5999 = t3274 - 2.0_f64 / 9.0_f64 * t4721 - 2.0_f64 / 9.0_f64 * t5973 + 2.0_f64 / 3.0_f64 * t5977 + t5981 / 3.0_f64;
+            let t6000 = t1100 * t5999;
+            let t6006 = t3287 * t5992;
+            let t6008 = t1107 * t5999;
+            (t5991, t5992, t5993, t5999, t6000, t6006, t6008)
+        };
+        let (t6011, t6012, t6014, t6015, t6017, t6018, t6020) = {
+            let t6011 = t3297 * t5971;
+            let t6012 = t136 * t6011;
+            let t6014 = t1113 * t5975;
+            let t6015 = t136 * t6014;
+            let t6017 = t1113 * t5979;
+            let t6018 = t136 * t6017;
+            let t6020 = -0.9494625e0_f64 * t5993 + 0.1898925e1_f64 * t6000 + t3282 - 0.19931111111111111111e0_f64 * t4721 - 0.19931111111111111111e0_f64 * t5973 + 0.59793333333333333334e0_f64 * t5977 + 0.29896666666666666667e0_f64 * t5981 + 0.15358125e0_f64 * t6006 + 0.3071625e0_f64 * t6008 + t3294 - 0.10954222222222222222e0_f64 * t4770 - 0.27385555555555555556e-1_f64 * t6012 + 0.16431333333333333333e0_f64 * t6015 + 0.82156666666666666667e-1_f64 * t6018;
+            (t6011, t6012, t6014, t6015, t6017, t6018, t6020)
+        };
+        let (t6021, t6023, t6024, t6026, t6031, t6036) = {
+            let t6021 = t6020 * t1118;
+            let t6023 = 1.0_f64 * t1099 * t6021;
+            let t6024 = t5988 * t3315;
+            let t6026 = 0.16081979498692535067e2_f64 * t3313 * t6024;
+            let t6031 = t3319 - 0.11415555555555555555e-1_f64 * t4721 - 0.11415555555555555555e-1_f64 * t5973 + 0.34246666666666666666e-1_f64 * t5977 + 0.17123333333333333333e-1_f64 * t5981;
+            let t6036 = t1682 * t1682;
+            (t6021, t6023, t6024, t6026, t6031, t6036)
+        };
+        let (t6037, t6052) = {
+            let t6037 = t6036 * t1137;
+            let t6052 = -0.17648625e1_f64 * t5993 + 0.3529725e1_f64 * t6000 + t3339 - 0.34431666666666666666e0_f64 * t4721 - 0.34431666666666666667e0_f64 * t5973 + 0.103295e1_f64 * t5977 + 0.516475e0_f64 * t5981 + 0.31558125e0_f64 * t6006 + 0.6311625e0_f64 * t6008 + t3346 - 0.13892666666666666667e0_f64 * t4770 - 0.34731666666666666667e-1_f64 * t6012 + 0.20839e0_f64 * t6015 + 0.104195e0_f64 * t6018;
+            (t6037, t6052)
+        };
+        let (t6053, t6056, t6063, t6064, t6068) = {
+            let t6053 = t6052 * t1137;
+            let t6056 = t6036 * t3359;
+            let t6063 = t3363 - 0.61805555555555555556e-2_f64 * t4721 - 0.61805555555555555555e-2_f64 * t5973 + 0.18541666666666666667e-1_f64 * t5977 + 0.92708333333333333333e-2_f64 * t5981;
+            let t6064 = t6063 * t449;
+            let t6068 = t1694 * t1694;
+            (t6053, t6056, t6063, t6064, t6068)
+        };
+        let (t6069, t6084) = {
+            let t6069 = t6068 * t1156;
+            let t6084 = -0.1294625e1_f64 * t5993 + 0.258925e1_f64 * t6000 + t3383 - 0.20128333333333333334e0_f64 * t4721 - 0.20128333333333333333e0_f64 * t5973 + 0.60385e0_f64 * t5977 + 0.301925e0_f64 * t5981 + 0.82524375e-1_f64 * t6006 + 0.16504875e0_f64 * t6008 + t3390 - 0.11038e0_f64 * t4770 - 0.27595e-1_f64 * t6012 + 0.16557e0_f64 * t6015 + 0.82785e-1_f64 * t6018;
+            (t6069, t6084)
+        };
+        let (t6085, t6088, t6091) = {
+            let t6085 = t6084 * t1156;
+            let t6088 = t6068 * t3403;
+            let t6091 = -0.310907e-1_f64 * t6031 * t436 + 2.0_f64 * t4797 * t1683 - 2.0_f64 * t3332 * t6037 + 1.0_f64 * t1129 * t6053 + 0.32163958997385070134e2_f64 * t3357 * t6056 + t5985 - t5987 + t5991 - t6023 - t6026 - 0.19751673498613801407e-1_f64 * t6064 + 0.11696447245269292414e1_f64 * t4835 * t1695 - 0.11696447245269292414e1_f64 * t3376 * t6069 + 0.5848223622634646207e0_f64 * t1148 * t6085 + 0.17315859105681463759e2_f64 * t3401 * t6088;
+            (t6085, t6088, t6091)
+        };
+        let (t6092, t6094, t6096, t6098, t6100, t6102, t6104, t6105) = {
+            let t6092 = t300 * t6091;
+            let t6094 = 0.19751673498613801407e-1_f64 * t300 * t6064;
+            let t6096 = 0.11696447245269292414e1_f64 * t4869 * t1703;
+            let t6098 = t3375 * t6068 * t1156;
+            let t6100 = 0.11696447245269292414e1_f64 * t1164 * t6098;
+            let t6102 = t1147 * t6084 * t1156;
+            let t6104 = 0.5848223622634646207e0_f64 * t1164 * t6102;
+            let t6105 = t3400 * t6068;
+            (t6092, t6094, t6096, t6098, t6100, t6102, t6104, t6105)
+        };
+        let (t6106, t6108, t6109, t6119, t6120, t6123, t6126, t6127) = {
+            let t6106 = t6105 * t3403;
+            let t6108 = 0.17315859105681463759e2_f64 * t1164 * t6106;
+            let t6109 = t5416 * t338;
+            let t6119 = t3441 * t5392;
+            let t6120 = t3440 * t6119;
+            let t6123 = t4919 * t4904;
+            let t6126 = t3455 * t5392;
+            let t6127 = t1177 * t6126;
+            (t6106, t6108, t6109, t6119, t6120, t6123, t6126, t6127)
+        };
+        let (t6130, t6131, t6138, t6140, t6141, t6144) = {
+            let t6130 = t1178 * t5398;
+            let t6131 = t1177 * t6130;
+            let t6138 = -t3464 + 2.0_f64 / 9.0_f64 * t4770 + t6012 / 18.0_f64 - t6015 / 3.0_f64 - t6018 / 6.0_f64;
+            let t6139 = t457 * t6138;
+            let t6140 = t6139 * t460;
+            let t6141 = t974 * t6140;
+            let t6144 = t1714 * t1714;
+            (t6130, t6131, t6138, t6140, t6141, t6144)
+        };
+        let (t6146, t6150) = {
+            let t6145 = t457 * t6144;
+            let t6146 = t6145 * t460;
+            let t6147 = t974 * t6146;
+            let t6150 = 0.81481481481481481481e-2_f64 * t6109 * t463 - 0.14814814814814814814e-2_f64 * t4887 + 0.14814814814814814814e-2_f64 * t4889 * t1710 + 0.44444444444444444444e-2_f64 * t4889 * t1717 - t3430 - 0.18518518518518518518e-3_f64 * t4897 - 0.55555555555555555554e-3_f64 * t4917 + 0.37037037037037037036e-3_f64 * t1174 * t6120 + 0.55555555555555555554e-3_f64 * t3447 * t6123 - 0.55555555555555555554e-3_f64 * t1174 * t6127 - 0.27777777777777777777e-3_f64 * t1174 * t6131 - 0.83333333333333333332e-3_f64 * t1174 * t6141 - 0.83333333333333333332e-3_f64 * t1174 * t6147;
+            (t6146, t6150)
+        };
+        let (t6151, t6153, t6158, t6163, t6164, t6165, t6168) = {
+            let t6151 = t6150 * t491;
+            let t6153 = t1720 * t1751;
+            let t6158 = t1730 * t1743;
+            let t6163 = 1.0_f64 / t47 / t480 / t1417;
+            let t6164 = t479 * t6163;
+            let t6165 = t471 * t6164;
+            let t6168 = t6150 * t225;
+            (t6151, t6153, t6158, t6163, t6164, t6165, t6168)
+        };
+        let (t6169, t6170, t6177, t6178, t6183, t6184, t6187, t6188, t6191, t6192) = {
+            let t6169 = t6168 * t68;
+            let t6170 = t6169 * t484;
+            let t6177 = t3560 * t5392;
+            let t6178 = t974 * t6177;
+            let t6183 = t1196 * t5398;
+            let t6184 = t974 * t6183;
+            let t6187 = t3555 * t5392;
+            let t6188 = t974 * t6187;
+            let t6191 = t1735 * t1653;
+            let t6192 = t3578 * t6191;
+            (t6169, t6170, t6177, t6178, t6183, t6184, t6187, t6188, t6191, t6192)
+        };
+        let t6197 = {
+            let t6197 = -t6158 * t488 / 288.0_f64 + 19.0_f64 / 1728.0_f64 * t6165 * t488 + t6170 * t488 / 3072.0_f64 + t4957 / 2304.0_f64 - t4959 / 432.0_f64 - t4994 / 3456.0_f64 + t4998 / 2304.0_f64 + t1174 * t6178 / 216.0_f64 + t4889 * t1726 / 54.0_f64 - t1174 * t6184 / 288.0_f64 - t1174 * t6188 / 144.0_f64 - t3577 * t6192 / 2304.0_f64 + t5002 * t1737 / 1536.0_f64;
+            t6197
+        };
+        let (t6203, t6207, t6211, t6218) = {
+            let t6203 = t248 * t3585 * t5971;
+            let t6207 = t248 * t1230 * t5979;
+            let t6211 = t248 * t1230 * t5975;
+            let t6218 = -t5985 + t5987 - t5991 + t6023 + t6026 + t6092 + t6094 - t6096 + t6100 - t6104 - t6108;
+            (t6203, t6207, t6211, t6218)
+        };
+        let (t6219, t6221, t6224) = {
+            let t6219 = t6218 * t475;
+            let t6221 = t248 * t1214 * t6219;
+            let t6224 = t1734 * t1734;
+            (t6219, t6221, t6224)
+        };
+        let (t6225, t6227, t6230, t6232, t6237) = {
+            let t6225 = t6224 * t3508;
+            let t6227 = t248 * t1214 * t6225;
+            let t6230 = t6224 * t475;
+            let t6232 = t248 * t1214 * t6230;
+            let t6237 = -t5005 * t1748 / 2304.0_f64 - t5019 * t1737 / 288.0_f64 + 5.0_f64 / 13824.0_f64 * t1227 * t6203 - t1227 * t6207 / 4608.0_f64 - t1227 * t6211 / 2304.0_f64 - t5036 / 54.0_f64 + 11.0_f64 / 108.0_f64 * t6109 * t467 - t5041 / 432.0_f64 - t3542 + t1213 * t6221 / 3072.0_f64 + t3506 * t6227 / 1536.0_f64 - t3515 * t6232 / 3072.0_f64 + t5024 * t1748 / 432.0_f64 - t3547;
+            (t6225, t6227, t6230, t6232, t6237)
+        };
+        let (t6238, t6239, t6243, t6244, t6252) = {
+            let t6238 = t6197 + t6237;
+            let t6239 = t466 * t6238;
+            let t6243 = t1760 * t1760;
+            let t6244 = t3598 * t6243;
+            let t6252 = t491 * t6224;
+            (t6238, t6239, t6243, t6244, t6252)
+        };
+        let (t6253, t6256, t6257, t6260, t6261, t6263, t6265, t6267) = {
+            let t6253 = t6252 * t3612;
+            let t6256 = t1751 * t1734;
+            let t6257 = t6256 * t1246;
+            let t6260 = t491 * t6218;
+            let t6261 = t6260 * t1246;
+            let t6263 = t6252 * t3625;
+            let t6265 = t493 * t6238;
+            let t6267 = 2.0_f64 * t1244 * t6257 + t1244 * t6261 + 2.0_f64 * t1729 * t1758 + 2.0_f64 * t1756 * t5064 + 2.0_f64 * t3610 * t6253 - t3624 * t6263 + t470 * t6265 + t494 * t6168;
+            (t6253, t6256, t6257, t6260, t6261, t6263, t6265, t6267)
+        };
+        let (t6268, t6270, t6274) = {
+            let t6268 = t1241 * t6267;
+            let t6270 = 2.0_f64 * t1238 * t6244 - t1238 * t6268 - 2.0_f64 * t1761 * t4945 - 2.0_f64 * t1761 * t5055 + t498 * t6151 + 2.0_f64 * t498 * t6153 + t498 * t6239;
+            let t6274 = t1763 * t1763;
+            (t6268, t6270, t6274)
+        };
+        let t6278 = {
+            let t6278 = t1256 * t193 * t336 * t6270 - t193 * t336 * t3640 * t6274 - t5985 + t5987 - t5991 + t6023 + t6026 + t6092 + t6094 - t6096 + t6100 - t6104 - t6108;
+            t6278
+        };
+        let (t6279, t6286) = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t505 = t265 < t504;
+            let t6279 = piecewise3(t505, t6278, t5669);
+            let t6286 = piecewise3(t401, t5669 * t28 / 2.0_f64 + t1534 * t1649 + t265 * t5966 / 2.0_f64, t6279 * t52 / 2.0_f64 - t1768 * t1409 - t506 * t5398 / 2.0_f64);
+            (t6279, t6286)
+        };
+        let t6287 = {
+            let t6287 = t5962 + t6286;
+            t6287
+        };
+        let (t6295, t6299, t6300, t6301, t6304) = {
+            let t6295 = 2.0_f64 * t1268 * t5493 + 4.0_f64 * t1458 * t4028 + 2.0_f64 * t5456 * t88 + t5450;
+            let t6299 = 0.11696447245269292414e1_f64 * t5155;
+            let t6300 = 0.36622894612013090108e-3_f64 * t5158;
+            let t6301 = t5122 * t1799;
+            let t6304 = 2.0_f64 * t5169;
+            (t6295, t6299, t6300, t6301, t6304)
+        };
+        let (t6305, t6312, t6320) = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t6305 = t1408 * t1408;
+            let t6311 = piecewise3(t26, 0.0_f64, 4.0_f64 / 9.0_f64 * t3664 * t6305 + 4.0_f64 / 3.0_f64 * t514 * t5397);
+            let t6312 = t1649 * t1649;
+            let t6318 = piecewise3(t29, 0.0_f64, 4.0_f64 / 9.0_f64 * t3672 * t6312 + 4.0_f64 / 3.0_f64 * t517 * t5966);
+            let t6320 = (t6311 + t6318) * t157;
+            (t6305, t6312, t6320)
+        };
+        let (t6322, t6323) = {
+            let t6322 = 0.19751673498613801407e-1_f64 * t6320 * t182;
+            let t6323 = 6.0_f64 * t3918 * t6301 + t2408 + t2417 - t2423 - t2426 + t3686 + t3688 - t3690 - t3695 + t3813 - t6299 - t6300 + t6304 + t6322;
+            (t6322, t6323)
+        };
+        let (t6324, t6328, t6329, t6330) = {
+            let t6324 = t1845 * t1845;
+            let t6328 = t6320 * t184;
+            let t6329 = t17 * t6328;
+            let t6330 = t1799 * t1799;
+            (t6324, t6328, t6329, t6330)
+        };
+        let t6347 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t6339 = piecewise3(t26, 0.0_f64, -2.0_f64 / 9.0_f64 * t3704 * t6305 + 2.0_f64 / 3.0_f64 * t1298 * t5397);
+            let t6345 = piecewise3(t29, 0.0_f64, -2.0_f64 / 9.0_f64 * t3711 * t6312 + 2.0_f64 / 3.0_f64 * t1302 * t5966);
+            let t6347 = t6339 / 2.0_f64 + t6345 / 2.0_f64;
+            t6347
+        };
+        let (t6353, t6358, t6361, t6362) = {
+            let t6353 = t210 * t214 * t6330;
+            let t6358 = t210 * t214 * t6347;
+            let t6361 = t3725 + 0.77777777777777777775e-2_f64 * t5192 + t3731 + 0.49999999999999999998e-2_f64 * t3733 * t6353 + 0.16666666666666666666e-2_f64 * t5203 - 0.16666666666666666666e-2_f64 * t1315 * t6358 - t3751;
+            let t6362 = t6361 * t562;
+            (t6353, t6358, t6361, t6362)
+        };
+        let (t6364, t6370, t6371, t6374, t6375, t6378, t6379, t6387, t6388, t6390) = {
+            let t6364 = t1807 * t1834;
+            let t6370 = t119 * t6330;
+            let t6371 = t210 * t6370;
+            let t6374 = t119 * t6347;
+            let t6375 = t210 * t6374;
+            let t6378 = t6361 * t225;
+            let t6379 = t6378 * t554;
+            let t6387 = t1824 * t1824;
+            let t6388 = t6387 * t3792;
+            let t6390 = t1343 * t820 * t6388;
+            (t6364, t6370, t6371, t6374, t6375, t6378, t6379, t6387, t6388, t6390)
+        };
+        let (t6394, t6396, t6399, t6400, t6401) = {
+            let t6394 = t550 * t1799;
+            let t6396 = t3805 * t5249 * t6394;
+            let t6399 = 8.0_f64 * t5264;
+            let t6400 = 8.0_f64 * t5266;
+            let t6401 = t6329 + t6304 + t3813 - t2486 - t6299 + t2408 + t2417 - t6399 - t6400 - t2426 + t3688;
+            (t6394, t6396, t6399, t6400, t6401)
+        };
+        let t6402 = {
+            let t6402 = -t3690 - t3695 + t6322 + t3686 + t3819 + t3821 + t3823 - t2423 - t6300 + t3825 - t3832 - t3836;
+            t6402
+        };
+        let (t6404, t6408, t6411, t6414, t6415) = {
+            let t6404 = (t6401 + t6402) * t225;
+            let t6408 = t3843 * t6330;
+            let t6411 = t1347 * t6347;
+            let t6414 = 6.0_f64 * t1819 * t1821 - 12.0_f64 * t546 * t6408 + 3.0_f64 * t546 * t6411 - t548 * t6404;
+            let t6415 = t6414 * t550;
+            (t6404, t6408, t6411, t6414, t6415)
+        };
+        let (t6417, t6420, t6422, t6427, t6431, t6434) = {
+            let t6417 = t1343 * t820 * t6415;
+            let t6420 = t6387 * t550;
+            let t6422 = t1343 * t820 * t6420;
+            let t6427 = t3870 * t820 * t6330;
+            let t6431 = t1367 * t820 * t6347;
+            let t6434 = t3762 + 7.0_f64 / 72.0_f64 * t5220 + t3733 * t6371 / 16.0_f64 - t1315 * t6375 / 48.0_f64 + t6379 * t559 / 3072.0_f64 - t5235 * t1827 / 1536.0_f64 - 7.0_f64 / 2304.0_f64 * t5238 - t5240 * t1831 / 384.0_f64 + t3790 * t6390 / 1536.0_f64 + 7.0_f64 / 2304.0_f64 * t5255 + t3803 * t6396 / 384.0_f64 - t1341 * t6417 / 3072.0_f64 - t1341 * t6422 / 3072.0_f64 + t3864 + 7.0_f64 / 576.0_f64 * t5306 + 5.0_f64 / 768.0_f64 * t1363 * t6427 - t1363 * t6431 / 768.0_f64;
+            (t6417, t6420, t6422, t6427, t6431, t6434)
+        };
+        let (t6435, t6439, t6440, t6448, t6451, t6454, t6456, t6458) = {
+            let t6435 = t539 * t6434;
+            let t6439 = t1842 * t1842;
+            let t6440 = t3887 * t6439;
+            let t6448 = t3897 * t6388;
+            let t6451 = t5348 * t1825;
+            let t6454 = t1380 * t6415;
+            let t6456 = t1380 * t6420;
+            let t6458 = t553 * t6434;
+            (t6435, t6439, t6440, t6448, t6451, t6454, t6456, t6458)
+        };
+        let t6460 = {
+            let t6460 = 2.0_f64 * t1336 * t6448 - 2.0_f64 * t1336 * t6451 - t1336 * t6454 - t1336 * t6456 + 2.0_f64 * t1814 * t1840 - 2.0_f64 * t1838 * t5234 + t544 * t6458 + t564 * t6378;
+            t6460
+        };
+        let (t6461, t6463, t6467) = {
+            let t6461 = t1378 * t6460;
+            let t6463 = 2.0_f64 * t1375 * t6440 - t1375 * t6461 - 2.0_f64 * t1843 * t5215 - 2.0_f64 * t1843 * t5321 + t568 * t6362 + 2.0_f64 * t568 * t6364 + t568 * t6435;
+            let t6467 = t1390 * t193 * t533 * t6463 - t193 * t3701 * t533 * t6324 + 3.0_f64 * t1297 * t193 * t6347 + 6.0_f64 * t193 * t3924 * t6330 - t2486 + t3819 + t3821 + t3823 + t3825 - t3832 - t3836 + t6329 - t6399 - t6400;
+            (t6461, t6463, t6467)
+        };
+        let (t6468, t6470) = {
+            let t6468 = t6323 + t6467;
+            let t6470 = -t113 * t6287 - 2.0_f64 * t1442 * t1774 - 4.0_f64 * t1459 * t4028 + 2.0_f64 * t1778 * t1849 - t510 * t5450 - 2.0_f64 * t510 * t5457 + t513 * t6468 - 4.0_f64 * t5460 * t652 - 2.0_f64 * t5494 * t652 + t574 * t6295;
+            (t6468, t6470)
+        };
+        let (t6471, t6483, t6546, t6589) = {
+            let t6471 = t3 * t6470;
+            let t6483 = 0.45e1_f64 * t6470 * t577 + 27.0_f64 * t5371 * t1458 + 27.0_f64 * t3941 * t5456 + 0.135e2_f64 * t1401 * t5493;
+            let t6546 = t781 * t154;
+            let t6589 = 1.0_f64 / t243 / t202;
+            (t6471, t6483, t6546, t6589)
+        };
+        let (t6733, t6739) = {
+            let t6733 = t984 * t343;
+            let t6739 = 1.0_f64 / t3034 / t334;
+            (t6733, t6739)
+        };
+        let (t6793, t6924, t7319, t7458) = {
+            let t6793 = t371 * t334;
+            let t6924 = 1.0_f64 / t556 / t533;
+            let t7319 = t1184 * t460;
+            let t7458 = t89 * t1458;
+            (t6793, t6924, t7319, t7458)
+        };
+        let (t7577, t7676) = {
+            let t7577 = t1597 * t343;
+            let t7676 = t88 * t1458;
+            (t7577, t7676)
+        };
+        let (t8034, t8124) = {
+            let t8034 = t1714 * t460;
+            let t8124 = t1266 * t2180;
+            (t8034, t8124)
+        };
+        let (t8127, t8128) = {
+            let t8127 = t626 * t2177 / 3.0_f64;
+            let t8128 = t64 * t2331;
+            (t8127, t8128)
+        };
+        let t8129 = {
+            let t8129 = t91 * t96;
+            t8129
+        };
+        let (t8130, t8134, t8137) = {
+            let t8130 = t8129 * t666;
+            let t8134 = t656 * t38 * t96;
+            let t8137 = t64 * t656;
+            (t8130, t8134, t8137)
+        };
+        let t8138 = {
+            let t8138 = t91 * t95;
+            t8138
+        };
+        let (t8139, t8143) = {
+            let t110 = 1.0_f64 < t109;
+            let t8139 = t8138 * t659;
+            let t8143 = piecewise3(t110, 0.0_f64, t8127 + t8128 * t8130 / 4.0_f64 + 5.0_f64 / 24.0_f64 * t64 * t8134 - 5.0_f64 / 24.0_f64 * t8137 * t8139);
+            (t8139, t8143)
+        };
+        let t8144 = {
+            let t8144 = t510 * t8143;
+            t8144
+        };
+        let t8148 = {
+            let t8148 = t8143 * t574;
+            t8148
+        };
+        let (t8150, t8153) = {
+            let t8150 = t2180 * t1393;
+            let t8153 = 2.0_f64 * t1268 * t8148 + 2.0_f64 * t1268 * t8150 - 2.0_f64 * t2181 * t2314 - 2.0_f64 * t2181 * t4034 + 2.0_f64 * t2183 * t2314 + 2.0_f64 * t2183 * t5113 - 2.0_f64 * t652 * t8124 - 2.0_f64 * t652 * t8144;
+            (t8150, t8153)
+        };
+        let (t8154, t8161) = {
+            let t8154 = t3 * t8153;
+            let t8161 = t2186 * t112;
+            (t8154, t8161)
+        };
+        let (t8166, t8171, t8221, t8223) = {
+            let t8166 = t2180 * t671;
+            let t8171 = 0.45e1_f64 * t8153 * t577 + 0.135e2_f64 * t8161 * t671 + 0.135e2_f64 * t3938 * t2180 + 27.0_f64 * t3941 * t8166 + 0.135e2_f64 * t1401 * t8143;
+            let t8221 = t1774 * t2180;
+            let t8223 = t8129 * t1453;
+            (t8166, t8171, t8221, t8223)
+        };
+        let (t8226, t8230) = {
+            let t110 = 1.0_f64 < t109;
+            let t8226 = t8138 * t1444;
+            let t8230 = piecewise3(t110, 0.0_f64, t8127 + t8128 * t8223 / 4.0_f64 - 5.0_f64 / 24.0_f64 * t8137 * t8226);
+            (t8226, t8230)
+        };
+        let t8231 = {
+            let t8231 = t510 * t8230;
+            t8231
+        };
+        let t8235 = {
+            let t8235 = t8230 * t574;
+            t8235
+        };
+        let t8237 = {
+            let t8237 = t2180 * t1849;
+            t8237
+        };
+        let t8240 = {
+            let t8240 = 2.0_f64 * t1268 * t8235 + 2.0_f64 * t1268 * t8237 - 2.0_f64 * t2181 * t4028 - 2.0_f64 * t2181 * t7458 + 2.0_f64 * t2183 * t4028 + 2.0_f64 * t2183 * t7676 - 2.0_f64 * t652 * t8221 - 2.0_f64 * t652 * t8231;
+            t8240
+        };
+        let (t8241, t8251) = {
+            let t8241 = t3 * t8240;
+            let t8251 = t2180 * t1458;
+            (t8241, t8251)
+        };
+        let (t8256, t8705) = {
+            let t8256 = 0.45e1_f64 * t8240 * t577 + 0.135e2_f64 * t8161 * t1458 + 0.135e2_f64 * t5371 * t2180 + 27.0_f64 * t3941 * t8251 + 0.135e2_f64 * t1401 * t8230;
+            let t8705 = 1.0_f64 / t60 / t590;
+            (t8256, t8705)
+        };
+        let (t9212, t9214, t9216, t9218, t9220, t9222) = {
+            let t9212 = t2 * t16;
+            let t9214 = t9 * t591;
+            let t9216 = t587 * t21;
+            let t9218 = t14 * t598;
+            let t9220 = t594 * t2230;
+            let t9222 = t2229 * t3;
+            (t9212, t9214, t9216, t9218, t9220, t9222)
+        };
+        let (t9225, t9231, t9239, t9287, t9300) = {
+            let t9223 = 1.0_f64 / t9222;
+            let t9225 = 0.75936e3_f64 * t19 * t9223;
+            let t9231 = t601 * t2239;
+            let t9238 = 1.0_f64 / t85 / t84 / t83;
+            let t9239 = t24 * t9238;
+            let t9287 = 1.0_f64 / t42 / t41;
+            let t9300 = 1.0_f64 / t54 / t53;
+            (t9225, t9231, t9239, t9287, t9300)
+        };
+        let (t9311, t9321, t9330, t9358, t9359, t9364, t9365, t9384, t9397) = {
+            let t9311 = 1232.0_f64 / 27.0_f64 * t2585;
+            let t9321 = 1.0_f64 / t73 / t2769;
+            let t9330 = 1.0_f64 / t76 / t3241;
+            let t9358 = 154.0_f64 / 27.0_f64 * t2585 * t107;
+            let t9359 = t2281 * t667;
+            let t9364 = t655 * t655;
+            let t9365 = 1.0_f64 / t9364;
+            let t9383 = t94 * t93;
+            let t9384 = 1.0_f64 / t9383;
+            let t9397 = t102 * t101;
+            (t9311, t9321, t9330, t9358, t9359, t9364, t9365, t9384, t9397)
+        };
+        let (t9398, t9427, t9438, t9454, t9457) = {
+            let t9398 = 1.0_f64 / t9397;
+            let t9427 = 1.0_f64 / t195 / t40;
+            let t9438 = 1.0_f64 / t197 / t52;
+            let t9452 = 1.0_f64 / t2409 / t138;
+            let t9453 = t125 * t9452;
+            let t9454 = t2412 * t701;
+            let t9455 = t9454 * t2414;
+            let t9457 = 0.96491876992155210402e2_f64 * t9453 * t9455;
+            (t9398, t9427, t9438, t9454, t9457)
+        };
+        let (t9467, t9469, t9476) = {
+            let t9467 = t2393 * t763;
+            let t9469 = 0.21687162600603479684e-1_f64 * t2374 * t9467;
+            let t9474 = t9454 * t702;
+            let t9476 = 6.0_f64 * t2411 * t9474;
+            (t9467, t9469, t9476)
+        };
+        let t9484 = {
+            let t9478 = 1.0_f64 / t2409 / t681;
+            let t9479 = t125 * t9478;
+            let t9481 = 1.0_f64 / t2413 / t141;
+            let t9482 = t9454 * t9481;
+            let t9484 = 0.51726012919273400301e3_f64 * t9479 * t9482;
+            t9484
+        };
+        let (t9489, t9490) = {
+            let t9489 = 1.0_f64 / t2508 / t738;
+            let t9490 = t2369 * t745;
+            (t9489, t9490)
+        };
+        let (t9493, t9494, t9496, t9523, t9526, t9533) = {
+            let t9493 = 1.0_f64 / t2511 / t180;
+            let t9494 = t9489 * t9490 * t9493;
+            let t9496 = 0.10254018858216406658e4_f64 * t761 * t9494;
+            let t9523 = t229 * t116;
+            let t9524 = t212 * t776;
+            let t9525 = t9523 * t9524;
+            let t9526 = t2586 * t9525;
+            let t9533 = 1.0_f64 / t60 / t597;
+            (t9493, t9494, t9496, t9523, t9526, t9533)
+        };
+        let (t9534, t9538, t9540, t9541, t9542, t9546, t9547) = {
+            let t9534 = t59 * t9533;
+            let t9537 = t2386 * t212;
+            let t9538 = t116 * t131 * t9537;
+            let t9540 = 0.13888888888888888889e-3_f64 * t9534 * t207 * t9538;
+            let t9541 = t2559 * t786;
+            let t9542 = t9541 * t789;
+            let t9546 = t2566 * t786;
+            let t9547 = t9546 * t2578;
+            (t9534, t9538, t9540, t9541, t9542, t9546, t9547)
+        };
+        let (t9549, t9558, t9559, t9569, t9572, t9573, t9576, t9577, t9579) = {
+            let t9549 = t792 * t2570;
+            let t9558 = t154 * t845;
+            let t9559 = t205 * t9558;
+            let t9569 = t59 * t8705;
+            let t9572 = 0.28086419753086419752e-1_f64 * t9569 * t207 * t215;
+            let t9573 = t782 * t2570;
+            let t9576 = t59 * t2690;
+            let t9577 = t9576 * t154;
+            let t9579 = 0.99999999999999999997e-2_f64 * t9577 * t2588;
+            (t9549, t9558, t9559, t9569, t9572, t9573, t9576, t9577, t9579)
+        };
+        let (t9580, t9583, t9601, t9602, t9607, t9627) = {
+            let t9580 = t59 * t21;
+            let t9583 = 0.16435185185185185185e-1_f64 * t9580 * t207 * t795;
+            let t9600 = t841 * t2690;
+            let t9601 = t812 * t9600;
+            let t9602 = t9601 * t849;
+            let t9607 = t241 * t6589 * t67;
+            let t9627 = t2632 * t776;
+            (t9580, t9583, t9601, t9602, t9607, t9627)
+        };
+        let (t9638, t9642, t9645, t9646, t9667, t9671, t9672) = {
+            let t9637 = t815 * t836;
+            let t9638 = t812 * t9637;
+            let t9642 = t2617 * t2642;
+            let t9645 = t1891 * t67;
+            let t9646 = t9645 * t246;
+            let t9666 = t2628 * t835;
+            let t9667 = t812 * t9666;
+            let t9670 = t815 * t2690;
+            let t9671 = t812 * t9670;
+            let t9672 = t9671 * t831;
+            (t9638, t9642, t9645, t9646, t9667, t9671, t9672)
+        };
+        let (t9674, t9689, t9691, t9692, t9694, t9695) = {
+            let t9674 = t2617 * t2638;
+            let t9688 = 1.0_f64 / t126 / t136 * t116 / 4.0_f64;
+            let t9689 = t9688 * t16;
+            let t9691 = t2386 * t625;
+            let t9692 = t2385 * t9691;
+            let t9694 = t686 * t781;
+            let t9695 = t685 * t9694;
+            (t9674, t9689, t9691, t9692, t9694, t9695)
+        };
+        let (t9697, t9698, t9702, t9704, t9706, t9709) = {
+            let t9697 = t120 * t781;
+            let t9698 = t118 * t9697;
+            let t9700 = 1.0_f64/pow_3_2(t123);
+            let t9701 = t9700 * t116;
+            let t9702 = t9701 * t16;
+            let t9704 = t2397 * t9691;
+            let t9706 = t693 * t9694;
+            let t9709 = t133 * t119 * t625;
+            (t9697, t9698, t9702, t9704, t9706, t9709)
+        };
+        let (t9711, t9713, t9715, t9720) = {
+            let t9711 = -0.34523333333333333333e1_f64 * t9689 + 0.23015555555555555556e1_f64 * t9692 - 0.26851481481481481482e1_f64 * t9695 - 0.93932222222222222223e0_f64 * t9698 + 0.73355e-1_f64 * t9702 - 0.14671e0_f64 * t9704 - 0.17116166666666666667e0_f64 * t9706 - 0.36793333333333333333e0_f64 * t9709;
+            let t9713 = t739 * t9711 * t746;
+            let t9715 = 0.5848223622634646207e0_f64 * t761 * t9713;
+            let t9720 = 1.0_f64 / t2508 / t177;
+            (t9711, t9713, t9715, t9720)
+        };
+        let (t9722, t9724, t9726, t9730, t9731, t9733) = {
+            let t9722 = t9720 * t9490 * t2512;
+            let t9724 = 0.10389515463408878255e3_f64 * t761 * t9722;
+            let t9726 = t718 * t2517;
+            let t9729 = 1.0_f64 / t2475 / t723;
+            let t9730 = t159 * t9729;
+            let t9731 = t2461 * t730;
+            let t9733 = 1.0_f64 / t2478 / t167;
+            (t9722, t9724, t9726, t9730, t9731, t9733)
+        };
+        let (t9734, t9739, t9740, t9751) = {
+            let t9734 = t9731 * t9733;
+            let t9738 = 1.0_f64 / t2475 / t164;
+            let t9739 = t159 * t9738;
+            let t9740 = t9731 * t2479;
+            let t9751 = -0.47063e1_f64 * t9689 + 0.31375333333333333334e1_f64 * t9692 - 0.36604555555555555556e1_f64 * t9695 - 0.16068111111111111111e1_f64 * t9698 + 0.28051666666666666666e0_f64 * t9702 - 0.56103333333333333332e0_f64 * t9704 - 0.6545388888888888889e0_f64 * t9706 - 0.46308888888888888888e0_f64 * t9709;
+            (t9734, t9739, t9740, t9751)
+        };
+        let (t9752, t9755, t9758, t9759, t9762, t9763, t9766, t9777) = {
+            let t9752 = t9751 * t731;
+            let t9755 = t9490 * t746;
+            let t9758 = t172 * t9489;
+            let t9759 = t9490 * t9493;
+            let t9762 = t172 * t9720;
+            let t9763 = t9490 * t2512;
+            let t9766 = t9711 * t746;
+            let t9777 = -0.25319e1_f64 * t9689 + 0.16879333333333333333e1_f64 * t9692 - 0.19692555555555555555e1_f64 * t9695 - 0.93011851851851851854e0_f64 * t9698 + 0.13651666666666666667e0_f64 * t9702 - 0.27303333333333333333e0_f64 * t9704 - 0.3185388888888888889e0_f64 * t9706 - 0.36514074074074074075e0_f64 * t9709;
+            (t9752, t9755, t9758, t9759, t9762, t9763, t9766, t9777)
+        };
+        let t9780 = {
+            let t9778 = t9777 * t702;
+            let t9780 = 1.0_f64 * t683 * t9778;
+            t9780
+        };
+        let (t9781, t9789) = {
+            let t9781 = t9731 * t731;
+            let t9789 = 6.0_f64 * t2420 * t703 * t2405;
+            (t9781, t9789)
+        };
+        let t9793 = {
+            let t9790 = t204 * t682;
+            let t9793 = 0.71233333333333333332e-1_f64 * t268 * t9790 * t703;
+            t9793
+        };
+        let t9797 = {
+            let t9797 = 0.10685e0_f64 * t268 * t676 * t2419 * t2421;
+            t9797
+        };
+        let t9798 = {
+            let t9798 = 0.2069040516770936012e4_f64 * t9730 * t9734 + t9457 - 0.19298375398431042081e3_f64 * t9739 * t9740 + 1.0_f64 * t725 * t9752 + 0.35089341735807877242e1_f64 * t2510 * t9755 - t9476 - t9484 + 0.10254018858216406658e4_f64 * t9758 * t9759 - 0.10389515463408878255e3_f64 * t9762 * t9763 + 0.5848223622634646207e0_f64 * t740 * t9766 - t9780 + 6.0_f64 * t2477 * t9781 + 0.16562821945185185185e-2_f64 * t118 * t9697 * t168 + t9789 - t9793 - t9797;
+            t9798
+        };
+        let (t9799, t9803, t9810, t9814, t9820) = {
+            let t9799 = t676 * t2368;
+            let t9803 = t204 * t739;
+            let t9810 = t676 * t2509;
+            let t9814 = t204 * t724;
+            let t9820 = 0.53424999999999999999e-1_f64 * t268 * t2483 * t2406;
+            (t9799, t9803, t9810, t9814, t9820)
+        };
+        let t9824 = {
+            let t9821 = t676 * t2410;
+            let t9824 = 0.85917975471764868594e0_f64 * t268 * t9821 * t2415;
+            t9824
+        };
+        let (t9828, t9843, t9844, t9847, t9853) = {
+            let t9828 = t676 * t2476;
+            let t9843 = t2504 * t2512;
+            let t9844 = t9843 * t745;
+            let t9847 = t747 * t2504;
+            let t9853 = 0.48245938496077605201e2_f64 * t2411 * t2405 * t2414 * t701;
+            (t9828, t9843, t9844, t9847, t9853)
+        };
+        let t9859 = {
+            let t9859 = 0.34450798614814814813e-2_f64 * t118 * t9697 * t142;
+            t9859
+        };
+        let t9860 = {
+            let t9860 = 0.32530743900905219526e-1_f64 * t268 * t9799 * t2495 + 0.21687162600603479684e-1_f64 * t268 * t9803 * t747 - 0.16265371950452609763e-1_f64 * t268 * t2490 * t2505 - 0.48159733137676571078e0_f64 * t268 * t9810 * t2513 + 0.68493333333333333332e-1_f64 * t268 * t9814 * t732 + t9820 + t9824 - 0.51369999999999999999e-1_f64 * t268 * t2454 * t2472 - 0.16522625736956710527e1_f64 * t268 * t9828 * t2480 + 0.10274e0_f64 * t268 * t676 * t2459 * t2462 + 0.96491876992155210402e2_f64 * t2477 * t2471 * t2479 * t730 - 6.0_f64 * t2460 * t732 * t2471 + 0.51947577317044391277e2_f64 * t2510 * t9844 - 0.35089341735807877242e1_f64 * t2494 * t9847 - t9853 + 0.56968947174242584612e-3_f64 * t118 * t9697 * t181 - t9859;
+            t9860
+        };
+        let (t9861, t9863, t9864, t9866, t9869, t9871) = {
+            let t9861 = t9798 + t9860;
+            let t9862 = t157 * t9861;
+            let t9863 = t153 * t9862;
+            let t9864 = t2531 * t2371;
+            let t9866 = t2531 * t2528;
+            let t9868 = t2517 * t607;
+            let t9869 = t707 * t9868;
+            let t9871 = t2652 * t2663;
+            (t9861, t9863, t9864, t9866, t9869, t9871)
+        };
+        let (t9874, t9876, t9880, t9882, t9884, t9885, t9887, t9888) = {
+            let t9874 = t686 * t781 * t181;
+            let t9876 = 0.56968947174242584612e-3_f64 * t756 * t9874;
+            let t9879 = t753 * t118;
+            let t9880 = t9879 * t2375;
+            let t9882 = t677 * t2371;
+            let t9884 = 0.32530743900905219526e-1_f64 * t2374 * t9882;
+            let t9885 = t677 * t2535;
+            let t9887 = 0.16265371950452609763e-1_f64 * t2374 * t9885;
+            let t9888 = t677 * t2528;
+            (t9874, t9876, t9880, t9882, t9884, t9885, t9887, t9888)
+        };
+        let (t9890, t9892, t9894, t9897, t9905, t9907, t9919) = {
+            let t9890 = 0.48159733137676571078e0_f64 * t2374 * t9888;
+            let t9892 = t2509 * t745 * t9843;
+            let t9894 = 0.51947577317044391277e2_f64 * t761 * t9892;
+            let t9897 = t31 * t152;
+            let t9905 = t2368 * t745 * t2505;
+            let t9907 = 0.35089341735807877242e1_f64 * t761 * t9905;
+            let t9919 = t2509 * t9490 * t746;
+            (t9890, t9892, t9894, t9897, t9905, t9907, t9919)
+        };
+        let (t9921, t9922, t9929, t9967, t9971, t9972, t9975) = {
+            let t9921 = 0.35089341735807877242e1_f64 * t761 * t9919;
+            let t9922 = t2531 * t2535;
+            let t9929 = t32 * t717;
+            let t9967 = t2617 * t2629;
+            let t9970 = t813 * t813;
+            let t9971 = 1.0_f64 / t9970;
+            let t9972 = t9971 * t236;
+            let t9975 = t2632 * t232;
+            (t9921, t9922, t9929, t9967, t9971, t9972, t9975)
+        };
+        let (t9993, t10014, t10022, t10026, t10027) = {
+            let t9993 = t2617 * t2696;
+            let t10014 = t809 * t2693;
+            let t10021 = 1.0_f64 / t61 / t597;
+            let t10022 = t10021 * t241;
+            let t10024 = t10022 * t244 * t248;
+            let t10026 = 595.0_f64 / 10368.0_f64 * t238 * t10024;
+            let t10027 = t9569 * t154;
+            (t9993, t10014, t10022, t10026, t10027)
+        };
+        let (t10029, t10036, t10054, t10110, t10143, t10165, t10186) = {
+            let t10029 = 455.0_f64 / 1296.0_f64 * t10027 * t222;
+            let t10036 = t9541 * t805;
+            let t10054 = t2627 * t852;
+            let t10108 = t856 * t856;
+            let t10109 = 1.0_f64 / t10108;
+            let t10110 = t68 * t10109;
+            let t10143 = 1.0_f64 / t2751 / t261;
+            let t10163 = t1053 * t1053;
+            let t10164 = 1.0_f64 / t10163;
+            let t10165 = t68 * t10164;
+            let t10186 = t615 * t337 * t1887;
+            (t10029, t10036, t10054, t10110, t10143, t10165, t10186)
+        };
+        let (t10189, t10190, t10213, t10214, t10216, t10224, t10226, t10231) = {
+            let t10189 = t134 * t976;
+            let t10190 = t10189 * t984;
+            let t10213 = 1.0_f64 / t271 / t2775;
+            let t10214 = t974 * t10213;
+            let t10216 = 1.0_f64 / t2769 / t632;
+            let t10224 = t698 * t976;
+            let t10225 = t10224 * t979;
+            let t10226 = t973 * t10225;
+            let t10231 = t135 * t2978;
+            (t10189, t10190, t10213, t10214, t10216, t10224, t10226, t10231)
+        };
+        let (t10235, t10236, t10254, t10277, t10287, t10292) = {
+            let t10235 = t4509 * t984;
+            let t10236 = t343 * t2770;
+            let t10254 = t343 * t2775;
+            let t10276 = t2769 * t40;
+            let t10277 = 1.0_f64 / t10276;
+            let t10286 = t698 * t986;
+            let t10287 = t973 * t10286;
+            let t10292 = t625 * t241;
+            (t10235, t10236, t10254, t10277, t10287, t10292)
+        };
+        let (t10294, t10295, t10296, t10304, t10333, t10335, t10336) = {
+            let t10294 = t281 * t10292 * t283;
+            let t10295 = 20.0_f64 / 27.0_f64 * t10294;
+            let t10296 = t2403 * t909;
+            let t10304 = t241 * t2978;
+            let t10333 = t964 * t2967;
+            let t10335 = t63 * t340;
+            let t10336 = t10335 * t344;
+            (t10294, t10295, t10296, t10304, t10333, t10335, t10336)
+        };
+        let (t10339, t10372, t10377, t10381, t10383) = {
+            let t10337 = t221 * t10336;
+            let t10339 = 0.3086419753086419753e-3_f64 * t339 * t10337;
+            let t10372 = t1032 * t3082;
+            let t10375 = t374 * t2393 * t376;
+            let t10377 = t370 * t10375 / 10368.0_f64;
+            let t10381 = t964 * t3158;
+            let t10383 = t221 * t10335;
+            (t10339, t10372, t10377, t10381, t10383)
+        };
+        let (t10385, t10390, t10401, t10403, t10408, t10413, t10422) = {
+            let t10385 = 5.0_f64 / 1296.0_f64 * t339 * t10383;
+            let t10390 = t3180 * t3069;
+            let t10401 = t3036 * t67;
+            let t10402 = t3067 * t10401;
+            let t10403 = t3186 * t10402;
+            let t10408 = t820 * t3062;
+            let t10413 = t3200 * t10402;
+            let t10422 = t820 * t3051;
+            (t10385, t10390, t10401, t10403, t10408, t10413, t10422)
+        };
+        let (t10436, t10457, t10469, t10470, t10471) = {
+            let t10436 = t1005 * t3082;
+            let t10457 = t121 * t3061;
+            let t10468 = t1008 * t1008;
+            let t10469 = 1.0_f64 / t10468;
+            let t10470 = t349 * t10469;
+            let t10471 = t1011 * t1011;
+            (t10436, t10457, t10469, t10470, t10471)
+        };
+        let (t10472, t10474, t10477, t10478, t10480, t10482, t10508, t10510) = {
+            let t10472 = t10470 * t10471;
+            let t10473 = t1013 * t1013;
+            let t10474 = 1.0_f64 / t10473;
+            let t10475 = t10474 * t363;
+            let t10477 = 1.0_f64 / t3034 / t6793;
+            let t10478 = t368 * t10477;
+            let t10479 = t10475 * t10478;
+            let t10480 = t10472 * t10479;
+            let t10482 = t3131 * t360;
+            let t10508 = t676 * t376;
+            let t10510 = t248 * t10508 * t1023;
+            (t10472, t10474, t10477, t10478, t10480, t10482, t10508, t10510)
+        };
+        let (t10511, t10523, t10542, t10544, t10545, t10556) = {
+            let t10511 = t1020 * t10510;
+            let t10523 = 1.0_f64 / t2928 / t320;
+            let t10542 = 0.36793333333333333333e0_f64 * t10294;
+            let t10544 = t268 * t6546 * t271;
+            let t10545 = 0.93932222222222222223e0_f64 * t10544;
+            let t10556 = t2394 * t885;
+            (t10511, t10523, t10542, t10544, t10545, t10556)
+        };
+        let (t10564, t10577, t10595, t10599, t10608, t10629, t10632, t10636, t10655) = {
+            let t10564 = t154 * t3061;
+            let t10577 = 28.0_f64 / 27.0_f64 * t10544;
+            let t10595 = 1.0_f64 / t276 / t285 / 4.0_f64;
+            let t10599 = 1.0_f64/pow_3_2(t273);
+            let t10608 = 0.28842592592592592592e-1_f64 * t10544;
+            let t10629 = 1.0_f64 / t2928 / t941;
+            let t10632 = 1.0_f64 / t2931 / t323;
+            let t10636 = 0.55403703703703703703e-1_f64 * t10544;
+            let t10655 = t888 * t2841;
+            (t10564, t10577, t10595, t10599, t10608, t10629, t10632, t10636, t10655)
+        };
+        let (t10661, t10675, t10676, t10702, t10704, t10740, t10747) = {
+            let t10660 = 1.0_f64 / t2840 / t287;
+            let t10661 = t275 * t10660;
+            let t10675 = 0.36514074074074074075e0_f64 * t10294;
+            let t10676 = 0.93011851851851851854e0_f64 * t10544;
+            let t10701 = 1.0_f64 / t2840 / t891;
+            let t10702 = t275 * t10701;
+            let t10704 = 1.0_f64 / t2843 / t290;
+            let t10740 = t919 * t2860;
+            let t10747 = t938 * t2904;
+            (t10661, t10675, t10676, t10702, t10704, t10740, t10747)
+        };
+        let (t10756, t10765, t10771, t10784, t10785, t10811, t10813) = {
+            let t10756 = t315 * t10629;
+            let t10765 = t919 * t2885;
+            let t10770 = 1.0_f64 / t2884 / t307;
+            let t10771 = t302 * t10770;
+            let t10784 = 0.46308888888888888888e0_f64 * t10294;
+            let t10785 = 0.16068111111111111111e1_f64 * t10544;
+            let t10810 = 1.0_f64 / t2884 / t922;
+            let t10811 = t302 * t10810;
+            let t10813 = 1.0_f64 / t2887 / t310;
+            (t10756, t10765, t10771, t10784, t10785, t10811, t10813)
+        };
+        let (t10817, t10825, t10828, t10832, t10868, t10871) = {
+            let t10817 = t888 * t2791;
+            let t10825 = t938 * t2929;
+            let t10828 = t315 * t10523;
+            let t10832 = 0.53272592592592592592e-1_f64 * t10544;
+            let t10868 = t676 * t1043;
+            let t10870 = t248 * t10868 * t884;
+            let t10871 = t1041 * t10870;
+            (t10817, t10825, t10828, t10832, t10868, t10871)
+        };
+        let (t10876, t10883, t10891, t10904, t10923, t10936) = {
+            let t10875 = t3128 * t10478;
+            let t10876 = t10472 * t10875;
+            let t10882 = t1015 * t10478;
+            let t10883 = t10472 * t10882;
+            let t10889 = t1030 * t3036;
+            let t10890 = t1015 * t10889;
+            let t10891 = t3033 * t10890;
+            let t10903 = t3128 * t10889;
+            let t10904 = t3033 * t10903;
+            let t10922 = t698 * t999;
+            let t10923 = t973 * t10922;
+            let t10935 = t363 * t1030;
+            let t10936 = t10935 * t3068;
+            (t10876, t10883, t10891, t10904, t10923, t10936)
+        };
+        let (t10937, t10949, t10952, t10969, t11034, t11037, t11045) = {
+            let t10937 = t1058 * t10936;
+            let t10947 = t990 * t3030;
+            let t10948 = t10947 * t3032;
+            let t10949 = t10948 * t3129;
+            let t10952 = t10948 * t3038;
+            let t10969 = 1.0_f64 / t283 / t2775;
+            let t11034 = t10947 * t3185;
+            let t11037 = t10947 * t3199;
+            let t11045 = t10471 * t1014;
+            (t10937, t10949, t10952, t10969, t11034, t11037, t11045)
+        };
+        let (t11046, t11059, t11060, t11065, t11066, t11094, t11135) = {
+            let t11046 = t10470 * t11045;
+            let t11058 = t10471 * t10474;
+            let t11059 = t10470 * t11058;
+            let t11060 = t6739 * t10482;
+            let t11064 = t10471 * t3127;
+            let t11065 = t10470 * t11064;
+            let t11066 = t6739 * t3131;
+            let t11094 = 1.0_f64 / t3215 / t390;
+            let t11135 = t268 * t6546 * t405;
+            (t11046, t11059, t11060, t11065, t11066, t11094, t11135)
+        };
+        let (t11136, t11137) = {
+            let t11136 = 0.28842592592592592592e-1_f64 * t11135;
+            let t11137 = t2394 * t1091;
+            (t11136, t11137)
+        };
+        let (t11145, t11147, t11153, t11185, t11190, t11195, t11203) = {
+            let t11145 = t154 * t3584;
+            let t11147 = 1.0_f64 / t3241 / t636;
+            let t11152 = t3241 * t52;
+            let t11153 = 1.0_f64 / t11152;
+            let t11185 = t1094 * t3312;
+            let t11189 = 1.0_f64 / t3311 / t419;
+            let t11190 = t409 * t11189;
+            let t11195 = 0.93011851851851851854e0_f64 * t11135;
+            let t11203 = t281 * t10292 * t415;
+            (t11145, t11147, t11153, t11185, t11190, t11195, t11203)
+        };
+        let (t11204, t11211, t11219, t11243, t11247, t11265, t11275) = {
+            let t11204 = 0.36514074074074074075e0_f64 * t11203;
+            let t11211 = t2403 * t1114;
+            let t11219 = t241 * t3439;
+            let t11243 = 1.0_f64/pow_3_2(t407);
+            let t11247 = 28.0_f64 / 27.0_f64 * t11135;
+            let t11265 = 1.0_f64 / t410 / t417 / 4.0_f64;
+            let t11274 = 1.0_f64 / t3311 / t1097;
+            let t11275 = t409 * t11274;
+            (t11204, t11211, t11219, t11243, t11247, t11265, t11275)
+        };
+        let (t11277, t11282, t11285, t11292, t11297, t11303, t11310) = {
+            let t11277 = 1.0_f64 / t3314 / t422;
+            let t11282 = 1.0_f64 / t3399 / t1146;
+            let t11285 = 1.0_f64 / t3402 / t448;
+            let t11292 = 1.0_f64 / t3399 / t445;
+            let t11297 = t1143 * t3375;
+            let t11303 = t1124 * t3331;
+            let t11310 = t440 * t11282;
+            (t11277, t11282, t11285, t11292, t11297, t11303, t11310)
+        };
+        let (t11314, t11317, t11350, t11352, t11361, t11365, t11369, t11372, t11415) = {
+            let t11314 = 0.16068111111111111111e1_f64 * t11135;
+            let t11317 = 0.46308888888888888888e0_f64 * t11203;
+            let t11349 = 1.0_f64 / t3355 / t1127;
+            let t11350 = t427 * t11349;
+            let t11352 = 1.0_f64 / t3358 / t435;
+            let t11361 = t1143 * t3400;
+            let t11365 = t440 * t11292;
+            let t11369 = 0.93932222222222222223e0_f64 * t11135;
+            let t11372 = 0.36793333333333333333e0_f64 * t11203;
+            let t11415 = t1124 * t3356;
+            (t11314, t11317, t11350, t11352, t11361, t11365, t11369, t11372, t11415)
+        };
+        let (t11420, t11424, t11444, t11459, t11487, t11529, t11531, t11539) = {
+            let t11419 = 1.0_f64 / t3355 / t432;
+            let t11420 = t427 * t11419;
+            let t11424 = t1094 * t3263;
+            let t11444 = 0.53272592592592592592e-1_f64 * t11135;
+            let t11459 = 0.55403703703703703703e-1_f64 * t11135;
+            let t11487 = 20.0_f64 / 27.0_f64 * t11203;
+            let t11529 = t698 * t1176;
+            let t11530 = t11529 * t1179;
+            let t11531 = t1174 * t11530;
+            let t11539 = t135 * t3439;
+            (t11420, t11424, t11444, t11459, t11487, t11529, t11531, t11539)
+        };
+        let (t11545, t11546, t11552, t11556, t11558, t11569) = {
+            let t11545 = 1.0_f64 / t405 / t3247;
+            let t11546 = t974 * t11545;
+            let t11552 = t63 * t457;
+            let t11553 = t11552 * t461;
+            let t11554 = t221 * t11553;
+            let t11556 = 0.3086419753086419753e-3_f64 * t456 * t11554;
+            let t11557 = t698 * t1186;
+            let t11558 = t1174 * t11557;
+            let t11569 = t4899 * t1184;
+            (t11545, t11546, t11552, t11556, t11558, t11569)
+        };
+        let (t11570, t11583, t11588, t11589, t11606, t11644, t11647) = {
+            let t11570 = t460 * t3242;
+            let t11583 = t460 * t3247;
+            let t11588 = t134 * t1176;
+            let t11589 = t11588 * t1184;
+            let t11604 = t1239 * t1239;
+            let t11605 = 1.0_f64 / t11604;
+            let t11606 = t68 * t11605;
+            let t11644 = t1203 * t3540;
+            let t11647 = t374 * t2393 * t486;
+            (t11570, t11583, t11588, t11589, t11606, t11644, t11647)
+        };
+        let (t11649, t11665, t11668, t11678, t11692, t11697, t11707) = {
+            let t11649 = t485 * t11647 / 10368.0_f64;
+            let t11665 = t3604 * t3576;
+            let t11668 = t820 * t3585;
+            let t11677 = t3575 * t10401;
+            let t11678 = t3610 * t11677;
+            let t11692 = t3624 * t11677;
+            let t11697 = t820 * t3521;
+            let t11707 = t1190 * t3030;
+            (t11649, t11665, t11668, t11678, t11692, t11697, t11707)
+        };
+        let (t11708, t11709, t11712, t11713, t11715, t11717, t11719, t11721) = {
+            let t11708 = t11707 * t3032;
+            let t11709 = t11708 * t3505;
+            let t11712 = t466 * t10469;
+            let t11713 = t11712 * t10471;
+            let t11714 = t1208 * t1208;
+            let t11715 = 1.0_f64 / t11714;
+            let t11716 = t11715 * t478;
+            let t11717 = t483 * t10477;
+            let t11718 = t11716 * t11717;
+            let t11719 = t11713 * t11718;
+            let t11721 = t3508 * t475;
+            (t11708, t11709, t11712, t11713, t11715, t11717, t11719, t11721)
+        };
+        let (t11728, t11734, t11738, t11778, t11784, t11789) = {
+            let t11727 = t3503 * t11717;
+            let t11728 = t11713 * t11727;
+            let t11734 = t11708 * t3514;
+            let t11737 = t1210 * t11717;
+            let t11738 = t11713 * t11737;
+            let t11778 = 1.0_f64 / t415 / t3247;
+            let t11784 = t121 * t3584;
+            let t11789 = t676 * t1229;
+            (t11728, t11734, t11738, t11778, t11784, t11789)
+        };
+        let (t11792, t11818, t11821, t11834, t11835) = {
+            let t11791 = t248 * t11789 * t1090;
+            let t11792 = t1227 * t11791;
+            let t11818 = t676 * t486;
+            let t11820 = t248 * t11818 * t1216;
+            let t11821 = t1213 * t11820;
+            let t11832 = t221 * t11552;
+            let t11834 = 5.0_f64 / 1296.0_f64 * t456 * t11832;
+            let t11835 = t698 * t1197;
+            (t11792, t11818, t11821, t11834, t11835)
+        };
+        let (t11836, t11881, t11883, t11888, t11889, t11904, t11907) = {
+            let t11836 = t1174 * t11835;
+            let t11880 = t10471 * t11715;
+            let t11881 = t11712 * t11880;
+            let t11883 = t6739 * t11721;
+            let t11887 = t10471 * t3502;
+            let t11888 = t11712 * t11887;
+            let t11889 = t6739 * t3508;
+            let t11904 = t11707 * t3609;
+            let t11907 = t11707 * t3623;
+            (t11836, t11881, t11883, t11888, t11889, t11904, t11907)
+        };
+        let (t11914, t11947, t11979, t11981, t11984, t11987) = {
+            let t11913 = t10471 * t1209;
+            let t11914 = t11712 * t11913;
+            let t11947 = 1.0_f64 / t3639 / t500;
+            let t11979 = t2223 * t1285;
+            let t11981 = t2223 * t1287;
+            let t11984 = 0.56968947174242584612e-3_f64 * t1291 * t9874;
+            let t11985 = t25 * t25;
+            let t11987 = 1.0_f64 / t514 / t11985;
+            (t11914, t11947, t11979, t11981, t11984, t11987)
+        };
+        let (t12000, t12021, t12044, t12045, t12048, t12050, t12052) = {
+            let t11998 = t28 * t28;
+            let t12000 = 1.0_f64 / t517 / t11998;
+            let t12019 = t1376 * t1376;
+            let t12020 = 1.0_f64 / t12019;
+            let t12021 = t68 * t12020;
+            let t12044 = 24.0_f64 * t9212 * t522;
+            let t12045 = t9214 * t522;
+            let t12048 = 12.0_f64 * t592 * t3824;
+            let t12050 = t2221 * t1285;
+            let t12052 = t2221 * t1287;
+            (t12000, t12021, t12044, t12045, t12048, t12050, t12052)
+        };
+        let (t12054, t12057, t12059, t12061, t12072, t12087, t12091) = {
+            let t12054 = t9216 * t522;
+            let t12057 = 120.0_f64 * t9218 * t522;
+            let t12059 = 0.5848223622634646207e0_f64 * t1294 * t9713;
+            let t12061 = 1.0_f64 / t526 / t25;
+            let t12072 = 1.0_f64 / t528 / t28;
+            let t12087 = 0.10389515463408878255e3_f64 * t1294 * t9722;
+            let t12091 = t3691 * t2528;
+            (t12054, t12057, t12059, t12061, t12072, t12087, t12091)
+        };
+        let (t12094, t12097, t12103, t12105, t12106, t12109, t12110) = {
+            let t12094 = 0.35089341735807877242e1_f64 * t1294 * t9919;
+            let t12097 = t3814 * t2663;
+            let t12103 = 0.35089341735807877242e1_f64 * t1294 * t9905;
+            let t12105 = 0.51947577317044391277e2_f64 * t1294 * t9892;
+            let t12106 = t588 * t3826;
+            let t12109 = 0.21687162600603479684e-1_f64 * t3684 * t9467;
+            let t12110 = t1284 * t118;
+            (t12094, t12097, t12103, t12105, t12106, t12109, t12110)
+        };
+        let (t12111, t12114, t12116, t12118, t12120, t12123, t12129) = {
+            let t12111 = t12110 * t2375;
+            let t12114 = 0.32530743900905219526e-1_f64 * t3684 * t9882;
+            let t12116 = 0.48159733137676571078e0_f64 * t3684 * t9888;
+            let t12118 = 0.16265371950452609763e-1_f64 * t3684 * t9885;
+            let t12120 = t588 * t3824;
+            let t12123 = 60.0_f64 * t2225 * t1287;
+            let t12129 = t1284 * t2516;
+            (t12111, t12114, t12116, t12118, t12120, t12123, t12129)
+        };
+        let (t12130, t12133, t12134, t12136, t12138, t12141) = {
+            let t12130 = t17 * t12129;
+            let t12132 = t521 * t9861;
+            let t12133 = t17 * t12132;
+            let t12134 = t592 * t3826;
+            let t12136 = t2225 * t1285;
+            let t12138 = t3691 * t2371;
+            let t12141 = 0.10254018858216406658e4_f64 * t1294 * t9494;
+            (t12130, t12133, t12134, t12136, t12138, t12141)
+        };
+        let (t12142, t12171, t12188, t12189, t12190, t12194) = {
+            let t12142 = t3691 * t2535;
+            let t12171 = t3787 * t1372;
+            let t12188 = 0.28086419753086419752e-1_f64 * t9569 * t535 * t215;
+            let t12189 = t2559 * t1314;
+            let t12190 = t12189 * t1317;
+            let t12194 = 0.16435185185185185185e-1_f64 * t9580 * t535 * t795;
+            (t12142, t12171, t12188, t12189, t12190, t12194)
+        };
+        let (t12196, t12199, t12200, t12202, t12211, t12214, t12215, t12225) = {
+            let t12196 = 0.99999999999999999997e-2_f64 * t9577 * t3749;
+            let t12199 = t2566 * t1314;
+            let t12200 = t12199 * t3741;
+            let t12202 = t792 * t3732;
+            let t12211 = t782 * t3732;
+            let t12214 = t154 * t1365;
+            let t12215 = t205 * t12214;
+            let t12225 = t547 * t116;
+            (t12196, t12199, t12200, t12202, t12211, t12214, t12215, t12225)
+        };
+        let (t12228, t12236, t12248, t12250, t12282) = {
+            let t12226 = t212 * t1307;
+            let t12227 = t12225 * t12226;
+            let t12228 = t2586 * t12227;
+            let t12236 = 0.13888888888888888889e-3_f64 * t9534 * t535 * t9538;
+            let t12247 = t1337 * t1337;
+            let t12248 = 1.0_f64 / t12247;
+            let t12250 = t3792 * t550;
+            let t12282 = t1339 * t836;
+            (t12228, t12236, t12248, t12250, t12282)
+        };
+        let (t12283, t12286, t12289, t12300, t12308, t12325, t12328) = {
+            let t12283 = t1336 * t12282;
+            let t12286 = t3777 * t3789;
+            let t12289 = t12248 * t236;
+            let t12300 = t3777 * t3798;
+            let t12308 = t12189 * t1329;
+            let t12325 = t1333 * t3862;
+            let t12328 = t10022 * t557 * t248;
+            (t12283, t12286, t12289, t12300, t12308, t12325, t12328)
+        };
+        let (t12330, t12335, t12339, t12345, t12346, t12351) = {
+            let t12330 = 595.0_f64 / 10368.0_f64 * t555 * t12328;
+            let t12335 = 455.0_f64 / 1296.0_f64 * t10027 * t541;
+            let t12339 = t3777 * t3865;
+            let t12344 = t1361 * t2690;
+            let t12345 = t1336 * t12344;
+            let t12346 = t12345 * t1369;
+            let t12351 = t241 * t6924 * t67;
+            (t12330, t12335, t12339, t12345, t12346, t12351)
+        };
+        let (t12365, t12366, t12369, t12385, t12418, t12419, t12429) = {
+            let t12364 = t1339 * t2690;
+            let t12365 = t1336 * t12364;
+            let t12366 = t12365 * t1354;
+            let t12369 = t3792 * t1307;
+            let t12384 = t3788 * t835;
+            let t12385 = t1336 * t12384;
+            let t12418 = t1995 * t67;
+            let t12419 = t12418 * t246;
+            let t12429 = t3777 * t3802;
+            (t12365, t12366, t12369, t12385, t12418, t12419, t12429)
+        };
+        let (t12461, t12524, t12560, t12561, t12562, t12563, t12564, t12565, t12568) = {
+            let t12461 = 1.0_f64 / t3700 / t570;
+            let t12524 = t1395 * t111;
+            let t12560 = 0.348e1_f64 * t584;
+            let t12561 = 0.156e1_f64 * t9212;
+            let t12562 = 0.312e1_f64 * t9214;
+            let t12563 = 0.2312e3_f64 * t9216;
+            let t12564 = 0.3468e3_f64 * t9218;
+            let t12565 = 0.56952e3_f64 * t9220;
+            let t12568 = t3951 * t604;
+            (t12461, t12524, t12560, t12561, t12562, t12563, t12564, t12565, t12568)
+        };
+        let (t12571, t12603, t12604, t12725) = {
+            let t12571 = t1406 * t2239;
+            let t12603 = 2.0_f64 * t584;
+            let t12604 = 6.0_f64 * t9212;
+            let t12725 = t4025 * t111;
+            (t12571, t12603, t12604, t12725)
+        };
+        let (t12747, t12750, t12752, t12774, t12795, t12850, t12858) = {
+            let t12747 = t2281 * t1454;
+            let t12750 = 4.0_f64 / 3.0_f64 * t626 * t4044;
+            let t12752 = 2.0_f64 / 3.0_f64 * t626 * t4068;
+            let t12774 = t92 * t2341;
+            let t12795 = t100 * t2349;
+            let t12850 = 2.0_f64 * t4098 * t751;
+            let t12858 = t4095 * t172;
+            (t12747, t12750, t12752, t12774, t12795, t12850, t12858)
+        };
+        let (t12860, t12861, t12895, t12922, t12926) = {
+            let t12860 = 0.11696447245269292414e1_f64 * t12858 * t763;
+            let t12861 = t1472 * t2517;
+            let t12895 = t4303 * t870;
+            let t12922 = 8.0_f64 * t4205 * t2430;
+            let t12923 = t750 * t1409;
+            let t12924 = t12923 * t607;
+            let t12926 = 24.0_f64 * t4194 * t12924;
+            (t12860, t12861, t12895, t12922, t12926)
+        };
+        let (t12934, t12939, t12943, t12946, t12984, t12985) = {
+            let t12932 = t751 * t3966;
+            let t12934 = 8.0_f64 * t707 * t12932;
+            let t12939 = t9897 * t157;
+            let t12943 = t4199 * t2371;
+            let t12945 = t2517 * t1409;
+            let t12946 = t707 * t12945;
+            let t12984 = t212 * t1484;
+            let t12985 = t9523 * t12984;
+            (t12934, t12939, t12943, t12946, t12984, t12985)
+        };
+        let (t12986, t13002, t13005, t13010) = {
+            let t12986 = t2586 * t12985;
+            let t12997 = t2570 * t67;
+            let t12998 = t792 * t12997;
+            let t13000 = t686 * t12984 * t776;
+            let t13002 = 0.49999999999999999998e-2_f64 * t12998 * t13000;
+            let t13004 = t9558 * t131;
+            let t13005 = t205 * t13004;
+            let t13010 = t9541 * t1489;
+            (t12986, t13002, t13005, t13010)
+        };
+        let (t13014, t13020, t13022, t13027, t13042) = {
+            let t13012 = t782 * t4126;
+            let t13014 = 0.23333333333333333332e-1_f64 * t13012 * t4130;
+            let t13020 = t2563 * t4138;
+            let t13022 = t9546 * t4134;
+            let t13025 = t118 * t794 * t4119;
+            let t13027 = 0.16666666666666666666e-2_f64 * t2576 * t13025;
+            let t13042 = t4266 * t225;
+            (t13014, t13020, t13022, t13027, t13042)
+        };
+        let (t13053, t13065, t13087, t13105, t13107, t13109, t13113) = {
+            let t13053 = t4143 * t225;
+            let t13065 = t4145 * t225;
+            let t13087 = t9541 * t1496;
+            let t13105 = 8.0_f64 * t2427 * t4101;
+            let t13107 = t4199 * t2528;
+            let t13109 = t4211 * t2663;
+            let t13113 = t4199 * t2535;
+            (t13053, t13065, t13087, t13105, t13107, t13109, t13113)
+        };
+        let (t13115, t13121, t13124, t13133, t13176) = {
+            let t13115 = t32 * t1471;
+            let t13119 = t4095 * t67;
+            let t13121 = 0.36622894612013090108e-3_f64 * t13119 * t758;
+            let t13123 = t1474 * t118;
+            let t13124 = t13123 * t2375;
+            let t13133 = t706 * t4094;
+            let t13176 = t4162 * t68;
+            (t13115, t13121, t13124, t13133, t13176)
+        };
+        let (t13177, t13182, t13190, t13202, t13208, t13222) = {
+            let t13177 = t13176 * t816;
+            let t13182 = t9671 * t1512;
+            let t13190 = 35.0_f64 / 576.0_f64 * t2697 * t4257;
+            let t13202 = 7.0_f64 / 72.0_f64 * t2563 * t4159;
+            let t13208 = 7.0_f64 / 24.0_f64 * t9573 * t4155;
+            let t13222 = t2644 * t820;
+            (t13177, t13182, t13190, t13202, t13208, t13222)
+        };
+        let (t13223, t13228, t13234, t13237, t13242, t13251, t13257) = {
+            let t13223 = t1509 * t828;
+            let t13228 = t1509 * t2632;
+            let t13234 = t1500 * t2693;
+            let t13237 = 7.0_f64 / 2304.0_f64 * t4163 * t838;
+            let t13242 = t120 * t4233;
+            let t13251 = t4166 * t2642;
+            let t13257 = t2628 * t836;
+            (t13223, t13228, t13234, t13237, t13242, t13251, t13257)
+        };
+        let (t13260, t13262, t13275, t13277, t13278, t13280) = {
+            let t13258 = t812 * t13257;
+            let t13260 = 7.0_f64 / 1152.0_f64 * t13258 * t4184;
+            let t13261 = t9972 * t242;
+            let t13262 = t812 * t13261;
+            let t13275 = 7.0_f64 / 2304.0_f64 * t2639 * t4236;
+            let t13277 = 7.0_f64 / 2304.0_f64 * t9674 * t1512;
+            let t13278 = t4166 * t2638;
+            let t13280 = 7.0_f64 / 2304.0_f64 * t13278 * t831;
+            (t13260, t13262, t13275, t13277, t13278, t13280)
+        };
+        let (t13287, t13320, t13330, t13345, t13350, t13351, t13359) = {
+            let t13287 = 7.0_f64 / 576.0_f64 * t9638 * t4250;
+            let t13320 = 7.0_f64 / 2304.0_f64 * t9638 * t4240;
+            let t13330 = 7.0_f64 / 576.0_f64 * t9638 * t4191;
+            let t13345 = 7.0_f64 / 576.0_f64 * t2697 * t4261;
+            let t13350 = t9645 * t820;
+            let t13351 = t1484 * t828;
+            let t13359 = 7.0_f64 / 576.0_f64 * t9993 * t1516;
+            (t13287, t13320, t13330, t13345, t13350, t13351, t13359)
+        };
+        let (t13360, t13362, t13365, t13368, t13397, t13433) = {
+            let t13360 = t4166 * t2696;
+            let t13362 = 7.0_f64 / 576.0_f64 * t13360 * t849;
+            let t13365 = t13176 * t842;
+            let t13368 = t9601 * t1516;
+            let t13396 = t68 * t9971;
+            let t13397 = t226 * t13396;
+            let t13433 = t814 * t4265;
+            (t13360, t13362, t13365, t13368, t13397, t13433)
+        };
+        let (t13463, t13515, t13520, t13550, t13551, t13552, t13563) = {
+            let t13463 = t4149 * t225;
+            let t13515 = t4351 * t892;
+            let t13520 = t1543 * t2841;
+            let t13550 = t699 * t4389;
+            let t13551 = 0.21908444444444444444e0_f64 * t13550;
+            let t13552 = t699 * t4386;
+            let t13563 = t690 * t4339;
+            (t13463, t13515, t13520, t13550, t13551, t13552, t13563)
+        };
+        let t13566 = {
+            let t13566 = t690 * t4344;
+            t13566
+        };
+        let (t13567, t13598) = {
+            let t13567 = 0.39862222222222222222e0_f64 * t13566;
+            let t13598 = t2394 * t1540;
+            (t13567, t13598)
+        };
+        let (t13600, t13601, t13602) = {
+            let t13600 = 4.0_f64 / 27.0_f64 * t13563;
+            let t13601 = 4.0_f64 / 9.0_f64 * t13566;
+            let t13602 = t690 * t4348;
+            (t13600, t13601, t13602)
+        };
+        let (t13603, t13642, t13644, t13645, t13650, t13675, t13679, t13709, t13712, t13727, t13750) = {
+            let t13603 = 2.0_f64 / 9.0_f64 * t13602;
+            let t13642 = t2403 * t1553;
+            let t13644 = t699 * t4392;
+            let t13645 = 0.10954222222222222222e0_f64 * t13644;
+            let t13650 = 0.19931111111111111111e0_f64 * t13602;
+            let t13675 = 0.22076e0_f64 * t13550;
+            let t13679 = 0.13418888888888888889e0_f64 * t13563;
+            let t13709 = 0.11038e0_f64 * t13644;
+            let t13712 = 0.20128333333333333334e0_f64 * t13602;
+            let t13727 = t1543 * t2791;
+            let t13748 = t2970 * t4343;
+            let t13750 = t973 * t13748 / 216.0_f64;
+            (t13603, t13642, t13644, t13645, t13650, t13675, t13679, t13709, t13712, t13727, t13750)
+        };
+        let (t13758, t13767, t13769, t13782, t13783) = {
+            let t13758 = t4617 * t1036 / 2304.0_f64;
+            let t13765 = t10422 * t4574;
+            let t13767 = t3070 * t13765 / 3456.0_f64;
+            let t13769 = t4509 * t1597;
+            let t13779 = t10189 * t344;
+            let t13780 = t13779 * t4343;
+            let t13782 = 0.37037037037037037036e-3_f64 * t2986 * t13780;
+            let t13783 = t134 * t2978;
+            (t13758, t13767, t13769, t13782, t13783)
+        };
+        let (t13787, t13790, t13798, t13825) = {
+            let t13784 = t13783 * t344;
+            let t13785 = t13784 * t4338;
+            let t13787 = 0.24691358024691358024e-3_f64 * t2986 * t13785;
+            let t13788 = t10190 * t4514;
+            let t13790 = 0.18518518518518518518e-3_f64 * t2986 * t13788;
+            let t13797 = t60 * t10213;
+            let t13798 = t13797 * t344;
+            let t13822 = t135 * t340;
+            let t13823 = t13822 * t4548;
+            let t13825 = 0.55555555555555555554e-3_f64 * t973 * t13823;
+            (t13787, t13790, t13798, t13825)
+        };
+        let (t13830, t13835, t13839, t13847, t13850, t13851) = {
+            let t13828 = t2970 * t4522;
+            let t13830 = 0.18518518518518518518e-3_f64 * t973 * t13828;
+            let t13835 = t10254 * t3961;
+            let t13839 = t10236 * t3961;
+            let t13847 = t10189 * t1597;
+            let t13848 = t13847 * t2990;
+            let t13850 = 0.18518518518518518518e-3_f64 * t2986 * t13848;
+            let t13851 = t2987 * t4540;
+            (t13830, t13835, t13839, t13847, t13850, t13851)
+        };
+        let (t13861, t13893, t13896, t13907, t13909, t13913) = {
+            let t13861 = t2989 * t3966;
+            let t13893 = 0.49382716049382716048e-3_f64 * t2960 * t4506;
+            let t13895 = t10224 * t1592;
+            let t13896 = t973 * t13895;
+            let t13907 = 0.14814814814814814814e-2_f64 * t2960 * t4528;
+            let t13908 = t698 * t1599;
+            let t13909 = t973 * t13908;
+            let t13913 = t135 * t4542;
+            (t13861, t13893, t13896, t13907, t13909, t13913)
+        };
+        let (t13915, t13921, t13922, t13923, t13946, t13948, t13950) = {
+            let t13915 = 0.55555555555555555554e-3_f64 * t973 * t13913;
+            let t13921 = 2.0_f64 / 27.0_f64 * t13552;
+            let t13922 = 4.0_f64 / 9.0_f64 * t13550;
+            let t13923 = 2.0_f64 / 9.0_f64 * t13644;
+            let t13946 = t4622 * t1036 / 432.0_f64;
+            let t13948 = t3117 * t4571 / 3456.0_f64;
+            let t13950 = t248 * t3051 * t4347;
+            (t13915, t13921, t13922, t13923, t13946, t13948, t13950)
+        };
+        let (t13952, t13959, t13963, t13966, t13969) = {
+            let t13952 = t1041 * t13950 / 3456.0_f64;
+            let t13959 = t3114 * t4630 / 2304.0_f64;
+            let t13961 = t248 * t3101 * t4650;
+            let t13963 = t1020 * t13961 / 2304.0_f64;
+            let t13965 = t248 * t10508 * t1616;
+            let t13966 = t1020 * t13965;
+            let t13969 = t247 * t122;
+            (t13952, t13959, t13963, t13966, t13969)
+        };
+        let (t13972, t13995, t14000, t14027, t14049) = {
+            let t13970 = t13969 * t4599;
+            let t13972 = t3039 * t13970 / 2304.0_f64;
+            let t13995 = t4669 * t3069;
+            let t13998 = t10231 * t4338;
+            let t14000 = t973 * t13998 / 324.0_f64;
+            let t14025 = t13969 * t4595;
+            let t14027 = t3130 * t14025 / 1152.0_f64;
+            let t14049 = t3048 * t4571 / 648.0_f64;
+            (t13972, t13995, t14000, t14027, t14049)
+        };
+        let (t14059, t14077, t14080, t14084, t14085, t14117) = {
+            let t14059 = t3109 * t4630 / 432.0_f64;
+            let t14077 = t4640 * t3108;
+            let t14080 = t1611 * t3047;
+            let t14084 = t4641 * t3103 / 2304.0_f64;
+            let t14085 = t4616 * t1040;
+            let t14117 = t1612 * t3082;
+            (t14059, t14077, t14080, t14084, t14085, t14117)
+        };
+        let (t14136, t14139, t14158, t14160, t14164, t14172) = {
+            let t14134 = t13969 * t4584;
+            let t14136 = t1041 * t14134 / 1728.0_f64;
+            let t14137 = t13969 * t4589;
+            let t14139 = 5.0_f64 / 10368.0_f64 * t1041 * t14137;
+            let t14158 = t2960 * t4603 / 162.0_f64;
+            let t14159 = t698 * t1606;
+            let t14160 = t973 * t14159;
+            let t14164 = t1043 * t2770;
+            let t14172 = t3061 * t10277;
+            (t14136, t14139, t14158, t14160, t14164, t14172)
+        };
+        let (t14187, t14194, t14203, t14205, t14206) = {
+            let t14187 = t10969 * t10216;
+            let t14192 = t135 * t4608;
+            let t14194 = t973 * t14192 / 432.0_f64;
+            let t14202 = t248 * t10868 * t1539;
+            let t14203 = t1041 * t14202;
+            let t14205 = t4552 * t1009;
+            let t14206 = t14205 * t1011;
+            (t14187, t14194, t14203, t14205, t14206)
+        };
+        let (t14207, t14211, t14218, t14219, t14245, t14246, t14263, t14266) = {
+            let t14207 = t14206 * t1019;
+            let t14211 = t1615 * t3131;
+            let t14218 = t1615 * t1022;
+            let t14219 = t360 * t883;
+            let t14245 = 0.23744444444444444444e-1_f64 * t13566;
+            let t14246 = 0.11872222222222222222e-1_f64 * t13602;
+            let t14263 = t1573 * t2904;
+            let t14266 = t4408 * t923;
+            (t14207, t14211, t14218, t14219, t14245, t14246, t14263, t14266)
+        };
+        let (t14271, t14276, t14287, t14291, t14321, t14324, t14332, t14337, t14352, t14353) = {
+            let t14271 = t1561 * t2885;
+            let t14276 = t1561 * t2860;
+            let t14287 = 0.27785333333333333334e0_f64 * t13550;
+            let t14291 = 0.22954444444444444444e0_f64 * t13563;
+            let t14321 = 0.13892666666666666667e0_f64 * t13644;
+            let t14324 = 0.34431666666666666666e0_f64 * t13602;
+            let t14332 = t4446 * t942;
+            let t14337 = t1573 * t2929;
+            let t14352 = 0.41203703703703703704e-2_f64 * t13563;
+            let t14353 = 0.12361111111111111111e-1_f64 * t13566;
+            (t14271, t14276, t14287, t14291, t14321, t14324, t14332, t14337, t14352, t14353)
+        };
+        let (t14354, t14409, t14410, t14459, t14473, t14495, t14503, t14506) = {
+            let t14354 = 0.61805555555555555556e-2_f64 * t13602;
+            let t14409 = 0.2283111111111111111e-1_f64 * t13566;
+            let t14410 = 0.11415555555555555555e-1_f64 * t13602;
+            let t14459 = t4471 * t2932;
+            let t14473 = t300 * t4446;
+            let t14495 = t4644 * t3053 / 3456.0_f64;
+            let t14501 = t10422 * t4578;
+            let t14503 = t3070 * t14501 / 3456.0_f64;
+            let t14506 = t1603 * t3030;
+            (t14354, t14409, t14410, t14459, t14473, t14495, t14503, t14506)
+        };
+        let (t14508, t14511, t14529, t14545, t14552, t14555, t14608, t14618, t14651) = {
+            let t14507 = t14506 * t3032;
+            let t14508 = t14507 * t3129;
+            let t14511 = t14507 * t3038;
+            let t14529 = t4658 * t225;
+            let t14545 = t4553 * t225;
+            let t14552 = t4559 * t225;
+            let t14555 = t4555 * t225;
+            let t14608 = t14506 * t3199;
+            let t14618 = t14506 * t3185;
+            let t14651 = t14205 * t1057;
+            (t14508, t14511, t14529, t14545, t14552, t14555, t14608, t14618, t14651)
+        };
+        let t14702 = {
+            let t14702 = t2394 * t1654;
+            t14702
+        };
+        let (t14704, t14705, t14710, t14711, t14720) = {
+            let t14704 = t690 * t4734;
+            let t14705 = 0.20128333333333333334e0_f64 * t14704;
+            let t14710 = t699 * t4778;
+            let t14711 = 0.11038e0_f64 * t14710;
+            let t14720 = t690 * t4725;
+            (t14704, t14705, t14710, t14711, t14720)
+        };
+        let (t14721, t14722) = {
+            let t14721 = 4.0_f64 / 27.0_f64 * t14720;
+            let t14722 = t690 * t4730;
+            (t14721, t14722)
+        };
+        let (t14723, t14724, t14766, t14768, t14781, t14782, t14818, t14838, t14845) = {
+            let t14723 = 4.0_f64 / 9.0_f64 * t14722;
+            let t14724 = 2.0_f64 / 9.0_f64 * t14704;
+            let t14766 = t2403 * t1667;
+            let t14768 = 0.13418888888888888889e0_f64 * t14720;
+            let t14781 = t699 * t4775;
+            let t14782 = 0.22076e0_f64 * t14781;
+            let t14818 = t699 * t4772;
+            let t14838 = t1657 * t3263;
+            let t14845 = t4737 * t1098;
+            (t14723, t14724, t14766, t14768, t14781, t14782, t14818, t14838, t14845)
+        };
+        let (t14850, t14858, t14868, t14870, t14886, t14890, t14922, t14923, t14924, t14946, t14947, t14972) = {
+            let t14850 = t1657 * t3312;
+            let t14858 = t300 * t4832;
+            let t14868 = 0.19931111111111111111e0_f64 * t14704;
+            let t14870 = 0.10954222222222222222e0_f64 * t14710;
+            let t14886 = 0.39862222222222222222e0_f64 * t14722;
+            let t14890 = 0.21908444444444444444e0_f64 * t14781;
+            let t14922 = 0.41203703703703703704e-2_f64 * t14720;
+            let t14923 = 0.12361111111111111111e-1_f64 * t14722;
+            let t14924 = 0.61805555555555555556e-2_f64 * t14704;
+            let t14946 = 0.23744444444444444444e-1_f64 * t14722;
+            let t14947 = 0.11872222222222222222e-1_f64 * t14704;
+            let t14972 = t4947 * t225;
+            (t14850, t14858, t14868, t14870, t14886, t14890, t14922, t14923, t14924, t14946, t14947, t14972)
+        };
+        let (t14980, t15026, t15027, t15031, t15032, t15072, t15074, t15083, t15094) = {
+            let t14980 = t4943 * t225;
+            let t15026 = t1720 * t3030;
+            let t15027 = t15026 * t3609;
+            let t15031 = t4940 * t1009;
+            let t15032 = t15031 * t1243;
+            let t15072 = 0.34431666666666666666e0_f64 * t14704;
+            let t15074 = 0.13892666666666666667e0_f64 * t14710;
+            let t15083 = 0.22954444444444444444e0_f64 * t14720;
+            let t15094 = 0.27785333333333333334e0_f64 * t14781;
+            (t14980, t15026, t15027, t15031, t15032, t15072, t15074, t15083, t15094)
+        };
+        let (t15121, t15126, t15136, t15141, t15146, t15194, t15195, t15207) = {
+            let t15121 = t4832 * t1147;
+            let t15126 = t1687 * t3400;
+            let t15136 = t1687 * t3375;
+            let t15141 = t4794 * t1128;
+            let t15146 = t1675 * t3356;
+            let t15194 = 0.2283111111111111111e-1_f64 * t14722;
+            let t15195 = 0.11415555555555555555e-1_f64 * t14704;
+            let t15207 = t1675 * t3331;
+            (t15121, t15126, t15136, t15141, t15146, t15194, t15195, t15207)
+        };
+        let (t15218, t15245, t15265, t15284, t15285) = {
+            let t15218 = t4857 * t3403;
+            let t15245 = t15026 * t3623;
+            let t15265 = t1706 * t3428;
+            let t15281 = t135 * t457;
+            let t15282 = t15281 * t4936;
+            let t15284 = 0.55555555555555555554e-3_f64 * t1174 * t15282;
+            let t15285 = t3431 * t4912;
+            (t15218, t15245, t15265, t15284, t15285)
+        };
+        let (t15287, t15293, t15300, t15307, t15313, t15320) = {
+            let t15287 = 0.18518518518518518518e-3_f64 * t1174 * t15285;
+            let t15293 = t11583 * t3961;
+            let t15299 = t11529 * t1709;
+            let t15300 = t1174 * t15299;
+            let t15307 = t4889 * t3432;
+            let t15313 = t3450 * t3966;
+            let t15320 = t3448 * t4928;
+            (t15287, t15293, t15300, t15307, t15313, t15320)
+        };
+        let (t15338, t15341, t15347, t15348, t15349, t15364, t15366) = {
+            let t15338 = t11588 * t1714;
+            let t15339 = t15338 * t3451;
+            let t15341 = 0.18518518518518518518e-3_f64 * t3447 * t15339;
+            let t15347 = 2.0_f64 / 27.0_f64 * t14818;
+            let t15348 = 4.0_f64 / 9.0_f64 * t14781;
+            let t15349 = 2.0_f64 / 9.0_f64 * t14710;
+            let t15363 = t698 * t1716;
+            let t15364 = t1174 * t15363;
+            let t15366 = t4889 * t3435;
+            (t15338, t15341, t15347, t15348, t15349, t15364, t15366)
+        };
+        let (t15374, t15376, t15382, t15390, t15394) = {
+            let t15372 = t135 * t4930;
+            let t15374 = 0.55555555555555555554e-3_f64 * t1174 * t15372;
+            let t15376 = t1420 * t337 * t1887;
+            let t15382 = t11570 * t3961;
+            let t15390 = t4899 * t1714;
+            let t15394 = t60 * t11545;
+            (t15374, t15376, t15382, t15390, t15394)
+        };
+        let (t15395, t15401, t15405, t15422, t15437) = {
+            let t15395 = t15394 * t461;
+            let t15399 = t11589 * t4904;
+            let t15401 = 0.18518518518518518518e-3_f64 * t3447 * t15399;
+            let t15402 = t11588 * t461;
+            let t15403 = t15402 * t4729;
+            let t15405 = 0.37037037037037037036e-3_f64 * t3447 * t15403;
+            let t15418 = t134 * t3439;
+            let t15419 = t15418 * t461;
+            let t15420 = t15419 * t4724;
+            let t15422 = 0.24691358024691358024e-3_f64 * t3447 * t15420;
+            let t15437 = t15026 * t3032;
+            (t15395, t15401, t15405, t15422, t15437)
+        };
+        let (t15438, t15446, t15448, t15450, t15452, t15453, t15484) = {
+            let t15438 = t15437 * t3514;
+            let t15446 = t5002 * t3572 / 2304.0_f64;
+            let t15448 = t5005 * t3523 / 3456.0_f64;
+            let t15450 = t5019 * t3572 / 432.0_f64;
+            let t15452 = t5024 * t3523 / 648.0_f64;
+            let t15453 = t11778 * t11147;
+            let t15484 = t3490 * t4993 / 3456.0_f64;
+            (t15438, t15446, t15448, t15450, t15452, t15453, t15484)
+        };
+        let (t15488, t15490, t15494, t15495, t15498) = {
+            let t15486 = t248 * t3521 * t4733;
+            let t15488 = t1227 * t15486 / 3456.0_f64;
+            let t15490 = t3536 * t4997 / 2304.0_f64;
+            let t15492 = t248 * t3570 * t5012;
+            let t15494 = t1213 * t15492 / 2304.0_f64;
+            let t15495 = t3535 * t5018;
+            let t15498 = t1202 * t5023;
+            (t15488, t15490, t15494, t15495, t15498)
+        };
+        let (t15503, t15507, t15524, t15550, t15567) = {
+            let t15501 = t1742 * t3036;
+            let t15502 = t3503 * t15501;
+            let t15503 = t3500 * t15502;
+            let t15506 = t1210 * t15501;
+            let t15507 = t3500 * t15506;
+            let t15522 = t11539 * t4724;
+            let t15524 = t1174 * t15522 / 324.0_f64;
+            let t15548 = t13969 * t4983;
+            let t15550 = t3515 * t15548 / 2304.0_f64;
+            let t15567 = t478 * t1742;
+            (t15503, t15507, t15524, t15550, t15567)
+        };
+        let (t15569, t15574, t15580, t15591) = {
+            let t15568 = t15567 * t3068;
+            let t15569 = t1244 * t15568;
+            let t15572 = t11697 * t4949;
+            let t15574 = t3577 * t15572 / 3456.0_f64;
+            let t15578 = t3431 * t4729;
+            let t15580 = t1174 * t15578 / 216.0_f64;
+            let t15590 = t15031 * t1011;
+            let t15591 = t15590 * t1212;
+            (t15569, t15574, t15580, t15591)
+        };
+        let (t15594, t15610, t15615, t15642, t15645) = {
+            let t15594 = t4965 * t1226;
+            let t15608 = t11697 * t4953;
+            let t15610 = t3577 * t15608 / 3456.0_f64;
+            let t15615 = t1229 * t3242;
+            let t15640 = t13969 * t4979;
+            let t15642 = t3506 * t15640 / 1152.0_f64;
+            let t15643 = t13969 * t4973;
+            let t15645 = t1227 * t15643 / 1728.0_f64;
+            (t15594, t15610, t15615, t15642, t15645)
+        };
+        let (t15654, t15659, t15671, t15691, t15699, t15700) = {
+            let t15654 = t3584 * t11153;
+            let t15659 = t1734 * t3508;
+            let t15671 = t4889 * t3548 / 162.0_f64;
+            let t15689 = t135 * t5045;
+            let t15691 = t1174 * t15689 / 432.0_f64;
+            let t15699 = t4966 * t1222 / 2304.0_f64;
+            let t15700 = t1734 * t1215;
+            (t15654, t15659, t15671, t15691, t15699, t15700)
+        };
+        let (t15701, t15717, t15719, t15722, t15727, t15730) = {
+            let t15701 = t475 * t1089;
+            let t15717 = t1744 * t3540;
+            let t15719 = t1731 * t3540;
+            let t15722 = t4961 * t1222 / 432.0_f64;
+            let t15727 = t1706 * t3545;
+            let t15730 = t248 * t11818 * t1735;
+            (t15701, t15717, t15719, t15722, t15727, t15730)
+        };
+        let (t15731, t15735, t15737, t15740, t15743) = {
+            let t15731 = t1213 * t15730;
+            let t15734 = t248 * t11789 * t1653;
+            let t15735 = t1227 * t15734;
+            let t15737 = t15437 * t3505;
+            let t15740 = t5064 * t3576;
+            let t15743 = t13969 * t4988;
+            (t15731, t15735, t15737, t15740, t15743)
+        };
+        let (t15745, t15754, t15797, t15820, t15877, t15880) = {
+            let t15745 = 5.0_f64 / 10368.0_f64 * t1227 * t15743;
+            let t15753 = t698 * t1725;
+            let t15754 = t1174 * t15753;
+            let t15797 = t4941 * t225;
+            let t15820 = t5053 * t225;
+            let t15877 = t592 * t5168;
+            let t15880 = 8.0_f64 * t588 * t5166;
+            (t15745, t15754, t15797, t15820, t15877, t15880)
+        };
+        let (t15889, t15890, t15894, t15895, t15898, t15909) = {
+            let t15889 = 32.0_f64 * t11981;
+            let t15890 = t5154 * t2528;
+            let t15892 = t5151 * t172;
+            let t15894 = 0.11696447245269292414e1_f64 * t15892 * t763;
+            let t15895 = t5154 * t2535;
+            let t15898 = 8.0_f64 * t592 * t5166;
+            let t15908 = t1787 * t118;
+            let t15909 = t15908 * t2375;
+            (t15889, t15890, t15894, t15895, t15898, t15909)
+        };
+        let (t15911, t15916, t15917, t15923, t15972, t15976, t15979, t15982) = {
+            let t15911 = 48.0_f64 * t12045;
+            let t15916 = 12.0_f64 * t12052;
+            let t15917 = 80.0_f64 * t12054;
+            let t15921 = t5151 * t750;
+            let t15923 = 2.0_f64 * t17 * t15921;
+            let t15971 = t1787 * t2516;
+            let t15972 = t17 * t15971;
+            let t15976 = 4.0_f64 * t12120;
+            let t15979 = t5157 * t2663;
+            let t15982 = t2225 * t1788;
+            (t15911, t15916, t15917, t15923, t15972, t15976, t15979, t15982)
+        };
+        let (t15984, t16022, t16030, t16047, t16060, t16078, t16081) = {
+            let t15984 = t2221 * t1788;
+            let t16022 = t5213 * t225;
+            let t16030 = t5211 * t225;
+            let t16046 = t68 * t12248;
+            let t16047 = t544 * t16046;
+            let t16060 = t5230 * t68;
+            let t16078 = t12189 * t1804;
+            let t16081 = t782 * t5194;
+            (t15984, t16022, t16030, t16047, t16060, t16078, t16081)
+        };
+        let (t16083, t16095, t16099, t16101) = {
+            let t16083 = 0.23333333333333333332e-1_f64 * t16081 * t5198;
+            let t16093 = t3732 * t67;
+            let t16094 = t792 * t16093;
+            let t16095 = t212 * t1799;
+            let t16097 = t686 * t16095 * t1307;
+            let t16099 = 0.49999999999999999998e-2_f64 * t16094 * t16097;
+            let t16100 = t12214 * t131;
+            let t16101 = t205 * t16100;
+            (t16083, t16095, t16099, t16101)
+        };
+        let (t16106, t16108, t16113, t16119, t16132) = {
+            let t16106 = t3726 * t5206;
+            let t16108 = t12199 * t5202;
+            let t16111 = t118 * t794 * t5187;
+            let t16113 = 0.16666666666666666666e-2_f64 * t3739 * t16111;
+            let t16118 = t12225 * t16095;
+            let t16119 = t2586 * t16118;
+            let t16132 = t1338 * t5318;
+            (t16106, t16108, t16113, t16119, t16132)
+        };
+        let (t16147, t16159, t16164, t16171, t16211, t16214) = {
+            let t16147 = 35.0_f64 / 576.0_f64 * t3866 * t5310;
+            let t16159 = 7.0_f64 / 2304.0_f64 * t3799 * t5289;
+            let t16164 = t5154 * t2371;
+            let t16169 = t5151 * t67;
+            let t16171 = 0.36622894612013090108e-3_f64 * t16169 * t758;
+            let t16211 = t12365 * t1827;
+            let t16214 = 7.0_f64 / 2304.0_f64 * t12300 * t1827;
+            (t16147, t16159, t16164, t16171, t16211, t16214)
+        };
+        let (t16224, t16225, t16233, t16239, t16241, t16242) = {
+            let t16224 = t12418 * t820;
+            let t16225 = t1799 * t1351;
+            let t16232 = t12289 * t242;
+            let t16233 = t1336 * t16232;
+            let t16239 = 7.0_f64 / 576.0_f64 * t12283 * t5259;
+            let t16241 = 7.0_f64 / 2304.0_f64 * t12283 * t5293;
+            let t16242 = t120 * t5286;
+            (t16224, t16225, t16233, t16239, t16241, t16242)
+        };
+        let (t16269, t16278, t16288, t16290, t16294, t16305, t16306) = {
+            let t16269 = 7.0_f64 / 576.0_f64 * t12283 * t5303;
+            let t16278 = t16060 * t1340;
+            let t16288 = t5234 * t3798;
+            let t16290 = 7.0_f64 / 2304.0_f64 * t16288 * t1354;
+            let t16294 = 7.0_f64 / 24.0_f64 * t12211 * t5223;
+            let t16305 = t3804 * t820;
+            let t16306 = t1824 * t1351;
+            (t16269, t16278, t16288, t16290, t16294, t16305, t16306)
+        };
+        let (t16311, t16317, t16321, t16325, t16331, t16336, t16338) = {
+            let t16311 = t1824 * t3792;
+            let t16317 = t12345 * t1831;
+            let t16321 = t16060 * t1362;
+            let t16325 = 7.0_f64 / 576.0_f64 * t12339 * t1831;
+            let t16331 = 7.0_f64 / 576.0_f64 * t3866 * t5314;
+            let t16336 = t5234 * t3865;
+            let t16338 = 7.0_f64 / 576.0_f64 * t16336 * t1369;
+            (t16311, t16317, t16321, t16325, t16331, t16336, t16338)
+        };
+        let (t16341, t16346, t16350, t16354, t16394, t16397) = {
+            let t16341 = t12189 * t1811;
+            let t16346 = 7.0_f64 / 2304.0_f64 * t5231 * t1358;
+            let t16350 = t1815 * t3862;
+            let t16354 = 7.0_f64 / 72.0_f64 * t3726 * t5227;
+            let t16394 = t5234 * t3802;
+            let t16397 = t3788 * t836;
+            (t16341, t16346, t16350, t16354, t16394, t16397)
+        };
+        let (t16400, t16439, t16460, t16497, t16521, t16524) = {
+            let t16398 = t1336 * t16397;
+            let t16400 = 7.0_f64 / 1152.0_f64 * t16398 * t5252;
+            let t16439 = t5319 * t225;
+            let t16460 = t5217 * t225;
+            let t16497 = t5356 * t1390;
+            let t16521 = t5363 * t112;
+            let t16524 = t1851 * t111;
+            (t16400, t16439, t16460, t16497, t16521, t16524)
+        };
+        let (t16549, t16554, t16557) = {
+            let t16549 = t9427 * t5392;
+            let t16554 = t2433 * t5398;
+            let t16557 = -t12603 - t12604;
+            (t16549, t16554, t16557)
+        };
+        let t16558 = {
+            let t26 = t25 <= zeta_threshold;
+            let t29 = t28 <= zeta_threshold;
+            let t16558 = piecewise5(t26, 0.0_f64, t29, 0.0_f64, t16557);
+            t16558
+        };
+        let (t16562, t16574) = {
+            let t146 = t40 <= zeta_threshold;
+            let t150 = t52 <= zeta_threshold;
+            let t16562 = piecewise3(t146, 0.0_f64, -8.0_f64 / 27.0_f64 * t16549 * t607 + 8.0_f64 / 9.0_f64 * t4080 * t3966 + 4.0_f64 / 9.0_f64 * t16554 * t607 + 4.0_f64 / 3.0_f64 * t73 * t16558);
+            let t16563 = t9438 * t5392;
+            let t16568 = t2440 * t5398;
+            let t16574 = piecewise3(t150, 0.0_f64, 8.0_f64 / 27.0_f64 * t16563 * t607 + 8.0_f64 / 9.0_f64 * t4087 * t3966 + 4.0_f64 / 9.0_f64 * t16568 * t607 - 4.0_f64 / 3.0_f64 * t76 * t16558);
+            (t16562, t16574)
+        };
+        let (t16577, t16578, t16581, t16582, t16583, t16586) = {
+            let t16575 = t16562 + t16574;
+            let t16576 = t145 * t16575;
+            let t16577 = t16576 * t185;
+            let t16578 = t5520 * t751;
+            let t16579 = t16575 * t157;
+            let t16581 = 0.19751673498613801407e-1_f64 * t16579 * t182;
+            let t16582 = 2.0_f64 * t12861;
+            let t16583 = t4315 * t4119;
+            let t16586 = t751 * t5392;
+            (t16577, t16578, t16581, t16582, t16583, t16586)
+        };
+        let (t16588, t16610) = {
+            let t16587 = t2658 * t16586;
+            let t16588 = 12.0_f64 * t16587;
+            let t16589 = t2523 * t5527;
+            let t16592 = t262 * t5544;
+            let t16596 = t1484 * t868;
+            let t16606 = t5660 * t870;
+            let t16610 = 6.0_f64 * t16592 * t4314 * t776 - 6.0_f64 * t16596 * t2522 * t4307 + 3.0_f64 * t16606 * t2522 * t776 + 3.0_f64 * t2522 * t2523 * t5544 + 6.0_f64 * t2522 * t4119 * t4310 + 12.0_f64 * t16583 * t4314 + 6.0_f64 * t16589 * t4314 + t12850 - t12860 + t16577 + t16578 + t16581 + t16582 + t16588 - t9457 - t9469 + t9476 + t9484 - t9496;
+            (t16588, t16610)
+        };
+        let (t16612, t16618, t16622, t16623, t16624, t16625) = {
+            let t16612 = 12.0_f64 * t9929 * t5499;
+            let t16616 = t5522 * t172;
+            let t16617 = t16616 * t763;
+            let t16618 = 0.5848223622634646207e0_f64 * t16617;
+            let t16619 = t184 * t5398;
+            let t16620 = t16619 * t607;
+            let t16622 = 12.0_f64 * t4194 * t16620;
+            let t16623 = 0.11696447245269292414e1_f64 * t9864;
+            let t16624 = 0.17315859105681463759e2_f64 * t9866;
+            let t16625 = t5664 * t2752;
+            (t16612, t16618, t16622, t16623, t16624, t16625)
+        };
+        let (t16629, t16631, t16633, t16636, t16648) = {
+            let t146 = t40 <= zeta_threshold;
+            let t16629 = 0.23392894490538584828e1_f64 * t12943;
+            let t16630 = t4205 * t4101;
+            let t16631 = 8.0_f64 * t16630;
+            let t16633 = 8.0_f64 * t4205 * t4202;
+            let t16634 = t185 * t16558;
+            let t16636 = 4.0_f64 * t707 * t16634;
+            let t16637 = t634 * t5392;
+            let t16642 = t75 * t5398;
+            let t16648 = piecewise3(t146, 0.0_f64, 8.0_f64 / 27.0_f64 * t16637 * t607 - 4.0_f64 / 9.0_f64 * t4104 * t3966 - 2.0_f64 / 9.0_f64 * t16642 * t607 + 2.0_f64 / 3.0_f64 * t767 * t16558);
+            (t16629, t16631, t16633, t16636, t16648)
+        };
+        let t16662 = {
+            let t150 = t52 <= zeta_threshold;
+            let t16649 = t638 * t5392;
+            let t16654 = t78 * t5398;
+            let t16660 = piecewise3(t150, 0.0_f64, -8.0_f64 / 27.0_f64 * t16649 * t607 - 4.0_f64 / 9.0_f64 * t4111 * t3966 - 2.0_f64 / 9.0_f64 * t16654 * t607 - 2.0_f64 / 3.0_f64 * t771 * t16558);
+            let t16662 = t16648 / 2.0_f64 + t16660 / 2.0_f64;
+            t16662
+        };
+        let t16666 = {
+            let t16666 = -3.0_f64 * t16625 * t2522 * t776 + 3.0_f64 * t16662 * t193 * t766 + 12.0_f64 * t4255 * t4310 * t4314 + t12922 + t12926 + t12934 + t16612 - t16618 + t16622 + t16623 - t16624 + t16629 + t16631 + t16633 + t16636 - t9715 + t9724 + t9726 + t9780 + t9863;
+            t16666
+        };
+        let (t16673, t16679, t16684) = {
+            let t16673 = t5575 * t68;
+            let t16679 = t4295 * t4234;
+            let t16684 = t12850 + t16577 + t16578 - t9457 + t16581 - t12860 + t16582 - t9469 + t16588 + t9476 + t9484 - t9496 - t9715 + t16612 + t9724;
+            (t16673, t16679, t16684)
+        };
+        let (t16685, t16686) = {
+            let t16685 = 8.0_f64 * t12946;
+            let t16686 = t9726 + t9863 + t9780 - t16618 + t16622 + t12922 + t12926 + t16623 - t16624 + t12934 + t16629 + t16631 + t16633 + t16636 + t16685 - t9789;
+            (t16685, t16686)
+        };
+        let (t16688, t16691, t16692, t16695, t16696, t16697, t16698) = {
+            let t16688 = 4.0_f64 * t9869;
+            let t16689 = t706 * t5519;
+            let t16691 = 4.0_f64 * t16689 * t708;
+            let t16692 = 0.24415263074675393405e-3_f64 * t9871;
+            let t16693 = t13115 * t157;
+            let t16695 = 24.0_f64 * t16693 * t4196;
+            let t16696 = 0.10843581300301739842e-1_f64 * t9880;
+            let t16697 = 0.34631718211362927517e2_f64 * t13107;
+            let t16698 = t16688 + t16691 + t16692 + t9793 + t9797 - t9876 + t13105 - t9820 - t9824 + t16695 + t16696 - t9884 + t9887 + t9890 - t16697;
+            (t16688, t16691, t16692, t16695, t16696, t16697, t16698)
+        };
+        let (t16699, t16700, t16703, t16705, t16707, t16708, t16709, t16710) = {
+            let t16699 = 0.48830526149350786811e-3_f64 * t13109;
+            let t16700 = 0.11696447245269292414e1_f64 * t13113;
+            let t16701 = t751 * t5398;
+            let t16702 = t707 * t16701;
+            let t16703 = 4.0_f64 * t16702;
+            let t16705 = 8.0_f64 * t13133 * t1462;
+            let t16707 = 4.0_f64 * t2427 * t5597;
+            let t16708 = 0.5848223622634646207e0_f64 * t9922;
+            let t16709 = 0.21687162600603479684e-1_f64 * t13124;
+            let t16710 = t5522 * t67;
+            (t16699, t16700, t16703, t16705, t16707, t16708, t16709, t16710)
+        };
+        let (t16712, t16715, t16719, t16720) = {
+            let t16711 = t16710 * t758;
+            let t16712 = 0.18311447306006545054e-3_f64 * t16711;
+            let t16713 = t4195 * t3966;
+            let t16715 = 24.0_f64 * t4194 * t16713;
+            let t16716 = t184 * t5392;
+            let t16717 = t16716 * t607;
+            let t16719 = 24.0_f64 * t12939 * t16717;
+            let t16720 = -t9894 + t16699 + t9907 - t16700 + t16703 + t9853 + t16705 + t16707 - t13121 - t9921 - t16708 + t16709 - t16712 + t16715 + t16719 + t9859;
+            (t16712, t16715, t16719, t16720)
+        };
+        let (t16723, t16729, t16737, t16740) = {
+            let t16723 = (t16684 + t16686 + t16698 + t16720) * t225;
+            let t16729 = t1504 * t68;
+            let t16736 = t1891 * t5527;
+            let t16737 = t16736 * t776;
+            let t16740 = t4226 * t4119;
+            (t16723, t16729, t16737, t16740)
+        };
+        let t16752 = {
+            let t16745 = t845 * t5544;
+            let t16746 = t16745 * t776;
+            let t16749 = t824 * t16662;
+            let t16752 = 6.0_f64 * t1504 * t4230 + 6.0_f64 * t1506 * t4219 - t16723 * t230 - 24.0_f64 * t16729 * t4227 + 60.0_f64 * t16737 * t4225 - 24.0_f64 * t16740 * t4225 - 12.0_f64 * t16746 * t4225 + 3.0_f64 * t16749 * t228 + 3.0_f64 * t5601 * t825 - 12.0_f64 * t5605 * t822 + 3.0_f64 * t5608 * t822;
+            t16752
+        };
+        let (t16753, t16754, t16756, t16758, t16759, t16762, t16769) = {
+            let t16753 = t16752 * t232;
+            let t16754 = t860 * t16753;
+            let t16756 = t2732 * t5612;
+            let t16758 = t1519 * t1509;
+            let t16759 = t16758 * t829;
+            let t16762 = t4282 * t4234;
+            let t16769 = t9573 * t5550;
+            (t16753, t16754, t16756, t16758, t16759, t16762, t16769)
+        };
+        let t16781 = {
+            let t16771 = t213 * t5527;
+            let t16773 = t221 * t16771 * t776;
+            let t16777 = t221 * t4128 * t4119;
+            let t16781 = 0.16666666666666666666e-2_f64 * t9526 - t9540 - 0.12962962962962962963e-1_f64 * t9542 - 0.52777777777777777776e-2_f64 * t9547 + 0.33333333333333333332e-2_f64 * t12986 - t13002 - t9572 - 0.11666666666666666666e-1_f64 * t16769 - 0.19999999999999999999e-1_f64 * t13005 * t16773 + 0.99999999999999999996e-2_f64 * t4127 * t16777 - 0.25925925925925925925e-1_f64 * t13010;
+            t16781
+        };
+        let (t16784, t16787, t16792, t16794, t16796) = {
+            let t16783 = t118 * t794 * t5527;
+            let t16784 = t9549 * t16783;
+            let t16787 = t210 * t214 * t16662;
+            let t16791 = t118 * t794 * t5544;
+            let t16792 = t2576 * t16791;
+            let t16794 = t2563 * t5555;
+            let t16796 = t213 * t5544;
+            (t16784, t16787, t16792, t16794, t16796)
+        };
+        let t16803 = {
+            let t16798 = t221 * t16796 * t776;
+            let t16803 = -t13014 - 0.24999999999999999999e-2_f64 * t16784 - 0.16666666666666666666e-2_f64 * t787 * t16787 + 0.8333333333333333333e-3_f64 * t16792 + t9579 + 0.38888888888888888887e-2_f64 * t16794 + 0.49999999999999999998e-2_f64 * t4127 * t16798 + 0.77777777777777777775e-2_f64 * t13020 - 0.10555555555555555555e-1_f64 * t13022 + t13027 - t9583;
+            t16803
+        };
+        let (t16804, t16805, t16814) = {
+            let t16804 = t16781 + t16803;
+            let t16805 = t16804 * t225;
+            let t16811 = t10054 * t5585;
+            let t16814 = -2.0_f64 * t13176 * t1523 + 2.0_f64 * t1499 * t4298 + 2.0_f64 * t1525 * t4162 - t16673 * t861 - 2.0_f64 * t16679 * t812 - t16754 * t812 - t16756 * t812 - 2.0_f64 * t16759 * t4291 - 2.0_f64 * t16762 * t4291 + t16805 * t255 + 2.0_f64 * t16811 * t812 + 2.0_f64 * t2617 * t5645 - 2.0_f64 * t2617 * t5648 - t2617 * t5653 - 2.0_f64 * t4166 * t4286 - 2.0_f64 * t4166 * t4296;
+            (t16804, t16805, t16814)
+        };
+        let (t16816, t16817, t16820, t16823, t16825, t16828, t16830, t16836) = {
+            let t16815 = t252 * t5584;
+            let t16816 = t9975 * t828;
+            let t16817 = t16815 * t16816;
+            let t16820 = t16758 * t4182;
+            let t16823 = t2732 * t5617;
+            let t16825 = t16815 * t4182;
+            let t16828 = t16815 * t829;
+            let t16830 = t1499 * t4290;
+            let t16836 = t4166 * t4177;
+            (t16816, t16817, t16820, t16823, t16825, t16828, t16830, t16836)
+        };
+        let t16839 = {
+            let t16839 = t120 * t5584;
+            t16839
+        };
+        let (t16841, t16845, t16848, t16853, t16859) = {
+            let t16841 = t4180 * t16839 * t16816;
+            let t16845 = t4180 * t16839 * t4182;
+            let t16848 = t9638 * t5593;
+            let t16851 = t5527 * t776;
+            let t16853 = t9607 * t820 * t16851;
+            let t16859 = t819 * t820 * t16753;
+            (t16841, t16845, t16848, t16853, t16859)
+        };
+        let t16869 = {
+            let t16869 = -35.0_f64 / 108.0_f64 * t13087 - 119.0_f64 / 3456.0_f64 * t9602 - 119.0_f64 / 6912.0_f64 * t13182 - t13190 + t13202 - t13208 + t16836 * t4184 / 768.0_f64 - t13262 * t16841 / 512.0_f64 + t4178 * t16845 / 512.0_f64 - 7.0_f64 / 576.0_f64 * t16848 - 119.0_f64 / 13824.0_f64 * t9672 - 5.0_f64 / 128.0_f64 * t843 * t16853 - t2618 * t5614 / 3072.0_f64 - t817 * t16859 / 3072.0_f64 - t2618 * t5619 / 3072.0_f64 + 5.0_f64 / 384.0_f64 * t4172 * t4257 + 119.0_f64 / 6912.0_f64 * t13234 - t13237 + t9967 * t5587 / 1536.0_f64;
+            t16869
+        };
+        let (t16872, t16877, t16879, t16888, t16891, t16893) = {
+            let t16872 = t16673 * t816;
+            let t16877 = t13278 * t1512;
+            let t16879 = t9667 * t5587;
+            let t16887 = t1510 * t4255;
+            let t16888 = t13350 * t16887;
+            let t16891 = t120 * t5611;
+            let t16893 = t4180 * t16891 * t4182;
+            (t16872, t16877, t16879, t16888, t16891, t16893)
+        };
+        let t16910 = {
+            let t16896 = t120 * t5527;
+            let t16898 = t9646 * t16896 * t829;
+            let t16901 = t120 * t5544;
+            let t16903 = t2645 * t16901 * t829;
+            let t16907 = t2645 * t16839 * t2647;
+            let t16910 = -t4167 * t4236 / 1536.0_f64 - t16872 * t831 / 3072.0_f64 - t13177 * t1512 / 1536.0_f64 + 7.0_f64 / 2304.0_f64 * t16877 - 7.0_f64 / 2304.0_f64 * t16879 - t13260 + t13275 + t13277 + t13280 - t13287 + t13251 * t4191 / 384.0_f64 - t13251 * t4240 / 1536.0_f64 + t13251 * t4250 / 384.0_f64 - 5.0_f64 / 384.0_f64 * t2643 * t16888 + t4178 * t16893 / 1536.0_f64 - 5.0_f64 / 768.0_f64 * t2643 * t16898 + t2643 * t16903 / 768.0_f64 + t13320 - t13330 + t2643 * t16907 / 768.0_f64;
+            t16910
+        };
+        let (t16914, t16918, t16924, t16928, t16932) = {
+            let t16912 = t232 * t4119;
+            let t16914 = t2645 * t4181 * t16912;
+            let t16918 = t2645 * t16891 * t2647;
+            let t16924 = t2645 * t13242 * t5591;
+            let t16927 = t13228 * t13351;
+            let t16928 = t13222 * t16927;
+            let t16932 = t2645 * t16839 * t9627;
+            (t16914, t16918, t16924, t16928, t16932)
+        };
+        let (t16935, t16937, t16940, t16942, t16946, t16949) = {
+            let t16935 = t2632 * t4233;
+            let t16937 = t4180 * t4181 * t16935;
+            let t16940 = t2639 * t5619;
+            let t16942 = t2639 * t5614;
+            let t16944 = t1484 * t4119;
+            let t16946 = t2701 * t820 * t16944;
+            let t16949 = t5544 * t776;
+            (t16935, t16937, t16940, t16942, t16946, t16949)
+        };
+        let (t16951, t16954, t16957, t16961, t16965, t16968) = {
+            let t16951 = t2701 * t820 * t16949;
+            let t16954 = t2697 * t5628;
+            let t16957 = t210 * t5567 * t776;
+            let t16961 = t210 * t1495 * t4119;
+            let t16965 = t210 * t5571 * t776;
+            let t16968 = t13223 * t5591;
+            (t16951, t16954, t16957, t16961, t16965, t16968)
+        };
+        let t16979 = {
+            let t16969 = t13222 * t16968;
+            let t16976 = t16673 * t842;
+            let t16979 = t2643 * t16914 / 384.0_f64 + t2643 * t16918 / 768.0_f64 + t9642 * t5593 / 384.0_f64 + t2643 * t16924 / 384.0_f64 - t4178 * t16928 / 192.0_f64 + t13345 - t4178 * t16932 / 384.0_f64 + t4178 * t16937 / 768.0_f64 + 7.0_f64 / 4608.0_f64 * t16940 + 7.0_f64 / 4608.0_f64 * t16942 + 5.0_f64 / 384.0_f64 * t843 * t16946 + 5.0_f64 / 768.0_f64 * t843 * t16951 + 7.0_f64 / 1152.0_f64 * t16954 - t9559 * t16957 / 4.0_f64 + t2571 * t16961 / 8.0_f64 + t2571 * t16965 / 16.0_f64 + t2643 * t16969 / 384.0_f64 - t13365 * t1516 / 384.0_f64 - t4172 * t4261 / 384.0_f64 - t16976 * t849 / 768.0_f64;
+            t16979
+        };
+        let (t16985, t16988, t16990, t16993, t16995, t16997) = {
+            let t16985 = t847 * t820 * t16662;
+            let t16988 = t2697 * t5624;
+            let t16990 = t13360 * t1516;
+            let t16993 = t9573 * t5568;
+            let t16995 = t2563 * t5572;
+            let t16997 = t16805 * t237;
+            (t16985, t16988, t16990, t16993, t16995, t16997)
+        };
+        let t17020 = {
+            let t17000 = t5576 * t838;
+            let t17003 = t119 * t16662;
+            let t17004 = t210 * t17003;
+            let t17009 = t4180 * t4181 * t4234;
+            let t17013 = t4180 * t16839 * t829;
+            let t17017 = t4180 * t16891 * t829;
+            let t17020 = 5.0_f64 / 768.0_f64 * t2623 * t5624 - t2623 * t5628 / 768.0_f64 - t843 * t16985 / 768.0_f64 - 35.0_f64 / 1152.0_f64 * t16988 + 7.0_f64 / 576.0_f64 * t16990 + 119.0_f64 / 13824.0_f64 * t10014 - t10026 - 7.0_f64 / 48.0_f64 * t16993 + 7.0_f64 / 144.0_f64 * t16995 + t16997 * t249 / 3072.0_f64 - 7.0_f64 / 4608.0_f64 * t17000 - t10029 + t13359 + t13362 - 119.0_f64 / 1728.0_f64 * t13368 - t787 * t17004 / 48.0_f64 - 35.0_f64 / 216.0_f64 * t10036 - t2643 * t17009 / 1536.0_f64 - t2643 * t17013 / 3072.0_f64 - t2643 * t17017 / 3072.0_f64;
+            t17020
+        };
+        let (t17022, t17023, t17028, t17030, t17031, t17034) = {
+            let t17022 = t16869 + t16910 + t16979 + t17020;
+            let t17023 = t235 * t17022;
+            let t17027 = t814 * t5631;
+            let t17028 = t17027 * t829;
+            let t17030 = t252 * t5611;
+            let t17031 = t17030 * t4182;
+            let t17034 = t1499 * t4280;
+            (t17022, t17023, t17028, t17030, t17031, t17034)
+        };
+        let t17048 = {
+            let t17037 = t4282 * t16935;
+            let t17041 = t13433 * t1510;
+            let t17046 = t17030 * t829;
+            let t17048 = -6.0_f64 * t13397 * t16817 + 4.0_f64 * t16820 * t4281 - t16823 * t812 + 6.0_f64 * t16825 * t4281 - t16828 * t4291 - 2.0_f64 * t16830 * t4292 + t17023 * t226 - t17028 * t812 + 2.0_f64 * t17031 * t4281 + 4.0_f64 * t17034 * t4283 + 4.0_f64 * t17037 * t4281 - 2.0_f64 * t17041 * t812 - t17046 * t4291 - t2617 * t5651 - 2.0_f64 * t4166 * t4288 + t5575 * t863 + t5655 * t808;
+            t17048
+        };
+        let (t17050, t17052, t17057, t17060, t17064) = {
+            let t17049 = t16814 + t17048;
+            let t17050 = t858 * t17049;
+            let t17052 = t5559 * t225;
+            let t17056 = t5657 * t865;
+            let t17057 = t2718 * t17056;
+            let t17060 = t218 * t17022;
+            let t17063 = t5636 * t865;
+            let t17064 = t10110 * t17063;
+            (t17050, t17052, t17057, t17060, t17064)
+        };
+        let t17079 = {
+            let t17069 = t1527 * t4300;
+            let t17070 = t2718 * t17069;
+            let t17079 = -t17050 * t855 - t17052 * t866 + 2.0_f64 * t17057 * t855 + t17060 * t259 - 6.0_f64 * t17064 * t855 + 4.0_f64 * t17070 * t855 + 2.0_f64 * t2597 * t5637 + 2.0_f64 * t2713 * t5637 - t2713 * t5658 + 4.0_f64 * t4147 * t4273 - 2.0_f64 * t4147 * t4301 - 2.0_f64 * t4268 * t4301;
+            t17079
+        };
+        let (t17083, t17087, t17090, t17092, t17095, t17098, t17100) = {
+            let t17083 = t16804 * t252;
+            let t17087 = t1492 * t4265;
+            let t17090 = t5632 * t225;
+            let t17092 = t5561 * t225;
+            let t17095 = t4142 * t1519;
+            let t17098 = t798 * t5631;
+            let t17100 = t5558 * t852;
+            (t17083, t17087, t17090, t17092, t17095, t17098, t17100)
+        };
+        let t17108 = {
+            let t17108 = -2.0_f64 * t13042 * t1528 - 2.0_f64 * t13053 * t1528 - 2.0_f64 * t13065 * t1528 - 2.0_f64 * t13463 * t1528 + t17083 * t259 + 2.0_f64 * t17087 * t259 - t17090 * t866 - 2.0_f64 * t17092 * t866 + 2.0_f64 * t17095 * t259 + t17098 * t259 + t17100 * t259 - t2597 * t5658 + 4.0_f64 * t4268 * t4273;
+            t17108
+        };
+        let t17119 = {
+            let t17109 = t17079 + t17108;
+            let t17116 = t5660 * t2752;
+            let t17119 = t17109 * t193 * t202 * t870 - t17116 * t1877 * t868 - 2.0_f64 * t1877 * t4303 * t4307 + t13105 + t16685 + t16688 + t16691 + t16692 + t16695 + t16696 - t9789 + t9793 + t9797 - t9820 - t9824 - t9876 - t9884 + t9887 + t9890;
+            t17119
+        };
+        let t17131 = {
+            let t17120 = t5664 * t10143;
+            let t17131 = 6.0_f64 * t193 * t262 * t5527 * t776 + 6.0_f64 * t12895 * t1484 * t2522 + 2.0_f64 * t17120 * t1877 * t868 - t13121 - t16697 + t16699 - t16700 + t16703 + t16705 + t16707 - t16708 + t16709 - t16712 + t16715 + t16719 + t9853 + t9859 - t9894 + t9907 - t9921;
+            t17131
+        };
+        let (t17133, t17141, t17149) = {
+            let t17133 = t16610 + t16666 + t17119 + t17131;
+            let t17139 = t1534 * t2;
+            let t17141 = 2.0_f64 * t17139 * t584;
+            let t17149 = t690 * t5678;
+            (t17133, t17141, t17149)
+        };
+        let (t17152, t17154) = {
+            let t17151 = t10216 * t5392;
+            let t17152 = t17151 * t607;
+            let t17153 = t10564 * t17152;
+            let t17154 = t123 * t17153;
+            (t17152, t17154)
+        };
+        let (t17157, t17159) = {
+            let t17156 = t10277 * t5392;
+            let t17157 = t17156 * t607;
+            let t17158 = t2768 * t17157;
+            let t17159 = t123 * t17158;
+            (t17157, t17159)
+        };
+        let (t17161, t17163) = {
+            let t17161 = t4337 * t3966;
+            let t17162 = t2768 * t17161;
+            let t17163 = t123 * t17162;
+            (t17161, t17163)
+        };
+        let t17165 = {
+            let t17165 = t690 * t5682;
+            t17165
+        };
+        let (t17167, t17169) = {
+            let t17167 = t5677 * t607;
+            let t17168 = t882 * t17167;
+            let t17169 = t123 * t17168;
+            (t17167, t17169)
+        };
+        let (t17171, t17173) = {
+            let t17171 = t4342 * t3966;
+            let t17172 = t882 * t17171;
+            let t17173 = t123 * t17172;
+            (t17171, t17173)
+        };
+        let t17175 = {
+            let t17175 = t690 * t5686;
+            t17175
+        };
+        let (t17178, t17180) = {
+            let t17177 = t2770 * t5398;
+            let t17178 = t17177 * t607;
+            let t17179 = t2768 * t17178;
+            let t17180 = t123 * t17179;
+            (t17178, t17180)
+        };
+        let (t17183, t17185) = {
+            let t17182 = t2775 * t5398;
+            let t17183 = t17182 * t607;
+            let t17184 = t882 * t17183;
+            let t17185 = t123 * t17184;
+            (t17183, t17185)
+        };
+        let (t17187, t17189) = {
+            let t17187 = t883 * t16558;
+            let t17188 = t882 * t17187;
+            let t17189 = t123 * t17188;
+            (t17187, t17189)
+        };
+        let t17191 = {
+            let t17191 = -t10608 - 0.41203703703703703703e-2_f64 * t10556 - 0.82407407407407407408e-2_f64 * t13598 + t14352 - t14353 + t14354 + 0.20601851851851851852e-2_f64 * t17149 - 0.10300925925925925926e-1_f64 * t17154 + 0.37083333333333333333e-1_f64 * t17159 - 0.12361111111111111111e-1_f64 * t17163 - 0.61805555555555555557e-2_f64 * t17165 - 0.55625000000000000001e-1_f64 * t17169 + 0.37083333333333333334e-1_f64 * t17173 + 0.30902777777777777778e-2_f64 * t17175 - 0.61805555555555555555e-2_f64 * t17180 + 0.18541666666666666667e-1_f64 * t17185 - 0.92708333333333333333e-2_f64 * t17189;
+            t17191
+        };
+        let (t17192, t17194, t17197, t17198, t17202, t17209) = {
+            let t17192 = t17191 * t324;
+            let t17194 = 0.19751673498613801407e-1_f64 * t300 * t17192;
+            let t17195 = t5689 * t892;
+            let t17197 = 1.0_f64 * t17195 * t914;
+            let t17198 = t5950 * t11094;
+            let t17202 = t5946 * t3216;
+            let t17209 = 0.34631718211362927517e2_f64 * t4483 * t4498;
+            (t17192, t17194, t17197, t17198, t17202, t17209)
+        };
+        let (t17211, t17213, t17216, t17219, t17221, t17224, t17238) = {
+            let t17210 = t10595 * t5698;
+            let t17211 = t17210 * t896;
+            let t17213 = t4362 * t4370;
+            let t17215 = t2798 * t5705;
+            let t17216 = t17215 * t896;
+            let t17218 = t10599 * t5698;
+            let t17219 = t17218 * t896;
+            let t17221 = t4378 * t4370;
+            let t17223 = t2815 * t5705;
+            let t17224 = t17223 * t896;
+            let t17238 = 0.12077e1_f64 * t17173 - t13675 + 0.36793333333333333333e-1_f64 * t13552 + t13679 - 0.40256666666666666668e0_f64 * t13566 - 0.91983333333333333333e-1_f64 * t10296 - t10542 - t10545 - 0.20128333333333333333e0_f64 * t17180 + 0.60385e0_f64 * t17185 - 0.13418888888888888889e0_f64 * t10556;
+            (t17211, t17213, t17216, t17219, t17221, t17224, t17238)
+        };
+        let (t17241, t17244, t17247, t17250, t17253, t17256, t17271) = {
+            let t17240 = t2826 * t17161;
+            let t17241 = t136 * t17240;
+            let t17243 = t10304 * t17152;
+            let t17244 = t136 * t17243;
+            let t17246 = t908 * t17167;
+            let t17247 = t136 * t17246;
+            let t17249 = t908 * t17171;
+            let t17250 = t136 * t17249;
+            let t17252 = t908 * t17183;
+            let t17253 = t136 * t17252;
+            let t17255 = t2826 * t17178;
+            let t17256 = t136 * t17255;
+            let t17271 = -t10577 - 4.0_f64 / 27.0_f64 * t10556 - 8.0_f64 / 27.0_f64 * t13598 + t13600 - t13601 + t13603 + 2.0_f64 / 27.0_f64 * t17149 - 10.0_f64 / 27.0_f64 * t17154 + 4.0_f64 / 3.0_f64 * t17159 - 4.0_f64 / 9.0_f64 * t17163 - 2.0_f64 / 9.0_f64 * t17165 - 2.0_f64 * t17169 + 4.0_f64 / 3.0_f64 * t17173 + t17175 / 9.0_f64 - 2.0_f64 / 9.0_f64 * t17180 + 2.0_f64 / 3.0_f64 * t17185 - t17189 / 3.0_f64;
+            (t17241, t17244, t17247, t17250, t17253, t17256, t17271)
+        };
+        let (t17272, t17274, t17280, t17286, t17288, t17290, t17292) = {
+            let t17272 = t894 * t17271;
+            let t17274 = t901 * t17271;
+            let t17279 = t2826 * t17157;
+            let t17280 = t136 * t17279;
+            let t17286 = t699 * t5717;
+            let t17288 = t699 * t5720;
+            let t17290 = t699 * t5723;
+            let t17292 = t908 * t17187;
+            (t17272, t17274, t17280, t17286, t17288, t17290, t17292)
+        };
+        let (t17293, t17295) = {
+            let t17293 = t136 * t17292;
+            let t17295 = -0.26837777777777777779e0_f64 * t13598 + t13712 + 0.16557e0_f64 * t17280 + 0.67094444444444444443e-1_f64 * t17149 - 0.20128333333333333333e0_f64 * t17165 + 0.10064166666666666667e0_f64 * t17175 - 0.301925e0_f64 * t17189 + 0.18396666666666666667e-1_f64 * t17286 - 0.11038e0_f64 * t17288 + 0.5519e-1_f64 * t17290 - 0.82785e-1_f64 * t17293;
+            (t17293, t17295)
+        };
+        let t17297 = {
+            let t17297 = 0.19419375e1_f64 * t17211 - 0.258925e1_f64 * t17213 - 0.1294625e1_f64 * t17216 - 0.412621875e-1_f64 * t17219 + 0.16504875e0_f64 * t17221 + 0.82524375e-1_f64 * t17224 - 0.33547222222222222222e0_f64 * t17154 + 0.12077e1_f64 * t17159 - 0.40256666666666666666e0_f64 * t17163 - 0.181155e1_f64 * t17169 + t17238 - 0.5519e-1_f64 * t17241 - 0.36793333333333333333e-1_f64 * t17244 - 0.49671e0_f64 * t17247 + 0.33114e0_f64 * t17250 + 0.16557e0_f64 * t17253 - 0.27595e-1_f64 * t17256 + 0.258925e1_f64 * t17272 + 0.16504875e0_f64 * t17274 - 0.18396666666666666667e0_f64 * t13642 + t13709 + t17295;
+            t17297
+        };
+        let (t17301, t17303, t17306, t17325) = {
+            let t17299 = t942 * t17297 * t951;
+            let t17301 = 0.5848223622634646207e0_f64 * t959 * t17299;
+            let t17303 = 0.17315859105681463759e2_f64 * t2940 * t5812;
+            let t17304 = t5811 * t952;
+            let t17306 = 0.35089341735807877242e1_f64 * t959 * t17304;
+            let t17325 = 0.20659e1_f64 * t17173 - t14287 + 0.4630888888888888889e-1_f64 * t13552 + t14291 - 0.68863333333333333332e0_f64 * t13566 - 0.11577222222222222222e0_f64 * t10296 - t10784 - t10785 - 0.34431666666666666667e0_f64 * t17180 + 0.103295e1_f64 * t17185 - 0.22954444444444444444e0_f64 * t10556;
+            (t17301, t17303, t17306, t17325)
+        };
+        let t17349 = {
+            let t17347 = -0.45908888888888888888e0_f64 * t13598 + t14324 + 0.20839e0_f64 * t17280 + 0.11477222222222222222e0_f64 * t17149 - 0.34431666666666666667e0_f64 * t17165 + 0.17215833333333333333e0_f64 * t17175 - 0.516475e0_f64 * t17189 + 0.23154444444444444445e-1_f64 * t17286 - 0.13892666666666666667e0_f64 * t17288 + 0.69463333333333333333e-1_f64 * t17290 - 0.104195e0_f64 * t17293;
+            let t17349 = 0.264729375e1_f64 * t17211 - 0.3529725e1_f64 * t17213 - 0.17648625e1_f64 * t17216 - 0.157790625e0_f64 * t17219 + 0.6311625e0_f64 * t17221 + 0.31558125e0_f64 * t17224 - 0.57386111111111111112e0_f64 * t17154 + 0.20659e1_f64 * t17159 - 0.68863333333333333334e0_f64 * t17163 - 0.309885e1_f64 * t17169 + t17325 - 0.69463333333333333334e-1_f64 * t17241 - 0.46308888888888888889e-1_f64 * t17244 - 0.62517e0_f64 * t17247 + 0.41678e0_f64 * t17250 + 0.20839e0_f64 * t17253 - 0.34731666666666666667e-1_f64 * t17256 + 0.3529725e1_f64 * t17272 + 0.6311625e0_f64 * t17274 - 0.23154444444444444445e0_f64 * t13642 + t14321 + t17347;
+            t17349
+        };
+        let (t17372, t17374, t17375) = {
+            let t17350 = t17349 * t932;
+            let t17355 = t5769 * t942;
+            let t17366 = t17297 * t951;
+            let t17372 = 2.0_f64 * t13515 * t1557;
+            let t17374 = 2.0_f64 * t4354 * t4396;
+            let t17375 = -t17197 + 1.0_f64 * t924 * t17350 + 0.32163958997385070134e2_f64 * t10765 * t5762 + 0.5848223622634646207e0_f64 * t17355 * t952 + 0.11696447245269292414e1_f64 * t14332 * t1581 + 0.11696447245269292414e1_f64 * t4449 * t4472 - 0.11696447245269292414e1_f64 * t10747 * t5775 + 0.5848223622634646207e0_f64 * t2900 * t5791 + 0.5848223622634646207e0_f64 * t943 * t17366 + 0.17315859105681463759e2_f64 * t10825 * t5794 - t17372 - t17374;
+            (t17372, t17374, t17375)
+        };
+        let (t17377, t17379, t17398) = {
+            let t17377 = 2.0_f64 * t10817 * t5695;
+            let t17379 = 1.0_f64 * t2787 * t5727;
+            let t17398 = 0.11958666666666666667e1_f64 * t17173 - t13551 + 0.36514074074074074073e-1_f64 * t13552 + 0.13287407407407407407e0_f64 * t13563 - t13567 - 0.91285185185185185187e-1_f64 * t10296 - t10675 - t10676 - 0.19931111111111111111e0_f64 * t17180 + 0.59793333333333333334e0_f64 * t17185 - 0.13287407407407407408e0_f64 * t10556;
+            (t17377, t17379, t17398)
+        };
+        let t17422 = {
+            let t17420 = -0.26574814814814814815e0_f64 * t13598 + t13650 + 0.16431333333333333333e0_f64 * t17280 + 0.66437037037037037037e-1_f64 * t17149 - 0.19931111111111111111e0_f64 * t17165 + 0.99655555555555555557e-1_f64 * t17175 - 0.29896666666666666667e0_f64 * t17189 + 0.18257037037037037037e-1_f64 * t17286 - 0.10954222222222222222e0_f64 * t17288 + 0.54771111111111111111e-1_f64 * t17290 - 0.82156666666666666667e-1_f64 * t17293;
+            let t17422 = 0.142419375e1_f64 * t17211 - 0.1898925e1_f64 * t17213 - 0.9494625e0_f64 * t17216 - 0.76790625e-1_f64 * t17219 + 0.3071625e0_f64 * t17221 + 0.15358125e0_f64 * t17224 - 0.33218518518518518518e0_f64 * t17154 + 0.11958666666666666667e1_f64 * t17159 - 0.39862222222222222222e0_f64 * t17163 - 0.17938e1_f64 * t17169 + t17398 - 0.54771111111111111112e-1_f64 * t17241 - 0.36514074074074074075e-1_f64 * t17244 - 0.49293999999999999999e0_f64 * t17247 + 0.32862666666666666666e0_f64 * t17250 + 0.16431333333333333333e0_f64 * t17253 - 0.27385555555555555556e-1_f64 * t17256 + 0.1898925e1_f64 * t17272 + 0.3071625e0_f64 * t17274 - 0.18257037037037037037e0_f64 * t13642 + t13645 + t17420;
+            t17422
+        };
+        let (t17425, t17427, t17449) = {
+            let t17423 = t17422 * t913;
+            let t17425 = 1.0_f64 * t893 * t17423;
+            let t17427 = 0.16081979498692535067e2_f64 * t10655 * t5730;
+            let t17428 = t5737 * t923;
+            let t17443 = t5775 * t950;
+            let t17446 = t1581 * t4471;
+            let t17449 = t17377 - t17379 - t17425 - t17427 + 1.0_f64 * t17428 * t933 + 2.0_f64 * t14266 * t1569 + 2.0_f64 * t4411 * t4434 - 2.0_f64 * t10740 * t5743 + 1.0_f64 * t2856 * t5759 - 0.23392894490538584828e1_f64 * t14263 * t4454 + 0.34631718211362927517e2_f64 * t14337 * t4476 + 0.35089341735807877242e1_f64 * t2930 * t17443 - 0.23392894490538584828e1_f64 * t2905 * t17446;
+            (t17425, t17427, t17449)
+        };
+        let (t17451, t17454, t17471) = {
+            let t17451 = t5794 * t950;
+            let t17454 = t5791 * t950;
+            let t17471 = -t10832 - 0.76103703703703703703e-2_f64 * t10556 - 0.1522074074074074074e-1_f64 * t13598 + 0.761037037037037037e-2_f64 * t13563 - t14409 + t14410 + 0.3805185185185185185e-2_f64 * t17149 - 0.19025925925925925925e-1_f64 * t17154 + 0.68493333333333333331e-1_f64 * t17159 - 0.2283111111111111111e-1_f64 * t17163 - 0.11415555555555555555e-1_f64 * t17165 - 0.10274e0_f64 * t17169 + 0.68493333333333333332e-1_f64 * t17173 + 0.57077777777777777777e-2_f64 * t17175 - 0.11415555555555555555e-1_f64 * t17180 + 0.34246666666666666666e-1_f64 * t17185 - 0.17123333333333333333e-1_f64 * t17189;
+            (t17451, t17454, t17471)
+        };
+        let t17488 = {
+            let t17488 = -t10636 - 0.79148148148148148147e-2_f64 * t10556 - 0.15829629629629629629e-1_f64 * t13598 + 0.79148148148148148147e-2_f64 * t13563 - t14245 + t14246 + 0.39574074074074074073e-2_f64 * t17149 - 0.19787037037037037037e-1_f64 * t17154 + 0.71233333333333333332e-1_f64 * t17159 - 0.23744444444444444444e-1_f64 * t17163 - 0.11872222222222222222e-1_f64 * t17165 - 0.10685e0_f64 * t17169 + 0.71233333333333333332e-1_f64 * t17173 + 0.5936111111111111111e-2_f64 * t17175 - 0.11872222222222222222e-1_f64 * t17180 + 0.35616666666666666666e-1_f64 * t17185 - 0.17808333333333333333e-1_f64 * t17189;
+            t17488
+        };
+        let (t17490, t17493, t17496, t17500, t17504, t17506) = {
+            let t17490 = 0.621814e-1_f64 * t17488 * t291;
+            let t17492 = t5790 * t2932;
+            let t17493 = t17492 * t950;
+            let t17496 = t4475 * t4471;
+            let t17499 = t5774 * t10632;
+            let t17500 = t17499 * t950;
+            let t17504 = 4.0_f64 * t13727 * t4359;
+            let t17506 = 0.32163958997385070134e2_f64 * t13520 * t4400;
+            (t17490, t17493, t17496, t17500, t17504, t17506)
+        };
+        let (t17509, t17512, t17515, t17516) = {
+            let t17507 = t5695 * t912;
+            let t17509 = 6.0_f64 * t2842 * t17507;
+            let t17510 = t1557 * t4395;
+            let t17512 = 4.0_f64 * t2792 * t17510;
+            let t17513 = t5730 * t912;
+            let t17515 = 0.96491876992155210402e2_f64 * t10661 * t17513;
+            let t17516 = -0.10389515463408878255e3_f64 * t10828 * t17451 - 0.11696447245269292414e1_f64 * t2905 * t17454 - 0.310907e-1_f64 * t17471 * t311 + t17490 - 0.19751673498613801407e-1_f64 * t17192 + 0.17315859105681463759e2_f64 * t2930 * t17493 + 0.34631718211362927518e2_f64 * t2930 * t17496 + 0.10254018858216406658e4_f64 * t10756 * t17500 + t17504 - t17506 - t17509 + t17512 + t17515;
+            (t17509, t17512, t17515, t17516)
+        };
+        let (t17519, t17523, t17526, t17530, t17535) = {
+            let t17517 = t5727 * t912;
+            let t17519 = 2.0_f64 * t2792 * t17517;
+            let t17520 = t5726 * t2844;
+            let t17521 = t17520 * t912;
+            let t17523 = 0.16081979498692535067e2_f64 * t2842 * t17521;
+            let t17524 = t4399 * t4395;
+            let t17526 = 0.32163958997385070134e2_f64 * t2842 * t17524;
+            let t17527 = t5694 * t10704;
+            let t17528 = t17527 * t912;
+            let t17530 = 0.51726012919273400301e3_f64 * t10702 * t17528;
+            let t17535 = t5743 * t931;
+            (t17519, t17523, t17526, t17530, t17535)
+        };
+        let t17558 = {
+            let t17538 = t1569 * t4433;
+            let t17541 = t5762 * t931;
+            let t17544 = t5759 * t931;
+            let t17547 = t5758 * t2888;
+            let t17548 = t17547 * t931;
+            let t17551 = t4437 * t4433;
+            let t17554 = t5742 * t10813;
+            let t17555 = t17554 * t931;
+            let t17558 = t17519 - t17523 - t17526 - t17530 - 4.0_f64 * t14276 * t4416 + 0.64327917994770140268e2_f64 * t14271 * t4438 + 6.0_f64 * t2886 * t17535 - 4.0_f64 * t2861 * t17538 - 0.19298375398431042081e3_f64 * t10771 * t17541 - 2.0_f64 * t2861 * t17544 + 0.32163958997385070134e2_f64 * t2886 * t17548 + 0.64327917994770140268e2_f64 * t2886 * t17551 + 0.2069040516770936012e4_f64 * t10811 * t17555;
+            t17558
+        };
+        let (t17561, t17563, t17568) = {
+            let t17561 = t300 * (t17375 + t17449 + t17516 + t17558);
+            let t17563 = 0.5848223622634646207e0_f64 * t2940 * t5808;
+            let t17564 = t10629 * t5774;
+            let t17565 = t10632 * t950;
+            let t17566 = t17564 * t17565;
+            let t17568 = 0.10254018858216406658e4_f64 * t959 * t17566;
+            (t17561, t17563, t17568)
+        };
+        let (t17575, t17579, t17583, t17588, t17593, t17596) = {
+            let t17575 = t5849 * t225;
+            let t17579 = t1603 * t4657;
+            let t17582 = t1634 * t4693;
+            let t17583 = t3174 * t17582;
+            let t17588 = t5851 * t225;
+            let t17593 = t977 * t17183;
+            let t17596 = t2979 * t17178;
+            (t17575, t17579, t17583, t17588, t17593, t17596)
+        };
+        let t17614 = {
+            let t17599 = t2979 * t17161;
+            let t17602 = t10214 * t17152;
+            let t17607 = t5904 * t1040;
+            let t17611 = t248 * t3101 * t5867;
+            let t17612 = t1020 * t17611;
+            let t17614 = -t973 * t17593 / 144.0_f64 + t973 * t17596 / 216.0_f64 + t973 * t17599 / 108.0_f64 + 7.0_f64 / 648.0_f64 * t973 * t17602 - t13750 + t10372 / 2592.0_f64 + t10377 + t10381 / 162.0_f64 + t10385 + t17607 * t1046 / 4608.0_f64 + t13758 + t13767 - t13946 + t17612 / 4608.0_f64;
+            t17614
+        };
+        let (t17616, t17621, t17625, t17632, t17635) = {
+            let t17615 = t135 * t5889;
+            let t17616 = t973 * t17615;
+            let t17620 = t135 * t5893;
+            let t17621 = t973 * t17620;
+            let t17624 = t135 * t5884;
+            let t17625 = t973 * t17624;
+            let t17631 = t4593 * t4650;
+            let t17632 = t4582 * t17631;
+            let t17635 = t5398 * t607;
+            (t17616, t17621, t17625, t17632, t17635)
+        };
+        let t17640 = {
+            let t17636 = t4583 * t17635;
+            let t17637 = t4582 * t17636;
+            let t17640 = t17616 / 864.0_f64 - t2960 * t5894 / 81.0_f64 + t17621 / 648.0_f64 + t13948 + t13952 + t13959 + t13963 - t13966 / 6912.0_f64 - t17625 / 432.0_f64 - t2960 * t5890 / 108.0_f64 + t2960 * t5885 / 54.0_f64 - t3039 * t17632 / 1536.0_f64 - t1041 * t17637 / 2304.0_f64 - t13972;
+            t17640
+        };
+        let (t17643, t17649, t17656, t17659) = {
+            let t17642 = t4588 * t17635;
+            let t17643 = t4582 * t17642;
+            let t17648 = t5681 * t1023;
+            let t17649 = t3071 * t17648;
+            let t17655 = t248 * t3101 * t5878;
+            let t17656 = t3039 * t17655;
+            let t17659 = t248 * t3051 * t5685;
+            (t17643, t17649, t17656, t17659)
+        };
+        let (t17660, t17662, t17668, t17670, t17671) = {
+            let t17660 = t1041 * t17659;
+            let t17662 = t4641 * t4630;
+            let t17667 = t248 * t3101 * t5873;
+            let t17668 = t3130 * t17667;
+            let t17670 = t376 * t5872;
+            let t17671 = t10482 * t1022;
+            (t17660, t17662, t17668, t17670, t17671)
+        };
+        let t17684 = {
+            let t17672 = t17670 * t17671;
+            let t17673 = t4582 * t17672;
+            let t17676 = t4650 * t1539;
+            let t17677 = t3071 * t17676;
+            let t17680 = t5867 * t884;
+            let t17681 = t3071 * t17680;
+            let t17684 = 5.0_f64 / 13824.0_f64 * t1041 * t17643 + t13995 * t4575 / 2304.0_f64 - t3070 * t17649 / 2304.0_f64 + t10390 * t5909 / 2304.0_f64 - t17656 / 4608.0_f64 + t17660 / 6912.0_f64 + t17662 / 2304.0_f64 - t10904 * t5875 / 288.0_f64 + t17668 / 2304.0_f64 + t14000 + t10480 * t17673 / 512.0_f64 + t14027 + t3070 * t17677 / 2304.0_f64 + t3070 * t17681 / 4608.0_f64;
+            t17684
+        };
+        let t17686 = {
+            let t17686 = t5392 * t607;
+            t17686
+        };
+        let (t17688, t17691, t17693, t17697, t17701, t17704) = {
+            let t17687 = t14172 * t17686;
+            let t17688 = t4582 * t17687;
+            let t17691 = t1409 * t3966;
+            let t17692 = t4588 * t17691;
+            let t17693 = t4582 * t17692;
+            let t17696 = t14187 * t17686;
+            let t17697 = t4582 * t17696;
+            let t17700 = t5878 * t884;
+            let t17701 = t3071 * t17700;
+            let t17704 = t1616 * t4347;
+            (t17688, t17691, t17693, t17697, t17701, t17704)
+        };
+        let t17725 = {
+            let t17705 = t3071 * t17704;
+            let t17712 = t376 * t5866;
+            let t17713 = t17712 * t4594;
+            let t17714 = t4582 * t17713;
+            let t17717 = t17712 * t1023;
+            let t17718 = t4582 * t17717;
+            let t17725 = -t14049 - t10436 / 13824.0_f64 - 5.0_f64 / 2304.0_f64 * t1041 * t17688 + 5.0_f64 / 6912.0_f64 * t1041 * t17693 + 5.0_f64 / 5184.0_f64 * t1041 * t17697 - t10413 * t17701 / 4608.0_f64 + t3070 * t17705 / 2304.0_f64 - t4644 * t4585 / 1152.0_f64 + 5.0_f64 / 6912.0_f64 * t4644 * t4590 - t14059 + t3130 * t17714 / 1536.0_f64 - t3039 * t17718 / 3072.0_f64 + t3114 * t5869 / 3072.0_f64 - t10511 / 13824.0_f64 - t10871 / 20736.0_f64;
+            t17725
+        };
+        let (t17734, t17738, t17742, t17745, t17748) = {
+            let t17732 = t3131 * t4649;
+            let t17733 = t4593 * t17732;
+            let t17734 = t4582 * t17733;
+            let t17737 = t998 * t16558;
+            let t17738 = t974 * t17737;
+            let t17742 = t4531 * t13835;
+            let t17745 = t13769 * t13839;
+            let t17748 = t6733 * t1539;
+            (t17734, t17738, t17742, t17745, t17748)
+        };
+        let t17766 = {
+            let t17749 = t4531 * t17748;
+            let t17752 = t7577 * t4540;
+            let t17753 = t4546 * t17752;
+            let t17757 = t5842 * t984 * t343;
+            let t17758 = t4546 * t17757;
+            let t17763 = t2970 * t5824;
+            let t17764 = t973 * t17763;
+            let t17766 = -t13782 + t13787 - t13790 - 0.6172839506172839506e-4_f64 * t10226 + 0.11111111111111111111e-2_f64 * t2986 * t17742 - 0.74074074074074074072e-3_f64 * t2986 * t17745 - 0.55555555555555555554e-3_f64 * t2986 * t17749 - 0.16666666666666666666e-2_f64 * t973 * t17753 - 0.83333333333333333332e-3_f64 * t973 * t17758 + 0.14814814814814814814e-2_f64 * t2960 * t5825 - 0.18518518518518518518e-3_f64 * t17764 - t13825;
+            t17766
+        };
+        let (t17770, t17773, t17778, t17783) = {
+            let t17769 = t2970 * t5828;
+            let t17770 = t973 * t17769;
+            let t17772 = t978 * t16558;
+            let t17773 = t977 * t17772;
+            let t17777 = t5836 * t984 * t343;
+            let t17778 = t4546 * t17777;
+            let t17783 = t10231 * t5817;
+            (t17770, t17773, t17778, t17783)
+        };
+        let t17798 = {
+            let t17784 = t973 * t17783;
+            let t17788 = t4531 * t13861;
+            let t17791 = t4510 * t17178;
+            let t17794 = t2989 * t5398;
+            let t17795 = t2988 * t17794;
+            let t17798 = t13830 - 0.74074074074074074072e-3_f64 * t2960 * t5829 + 0.9259259259259259259e-4_f64 * t17770 + 0.27777777777777777777e-3_f64 * t973 * t17773 - 0.83333333333333333332e-3_f64 * t973 * t17778 - 0.98765432098765432096e-3_f64 * t2960 * t5818 + 0.12345679012345679012e-3_f64 * t17784 + 0.14814814814814814814e-2_f64 * t10186 * t5821 - 0.55555555555555555554e-3_f64 * t2986 * t17788 - t13850 + 0.37037037037037037036e-3_f64 * t2986 * t17791 - 0.27777777777777777777e-3_f64 * t2986 * t17795;
+            t17798
+        };
+        let (t17801, t17805, t17809, t17811, t17814, t17817) = {
+            let t17800 = t2987 * t5836;
+            let t17801 = t17800 * t2990;
+            let t17804 = t2987 * t5842;
+            let t17805 = t17804 * t2990;
+            let t17808 = t13847 * t4514;
+            let t17809 = t2986 * t17808;
+            let t17811 = t4518 * t17167;
+            let t17814 = t4518 * t17171;
+            let t17817 = t10254 * t5392;
+            (t17801, t17805, t17809, t17811, t17814, t17817)
+        };
+        let (t17818, t17821, t17827, t17841) = {
+            let t17818 = t2988 * t17817;
+            let t17821 = t4518 * t17183;
+            let t17826 = t135 * t5844;
+            let t17827 = t973 * t17826;
+            let t17841 = t10295 + 5.0_f64 / 27.0_f64 * t10296 + 10.0_f64 / 27.0_f64 * t13642 - t13921 + t13922 - t13923 - t17286 / 27.0_f64 + 2.0_f64 / 27.0_f64 * t17244 - t17280 / 3.0_f64 + t17241 / 9.0_f64 + 2.0_f64 / 9.0_f64 * t17288 + t17247 - 2.0_f64 / 3.0_f64 * t17250 - t17290 / 9.0_f64 + t17256 / 18.0_f64 - t17253 / 3.0_f64 + t17293 / 6.0_f64;
+            (t17818, t17821, t17827, t17841)
+        };
+        let t17852 = {
+            let t17843 = t340 * t17841 * t343;
+            let t17844 = t974 * t17843;
+            let t17849 = t135 * t5838;
+            let t17850 = t973 * t17849;
+            let t17852 = -0.27777777777777777777e-3_f64 * t2986 * t17801 - 0.27777777777777777777e-3_f64 * t2986 * t17805 - 0.18518518518518518518e-3_f64 * t17809 + 0.16666666666666666666e-2_f64 * t2986 * t17811 - 0.11111111111111111111e-2_f64 * t2986 * t17814 + 0.55555555555555555554e-3_f64 * t2986 * t17818 - 0.55555555555555555554e-3_f64 * t2986 * t17821 + 0.22222222222222222222e-2_f64 * t2960 * t5845 - 0.27777777777777777777e-3_f64 * t17827 - 0.83333333333333333332e-3_f64 * t973 * t17844 + 0.22222222222222222222e-2_f64 * t2960 * t5839 - 0.27777777777777777777e-3_f64 * t17850;
+            t17852
+        };
+        let t17873 = {
+            let t17854 = t4510 * t17157;
+            let t17857 = t4510 * t17161;
+            let t17860 = t13798 * t17152;
+            let t17863 = t10236 * t5392;
+            let t17864 = t10235 * t17863;
+            let t17867 = t13851 * t4514;
+            let t17873 = -t13893 - 0.12345679012345679012e-3_f64 * t13896 - 0.22222222222222222221e-2_f64 * t2986 * t17854 + 0.74074074074074074072e-3_f64 * t2986 * t17857 + 0.86419753086419753084e-3_f64 * t2986 * t17860 - 0.37037037037037037036e-3_f64 * t2986 * t17864 - 0.55555555555555555554e-3_f64 * t2986 * t17867 + 0.18518518518518518518e-3_f64 * t10287 + 0.49382716049382716048e-3_f64 * t10333 + t10339 + t13907 + 0.37037037037037037036e-3_f64 * t13909 - t13915;
+            t17873
+        };
+        let (t17875, t17876, t17878, t17885, t17890) = {
+            let t17875 = t17766 + t17798 + t17852 + t17873;
+            let t17876 = t17875 * t225;
+            let t17877 = t17876 * t68;
+            let t17878 = t17877 * t369;
+            let t17884 = t248 * t10457 * t5677;
+            let t17885 = t1041 * t17884;
+            let t17890 = t248 * t1044 * t17187;
+            (t17875, t17876, t17878, t17885, t17890)
+        };
+        let t17900 = {
+            let t17900 = t14084 + t14508 * t4596 / 768.0_f64 - t14511 * t4600 / 1536.0_f64 + t3130 * t17734 / 768.0_f64 + t973 * t17738 / 288.0_f64 + t17878 * t378 / 3072.0_f64 - 5.0_f64 / 2592.0_f64 * t3048 * t5861 + 5.0_f64 / 20736.0_f64 * t17885 + t3117 * t5857 / 4608.0_f64 + t1041 * t17890 / 4608.0_f64 + 5.0_f64 / 13824.0_f64 * t3117 * t5861 + t14085 * t1622 / 2304.0_f64 + t4644 * t4636 / 2304.0_f64 - t14117 / 6912.0_f64;
+            t17900
+        };
+        let (t17907, t17920, t17925, t17929) = {
+            let t17906 = t248 * t3051 * t5681;
+            let t17907 = t1041 * t17906;
+            let t17919 = t1616 * t4338;
+            let t17920 = t10408 * t17919;
+            let t17923 = t14219 * t1409;
+            let t17924 = t14218 * t17923;
+            let t17925 = t3071 * t17924;
+            let t17929 = 0.11696447245269292414e1_f64 * t2940 * t5804;
+            (t17907, t17920, t17925, t17929)
+        };
+        let (t17932, t17933) = {
+            let t17930 = t4496 * t14459;
+            let t17932 = 0.34631718211362927518e2_f64 * t959 * t17930;
+            let t17933 = t17194 + t17197 - t17209 - t17301 - t17303 - t17306 + t17561 - t17563 - t17568 + t17372 + t17374 - t17377 + t17379 + t17425 + t17427 + t17929 - t17932;
+            (t17932, t17933)
+        };
+        let (t17936, t17940, t17942, t17944, t17946) = {
+            let t17934 = t300 * t5769;
+            let t17936 = 0.5848223622634646207e0_f64 * t17934 * t961;
+            let t17937 = t2904 * t5790;
+            let t17938 = t17937 * t952;
+            let t17940 = 0.11696447245269292414e1_f64 * t959 * t17938;
+            let t17942 = 0.11696447245269292414e1_f64 * t14473 * t1589;
+            let t17944 = 0.11696447245269292414e1_f64 * t4483 * t4493;
+            let t17946 = 0.23392894490538584828e1_f64 * t4483 * t4489;
+            (t17936, t17940, t17942, t17944, t17946)
+        };
+        let (t17950, t17953, t17957, t17958) = {
+            let t17947 = t10523 * t5774;
+            let t17948 = t17947 * t4497;
+            let t17950 = 0.10389515463408878255e3_f64 * t959 * t17948;
+            let t17951 = t4488 * t4472;
+            let t17953 = 0.23392894490538584828e1_f64 * t959 * t17951;
+            let t17954 = t2929 * t5790;
+            let t17955 = t17954 * t4497;
+            let t17957 = 0.17315859105681463759e2_f64 * t959 * t17955;
+            let t17958 = -t17936 - t17490 + t17940 - t17942 - t17944 + t17946 + t17950 + t17953 - t17504 + t17506 + t17509 - t17512 - t17515 - t17519 + t17523 + t17526 + t17530 - t17957;
+            (t17950, t17953, t17957, t17958)
+        };
+        let (t17959, t17967) = {
+            let t17959 = t17933 + t17958;
+            let t17960 = t17959 * t360;
+            let t17962 = t248 * t1021 * t17960;
+            let t17967 = -t14080 * t1622 / 432.0_f64 + t3048 * t5900 / 432.0_f64 - t17907 / 3456.0_f64 + t10891 * t5880 / 576.0_f64 - t3048 * t5857 / 864.0_f64 + t14207 * t1618 / 1536.0_f64 + t4641 * t4652 / 1536.0_f64 - t14077 * t1618 / 288.0_f64 + 5.0_f64 / 6912.0_f64 * t3070 * t17920 - t10413 * t17925 / 2304.0_f64 - t14136 + t14139 + t1020 * t17962 / 3072.0_f64 + t10949 * t5875 / 1536.0_f64;
+            (t17959, t17967)
+        };
+        let (t17972, t17976, t17980, t17984, t17988, t17991, t17994) = {
+            let t17971 = t14164 * t17686;
+            let t17972 = t4582 * t17971;
+            let t17975 = t4583 * t17691;
+            let t17976 = t4582 * t17975;
+            let t17979 = t17670 * t1023;
+            let t17980 = t4582 * t17979;
+            let t17983 = t17670 * t4594;
+            let t17984 = t4582 * t17983;
+            let t17988 = t977 * t17167;
+            let t17991 = t977 * t17171;
+            let t17994 = t2979 * t17157;
+            (t17972, t17976, t17980, t17984, t17988, t17991, t17994)
+        };
+        let t18007 = {
+            let t17997 = t5677 * t1023;
+            let t17998 = t10408 * t17997;
+            let t18005 = t5905 * t1036;
+            let t18007 = -t10952 * t5880 / 3072.0_f64 + t1041 * t17972 / 768.0_f64 - t1041 * t17976 / 1152.0_f64 + t10883 * t17980 / 3072.0_f64 - t10876 * t17984 / 512.0_f64 - t14158 - t14160 / 648.0_f64 + t973 * t17988 / 48.0_f64 - t973 * t17991 / 72.0_f64 - t973 * t17994 / 36.0_f64 + 5.0_f64 / 13824.0_f64 * t3070 * t17998 + t13995 * t4579 / 2304.0_f64 - t3109 * t5869 / 576.0_f64 + t18005 / 4608.0_f64;
+            t18007
+        };
+        let (t18008, t18010, t18016, t18021, t18024) = {
+            let t18008 = t4644 * t4571;
+            let t18010 = t5904 * t1031;
+            let t18014 = t1539 * t1022;
+            let t18015 = t14211 * t18014;
+            let t18016 = t3071 * t18015;
+            let t18020 = t5685 * t1023;
+            let t18021 = t3071 * t18020;
+            let t18024 = t1616 * t4343;
+            (t18008, t18010, t18016, t18021, t18024)
+        };
+        let (t18028, t18044) = {
+            let t18025 = t3071 * t18024;
+            let t18028 = t5848 * t1009;
+            let t18029 = t18028 * t1011;
+            let t18030 = t18029 * t1019;
+            let t18035 = t5873 * t884;
+            let t18036 = t3071 * t18035;
+            let t18041 = t10422 * t5908;
+            let t18042 = t3070 * t18041;
+            let t18044 = t18008 / 3456.0_f64 + t14194 - t18010 * t378 / 576.0_f64 - t14203 / 10368.0_f64 + t10403 * t18016 / 1152.0_f64 - t10923 / 1296.0_f64 + t3070 * t18021 / 4608.0_f64 - t3070 * t18025 / 1152.0_f64 + t14495 + t18030 * t1025 / 3072.0_f64 - t3117 * t5900 / 2304.0_f64 + t14503 + t10403 * t18036 / 2304.0_f64 - t10937 * t5909 / 432.0_f64 + t18042 / 3456.0_f64;
+            (t18028, t18044)
+        };
+        let (t18047, t18050) = {
+            let t18047 = t17614 + t17640 + t17684 + t17725 + t17900 + t17967 + t18007 + t18044;
+            let t18048 = t349 * t18047;
+            let t18050 = 4.0_f64 * t1052 * t17583 - t1066 * t17575 - 2.0_f64 * t1066 * t17588 + 2.0_f64 * t17579 * t388 + t18048 * t388 + 2.0_f64 * t3026 * t5920 - t3026 * t5944 + 2.0_f64 * t3169 * t5920 - t3169 * t5944 + 4.0_f64 * t4557 * t4665 - 2.0_f64 * t4557 * t4694 - 2.0_f64 * t4660 * t4694;
+            (t18047, t18050)
+        };
+        let (t18053, t18057, t18059, t18062, t18065, t18070) = {
+            let t18053 = t990 * t5914;
+            let t18057 = t17875 * t381;
+            let t18059 = t5848 * t1049;
+            let t18061 = t5943 * t1065;
+            let t18062 = t3174 * t18061;
+            let t18065 = t4552 * t1625;
+            let t18070 = t5919 * t1065;
+            (t18053, t18057, t18059, t18062, t18065, t18070)
+        };
+        let (t18071, t18074, t18081, t18083, t18086, t18088) = {
+            let t18071 = t10165 * t18070;
+            let t18074 = t5915 * t225;
+            let t18080 = t1049 * t5872;
+            let t18081 = t18080 * t3201;
+            let t18083 = t18080 * t3188;
+            let t18086 = t18028 * t1057;
+            let t18088 = t4657 * t1615;
+            (t18071, t18074, t18081, t18083, t18086, t18088)
+        };
+        let (t18089, t18094, t18100, t18104, t18108) = {
+            let t18089 = t18088 * t1060;
+            let t18093 = t6739 * t1022 * t360;
+            let t18094 = t5928 * t18093;
+            let t18099 = t1049 * t5866;
+            let t18100 = t18099 * t1060;
+            let t18103 = t11066 * t1022;
+            let t18104 = t5928 * t18103;
+            let t18107 = t3201 * t4649;
+            let t18108 = t1629 * t18107;
+            (t18089, t18094, t18100, t18104, t18108)
+        };
+        let t18124 = {
+            let t18111 = t11060 * t1022;
+            let t18112 = t5928 * t18111;
+            let t18117 = t5936 * t4684;
+            let t18121 = t5936 * t4673;
+            let t18124 = 2.0_f64 * t1058 * t18089 + t1058 * t18100 + t1061 * t18086 + 2.0_f64 * t11034 * t5929 - t11037 * t5939 + t11046 * t18094 + 6.0_f64 * t11059 * t18112 - 6.0_f64 * t11065 * t18104 + 4.0_f64 * t14618 * t4674 + 2.0_f64 * t14651 * t1630 - t18081 * t3200 + 2.0_f64 * t18083 * t3186 - 2.0_f64 * t18108 * t3200 - t18117 * t3200 + 2.0_f64 * t18121 * t3186 + t3180 * t5937;
+            t18124
+        };
+        let (t18129, t18131, t18139, t18142, t18151, t18154) = {
+            let t18129 = t383 * t18047;
+            let t18131 = t5932 * t4684;
+            let t18138 = t3188 * t4649;
+            let t18139 = t1629 * t18138;
+            let t18142 = t5932 * t4673;
+            let t18150 = t1625 * t4649;
+            let t18151 = t18150 * t1060;
+            let t18154 = t5914 * t1022;
+            (t18129, t18131, t18139, t18142, t18151, t18154)
+        };
+        let t18164 = {
+            let t18155 = t18154 * t1060;
+            let t18161 = t381 * t17959;
+            let t18162 = t18161 * t1060;
+            let t18164 = t1003 * t5941 + 2.0_f64 * t1058 * t18151 + t1058 * t18155 + t1058 * t18162 + t1063 * t5903 - 2.0_f64 * t14608 * t4685 + 2.0_f64 * t1610 * t4691 + 2.0_f64 * t1632 * t4615 + t17876 * t384 + t18129 * t353 - 2.0_f64 * t18131 * t3200 + 4.0_f64 * t18139 * t3186 + 4.0_f64 * t18142 * t3186 + 2.0_f64 * t3180 * t5933 + 2.0_f64 * t4669 * t4678 + 2.0_f64 * t4669 * t4681 + 2.0_f64 * t4669 * t4689;
+            t18164
+        };
+        let t18168 = {
+            let t18165 = t18124 + t18164;
+            let t18166 = t1055 * t18165;
+            let t18168 = 2.0_f64 * t1052 * t18062 - 6.0_f64 * t1052 * t18071 - t1052 * t18166 - t1066 * t18074 - 2.0_f64 * t14529 * t1635 - 2.0_f64 * t14545 * t1635 - 2.0_f64 * t14552 * t1635 - 2.0_f64 * t14555 * t1635 + t18053 * t388 + t18057 * t388 + t18059 * t388 + 2.0_f64 * t18065 * t388 + 4.0_f64 * t4660 * t4665;
+            t18168
+        };
+        let t18173 = {
+            let t18169 = t18050 + t18168;
+            let t18173 = t1070 * t18169 * t193 * t336 + 2.0_f64 * t1068 * t17198 * t4700 - t1068 * t17202 * t4700 - 2.0_f64 * t4696 * t4700 * t4701 + t17194 + t17197 - t17209 - t17301 - t17303 - t17306 + t17372 + t17374 - t17377 + t17379 + t17425 + t17427 + t17561 - t17563 - t17568;
+            t18173
+        };
+        let t18174 = {
+            let t18174 = t17929 - t17932 - t17936 - t17490 + t17940 - t17942 - t17944 + t17946 + t17950 + t17953 - t17504 + t17506 + t17509 - t17512 - t17515 - t17519 + t17523 + t17526 + t17530 - t17957;
+            t18174
+        };
+        let t18188 = {
+            let t26 = t25 <= zeta_threshold;
+            let t115 = rho0 <= dens_threshold || t26;
+            let t395 = t265 < t394;
+            let t18176 = piecewise3(t395, t18173 + t18174, t17133);
+            let t18188 = piecewise3(t115, t17133 * t25 / 2.0_f64 + t5669 * t606 / 2.0_f64 + t4324 * t1408 + t17141 + t873 * t5397 / 2.0_f64 + t265 * t16557 / 2.0_f64, t18176 * t40 / 2.0_f64 + t5955 * t607 / 2.0_f64 + t4705 * t1409 + t1642 * t3966 + t1074 * t5398 / 2.0_f64 + t396 * t16558 / 2.0_f64);
+            t18188
+        };
+        let (t18196, t18203) = {
+            let t18196 = -t16557;
+            let t18203 = t690 * t5972;
+            (t18196, t18203)
+        };
+        let (t18206, t18208) = {
+            let t18205 = t11147 * t5392;
+            let t18206 = t18205 * t607;
+            let t18207 = t11145 * t18206;
+            let t18208 = t123 * t18207;
+            (t18206, t18208)
+        };
+        let (t18211, t18213) = {
+            let t18210 = t11153 * t5392;
+            let t18211 = t18210 * t607;
+            let t18212 = t3240 * t18211;
+            let t18213 = t123 * t18212;
+            (t18211, t18213)
+        };
+        let (t18215, t18217) = {
+            let t18215 = t4723 * t3966;
+            let t18216 = t3240 * t18215;
+            let t18217 = t123 * t18216;
+            (t18215, t18217)
+        };
+        let t18219 = {
+            let t18219 = t690 * t5976;
+            t18219
+        };
+        let (t18221, t18223) = {
+            let t18221 = t5971 * t607;
+            let t18222 = t1088 * t18221;
+            let t18223 = t123 * t18222;
+            (t18221, t18223)
+        };
+        let (t18225, t18227) = {
+            let t18225 = t4728 * t3966;
+            let t18226 = t1088 * t18225;
+            let t18227 = t123 * t18226;
+            (t18225, t18227)
+        };
+        let t18229 = {
+            let t18229 = t690 * t5980;
+            t18229
+        };
+        let (t18232, t18234) = {
+            let t18231 = t3242 * t5398;
+            let t18232 = t18231 * t607;
+            let t18233 = t3240 * t18232;
+            let t18234 = t123 * t18233;
+            (t18232, t18234)
+        };
+        let (t18237, t18239) = {
+            let t18236 = t3247 * t5398;
+            let t18237 = t18236 * t607;
+            let t18238 = t1088 * t18237;
+            let t18239 = t123 * t18238;
+            (t18237, t18239)
+        };
+        let (t18241, t18243) = {
+            let t18241 = t1089 * t16558;
+            let t18242 = t1088 * t18241;
+            let t18243 = t123 * t18242;
+            (t18241, t18243)
+        };
+        let t18245 = {
+            let t18245 = -t11459 + 0.79148148148148148147e-2_f64 * t11137 + 0.15829629629629629629e-1_f64 * t14702 + 0.79148148148148148147e-2_f64 * t14720 - t14946 - t14947 + 0.39574074074074074073e-2_f64 * t18203 + 0.19787037037037037037e-1_f64 * t18208 - 0.71233333333333333332e-1_f64 * t18213 - 0.23744444444444444444e-1_f64 * t18217 - 0.11872222222222222222e-1_f64 * t18219 + 0.10685e0_f64 * t18223 + 0.71233333333333333332e-1_f64 * t18227 - 0.5936111111111111111e-2_f64 * t18229 - 0.11872222222222222222e-1_f64 * t18234 + 0.35616666666666666666e-1_f64 * t18239 + 0.17808333333333333333e-1_f64 * t18243;
+            t18245
+        };
+        let (t18247, t18249, t18251, t18257, t18261) = {
+            let t18247 = 0.621814e-1_f64 * t18245 * t423;
+            let t18249 = 0.11696447245269292414e1_f64 * t14858 * t1703;
+            let t18251 = 0.11696447245269292414e1_f64 * t4869 * t4879;
+            let t18255 = t6021 * t1117;
+            let t18257 = 2.0_f64 * t3264 * t18255;
+            let t18258 = t6020 * t3315;
+            let t18259 = t18258 * t1117;
+            let t18261 = 0.16081979498692535067e2_f64 * t3313 * t18259;
+            (t18247, t18249, t18251, t18257, t18261)
+        };
+        let (t18264, t18268, t18270, t18273) = {
+            let t18262 = t4785 * t4781;
+            let t18264 = 0.32163958997385070134e2_f64 * t3313 * t18262;
+            let t18265 = t5988 * t11277;
+            let t18266 = t18265 * t1117;
+            let t18268 = 0.51726012919273400301e3_f64 * t11275 * t18266;
+            let t18270 = 0.17315859105681463759e2_f64 * t3411 * t6106;
+            let t18271 = t6105 * t1157;
+            let t18273 = 0.35089341735807877242e1_f64 * t1164 * t18271;
+            (t18264, t18268, t18270, t18273)
+        };
+        let (t18278, t18282, t18285, t18287, t18297) = {
+            let t18274 = t11282 * t6068;
+            let t18275 = t11285 * t1155;
+            let t18276 = t18274 * t18275;
+            let t18278 = 0.10254018858216406658e4_f64 * t1164 * t18276;
+            let t18279 = t11292 * t6068;
+            let t18280 = t18279 * t4883;
+            let t18282 = 0.10389515463408878255e3_f64 * t1164 * t18280;
+            let t18283 = t4882 * t15218;
+            let t18285 = 0.34631718211362927518e2_f64 * t1164 * t18283;
+            let t18287 = t1190 * t6238;
+            let t18297 = t4965 * t1743;
+            (t18278, t18282, t18285, t18287, t18297)
+        };
+        let (t18300, t18316) = {
+            let t18300 = t486 * t6224;
+            let t18301 = t11721 * t1215;
+            let t18302 = t18300 * t18301;
+            let t18303 = t4582 * t18302;
+            let t18306 = t18300 * t4978;
+            let t18307 = t4582 * t18306;
+            let t18310 = t6170 * t1222;
+            let t18312 = t6158 * t1222;
+            let t18314 = t6165 * t1222;
+            let t18316 = -t11644 / 13824.0_f64 + t11649 - t15503 * t4980 / 144.0_f64 + t15507 * t4984 / 288.0_f64 - t5005 * t4974 / 1152.0_f64 - t18297 * t488 / 288.0_f64 + t11719 * t18303 / 512.0_f64 - t11728 * t18307 / 512.0_f64 + t15446 - t15448 - t15450 + t15452 + t18310 / 4608.0_f64 - t18312 / 432.0_f64 + 19.0_f64 / 2592.0_f64 * t18314;
+            (t18300, t18316)
+        };
+        let (t18321, t18337) = {
+            let t18321 = t5416 * t972;
+            let t18324 = t135 * t6187;
+            let t18325 = t1174 * t18324;
+            let t18327 = t4889 * t5040;
+            let t18329 = t135 * t6183;
+            let t18330 = t1174 * t18329;
+            let t18332 = t135 * t6177;
+            let t18333 = t1174 * t18332;
+            let t18337 = t15498 * t1748 / 432.0_f64 + t5024 * t5030 / 432.0_f64 - t15484 - t15488 + t15490 + t15494 + t15524 - 11.0_f64 / 324.0_f64 * t18321 * t1198 - t18325 / 432.0_f64 + t18327 / 162.0_f64 - t18330 / 864.0_f64 - t15550 - t15574 + t18333 / 648.0_f64 - t15580 + t15737 * t4980 / 768.0_f64;
+            (t18321, t18337)
+        };
+        let (t18342, t18346, t18357, t18360) = {
+            let t18341 = t4987 * t17691;
+            let t18342 = t4582 * t18341;
+            let t18345 = t15654 * t17686;
+            let t18346 = t4582 * t18345;
+            let t18356 = t248 * t3570 * t6225;
+            let t18357 = t3506 * t18356;
+            let t18359 = t1735 * t4733;
+            let t18360 = t3578 * t18359;
+            (t18342, t18346, t18357, t18360)
+        };
+        let (t18364, t18368, t18372, t18375) = {
+            let t18363 = t5971 * t1216;
+            let t18364 = t11668 * t18363;
+            let t18367 = t6225 * t1090;
+            let t18368 = t3578 * t18367;
+            let t18371 = t11697 * t6191;
+            let t18372 = t3577 * t18371;
+            let t18375 = t248 * t3570 * t6219;
+            (t18364, t18368, t18372, t18375)
+        };
+        let t18390 = {
+            let t18376 = t1213 * t18375;
+            let t18382 = t5979 * t1216;
+            let t18383 = t3578 * t18382;
+            let t18386 = t5975 * t1216;
+            let t18387 = t3578 * t18386;
+            let t18390 = -t15438 * t4984 / 1536.0_f64 + 5.0_f64 / 6912.0_f64 * t1227 * t18342 + 5.0_f64 / 2304.0_f64 * t1227 * t18346 + t11709 * t6227 / 1536.0_f64 - t11734 * t6232 / 3072.0_f64 - t5019 * t5014 / 288.0_f64 + t18357 / 2304.0_f64 - t3577 * t18360 / 2304.0_f64 + 5.0_f64 / 13824.0_f64 * t3577 * t18364 - t11678 * t18368 / 2304.0_f64 - t18372 / 3456.0_f64 + t18376 / 4608.0_f64 + 5.0_f64 / 13824.0_f64 * t3490 * t6203 + t15569 * t4954 / 432.0_f64 - t3577 * t18383 / 4608.0_f64 - t3577 * t18387 / 2304.0_f64;
+            t18390
+        };
+        let (t18393, t18397, t18401, t18404) = {
+            let t18392 = t248 * t3521 * t5975;
+            let t18393 = t1227 * t18392;
+            let t18395 = t15701 * t1409;
+            let t18396 = t15700 * t18395;
+            let t18397 = t3578 * t18396;
+            let t18400 = t1735 * t4729;
+            let t18401 = t3578 * t18400;
+            let t18404 = t4900 * t18232;
+            (t18393, t18397, t18401, t18404)
+        };
+        let (t18410, t18413, t18417, t18421, t18424, t18427) = {
+            let t18409 = t3450 * t5398;
+            let t18410 = t3449 * t18409;
+            let t18413 = t4908 * t18237;
+            let t18416 = t3448 * t6138;
+            let t18417 = t18416 * t3451;
+            let t18420 = t3448 * t6144;
+            let t18421 = t18420 * t3451;
+            let t18424 = t4908 * t18225;
+            let t18427 = t11583 * t5392;
+            (t18410, t18413, t18417, t18421, t18424, t18427)
+        };
+        let t18442 = {
+            let t18428 = t3449 * t18427;
+            let t18431 = t4908 * t18221;
+            let t18434 = t15320 * t4904;
+            let t18437 = t4919 * t15313;
+            let t18442 = 0.37037037037037037036e-3_f64 * t3447 * t18404 - 0.19753086419753086419e-2_f64 * t15376 * t4901 + 0.27777777777777777777e-3_f64 * t3447 * t18410 - 0.55555555555555555554e-3_f64 * t3447 * t18413 + 0.27777777777777777777e-3_f64 * t3447 * t18417 + 0.27777777777777777777e-3_f64 * t3447 * t18421 - 0.11111111111111111111e-2_f64 * t3447 * t18424 + 0.55555555555555555554e-3_f64 * t3447 * t18428 - 0.16666666666666666666e-2_f64 * t3447 * t18431 + 0.55555555555555555554e-3_f64 * t3447 * t18434 + 0.55555555555555555554e-3_f64 * t3447 * t18437 + 0.6172839506172839506e-4_f64 * t11531 + 0.98765432098765432093e-3_f64 * t15265;
+            t18442
+        };
+        let (t18443, t18447, t18452, t18455, t18458, t18460) = {
+            let t18443 = t15395 * t18206;
+            let t18446 = t15338 * t4904;
+            let t18447 = t3447 * t18446;
+            let t18451 = t3431 * t6126;
+            let t18452 = t1174 * t18451;
+            let t18454 = t3431 * t6130;
+            let t18455 = t1174 * t18454;
+            let t18457 = t11539 * t6119;
+            let t18458 = t1174 * t18457;
+            let t18460 = t4889 * t4896;
+            (t18443, t18447, t18452, t18455, t18458, t18460)
+        };
+        let t18473 = {
+            let t18466 = t4900 * t18215;
+            let t18469 = t11570 * t5392;
+            let t18470 = t11569 * t18469;
+            let t18473 = -t15284 - t15287 - 0.86419753086419753084e-3_f64 * t3447 * t18443 + 0.18518518518518518518e-3_f64 * t18447 + 0.44444444444444444444e-2_f64 * t4889 * t4937 - 0.18518518518518518518e-3_f64 * t18452 - 0.9259259259259259259e-4_f64 * t18455 + 0.12345679012345679012e-3_f64 * t18458 + 0.49382716049382716047e-3_f64 * t18460 - 0.27160493827160493827e-2_f64 * t18321 * t1180 + 0.12345679012345679012e-3_f64 * t15300 + 0.49382716049382716047e-3_f64 * t15307 + 0.74074074074074074072e-3_f64 * t3447 * t18466 - 0.37037037037037037036e-3_f64 * t3447 * t18470;
+            t18473
+        };
+        let (t18475, t18484, t18489, t18494, t18497, t18499) = {
+            let t18475 = t4900 * t18211;
+            let t18484 = t15390 * t15382;
+            let t18489 = t6109 * t1171;
+            let t18494 = t699 * t6011;
+            let t18496 = t11219 * t18206;
+            let t18497 = t136 * t18496;
+            let t18499 = t3297 * t18211;
+            (t18475, t18484, t18489, t18494, t18497, t18499)
+        };
+        let (t18500, t18503, t18505, t18508, t18510, t18512, t18515, t18517) = {
+            let t18500 = t136 * t18499;
+            let t18502 = t3297 * t18215;
+            let t18503 = t136 * t18502;
+            let t18505 = t699 * t6014;
+            let t18507 = t1113 * t18221;
+            let t18508 = t136 * t18507;
+            let t18509 = t1113 * t18225;
+            let t18510 = t136 * t18509;
+            let t18512 = t699 * t6017;
+            let t18514 = t3297 * t18232;
+            let t18515 = t136 * t18514;
+            let t18517 = t1113 * t18237;
+            (t18500, t18503, t18505, t18508, t18510, t18512, t18515, t18517)
+        };
+        let (t18518, t18521, t18523) = {
+            let t18518 = t136 * t18517;
+            let t18520 = t1113 * t18241;
+            let t18521 = t136 * t18520;
+            let t18523 = t11487 - 5.0_f64 / 27.0_f64 * t11211 - 10.0_f64 / 27.0_f64 * t14766 - t15347 + t15348 + t15349 - t18494 / 27.0_f64 - 2.0_f64 / 27.0_f64 * t18497 + t18500 / 3.0_f64 + t18503 / 9.0_f64 + 2.0_f64 / 9.0_f64 * t18505 - t18508 - 2.0_f64 / 3.0_f64 * t18510 + t18512 / 9.0_f64 + t18515 / 18.0_f64 - t18518 / 3.0_f64 - t18521 / 6.0_f64;
+            (t18518, t18521, t18523)
+        };
+        let t18535 = {
+            let t18525 = t457 * t18523 * t460;
+            let t18526 = t974 * t18525;
+            let t18529 = t135 * t6146;
+            let t18530 = t1174 * t18529;
+            let t18532 = t135 * t6140;
+            let t18533 = t1174 * t18532;
+            let t18535 = 0.22222222222222222221e-2_f64 * t3447 * t18475 - 0.14814814814814814815e-2_f64 * t15376 * t4920 - 0.14814814814814814814e-2_f64 * t15376 * t4905 + 0.29629629629629629628e-2_f64 * t15376 * t4909 + t15341 - 0.74074074074074074072e-3_f64 * t3447 * t18484 + 0.37037037037037037036e-3_f64 * t15364 + 0.14814814814814814814e-2_f64 * t15366 - t15374 + 0.27160493827160493827e-2_f64 * t18489 + 0.18518518518518518518e-3_f64 * t11558 - 0.83333333333333333332e-3_f64 * t1174 * t18526 - 0.27777777777777777777e-3_f64 * t18530 - 0.27777777777777777777e-3_f64 * t18533;
+            t18535
+        };
+        let (t18536, t18543, t18546, t18550, t18554) = {
+            let t18536 = t4889 * t4916;
+            let t18542 = t7319 * t1653;
+            let t18543 = t4919 * t18542;
+            let t18546 = t4919 * t15293;
+            let t18549 = t8034 * t4928;
+            let t18550 = t4934 * t18549;
+            let t18554 = t6144 * t1184 * t460;
+            (t18536, t18543, t18546, t18550, t18554)
+        };
+        let t18569 = {
+            let t18555 = t4934 * t18554;
+            let t18558 = t1178 * t16558;
+            let t18559 = t1177 * t18558;
+            let t18563 = t6138 * t1184 * t460;
+            let t18564 = t4934 * t18563;
+            let t18569 = 0.14814814814814814815e-2_f64 * t18536 - 0.81481481481481481481e-2_f64 * t18321 * t1187 + 0.44444444444444444444e-2_f64 * t4889 * t4931 + t11556 + 0.55555555555555555554e-3_f64 * t3447 * t18543 + 0.11111111111111111111e-2_f64 * t3447 * t18546 + t15401 - t15405 + t15422 - 0.16666666666666666666e-2_f64 * t1174 * t18550 - 0.83333333333333333332e-3_f64 * t1174 * t18555 - 0.27777777777777777777e-3_f64 * t1174 * t18559 - 0.83333333333333333332e-3_f64 * t1174 * t18564 + 0.14814814814814814814e-2_f64 * t4889 * t4913;
+            t18569
+        };
+        let (t18571, t18572, t18574, t18577, t18580, t18583) = {
+            let t18571 = t18442 + t18473 + t18535 + t18569;
+            let t18572 = t18571 * t225;
+            let t18573 = t18572 * t68;
+            let t18574 = t18573 * t484;
+            let t18577 = t3440 * t18215;
+            let t18580 = t3440 * t18211;
+            let t18583 = t5012 * t1653;
+            (t18571, t18572, t18574, t18577, t18580, t18583)
+        };
+        let (t18584, t18590, t18594, t18603, t18606, t18609) = {
+            let t18584 = t3578 * t18583;
+            let t18589 = t4972 * t17691;
+            let t18590 = t4582 * t18589;
+            let t18593 = t15615 * t17686;
+            let t18594 = t4582 * t18593;
+            let t18603 = t6069 * t1155;
+            let t18606 = t1695 * t4857;
+            let t18609 = t6088 * t1155;
+            (t18584, t18590, t18594, t18603, t18606, t18609)
+        };
+        let t18630 = {
+            let t18612 = t6085 * t1155;
+            let t18615 = t6084 * t3403;
+            let t18616 = t18615 * t1155;
+            let t18619 = t4861 * t4857;
+            let t18622 = t6068 * t11285;
+            let t18623 = t18622 * t1155;
+            let t18630 = -0.23392894490538584828e1_f64 * t15136 * t4840 + 0.34631718211362927517e2_f64 * t15126 * t4862 + 0.35089341735807877242e1_f64 * t3401 * t18603 - 0.23392894490538584828e1_f64 * t3376 * t18606 - 0.10389515463408878255e3_f64 * t11365 * t18609 - 0.11696447245269292414e1_f64 * t3376 * t18612 + 0.17315859105681463759e2_f64 * t3401 * t18616 + 0.34631718211362927518e2_f64 * t3401 * t18619 + 0.10254018858216406658e4_f64 * t11310 * t18623 + t18247 - 4.0_f64 * t15207 * t4802 + 0.64327917994770140268e2_f64 * t15146 * t4824;
+            t18630
+        };
+        let (t18631, t18634, t18637, t18640, t18644, t18647, t18651, t18668) = {
+            let t18631 = t6037 * t1136;
+            let t18634 = t1683 * t4819;
+            let t18637 = t6056 * t1136;
+            let t18640 = t6053 * t1136;
+            let t18643 = t6052 * t3359;
+            let t18644 = t18643 * t1136;
+            let t18647 = t4823 * t4819;
+            let t18650 = t6036 * t11352;
+            let t18651 = t18650 * t1136;
+            let t18668 = -t11444 + 0.76103703703703703703e-2_f64 * t11137 + 0.1522074074074074074e-1_f64 * t14702 + 0.761037037037037037e-2_f64 * t14720 - t15194 - t15195 + 0.3805185185185185185e-2_f64 * t18203 + 0.19025925925925925925e-1_f64 * t18208 - 0.68493333333333333331e-1_f64 * t18213 - 0.2283111111111111111e-1_f64 * t18217 - 0.11415555555555555555e-1_f64 * t18219 + 0.10274e0_f64 * t18223 + 0.68493333333333333332e-1_f64 * t18227 - 0.57077777777777777777e-2_f64 * t18229 - 0.11415555555555555555e-1_f64 * t18234 + 0.34246666666666666666e-1_f64 * t18239 + 0.17123333333333333333e-1_f64 * t18243;
+            (t18631, t18634, t18637, t18640, t18644, t18647, t18651, t18668)
+        };
+        let (t18672, t18673) = {
+            let t18672 = 4.0_f64 * t14838 * t4745;
+            let t18673 = 6.0_f64 * t3357 * t18631 - 4.0_f64 * t3332 * t18634 - 0.19298375398431042081e3_f64 * t11420 * t18637 - 2.0_f64 * t3332 * t18640 + 0.32163958997385070134e2_f64 * t3357 * t18644 + 0.64327917994770140268e2_f64 * t3357 * t18647 + 0.2069040516770936012e4_f64 * t11350 * t18651 - 0.310907e-1_f64 * t18668 * t436 + t18257 - t18261 - t18264 - t18268 + t18672;
+            (t18672, t18673)
+        };
+        let (t18676, t18679, t18682, t18685, t18686) = {
+            let t18676 = 0.32163958997385070134e2_f64 * t14850 * t4786;
+            let t18677 = t5989 * t1117;
+            let t18679 = 6.0_f64 * t3313 * t18677;
+            let t18680 = t1671 * t4781;
+            let t18682 = 4.0_f64 * t3264 * t18680;
+            let t18683 = t6024 * t1117;
+            let t18685 = 0.96491876992155210402e2_f64 * t11190 * t18683;
+            let t18686 = t5983 * t1098;
+            (t18676, t18679, t18682, t18685, t18686)
+        };
+        let (t18688, t18690, t18692, t18694, t18696, t18710) = {
+            let t18688 = 1.0_f64 * t18686 * t1119;
+            let t18690 = 2.0_f64 * t14845 * t1671;
+            let t18692 = 2.0_f64 * t4740 * t4782;
+            let t18694 = 2.0_f64 * t11424 * t5989;
+            let t18696 = 1.0_f64 * t3259 * t6021;
+            let t18710 = -t11136 + 0.41203703703703703703e-2_f64 * t11137 + 0.82407407407407407408e-2_f64 * t14702 + t14922 - t14923 - t14924 + 0.20601851851851851852e-2_f64 * t18203 + 0.10300925925925925926e-1_f64 * t18208 - 0.37083333333333333333e-1_f64 * t18213 - 0.12361111111111111111e-1_f64 * t18217 - 0.61805555555555555557e-2_f64 * t18219 + 0.55625000000000000001e-1_f64 * t18223 + 0.37083333333333333334e-1_f64 * t18227 - 0.30902777777777777778e-2_f64 * t18229 - 0.61805555555555555555e-2_f64 * t18234 + 0.18541666666666666667e-1_f64 * t18239 + 0.92708333333333333333e-2_f64 * t18243;
+            (t18688, t18690, t18692, t18694, t18696, t18710)
+        };
+        let (t18711, t18730) = {
+            let t18711 = t18710 * t449;
+            let t18730 = -t11247 + 4.0_f64 / 27.0_f64 * t11137 + 8.0_f64 / 27.0_f64 * t14702 + t14721 - t14723 - t14724 + 2.0_f64 / 27.0_f64 * t18203 + 10.0_f64 / 27.0_f64 * t18208 - 4.0_f64 / 3.0_f64 * t18213 - 4.0_f64 / 9.0_f64 * t18217 - 2.0_f64 / 9.0_f64 * t18219 + 2.0_f64 * t18223 + 4.0_f64 / 3.0_f64 * t18227 - t18229 / 9.0_f64 - 2.0_f64 / 9.0_f64 * t18234 + 2.0_f64 / 3.0_f64 * t18239 + t18243 / 3.0_f64;
+            (t18711, t18730)
+        };
+        let (t18731, t18742, t18747, t18749, t18752, t18755, t18757) = {
+            let t18731 = t1100 * t18730;
+            let t18742 = t1107 * t18730;
+            let t18746 = t11243 * t5992;
+            let t18747 = t18746 * t1102;
+            let t18749 = t4764 * t4756;
+            let t18751 = t3287 * t5999;
+            let t18752 = t18751 * t1102;
+            let t18754 = t11265 * t5992;
+            let t18755 = t18754 * t1102;
+            let t18757 = t4748 * t4756;
+            (t18731, t18742, t18747, t18749, t18752, t18755, t18757)
+        };
+        let (t18759, t18761) = {
+            let t18759 = 0.16504875e0_f64 * t18742 - t11372 + 0.26837777777777777779e0_f64 * t14702 - t14705 - t14711 + 0.91983333333333333333e-1_f64 * t11211 - 0.412621875e-1_f64 * t18747 + 0.16504875e0_f64 * t18749 + 0.82524375e-1_f64 * t18752 + 0.19419375e1_f64 * t18755 - 0.258925e1_f64 * t18757;
+            let t18761 = t3270 * t5999;
+            (t18759, t18761)
+        };
+        let (t18762, t18783) = {
+            let t18762 = t18761 * t1102;
+            let t18783 = 0.12077e1_f64 * t18227 + 0.36793333333333333333e-1_f64 * t14818 - 0.27595e-1_f64 * t18515 + 0.36793333333333333333e-1_f64 * t18497 + 0.16557e0_f64 * t18518 + 0.13418888888888888889e0_f64 * t11137 + 0.60385e0_f64 * t18239 - 0.5519e-1_f64 * t18503 - 0.16557e0_f64 * t18500 + 0.33114e0_f64 * t18510 + 0.49671e0_f64 * t18508;
+            (t18762, t18783)
+        };
+        let t18785 = {
+            let t18785 = 0.258925e1_f64 * t18731 - t11369 - 0.5519e-1_f64 * t18512 + 0.82785e-1_f64 * t18521 + 0.67094444444444444443e-1_f64 * t18203 - 0.20128333333333333333e0_f64 * t18219 - 0.10064166666666666667e0_f64 * t18229 + 0.301925e0_f64 * t18243 + 0.18396666666666666667e-1_f64 * t18494 - 0.11038e0_f64 * t18505 + t18759 - 0.1294625e1_f64 * t18762 + 0.18396666666666666667e0_f64 * t14766 + t14768 - 0.40256666666666666668e0_f64 * t14722 - t14782 - 0.20128333333333333333e0_f64 * t18234 + 0.33547222222222222222e0_f64 * t18208 - 0.12077e1_f64 * t18213 - 0.40256666666666666666e0_f64 * t18217 + 0.181155e1_f64 * t18223 + t18783;
+            t18785
+        };
+        let t18789 = {
+            let t18786 = t18785 * t1156;
+            let t18789 = -t18676 - t18679 + t18682 + t18685 - t18688 - t18690 - t18692 + t18694 - t18696 - 0.19751673498613801407e-1_f64 * t18711 - 0.11696447245269292414e1_f64 * t11297 * t6069 + 0.5848223622634646207e0_f64 * t3371 * t6085 + 0.5848223622634646207e0_f64 * t1148 * t18786;
+            t18789
+        };
+        let (t18810, t18832) = {
+            let t18810 = 0.3071625e0_f64 * t18742 - t11204 + 0.26574814814814814815e0_f64 * t14702 - t14868 - t14870 + 0.91285185185185185187e-1_f64 * t11211 - 0.76790625e-1_f64 * t18747 + 0.3071625e0_f64 * t18749 + 0.15358125e0_f64 * t18752 + 0.142419375e1_f64 * t18755 - 0.1898925e1_f64 * t18757;
+            let t18832 = 0.11958666666666666667e1_f64 * t18227 + 0.36514074074074074073e-1_f64 * t14818 - 0.27385555555555555556e-1_f64 * t18515 + 0.36514074074074074075e-1_f64 * t18497 + 0.16431333333333333333e0_f64 * t18518 + 0.13287407407407407408e0_f64 * t11137 + 0.59793333333333333334e0_f64 * t18239 - 0.54771111111111111112e-1_f64 * t18503 - 0.16431333333333333333e0_f64 * t18500 + 0.32862666666666666666e0_f64 * t18510 + 0.49293999999999999999e0_f64 * t18508;
+            (t18810, t18832)
+        };
+        let t18834 = {
+            let t18834 = 0.1898925e1_f64 * t18731 - t11195 - 0.54771111111111111111e-1_f64 * t18512 + 0.82156666666666666667e-1_f64 * t18521 + 0.66437037037037037037e-1_f64 * t18203 - 0.19931111111111111111e0_f64 * t18219 - 0.99655555555555555557e-1_f64 * t18229 + 0.29896666666666666667e0_f64 * t18243 + 0.18257037037037037037e-1_f64 * t18494 - 0.10954222222222222222e0_f64 * t18505 + t18810 - 0.9494625e0_f64 * t18762 + 0.18257037037037037037e0_f64 * t14766 + 0.13287407407407407407e0_f64 * t14720 - t14886 - t14890 - 0.19931111111111111111e0_f64 * t18234 + 0.33218518518518518518e0_f64 * t18208 - 0.11958666666666666667e1_f64 * t18213 - 0.39862222222222222222e0_f64 * t18217 + 0.17938e1_f64 * t18223 + t18832;
+            t18834
+        };
+        let (t18837, t18839, t18840, t18869) = {
+            let t18835 = t18834 * t1118;
+            let t18837 = 1.0_f64 * t1099 * t18835;
+            let t18839 = 0.16081979498692535067e2_f64 * t11185 * t6024;
+            let t18840 = t6031 * t1128;
+            let t18869 = 0.6311625e0_f64 * t18742 - t11317 + 0.45908888888888888888e0_f64 * t14702 - t15072 - t15074 + 0.11577222222222222222e0_f64 * t11211 - 0.157790625e0_f64 * t18747 + 0.6311625e0_f64 * t18749 + 0.31558125e0_f64 * t18752 + 0.264729375e1_f64 * t18755 - 0.3529725e1_f64 * t18757;
+            (t18837, t18839, t18840, t18869)
+        };
+        let t18893 = {
+            let t18891 = 0.20659e1_f64 * t18227 + 0.4630888888888888889e-1_f64 * t14818 - 0.34731666666666666667e-1_f64 * t18515 + 0.46308888888888888889e-1_f64 * t18497 + 0.20839e0_f64 * t18518 + 0.22954444444444444444e0_f64 * t11137 + 0.103295e1_f64 * t18239 - 0.69463333333333333334e-1_f64 * t18503 - 0.20839e0_f64 * t18500 + 0.41678e0_f64 * t18510 + 0.62517e0_f64 * t18508;
+            let t18893 = 0.3529725e1_f64 * t18731 - t11314 - 0.69463333333333333333e-1_f64 * t18512 + 0.104195e0_f64 * t18521 + 0.11477222222222222222e0_f64 * t18203 - 0.34431666666666666667e0_f64 * t18219 - 0.17215833333333333333e0_f64 * t18229 + 0.516475e0_f64 * t18243 + 0.23154444444444444445e-1_f64 * t18494 - 0.13892666666666666667e0_f64 * t18505 + t18869 - 0.17648625e1_f64 * t18762 + 0.23154444444444444445e0_f64 * t14766 + t15083 - 0.68863333333333333332e0_f64 * t14722 - t15094 - 0.34431666666666666667e0_f64 * t18234 + 0.57386111111111111112e0_f64 * t18208 - 0.20659e1_f64 * t18213 - 0.68863333333333333334e0_f64 * t18217 + 0.309885e1_f64 * t18223 + t18891;
+            t18893
+        };
+        let t18906 = {
+            let t18894 = t18893 * t1137;
+            let t18899 = t6063 * t1147;
+            let t18906 = 0.17315859105681463759e2_f64 * t11361 * t6088 - t18837 - t18839 + 1.0_f64 * t18840 * t1138 + 2.0_f64 * t15141 * t1683 + 2.0_f64 * t4797 * t4820 - 2.0_f64 * t11303 * t6037 + 1.0_f64 * t3327 * t6053 + 1.0_f64 * t1129 * t18894 + 0.32163958997385070134e2_f64 * t11415 * t6056 + 0.5848223622634646207e0_f64 * t18899 * t1157 + 0.11696447245269292414e1_f64 * t15121 * t1695 + 0.11696447245269292414e1_f64 * t4835 * t4858;
+            t18906
+        };
+        let (t18909, t18913, t18914) = {
+            let t18909 = t300 * (t18630 + t18673 + t18789 + t18906);
+            let t18910 = t3400 * t6084;
+            let t18911 = t18910 * t4883;
+            let t18913 = 0.17315859105681463759e2_f64 * t1164 * t18911;
+            let t18914 = -t18247 - t18249 - t18251 - t18257 + t18261 + t18264 + t18268 - t18270 - t18273 - t18278 + t18282 - t18285 + t18909 - t18913 - t18672 + t18676 + t18679;
+            (t18909, t18913, t18914)
+        };
+        let (t18917, t18920, t18922, t18924, t18926) = {
+            let t18915 = t300 * t6063;
+            let t18917 = 0.5848223622634646207e0_f64 * t18915 * t1166;
+            let t18918 = t4874 * t4858;
+            let t18920 = 0.23392894490538584828e1_f64 * t1164 * t18918;
+            let t18922 = 0.11696447245269292414e1_f64 * t3411 * t6098;
+            let t18924 = 0.34631718211362927517e2_f64 * t4869 * t4884;
+            let t18926 = t1147 * t18785 * t1156;
+            (t18917, t18920, t18922, t18924, t18926)
+        };
+        let (t18928, t18930, t18932, t18936, t18938, t18939) = {
+            let t18928 = 0.5848223622634646207e0_f64 * t1164 * t18926;
+            let t18930 = 0.23392894490538584828e1_f64 * t4869 * t4875;
+            let t18932 = 0.19751673498613801407e-1_f64 * t300 * t18711;
+            let t18933 = t3375 * t6084;
+            let t18934 = t18933 * t1157;
+            let t18936 = 0.11696447245269292414e1_f64 * t1164 * t18934;
+            let t18938 = 0.5848223622634646207e0_f64 * t3411 * t6102;
+            let t18939 = -t18682 - t18685 - t18917 + t18920 + t18922 - t18924 + t18688 + t18690 + t18692 - t18694 + t18696 - t18928 + t18930 + t18932 + t18837 + t18839 + t18936 - t18938;
+            (t18928, t18930, t18932, t18936, t18938, t18939)
+        };
+        let (t18940, t18951) = {
+            let t18940 = t18914 + t18939;
+            let t18941 = t18940 * t475;
+            let t18943 = t248 * t1214 * t18941;
+            let t18946 = t3508 * t5011;
+            let t18947 = t4977 * t18946;
+            let t18948 = t4582 * t18947;
+            let t18951 = -t15610 - t18393 / 3456.0_f64 + t11692 * t18397 / 2304.0_f64 - t3577 * t18401 / 1152.0_f64 + t18574 * t488 / 3072.0_f64 + t1174 * t18577 / 108.0_f64 + t1174 * t18580 / 36.0_f64 - t3577 * t18584 / 2304.0_f64 + 5.0_f64 / 6912.0_f64 * t5005 * t4989 - t1227 * t18590 / 1152.0_f64 - t1227 * t18594 / 768.0_f64 + t5024 * t4974 / 216.0_f64 + t1213 * t18943 / 3072.0_f64 + t15642 - t15645 + t3506 * t18948 / 768.0_f64;
+            (t18940, t18951)
+        };
+        let (t18955, t18959, t18965, t18969, t18972, t18975) = {
+            let t18954 = t15453 * t17686;
+            let t18955 = t4582 * t18954;
+            let t18958 = t4972 * t17635;
+            let t18959 = t4582 * t18958;
+            let t18964 = t6230 * t1090;
+            let t18965 = t3578 * t18964;
+            let t18968 = t6219 * t1090;
+            let t18969 = t3578 * t18968;
+            let t18972 = t5002 * t4997;
+            let t18975 = t248 * t11784 * t5971;
+            (t18955, t18959, t18965, t18969, t18972, t18975)
+        };
+        let t18989 = {
+            let t18976 = t1227 * t18975;
+            let t18978 = t5019 * t4997;
+            let t18980 = t5005 * t4993;
+            let t18982 = t1202 * t6164;
+            let t18987 = t5024 * t4993;
+            let t18989 = -5.0_f64 / 5184.0_f64 * t1227 * t18955 - t1227 * t18959 / 2304.0_f64 - t15740 * t4950 / 2304.0_f64 + t11692 * t18965 / 4608.0_f64 - t3577 * t18969 / 4608.0_f64 + t15671 + t18972 / 2304.0_f64 + 5.0_f64 / 20736.0_f64 * t18976 - t18978 / 432.0_f64 - t18980 / 3456.0_f64 + 19.0_f64 / 1728.0_f64 * t18982 * t488 + t11792 / 20736.0_f64 - t11821 / 13824.0_f64 + t18987 / 648.0_f64 - t15691 + t15699;
+            t18989
+        };
+        let (t18997, t19002, t19005, t19010, t19015) = {
+            let t18996 = t1196 * t16558;
+            let t18997 = t974 * t18996;
+            let t19000 = t1653 * t1215;
+            let t19001 = t15659 * t19000;
+            let t19002 = t3578 * t19001;
+            let t19005 = t1177 * t18221;
+            let t19010 = t1177 * t18237;
+            let t19015 = t1735 * t4724;
+            (t18997, t19002, t19005, t19010, t19015)
+        };
+        let t19029 = {
+            let t19016 = t11668 * t19015;
+            let t19019 = t3440 * t18232;
+            let t19024 = t6163 * t1017;
+            let t19025 = t1210 * t19024;
+            let t19026 = t1207 * t19025;
+            let t19029 = t15569 * t4950 / 432.0_f64 - t11665 * t6192 / 2304.0_f64 + t4889 * t5046 / 54.0_f64 - t1174 * t18997 / 288.0_f64 - t11678 * t19002 / 1152.0_f64 + t11834 - t1174 * t19005 / 48.0_f64 + t4889 * t4969 / 27.0_f64 - t1174 * t19010 / 144.0_f64 - t15740 * t4954 / 2304.0_f64 + 5.0_f64 / 6912.0_f64 * t3577 * t19016 + t1174 * t19019 / 216.0_f64 + t15717 / 1296.0_f64 - t15719 / 6912.0_f64 - t15722 + 19.0_f64 / 1728.0_f64 * t19026 * t1218;
+            t19029
+        };
+        let (t19033, t19041, t19045, t19047) = {
+            let t19031 = t6163 * t372;
+            let t19032 = t479 * t19031;
+            let t19033 = t471 * t19032;
+            let t19040 = t248 * t3521 * t5979;
+            let t19041 = t1227 * t19040;
+            let t19045 = t6150 * t1009;
+            let t19046 = t19045 * t1011;
+            let t19047 = t19046 * t1212;
+            (t19033, t19041, t19045, t19047)
+        };
+        let t19075 = {
+            let t19051 = t6169 * t1226;
+            let t19056 = t486 * t6218;
+            let t19057 = t19056 * t4978;
+            let t19058 = t4582 * t19057;
+            let t19061 = t19056 * t1216;
+            let t19062 = t4582 * t19061;
+            let t19067 = t4987 * t17635;
+            let t19068 = t4582 * t19067;
+            let t19071 = t4977 * t5012;
+            let t19072 = t4582 * t19071;
+            let t19075 = -19.0_f64 / 2592.0_f64 * t19033 * t1232 + t15727 / 81.0_f64 - t15731 / 6912.0_f64 + t15735 / 10368.0_f64 - t19041 / 6912.0_f64 + t3536 * t6221 / 3072.0_f64 + t19047 * t1218 / 3072.0_f64 + t15745 + t11836 / 1296.0_f64 - t19051 * t1232 / 4608.0_f64 - t15495 * t1737 / 288.0_f64 + t3506 * t19058 / 1536.0_f64 - t3515 * t19062 / 3072.0_f64 - 5.0_f64 / 1296.0_f64 * t5024 * t4989 + 5.0_f64 / 13824.0_f64 * t1227 * t19068 - t3515 * t19072 / 1536.0_f64;
+            t19075
+        };
+        let (t19077, t19080, t19083, t19087, t19090, t19095) = {
+            let t19076 = t18300 * t1216;
+            let t19077 = t4582 * t19076;
+            let t19080 = t5001 * t5018;
+            let t19083 = t1730 * t5023;
+            let t19087 = t1177 * t18225;
+            let t19090 = t6109 * t1193;
+            let t19095 = t248 * t3570 * t6230;
+            (t19077, t19080, t19083, t19087, t19090, t19095)
+        };
+        let t19117 = {
+            let t19096 = t3515 * t19095;
+            let t19101 = t248 * t1230 * t18241;
+            let t19106 = t11546 * t18206;
+            let t19117 = t11738 * t19077 / 3072.0_f64 - t19080 * t1218 / 288.0_f64 + t19083 * t1232 / 432.0_f64 + t15754 / 648.0_f64 - t1174 * t19087 / 72.0_f64 + 11.0_f64 / 324.0_f64 * t19090 - 2.0_f64 / 81.0_f64 * t4889 * t5033 - t19096 / 4608.0_f64 - t3490 * t6207 / 4608.0_f64 - t1227 * t19101 / 4608.0_f64 - t3490 * t6211 / 2304.0_f64 - 7.0_f64 / 648.0_f64 * t1174 * t19106 + t15591 * t1737 / 1536.0_f64 + t5002 * t5014 / 1536.0_f64 - t15594 * t1748 / 2304.0_f64 - t5005 * t5030 / 2304.0_f64;
+            t19117
+        };
+        let (t19120, t19121, t19123, t19128) = {
+            let t19120 = t18316 + t18337 + t18390 + t18951 + t18989 + t19029 + t19075 + t19117;
+            let t19121 = t466 * t19120;
+            let t19123 = t6260 * t5068;
+            let t19128 = t491 * t18940;
+            (t19120, t19121, t19123, t19128)
+        };
+        let (t19129, t19131, t19139, t19142, t19145, t19146, t19153) = {
+            let t19129 = t19128 * t1246;
+            let t19131 = t6256 * t5079;
+            let t19138 = t3625 * t5011;
+            let t19139 = t1755 * t19138;
+            let t19142 = t6256 * t5068;
+            let t19145 = t1235 * t6224;
+            let t19146 = t19145 * t3625;
+            let t19153 = t6739 * t1215 * t475;
+            (t19129, t19131, t19139, t19142, t19145, t19146, t19153)
+        };
+        let t19164 = {
+            let t19154 = t6252 * t19153;
+            let t19156 = t11889 * t1215;
+            let t19157 = t6252 * t19156;
+            let t19160 = t6260 * t5079;
+            let t19164 = -6.0_f64 * t11888 * t19157 + 2.0_f64 * t11904 * t6253 - t11907 * t6263 + t11914 * t19154 + t1244 * t19129 + 4.0_f64 * t15027 * t5069 + 2.0_f64 * t15032 * t1756 - 2.0_f64 * t15245 * t5080 + 2.0_f64 * t19123 * t3610 - 2.0_f64 * t19131 * t3624 - 2.0_f64 * t19139 * t3624 + 4.0_f64 * t19142 * t3610 - t19146 * t3624 - t19160 * t3624 + t3604 * t6261 + 2.0_f64 * t5064 * t5084;
+            t19164
+        };
+        let (t19166, t19170, t19174, t19176, t19180, t19189) = {
+            let t19165 = t11883 * t1215;
+            let t19166 = t6252 * t19165;
+            let t19169 = t1751 * t5011;
+            let t19170 = t19169 * t1246;
+            let t19173 = t6238 * t1215;
+            let t19174 = t19173 * t1246;
+            let t19176 = t19145 * t3612;
+            let t19179 = t5052 * t1734;
+            let t19180 = t19179 * t1246;
+            let t19189 = t1235 * t6218;
+            (t19166, t19170, t19174, t19176, t19180, t19189)
+        };
+        let t19207 = {
+            let t19190 = t19189 * t1246;
+            let t19197 = t493 * t19120;
+            let t19201 = t19045 * t1243;
+            let t19203 = t3612 * t5011;
+            let t19204 = t1755 * t19203;
+            let t19207 = 6.0_f64 * t11881 * t19166 + t1201 * t6265 + 2.0_f64 * t1244 * t19170 + t1244 * t19174 + 2.0_f64 * t1244 * t19180 + t1244 * t19190 + t1247 * t19201 + t1249 * t6168 + 2.0_f64 * t1729 * t5086 + 2.0_f64 * t1758 * t4964 + t18572 * t494 + 2.0_f64 * t19176 * t3610 + t19197 * t470 + 4.0_f64 * t19204 * t3610 + 2.0_f64 * t3604 * t6257 + 2.0_f64 * t5064 * t5073 + 2.0_f64 * t5064 * t5076;
+            t19207
+        };
+        let (t19209, t19211, t19214, t19220, t19226) = {
+            let t19208 = t19164 + t19207;
+            let t19209 = t1241 * t19208;
+            let t19211 = t6150 * t1235;
+            let t19213 = t1760 * t5088;
+            let t19214 = t3598 * t19213;
+            let t19219 = t6267 * t1251;
+            let t19220 = t3598 * t19219;
+            let t19225 = t6243 * t1251;
+            let t19226 = t11606 * t19225;
+            (t19209, t19211, t19214, t19220, t19226)
+        };
+        let t19231 = {
+            let t19231 = -t1238 * t19209 + 4.0_f64 * t1238 * t19214 + 2.0_f64 * t1238 * t19220 - 6.0_f64 * t1238 * t19226 - 2.0_f64 * t15820 * t1761 + t18287 * t498 + t19121 * t498 + t19211 * t498 - t3487 * t6268 - t3593 * t6268 + 4.0_f64 * t4945 * t5060 + 4.0_f64 * t5055 * t5060;
+            t19231
+        };
+        let t19261 = {
+            let t19232 = t6151 * t225;
+            let t19234 = t6153 * t225;
+            let t19249 = t6239 * t225;
+            let t19253 = t1720 * t5052;
+            let t19256 = t4940 * t1751;
+            let t19259 = t18571 * t491;
+            let t19261 = -t1252 * t19232 - 2.0_f64 * t1252 * t19234 - t1252 * t19249 - 2.0_f64 * t14972 * t1761 - 2.0_f64 * t14980 * t1761 - 2.0_f64 * t15797 * t1761 + 2.0_f64 * t19253 * t498 + 2.0_f64 * t19256 * t498 + t19259 * t498 + 2.0_f64 * t3487 * t6244 + 2.0_f64 * t3593 * t6244 - 2.0_f64 * t4945 * t5089 - 2.0_f64 * t5055 * t5089;
+            t19261
+        };
+        let t19266 = {
+            let t19262 = t19231 + t19261;
+            let t19266 = t1256 * t19262 * t193 * t336 - 2.0_f64 * t4700 * t5091 * t5095 - t18247 - t18249 - t18251 - t18257 + t18261 + t18264 + t18268 - t18270 - t18273 - t18278 + t18282 - t18285 - t18672 + t18676 + t18679 + t18909 - t18913;
+            t19266
+        };
+        let t19274 = {
+            let t19267 = t6270 * t3640;
+            let t19270 = t6274 * t11947;
+            let t19274 = -t1254 * t19267 * t4700 + 2.0_f64 * t1254 * t19270 * t4700 - t18682 - t18685 + t18688 + t18690 + t18692 - t18694 + t18696 + t18837 + t18839 - t18917 + t18920 + t18922 - t18924 - t18928 + t18930 + t18932 + t18936 - t18938;
+            t19274
+        };
+        let t19288 = {
+            let t29 = t28 <= zeta_threshold;
+            let t401 = rho1 <= dens_threshold || t29;
+            let t505 = t265 < t504;
+            let t19276 = piecewise3(t505, t19266 + t19274, t17133);
+            let t19288 = piecewise3(t401, t17133 * t28 / 2.0_f64 + t5669 * t1081 / 2.0_f64 + t4324 * t1649 - t17141 + t873 * t5966 / 2.0_f64 + t265 * t18196 / 2.0_f64, t19276 * t52 / 2.0_f64 - t6279 * t607 / 2.0_f64 - t5099 * t1409 - t1768 * t3966 - t1260 * t5398 / 2.0_f64 - t506 * t16558 / 2.0_f64);
+            t19288
+        };
+        let (t19289, t19297, t19299, t19310) = {
+            let t19289 = t18188 + t19288;
+            let t19297 = t12560 + t12561 + t12562 + t12563 + t12564 - t12565 - t9225;
+            let t19299 = t5385 * t604;
+            let t19310 = t5389 * t645;
+            (t19289, t19297, t19299, t19310)
+        };
+        let (t19313, t19318, t19322, t19323, t19326, t19331) = {
+            let t19313 = t1437 * t4021;
+            let t19318 = t5445 * t645;
+            let t19322 = t1409 * t65 * t67;
+            let t19323 = t1864 * t3966;
+            let t19326 = t5392 * t628;
+            let t19331 = t17635 * t65;
+            (t19313, t19318, t19322, t19323, t19326, t19331)
+        };
+        let t19356 = {
+            let t19334 = t31 * t16558;
+            let t19335 = t19334 * t65;
+            let t19338 = t5399 * t628;
+            let t19343 = t3961 * t1426;
+            let t19346 = t3967 * t1426;
+            let t19349 = t1410 * t3997;
+            let t19356 = -t19322 * t19323 / 6.0_f64 - t19326 * t80 / 12.0_f64 - t5393 * t642 / 12.0_f64 - t19331 * t80 / 12.0_f64 - t19335 * t80 / 12.0_f64 - t19338 * t80 / 12.0_f64 - t5400 * t642 / 12.0_f64 - t19343 * t80 / 6.0_f64 - t19346 * t80 / 6.0_f64 - t19349 * t80 / 6.0_f64 - t5403 * t642 / 6.0_f64 - t3962 * t1434 / 6.0_f64;
+            t19356
+        };
+        let (t19363, t19369, t19372, t19378, t19381, t19390) = {
+            let t19363 = t608 * t5427;
+            let t19368 = t9287 * t5392;
+            let t19369 = t19368 * t607;
+            let t19372 = t3981 * t3966;
+            let t19377 = t2267 * t5398;
+            let t19378 = t19377 * t607;
+            let t19381 = t43 * t16558;
+            let t19390 = t9300 * t5392;
+            (t19363, t19369, t19372, t19378, t19381, t19390)
+        };
+        let t19404 = {
+            let t19391 = t19390 * t607;
+            let t19394 = t3990 * t3966;
+            let t19397 = t2274 * t5398;
+            let t19398 = t19397 * t607;
+            let t19401 = t55 * t16558;
+            let t19404 = -20.0_f64 / 27.0_f64 * t615 * t5408 - 5.0_f64 / 108.0_f64 * t39 * t19369 + 5.0_f64 / 9.0_f64 * t39 * t19372 - 20.0_f64 / 9.0_f64 * t615 * t5411 + 5.0_f64 / 18.0_f64 * t39 * t19378 + 5.0_f64 / 6.0_f64 * t39 * t19381 - 220.0_f64 / 27.0_f64 * t5416 * t621 - 40.0_f64 / 27.0_f64 * t1420 * t3991 + 40.0_f64 / 9.0_f64 * t1420 * t3994 + 5.0_f64 / 108.0_f64 * t51 * t19391 + 5.0_f64 / 9.0_f64 * t51 * t19394 + 5.0_f64 / 18.0_f64 * t51 * t19398 - 5.0_f64 / 6.0_f64 * t51 * t19401 + t9311;
+            t19404
+        };
+        let (t19405, t19440) = {
+            let t19405 = t33 * t19404;
+            let t19420 = t9321 * t5392;
+            let t19425 = t2291 * t5398;
+            let t19430 = t9330 * t5392;
+            let t19435 = t2298 * t5398;
+            let t19440 = -280.0_f64 / 27.0_f64 * t19420 * t607 + 56.0_f64 / 9.0_f64 * t4007 * t3966 + 28.0_f64 / 9.0_f64 * t19425 * t607 - 4.0_f64 / 3.0_f64 * t634 * t16558 + 280.0_f64 / 27.0_f64 * t19430 * t607 + 56.0_f64 / 9.0_f64 * t4012 * t3966 + 28.0_f64 / 9.0_f64 * t19435 * t607 + 4.0_f64 / 3.0_f64 * t638 * t16558;
+            (t19405, t19440)
+        };
+        let t19444 = {
+            let t19441 = t72 * t19440;
+            let t19444 = -t3968 * t1434 / 6.0_f64 - t3971 * t1434 / 6.0_f64 - t1411 * t4018 / 6.0_f64 - t19363 * t80 / 12.0_f64 + t19405 * t80 / 24.0_f64 + t5428 * t642 / 24.0_f64 - t3976 * t1434 / 6.0_f64 + t3998 * t1434 / 12.0_f64 + t1427 * t4018 / 12.0_f64 - t609 * t5442 / 12.0_f64 + t629 * t5442 / 24.0_f64 + t66 * t19441 / 24.0_f64;
+            t19444
+        };
+        let t19448 = {
+            let t19445 = t19356 + t19444;
+            let t19448 = -8.0_f64 * t12568 * t1437 + 40.0_f64 * t12571 * t3958 + t19297 * t86 - 4.0_f64 * t19299 * t645 - 120.0_f64 * t19310 * t9239 + 40.0_f64 * t19313 * t2240 + 20.0_f64 * t19318 * t2240 - 4.0_f64 * t19445 * t605 - 4.0_f64 * t2235 * t5445 - 8.0_f64 * t3953 * t4021 + 20.0_f64 * t5389 * t9231;
+            t19448
+        };
+        let (t19449, t19450, t19451) = {
+            let t7 = piecewise3(0.0_f64 < t5, t5, -t5);
+            let t8 = -t7 <= -0.999999999999e0_f64;
+            let t19449 = piecewise3(t8, 0.0_f64, t19448);
+            let t19450 = t19449 * t112;
+            let t19451 = t5449 * t111;
+            (t19449, t19450, t19451)
+        };
+        let t19456 = {
+            let t19456 = t1441 * t671;
+            t19456
+        };
+        let (t19461, t19471, t19474, t19477, t19480, t19482) = {
+            let t19461 = t649 * t5456;
+            let t19471 = t626 * t5465;
+            let t19473 = t9365 * t5464;
+            let t19474 = t19473 * t666;
+            let t19477 = t4043 * t4067;
+            let t19480 = t626 * t5489;
+            let t19482 = t2331 * t5488;
+            (t19461, t19471, t19474, t19477, t19480, t19482)
+        };
+        let (t19483, t19489, t19492, t19493, t19499, t19503, t19504) = {
+            let t19483 = t19482 * t666;
+            let t19488 = t9384 * t5468;
+            let t19489 = t19488 * t659;
+            let t19492 = t1444 * t2;
+            let t19493 = t19492 * t584;
+            let t19498 = t2341 * t5396;
+            let t19499 = t19498 * t659;
+            let t19503 = -t584 - 3.0_f64 * t9212;
+            let t19504 = t95 * t19503;
+            (t19483, t19489, t19492, t19493, t19499, t19503, t19504)
+        };
+        let t19529 = {
+            let t19513 = t9398 * t5480;
+            let t19514 = t19513 * t662;
+            let t19517 = t1449 * t2;
+            let t19518 = t19517 * t584;
+            let t19521 = t2349 * t5484;
+            let t19522 = t19521 * t662;
+            let t19525 = -t19503;
+            let t19526 = t103 * t19525;
+            let t19529 = -50.0_f64 / 27.0_f64 * t657 * t5469 - 10.0_f64 / 27.0_f64 * t92 * t19489 + 20.0_f64 / 9.0_f64 * t12774 * t19493 - 25.0_f64 / 9.0_f64 * t657 * t5472 + 10.0_f64 / 9.0_f64 * t92 * t19499 + 5.0_f64 / 3.0_f64 * t92 * t19504 + 200.0_f64 / 27.0_f64 * t5475 * t663 - 100.0_f64 / 27.0_f64 * t1447 * t4060 + 50.0_f64 / 9.0_f64 * t1447 * t4064 - 10.0_f64 / 27.0_f64 * t100 * t19514 - 20.0_f64 / 9.0_f64 * t12795 * t19518 + 10.0_f64 / 9.0_f64 * t100 * t19522 + 5.0_f64 / 3.0_f64 * t100 * t19526;
+            t19529
+        };
+        let t19533 = {
+            let t19530 = t656 * t19529;
+            let t19533 = -t9358 - 11.0_f64 / 9.0_f64 * t9359 - 22.0_f64 / 9.0_f64 * t12747 - t12750 + t12752 - 2.0_f64 / 3.0_f64 * t19471 - 3.0_f64 / 4.0_f64 * t64 * t19474 + t64 * t19477 / 2.0_f64 + t19480 / 3.0_f64 + t64 * t19483 / 4.0_f64 - t64 * t19530 / 8.0_f64;
+            t19533
+        };
+        let t19534 = {
+            let t110 = 1.0_f64 < t109;
+            let t19534 = piecewise3(t110, 0.0_f64, t19533);
+            t19534
+        };
+        let t19537 = {
+            let t19537 = 2.0_f64 * t1268 * t19534 + 4.0_f64 * t12725 * t1458 + 4.0_f64 * t1458 * t19456 + 2.0_f64 * t19451 * t671 + 2.0_f64 * t2314 * t5493 + 4.0_f64 * t4028 * t4072 + 4.0_f64 * t4072 * t7676 + 2.0_f64 * t5113 * t5493 + t19450 + 2.0_f64 * t19461;
+            t19537
+        };
+        let (t19543, t19558) = {
+            let t26 = t25 <= zeta_threshold;
+            let t19541 = t6320 * t67;
+            let t19542 = t19541 * t758;
+            let t19543 = 0.18311447306006545054e-3_f64 * t19542;
+            let t19547 = t12061 * t6305;
+            let t19552 = t3664 * t5397;
+            let t19558 = piecewise3(t26, 0.0_f64, -8.0_f64 / 27.0_f64 * t19547 * t606 + 16.0_f64 / 9.0_f64 * t5134 * t2219 + 4.0_f64 / 9.0_f64 * t19552 * t606 + 4.0_f64 / 3.0_f64 * t514 * t16557);
+            (t19543, t19558)
+        };
+        let (t19572, t19573) = {
+            let t29 = t28 <= zeta_threshold;
+            let t19559 = t12072 * t6312;
+            let t19564 = t3672 * t5966;
+            let t19570 = piecewise3(t29, 0.0_f64, -8.0_f64 / 27.0_f64 * t19559 * t1081 - 16.0_f64 / 9.0_f64 * t5142 * t2219 + 4.0_f64 / 9.0_f64 * t19564 * t1081 + 4.0_f64 / 3.0_f64 * t517 * t18196);
+            let t19572 = (t19558 + t19570) * t157;
+            let t19573 = t19572 * t184;
+            (t19572, t19573)
+        };
+        let (t19574, t19576, t19577, t19581, t19588, t19589, t19590, t19591) = {
+            let t19574 = t17 * t19573;
+            let t19575 = t6320 * t750;
+            let t19576 = t17 * t19575;
+            let t19577 = t1799 * t1388;
+            let t19581 = 16.0_f64 * t15877;
+            let t19588 = 32.0_f64 * t11979;
+            let t19589 = 0.34631718211362927517e2_f64 * t15890;
+            let t19590 = 0.11696447245269292414e1_f64 * t15895;
+            let t19591 = t588 * t6328;
+            (t19574, t19576, t19577, t19581, t19588, t19589, t19590, t19591)
+        };
+        let (t19592, t19594, t19595) = {
+            let t19592 = 4.0_f64 * t19591;
+            let t19593 = t592 * t6328;
+            let t19594 = 4.0_f64 * t19593;
+            let t19595 = -6.0_f64 * t19577 * t3918 * t5161 + 3.0_f64 * t3918 * t3919 * t6347 + 6.0_f64 * t3918 * t5122 * t5187 + 12.0_f64 * t5122 * t5126 * t5308 - t11984 - t15880 + t15889 - t15894 - t19543 + t19574 + t19576 - t19581 + t19588 - t19589 - t19590 + t19592 - t19594 - t9457 + t9476 + t9484;
+            (t19592, t19594, t19595)
+        };
+        let (t19596, t19599, t19603, t19617) = {
+            let t26 = t25 <= zeta_threshold;
+            let t19596 = t6463 * t3701;
+            let t19599 = 0.21687162600603479684e-1_f64 * t15909;
+            let t19603 = t5127 * t5187;
+            let t19606 = t11987 * t6305;
+            let t19611 = t3704 * t5397;
+            let t19617 = piecewise3(t26, 0.0_f64, 8.0_f64 / 27.0_f64 * t19606 * t606 - 8.0_f64 / 9.0_f64 * t5170 * t2219 - 2.0_f64 / 9.0_f64 * t19611 * t606 + 2.0_f64 / 3.0_f64 * t1298 * t16557);
+            (t19596, t19599, t19603, t19617)
+        };
+        let t19631 = {
+            let t29 = t28 <= zeta_threshold;
+            let t19618 = t12000 * t6312;
+            let t19623 = t3711 * t5966;
+            let t19629 = piecewise3(t29, 0.0_f64, 8.0_f64 / 27.0_f64 * t19618 * t1081 + 8.0_f64 / 9.0_f64 * t5178 * t2219 - 2.0_f64 / 9.0_f64 * t19623 * t1081 + 2.0_f64 / 3.0_f64 * t1302 * t18196);
+            let t19631 = t19617 / 2.0_f64 + t19629 / 2.0_f64;
+            t19631
+        };
+        let (t19635, t19644, t19648, t19654, t19658) = {
+            let t19635 = t5210 * t1834;
+            let t19644 = t1807 * t5318;
+            let t19647 = t1842 * t5353;
+            let t19648 = t3887 * t19647;
+            let t19654 = t1814 * t5333;
+            let t19657 = t1338 * t6434;
+            let t19658 = t19657 * t1352;
+            (t19635, t19644, t19648, t19654, t19658)
+        };
+        let (t19660, t19661, t19668, t19674, t19676) = {
+            let t19660 = t562 * t6414;
+            let t19661 = t19660 * t5250;
+            let t19668 = t12171 * t6388;
+            let t19674 = t3901 * t6415;
+            let t19676 = -t19543 - t9457 + t19574 + t19576 + t9476 + t9484 - t19581 - t15880 + t19588 + t15889 - t19589 - t15894 - t19590 - t11984 + t19592 - t19594;
+            (t19660, t19661, t19668, t19674, t19676)
+        };
+        let (t19677, t19678, t19679) = {
+            let t19677 = 12.0_f64 * t12050;
+            let t19678 = 0.17315859105681463759e2_f64 * t12091;
+            let t19679 = -t15898 + t9780 + t19599 + t12044 + t15911 - t12048 + t19677 - t15916 - t15917 - t12057 - t12059 + t15923 - t9789 + t12087 - t19678 - t12094;
+            (t19677, t19678, t19679)
+        };
+        let (t19683, t19684, t19685, t19686, t19687, t19688) = {
+            let t19681 = t6320 * t172;
+            let t19682 = t19681 * t763;
+            let t19683 = 0.5848223622634646207e0_f64 * t19682;
+            let t19684 = 2.0_f64 * t15972;
+            let t19685 = 0.24415263074675393405e-3_f64 * t12097;
+            let t19686 = 8.0_f64 * t12106;
+            let t19687 = 0.10843581300301739842e-1_f64 * t12111;
+            let t19688 = t9793 + t9797 - t9820 - t9824 - t19683 + t19684 + t19685 + t12103 - t12105 - t19686 - t12109 + t19687 - t12114 + t12116 + t12118 - t15976;
+            (t19683, t19684, t19685, t19686, t19687, t19688)
+        };
+        let (t19689, t19690, t19691, t19693, t19694, t19695, t19696, t19697, t19698, t19699) = {
+            let t19689 = 0.48830526149350786811e-3_f64 * t15979;
+            let t19690 = 40.0_f64 * t15982;
+            let t19691 = 24.0_f64 * t15984;
+            let t19693 = 0.19751673498613801407e-1_f64 * t19572 * t182;
+            let t19694 = 0.23392894490538584828e1_f64 * t16164;
+            let t19695 = 8.0_f64 * t12134;
+            let t19696 = 20.0_f64 * t12136;
+            let t19697 = 0.11696447245269292414e1_f64 * t12138;
+            let t19698 = 0.5848223622634646207e0_f64 * t12142;
+            let t19699 = t12123 + t19689 + t19690 - t19691 + t19693 + t12130 + t12133 + t19694 - t19695 + t19696 + t9853 + t19697 - t16171 + t9859 - t12141 - t19698;
+            (t19689, t19690, t19691, t19693, t19694, t19695, t19696, t19697, t19698, t19699)
+        };
+        let (t19702, t19708, t19716, t19719) = {
+            let t19702 = (t19676 + t19679 + t19688 + t19699) * t225;
+            let t19708 = t1819 * t68;
+            let t19715 = t1995 * t6330;
+            let t19716 = t19715 * t1307;
+            let t19719 = t5279 * t5187;
+            (t19702, t19708, t19716, t19719)
+        };
+        let t19731 = {
+            let t19724 = t1365 * t6347;
+            let t19725 = t19724 * t1307;
+            let t19728 = t1347 * t19631;
+            let t19731 = -12.0_f64 * t1345 * t6408 + 3.0_f64 * t1345 * t6411 + 3.0_f64 * t1348 * t6404 + 6.0_f64 * t1819 * t5283 + 6.0_f64 * t1821 * t5272 - t19702 * t548 - 24.0_f64 * t19708 * t5280 + 60.0_f64 * t19716 * t5278 - 24.0_f64 * t19719 * t5278 - 12.0_f64 * t19725 * t5278 + 3.0_f64 * t19728 * t546;
+            t19731
+        };
+        let (t19732, t19733, t19735, t19736, t19739, t19740, t19743, t19744) = {
+            let t19732 = t19731 * t550;
+            let t19733 = t1380 * t19732;
+            let t19735 = t3792 * t5286;
+            let t19736 = t5335 * t19735;
+            let t19739 = t1834 * t1824;
+            let t19740 = t19739 * t5250;
+            let t19743 = t562 * t6387;
+            let t19744 = t12250 * t1351;
+            (t19732, t19733, t19735, t19736, t19739, t19740, t19743, t19744)
+        };
+        let t19755 = {
+            let t19745 = t19743 * t19744;
+            let t19748 = t19743 * t5250;
+            let t19752 = t5348 * t5287;
+            let t19755 = -t1336 * t19658 + 2.0_f64 * t1336 * t19668 - t1336 * t19674 - t1336 * t19733 - 2.0_f64 * t1336 * t19752 - 6.0_f64 * t16047 * t19745 + 4.0_f64 * t19654 * t5336 + 2.0_f64 * t19661 * t5334 + 4.0_f64 * t19736 * t5334 + 4.0_f64 * t19740 * t5334 + 6.0_f64 * t19748 * t5334 + 2.0_f64 * t3777 * t6448 - 2.0_f64 * t3777 * t6451 - t3777 * t6454 - t3777 * t6456 - 2.0_f64 * t5234 * t5349;
+            t19755
+        };
+        let (t19756, t19761, t19763, t19768, t19771) = {
+            let t19756 = t16132 * t1825;
+            let t19761 = t19743 * t1352;
+            let t19763 = t19660 * t1352;
+            let t19767 = t118 * t794 * t6330;
+            let t19768 = t12202 * t19767;
+            let t19771 = t210 * t214 * t19631;
+            (t19756, t19761, t19763, t19768, t19771)
+        };
+        let (t19776, t19779, t19783, t19787) = {
+            let t19775 = t118 * t794 * t6347;
+            let t19776 = t3739 * t19775;
+            let t19779 = t12211 * t6353;
+            let t19781 = t213 * t6330;
+            let t19783 = t221 * t19781 * t1307;
+            let t19787 = t221 * t5196 * t5187;
+            (t19776, t19779, t19783, t19787)
+        };
+        let t19790 = {
+            let t19790 = -t12188 - 0.12962962962962962963e-1_f64 * t12190 - 0.24999999999999999999e-2_f64 * t19768 - 0.16666666666666666666e-2_f64 * t1315 * t19771 + 0.8333333333333333333e-3_f64 * t19776 - t12194 + t12196 - 0.52777777777777777776e-2_f64 * t12200 - 0.11666666666666666666e-1_f64 * t19779 - 0.19999999999999999999e-1_f64 * t16101 * t19783 + 0.99999999999999999996e-2_f64 * t5195 * t19787;
+            t19790
+        };
+        let t19803 = {
+            let t19791 = t3726 * t6358;
+            let t19793 = t213 * t6347;
+            let t19795 = t221 * t19793 * t1307;
+            let t19803 = 0.38888888888888888887e-2_f64 * t19791 + 0.49999999999999999998e-2_f64 * t5195 * t19795 + 0.16666666666666666666e-2_f64 * t12228 - 0.25925925925925925925e-1_f64 * t16078 - t16083 - t16099 - t12236 + 0.77777777777777777775e-2_f64 * t16106 - 0.10555555555555555555e-1_f64 * t16108 + t16113 + 0.33333333333333333332e-2_f64 * t16119;
+            t19803
+        };
+        let (t19804, t19805, t19810, t19813, t19815, t19823) = {
+            let t19804 = t19790 + t19803;
+            let t19805 = t19804 * t225;
+            let t19810 = t1814 * t5343;
+            let t19813 = t3901 * t6420;
+            let t19815 = t6378 * t68;
+            let t19823 = t210 * t6370 * t1307;
+            (t19804, t19805, t19810, t19813, t19815, t19823)
+        };
+        let (t19827, t19831, t19834, t19836, t19839, t19841) = {
+            let t19827 = t210 * t1810 * t5187;
+            let t19831 = t210 * t6374 * t1307;
+            let t19834 = t6379 * t1358;
+            let t19836 = t19805 * t554;
+            let t19839 = t12211 * t6371;
+            let t19841 = t3726 * t6375;
+            (t19827, t19831, t19834, t19836, t19839, t19841)
+        };
+        let t19862 = {
+            let t19843 = t119 * t19631;
+            let t19844 = t210 * t19843;
+            let t19851 = t12385 * t6390;
+            let t19853 = t16288 * t1827;
+            let t19855 = t19815 * t1340;
+            let t19862 = -t16147 + t16159 - 119.0_f64 / 6912.0_f64 * t16211 + t16214 - t12215 * t19823 / 4.0_f64 + t3733 * t19827 / 8.0_f64 + t3733 * t19831 / 16.0_f64 - 7.0_f64 / 4608.0_f64 * t19834 + t19836 * t559 / 3072.0_f64 - 7.0_f64 / 48.0_f64 * t19839 + 7.0_f64 / 144.0_f64 * t19841 - t1315 * t19844 / 48.0_f64 - t16394 * t5293 / 1536.0_f64 + t16394 * t5303 / 384.0_f64 - 7.0_f64 / 2304.0_f64 * t19851 + 7.0_f64 / 2304.0_f64 * t19853 - t19855 * t1354 / 3072.0_f64 - t16278 * t1827 / 1536.0_f64 - t5235 * t5289 / 1536.0_f64;
+            t19862
+        };
+        let (t19868, t19871, t19873, t19876, t19879, t19882) = {
+            let t19868 = t1343 * t820 * t19732;
+            let t19871 = t120 * t6387;
+            let t19873 = t5248 * t19871 * t5250;
+            let t19876 = t5234 * t5245;
+            let t19879 = t12283 * t6396;
+            let t19882 = t3805 * t19871 * t3807;
+            (t19868, t19871, t19873, t19876, t19879, t19882)
+        };
+        let t19899 = {
+            let t19885 = t16306 * t6394;
+            let t19886 = t16305 * t19885;
+            let t19889 = t16311 * t16225;
+            let t19890 = t16305 * t19889;
+            let t19893 = t1825 * t5308;
+            let t19894 = t16224 * t19893;
+            let t19899 = t12286 * t6390 / 1536.0_f64 - t3778 * t6417 / 3072.0_f64 - t1341 * t19868 / 3072.0_f64 - t16239 + t16241 + t5246 * t19873 / 512.0_f64 + t19876 * t5252 / 768.0_f64 - t16269 + t16290 - 7.0_f64 / 576.0_f64 * t19879 + t3803 * t19882 / 768.0_f64 - t16294 + t3803 * t19886 / 384.0_f64 - t5246 * t19890 / 192.0_f64 - 5.0_f64 / 384.0_f64 * t3803 * t19894 - 119.0_f64 / 1728.0_f64 * t16317 + t16325 + t16331 + t16338 - 35.0_f64 / 108.0_f64 * t16341;
+            t19899
+        };
+        let (t19904, t19915, t19917, t19921, t19926) = {
+            let t19904 = t19815 * t1362;
+            let t19915 = t3799 * t6417;
+            let t19917 = t3799 * t6422;
+            let t19919 = t6330 * t1307;
+            let t19921 = t12351 * t820 * t19919;
+            let t19924 = t1799 * t5187;
+            let t19926 = t3870 * t820 * t19924;
+            (t19904, t19915, t19917, t19921, t19926)
+        };
+        let t19939 = {
+            let t19930 = t1367 * t820 * t19631;
+            let t19933 = t16336 * t1831;
+            let t19939 = -35.0_f64 / 216.0_f64 * t12308 - t16346 + 119.0_f64 / 6912.0_f64 * t16350 + t16354 + 119.0_f64 / 13824.0_f64 * t12325 - t12330 - t12335 - t19904 * t1369 / 768.0_f64 + 5.0_f64 / 768.0_f64 * t3783 * t6427 - t3783 * t6431 / 768.0_f64 - t3778 * t6422 / 3072.0_f64 + 5.0_f64 / 384.0_f64 * t5240 * t5310 + 7.0_f64 / 4608.0_f64 * t19915 + 7.0_f64 / 4608.0_f64 * t19917 - 5.0_f64 / 128.0_f64 * t1363 * t19921 + 5.0_f64 / 384.0_f64 * t1363 * t19926 - t1363 * t19930 / 768.0_f64 + 7.0_f64 / 576.0_f64 * t19933 - t16321 * t1831 / 384.0_f64 - t5240 * t5314 / 384.0_f64;
+            t19939
+        };
+        let (t19940, t19942, t19945, t19951, t19956, t19958) = {
+            let t19940 = t3866 * t6427;
+            let t19942 = t3866 * t6431;
+            let t19945 = t5248 * t5249 * t19735;
+            let t19951 = t3805 * t16242 * t6394;
+            let t19956 = t120 * t6414;
+            let t19958 = t3805 * t19956 * t3807;
+            (t19940, t19942, t19945, t19951, t19956, t19958)
+        };
+        let (t19962, t19966, t19972, t19976, t19981, t19986) = {
+            let t19962 = t5248 * t19956 * t1352;
+            let t19966 = t5248 * t19956 * t5250;
+            let t19972 = t5248 * t5249 * t5287;
+            let t19976 = t5248 * t19871 * t1352;
+            let t19979 = t120 * t6330;
+            let t19981 = t12419 * t19979 * t1352;
+            let t19984 = t120 * t6347;
+            let t19986 = t3805 * t19984 * t1352;
+            (t19962, t19966, t19972, t19976, t19981, t19986)
+        };
+        let (t19991, t19996, t20000, t20004) = {
+            let t19989 = t550 * t5187;
+            let t19991 = t3805 * t5249 * t19989;
+            let t19994 = t6347 * t1307;
+            let t19996 = t3870 * t820 * t19994;
+            let t20000 = t5248 * t19871 * t19744;
+            let t20004 = t3805 * t19871 * t12369;
+            (t19991, t19996, t20000, t20004)
+        };
+        let t20007 = {
+            let t20007 = -35.0_f64 / 1152.0_f64 * t19940 + 7.0_f64 / 1152.0_f64 * t19942 + t5246 * t19945 / 768.0_f64 + t12429 * t6396 / 384.0_f64 + t3803 * t19951 / 384.0_f64 - 119.0_f64 / 3456.0_f64 * t12346 - 119.0_f64 / 13824.0_f64 * t12366 + t3803 * t19958 / 768.0_f64 - t3803 * t19962 / 3072.0_f64 + t5246 * t19966 / 1536.0_f64 + t16394 * t5259 / 384.0_f64 - t3803 * t19972 / 1536.0_f64 - t3803 * t19976 / 3072.0_f64 - 5.0_f64 / 768.0_f64 * t3803 * t19981 + t3803 * t19986 / 768.0_f64 + t3803 * t19991 / 384.0_f64 + 5.0_f64 / 768.0_f64 * t1363 * t19996 - t16400 - t16233 * t20000 / 512.0_f64 - t5246 * t20004 / 384.0_f64;
+            t20007
+        };
+        let (t20009, t20021) = {
+            let t20009 = t19862 + t19899 + t19939 + t20007;
+            let t20010 = t553 * t20009;
+            let t20014 = t5335 * t5287;
+            let t20018 = t19739 * t1352;
+            let t20021 = t1332 * t6458 - 2.0_f64 * t1336 * t19756 - t1336 * t19813 - t1381 * t19815 + t1383 * t6378 - 2.0_f64 * t16060 * t1838 + 2.0_f64 * t1814 * t5351 + 2.0_f64 * t1840 * t5230 - t19761 * t5344 - t19763 * t5344 + t19805 * t564 - 2.0_f64 * t19810 * t5345 + t20010 * t544 - 2.0_f64 * t20014 * t5344 - 2.0_f64 * t20018 * t5344 - 2.0_f64 * t5234 * t5339 - 2.0_f64 * t5234 * t5341;
+            (t20009, t20021)
+        };
+        let t20034 = {
+            let t20022 = t19755 + t20021;
+            let t20023 = t1378 * t20022;
+            let t20025 = t6460 * t1385;
+            let t20026 = t3887 * t20025;
+            let t20029 = t6364 * t225;
+            let t20032 = t539 * t20009;
+            let t20034 = 4.0_f64 * t1375 * t19648 - t1375 * t20023 + 2.0_f64 * t1375 * t20026 - 2.0_f64 * t1386 * t20029 - 2.0_f64 * t16030 * t1843 - 2.0_f64 * t16439 * t1843 + 2.0_f64 * t19635 * t568 + 2.0_f64 * t19644 * t568 + t20032 * t568 - t3882 * t6461 + 4.0_f64 * t5321 * t5326 - 2.0_f64 * t5321 * t5354;
+            t20034
+        };
+        let (t20038, t20040, t20044, t20048, t20051, t20060) = {
+            let t20038 = t19804 * t562;
+            let t20040 = t6361 * t1372;
+            let t20044 = t6435 * t225;
+            let t20048 = t1323 * t6434;
+            let t20050 = t6439 * t1385;
+            let t20051 = t12021 * t20050;
+            let t20060 = t6362 * t225;
+            (t20038, t20040, t20044, t20048, t20051, t20060)
+        };
+        let t20062 = {
+            let t20062 = -6.0_f64 * t1375 * t20051 - t1386 * t20044 - t1386 * t20060 - 2.0_f64 * t16022 * t1843 - 2.0_f64 * t16460 * t1843 + t20038 * t568 + t20040 * t568 + t20048 * t568 + 2.0_f64 * t3758 * t6440 - t3758 * t6461 + 2.0_f64 * t3882 * t6440 + 4.0_f64 * t5215 * t5326 - 2.0_f64 * t5215 * t5354;
+            t20062
+        };
+        let t20075 = {
+            let t20063 = t20034 + t20062;
+            let t20067 = t6463 * t1390;
+            let t20075 = -t15898 + t9780 - t5160 * t19596 * t1388 + t19599 + t12044 + t15911 - t12048 - 2.0_f64 * t5160 * t5161 * t5356 + 12.0_f64 * t5126 * t19603 + 3.0_f64 * t193 * t1297 * t19631 + t193 * t533 * t20063 * t1390 + 3.0_f64 * t3918 * t20067 * t1307 + t19677 - t15916 - t15917 - t12057 + 6.0_f64 * t193 * t1307 * t571 * t6330 - t12059 + t15923 - t9789;
+            t20075
+        };
+        let t20092 = {
+            let t20077 = t6324 * t3701;
+            let t20081 = t571 * t6347;
+            let t20085 = t6324 * t12461;
+            let t20092 = -3.0_f64 * t1307 * t20077 * t3918 + 6.0_f64 * t1307 * t20081 * t5126 + 2.0_f64 * t1388 * t20085 * t5160 + 6.0_f64 * t16497 * t1799 * t3918 + t12087 - t12094 + t12103 - t12105 - t12109 - t12114 - t19678 - t19683 + t19684 + t19685 - t19686 + t19687 + t9793 + t9797 - t9820 - t9824;
+            t20092
+        };
+        let t20096 = {
+            let t20093 = t3919 * t6330;
+            let t20096 = 6.0_f64 * t20093 * t5126 + t12116 + t12118 + t12123 + t12130 + t12133 - t12141 - t15976 - t16171 + t19689 + t19690 - t19691 + t19693 + t19694 - t19695 + t19696 + t19697 - t19698 + t9853 + t9859;
+            t20096
+        };
+        let (t20098, t20118) = {
+            let t20098 = t19595 + t20075 + t20092 + t20096;
+            let t20100 = t510 * t19534;
+            let t20109 = t5107 * t1458;
+            let t20118 = -t113 * t19289 - 4.0_f64 * t12725 * t1459 - 2.0_f64 * t1442 * t5107 - 2.0_f64 * t1774 * t4026 + 2.0_f64 * t1778 * t5361 + 2.0_f64 * t1849 * t5118 + t19537 * t574 + t20098 * t513 - 2.0_f64 * t20100 * t652 - 4.0_f64 * t20109 * t652 - 4.0_f64 * t2314 * t5460 - 4.0_f64 * t4028 * t4073 - 4.0_f64 * t4028 * t4077 - 4.0_f64 * t4034 * t5460 - 4.0_f64 * t4073 * t7458;
+            (t20098, t20118)
+        };
+        let t20147 = {
+            let t20127 = t6287 * t671;
+            let t20136 = t1774 * t4072;
+            let t20143 = t1266 * t5493;
+            let t20147 = -t1266 * t5450 - 2.0_f64 * t1266 * t5457 + t1271 * t6468 + t1393 * t6295 - 4.0_f64 * t1459 * t19456 - t19450 * t510 - 2.0_f64 * t19451 * t672 - 2.0_f64 * t19461 * t510 - 2.0_f64 * t20127 * t652 - 4.0_f64 * t20136 * t652 - 2.0_f64 * t20143 * t652 - 2.0_f64 * t2314 * t5494 - 4.0_f64 * t4028 * t4037 - 2.0_f64 * t4034 * t5494 - t6287 * t650;
+            t20147
+        };
+        let (t20148, t20149, t20162, t20173, t20176, t20181, t20186) = {
+            let t20148 = t20118 + t20147;
+            let t20149 = t3 * t20148;
+            let t20162 = t6470 * t112;
+            let t20173 = t576 * t671;
+            let t20176 = t1458 * t4072;
+            let t20181 = t5493 * t671;
+            let t20186 = 0.45e1_f64 * t20148 * t577 + 0.135e2_f64 * t20162 * t671 + 27.0_f64 * t16521 * t1458 + 54.0_f64 * t16524 * t5376 + 27.0_f64 * t5371 * t4072 + 27.0_f64 * t12524 * t5456 + 27.0_f64 * t20173 * t5456 + 54.0_f64 * t3941 * t20176 + 0.135e2_f64 * t3938 * t5493 + 27.0_f64 * t3941 * t20181 + 0.135e2_f64 * t1401 * t19534;
+            (t20148, t20149, t20162, t20173, t20176, t20181, t20186)
+        };
+        let t26114 = {
+            let t26114 = t649 * t1458;
+            t26114
+        };
+        let (t26117, t26129, t26179, t28002) = {
+            let t26117 = t88 * t4072;
+            let t26129 = t1453 * t666;
+            let t26179 = t89 * t4072;
+            let t28002 = t1441 * t1458;
+            (t26117, t26129, t26179, t28002)
+        };
+        let (t28007, t28030, t28893, t29894, t29895) = {
+            let t28007 = t88 * t5493;
+            let t28030 = t89 * t5493;
+            let t28893 = t576 * t5456;
+            let t29894 = 11.0_f64 / 9.0_f64 * t2281 * t2177;
+            let t29895 = t626 * t2331;
+            (t28007, t28030, t28893, t29894, t29895)
+        };
+        let (t29896, t29898, t29900) = {
+            let t29896 = t29895 * t8130;
+            let t29898 = t626 * t8134;
+            let t29900 = t626 * t656;
+            (t29896, t29898, t29900)
+        };
+        let (t29901, t29903, t29907, t29922, t29926, t29993, t29996) = {
+            let t29901 = t29900 * t8139;
+            let t29903 = t64 * t9365;
+            let t29907 = t38 * t96;
+            let t29922 = t38 * t95;
+            let t29926 = t91 * t2341;
+            let t29993 = t8153 * t112;
+            let t29996 = t2186 * t111;
+            (t29901, t29903, t29907, t29922, t29926, t29993, t29996)
+        };
+        let (t30147, t30149, t30152, t30156, t30159, t30162, t30164) = {
+            let t30147 = t29895 * t8223;
+            let t30149 = t8129 * t26129;
+            let t30152 = t29907 * t1453;
+            let t30155 = t1453 * t659;
+            let t30156 = t8138 * t30155;
+            let t30159 = t8129 * t4067;
+            let t30162 = t29900 * t8226;
+            let t30164 = t1444 * t666;
+            (t30147, t30149, t30152, t30156, t30159, t30162, t30164)
+        };
+        let (t30165, t30168, t30171, t30172, t30175, t30176, t30179) = {
+            let t30165 = t8138 * t30164;
+            let t30168 = t29922 * t1444;
+            let t30171 = t1444 * t659;
+            let t30172 = t29926 * t30171;
+            let t30175 = t2585 * t656;
+            let t30176 = t8138 * t2;
+            let t30179 = -t29894 - 2.0_f64 / 3.0_f64 * t29896 - 5.0_f64 / 9.0_f64 * t29898 + 5.0_f64 / 9.0_f64 * t29901 - 2.0_f64 / 3.0_f64 * t30147 - 3.0_f64 / 4.0_f64 * t29903 * t30149 - 5.0_f64 / 12.0_f64 * t8128 * t30152 + 5.0_f64 / 12.0_f64 * t8128 * t30156 + t8128 * t30159 / 4.0_f64 + 5.0_f64 / 9.0_f64 * t30162 + 5.0_f64 / 12.0_f64 * t8128 * t30165 + 25.0_f64 / 72.0_f64 * t8137 * t30168 - 5.0_f64 / 36.0_f64 * t8137 * t30172 - 5.0_f64 / 24.0_f64 * t30175 * t30176;
+            (t30165, t30168, t30171, t30172, t30175, t30176, t30179)
+        };
+        let t30180 = {
+            let t110 = 1.0_f64 < t109;
+            let t30180 = piecewise3(t110, 0.0_f64, t30179);
+            t30180
+        };
+        let (t30181, t30186, t30189, t30192) = {
+            let t30181 = t30180 * t574;
+            let t30186 = t2180 * t5361;
+            let t30189 = t1774 * t8143;
+            let t30192 = t1268 * t30181 + t1268 * t30186 - t12725 * t2181 - t2181 * t26114 - t2181 * t26179 - t2314 * t8231 + t2314 * t8235 + t2314 * t8237 - t30189 * t652 - t4028 * t8144 + t4028 * t8150 + t5113 * t8235 + t5113 * t8237 - t7458 * t8124 + t7676 * t8148 + t7676 * t8150;
+            (t30181, t30186, t30189, t30192)
+        };
+        let (t30195, t30201, t30203, t30209, t30211, t30215) = {
+            let t30195 = t1266 * t8230;
+            let t30201 = t8143 * t1849;
+            let t30203 = t510 * t30180;
+            let t30209 = t5107 * t2180;
+            let t30211 = t8230 * t1393;
+            let t30215 = t1268 * t30201 + t1268 * t30211 + t12725 * t2183 - t19456 * t2181 + t19456 * t2183 + t2183 * t26114 + t2183 * t26117 - t2314 * t8221 - t30195 * t652 - t30203 * t652 - t30209 * t652 - t4028 * t8124 + t4028 * t8148 - t4034 * t8221 - t4034 * t8231 - t7458 * t8144;
+            (t30195, t30201, t30203, t30209, t30211, t30215)
+        };
+        let (t30217, t30218, t30231, t30250, t30253, t30258, t30263) = {
+            let t30217 = 2.0_f64 * t30192 + 2.0_f64 * t30215;
+            let t30218 = t3 * t30217;
+            let t30231 = t8240 * t112;
+            let t30250 = t8143 * t1458;
+            let t30253 = t2180 * t4072;
+            let t30258 = t8230 * t671;
+            let t30263 = 0.45e1_f64 * t30217 * t577 + 0.135e2_f64 * t30231 * t671 + 0.135e2_f64 * t29993 * t1458 + 27.0_f64 * t29996 * t5376 + 0.135e2_f64 * t8161 * t4072 + 0.135e2_f64 * t16521 * t2180 + 27.0_f64 * t16524 * t8166 + 0.135e2_f64 * t5371 * t8143 + 27.0_f64 * t12524 * t8251 + 27.0_f64 * t20173 * t8251 + 27.0_f64 * t3941 * t30250 + 27.0_f64 * t3941 * t30253 + 0.135e2_f64 * t3938 * t8230 + 27.0_f64 * t3941 * t30258 + 0.135e2_f64 * t1401 * t30180;
+            (t30217, t30218, t30231, t30250, t30253, t30258, t30263)
+        };
+        let (t30407, t30410, t30411, t30414, t30417, t30420, t30424) = {
+            let t110 = 1.0_f64 < t109;
+            let t30407 = t8129 * t5464;
+            let t30410 = t1453 * t1444;
+            let t30411 = t8138 * t30410;
+            let t30414 = t8129 * t5488;
+            let t30417 = t29926 * t5468;
+            let t30420 = t8138 * t5396;
+            let t30424 = piecewise3(t110, 0.0_f64, -t29894 - 4.0_f64 / 3.0_f64 * t30147 + 10.0_f64 / 9.0_f64 * t30162 - 3.0_f64 / 4.0_f64 * t29903 * t30407 + 5.0_f64 / 6.0_f64 * t8128 * t30411 + t8128 * t30414 / 4.0_f64 - 5.0_f64 / 36.0_f64 * t8137 * t30417 - 5.0_f64 / 24.0_f64 * t8137 * t30420);
+            (t30407, t30410, t30411, t30414, t30417, t30420, t30424)
+        };
+        let (t30425, t30428, t30433, t30444, t30447, t30454, t30465) = {
+            let t30425 = t30424 * t574;
+            let t30428 = t8230 * t1849;
+            let t30433 = t6287 * t2180;
+            let t30444 = t1774 * t8230;
+            let t30447 = t510 * t30424;
+            let t30454 = t2180 * t6468;
+            let t30465 = 2.0_f64 * t1268 * t30425 + 4.0_f64 * t1268 * t30428 + 2.0_f64 * t1268 * t30454 - 2.0_f64 * t19451 * t2181 + 2.0_f64 * t19451 * t2183 - 4.0_f64 * t2181 * t28002 - 2.0_f64 * t2181 * t28030 + 4.0_f64 * t2183 * t28002 + 2.0_f64 * t2183 * t28007 - 2.0_f64 * t30433 * t652 - 4.0_f64 * t30444 * t652 - 2.0_f64 * t30447 * t652 - 4.0_f64 * t4028 * t8221 - 4.0_f64 * t4028 * t8231 + 4.0_f64 * t4028 * t8235 + 4.0_f64 * t4028 * t8237 - 4.0_f64 * t7458 * t8221 - 4.0_f64 * t7458 * t8231 + 4.0_f64 * t7676 * t8235 + 4.0_f64 * t7676 * t8237;
+            (t30425, t30428, t30433, t30444, t30447, t30454, t30465)
+        };
+        let (t30466, t30492, t30495, t30500) = {
+            let t30466 = t3 * t30465;
+            let t30492 = t8230 * t1458;
+            let t30495 = t2180 * t5493;
+            let t30500 = 0.45e1_f64 * t30465 * t577 + 27.0_f64 * t30231 * t1458 + 27.0_f64 * t29996 * t5456 + 0.135e2_f64 * t8161 * t5493 + 0.135e2_f64 * t20162 * t2180 + 54.0_f64 * t16524 * t8251 + 27.0_f64 * t5371 * t8230 + 27.0_f64 * t28893 * t2180 + 54.0_f64 * t3941 * t30492 + 27.0_f64 * t3941 * t30495 + 0.135e2_f64 * t1401 * t30424;
+            (t30466, t30492, t30495, t30500)
+        };
+        let (t33185, t45435, t55353, t55388, t55943, t66958, t75560) = {
+            let t33185 = t576 * t1458;
+            let t45435 = 1.0_f64 / t9364 / t106;
+            let t55353 = t5363 * t111;
+            let t55388 = t6470 * t111;
+            let t55943 = t19449 * t111;
+            let t66958 = t20148 * t112;
+            let t75560 = t5449 * t671;
+            (t33185, t45435, t55353, t55388, t55943, t66958, t75560)
+        };
+        let (t75795, t96356, t96657, t96683, t96709, t96715) = {
+            let t75795 = t1851 * t671;
+            let t96356 = t1441 * t4072;
+            let t96657 = t88 * t19534;
+            let t96683 = t4025 * t1458;
+            let t96709 = t649 * t5493;
+            let t96715 = t5464 * t666;
+            (t75795, t96356, t96657, t96683, t96709, t96715)
+        };
+        let (t96718, t96723, t97933, t100930, t110075, t110082) = {
+            let t96718 = t1453 * t4067;
+            let t96723 = t5488 * t666;
+            let t97933 = t89 * t19534;
+            let t100930 = t1395 * t5456;
+            let t110075 = t626 * t9365;
+            let t110082 = t64 * t45435;
+            (t96718, t96723, t97933, t100930, t110075, t110082)
+        };
+        let (t110093, t110097, t110102, t110103, t110140, t110141, t110143, t110144) = {
+            let t110093 = t38 * t2341;
+            let t110097 = t91 * t9384;
+            let t110102 = 154.0_f64 / 27.0_f64 * t2585 * t2177;
+            let t110103 = t2281 * t8134;
+            let t110140 = t2281 * t2331;
+            let t110141 = t110140 * t8130;
+            let t110143 = t2281 * t656;
+            let t110144 = t110143 * t8139;
+            (t110093, t110097, t110102, t110103, t110140, t110141, t110143, t110144)
+        };
+        let (t110240, t110489, t110503, t110506, t110510, t110520) = {
+            let t110240 = t8153 * t111;
+            let t110489 = 2.0_f64 * t1851 * t8171;
+            let t110503 = t110140 * t8223;
+            let t110506 = 20.0_f64 / 9.0_f64 * t29895 * t30152;
+            let t110510 = t110143 * t8226;
+            let t110520 = t64 * t9365 * t91;
+            (t110240, t110489, t110503, t110506, t110510, t110520)
+        };
+        let (t110521, t110526, t110531, t110533, t110542) = {
+            let t110521 = t95 * t1453;
+            let t110526 = t64 * t2331 * t91;
+            let t110531 = 50.0_f64 / 27.0_f64 * t29900 * t30168;
+            let t110532 = t9576 * t656;
+            let t110533 = t110532 * t30176;
+            let t110542 = 4.0_f64 / 3.0_f64 * t29895 * t30159;
+            (t110521, t110526, t110531, t110533, t110542)
+        };
+        let (t110564, t110566, t110586, t110601, t110615, t110631, t110684) = {
+            let t110564 = 4.0_f64 * t110075 * t30149;
+            let t110566 = 20.0_f64 / 9.0_f64 * t29895 * t30156;
+            let t110586 = 20.0_f64 / 9.0_f64 * t29895 * t30165;
+            let t110601 = t2585 * t2331;
+            let t110615 = 20.0_f64 / 27.0_f64 * t29900 * t30172;
+            let t110631 = t8240 * t111;
+            let t110684 = t30217 * t112;
+            (t110564, t110566, t110586, t110601, t110615, t110631, t110684)
+        };
+        let (t110882, t110884, t110886, t110888, t110899, t110904) = {
+            let t110882 = 2.0_f64 * t1395 * t8256;
+            let t110884 = 2.0_f64 * t8240 * t1404;
+            let t110886 = 2.0_f64 * t2186 * t5381;
+            let t110888 = 2.0_f64 * t30217 * t580;
+            let t110899 = 2.0_f64 * t8153 * t1858;
+            let t110904 = 2.0_f64 * t5363 * t2193;
+            (t110882, t110884, t110886, t110888, t110899, t110904)
+        };
+        let (t110910, t111316, t111317, t111322, t111326, t111331) = {
+            let t110910 = 2.0_f64 * t576 * t30263;
+            let t111316 = t6470 * t2193;
+            let t111317 = t1851 * t8256;
+            let t111322 = t2186 * t6483;
+            let t111326 = t29895 * t30411;
+            let t111331 = t1453 * t2;
+            (t110910, t111316, t111317, t111322, t111326, t111331)
+        };
+        let t111379 = {
+            let t111379 = 44.0_f64 / 9.0_f64 * t110503 + t110506 - 110.0_f64 / 27.0_f64 * t110510 - 20.0_f64 / 9.0_f64 * t111326 - 25.0_f64 / 18.0_f64 * t8128 * t29922 * t30410 + 5.0_f64 / 6.0_f64 * t110601 * t8138 * t111331 - 5.0_f64 / 18.0_f64 * t30175 * t29926 * t19492 + t110102 + 55.0_f64 / 27.0_f64 * t110103 + 3.0_f64 * t110082 * t8129 * t96715 - 5.0_f64 / 4.0_f64 * t29903 * t8138 * t5464 * t659 - 3.0_f64 / 2.0_f64 * t29903 * t8129 * t96718 + 5.0_f64 / 6.0_f64 * t8128 * t8138 * t4067 * t1444 - 3.0_f64 / 4.0_f64 * t29903 * t8129 * t96723 + 5.0_f64 / 12.0_f64 * t8128 * t8138 * t5488 * t659 + 5.0_f64 / 18.0_f64 * t8128 * t29926 * t5468 * t666 + 5.0_f64 / 108.0_f64 * t8137 * t110097 * t5468 * t659 + 5.0_f64 / 12.0_f64 * t8128 * t8138 * t5396 * t666 - 5.0_f64 / 36.0_f64 * t8137 * t29926 * t5396 * t659 - 5.0_f64 / 2.0_f64 * t110520 * t110521 * t30164;
+            t111379
+        };
+        let t111413 = {
+            let t111385 = t29895 * t30414;
+            let t111390 = t29900 * t30417;
+            let t111395 = t29900 * t30420;
+            let t111408 = t110075 * t30407;
+            let t111413 = 5.0_f64 / 9.0_f64 * t110526 * t2341 * t1453 * t30171 - t110531 + 10.0_f64 / 9.0_f64 * t110533 - t110542 - 2.0_f64 / 3.0_f64 * t111385 - 5.0_f64 / 12.0_f64 * t8128 * t29907 * t5488 + 10.0_f64 / 27.0_f64 * t111390 + 25.0_f64 / 108.0_f64 * t8137 * t110093 * t5468 + 5.0_f64 / 9.0_f64 * t111395 + 25.0_f64 / 72.0_f64 * t8137 * t29922 * t5396 + 22.0_f64 / 9.0_f64 * t110141 - 55.0_f64 / 27.0_f64 * t110144 + t110564 - t110566 - t110586 + t8128 * t8129 * t19529 / 4.0_f64 - 5.0_f64 / 24.0_f64 * t8137 * t8138 * t19503 + 2.0_f64 * t111408 + 5.0_f64 / 4.0_f64 * t29903 * t29907 * t5464 + t110615;
+            t111413
+        };
+        let (t111415, t111457) = {
+            let t110 = 1.0_f64 < t109;
+            let t111415 = piecewise3(t110, 0.0_f64, t111379 + t111413);
+            let t111457 = 2.0_f64 * t111415 * t1268 * t574 - 4.0_f64 * t12725 * t8221 - 2.0_f64 * t19451 * t8124 - 4.0_f64 * t19456 * t8221 - 4.0_f64 * t19456 * t8231 + 4.0_f64 * t19456 * t8237 - 2.0_f64 * t2181 * t75560 - 4.0_f64 * t2181 * t96683 - 2.0_f64 * t2181 * t96709 - 2.0_f64 * t2181 * t97933 - 4.0_f64 * t26114 * t8221 - 4.0_f64 * t26179 * t8221 - 4.0_f64 * t28002 * t8144 - 2.0_f64 * t28030 * t8124 - 2.0_f64 * t28030 * t8144 - 4.0_f64 * t30195 * t4028 + 4.0_f64 * t30201 * t4028 - 4.0_f64 * t30203 * t4028 - 4.0_f64 * t30209 * t4028 - 4.0_f64 * t30209 * t7458;
+            (t111415, t111457)
+        };
+        let t111503 = {
+            let t111503 = -2.0_f64 * t1266 * t30424 * t652 + 4.0_f64 * t1268 * t5361 * t8230 + 2.0_f64 * t1268 * t6468 * t8143 - 4.0_f64 * t1774 * t30180 * t652 - 4.0_f64 * t5107 * t652 * t8230 + 4.0_f64 * t19456 * t8235 - 4.0_f64 * t2181 * t96356 + 4.0_f64 * t2183 * t96683 + 2.0_f64 * t2314 * t30425 + 4.0_f64 * t2314 * t30428 - 4.0_f64 * t2314 * t30444 - 2.0_f64 * t2314 * t30447 - 4.0_f64 * t28002 * t8124 + 4.0_f64 * t30181 * t4028 - 4.0_f64 * t30189 * t4028 + 4.0_f64 * t30211 * t4028 + 2.0_f64 * t30425 * t5113 - 4.0_f64 * t30444 * t4034 - 2.0_f64 * t30447 * t4034 + 2.0_f64 * t30454 * t5113;
+            t111503
+        };
+        let t111546 = {
+            let t111546 = 2.0_f64 * t1268 * t1393 * t30424 - 4.0_f64 * t12725 * t8231 - 2.0_f64 * t19451 * t8144 + 2.0_f64 * t19451 * t8148 + 2.0_f64 * t19451 * t8150 - 2.0_f64 * t2181 * t55943 + 2.0_f64 * t2183 * t75560 + 2.0_f64 * t2183 * t96657 + 2.0_f64 * t2183 * t96709 - 4.0_f64 * t26114 * t8231 + 4.0_f64 * t26114 * t8235 + 4.0_f64 * t26117 * t8235 + 4.0_f64 * t28002 * t8150 + 2.0_f64 * t28007 * t8148 + 4.0_f64 * t30186 * t4028 + 4.0_f64 * t30186 * t7676 - 4.0_f64 * t30189 * t7458 - 4.0_f64 * t30203 * t7458 + 4.0_f64 * t30211 * t7676 + 4.0_f64 * t30428 * t5113;
+            t111546
+        };
+        let t111592 = {
+            let t111592 = -2.0_f64 * t2314 * t30433 - 2.0_f64 * t4034 * t30433 - 2.0_f64 * t652 * t19289 * t2180 - 2.0_f64 * t652 * t510 * t111415 + 2.0_f64 * t55943 * t2183 - 2.0_f64 * t652 * t6287 * t8143 + 4.0_f64 * t12725 * t8235 + 2.0_f64 * t1268 * t2180 * t20098 + 4.0_f64 * t96356 * t2183 + 4.0_f64 * t28002 * t8148 + 4.0_f64 * t7676 * t30181 + 4.0_f64 * t7676 * t30201 + 4.0_f64 * t12725 * t8237 - 4.0_f64 * t26179 * t8231 - 4.0_f64 * t7458 * t30195 + 4.0_f64 * t26114 * t8237 + 4.0_f64 * t26117 * t8237 + 2.0_f64 * t28007 * t8150 + 2.0_f64 * t2314 * t30454 + 4.0_f64 * t1268 * t30180 * t1849;
+            t111592
+        };
+        let (t111594, t111597) = {
+            let t111594 = t111457 + t111503 + t111546 + t111592;
+            let t111597 = t111594 * t3 * t580 + t1404 * t30466 + 2.0_f64 * t1852 * t30263 + t20186 * t2187 + t6483 * t8154 + t110489 + t110882 + t110884 + t110886 + t110888 + t111316 + 2.0_f64 * t111317 + t111322;
+            (t111594, t111597)
+        };
+        let (t111601, t111602, t111604, t111641) = {
+            let t111601 = t30465 * t580;
+            let t111602 = t8240 * t1858;
+            let t111604 = t576 * t30500;
+            let t111636 = t2186 * t671;
+            let t111641 = 54.0_f64 * t33185 * t30253 + 54.0_f64 * t29996 * t20176 + 54.0_f64 * t12524 * t30492 + 54.0_f64 * t16524 * t30253 + 54.0_f64 * t75795 * t8251 + 0.135e2_f64 * t8161 * t19534 + 54.0_f64 * t110631 * t5376 + 27.0_f64 * t3941 * t30424 * t671 + 54.0_f64 * t16524 * t30258 + 0.135e2_f64 * t29993 * t5493 + 0.135e2_f64 * t3938 * t30424 + 27.0_f64 * t28893 * t8143 + 0.45e1_f64 * t111594 * t577 + 27.0_f64 * t110684 * t1458 + 27.0_f64 * t12524 * t30495 + 27.0_f64 * t111636 * t5456 + 27.0_f64 * t5371 * t30180;
+            (t111601, t111602, t111604, t111641)
+        };
+        let t111683 = {
+            let t111674 = t30465 * t112;
+            let t111683 = 54.0_f64 * t55353 * t8251 + 27.0_f64 * t20173 * t30495 + 27.0_f64 * t3941 * t8143 * t5493 + 27.0_f64 * t3941 * t2180 * t19534 + 27.0_f64 * t110240 * t5456 + 0.135e2_f64 * t1401 * t111415 + 27.0_f64 * t30231 * t4072 + 54.0_f64 * t16524 * t30250 + 54.0_f64 * t20173 * t30492 + 54.0_f64 * t3941 * t30180 * t1458 + 54.0_f64 * t3941 * t8230 * t4072 + 27.0_f64 * t16521 * t8230 + 0.135e2_f64 * t66958 * t2180 + 27.0_f64 * t100930 * t2180 + 0.135e2_f64 * t111674 * t671 + 27.0_f64 * t29996 * t20181 + 0.135e2_f64 * t20162 * t8143 + 27.0_f64 * t55388 * t8166;
+            t111683
+        };
+        let t111692 = {
+            let t111692 = 2.0_f64 * t5364 * t8256 + t1396 * t30500 + t111601 + t110899 + 2.0_f64 * t111602 + t111604 + t110904 + t1398 * (t111641 + t111683) + 2.0_f64 * t30218 * t1858 + t6471 * t8171 + t20149 * t2193 + 2.0_f64 * t8241 * t5381 + t110910;
+            t111692
+        };
+        let tv4rho3tau4 = {
+            let tv4rho3tau4 = t111597 + t111692;
+            tv4rho3tau4
+        };
+        v4rho3tau[ip * 8 + 4] += tv4rho3tau4;
+    }
+}

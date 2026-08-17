@@ -21,7 +21,7 @@ pub fn mgga_c_kcisk_lxc_pol_part16_v4rho4_1(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v4rho4.len() {
+    for ip in 0..v4rho4.len() / 5 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

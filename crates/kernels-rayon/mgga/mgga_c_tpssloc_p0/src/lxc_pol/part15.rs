@@ -22,7 +22,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part15_v3rho2lapl_v3rho2tau(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v3rho2lapl.len() {
+    for ip in 0..v3rho2lapl.len() / 6 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

@@ -29,7 +29,7 @@ pub fn mgga_c_tpss_lxc_pol_part91_v4sigma3tau_v4sigma2lapl2_v4sigma2lapltau(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v4sigma3tau.len() {
+    for ip in 0..v4sigma3tau.len() / 30 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

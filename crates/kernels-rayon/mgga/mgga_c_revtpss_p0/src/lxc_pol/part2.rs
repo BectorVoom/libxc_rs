@@ -34,7 +34,7 @@ pub fn mgga_c_revtpss_lxc_pol_part2_v2rhosigma_v2rholapl_v2rhotau_v2sigma2_v2sig
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v2rhosigma.len() {
+    for ip in 0..v2rhosigma.len() / 6 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

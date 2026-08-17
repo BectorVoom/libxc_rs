@@ -21,7 +21,7 @@ pub fn mgga_c_rmggac_lxc_pol_part35_v4rho2sigma2_8(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v4rho2sigma2.len() {
+    for ip in 0..v4rho2sigma2.len() / 18 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

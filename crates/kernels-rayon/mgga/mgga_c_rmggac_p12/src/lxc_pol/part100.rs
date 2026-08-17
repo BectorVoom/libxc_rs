@@ -26,7 +26,7 @@ pub fn mgga_c_rmggac_lxc_pol_part100_v4rholapl3_v4rholapl2tau_v4rholapltau2_v4rh
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v4rholapl3.len() {
+    for ip in 0..v4rholapl3.len() / 8 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

@@ -30,7 +30,7 @@ pub fn mgga_c_tpssloc_lxc_pol_part18_v3sigma3_v3sigma2lapl_v3sigma2tau_v3sigmala
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..v3sigma3.len() {
+    for ip in 0..v3sigma3.len() / 10 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];

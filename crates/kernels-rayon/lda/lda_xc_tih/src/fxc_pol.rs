@@ -16,7 +16,7 @@ pub fn lda_xc_tih_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..vrho.len() {
+    for ip in 0..vrho.len() / 2 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t4 = f64::tanh(1.0953 + 0.0334789 * rho0 + 0.0334789 * rho1);
