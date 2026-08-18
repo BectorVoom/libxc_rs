@@ -1,8 +1,8 @@
 //! GGA_C_PBE_VWN exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe_vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe_vwn.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -15,9 +15,9 @@ pub fn gga_c_pbe_vwn_exc_pol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
+    param_gamma: f64,
     param_BB: f64,
     param_beta: f64,
-    param_gamma: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -40,29 +40,29 @@ pub fn gga_c_pbe_vwn_exc_pol(
         let t11 = t4 * t10;
         let t12 = t11 / 4.0;
         let t13 = f64::sqrt(t11);
-        let t15 = t12 + 0.186372e1 * t13 + 0.129352e2;
+        let t15 = t12 + 1.86372 * t13 + 12.9352;
         let t16 = 1.0 / t15;
         let t20 = f64::ln(t4 * t10 * t16 / 4.0);
-        let t21 = 0.310907e-1 * t20;
-        let t22 = t13 + 0.372744e1;
-        let t25 = f64::atan(0.61519908197590802322e1 / t22);
-        let t26 = 0.38783294878113014393e-1 * t25;
+        let t21 = 0.0310907 * t20;
+        let t22 = t13 + 3.72744;
+        let t25 = f64::atan(6.15199081975908 / t22);
+        let t26 = 0.038783294878113016 * t25;
         let t27 = t13 / 2.0;
-        let t28 = t27 + 0.10498e0;
+        let t28 = t27 + 0.10498;
         let t29 = t28 * t28;
         let t31 = f64::ln(t29 * t16);
-        let t32 = 0.96902277115443742139e-3 * t31;
+        let t32 = 0.0009690227711544374 * t31;
         let t33 = M_PI * M_PI;
         let t34 = 1.0 / t33;
-        let t36 = t12 + 0.565535e0 * t13 + 0.130045e2;
+        let t36 = t12 + 0.565535 * t13 + 13.0045;
         let t37 = 1.0 / t36;
         let t41 = f64::ln(t4 * t10 * t37 / 4.0);
-        let t42 = t13 + 0.113107e1;
-        let t45 = f64::atan(0.71231089178181179908e1 / t42);
-        let t47 = t27 + 0.47584e-2;
+        let t42 = t13 + 1.13107;
+        let t45 = f64::atan(7.123108917818118 / t42);
+        let t47 = t27 + 0.0047584;
         let t48 = t47 * t47;
         let t50 = f64::ln(t48 * t37);
-        let t53 = t34 * (t41 + 0.317708004743941464e0 * t45 + 0.41403379428206274608e-3 * t50);
+        let t53 = t34 * (t41 + 0.31770800474394145 * t45 + 0.00041403379428206277 * t50);
         let t54 = rho0 - rho1;
         let t55 = 1.0 / t7;
         let t56 = t54 * t55;
@@ -91,15 +91,15 @@ pub fn gga_c_pbe_vwn_exc_pol(
         let t83 = 9.0 * t72;
         let t84 = t74 * (-t76 * t79 + 1.0) * t83;
         let t86 = t70 * t84 / 24.0;
-        let t88 = t12 + 0.353021e1 * t13 + 0.180578e2;
+        let t88 = t12 + 3.53021 * t13 + 18.0578;
         let t89 = 1.0 / t88;
         let t93 = f64::ln(t4 * t10 * t89 / 4.0);
-        let t95 = t13 + 0.706042e1;
-        let t98 = f64::atan(0.473092690956011283e1 / t95);
-        let t100 = t27 + 0.325e0;
+        let t95 = t13 + 7.06042;
+        let t98 = f64::atan(4.730926909560113 / t95);
+        let t100 = t27 + 0.325;
         let t101 = t100 * t100;
         let t103 = f64::ln(t101 * t89);
-        let t105 = 0.1554535e-1 * t93 + 0.52491393169780936218e-1 * t98 + 0.22478670955426118383e-2 * t103 - t21 - t26 - t32;
+        let t105 = 0.01554535 * t93 + 0.05249139316978094 * t98 + 0.0022478670955426118 * t103 - t21 - t26 - t32;
         let t106 = t105 * t69;
         let t107 = t74 * t76;
         let t108 = t107 * t79;

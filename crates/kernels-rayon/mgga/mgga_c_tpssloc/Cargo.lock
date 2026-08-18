@@ -3,68 +3,40 @@
 version = 4
 
 [[package]]
+name = "bytemuck"
+version = "1.25.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95832e849adfb21180ccb6826a99da14e5d266ae5c2e668e1602cf234f153797"
+
+[[package]]
 name = "libxc-rkernel-math"
 version = "0.1.0"
+dependencies = [
+ "wide",
+]
 
 [[package]]
 name = "libxc-rkernel-mgga_c_tpssloc"
 version = "0.1.0"
 dependencies = [
  "libxc-rkernel-math",
- "libxc-rkernel-mgga_c_tpssloc_p0",
- "libxc-rkernel-mgga_c_tpssloc_p1",
- "libxc-rkernel-mgga_c_tpssloc_p2",
- "libxc-rkernel-mgga_c_tpssloc_p3",
- "libxc-rkernel-mgga_c_tpssloc_p4",
- "libxc-rkernel-mgga_c_tpssloc_p5",
- "libxc-rkernel-mgga_c_tpssloc_p6",
 ]
 
 [[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p0"
-version = "0.1.0"
+name = "safe_arch"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42c6efa15875e6ecb39ca61fb0b0c1a40b84fac5a5ffe71eef7d1000c8eb3f5f"
 dependencies = [
- "libxc-rkernel-math",
+ "bytemuck",
 ]
 
 [[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p1"
-version = "0.1.0"
+name = "wide"
+version = "1.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de2aaf408e58689c2096682331b1f42bb2d9f2ed6b11560407d023cd0a6c634e"
 dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p2"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p3"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p4"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p5"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-mgga_c_tpssloc_p6"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
+ "bytemuck",
+ "safe_arch",
 ]

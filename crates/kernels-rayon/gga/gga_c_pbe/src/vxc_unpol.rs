@@ -1,8 +1,8 @@
 //! GGA_C_PBE vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbe.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,9 +17,9 @@ pub fn gga_c_pbe_vxc_unpol(
     zk: &mut [f64],
     vrho: &mut [f64],
     vsigma: &mut [f64],
+    param_gamma: f64,
     param_BB: f64,
     param_beta: f64,
-    param_gamma: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -32,7 +32,7 @@ pub fn gga_c_pbe_vxc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -40,20 +40,20 @@ pub fn gga_c_pbe_vxc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081979498692535067e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081979498692537 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.621814e-1 * t12 * t30;
+        let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608749977793437516e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608749977793437 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751673498613801407e-1 * t43 * t45 * t54;
+        let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = t34 * t34;
         let t59 = piecewise3(t33, t58, 1.0);
         let t60 = t59 * t59;
@@ -98,7 +98,7 @@ pub fn gga_c_pbe_vxc_unpol(
         let t115 = 1.0 / t7 / rho[ip];
         let t116 = t6 * t115;
         let t118 = t4 * t116 * t30;
-        let t119 = 0.11073470983333333333e-2 * t118;
+        let t119 = 0.0011073470983333333 * t118;
         let t120 = t26 * t26;
         let t121 = 1.0 / t120;
         let t122 = t12 * t121;
@@ -111,22 +111,22 @@ pub fn gga_c_pbe_vxc_unpol(
         let t132 = t131 * t1;
         let t133 = t132 * t126;
         let t138 = t20 * t5 / t21 / rho[ip];
-        let t140 = -0.632975e0 * t127 - 0.29896666666666666667e0 * t129 - 0.1023875e0 * t133 - 0.82156666666666666667e-1 * t138;
+        let t140 = -0.632975 * t127 - 0.29896666666666666 * t129 - 0.1023875 * t133 - 0.08215666666666667 * t138;
         let t141 = 1.0 / t29;
         let t142 = t140 * t141;
         let t143 = t122 * t142;
         let t144 = 1.0 * t143;
         let t145 = t43 * t1;
         let t148 = t145 * t125 * t115 * t54;
-        let t149 = 0.18311447306006545054e-3 * t148;
+        let t149 = 0.00018311447306006544 * t148;
         let t150 = t43 * t45;
         let t151 = t50 * t50;
         let t152 = 1.0 / t151;
-        let t157 = -0.86308333333333333334e0 * t127 - 0.301925e0 * t129 - 0.5501625e-1 * t133 - 0.82785e-1 * t138;
+        let t157 = -0.8630833333333333 * t127 - 0.301925 * t129 - 0.05501625 * t133 - 0.082785 * t138;
         let t159 = 1.0 / t53;
         let t160 = t152 * t157 * t159;
         let t161 = t150 * t160;
-        let t162 = 0.5848223622634646207e0 * t161;
+        let t162 = 0.5848223622634646 * t161;
         let t163 = t63 * rho[ip];
         let t165 = 1.0 / t7 / t163;
         let t170 = param_gamma * param_gamma;

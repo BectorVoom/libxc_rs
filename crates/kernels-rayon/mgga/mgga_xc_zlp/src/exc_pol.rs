@@ -1,8 +1,8 @@
 //! MGGA_XC_ZLP exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -59,10 +59,10 @@ pub fn mgga_xc_zlp_exc_pol(
         let t40 = pow_1_3(t39);
         let t41 = t40 * t40;
         let t42 = t41 * t39;
-        let t49 = 0.207108e0 * t5 * t7 + 0.5387725e-2 * t5 * t7 * (t11 * t17 / 8.0 - t23 * t31 / 8.0 - t37 * t42 / 8.0);
-        let t52 = 1.0 + 0.48849425066691677572e3 / t14;
+        let t49 = 0.207108 * t5 * t7 + 0.005387725 * t5 * t7 * (t11 * t17 / 8.0 - t23 * t31 / 8.0 - t37 * t42 / 8.0);
+        let t52 = 1.0 + 488.4942506669168 / t14;
         let t53 = f64::ln(t52);
-        let t56 = 1.0 - 0.2047107e-2 * t53 * t14;
+        let t56 = 1.0 - 0.002047107 * t53 * t14;
         let t58 = t2 * t2;
         let t59 = t49 * t56 * t58;
         let t60 = 1.0 / t4;

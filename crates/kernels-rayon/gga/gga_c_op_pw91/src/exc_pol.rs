@@ -1,8 +1,8 @@
 //! GGA_C_OP_PW91 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pw91.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pw91.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -71,7 +71,7 @@ pub fn gga_c_op_pw91_exc_pol(
         let t61 = 1.0 / t59 / t57;
         let t63 = t56 * sigma0 * t61;
         let t65 = f64::exp(-25.0 / 6.0 * t63);
-        let t68 = (0.2743e0 - 0.1508e0 * t65) * t51;
+        let t68 = (0.2743 - 0.1508 * t65) * t51;
         let t69 = t55 * sigma0;
         let t73 = t51 * t51;
         let t75 = 1.0 / t53 / t52;
@@ -80,14 +80,14 @@ pub fn gga_c_op_pw91_exc_pol(
         let t78 = t57 * t57;
         let t79 = t78 * rho0;
         let t81 = 1.0 / t58 / t79;
-        let t84 = 0.69444444444444444444e-5 * t76 * t77 * t81;
+        let t84 = 6.944444444444445e-06 * t76 * t77 * t81;
         let t85 = t68 * t69 * t61 / 24.0 - t84;
         let t87 = t73 / t53;
         let t88 = f64::sqrt(sigma0);
         let t90 = 1.0 / t58 / rho0;
         let t91 = t88 * t90;
-        let t94 = f64::ln(0.64963333333333333333e0 * t87 * t91 + f64::sqrt(pow_2(0.64963333333333333333e0 * t87 * t91) + 1.0));
-        let t98 = 1.0 + 0.16370833333333333333e-1 * t87 * t91 * t94 + t84;
+        let t94 = f64::ln(0.6496333333333333 * t87 * t91 + f64::sqrt(pow_2(0.6496333333333333 * t87 * t91) + 1.0));
+        let t98 = 1.0 + 0.016370833333333334 * t87 * t91 * t94 + t84;
         let t99 = 1.0 / t98;
         let t101 = t85 * t99 + 1.0;
         let t102 = 1.0 / t101;
@@ -105,19 +105,19 @@ pub fn gga_c_op_pw91_exc_pol(
         let t121 = 1.0 / t119 / t117;
         let t123 = t56 * sigma2 * t121;
         let t125 = f64::exp(-25.0 / 6.0 * t123);
-        let t128 = (0.2743e0 - 0.1508e0 * t125) * t51;
+        let t128 = (0.2743 - 0.1508 * t125) * t51;
         let t129 = t55 * sigma2;
         let t133 = sigma2 * sigma2;
         let t134 = t117 * t117;
         let t135 = t134 * rho1;
         let t137 = 1.0 / t118 / t135;
-        let t140 = 0.69444444444444444444e-5 * t76 * t133 * t137;
+        let t140 = 6.944444444444445e-06 * t76 * t133 * t137;
         let t141 = t128 * t129 * t121 / 24.0 - t140;
         let t142 = f64::sqrt(sigma2);
         let t144 = 1.0 / t118 / rho1;
         let t145 = t142 * t144;
-        let t148 = f64::ln(0.64963333333333333333e0 * t87 * t145 + f64::sqrt(pow_2(0.64963333333333333333e0 * t87 * t145) + 1.0));
-        let t152 = 1.0 + 0.16370833333333333333e-1 * t87 * t145 * t148 + t140;
+        let t148 = f64::ln(0.6496333333333333 * t87 * t145 + f64::sqrt(pow_2(0.6496333333333333 * t87 * t145) + 1.0));
+        let t152 = 1.0 + 0.016370833333333334 * t87 * t145 * t148 + t140;
         let t153 = 1.0 / t152;
         let t155 = t141 * t153 + 1.0;
         let t156 = 1.0 / t155;
@@ -125,17 +125,17 @@ pub fn gga_c_op_pw91_exc_pol(
         let t161 = t106 + t160;
         let t162 = t161 == 0.0;
         let t163 = piecewise3(t162, f64::EPSILON, t161);
-        let t166 = 0.360663084e1 / t163 + 0.5764e0;
+        let t166 = 3.60663084 / t163 + 0.5764;
         let t167 = t163 * t163;
         let t168 = t167 * t167;
         let t169 = 1.0 / t168;
         let t171 = t167 * t163;
         let t172 = 1.0 / t171;
         let t174 = 1.0 / t167;
-        let t176 = 0.315815266717518096e2 * t169 + 0.150327320916243744e2 * t172 + 0.1788764629788e1 * t174;
+        let t176 = 31.58152667175181 * t169 + 15.032732091624375 * t172 + 1.788764629788 * t174;
         let t177 = 1.0 / t176;
         let t178 = t166 * t177;
-        let tzk0 = piecewise3(t11, 0.0, -0.25e0 * t21 * t178);
+        let tzk0 = piecewise3(t11, 0.0, -0.25 * t21 * t178);
         zk[ip] += tzk0;
     }
 }

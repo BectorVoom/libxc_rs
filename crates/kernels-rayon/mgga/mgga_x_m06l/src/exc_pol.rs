@@ -1,12 +1,12 @@
 //! MGGA_X_M06L exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m06l.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m06l.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -17,7 +17,6 @@ pub fn mgga_x_m06l_exc_pol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -29,6 +28,7 @@ pub fn mgga_x_m06l_exc_pol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
+    param_a_0: f64,
     param_d_0: f64,
     param_d_1: f64,
     param_d_2: f64,
@@ -79,8 +79,8 @@ pub fn mgga_x_m06l_exc_pol(
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
         let t40 = sigma0 * t39;
-        let t43 = 0.804e0 + 0.91464571985215458336e-2 * t34 * t40;
-        let t46 = 0.1804e1 - 0.646416e0 / t43;
+        let t43 = 0.804 + 0.009146457198521547 * t34 * t40;
+        let t46 = 1.804 - 0.646416 / t43;
         let t47 = param_a_0;
         let t48 = param_a_1;
         let t49 = t29 * t29;
@@ -140,8 +140,8 @@ pub fn mgga_x_m06l_exc_pol(
         let t118 = 1.0 / t99 / t69;
         let t120 = t98 * t100 + t104 * t106 + t110 * t112 + t116 * t118 + t56 * t58 + t62 * t64 + t68 * t70 + t74 * t76 + t80 * t82 + t86 * t88 + t92 * t94 + t47;
         let t122 = param_d_0;
-        let t125 = 0.1120356e-2 * t50;
-        let t126 = 1.0 + 0.186726e-2 * t40 + 0.373452e-2 * t54 - t125;
+        let t125 = 0.001120356 * t50;
+        let t126 = 1.0 + 0.00186726 * t40 + 0.00373452 * t54 - t125;
         let t129 = param_d_1;
         let t130 = t129 * sigma0;
         let t132 = param_d_2;
@@ -178,8 +178,8 @@ pub fn mgga_x_m06l_exc_pol(
         let t177 = t176 * t176;
         let t179 = 1.0 / t177 / t175;
         let t180 = sigma2 * t179;
-        let t183 = 0.804e0 + 0.91464571985215458336e-2 * t34 * t180;
-        let t186 = 0.1804e1 - 0.646416e0 / t183;
+        let t183 = 0.804 + 0.009146457198521547 * t34 * t180;
+        let t186 = 1.804 - 0.646416 / t183;
         let t188 = 1.0 / t177 / rho1;
         let t189 = tau1 * t188;
         let t190 = t51 - t189;
@@ -223,7 +223,7 @@ pub fn mgga_x_m06l_exc_pol(
         let t241 = t114 * t225 * t200;
         let t243 = 1.0 / t227 / t202;
         let t245 = t191 * t193 + t196 * t198 + t201 * t203 + t206 * t208 + t211 * t213 + t216 * t218 + t221 * t223 + t226 * t228 + t231 * t233 + t236 * t238 + t241 * t243 + t47;
-        let t249 = 1.0 + 0.186726e-2 * t180 + 0.373452e-2 * t189 - t125;
+        let t249 = 1.0 + 0.00186726 * t180 + 0.00373452 * t189 - t125;
         let t252 = t129 * sigma2;
         let t255 = 2.0 * t189 - t134;
         let t257 = t132 * t255 + t252 * t179;

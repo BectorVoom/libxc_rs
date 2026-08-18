@@ -1,8 +1,8 @@
 //! GGA_X_LV_RPW86 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lv_rpw86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lv_rpw86.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,14 +44,14 @@ pub fn gga_x_lv_rpw86_exc_unpol(
         let t30 = t18 * t18;
         let t32 = 1.0 / t30 / t29;
         let t34 = t25 * t28 * t32;
-        let t36 = 1.0 + 0.39310185185185185185e-2 * t34;
+        let t36 = 1.0 + 0.003931018518518519 * t34;
         let t37 = sigma[ip] * sigma[ip];
         let t38 = t37 * sigma[ip];
         let t39 = t29 * t29;
         let t40 = t39 * t39;
         let t41 = 1.0 / t40;
         let t42 = t38 * t41;
-        let t43 = 0.38818245400525142432e-6 * t42;
+        let t43 = 3.881824540052514e-07 * t42;
         let t44 = 1.0 + t43;
         let t45 = 1.0 / t44;
         let t48 = t20 * t20;
@@ -59,12 +59,12 @@ pub fn gga_x_lv_rpw86_exc_unpol(
         let t52 = t37 * t26;
         let t53 = t39 * rho[ip];
         let t55 = 1.0 / t18 / t53;
-        let t60 = 1.0 + 0.77125000000000000002e-1 * t34 + 0.60173611111111111112e-1 * t51 * t52 * t55 + 0.29051303949887962426e-5 * t42;
+        let t60 = 1.0 + 0.077125 * t34 + 0.06017361111111111 * t51 * t52 * t55 + 2.905130394988796e-06 * t42;
         let t61 = f64::powf(t60, 1.0 / 15.0);
-        let t62 = 0.115e1 + t43;
+        let t62 = 1.15 + t43;
         let t63 = 1.0 / t62;
         let t64 = t61 * t63;
-        let t67 = t36 * t45 + 0.38818245400525142432e-6 * t42 * t64;
+        let t67 = t36 * t45 + 3.881824540052514e-07 * t42 * t64;
         let t71 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t67);
         let tzk0 = 2.0 * t71;
         zk[ip] += tzk0;

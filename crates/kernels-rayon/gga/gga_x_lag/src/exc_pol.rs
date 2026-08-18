@@ -1,12 +1,12 @@
 //! GGA_X_LAG exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lag.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lag.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -52,11 +52,11 @@ pub fn gga_x_lag_exc_pol(
         let t32 = pow_1_3(rho0);
         let t34 = 1.0 / t32 / rho0;
         let t36 = t30 * t31 * t34;
-        let t37 = f64::powf(t36, 0.2626712e1);
-        let t40 = 1.0 + 0.13471619689594796103e-3 * t37;
-        let t41 = f64::powf(t40, -0.657946e0);
+        let t37 = f64::powf(t36, 2.626712);
+        let t40 = 1.0 + 0.00013471619689594795 * t37;
+        let t41 = f64::powf(t40, -0.657946);
         let t42 = t24 * t37 * t41;
-        let t45 = piecewise3(t1, 0.0, -0.15400028771927569605e-4 * t23 * t42);
+        let t45 = piecewise3(t1, 0.0, -1.540002877192757e-05 * t23 * t42);
         let t46 = rho1 <= dens_threshold;
         let t47 = -t13;
         let t49 = piecewise5(t11, t8, t7, t12, t47 * t4);
@@ -69,11 +69,11 @@ pub fn gga_x_lag_exc_pol(
         let t57 = pow_1_3(rho1);
         let t59 = 1.0 / t57 / rho1;
         let t61 = t30 * t56 * t59;
-        let t62 = f64::powf(t61, 0.2626712e1);
-        let t65 = 1.0 + 0.13471619689594796103e-3 * t62;
-        let t66 = f64::powf(t65, -0.657946e0);
+        let t62 = f64::powf(t61, 2.626712);
+        let t65 = 1.0 + 0.00013471619689594795 * t62;
+        let t66 = f64::powf(t65, -0.657946);
         let t67 = t24 * t62 * t66;
-        let t70 = piecewise3(t46, 0.0, -0.15400028771927569605e-4 * t55 * t67);
+        let t70 = piecewise3(t46, 0.0, -1.540002877192757e-05 * t55 * t67);
         let tzk0 = t45 + t70;
         zk[ip] += tzk0;
     }

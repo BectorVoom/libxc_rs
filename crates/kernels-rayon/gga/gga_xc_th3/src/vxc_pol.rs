@@ -1,12 +1,12 @@
 //! GGA_XC_TH3 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
+use libxc_rkernel_math::constants::{M_CBRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -31,11 +31,11 @@ pub fn gga_xc_th3_vxc_pol(
     param_omega_11: f64,
     param_omega_12: f64,
     param_omega_13: f64,
+    param_omega_18: f64,
     param_omega_14: f64,
     param_omega_15: f64,
     param_omega_16: f64,
     param_omega_17: f64,
-    param_omega_18: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -163,12 +163,12 @@ pub fn gga_xc_th3_vxc_pol(
         let t156 = param_omega_17;
         let t157 = t156 * t27;
         let t159 = param_omega_18;
-        let t160 = f64::powf(rho0, 0.10833333333333333333e1);
-        let t161 = f64::powf(rho1, 0.10833333333333333333e1);
+        let t160 = f64::powf(rho0, 1.0833333333333333);
+        let t161 = f64::powf(rho1, 1.0833333333333333);
         let t164 = t1 * t6 + t8 * t13 + t15 * t20 + t22 * t27 + t41 * t71 / 2.0 + t75 * t71 / 2.0 + t79 * t71 / 2.0 + t92 * t71 / 2.0 + t96 * t112 / 2.0 + t116 * t112 / 2.0 + t121 * t112 / 2.0 + t125 * t136 + t139 * t136 + t142 * t136 + t145 * t148 + t151 * t148 + t154 * t148 + t157 * t148 + t159 * (t160 + t161);
         let tzk0 = t164 * t47;
         zk[ip] += tzk0;
-        let t173 = f64::powf(rho0, 0.833333333333333333e-1);
+        let t173 = f64::powf(rho0, 0.08333333333333333);
         let t177 = 1.0 / t9 / t97;
         let t178 = t42 * t177;
         let t181 = t45 * t147;
@@ -196,7 +196,7 @@ pub fn gga_xc_th3_vxc_pol(
         let t231 = -t221 / 3.0 + t225 / 4.0 + t229 / 4.0;
         let t234 = t95 * t23;
         let t239 = t115 * t85;
-        let t244 = 7.0 / 6.0 * t1 * t2 + 4.0 / 3.0 * t8 * t9 + 3.0 / 2.0 * t15 * t16 + 5.0 / 3.0 * t22 * t23 + 0.10833333333333333333e1 * t159 * t173 + t41 * t196 / 2.0 + 17.0 / 24.0 * t199 * t71 + t75 * t196 / 2.0 + 3.0 / 4.0 * t204 * t71 + t79 * t196 / 2.0 + 5.0 / 6.0 * t209 * t71 + t92 * t196 / 2.0 + 11.0 / 12.0 * t214 * t71 + t96 * t231 / 2.0 + 5.0 / 6.0 * t234 * t112 + t116 * t231 / 2.0 + 11.0 / 12.0 * t239 * t112 + t121 * t231 / 2.0;
+        let t244 = 7.0 / 6.0 * t1 * t2 + 4.0 / 3.0 * t8 * t9 + 3.0 / 2.0 * t15 * t16 + 5.0 / 3.0 * t22 * t23 + 1.0833333333333333 * t159 * t173 + t41 * t196 / 2.0 + 17.0 / 24.0 * t199 * t71 + t75 * t196 / 2.0 + 3.0 / 4.0 * t204 * t71 + t79 * t196 / 2.0 + 5.0 / 6.0 * t209 * t71 + t92 * t196 / 2.0 + 11.0 / 12.0 * t214 * t71 + t96 * t231 / 2.0 + 5.0 / 6.0 * t234 * t112 + t116 * t231 / 2.0 + 11.0 / 12.0 * t239 * t112 + t121 * t231 / 2.0;
         let t245 = t119 * rho0;
         let t250 = t130 * t46;
         let t252 = 1.0 / t132 / t250;
@@ -256,8 +256,8 @@ pub fn gga_xc_th3_vxc_pol(
         let t386 = t150 * t11;
         let t389 = t153 * t18;
         let t392 = t156 * t25;
-        let t403 = f64::powf(rho1, 0.833333333333333333e-1);
-        let t406 = t142 * t369 + 2.0 * t380 * t136 - t271 - t273 - t275 - t277 - t279 - t281 - t283 + 7.0 / 6.0 * t383 * t148 + 4.0 / 3.0 * t386 * t148 + 3.0 / 2.0 * t389 * t148 + 5.0 / 3.0 * t392 * t148 - t285 + 7.0 / 6.0 * t1 * t4 + 4.0 / 3.0 * t8 * t11 + 3.0 / 2.0 * t15 * t18 + 5.0 / 3.0 * t22 * t25 + 0.10833333333333333333e1 * t159 * t403;
+        let t403 = f64::powf(rho1, 0.08333333333333333);
+        let t406 = t142 * t369 + 2.0 * t380 * t136 - t271 - t273 - t275 - t277 - t279 - t281 - t283 + 7.0 / 6.0 * t383 * t148 + 4.0 / 3.0 * t386 * t148 + 3.0 / 2.0 * t389 * t148 + 5.0 / 3.0 * t392 * t148 - t285 + 7.0 / 6.0 * t1 * t4 + 4.0 / 3.0 * t8 * t11 + 3.0 / 2.0 * t15 * t18 + 5.0 / 3.0 * t22 * t25 + 1.0833333333333333 * t159 * t403;
         let tvrho1 = t378 + t406;
         vrho[ip * 2 + 1] += tvrho1;
         let t407 = 1.0 / t42;

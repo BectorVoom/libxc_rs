@@ -1,8 +1,8 @@
 //! GGA_C_W94 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_w94.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_w94.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -32,8 +32,8 @@ pub fn gga_c_w94_vxc_pol(
         let t4 = t1 * t3;
         let t5 = 0.0 < t4;
         let t6 = piecewise3(t5, t4, -t4);
-        let t7 = 0.1e-9 < t6;
-        let t8 = piecewise3(t7, t6, 0.1e-9);
+        let t7 = 1e-10 < t6;
+        let t8 = piecewise3(t7, t6, 1e-10);
         let t9 = pow_1_3(t8);
         let t10 = t9 * t9;
         let t12 = -t10 * t8 + 1.0;
@@ -57,7 +57,7 @@ pub fn gga_c_w94_vxc_pol(
         let t38 = t35 * t37;
         let t39 = M_CBRT4;
         let t40 = t39 * t39;
-        let t45 = 0.118e2 + 0.15067e0 * t28 * t17 * t20 + 0.1102e-1 * t15 * t32 + t38 * t40 / t22 / 4.0;
+        let t45 = 11.8 + 0.15067 * t28 * t17 * t20 + 0.01102 * t15 * t32 + t38 * t40 / t22 / 4.0;
         let t46 = 1.0 / t45;
         let tzk0 = -t13 * t46;
         zk[ip] += tzk0;
@@ -77,7 +77,7 @@ pub fn gga_c_w94_vxc_pol(
         let t67 = t28 * t15 * t65;
         let t68 = t67 * t16;
         let t70 = 1.0 / t22 / t18;
-        let t78 = -0.6403475e0 * t68 * t70 - 0.3306e-1 * t15 * t20 - t38 * t40 * t24 / 12.0;
+        let t78 = -0.6403475 * t68 * t70 - 0.03306 * t15 * t20 - t38 * t40 * t24 / 12.0;
         let t80 = t60 * t62 * t78;
         let tvrho0 = tzk0 + 5.0 / 6.0 * t49 * t50 * t56 + t80;
         vrho[ip * 2] += tvrho0;
@@ -89,10 +89,10 @@ pub fn gga_c_w94_vxc_pol(
         let t88 = 1.0 / t16;
         let t89 = t67 * t88;
         let t90 = t89 * t24;
-        let t93 = 0.2401303125e0 * t90 + 0.1102e-1 * t32;
+        let t93 = 0.2401303125 * t90 + 0.01102 * t32;
         let tvsigma0 = t60 * t62 * t93;
         vsigma[ip * 3] += tvsigma0;
-        let t97 = 0.480260625e0 * t90 + 0.2204e-1 * t32;
+        let t97 = 0.480260625 * t90 + 0.02204 * t32;
         let tvsigma1 = t60 * t62 * t97;
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;

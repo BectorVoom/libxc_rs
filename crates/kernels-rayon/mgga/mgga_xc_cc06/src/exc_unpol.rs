@@ -1,8 +1,8 @@
 //! MGGA_XC_CC06 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_cc06.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_cc06.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,7 +35,7 @@ pub fn mgga_xc_cc06_exc_unpol(
         let t21 = M_CBRT4;
         let t22 = t21 * t21;
         let t25 = t20 * t22 / t12;
-        let t27 = 1.0 + 0.53425e-1 * t25;
+        let t27 = 1.0 + 0.053425 * t25;
         let t28 = f64::sqrt(t25);
         let t31 = pow_3_2(t25);
         let t33 = t4 * t4;
@@ -44,22 +44,22 @@ pub fn mgga_xc_cc06_exc_unpol(
         let t36 = t12 * t12;
         let t37 = 1.0 / t36;
         let t39 = t35 * t21 * t37;
-        let t41 = 0.379785e1 * t28 + 0.8969e0 * t25 + 0.204775e0 * t31 + 0.123235e0 * t39;
-        let t44 = 1.0 + 0.16081824322151104822e2 / t41;
+        let t41 = 3.79785 * t28 + 0.8969 * t25 + 0.204775 * t31 + 0.123235 * t39;
+        let t44 = 1.0 + 16.081824322151103 / t41;
         let t45 = f64::ln(t44);
         let t50 = M_CBRT2;
         let t54 = (2.0 * t11 - 2.0) / (2.0 * t50 - 2.0);
-        let t56 = 1.0 + 0.278125e-1 * t25;
-        let t61 = 0.51785e1 * t28 + 0.905775e0 * t25 + 0.1100325e0 * t31 + 0.1241775e0 * t39;
-        let t64 = 1.0 + 0.29608574643216675549e2 / t61;
+        let t56 = 1.0 + 0.0278125 * t25;
+        let t61 = 5.1785 * t28 + 0.905775 * t25 + 0.1100325 * t31 + 0.1241775 * t39;
+        let t64 = 1.0 + 29.608574643216677 / t61;
         let t65 = f64::ln(t64);
-        let t69 = 2.0 * t16 - 0.62182e-1 * t27 * t45 + 0.19751789702565206229e-1 * t54 * t56 * t65;
+        let t69 = 2.0 * t16 - 0.062182 * t27 * t45 + 0.019751789702565206 * t54 * t56 * t65;
         let t70 = t33 * t21;
         let t71 = t34 * lapl[ip];
         let t73 = 1.0 / t36 / rho[ip];
         let t75 = t70 * t71 * t73;
-        let t77 = -0.7e-3 + 0.2e-2 * t75;
-        let t79 = 1.0 + 0.65e-2 * t75;
+        let t77 = -0.0007 + 0.002 * t75;
+        let t79 = 1.0 + 0.0065 * t75;
         let t80 = 1.0 / t79;
         let t82 = t77 * t80 + 1.0;
         let tzk0 = t69 * t82;

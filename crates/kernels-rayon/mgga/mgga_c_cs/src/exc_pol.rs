@@ -1,8 +1,8 @@
 //! MGGA_C_CS exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_cs.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_cs.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -38,10 +38,10 @@ pub fn mgga_c_cs_exc_pol(
         let t8 = -t3 * t6 + 1.0;
         let t9 = pow_1_3(t4);
         let t10 = 1.0 / t9;
-        let t12 = 1.0 + 0.34899999999999999998e0 * t10;
+        let t12 = 1.0 + 0.349 * t10;
         let t13 = 1.0 / t12;
         let t14 = t8 * t13;
-        let t16 = f64::exp(-0.2533e0 * t10);
+        let t16 = f64::exp(-0.2533 * t10);
         let t17 = 1.0 / t4;
         let t18 = t2 * t17;
         let t19 = 1.0 + t18;
@@ -85,8 +85,8 @@ pub fn mgga_c_cs_exc_pol(
         let t71 = t70 * t70;
         let t72 = t71 * t69;
         let t75 = t31 * t39 / 8.0 + t37 * t67 / 8.0 + t48 * t56 / 8.0 + t54 * t72 / 8.0 - t59 * t62 / 8.0;
-        let t78 = 1.0 + 0.264e0 * t16 * t75;
-        let tzk0 = -0.4918e-1 * t14 * t78;
+        let t78 = 1.0 + 0.264 * t16 * t75;
+        let tzk0 = -0.04918 * t14 * t78;
         zk[ip] += tzk0;
     }
 }

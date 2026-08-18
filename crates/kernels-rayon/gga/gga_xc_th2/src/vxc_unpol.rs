@@ -1,14 +1,14 @@
 //! GGA_XC_TH2 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3, pow_2_3, pow_4_3, pow_5_3, pow_7_3};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_xc_th2_vxc_unpol(
@@ -70,7 +70,7 @@ pub fn gga_xc_th2_vxc_unpol(
         let t75 = t74 - t73;
         let t78 = t61 * rho[ip];
         let t79 = t11 * t78;
-        let t84 = 0.3394155e0 * t6 * t7 * rho[ip] - 0.879105e0 * t14 * t16 + 0.63838e0 * t20 * t22 - 0.803945e0 * t25 * t27 + 0.182805e0 * t32 - 0.4533175e-1 * t35 * t41 + 0.3674325e-1 * t44 * t41 + 0.3678525e-1 * t47 * t41 - 0.17922925e-1 * t50 * t41 - 0.50895875e-2 * t54 * t56 + 0.26828125e-2 * t63 * t56 - 0.960195e-4 * t66 * sigma[ip] * t55 + 0.1551885e-1 * t32 * t75 - 0.360163e-1 * t79 * t75 + 0.223281e-1 * t70 * t75;
+        let t84 = 0.3394155 * t6 * t7 * rho[ip] - 0.879105 * t14 * t16 + 0.63838 * t20 * t22 - 0.803945 * t25 * t27 + 0.182805 * t32 - 0.04533175 * t35 * t41 + 0.03674325 * t44 * t41 + 0.03678525 * t47 * t41 - 0.017922925 * t50 * t41 - 0.0050895875 * t54 * t56 + 0.0026828125 * t63 * t56 - 9.60195e-05 * t66 * sigma[ip] * t55 + 0.01551885 * t32 * t75 - 0.0360163 * t79 * t75 + 0.0223281 * t70 * t75;
         let tzk0 = t84 * t53;
         zk[ip] += tzk0;
         let t93 = t19 * t30;
@@ -94,12 +94,12 @@ pub fn gga_xc_th2_vxc_unpol(
         let t132 = t131 * t55;
         let t134 = -8.0 / 3.0 * t132 + 8.0 / 3.0 * t131;
         let t137 = t11 * t61;
-        let tvrho0 = 0.367700125e0 * t6 * t7 - 0.10256225e1 * t14 * t15 + 0.85117333333333333333e0 * t20 * t21 - 0.12059175e1 * t25 * t26 + 0.304675e0 * t93 - 0.37776458333333333333e-2 * t101 * t41 + 0.6123875e-2 * t104 * t41 + 0.1226175e-1 * t107 * t41 - 0.89614625e-2 * t111 * t41 + 0.50895875e-2 * t115 * t56 - 0.22356770833333333333e-2 * t119 * t56 + 0.64013e-4 * t122 * sigma[ip] * t55 + 0.2586475e-1 * t93 * t75 + 0.1551885e-1 * t32 * t134 - 0.66029883333333333333e-1 * t137 * t75 - 0.360163e-1 * t79 * t134 + 0.446562e-1 * rho[ip] * t75 + 0.223281e-1 * t70 * t134;
+        let tvrho0 = 0.367700125 * t6 * t7 - 1.0256225 * t14 * t15 + 0.8511733333333333 * t20 * t21 - 1.2059175 * t25 * t26 + 0.304675 * t93 - 0.0037776458333333334 * t101 * t41 + 0.006123875 * t104 * t41 + 0.01226175 * t107 * t41 - 0.0089614625 * t111 * t41 + 0.0050895875 * t115 * t56 - 0.0022356770833333334 * t119 * t56 + 6.4013e-05 * t122 * sigma[ip] * t55 + 0.02586475 * t93 * t75 + 0.01551885 * t32 * t134 - 0.06602988333333333 * t137 * t75 - 0.0360163 * t79 * t134 + 0.0446562 * rho[ip] * t75 + 0.0223281 * t70 * t134;
         vrho[ip] += tvrho0;
         let t147 = 1.0 / t36 * t40;
         let t162 = t72 * t55;
         let t163 = t162 - t72;
-        let tvsigma0 = -0.22665875e-1 * t35 * t147 + 0.18371625e-1 * t44 * t147 + 0.18392625e-1 * t47 * t147 - 0.89614625e-2 * t50 * t147 - 0.50895875e-2 * t54 * t55 + 0.26828125e-2 * t63 * t55 - 0.960195e-4 * t66 * t55 + 0.1551885e-1 * t32 * t163 - 0.360163e-1 * t79 * t163 + 0.223281e-1 * t70 * t163;
+        let tvsigma0 = -0.022665875 * t35 * t147 + 0.018371625 * t44 * t147 + 0.018392625 * t47 * t147 - 0.0089614625 * t50 * t147 - 0.0050895875 * t54 * t55 + 0.0026828125 * t63 * t55 - 9.60195e-05 * t66 * t55 + 0.01551885 * t32 * t163 - 0.0360163 * t79 * t163 + 0.0223281 * t70 * t163;
         vsigma[ip] += tvsigma0;
     }
 }

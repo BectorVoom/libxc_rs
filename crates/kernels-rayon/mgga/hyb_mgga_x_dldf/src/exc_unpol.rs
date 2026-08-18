@@ -1,8 +1,8 @@
 //! HYB_MGGA_X_DLDF exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_dldf.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_dldf.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,8 +43,8 @@ pub fn hyb_mgga_x_dldf_exc_unpol(
         let t27 = rho[ip] * rho[ip];
         let t28 = t17 * t17;
         let t30 = 1.0 / t28 / t27;
-        let t34 = 0.48827323e1 + 0.146297e-1 * t23 * t26 * t30;
-        let t37 = 0.58827323e1 - 0.2384107471346329e2 / t34;
+        let t34 = 4.8827323 + 0.0146297 * t23 * t26 * t30;
+        let t37 = 5.8827323 - 23.84107471346329 / t34;
         let t38 = t17 * t37;
         let t39 = t18 * t18;
         let t41 = 3.0 / 10.0 * t39 * t21;
@@ -63,8 +63,8 @@ pub fn hyb_mgga_x_dldf_exc_unpol(
         let t61 = t51 * t51;
         let t62 = t52 * t52;
         let t63 = 1.0 / t62;
-        let t66 = 1.0 - 0.1637571e0 * t46 * t48 - 0.1880028e0 * t51 * t53 - 0.4490609e0 * t56 * t58 - 0.82359e-2 * t61 * t63;
-        let t70 = piecewise3(t3, 0.0, -0.98727272578809758046e-1 * t16 * t38 * t66);
+        let t66 = 1.0 - 0.1637571 * t46 * t48 - 0.1880028 * t51 * t53 - 0.4490609 * t56 * t58 - 0.0082359 * t61 * t63;
+        let t70 = piecewise3(t3, 0.0, -0.09872727257880975 * t16 * t38 * t66);
         let tzk0 = 2.0 * t70;
         zk[ip] += tzk0;
     }

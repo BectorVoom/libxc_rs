@@ -1,12 +1,12 @@
 //! GGA_C_P86VWN exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86vwn.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86vwn.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -20,8 +20,8 @@ pub fn gga_c_p86vwn_exc_unpol(
     param_ftilde: f64,
     param_malpha: f64,
     param_mbeta: f64,
-    param_mdelta: f64,
     param_mgamma: f64,
+    param_mdelta: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -38,26 +38,26 @@ pub fn gga_c_p86vwn_exc_unpol(
         let t10 = t4 * t9;
         let t11 = t10 / 4.0;
         let t12 = f64::sqrt(t10);
-        let t14 = t11 + 0.186372e1 * t12 + 0.129352e2;
+        let t14 = t11 + 1.86372 * t12 + 12.9352;
         let t15 = 1.0 / t14;
         let t19 = f64::ln(t4 * t9 * t15 / 4.0);
-        let t20 = 0.310907e-1 * t19;
-        let t21 = t12 + 0.372744e1;
-        let t24 = f64::atan(0.61519908197590802322e1 / t21);
-        let t25 = 0.38783294878113014393e-1 * t24;
+        let t20 = 0.0310907 * t19;
+        let t21 = t12 + 3.72744;
+        let t24 = f64::atan(6.15199081975908 / t21);
+        let t25 = 0.038783294878113016 * t24;
         let t26 = t12 / 2.0;
-        let t27 = t26 + 0.10498e0;
+        let t27 = t26 + 0.10498;
         let t28 = t27 * t27;
         let t30 = f64::ln(t28 * t15);
-        let t31 = 0.96902277115443742139e-3 * t30;
+        let t31 = 0.0009690227711544374 * t30;
         let t32 = M_PI * M_PI;
         let t33 = 1.0 / t32;
-        let t35 = t11 + 0.565535e0 * t12 + 0.130045e2;
+        let t35 = t11 + 0.565535 * t12 + 13.0045;
         let t36 = 1.0 / t35;
         let t40 = f64::ln(t4 * t9 * t36 / 4.0);
-        let t41 = t12 + 0.113107e1;
-        let t44 = f64::atan(0.71231089178181179908e1 / t41);
-        let t46 = t26 + 0.47584e-2;
+        let t41 = t12 + 1.13107;
+        let t44 = f64::atan(7.123108917818118 / t41);
+        let t46 = t26 + 0.0047584;
         let t47 = t46 * t46;
         let t49 = f64::ln(t47 * t36);
         let t53 = 1.0 <= zeta_threshold;
@@ -66,7 +66,7 @@ pub fn gga_c_p86vwn_exc_unpol(
         let t59 = M_CBRT2;
         let t60 = t59 - 1.0;
         let t65 = 9.0 * t56 - 9.0;
-        let t67 = t33 * (t40 + 0.317708004743941464e0 * t44 + 0.41403379428206274608e-3 * t49) * t65 / 24.0;
+        let t67 = t33 * (t40 + 0.31770800474394145 * t44 + 0.00041403379428206277 * t49) * t65 / 24.0;
         let t68 = rho[ip] * rho[ip];
         let t70 = 1.0 / t7 / t68;
         let t71 = sigma[ip] * t70;
@@ -86,7 +86,7 @@ pub fn gga_c_p86vwn_exc_unpol(
         let t89 = param_mgamma * t1;
         let t92 = param_mdelta * t79;
         let t95 = 1.0 / rho[ip];
-        let t98 = 1.0 + t89 * t76 / 4.0 + t92 * t85 / 4.0 + 0.23873241463784300365e4 * param_mbeta * t95;
+        let t98 = 1.0 + t89 * t76 / 4.0 + t92 * t85 / 4.0 + 2387.32414637843 * param_mbeta * t95;
         let t99 = 1.0 / t98;
         let t101 = t88 * t99 + param_aa;
         let t102 = 1.0 / t101;

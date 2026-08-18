@@ -1,13 +1,12 @@
 //! LDA_C_1D_CSC kxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_1d_csc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_1d_csc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 
-/// LDA_C_1D_CSC kxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_1d_csc_kxc_pol(
     rho: &[f64],
@@ -15,26 +14,26 @@ pub fn lda_c_1d_csc_kxc_pol(
     vrho: &mut [f64],
     v2rho2: &mut [f64],
     v3rho3: &mut [f64],
-    param_ferro_0: f64,
-    param_ferro_1: f64,
-    param_ferro_2: f64,
-    param_ferro_3: f64,
-    param_ferro_4: f64,
-    param_ferro_5: f64,
-    param_ferro_6: f64,
-    param_ferro_7: f64,
-    param_ferro_8: f64,
-    param_ferro_9: f64,
-    param_para_0: f64,
-    param_para_1: f64,
-    param_para_2: f64,
-    param_para_3: f64,
     param_para_4: f64,
-    param_para_5: f64,
-    param_para_6: f64,
     param_para_7: f64,
-    param_para_8: f64,
     param_para_9: f64,
+    param_para_8: f64,
+    param_para_1: f64,
+    param_para_5: f64,
+    param_para_2: f64,
+    param_para_6: f64,
+    param_para_3: f64,
+    param_para_0: f64,
+    param_ferro_4: f64,
+    param_ferro_7: f64,
+    param_ferro_9: f64,
+    param_ferro_8: f64,
+    param_ferro_1: f64,
+    param_ferro_5: f64,
+    param_ferro_2: f64,
+    param_ferro_6: f64,
+    param_ferro_3: f64,
+    param_ferro_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

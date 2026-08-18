@@ -1,12 +1,12 @@
 //! MGGA_X_MBRXC_BG exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::mbrxc::{xc_mgga_x_mbrxc_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -66,7 +66,7 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t48 = t42 * t42;
         let t49 = t48 * rho0;
         let t51 = 1.0 / t29 / t49;
-        let t54 = 0.149492e0 * tau0 * t32 - t41 + 0.147e0 * sigma0 * t44 + 0.32e-2 * t47 * t51;
+        let t54 = 0.149492 * tau0 * t32 - t41 + 0.147 * sigma0 * t44 + 0.0032 * t47 * t51;
         let t55 = xc_mgga_x_mbrxc_get_x(t54);
         let t56 = pow_1_4(f64::EPSILON);
         let t57 = t55 < t56;
@@ -127,7 +127,7 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t144 = t138 * t138;
         let t145 = t144 * rho1;
         let t147 = 1.0 / t132 / t145;
-        let t150 = 0.149492e0 * tau1 * t135 - t41 + 0.147e0 * sigma2 * t140 + 0.32e-2 * t143 * t147;
+        let t150 = 0.149492 * tau1 * t135 - t41 + 0.147 * sigma2 * t140 + 0.0032 * t143 * t147;
         let t151 = xc_mgga_x_mbrxc_get_x(t150);
         let t152 = t151 < t56;
         let t153 = t151 * t151;

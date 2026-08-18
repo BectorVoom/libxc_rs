@@ -1,8 +1,8 @@
 //! MGGA_X_RTPSS lxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rtpss.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -1254,7 +1254,7 @@ pub fn mgga_x_rtpss_lxc_unpol(
         let t5491 = t865 * t865;
         let t5499 = t858 * t858;
         let t5508 = -45.0 / 8.0 * t632 * t4781 + 900.0 * t2150 * t5007 + 567.0 / 64.0 * t2342 * t5499 - 675.0 / 4.0 * t5210 * t862 + 2250.0 * t4906 * t46 * t2315 * t4910;
-        let t5523 = -73.0 / 10.0 * t195 * t28 * t376 - 219.0 / 100.0 * t1778 * t876 - 17739.0 / 25.0 * t1337 * t2173 + 146.0 / 25.0 * t653 * t2176 - 4310577.0 / 25.0 * t1002 * t2169 * t1735 + 5913.0 / 4.0 * t440 * t872 * t844 + (15.0 / 8.0 * t22 * t5462 * t33 - 45.0 / 128.0 * t147 * t240 * t844 * t153 + 549.0 / 32768.0 * t374 * t368 * t1735 * t379 - 39.0 / 131072.0 * t922 * t111 * t3717 * t927 + 15.0 / 8388608.0 * t2294 * t461 / t843 / t375 * t2299) * t38 * t43 * t51 / 24.0 + t102 * t5462 / 6.0 + 292.0 / 675.0 * t5491 + 1168.0 / 2025.0 * t337 * t2158 + 292.0 / 2025.0 * t76 * t5508 - 73.0 / 97200.0 * t5508 * t93 + 0.38795193e8 / 5.0 * t2239 * t921 * t111 * t3717 + 73.0 / 150.0 * t4770 * t342 + 5913.0 / 50.0 * t3816 * t873 + 957906.0 / 25.0 * t2890 * t2170;
+        let t5523 = -73.0 / 10.0 * t195 * t28 * t376 - 219.0 / 100.0 * t1778 * t876 - 17739.0 / 25.0 * t1337 * t2173 + 146.0 / 25.0 * t653 * t2176 - 4310577.0 / 25.0 * t1002 * t2169 * t1735 + 5913.0 / 4.0 * t440 * t872 * t844 + (15.0 / 8.0 * t22 * t5462 * t33 - 45.0 / 128.0 * t147 * t240 * t844 * t153 + 549.0 / 32768.0 * t374 * t368 * t1735 * t379 - 39.0 / 131072.0 * t922 * t111 * t3717 * t927 + 15.0 / 8388608.0 * t2294 * t461 / t843 / t375 * t2299) * t38 * t43 * t51 / 24.0 + t102 * t5462 / 6.0 + 292.0 / 675.0 * t5491 + 1168.0 / 2025.0 * t337 * t2158 + 292.0 / 2025.0 * t76 * t5508 - 73.0 / 97200.0 * t5508 * t93 + 38795193.0 / 5.0 * t2239 * t921 * t111 * t3717 + 73.0 / 150.0 * t4770 * t342 + 5913.0 / 50.0 * t3816 * t873 + 957906.0 / 25.0 * t2890 * t2170;
         let t5532 = t881 * t881;
         let t5543 = t885 * t885;
         let t5544 = t472 * t472;

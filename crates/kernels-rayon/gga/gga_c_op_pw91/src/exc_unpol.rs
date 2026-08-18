@@ -1,8 +1,8 @@
 //! GGA_C_OP_PW91 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pw91.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pw91.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -60,7 +60,7 @@ pub fn gga_c_op_pw91_exc_unpol(
         let t46 = t40 * t45;
         let t47 = t38 * t46;
         let t49 = f64::exp(-25.0 / 6.0 * t47);
-        let t52 = (0.2743e0 - 0.1508e0 * t49) * t33;
+        let t52 = (0.2743 - 0.1508 * t49) * t33;
         let t53 = t52 * t37;
         let t56 = t33 * t33;
         let t58 = 1.0 / t35 / t34;
@@ -70,15 +70,15 @@ pub fn gga_c_op_pw91_exc_unpol(
         let t62 = t41 * t41;
         let t63 = t62 * rho[ip];
         let t65 = 1.0 / t42 / t63;
-        let t68 = 0.13888888888888888889e-4 * t59 * t61 * t65;
+        let t68 = 1.388888888888889e-05 * t59 * t61 * t65;
         let t69 = t53 * t46 / 24.0 - t68;
         let t71 = t56 / t35;
         let t72 = f64::sqrt(sigma[ip]);
         let t73 = t71 * t72;
         let t75 = 1.0 / t42 / rho[ip];
-        let t81 = f64::ln(0.64963333333333333333e0 * t71 * t72 * t23 * t75 + f64::sqrt(pow_2(0.64963333333333333333e0 * t71 * t72 * t23 * t75) + 1.0));
+        let t81 = f64::ln(0.6496333333333333 * t71 * t72 * t23 * t75 + f64::sqrt(pow_2(0.6496333333333333 * t71 * t72 * t23 * t75) + 1.0));
         let t82 = t23 * t75 * t81;
-        let t85 = 1.0 + 0.16370833333333333333e-1 * t73 * t82 + t68;
+        let t85 = 1.0 + 0.016370833333333334 * t73 * t82 + t68;
         let t86 = 1.0 / t85;
         let t88 = t69 * t86 + 1.0;
         let t89 = 1.0 / t88;
@@ -94,16 +94,16 @@ pub fn gga_c_op_pw91_exc_unpol(
         let t108 = t93 + t107;
         let t109 = t108 == 0.0;
         let t110 = piecewise3(t109, f64::EPSILON, t108);
-        let t113 = 0.360663084e1 / t110 + 0.5764e0;
+        let t113 = 3.60663084 / t110 + 0.5764;
         let t114 = t110 * t110;
         let t115 = t114 * t114;
         let t116 = 1.0 / t115;
         let t118 = t114 * t110;
         let t119 = 1.0 / t118;
         let t121 = 1.0 / t114;
-        let t123 = 0.315815266717518096e2 * t116 + 0.150327320916243744e2 * t119 + 0.1788764629788e1 * t121;
+        let t123 = 31.58152667175181 * t116 + 15.032732091624375 * t119 + 1.788764629788 * t121;
         let t124 = 1.0 / t123;
-        let tzk0 = piecewise3(t4, 0.0, -0.25e0 * t10 * t113 * t124);
+        let tzk0 = piecewise3(t4, 0.0, -0.25 * t10 * t113 * t124);
         zk[ip] += tzk0;
     }
 }

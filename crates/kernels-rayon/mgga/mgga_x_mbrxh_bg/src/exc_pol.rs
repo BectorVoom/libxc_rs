@@ -1,13 +1,13 @@
 //! MGGA_X_MBRXH_BG exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxh_bg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxh_bg.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::constants::{M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -67,11 +67,11 @@ pub fn mgga_x_mbrxh_bg_exc_pol(
         let t49 = t43 * t43;
         let t50 = t49 * rho0;
         let t52 = 1.0 / t30 / t50;
-        let t55 = 0.46864e0 * tau0 * t33 - t42 + 0.89e-1 * sigma0 * t45 + 0.53e-2 * t48 * t52;
+        let t55 = 0.46864 * tau0 * t33 - t42 + 0.089 * sigma0 * t45 + 0.0053 * t48 * t52;
         let t56 = f64::abs(t55);
-        let t57 = t56 < 0.5e-12;
+        let t57 = t56 < 5e-13;
         let t58 = 0.0 < t55;
-        let t59 = piecewise3(t58, 0.5e-12, -0.5e-12);
+        let t59 = piecewise3(t58, 5e-13, -5e-13);
         let t60 = piecewise3(t57, t59, t55);
         let t61 = xc_mgga_x_br89_get_x(t60);
         let t63 = f64::exp(t61 / 3.0);
@@ -102,11 +102,11 @@ pub fn mgga_x_mbrxh_bg_exc_pol(
         let t99 = t93 * t93;
         let t100 = t99 * rho1;
         let t102 = 1.0 / t87 / t100;
-        let t105 = 0.46864e0 * tau1 * t90 - t42 + 0.89e-1 * sigma2 * t95 + 0.53e-2 * t98 * t102;
+        let t105 = 0.46864 * tau1 * t90 - t42 + 0.089 * sigma2 * t95 + 0.0053 * t98 * t102;
         let t106 = f64::abs(t105);
-        let t107 = t106 < 0.5e-12;
+        let t107 = t106 < 5e-13;
         let t108 = 0.0 < t105;
-        let t109 = piecewise3(t108, 0.5e-12, -0.5e-12);
+        let t109 = piecewise3(t108, 5e-13, -5e-13);
         let t110 = piecewise3(t107, t109, t105);
         let t111 = xc_mgga_x_br89_get_x(t110);
         let t113 = f64::exp(t111 / 3.0);

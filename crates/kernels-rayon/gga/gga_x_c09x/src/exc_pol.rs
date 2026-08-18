@@ -1,12 +1,12 @@
 //! GGA_X_C09X exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_c09x.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_c09x.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -56,9 +56,9 @@ pub fn gga_x_c09x_exc_pol(
         let t38 = 1.0 / t36 / t34;
         let t39 = sigma0 * t38;
         let t40 = t33 * t39;
-        let t42 = f64::exp(-0.20125e-2 * t40);
-        let t47 = f64::exp(-0.100625e-2 * t40);
-        let t49 = 0.2245e1 + 0.25708333333333333333e-2 * t33 * t39 * t42 - 0.1245e1 * t47;
+        let t42 = f64::exp(-0.0020125 * t40);
+        let t47 = f64::exp(-0.00100625 * t40);
+        let t49 = 2.245 + 0.0025708333333333334 * t33 * t39 * t42 - 1.245 * t47;
         let t53 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t49);
         let t54 = rho1 <= dens_threshold;
         let t55 = -t16;
@@ -74,9 +74,9 @@ pub fn gga_x_c09x_exc_pol(
         let t68 = 1.0 / t66 / t64;
         let t69 = sigma2 * t68;
         let t70 = t33 * t69;
-        let t72 = f64::exp(-0.20125e-2 * t70);
-        let t77 = f64::exp(-0.100625e-2 * t70);
-        let t79 = 0.2245e1 + 0.25708333333333333333e-2 * t33 * t69 * t72 - 0.1245e1 * t77;
+        let t72 = f64::exp(-0.0020125 * t70);
+        let t77 = f64::exp(-0.00100625 * t70);
+        let t79 = 2.245 + 0.0025708333333333334 * t33 * t69 * t72 - 1.245 * t77;
         let t83 = piecewise3(t54, 0.0, -3.0 / 8.0 * t5 * t63 * t79);
         let tzk0 = t53 + t83;
         zk[ip] += tzk0;

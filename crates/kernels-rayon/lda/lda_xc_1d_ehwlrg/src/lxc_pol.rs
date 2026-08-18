@@ -1,13 +1,12 @@
 //! LDA_XC_1D_EHWLRG lxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_xc_1d_ehwlrg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_xc_1d_ehwlrg.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 
-/// LDA_XC_1D_EHWLRG lxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_xc_1d_ehwlrg_lxc_pol(
     rho: &[f64],
@@ -16,9 +15,9 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
     v2rho2: &mut [f64],
     v3rho3: &mut [f64],
     v4rho4: &mut [f64],
-    param_a1: f64,
     param_a2: f64,
     param_a3: f64,
+    param_a1: f64,
     param_alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,

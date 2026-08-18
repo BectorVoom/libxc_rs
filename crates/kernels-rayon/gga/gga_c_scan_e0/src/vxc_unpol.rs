@@ -1,8 +1,8 @@
 //! GGA_C_SCAN_E0 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_scan_e0.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_scan_e0.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -29,7 +29,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -37,20 +37,20 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081979498692535067e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081979498692537 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.621814e-1 * t12 * t30;
+        let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608749977793437516e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608749977793437 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751673498613801407e-1 * t43 * t45 * t54;
+        let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = f64::ln(2.0);
         let t59 = 1.0 - t58;
         let t60 = M_PI * M_PI;
@@ -59,8 +59,8 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t64 = piecewise3(t33, t63, 1.0);
         let t65 = t64 * t64;
         let t66 = t65 * t64;
-        let t68 = 1.0 + 0.25e-1 * t10;
-        let t70 = 1.0 + 0.4445e-1 * t10;
+        let t68 = 1.0 + 0.025 * t10;
+        let t70 = 1.0 + 0.04445 * t10;
         let t71 = 1.0 / t70;
         let t72 = t68 * t71;
         let t73 = 1.0 / t59;
@@ -78,7 +78,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t89 = 1.0 / t65;
         let t91 = 1.0 / t3;
         let t93 = t18 * t91 * t5;
-        let t97 = 1.0 + 0.27439371595564631661e-1 * t84 * t88 * t89 * t93;
+        let t97 = 1.0 + 0.027439371595564633 * t84 * t88 * t89 * t93;
         let t98 = pow_1_4(t97);
         let t100 = 1.0 - 1.0 / t98;
         let t103 = 1.0 + 1.0 * t100 * t80;
@@ -89,7 +89,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t108 = 1.0 / t7 / rho[ip];
         let t109 = t6 * t108;
         let t111 = t4 * t109 * t30;
-        let t112 = 0.11073470983333333333e-2 * t111;
+        let t112 = 0.0011073470983333333 * t111;
         let t113 = t26 * t26;
         let t114 = 1.0 / t113;
         let t115 = t12 * t114;
@@ -102,22 +102,22 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t125 = t124 * t1;
         let t126 = t125 * t119;
         let t131 = t20 * t5 / t21 / rho[ip];
-        let t133 = -0.632975e0 * t120 - 0.29896666666666666667e0 * t122 - 0.1023875e0 * t126 - 0.82156666666666666667e-1 * t131;
+        let t133 = -0.632975 * t120 - 0.29896666666666666 * t122 - 0.1023875 * t126 - 0.08215666666666667 * t131;
         let t134 = 1.0 / t29;
         let t135 = t133 * t134;
         let t136 = t115 * t135;
         let t137 = 1.0 * t136;
         let t138 = t43 * t1;
         let t141 = t138 * t118 * t108 * t54;
-        let t142 = 0.18311447306006545054e-3 * t141;
+        let t142 = 0.00018311447306006544 * t141;
         let t143 = t43 * t45;
         let t144 = t50 * t50;
         let t145 = 1.0 / t144;
-        let t150 = -0.86308333333333333334e0 * t120 - 0.301925e0 * t122 - 0.5501625e-1 * t126 - 0.82785e-1 * t131;
+        let t150 = -0.8630833333333333 * t120 - 0.301925 * t122 - 0.05501625 * t126 - 0.082785 * t131;
         let t152 = 1.0 / t53;
         let t153 = t145 * t150 * t152;
         let t154 = t143 * t153;
-        let t155 = 0.5848223622634646207e0 * t154;
+        let t155 = 0.5848223622634646 * t154;
         let t157 = 1.0 / t98 / t97;
         let t158 = t85 * rho[ip];
         let t160 = 1.0 / t21 / t158;
@@ -146,10 +146,10 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t193 = t188 * t192;
         let t197 = 1.0 / t7 / t158;
         let t198 = t197 * t39;
-        let t203 = -0.27439371595564631661e-2 * t161 * t73 * t165 + 0.48787202696913915093e-2 * t171 * sigma[ip] * t160 * t164 + 0.27439371595564631661e-1 * t183 * t193 - 0.64025200389650807209e-1 * t84 * t198 * t89 * t93;
+        let t203 = -0.002743937159556463 * t161 * t73 * t165 + 0.004878720269691391 * t171 * sigma[ip] * t160 * t164 + 0.027439371595564633 * t183 * t193 - 0.0640252003896508 * t84 * t198 * t89 * t93;
         let t204 = t157 * t203;
         let t209 = t77 * t79;
-        let t212 = 0.25e0 * t204 * t80 - 1.0 * t100 * t189 * t73 * t209;
+        let t212 = 0.25 * t204 * t80 - 1.0 * t100 * t189 * t73 * t209;
         let t214 = 1.0 / t103;
         let t216 = t62 * t66 * t212 * t214;
         let tvrho0 = -t32 + t57 + t106 + rho[ip] * (t112 + t137 - t142 - t155 + t216);
@@ -161,7 +161,7 @@ pub fn gga_c_scan_e0_vxc_unpol(
         let t224 = t91 * t5;
         let t225 = t224 * t214;
         let t226 = t223 * t225;
-        let tvsigma0 = 0.69504740211613770831e-3 * t222 * t226;
+        let tvsigma0 = 0.0006950474021161377 * t222 * t226;
         vsigma[ip] += tvsigma0;
     }
 }

@@ -1,13 +1,13 @@
 //! HYB_GGA_XC_CASE21 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
@@ -17,8 +17,8 @@ pub fn hyb_gga_xc_case21_exc_unpol(
     sigma: &[f64],
     zk: &mut [f64],
     param_ax: f64,
-    param_gammac: f64,
     param_gammax: f64,
+    param_gammac: f64,
     param_cx_0: f64,
     param_cx_1: f64,
     param_cx_2: f64,
@@ -73,7 +73,7 @@ pub fn hyb_gga_xc_case21_exc_unpol(
         let t38 = 1.0 + t27 * t30 * t34 / 24.0;
         let t39 = 1.0 / t38;
         let t43 = t27 * t30 * t34 * t39 / 24.0;
-        let t44 = case21_xbspline(t43, 0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
+        let t44 = case21_xbspline(t43, 0.0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t48 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t44);
         let t50 = 2.0 * t1 * t48;
         let t51 = t14 * t14;
@@ -90,27 +90,27 @@ pub fn hyb_gga_xc_case21_exc_unpol(
         let t66 = M_CBRT4;
         let t67 = t66 * t66;
         let t70 = t65 * t67 / t19;
-        let t72 = 1.0 + 0.53425e-1 * t70;
+        let t72 = 1.0 + 0.053425 * t70;
         let t73 = f64::sqrt(t70);
         let t76 = pow_3_2(t70);
         let t78 = t64 * t64;
         let t79 = t53 * t78;
         let t80 = 1.0 / t32;
         let t82 = t79 * t66 * t80;
-        let t84 = 0.379785e1 * t73 + 0.8969e0 * t70 + 0.204775e0 * t76 + 0.123235e0 * t82;
-        let t87 = 1.0 + 0.16081979498692535067e2 / t84;
+        let t84 = 3.79785 * t73 + 0.8969 * t70 + 0.204775 * t76 + 0.123235 * t82;
+        let t87 = 1.0 + 16.081979498692537 / t84;
         let t88 = f64::ln(t87);
         let t91 = piecewise3(t8, t15, 1.0);
         let t97 = (2.0 * t91 - 2.0) / (2.0 * t28 - 2.0);
-        let t99 = 1.0 + 0.278125e-1 * t70;
-        let t104 = 0.51785e1 * t73 + 0.905775e0 * t70 + 0.1100325e0 * t76 + 0.1241775e0 * t82;
-        let t107 = 1.0 + 0.29608749977793437516e2 / t104;
+        let t99 = 1.0 + 0.0278125 * t70;
+        let t104 = 5.1785 * t73 + 0.905775 * t70 + 0.1100325 * t76 + 0.1241775 * t82;
+        let t107 = 1.0 + 29.608749977793437 / t104;
         let t108 = f64::ln(t107);
-        let t112 = -0.621814e-1 * t72 * t88 + 0.19751673498613801407e-1 * t97 * t99 * t108;
+        let t112 = -0.0621814 * t72 * t88 + 0.0197516734986138 * t97 * t99 * t108;
         let t114 = -t54 * t59 * t57 / 48.0 + param_gammac * t112;
         let t115 = 1.0 / t114;
         let t118 = t55 * t58 * t115 / 48.0;
-        let t119 = case21_cbspline(-t118, 0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
+        let t119 = case21_cbspline(-t118, 0.0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
         let t120 = t119 * t112;
         let tzk0 = t50 + t120;
         zk[ip] += tzk0;

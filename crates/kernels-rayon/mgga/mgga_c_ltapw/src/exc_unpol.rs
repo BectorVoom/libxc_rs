@@ -1,8 +1,8 @@
 //! MGGA_C_LTAPW exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ltapw.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ltapw.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,7 +40,7 @@ pub fn mgga_c_ltapw_exc_unpol(
         let t26 = rho[ip] * t25;
         let t27 = pow_1_3(t26);
         let t30 = t5 * t7 / t27;
-        let t32 = 1.0 + 0.53425e-1 * t30;
+        let t32 = 1.0 + 0.053425 * t30;
         let t33 = f64::sqrt(t30);
         let t36 = pow_3_2(t30);
         let t38 = t2 * t2;
@@ -48,18 +48,18 @@ pub fn mgga_c_ltapw_exc_unpol(
         let t40 = t38 * t39;
         let t41 = t27 * t27;
         let t44 = t40 * t6 / t41;
-        let t46 = 0.379785e1 * t33 + 0.8969e0 * t30 + 0.204775e0 * t36 + 0.123235e0 * t44;
-        let t49 = 1.0 + 0.16081824322151104822e2 / t46;
+        let t46 = 3.79785 * t33 + 0.8969 * t30 + 0.204775 * t36 + 0.123235 * t44;
+        let t49 = 1.0 + 16.081824322151103 / t46;
         let t50 = f64::ln(t49);
-        let t52 = 0.62182e-1 * t32 * t50;
+        let t52 = 0.062182 * t32 * t50;
         let t54 = pow_1_3(zeta_threshold);
         let t56 = piecewise3(1.0 <= zeta_threshold, t54 * zeta_threshold, 1.0);
         let t62 = (2.0 * t56 - 2.0) / (2.0 * t8 - 2.0);
-        let t64 = 1.0 + 0.278125e-1 * t30;
-        let t69 = 0.51785e1 * t33 + 0.905775e0 * t30 + 0.1100325e0 * t36 + 0.1241775e0 * t44;
-        let t72 = 1.0 + 0.29608574643216675549e2 / t69;
+        let t64 = 1.0 + 0.0278125 * t30;
+        let t69 = 5.1785 * t33 + 0.905775 * t30 + 0.1100325 * t36 + 0.1241775 * t44;
+        let t72 = 1.0 + 29.608574643216677 / t69;
         let t73 = f64::ln(t72);
-        let t76 = 0.19751789702565206229e-1 * t62 * t64 * t73;
+        let t76 = 0.019751789702565206 * t62 * t64 * t73;
         let tzk0 = -t52 + t76;
         zk[ip] += tzk0;
     }

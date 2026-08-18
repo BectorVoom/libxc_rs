@@ -1,8 +1,8 @@
 //! MGGA_X_2D_JS17 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_js17.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_js17.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -58,11 +58,11 @@ pub fn mgga_x_2d_js17_exc_pol(
         let t34 = sigma0 * sigma0;
         let t35 = t29 * t29;
         let t37 = 1.0 / t35 / t29;
-        let t40 = 1.0 + 0.41252961249419271031e0 * t32 + 0.63029881920225480858e-3 * t34 * t37;
+        let t40 = 1.0 + 0.41252961249419273 * t32 + 0.0006302988192022548 * t34 * t37;
         let t41 = f64::powf(t40, 1.0 / 15.0);
         let t44 = 1.0 / t29;
         let t48 = 1.0 / M_PI;
-        let t51 = 1.0 + 0.27938513438760141227e-1 * t32 + (-0.772e-1 * tau0 * t44 - 0.11596246802930644802e2) * t48 / 4.0;
+        let t51 = 1.0 + 0.02793851343876014 * t32 + (-0.0772 * tau0 * t44 - 11.596246802930645) * t48 / 4.0;
         let t52 = f64::powf(t40, 1.0 / 5.0);
         let t53 = 1.0 / t52;
         let t56 = 1.0 / t41 + 2.0 / 5.0 * t51 * t53;
@@ -84,10 +84,10 @@ pub fn mgga_x_2d_js17_exc_pol(
         let t76 = sigma2 * sigma2;
         let t77 = t71 * t71;
         let t79 = 1.0 / t77 / t71;
-        let t82 = 1.0 + 0.41252961249419271031e0 * t74 + 0.63029881920225480858e-3 * t76 * t79;
+        let t82 = 1.0 + 0.41252961249419273 * t74 + 0.0006302988192022548 * t76 * t79;
         let t83 = f64::powf(t82, 1.0 / 15.0);
         let t86 = 1.0 / t71;
-        let t92 = 1.0 + 0.27938513438760141227e-1 * t74 + (-0.772e-1 * tau1 * t86 - 0.11596246802930644802e2) * t48 / 4.0;
+        let t92 = 1.0 + 0.02793851343876014 * t74 + (-0.0772 * tau1 * t86 - 11.596246802930645) * t48 / 4.0;
         let t93 = f64::powf(t82, 1.0 / 5.0);
         let t94 = 1.0 / t93;
         let t97 = 1.0 / t83 + 2.0 / 5.0 * t92 * t94;

@@ -1,14 +1,13 @@
 //! LDA_C_GOMBAS kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_gombas.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_gombas.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::powers::{pow_1_3};
 
-/// LDA_C_GOMBAS kxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_gombas_kxc_unpol(
     rho: &[f64],

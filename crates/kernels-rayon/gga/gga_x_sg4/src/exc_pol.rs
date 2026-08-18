@@ -1,12 +1,12 @@
 //! GGA_X_SG4 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sg4.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sg4.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -55,7 +55,7 @@ pub fn gga_x_sg4_exc_pol(
         let t36 = t35 * t35;
         let t38 = 1.0 / t36 / t34;
         let t40 = t33 * sigma0 * t38;
-        let t42 = 1.0 - 0.3123398257303946694e-2 * t40;
+        let t42 = 1.0 - 0.0031233982573039467 * t40;
         let t43 = t28 * t28;
         let t44 = t29 * t29;
         let t45 = t44 * t29;
@@ -69,10 +69,10 @@ pub fn gga_x_sg4_exc_pol(
         let t54 = t52 * t52;
         let t55 = t54 * t53;
         let t57 = 1.0 / t35 / t55;
-        let t61 = 1.0 - 0.17835614159590036509e-11 * t48 * t51 * t57;
+        let t61 = 1.0 - 1.7835614159590037e-12 * t48 * t51 * t57;
         let t62 = 1.0 / t61;
-        let t66 = 1.0 + 0.37270642201834862386e-1 * t40;
-        let t69 = 0.1804e1 - 0.56028717948717948718e0 * t42 * t62 - 0.24371282051282051282e0 / t66;
+        let t66 = 1.0 + 0.03727064220183486 * t40;
+        let t69 = 1.804 - 0.5602871794871794 * t42 * t62 - 0.2437128205128205 / t66;
         let t73 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t69);
         let t74 = rho1 <= dens_threshold;
         let t75 = -t16;
@@ -87,7 +87,7 @@ pub fn gga_x_sg4_exc_pol(
         let t86 = t85 * t85;
         let t88 = 1.0 / t86 / t84;
         let t90 = t33 * sigma2 * t88;
-        let t92 = 1.0 - 0.3123398257303946694e-2 * t90;
+        let t92 = 1.0 - 0.0031233982573039467 * t90;
         let t93 = sigma2 * sigma2;
         let t94 = t93 * t93;
         let t95 = t94 * sigma2;
@@ -96,10 +96,10 @@ pub fn gga_x_sg4_exc_pol(
         let t98 = t96 * t96;
         let t99 = t98 * t97;
         let t101 = 1.0 / t85 / t99;
-        let t105 = 1.0 - 0.17835614159590036509e-11 * t48 * t95 * t101;
+        let t105 = 1.0 - 1.7835614159590037e-12 * t48 * t95 * t101;
         let t106 = 1.0 / t105;
-        let t110 = 1.0 + 0.37270642201834862386e-1 * t90;
-        let t113 = 0.1804e1 - 0.56028717948717948718e0 * t92 * t106 - 0.24371282051282051282e0 / t110;
+        let t110 = 1.0 + 0.03727064220183486 * t90;
+        let t113 = 1.804 - 0.5602871794871794 * t92 * t106 - 0.2437128205128205 / t110;
         let t117 = piecewise3(t74, 0.0, -3.0 / 8.0 * t5 * t83 * t113);
         let tzk0 = t73 + t117;
         zk[ip] += tzk0;

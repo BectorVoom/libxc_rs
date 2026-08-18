@@ -1,8 +1,8 @@
 //! MGGA_X_MSB kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_msb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_msb.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,9 +51,9 @@ pub fn mgga_x_msb_kxc_unpol(
     v3lapl2tau: &mut [f64],
     v3lapltau2: &mut [f64],
     v3tau3: &mut [f64],
+    param_kappa: f64,
     param_b: f64,
     param_c: f64,
-    param_kappa: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -374,7 +374,7 @@ pub fn mgga_x_msb_kxc_unpol(
         let t673 = t672 * t99;
         let t674 = 1.0 / t673;
         let t675 = t671 * t674;
-        let t677 = 16000.0 / 0.43046721e8 * t667 * t675;
+        let t677 = 16000.0 / 43046721.0 * t667 * t675;
         let t678 = t57 * t123;
         let t694 = t144 * t144;
         let t696 = t93 / t694;
@@ -385,7 +385,7 @@ pub fn mgga_x_msb_kxc_unpol(
         let t708 = t98 * t707;
         let t712 = 4400.0 / 531441.0 * t226 * t702;
         let t714 = 1540.0 / 6561.0 * t97 * t708;
-        let t715 = -16000.0 / 0.43046721e8 * t696 * t675 + 4400.0 / 531441.0 * t335 * t702 - 1540.0 / 6561.0 * t147 * t708 + t677 - t712 + t714;
+        let t715 = -16000.0 / 43046721.0 * t696 * t675 + 4400.0 / 531441.0 * t335 * t702 - 1540.0 / 6561.0 * t147 * t708 + t677 - t712 + t714;
         let t717 = t58 * t287;
         let t731 = param_b * t60;
         let t732 = t257 * t112;
@@ -455,7 +455,7 @@ pub fn mgga_x_msb_kxc_unpol(
         let t954 = t672 * t30;
         let t956 = t669 / t954;
         let t957 = t956 * t229;
-        let t959 = 2000.0 / 0.14348907e8 * t667 * t957;
+        let t959 = 2000.0 / 14348907.0 * t667 * t957;
         let t963 = t823 * t165;
         let t965 = t765 * t27;
         let t966 = t276 * t112;
@@ -505,7 +505,7 @@ pub fn mgga_x_msb_kxc_unpol(
         let t1055 = t107 * t241;
         let t1058 = t246 * t74;
         let t1059 = t1058 * t81;
-        let t1068 = 2000.0 / 0.14348907e8 * t696 * t957 - 50.0 / 19683.0 * t335 * t1052 + 110.0 / 2187.0 * t147 * t1026 - t959 + t1054 - t1028;
+        let t1068 = 2000.0 / 14348907.0 * t696 * t957 - 50.0 / 19683.0 * t335 * t1052 + 110.0 / 2187.0 * t147 * t1026 - t959 + t1054 - t1028;
         let t1070 = t1028 + 12.0 * t1029 * t1031 + 3.0 * t1034 * t166 + 6.0 * t376 * t380 + 3.0 * t164 * t1040 + 200.0 * t164 * t1043 - 16.0 * t376 * t389 - 16.0 * t164 * t1048 - t1054 + 88.0 / 3.0 * t164 * t1055 + 6.0 * t1059 * t166 + t75 * t1068;
         let t1072 = t904 + t946 + t1025 + t1070;
         let t1077 = piecewise3(t3, 0.0, t7 * t216 * t182 / 12.0 - t7 * t89 * t431 / 4.0 - 3.0 / 8.0 * t7 * t20 * t1072);

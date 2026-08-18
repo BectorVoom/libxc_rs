@@ -33,3 +33,9 @@ __pycache__/
 # stale build logs previously tracked under .cache/ are removed from the index.
 target/
 .cache/
+
+# Reference clone of AMD's aocl-libm-ose, evaluated as a possible SIMD
+# transcendentals source and not adopted (docs/perf/simd-kernels.md). It is
+# its own git repository, so `git add -A` stages it as a broken embedded-repo
+# gitlink rather than its contents; keep it out entirely.
+/aocl-libm-ose/

@@ -1,8 +1,8 @@
 //! GGA_C_ZPBEINT vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zpbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zpbeint.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,7 +37,7 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t7 = rho0 + rho1;
         let t8 = pow_1_3(t7);
         let t11 = t4 * t6 / t8;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
@@ -45,10 +45,10 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t5 / t22;
-        let t27 = 0.379785e1 * t14 + 0.8969e0 * t11 + 0.204775e0 * t17 + 0.123235e0 * t25;
-        let t30 = 1.0 + 0.16081979498692535067e2 / t27;
+        let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
+        let t30 = 1.0 + 16.081979498692537 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.621814e-1 * t13 * t31;
+        let t33 = 0.0621814 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
         let t36 = t35 * t35;
@@ -74,19 +74,19 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t56 = M_CBRT2;
         let t59 = 1.0 / (2.0 * t56 - 2.0);
         let t60 = t55 * t59;
-        let t62 = 1.0 + 0.5137e-1 * t11;
-        let t67 = 0.705945e1 * t14 + 0.1549425e1 * t11 + 0.420775e0 * t17 + 0.1562925e0 * t25;
-        let t70 = 1.0 + 0.32163958997385070134e2 / t67;
+        let t62 = 1.0 + 0.05137 * t11;
+        let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
+        let t70 = 1.0 + 32.16395899738507 / t67;
         let t71 = f64::ln(t70);
-        let t75 = 1.0 + 0.278125e-1 * t11;
-        let t80 = 0.51785e1 * t14 + 0.905775e0 * t11 + 0.1100325e0 * t17 + 0.1241775e0 * t25;
-        let t83 = 1.0 + 0.29608749977793437516e2 / t80;
+        let t75 = 1.0 + 0.0278125 * t11;
+        let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
+        let t83 = 1.0 + 29.608749977793437 / t80;
         let t84 = f64::ln(t83);
         let t85 = t75 * t84;
-        let t87 = -0.310907e-1 * t62 * t71 + t33 - 0.19751673498613801407e-1 * t85;
+        let t87 = -0.0310907 * t62 * t71 + t33 - 0.0197516734986138 * t85;
         let t88 = t60 * t87;
         let t89 = t40 * t88;
-        let t91 = 0.19751673498613801407e-1 * t60 * t85;
+        let t91 = 0.0197516734986138 * t60 * t85;
         let t92 = t45 * t45;
         let t93 = t47 * t47;
         let t94 = piecewise3(t44, t92, t93);
@@ -149,7 +149,7 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t171 = 1.0 / t8 / t7;
         let t172 = t6 * t171;
         let t174 = t4 * t172 * t31;
-        let t175 = 0.11073470983333333333e-2 * t174;
+        let t175 = 0.0011073470983333333 * t174;
         let t176 = t27 * t27;
         let t177 = 1.0 / t176;
         let t178 = t13 * t177;
@@ -163,7 +163,7 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t189 = t188 * t182;
         let t193 = t5 / t22 / t7;
         let t194 = t21 * t193;
-        let t196 = -0.632975e0 * t183 - 0.29896666666666666667e0 * t185 - 0.1023875e0 * t189 - 0.82156666666666666667e-1 * t194;
+        let t196 = -0.632975 * t183 - 0.29896666666666666 * t185 - 0.1023875 * t189 - 0.08215666666666667 * t194;
         let t197 = 1.0 / t30;
         let t198 = t196 * t197;
         let t199 = t178 * t198;
@@ -189,28 +189,28 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t227 = t67 * t67;
         let t228 = 1.0 / t227;
         let t229 = t62 * t228;
-        let t234 = -0.1176575e1 * t183 - 0.516475e0 * t185 - 0.2103875e0 * t189 - 0.104195e0 * t194;
+        let t234 = -1.176575 * t183 - 0.516475 * t185 - 0.2103875 * t189 - 0.104195 * t194;
         let t235 = 1.0 / t70;
         let t236 = t234 * t235;
         let t242 = t80 * t80;
         let t243 = 1.0 / t242;
         let t244 = t75 * t243;
-        let t249 = -0.86308333333333333334e0 * t183 - 0.301925e0 * t185 - 0.5501625e-1 * t189 - 0.82785e-1 * t194;
+        let t249 = -0.8630833333333333 * t183 - 0.301925 * t185 - 0.05501625 * t189 - 0.082785 * t194;
         let t250 = 1.0 / t83;
         let t251 = t249 * t250;
-        let t254 = 0.53237641966666666666e-3 * t4 * t172 * t71 + 1.0 * t229 * t236 - t175 - t200 + 0.18311447306006545054e-3 * t4 * t172 * t84 + 0.5848223622634646207e0 * t244 * t251;
+        let t254 = 0.0005323764196666666 * t4 * t172 * t71 + 1.0 * t229 * t236 - t175 - t200 + 0.00018311447306006544 * t4 * t172 * t84 + 0.5848223622634646 * t244 * t251;
         let t255 = t60 * t254;
         let t256 = t40 * t255;
         let t257 = t221 * t85;
-        let t258 = 0.19751673498613801407e-1 * t257;
+        let t258 = 0.0197516734986138 * t257;
         let t259 = t60 * t1;
         let t261 = t181 * t171 * t84;
         let t262 = t259 * t261;
-        let t263 = 0.18311447306006545054e-3 * t262;
+        let t263 = 0.00018311447306006544 * t262;
         let t264 = t60 * t75;
         let t266 = t243 * t249 * t250;
         let t267 = t264 * t266;
-        let t268 = 0.5848223622634646207e0 * t267;
+        let t268 = 0.5848223622634646 * t267;
         let t272 = t103 * t206 * t106 * t109 / 4.0;
         let t273 = t103 * t39;
         let t274 = t149 * t109;
@@ -294,7 +294,7 @@ pub fn gga_c_zpbeint_vxc_pol(
         let t398 = t397 * t87;
         let t399 = t40 * t398;
         let t400 = t397 * t85;
-        let t401 = 0.19751673498613801407e-1 * t400;
+        let t401 = 0.0197516734986138 * t400;
         let t404 = piecewise3(t44, 0.0, 2.0 / 3.0 * t275 * t388);
         let t407 = piecewise3(t51, 0.0, 2.0 / 3.0 * t279 * t392);
         let t409 = t404 / 2.0 + t407 / 2.0;

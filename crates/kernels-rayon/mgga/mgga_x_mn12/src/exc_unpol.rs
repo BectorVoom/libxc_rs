@@ -1,8 +1,8 @@
 //! MGGA_X_MN12 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mn12.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mn12.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,46 +17,46 @@ pub fn mgga_x_mn12_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_c_0: f64,
     param_c_1: f64,
     param_c_2: f64,
     param_c_3: f64,
     param_c_4: f64,
     param_c_5: f64,
-    param_c_6: f64,
     param_c_7: f64,
     param_c_8: f64,
     param_c_9: f64,
     param_c_10: f64,
-    param_c_11: f64,
+    param_c_6: f64,
     param_c_12: f64,
     param_c_13: f64,
     param_c_14: f64,
-    param_c_15: f64,
+    param_c_11: f64,
     param_c_16: f64,
     param_c_17: f64,
-    param_c_18: f64,
+    param_c_15: f64,
     param_c_19: f64,
     param_c_20: f64,
     param_c_21: f64,
     param_c_22: f64,
-    param_c_23: f64,
+    param_c_18: f64,
     param_c_24: f64,
     param_c_25: f64,
     param_c_26: f64,
-    param_c_27: f64,
+    param_c_23: f64,
     param_c_28: f64,
     param_c_29: f64,
-    param_c_30: f64,
+    param_c_27: f64,
     param_c_31: f64,
     param_c_32: f64,
     param_c_33: f64,
-    param_c_34: f64,
+    param_c_30: f64,
     param_c_35: f64,
     param_c_36: f64,
-    param_c_37: f64,
+    param_c_34: f64,
     param_c_38: f64,
     param_c_39: f64,
+    param_c_37: f64,
+    param_c_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -123,7 +123,7 @@ pub fn mgga_x_mn12_exc_unpol(
         let t83 = 1.0 / t33 / t81;
         let t84 = t31 * t83;
         let t85 = sigma[ip] * t31;
-        let t88 = 1.0 + 0.4e-2 * t85 * t83;
+        let t88 = 1.0 + 0.004 * t85 * t83;
         let t89 = 1.0 / t88;
         let t90 = t84 * t89;
         let t94 = param_c_12;
@@ -165,7 +165,7 @@ pub fn mgga_x_mn12_exc_unpol(
         let t146 = t135 * t40 + t138 * t46 + t141 * t52 + t144 * t58 + param_c_18;
         let t149 = 1.0 / t12;
         let t150 = pow_1_3(t149);
-        let t153 = 1.0 + 0.39999999999999999998e0 / t19 * t30 * t150;
+        let t153 = 1.0 + 0.4 / t19 * t30 * t150;
         let t154 = 1.0 / t153;
         let t157 = param_c_24;
         let t158 = t157 * t37;
@@ -211,7 +211,7 @@ pub fn mgga_x_mn12_exc_unpol(
         let t221 = t216 * t40 + t219 * t46 + param_c_37;
         let t222 = t198 * t153;
         let t223 = 1.0 / t222;
-        let t225 = param_c_0 + t38 * t40 + t44 * t46 + t50 * t52 + t56 * t58 + t62 * t64 + 0.4e-2 * t80 * t90 + 0.32e-4 * t105 * t113 + 0.256e-6 * t125 * t130 + t146 * t154 + 0.4e-2 * t168 * t170 + 0.32e-4 * t182 * t184 + t197 * t199 + 0.4e-2 * t210 * t211 + t221 * t223;
+        let t225 = param_c_0 + t38 * t40 + t44 * t46 + t50 * t52 + t56 * t58 + t62 * t64 + 0.004 * t80 * t90 + 3.2e-05 * t105 * t113 + 2.56e-07 * t125 * t130 + t146 * t154 + 0.004 * t168 * t170 + 3.2e-05 * t182 * t184 + t197 * t199 + 0.004 * t210 * t211 + t221 * t223;
         let t229 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t225);
         let tzk0 = 2.0 * t229;
         zk[ip] += tzk0;

@@ -1,8 +1,8 @@
 //! MGGA_X_PBE_GX exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_pbe_gx.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_pbe_gx.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -67,8 +67,8 @@ pub fn mgga_x_pbe_gx_exc_pol(
         let t50 = t49 * t49;
         let t51 = 1.0 / t50;
         let t52 = t45 * t46 * t51;
-        let t54 = 0.827411e0 - 0.35753333333333333333e0 * t52;
-        let t56 = 1.0 - 0.45341611111111111111e0 * t52;
+        let t54 = 0.827411 - 0.3575333333333333 * t52;
+        let t56 = 1.0 - 0.45341611111111113 * t52;
         let t57 = 1.0 / t56;
         let t59 = 1.0 - t34;
         let t60 = t54 * t57 * t59;
@@ -78,11 +78,11 @@ pub fn mgga_x_pbe_gx_exc_pol(
         let t66 = Heaviside(t65);
         let t68 = 1.0 + t64;
         let t69 = 1.0 / t68;
-        let t72 = 1.0 + 0.148e0 * t65 * t69;
+        let t72 = 1.0 + 0.148 * t65 * t69;
         let t73 = -t65;
         let t74 = Heaviside(t73);
         let t76 = t63 * t66 + t72 * t74;
-        let t79 = 1.0 + 0.1015549e-2 * t43;
+        let t79 = 1.0 + 0.001015549 * t43;
         let t80 = 1.0 / t79;
         let t81 = t28 * t76 * t80;
         let t84 = piecewise3(t2, 0.0, -3.0 / 8.0 * t27 * t81);
@@ -102,8 +102,8 @@ pub fn mgga_x_pbe_gx_exc_pol(
         let t103 = sigma2 * t102;
         let t105 = tau1 * t98 - t103 / 8.0;
         let t107 = t105 * t46 * t51;
-        let t109 = 0.827411e0 - 0.35753333333333333333e0 * t107;
-        let t111 = 1.0 - 0.45341611111111111111e0 * t107;
+        let t109 = 0.827411 - 0.3575333333333333 * t107;
+        let t111 = 1.0 - 0.45341611111111113 * t107;
         let t112 = 1.0 / t111;
         let t114 = t109 * t112 * t59;
         let t117 = t34 + 5.0 / 9.0 * t107 * t114;
@@ -112,11 +112,11 @@ pub fn mgga_x_pbe_gx_exc_pol(
         let t120 = Heaviside(t119);
         let t122 = 1.0 + t118;
         let t123 = 1.0 / t122;
-        let t126 = 1.0 + 0.148e0 * t119 * t123;
+        let t126 = 1.0 + 0.148 * t119 * t123;
         let t127 = -t119;
         let t128 = Heaviside(t127);
         let t130 = t117 * t120 + t126 * t128;
-        let t133 = 1.0 + 0.1015549e-2 * t103;
+        let t133 = 1.0 + 0.001015549 * t103;
         let t134 = 1.0 / t133;
         let t135 = t28 * t130 * t134;
         let t138 = piecewise3(t85, 0.0, -3.0 / 8.0 * t94 * t135);

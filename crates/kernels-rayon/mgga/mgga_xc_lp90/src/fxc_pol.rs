@@ -1,8 +1,8 @@
 //! MGGA_XC_LP90 fxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -67,15 +67,15 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t34 = pow_1_3(t33);
         let t35 = t34 * t34;
         let t36 = t35 * t33;
-        let t39 = 0.80569e0 + 0.37655e-3 * t3 * t9 - 0.37655e-3 * t16 * t24 - 0.37655e-3 * t31 * t36;
+        let t39 = 0.80569 + 0.00037655 * t3 * t9 - 0.00037655 * t16 * t24 - 0.00037655 * t31 * t36;
         let t40 = 1.0 / t6;
-        let t41 = t40 + 0.40743e-2;
+        let t41 = t40 + 0.0040743;
         let t42 = 1.0 / t41;
         let tzk0 = -t39 * t42;
         zk[ip] += tzk0;
         let t44 = t5 * t4;
         let t46 = 1.0 / t7 / t44;
-        let t48 = 0.10041333333333333333e-2 * t3 * t46;
+        let t48 = 0.0010041333333333333 * t3 * t46;
         let t49 = rho0 * rho0;
         let t51 = 1.0 / t13 / t49;
         let t52 = lapl0 * t51;
@@ -85,7 +85,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t59 = t23 * t58;
         let t62 = -t58;
         let t63 = t35 * t62;
-        let t66 = -t48 + 0.62758333333333333333e-3 * t52 * t24 - 0.62758333333333333333e-3 * t16 * t59 - 0.62758333333333333333e-3 * t31 * t63;
+        let t66 = -t48 + 0.0006275833333333333 * t52 * t24 - 0.0006275833333333333 * t16 * t59 - 0.0006275833333333333 * t31 * t63;
         let t70 = t41 * t41;
         let t71 = 1.0 / t70;
         let t73 = t40 * t39 * t71 / 3.0;
@@ -98,24 +98,24 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t82 = lapl1 * t81;
         let t85 = -t75;
         let t86 = t35 * t85;
-        let t89 = -t48 - 0.62758333333333333333e-3 * t16 * t76 + 0.62758333333333333333e-3 * t82 * t36 - 0.62758333333333333333e-3 * t31 * t86;
+        let t89 = -t48 - 0.0006275833333333333 * t16 * t76 + 0.0006275833333333333 * t82 * t36 - 0.0006275833333333333 * t31 * t86;
         let tvrho1 = -t4 * t89 * t42 - t73 + tzk0;
         vrho[ip * 2 + 1] += tvrho1;
         let t93 = 1.0 / t7 / t4;
         let t94 = t93 * t42;
-        let tvsigma0 = -0.37655e-3 * t94;
+        let tvsigma0 = -0.00037655 * t94;
         vsigma[ip * 3] += tvsigma0;
-        let tvsigma1 = -0.7531e-3 * t94;
+        let tvsigma1 = -0.0007531 * t94;
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;
         let t97 = t4 * t15;
         let t98 = t24 * t42;
-        let tvlapl0 = 0.37655e-3 * t97 * t98;
+        let tvlapl0 = 0.00037655 * t97 * t98;
         vlapl[ip * 2] += tvlapl0;
         let t100 = t4 * t30;
         let t101 = t36 * t42;
-        let tvlapl1 = 0.37655e-3 * t100 * t101;
+        let tvlapl1 = 0.00037655 * t100 * t101;
         vlapl[ip * 2 + 1] += tvlapl1;
         let tvtau0 = 0.0;
         vtau[ip * 2] += tvtau0;
@@ -127,7 +127,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t109 = 2.0 / 9.0 * t105 * t107;
         let t110 = t5 * t5;
         let t112 = 1.0 / t7 / t110;
-        let t114 = 0.36818222222222222221e-2 * t3 * t112;
+        let t114 = 0.0036818222222222224 * t3 * t112;
         let t117 = 1.0 / t13 / t49 / rho0;
         let t118 = lapl0 * t117;
         let t123 = 1.0 / t22;
@@ -142,7 +142,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t136 = t134 * t135;
         let t139 = -t130;
         let t140 = t35 * t139;
-        let t143 = t114 - 0.16735555555555555555e-2 * t118 * t24 + 0.20919444444444444444e-2 * t52 * t59 - 0.41838888888888888889e-3 * t16 * t125 - 0.62758333333333333333e-3 * t16 * t131 - 0.41838888888888888889e-3 * t31 * t136 - 0.62758333333333333333e-3 * t31 * t140;
+        let t143 = t114 - 0.0016735555555555555 * t118 * t24 + 0.0020919444444444445 * t52 * t59 - 0.0004183888888888889 * t16 * t125 - 0.0006275833333333333 * t16 * t131 - 0.0004183888888888889 * t31 * t136 - 0.0006275833333333333 * t31 * t140;
         let t147 = t40 * t66 * t71;
         let t151 = 1.0 / t70 / t41;
         let t153 = 2.0 / 9.0 * t93 * t39 * t151;
@@ -157,7 +157,7 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t168 = t167 * t62;
         let t171 = t35 * t17;
         let t172 = t171 * t128;
-        let t175 = t114 + 0.10459722222222222222e-2 * t52 * t76 - 0.41838888888888888889e-3 * t16 * t158 - 0.62758333333333333333e-3 * t16 * t162 + 0.10459722222222222222e-2 * t82 * t63 - 0.41838888888888888889e-3 * t31 * t168 + 0.62758333333333333333e-3 * t31 * t172;
+        let t175 = t114 + 0.0010459722222222222 * t52 * t76 - 0.0004183888888888889 * t16 * t158 - 0.0006275833333333333 * t16 * t162 + 0.0010459722222222222 * t82 * t63 - 0.0004183888888888889 * t31 * t168 + 0.0006275833333333333 * t31 * t172;
         let t179 = t40 * t89 * t71;
         let tv2rho21 = -t103 - t109 - t154 - t4 * t175 * t42 - t179 / 3.0 - t147 / 3.0 - t153;
         v2rho2[ip * 3 + 1] += tv2rho21;
@@ -171,14 +171,14 @@ pub fn mgga_xc_lp90_fxc_pol(
         let t200 = t134 * t199;
         let t203 = -t187;
         let t204 = t35 * t203;
-        let t207 = t114 - 0.41838888888888888889e-3 * t16 * t184 - 0.62758333333333333333e-3 * t16 * t188 - 0.16735555555555555555e-2 * t194 * t36 + 0.20919444444444444444e-2 * t82 * t86 - 0.41838888888888888889e-3 * t31 * t200 - 0.62758333333333333333e-3 * t31 * t204;
+        let t207 = t114 - 0.0004183888888888889 * t16 * t184 - 0.0006275833333333333 * t16 * t188 - 0.0016735555555555555 * t194 * t36 + 0.0020919444444444445 * t82 * t86 - 0.0004183888888888889 * t31 * t200 - 0.0006275833333333333 * t31 * t204;
         let tv2rho22 = -2.0 * t154 - t109 - t4 * t207 * t42 - 2.0 / 3.0 * t179 - t153;
         v2rho2[ip * 3 + 2] += tv2rho22;
         let t211 = t9 * t42;
         let t213 = t128 * t71;
-        let tv2rhosigma0 = 0.62758333333333333333e-3 * t211 - 0.12551666666666666667e-3 * t213;
+        let tv2rhosigma0 = 0.0006275833333333333 * t211 - 0.00012551666666666666 * t213;
         v2rhosigma[ip * 6] += tv2rhosigma0;
-        let tv2rhosigma1 = 0.12551666666666666667e-2 * t211 - 0.25103333333333333333e-3 * t213;
+        let tv2rhosigma1 = 0.0012551666666666666 * t211 - 0.00025103333333333333 * t213;
         v2rhosigma[ip * 6 + 1] += tv2rhosigma1;
         let tv2rhosigma2 = tv2rhosigma0;
         v2rhosigma[ip * 6 + 2] += tv2rhosigma2;
@@ -189,30 +189,30 @@ pub fn mgga_xc_lp90_fxc_pol(
         let tv2rhosigma5 = tv2rhosigma3;
         v2rhosigma[ip * 6 + 5] += tv2rhosigma5;
         let t217 = t15 * t24;
-        let t219 = 0.37655e-3 * t217 * t42;
+        let t219 = 0.00037655 * t217 * t42;
         let t220 = t4 * t51;
         let t223 = t23 * t42;
         let t224 = t223 * t58;
         let t227 = t40 * t15;
         let t228 = t24 * t71;
-        let t230 = 0.12551666666666666667e-3 * t227 * t228;
-        let tv2rholapl0 = t219 - 0.62758333333333333333e-3 * t220 * t98 + 0.62758333333333333333e-3 * t97 * t224 + t230;
+        let t230 = 0.00012551666666666666 * t227 * t228;
+        let tv2rholapl0 = t219 - 0.0006275833333333333 * t220 * t98 + 0.0006275833333333333 * t97 * t224 + t230;
         v2rholapl[ip * 4] += tv2rholapl0;
         let t231 = t30 * t36;
-        let t233 = 0.37655e-3 * t231 * t42;
+        let t233 = 0.00037655 * t231 * t42;
         let t234 = t35 * t42;
         let t235 = t234 * t62;
         let t238 = t40 * t30;
         let t239 = t36 * t71;
-        let t241 = 0.12551666666666666667e-3 * t238 * t239;
-        let tv2rholapl1 = t233 + 0.62758333333333333333e-3 * t100 * t235 + t241;
+        let t241 = 0.00012551666666666666 * t238 * t239;
+        let tv2rholapl1 = t233 + 0.0006275833333333333 * t100 * t235 + t241;
         v2rholapl[ip * 4 + 1] += tv2rholapl1;
         let t242 = t223 * t75;
-        let tv2rholapl2 = t219 + 0.62758333333333333333e-3 * t97 * t242 + t230;
+        let tv2rholapl2 = t219 + 0.0006275833333333333 * t97 * t242 + t230;
         v2rholapl[ip * 4 + 2] += tv2rholapl2;
         let t245 = t4 * t81;
         let t248 = t234 * t85;
-        let tv2rholapl3 = t233 - 0.62758333333333333333e-3 * t245 * t101 + 0.62758333333333333333e-3 * t100 * t248 + t241;
+        let tv2rholapl3 = t233 - 0.0006275833333333333 * t245 * t101 + 0.0006275833333333333 * t100 * t248 + t241;
         v2rholapl[ip * 4 + 3] += tv2rholapl3;
         let tv2rhotau0 = 0.0;
         v2rhotau[ip * 4] += tv2rhotau0;

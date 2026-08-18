@@ -1,14 +1,14 @@
 //! GGA_XC_TH2 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th2.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3, pow_2_3, pow_4_3, pow_5_3, pow_7_3};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_xc_th2_exc_unpol(
@@ -68,7 +68,7 @@ pub fn gga_xc_th2_exc_unpol(
         let t75 = t74 - t73;
         let t78 = t61 * rho[ip];
         let t79 = t11 * t78;
-        let t84 = 0.3394155e0 * t6 * t7 * rho[ip] - 0.879105e0 * t14 * t16 + 0.63838e0 * t20 * t22 - 0.803945e0 * t25 * t27 + 0.182805e0 * t32 - 0.4533175e-1 * t35 * t41 + 0.3674325e-1 * t44 * t41 + 0.3678525e-1 * t47 * t41 - 0.17922925e-1 * t50 * t41 - 0.50895875e-2 * t54 * t56 + 0.26828125e-2 * t63 * t56 - 0.960195e-4 * t66 * sigma[ip] * t55 + 0.1551885e-1 * t32 * t75 - 0.360163e-1 * t79 * t75 + 0.223281e-1 * t70 * t75;
+        let t84 = 0.3394155 * t6 * t7 * rho[ip] - 0.879105 * t14 * t16 + 0.63838 * t20 * t22 - 0.803945 * t25 * t27 + 0.182805 * t32 - 0.04533175 * t35 * t41 + 0.03674325 * t44 * t41 + 0.03678525 * t47 * t41 - 0.017922925 * t50 * t41 - 0.0050895875 * t54 * t56 + 0.0026828125 * t63 * t56 - 9.60195e-05 * t66 * sigma[ip] * t55 + 0.01551885 * t32 * t75 - 0.0360163 * t79 * t75 + 0.0223281 * t70 * t75;
         let tzk0 = t84 * t53;
         zk[ip] += tzk0;
     }

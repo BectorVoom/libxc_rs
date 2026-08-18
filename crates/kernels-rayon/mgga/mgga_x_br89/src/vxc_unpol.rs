@@ -1,13 +1,13 @@
 //! MGGA_X_BR89 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -52,13 +52,13 @@ pub fn mgga_x_br89_vxc_unpol(
         let t34 = rho[ip] * rho[ip];
         let t36 = 1.0 / t25 / t34;
         let t40 = f64::abs(lapl[ip] * t27 / 2.0 - 2.0 * t30 * t27 + t33 * t36 / 4.0);
-        let t43 = t24 * t40 / 3.0 < 0.5e-12;
+        let t43 = t24 * t40 / 3.0 < 5e-13;
         let t44 = lapl[ip] * t24;
         let t47 = t24 * t27;
         let t50 = t24 * t36;
         let t53 = t44 * t27 / 6.0 - 2.0 / 3.0 * t30 * t47 + t33 * t50 / 12.0;
         let t54 = 0.0 < t53;
-        let t55 = piecewise3(t54, 0.5e-12, -0.5e-12);
+        let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t43, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
         let t59 = f64::exp(t57 / 3.0);

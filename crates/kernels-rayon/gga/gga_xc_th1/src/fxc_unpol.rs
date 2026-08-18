@@ -1,8 +1,8 @@
 //! GGA_XC_TH1 fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th1.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -37,6 +37,10 @@ pub fn gga_xc_th1_fxc_unpol(
     param_omega_14: f64,
     param_omega_15: f64,
     param_omega_20: f64,
+    param_omega_16: f64,
+    param_omega_17: f64,
+    param_omega_18: f64,
+    param_omega_19: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

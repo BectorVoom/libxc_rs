@@ -1,8 +1,8 @@
 //! GGA_C_LM fxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_lm.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_lm.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,18 +44,18 @@ pub fn gga_c_lm_fxc_pol(
         let t15 = t11 * t12 * t13;
         let t17 = 1.0 + 10.0 * t15;
         let t18 = f64::ln(t17);
-        let t20 = 0.252e-1 * t6 * t18;
+        let t20 = 0.0252 * t6 * t18;
         let t21 = t9 * t9;
         let t22 = t8 * t21;
         let t23 = t13 * t13;
         let t24 = 1.0 / t23;
         let t25 = t12 * t24;
         let t26 = t22 * t25;
-        let t27 = 0.7e-5 * t26;
+        let t27 = 7e-06 * t26;
         let t28 = t7 * t9;
         let t29 = t12 * t12;
         let t32 = t28 * t29 / t13;
-        let t33 = 0.105e-3 * t32;
+        let t33 = 0.000105 * t32;
         let t34 = rho0 - rho1;
         let t35 = t34 * t3;
         let t36 = 1.0 + t35;
@@ -73,10 +73,10 @@ pub fn gga_c_lm_fxc_pol(
         let t49 = M_CBRT2;
         let t52 = 1.0 / (2.0 * t49 - 2.0);
         let t53 = (t42 + t47 - 2.0) * t52;
-        let t55 = 1.0 + 0.56588424210451674939e-6 * t3;
+        let t55 = 1.0 + 5.658842421045167e-07 * t3;
         let t57 = 1.0 + 25.0 * t15;
         let t58 = f64::ln(t57);
-        let t63 = -0.127e-1 * t55 * t58 - 0.64355555555555555556e-5 * t26 + 0.83833333333333333334e-4 * t32 - 0.41666666666666666667e-2 + t20;
+        let t63 = -0.0127 * t55 * t58 - 6.435555555555556e-06 * t26 + 8.383333333333333e-05 * t32 - 0.004166666666666667 + t20;
         let t64 = t53 * t63;
         let t65 = M_PI * t8;
         let t66 = M_PI * M_PI;
@@ -117,23 +117,23 @@ pub fn gga_c_lm_fxc_pol(
         let t116 = 1.0 / t23 / t114;
         let t121 = t69 * (-7.0 / 36.0 * t49 * (t75 * t42 + t82 * t47) + 2.0 * t99 * t113 * t116);
         let t124 = t65 * t121 * t13 / 144.0;
-        let tzk0 = -t20 + t27 - t33 + 0.84e-2 + t64 + t124;
+        let tzk0 = -t20 + t27 - t33 + 0.0084 + t64 + t124;
         zk[ip] += tzk0;
         let t125 = 1.0 / t114;
         let t127 = t1 * t125 * t18;
-        let t128 = 0.7e-6 * t127;
+        let t128 = 7e-07 * t127;
         let t130 = t6 * t8 * t10;
         let t131 = 1.0 / t17;
         let t133 = t130 * t25 * t131;
-        let t134 = 0.84e-1 * t133;
+        let t134 = 0.084 * t133;
         let t136 = 1.0 / t23 / t2;
         let t137 = t12 * t136;
         let t138 = t22 * t137;
-        let t139 = 0.46666666666666666667e-5 * t138;
+        let t139 = 4.666666666666666e-06 * t138;
         let t140 = t13 * t2;
         let t142 = t29 / t140;
         let t143 = t28 * t142;
-        let t144 = 0.35e-4 * t143;
+        let t144 = 3.5e-05 * t143;
         let t145 = t34 * t125;
         let t146 = t3 - t145;
         let t149 = piecewise3(t37, 0.0, 4.0 / 3.0 * t40 * t146);
@@ -143,7 +143,7 @@ pub fn gga_c_lm_fxc_pol(
         let t156 = t155 * t63;
         let t160 = t55 * t8 * t10;
         let t161 = 1.0 / t57;
-        let t167 = 0.71867298747273627173e-8 * t125 * t58 - 0.10583333333333333333e0 * t160 * t25 * t161 + 0.42903703703703703704e-5 * t138 - 0.27944444444444444445e-4 * t143 - t128 + t134;
+        let t167 = 7.1867298747273625e-09 * t125 * t58 - 0.10583333333333333 * t160 * t25 * t161 + 4.290370370370371e-06 * t138 - 2.7944444444444445e-05 * t143 - t128 + t134;
         let t168 = t53 * t167;
         let t171 = 1.0 / t72 / t70 / rho0;
         let t172 = sigma0 * t171;
@@ -171,7 +171,7 @@ pub fn gga_c_lm_fxc_pol(
         let t217 = t216 / 144.0;
         let t219 = t65 * t121 * t24;
         let t220 = t219 / 432.0;
-        let tvrho0 = -t20 + t27 - t33 + 0.84e-2 + t64 + t124 + t2 * (t128 - t134 - t139 + t144 + t156 + t168 + t217 + t220);
+        let tvrho0 = -t20 + t27 - t33 + 0.0084 + t64 + t124 + t2 * (t128 - t134 - t139 + t144 + t156 + t168 + t217 + t220);
         vrho[ip * 2] += tvrho0;
         let t223 = -t3 - t145;
         let t226 = piecewise3(t37, 0.0, 4.0 / 3.0 * t40 * t223);
@@ -187,7 +187,7 @@ pub fn gga_c_lm_fxc_pol(
         let t255 = t69 * (-7.0 / 36.0 * t49 * (t75 * t226 - 8.0 / 3.0 * t238 * t47 + t82 * t230) - t183 * t184 * t251 + t206 - t212);
         let t257 = t65 * t255 * t13;
         let t258 = t257 / 144.0;
-        let tvrho1 = -t20 + t27 - t33 + 0.84e-2 + t64 + t124 + t2 * (t128 - t134 - t139 + t144 + t233 + t168 + t258 + t220);
+        let tvrho1 = -t20 + t27 - t33 + 0.0084 + t64 + t124 + t2 * (t128 - t134 - t139 + t144 + t233 + t168 + t258 + t220);
         vrho[ip * 2 + 1] += tvrho1;
         let t261 = t140 * M_PI;
         let t262 = t8 * t69;
@@ -208,33 +208,33 @@ pub fn gga_c_lm_fxc_pol(
         let t285 = -7.0 / 36.0 * t282 * t47 - t270 + t273;
         let tvsigma2 = t261 * t262 * t285 / 144.0;
         vsigma[ip * 3 + 2] += tvsigma2;
-        let t288 = 0.14e-5 * t127;
-        let t289 = 0.168e0 * t133;
-        let t290 = 0.93333333333333333334e-5 * t138;
-        let t291 = 0.7e-4 * t143;
+        let t288 = 1.4e-06 * t127;
+        let t289 = 0.168 * t133;
+        let t290 = 9.333333333333333e-06 * t138;
+        let t291 = 7e-05 * t143;
         let t293 = 2.0 * t168;
         let t295 = t219 / 216.0;
         let t296 = 1.0 / t207;
         let t298 = t1 * t296 * t18;
-        let t299 = 0.14e-5 * t298;
+        let t299 = 1.4e-06 * t298;
         let t302 = t10 * t12;
         let t303 = t302 * t131;
         let t304 = t1 * t116 * t8 * t303;
-        let t305 = 0.46666666666666666666e-5 * t304;
+        let t305 = 4.666666666666666e-06 * t304;
         let t307 = t130 * t137 * t131;
-        let t308 = 0.56e-1 * t307;
+        let t308 = 0.056 * t307;
         let t310 = 1.0 / t21;
         let t311 = t6 * t7 * t310;
         let t312 = t17 * t17;
         let t313 = 1.0 / t312;
         let t315 = t311 * t142 * t313;
-        let t316 = 0.84e0 * t315;
+        let t316 = 0.84 * t315;
         let t317 = t12 * t116;
         let t318 = t22 * t317;
-        let t319 = 0.77777777777777777778e-5 * t318;
+        let t319 = 7.777777777777777e-06 * t318;
         let t322 = t29 / t13 / t114;
         let t323 = t28 * t322;
-        let t324 = 0.46666666666666666667e-4 * t323;
+        let t324 = 4.6666666666666665e-05 * t323;
         let t325 = 1.0 / t89;
         let t326 = t146 * t146;
         let t329 = t34 * t296;
@@ -252,7 +252,7 @@ pub fn gga_c_lm_fxc_pol(
         let t360 = t55 * t7 * t310;
         let t361 = t57 * t57;
         let t362 = 1.0 / t361;
-        let t368 = -0.14373459749454725435e-7 * t296 * t58 + 0.11977883124545604529e-6 * t116 * t8 * t353 + 0.70555555555555555553e-1 * t160 * t137 * t161 + 0.26458333333333333332e1 * t360 * t142 * t362 - 0.7150617283950617284e-5 * t318 + 0.3725925925925925926e-4 * t323 + t299 - t305 - t308 - t316;
+        let t368 = -1.4373459749454725e-08 * t296 * t58 + 1.1977883124545604e-07 * t116 * t8 * t353 + 0.07055555555555555 * t160 * t137 * t161 + 2.6458333333333335 * t360 * t142 * t362 - 7.150617283950617e-06 * t318 + 3.725925925925926e-05 * t323 + t299 - t305 - t308 - t316;
         let t369 = t53 * t368;
         let t370 = t70 * t70;
         let t372 = 1.0 / t72 / t370;

@@ -1,13 +1,13 @@
 //! MGGA_X_TB09 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_vxc/mgga_x_tb09.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tb09.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRTPI, M_PI, M_SQRT2};
+use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -21,8 +21,8 @@ pub fn mgga_x_tb09_vxc_unpol(
     vsigma: &mut [f64],
     vlapl: &mut [f64],
     vtau: &mut [f64],
-    param_alpha: f64,
     param_c: f64,
+    param_alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -36,15 +36,15 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t9 = 1.0 / t7 / rho[ip];
         let t14 = rho[ip] * rho[ip];
         let t16 = 1.0 / t7 / t14;
-        let t20 = f64::abs(lapl[ip] * t9 / 6.0 - 0.53333333333333333332e0 * tau[ip] * t9 + 0.66666666666666666668e-1 * sigma[ip] * t16);
-        let t22 = t5 * t20 < 0.5e-12;
+        let t20 = f64::abs(lapl[ip] * t9 / 6.0 - 0.5333333333333333 * tau[ip] * t9 + 0.06666666666666667 * sigma[ip] * t16);
+        let t22 = t5 * t20 < 5e-13;
         let t23 = lapl[ip] * t5;
         let t26 = tau[ip] * t5;
         let t27 = t26 * t9;
         let t29 = sigma[ip] * t5;
-        let t32 = t23 * t9 / 6.0 - 0.53333333333333333333e0 * t27 + 0.66666666666666666667e-1 * t29 * t16;
+        let t32 = t23 * t9 / 6.0 - 0.5333333333333333 * t27 + 0.06666666666666667 * t29 * t16;
         let t33 = 0.0 < t32;
-        let t34 = piecewise3(t33, 0.5e-12, -0.5e-12);
+        let t34 = piecewise3(t33, 5e-13, -5e-13);
         let t35 = piecewise3(t22, t34, t32);
         let t36 = xc_mgga_x_br89_get_x(t35);
         let t38 = f64::exp(t36 / 3.0);
@@ -63,8 +63,8 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t56 = param_alpha * sigma[ip];
         let t57 = t5 * t16;
         let t60 = t27 - t56 * t57 / 8.0;
-        let t61 = 0.1e-9 < t60;
-        let t62 = piecewise3(t61, t60, 0.1e-9);
+        let t61 = 1e-10 < t60;
+        let t62 = piecewise3(t61, t60, 1e-10);
         let t63 = f64::sqrt(t62);
         let t68 = (-2.0 * t3 * t46 + t52 * t55 * t63 / 6.0) * t5;
         let tvrho0 = t68 * t6 / 2.0;

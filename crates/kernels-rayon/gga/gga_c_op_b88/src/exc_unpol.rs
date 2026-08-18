@@ -1,8 +1,8 @@
 //! GGA_C_OP_B88 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_b88.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_b88.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -56,9 +56,9 @@ pub fn gga_c_op_b88_exc_unpol(
         let t43 = 1.0 / t36 / rho[ip];
         let t45 = f64::ln(t41 * t43 + f64::sqrt(pow_2(t41 * t43) + 1.0));
         let t46 = t43 * t45;
-        let t49 = 1.0 + 0.252e-1 * t41 * t46;
+        let t49 = 1.0 + 0.0252 * t41 * t46;
         let t50 = 1.0 / t49;
-        let t55 = 1.0 + 0.93333333333333333332e-3 * t22 * t34 * t39 * t50;
+        let t55 = 1.0 + 0.0009333333333333333 * t22 * t34 * t39 * t50;
         let t56 = 1.0 / t55;
         let t60 = piecewise3(t14, 0.0, t22 * t32 * t56 / 9.0);
         let t64 = t25 * rho[ip] / 2.0 <= dens_threshold;
@@ -72,16 +72,16 @@ pub fn gga_c_op_b88_exc_unpol(
         let t75 = t60 + t74;
         let t76 = t75 == 0.0;
         let t77 = piecewise3(t76, f64::EPSILON, t75);
-        let t80 = 0.36011538e1 / t77 + 0.5764e0;
+        let t80 = 3.6011538 / t77 + 0.5764;
         let t81 = t77 * t77;
         let t82 = t81 * t81;
         let t83 = 1.0 / t82;
         let t85 = t81 * t77;
         let t86 = 1.0 / t85;
         let t88 = 1.0 / t81;
-        let t90 = 0.31390124030721e2 * t83 + 0.149643497914092e2 * t86 + 0.17833359087e1 * t88;
+        let t90 = 31.390124030721 * t83 + 14.9643497914092 * t86 + 1.7833359087 * t88;
         let t91 = 1.0 / t90;
-        let tzk0 = piecewise3(t4, 0.0, -0.25e0 * t10 * t80 * t91);
+        let tzk0 = piecewise3(t4, 0.0, -0.25 * t10 * t80 * t91);
         zk[ip] += tzk0;
     }
 }

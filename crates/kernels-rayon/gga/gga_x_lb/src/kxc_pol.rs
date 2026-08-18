@@ -1,12 +1,12 @@
 //! GGA_X_LB kxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_vxc/gga_x_lb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lb.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -23,9 +23,9 @@ pub fn gga_x_lb_kxc_pol(
     v3rho2sigma: &mut [f64],
     v3rhosigma2: &mut [f64],
     v3sigma3: &mut [f64],
-    param_alpha: f64,
     param_beta: f64,
     param_gamma: f64,
+    param_alpha: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

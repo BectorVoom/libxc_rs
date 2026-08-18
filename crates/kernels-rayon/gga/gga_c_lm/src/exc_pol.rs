@@ -1,8 +1,8 @@
 //! GGA_C_LM exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_lm.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_lm.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -39,18 +39,18 @@ pub fn gga_c_lm_exc_pol(
         let t15 = t11 * t12 * t13;
         let t17 = 1.0 + 10.0 * t15;
         let t18 = f64::ln(t17);
-        let t20 = 0.252e-1 * t6 * t18;
+        let t20 = 0.0252 * t6 * t18;
         let t21 = t9 * t9;
         let t22 = t8 * t21;
         let t23 = t13 * t13;
         let t24 = 1.0 / t23;
         let t25 = t12 * t24;
         let t26 = t22 * t25;
-        let t27 = 0.7e-5 * t26;
+        let t27 = 7e-06 * t26;
         let t28 = t7 * t9;
         let t29 = t12 * t12;
         let t32 = t28 * t29 / t13;
-        let t33 = 0.105e-3 * t32;
+        let t33 = 0.000105 * t32;
         let t34 = rho0 - rho1;
         let t35 = t34 * t3;
         let t36 = 1.0 + t35;
@@ -68,10 +68,10 @@ pub fn gga_c_lm_exc_pol(
         let t49 = M_CBRT2;
         let t52 = 1.0 / (2.0 * t49 - 2.0);
         let t53 = (t42 + t47 - 2.0) * t52;
-        let t55 = 1.0 + 0.56588424210451674939e-6 * t3;
+        let t55 = 1.0 + 5.658842421045167e-07 * t3;
         let t57 = 1.0 + 25.0 * t15;
         let t58 = f64::ln(t57);
-        let t63 = -0.127e-1 * t55 * t58 - 0.64355555555555555556e-5 * t26 + 0.83833333333333333334e-4 * t32 - 0.41666666666666666667e-2 + t20;
+        let t63 = -0.0127 * t55 * t58 - 6.435555555555556e-06 * t26 + 8.383333333333333e-05 * t32 - 0.004166666666666667 + t20;
         let t64 = t53 * t63;
         let t65 = M_PI * t8;
         let t66 = M_PI * M_PI;
@@ -112,7 +112,7 @@ pub fn gga_c_lm_exc_pol(
         let t116 = 1.0 / t23 / t114;
         let t121 = t69 * (-7.0 / 36.0 * t49 * (t75 * t42 + t82 * t47) + 2.0 * t99 * t113 * t116);
         let t124 = t65 * t121 * t13 / 144.0;
-        let tzk0 = -t20 + t27 - t33 + 0.84e-2 + t64 + t124;
+        let tzk0 = -t20 + t27 - t33 + 0.0084 + t64 + t124;
         zk[ip] += tzk0;
     }
 }

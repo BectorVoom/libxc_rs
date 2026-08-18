@@ -1,8 +1,8 @@
 //! GGA_X_HJS_B88_V2 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_hjs_b88_v2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_hjs_b88_v2.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -98,8 +98,8 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
         let t90 = -t49 * t85 * t87 - t49 * t70 + t50 * t72 - t54 * t74 + t57 * t76 - t60 * t78 + t63 * t80 - t66 * t82 + t84 * t85 + 1.0;
         let t91 = 1.0 / t90;
         let t92 = t69 * t91;
-        let t93 = 0.1e-9 < t92;
-        let t94 = piecewise3(t93, t92, 0.1e-9);
+        let t93 = 1e-10 < t92;
+        let t94 = piecewise3(t93, t92, 1e-10);
         let t95 = param_hyb_omega_0 * param_hyb_omega_0;
         let t96 = t95 * t3;
         let t97 = t23 * t23;
@@ -109,16 +109,16 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
         let t102 = t18 * t18;
         let t103 = 1.0 / t102;
         let t105 = t96 * t101 * t103;
-        let t107 = 0.60965e0 + t94 + t105 / 3.0;
+        let t107 = 0.60965 + t94 + t105 / 3.0;
         let t108 = f64::sqrt(t107);
         let t109 = 1.0 / t108;
         let t111 = t25 * t29 * t109;
         let t113 = 1.0 - t111 / 3.0;
-        let t114 = 0.60965e0 + t94;
+        let t114 = 0.60965 + t94;
         let t115 = 1.0 / t114;
         let t119 = 1.0 + t50 / 4.0;
         let t120 = 1.0 / t119;
-        let t124 = 1.0 + 0.31215633538451261314e0 * t50 * t120 + 0.42141105276909202774e1 * t94;
+        let t124 = 1.0 + 0.3121563353845126 * t50 * t120 + 4.21411052769092 * t94;
         let t126 = 1.0 / t22;
         let t127 = t95 * param_hyb_omega_0 * t126;
         let t129 = 1.0 / t99 / t26;
@@ -135,11 +135,11 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
         let t149 = t148 * t146;
         let t150 = f64::sqrt(M_PI);
         let t152 = f64::sqrt(t94);
-        let t155 = 0.0 < 0.7572109999e0 + t94;
-        let t157 = piecewise3(t155, 0.757211e0 + t94, 0.1e-9);
+        let t155 = 0.0 < 0.7572109999 + t94;
+        let t157 = piecewise3(t155, 0.757211 + t94, 1e-10);
         let t158 = f64::sqrt(t157);
         let t160 = 4.0 / 5.0 * t150 + 12.0 / 5.0 * t152 - 12.0 / 5.0 * t158;
-        let t162 = 0.474596e-1 * t124 * t114 + 0.28363733333333333333e-1 * t139 - 0.9086532e0 * t146 - t149 * t160;
+        let t162 = 0.0474596 * t124 * t114 + 0.028363733333333332 * t139 - 0.9086532 * t146 - t149 * t160;
         let t165 = t95 * t95;
         let t167 = t165 * param_hyb_omega_0 * t3;
         let t169 = 1.0 / t97 / t22;
@@ -167,7 +167,7 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
         let t209 = f64::ln(t204 * t207);
         let t213 = t202 / 3.0 + t194 / 3.0;
         let t215 = f64::ln(t213 * t207);
-        let t218 = 0.757211e0 + 0.47272888888888888889e-1 * t113 * t115 + 0.26366444444444444444e-1 * t138 * t140 - t184 * t185 / 9.0 + 2.0 / 3.0 * t25 * t29 * t196 + 2.0 * t94 * t209 - 2.0 * t157 * t215;
+        let t218 = 0.757211 + 0.04727288888888889 * t113 * t115 + 0.026366444444444446 * t138 * t140 - t184 * t185 / 9.0 + 2.0 / 3.0 * t25 * t29 * t196 + 2.0 * t94 * t209 - 2.0 * t157 * t215;
         let t222 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t218);
         let tzk0 = 2.0 * t222;
         zk[ip] += tzk0;

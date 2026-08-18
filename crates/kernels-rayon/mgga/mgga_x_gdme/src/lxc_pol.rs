@@ -1,8 +1,8 @@
 //! MGGA_X_GDME lxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_gdme.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_gdme.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -86,9 +86,9 @@ pub fn mgga_x_gdme_lxc_pol(
     v4lapl2tau2: &mut [f64],
     v4lapltau3: &mut [f64],
     v4tau4: &mut [f64],
+    param_a: f64,
     param_AA: f64,
     param_BB: f64,
-    param_a: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

@@ -1,8 +1,8 @@
 //! MGGA_X_TPSS lxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tpss.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -1543,7 +1543,7 @@ pub fn mgga_x_tpss_lxc_unpol(
         let t7113 = t937 * t937;
         let t7120 = t21 * t684;
         let t7144 = -15.0 / 4.0 * t164 * t7086 + 9.0 / 256.0 * t2023 * t2049 + t6036 * t679 / 4.0 + 9.0 / 256.0 * t2037 * t2049 + 3.0 / 1024.0 * t676 * t6050 - 27.0 / 2048.0 * t1048 * t7080 + 225.0 / 512.0 * t409 * t7083 + t6030 * t679 / 4.0 + 6.0 * t32 * t928 * t937 + t32 * t7110 * t43 + 3.0 * t32 * t7113 * t43 + 4.0 * t32 * t332 * t2530 + t32 * (3.0 * t26 * t7120 * t154 + 11.0 / 2.0 * t26 * t7120 + 6.0 * t30 * t414) * t43 + 3.0 * t676 * t6027 + 3.0 / 4.0 * t4521 * t6019 * t363 - 9.0 / 8.0 * t2023 * t2061 - 9.0 / 8.0 * t2037 * t2061 - 27.0 / 128.0 * t676 * t6024 + 15.0 / 131072.0 * t2729 * t7068;
-        let t7149 = 292.0 / 675.0 * t7040 + 1168.0 / 2025.0 * t356 * t2568 + 292.0 / 2025.0 * t84 * t7056 - 73.0 / 97200.0 * t7056 * t101 + 5913.0 / 50.0 * t4651 * t945 + 957906.0 / 25.0 * t3500 * t2542 + 0.38795193e8 / 5.0 * t2823 * t7068 + 73.0 / 150.0 * t6114 * t336 + t110 * t35 * t944 / 6.0 - 17739.0 / 25.0 * t1551 * t2545 + 146.0 / 25.0 * t722 * t2548 - 4310577.0 / 25.0 * t1134 * t7080 + 5913.0 / 4.0 * t480 * t7083 - 73.0 / 10.0 * t209 * t7086 - 219.0 / 100.0 * t2105 * t948 + t7144 * t46 * t51 * t59 / 24.0;
+        let t7149 = 292.0 / 675.0 * t7040 + 1168.0 / 2025.0 * t356 * t2568 + 292.0 / 2025.0 * t84 * t7056 - 73.0 / 97200.0 * t7056 * t101 + 5913.0 / 50.0 * t4651 * t945 + 957906.0 / 25.0 * t3500 * t2542 + 38795193.0 / 5.0 * t2823 * t7068 + 73.0 / 150.0 * t6114 * t336 + t110 * t35 * t944 / 6.0 - 17739.0 / 25.0 * t1551 * t2545 + 146.0 / 25.0 * t722 * t2548 - 4310577.0 / 25.0 * t1134 * t7080 + 5913.0 / 4.0 * t480 * t7083 - 73.0 / 10.0 * t209 * t7086 - 219.0 / 100.0 * t2105 * t948 + t7144 * t46 * t51 * t59 / 24.0;
         let t7155 = piecewise3(t3, 0.0, 9.0 * t324 * t3228 * t7020 / t7021 - 27.0 / 2.0 * t324 * t1205 * t4788 * t981 + 9.0 / 4.0 * t324 * t536 * t7031 * t511 + 3.0 * t324 * t536 * t1591 * t2588 - 3.0 / 8.0 * t324 * t325 * t7149 * t131);
         let tv4tau40 = 2.0 * rho[ip] * t7155;
         v4tau4[ip] += tv4tau40;

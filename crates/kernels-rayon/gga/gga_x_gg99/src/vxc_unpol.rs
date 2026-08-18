@@ -1,8 +1,8 @@
 //! GGA_X_GG99 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_gg99.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_gg99.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -56,7 +56,7 @@ pub fn gga_x_gg99_vxc_unpol(
         let t40 = f64::sqrt(M_PI);
         let t42 = 1.0 / t40 / M_PI;
         let t43 = t39 * t42;
-        let t44 = t35 - 0.1e-9;
+        let t44 = t35 - 1e-10;
         let t45 = t44 < t29;
         let t46 = piecewise3(t45, t44, t29);
         let t47 = t46 * t46;
@@ -75,7 +75,7 @@ pub fn gga_x_gg99_vxc_unpol(
         let t63 = 1.0 / t62;
         let t67 = f64::ln(t43 * t46 * t60 * t63 / 4.0 + f64::sqrt(pow_2(t43 * t46 * t60 * t63 / 4.0) + 1.0));
         let t68 = 1.0 / M_PI;
-        let t69 = t35 + 0.1e-9;
+        let t69 = t35 + 1e-10;
         let t70 = t69 < t29;
         let t71 = piecewise3(t70, t29, t69);
         let t72 = t71 * t71;

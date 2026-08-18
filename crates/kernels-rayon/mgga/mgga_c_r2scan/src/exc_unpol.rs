@@ -1,8 +1,8 @@
 //! MGGA_C_R2SCAN exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_r2scan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_r2scan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -31,21 +31,21 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t8 = pow_1_3(rho[ip]);
         let t10 = t7 / t8;
         let t11 = t5 * t10;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
-        let t16 = 0.8969e0 * t11;
+        let t16 = 0.8969 * t11;
         let t17 = pow_3_2(t11);
-        let t18 = 0.204775e0 * t17;
+        let t18 = 0.204775 * t17;
         let t19 = t2 * t2;
         let t20 = t4 * t4;
         let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t6 / t22;
-        let t26 = 0.123235e0 * t25;
-        let t27 = 0.379785e1 * t14 + t16 + t18 + t26;
-        let t30 = 1.0 + 0.16081979498692535067e2 / t27;
+        let t26 = 0.123235 * t25;
+        let t27 = 3.79785 * t14 + t16 + t18 + t26;
+        let t30 = 1.0 + 16.081979498692537 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.621814e-1 * t13 * t31;
+        let t33 = 0.0621814 * t13 * t31;
         let t34 = 1.0 <= zeta_threshold;
         let t35 = pow_1_3(zeta_threshold);
         let t37 = piecewise3(t34, t35 * zeta_threshold, 1.0);
@@ -54,14 +54,14 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t41 = t40 - 1.0;
         let t43 = 1.0 / t41 / 2.0;
         let t44 = t39 * t43;
-        let t46 = 1.0 + 0.278125e-1 * t11;
-        let t48 = 0.905775e0 * t11;
-        let t49 = 0.1100325e0 * t17;
-        let t50 = 0.1241775e0 * t25;
-        let t51 = 0.51785e1 * t14 + t48 + t49 + t50;
-        let t54 = 1.0 + 0.29608749977793437516e2 / t51;
+        let t46 = 1.0 + 0.0278125 * t11;
+        let t48 = 0.905775 * t11;
+        let t49 = 0.1100325 * t17;
+        let t50 = 0.1241775 * t25;
+        let t51 = 5.1785 * t14 + t48 + t49 + t50;
+        let t54 = 1.0 + 29.608749977793437 / t51;
         let t55 = f64::ln(t54);
-        let t58 = 0.19751673498613801407e-1 * t44 * t46 * t55;
+        let t58 = 0.0197516734986138 * t44 * t46 * t55;
         let t59 = f64::ln(2.0);
         let t60 = 1.0 - t59;
         let t61 = M_PI * M_PI;
@@ -75,8 +75,8 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t72 = t61 * t71;
         let t74 = f64::exp(-(-t33 + t58) * t69 * t72);
         let t75 = t74 - 1.0;
-        let t77 = 1.0 + 0.25e-1 * t11;
-        let t79 = 1.0 + 0.4445e-1 * t11;
+        let t77 = 1.0 + 0.025 * t11;
+        let t79 = 1.0 + 0.04445 * t11;
         let t80 = 1.0 / t79;
         let t81 = t77 * t80;
         let t82 = rho[ip] * rho[ip];
@@ -92,37 +92,37 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t102 = t71 * t93;
         let t103 = f64::sqrt(4.0);
         let t104 = t103 * t14;
-        let t106 = 0.3138525e-1 * t11;
-        let t107 = 1.0 + 0.22225e-1 * t104 + t106;
+        let t106 = 0.03138525 * t11;
+        let t107 = 1.0 + 0.022225 * t104 + t106;
         let t108 = t107 * t107;
-        let t113 = 1.0 - 0.2363e1 * t41 * t39 * t43;
+        let t113 = 1.0 - 2.363 * t41 * t39 * t43;
         let t114 = 1.0 / t108 * t113;
         let t115 = 1.0 / t14;
         let t116 = t103 * t115;
-        let t118 = 0.4445e-1 * t116 + 0.125541e0;
-        let t122 = 0.1898925e1 * t104 + t16 + t18 + t26;
-        let t125 = 1.0 + 0.16081979498692535067e2 / t122;
+        let t118 = 0.04445 * t116 + 0.125541;
+        let t122 = 1.898925 * t104 + t16 + t18 + t26;
+        let t125 = 1.0 + 16.081979498692537 / t122;
         let t126 = f64::ln(t125);
         let t128 = t122 * t122;
         let t129 = 1.0 / t128;
         let t130 = t13 * t129;
         let t132 = f64::sqrt(t11);
-        let t135 = 0.379785e1 * t116 + 0.35876e1 + 0.122865e1 * t132 + 0.24647e0 * t11;
+        let t135 = 3.79785 * t116 + 3.5876 + 1.22865 * t132 + 0.24647 * t11;
         let t136 = 1.0 / t125;
         let t137 = t135 * t136;
-        let t141 = 0.258925e1 * t104 + t48 + t49 + t50;
-        let t144 = 1.0 + 0.29608749977793437516e2 / t141;
+        let t141 = 2.58925 * t104 + t48 + t49 + t50;
+        let t144 = 1.0 + 29.608749977793437 / t141;
         let t145 = f64::ln(t144);
         let t148 = t44 * t46;
         let t149 = t141 * t141;
         let t150 = 1.0 / t149;
-        let t154 = 0.51785e1 * t116 + 0.36231e1 + 0.660195e0 * t132 + 0.248355e0 * t11;
+        let t154 = 5.1785 * t116 + 3.6231 + 0.660195 * t132 + 0.248355 * t11;
         let t156 = 1.0 / t144;
         let t157 = t150 * t154 * t156;
-        let t160 = 0.285764e-1 * t114 * t118 + 0.1328816518e-1 * t126 - 1.0 * t130 * t137 - 0.21973736767207854065e-2 * t44 * t145 + 0.5848223622634646207e0 * t148 * t157;
-        let t165 = 1.0 + 0.4445e-1 * t14 + t106;
+        let t160 = 0.0285764 * t114 * t118 + 0.01328816518 * t126 - 1.0 * t130 * t137 - 0.0021973736767207856 * t44 * t145 + 0.5848223622634646 * t148 * t157;
+        let t165 = 1.0 + 0.04445 * t14 + t106;
         let t166 = 1.0 / t165;
-        let t172 = 5.0 * t5 * t10 * t160 - 45.0 * param_eta * (-0.285764e-1 * t166 * t113 + t33 - t58);
+        let t172 = 5.0 * t5 * t10 * t160 - 45.0 * param_eta * (-0.0285764 * t166 * t113 + t33 - t58);
         let t174 = t101 * t102 * t172;
         let t175 = M_CBRT6;
         let t176 = pow_1_3(t61);
@@ -141,9 +141,9 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t191 = t82 * t82;
         let t192 = t191 * rho[ip];
         let t194 = 1.0 / t8 / t192;
-        let t198 = f64::exp(-0.20444604078896369094e0 * t188 * t190 * t194);
+        let t198 = f64::exp(-0.2044460407889637 * t188 * t190 * t194);
         let t200 = t181 * t184 * t198;
-        let t203 = 1.0 + 0.27439371595564631661e-1 * t81 * sigma[ip] * t84 * t40 * t95 + 0.43341108700271342816e-1 * t174 * t200;
+        let t203 = 1.0 + 0.027439371595564633 * t81 * sigma[ip] * t84 * t40 * t95 + 0.043341108700271344 * t174 * t200;
         let t204 = pow_1_4(t203);
         let t206 = 1.0 - 1.0 / t204;
         let t208 = t206 * t75 + 1.0;
@@ -160,29 +160,29 @@ pub fn mgga_c_r2scan_exc_unpol(
         let t228 = piecewise3(t227, 0.0, t225);
         let t229 = 1.0 - t228;
         let t230 = 1.0 / t229;
-        let t233 = f64::exp(-0.64e0 * t228 * t230);
-        let t234 = t225 <= 0.25e1;
-        let t235 = 0.25e1 < t225;
-        let t236 = piecewise3(t235, 0.25e1, t225);
+        let t233 = f64::exp(-0.64 * t228 * t230);
+        let t234 = t225 <= 2.5;
+        let t235 = 2.5 < t225;
+        let t236 = piecewise3(t235, 2.5, t225);
         let t238 = t236 * t236;
         let t240 = t238 * t236;
         let t242 = t238 * t238;
         let t244 = t242 * t236;
         let t246 = t242 * t238;
-        let t251 = piecewise3(t235, t225, 0.25e1);
+        let t251 = piecewise3(t235, t225, 2.5);
         let t252 = 1.0 - t251;
-        let t255 = f64::exp(0.15e1 / t252);
-        let t257 = piecewise5(t226, t233, t234, 1.0 - 0.64e0 * t236 - 0.4352e0 * t238 - 0.1535685604549e1 * t240 + 0.3061560252175e1 * t242 - 0.1915710236206e1 * t244 + 0.516884468372e0 * t246 - 0.51848879792e-1 * t242 * t240, -0.7e0 * t255);
+        let t255 = f64::exp(1.5 / t252);
+        let t257 = piecewise5(t226, t233, t234, 1.0 - 0.64 * t236 - 0.4352 * t238 - 1.535685604549 * t240 + 3.061560252175 * t242 - 1.915710236206 * t244 + 0.516884468372 * t246 - 0.051848879792 * t242 * t240, -0.7 * t255);
         let t260 = f64::exp(1.0 * t166);
         let t261 = t260 - 1.0;
         let t262 = t180 * sigma[ip];
         let t263 = t262 * t183;
-        let t266 = 1.0 + 0.21337642104376358333e-1 * t179 * t263;
+        let t266 = 1.0 + 0.02133764210437636 * t179 * t263;
         let t267 = pow_1_4(t266);
         let t269 = 1.0 - 1.0 / t267;
         let t271 = t261 * t269 + 1.0;
         let t272 = f64::ln(t271);
-        let t276 = (-0.285764e-1 * t166 + 0.285764e-1 * t272) * t113 + t33 - t58 - t211;
+        let t276 = (-0.0285764 * t166 + 0.0285764 * t272) * t113 + t33 - t58 - t211;
         let t277 = t257 * t276;
         let tzk0 = -t33 + t58 + t211 + t277;
         zk[ip] += tzk0;

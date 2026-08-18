@@ -1,8 +1,8 @@
 //! MGGA_XC_LP90 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_lp90.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -53,9 +53,9 @@ pub fn mgga_xc_lp90_exc_pol(
         let t34 = pow_1_3(t33);
         let t35 = t34 * t34;
         let t36 = t35 * t33;
-        let t39 = 0.80569e0 + 0.37655e-3 * t3 * t9 - 0.37655e-3 * t16 * t24 - 0.37655e-3 * t31 * t36;
+        let t39 = 0.80569 + 0.00037655 * t3 * t9 - 0.00037655 * t16 * t24 - 0.00037655 * t31 * t36;
         let t40 = 1.0 / t6;
-        let t41 = t40 + 0.40743e-2;
+        let t41 = t40 + 0.0040743;
         let t42 = 1.0 / t41;
         let tzk0 = -t39 * t42;
         zk[ip] += tzk0;

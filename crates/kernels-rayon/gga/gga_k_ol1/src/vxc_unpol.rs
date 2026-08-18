@@ -1,8 +1,8 @@
 //! GGA_K_OL1 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -50,7 +50,7 @@ pub fn gga_k_ol1_vxc_unpol(
         let t42 = pow_1_3(t41);
         let t43 = t42 * t42;
         let t44 = 1.0 / t43;
-        let t47 = 1.0 + 5.0 / 9.0 * (t26 * t29 / 72.0 + 0.677e-2 * t33 * t35) * t39 * t44;
+        let t47 = 1.0 + 5.0 / 9.0 * (t26 * t29 / 72.0 + 0.00677 * t33 * t35) * t39 * t44;
         let t51 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;
@@ -59,13 +59,13 @@ pub fn gga_k_ol1_vxc_unpol(
         let t58 = t27 * rho[ip];
         let t60 = 1.0 / t22 / t58;
         let t64 = 1.0 / t21 / t27;
-        let t67 = -t26 * t60 / 27.0 - 0.90266666666666666666e-2 * t33 * t64;
+        let t67 = -t26 * t60 / 27.0 - 0.009026666666666667 * t33 * t64;
         let t69 = t39 * t44;
         let t74 = piecewise3(t2, 0.0, t7 * t20 * t52 * t47 / 10.0 + t57 * t22 * t67 * t69 / 12.0);
         let tvrho0 = 2.0 * rho[ip] * t74 + 2.0 * t51;
         vrho[ip] += tvrho0;
         let t80 = t25 / t32;
-        let t83 = t25 * t29 / 72.0 + 0.3385e-2 * t80 * t35;
+        let t83 = t25 * t29 / 72.0 + 0.003385 * t80 * t35;
         let t88 = piecewise3(t2, 0.0, t57 * t22 * t83 * t69 / 12.0);
         let tvsigma0 = 2.0 * rho[ip] * t88;
         vsigma[ip] += tvsigma0;

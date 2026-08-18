@@ -1,13 +1,13 @@
 //! MGGA_X_2D_PRHG07 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
+use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::lambert_w::{lambert_w};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
@@ -61,8 +61,8 @@ pub fn mgga_x_2d_prhg07_vxc_pol(
         let t33 = 1.0 / t32;
         let t37 = 1.0 / M_PI;
         let t38 = (lapl0 * t28 / 4.0 - tau0 * t28 + sigma0 * t33 / 8.0) * t37;
-        let t39 = -0.9999999999e0 < t38;
-        let t40 = piecewise3(t39, t38, -0.9999999999e0);
+        let t39 = -0.9999999999 < t38;
+        let t40 = piecewise3(t39, t38, -0.9999999999);
         let t41 = f64::exp(-1.0);
         let t43 = lambert_w(t40 * t41);
         let t44 = t43 + 1.0;
@@ -84,8 +84,8 @@ pub fn mgga_x_2d_prhg07_vxc_pol(
         let t66 = t61 * rho1;
         let t67 = 1.0 / t66;
         let t71 = (lapl1 * t62 / 4.0 - tau1 * t62 + sigma2 * t67 / 8.0) * t37;
-        let t72 = -0.9999999999e0 < t71;
-        let t73 = piecewise3(t72, t71, -0.9999999999e0);
+        let t72 = -0.9999999999 < t71;
+        let t73 = piecewise3(t72, t71, -0.9999999999);
         let t75 = lambert_w(t73 * t41);
         let t76 = t75 + 1.0;
         let t77 = t76 / 2.0;

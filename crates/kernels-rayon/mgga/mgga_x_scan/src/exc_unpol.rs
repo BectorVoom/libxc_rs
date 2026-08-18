@@ -1,8 +1,8 @@
 //! MGGA_X_SCAN exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_scan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_scan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -98,7 +98,7 @@ pub fn mgga_x_scan_exc_unpol(
         let t117 = piecewise3(t110, 0.0, -param_d * t115);
         let t118 = piecewise3(t89, t102, t117);
         let t119 = 1.0 - t118;
-        let t122 = t88 * t119 + 0.1174e1 * t118;
+        let t122 = t88 * t119 + 1.174 * t118;
         let t124 = f64::sqrt(3.0);
         let t125 = 1.0 / t23;
         let t126 = t40 * t125;
@@ -107,7 +107,7 @@ pub fn mgga_x_scan_exc_unpol(
         let t130 = 1.0 / t20 / rho[ip];
         let t132 = t126 * t128 * t130;
         let t133 = f64::sqrt(t132);
-        let t137 = f64::exp(-0.98958e1 * t124 / t133);
+        let t137 = f64::exp(-9.8958 * t124 / t133);
         let t138 = 1.0 - t137;
         let t142 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t122 * t138);
         let tzk0 = 2.0 * t142;

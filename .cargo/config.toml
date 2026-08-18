@@ -1,4 +1,4 @@
-# Build configuration for CubeCL kernel crates.
+# Build configuration for the generated kernel crates.
 #
 # sccache: Caches compiled crate outputs so unchanged kernel sub-crates are
 # skipped on rebuild. Incremental compilation is disabled (see Cargo.toml
@@ -11,18 +11,56 @@
 # via the jobserver, so raising it speeds up the long-pole monster crates, not
 # just crate-level packing.
 #
-# CubeCL-side builds (archive/kernels-cubecl, libxc-eval oracle-* features,
-# verify/) are the exception: each CubeCL sub-crate consumes 3-7 GB during
-# proc-macro expansion, so those builds MUST pass --jobs 1 explicitly — the
-# config default no longer protects them.
 [build]
 jobs = 12
 target-dir = "/home/user/Documents/workspace/libxc_rs/.cache/cargo-target"
 
+# target-cpu=native: match what the vendored oracle already does to itself.
+#
+# libxc's own CMake turns ENABLE_XHOST on by default (libxc-master/cmake/
+# xhost.cmake), so the C library this project is measured against compiles with
+# `-march=native -O3`. Rust was getting no `target-cpu` at all, i.e. baseline
+# x86-64 / SSE2, which cost two separate things:
+#
+#  1. `f64::mul_add` lowered to a *call* into libm's software `fma()`
+#     (`jmpq *fma@GOTPCREL(%rip)`) instead of one `vfmadd213sd`. `cbrt_f64` in
+#     kernels-rayon/math uses two of them and `pow_1_3` runs several times per
+#     grid point in most functionals, so the hot loop was making roughly ten
+#     software-FMA calls per point.
+#  2. The SLP-vectorised merged kernel blocks packed 2-wide (SSE) on hardware
+#     that does 8-wide.
+#
+# This does NOT change any result. Vectorising independent scalar operations is
+# exact, and hardware FMA and libm `fma()` are both correctly-rounded IEEE 754
+# fusedMultiplyAdd. The transform that *would* change results -- contracting a
+# source-level `a*b + c` into an FMA -- does not happen, because rustc leaves
+# fp-contract off; verified by compiling `a * b + c` with this flag and getting
+# `vmulsd` + `vaddsd`. Bit-exactness is checked, not assumed: `bench-vs-libxc`
+# prints a fingerprint over `to_bits()` of every output, and it is unchanged
+# across this flag.
+#
+# `native` is right for a from-source scientific library (the user compiles it
+# on the machine that runs it, exactly as libxc assumes). Distributors who need
+# portable binaries should override this with a concrete baseline -- e.g.
+# `-C target-cpu=x86-64-v3`, which still gets FMA and AVX2.
+#
+# It lives in a `[target.'cfg(...)']` section, NOT in `[build]`, and that is not
+# cosmetic. Cargo does not merge rustflags across categories: it takes the first
+# category that applies, in the order RUSTFLAGS env -> target.<triple> ->
+# target.<cfg> -> build. This developer's ~/.cargo/config.toml already sets
+# `[target.'cfg(target_os = "linux")'] rustflags` (for mold), which silently
+# outranked a `[build] rustflags` here -- the flag was configured, cargo
+# reported no error, and every kernel still compiled as SSE2. Entries in
+# matching `target.<cfg>` sections *are* joined across config files, so putting
+# it here composes with a user's own linker flags instead of losing to them.
+
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "target-cpu=native"]
+
 [env]
-# Inlined Brent-method root-finders in libxc-kernel-math (br89, mbrxc) recurse
-# deep through the CubeCL `#[cube]` proc-macro expansion. The default 8MB
-# rustc stack overflows (SIGSEGV); 64MB cleared it with margin.
+# Kept from the CubeCL era: the deep proc-macro recursion that needed this is
+# gone, but the value is an address-space reservation, not committed memory,
+# so it costs nothing to leave and still covers deeply-nested generated code.
 #
 # Raised 64MB -> 1GB (2026-08-15, chunk-first pilot): launching a chunk-first
 # kernel (wide-struct chunk interfaces, ~512 F fields) in a DEV build runs the

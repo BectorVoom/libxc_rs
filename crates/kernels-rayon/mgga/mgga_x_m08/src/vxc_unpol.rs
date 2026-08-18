@@ -1,8 +1,8 @@
 //! MGGA_X_M08 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m08.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m08.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -21,7 +21,6 @@ pub fn mgga_x_m08_vxc_unpol(
     vsigma: &mut [f64],
     vlapl: &mut [f64],
     vtau: &mut [f64],
-    param_a_0: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -33,7 +32,7 @@ pub fn mgga_x_m08_vxc_unpol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
-    param_b_0: f64,
+    param_a_0: f64,
     param_b_1: f64,
     param_b_2: f64,
     param_b_3: f64,
@@ -45,6 +44,7 @@ pub fn mgga_x_m08_vxc_unpol(
     param_b_9: f64,
     param_b_10: f64,
     param_b_11: f64,
+    param_b_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -75,8 +75,8 @@ pub fn mgga_x_m08_vxc_unpol(
         let t31 = t19 * t19;
         let t33 = 1.0 / t31 / t30;
         let t35 = t26 * t29 * t33;
-        let t37 = 0.804e0 + 0.914625e-2 * t35;
-        let t40 = 0.1804e1 - 0.646416e0 / t37;
+        let t37 = 0.804 + 0.00914625 * t35;
+        let t40 = 1.804 - 0.646416 / t37;
         let t42 = param_a_1;
         let t43 = t21 * t21;
         let t45 = 3.0 / 10.0 * t43 * t24;
@@ -135,8 +135,8 @@ pub fn mgga_x_m08_vxc_unpol(
         let t111 = t109 * t110;
         let t113 = 1.0 / t94 / t64;
         let t115 = t99 * t101 + t105 * t107 + t111 * t113 + t51 * t53 + t57 * t59 + t63 * t65 + t69 * t71 + t75 * t77 + t81 * t83 + t87 * t89 + t93 * t95 + param_a_0;
-        let t118 = f64::exp(-0.93189002206715572255e-2 * t35);
-        let t120 = 0.1552e1 - 0.552e0 * t118;
+        let t118 = f64::exp(-0.009318900220671557 * t35);
+        let t120 = 1.552 - 0.552 * t118;
         let t122 = param_b_1;
         let t123 = t122 * t50;
         let t125 = param_b_2;
@@ -246,13 +246,13 @@ pub fn mgga_x_m08_vxc_unpol(
         let t343 = t153 * t256;
         let t346 = 10.0 * t308 * t184 + 35.0 / 3.0 * t312 * t184 + 35.0 / 3.0 * t315 * t184 + 40.0 / 3.0 * t319 * t184 + 40.0 / 3.0 * t322 * t184 + 15.0 * t326 * t184 + 15.0 * t329 * t184 + 50.0 / 3.0 * t333 * t184 + 50.0 / 3.0 * t336 * t184 + 55.0 / 3.0 * t340 * t184 + 55.0 / 3.0 * t343 * t184;
         let t347 = t307 + t346;
-        let t349 = -0.1576608624e-1 * t170 * t29 * t173 * t115 + t40 * t261 - 0.13717421124828532236e-1 * t263 * t264 * t265 + t120 * t347;
+        let t349 = -0.01576608624 * t170 * t29 * t173 * t115 + t40 * t261 - 0.013717421124828532 * t263 * t264 * t265 + t120 * t347;
         let t354 = piecewise3(t3, 0.0, -t7 * t163 * t157 / 8.0 - 3.0 / 8.0 * t7 * t20 * t349);
         let tvrho0 = 2.0 * rho[ip] * t354 + 2.0 * t161;
         vrho[ip] += tvrho0;
         let t360 = t26 * t28;
         let t361 = t33 * t118;
-        let t365 = 0.591228234e-2 * t170 * t179 * t115 + 0.51440329218106995885e-2 * t360 * t361 * t155;
+        let t365 = 0.00591228234 * t170 * t179 * t115 + 0.0051440329218107 * t360 * t361 * t155;
         let t369 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t365);
         let tvsigma0 = 2.0 * rho[ip] * t369;
         vsigma[ip] += tvsigma0;

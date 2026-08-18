@@ -1,8 +1,8 @@
 //! GGA_K_OL1 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -48,7 +48,7 @@ pub fn gga_k_ol1_exc_unpol(
         let t42 = pow_1_3(t41);
         let t43 = t42 * t42;
         let t44 = 1.0 / t43;
-        let t47 = 1.0 + 5.0 / 9.0 * (t26 * t29 / 72.0 + 0.677e-2 * t33 * t35) * t39 * t44;
+        let t47 = 1.0 + 5.0 / 9.0 * (t26 * t29 / 72.0 + 0.00677 * t33 * t35) * t39 * t44;
         let t51 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t47);
         let tzk0 = 2.0 * t51;
         zk[ip] += tzk0;

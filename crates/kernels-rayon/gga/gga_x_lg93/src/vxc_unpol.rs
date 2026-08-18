@@ -1,8 +1,8 @@
 //! GGA_X_LG93 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lg93.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_lg93.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -72,15 +72,15 @@ pub fn gga_x_lg93_vxc_unpol(
         let t78 = t58 * t40;
         let t79 = t50 * t50;
         let t80 = 1.0 / t79;
-        let t83 = 1.0 + 0.20588079936467259283e0 * t34 + 0.1034375e0 * t39 * t41 * t45 + 0.39953563229732420473e-3 * t49 * t51 + 0.87666377314814814812e-3 * t57 * t59 * t62 + 0.9464819637345679012e-2 * t69 * t71 * t74 + 0.17770905884280507538e-7 * t78 * t80;
-        let t84 = f64::powf(t83, 0.24974e-1);
-        let t87 = 1.0 + 0.41666666666666666666e-9 * t34;
+        let t83 = 1.0 + 0.2058807993646726 * t34 + 0.1034375 * t39 * t41 * t45 + 0.0003995356322973242 * t49 * t51 + 0.0008766637731481481 * t57 * t59 * t62 + 0.009464819637345679 * t69 * t71 * t74 + 1.7770905884280507e-08 * t78 * t80;
+        let t84 = f64::powf(t83, 0.024974);
+        let t87 = 1.0 + 4.166666666666667e-10 * t34;
         let t88 = 1.0 / t87;
         let t92 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t19 * t84 * t88);
         let tzk0 = 2.0 * t92;
         zk[ip] += tzk0;
         let t93 = 1.0 / t30;
-        let t98 = f64::powf(t83, -0.975026e0);
+        let t98 = f64::powf(t83, -0.975026);
         let t99 = t19 * t98;
         let t100 = t29 * rho[ip];
         let t102 = 1.0 / t30 / t100;
@@ -94,7 +94,7 @@ pub fn gga_x_lg93_vxc_unpol(
         let t124 = 1.0 / t19 / t122;
         let t128 = t79 * rho[ip];
         let t129 = 1.0 / t128;
-        let t132 = -0.54901546497246024755e0 * t25 * t28 * t102 - 0.55166666666666666667e0 * t39 * t41 * t108 - 0.31962850583785936378e-2 * t49 * t113 - 0.93510802469135802466e-2 * t57 * t59 * t118 - 0.12619759516460905349e0 * t69 * t71 * t124 - 0.28433449414848812061e-6 * t78 * t129;
+        let t132 = -0.5490154649724602 * t25 * t28 * t102 - 0.5516666666666666 * t39 * t41 * t108 - 0.0031962850583785937 * t49 * t113 - 0.009351080246913581 * t57 * t59 * t118 - 0.12619759516460904 * t69 * t71 * t124 - 2.843344941484881e-07 * t78 * t129;
         let t133 = t88 * t132;
         let t137 = t3 * t17;
         let t139 = 1.0 / t19 / t100;
@@ -104,18 +104,18 @@ pub fn gga_x_lg93_vxc_unpol(
         let t144 = t143 * t20;
         let t146 = t24 * sigma[ip] * t27;
         let t147 = t144 * t146;
-        let t151 = piecewise3(t2, 0.0, -t18 * t93 * t84 * t88 / 8.0 - 0.936525e-2 * t18 * t99 * t133 - 0.28449335968970653394e-9 * t141 * t147);
+        let t151 = piecewise3(t2, 0.0, -t18 * t93 * t84 * t88 / 8.0 - 0.00936525 * t18 * t99 * t133 - 2.8449335968970655e-10 * t141 * t147);
         let tvrho0 = 2.0 * rho[ip] * t151 + 2.0 * t92;
         vrho[ip] += tvrho0;
         let t157 = sigma[ip] * t26;
         let t163 = t49 * t27;
         let t167 = t58 * t26;
-        let t173 = 0.20588079936467259283e0 * t25 * t27 * t32 + 0.206875e0 * t39 * t157 * t45 + 0.11986068968919726142e-2 * t40 * t51 + 0.35066550925925925925e-2 * t57 * t163 * t62 + 0.4732409818672839506e-1 * t69 * t167 * t74 + 0.10662543530568304523e-6 * t70 * t80;
+        let t173 = 0.2058807993646726 * t25 * t27 * t32 + 0.206875 * t39 * t157 * t45 + 0.0011986068968919726 * t40 * t51 + 0.0035066550925925925 * t57 * t163 * t62 + 0.04732409818672839 * t69 * t167 * t74 + 1.0662543530568304e-07 * t70 * t80;
         let t174 = t88 * t173;
         let t179 = 1.0 / t19 / t29;
         let t182 = t24 * t27;
         let t183 = t144 * t182;
-        let t187 = piecewise3(t2, 0.0, -0.936525e-2 * t18 * t99 * t174 + 0.10668500988363995023e-9 * t137 * t179 * t84 * t183);
+        let t187 = piecewise3(t2, 0.0, -0.00936525 * t18 * t99 * t174 + 1.0668500988363994e-10 * t137 * t179 * t84 * t183);
         let tvsigma0 = 2.0 * rho[ip] * t187;
         vsigma[ip] += tvsigma0;
     }

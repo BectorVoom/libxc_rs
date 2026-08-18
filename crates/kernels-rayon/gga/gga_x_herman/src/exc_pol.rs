@@ -1,12 +1,12 @@
 //! GGA_X_HERMAN exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_herman.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_herman.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -54,7 +54,7 @@ pub fn gga_x_herman_exc_pol(
         let t36 = pow_1_3(rho0);
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
-        let t43 = 1.0 + 0.66666666666666666668e-3 * t32 * t34 * t39;
+        let t43 = 1.0 + 0.0006666666666666666 * t32 * t34 * t39;
         let t47 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t43);
         let t48 = rho1 <= dens_threshold;
         let t49 = -t16;
@@ -69,7 +69,7 @@ pub fn gga_x_herman_exc_pol(
         let t60 = pow_1_3(rho1);
         let t61 = t60 * t60;
         let t63 = 1.0 / t61 / t59;
-        let t67 = 1.0 + 0.66666666666666666668e-3 * t32 * t58 * t63;
+        let t67 = 1.0 + 0.0006666666666666666 * t32 * t58 * t63;
         let t71 = piecewise3(t48, 0.0, -3.0 / 8.0 * t5 * t57 * t67);
         let tzk0 = t47 + t71;
         zk[ip] += tzk0;

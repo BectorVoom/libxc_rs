@@ -1,8 +1,8 @@
 //! MGGA_K_RDA fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_rda.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_rda.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -221,7 +221,7 @@ pub fn mgga_k_rda_fxc_unpol(
         let t334 = t332 * t333;
         let t335 = t334 * t327;
         let t338 = t163 * t324;
-        let t340 = 55.0 / 81.0 * t264 + t276 * t69 / 576.0 - t280 * t282 / 9216.0 + t287 * t288 * t279 / 221184.0 - t132 * t135 * t275 / 13824.0 + t296 * t85 / 165888.0 - 7.0 / 7962624.0 * t299 * t149 * t295 * param_beta2 + t139 * t307 / 165888.0 + 5.0 / 0.191102976e9 * t139 * t313 * t295 - t147 * t150 * t306 / 3981312.0 + t325 * t100 - 2.0 * t328 * t163 + 2.0 * t97 * t335 - t97 * t338;
+        let t340 = 55.0 / 81.0 * t264 + t276 * t69 / 576.0 - t280 * t282 / 9216.0 + t287 * t288 * t279 / 221184.0 - t132 * t135 * t275 / 13824.0 + t296 * t85 / 165888.0 - 7.0 / 7962624.0 * t299 * t149 * t295 * param_beta2 + t139 * t307 / 165888.0 + 5.0 / 191102976.0 * t139 * t313 * t295 - t147 * t150 * t306 / 3981312.0 + t325 * t100 - 2.0 * t328 * t163 + 2.0 * t97 * t335 - t97 * t338;
         let t345 = piecewise3(t3, 0.0, -t8 * t254 * t102 / 30.0 + t8 * t108 * t166 / 5.0 + 3.0 / 20.0 * t8 * t24 * t340);
         let tv2rho20 = 2.0 * rho[ip] * t345 + 4.0 * t171;
         v2rho2[ip] += tv2rho20;
@@ -253,7 +253,7 @@ pub fn mgga_k_rda_fxc_unpol(
         let t405 = param_beta3 * t158;
         let t409 = t97 * t334;
         let t411 = t30 * t174 * t158;
-        let t416 = -5.0 / 27.0 * t352 - t178 * t179 * t354 / 27.0 - t359 * t363 / 2304.0 + t367 * t191 * t368 / 55296.0 + t184 * t373 / 648.0 + t377 * t193 / 41472.0 - 7.0 / 1990656.0 * t382 * t179 * t384 - t190 * t389 / 7776.0 + 5.0 / 0.47775744e8 * t393 * t191 * t394 + t196 * t373 / 186624.0 - t200 * t351 * t100 / 9.0 - t403 * t404 * t405 / 12.0 + t409 * t411 / 12.0 + t204 * t352 / 9.0;
+        let t416 = -5.0 / 27.0 * t352 - t178 * t179 * t354 / 27.0 - t359 * t363 / 2304.0 + t367 * t191 * t368 / 55296.0 + t184 * t373 / 648.0 + t377 * t193 / 41472.0 - 7.0 / 1990656.0 * t382 * t179 * t384 - t190 * t389 / 7776.0 + 5.0 / 47775744.0 * t393 * t191 * t394 + t196 * t373 / 186624.0 - t200 * t351 * t100 / 9.0 - t403 * t404 * t405 / 12.0 + t409 * t411 / 12.0 + t204 * t352 / 9.0;
         let t421 = piecewise3(t3, 0.0, t8 * t108 * t207 / 10.0 + 3.0 / 20.0 * t8 * t24 * t416);
         let tv2rhosigma0 = 2.0 * rho[ip] * t421 + 2.0 * t211;
         v2rhosigma[ip] += tv2rhosigma0;
@@ -279,7 +279,7 @@ pub fn mgga_k_rda_fxc_unpol(
         let t476 = t234 * t30;
         let t477 = t32 * t92;
         let t482 = t97 * t334 * param_c;
-        let t491 = -5.0 / 216.0 * t214 * t215 * t427 - t432 * t434 * t362 / 2304.0 + t440 * t441 * t442 / 55296.0 + 5.0 / 5184.0 * t221 * t447 + t450 * t223 / 41472.0 - 7.0 / 1990656.0 * t455 * t456 * t458 - 5.0 / 62208.0 * t227 * t447 + 5.0 / 0.47775744e8 * t465 * t431 * t466 + 5.0 / 1492992.0 * t231 * t447 - 5.0 / 72.0 * t235 * t236 * t36 * t100 - t476 * t477 * t164 / 12.0 + t482 * t30 * t477 * t158 / 12.0 + 5.0 / 72.0 * t204 * t88 * t236 * t36;
+        let t491 = -5.0 / 216.0 * t214 * t215 * t427 - t432 * t434 * t362 / 2304.0 + t440 * t441 * t442 / 55296.0 + 5.0 / 5184.0 * t221 * t447 + t450 * t223 / 41472.0 - 7.0 / 1990656.0 * t455 * t456 * t458 - 5.0 / 62208.0 * t227 * t447 + 5.0 / 47775744.0 * t465 * t431 * t466 + 5.0 / 1492992.0 * t231 * t447 - 5.0 / 72.0 * t235 * t236 * t36 * t100 - t476 * t477 * t164 / 12.0 + t482 * t30 * t477 * t158 / 12.0 + 5.0 / 72.0 * t204 * t88 * t236 * t36;
         let t496 = piecewise3(t3, 0.0, t8 * t108 * t245 / 10.0 + 3.0 / 20.0 * t8 * t24 * t491);
         let tv2rholapl0 = 2.0 * rho[ip] * t496 + 2.0 * t249;
         v2rholapl[ip] += tv2rholapl0;

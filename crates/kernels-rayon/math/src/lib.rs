@@ -9,9 +9,16 @@
 //! relaxation: callers always pass already-evaluated values, so both arms are
 //! evaluated in either form.
 
+/// Re-exported so generated SIMD kernels can name `f64x8` without taking a
+/// second dependency. See `docs/perf/simd-kernels.md` for when a kernel is
+/// emitted in SIMD form at all.
+pub use wide;
+
 pub mod constants;
 pub mod piecewise;
 pub mod powers;
+pub mod simd;
+pub(crate) mod simd_data;
 pub mod bessel;
 pub mod br89;
 pub mod bspline;
@@ -24,3 +31,8 @@ pub mod mbrxc;
 pub mod polynomials;
 pub mod special;
 pub mod spin;
+
+/// CubeCL forms of the primitives, for explicit lane-vectorised kernels.
+/// Requires the `cubecl` feature; see `vector.rs` for why it is not default.
+#[cfg(feature = "cubecl")]
+pub mod vector;

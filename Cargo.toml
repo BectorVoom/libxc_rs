@@ -13,17 +13,10 @@ libxc-compat = { path = "crates/libxc-compat", default-features = false }
 
 
 [features]
-# Phase 10 (D-10): the per-functional kernel feature machinery moved to libxc-eval.
-# Root re-forwards the family features; the libxc-eval dep is pinned
-# default-features=false (Pitfall 1) so no-feature builds do NOT pull all 306
-# kernels (OOM). verify activates a family via libxc_rs/oracle-<fam>.
-# Off by default since ADR 0001 -- see crates/libxc-compat/Cargo.toml. `verify`
-# activates a family explicitly via libxc_rs/oracle-<fam>.
+# The `oracle-{lda,gga,mgga}` and `cubecl-backend` features are gone with the
+# archived CubeCL tree they selected. Numerical work is `libxc-reval` and the
+# generated kernels in `crates/kernels-rayon`, neither of which is optional.
 default     = []
-cubecl-backend = ["libxc-eval/cubecl-backend"]
-oracle-lda  = ["libxc-eval/oracle-lda"]
-oracle-gga  = ["libxc-eval/oracle-gga"]
-oracle-mgga = ["libxc-eval/oracle-mgga"]
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
@@ -32,8 +25,8 @@ libxc_rs-verify = { path = "verify" }
 [workspace]
 resolver = "3"
 
-# Hand-written crates only. The two generated kernel trees (305 rayon crates,
-# 306 archived CubeCL crates) are deliberately NOT members -- see `exclude`.
+# Hand-written crates only. The generated kernel tree (266 crates) is
+# deliberately NOT a member -- see `exclude`.
 members = [
     # --- core library ---------------------------------------------------
     "crates/libxc-core",
@@ -43,12 +36,17 @@ members = [
     "crates/libxc-reval",
     "crates/kernels-rayon/math",
 
-    # --- CubeCL backend (archived, ADR 0001) ----------------------------
+    # --- orchestration types the facade and C-ABI still take ------------
     "crates/libxc-eval",
 
     # --- tooling / harnesses --------------------------------------------
     "xtask",
     "libxc-sys",
+    # Head-to-head speed/memory benchmark against C libxc. A member (not an
+    # excluded harness) so it shares the workspace lockfile and profiles --
+    # the numbers are meaningless if it resolves rayon or the kernels
+    # differently from the library it is measuring.
+    "bench-vs-libxc",
 ]
 
 # The generated kernel trees are excluded from the workspace, not merely kept
@@ -56,8 +54,8 @@ members = [
 #
 # `default-members` only changes what a bare `cargo build` picks. It does not
 # affect `cargo check --workspace`, which is what rust-analyzer (Zed, VS Code)
-# runs -- with 611 generated crates as members that meant ~900 units checked
-# and every one of them indexed as workspace code on each editor session.
+# runs -- with the generated crates as members that meant hundreds of extra
+# units checked and indexed as workspace code on each editor session.
 #
 # Excluding them makes them ordinary path dependencies: still built when
 # something depends on them, but not enumerated by `--workspace` and not
@@ -65,18 +63,13 @@ members = [
 #
 # Consequences to know about:
 #   * `cargo check -p libxc-rkernel-<f>` still works for any kernel reachable
-#     from a member (libxc-reval depends on 156 of them; libxc-eval on all 306
-#     archived ones under its oracle-* features).
+#     from a member (libxc-reval depends on 156 of them).
 #   * For a kernel that nothing depends on, use
 #     `cargo check --manifest-path crates/kernels-rayon/<fam>/<f>/Cargo.toml`.
 exclude = [
-    "archive",
-    # On-demand verification tools. Both link the archived CubeCL backend by
-    # design -- kernels-rayon/verify is the bit-exactness gate that compares the
-    # two trees -- so keeping them as members put cubecl and its ~235
-    # transitive crates into every `cargo check --workspace`. Run them with
-    # --manifest-path:
-    #   cargo run --release --manifest-path crates/kernels-rayon/verify/Cargo.toml
+    # On-demand verification tools, kept out of `cargo check --workspace`. Run
+    # them with --manifest-path:
+    #   cargo test --release --manifest-path crates/kernels-rayon/oracle/Cargo.toml
     #   cargo test --manifest-path verify/Cargo.toml --features oracle-gga --jobs 1
     #   cargo test --manifest-path verify-canary/Cargo.toml
     #
@@ -84,7 +77,6 @@ exclude = [
     # archived kernel crates as *dev-dependencies*, which `cargo check
     # --all-targets` builds. `cargo tree -e normal` hides those, which is why an
     # earlier measurement of this looked clean when it was not.
-    "crates/kernels-rayon/verify",
     "crates/kernels-rayon/oracle",
     "verify",
     "verify-canary",

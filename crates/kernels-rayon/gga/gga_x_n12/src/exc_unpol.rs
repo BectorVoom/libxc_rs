@@ -1,8 +1,8 @@
 //! GGA_X_N12 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_n12.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_n12.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -15,22 +15,22 @@ pub fn gga_x_n12_exc_unpol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
-    param_CC_0_0: f64,
     param_CC_0_1: f64,
     param_CC_0_2: f64,
     param_CC_0_3: f64,
-    param_CC_1_0: f64,
     param_CC_1_1: f64,
     param_CC_1_2: f64,
     param_CC_1_3: f64,
-    param_CC_2_0: f64,
+    param_CC_1_0: f64,
     param_CC_2_1: f64,
     param_CC_2_2: f64,
     param_CC_2_3: f64,
-    param_CC_3_0: f64,
+    param_CC_2_0: f64,
     param_CC_3_1: f64,
     param_CC_3_2: f64,
     param_CC_3_3: f64,
+    param_CC_3_0: f64,
+    param_CC_0_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -57,7 +57,7 @@ pub fn gga_x_n12_exc_unpol(
         let t26 = t18 * t18;
         let t28 = 1.0 / t26 / t25;
         let t29 = t24 * t28;
-        let t33 = 1.0 + 0.4e-2 * sigma[ip] * t24 * t28;
+        let t33 = 1.0 + 0.004 * sigma[ip] * t24 * t28;
         let t34 = 1.0 / t33;
         let t35 = t29 * t34;
         let t38 = param_CC_0_2;
@@ -83,9 +83,9 @@ pub fn gga_x_n12_exc_unpol(
         let t67 = t66 * t39;
         let t70 = param_CC_1_3;
         let t71 = t70 * t52;
-        let t74 = param_CC_1_0 + 0.4e-2 * t63 * t35 + 0.32e-4 * t67 * t48 + 0.256e-6 * t71 * t58;
+        let t74 = param_CC_1_0 + 0.004 * t63 * t35 + 3.2e-05 * t67 * t48 + 2.56e-07 * t71 * t58;
         let t79 = piecewise3(t12, 1.0 / t13, 1.0 / t15);
-        let t82 = 1.0 + 0.39999999999999999998e0 / t18 * t23 * t79;
+        let t82 = 1.0 + 0.4 / t18 * t23 * t79;
         let t83 = 1.0 / t82;
         let t86 = param_CC_2_1;
         let t87 = t86 * sigma[ip];
@@ -93,7 +93,7 @@ pub fn gga_x_n12_exc_unpol(
         let t91 = t90 * t39;
         let t94 = param_CC_2_3;
         let t95 = t94 * t52;
-        let t98 = param_CC_2_0 + 0.4e-2 * t87 * t35 + 0.32e-4 * t91 * t48 + 0.256e-6 * t95 * t58;
+        let t98 = param_CC_2_0 + 0.004 * t87 * t35 + 3.2e-05 * t91 * t48 + 2.56e-07 * t95 * t58;
         let t99 = t82 * t82;
         let t100 = 1.0 / t99;
         let t103 = param_CC_3_1;
@@ -102,10 +102,10 @@ pub fn gga_x_n12_exc_unpol(
         let t108 = t107 * t39;
         let t111 = param_CC_3_3;
         let t112 = t111 * t52;
-        let t115 = param_CC_3_0 + 0.4e-2 * t104 * t35 + 0.32e-4 * t108 * t48 + 0.256e-6 * t112 * t58;
+        let t115 = param_CC_3_0 + 0.004 * t104 * t35 + 3.2e-05 * t108 * t48 + 2.56e-07 * t112 * t58;
         let t116 = t99 * t82;
         let t117 = 1.0 / t116;
-        let t119 = param_CC_0_0 + 0.4e-2 * t22 * t35 + 0.32e-4 * t40 * t48 + 0.256e-6 * t53 * t58 + t74 * t83 + t98 * t100 + t115 * t117;
+        let t119 = param_CC_0_0 + 0.004 * t22 * t35 + 3.2e-05 * t40 * t48 + 2.56e-07 * t53 * t58 + t74 * t83 + t98 * t100 + t115 * t117;
         let t123 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t119);
         let tzk0 = 2.0 * t123;
         zk[ip] += tzk0;

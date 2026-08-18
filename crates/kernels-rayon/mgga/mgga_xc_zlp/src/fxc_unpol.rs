@@ -1,8 +1,8 @@
 //! MGGA_XC_ZLP fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,11 +44,11 @@ pub fn mgga_xc_zlp_fxc_unpol(
         let t12 = t11 * t11;
         let t14 = 1.0 / t12 / t10;
         let t17 = 1.0 / t12 / rho[ip];
-        let t24 = 0.207108e0 * t5 * t7 + 0.5387725e-2 * t5 * t7 * (-lapl[ip] * t17 / 8.0 + sigma[ip] * t14 / 8.0);
+        let t24 = 0.207108 * t5 * t7 + 0.005387725 * t5 * t7 * (-lapl[ip] * t17 / 8.0 + sigma[ip] * t14 / 8.0);
         let t25 = 1.0 / t11;
-        let t27 = 1.0 + 0.48849425066691677572e3 * t25;
+        let t27 = 1.0 + 488.4942506669168 * t25;
         let t28 = f64::ln(t27);
-        let t31 = 1.0 - 0.2047107e-2 * t28 * t11;
+        let t31 = 1.0 - 0.002047107 * t28 * t11;
         let t33 = t2 * t2;
         let t34 = t24 * t31 * t33;
         let t35 = 1.0 / t4;
@@ -65,15 +65,15 @@ pub fn mgga_xc_zlp_fxc_unpol(
         let t53 = t41 * t24;
         let t55 = 1.0 / t27;
         let t58 = 1.0 / t12;
-        let t61 = 0.33333333333333333332e0 / rho[ip] * t55 - 0.682369e-3 * t28 * t58;
+        let t61 = 0.3333333333333333 / rho[ip] * t55 - 0.000682369 * t28 * t58;
         let t64 = t33 * t35 * t6;
-        let tvrho0 = -4.0 / 9.0 * t38 - 0.215509e-1 * t50 * t31 - t53 * t61 * t64 / 3.0;
+        let tvrho0 = -4.0 / 9.0 * t38 - 0.0215509 * t50 * t31 - t53 * t61 * t64 / 3.0;
         vrho[ip] += tvrho0;
         let t67 = 1.0 / t41;
         let t68 = t67 * t31;
-        let tvsigma0 = -0.26938625e-2 * t68;
+        let tvsigma0 = -0.0026938625 * t68;
         vsigma[ip] += tvsigma0;
-        let tvlapl0 = 0.26938625e-2 * t25 * t31;
+        let tvlapl0 = 0.0026938625 * t25 * t31;
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
@@ -87,14 +87,14 @@ pub fn mgga_xc_zlp_fxc_unpol(
         let t98 = 1.0 / t11 / t10;
         let t99 = t27 * t27;
         let t100 = 1.0 / t99;
-        let t105 = -0.22222222222222222221e0 / t10 * t55 + 0.54277138962990752854e2 * t98 * t100 + 0.45491266666666666667e-3 * t28 * t17;
-        let tv2rho20 = -0.57469066666666666666e-1 * t71 * t11 - 8.0 / 9.0 * t75 * t37 - 4.0 / 27.0 * t34 * t78 - 0.215509e-1 * t89 * t31 - 0.431018e-1 * t50 * t61 - t53 * t105 * t64 / 3.0;
+        let t105 = -0.2222222222222222 / t10 * t55 + 54.277138962990755 * t98 * t100 + 0.00045491266666666667 * t28 * t17;
+        let tv2rho20 = -0.057469066666666666 * t71 * t11 - 8.0 / 9.0 * t75 * t37 - 4.0 / 27.0 * t34 * t78 - 0.0215509 * t89 * t31 - 0.0431018 * t50 * t61 - t53 * t105 * t64 / 3.0;
         v2rho2[ip] += tv2rho20;
         let t109 = t98 * t31;
         let t111 = t67 * t61;
-        let tv2rhosigma0 = 0.35918166666666666667e-2 * t109 - 0.26938625e-2 * t111;
+        let tv2rhosigma0 = 0.0035918166666666666 * t109 - 0.0026938625 * t111;
         v2rhosigma[ip] += tv2rhosigma0;
-        let tv2rholapl0 = -0.89795416666666666667e-3 * t68 + 0.26938625e-2 * t25 * t61;
+        let tv2rholapl0 = -0.0008979541666666666 * t68 + 0.0026938625 * t25 * t61;
         v2rholapl[ip] += tv2rholapl0;
         let tv2rhotau0 = 0.0;
         v2rhotau[ip] += tv2rhotau0;

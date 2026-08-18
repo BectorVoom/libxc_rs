@@ -1,12 +1,12 @@
 //! GGA_C_WL exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_wl.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_wl.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
@@ -34,7 +34,7 @@ pub fn gga_c_wl_exc_pol(
         let t11 = f64::sqrt(t10);
         let t12 = pow_1_3(t3);
         let t14 = 1.0 / t12 / t3;
-        let t17 = -0.7486e0 + 0.6001e-1 * t11 * t14;
+        let t17 = -0.7486 + 0.06001 * t11 * t14;
         let t18 = t8 * t17;
         let t19 = f64::sqrt(sigma0);
         let t20 = pow_1_3(rho0);
@@ -48,7 +48,7 @@ pub fn gga_c_wl_exc_pol(
         let t35 = M_CBRT4;
         let t36 = t35 * t35;
         let t37 = 1.0 / t12;
-        let t41 = 0.360073e1 + 0.9e0 * t19 * t22 + 0.9e0 * t25 * t28 + t34 * t36 * t37 / 4.0;
+        let t41 = 3.60073 + 0.9 * t19 * t22 + 0.9 * t25 * t28 + t34 * t36 * t37 / 4.0;
         let t42 = 1.0 / t41;
         let tzk0 = t18 * t42;
         zk[ip] += tzk0;

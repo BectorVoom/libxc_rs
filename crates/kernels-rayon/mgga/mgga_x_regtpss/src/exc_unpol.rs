@@ -1,14 +1,14 @@
 //! MGGA_X_REGTPSS exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_regtpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_regtpss.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_2, pow_3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn mgga_x_regtpss_exc_unpol(
@@ -50,7 +50,7 @@ pub fn mgga_x_regtpss_exc_unpol(
         let t35 = t34 * t34;
         let t36 = 1.0 / t35;
         let t40 = M_CBRT6;
-        let t41 = (10.0 / 81.0 + 0.45938270703125e-2 * t25 * t36) * t40;
+        let t41 = (10.0 / 81.0 + 0.0045938270703125 * t25 * t36) * t40;
         let t42 = M_PI * M_PI;
         let t43 = pow_1_3(t42);
         let t44 = t43 * t43;
@@ -69,7 +69,7 @@ pub fn mgga_x_regtpss_exc_unpol(
         let t63 = t62 * t45;
         let t65 = 5.0 / 9.0 * t63 - 1.0;
         let t66 = t45 * t65;
-        let t69 = 1.0 + 0.22222222222222222222e0 * t62 * t66;
+        let t69 = 1.0 + 0.2222222222222222 * t62 * t66;
         let t70 = f64::sqrt(t69);
         let t71 = 1.0 / t70;
         let t74 = t40 * t45;
@@ -87,37 +87,37 @@ pub fn mgga_x_regtpss_exc_unpol(
         let t91 = t84 * t85 * t89;
         let t93 = 162.0 * t32 + 100.0 * t91;
         let t94 = f64::sqrt(t93);
-        let t97 = 0.65823568907145082056e-4 * t91;
+        let t97 = 6.582356890714508e-05 * t91;
         let t99 = t26 * sigma[ip];
         let t100 = t86 * t86;
         let t101 = 1.0 / t100;
-        let t103 = 0.54088506107080259512e-5 * t99 * t101;
-        let t104 = t46 * t53 / 24.0 + 146.0 / 2025.0 * t78 - 73.0 / 97200.0 * t77 * t94 + t97 + 0.20448759451792765188e-2 * t32 + t103;
-        let t106 = 1.0 + 0.61346278355378295562e-1 * t75;
+        let t103 = 5.408850610708026e-06 * t99 * t101;
+        let t104 = t46 * t53 / 24.0 + 146.0 / 2025.0 * t78 - 73.0 / 97200.0 * t77 * t94 + t97 + 0.0020448759451792767 * t32 + t103;
+        let t106 = 1.0 + 0.06134627835537829 * t75;
         let t107 = t106 * t106;
         let t108 = 1.0 / t107;
-        let t110 = 0.804e0 + t104 * t108;
-        let t112 = 0.646416e0 / t110;
+        let t110 = 0.804 + t104 * t108;
+        let t112 = 0.646416 / t110;
         let t113 = -t65;
         let t114 = t113 * t113;
         let t115 = t114 * t113;
         let t116 = t61 * t61;
         let t117 = t116 * t81;
         let t118 = t117 * t83;
-        let t120 = 1.0 + 0.67148919753086419753e0 * t118;
+        let t120 = 1.0 + 0.6714891975308642 * t118;
         let t121 = f64::sqrt(t120);
         let t123 = 1.0 / t121 / t120;
         let t124 = t115 * t123;
         let t126 = f64::exp(-t75 / 8.0);
-        let t128 = -0.45e0 + t76;
+        let t128 = -0.45 + t76;
         let t129 = t128 * t128;
         let t132 = 2592.0 + 25.0 * t91;
         let t133 = f64::sqrt(t132);
-        let t136 = 0.29644443963477366255e-1 * t75 + 146.0 / 2025.0 * t129 - 73.0 / 48600.0 * t128 * t133 + t97 + 0.1308720604914736972e0 + t103;
-        let t138 = 0.804e0 + t136 * t108;
-        let t141 = -0.646416e0 / t138 + t112;
+        let t136 = 0.029644443963477367 * t75 + 146.0 / 2025.0 * t129 - 73.0 / 48600.0 * t128 * t133 + t97 + 0.1308720604914737 + t103;
+        let t138 = 0.804 + t136 * t108;
+        let t141 = -0.646416 / t138 + t112;
         let t142 = t126 * t141;
-        let t144 = 0.1804e1 - t112 + t124 * t142;
+        let t144 = 1.804 - t112 + t124 * t142;
         let t148 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t144);
         let tzk0 = 2.0 * t148;
         zk[ip] += tzk0;

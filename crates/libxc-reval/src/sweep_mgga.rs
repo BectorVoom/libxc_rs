@@ -337,6 +337,164 @@ impl<'a> MggaChunk<'a> {
             },
         )
     }
+
+    /// Reborrow a contiguous window of `len` grid points starting at `start`.
+    ///
+    /// `split_at` consumes the chunk, which is what the halving sweep wants but
+    /// not what density screening wants: there the same chunk has to be visited
+    /// as several disjoint windows and then still be available to clean up
+    /// afterwards. Reborrowing keeps ownership with the caller. Every array is
+    /// narrowed at its own stride, for the same reason `split_at` is.
+    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> MggaChunk<'_> {
+        let end = start + len;
+        MggaChunk {
+            np: len,
+            rho: &self.rho[start * d.rho as usize..end * d.rho as usize],
+            sigma: &self.sigma[start * d.sigma as usize..end * d.sigma as usize],
+            lapl: &self.lapl[start * d.lapl as usize..end * d.lapl as usize],
+            tau: &self.tau[start * d.tau as usize..end * d.tau as usize],
+            zk: self.zk.as_deref_mut()
+                .map(|s| &mut s[start * d.zk as usize..end * d.zk as usize]),
+            vrho: self.vrho.as_deref_mut()
+                .map(|s| &mut s[start * d.vrho as usize..end * d.vrho as usize]),
+            vsigma: self.vsigma.as_deref_mut()
+                .map(|s| &mut s[start * d.vsigma as usize..end * d.vsigma as usize]),
+            vlapl: self.vlapl.as_deref_mut()
+                .map(|s| &mut s[start * d.vlapl as usize..end * d.vlapl as usize]),
+            vtau: self.vtau.as_deref_mut()
+                .map(|s| &mut s[start * d.vtau as usize..end * d.vtau as usize]),
+            v2rho2: self.v2rho2.as_deref_mut()
+                .map(|s| &mut s[start * d.v2rho2 as usize..end * d.v2rho2 as usize]),
+            v2rhosigma: self.v2rhosigma.as_deref_mut()
+                .map(|s| &mut s[start * d.v2rhosigma as usize..end * d.v2rhosigma as usize]),
+            v2rholapl: self.v2rholapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v2rholapl as usize..end * d.v2rholapl as usize]),
+            v2rhotau: self.v2rhotau.as_deref_mut()
+                .map(|s| &mut s[start * d.v2rhotau as usize..end * d.v2rhotau as usize]),
+            v2sigma2: self.v2sigma2.as_deref_mut()
+                .map(|s| &mut s[start * d.v2sigma2 as usize..end * d.v2sigma2 as usize]),
+            v2sigmalapl: self.v2sigmalapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v2sigmalapl as usize..end * d.v2sigmalapl as usize]),
+            v2sigmatau: self.v2sigmatau.as_deref_mut()
+                .map(|s| &mut s[start * d.v2sigmatau as usize..end * d.v2sigmatau as usize]),
+            v2lapl2: self.v2lapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v2lapl2 as usize..end * d.v2lapl2 as usize]),
+            v2lapltau: self.v2lapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v2lapltau as usize..end * d.v2lapltau as usize]),
+            v2tau2: self.v2tau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v2tau2 as usize..end * d.v2tau2 as usize]),
+            v3rho3: self.v3rho3.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rho3 as usize..end * d.v3rho3 as usize]),
+            v3rho2sigma: self.v3rho2sigma.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rho2sigma as usize..end * d.v3rho2sigma as usize]),
+            v3rho2lapl: self.v3rho2lapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rho2lapl as usize..end * d.v3rho2lapl as usize]),
+            v3rho2tau: self.v3rho2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rho2tau as usize..end * d.v3rho2tau as usize]),
+            v3rhosigma2: self.v3rhosigma2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rhosigma2 as usize..end * d.v3rhosigma2 as usize]),
+            v3rhosigmalapl: self.v3rhosigmalapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rhosigmalapl as usize..end * d.v3rhosigmalapl as usize]),
+            v3rhosigmatau: self.v3rhosigmatau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rhosigmatau as usize..end * d.v3rhosigmatau as usize]),
+            v3rholapl2: self.v3rholapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rholapl2 as usize..end * d.v3rholapl2 as usize]),
+            v3rholapltau: self.v3rholapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rholapltau as usize..end * d.v3rholapltau as usize]),
+            v3rhotau2: self.v3rhotau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3rhotau2 as usize..end * d.v3rhotau2 as usize]),
+            v3sigma3: self.v3sigma3.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigma3 as usize..end * d.v3sigma3 as usize]),
+            v3sigma2lapl: self.v3sigma2lapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigma2lapl as usize..end * d.v3sigma2lapl as usize]),
+            v3sigma2tau: self.v3sigma2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigma2tau as usize..end * d.v3sigma2tau as usize]),
+            v3sigmalapl2: self.v3sigmalapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigmalapl2 as usize..end * d.v3sigmalapl2 as usize]),
+            v3sigmalapltau: self.v3sigmalapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigmalapltau as usize..end * d.v3sigmalapltau as usize]),
+            v3sigmatau2: self.v3sigmatau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3sigmatau2 as usize..end * d.v3sigmatau2 as usize]),
+            v3lapl3: self.v3lapl3.as_deref_mut()
+                .map(|s| &mut s[start * d.v3lapl3 as usize..end * d.v3lapl3 as usize]),
+            v3lapl2tau: self.v3lapl2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v3lapl2tau as usize..end * d.v3lapl2tau as usize]),
+            v3lapltau2: self.v3lapltau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v3lapltau2 as usize..end * d.v3lapltau2 as usize]),
+            v3tau3: self.v3tau3.as_deref_mut()
+                .map(|s| &mut s[start * d.v3tau3 as usize..end * d.v3tau3 as usize]),
+            v4rho4: self.v4rho4.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho4 as usize..end * d.v4rho4 as usize]),
+            v4rho3sigma: self.v4rho3sigma.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho3sigma as usize..end * d.v4rho3sigma as usize]),
+            v4rho3lapl: self.v4rho3lapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho3lapl as usize..end * d.v4rho3lapl as usize]),
+            v4rho3tau: self.v4rho3tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho3tau as usize..end * d.v4rho3tau as usize]),
+            v4rho2sigma2: self.v4rho2sigma2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2sigma2 as usize..end * d.v4rho2sigma2 as usize]),
+            v4rho2sigmalapl: self.v4rho2sigmalapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2sigmalapl as usize..end * d.v4rho2sigmalapl as usize]),
+            v4rho2sigmatau: self.v4rho2sigmatau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2sigmatau as usize..end * d.v4rho2sigmatau as usize]),
+            v4rho2lapl2: self.v4rho2lapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2lapl2 as usize..end * d.v4rho2lapl2 as usize]),
+            v4rho2lapltau: self.v4rho2lapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2lapltau as usize..end * d.v4rho2lapltau as usize]),
+            v4rho2tau2: self.v4rho2tau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rho2tau2 as usize..end * d.v4rho2tau2 as usize]),
+            v4rhosigma3: self.v4rhosigma3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigma3 as usize..end * d.v4rhosigma3 as usize]),
+            v4rhosigma2lapl: self.v4rhosigma2lapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigma2lapl as usize..end * d.v4rhosigma2lapl as usize]),
+            v4rhosigma2tau: self.v4rhosigma2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigma2tau as usize..end * d.v4rhosigma2tau as usize]),
+            v4rhosigmalapl2: self.v4rhosigmalapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigmalapl2 as usize..end * d.v4rhosigmalapl2 as usize]),
+            v4rhosigmalapltau: self.v4rhosigmalapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigmalapltau as usize..end * d.v4rhosigmalapltau as usize]),
+            v4rhosigmatau2: self.v4rhosigmatau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhosigmatau2 as usize..end * d.v4rhosigmatau2 as usize]),
+            v4rholapl3: self.v4rholapl3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rholapl3 as usize..end * d.v4rholapl3 as usize]),
+            v4rholapl2tau: self.v4rholapl2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rholapl2tau as usize..end * d.v4rholapl2tau as usize]),
+            v4rholapltau2: self.v4rholapltau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rholapltau2 as usize..end * d.v4rholapltau2 as usize]),
+            v4rhotau3: self.v4rhotau3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4rhotau3 as usize..end * d.v4rhotau3 as usize]),
+            v4sigma4: self.v4sigma4.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma4 as usize..end * d.v4sigma4 as usize]),
+            v4sigma3lapl: self.v4sigma3lapl.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma3lapl as usize..end * d.v4sigma3lapl as usize]),
+            v4sigma3tau: self.v4sigma3tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma3tau as usize..end * d.v4sigma3tau as usize]),
+            v4sigma2lapl2: self.v4sigma2lapl2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma2lapl2 as usize..end * d.v4sigma2lapl2 as usize]),
+            v4sigma2lapltau: self.v4sigma2lapltau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma2lapltau as usize..end * d.v4sigma2lapltau as usize]),
+            v4sigma2tau2: self.v4sigma2tau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigma2tau2 as usize..end * d.v4sigma2tau2 as usize]),
+            v4sigmalapl3: self.v4sigmalapl3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigmalapl3 as usize..end * d.v4sigmalapl3 as usize]),
+            v4sigmalapl2tau: self.v4sigmalapl2tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigmalapl2tau as usize..end * d.v4sigmalapl2tau as usize]),
+            v4sigmalapltau2: self.v4sigmalapltau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigmalapltau2 as usize..end * d.v4sigmalapltau2 as usize]),
+            v4sigmatau3: self.v4sigmatau3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4sigmatau3 as usize..end * d.v4sigmatau3 as usize]),
+            v4lapl4: self.v4lapl4.as_deref_mut()
+                .map(|s| &mut s[start * d.v4lapl4 as usize..end * d.v4lapl4 as usize]),
+            v4lapl3tau: self.v4lapl3tau.as_deref_mut()
+                .map(|s| &mut s[start * d.v4lapl3tau as usize..end * d.v4lapl3tau as usize]),
+            v4lapl2tau2: self.v4lapl2tau2.as_deref_mut()
+                .map(|s| &mut s[start * d.v4lapl2tau2 as usize..end * d.v4lapl2tau2 as usize]),
+            v4lapltau3: self.v4lapltau3.as_deref_mut()
+                .map(|s| &mut s[start * d.v4lapltau3 as usize..end * d.v4lapltau3 as usize]),
+            v4tau4: self.v4tau4.as_deref_mut()
+                .map(|s| &mut s[start * d.v4tau4 as usize..end * d.v4tau4 as usize]),
+        }
+    }
 }
 
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -355,19 +513,512 @@ pub fn set_min_chunk(n: usize) {
     MIN_CHUNK.store(n.max(1), Ordering::Relaxed);
 }
 
-/// Recursively halve the grid and evaluate each piece in parallel.
-pub fn par_sweep<F>(chunk: MggaChunk<'_>, d: &Dimensions, min_chunk: usize, f: &F)
+/// Clear this chunk's slice of every output the sweep is going to write.
+///
+/// The kernels accumulate with `+=`, so the destination has to start at zero.
+/// Doing that in `prepare` instead -- one `fill(0.0)` per whole output array --
+/// costs a full serial pass over every output buffer before any arithmetic
+/// starts, and leaves the memory cold: by the time the kernel accumulates into
+/// a given cache line, the zero written into it has long been evicted, so each
+/// element is fetched from DRAM a second time. Per chunk, the zeroed range is
+/// still in L1/L2 when the kernel reads it back, and the clearing itself is
+/// spread over every worker instead of running on one thread.
+///
+/// Bit-exactness is unaffected: the stored value and the order of the
+/// accumulations are identical either way, only the moment of the store moves.
+#[inline]
+fn zero_outputs(chunk: &mut MggaChunk<'_>) {
+    if let Some(s) = chunk.zk.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.vrho.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.vsigma.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.vlapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.vtau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2rho2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2rhosigma.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2rholapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2rhotau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2sigma2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2sigmalapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2sigmatau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2lapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2lapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v2tau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rho3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rho2sigma.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rho2lapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rho2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rhosigma2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rhosigmalapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rhosigmatau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rholapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rholapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3rhotau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigma3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigma2lapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigma2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigmalapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigmalapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3sigmatau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3lapl3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3lapl2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3lapltau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v3tau3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho4.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho3sigma.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho3lapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho3tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2sigma2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2sigmalapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2sigmatau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2lapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2lapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rho2tau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigma3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigma2lapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigma2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigmalapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigmalapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhosigmatau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rholapl3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rholapl2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rholapltau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4rhotau3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma4.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma3lapl.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma3tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma2lapl2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma2lapltau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigma2tau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigmalapl3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigmalapl2tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigmalapltau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4sigmatau3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4lapl4.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4lapl3tau.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4lapl2tau2.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4lapltau3.as_deref_mut() { s.fill(0.0); }
+    if let Some(s) = chunk.v4tau4.as_deref_mut() { s.fill(0.0); }
+}
+
+/// Total density at grid point `ip`, the quantity libxc screens on.
+#[inline]
+fn total_density(rho: &[f64], ip: usize, nc: usize) -> f64 {
+    if nc == 1 { rho[ip] } else { rho[ip * 2] + rho[ip * 2 + 1] }
+}
+
+/// Clear every output at one grid point.
+#[inline]
+fn zero_point(chunk: &mut MggaChunk<'_>, ip: usize, d: &Dimensions) {
+    if let Some(s) = chunk.zk.as_deref_mut() {
+        let w = d.zk as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.vrho.as_deref_mut() {
+        let w = d.vrho as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.vsigma.as_deref_mut() {
+        let w = d.vsigma as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.vlapl.as_deref_mut() {
+        let w = d.vlapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.vtau.as_deref_mut() {
+        let w = d.vtau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2rho2.as_deref_mut() {
+        let w = d.v2rho2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2rhosigma.as_deref_mut() {
+        let w = d.v2rhosigma as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2rholapl.as_deref_mut() {
+        let w = d.v2rholapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2rhotau.as_deref_mut() {
+        let w = d.v2rhotau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2sigma2.as_deref_mut() {
+        let w = d.v2sigma2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2sigmalapl.as_deref_mut() {
+        let w = d.v2sigmalapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2sigmatau.as_deref_mut() {
+        let w = d.v2sigmatau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2lapl2.as_deref_mut() {
+        let w = d.v2lapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2lapltau.as_deref_mut() {
+        let w = d.v2lapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v2tau2.as_deref_mut() {
+        let w = d.v2tau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rho3.as_deref_mut() {
+        let w = d.v3rho3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rho2sigma.as_deref_mut() {
+        let w = d.v3rho2sigma as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rho2lapl.as_deref_mut() {
+        let w = d.v3rho2lapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rho2tau.as_deref_mut() {
+        let w = d.v3rho2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rhosigma2.as_deref_mut() {
+        let w = d.v3rhosigma2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rhosigmalapl.as_deref_mut() {
+        let w = d.v3rhosigmalapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rhosigmatau.as_deref_mut() {
+        let w = d.v3rhosigmatau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rholapl2.as_deref_mut() {
+        let w = d.v3rholapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rholapltau.as_deref_mut() {
+        let w = d.v3rholapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3rhotau2.as_deref_mut() {
+        let w = d.v3rhotau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigma3.as_deref_mut() {
+        let w = d.v3sigma3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigma2lapl.as_deref_mut() {
+        let w = d.v3sigma2lapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigma2tau.as_deref_mut() {
+        let w = d.v3sigma2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigmalapl2.as_deref_mut() {
+        let w = d.v3sigmalapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigmalapltau.as_deref_mut() {
+        let w = d.v3sigmalapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3sigmatau2.as_deref_mut() {
+        let w = d.v3sigmatau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3lapl3.as_deref_mut() {
+        let w = d.v3lapl3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3lapl2tau.as_deref_mut() {
+        let w = d.v3lapl2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3lapltau2.as_deref_mut() {
+        let w = d.v3lapltau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v3tau3.as_deref_mut() {
+        let w = d.v3tau3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho4.as_deref_mut() {
+        let w = d.v4rho4 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho3sigma.as_deref_mut() {
+        let w = d.v4rho3sigma as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho3lapl.as_deref_mut() {
+        let w = d.v4rho3lapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho3tau.as_deref_mut() {
+        let w = d.v4rho3tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2sigma2.as_deref_mut() {
+        let w = d.v4rho2sigma2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2sigmalapl.as_deref_mut() {
+        let w = d.v4rho2sigmalapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2sigmatau.as_deref_mut() {
+        let w = d.v4rho2sigmatau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2lapl2.as_deref_mut() {
+        let w = d.v4rho2lapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2lapltau.as_deref_mut() {
+        let w = d.v4rho2lapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rho2tau2.as_deref_mut() {
+        let w = d.v4rho2tau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigma3.as_deref_mut() {
+        let w = d.v4rhosigma3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigma2lapl.as_deref_mut() {
+        let w = d.v4rhosigma2lapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigma2tau.as_deref_mut() {
+        let w = d.v4rhosigma2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigmalapl2.as_deref_mut() {
+        let w = d.v4rhosigmalapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigmalapltau.as_deref_mut() {
+        let w = d.v4rhosigmalapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhosigmatau2.as_deref_mut() {
+        let w = d.v4rhosigmatau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rholapl3.as_deref_mut() {
+        let w = d.v4rholapl3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rholapl2tau.as_deref_mut() {
+        let w = d.v4rholapl2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rholapltau2.as_deref_mut() {
+        let w = d.v4rholapltau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4rhotau3.as_deref_mut() {
+        let w = d.v4rhotau3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma4.as_deref_mut() {
+        let w = d.v4sigma4 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma3lapl.as_deref_mut() {
+        let w = d.v4sigma3lapl as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma3tau.as_deref_mut() {
+        let w = d.v4sigma3tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma2lapl2.as_deref_mut() {
+        let w = d.v4sigma2lapl2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma2lapltau.as_deref_mut() {
+        let w = d.v4sigma2lapltau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigma2tau2.as_deref_mut() {
+        let w = d.v4sigma2tau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigmalapl3.as_deref_mut() {
+        let w = d.v4sigmalapl3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigmalapl2tau.as_deref_mut() {
+        let w = d.v4sigmalapl2tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigmalapltau2.as_deref_mut() {
+        let w = d.v4sigmalapltau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4sigmatau3.as_deref_mut() {
+        let w = d.v4sigmatau3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4lapl4.as_deref_mut() {
+        let w = d.v4lapl4 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4lapl3tau.as_deref_mut() {
+        let w = d.v4lapl3tau as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4lapl2tau2.as_deref_mut() {
+        let w = d.v4lapl2tau2 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4lapltau3.as_deref_mut() {
+        let w = d.v4lapltau3 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+    if let Some(s) = chunk.v4tau4.as_deref_mut() {
+        let w = d.v4tau4 as usize;
+        s[ip * w..(ip + 1) * w].fill(0.0);
+    }
+}
+
+/// Average length an above-threshold run must reach before it is worth calling
+/// the kernel on it separately.
+///
+/// Splitting has a fixed per-call cost (the kernel's prologue, and the loop
+/// never getting up to speed). Measured on this tree, splitting a grid whose
+/// below-threshold points are scattered individually -- average run ~1.7 points
+/// -- cost about 14 ns per call, which turned `gga_x_b88` from 1.98 to 6.84
+/// ns/point: worse than doing no screening at all. So a fragmented chunk takes
+/// the other route below instead.
+const MIN_RUN: usize = 64;
+
+/// Evaluate `f` over the above-threshold points only, leaving the rest zero.
+///
+/// This reproduces what libxc does at the top of its per-point loop
+/// (`work_mgga_inc.c`):
+///
+/// ```c
+/// dens = (nspin == XC_POLARIZED) ? rho[2*ip] + rho[2*ip+1] : rho[ip];
+/// if(dens < p->dens_threshold)
+///   continue;
+/// ```
+///
+/// **It is a correctness fix before it is an optimisation.** Only some kernels
+/// carry a `dens_threshold` guard of their own -- the exchange functionals
+/// mostly do (`gga_x_b88`: `rho[ip] / 2.0 <= dens_threshold`), the correlation
+/// functionals mostly do not (`lda_c_vwn`, `gga_c_lyp`, `mgga_c_r2scan` have
+/// none). libxc puts the screen *outside* the maple2c body, so it covers all of
+/// them uniformly; this library called the body directly, so for an unguarded
+/// functional the empty tail of a molecular grid got the raw formula value
+/// where libxc gives exactly 0. Measured against C libxc on a grid with 40% of
+/// its points below threshold, `lda_c_vwn` and `gga_c_lyp` came back with a
+/// worst relative difference of 1.0 -- a 100% error on `zk` -- while
+/// `gga_x_b88` and `mgga_x_scan`, which have the guard, agreed to 1e-15.
+///
+/// For a screened point the output keeps the zero `zero_outputs` just wrote.
+/// That is bit-identical to what a *guarded* kernel would have produced there
+/// (its outputs are `piecewise3(guard, 0.0, ..)` terms, which collapse to
+/// `+0.0`), so this changes nothing for those functionals and fixes the rest.
+/// Verified: with no below-threshold points present, every output fingerprint
+/// is unchanged by this function existing.
+///
+/// Two routes, picked from a single forward pass over `rho`:
+///
+/// * **Runs.** A real Becke/Lebedev grid orders points by radial shell, so its
+///   empty points are contiguous. Each maximal above-threshold run becomes one
+///   kernel call and the tail is never touched -- a whole empty chunk costs
+///   nothing at all.
+/// * **Compute then re-zero.** If the below-threshold points are scattered so
+///   finely that runs would average under `MIN_RUN`, splitting costs more than
+///   it saves. Then the kernel runs over the whole chunk and the screened
+///   points are zeroed afterwards. No arithmetic is saved, but the answer is
+///   the same one, which is the part that matters.
+fn screened_call<F>(mut chunk: MggaChunk<'_>, d: &Dimensions, dens_threshold: f64, f: &F)
 where
-    F: Fn(MggaChunk<'_>) + Sync,
+    F: Fn(&mut MggaChunk<'_>) + Sync,
+{
+    let nc = d.rho as usize;
+    let np = chunk.np;
+
+    // One pass: how many points are screened out, and into how many runs do the
+    // survivors fall.
+    let mut below = 0usize;
+    let mut runs = 0usize;
+    let mut prev_active = false;
+    for ip in 0..np {
+        let active = total_density(chunk.rho, ip, nc) >= dens_threshold;
+        if !active {
+            below += 1;
+        } else if !prev_active {
+            runs += 1;
+        }
+        prev_active = active;
+    }
+
+    // Overwhelmingly the common case: nothing to screen, so this costs one
+    // linear read of `rho` that the kernel is about to make anyway.
+    if below == 0 {
+        f(&mut chunk);
+        return;
+    }
+    // Whole chunk is in the tail: the zeros already written are the answer.
+    if below == np {
+        return;
+    }
+
+    if runs * MIN_RUN <= np - below {
+        let mut ip = 0;
+        while ip < np {
+            if total_density(chunk.rho, ip, nc) < dens_threshold {
+                ip += 1;
+                continue;
+            }
+            let start = ip;
+            while ip < np && total_density(chunk.rho, ip, nc) >= dens_threshold {
+                ip += 1;
+            }
+            let mut w = chunk.window(start, ip - start, d);
+            f(&mut w);
+        }
+    } else {
+        f(&mut chunk);
+        for ip in 0..np {
+            if total_density(chunk.rho, ip, nc) < dens_threshold {
+                zero_point(&mut chunk, ip, d);
+            }
+        }
+    }
+}
+
+/// Recursively halve the grid and evaluate each piece in parallel.
+pub fn par_sweep<F>(
+    mut chunk: MggaChunk<'_>,
+    d: &Dimensions,
+    min_chunk: usize,
+    dens_threshold: f64,
+    f: &F,
+) where
+    F: Fn(&mut MggaChunk<'_>) + Sync,
 {
     if chunk.np <= min_chunk {
-        f(chunk);
+        zero_outputs(&mut chunk);
+        screened_call(chunk, d, dens_threshold, f);
         return;
     }
     let mid = chunk.np / 2;
     let (l, r) = chunk.split_at(mid, d);
     rayon::join(
-        || par_sweep(l, d, min_chunk, f),
-        || par_sweep(r, d, min_chunk, f),
+        || par_sweep(l, d, min_chunk, dens_threshold, f),
+        || par_sweep(r, d, min_chunk, dens_threshold, f),
     );
 }

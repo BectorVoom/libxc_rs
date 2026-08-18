@@ -1,8 +1,8 @@
 //! MGGA_X_RSCAN exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -104,20 +104,20 @@ pub fn mgga_x_rscan_exc_unpol(
         let t115 = t114 * t114;
         let t116 = param_k1 + 5.0 / 972.0 * t35 + t44 * t46 * t56 / 288.0 + t115;
         let t121 = 1.0 + param_k1 * (1.0 - param_k1 / t116);
-        let t122 = t106 <= 0.25e1;
-        let t123 = 0.25e1 < t106;
-        let t124 = piecewise3(t123, 0.25e1, t106);
+        let t122 = t106 <= 2.5;
+        let t123 = 2.5 < t106;
+        let t124 = piecewise3(t123, 2.5, t106);
         let t126 = t124 * t124;
         let t128 = t126 * t124;
         let t130 = t126 * t126;
         let t132 = t130 * t124;
         let t134 = t130 * t126;
-        let t139 = piecewise3(t123, t106, 0.25e1);
+        let t139 = piecewise3(t123, t106, 2.5);
         let t140 = 1.0 - t139;
         let t143 = f64::exp(param_c2 / t140);
-        let t145 = piecewise3(t122, 1.0 - 0.667e0 * t124 - 0.4445555e0 * t126 - 0.663086601049e0 * t128 + 0.145129704449e1 * t130 - 0.887998041597e0 * t132 + 0.234528941479e0 * t134 - 0.23185843322e-1 * t130 * t128, -param_d * t143);
+        let t145 = piecewise3(t122, 1.0 - 0.667 * t124 - 0.4445555 * t126 - 0.663086601049 * t128 + 1.45129704449 * t130 - 0.887998041597 * t132 + 0.234528941479 * t134 - 0.023185843322 * t130 * t128, -param_d * t143);
         let t146 = 1.0 - t145;
-        let t149 = t121 * t146 + 0.1174e1 * t145;
+        let t149 = t121 * t146 + 1.174 * t145;
         let t151 = f64::sqrt(3.0);
         let t152 = 1.0 / t23;
         let t153 = t40 * t152;
@@ -126,7 +126,7 @@ pub fn mgga_x_rscan_exc_unpol(
         let t157 = 1.0 / t20 / rho[ip];
         let t159 = t153 * t155 * t157;
         let t160 = f64::sqrt(t159);
-        let t164 = f64::exp(-0.98958e1 * t151 / t160);
+        let t164 = f64::exp(-9.8958 * t151 / t160);
         let t165 = 1.0 - t164;
         let t169 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t149 * t165);
         let tzk0 = 2.0 * t169;

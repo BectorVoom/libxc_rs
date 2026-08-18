@@ -1,8 +1,8 @@
 //! MGGA_X_EDMGGA exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_edmgga.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_edmgga.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -54,27 +54,27 @@ pub fn mgga_x_edmgga_exc_unpol(
         let t49 = 1.0 / t48;
         let t50 = (t31 * t34 - t36 * t39 / 8.0 - t42 * t34 / 4.0) * t46 * t49;
         let t51 = 5.0 / 9.0 * t50;
-        let t52 = -t51 < -0.14205545454545454545e5;
-        let t53 = 0.39111111111111111111e0 * t50;
-        let t55 = 0.0 < 0.70414204545454545455e0 - t53;
-        let t57 = piecewise3(t55, -0.14204545454545454545e-3, 0.704e0 - t53);
+        let t52 = -t51 < -14205.545454545454;
+        let t53 = 0.39111111111111113 * t50;
+        let t55 = 0.0 < 0.7041420454545455 - t53;
+        let t57 = piecewise3(t55, -0.00014204545454545454, 0.704 - t53);
         let t60 = t57 * t57;
         let t61 = t60 * t57;
         let t62 = 1.0 / t61;
         let t65 = 1.0 - t51;
         let t66 = t65 * t65;
-        let t68 = 1.0 + 0.495616e0 * t66;
+        let t68 = 1.0 + 0.495616 * t66;
         let t69 = f64::sqrt(t68);
-        let t71 = piecewise3(t52, -1.0 / t57 / 2.0 + t62 / 8.0, 0.704e0 - t53 + t69);
+        let t71 = piecewise3(t52, -1.0 / t57 / 2.0 + t62 / 8.0, 0.704 - t53 + t69);
         let t72 = t28 * t71;
         let t73 = f64::sqrt(30.0);
         let t74 = t28 * t73;
         let t75 = f64::sqrt(t71);
         let t76 = t28 * t28;
-        let t81 = 0.60184783083548636238e0 * t76 - 0.206514e-1;
+        let t81 = 0.6018478308354863 * t76 - 0.0206514;
         let t82 = t71 - 1.0;
-        let t86 = f64::ln(0.39102932048925120047e0 / t76 / t28 * t73 * t81 * t82 + f64::sqrt(pow_2(0.39102932048925120047e0 / t76 / t28 * t73 * t81 * t82) + 1.0));
-        let t90 = 1.0 + 0.14163895778062926267e0 * t74 * t75 * t86;
+        let t86 = f64::ln(0.3910293204892512 / t76 / t28 * t73 * t81 * t82 + f64::sqrt(pow_2(0.3910293204892512 / t76 / t28 * t73 * t81 * t82) + 1.0));
+        let t90 = 1.0 + 0.14163895778062927 * t74 * t75 * t86;
         let t91 = 1.0 / t90;
         let t93 = t72 * t91 + t27;
         let t97 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t93);

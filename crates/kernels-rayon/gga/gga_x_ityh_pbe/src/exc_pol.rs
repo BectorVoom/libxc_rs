@@ -1,8 +1,8 @@
 //! GGA_X_ITYH_PBE exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_ityh_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_ityh_pbe.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -16,9 +16,9 @@ pub fn gga_x_ityh_pbe_exc_pol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
-    param_hyb_omega_0: f64,
-    param_kappa: f64,
     param_mu: f64,
+    param_kappa: f64,
+    param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -77,9 +77,9 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t65 = 1.0 / t64;
         let t66 = t62 * t65;
         let t68 = t61 * t66 / 2.0;
-        let t69 = 0.135e1 <= t68;
-        let t70 = 0.135e1 < t68;
-        let t71 = piecewise3(t70, t68, 0.135e1);
+        let t69 = 1.35 <= t68;
+        let t70 = 1.35 < t68;
+        let t71 = piecewise3(t70, t68, 1.35);
         let t72 = t71 * t71;
         let t75 = t72 * t72;
         let t76 = 1.0 / t75;
@@ -92,7 +92,7 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t91 = 1.0 / t81 / t78;
         let t93 = t81 * t81;
         let t94 = 1.0 / t93;
-        let t97 = piecewise3(t70, 0.135e1, t68);
+        let t97 = piecewise3(t70, 1.35, t68);
         let t98 = f64::sqrt(M_PI);
         let t99 = 1.0 / t97;
         let t101 = erf_approx(t99 / 2.0);
@@ -102,7 +102,7 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t107 = t106 - 1.0;
         let t110 = t106 - 3.0 / 2.0 - 2.0 * t103 * t107;
         let t113 = t98 * t101 + 2.0 * t97 * t110;
-        let t117 = piecewise3(t69, 1.0 / t72 / 36.0 - t76 / 960.0 + t79 / 26880.0 - t82 / 829440.0 + t85 / 28385280.0 - t88 / 0.107347968e10 + t91 / 0.445906944e11 - t94 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t97 * t113);
+        let t117 = piecewise3(t69, 1.0 / t72 / 36.0 - t76 / 960.0 + t79 / 26880.0 - t82 / 829440.0 + t85 / 28385280.0 - t88 / 1073479680.0 + t91 / 44590694400.0 - t94 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t97 * t113);
         let t118 = t27 * t117;
         let t119 = t118 * t55;
         let t122 = piecewise3(t1, 0.0, -3.0 / 8.0 * t26 * t119);
@@ -129,9 +129,9 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t156 = 1.0 / t155;
         let t157 = t62 * t156;
         let t159 = t153 * t157 / 2.0;
-        let t160 = 0.135e1 <= t159;
-        let t161 = 0.135e1 < t159;
-        let t162 = piecewise3(t161, t159, 0.135e1);
+        let t160 = 1.35 <= t159;
+        let t161 = 1.35 < t159;
+        let t162 = piecewise3(t161, t159, 1.35);
         let t163 = t162 * t162;
         let t166 = t163 * t163;
         let t167 = 1.0 / t166;
@@ -144,7 +144,7 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t182 = 1.0 / t172 / t169;
         let t184 = t172 * t172;
         let t185 = 1.0 / t184;
-        let t188 = piecewise3(t161, 0.135e1, t159);
+        let t188 = piecewise3(t161, 1.35, t159);
         let t189 = 1.0 / t188;
         let t191 = erf_approx(t189 / 2.0);
         let t193 = t188 * t188;
@@ -153,7 +153,7 @@ pub fn gga_x_ityh_pbe_exc_pol(
         let t197 = t196 - 1.0;
         let t200 = t196 - 3.0 / 2.0 - 2.0 * t193 * t197;
         let t203 = 2.0 * t188 * t200 + t98 * t191;
-        let t207 = piecewise3(t160, 1.0 / t163 / 36.0 - t167 / 960.0 + t170 / 26880.0 - t173 / 829440.0 + t176 / 28385280.0 - t179 / 0.107347968e10 + t182 / 0.445906944e11 - t185 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t188 * t203);
+        let t207 = piecewise3(t160, 1.0 / t163 / 36.0 - t167 / 960.0 + t170 / 26880.0 - t173 / 829440.0 + t176 / 28385280.0 - t179 / 1073479680.0 + t182 / 44590694400.0 - t185 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t188 * t203);
         let t208 = t27 * t207;
         let t209 = t208 * t147;
         let t212 = piecewise3(t123, 0.0, -3.0 / 8.0 * t132 * t209);

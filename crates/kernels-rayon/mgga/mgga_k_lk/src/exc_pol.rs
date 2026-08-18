@@ -1,12 +1,12 @@
 //! MGGA_K_LK exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -95,7 +95,7 @@ pub fn mgga_k_lk_exc_pol(
         let t92 = param_kappa * param_kappa;
         let t93 = 1.0 / t92;
         let t94 = t91 * t93;
-        let t99 = 1.0 + (5.0 / 324.0 * t80 * t83 + 125.0 / 0.45349632e8 * t89 * t94) * t72;
+        let t99 = 1.0 + (5.0 / 324.0 * t80 * t83 + 125.0 / 45349632.0 * t89 * t94) * t72;
         let t103 = 1.0 + param_kappa * (2.0 - 1.0 / t78 - 1.0 / t99);
         let t107 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t29 * t31 * t103);
         let t108 = rho1 <= dens_threshold;
@@ -133,7 +133,7 @@ pub fn mgga_k_lk_exc_pol(
         let t163 = t134 * t134;
         let t164 = 1.0 / t163;
         let t165 = t164 * t93;
-        let t170 = 1.0 + (5.0 / 324.0 * t155 * t158 + 125.0 / 0.45349632e8 * t162 * t165) * t72;
+        let t170 = 1.0 + (5.0 / 324.0 * t155 * t158 + 125.0 / 45349632.0 * t162 * t165) * t72;
         let t174 = 1.0 + param_kappa * (2.0 - 1.0 / t153 - 1.0 / t170);
         let t178 = piecewise3(t108, 0.0, 3.0 / 20.0 * t7 * t117 * t31 * t174);
         let tzk0 = t107 + t178;

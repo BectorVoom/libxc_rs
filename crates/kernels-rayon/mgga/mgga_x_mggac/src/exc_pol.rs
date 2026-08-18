@@ -1,12 +1,12 @@
 //! MGGA_X_MGGAC exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mggac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mggac.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::mbrxc::{xc_mgga_x_mbrxc_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -70,8 +70,8 @@ pub fn mgga_x_mggac_exc_pol(
         let t45 = sigma0 * t44;
         let t46 = 1.0 / tau0;
         let t48 = t45 * t46 / 8.0;
-        let t50 = 0.0 < 0.9999999999e0 - t48;
-        let t52 = piecewise3(t50, 1.0 - t48, 0.1e-9);
+        let t50 = 0.0 < 0.9999999999 - t48;
+        let t52 = piecewise3(t50, 1.0 - t48, 1e-10);
         let t53 = t43 * t52;
         let t54 = t37 * t53;
         let t56 = tau0 * tau0;
@@ -85,8 +85,8 @@ pub fn mgga_x_mggac_exc_pol(
         let t66 = t52 * t52;
         let t67 = t65 * t66;
         let t68 = t61 * t67;
-        let t70 = 1.0 + 0.55555555555555555556e-1 * t54 - 0.34860833333333333333e1 * t68;
-        let t73 = 0.3712e1 + 0.11111111111111111111e1 * t54 + 0.11620277777777777778e1 * t68;
+        let t70 = 1.0 + 0.05555555555555555 * t54 - 3.486083333333333 * t68;
+        let t73 = 3.712 + 1.1111111111111112 * t54 + 1.1620277777777779 * t68;
         let t74 = 1.0 / t73;
         let t78 = xc_mgga_x_mbrxc_get_x(t32 * t70 * t74 / 6.0);
         let t79 = pow_1_4(f64::EPSILON);
@@ -146,8 +146,8 @@ pub fn mgga_x_mggac_exc_pol(
         let t160 = sigma2 * t159;
         let t161 = 1.0 / tau1;
         let t163 = t160 * t161 / 8.0;
-        let t165 = 0.0 < 0.9999999999e0 - t163;
-        let t167 = piecewise3(t165, 1.0 - t163, 0.1e-9);
+        let t165 = 0.0 < 0.9999999999 - t163;
+        let t167 = piecewise3(t165, 1.0 - t163, 1e-10);
         let t168 = t43 * t167;
         let t169 = t158 * t168;
         let t171 = tau1 * tau1;
@@ -158,8 +158,8 @@ pub fn mgga_x_mggac_exc_pol(
         let t177 = t167 * t167;
         let t178 = t65 * t177;
         let t179 = t176 * t178;
-        let t181 = 1.0 + 0.55555555555555555556e-1 * t169 - 0.34860833333333333333e1 * t179;
-        let t184 = 0.3712e1 + 0.11111111111111111111e1 * t169 + 0.11620277777777777778e1 * t179;
+        let t181 = 1.0 + 0.05555555555555555 * t169 - 3.486083333333333 * t179;
+        let t184 = 3.712 + 1.1111111111111112 * t169 + 1.1620277777777779 * t179;
         let t185 = 1.0 / t184;
         let t189 = xc_mgga_x_mbrxc_get_x(t32 * t181 * t185 / 6.0);
         let t190 = t189 < t79;

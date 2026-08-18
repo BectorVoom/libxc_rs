@@ -1,27 +1,10 @@
-// Phase 11 / 11-12 (G-2, Path A): the per-family dispatch modules are gated
-// behind per-family features (their kernel refs resolve only when the family's
-// kernels are compiled). default = all three, so the full umbrella build is
-// unchanged. When a family is off, a stub `dispatch_<fam>` below keeps the
-// symbol defined so evaluate.rs / mix.rs / lib.rs need no cfg cascade.
-#[cfg(feature = "oracle-lda")]
-pub mod dispatch;
-#[cfg(feature = "oracle-gga")]
-pub mod gga_dispatch;
-#[cfg(feature = "oracle-mgga")]
-pub mod mgga_dispatch;
+// The per-family CubeCL dispatch modules were deleted with the archived kernel
+// tree. What is left are the stubs that already stood in for a family whose
+// kernels were not compiled: they return `UnsupportedFunctional`, which is now
+// simply always the answer here. Numerical dispatch lives in `libxc-reval`.
 pub mod mix;
 pub mod workspace;
-#[cfg(feature = "oracle-lda")]
-pub use dispatch::dispatch_lda;
-#[cfg(feature = "oracle-gga")]
-pub use gga_dispatch::dispatch_gga;
-#[cfg(feature = "oracle-mgga")]
-pub use mgga_dispatch::dispatch_mgga;
 
-// Stubs for families not compiled into this build. Same signature as the real
-// dispatch fns; return UnsupportedFunctional (correct — that family's kernels
-// are absent). Keeps `crate::eval::dispatch_<fam>` always resolvable.
-#[cfg(not(feature = "oracle-lda"))]
 pub fn dispatch_lda(
     functional: libxc_core::model::LdaFunctional,
     _input: &libxc_core::input::LdaInput,
@@ -35,7 +18,6 @@ pub fn dispatch_lda(
         reason: "LDA family not compiled in this build (enable feature `oracle-lda`)",
     })
 }
-#[cfg(not(feature = "oracle-gga"))]
 pub fn dispatch_gga(
     functional: libxc_core::model::GgaFunctional,
     _input: &libxc_core::input::GgaInput,
@@ -49,7 +31,6 @@ pub fn dispatch_gga(
         reason: "GGA family not compiled in this build (enable feature `oracle-gga`)",
     })
 }
-#[cfg(not(feature = "oracle-mgga"))]
 pub fn dispatch_mgga(
     functional: libxc_core::model::MggaFunctional,
     _input: &libxc_core::input::MggaInput,

@@ -1,12 +1,12 @@
 //! GGA_C_P86 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -20,8 +20,8 @@ pub fn gga_c_p86_exc_unpol(
     param_ftilde: f64,
     param_malpha: f64,
     param_mbeta: f64,
-    param_mdelta: f64,
     param_mgamma: f64,
+    param_mdelta: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -39,12 +39,12 @@ pub fn gga_c_p86_exc_unpol(
         let t11 = t10 / 4.0;
         let t12 = 1.0 <= t11;
         let t13 = f64::sqrt(t10);
-        let t16 = 1.0 + 0.52645e0 * t13 + 0.8335e-1 * t10;
+        let t16 = 1.0 + 0.52645 * t13 + 0.08335 * t10;
         let t19 = f64::ln(t11);
         let t22 = t4 * t9 * t19;
-        let t26 = piecewise3(t12, -0.1423e0 / t16, 0.311e-1 * t19 - 0.48e-1 + 0.5e-3 * t22 - 0.29e-2 * t10);
-        let t29 = 1.0 + 0.69905e0 * t13 + 0.65275e-1 * t10;
-        let t36 = piecewise3(t12, -0.843e-1 / t29, 0.1555e-1 * t19 - 0.269e-1 + 0.175e-3 * t22 - 0.12e-2 * t10);
+        let t26 = piecewise3(t12, -0.1423 / t16, 0.0311 * t19 - 0.048 + 0.0005 * t22 - 0.0029 * t10);
+        let t29 = 1.0 + 0.69905 * t13 + 0.065275 * t10;
+        let t36 = piecewise3(t12, -0.0843 / t29, 0.01555 * t19 - 0.0269 + 0.000175 * t22 - 0.0012 * t10);
         let t38 = 1.0 <= zeta_threshold;
         let t39 = pow_1_3(zeta_threshold);
         let t41 = piecewise3(t38, t39 * zeta_threshold, 1.0);
@@ -71,7 +71,7 @@ pub fn gga_c_p86_exc_unpol(
         let t71 = param_mgamma * t1;
         let t74 = param_mdelta * t61;
         let t77 = 1.0 / rho[ip];
-        let t80 = 1.0 + t71 * t58 / 4.0 + t74 * t67 / 4.0 + 0.23873241463784300365e4 * param_mbeta * t77;
+        let t80 = 1.0 + t71 * t58 / 4.0 + t74 * t67 / 4.0 + 2387.32414637843 * param_mbeta * t77;
         let t81 = 1.0 / t80;
         let t83 = t70 * t81 + param_aa;
         let t84 = 1.0 / t83;

@@ -1,8 +1,8 @@
 //! GGA_K_OL1 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -62,7 +62,7 @@ pub fn gga_k_ol1_vxc_pol(
         let t50 = pow_1_3(t49);
         let t51 = t50 * t50;
         let t52 = 1.0 / t51;
-        let t55 = 1.0 + 5.0 / 9.0 * (sigma0 * t36 / 72.0 + 0.677e-2 * t41 * t43) * t47 * t52;
+        let t55 = 1.0 + 5.0 / 9.0 * (sigma0 * t36 / 72.0 + 0.00677 * t41 * t43) * t47 * t52;
         let t59 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t28 * t30 * t55);
         let t60 = rho1 <= dens_threshold;
         let t61 = -t17;
@@ -79,7 +79,7 @@ pub fn gga_k_ol1_vxc_pol(
         let t78 = f64::sqrt(sigma2);
         let t79 = t39 * t78;
         let t81 = 1.0 / t72 / rho1;
-        let t88 = 1.0 + 5.0 / 9.0 * (sigma2 * t75 / 72.0 + 0.677e-2 * t79 * t81) * t47 * t52;
+        let t88 = 1.0 + 5.0 / 9.0 * (sigma2 * t75 / 72.0 + 0.00677 * t79 * t81) * t47 * t52;
         let t92 = piecewise3(t60, 0.0, 3.0 / 20.0 * t6 * t69 * t30 * t88);
         let tzk0 = t59 + t92;
         zk[ip] += tzk0;
@@ -94,7 +94,7 @@ pub fn gga_k_ol1_vxc_pol(
         let t111 = t32 * rho0;
         let t113 = 1.0 / t34 / t111;
         let t117 = 1.0 / t33 / t32;
-        let t120 = -sigma0 * t113 / 27.0 - 0.90266666666666666666e-2 * t41 * t117;
+        let t120 = -sigma0 * t113 / 27.0 - 0.009026666666666667 * t41 * t117;
         let t122 = t47 * t52;
         let t123 = t30 * t120 * t122;
         let t127 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t100 * t30 * t55 + t109 + t110 * t123 / 12.0);
@@ -114,13 +114,13 @@ pub fn gga_k_ol1_vxc_pol(
         let t167 = t71 * rho1;
         let t169 = 1.0 / t73 / t167;
         let t173 = 1.0 / t72 / t71;
-        let t176 = -sigma2 * t169 / 27.0 - 0.90266666666666666666e-2 * t79 * t173;
+        let t176 = -sigma2 * t169 / 27.0 - 0.009026666666666667 * t79 * t173;
         let t178 = t30 * t176 * t122;
         let t182 = piecewise3(t60, 0.0, 3.0 / 20.0 * t6 * t161 * t30 * t88 + t141 + t166 * t178 / 12.0);
         let tvrho1 = t59 + t92 + t7 * (t156 + t182);
         vrho[ip * 2 + 1] += tvrho1;
         let t187 = t39 / t40;
-        let t190 = t36 / 72.0 + 0.3385e-2 * t187 * t43;
+        let t190 = t36 / 72.0 + 0.003385 * t187 * t43;
         let t192 = t30 * t190 * t122;
         let t195 = piecewise3(t1, 0.0, t110 * t192 / 12.0);
         let tvsigma0 = t7 * t195;
@@ -128,7 +128,7 @@ pub fn gga_k_ol1_vxc_pol(
         let tvsigma1 = 0.0;
         vsigma[ip * 3 + 1] += tvsigma1;
         let t198 = t39 / t78;
-        let t201 = t75 / 72.0 + 0.3385e-2 * t198 * t81;
+        let t201 = t75 / 72.0 + 0.003385 * t198 * t81;
         let t203 = t30 * t201 * t122;
         let t206 = piecewise3(t60, 0.0, t166 * t203 / 12.0);
         let tvsigma2 = t7 * t206;

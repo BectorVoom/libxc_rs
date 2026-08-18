@@ -1,8 +1,8 @@
 //! GGA_X_HJS exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_hjs.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_hjs.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -138,26 +138,26 @@ pub fn gga_x_hjs_exc_unpol(
         let t171 = 1.0 / t170;
         let t172 = t109 * t171;
         let t175 = t34 * t41 * t172 / 24.0;
-        let t176 = 0.1e-9 < t175;
-        let t177 = piecewise3(t176, t175, 0.1e-9);
+        let t176 = 1e-10 < t175;
+        let t177 = piecewise3(t176, t175, 1e-10);
         let t178 = param_hyb_omega_0 * param_hyb_omega_0;
         let t179 = t178 * t3;
         let t180 = t26 * t26;
         let t182 = t32 / t180;
         let t183 = 1.0 / t38;
         let t185 = t179 * t182 * t183;
-        let t187 = 0.60965e0 + t177 + t185 / 3.0;
+        let t187 = 0.60965 + t177 + t185 / 3.0;
         let t188 = f64::sqrt(t187);
         let t189 = 1.0 / t188;
         let t191 = t25 * t29 * t189;
         let t193 = 1.0 - t191 / 3.0;
-        let t194 = 0.60965e0 + t177;
+        let t194 = 0.60965 + t177;
         let t195 = 1.0 / t194;
         let t198 = t33 * t46;
         let t200 = 1.0 + t198 / 96.0;
         let t201 = 1.0 / t200;
         let t202 = t41 * t201;
-        let t206 = 1.0 + 0.13006513974354692214e-1 * t34 * t202 + 0.42141105276909202774e1 * t177;
+        let t206 = 1.0 + 0.013006513974354691 * t34 * t202 + 4.21411052769092 * t177;
         let t208 = t178 * param_hyb_omega_0 * t50;
         let t210 = 1.0 / t180 / t26;
         let t211 = 1.0 / rho[ip];
@@ -173,11 +173,11 @@ pub fn gga_x_hjs_exc_unpol(
         let t230 = t229 * t227;
         let t231 = f64::sqrt(M_PI);
         let t233 = f64::sqrt(t177);
-        let t236 = 0.0 < 0.7572109999e0 + t177;
-        let t238 = piecewise3(t236, 0.757211e0 + t177, 0.1e-9);
+        let t236 = 0.0 < 0.7572109999 + t177;
+        let t238 = piecewise3(t236, 0.757211 + t177, 1e-10);
         let t239 = f64::sqrt(t238);
         let t241 = 4.0 / 5.0 * t231 + 12.0 / 5.0 * t233 - 12.0 / 5.0 * t239;
-        let t243 = 0.474596e-1 * t206 * t194 + 0.28363733333333333333e-1 * t220 - 0.9086532e0 * t227 - t230 * t241;
+        let t243 = 0.0474596 * t206 * t194 + 0.028363733333333332 * t220 - 0.9086532 * t227 - t230 * t241;
         let t246 = t178 * t178;
         let t248 = t246 * param_hyb_omega_0 * t3;
         let t249 = t248 * t76;
@@ -204,7 +204,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t288 = f64::ln(t283 * t286);
         let t292 = t281 / 3.0 + t273 / 3.0;
         let t294 = f64::ln(t292 * t286);
-        let t297 = 0.757211e0 + 0.47272888888888888889e-1 * t193 * t195 + 0.26366444444444444444e-1 * t219 * t221 - t263 * t264 / 9.0 + 2.0 / 3.0 * t25 * t29 * t275 + 2.0 * t177 * t288 - 2.0 * t238 * t294;
+        let t297 = 0.757211 + 0.04727288888888889 * t193 * t195 + 0.026366444444444446 * t219 * t221 - t263 * t264 / 9.0 + 2.0 / 3.0 * t25 * t29 * t275 + 2.0 * t177 * t288 - 2.0 * t238 * t294;
         let t301 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t297);
         let tzk0 = 2.0 * t301;
         zk[ip] += tzk0;

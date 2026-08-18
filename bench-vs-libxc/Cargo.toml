@@ -1,0 +1,19 @@
+[package]
+name = "bench-vs-libxc"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+# Head-to-head speed/memory benchmark of the rayon backend against C libxc
+# 7.0.0. This is the only harness that times both sides; `verify/` and the
+# oracle tests check numbers, not cost.
+
+[dependencies]
+libxc-core = { path = "../crates/libxc-core" }
+libxc-reval = { path = "../crates/libxc-reval" }
+libxc-sys = { path = "../libxc-sys" }
+rayon = "1.11"
+
+[[bin]]
+name = "xcvs"
+path = "src/main.rs"

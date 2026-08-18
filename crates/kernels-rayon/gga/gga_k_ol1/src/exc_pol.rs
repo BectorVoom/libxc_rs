@@ -1,8 +1,8 @@
 //! GGA_K_OL1 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_ol1.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -60,7 +60,7 @@ pub fn gga_k_ol1_exc_pol(
         let t50 = pow_1_3(t49);
         let t51 = t50 * t50;
         let t52 = 1.0 / t51;
-        let t55 = 1.0 + 5.0 / 9.0 * (sigma0 * t36 / 72.0 + 0.677e-2 * t41 * t43) * t47 * t52;
+        let t55 = 1.0 + 5.0 / 9.0 * (sigma0 * t36 / 72.0 + 0.00677 * t41 * t43) * t47 * t52;
         let t59 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t28 * t30 * t55);
         let t60 = rho1 <= dens_threshold;
         let t61 = -t17;
@@ -77,7 +77,7 @@ pub fn gga_k_ol1_exc_pol(
         let t78 = f64::sqrt(sigma2);
         let t79 = t39 * t78;
         let t81 = 1.0 / t72 / rho1;
-        let t88 = 1.0 + 5.0 / 9.0 * (sigma2 * t75 / 72.0 + 0.677e-2 * t79 * t81) * t47 * t52;
+        let t88 = 1.0 + 5.0 / 9.0 * (sigma2 * t75 / 72.0 + 0.00677 * t79 * t81) * t47 * t52;
         let t92 = piecewise3(t60, 0.0, 3.0 / 20.0 * t6 * t69 * t30 * t88);
         let tzk0 = t59 + t92;
         zk[ip] += tzk0;

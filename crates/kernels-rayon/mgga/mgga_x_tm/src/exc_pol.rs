@@ -1,12 +1,12 @@
 //! MGGA_X_TM exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tm.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tm.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -82,12 +82,12 @@ pub fn mgga_x_tm_exc_pol(
         let t63 = t50 * t50;
         let t64 = t63 * rho0;
         let t66 = 1.0 / t51 / t64;
-        let t70 = 1.0 + 0.15045488888888888889e0 * t56 + 0.26899490462262948e-2 * t61 * t62 * t66;
+        let t70 = 1.0 + 0.1504548888888889 * t56 + 0.002689949046226295 * t61 * t62 * t66;
         let t71 = f64::powf(t70, 1.0 / 5.0);
         let t75 = 1.0 / t52 / rho0;
         let t76 = tau0 * t75;
-        let t79 = 0.256337604e0 * t58 * t47;
-        let t85 = 1.0 + 0.63943327777777777778e-1 * t56 - 5.0 / 9.0 * (0.14554132e0 * t76 + t79 + 0.11867481666666666667e-1 * t55) * t44 * t48;
+        let t79 = 0.256337604 * t58 * t47;
+        let t85 = 1.0 + 0.06394332777777778 * t56 - 5.0 / 9.0 * (0.14554132 * t76 + t79 + 0.011867481666666667 * t55) * t44 * t48;
         let t86 = t71 * t71;
         let t87 = 1.0 / t86;
         let t90 = 1.0 / t71 + 7.0 / 9.0 * t85 * t87;
@@ -133,11 +133,11 @@ pub fn mgga_x_tm_exc_pol(
         let t155 = t146 * t146;
         let t156 = t155 * rho1;
         let t158 = 1.0 / t147 / t156;
-        let t162 = 1.0 + 0.15045488888888888889e0 * t152 + 0.26899490462262948e-2 * t61 * t154 * t158;
+        let t162 = 1.0 + 0.1504548888888889 * t152 + 0.002689949046226295 * t61 * t154 * t158;
         let t163 = f64::powf(t162, 1.0 / 5.0);
         let t167 = 1.0 / t148 / rho1;
         let t168 = tau1 * t167;
-        let t175 = 1.0 + 0.63943327777777777778e-1 * t152 - 5.0 / 9.0 * (0.14554132e0 * t168 + t79 + 0.11867481666666666667e-1 * t151) * t44 * t48;
+        let t175 = 1.0 + 0.06394332777777778 * t152 - 5.0 / 9.0 * (0.14554132 * t168 + t79 + 0.011867481666666667 * t151) * t44 * t48;
         let t176 = t163 * t163;
         let t177 = 1.0 / t176;
         let t180 = 1.0 / t163 + 7.0 / 9.0 * t175 * t177;

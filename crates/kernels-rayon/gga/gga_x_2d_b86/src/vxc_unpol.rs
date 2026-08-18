@@ -1,8 +1,8 @@
 //! GGA_X_2D_B86 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,8 +35,8 @@ pub fn gga_x_2d_b86_vxc_unpol(
         let t20 = rho[ip] * rho[ip];
         let t21 = t20 * rho[ip];
         let t23 = sigma[ip] / t21;
-        let t25 = 1.0 + 0.421e-2 * t23;
-        let t28 = 1.0 + 0.238e-3 * t23;
+        let t25 = 1.0 + 0.00421 * t23;
+        let t28 = 1.0 + 0.000238 * t23;
         let t29 = 1.0 / t28;
         let t33 = piecewise3(t2, 0.0, -2.0 / 3.0 * t18 * t19 * t25 * t29);
         let tzk0 = 2.0 * t33;
@@ -46,12 +46,12 @@ pub fn gga_x_2d_b86_vxc_unpol(
         let t47 = t28 * t28;
         let t48 = 1.0 / t47;
         let t50 = t25 * t48 * sigma[ip];
-        let t54 = piecewise3(t2, 0.0, -t18 / t19 * t25 * t29 / 3.0 + 0.47504762934721079361e-2 * t39 * t41 * sigma[ip] * t29 - 0.26855424176873199259e-3 * t39 * t41 * t50);
+        let t54 = piecewise3(t2, 0.0, -t18 / t19 * t25 * t29 / 3.0 + 0.004750476293472108 * t39 * t41 * sigma[ip] * t29 - 0.000268554241768732 * t39 * t41 * t50);
         let tvrho0 = 2.0 * rho[ip] * t54 + 2.0 * t33;
         vrho[ip] += tvrho0;
         let t58 = 1.0 / t19 / t20;
         let t62 = t58 * t25;
-        let t67 = piecewise3(t2, 0.0, -0.15834920978240359787e-2 * t39 * t58 * t29 + 0.8951808058957733086e-4 * t39 * t62 * t48);
+        let t67 = piecewise3(t2, 0.0, -0.001583492097824036 * t39 * t58 * t29 + 8.951808058957734e-05 * t39 * t62 * t48);
         let tvsigma0 = 2.0 * rho[ip] * t67;
         vsigma[ip] += tvsigma0;
     }

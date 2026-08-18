@@ -1,12 +1,12 @@
 //! GGA_X_GG99 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_gg99.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_gg99.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_2};
 use libxc_rkernel_math::special::{xc_dilogarithm};
@@ -67,7 +67,7 @@ pub fn gga_x_gg99_vxc_pol(
         let t47 = f64::sqrt(M_PI);
         let t49 = 1.0 / t47 / M_PI;
         let t50 = t46 * t49;
-        let t51 = t42 - 0.1e-9;
+        let t51 = t42 - 1e-10;
         let t52 = t51 < t36;
         let t53 = piecewise3(t52, t51, t36);
         let t54 = t53 * t53;
@@ -88,7 +88,7 @@ pub fn gga_x_gg99_vxc_pol(
         let t70 = 1.0 / t69;
         let t74 = f64::ln(t50 * t53 * t67 * t70 / 4.0 + f64::sqrt(pow_2(t50 * t53 * t67 * t70 / 4.0) + 1.0));
         let t75 = 1.0 / M_PI;
-        let t76 = t42 + 0.1e-9;
+        let t76 = t42 + 1e-10;
         let t77 = t76 < t36;
         let t78 = piecewise3(t77, t36, t76);
         let t79 = t78 * t78;

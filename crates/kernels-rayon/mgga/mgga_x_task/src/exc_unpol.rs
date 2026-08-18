@@ -1,8 +1,8 @@
 //! MGGA_X_TASK exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,17 +17,17 @@ pub fn mgga_x_task_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_task_anu_0: f64,
-    param_task_anu_1: f64,
-    param_task_anu_2: f64,
+    param_task_c: f64,
     param_task_bnu_0: f64,
     param_task_bnu_1: f64,
     param_task_bnu_2: f64,
     param_task_bnu_3: f64,
     param_task_bnu_4: f64,
-    param_task_c: f64,
-    param_task_d: f64,
+    param_task_anu_0: f64,
+    param_task_anu_1: f64,
+    param_task_anu_2: f64,
     param_task_h0x: f64,
+    param_task_d: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -75,10 +75,10 @@ pub fn mgga_x_task_exc_unpol(
         let t55 = rho[ip] * tau[ip];
         let t59 = 1.0 / rho[ip];
         let t61 = 1.0 / tau[ip];
-        let t63 = 0.0 < (0.9999999999e0 * t55 - 0.125e0 * sigma[ip]) * t59 * t61;
+        let t63 = 0.0 < (0.9999999999 * t55 - 0.125 * sigma[ip]) * t59 * t61;
         let t65 = 8.0 * t55 - sigma[ip];
         let t66 = t65 * t59;
-        let t69 = piecewise3(t63, t66 * t61 / 8.0, 0.1e-9);
+        let t69 = piecewise3(t63, t66 * t61 / 8.0, 1e-10);
         let t70 = t69 * t69;
         let t71 = t70 * t70;
         let t72 = t54 * t71;

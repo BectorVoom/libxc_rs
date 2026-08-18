@@ -1,14 +1,14 @@
 //! GGA_K_THAKKAR exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_thakkar.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_thakkar.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_2};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_k_thakkar_exc_pol(
@@ -57,13 +57,13 @@ pub fn gga_k_thakkar_exc_pol(
         let t40 = 1.0 / t33 / rho0;
         let t41 = t38 * t40;
         let t42 = f64::ln(t41 + f64::sqrt(t41 * t41 + 1.0));
-        let t45 = 1.0 + 0.253e-1 * t41 * t42;
+        let t45 = 1.0 + 0.0253 * t41 * t42;
         let t46 = 1.0 / t45;
         let t49 = M_CBRT4;
         let t50 = t49 * t38;
         let t53 = 2.0 * t50 * t40 + 1.0;
         let t54 = 1.0 / t53;
-        let t57 = 1.0 + 0.55e-2 * t37 * t46 - 0.72e-1 * t41 * t54;
+        let t57 = 1.0 + 0.0055 * t37 * t46 - 0.072 * t41 * t54;
         let t61 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t31 * t57);
         let t62 = rho1 <= dens_threshold;
         let t63 = -t17;
@@ -83,12 +83,12 @@ pub fn gga_k_thakkar_exc_pol(
         let t81 = 1.0 / t74 / rho1;
         let t82 = t79 * t81;
         let t83 = f64::ln(t82 + f64::sqrt(t82 * t82 + 1.0));
-        let t86 = 1.0 + 0.253e-1 * t82 * t83;
+        let t86 = 1.0 + 0.0253 * t82 * t83;
         let t87 = 1.0 / t86;
         let t90 = t49 * t79;
         let t93 = 2.0 * t90 * t81 + 1.0;
         let t94 = 1.0 / t93;
-        let t97 = 1.0 + 0.55e-2 * t78 * t87 - 0.72e-1 * t82 * t94;
+        let t97 = 1.0 + 0.0055 * t78 * t87 - 0.072 * t82 * t94;
         let t101 = piecewise3(t62, 0.0, 3.0 / 20.0 * t6 * t72 * t97);
         let tzk0 = t61 + t101;
         zk[ip] += tzk0;

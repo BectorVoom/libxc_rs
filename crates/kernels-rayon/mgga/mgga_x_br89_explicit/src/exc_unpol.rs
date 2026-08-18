@@ -1,8 +1,8 @@
 //! MGGA_X_BR89_EXPLICIT exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89_explicit.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89_explicit.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -47,40 +47,40 @@ pub fn mgga_x_br89_explicit_exc_unpol(
         let t35 = rho[ip] * rho[ip];
         let t37 = 1.0 / t26 / t35;
         let t41 = f64::abs(lapl[ip] * t28 / 2.0 - 2.0 * t31 * t28 + t34 * t37 / 4.0);
-        let t44 = t25 * t41 / 3.0 < 0.5e-12;
+        let t44 = t25 * t41 / 3.0 < 5e-13;
         let t45 = lapl[ip] * t25;
         let t48 = t25 * t28;
         let t51 = t25 * t37;
         let t54 = t45 * t28 / 6.0 - 2.0 / 3.0 * t31 * t48 + t34 * t51 / 12.0;
         let t55 = 0.0 < t54;
-        let t56 = piecewise3(t55, 0.5e-12, -0.5e-12);
+        let t56 = piecewise3(t55, 5e-13, -5e-13);
         let t57 = piecewise3(t44, t56, t54);
         let t60 = 2.0 / 3.0 * t23 / t57;
         let t61 = t60 <= 0.0;
-        let t62 = -0.5e-12 < t60;
-        let t63 = piecewise3(t62, -0.5e-12, t60);
-        let t65 = 0.1525525181200953e1 * t63 + 0.4576575543602858e0;
+        let t62 = -5e-13 < t60;
+        let t63 = piecewise3(t62, -5e-13, t60);
+        let t65 = 1.525525181200953 * t63 + 0.4576575543602858;
         let t66 = f64::atan(t65);
-        let t67 = -t66 + 0.4292036732051034e0;
+        let t67 = -t66 + 0.4292036732051034;
         let t69 = t63 * t63;
         let t71 = t69 * t63;
         let t73 = t69 * t69;
         let t75 = t73 * t63;
-        let t77 = 0.7566445420735584e0 - 0.2636397787137096e1 * t63 + 0.5474515996423288e1 * t69 - 0.1265730812710829e2 * t71 + 0.4125058472512136e1 * t73 - 0.3042513395716384e2 * t75;
+        let t77 = 0.7566445420735584 - 2.636397787137096 * t63 + 5.474515996423288 * t69 - 12.65730812710829 * t71 + 4.125058472512136 * t73 - 30.42513395716384 * t75;
         let t78 = t67 * t77;
-        let t84 = 0.4771976183772063e0 - 0.1779981349455627e1 * t63 + 0.3843384186230215e1 * t69 - 0.9591205088051849e1 * t71 + 0.2173018028591672e1 * t73 - 0.3042513385160366e2 * t75;
+        let t84 = 0.4771976183772063 - 1.779981349455627 * t63 + 3.843384186230215 * t69 - 9.591205088051849 * t71 + 2.173018028591672 * t73 - 30.42513385160366 * t75;
         let t85 = 1.0 / t84;
-        let t87 = 0.5e-12 < t60;
-        let t88 = piecewise3(t87, t60, 0.5e-12);
-        let t90 = f64::ln(1.0 / (0.2085749716493756e1 * t88) + f64::sqrt(pow_2(1.0 / (0.2085749716493756e1 * t88)) + 1.0));
+        let t87 = 5e-13 < t60;
+        let t88 = piecewise3(t87, t60, 5e-13);
+        let t90 = f64::ln(1.0 / (2.085749716493756 * t88) + f64::sqrt(pow_2(1.0 / (2.085749716493756 * t88)) + 1.0));
         let t91 = t90 + 2.0;
         let t93 = t88 * t88;
         let t95 = t93 * t88;
         let t97 = t93 * t93;
         let t99 = t97 * t88;
-        let t101 = 0.4435009886795587e-4 + 0.5812865360445791e0 * t88 + 0.6674276451594061e2 * t93 + 0.4342678089722977e3 * t95 + 0.8247765766052239e3 * t97 + 0.1657965273158212e4 * t99;
+        let t101 = 4.435009886795587e-05 + 0.5812865360445791 * t88 + 66.7427645159406 * t93 + 434.2678089722977 * t95 + 824.7765766052239 * t97 + 1657.965273158212 * t99;
         let t102 = t91 * t101;
-        let t108 = 0.3347285060926091e-4 + 0.4791793102397135e0 * t88 + 0.6239226833857424e2 * t93 + 0.4631481642793812e3 * t95 + 0.7852360350104029e3 * t97 + 0.1657962968223273e4 * t99;
+        let t108 = 3.347285060926091e-05 + 0.4791793102397135 * t88 + 62.39226833857424 * t93 + 463.1481642793812 * t95 + 785.2360350104029 * t97 + 1657.962968223273 * t99;
         let t109 = 1.0 / t108;
         let t111 = piecewise3(t61, t78 * t85, t102 * t109);
         let t113 = f64::exp(t111 / 3.0);

@@ -1,8 +1,8 @@
 //! MGGA_X_MBRXC_BG vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -57,7 +57,7 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
         let t44 = t37 * t37;
         let t45 = t44 * rho[ip];
         let t47 = 1.0 / t19 / t45;
-        let t50 = 0.149492e0 * t23 * t26 - 3.0 / 10.0 * t30 * t33 + 0.147e0 * t36 * t39 + 0.64e-2 * t43 * t47;
+        let t50 = 0.149492 * t23 * t26 - 3.0 / 10.0 * t30 * t33 + 0.147 * t36 * t39 + 0.0064 * t43 * t47;
         let t51 = xc_mgga_x_mbrxc_get_x(t50);
         let t52 = pow_1_4(f64::EPSILON);
         let t53 = t51 < t52;
@@ -110,7 +110,7 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
         let t130 = 1.0 / t24 / t128;
         let t133 = t44 * t37;
         let t135 = 1.0 / t19 / t133;
-        let t138 = -0.24915333333333333333e0 * t23 * t39 - 0.392e0 * t36 * t130 - 0.34133333333333333333e-1 * t43 * t135;
+        let t138 = -0.24915333333333334 * t23 * t39 - 0.392 * t36 * t130 - 0.034133333333333335 * t43 * t135;
         let t139 = t50 * t50;
         let t140 = 1.0 / t139;
         let t141 = t138 * t140;
@@ -163,7 +163,7 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
         vrho[ip] += tvrho0;
         let t226 = t22 * t39;
         let t228 = sigma[ip] * t21;
-        let t231 = 0.147e0 * t226 + 0.128e-1 * t228 * t47;
+        let t231 = 0.147 * t226 + 0.0128 * t228 * t47;
         let t232 = t231 * t140;
         let t233 = t232 * t145;
         let t234 = t233 * t156;
@@ -204,7 +204,7 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
         let t318 = t176 * t22;
         let t319 = t318 * t287;
         let t320 = t319 * t182;
-        let t322 = piecewise3(t93, 0.80166183658230359753e-1 * t320, 0.0);
+        let t322 = piecewise3(t93, 0.08016618365823036 * t320, 0.0);
         let t323 = t322 * t96;
         let t327 = t322 * t98;
         let t332 = 2.0 * t94 * t322 + 5.0 * t322;
@@ -214,7 +214,7 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
         let t336 = t335 * t108;
         let t340 = t205 * t322;
         let t344 = t212 * t322;
-        let t349 = piecewise3(t53, -0.69576736143769684563e-1 * t286 * t289 + 0.10436510421565452684e0 * t294 * t289 - 0.12059967598253411991e0 * t299 * t289 + 0.12949003671201580183e0 * t304 * t289 - 0.13782820112289613704e0 * t309 * t289 + 0.14583734856060983651e0 * t314 * t289, -t63 * t323 * t109 / 108.0 - t92 * t97 * t336 / 36.0 + t63 * t203 * t340 / 36.0 + t63 * t203 * t344 / 108.0);
+        let t349 = piecewise3(t53, -0.06957673614376969 * t286 * t289 + 0.10436510421565452 * t294 * t289 - 0.12059967598253411 * t299 * t289 + 0.1294900367120158 * t304 * t289 - 0.13782820112289615 * t309 * t289 + 0.14583734856060984 * t314 * t289, -t63 * t323 * t109 / 108.0 - t92 * t97 * t336 / 36.0 + t63 * t203 * t340 / 36.0 + t63 * t203 * t344 / 108.0);
         let t353 = piecewise3(t3, 0.0, 3.0 / 16.0 * t7 * t20 * t349);
         let tvtau0 = 2.0 * rho[ip] * t353;
         vtau[ip] += tvtau0;

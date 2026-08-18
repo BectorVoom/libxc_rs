@@ -1,8 +1,8 @@
 //! GGA_X_2D_B86_MGC exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86_mgc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86_mgc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -50,12 +50,12 @@ pub fn gga_x_2d_b86_mgc_exc_pol(
         let t29 = t28 * rho0;
         let t30 = 1.0 / t29;
         let t31 = sigma0 * t30;
-        let t33 = 1.0 + 0.8323e-2 * t31;
+        let t33 = 1.0 + 0.008323 * t31;
         let t34 = pow_1_4(t33);
         let t35 = t34 * t34;
         let t36 = t35 * t34;
         let t37 = 1.0 / t36;
-        let t40 = 1.0 + 0.22047110337950987485e-2 * t31 * t37;
+        let t40 = 1.0 + 0.002204711033795099 * t31 * t37;
         let t41 = t27 * t40;
         let t44 = piecewise3(t1, 0.0, -2.0 / 3.0 * t24 * t41);
         let t45 = rho1 <= dens_threshold;
@@ -71,12 +71,12 @@ pub fn gga_x_2d_b86_mgc_exc_pol(
         let t56 = t55 * rho1;
         let t57 = 1.0 / t56;
         let t58 = sigma2 * t57;
-        let t60 = 1.0 + 0.8323e-2 * t58;
+        let t60 = 1.0 + 0.008323 * t58;
         let t61 = pow_1_4(t60);
         let t62 = t61 * t61;
         let t63 = t62 * t61;
         let t64 = 1.0 / t63;
-        let t67 = 1.0 + 0.22047110337950987485e-2 * t58 * t64;
+        let t67 = 1.0 + 0.002204711033795099 * t58 * t64;
         let t68 = t27 * t67;
         let t71 = piecewise3(t45, 0.0, -2.0 / 3.0 * t54 * t68);
         let tzk0 = t44 + t71;

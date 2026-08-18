@@ -1,8 +1,8 @@
 //! MGGA_X_2D_JS17 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_js17.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_js17.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,9 +40,9 @@ pub fn mgga_x_2d_js17_exc_unpol(
         let t26 = sigma[ip] * sigma[ip];
         let t27 = t21 * t21;
         let t29 = 1.0 / t27 / t21;
-        let t32 = 1.0 + 0.82505922498838542062e0 * t24 + 0.25211952768090192343e-2 * t26 * t29;
+        let t32 = 1.0 + 0.8250592249883855 * t24 + 0.0025211952768090192 * t26 * t29;
         let t33 = f64::powf(t32, 1.0 / 15.0);
-        let t43 = 1.0 + 0.55877026877520282455e-1 * t24 + (-0.1544e0 * tau[ip] / t21 - 0.11596246802930644802e2) / M_PI / 4.0;
+        let t43 = 1.0 + 0.05587702687752028 * t24 + (-0.1544 * tau[ip] / t21 - 11.596246802930645) / M_PI / 4.0;
         let t44 = f64::powf(t32, 1.0 / 5.0);
         let t45 = 1.0 / t44;
         let t48 = 1.0 / t33 + 2.0 / 5.0 * t43 * t45;

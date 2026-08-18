@@ -1,8 +1,8 @@
 //! MGGA_C_RMGGAC exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rmggac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rmggac.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,7 +30,7 @@ pub fn mgga_c_rmggac_exc_unpol(
         let t8 = pow_1_3(rho[ip]);
         let t11 = t5 * t7 / t8;
         let t12 = f64::sqrt(t11);
-        let t15 = 1.0 + 0.4445e-1 * t12 + 0.3138525e-1 * t11;
+        let t15 = 1.0 + 0.04445 * t12 + 0.03138525 * t11;
         let t16 = 1.0 / t15;
         let t19 = f64::exp(1.0 * t16);
         let t20 = t19 - 1.0;
@@ -47,7 +47,7 @@ pub fn mgga_c_rmggac_exc_unpol(
         let t31 = t8 * t8;
         let t33 = 1.0 / t31 / t30;
         let t35 = t26 * t29 * t33;
-        let t37 = 1.0 + 0.21337642104376358333e-1 * t35;
+        let t37 = 1.0 + 0.02133764210437636 * t35;
         let t38 = pow_1_4(t37);
         let t40 = 1.0 - 1.0 / t38;
         let t42 = t20 * t40 + 1.0;
@@ -58,13 +58,13 @@ pub fn mgga_c_rmggac_exc_unpol(
         let t50 = piecewise3(t47, t48 * zeta_threshold, 1.0);
         let t52 = 2.0 * t50 - 2.0;
         let t55 = 1.0 / t46 / 2.0;
-        let t58 = 1.0 - 0.2363e1 * t46 * t52 * t55;
-        let t59 = (-0.285764e-1 * t16 + 0.285764e-1 * t43) * t58;
+        let t58 = 1.0 - 2.363 * t46 * t52 * t55;
+        let t59 = (-0.0285764 * t16 + 0.0285764 * t43) * t58;
         let t61 = 1.0 / t31 / rho[ip];
         let t66 = 2.0 * tau[ip] * t61 - sigma[ip] * t33 / 4.0;
         let t67 = t66 * t66;
         let t68 = t67 * t66;
-        let t73 = 0.8e-1 + 5.0 / 18.0 * t66 * t28 * t26 + 0.125e-1 * t35;
+        let t73 = 0.08 + 5.0 / 18.0 * t66 * t28 * t26 + 0.0125 * t35;
         let t74 = t73 * t73;
         let t75 = t74 * t73;
         let t76 = 1.0 / t75;
@@ -73,34 +73,34 @@ pub fn mgga_c_rmggac_exc_unpol(
         let t80 = t79 * t67;
         let t81 = t74 * t74;
         let t83 = 1.0 / t81 / t74;
-        let t86 = 1.0 + 0.66523565010354492023e-2 * t77 + 0.44253847016868604463e-4 * t80 * t83;
+        let t86 = 1.0 + 0.006652356501035449 * t77 + 4.42538470168686e-05 * t80 * t83;
         let t87 = 1.0 / t86;
         let t88 = t77 * t87;
-        let t90 = 1.0 - 0.19957069503106347607e-1 * t88;
+        let t90 = 1.0 - 0.01995706950310635 * t88;
         let t91 = t59 * t90;
-        let t93 = 1.0 + 0.53425e-1 * t11;
+        let t93 = 1.0 + 0.053425 * t11;
         let t96 = pow_3_2(t11);
         let t98 = t2 * t2;
         let t99 = t4 * t4;
         let t100 = t98 * t99;
         let t103 = t100 * t6 / t31;
-        let t105 = 0.379785e1 * t12 + 0.8969e0 * t11 + 0.204775e0 * t96 + 0.123235e0 * t103;
-        let t108 = 1.0 + 0.16081979498692535067e2 / t105;
+        let t105 = 3.79785 * t12 + 0.8969 * t11 + 0.204775 * t96 + 0.123235 * t103;
+        let t108 = 1.0 + 16.081979498692537 / t105;
         let t109 = f64::ln(t108);
-        let t111 = 0.621814e-1 * t93 * t109;
+        let t111 = 0.0621814 * t93 * t109;
         let t112 = t52 * t55;
-        let t114 = 1.0 + 0.278125e-1 * t11;
-        let t119 = 0.51785e1 * t12 + 0.905775e0 * t11 + 0.1100325e0 * t96 + 0.1241775e0 * t103;
-        let t122 = 1.0 + 0.29608749977793437516e2 / t119;
+        let t114 = 1.0 + 0.0278125 * t11;
+        let t119 = 5.1785 * t12 + 0.905775 * t11 + 0.1100325 * t96 + 0.1241775 * t103;
+        let t122 = 1.0 + 29.608749977793437 / t119;
         let t123 = f64::ln(t122);
-        let t126 = 0.19751673498613801407e-1 * t112 * t114 * t123;
+        let t126 = 0.0197516734986138 * t112 * t114 * t123;
         let t127 = t48 * t48;
         let t128 = piecewise3(t47, t127, 1.0);
         let t129 = t128 * t128;
         let t130 = t129 * t128;
         let t131 = -t111 + t126;
         let t132 = 1.0 / t130;
-        let t135 = f64::exp(-0.32163648644302209643e2 * t131 * t132);
+        let t135 = f64::exp(-32.16364864430221 * t131 * t132);
         let t136 = t135 - 1.0;
         let t137 = f64::ln(2.0);
         let t138 = 1.0 - t137;
@@ -115,15 +115,15 @@ pub fn mgga_c_rmggac_exc_unpol(
         let t154 = t98 * t153;
         let t155 = t154 * t6;
         let t156 = t27 * t151 * t155;
-        let t159 = 1.0 + 0.27439556402611977244e-1 * t146 * sigma[ip] * t148 * t156;
+        let t159 = 1.0 + 0.02743955640261198 * t146 * sigma[ip] * t148 * t156;
         let t160 = pow_1_4(t159);
         let t162 = 1.0 - 1.0 / t160;
         let t164 = t136 * t162 + 1.0;
         let t165 = f64::ln(t164);
-        let t168 = -t111 + t126 + 0.31091e-1 * t130 * t165;
+        let t168 = -t111 + t126 + 0.031091 * t130 * t165;
         let t169 = t168 * t68;
         let t170 = t76 * t87;
-        let t172 = 0.19957069503106347607e-1 * t169 * t170;
+        let t172 = 0.01995706950310635 * t169 * t170;
         let tzk0 = t91 + t172;
         zk[ip] += tzk0;
     }

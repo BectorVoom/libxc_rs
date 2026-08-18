@@ -1,12 +1,12 @@
 //! GGA_X_BAYESIAN vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -65,9 +65,9 @@ pub fn gga_x_bayesian_vxc_pol(
         let t50 = t49 * t49;
         let t51 = 1.0 / t50;
         let t52 = t39 * t51;
-        let t57 = 0.1926e0 + 0.79008333333333333333e-1 * t33 * sigma0 * t39 * t51;
+        let t57 = 0.1926 + 0.07900833333333333 * t33 * sigma0 * t39 * t51;
         let t58 = t52 * t57;
-        let t61 = 0.10008e1 + t34 * t58 / 24.0;
+        let t61 = 1.0008 + t34 * t58 / 24.0;
         let t65 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t61);
         let t66 = rho1 <= dens_threshold;
         let t67 = -t16;
@@ -87,9 +87,9 @@ pub fn gga_x_bayesian_vxc_pol(
         let t89 = t88 * t88;
         let t90 = 1.0 / t89;
         let t91 = t81 * t90;
-        let t96 = 0.1926e0 + 0.79008333333333333333e-1 * t33 * sigma2 * t81 * t90;
+        let t96 = 0.1926 + 0.07900833333333333 * t33 * sigma2 * t81 * t90;
         let t97 = t91 * t96;
-        let t100 = 0.10008e1 + t76 * t97 / 24.0;
+        let t100 = 1.0008 + t76 * t97 / 24.0;
         let t104 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t75 * t100);
         let tzk0 = t65 + t104;
         zk[ip] += tzk0;
@@ -115,7 +115,7 @@ pub fn gga_x_bayesian_vxc_pol(
         let t135 = 1.0 / t134;
         let t137 = 1.0 / t50 / t49;
         let t138 = t135 * t137;
-        let t148 = -0.21068888888888888889e0 * t33 * sigma0 * t125 * t51 + 0.10534444444444444444e0 * t132 * t138;
+        let t148 = -0.2106888888888889 * t33 * sigma0 * t125 * t51 + 0.10534444444444445 * t132 * t138;
         let t149 = t52 * t148;
         let t152 = -t34 * t127 / 9.0 + t132 * t138 * t57 / 18.0 + t34 * t149 / 24.0;
         let t157 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t113 * t61 - t122 - 3.0 / 8.0 * t5 * t27 * t152);
@@ -146,7 +146,7 @@ pub fn gga_x_bayesian_vxc_pol(
         let t207 = 1.0 / t206;
         let t209 = 1.0 / t89 / t88;
         let t210 = t207 * t209;
-        let t220 = -0.21068888888888888889e0 * t33 * sigma2 * t198 * t90 + 0.10534444444444444444e0 * t204 * t210;
+        let t220 = -0.2106888888888889 * t33 * sigma2 * t198 * t90 + 0.10534444444444445 * t204 * t210;
         let t221 = t91 * t220;
         let t224 = -t76 * t200 / 9.0 + t204 * t210 * t96 / 18.0 + t76 * t221 / 24.0;
         let t229 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t192 * t100 - t171 - 3.0 / 8.0 * t5 * t75 * t224);
@@ -155,7 +155,7 @@ pub fn gga_x_bayesian_vxc_pol(
         let t234 = t130 * t43;
         let t235 = 1.0 / t133;
         let t236 = t235 * t137;
-        let t244 = 0.79008333333333333333e-1 * t33 * t52 - 0.39504166666666666666e-1 * t234 * t236;
+        let t244 = 0.07900833333333333 * t33 * t52 - 0.03950416666666667 * t234 * t236;
         let t245 = t52 * t244;
         let t248 = t33 * t58 / 24.0 - t234 * t236 * t57 / 48.0 + t34 * t245 / 24.0;
         let t252 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t248);
@@ -166,7 +166,7 @@ pub fn gga_x_bayesian_vxc_pol(
         let t255 = t130 * t82;
         let t256 = 1.0 / t205;
         let t257 = t256 * t209;
-        let t265 = 0.79008333333333333333e-1 * t33 * t91 - 0.39504166666666666666e-1 * t255 * t257;
+        let t265 = 0.07900833333333333 * t33 * t91 - 0.03950416666666667 * t255 * t257;
         let t266 = t91 * t265;
         let t269 = t33 * t97 / 24.0 - t255 * t257 * t96 / 48.0 + t76 * t266 / 24.0;
         let t273 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t75 * t269);

@@ -1,8 +1,8 @@
 //! MGGA_C_CCALDA vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ccalda.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ccalda.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -53,24 +53,24 @@ pub fn mgga_c_ccalda_vxc_unpol(
         let t35 = M_CBRT4;
         let t36 = t35 * t35;
         let t39 = t34 * t36 / t3;
-        let t41 = 1.0 + 0.53425e-1 * t39;
+        let t41 = 1.0 + 0.053425 * t39;
         let t42 = f64::sqrt(t39);
         let t45 = pow_3_2(t39);
         let t47 = t31 * t31;
         let t48 = t33 * t33;
         let t49 = t47 * t48;
         let t52 = t49 * t35 / t4;
-        let t54 = 0.379785e1 * t42 + 0.8969e0 * t39 + 0.204775e0 * t45 + 0.123235e0 * t52;
-        let t57 = 1.0 + 0.16081979498692535067e2 / t54;
+        let t54 = 3.79785 * t42 + 0.8969 * t39 + 0.204775 * t45 + 0.123235 * t52;
+        let t57 = 1.0 + 16.081979498692537 / t54;
         let t58 = f64::ln(t57);
         let t62 = pow_1_3(zeta_threshold);
         let t64 = piecewise3(1.0 <= zeta_threshold, t62 * zeta_threshold, 1.0);
         let t70 = (2.0 * t64 - 2.0) / (2.0 * t21 - 2.0);
-        let t72 = 1.0 + 0.278125e-1 * t39;
-        let t77 = 0.51785e1 * t42 + 0.905775e0 * t39 + 0.1100325e0 * t45 + 0.1241775e0 * t52;
-        let t80 = 1.0 + 0.29608749977793437516e2 / t77;
+        let t72 = 1.0 + 0.0278125 * t39;
+        let t77 = 5.1785 * t42 + 0.905775 * t39 + 0.1100325 * t45 + 0.1241775 * t52;
+        let t80 = 1.0 + 29.608749977793437 / t77;
         let t81 = f64::ln(t80);
-        let t85 = -0.621814e-1 * t41 * t58 + 0.19751673498613801407e-1 * t70 * t72 * t81;
+        let t85 = -0.0621814 * t41 * t58 + 0.0197516734986138 * t70 * t72 * t81;
         let t87 = t23 * t30 * t85;
         let t89 = 5.0 / 9.0 * t16 * t87;
         let t90 = t23 * t30;
@@ -108,17 +108,17 @@ pub fn mgga_c_ccalda_vxc_unpol(
         let t138 = t137 * t31;
         let t139 = t138 * t132;
         let t142 = t49 * t35 * t6;
-        let t144 = -0.632975e0 * t133 - 0.29896666666666666667e0 * t135 - 0.1023875e0 * t139 - 0.82156666666666666667e-1 * t142;
+        let t144 = -0.632975 * t133 - 0.29896666666666666 * t135 - 0.1023875 * t139 - 0.08215666666666667 * t142;
         let t145 = 1.0 / t57;
         let t146 = t144 * t145;
         let t149 = t70 * t31;
         let t154 = t70 * t72;
         let t155 = t77 * t77;
         let t156 = 1.0 / t155;
-        let t161 = -0.86308333333333333334e0 * t133 - 0.301925e0 * t135 - 0.5501625e-1 * t139 - 0.82785e-1 * t142;
+        let t161 = -0.8630833333333333 * t133 - 0.301925 * t135 - 0.05501625 * t139 - 0.082785 * t142;
         let t163 = 1.0 / t80;
         let t164 = t156 * t161 * t163;
-        let t167 = 0.11073470983333333333e-2 * t34 * t122 * t58 + 1.0 * t128 * t146 - 0.18311447306006545054e-3 * t149 * t131 * t121 * t81 - 0.5848223622634646207e0 * t154 * t164;
+        let t167 = 0.0011073470983333333 * t34 * t122 * t58 + 1.0 * t128 * t146 - 0.00018311447306006544 * t149 * t131 * t121 * t81 - 0.5848223622634646 * t154 * t164;
         let t169 = t23 * t30 * t167;
         let t170 = t16 * t169;
         let t175 = t114 * param_c * t102;

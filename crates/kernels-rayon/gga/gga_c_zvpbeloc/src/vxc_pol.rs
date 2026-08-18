@@ -1,8 +1,8 @@
 //! GGA_C_ZVPBELOC vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeloc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeloc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -45,15 +45,15 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t19 = t13 * t13;
         let t20 = 1.0 / t19;
         let t21 = t18 * t20;
-        let t22 = 0.1e-19 < t21;
-        let t23 = piecewise3(t22, t21, 0.1e-19);
-        let t27 = f64::exp(-0.99999999999999999999e0 * t10 * t16 * t23);
+        let t22 = 1e-20 < t21;
+        let t23 = piecewise3(t22, t21, 1e-20);
+        let t27 = f64::exp(-1.0 * t10 * t16 * t23);
         let t28 = M_CBRT3;
         let t29 = t28 * t12;
         let t30 = M_CBRT4;
         let t31 = t30 * t30;
         let t33 = t29 * t31 * t15;
-        let t35 = 1.0 + 0.53425e-1 * t33;
+        let t35 = 1.0 + 0.053425 * t33;
         let t36 = f64::sqrt(t33);
         let t39 = pow_3_2(t33);
         let t41 = t28 * t28;
@@ -61,10 +61,10 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t43 = t41 * t42;
         let t44 = t14 * t14;
         let t47 = t43 * t30 / t44;
-        let t49 = 0.379785e1 * t36 + 0.8969e0 * t33 + 0.204775e0 * t39 + 0.123235e0 * t47;
-        let t52 = 1.0 + 0.16081979498692535067e2 / t49;
+        let t49 = 3.79785 * t36 + 0.8969 * t33 + 0.204775 * t39 + 0.123235 * t47;
+        let t52 = 1.0 + 16.081979498692537 / t49;
         let t53 = f64::ln(t52);
-        let t55 = 0.621814e-1 * t35 * t53;
+        let t55 = 0.0621814 * t35 * t53;
         let t56 = t18 * t18;
         let t57 = t19 * t19;
         let t58 = 1.0 / t57;
@@ -87,19 +87,19 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t75 = M_CBRT2;
         let t78 = 1.0 / (2.0 * t75 - 2.0);
         let t79 = t74 * t78;
-        let t81 = 1.0 + 0.5137e-1 * t33;
-        let t86 = 0.705945e1 * t36 + 0.1549425e1 * t33 + 0.420775e0 * t39 + 0.1562925e0 * t47;
-        let t89 = 1.0 + 0.32163958997385070134e2 / t86;
+        let t81 = 1.0 + 0.05137 * t33;
+        let t86 = 7.05945 * t36 + 1.549425 * t33 + 0.420775 * t39 + 0.1562925 * t47;
+        let t89 = 1.0 + 32.16395899738507 / t86;
         let t90 = f64::ln(t89);
-        let t94 = 1.0 + 0.278125e-1 * t33;
-        let t99 = 0.51785e1 * t36 + 0.905775e0 * t33 + 0.1100325e0 * t39 + 0.1241775e0 * t47;
-        let t102 = 1.0 + 0.29608749977793437516e2 / t99;
+        let t94 = 1.0 + 0.0278125 * t33;
+        let t99 = 5.1785 * t36 + 0.905775 * t33 + 0.1100325 * t39 + 0.1241775 * t47;
+        let t102 = 1.0 + 29.608749977793437 / t99;
         let t103 = f64::ln(t102);
         let t104 = t94 * t103;
-        let t106 = -0.310907e-1 * t81 * t90 + t55 - 0.19751673498613801407e-1 * t104;
+        let t106 = -0.0310907 * t81 * t90 + t55 - 0.0197516734986138 * t104;
         let t107 = t79 * t106;
         let t108 = t59 * t107;
-        let t110 = 0.19751673498613801407e-1 * t79 * t104;
+        let t110 = 0.0197516734986138 * t79 * t104;
         let t111 = f64::ln(2.0);
         let t112 = 1.0 - t111;
         let t113 = t112 * t8;
@@ -122,7 +122,7 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t135 = 1.0 - t134;
         let t136 = t30 * t135;
         let t137 = t132 * t136;
-        let t140 = 0.375e-1 + 0.83333333333333333332e-3 * t127 * t129 * t137;
+        let t140 = 0.0375 + 0.0008333333333333334 * t127 * t129 * t137;
         let t142 = t128 * t41;
         let t143 = t131 * t30;
         let t144 = t142 * t143;
@@ -161,17 +161,17 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         zk[ip] += tzk0;
         let t189 = 1.0 / t14 / t13;
         let t190 = t12 * t189;
-        let t193 = 0.33333333333333333333e0 * t10 * t190 * t23;
+        let t193 = 0.3333333333333333 * t10 * t190 * t23;
         let t194 = t17 * t20;
         let t195 = t19 * t13;
         let t196 = 1.0 / t195;
         let t197 = t18 * t196;
         let t200 = piecewise3(t22, 2.0 * t194 - 2.0 * t197, 0.0);
-        let t204 = t193 - 0.99999999999999999999e0 * t10 * t16 * t200;
+        let t204 = t193 - 1.0 * t10 * t16 * t200;
         let t205 = t13 * t204;
         let t207 = t13 * t27;
         let t208 = t31 * t189;
-        let t211 = 0.11073470983333333333e-2 * t29 * t208 * t53;
+        let t211 = 0.0011073470983333333 * t29 * t208 * t53;
         let t212 = t49 * t49;
         let t213 = 1.0 / t212;
         let t214 = t35 * t213;
@@ -184,7 +184,7 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t224 = t223 * t28;
         let t225 = t224 * t218;
         let t230 = t43 * t30 / t44 / t13;
-        let t232 = -0.632975e0 * t219 - 0.29896666666666666667e0 * t221 - 0.1023875e0 * t225 - 0.82156666666666666667e-1 * t230;
+        let t232 = -0.632975 * t219 - 0.29896666666666666 * t221 - 0.1023875 * t225 - 0.08215666666666667 * t230;
         let t233 = 1.0 / t52;
         let t234 = t232 * t233;
         let t236 = 1.0 * t214 * t234;
@@ -205,25 +205,25 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t261 = t86 * t86;
         let t262 = 1.0 / t261;
         let t263 = t81 * t262;
-        let t268 = -0.1176575e1 * t219 - 0.516475e0 * t221 - 0.2103875e0 * t225 - 0.104195e0 * t230;
+        let t268 = -1.176575 * t219 - 0.516475 * t221 - 0.2103875 * t225 - 0.104195 * t230;
         let t269 = 1.0 / t89;
         let t270 = t268 * t269;
         let t276 = t99 * t99;
         let t277 = 1.0 / t276;
         let t278 = t94 * t277;
-        let t283 = -0.86308333333333333334e0 * t219 - 0.301925e0 * t221 - 0.5501625e-1 * t225 - 0.82785e-1 * t230;
+        let t283 = -0.8630833333333333 * t219 - 0.301925 * t221 - 0.05501625 * t225 - 0.082785 * t230;
         let t284 = 1.0 / t102;
         let t285 = t283 * t284;
-        let t288 = 0.53237641966666666666e-3 * t29 * t208 * t90 + 1.0 * t263 * t270 - t211 - t236 + 0.18311447306006545054e-3 * t29 * t208 * t103 + 0.5848223622634646207e0 * t278 * t285;
+        let t288 = 0.0005323764196666666 * t29 * t208 * t90 + 1.0 * t263 * t270 - t211 - t236 + 0.00018311447306006544 * t29 * t208 * t103 + 0.5848223622634646 * t278 * t285;
         let t289 = t79 * t288;
         let t290 = t59 * t289;
-        let t292 = 0.19751673498613801407e-1 * t255 * t104;
+        let t292 = 0.0197516734986138 * t255 * t104;
         let t293 = t79 * t28;
         let t295 = t217 * t189 * t103;
-        let t297 = 0.18311447306006545054e-3 * t293 * t295;
+        let t297 = 0.00018311447306006544 * t293 * t295;
         let t298 = t79 * t94;
         let t300 = t277 * t283 * t284;
-        let t302 = 0.5848223622634646207e0 * t298 * t300;
+        let t302 = 0.5848223622634646 * t298 * t300;
         let t303 = t121 * t184;
         let t304 = 1.0 / t66;
         let t307 = piecewise3(t63, 0.0, 2.0 / 3.0 * t304 * t246);
@@ -232,15 +232,15 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t313 = t307 / 2.0 + t311 / 2.0;
         let t318 = 1.0 / t14 / t195;
         let t319 = t124 * t318;
-        let t322 = 0.19444444444444444444e-2 * t319 * t129 * t137;
+        let t322 = 0.0019444444444444444 * t319 * t129 * t137;
         let t323 = t75 * t151;
         let t324 = t127 * t323;
         let t326 = t132 * t136 * t313;
         let t329 = t124 * t58;
         let t331 = t31 * t134;
         let t332 = t29 * t331;
-        let t334 = 0.41666666666666666666e-3 * t329 * t129 * t332;
-        let t335 = -t322 - 0.16666666666666666666e-2 * t324 * t326 - t334;
+        let t334 = 0.0004166666666666667 * t329 * t129 * t332;
+        let t335 = -t322 - 0.0016666666666666668 * t324 * t326 - t334;
         let t336 = t335 * t174;
         let t340 = 7.0 / 288.0 * t319 * t75 * t144;
         let t341 = t30 * t313;
@@ -289,7 +289,7 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let tvrho0 = t205 * tzk0 + t207 * t410 + tzk0;
         vrho[ip * 2] += tvrho0;
         let t414 = piecewise3(t22, -2.0 * t194 - 2.0 * t197, 0.0);
-        let t418 = t193 - 0.99999999999999999999e0 * t10 * t16 * t414;
+        let t418 = t193 - 1.0 * t10 * t16 * t414;
         let t419 = t13 * t418;
         let t421 = -t60 - t194;
         let t424 = piecewise3(t63, 0.0, 4.0 / 3.0 * t66 * t421);
@@ -298,12 +298,12 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t430 = (t424 + t428) * t78;
         let t431 = t430 * t106;
         let t432 = t59 * t431;
-        let t434 = 0.19751673498613801407e-1 * t430 * t104;
+        let t434 = 0.0197516734986138 * t430 * t104;
         let t437 = piecewise3(t63, 0.0, 2.0 / 3.0 * t304 * t421);
         let t440 = piecewise3(t70, 0.0, 2.0 / 3.0 * t308 * t425);
         let t442 = t437 / 2.0 + t440 / 2.0;
         let t447 = t132 * t136 * t442;
-        let t450 = -t322 - 0.16666666666666666666e-2 * t324 * t447 - t334;
+        let t450 = -t322 - 0.0016666666666666668 * t324 * t447 - t334;
         let t451 = t450 * t174;
         let t453 = t30 * t442;
         let t454 = t132 * t453;
@@ -346,25 +346,25 @@ pub fn gga_c_zvpbeloc_vxc_pol(
         let t518 = t157 * t124;
         let t519 = t148 * t518;
         let t520 = t519 * t171;
-        let t522 = t506 / 96.0 + 0.20186378047070195427e-3 * t516 + t520 / 1536.0;
+        let t522 = t506 / 96.0 + 0.00020186378047070194 * t516 + t520 / 1536.0;
         let t523 = t140 * t522;
         let t525 = t514 * t174;
         let t526 = t136 * t525;
         let t527 = t498 * t526;
         let t529 = t157 * t522;
-        let t531 = 0.82246703342411321825e-2 * t527 + t148 * t529;
+        let t531 = 0.008224670334241133 * t527 + t148 * t529;
         let t532 = t395 * t531;
-        let t534 = 0.82246703342411321825e-2 * t502 + t523 * t181 - t392 * t532;
+        let t534 = 0.008224670334241133 * t502 + t523 * t181 - t392 * t532;
         let t535 = t534 * t407;
         let t536 = t495 * t535;
         let tvsigma0 = t494 * t536;
         vsigma[ip * 3] += tvsigma0;
-        let t541 = t506 / 48.0 + 0.40372756094140390853e-3 * t516 + t520 / 768.0;
+        let t541 = t506 / 48.0 + 0.0004037275609414039 * t516 + t520 / 768.0;
         let t542 = t140 * t541;
         let t545 = t157 * t541;
-        let t547 = 0.16449340668482264365e-1 * t527 + t148 * t545;
+        let t547 = 0.016449340668482266 * t527 + t148 * t545;
         let t548 = t395 * t547;
-        let t550 = 0.16449340668482264365e-1 * t502 + t542 * t181 - t392 * t548;
+        let t550 = 0.016449340668482266 * t502 + t542 * t181 - t392 * t548;
         let t551 = t550 * t407;
         let t552 = t495 * t551;
         let tvsigma1 = t494 * t552;

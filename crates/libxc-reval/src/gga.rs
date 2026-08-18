@@ -21,9 +21,14 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {
     }
 }
 
-/// Validate and zero the caller's buffers, then build the chunk view.
+/// Validate the caller's buffers and build the chunk view.
 ///
-/// Kernels accumulate with `+=`, so every destination must start at zero.
+/// Kernels accumulate with `+=`, so every destination must start at zero --
+/// but that zeroing happens per chunk inside `par_sweep`, not here. See the
+/// comment on `zero_outputs` for why. Buffers the caller supplied for an order
+/// higher than the one requested are still cleared here: they are dropped from
+/// the chunk, so the sweep never sees them, and leaving stale values in a
+/// buffer the caller handed us would be worse than the cost of clearing it.
 pub fn prepare<'a>(
     input: &'a GgaInput<'a>,
     output: &'a mut GgaOutput<'a>,
@@ -44,7 +49,6 @@ pub fn prepare<'a>(
                             field: $name, expected, actual: b.len(),
                         });
                     }
-                    b.fill(0.0);
                     Some(b)
                 }
                 Some(b) => { b.fill(0.0); None }
@@ -110,142 +114,142 @@ macro_rules! ten_arm_dispatch_rgga {
         let chunk = $crate::gga::prepare($input, $output, $order, &d)?;
 
         match ($order, $spin) {
-            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($exc_u)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($vxc_u)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($fxc_u)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($kxc_u)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
-                        c.v3rho3.expect("prepare guarantees this buffer"),
-                        c.v3rho2sigma.expect("prepare guarantees this buffer"),
-                        c.v3rhosigma2.expect("prepare guarantees this buffer"),
-                        c.v3sigma3.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho2sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rhosigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($lxc_u)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
-                        c.v3rho3.expect("prepare guarantees this buffer"),
-                        c.v3rho2sigma.expect("prepare guarantees this buffer"),
-                        c.v3rhosigma2.expect("prepare guarantees this buffer"),
-                        c.v3sigma3.expect("prepare guarantees this buffer"),
-                        c.v4rho4.expect("prepare guarantees this buffer"),
-                        c.v4rho3sigma.expect("prepare guarantees this buffer"),
-                        c.v4rho2sigma2.expect("prepare guarantees this buffer"),
-                        c.v4rhosigma3.expect("prepare guarantees this buffer"),
-                        c.v4sigma4.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho2sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rhosigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho4.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho3sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rhosigma3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($exc_p)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($vxc_p)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($fxc_p)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($kxc_p)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
-                        c.v3rho3.expect("prepare guarantees this buffer"),
-                        c.v3rho2sigma.expect("prepare guarantees this buffer"),
-                        c.v3rhosigma2.expect("prepare guarantees this buffer"),
-                        c.v3sigma3.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho2sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rhosigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &|c| {
+            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_gga::GgaChunk<'_>| {
                 $($lxc_p)::+(
                         c.rho, c.sigma,
-                        c.zk.expect("prepare guarantees this buffer"),
-                        c.vrho.expect("prepare guarantees this buffer"),
-                        c.vsigma.expect("prepare guarantees this buffer"),
-                        c.v2rho2.expect("prepare guarantees this buffer"),
-                        c.v2rhosigma.expect("prepare guarantees this buffer"),
-                        c.v2sigma2.expect("prepare guarantees this buffer"),
-                        c.v3rho3.expect("prepare guarantees this buffer"),
-                        c.v3rho2sigma.expect("prepare guarantees this buffer"),
-                        c.v3rhosigma2.expect("prepare guarantees this buffer"),
-                        c.v3sigma3.expect("prepare guarantees this buffer"),
-                        c.v4rho4.expect("prepare guarantees this buffer"),
-                        c.v4rho3sigma.expect("prepare guarantees this buffer"),
-                        c.v4rho2sigma2.expect("prepare guarantees this buffer"),
-                        c.v4rhosigma3.expect("prepare guarantees this buffer"),
-                        c.v4sigma4.expect("prepare guarantees this buffer"),
+                        c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vrho.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rho2sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3rhosigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v3sigma3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho4.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho3sigma.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rho2sigma2.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4rhosigma3.as_deref_mut().expect("prepare guarantees this buffer"),
+                        c.v4sigma4.as_deref_mut().expect("prepare guarantees this buffer"),
                         $( $scalar, )*
                         dt, zt,
                     )

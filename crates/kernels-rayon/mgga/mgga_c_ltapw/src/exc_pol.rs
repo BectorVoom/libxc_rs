@@ -1,8 +1,8 @@
 //! MGGA_C_LTAPW exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ltapw.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_ltapw.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -54,7 +54,7 @@ pub fn mgga_c_ltapw_exc_pol(
         let t33 = t23 + t32;
         let t34 = pow_1_3(t33);
         let t37 = t5 * t7 / t34;
-        let t39 = 1.0 + 0.53425e-1 * t37;
+        let t39 = 1.0 + 0.053425 * t37;
         let t40 = f64::sqrt(t37);
         let t43 = pow_3_2(t37);
         let t45 = t2 * t2;
@@ -62,10 +62,10 @@ pub fn mgga_c_ltapw_exc_pol(
         let t47 = t45 * t46;
         let t48 = t34 * t34;
         let t51 = t47 * t6 / t48;
-        let t53 = 0.379785e1 * t40 + 0.8969e0 * t37 + 0.204775e0 * t43 + 0.123235e0 * t51;
-        let t56 = 1.0 + 0.16081824322151104822e2 / t53;
+        let t53 = 3.79785 * t40 + 0.8969 * t37 + 0.204775 * t43 + 0.123235 * t51;
+        let t56 = 1.0 + 16.081824322151103 / t53;
         let t57 = f64::ln(t56);
-        let t59 = 0.62182e-1 * t39 * t57;
+        let t59 = 0.062182 * t39 * t57;
         let t60 = t23 - t32;
         let t61 = t60 * t60;
         let t62 = t61 * t61;
@@ -89,19 +89,19 @@ pub fn mgga_c_ltapw_exc_pol(
         let t82 = M_CBRT2;
         let t85 = 1.0 / (2.0 * t82 - 2.0);
         let t86 = t81 * t85;
-        let t88 = 1.0 + 0.5137e-1 * t37;
-        let t93 = 0.705945e1 * t40 + 0.1549425e1 * t37 + 0.420775e0 * t43 + 0.1562925e0 * t51;
-        let t96 = 1.0 + 0.32164683177870697974e2 / t93;
+        let t88 = 1.0 + 0.05137 * t37;
+        let t93 = 7.05945 * t40 + 1.549425 * t37 + 0.420775 * t43 + 0.1562925 * t51;
+        let t96 = 1.0 + 32.1646831778707 / t93;
         let t97 = f64::ln(t96);
-        let t101 = 1.0 + 0.278125e-1 * t37;
-        let t106 = 0.51785e1 * t40 + 0.905775e0 * t37 + 0.1100325e0 * t43 + 0.1241775e0 * t51;
-        let t109 = 1.0 + 0.29608574643216675549e2 / t106;
+        let t101 = 1.0 + 0.0278125 * t37;
+        let t106 = 5.1785 * t40 + 0.905775 * t37 + 0.1100325 * t43 + 0.1241775 * t51;
+        let t109 = 1.0 + 29.608574643216677 / t106;
         let t110 = f64::ln(t109);
         let t111 = t101 * t110;
-        let t113 = -0.3109e-1 * t88 * t97 + t59 - 0.19751789702565206229e-1 * t111;
+        let t113 = -0.03109 * t88 * t97 + t59 - 0.019751789702565206 * t111;
         let t114 = t86 * t113;
         let t115 = t66 * t114;
-        let t117 = 0.19751789702565206229e-1 * t86 * t111;
+        let t117 = 0.019751789702565206 * t86 * t111;
         let tzk0 = -t59 + t115 + t117;
         zk[ip] += tzk0;
     }

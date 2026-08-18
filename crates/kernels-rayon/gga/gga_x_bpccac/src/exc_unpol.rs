@@ -1,8 +1,8 @@
 //! GGA_X_BPCCAC exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bpccac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bpccac.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -53,10 +53,10 @@ pub fn gga_x_bpccac_exc_unpol(
         let t42 = 1.0 / t40 / t39;
         let t43 = t38 * t42;
         let t44 = t36 * t43;
-        let t46 = 0.1227e1 + 0.91464571985215458336e-2 * t44;
-        let t49 = 0.2227e1 - 0.1505529e1 / t46;
+        let t46 = 1.227 + 0.009146457198521547 * t44;
+        let t49 = 2.227 - 1.505529 / t46;
         let t52 = f64::exp(-25.0 / 6.0 * t44);
-        let t55 = (0.2743e0 - 0.1508e0 * t52) * t31;
+        let t55 = (0.2743 - 0.1508 * t52) * t31;
         let t56 = t55 * t35;
         let t59 = t31 * t31;
         let t61 = 1.0 / t33 / t32;
@@ -66,14 +66,14 @@ pub fn gga_x_bpccac_exc_unpol(
         let t65 = t39 * t39;
         let t66 = t65 * rho[ip];
         let t68 = 1.0 / t18 / t66;
-        let t71 = 0.13888888888888888889e-4 * t62 * t64 * t68;
+        let t71 = 1.388888888888889e-05 * t62 * t64 * t68;
         let t72 = t56 * t43 / 24.0 - t71;
         let t74 = t59 / t33;
         let t75 = t74 * t20;
         let t76 = t21 * t24;
-        let t79 = f64::ln(0.64963333333333333333e0 * t74 * t25 + f64::sqrt(pow_2(0.64963333333333333333e0 * t74 * t25) + 1.0));
+        let t79 = f64::ln(0.6496333333333333 * t74 * t25 + f64::sqrt(pow_2(0.6496333333333333 * t74 * t25) + 1.0));
         let t80 = t76 * t79;
-        let t83 = 1.0 + 0.16370833333333333333e-1 * t75 * t80 + t71;
+        let t83 = 1.0 + 0.016370833333333334 * t75 * t80 + t71;
         let t84 = 1.0 / t83;
         let t86 = t72 * t84 + 1.0;
         let t88 = t29 * t86 + t30 * t49;

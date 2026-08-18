@@ -1,8 +1,8 @@
 //! MGGA_K_LK kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -120,7 +120,7 @@ pub fn mgga_k_lk_kxc_unpol(
         let t91 = param_kappa * param_kappa;
         let t92 = 1.0 / t91;
         let t93 = t90 * t92;
-        let t98 = 1.0 + (5.0 / 324.0 * t78 * t79 * t81 + 125.0 / 0.11337408e8 * t88 * t93) * t70;
+        let t98 = 1.0 + (5.0 / 324.0 * t78 * t79 * t81 + 125.0 / 11337408.0 * t88 * t93) * t70;
         let t102 = 1.0 + param_kappa * (2.0 - 1.0 / t76 - 1.0 / t98);
         let t106 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t21 * t23 * t102);
         let tzk0 = 2.0 * t106;

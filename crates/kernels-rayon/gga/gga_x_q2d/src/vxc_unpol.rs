@@ -1,14 +1,14 @@
 //! GGA_X_Q2D vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_q2d.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_q2d.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_x_q2d_vxc_unpol(
@@ -46,8 +46,8 @@ pub fn gga_x_q2d_vxc_unpol(
         let t30 = t19 * t19;
         let t32 = 1.0 / t30 / t29;
         let t34 = t25 * t28 * t32;
-        let t36 = 0.804e0 + 5.0 / 972.0 * t34;
-        let t39 = 0.1804e1 - 0.646416e0 / t36;
+        let t36 = 0.804 + 5.0 / 972.0 * t34;
+        let t39 = 1.804 - 0.646416 / t36;
         let t40 = t20 * t20;
         let t42 = 1.0 / t22 / t21;
         let t43 = t40 * t42;
@@ -62,9 +62,9 @@ pub fn gga_x_q2d_vxc_unpol(
         let t57 = f64::sqrt(sigma[ip]);
         let t60 = 1.0 / t19 / rho[ip];
         let t62 = t56 * t57 * t26 * t60;
-        let t63 = f64::powf(t62, 0.35e1);
+        let t63 = f64::powf(t62, 3.5);
         let t65 = 1.0 + t34 / 24.0;
-        let t68 = t39 * t53 + 0.87153829697982569831e-4 * t63 * t65;
+        let t68 = t39 * t53 + 8.715382969798257e-05 * t63 * t65;
         let t70 = t21 * t21;
         let t71 = 1.0 / t70;
         let t72 = t44 * sigma[ip];
@@ -85,13 +85,13 @@ pub fn gga_x_q2d_vxc_unpol(
         let t101 = t100 * t42;
         let t102 = t46 * t29;
         let t104 = 1.0 / t19 / t102;
-        let t108 = f64::powf(t62, 0.25e1);
+        let t108 = f64::powf(t62, 2.5);
         let t110 = t108 * t65 * t40;
         let t111 = t55 * t57;
         let t114 = t26 / t19 / t29;
         let t118 = t63 * t20;
         let t119 = t118 * t24;
-        let t123 = -0.88671604938271604938e-2 * t92 * t28 * t95 * t53 + t101 * t45 * t104 / 54.0 - 0.40671787192391865921e-3 * t110 * t111 * t114 - 0.96837588553313966479e-5 * t119 * t28 * t95;
+        let t123 = -0.00886716049382716 * t92 * t28 * t95 * t53 + t101 * t45 * t104 / 54.0 - 0.00040671787192391866 * t110 * t111 * t114 - 9.683758855331397e-06 * t119 * t28 * t95;
         let t131 = t3 / t4 / t70 * t17;
         let t133 = 1.0 / t30 / t74;
         let t134 = t133 * t68;
@@ -107,7 +107,7 @@ pub fn gga_x_q2d_vxc_unpol(
         let t154 = t55 * t153;
         let t155 = t26 * t60;
         let t159 = t24 * t27;
-        let t163 = 0.33251851851851851852e-2 * t92 * t145 * t53 - t101 * t149 * t49 / 144.0 + 0.1525192019714694972e-3 * t110 * t154 * t155 + 0.3631409570749273743e-5 * t118 * t159 * t32;
+        let t163 = 0.0033251851851851854 * t92 * t145 * t53 - t101 * t149 * t49 / 144.0 + 0.0001525192019714695 * t110 * t154 * t155 + 3.6314095707492738e-06 * t118 * t159 * t32;
         let t168 = t46 * t93;
         let t170 = 1.0 / t30 / t168;
         let t171 = t170 * t68;

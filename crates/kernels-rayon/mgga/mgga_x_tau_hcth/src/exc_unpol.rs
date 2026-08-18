@@ -1,8 +1,8 @@
 //! MGGA_X_TAU_HCTH exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tau_hcth.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_tau_hcth.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,14 +17,14 @@ pub fn mgga_x_tau_hcth_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_cx_local_0: f64,
     param_cx_local_1: f64,
     param_cx_local_2: f64,
     param_cx_local_3: f64,
-    param_cx_nlocal_0: f64,
     param_cx_nlocal_1: f64,
     param_cx_nlocal_2: f64,
     param_cx_nlocal_3: f64,
+    param_cx_nlocal_0: f64,
+    param_cx_local_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -50,7 +50,7 @@ pub fn mgga_x_tau_hcth_exc_unpol(
         let t27 = t19 * t19;
         let t29 = 1.0 / t27 / t26;
         let t30 = t25 * t29;
-        let t34 = 1.0 + 0.4e-2 * sigma[ip] * t25 * t29;
+        let t34 = 1.0 + 0.004 * sigma[ip] * t25 * t29;
         let t35 = 1.0 / t34;
         let t36 = t30 * t35;
         let t39 = param_cx_local_2;
@@ -77,7 +77,7 @@ pub fn mgga_x_tau_hcth_exc_unpol(
         let t68 = t67 * t40;
         let t71 = param_cx_nlocal_3;
         let t72 = t71 * t53;
-        let t75 = param_cx_nlocal_0 + 0.4e-2 * t64 * t36 + 0.32e-4 * t68 * t49 + 0.256e-6 * t72 * t59;
+        let t75 = param_cx_nlocal_0 + 0.004 * t64 * t36 + 3.2e-05 * t68 * t49 + 2.56e-07 * t72 * t59;
         let t76 = M_CBRT6;
         let t77 = t76 * t76;
         let t78 = M_PI * M_PI;
@@ -100,7 +100,7 @@ pub fn mgga_x_tau_hcth_exc_unpol(
         let t100 = t93 * t93;
         let t102 = 1.0 / t100 / t88;
         let t104 = t99 * t102 + t87 * t89 - 2.0 * t92 * t95;
-        let t106 = param_cx_local_0 + 0.4e-2 * t23 * t36 + 0.32e-4 * t41 * t49 + 0.256e-6 * t54 * t59 + t75 * t104;
+        let t106 = param_cx_local_0 + 0.004 * t23 * t36 + 3.2e-05 * t41 * t49 + 2.56e-07 * t54 * t59 + t75 * t104;
         let t110 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t106);
         let tzk0 = 2.0 * t110;
         zk[ip] += tzk0;

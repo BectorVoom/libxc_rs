@@ -1,12 +1,12 @@
 //! MGGA_X_TASK vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_task.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
 
@@ -21,17 +21,17 @@ pub fn mgga_x_task_vxc_pol(
     vsigma: &mut [f64],
     vlapl: &mut [f64],
     vtau: &mut [f64],
-    param_task_anu_0: f64,
-    param_task_anu_1: f64,
-    param_task_anu_2: f64,
+    param_task_c: f64,
     param_task_bnu_0: f64,
     param_task_bnu_1: f64,
     param_task_bnu_2: f64,
     param_task_bnu_3: f64,
     param_task_bnu_4: f64,
-    param_task_c: f64,
-    param_task_d: f64,
+    param_task_anu_0: f64,
+    param_task_anu_1: f64,
+    param_task_anu_2: f64,
     param_task_h0x: f64,
+    param_task_d: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -93,10 +93,10 @@ pub fn mgga_x_task_vxc_pol(
         let t61 = rho0 * tau0;
         let t65 = 1.0 / rho0;
         let t67 = 1.0 / tau0;
-        let t69 = 0.0 < (0.9999999999e0 * t61 - 0.125e0 * sigma0) * t65 * t67;
+        let t69 = 0.0 < (0.9999999999 * t61 - 0.125 * sigma0) * t65 * t67;
         let t71 = 8.0 * t61 - sigma0;
         let t72 = t71 * t65;
-        let t75 = piecewise3(t69, t72 * t67 / 8.0, 0.1e-9);
+        let t75 = piecewise3(t69, t72 * t67 / 8.0, 1e-10);
         let t76 = t75 * t75;
         let t77 = t76 * t76;
         let t78 = t60 * t77;
@@ -181,10 +181,10 @@ pub fn mgga_x_task_vxc_pol(
         let t204 = rho1 * tau1;
         let t208 = 1.0 / rho1;
         let t210 = 1.0 / tau1;
-        let t212 = 0.0 < (0.9999999999e0 * t204 - 0.125e0 * sigma2) * t208 * t210;
+        let t212 = 0.0 < (0.9999999999 * t204 - 0.125 * sigma2) * t208 * t210;
         let t214 = 8.0 * t204 - sigma2;
         let t215 = t214 * t208;
-        let t218 = piecewise3(t212, t215 * t210 / 8.0, 0.1e-9);
+        let t218 = piecewise3(t212, t215 * t210 / 8.0, 1e-10);
         let t219 = t218 * t218;
         let t220 = t219 * t219;
         let t221 = t60 * t220;

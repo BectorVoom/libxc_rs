@@ -1,13 +1,13 @@
 //! MGGA_X_2D_PRHG07 fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_2d_prhg07.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
+use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::lambert_w::{lambert_w};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
@@ -54,8 +54,8 @@ pub fn mgga_x_2d_prhg07_fxc_unpol(
         let t26 = 1.0 / t25;
         let t30 = 1.0 / M_PI;
         let t31 = (lapl[ip] * t20 / 2.0 - 2.0 * tau[ip] * t20 + sigma[ip] * t26 / 4.0) * t30;
-        let t32 = -0.9999999999e0 < t31;
-        let t33 = piecewise3(t32, t31, -0.9999999999e0);
+        let t32 = -0.9999999999 < t31;
+        let t33 = piecewise3(t32, t31, -0.9999999999);
         let t34 = f64::exp(-1.0);
         let t36 = lambert_w(t33 * t34);
         let t37 = t36 + 1.0;

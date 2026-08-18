@@ -1,8 +1,8 @@
 //! GGA_C_ZVPBEINT exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeint.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -16,8 +16,8 @@ pub fn gga_c_zvpbeint_exc_unpol(
     sigma: &[f64],
     zk: &mut [f64],
     param_alpha: f64,
-    param_beta: f64,
     param_omega: f64,
+    param_beta: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -30,7 +30,7 @@ pub fn gga_c_zvpbeint_exc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -38,20 +38,20 @@ pub fn gga_c_zvpbeint_exc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081979498692535067e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081979498692537 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.621814e-1 * t12 * t30;
+        let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608749977793437516e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608749977793437 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751673498613801407e-1 * t43 * t45 * t54;
+        let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = f64::sqrt(sigma[ip]);
         let t59 = t58 * sigma[ip];
         let t60 = param_alpha * t59;
@@ -64,7 +64,7 @@ pub fn gga_c_zvpbeint_exc_unpol(
         let t70 = t68 * t5 * t7;
         let t71 = f64::sqrt(t70);
         let t72 = t66 * t71;
-        let t74 = piecewise3(0.1e-19 < 0.0, 0.0, 0.1e-19);
+        let t74 = piecewise3(1e-20 < 0.0, 0.0, 1e-20);
         let t76 = f64::powf(t74, param_omega / 2.0);
         let t77 = t72 * t76;
         let t80 = f64::exp(-t60 * t63 * t77 / 16.0);

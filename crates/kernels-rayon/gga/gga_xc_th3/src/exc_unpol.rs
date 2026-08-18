@@ -1,8 +1,8 @@
 //! GGA_XC_TH3 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -30,6 +30,10 @@ pub fn gga_xc_th3_exc_unpol(
     param_omega_12: f64,
     param_omega_13: f64,
     param_omega_18: f64,
+    param_omega_14: f64,
+    param_omega_15: f64,
+    param_omega_16: f64,
+    param_omega_17: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -85,8 +89,8 @@ pub fn gga_xc_th3_exc_unpol(
         let t108 = param_omega_13;
         let t109 = t108 * t93;
         let t112 = param_omega_18;
-        let t113 = f64::powf(rho[ip], 0.10833333333333333333e1);
-        let t116 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t38 * t39 * t40 * t45 / 4.0 + t50 * t7 * t40 * t45 / 4.0 + t56 * t15 * t40 * t45 / 4.0 + t62 * t22 * t40 * t45 / 4.0 + t68 * t69 * sigma[ip] * t71 / 8.0 + t76 * t80 * sigma[ip] * t71 / 8.0 + t87 * t88 / 8.0 + t92 * t29 * t98 / 2.0 + t103 * t104 * t98 / 2.0 + t109 * t98 / 2.0 + 0.94387431268169349665e0 * t112 * t113;
+        let t113 = f64::powf(rho[ip], 1.0833333333333333);
+        let t116 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t38 * t39 * t40 * t45 / 4.0 + t50 * t7 * t40 * t45 / 4.0 + t56 * t15 * t40 * t45 / 4.0 + t62 * t22 * t40 * t45 / 4.0 + t68 * t69 * sigma[ip] * t71 / 8.0 + t76 * t80 * sigma[ip] * t71 / 8.0 + t87 * t88 / 8.0 + t92 * t29 * t98 / 2.0 + t103 * t104 * t98 / 2.0 + t109 * t98 / 2.0 + 0.9438743126816935 * t112 * t113;
         let tzk0 = t116 * t69;
         zk[ip] += tzk0;
     }

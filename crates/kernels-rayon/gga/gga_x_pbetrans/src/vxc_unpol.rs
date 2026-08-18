@@ -1,8 +1,8 @@
 //! GGA_X_PBETRANS vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -44,8 +44,8 @@ pub fn gga_x_pbetrans_vxc_unpol(
         let t31 = 1.0 / t18 / rho[ip];
         let t38 = f64::exp(-2.0 * t3 * t21 * (t24 / t21 * t29 * t31 / 12.0 - 3.0));
         let t39 = 1.0 + t38;
-        let t41 = 0.413e0 / t39;
-        let t42 = 0.1227e1 - t41;
+        let t41 = 0.413 / t39;
+        let t42 = 1.227 - t41;
         let t43 = t21 * t21;
         let t45 = t23 / t43;
         let t46 = t28 * t28;
@@ -53,7 +53,7 @@ pub fn gga_x_pbetrans_vxc_unpol(
         let t48 = rho[ip] * rho[ip];
         let t49 = t18 * t18;
         let t51 = 1.0 / t49 / t48;
-        let t55 = 0.1227e1 - t41 + 0.91249999999999999998e-2 * t45 * t47 * t51;
+        let t55 = 1.227 - t41 + 0.009125 * t45 * t47 * t51;
         let t56 = 1.0 / t55;
         let t58 = -t42 * t56 + 1.0;
         let t60 = t42 * t58 + 1.0;
@@ -79,9 +79,9 @@ pub fn gga_x_pbetrans_vxc_unpol(
         let t90 = t76 * t38;
         let t94 = t48 * rho[ip];
         let t96 = 1.0 / t49 / t94;
-        let t100 = 0.91777777777777777778e-1 * t89 * t29 * t90 - 0.24333333333333333333e-1 * t45 * t47 * t96;
-        let t102 = -0.91777777777777777778e-1 * t74 * t83 + t88 * t100;
-        let t104 = 0.91777777777777777778e-1 * t74 * t79 + t42 * t102;
+        let t100 = 0.09177777777777778 * t89 * t29 * t90 - 0.024333333333333332 * t45 * t47 * t96;
+        let t102 = -0.09177777777777778 * t74 * t83 + t88 * t100;
+        let t104 = 0.09177777777777778 * t74 * t79 + t42 * t102;
         let t109 = piecewise3(t2, 0.0, -t6 * t66 * t60 / 8.0 - 3.0 / 8.0 * t6 * t19 * t104);
         let tvrho0 = 2.0 * rho[ip] * t109 + 2.0 * t64;
         vrho[ip] += tvrho0;
@@ -94,9 +94,9 @@ pub fn gga_x_pbetrans_vxc_unpol(
         let t122 = t112 * t28;
         let t123 = t31 * t38;
         let t127 = t46 * t51;
-        let t130 = -0.34416666666666666667e-1 * t89 * t122 * t123 + 0.91249999999999999998e-2 * t45 * t127;
-        let t132 = 0.34416666666666666667e-1 * t114 * t119 + t88 * t130;
-        let t134 = -0.34416666666666666667e-1 * t114 * t116 + t42 * t132;
+        let t130 = -0.034416666666666665 * t89 * t122 * t123 + 0.009125 * t45 * t127;
+        let t132 = 0.034416666666666665 * t114 * t119 + t88 * t130;
+        let t134 = -0.034416666666666665 * t114 * t116 + t42 * t132;
         let t138 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t134);
         let tvsigma0 = 2.0 * rho[ip] * t138;
         vsigma[ip] += tvsigma0;

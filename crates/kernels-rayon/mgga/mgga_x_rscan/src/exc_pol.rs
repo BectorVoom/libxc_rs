@@ -1,8 +1,8 @@
 //! MGGA_X_RSCAN exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_rscan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -129,20 +129,20 @@ pub fn mgga_x_rscan_exc_pol(
         let t124 = t123 * t123;
         let t125 = param_k1 + 5.0 / 972.0 * t41 + t50 * t56 * t62 / 576.0 + t124;
         let t130 = 1.0 + param_k1 * (1.0 - param_k1 / t125);
-        let t131 = t115 <= 0.25e1;
-        let t132 = 0.25e1 < t115;
-        let t133 = piecewise3(t132, 0.25e1, t115);
+        let t131 = t115 <= 2.5;
+        let t132 = 2.5 < t115;
+        let t133 = piecewise3(t132, 2.5, t115);
         let t135 = t133 * t133;
         let t137 = t135 * t133;
         let t139 = t135 * t135;
         let t141 = t139 * t133;
         let t143 = t139 * t135;
-        let t148 = piecewise3(t132, t115, 0.25e1);
+        let t148 = piecewise3(t132, t115, 2.5);
         let t149 = 1.0 - t148;
         let t152 = f64::exp(param_c2 / t149);
-        let t154 = piecewise3(t131, 1.0 - 0.667e0 * t133 - 0.4445555e0 * t135 - 0.663086601049e0 * t137 + 0.145129704449e1 * t139 - 0.887998041597e0 * t141 + 0.234528941479e0 * t143 - 0.23185843322e-1 * t139 * t137, -param_d * t152);
+        let t154 = piecewise3(t131, 1.0 - 0.667 * t133 - 0.4445555 * t135 - 0.663086601049 * t137 + 1.45129704449 * t139 - 0.887998041597 * t141 + 0.234528941479 * t143 - 0.023185843322 * t139 * t137, -param_d * t152);
         let t155 = 1.0 - t154;
-        let t158 = t130 * t155 + 0.1174e1 * t154;
+        let t158 = t130 * t155 + 1.174 * t154;
         let t159 = t28 * t158;
         let t160 = f64::sqrt(3.0);
         let t161 = 1.0 / t31;
@@ -152,7 +152,7 @@ pub fn mgga_x_rscan_exc_pol(
         let t165 = 1.0 / t164;
         let t167 = t162 * t163 * t165;
         let t168 = f64::sqrt(t167);
-        let t172 = f64::exp(-0.98958e1 * t160 / t168);
+        let t172 = f64::exp(-9.8958 * t160 / t168);
         let t173 = 1.0 - t172;
         let t174 = t159 * t173;
         let t177 = piecewise3(t2, 0.0, -3.0 / 8.0 * t27 * t174);
@@ -215,27 +215,27 @@ pub fn mgga_x_rscan_exc_pol(
         let t258 = t257 * t257;
         let t259 = param_k1 + 5.0 / 972.0 * t194 + t50 * t201 * t206 / 576.0 + t258;
         let t264 = 1.0 + param_k1 * (1.0 - param_k1 / t259);
-        let t265 = t249 <= 0.25e1;
-        let t266 = 0.25e1 < t249;
-        let t267 = piecewise3(t266, 0.25e1, t249);
+        let t265 = t249 <= 2.5;
+        let t266 = 2.5 < t249;
+        let t267 = piecewise3(t266, 2.5, t249);
         let t269 = t267 * t267;
         let t271 = t269 * t267;
         let t273 = t269 * t269;
         let t275 = t273 * t267;
         let t277 = t273 * t269;
-        let t282 = piecewise3(t266, t249, 0.25e1);
+        let t282 = piecewise3(t266, t249, 2.5);
         let t283 = 1.0 - t282;
         let t286 = f64::exp(param_c2 / t283);
-        let t288 = piecewise3(t265, 1.0 - 0.667e0 * t267 - 0.4445555e0 * t269 - 0.663086601049e0 * t271 + 0.145129704449e1 * t273 - 0.887998041597e0 * t275 + 0.234528941479e0 * t277 - 0.23185843322e-1 * t273 * t271, -param_d * t286);
+        let t288 = piecewise3(t265, 1.0 - 0.667 * t267 - 0.4445555 * t269 - 0.663086601049 * t271 + 1.45129704449 * t273 - 0.887998041597 * t275 + 0.234528941479 * t277 - 0.023185843322 * t273 * t271, -param_d * t286);
         let t289 = 1.0 - t288;
-        let t292 = t264 * t289 + 0.1174e1 * t288;
+        let t292 = t264 * t289 + 1.174 * t288;
         let t293 = t28 * t292;
         let t294 = f64::sqrt(sigma2);
         let t295 = t189 * rho1;
         let t296 = 1.0 / t295;
         let t298 = t162 * t294 * t296;
         let t299 = f64::sqrt(t298);
-        let t303 = f64::exp(-0.98958e1 * t160 / t299);
+        let t303 = f64::exp(-9.8958 * t160 / t299);
         let t304 = 1.0 - t303;
         let t305 = t293 * t304;
         let t308 = piecewise3(t178, 0.0, -3.0 / 8.0 * t187 * t305);

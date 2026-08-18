@@ -1,16 +1,15 @@
 //! LDA_C_2D_AMGB kxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_2d_amgb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_2d_amgb.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
-use libxc_rkernel_math::powers::{pow_3_2};
 use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_3_2};
 
-/// LDA_C_2D_AMGB kxc -- polarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_2d_amgb_kxc_pol(
     rho: &[f64],

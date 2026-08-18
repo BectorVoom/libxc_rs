@@ -1,8 +1,8 @@
 //! GGA_K_PEARSON fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pearson.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pearson.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -112,7 +112,7 @@ pub fn gga_k_pearson_fxc_unpol(
         let t179 = t38 * t39;
         let t183 = t69 * sigma[ip];
         let t187 = 1.0 / t22 / t130 / t33;
-        let t192 = -5.0 / 31104.0 * t156 * t178 * t179 + 5.0 / 0.11943936e8 * t29 * t183 * t32 * t187 * t139;
+        let t192 = -5.0 / 31104.0 * t156 * t178 * t179 + 5.0 / 11943936.0 * t29 * t183 * t32 * t187 * t139;
         let t196 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t192);
         let tv2sigma20 = 2.0 * rho[ip] * t196;
         v2sigma2[ip] += tv2sigma20;

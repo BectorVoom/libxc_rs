@@ -1,8 +1,8 @@
 //! GGA_X_N12 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_n12.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_n12.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -15,22 +15,22 @@ pub fn gga_x_n12_exc_pol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
-    param_CC_0_0: f64,
     param_CC_0_1: f64,
     param_CC_0_2: f64,
     param_CC_0_3: f64,
-    param_CC_1_0: f64,
     param_CC_1_1: f64,
     param_CC_1_2: f64,
     param_CC_1_3: f64,
-    param_CC_2_0: f64,
+    param_CC_1_0: f64,
     param_CC_2_1: f64,
     param_CC_2_2: f64,
     param_CC_2_3: f64,
-    param_CC_3_0: f64,
+    param_CC_2_0: f64,
     param_CC_3_1: f64,
     param_CC_3_2: f64,
     param_CC_3_3: f64,
+    param_CC_3_0: f64,
+    param_CC_0_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -68,7 +68,7 @@ pub fn gga_x_n12_exc_pol(
         let t32 = pow_1_3(rho0);
         let t33 = t32 * t32;
         let t35 = 1.0 / t33 / t31;
-        let t38 = 1.0 + 0.4e-2 * sigma0 * t35;
+        let t38 = 1.0 + 0.004 * sigma0 * t35;
         let t39 = 1.0 / t38;
         let t40 = t35 * t39;
         let t43 = param_CC_0_2;
@@ -95,7 +95,7 @@ pub fn gga_x_n12_exc_pol(
         let t71 = t70 * t44;
         let t74 = param_CC_1_3;
         let t75 = t74 * t56;
-        let t78 = t65 + 0.4e-2 * t67 * t40 + 0.16e-4 * t71 * t52 + 0.64e-7 * t75 * t62;
+        let t78 = t65 + 0.004 * t67 * t40 + 1.6e-05 * t71 * t52 + 6.4e-08 * t75 * t62;
         let t80 = M_CBRT2;
         let t81 = 1.0 / t26 * t80;
         let t83 = 1.0 + t17 <= zeta_threshold;
@@ -106,7 +106,7 @@ pub fn gga_x_n12_exc_pol(
         let t89 = 1.0 / t21;
         let t90 = pow_1_3(t87);
         let t92 = piecewise3(t88, t89, 1.0 / t90);
-        let t95 = 1.0 + 0.39999999999999999998e0 * t81 * t92;
+        let t95 = 1.0 + 0.4 * t81 * t92;
         let t96 = 1.0 / t95;
         let t98 = param_CC_2_0;
         let t99 = param_CC_2_1;
@@ -115,7 +115,7 @@ pub fn gga_x_n12_exc_pol(
         let t104 = t103 * t44;
         let t107 = param_CC_2_3;
         let t108 = t107 * t56;
-        let t111 = t98 + 0.4e-2 * t100 * t40 + 0.16e-4 * t104 * t52 + 0.64e-7 * t108 * t62;
+        let t111 = t98 + 0.004 * t100 * t40 + 1.6e-05 * t104 * t52 + 6.4e-08 * t108 * t62;
         let t112 = t95 * t95;
         let t113 = 1.0 / t112;
         let t115 = param_CC_3_0;
@@ -125,10 +125,10 @@ pub fn gga_x_n12_exc_pol(
         let t121 = t120 * t44;
         let t124 = param_CC_3_3;
         let t125 = t124 * t56;
-        let t128 = t115 + 0.4e-2 * t117 * t40 + 0.16e-4 * t121 * t52 + 0.64e-7 * t125 * t62;
+        let t128 = t115 + 0.004 * t117 * t40 + 1.6e-05 * t121 * t52 + 6.4e-08 * t125 * t62;
         let t129 = t112 * t95;
         let t130 = 1.0 / t129;
-        let t132 = t28 + 0.4e-2 * t30 * t40 + 0.16e-4 * t45 * t52 + 0.64e-7 * t57 * t62 + t78 * t96 + t111 * t113 + t128 * t130;
+        let t132 = t28 + 0.004 * t30 * t40 + 1.6e-05 * t45 * t52 + 6.4e-08 * t57 * t62 + t78 * t96 + t111 * t113 + t128 * t130;
         let t136 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t132);
         let t137 = rho1 <= dens_threshold;
         let t138 = -t16;
@@ -143,7 +143,7 @@ pub fn gga_x_n12_exc_pol(
         let t149 = pow_1_3(rho1);
         let t150 = t149 * t149;
         let t152 = 1.0 / t150 / t148;
-        let t155 = 1.0 + 0.4e-2 * sigma2 * t152;
+        let t155 = 1.0 + 0.004 * sigma2 * t152;
         let t156 = 1.0 / t155;
         let t157 = t152 * t156;
         let t160 = sigma2 * sigma2;
@@ -164,27 +164,27 @@ pub fn gga_x_n12_exc_pol(
         let t180 = t66 * sigma2;
         let t183 = t70 * t160;
         let t186 = t74 * t171;
-        let t189 = t65 + 0.4e-2 * t180 * t157 + 0.16e-4 * t183 * t168 + 0.64e-7 * t186 * t177;
+        let t189 = t65 + 0.004 * t180 * t157 + 1.6e-05 * t183 * t168 + 6.4e-08 * t186 * t177;
         let t190 = piecewise5(t85, t11, t83, t15, -t17);
         let t191 = 1.0 + t190;
         let t192 = t191 <= zeta_threshold;
         let t193 = pow_1_3(t191);
         let t195 = piecewise3(t192, t89, 1.0 / t193);
-        let t198 = 1.0 + 0.39999999999999999998e0 * t81 * t195;
+        let t198 = 1.0 + 0.4 * t81 * t195;
         let t199 = 1.0 / t198;
         let t201 = t99 * sigma2;
         let t204 = t103 * t160;
         let t207 = t107 * t171;
-        let t210 = t98 + 0.4e-2 * t201 * t157 + 0.16e-4 * t204 * t168 + 0.64e-7 * t207 * t177;
+        let t210 = t98 + 0.004 * t201 * t157 + 1.6e-05 * t204 * t168 + 6.4e-08 * t207 * t177;
         let t211 = t198 * t198;
         let t212 = 1.0 / t211;
         let t214 = t116 * sigma2;
         let t217 = t120 * t160;
         let t220 = t124 * t171;
-        let t223 = t115 + 0.4e-2 * t214 * t157 + 0.16e-4 * t217 * t168 + 0.64e-7 * t220 * t177;
+        let t223 = t115 + 0.004 * t214 * t157 + 1.6e-05 * t217 * t168 + 6.4e-08 * t220 * t177;
         let t224 = t211 * t198;
         let t225 = 1.0 / t224;
-        let t227 = t28 + 0.4e-2 * t147 * t157 + 0.16e-4 * t161 * t168 + 0.64e-7 * t172 * t177 + t189 * t199 + t210 * t212 + t223 * t225;
+        let t227 = t28 + 0.004 * t147 * t157 + 1.6e-05 * t161 * t168 + 6.4e-08 * t172 * t177 + t189 * t199 + t210 * t212 + t223 * t225;
         let t231 = piecewise3(t137, 0.0, -3.0 / 8.0 * t5 * t146 * t227);
         let tzk0 = t136 + t231;
         zk[ip] += tzk0;

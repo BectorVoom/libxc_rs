@@ -1,8 +1,8 @@
 //! MGGA_X_MGGAC vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mggac.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mggac.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -59,8 +59,8 @@ pub fn mgga_x_mggac_vxc_unpol(
         let t39 = sigma[ip] * t38;
         let t40 = 1.0 / tau[ip];
         let t42 = t39 * t40 / 8.0;
-        let t44 = 0.0 < 0.9999999999e0 - t42;
-        let t46 = piecewise3(t44, 1.0 - t42, 0.1e-9);
+        let t44 = 0.0 < 0.9999999999 - t42;
+        let t46 = piecewise3(t44, 1.0 - t42, 1e-10);
         let t47 = t37 * t46;
         let t48 = t31 * t47;
         let t50 = tau[ip] * tau[ip];
@@ -75,8 +75,8 @@ pub fn mgga_x_mggac_vxc_unpol(
         let t61 = t46 * t46;
         let t62 = t60 * t61;
         let t63 = t56 * t62;
-        let t65 = 1.0 + 0.55555555555555555556e-1 * t48 - 0.69721666666666666666e1 * t63;
-        let t68 = 0.3712e1 + 0.11111111111111111111e1 * t48 + 0.23240555555555555556e1 * t63;
+        let t65 = 1.0 + 0.05555555555555555 * t48 - 6.972166666666666 * t63;
+        let t68 = 3.712 + 1.1111111111111112 * t48 + 2.3240555555555558 * t63;
         let t69 = 1.0 / t68;
         let t73 = xc_mgga_x_mbrxc_get_x(t24 * t65 * t69 / 6.0);
         let t74 = pow_1_4(f64::EPSILON);
@@ -139,11 +139,11 @@ pub fn mgga_x_mggac_vxc_unpol(
         let t165 = t164 * t62;
         let t168 = t60 * t46 * t157;
         let t169 = t56 * t168;
-        let t171 = -0.92592592592592592594e-1 * t151 + 0.55555555555555555556e-1 * t159 + 0.23240555555555555555e2 * t165 - 0.13944333333333333333e2 * t169;
+        let t171 = -0.09259259259259259 * t151 + 0.05555555555555555 * t159 + 23.240555555555556 * t165 - 13.944333333333333 * t169;
         let t174 = t68 * t68;
         let t175 = 1.0 / t174;
         let t176 = t65 * t175;
-        let t181 = -0.18518518518518518518e1 * t151 + 0.11111111111111111111e1 * t159 - 0.7746851851851851852e1 * t165 + 0.46481111111111111112e1 * t169;
+        let t181 = -1.8518518518518519 * t151 + 1.1111111111111112 * t159 - 7.746851851851852 * t165 + 4.6481111111111115 * t169;
         let t185 = t24 * t171 * t69 / 6.0 - t24 * t176 * t181 / 6.0;
         let t186 = t65 * t65;
         let t187 = 1.0 / t186;
@@ -201,8 +201,8 @@ pub fn mgga_x_mggac_vxc_unpol(
         let t278 = t31 * t277;
         let t281 = t60 * t46 * t276;
         let t282 = t56 * t281;
-        let t284 = 0.55555555555555555556e-1 * t278 - 0.13944333333333333333e2 * t282;
-        let t289 = 0.11111111111111111111e1 * t278 + 0.46481111111111111112e1 * t282;
+        let t284 = 0.05555555555555555 * t278 - 13.944333333333333 * t282;
+        let t289 = 1.1111111111111112 * t278 + 4.6481111111111115 * t282;
         let t293 = -t24 * t176 * t289 / 6.0 + t24 * t284 * t69 / 6.0;
         let t294 = t293 * t187;
         let t295 = t294 * t174;
@@ -237,8 +237,8 @@ pub fn mgga_x_mggac_vxc_unpol(
         let t358 = t357 * t62;
         let t361 = t60 * t46 * t352;
         let t362 = t56 * t361;
-        let t364 = 0.55555555555555555556e-1 * t347 + 0.55555555555555555556e-1 * t354 - 0.13944333333333333333e2 * t358 - 0.13944333333333333333e2 * t362;
-        let t371 = 0.11111111111111111111e1 * t347 + 0.11111111111111111111e1 * t354 + 0.46481111111111111112e1 * t358 + 0.46481111111111111112e1 * t362;
+        let t364 = 0.05555555555555555 * t347 + 0.05555555555555555 * t354 - 13.944333333333333 * t358 - 13.944333333333333 * t362;
+        let t371 = 1.1111111111111112 * t347 + 1.1111111111111112 * t354 + 4.6481111111111115 * t358 + 4.6481111111111115 * t362;
         let t375 = -t24 * t176 * t371 / 6.0 + t24 * t364 * t69 / 6.0;
         let t376 = t375 * t187;
         let t377 = t376 * t174;

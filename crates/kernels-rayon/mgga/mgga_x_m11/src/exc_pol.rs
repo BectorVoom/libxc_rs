@@ -1,12 +1,12 @@
 //! MGGA_X_M11 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -18,7 +18,6 @@ pub fn mgga_x_m11_exc_pol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -30,7 +29,7 @@ pub fn mgga_x_m11_exc_pol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
-    param_b_0: f64,
+    param_a_0: f64,
     param_b_1: f64,
     param_b_2: f64,
     param_b_3: f64,
@@ -42,6 +41,7 @@ pub fn mgga_x_m11_exc_pol(
     param_b_9: f64,
     param_b_10: f64,
     param_b_11: f64,
+    param_b_0: f64,
     param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
@@ -94,9 +94,9 @@ pub fn mgga_x_m11_exc_pol(
         let t46 = piecewise3(t44, t22, t45);
         let t47 = 1.0 / t46;
         let t50 = t35 * t37 * t47 / 18.0;
-        let t51 = 0.135e1 <= t50;
-        let t52 = 0.135e1 < t50;
-        let t53 = piecewise3(t52, t50, 0.135e1);
+        let t51 = 1.35 <= t50;
+        let t52 = 1.35 < t50;
+        let t53 = piecewise3(t52, t50, 1.35);
         let t54 = t53 * t53;
         let t57 = t54 * t54;
         let t58 = 1.0 / t57;
@@ -109,7 +109,7 @@ pub fn mgga_x_m11_exc_pol(
         let t73 = 1.0 / t63 / t60;
         let t75 = t63 * t63;
         let t76 = 1.0 / t75;
-        let t79 = piecewise3(t52, 0.135e1, t50);
+        let t79 = piecewise3(t52, 1.35, t50);
         let t80 = f64::sqrt(M_PI);
         let t81 = 1.0 / t79;
         let t83 = erf_approx(t81 / 2.0);
@@ -119,7 +119,7 @@ pub fn mgga_x_m11_exc_pol(
         let t89 = t88 - 1.0;
         let t92 = t88 - 3.0 / 2.0 - 2.0 * t85 * t89;
         let t95 = 2.0 * t79 * t92 + t80 * t83;
-        let t99 = piecewise3(t51, 1.0 / t54 / 36.0 - t58 / 960.0 + t61 / 26880.0 - t64 / 829440.0 + t67 / 28385280.0 - t70 / 0.107347968e10 + t73 / 0.445906944e11 - t76 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t79 * t95);
+        let t99 = piecewise3(t51, 1.0 / t54 / 36.0 - t58 / 960.0 + t61 / 26880.0 - t64 / 829440.0 + t67 / 28385280.0 - t70 / 1073479680.0 + t73 / 44590694400.0 - t76 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t79 * t95);
         let t100 = t28 * t99;
         let t101 = M_CBRT6;
         let t102 = M_PI * M_PI;
@@ -132,8 +132,8 @@ pub fn mgga_x_m11_exc_pol(
         let t109 = t108 * t108;
         let t111 = 1.0 / t109 / t107;
         let t113 = t106 * sigma0 * t111;
-        let t115 = 0.804e0 + 0.914625e-2 * t113;
-        let t118 = 0.1804e1 - 0.646416e0 / t115;
+        let t115 = 0.804 + 0.00914625 * t113;
+        let t118 = 1.804 - 0.646416 / t115;
         let t119 = param_a_0;
         let t120 = param_a_1;
         let t121 = t101 * t101;
@@ -192,8 +192,8 @@ pub fn mgga_x_m11_exc_pol(
         let t188 = t186 * t187;
         let t190 = 1.0 / t171 / t141;
         let t192 = t128 * t130 + t134 * t136 + t140 * t142 + t146 * t148 + t152 * t154 + t158 * t160 + t164 * t166 + t170 * t172 + t176 * t178 + t182 * t184 + t188 * t190 + t119;
-        let t195 = f64::exp(-0.93189002206715572255e-2 * t113);
-        let t197 = 0.1552e1 - 0.552e0 * t195;
+        let t195 = f64::exp(-0.009318900220671557 * t113);
+        let t197 = 1.552 - 0.552 * t195;
         let t198 = param_b_0;
         let t199 = param_b_1;
         let t200 = t199 * t127;
@@ -236,9 +236,9 @@ pub fn mgga_x_m11_exc_pol(
         let t253 = piecewise3(t251, t22, t252);
         let t254 = 1.0 / t253;
         let t257 = t35 * t37 * t254 / 18.0;
-        let t258 = 0.135e1 <= t257;
-        let t259 = 0.135e1 < t257;
-        let t260 = piecewise3(t259, t257, 0.135e1);
+        let t258 = 1.35 <= t257;
+        let t259 = 1.35 < t257;
+        let t260 = piecewise3(t259, t257, 1.35);
         let t261 = t260 * t260;
         let t264 = t261 * t261;
         let t265 = 1.0 / t264;
@@ -251,7 +251,7 @@ pub fn mgga_x_m11_exc_pol(
         let t280 = 1.0 / t270 / t267;
         let t282 = t270 * t270;
         let t283 = 1.0 / t282;
-        let t286 = piecewise3(t259, 0.135e1, t257);
+        let t286 = piecewise3(t259, 1.35, t257);
         let t287 = 1.0 / t286;
         let t289 = erf_approx(t287 / 2.0);
         let t291 = t286 * t286;
@@ -260,15 +260,15 @@ pub fn mgga_x_m11_exc_pol(
         let t295 = t294 - 1.0;
         let t298 = t294 - 3.0 / 2.0 - 2.0 * t291 * t295;
         let t301 = 2.0 * t286 * t298 + t80 * t289;
-        let t305 = piecewise3(t258, 1.0 / t261 / 36.0 - t265 / 960.0 + t268 / 26880.0 - t271 / 829440.0 + t274 / 28385280.0 - t277 / 0.107347968e10 + t280 / 0.445906944e11 - t283 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t286 * t301);
+        let t305 = piecewise3(t258, 1.0 / t261 / 36.0 - t265 / 960.0 + t268 / 26880.0 - t271 / 829440.0 + t274 / 28385280.0 - t277 / 1073479680.0 + t280 / 44590694400.0 - t283 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t286 * t301);
         let t306 = t28 * t305;
         let t307 = rho1 * rho1;
         let t308 = pow_1_3(rho1);
         let t309 = t308 * t308;
         let t311 = 1.0 / t309 / t307;
         let t313 = t106 * sigma2 * t311;
-        let t315 = 0.804e0 + 0.914625e-2 * t313;
-        let t318 = 0.1804e1 - 0.646416e0 / t315;
+        let t315 = 0.804 + 0.00914625 * t313;
+        let t318 = 1.804 - 0.646416 / t315;
         let t320 = 1.0 / t309 / rho1;
         let t321 = tau1 * t320;
         let t322 = t123 - t321;
@@ -313,8 +313,8 @@ pub fn mgga_x_m11_exc_pol(
         let t373 = t186 * t372;
         let t375 = 1.0 / t359 / t334;
         let t377 = t323 * t325 + t328 * t330 + t333 * t335 + t338 * t340 + t343 * t345 + t348 * t350 + t353 * t355 + t358 * t360 + t363 * t365 + t368 * t370 + t373 * t375 + t119;
-        let t380 = f64::exp(-0.93189002206715572255e-2 * t313);
-        let t382 = 0.1552e1 - 0.552e0 * t380;
+        let t380 = f64::exp(-0.009318900220671557 * t313);
+        let t382 = 1.552 - 0.552 * t380;
         let t383 = t199 * t322;
         let t385 = t202 * t327;
         let t387 = t205 * t332;

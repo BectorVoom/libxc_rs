@@ -1,12 +1,12 @@
 //! GGA_X_BAYESIAN fxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -68,9 +68,9 @@ pub fn gga_x_bayesian_fxc_pol(
         let t50 = t49 * t49;
         let t51 = 1.0 / t50;
         let t52 = t39 * t51;
-        let t57 = 0.1926e0 + 0.79008333333333333333e-1 * t33 * sigma0 * t39 * t51;
+        let t57 = 0.1926 + 0.07900833333333333 * t33 * sigma0 * t39 * t51;
         let t58 = t52 * t57;
-        let t61 = 0.10008e1 + t34 * t58 / 24.0;
+        let t61 = 1.0008 + t34 * t58 / 24.0;
         let t65 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t61);
         let t66 = rho1 <= dens_threshold;
         let t67 = -t16;
@@ -90,9 +90,9 @@ pub fn gga_x_bayesian_fxc_pol(
         let t89 = t88 * t88;
         let t90 = 1.0 / t89;
         let t91 = t81 * t90;
-        let t96 = 0.1926e0 + 0.79008333333333333333e-1 * t33 * sigma2 * t81 * t90;
+        let t96 = 0.1926 + 0.07900833333333333 * t33 * sigma2 * t81 * t90;
         let t97 = t91 * t96;
-        let t100 = 0.10008e1 + t76 * t97 / 24.0;
+        let t100 = 1.0008 + t76 * t97 / 24.0;
         let t104 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t75 * t100);
         let tzk0 = t65 + t104;
         zk[ip] += tzk0;
@@ -118,7 +118,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t135 = 1.0 / t134;
         let t137 = 1.0 / t50 / t49;
         let t138 = t135 * t137;
-        let t148 = -0.21068888888888888889e0 * t33 * sigma0 * t125 * t51 + 0.10534444444444444444e0 * t132 * t138;
+        let t148 = -0.2106888888888889 * t33 * sigma0 * t125 * t51 + 0.10534444444444445 * t132 * t138;
         let t149 = t52 * t148;
         let t152 = -t34 * t127 / 9.0 + t132 * t138 * t57 / 18.0 + t34 * t149 / 24.0;
         let t157 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t113 * t61 - t122 - 3.0 / 8.0 * t5 * t27 * t152);
@@ -149,7 +149,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t207 = 1.0 / t206;
         let t209 = 1.0 / t89 / t88;
         let t210 = t207 * t209;
-        let t220 = -0.21068888888888888889e0 * t33 * sigma2 * t198 * t90 + 0.10534444444444444444e0 * t204 * t210;
+        let t220 = -0.2106888888888889 * t33 * sigma2 * t198 * t90 + 0.10534444444444445 * t204 * t210;
         let t221 = t91 * t220;
         let t224 = -t76 * t200 / 9.0 + t204 * t210 * t96 / 18.0 + t76 * t221 / 24.0;
         let t229 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t192 * t100 - t171 - 3.0 / 8.0 * t5 * t75 * t224);
@@ -158,7 +158,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t234 = t130 * t43;
         let t235 = 1.0 / t133;
         let t236 = t235 * t137;
-        let t244 = 0.79008333333333333333e-1 * t33 * t52 - 0.39504166666666666666e-1 * t234 * t236;
+        let t244 = 0.07900833333333333 * t33 * t52 - 0.03950416666666667 * t234 * t236;
         let t245 = t52 * t244;
         let t248 = t33 * t58 / 24.0 - t234 * t236 * t57 / 48.0 + t34 * t245 / 24.0;
         let t252 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t248);
@@ -169,7 +169,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t255 = t130 * t82;
         let t256 = 1.0 / t205;
         let t257 = t256 * t209;
-        let t265 = 0.79008333333333333333e-1 * t33 * t91 - 0.39504166666666666666e-1 * t255 * t257;
+        let t265 = 0.07900833333333333 * t33 * t91 - 0.03950416666666667 * t255 * t257;
         let t266 = t91 * t265;
         let t269 = t33 * t97 / 24.0 - t255 * t257 * t96 / 48.0 + t76 * t266 / 24.0;
         let t273 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t75 * t269);
@@ -206,7 +206,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t333 = 1.0 / t332;
         let t335 = t333 * t57 * t42;
         let t348 = t333 * t40 * t41;
-        let t351 = 0.77252592592592592593e0 * t33 * sigma0 * t312 * t51 - 0.80764074074074074072e0 * t132 * t319 + 0.35114814814814814813e-1 * t331 * t348;
+        let t351 = 0.772525925925926 * t33 * sigma0 * t312 * t51 - 0.8076407407407408 * t132 * t319 + 0.035114814814814814 * t331 * t348;
         let t352 = t52 * t351;
         let t355 = 11.0 / 27.0 * t34 * t314 - 23.0 / 54.0 * t132 * t319 * t57 - 2.0 / 9.0 * t34 * t323 + t331 * t335 / 54.0 + t132 * t138 * t148 / 9.0 + t34 * t352 / 24.0;
         let t360 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t291 * t61 - t297 / 4.0 - 3.0 / 4.0 * t5 * t113 * t152 + t307 - t309 / 4.0 - 3.0 / 8.0 * t5 * t27 * t355);
@@ -266,7 +266,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t502 = 1.0 / t501;
         let t504 = t502 * t96 * t42;
         let t517 = t502 * t40 * t41;
-        let t520 = 0.77252592592592592593e0 * t33 * sigma2 * t481 * t90 - 0.80764074074074074072e0 * t204 * t488 + 0.35114814814814814813e-1 * t500 * t517;
+        let t520 = 0.772525925925926 * t33 * sigma2 * t481 * t90 - 0.8076407407407408 * t204 * t488 + 0.035114814814814814 * t500 * t517;
         let t521 = t91 * t520;
         let t524 = 11.0 / 27.0 * t76 * t483 - 23.0 / 54.0 * t204 * t488 * t96 - 2.0 / 9.0 * t76 * t492 + t500 * t504 / 54.0 + t204 * t210 * t220 / 9.0 + t76 * t521 / 24.0;
         let t529 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t471 * t100 - t429 / 4.0 - 3.0 / 4.0 * t5 * t192 * t224 + t385 - t436 / 4.0 - 3.0 / 8.0 * t5 * t75 * t524);
@@ -280,7 +280,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t550 = t130 * sigma0 * t549;
         let t556 = t126 * t244;
         let t564 = t137 * t43;
-        let t569 = -0.21068888888888888889e0 * t33 * t126 + 0.2633611111111111111e0 * t540 * t564 - 0.13168055555555555555e-1 * t550 * t348;
+        let t569 = -0.2106888888888889 * t33 * t126 + 0.2633611111111111 * t540 * t564 - 0.013168055555555556 * t550 * t348;
         let t570 = t52 * t569;
         let t573 = -t33 * t127 / 9.0 + 5.0 / 36.0 * t540 * t542 + t33 * t149 / 24.0 - t550 * t335 / 144.0 - t234 * t236 * t148 / 48.0 - t34 * t556 / 9.0 + t132 * t138 * t244 / 18.0 + t34 * t570 / 24.0;
         let t578 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t113 * t248 - t537 - 3.0 / 8.0 * t5 * t27 * t573);
@@ -304,7 +304,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t610 = t130 * sigma2 * t609;
         let t616 = t199 * t265;
         let t624 = t209 * t82;
-        let t629 = -0.21068888888888888889e0 * t33 * t199 + 0.2633611111111111111e0 * t600 * t624 - 0.13168055555555555555e-1 * t610 * t517;
+        let t629 = -0.2106888888888889 * t33 * t199 + 0.2633611111111111 * t600 * t624 - 0.013168055555555556 * t610 * t517;
         let t630 = t91 * t629;
         let t633 = -t33 * t200 / 9.0 + 5.0 / 36.0 * t600 * t602 + t33 * t221 / 24.0 - t610 * t504 / 144.0 - t255 * t257 * t220 / 48.0 - t76 * t616 / 9.0 + t204 * t210 * t265 / 18.0 + t76 * t630 / 24.0;
         let t638 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t192 * t269 - t585 - 3.0 / 8.0 * t5 * t75 * t633);
@@ -317,7 +317,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t650 = t649 * t333;
         let t652 = t57 * t40 * t41;
         let t658 = t137 * t641;
-        let t663 = -0.59256249999999999999e-1 * t640 * t658 + 0.49380208333333333332e-2 * t649 * t348;
+        let t663 = -0.05925625 * t640 * t658 + 0.004938020833333333 * t649 * t348;
         let t664 = t52 * t663;
         let t667 = -t640 * t642 / 32.0 + t33 * t245 / 12.0 + t650 * t652 / 384.0 - t234 * t236 * t244 / 24.0 + t34 * t664 / 24.0;
         let t671 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t667);
@@ -338,7 +338,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t682 = t681 * t502;
         let t684 = t96 * t40 * t41;
         let t690 = t209 * t673;
-        let t695 = -0.59256249999999999999e-1 * t672 * t690 + 0.49380208333333333332e-2 * t681 * t517;
+        let t695 = -0.05925625 * t672 * t690 + 0.004938020833333333 * t681 * t517;
         let t696 = t91 * t695;
         let t699 = -t672 * t674 / 32.0 + t33 * t266 / 12.0 + t682 * t684 / 384.0 - t255 * t257 * t265 / 24.0 + t76 * t696 / 24.0;
         let t703 = piecewise3(t66, 0.0, -3.0 / 8.0 * t5 * t75 * t699);

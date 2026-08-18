@@ -1,12 +1,12 @@
 //! HYB_MGGA_X_DLDF exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_dldf.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_dldf.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -58,8 +58,8 @@ pub fn hyb_mgga_x_dldf_exc_pol(
         let t33 = pow_1_3(rho0);
         let t34 = t33 * t33;
         let t36 = 1.0 / t34 / t32;
-        let t40 = 0.48827323e1 + 0.146297e-1 * t31 * sigma0 * t36;
-        let t43 = 0.58827323e1 - 0.2384107471346329e2 / t40;
+        let t40 = 4.8827323 + 0.0146297 * t31 * sigma0 * t36;
+        let t43 = 5.8827323 - 23.84107471346329 / t40;
         let t44 = t25 * t43;
         let t45 = t26 * t26;
         let t47 = 3.0 / 10.0 * t45 * t29;
@@ -77,9 +77,9 @@ pub fn hyb_mgga_x_dldf_exc_pol(
         let t66 = t56 * t56;
         let t67 = t57 * t57;
         let t68 = 1.0 / t67;
-        let t71 = 1.0 - 0.1637571e0 * t51 * t53 - 0.1880028e0 * t56 * t58 - 0.4490609e0 * t61 * t63 - 0.82359e-2 * t66 * t68;
+        let t71 = 1.0 - 0.1637571 * t51 * t53 - 0.1880028 * t56 * t58 - 0.4490609 * t61 * t63 - 0.0082359 * t66 * t68;
         let t72 = t44 * t71;
-        let t75 = piecewise3(t2, 0.0, -0.98727272578809758046e-1 * t24 * t72);
+        let t75 = piecewise3(t2, 0.0, -0.09872727257880975 * t24 * t72);
         let t76 = rho1 <= dens_threshold;
         let t77 = -t14;
         let t79 = piecewise5(t12, t9, t8, t13, t77 * t5);
@@ -92,8 +92,8 @@ pub fn hyb_mgga_x_dldf_exc_pol(
         let t87 = pow_1_3(rho1);
         let t88 = t87 * t87;
         let t90 = 1.0 / t88 / t86;
-        let t94 = 0.48827323e1 + 0.146297e-1 * t31 * sigma2 * t90;
-        let t97 = 0.58827323e1 - 0.2384107471346329e2 / t94;
+        let t94 = 4.8827323 + 0.0146297 * t31 * sigma2 * t90;
+        let t97 = 5.8827323 - 23.84107471346329 / t94;
         let t98 = t25 * t97;
         let t100 = 1.0 / t88 / rho1;
         let t101 = tau1 * t100;
@@ -109,9 +109,9 @@ pub fn hyb_mgga_x_dldf_exc_pol(
         let t117 = t107 * t107;
         let t118 = t108 * t108;
         let t119 = 1.0 / t118;
-        let t122 = 1.0 - 0.1637571e0 * t102 * t104 - 0.1880028e0 * t107 * t109 - 0.4490609e0 * t112 * t114 - 0.82359e-2 * t117 * t119;
+        let t122 = 1.0 - 0.1637571 * t102 * t104 - 0.1880028 * t107 * t109 - 0.4490609 * t112 * t114 - 0.0082359 * t117 * t119;
         let t123 = t98 * t122;
-        let t126 = piecewise3(t76, 0.0, -0.98727272578809758046e-1 * t85 * t123);
+        let t126 = piecewise3(t76, 0.0, -0.09872727257880975 * t85 * t123);
         let tzk0 = t75 + t126;
         zk[ip] += tzk0;
     }

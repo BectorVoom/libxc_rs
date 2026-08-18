@@ -1,2 +1,0 @@
-
-emit_per_functional returned 10 output modules: ['exc_unpol', 'vxc_unpol', 'fxc_unpol', 'kxc_unpol', 'lxc_unpol', 'exc_pol', 'vxc_pol', 'fxc_pol', 'kxc_pol', 'lxc_pol']

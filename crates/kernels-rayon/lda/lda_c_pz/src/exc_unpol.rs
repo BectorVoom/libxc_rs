@@ -1,34 +1,33 @@
 //! LDA_C_PZ exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_pz.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_pz.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::powers::{pow_1_3};
 use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
 
-/// LDA_C_PZ exc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_pz_exc_unpol(
     rho: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
-    param_a_1: f64,
-    param_b_0: f64,
-    param_b_1: f64,
-    param_beta1_0: f64,
-    param_beta1_1: f64,
-    param_beta2_0: f64,
-    param_beta2_1: f64,
-    param_c_0: f64,
-    param_c_1: f64,
-    param_d_0: f64,
-    param_d_1: f64,
     param_gamma_0: f64,
+    param_beta1_0: f64,
+    param_beta2_0: f64,
+    param_a_0: f64,
+    param_c_0: f64,
+    param_d_0: f64,
+    param_b_0: f64,
     param_gamma_1: f64,
+    param_beta1_1: f64,
+    param_beta2_1: f64,
+    param_a_1: f64,
+    param_c_1: f64,
+    param_d_1: f64,
+    param_b_1: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

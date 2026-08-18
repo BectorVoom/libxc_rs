@@ -1,14 +1,14 @@
 //! GGA_X_Q2D exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_q2d.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_q2d.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_x_q2d_exc_pol(
@@ -55,8 +55,8 @@ pub fn gga_x_q2d_exc_pol(
         let t36 = t35 * t35;
         let t38 = 1.0 / t36 / t34;
         let t40 = t33 * sigma0 * t38;
-        let t42 = 0.804e0 + 5.0 / 972.0 * t40;
-        let t45 = 0.1804e1 - 0.646416e0 / t42;
+        let t42 = 0.804 + 5.0 / 972.0 * t40;
+        let t45 = 1.804 - 0.646416 / t42;
         let t46 = t28 * t28;
         let t48 = 1.0 / t30 / t29;
         let t49 = t46 * t48;
@@ -70,9 +70,9 @@ pub fn gga_x_q2d_exc_pol(
         let t62 = f64::sqrt(sigma0);
         let t64 = 1.0 / t35 / rho0;
         let t66 = t61 * t62 * t64;
-        let t67 = f64::powf(t66, 0.35e1);
+        let t67 = f64::powf(t66, 3.5);
         let t69 = 1.0 + t40 / 24.0;
-        let t72 = t45 * t58 + 0.87153829697982569831e-4 * t67 * t69;
+        let t72 = t45 * t58 + 8.715382969798257e-05 * t67 * t69;
         let t73 = t27 * t72;
         let t74 = t29 * t29;
         let t75 = 1.0 / t74;
@@ -96,8 +96,8 @@ pub fn gga_x_q2d_exc_pol(
         let t100 = t99 * t99;
         let t102 = 1.0 / t100 / t98;
         let t104 = t33 * sigma2 * t102;
-        let t106 = 0.804e0 + 5.0 / 972.0 * t104;
-        let t109 = 0.1804e1 - 0.646416e0 / t106;
+        let t106 = 0.804 + 5.0 / 972.0 * t104;
+        let t109 = 1.804 - 0.646416 / t106;
         let t110 = sigma2 * sigma2;
         let t111 = t98 * t98;
         let t112 = t111 * rho1;
@@ -106,9 +106,9 @@ pub fn gga_x_q2d_exc_pol(
         let t120 = f64::sqrt(sigma2);
         let t122 = 1.0 / t99 / rho1;
         let t124 = t61 * t120 * t122;
-        let t125 = f64::powf(t124, 0.35e1);
+        let t125 = f64::powf(t124, 3.5);
         let t127 = 1.0 + t104 / 24.0;
-        let t130 = t109 * t118 + 0.87153829697982569831e-4 * t125 * t127;
+        let t130 = t109 * t118 + 8.715382969798257e-05 * t125 * t127;
         let t131 = t27 * t130;
         let t132 = t110 * sigma2;
         let t134 = t111 * t111;

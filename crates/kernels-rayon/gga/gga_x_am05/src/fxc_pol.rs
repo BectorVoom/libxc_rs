@@ -1,8 +1,8 @@
 //! GGA_X_AM05 fxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_am05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_am05.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -92,7 +92,7 @@ pub fn gga_x_am05_fxc_pol(
         let t81 = t80 * t80;
         let t83 = t68 * t68;
         let t84 = t2 * t83;
-        let t88 = 0.2823705740248932030511071641312341561894e2 + 3.0 / 4.0 * t84 * t80 * t79;
+        let t88 = 28.23705740248932 + 3.0 / 4.0 * t84 * t80 * t79;
         let t89 = pow_1_4(t88);
         let t91 = t67 * t68 * t81 * t89;
         let t94 = 1.0 + t57 * t60 * t62 * t91 / 8.0;
@@ -129,7 +129,7 @@ pub fn gga_x_am05_fxc_pol(
         let t148 = lambert_w(t69 * t143 * t142 * t76 / 1728.0);
         let t149 = pow_1_3(t148);
         let t150 = t149 * t149;
-        let t155 = 0.2823705740248932030511071641312341561894e2 + 3.0 / 4.0 * t84 * t149 * t148;
+        let t155 = 28.23705740248932 + 3.0 / 4.0 * t84 * t149 * t148;
         let t156 = pow_1_4(t155);
         let t158 = t67 * t68 * t150 * t156;
         let t161 = 1.0 + t57 * t136 * t138 * t158 / 8.0;

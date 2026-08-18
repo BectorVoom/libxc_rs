@@ -1,8 +1,8 @@
 //! GGA_X_AM05 fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_am05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_am05.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -82,7 +82,7 @@ pub fn gga_x_am05_fxc_unpol(
         let t75 = lambert_w(t64 * t69 * t68 * t72 / 1728.0);
         let t76 = pow_1_3(t75);
         let t77 = t76 * t76;
-        let t83 = 0.2823705740248932030511071641312341561894e2 + 3.0 / 4.0 * t3 * t28 * t76 * t75;
+        let t83 = 28.23705740248932 + 3.0 / 4.0 * t3 * t28 * t76 * t75;
         let t84 = pow_1_4(t83);
         let t85 = t63 * t77 * t84;
         let t86 = t62 * t85;

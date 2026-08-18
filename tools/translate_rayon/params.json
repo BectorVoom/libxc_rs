@@ -1,0 +1,1328 @@
+{
+ "resolved": {
+  "lda_c_1d_loos": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_2d_amgb": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_chachiyo": {
+   "family": "lda",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "27.4203609",
+    "20.4562557",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_chachiyo_mod": {
+   "family": "lda",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "27.4203609",
+    "20.4562557",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_gk72": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_gombas": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_lp96": {
+   "family": "lda",
+   "params": [
+    "param_C1",
+    "param_C2",
+    "param_C3"
+   ],
+   "values": [
+    "-0.0603",
+    "0.0175",
+    "-0.00053"
+   ]
+  },
+  "lda_c_ml1": {
+   "family": "lda",
+   "params": [
+    "param_fc",
+    "param_q"
+   ],
+   "values": [
+    "0.2026",
+    "0.084"
+   ]
+  },
+  "lda_c_pk09": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_rc04": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_rpa": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_1": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_2": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_3": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_4": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_rpa": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_w20": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_c_wigner": {
+   "family": "lda",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.44",
+    "7.8"
+   ]
+  },
+  "lda_k_gds08_worker": {
+   "family": "lda",
+   "params": [
+    "param_A",
+    "param_B",
+    "param_C"
+   ],
+   "values": [
+    "0.860",
+    "0.224",
+    "0.0"
+   ]
+  },
+  "lda_k_zlp": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_x_2d": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_x_rel": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_x_sloc": {
+   "family": "lda",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "1.67",
+    "0.3"
+   ]
+  },
+  "lda_xc_teter93": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_xc_tih": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "lda_xc_zlp": {
+   "family": "lda",
+   "params": [],
+   "values": []
+  },
+  "gga_c_acgga": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_acggap": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_ccdf": {
+   "family": "gga",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_c3",
+    "param_c4",
+    "param_c5"
+   ],
+   "values": [
+    "-0.0468",
+    "0.023",
+    "0.544",
+    "23.401",
+    "0.479"
+   ]
+  },
+  "gga_c_chachiyo": {
+   "family": "gga",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp",
+    "param_h"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "27.4203609",
+    "20.4562557",
+    "27.4203609",
+    "20.4562557",
+    "0.06672632"
+   ]
+  },
+  "gga_c_cs1": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_ft97": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_gapc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_gaploc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_hcth_a": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_lyp": {
+   "family": "gga",
+   "params": [
+    "param_a",
+    "param_b",
+    "param_c",
+    "param_d"
+   ],
+   "values": [
+    "0.04918",
+    "0.132",
+    "0.2533",
+    "0.349"
+   ]
+  },
+  "gga_c_op_b88": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_op_g96": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_op_pbe": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_op_pw91": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_op_xalpha": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_pbeloc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_pw91": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_q2d": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_regtpss": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_revtca": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_scan_e0": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_sg4": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_tca": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_w94": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_wi": {
+   "family": "gga",
+   "params": [
+    "param_a",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_k"
+   ],
+   "values": [
+    "-0.00652",
+    "0.0007",
+    "0.21",
+    "0.002",
+    "0.001"
+   ]
+  },
+  "gga_c_wl": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_c_zvpbeloc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_exp4": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_lc94": {
+   "family": "gga",
+   "params": [
+    "param_a",
+    "param_alpha",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_expo",
+    "param_f"
+   ],
+   "values": [
+    "0.093907",
+    "100.0",
+    "76.320",
+    "0.26608",
+    "-0.0809615",
+    "4.0",
+    "0.000057767"
+   ]
+  },
+  "gga_k_lkt": {
+   "family": "gga",
+   "params": [
+    "param_a"
+   ],
+   "values": [
+    "1.3"
+   ]
+  },
+  "gga_k_meyer": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_ol1": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_pearson": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_pw86": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_thakkar": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_k_vt84f": {
+   "family": "gga",
+   "params": [
+    "param_alpha",
+    "param_mu"
+   ],
+   "values": [
+    "1.2965",
+    "2.778"
+   ]
+  },
+  "gga_x_2d_b86": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_2d_b86_mgc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_2d_b88": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_2d_pbe": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_airy": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_ak13": {
+   "family": "gga",
+   "params": [
+    "param_B1",
+    "param_B2"
+   ],
+   "values": [
+    "1.74959015598863046792081721182",
+    "-1.62613336586517367779736042170"
+   ]
+  },
+  "gga_x_b88": {
+   "family": "gga",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0042",
+    "6.0"
+   ]
+  },
+  "gga_x_bayesian": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_beefvdw": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_bpccac": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_c09x": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_chachiyo": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_ev93": {
+   "family": "gga",
+   "params": [
+    "param_a1",
+    "param_a2",
+    "param_a3",
+    "param_b1",
+    "param_b2",
+    "param_b3"
+   ],
+   "values": [
+    "1.647127",
+    "0.980118",
+    "0.017399",
+    "1.523671",
+    "0.367229",
+    "0.011282"
+   ]
+  },
+  "gga_x_fd_lb94": {
+   "family": "gga",
+   "params": [
+    "param_beta"
+   ],
+   "values": [
+    "0.05"
+   ]
+  },
+  "gga_x_g96": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_gg99": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_hcth_a": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_herman": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_htbs": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_lag": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_lg93": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_lv_rpw86": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_pbea": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_pbepow": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_pbetrans": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_pw86": {
+   "family": "gga",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_cc"
+   ],
+   "values": [
+    "1.296",
+    "14.0",
+    "0.2"
+   ]
+  },
+  "gga_x_pw91": {
+   "family": "gga",
+   "params": [
+    "param_a",
+    "param_alpha",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_expo",
+    "param_f"
+   ],
+   "values": [
+    "0.19645",
+    "100.0",
+    "7.7956",
+    "0.2743",
+    "-0.1508",
+    "4.0",
+    "0.004"
+   ]
+  },
+  "gga_x_q1d": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_q2d": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_rge2": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_sg4": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_x_ssb_sw": {
+   "family": "gga",
+   "params": [
+    "param_A",
+    "param_B",
+    "param_C",
+    "param_D",
+    "param_E"
+   ],
+   "values": [
+    "1.0515",
+    "0.191458",
+    "0.254443",
+    "0.180708",
+    "4.036674"
+   ]
+  },
+  "gga_x_wc": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "gga_xc_th2": {
+   "family": "gga",
+   "params": [],
+   "values": []
+  },
+  "hyb_mgga_x_dldf": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_b88": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_b94": {
+   "family": "mgga",
+   "params": [
+    "param_cab",
+    "param_css",
+    "param_gamma"
+   ],
+   "values": [
+    "0.63",
+    "0.88",
+    "1.0"
+   ]
+  },
+  "mgga_c_bc95": {
+   "family": "mgga",
+   "params": [
+    "param_copp",
+    "param_css"
+   ],
+   "values": [
+    "0.0031",
+    "0.038"
+   ]
+  },
+  "mgga_c_cc": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_ccalda": {
+   "family": "mgga",
+   "params": [
+    "param_c"
+   ],
+   "values": [
+    "10000.0"
+   ]
+  },
+  "mgga_c_cs": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_kcis": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_kcisk": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_pkzb": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_r2scan": {
+   "family": "mgga",
+   "params": [
+    "param_eta"
+   ],
+   "values": [
+    "0.001"
+   ]
+  },
+  "mgga_c_revscan": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_rmggac": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_rppscan": {
+   "family": "mgga",
+   "params": [
+    "param_eta"
+   ],
+   "values": [
+    "0.001"
+   ]
+  },
+  "mgga_c_rregtm": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_rscan": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_scan": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_c_tpssloc": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_k_gea2": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_k_gea4": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_k_pc07": {
+   "family": "mgga",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "0.5389",
+    "3"
+   ]
+  },
+  "mgga_k_rda": {
+   "family": "mgga",
+   "params": [
+    "param_A0",
+    "param_A1",
+    "param_A2",
+    "param_A3",
+    "param_a",
+    "param_b",
+    "param_beta1",
+    "param_beta2",
+    "param_beta3",
+    "param_c"
+   ],
+   "values": [
+    "0.50616",
+    "3.04121",
+    "-0.34567",
+    "-1.89738",
+    "46.47662",
+    "18.80658",
+    "1.29691",
+    "0.56184",
+    "0.21944",
+    "-0.90346"
+   ]
+  },
+  "mgga_x_2d_js17": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_2d_prhg07": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_2d_prp10": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_br89": {
+   "family": "mgga",
+   "params": [
+    "param_at",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0",
+    "0.8"
+   ]
+  },
+  "mgga_x_br89_explicit": {
+   "family": "mgga",
+   "params": [
+    "param_gamma"
+   ],
+   "values": [
+    "0.8"
+   ]
+  },
+  "mgga_x_edmgga": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_ft98": {
+   "family": "mgga",
+   "params": [
+    "param_a",
+    "param_a1",
+    "param_a2",
+    "param_b",
+    "param_b1",
+    "param_b2"
+   ],
+   "values": [
+    "0.00528014",
+    "2.816049",
+    "0.879058",
+    "0.00003904539",
+    "0.398773",
+    "66.364138"
+   ]
+  },
+  "mgga_x_gvt4": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_jk": {
+   "family": "mgga",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0586",
+    "6.0"
+   ]
+  },
+  "mgga_x_lta": {
+   "family": "mgga",
+   "params": [
+    "param_ltafrac"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "mgga_x_mbeef": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mbeefvdw": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mbr": {
+   "family": "mgga",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_lambda"
+   ],
+   "values": [
+    "20.0",
+    "1.0",
+    "0.877"
+   ]
+  },
+  "mgga_x_mbrxc_bg": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mbrxh_bg": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mcml": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mggac": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_mvs": {
+   "family": "mgga",
+   "params": [
+    "param_b",
+    "param_c1",
+    "param_e1",
+    "param_k0"
+   ],
+   "values": [
+    "0.0233",
+    "0.7438",
+    "-1.6665",
+    "0.174"
+   ]
+  },
+  "mgga_x_mvsb": {
+   "family": "mgga",
+   "params": [
+    "param_b",
+    "param_c1",
+    "param_e1",
+    "param_k0"
+   ],
+   "values": [
+    "0.0233",
+    "7.8393",
+    "-1.6665",
+    "0.174"
+   ]
+  },
+  "mgga_x_pbe_gx": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_pkzb": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_r2scan": {
+   "family": "mgga",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_d",
+    "param_dp2",
+    "param_eta",
+    "param_k1"
+   ],
+   "values": [
+    "0.667",
+    "0.8",
+    "1.24",
+    "0.361",
+    "0.001",
+    "0.065"
+   ]
+  },
+  "mgga_x_r4scan": {
+   "family": "mgga",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_d",
+    "param_da4",
+    "param_dp2",
+    "param_dp4",
+    "param_eta",
+    "param_k1"
+   ],
+   "values": [
+    "0.667",
+    "0.8",
+    "1.24",
+    "0.178",
+    "0.361",
+    "0.802",
+    "0.001",
+    "0.065"
+   ]
+  },
+  "mgga_x_regtm": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_regtpss": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_revtm": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_rlda": {
+   "family": "mgga",
+   "params": [
+    "param_prefactor"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "mgga_x_rppscan": {
+   "family": "mgga",
+   "params": [
+    "param_c2",
+    "param_d",
+    "param_eta",
+    "param_k1"
+   ],
+   "values": [
+    "0.8",
+    "1.24",
+    "0.001",
+    "0.065"
+   ]
+  },
+  "mgga_x_rscan": {
+   "family": "mgga",
+   "params": [
+    "param_alphar",
+    "param_c2",
+    "param_d",
+    "param_k1",
+    "param_taur"
+   ],
+   "values": [
+    "1.0e-3",
+    "0.8",
+    "1.24",
+    "0.065",
+    "1.0e-4"
+   ]
+  },
+  "mgga_x_rtpss": {
+   "family": "mgga",
+   "params": [
+    "param_b",
+    "param_c",
+    "param_e",
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.40",
+    "1.59096",
+    "1.537",
+    "0.8040",
+    "0.21951"
+   ]
+  },
+  "mgga_x_sa_tpss": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_scan": {
+   "family": "mgga",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_d",
+    "param_k1"
+   ],
+   "values": [
+    "0.667",
+    "0.8",
+    "1.24",
+    "0.065"
+   ]
+  },
+  "mgga_x_th": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_tm": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_tpss": {
+   "family": "mgga",
+   "params": [
+    "param_BLOC_a",
+    "param_BLOC_b",
+    "param_b",
+    "param_c",
+    "param_e",
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "2.0",
+    "0.0",
+    "0.40",
+    "1.59096",
+    "1.537",
+    "0.8040",
+    "0.21951"
+   ]
+  },
+  "mgga_x_vcml": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_x_vt84": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_xc_b98": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_xc_cc06": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_xc_lp90": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  },
+  "mgga_xc_zlp": {
+   "family": "mgga",
+   "params": [],
+   "values": []
+  }
+ },
+ "unresolved": {
+  "hyb_lda_xc_bn05": "setter is bn05_set_ext_params, not a plain copy",
+  "lda_c_1d_csc": "setter is csc_set_ext_params, not a plain copy",
+  "lda_c_2d_prm": "setter is N_set_ext_params, not a plain copy",
+  "lda_c_hl": "param set mismatch; kernel-only=['param_hl_c_0', 'param_hl_c_1', 'param_hl_r_0', 'param_hl_r_1'] libxc-only=['param_c0', 'param_c1', 'param_r0', 'param_r1']",
+  "lda_c_pmgb06": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "lda_c_pw": "param set mismatch; kernel-only=['param_a_0', 'param_a_2', 'param_alpha1_0', 'param_alpha1_2'] libxc-only=['param_a[0]', 'param_a[1]', 'param_a[2]', 'param_alpha1[0]']",
+  "lda_c_pw_erf": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "lda_c_pz": "param set mismatch; kernel-only=['param_a_0', 'param_a_1', 'param_b_0', 'param_b_1'] libxc-only=['param_a0', 'param_a1', 'param_b0', 'param_b1']",
+  "lda_k_tf": "setter is NULL, not a plain copy",
+  "lda_x": "setter is NULL, not a plain copy",
+  "lda_x_1d_exponential": "param set mismatch; kernel-only=['param_beta'] libxc-only=['parambeta']",
+  "lda_x_1d_soft": "param set mismatch; kernel-only=['param_beta'] libxc-only=['parambeta']",
+  "lda_x_erf": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "lda_x_yukawa": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "lda_xc_1d_ehwlrg": "no xc_func_info_ block in libxc source",
+  "lda_xc_ksdt": "setter is T_set_ext_params, not a plain copy",
+  "gga_c_am05": "non-literal value(s): ['2.804L', '0.8098L']",
+  "gga_c_bmk": "param set mismatch; kernel-only=['param_c_ab_0', 'param_c_ab_1', 'param_c_ab_2', 'param_c_ab_3'] libxc-only=['param_cos0', 'param_cos1', 'param_cos2', 'param_cos3']",
+  "gga_c_lm": "param set mismatch; kernel-only=['param_lm_f'] libxc-only=['param_f']",
+  "gga_c_lypr": "non-literal value(s): ['0.35/2.29', '2.0/2.29']",
+  "gga_c_optc": "non-literal value(s): ['1.1015L', '0.6625L']",
+  "gga_c_p86": "non-literal value(s): ['1.745*0.11']",
+  "gga_c_p86vwn": "non-literal value(s): ['1.745*0.11']",
+  "gga_c_pbe": "param set mismatch; kernel-only=['param_BB'] libxc-only=['param_B']",
+  "gga_c_pbe_erf_gws": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_c_pbe_vwn": "param set mismatch; kernel-only=['param_BB'] libxc-only=['param_B']",
+  "gga_c_sogga11": "param set mismatch; kernel-only=['param_sogga11_a_0', 'param_sogga11_a_1', 'param_sogga11_a_2', 'param_sogga11_a_3'] libxc-only=['param_a0', 'param_a1', 'param_a2', 'param_a3']",
+  "gga_c_zpbeint": "setter is NULL, not a plain copy",
+  "gga_c_zvpbeint": "setter is NULL, not a plain copy",
+  "gga_k_apbe": "setter is NULL, not a plain copy",
+  "gga_k_apbeint": "setter is NULL, not a plain copy",
+  "gga_k_dk": "non-literal value(s): ['0.95*KINX', '14.281111*KINX*KINX', '-19.57962*KINX*KINX*KINX']",
+  "gga_k_lgap": "param set mismatch; kernel-only=['param_mu_0', 'param_mu_1', 'param_mu_2'] libxc-only=['param_mu1', 'param_mu2', 'param_mu3']",
+  "gga_k_lgap_ge": "param set mismatch; kernel-only=['param_mu_0', 'param_mu_1', 'param_mu_2'] libxc-only=['param_mu1', 'param_mu2', 'param_mu3']",
+  "gga_k_llp": "setter is NULL, not a plain copy",
+  "gga_k_mpbe": "no xc_func_info_ block in libxc source",
+  "gga_k_ol2": "setter is NULL, not a plain copy",
+  "gga_k_pg": "no xc_func_info_ block in libxc source",
+  "gga_k_rational_p": "non-literal value(s): ['3.0/2.0']",
+  "gga_k_tflw": "no xc_func_info_ block in libxc source",
+  "gga_x_am05": "non-literal value(s): ['2.804L', '0.7168L']",
+  "gga_x_b86": "non-literal value(s): ['0.0036/X_FACTOR_C']",
+  "gga_x_cap": "non-literal value(s): ['-0.2195149727645171L', '0.05240533950570443L']",
+  "gga_x_dk87": "no xc_func_info_ block in libxc source",
+  "gga_x_ft97": "no xc_func_info_ block in libxc source",
+  "gga_x_hjs": "no xc_func_info_ block in libxc source",
+  "gga_x_hjs_b88_v2": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_ityh": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_ityh_optx": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_ityh_pbe": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_kt": "no xc_func_info_ block in libxc source",
+  "gga_x_lb": "setter is NULL, not a plain copy",
+  "gga_x_lcgau": "no xc_func_info_ block in libxc source",
+  "gga_x_lspbe": "setter is lspbe_set_ext_params, not a plain copy",
+  "gga_x_lsrpbe": "setter is lsrpbe_set_ext_params, not a plain copy",
+  "gga_x_mpbe": "setter is NULL, not a plain copy",
+  "gga_x_n12": "param set mismatch; kernel-only=['param_CC_0_0', 'param_CC_0_1', 'param_CC_0_2', 'param_CC_0_3'] libxc-only=['param_CC00', 'param_CC01', 'param_CC02', 'param_CC03']",
+  "gga_x_ncap": "non-literal value(s): ['0.3451117169263783L', '0.01808569669L', '0.2195149727645171L']",
+  "gga_x_ol2": "non-literal value(s): ['0.09564574034649151285038696952714226444963L', '0.09564574034649151285038696952714226444963L', '4.098833606342553442039881031486386917472L']",
+  "gga_x_optx": "non-literal value(s): ['1.43169/X_FACTOR_C']",
+  "gga_x_pbe": "non-literal value(s): ['MU_PBE']",
+  "gga_x_pbe_erf_gws": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_pbeint": "non-literal value(s): ['MU_PBE', 'MU_GE']",
+  "gga_x_rpbe": "non-literal value(s): ['MU_PBE']",
+  "gga_x_s12": "no xc_func_info_ block in libxc source",
+  "gga_x_sfat": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_sfat_pbe": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_x_sogga11": "non-literal value(s): ['MU_GE']",
+  "gga_x_vmt": "no xc_func_info_ block in libxc source",
+  "gga_x_vmt84": "no xc_func_info_ block in libxc source",
+  "gga_x_wpbeh": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "gga_xc_b97": "no xc_func_info_ block in libxc source",
+  "gga_xc_th1": "param set mismatch; kernel-only=['param_omega_0', 'param_omega_1', 'param_omega_10', 'param_omega_11'] libxc-only=['param_w[0]', 'param_w[10]', 'param_w[11]', 'param_w[12]']",
+  "gga_xc_th3": "setter is NULL, not a plain copy",
+  "hyb_gga_x_cam_s12": "no xc_func_info_ block in libxc source",
+  "hyb_gga_xc_case21": "setter is case21_set_ext_params, not a plain copy",
+  "hyb_gga_xc_wb97": "setter is set_ext_params_cpy_cam, not a plain copy",
+  "hyb_mgga_x_js18": "setter is set_ext_params_cpy_cam_sr, not a plain copy",
+  "hyb_mgga_x_m05": "setter is set_ext_params_cpy_exx, not a plain copy",
+  "hyb_mgga_x_pjs18": "setter is set_ext_params_cpy_lc, not a plain copy",
+  "hyb_mgga_xc_gas22": "setter is set_ext_params_cpy_cam, not a plain copy",
+  "hyb_mgga_xc_wb97mv": "no xc_func_info_ block in libxc source",
+  "mgga_c_ltapw": "no xc_func_info_ block in libxc source",
+  "mgga_c_m05": "param set mismatch; kernel-only=['param_cab_0', 'param_cab_1', 'param_cab_2', 'param_cab_3'] libxc-only=['param_cab0', 'param_cab1', 'param_cab2', 'param_cab3']",
+  "mgga_c_m06l": "no xc_func_info_ block in libxc source",
+  "mgga_c_m08": "no xc_func_info_ block in libxc source",
+  "mgga_c_revtpss": "param set mismatch; kernel-only=['param_C0_c_0', 'param_C0_c_1', 'param_C0_c_2', 'param_C0_c_3'] libxc-only=['param_C0_c0', 'param_C0_c1', 'param_C0_c2', 'param_C0_c3']",
+  "mgga_c_tpss": "param set mismatch; kernel-only=['param_C0_c_0', 'param_C0_c_1', 'param_C0_c_2', 'param_C0_c_3'] libxc-only=['param_C0_c0', 'param_C0_c1', 'param_C0_c2', 'param_C0_c3']",
+  "mgga_c_vsxc": "param set mismatch; kernel-only=['param_alpha_ab', 'param_dab_0', 'param_dab_1', 'param_dab_2'] libxc-only=['param_alpha_os', 'param_dab0', 'param_dab1', 'param_dab2']",
+  "mgga_k_csk": "no xc_func_info_ block in libxc source",
+  "mgga_k_csk_loc": "no xc_func_info_ block in libxc source",
+  "mgga_k_lk": "no xc_func_info_ block in libxc source",
+  "mgga_k_pgslb": "no xc_func_info_ block in libxc source",
+  "mgga_x_gdme": "no xc_func_info_ block in libxc source",
+  "mgga_x_gx": "non-literal value(s): ['0.827411L', '-0.643560L']",
+  "mgga_x_m06l": "no xc_func_info_ block in libxc source",
+  "mgga_x_m08": "no xc_func_info_ block in libxc source",
+  "mgga_x_m11": "no xc_func_info_ block in libxc source",
+  "mgga_x_m11_l": "setter is set_ext_params_cpy_omega, not a plain copy",
+  "mgga_x_mn12": "no xc_func_info_ block in libxc source",
+  "mgga_x_ms": "no xc_func_info_ block in libxc source",
+  "mgga_x_msb": "no xc_func_info_ block in libxc source",
+  "mgga_x_task": "param set mismatch; kernel-only=['param_task_anu_0', 'param_task_anu_1', 'param_task_anu_2', 'param_task_bnu_0'] libxc-only=['param_anu0', 'param_anu1', 'param_anu2', 'param_bnu0']",
+  "mgga_x_tau_hcth": "names/values array not found in mgga_x_tau_hcth.c (pure_names, tHCTH_val)",
+  "mgga_x_tb09": "param set mismatch; kernel-only=['param_c'] libxc-only=['paramc']",
+  "mgga_xc_b97mv": "no xc_func_info_ block in libxc source"
+ }
+}

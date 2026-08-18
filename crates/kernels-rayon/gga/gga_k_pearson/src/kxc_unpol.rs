@@ -1,8 +1,8 @@
 //! GGA_K_PEARSON kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pearson.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_pearson.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -116,7 +116,7 @@ pub fn gga_k_pearson_kxc_unpol(
         let t179 = t38 * t39;
         let t183 = t69 * sigma[ip];
         let t187 = 1.0 / t22 / t130 / t33;
-        let t192 = -5.0 / 31104.0 * t156 * t178 * t179 + 5.0 / 0.11943936e8 * t29 * t183 * t32 * t187 * t139;
+        let t192 = -5.0 / 31104.0 * t156 * t178 * t179 + 5.0 / 11943936.0 * t29 * t183 * t32 * t187 * t139;
         let t196 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t192);
         let tv2sigma20 = 2.0 * rho[ip] * t196;
         v2sigma2[ip] += tv2sigma20;
@@ -133,7 +133,7 @@ pub fn gga_k_pearson_kxc_unpol(
         let t240 = 1.0 / t239;
         let t242 = 1.0 / t137 / t37;
         let t243 = t240 * t242;
-        let t247 = -770.0 / 2187.0 * t30 * t215 + 1435.0 / 69984.0 * t70 * t32 * t220 * t77 - 175.0 / 1679616.0 * t129 * t32 * t227 * t139 + 5.0 / 0.40310784e8 * t234 * t32 * t237 * t243;
+        let t247 = -770.0 / 2187.0 * t30 * t215 + 1435.0 / 69984.0 * t70 * t32 * t220 * t77 - 175.0 / 1679616.0 * t129 * t32 * t227 * t139 + 5.0 / 40310784.0 * t234 * t32 * t237 * t243;
         let t252 = piecewise3(t2, 0.0, 2.0 / 45.0 * t7 * t201 * t52 - t7 * t108 * t81 / 10.0 + 3.0 / 10.0 * t7 * t58 * t143 + 3.0 / 20.0 * t7 * t23 * t247);
         let tv3rho30 = 2.0 * rho[ip] * t252 + 6.0 * t148;
         v3rho3[ip] += tv3rho30;
@@ -143,14 +143,14 @@ pub fn gga_k_pearson_kxc_unpol(
         let t273 = t232 * sigma[ip];
         let t274 = t29 * t273;
         let t277 = 1.0 / t22 / t130 / t121;
-        let t282 = 55.0 / 729.0 * t29 * t118 - 305.0 / 46656.0 * t156 * t264 * t41 + 55.0 / 1492992.0 * t156 * t268 * t269 - 5.0 / 0.107495424e9 * t274 * t32 * t277 * t243;
+        let t282 = 55.0 / 729.0 * t29 * t118 - 305.0 / 46656.0 * t156 * t264 * t41 + 55.0 / 1492992.0 * t156 * t268 * t269 - 5.0 / 107495424.0 * t274 * t32 * t277 * t243;
         let t287 = piecewise3(t2, 0.0, -t7 * t108 * t99 / 30.0 + t7 * t58 * t170 / 5.0 + 3.0 / 20.0 * t7 * t23 * t282);
         let tv3rho2sigma0 = 2.0 * rho[ip] * t287 + 4.0 * t175;
         v3rho2sigma[ip] += tv3rho2sigma0;
         let t296 = t165 * t136;
         let t297 = t138 * t183;
         let t304 = 1.0 / t22 / t130 / t71;
-        let t309 = 5.0 / 2916.0 * t156 * t157 * t179 - 55.0 / 4478976.0 * t156 * t296 * t297 + 5.0 / 0.286654464e9 * t29 * t232 * t32 * t304 * t243;
+        let t309 = 5.0 / 2916.0 * t156 * t157 * t179 - 55.0 / 4478976.0 * t156 * t296 * t297 + 5.0 / 286654464.0 * t29 * t232 * t32 * t304 * t243;
         let t314 = piecewise3(t2, 0.0, t7 * t58 * t192 / 10.0 + 3.0 / 20.0 * t7 * t23 * t309);
         let tv3rhosigma20 = 2.0 * rho[ip] * t314 + 2.0 * t196;
         v3rhosigma2[ip] += tv3rhosigma20;
@@ -158,7 +158,7 @@ pub fn gga_k_pearson_kxc_unpol(
         let t318 = t138 * t69;
         let t322 = t38 * sigma[ip];
         let t328 = 1.0 / t22 / t130 / t92;
-        let t333 = 5.0 / 1327104.0 * t156 * t317 * t318 - 5.0 / 15552.0 * t156 * t178 * t322 - 5.0 / 0.764411904e9 * t129 * t32 * t328 * t243;
+        let t333 = 5.0 / 1327104.0 * t156 * t317 * t318 - 5.0 / 15552.0 * t156 * t178 * t322 - 5.0 / 764411904.0 * t129 * t32 * t328 * t243;
         let t337 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t23 * t333);
         let tv3sigma30 = 2.0 * rho[ip] * t337;
         v3sigma3[ip] += tv3sigma30;

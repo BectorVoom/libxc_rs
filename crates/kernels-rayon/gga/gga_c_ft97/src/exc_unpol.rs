@@ -1,8 +1,8 @@
 //! GGA_C_FT97 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_ft97.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_ft97.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -42,8 +42,8 @@ pub fn gga_c_ft97_exc_unpol(
         let t20 = f64::powf(t19, 1.0 / 5.0);
         let t21 = t20 * t20;
         let t22 = t21 * t21;
-        let t25 = f64::exp(-0.2081897e-1 * t17 * t22);
-        let t27 = 0.942486901e0 + 0.349064173e0 * t25;
+        let t25 = f64::exp(-0.02081897 * t17 * t22);
+        let t27 = 0.942486901 + 0.349064173 * t25;
         let t28 = t27 * t27;
         let t29 = t6 * t6;
         let t30 = t8 * t8;
@@ -63,8 +63,8 @@ pub fn gga_c_ft97_exc_unpol(
         let t48 = t47 * rho[ip];
         let t50 = 1.0 / t13 / t48;
         let t52 = t44 * t46 * t50;
-        let t53 = 0.11113838714704711852e-2 * t52;
-        let t54 = 1.0 + 0.45058854638888888889e-1 * t32 * t34 * t38 + t53;
+        let t53 = 0.0011113838714704712 * t52;
+        let t54 = 1.0 + 0.04505885463888889 * t32 * t34 * t38 + t53;
         let t55 = t54 * t54;
         let t56 = t28 * t55;
         let t57 = f64::exp(-t53);
@@ -73,12 +73,12 @@ pub fn gga_c_ft97_exc_unpol(
         let t60 = sigma[ip] * t16;
         let t62 = 1.0 / t13 / t35;
         let t64 = t59 * t60 * t62;
-        let t66 = 1.0 + 0.38306165027777777778e-1 * t64;
+        let t66 = 1.0 + 0.038306165027777776 * t64;
         let t67 = 1.0 / t66;
         let t68 = t58 * t67;
         let t69 = t56 * t68;
-        let t70 = 0.1e-59 < t69;
-        let t71 = piecewise3(t70, t69, 0.1e-59);
+        let t70 = 1e-60 < t69;
+        let t71 = piecewise3(t70, t69, 1e-60);
         let t72 = 1.0 / t71;
         let t73 = t16 * t72;
         let t75 = t10 * t15 * t73;
@@ -101,24 +101,24 @@ pub fn gga_c_ft97_exc_unpol(
         let t100 = t90 * t93;
         let t105 = piecewise3(t77, 0.0, t5 * (-t78 * t98 + 2.0 * t100) / 4.0);
         let t106 = f64::sqrt(t19);
-        let t108 = f64::exp(-0.544669424e0 * t106);
+        let t108 = f64::exp(-0.544669424 * t106);
         let t110 = t17 * t17;
         let t111 = t110 * t17;
-        let t114 = f64::exp(-0.16390970575e0 * t111 * t21);
-        let t116 = 0.1247511874e1 - 0.859614445e0 * t108 + 0.812904345e0 * t114;
+        let t114 = f64::exp(-0.16390970575 * t111 * t21);
+        let t116 = 1.247511874 - 0.859614445 * t108 + 0.812904345 * t114;
         let t117 = t116 * t116;
-        let t118 = 0.11326712603257180837e0 * t52;
+        let t118 = 0.1132671260325718 * t52;
         let t119 = 1.0 + t118;
         let t120 = t119 * t119;
         let t121 = t117 * t120;
         let t122 = f64::exp(-t118);
         let t123 = t122 * t122;
-        let t125 = 1.0 + 0.10001700163888888889e0 * t64;
+        let t125 = 1.0 + 0.1000170016388889 * t64;
         let t126 = 1.0 / t125;
         let t127 = t123 * t126;
         let t128 = t121 * t127;
-        let t129 = 0.1e-59 < t128;
-        let t130 = piecewise3(t129, t128, 0.1e-59);
+        let t129 = 1e-60 < t128;
+        let t130 = piecewise3(t129, t128, 1e-60);
         let t131 = 1.0 / t130;
         let t132 = t16 * t131;
         let t134 = t10 * t15 * t132;
@@ -138,7 +138,7 @@ pub fn gga_c_ft97_exc_unpol(
         let t157 = -t137 * t153 + 2.0 * t155;
         let t158 = 1.0 / t36;
         let t159 = t158 * t33;
-        let t162 = 0.469508e0 * t106 + 0.4332925e0 * t19;
+        let t162 = 0.469508 * t106 + 0.4332925 * t19;
         let t163 = t162 * t162;
         let t164 = 1.0 / t163;
         let t168 = f64::exp(-t32 * t159 * t164 / 4.0);

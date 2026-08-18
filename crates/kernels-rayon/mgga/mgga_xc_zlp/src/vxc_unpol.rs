@@ -1,8 +1,8 @@
 //! MGGA_XC_ZLP vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_xc_zlp.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -34,11 +34,11 @@ pub fn mgga_xc_zlp_vxc_unpol(
         let t12 = t11 * t11;
         let t14 = 1.0 / t12 / t10;
         let t17 = 1.0 / t12 / rho[ip];
-        let t24 = 0.207108e0 * t5 * t7 + 0.5387725e-2 * t5 * t7 * (-lapl[ip] * t17 / 8.0 + sigma[ip] * t14 / 8.0);
+        let t24 = 0.207108 * t5 * t7 + 0.005387725 * t5 * t7 * (-lapl[ip] * t17 / 8.0 + sigma[ip] * t14 / 8.0);
         let t25 = 1.0 / t11;
-        let t27 = 1.0 + 0.48849425066691677572e3 * t25;
+        let t27 = 1.0 + 488.4942506669168 * t25;
         let t28 = f64::ln(t27);
-        let t31 = 1.0 - 0.2047107e-2 * t28 * t11;
+        let t31 = 1.0 - 0.002047107 * t28 * t11;
         let t33 = t2 * t2;
         let t34 = t24 * t31 * t33;
         let t35 = 1.0 / t4;
@@ -55,15 +55,15 @@ pub fn mgga_xc_zlp_vxc_unpol(
         let t53 = t41 * t24;
         let t55 = 1.0 / t27;
         let t58 = 1.0 / t12;
-        let t61 = 0.33333333333333333332e0 / rho[ip] * t55 - 0.682369e-3 * t28 * t58;
+        let t61 = 0.3333333333333333 / rho[ip] * t55 - 0.000682369 * t28 * t58;
         let t64 = t33 * t35 * t6;
-        let tvrho0 = -4.0 / 9.0 * t38 - 0.215509e-1 * t50 * t31 - t53 * t61 * t64 / 3.0;
+        let tvrho0 = -4.0 / 9.0 * t38 - 0.0215509 * t50 * t31 - t53 * t61 * t64 / 3.0;
         vrho[ip] += tvrho0;
         let t67 = 1.0 / t41;
         let t68 = t67 * t31;
-        let tvsigma0 = -0.26938625e-2 * t68;
+        let tvsigma0 = -0.0026938625 * t68;
         vsigma[ip] += tvsigma0;
-        let tvlapl0 = 0.26938625e-2 * t25 * t31;
+        let tvlapl0 = 0.0026938625 * t25 * t31;
         vlapl[ip] += tvlapl0;
         let tvtau0 = 0.0;
         vtau[ip] += tvtau0;

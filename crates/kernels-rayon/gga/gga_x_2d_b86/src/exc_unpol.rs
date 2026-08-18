@@ -1,8 +1,8 @@
 //! GGA_X_2D_B86 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_b86.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,8 +33,8 @@ pub fn gga_x_2d_b86_exc_unpol(
         let t20 = rho[ip] * rho[ip];
         let t21 = t20 * rho[ip];
         let t23 = sigma[ip] / t21;
-        let t25 = 1.0 + 0.421e-2 * t23;
-        let t28 = 1.0 + 0.238e-3 * t23;
+        let t25 = 1.0 + 0.00421 * t23;
+        let t28 = 1.0 + 0.000238 * t23;
         let t29 = 1.0 / t28;
         let t33 = piecewise3(t2, 0.0, -2.0 / 3.0 * t18 * t19 * t25 * t29);
         let tzk0 = 2.0 * t33;

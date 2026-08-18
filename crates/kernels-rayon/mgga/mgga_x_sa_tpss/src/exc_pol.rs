@@ -1,12 +1,12 @@
 //! MGGA_X_SA_TPSS exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_sa_tpss.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_sa_tpss.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -69,9 +69,9 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t50 = 5.0 * t48 + 9.0;
         let t51 = f64::sqrt(t50);
         let t52 = 5.0 / 9.0 * t48;
-        let t53 = t52 + 0.348e0;
+        let t53 = t52 + 0.348;
         let t54 = f64::ln(t53);
-        let t55 = 0.2413e1 + t54;
+        let t55 = 2.413 + t54;
         let t56 = f64::sqrt(t55);
         let t57 = 1.0 / t56;
         let t58 = t51 * t57;
@@ -86,12 +86,12 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t69 = t68 * t68;
         let t70 = 1.0 / t69;
         let t71 = t65 * t70;
-        let t75 = (10.0 / 81.0 + 0.2485875e-1 * t63 * t71) * t42;
+        let t75 = (10.0 / 81.0 + 0.02485875 * t63 * t71) * t42;
         let t76 = t47 * sigma0;
         let t77 = t76 * t38;
         let t80 = t52 - 1.0;
         let t81 = t47 * t80;
-        let t84 = 1.0 + 0.22222222222222222222e0 * t43 * t81;
+        let t84 = 1.0 + 0.2222222222222222 * t43 * t81;
         let t85 = f64::sqrt(t84);
         let t86 = 1.0 / t85;
         let t89 = t42 * t47;
@@ -114,8 +114,8 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t119 = t61 * sigma0;
         let t120 = t100 * t100;
         let t121 = 1.0 / t120;
-        let t124 = t75 * t77 / 24.0 + 146.0 / 2025.0 * t93 - 73.0 / 97200.0 * t92 * t108 + 25.0 / 209952.0 * t115 * t105 + 0.17218861679299947194e-2 * t66 + 0.15033019185692233886e-5 * t119 * t121;
-        let t126 = 1.0 + 0.51656585037899841583e-1 * t90;
+        let t124 = t75 * t77 / 24.0 + 146.0 / 2025.0 * t93 - 73.0 / 97200.0 * t92 * t108 + 25.0 / 209952.0 * t115 * t105 + 0.0017218861679299947 * t66 + 1.5033019185692233e-06 * t119 * t121;
+        let t126 = 1.0 + 0.05165658503789984 * t90;
         let t127 = t126 * t126;
         let t128 = 1.0 / t127;
         let t130 = 2.0 / 45.0 * t59 + t124 * t128;
@@ -143,9 +143,9 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t168 = 5.0 * t166 + 9.0;
         let t169 = f64::sqrt(t168);
         let t170 = 5.0 / 9.0 * t166;
-        let t171 = t170 + 0.348e0;
+        let t171 = t170 + 0.348;
         let t172 = f64::ln(t171);
-        let t173 = 0.2413e1 + t172;
+        let t173 = 2.413 + t172;
         let t174 = f64::sqrt(t173);
         let t175 = 1.0 / t174;
         let t176 = t169 * t175;
@@ -160,12 +160,12 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t187 = t186 * t186;
         let t188 = 1.0 / t187;
         let t189 = t183 * t188;
-        let t193 = (10.0 / 81.0 + 0.2485875e-1 * t181 * t189) * t42;
+        let t193 = (10.0 / 81.0 + 0.02485875 * t181 * t189) * t42;
         let t194 = t47 * sigma2;
         let t195 = t194 * t161;
         let t198 = t170 - 1.0;
         let t199 = t47 * t198;
-        let t202 = 1.0 + 0.22222222222222222222e0 * t165 * t199;
+        let t202 = 1.0 + 0.2222222222222222 * t165 * t199;
         let t203 = f64::sqrt(t202);
         let t204 = 1.0 / t203;
         let t207 = t89 * t162;
@@ -183,8 +183,8 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t230 = t179 * sigma2;
         let t231 = t213 * t213;
         let t232 = 1.0 / t231;
-        let t235 = t193 * t195 / 24.0 + 146.0 / 2025.0 * t210 - 73.0 / 97200.0 * t209 * t221 + 25.0 / 209952.0 * t226 * t218 + 0.17218861679299947194e-2 * t184 + 0.15033019185692233886e-5 * t230 * t232;
-        let t237 = 1.0 + 0.51656585037899841583e-1 * t207;
+        let t235 = t193 * t195 / 24.0 + 146.0 / 2025.0 * t210 - 73.0 / 97200.0 * t209 * t221 + 25.0 / 209952.0 * t226 * t218 + 0.0017218861679299947 * t184 + 1.5033019185692233e-06 * t230 * t232;
+        let t237 = 1.0 + 0.05165658503789984 * t207;
         let t238 = t237 * t237;
         let t239 = 1.0 / t238;
         let t241 = 2.0 / 45.0 * t177 + t235 * t239;

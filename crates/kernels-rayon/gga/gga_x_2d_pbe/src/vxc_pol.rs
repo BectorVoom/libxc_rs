@@ -1,8 +1,8 @@
 //! GGA_X_2D_PBE vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_2d_pbe.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -50,8 +50,8 @@ pub fn gga_x_2d_pbe_vxc_pol(
         let t28 = rho0 * rho0;
         let t29 = t28 * rho0;
         let t30 = 1.0 / t29;
-        let t33 = 0.4604e0 + 0.70534859642542911404e-2 * sigma0 * t30;
-        let t36 = 0.14604e1 - 0.21196816e0 / t33;
+        let t33 = 0.4604 + 0.007053485964254291 * sigma0 * t30;
+        let t36 = 1.4604 - 0.21196816 / t33;
         let t37 = t27 * t36;
         let t40 = piecewise3(t1, 0.0, -2.0 / 3.0 * t24 * t37);
         let t41 = rho1 <= dens_threshold;
@@ -66,8 +66,8 @@ pub fn gga_x_2d_pbe_vxc_pol(
         let t51 = rho1 * rho1;
         let t52 = t51 * rho1;
         let t53 = 1.0 / t52;
-        let t56 = 0.4604e0 + 0.70534859642542911404e-2 * sigma2 * t53;
-        let t59 = 0.14604e1 - 0.21196816e0 / t56;
+        let t56 = 0.4604 + 0.007053485964254291 * sigma2 * t53;
+        let t59 = 1.4604 - 0.21196816 / t56;
         let t60 = t27 * t59;
         let t63 = piecewise3(t41, 0.0, -2.0 / 3.0 * t50 * t60);
         let tzk0 = t40 + t63;
@@ -90,7 +90,7 @@ pub fn gga_x_2d_pbe_vxc_pol(
         let t85 = t28 * t28;
         let t86 = 1.0 / t85;
         let t87 = t84 * t86;
-        let t91 = piecewise3(t1, 0.0, -2.0 / 3.0 * t72 * t37 - t79 + 0.16870559881319107373e-2 * t81 * t87);
+        let t91 = piecewise3(t1, 0.0, -2.0 / 3.0 * t72 * t37 - t79 + 0.0016870559881319107 * t81 * t87);
         let t92 = t42 * t65;
         let t94 = piecewise5(t12, 0.0, t8, 0.0, -t5 - t92);
         let t97 = piecewise3(t46, 0.0, 3.0 / 2.0 * t47 * t94);
@@ -115,19 +115,19 @@ pub fn gga_x_2d_pbe_vxc_pol(
         let t131 = t51 * t51;
         let t132 = 1.0 / t131;
         let t133 = t130 * t132;
-        let t137 = piecewise3(t41, 0.0, -2.0 / 3.0 * t123 * t60 - t103 + 0.16870559881319107373e-2 * t127 * t133);
+        let t137 = piecewise3(t41, 0.0, -2.0 / 3.0 * t123 * t60 - t103 + 0.0016870559881319107 * t127 * t133);
         let tvrho1 = t40 + t63 + t4 * (t117 + t137);
         vrho[ip * 2 + 1] += tvrho1;
         let t140 = t26 * t83;
         let t141 = t140 * t30;
-        let t144 = piecewise3(t1, 0.0, -0.56235199604397024573e-3 * t80 * t141);
+        let t144 = piecewise3(t1, 0.0, -0.0005623519960439703 * t80 * t141);
         let tvsigma0 = t4 * t144;
         vsigma[ip * 3] += tvsigma0;
         let tvsigma1 = 0.0;
         vsigma[ip * 3 + 1] += tvsigma1;
         let t145 = t26 * t129;
         let t146 = t145 * t53;
-        let t149 = piecewise3(t41, 0.0, -0.56235199604397024573e-3 * t126 * t146);
+        let t149 = piecewise3(t41, 0.0, -0.0005623519960439703 * t126 * t146);
         let tvsigma2 = t4 * t149;
         vsigma[ip * 3 + 2] += tvsigma2;
     }

@@ -1,13 +1,12 @@
 //! LDA_XC_TIH fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/lda_vxc/lda_xc_tih.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_xc_tih.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
 
-/// LDA_XC_TIH fxc -- unpolarized.
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_xc_tih_fxc_unpol(
     rho: &[f64],

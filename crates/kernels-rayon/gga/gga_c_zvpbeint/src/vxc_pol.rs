@@ -1,8 +1,8 @@
 //! GGA_C_ZVPBEINT vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeint.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeint.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -18,8 +18,8 @@ pub fn gga_c_zvpbeint_vxc_pol(
     vrho: &mut [f64],
     vsigma: &mut [f64],
     param_alpha: f64,
-    param_beta: f64,
     param_omega: f64,
+    param_beta: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -38,7 +38,7 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t7 = rho0 + rho1;
         let t8 = pow_1_3(t7);
         let t11 = t4 * t6 / t8;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
@@ -46,10 +46,10 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t5 / t22;
-        let t27 = 0.379785e1 * t14 + 0.8969e0 * t11 + 0.204775e0 * t17 + 0.123235e0 * t25;
-        let t30 = 1.0 + 0.16081979498692535067e2 / t27;
+        let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
+        let t30 = 1.0 + 16.081979498692537 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.621814e-1 * t13 * t31;
+        let t33 = 0.0621814 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
         let t36 = t35 * t35;
@@ -75,19 +75,19 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t56 = M_CBRT2;
         let t59 = 1.0 / (2.0 * t56 - 2.0);
         let t60 = t55 * t59;
-        let t62 = 1.0 + 0.5137e-1 * t11;
-        let t67 = 0.705945e1 * t14 + 0.1549425e1 * t11 + 0.420775e0 * t17 + 0.1562925e0 * t25;
-        let t70 = 1.0 + 0.32163958997385070134e2 / t67;
+        let t62 = 1.0 + 0.05137 * t11;
+        let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
+        let t70 = 1.0 + 32.16395899738507 / t67;
         let t71 = f64::ln(t70);
-        let t75 = 1.0 + 0.278125e-1 * t11;
-        let t80 = 0.51785e1 * t14 + 0.905775e0 * t11 + 0.1100325e0 * t17 + 0.1241775e0 * t25;
-        let t83 = 1.0 + 0.29608749977793437516e2 / t80;
+        let t75 = 1.0 + 0.0278125 * t11;
+        let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
+        let t83 = 1.0 + 29.608749977793437 / t80;
         let t84 = f64::ln(t83);
         let t85 = t75 * t84;
-        let t87 = -0.310907e-1 * t62 * t71 + t33 - 0.19751673498613801407e-1 * t85;
+        let t87 = -0.0310907 * t62 * t71 + t33 - 0.0197516734986138 * t85;
         let t88 = t60 * t87;
         let t89 = t40 * t88;
-        let t91 = 0.19751673498613801407e-1 * t60 * t85;
+        let t91 = 0.0197516734986138 * t60 * t85;
         let t93 = sigma0 + 2.0 * sigma1 + sigma2;
         let t94 = f64::sqrt(t93);
         let t95 = t94 * t93;
@@ -100,8 +100,8 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t105 = t99 * t104;
         let t106 = 1.0 / t37;
         let t107 = t35 * t106;
-        let t108 = 0.1e-19 < t107;
-        let t109 = piecewise3(t108, t107, 0.1e-19);
+        let t108 = 1e-20 < t107;
+        let t109 = piecewise3(t108, t107, 1e-20);
         let t111 = f64::powf(t109, param_omega / 2.0);
         let t112 = t105 * t111;
         let t115 = f64::exp(-t96 * t39 * t112 / 16.0);
@@ -160,7 +160,7 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t182 = 1.0 / t8 / t7;
         let t183 = t6 * t182;
         let t185 = t4 * t183 * t31;
-        let t186 = 0.11073470983333333333e-2 * t185;
+        let t186 = 0.0011073470983333333 * t185;
         let t187 = t27 * t27;
         let t188 = 1.0 / t187;
         let t189 = t13 * t188;
@@ -174,7 +174,7 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t200 = t199 * t193;
         let t204 = t5 / t22 / t7;
         let t205 = t21 * t204;
-        let t207 = -0.632975e0 * t194 - 0.29896666666666666667e0 * t196 - 0.1023875e0 * t200 - 0.82156666666666666667e-1 * t205;
+        let t207 = -0.632975 * t194 - 0.29896666666666666 * t196 - 0.1023875 * t200 - 0.08215666666666667 * t205;
         let t208 = 1.0 / t30;
         let t209 = t207 * t208;
         let t210 = t189 * t209;
@@ -199,28 +199,28 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t237 = t67 * t67;
         let t238 = 1.0 / t237;
         let t239 = t62 * t238;
-        let t244 = -0.1176575e1 * t194 - 0.516475e0 * t196 - 0.2103875e0 * t200 - 0.104195e0 * t205;
+        let t244 = -1.176575 * t194 - 0.516475 * t196 - 0.2103875 * t200 - 0.104195 * t205;
         let t245 = 1.0 / t70;
         let t246 = t244 * t245;
         let t252 = t80 * t80;
         let t253 = 1.0 / t252;
         let t254 = t75 * t253;
-        let t259 = -0.86308333333333333334e0 * t194 - 0.301925e0 * t196 - 0.5501625e-1 * t200 - 0.82785e-1 * t205;
+        let t259 = -0.8630833333333333 * t194 - 0.301925 * t196 - 0.05501625 * t200 - 0.082785 * t205;
         let t260 = 1.0 / t83;
         let t261 = t259 * t260;
-        let t264 = 0.53237641966666666666e-3 * t4 * t183 * t71 + 1.0 * t239 * t246 - t186 - t211 + 0.18311447306006545054e-3 * t4 * t183 * t84 + 0.5848223622634646207e0 * t254 * t261;
+        let t264 = 0.0005323764196666666 * t4 * t183 * t71 + 1.0 * t239 * t246 - t186 - t211 + 0.00018311447306006544 * t4 * t183 * t84 + 0.5848223622634646 * t254 * t261;
         let t265 = t60 * t264;
         let t266 = t40 * t265;
         let t267 = t231 * t85;
-        let t268 = 0.19751673498613801407e-1 * t267;
+        let t268 = 0.0197516734986138 * t267;
         let t269 = t60 * t1;
         let t271 = t192 * t182 * t84;
         let t272 = t269 * t271;
-        let t273 = 0.18311447306006545054e-3 * t272;
+        let t273 = 0.00018311447306006544 * t272;
         let t274 = t60 * t75;
         let t276 = t253 * t259 * t260;
         let t277 = t274 * t276;
-        let t278 = 0.5848223622634646207e0 * t277;
+        let t278 = 0.5848223622634646 * t277;
         let t281 = t96 * t217 * t112 / 4.0;
         let t283 = 1.0 / t8 / t216;
         let t286 = 1.0 / t14 / t25 / 4.0;
@@ -317,7 +317,7 @@ pub fn gga_c_zvpbeint_vxc_pol(
         let t419 = t418 * t87;
         let t420 = t40 * t419;
         let t421 = t418 * t85;
-        let t422 = 0.19751673498613801407e-1 * t421;
+        let t422 = 0.0197516734986138 * t421;
         let t425 = piecewise3(t108, -2.0 * t221 - 2.0 * t306, 0.0);
         let t426 = param_omega * t425;
         let t427 = t426 * t311;

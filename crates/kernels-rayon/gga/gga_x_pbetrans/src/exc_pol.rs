@@ -1,12 +1,12 @@
 //! GGA_X_PBETRANS exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbetrans.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -55,14 +55,14 @@ pub fn gga_x_pbetrans_exc_pol(
         let t38 = 1.0 / t36 / rho0;
         let t45 = f64::exp(-2.0 * t30 * (t34 * t35 * t38 / 12.0 - 3.0));
         let t46 = 1.0 + t45;
-        let t48 = 0.413e0 / t46;
-        let t49 = 0.1227e1 - t48;
+        let t48 = 0.413 / t46;
+        let t49 = 1.227 - t48;
         let t50 = t29 * t29;
         let t52 = t31 / t50;
         let t53 = rho0 * rho0;
         let t54 = t36 * t36;
         let t56 = 1.0 / t54 / t53;
-        let t60 = 0.1227e1 - t48 + 0.91249999999999999998e-2 * t52 * sigma0 * t56;
+        let t60 = 1.227 - t48 + 0.009125 * t52 * sigma0 * t56;
         let t61 = 1.0 / t60;
         let t63 = -t49 * t61 + 1.0;
         let t65 = t49 * t63 + 1.0;
@@ -80,12 +80,12 @@ pub fn gga_x_pbetrans_exc_pol(
         let t83 = 1.0 / t81 / rho1;
         let t90 = f64::exp(-2.0 * t30 * (t34 * t80 * t83 / 12.0 - 3.0));
         let t91 = 1.0 + t90;
-        let t93 = 0.413e0 / t91;
-        let t94 = 0.1227e1 - t93;
+        let t93 = 0.413 / t91;
+        let t94 = 1.227 - t93;
         let t95 = rho1 * rho1;
         let t96 = t81 * t81;
         let t98 = 1.0 / t96 / t95;
-        let t102 = 0.1227e1 - t93 + 0.91249999999999999998e-2 * t52 * sigma2 * t98;
+        let t102 = 1.227 - t93 + 0.009125 * t52 * sigma2 * t98;
         let t103 = 1.0 / t102;
         let t105 = -t94 * t103 + 1.0;
         let t107 = t94 * t105 + 1.0;

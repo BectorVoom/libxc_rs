@@ -1,8 +1,8 @@
 //! GGA_C_GAPLOC exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_gaploc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_gaploc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -35,7 +35,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t9 = 1.0 / t8;
         let t10 = t6 * t9;
         let t11 = t4 * t10;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
@@ -44,10 +44,10 @@ pub fn gga_c_gaploc_exc_pol(
         let t22 = t8 * t8;
         let t23 = 1.0 / t22;
         let t25 = t21 * t5 * t23;
-        let t27 = 0.379785e1 * t14 + 0.8969e0 * t11 + 0.204775e0 * t17 + 0.123235e0 * t25;
-        let t30 = 1.0 + 0.16081824322151104822e2 / t27;
+        let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
+        let t30 = 1.0 + 16.081824322151103 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.62182e-1 * t13 * t31;
+        let t33 = 0.062182 * t13 * t31;
         let t34 = 1.0 <= zeta_threshold;
         let t35 = pow_1_3(zeta_threshold);
         let t36 = t35 * zeta_threshold;
@@ -55,19 +55,19 @@ pub fn gga_c_gaploc_exc_pol(
         let t40 = M_CBRT2;
         let t43 = 1.0 / (2.0 * t40 - 2.0);
         let t44 = (2.0 * t37 - 2.0) * t43;
-        let t46 = 1.0 + 0.278125e-1 * t11;
-        let t51 = 0.51785e1 * t14 + 0.905775e0 * t11 + 0.1100325e0 * t17 + 0.1241775e0 * t25;
-        let t54 = 1.0 + 0.29608574643216675549e2 / t51;
+        let t46 = 1.0 + 0.0278125 * t11;
+        let t51 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
+        let t54 = 1.0 + 29.608574643216677 / t51;
         let t55 = f64::ln(t54);
         let t56 = t46 * t55;
-        let t58 = 0.19751789702565206229e-1 * t44 * t56;
+        let t58 = 0.019751789702565206 * t44 * t56;
         let t59 = t3 * t2;
         let t60 = 1.0 / t59;
         let t61 = t19 * t60;
         let t62 = t8 * t7;
         let t63 = t6 * t62;
         let t64 = 1.0 / t7;
-        let t67 = 0.107924e1 + 0.3964e-1 * t14 + 0.123825e-1 * t11;
+        let t67 = 1.07924 + 0.03964 * t14 + 0.0123825 * t11;
         let t70 = 1.0 + t14 * t67 / 2.0;
         let t71 = t70 * t70;
         let t72 = 1.0 / t71;
@@ -87,8 +87,8 @@ pub fn gga_c_gaploc_exc_pol(
         let t97 = 1.0 / t8 / t89;
         let t98 = t6 * t97;
         let t99 = t95 * t98;
-        let t101 = -0.59778596625315888114e-2 * t64 + 0.1317375e-2 * t80 - 0.23775e-3 * t87 + 0.64744236347453835951e-5 * t90 - 0.540140625e-6 * t99;
-        let t103 = 0.11713266981940447749e-2 * t64 * t72 - t75 * t101;
+        let t101 = -0.005977859662531589 * t64 + 0.001317375 * t80 - 0.00023775 * t87 + 6.474423634745383e-06 * t90 - 5.40140625e-07 * t99;
+        let t103 = 0.0011713266981940448 * t64 * t72 - t75 * t101;
         let t105 = t61 * t63 * t103;
         let t106 = 1.0 / t20;
         let t107 = t1 * t106;
@@ -98,7 +98,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t111 = t22 * t110;
         let t112 = 1.0 / t70;
         let t116 = t75 * t75;
-        let t118 = 0.19711288999999999999e-2 * t109 * t111 * t112 - 2.0 * t116;
+        let t118 = 0.0019711289 * t109 * t111 * t112 - 2.0 * t116;
         let t119 = 1.0 / t118;
         let t120 = pow_1_3(9.0);
         let t121 = t120 * t120;
@@ -122,7 +122,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t148 = f64::sqrt(t2);
         let t149 = 1.0 / t148;
         let t151 = t140 * t145 * t146 * t149;
-        let t153 = 0.854613e1 + t151 / 64.0;
+        let t153 = 8.54613 + t151 / 64.0;
         let t155 = 1.0 + t151 / 192.0;
         let t156 = 1.0 / t155;
         let t157 = t153 * t156;
@@ -132,16 +132,16 @@ pub fn gga_c_gaploc_exc_pol(
         let t161 = t123 * t160;
         let t163 = 1.0 / t22 / t89;
         let t165 = t40 * t40;
-        let t169 = 0.14709046e2 + t161 * t129 * t163 * t165 / 24.0;
+        let t169 = 14.709046 + t161 * t129 * t163 * t165 / 24.0;
         let t171 = 1.0 + t158;
         let t172 = 1.0 / t171;
         let t174 = t122 * t158 * t169 * t172;
-        let t177 = -t33 + t58 + 0.28455006635676149599e-1 * t105 * t174;
+        let t177 = -t33 + t58 + 0.02845500663567615 * t105 * t174;
         let t178 = f64::sqrt(4.0);
         let t179 = t75 * t178;
         let t180 = t110 * t112;
         let t183 = t6 * t22;
-        let t187 = 0.619125e-2 * t179 * t180 - 0.79593333333333333331e-1 * t107 * t183 * t101;
+        let t187 = 0.00619125 * t179 * t180 - 0.07959333333333334 * t107 * t183 * t101;
         let t188 = t187 * t119;
         let t189 = t121 * t158;
         let t190 = t188 * t189;
@@ -158,7 +158,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t203 = 1.0 / t202;
         let t204 = t201 * t203;
         let t205 = t61 * t204;
-        let t208 = 1.0 + 0.35750489951850426669e0 * t190 * t193 - 0.11502877786176224903e1 * t199 * t205;
+        let t208 = 1.0 + 0.3575048995185043 * t190 * t193 - 1.1502877786176224 * t199 * t205;
         let t209 = 1.0 / t208;
         let t210 = t177 * t209;
         let t211 = rho0 - rho1;
@@ -177,23 +177,23 @@ pub fn gga_c_gaploc_exc_pol(
         let t228 = 0.0 <= zeta_threshold;
         let t229 = piecewise3(t228, t36, 0.0);
         let t231 = (t227 + t229 - 2.0) * t43;
-        let t233 = 1.0 + 0.5137e-1 * t11;
-        let t238 = 0.705945e1 * t14 + 0.1549425e1 * t11 + 0.420775e0 * t17 + 0.1562925e0 * t25;
-        let t241 = 1.0 + 0.32164683177870697974e2 / t238;
+        let t233 = 1.0 + 0.05137 * t11;
+        let t238 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
+        let t241 = 1.0 + 32.1646831778707 / t238;
         let t242 = f64::ln(t241);
-        let t247 = t231 * (-0.3109e-1 * t233 * t242 + t33 - 0.19751789702565206229e-1 * t56);
-        let t249 = 0.19751789702565206229e-1 * t231 * t56;
-        let t252 = 0.149676e1 + 0.89527e-3 * t14 + 0.11799625e-1 * t11;
+        let t247 = t231 * (-0.03109 * t233 * t242 + t33 - 0.019751789702565206 * t56);
+        let t249 = 0.019751789702565206 * t231 * t56;
+        let t252 = 1.49676 + 0.00089527 * t14 + 0.011799625 * t11;
         let t255 = 1.0 + t14 * t252 / 2.0;
         let t256 = t255 * t255;
         let t257 = 1.0 / t256;
         let t260 = -t33 + t247 + t249;
-        let t266 = -0.77371026992393176896e-2 * t64 + 0.187495875e-2 * t80 - 0.362780625e-3 * t87 + 0.10208501871552144532e-4 * t90 - 0.8659659375e-6 * t99;
-        let t268 = 0.10636476373080147432e-2 * t64 * t257 - t260 * t266;
+        let t266 = -0.0077371026992393175 * t64 + 0.00187495875 * t80 - 0.000362780625 * t87 + 1.0208501871552144e-05 * t90 - 8.659659375e-07 * t99;
+        let t268 = 0.0010636476373080148 * t64 * t257 - t260 * t266;
         let t270 = t61 * t63 * t268;
         let t271 = 1.0 / t255;
         let t275 = t260 * t260;
-        let t277 = 0.50765919958333333334e-3 * t109 * t111 * t271 - 2.0 * t275;
+        let t277 = 0.0005076591995833333 * t109 * t111 * t271 - 2.0 * t275;
         let t278 = 1.0 / t277;
         let t279 = t278 * t121;
         let t280 = piecewise3(t225, t141, t165);
@@ -202,7 +202,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t284 = t283 * t283;
         let t286 = 1.0 / t284 / t283;
         let t289 = t140 * t286 * t146 * t149;
-        let t291 = 0.854613e1 + t289 / 64.0;
+        let t291 = 8.54613 + t289 / 64.0;
         let t293 = 1.0 + t289 / 192.0;
         let t294 = 1.0 / t293;
         let t295 = t291 * t294;
@@ -210,10 +210,10 @@ pub fn gga_c_gaploc_exc_pol(
         let t298 = 1.0 + t296;
         let t299 = 1.0 / t298;
         let t301 = t279 * t296 * t169 * t299;
-        let t304 = -t33 + t247 + t249 + 0.76905262301422242837e-2 * t270 * t301;
+        let t304 = -t33 + t247 + t249 + 0.007690526230142224 * t270 * t301;
         let t305 = t260 * t178;
         let t306 = t110 * t271;
-        let t312 = 0.58998125e-2 * t305 * t306 - 0.21511666666666666667e-1 * t107 * t183 * t266;
+        let t312 = 0.0058998125 * t305 * t306 - 0.021511666666666665 * t107 * t183 * t266;
         let t313 = t312 * t278;
         let t314 = t121 * t296;
         let t315 = t313 * t314;
@@ -227,7 +227,7 @@ pub fn gga_c_gaploc_exc_pol(
         let t325 = 1.0 / t324;
         let t326 = t201 * t325;
         let t327 = t61 * t326;
-        let t330 = 1.0 + 0.35750489951850426669e0 * t315 * t317 - 0.11502877786176224903e1 * t323 * t327;
+        let t330 = 1.0 + 0.3575048995185043 * t315 * t317 - 1.1502877786176224 * t323 * t327;
         let t331 = 1.0 / t330;
         let t333 = t304 * t331 - t210;
         let t334 = t224 * t333;

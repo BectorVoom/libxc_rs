@@ -1,14 +1,14 @@
 //! GGA_C_REVTCA exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_revtca_exc_unpol(
@@ -30,9 +30,9 @@ pub fn gga_c_revtca_exc_unpol(
         let t11 = M_CBRT4;
         let t12 = t11 * t11;
         let t13 = pow_1_3(rho[ip]);
-        let t18 = 0.488827e1 + 0.79425925e0 * t10 * t12 / t13;
+        let t18 = 4.88827 + 0.79425925 * t10 * t12 / t13;
         let t19 = f64::atan(t18);
-        let t21 = -0.655868e0 * t19 + 0.897889e0;
+        let t21 = -0.655868 * t19 + 0.897889;
         let t22 = t6 * t21;
         let t23 = t7 * t7;
         let t24 = t22 * t23;
@@ -49,8 +49,8 @@ pub fn gga_c_revtca_exc_unpol(
         let t35 = t33 * t34;
         let t37 = 1.0 / t13 / rho[ip];
         let t39 = t32 * t35 * t37;
-        let t40 = f64::powf(t39, 0.23e1);
-        let t42 = 1.0 + 0.47121507034422759993e-2 * t40;
+        let t40 = f64::powf(t39, 2.3);
+        let t42 = 1.0 + 0.004712150703442276 * t40;
         let t43 = 1.0 / t42;
         let t46 = t24 * t26 * t13 * t43;
         let tzk0 = t46 / 3.0;

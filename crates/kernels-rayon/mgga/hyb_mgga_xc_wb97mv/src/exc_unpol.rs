@@ -1,8 +1,8 @@
 //! HYB_MGGA_XC_WB97MV exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_xc_wb97mv.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_xc_wb97mv.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -18,20 +18,20 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_c_os_0: f64,
+    param_c_x_1: f64,
+    param_c_x_2: f64,
+    param_c_x_0: f64,
+    param_c_ss_1: f64,
+    param_c_ss_2: f64,
+    param_c_ss_3: f64,
+    param_c_ss_4: f64,
+    param_c_ss_0: f64,
     param_c_os_1: f64,
     param_c_os_2: f64,
     param_c_os_3: f64,
     param_c_os_4: f64,
     param_c_os_5: f64,
-    param_c_ss_0: f64,
-    param_c_ss_1: f64,
-    param_c_ss_2: f64,
-    param_c_ss_3: f64,
-    param_c_ss_4: f64,
-    param_c_x_0: f64,
-    param_c_x_1: f64,
-    param_c_x_2: f64,
+    param_c_os_0: f64,
     param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
@@ -61,9 +61,9 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t29 = piecewise3(t15, t16, t12);
         let t31 = t12 / t29;
         let t34 = t26 * t6 * t27 * t31 / 18.0;
-        let t35 = 0.135e1 <= t34;
-        let t36 = 0.135e1 < t34;
-        let t37 = piecewise3(t36, t34, 0.135e1);
+        let t35 = 1.35 <= t34;
+        let t36 = 1.35 < t34;
+        let t37 = piecewise3(t36, t34, 1.35);
         let t38 = t37 * t37;
         let t41 = t38 * t38;
         let t42 = 1.0 / t41;
@@ -76,7 +76,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t57 = 1.0 / t47 / t44;
         let t59 = t47 * t47;
         let t60 = 1.0 / t59;
-        let t63 = piecewise3(t36, 0.135e1, t34);
+        let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
         let t67 = erf_approx(t65 / 2.0);
@@ -86,7 +86,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t73 = t72 - 1.0;
         let t76 = t72 - 3.0 / 2.0 - 2.0 * t69 * t73;
         let t79 = 2.0 * t63 * t76 + t64 * t67;
-        let t83 = piecewise3(t35, 1.0 / t38 / 36.0 - t42 / 960.0 + t45 / 26880.0 - t48 / 829440.0 + t51 / 28385280.0 - t54 / 0.107347968e10 + t57 / 0.445906944e11 - t60 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t63 * t79);
+        let t83 = piecewise3(t35, 1.0 / t38 / 36.0 - t42 / 960.0 + t45 / 26880.0 - t48 / 829440.0 + t51 / 28385280.0 - t54 / 1073479680.0 + t57 / 44590694400.0 - t60 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t63 * t79);
         let t85 = param_c_x_1;
         let t86 = t85 * sigma[ip];
         let t87 = t12 * t12;
@@ -96,7 +96,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t92 = t87 * t91;
         let t93 = sigma[ip] * t87;
         let t94 = t93 * t91;
-        let t96 = 1.0 + 0.4e-2 * t94;
+        let t96 = 1.0 + 0.004 * t94;
         let t97 = 1.0 / t96;
         let t101 = param_c_x_2;
         let t102 = M_CBRT6;
@@ -113,7 +113,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t114 = t101 * t113;
         let t115 = t108 + t112;
         let t116 = 1.0 / t115;
-        let t118 = param_c_x_0 + 0.4e-2 * t86 * t92 * t97 + t114 * t116;
+        let t118 = param_c_x_0 + 0.004 * t86 * t92 * t97 + t114 * t116;
         let t119 = t83 * t118;
         let t123 = piecewise3(t5, 0.0, -3.0 / 64.0 * t14 * t21 * t119);
         let t124 = 2.0 * t123;
@@ -121,7 +121,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t126 = t9 * t11;
         let t129 = piecewise3(t4, 1.0 / t16, 1.0);
         let t131 = t126 * t27 * t12 * t129;
-        let t133 = 1.0 + 0.53425e-1 * t131;
+        let t133 = 1.0 + 0.053425 * t131;
         let t134 = f64::sqrt(t131);
         let t137 = pow_3_2(t131);
         let t139 = t6 * t6;
@@ -130,23 +130,23 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t142 = 1.0 / t89;
         let t144 = t129 * t129;
         let t146 = t141 * t142 * t87 * t144;
-        let t148 = 0.379785e1 * t134 + 0.8969e0 * t131 + 0.204775e0 * t137 + 0.123235e0 * t146;
-        let t151 = 1.0 + 0.16081979498692535067e2 / t148;
+        let t148 = 3.79785 * t134 + 0.8969 * t131 + 0.204775 * t137 + 0.123235 * t146;
+        let t151 = 1.0 + 16.081979498692537 / t148;
         let t152 = f64::ln(t151);
-        let t154 = 0.621814e-1 * t133 * t152;
+        let t154 = 0.0621814 * t133 * t152;
         let t156 = piecewise3(0.0 <= zeta_threshold, t17, 0.0);
         let t160 = 1.0 / (2.0 * t12 - 2.0);
         let t161 = (t19 + t156 - 2.0) * t160;
-        let t163 = 1.0 + 0.5137e-1 * t131;
-        let t168 = 0.705945e1 * t134 + 0.1549425e1 * t131 + 0.420775e0 * t137 + 0.1562925e0 * t146;
-        let t171 = 1.0 + 0.32163958997385070134e2 / t168;
+        let t163 = 1.0 + 0.05137 * t131;
+        let t168 = 7.05945 * t134 + 1.549425 * t131 + 0.420775 * t137 + 0.1562925 * t146;
+        let t171 = 1.0 + 32.16395899738507 / t168;
         let t172 = f64::ln(t171);
-        let t176 = 1.0 + 0.278125e-1 * t131;
-        let t181 = 0.51785e1 * t134 + 0.905775e0 * t131 + 0.1100325e0 * t137 + 0.1241775e0 * t146;
-        let t184 = 1.0 + 0.29608749977793437516e2 / t181;
+        let t176 = 1.0 + 0.0278125 * t131;
+        let t181 = 5.1785 * t134 + 0.905775 * t131 + 0.1100325 * t137 + 0.1241775 * t146;
+        let t184 = 1.0 + 29.608749977793437 / t181;
         let t185 = f64::ln(t184);
         let t186 = t176 * t185;
-        let t195 = piecewise3(t5, 0.0, t125 * (-t154 + t161 * (-0.310907e-1 * t163 * t172 + t154 - 0.19751673498613801407e-1 * t186) + 0.19751673498613801407e-1 * t161 * t186) / 2.0);
+        let t195 = piecewise3(t5, 0.0, t125 * (-t154 + t161 * (-0.0310907 * t163 * t172 + t154 - 0.0197516734986138 * t186) + 0.0197516734986138 * t161 * t186) / 2.0);
         let t197 = param_c_ss_1;
         let t198 = sigma[ip] * sigma[ip];
         let t199 = t198 * t198;
@@ -155,7 +155,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t202 = t201 * t201;
         let t203 = t202 * t88;
         let t205 = 1.0 / t89 / t203;
-        let t208 = 1.0 + 0.2e0 * t94;
+        let t208 = 1.0 + 0.2 * t94;
         let t209 = t208 * t208;
         let t210 = t209 * t209;
         let t211 = 1.0 / t210;
@@ -177,23 +177,23 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t231 = 1.0 / t202;
         let t233 = t209 * t208;
         let t234 = 1.0 / t233;
-        let t238 = param_c_ss_0 + 0.64e-2 * t200 * t212 + t216 * t116 + t220 * t222 + 0.32e-1 * t229 * t230 * t231 * t234;
+        let t238 = param_c_ss_0 + 0.0064 * t200 * t212 + t216 * t116 + t220 * t222 + 0.032 * t229 * t230 * t231 * t234;
         let t240 = 2.0 * t195 * t238;
         let t242 = t9 * t11 * t27;
-        let t244 = 1.0 + 0.53425e-1 * t242;
+        let t244 = 1.0 + 0.053425 * t242;
         let t245 = f64::sqrt(t242);
         let t248 = pow_3_2(t242);
         let t251 = t140 * t10 * t142;
-        let t253 = 0.379785e1 * t245 + 0.8969e0 * t242 + 0.204775e0 * t248 + 0.123235e0 * t251;
-        let t256 = 1.0 + 0.16081979498692535067e2 / t253;
+        let t253 = 3.79785 * t245 + 0.8969 * t242 + 0.204775 * t248 + 0.123235 * t251;
+        let t256 = 1.0 + 16.081979498692537 / t253;
         let t257 = f64::ln(t256);
         let t260 = piecewise3(t4, t17, 1.0);
         let t263 = (2.0 * t260 - 2.0) * t160;
-        let t265 = 1.0 + 0.278125e-1 * t242;
-        let t270 = 0.51785e1 * t245 + 0.905775e0 * t242 + 0.1100325e0 * t248 + 0.1241775e0 * t251;
-        let t273 = 1.0 + 0.29608749977793437516e2 / t270;
+        let t265 = 1.0 + 0.0278125 * t242;
+        let t270 = 5.1785 * t245 + 0.905775 * t242 + 0.1100325 * t248 + 0.1241775 * t251;
+        let t273 = 1.0 + 29.608749977793437 / t270;
         let t274 = f64::ln(t273);
-        let t279 = -0.621814e-1 * t244 * t257 + 0.19751673498613801407e-1 * t263 * t265 * t274 - 2.0 * t195;
+        let t279 = -0.0621814 * t244 * t257 + 0.0197516734986138 * t263 * t265 * t274 - 2.0 * t195;
         let t281 = param_c_os_1;
         let t283 = 3.0 / 5.0 * t107 * t112;
         let t284 = tau[ip] * tau[ip];
@@ -213,7 +213,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t302 = param_c_os_3;
         let t303 = t302 * t297;
         let t304 = t303 * t300;
-        let t306 = 1.0 + 0.6e-2 * t94;
+        let t306 = 1.0 + 0.006 * t94;
         let t307 = 1.0 / t306;
         let t308 = t91 * t307;
         let t309 = t93 * t308;
@@ -226,7 +226,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_unpol(
         let t320 = param_c_os_5;
         let t321 = t320 * t314;
         let t322 = t321 * t318;
-        let t325 = param_c_os_0 + t292 * t294 + t298 * t300 + 0.6e-2 * t304 * t309 + t315 * t318 + 0.6e-2 * t322 * t309;
+        let t325 = param_c_os_0 + t292 * t294 + t298 * t300 + 0.006 * t304 * t309 + t315 * t318 + 0.006 * t322 * t309;
         let t326 = t279 * t325;
         let tzk0 = t124 + t240 + t326;
         zk[ip] += tzk0;

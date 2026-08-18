@@ -1,8 +1,8 @@
 //! GGA_X_PBEPOW exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbepow.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_pbepow.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -46,14 +46,14 @@ pub fn gga_x_pbepow_exc_unpol(
         let t32 = 1.0 / t30 / t29;
         let t33 = t28 * t32;
         let t34 = sigma[ip] * t28;
-        let t38 = 0.91464571985215458336e0 * t25 * t34 * t32 + 0.804e0;
+        let t38 = 0.9146457198521546 * t25 * t34 * t32 + 0.804;
         let t39 = 1.0 / t38;
         let t40 = t33 * t39;
         let t41 = t26 * t40;
         let t42 = f64::powf(t41, 100.0);
-        let t44 = 0.13344141567995010044e-3 * t42 - 1.0;
+        let t44 = 0.0001334414156799501 * t42 - 1.0;
         let t45 = t33 * t44;
-        let t48 = 1.0 - 0.91464571985215458336e-2 * t26 * t45;
+        let t48 = 1.0 - 0.009146457198521547 * t26 * t45;
         let t52 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t48);
         let tzk0 = 2.0 * t52;
         zk[ip] += tzk0;

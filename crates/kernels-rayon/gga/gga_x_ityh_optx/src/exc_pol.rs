@@ -1,8 +1,8 @@
 //! GGA_X_ITYH_OPTX exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_ityh_optx.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_ityh_optx.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -16,8 +16,8 @@ pub fn gga_x_ityh_optx_exc_pol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
-    param_a: f64,
     param_b: f64,
+    param_a: f64,
     param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
@@ -77,9 +77,9 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t64 = 1.0 / t63;
         let t65 = t61 * t64;
         let t67 = t60 * t65 / 2.0;
-        let t68 = 0.135e1 <= t67;
-        let t69 = 0.135e1 < t67;
-        let t70 = piecewise3(t69, t67, 0.135e1);
+        let t68 = 1.35 <= t67;
+        let t69 = 1.35 < t67;
+        let t70 = piecewise3(t69, t67, 1.35);
         let t71 = t70 * t70;
         let t74 = t71 * t71;
         let t75 = 1.0 / t74;
@@ -92,7 +92,7 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t90 = 1.0 / t80 / t77;
         let t92 = t80 * t80;
         let t93 = 1.0 / t92;
-        let t96 = piecewise3(t69, 0.135e1, t67);
+        let t96 = piecewise3(t69, 1.35, t67);
         let t97 = f64::sqrt(M_PI);
         let t98 = 1.0 / t96;
         let t100 = erf_approx(t98 / 2.0);
@@ -102,7 +102,7 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t106 = t105 - 1.0;
         let t109 = t105 - 3.0 / 2.0 - 2.0 * t102 * t106;
         let t112 = t97 * t100 + 2.0 * t96 * t109;
-        let t116 = piecewise3(t68, 1.0 / t71 / 36.0 - t75 / 960.0 + t78 / 26880.0 - t81 / 829440.0 + t84 / 28385280.0 - t87 / 0.107347968e10 + t90 / 0.445906944e11 - t93 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t96 * t112);
+        let t116 = piecewise3(t68, 1.0 / t71 / 36.0 - t75 / 960.0 + t78 / 26880.0 - t81 / 829440.0 + t84 / 28385280.0 - t87 / 1073479680.0 + t90 / 44590694400.0 - t93 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t96 * t112);
         let t117 = t27 * t116;
         let t118 = t117 * t54;
         let t121 = piecewise3(t1, 0.0, -3.0 / 8.0 * t26 * t118);
@@ -135,9 +135,9 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t160 = 1.0 / t159;
         let t161 = t61 * t160;
         let t163 = t157 * t161 / 2.0;
-        let t164 = 0.135e1 <= t163;
-        let t165 = 0.135e1 < t163;
-        let t166 = piecewise3(t165, t163, 0.135e1);
+        let t164 = 1.35 <= t163;
+        let t165 = 1.35 < t163;
+        let t166 = piecewise3(t165, t163, 1.35);
         let t167 = t166 * t166;
         let t170 = t167 * t167;
         let t171 = 1.0 / t170;
@@ -150,7 +150,7 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t186 = 1.0 / t176 / t173;
         let t188 = t176 * t176;
         let t189 = 1.0 / t188;
-        let t192 = piecewise3(t165, 0.135e1, t163);
+        let t192 = piecewise3(t165, 1.35, t163);
         let t193 = 1.0 / t192;
         let t195 = erf_approx(t193 / 2.0);
         let t197 = t192 * t192;
@@ -159,7 +159,7 @@ pub fn gga_x_ityh_optx_exc_pol(
         let t201 = t200 - 1.0;
         let t204 = t200 - 3.0 / 2.0 - 2.0 * t197 * t201;
         let t207 = 2.0 * t192 * t204 + t97 * t195;
-        let t211 = piecewise3(t164, 1.0 / t167 / 36.0 - t171 / 960.0 + t174 / 26880.0 - t177 / 829440.0 + t180 / 28385280.0 - t183 / 0.107347968e10 + t186 / 0.445906944e11 - t189 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t192 * t207);
+        let t211 = piecewise3(t164, 1.0 / t167 / 36.0 - t171 / 960.0 + t174 / 26880.0 - t177 / 829440.0 + t180 / 28385280.0 - t183 / 1073479680.0 + t186 / 44590694400.0 - t189 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t192 * t207);
         let t212 = t27 * t211;
         let t213 = t212 * t151;
         let t216 = piecewise3(t122, 0.0, -3.0 / 8.0 * t131 * t213);

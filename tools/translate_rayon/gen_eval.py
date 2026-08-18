@@ -20,6 +20,7 @@ Usage: python3 tools/translate_rayon/gen_eval.py
 """
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import subprocess
@@ -84,6 +85,29 @@ def gen_sweep(fam: str, inputs: list[str], outputs: list[str]) -> str:
         f"        let (o{i}_l, o{i}_r) = split_opt(self.{n}, mid * d.{n} as usize);"
         for i, n in enumerate(outputs)
     )
+    zero_outs = "\n".join(
+        f"    if let Some(s) = chunk.{n}.as_deref_mut() {{ s.fill(0.0); }}"
+        for n in outputs
+    )
+    # One grid point's worth of every output, cleared in place. Used by the
+    # fragmented-grid fallback, which lets the kernel run over a below-threshold
+    # point and then puts the zero back.
+    zero_point_outs = "\n".join(
+        f"    if let Some(s) = chunk.{n}.as_deref_mut() {{\n"
+        f"        let w = d.{n} as usize;\n"
+        f"        s[ip * w..(ip + 1) * w].fill(0.0);\n"
+        f"    }}"
+        for n in outputs
+    )
+    win_in = "\n".join(
+        f"            {n}: &self.{n}[start * d.{n} as usize..end * d.{n} as usize],"
+        for n in inputs
+    )
+    win_out = "\n".join(
+        f"            {n}: self.{n}.as_deref_mut()\n"
+        f"                .map(|s| &mut s[start * d.{n} as usize..end * d.{n} as usize]),"
+        for n in outputs
+    )
     left = ",\n".join(
         [f"                np: mid"]
         + [f"                {n}: {n}_l" for n in inputs]
@@ -141,6 +165,22 @@ impl<'a> {Fam}Chunk<'a> {{
             }},
         )
     }}
+
+    /// Reborrow a contiguous window of `len` grid points starting at `start`.
+    ///
+    /// `split_at` consumes the chunk, which is what the halving sweep wants but
+    /// not what density screening wants: there the same chunk has to be visited
+    /// as several disjoint windows and then still be available to clean up
+    /// afterwards. Reborrowing keeps ownership with the caller. Every array is
+    /// narrowed at its own stride, for the same reason `split_at` is.
+    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> {Fam}Chunk<'_> {{
+        let end = start + len;
+        {Fam}Chunk {{
+            np: len,
+{win_in}
+{win_out}
+        }}
+    }}
 }}
 
 use std::sync::atomic::{{AtomicUsize, Ordering}};
@@ -159,20 +199,165 @@ pub fn set_min_chunk(n: usize) {{
     MIN_CHUNK.store(n.max(1), Ordering::Relaxed);
 }}
 
-/// Recursively halve the grid and evaluate each piece in parallel.
-pub fn par_sweep<F>(chunk: {Fam}Chunk<'_>, d: &Dimensions, min_chunk: usize, f: &F)
+/// Clear this chunk's slice of every output the sweep is going to write.
+///
+/// The kernels accumulate with `+=`, so the destination has to start at zero.
+/// Doing that in `prepare` instead -- one `fill(0.0)` per whole output array --
+/// costs a full serial pass over every output buffer before any arithmetic
+/// starts, and leaves the memory cold: by the time the kernel accumulates into
+/// a given cache line, the zero written into it has long been evicted, so each
+/// element is fetched from DRAM a second time. Per chunk, the zeroed range is
+/// still in L1/L2 when the kernel reads it back, and the clearing itself is
+/// spread over every worker instead of running on one thread.
+///
+/// Bit-exactness is unaffected: the stored value and the order of the
+/// accumulations are identical either way, only the moment of the store moves.
+#[inline]
+fn zero_outputs(chunk: &mut {Fam}Chunk<'_>) {{
+{zero_outs}
+}}
+
+/// Total density at grid point `ip`, the quantity libxc screens on.
+#[inline]
+fn total_density(rho: &[f64], ip: usize, nc: usize) -> f64 {{
+    if nc == 1 {{ rho[ip] }} else {{ rho[ip * 2] + rho[ip * 2 + 1] }}
+}}
+
+/// Clear every output at one grid point.
+#[inline]
+fn zero_point(chunk: &mut {Fam}Chunk<'_>, ip: usize, d: &Dimensions) {{
+{zero_point_outs}
+}}
+
+/// Average length an above-threshold run must reach before it is worth calling
+/// the kernel on it separately.
+///
+/// Splitting has a fixed per-call cost (the kernel's prologue, and the loop
+/// never getting up to speed). Measured on this tree, splitting a grid whose
+/// below-threshold points are scattered individually -- average run ~1.7 points
+/// -- cost about 14 ns per call, which turned `gga_x_b88` from 1.98 to 6.84
+/// ns/point: worse than doing no screening at all. So a fragmented chunk takes
+/// the other route below instead.
+const MIN_RUN: usize = 64;
+
+/// Evaluate `f` over the above-threshold points only, leaving the rest zero.
+///
+/// This reproduces what libxc does at the top of its per-point loop
+/// (`work_{fam}_inc.c`):
+///
+/// ```c
+/// dens = (nspin == XC_POLARIZED) ? rho[2*ip] + rho[2*ip+1] : rho[ip];
+/// if(dens < p->dens_threshold)
+///   continue;
+/// ```
+///
+/// **It is a correctness fix before it is an optimisation.** Only some kernels
+/// carry a `dens_threshold` guard of their own -- the exchange functionals
+/// mostly do (`gga_x_b88`: `rho[ip] / 2.0 <= dens_threshold`), the correlation
+/// functionals mostly do not (`lda_c_vwn`, `gga_c_lyp`, `mgga_c_r2scan` have
+/// none). libxc puts the screen *outside* the maple2c body, so it covers all of
+/// them uniformly; this library called the body directly, so for an unguarded
+/// functional the empty tail of a molecular grid got the raw formula value
+/// where libxc gives exactly 0. Measured against C libxc on a grid with 40% of
+/// its points below threshold, `lda_c_vwn` and `gga_c_lyp` came back with a
+/// worst relative difference of 1.0 -- a 100% error on `zk` -- while
+/// `gga_x_b88` and `mgga_x_scan`, which have the guard, agreed to 1e-15.
+///
+/// For a screened point the output keeps the zero `zero_outputs` just wrote.
+/// That is bit-identical to what a *guarded* kernel would have produced there
+/// (its outputs are `piecewise3(guard, 0.0, ..)` terms, which collapse to
+/// `+0.0`), so this changes nothing for those functionals and fixes the rest.
+/// Verified: with no below-threshold points present, every output fingerprint
+/// is unchanged by this function existing.
+///
+/// Two routes, picked from a single forward pass over `rho`:
+///
+/// * **Runs.** A real Becke/Lebedev grid orders points by radial shell, so its
+///   empty points are contiguous. Each maximal above-threshold run becomes one
+///   kernel call and the tail is never touched -- a whole empty chunk costs
+///   nothing at all.
+/// * **Compute then re-zero.** If the below-threshold points are scattered so
+///   finely that runs would average under `MIN_RUN`, splitting costs more than
+///   it saves. Then the kernel runs over the whole chunk and the screened
+///   points are zeroed afterwards. No arithmetic is saved, but the answer is
+///   the same one, which is the part that matters.
+fn screened_call<F>(mut chunk: {Fam}Chunk<'_>, d: &Dimensions, dens_threshold: f64, f: &F)
 where
-    F: Fn({Fam}Chunk<'_>) + Sync,
+    F: Fn(&mut {Fam}Chunk<'_>) + Sync,
+{{
+    let nc = d.rho as usize;
+    let np = chunk.np;
+
+    // One pass: how many points are screened out, and into how many runs do the
+    // survivors fall.
+    let mut below = 0usize;
+    let mut runs = 0usize;
+    let mut prev_active = false;
+    for ip in 0..np {{
+        let active = total_density(chunk.rho, ip, nc) >= dens_threshold;
+        if !active {{
+            below += 1;
+        }} else if !prev_active {{
+            runs += 1;
+        }}
+        prev_active = active;
+    }}
+
+    // Overwhelmingly the common case: nothing to screen, so this costs one
+    // linear read of `rho` that the kernel is about to make anyway.
+    if below == 0 {{
+        f(&mut chunk);
+        return;
+    }}
+    // Whole chunk is in the tail: the zeros already written are the answer.
+    if below == np {{
+        return;
+    }}
+
+    if runs * MIN_RUN <= np - below {{
+        let mut ip = 0;
+        while ip < np {{
+            if total_density(chunk.rho, ip, nc) < dens_threshold {{
+                ip += 1;
+                continue;
+            }}
+            let start = ip;
+            while ip < np && total_density(chunk.rho, ip, nc) >= dens_threshold {{
+                ip += 1;
+            }}
+            let mut w = chunk.window(start, ip - start, d);
+            f(&mut w);
+        }}
+    }} else {{
+        f(&mut chunk);
+        for ip in 0..np {{
+            if total_density(chunk.rho, ip, nc) < dens_threshold {{
+                zero_point(&mut chunk, ip, d);
+            }}
+        }}
+    }}
+}}
+
+/// Recursively halve the grid and evaluate each piece in parallel.
+pub fn par_sweep<F>(
+    mut chunk: {Fam}Chunk<'_>,
+    d: &Dimensions,
+    min_chunk: usize,
+    dens_threshold: f64,
+    f: &F,
+) where
+    F: Fn(&mut {Fam}Chunk<'_>) + Sync,
 {{
     if chunk.np <= min_chunk {{
-        f(chunk);
+        zero_outputs(&mut chunk);
+        screened_call(chunk, d, dens_threshold, f);
         return;
     }}
     let mid = chunk.np / 2;
     let (l, r) = chunk.split_at(mid, d);
     rayon::join(
-        || par_sweep(l, d, min_chunk, f),
-        || par_sweep(r, d, min_chunk, f),
+        || par_sweep(l, d, min_chunk, dens_threshold, f),
+        || par_sweep(r, d, min_chunk, dens_threshold, f),
     );
 }}
 '''
@@ -194,7 +379,7 @@ def gen_family(fam: str, inputs: list[str], outputs: list[str]) -> str:
     for spin, suf in (("Unpolarized", "u"), ("Polarized", "p")):
         for o in ORDERS:
             fields = "\n".join(
-                f'                        c.{f}.expect("prepare guarantees this buffer"),'
+                f'                        c.{f}.as_deref_mut().expect("prepare guarantees this buffer"),'
                 for f in per_order[o]
             )
             ins = ", ".join(f"c.{n}" for n in inputs)
@@ -203,7 +388,7 @@ def gen_family(fam: str, inputs: list[str], outputs: list[str]) -> str:
             # inner `$` is what makes it a metavariable rather than the literal
             # token `exc_u`.
             arms.append(
-                f'''            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), &|c| {{
+                f'''            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_{fam}::{Fam}Chunk<'_>| {{
                 $(${o.lower()}_{suf})::+(
                         {ins},
 {fields}
@@ -238,9 +423,14 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {{
     }}
 }}
 
-/// Validate and zero the caller's buffers, then build the chunk view.
+/// Validate the caller's buffers and build the chunk view.
 ///
-/// Kernels accumulate with `+=`, so every destination must start at zero.
+/// Kernels accumulate with `+=`, so every destination must start at zero --
+/// but that zeroing happens per chunk inside `par_sweep`, not here. See the
+/// comment on `zero_outputs` for why. Buffers the caller supplied for an order
+/// higher than the one requested are still cleared here: they are dropped from
+/// the chunk, so the sweep never sees them, and leaving stale values in a
+/// buffer the caller handed us would be worse than the cost of clearing it.
 pub fn prepare<'a>(
     input: &'a {Fam}Input<'a>,
     output: &'a mut {Fam}Output<'a>,
@@ -261,7 +451,6 @@ pub fn prepare<'a>(
                             field: $name, expected, actual: b.len(),
                         }});
                     }}
-                    b.fill(0.0);
                     Some(b)
                 }}
                 Some(b) => {{ b.fill(0.0); None }}
@@ -365,10 +554,25 @@ pub fn dispatch<'a>(
 
 
 def main() -> int:
-    pj = Path("/tmp/claude-1000/-home-user-Documents-workspace-libxc-rs/"
-              "78e33b5d-8bf8-4054-9d36-17af297d1ad0/scratchpad/params.json")
+    # The params file used to be a hard-coded path into one session's
+    # scratchpad, which stopped existing the moment that session ended and
+    # took the whole regen pipeline with it. Default it next to this script
+    # and let the caller override.
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument(
+        "--params",
+        type=Path,
+        default=REPO / "tools" / "translate_rayon" / "params.json",
+        help="extract_params.py --json output (default: %(default)s)",
+    )
+    args = ap.parse_args()
+    pj = args.params
     if not pj.is_file():
-        print("run extract_params.py --json first", file=sys.stderr)
+        print(
+            f"missing {pj}\nrun: python3 tools/translate_rayon/extract_params.py "
+            f"--json {pj}",
+            file=sys.stderr,
+        )
         return 2
     data = json.loads(pj.read_text())
     resolved, unresolved = data["resolved"], data["unresolved"]

@@ -1,12 +1,12 @@
 //! GGA_XC_TH3 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_xc_th3.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
+use libxc_rkernel_math::constants::{M_CBRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -29,11 +29,11 @@ pub fn gga_xc_th3_exc_pol(
     param_omega_11: f64,
     param_omega_12: f64,
     param_omega_13: f64,
+    param_omega_18: f64,
     param_omega_14: f64,
     param_omega_15: f64,
     param_omega_16: f64,
     param_omega_17: f64,
-    param_omega_18: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -161,8 +161,8 @@ pub fn gga_xc_th3_exc_pol(
         let t156 = param_omega_17;
         let t157 = t156 * t27;
         let t159 = param_omega_18;
-        let t160 = f64::powf(rho0, 0.10833333333333333333e1);
-        let t161 = f64::powf(rho1, 0.10833333333333333333e1);
+        let t160 = f64::powf(rho0, 1.0833333333333333);
+        let t161 = f64::powf(rho1, 1.0833333333333333);
         let t164 = t1 * t6 + t8 * t13 + t15 * t20 + t22 * t27 + t41 * t71 / 2.0 + t75 * t71 / 2.0 + t79 * t71 / 2.0 + t92 * t71 / 2.0 + t96 * t112 / 2.0 + t116 * t112 / 2.0 + t121 * t112 / 2.0 + t125 * t136 + t139 * t136 + t142 * t136 + t145 * t148 + t151 * t148 + t154 * t148 + t157 * t148 + t159 * (t160 + t161);
         let tzk0 = t164 * t47;
         zk[ip] += tzk0;

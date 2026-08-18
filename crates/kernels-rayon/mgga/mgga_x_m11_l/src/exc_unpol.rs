@@ -1,8 +1,8 @@
 //! MGGA_X_M11_L exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11_l.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m11_l.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -18,7 +18,6 @@ pub fn mgga_x_m11_l_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -30,7 +29,7 @@ pub fn mgga_x_m11_l_exc_unpol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
-    param_b_0: f64,
+    param_a_0: f64,
     param_b_1: f64,
     param_b_2: f64,
     param_b_3: f64,
@@ -42,7 +41,7 @@ pub fn mgga_x_m11_l_exc_unpol(
     param_b_9: f64,
     param_b_10: f64,
     param_b_11: f64,
-    param_c_0: f64,
+    param_b_0: f64,
     param_c_1: f64,
     param_c_2: f64,
     param_c_3: f64,
@@ -54,7 +53,7 @@ pub fn mgga_x_m11_l_exc_unpol(
     param_c_9: f64,
     param_c_10: f64,
     param_c_11: f64,
-    param_d_0: f64,
+    param_c_0: f64,
     param_d_1: f64,
     param_d_2: f64,
     param_d_3: f64,
@@ -66,6 +65,7 @@ pub fn mgga_x_m11_l_exc_unpol(
     param_d_9: f64,
     param_d_10: f64,
     param_d_11: f64,
+    param_d_0: f64,
     param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
@@ -93,9 +93,9 @@ pub fn mgga_x_m11_l_exc_unpol(
         let t30 = piecewise3(t13, t14, t16);
         let t31 = 1.0 / t30;
         let t34 = t27 * t4 / t19 * t31 / 18.0;
-        let t35 = 0.135e1 <= t34;
-        let t36 = 0.135e1 < t34;
-        let t37 = piecewise3(t36, t34, 0.135e1);
+        let t35 = 1.35 <= t34;
+        let t36 = 1.35 < t34;
+        let t37 = piecewise3(t36, t34, 1.35);
         let t38 = t37 * t37;
         let t41 = t38 * t38;
         let t42 = 1.0 / t41;
@@ -108,7 +108,7 @@ pub fn mgga_x_m11_l_exc_unpol(
         let t57 = 1.0 / t47 / t44;
         let t59 = t47 * t47;
         let t60 = 1.0 / t59;
-        let t63 = piecewise3(t36, 0.135e1, t34);
+        let t63 = piecewise3(t36, 1.35, t34);
         let t64 = f64::sqrt(M_PI);
         let t65 = 1.0 / t63;
         let t67 = erf_approx(t65 / 2.0);
@@ -118,7 +118,7 @@ pub fn mgga_x_m11_l_exc_unpol(
         let t73 = t72 - 1.0;
         let t76 = t72 - 3.0 / 2.0 - 2.0 * t69 * t73;
         let t79 = 2.0 * t63 * t76 + t64 * t67;
-        let t83 = piecewise3(t35, 1.0 / t38 / 36.0 - t42 / 960.0 + t45 / 26880.0 - t48 / 829440.0 + t51 / 28385280.0 - t54 / 0.107347968e10 + t57 / 0.445906944e11 - t60 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t63 * t79);
+        let t83 = piecewise3(t35, 1.0 / t38 / 36.0 - t42 / 960.0 + t45 / 26880.0 - t48 / 829440.0 + t51 / 28385280.0 - t54 / 1073479680.0 + t57 / 44590694400.0 - t60 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t63 * t79);
         let t84 = M_CBRT6;
         let t85 = M_PI * M_PI;
         let t86 = pow_1_3(t85);
@@ -132,8 +132,8 @@ pub fn mgga_x_m11_l_exc_unpol(
         let t94 = t19 * t19;
         let t96 = 1.0 / t94 / t93;
         let t98 = t89 * t92 * t96;
-        let t100 = 0.804e0 + 0.914625e-2 * t98;
-        let t103 = 0.1804e1 - 0.646416e0 / t100;
+        let t100 = 0.804 + 0.00914625 * t98;
+        let t103 = 1.804 - 0.646416 / t100;
         let t105 = param_a_1;
         let t106 = t84 * t84;
         let t108 = 3.0 / 10.0 * t106 * t87;
@@ -192,8 +192,8 @@ pub fn mgga_x_m11_l_exc_unpol(
         let t174 = t172 * t173;
         let t176 = 1.0 / t157 / t127;
         let t178 = t114 * t116 + t120 * t122 + t126 * t128 + t132 * t134 + t138 * t140 + t144 * t146 + t150 * t152 + t156 * t158 + t162 * t164 + t168 * t170 + t174 * t176 + param_a_0;
-        let t181 = f64::exp(-0.93189002206715572255e-2 * t98);
-        let t183 = 0.1552e1 - 0.552e0 * t181;
+        let t181 = f64::exp(-0.009318900220671557 * t98);
+        let t183 = 1.552 - 0.552 * t181;
         let t185 = param_b_1;
         let t186 = t185 * t113;
         let t188 = param_b_2;

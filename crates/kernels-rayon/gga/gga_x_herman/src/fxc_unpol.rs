@@ -1,8 +1,8 @@
 //! GGA_X_HERMAN fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_herman.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_herman.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -45,26 +45,26 @@ pub fn gga_x_herman_fxc_unpol(
         let t30 = rho[ip] * rho[ip];
         let t31 = t18 * t18;
         let t33 = 1.0 / t31 / t30;
-        let t37 = 1.0 + 0.66666666666666666668e-3 * t20 * t23 * t25 * sigma[ip] * t28 * t33;
+        let t37 = 1.0 + 0.0006666666666666666 * t20 * t23 * t25 * sigma[ip] * t28 * t33;
         let t41 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t37);
         let tzk0 = 2.0 * t41;
         zk[ip] += tzk0;
         let t47 = t30 * rho[ip];
         let t50 = t17 / t18 / t47;
         let t53 = t25 * sigma[ip] * t28;
-        let t57 = piecewise3(t2, 0.0, -t6 * t17 / t31 * t37 / 8.0 + 0.13655681265105913629e-2 * t50 * t23 * t53);
+        let t57 = piecewise3(t2, 0.0, -t6 * t17 / t31 * t37 / 8.0 + 0.0013655681265105914 * t50 * t23 * t53);
         let tvrho0 = 2.0 * rho[ip] * t57 + 2.0 * t41;
         vrho[ip] += tvrho0;
         let t64 = t23 * t25 * t28;
-        let t67 = piecewise3(t2, 0.0, -0.51208804744147176112e-3 * t17 / t18 / t30 * t64);
+        let t67 = piecewise3(t2, 0.0, -0.0005120880474414717 * t17 / t18 / t30 * t64);
         let tvsigma0 = 2.0 * rho[ip] * t67;
         vsigma[ip] += tvsigma0;
         let t76 = t30 * t30;
         let t79 = t17 / t18 / t76;
-        let t84 = piecewise3(t2, 0.0, t6 * t17 / t31 / rho[ip] * t37 / 12.0 - 0.40967043795317740887e-2 * t79 * t23 * t53);
+        let t84 = piecewise3(t2, 0.0, t6 * t17 / t31 / rho[ip] * t37 / 12.0 - 0.004096704379531774 * t79 * t23 * t53);
         let tv2rho20 = 2.0 * rho[ip] * t84 + 4.0 * t57;
         v2rho2[ip] += tv2rho20;
-        let t89 = piecewise3(t2, 0.0, 0.11948721106967674426e-2 * t50 * t64);
+        let t89 = piecewise3(t2, 0.0, 0.0011948721106967675 * t50 * t64);
         let tv2rhosigma0 = 2.0 * rho[ip] * t89 + 2.0 * t67;
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2sigma20 = 0.0;

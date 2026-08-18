@@ -1,8 +1,8 @@
 //! GGA_X_BAYESIAN fxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -58,9 +58,9 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t45 = t44 * t44;
         let t46 = 1.0 / t45;
         let t47 = t33 * t46;
-        let t50 = 0.1926e0 + 0.79008333333333333333e-1 * t26 * t47;
+        let t50 = 0.1926 + 0.07900833333333333 * t26 * t47;
         let t51 = t46 * t50;
-        let t55 = 0.10008e1 + t26 * t33 * t51 / 24.0;
+        let t55 = 1.0008 + t26 * t33 * t51 / 24.0;
         let t59 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t55);
         let tzk0 = 2.0 * t59;
         zk[ip] += tzk0;
@@ -77,7 +77,7 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t79 = 1.0 / t45 / t44;
         let t80 = t77 * t79;
         let t84 = t68 * t46;
-        let t89 = -0.21068888888888888889e0 * t26 * t84 + 0.21068888888888888889e0 * t74 * t80;
+        let t89 = -0.2106888888888889 * t26 * t84 + 0.2106888888888889 * t74 * t80;
         let t90 = t46 * t89;
         let t94 = -t26 * t68 * t51 / 9.0 + t74 * t80 * t50 / 9.0 + t26 * t33 * t90 / 24.0;
         let t99 = piecewise3(t2, 0.0, -t6 * t61 * t55 / 8.0 - 3.0 / 8.0 * t6 * t19 * t94);
@@ -88,7 +88,7 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t106 = t72 * t37;
         let t107 = 1.0 / t75;
         let t108 = t107 * t79;
-        let t115 = 0.79008333333333333333e-1 * t25 * t47 - 0.79008333333333333333e-1 * t106 * t108;
+        let t115 = 0.07900833333333333 * t25 * t47 - 0.07900833333333333 * t106 * t108;
         let t116 = t46 * t115;
         let t120 = t102 * t103 * t50 / 24.0 - t106 * t108 * t50 / 24.0 + t26 * t33 * t116 / 24.0;
         let t124 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t120);
@@ -111,7 +111,7 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t162 = t50 * t34 * t161;
         let t168 = t138 * t46;
         let t175 = t157 * t34 * t161;
-        let t178 = 0.77252592592592592593e0 * t26 * t168 - 0.16152814814814814814e1 * t74 * t144 + 0.7022962962962962963e-1 * t152 * t155 * t175;
+        let t178 = 0.772525925925926 * t26 * t168 - 1.6152814814814815 * t74 * t144 + 0.07022962962962963 * t152 * t155 * t175;
         let t179 = t46 * t178;
         let t183 = 11.0 / 27.0 * t26 * t138 * t51 - 23.0 / 27.0 * t74 * t144 * t50 - 2.0 / 9.0 * t26 * t68 * t90 + t159 * t162 / 27.0 + 2.0 / 9.0 * t74 * t80 * t89 + t26 * t33 * t179 / 24.0;
         let t188 = piecewise3(t2, 0.0, t6 * t129 * t55 / 12.0 - t6 * t61 * t94 / 4.0 - 3.0 / 8.0 * t6 * t19 * t183);
@@ -125,7 +125,7 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t208 = 1.0 / t18 / t142;
         let t210 = t206 * t208 * t157;
         let t224 = t79 * t37;
-        let t230 = -0.21068888888888888889e0 * t25 * t84 + 0.52672222222222222222e0 * t198 * t224 - 0.26336111111111111111e-1 * t206 * t208 * t175;
+        let t230 = -0.2106888888888889 * t25 * t84 + 0.5267222222222222 * t198 * t224 - 0.026336111111111112 * t206 * t208 * t175;
         let t231 = t46 * t230;
         let t235 = -t102 * t194 * t50 / 9.0 + 5.0 / 18.0 * t198 * t200 + t102 * t103 * t89 / 24.0 - t210 * t162 / 72.0 - t106 * t108 * t89 / 24.0 - t26 * t68 * t116 / 9.0 + t74 * t80 * t115 / 9.0 + t26 * t33 * t231 / 24.0;
         let t240 = piecewise3(t2, 0.0, -t6 * t61 * t120 / 8.0 - 3.0 / 8.0 * t6 * t19 * t235);
@@ -138,7 +138,7 @@ pub fn gga_x_bayesian_fxc_unpol(
         let t254 = t253 * t157;
         let t260 = t79 * t244;
         let t263 = t36 * t27;
-        let t266 = -0.1185125e0 * t243 * t260 + 0.98760416666666666666e-2 * t254 * t263;
+        let t266 = -0.1185125 * t243 * t260 + 0.009876041666666667 * t254 * t263;
         let t267 = t46 * t266;
         let t271 = -t243 * t245 / 16.0 + t102 * t103 * t115 / 12.0 + t254 * t162 / 192.0 - t106 * t108 * t115 / 12.0 + t26 * t33 * t267 / 24.0;
         let t275 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t271);

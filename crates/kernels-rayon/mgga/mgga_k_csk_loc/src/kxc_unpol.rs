@@ -1,8 +1,8 @@
 //! MGGA_K_CSK_LOC kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_csk_loc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_csk_loc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,9 +51,9 @@ pub fn mgga_k_csk_loc_kxc_unpol(
     v3lapl2tau: &mut [f64],
     v3lapltau2: &mut [f64],
     v3tau3: &mut [f64],
-    param_csk_a: f64,
     param_csk_cp: f64,
     param_csk_cq: f64,
+    param_csk_a: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

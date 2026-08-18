@@ -1,8 +1,8 @@
 //! MGGA_X_PKZB exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_pkzb.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_pkzb.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -61,8 +61,8 @@ pub fn mgga_x_pkzb_exc_unpol(
         let t57 = t30 * t30;
         let t58 = t57 * rho[ip];
         let t60 = 1.0 / t19 / t58;
-        let t64 = 0.804e0 + 5.0 / 972.0 * t35 + 146.0 / 2025.0 * t45 - 73.0 / 9720.0 * t48 * t34 + 0.45818468001825619316e-3 * t54 * t56 * t60;
-        let t67 = 0.1804e1 - 0.646416e0 / t64;
+        let t64 = 0.804 + 5.0 / 972.0 * t35 + 146.0 / 2025.0 * t45 - 73.0 / 9720.0 * t48 * t34 + 0.0004581846800182562 * t54 * t56 * t60;
+        let t67 = 1.804 - 0.646416 / t64;
         let t71 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t18 * t19 * t67);
         let tzk0 = 2.0 * t71;
         zk[ip] += tzk0;

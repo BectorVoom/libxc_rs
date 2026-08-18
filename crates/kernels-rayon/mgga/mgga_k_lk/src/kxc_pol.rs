@@ -1,12 +1,12 @@
 //! MGGA_K_LK kxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_lk.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -129,7 +129,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t92 = param_kappa * param_kappa;
         let t93 = 1.0 / t92;
         let t94 = t91 * t93;
-        let t99 = 1.0 + (5.0 / 324.0 * t80 * t83 + 125.0 / 0.45349632e8 * t89 * t94) * t72;
+        let t99 = 1.0 + (5.0 / 324.0 * t80 * t83 + 125.0 / 45349632.0 * t89 * t94) * t72;
         let t103 = 1.0 + param_kappa * (2.0 - 1.0 / t78 - 1.0 / t99);
         let t107 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t29 * t31 * t103);
         let t108 = rho1 <= dens_threshold;
@@ -167,7 +167,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t163 = t134 * t134;
         let t164 = 1.0 / t163;
         let t165 = t164 * t93;
-        let t170 = 1.0 + (5.0 / 324.0 * t155 * t158 + 125.0 / 0.45349632e8 * t162 * t165) * t72;
+        let t170 = 1.0 + (5.0 / 324.0 * t155 * t158 + 125.0 / 45349632.0 * t162 * t165) * t72;
         let t174 = 1.0 + param_kappa * (2.0 - 1.0 / t153 - 1.0 / t170);
         let t178 = piecewise3(t108, 0.0, 3.0 / 20.0 * t7 * t117 * t31 * t174);
         let tzk0 = t107 + t178;
@@ -252,7 +252,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t356 = -t345 + t347;
         let t358 = t43 * t356 * t72;
         let t361 = t87 * t65;
-        let t364 = 5.0 / 324.0 * t38 * t83 + 5.0 / 324.0 * t80 * t358 + 125.0 / 0.15116544e8 * t361 * t94;
+        let t364 = 5.0 / 324.0 * t38 * t83 + 5.0 / 324.0 * t80 * t358 + 125.0 / 15116544.0 * t361 * t94;
         let t367 = t199 * t351 * t72 + t225 * t364 * t72;
         let t368 = t197 * t367;
         let t371 = piecewise3(t2, 0.0, 3.0 / 20.0 * t196 * t368);
@@ -268,7 +268,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t387 = -t376 + t378;
         let t389 = t123 * t387 * t72;
         let t392 = t87 * t141;
-        let t395 = 5.0 / 324.0 * t38 * t158 + 5.0 / 324.0 * t155 * t389 + 125.0 / 0.15116544e8 * t392 * t165;
+        let t395 = 5.0 / 324.0 * t38 * t158 + 5.0 / 324.0 * t155 * t389 + 125.0 / 15116544.0 * t392 * t165;
         let t398 = t289 * t382 * t72 + t315 * t395 * t72;
         let t399 = t197 * t398;
         let t402 = piecewise3(t108, 0.0, 3.0 / 20.0 * t287 * t399);
@@ -1256,7 +1256,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t2352 = t408 * t1045;
         let t2354 = t2348 * t2351 * t2352;
         let t2356 = t2152 * t364;
-        let t2362 = 6.0 * t2123 * t1985 + t2334 / 1296.0 - t1994 * t2128 * t351 / 1458.0 + 25.0 / 17496.0 * t2135 * t2340 - 25.0 / 26244.0 * t1043 * t208 * t1046 + 25.0 / 0.22674816e8 * t2354 - 5.0 / 78732.0 * t2028 * t2356 + 5.0 / 157464.0 * t997 * t1050 * t93;
+        let t2362 = 6.0 * t2123 * t1985 + t2334 / 1296.0 - t1994 * t2128 * t351 / 1458.0 + 25.0 / 17496.0 * t2135 * t2340 - 25.0 / 26244.0 * t1043 * t208 * t1046 + 25.0 / 22674816.0 * t2354 - 5.0 / 78732.0 * t2028 * t2356 + 5.0 / 157464.0 * t997 * t1050 * t93;
         let t2363 = t197 * t2362;
         let t2366 = piecewise3(t2, 0.0, 3.0 / 20.0 * t196 * t2363);
         let tv3sigmalapl20 = t8 * t2366;
@@ -1286,7 +1286,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t2387 = t427 * t1045;
         let t2389 = t2383 * t2386 * t2387;
         let t2391 = t2206 * t395;
-        let t2397 = 6.0 * t2179 * t2059 + t2371 / 1296.0 - t2068 * t2184 * t382 / 1458.0 + 25.0 / 17496.0 * t2191 * t2377 - 25.0 / 26244.0 * t1069 * t298 * t1070 + 25.0 / 0.22674816e8 * t2389 - 5.0 / 78732.0 * t2102 * t2391 + 5.0 / 157464.0 * t1023 * t1074 * t93;
+        let t2397 = 6.0 * t2179 * t2059 + t2371 / 1296.0 - t2068 * t2184 * t382 / 1458.0 + 25.0 / 17496.0 * t2191 * t2377 - 25.0 / 26244.0 * t1069 * t298 * t1070 + 25.0 / 22674816.0 * t2389 - 5.0 / 78732.0 * t2102 * t2391 + 5.0 / 157464.0 * t1023 * t1074 * t93;
         let t2398 = t197 * t2397;
         let t2401 = piecewise3(t108, 0.0, 3.0 / 20.0 * t287 * t2398);
         let tv3sigmalapl28 = t8 * t2401;
@@ -1346,7 +1346,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t2424 = t1045 * t33;
         let t2425 = t37 * t408;
         let t2426 = t2424 * t2425;
-        let t2429 = 6.0 * t1137 * t2402 * t854 - t2332 * t2406 / 486.0 + 125.0 / 944784.0 * t2410 * t2414 - 25.0 / 0.12754584e8 * t2348 * t2419 * t2352 - 25.0 / 0.25509168e8 * t2423 * t2426;
+        let t2429 = 6.0 * t1137 * t2402 * t854 - t2332 * t2406 / 486.0 + 125.0 / 944784.0 * t2410 * t2414 - 25.0 / 12754584.0 * t2348 * t2419 * t2352 - 25.0 / 25509168.0 * t2423 * t2426;
         let t2430 = t197 * t2429;
         let t2433 = piecewise3(t2, 0.0, 3.0 / 20.0 * t196 * t2430);
         let tv3lapl30 = t8 * t2433;
@@ -1366,7 +1366,7 @@ pub fn mgga_k_lk_kxc_pol(
         let t2453 = t2101 * t2449;
         let t2454 = t37 * t427;
         let t2455 = t2424 * t2454;
-        let t2458 = 6.0 * t1449 * t2434 * t854 - t2369 * t2438 / 486.0 + 125.0 / 944784.0 * t2442 * t2444 - 25.0 / 0.12754584e8 * t2383 * t2449 * t2387 - 25.0 / 0.25509168e8 * t2453 * t2455;
+        let t2458 = 6.0 * t1449 * t2434 * t854 - t2369 * t2438 / 486.0 + 125.0 / 944784.0 * t2442 * t2444 - 25.0 / 12754584.0 * t2383 * t2449 * t2387 - 25.0 / 25509168.0 * t2453 * t2455;
         let t2459 = t197 * t2458;
         let t2462 = piecewise3(t108, 0.0, 3.0 / 20.0 * t287 * t2459);
         let tv3lapl33 = t8 * t2462;

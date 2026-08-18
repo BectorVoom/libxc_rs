@@ -1,8 +1,8 @@
 //! GGA_C_SG4 vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_sg4.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_sg4.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -29,7 +29,7 @@ pub fn gga_c_sg4_vxc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -37,20 +37,20 @@ pub fn gga_c_sg4_vxc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081979498692535067e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081979498692537 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.621814e-1 * t12 * t30;
+        let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608749977793437516e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608749977793437 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751673498613801407e-1 * t43 * t45 * t54;
+        let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = t34 * t34;
         let t59 = piecewise3(t33, t58, 1.0);
         let t60 = f64::sqrt(sigma[ip]);
@@ -63,7 +63,7 @@ pub fn gga_c_sg4_vxc_unpol(
         let t68 = 1.0 / t67;
         let t70 = 1.0 / t13 / t10;
         let t71 = t68 * t70;
-        let t74 = f64::powf(t59, 0.5e-1 * t61 * t64 * t71);
+        let t74 = f64::powf(t59, 0.05 * t61 * t64 * t71);
         let t75 = f64::ln(2.0);
         let t76 = 1.0 - t75;
         let t77 = t74 * t76;
@@ -78,7 +78,7 @@ pub fn gga_c_sg4_vxc_unpol(
         let t90 = f64::exp(-t24 / 4.0);
         let t91 = 1.0 - t90;
         let t92 = t88 * t91;
-        let t95 = 0.79638450342877488353e-1 + 0.175e-1 * t60 * t82 * t84 * t92;
+        let t95 = 0.07963845034287749 + 0.0175 * t60 * t82 * t84 * t92;
         let t97 = 1.0 / t7 / t62;
         let t100 = 1.0 / t66;
         let t102 = 1.0 / t3;
@@ -114,7 +114,7 @@ pub fn gga_c_sg4_vxc_unpol(
         zk[ip] += tzk0;
         let t145 = t6 * t82;
         let t147 = t4 * t145 * t30;
-        let t148 = 0.11073470983333333333e-2 * t147;
+        let t148 = 0.0011073470983333333 * t147;
         let t149 = t26 * t26;
         let t150 = 1.0 / t149;
         let t151 = t12 * t150;
@@ -128,29 +128,29 @@ pub fn gga_c_sg4_vxc_unpol(
         let t161 = t160 * t154;
         let t165 = t5 / t21 / rho[ip];
         let t166 = t20 * t165;
-        let t168 = -0.632975e0 * t155 - 0.29896666666666666667e0 * t157 - 0.1023875e0 * t161 - 0.82156666666666666667e-1 * t166;
+        let t168 = -0.632975 * t155 - 0.29896666666666666 * t157 - 0.1023875 * t161 - 0.08215666666666667 * t166;
         let t169 = 1.0 / t29;
         let t170 = t168 * t169;
         let t171 = t151 * t170;
         let t172 = 1.0 * t171;
         let t173 = t43 * t1;
         let t176 = t173 * t153 * t82 * t54;
-        let t177 = 0.18311447306006545054e-3 * t176;
+        let t177 = 0.00018311447306006544 * t176;
         let t178 = t43 * t45;
         let t179 = t50 * t50;
         let t180 = 1.0 / t179;
-        let t185 = -0.86308333333333333334e0 * t155 - 0.301925e0 * t157 - 0.5501625e-1 * t161 - 0.82785e-1 * t166;
+        let t185 = -0.8630833333333333 * t155 - 0.301925 * t157 - 0.05501625 * t161 - 0.082785 * t166;
         let t187 = 1.0 / t53;
         let t188 = t180 * t185 * t187;
         let t189 = t178 * t188;
-        let t190 = 0.5848223622634646207e0 * t189;
+        let t190 = 0.5848223622634646 * t189;
         let t191 = t63 * rho[ip];
         let t192 = 1.0 / t191;
         let t197 = 1.0 / t7 / t191;
         let t202 = 1.0 / t13 / t24 / 4.0;
         let t203 = t202 * t1;
         let t204 = t203 * t153;
-        let t207 = -0.2e0 * t61 * t192 * t71 + 0.25e-1 * t61 * t197 * t68 * t204;
+        let t207 = -0.2 * t61 * t192 * t71 + 0.025 * t61 * t197 * t68 * t204;
         let t208 = t74 * t207;
         let t209 = f64::ln(t59);
         let t211 = t76 * t79;
@@ -166,7 +166,7 @@ pub fn gga_c_sg4_vxc_unpol(
         let t235 = t19 * t5;
         let t236 = t235 * t90;
         let t237 = t87 * t18 * t236;
-        let t240 = -0.23333333333333333333e-1 * t60 * t97 * t84 * t92 + 0.29166666666666666667e-2 * t60 * t221 * t223 * t227 - 0.29166666666666666667e-2 * t60 * t231 * t223 * t237;
+        let t240 = -0.023333333333333334 * t60 * t97 * t84 * t92 + 0.002916666666666667 * t60 * t221 * t223 * t227 - 0.002916666666666667 * t60 * t231 * t223 * t237;
         let t241 = t240 * t132;
         let t244 = 1.0 / t7 / t230;
         let t249 = t240 * t107;
@@ -213,7 +213,7 @@ pub fn gga_c_sg4_vxc_unpol(
         let t307 = t74 * t60;
         let t310 = t76 * t142;
         let t311 = t70 * t209 * t310;
-        let t313 = 0.75990887731753328581e-2 * t307 * t64 * t311;
+        let t313 = 0.007599088773175333 * t307 * t64 * t311;
         let t314 = 1.0 / t60;
         let t315 = t314 * t82;
         let t316 = t315 * t223;
@@ -235,15 +235,15 @@ pub fn gga_c_sg4_vxc_unpol(
         let t339 = t338 * t128;
         let t342 = t116 * sigma[ip];
         let t343 = t108 * t342;
-        let t346 = t97 * t39 * t100 * t326 / 96.0 + 0.56223332362976489528e-4 * t331 * t335 * t339 + t343 * t129 / 1536.0;
+        let t346 = t97 * t39 * t100 * t326 / 96.0 + 5.622333236297649e-05 * t331 * t335 * t339 + t343 * t129 / 1536.0;
         let t347 = t95 * t346;
         let t349 = t107 * t115;
         let t350 = t349 * t132;
         let t351 = t317 * t350;
         let t354 = t116 * t346;
-        let t356 = 0.86359038509531887917e-1 * t316 * t351 + t108 * t354;
+        let t356 = 0.08635903850953189 * t316 * t351 + t108 * t354;
         let t357 = t287 * t356;
-        let t359 = 0.86359038509531887917e-1 * t316 * t320 + t347 * t139 - t284 * t357;
+        let t359 = 0.08635903850953189 * t316 * t320 + t347 * t139 - t284 * t357;
         let t360 = t67 * t359;
         let t361 = t360 * t302;
         let t362 = t215 * t361;

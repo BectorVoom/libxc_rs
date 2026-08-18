@@ -1,8 +1,8 @@
 //! MGGA_X_MBRXC_BG exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_mbrxc_bg.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -53,7 +53,7 @@ pub fn mgga_x_mbrxc_bg_exc_unpol(
         let t44 = t37 * t37;
         let t45 = t44 * rho[ip];
         let t47 = 1.0 / t19 / t45;
-        let t50 = 0.149492e0 * t23 * t26 - 3.0 / 10.0 * t30 * t33 + 0.147e0 * t36 * t39 + 0.64e-2 * t43 * t47;
+        let t50 = 0.149492 * t23 * t26 - 3.0 / 10.0 * t30 * t33 + 0.147 * t36 * t39 + 0.0064 * t43 * t47;
         let t51 = xc_mgga_x_mbrxc_get_x(t50);
         let t52 = pow_1_4(f64::EPSILON);
         let t53 = t51 < t52;

@@ -1,8 +1,8 @@
 //! MGGA_X_VT84 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_vt84.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_vt84.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -52,7 +52,7 @@ pub fn mgga_x_vt84_exc_unpol(
         let t37 = 1.0 / t36;
         let t38 = t29 * t37;
         let t42 = M_CBRT6;
-        let t43 = (10.0 / 81.0 + 0.419826171875e-2 * t26 * t38) * t42;
+        let t43 = (10.0 / 81.0 + 0.00419826171875 * t26 * t38) * t42;
         let t44 = M_PI * M_PI;
         let t45 = pow_1_3(t44);
         let t46 = t45 * t45;
@@ -70,7 +70,7 @@ pub fn mgga_x_vt84_exc_unpol(
         let t64 = t63 * t42;
         let t67 = 5.0 / 9.0 * t64 * t47 - 1.0;
         let t68 = t47 * t67;
-        let t71 = 1.0 + 0.22222222222222222222e0 * t64 * t68;
+        let t71 = 1.0 + 0.2222222222222222 * t64 * t68;
         let t72 = f64::sqrt(t71);
         let t73 = 1.0 / t72;
         let t76 = t42 * t47;
@@ -89,19 +89,19 @@ pub fn mgga_x_vt84_exc_unpol(
         let t96 = f64::sqrt(t95);
         let t101 = t88 * t88;
         let t102 = 1.0 / t101;
-        let t105 = t48 * t55 / 24.0 + 146.0 / 2025.0 * t80 - 73.0 / 97200.0 * t79 * t96 + 0.5301186990888922759e-4 * t93 + 0.19577914932045745128e-2 * t33 + 0.43721079261097766676e-5 * t22 * t102;
-        let t107 = 1.0 + 0.58733744796137235383e-1 * t77;
+        let t105 = t48 * t55 / 24.0 + 146.0 / 2025.0 * t80 - 73.0 / 97200.0 * t79 * t96 + 5.301186990888923e-05 * t93 + 0.0019577914932045744 * t33 + 4.3721079261097765e-06 * t22 * t102;
+        let t107 = 1.0 + 0.05873374479613724 * t77;
         let t108 = t107 * t107;
         let t109 = 1.0 / t108;
         let t110 = t105 * t109;
-        let t112 = f64::exp(-0.1863e-3 * t110);
+        let t112 = f64::exp(-0.0001863 * t110);
         let t113 = 1.0 + t110;
         let t114 = 1.0 / t113;
         let t115 = t112 * t114;
         let t117 = t105 * t105;
         let t118 = t108 * t108;
         let t119 = 1.0 / t118;
-        let t122 = f64::exp(-0.150903e-2 * t117 * t119);
+        let t122 = f64::exp(-0.00150903 * t117 * t119);
         let t123 = 1.0 - t122;
         let t124 = 1.0 / t105;
         let t127 = 10.0 / 81.0 * t124 * t108 - 1.0;

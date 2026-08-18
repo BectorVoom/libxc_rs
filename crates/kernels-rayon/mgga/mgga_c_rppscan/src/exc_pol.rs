@@ -1,8 +1,8 @@
 //! MGGA_C_RPPSCAN exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rppscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_rppscan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -40,7 +40,7 @@ pub fn mgga_c_rppscan_exc_pol(
         let t8 = rho0 + rho1;
         let t9 = pow_1_3(t8);
         let t12 = t5 * t7 / t9;
-        let t14 = 1.0 + 0.53425e-1 * t12;
+        let t14 = 1.0 + 0.053425 * t12;
         let t15 = f64::sqrt(t12);
         let t18 = pow_3_2(t12);
         let t20 = t2 * t2;
@@ -48,10 +48,10 @@ pub fn mgga_c_rppscan_exc_pol(
         let t22 = t20 * t21;
         let t23 = t9 * t9;
         let t26 = t22 * t6 / t23;
-        let t28 = 0.379785e1 * t15 + 0.8969e0 * t12 + 0.204775e0 * t18 + 0.123235e0 * t26;
-        let t31 = 1.0 + 0.16081979498692535067e2 / t28;
+        let t28 = 3.79785 * t15 + 0.8969 * t12 + 0.204775 * t18 + 0.123235 * t26;
+        let t31 = 1.0 + 16.081979498692537 / t28;
         let t32 = f64::ln(t31);
-        let t34 = 0.621814e-1 * t14 * t32;
+        let t34 = 0.0621814 * t14 * t32;
         let t35 = rho0 - rho1;
         let t36 = t35 * t35;
         let t37 = t36 * t36;
@@ -78,19 +78,19 @@ pub fn mgga_c_rppscan_exc_pol(
         let t58 = t57 - 1.0;
         let t60 = 1.0 / t58 / 2.0;
         let t61 = t56 * t60;
-        let t63 = 1.0 + 0.5137e-1 * t12;
-        let t68 = 0.705945e1 * t15 + 0.1549425e1 * t12 + 0.420775e0 * t18 + 0.1562925e0 * t26;
-        let t71 = 1.0 + 0.32163958997385070134e2 / t68;
+        let t63 = 1.0 + 0.05137 * t12;
+        let t68 = 7.05945 * t15 + 1.549425 * t12 + 0.420775 * t18 + 0.1562925 * t26;
+        let t71 = 1.0 + 32.16395899738507 / t68;
         let t72 = f64::ln(t71);
-        let t76 = 1.0 + 0.278125e-1 * t12;
-        let t81 = 0.51785e1 * t15 + 0.905775e0 * t12 + 0.1100325e0 * t18 + 0.1241775e0 * t26;
-        let t84 = 1.0 + 0.29608749977793437516e2 / t81;
+        let t76 = 1.0 + 0.0278125 * t12;
+        let t81 = 5.1785 * t15 + 0.905775 * t12 + 0.1100325 * t18 + 0.1241775 * t26;
+        let t84 = 1.0 + 29.608749977793437 / t81;
         let t85 = f64::ln(t84);
         let t86 = t76 * t85;
-        let t88 = -0.310907e-1 * t63 * t72 + t34 - 0.19751673498613801407e-1 * t86;
+        let t88 = -0.0310907 * t63 * t72 + t34 - 0.0197516734986138 * t86;
         let t89 = t61 * t88;
         let t90 = t41 * t89;
-        let t92 = 0.19751673498613801407e-1 * t61 * t86;
+        let t92 = 0.0197516734986138 * t61 * t86;
         let t93 = f64::ln(2.0);
         let t94 = 1.0 - t93;
         let t95 = M_PI * M_PI;
@@ -103,8 +103,8 @@ pub fn mgga_c_rppscan_exc_pol(
         let t104 = t100 / 2.0 + t102 / 2.0;
         let t105 = t104 * t104;
         let t106 = t105 * t104;
-        let t108 = 1.0 + 0.25e-1 * t12;
-        let t110 = 1.0 + 0.4445e-1 * t12;
+        let t108 = 1.0 + 0.025 * t12;
+        let t110 = 1.0 + 0.04445 * t12;
         let t111 = 1.0 / t110;
         let t112 = t108 * t111;
         let t113 = 1.0 / t94;
@@ -124,7 +124,7 @@ pub fn mgga_c_rppscan_exc_pol(
         let t132 = 1.0 / t4;
         let t133 = t20 * t132;
         let t134 = t133 * t6;
-        let t138 = 1.0 + 0.27439371595564631661e-1 * t126 * t129 * t130 * t134;
+        let t138 = 1.0 + 0.027439371595564633 * t126 * t129 * t130 * t134;
         let t139 = pow_1_4(t138);
         let t141 = 1.0 - 1.0 / t139;
         let t144 = 1.0 + 1.0 * t141 * t120;
@@ -157,19 +157,19 @@ pub fn mgga_c_rppscan_exc_pol(
         let t184 = 3.0 / 10.0 * t177 * (t156 + t166) + t181 * t169 / 8.0;
         let t185 = 1.0 / t184;
         let t186 = t172 * t185;
-        let t187 = t186 <= 0.25e1;
-        let t188 = 0.25e1 < t186;
-        let t189 = piecewise3(t188, 0.25e1, t186);
+        let t187 = t186 <= 2.5;
+        let t188 = 2.5 < t186;
+        let t189 = piecewise3(t188, 2.5, t186);
         let t191 = t189 * t189;
         let t193 = t191 * t189;
         let t195 = t191 * t191;
         let t197 = t195 * t189;
         let t199 = t195 * t191;
-        let t204 = piecewise3(t188, t186, 0.25e1);
+        let t204 = piecewise3(t188, t186, 2.5);
         let t205 = 1.0 - t204;
-        let t208 = f64::exp(0.15e1 / t205);
-        let t210 = piecewise3(t187, 1.0 - 0.64e0 * t189 - 0.4352e0 * t191 - 0.1535685604549e1 * t193 + 0.3061560252175e1 * t195 - 0.1915710236206e1 * t197 + 0.516884468372e0 * t199 - 0.51848879792e-1 * t195 * t193, -0.7e0 * t208);
-        let t213 = 1.0 + 0.4445e-1 * t15 + 0.3138525e-1 * t12;
+        let t208 = f64::exp(1.5 / t205);
+        let t210 = piecewise3(t187, 1.0 - 0.64 * t189 - 0.4352 * t191 - 1.535685604549 * t193 + 3.061560252175 * t195 - 1.915710236206 * t197 + 0.516884468372 * t199 - 0.051848879792 * t195 * t193, -0.7 * t208);
+        let t213 = 1.0 + 0.04445 * t15 + 0.03138525 * t12;
         let t214 = 1.0 / t213;
         let t217 = f64::exp(1.0 * t214);
         let t218 = t217 - 1.0;
@@ -177,13 +177,13 @@ pub fn mgga_c_rppscan_exc_pol(
         let t220 = t173 * t219;
         let t221 = t57 * t57;
         let t222 = t221 * t124;
-        let t226 = 1.0 + 0.21337642104376358333e-1 * t220 * t222 * t169;
+        let t226 = 1.0 + 0.02133764210437636 * t220 * t222 * t169;
         let t227 = pow_1_4(t226);
         let t229 = 1.0 - 1.0 / t227;
         let t231 = t218 * t229 + 1.0;
         let t232 = f64::ln(t231);
-        let t234 = -0.285764e-1 * t214 + 0.285764e-1 * t232;
-        let t238 = 1.0 - 0.2363e1 * t58 * t56 * t60;
+        let t234 = -0.0285764 * t214 + 0.0285764 * t232;
+        let t238 = 1.0 - 2.363 * t58 * t56 * t60;
         let t239 = t234 * t238;
         let t240 = t37 * t37;
         let t241 = t240 * t37;

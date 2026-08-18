@@ -1,8 +1,8 @@
 //! GGA_C_REVTCA exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -50,9 +50,9 @@ pub fn gga_c_revtca_exc_pol(
         let t25 = M_CBRT4;
         let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
-        let t32 = 0.488827e1 + 0.79425925e0 * t24 * t26 / t27;
+        let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
         let t33 = f64::atan(t32);
-        let t35 = -0.655868e0 * t33 + 0.897889e0;
+        let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
         let t37 = t21 * t21;
         let t38 = 1.0 / t23;
@@ -72,8 +72,8 @@ pub fn gga_c_revtca_exc_pol(
         let t53 = t27 * t2;
         let t54 = 1.0 / t53;
         let t56 = t47 * t52 * t54;
-        let t57 = f64::powf(t56, 0.23e1);
-        let t59 = 1.0 + 0.47121507034422759993e-2 * t57;
+        let t57 = f64::powf(t56, 2.3);
+        let t59 = 1.0 + 0.004712150703442276 * t57;
         let t60 = 1.0 / t59;
         let t61 = t1 * t1;
         let t62 = t61 * t61;

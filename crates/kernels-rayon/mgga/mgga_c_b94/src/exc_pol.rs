@@ -1,13 +1,13 @@
 //! MGGA_C_B94 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b94.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_b94.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRTPI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -69,10 +69,10 @@ pub fn mgga_c_b94_exc_pol(
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
         let t47 = f64::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
-        let t49 = t47 / 3.0 < 0.5e-12;
+        let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
-        let t55 = piecewise3(t54, 0.5e-12, -0.5e-12);
+        let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t49, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
         let t59 = f64::exp(t57 / 3.0);
@@ -105,10 +105,10 @@ pub fn mgga_c_b94_exc_pol(
         let t94 = 1.0 / t83 / t92;
         let t95 = t91 * t94;
         let t98 = f64::abs(t86 / 2.0 - 2.0 * t89 + t95 / 4.0);
-        let t100 = t98 / 3.0 < 0.5e-12;
+        let t100 = t98 / 3.0 < 5e-13;
         let t104 = t86 / 6.0 - 2.0 / 3.0 * t89 + t95 / 12.0;
         let t105 = 0.0 < t104;
-        let t106 = piecewise3(t105, 0.5e-12, -0.5e-12);
+        let t106 = piecewise3(t105, 5e-13, -5e-13);
         let t107 = piecewise3(t100, t106, t104);
         let t108 = xc_mgga_x_br89_get_x(t107);
         let t110 = f64::exp(t108 / 3.0);
@@ -127,7 +127,7 @@ pub fn mgga_c_b94_exc_pol(
         let t126 = f64::ln(t125);
         let t127 = t124 - t126;
         let t128 = t124 * t127;
-        let t130 = 0.2e0 * t9 * t128;
+        let t130 = 0.2 * t9 * t128;
         let t132 = 1.0 + t21 <= zeta_threshold;
         let t134 = 1.0 - t21 <= zeta_threshold;
         let t135 = piecewise5(t132, t16, t134, t20, t21);
@@ -172,7 +172,7 @@ pub fn mgga_c_b94_exc_pol(
         let t183 = t65 * t182;
         let t186 = -t180 * t181 * t183 + 1.0;
         let t188 = t161 * t167 * t186;
-        let t191 = piecewise3(t10, 0.0, -0.5433422936572482469e-3 * t155 * t188);
+        let t191 = piecewise3(t10, 0.0, -0.0005433422936572482 * t155 * t188);
         let t192 = piecewise5(t134, t16, t132, t20, -t21);
         let t193 = 1.0 + t192;
         let t194 = t193 * t193;
@@ -207,7 +207,7 @@ pub fn mgga_c_b94_exc_pol(
         let t232 = t116 * t231;
         let t235 = -t229 * t230 * t232 + 1.0;
         let t237 = t212 * t218 * t235;
-        let t240 = piecewise3(t72, 0.0, -0.5433422936572482469e-3 * t206 * t237);
+        let t240 = piecewise3(t72, 0.0, -0.0005433422936572482 * t206 * t237);
         let tzk0 = -t130 + t191 + t240;
         zk[ip] += tzk0;
     }

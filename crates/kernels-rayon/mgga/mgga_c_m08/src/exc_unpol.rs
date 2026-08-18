@@ -1,8 +1,8 @@
 //! MGGA_C_M08 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m08.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_m08.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,7 +17,6 @@ pub fn mgga_c_m08_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_m08_a_0: f64,
     param_m08_a_1: f64,
     param_m08_a_2: f64,
     param_m08_a_3: f64,
@@ -29,7 +28,7 @@ pub fn mgga_c_m08_exc_unpol(
     param_m08_a_9: f64,
     param_m08_a_10: f64,
     param_m08_a_11: f64,
-    param_m08_b_0: f64,
+    param_m08_a_0: f64,
     param_m08_b_1: f64,
     param_m08_b_2: f64,
     param_m08_b_3: f64,
@@ -41,6 +40,7 @@ pub fn mgga_c_m08_exc_unpol(
     param_m08_b_9: f64,
     param_m08_b_10: f64,
     param_m08_b_11: f64,
+    param_m08_b_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -118,25 +118,25 @@ pub fn mgga_c_m08_exc_unpol(
         let t89 = M_CBRT4;
         let t90 = t89 * t89;
         let t93 = t88 * t90 / t14;
-        let t95 = 1.0 + 0.53425e-1 * t93;
+        let t95 = 1.0 + 0.053425 * t93;
         let t96 = f64::sqrt(t93);
         let t99 = pow_3_2(t93);
         let t101 = t85 * t85;
         let t102 = t87 * t87;
         let t103 = t101 * t102;
         let t106 = t103 * t89 / t15;
-        let t108 = 0.379785e1 * t96 + 0.8969e0 * t93 + 0.204775e0 * t99 + 0.123235e0 * t106;
-        let t111 = 1.0 + 0.16081979498692535067e2 / t108;
+        let t108 = 3.79785 * t96 + 0.8969 * t93 + 0.204775 * t99 + 0.123235 * t106;
+        let t111 = 1.0 + 16.081979498692537 / t108;
         let t112 = f64::ln(t111);
         let t115 = 1.0 <= zeta_threshold;
         let t116 = pow_1_3(zeta_threshold);
         let t118 = piecewise3(t115, t116 * zeta_threshold, 1.0);
         let t124 = (2.0 * t118 - 2.0) / (2.0 * t11 - 2.0);
-        let t126 = 1.0 + 0.278125e-1 * t93;
-        let t131 = 0.51785e1 * t96 + 0.905775e0 * t93 + 0.1100325e0 * t99 + 0.1241775e0 * t106;
-        let t134 = 1.0 + 0.29608749977793437516e2 / t131;
+        let t126 = 1.0 + 0.0278125 * t93;
+        let t131 = 5.1785 * t96 + 0.905775 * t93 + 0.1100325 * t99 + 0.1241775 * t106;
+        let t134 = 1.0 + 29.608749977793437 / t131;
         let t135 = f64::ln(t134);
-        let t139 = -0.621814e-1 * t95 * t112 + 0.19751673498613801407e-1 * t124 * t126 * t135;
+        let t139 = -0.0621814 * t95 * t112 + 0.0197516734986138 * t124 * t126 * t135;
         let t140 = t84 * t139;
         let t142 = param_m08_b_1;
         let t143 = t142 * t19;
@@ -192,11 +192,11 @@ pub fn mgga_c_m08_exc_unpol(
         let t216 = t85 * t215;
         let t217 = t216 * t90;
         let t218 = t214 * t217;
-        let t221 = sigma[ip] * t187 * t11 * t194 / 96.0 + 0.21437009059034868486e-3 * t205 * t206 * t209 * t218;
+        let t221 = sigma[ip] * t187 * t11 * t194 / 96.0 + 0.0002143700905903487 * t205 * t206 * t209 * t218;
         let t222 = t221 * t197;
-        let t225 = 1.0 + 0.65854491829355115987e0 * t205 * t221;
+        let t225 = 1.0 + 0.6585449182935511 * t205 * t221;
         let t226 = 1.0 / t225;
-        let t229 = 1.0 + 0.65854491829355115987e0 * t222 * t226;
+        let t229 = 1.0 + 0.6585449182935511 * t222 * t226;
         let t230 = f64::ln(t229);
         let t231 = t184 * t230;
         let t232 = t178 * t231;

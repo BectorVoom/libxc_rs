@@ -1,8 +1,8 @@
 //! GGA_C_PW91 exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pw91.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pw91.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -27,7 +27,7 @@ pub fn gga_c_pw91_exc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -35,20 +35,20 @@ pub fn gga_c_pw91_exc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081824322151104822e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081824322151103 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.62182e-1 * t12 * t30;
+        let t32 = 0.062182 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608574643216675549e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608574643216677 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751789702565206229e-1 * t43 * t45 * t54;
+        let t57 = 0.019751789702565206 * t43 * t45 * t54;
         let t58 = M_PI * M_PI;
         let t59 = pow_1_3(t58);
         let t60 = t59 * t59;
@@ -67,7 +67,7 @@ pub fn gga_c_pw91_exc_unpol(
         let t76 = t75 * t5;
         let t77 = t73 * t18 * t76;
         let t83 = 1.0 / t60;
-        let t87 = f64::exp(-0.12897460341341234505e3 * (-t32 + t57) / t65 * t1 * t83);
+        let t87 = f64::exp(-128.97460341341235 * (-t32 + t57) / t65 * t1 * t83);
         let t88 = t87 - 1.0;
         let t89 = 1.0 / t88;
         let t90 = t66 * t89;
@@ -82,7 +82,7 @@ pub fn gga_c_pw91_exc_unpol(
         let t101 = 1.0 / t19;
         let t102 = t101 * t6;
         let t103 = t100 * t102;
-        let t106 = t72 * t77 / 96.0 + 0.27166129655589868296e-2 * t90 * t95 * t103;
+        let t106 = t72 * t77 / 96.0 + 0.0027166129655589867 * t90 * t95 * t103;
         let t107 = t1 * t66;
         let t109 = t107 * t89 * sigma[ip];
         let t110 = t70 * t39;
@@ -96,16 +96,16 @@ pub fn gga_c_pw91_exc_unpol(
         let t122 = t99 * t101;
         let t123 = t122 * t6;
         let t124 = t121 * t123;
-        let t127 = 1.0 + 0.86931614897887578546e-1 * t109 * t110 * t112 + 0.75571056687546295931e-2 * t120 * t124;
+        let t127 = 1.0 + 0.08693161489788757 * t109 * t110 * t112 + 0.0075571056687546295 * t120 * t124;
         let t128 = 1.0 / t127;
-        let t132 = 1.0 + 0.27818116767324025134e1 * t67 * t106 * t128;
+        let t132 = 1.0 + 2.7818116767324024 * t67 * t106 * t128;
         let t133 = f64::ln(t132);
-        let t136 = 0.25844881434903430496e-2 * t61 * t65 * t133;
+        let t136 = 0.002584488143490343 * t61 * t65 * t133;
         let t137 = t2 * t59;
-        let t140 = 0.2568e1 + 0.58165e1 * t10 + 0.184725e-2 * t24;
-        let t143 = 1000.0 + 0.218075e4 * t10 + 118.0 * t24;
+        let t140 = 2.568 + 5.8165 * t10 + 0.00184725 * t24;
+        let t143 = 1000.0 + 2180.75 * t10 + 118.0 * t24;
         let t144 = 1.0 / t143;
-        let t146 = t140 * t144 - 0.18535714285714285714e-2;
+        let t146 = t140 * t144 - 0.0018535714285714286;
         let t147 = t146 * t63;
         let t149 = t137 * t147 * sigma[ip];
         let t151 = pow_1_3(9.0);

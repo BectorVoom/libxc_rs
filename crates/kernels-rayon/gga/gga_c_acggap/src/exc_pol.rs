@@ -1,8 +1,8 @@
 //! GGA_C_ACGGAP exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_acggap.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_acggap.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -34,7 +34,7 @@ pub fn gga_c_acggap_exc_pol(
         let t8 = pow_1_3(t7);
         let t10 = t6 / t8;
         let t11 = t4 * t10;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
@@ -42,10 +42,10 @@ pub fn gga_c_acggap_exc_pol(
         let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t5 / t22;
-        let t27 = 0.379785e1 * t14 + 0.8969e0 * t11 + 0.204775e0 * t17 + 0.123235e0 * t25;
-        let t30 = 1.0 + 0.16081979498692535067e2 / t27;
+        let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
+        let t30 = 1.0 + 16.081979498692537 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.621814e-1 * t13 * t31;
+        let t33 = 0.0621814 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
         let t36 = t35 * t35;
@@ -71,19 +71,19 @@ pub fn gga_c_acggap_exc_pol(
         let t56 = M_CBRT2;
         let t59 = 1.0 / (2.0 * t56 - 2.0);
         let t60 = t55 * t59;
-        let t62 = 1.0 + 0.5137e-1 * t11;
-        let t67 = 0.705945e1 * t14 + 0.1549425e1 * t11 + 0.420775e0 * t17 + 0.1562925e0 * t25;
-        let t70 = 1.0 + 0.32163958997385070134e2 / t67;
+        let t62 = 1.0 + 0.05137 * t11;
+        let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
+        let t70 = 1.0 + 32.16395899738507 / t67;
         let t71 = f64::ln(t70);
-        let t75 = 1.0 + 0.278125e-1 * t11;
-        let t80 = 0.51785e1 * t14 + 0.905775e0 * t11 + 0.1100325e0 * t17 + 0.1241775e0 * t25;
-        let t83 = 1.0 + 0.29608749977793437516e2 / t80;
+        let t75 = 1.0 + 0.0278125 * t11;
+        let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
+        let t83 = 1.0 + 29.608749977793437 / t80;
         let t84 = f64::ln(t83);
         let t85 = t75 * t84;
-        let t87 = -0.310907e-1 * t62 * t71 + t33 - 0.19751673498613801407e-1 * t85;
+        let t87 = -0.0310907 * t62 * t71 + t33 - 0.0197516734986138 * t85;
         let t88 = t60 * t87;
         let t89 = t40 * t88;
-        let t91 = 0.19751673498613801407e-1 * t60 * t85;
+        let t91 = 0.0197516734986138 * t60 * t85;
         let t92 = f64::ln(2.0);
         let t93 = 1.0 - t92;
         let t94 = M_PI * M_PI;
@@ -97,10 +97,10 @@ pub fn gga_c_acggap_exc_pol(
         let t103 = t99 / 2.0 + t101 / 2.0;
         let t104 = t103 * t103;
         let t105 = t104 * t103;
-        let t107 = 1.0 + 0.416675e-1 * t11;
-        let t111 = 1.0 + 0.125e0 * t4 * t10 * t107;
-        let t113 = 1.0 + 0.740825e-1 * t11;
-        let t117 = 1.0 + 0.125e0 * t4 * t10 * t113;
+        let t107 = 1.0 + 0.0416675 * t11;
+        let t111 = 1.0 + 0.125 * t4 * t10 * t107;
+        let t113 = 1.0 + 0.0740825 * t11;
+        let t117 = 1.0 + 0.125 * t4 * t10 * t113;
         let t118 = 1.0 / t117;
         let t119 = t111 * t118;
         let t121 = sigma0 + 2.0 * sigma1 + sigma2;
@@ -120,9 +120,9 @@ pub fn gga_c_acggap_exc_pol(
         let t137 = 1.0 / t14;
         let t138 = t136 * t137;
         let t139 = t133 * t138;
-        let t141 = 0.45e1 + t139 / 4.0;
+        let t141 = 4.5 + t139 / 4.0;
         let t142 = t5 * t141;
-        let t144 = 0.45e1 + 0.36675e0 * t139;
+        let t144 = 4.5 + 0.36675 * t139;
         let t145 = 1.0 / t144;
         let t146 = t142 * t145;
         let t147 = t129 * t146;
@@ -151,14 +151,14 @@ pub fn gga_c_acggap_exc_pol(
         let t175 = t172 * t174;
         let t176 = t171 * t175;
         let t177 = t169 * t176;
-        let t180 = t127 * t147 / 96.0 + 0.21437009059034868486e-3 * t165 * t177;
+        let t180 = t127 * t147 / 96.0 + 0.0002143700905903487 * t165 * t177;
         let t181 = t180 * t150;
         let t182 = t150 * t159;
         let t183 = t182 * t180;
-        let t186 = 1.0 + 0.65854491829355115987e0 * t119 * t183;
+        let t186 = 1.0 + 0.6585449182935511 * t119 * t183;
         let t187 = 1.0 / t186;
         let t188 = t181 * t187;
-        let t191 = 1.0 + 0.65854491829355115987e0 * t119 * t188;
+        let t191 = 1.0 + 0.6585449182935511 * t119 * t188;
         let t192 = f64::ln(t191);
         let t194 = t96 * t105 * t192;
         let tzk0 = -t33 + t89 + t91 + t194;

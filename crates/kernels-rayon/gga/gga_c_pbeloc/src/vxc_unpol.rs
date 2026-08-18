@@ -1,8 +1,8 @@
 //! GGA_C_PBELOC vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbeloc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_pbeloc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -29,7 +29,7 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
-        let t12 = 1.0 + 0.53425e-1 * t10;
+        let t12 = 1.0 + 0.053425 * t10;
         let t13 = f64::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
@@ -37,20 +37,20 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t20 = t18 * t19;
         let t21 = t7 * t7;
         let t24 = t20 * t5 / t21;
-        let t26 = 0.379785e1 * t13 + 0.8969e0 * t10 + 0.204775e0 * t16 + 0.123235e0 * t24;
-        let t29 = 1.0 + 0.16081979498692535067e2 / t26;
+        let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
+        let t29 = 1.0 + 16.081979498692537 / t26;
         let t30 = f64::ln(t29);
-        let t32 = 0.621814e-1 * t12 * t30;
+        let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
         let t39 = M_CBRT2;
         let t43 = (2.0 * t36 - 2.0) / (2.0 * t39 - 2.0);
-        let t45 = 1.0 + 0.278125e-1 * t10;
-        let t50 = 0.51785e1 * t13 + 0.905775e0 * t10 + 0.1100325e0 * t16 + 0.1241775e0 * t24;
-        let t53 = 1.0 + 0.29608749977793437516e2 / t50;
+        let t45 = 1.0 + 0.0278125 * t10;
+        let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
+        let t53 = 1.0 + 29.608749977793437 / t50;
         let t54 = f64::ln(t53);
-        let t57 = 0.19751673498613801407e-1 * t43 * t45 * t54;
+        let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = f64::ln(2.0);
         let t59 = 1.0 - t58;
         let t60 = M_PI * M_PI;
@@ -71,7 +71,7 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t78 = 1.0 - t77;
         let t79 = t5 * t78;
         let t80 = t75 * t79;
-        let t83 = 0.375e-1 + 0.83333333333333333332e-3 * t70 * t72 * t80;
+        let t83 = 0.0375 + 0.0008333333333333334 * t70 * t72 * t80;
         let t85 = t71 * t18;
         let t87 = t85 * t74 * t5;
         let t90 = 1.0 / t59;
@@ -108,7 +108,7 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t132 = 1.0 / t7 / rho[ip];
         let t133 = t6 * t132;
         let t135 = t4 * t133 * t30;
-        let t136 = 0.11073470983333333333e-2 * t135;
+        let t136 = 0.0011073470983333333 * t135;
         let t137 = t26 * t26;
         let t138 = 1.0 / t137;
         let t139 = t12 * t138;
@@ -121,29 +121,29 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t149 = t148 * t1;
         let t150 = t149 * t143;
         let t155 = t20 * t5 / t21 / rho[ip];
-        let t157 = -0.632975e0 * t144 - 0.29896666666666666667e0 * t146 - 0.1023875e0 * t150 - 0.82156666666666666667e-1 * t155;
+        let t157 = -0.632975 * t144 - 0.29896666666666666 * t146 - 0.1023875 * t150 - 0.08215666666666667 * t155;
         let t158 = 1.0 / t29;
         let t159 = t157 * t158;
         let t160 = t139 * t159;
         let t161 = 1.0 * t160;
         let t162 = t43 * t1;
         let t165 = t162 * t142 * t132 * t54;
-        let t166 = 0.18311447306006545054e-3 * t165;
+        let t166 = 0.00018311447306006544 * t165;
         let t167 = t43 * t45;
         let t168 = t50 * t50;
         let t169 = 1.0 / t168;
-        let t174 = -0.86308333333333333334e0 * t144 - 0.301925e0 * t146 - 0.5501625e-1 * t150 - 0.82785e-1 * t155;
+        let t174 = -0.8630833333333333 * t144 - 0.301925 * t146 - 0.05501625 * t150 - 0.082785 * t155;
         let t176 = 1.0 / t53;
         let t177 = t169 * t174 * t176;
         let t178 = t167 * t177;
-        let t179 = 0.5848223622634646207e0 * t178;
+        let t179 = 0.5848223622634646 * t178;
         let t180 = t67 * rho[ip];
         let t182 = 1.0 / t7 / t180;
         let t183 = sigma[ip] * t182;
         let t187 = 1.0 / t104;
         let t190 = t6 * t77;
         let t191 = t4 * t190;
-        let t194 = -0.19444444444444444444e-2 * t183 * t72 * t80 - 0.41666666666666666666e-3 * sigma[ip] * t187 * t72 * t191;
+        let t194 = -0.0019444444444444444 * t183 * t72 * t80 - 0.0004166666666666667 * sigma[ip] * t187 * t72 * t191;
         let t195 = t194 * t118;
         let t200 = t194 * t90;
         let t201 = t200 * t102;
@@ -204,14 +204,14 @@ pub fn gga_c_pbeloc_vxc_unpol(
         let t280 = t279 * t101;
         let t283 = t100 * sigma[ip];
         let t284 = t91 * t283;
-        let t287 = t271 / 96.0 + 0.20186378047070195427e-3 * t278 * t280 + t284 * t115 / 1536.0;
+        let t287 = t271 / 96.0 + 0.00020186378047070194 * t278 * t280 + t284 * t115 / 1536.0;
         let t288 = t83 * t287;
         let t290 = t279 * t118;
         let t291 = t79 * t290;
         let t294 = t100 * t287;
-        let t296 = 0.82246703342411321825e-2 * t263 * t291 + t91 * t294;
+        let t296 = 0.008224670334241133 * t263 * t291 + t91 * t294;
         let t297 = t239 * t296;
-        let t299 = 0.82246703342411321825e-2 * t263 * t266 + t288 * t125 - t236 * t297;
+        let t299 = 0.008224670334241133 * t263 * t266 + t288 * t125 - t236 * t297;
         let t300 = t66 * t299;
         let t301 = t300 * t254;
         let tvsigma0 = t260 * t301;

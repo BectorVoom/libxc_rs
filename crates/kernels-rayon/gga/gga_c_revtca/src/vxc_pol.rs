@@ -1,8 +1,8 @@
 //! GGA_C_REVTCA vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_revtca.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -52,9 +52,9 @@ pub fn gga_c_revtca_vxc_pol(
         let t25 = M_CBRT4;
         let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
-        let t32 = 0.488827e1 + 0.79425925e0 * t24 * t26 / t27;
+        let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
         let t33 = f64::atan(t32);
-        let t35 = -0.655868e0 * t33 + 0.897889e0;
+        let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
         let t37 = t21 * t21;
         let t38 = 1.0 / t23;
@@ -74,8 +74,8 @@ pub fn gga_c_revtca_vxc_pol(
         let t53 = t27 * t2;
         let t54 = 1.0 / t53;
         let t56 = t47 * t52 * t54;
-        let t57 = f64::powf(t56, 0.23e1);
-        let t59 = 1.0 + 0.47121507034422759993e-2 * t57;
+        let t57 = f64::powf(t56, 2.3);
+        let t59 = 1.0 + 0.004712150703442276 * t57;
         let t60 = 1.0 / t59;
         let t61 = t1 * t1;
         let t62 = t61 * t61;
@@ -143,18 +143,18 @@ pub fn gga_c_revtca_vxc_pol(
         let t157 = t156 + 1.0;
         let t158 = 1.0 / t157;
         let t159 = t20 * t158;
-        let t161 = 0.69457230103866666663e0 * t159 * t132;
+        let t161 = 0.6945723010386666 * t159 * t132;
         let t162 = t3 * t20;
         let t164 = t39 * t25;
         let t165 = t162 * t35 * t164;
         let t166 = t59 * t59;
         let t167 = 1.0 / t166;
         let t168 = t167 * t131;
-        let t169 = f64::powf(t56, 0.13e1);
+        let t169 = f64::powf(t56, 1.3);
         let t170 = t168 * t169;
         let t171 = t47 * t52;
         let t172 = t170 * t171;
-        let t174 = 0.48168651635187710217e-2 * t165 * t172;
+        let t174 = 0.004816865163518771 * t165 * t172;
         let t176 = t53 * t20 * t137;
         let t177 = t61 * t1;
         let t178 = t177 * t65;
@@ -228,14 +228,14 @@ pub fn gga_c_revtca_vxc_pol(
         let t283 = t214 * t280;
         let t285 = piecewise3(t78, -t266 / 432.0 + t270 / 17280.0 - t273 / 107520.0, t282 - t283);
         let t287 = t261 * t262 * t285;
-        let tvsigma0 = -0.18063244363195391331e-2 * t253 + 2.0 / 3.0 * t260 * t287;
+        let tvsigma0 = -0.001806324436319539 * t253 + 2.0 / 3.0 * t260 * t287;
         vsigma[ip * 3] += tvsigma0;
         let t296 = piecewise3(t122, t278 / 36.0, 0.0);
         let t297 = t296 * t209;
         let t301 = piecewise3(t78, -t266 / 216.0 + t270 / 8640.0 - t273 / 53760.0, t297 * t125 - t214 * t296);
         let t302 = t262 * t301;
         let t303 = t261 * t302;
-        let tvsigma1 = -0.3612648872639078266e-2 * t253 + 2.0 / 3.0 * t260 * t303;
+        let tvsigma1 = -0.003612648872639078 * t253 + 2.0 / 3.0 * t260 * t303;
         vsigma[ip * 3 + 1] += tvsigma1;
         let tvsigma2 = tvsigma0;
         vsigma[ip * 3 + 2] += tvsigma2;

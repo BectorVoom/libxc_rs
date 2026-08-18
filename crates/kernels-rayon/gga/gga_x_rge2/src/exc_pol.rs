@@ -1,12 +1,12 @@
 //! GGA_X_RGE2 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_rge2.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_rge2.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -59,8 +59,8 @@ pub fn gga_x_rge2_exc_pol(
         let t47 = t34 * t34;
         let t48 = t47 * rho0;
         let t50 = 1.0 / t35 / t48;
-        let t54 = 0.804e0 + 5.0 / 972.0 * t33 * sigma0 * t38 + 0.32911784453572541027e-4 * t45 * t46 * t50;
-        let t57 = 0.1804e1 - 0.646416e0 / t54;
+        let t54 = 0.804 + 5.0 / 972.0 * t33 * sigma0 * t38 + 3.291178445357254e-05 * t45 * t46 * t50;
+        let t57 = 1.804 - 0.646416 / t54;
         let t61 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t25 * t26 * t57);
         let t62 = rho1 <= dens_threshold;
         let t63 = -t16;
@@ -77,8 +77,8 @@ pub fn gga_x_rge2_exc_pol(
         let t81 = t72 * t72;
         let t82 = t81 * rho1;
         let t84 = 1.0 / t73 / t82;
-        let t88 = 0.804e0 + 5.0 / 972.0 * t33 * sigma2 * t76 + 0.32911784453572541027e-4 * t45 * t80 * t84;
-        let t91 = 0.1804e1 - 0.646416e0 / t88;
+        let t88 = 0.804 + 5.0 / 972.0 * t33 * sigma2 * t76 + 3.291178445357254e-05 * t45 * t80 * t84;
+        let t91 = 1.804 - 0.646416 / t88;
         let t95 = piecewise3(t62, 0.0, -3.0 / 8.0 * t5 * t70 * t26 * t91);
         let tzk0 = t61 + t95;
         zk[ip] += tzk0;

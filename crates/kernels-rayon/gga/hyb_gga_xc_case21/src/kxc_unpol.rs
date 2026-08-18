@@ -1,13 +1,13 @@
 //! HYB_GGA_XC_CASE21 kxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_xc_case21.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
@@ -26,8 +26,8 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
     v3rhosigma2: &mut [f64],
     v3sigma3: &mut [f64],
     param_ax: f64,
-    param_gammac: f64,
     param_gammax: f64,
+    param_gammac: f64,
     param_cx_0: f64,
     param_cx_1: f64,
     param_cx_2: f64,
@@ -82,7 +82,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t38 = 1.0 + t27 * t30 * t34 / 24.0;
         let t39 = 1.0 / t38;
         let t43 = t27 * t30 * t34 * t39 / 24.0;
-        let t44 = case21_xbspline(t43, 0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
+        let t44 = case21_xbspline(t43, 0.0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t48 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t44);
         let t50 = 2.0 * t1 * t48;
         let t51 = t14 * t14;
@@ -99,32 +99,32 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t66 = M_CBRT4;
         let t67 = t66 * t66;
         let t70 = t65 * t67 / t19;
-        let t72 = 1.0 + 0.53425e-1 * t70;
+        let t72 = 1.0 + 0.053425 * t70;
         let t73 = f64::sqrt(t70);
         let t76 = pow_3_2(t70);
         let t78 = t64 * t64;
         let t79 = t53 * t78;
         let t80 = 1.0 / t32;
         let t82 = t79 * t66 * t80;
-        let t84 = 0.379785e1 * t73 + 0.8969e0 * t70 + 0.204775e0 * t76 + 0.123235e0 * t82;
-        let t87 = 1.0 + 0.16081979498692535067e2 / t84;
+        let t84 = 3.79785 * t73 + 0.8969 * t70 + 0.204775 * t76 + 0.123235 * t82;
+        let t87 = 1.0 + 16.081979498692537 / t84;
         let t88 = f64::ln(t87);
         let t91 = piecewise3(t8, t15, 1.0);
         let t97 = (2.0 * t91 - 2.0) / (2.0 * t28 - 2.0);
-        let t99 = 1.0 + 0.278125e-1 * t70;
-        let t104 = 0.51785e1 * t73 + 0.905775e0 * t70 + 0.1100325e0 * t76 + 0.1241775e0 * t82;
-        let t107 = 1.0 + 0.29608749977793437516e2 / t104;
+        let t99 = 1.0 + 0.0278125 * t70;
+        let t104 = 5.1785 * t73 + 0.905775 * t70 + 0.1100325 * t76 + 0.1241775 * t82;
+        let t107 = 1.0 + 29.608749977793437 / t104;
         let t108 = f64::ln(t107);
-        let t112 = -0.621814e-1 * t72 * t88 + 0.19751673498613801407e-1 * t97 * t99 * t108;
+        let t112 = -0.0621814 * t72 * t88 + 0.0197516734986138 * t97 * t99 * t108;
         let t114 = -t54 * t59 * t57 / 48.0 + param_gammac * t112;
         let t115 = 1.0 / t114;
         let t118 = t55 * t58 * t115 / 48.0;
-        let t119 = case21_cbspline(-t118, 0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
+        let t119 = case21_cbspline(-t118, 0.0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
         let t120 = t119 * t112;
         let tzk0 = t50 + t120;
         zk[ip] += tzk0;
         let t125 = t7 * t18;
-        let t126 = case21_xbspline(t43, 1, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
+        let t126 = case21_xbspline(t43, 1.0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t127 = t19 * t126;
         let t128 = t31 * rho[ip];
         let t130 = 1.0 / t32 / t128;
@@ -142,7 +142,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t153 = -t27 * t30 * t130 * t39 / 9.0 + t140 * t142 * t146 * t148 / 108.0;
         let t158 = piecewise3(t3, 0.0, -t7 * t18 * t80 * t44 / 8.0 - 3.0 / 8.0 * t125 * t127 * t153);
         let t159 = t1 * t158;
-        let t161 = case21_cbspline(-t118, 1, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
+        let t161 = case21_cbspline(-t118, 1.0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
         let t163 = 1.0 / t19 / t128;
         let t164 = sigma[ip] * t163;
         let t168 = t114 * t114;
@@ -162,17 +162,17 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t192 = t191 * t185;
         let t195 = 1.0 / t32 / rho[ip];
         let t197 = t79 * t66 * t195;
-        let t199 = -0.632975e0 * t186 - 0.29896666666666666667e0 * t188 - 0.1023875e0 * t192 - 0.82156666666666666667e-1 * t197;
+        let t199 = -0.632975 * t186 - 0.29896666666666666 * t188 - 0.1023875 * t192 - 0.08215666666666667 * t197;
         let t200 = 1.0 / t87;
         let t201 = t199 * t200;
         let t204 = t97 * t4;
         let t209 = t97 * t99;
         let t210 = t104 * t104;
         let t211 = 1.0 / t210;
-        let t216 = -0.86308333333333333334e0 * t186 - 0.301925e0 * t188 - 0.5501625e-1 * t192 - 0.82785e-1 * t197;
+        let t216 = -0.8630833333333333 * t186 - 0.301925 * t188 - 0.05501625 * t192 - 0.082785 * t197;
         let t218 = 1.0 / t107;
         let t219 = t211 * t216 * t218;
-        let t222 = 0.11073470983333333333e-2 * t65 * t175 * t88 + 1.0 * t181 * t201 - 0.18311447306006545054e-3 * t204 * t184 * t174 * t108 - 0.5848223622634646207e0 * t209 * t219;
+        let t222 = 0.0011073470983333333 * t65 * t175 * t88 + 1.0 * t181 * t201 - 0.00018311447306006544 * t204 * t184 * t174 * t108 - 0.5848223622634646 * t209 * t219;
         let t224 = 7.0 / 144.0 * t54 * t59 * t163 + param_gammac * t222;
         let t225 = t169 * t224;
         let t229 = 7.0 / 144.0 * t55 * t164 * t115 + t55 * t58 * t225 / 48.0;
@@ -198,7 +198,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let tvsigma0 = rho[ip] * (t253 + t270);
         vsigma[ip] += tvsigma0;
         let t279 = t80 * t126;
-        let t283 = case21_xbspline(t43, 2, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
+        let t283 = case21_xbspline(t43, 2.0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t284 = t19 * t283;
         let t285 = t153 * t153;
         let t293 = t143 * t128;
@@ -214,7 +214,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t314 = 11.0 / 27.0 * t27 * t30 * t263 * t39 - t140 * t142 * t295 * t148 / 12.0 + 2.0 / 81.0 * t303 * t304 * t307 * t310;
         let t319 = piecewise3(t3, 0.0, t7 * t18 * t195 * t44 / 12.0 - t125 * t279 * t153 / 4.0 - 3.0 / 8.0 * t125 * t284 * t285 - 3.0 / 8.0 * t125 * t127 * t314);
         let t320 = t1 * t319;
-        let t322 = case21_cbspline(-t118, 2, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
+        let t322 = case21_cbspline(-t118, 2.0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
         let t323 = t229 * t229;
         let t324 = t322 * t323;
         let t325 = t324 * t112;
@@ -243,7 +243,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t375 = t374 * t365;
         let t377 = t191 * t368;
         let t380 = t79 * t66 * t34;
-        let t382 = -0.42198333333333333333e0 * t366 + 0.84396666666666666666e0 * t369 + 0.39862222222222222223e0 * t371 + 0.68258333333333333333e-1 * t375 + 0.13651666666666666667e0 * t377 + 0.13692777777777777778e0 * t380;
+        let t382 = -0.4219833333333333 * t366 + 0.8439666666666666 * t369 + 0.3986222222222222 * t371 + 0.06825833333333334 * t375 + 0.13651666666666668 * t377 + 0.1369277777777778 * t380;
         let t383 = t382 * t200;
         let t386 = t179 * t179;
         let t387 = 1.0 / t386;
@@ -256,7 +256,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t403 = 1.0 / t402;
         let t404 = t216 * t216;
         let t406 = t403 * t404 * t218;
-        let t415 = -0.57538888888888888889e0 * t366 + 0.11507777777777777778e1 * t369 + 0.40256666666666666667e0 * t371 + 0.366775e-1 * t375 + 0.73355e-1 * t377 + 0.137975e0 * t380;
+        let t415 = -0.5753888888888888 * t366 + 1.1507777777777777 * t369 + 0.4025666666666667 * t371 + 0.0366775 * t375 + 0.073355 * t377 + 0.137975 * t380;
         let t417 = t211 * t415 * t218;
         let t420 = t210 * t210;
         let t421 = 1.0 / t420;
@@ -264,7 +264,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t423 = t107 * t107;
         let t424 = 1.0 / t423;
         let t425 = t422 * t424;
-        let t428 = -0.14764627977777777777e-2 * t65 * t345 * t88 - 0.35616666666666666666e-1 * t349 * t350 * t201 - 2.0 * t356 * t358 + 1.0 * t181 * t383 + 0.16081979498692535067e2 * t388 * t391 + 0.24415263074675393405e-3 * t204 * t184 * t57 * t108 + 0.10843581300301739842e-1 * t398 * t175 * t219 + 0.11696447245269292414e1 * t209 * t406 - 0.5848223622634646207e0 * t209 * t417 - 0.17315859105681463759e2 * t209 * t425;
+        let t428 = -0.0014764627977777779 * t65 * t345 * t88 - 0.035616666666666665 * t349 * t350 * t201 - 2.0 * t356 * t358 + 1.0 * t181 * t383 + 16.081979498692537 * t388 * t391 + 0.00024415263074675396 * t204 * t184 * t57 * t108 + 0.01084358130030174 * t398 * t175 * t219 + 1.1696447245269292 * t209 * t406 - 0.5848223622634646 * t209 * t417 - 17.315859105681465 * t209 * t425;
         let t430 = -35.0 / 216.0 * t54 * t59 * t327 + param_gammac * t428;
         let t431 = t169 * t430;
         let t435 = -35.0 / 216.0 * t55 * t328 * t115 - 7.0 / 72.0 * t55 * t164 * t225 - t55 * t58 * t338 / 24.0 + t55 * t58 * t431 / 48.0;
@@ -313,7 +313,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         v2sigma2[ip] += tv2sigma20;
         let t547 = t195 * t126;
         let t551 = t80 * t283;
-        let t558 = case21_xbspline(t43, 3, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
+        let t558 = case21_xbspline(t43, 3.0, param_cx_0, param_cx_1, param_cx_2, param_cx_3, param_cx_4, param_cx_5, param_cx_6, param_cx_7, param_cx_8, param_cx_9);
         let t559 = t19 * t558;
         let t560 = t285 * t153;
         let t564 = t153 * t314;
@@ -332,7 +332,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t599 = -154.0 / 81.0 * t27 * t30 * t485 * t39 + 341.0 / 486.0 * t140 * t142 * t573 * t148 - 38.0 / 81.0 * t303 * t304 * t579 * t310 + 2.0 / 243.0 * t585 * t586 * t589 * t596;
         let t604 = piecewise3(t3, 0.0, -5.0 / 36.0 * t7 * t18 * t34 * t44 + t125 * t547 * t153 / 4.0 - 3.0 / 8.0 * t125 * t551 * t285 - 3.0 / 8.0 * t125 * t279 * t314 - 3.0 / 8.0 * t125 * t559 * t560 - 9.0 / 8.0 * t125 * t284 * t564 - 3.0 / 8.0 * t125 * t127 * t599);
         let t605 = t1 * t604;
-        let t607 = case21_cbspline(-t118, 3, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
+        let t607 = case21_cbspline(-t118, 3.0, param_cc_0, param_cc_1, param_cc_2, param_cc_3, param_cc_4, param_cc_5, param_cc_6, param_cc_7, param_cc_8, param_cc_9);
         let t608 = t323 * t229;
         let t609 = t607 * t608;
         let t610 = t609 * t112;
@@ -367,7 +367,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t674 = t374 * t661;
         let t676 = t191 * t664;
         let t679 = t79 * t66 * t130;
-        let t681 = -0.34523333333333333333e1 * t659 + 0.23015555555555555556e1 * t662 - 0.26851481481481481482e1 * t665 - 0.93932222222222222223e0 * t668 + 0.73355e-1 * t672 - 0.14671e0 * t674 - 0.17116166666666666667e0 * t676 - 0.36793333333333333333e0 * t679;
+        let t681 = -3.4523333333333333 * t659 + 2.3015555555555554 * t662 - 2.6851481481481483 * t665 - 0.9393222222222222 * t668 + 0.073355 * t672 - 0.14671 * t674 - 0.17116166666666666 * t676 - 0.36793333333333333 * t679;
         let t683 = t211 * t681 * t218;
         let t687 = 1.0 / t420 / t104;
         let t689 = t687 * t647 * t424;
@@ -378,7 +378,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t712 = t421 * t647 * t218;
         let t716 = t218 * t415;
         let t720 = t57 * t180;
-        let t724 = -0.10254018858216406658e4 * t209 * t651 - 0.5848223622634646207e0 * t209 * t683 + 0.10389515463408878255e3 * t209 * t689 + 0.34450798614814814813e-2 * t65 * t667 * t88 + 0.48245938496077605201e2 * t388 * t695 * t199 - 6.0 * t356 * t201 * t382 + 6.0 * t388 * t703 - 0.51947577317044391277e2 * t209 * t421 * t415 * t707 - 0.35089341735807877242e1 * t209 * t712 + 0.35089341735807877242e1 * t209 * t403 * t216 * t716 + 0.71233333333333333332e-1 * t349 * t720 * t201;
+        let t724 = -1025.4018858216407 * t209 * t651 - 0.5848223622634646 * t209 * t683 + 103.89515463408878 * t209 * t689 + 0.0034450798614814814 * t65 * t667 * t88 + 48.245938496077606 * t388 * t695 * t199 - 6.0 * t356 * t201 * t382 + 6.0 * t388 * t703 - 51.94757731704439 * t209 * t421 * t415 * t707 - 3.5089341735807875 * t209 * t712 + 3.5089341735807875 * t209 * t403 * t216 * t716 + 0.07123333333333333 * t349 * t720 * t201;
         let t728 = t174 * t387;
         let t733 = 1.0 / t386 / t179;
         let t734 = t72 * t733;
@@ -387,9 +387,9 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
         let t741 = 1.0 / t386 / t84;
         let t742 = t72 * t741;
         let t743 = t702 * t390;
-        let t754 = -0.25319e1 * t659 + 0.16879333333333333333e1 * t662 - 0.19692555555555555555e1 * t665 - 0.93011851851851851854e0 * t668 + 0.13651666666666666667e0 * t672 - 0.27303333333333333333e0 * t674 - 0.3185388888888888889e0 * t676 - 0.36514074074074074075e0 * t679;
+        let t754 = -2.5319 * t659 + 1.6879333333333333 * t662 - 1.9692555555555555 * t665 - 0.9301185185185186 * t668 + 0.13651666666666668 * t672 - 0.27303333333333335 * t674 - 0.31853888888888887 * t676 - 0.36514074074074077 * t679;
         let t755 = t754 * t200;
-        let t778 = -0.53424999999999999999e-1 * t349 * t350 * t383 - 0.85917975471764868594e0 * t349 * t728 * t391 + 0.51726012919273400301e3 * t734 * t737 - 0.96491876992155210402e2 * t742 * t743 + 1.0 * t181 * t755 + 0.10685e0 * t349 * t174 * t355 * t358 - 0.56968947174242584612e-3 * t204 * t184 * t163 * t108 - 0.32530743900905219526e-1 * t398 * t175 * t406 - 0.21687162600603479684e-1 * t398 * t345 * t219 + 0.16265371950452609763e-1 * t398 * t175 * t417 + 0.48159733137676571078e0 * t398 * t175 * t425;
+        let t778 = -0.053425 * t349 * t350 * t383 - 0.8591797547176487 * t349 * t728 * t391 + 517.260129192734 * t734 * t737 - 96.49187699215521 * t742 * t743 + 1.0 * t181 * t755 + 0.10685 * t349 * t174 * t355 * t358 - 0.0005696894717424259 * t204 * t184 * t163 * t108 - 0.03253074390090522 * t398 * t175 * t406 - 0.02168716260060348 * t398 * t345 * t219 + 0.01626537195045261 * t398 * t175 * t417 + 0.4815973313767657 * t398 * t175 * t425;
         let t779 = t724 + t778;
         let t781 = 455.0 / 648.0 * t54 * t59 * t242 + param_gammac * t779;
         let t782 = t169 * t781;

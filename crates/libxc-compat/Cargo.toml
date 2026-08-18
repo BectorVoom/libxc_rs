@@ -23,6 +23,3 @@ libxc-eval = { path = "../libxc-eval", default-features = false }
 # orchestration types from it (`Functional`, `EvaluationWorkspace`), which
 # compile without any kernels. `verify` opts in explicitly.
 default     = []
-oracle-lda  = ["libxc-eval/oracle-lda"]
-oracle-gga  = ["libxc-eval/oracle-gga"]
-oracle-mgga = ["libxc-eval/oracle-mgga"]

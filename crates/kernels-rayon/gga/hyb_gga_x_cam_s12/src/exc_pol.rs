@@ -1,8 +1,8 @@
 //! HYB_GGA_X_CAM_S12 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_x_cam_s12.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/hyb_gga_x_cam_s12.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -16,14 +16,14 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
     rho: &[f64],
     sigma: &[f64],
     zk: &mut [f64],
-    param_A: f64,
-    param_B: f64,
     param_C: f64,
     param_D: f64,
+    param_B: f64,
     param_E: f64,
+    param_A: f64,
+    param_hyb_omega_0: f64,
     param_hyb_coeff_0: f64,
     param_hyb_coeff_1: f64,
-    param_hyb_omega_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -86,9 +86,9 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t70 = 1.0 / t69;
         let t71 = t67 * t70;
         let t73 = t66 * t71 / 2.0;
-        let t74 = 0.135e1 <= t73;
-        let t75 = 0.135e1 < t73;
-        let t76 = piecewise3(t75, t73, 0.135e1);
+        let t74 = 1.35 <= t73;
+        let t75 = 1.35 < t73;
+        let t76 = piecewise3(t75, t73, 1.35);
         let t77 = t76 * t76;
         let t80 = t77 * t77;
         let t81 = 1.0 / t80;
@@ -101,7 +101,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t96 = 1.0 / t86 / t83;
         let t98 = t86 * t86;
         let t99 = 1.0 / t98;
-        let t102 = piecewise3(t75, 0.135e1, t73);
+        let t102 = piecewise3(t75, 1.35, t73);
         let t103 = f64::sqrt(M_PI);
         let t104 = 1.0 / t102;
         let t106 = erf_approx(t104 / 2.0);
@@ -111,7 +111,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t112 = t111 - 1.0;
         let t115 = t111 - 3.0 / 2.0 - 2.0 * t108 * t112;
         let t118 = 2.0 * t102 * t115 + t103 * t106;
-        let t122 = piecewise3(t74, 1.0 / t77 / 36.0 - t81 / 960.0 + t84 / 26880.0 - t87 / 829440.0 + t90 / 28385280.0 - t93 / 0.107347968e10 + t96 / 0.445906944e11 - t99 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t102 * t118);
+        let t122 = piecewise3(t74, 1.0 / t77 / 36.0 - t81 / 960.0 + t84 / 26880.0 - t87 / 829440.0 + t90 / 28385280.0 - t93 / 1073479680.0 + t96 / 44590694400.0 - t99 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t102 * t118);
         let t124 = -param_hyb_coeff_0 * t122 - param_hyb_coeff_1 + 1.0;
         let t125 = t53 * t124;
         let t128 = piecewise3(t1, 0.0, -3.0 / 8.0 * t26 * t125);
@@ -148,9 +148,9 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t173 = 1.0 / t172;
         let t174 = t67 * t173;
         let t176 = t170 * t174 / 2.0;
-        let t177 = 0.135e1 <= t176;
-        let t178 = 0.135e1 < t176;
-        let t179 = piecewise3(t178, t176, 0.135e1);
+        let t177 = 1.35 <= t176;
+        let t178 = 1.35 < t176;
+        let t179 = piecewise3(t178, t176, 1.35);
         let t180 = t179 * t179;
         let t183 = t180 * t180;
         let t184 = 1.0 / t183;
@@ -163,7 +163,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t199 = 1.0 / t189 / t186;
         let t201 = t189 * t189;
         let t202 = 1.0 / t201;
-        let t205 = piecewise3(t178, 0.135e1, t176);
+        let t205 = piecewise3(t178, 1.35, t176);
         let t206 = 1.0 / t205;
         let t208 = erf_approx(t206 / 2.0);
         let t210 = t205 * t205;
@@ -172,7 +172,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t214 = t213 - 1.0;
         let t217 = t213 - 3.0 / 2.0 - 2.0 * t210 * t214;
         let t220 = t103 * t208 + 2.0 * t205 * t217;
-        let t224 = piecewise3(t177, 1.0 / t180 / 36.0 - t184 / 960.0 + t187 / 26880.0 - t190 / 829440.0 + t193 / 28385280.0 - t196 / 0.107347968e10 + t199 / 0.445906944e11 - t202 / 0.20214448128e13, 1.0 - 8.0 / 3.0 * t205 * t220);
+        let t224 = piecewise3(t177, 1.0 / t180 / 36.0 - t184 / 960.0 + t187 / 26880.0 - t190 / 829440.0 + t193 / 28385280.0 - t196 / 1073479680.0 + t199 / 44590694400.0 - t202 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t205 * t220);
         let t226 = -param_hyb_coeff_0 * t224 - param_hyb_coeff_1 + 1.0;
         let t227 = t164 * t226;
         let t230 = piecewise3(t129, 0.0, -3.0 / 8.0 * t138 * t227);

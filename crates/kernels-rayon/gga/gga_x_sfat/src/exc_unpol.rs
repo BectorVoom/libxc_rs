@@ -1,8 +1,8 @@
 //! GGA_X_SFAT exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,9 +51,9 @@ pub fn gga_x_sfat_exc_unpol(
         let t39 = 1.0 / t19 / rho[ip];
         let t41 = f64::ln(t39 * t37 + f64::sqrt(pow_2(t39 * t37) + 1.0));
         let t42 = t41 * t39;
-        let t45 = 1.0 + 0.252e-1 * t42 * t37;
+        let t45 = 1.0 + 0.0252 * t42 * t37;
         let t46 = 1.0 / t45;
-        let t51 = 1.0 + 0.93333333333333333332e-3 * t46 * t35 * t31 * t28;
+        let t51 = 1.0 + 0.0009333333333333333 * t46 * t35 * t31 * t28;
         let t54 = 1.0 / t51 * t26 * t20 * M_PI;
         let t55 = f64::sqrt(t54);
         let t57 = 1.0 / t55 * param_hyb_omega_0;
@@ -62,9 +62,9 @@ pub fn gga_x_sfat_exc_unpol(
         let t60 = 1.0 / t59;
         let t61 = t60 * t29;
         let t63 = t61 * t57 / 2.0;
-        let t64 = 0.192e1 <= t63;
-        let t65 = 0.192e1 < t63;
-        let t66 = piecewise3(t65, t63, 0.192e1);
+        let t64 = 1.92 <= t63;
+        let t65 = 1.92 < t63;
+        let t66 = piecewise3(t65, t63, 1.92);
         let t67 = t66 * t66;
         let t68 = t67 * t67;
         let t69 = t68 * t68;
@@ -92,7 +92,7 @@ pub fn gga_x_sfat_exc_unpol(
         let t115 = 1.0 / t70 / t91;
         let t117 = 1.0 / t71;
         let t121 = t73 / 5985.0 - t76 / 7030.0 - t78 / 30.0 + t81 / 70.0 - t83 / 135.0 + t86 / 231.0 - t89 / 364.0 + t92 / 540.0 - t94 / 765.0 + t97 / 1045.0 - t100 / 1386.0 + t103 / 1794.0 - t106 / 2275.0 + t109 / 2835.0 - t112 / 3480.0 + t115 / 4216.0 - t117 / 5049.0 + 1.0 / t67 / 9.0;
-        let t122 = piecewise3(t65, 0.192e1, t63);
+        let t122 = piecewise3(t65, 1.92, t63);
         let t123 = f64::atan2(1.0, t122);
         let t124 = t122 * t122;
         let t125 = t124 + 3.0;

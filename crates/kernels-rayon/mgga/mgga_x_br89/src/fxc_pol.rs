@@ -1,13 +1,13 @@
 //! MGGA_X_BR89 fxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_br89.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::constants::{M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -80,10 +80,10 @@ pub fn mgga_x_br89_fxc_pol(
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
         let t47 = f64::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
-        let t49 = t47 / 3.0 < 0.5e-12;
+        let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
-        let t55 = piecewise3(t54, 0.5e-12, -0.5e-12);
+        let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t49, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
         let t59 = f64::exp(t57 / 3.0);
@@ -136,10 +136,10 @@ pub fn mgga_x_br89_fxc_pol(
         let t123 = 1.0 / t112 / t121;
         let t124 = t120 * t123;
         let t127 = f64::abs(t115 / 2.0 - 2.0 * t118 + t124 / 4.0);
-        let t129 = t127 / 3.0 < 0.5e-12;
+        let t129 = t127 / 3.0 < 5e-13;
         let t133 = t115 / 6.0 - 2.0 / 3.0 * t118 + t124 / 12.0;
         let t134 = 0.0 < t133;
-        let t135 = piecewise3(t134, 0.5e-12, -0.5e-12);
+        let t135 = piecewise3(t134, 5e-13, -5e-13);
         let t136 = piecewise3(t129, t135, t133);
         let t137 = xc_mgga_x_br89_get_x(t136);
         let t139 = f64::exp(t137 / 3.0);

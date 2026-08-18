@@ -1,12 +1,12 @@
 //! GGA_X_OPTX lxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_optx.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_optx.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRTPI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -29,9 +29,9 @@ pub fn gga_x_optx_lxc_pol(
     v4rho2sigma2: &mut [f64],
     v4rhosigma3: &mut [f64],
     v4sigma4: &mut [f64],
-    param_a: f64,
-    param_b: f64,
     param_gamma: f64,
+    param_b: f64,
+    param_a: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {

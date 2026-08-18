@@ -1,8 +1,8 @@
 //! GGA_X_BAYESIAN exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_bayesian.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -53,9 +53,9 @@ pub fn gga_x_bayesian_exc_unpol(
         let t45 = t44 * t44;
         let t46 = 1.0 / t45;
         let t47 = t33 * t46;
-        let t50 = 0.1926e0 + 0.79008333333333333333e-1 * t26 * t47;
+        let t50 = 0.1926 + 0.07900833333333333 * t26 * t47;
         let t51 = t46 * t50;
-        let t55 = 0.10008e1 + t26 * t33 * t51 / 24.0;
+        let t55 = 1.0008 + t26 * t33 * t51 / 24.0;
         let t59 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t55);
         let tzk0 = 2.0 * t59;
         zk[ip] += tzk0;

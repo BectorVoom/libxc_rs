@@ -1,12 +1,12 @@
 //! GGA_X_AIRY exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_airy.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_airy.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -54,16 +54,16 @@ pub fn gga_x_airy_exc_pol(
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
         let t39 = t33 * t34 * t37;
-        let t40 = f64::powf(t39, 0.2626712e1);
-        let t42 = 1.0 + 0.13471619689594796103e-3 * t40;
-        let t43 = f64::powf(t42, -0.657946e0);
-        let t46 = f64::powf(t39, 0.3217063e1);
-        let t48 = f64::powf(t39, 0.3223476e1);
-        let t50 = 1.0 - 0.45212413010769857073e-1 * t46 + 0.45402221956620378581e-1 * t48;
-        let t51 = f64::powf(t39, 0.3473804e1);
-        let t53 = 1.0 + 0.47702180224903349918e-3 * t51;
+        let t40 = f64::powf(t39, 2.626712);
+        let t42 = 1.0 + 0.00013471619689594795 * t40;
+        let t43 = f64::powf(t42, -0.657946);
+        let t46 = f64::powf(t39, 3.217063);
+        let t48 = f64::powf(t39, 3.223476);
+        let t50 = 1.0 - 0.04521241301076986 * t46 + 0.04540222195662038 * t48;
+        let t51 = f64::powf(t39, 3.473804);
+        let t53 = 1.0 + 0.0004770218022490335 * t51;
         let t54 = 1.0 / t53;
-        let t56 = 0.60146019220211109872e-4 * t40 * t43 + t50 * t54;
+        let t56 = 6.014601922021111e-05 * t40 * t43 + t50 * t54;
         let t60 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t56);
         let t61 = rho1 <= dens_threshold;
         let t62 = -t16;
@@ -77,16 +77,16 @@ pub fn gga_x_airy_exc_pol(
         let t72 = pow_1_3(rho1);
         let t74 = 1.0 / t72 / rho1;
         let t76 = t33 * t71 * t74;
-        let t77 = f64::powf(t76, 0.2626712e1);
-        let t79 = 1.0 + 0.13471619689594796103e-3 * t77;
-        let t80 = f64::powf(t79, -0.657946e0);
-        let t83 = f64::powf(t76, 0.3217063e1);
-        let t85 = f64::powf(t76, 0.3223476e1);
-        let t87 = 1.0 - 0.45212413010769857073e-1 * t83 + 0.45402221956620378581e-1 * t85;
-        let t88 = f64::powf(t76, 0.3473804e1);
-        let t90 = 1.0 + 0.47702180224903349918e-3 * t88;
+        let t77 = f64::powf(t76, 2.626712);
+        let t79 = 1.0 + 0.00013471619689594795 * t77;
+        let t80 = f64::powf(t79, -0.657946);
+        let t83 = f64::powf(t76, 3.217063);
+        let t85 = f64::powf(t76, 3.223476);
+        let t87 = 1.0 - 0.04521241301076986 * t83 + 0.04540222195662038 * t85;
+        let t88 = f64::powf(t76, 3.473804);
+        let t90 = 1.0 + 0.0004770218022490335 * t88;
         let t91 = 1.0 / t90;
-        let t93 = 0.60146019220211109872e-4 * t77 * t80 + t87 * t91;
+        let t93 = 6.014601922021111e-05 * t77 * t80 + t87 * t91;
         let t97 = piecewise3(t61, 0.0, -3.0 / 8.0 * t5 * t70 * t93);
         let tzk0 = t60 + t97;
         zk[ip] += tzk0;

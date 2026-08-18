@@ -1,8 +1,8 @@
 //! GGA_C_Q2D exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_q2d.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_q2d.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -66,23 +66,23 @@ pub fn gga_c_q2d_exc_unpol(
         let t59 = t20 * t22;
         let t60 = 1.0 / t4;
         let t62 = t59 * t27 * t60;
-        let t64 = 1.0 + 0.53425e-1 * t62;
+        let t64 = 1.0 + 0.053425 * t62;
         let t65 = f64::sqrt(t62);
         let t68 = pow_3_2(t62);
         let t70 = t33 * t23;
         let t71 = 1.0 / t5;
         let t73 = t70 * t26 * t71;
-        let t75 = 0.379785e1 * t65 + 0.8969e0 * t62 + 0.204775e0 * t68 + 0.123235e0 * t73;
-        let t78 = 1.0 + 0.16081979498692535067e2 / t75;
+        let t75 = 3.79785 * t65 + 0.8969 * t62 + 0.204775 * t68 + 0.123235 * t73;
+        let t78 = 1.0 + 16.081979498692537 / t75;
         let t79 = f64::ln(t78);
-        let t81 = 0.621814e-1 * t64 * t79;
+        let t81 = 0.0621814 * t64 * t79;
         let t83 = piecewise3(t11, t12 * zeta_threshold, 1.0);
         let t89 = (2.0 * t83 - 2.0) / (2.0 * t9 - 2.0);
-        let t91 = 1.0 + 0.278125e-1 * t62;
-        let t96 = 0.51785e1 * t65 + 0.905775e0 * t62 + 0.1100325e0 * t68 + 0.1241775e0 * t73;
-        let t99 = 1.0 + 0.29608749977793437516e2 / t96;
+        let t91 = 1.0 + 0.0278125 * t62;
+        let t96 = 5.1785 * t65 + 0.905775 * t62 + 0.1100325 * t68 + 0.1241775 * t73;
+        let t99 = 1.0 + 29.608749977793437 / t96;
         let t100 = f64::ln(t99);
-        let t103 = 0.19751673498613801407e-1 * t89 * t91 * t100;
+        let t103 = 0.0197516734986138 * t89 * t91 * t100;
         let t104 = f64::ln(2.0);
         let t105 = 1.0 - t104;
         let t106 = M_PI * M_PI;
@@ -98,11 +98,11 @@ pub fn gga_c_q2d_exc_unpol(
         let t119 = t110 * t118;
         let t121 = t25 * t27;
         let t122 = t18 * t121;
-        let t125 = t39 + 0.21437009059034868486e-3 * t119 * t8 * t122;
+        let t125 = t39 + 0.0002143700905903487 * t119 * t8 * t122;
         let t126 = t125 * t110;
-        let t129 = 1.0 + 0.65854491829355115987e0 * t119 * t125;
+        let t129 = 1.0 + 0.6585449182935511 * t119 * t125;
         let t130 = 1.0 / t129;
-        let t133 = 1.0 + 0.65854491829355115987e0 * t126 * t130;
+        let t133 = 1.0 + 0.6585449182935511 * t126 * t130;
         let t134 = f64::ln(t133);
         let t137 = t108 * t109 * t134 + t103 - t81;
         let t138 = t58 * t137;
@@ -129,12 +129,12 @@ pub fn gga_c_q2d_exc_unpol(
         let t164 = t143 * t163;
         let t165 = t155 * t154;
         let t166 = t164 * t165;
-        let t168 = 0.245130624e-1 * t156 + 0.138498611712e-1 * t161 + 0.2310999830832e-3 * t166;
+        let t168 = 0.0245130624 * t156 + 0.0138498611712 * t161 + 0.0002310999830832 * t166;
         let t170 = pow_3_2(t156);
-        let t174 = 0.2846248e0 * t156 - 0.31313960595450713442e-2 * t170 + 0.8226186096e-1 * t161 + 0.120051939264e-2 * t166;
+        let t174 = 0.2846248 * t156 - 0.0031313960595450714 * t170 + 0.08226186096 * t161 + 0.00120051939264 * t166;
         let t176 = 1.0 + 1.0 / t174;
         let t177 = f64::ln(t176);
-        let t180 = f64::exp(-0.3801624e0 * t156);
+        let t180 = f64::exp(-0.3801624 * t156);
         let t182 = M_SQRT2;
         let t183 = (t180 - 1.0) * t182;
         let t184 = t183 * t143;
@@ -142,7 +142,7 @@ pub fn gga_c_q2d_exc_unpol(
         let t187 = f64::sqrt(zeta_threshold);
         let t189 = piecewise3(t11, t187 * zeta_threshold, 1.0);
         let t190 = t189 - 1.0;
-        let t194 = -0.1925e0 + t168 * t177 - 0.49813753706383516671e0 * t184 * t4 * t185 * t190;
+        let t194 = -0.1925 + t168 * t177 - 0.4981375370638352 * t184 * t4 * t185 * t190;
         let t196 = t141 * t142 * t194;
         let t198 = t140 * t196 / 3072.0;
         let tzk0 = t138 + t198;

@@ -1,12 +1,12 @@
 //! HYB_MGGA_X_M05 exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_m05.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/hyb_mgga_x_m05.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -17,7 +17,7 @@ pub fn hyb_mgga_x_m05_exc_pol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
+    param_csi_HF: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -29,7 +29,7 @@ pub fn hyb_mgga_x_m05_exc_pol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
-    param_csi_HF: f64,
+    param_a_0: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -74,8 +74,8 @@ pub fn hyb_mgga_x_m05_exc_pol(
         let t37 = pow_1_3(rho0);
         let t38 = t37 * t37;
         let t40 = 1.0 / t38 / t36;
-        let t44 = 0.804e0 + 0.91464571985215458336e-2 * t35 * sigma0 * t40;
-        let t47 = 0.1804e1 - 0.646416e0 / t44;
+        let t44 = 0.804 + 0.009146457198521547 * t35 * sigma0 * t40;
+        let t47 = 1.804 - 0.646416 / t44;
         let t48 = param_a_0;
         let t49 = param_a_1;
         let t50 = t30 * t30;
@@ -148,8 +148,8 @@ pub fn hyb_mgga_x_m05_exc_pol(
         let t138 = pow_1_3(rho1);
         let t139 = t138 * t138;
         let t141 = 1.0 / t139 / t137;
-        let t145 = 0.804e0 + 0.91464571985215458336e-2 * t35 * sigma2 * t141;
-        let t148 = 0.1804e1 - 0.646416e0 / t145;
+        let t145 = 0.804 + 0.009146457198521547 * t35 * sigma2 * t141;
+        let t148 = 1.804 - 0.646416 / t145;
         let t150 = 1.0 / t139 / rho1;
         let t151 = tau1 * t150;
         let t152 = t52 - t151;

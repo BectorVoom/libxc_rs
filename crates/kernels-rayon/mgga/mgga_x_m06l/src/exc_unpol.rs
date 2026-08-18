@@ -1,8 +1,8 @@
 //! MGGA_X_M06L exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m06l.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_m06l.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -17,7 +17,6 @@ pub fn mgga_x_m06l_exc_unpol(
     lapl: &[f64],
     tau: &[f64],
     zk: &mut [f64],
-    param_a_0: f64,
     param_a_1: f64,
     param_a_2: f64,
     param_a_3: f64,
@@ -29,6 +28,7 @@ pub fn mgga_x_m06l_exc_unpol(
     param_a_9: f64,
     param_a_10: f64,
     param_a_11: f64,
+    param_a_0: f64,
     param_d_0: f64,
     param_d_1: f64,
     param_d_2: f64,
@@ -65,8 +65,8 @@ pub fn mgga_x_m06l_exc_unpol(
         let t31 = t19 * t19;
         let t33 = 1.0 / t31 / t30;
         let t34 = t29 * t33;
-        let t37 = 0.804e0 + 0.91464571985215458336e-2 * t26 * t34;
-        let t40 = 0.1804e1 - 0.646416e0 / t37;
+        let t37 = 0.804 + 0.009146457198521547 * t26 * t34;
+        let t40 = 1.804 - 0.646416 / t37;
         let t42 = param_a_1;
         let t43 = t21 * t21;
         let t44 = t43 * t24;
@@ -126,7 +126,7 @@ pub fn mgga_x_m06l_exc_unpol(
         let t113 = 1.0 / t94 / t64;
         let t115 = t99 * t101 + t105 * t107 + t111 * t113 + t51 * t53 + t57 * t59 + t63 * t65 + t69 * t71 + t75 * t77 + t81 * t83 + t87 * t89 + t93 * t95 + param_a_0;
         let t117 = param_d_0;
-        let t121 = 1.0 + 0.186726e-2 * t34 + 0.373452e-2 * t49 - 0.1120356e-2 * t44;
+        let t121 = 1.0 + 0.00186726 * t34 + 0.00373452 * t49 - 0.001120356 * t44;
         let t124 = param_d_1;
         let t125 = t124 * sigma[ip];
         let t126 = t28 * t33;

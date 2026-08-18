@@ -1,8 +1,8 @@
 //! GGA_X_SFAT_PBE vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_sfat_pbe.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -51,8 +51,8 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t36 = rho[ip] * rho[ip];
         let t37 = t19 * t19;
         let t39 = 1.0 / t37 / t36;
-        let t43 = 0.804e0 + 0.91464571985215458336e-2 * t39 * t35 * t32;
-        let t46 = 0.1804e1 - 0.646416e0 / t43;
+        let t43 = 0.804 + 0.009146457198521547 * t39 * t35 * t32;
+        let t46 = 1.804 - 0.646416 / t43;
         let t49 = 1.0 / t46 * t25 * t24 * t20 * M_PI;
         let t50 = f64::sqrt(t49);
         let t52 = 1.0 / t50 * param_hyb_omega_0;
@@ -60,9 +60,9 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t54 = pow_1_3(t53);
         let t55 = 1.0 / t54;
         let t58 = t55 * t33 * t52 / 2.0;
-        let t59 = 0.192e1 <= t58;
-        let t60 = 0.192e1 < t58;
-        let t61 = piecewise3(t60, t58, 0.192e1);
+        let t59 = 1.92 <= t58;
+        let t60 = 1.92 < t58;
+        let t61 = piecewise3(t60, t58, 1.92);
         let t62 = t61 * t61;
         let t63 = t62 * t62;
         let t64 = 1.0 / t63;
@@ -90,7 +90,7 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t109 = 1.0 / t105 / t62;
         let t112 = 1.0 / t105 / t63;
         let t116 = -t64 / 30.0 + t67 / 70.0 - t70 / 135.0 + t73 / 231.0 - t76 / 364.0 + t79 / 540.0 - t82 / 765.0 + t85 / 1045.0 - t88 / 1386.0 + t91 / 1794.0 - t94 / 2275.0 + t97 / 2835.0 - t100 / 3480.0 + t103 / 4216.0 - t106 / 5049.0 + t109 / 5985.0 - t112 / 7030.0 + 1.0 / t62 / 9.0;
-        let t117 = piecewise3(t60, 0.192e1, t58);
+        let t117 = piecewise3(t60, 1.92, t58);
         let t118 = f64::atan2(1.0, t117);
         let t119 = t117 * t117;
         let t120 = t119 + 3.0;
@@ -119,7 +119,7 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t159 = t36 * rho[ip];
         let t161 = 1.0 / t37 / t159;
         let t167 = 1.0 / t54 / t53;
-        let t172 = -0.24765871385369419417e-1 * t161 * t158 * t157 * t151 - t11 * t167 * t33 * t52 / 6.0;
+        let t172 = -0.02476587138536942 * t161 * t158 * t157 * t151 - t11 * t167 * t33 * t52 / 6.0;
         let t173 = piecewise3(t60, t172, 0.0);
         let t176 = t62 * t61;
         let t177 = t63 * t176;
@@ -160,13 +160,13 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t277 = t27 * t155;
         let t278 = t34 * t158;
         let t279 = t278 * t277;
-        let t283 = piecewise3(t2, 0.0, -t46 * t132 * t138 * t18 / 8.0 - 3.0 / 8.0 * t46 * t267 * t19 * t18 + 0.40369036088841097646e-2 * t279 * t276);
+        let t283 = piecewise3(t2, 0.0, -t46 * t132 * t138 * t18 / 8.0 - 3.0 / 8.0 * t46 * t267 * t19 * t18 + 0.0040369036088841095 * t279 * t276);
         let tvrho0 = 2.0 * t283 * rho[ip] + 2.0 * t137;
         vrho[ip] += tvrho0;
         let t288 = t24 * t20 * t55 * t147;
         let t289 = t153 * t25;
         let t290 = t155 * t289;
-        let t294 = 0.92872017695135322815e-2 * t39 * t32 * t290 * t288;
+        let t294 = 0.009287201769513533 * t39 * t32 * t290 * t288;
         let t295 = piecewise3(t60, t294, 0.0);
         let t296 = t295 * t144;
         let t298 = t295 * t178;
@@ -195,7 +195,7 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
         let t357 = 1.0 / t19 / t36;
         let t360 = t34 * t31;
         let t361 = t360 * t277;
-        let t365 = piecewise3(t2, 0.0, -3.0 / 8.0 * t46 * t351 * t19 * t18 - 0.15138388533315411618e-2 * t361 * t132 * t357 * t272);
+        let t365 = piecewise3(t2, 0.0, -3.0 / 8.0 * t46 * t351 * t19 * t18 - 0.0015138388533315413 * t361 * t132 * t357 * t272);
         let tvsigma0 = 2.0 * t365 * rho[ip];
         vsigma[ip] += tvsigma0;
     }

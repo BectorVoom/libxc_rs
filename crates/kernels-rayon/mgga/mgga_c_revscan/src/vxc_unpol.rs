@@ -1,8 +1,8 @@
 //! MGGA_C_REVSCAN vxc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revscan.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_c_revscan.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -33,7 +33,7 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t7 = t6 * t6;
         let t8 = pow_1_3(rho[ip]);
         let t11 = t5 * t7 / t8;
-        let t13 = 1.0 + 0.53425e-1 * t11;
+        let t13 = 1.0 + 0.053425 * t11;
         let t14 = f64::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t2 * t2;
@@ -41,10 +41,10 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t6 / t22;
-        let t27 = 0.379785e1 * t14 + 0.8969e0 * t11 + 0.204775e0 * t17 + 0.123235e0 * t25;
-        let t30 = 1.0 + 0.16081979498692535067e2 / t27;
+        let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
+        let t30 = 1.0 + 16.081979498692537 / t27;
         let t31 = f64::ln(t30);
-        let t33 = 0.621814e-1 * t13 * t31;
+        let t33 = 0.0621814 * t13 * t31;
         let t34 = 1.0 <= zeta_threshold;
         let t35 = pow_1_3(zeta_threshold);
         let t37 = piecewise3(t34, t35 * zeta_threshold, 1.0);
@@ -53,11 +53,11 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t41 = t40 - 1.0;
         let t43 = 1.0 / t41 / 2.0;
         let t44 = t39 * t43;
-        let t46 = 1.0 + 0.278125e-1 * t11;
-        let t51 = 0.51785e1 * t14 + 0.905775e0 * t11 + 0.1100325e0 * t17 + 0.1241775e0 * t25;
-        let t54 = 1.0 + 0.29608749977793437516e2 / t51;
+        let t46 = 1.0 + 0.0278125 * t11;
+        let t51 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
+        let t54 = 1.0 + 29.608749977793437 / t51;
         let t55 = f64::ln(t54);
-        let t58 = 0.19751673498613801407e-1 * t44 * t46 * t55;
+        let t58 = 0.0197516734986138 * t44 * t46 * t55;
         let t59 = f64::ln(2.0);
         let t60 = 1.0 - t59;
         let t61 = M_PI * M_PI;
@@ -66,8 +66,8 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t65 = piecewise3(t34, t64, 1.0);
         let t66 = t65 * t65;
         let t67 = t66 * t65;
-        let t69 = 1.0 + 0.25e-1 * t11;
-        let t71 = 1.0 + 0.4445e-1 * t11;
+        let t69 = 1.0 + 0.025 * t11;
+        let t71 = 1.0 + 0.04445 * t11;
         let t72 = 1.0 / t71;
         let t73 = t69 * t72;
         let t74 = 1.0 / t60;
@@ -87,7 +87,7 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t93 = t19 * t92;
         let t94 = t93 * t6;
         let t95 = t89 * t90 * t94;
-        let t98 = 1.0 + 0.54878743191129263322e-1 * t85 * t95;
+        let t98 = 1.0 + 0.054878743191129266 * t85 * t95;
         let t99 = pow_1_4(t98);
         let t102 = t69 * t69;
         let t103 = t71 * t71;
@@ -112,7 +112,7 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t123 = t2 * t122;
         let t124 = t123 * t7;
         let t125 = t121 * t124;
-        let t128 = 1.0 + 0.11293786703392186799e-1 * t113 * t125;
+        let t128 = 1.0 + 0.011293786703392187 * t113 * t125;
         let t129 = f64::powf(t128, 1.0 / 8.0);
         let t132 = 1.0 - 1.0 / t99 / 2.0 - 1.0 / t129 / 2.0;
         let t135 = 1.0 + 1.0 * t132 * t81;
@@ -128,29 +128,29 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t154 = 5.0 / 9.0 * (tau[ip] * t140 - sigma[ip] * t143 / 8.0) * t147 * t152;
         let t155 = t154 <= 1.0;
         let t156 = f64::ln(f64::EPSILON);
-        let t159 = t156 / (-t156 + 0.1131e1);
+        let t159 = t156 / (-t156 + 1.131);
         let t160 = -t159 < t154;
         let t161 = t154 < -t159;
         let t162 = piecewise3(t161, t154, -t159);
         let t163 = 1.0 - t162;
         let t164 = 1.0 / t163;
-        let t167 = f64::exp(-0.1131e1 * t162 * t164);
+        let t167 = f64::exp(-1.131 * t162 * t164);
         let t168 = piecewise3(t160, 0.0, t167);
-        let t170 = f64::ln(0.72992700729927007299e0 * f64::EPSILON);
-        let t173 = (-t170 + 0.17e1) / t170;
+        let t170 = f64::ln(0.7299270072992701 * f64::EPSILON);
+        let t173 = (-t170 + 1.7) / t170;
         let t174 = t154 < -t173;
         let t175 = piecewise3(t174, -t173, t154);
         let t176 = 1.0 - t175;
-        let t179 = f64::exp(0.17e1 / t176);
-        let t181 = piecewise3(t174, 0.0, -0.137e1 * t179);
+        let t179 = f64::exp(1.7 / t176);
+        let t181 = piecewise3(t174, 0.0, -1.37 * t179);
         let t182 = piecewise3(t155, t168, t181);
-        let t185 = 1.0 + 0.33115e-1 * t14 + 0.4168e-1 * t11;
+        let t185 = 1.0 + 0.033115 * t14 + 0.04168 * t11;
         let t186 = 1.0 / t185;
         let t189 = f64::exp(1.0 * t186);
         let t190 = t189 - 1.0;
         let t191 = t147 * t151;
         let t192 = t117 * sigma[ip];
-        let t196 = 1.0 + 0.42675284208752716666e-1 * t191 * t192 * t143;
+        let t196 = 1.0 + 0.04267528420875272 * t191 * t192 * t143;
         let t197 = pow_1_4(t196);
         let t200 = t147 * t147;
         let t202 = 1.0 / t149 / t61;
@@ -158,20 +158,20 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t204 = t40 * t111;
         let t205 = t114 * rho[ip];
         let t207 = 1.0 / t8 / t205;
-        let t211 = 1.0 + 0.45529497057445474566e-2 * t203 * t204 * t207;
+        let t211 = 1.0 + 0.004552949705744548 * t203 * t204 * t207;
         let t212 = f64::powf(t211, 1.0 / 8.0);
         let t215 = 1.0 - 1.0 / t197 / 2.0 - 1.0 / t212 / 2.0;
         let t217 = t190 * t215 + 1.0;
         let t218 = f64::ln(t217);
-        let t224 = 1.0 - 0.2363e1 * t41 * t39 * t43;
-        let t226 = (-0.30197e-1 * t186 + 0.30197e-1 * t218) * t224 + t33 - t58 - t138;
+        let t224 = 1.0 - 2.363 * t41 * t39 * t43;
+        let t226 = (-0.030197 * t186 + 0.030197 * t218) * t224 + t33 - t58 - t138;
         let t227 = t182 * t226;
         let tzk0 = -t33 + t58 + t138 + t227;
         zk[ip] += tzk0;
         let t229 = 1.0 / t8 / rho[ip];
         let t230 = t7 * t229;
         let t232 = t5 * t230 * t31;
-        let t233 = 0.11073470983333333333e-2 * t232;
+        let t233 = 0.0011073470983333333 * t232;
         let t234 = t27 * t27;
         let t235 = 1.0 / t234;
         let t236 = t13 * t235;
@@ -184,22 +184,22 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t246 = t245 * t2;
         let t247 = t246 * t240;
         let t250 = t21 * t6 * t140;
-        let t252 = -0.632975e0 * t241 - 0.29896666666666666667e0 * t243 - 0.1023875e0 * t247 - 0.82156666666666666667e-1 * t250;
+        let t252 = -0.632975 * t241 - 0.29896666666666666 * t243 - 0.1023875 * t247 - 0.08215666666666667 * t250;
         let t253 = 1.0 / t30;
         let t254 = t252 * t253;
         let t255 = t236 * t254;
         let t256 = 1.0 * t255;
         let t257 = t44 * t2;
         let t260 = t257 * t239 * t229 * t55;
-        let t261 = 0.18311447306006545054e-3 * t260;
+        let t261 = 0.00018311447306006544 * t260;
         let t262 = t44 * t46;
         let t263 = t51 * t51;
         let t264 = 1.0 / t263;
-        let t269 = -0.86308333333333333334e0 * t241 - 0.301925e0 * t243 - 0.5501625e-1 * t247 - 0.82785e-1 * t250;
+        let t269 = -0.8630833333333333 * t241 - 0.301925 * t243 - 0.05501625 * t247 - 0.082785 * t250;
         let t271 = 1.0 / t54;
         let t272 = t264 * t269 * t271;
         let t273 = t262 * t272;
-        let t274 = 0.5848223622634646207e0 * t273;
+        let t274 = 0.5848223622634646 * t273;
         let t276 = 1.0 / t99 / t98;
         let t277 = t86 * rho[ip];
         let t279 = 1.0 / t22 / t277;
@@ -225,7 +225,7 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t309 = 1.0 / t8 / t277;
         let t310 = t309 * t40;
         let t312 = t310 * t90 * t94;
-        let t315 = -0.54878743191129263322e-2 * t280 * t74 * t284 + 0.97574405393827830187e-2 * t288 * t289 * t283 + 0.54878743191129263322e-1 * t296 * t305 - 0.12805040077930161442e0 * t85 * t312;
+        let t315 = -0.005487874319112926 * t280 * t74 * t284 + 0.009757440539382782 * t288 * t289 * t283 + 0.054878743191129266 * t296 * t305 - 0.1280504007793016 * t85 * t312;
         let t319 = 1.0 / t129 / t128;
         let t320 = t287 * t112;
         let t321 = t114 * t86;
@@ -255,7 +255,7 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t353 = t352 * t117;
         let t354 = t353 * t120;
         let t355 = t354 * t124;
-        let t358 = -0.75291911355947911993e-3 * t320 * t325 + 0.13386901839087538753e-2 * t331 * t325 + 0.22587573406784373598e-1 * t341 * t348 - 0.52704337949163538395e-1 * t113 * t355;
+        let t358 = -0.0007529191135594791 * t320 * t325 + 0.001338690183908754 * t331 * t325 + 0.022587573406784373 * t341 * t348 - 0.052704337949163536 * t113 * t355;
         let t361 = t276 * t315 / 8.0 + t319 * t358 / 16.0;
         let t366 = t78 * t80;
         let t369 = 1.0 * t361 * t81 - 1.0 * t132 * t301 * t74 * t366;
@@ -266,18 +266,18 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t384 = t163 * t163;
         let t385 = 1.0 / t384;
         let t386 = t162 * t385;
-        let t389 = -0.1131e1 * t381 * t164 - 0.1131e1 * t386 * t381;
+        let t389 = -1.131 * t381 * t164 - 1.131 * t386 * t381;
         let t390 = t389 * t167;
         let t391 = piecewise3(t160, 0.0, t390);
         let t392 = t176 * t176;
         let t393 = 1.0 / t392;
         let t394 = piecewise3(t174, 0.0, t380);
-        let t398 = piecewise3(t174, 0.0, -0.2329e1 * t393 * t394 * t179);
+        let t398 = piecewise3(t174, 0.0, -2.329 * t393 * t394 * t179);
         let t399 = piecewise3(t155, t391, t398);
         let t400 = t399 * t226;
         let t401 = t185 * t185;
         let t402 = 1.0 / t401;
-        let t405 = -0.55191666666666666667e-2 * t241 - 0.13893333333333333333e-1 * t243;
+        let t405 = -0.005519166666666667 * t241 - 0.013893333333333334 * t243;
         let t406 = t402 * t405;
         let t408 = t189 * t215;
         let t412 = 1.0 / t197 / t196;
@@ -285,10 +285,10 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t420 = 1.0 / t212 / t211 * t200;
         let t421 = t420 * t202;
         let t423 = 1.0 / t8 / t321;
-        let t427 = -0.14225094736250905555e-1 * t414 * t192 * t279 - 0.15176499019148491522e-2 * t421 * t204 * t423;
+        let t427 = -0.014225094736250906 * t414 * t192 * t279 - 0.001517649901914849 * t421 * t204 * t423;
         let t429 = -1.0 * t406 * t408 + t190 * t427;
         let t430 = 1.0 / t217;
-        let t435 = (0.30197e-1 * t406 + 0.30197e-1 * t429 * t430) * t224 - t233 - t256 + t261 + t274 - t373;
+        let t435 = (0.030197 * t406 + 0.030197 * t429 * t430) * t224 - t233 - t256 + t261 + t274 - t373;
         let t436 = t182 * t435;
         let tvrho0 = -t33 + t58 + t138 + t227 + rho[ip] * (t233 + t256 - t261 - t274 + t373 + t400 + t436);
         vrho[ip] += tvrho0;
@@ -300,25 +300,25 @@ pub fn mgga_c_revscan_vxc_unpol(
         let t447 = t446 * t104;
         let t448 = t110 * sigma[ip];
         let t449 = t447 * t448;
-        let t452 = 0.6859842898891157915e-2 * t443 * t95 + 0.14117233379240233499e-2 * t449 * t125;
+        let t452 = 0.006859842898891158 * t443 * t95 + 0.0014117233379240233 * t449 * t125;
         let t453 = t452 * t81;
-        let t456 = 0.10132118364233777144e0 * t439 * t453 * t371;
+        let t456 = 0.10132118364233778 * t439 * t453 * t371;
         let t458 = t143 * t147 * t152;
         let t459 = 5.0 / 72.0 * t458;
         let t460 = piecewise3(t161, -t459, 0.0);
-        let t465 = -0.1131e1 * t460 * t164 - 0.1131e1 * t386 * t460;
+        let t465 = -1.131 * t460 * t164 - 1.131 * t386 * t460;
         let t466 = t465 * t167;
         let t467 = piecewise3(t160, 0.0, t466);
         let t468 = piecewise3(t174, 0.0, -t459);
-        let t472 = piecewise3(t174, 0.0, -0.2329e1 * t393 * t468 * t179);
+        let t472 = piecewise3(t174, 0.0, -2.329 * t393 * t468 * t179);
         let t473 = piecewise3(t155, t467, t472);
         let t474 = t473 * t226;
         let t476 = t191 * t117;
         let t479 = t40 * sigma[ip];
-        let t483 = 0.5334410526094089583e-2 * t412 * t143 * t476 + 0.5691187132180684321e-3 * t421 * t479 * t207;
+        let t483 = 0.00533441052609409 * t412 * t143 * t476 + 0.0005691187132180684 * t421 * t479 * t207;
         let t484 = t190 * t483;
         let t485 = t430 * t224;
-        let t488 = 0.30197e-1 * t484 * t485 - t456;
+        let t488 = 0.030197 * t484 * t485 - t456;
         let t489 = t182 * t488;
         let tvsigma0 = rho[ip] * (t456 + t474 + t489);
         vsigma[ip] += tvsigma0;
@@ -326,11 +326,11 @@ pub fn mgga_c_revscan_vxc_unpol(
         vlapl[ip] += tvlapl0;
         let t493 = 5.0 / 9.0 * t140 * t147 * t152;
         let t494 = piecewise3(t161, t493, 0.0);
-        let t499 = -0.1131e1 * t494 * t164 - 0.1131e1 * t386 * t494;
+        let t499 = -1.131 * t494 * t164 - 1.131 * t386 * t494;
         let t500 = t499 * t167;
         let t501 = piecewise3(t160, 0.0, t500);
         let t502 = piecewise3(t174, 0.0, t493);
-        let t506 = piecewise3(t174, 0.0, -0.2329e1 * t393 * t502 * t179);
+        let t506 = piecewise3(t174, 0.0, -2.329 * t393 * t502 * t179);
         let t507 = piecewise3(t155, t501, t506);
         let t508 = rho[ip] * t507;
         let tvtau0 = t508 * t226;

@@ -5,9 +5,3 @@ edition = "2024"
 
 [dependencies]
 libxc-rkernel-math = { path = "../../math" }
-libxc-rkernel-mgga_c_kcisk_p0 = { path = "../../mgga/mgga_c_kcisk_p0" }
-libxc-rkernel-mgga_c_kcisk_p1 = { path = "../../mgga/mgga_c_kcisk_p1" }
-libxc-rkernel-mgga_c_kcisk_p2 = { path = "../../mgga/mgga_c_kcisk_p2" }
-libxc-rkernel-mgga_c_kcisk_p3 = { path = "../../mgga/mgga_c_kcisk_p3" }
-libxc-rkernel-mgga_c_kcisk_p4 = { path = "../../mgga/mgga_c_kcisk_p4" }
-libxc-rkernel-mgga_c_kcisk_p5 = { path = "../../mgga/mgga_c_kcisk_p5" }

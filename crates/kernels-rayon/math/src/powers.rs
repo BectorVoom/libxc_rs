@@ -19,10 +19,12 @@
 //! ```
 
 // 2^(k/3) rescaling factors, selected by `xe % 3` in {-2, -1, 0, 1, 2}.
-const CBRT_F_M2: f64 = 0.629960524947436582384; // 2^(-2/3)
-const CBRT_F_M1: f64 = 0.793700525984099737376; // 2^(-1/3)
-const CBRT_F_P1: f64 = 1.259921049894873164767; // 2^( 1/3)
-const CBRT_F_P2: f64 = 1.587401051968199474752; // 2^( 2/3)
+// pub(crate) because `simd::cbrt` replicates this function lanewise and must
+// use the identical constants to stay bit-identical.
+pub(crate) const CBRT_F_M2: f64 = 0.629960524947436582384; // 2^(-2/3)
+pub(crate) const CBRT_F_M1: f64 = 0.793700525984099737376; // 2^(-1/3)
+pub(crate) const CBRT_F_P1: f64 = 1.259921049894873164767; // 2^( 1/3)
+pub(crate) const CBRT_F_P2: f64 = 1.587401051968199474752; // 2^( 2/3)
 
 /// True cube root of an `f64`, branch-free and with no transcendental call.
 ///

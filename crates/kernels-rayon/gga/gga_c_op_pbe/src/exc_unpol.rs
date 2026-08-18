@@ -1,8 +1,8 @@
 //! GGA_C_OP_PBE exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pbe.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_op_pbe.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -55,8 +55,8 @@ pub fn gga_c_op_pbe_exc_unpol(
         let t42 = pow_1_3(rho[ip]);
         let t43 = t42 * t42;
         let t45 = 1.0 / t43 / t41;
-        let t49 = 0.804e0 + 0.91464571985215458336e-2 * t38 * sigma[ip] * t39 * t45;
-        let t52 = 0.1804e1 - 0.646416e0 / t49;
+        let t49 = 0.804 + 0.009146457198521547 * t38 * sigma[ip] * t39 * t45;
+        let t52 = 1.804 - 0.646416 / t49;
         let t53 = 1.0 / t52;
         let t57 = piecewise3(t14, 0.0, t22 * t23 * t31 * t53 / 9.0);
         let t61 = t25 * rho[ip] / 2.0 <= dens_threshold;
@@ -69,16 +69,16 @@ pub fn gga_c_op_pbe_exc_unpol(
         let t72 = t57 + t71;
         let t73 = t72 == 0.0;
         let t74 = piecewise3(t73, f64::EPSILON, t72);
-        let t77 = 0.361925846e1 / t74 + 0.5764e0;
+        let t77 = 3.61925846 / t74 + 0.5764;
         let t78 = t74 * t74;
         let t79 = t78 * t78;
         let t80 = 1.0 / t79;
         let t82 = t78 * t74;
         let t83 = 1.0 / t82;
         let t85 = 1.0 / t78;
-        let t87 = 0.320261508740743441e2 * t80 + 0.151911844324290596e2 * t83 + 0.1801312286343e1 * t85;
+        let t87 = 32.02615087407435 * t80 + 15.19118443242906 * t83 + 1.801312286343 * t85;
         let t88 = 1.0 / t87;
-        let tzk0 = piecewise3(t4, 0.0, -0.25e0 * t10 * t77 * t88);
+        let tzk0 = piecewise3(t4, 0.0, -0.25 * t10 * t77 * t88);
         zk[ip] += tzk0;
     }
 }

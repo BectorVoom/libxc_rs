@@ -1,8 +1,8 @@
 //! GGA_C_ZVPBELOC exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeloc.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_zvpbeloc.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,15 +43,15 @@ pub fn gga_c_zvpbeloc_exc_pol(
         let t19 = t13 * t13;
         let t20 = 1.0 / t19;
         let t21 = t18 * t20;
-        let t22 = 0.1e-19 < t21;
-        let t23 = piecewise3(t22, t21, 0.1e-19);
-        let t27 = f64::exp(-0.99999999999999999999e0 * t10 * t16 * t23);
+        let t22 = 1e-20 < t21;
+        let t23 = piecewise3(t22, t21, 1e-20);
+        let t27 = f64::exp(-1.0 * t10 * t16 * t23);
         let t28 = M_CBRT3;
         let t29 = t28 * t12;
         let t30 = M_CBRT4;
         let t31 = t30 * t30;
         let t33 = t29 * t31 * t15;
-        let t35 = 1.0 + 0.53425e-1 * t33;
+        let t35 = 1.0 + 0.053425 * t33;
         let t36 = f64::sqrt(t33);
         let t39 = pow_3_2(t33);
         let t41 = t28 * t28;
@@ -59,10 +59,10 @@ pub fn gga_c_zvpbeloc_exc_pol(
         let t43 = t41 * t42;
         let t44 = t14 * t14;
         let t47 = t43 * t30 / t44;
-        let t49 = 0.379785e1 * t36 + 0.8969e0 * t33 + 0.204775e0 * t39 + 0.123235e0 * t47;
-        let t52 = 1.0 + 0.16081979498692535067e2 / t49;
+        let t49 = 3.79785 * t36 + 0.8969 * t33 + 0.204775 * t39 + 0.123235 * t47;
+        let t52 = 1.0 + 16.081979498692537 / t49;
         let t53 = f64::ln(t52);
-        let t55 = 0.621814e-1 * t35 * t53;
+        let t55 = 0.0621814 * t35 * t53;
         let t56 = t18 * t18;
         let t57 = t19 * t19;
         let t58 = 1.0 / t57;
@@ -85,19 +85,19 @@ pub fn gga_c_zvpbeloc_exc_pol(
         let t75 = M_CBRT2;
         let t78 = 1.0 / (2.0 * t75 - 2.0);
         let t79 = t74 * t78;
-        let t81 = 1.0 + 0.5137e-1 * t33;
-        let t86 = 0.705945e1 * t36 + 0.1549425e1 * t33 + 0.420775e0 * t39 + 0.1562925e0 * t47;
-        let t89 = 1.0 + 0.32163958997385070134e2 / t86;
+        let t81 = 1.0 + 0.05137 * t33;
+        let t86 = 7.05945 * t36 + 1.549425 * t33 + 0.420775 * t39 + 0.1562925 * t47;
+        let t89 = 1.0 + 32.16395899738507 / t86;
         let t90 = f64::ln(t89);
-        let t94 = 1.0 + 0.278125e-1 * t33;
-        let t99 = 0.51785e1 * t36 + 0.905775e0 * t33 + 0.1100325e0 * t39 + 0.1241775e0 * t47;
-        let t102 = 1.0 + 0.29608749977793437516e2 / t99;
+        let t94 = 1.0 + 0.0278125 * t33;
+        let t99 = 5.1785 * t36 + 0.905775 * t33 + 0.1100325 * t39 + 0.1241775 * t47;
+        let t102 = 1.0 + 29.608749977793437 / t99;
         let t103 = f64::ln(t102);
         let t104 = t94 * t103;
-        let t106 = -0.310907e-1 * t81 * t90 + t55 - 0.19751673498613801407e-1 * t104;
+        let t106 = -0.0310907 * t81 * t90 + t55 - 0.0197516734986138 * t104;
         let t107 = t79 * t106;
         let t108 = t59 * t107;
-        let t110 = 0.19751673498613801407e-1 * t79 * t104;
+        let t110 = 0.0197516734986138 * t79 * t104;
         let t111 = f64::ln(2.0);
         let t112 = 1.0 - t111;
         let t113 = t112 * t8;
@@ -120,7 +120,7 @@ pub fn gga_c_zvpbeloc_exc_pol(
         let t135 = 1.0 - t134;
         let t136 = t30 * t135;
         let t137 = t132 * t136;
-        let t140 = 0.375e-1 + 0.83333333333333333332e-3 * t127 * t129 * t137;
+        let t140 = 0.0375 + 0.0008333333333333334 * t127 * t129 * t137;
         let t142 = t128 * t41;
         let t143 = t131 * t30;
         let t144 = t142 * t143;

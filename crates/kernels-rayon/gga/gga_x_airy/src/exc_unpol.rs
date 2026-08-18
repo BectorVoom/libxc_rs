@@ -1,8 +1,8 @@
 //! GGA_X_AIRY exc unpol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_airy.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_airy.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -43,16 +43,16 @@ pub fn gga_x_airy_exc_unpol(
         let t28 = t26 * t27;
         let t30 = 1.0 / t18 / rho[ip];
         let t32 = t25 * t28 * t30;
-        let t33 = f64::powf(t32, 0.2626712e1);
-        let t35 = 1.0 + 0.13471619689594796103e-3 * t33;
-        let t36 = f64::powf(t35, -0.657946e0);
-        let t39 = f64::powf(t32, 0.3217063e1);
-        let t41 = f64::powf(t32, 0.3223476e1);
-        let t43 = 1.0 - 0.45212413010769857073e-1 * t39 + 0.45402221956620378581e-1 * t41;
-        let t44 = f64::powf(t32, 0.3473804e1);
-        let t46 = 1.0 + 0.47702180224903349918e-3 * t44;
+        let t33 = f64::powf(t32, 2.626712);
+        let t35 = 1.0 + 0.00013471619689594795 * t33;
+        let t36 = f64::powf(t35, -0.657946);
+        let t39 = f64::powf(t32, 3.217063);
+        let t41 = f64::powf(t32, 3.223476);
+        let t43 = 1.0 - 0.04521241301076986 * t39 + 0.04540222195662038 * t41;
+        let t44 = f64::powf(t32, 3.473804);
+        let t46 = 1.0 + 0.0004770218022490335 * t44;
         let t47 = 1.0 / t46;
-        let t49 = 0.60146019220211109872e-4 * t33 * t36 + t43 * t47;
+        let t49 = 6.014601922021111e-05 * t33 * t36 + t43 * t47;
         let t53 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t49);
         let tzk0 = 2.0 * t53;
         zk[ip] += tzk0;

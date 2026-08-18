@@ -1,8 +1,8 @@
 //! GGA_C_P86 vxc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_c_p86.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
@@ -22,8 +22,8 @@ pub fn gga_c_p86_vxc_pol(
     param_ftilde: f64,
     param_malpha: f64,
     param_mbeta: f64,
-    param_mdelta: f64,
     param_mgamma: f64,
+    param_mdelta: f64,
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
@@ -47,12 +47,12 @@ pub fn gga_c_p86_vxc_pol(
         let t12 = t11 / 4.0;
         let t13 = 1.0 <= t12;
         let t14 = f64::sqrt(t11);
-        let t17 = 1.0 + 0.52645e0 * t14 + 0.8335e-1 * t11;
+        let t17 = 1.0 + 0.52645 * t14 + 0.08335 * t11;
         let t20 = f64::ln(t12);
         let t23 = t4 * t10 * t20;
-        let t27 = piecewise3(t13, -0.1423e0 / t17, 0.311e-1 * t20 - 0.48e-1 + 0.5e-3 * t23 - 0.29e-2 * t11);
-        let t30 = 1.0 + 0.69905e0 * t14 + 0.65275e-1 * t11;
-        let t37 = piecewise3(t13, -0.843e-1 / t30, 0.1555e-1 * t20 - 0.269e-1 + 0.175e-3 * t23 - 0.12e-2 * t11);
+        let t27 = piecewise3(t13, -0.1423 / t17, 0.0311 * t20 - 0.048 + 0.0005 * t23 - 0.0029 * t11);
+        let t30 = 1.0 + 0.69905 * t14 + 0.065275 * t11;
+        let t37 = piecewise3(t13, -0.0843 / t30, 0.01555 * t20 - 0.0269 + 0.000175 * t23 - 0.0012 * t11);
         let t38 = t37 - t27;
         let t39 = rho0 - rho1;
         let t40 = 1.0 / t7;
@@ -92,7 +92,7 @@ pub fn gga_c_p86_vxc_pol(
         let t83 = param_bb + t69 * t71 / 4.0 + t75 * t80 / 4.0;
         let t84 = param_mgamma * t1;
         let t87 = param_mdelta * t74;
-        let t92 = 1.0 + t84 * t71 / 4.0 + t87 * t80 / 4.0 + 0.23873241463784300365e4 * param_mbeta * t40;
+        let t92 = 1.0 + t84 * t71 / 4.0 + t87 * t80 / 4.0 + 2387.32414637843 * param_mbeta * t40;
         let t93 = 1.0 / t92;
         let t95 = t83 * t93 + param_aa;
         let t96 = 1.0 / t95;
@@ -127,13 +127,13 @@ pub fn gga_c_p86_vxc_pol(
         let t128 = t124 * t127;
         let t130 = t6 * t126;
         let t131 = t4 * t130;
-        let t133 = -0.87741666666666666667e-1 * t128 - 0.27783333333333333333e-1 * t131;
+        let t133 = -0.08774166666666666 * t128 - 0.027783333333333333 * t131;
         let t138 = t4 * t130 * t20;
-        let t142 = piecewise3(t13, 0.1423e0 * t122 * t133, -0.10366666666666666667e-1 * t40 - 0.16666666666666666667e-3 * t138 + 0.8e-3 * t131);
+        let t142 = piecewise3(t13, 0.1423 * t122 * t133, -0.010366666666666666 * t40 - 0.00016666666666666666 * t138 + 0.0008 * t131);
         let t143 = t30 * t30;
         let t144 = 1.0 / t143;
-        let t147 = -0.11650833333333333333e0 * t128 - 0.21758333333333333333e-1 * t131;
-        let t154 = piecewise3(t13, 0.843e-1 * t144 * t147, -0.51833333333333333333e-2 * t40 - 0.58333333333333333333e-4 * t138 + 0.34166666666666666667e-3 * t131);
+        let t147 = -0.11650833333333334 * t128 - 0.021758333333333334 * t131;
+        let t154 = piecewise3(t13, 0.0843 * t144 * t147, -0.005183333333333333 * t40 - 5.833333333333333e-05 * t138 + 0.00034166666666666666 * t131);
         let t155 = t154 - t142;
         let t157 = t155 * t54 * t59;
         let t158 = 1.0 / t63;
@@ -159,7 +159,7 @@ pub fn gga_c_p86_vxc_pol(
         let t191 = t92 * t92;
         let t192 = 1.0 / t191;
         let t193 = t83 * t192;
-        let t200 = -t84 * t127 / 12.0 - t87 * t186 / 6.0 - 0.23873241463784300365e4 * param_mbeta * t158;
+        let t200 = -t84 * t127 / 12.0 - t87 * t186 / 6.0 - 2387.32414637843 * param_mbeta * t158;
         let t202 = t189 * t93 - t193 * t200;
         let t206 = 1.0 / t99 / t63;
         let t210 = t180 * t181 * t202 + 7.0 / 6.0 * t68 * t98 * t206;

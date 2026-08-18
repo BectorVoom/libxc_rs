@@ -1,12 +1,12 @@
 //! MGGA_X_REVTM exc pol kernel (rayon backend).
 //!
-//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_revtm.c`.
-//! Preserves exact maple2c variable names and FP operation order.
-//! Mechanically converted from the CubeCL form by tools/translate_rayon/xform.py.
+//! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_x_revtm.c`
+//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
+//! variable names and floating-point operation order.
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -82,12 +82,12 @@ pub fn mgga_x_revtm_exc_pol(
         let t63 = t50 * t50;
         let t64 = t63 * rho0;
         let t66 = 1.0 / t51 / t64;
-        let t70 = 1.0 + 0.15045488888888888889e0 * t56 + 0.26899490462262948e-2 * t61 * t62 * t66;
+        let t70 = 1.0 + 0.1504548888888889 * t56 + 0.002689949046226295 * t61 * t62 * t66;
         let t71 = f64::powf(t70, 1.0 / 5.0);
         let t75 = 1.0 / t52 / rho0;
         let t76 = tau0 * t75;
-        let t79 = 0.256337604e0 * t58 * t47;
-        let t85 = 1.0 + 0.63943327777777777778e-1 * t56 - 5.0 / 9.0 * (0.14554132e0 * t76 + t79 + 0.11867481666666666667e-1 * t55) * t44 * t48;
+        let t79 = 0.256337604 * t58 * t47;
+        let t85 = 1.0 + 0.06394332777777778 * t56 - 5.0 / 9.0 * (0.14554132 * t76 + t79 + 0.011867481666666667 * t55) * t44 * t48;
         let t86 = t71 * t71;
         let t87 = 1.0 / t86;
         let t90 = 1.0 / t71 + 7.0 / 9.0 * t85 * t87;
@@ -98,7 +98,7 @@ pub fn mgga_x_revtm_exc_pol(
         let t102 = t101 * t44;
         let t105 = 5.0 / 9.0 * t102 * t48 - 1.0;
         let t106 = t48 * t105;
-        let t109 = 1.0 + 0.22222222222222222222e0 * t102 * t106;
+        let t109 = 1.0 + 0.2222222222222222 * t102 * t106;
         let t110 = f64::sqrt(t109);
         let t111 = 1.0 / t110;
         let t115 = 9.0 / 20.0 * t105 * t111 + t56 / 36.0;
@@ -140,11 +140,11 @@ pub fn mgga_x_revtm_exc_pol(
         let t164 = t155 * t155;
         let t165 = t164 * rho1;
         let t167 = 1.0 / t156 / t165;
-        let t171 = 1.0 + 0.15045488888888888889e0 * t161 + 0.26899490462262948e-2 * t61 * t163 * t167;
+        let t171 = 1.0 + 0.1504548888888889 * t161 + 0.002689949046226295 * t61 * t163 * t167;
         let t172 = f64::powf(t171, 1.0 / 5.0);
         let t176 = 1.0 / t157 / rho1;
         let t177 = tau1 * t176;
-        let t184 = 1.0 + 0.63943327777777777778e-1 * t161 - 5.0 / 9.0 * (0.14554132e0 * t177 + t79 + 0.11867481666666666667e-1 * t160) * t44 * t48;
+        let t184 = 1.0 + 0.06394332777777778 * t161 - 5.0 / 9.0 * (0.14554132 * t177 + t79 + 0.011867481666666667 * t160) * t44 * t48;
         let t185 = t172 * t172;
         let t186 = 1.0 / t185;
         let t189 = 1.0 / t172 + 7.0 / 9.0 * t184 * t186;
@@ -155,7 +155,7 @@ pub fn mgga_x_revtm_exc_pol(
         let t201 = t200 * t44;
         let t204 = 5.0 / 9.0 * t201 * t48 - 1.0;
         let t205 = t48 * t204;
-        let t208 = 1.0 + 0.22222222222222222222e0 * t201 * t205;
+        let t208 = 1.0 + 0.2222222222222222 * t201 * t205;
         let t209 = f64::sqrt(t208);
         let t210 = 1.0 / t209;
         let t214 = 9.0 / 20.0 * t204 * t210 + t161 / 36.0;
