@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -74,7 +75,7 @@ pub fn mgga_x_tm_vxc_unpol(
         let t59 = t58 * rho[ip];
         let t61 = 1.0 / t19 / t59;
         let t65 = 1.0 + 0.1504548888888889 * t50 + 0.00537989809245259 * t55 * t57 * t61;
-        let t66 = f64::powf(t65, 1.0 / 5.0);
+        let t66 = rmath::pow(t65, 1.0 / 5.0);
         let t69 = tau[ip] * t43;
         let t71 = 1.0 / t46 / rho[ip];
         let t72 = t69 * t71;
@@ -90,7 +91,7 @@ pub fn mgga_x_tm_vxc_unpol(
         let t104 = t101 * t27;
         let t105 = 1.0 - t27;
         let t108 = 1.0 + 5.0 / 12.0 * t92 * t49 + 292.0 / 405.0 * t102 - 146.0 / 135.0 * t104 * t105;
-        let t109 = f64::powf(t108, 1.0 / 10.0);
+        let t109 = rmath::pow(t108, 1.0 / 10.0);
         let t111 = t88 * t109 + t35 * t86;
         let t115 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t111);
         let tzk0 = 2.0 * t115;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -34,7 +35,7 @@ pub fn mgga_c_cc_vxc_unpol(
         let t8 = pow_1_3(rho[ip]);
         let t11 = t5 * t7 / t8;
         let t13 = 1.0 + 0.053425 * t11;
-        let t14 = f64::sqrt(t11);
+        let t14 = rmath::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t2 * t2;
         let t20 = t4 * t4;
@@ -43,7 +44,7 @@ pub fn mgga_c_cc_vxc_unpol(
         let t25 = t21 * t6 / t22;
         let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
         let t30 = 1.0 + 16.081979498692537 / t27;
-        let t31 = f64::ln(t30);
+        let t31 = rmath::ln(t30);
         let t33 = 0.0621814 * t13 * t31;
         let t35 = pow_1_3(zeta_threshold);
         let t37 = piecewise3(1.0 <= zeta_threshold, t35 * zeta_threshold, 1.0);
@@ -52,7 +53,7 @@ pub fn mgga_c_cc_vxc_unpol(
         let t46 = 1.0 + 0.0278125 * t11;
         let t51 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
         let t54 = 1.0 + 29.608749977793437 / t51;
-        let t55 = f64::ln(t54);
+        let t55 = rmath::ln(t54);
         let t58 = 0.0197516734986138 * t44 * t46 * t55;
         let tzk0 = -t33 + t58;
         zk[ip] += tzk0;
@@ -67,7 +68,7 @@ pub fn mgga_c_cc_vxc_unpol(
         let t71 = t70 * t60;
         let t72 = t69 * t71;
         let t74 = t5 * t61;
-        let t76 = f64::sqrt(t11);
+        let t76 = rmath::sqrt(t11);
         let t77 = t76 * t2;
         let t78 = t77 * t71;
         let t83 = t21 * t6 / t22 / rho[ip];

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -134,15 +135,15 @@ pub fn mgga_x_br89_lxc_pol(
         let t41 = rho0 * rho0;
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
-        let t47 = f64::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
+        let t47 = rmath::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
         let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
         let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t49, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
-        let t59 = f64::exp(t57 / 3.0);
-        let t60 = f64::exp(-t57);
+        let t59 = rmath::exp(t57 / 3.0);
+        let t60 = rmath::exp(-t57);
         let t62 = 1.0 + t57 / 2.0;
         let t63 = t60 * t62;
         let t64 = 1.0 - t63;
@@ -190,15 +191,15 @@ pub fn mgga_x_br89_lxc_pol(
         let t121 = rho1 * rho1;
         let t123 = 1.0 / t112 / t121;
         let t124 = t120 * t123;
-        let t127 = f64::abs(t115 / 2.0 - 2.0 * t118 + t124 / 4.0);
+        let t127 = rmath::abs(t115 / 2.0 - 2.0 * t118 + t124 / 4.0);
         let t129 = t127 / 3.0 < 5e-13;
         let t133 = t115 / 6.0 - 2.0 / 3.0 * t118 + t124 / 12.0;
         let t134 = 0.0 < t133;
         let t135 = piecewise3(t134, 5e-13, -5e-13);
         let t136 = piecewise3(t129, t135, t133);
         let t137 = xc_mgga_x_br89_get_x(t136);
-        let t139 = f64::exp(t137 / 3.0);
-        let t140 = f64::exp(-t137);
+        let t139 = rmath::exp(t137 / 3.0);
+        let t140 = rmath::exp(-t137);
         let t142 = 1.0 + t137 / 2.0;
         let t143 = t140 * t142;
         let t144 = 1.0 - t143;
@@ -248,7 +249,7 @@ pub fn mgga_x_br89_lxc_pol(
         let t209 = t206 * t208;
         let t210 = t194 * t209;
         let t211 = t191 * t210;
-        let t213 = f64::exp(-2.0 / 3.0 * t57);
+        let t213 = rmath::exp(-2.0 / 3.0 * t57);
         let t214 = 1.0 / t213;
         let t215 = t57 * t57;
         let t217 = t215 - 2.0 * t57 + 3.0;
@@ -321,7 +322,7 @@ pub fn mgga_x_br89_lxc_pol(
         let t336 = t333 * t335;
         let t337 = t194 * t336;
         let t338 = t321 * t337;
-        let t340 = f64::exp(-2.0 / 3.0 * t137);
+        let t340 = rmath::exp(-2.0 / 3.0 * t137);
         let t341 = 1.0 / t340;
         let t342 = t137 * t137;
         let t344 = t342 - 2.0 * t137 + 3.0;

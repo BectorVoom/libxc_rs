@@ -4,22 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rmath = { path = "../../../../rmath", default-features = false, features = ["wide"] }
+rmath = { path = "../../../../rmath", default-features = false, features = ["wide"], version = "0.1.0" }
 # Explicit SIMD for the kernels that need it. Pure Rust (no C, per the
 # project's no-C-in-production-path constraint), and a tiny tree: wide pulls
 # only safe_arch + bytemuck. Re-exported below so a kernel crate needs one
 # dependency rather than two.
 wide = "1.6"
 
-# Off by default. This crate is a dependency of all 266 kernel crates, and
-# cubecl pulls ~235 transitive crates; making it unconditional would put that
-# cost into every build of the production path. Enable with
-# `--features cubecl` to get the `vector` module.
-cubecl = { version = "0.10.0", default-features = false, features = ["cpu"], optional = true }
-
-# bytemuck is needed host-side to read `client.read(..)` bytes back as f64.
-bytemuck = { version = "1.25.0", optional = true }
-
-[features]
-default = []
-cubecl = ["dep:cubecl", "dep:bytemuck"]

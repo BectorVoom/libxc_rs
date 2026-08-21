@@ -104,7 +104,7 @@ fn specials() -> Vec<f64> {
 }
 
 #[test]
-fn exp_bit_identical_to_glibc() {
+fn exp_bit_identical_to_rmath() {
     let mut rng = Rng(0x9E3779B97F4A7C15);
     let mut vals = specials();
     for _ in 0..1_000_000 {
@@ -119,11 +119,11 @@ fn exp_bit_identical_to_glibc() {
     for _ in 0..250_000 {
         vals.push(f64::from_bits(rng.next())); // adversarial bit patterns
     }
-    check_all(&vals, f64::exp, simd::exp, "exp");
+    check_all(&vals, rmath::exp, simd::exp, "exp");
 }
 
 #[test]
-fn ln_bit_identical_to_glibc() {
+fn ln_bit_identical_to_rmath() {
     let mut rng = Rng(0xD1B54A32D192ED03);
     let mut vals = specials();
     for _ in 0..1_000_000 {
@@ -138,7 +138,7 @@ fn ln_bit_identical_to_glibc() {
     for _ in 0..250_000 {
         vals.push(f64::from_bits(rng.next()));
     }
-    check_all(&vals, f64::ln, simd::ln, "ln");
+    check_all(&vals, rmath::ln, simd::ln, "ln");
 }
 
 #[test]
@@ -170,8 +170,8 @@ fn mixed_special_lanes_do_not_leak() {
         let gl: [f64; 8] = simd::ln(f64x8::new(lanes)).into();
         let gc: [f64; 8] = simd::cbrt(f64x8::new(lanes)).into();
         for l in 0..8 {
-            assert_eq!(ge[l].to_bits(), lanes[l].exp().to_bits(), "exp lane {l}");
-            assert_eq!(gl[l].to_bits(), lanes[l].ln().to_bits(), "ln lane {l}");
+            assert_eq!(ge[l].to_bits(), rmath::exp(lanes[l]).to_bits(), "exp lane {l}");
+            assert_eq!(gl[l].to_bits(), rmath::ln(lanes[l]).to_bits(), "ln lane {l}");
             assert_eq!(gc[l].to_bits(), powers::cbrt_f64(lanes[l]).to_bits(), "cbrt lane {l}");
         }
     }

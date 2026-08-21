@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -39,7 +40,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
         let t12 = 1.0 + 0.053425 * t10;
-        let t13 = f64::sqrt(t10);
+        let t13 = rmath::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
@@ -48,7 +49,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t24 = t20 * t5 / t21;
         let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
         let t29 = 1.0 + 16.081979498692537 / t26;
-        let t30 = f64::ln(t29);
+        let t30 = rmath::ln(t29);
         let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
@@ -58,11 +59,11 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t45 = 1.0 + 0.0278125 * t10;
         let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
         let t53 = 1.0 + 29.608749977793437 / t50;
-        let t54 = f64::ln(t53);
+        let t54 = rmath::ln(t53);
         let t57 = 0.0197516734986138 * t43 * t45 * t54;
         let t58 = t34 * t34;
         let t59 = piecewise3(t33, t58, 1.0);
-        let t60 = f64::sqrt(sigma[ip]);
+        let t60 = rmath::sqrt(sigma[ip]);
         let t61 = t60 * sigma[ip];
         let t62 = param_alpha * t61;
         let t63 = rho[ip] * rho[ip];
@@ -72,8 +73,8 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t67 = t66 * t59;
         let t68 = 1.0 / t67;
         let t71 = 1.0 / t13 / t10;
-        let t75 = f64::powf(t59, t62 * t65 * t68 * t71 / 16.0);
-        let t76 = f64::ln(2.0);
+        let t75 = rmath::pow(t59, t62 * t65 * t68 * t71 / 16.0);
+        let t76 = rmath::ln(2.0);
         let t77 = 1.0 - t76;
         let t78 = t75 * t77;
         let t79 = M_PI * M_PI;
@@ -85,7 +86,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t90 = t86 * t18 * t88 * t5;
         let t93 = 1.0 / t77;
         let t94 = param_beta * t93;
-        let t99 = f64::exp(-(-t32 + t57) * t93 * t79 * t68);
+        let t99 = rmath::exp(-(-t32 + t57) * t93 * t79 * t68);
         let t100 = t99 - 1.0;
         let t101 = 1.0 / t100;
         let t102 = t79 * t101;
@@ -107,7 +108,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t125 = 1.0 / t124;
         let t126 = t93 * t79 * t125;
         let t128 = t120 * t126 + 1.0;
-        let t129 = f64::ln(t128);
+        let t129 = rmath::ln(t128);
         let t131 = t78 * t81 * t129;
         let tzk0 = -t32 + t57 + t131;
         zk[ip] += tzk0;
@@ -123,7 +124,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t144 = t143 * t133;
         let t145 = t142 * t144;
         let t147 = t4 * t134;
-        let t149 = f64::sqrt(t10);
+        let t149 = rmath::sqrt(t10);
         let t150 = t149 * t1;
         let t151 = t150 * t144;
         let t155 = t5 / t21 / rho[ip];
@@ -151,7 +152,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t195 = t193 * t1 * t143;
         let t198 = -t62 * t182 * t68 * t71 / 4.0 + t62 * t188 * t68 * t195 / 32.0;
         let t199 = t75 * t198;
-        let t200 = f64::ln(t59);
+        let t200 = rmath::ln(t59);
         let t202 = t77 * t80;
         let t204 = t202 * t67 * t129;
         let t205 = t199 * t200 * t204;
@@ -237,7 +238,7 @@ pub fn gga_c_zpbeint_kxc_unpol(
         let t329 = t143 * t83;
         let t330 = t142 * t329;
         let t332 = t4 * t306;
-        let t334 = 1.0/f64::sqrt(t10);
+        let t334 = 1.0/rmath::sqrt(t10);
         let t335 = t334 * t18;
         let t336 = t335 * t326;
         let t338 = t150 * t329;

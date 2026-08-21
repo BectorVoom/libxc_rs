@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -72,10 +73,10 @@ pub fn gga_x_q2d_fxc_pol(
         let t58 = 100.0 - t49 * t50 * t54 / 576.0;
         let t60 = 1.0 / t30;
         let t61 = t46 * t60;
-        let t62 = f64::sqrt(sigma0);
+        let t62 = rmath::sqrt(sigma0);
         let t64 = 1.0 / t35 / rho0;
         let t66 = t61 * t62 * t64;
-        let t67 = f64::powf(t66, 3.5);
+        let t67 = rmath::pow(t66, 3.5);
         let t69 = 1.0 + t40 / 24.0;
         let t72 = t45 * t58 + 8.715382969798257e-05 * t67 * t69;
         let t73 = t27 * t72;
@@ -108,10 +109,10 @@ pub fn gga_x_q2d_fxc_pol(
         let t112 = t111 * rho1;
         let t114 = 1.0 / t99 / t112;
         let t118 = 100.0 - t49 * t110 * t114 / 576.0;
-        let t120 = f64::sqrt(sigma2);
+        let t120 = rmath::sqrt(sigma2);
         let t122 = 1.0 / t99 / rho1;
         let t124 = t61 * t120 * t122;
-        let t125 = f64::powf(t124, 3.5);
+        let t125 = rmath::pow(t124, 3.5);
         let t127 = 1.0 + t104 / 24.0;
         let t130 = t109 * t118 + 8.715382969798257e-05 * t125 * t127;
         let t131 = t27 * t130;
@@ -145,7 +146,7 @@ pub fn gga_x_q2d_fxc_pol(
         let t173 = t48 * t50;
         let t174 = t51 * t34;
         let t176 = 1.0 / t35 / t174;
-        let t180 = f64::powf(t66, 2.5);
+        let t180 = rmath::pow(t66, 2.5);
         let t182 = t180 * t69 * t46;
         let t183 = t60 * t62;
         let t185 = 1.0 / t35 / t34;
@@ -192,7 +193,7 @@ pub fn gga_x_q2d_fxc_pol(
         let t262 = t48 * t110;
         let t263 = t111 * t98;
         let t265 = 1.0 / t99 / t263;
-        let t269 = f64::powf(t124, 2.5);
+        let t269 = rmath::pow(t124, 2.5);
         let t271 = t269 * t127 * t46;
         let t272 = t60 * t120;
         let t274 = 1.0 / t99 / t98;

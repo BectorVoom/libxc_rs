@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -36,7 +37,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t8 = pow_1_3(t7);
         let t11 = t4 * t6 / t8;
         let t13 = 1.0 + 0.053425 * t11;
-        let t14 = f64::sqrt(t11);
+        let t14 = rmath::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
         let t20 = t3 * t3;
@@ -45,7 +46,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t25 = t21 * t5 / t22;
         let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
         let t30 = 1.0 + 16.081979498692537 / t27;
-        let t31 = f64::ln(t30);
+        let t31 = rmath::ln(t30);
         let t33 = 0.0621814 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
@@ -75,17 +76,17 @@ pub fn gga_c_acgga_vxc_pol(
         let t62 = 1.0 + 0.05137 * t11;
         let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
         let t70 = 1.0 + 32.16395899738507 / t67;
-        let t71 = f64::ln(t70);
+        let t71 = rmath::ln(t70);
         let t75 = 1.0 + 0.0278125 * t11;
         let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
         let t83 = 1.0 + 29.608749977793437 / t80;
-        let t84 = f64::ln(t83);
+        let t84 = rmath::ln(t83);
         let t85 = t75 * t84;
         let t87 = -0.0310907 * t62 * t71 + t33 - 0.0197516734986138 * t85;
         let t88 = t60 * t87;
         let t89 = t40 * t88;
         let t91 = 0.0197516734986138 * t60 * t85;
-        let t92 = f64::ln(2.0);
+        let t92 = rmath::ln(2.0);
         let t93 = 1.0 - t92;
         let t94 = M_PI * M_PI;
         let t95 = 1.0 / t94;
@@ -106,7 +107,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t113 = t110 * t112;
         let t114 = 1.0 / t3;
         let t115 = t19 * t114;
-        let t116 = f64::sqrt(t107);
+        let t116 = rmath::sqrt(t107);
         let t118 = 1.0 / t8 / t7;
         let t119 = t116 * t118;
         let t120 = t56 * t56;
@@ -125,7 +126,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t138 = (-t33 + t89 + t91) * t136;
         let t139 = 1.0 / t105;
         let t140 = t94 * t139;
-        let t142 = f64::exp(-t138 * t140);
+        let t142 = rmath::exp(-t138 * t140);
         let t143 = t142 - 1.0;
         let t144 = 1.0 / t143;
         let t145 = t136 * t144;
@@ -149,7 +150,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t169 = 1.0 + 0.6585449182935511 * t145 * t165;
         let t170 = 1.0 / t169;
         let t173 = 1.0 + 0.6585449182935511 * t166 * t170;
-        let t174 = f64::ln(t173);
+        let t174 = rmath::ln(t173);
         let t176 = t96 * t105 * t174;
         let tzk0 = -t33 + t89 + t91 + t176;
         zk[ip] += tzk0;
@@ -164,7 +165,7 @@ pub fn gga_c_acgga_vxc_pol(
         let t186 = t185 * t118;
         let t187 = t184 * t186;
         let t189 = t4 * t177;
-        let t191 = f64::sqrt(t11);
+        let t191 = rmath::sqrt(t11);
         let t192 = t191 * t1;
         let t193 = t192 * t186;
         let t198 = t21 * t5 / t22 / t7;

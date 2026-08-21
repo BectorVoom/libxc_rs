@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -50,17 +51,17 @@ pub fn gga_x_airy_exc_pol(
         let t31 = pow_1_3(t30);
         let t32 = 1.0 / t31;
         let t33 = t29 * t32;
-        let t34 = f64::sqrt(sigma0);
+        let t34 = rmath::sqrt(sigma0);
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
         let t39 = t33 * t34 * t37;
-        let t40 = f64::powf(t39, 2.626712);
+        let t40 = rmath::pow(t39, 2.626712);
         let t42 = 1.0 + 0.00013471619689594795 * t40;
-        let t43 = f64::powf(t42, -0.657946);
-        let t46 = f64::powf(t39, 3.217063);
-        let t48 = f64::powf(t39, 3.223476);
+        let t43 = rmath::pow(t42, -0.657946);
+        let t46 = rmath::pow(t39, 3.217063);
+        let t48 = rmath::pow(t39, 3.223476);
         let t50 = 1.0 - 0.04521241301076986 * t46 + 0.04540222195662038 * t48;
-        let t51 = f64::powf(t39, 3.473804);
+        let t51 = rmath::pow(t39, 3.473804);
         let t53 = 1.0 + 0.0004770218022490335 * t51;
         let t54 = 1.0 / t53;
         let t56 = 6.014601922021111e-05 * t40 * t43 + t50 * t54;
@@ -73,17 +74,17 @@ pub fn gga_x_airy_exc_pol(
         let t67 = pow_1_3(t65);
         let t69 = piecewise3(t66, t22, t67 * t65);
         let t70 = t69 * t26;
-        let t71 = f64::sqrt(sigma2);
+        let t71 = rmath::sqrt(sigma2);
         let t72 = pow_1_3(rho1);
         let t74 = 1.0 / t72 / rho1;
         let t76 = t33 * t71 * t74;
-        let t77 = f64::powf(t76, 2.626712);
+        let t77 = rmath::pow(t76, 2.626712);
         let t79 = 1.0 + 0.00013471619689594795 * t77;
-        let t80 = f64::powf(t79, -0.657946);
-        let t83 = f64::powf(t76, 3.217063);
-        let t85 = f64::powf(t76, 3.223476);
+        let t80 = rmath::pow(t79, -0.657946);
+        let t83 = rmath::pow(t76, 3.217063);
+        let t85 = rmath::pow(t76, 3.223476);
         let t87 = 1.0 - 0.04521241301076986 * t83 + 0.04540222195662038 * t85;
-        let t88 = f64::powf(t76, 3.473804);
+        let t88 = rmath::pow(t76, 3.473804);
         let t90 = 1.0 + 0.0004770218022490335 * t88;
         let t91 = 1.0 / t90;
         let t93 = 6.014601922021111e-05 * t77 * t80 + t87 * t91;

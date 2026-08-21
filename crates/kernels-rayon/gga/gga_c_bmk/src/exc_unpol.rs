@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -46,7 +47,7 @@ pub fn gga_c_bmk_exc_unpol(
         let t19 = piecewise3(t3, 1.0 / t17, 1.0);
         let t21 = t12 * t14 * t15 * t19;
         let t23 = 1.0 + 0.053425 * t21;
-        let t24 = f64::sqrt(t21);
+        let t24 = rmath::sqrt(t21);
         let t27 = pow_3_2(t21);
         let t29 = t6 * t6;
         let t30 = t8 * t8;
@@ -59,7 +60,7 @@ pub fn gga_c_bmk_exc_unpol(
         let t39 = t32 * t34 * t35 * t37;
         let t41 = 3.79785 * t24 + 0.8969 * t21 + 0.204775 * t27 + 0.123235 * t39;
         let t44 = 1.0 + 16.081824322151103 / t41;
-        let t45 = f64::ln(t44);
+        let t45 = rmath::ln(t44);
         let t47 = 0.062182 * t23 * t45;
         let t49 = t17 * zeta_threshold;
         let t51 = piecewise3(2.0 <= zeta_threshold, t49, 2.0 * t15);
@@ -69,11 +70,11 @@ pub fn gga_c_bmk_exc_unpol(
         let t60 = 1.0 + 0.05137 * t21;
         let t65 = 7.05945 * t24 + 1.549425 * t21 + 0.420775 * t27 + 0.1562925 * t39;
         let t68 = 1.0 + 32.1646831778707 / t65;
-        let t69 = f64::ln(t68);
+        let t69 = rmath::ln(t68);
         let t73 = 1.0 + 0.0278125 * t21;
         let t78 = 5.1785 * t24 + 0.905775 * t21 + 0.1100325 * t27 + 0.1241775 * t39;
         let t81 = 1.0 + 29.608574643216677 / t78;
-        let t82 = f64::ln(t81);
+        let t82 = rmath::ln(t81);
         let t83 = t73 * t82;
         let t92 = piecewise3(t4, 0.0, t5 * (-t47 + t58 * (-0.03109 * t60 * t69 + t47 - 0.019751789702565206 * t83) + 0.019751789702565206 * t58 * t83) / 2.0);
         let t94 = param_c_ss_1;
@@ -115,18 +116,18 @@ pub fn gga_c_bmk_exc_unpol(
         let t145 = 2.0 * t92 * t143;
         let t147 = t9 * t11 * t14;
         let t149 = 1.0 + 0.053425 * t147;
-        let t150 = f64::sqrt(t147);
+        let t150 = rmath::sqrt(t147);
         let t153 = pow_3_2(t147);
         let t156 = t31 * t10 * t34;
         let t158 = 3.79785 * t150 + 0.8969 * t147 + 0.204775 * t153 + 0.123235 * t156;
         let t161 = 1.0 + 16.081824322151103 / t158;
-        let t162 = f64::ln(t161);
+        let t162 = rmath::ln(t161);
         let t165 = piecewise3(t3, t49, 1.0);
         let t168 = (2.0 * t165 - 2.0) * t57;
         let t170 = 1.0 + 0.0278125 * t147;
         let t175 = 5.1785 * t150 + 0.905775 * t147 + 0.1100325 * t153 + 0.1241775 * t156;
         let t178 = 1.0 + 29.608574643216677 / t175;
-        let t179 = f64::ln(t178);
+        let t179 = rmath::ln(t178);
         let t184 = -0.062182 * t149 * t162 + 0.019751789702565206 * t168 * t170 * t179 - 2.0 * t92;
         let t186 = param_c_ab_1;
         let t187 = t186 * sigma[ip];

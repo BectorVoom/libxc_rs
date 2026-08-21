@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -19,15 +20,15 @@ pub fn gga_c_zvpbeloc_exc_unpol(
     zeta_threshold: f64,
 ) {
     for ip in 0..zk.len() {
-        let t1 = f64::powf(4.0, 1.0 / 6.0);
+        let t1 = rmath::pow(4.0, 1.0 / 6.0);
         let t2 = t1 * t1;
         let t3 = t2 * t2;
         let t4 = t3 * t1;
-        let t5 = f64::powf(3.0, 1.0 / 6.0);
+        let t5 = rmath::pow(3.0, 1.0 / 6.0);
         let t6 = t4 * t5;
         let t7 = M_PI * M_PI;
         let t8 = 1.0 / t7;
-        let t9 = f64::powf(t8, 1.0 / 6.0);
+        let t9 = rmath::pow(t8, 1.0 / 6.0);
         let t10 = t6 * t9;
         let t11 = 1.0 / M_PI;
         let t12 = pow_1_3(t11);
@@ -35,14 +36,14 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t14 = 1.0 / t13;
         let t17 = piecewise3(1e-20 < 0.0, 0.0, 1e-20);
         let t19 = t10 * t12 * t14 * t17;
-        let t21 = f64::exp(-1.0 * t19);
+        let t21 = rmath::exp(-1.0 * t19);
         let t22 = M_CBRT3;
         let t23 = t22 * t12;
         let t24 = M_CBRT4;
         let t25 = t24 * t24;
         let t27 = t23 * t25 * t14;
         let t29 = 1.0 + 0.053425 * t27;
-        let t30 = f64::sqrt(t27);
+        let t30 = rmath::sqrt(t27);
         let t33 = pow_3_2(t27);
         let t35 = t22 * t22;
         let t36 = t12 * t12;
@@ -51,7 +52,7 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t41 = t37 * t24 / t38;
         let t43 = 3.79785 * t30 + 0.8969 * t27 + 0.204775 * t33 + 0.123235 * t41;
         let t46 = 1.0 + 16.081979498692537 / t43;
-        let t47 = f64::ln(t46);
+        let t47 = rmath::ln(t46);
         let t49 = 0.0621814 * t29 * t47;
         let t50 = 1.0 <= zeta_threshold;
         let t51 = pow_1_3(zeta_threshold);
@@ -61,9 +62,9 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t62 = 1.0 + 0.0278125 * t27;
         let t67 = 5.1785 * t30 + 0.905775 * t27 + 0.1100325 * t33 + 0.1241775 * t41;
         let t70 = 1.0 + 29.608749977793437 / t67;
-        let t71 = f64::ln(t70);
+        let t71 = rmath::ln(t70);
         let t74 = 0.0197516734986138 * t60 * t62 * t71;
-        let t75 = f64::ln(2.0);
+        let t75 = rmath::ln(2.0);
         let t76 = 1.0 - t75;
         let t77 = t76 * t8;
         let t78 = t51 * t51;
@@ -77,7 +78,7 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t87 = t56 * t86;
         let t89 = 1.0 / t12;
         let t90 = t35 * t89;
-        let t92 = f64::exp(-t41 / 4.0);
+        let t92 = rmath::exp(-t41 / 4.0);
         let t93 = 1.0 - t92;
         let t94 = t24 * t93;
         let t95 = t90 * t94;
@@ -87,7 +88,7 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t105 = 1.0 / t76;
         let t106 = t98 * t105;
         let t109 = 1.0 / t81;
-        let t112 = f64::exp(-(-t49 + t74) * t105 * t7 * t109);
+        let t112 = rmath::exp(-(-t49 + t74) * t105 * t7 * t109);
         let t113 = t112 - 1.0;
         let t114 = 1.0 / t113;
         let t115 = t7 * t114;
@@ -111,7 +112,7 @@ pub fn gga_c_zvpbeloc_exc_unpol(
         let t139 = 1.0 / t138;
         let t140 = t135 * t139;
         let t142 = t134 * t140 + 1.0;
-        let t143 = f64::ln(t142);
+        let t143 = rmath::ln(t142);
         let tzk0 = t21 * (t77 * t81 * t143 - t49 + t74);
         zk[ip] += tzk0;
     }

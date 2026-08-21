@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -61,7 +62,7 @@ pub fn gga_k_ol1_kxc_pol(
         let t34 = t33 * t33;
         let t36 = 1.0 / t34 / t32;
         let t39 = M_CBRT2;
-        let t40 = f64::sqrt(sigma0);
+        let t40 = rmath::sqrt(sigma0);
         let t41 = t39 * t40;
         let t43 = 1.0 / t33 / rho0;
         let t47 = M_CBRT6;
@@ -83,7 +84,7 @@ pub fn gga_k_ol1_kxc_pol(
         let t72 = pow_1_3(rho1);
         let t73 = t72 * t72;
         let t75 = 1.0 / t73 / t71;
-        let t78 = f64::sqrt(sigma2);
+        let t78 = rmath::sqrt(sigma2);
         let t79 = t39 * t78;
         let t81 = 1.0 / t72 / rho1;
         let t88 = 1.0 + 5.0 / 9.0 * (sigma2 * t75 / 72.0 + 0.00677 * t79 * t81) * t47 * t52;

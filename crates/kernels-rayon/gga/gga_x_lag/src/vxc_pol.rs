@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -50,13 +51,13 @@ pub fn gga_x_lag_vxc_pol(
         let t28 = pow_1_3(t27);
         let t29 = 1.0 / t28;
         let t30 = t26 * t29;
-        let t31 = f64::sqrt(sigma0);
+        let t31 = rmath::sqrt(sigma0);
         let t32 = pow_1_3(rho0);
         let t34 = 1.0 / t32 / rho0;
         let t36 = t30 * t31 * t34;
-        let t37 = f64::powf(t36, 2.626712);
+        let t37 = rmath::pow(t36, 2.626712);
         let t40 = 1.0 + 0.00013471619689594795 * t37;
-        let t41 = f64::powf(t40, -0.657946);
+        let t41 = rmath::pow(t40, -0.657946);
         let t42 = t24 * t37 * t41;
         let t45 = piecewise3(t1, 0.0, -1.540002877192757e-05 * t23 * t42);
         let t46 = rho1 <= dens_threshold;
@@ -67,13 +68,13 @@ pub fn gga_x_lag_vxc_pol(
         let t52 = pow_1_3(t50);
         let t54 = piecewise3(t51, t19, t52 * t50);
         let t55 = t2 * t54;
-        let t56 = f64::sqrt(sigma2);
+        let t56 = rmath::sqrt(sigma2);
         let t57 = pow_1_3(rho1);
         let t59 = 1.0 / t57 / rho1;
         let t61 = t30 * t56 * t59;
-        let t62 = f64::powf(t61, 2.626712);
+        let t62 = rmath::pow(t61, 2.626712);
         let t65 = 1.0 + 0.00013471619689594795 * t62;
-        let t66 = f64::powf(t65, -0.657946);
+        let t66 = rmath::pow(t65, -0.657946);
         let t67 = t24 * t62 * t66;
         let t70 = piecewise3(t46, 0.0, -1.540002877192757e-05 * t55 * t67);
         let tzk0 = t45 + t70;
@@ -88,7 +89,7 @@ pub fn gga_x_lag_vxc_pol(
         let t83 = 1.0 / t82;
         let t85 = t83 * t37 * t41;
         let t87 = 5.133342923975857e-06 * t23 * t85;
-        let t88 = f64::powf(t36, 1.626712);
+        let t88 = rmath::pow(t36, 1.626712);
         let t89 = t24 * t88;
         let t90 = t23 * t89;
         let t91 = t41 * t26;
@@ -97,10 +98,10 @@ pub fn gga_x_lag_vxc_pol(
         let t95 = 1.0 / t32 / t93;
         let t96 = t92 * t95;
         let t97 = t91 * t96;
-        let t100 = f64::powf(t36, 4.253424);
+        let t100 = rmath::pow(t36, 4.253424);
         let t101 = t24 * t100;
         let t102 = t23 * t101;
-        let t103 = f64::powf(t40, -1.657946);
+        let t103 = rmath::pow(t40, -1.657946);
         let t104 = t103 * t26;
         let t105 = t104 * t96;
         let t109 = piecewise3(t1, 0.0, -1.540002877192757e-05 * t79 * t42 - t87 + 5.393525383408988e-05 * t90 * t97 - 4.780604235623332e-09 * t102 * t105);
@@ -120,7 +121,7 @@ pub fn gga_x_lag_vxc_pol(
         let t138 = piecewise5(t11, 0.0, t7, 0.0, t4 - t110);
         let t141 = piecewise3(t51, 0.0, 4.0 / 3.0 * t52 * t138);
         let t142 = t2 * t141;
-        let t145 = f64::powf(t61, 1.626712);
+        let t145 = rmath::pow(t61, 1.626712);
         let t146 = t24 * t145;
         let t147 = t55 * t146;
         let t148 = t66 * t26;
@@ -129,10 +130,10 @@ pub fn gga_x_lag_vxc_pol(
         let t152 = 1.0 / t57 / t150;
         let t153 = t149 * t152;
         let t154 = t148 * t153;
-        let t157 = f64::powf(t61, 4.253424);
+        let t157 = rmath::pow(t61, 4.253424);
         let t158 = t24 * t157;
         let t159 = t55 * t158;
-        let t160 = f64::powf(t65, -1.657946);
+        let t160 = rmath::pow(t65, -1.657946);
         let t161 = t160 * t26;
         let t162 = t161 * t153;
         let t166 = piecewise3(t46, 0.0, -1.540002877192757e-05 * t142 * t67 - t122 + 5.393525383408988e-05 * t147 * t154 - 4.780604235623332e-09 * t159 * t162);

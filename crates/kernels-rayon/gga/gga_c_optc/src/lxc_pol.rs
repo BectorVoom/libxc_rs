@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -52,7 +53,7 @@ pub fn gga_c_optc_lxc_pol(
         let t10 = t6 * t9;
         let t11 = t4 * t10;
         let t13 = 1.0 + 0.053425 * t11;
-        let t14 = f64::sqrt(t11);
+        let t14 = rmath::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
         let t20 = t3 * t3;
@@ -63,7 +64,7 @@ pub fn gga_c_optc_lxc_pol(
         let t25 = t21 * t24;
         let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
         let t30 = 1.0 + 16.081824322151103 / t27;
-        let t31 = f64::ln(t30);
+        let t31 = rmath::ln(t30);
         let t33 = 0.062182 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
@@ -93,11 +94,11 @@ pub fn gga_c_optc_lxc_pol(
         let t62 = 1.0 + 0.05137 * t11;
         let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
         let t70 = 1.0 + 32.1646831778707 / t67;
-        let t71 = f64::ln(t70);
+        let t71 = rmath::ln(t70);
         let t75 = 1.0 + 0.0278125 * t11;
         let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
         let t83 = 1.0 + 29.608574643216677 / t80;
-        let t84 = f64::ln(t83);
+        let t84 = rmath::ln(t83);
         let t85 = t75 * t84;
         let t87 = -0.03109 * t62 * t71 + t33 - 0.019751789702565206 * t85;
         let t88 = t60 * t87;
@@ -129,7 +130,7 @@ pub fn gga_c_optc_lxc_pol(
         let t121 = 1.0 / t104;
         let t123 = 1.0 / t94;
         let t124 = t1 * t123;
-        let t127 = f64::exp(-128.97460341341235 * t120 * t121 * t124);
+        let t127 = rmath::exp(-128.97460341341235 * t120 * t121 * t124);
         let t128 = t127 - 1.0;
         let t129 = 1.0 / t128;
         let t130 = t105 * t129;
@@ -163,7 +164,7 @@ pub fn gga_c_optc_lxc_pol(
         let t166 = 1.0 + 0.08693161489788757 * t148 * t149 * t151 + 0.0075571056687546295 * t159 * t163;
         let t167 = 1.0 / t166;
         let t171 = 1.0 + 2.7818116767324024 * t106 * t145 * t167;
-        let t172 = f64::ln(t171);
+        let t172 = rmath::ln(t171);
         let t176 = t2 * t93;
         let t179 = 2.568 + 5.8165 * t11 + 0.00184725 * t25;
         let t182 = 1000.0 + 2180.75 * t11 + 118.0 * t25;
@@ -177,7 +178,7 @@ pub fn gga_c_optc_lxc_pol(
         let t193 = t2 * t5 * t191 * t3;
         let t195 = 1.0 / t22 / t37;
         let t197 = t108 * t56;
-        let t201 = f64::exp(-25.0 / 18.0 * t193 * t195 * t103 * t197);
+        let t201 = rmath::exp(-25.0 / 18.0 * t193 * t195 * t103 * t197);
         let t202 = t116 * t201;
         let t203 = t149 * t202;
         let t207 = param_c1 * (-t33 + t89 + t91 + 0.002584488143490343 * t95 * t104 * t172 + t188 * t203 / 2.0);
@@ -188,7 +189,7 @@ pub fn gga_c_optc_lxc_pol(
         let t212 = pow_1_3(t211);
         let t214 = t209 * t210 * t212;
         let t216 = 1.0 + 0.053425 * t214;
-        let t217 = f64::sqrt(t214);
+        let t217 = rmath::sqrt(t214);
         let t220 = pow_3_2(t214);
         let t222 = t21 * t5;
         let t223 = t23 * t136;
@@ -196,7 +197,7 @@ pub fn gga_c_optc_lxc_pol(
         let t226 = t222 * t223 * t224;
         let t228 = 3.79785 * t217 + 0.8969 * t214 + 0.204775 * t220 + 0.123235 * t226;
         let t231 = 1.0 + 16.081824322151103 / t228;
-        let t232 = f64::ln(t231);
+        let t232 = rmath::ln(t231);
         let t234 = 0.062182 * t216 * t232;
         let t235 = 2.0 <= zeta_threshold;
         let t237 = piecewise3(t235, t46, 2.0 * t56);
@@ -206,11 +207,11 @@ pub fn gga_c_optc_lxc_pol(
         let t243 = 1.0 + 0.05137 * t214;
         let t248 = 7.05945 * t217 + 1.549425 * t214 + 0.420775 * t220 + 0.1562925 * t226;
         let t251 = 1.0 + 32.1646831778707 / t248;
-        let t252 = f64::ln(t251);
+        let t252 = rmath::ln(t251);
         let t256 = 1.0 + 0.0278125 * t214;
         let t261 = 5.1785 * t217 + 0.905775 * t214 + 0.1100325 * t220 + 0.1241775 * t226;
         let t264 = 1.0 + 29.608574643216677 / t261;
-        let t265 = f64::ln(t264);
+        let t265 = rmath::ln(t264);
         let t266 = t256 * t265;
         let t269 = t241 * (-0.03109 * t243 * t252 + t234 - 0.019751789702565206 * t266);
         let t271 = 0.019751789702565206 * t241 * t266;
@@ -231,7 +232,7 @@ pub fn gga_c_optc_lxc_pol(
         let t288 = t8 * t287;
         let t289 = t116 * t288;
         let t293 = 1.0 / t277;
-        let t297 = f64::exp(-128.97460341341235 * (-t234 + t269 + t271) * t293 * t124);
+        let t297 = rmath::exp(-128.97460341341235 * (-t234 + t269 + t271) * t293 * t124);
         let t298 = t297 - 1.0;
         let t299 = 1.0 / t298;
         let t300 = t105 * t299;
@@ -263,7 +264,7 @@ pub fn gga_c_optc_lxc_pol(
         let t334 = 1.0 + 0.08693161489788757 * t320 * t324 + 0.0075571056687546295 * t331 * t314;
         let t335 = 1.0 / t334;
         let t339 = 1.0 + 2.7818116767324024 * t106 * t317 * t335;
-        let t340 = f64::ln(t339);
+        let t340 = rmath::ln(t339);
         let t346 = 2.568 + 5.8165 * t214 + 0.00184725 * t226;
         let t349 = 1000.0 + 2180.75 * t214 + 118.0 * t226;
         let t350 = 1.0 / t349;
@@ -273,7 +274,7 @@ pub fn gga_c_optc_lxc_pol(
         let t356 = t282 * t115;
         let t357 = t356 * t5;
         let t358 = t56 * t276;
-        let t362 = f64::exp(-25.0 / 18.0 * t193 * t358 * t283);
+        let t362 = rmath::exp(-25.0 / 18.0 * t193 * t358 * t283);
         let t363 = t288 * t362;
         let t364 = t357 * t363;
         let t367 = -t234 + t269 + t271 + 0.002584488143490343 * t95 * t277 * t340 + t355 * t364 / 2.0;
@@ -282,22 +283,22 @@ pub fn gga_c_optc_lxc_pol(
         let t371 = pow_1_3(t370);
         let t373 = t209 * t210 * t371;
         let t375 = 1.0 + 0.053425 * t373;
-        let t376 = f64::sqrt(t373);
+        let t376 = rmath::sqrt(t373);
         let t379 = pow_3_2(t373);
         let t381 = t371 * t371;
         let t383 = t222 * t223 * t381;
         let t385 = 3.79785 * t376 + 0.8969 * t373 + 0.204775 * t379 + 0.123235 * t383;
         let t388 = 1.0 + 16.081824322151103 / t385;
-        let t389 = f64::ln(t388);
+        let t389 = rmath::ln(t388);
         let t391 = 0.062182 * t375 * t389;
         let t393 = 1.0 + 0.05137 * t373;
         let t398 = 7.05945 * t376 + 1.549425 * t373 + 0.420775 * t379 + 0.1562925 * t383;
         let t401 = 1.0 + 32.1646831778707 / t398;
-        let t402 = f64::ln(t401);
+        let t402 = rmath::ln(t401);
         let t406 = 1.0 + 0.0278125 * t373;
         let t411 = 5.1785 * t376 + 0.905775 * t373 + 0.1100325 * t379 + 0.1241775 * t383;
         let t414 = 1.0 + 29.608574643216677 / t411;
-        let t415 = f64::ln(t414);
+        let t415 = rmath::ln(t414);
         let t416 = t406 * t415;
         let t419 = t241 * (-0.03109 * t393 * t402 + t391 - 0.019751789702565206 * t416);
         let t421 = 0.019751789702565206 * t241 * t416;
@@ -310,7 +311,7 @@ pub fn gga_c_optc_lxc_pol(
         let t429 = 1.0 / t371;
         let t430 = t8 * t429;
         let t431 = t116 * t430;
-        let t438 = f64::exp(-128.97460341341235 * (-t391 + t419 + t421) * t293 * t124);
+        let t438 = rmath::exp(-128.97460341341235 * (-t391 + t419 + t421) * t293 * t124);
         let t439 = t438 - 1.0;
         let t440 = 1.0 / t439;
         let t441 = t105 * t440;
@@ -336,7 +337,7 @@ pub fn gga_c_optc_lxc_pol(
         let t469 = 1.0 + 0.08693161489788757 * t457 * t459 + 0.0075571056687546295 * t466 * t451;
         let t470 = 1.0 / t469;
         let t474 = 1.0 + 2.7818116767324024 * t106 * t454 * t470;
-        let t475 = f64::ln(t474);
+        let t475 = rmath::ln(t474);
         let t481 = 2.568 + 5.8165 * t373 + 0.00184725 * t383;
         let t484 = 1000.0 + 2180.75 * t373 + 118.0 * t383;
         let t485 = 1.0 / t484;
@@ -345,7 +346,7 @@ pub fn gga_c_optc_lxc_pol(
         let t490 = t176 * t488 * sigma2;
         let t491 = t426 * t115;
         let t492 = t491 * t5;
-        let t496 = f64::exp(-25.0 / 18.0 * t193 * t358 * t427);
+        let t496 = rmath::exp(-25.0 / 18.0 * t193 * t358 * t427);
         let t497 = t430 * t496;
         let t498 = t492 * t497;
         let t501 = -t391 + t419 + t421 + 0.002584488143490343 * t95 * t277 * t475 + t490 * t498 / 2.0;
@@ -365,7 +366,7 @@ pub fn gga_c_optc_lxc_pol(
         let t519 = t518 * t508;
         let t520 = t517 * t519;
         let t522 = t4 * t509;
-        let t524 = f64::sqrt(t11);
+        let t524 = rmath::sqrt(t11);
         let t525 = t524 * t1;
         let t526 = t525 * t519;
         let t529 = 1.0 / t22 / t7;
@@ -516,7 +517,7 @@ pub fn gga_c_optc_lxc_pol(
         let t782 = -t765 / 3.0 - t772 / 3.0;
         let t783 = t780 * t782;
         let t785 = 0.29896666666666666 * t765;
-        let t787 = f64::sqrt(t214);
+        let t787 = rmath::sqrt(t214);
         let t788 = t787 * t782;
         let t790 = t529 * t136;
         let t792 = t222 * t790 * t224;
@@ -677,7 +678,7 @@ pub fn gga_c_optc_lxc_pol(
         let t1040 = -t1023 / 3.0 - t1030 / 3.0;
         let t1041 = t1038 * t1040;
         let t1043 = 0.29896666666666666 * t1023;
-        let t1045 = f64::sqrt(t373);
+        let t1045 = rmath::sqrt(t373);
         let t1046 = t1045 * t1040;
         let t1049 = t222 * t790 * t381;
         let t1050 = 0.08215666666666667 * t1049;
@@ -1041,7 +1042,7 @@ pub fn gga_c_optc_lxc_pol(
         let t1770 = t517 * t1769;
         let t1772 = t6 * t110;
         let t1773 = t4 * t1772;
-        let t1775 = 1.0/f64::sqrt(t11);
+        let t1775 = 1.0/rmath::sqrt(t11);
         let t1776 = t1775 * t19;
         let t1777 = t1776 * t1766;
         let t1779 = t525 * t1769;
@@ -1370,7 +1371,7 @@ pub fn gga_c_optc_lxc_pol(
         let t2391 = t2386 + 2.0 / 9.0 * t2259 - 2.0 / 9.0 * t2266 + 2.0 / 3.0 * t2272 - t2276 / 3.0;
         let t2392 = t780 * t2391;
         let t2394 = 0.3986222222222222 * t2257;
-        let t2399 = 1.0/f64::sqrt(t214);
+        let t2399 = 1.0/rmath::sqrt(t214);
         let t2400 = t2399 * t2383;
         let t2402 = t787 * t2391;
         let t2404 = 0.1369277777777778 * t2280;
@@ -1669,7 +1670,7 @@ pub fn gga_c_optc_lxc_pol(
         let t2950 = t2945 + 2.0 / 9.0 * t2845 - 2.0 / 9.0 * t2852 + 2.0 / 3.0 * t2858 - t2862 / 3.0;
         let t2951 = t1038 * t2950;
         let t2953 = 0.6886333333333333 * t2843;
-        let t2958 = 1.0/f64::sqrt(t373);
+        let t2958 = 1.0/rmath::sqrt(t373);
         let t2959 = t2958 * t2942;
         let t2961 = t1045 * t2950;
         let t2963 = 0.17365833333333333 * t2865;
@@ -9330,7 +9331,7 @@ pub fn gga_c_optc_lxc_pol(
         let t22513 = t1764 * t22512;
         let t22515 = t518 * t2002;
         let t22516 = t517 * t22515;
-        let t22519 = f64::powf(t11, -2.5);
+        let t22519 = rmath::pow(t11, -2.5);
         let t22522 = t22519 * t2 * t6567 * t209;
         let t22524 = t6374 * t543;
         let t22526 = t1776 * t22512;
@@ -9734,7 +9735,7 @@ pub fn gga_c_optc_lxc_pol(
         let t23839 = t2391 * t2391;
         let t23840 = t2399 * t23839;
         let t23842 = t2382 * t23839;
-        let t23844 = f64::powf(t214, -2.5);
+        let t23844 = rmath::pow(t214, -2.5);
         let t23845 = t2383 * t2383;
         let t23846 = t23844 * t23845;
         let t23859 = -8.0 * t23605 + 8.0 * t23670 - 2.0 / 3.0 * t23608 - 8.0 / 9.0 * t23673 - 20.0 / 9.0 * t23676 + 8.0 * t23612 - 12.0 * t23679 + 16.0 / 9.0 * t23614 + 8.0 / 3.0 * t23616 - 8.0 / 3.0 * t23653 + 8.0 / 9.0 * t23655;
@@ -10366,7 +10367,7 @@ pub fn gga_c_optc_lxc_pol(
         let t26262 = 3.100395061728395 * t26261;
         let t26264 = t222 * t160 * t381;
         let t26265 = 1.3388493827160495 * t26264;
-        let t26266 = f64::powf(t373, -2.5);
+        let t26266 = rmath::pow(t373, -2.5);
         let t26267 = t2942 * t2942;
         let t26268 = t26266 * t26267;
         let t26270 = t2950 * t2950;

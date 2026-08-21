@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -109,7 +109,7 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t73 = t72 * rho0;
         let t75 = 1.0 / t60 / t73;
         let t79 = 1.0 + 0.1504548888888889 * t65 + 0.002689949046226295 * t70 * t71 * t75;
-        let t80 = f64::powf(t79, 1.0 / 10.0);
+        let t80 = rmath::pow(t79, 1.0 / 10.0);
         let t81 = 1.0 / t80;
         let t83 = 1.0 + t18 <= zeta_threshold;
         let t85 = 1.0 - t18 <= zeta_threshold;
@@ -139,17 +139,17 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t122 = t110 * t110;
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
-        let t127 = f64::sqrt(M_PI);
+        let t127 = rmath::sqrt(M_PI);
         let t128 = 1.0 / t126;
-        let t130 = erf_approx(t128 / 2.0);
+        let t130 = rmath::erf(t128 / 2.0);
         let t132 = t126 * t126;
         let t133 = 1.0 / t132;
-        let t135 = f64::exp(-t133 / 4.0);
+        let t135 = rmath::exp(-t133 / 4.0);
         let t136 = t135 - 1.0;
         let t139 = t135 - 3.0 / 2.0 - 2.0 * t132 * t136;
         let t142 = 2.0 * t126 * t139 + t127 * t130;
         let t146 = piecewise3(t98, 1.0 / t101 / 36.0 - t105 / 960.0 + t108 / 26880.0 - t111 / 829440.0 + t114 / 28385280.0 - t117 / 1073479680.0 + t120 / 44590694400.0 - t123 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t126 * t142);
-        let t147 = f64::powf(t79, 1.0 / 5.0);
+        let t147 = rmath::pow(t79, 1.0 / 5.0);
         let t148 = 1.0 / t147;
         let t150 = 0.27 <= t97;
         let t151 = 0.27 < t97;
@@ -192,9 +192,9 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t226 = t224 * t224;
         let t227 = 64.0 * t226;
         let t228 = 20.0 * t224 - t227;
-        let t231 = f64::exp(-1.0 / t224 / 4.0);
+        let t231 = rmath::exp(-1.0 / t224 / 4.0);
         let t235 = 1.0 / t223;
-        let t237 = erf_approx(t235 / 2.0);
+        let t237 = rmath::erf(t235 / 2.0);
         let t240 = 10.0 * t127 * t223 * t237 + t228 * t231 - 36.0 * t224 + t227 - 3.0;
         let t244 = piecewise3(t150, t188 + t221, 24.0 * t224 * t240 + 1.0);
         let t246 = 1.0 / t61 / rho0;
@@ -247,12 +247,12 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t329 = t328 * t318;
         let t331 = -8.0 * t318 + 256.0 * t321 - 576.0 * t324 + 3840.0 * t326 - 122880.0 * t329;
         let t332 = 1.0 / t320;
-        let t334 = f64::exp(-t332 / 4.0);
+        let t334 = rmath::exp(-t332 / 4.0);
         let t338 = t323 * t320;
         let t340 = -35.0 + 224.0 * t320 - 1440.0 * t323 + 5120.0 * t338;
         let t344 = -2.0 + 60.0 * t320;
         let t346 = 1.0 / t318;
-        let t348 = erf_approx(t346 / 2.0);
+        let t348 = rmath::erf(t346 / 2.0);
         let t351 = 2.0 * t127 * t344 * t348 + 24.0 * t321 * t340 + t331 * t334;
         let t355 = piecewise3(t259, t317, 1.0 + 8.0 / 7.0 * t318 * t351);
         let t356 = t355 * t53;
@@ -278,10 +278,10 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t392 = 1.0 / t391;
         let t395 = piecewise3(t368, 1.35, t366);
         let t396 = 1.0 / t395;
-        let t398 = erf_approx(t396 / 2.0);
+        let t398 = rmath::erf(t396 / 2.0);
         let t400 = t395 * t395;
         let t401 = 1.0 / t400;
-        let t403 = f64::exp(-t401 / 4.0);
+        let t403 = rmath::exp(-t401 / 4.0);
         let t404 = t403 - 1.0;
         let t407 = t403 - 3.0 / 2.0 - 2.0 * t400 * t404;
         let t410 = t127 * t398 + 2.0 * t395 * t407;
@@ -294,7 +294,7 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t432 = t429 * t35;
         let t433 = 1.0 - t35;
         let t436 = 1.0 + 5.0 / 12.0 * t418 * t419 * t63 + 292.0 / 405.0 * t430 - 146.0 / 135.0 * t432 * t433;
-        let t437 = f64::powf(t436, 1.0 / 10.0);
+        let t437 = rmath::pow(t436, 1.0 / 10.0);
         let t442 = 0.256337604 * t249;
         let t448 = 1.0 + 0.06394332777777778 * t65 - 5.0 / 9.0 * (t248 + t442 + 0.011867481666666667 * t64) * t53 * t57;
         let t451 = t148 + 7.0 / 9.0 * t448 * t255;
@@ -332,7 +332,7 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t494 = t493 * rho1;
         let t496 = 1.0 / t485 / t494;
         let t500 = 1.0 + 0.1504548888888889 * t490 + 0.002689949046226295 * t70 * t492 * t496;
-        let t501 = f64::powf(t500, 1.0 / 10.0);
+        let t501 = rmath::pow(t500, 1.0 / 10.0);
         let t502 = 1.0 / t501;
         let t503 = piecewise5(t85, t12, t83, t16, -t18);
         let t504 = 1.0 + t503;
@@ -361,15 +361,15 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t540 = 1.0 / t539;
         let t543 = piecewise3(t516, 1.35, t514);
         let t544 = 1.0 / t543;
-        let t546 = erf_approx(t544 / 2.0);
+        let t546 = rmath::erf(t544 / 2.0);
         let t548 = t543 * t543;
         let t549 = 1.0 / t548;
-        let t551 = f64::exp(-t549 / 4.0);
+        let t551 = rmath::exp(-t549 / 4.0);
         let t552 = t551 - 1.0;
         let t555 = t551 - 3.0 / 2.0 - 2.0 * t548 * t552;
         let t558 = t127 * t546 + 2.0 * t543 * t555;
         let t562 = piecewise3(t515, 1.0 / t518 / 36.0 - t522 / 960.0 + t525 / 26880.0 - t528 / 829440.0 + t531 / 28385280.0 - t534 / 1073479680.0 + t537 / 44590694400.0 - t540 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t543 * t558);
-        let t563 = f64::powf(t500, 1.0 / 5.0);
+        let t563 = rmath::pow(t500, 1.0 / 5.0);
         let t564 = 1.0 / t563;
         let t566 = 0.27 <= t514;
         let t567 = 0.27 < t514;
@@ -412,9 +412,9 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t642 = t640 * t640;
         let t643 = 64.0 * t642;
         let t644 = 20.0 * t640 - t643;
-        let t647 = f64::exp(-1.0 / t640 / 4.0);
+        let t647 = rmath::exp(-1.0 / t640 / 4.0);
         let t651 = 1.0 / t639;
-        let t653 = erf_approx(t651 / 2.0);
+        let t653 = rmath::erf(t651 / 2.0);
         let t656 = 10.0 * t127 * t639 * t653 + t644 * t647 - 36.0 * t640 + t643 - 3.0;
         let t660 = piecewise3(t566, t604 + t637, 24.0 * t640 * t656 + 1.0);
         let t662 = 1.0 / t486 / rho1;
@@ -465,12 +465,12 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t743 = t742 * t732;
         let t745 = -8.0 * t732 + 256.0 * t735 - 576.0 * t738 + 3840.0 * t740 - 122880.0 * t743;
         let t746 = 1.0 / t734;
-        let t748 = f64::exp(-t746 / 4.0);
+        let t748 = rmath::exp(-t746 / 4.0);
         let t752 = t737 * t734;
         let t754 = -35.0 + 224.0 * t734 - 1440.0 * t737 + 5120.0 * t752;
         let t758 = -2.0 + 60.0 * t734;
         let t760 = 1.0 / t732;
-        let t762 = erf_approx(t760 / 2.0);
+        let t762 = rmath::erf(t760 / 2.0);
         let t765 = 2.0 * t127 * t758 * t762 + 24.0 * t735 * t754 + t745 * t748;
         let t769 = piecewise3(t673, t731, 1.0 + 8.0 / 7.0 * t732 * t765);
         let t770 = t769 * t53;
@@ -496,10 +496,10 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t806 = 1.0 / t805;
         let t809 = piecewise3(t782, 1.35, t780);
         let t810 = 1.0 / t809;
-        let t812 = erf_approx(t810 / 2.0);
+        let t812 = rmath::erf(t810 / 2.0);
         let t814 = t809 * t809;
         let t815 = 1.0 / t814;
-        let t817 = f64::exp(-t815 / 4.0);
+        let t817 = rmath::exp(-t815 / 4.0);
         let t818 = t817 - 1.0;
         let t821 = t817 - 3.0 / 2.0 - 2.0 * t814 * t818;
         let t824 = t127 * t812 + 2.0 * t809 * t821;
@@ -512,7 +512,7 @@ pub fn hyb_mgga_x_js18_fxc_pol(
         let t846 = t843 * t475;
         let t847 = 1.0 - t475;
         let t850 = 1.0 + 5.0 / 12.0 * t832 * t833 * t488 + 292.0 / 405.0 * t844 - 146.0 / 135.0 * t846 * t847;
-        let t851 = f64::powf(t850, 1.0 / 10.0);
+        let t851 = rmath::pow(t850, 1.0 / 10.0);
         let t861 = 1.0 + 0.06394332777777778 * t490 - 5.0 / 9.0 * (t664 + t442 + 0.011867481666666667 * t489) * t53 * t57;
         let t864 = t564 + 7.0 / 9.0 * t861 * t669;
         let t867 = -param_hyb_coeff_0 * (t483 * t775 + t829 * t851) + t483 * t864 + t777 * t851;

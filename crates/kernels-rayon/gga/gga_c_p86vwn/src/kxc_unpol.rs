@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -46,29 +47,29 @@ pub fn gga_c_p86vwn_kxc_unpol(
         let t9 = t6 * t8;
         let t10 = t4 * t9;
         let t11 = t10 / 4.0;
-        let t12 = f64::sqrt(t10);
+        let t12 = rmath::sqrt(t10);
         let t14 = t11 + 1.86372 * t12 + 12.9352;
         let t15 = 1.0 / t14;
-        let t19 = f64::ln(t4 * t9 * t15 / 4.0);
+        let t19 = rmath::ln(t4 * t9 * t15 / 4.0);
         let t20 = 0.0310907 * t19;
         let t21 = t12 + 3.72744;
-        let t24 = f64::atan(6.15199081975908 / t21);
+        let t24 = rmath::atan(6.15199081975908 / t21);
         let t25 = 0.038783294878113016 * t24;
         let t26 = t12 / 2.0;
         let t27 = t26 + 0.10498;
         let t28 = t27 * t27;
-        let t30 = f64::ln(t28 * t15);
+        let t30 = rmath::ln(t28 * t15);
         let t31 = 0.0009690227711544374 * t30;
         let t32 = M_PI * M_PI;
         let t33 = 1.0 / t32;
         let t35 = t11 + 0.565535 * t12 + 13.0045;
         let t36 = 1.0 / t35;
-        let t40 = f64::ln(t4 * t9 * t36 / 4.0);
+        let t40 = rmath::ln(t4 * t9 * t36 / 4.0);
         let t41 = t12 + 1.13107;
-        let t44 = f64::atan(7.123108917818118 / t41);
+        let t44 = rmath::atan(7.123108917818118 / t41);
         let t46 = t26 + 0.0047584;
         let t47 = t46 * t46;
-        let t49 = f64::ln(t47 * t36);
+        let t49 = rmath::ln(t47 * t36);
         let t53 = 1.0 <= zeta_threshold;
         let t54 = pow_1_3(zeta_threshold);
         let t56 = piecewise3(t53, t54 * zeta_threshold, 1.0);
@@ -99,14 +100,14 @@ pub fn gga_c_p86vwn_kxc_unpol(
         let t99 = 1.0 / t98;
         let t101 = t88 * t99 + param_aa;
         let t102 = 1.0 / t101;
-        let t103 = f64::sqrt(sigma[ip]);
+        let t103 = rmath::sqrt(sigma[ip]);
         let t104 = t102 * t103;
-        let t105 = f64::powf(rho[ip], 1.0 / 6.0);
+        let t105 = rmath::pow(rho[ip], 1.0 / 6.0);
         let t107 = 1.0 / t105 / rho[ip];
-        let t110 = f64::exp(-t73 * t104 * t107);
+        let t110 = rmath::exp(-t73 * t104 * t107);
         let t112 = t54 * t54;
         let t114 = piecewise3(t53, t112 * zeta_threshold, 1.0);
-        let t115 = f64::sqrt(t114);
+        let t115 = rmath::sqrt(t114);
         let t116 = 1.0 / t115;
         let t117 = t110 * t101 * t116;
         let t118 = t71 * t117;
@@ -188,7 +189,7 @@ pub fn gga_c_p86vwn_kxc_unpol(
         let t260 = t70 * t110;
         let t261 = t101 * t116;
         let t262 = t260 * t261;
-        let t263 = f64::sqrt(rho[ip]);
+        let t263 = rmath::sqrt(rho[ip]);
         let t265 = 1.0 / t263 / t213;
         let t266 = t103 * t265;
         let t267 = t266 * param_ftilde;

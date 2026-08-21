@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -44,7 +45,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t18 = t11 / 2.0 + t16 / 2.0;
         let t19 = t18 * t18;
         let t20 = t19 * t18;
-        let t21 = f64::ln(2.0);
+        let t21 = rmath::ln(2.0);
         let t22 = t21 - 1.0;
         let t23 = 2.0 * t22;
         let t24 = t20 * t23;
@@ -60,7 +61,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t34 = 1.0 / t33;
         let t35 = t32 * t34;
         let t36 = t30 * t35;
-        let t37 = f64::sqrt(t36);
+        let t37 = rmath::sqrt(t36);
         let t38 = param_hyb_omega_0 * t37;
         let t39 = 1.0 / t18;
         let t41 = 2.923025 * t38 * t39;
@@ -80,7 +81,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t69 = t68 * t29;
         let t73 = 1.0 + t41 + 0.8621275 * t69 * t35 * t56;
         let t74 = 1.0 / t73;
-        let t76 = f64::ln(t67 * t74);
+        let t76 = rmath::ln(t67 * t74);
         let t77 = t26 * t76;
         let t79 = t1 * t1;
         let t80 = t2 * t2;
@@ -101,7 +102,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t109 = 1.0 / t33 / t2;
         let t110 = t32 * t109;
         let t113 = 1.0 - t93 * t55 * t34 / 4.0 + 0.0204825 * t103 - 0.0030486129349252553 * t3 + 0.0003485625 * t107 * t110;
-        let t115 = f64::exp(-0.1881 * t36);
+        let t115 = rmath::exp(-0.1881 * t36);
         let t116 = t113 * t115;
         let t117 = M_SQRT2;
         let t118 = t116 * t117;
@@ -151,7 +152,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t180 = t161 * t178 / 30.0;
         let t183 = -1.2375 * t36 + t103 / 4.0;
         let t184 = t83 * t183;
-        let t186 = f64::exp(-0.0775 * t36);
+        let t186 = rmath::exp(-0.0775 * t36);
         let t187 = t186 * M_PI;
         let t188 = t187 * t2;
         let t191 = t157 + t180 + 4.0 / 3.0 * t184 * t188;
@@ -159,7 +160,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t202 = t31 * t125;
         let t205 = -0.097 * t36 + 0.169 * t103;
         let t206 = t83 * t205;
-        let t208 = f64::exp(-0.13675 * t36);
+        let t208 = rmath::exp(-0.13675 * t36);
         let t209 = t206 * t208;
         let t211 = t27 / t98;
         let t213 = t211 * t32 * t100;
@@ -175,7 +176,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t235 = pow_3_2(t36);
         let t238 = 3.79785 * t37 + 0.8969 * t36 + 0.204775 * t235 + 0.123235 * t103;
         let t241 = 1.0 + 16.081979498692537 / t238;
-        let t242 = f64::ln(t241);
+        let t242 = rmath::ln(t241);
         let t244 = 0.0621814 * t232 * t242;
         let t245 = t79 * t79;
         let t246 = t80 * t80;
@@ -192,11 +193,11 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t260 = 1.0 + 0.05137 * t36;
         let t265 = 7.05945 * t37 + 1.549425 * t36 + 0.420775 * t235 + 0.1562925 * t103;
         let t268 = 1.0 + 32.16395899738507 / t265;
-        let t269 = f64::ln(t268);
+        let t269 = rmath::ln(t268);
         let t273 = 1.0 + 0.0278125 * t36;
         let t278 = 5.1785 * t37 + 0.905775 * t36 + 0.1100325 * t235 + 0.1241775 * t103;
         let t281 = 1.0 + 29.608749977793437 / t278;
-        let t282 = f64::ln(t281);
+        let t282 = rmath::ln(t281);
         let t283 = t273 * t282;
         let t285 = -0.0310907 * t260 * t269 + t244 - 0.0197516734986138 * t283;
         let t286 = t258 * t285;
@@ -393,7 +394,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t622 = t232 * t621;
         let t623 = t347 * t27;
         let t624 = t623 * t402;
-        let t627 = f64::sqrt(t36);
+        let t627 = rmath::sqrt(t36);
         let t628 = t627 * t27;
         let t629 = t628 * t402;
         let t632 = -0.632975 * t624 - 0.29896666666666666 * t350 - 0.1023875 * t629 - 0.08215666666666667 * t405;
@@ -541,7 +542,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t944 = t55 * t409;
         let t945 = t623 * t944;
         let t947 = t30 * t410;
-        let t949 = 1.0/f64::sqrt(t36);
+        let t949 = 1.0/rmath::sqrt(t36);
         let t950 = t949 * t97;
         let t951 = t950 * t941;
         let t953 = t628 * t944;
@@ -4306,7 +4307,7 @@ pub fn lda_c_pmgb06_lxc_pol(
         let t8701 = t934 * t1147;
         let t8702 = t940 * t8701;
         let t8704 = t623 * t8165;
-        let t8707 = f64::powf(t36, -2.5);
+        let t8707 = rmath::pow(t36, -2.5);
         let t8710 = t8707 * t28 * t4238 * t138;
         let t8712 = t3689 * t642;
         let t8714 = t950 * t8701;

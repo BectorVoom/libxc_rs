@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -72,19 +73,19 @@ pub fn gga_x_pw91_kxc_pol(
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
         let t40 = t34 * t39;
-        let t43 = f64::exp(-t29 * t40 / 24.0);
+        let t43 = rmath::exp(-t29 * t40 / 24.0);
         let t46 = (param_d * t43 + param_c) * t28;
         let t49 = t28 * t28;
         let t50 = 1.0 / t31;
         let t51 = t49 * t50;
-        let t52 = f64::sqrt(sigma0);
+        let t52 = rmath::sqrt(sigma0);
         let t54 = 1.0 / t36 / rho0;
-        let t58 = f64::powf(t51 * t52 * t54 / 12.0, param_expo);
+        let t58 = rmath::pow(t51 * t52 * t54 / 12.0, param_expo);
         let t59 = param_f * t58;
         let t60 = t46 * t40 / 24.0 - t59;
         let t61 = t51 * t52;
         let t63 = param_b * t49;
-        let t68 = f64::ln(t63 * t50 * t52 * t54 / 12.0 + f64::sqrt(pow_2(t63 * t50 * t52 * t54 / 12.0) + 1.0));
+        let t68 = rmath::ln(t63 * t50 * t52 * t54 / 12.0 + rmath::sqrt(pow_2(t63 * t50 * t52 * t54 / 12.0) + 1.0));
         let t69 = t54 * param_a * t68;
         let t72 = 1.0 + t61 * t69 / 12.0 + t59;
         let t73 = 1.0 / t72;
@@ -104,15 +105,15 @@ pub fn gga_x_pw91_kxc_pol(
         let t93 = t92 * t92;
         let t95 = 1.0 / t93 / t91;
         let t96 = t90 * t95;
-        let t99 = f64::exp(-t29 * t96 / 24.0);
+        let t99 = rmath::exp(-t29 * t96 / 24.0);
         let t102 = (param_d * t99 + param_c) * t28;
-        let t105 = f64::sqrt(sigma2);
+        let t105 = rmath::sqrt(sigma2);
         let t107 = 1.0 / t92 / rho1;
-        let t111 = f64::powf(t51 * t105 * t107 / 12.0, param_expo);
+        let t111 = rmath::pow(t51 * t105 * t107 / 12.0, param_expo);
         let t112 = param_f * t111;
         let t113 = t102 * t96 / 24.0 - t112;
         let t114 = t51 * t105;
-        let t120 = f64::ln(t63 * t50 * t105 * t107 / 12.0 + f64::sqrt(pow_2(t63 * t50 * t105 * t107 / 12.0) + 1.0));
+        let t120 = rmath::ln(t63 * t50 * t105 * t107 / 12.0 + rmath::sqrt(pow_2(t63 * t50 * t105 * t107 / 12.0) + 1.0));
         let t121 = t107 * param_a * t120;
         let t124 = 1.0 + t114 * t121 / 12.0 + t112;
         let t125 = 1.0 / t124;
@@ -151,7 +152,7 @@ pub fn gga_x_pw91_kxc_pol(
         let t188 = param_b * param_b;
         let t189 = t188 * t28;
         let t192 = 6.0 * t189 * t40 + 144.0;
-        let t193 = f64::sqrt(t192);
+        let t193 = rmath::sqrt(t192);
         let t194 = 1.0 / t193;
         let t195 = param_b * t194;
         let t196 = t166 * param_a * t195;
@@ -190,7 +191,7 @@ pub fn gga_x_pw91_kxc_pol(
         let t273 = 1.0 / t92 / t91 * param_a * t120;
         let t276 = t185 * sigma2;
         let t280 = 6.0 * t189 * t96 + 144.0;
-        let t281 = f64::sqrt(t280);
+        let t281 = rmath::sqrt(t280);
         let t282 = 1.0 / t281;
         let t283 = param_b * t282;
         let t284 = t257 * param_a * t283;

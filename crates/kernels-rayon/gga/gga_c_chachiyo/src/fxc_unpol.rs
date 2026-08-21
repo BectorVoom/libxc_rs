@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -46,12 +47,12 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t18 = t9 * t9;
         let t19 = t17 * t18;
         let t22 = 1.0 + t3 * t10 / 3.0 + t13 * t19 / 3.0;
-        let t23 = f64::ln(t22);
+        let t23 = rmath::ln(t22);
         let t24 = param_ap * t23;
         let t25 = param_bf * t2;
         let t28 = param_cf * t1;
         let t31 = 1.0 + t25 * t10 / 3.0 + t28 * t19 / 3.0;
-        let t32 = f64::ln(t31);
+        let t32 = rmath::ln(t31);
         let t36 = pow_1_3(zeta_threshold);
         let t37 = t36 * t36;
         let t38 = piecewise3(1.0 <= zeta_threshold, t37, 1.0);
@@ -65,7 +66,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t53 = 1.0 + t46 * t49 * sigma[ip] / 48.0;
         let t54 = 1.0 / t44;
         let t55 = param_h * t54;
-        let t56 = f64::powf(t53, t55);
+        let t56 = rmath::pow(t53, t55);
         let tzk0 = t44 * t56;
         zk[ip] += tzk0;
         let t58 = t8 / t18;
@@ -81,7 +82,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t83 = t44 * t44;
         let t84 = 1.0 / t83;
         let t85 = param_h * t84;
-        let t86 = f64::ln(t53);
+        let t86 = rmath::ln(t53);
         let t87 = t79 * t86;
         let t89 = t55 * t2;
         let t90 = t47 * rho[ip];

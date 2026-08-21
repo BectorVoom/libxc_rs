@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -78,7 +78,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t59 = M_CBRT4;
         let t60 = t58 * t59;
         let t63 = t55 * t60 / t52;
-        let t64 = f64::sqrt(t63);
+        let t64 = rmath::sqrt(t63);
         let t66 = param_hyb_omega_0 / t64;
         let t67 = M_CBRT2;
         let t68 = t19 * t6;
@@ -102,12 +102,12 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t98 = t86 * t86;
         let t99 = 1.0 / t98;
         let t102 = piecewise3(t75, 1.35, t73);
-        let t103 = f64::sqrt(M_PI);
+        let t103 = rmath::sqrt(M_PI);
         let t104 = 1.0 / t102;
-        let t106 = erf_approx(t104 / 2.0);
+        let t106 = rmath::erf(t104 / 2.0);
         let t108 = t102 * t102;
         let t109 = 1.0 / t108;
-        let t111 = f64::exp(-t109 / 4.0);
+        let t111 = rmath::exp(-t109 / 4.0);
         let t112 = t111 - 1.0;
         let t115 = t111 - 3.0 / 2.0 - 2.0 * t108 * t112;
         let t118 = 2.0 * t102 * t115 + t103 * t106;
@@ -141,7 +141,7 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t163 = t156 * t161 + param_A;
         let t164 = t27 * t163;
         let t167 = t55 * t60 / t163;
-        let t168 = f64::sqrt(t167);
+        let t168 = rmath::sqrt(t167);
         let t170 = param_hyb_omega_0 / t168;
         let t171 = t133 * t6;
         let t172 = pow_1_3(t171);
@@ -165,10 +165,10 @@ pub fn hyb_gga_x_cam_s12_exc_pol(
         let t202 = 1.0 / t201;
         let t205 = piecewise3(t178, 1.35, t176);
         let t206 = 1.0 / t205;
-        let t208 = erf_approx(t206 / 2.0);
+        let t208 = rmath::erf(t206 / 2.0);
         let t210 = t205 * t205;
         let t211 = 1.0 / t210;
-        let t213 = f64::exp(-t211 / 4.0);
+        let t213 = rmath::exp(-t211 / 4.0);
         let t214 = t213 - 1.0;
         let t217 = t213 - 3.0 / 2.0 - 2.0 * t210 * t214;
         let t220 = t103 * t208 + 2.0 * t205 * t217;

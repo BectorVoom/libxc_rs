@@ -42,41 +42,63 @@ L = LANES
 # bit-exact `simd::` replacement stay here; a kernel that uses any of the
 # non-sqrt ones cannot be fingerprint-compared against its scalar form.
 UNARY_EXACT = {
-    "f64::sqrt": "sqrt", "f64::atan": "atan",
-    "f64::abs": "abs", "f64::tanh": "tanh", "f64::sinh": "sinh", "f64::cosh": "cosh",
-    "f64::asin": "asin", "f64::acos": "acos", "f64::exp_m1": "exp_m1",
-    "f64::ln_1p": "ln_1p",
+    "rmath::sqrt": "sqrt", "f64::sqrt": "sqrt",
+    "rmath::atan": "atan", "f64::atan": "atan",
+    "rmath::abs": "abs", "f64::abs": "abs",
+    "rmath::tanh": "tanh", "f64::tanh": "tanh",
+    "rmath::sinh": "sinh", "f64::sinh": "sinh",
+    "rmath::cosh": "cosh", "f64::cosh": "cosh",
+    "rmath::asin": "asin", "f64::asin": "asin",
+    "rmath::acos": "acos", "f64::acos": "acos",
+    "rmath::expm1": "exp_m1", "f64::exp_m1": "exp_m1",
+    "rmath::log1p": "ln_1p", "f64::ln_1p": "ln_1p",
+    "rmath::atanh": "atanh", "f64::atanh": "atanh",
 }
 # Free functions from `libxc_rkernel_math::simd` — bit-identical per lane to
 # the scalar call the scalar kernel makes (exp/ln to glibc's `_fma` ifuncs,
 # the cube-root family to `powers::cbrt_f64`). A kernel whose transcendentals
 # all come from this set produces output bit-identical to its scalar form.
 FREE_EXACT = {
-    "f64::exp": "simd::exp", "f64::ln": "simd::ln", "pow_1_3": "simd::cbrt",
+    "rmath::exp": "simd::exp", "f64::exp": "simd::exp",
+    "rmath::ln": "simd::ln", "f64::ln": "simd::ln",
+    "rmath::cbrt": "simd::cbrt", "pow_1_3": "simd::cbrt",
     "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
     "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
 }
 BINARY_METHODS_EXACT = {
-    "f64::powf": "powf_simd", "f64::atan2": "atan2",
+    "rmath::pow": "powf_simd", "f64::powf": "powf_simd",
+    "rmath::atan2": "atan2", "f64::atan2": "atan2",
 }
 
 # `rmath_fast` forms for high-throughput vectorized approximation kernels.
 UNARY_FAST = {
-    "f64::sqrt": "sqrt", "f64::abs": "abs",
+    "rmath::sqrt": "sqrt", "f64::sqrt": "sqrt",
+    "rmath::abs": "abs", "f64::abs": "abs",
 }
 FREE_FAST = {
-    "f64::exp": "rmath_fast::exp", "f64::ln": "rmath_fast::ln",
-    "f64::exp_m1": "rmath_fast::expm1", "f64::ln_1p": "rmath_fast::log1p",
-    "f64::atan": "rmath_fast::atan", "f64::tanh": "rmath_fast::tanh",
-    "f64::sinh": "rmath_fast::sinh", "f64::cosh": "rmath_fast::cosh",
-    "f64::asin": "rmath_fast::asin", "f64::acos": "rmath_fast::acos",
-    "erf": "rmath_fast::erf", "erfc": "rmath_fast::erfc",
-    "pow_1_3": "rmath_fast::cbrt",
+    "rmath::exp": "rmath_fast::exp", "f64::exp": "rmath_fast::exp",
+    "rmath::ln": "rmath_fast::ln", "f64::ln": "rmath_fast::ln",
+    "rmath::expm1": "rmath_fast::expm1", "f64::exp_m1": "rmath_fast::expm1",
+    "rmath::log1p": "rmath_fast::log1p", "f64::ln_1p": "rmath_fast::log1p",
+    "rmath::atan": "rmath_fast::atan", "f64::atan": "rmath_fast::atan",
+    "rmath::tanh": "rmath_fast::tanh", "f64::tanh": "rmath_fast::tanh",
+    "rmath::sinh": "rmath_fast::sinh", "f64::sinh": "rmath_fast::sinh",
+    "rmath::cosh": "rmath_fast::cosh", "f64::cosh": "rmath_fast::cosh",
+    "rmath::asin": "rmath_fast::asin", "f64::asin": "rmath_fast::asin",
+    "rmath::acos": "rmath_fast::acos", "f64::acos": "rmath_fast::acos",
+    "rmath::atanh": "rmath_fast::atanh", "f64::atanh": "rmath_fast::atanh",
+    "rmath::sin": "rmath_fast::sin", "f64::sin": "rmath_fast::sin",
+    "rmath::cos": "rmath_fast::cos", "f64::cos": "rmath_fast::cos",
+    "rmath::tan": "rmath_fast::tan", "f64::tan": "rmath_fast::tan",
+    "rmath::erf": "rmath_fast::erf", "erf": "rmath_fast::erf",
+    "rmath::erfc": "rmath_fast::erfc", "erfc": "rmath_fast::erfc",
+    "rmath::cbrt": "rmath_fast::cbrt", "pow_1_3": "rmath_fast::cbrt",
     "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
     "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
 }
 BINARY_FREE_FAST = {
-    "f64::powf": "rmath_fast::pow", "f64::atan2": "rmath_fast::atan2",
+    "rmath::pow": "rmath_fast::pow", "f64::powf": "rmath_fast::pow",
+    "rmath::atan2": "rmath_fast::atan2", "f64::atan2": "rmath_fast::atan2",
 }
 
 CMP = {"<=": "simd_le", ">=": "simd_ge", "<": "simd_lt", ">": "simd_gt",

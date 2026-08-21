@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -74,15 +74,15 @@ pub fn gga_x_ityh_lxc_pol(
         let t39 = t38 * t38;
         let t41 = 1.0 / t39 / t37;
         let t42 = sigma0 * t41;
-        let t43 = f64::sqrt(sigma0);
+        let t43 = rmath::sqrt(sigma0);
         let t45 = 1.0 / t38 / rho0;
         let t46 = t43 * t45;
-        let t47 = f64::ln(t46 + f64::sqrt(t46 * t46 + 1.0));
+        let t47 = rmath::ln(t46 + rmath::sqrt(t46 * t46 + 1.0));
         let t50 = 1.0 + 0.0252 * t46 * t47;
         let t51 = 1.0 / t50;
         let t55 = 1.0 + 0.0009333333333333333 * t36 * t42 * t51;
         let t58 = t29 * t34 / t55;
-        let t59 = f64::sqrt(t58);
+        let t59 = rmath::sqrt(t58);
         let t61 = param_hyb_omega_0 / t59;
         let t62 = M_CBRT2;
         let t63 = t19 * t6;
@@ -106,12 +106,12 @@ pub fn gga_x_ityh_lxc_pol(
         let t93 = t81 * t81;
         let t94 = 1.0 / t93;
         let t97 = piecewise3(t70, 1.35, t68);
-        let t98 = f64::sqrt(M_PI);
+        let t98 = rmath::sqrt(M_PI);
         let t99 = 1.0 / t97;
-        let t101 = erf_approx(t99 / 2.0);
+        let t101 = rmath::erf(t99 / 2.0);
         let t103 = t97 * t97;
         let t104 = 1.0 / t103;
-        let t106 = f64::exp(-t104 / 4.0);
+        let t106 = rmath::exp(-t104 / 4.0);
         let t107 = t106 - 1.0;
         let t110 = t106 - 3.0 / 2.0 - 2.0 * t103 * t107;
         let t113 = t98 * t101 + 2.0 * t97 * t110;
@@ -132,15 +132,15 @@ pub fn gga_x_ityh_lxc_pol(
         let t135 = t134 * t134;
         let t137 = 1.0 / t135 / t133;
         let t138 = sigma2 * t137;
-        let t139 = f64::sqrt(sigma2);
+        let t139 = rmath::sqrt(sigma2);
         let t141 = 1.0 / t134 / rho1;
         let t142 = t139 * t141;
-        let t143 = f64::ln(t142 + f64::sqrt(t142 * t142 + 1.0));
+        let t143 = rmath::ln(t142 + rmath::sqrt(t142 * t142 + 1.0));
         let t146 = 1.0 + 0.0252 * t142 * t143;
         let t147 = 1.0 / t146;
         let t151 = 1.0 + 0.0009333333333333333 * t36 * t138 * t147;
         let t154 = t29 * t34 / t151;
-        let t155 = f64::sqrt(t154);
+        let t155 = rmath::sqrt(t154);
         let t157 = param_hyb_omega_0 / t155;
         let t158 = t127 * t6;
         let t159 = pow_1_3(t158);
@@ -164,10 +164,10 @@ pub fn gga_x_ityh_lxc_pol(
         let t189 = 1.0 / t188;
         let t192 = piecewise3(t165, 1.35, t163);
         let t193 = 1.0 / t192;
-        let t195 = erf_approx(t193 / 2.0);
+        let t195 = rmath::erf(t193 / 2.0);
         let t197 = t192 * t192;
         let t198 = 1.0 / t197;
-        let t200 = f64::exp(-t198 / 4.0);
+        let t200 = rmath::exp(-t198 / 4.0);
         let t201 = t200 - 1.0;
         let t204 = t200 - 3.0 / 2.0 - 2.0 * t197 * t201;
         let t207 = 2.0 * t192 * t204 + t98 * t195;
@@ -202,7 +202,7 @@ pub fn gga_x_ityh_lxc_pol(
         let t252 = 1.0 / t251;
         let t254 = 1.0 / t38 / t37;
         let t258 = t42 + 1.0;
-        let t259 = f64::sqrt(t258);
+        let t259 = rmath::sqrt(t258);
         let t260 = 1.0 / t259;
         let t263 = -0.0336 * t43 * t254 * t47 - 0.0336 * t247 * t260;
         let t264 = t252 * t263;
@@ -306,7 +306,7 @@ pub fn gga_x_ityh_lxc_pol(
         let t515 = 1.0 / t514;
         let t517 = 1.0 / t134 / t133;
         let t521 = t138 + 1.0;
-        let t522 = f64::sqrt(t521);
+        let t522 = rmath::sqrt(t521);
         let t523 = 1.0 / t522;
         let t526 = -0.0336 * t139 * t517 * t143 - 0.0336 * t510 * t523;
         let t527 = t515 * t526;

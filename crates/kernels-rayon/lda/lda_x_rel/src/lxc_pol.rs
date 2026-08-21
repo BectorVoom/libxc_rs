@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -57,13 +58,13 @@ pub fn lda_x_rel_lxc_pol(
         let t46 = 1.0 / t45;
         let t47 = t20 * t20;
         let t51 = 1.0 + 3.8075239991386495e-05 * t42 * t46 * t47;
-        let t52 = f64::sqrt(t51);
+        let t52 = rmath::sqrt(t51);
         let t53 = t52 * t41;
         let t54 = t2 * t44;
         let t59 = t2 * t2;
         let t60 = t40 * t59;
         let t61 = 1.0 / t44;
-        let t65 = f64::ln(0.0035625477770544352 * t60 * t61 * t20 + f64::sqrt(pow_2(0.0035625477770544352 * t60 * t61 * t20) + 1.0));
+        let t65 = rmath::ln(0.0035625477770544352 * t60 * t61 * t20 + rmath::sqrt(pow_2(0.0035625477770544352 * t60 * t61 * t20) + 1.0));
         let t66 = t65 * t40;
         let t67 = t59 * t45;
         let t68 = 1.0 / t47;

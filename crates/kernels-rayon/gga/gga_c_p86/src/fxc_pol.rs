@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -49,9 +50,9 @@ pub fn gga_c_p86_fxc_pol(
         let t11 = t4 * t10;
         let t12 = t11 / 4.0;
         let t13 = 1.0 <= t12;
-        let t14 = f64::sqrt(t11);
+        let t14 = rmath::sqrt(t11);
         let t17 = 1.0 + 0.52645 * t14 + 0.08335 * t11;
-        let t20 = f64::ln(t12);
+        let t20 = rmath::ln(t12);
         let t23 = t4 * t10 * t20;
         let t27 = piecewise3(t13, -0.1423 / t17, 0.0311 * t20 - 0.048 + 0.0005 * t23 - 0.0029 * t11);
         let t30 = 1.0 + 0.69905 * t14 + 0.065275 * t11;
@@ -99,11 +100,11 @@ pub fn gga_c_p86_fxc_pol(
         let t93 = 1.0 / t92;
         let t95 = t83 * t93 + param_aa;
         let t96 = 1.0 / t95;
-        let t97 = f64::sqrt(t62);
+        let t97 = rmath::sqrt(t62);
         let t98 = t96 * t97;
-        let t99 = f64::powf(t7, 1.0 / 6.0);
+        let t99 = rmath::pow(t7, 1.0 / 6.0);
         let t101 = 1.0 / t99 / t7;
-        let t104 = f64::exp(-t68 * t98 * t101);
+        let t104 = rmath::exp(-t68 * t98 * t101);
         let t105 = t66 * t104;
         let t106 = t44 * t44;
         let t107 = t106 * zeta_threshold;
@@ -114,7 +115,7 @@ pub fn gga_c_p86_fxc_pol(
         let t112 = t111 * t49;
         let t113 = piecewise3(t50, t107, t112);
         let t114 = t110 + t113;
-        let t115 = f64::sqrt(t114);
+        let t115 = rmath::sqrt(t114);
         let t116 = 1.0 / t115;
         let t117 = t95 * t116;
         let t118 = M_SQRT2;
@@ -202,7 +203,7 @@ pub fn gga_c_p86_fxc_pol(
         vrho[ip * 2 + 1] += tvrho1;
         let t259 = t65 * t104;
         let t260 = t259 * t119;
-        let t261 = f64::sqrt(t7);
+        let t261 = rmath::sqrt(t7);
         let t263 = 1.0 / t261 / t171;
         let t264 = t97 * t263;
         let t267 = t67 * t104 * t213;

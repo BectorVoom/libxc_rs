@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -37,7 +38,7 @@ pub fn gga_c_op_b88_kxc_pol(
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
         let t4 = t1 * t3;
-        let t5 = f64::abs(t4);
+        let t5 = rmath::abs(t4);
         let t11 = 1.0 - t5 <= zeta_threshold || rho0 <= dens_threshold && rho1 <= dens_threshold;
         let t13 = 1.0 + t4 <= zeta_threshold;
         let t14 = zeta_threshold - 1.0;
@@ -73,10 +74,10 @@ pub fn gga_c_op_b88_kxc_pol(
         let t53 = t52 * t52;
         let t55 = 1.0 / t53 / t51;
         let t56 = sigma0 * t55;
-        let t57 = f64::sqrt(sigma0);
+        let t57 = rmath::sqrt(sigma0);
         let t59 = 1.0 / t52 / rho0;
         let t60 = t57 * t59;
-        let t61 = f64::ln(t60 + f64::sqrt(t60 * t60 + 1.0));
+        let t61 = rmath::ln(t60 + rmath::sqrt(t60 * t60 + 1.0));
         let t64 = 1.0 + 0.0252 * t60 * t61;
         let t65 = 1.0 / t64;
         let t69 = 1.0 + 0.0009333333333333333 * t40 * t56 * t65;
@@ -94,10 +95,10 @@ pub fn gga_c_op_b88_kxc_pol(
         let t87 = t86 * t86;
         let t89 = 1.0 / t87 / t85;
         let t90 = sigma2 * t89;
-        let t91 = f64::sqrt(sigma2);
+        let t91 = rmath::sqrt(sigma2);
         let t93 = 1.0 / t86 / rho1;
         let t94 = t91 * t93;
-        let t95 = f64::ln(t94 + f64::sqrt(t94 * t94 + 1.0));
+        let t95 = rmath::ln(t94 + rmath::sqrt(t94 * t94 + 1.0));
         let t98 = 1.0 + 0.0252 * t94 * t95;
         let t99 = 1.0 / t98;
         let t103 = 1.0 + 0.0009333333333333333 * t40 * t90 * t99;
@@ -142,7 +143,7 @@ pub fn gga_c_op_b88_kxc_pol(
         let t163 = 1.0 / t162;
         let t165 = 1.0 / t52 / t51;
         let t169 = t56 + 1.0;
-        let t170 = f64::sqrt(t169);
+        let t170 = rmath::sqrt(t169);
         let t171 = 1.0 / t170;
         let t174 = -0.0336 * t57 * t165 * t61 - 0.0336 * t158 * t171;
         let t175 = t163 * t174;
@@ -186,7 +187,7 @@ pub fn gga_c_op_b88_kxc_pol(
         let t252 = 1.0 / t251;
         let t254 = 1.0 / t86 / t85;
         let t258 = t90 + 1.0;
-        let t259 = f64::sqrt(t258);
+        let t259 = rmath::sqrt(t258);
         let t260 = 1.0 / t259;
         let t263 = -0.0336 * t91 * t254 * t95 - 0.0336 * t247 * t260;
         let t264 = t252 * t263;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI};
 use libxc_rkernel_math::bessel::{xc_bessel_K0, xc_bessel_K1};
 use libxc_rkernel_math::integrate::{xc_integrate_lda_soft_func1, xc_integrate_lda_soft_func2};

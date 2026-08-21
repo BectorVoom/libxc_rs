@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -81,8 +82,8 @@ pub fn mgga_x_rppscan_exc_pol(
         let t57 = t45 * t29;
         let t58 = t33 * sigma0;
         let t59 = t58 * t39;
-        let t62 = f64::exp(-27.0 / 80.0 * t57 * t59);
-        let t66 = f64::sqrt(146.0);
+        let t62 = rmath::exp(-27.0 / 80.0 * t57 * t59);
+        let t66 = rmath::sqrt(146.0);
         let t67 = t66 * t29;
         let t70 = t37 * rho0;
         let t71 = 1.0 / t70;
@@ -94,7 +95,7 @@ pub fn mgga_x_rppscan_exc_pol(
         let t82 = t74 * t81;
         let t83 = 1.0 - t82;
         let t85 = t83 * t83;
-        let t87 = f64::exp(-t85 / 2.0);
+        let t87 = rmath::exp(-t85 / 2.0);
         let t90 = 7.0 / 12960.0 * t67 * t59 + t66 * t83 * t87 / 100.0;
         let t91 = t90 * t90;
         let t92 = param_k1 + 5.0 / 972.0 * t41 + t50 * t56 * t62 / 576.0 + t91;
@@ -109,20 +110,20 @@ pub fn mgga_x_rppscan_exc_pol(
         let t110 = t106 * t102;
         let t115 = piecewise3(t99, t82, 2.5);
         let t116 = 1.0 - t115;
-        let t119 = f64::exp(param_c2 / t116);
+        let t119 = rmath::exp(param_c2 / t116);
         let t121 = piecewise3(t98, 1.0 - 0.667 * t100 - 0.4445555 * t102 - 0.663086601049 * t104 + 1.45129704449 * t106 - 0.887998041597 * t108 + 0.234528941479 * t110 - 0.023185843322 * t106 * t104, -param_d * t119);
         let t122 = 1.0 - t121;
         let t125 = t97 * t122 + 1.174 * t121;
         let t126 = t28 * t125;
-        let t127 = f64::sqrt(3.0);
+        let t127 = rmath::sqrt(3.0);
         let t128 = 1.0 / t31;
         let t129 = t46 * t128;
-        let t130 = f64::sqrt(sigma0);
+        let t130 = rmath::sqrt(sigma0);
         let t131 = t36 * rho0;
         let t132 = 1.0 / t131;
         let t134 = t129 * t130 * t132;
-        let t135 = f64::sqrt(t134);
-        let t139 = f64::exp(-9.8958 * t127 / t135);
+        let t135 = rmath::sqrt(t134);
+        let t139 = rmath::exp(-9.8958 * t127 / t135);
         let t140 = 1.0 - t139;
         let t141 = t126 * t140;
         let t144 = piecewise3(t2, 0.0, -3.0 / 8.0 * t27 * t141);
@@ -148,7 +149,7 @@ pub fn mgga_x_rppscan_exc_pol(
         let t168 = t163 * t167;
         let t169 = t33 * sigma2;
         let t170 = t169 * t159;
-        let t173 = f64::exp(-27.0 / 80.0 * t57 * t170);
+        let t173 = rmath::exp(-27.0 / 80.0 * t57 * t170);
         let t179 = t157 * rho1;
         let t180 = 1.0 / t179;
         let t183 = tau1 * t180 - t160 / 8.0;
@@ -158,7 +159,7 @@ pub fn mgga_x_rppscan_exc_pol(
         let t189 = t183 * t188;
         let t190 = 1.0 - t189;
         let t192 = t190 * t190;
-        let t194 = f64::exp(-t192 / 2.0);
+        let t194 = rmath::exp(-t192 / 2.0);
         let t197 = 7.0 / 12960.0 * t67 * t170 + t66 * t190 * t194 / 100.0;
         let t198 = t197 * t197;
         let t199 = param_k1 + 5.0 / 972.0 * t161 + t50 * t168 * t173 / 576.0 + t198;
@@ -173,17 +174,17 @@ pub fn mgga_x_rppscan_exc_pol(
         let t217 = t213 * t209;
         let t222 = piecewise3(t206, t189, 2.5);
         let t223 = 1.0 - t222;
-        let t226 = f64::exp(param_c2 / t223);
+        let t226 = rmath::exp(param_c2 / t223);
         let t228 = piecewise3(t205, 1.0 - 0.667 * t207 - 0.4445555 * t209 - 0.663086601049 * t211 + 1.45129704449 * t213 - 0.887998041597 * t215 + 0.234528941479 * t217 - 0.023185843322 * t213 * t211, -param_d * t226);
         let t229 = 1.0 - t228;
         let t232 = t204 * t229 + 1.174 * t228;
         let t233 = t28 * t232;
-        let t234 = f64::sqrt(sigma2);
+        let t234 = rmath::sqrt(sigma2);
         let t235 = t156 * rho1;
         let t236 = 1.0 / t235;
         let t238 = t129 * t234 * t236;
-        let t239 = f64::sqrt(t238);
-        let t243 = f64::exp(-9.8958 * t127 / t239);
+        let t239 = rmath::sqrt(t238);
+        let t243 = rmath::exp(-9.8958 * t127 / t239);
         let t244 = 1.0 - t243;
         let t245 = t233 * t244;
         let t248 = piecewise3(t145, 0.0, -3.0 / 8.0 * t154 * t245);

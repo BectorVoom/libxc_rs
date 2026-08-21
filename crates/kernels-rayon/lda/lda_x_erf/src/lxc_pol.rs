@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -71,12 +71,12 @@ pub fn lda_x_erf_lxc_pol(
         let t59 = t47 * t47;
         let t60 = 1.0 / t59;
         let t63 = piecewise3(t36, 1.35, t34);
-        let t64 = f64::sqrt(M_PI);
+        let t64 = rmath::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_approx(t65 / 2.0);
+        let t67 = rmath::erf(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
-        let t72 = f64::exp(-t70 / 4.0);
+        let t72 = rmath::exp(-t70 / 4.0);
         let t73 = t72 - 1.0;
         let t76 = t72 - 3.0 / 2.0 - 2.0 * t69 * t73;
         let t79 = 2.0 * t63 * t76 + t64 * t67;
@@ -108,10 +108,10 @@ pub fn lda_x_erf_lxc_pol(
         let t123 = 1.0 / t122;
         let t126 = piecewise3(t99, 1.35, t97);
         let t127 = 1.0 / t126;
-        let t129 = erf_approx(t127 / 2.0);
+        let t129 = rmath::erf(t127 / 2.0);
         let t131 = t126 * t126;
         let t132 = 1.0 / t131;
-        let t134 = f64::exp(-t132 / 4.0);
+        let t134 = rmath::exp(-t132 / 4.0);
         let t135 = t134 - 1.0;
         let t138 = t134 - 3.0 / 2.0 - 2.0 * t131 * t135;
         let t141 = 2.0 * t126 * t138 + t64 * t129;

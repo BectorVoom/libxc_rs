@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -25,9 +26,9 @@ pub fn lda_c_ml1_vxc_unpol(
         let t4 = zeta_threshold - 1.0;
         let t6 = piecewise5(t1, t4, t1, -t4, 0.0);
         let t7 = 1.0 + t6;
-        let t8 = f64::powf(t7, param_q);
+        let t8 = rmath::pow(t7, param_q);
         let t9 = 1.0 - t6;
-        let t10 = f64::powf(t9, param_q);
+        let t10 = rmath::pow(t9, param_q);
         let t11 = t8 + t10;
         let t12 = t6 * t6;
         let t13 = 1.0 - t12;
@@ -42,7 +43,7 @@ pub fn lda_c_ml1_vxc_unpol(
         let t32 = 1.0 / t11 / t14 * t18;
         let t33 = t26 * t27 * t32;
         let t35 = 1.0 + 0.09195962397381102 * t33;
-        let t36 = f64::ln(t35);
+        let t36 = rmath::ln(t35);
         let t42 = t2 * t2;
         let t43 = 1.0 / t42;
         let t44 = param_fc * param_fc;

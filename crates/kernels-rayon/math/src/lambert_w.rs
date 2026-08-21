@@ -18,16 +18,16 @@
 /// For z >= -1/e, returns W_0(z). Uses `if/else` guards for special cases
 /// and initial guess selection, with 15 unrolled Halley iteration steps.
 pub fn lambert_w(z: f64) -> f64 {
-    let inv_e = 1.0_f64 / f64::exp(1.0_f64);
+    let inv_e = 1.0_f64 / rmath::exp(1.0_f64);
     let eps = (1e-15_f64 as f64);
-    let cbrt_eps = f64::powf(eps, 1.0_f64 / 3.0_f64);
+    let cbrt_eps = rmath::pow(eps, 1.0_f64 / 3.0_f64);
 
     let mut result = 0.0_f64;
 
     if z + inv_e < -10.0_f64 * eps {
         // Below branch: z < -1/e
         result = -1.0_f64;
-    } else if f64::abs(z) < cbrt_eps {
+    } else if rmath::abs(z) < cbrt_eps {
         // Small z: power expansion
         result = z - z * z + 1.5_f64 * z * z * z;
     } else {
@@ -35,14 +35,14 @@ pub fn lambert_w(z: f64) -> f64 {
         let mut w0 = 0.0_f64;
         if z <= -0.3140862435046707_f64 {
             // Near branch point
-            w0 = f64::sqrt(2.0_f64 * f64::exp(1.0_f64) * z + 2.0_f64) - 1.0_f64;
+            w0 = rmath::sqrt(2.0_f64 * rmath::exp(1.0_f64) * z + 2.0_f64) - 1.0_f64;
         } else if z <= 1.149876485041417_f64 {
             // Taylor around origin
             w0 = z - z * z + 1.5_f64 * z * z * z;
         } else {
             // Asymptotic expansion
-            let lnz = f64::ln(z);
-            w0 = lnz - f64::ln(lnz);
+            let lnz = rmath::ln(z);
+            w0 = lnz - rmath::ln(lnz);
         }
 
         // Halley's iteration: 15 steps (unrolled)
@@ -68,10 +68,10 @@ pub fn lambert_w(z: f64) -> f64 {
 
 /// Single Halley iteration step for Lambert W.
 fn halley_step(w: f64, z: f64) -> f64 {
-    let expmw = f64::exp(-w);
+    let expmw = rmath::exp(-w);
     let residual = w - z * expmw;
     let denom = w + 1.0_f64 - (w + 2.0_f64) / (2.0_f64 * w + 2.0_f64) * residual;
     // Guard against w == -1 (denom would be 0)
-    let dw = (if f64::abs(w + 1.0_f64) < 1.0e-300_f64 { 0.0_f64 } else { -residual / denom });
+    let dw = (if rmath::abs(w + 1.0_f64) < 1.0e-300_f64 { 0.0_f64 } else { -residual / denom });
     w + dw
 }

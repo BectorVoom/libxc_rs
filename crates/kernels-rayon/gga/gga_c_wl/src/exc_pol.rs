@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -29,17 +30,17 @@ pub fn gga_c_wl_exc_pol(
         let t4 = t3 * t3;
         let t5 = 1.0 / t4;
         let t7 = -t2 * t5 + 1.0;
-        let t8 = f64::sqrt(t7);
+        let t8 = rmath::sqrt(t7);
         let t10 = sigma0 + 2.0 * sigma1 + sigma2;
-        let t11 = f64::sqrt(t10);
+        let t11 = rmath::sqrt(t10);
         let t12 = pow_1_3(t3);
         let t14 = 1.0 / t12 / t3;
         let t17 = -0.7486 + 0.06001 * t11 * t14;
         let t18 = t8 * t17;
-        let t19 = f64::sqrt(sigma0);
+        let t19 = rmath::sqrt(sigma0);
         let t20 = pow_1_3(rho0);
         let t22 = 1.0 / t20 / rho0;
-        let t25 = f64::sqrt(sigma2);
+        let t25 = rmath::sqrt(sigma2);
         let t26 = pow_1_3(rho1);
         let t28 = 1.0 / t26 / rho1;
         let t31 = M_CBRT3;

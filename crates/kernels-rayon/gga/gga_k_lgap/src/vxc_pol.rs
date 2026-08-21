@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -60,7 +61,7 @@ pub fn gga_k_lgap_vxc_pol(
         let t36 = M_PI * M_PI;
         let t37 = pow_1_3(t36);
         let t38 = 1.0 / t37;
-        let t39 = f64::sqrt(sigma0);
+        let t39 = rmath::sqrt(sigma0);
         let t40 = t38 * t39;
         let t41 = pow_1_3(rho0);
         let t43 = 1.0 / t41 / rho0;
@@ -75,7 +76,7 @@ pub fn gga_k_lgap_vxc_pol(
         let t62 = t39 * sigma0;
         let t63 = t52 * t52;
         let t64 = 1.0 / t63;
-        let t69 = f64::exp(-t35 * t40 * t43 / 12.0 - t48 * t51 * t55 / 24.0 - t61 * t62 * t64 / 48.0);
+        let t69 = rmath::exp(-t35 * t40 * t43 / 12.0 - t48 * t51 * t55 / 24.0 - t61 * t62 * t64 / 48.0);
         let t72 = 1.0 + param_kappa * (1.0 - t69);
         let t76 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t31 * t72);
         let t77 = rho1 <= dens_threshold;
@@ -87,7 +88,7 @@ pub fn gga_k_lgap_vxc_pol(
         let t84 = t83 * t83;
         let t86 = piecewise3(t82, t24, t84 * t81);
         let t87 = t86 * t30;
-        let t88 = f64::sqrt(sigma2);
+        let t88 = rmath::sqrt(sigma2);
         let t89 = t38 * t88;
         let t90 = pow_1_3(rho1);
         let t92 = 1.0 / t90 / rho1;
@@ -98,7 +99,7 @@ pub fn gga_k_lgap_vxc_pol(
         let t104 = t88 * sigma2;
         let t105 = t97 * t97;
         let t106 = 1.0 / t105;
-        let t111 = f64::exp(-t35 * t89 * t92 / 12.0 - t48 * t96 * t100 / 24.0 - t61 * t104 * t106 / 48.0);
+        let t111 = rmath::exp(-t35 * t89 * t92 / 12.0 - t48 * t96 * t100 / 24.0 - t61 * t104 * t106 / 48.0);
         let t114 = 1.0 + param_kappa * (1.0 - t111);
         let t118 = piecewise3(t77, 0.0, 3.0 / 20.0 * t6 * t87 * t114);
         let tzk0 = t76 + t118;

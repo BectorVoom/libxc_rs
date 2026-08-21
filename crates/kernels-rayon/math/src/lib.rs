@@ -13,13 +13,14 @@
 /// second dependency. See `docs/perf/simd-kernels.md` for when a kernel is
 /// emitted in SIMD form at all.
 pub use wide;
+pub use rmath;
 pub use rmath::fast as rmath_fast;
+pub use rmath::prelude::*;
 
 pub mod constants;
 pub mod piecewise;
 pub mod powers;
 pub mod simd;
-pub(crate) mod simd_data;
 pub mod bessel;
 pub mod br89;
 pub mod bspline;
@@ -33,7 +34,3 @@ pub mod polynomials;
 pub mod special;
 pub mod spin;
 
-/// CubeCL forms of the primitives, for explicit lane-vectorised kernels.
-/// Requires the `cubecl` feature; see `vector.rs` for why it is not default.
-#[cfg(feature = "cubecl")]
-pub mod vector;

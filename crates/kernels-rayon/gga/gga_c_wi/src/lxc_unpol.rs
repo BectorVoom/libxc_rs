@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -43,7 +44,7 @@ pub fn gga_c_wi_lxc_unpol(
         let t4 = t3 * t3;
         let t6 = 1.0 / t4 / t2;
         let t7 = param_k * sigma[ip];
-        let t9 = f64::exp(-t7 * t6);
+        let t9 = rmath::exp(-t7 * t6);
         let t12 = t1 * t6 * t9 + param_a;
         let t13 = M_CBRT3;
         let t15 = pow_1_3(1.0 / M_PI);
@@ -52,13 +53,13 @@ pub fn gga_c_wi_lxc_unpol(
         let t18 = t17 * t17;
         let t22 = t13 * t13;
         let t23 = M_CBRTPI;
-        let t25 = f64::sqrt(sigma[ip]);
+        let t25 = rmath::sqrt(sigma[ip]);
         let t26 = t25 * sigma[ip];
         let t27 = t2 * t2;
         let t28 = 1.0 / t27;
         let t31 = 1.0 / t3 / rho[ip];
         let t32 = t25 * t31;
-        let t33 = f64::sqrt(t32);
+        let t33 = rmath::sqrt(t32);
         let t38 = 1.0 + param_d * t17 * t22 * t23 * t33 * t26 * t28 / 3.0;
         let t42 = param_c + t16 * t18 / t3 * t38 / 4.0;
         let t43 = 1.0 / t42;

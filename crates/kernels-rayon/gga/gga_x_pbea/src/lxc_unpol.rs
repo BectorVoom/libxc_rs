@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -51,7 +52,7 @@ pub fn gga_x_pbea_lxc_unpol(
         let t24 = t18 * t18;
         let t26 = 1.0 / t24 / t23;
         let t29 = 1.0 + 0.008639940809536326 * sigma[ip] * t21 * t26;
-        let t30 = f64::powf(t29, -0.52);
+        let t30 = rmath::pow(t29, -0.52);
         let t32 = 1.804 - 0.804 * t30;
         let t36 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t32);
         let tzk0 = 2.0 * t36;
@@ -59,7 +60,7 @@ pub fn gga_x_pbea_lxc_unpol(
         let t42 = t3 * t17;
         let t43 = t23 * rho[ip];
         let t45 = 1.0 / t18 / t43;
-        let t47 = f64::powf(t29, -1.52);
+        let t47 = rmath::pow(t29, -1.52);
         let t49 = t47 * sigma[ip] * t21;
         let t53 = piecewise3(t2, 0.0, -t6 * t17 / t24 * t32 / 8.0 + 0.00246634334405953 * t42 * t45 * t49);
         let tvrho0 = 2.0 * rho[ip] * t53 + 2.0 * t36;
@@ -72,7 +73,7 @@ pub fn gga_x_pbea_lxc_unpol(
         let t77 = t71 * t43;
         let t78 = 1.0 / t77;
         let t79 = t42 * t78;
-        let t80 = f64::powf(t29, -2.52);
+        let t80 = rmath::pow(t29, -2.52);
         let t81 = sigma[ip] * sigma[ip];
         let t83 = t80 * t81 * t20;
         let t87 = piecewise3(t2, 0.0, t6 * t17 / t24 / rho[ip] * t32 / 12.0 - 0.007399030032178591 * t42 * t73 * t49 + 0.00017274545052360375 * t79 * t83);
@@ -92,7 +93,7 @@ pub fn gga_x_pbea_lxc_unpol(
         let t123 = t71 * t71;
         let t125 = t42 / t123;
         let t128 = t123 * t23;
-        let t131 = f64::powf(t29, -3.52);
+        let t131 = rmath::pow(t29, -3.52);
         let t132 = 1.0 / t24 / t128 * t131;
         let t133 = t81 * sigma[ip];
         let t138 = piecewise3(t2, 0.0, -5.0 / 36.0 * t6 * t17 * t26 * t32 + 0.031514387174094 * t42 * t119 * t49 - 0.0017274545052360377 * t125 * t83 + 2.0059340685089964e-05 * t42 * t132 * t133);
@@ -111,7 +112,7 @@ pub fn gga_x_pbea_lxc_unpol(
         let tv3sigma30 = 2.0 * rho[ip] * t178;
         v3sigma3[ip] += tv3sigma30;
         let t196 = t123 * t43;
-        let t207 = f64::powf(t29, -4.52);
+        let t207 = rmath::pow(t29, -4.52);
         let t208 = t81 * t81;
         let t214 = piecewise3(t2, 0.0, 10.0 / 27.0 * t6 * t17 / t24 / t43 * t32 - 0.16716327109736817 * t42 / t18 / t94 * t49 + 0.016026939020801014 * t42 / t148 * t83 - 0.00041455970749185926 * t42 / t24 / t196 * t131 * t133 + 1.626817432040544e-06 * t42 / t18 / t123 / t94 * t207 * t208 * t21);
         let tv4rho40 = 2.0 * rho[ip] * t214 + 8.0 * t138;

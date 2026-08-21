@@ -26,7 +26,7 @@ fn ft_inter_0(x: f64, beta: f64) -> f64 {
     let csi: f64 = 1.2599210498948732_f64; // M_CBRT2
     let num = -0.75_f64 * beta * csi;
     let csi_x = csi * x;
-    let denom = 1.0_f64 + 3.0_f64 * beta * csi * x * f64::ln(csi_x + f64::sqrt(csi_x * csi_x + 1.0_f64));
+    let denom = 1.0_f64 + 3.0_f64 * beta * csi * x * rmath::ln(csi_x + rmath::sqrt(csi_x * csi_x + 1.0_f64));
     num / denom
 }
 
@@ -35,9 +35,9 @@ fn ft_inter_0(x: f64, beta: f64) -> f64 {
 /// Has a logarithmic singularity at x=0 (integrable).
 fn ft_inter_1(x: f64, beta: f64) -> f64 {
     let csi: f64 = 1.2599210498948732_f64; // M_CBRT2
-    let num = -0.75_f64 * beta * csi * f64::ln(x);
+    let num = -0.75_f64 * beta * csi * rmath::ln(x);
     let csi_x = csi * x;
-    let denom = 1.0_f64 + 3.0_f64 * beta * csi * x * f64::ln(csi_x + f64::sqrt(csi_x * csi_x + 1.0_f64));
+    let denom = 1.0_f64 + 3.0_f64 * beta * csi * x * rmath::ln(csi_x + rmath::sqrt(csi_x * csi_x + 1.0_f64));
     num / denom
 }
 

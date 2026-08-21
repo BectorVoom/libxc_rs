@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -153,12 +153,12 @@ pub fn mgga_x_m11_lxc_unpol(
         let t59 = t47 * t47;
         let t60 = 1.0 / t59;
         let t63 = piecewise3(t36, 1.35, t34);
-        let t64 = f64::sqrt(M_PI);
+        let t64 = rmath::sqrt(M_PI);
         let t65 = 1.0 / t63;
-        let t67 = erf_approx(t65 / 2.0);
+        let t67 = rmath::erf(t65 / 2.0);
         let t69 = t63 * t63;
         let t70 = 1.0 / t69;
-        let t72 = f64::exp(-t70 / 4.0);
+        let t72 = rmath::exp(-t70 / 4.0);
         let t73 = t72 - 1.0;
         let t76 = t72 - 3.0 / 2.0 - 2.0 * t69 * t73;
         let t79 = 2.0 * t63 * t76 + t64 * t67;
@@ -237,7 +237,7 @@ pub fn mgga_x_m11_lxc_unpol(
         let t175 = t173 * t174;
         let t177 = 1.0 / t158 / t128;
         let t179 = t115 * t117 + t121 * t123 + t127 * t129 + t133 * t135 + t139 * t141 + t145 * t147 + t151 * t153 + t157 * t159 + t163 * t165 + t169 * t171 + t175 * t177 + param_a_0;
-        let t182 = f64::exp(-0.009318900220671557 * t99);
+        let t182 = rmath::exp(-0.009318900220671557 * t99);
         let t184 = 1.552 - 0.552 * t182;
         let t186 = param_b_1;
         let t187 = t186 * t114;

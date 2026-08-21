@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::lambert_w::{lambert_w};
@@ -31,12 +32,12 @@ pub fn mgga_x_2d_prhg07_vxc_unpol(
         let t5 = zeta_threshold - 1.0;
         let t7 = piecewise5(t4, t5, t4, -t5, 0.0);
         let t8 = 1.0 + t7;
-        let t10 = f64::sqrt(zeta_threshold);
-        let t12 = f64::sqrt(t8);
+        let t10 = rmath::sqrt(zeta_threshold);
+        let t12 = rmath::sqrt(t8);
         let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
         let t15 = M_PI * t14;
         let t16 = M_SQRT2;
-        let t17 = f64::sqrt(rho[ip]);
+        let t17 = rmath::sqrt(rho[ip]);
         let t18 = t16 * t17;
         let t19 = rho[ip] * rho[ip];
         let t20 = 1.0 / t19;
@@ -46,7 +47,7 @@ pub fn mgga_x_2d_prhg07_vxc_unpol(
         let t31 = (lapl[ip] * t20 / 2.0 - 2.0 * tau[ip] * t20 + sigma[ip] * t26 / 4.0) * t30;
         let t32 = -0.9999999999 < t31;
         let t33 = piecewise3(t32, t31, -0.9999999999);
-        let t34 = f64::exp(-1.0);
+        let t34 = rmath::exp(-1.0);
         let t36 = lambert_w(t33 * t34);
         let t37 = t36 + 1.0;
         let t38 = t37 / 2.0;

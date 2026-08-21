@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -124,14 +125,14 @@ pub fn mgga_k_rda_kxc_pol(
         let t63 = 1.0 / t40 / t61;
         let t64 = t60 * t63;
         let t66 = t58 * t64 + t57;
-        let t68 = f64::sqrt(t66);
+        let t68 = rmath::sqrt(t66);
         let t71 = 1.0 + param_beta1 * t68 / 24.0;
         let t72 = t71 * t71;
         let t73 = 1.0 / t72;
         let t76 = param_b * t47;
         let t78 = t76 * t64 + t57;
         let t79 = t78 * t78;
-        let t81 = f64::sqrt(t78);
+        let t81 = rmath::sqrt(t78);
         let t84 = 1.0 + param_beta2 * t81 / 24.0;
         let t85 = t84 * t84;
         let t86 = t85 * t85;
@@ -170,13 +171,13 @@ pub fn mgga_k_rda_kxc_pol(
         let t138 = 1.0 / t120 / t136;
         let t139 = t135 * t138;
         let t141 = t58 * t139 + t133;
-        let t143 = f64::sqrt(t141);
+        let t143 = rmath::sqrt(t141);
         let t146 = 1.0 + param_beta1 * t143 / 24.0;
         let t147 = t146 * t146;
         let t148 = 1.0 / t147;
         let t152 = t76 * t139 + t133;
         let t153 = t152 * t152;
-        let t155 = f64::sqrt(t152);
+        let t155 = rmath::sqrt(t152);
         let t158 = 1.0 + param_beta2 * t155 / 24.0;
         let t159 = t158 * t158;
         let t160 = t159 * t159;

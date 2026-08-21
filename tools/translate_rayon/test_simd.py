@@ -33,12 +33,17 @@ class TestSimdTranslation(unittest.TestCase):
         self.assertEqual(simd.rewrite_calls("f64::sqrt(x)", math_mode="fast"), "((x).sqrt())")
         self.assertEqual(simd.rewrite_calls("f64::abs(x)", math_mode="fast"), "((x).abs())")
 
-    def test_binary_functions(self):
-        # powf and atan2 in exact vs fast mode
+        # f64::powf and atan2 in exact vs fast mode
         self.assertEqual(simd.rewrite_calls("f64::powf(x, y)", math_mode="exact"), "((x).powf_simd(y))")
         self.assertEqual(simd.rewrite_calls("f64::atan2(y, x)", math_mode="exact"), "((y).atan2(x))")
         self.assertEqual(simd.rewrite_calls("f64::powf(x, y)", math_mode="fast"), "(rmath_fast::pow(x, y))")
         self.assertEqual(simd.rewrite_calls("f64::atan2(y, x)", math_mode="fast"), "(rmath_fast::atan2(y, x))")
+        self.assertEqual(simd.rewrite_calls("rmath::pow(x, y)", math_mode="fast"), "(rmath_fast::pow(x, y))")
+        self.assertEqual(simd.rewrite_calls("rmath::atan2(y, x)", math_mode="fast"), "(rmath_fast::atan2(y, x))")
+        self.assertEqual(simd.rewrite_calls("rmath::exp(x)", math_mode="fast"), "(rmath_fast::exp(x))")
+        self.assertEqual(simd.rewrite_calls("rmath::ln(x)", math_mode="fast"), "(rmath_fast::ln(x))")
+        self.assertEqual(simd.rewrite_calls("rmath::sqrt(x)", math_mode="fast"), "((x).sqrt())")
+        self.assertEqual(simd.rewrite_calls("rmath::abs(x)", math_mode="fast"), "((x).abs())")
 
     def test_powers_expansion(self):
         self.assertEqual(simd.rewrite_calls("pow_2(x)"), "((x) * (x))")

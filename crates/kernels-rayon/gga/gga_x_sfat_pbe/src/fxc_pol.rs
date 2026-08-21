@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -70,7 +71,7 @@ pub fn gga_x_sfat_pbe_fxc_pol(
         let t49 = 0.804 + 0.009146457198521547 * t45 * sigma0 * t40;
         let t52 = 1.804 - 0.646416 / t49;
         let t55 = 1.0 / t52 * t34 * t29;
-        let t56 = f64::sqrt(t55);
+        let t56 = rmath::sqrt(t55);
         let t58 = 1.0 / t56 * param_hyb_omega_0;
         let t59 = M_CBRT2;
         let t60 = t6 * t19;
@@ -109,12 +110,12 @@ pub fn gga_x_sfat_pbe_fxc_pol(
         let t119 = 1.0 / t112 / t70;
         let t123 = -t71 / 30.0 + t74 / 70.0 - t77 / 135.0 + t80 / 231.0 - t83 / 364.0 + t86 / 540.0 - t89 / 765.0 + t92 / 1045.0 - t95 / 1386.0 + t98 / 1794.0 - t101 / 2275.0 + t104 / 2835.0 - t107 / 3480.0 + t110 / 4216.0 - t113 / 5049.0 + t116 / 5985.0 - t119 / 7030.0 + 1.0 / t69 / 9.0;
         let t124 = piecewise3(t67, 1.92, t65);
-        let t125 = f64::atan2(1.0, t124);
+        let t125 = rmath::atan2(1.0, t124);
         let t126 = t124 * t124;
         let t127 = t126 + 3.0;
         let t128 = 1.0 / t126;
         let t129 = 1.0 + t128;
-        let t130 = f64::ln(t129);
+        let t130 = rmath::ln(t129);
         let t132 = -t130 * t127 + 1.0;
         let t135 = t125 + t132 * t124 / 4.0;
         let t139 = piecewise3(t66, t123, 1.0 - 8.0 / 3.0 * t135 * t124);
@@ -136,7 +137,7 @@ pub fn gga_x_sfat_pbe_fxc_pol(
         let t163 = 0.804 + 0.009146457198521547 * t159 * sigma2 * t40;
         let t166 = 1.804 - 0.646416 / t163;
         let t169 = 1.0 / t166 * t34 * t29;
-        let t170 = f64::sqrt(t169);
+        let t170 = rmath::sqrt(t169);
         let t172 = 1.0 / t170 * param_hyb_omega_0;
         let t173 = t6 * t149;
         let t174 = pow_1_3(t173);
@@ -174,12 +175,12 @@ pub fn gga_x_sfat_pbe_fxc_pol(
         let t232 = 1.0 / t225 / t183;
         let t236 = -t184 / 30.0 + t187 / 70.0 - t190 / 135.0 + t193 / 231.0 - t196 / 364.0 + t199 / 540.0 - t202 / 765.0 + t205 / 1045.0 - t208 / 1386.0 + t211 / 1794.0 - t214 / 2275.0 + t217 / 2835.0 - t220 / 3480.0 + t223 / 4216.0 - t226 / 5049.0 + t229 / 5985.0 - t232 / 7030.0 + 1.0 / t182 / 9.0;
         let t237 = piecewise3(t180, 1.92, t178);
-        let t238 = f64::atan2(1.0, t237);
+        let t238 = rmath::atan2(1.0, t237);
         let t239 = t237 * t237;
         let t240 = t239 + 3.0;
         let t241 = 1.0 / t239;
         let t242 = 1.0 + t241;
-        let t243 = f64::ln(t242);
+        let t243 = rmath::ln(t242);
         let t245 = -t243 * t240 + 1.0;
         let t248 = t238 + t245 * t237 / 4.0;
         let t252 = piecewise3(t179, t236, 1.0 - 8.0 / 3.0 * t248 * t237);

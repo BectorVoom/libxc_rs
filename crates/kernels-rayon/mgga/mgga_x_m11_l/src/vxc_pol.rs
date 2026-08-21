@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -138,12 +138,12 @@ pub fn mgga_x_m11_l_vxc_pol(
         let t75 = t63 * t63;
         let t76 = 1.0 / t75;
         let t79 = piecewise3(t52, 1.35, t50);
-        let t80 = f64::sqrt(M_PI);
+        let t80 = rmath::sqrt(M_PI);
         let t81 = 1.0 / t79;
-        let t83 = erf_approx(t81 / 2.0);
+        let t83 = rmath::erf(t81 / 2.0);
         let t85 = t79 * t79;
         let t86 = 1.0 / t85;
-        let t88 = f64::exp(-t86 / 4.0);
+        let t88 = rmath::exp(-t86 / 4.0);
         let t89 = t88 - 1.0;
         let t92 = t88 - 3.0 / 2.0 - 2.0 * t85 * t89;
         let t95 = 2.0 * t79 * t92 + t80 * t83;
@@ -219,7 +219,7 @@ pub fn mgga_x_m11_l_vxc_pol(
         let t187 = t185 * t186;
         let t189 = 1.0 / t170 / t140;
         let t191 = t127 * t129 + t133 * t135 + t139 * t141 + t145 * t147 + t151 * t153 + t157 * t159 + t163 * t165 + t169 * t171 + t175 * t177 + t181 * t183 + t187 * t189 + t118;
-        let t194 = f64::exp(-0.009318900220671557 * t112);
+        let t194 = rmath::exp(-0.009318900220671557 * t112);
         let t196 = 1.552 - 0.552 * t194;
         let t197 = param_b_0;
         let t198 = param_b_1;
@@ -330,10 +330,10 @@ pub fn mgga_x_m11_l_vxc_pol(
         let t359 = 1.0 / t358;
         let t362 = piecewise3(t335, 1.35, t333);
         let t363 = 1.0 / t362;
-        let t365 = erf_approx(t363 / 2.0);
+        let t365 = rmath::erf(t363 / 2.0);
         let t367 = t362 * t362;
         let t368 = 1.0 / t367;
-        let t370 = f64::exp(-t368 / 4.0);
+        let t370 = rmath::exp(-t368 / 4.0);
         let t371 = t370 - 1.0;
         let t374 = t370 - 3.0 / 2.0 - 2.0 * t367 * t371;
         let t377 = 2.0 * t362 * t374 + t80 * t365;
@@ -389,7 +389,7 @@ pub fn mgga_x_m11_l_vxc_pol(
         let t448 = t185 * t447;
         let t450 = 1.0 / t434 / t409;
         let t452 = t398 * t400 + t403 * t405 + t408 * t410 + t413 * t415 + t418 * t420 + t423 * t425 + t428 * t430 + t433 * t435 + t438 * t440 + t443 * t445 + t448 * t450 + t118;
-        let t455 = f64::exp(-0.009318900220671557 * t388);
+        let t455 = rmath::exp(-0.009318900220671557 * t388);
         let t457 = 1.552 - 0.552 * t455;
         let t458 = t198 * t397;
         let t460 = t201 * t402;

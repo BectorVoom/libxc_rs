@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -87,7 +88,7 @@ pub fn gga_x_sogga11_vxc_pol(
         let t60 = param_a_5;
         let t63 = param_b_0;
         let t64 = param_b_1;
-        let t65 = f64::exp(-t46);
+        let t65 = rmath::exp(-t46);
         let t66 = 1.0 - t65;
         let t68 = param_b_2;
         let t69 = t66 * t66;
@@ -117,7 +118,7 @@ pub fn gga_x_sogga11_vxc_pol(
         let t108 = t106 * t106;
         let t110 = t108 * t106;
         let t112 = t108 * t108;
-        let t116 = f64::exp(-t103);
+        let t116 = rmath::exp(-t103);
         let t117 = 1.0 - t116;
         let t119 = t117 * t117;
         let t121 = t119 * t117;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -72,7 +73,7 @@ pub fn gga_x_pw86_exc_pol(
         let t60 = t49 * t49;
         let t61 = 1.0 / t60;
         let t65 = 1.0 + t29 * t34 * t39 / 24.0 + t44 * t48 * t52 / 576.0 + t58 * t59 * t61 / 2304.0;
-        let t66 = f64::powf(t65, 1.0 / 15.0);
+        let t66 = rmath::pow(t65, 1.0 / 15.0);
         let t70 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t66);
         let t71 = rho1 <= dens_threshold;
         let t72 = -t16;
@@ -96,7 +97,7 @@ pub fn gga_x_pw86_exc_pol(
         let t100 = t92 * t92;
         let t101 = 1.0 / t100;
         let t105 = 1.0 + t29 * t81 * t86 / 24.0 + t44 * t91 * t95 / 576.0 + t58 * t99 * t101 / 2304.0;
-        let t106 = f64::powf(t105, 1.0 / 15.0);
+        let t106 = rmath::pow(t105, 1.0 / 15.0);
         let t110 = piecewise3(t71, 0.0, -3.0 / 8.0 * t5 * t80 * t106);
         let tzk0 = t70 + t110;
         zk[ip] += tzk0;

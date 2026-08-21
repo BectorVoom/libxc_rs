@@ -141,7 +141,7 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
     let mut dspenc: f64 = 0.0_f64;
 
     if x > 2.0_f64 {
-        let aux = f64::ln(x);
+        let aux = rmath::ln(x);
         dspenc = 2.0_f64 * pi26 - 0.5_f64 * aux * aux;
         if x < big {
             dspenc = dspenc - (1.0_f64 + cheb_eval_38(4.0_f64 / x - 1.0_f64,
@@ -152,7 +152,7 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
         }
     } else if x > 1.0_f64 {
         let aux = x - 1.0_f64;
-        dspenc = pi26 - 0.5_f64 * f64::ln(x) * f64::ln(aux * aux / x)
+        dspenc = pi26 - 0.5_f64 * rmath::ln(x) * rmath::ln(aux * aux / x)
             + aux * (1.0_f64 + cheb_eval_38(4.0_f64 * aux / x - 1.0_f64,
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
@@ -160,7 +160,7 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
                 s30, s31, s32, s33, s34, s35, s36, s37)) / x;
     } else if x > 0.5_f64 {
         // x != 1.0 case (x > 0.5 && x <= 1.0, and we already handled x > 1.0)
-        dspenc = pi26 - f64::ln(x) * f64::ln(1.0_f64 - x)
+        dspenc = pi26 - rmath::ln(x) * rmath::ln(1.0_f64 - x)
             - (1.0_f64 - x) * (1.0_f64 + cheb_eval_38(4.0_f64 * (1.0_f64 - x) - 1.0_f64,
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
                 s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
@@ -173,7 +173,7 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
             s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
             s30, s31, s32, s33, s34, s35, s36, s37));
     } else if x > -1.0_f64 {
-        let aux = f64::ln(1.0_f64 - x);
+        let aux = rmath::ln(1.0_f64 - x);
         dspenc = -0.5_f64 * aux * aux
             - x * (1.0_f64 + cheb_eval_38(4.0_f64 * x / (x - 1.0_f64) - 1.0_f64,
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
@@ -181,8 +181,8 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
                 s20, s21, s22, s23, s24, s25, s26, s27, s28, s29,
                 s30, s31, s32, s33, s34, s35, s36, s37)) / (x - 1.0_f64);
     } else {
-        let aux = f64::ln(1.0_f64 - x);
-        dspenc = -pi26 - 0.5_f64 * aux * (2.0_f64 * f64::ln(-x) - aux);
+        let aux = rmath::ln(1.0_f64 - x);
+        dspenc = -pi26 - 0.5_f64 * aux * (2.0_f64 * rmath::ln(-x) - aux);
         if x > -big {
             dspenc = dspenc + (1.0_f64 + cheb_eval_38(4.0_f64 / (1.0_f64 - x) - 1.0_f64,
                 s0, s1, s2, s3, s4, s5, s6, s7, s8, s9,
@@ -224,9 +224,9 @@ pub fn xc_erfcx(x: f64) -> f64 {
         if x < -26.7_f64 {
             result = (f64::MAX as f64);
         } else if x < -6.1_f64 {
-            result = 2.0_f64 * f64::exp(x * x);
+            result = 2.0_f64 * rmath::exp(x * x);
         } else {
-            result = 2.0_f64 * f64::exp(x * x) - erfcx_y100(400.0_f64 / (4.0_f64 - x));
+            result = 2.0_f64 * rmath::exp(x * x) - erfcx_y100(400.0_f64 / (4.0_f64 - x));
         }
     }
 

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -72,16 +73,16 @@ pub fn mgga_c_b94_vxc_pol(
         let t41 = rho0 * rho0;
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
-        let t47 = f64::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
+        let t47 = rmath::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
         let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
         let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t49, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
-        let t59 = f64::exp(t57 / 3.0);
+        let t59 = rmath::exp(t57 / 3.0);
         let t60 = 1.0 / t59;
-        let t61 = f64::exp(-t57);
+        let t61 = rmath::exp(-t57);
         let t63 = 1.0 + t57 / 2.0;
         let t64 = t61 * t63;
         let t65 = 1.0 - t64;
@@ -108,16 +109,16 @@ pub fn mgga_c_b94_vxc_pol(
         let t92 = rho1 * rho1;
         let t94 = 1.0 / t83 / t92;
         let t95 = t91 * t94;
-        let t98 = f64::abs(t86 / 2.0 - 2.0 * t89 + t95 / 4.0);
+        let t98 = rmath::abs(t86 / 2.0 - 2.0 * t89 + t95 / 4.0);
         let t100 = t98 / 3.0 < 5e-13;
         let t104 = t86 / 6.0 - 2.0 / 3.0 * t89 + t95 / 12.0;
         let t105 = 0.0 < t104;
         let t106 = piecewise3(t105, 5e-13, -5e-13);
         let t107 = piecewise3(t100, t106, t104);
         let t108 = xc_mgga_x_br89_get_x(t107);
-        let t110 = f64::exp(t108 / 3.0);
+        let t110 = rmath::exp(t108 / 3.0);
         let t111 = 1.0 / t110;
-        let t112 = f64::exp(-t108);
+        let t112 = rmath::exp(-t108);
         let t114 = 1.0 + t108 / 2.0;
         let t115 = t112 * t114;
         let t116 = 1.0 - t115;
@@ -128,7 +129,7 @@ pub fn mgga_c_b94_vxc_pol(
         let t123 = t71 + t122;
         let t124 = param_cab * t123;
         let t125 = 1.0 + t124;
-        let t126 = f64::ln(t125);
+        let t126 = rmath::ln(t125);
         let t127 = t124 - t126;
         let t128 = t124 * t127;
         let t130 = 0.2 * t9 * t128;
@@ -166,7 +167,7 @@ pub fn mgga_c_b94_vxc_pol(
         let t170 = t29 * t60;
         let t171 = t66 * t57;
         let t175 = 1.0 + t169 * t170 * t171 / 2.0;
-        let t176 = f64::ln(t175);
+        let t176 = rmath::ln(t175);
         let t177 = 1.0 / param_css;
         let t178 = t176 * t177;
         let t179 = t141 * t25;
@@ -202,7 +203,7 @@ pub fn mgga_c_b94_vxc_pol(
         let t220 = t29 * t111;
         let t221 = t117 * t108;
         let t225 = 1.0 + t219 * t220 * t221 / 2.0;
-        let t226 = f64::ln(t225);
+        let t226 = rmath::ln(t225);
         let t227 = t226 * t177;
         let t228 = t141 * t78;
         let t229 = t227 * t228;
@@ -243,7 +244,7 @@ pub fn mgga_c_b94_vxc_pol(
         let t280 = t56 * t56;
         let t281 = 1.0 / t280;
         let t282 = t279 * t281;
-        let t284 = f64::exp(-2.0 / 3.0 * t57);
+        let t284 = rmath::exp(-2.0 / 3.0 * t57);
         let t285 = 1.0 / t284;
         let t287 = t165 - 2.0 * t57 + 3.0;
         let t288 = 1.0 / t287;
@@ -404,7 +405,7 @@ pub fn mgga_c_b94_vxc_pol(
         let t552 = t107 * t107;
         let t553 = 1.0 / t552;
         let t554 = t551 * t553;
-        let t556 = f64::exp(-2.0 / 3.0 * t108);
+        let t556 = rmath::exp(-2.0 / 3.0 * t108);
         let t557 = 1.0 / t556;
         let t559 = t216 - 2.0 * t108 + 3.0;
         let t560 = 1.0 / t559;

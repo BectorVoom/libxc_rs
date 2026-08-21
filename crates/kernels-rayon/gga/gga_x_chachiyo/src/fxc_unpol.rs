@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -44,11 +45,11 @@ pub fn gga_x_chachiyo_fxc_unpol(
         let t29 = M_PI * M_PI;
         let t30 = t3 * t3;
         let t31 = t30 * t4;
-        let t32 = f64::sqrt(sigma[ip]);
+        let t32 = rmath::sqrt(sigma[ip]);
         let t34 = 1.0 / t19 / rho[ip];
         let t36 = t31 * t32 * t34;
         let t38 = 2.0 / 27.0 * t36 + 1.0;
-        let t39 = f64::ln(t38);
+        let t39 = rmath::ln(t38);
         let t41 = 4.0 / 81.0 * t21 * sigma[ip] * t25 + t29 * t39;
         let t44 = 2.0 / 9.0 * t36 + t29;
         let t45 = 1.0 / t44;

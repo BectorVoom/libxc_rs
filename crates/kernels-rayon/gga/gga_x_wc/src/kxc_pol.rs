@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,7 +65,7 @@ pub fn gga_x_wc_kxc_pol(
         let t38 = 1.0 / t36 / t34;
         let t39 = sigma0 * t38;
         let t40 = t33 * t39;
-        let t43 = f64::exp(-t40 / 24.0);
+        let t43 = rmath::exp(-t40 / 24.0);
         let t47 = t28 * t28;
         let t49 = 1.0 / t30 / t29;
         let t50 = t47 * t49;
@@ -73,7 +74,7 @@ pub fn gga_x_wc_kxc_pol(
         let t53 = t52 * rho0;
         let t55 = 1.0 / t35 / t53;
         let t59 = 1.0 + 1.3780328706878157e-05 * t50 * t51 * t55;
-        let t60 = f64::ln(t59);
+        let t60 = rmath::ln(t59);
         let t61 = 0.804 + 5.0 / 972.0 * t40 + 0.004002424276710846 * t33 * t39 * t43 + t60;
         let t64 = 1.804 - 0.646416 / t61;
         let t68 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t25 * t26 * t64);
@@ -90,13 +91,13 @@ pub fn gga_x_wc_kxc_pol(
         let t83 = 1.0 / t81 / t79;
         let t84 = sigma2 * t83;
         let t85 = t33 * t84;
-        let t88 = f64::exp(-t85 / 24.0);
+        let t88 = rmath::exp(-t85 / 24.0);
         let t92 = sigma2 * sigma2;
         let t93 = t79 * t79;
         let t94 = t93 * rho1;
         let t96 = 1.0 / t80 / t94;
         let t100 = 1.0 + 1.3780328706878157e-05 * t50 * t92 * t96;
-        let t101 = f64::ln(t100);
+        let t101 = rmath::ln(t100);
         let t102 = 0.804 + 5.0 / 972.0 * t85 + 0.004002424276710846 * t33 * t84 * t88 + t101;
         let t105 = 1.804 - 0.646416 / t102;
         let t109 = piecewise3(t69, 0.0, -3.0 / 8.0 * t5 * t77 * t26 * t105);

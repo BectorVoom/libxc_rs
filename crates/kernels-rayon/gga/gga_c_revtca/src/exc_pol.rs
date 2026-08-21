@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -51,7 +52,7 @@ pub fn gga_c_revtca_exc_pol(
         let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
         let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
-        let t33 = f64::atan(t32);
+        let t33 = rmath::atan(t32);
         let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
         let t37 = t21 * t21;
@@ -67,12 +68,12 @@ pub fn gga_c_revtca_exc_pol(
         let t47 = t43 * t46;
         let t48 = M_CBRT2;
         let t50 = sigma0 + 2.0 * sigma1 + sigma2;
-        let t51 = f64::sqrt(t50);
+        let t51 = rmath::sqrt(t50);
         let t52 = t48 * t51;
         let t53 = t27 * t2;
         let t54 = 1.0 / t53;
         let t56 = t47 * t52 * t54;
-        let t57 = f64::powf(t56, 2.3);
+        let t57 = rmath::pow(t56, 2.3);
         let t59 = 1.0 + 0.004712150703442276 * t57;
         let t60 = 1.0 / t59;
         let t61 = t1 * t1;
@@ -113,7 +114,7 @@ pub fn gga_c_revtca_exc_pol(
         let t118 = 1.0 / t117;
         let t122 = t77 < t76;
         let t123 = piecewise3(t122, t76, t77);
-        let t124 = f64::sin(t123);
+        let t124 = rmath::sin(t123);
         let t125 = 1.0 / t123;
         let t126 = t124 * t125;
         let t127 = piecewise3(t78, 1.0 - t86 * t88 * t89 * t21 * t92 / 432.0 + t104 * t106 * t110 / 34560.0 - t116 * t118 / 322560.0, t126);

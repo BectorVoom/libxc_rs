@@ -19,7 +19,7 @@ pub fn wigner_seitz_rs(rho: f64) -> f64 {
 /// Actually, the standard form is: s = |grad rho| / (2 * kF * rho) where kF = (3*pi^2*rho)^(1/3)
 /// So s = sqrt(sigma) / (2 * KF_CONST * rho^(4/3))
 pub fn reduced_gradient_s(rho: f64, sigma: f64) -> f64 {
-    f64::sqrt(sigma) / (2.0_f64 * (KF_CONST as f64) * pow_4_3(rho))
+    rmath::sqrt(sigma) / (2.0_f64 * (KF_CONST as f64) * pow_4_3(rho))
 }
 
 /// Thomas-Fermi kinetic energy density: t_TF = (3/10) * (3*pi^2)^(2/3) * rho^(5/3)

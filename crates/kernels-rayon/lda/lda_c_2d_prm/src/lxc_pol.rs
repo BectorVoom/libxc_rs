@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI};
 use libxc_rkernel_math::powers::{pow_3_2};
 
@@ -26,15 +27,15 @@ pub fn lda_c_2d_prm_lxc_pol(
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = rho0 + rho1;
-        let t2 = f64::sqrt(t1);
-        let t4 = f64::sqrt(M_PI);
+        let t2 = rmath::sqrt(t1);
+        let t4 = rmath::sqrt(M_PI);
         let t6 = 3.9274 * t2 + t4 / 2.0;
         let t7 = 1.0 / t6;
         let t8 = t2 * t7;
         let t10 = 3.9274 * t8 - 1.0;
         let t11 = t2 * t10;
         let t12 = 2.0 + param_c;
-        let t13 = f64::sqrt(t12);
+        let t13 = rmath::sqrt(t12);
         let t14 = 1.0 / t13;
         let t16 = 0.3544538369424879 * t11 * t14;
         let t17 = 1.0 / t12;
@@ -45,7 +46,7 @@ pub fn lda_c_2d_prm_lxc_pol(
         let t24 = 1.0/pow_3_2(t12);
         let t26 = 0.17722691847124394 * t2 * t22 * t24;
         let t27 = 1.0 + param_c;
-        let t28 = f64::sqrt(t27);
+        let t28 = rmath::sqrt(t27);
         let t29 = 1.0 / t28;
         let t31 = 0.7089076738849758 * t11 * t29;
         let t32 = 1.0 / t27;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -50,7 +51,7 @@ pub fn mgga_xc_cc06_fxc_unpol(
         let t22 = t21 * t21;
         let t25 = t20 * t22 / t12;
         let t27 = 1.0 + 0.053425 * t25;
-        let t28 = f64::sqrt(t25);
+        let t28 = rmath::sqrt(t25);
         let t31 = pow_3_2(t25);
         let t33 = t4 * t4;
         let t34 = t19 * t19;
@@ -60,13 +61,13 @@ pub fn mgga_xc_cc06_fxc_unpol(
         let t39 = t35 * t21 * t37;
         let t41 = 3.79785 * t28 + 0.8969 * t25 + 0.204775 * t31 + 0.123235 * t39;
         let t44 = 1.0 + 16.081824322151103 / t41;
-        let t45 = f64::ln(t44);
+        let t45 = rmath::ln(t44);
         let t50 = M_CBRT2;
         let t54 = (2.0 * t11 - 2.0) / (2.0 * t50 - 2.0);
         let t56 = 1.0 + 0.0278125 * t25;
         let t61 = 5.1785 * t28 + 0.905775 * t25 + 0.1100325 * t31 + 0.1241775 * t39;
         let t64 = 1.0 + 29.608574643216677 / t61;
-        let t65 = f64::ln(t64);
+        let t65 = rmath::ln(t64);
         let t69 = 2.0 * t16 - 0.062182 * t27 * t45 + 0.019751789702565206 * t54 * t56 * t65;
         let t70 = t33 * t21;
         let t71 = t34 * lapl[ip];
@@ -89,7 +90,7 @@ pub fn mgga_xc_cc06_fxc_unpol(
         let t100 = t99 * t89;
         let t101 = t98 * t100;
         let t103 = t20 * t90;
-        let t105 = f64::sqrt(t25);
+        let t105 = rmath::sqrt(t25);
         let t106 = t105 * t4;
         let t107 = t106 * t100;
         let t109 = t21 * t73;
@@ -141,7 +142,7 @@ pub fn mgga_xc_cc06_fxc_unpol(
         let t197 = t99 * t174;
         let t198 = t98 * t197;
         let t200 = t20 * t175;
-        let t202 = 1.0/f64::sqrt(t25);
+        let t202 = 1.0/rmath::sqrt(t25);
         let t203 = t202 * t33;
         let t204 = t203 * t194;
         let t206 = t106 * t197;

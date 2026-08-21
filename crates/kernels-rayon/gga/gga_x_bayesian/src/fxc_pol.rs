@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -63,7 +64,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t40 = t28 * t28;
         let t41 = 1.0 / t30;
         let t42 = t40 * t41;
-        let t43 = f64::sqrt(sigma0);
+        let t43 = rmath::sqrt(sigma0);
         let t49 = 1.0 + t42 * t43 / t36 / rho0 / 12.0;
         let t50 = t49 * t49;
         let t51 = 1.0 / t50;
@@ -85,7 +86,7 @@ pub fn gga_x_bayesian_fxc_pol(
         let t78 = pow_1_3(rho1);
         let t79 = t78 * t78;
         let t81 = 1.0 / t79 / t77;
-        let t82 = f64::sqrt(sigma2);
+        let t82 = rmath::sqrt(sigma2);
         let t88 = 1.0 + t42 * t82 / t78 / rho1 / 12.0;
         let t89 = t88 * t88;
         let t90 = 1.0 / t89;

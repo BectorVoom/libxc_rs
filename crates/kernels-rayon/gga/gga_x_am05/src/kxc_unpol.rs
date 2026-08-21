@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::lambert_w::{lambert_w};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -72,17 +73,17 @@ pub fn gga_x_am05_kxc_unpol(
         let t52 = t20 * t20;
         let t53 = param_c * t52;
         let t54 = 1.0 / t23;
-        let t55 = f64::sqrt(sigma[ip]);
+        let t55 = rmath::sqrt(sigma[ip]);
         let t56 = t54 * t55;
         let t58 = t53 * t56 * t28;
         let t60 = 1.0 / t18 / rho[ip];
         let t61 = 1.0 / M_PI;
         let t62 = t60 * t61;
         let t63 = t3 * t3;
-        let t64 = f64::sqrt(12.0);
+        let t64 = rmath::sqrt(12.0);
         let t68 = t52 * t54 * t55 * t27 * t60;
-        let t69 = f64::sqrt(t68);
-        let t72 = f64::sqrt(6.0);
+        let t69 = rmath::sqrt(t68);
+        let t72 = rmath::sqrt(6.0);
         let t75 = lambert_w(t64 * t69 * t68 * t72 / 1728.0);
         let t76 = pow_1_3(t75);
         let t77 = t76 * t76;

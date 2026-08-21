@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -88,19 +89,19 @@ pub fn mgga_x_mbr_vxc_pol(
         let t69 = t68 * rho0;
         let t71 = 1.0 / t32 / t69;
         let t75 = 1.0 + 175.0 / 162.0 * t55 * t57 * t47 + t63 * t67 * t71 / 576.0;
-        let t76 = f64::powf(t75, 1.0 / 5.0);
+        let t76 = rmath::pow(t75, 1.0 / 5.0);
         let t80 = t54 * sigma0;
         let t86 = -t31 * (t37 - t44 - sigma0 * t47 / 36.0) - t43 * (t76 - 1.0) / 5.0 + param_gamma * (t37 - t80 * t47 / 4.0) / 3.0;
-        let t87 = f64::abs(t86);
+        let t87 = rmath::abs(t86);
         let t88 = t87 < 5e-13;
         let t89 = -t86;
         let t90 = 0.0 < t89;
         let t91 = piecewise3(t90, 5e-13, -5e-13);
         let t92 = piecewise3(t88, t91, t89);
         let t93 = xc_mgga_x_br89_get_x(t92);
-        let t95 = f64::exp(t93 / 3.0);
+        let t95 = rmath::exp(t93 / 3.0);
         let t96 = t29 * t95;
-        let t97 = f64::exp(-t93);
+        let t97 = rmath::exp(-t93);
         let t99 = 1.0 + t93 / 2.0;
         let t100 = t97 * t99;
         let t101 = 1.0 - t100;
@@ -130,19 +131,19 @@ pub fn mgga_x_mbr_vxc_pol(
         let t139 = t138 * rho1;
         let t141 = 1.0 / t119 / t139;
         let t145 = 1.0 + 175.0 / 162.0 * t55 * t132 * t127 + t63 * t137 * t141 / 576.0;
-        let t146 = f64::powf(t145, 1.0 / 5.0);
+        let t146 = rmath::pow(t145, 1.0 / 5.0);
         let t150 = t54 * sigma2;
         let t156 = -t31 * (t124 - t44 - sigma2 * t127 / 36.0) - t43 * (t146 - 1.0) / 5.0 + param_gamma * (t124 - t150 * t127 / 4.0) / 3.0;
-        let t157 = f64::abs(t156);
+        let t157 = rmath::abs(t156);
         let t158 = t157 < 5e-13;
         let t159 = -t156;
         let t160 = 0.0 < t159;
         let t161 = piecewise3(t160, 5e-13, -5e-13);
         let t162 = piecewise3(t158, t161, t159);
         let t163 = xc_mgga_x_br89_get_x(t162);
-        let t165 = f64::exp(t163 / 3.0);
+        let t165 = rmath::exp(t163 / 3.0);
         let t166 = t29 * t165;
-        let t167 = f64::exp(-t163);
+        let t167 = rmath::exp(-t163);
         let t169 = 1.0 + t163 / 2.0;
         let t170 = t167 * t169;
         let t171 = 1.0 - t170;
@@ -180,7 +181,7 @@ pub fn mgga_x_mbr_vxc_pol(
         let t233 = t28 * t232;
         let t234 = t92 * t92;
         let t235 = 1.0 / t234;
-        let t237 = f64::exp(-2.0 / 3.0 * t93);
+        let t237 = rmath::exp(-2.0 / 3.0 * t93);
         let t238 = 1.0 / t237;
         let t239 = t235 * t238;
         let t240 = t93 * t93;
@@ -241,7 +242,7 @@ pub fn mgga_x_mbr_vxc_pol(
         let t351 = t118 * t350;
         let t352 = t162 * t162;
         let t353 = 1.0 / t352;
-        let t355 = f64::exp(-2.0 / 3.0 * t163);
+        let t355 = rmath::exp(-2.0 / 3.0 * t163);
         let t356 = 1.0 / t355;
         let t357 = t353 * t356;
         let t358 = t163 * t163;

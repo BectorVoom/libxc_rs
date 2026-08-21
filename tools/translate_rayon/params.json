@@ -1223,7 +1223,7 @@
   "lda_c_2d_prm": "setter is N_set_ext_params, not a plain copy",
   "lda_c_hl": "param set mismatch; kernel-only=['param_hl_c_0', 'param_hl_c_1', 'param_hl_r_0', 'param_hl_r_1'] libxc-only=['param_c0', 'param_c1', 'param_r0', 'param_r1']",
   "lda_c_pmgb06": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "lda_c_pw": "param set mismatch; kernel-only=['param_a_0', 'param_a_2', 'param_alpha1_0', 'param_alpha1_2'] libxc-only=['param_a[0]', 'param_a[1]', 'param_a[2]', 'param_alpha1[0]']",
+  "lda_c_pw": "param set mismatch; kernel-only=['param_a_0', 'param_a_1', 'param_a_2', 'param_alpha1_0'] libxc-only=['param_a[0]', 'param_a[1]', 'param_a[2]', 'param_alpha1[0]']",
   "lda_c_pw_erf": "setter is set_ext_params_cpy_omega, not a plain copy",
   "lda_c_pz": "param set mismatch; kernel-only=['param_a_0', 'param_a_1', 'param_b_0', 'param_b_1'] libxc-only=['param_a0', 'param_a1', 'param_b0', 'param_b1']",
   "lda_k_tf": "setter is NULL, not a plain copy",

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -58,7 +59,7 @@ pub fn gga_k_lgap_ge_lxc_unpol(
         let t28 = M_PI * M_PI;
         let t29 = pow_1_3(t28);
         let t31 = param_mu_0 * t26 / t29;
-        let t32 = f64::sqrt(sigma[ip]);
+        let t32 = rmath::sqrt(sigma[ip]);
         let t33 = M_CBRT2;
         let t34 = t32 * t33;
         let t36 = 1.0 / t21 / rho[ip];

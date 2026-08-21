@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2_3, pow_4_3, pow_5_3, pow_7_3};
@@ -38,19 +39,19 @@ pub fn gga_xc_th2_lxc_pol(
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = f64::powf(rho0, 1.0 / 12.0);
-        let t4 = f64::powf(rho1, 1.0 / 12.0);
-        let t7 = f64::powf(rho0, 1.0 / 6.0);
+        let t1 = rmath::pow(rho0, 1.0 / 12.0);
+        let t4 = rmath::pow(rho1, 1.0 / 12.0);
+        let t7 = rmath::pow(rho0, 1.0 / 6.0);
         let t8 = t7 * rho0;
-        let t10 = f64::powf(rho1, 1.0 / 6.0);
+        let t10 = rmath::pow(rho1, 1.0 / 6.0);
         let t11 = t10 * rho1;
         let t13 = pow_1_3(rho0);
         let t14 = t13 * rho0;
         let t16 = pow_1_3(rho1);
         let t17 = t16 * rho1;
-        let t19 = f64::sqrt(rho0);
+        let t19 = rmath::sqrt(rho0);
         let t20 = t19 * rho0;
-        let t22 = f64::sqrt(rho1);
+        let t22 = rmath::sqrt(rho1);
         let t23 = t22 * rho1;
         let t25 = t13 * t13;
         let t26 = t25 * rho0;
@@ -63,7 +64,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t36 = t35 * t35;
         let t37 = t36 * t4;
         let t39 = rho0 * t33 + rho1 * t37;
-        let t40 = f64::sqrt(sigma0);
+        let t40 = rmath::sqrt(sigma0);
         let t41 = 1.0 / t14;
         let t42 = t40 * t41;
         let t43 = rho0 - rho1;
@@ -79,7 +80,7 @@ pub fn gga_xc_th2_lxc_pol(
         let t54 = M_CBRT2;
         let t55 = t54 * t54;
         let t56 = t53 * t55;
-        let t58 = f64::sqrt(sigma2);
+        let t58 = rmath::sqrt(sigma2);
         let t59 = 1.0 / t17;
         let t60 = t58 * t59;
         let t61 = 1.0 - t46;

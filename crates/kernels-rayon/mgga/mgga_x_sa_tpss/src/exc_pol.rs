@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -50,7 +51,7 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t26 = piecewise3(t21, t23, t24 * t20);
         let t27 = pow_1_3(t7);
         let t28 = t26 * t27;
-        let t29 = f64::sqrt(5.0);
+        let t29 = rmath::sqrt(5.0);
         let t30 = M_PI * t29;
         let t31 = pow_1_3(rho0);
         let t32 = t31 * t31;
@@ -67,12 +68,12 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t47 = 1.0 / t46;
         let t48 = t43 * t47;
         let t50 = 5.0 * t48 + 9.0;
-        let t51 = f64::sqrt(t50);
+        let t51 = rmath::sqrt(t50);
         let t52 = 5.0 / 9.0 * t48;
         let t53 = t52 + 0.348;
-        let t54 = f64::ln(t53);
+        let t54 = rmath::ln(t53);
         let t55 = 2.413 + t54;
-        let t56 = f64::sqrt(t55);
+        let t56 = rmath::sqrt(t55);
         let t57 = 1.0 / t56;
         let t58 = t51 * t57;
         let t59 = t30 * t58;
@@ -92,7 +93,7 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t80 = t52 - 1.0;
         let t81 = t47 * t80;
         let t84 = 1.0 + 0.2222222222222222 * t43 * t81;
-        let t85 = f64::sqrt(t84);
+        let t85 = rmath::sqrt(t84);
         let t86 = 1.0 / t85;
         let t89 = t42 * t47;
         let t90 = t89 * t39;
@@ -107,7 +108,7 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t104 = t61 * t103;
         let t105 = t99 * t104;
         let t107 = 162.0 * t66 + 50.0 * t105;
-        let t108 = f64::sqrt(t107);
+        let t108 = rmath::sqrt(t107);
         let t112 = 1.0 / M_PI * t29;
         let t113 = 1.0 / t51;
         let t115 = t112 * t113 * t56;
@@ -141,12 +142,12 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t165 = t164 * t42;
         let t166 = t165 * t47;
         let t168 = 5.0 * t166 + 9.0;
-        let t169 = f64::sqrt(t168);
+        let t169 = rmath::sqrt(t168);
         let t170 = 5.0 / 9.0 * t166;
         let t171 = t170 + 0.348;
-        let t172 = f64::ln(t171);
+        let t172 = rmath::ln(t171);
         let t173 = 2.413 + t172;
-        let t174 = f64::sqrt(t173);
+        let t174 = rmath::sqrt(t173);
         let t175 = 1.0 / t174;
         let t176 = t169 * t175;
         let t177 = t30 * t176;
@@ -166,7 +167,7 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t198 = t170 - 1.0;
         let t199 = t47 * t198;
         let t202 = 1.0 + 0.2222222222222222 * t165 * t199;
-        let t203 = f64::sqrt(t202);
+        let t203 = rmath::sqrt(t202);
         let t204 = 1.0 / t203;
         let t207 = t89 * t162;
         let t209 = 9.0 / 20.0 * t198 * t204 + t207 / 36.0;
@@ -177,7 +178,7 @@ pub fn mgga_x_sa_tpss_exc_pol(
         let t217 = t179 * t216;
         let t218 = t99 * t217;
         let t220 = 162.0 * t184 + 50.0 * t218;
-        let t221 = f64::sqrt(t220);
+        let t221 = rmath::sqrt(t220);
         let t224 = 1.0 / t169;
         let t226 = t112 * t224 * t174;
         let t230 = t179 * sigma2;

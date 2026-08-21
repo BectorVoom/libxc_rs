@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -42,19 +43,19 @@ pub fn gga_x_ncap_exc_unpol(
         let t23 = pow_1_3(t22);
         let t24 = 1.0 / t23;
         let t25 = t21 * t24;
-        let t26 = f64::sqrt(sigma[ip]);
+        let t26 = rmath::sqrt(sigma[ip]);
         let t27 = M_CBRT2;
         let t28 = t26 * t27;
         let t30 = 1.0 / t18 / rho[ip];
         let t31 = t28 * t30;
         let t33 = t25 * t31 / 12.0;
-        let t34 = f64::tanh(t33);
+        let t34 = rmath::tanh(t33);
         let t35 = param_mu * t34;
-        let t36 = f64::ln(t33 + f64::sqrt(t33 * t33 + 1.0));
+        let t36 = rmath::ln(t33 + rmath::sqrt(t33 * t33 + 1.0));
         let t37 = 1.0 - param_zeta;
         let t39 = t37 * t21 * t24;
         let t40 = 1.0 + t33;
-        let t41 = f64::ln(t40);
+        let t41 = rmath::ln(t40);
         let t42 = t30 * t41;
         let t46 = param_zeta * t21 * t24;
         let t51 = 1.0 + param_alpha * (t39 * t28 * t42 / 12.0 + t46 * t31 / 12.0);

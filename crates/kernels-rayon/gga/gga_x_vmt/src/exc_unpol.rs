@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -48,7 +49,7 @@ pub fn gga_x_vmt_exc_unpol(
         let t31 = t18 * t18;
         let t33 = 1.0 / t31 / t30;
         let t38 = sigma[ip] * t29 * t33;
-        let t41 = f64::exp(-param_alpha * t20 * t25 * t38 / 24.0);
+        let t41 = rmath::exp(-param_alpha * t20 * t25 * t38 / 24.0);
         let t42 = t21 * t25;
         let t45 = 1.0 + t42 * t38 / 24.0;
         let t46 = 1.0 / t45;

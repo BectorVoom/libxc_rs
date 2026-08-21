@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -28,7 +29,7 @@ pub fn lda_c_ml1_kxc_pol(
         let t2 = rho0 - rho1;
         let t3 = 1.0 / t1;
         let t4 = t2 * t3;
-        let t5 = f64::abs(t4);
+        let t5 = rmath::abs(t4);
         let t7 = 1.0 - t5 <= zeta_threshold;
         let t8 = t2 * t2;
         let t9 = t1 * t1;
@@ -41,9 +42,9 @@ pub fn lda_c_ml1_kxc_pol(
         let t19 = 1.0 - t4 <= zeta_threshold;
         let t21 = piecewise5(t16, t17, t19, -t17, t4);
         let t22 = 1.0 + t21;
-        let t23 = f64::powf(t22, param_q);
+        let t23 = rmath::pow(t22, param_q);
         let t24 = 1.0 - t21;
-        let t25 = f64::powf(t24, param_q);
+        let t25 = rmath::pow(t24, param_q);
         let t26 = t23 + t25;
         let t27 = t21 * t21;
         let t28 = 1.0 - t27;
@@ -64,7 +65,7 @@ pub fn lda_c_ml1_kxc_pol(
         let t47 = t46 * t33;
         let t48 = t43 * t47;
         let t50 = 1.0 + 0.09195962397381102 * t48;
-        let t51 = f64::ln(t50);
+        let t51 = rmath::ln(t50);
         let t52 = t51 * t41;
         let t53 = t52 * t42;
         let t57 = t13 * t13;

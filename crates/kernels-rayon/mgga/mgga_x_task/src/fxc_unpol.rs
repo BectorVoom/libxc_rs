@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -75,7 +76,7 @@ pub fn mgga_x_task_fxc_unpol(
         let t37 = 0.0 < t36;
         let t38 = piecewise3(t37, t36, 0.0);
         let t39 = pow_1_4(t38);
-        let t42 = f64::exp(-param_task_c / t39);
+        let t42 = rmath::exp(-param_task_c / t39);
         let t44 = piecewise3(t37, 1.0 - t42, 0.0);
         let t46 = tau[ip] * tau[ip];
         let t47 = t46 * t46;
@@ -149,7 +150,7 @@ pub fn mgga_x_task_fxc_unpol(
         let t155 = 1.0 / t154;
         let t157 = t149 * t155 - param_task_h0x;
         let t158 = t129 * t157;
-        let t159 = f64::powf(t44, param_task_d);
+        let t159 = rmath::pow(t44, param_task_d);
         let t160 = t158 * t159;
         let t161 = param_task_h0x * t44 + t160;
         let t165 = piecewise3(t3, 0.0, -3.0 / 8.0 * t7 * t20 * t161);
@@ -256,7 +257,7 @@ pub fn mgga_x_task_fxc_unpol(
         let t383 = 1.0 / t382;
         let t387 = piecewise3(t37, 11.0 / 27.0 * t26 * t29 * t383, 0.0);
         let t391 = param_task_c * param_task_c;
-        let t392 = f64::sqrt(t38);
+        let t392 = rmath::sqrt(t38);
         let t395 = t391 / t392 / t374;
         let t399 = piecewise3(t37, 5.0 / 16.0 * t377 * t379 - t173 * t387 * t42 / 4.0 - t395 * t379 / 16.0, 0.0);
         let t401 = t54 * t70;

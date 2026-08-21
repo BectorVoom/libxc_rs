@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -55,12 +55,12 @@ pub fn lda_x_erf_exc_unpol(
         let t52 = t40 * t40;
         let t53 = 1.0 / t52;
         let t56 = piecewise3(t29, 1.35, t27);
-        let t57 = f64::sqrt(M_PI);
+        let t57 = rmath::sqrt(M_PI);
         let t58 = 1.0 / t56;
-        let t60 = erf_approx(t58 / 2.0);
+        let t60 = rmath::erf(t58 / 2.0);
         let t62 = t56 * t56;
         let t63 = 1.0 / t62;
-        let t65 = f64::exp(-t63 / 4.0);
+        let t65 = rmath::exp(-t63 / 4.0);
         let t66 = t65 - 1.0;
         let t69 = t65 - 3.0 / 2.0 - 2.0 * t62 * t66;
         let t72 = 2.0 * t56 * t69 + t57 * t60;

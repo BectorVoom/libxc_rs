@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::lambert_w::{lambert_w};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -79,18 +80,18 @@ pub fn gga_x_am05_kxc_pol(
         let t56 = t28 * t28;
         let t57 = param_c * t56;
         let t58 = 1.0 / t31;
-        let t59 = f64::sqrt(sigma0);
+        let t59 = rmath::sqrt(sigma0);
         let t60 = t58 * t59;
         let t62 = 1.0 / t36 / rho0;
         let t65 = 1.0 / M_PI;
         let t66 = t2 * t2;
         let t67 = t65 * t66;
         let t68 = M_CBRT2;
-        let t69 = f64::sqrt(12.0);
+        let t69 = rmath::sqrt(12.0);
         let t70 = t56 * t58;
         let t72 = t70 * t59 * t62;
-        let t73 = f64::sqrt(t72);
-        let t76 = f64::sqrt(6.0);
+        let t73 = rmath::sqrt(t72);
+        let t76 = rmath::sqrt(6.0);
         let t79 = lambert_w(t69 * t73 * t72 * t76 / 1728.0);
         let t80 = pow_1_3(t79);
         let t81 = t80 * t80;
@@ -125,11 +126,11 @@ pub fn gga_x_am05_kxc_pol(
         let t130 = t29 * t121;
         let t131 = t119 * t126;
         let t134 = 1.0 + t52 * t122 / 24.0;
-        let t135 = f64::sqrt(sigma2);
+        let t135 = rmath::sqrt(sigma2);
         let t136 = t58 * t135;
         let t138 = 1.0 / t116 / rho1;
         let t142 = t70 * t135 * t138;
-        let t143 = f64::sqrt(t142);
+        let t143 = rmath::sqrt(t142);
         let t148 = lambert_w(t69 * t143 * t142 * t76 / 1728.0);
         let t149 = pow_1_3(t148);
         let t150 = t149 * t149;

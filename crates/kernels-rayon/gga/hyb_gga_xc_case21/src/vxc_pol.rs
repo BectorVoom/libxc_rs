@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -123,8 +124,8 @@ pub fn hyb_gga_xc_case21_vxc_pol(
         let t101 = t3 * t3;
         let t102 = t100 * t101;
         let t103 = t102 * t4;
-        let t104 = f64::sqrt(sigma0);
-        let t105 = f64::sqrt(sigma2);
+        let t104 = rmath::sqrt(sigma0);
+        let t105 = rmath::sqrt(sigma2);
         let t106 = t104 + t105;
         let t107 = t106 * t106;
         let t108 = t7 * t7;
@@ -139,7 +140,7 @@ pub fn hyb_gga_xc_case21_vxc_pol(
         let t120 = t119 * t119;
         let t123 = t118 * t120 / t27;
         let t125 = 1.0 + 0.053425 * t123;
-        let t126 = f64::sqrt(t123);
+        let t126 = rmath::sqrt(t123);
         let t129 = pow_3_2(t123);
         let t131 = t117 * t117;
         let t132 = t101 * t131;
@@ -148,7 +149,7 @@ pub fn hyb_gga_xc_case21_vxc_pol(
         let t136 = t132 * t119 * t134;
         let t138 = 3.79785 * t126 + 0.8969 * t123 + 0.204775 * t129 + 0.123235 * t136;
         let t141 = 1.0 + 16.081979498692537 / t138;
-        let t142 = f64::ln(t141);
+        let t142 = rmath::ln(t141);
         let t144 = 0.0621814 * t125 * t142;
         let t145 = t17 * t17;
         let t146 = t145 * t145;
@@ -166,11 +167,11 @@ pub fn hyb_gga_xc_case21_vxc_pol(
         let t161 = 1.0 + 0.05137 * t123;
         let t166 = 7.05945 * t126 + 1.549425 * t123 + 0.420775 * t129 + 0.1562925 * t136;
         let t169 = 1.0 + 32.16395899738507 / t166;
-        let t170 = f64::ln(t169);
+        let t170 = rmath::ln(t169);
         let t174 = 1.0 + 0.0278125 * t123;
         let t179 = 5.1785 * t126 + 0.905775 * t123 + 0.1100325 * t129 + 0.1241775 * t136;
         let t182 = 1.0 + 29.608749977793437 / t179;
-        let t183 = f64::ln(t182);
+        let t183 = rmath::ln(t182);
         let t184 = t174 * t183;
         let t186 = -0.0310907 * t161 * t170 + t144 - 0.0197516734986138 * t184;
         let t187 = t159 * t186;
@@ -243,7 +244,7 @@ pub fn hyb_gga_xc_case21_vxc_pol(
         let t308 = t307 * t297;
         let t309 = t306 * t308;
         let t311 = t118 * t298;
-        let t313 = f64::sqrt(t123);
+        let t313 = rmath::sqrt(t123);
         let t314 = t313 * t3;
         let t315 = t314 * t308;
         let t318 = 1.0 / t133 / t7;

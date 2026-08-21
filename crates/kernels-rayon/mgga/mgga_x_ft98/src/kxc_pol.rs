@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -96,7 +97,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t32 = t31 * t31;
         let t34 = 1.0 / t32 / t30;
         let t36 = param_a1 * sigma0 * t34 + 1.0;
-        let t37 = f64::sqrt(t36);
+        let t37 = rmath::sqrt(t36);
         let t38 = param_a * t37;
         let t39 = param_b1 * sigma0;
         let t41 = t39 * t34 + 1.0;
@@ -115,7 +116,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t58 = 1.0 / t57;
         let t61 = param_b * (t55 * t58 + 1.0);
         let t62 = param_b2 * param_b2;
-        let t64 = f64::sqrt(t62 + 1.0);
+        let t64 = rmath::sqrt(t62 + 1.0);
         let t65 = t64 - param_b2;
         let t66 = sigma0 * sigma0;
         let t67 = t30 * t30;
@@ -145,7 +146,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t107 = piecewise3(t106, t77, -t79);
         let t108 = t107 * t107;
         let t109 = 1.0 + t108;
-        let t110 = f64::sqrt(t109);
+        let t110 = rmath::sqrt(t109);
         let t111 = t107 + t110;
         let t113 = piecewise5(t80, -2.0 * t71 + 2.0 * t76 + t83 - 1.0 / t77 / 2.0 + t88 / 8.0 - t92 / 16.0, t98, 1.0 - t71 + t76 + param_b2 + t86 / 2.0 - t90 / 8.0 + t101 / 16.0 - 5.0 / 128.0 * t103, 1.0 / t111);
         let t115 = t65 * t113 + 1.0;
@@ -170,7 +171,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t139 = 1.0 + 81.0 / 4.0 * t134 * t135 * t34;
         let t140 = 1.0 / t139;
         let t141 = t127 * t140;
-        let t142 = f64::sqrt(t141);
+        let t142 = rmath::sqrt(t141);
         let t146 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t28 * t142);
         let t147 = rho1 <= dens_threshold;
         let t148 = -t17;
@@ -186,7 +187,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t160 = t159 * t159;
         let t162 = 1.0 / t160 / t158;
         let t164 = t157 * t162 + 1.0;
-        let t165 = f64::sqrt(t164);
+        let t165 = rmath::sqrt(t164);
         let t166 = param_a * t165;
         let t169 = param_b1 * sigma2 * t162 + 1.0;
         let t170 = pow_1_4(t169);
@@ -228,7 +229,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t228 = piecewise3(t227, t201, -t79);
         let t229 = t228 * t228;
         let t230 = 1.0 + t229;
-        let t231 = f64::sqrt(t230);
+        let t231 = rmath::sqrt(t230);
         let t232 = t228 + t231;
         let t234 = piecewise5(t202, -2.0 * t195 + 2.0 * t200 + t83 - 1.0 / t201 / 2.0 + t209 / 8.0 - t213 / 16.0, t219, 1.0 - t195 + t200 + param_b2 + t207 / 2.0 - t211 / 8.0 + t222 / 16.0 - 5.0 / 128.0 * t224, 1.0 / t232);
         let t236 = t65 * t234 + 1.0;
@@ -243,7 +244,7 @@ pub fn mgga_x_ft98_kxc_pol(
         let t250 = 1.0 + 81.0 / 4.0 * t134 * t246 * t162;
         let t251 = 1.0 / t250;
         let t252 = t245 * t251;
-        let t253 = f64::sqrt(t252);
+        let t253 = rmath::sqrt(t252);
         let t257 = piecewise3(t147, 0.0, -3.0 / 8.0 * t6 * t156 * t253);
         let tzk0 = t146 + t257;
         zk[ip] += tzk0;

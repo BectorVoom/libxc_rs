@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT6, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -51,10 +52,10 @@ pub fn gga_c_ccdf_kxc_pol(
         let t13 = pow_1_3(t12);
         let t14 = 1.0 / t13;
         let t16 = sigma0 + 2.0 * sigma1 + sigma2;
-        let t17 = f64::sqrt(t16);
+        let t17 = rmath::sqrt(t16);
         let t18 = t14 * t17;
         let t20 = 1.0 / t2 / t1;
-        let t26 = f64::exp(-param_c4 * (t11 * t18 * t20 / 12.0 - param_c5));
+        let t26 = rmath::exp(-param_c4 * (t11 * t18 * t20 / 12.0 - param_c5));
         let t27 = 1.0 + t26;
         let t30 = 1.0 - param_c3 / t27;
         let tzk0 = t7 * t30;

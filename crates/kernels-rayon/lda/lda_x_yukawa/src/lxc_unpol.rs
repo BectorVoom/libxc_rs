@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -73,12 +74,12 @@ pub fn lda_x_yukawa_lxc_unpol(
         let t83 = 1.0 / t76 / t34;
         let t85 = 1.0 / t31 / 9.0 - t35 / 30.0 + t38 / 70.0 - t41 / 135.0 + t44 / 231.0 - t47 / 364.0 + t50 / 540.0 - t53 / 765.0 + t56 / 1045.0 - t59 / 1386.0 + t62 / 1794.0 - t65 / 2275.0 + t68 / 2835.0 - t71 / 3480.0 + t74 / 4216.0 - t77 / 5049.0 + t80 / 5985.0 - t83 / 7030.0;
         let t86 = piecewise3(t29, 1.92, t27);
-        let t87 = f64::atan2(1.0, t86);
+        let t87 = rmath::atan2(1.0, t86);
         let t88 = t86 * t86;
         let t89 = t88 + 3.0;
         let t90 = 1.0 / t88;
         let t91 = 1.0 + t90;
-        let t92 = f64::ln(t91);
+        let t92 = rmath::ln(t91);
         let t94 = -t92 * t89 + 1.0;
         let t97 = t87 + t94 * t86 / 4.0;
         let t101 = piecewise3(t28, t85, 1.0 - 8.0 / 3.0 * t97 * t86);

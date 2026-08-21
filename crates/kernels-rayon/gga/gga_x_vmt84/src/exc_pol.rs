@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -61,7 +62,7 @@ pub fn gga_x_vmt84_exc_pol(
         let t41 = param_alpha * t28;
         let t42 = t33 * sigma0;
         let t43 = t42 * t39;
-        let t46 = f64::exp(-t41 * t43 / 24.0);
+        let t46 = rmath::exp(-t41 * t43 / 24.0);
         let t49 = 1.0 + t29 * t43 / 24.0;
         let t50 = 1.0 / t49;
         let t51 = t46 * t50;
@@ -73,7 +74,7 @@ pub fn gga_x_vmt84_exc_pol(
         let t61 = t35 * t35;
         let t62 = t61 * rho0;
         let t64 = 1.0 / t36 / t62;
-        let t68 = f64::exp(-t56 * t60 * t64 / 576.0);
+        let t68 = rmath::exp(-t56 * t60 * t64 / 576.0);
         let t70 = (1.0 - t68) * t55;
         let t71 = 1.0 / sigma0;
         let t72 = t32 * t71;
@@ -94,7 +95,7 @@ pub fn gga_x_vmt84_exc_pol(
         let t95 = 1.0 / t94;
         let t97 = t33 * sigma2;
         let t98 = t97 * t95;
-        let t101 = f64::exp(-t41 * t98 / 24.0);
+        let t101 = rmath::exp(-t41 * t98 / 24.0);
         let t104 = 1.0 + t29 * t98 / 24.0;
         let t105 = 1.0 / t104;
         let t106 = t101 * t105;
@@ -103,7 +104,7 @@ pub fn gga_x_vmt84_exc_pol(
         let t112 = t91 * t91;
         let t113 = t112 * rho1;
         let t115 = 1.0 / t92 / t113;
-        let t119 = f64::exp(-t56 * t111 * t115 / 576.0);
+        let t119 = rmath::exp(-t56 * t111 * t115 / 576.0);
         let t121 = (1.0 - t119) * t55;
         let t122 = 1.0 / sigma2;
         let t123 = t32 * t122;

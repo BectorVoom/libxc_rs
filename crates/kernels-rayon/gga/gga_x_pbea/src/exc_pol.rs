@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -48,7 +49,7 @@ pub fn gga_x_pbea_exc_pol(
         let t30 = t29 * t29;
         let t32 = 1.0 / t30 / t28;
         let t35 = 1.0 + 0.008639940809536326 * sigma0 * t32;
-        let t36 = f64::powf(t35, -0.52);
+        let t36 = rmath::pow(t35, -0.52);
         let t38 = 1.804 - 0.804 * t36;
         let t42 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t25 * t26 * t38);
         let t43 = rho1 <= dens_threshold;
@@ -63,7 +64,7 @@ pub fn gga_x_pbea_exc_pol(
         let t55 = t54 * t54;
         let t57 = 1.0 / t55 / t53;
         let t60 = 1.0 + 0.008639940809536326 * sigma2 * t57;
-        let t61 = f64::powf(t60, -0.52);
+        let t61 = rmath::pow(t60, -0.52);
         let t63 = 1.804 - 0.804 * t61;
         let t67 = piecewise3(t43, 0.0, -3.0 / 8.0 * t5 * t51 * t26 * t63);
         let tzk0 = t42 + t67;

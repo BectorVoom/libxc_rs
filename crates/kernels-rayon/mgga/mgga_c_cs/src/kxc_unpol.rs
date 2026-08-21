@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -59,7 +60,7 @@ pub fn mgga_c_cs_kxc_unpol(
         let t3 = 1.0 / t2;
         let t5 = 1.0 + 0.349 * t3;
         let t6 = 1.0 / t5;
-        let t8 = f64::exp(-0.2533 * t3);
+        let t8 = rmath::exp(-0.2533 * t3);
         let t10 = zeta_threshold * zeta_threshold;
         let t11 = pow_1_3(zeta_threshold);
         let t12 = t11 * t11;

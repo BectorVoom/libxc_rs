@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::mbrxc::{xc_mgga_x_mbrxc_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -149,9 +150,9 @@ pub fn mgga_x_mggac_kxc_pol(
         let t118 = t81 * t86;
         let t119 = t79 < t78;
         let t120 = piecewise3(t119, t78, t79);
-        let t122 = f64::exp(t120 / 3.0);
+        let t122 = rmath::exp(t120 / 3.0);
         let t123 = t87 * t122;
-        let t124 = f64::exp(-t120);
+        let t124 = rmath::exp(-t120);
         let t125 = t120 * t120;
         let t127 = t125 + 5.0 * t120 + 8.0;
         let t128 = t124 * t127;
@@ -209,9 +210,9 @@ pub fn mgga_x_mggac_kxc_pol(
         let t208 = t92 * t207;
         let t216 = t79 < t189;
         let t217 = piecewise3(t216, t189, t79);
-        let t219 = f64::exp(t217 / 3.0);
+        let t219 = rmath::exp(t217 / 3.0);
         let t220 = t87 * t219;
-        let t221 = f64::exp(-t217);
+        let t221 = rmath::exp(-t217);
         let t222 = t217 * t217;
         let t224 = t222 + 5.0 * t217 + 8.0;
         let t225 = t221 * t224;
@@ -269,7 +270,7 @@ pub fn mgga_x_mggac_kxc_pol(
         let t307 = pow_1_3(t306);
         let t308 = t307 * t307;
         let t309 = 1.0 / t308;
-        let t311 = f64::exp(-2.0 / 3.0 * t78);
+        let t311 = rmath::exp(-2.0 / 3.0 * t78);
         let t312 = 1.0 / t311;
         let t313 = t309 * t312;
         let t315 = t93 - 3.0 * t78 + 6.0;
@@ -357,7 +358,7 @@ pub fn mgga_x_mggac_kxc_pol(
         let t472 = pow_1_3(t471);
         let t473 = t472 * t472;
         let t474 = 1.0 / t473;
-        let t476 = f64::exp(-2.0 / 3.0 * t189);
+        let t476 = rmath::exp(-2.0 / 3.0 * t189);
         let t477 = 1.0 / t476;
         let t478 = t474 * t477;
         let t480 = t191 - 3.0 * t189 + 6.0;

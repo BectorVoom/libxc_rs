@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -28,7 +29,7 @@ pub fn gga_c_op_g96_exc_pol(
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
         let t4 = t1 * t3;
-        let t5 = f64::abs(t4);
+        let t5 = rmath::abs(t4);
         let t11 = 1.0 - t5 <= zeta_threshold || rho0 <= dens_threshold && rho1 <= dens_threshold;
         let t13 = 1.0 + t4 <= zeta_threshold;
         let t14 = zeta_threshold - 1.0;
@@ -59,11 +60,11 @@ pub fn gga_c_op_g96_exc_pol(
         let t47 = t46 * t2;
         let t48 = pow_1_3(t47);
         let t49 = 1.0 / t48;
-        let t51 = f64::sqrt(sigma0);
+        let t51 = rmath::sqrt(sigma0);
         let t52 = pow_1_3(rho0);
         let t54 = 1.0 / t52 / rho0;
         let t55 = t51 * t54;
-        let t56 = f64::sqrt(t55);
+        let t56 = rmath::sqrt(t55);
         let t57 = t56 * t55;
         let t61 = 1.0 + 2.0 / 1233.0 * t38 * t39 * t57;
         let t62 = 1.0 / t61;
@@ -74,11 +75,11 @@ pub fn gga_c_op_g96_exc_pol(
         let t73 = t72 * t2;
         let t74 = pow_1_3(t73);
         let t75 = 1.0 / t74;
-        let t77 = f64::sqrt(sigma2);
+        let t77 = rmath::sqrt(sigma2);
         let t78 = pow_1_3(rho1);
         let t80 = 1.0 / t78 / rho1;
         let t81 = t77 * t80;
-        let t82 = f64::sqrt(t81);
+        let t82 = rmath::sqrt(t81);
         let t83 = t82 * t81;
         let t87 = 1.0 + 2.0 / 1233.0 * t38 * t39 * t83;
         let t88 = 1.0 / t87;

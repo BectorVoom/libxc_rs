@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -61,17 +62,17 @@ pub fn lda_c_pw_lxc_unpol(
         let t18 = param_beta1_0;
         let t19 = t3 * t6;
         let t21 = t19 * t8 * t11;
-        let t22 = f64::sqrt(t21);
+        let t22 = rmath::sqrt(t21);
         let t26 = param_beta2_0 * t3;
         let t29 = param_beta3_0;
         let t30 = pow_3_2(t21);
         let t34 = t21 / 4.0;
         let t36 = param_pp_0 + 1.0;
-        let t37 = f64::powf(t34, t36);
+        let t37 = rmath::pow(t34, t36);
         let t38 = param_beta4_0 * t37;
         let t39 = t18 * t22 / 2.0 + t26 * t12 / 4.0 + 0.125 * t29 * t30 + t38;
         let t43 = 1.0 + t17 / t39 / 2.0;
-        let t44 = f64::ln(t43);
+        let t44 = rmath::ln(t43);
         let t45 = t1 * t15 * t44;
         let t47 = pow_1_3(zeta_threshold);
         let t49 = piecewise3(1.0 <= zeta_threshold, t47 * zeta_threshold, 1.0);
@@ -86,11 +87,11 @@ pub fn lda_c_pw_lxc_unpol(
         let t69 = param_beta2_2 * t3;
         let t72 = param_beta3_2;
         let t77 = param_pp_2 + 1.0;
-        let t78 = f64::powf(t34, t77);
+        let t78 = rmath::pow(t34, t77);
         let t79 = param_beta4_2 * t78;
         let t80 = t65 * t22 / 2.0 + t69 * t12 / 4.0 + 0.125 * t72 * t30 + t79;
         let t84 = 1.0 + t64 / t80 / 2.0;
-        let t85 = f64::ln(t84);
+        let t85 = rmath::ln(t84);
         let t87 = 1.0 / param_fz20;
         let t89 = t56 * t57 * t63 * t85 * t87;
         let tzk0 = -2.0 * t45 + 2.0 * t89;
@@ -104,7 +105,7 @@ pub fn lda_c_pw_lxc_unpol(
         let t104 = 1.0 / t22;
         let t106 = t18 * t104 * t3;
         let t107 = t9 * t96;
-        let t112 = f64::sqrt(t21);
+        let t112 = rmath::sqrt(t21);
         let t114 = t29 * t112 * t3;
         let t117 = 1.0 / rho[ip];
         let t121 = -t106 * t107 / 12.0 - t26 * t107 / 12.0 - 0.0625 * t114 * t107 - t38 * t36 * t117 / 3.0;
@@ -144,7 +145,7 @@ pub fn lda_c_pw_lxc_unpol(
         let t187 = t10 * t10;
         let t190 = t186 / t187 / t161;
         let t193 = t9 * t163;
-        let t198 = 1.0/f64::sqrt(t21);
+        let t198 = 1.0/rmath::sqrt(t21);
         let t200 = t29 * t198 * t183;
         let t205 = t36 * t36;
         let t206 = 1.0 / t161;
@@ -279,7 +280,7 @@ pub fn lda_c_pw_lxc_unpol(
         let t585 = t186 / t187 / t306;
         let t589 = 1.0 / t10 / t306;
         let t590 = t9 * t589;
-        let t595 = f64::powf(t21, -2.5);
+        let t595 = rmath::pow(t21, -2.5);
         let t606 = t205 * t205;
         let t619 = -5.0 / 18.0 * t18 * t569 * t5 * t576 + 8.0 / 3.0 * t305 * t580 - 80.0 / 81.0 * t184 * t585 + 70.0 / 81.0 * t106 * t590 + 70.0 / 81.0 * t26 * t590 + 0.041666666666666664 * t29 * t595 * t5 * t576 - 0.6666666666666666 * t325 * t580 + 0.7407407407407407 * t200 * t585 + 0.6481481481481481 * t114 * t590 + t38 * t606 * t307 / 81.0 + 2.0 / 9.0 * t38 * t332 * t307 + 11.0 / 9.0 * t38 * t205 * t307 + 2.0 * t38 * t36 * t307;
         let t622 = t271 * t271;

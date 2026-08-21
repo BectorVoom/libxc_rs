@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -48,16 +49,16 @@ pub fn gga_x_sfat_vxc_unpol(
         let t32 = rho[ip] * rho[ip];
         let t33 = t19 * t19;
         let t35 = 1.0 / t33 / t32;
-        let t36 = f64::sqrt(sigma[ip]);
+        let t36 = rmath::sqrt(sigma[ip]);
         let t37 = t29 * t36;
         let t39 = 1.0 / t19 / rho[ip];
-        let t41 = f64::ln(t39 * t37 + f64::sqrt(pow_2(t39 * t37) + 1.0));
+        let t41 = rmath::ln(t39 * t37 + rmath::sqrt(pow_2(t39 * t37) + 1.0));
         let t42 = t41 * t39;
         let t45 = 1.0 + 0.0252 * t42 * t37;
         let t46 = 1.0 / t45;
         let t51 = 1.0 + 0.0009333333333333333 * t46 * t35 * t31 * t28;
         let t54 = 1.0 / t51 * t26 * t20 * M_PI;
-        let t55 = f64::sqrt(t54);
+        let t55 = rmath::sqrt(t54);
         let t57 = 1.0 / t55 * param_hyb_omega_0;
         let t58 = rho[ip] * t11;
         let t59 = pow_1_3(t58);
@@ -95,12 +96,12 @@ pub fn gga_x_sfat_vxc_unpol(
         let t117 = 1.0 / t71;
         let t121 = t73 / 5985.0 - t76 / 7030.0 - t78 / 30.0 + t81 / 70.0 - t83 / 135.0 + t86 / 231.0 - t89 / 364.0 + t92 / 540.0 - t94 / 765.0 + t97 / 1045.0 - t100 / 1386.0 + t103 / 1794.0 - t106 / 2275.0 + t109 / 2835.0 - t112 / 3480.0 + t115 / 4216.0 - t117 / 5049.0 + 1.0 / t67 / 9.0;
         let t122 = piecewise3(t65, 1.92, t63);
-        let t123 = f64::atan2(1.0, t122);
+        let t123 = rmath::atan2(1.0, t122);
         let t124 = t122 * t122;
         let t125 = t124 + 3.0;
         let t126 = 1.0 / t124;
         let t127 = 1.0 + t126;
-        let t128 = f64::ln(t127);
+        let t128 = rmath::ln(t127);
         let t130 = -t125 * t128 + 1.0;
         let t133 = t123 + t130 * t122 / 4.0;
         let t137 = piecewise3(t64, t121, 1.0 - 8.0 / 3.0 * t133 * t122);
@@ -126,7 +127,7 @@ pub fn gga_x_sfat_vxc_unpol(
         let t170 = 1.0 / t169;
         let t173 = t41 / t19 / t32;
         let t177 = t31 * t35 + 1.0;
-        let t178 = f64::sqrt(t177);
+        let t178 = rmath::sqrt(t177);
         let t179 = 1.0 / t178;
         let t180 = t179 * t161;
         let t183 = -0.0336 * t173 * t37 - 0.0336 * t180 * t31;

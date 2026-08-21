@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -48,7 +49,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t9 = t6 * t8;
         let t10 = t4 * t9;
         let t12 = 1.0 + 0.053425 * t10;
-        let t13 = f64::sqrt(t10);
+        let t13 = rmath::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
@@ -59,7 +60,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t24 = t20 * t23;
         let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
         let t29 = 1.0 + 16.081824322151103 / t26;
-        let t30 = f64::ln(t29);
+        let t30 = rmath::ln(t29);
         let t32 = 0.062182 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
@@ -69,9 +70,9 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t45 = 1.0 + 0.0278125 * t10;
         let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
         let t53 = 1.0 + 29.608574643216677 / t50;
-        let t54 = f64::ln(t53);
+        let t54 = rmath::ln(t53);
         let t57 = 0.019751789702565206 * t43 * t45 * t54;
-        let t58 = f64::ln(2.0);
+        let t58 = rmath::ln(2.0);
         let t59 = t58 - 1.0;
         let t60 = 2.0 * t59;
         let t62 = 2.923025 * param_hyb_omega_0 * t13;
@@ -87,7 +88,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t85 = t73 * t1;
         let t88 = 1.0 + t62 + 0.8621275 * t85 * t77;
         let t89 = 1.0 / t88;
-        let t91 = f64::ln(t84 * t89);
+        let t91 = rmath::ln(t84 * t89);
         let t93 = M_PI * M_PI;
         let t94 = 1.0 / t93;
         let t96 = 1.0 / rho[ip];
@@ -96,7 +97,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t103 = 1.0 / t7 / rho[ip];
         let t104 = t6 * t103;
         let t107 = 1.0 + 0.005175 * t10 + 0.0204825 * t24 - 0.0030486129349252553 * t96 + 0.0003485625 * t101 * t104;
-        let t110 = f64::exp(-0.1881 * t10);
+        let t110 = rmath::exp(-0.1881 * t10);
         let t111 = M_SQRT2;
         let t112 = t110 * t111;
         let t116 = t18 * t19 * t94;
@@ -111,7 +112,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t133 = 1.0 + 0.107975 * t121 + 0.01 * t20 * t23 * t129;
         let t134 = 1.0 / t133;
         let t137 = t126 * t127 * t134 / 15.0;
-        let t139 = f64::exp(-0.0775 * t10);
+        let t139 = rmath::exp(-0.0775 * t10);
         let t142 = -1.2375 * t10 + t24 / 4.0;
         let t143 = t139 * t142;
         let t144 = M_PI * rho[ip];
@@ -119,7 +120,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t154 = t107 * t110;
         let t156 = t154 / 2.0 - 1.0 / 2.0;
         let t159 = t5 * t119;
-        let t161 = f64::exp(-0.13675 * t10);
+        let t161 = rmath::exp(-0.13675 * t10);
         let t164 = -0.097 * t10 + 0.169 * t24;
         let t166 = t161 * t164 * t1;
         let t167 = 1.0 / t19;
@@ -151,7 +152,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t222 = param_gamma * t221;
         let t223 = -t32 + t57 - t217;
         let t224 = 1.0 / t179;
-        let t226 = f64::powf(t223 * t224, param_a_c);
+        let t226 = rmath::pow(t223 * t224, param_a_c);
         let t227 = param_beta * t226;
         let t228 = t227 * sigma[ip];
         let t230 = 1.0 / t7 / t195;
@@ -163,7 +164,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t236 = t18 * t235;
         let t237 = t236 * t5;
         let t238 = 1.0 / param_gamma;
-        let t242 = f64::exp(-t223 / t221 * t238);
+        let t242 = rmath::exp(-t223 / t221 * t238);
         let t243 = t242 - 1.0;
         let t244 = 1.0 / t243;
         let t245 = t238 * t244;
@@ -195,7 +196,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t278 = t252 * t277;
         let t279 = t237 * t278;
         let t282 = 1.0 + t234 * t279 / 96.0;
-        let t283 = f64::ln(t282);
+        let t283 = rmath::ln(t282);
         let t284 = t222 * t283;
         let tzk0 = -t32 + t57 - t217 + t284;
         zk[ip] += tzk0;
@@ -209,7 +210,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t293 = t76 * t103;
         let t294 = t292 * t293;
         let t296 = t4 * t104;
-        let t298 = f64::sqrt(t10);
+        let t298 = rmath::sqrt(t10);
         let t299 = t298 * t1;
         let t300 = t299 * t293;
         let t302 = t20 * t159;
@@ -402,7 +403,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t674 = t76 * t230;
         let t675 = t292 * t674;
         let t677 = t4 * t358;
-        let t679 = 1.0/f64::sqrt(t10);
+        let t679 = 1.0/rmath::sqrt(t10);
         let t680 = t679 * t18;
         let t681 = t680 * t671;
         let t683 = t299 * t674;
@@ -1491,7 +1492,7 @@ pub fn gga_c_pbe_erf_gws_lxc_unpol(
         let t3178 = t76 * t945;
         let t3179 = t292 * t3178;
         let t3181 = t4 * t1698;
-        let t3183 = f64::powf(t10, -2.5);
+        let t3183 = rmath::pow(t10, -2.5);
         let t3186 = t3183 * t2 * t1955 * t397;
         let t3188 = t1654 * t1457;
         let t3190 = t680 * t3175;

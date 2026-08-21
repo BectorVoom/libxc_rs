@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -67,10 +68,10 @@ pub fn gga_k_thakkar_lxc_pol(
         let t34 = t33 * t33;
         let t36 = 1.0 / t34 / t32;
         let t37 = sigma0 * t36;
-        let t38 = f64::sqrt(sigma0);
+        let t38 = rmath::sqrt(sigma0);
         let t40 = 1.0 / t33 / rho0;
         let t41 = t38 * t40;
-        let t42 = f64::ln(t41 + f64::sqrt(t41 * t41 + 1.0));
+        let t42 = rmath::ln(t41 + rmath::sqrt(t41 * t41 + 1.0));
         let t45 = 1.0 + 0.0253 * t41 * t42;
         let t46 = 1.0 / t45;
         let t49 = M_CBRT4;
@@ -93,10 +94,10 @@ pub fn gga_k_thakkar_lxc_pol(
         let t75 = t74 * t74;
         let t77 = 1.0 / t75 / t73;
         let t78 = sigma2 * t77;
-        let t79 = f64::sqrt(sigma2);
+        let t79 = rmath::sqrt(sigma2);
         let t81 = 1.0 / t74 / rho1;
         let t82 = t79 * t81;
-        let t83 = f64::ln(t82 + f64::sqrt(t82 * t82 + 1.0));
+        let t83 = rmath::ln(t82 + rmath::sqrt(t82 * t82 + 1.0));
         let t86 = 1.0 + 0.0253 * t82 * t83;
         let t87 = 1.0 / t86;
         let t90 = t49 * t79;
@@ -123,7 +124,7 @@ pub fn gga_k_thakkar_lxc_pol(
         let t128 = 1.0 / t33 / t32;
         let t129 = t38 * t128;
         let t132 = t37 + 1.0;
-        let t133 = f64::sqrt(t132);
+        let t133 = rmath::sqrt(t132);
         let t134 = 1.0 / t133;
         let t137 = -0.03373333333333333 * t129 * t42 - 0.03373333333333333 * t122 * t134;
         let t138 = t126 * t137;
@@ -156,7 +157,7 @@ pub fn gga_k_thakkar_lxc_pol(
         let t201 = 1.0 / t74 / t73;
         let t202 = t79 * t201;
         let t205 = t78 + 1.0;
-        let t206 = f64::sqrt(t205);
+        let t206 = rmath::sqrt(t205);
         let t207 = 1.0 / t206;
         let t210 = -0.03373333333333333 * t202 * t83 - 0.03373333333333333 * t195 * t207;
         let t211 = t199 * t210;

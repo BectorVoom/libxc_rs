@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -57,7 +58,7 @@ pub fn mgga_c_bc95_exc_pol(
         let t26 = piecewise3(t8, t23, 1.0 / t24);
         let t28 = t17 * t21 * t26;
         let t30 = 1.0 + 0.053425 * t28;
-        let t31 = f64::sqrt(t28);
+        let t31 = rmath::sqrt(t28);
         let t34 = pow_3_2(t28);
         let t36 = t11 * t11;
         let t37 = t13 * t13;
@@ -71,7 +72,7 @@ pub fn mgga_c_bc95_exc_pol(
         let t46 = t39 * t43 * t44;
         let t48 = 3.79785 * t31 + 0.8969 * t28 + 0.204775 * t34 + 0.123235 * t46;
         let t51 = 1.0 + 16.081979498692537 / t48;
-        let t52 = f64::ln(t51);
+        let t52 = rmath::ln(t51);
         let t54 = 0.0621814 * t30 * t52;
         let t56 = t22 * zeta_threshold;
         let t58 = piecewise3(2.0 <= zeta_threshold, t56, 2.0 * t20);
@@ -81,11 +82,11 @@ pub fn mgga_c_bc95_exc_pol(
         let t67 = 1.0 + 0.05137 * t28;
         let t72 = 7.05945 * t31 + 1.549425 * t28 + 0.420775 * t34 + 0.1562925 * t46;
         let t75 = 1.0 + 32.16395899738507 / t72;
-        let t76 = f64::ln(t75);
+        let t76 = rmath::ln(t75);
         let t80 = 1.0 + 0.0278125 * t28;
         let t85 = 5.1785 * t31 + 0.905775 * t28 + 0.1100325 * t34 + 0.1241775 * t46;
         let t88 = 1.0 + 29.608749977793437 / t85;
-        let t89 = f64::ln(t88);
+        let t89 = rmath::ln(t88);
         let t90 = t80 * t89;
         let t96 = -t54 + t65 * (-0.0310907 * t67 * t76 + t54 - 0.0197516734986138 * t90) + 0.0197516734986138 * t65 * t90;
         let t99 = piecewise3(t9, 0.0, t10 * t96 / 2.0);
@@ -118,22 +119,22 @@ pub fn mgga_c_bc95_exc_pol(
         let t137 = piecewise3(t132, t23, 1.0 / t135);
         let t139 = t17 * t21 * t137;
         let t141 = 1.0 + 0.053425 * t139;
-        let t142 = f64::sqrt(t139);
+        let t142 = rmath::sqrt(t139);
         let t145 = pow_3_2(t139);
         let t147 = t137 * t137;
         let t149 = t39 * t43 * t147;
         let t151 = 3.79785 * t142 + 0.8969 * t139 + 0.204775 * t145 + 0.123235 * t149;
         let t154 = 1.0 + 16.081979498692537 / t151;
-        let t155 = f64::ln(t154);
+        let t155 = rmath::ln(t154);
         let t157 = 0.0621814 * t141 * t155;
         let t159 = 1.0 + 0.05137 * t139;
         let t164 = 7.05945 * t142 + 1.549425 * t139 + 0.420775 * t145 + 0.1562925 * t149;
         let t167 = 1.0 + 32.16395899738507 / t164;
-        let t168 = f64::ln(t167);
+        let t168 = rmath::ln(t167);
         let t172 = 1.0 + 0.0278125 * t139;
         let t177 = 5.1785 * t142 + 0.905775 * t139 + 0.1100325 * t145 + 0.1241775 * t149;
         let t180 = 1.0 + 29.608749977793437 / t177;
-        let t181 = f64::ln(t180);
+        let t181 = rmath::ln(t180);
         let t182 = t172 * t181;
         let t188 = -t157 + t65 * (-0.0310907 * t159 * t168 + t157 - 0.0197516734986138 * t182) + 0.0197516734986138 * t65 * t182;
         let t191 = piecewise3(t133, 0.0, t134 * t188 / 2.0);
@@ -155,12 +156,12 @@ pub fn mgga_c_bc95_exc_pol(
         let t216 = 5.0 / 9.0 * t192 * t196 * t214;
         let t218 = t14 * t16 * t19;
         let t220 = 1.0 + 0.053425 * t218;
-        let t221 = f64::sqrt(t218);
+        let t221 = rmath::sqrt(t218);
         let t224 = pow_3_2(t218);
         let t227 = t38 * t15 * t41;
         let t229 = 3.79785 * t221 + 0.8969 * t218 + 0.204775 * t224 + 0.123235 * t227;
         let t232 = 1.0 + 16.081979498692537 / t229;
-        let t233 = f64::ln(t232);
+        let t233 = rmath::ln(t232);
         let t235 = 0.0621814 * t220 * t233;
         let t236 = t3 * t3;
         let t237 = t236 * t236;
@@ -177,11 +178,11 @@ pub fn mgga_c_bc95_exc_pol(
         let t249 = 1.0 + 0.05137 * t218;
         let t254 = 7.05945 * t221 + 1.549425 * t218 + 0.420775 * t224 + 0.1562925 * t227;
         let t257 = 1.0 + 32.16395899738507 / t254;
-        let t258 = f64::ln(t257);
+        let t258 = rmath::ln(t257);
         let t262 = 1.0 + 0.0278125 * t218;
         let t267 = 5.1785 * t221 + 0.905775 * t218 + 0.1100325 * t224 + 0.1241775 * t227;
         let t270 = 1.0 + 29.608749977793437 / t267;
-        let t271 = f64::ln(t270);
+        let t271 = rmath::ln(t270);
         let t272 = t262 * t271;
         let t274 = -0.0310907 * t249 * t258 + t235 - 0.0197516734986138 * t272;
         let t275 = t247 * t274;

@@ -203,17 +203,17 @@ fn cheb_ai12(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I0_scaled` in `bessel.c`.
 pub fn xc_bessel_I0_scaled(x: f64) -> f64 {
-    let y = f64::abs(x);
+    let y = rmath::abs(x);
     let mut r: f64 = 0.0_f64;
 
     if y < 2.0_f64 * (SQRT_DBL_EPSILON as f64) {
         r = 1.0_f64 - y;
     } else if y <= 3.0_f64 {
-        r = f64::exp(-y) * (2.75_f64 + cheb_bi0(y * y / 4.5_f64 - 1.0_f64));
+        r = rmath::exp(-y) * (2.75_f64 + cheb_bi0(y * y / 4.5_f64 - 1.0_f64));
     } else if y <= 8.0_f64 {
-        r = (0.375_f64 + cheb_ai0((48.0_f64 / y - 11.0_f64) / 5.0_f64)) / f64::sqrt(y);
+        r = (0.375_f64 + cheb_ai0((48.0_f64 / y - 11.0_f64) / 5.0_f64)) / rmath::sqrt(y);
     } else {
-        r = (0.375_f64 + cheb_ai02(16.0_f64 / y - 1.0_f64)) / f64::sqrt(y);
+        r = (0.375_f64 + cheb_ai02(16.0_f64 / y - 1.0_f64)) / rmath::sqrt(y);
     }
 
     r
@@ -227,7 +227,7 @@ pub fn xc_bessel_I0_scaled(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I0` in `bessel.c`.
 pub fn xc_bessel_I0(x: f64) -> f64 {
-    let y = f64::abs(x);
+    let y = rmath::abs(x);
     let mut r: f64 = 0.0_f64;
 
     if y < 2.0_f64 * (SQRT_DBL_EPSILON as f64) {
@@ -235,7 +235,7 @@ pub fn xc_bessel_I0(x: f64) -> f64 {
     } else if y <= 3.0_f64 {
         r = 2.75_f64 + cheb_bi0(y * y / 4.5_f64 - 1.0_f64);
     } else if y < (LOG_DBL_MAX as f64) - 1.0_f64 {
-        r = f64::exp(y) * xc_bessel_I0_scaled(x);
+        r = rmath::exp(y) * xc_bessel_I0_scaled(x);
     }
     // else: overflow path — leave r = 0.0 (no stderr in #[cube]).
 
@@ -247,7 +247,7 @@ pub fn xc_bessel_I0(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I1_scaled` in `bessel.c`.
 pub fn xc_bessel_I1_scaled(x: f64) -> f64 {
-    let y = f64::abs(x);
+    let y = rmath::abs(x);
     let mut r: f64 = 0.0_f64;
 
     if y == 0.0_f64 {
@@ -256,15 +256,15 @@ pub fn xc_bessel_I1_scaled(x: f64) -> f64 {
         // Underflow: leave r = 0.0 (libxc prints to stderr; not available here).
         r = 0.0_f64;
     } else if y < (TWO_SQRT2_SQRT_DBL_EPSILON as f64) {
-        r = 0.5_f64 * x * f64::exp(-y);
+        r = 0.5_f64 * x * rmath::exp(-y);
     } else if y <= 3.0_f64 {
-        r = x * f64::exp(-y) * (0.875_f64 + cheb_bi1(y * y / 4.5_f64 - 1.0_f64));
+        r = x * rmath::exp(-y) * (0.875_f64 + cheb_bi1(y * y / 4.5_f64 - 1.0_f64));
     } else {
         let mut rr: f64 = 0.0_f64;
         if y <= 8.0_f64 {
-            rr = (0.375_f64 + cheb_ai1((48.0_f64 / y - 11.0_f64) / 5.0_f64)) / f64::sqrt(y);
+            rr = (0.375_f64 + cheb_ai1((48.0_f64 / y - 11.0_f64) / 5.0_f64)) / rmath::sqrt(y);
         } else {
-            rr = (0.375_f64 + cheb_ai12(16.0_f64 / y - 1.0_f64)) / f64::sqrt(y);
+            rr = (0.375_f64 + cheb_ai12(16.0_f64 / y - 1.0_f64)) / rmath::sqrt(y);
         }
         if x > 0.0_f64 { r = rr; } else { r = -rr; }
     }
@@ -276,7 +276,7 @@ pub fn xc_bessel_I1_scaled(x: f64) -> f64 {
 ///
 /// Mirrors libxc `xc_bessel_I1` in `bessel.c`.
 pub fn xc_bessel_I1(x: f64) -> f64 {
-    let y = f64::abs(x);
+    let y = rmath::abs(x);
     let mut r: f64 = 0.0_f64;
 
     if y == 0.0_f64 {
@@ -289,7 +289,7 @@ pub fn xc_bessel_I1(x: f64) -> f64 {
     } else if y <= 3.0_f64 {
         r = x * (0.875_f64 + cheb_bi1(y * y / 4.5_f64 - 1.0_f64));
     } else {
-        r = f64::exp(x) * xc_bessel_I1_scaled(x);
+        r = rmath::exp(x) * xc_bessel_I1_scaled(x);
     }
 
     r
@@ -453,12 +453,12 @@ pub fn xc_bessel_K0_scaled(x: f64) -> f64 {
         // Domain error: leave r = 0.0.
         r = 0.0_f64;
     } else if x <= 2.0_f64 {
-        r = f64::exp(x) * (-f64::ln(0.5_f64 * x) * xc_bessel_I0(x) - 0.25_f64
+        r = rmath::exp(x) * (-rmath::ln(0.5_f64 * x) * xc_bessel_I0(x) - 0.25_f64
             + cheb_bk0(0.5_f64 * x * x - 1.0_f64));
     } else if x <= 8.0_f64 {
-        r = (1.25_f64 + cheb_ak0((16.0_f64 / x - 5.0_f64) / 3.0_f64)) / f64::sqrt(x);
+        r = (1.25_f64 + cheb_ak0((16.0_f64 / x - 5.0_f64) / 3.0_f64)) / rmath::sqrt(x);
     } else {
-        r = (1.25_f64 + cheb_ak02(16.0_f64 / x - 1.0_f64)) / f64::sqrt(x);
+        r = (1.25_f64 + cheb_ak02(16.0_f64 / x - 1.0_f64)) / rmath::sqrt(x);
     }
 
     r
@@ -477,10 +477,10 @@ pub fn xc_bessel_K0(x: f64) -> f64 {
         // Domain error: leave r = 0.0.
         r = 0.0_f64;
     } else if x <= 2.0_f64 {
-        r = -f64::ln(0.5_f64 * x) * xc_bessel_I0(x) - 0.25_f64
+        r = -rmath::ln(0.5_f64 * x) * xc_bessel_I0(x) - 0.25_f64
             + cheb_bk0(0.5_f64 * x * x - 1.0_f64);
     } else {
-        r = f64::exp(-x) * xc_bessel_K0_scaled(x);
+        r = rmath::exp(-x) * xc_bessel_K0_scaled(x);
     }
 
     r
@@ -497,12 +497,12 @@ pub fn xc_bessel_K1_scaled(x: f64) -> f64 {
         // Domain error: leave r = 0.0.
         r = 0.0_f64;
     } else if x <= 2.0_f64 {
-        r = f64::exp(x) * (f64::ln(0.5_f64 * x) * xc_bessel_I1(x)
+        r = rmath::exp(x) * (rmath::ln(0.5_f64 * x) * xc_bessel_I1(x)
             + (0.75_f64 + cheb_bk1(0.5_f64 * x * x - 1.0_f64)) / x);
     } else if x <= 8.0_f64 {
-        r = (1.25_f64 + cheb_ak1((16.0_f64 / x - 5.0_f64) / 3.0_f64)) / f64::sqrt(x);
+        r = (1.25_f64 + cheb_ak1((16.0_f64 / x - 5.0_f64) / 3.0_f64)) / rmath::sqrt(x);
     } else {
-        r = (1.25_f64 + cheb_ak12(16.0_f64 / x - 1.0_f64)) / f64::sqrt(x);
+        r = (1.25_f64 + cheb_ak12(16.0_f64 / x - 1.0_f64)) / rmath::sqrt(x);
     }
 
     r
@@ -524,10 +524,10 @@ pub fn xc_bessel_K1(x: f64) -> f64 {
         // Overflow error: leave r = 0.0.
         r = 0.0_f64;
     } else if x <= 2.0_f64 {
-        r = f64::ln(0.5_f64 * x) * xc_bessel_I1(x)
+        r = rmath::ln(0.5_f64 * x) * xc_bessel_I1(x)
             + (0.75_f64 + cheb_bk1(0.5_f64 * x * x - 1.0_f64)) / x;
     } else {
-        r = f64::exp(-x) * xc_bessel_K1_scaled(x);
+        r = rmath::exp(-x) * xc_bessel_K1_scaled(x);
     }
 
     r

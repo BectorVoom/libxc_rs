@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI};
 use libxc_rkernel_math::bessel::{xc_bessel_I0};
 use libxc_rkernel_math::lambert_w::{lambert_w};
@@ -43,7 +44,7 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t13 = (lapl0 * t3 / 4.0 - t6 + t10) * t12;
         let t14 = -0.9999999999 < t13;
         let t15 = piecewise3(t14, t13, -0.9999999999);
-        let t16 = f64::exp(-1.0);
+        let t16 = rmath::exp(-1.0);
         let t18 = lambert_w(t15 * t16);
         let t19 = t18 + 1.0;
         let t20 = t19 / 2.0;
@@ -51,9 +52,9 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t23 = t6 - t10;
         let t24 = 1e-10 < t23;
         let t25 = piecewise3(t24, t23, 1e-10);
-        let t26 = f64::sqrt(t25);
+        let t26 = rmath::sqrt(t25);
         let t29 = M_PI * t21 - 4.0 / 3.0 * t12 * t26;
-        let t30 = f64::sqrt(rho0);
+        let t30 = rmath::sqrt(rho0);
         let tvrho0 = -t29 * t30;
         vrho[ip * 2] += tvrho0;
         let t32 = rho1 * rho1;
@@ -71,9 +72,9 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t51 = t36 - t40;
         let t52 = 1e-10 < t51;
         let t53 = piecewise3(t52, t51, 1e-10);
-        let t54 = f64::sqrt(t53);
+        let t54 = rmath::sqrt(t53);
         let t57 = M_PI * t49 - 4.0 / 3.0 * t12 * t54;
-        let t58 = f64::sqrt(rho1);
+        let t58 = rmath::sqrt(rho1);
         let tvrho1 = -t57 * t58;
         vrho[ip * 2 + 1] += tvrho1;
     }

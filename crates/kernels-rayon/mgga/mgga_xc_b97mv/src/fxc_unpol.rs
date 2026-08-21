@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -122,7 +123,7 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t98 = piecewise3(t2, 1.0 / t13, 1.0);
         let t100 = t94 * t95 * t10 * t98;
         let t102 = 1.0 + 0.053425 * t100;
-        let t103 = f64::sqrt(t100);
+        let t103 = rmath::sqrt(t100);
         let t106 = pow_3_2(t100);
         let t108 = t6 * t6;
         let t109 = t90 * t90;
@@ -133,18 +134,18 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t116 = t111 * t112 * t11 * t114;
         let t118 = 3.79785 * t103 + 0.8969 * t100 + 0.204775 * t106 + 0.123235 * t116;
         let t121 = 1.0 + 16.081979498692537 / t118;
-        let t122 = f64::ln(t121);
+        let t122 = rmath::ln(t121);
         let t124 = 0.0621814 * t102 * t122;
         let t128 = 1.0 / (2.0 * t10 - 2.0);
         let t129 = (t16 + t25 - 2.0) * t128;
         let t131 = 1.0 + 0.05137 * t100;
         let t136 = 7.05945 * t103 + 1.549425 * t100 + 0.420775 * t106 + 0.1562925 * t116;
         let t139 = 1.0 + 32.16395899738507 / t136;
-        let t140 = f64::ln(t139);
+        let t140 = rmath::ln(t139);
         let t144 = 1.0 + 0.0278125 * t100;
         let t149 = 5.1785 * t103 + 0.905775 * t100 + 0.1100325 * t106 + 0.1241775 * t116;
         let t152 = 1.0 + 29.608749977793437 / t149;
-        let t153 = f64::ln(t152);
+        let t153 = rmath::ln(t152);
         let t154 = t144 * t153;
         let t163 = piecewise3(t88, 0.0, t3 * (-t124 + t129 * (-0.0310907 * t131 * t140 + t124 - 0.0197516734986138 * t154) + 0.0197516734986138 * t129 * t154) / 2.0);
         let t165 = param_c_ss_1;
@@ -176,18 +177,18 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t200 = 2.0 * t163 * t198;
         let t202 = t91 * t93 * t95;
         let t204 = 1.0 + 0.053425 * t202;
-        let t205 = f64::sqrt(t202);
+        let t205 = rmath::sqrt(t202);
         let t208 = pow_3_2(t202);
         let t211 = t110 * t92 * t112;
         let t213 = 3.79785 * t205 + 0.8969 * t202 + 0.204775 * t208 + 0.123235 * t211;
         let t216 = 1.0 + 16.081979498692537 / t213;
-        let t217 = f64::ln(t216);
+        let t217 = rmath::ln(t216);
         let t220 = piecewise3(t2, t14, 1.0);
         let t223 = (2.0 * t220 - 2.0) * t128;
         let t225 = 1.0 + 0.0278125 * t202;
         let t230 = 5.1785 * t205 + 0.905775 * t202 + 0.1100325 * t208 + 0.1241775 * t211;
         let t233 = 1.0 + 29.608749977793437 / t230;
-        let t234 = f64::ln(t233);
+        let t234 = rmath::ln(t233);
         let t239 = -0.0621814 * t204 * t217 + 0.0197516734986138 * t223 * t225 * t234 - 2.0 * t163;
         let t241 = param_c_os_1;
         let t242 = t241 * sigma[ip];
@@ -275,7 +276,7 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t373 = t369 * t372;
         let t375 = t359 * t98;
         let t376 = t94 * t375;
-        let t378 = f64::sqrt(t100);
+        let t378 = rmath::sqrt(t100);
         let t380 = t378 * t6 * t90;
         let t381 = t380 * t372;
         let t383 = t72 * t11;
@@ -334,7 +335,7 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t500 = t499 * t358;
         let t501 = t498 * t500;
         let t503 = t91 * t370;
-        let t505 = f64::sqrt(t202);
+        let t505 = rmath::sqrt(t202);
         let t506 = t505 * t6;
         let t507 = t506 * t500;
         let t510 = t110 * t92 * t72;
@@ -511,7 +512,7 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t856 = t369 * t855;
         let t858 = t829 * t98;
         let t859 = t94 * t858;
-        let t861 = 1.0/f64::sqrt(t100);
+        let t861 = 1.0/rmath::sqrt(t100);
         let t863 = t861 * t108 * t109;
         let t864 = t863 * t851;
         let t866 = t380 * t855;
@@ -618,7 +619,7 @@ pub fn mgga_xc_b97mv_fxc_unpol(
         let t1098 = t499 * t828;
         let t1099 = t498 * t1098;
         let t1101 = t91 * t854;
-        let t1103 = 1.0/f64::sqrt(t202);
+        let t1103 = 1.0/rmath::sqrt(t202);
         let t1104 = t1103 * t108;
         let t1105 = t1104 * t1095;
         let t1107 = t506 * t1098;

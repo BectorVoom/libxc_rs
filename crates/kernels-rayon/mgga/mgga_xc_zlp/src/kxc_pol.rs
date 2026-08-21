@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -95,7 +96,7 @@ pub fn mgga_xc_zlp_kxc_pol(
         let t42 = t41 * t39;
         let t49 = 0.207108 * t5 * t7 + 0.005387725 * t5 * t7 * (t11 * t17 / 8.0 - t23 * t31 / 8.0 - t37 * t42 / 8.0);
         let t52 = 1.0 + 488.4942506669168 / t14;
-        let t53 = f64::ln(t52);
+        let t53 = rmath::ln(t52);
         let t56 = 1.0 - 0.002047107 * t53 * t14;
         let t58 = t2 * t2;
         let t59 = t49 * t56 * t58;

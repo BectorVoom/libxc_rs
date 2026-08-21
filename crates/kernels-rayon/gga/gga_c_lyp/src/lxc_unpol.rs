@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -41,7 +42,7 @@ pub fn gga_c_lyp_lxc_unpol(
         let t2 = 1.0 / t1;
         let t4 = param_d * t2 + 1.0;
         let t5 = 1.0 / t4;
-        let t7 = f64::exp(-param_c * t2);
+        let t7 = rmath::exp(-param_c * t2);
         let t8 = param_b * t7;
         let t9 = rho[ip] * rho[ip];
         let t10 = t1 * t1;

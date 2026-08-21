@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -48,12 +49,12 @@ pub fn gga_k_vt84f_fxc_unpol(
         let t26 = M_PI * M_PI;
         let t27 = pow_1_3(t26);
         let t29 = t25 / t27;
-        let t30 = f64::sqrt(sigma[ip]);
+        let t30 = rmath::sqrt(sigma[ip]);
         let t31 = M_CBRT2;
         let t32 = t30 * t31;
         let t34 = 1.0 / t21 / rho[ip];
         let t37 = t29 * t32 * t34 / 12.0;
-        let t38 = f64::sqrt(f64::EPSILON);
+        let t38 = rmath::sqrt(f64::EPSILON);
         let t39 = t37 <= t38;
         let t41 = (-param_mu + param_alpha + 5.0 / 3.0) * t24;
         let t42 = t27 * t27;
@@ -95,12 +96,12 @@ pub fn gga_k_vt84f_fxc_unpol(
         let t108 = t107 * t107;
         let t109 = param_mu * t108;
         let t110 = param_alpha * t108;
-        let t111 = f64::exp(-t110);
+        let t111 = rmath::exp(-t110);
         let t112 = 1.0 + t109;
         let t113 = 1.0 / t112;
         let t114 = t111 * t113;
         let t116 = t108 * t108;
-        let t118 = f64::exp(-param_alpha * t116);
+        let t118 = rmath::exp(-param_alpha * t116);
         let t119 = 1.0 - t118;
         let t120 = 1.0 / t108;
         let t121 = t120 - 1.0;

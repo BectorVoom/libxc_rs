@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -28,7 +29,7 @@ pub fn lda_c_rpa_kxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
-        let t12 = f64::ln(t10 / 4.0);
+        let t12 = rmath::ln(t10 / 4.0);
         let t13 = 0.0311 * t12;
         let t16 = 0.00225 * t4 * t9 * t12;
         let t17 = 0.00425 * t10;

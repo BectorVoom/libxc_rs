@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -63,10 +64,10 @@ pub fn gga_x_hcth_a_kxc_pol(
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
         let t40 = sigma0 * t39;
-        let t41 = f64::sqrt(sigma0);
+        let t41 = rmath::sqrt(sigma0);
         let t43 = 1.0 / t36 / rho0;
         let t44 = t41 * t43;
-        let t45 = f64::ln(t44 + f64::sqrt(t44 * t44 + 1.0));
+        let t45 = rmath::ln(t44 + rmath::sqrt(t44 * t44 + 1.0));
         let t48 = 1.0 + 0.0252 * t44 * t45;
         let t51 = t48 * t48;
         let t52 = 1.0 / t51;
@@ -86,10 +87,10 @@ pub fn gga_x_hcth_a_kxc_pol(
         let t75 = t74 * t74;
         let t77 = 1.0 / t75 / t73;
         let t78 = sigma2 * t77;
-        let t79 = f64::sqrt(sigma2);
+        let t79 = rmath::sqrt(sigma2);
         let t81 = 1.0 / t74 / rho1;
         let t82 = t79 * t81;
-        let t83 = f64::ln(t82 + f64::sqrt(t82 * t82 + 1.0));
+        let t83 = rmath::ln(t82 + rmath::sqrt(t82 * t82 + 1.0));
         let t86 = 1.0 + 0.0252 * t82 * t83;
         let t89 = t86 * t86;
         let t90 = 1.0 / t89;
@@ -113,7 +114,7 @@ pub fn gga_x_hcth_a_kxc_pol(
         let t122 = sigma0 * t121;
         let t127 = 1.0 / t36 / t35;
         let t131 = t40 + 1.0;
-        let t132 = f64::sqrt(t131);
+        let t132 = rmath::sqrt(t131);
         let t133 = 1.0 / t132;
         let t136 = -0.0336 * t41 * t127 * t45 - 0.0336 * t122 * t133;
         let t140 = 1.0 / t51 / t48;
@@ -142,7 +143,7 @@ pub fn gga_x_hcth_a_kxc_pol(
         let t194 = sigma2 * t193;
         let t199 = 1.0 / t74 / t73;
         let t203 = t78 + 1.0;
-        let t204 = f64::sqrt(t203);
+        let t204 = rmath::sqrt(t203);
         let t205 = 1.0 / t204;
         let t208 = -0.0336 * t79 * t199 * t83 - 0.0336 * t194 * t205;
         let t212 = 1.0 / t89 / t86;

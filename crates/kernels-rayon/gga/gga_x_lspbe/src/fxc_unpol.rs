@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -55,7 +56,7 @@ pub fn gga_x_lspbe_fxc_unpol(
         let t34 = t29 * t33;
         let t37 = param_kappa + t21 * t25 * t34 / 24.0;
         let t42 = param_kappa + 1.0;
-        let t47 = f64::exp(-param_alpha * t20 * t25 * t34 / 24.0);
+        let t47 = rmath::exp(-param_alpha * t20 * t25 * t34 / 24.0);
         let t50 = 1.0 + param_kappa * (1.0 - param_kappa / t37) - t42 * (1.0 - t47);
         let t54 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t50);
         let tzk0 = 2.0 * t54;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -49,7 +50,7 @@ pub fn lda_c_rc04_kxc_pol(
         let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
         let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
-        let t33 = f64::atan(t32);
+        let t33 = rmath::atan(t32);
         let t35 = -0.655868 * t33 + 0.897889;
         let t37 = t21 * t21;
         let t38 = t20 * t35 * t37;

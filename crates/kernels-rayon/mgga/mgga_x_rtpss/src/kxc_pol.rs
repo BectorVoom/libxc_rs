@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -121,7 +122,7 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t71 = t46 * t51;
         let t72 = t71 * t69;
         let t75 = 5.0 * t70 * t72 + 9.0;
-        let t76 = f64::sqrt(t75);
+        let t76 = rmath::sqrt(t75);
         let t77 = 1.0 / t76;
         let t82 = 27.0 / 20.0 * t69 * t77 + t71 * t63 / 36.0;
         let t83 = t82 * t82;
@@ -132,11 +133,11 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t91 = t90 * rho0;
         let t93 = 1.0 / t53 / t91;
         let t97 = 50.0 * t89 * t29 * t93 + 162.0 * t37;
-        let t98 = f64::sqrt(t97);
+        let t98 = rmath::sqrt(t97);
         let t101 = 1.0 / param_kappa;
         let t102 = t101 * t86;
         let t103 = t88 * t29;
-        let t107 = f64::sqrt(param_e);
+        let t107 = rmath::sqrt(param_e);
         let t108 = t107 * t29;
         let t111 = param_e * param_mu;
         let t112 = t48 * t48;
@@ -150,7 +151,7 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t125 = 1.0 + t122 * t57 / 24.0;
         let t126 = t125 * t125;
         let t127 = 1.0 / t126;
-        let t130 = f64::exp(-t121 * t127 * t101);
+        let t130 = rmath::exp(-t121 * t127 * t101);
         let t133 = 1.0 + param_kappa * (1.0 - t130);
         let t137 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t28 * t133);
         let t138 = rho1 <= dens_threshold;
@@ -187,7 +188,7 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t184 = param_b * t179;
         let t185 = t71 * t183;
         let t188 = 5.0 * t184 * t185 + 9.0;
-        let t189 = f64::sqrt(t188);
+        let t189 = rmath::sqrt(t188);
         let t190 = 1.0 / t189;
         let t195 = 27.0 / 20.0 * t183 * t190 + t71 * t177 / 36.0;
         let t196 = t195 * t195;
@@ -195,7 +196,7 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t200 = t199 * rho1;
         let t202 = 1.0 / t167 / t200;
         let t206 = 50.0 * t89 * t148 * t202 + 162.0 * t156;
-        let t207 = f64::sqrt(t206);
+        let t207 = rmath::sqrt(t206);
         let t210 = t88 * t148;
         let t214 = t107 * t148;
         let t217 = t148 * sigma2;
@@ -206,7 +207,7 @@ pub fn mgga_x_rtpss_kxc_pol(
         let t227 = 1.0 + t122 * t171 / 24.0;
         let t228 = t227 * t227;
         let t229 = 1.0 / t228;
-        let t232 = f64::exp(-t224 * t229 * t101);
+        let t232 = rmath::exp(-t224 * t229 * t101);
         let t235 = 1.0 + param_kappa * (1.0 - t232);
         let t239 = piecewise3(t138, 0.0, -3.0 / 8.0 * t6 * t147 * t235);
         let tzk0 = t137 + t239;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -141,7 +142,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t127 = t125 * t126;
         let t128 = t123 * t127;
         let t130 = 1.0 + 0.053425 * t128;
-        let t131 = f64::sqrt(t128);
+        let t131 = rmath::sqrt(t128);
         let t134 = pow_3_2(t128);
         let t136 = t72 * t72;
         let t137 = t122 * t122;
@@ -151,7 +152,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t141 = t138 * t140;
         let t143 = 3.79785 * t131 + 0.8969 * t128 + 0.204775 * t134 + 0.123235 * t141;
         let t146 = 1.0 + 16.081979498692537 / t143;
-        let t147 = f64::ln(t146);
+        let t147 = rmath::ln(t146);
         let t149 = 0.0621814 * t130 * t147;
         let t150 = t37 * t37;
         let t151 = t45 <= zeta_threshold;
@@ -167,18 +168,18 @@ pub fn mgga_c_revtpss_exc_pol(
         let t164 = 1.0 + 0.05137 * t128;
         let t169 = 7.05945 * t131 + 1.549425 * t128 + 0.420775 * t134 + 0.1562925 * t141;
         let t172 = 1.0 + 32.16395899738507 / t169;
-        let t173 = f64::ln(t172);
+        let t173 = rmath::ln(t172);
         let t177 = 1.0 + 0.0278125 * t128;
         let t182 = 5.1785 * t131 + 0.905775 * t128 + 0.1100325 * t134 + 0.1241775 * t141;
         let t185 = 1.0 + 29.608749977793437 / t182;
-        let t186 = f64::ln(t185);
+        let t186 = rmath::ln(t185);
         let t187 = t177 * t186;
         let t189 = -0.0310907 * t164 * t173 + t149 - 0.0197516734986138 * t187;
         let t190 = t162 * t189;
         let t191 = t158 * t190;
         let t192 = t157 * t162;
         let t194 = 0.0197516734986138 * t192 * t187;
-        let t195 = f64::ln(2.0);
+        let t195 = rmath::ln(2.0);
         let t196 = 1.0 - t195;
         let t197 = 1.0 / t73;
         let t198 = t196 * t197;
@@ -205,7 +206,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t227 = (-t149 + t191 + t194) * t225;
         let t228 = 1.0 / t207;
         let t229 = t73 * t228;
-        let t231 = f64::exp(-t227 * t229);
+        let t231 = rmath::exp(-t227 * t229);
         let t232 = t231 - 1.0;
         let t233 = 1.0 / t232;
         let t234 = t225 * t233;
@@ -229,7 +230,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t257 = 1.0 / t256;
         let t258 = t252 * t257;
         let t261 = 1.0 + 0.6585449182935511 * t213 * t258;
-        let t262 = f64::ln(t261);
+        let t262 = rmath::ln(t261);
         let t265 = t198 * t207 * t262 - t149 + t191 + t194;
         let t268 = t123 * t125;
         let t269 = t126 * t159;
@@ -237,7 +238,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t271 = pow_1_3(t270);
         let t273 = t268 * t269 * t271;
         let t275 = 1.0 + 0.053425 * t273;
-        let t276 = f64::sqrt(t273);
+        let t276 = rmath::sqrt(t273);
         let t279 = pow_3_2(t273);
         let t281 = t138 * t124;
         let t282 = t139 * t240;
@@ -245,7 +246,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t285 = t281 * t282 * t283;
         let t287 = 3.79785 * t276 + 0.8969 * t273 + 0.204775 * t279 + 0.123235 * t285;
         let t290 = 1.0 + 16.081979498692537 / t287;
-        let t291 = f64::ln(t290);
+        let t291 = rmath::ln(t290);
         let t293 = 0.0621814 * t275 * t291;
         let t294 = 2.0 <= zeta_threshold;
         let t296 = piecewise3(t294, t153, 2.0 * t159);
@@ -255,11 +256,11 @@ pub fn mgga_c_revtpss_exc_pol(
         let t302 = 1.0 + 0.05137 * t273;
         let t307 = 7.05945 * t276 + 1.549425 * t273 + 0.420775 * t279 + 0.1562925 * t285;
         let t310 = 1.0 + 32.16395899738507 / t307;
-        let t311 = f64::ln(t310);
+        let t311 = rmath::ln(t310);
         let t315 = 1.0 + 0.0278125 * t273;
         let t320 = 5.1785 * t276 + 0.905775 * t273 + 0.1100325 * t279 + 0.1241775 * t285;
         let t323 = 1.0 + 29.608749977793437 / t320;
-        let t324 = f64::ln(t323);
+        let t324 = rmath::ln(t323);
         let t325 = t315 * t324;
         let t328 = t300 * (-0.0310907 * t302 * t311 + t293 - 0.0197516734986138 * t325);
         let t330 = 0.0197516734986138 * t300 * t325;
@@ -280,7 +281,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t351 = t342 * t225;
         let t354 = 1.0 / t336;
         let t355 = t73 * t354;
-        let t357 = f64::exp(-(-t293 + t328 + t330) * t225 * t355);
+        let t357 = rmath::exp(-(-t293 + t328 + t330) * t225 * t355);
         let t358 = t357 - 1.0;
         let t359 = 1.0 / t358;
         let t360 = sigma0 * sigma0;
@@ -305,7 +306,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t385 = 1.0 / t384;
         let t386 = t379 * t385;
         let t389 = 1.0 + 0.6585449182935511 * t342 * t386;
-        let t390 = f64::ln(t389);
+        let t390 = rmath::ln(t389);
         let t393 = t198 * t336 * t390 - t293 + t328 + t330;
         let t394 = t265 < t393;
         let t395 = piecewise3(t394, t393, t265);
@@ -315,22 +316,22 @@ pub fn mgga_c_revtpss_exc_pol(
         let t404 = pow_1_3(t403);
         let t406 = t268 * t269 * t404;
         let t408 = 1.0 + 0.053425 * t406;
-        let t409 = f64::sqrt(t406);
+        let t409 = rmath::sqrt(t406);
         let t412 = pow_3_2(t406);
         let t414 = t404 * t404;
         let t416 = t281 * t282 * t414;
         let t418 = 3.79785 * t409 + 0.8969 * t406 + 0.204775 * t412 + 0.123235 * t416;
         let t421 = 1.0 + 16.081979498692537 / t418;
-        let t422 = f64::ln(t421);
+        let t422 = rmath::ln(t421);
         let t424 = 0.0621814 * t408 * t422;
         let t426 = 1.0 + 0.05137 * t406;
         let t431 = 7.05945 * t409 + 1.549425 * t406 + 0.420775 * t412 + 0.1562925 * t416;
         let t434 = 1.0 + 32.16395899738507 / t431;
-        let t435 = f64::ln(t434);
+        let t435 = rmath::ln(t434);
         let t439 = 1.0 + 0.0278125 * t406;
         let t444 = 5.1785 * t409 + 0.905775 * t406 + 0.1100325 * t412 + 0.1241775 * t416;
         let t447 = 1.0 + 29.608749977793437 / t444;
-        let t448 = f64::ln(t447);
+        let t448 = rmath::ln(t447);
         let t449 = t439 * t448;
         let t452 = t300 * (-0.0310907 * t426 * t435 + t424 - 0.0197516734986138 * t449);
         let t454 = 0.0197516734986138 * t300 * t449;
@@ -342,7 +343,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t462 = 1.0 / t404;
         let t464 = t221 * t65 * t462;
         let t467 = t460 * t225;
-        let t471 = f64::exp(-(-t424 + t452 + t454) * t225 * t355);
+        let t471 = rmath::exp(-(-t424 + t452 + t454) * t225 * t355);
         let t472 = t471 - 1.0;
         let t473 = 1.0 / t472;
         let t474 = sigma2 * sigma2;
@@ -362,7 +363,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t494 = 1.0 / t493;
         let t495 = t488 * t494;
         let t498 = 1.0 + 0.6585449182935511 * t460 * t495;
-        let t499 = f64::ln(t498);
+        let t499 = rmath::ln(t498);
         let t502 = t198 * t336 * t499 - t424 + t452 + t454;
         let t503 = t265 < t502;
         let t504 = piecewise3(t503, t502, t265);
@@ -393,7 +394,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t539 = (-t149 + t522 + t524) * t225;
         let t540 = 1.0 / t532;
         let t541 = t73 * t540;
-        let t543 = f64::exp(-t539 * t541);
+        let t543 = rmath::exp(-t539 * t541);
         let t544 = t543 - 1.0;
         let t545 = 1.0 / t544;
         let t546 = t225 * t545;
@@ -410,7 +411,7 @@ pub fn mgga_c_revtpss_exc_pol(
         let t561 = 1.0 / t560;
         let t562 = t556 * t561;
         let t565 = 1.0 + 0.6585449182935511 * t213 * t562;
-        let t566 = f64::ln(t565);
+        let t566 = rmath::ln(t565);
         let t569 = t198 * t532 * t566 - t149 + t522 + t524;
         let t571 = -t118 * t508 + t511 * t569;
         let t572 = param_d * t571;

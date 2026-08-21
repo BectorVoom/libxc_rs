@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 
 #[allow(unused_variables, non_snake_case)]
@@ -18,14 +19,14 @@ pub fn lda_c_1d_loos_exc_unpol(
     for ip in 0..zk.len() {
         let t1 = 1.0 / rho[ip];
         let t3 = 1.0 + 0.6166 * t1;
-        let t4 = f64::sqrt(t3);
+        let t4 = rmath::sqrt(t3);
         let t5 = t4 - 1.0;
         let t6 = t5 * t5;
         let t7 = rho[ip] * rho[ip];
         let t8 = t6 * t7;
         let t9 = M_SQRT2;
-        let t10 = f64::sqrt(M_PI);
-        let t12 = f64::ln(t9 * t10);
+        let t10 = rmath::sqrt(M_PI);
+        let t12 = rmath::ln(t9 * t10);
         let t14 = -0.3083 * t12 - 0.231225;
         let t15 = t5 * rho[ip];
         let t17 = 1.0 - 3.243593902043464 * t15;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -56,18 +57,18 @@ pub fn gga_x_ncap_vxc_pol(
         let t31 = pow_1_3(t30);
         let t32 = 1.0 / t31;
         let t33 = t29 * t32;
-        let t34 = f64::sqrt(sigma0);
+        let t34 = rmath::sqrt(sigma0);
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
         let t38 = t34 * t37;
         let t40 = t33 * t38 / 12.0;
-        let t41 = f64::tanh(t40);
+        let t41 = rmath::tanh(t40);
         let t42 = param_mu * t41;
-        let t43 = f64::ln(t40 + f64::sqrt(t40 * t40 + 1.0));
+        let t43 = rmath::ln(t40 + rmath::sqrt(t40 * t40 + 1.0));
         let t44 = 1.0 - param_zeta;
         let t46 = t44 * t29 * t32;
         let t47 = 1.0 + t40;
-        let t48 = f64::ln(t47);
+        let t48 = rmath::ln(t47);
         let t51 = param_zeta * t29;
         let t52 = t32 * t34;
         let t58 = 1.0 + param_alpha * (t51 * t52 * t37 / 12.0 + t46 * t38 * t48 / 12.0);
@@ -86,16 +87,16 @@ pub fn gga_x_ncap_vxc_pol(
         let t77 = pow_1_3(t75);
         let t79 = piecewise3(t76, t22, t77 * t75);
         let t80 = t79 * t26;
-        let t81 = f64::sqrt(sigma2);
+        let t81 = rmath::sqrt(sigma2);
         let t82 = pow_1_3(rho1);
         let t84 = 1.0 / t82 / rho1;
         let t85 = t81 * t84;
         let t87 = t33 * t85 / 12.0;
-        let t88 = f64::tanh(t87);
+        let t88 = rmath::tanh(t87);
         let t89 = param_mu * t88;
-        let t90 = f64::ln(t87 + f64::sqrt(t87 * t87 + 1.0));
+        let t90 = rmath::ln(t87 + rmath::sqrt(t87 * t87 + 1.0));
         let t91 = 1.0 + t87;
-        let t92 = f64::ln(t91);
+        let t92 = rmath::ln(t91);
         let t95 = t32 * t81;
         let t101 = 1.0 + param_alpha * (t46 * t85 * t92 / 12.0 + t51 * t95 * t84 / 12.0);
         let t102 = t90 * t101;
@@ -132,7 +133,7 @@ pub fn gga_x_ncap_vxc_pol(
         let t148 = t35 * t35;
         let t150 = 1.0 / t148 / t134;
         let t154 = 6.0 * t147 * sigma0 * t150 + 144.0;
-        let t155 = f64::sqrt(t154);
+        let t155 = rmath::sqrt(t154);
         let t156 = 1.0 / t155;
         let t157 = t156 * t58;
         let t158 = t157 * t63;
@@ -185,7 +186,7 @@ pub fn gga_x_ncap_vxc_pol(
         let t256 = t82 * t82;
         let t258 = 1.0 / t256 / t245;
         let t262 = 6.0 * t147 * sigma2 * t258 + 144.0;
-        let t263 = f64::sqrt(t262);
+        let t263 = rmath::sqrt(t262);
         let t264 = 1.0 / t263;
         let t265 = t264 * t101;
         let t266 = t265 * t106;

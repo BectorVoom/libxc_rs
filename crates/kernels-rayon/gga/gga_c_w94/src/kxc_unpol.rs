@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -27,7 +28,7 @@ pub fn gga_c_w94_kxc_unpol(
     zeta_threshold: f64,
 ) {
     for ip in 0..zk.len() {
-        let t1 = f64::sqrt(sigma[ip]);
+        let t1 = rmath::sqrt(sigma[ip]);
         let t2 = t1 * sigma[ip];
         let t3 = rho[ip] * rho[ip];
         let t4 = t3 * t3;
@@ -35,7 +36,7 @@ pub fn gga_c_w94_kxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t9 = 1.0 / t7 / rho[ip];
         let t10 = t1 * t9;
-        let t11 = f64::powf(t10, 1.0 / 16.0);
+        let t11 = rmath::pow(t10, 1.0 / 16.0);
         let t12 = t11 * t11;
         let t13 = t12 * t11;
         let t16 = t3 * rho[ip];

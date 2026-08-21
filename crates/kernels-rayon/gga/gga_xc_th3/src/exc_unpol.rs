@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -38,11 +39,11 @@ pub fn gga_xc_th3_exc_unpol(
     zeta_threshold: f64,
 ) {
     for ip in 0..zk.len() {
-        let t2 = f64::powf(2.0, 1.0 / 6.0);
+        let t2 = rmath::pow(2.0, 1.0 / 6.0);
         let t3 = t2 * t2;
         let t4 = t3 * t3;
         let t6 = param_omega_0 * t4 * t2;
-        let t7 = f64::powf(rho[ip], 1.0 / 6.0);
+        let t7 = rmath::pow(rho[ip], 1.0 / 6.0);
         let t8 = t7 * rho[ip];
         let t12 = M_CBRT2;
         let t13 = t12 * t12;
@@ -51,17 +52,17 @@ pub fn gga_xc_th3_exc_unpol(
         let t16 = t15 * rho[ip];
         let t20 = M_SQRT2;
         let t21 = param_omega_2 * t20;
-        let t22 = f64::sqrt(rho[ip]);
+        let t22 = rmath::sqrt(rho[ip]);
         let t23 = t22 * rho[ip];
         let t27 = param_omega_3 * t12;
         let t28 = t15 * t15;
         let t29 = t28 * rho[ip];
-        let t33 = f64::powf(2.0, 1.0 / 12.0);
+        let t33 = rmath::pow(2.0, 1.0 / 12.0);
         let t34 = t33 * t33;
         let t36 = t34 * t34;
         let t38 = param_omega_4 * t36 * t34 * t33;
-        let t39 = f64::powf(rho[ip], 1.0 / 12.0);
-        let t40 = f64::sqrt(sigma[ip]);
+        let t39 = rmath::pow(rho[ip], 1.0 / 12.0);
+        let t40 = rmath::sqrt(sigma[ip]);
         let t43 = pow_1_3(zeta_threshold);
         let t45 = piecewise3(1.0 <= zeta_threshold, t43 * zeta_threshold, 1.0);
         let t50 = param_omega_5 * t20;
@@ -89,7 +90,7 @@ pub fn gga_xc_th3_exc_unpol(
         let t108 = param_omega_13;
         let t109 = t108 * t93;
         let t112 = param_omega_18;
-        let t113 = f64::powf(rho[ip], 1.0833333333333333);
+        let t113 = rmath::pow(rho[ip], 1.0833333333333333);
         let t116 = t6 * t8 / 2.0 + t14 * t16 / 2.0 + t21 * t23 / 2.0 + t27 * t29 / 2.0 + t38 * t39 * t40 * t45 / 4.0 + t50 * t7 * t40 * t45 / 4.0 + t56 * t15 * t40 * t45 / 4.0 + t62 * t22 * t40 * t45 / 4.0 + t68 * t69 * sigma[ip] * t71 / 8.0 + t76 * t80 * sigma[ip] * t71 / 8.0 + t87 * t88 / 8.0 + t92 * t29 * t98 / 2.0 + t103 * t104 * t98 / 2.0 + t109 * t98 / 2.0 + 0.9438743126816935 * t112 * t113;
         let tzk0 = t116 * t69;
         zk[ip] += tzk0;

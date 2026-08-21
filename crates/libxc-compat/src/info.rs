@@ -155,7 +155,7 @@ mod tests {
             assert!(!info.is_null());
             let name = xc_func_info_get_name(info);
             let s = CStr::from_ptr(name).to_string_lossy();
-            assert_eq!(s, "lda_x");
+            assert_eq!(s, "XC_LDA_X");
             assert_eq!(xc_func_info_get_number(info), 1);
             assert_eq!(xc_func_info_get_family(info), 1);
             xc_func_end(p);

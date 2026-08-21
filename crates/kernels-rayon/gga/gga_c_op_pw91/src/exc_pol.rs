@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -28,7 +29,7 @@ pub fn gga_c_op_pw91_exc_pol(
         let t2 = rho0 + rho1;
         let t3 = 1.0 / t2;
         let t4 = t1 * t3;
-        let t5 = f64::abs(t4);
+        let t5 = rmath::abs(t4);
         let t11 = 1.0 - t5 <= zeta_threshold || rho0 <= dens_threshold && rho1 <= dens_threshold;
         let t13 = 1.0 + t4 <= zeta_threshold;
         let t14 = zeta_threshold - 1.0;
@@ -70,7 +71,7 @@ pub fn gga_c_op_pw91_exc_pol(
         let t59 = t58 * t58;
         let t61 = 1.0 / t59 / t57;
         let t63 = t56 * sigma0 * t61;
-        let t65 = f64::exp(-25.0 / 6.0 * t63);
+        let t65 = rmath::exp(-25.0 / 6.0 * t63);
         let t68 = (0.2743 - 0.1508 * t65) * t51;
         let t69 = t55 * sigma0;
         let t73 = t51 * t51;
@@ -83,10 +84,10 @@ pub fn gga_c_op_pw91_exc_pol(
         let t84 = 6.944444444444445e-06 * t76 * t77 * t81;
         let t85 = t68 * t69 * t61 / 24.0 - t84;
         let t87 = t73 / t53;
-        let t88 = f64::sqrt(sigma0);
+        let t88 = rmath::sqrt(sigma0);
         let t90 = 1.0 / t58 / rho0;
         let t91 = t88 * t90;
-        let t94 = f64::ln(0.6496333333333333 * t87 * t91 + f64::sqrt(pow_2(0.6496333333333333 * t87 * t91) + 1.0));
+        let t94 = rmath::ln(0.6496333333333333 * t87 * t91 + rmath::sqrt(pow_2(0.6496333333333333 * t87 * t91) + 1.0));
         let t98 = 1.0 + 0.016370833333333334 * t87 * t91 * t94 + t84;
         let t99 = 1.0 / t98;
         let t101 = t85 * t99 + 1.0;
@@ -104,7 +105,7 @@ pub fn gga_c_op_pw91_exc_pol(
         let t119 = t118 * t118;
         let t121 = 1.0 / t119 / t117;
         let t123 = t56 * sigma2 * t121;
-        let t125 = f64::exp(-25.0 / 6.0 * t123);
+        let t125 = rmath::exp(-25.0 / 6.0 * t123);
         let t128 = (0.2743 - 0.1508 * t125) * t51;
         let t129 = t55 * sigma2;
         let t133 = sigma2 * sigma2;
@@ -113,10 +114,10 @@ pub fn gga_c_op_pw91_exc_pol(
         let t137 = 1.0 / t118 / t135;
         let t140 = 6.944444444444445e-06 * t76 * t133 * t137;
         let t141 = t128 * t129 * t121 / 24.0 - t140;
-        let t142 = f64::sqrt(sigma2);
+        let t142 = rmath::sqrt(sigma2);
         let t144 = 1.0 / t118 / rho1;
         let t145 = t142 * t144;
-        let t148 = f64::ln(0.6496333333333333 * t87 * t145 + f64::sqrt(pow_2(0.6496333333333333 * t87 * t145) + 1.0));
+        let t148 = rmath::ln(0.6496333333333333 * t87 * t145 + rmath::sqrt(pow_2(0.6496333333333333 * t87 * t145) + 1.0));
         let t152 = 1.0 + 0.016370833333333334 * t87 * t145 * t148 + t140;
         let t153 = 1.0 / t152;
         let t155 = t141 * t153 + 1.0;

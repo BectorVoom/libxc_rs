@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -165,7 +166,7 @@ pub fn mgga_x_m08_kxc_unpol(
         let t111 = t109 * t110;
         let t113 = 1.0 / t94 / t64;
         let t115 = t99 * t101 + t105 * t107 + t111 * t113 + t51 * t53 + t57 * t59 + t63 * t65 + t69 * t71 + t75 * t77 + t81 * t83 + t87 * t89 + t93 * t95 + param_a_0;
-        let t118 = f64::exp(-0.009318900220671557 * t35);
+        let t118 = rmath::exp(-0.009318900220671557 * t35);
         let t120 = 1.552 - 0.552 * t118;
         let t122 = param_b_1;
         let t123 = t122 * t50;

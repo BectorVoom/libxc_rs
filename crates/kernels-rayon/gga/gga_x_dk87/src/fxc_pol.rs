@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -70,8 +71,8 @@ pub fn gga_x_dk87_fxc_pol(
         let t44 = pow_1_3(rho0);
         let t45 = t44 * t44;
         let t47 = 1.0 / t45 / t43;
-        let t48 = f64::sqrt(sigma0);
-        let t52 = f64::powf(t48 / t44 / rho0, param_alpha);
+        let t48 = rmath::sqrt(sigma0);
+        let t52 = rmath::pow(t48 / t44 / rho0, param_alpha);
         let t54 = param_a1 * t52 + 1.0;
         let t56 = param_b1 * sigma0;
         let t58 = t56 * t47 + 1.0;
@@ -92,8 +93,8 @@ pub fn gga_x_dk87_fxc_pol(
         let t81 = pow_1_3(rho1);
         let t82 = t81 * t81;
         let t84 = 1.0 / t82 / t80;
-        let t85 = f64::sqrt(sigma2);
-        let t89 = f64::powf(t85 / t81 / rho1, param_alpha);
+        let t85 = rmath::sqrt(sigma2);
+        let t89 = rmath::pow(t85 / t81 / rho1, param_alpha);
         let t91 = param_a1 * t89 + 1.0;
         let t93 = param_b1 * sigma2;
         let t95 = t93 * t84 + 1.0;

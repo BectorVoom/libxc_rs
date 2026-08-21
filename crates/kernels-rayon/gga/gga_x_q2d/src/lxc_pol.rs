@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -81,10 +82,10 @@ pub fn gga_x_q2d_lxc_pol(
         let t58 = 100.0 - t49 * t50 * t54 / 576.0;
         let t60 = 1.0 / t30;
         let t61 = t46 * t60;
-        let t62 = f64::sqrt(sigma0);
+        let t62 = rmath::sqrt(sigma0);
         let t64 = 1.0 / t35 / rho0;
         let t66 = t61 * t62 * t64;
-        let t67 = f64::powf(t66, 3.5);
+        let t67 = rmath::pow(t66, 3.5);
         let t69 = 1.0 + t40 / 24.0;
         let t72 = t45 * t58 + 8.715382969798257e-05 * t67 * t69;
         let t73 = t27 * t72;
@@ -117,10 +118,10 @@ pub fn gga_x_q2d_lxc_pol(
         let t112 = t111 * rho1;
         let t114 = 1.0 / t99 / t112;
         let t118 = 100.0 - t49 * t110 * t114 / 576.0;
-        let t120 = f64::sqrt(sigma2);
+        let t120 = rmath::sqrt(sigma2);
         let t122 = 1.0 / t99 / rho1;
         let t124 = t61 * t120 * t122;
-        let t125 = f64::powf(t124, 3.5);
+        let t125 = rmath::pow(t124, 3.5);
         let t127 = 1.0 + t104 / 24.0;
         let t130 = t109 * t118 + 8.715382969798257e-05 * t125 * t127;
         let t131 = t27 * t130;
@@ -154,7 +155,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t173 = t48 * t50;
         let t174 = t51 * t34;
         let t176 = 1.0 / t35 / t174;
-        let t180 = f64::powf(t66, 2.5);
+        let t180 = rmath::pow(t66, 2.5);
         let t182 = t180 * t69 * t46;
         let t183 = t60 * t62;
         let t185 = 1.0 / t35 / t34;
@@ -201,7 +202,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t262 = t48 * t110;
         let t263 = t111 * t98;
         let t265 = 1.0 / t99 / t263;
-        let t269 = f64::powf(t124, 2.5);
+        let t269 = rmath::pow(t124, 2.5);
         let t271 = t269 * t127 * t46;
         let t272 = t60 * t120;
         let t274 = 1.0 / t99 / t98;
@@ -543,7 +544,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t1025 = t1010 * t28 * t32;
         let t1028 = t398 * t463;
         let t1033 = t173 * t999;
-        let t1036 = f64::sqrt(t66);
+        let t1036 = rmath::sqrt(t66);
         let t1037 = t1036 * t69;
         let t1038 = t432 * t434;
         let t1039 = 1.0 / t401;
@@ -706,7 +707,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t1437 = t1422 * t28 * t32;
         let t1440 = t602 * t662;
         let t1445 = t262 * t1413;
-        let t1448 = f64::sqrt(t124);
+        let t1448 = rmath::sqrt(t124);
         let t1449 = t1448 * t127;
         let t1450 = t432 * t637;
         let t1451 = 1.0 / t605;
@@ -1037,7 +1038,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t2371 = t2370 * t210;
         let t2375 = t954 * t472;
         let t2383 = 1.0 / t36 / t174;
-        let t2388 = 1.0/f64::sqrt(t66);
+        let t2388 = 1.0/rmath::sqrt(t66);
         let t2390 = t2388 * t69 * t432;
         let t2392 = 1.0 / t35 / t207;
         let t2393 = t50 * t2392;
@@ -1250,7 +1251,7 @@ pub fn gga_x_q2d_lxc_pol(
         let t3261 = t262 * t3260;
         let t3267 = t3239 * t32;
         let t3280 = -5.7096405357676966e-09 * t1407 * t807 * t3236 + 0.010845809917971164 * t3239 * t2442 * t2220 * t2184 + 0.040912805190569 * t636 * t637 * t135 + 0.0009389659512317628 * t278 * t3249 + 4.162327950574651e-06 * t1440 * t3256 - 5225.0 / 1458.0 * t261 * t3261 + 1.3665720496643667 * t1449 * t1450 * t135 + 0.032537429753913494 * t3267 * t2220 * t2184 * t432 + 0.013858534895185376 * t1455 * t3261 + 0.0013214620458547818 * t1408 * t3206 * t118 - 1.112341789440052e-06 * t1408 * t807 * t3236;
-        let t3290 = 1.0/f64::sqrt(t124);
+        let t3290 = 1.0/rmath::sqrt(t124);
         let t3292 = t3290 * t127 * t432;
         let t3293 = t110 * t3260;
         let t3305 = 1.0 / t1406 / t106 * t75;

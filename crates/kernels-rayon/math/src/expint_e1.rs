@@ -234,14 +234,14 @@ pub fn xc_e1_scaled(x: f64) -> f64 {
         e1 = s * (1.0_f64 + cheb_ae12((40.0_f64 / x + 7.0_f64) / 3.0_f64));
     } else if x <= -1.0_f64 {
         // Region 3
-        e1 = f64::exp(x) * (-f64::ln(f64::abs(x)) + cheb_e11((2.0_f64 * x + 5.0_f64) / 3.0_f64));
+        e1 = rmath::exp(x) * (-rmath::ln(rmath::abs(x)) + cheb_e11((2.0_f64 * x + 5.0_f64) / 3.0_f64));
     } else if x <= 0.0_f64 {
         // Region 4 (x == 0 is undefined; guard with select)
-        let raw = f64::exp(x) * (-f64::ln(f64::abs(x) + 1.0e-300_f64) - 0.6875_f64 + x + cheb_e12(x));
+        let raw = rmath::exp(x) * (-rmath::ln(rmath::abs(x) + 1.0e-300_f64) - 0.6875_f64 + x + cheb_e12(x));
         e1 = (if x == 0.0_f64 { 0.0_f64 } else { raw });
     } else if x <= 1.0_f64 {
         // Region 5
-        e1 = f64::exp(x) * (-f64::ln(x + 1.0e-300_f64) - 0.6875_f64 + x + cheb_e12(x));
+        e1 = rmath::exp(x) * (-rmath::ln(x + 1.0e-300_f64) - 0.6875_f64 + x + cheb_e12(x));
     } else if x <= 4.0_f64 {
         // Region 6
         let s = 1.0_f64 / x;

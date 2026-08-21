@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -137,7 +138,7 @@ pub fn mgga_k_pgslb_lxc_pol(
         let t43 = 1.0 / t41 / t39;
         let t47 = param_pgslb_mu * t33;
         let t48 = t37 * sigma0;
-        let t52 = f64::exp(-t47 * t48 * t43 / 24.0);
+        let t52 = rmath::exp(-t47 * t48 * t43 / 24.0);
         let t53 = t33 * t33;
         let t54 = param_pgslb_beta * t53;
         let t56 = 1.0 / t35 / t34;
@@ -161,7 +162,7 @@ pub fn mgga_k_pgslb_lxc_pol(
         let t83 = t82 * t82;
         let t85 = 1.0 / t83 / t81;
         let t89 = t37 * sigma2;
-        let t93 = f64::exp(-t47 * t89 * t85 / 24.0);
+        let t93 = rmath::exp(-t47 * t89 * t85 / 24.0);
         let t94 = lapl1 * lapl1;
         let t95 = t56 * t94;
         let t96 = t81 * rho1;

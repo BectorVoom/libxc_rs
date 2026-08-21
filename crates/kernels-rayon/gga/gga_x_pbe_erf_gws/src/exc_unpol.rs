@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -42,7 +42,7 @@ pub fn gga_x_pbe_erf_gws_exc_unpol(
         let t18 = pow_1_3(rho[ip]);
         let t19 = t18 * t18;
         let t20 = 1.0 / t19;
-        let t25 = f64::exp(-t4 * t5 * t16 * t17 * t20 / 12.0);
+        let t25 = rmath::exp(-t4 * t5 * t16 * t17 * t20 / 12.0);
         let t26 = param_b_PBE * t25;
         let t27 = t26 * sigma[ip];
         let t28 = param_kappa + 1.0;
@@ -68,8 +68,8 @@ pub fn gga_x_pbe_erf_gws_exc_unpol(
         let t55 = 7.0 * t47 - 6.0 * t53;
         let t56 = t14 * t13;
         let t57 = 1.0 / param_hyb_omega_0;
-        let t64 = erf_approx(t57 * t5 * t32 * t13 * t17 * t18 / 2.0);
-        let t66 = f64::sqrt(M_PI);
+        let t64 = rmath::erf(t57 * t5 * t32 * t13 * t17 * t18 / 2.0);
+        let t66 = rmath::sqrt(M_PI);
         let t67 = t66 * t43;
         let t68 = t56 * t64 * t67;
         let t69 = rho[ip] * param_hyb_omega_0;
@@ -89,7 +89,7 @@ pub fn gga_x_pbe_erf_gws_exc_unpol(
         let t107 = 1.0 / t3;
         let t108 = t107 * t30;
         let t113 = t108 * t8 * t14 * t12 * t19 / 2.0;
-        let t114 = f64::exp(t113);
+        let t114 = rmath::exp(t113);
         let t115 = t114 * t8;
         let t118 = t5 * t3;
         let t119 = t14 * t17 * t118;
@@ -129,9 +129,9 @@ pub fn gga_x_pbe_erf_gws_exc_unpol(
         let t196 = t195 * t195;
         let t197 = t196 * t196;
         let t200 = 32.0 * t197 - 16.0 * t196;
-        let t203 = f64::exp(-1.0 / t196 / 4.0);
+        let t203 = rmath::exp(-1.0 / t196 / 4.0);
         let t207 = 1.0 / t195;
-        let t209 = erf_approx(t207 / 2.0);
+        let t209 = rmath::erf(t207 / 2.0);
         let t210 = t66 * t209;
         let t215 = piecewise3(t173, t190 * t192 / 867199824691200.0, t200 * t203 / 3.0 - 32.0 / 3.0 * t197 - 8.0 / 3.0 * t210 * t195 + 8.0 * t196 + 1.0);
         let t216 = 1.0 / t7;

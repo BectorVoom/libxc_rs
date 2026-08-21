@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,10 +65,10 @@ pub fn gga_x_ft97_exc_unpol(
         let t52 = sigma[ip] * t40;
         let t53 = t37 * t37;
         let t55 = t52 * t43;
-        let t56 = f64::ln(t55 + f64::sqrt(t55 * t55 + 1.0));
+        let t56 = rmath::ln(t55 + rmath::sqrt(t55 * t55 + 1.0));
         let t57 = t56 * t56;
         let t61 = 9.0 * t52 * t43 * t53 * t57 + 1.0;
-        let t62 = f64::sqrt(t61);
+        let t62 = rmath::sqrt(t61);
         let t65 = t50 * t51 / t62;
         let t68 = 1.0 + 2.0 / 9.0 * t45 * t65;
         let t72 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t68);

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
@@ -24,7 +25,7 @@ pub fn lda_c_gombas_exc_pol(
         let t5 = 1.0 + 0.0562 * t3;
         let t7 = 0.0357 / t5;
         let t8 = t3 + 2.39;
-        let t10 = f64::ln(t8 * t2);
+        let t10 = rmath::ln(t8 * t2);
         let t11 = 0.0311 * t10;
         let tzk0 = -t7 - t11;
         zk[ip] += tzk0;

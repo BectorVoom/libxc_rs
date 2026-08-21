@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -86,7 +86,7 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t68 = t67 * rho[ip];
         let t70 = 1.0 / t19 / t68;
         let t74 = 1.0 + 0.1504548888888889 * t59 + 0.00537989809245259 * t64 * t66 * t70;
-        let t75 = f64::powf(t74, 1.0 / 10.0);
+        let t75 = rmath::pow(t74, 1.0 / 10.0);
         let t77 = piecewise3(t13, t14, t16);
         let t78 = 1.0 / t77;
         let t79 = 1.0 / t75 * t78;
@@ -109,17 +109,17 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t109 = t97 * t97;
         let t110 = 1.0 / t109;
         let t113 = piecewise3(t86, 1.35, t84);
-        let t114 = f64::sqrt(M_PI);
+        let t114 = rmath::sqrt(M_PI);
         let t115 = 1.0 / t113;
-        let t117 = erf_approx(t115 / 2.0);
+        let t117 = rmath::erf(t115 / 2.0);
         let t119 = t113 * t113;
         let t120 = 1.0 / t119;
-        let t122 = f64::exp(-t120 / 4.0);
+        let t122 = rmath::exp(-t120 / 4.0);
         let t123 = t122 - 1.0;
         let t126 = t122 - 3.0 / 2.0 - 2.0 * t119 * t123;
         let t129 = 2.0 * t113 * t126 + t114 * t117;
         let t133 = piecewise3(t85, 1.0 / t88 / 36.0 - t92 / 960.0 + t95 / 26880.0 - t98 / 829440.0 + t101 / 28385280.0 - t104 / 1073479680.0 + t107 / 44590694400.0 - t110 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t113 * t129);
-        let t134 = f64::powf(t74, 1.0 / 5.0);
+        let t134 = rmath::pow(t74, 1.0 / 5.0);
         let t135 = 1.0 / t134;
         let t137 = 0.27 <= t84;
         let t138 = 0.27 < t84;
@@ -162,9 +162,9 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t213 = t211 * t211;
         let t214 = 64.0 * t213;
         let t215 = 20.0 * t211 - t214;
-        let t218 = f64::exp(-1.0 / t211 / 4.0);
+        let t218 = rmath::exp(-1.0 / t211 / 4.0);
         let t222 = 1.0 / t210;
-        let t224 = erf_approx(t222 / 2.0);
+        let t224 = rmath::erf(t222 / 2.0);
         let t227 = 10.0 * t210 * t114 * t224 + t215 * t218 - 36.0 * t211 + t214 - 3.0;
         let t231 = piecewise3(t137, t175 + t208, 24.0 * t211 * t227 + 1.0);
         let t232 = tau[ip] * t52;
@@ -217,12 +217,12 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t317 = t316 * t306;
         let t319 = -8.0 * t306 + 256.0 * t309 - 576.0 * t312 + 3840.0 * t314 - 122880.0 * t317;
         let t320 = 1.0 / t308;
-        let t322 = f64::exp(-t320 / 4.0);
+        let t322 = rmath::exp(-t320 / 4.0);
         let t326 = t311 * t308;
         let t328 = -35.0 + 224.0 * t308 - 1440.0 * t311 + 5120.0 * t326;
         let t332 = -2.0 + 60.0 * t308;
         let t334 = 1.0 / t306;
-        let t336 = erf_approx(t334 / 2.0);
+        let t336 = rmath::erf(t334 / 2.0);
         let t339 = 2.0 * t114 * t332 * t336 + 24.0 * t309 * t328 + t319 * t322;
         let t343 = piecewise3(t247, t305, 1.0 + 8.0 / 7.0 * t306 * t339);
         let t344 = t343 * t45;
@@ -248,10 +248,10 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t381 = 1.0 / t380;
         let t384 = piecewise3(t357, 1.35, t355);
         let t385 = 1.0 / t384;
-        let t387 = erf_approx(t385 / 2.0);
+        let t387 = rmath::erf(t385 / 2.0);
         let t389 = t384 * t384;
         let t390 = 1.0 / t389;
-        let t392 = f64::exp(-t390 / 4.0);
+        let t392 = rmath::exp(-t390 / 4.0);
         let t393 = t392 - 1.0;
         let t396 = t392 - 3.0 / 2.0 - 2.0 * t389 * t393;
         let t399 = t114 * t387 + 2.0 * t384 * t396;
@@ -264,7 +264,7 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
         let t420 = t417 * t27;
         let t421 = 1.0 - t27;
         let t424 = 1.0 + 5.0 / 12.0 * t408 * t58 + 292.0 / 405.0 * t418 - 146.0 / 135.0 * t420 * t421;
-        let t425 = f64::powf(t424, 1.0 / 10.0);
+        let t425 = rmath::pow(t424, 1.0 / 10.0);
         let t436 = 1.0 + 0.06394332777777778 * t59 - 5.0 / 9.0 * (t236 + 0.256337604 * t237 + 0.011867481666666667 * t58) * t45 * t49;
         let t439 = t135 + 7.0 / 9.0 * t436 * t243;
         let t442 = -param_hyb_coeff_0 * (t35 * t350 + t404 * t425) + t35 * t439 + t352 * t425;

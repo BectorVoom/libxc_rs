@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -49,11 +50,11 @@ pub fn gga_xc_th1_kxc_unpol(
     zeta_threshold: f64,
 ) {
     for ip in 0..zk.len() {
-        let t2 = f64::powf(2.0, 1.0 / 6.0);
+        let t2 = rmath::pow(2.0, 1.0 / 6.0);
         let t3 = t2 * t2;
         let t4 = t3 * t3;
         let t6 = param_omega_0 * t4 * t2;
-        let t7 = f64::powf(rho[ip], 1.0 / 6.0);
+        let t7 = rmath::pow(rho[ip], 1.0 / 6.0);
         let t8 = t7 * rho[ip];
         let t12 = M_CBRT2;
         let t13 = t12 * t12;
@@ -62,13 +63,13 @@ pub fn gga_xc_th1_kxc_unpol(
         let t16 = t15 * rho[ip];
         let t20 = M_SQRT2;
         let t21 = param_omega_2 * t20;
-        let t22 = f64::sqrt(rho[ip]);
+        let t22 = rmath::sqrt(rho[ip]);
         let t23 = t22 * rho[ip];
         let t27 = param_omega_3 * t12;
         let t28 = t15 * t15;
         let t29 = t28 * rho[ip];
         let t33 = param_omega_4 * t13;
-        let t34 = f64::sqrt(sigma[ip]);
+        let t34 = rmath::sqrt(sigma[ip]);
         let t36 = pow_1_3(zeta_threshold);
         let t38 = piecewise3(1.0 <= zeta_threshold, t36 * zeta_threshold, 1.0);
         let t43 = param_omega_5 * t20;

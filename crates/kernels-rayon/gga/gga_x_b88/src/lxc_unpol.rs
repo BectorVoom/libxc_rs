@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -62,10 +63,10 @@ pub fn gga_x_b88_lxc_unpol(
         let t32 = t18 * t18;
         let t34 = 1.0 / t32 / t31;
         let t35 = param_gamma * param_beta;
-        let t36 = f64::sqrt(sigma[ip]);
+        let t36 = rmath::sqrt(sigma[ip]);
         let t37 = t35 * t36;
         let t39 = 1.0 / t18 / rho[ip];
-        let t43 = f64::ln(t36 * t28 * t39 + f64::sqrt(pow_2(t36 * t28 * t39) + 1.0));
+        let t43 = rmath::ln(t36 * t28 * t39 + rmath::sqrt(pow_2(t36 * t28 * t39) + 1.0));
         let t44 = t28 * t39 * t43;
         let t46 = t37 * t44 + 1.0;
         let t47 = 1.0 / t46;
@@ -85,7 +86,7 @@ pub fn gga_x_b88_lxc_unpol(
         let t77 = t35 * sigma[ip];
         let t78 = t29 * t64;
         let t80 = t30 * t34 + 1.0;
-        let t81 = f64::sqrt(t80);
+        let t81 = rmath::sqrt(t80);
         let t82 = 1.0 / t81;
         let t83 = t78 * t82;
         let t86 = -4.0 / 3.0 * t37 * t75 - 4.0 / 3.0 * t77 * t83;

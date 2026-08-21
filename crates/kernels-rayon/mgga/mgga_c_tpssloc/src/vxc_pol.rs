@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -135,7 +136,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t122 = t120 * t121;
         let t123 = t118 * t122;
         let t125 = 1.0 + 0.053425 * t123;
-        let t126 = f64::sqrt(t123);
+        let t126 = rmath::sqrt(t123);
         let t129 = pow_3_2(t123);
         let t131 = t67 * t67;
         let t132 = t117 * t117;
@@ -145,7 +146,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t136 = t133 * t135;
         let t138 = 3.79785 * t126 + 0.8969 * t123 + 0.204775 * t129 + 0.123235 * t136;
         let t141 = 1.0 + 16.081979498692537 / t138;
-        let t142 = f64::ln(t141);
+        let t142 = rmath::ln(t141);
         let t144 = 0.0621814 * t125 * t142;
         let t145 = t32 * t32;
         let t146 = t40 <= zeta_threshold;
@@ -161,18 +162,18 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t159 = 1.0 + 0.05137 * t123;
         let t164 = 7.05945 * t126 + 1.549425 * t123 + 0.420775 * t129 + 0.1562925 * t136;
         let t167 = 1.0 + 32.16395899738507 / t164;
-        let t168 = f64::ln(t167);
+        let t168 = rmath::ln(t167);
         let t172 = 1.0 + 0.0278125 * t123;
         let t177 = 5.1785 * t126 + 0.905775 * t123 + 0.1100325 * t129 + 0.1241775 * t136;
         let t180 = 1.0 + 29.608749977793437 / t177;
-        let t181 = f64::ln(t180);
+        let t181 = rmath::ln(t180);
         let t182 = t172 * t181;
         let t184 = -0.0310907 * t159 * t168 + t144 - 0.0197516734986138 * t182;
         let t185 = t157 * t184;
         let t186 = t153 * t185;
         let t187 = t152 * t157;
         let t189 = 0.0197516734986138 * t187 * t182;
-        let t190 = f64::ln(2.0);
+        let t190 = rmath::ln(2.0);
         let t191 = 1.0 - t190;
         let t192 = 1.0 / t68;
         let t193 = t191 * t192;
@@ -190,7 +191,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t207 = t154 * t206;
         let t209 = 1.0 / t117;
         let t210 = t131 * t209;
-        let t212 = f64::exp(-t136 / 4.0);
+        let t212 = rmath::exp(-t136 / 4.0);
         let t213 = 1.0 - t212;
         let t214 = t119 * t213;
         let t215 = t210 * t214;
@@ -204,7 +205,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t228 = (-t144 + t186 + t189) * t225;
         let t229 = 1.0 / t202;
         let t230 = t68 * t229;
-        let t232 = f64::exp(-t228 * t230);
+        let t232 = rmath::exp(-t228 * t230);
         let t233 = t232 - 1.0;
         let t234 = 1.0 / t233;
         let t235 = t68 * t234;
@@ -228,7 +229,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t258 = 1.0 / t257;
         let t259 = t254 * t258;
         let t261 = t253 * t259 + 1.0;
-        let t262 = f64::ln(t261);
+        let t262 = rmath::ln(t261);
         let t265 = t193 * t202 * t262 - t144 + t186 + t189;
         let t268 = t118 * t120;
         let t269 = t121 * t154;
@@ -236,7 +237,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t271 = pow_1_3(t270);
         let t273 = t268 * t269 * t271;
         let t275 = 1.0 + 0.053425 * t273;
-        let t276 = f64::sqrt(t273);
+        let t276 = rmath::sqrt(t273);
         let t279 = pow_3_2(t273);
         let t281 = t133 * t119;
         let t282 = t134 * t241;
@@ -244,7 +245,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t285 = t281 * t282 * t283;
         let t287 = 3.79785 * t276 + 0.8969 * t273 + 0.204775 * t279 + 0.123235 * t285;
         let t290 = 1.0 + 16.081979498692537 / t287;
-        let t291 = f64::ln(t290);
+        let t291 = rmath::ln(t290);
         let t293 = 0.0621814 * t275 * t291;
         let t294 = 2.0 <= zeta_threshold;
         let t296 = piecewise3(t294, t148, 2.0 * t154);
@@ -254,11 +255,11 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t302 = 1.0 + 0.05137 * t273;
         let t307 = 7.05945 * t276 + 1.549425 * t273 + 0.420775 * t279 + 0.1562925 * t285;
         let t310 = 1.0 + 32.16395899738507 / t307;
-        let t311 = f64::ln(t310);
+        let t311 = rmath::ln(t310);
         let t315 = 1.0 + 0.0278125 * t273;
         let t320 = 5.1785 * t276 + 0.905775 * t273 + 0.1100325 * t279 + 0.1241775 * t285;
         let t323 = 1.0 + 29.608749977793437 / t320;
-        let t324 = f64::ln(t323);
+        let t324 = rmath::ln(t323);
         let t325 = t315 * t324;
         let t328 = t300 * (-0.0310907 * t302 * t311 + t293 - 0.0197516734986138 * t325);
         let t330 = 0.0197516734986138 * t300 * t325;
@@ -272,7 +273,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t339 = t39 * t338;
         let t340 = 1.0 / t271;
         let t341 = t60 * t340;
-        let t343 = f64::exp(-t285 / 4.0);
+        let t343 = rmath::exp(-t285 / 4.0);
         let t344 = 1.0 - t343;
         let t345 = t341 * t344;
         let t346 = t221 * t345;
@@ -282,7 +283,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t354 = t353 * t68;
         let t357 = 1.0 / t336;
         let t358 = t68 * t357;
-        let t360 = f64::exp(-(-t293 + t328 + t330) * t225 * t358);
+        let t360 = rmath::exp(-(-t293 + t328 + t330) * t225 * t358);
         let t361 = t360 - 1.0;
         let t362 = 1.0 / t361;
         let t363 = sigma0 * sigma0;
@@ -307,7 +308,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t387 = 1.0 / t386;
         let t388 = t254 * t387;
         let t390 = t382 * t388 + 1.0;
-        let t391 = f64::ln(t390);
+        let t391 = rmath::ln(t390);
         let t394 = t193 * t336 * t391 - t293 + t328 + t330;
         let t395 = t265 < t394;
         let t396 = piecewise3(t395, t394, t265);
@@ -317,29 +318,29 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t405 = pow_1_3(t404);
         let t407 = t268 * t269 * t405;
         let t409 = 1.0 + 0.053425 * t407;
-        let t410 = f64::sqrt(t407);
+        let t410 = rmath::sqrt(t407);
         let t413 = pow_3_2(t407);
         let t415 = t405 * t405;
         let t417 = t281 * t282 * t415;
         let t419 = 3.79785 * t410 + 0.8969 * t407 + 0.204775 * t413 + 0.123235 * t417;
         let t422 = 1.0 + 16.081979498692537 / t419;
-        let t423 = f64::ln(t422);
+        let t423 = rmath::ln(t422);
         let t425 = 0.0621814 * t409 * t423;
         let t427 = 1.0 + 0.05137 * t407;
         let t432 = 7.05945 * t410 + 1.549425 * t407 + 0.420775 * t413 + 0.1562925 * t417;
         let t435 = 1.0 + 32.16395899738507 / t432;
-        let t436 = f64::ln(t435);
+        let t436 = rmath::ln(t435);
         let t440 = 1.0 + 0.0278125 * t407;
         let t445 = 5.1785 * t410 + 0.905775 * t407 + 0.1100325 * t413 + 0.1241775 * t417;
         let t448 = 1.0 + 29.608749977793437 / t445;
-        let t449 = f64::ln(t448);
+        let t449 = rmath::ln(t448);
         let t450 = t440 * t449;
         let t453 = t300 * (-0.0310907 * t427 * t436 + t425 - 0.0197516734986138 * t450);
         let t455 = 0.0197516734986138 * t300 * t450;
         let t456 = t51 * t338;
         let t457 = 1.0 / t405;
         let t458 = t60 * t457;
-        let t460 = f64::exp(-t417 / 4.0);
+        let t460 = rmath::exp(-t417 / 4.0);
         let t461 = 1.0 - t460;
         let t462 = t458 * t461;
         let t463 = t221 * t462;
@@ -347,7 +348,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t467 = t221 * t458;
         let t470 = t466 * t225;
         let t471 = t470 * t68;
-        let t475 = f64::exp(-(-t425 + t453 + t455) * t225 * t358);
+        let t475 = rmath::exp(-(-t425 + t453 + t455) * t225 * t358);
         let t476 = t475 - 1.0;
         let t477 = 1.0 / t476;
         let t478 = sigma2 * sigma2;
@@ -367,7 +368,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t497 = 1.0 / t496;
         let t498 = t254 * t497;
         let t500 = t492 * t498 + 1.0;
-        let t501 = f64::ln(t500);
+        let t501 = rmath::ln(t500);
         let t504 = t193 * t336 * t501 - t425 + t453 + t455;
         let t505 = t265 < t504;
         let t506 = piecewise3(t505, t504, t265);
@@ -401,7 +402,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t546 = (-t144 + t523 + t525) * t225;
         let t547 = 1.0 / t533;
         let t548 = t68 * t547;
-        let t550 = f64::exp(-t546 * t548);
+        let t550 = rmath::exp(-t546 * t548);
         let t551 = t550 - 1.0;
         let t552 = 1.0 / t551;
         let t553 = t68 * t552;
@@ -417,7 +418,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t567 = 1.0 / t566;
         let t568 = t254 * t567;
         let t570 = t563 * t568 + 1.0;
-        let t571 = f64::ln(t570);
+        let t571 = rmath::ln(t570);
         let t574 = t193 * t533 * t571 - t144 + t523 + t525;
         let t576 = -t113 * t510 + t513 * t574;
         let t577 = t112 * t111;
@@ -492,7 +493,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t687 = t686 * t676;
         let t688 = t685 * t687;
         let t690 = t118 * t677;
-        let t692 = f64::sqrt(t123);
+        let t692 = rmath::sqrt(t123);
         let t693 = t692 * t67;
         let t694 = t693 * t687;
         let t697 = 1.0 / t61 / t3;
@@ -614,7 +615,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t896 = -t880 / 3.0 - t886 / 3.0;
         let t897 = t894 * t896;
         let t899 = 0.29896666666666666 * t880;
-        let t901 = f64::sqrt(t273);
+        let t901 = rmath::sqrt(t273);
         let t902 = t901 * t896;
         let t904 = t697 * t241;
         let t906 = t281 * t904 * t283;
@@ -743,7 +744,7 @@ pub fn mgga_c_tpssloc_vxc_pol(
         let t1102 = -t1086 / 3.0 + t1092 / 3.0;
         let t1103 = t1100 * t1102;
         let t1105 = 0.29896666666666666 * t1086;
-        let t1107 = f64::sqrt(t407);
+        let t1107 = rmath::sqrt(t407);
         let t1108 = t1107 * t1102;
         let t1111 = t281 * t904 * t415;
         let t1112 = 0.08215666666666667 * t1111;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -59,8 +60,8 @@ pub fn gga_x_dk87_fxc_unpol(
         let t38 = rho[ip] * rho[ip];
         let t39 = t18 * t18;
         let t41 = 1.0 / t39 / t38;
-        let t42 = f64::sqrt(sigma[ip]);
-        let t47 = f64::powf(t42 * t35 / t18 / rho[ip], param_alpha);
+        let t42 = rmath::sqrt(sigma[ip]);
+        let t47 = rmath::pow(t42 * t35 / t18 / rho[ip], param_alpha);
         let t48 = param_a1 * t47;
         let t49 = 1.0 + t48;
         let t51 = param_b1 * sigma[ip];

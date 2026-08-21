@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -67,22 +68,22 @@ pub fn mgga_k_csk_fxc_unpol(
         let t40 = lapl[ip] * t32;
         let t42 = 1.0 / t23 / rho[ip];
         let t47 = 5.0 / 54.0 * t30 * t40 * t42 - 5.0 / 81.0 * t38;
-        let t49 = f64::ln(1.0 - f64::EPSILON);
+        let t49 = rmath::ln(1.0 - f64::EPSILON);
         let t50 = 1.0 / param_csk_a;
-        let t51 = f64::powf(-t49, -t50);
+        let t51 = rmath::pow(-t49, -t50);
         let t52 = t47 < -t51;
-        let t53 = f64::ln(f64::EPSILON);
-        let t54 = f64::powf(-t53, -t50);
+        let t53 = rmath::ln(f64::EPSILON);
+        let t54 = rmath::pow(-t53, -t50);
         let t55 = -t54 < t47;
         let t56 = piecewise3(t55, -t54, t47);
         let t57 = -t51 < t56;
         let t58 = piecewise3(t57, t56, -t51);
-        let t59 = f64::abs(t58);
-        let t60 = f64::powf(t59, param_csk_a);
+        let t59 = rmath::abs(t58);
+        let t60 = rmath::pow(t59, param_csk_a);
         let t61 = 1.0 / t60;
-        let t62 = f64::exp(-t61);
+        let t62 = rmath::exp(-t61);
         let t63 = 1.0 - t62;
-        let t64 = f64::powf(t63, t50);
+        let t64 = rmath::pow(t63, t50);
         let t65 = piecewise5(t52, 0.0, t55, 1.0, t64);
         let t67 = 1.0 + 5.0 / 72.0 * t38 + t47 * t65;
         let t71 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t67);
@@ -96,7 +97,7 @@ pub fn mgga_k_csk_fxc_unpol(
         let t89 = t64 * t61;
         let t90 = piecewise3(t55, 0.0, t87);
         let t91 = piecewise3(t57, t90, 0.0);
-        let t93 = f64::abs(t58) / t58;
+        let t93 = rmath::abs(t58) / t58;
         let t94 = 1.0 / t59;
         let t96 = 1.0 / t63;
         let t97 = t62 * t96;

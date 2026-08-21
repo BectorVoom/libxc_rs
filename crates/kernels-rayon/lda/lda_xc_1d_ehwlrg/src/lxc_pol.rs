@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_xc_1d_ehwlrg_lxc_pol(
@@ -28,7 +29,7 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
         let t1 = rho0 + rho1;
         let t3 = t1 * t1;
         let t5 = param_a2 * t1 + param_a3 * t3 + param_a1;
-        let t6 = f64::powf(t1, param_alpha);
+        let t6 = rmath::pow(t1, param_alpha);
         let tzk0 = t5 * t6;
         zk[ip] += tzk0;
         let t7 = param_a3 * t1;

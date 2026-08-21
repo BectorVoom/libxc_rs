@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
@@ -34,7 +35,7 @@ pub fn mgga_x_2d_js17_vxc_pol(
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
         let t2 = rho0 <= dens_threshold;
-        let t3 = f64::sqrt(M_PI);
+        let t3 = rmath::sqrt(M_PI);
         let t4 = 1.0 / t3;
         let t5 = rho0 + rho1;
         let t6 = 1.0 / t5;
@@ -46,14 +47,14 @@ pub fn mgga_x_2d_js17_vxc_pol(
         let t17 = piecewise5(t9, t10, t13, t14, t15 * t6);
         let t18 = 1.0 + t17;
         let t19 = t18 <= zeta_threshold;
-        let t20 = f64::sqrt(zeta_threshold);
+        let t20 = rmath::sqrt(zeta_threshold);
         let t21 = t20 * zeta_threshold;
-        let t22 = f64::sqrt(t18);
+        let t22 = rmath::sqrt(t18);
         let t23 = t22 * t18;
         let t24 = piecewise3(t19, t21, t23);
         let t25 = t4 * t24;
         let t26 = M_SQRT2;
-        let t27 = f64::sqrt(t5);
+        let t27 = rmath::sqrt(t5);
         let t28 = t26 * t27;
         let t29 = rho0 * rho0;
         let t30 = t29 * rho0;
@@ -63,11 +64,11 @@ pub fn mgga_x_2d_js17_vxc_pol(
         let t35 = t29 * t29;
         let t37 = 1.0 / t35 / t29;
         let t40 = 1.0 + 0.41252961249419273 * t32 + 0.0006302988192022548 * t34 * t37;
-        let t41 = f64::powf(t40, 1.0 / 15.0);
+        let t41 = rmath::pow(t40, 1.0 / 15.0);
         let t44 = 1.0 / t29;
         let t48 = 1.0 / M_PI;
         let t51 = 1.0 + 0.02793851343876014 * t32 + (-0.0772 * tau0 * t44 - 11.596246802930645) * t48 / 4.0;
-        let t52 = f64::powf(t40, 1.0 / 5.0);
+        let t52 = rmath::pow(t40, 1.0 / 5.0);
         let t53 = 1.0 / t52;
         let t56 = 1.0 / t41 + 2.0 / 5.0 * t51 * t53;
         let t57 = t28 * t56;
@@ -77,7 +78,7 @@ pub fn mgga_x_2d_js17_vxc_pol(
         let t64 = piecewise5(t13, t10, t9, t14, t62 * t6);
         let t65 = 1.0 + t64;
         let t66 = t65 <= zeta_threshold;
-        let t67 = f64::sqrt(t65);
+        let t67 = rmath::sqrt(t65);
         let t68 = t67 * t65;
         let t69 = piecewise3(t66, t21, t68);
         let t70 = t4 * t69;
@@ -89,10 +90,10 @@ pub fn mgga_x_2d_js17_vxc_pol(
         let t77 = t71 * t71;
         let t79 = 1.0 / t77 / t71;
         let t82 = 1.0 + 0.41252961249419273 * t74 + 0.0006302988192022548 * t76 * t79;
-        let t83 = f64::powf(t82, 1.0 / 15.0);
+        let t83 = rmath::pow(t82, 1.0 / 15.0);
         let t86 = 1.0 / t71;
         let t92 = 1.0 + 0.02793851343876014 * t74 + (-0.0772 * tau1 * t86 - 11.596246802930645) * t48 / 4.0;
-        let t93 = f64::powf(t82, 1.0 / 5.0);
+        let t93 = rmath::pow(t82, 1.0 / 5.0);
         let t94 = 1.0 / t93;
         let t97 = 1.0 / t83 + 2.0 / 5.0 * t92 * t94;
         let t98 = t28 * t97;

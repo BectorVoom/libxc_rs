@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -50,7 +51,7 @@ pub fn gga_x_bayesian_vxc_unpol(
         let t34 = t20 * t20;
         let t35 = 1.0 / t22;
         let t36 = t34 * t35;
-        let t37 = f64::sqrt(sigma[ip]);
+        let t37 = rmath::sqrt(sigma[ip]);
         let t44 = 1.0 + t36 * t37 * t27 / t18 / rho[ip] / 12.0;
         let t45 = t44 * t44;
         let t46 = 1.0 / t45;

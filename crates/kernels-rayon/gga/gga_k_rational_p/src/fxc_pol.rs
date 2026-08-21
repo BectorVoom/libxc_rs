@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -67,7 +68,7 @@ pub fn gga_k_rational_p_fxc_pol(
         let t43 = t42 * t42;
         let t45 = 1.0 / t43 / t41;
         let t49 = 1.0 + t35 * t39 * sigma0 * t45 / 24.0;
-        let t50 = f64::powf(t49, -param_p);
+        let t50 = rmath::pow(t49, -param_p);
         let t51 = t31 * t50;
         let t52 = t6 * t51;
         let t54 = piecewise3(t1, 0.0, 3.0 / 20.0 * t52);
@@ -85,7 +86,7 @@ pub fn gga_k_rational_p_fxc_pol(
         let t69 = t68 * t68;
         let t71 = 1.0 / t69 / t67;
         let t75 = 1.0 + t35 * t39 * sigma2 * t71 / 24.0;
-        let t76 = f64::powf(t75, -param_p);
+        let t76 = rmath::pow(t75, -param_p);
         let t77 = t65 * t76;
         let t78 = t6 * t77;
         let t80 = piecewise3(t55, 0.0, 3.0 / 20.0 * t78);

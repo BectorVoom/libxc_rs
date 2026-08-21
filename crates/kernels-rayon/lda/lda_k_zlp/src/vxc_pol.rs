@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -50,7 +51,7 @@ pub fn lda_k_zlp_vxc_pol(
         let t32 = t29 * t31;
         let t33 = 1.0 / t30;
         let t35 = 1.0 + 510.2040816326531 * t33;
-        let t36 = f64::ln(t35);
+        let t36 = rmath::ln(t35);
         let t39 = 1.0 - 0.00196 * t30 * t36;
         let t41 = t8 * t32 * t39;
         let tzk0 = 1.0790666666666666 * t41;

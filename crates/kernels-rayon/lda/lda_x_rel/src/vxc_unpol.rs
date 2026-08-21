@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -36,13 +37,13 @@ pub fn lda_x_rel_vxc_unpol(
         let t22 = 1.0 / t21;
         let t23 = t11 * t11;
         let t27 = 1.0 + 3.8075239991386495e-05 * t18 * t22 * t23;
-        let t28 = f64::sqrt(t27);
+        let t28 = rmath::sqrt(t27);
         let t29 = t28 * t17;
         let t30 = t3 * t20;
         let t35 = t3 * t3;
         let t36 = t16 * t35;
         let t37 = 1.0 / t20;
-        let t41 = f64::ln(0.0035625477770544352 * t36 * t37 * t11 + f64::sqrt(pow_2(0.0035625477770544352 * t36 * t37 * t11) + 1.0));
+        let t41 = rmath::ln(0.0035625477770544352 * t36 * t37 * t11 + rmath::sqrt(pow_2(0.0035625477770544352 * t36 * t37 * t11) + 1.0));
         let t42 = t41 * t16;
         let t43 = t35 * t21;
         let t44 = 1.0 / t23;

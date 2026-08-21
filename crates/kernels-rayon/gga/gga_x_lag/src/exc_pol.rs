@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -48,13 +49,13 @@ pub fn gga_x_lag_exc_pol(
         let t28 = pow_1_3(t27);
         let t29 = 1.0 / t28;
         let t30 = t26 * t29;
-        let t31 = f64::sqrt(sigma0);
+        let t31 = rmath::sqrt(sigma0);
         let t32 = pow_1_3(rho0);
         let t34 = 1.0 / t32 / rho0;
         let t36 = t30 * t31 * t34;
-        let t37 = f64::powf(t36, 2.626712);
+        let t37 = rmath::pow(t36, 2.626712);
         let t40 = 1.0 + 0.00013471619689594795 * t37;
-        let t41 = f64::powf(t40, -0.657946);
+        let t41 = rmath::pow(t40, -0.657946);
         let t42 = t24 * t37 * t41;
         let t45 = piecewise3(t1, 0.0, -1.540002877192757e-05 * t23 * t42);
         let t46 = rho1 <= dens_threshold;
@@ -65,13 +66,13 @@ pub fn gga_x_lag_exc_pol(
         let t52 = pow_1_3(t50);
         let t54 = piecewise3(t51, t19, t52 * t50);
         let t55 = t2 * t54;
-        let t56 = f64::sqrt(sigma2);
+        let t56 = rmath::sqrt(sigma2);
         let t57 = pow_1_3(rho1);
         let t59 = 1.0 / t57 / rho1;
         let t61 = t30 * t56 * t59;
-        let t62 = f64::powf(t61, 2.626712);
+        let t62 = rmath::pow(t61, 2.626712);
         let t65 = 1.0 + 0.00013471619689594795 * t62;
-        let t66 = f64::powf(t65, -0.657946);
+        let t66 = rmath::pow(t65, -0.657946);
         let t67 = t24 * t62 * t66;
         let t70 = piecewise3(t46, 0.0, -1.540002877192757e-05 * t55 * t67);
         let tzk0 = t45 + t70;

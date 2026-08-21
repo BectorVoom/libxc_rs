@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRTPI, M_PI, M_SQRT2};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3};
@@ -75,21 +76,21 @@ pub fn mgga_x_tb09_kxc_pol(
         let t12 = rho0 * rho0;
         let t14 = 1.0 / t5 / t12;
         let t17 = lapl0 * t7 / 6.0 - 0.5333333333333333 * t10 + 0.06666666666666667 * sigma0 * t14;
-        let t18 = f64::abs(t17);
+        let t18 = rmath::abs(t17);
         let t19 = t18 < 5e-13;
         let t20 = 0.0 < t17;
         let t21 = piecewise3(t20, 5e-13, -5e-13);
         let t22 = piecewise3(t19, t21, t17);
         let t23 = xc_mgga_x_br89_get_x(t22);
-        let t25 = f64::exp(t23 / 3.0);
-        let t26 = f64::exp(-t23);
+        let t25 = rmath::exp(t23 / 3.0);
+        let t26 = rmath::exp(-t23);
         let t28 = 1.0 + t23 / 2.0;
         let t29 = t26 * t28;
         let t30 = 1.0 - t29;
         let t31 = t25 * t30;
         let t32 = 1.0 / t23;
         let t33 = t31 * t32;
-        let t38 = f64::sqrt(15.0);
+        let t38 = rmath::sqrt(15.0);
         let t39 = (3.0 * param_c - 2.0) * t38;
         let t40 = 1.0 / M_PI;
         let t41 = M_SQRT2;
@@ -98,7 +99,7 @@ pub fn mgga_x_tb09_kxc_pol(
         let t46 = t10 - t43 * t14 / 8.0;
         let t47 = 1e-10 < t46;
         let t48 = piecewise3(t47, t46, 1e-10);
-        let t49 = f64::sqrt(t48);
+        let t49 = rmath::sqrt(t48);
         let t53 = -2.0 * t3 * t33 + t39 * t42 * t49 / 6.0;
         let tvrho0 = t53 * t4;
         vrho[ip * 2] += tvrho0;
@@ -109,14 +110,14 @@ pub fn mgga_x_tb09_kxc_pol(
         let t62 = rho1 * rho1;
         let t64 = 1.0 / t55 / t62;
         let t67 = lapl1 * t57 / 6.0 - 0.5333333333333333 * t60 + 0.06666666666666667 * sigma2 * t64;
-        let t68 = f64::abs(t67);
+        let t68 = rmath::abs(t67);
         let t69 = t68 < 5e-13;
         let t70 = 0.0 < t67;
         let t71 = piecewise3(t70, 5e-13, -5e-13);
         let t72 = piecewise3(t69, t71, t67);
         let t73 = xc_mgga_x_br89_get_x(t72);
-        let t75 = f64::exp(t73 / 3.0);
-        let t76 = f64::exp(-t73);
+        let t75 = rmath::exp(t73 / 3.0);
+        let t76 = rmath::exp(-t73);
         let t78 = 1.0 + t73 / 2.0;
         let t79 = t76 * t78;
         let t80 = 1.0 - t79;
@@ -127,7 +128,7 @@ pub fn mgga_x_tb09_kxc_pol(
         let t89 = t60 - t86 * t64 / 8.0;
         let t90 = 1e-10 < t89;
         let t91 = piecewise3(t90, t89, 1e-10);
-        let t92 = f64::sqrt(t91);
+        let t92 = rmath::sqrt(t91);
         let t96 = -2.0 * t3 * t83 + t39 * t42 * t92 / 6.0;
         let tvrho1 = t96 * t54;
         vrho[ip * 2 + 1] += tvrho1;
@@ -139,7 +140,7 @@ pub fn mgga_x_tb09_kxc_pol(
         let t110 = t22 * t22;
         let t111 = 1.0 / t110;
         let t112 = t109 * t111;
-        let t114 = f64::exp(-2.0 / 3.0 * t23);
+        let t114 = rmath::exp(-2.0 / 3.0 * t23);
         let t115 = 1.0 / t114;
         let t116 = t112 * t115;
         let t117 = t97 * t116;
@@ -183,7 +184,7 @@ pub fn mgga_x_tb09_kxc_pol(
         let t180 = t72 * t72;
         let t181 = 1.0 / t180;
         let t182 = t179 * t181;
-        let t184 = f64::exp(-2.0 / 3.0 * t73);
+        let t184 = rmath::exp(-2.0 / 3.0 * t73);
         let t185 = 1.0 / t184;
         let t186 = t182 * t185;
         let t187 = t97 * t186;

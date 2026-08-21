@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -45,7 +46,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
         let t12 = 1.0 + 0.053425 * t10;
-        let t13 = f64::sqrt(t10);
+        let t13 = rmath::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
@@ -54,7 +55,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t24 = t20 * t5 / t21;
         let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
         let t29 = 1.0 + 16.081979498692537 / t26;
-        let t30 = f64::ln(t29);
+        let t30 = rmath::ln(t29);
         let t32 = 0.0621814 * t12 * t30;
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
@@ -64,9 +65,9 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t45 = 1.0 + 0.0278125 * t10;
         let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
         let t53 = 1.0 + 29.608749977793437 / t50;
-        let t54 = f64::ln(t53);
+        let t54 = rmath::ln(t53);
         let t57 = 0.0197516734986138 * t43 * t45 * t54;
-        let t58 = f64::sqrt(sigma[ip]);
+        let t58 = rmath::sqrt(sigma[ip]);
         let t59 = t58 * sigma[ip];
         let t60 = param_alpha * t59;
         let t61 = rho[ip] * rho[ip];
@@ -76,13 +77,13 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t67 = 1.0 / t3;
         let t68 = t18 * t67;
         let t70 = t68 * t5 * t7;
-        let t71 = f64::sqrt(t70);
+        let t71 = rmath::sqrt(t70);
         let t72 = t66 * t71;
         let t74 = piecewise3(1e-20 < 0.0, 0.0, 1e-20);
-        let t76 = f64::powf(t74, param_omega / 2.0);
+        let t76 = rmath::pow(t74, param_omega / 2.0);
         let t77 = t72 * t76;
-        let t80 = f64::exp(-t60 * t63 * t77 / 16.0);
-        let t81 = f64::ln(2.0);
+        let t80 = rmath::exp(-t60 * t63 * t77 / 16.0);
+        let t81 = rmath::ln(2.0);
         let t82 = 1.0 - t81;
         let t83 = t80 * t82;
         let t84 = M_PI * M_PI;
@@ -99,7 +100,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t101 = 1.0 / t82;
         let t102 = param_beta * t101;
         let t105 = 1.0 / t89;
-        let t108 = f64::exp(-(-t32 + t57) * t101 * t84 * t105);
+        let t108 = rmath::exp(-(-t32 + t57) * t101 * t84 * t105);
         let t109 = t108 - 1.0;
         let t110 = 1.0 / t109;
         let t111 = t84 * t110;
@@ -121,7 +122,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t134 = 1.0 / t133;
         let t135 = t101 * t84 * t134;
         let t137 = t129 * t135 + 1.0;
-        let t138 = f64::ln(t137);
+        let t138 = rmath::ln(t137);
         let t139 = t90 * t138;
         let t140 = t83 * t139;
         let tzk0 = -t32 + t57 + t140;
@@ -138,7 +139,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t153 = t152 * t142;
         let t154 = t151 * t153;
         let t156 = t4 * t143;
-        let t158 = f64::sqrt(t10);
+        let t158 = rmath::sqrt(t10);
         let t159 = t158 * t1;
         let t160 = t159 * t153;
         let t164 = t5 / t21 / rho[ip];
@@ -260,7 +261,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t340 = t152 * t92;
         let t341 = t151 * t340;
         let t343 = t4 * t318;
-        let t345 = 1.0/f64::sqrt(t10);
+        let t345 = 1.0/rmath::sqrt(t10);
         let t346 = t345 * t18;
         let t347 = t346 * t337;
         let t349 = t159 * t340;
@@ -953,7 +954,7 @@ pub fn gga_c_zvpbeint_lxc_unpol(
         let t1802 = t151 * t1801;
         let t1804 = t6 * t453;
         let t1805 = t4 * t1804;
-        let t1807 = f64::powf(t10, -2.5);
+        let t1807 = rmath::pow(t10, -2.5);
         let t1810 = t1807 * t2 * t196 * t203;
         let t1812 = t816 * t191;
         let t1814 = t346 * t1798;

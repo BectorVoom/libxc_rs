@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -24,14 +25,14 @@ pub fn lda_c_w20_lxc_pol(
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        let t1 = f64::ln(2.0);
+        let t1 = rmath::ln(2.0);
         let t2 = 1.0 - t1;
         let t3 = M_PI * M_PI;
         let t4 = 1.0 / t3;
         let t5 = t2 * t4;
         let t6 = t1 / 6.0;
         let t8 = 1.0 / t2;
-        let t12 = f64::exp(-2.0 * (-0.16244537117517982 + t6) * t8 * t3);
+        let t12 = rmath::exp(-2.0 * (-0.16244537117517982 + t6) * t8 * t3);
         let t13 = M_CBRT3;
         let t14 = t13 * t13;
         let t15 = 1.0 / M_PI;
@@ -44,7 +45,7 @@ pub fn lda_c_w20_lxc_pol(
         let t22 = t21 * t21;
         let t23 = 1.0 / t22;
         let t25 = t18 * t19 * t23;
-        let t27 = f64::exp(-t25 / 40000.0);
+        let t27 = rmath::exp(-t25 / 40000.0);
         let t28 = 1.0 - t27;
         let t29 = M_CBRTPI;
         let t30 = t29 * t29;
@@ -58,11 +59,11 @@ pub fn lda_c_w20_lxc_pol(
         let t47 = t46 * t19;
         let t48 = t47 * t21;
         let t51 = t28 * t8;
-        let t52 = f64::sqrt(4.0);
+        let t52 = rmath::sqrt(4.0);
         let t53 = t13 * t16;
         let t54 = 1.0 / t21;
         let t56 = t53 * t34 * t54;
-        let t57 = f64::sqrt(t56);
+        let t57 = rmath::sqrt(t56);
         let t59 = 1.0 / t57 / t56;
         let t61 = t51 * t52 * t59;
         let t63 = t32 * t32;
@@ -74,7 +75,7 @@ pub fn lda_c_w20_lxc_pol(
         let t75 = t74 * t34;
         let t76 = t75 * t22;
         let t79 = 1.0 + t45 * t48 / 3.0 - 118.43525281307231 * t61 + t73 * t76 / 3.0;
-        let t80 = f64::ln(t79);
+        let t80 = rmath::ln(t79);
         let t82 = t5 * t80 / 2.0;
         let t83 = t53 * t34;
         let t84 = t54 * t27;
@@ -91,11 +92,11 @@ pub fn lda_c_w20_lxc_pol(
         let t100 = t96 * t99;
         let t101 = t14 * t46;
         let t105 = 1.0 + t101 * t19 * t21 / 3.0;
-        let t106 = f64::ln(t105);
+        let t106 = rmath::ln(t105);
         let t110 = -t64 * t100 * t106 / 36.0 - 0.01;
         let t111 = t93 * t110;
         let t114 = t83 * t84 * t111 / 4.0;
-        let t119 = f64::exp(-4.0 * (-0.1412623711751798 + t6) * t8 * t3);
+        let t119 = rmath::exp(-4.0 * (-0.1412623711751798 + t6) * t8 * t3);
         let t120 = M_CBRT2;
         let t128 = t119 / 2.0;
         let t129 = 2.0 * (-0.9 + 3.0 / 16.0 * t33 * t34 * t120) * t8 * t3 + t128;
@@ -104,7 +105,7 @@ pub fn lda_c_w20_lxc_pol(
         let t142 = -3.0 / 20.0 * t64 * t65 * t137 * t8 + t128;
         let t146 = (-2.0 * t142 * t28 + t119) * t13;
         let t149 = 1.0 + t133 * t48 / 3.0 - 236.87050562614462 * t61 + t146 * t76 / 3.0;
-        let t150 = f64::ln(t149);
+        let t150 = rmath::ln(t149);
         let t155 = t137 * t63;
         let t157 = 13.0 / 12.0 * t3 - t98 + 1.0 / 2.0;
         let t158 = t96 * t157;
@@ -131,7 +132,7 @@ pub fn lda_c_w20_lxc_pol(
         let t186 = 1.0 / t21 / t20;
         let t187 = t186 * t27;
         let t191 = t47 * t23;
-        let t194 = f64::powf(4.0, 1.0 / 6.0);
+        let t194 = rmath::pow(4.0, 1.0 / 6.0);
         let t195 = t194 * t194;
         let t196 = t195 * t195;
         let t197 = t196 * t194;
@@ -164,7 +165,7 @@ pub fn lda_c_w20_lxc_pol(
         let t237 = 1.0 / t236;
         let t238 = t27 * t237;
         let t239 = t19 * t200;
-        let t243 = f64::powf(4.0, 1.0 / 12.0);
+        let t243 = rmath::pow(4.0, 1.0 / 12.0);
         let t244 = t243 * t243;
         let t245 = t244 * t244;
         let t246 = t245 * t243;

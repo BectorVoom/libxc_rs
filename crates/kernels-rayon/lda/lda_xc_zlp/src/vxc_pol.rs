@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
@@ -22,7 +23,7 @@ pub fn lda_xc_zlp_vxc_pol(
         let t1 = rho0 + rho1;
         let t2 = pow_1_3(t1);
         let t5 = 1.0 + 105.5562709925034 / t2;
-        let t6 = f64::ln(t5);
+        let t6 = rmath::ln(t5);
         let t9 = 1.0 - 0.00947362 * t6 * t2;
         let t10 = t9 * t2;
         let tzk0 = -0.93222 * t10;

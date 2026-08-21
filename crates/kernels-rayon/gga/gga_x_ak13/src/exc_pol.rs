@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -52,16 +53,16 @@ pub fn gga_x_ak13_exc_pol(
         let t32 = pow_1_3(t31);
         let t33 = 1.0 / t32;
         let t34 = param_B1 * t29 * t33;
-        let t35 = f64::sqrt(sigma0);
+        let t35 = rmath::sqrt(sigma0);
         let t36 = pow_1_3(rho0);
         let t38 = 1.0 / t36 / rho0;
         let t39 = t35 * t38;
         let t40 = t29 * t33;
         let t43 = 1.0 + t40 * t39 / 12.0;
-        let t44 = f64::ln(t43);
+        let t44 = rmath::ln(t43);
         let t49 = param_B2 * t29 * t33;
         let t50 = 1.0 + t44;
-        let t51 = f64::ln(t50);
+        let t51 = rmath::ln(t50);
         let t55 = 1.0 + t34 * t39 * t44 / 12.0 + t49 * t39 * t51 / 12.0;
         let t59 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t55);
         let t60 = rho1 <= dens_threshold;
@@ -72,14 +73,14 @@ pub fn gga_x_ak13_exc_pol(
         let t66 = pow_1_3(t64);
         let t68 = piecewise3(t65, t22, t66 * t64);
         let t69 = t68 * t26;
-        let t70 = f64::sqrt(sigma2);
+        let t70 = rmath::sqrt(sigma2);
         let t71 = pow_1_3(rho1);
         let t73 = 1.0 / t71 / rho1;
         let t74 = t70 * t73;
         let t77 = 1.0 + t40 * t74 / 12.0;
-        let t78 = f64::ln(t77);
+        let t78 = rmath::ln(t77);
         let t82 = 1.0 + t78;
-        let t83 = f64::ln(t82);
+        let t83 = rmath::ln(t82);
         let t87 = 1.0 + t34 * t74 * t78 / 12.0 + t49 * t74 * t83 / 12.0;
         let t91 = piecewise3(t60, 0.0, -3.0 / 8.0 * t5 * t69 * t87);
         let tzk0 = t59 + t91;

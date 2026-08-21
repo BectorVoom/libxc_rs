@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_xc_1d_ehwlrg_kxc_unpol(
@@ -24,7 +25,7 @@ pub fn lda_xc_1d_ehwlrg_kxc_unpol(
     for ip in 0..zk.len() {
         let t1 = rho[ip] * rho[ip];
         let t4 = param_a2 * rho[ip] + param_a3 * t1 + param_a1;
-        let t5 = f64::powf(rho[ip], param_alpha);
+        let t5 = rmath::pow(rho[ip], param_alpha);
         let tzk0 = t4 * t5;
         zk[ip] += tzk0;
         let t6 = rho[ip] * param_a3;

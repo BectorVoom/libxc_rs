@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -115,7 +116,7 @@ pub fn mgga_x_tpss_lxc_unpol(
         let t25 = sigma[ip] * t21 * t23 / 8.0;
         let t26 = param_BLOC_b * sigma[ip];
         let t30 = param_BLOC_a + t26 * t21 * t23 / 8.0;
-        let t31 = f64::powf(t25, t30);
+        let t31 = rmath::pow(t25, t30);
         let t32 = param_c * t31;
         let t33 = sigma[ip] * sigma[ip];
         let t34 = rho[ip] * rho[ip];
@@ -148,7 +149,7 @@ pub fn mgga_x_tpss_lxc_unpol(
         let t73 = t46 * t51;
         let t74 = t73 * t71;
         let t77 = 5.0 * t72 * t74 + 9.0;
-        let t78 = f64::sqrt(t77);
+        let t78 = rmath::sqrt(t77);
         let t79 = 1.0 / t78;
         let t84 = 27.0 / 20.0 * t71 * t79 + t73 * t59 / 36.0;
         let t85 = t84 * t84;
@@ -161,10 +162,10 @@ pub fn mgga_x_tpss_lxc_unpol(
         let t96 = 1.0 / t19 / t94;
         let t97 = t92 * t96;
         let t100 = 100.0 * t91 * t97 + 162.0 * t39;
-        let t101 = f64::sqrt(t100);
+        let t101 = rmath::sqrt(t100);
         let t105 = 1.0 / param_kappa * t88;
         let t106 = t105 * t90;
-        let t109 = f64::sqrt(param_e);
+        let t109 = rmath::sqrt(param_e);
         let t110 = t109 * t33;
         let t111 = t35 * t38;
         let t114 = param_e * param_mu;
@@ -192,7 +193,7 @@ pub fn mgga_x_tpss_lxc_unpol(
         let t151 = t133 * t133;
         let t152 = 1.0 / t151;
         let t153 = t35 * t23;
-        let t154 = f64::ln(t25);
+        let t154 = rmath::ln(t25);
         let t159 = -t26 * t153 * t154 / 8.0 - t30 * t21;
         let t160 = t159 * t43;
         let t163 = 1.0 / t42 / t41;

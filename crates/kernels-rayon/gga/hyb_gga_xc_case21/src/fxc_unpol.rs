@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::bspline::{case21_cbspline, case21_xbspline};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -96,7 +97,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t67 = t66 * t66;
         let t70 = t65 * t67 / t19;
         let t72 = 1.0 + 0.053425 * t70;
-        let t73 = f64::sqrt(t70);
+        let t73 = rmath::sqrt(t70);
         let t76 = pow_3_2(t70);
         let t78 = t64 * t64;
         let t79 = t53 * t78;
@@ -104,13 +105,13 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t82 = t79 * t66 * t80;
         let t84 = 3.79785 * t73 + 0.8969 * t70 + 0.204775 * t76 + 0.123235 * t82;
         let t87 = 1.0 + 16.081979498692537 / t84;
-        let t88 = f64::ln(t87);
+        let t88 = rmath::ln(t87);
         let t91 = piecewise3(t8, t15, 1.0);
         let t97 = (2.0 * t91 - 2.0) / (2.0 * t28 - 2.0);
         let t99 = 1.0 + 0.0278125 * t70;
         let t104 = 5.1785 * t73 + 0.905775 * t70 + 0.1100325 * t76 + 0.1241775 * t82;
         let t107 = 1.0 + 29.608749977793437 / t104;
-        let t108 = f64::ln(t107);
+        let t108 = rmath::ln(t107);
         let t112 = -0.0621814 * t72 * t88 + 0.0197516734986138 * t97 * t99 * t108;
         let t114 = -t54 * t59 * t57 / 48.0 + param_gammac * t112;
         let t115 = 1.0 / t114;
@@ -153,7 +154,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t185 = t184 * t174;
         let t186 = t183 * t185;
         let t188 = t65 * t175;
-        let t190 = f64::sqrt(t70);
+        let t190 = rmath::sqrt(t70);
         let t191 = t190 * t4;
         let t192 = t191 * t185;
         let t195 = 1.0 / t32 / rho[ip];
@@ -234,7 +235,7 @@ pub fn hyb_gga_xc_case21_fxc_unpol(
         let t368 = t184 * t57;
         let t369 = t183 * t368;
         let t371 = t65 * t345;
-        let t373 = 1.0/f64::sqrt(t70);
+        let t373 = 1.0/rmath::sqrt(t70);
         let t374 = t373 * t53;
         let t375 = t374 * t365;
         let t377 = t191 * t368;

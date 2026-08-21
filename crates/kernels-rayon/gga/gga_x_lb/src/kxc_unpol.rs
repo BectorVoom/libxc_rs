@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -34,7 +35,7 @@ pub fn gga_x_lb_kxc_unpol(
         let t4 = pow_1_3(1.0 / M_PI);
         let t5 = M_CBRT4;
         let t6 = t5 * t5;
-        let t10 = f64::sqrt(sigma[ip]);
+        let t10 = rmath::sqrt(sigma[ip]);
         let t11 = M_CBRT2;
         let t12 = t10 * t11;
         let t13 = pow_1_3(rho[ip]);
@@ -49,11 +50,11 @@ pub fn gga_x_lb_kxc_unpol(
         let t25 = param_beta * t10;
         let t26 = t11 * t15;
         let t28 = param_gamma * t10 * t26;
-        let t29 = f64::ln(t28 + f64::sqrt(t28 * t28 + 1.0));
+        let t29 = rmath::ln(t28 + rmath::sqrt(t28 * t28 + 1.0));
         let t30 = t26 * t29;
         let t33 = 3.0 * t25 * t30 + 1.0;
         let t34 = 1.0 / t33;
-        let t38 = f64::ln(2.0 * t28);
+        let t38 = rmath::ln(2.0 * t28);
         let t39 = 1.0 / t38;
         let t40 = t15 * t39;
         let t43 = piecewise3(t17, t18 * t24 * t34, t12 * t40 / 3.0);
@@ -70,7 +71,7 @@ pub fn gga_x_lb_kxc_unpol(
         let t61 = t11 * t59 * t29;
         let t64 = param_gamma * param_gamma;
         let t67 = t64 * sigma[ip] * t24 + 1.0;
-        let t68 = f64::sqrt(t67);
+        let t68 = rmath::sqrt(t67);
         let t69 = 1.0 / t68;
         let t70 = t49 * param_gamma * t69;
         let t73 = -4.0 * t25 * t61 - 4.0 * t54 * t70;

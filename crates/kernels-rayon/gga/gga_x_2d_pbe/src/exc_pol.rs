@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
@@ -24,7 +25,7 @@ pub fn gga_x_2d_pbe_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = f64::sqrt(M_PI);
+        let t2 = rmath::sqrt(M_PI);
         let t3 = 1.0 / t2;
         let t4 = rho0 + rho1;
         let t5 = 1.0 / t4;
@@ -36,14 +37,14 @@ pub fn gga_x_2d_pbe_exc_pol(
         let t16 = piecewise5(t8, t9, t12, t13, t14 * t5);
         let t17 = 1.0 + t16;
         let t18 = t17 <= zeta_threshold;
-        let t19 = f64::sqrt(zeta_threshold);
+        let t19 = rmath::sqrt(zeta_threshold);
         let t20 = t19 * zeta_threshold;
-        let t21 = f64::sqrt(t17);
+        let t21 = rmath::sqrt(t17);
         let t22 = t21 * t17;
         let t23 = piecewise3(t18, t20, t22);
         let t24 = t3 * t23;
         let t25 = M_SQRT2;
-        let t26 = f64::sqrt(t4);
+        let t26 = rmath::sqrt(t4);
         let t27 = t25 * t26;
         let t28 = rho0 * rho0;
         let t29 = t28 * rho0;
@@ -57,7 +58,7 @@ pub fn gga_x_2d_pbe_exc_pol(
         let t44 = piecewise5(t12, t9, t8, t13, t42 * t5);
         let t45 = 1.0 + t44;
         let t46 = t45 <= zeta_threshold;
-        let t47 = f64::sqrt(t45);
+        let t47 = rmath::sqrt(t45);
         let t48 = t47 * t45;
         let t49 = piecewise3(t46, t20, t48);
         let t50 = t3 * t49;

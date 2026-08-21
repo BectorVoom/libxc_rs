@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -87,7 +88,7 @@ pub fn mgga_k_pgslb_kxc_unpol(
         let t36 = 1.0 / t23 / t34;
         let t37 = t33 * t36;
         let t41 = param_pgslb_mu * t25 * t29;
-        let t44 = f64::exp(-t41 * t37 / 24.0);
+        let t44 = rmath::exp(-t41 * t37 / 24.0);
         let t45 = t25 * t25;
         let t46 = param_pgslb_beta * t45;
         let t48 = 1.0 / t27 / t26;

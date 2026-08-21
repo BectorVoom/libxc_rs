@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -33,12 +34,12 @@ pub fn lda_c_gk72_lxc_unpol(
         let t10 = t4 * t9;
         let t11 = t10 / 4.0;
         let t12 = t11 < 0.7;
-        let t13 = f64::ln(t11);
+        let t13 = rmath::ln(t11);
         let t20 = t11 < 10.0;
         let t23 = t1 * t1;
         let t25 = t23 / t3;
-        let t29 = f64::sqrt(4.0);
-        let t30 = f64::sqrt(t10);
+        let t29 = rmath::sqrt(4.0);
+        let t30 = rmath::sqrt(t10);
         let t35 = t3 * t3;
         let t37 = t1 / t35;
         let t38 = t7 * t7;
@@ -50,7 +51,7 @@ pub fn lda_c_gk72_lxc_unpol(
         let t52 = 1.0 / rho[ip];
         let t55 = 1.0 / t7 / rho[ip];
         let t56 = t6 * t55;
-        let t66 = f64::powf(4.0, 1.0 / 6.0);
+        let t66 = rmath::pow(4.0, 1.0 / 6.0);
         let t67 = t66 * t48;
         let t68 = t4 * t55;
         let t76 = 1.0 / t30 / t2 / t52 / 48.0;

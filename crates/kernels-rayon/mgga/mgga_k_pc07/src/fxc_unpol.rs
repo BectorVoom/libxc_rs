@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -95,7 +96,7 @@ pub fn mgga_k_pc07_fxc_unpol(
         let t79 = t78 * t78;
         let t80 = 1.0 / t79;
         let t82 = t77 * t80 + 1.0;
-        let t83 = f64::sqrt(t82);
+        let t83 = rmath::sqrt(t82);
         let t84 = 1.0 / t83;
         let t86 = t75 * t84 - t39;
         let t87 = param_a / 40.0;
@@ -108,15 +109,15 @@ pub fn mgga_k_pc07_fxc_unpol(
         let t94 = t93 < t89;
         let t95 = piecewise3(t94, t93, t89);
         let t96 = 1.0 / t95;
-        let t98 = f64::exp(-t91 * t96);
+        let t98 = rmath::exp(-t91 * t96);
         let t99 = param_a - t95;
-        let t102 = f64::exp(-param_a / t99);
+        let t102 = rmath::exp(-param_a / t99);
         let t103 = 1.0 + t102;
-        let t104 = f64::powf(t103, param_b);
+        let t104 = rmath::pow(t103, param_b);
         let t105 = t98 * t104;
-        let t107 = f64::exp(-param_a * t96);
+        let t107 = rmath::exp(-param_a * t96);
         let t108 = t107 + t102;
-        let t109 = f64::powf(t108, param_b);
+        let t109 = rmath::pow(t108, param_b);
         let t110 = 1.0 / t109;
         let t111 = t105 * t110;
         let t112 = piecewise5(t88, 0.0, t90, 1.0, t111);

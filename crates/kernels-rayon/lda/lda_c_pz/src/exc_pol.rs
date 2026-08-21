@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -48,13 +49,13 @@ pub fn lda_c_pz_exc_pol(
         let t13 = 1.0 <= t12;
         let t14 = param_gamma_0;
         let t15 = param_beta1_0;
-        let t16 = f64::sqrt(t11);
+        let t16 = rmath::sqrt(t11);
         let t20 = param_beta2_0 * t1;
         let t21 = t3 * t6;
         let t22 = t21 * t9;
         let t25 = 1.0 + t15 * t16 / 2.0 + t20 * t22 / 4.0;
         let t28 = param_a_0;
-        let t29 = f64::ln(t12);
+        let t29 = rmath::ln(t12);
         let t33 = param_c_0 * t1;
         let t34 = t33 * t3;
         let t35 = t10 * t29;

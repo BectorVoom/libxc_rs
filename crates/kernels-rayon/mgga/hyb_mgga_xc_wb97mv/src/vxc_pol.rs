@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
@@ -103,12 +103,12 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t68 = t56 * t56;
         let t69 = 1.0 / t68;
         let t72 = piecewise3(t45, 1.35, t43);
-        let t73 = f64::sqrt(M_PI);
+        let t73 = rmath::sqrt(M_PI);
         let t74 = 1.0 / t72;
-        let t76 = erf_approx(t74 / 2.0);
+        let t76 = rmath::erf(t74 / 2.0);
         let t78 = t72 * t72;
         let t79 = 1.0 / t78;
-        let t81 = f64::exp(-t79 / 4.0);
+        let t81 = rmath::exp(-t79 / 4.0);
         let t82 = t81 - 1.0;
         let t85 = t81 - 3.0 / 2.0 - 2.0 * t78 * t82;
         let t88 = 2.0 * t72 * t85 + t73 * t76;
@@ -168,10 +168,10 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t169 = 1.0 / t168;
         let t172 = piecewise3(t145, 1.35, t143);
         let t173 = 1.0 / t172;
-        let t175 = erf_approx(t173 / 2.0);
+        let t175 = rmath::erf(t173 / 2.0);
         let t177 = t172 * t172;
         let t178 = 1.0 / t177;
-        let t180 = f64::exp(-t178 / 4.0);
+        let t180 = rmath::exp(-t178 / 4.0);
         let t181 = t180 - 1.0;
         let t184 = t180 - 3.0 / 2.0 - 2.0 * t177 * t181;
         let t187 = 2.0 * t172 * t184 + t73 * t175;
@@ -203,7 +203,7 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t226 = piecewise3(t8, t223, 1.0 / t224);
         let t228 = t222 * t37 * t226;
         let t230 = 1.0 + 0.053425 * t228;
-        let t231 = f64::sqrt(t228);
+        let t231 = rmath::sqrt(t228);
         let t234 = pow_3_2(t228);
         let t236 = t10 * t10;
         let t237 = t236 * t32;
@@ -216,7 +216,7 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t245 = t238 * t242 * t243;
         let t247 = 3.79785 * t231 + 0.8969 * t228 + 0.204775 * t234 + 0.123235 * t245;
         let t250 = 1.0 + 16.081979498692537 / t247;
-        let t251 = f64::ln(t250);
+        let t251 = rmath::ln(t250);
         let t253 = 0.0621814 * t230 * t251;
         let t255 = piecewise3(0.0 <= zeta_threshold, t22, 0.0);
         let t259 = 1.0 / (2.0 * t17 - 2.0);
@@ -224,11 +224,11 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t262 = 1.0 + 0.05137 * t228;
         let t267 = 7.05945 * t231 + 1.549425 * t228 + 0.420775 * t234 + 0.1562925 * t245;
         let t270 = 1.0 + 32.16395899738507 / t267;
-        let t271 = f64::ln(t270);
+        let t271 = rmath::ln(t270);
         let t275 = 1.0 + 0.0278125 * t228;
         let t280 = 5.1785 * t231 + 0.905775 * t228 + 0.1100325 * t234 + 0.1241775 * t245;
         let t283 = 1.0 + 29.608749977793437 / t280;
-        let t284 = f64::ln(t283);
+        let t284 = rmath::ln(t283);
         let t285 = t275 * t284;
         let t291 = -t253 + t260 * (-0.0310907 * t262 * t271 + t253 - 0.0197516734986138 * t285) + 0.0197516734986138 * t260 * t285;
         let t294 = piecewise3(t9, 0.0, t220 * t291 / 2.0);
@@ -270,22 +270,22 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t341 = piecewise3(t133, t223, 1.0 / t339);
         let t343 = t222 * t37 * t341;
         let t345 = 1.0 + 0.053425 * t343;
-        let t346 = f64::sqrt(t343);
+        let t346 = rmath::sqrt(t343);
         let t349 = pow_3_2(t343);
         let t351 = t341 * t341;
         let t353 = t238 * t242 * t351;
         let t355 = 3.79785 * t346 + 0.8969 * t343 + 0.204775 * t349 + 0.123235 * t353;
         let t358 = 1.0 + 16.081979498692537 / t355;
-        let t359 = f64::ln(t358);
+        let t359 = rmath::ln(t358);
         let t361 = 0.0621814 * t345 * t359;
         let t363 = 1.0 + 0.05137 * t343;
         let t368 = 7.05945 * t346 + 1.549425 * t343 + 0.420775 * t349 + 0.1562925 * t353;
         let t371 = 1.0 + 32.16395899738507 / t368;
-        let t372 = f64::ln(t371);
+        let t372 = rmath::ln(t371);
         let t376 = 1.0 + 0.0278125 * t343;
         let t381 = 5.1785 * t346 + 0.905775 * t343 + 0.1100325 * t349 + 0.1241775 * t353;
         let t384 = 1.0 + 29.608749977793437 / t381;
-        let t385 = f64::ln(t384);
+        let t385 = rmath::ln(t384);
         let t386 = t376 * t385;
         let t392 = -t361 + t260 * (-0.0310907 * t363 * t372 + t361 - 0.0197516734986138 * t386) + 0.0197516734986138 * t260 * t386;
         let t395 = piecewise3(t134, 0.0, t338 * t392 / 2.0);
@@ -319,12 +319,12 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t433 = t395 * t432;
         let t435 = t221 * t15 * t36;
         let t437 = 1.0 + 0.053425 * t435;
-        let t438 = f64::sqrt(t435);
+        let t438 = rmath::sqrt(t435);
         let t441 = pow_3_2(t435);
         let t444 = t237 * t14 * t240;
         let t446 = 3.79785 * t438 + 0.8969 * t435 + 0.204775 * t441 + 0.123235 * t444;
         let t449 = 1.0 + 16.081979498692537 / t446;
-        let t450 = f64::ln(t449);
+        let t450 = rmath::ln(t449);
         let t452 = 0.0621814 * t437 * t450;
         let t453 = t3 * t3;
         let t454 = t453 * t453;
@@ -341,11 +341,11 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t466 = 1.0 + 0.05137 * t435;
         let t471 = 7.05945 * t438 + 1.549425 * t435 + 0.420775 * t441 + 0.1562925 * t444;
         let t474 = 1.0 + 32.16395899738507 / t471;
-        let t475 = f64::ln(t474);
+        let t475 = rmath::ln(t474);
         let t479 = 1.0 + 0.0278125 * t435;
         let t484 = 5.1785 * t438 + 0.905775 * t435 + 0.1100325 * t441 + 0.1241775 * t444;
         let t487 = 1.0 + 29.608749977793437 / t484;
-        let t488 = f64::ln(t487);
+        let t488 = rmath::ln(t487);
         let t489 = t479 * t488;
         let t491 = -0.0310907 * t466 * t475 + t452 - 0.0197516734986138 * t489;
         let t492 = t464 * t491;
@@ -503,7 +503,7 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t790 = -t789 + t780;
         let t791 = t788 * t790;
         let t793 = 0.29896666666666666 * t773;
-        let t795 = f64::sqrt(t228);
+        let t795 = rmath::sqrt(t228);
         let t796 = t795 * t790;
         let t799 = 1.0 / t239 / t4;
         let t800 = t799 * t241;
@@ -582,7 +582,7 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t941 = -t940 + t931;
         let t942 = t939 * t941;
         let t944 = 0.29896666666666666 * t924;
-        let t946 = f64::sqrt(t343);
+        let t946 = rmath::sqrt(t343);
         let t947 = t946 * t941;
         let t950 = t238 * t800 * t351;
         let t951 = 0.08215666666666667 * t950;
@@ -627,7 +627,7 @@ pub fn hyb_mgga_xc_wb97mv_vxc_pol(
         let t1023 = t16 * t566;
         let t1024 = t1022 * t1023;
         let t1026 = t221 * t1014;
-        let t1028 = f64::sqrt(t435);
+        let t1028 = rmath::sqrt(t435);
         let t1029 = t1028 * t10;
         let t1030 = t1029 * t1023;
         let t1033 = t237 * t14 * t799;

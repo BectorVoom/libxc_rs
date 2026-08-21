@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -54,7 +55,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t10 = t4 * t6 / t7;
         let t12 = 1.0 + 0.053425 * t10;
-        let t13 = f64::sqrt(t10);
+        let t13 = rmath::sqrt(t10);
         let t16 = pow_3_2(t10);
         let t18 = t1 * t1;
         let t19 = t3 * t3;
@@ -63,7 +64,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t24 = t20 * t5 / t21;
         let t26 = 3.79785 * t13 + 0.8969 * t10 + 0.204775 * t16 + 0.123235 * t24;
         let t29 = 1.0 + 16.081979498692537 / t26;
-        let t30 = f64::ln(t29);
+        let t30 = rmath::ln(t29);
         let t33 = 1.0 <= zeta_threshold;
         let t34 = pow_1_3(zeta_threshold);
         let t36 = piecewise3(t33, t34 * zeta_threshold, 1.0);
@@ -72,7 +73,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t45 = 1.0 + 0.0278125 * t10;
         let t50 = 5.1785 * t13 + 0.905775 * t10 + 0.1100325 * t16 + 0.1241775 * t24;
         let t53 = 1.0 + 29.608749977793437 / t50;
-        let t54 = f64::ln(t53);
+        let t54 = rmath::ln(t53);
         let t58 = -0.0621814 * t12 * t30 + 0.0197516734986138 * t43 * t45 * t54;
         let t60 = param_sogga11_a_1;
         let t61 = t34 * t34;
@@ -98,7 +99,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t87 = t81 * t81;
         let t89 = param_sogga11_a_5;
         let t93 = param_sogga11_b_1;
-        let t94 = f64::exp(t75);
+        let t94 = rmath::exp(t75);
         let t95 = 1.0 - t94;
         let t97 = param_sogga11_b_2;
         let t98 = t95 * t95;
@@ -120,7 +121,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t122 = t121 * t111;
         let t123 = t120 * t122;
         let t125 = t4 * t112;
-        let t127 = f64::sqrt(t10);
+        let t127 = rmath::sqrt(t10);
         let t128 = t127 * t1;
         let t129 = t128 * t122;
         let t134 = t20 * t5 / t21 / rho[ip];
@@ -202,7 +203,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t284 = t121 * t66;
         let t285 = t120 * t284;
         let t287 = t4 * t259;
-        let t289 = 1.0/f64::sqrt(t10);
+        let t289 = 1.0/rmath::sqrt(t10);
         let t290 = t289 * t18;
         let t291 = t290 * t281;
         let t293 = t128 * t284;
@@ -685,7 +686,7 @@ pub fn gga_c_sogga11_lxc_unpol(
         let t1702 = t120 * t1701;
         let t1704 = t6 * t369;
         let t1705 = t4 * t1704;
-        let t1707 = f64::powf(t10, -2.5);
+        let t1707 = rmath::pow(t10, -2.5);
         let t1710 = t1707 * t2 * t825 * t263;
         let t1712 = t730 * t1695;
         let t1714 = t290 * t1698;

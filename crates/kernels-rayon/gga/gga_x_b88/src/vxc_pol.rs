@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -60,10 +61,10 @@ pub fn gga_x_b88_vxc_pol(
         let t38 = t37 * t37;
         let t40 = 1.0 / t38 / t36;
         let t41 = param_gamma * param_beta;
-        let t42 = f64::sqrt(sigma0);
+        let t42 = rmath::sqrt(sigma0);
         let t44 = 1.0 / t37 / rho0;
         let t45 = t42 * t44;
-        let t46 = f64::ln(t45 + f64::sqrt(t45 * t45 + 1.0));
+        let t46 = rmath::ln(t45 + rmath::sqrt(t45 * t45 + 1.0));
         let t49 = t41 * t45 * t46 + 1.0;
         let t50 = 1.0 / t49;
         let t55 = 1.0 + 2.0 / 9.0 * t33 * t35 * t40 * t50;
@@ -81,10 +82,10 @@ pub fn gga_x_b88_vxc_pol(
         let t72 = pow_1_3(rho1);
         let t73 = t72 * t72;
         let t75 = 1.0 / t73 / t71;
-        let t76 = f64::sqrt(sigma2);
+        let t76 = rmath::sqrt(sigma2);
         let t78 = 1.0 / t72 / rho1;
         let t79 = t76 * t78;
-        let t80 = f64::ln(t79 + f64::sqrt(t79 * t79 + 1.0));
+        let t80 = rmath::ln(t79 + rmath::sqrt(t79 * t79 + 1.0));
         let t83 = t41 * t79 * t80 + 1.0;
         let t84 = 1.0 / t83;
         let t89 = 1.0 + 2.0 / 9.0 * t33 * t70 * t75 * t84;
@@ -111,7 +112,7 @@ pub fn gga_x_b88_vxc_pol(
         let t125 = 1.0 / t37 / t36;
         let t129 = sigma0 * t114;
         let t130 = t121 + 1.0;
-        let t131 = f64::sqrt(t130);
+        let t131 = rmath::sqrt(t130);
         let t132 = 1.0 / t131;
         let t136 = -4.0 / 3.0 * t41 * t42 * t125 * t46 - 4.0 / 3.0 * t41 * t129 * t132;
         let t137 = t123 * t136;
@@ -141,7 +142,7 @@ pub fn gga_x_b88_vxc_pol(
         let t196 = 1.0 / t72 / t71;
         let t200 = sigma2 * t187;
         let t201 = t192 + 1.0;
-        let t202 = f64::sqrt(t201);
+        let t202 = rmath::sqrt(t201);
         let t203 = 1.0 / t202;
         let t207 = -4.0 / 3.0 * t41 * t76 * t196 * t80 - 4.0 / 3.0 * t41 * t200 * t203;
         let t208 = t194 * t207;

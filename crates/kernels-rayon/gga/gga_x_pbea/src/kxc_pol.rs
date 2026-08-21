@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -57,7 +58,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t30 = t29 * t29;
         let t32 = 1.0 / t30 / t28;
         let t35 = 1.0 + 0.008639940809536326 * sigma0 * t32;
-        let t36 = f64::powf(t35, -0.52);
+        let t36 = rmath::pow(t35, -0.52);
         let t38 = 1.804 - 0.804 * t36;
         let t42 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t25 * t26 * t38);
         let t43 = rho1 <= dens_threshold;
@@ -72,7 +73,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t55 = t54 * t54;
         let t57 = 1.0 / t55 / t53;
         let t60 = 1.0 + 0.008639940809536326 * sigma2 * t57;
-        let t61 = f64::powf(t60, -0.52);
+        let t61 = rmath::pow(t60, -0.52);
         let t63 = 1.804 - 0.804 * t61;
         let t67 = piecewise3(t43, 0.0, -3.0 / 8.0 * t5 * t51 * t26 * t63);
         let tzk0 = t42 + t67;
@@ -87,7 +88,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t85 = t5 * t25 * t81 * t38 / 8.0;
         let t86 = t2 * t25;
         let t87 = t86 * t26;
-        let t88 = f64::powf(t35, -1.52);
+        let t88 = rmath::pow(t35, -1.52);
         let t89 = t88 * sigma0;
         let t90 = t28 * rho0;
         let t92 = 1.0 / t30 / t90;
@@ -107,7 +108,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t131 = piecewise3(t48, 0.0, 4.0 / 3.0 * t49 * t128);
         let t136 = t2 * t51;
         let t137 = t136 * t26;
-        let t138 = f64::powf(t60, -1.52);
+        let t138 = rmath::pow(t60, -1.52);
         let t139 = t138 * sigma2;
         let t140 = t53 * rho1;
         let t142 = 1.0 / t55 / t140;
@@ -142,7 +143,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t194 = t5 * t25 * t190 * t38 / 12.0;
         let t195 = t86 * t81;
         let t196 = t195 * t93;
-        let t198 = f64::powf(t35, -2.52);
+        let t198 = rmath::pow(t35, -2.52);
         let t199 = sigma0 * sigma0;
         let t200 = t198 * t199;
         let t201 = t28 * t28;
@@ -189,7 +190,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t326 = piecewise3(t48, 0.0, 4.0 / 9.0 * t216 * t317 + 4.0 / 3.0 * t49 * t322);
         let t332 = t2 * t131;
         let t333 = t332 * t26;
-        let t337 = f64::powf(t60, -2.52);
+        let t337 = rmath::pow(t60, -2.52);
         let t338 = sigma2 * sigma2;
         let t339 = t337 * t338;
         let t340 = t53 * t53;
@@ -273,7 +274,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t470 = t86 * t190;
         let t471 = t470 * t93;
         let t473 = t195 * t205;
-        let t475 = f64::powf(t35, -3.52);
+        let t475 = rmath::pow(t35, -3.52);
         let t476 = t199 * sigma0;
         let t477 = t475 * t476;
         let t478 = t446 * t90;
@@ -358,7 +359,7 @@ pub fn gga_x_pbea_kxc_pol(
         let t721 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t713 * t26 * t38 - 3.0 / 8.0 * t645 + t565 / 4.0 - t469);
         let t722 = t2 * t326;
         let t723 = t722 * t26;
-        let t728 = f64::powf(t60, -3.52);
+        let t728 = rmath::pow(t60, -3.52);
         let t729 = t338 * sigma2;
         let t730 = t728 * t729;
         let t731 = t340 * t340;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -58,11 +59,11 @@ pub fn gga_x_chachiyo_vxc_pol(
         let t41 = t2 * t2;
         let t42 = t41 * t3;
         let t43 = t30 * t30;
-        let t44 = f64::sqrt(sigma0);
+        let t44 = rmath::sqrt(sigma0);
         let t47 = 1.0 / t33 / rho0;
         let t49 = t42 * t43 * t44 * t47;
         let t51 = t49 / 27.0 + 1.0;
-        let t52 = f64::ln(t51);
+        let t52 = rmath::ln(t51);
         let t54 = 2.0 / 81.0 * t29 * t31 * t36 + t40 * t52;
         let t57 = t49 / 9.0 + t40;
         let t58 = 1.0 / t57;
@@ -83,11 +84,11 @@ pub fn gga_x_chachiyo_vxc_pol(
         let t77 = pow_1_3(rho1);
         let t78 = t77 * t77;
         let t80 = 1.0 / t78 / t76;
-        let t84 = f64::sqrt(sigma2);
+        let t84 = rmath::sqrt(sigma2);
         let t87 = 1.0 / t77 / rho1;
         let t89 = t42 * t43 * t84 * t87;
         let t91 = t89 / 27.0 + 1.0;
-        let t92 = f64::ln(t91);
+        let t92 = rmath::ln(t91);
         let t94 = 2.0 / 81.0 * t29 * t75 * t80 + t40 * t92;
         let t97 = t89 / 9.0 + t40;
         let t98 = 1.0 / t97;

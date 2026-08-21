@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -117,7 +118,7 @@ pub fn mgga_x_tm_kxc_pol(
         let t64 = t63 * rho0;
         let t66 = 1.0 / t51 / t64;
         let t70 = 1.0 + 0.1504548888888889 * t56 + 0.002689949046226295 * t61 * t62 * t66;
-        let t71 = f64::powf(t70, 1.0 / 5.0);
+        let t71 = rmath::pow(t70, 1.0 / 5.0);
         let t75 = 1.0 / t52 / rho0;
         let t76 = tau0 * t75;
         let t79 = 0.256337604 * t58 * t47;
@@ -133,7 +134,7 @@ pub fn mgga_x_tm_kxc_pol(
         let t109 = t106 * t35;
         let t110 = 1.0 - t35;
         let t113 = 1.0 + 5.0 / 12.0 * t95 * t96 * t54 + 292.0 / 405.0 * t107 - 146.0 / 135.0 * t109 * t110;
-        let t114 = f64::powf(t113, 1.0 / 10.0);
+        let t114 = rmath::pow(t113, 1.0 / 10.0);
         let t116 = t92 * t114 + t43 * t90;
         let t120 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t28 * t116);
         let t121 = rho1 <= dens_threshold;
@@ -168,7 +169,7 @@ pub fn mgga_x_tm_kxc_pol(
         let t156 = t155 * rho1;
         let t158 = 1.0 / t147 / t156;
         let t162 = 1.0 + 0.1504548888888889 * t152 + 0.002689949046226295 * t61 * t154 * t158;
-        let t163 = f64::powf(t162, 1.0 / 5.0);
+        let t163 = rmath::pow(t162, 1.0 / 5.0);
         let t167 = 1.0 / t148 / rho1;
         let t168 = tau1 * t167;
         let t175 = 1.0 + 0.06394332777777778 * t152 - 5.0 / 9.0 * (0.14554132 * t168 + t79 + 0.011867481666666667 * t151) * t44 * t48;
@@ -183,7 +184,7 @@ pub fn mgga_x_tm_kxc_pol(
         let t199 = t196 * t137;
         let t200 = 1.0 - t137;
         let t203 = 1.0 + 5.0 / 12.0 * t185 * t186 * t150 + 292.0 / 405.0 * t197 - 146.0 / 135.0 * t199 * t200;
-        let t204 = f64::powf(t203, 1.0 / 10.0);
+        let t204 = rmath::pow(t203, 1.0 / 10.0);
         let t206 = t145 * t180 + t182 * t204;
         let t210 = piecewise3(t121, 0.0, -3.0 / 8.0 * t6 * t130 * t206);
         let tzk0 = t120 + t210;

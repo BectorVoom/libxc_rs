@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -49,17 +50,17 @@ pub fn mgga_c_ltapw_vxc_pol(
         let t16 = t15 * t15;
         let t18 = t13 / t16;
         let t21 = 3.0 / 5.0 * param_ltafrac;
-        let t22 = f64::powf(5.0 / 9.0 * tau0 / t9 / rho0 * t18, t21);
+        let t22 = rmath::pow(5.0 / 9.0 * tau0 / t9 / rho0 * t18, t21);
         let t23 = rho0 * t22;
         let t24 = pow_1_3(rho1);
         let t25 = t24 * t24;
-        let t31 = f64::powf(5.0 / 9.0 * tau1 / t25 / rho1 * t18, t21);
+        let t31 = rmath::pow(5.0 / 9.0 * tau1 / t25 / rho1 * t18, t21);
         let t32 = rho1 * t31;
         let t33 = t23 + t32;
         let t34 = pow_1_3(t33);
         let t37 = t5 * t7 / t34;
         let t39 = 1.0 + 0.053425 * t37;
-        let t40 = f64::sqrt(t37);
+        let t40 = rmath::sqrt(t37);
         let t43 = pow_3_2(t37);
         let t45 = t2 * t2;
         let t46 = t4 * t4;
@@ -68,7 +69,7 @@ pub fn mgga_c_ltapw_vxc_pol(
         let t51 = t47 * t6 / t48;
         let t53 = 3.79785 * t40 + 0.8969 * t37 + 0.204775 * t43 + 0.123235 * t51;
         let t56 = 1.0 + 16.081824322151103 / t53;
-        let t57 = f64::ln(t56);
+        let t57 = rmath::ln(t56);
         let t59 = 0.062182 * t39 * t57;
         let t60 = t23 - t32;
         let t61 = t60 * t60;
@@ -96,11 +97,11 @@ pub fn mgga_c_ltapw_vxc_pol(
         let t88 = 1.0 + 0.05137 * t37;
         let t93 = 7.05945 * t40 + 1.549425 * t37 + 0.420775 * t43 + 0.1562925 * t51;
         let t96 = 1.0 + 32.1646831778707 / t93;
-        let t97 = f64::ln(t96);
+        let t97 = rmath::ln(t96);
         let t101 = 1.0 + 0.0278125 * t37;
         let t106 = 5.1785 * t40 + 0.905775 * t37 + 0.1100325 * t43 + 0.1241775 * t51;
         let t109 = 1.0 + 29.608574643216677 / t106;
-        let t110 = f64::ln(t109);
+        let t110 = rmath::ln(t109);
         let t111 = t101 * t110;
         let t113 = -0.03109 * t88 * t97 + t59 - 0.019751789702565206 * t111;
         let t114 = t86 * t113;
@@ -125,7 +126,7 @@ pub fn mgga_c_ltapw_vxc_pol(
         let t135 = t134 * t123;
         let t136 = t133 * t135;
         let t138 = t5 * t135;
-        let t140 = f64::sqrt(t37);
+        let t140 = rmath::sqrt(t37);
         let t141 = t140 * t2;
         let t142 = t141 * t4;
         let t143 = t142 * t135;

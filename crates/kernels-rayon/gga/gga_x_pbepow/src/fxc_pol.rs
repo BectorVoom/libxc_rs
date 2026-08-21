@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,7 +65,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t42 = 0.9146457198521546 * t40 + 0.804;
         let t43 = 1.0 / t42;
         let t45 = t33 * t39 * t43;
-        let t46 = f64::powf(t45, 100.0);
+        let t46 = rmath::pow(t45, 100.0);
         let t48 = 0.0001334414156799501 * t46 - 1.0;
         let t52 = 1.0 - 0.009146457198521547 * t33 * t39 * t48;
         let t56 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t52);
@@ -85,7 +86,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t75 = 0.9146457198521546 * t73 + 0.804;
         let t76 = 1.0 / t75;
         let t78 = t33 * t72 * t76;
-        let t79 = f64::powf(t78, 100.0);
+        let t79 = rmath::pow(t78, 100.0);
         let t81 = 0.0001334414156799501 * t79 - 1.0;
         let t85 = 1.0 - 0.009146457198521547 * t33 * t72 * t81;
         let t89 = piecewise3(t57, 0.0, -3.0 / 8.0 * t5 * t66 * t85);
@@ -105,7 +106,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t110 = 1.0 / t36 / t108;
         let t111 = sigma0 * t110;
         let t115 = t33 * sigma0;
-        let t116 = f64::powf(t45, 99.0);
+        let t116 = rmath::pow(t45, 99.0);
         let t117 = t38 * t116;
         let t121 = t28 * t28;
         let t123 = 1.0 / t30 / t29;
@@ -140,7 +141,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t186 = 1.0 / t69 / t184;
         let t187 = sigma2 * t186;
         let t191 = t33 * sigma2;
-        let t192 = f64::powf(t78, 99.0);
+        let t192 = rmath::pow(t78, 99.0);
         let t193 = t71 * t192;
         let t197 = sigma2 * sigma2;
         let t198 = t67 * t67;
@@ -191,7 +192,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t301 = sigma0 * t300;
         let t305 = t110 * t116;
         let t306 = t305 * t136;
-        let t309 = f64::powf(t45, 98.0);
+        let t309 = rmath::pow(t45, 98.0);
         let t310 = t38 * t309;
         let t311 = t136 * t136;
         let t312 = t310 * t311;
@@ -250,7 +251,7 @@ pub fn gga_x_pbepow_fxc_pol(
         let t465 = sigma2 * t464;
         let t469 = t186 * t192;
         let t470 = t469 * t208;
-        let t473 = f64::powf(t78, 98.0);
+        let t473 = rmath::pow(t78, 98.0);
         let t474 = t71 * t473;
         let t475 = t208 * t208;
         let t476 = t474 * t475;

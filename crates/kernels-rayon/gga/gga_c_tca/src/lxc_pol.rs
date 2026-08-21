@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,7 +65,7 @@ pub fn gga_c_tca_lxc_pol(
         let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
         let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
-        let t33 = f64::atan(t32);
+        let t33 = rmath::atan(t32);
         let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
         let t37 = t21 * t21;
@@ -79,12 +80,12 @@ pub fn gga_c_tca_lxc_pol(
         let t46 = t42 * t45;
         let t47 = M_CBRT2;
         let t49 = sigma0 + 2.0 * sigma1 + sigma2;
-        let t50 = f64::sqrt(t49);
+        let t50 = rmath::sqrt(t49);
         let t51 = t47 * t50;
         let t52 = t27 * t2;
         let t53 = 1.0 / t52;
         let t55 = t46 * t51 * t53;
-        let t56 = f64::powf(t55, 2.3);
+        let t56 = rmath::pow(t55, 2.3);
         let t58 = 1.0 + 0.004712150703442276 * t56;
         let t59 = 1.0 / t58;
         let t62 = t38 * t40 * t27 * t59;
@@ -114,7 +115,7 @@ pub fn gga_c_tca_lxc_pol(
         let t94 = t93 * t25;
         let t96 = t58 * t58;
         let t97 = 1.0 / t96;
-        let t98 = f64::powf(t55, 1.3);
+        let t98 = rmath::pow(t55, 1.3);
         let t99 = t97 * t98;
         let t100 = t99 * t42;
         let t101 = t45 * t47;
@@ -193,7 +194,7 @@ pub fn gga_c_tca_lxc_pol(
         let t211 = t210 * t20;
         let t213 = t211 * t35 * t94;
         let t215 = 1.0 / t96 / t58;
-        let t216 = f64::powf(t55, 2.6);
+        let t216 = rmath::pow(t55, 2.6);
         let t217 = t215 * t216;
         let t218 = t217 * t41;
         let t219 = t44 * t44;
@@ -203,7 +204,7 @@ pub fn gga_c_tca_lxc_pol(
         let t223 = t222 * t49;
         let t224 = t218 * t223;
         let t226 = 0.0008352788401267458 * t213 * t224;
-        let t227 = f64::powf(t55, 0.3);
+        let t227 = rmath::pow(t55, 0.3);
         let t228 = t97 * t227;
         let t229 = t228 * t41;
         let t230 = t229 * t223;
@@ -394,13 +395,13 @@ pub fn gga_c_tca_lxc_pol(
         let t515 = t65 * t39;
         let t516 = t514 * t515;
         let t517 = t25 * t215;
-        let t518 = f64::powf(t55, 1.6);
+        let t518 = rmath::pow(t55, 1.6);
         let t519 = 1.0 / t43;
         let t520 = t518 * t519;
         let t521 = t520 * t350;
         let t524 = 0.03474759974927263 * t516 * t517 * t521;
         let t525 = t25 * t97;
-        let t526 = f64::powf(t55, -0.7);
+        let t526 = rmath::pow(t55, -0.7);
         let t527 = t526 * t519;
         let t528 = t527 * t350;
         let t531 = 0.24045790896285704 * t516 * t525 * t528;
@@ -418,7 +419,7 @@ pub fn gga_c_tca_lxc_pol(
         let t556 = t514 * t65;
         let t557 = t96 * t96;
         let t558 = 1.0 / t557;
-        let t559 = f64::powf(t55, 3.9);
+        let t559 = rmath::pow(t55, 3.9);
         let t560 = t558 * t559;
         let t562 = t40 * t560 * t350;
         let t564 = 4.402708977978636e-05 * t556 * t562;
@@ -827,11 +828,11 @@ pub fn gga_c_tca_lxc_pol(
         let t1349 = 0.331633822073741 * t485 * t346 * t1344;
         let t1350 = t414 * t414;
         let t1354 = 1.0 / t1350 * t20 * t35 * t94;
-        let t1355 = f64::powf(t55, 0.6);
+        let t1355 = rmath::pow(t55, 0.6);
         let t1356 = t215 * t1355;
         let t1359 = t1067 * t42 * t101;
         let t1362 = 0.07412821279844826 * t1354 * t1356 * t519 * t1359;
-        let t1363 = f64::powf(t55, -1.7);
+        let t1363 = rmath::pow(t55, -1.7);
         let t1368 = 0.22442738169866658 * t1354 * t97 * t1363 * t519 * t1359;
         let t1372 = t38 * t40 / t27 / t511;
         let t1374 = 0.01067300740161953 * t1372 * t224;
@@ -841,11 +842,11 @@ pub fn gga_c_tca_lxc_pol(
         let t1386 = t383 * t25;
         let t1392 = 0.022513096649138715 * t485 * t1386 * t1215 * t98 * t42 * t102;
         let t1394 = 1.0 / t557 / t58;
-        let t1395 = f64::powf(t55, 5.2);
+        let t1395 = rmath::pow(t55, 5.2);
         let t1396 = t1394 * t1395;
         let t1398 = t46 * t47;
         let t1401 = 2.544870660136395e-06 * t1354 * t1396 * t1067 * t1398;
-        let t1402 = f64::powf(t55, 2.9);
+        let t1402 = rmath::pow(t55, 2.9);
         let t1403 = t558 * t1402;
         let t1407 = 0.00045788173370977814 * t1354 * t1403 * t1067 * t1398;
         let t1411 = 0.004459512718080236 * t1354 * t1356 * t1067 * t1398;

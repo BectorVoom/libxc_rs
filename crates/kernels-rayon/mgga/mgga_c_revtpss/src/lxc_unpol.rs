@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -153,7 +154,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t81 = 1.0 / t20;
         let t83 = t78 * t80 * t81;
         let t85 = 1.0 + 0.053425 * t83;
-        let t86 = f64::sqrt(t83);
+        let t86 = rmath::sqrt(t83);
         let t89 = pow_3_2(t83);
         let t91 = t41 * t41;
         let t92 = t77 * t77;
@@ -162,7 +163,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t96 = t93 * t79 * t94;
         let t98 = 3.79785 * t86 + 0.8969 * t83 + 0.204775 * t89 + 0.123235 * t96;
         let t101 = 1.0 + 16.081979498692537 / t98;
-        let t102 = f64::ln(t101);
+        let t102 = rmath::ln(t101);
         let t103 = t85 * t102;
         let t105 = t14 * t14;
         let t106 = t24 <= zeta_threshold;
@@ -177,17 +178,17 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t118 = 1.0 + 0.05137 * t83;
         let t123 = 7.05945 * t86 + 1.549425 * t83 + 0.420775 * t89 + 0.1562925 * t96;
         let t126 = 1.0 + 32.16395899738507 / t123;
-        let t127 = f64::ln(t126);
+        let t127 = rmath::ln(t126);
         let t130 = 0.0621814 * t103;
         let t132 = 1.0 + 0.0278125 * t83;
         let t137 = 5.1785 * t86 + 0.905775 * t83 + 0.1100325 * t89 + 0.1241775 * t96;
         let t140 = 1.0 + 29.608749977793437 / t137;
-        let t141 = f64::ln(t140);
+        let t141 = rmath::ln(t140);
         let t142 = t132 * t141;
         let t146 = t113 * t116 * (-0.0310907 * t118 * t127 + t130 - 0.0197516734986138 * t142);
         let t148 = t112 * t116;
         let t149 = t148 * t142;
-        let t151 = f64::ln(2.0);
+        let t151 = rmath::ln(2.0);
         let t152 = 1.0 - t151;
         let t153 = 1.0 / t42;
         let t154 = t152 * t153;
@@ -214,7 +215,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t182 = 0.0197516734986138 * t149;
         let t185 = 1.0 / t163;
         let t186 = t42 * t185;
-        let t188 = f64::exp(-(-t130 + t146 + t182) * t181 * t186);
+        let t188 = rmath::exp(-(-t130 + t146 + t182) * t181 * t186);
         let t189 = t188 - 1.0;
         let t190 = 1.0 / t189;
         let t191 = t181 * t190;
@@ -238,7 +239,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t214 = 1.0 / t213;
         let t215 = t209 * t214;
         let t218 = 1.0 + 0.6585449182935511 * t169 * t215;
-        let t219 = f64::ln(t218);
+        let t219 = rmath::ln(t218);
         let t221 = t154 * t163 * t219;
         let t223 = -0.0310907 * t103 + t146 / 2.0 + 0.0098758367493069 * t149 + t221 / 2.0;
         let t224 = -t130 + t146 + t182 + t221;
@@ -248,7 +249,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t228 = pow_1_3(t227);
         let t230 = t225 * t226 * t228;
         let t232 = 1.0 + 0.053425 * t230;
-        let t233 = f64::sqrt(t230);
+        let t233 = rmath::sqrt(t230);
         let t236 = pow_3_2(t230);
         let t238 = t93 * t79;
         let t239 = t94 * t17;
@@ -256,7 +257,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t242 = t238 * t239 * t240;
         let t244 = 3.79785 * t233 + 0.8969 * t230 + 0.204775 * t236 + 0.123235 * t242;
         let t247 = 1.0 + 16.081979498692537 / t244;
-        let t248 = f64::ln(t247);
+        let t248 = rmath::ln(t247);
         let t250 = 0.0621814 * t232 * t248;
         let t251 = 2.0 <= zeta_threshold;
         let t253 = piecewise3(t251, t108, 2.0 * t16);
@@ -266,11 +267,11 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t259 = 1.0 + 0.05137 * t230;
         let t264 = 7.05945 * t233 + 1.549425 * t230 + 0.420775 * t236 + 0.1562925 * t242;
         let t267 = 1.0 + 32.16395899738507 / t264;
-        let t268 = f64::ln(t267);
+        let t268 = rmath::ln(t267);
         let t272 = 1.0 + 0.0278125 * t230;
         let t277 = 5.1785 * t233 + 0.905775 * t230 + 0.1100325 * t236 + 0.1241775 * t242;
         let t280 = 1.0 + 29.608749977793437 / t277;
-        let t281 = f64::ln(t280);
+        let t281 = rmath::ln(t280);
         let t282 = t272 * t281;
         let t285 = t257 * (-0.0310907 * t259 * t268 + t250 - 0.0197516734986138 * t282);
         let t287 = 0.0197516734986138 * t257 * t282;
@@ -292,7 +293,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t308 = t299 * t181;
         let t311 = 1.0 / t293;
         let t312 = t42 * t311;
-        let t314 = f64::exp(-(-t250 + t285 + t287) * t181 * t312);
+        let t314 = rmath::exp(-(-t250 + t285 + t287) * t181 * t312);
         let t315 = t314 - 1.0;
         let t316 = 1.0 / t315;
         let t317 = t316 * t192;
@@ -311,7 +312,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t337 = 1.0 / t336;
         let t338 = t331 * t337;
         let t341 = 1.0 + 0.6585449182935511 * t299 * t338;
-        let t342 = f64::ln(t341);
+        let t342 = rmath::ln(t341);
         let t345 = t154 * t293 * t342 - t250 + t285 + t287;
         let t346 = t224 < t345;
         let t347 = piecewise3(t346, t345, t224);
@@ -320,22 +321,22 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t352 = pow_1_3(t351);
         let t354 = t225 * t226 * t352;
         let t356 = 1.0 + 0.053425 * t354;
-        let t357 = f64::sqrt(t354);
+        let t357 = rmath::sqrt(t354);
         let t360 = pow_3_2(t354);
         let t362 = t352 * t352;
         let t364 = t238 * t239 * t362;
         let t366 = 3.79785 * t357 + 0.8969 * t354 + 0.204775 * t360 + 0.123235 * t364;
         let t369 = 1.0 + 16.081979498692537 / t366;
-        let t370 = f64::ln(t369);
+        let t370 = rmath::ln(t369);
         let t372 = 0.0621814 * t356 * t370;
         let t374 = 1.0 + 0.05137 * t354;
         let t379 = 7.05945 * t357 + 1.549425 * t354 + 0.420775 * t360 + 0.1562925 * t364;
         let t382 = 1.0 + 32.16395899738507 / t379;
-        let t383 = f64::ln(t382);
+        let t383 = rmath::ln(t382);
         let t387 = 1.0 + 0.0278125 * t354;
         let t392 = 5.1785 * t357 + 0.905775 * t354 + 0.1100325 * t360 + 0.1241775 * t364;
         let t395 = 1.0 + 29.608749977793437 / t392;
-        let t396 = f64::ln(t395);
+        let t396 = rmath::ln(t395);
         let t397 = t387 * t396;
         let t400 = t257 * (-0.0310907 * t374 * t383 + t372 - 0.0197516734986138 * t397);
         let t402 = 0.0197516734986138 * t257 * t397;
@@ -347,7 +348,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t410 = t17 * t409;
         let t411 = t177 * t410;
         let t414 = t408 * t181;
-        let t418 = f64::exp(-(-t372 + t400 + t402) * t181 * t312);
+        let t418 = rmath::exp(-(-t372 + t400 + t402) * t181 * t312);
         let t419 = t418 - 1.0;
         let t420 = 1.0 / t419;
         let t421 = t420 * t192;
@@ -361,7 +362,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t436 = 1.0 / t435;
         let t437 = t430 * t436;
         let t440 = 1.0 + 0.6585449182935511 * t408 * t437;
-        let t441 = f64::ln(t440);
+        let t441 = rmath::ln(t440);
         let t444 = t154 * t293 * t441 - t372 + t400 + t402;
         let t445 = t224 < t444;
         let t446 = piecewise3(t445, t444, t224);
@@ -378,7 +379,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t465 = t463 * t91 * t177;
         let t470 = 1.0 / t462;
         let t471 = t42 * t470;
-        let t473 = f64::exp(-(-t130 + t459) * t181 * t471);
+        let t473 = rmath::exp(-(-t130 + t459) * t181 * t471);
         let t474 = t473 - 1.0;
         let t475 = 1.0 / t474;
         let t476 = t181 * t475;
@@ -395,7 +396,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t491 = 1.0 / t490;
         let t492 = t486 * t491;
         let t495 = 1.0 + 0.6585449182935511 * t169 * t492;
-        let t496 = f64::ln(t495);
+        let t496 = rmath::ln(t495);
         let t499 = t154 * t462 * t496 - t130 + t459;
         let t501 = -t72 * t450 + t453 * t499;
         let t502 = param_d * t501;
@@ -427,7 +428,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t549 = t548 * t538;
         let t550 = t547 * t549;
         let t552 = t78 * t539;
-        let t554 = f64::sqrt(t83);
+        let t554 = rmath::sqrt(t83);
         let t555 = t554 * t41;
         let t556 = t555 * t549;
         let t559 = 1.0 / t21 / rho[ip];
@@ -539,7 +540,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t733 = t730 * t732;
         let t735 = t720 * t228;
         let t736 = t225 * t735;
-        let t738 = f64::sqrt(t230);
+        let t738 = rmath::sqrt(t230);
         let t740 = t738 * t41 * t77;
         let t741 = t740 * t732;
         let t743 = t559 * t17;
@@ -630,7 +631,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t902 = t899 * t901;
         let t904 = t720 * t352;
         let t905 = t225 * t904;
-        let t907 = f64::sqrt(t354);
+        let t907 = rmath::sqrt(t354);
         let t909 = t907 * t41 * t77;
         let t910 = t909 * t901;
         let t913 = t238 * t743 * t362;
@@ -878,7 +879,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t1384 = t548 * t171;
         let t1385 = t547 * t1384;
         let t1387 = t78 * t1362;
-        let t1389 = 1.0/f64::sqrt(t83);
+        let t1389 = 1.0/rmath::sqrt(t83);
         let t1390 = t1389 * t91;
         let t1391 = t1390 * t1381;
         let t1393 = t555 * t1384;
@@ -1095,7 +1096,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t1783 = t730 * t1782;
         let t1785 = t1165 * t228;
         let t1786 = t225 * t1785;
-        let t1788 = 1.0/f64::sqrt(t230);
+        let t1788 = 1.0/rmath::sqrt(t230);
         let t1790 = t1788 * t91 * t92;
         let t1791 = t1790 * t1779;
         let t1793 = t740 * t1782;
@@ -1277,7 +1278,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t2151 = t899 * t2150;
         let t2153 = t1165 * t352;
         let t2154 = t225 * t2153;
-        let t2156 = 1.0/f64::sqrt(t354);
+        let t2156 = 1.0/rmath::sqrt(t354);
         let t2158 = t2156 * t91 * t92;
         let t2159 = t2158 * t2147;
         let t2161 = t909 * t2150;
@@ -4214,7 +4215,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t9213 = t548 * t1537;
         let t9214 = t547 * t9213;
         let t9216 = t78 * t9108;
-        let t9218 = f64::powf(t83, -2.5);
+        let t9218 = rmath::pow(t83, -2.5);
         let t9221 = t9218 * t76 * t3981 * t225;
         let t9223 = t3486 * t9054;
         let t9225 = t1390 * t9210;
@@ -4727,7 +4728,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t12679 = t1777 * t12678;
         let t12681 = t9108 * t731;
         let t12682 = t730 * t12681;
-        let t12685 = f64::powf(t230, -2.5);
+        let t12685 = rmath::pow(t230, -2.5);
         let t12688 = t12685 * t76 * t12670 * t12672;
         let t12690 = t4328 * t12675;
         let t12692 = t1790 * t12678;
@@ -4998,7 +4999,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
         let t14510 = t9108 * t900;
         let t14511 = t899 * t14510;
         let t14514 = t225 * t6580 * t352;
-        let t14516 = f64::powf(t354, -2.5);
+        let t14516 = rmath::pow(t354, -2.5);
         let t14519 = t14516 * t76 * t14500 * t14502;
         let t14521 = t5139 * t14158;
         let t14523 = t2158 * t14507;

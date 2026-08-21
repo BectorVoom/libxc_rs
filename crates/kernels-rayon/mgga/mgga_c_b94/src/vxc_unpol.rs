@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -52,7 +53,7 @@ pub fn mgga_c_b94_vxc_unpol(
         let t28 = param_gamma * sigma[ip];
         let t29 = rho[ip] * rho[ip];
         let t31 = 1.0 / t20 / t29;
-        let t35 = f64::abs(lapl[ip] * t22 / 2.0 - 2.0 * t25 * t22 + t28 * t31 / 4.0);
+        let t35 = rmath::abs(lapl[ip] * t22 / 2.0 - 2.0 * t25 * t22 + t28 * t31 / 4.0);
         let t38 = t18 * t35 / 3.0 < 5e-13;
         let t39 = lapl[ip] * t18;
         let t42 = t18 * t22;
@@ -62,9 +63,9 @@ pub fn mgga_c_b94_vxc_unpol(
         let t50 = piecewise3(t49, 5e-13, -5e-13);
         let t51 = piecewise3(t38, t50, t48);
         let t52 = xc_mgga_x_br89_get_x(t51);
-        let t54 = f64::exp(t52 / 3.0);
+        let t54 = rmath::exp(t52 / 3.0);
         let t55 = 1.0 / t54;
-        let t56 = f64::exp(-t52);
+        let t56 = rmath::exp(-t52);
         let t58 = 1.0 + t52 / 2.0;
         let t59 = t56 * t58;
         let t60 = 1.0 - t59;
@@ -75,7 +76,7 @@ pub fn mgga_c_b94_vxc_unpol(
         let t67 = param_cab * t66;
         let t68 = 2.0 * t67;
         let t69 = 1.0 + t68;
-        let t70 = f64::ln(t69);
+        let t70 = rmath::ln(t69);
         let t71 = t68 - t70;
         let t74 = 0.4 * t2 * t66 * t71;
         let t75 = t10 * t10;
@@ -107,7 +108,7 @@ pub fn mgga_c_b94_vxc_unpol(
         let t106 = t16 * t55;
         let t107 = t61 * t52;
         let t111 = 1.0 + t105 * t106 * t107 / 2.0;
-        let t112 = f64::ln(t111);
+        let t112 = rmath::ln(t111);
         let t113 = 1.0 / param_css;
         let t114 = t112 * t113;
         let t115 = t18 * t12;
@@ -138,7 +139,7 @@ pub fn mgga_c_b94_vxc_unpol(
         let t154 = t51 * t51;
         let t155 = 1.0 / t154;
         let t156 = t153 * t155;
-        let t158 = f64::exp(-2.0 / 3.0 * t52);
+        let t158 = rmath::exp(-2.0 / 3.0 * t52);
         let t159 = 1.0 / t158;
         let t161 = t101 - 2.0 * t52 + 3.0;
         let t162 = 1.0 / t161;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::br89::{xc_mgga_x_br89_get_x};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -61,7 +62,7 @@ pub fn mgga_x_br89_fxc_unpol(
         let t33 = param_gamma * sigma[ip];
         let t34 = rho[ip] * rho[ip];
         let t36 = 1.0 / t25 / t34;
-        let t40 = f64::abs(lapl[ip] * t27 / 2.0 - 2.0 * t30 * t27 + t33 * t36 / 4.0);
+        let t40 = rmath::abs(lapl[ip] * t27 / 2.0 - 2.0 * t30 * t27 + t33 * t36 / 4.0);
         let t43 = t24 * t40 / 3.0 < 5e-13;
         let t44 = lapl[ip] * t24;
         let t47 = t24 * t27;
@@ -71,8 +72,8 @@ pub fn mgga_x_br89_fxc_unpol(
         let t55 = piecewise3(t54, 5e-13, -5e-13);
         let t56 = piecewise3(t43, t55, t53);
         let t57 = xc_mgga_x_br89_get_x(t56);
-        let t59 = f64::exp(t57 / 3.0);
-        let t60 = f64::exp(-t57);
+        let t59 = rmath::exp(t57 / 3.0);
+        let t60 = rmath::exp(-t57);
         let t62 = 1.0 + t57 / 2.0;
         let t63 = t60 * t62;
         let t64 = 1.0 - t63;
@@ -120,7 +121,7 @@ pub fn mgga_x_br89_fxc_unpol(
         let t125 = t122 * t124;
         let t126 = t109 * t125;
         let t127 = t106 * t126;
-        let t129 = f64::exp(-2.0 / 3.0 * t57);
+        let t129 = rmath::exp(-2.0 / 3.0 * t57);
         let t130 = 1.0 / t129;
         let t131 = t57 * t57;
         let t133 = t131 - 2.0 * t57 + 3.0;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -84,12 +85,12 @@ pub fn lda_x_yukawa_kxc_pol(
         let t90 = 1.0 / t83 / t41;
         let t92 = 1.0 / t38 / 9.0 - t42 / 30.0 + t45 / 70.0 - t48 / 135.0 + t51 / 231.0 - t54 / 364.0 + t57 / 540.0 - t60 / 765.0 + t63 / 1045.0 - t66 / 1386.0 + t69 / 1794.0 - t72 / 2275.0 + t75 / 2835.0 - t78 / 3480.0 + t81 / 4216.0 - t84 / 5049.0 + t87 / 5985.0 - t90 / 7030.0;
         let t93 = piecewise3(t36, 1.92, t34);
-        let t94 = f64::atan2(1.0, t93);
+        let t94 = rmath::atan2(1.0, t93);
         let t95 = t93 * t93;
         let t96 = t95 + 3.0;
         let t97 = 1.0 / t95;
         let t98 = 1.0 + t97;
-        let t99 = f64::ln(t98);
+        let t99 = rmath::ln(t98);
         let t101 = -t99 * t96 + 1.0;
         let t104 = t94 + t101 * t93 / 4.0;
         let t108 = piecewise3(t35, t92, 1.0 - 8.0 / 3.0 * t104 * t93);
@@ -134,12 +135,12 @@ pub fn lda_x_yukawa_kxc_pol(
         let t178 = 1.0 / t171 / t129;
         let t180 = 1.0 / t126 / 9.0 - t130 / 30.0 + t133 / 70.0 - t136 / 135.0 + t139 / 231.0 - t142 / 364.0 + t145 / 540.0 - t148 / 765.0 + t151 / 1045.0 - t154 / 1386.0 + t157 / 1794.0 - t160 / 2275.0 + t163 / 2835.0 - t166 / 3480.0 + t169 / 4216.0 - t172 / 5049.0 + t175 / 5985.0 - t178 / 7030.0;
         let t181 = piecewise3(t124, 1.92, t122);
-        let t182 = f64::atan2(1.0, t181);
+        let t182 = rmath::atan2(1.0, t181);
         let t183 = t181 * t181;
         let t184 = t183 + 3.0;
         let t185 = 1.0 / t183;
         let t186 = 1.0 + t185;
-        let t187 = f64::ln(t186);
+        let t187 = rmath::ln(t186);
         let t189 = -t187 * t184 + 1.0;
         let t192 = t182 + t189 * t181 / 4.0;
         let t196 = piecewise3(t123, t180, 1.0 - 8.0 / 3.0 * t192 * t181);

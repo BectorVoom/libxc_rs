@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -55,7 +56,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t8 = pow_1_3(t7);
         let t11 = t4 * t6 / t8;
         let t13 = 1.0 + 0.053425 * t11;
-        let t14 = f64::sqrt(t11);
+        let t14 = rmath::sqrt(t11);
         let t17 = pow_3_2(t11);
         let t19 = t1 * t1;
         let t20 = t3 * t3;
@@ -64,7 +65,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t25 = t21 * t5 / t22;
         let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
         let t30 = 1.0 + 16.081979498692537 / t27;
-        let t31 = f64::ln(t30);
+        let t31 = rmath::ln(t30);
         let t33 = 0.0621814 * t13 * t31;
         let t34 = rho0 - rho1;
         let t35 = t34 * t34;
@@ -94,11 +95,11 @@ pub fn gga_c_sogga11_kxc_pol(
         let t62 = 1.0 + 0.05137 * t11;
         let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
         let t70 = 1.0 + 32.16395899738507 / t67;
-        let t71 = f64::ln(t70);
+        let t71 = rmath::ln(t70);
         let t75 = 1.0 + 0.0278125 * t11;
         let t80 = 5.1785 * t14 + 0.905775 * t11 + 0.1100325 * t17 + 0.1241775 * t25;
         let t83 = 1.0 + 29.608749977793437 / t80;
-        let t84 = f64::ln(t83);
+        let t84 = rmath::ln(t83);
         let t85 = t75 * t84;
         let t87 = -0.0310907 * t62 * t71 + t33 - 0.0197516734986138 * t85;
         let t88 = t60 * t87;
@@ -131,7 +132,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t127 = t121 * t121;
         let t129 = param_sogga11_a_5;
         let t133 = param_sogga11_b_1;
-        let t134 = f64::exp(t115);
+        let t134 = rmath::exp(t115);
         let t135 = 1.0 - t134;
         let t137 = param_sogga11_b_2;
         let t138 = t135 * t135;
@@ -154,7 +155,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t162 = t161 * t151;
         let t163 = t160 * t162;
         let t165 = t4 * t152;
-        let t167 = f64::sqrt(t11);
+        let t167 = rmath::sqrt(t11);
         let t168 = t167 * t1;
         let t169 = t168 * t162;
         let t174 = t21 * t5 / t22 / t7;
@@ -318,7 +319,7 @@ pub fn gga_c_sogga11_kxc_pol(
         let t454 = t160 * t453;
         let t456 = t6 * t106;
         let t457 = t4 * t456;
-        let t459 = 1.0/f64::sqrt(t11);
+        let t459 = 1.0/rmath::sqrt(t11);
         let t460 = t459 * t19;
         let t461 = t460 * t450;
         let t463 = t168 * t453;

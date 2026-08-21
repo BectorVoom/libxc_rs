@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -49,12 +50,12 @@ pub fn gga_c_chachiyo_vxc_pol(
         let t19 = t10 * t10;
         let t20 = t18 * t19;
         let t23 = 1.0 + t3 * t11 / 3.0 + t14 * t20 / 3.0;
-        let t24 = f64::ln(t23);
+        let t24 = rmath::ln(t23);
         let t25 = param_ap * t24;
         let t26 = param_bf * t2;
         let t29 = param_cf * t1;
         let t32 = 1.0 + t26 * t11 / 3.0 + t29 * t20 / 3.0;
-        let t33 = f64::ln(t32);
+        let t33 = rmath::ln(t32);
         let t35 = param_af * t33 - t25;
         let t36 = rho0 - rho1;
         let t37 = 1.0 / t9;
@@ -83,7 +84,7 @@ pub fn gga_c_chachiyo_vxc_pol(
         let t69 = 1.0 + t60 * t63 * t65 / 48.0;
         let t70 = 1.0 / t58;
         let t71 = param_h * t70;
-        let t72 = f64::powf(t69, t71);
+        let t72 = rmath::pow(t69, t71);
         let tzk0 = t58 * t72;
         zk[ip] += tzk0;
         let t74 = t8 / t19;
@@ -111,7 +112,7 @@ pub fn gga_c_chachiyo_vxc_pol(
         let t116 = t58 * t58;
         let t117 = 1.0 / t116;
         let t118 = param_h * t117;
-        let t119 = f64::ln(t69);
+        let t119 = rmath::ln(t69);
         let t120 = t112 * t119;
         let t122 = t71 * t2;
         let t123 = t61 * t9;

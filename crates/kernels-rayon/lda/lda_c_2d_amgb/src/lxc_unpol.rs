@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_3_2};
@@ -22,23 +23,23 @@ pub fn lda_c_2d_amgb_lxc_unpol(
     zeta_threshold: f64,
 ) {
     for ip in 0..zk.len() {
-        let t1 = f64::sqrt(rho[ip]);
+        let t1 = rmath::sqrt(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = 1.0 / rho[ip];
         let t7 = 1.0 / t1 / rho[ip];
         let t9 = 0.04869723403850762 * t2 + 0.018219548589342285 * t4 + 0.000603947002028882 * t7;
-        let t11 = f64::sqrt(M_PI);
+        let t11 = rmath::sqrt(M_PI);
         let t12 = 1.0 / t11;
         let t13 = t12 * t2;
         let t14 = pow_3_2(t13);
         let t18 = 0.5654308006315614 * t2 - 0.02069 * t14 + 0.10821581200590331 * t4 + 0.00313738702352666 * t7;
         let t20 = 1.0 + 1.0 / t18;
-        let t21 = f64::ln(t20);
+        let t21 = rmath::ln(t20);
         let t22 = t9 * t21;
-        let t24 = f64::exp(-0.7552241765370266 * t2);
+        let t24 = rmath::exp(-0.7552241765370266 * t2);
         let t26 = M_SQRT2;
         let t27 = (t24 - 1.0) * t26;
-        let t30 = f64::sqrt(zeta_threshold);
+        let t30 = rmath::sqrt(zeta_threshold);
         let t32 = piecewise3(1.0 <= zeta_threshold, t30 * zeta_threshold, 1.0);
         let t33 = t32 - 1.0;
         let t36 = 4.0 / 3.0 * t27 * t12 * t1 * t33;
@@ -52,7 +53,7 @@ pub fn lda_c_2d_amgb_lxc_unpol(
         let t46 = t18 * t18;
         let t47 = 1.0 / t46;
         let t48 = t9 * t47;
-        let t50 = f64::sqrt(t13);
+        let t50 = rmath::sqrt(t13);
         let t51 = t50 * t12;
         let t56 = -0.2827154003157807 * t7 + 0.0155175 * t51 * t7 - 0.10821581200590331 * t39 - 0.00470608053528999 * t42;
         let t57 = 1.0 / t20;
@@ -76,7 +77,7 @@ pub fn lda_c_2d_amgb_lxc_unpol(
         let t88 = t56 * t56;
         let t89 = t88 * t57;
         let t90 = t87 * t89;
-        let t93 = 1.0/f64::sqrt(t13);
+        let t93 = 1.0/rmath::sqrt(t13);
         let t95 = t93 / M_PI;
         let t102 = 0.424073100473671 * t42 - 0.003879375 * t95 * t75 - 0.02327625 * t51 * t42 + 0.21643162401180663 * t75 + 0.011765201338224974 * t78;
         let t103 = t102 * t57;
@@ -136,7 +137,7 @@ pub fn lda_c_2d_amgb_lxc_unpol(
         let t253 = t88 * t88;
         let t257 = t102 * t102;
         let t264 = 24.0 * t143 * t155 - 12.0 * t148 * t181 - 36.0 * t107 * t89 * t102 + 8.0 * t87 * t58 * t177 + 36.0 * t160 * t110 * t102 - 4.0 * t107 * t177 * t109 * t56 - 12.0 * t186 * t102 * t188 * t88 + 5.0 / 4.0 * t27 * t12 * t78 * t33 + 0.5326120170570278 * t199 + 12.0 * t80 * t86 * t89 - 24.0 * t148 * t152 + 24.0 * t160 * t253 * t57 + 6.0 * t87 * t257 * t57 - 3.0 * t107 * t257 * t109;
-        let t291 = f64::powf(t13, -2.5);
+        let t291 = rmath::pow(t13, -2.5);
         let t292 = M_PI * M_PI;
         let t299 = t132 * rho[ip];
         let t301 = 1.0 / t1 / t299;

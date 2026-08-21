@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_3_2};
@@ -40,7 +41,7 @@ pub fn mgga_c_revscan_exc_pol(
         let t9 = pow_1_3(t8);
         let t12 = t5 * t7 / t9;
         let t14 = 1.0 + 0.053425 * t12;
-        let t15 = f64::sqrt(t12);
+        let t15 = rmath::sqrt(t12);
         let t18 = pow_3_2(t12);
         let t20 = t2 * t2;
         let t21 = t4 * t4;
@@ -49,7 +50,7 @@ pub fn mgga_c_revscan_exc_pol(
         let t26 = t22 * t6 / t23;
         let t28 = 3.79785 * t15 + 0.8969 * t12 + 0.204775 * t18 + 0.123235 * t26;
         let t31 = 1.0 + 16.081979498692537 / t28;
-        let t32 = f64::ln(t31);
+        let t32 = rmath::ln(t31);
         let t34 = 0.0621814 * t14 * t32;
         let t35 = rho0 - rho1;
         let t36 = t35 * t35;
@@ -80,17 +81,17 @@ pub fn mgga_c_revscan_exc_pol(
         let t63 = 1.0 + 0.05137 * t12;
         let t68 = 7.05945 * t15 + 1.549425 * t12 + 0.420775 * t18 + 0.1562925 * t26;
         let t71 = 1.0 + 32.16395899738507 / t68;
-        let t72 = f64::ln(t71);
+        let t72 = rmath::ln(t71);
         let t76 = 1.0 + 0.0278125 * t12;
         let t81 = 5.1785 * t15 + 0.905775 * t12 + 0.1100325 * t18 + 0.1241775 * t26;
         let t84 = 1.0 + 29.608749977793437 / t81;
-        let t85 = f64::ln(t84);
+        let t85 = rmath::ln(t84);
         let t86 = t76 * t85;
         let t88 = -0.0310907 * t63 * t72 + t34 - 0.0197516734986138 * t86;
         let t89 = t61 * t88;
         let t90 = t41 * t89;
         let t92 = 0.0197516734986138 * t61 * t86;
-        let t93 = f64::ln(2.0);
+        let t93 = rmath::ln(2.0);
         let t94 = 1.0 - t93;
         let t95 = M_PI * M_PI;
         let t97 = t94 / t95;
@@ -110,7 +111,7 @@ pub fn mgga_c_revscan_exc_pol(
         let t115 = (-t34 + t90 + t92) * t113;
         let t116 = 1.0 / t106;
         let t117 = t95 * t116;
-        let t119 = f64::exp(-t115 * t117);
+        let t119 = rmath::exp(-t115 * t117);
         let t120 = t119 - 1.0;
         let t121 = 1.0 / t120;
         let t122 = t113 * t121;
@@ -149,10 +150,10 @@ pub fn mgga_c_revscan_exc_pol(
         let t163 = t162 * t7;
         let t164 = t160 * t163;
         let t167 = 1.0 + 0.011293786703392187 * t153 * t164;
-        let t168 = f64::powf(t167, 1.0 / 8.0);
+        let t168 = rmath::pow(t167, 1.0 / 8.0);
         let t171 = 1.0 - 1.0 / t139 / 2.0 - 1.0 / t168 / 2.0;
         let t174 = 1.0 + 1.0 * t171 * t120;
-        let t175 = f64::ln(t174);
+        let t175 = rmath::ln(t174);
         let t177 = t97 * t106 * t175;
         let t178 = pow_1_3(rho0);
         let t179 = t178 * t178;
@@ -181,26 +182,26 @@ pub fn mgga_c_revscan_exc_pol(
         let t210 = t207 * t209;
         let t212 = 5.0 / 9.0 * t204 * t210;
         let t213 = t212 <= 1.0;
-        let t214 = f64::ln(f64::EPSILON);
+        let t214 = rmath::ln(f64::EPSILON);
         let t217 = t214 / (-t214 + 1.131);
         let t218 = -t217 < t212;
         let t219 = t212 < -t217;
         let t220 = piecewise3(t219, t212, -t217);
         let t221 = 1.0 - t220;
         let t222 = 1.0 / t221;
-        let t225 = f64::exp(-1.131 * t220 * t222);
+        let t225 = rmath::exp(-1.131 * t220 * t222);
         let t226 = piecewise3(t218, 0.0, t225);
-        let t228 = f64::ln(0.7299270072992701 * f64::EPSILON);
+        let t228 = rmath::ln(0.7299270072992701 * f64::EPSILON);
         let t231 = (-t228 + 1.7) / t228;
         let t232 = t212 < -t231;
         let t233 = piecewise3(t232, -t231, t212);
         let t234 = 1.0 - t233;
-        let t237 = f64::exp(1.7 / t234);
+        let t237 = rmath::exp(1.7 / t234);
         let t239 = piecewise3(t232, 0.0, -1.37 * t237);
         let t240 = piecewise3(t213, t226, t239);
         let t243 = 1.0 + 0.033115 * t15 + 0.04168 * t12;
         let t244 = 1.0 / t243;
-        let t247 = f64::exp(1.0 * t244);
+        let t247 = rmath::exp(1.0 * t244);
         let t248 = t247 - 1.0;
         let t249 = t203 * t207;
         let t250 = t156 * t124;
@@ -213,10 +214,10 @@ pub fn mgga_c_revscan_exc_pol(
         let t263 = t39 * t8;
         let t265 = 1.0 / t9 / t263;
         let t269 = 1.0 + 0.004552949705744548 * t261 * t262 * t265;
-        let t270 = f64::powf(t269, 1.0 / 8.0);
+        let t270 = rmath::pow(t269, 1.0 / 8.0);
         let t273 = 1.0 - 1.0 / t255 / 2.0 - 1.0 / t270 / 2.0;
         let t275 = t248 * t273 + 1.0;
-        let t276 = f64::ln(t275);
+        let t276 = rmath::ln(t275);
         let t278 = -0.030197 * t244 + 0.030197 * t276;
         let t282 = 1.0 - 2.363 * t58 * t56 * t60;
         let t283 = t278 * t282;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT6, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -40,10 +41,10 @@ pub fn gga_c_ccdf_fxc_unpol(
         let t11 = M_PI * M_PI;
         let t12 = pow_1_3(t11);
         let t13 = 1.0 / t12;
-        let t14 = f64::sqrt(sigma[ip]);
+        let t14 = rmath::sqrt(sigma[ip]);
         let t15 = t13 * t14;
         let t17 = 1.0 / t1 / rho[ip];
-        let t23 = f64::exp(-param_c4 * (t10 * t15 * t17 / 12.0 - param_c5));
+        let t23 = rmath::exp(-param_c4 * (t10 * t15 * t17 / 12.0 - param_c5));
         let t24 = 1.0 + t23;
         let t27 = 1.0 - param_c3 / t24;
         let tzk0 = t6 * t27;

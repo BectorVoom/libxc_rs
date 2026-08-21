@@ -48,8 +48,18 @@ pub fn lookup_by_name(name: &str) -> Result<FunctionalId, LibxcRsError> {
         return Ok(FunctionalId(id));
     }
 
+    if let Ok(idx) = by_name::REGISTRY_BY_NAME.binary_search_by_key(&upper.as_str(), |&(n, _)| n) {
+        return Ok(FunctionalId(by_name::REGISTRY_BY_NAME[idx].1));
+    }
+
+    let xc_upper = if !upper.starts_with("XC_") {
+        format!("XC_{upper}")
+    } else {
+        upper.clone()
+    };
+
     by_name::REGISTRY_BY_NAME
-        .binary_search_by_key(&upper.as_str(), |&(n, _)| n)
+        .binary_search_by_key(&xc_upper.as_str(), |&(n, _)| n)
         .map(|idx| FunctionalId(by_name::REGISTRY_BY_NAME[idx].1))
         .map_err(|_| LibxcRsError::UnknownFunctionalName(name.to_string()))
 }

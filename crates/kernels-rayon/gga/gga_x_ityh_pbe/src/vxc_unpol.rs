@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -60,7 +60,7 @@ pub fn gga_x_ityh_pbe_vxc_unpol(
         let t44 = param_kappa + t28 * t32 * t36 * t40 / 24.0;
         let t49 = 1.0 + param_kappa * (1.0 - param_kappa / t44);
         let t52 = t21 * t26 / t49;
-        let t53 = f64::sqrt(t52);
+        let t53 = rmath::sqrt(t52);
         let t55 = param_hyb_omega_0 / t53;
         let t56 = t11 * rho[ip];
         let t57 = pow_1_3(t56);
@@ -82,12 +82,12 @@ pub fn gga_x_ityh_pbe_vxc_unpol(
         let t86 = t74 * t74;
         let t87 = 1.0 / t86;
         let t90 = piecewise3(t63, 1.35, t61);
-        let t91 = f64::sqrt(M_PI);
+        let t91 = rmath::sqrt(M_PI);
         let t92 = 1.0 / t90;
-        let t94 = erf_approx(t92 / 2.0);
+        let t94 = rmath::erf(t92 / 2.0);
         let t96 = t90 * t90;
         let t97 = 1.0 / t96;
-        let t99 = f64::exp(-t97 / 4.0);
+        let t99 = rmath::exp(-t97 / 4.0);
         let t100 = t99 - 1.0;
         let t103 = t99 - 3.0 / 2.0 - 2.0 * t96 * t100;
         let t106 = 2.0 * t90 * t103 + t91 * t94;

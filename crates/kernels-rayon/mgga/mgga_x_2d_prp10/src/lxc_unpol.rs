@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 use libxc_rkernel_math::bessel::{xc_bessel_I0, xc_bessel_I1};
 use libxc_rkernel_math::lambert_w::{lambert_w};
@@ -99,7 +100,7 @@ pub fn mgga_x_2d_prp10_lxc_unpol(
         let t14 = (lapl[ip] * t3 / 2.0 - t7 + t11) * t13;
         let t15 = -0.9999999999 < t14;
         let t16 = piecewise3(t15, t14, -0.9999999999);
-        let t17 = f64::exp(-1.0);
+        let t17 = rmath::exp(-1.0);
         let t19 = lambert_w(t16 * t17);
         let t20 = t19 + 1.0;
         let t21 = t20 / 2.0;
@@ -107,10 +108,10 @@ pub fn mgga_x_2d_prp10_lxc_unpol(
         let t24 = t7 - t11;
         let t25 = 1e-10 < t24;
         let t26 = piecewise3(t25, t24, 1e-10);
-        let t27 = f64::sqrt(t26);
+        let t27 = rmath::sqrt(t26);
         let t31 = M_SQRT2;
         let t32 = (M_PI * t22 - 4.0 / 3.0 * t13 * t27) * t31;
-        let t33 = f64::sqrt(rho[ip]);
+        let t33 = rmath::sqrt(rho[ip]);
         let tvrho0 = -t32 * t33 / 2.0;
         vrho[ip] += tvrho0;
         let t36 = xc_bessel_I1(t21);

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -63,7 +64,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t30 = M_PI * M_PI;
         let t31 = pow_1_3(t30);
         let t33 = t29 / t31;
-        let t34 = f64::sqrt(sigma0);
+        let t34 = rmath::sqrt(sigma0);
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
         let t39 = t33 * t34 * t37;
@@ -77,7 +78,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t48 = 1.0 / t46 / t45;
         let t49 = sigma0 * t48;
         let t50 = t44 * t49;
-        let t53 = f64::exp(-t50 / 24.0);
+        let t53 = rmath::exp(-t50 / 24.0);
         let t58 = 1.0 / t31 / t30;
         let t59 = t29 * t58;
         let t60 = sigma0 * sigma0;
@@ -86,11 +87,11 @@ pub fn gga_x_htbs_lxc_pol(
         let t64 = 1.0 / t35 / t62;
         let t66 = t59 * t60 * t64;
         let t68 = 1.0 + 1.3780328706878157e-05 * t66;
-        let t69 = f64::ln(t68);
+        let t69 = rmath::ln(t68);
         let t70 = 0.804 + 5.0 / 972.0 * t50 + 0.004002424276710846 * t44 * t49 * t53 + t69;
         let t73 = 1.804 - 0.646416 / t70;
         let t74 = 2.6 <= t40;
-        let t76 = f64::exp(-0.011376190545424806 * t50);
+        let t76 = rmath::exp(-0.011376190545424806 * t50);
         let t78 = 1.804 - 0.804 * t76;
         let t79 = 0.190125 * t39;
         let t80 = 0.195 * t50;
@@ -115,7 +116,7 @@ pub fn gga_x_htbs_lxc_pol(
         let t112 = pow_1_3(t110);
         let t114 = piecewise3(t111, t22, t112 * t110);
         let t115 = t114 * t26;
-        let t116 = f64::sqrt(sigma2);
+        let t116 = rmath::sqrt(sigma2);
         let t117 = pow_1_3(rho1);
         let t119 = 1.0 / t117 / rho1;
         let t121 = t33 * t116 * t119;
@@ -126,18 +127,18 @@ pub fn gga_x_htbs_lxc_pol(
         let t127 = 1.0 / t125 / t124;
         let t128 = sigma2 * t127;
         let t129 = t44 * t128;
-        let t132 = f64::exp(-t129 / 24.0);
+        let t132 = rmath::exp(-t129 / 24.0);
         let t136 = sigma2 * sigma2;
         let t137 = t124 * t124;
         let t138 = t137 * rho1;
         let t140 = 1.0 / t117 / t138;
         let t142 = t59 * t136 * t140;
         let t144 = 1.0 + 1.3780328706878157e-05 * t142;
-        let t145 = f64::ln(t144);
+        let t145 = rmath::ln(t144);
         let t146 = 0.804 + 5.0 / 972.0 * t129 + 0.004002424276710846 * t44 * t128 * t132 + t145;
         let t149 = 1.804 - 0.646416 / t146;
         let t150 = 2.6 <= t122;
-        let t152 = f64::exp(-0.011376190545424806 * t129);
+        let t152 = rmath::exp(-0.011376190545424806 * t129);
         let t154 = 1.804 - 0.804 * t152;
         let t155 = 0.190125 * t121;
         let t156 = 0.195 * t129;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -52,7 +53,7 @@ pub fn gga_c_lm_lxc_pol(
         let t13 = pow_1_3(t2);
         let t15 = t11 * t12 * t13;
         let t17 = 1.0 + 10.0 * t15;
-        let t18 = f64::ln(t17);
+        let t18 = rmath::ln(t17);
         let t20 = 0.0252 * t6 * t18;
         let t21 = t9 * t9;
         let t22 = t8 * t21;
@@ -84,7 +85,7 @@ pub fn gga_c_lm_lxc_pol(
         let t53 = (t42 + t47 - 2.0) * t52;
         let t55 = 1.0 + 5.658842421045167e-07 * t3;
         let t57 = 1.0 + 25.0 * t15;
-        let t58 = f64::ln(t57);
+        let t58 = rmath::ln(t57);
         let t63 = -0.0127 * t55 * t58 - 6.435555555555556e-06 * t26 + 8.383333333333333e-05 * t32 - 0.004166666666666667 + t20;
         let t64 = t53 * t63;
         let t65 = M_PI * t8;
@@ -110,17 +111,17 @@ pub fn gga_c_lm_lxc_pol(
         let t93 = t92 * t43;
         let t94 = piecewise3(t44, t88, t93);
         let t95 = t91 + t94;
-        let t96 = f64::sqrt(t95);
+        let t96 = rmath::sqrt(t95);
         let t98 = M_SQRT2;
         let t99 = 1.0 / t96 * t98;
         let t100 = t7 * param_lm_f;
-        let t101 = f64::powf(t1, 1.0 / 6.0);
+        let t101 = rmath::pow(t1, 1.0 / 6.0);
         let t102 = 1.0 / t101;
         let t104 = sigma0 + 2.0 * sigma1 + sigma2;
-        let t105 = f64::sqrt(t104);
+        let t105 = rmath::sqrt(t104);
         let t106 = t102 * t105;
-        let t107 = f64::powf(t2, 1.0 / 6.0);
-        let t112 = f64::exp(-t100 * t106 / t107 / t2);
+        let t107 = rmath::pow(t2, 1.0 / 6.0);
+        let t112 = rmath::exp(-t100 * t106 / t107 / t2);
         let t113 = t112 * t104;
         let t114 = t2 * t2;
         let t116 = 1.0 / t23 / t114;
@@ -506,7 +507,7 @@ pub fn gga_c_lm_lxc_pol(
         let t881 = t183 * t879 * t191;
         let t883 = t425 * param_lm_f;
         let t884 = t99 * t883;
-        let t885 = f64::sqrt(t1);
+        let t885 = rmath::sqrt(t1);
         let t886 = 1.0 / t885;
         let t887 = t105 * t428;
         let t888 = t886 * t887;

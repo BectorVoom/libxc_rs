@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -74,7 +75,7 @@ pub fn mgga_xc_cc06_fxc_pol(
         let t44 = t43 * t43;
         let t47 = t42 * t44 / t21;
         let t49 = 1.0 + 0.053425 * t47;
-        let t50 = f64::sqrt(t47);
+        let t50 = rmath::sqrt(t47);
         let t53 = pow_3_2(t47);
         let t55 = t3 * t3;
         let t56 = t41 * t41;
@@ -84,7 +85,7 @@ pub fn mgga_xc_cc06_fxc_pol(
         let t61 = t57 * t43 * t59;
         let t63 = 3.79785 * t50 + 0.8969 * t47 + 0.204775 * t53 + 0.123235 * t61;
         let t66 = 1.0 + 16.081824322151103 / t63;
-        let t67 = f64::ln(t66);
+        let t67 = rmath::ln(t66);
         let t69 = 0.062182 * t49 * t67;
         let t70 = rho0 - rho1;
         let t71 = t70 * t70;
@@ -108,11 +109,11 @@ pub fn mgga_xc_cc06_fxc_pol(
         let t94 = 1.0 + 0.05137 * t47;
         let t99 = 7.05945 * t50 + 1.549425 * t47 + 0.420775 * t53 + 0.1562925 * t61;
         let t102 = 1.0 + 32.1646831778707 / t99;
-        let t103 = f64::ln(t102);
+        let t103 = rmath::ln(t102);
         let t107 = 1.0 + 0.0278125 * t47;
         let t112 = 5.1785 * t50 + 0.905775 * t47 + 0.1100325 * t53 + 0.1241775 * t61;
         let t115 = 1.0 + 29.608574643216677 / t112;
-        let t116 = f64::ln(t115);
+        let t116 = rmath::ln(t115);
         let t117 = t107 * t116;
         let t119 = -0.03109 * t94 * t103 + t69 - 0.019751789702565206 * t117;
         let t120 = t92 * t119;
@@ -173,7 +174,7 @@ pub fn mgga_xc_cc06_fxc_pol(
         let t215 = t214 * t204;
         let t216 = t213 * t215;
         let t218 = t42 * t205;
-        let t220 = f64::sqrt(t47);
+        let t220 = rmath::sqrt(t47);
         let t221 = t220 * t3;
         let t222 = t221 * t215;
         let t225 = 1.0 / t58 / t7;
@@ -338,7 +339,7 @@ pub fn mgga_xc_cc06_fxc_pol(
         let t512 = t213 * t511;
         let t514 = t44 * t510;
         let t515 = t42 * t514;
-        let t517 = 1.0/f64::sqrt(t47);
+        let t517 = 1.0/rmath::sqrt(t47);
         let t518 = t517 * t55;
         let t519 = t518 * t506;
         let t521 = t221 * t511;

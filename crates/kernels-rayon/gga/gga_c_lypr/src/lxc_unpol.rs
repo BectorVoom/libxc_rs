@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_PI};
-use libxc_rkernel_math::erf::{erfc_approx};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -43,13 +43,13 @@ pub fn gga_c_lypr_lxc_unpol(
     for ip in 0..zk.len() {
         let t2 = pow_1_3(rho[ip]);
         let t3 = 1.0 / t2;
-        let t5 = erfc_approx(param_m1 * param_omega * t3);
+        let t5 = rmath::erfc(param_m1 * param_omega * t3);
         let t7 = param_d * t3 + 1.0;
         let t8 = 1.0 / t7;
         let t10 = param_m2 * param_omega;
-        let t12 = erfc_approx(t10 * t3);
+        let t12 = rmath::erfc(t10 * t3);
         let t13 = t12 * param_b;
-        let t15 = f64::exp(-param_c * t3);
+        let t15 = rmath::exp(-param_c * t3);
         let t16 = t15 * t8;
         let t17 = rho[ip] * rho[ip];
         let t18 = t2 * t2;
@@ -84,14 +84,14 @@ pub fn gga_c_lypr_lxc_unpol(
         let t70 = -t21 * t26 - 3.0 / 10.0 * t29 * t32 * t39 + t44 * t45 / 8.0 + t49 * t53 / 144.0 - t56 * (4.0 / 3.0 * t58 * t45 - t62 * t64 / 2.0) / 8.0;
         let t71 = t16 * t70;
         let t73 = param_b * t15;
-        let t74 = f64::sqrt(M_PI);
+        let t74 = rmath::sqrt(M_PI);
         let t75 = 1.0 / t74;
         let t76 = t8 * t75;
         let t77 = t73 * t76;
         let t78 = param_m2 * param_m2;
         let t79 = param_omega * param_omega;
         let t81 = 1.0 / t18;
-        let t83 = f64::exp(-t78 * t79 * t81);
+        let t83 = rmath::exp(-t78 * t79 * t81);
         let t84 = t17 * rho[ip];
         let t85 = 1.0 / t84;
         let t86 = t83 * t85;
@@ -99,7 +99,7 @@ pub fn gga_c_lypr_lxc_unpol(
         zk[ip] += tzk0;
         let t92 = rho[ip] * param_a;
         let t93 = param_m1 * param_m1;
-        let t96 = f64::exp(-t93 * t79 * t81);
+        let t96 = rmath::exp(-t93 * t79 * t81);
         let t98 = t75 * t96 * param_m1;
         let t100 = 1.0 / t2 / rho[ip];
         let t105 = t7 * t7;

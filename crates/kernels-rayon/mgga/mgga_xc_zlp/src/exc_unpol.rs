@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -33,7 +34,7 @@ pub fn mgga_xc_zlp_exc_unpol(
         let t24 = 0.207108 * t5 * t7 + 0.005387725 * t5 * t7 * (-lapl[ip] * t17 / 8.0 + sigma[ip] * t14 / 8.0);
         let t25 = 1.0 / t11;
         let t27 = 1.0 + 488.4942506669168 * t25;
-        let t28 = f64::ln(t27);
+        let t28 = rmath::ln(t27);
         let t31 = 1.0 - 0.002047107 * t28 * t11;
         let t33 = t2 * t2;
         let t34 = t24 * t31 * t33;

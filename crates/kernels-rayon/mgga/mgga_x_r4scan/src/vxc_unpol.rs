@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -64,7 +65,7 @@ pub fn mgga_x_r4scan_vxc_unpol(
         let t39 = param_dp2 * param_dp2;
         let t40 = t39 * t39;
         let t41 = 1.0 / t40;
-        let t45 = f64::exp(-t31 * t38 * t41 / 288.0);
+        let t45 = rmath::exp(-t31 * t38 * t41 / 288.0);
         let t49 = (-0.162742215233874 * t22 * t45 + 10.0 / 81.0) * t23;
         let t50 = t26 * t26;
         let t51 = 1.0 / t50;
@@ -91,7 +92,7 @@ pub fn mgga_x_r4scan_vxc_unpol(
         let t84 = param_c1 * t83;
         let t85 = 1.0 - t83;
         let t86 = 1.0 / t85;
-        let t88 = f64::exp(-t84 * t86);
+        let t88 = rmath::exp(-t84 * t86);
         let t89 = t80 <= 2.5;
         let t90 = 2.5 < t80;
         let t91 = piecewise3(t90, 2.5, t80);
@@ -102,7 +103,7 @@ pub fn mgga_x_r4scan_vxc_unpol(
         let t101 = t97 * t93;
         let t106 = piecewise3(t90, t80, 2.5);
         let t107 = 1.0 - t106;
-        let t110 = f64::exp(param_c2 / t107);
+        let t110 = rmath::exp(param_c2 / t107);
         let t112 = piecewise5(t81, t88, t89, 1.0 - 0.667 * t91 - 0.4445555 * t93 - 0.663086601049 * t95 + 1.45129704449 * t97 - 0.887998041597 * t99 + 0.234528941479 * t101 - 0.023185843322 * t97 * t95, -param_d * t110);
         let t113 = 0.174 - t65;
         let t116 = t22 * t23;
@@ -134,18 +135,18 @@ pub fn mgga_x_r4scan_vxc_unpol(
         let t164 = t163 * t163;
         let t165 = 1.0 / t164;
         let t166 = t38 * t165;
-        let t170 = f64::exp(-t121 * t161 - t31 * t166 / 288.0);
+        let t170 = rmath::exp(-t121 * t161 - t31 * t166 / 288.0);
         let t171 = t159 * t170;
         let t174 = t112 * t113 + 2.0 * t150 * t171 + t65 + 1.0;
-        let t176 = f64::sqrt(3.0);
+        let t176 = rmath::sqrt(3.0);
         let t177 = 1.0 / t26;
         let t178 = t24 * t177;
-        let t179 = f64::sqrt(sigma[ip]);
+        let t179 = rmath::sqrt(sigma[ip]);
         let t180 = t179 * t32;
         let t182 = 1.0 / t20 / rho[ip];
         let t184 = t178 * t180 * t182;
-        let t185 = f64::sqrt(t184);
-        let t189 = f64::exp(-9.8958 * t176 / t185);
+        let t185 = rmath::sqrt(t184);
+        let t189 = rmath::exp(-9.8958 * t176 / t185);
         let t190 = 1.0 - t189;
         let t194 = piecewise3(t3, 0.0, -3.0 / 8.0 * t19 * t20 * t174 * t190);
         let tzk0 = 2.0 * t194;
@@ -223,7 +224,7 @@ pub fn mgga_x_r4scan_vxc_unpol(
         let t332 = t158 * t331;
         let t333 = t332 * t170;
         let t336 = t203 * t219 + t262 * t113 - t264 * t265 + 2.0 * t289 * t171 + 4.0 * t293 * t295 + 4.0 / 3.0 * t301 * t303 - 2.0 * t306 * t321 + 2.0 * t306 * t333;
-        let t341 = f64::powf(3.0, 1.0 / 6.0);
+        let t341 = rmath::pow(3.0, 1.0 / 6.0);
         let t342 = t341 * t341;
         let t343 = t342 * t342;
         let t345 = t343 * t341 * t18;

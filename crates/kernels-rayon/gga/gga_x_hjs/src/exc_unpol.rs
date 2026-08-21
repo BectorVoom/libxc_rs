@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -76,7 +77,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t46 = t45 * t40;
         let t50 = 1.0 / t22;
         let t51 = param_a_1 * t50;
-        let t52 = f64::sqrt(sigma[ip]);
+        let t52 = rmath::sqrt(sigma[ip]);
         let t53 = t52 * sigma[ip];
         let t54 = t37 * t37;
         let t55 = 1.0 / t54;
@@ -147,7 +148,7 @@ pub fn gga_x_hjs_exc_unpol(
         let t183 = 1.0 / t38;
         let t185 = t179 * t182 * t183;
         let t187 = 0.60965 + t177 + t185 / 3.0;
-        let t188 = f64::sqrt(t187);
+        let t188 = rmath::sqrt(t187);
         let t189 = 1.0 / t188;
         let t191 = t25 * t29 * t189;
         let t193 = 1.0 - t191 / 3.0;
@@ -169,13 +170,13 @@ pub fn gga_x_hjs_exc_unpol(
         let t220 = t194 * t194;
         let t221 = 1.0 / t220;
         let t227 = t220 * t194;
-        let t229 = f64::sqrt(t194);
+        let t229 = rmath::sqrt(t194);
         let t230 = t229 * t227;
-        let t231 = f64::sqrt(M_PI);
-        let t233 = f64::sqrt(t177);
+        let t231 = rmath::sqrt(M_PI);
+        let t233 = rmath::sqrt(t177);
         let t236 = 0.0 < 0.7572109999 + t177;
         let t238 = piecewise3(t236, 0.757211 + t177, 1e-10);
-        let t239 = f64::sqrt(t238);
+        let t239 = rmath::sqrt(t238);
         let t241 = 4.0 / 5.0 * t231 + 12.0 / 5.0 * t233 - 12.0 / 5.0 * t239;
         let t243 = 0.0474596 * t206 * t194 + 0.028363733333333332 * t220 - 0.9086532 * t227 - t230 * t241;
         let t246 = t178 * t178;
@@ -192,18 +193,18 @@ pub fn gga_x_hjs_exc_unpol(
         let t264 = 1.0 / t227;
         let t268 = 3.0 * t185;
         let t269 = 9.0 * t177 + t268;
-        let t270 = f64::sqrt(t269);
+        let t270 = rmath::sqrt(t269);
         let t272 = 9.0 * t238 + t268;
-        let t273 = f64::sqrt(t272);
+        let t273 = rmath::sqrt(t272);
         let t275 = t270 / 3.0 - t273 / 3.0;
         let t279 = t24 * t27;
         let t281 = t21 * t279 * t28;
         let t283 = t281 / 3.0 + t270 / 3.0;
         let t285 = t281 / 3.0 + t188;
         let t286 = 1.0 / t285;
-        let t288 = f64::ln(t283 * t286);
+        let t288 = rmath::ln(t283 * t286);
         let t292 = t281 / 3.0 + t273 / 3.0;
-        let t294 = f64::ln(t292 * t286);
+        let t294 = rmath::ln(t292 * t286);
         let t297 = 0.757211 + 0.04727288888888889 * t193 * t195 + 0.026366444444444446 * t219 * t221 - t263 * t264 / 9.0 + 2.0 / 3.0 * t25 * t29 * t275 + 2.0 * t177 * t288 - 2.0 * t238 * t294;
         let t301 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t297);
         let tzk0 = 2.0 * t301;

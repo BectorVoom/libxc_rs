@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -36,29 +37,29 @@ pub fn lda_c_vwn_4_lxc_pol(
         let t10 = t6 * t9;
         let t11 = t4 * t10;
         let t12 = t11 / 4.0;
-        let t13 = f64::sqrt(t11);
+        let t13 = rmath::sqrt(t11);
         let t15 = t12 + 1.86372 * t13 + 12.9352;
         let t16 = 1.0 / t15;
-        let t20 = f64::ln(t4 * t10 * t16 / 4.0);
+        let t20 = rmath::ln(t4 * t10 * t16 / 4.0);
         let t21 = 0.0310907 * t20;
         let t22 = t13 + 3.72744;
-        let t25 = f64::atan(6.15199081975908 / t22);
+        let t25 = rmath::atan(6.15199081975908 / t22);
         let t26 = 0.038783294878113016 * t25;
         let t27 = t13 / 2.0;
         let t28 = t27 + 0.10498;
         let t29 = t28 * t28;
-        let t31 = f64::ln(t29 * t16);
+        let t31 = rmath::ln(t29 * t16);
         let t32 = 0.0009690227711544374 * t31;
         let t33 = M_PI * M_PI;
         let t34 = 1.0 / t33;
         let t36 = t12 + 0.534175 * t13 + 11.4813;
         let t37 = 1.0 / t36;
-        let t41 = f64::ln(t4 * t10 * t37 / 4.0);
+        let t41 = rmath::ln(t4 * t10 * t37 / 4.0);
         let t42 = t13 + 1.06835;
-        let t45 = f64::atan(6.692072046645942 / t42);
+        let t45 = rmath::atan(6.692072046645942 / t42);
         let t47 = t27 + 0.228344;
         let t48 = t47 * t47;
-        let t50 = f64::ln(t48 * t37);
+        let t50 = rmath::ln(t48 * t37);
         let t53 = t34 * (t41 + 0.32323836906055065 * t45 + 0.021608710360898266 * t50);
         let t54 = rho0 - rho1;
         let t55 = 1.0 / t7;
@@ -88,12 +89,12 @@ pub fn lda_c_vwn_4_lxc_pol(
         let t86 = t70 * t84 / 24.0;
         let t88 = t12 + 3.53021 * t13 + 18.0578;
         let t89 = 1.0 / t88;
-        let t93 = f64::ln(t4 * t10 * t89 / 4.0);
+        let t93 = rmath::ln(t4 * t10 * t89 / 4.0);
         let t95 = t13 + 7.06042;
-        let t98 = f64::atan(4.730926909560113 / t95);
+        let t98 = rmath::atan(4.730926909560113 / t95);
         let t100 = t27 + 0.325;
         let t101 = t100 * t100;
-        let t103 = f64::ln(t101 * t89);
+        let t103 = rmath::ln(t101 * t89);
         let t105 = 0.01554535 * t93 + 0.05249139316978094 * t98 + 0.0022478670955426118 * t103 - t21 - t26 - t32;
         let t106 = t105 * t69;
         let t107 = t74 * t76;

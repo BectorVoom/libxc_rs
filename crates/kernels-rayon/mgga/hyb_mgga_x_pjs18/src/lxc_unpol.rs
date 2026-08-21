@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -135,7 +135,7 @@ pub fn hyb_mgga_x_pjs18_lxc_unpol(
         let t53 = t52 * rho[ip];
         let t55 = 1.0 / t19 / t53;
         let t59 = 1.0 + 0.1504548888888889 * t35 * t43 + 0.00537989809245259 * t49 * t51 * t55;
-        let t60 = f64::powf(t59, 1.0 / 10.0);
+        let t60 = rmath::pow(t59, 1.0 / 10.0);
         let t62 = piecewise3(t13, t14, t16);
         let t63 = 1.0 / t62;
         let t64 = 1.0 / t60 * t63;
@@ -158,17 +158,17 @@ pub fn hyb_mgga_x_pjs18_lxc_unpol(
         let t94 = t82 * t82;
         let t95 = 1.0 / t94;
         let t98 = piecewise3(t71, 1.35, t69);
-        let t99 = f64::sqrt(M_PI);
+        let t99 = rmath::sqrt(M_PI);
         let t100 = 1.0 / t98;
-        let t102 = erf_approx(t100 / 2.0);
+        let t102 = rmath::erf(t100 / 2.0);
         let t104 = t98 * t98;
         let t105 = 1.0 / t104;
-        let t107 = f64::exp(-t105 / 4.0);
+        let t107 = rmath::exp(-t105 / 4.0);
         let t108 = t107 - 1.0;
         let t111 = t107 - 3.0 / 2.0 - 2.0 * t104 * t108;
         let t114 = t102 * t99 + 2.0 * t111 * t98;
         let t118 = piecewise3(t70, 1.0 / t73 / 36.0 - t77 / 960.0 + t80 / 26880.0 - t83 / 829440.0 + t86 / 28385280.0 - t89 / 1073479680.0 + t92 / 44590694400.0 - t95 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t98 * t114);
-        let t119 = f64::powf(t59, 1.0 / 5.0);
+        let t119 = rmath::pow(t59, 1.0 / 5.0);
         let t120 = 1.0 / t119;
         let t122 = 0.27 <= t69;
         let t123 = 0.27 < t69;
@@ -211,9 +211,9 @@ pub fn hyb_mgga_x_pjs18_lxc_unpol(
         let t198 = t196 * t196;
         let t199 = 64.0 * t198;
         let t200 = 20.0 * t196 - t199;
-        let t203 = f64::exp(-1.0 / t196 / 4.0);
+        let t203 = rmath::exp(-1.0 / t196 / 4.0);
         let t207 = 1.0 / t195;
-        let t209 = erf_approx(t207 / 2.0);
+        let t209 = rmath::erf(t207 / 2.0);
         let t212 = 10.0 * t195 * t209 * t99 + t200 * t203 - 36.0 * t196 + t199 - 3.0;
         let t216 = piecewise3(t122, t160 + t193, 24.0 * t196 * t212 + 1.0);
         let t217 = tau[ip] * t37;
@@ -263,12 +263,12 @@ pub fn hyb_mgga_x_pjs18_lxc_unpol(
         let t302 = t301 * t291;
         let t304 = -8.0 * t291 + 256.0 * t294 - 576.0 * t297 + 3840.0 * t299 - 122880.0 * t302;
         let t305 = 1.0 / t293;
-        let t307 = f64::exp(-t305 / 4.0);
+        let t307 = rmath::exp(-t305 / 4.0);
         let t311 = t296 * t293;
         let t313 = -35.0 + 224.0 * t293 - 1440.0 * t296 + 5120.0 * t311;
         let t317 = -2.0 + 60.0 * t293;
         let t319 = 1.0 / t291;
-        let t321 = erf_approx(t319 / 2.0);
+        let t321 = rmath::erf(t319 / 2.0);
         let t324 = 2.0 * t317 * t321 * t99 + 24.0 * t294 * t313 + t304 * t307;
         let t328 = piecewise3(t232, t290, 1.0 + 8.0 / 7.0 * t291 * t324);
         let t329 = t328 * t30;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -40,7 +41,7 @@ pub fn gga_c_revtca_kxc_unpol(
         let t12 = t11 * t11;
         let t13 = pow_1_3(rho[ip]);
         let t18 = 4.88827 + 0.79425925 * t10 * t12 / t13;
-        let t19 = f64::atan(t18);
+        let t19 = rmath::atan(t18);
         let t21 = -0.655868 * t19 + 0.897889;
         let t22 = t6 * t21;
         let t23 = t7 * t7;
@@ -54,11 +55,11 @@ pub fn gga_c_revtca_kxc_unpol(
         let t31 = 1.0 / t30;
         let t32 = t28 * t31;
         let t33 = M_CBRT2;
-        let t34 = f64::sqrt(sigma[ip]);
+        let t34 = rmath::sqrt(sigma[ip]);
         let t35 = t33 * t34;
         let t37 = 1.0 / t13 / rho[ip];
         let t39 = t32 * t35 * t37;
-        let t40 = f64::powf(t39, 2.3);
+        let t40 = rmath::pow(t39, 2.3);
         let t42 = 1.0 + 0.004712150703442276 * t40;
         let t43 = 1.0 / t42;
         let t46 = t24 * t26 * t13 * t43;
@@ -73,7 +74,7 @@ pub fn gga_c_revtca_kxc_unpol(
         let t58 = t57 * t11;
         let t60 = t42 * t42;
         let t61 = 1.0 / t60;
-        let t62 = f64::powf(t39, 1.3);
+        let t62 = rmath::pow(t39, 1.3);
         let t63 = t61 * t62;
         let t64 = t63 * t28;
         let t65 = t31 * t33;
@@ -100,7 +101,7 @@ pub fn gga_c_revtca_kxc_unpol(
         let t110 = t109 * t6;
         let t112 = t110 * t21 * t58;
         let t114 = 1.0 / t60 / t42;
-        let t115 = f64::powf(t39, 2.6);
+        let t115 = rmath::pow(t39, 2.6);
         let t116 = t114 * t115;
         let t117 = t116 * t27;
         let t118 = t30 * t30;
@@ -109,7 +110,7 @@ pub fn gga_c_revtca_kxc_unpol(
         let t121 = t119 * t120;
         let t122 = t121 * sigma[ip];
         let t123 = t117 * t122;
-        let t126 = f64::powf(t39, 0.3);
+        let t126 = rmath::pow(t39, 0.3);
         let t127 = t61 * t126;
         let t128 = t127 * t27;
         let t129 = t128 * t122;
@@ -155,11 +156,11 @@ pub fn gga_c_revtca_kxc_unpol(
         let t205 = t204 * t25;
         let t206 = t203 * t205;
         let t207 = t11 * t114;
-        let t208 = f64::powf(t39, 1.6);
+        let t208 = rmath::pow(t39, 1.6);
         let t209 = 1.0 / t29;
         let t210 = t208 * t209;
         let t212 = t207 * t210 * t163;
-        let t216 = f64::powf(t39, -0.7);
+        let t216 = rmath::pow(t39, -0.7);
         let t217 = t216 * t209;
         let t219 = t11 * t61 * t217 * t163;
         let t225 = t110 * t133;
@@ -170,7 +171,7 @@ pub fn gga_c_revtca_kxc_unpol(
         let t241 = t203 * t204;
         let t242 = t60 * t60;
         let t243 = 1.0 / t242;
-        let t244 = f64::powf(t39, 3.9);
+        let t244 = rmath::pow(t39, 3.9);
         let t245 = t243 * t244;
         let t247 = t26 * t245 * t163;
         let t250 = t114 * t208;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -41,26 +42,26 @@ pub fn gga_x_lag_fxc_unpol(
         let t20 = pow_1_3(t19);
         let t21 = 1.0 / t20;
         let t22 = t18 * t21;
-        let t23 = f64::sqrt(sigma[ip]);
+        let t23 = rmath::sqrt(sigma[ip]);
         let t24 = M_CBRT2;
         let t29 = t22 * t23 * t24 / t16 / rho[ip];
-        let t30 = f64::powf(t29, 2.626712);
+        let t30 = rmath::pow(t29, 2.626712);
         let t33 = 1.0 + 0.00013471619689594795 * t30;
-        let t34 = f64::powf(t33, -0.657946);
+        let t34 = rmath::pow(t33, -0.657946);
         let t38 = piecewise3(t2, 0.0, -1.540002877192757e-05 * t15 * t16 * t30 * t34);
         let tzk0 = 2.0 * t38;
         zk[ip] += tzk0;
         let t39 = t16 * t16;
         let t45 = rho[ip] * rho[ip];
         let t46 = 1.0 / t45;
-        let t47 = f64::powf(t29, 1.626712);
+        let t47 = rmath::pow(t29, 1.626712);
         let t49 = t15 * t46 * t47;
         let t50 = t34 * t18;
         let t52 = t21 * t23 * t24;
         let t53 = t50 * t52;
-        let t56 = f64::powf(t29, 4.253424);
+        let t56 = rmath::pow(t29, 4.253424);
         let t58 = t15 * t46 * t56;
-        let t59 = f64::powf(t33, -1.657946);
+        let t59 = rmath::pow(t33, -1.657946);
         let t60 = t59 * t18;
         let t61 = t60 * t52;
         let t65 = piecewise3(t2, 0.0, -5.133342923975857e-06 * t15 / t39 * t30 * t34 + 5.393525383408988e-05 * t49 * t53 - 4.780604235623332e-09 * t58 * t61);
@@ -82,7 +83,7 @@ pub fn gga_x_lag_fxc_unpol(
         let t99 = t15 * t93 * t56;
         let t102 = t45 * t45;
         let t104 = 1.0 / t16 / t102;
-        let t105 = f64::powf(t29, 0.626712);
+        let t105 = rmath::pow(t29, 0.626712);
         let t107 = t15 * t104 * t105;
         let t108 = t34 * t17;
         let t109 = t20 * t20;
@@ -90,13 +91,13 @@ pub fn gga_x_lag_fxc_unpol(
         let t112 = t24 * t24;
         let t113 = t110 * sigma[ip] * t112;
         let t114 = t108 * t113;
-        let t117 = f64::powf(t29, 3.253424);
+        let t117 = rmath::pow(t29, 3.253424);
         let t119 = t15 * t104 * t117;
         let t120 = t59 * t17;
         let t121 = t120 * t113;
-        let t124 = f64::powf(t29, 5.880136);
+        let t124 = rmath::pow(t29, 5.880136);
         let t126 = t15 * t104 * t124;
-        let t127 = f64::powf(t33, -2.657946);
+        let t127 = rmath::pow(t33, -2.657946);
         let t128 = t127 * t17;
         let t129 = t128 * t113;
         let t133 = piecewise3(t2, 0.0, 3.4222286159839043e-06 * t15 / t39 / rho[ip] * t30 * t34 - 8.989208972348313e-05 * t95 * t53 + 7.967673726038885e-09 * t99 * t61 - 0.0007018969970796801 * t107 * t114 + 2.631296584261165e-07 * t119 * t121 - 2.2437549929142988e-11 * t126 * t129);

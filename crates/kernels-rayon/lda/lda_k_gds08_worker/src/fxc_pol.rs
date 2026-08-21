@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
 #[allow(unused_variables, non_snake_case)]
@@ -38,7 +39,7 @@ pub fn lda_k_gds08_worker_fxc_pol(
         let t19 = 2.0 * rho1 * t4 <= zeta_threshold;
         let t20 = piecewise5(t16, t8, t19, t11, t5);
         let t21 = 1.0 + t20;
-        let t23 = f64::ln(t21 * t3);
+        let t23 = rmath::ln(t21 * t3);
         let t25 = t23 * t23;
         let t27 = t23 * param_B + t25 * param_C + param_A;
         let t30 = piecewise3(t1, 0.0, t13 * t27 / 2.0);
@@ -48,7 +49,7 @@ pub fn lda_k_gds08_worker_fxc_pol(
         let t34 = -t2;
         let t36 = piecewise5(t19, t8, t16, t11, t34 * t4);
         let t37 = 1.0 + t36;
-        let t39 = f64::ln(t37 * t3);
+        let t39 = rmath::ln(t37 * t3);
         let t41 = t39 * t39;
         let t43 = t39 * param_B + t41 * param_C + param_A;
         let t46 = piecewise3(t31, 0.0, t33 * t43 / 2.0);

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -143,22 +144,22 @@ pub fn mgga_k_csk_loc_lxc_pol(
         let t53 = t37 * lapl0;
         let t55 = 1.0 / t41 / rho0;
         let t59 = t47 * t48 * t43 / 24.0 + t52 * t53 * t55 / 24.0 - t46;
-        let t61 = f64::ln(1.0 - f64::EPSILON);
+        let t61 = rmath::ln(1.0 - f64::EPSILON);
         let t62 = 1.0 / param_csk_a;
-        let t63 = f64::powf(-t61, -t62);
+        let t63 = rmath::pow(-t61, -t62);
         let t64 = t59 < -t63;
-        let t65 = f64::ln(f64::EPSILON);
-        let t66 = f64::powf(-t65, -t62);
+        let t65 = rmath::ln(f64::EPSILON);
+        let t66 = rmath::pow(-t65, -t62);
         let t67 = -t66 < t59;
         let t68 = piecewise3(t67, -t66, t59);
         let t69 = -t63 < t68;
         let t70 = piecewise3(t69, t68, -t63);
-        let t71 = f64::abs(t70);
-        let t72 = f64::powf(t71, param_csk_a);
+        let t71 = rmath::abs(t70);
+        let t72 = rmath::pow(t71, param_csk_a);
         let t73 = 1.0 / t72;
-        let t74 = f64::exp(-t73);
+        let t74 = rmath::exp(-t73);
         let t75 = 1.0 - t74;
-        let t76 = f64::powf(t75, t62);
+        let t76 = rmath::pow(t75, t62);
         let t77 = piecewise5(t64, 0.0, t67, 1.0, t76);
         let t79 = t59 * t77 + t46 + 1.0;
         let t83 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t32 * t79);
@@ -185,12 +186,12 @@ pub fn mgga_k_csk_loc_lxc_pol(
         let t116 = piecewise3(t115, -t66, t113);
         let t117 = -t63 < t116;
         let t118 = piecewise3(t117, t116, -t63);
-        let t119 = f64::abs(t118);
-        let t120 = f64::powf(t119, param_csk_a);
+        let t119 = rmath::abs(t118);
+        let t120 = rmath::pow(t119, param_csk_a);
         let t121 = 1.0 / t120;
-        let t122 = f64::exp(-t121);
+        let t122 = rmath::exp(-t121);
         let t123 = 1.0 - t122;
-        let t124 = f64::powf(t123, t62);
+        let t124 = rmath::pow(t123, t62);
         let t125 = piecewise5(t114, 0.0, t115, 1.0, t124);
         let t127 = t113 * t125 + t102 + 1.0;
         let t131 = piecewise3(t84, 0.0, 3.0 / 20.0 * t7 * t94 * t127);
@@ -211,7 +212,7 @@ pub fn mgga_k_csk_loc_lxc_pol(
         let t163 = t76 * t73;
         let t164 = piecewise3(t67, 0.0, t161);
         let t165 = piecewise3(t69, t164, 0.0);
-        let t167 = f64::abs(t70) / t70;
+        let t167 = rmath::abs(t70) / t70;
         let t168 = 1.0 / t71;
         let t170 = 1.0 / t75;
         let t171 = t74 * t170;
@@ -241,7 +242,7 @@ pub fn mgga_k_csk_loc_lxc_pol(
         let t234 = t124 * t121;
         let t235 = piecewise3(t115, 0.0, t232);
         let t236 = piecewise3(t117, t235, 0.0);
-        let t238 = f64::abs(t118) / t118;
+        let t238 = rmath::abs(t118) / t118;
         let t239 = 1.0 / t119;
         let t241 = 1.0 / t123;
         let t242 = t122 * t241;

@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,15 +65,15 @@ pub fn gga_k_meyer_vxc_pol(
         let t47 = t32 * t32;
         let t48 = 1.0 / t34;
         let t49 = t47 * t48;
-        let t50 = f64::sqrt(sigma0);
+        let t50 = rmath::sqrt(sigma0);
         let t51 = t39 * rho0;
         let t52 = 1.0 / t51;
         let t55 = t49 * t50 * t52 / 72.0;
         let t56 = 1.0 + t55;
         let t57 = 1.0 - t55;
-        let t58 = f64::abs(t57);
+        let t58 = rmath::abs(t57);
         let t59 = 1.0 / t58;
-        let t61 = f64::ln(t56 * t59);
+        let t61 = rmath::ln(t56 * t59);
         let t63 = t46 * t61 * t32;
         let t64 = 1.0 / t50;
         let t65 = t34 * t64;
@@ -96,15 +97,15 @@ pub fn gga_k_meyer_vxc_pol(
         let t92 = t91 * t91;
         let t94 = 1.0 / t92 / t90;
         let t98 = 1.0 - t37 * sigma2 * t94 / 864.0;
-        let t99 = f64::sqrt(sigma2);
+        let t99 = rmath::sqrt(sigma2);
         let t100 = t91 * rho1;
         let t101 = 1.0 / t100;
         let t104 = t49 * t99 * t101 / 72.0;
         let t105 = 1.0 + t104;
         let t106 = 1.0 - t104;
-        let t107 = f64::abs(t106);
+        let t107 = rmath::abs(t106);
         let t108 = 1.0 / t107;
-        let t110 = f64::ln(t105 * t108);
+        let t110 = rmath::ln(t105 * t108);
         let t112 = t98 * t110 * t32;
         let t113 = 1.0 / t99;
         let t114 = t34 * t113;
@@ -132,7 +133,7 @@ pub fn gga_k_meyer_vxc_pol(
         let t155 = t56 * t154;
         let t156 = t155 * t47;
         let t157 = t48 * t50;
-        let t158 = f64::abs(t57) / t57;
+        let t158 = rmath::abs(t57) / t57;
         let t159 = t146 * t158;
         let t163 = -t49 * t147 * t59 / 54.0 - t156 * t157 * t159 / 54.0;
         let t164 = t46 * t163;
@@ -171,7 +172,7 @@ pub fn gga_k_meyer_vxc_pol(
         let t238 = t105 * t237;
         let t239 = t238 * t47;
         let t240 = t48 * t99;
-        let t241 = f64::abs(t106) / t106;
+        let t241 = rmath::abs(t106) / t106;
         let t242 = t229 * t241;
         let t246 = -t49 * t230 * t108 / 54.0 - t239 * t240 * t242 / 54.0;
         let t247 = t98 * t246;

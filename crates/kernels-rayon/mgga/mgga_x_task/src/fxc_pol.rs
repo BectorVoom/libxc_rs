@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_1_4};
@@ -89,7 +90,7 @@ pub fn mgga_x_task_fxc_pol(
         let t43 = 0.0 < t42;
         let t44 = piecewise3(t43, t42, 0.0);
         let t45 = pow_1_4(t44);
-        let t48 = f64::exp(-param_task_c / t45);
+        let t48 = rmath::exp(-param_task_c / t45);
         let t50 = piecewise3(t43, 1.0 - t48, 0.0);
         let t52 = tau0 * tau0;
         let t53 = t52 * t52;
@@ -162,7 +163,7 @@ pub fn mgga_x_task_fxc_pol(
         let t163 = 1.0 / t162;
         let t165 = t157 * t163 - param_task_h0x;
         let t166 = t137 * t165;
-        let t167 = f64::powf(t50, param_task_d);
+        let t167 = rmath::pow(t50, param_task_d);
         let t168 = t166 * t167;
         let t169 = param_task_h0x * t50 + t168;
         let t173 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t28 * t169);
@@ -183,7 +184,7 @@ pub fn mgga_x_task_fxc_pol(
         let t192 = 0.0 < t191;
         let t193 = piecewise3(t192, t191, 0.0);
         let t194 = pow_1_4(t193);
-        let t197 = f64::exp(-param_task_c / t194);
+        let t197 = rmath::exp(-param_task_c / t194);
         let t199 = piecewise3(t192, 1.0 - t197, 0.0);
         let t201 = tau1 * tau1;
         let t202 = t201 * t201;
@@ -228,7 +229,7 @@ pub fn mgga_x_task_fxc_pol(
         let t277 = 1.0 / t276;
         let t279 = t271 * t277 - param_task_h0x;
         let t280 = t260 * t279;
-        let t281 = f64::powf(t199, param_task_d);
+        let t281 = rmath::pow(t199, param_task_d);
         let t282 = t280 * t281;
         let t283 = param_task_h0x * t199 + t282;
         let t287 = piecewise3(t174, 0.0, -3.0 / 8.0 * t6 * t183 * t283);
@@ -453,7 +454,7 @@ pub fn mgga_x_task_fxc_pol(
         let t774 = 1.0 / t773;
         let t778 = piecewise3(t43, 11.0 / 27.0 * t34 * sigma0 * t774, 0.0);
         let t782 = param_task_c * param_task_c;
-        let t783 = f64::sqrt(t44);
+        let t783 = rmath::sqrt(t44);
         let t786 = t782 / t783 / t765;
         let t790 = piecewise3(t43, 5.0 / 16.0 * t768 * t770 - t308 * t778 * t48 / 4.0 - t786 * t770 / 16.0, 0.0);
         let t792 = t60 * t76;
@@ -552,7 +553,7 @@ pub fn mgga_x_task_fxc_pol(
         let t1045 = t186 * t238;
         let t1046 = 1.0 / t1045;
         let t1050 = piecewise3(t192, 11.0 / 27.0 * t34 * sigma2 * t1046, 0.0);
-        let t1054 = f64::sqrt(t193);
+        let t1054 = rmath::sqrt(t193);
         let t1057 = t782 / t1054 / t1037;
         let t1061 = piecewise3(t192, 5.0 / 16.0 * t1040 * t1042 - t440 * t1050 * t197 / 4.0 - t1057 * t1042 / 16.0, 0.0);
         let t1063 = t60 * t219;

@@ -8,36 +8,7 @@
 
 **CPU only.** The CubeCL substrate that previously served CPU and GPU from one kernel source was retired in `docs/adr/0001-rayon-over-cubecl.md`, and its archived kernel tree was deleted on 2026-08-18. Kernels are plain Rust over `&[f64]` slices, parallelised with rayon. There is no GPU path.
 
-CubeCL survives in exactly one place: `crates/kernels-rayon/math/src/vector.rs`,
-behind an **optional, default-off `cubecl` feature** (`cargo test -p
-libxc-rkernel-math --features cubecl`). It holds `#[cube]` forms of the
-primitives plus two launchable kernels — a scalar one and a `Vector<F, N>`
-lane-vectorised one — driven through a `ComputeClient`, with tests that check
-the output against plain Rust and that lane widths 1/2/4 agree.
-
-It is default-off because this crate is a dependency of all 266 kernel crates
-and `cubecl` pulls ~235 transitive crates; `cargo tree -e normal` on the default
-feature set shows zero cubecl.
-
-Four things learned there that constrain any future CubeCL kernel path:
-
-- **A `#[cube]` fn cannot call a plain Rust fn** (`E0433: not a crate or
-  module`). The scalar helpers in the sibling modules are unreachable from a
-  kernel, which is why the primitives exist twice.
-- **`Vector<F, N>` does not implement `Float`.** It implements the individual
-  op traits (`Powf`, `Sqrt`, `Exp`, `Log`, `Erf`, `Tanh`, `ArcTan`, ...) but not
-  the supertrait bundling them, so `fn f<F: Float>(..)` is scalar-only. Shared
-  primitives must be bounded on the specific traits, or written twice.
-- **`select` takes a scalar `bool`.** The lane-mask form is `select_many` with
-  a `Vector<bool, N>` condition, which is what a comparison on a `Vector`
-  (`r.less_equal(thr)`) yields. `piecewise3` is the single most common call in
-  the maple2c sources (102,833 sites), so this matters.
-- **There is no `cbrt`.** `POW_1_3` is the third most common call (13,478
-  sites) and would have to be hand-written; `powf(x, 1/3)` is not bit-identical
-  to the scalar `cbrt_f64`. Everything else the kernels need — `atan`, `atan2`,
-  `tanh`, `erf` — is present, contrary to the CubeCL manual's algebra table.
-
-Manual: `/home/user/Documents/workspace/cubecl_manual/manual/Cubecl`.
+CubeCL kernels and the `cubecl` feature have been completely removed. All kernels run on plain Rust with Rayon parallelism and optional explicit SIMD via `rmath`/`wide`.
 
 
 ## Layout
@@ -57,10 +28,7 @@ Manual: `/home/user/Documents/workspace/cubecl_manual/manual/Cubecl`.
 
 ## Key Constraints
 
-- Numerical execution is plain Rust + rayon (ADR 0001). CubeCL is present only as
-  an **optional, default-off** feature of `crates/kernels-rayon/math`, providing
-  `Line<F>` forms of the primitives for a future explicitly-vectorised kernel
-  path; nothing in the build depends on it.
+- Numerical execution is plain Rust + rayon (ADR 0001). CubeCL has been completely deleted; nothing in the build depends on it.
 - Kernels are generated. **Never hand-edit anything under `crates/kernels-rayon/`** — regenerate with `tools/translate_rayon/`.
 - f64 only. Energy relative error must stay within 1e-12 of the libxc oracle.
 - Maple2c formula translations must preserve floating-point operation order.

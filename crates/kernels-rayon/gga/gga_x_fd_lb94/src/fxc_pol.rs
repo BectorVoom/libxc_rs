@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::integrate::{xc_integrate_func0, xc_integrate_func1};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
@@ -57,13 +58,13 @@ pub fn gga_x_fd_lb94_fxc_pol(
         let t31 = pow_1_3(t30);
         let t32 = 1.0 / t31;
         let t33 = t29 * t32;
-        let t34 = f64::sqrt(sigma0);
+        let t34 = rmath::sqrt(sigma0);
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
         let t38 = t34 * t37;
         let t40 = t33 * t38 / 12.0;
         let t41 = xc_integrate_func0(t40, param_beta);
-        let t42 = f64::ln(t40);
+        let t42 = rmath::ln(t40);
         let t44 = xc_integrate_func1(t40, param_beta);
         let t45 = t41 * t42 - t44;
         let t49 = 1.0 - t33 * t38 * t45 / 12.0;
@@ -76,13 +77,13 @@ pub fn gga_x_fd_lb94_fxc_pol(
         let t60 = pow_1_3(t58);
         let t62 = piecewise3(t59, t22, t60 * t58);
         let t63 = t62 * t26;
-        let t64 = f64::sqrt(sigma2);
+        let t64 = rmath::sqrt(sigma2);
         let t65 = pow_1_3(rho1);
         let t67 = 1.0 / t65 / rho1;
         let t68 = t64 * t67;
         let t70 = t33 * t68 / 12.0;
         let t71 = xc_integrate_func0(t70, param_beta);
-        let t72 = f64::ln(t70);
+        let t72 = rmath::ln(t70);
         let t74 = xc_integrate_func1(t70, param_beta);
         let t75 = t71 * t72 - t74;
         let t79 = 1.0 - t33 * t68 * t75 / 12.0;
@@ -176,9 +177,9 @@ pub fn gga_x_fd_lb94_fxc_pol(
         let t261 = t244 * sigma0;
         let t263 = 1.0 / t248 / t102;
         let t267 = 6.0 * t260 * t261 * t263 + 144.0;
-        let t268 = f64::sqrt(t267);
+        let t268 = rmath::sqrt(t267);
         let t270 = t256 * t255 * t37 / 12.0 + t268 / 12.0;
-        let t271 = f64::ln(t270);
+        let t271 = rmath::ln(t270);
         let t272 = t37 * t271;
         let t276 = 1.0 + t254 * t255 * t272 / 4.0;
         let t277 = 1.0 / t276;
@@ -237,9 +238,9 @@ pub fn gga_x_fd_lb94_fxc_pol(
         let t426 = t244 * sigma2;
         let t428 = 1.0 / t419 / t155;
         let t432 = 6.0 * t260 * t426 * t428 + 144.0;
-        let t433 = f64::sqrt(t432);
+        let t433 = rmath::sqrt(t432);
         let t435 = t256 * t423 * t67 / 12.0 + t433 / 12.0;
-        let t436 = f64::ln(t435);
+        let t436 = rmath::ln(t435);
         let t437 = t67 * t436;
         let t441 = 1.0 + t254 * t423 * t437 / 4.0;
         let t442 = 1.0 / t441;

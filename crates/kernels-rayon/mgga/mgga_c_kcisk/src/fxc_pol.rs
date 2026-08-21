@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -56,7 +57,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t11 = t7 * t10;
         let t12 = t5 * t11;
         let t14 = 1.0 + 0.053425 * t12;
-        let t15 = f64::sqrt(t12);
+        let t15 = rmath::sqrt(t12);
         let t18 = pow_3_2(t12);
         let t20 = t2 * t2;
         let t21 = t4 * t4;
@@ -67,7 +68,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t26 = t22 * t25;
         let t28 = 3.79785 * t15 + 0.8969 * t12 + 0.204775 * t18 + 0.123235 * t26;
         let t31 = 1.0 + 16.081824322151103 / t28;
-        let t32 = f64::ln(t31);
+        let t32 = rmath::ln(t31);
         let t34 = 0.062182 * t14 * t32;
         let t36 = pow_1_3(zeta_threshold);
         let t37 = t36 * zeta_threshold;
@@ -78,7 +79,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t47 = 1.0 + 0.0278125 * t12;
         let t52 = 5.1785 * t15 + 0.905775 * t12 + 0.1100325 * t18 + 0.1241775 * t26;
         let t55 = 1.0 + 29.608574643216677 / t52;
-        let t56 = f64::ln(t55);
+        let t56 = rmath::ln(t55);
         let t57 = t47 * t56;
         let t60 = -t34 + 0.019751789702565206 * t45 * t57;
         let t62 = M_CBRT6;
@@ -92,7 +93,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t70 = t69 * t10;
         let t71 = t68 * t70;
         let t73 = 1.0 + 0.053425 * t71;
-        let t74 = f64::sqrt(t71);
+        let t74 = rmath::sqrt(t71);
         let t77 = pow_3_2(t71);
         let t79 = t41 * t41;
         let t80 = t79 * t20;
@@ -101,11 +102,11 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t83 = t80 * t82;
         let t85 = 3.79785 * t74 + 0.8969 * t71 + 0.204775 * t77 + 0.123235 * t83;
         let t88 = 1.0 + 16.081824322151103 / t85;
-        let t89 = f64::ln(t88);
+        let t89 = rmath::ln(t88);
         let t93 = 1.0 + 0.0278125 * t71;
         let t98 = 5.1785 * t74 + 0.905775 * t71 + 0.1100325 * t77 + 0.1241775 * t83;
         let t101 = 1.0 + 29.608574643216677 / t98;
-        let t102 = f64::ln(t101);
+        let t102 = rmath::ln(t101);
         let t107 = t67 * (-0.062182 * t73 * t89 + 0.019751789702565206 * t45 * t93 * t102);
         let t110 = 10.0 / 9.0 * t64 * t107 * t10;
         let t111 = t110 < -0.066725;
@@ -124,7 +125,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t128 = t6 * t127;
         let t129 = t123 * t128;
         let t132 = 1.0 + 0.05397236614853195 * t121 * t129;
-        let t133 = f64::ln(t132);
+        let t133 = rmath::ln(t132);
         let t135 = 1.0 + 0.193 * t133;
         let t136 = 1.0 / t135;
         let t138 = 1.0 / t21;
@@ -151,7 +152,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t175 = -0.005977859662531589 * t143 + 0.001317375 * t158 - 0.00023775 * t165 + 6.474423634745383e-06 * t167 - 5.40140625e-07 * t173;
         let t177 = 0.0011713266981940448 * t143 * t151 - t60 * t175;
         let t178 = t142 * t177;
-        let t179 = f64::powf(4.0, 1.0 / 6.0);
+        let t179 = rmath::pow(4.0, 1.0 / 6.0);
         let t180 = t139 * t179;
         let t181 = t15 * t12;
         let t182 = t23 * t181;
@@ -162,7 +163,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t191 = t190 * t116;
         let t193 = t140 * t178 * t191;
         let t195 = t60 * t136 + 0.009949166666666667 * t193;
-        let t196 = f64::sqrt(4.0);
+        let t196 = rmath::sqrt(4.0);
         let t197 = t60 * t196;
         let t198 = t181 * t183;
         let t201 = t7 * t23;
@@ -196,7 +197,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t242 = 1.0 + 0.05137 * t12;
         let t247 = 7.05945 * t15 + 1.549425 * t12 + 0.420775 * t18 + 0.1562925 * t26;
         let t250 = 1.0 + 32.1646831778707 / t247;
-        let t251 = f64::ln(t250);
+        let t251 = rmath::ln(t250);
         let t259 = -t34 + t240 * (-0.03109 * t242 * t251 + t34 - 0.019751789702565206 * t57) + 0.019751789702565206 * t240 * t57;
         let t260 = t3 * t63;
         let t261 = t67 * t60;
@@ -210,7 +211,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t274 = t6 * t273;
         let t275 = t123 * t274;
         let t278 = 1.0 + 0.05397236614853195 * t268 * t119 * t275;
-        let t279 = f64::ln(t278);
+        let t279 = rmath::ln(t278);
         let t281 = 1.0 + 0.193 * t279;
         let t282 = 1.0 / t281;
         let t285 = t259 * t282 + 0.0069644166666666665 * t193;
@@ -229,7 +230,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t301 = pow_1_3(t300);
         let t303 = t298 * t299 * t301;
         let t305 = 1.0 + 0.053425 * t303;
-        let t306 = f64::sqrt(t303);
+        let t306 = rmath::sqrt(t303);
         let t309 = pow_3_2(t303);
         let t311 = t22 * t6;
         let t312 = t24 * t79;
@@ -237,12 +238,12 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t315 = t311 * t312 * t313;
         let t317 = 3.79785 * t306 + 0.8969 * t303 + 0.204775 * t309 + 0.123235 * t315;
         let t320 = 1.0 + 16.081824322151103 / t317;
-        let t321 = f64::ln(t320);
+        let t321 = rmath::ln(t320);
         let t323 = 0.062182 * t305 * t321;
         let t325 = 1.0 + 0.0278125 * t303;
         let t330 = 5.1785 * t306 + 0.905775 * t303 + 0.1100325 * t309 + 0.1241775 * t315;
         let t333 = 1.0 + 29.608574643216677 / t330;
-        let t334 = f64::ln(t333);
+        let t334 = rmath::ln(t333);
         let t335 = t325 * t334;
         let t338 = -t323 + 0.019751789702565206 * t45 * t335;
         let t339 = t79 * t3;
@@ -251,18 +252,18 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t342 = t341 * t4;
         let t344 = t342 * t11 * t301;
         let t346 = 1.0 + 0.053425 * t344;
-        let t347 = f64::sqrt(t344);
+        let t347 = rmath::sqrt(t344);
         let t350 = pow_3_2(t344);
         let t352 = t41 * t20;
         let t353 = t352 * t21;
         let t355 = t353 * t25 * t313;
         let t357 = 3.79785 * t347 + 0.8969 * t344 + 0.204775 * t350 + 0.24647 * t355;
         let t360 = 1.0 + 16.081824322151103 / t357;
-        let t361 = f64::ln(t360);
+        let t361 = rmath::ln(t360);
         let t365 = 1.0 + 0.0278125 * t344;
         let t370 = 5.1785 * t347 + 0.905775 * t344 + 0.1100325 * t350 + 0.248355 * t355;
         let t373 = 1.0 + 29.608574643216677 / t370;
-        let t374 = f64::ln(t373);
+        let t374 = rmath::ln(t373);
         let t378 = -0.062182 * t346 * t361 + 0.019751789702565206 * t45 * t365 * t374;
         let t379 = t67 * t378;
         let t380 = t8 * t222;
@@ -286,7 +287,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t403 = 1.0 / t402;
         let t405 = t397 * t399 * t403;
         let t408 = 1.0 + 0.05397236614853195 * t396 * t405;
-        let t409 = f64::ln(t408);
+        let t409 = rmath::ln(t408);
         let t411 = 1.0 + 0.193 * t409;
         let t412 = 1.0 / t411;
         let t415 = t139 * t201 * t79;
@@ -353,7 +354,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t507 = 1.0 + 0.05137 * t303;
         let t512 = 7.05945 * t306 + 1.549425 * t303 + 0.420775 * t309 + 0.1562925 * t315;
         let t515 = 1.0 + 32.1646831778707 / t512;
-        let t516 = f64::ln(t515);
+        let t516 = rmath::ln(t515);
         let t524 = -t323 + t240 * (-0.03109 * t507 * t516 + t323 - 0.019751789702565206 * t335) + 0.019751789702565206 * t240 * t335;
         let t525 = t260 * t67;
         let t526 = t338 * t41;
@@ -368,7 +369,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t539 = 1.0 / t538;
         let t541 = t397 * t399 * t539;
         let t544 = 1.0 + 0.026986183074265976 * t535 * t541;
-        let t545 = f64::ln(t544);
+        let t545 = rmath::ln(t544);
         let t547 = 1.0 + 0.193 * t545;
         let t548 = 1.0 / t547;
         let t551 = t524 * t548 + 0.0017411041666666666 * t473;
@@ -386,32 +387,32 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t569 = pow_1_3(t568);
         let t571 = t298 * t299 * t569;
         let t573 = 1.0 + 0.053425 * t571;
-        let t574 = f64::sqrt(t571);
+        let t574 = rmath::sqrt(t571);
         let t577 = pow_3_2(t571);
         let t579 = t569 * t569;
         let t581 = t311 * t312 * t579;
         let t583 = 3.79785 * t574 + 0.8969 * t571 + 0.204775 * t577 + 0.123235 * t581;
         let t586 = 1.0 + 16.081824322151103 / t583;
-        let t587 = f64::ln(t586);
+        let t587 = rmath::ln(t586);
         let t589 = 0.062182 * t573 * t587;
         let t591 = 1.0 + 0.0278125 * t571;
         let t596 = 5.1785 * t574 + 0.905775 * t571 + 0.1100325 * t577 + 0.1241775 * t581;
         let t599 = 1.0 + 29.608574643216677 / t596;
-        let t600 = f64::ln(t599);
+        let t600 = rmath::ln(t599);
         let t601 = t591 * t600;
         let t604 = -t589 + 0.019751789702565206 * t45 * t601;
         let t606 = t342 * t11 * t569;
         let t608 = 1.0 + 0.053425 * t606;
-        let t609 = f64::sqrt(t606);
+        let t609 = rmath::sqrt(t606);
         let t612 = pow_3_2(t606);
         let t615 = t353 * t25 * t579;
         let t617 = 3.79785 * t609 + 0.8969 * t606 + 0.204775 * t612 + 0.24647 * t615;
         let t620 = 1.0 + 16.081824322151103 / t617;
-        let t621 = f64::ln(t620);
+        let t621 = rmath::ln(t620);
         let t625 = 1.0 + 0.0278125 * t606;
         let t630 = 5.1785 * t609 + 0.905775 * t606 + 0.1100325 * t612 + 0.248355 * t615;
         let t633 = 1.0 + 29.608574643216677 / t630;
-        let t634 = f64::ln(t633);
+        let t634 = rmath::ln(t633);
         let t638 = -0.062182 * t608 * t621 + 0.019751789702565206 * t45 * t625 * t634;
         let t639 = t67 * t638;
         let t640 = t8 * t227;
@@ -434,7 +435,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t662 = 1.0 / t661;
         let t664 = t397 * t658 * t662;
         let t667 = 1.0 + 0.05397236614853195 * t656 * t664;
-        let t668 = f64::ln(t667);
+        let t668 = rmath::ln(t667);
         let t670 = 1.0 + 0.193 * t668;
         let t671 = 1.0 / t670;
         let t673 = 1.0 / t579;
@@ -491,7 +492,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t755 = 1.0 + 0.05137 * t571;
         let t760 = 7.05945 * t574 + 1.549425 * t571 + 0.420775 * t577 + 0.1562925 * t581;
         let t763 = 1.0 + 32.1646831778707 / t760;
-        let t764 = f64::ln(t763);
+        let t764 = rmath::ln(t763);
         let t772 = -t589 + t240 * (-0.03109 * t755 * t764 + t589 - 0.019751789702565206 * t601) + 0.019751789702565206 * t240 * t601;
         let t773 = t604 * t41;
         let t776 = 10.0 / 9.0 * t525 * t773 * t642;
@@ -505,7 +506,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t786 = 1.0 / t785;
         let t788 = t397 * t658 * t786;
         let t791 = 1.0 + 0.026986183074265976 * t782 * t788;
-        let t792 = f64::ln(t791);
+        let t792 = rmath::ln(t791);
         let t794 = 1.0 + 0.193 * t792;
         let t795 = 1.0 / t794;
         let t798 = t772 * t795 + 0.0017411041666666666 * t722;
@@ -525,7 +526,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t818 = t69 * t142;
         let t819 = t817 * t818;
         let t821 = t5 * t157;
-        let t823 = f64::sqrt(t12);
+        let t823 = rmath::sqrt(t12);
         let t824 = t823 * t2;
         let t825 = t824 * t818;
         let t827 = t22 * t164;
@@ -552,7 +553,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t866 = 1.0 / t74 * t41 * t2;
         let t867 = t866 * t818;
         let t869 = t68 * t818;
-        let t871 = f64::sqrt(t71);
+        let t871 = rmath::sqrt(t71);
         let t873 = t871 * t41 * t2;
         let t874 = t873 * t818;
         let t877 = t80 * t81 * t163;
@@ -708,7 +709,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t1175 = -t1161 / 3.0 - t1165 / 3.0;
         let t1176 = t1173 * t1175;
         let t1178 = 0.29896666666666666 * t1161;
-        let t1180 = f64::sqrt(t303);
+        let t1180 = rmath::sqrt(t303);
         let t1181 = t1180 * t1175;
         let t1184 = t311 * t436 * t313;
         let t1185 = 0.08215666666666667 * t1184;
@@ -747,7 +748,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t1237 = -t1222 / 3.0 - t1227 / 3.0;
         let t1238 = t1235 * t1237;
         let t1240 = 0.29896666666666666 * t1222;
-        let t1242 = f64::sqrt(t344);
+        let t1242 = rmath::sqrt(t344);
         let t1243 = t1242 * t1237;
         let t1246 = t353 * t164 * t313;
         let t1247 = 0.16431333333333334 * t1246;
@@ -986,7 +987,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t1648 = -t1634 / 3.0 - t1638 / 3.0;
         let t1649 = t1646 * t1648;
         let t1651 = 0.29896666666666666 * t1634;
-        let t1653 = f64::sqrt(t571);
+        let t1653 = rmath::sqrt(t571);
         let t1654 = t1653 * t1648;
         let t1657 = t311 * t436 * t579;
         let t1658 = 0.08215666666666667 * t1657;
@@ -1024,7 +1025,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t1709 = -t1695 / 3.0 - t1699 / 3.0;
         let t1710 = t1707 * t1709;
         let t1712 = 0.29896666666666666 * t1695;
-        let t1714 = f64::sqrt(t606);
+        let t1714 = rmath::sqrt(t606);
         let t1715 = t1714 * t1709;
         let t1718 = t353 * t164 * t579;
         let t1719 = 0.16431333333333334 * t1718;
@@ -1627,7 +1628,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t2866 = t69 * t119;
         let t2867 = t817 * t2866;
         let t2869 = t5 * t172;
-        let t2871 = 1.0/f64::sqrt(t12);
+        let t2871 = 1.0/rmath::sqrt(t12);
         let t2872 = t2871 * t20;
         let t2873 = t2872 * t2863;
         let t2875 = t824 * t2866;
@@ -1676,7 +1677,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t2958 = t2957 * t2863;
         let t2960 = t866 * t2866;
         let t2962 = t68 * t2866;
-        let t2964 = 1.0/f64::sqrt(t71);
+        let t2964 = 1.0/rmath::sqrt(t71);
         let t2966 = t2964 * t79 * t20;
         let t2967 = t2966 * t2863;
         let t2969 = t873 * t2866;
@@ -2001,7 +2002,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t3641 = t3640 * t1191;
         let t3643 = 2.0 * t3639 * t3641;
         let t3646 = 0.3986222222222222 * t3571;
-        let t3651 = 1.0/f64::sqrt(t303);
+        let t3651 = 1.0/rmath::sqrt(t303);
         let t3652 = t3651 * t3559;
         let t3654 = t1180 * t3587;
         let t3657 = t311 * t1379 * t313;
@@ -2223,7 +2224,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t4046 = t4041 + 2.0 / 9.0 * t4011 - 2.0 / 9.0 * t4015 + 2.0 / 3.0 * t4018 - t4021 / 3.0;
         let t4047 = t1235 * t4046;
         let t4049 = 0.3986222222222222 * t4007;
-        let t4054 = 1.0/f64::sqrt(t344);
+        let t4054 = 1.0/rmath::sqrt(t344);
         let t4055 = t4054 * t4038;
         let t4057 = t1242 * t4046;
         let t4060 = t353 * t964 * t313;
@@ -2537,7 +2538,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t4706 = t4705 * t1664;
         let t4708 = 2.0 * t4704 * t4706;
         let t4711 = 0.3986222222222222 * t4636;
-        let t4716 = 1.0/f64::sqrt(t571);
+        let t4716 = 1.0/rmath::sqrt(t571);
         let t4717 = t4716 * t4624;
         let t4719 = t1653 * t4652;
         let t4722 = t311 * t1379 * t579;
@@ -2625,7 +2626,7 @@ pub fn mgga_c_kcisk_fxc_pol(
         let t4873 = t4868 + 2.0 / 9.0 * t4838 - 2.0 / 9.0 * t4842 + 2.0 / 3.0 * t4845 - t4848 / 3.0;
         let t4874 = t1707 * t4873;
         let t4876 = 0.3986222222222222 * t4834;
-        let t4881 = 1.0/f64::sqrt(t606);
+        let t4881 = 1.0/rmath::sqrt(t606);
         let t4882 = t4881 * t4865;
         let t4884 = t1714 * t4873;
         let t4887 = t353 * t964 * t579;

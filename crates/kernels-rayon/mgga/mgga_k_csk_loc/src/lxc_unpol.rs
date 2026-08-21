@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -130,22 +131,22 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         let t46 = lapl[ip] * t32;
         let t48 = 1.0 / t23 / rho[ip];
         let t52 = t41 * t37 / 24.0 + t45 * t46 * t48 / 24.0 - t39;
-        let t54 = f64::ln(1.0 - f64::EPSILON);
+        let t54 = rmath::ln(1.0 - f64::EPSILON);
         let t55 = 1.0 / param_csk_a;
-        let t56 = f64::powf(-t54, -t55);
+        let t56 = rmath::pow(-t54, -t55);
         let t57 = t52 < -t56;
-        let t58 = f64::ln(f64::EPSILON);
-        let t59 = f64::powf(-t58, -t55);
+        let t58 = rmath::ln(f64::EPSILON);
+        let t59 = rmath::pow(-t58, -t55);
         let t60 = -t59 < t52;
         let t61 = piecewise3(t60, -t59, t52);
         let t62 = -t56 < t61;
         let t63 = piecewise3(t62, t61, -t56);
-        let t64 = f64::abs(t63);
-        let t65 = f64::powf(t64, param_csk_a);
+        let t64 = rmath::abs(t63);
+        let t65 = rmath::pow(t64, param_csk_a);
         let t66 = 1.0 / t65;
-        let t67 = f64::exp(-t66);
+        let t67 = rmath::exp(-t66);
         let t68 = 1.0 - t67;
-        let t69 = f64::powf(t68, t55);
+        let t69 = rmath::pow(t68, t55);
         let t70 = piecewise5(t57, 0.0, t60, 1.0, t69);
         let t72 = t52 * t70 + t39 + 1.0;
         let t76 = piecewise3(t3, 0.0, 3.0 / 20.0 * t8 * t24 * t72);
@@ -160,7 +161,7 @@ pub fn mgga_k_csk_loc_lxc_unpol(
         let t95 = t69 * t66;
         let t96 = piecewise3(t60, 0.0, t93);
         let t97 = piecewise3(t62, t96, 0.0);
-        let t99 = f64::abs(t63) / t63;
+        let t99 = rmath::abs(t63) / t63;
         let t100 = 1.0 / t64;
         let t102 = 1.0 / t68;
         let t103 = t67 * t102;

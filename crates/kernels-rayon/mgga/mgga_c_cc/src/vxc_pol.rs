@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -76,7 +77,7 @@ pub fn mgga_c_cc_vxc_pol(
         let t49 = t48 * t48;
         let t52 = t47 * t49 / t7;
         let t54 = 1.0 + 0.053425 * t52;
-        let t55 = f64::sqrt(t52);
+        let t55 = rmath::sqrt(t52);
         let t58 = pow_3_2(t52);
         let t60 = t44 * t44;
         let t61 = t46 * t46;
@@ -84,7 +85,7 @@ pub fn mgga_c_cc_vxc_pol(
         let t65 = t62 * t48 / t8;
         let t67 = 3.79785 * t55 + 0.8969 * t52 + 0.204775 * t58 + 0.123235 * t65;
         let t70 = 1.0 + 16.081979498692537 / t67;
-        let t71 = f64::ln(t70);
+        let t71 = rmath::ln(t70);
         let t73 = 0.0621814 * t54 * t71;
         let t74 = t39 * t39;
         let t75 = 1.0 / t6;
@@ -104,11 +105,11 @@ pub fn mgga_c_cc_vxc_pol(
         let t94 = 1.0 + 0.05137 * t52;
         let t99 = 7.05945 * t55 + 1.549425 * t52 + 0.420775 * t58 + 0.1562925 * t65;
         let t102 = 1.0 + 32.16395899738507 / t99;
-        let t103 = f64::ln(t102);
+        let t103 = rmath::ln(t102);
         let t107 = 1.0 + 0.0278125 * t52;
         let t112 = 5.1785 * t55 + 0.905775 * t52 + 0.1100325 * t58 + 0.1241775 * t65;
         let t115 = 1.0 + 29.608749977793437 / t112;
-        let t116 = f64::ln(t115);
+        let t116 = rmath::ln(t115);
         let t117 = t107 * t116;
         let t119 = -0.0310907 * t94 * t103 + t73 - 0.0197516734986138 * t117;
         let t120 = t92 * t119;
@@ -150,7 +151,7 @@ pub fn mgga_c_cc_vxc_pol(
         let t172 = t171 * t161;
         let t173 = t170 * t172;
         let t175 = t47 * t162;
-        let t177 = f64::sqrt(t52);
+        let t177 = rmath::sqrt(t52);
         let t178 = t177 * t44;
         let t179 = t178 * t172;
         let t184 = t62 * t48 / t8 / t4;

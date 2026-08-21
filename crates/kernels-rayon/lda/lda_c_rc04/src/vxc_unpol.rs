@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -31,7 +32,7 @@ pub fn lda_c_rc04_vxc_unpol(
         let t12 = t11 * t11;
         let t13 = pow_1_3(rho[ip]);
         let t18 = 4.88827 + 0.79425925 * t10 * t12 / t13;
-        let t19 = f64::atan(t18);
+        let t19 = rmath::atan(t18);
         let t23 = t7 * t7;
         let t24 = t6 * (-0.655868 * t19 + 0.897889) * t23;
         let t26 = 1.0 / t9 * t11;

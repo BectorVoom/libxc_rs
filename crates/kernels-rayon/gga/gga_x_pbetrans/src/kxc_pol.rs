@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -59,10 +60,10 @@ pub fn gga_x_pbetrans_kxc_pol(
         let t31 = M_CBRT6;
         let t32 = t31 * t31;
         let t34 = t32 / t29;
-        let t35 = f64::sqrt(sigma0);
+        let t35 = rmath::sqrt(sigma0);
         let t36 = pow_1_3(rho0);
         let t38 = 1.0 / t36 / rho0;
-        let t45 = f64::exp(-2.0 * t30 * (t34 * t35 * t38 / 12.0 - 3.0));
+        let t45 = rmath::exp(-2.0 * t30 * (t34 * t35 * t38 / 12.0 - 3.0));
         let t46 = 1.0 + t45;
         let t48 = 0.413 / t46;
         let t49 = 1.227 - t48;
@@ -84,10 +85,10 @@ pub fn gga_x_pbetrans_kxc_pol(
         let t76 = pow_1_3(t74);
         let t78 = piecewise3(t75, t22, t76 * t74);
         let t79 = t78 * t26;
-        let t80 = f64::sqrt(sigma2);
+        let t80 = rmath::sqrt(sigma2);
         let t81 = pow_1_3(rho1);
         let t83 = 1.0 / t81 / rho1;
-        let t90 = f64::exp(-2.0 * t30 * (t34 * t80 * t83 / 12.0 - 3.0));
+        let t90 = rmath::exp(-2.0 * t30 * (t34 * t80 * t83 / 12.0 - 3.0));
         let t91 = 1.0 + t90;
         let t93 = 0.413 / t91;
         let t94 = 1.227 - t93;

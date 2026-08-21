@@ -207,19 +207,18 @@ FUNCS = {
     "LambertW": ("lambert_w", "lambert_w"),
 }
 
-# C libm -> Rust inherent method form. These stay real libm calls, exactly as
-# libxc makes them, so results match.
+# C libm -> rmath functions.
 LIBM = {
-    "sqrt": "f64::sqrt", "log": "f64::ln", "exp": "f64::exp",
-    "atan": "f64::atan", "atan2": "f64::atan2", "fabs": "f64::abs",
-    "tanh": "f64::tanh", "sinh": "f64::sinh", "cosh": "f64::cosh",
-    "asinh": "f64::asinh", "acosh": "f64::acosh", "atanh": "f64::atanh",
-    "sin": "f64::sin", "cos": "f64::cos", "tan": "f64::tan",
-    "asin": "f64::asin", "acos": "f64::acos", "pow": "POWF",
-    "erf": "erf_approx", "erfc": "erfc_approx", "cbrt": "cbrt_f64",
-    "expm1": "f64::exp_m1", "log1p": "f64::ln_1p",
+    "sqrt": "rmath::sqrt", "log": "rmath::ln", "exp": "rmath::exp",
+    "atan": "rmath::atan", "atan2": "rmath::atan2", "fabs": "rmath::abs",
+    "tanh": "rmath::tanh", "sinh": "rmath::sinh", "cosh": "rmath::cosh",
+    "asinh": "rmath::asinh", "acosh": "rmath::acosh", "atanh": "rmath::atanh",
+    "sin": "rmath::sin", "cos": "rmath::cos", "tan": "rmath::tan",
+    "asin": "rmath::asin", "acos": "rmath::acos", "pow": "POWF",
+    "erf": "rmath::erf", "erfc": "rmath::erfc", "cbrt": "rmath::cbrt",
+    "expm1": "rmath::expm1", "log1p": "rmath::log1p",
 }
-ERF_MOD = {"erf_approx": "erf", "erfc_approx": "erf", "cbrt_f64": "powers"}
+ERF_MOD = {}
 
 # Which pre-specialised integrand each functional's `xc_integrate(funcN, ...)`
 # resolves to, and the extra arguments the C integrand reads off `params`.
@@ -450,7 +449,7 @@ def translate_expr(expr: str, ctx: Ctx) -> str:
         if n in LIBM:
             rust = LIBM[n]
             if rust == "POWF":
-                return protect("f64::powf") + "("
+                return protect("rmath::pow") + "("
             if rust in ERF_MOD:
                 ctx.used.add((ERF_MOD[rust], rust))
             return protect(rust) + "("
@@ -625,6 +624,7 @@ def emit_function(fam: str, func: str, order: str, spin: str,
         "",
         "#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]",
         "",
+        "use libxc_rkernel_math::rmath;",
     ]
     if ctx.used_consts:
         src.append("use libxc_rkernel_math::constants::{%s};" % ", ".join(sorted(ctx.used_consts)))

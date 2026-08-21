@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -74,7 +74,7 @@ pub fn gga_x_ityh_pbe_fxc_pol(
         let t50 = param_kappa + t36 * t41 * t46 / 24.0;
         let t55 = 1.0 + param_kappa * (1.0 - param_kappa / t50);
         let t58 = t29 * t34 / t55;
-        let t59 = f64::sqrt(t58);
+        let t59 = rmath::sqrt(t58);
         let t61 = param_hyb_omega_0 / t59;
         let t62 = M_CBRT2;
         let t63 = t19 * t6;
@@ -98,12 +98,12 @@ pub fn gga_x_ityh_pbe_fxc_pol(
         let t93 = t81 * t81;
         let t94 = 1.0 / t93;
         let t97 = piecewise3(t70, 1.35, t68);
-        let t98 = f64::sqrt(M_PI);
+        let t98 = rmath::sqrt(M_PI);
         let t99 = 1.0 / t97;
-        let t101 = erf_approx(t99 / 2.0);
+        let t101 = rmath::erf(t99 / 2.0);
         let t103 = t97 * t97;
         let t104 = 1.0 / t103;
-        let t106 = f64::exp(-t104 / 4.0);
+        let t106 = rmath::exp(-t104 / 4.0);
         let t107 = t106 - 1.0;
         let t110 = t106 - 3.0 / 2.0 - 2.0 * t103 * t107;
         let t113 = t98 * t101 + 2.0 * t97 * t110;
@@ -127,7 +127,7 @@ pub fn gga_x_ityh_pbe_fxc_pol(
         let t142 = param_kappa + t36 * t133 * t138 / 24.0;
         let t147 = 1.0 + param_kappa * (1.0 - param_kappa / t142);
         let t150 = t29 * t34 / t147;
-        let t151 = f64::sqrt(t150);
+        let t151 = rmath::sqrt(t150);
         let t153 = param_hyb_omega_0 / t151;
         let t154 = t127 * t6;
         let t155 = pow_1_3(t154);
@@ -151,10 +151,10 @@ pub fn gga_x_ityh_pbe_fxc_pol(
         let t185 = 1.0 / t184;
         let t188 = piecewise3(t161, 1.35, t159);
         let t189 = 1.0 / t188;
-        let t191 = erf_approx(t189 / 2.0);
+        let t191 = rmath::erf(t189 / 2.0);
         let t193 = t188 * t188;
         let t194 = 1.0 / t193;
-        let t196 = f64::exp(-t194 / 4.0);
+        let t196 = rmath::exp(-t194 / 4.0);
         let t197 = t196 - 1.0;
         let t200 = t196 - 3.0 / 2.0 - 2.0 * t193 * t197;
         let t203 = 2.0 * t188 * t200 + t98 * t191;

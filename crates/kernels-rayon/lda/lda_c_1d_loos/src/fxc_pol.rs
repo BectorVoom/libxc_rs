@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
 
 #[allow(unused_variables, non_snake_case)]
@@ -23,14 +24,14 @@ pub fn lda_c_1d_loos_fxc_pol(
         let t1 = rho0 + rho1;
         let t2 = 1.0 / t1;
         let t4 = 1.0 + 0.6166 * t2;
-        let t5 = f64::sqrt(t4);
+        let t5 = rmath::sqrt(t4);
         let t6 = t5 - 1.0;
         let t7 = t6 * t6;
         let t8 = t1 * t1;
         let t9 = t7 * t8;
         let t10 = M_SQRT2;
-        let t11 = f64::sqrt(M_PI);
-        let t13 = f64::ln(t10 * t11);
+        let t11 = rmath::sqrt(M_PI);
+        let t13 = rmath::ln(t10 * t11);
         let t15 = -0.3083 * t13 - 0.231225;
         let t16 = t6 * t1;
         let t18 = 1.0 - 3.243593902043464 * t16;

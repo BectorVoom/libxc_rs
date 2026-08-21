@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -98,7 +99,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t42 = rho0 * rho0;
         let t44 = 1.0 / t33 / t42;
         let t45 = t41 * t44;
-        let t48 = f64::abs(t36 / 2.0 - 2.0 * t39 + t45 / 4.0);
+        let t48 = rmath::abs(t36 / 2.0 - 2.0 * t39 + t45 / 4.0);
         let t50 = t48 / 3.0 < 5e-13;
         let t54 = t36 / 6.0 - 2.0 / 3.0 * t39 + t45 / 12.0;
         let t55 = 0.0 < t54;
@@ -109,7 +110,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t62 = -5e-13 < t60;
         let t63 = piecewise3(t62, -5e-13, t60);
         let t65 = 1.525525181200953 * t63 + 0.4576575543602858;
-        let t66 = f64::atan(t65);
+        let t66 = rmath::atan(t65);
         let t67 = -t66 + 0.4292036732051034;
         let t69 = t63 * t63;
         let t71 = t69 * t63;
@@ -121,7 +122,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t85 = 1.0 / t84;
         let t87 = 5e-13 < t60;
         let t88 = piecewise3(t87, t60, 5e-13);
-        let t90 = f64::ln(1.0 / (2.085749716493756 * t88) + f64::sqrt(pow_2(1.0 / (2.085749716493756 * t88)) + 1.0));
+        let t90 = rmath::ln(1.0 / (2.085749716493756 * t88) + rmath::sqrt(pow_2(1.0 / (2.085749716493756 * t88)) + 1.0));
         let t91 = t90 + 2.0;
         let t93 = t88 * t88;
         let t95 = t93 * t88;
@@ -132,9 +133,9 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t108 = 3.347285060926091e-05 + 0.4791793102397135 * t88 + 62.39226833857424 * t93 + 463.1481642793812 * t95 + 785.2360350104029 * t97 + 1657.962968223273 * t99;
         let t109 = 1.0 / t108;
         let t111 = piecewise3(t61, t78 * t85, t102 * t109);
-        let t113 = f64::exp(t111 / 3.0);
+        let t113 = rmath::exp(t111 / 3.0);
         let t114 = t29 * t113;
-        let t115 = f64::exp(-t111);
+        let t115 = rmath::exp(-t111);
         let t117 = 1.0 + t111 / 2.0;
         let t118 = t115 * t117;
         let t119 = 1.0 - t118;
@@ -161,7 +162,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t147 = rho1 * rho1;
         let t149 = 1.0 / t138 / t147;
         let t150 = t146 * t149;
-        let t153 = f64::abs(t141 / 2.0 - 2.0 * t144 + t150 / 4.0);
+        let t153 = rmath::abs(t141 / 2.0 - 2.0 * t144 + t150 / 4.0);
         let t155 = t153 / 3.0 < 5e-13;
         let t159 = t141 / 6.0 - 2.0 / 3.0 * t144 + t150 / 12.0;
         let t160 = 0.0 < t159;
@@ -172,7 +173,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t167 = -5e-13 < t165;
         let t168 = piecewise3(t167, -5e-13, t165);
         let t170 = 1.525525181200953 * t168 + 0.4576575543602858;
-        let t171 = f64::atan(t170);
+        let t171 = rmath::atan(t170);
         let t172 = -t171 + 0.4292036732051034;
         let t174 = t168 * t168;
         let t176 = t174 * t168;
@@ -184,7 +185,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t190 = 1.0 / t189;
         let t192 = 5e-13 < t165;
         let t193 = piecewise3(t192, t165, 5e-13);
-        let t195 = f64::ln(1.0 / (2.085749716493756 * t193) + f64::sqrt(pow_2(1.0 / (2.085749716493756 * t193)) + 1.0));
+        let t195 = rmath::ln(1.0 / (2.085749716493756 * t193) + rmath::sqrt(pow_2(1.0 / (2.085749716493756 * t193)) + 1.0));
         let t196 = t195 + 2.0;
         let t198 = t193 * t193;
         let t200 = t198 * t193;
@@ -195,9 +196,9 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t213 = 3.347285060926091e-05 + 0.4791793102397135 * t193 + 62.39226833857424 * t198 + 463.1481642793812 * t200 + 785.2360350104029 * t202 + 1657.962968223273 * t204;
         let t214 = 1.0 / t213;
         let t216 = piecewise3(t166, t183 * t190, t207 * t214);
-        let t218 = f64::exp(t216 / 3.0);
+        let t218 = rmath::exp(t216 / 3.0);
         let t219 = t29 * t218;
-        let t220 = f64::exp(-t216);
+        let t220 = rmath::exp(-t216);
         let t222 = 1.0 + t216 / 2.0;
         let t223 = t220 * t222;
         let t224 = 1.0 - t223;
@@ -247,7 +248,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t300 = 1.0 / t93;
         let t301 = t299 * t300;
         let t303 = 1.0 + 0.2298664631316238 * t300;
-        let t304 = f64::sqrt(t303);
+        let t304 = rmath::sqrt(t303);
         let t305 = 1.0 / t304;
         let t306 = t305 * t101;
         let t307 = t306 * t109;
@@ -322,7 +323,7 @@ pub fn mgga_x_br89_explicit_kxc_pol(
         let t443 = 1.0 / t198;
         let t444 = t442 * t443;
         let t446 = 1.0 + 0.2298664631316238 * t443;
-        let t447 = f64::sqrt(t446);
+        let t447 = rmath::sqrt(t446);
         let t448 = 1.0 / t447;
         let t449 = t448 * t206;
         let t450 = t449 * t214;

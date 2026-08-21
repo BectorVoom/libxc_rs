@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -74,7 +75,7 @@ pub fn gga_x_lv_rpw86_fxc_pol(
         let t58 = t45 * rho0;
         let t60 = 1.0 / t35 / t58;
         let t65 = 1.0 + 0.077125 * t40 + 0.030086805555555554 * t57 * t43 * t60 + 7.26282598747199e-07 * t48;
-        let t66 = f64::powf(t65, 1.0 / 15.0);
+        let t66 = rmath::pow(t65, 1.0 / 15.0);
         let t67 = 1.15 + t49;
         let t68 = 1.0 / t67;
         let t69 = t66 * t68;
@@ -106,7 +107,7 @@ pub fn gga_x_lv_rpw86_fxc_pol(
         let t107 = t98 * rho1;
         let t109 = 1.0 / t88 / t107;
         let t114 = 1.0 + 0.077125 * t93 + 0.030086805555555554 * t57 * t96 * t109 + 7.26282598747199e-07 * t101;
-        let t115 = f64::powf(t114, 1.0 / 15.0);
+        let t115 = rmath::pow(t114, 1.0 / 15.0);
         let t116 = 1.15 + t102;
         let t117 = 1.0 / t116;
         let t118 = t115 * t117;

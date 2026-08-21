@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_1d_csc_fxc_unpol(
@@ -45,17 +46,17 @@ pub fn lda_c_1d_csc_fxc_unpol(
         let t8 = t2 + t3 * t5 / 4.0;
         let t9 = param_para_7;
         let t13 = param_para_9;
-        let t14 = f64::powf(t2, t13);
+        let t14 = rmath::pow(t2, t13);
         let t15 = param_para_8 * t14;
         let t16 = 1.0 + t9 * t1 / 2.0 + t15;
-        let t17 = f64::ln(t16);
+        let t17 = rmath::ln(t16);
         let t18 = t8 * t17;
         let t21 = param_para_1;
         let t24 = param_para_5;
-        let t25 = f64::powf(t2, t24);
+        let t25 = rmath::pow(t2, t24);
         let t26 = param_para_2 * t25;
         let t29 = param_para_6;
-        let t30 = f64::powf(t2, t29);
+        let t30 = rmath::pow(t2, t29);
         let t31 = param_para_3 * t30;
         let t33 = t21 * t1 + 2.0 * t26 + 2.0 * t31 + 2.0 * param_para_0;
         let t34 = 1.0 / t33;

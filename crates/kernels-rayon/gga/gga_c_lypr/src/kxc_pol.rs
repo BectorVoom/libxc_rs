@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_PI};
-use libxc_rkernel_math::erf::{erfc_approx};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -45,7 +45,7 @@ pub fn gga_c_lypr_kxc_pol(
         let t2 = rho0 + rho1;
         let t3 = pow_1_3(t2);
         let t4 = 1.0 / t3;
-        let t6 = erfc_approx(t1 * t4);
+        let t6 = rmath::erfc(t1 * t4);
         let t7 = rho0 - rho1;
         let t8 = t7 * t7;
         let t9 = t2 * t2;
@@ -55,9 +55,9 @@ pub fn gga_c_lypr_kxc_pol(
         let t15 = param_d * t4 + 1.0;
         let t16 = 1.0 / t15;
         let t18 = param_m2 * param_omega;
-        let t20 = erfc_approx(t18 * t4);
+        let t20 = rmath::erfc(t18 * t4);
         let t21 = t20 * param_b;
-        let t23 = f64::exp(-param_c * t4);
+        let t23 = rmath::exp(-param_c * t4);
         let t24 = t23 * t16;
         let t26 = sigma0 + 2.0 * sigma1 + sigma2;
         let t27 = t3 * t3;
@@ -126,14 +126,14 @@ pub fn gga_c_lypr_kxc_pol(
         let t122 = -t30 * t38 - 3.0 / 20.0 * t45 * t12 * t66 + t71 * t89 / 32.0 + t71 * t104 / 576.0 - t70 * (2.0 / 3.0 * t80 + 2.0 / 3.0 * t87 - t110 * t111 / 4.0 - t115 * t116 / 4.0) / 8.0;
         let t123 = t24 * t122;
         let t125 = param_b * t23;
-        let t126 = f64::sqrt(M_PI);
+        let t126 = rmath::sqrt(M_PI);
         let t127 = 1.0 / t126;
         let t128 = t16 * t127;
         let t130 = t125 * t128 * param_m2;
         let t131 = param_m2 * param_m2;
         let t132 = param_omega * param_omega;
         let t134 = 1.0 / t27;
-        let t136 = f64::exp(-t131 * t132 * t134);
+        let t136 = rmath::exp(-t131 * t132 * t134);
         let t137 = param_omega * t136;
         let t138 = t4 * t12;
         let t142 = t47 / 6.0;
@@ -150,7 +150,7 @@ pub fn gga_c_lypr_kxc_pol(
         zk[ip] += tzk0;
         let t161 = t2 * param_a;
         let t162 = param_m1 * param_m1;
-        let t165 = f64::exp(-t162 * t132 * t134);
+        let t165 = rmath::exp(-t162 * t132 * t134);
         let t166 = t127 * t165;
         let t167 = t166 * param_m1;
         let t169 = 1.0 / t3 / t2;

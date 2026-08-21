@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
@@ -28,7 +29,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t4 = piecewise3(t1, t3, 1.0);
         let t5 = t4 * t4;
         let t6 = t5 * t4;
-        let t7 = f64::ln(2.0);
+        let t7 = rmath::ln(2.0);
         let t8 = t7 - 1.0;
         let t10 = 2.0 * t6 * t8;
         let t11 = M_PI * M_PI;
@@ -43,7 +44,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t20 = 1.0 / t19;
         let t21 = t18 * t20;
         let t22 = t16 * t21;
-        let t23 = f64::sqrt(t22);
+        let t23 = rmath::sqrt(t22);
         let t25 = 1.0 / t4;
         let t27 = 2.923025 * param_hyb_omega_0 * t23 * t25;
         let t29 = pow_1_3(9.0);
@@ -59,7 +60,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t55 = t38 * t13 * t15;
         let t59 = 1.0 + t27 + 0.8621275 * t55 * t21 * t42;
         let t60 = 1.0 / t59;
-        let t62 = f64::ln(t53 * t60);
+        let t62 = rmath::ln(t53 * t60);
         let t65 = 1.0 / rho[ip];
         let t74 = (2.0 / 45.0 * t17 * t30 * t15 * (t11 + 6.0 * t7 - 3.0) * t14 - 0.7524) * t13;
         let t78 = t13 * t13;
@@ -74,7 +75,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t90 = 1.0 / t19 / rho[ip];
         let t91 = t18 * t90;
         let t94 = 1.0 - t74 * t41 * t20 / 4.0 + 0.0204825 * t84 - 0.0030486129349252553 * t65 + 0.0003485625 * t88 * t91;
-        let t97 = f64::exp(-0.1881 * t22);
+        let t97 = rmath::exp(-0.1881 * t22);
         let t98 = M_SQRT2;
         let t99 = t97 * t98;
         let t103 = t78 * t79 * t12;
@@ -94,7 +95,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t125 = t117 * t124;
         let t128 = t111 * t13 * t81 * t125 / 15.0;
         let t131 = -1.2375 * t22 + t84 / 4.0;
-        let t133 = f64::exp(-0.0775 * t22);
+        let t133 = rmath::exp(-0.0775 * t22);
         let t134 = t131 * t133;
         let t135 = M_PI * rho[ip];
         let t138 = t128 + 4.0 / 3.0 * t134 * t135;
@@ -102,7 +103,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t147 = t145 / 2.0 - 1.0 / 2.0;
         let t150 = t17 * t106;
         let t153 = -0.097 * t22 + 0.169 * t84;
-        let t155 = f64::exp(-0.13675 * t22);
+        let t155 = rmath::exp(-0.13675 * t22);
         let t157 = t153 * t155 * t13;
         let t159 = 1.0 / t79 * t18;
         let t160 = t159 * t81;
@@ -114,13 +115,13 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t178 = pow_3_2(t22);
         let t181 = 3.79785 * t23 + 0.8969 * t22 + 0.204775 * t178 + 0.123235 * t84;
         let t184 = 1.0 + 16.081979498692537 / t181;
-        let t185 = f64::ln(t184);
+        let t185 = rmath::ln(t184);
         let t189 = piecewise3(t1, t2 * zeta_threshold, 1.0);
         let t195 = (2.0 * t189 - 2.0) / (2.0 * t113 - 2.0);
         let t197 = 1.0 + 0.0278125 * t22;
         let t202 = 5.1785 * t23 + 0.905775 * t22 + 0.1100325 * t178 + 0.1241775 * t84;
         let t205 = 1.0 + 29.608749977793437 / t202;
-        let t206 = f64::ln(t205);
+        let t206 = rmath::ln(t205);
         let t210 = -0.0621814 * t175 * t185 + 0.0197516734986138 * t195 * t197 * t206;
         let t215 = t38 * t38;
         let t217 = t103 * t150;
@@ -192,7 +193,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t397 = t175 * t396;
         let t398 = t249 * t13;
         let t399 = t398 * t281;
-        let t402 = f64::sqrt(t22);
+        let t402 = rmath::sqrt(t22);
         let t403 = t402 * t13;
         let t404 = t403 * t281;
         let t407 = -0.632975 * t399 - 0.29896666666666666 * t252 - 0.1023875 * t404 - 0.08215666666666667 * t284;
@@ -289,7 +290,7 @@ pub fn lda_c_pmgb06_kxc_unpol(
         let t712 = t485 * t234;
         let t713 = t711 * t712;
         let t715 = t398 * t548;
-        let t718 = 1.0/f64::sqrt(t22);
+        let t718 = 1.0/rmath::sqrt(t22);
         let t719 = t718 * t78;
         let t720 = t719 * t712;
         let t722 = t403 * t548;

@@ -6,8 +6,8 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::erf::{erf_approx};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -61,20 +61,20 @@ pub fn gga_x_lcgau_exc_pol(
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
         let t40 = sigma0 * t39;
-        let t41 = f64::sqrt(sigma0);
+        let t41 = rmath::sqrt(sigma0);
         let t43 = 1.0 / t36 / rho0;
         let t44 = t41 * t43;
-        let t45 = f64::ln(t44 + f64::sqrt(t44 * t44 + 1.0));
+        let t45 = rmath::ln(t44 + rmath::sqrt(t44 * t44 + 1.0));
         let t48 = 1.0 + 0.0252 * t44 * t45;
         let t49 = 1.0 / t48;
         let t53 = 1.0 + 0.0009333333333333333 * t34 * t40 * t49;
         let t54 = t27 * t53;
-        let t55 = f64::sqrt(3.0);
+        let t55 = rmath::sqrt(3.0);
         let t56 = param_hyb_omega_0 * t55;
         let t57 = t2 * t30;
         let t58 = t33 * t33;
         let t61 = t57 * t58 * t53 * t29;
-        let t62 = f64::sqrt(t61);
+        let t62 = rmath::sqrt(t61);
         let t63 = M_CBRT2;
         let t64 = t62 * t63;
         let t65 = t19 * t6;
@@ -98,12 +98,12 @@ pub fn gga_x_lcgau_exc_pol(
         let t95 = t83 * t83;
         let t96 = 1.0 / t95;
         let t99 = piecewise3(t72, 1.35, t70);
-        let t100 = f64::sqrt(M_PI);
+        let t100 = rmath::sqrt(M_PI);
         let t101 = 1.0 / t99;
-        let t103 = erf_approx(t101 / 2.0);
+        let t103 = rmath::erf(t101 / 2.0);
         let t105 = t99 * t99;
         let t106 = 1.0 / t105;
-        let t108 = f64::exp(-t106 / 4.0);
+        let t108 = rmath::exp(-t106 / 4.0);
         let t109 = t108 - 1.0;
         let t112 = t108 - 3.0 / 2.0 - 2.0 * t105 * t109;
         let t115 = t100 * t103 + 2.0 * t112 * t99;
@@ -125,10 +125,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t145 = 1.0 / t135 / t132;
         let t148 = piecewise3(t124, 2.07, t122);
         let t149 = 1.0 / t148;
-        let t151 = erf_approx(t149 / 2.0);
+        let t151 = rmath::erf(t149 / 2.0);
         let t153 = t148 * t148;
         let t154 = 1.0 / t153;
-        let t156 = f64::exp(-t154 / 4.0);
+        let t156 = rmath::exp(-t154 / 4.0);
         let t157 = t156 - 1.0;
         let t158 = t148 * t157;
         let t160 = 1.0 - 8.0 * t153;
@@ -151,10 +151,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t194 = 1.0 / t184 / t181;
         let t197 = piecewise3(t173, 2.07, t171);
         let t198 = 1.0 / t197;
-        let t200 = erf_approx(t198 / 2.0);
+        let t200 = rmath::erf(t198 / 2.0);
         let t202 = t197 * t197;
         let t203 = 1.0 / t202;
-        let t205 = f64::exp(-t203 / 4.0);
+        let t205 = rmath::exp(-t203 / 4.0);
         let t206 = t205 - 1.0;
         let t207 = t197 * t206;
         let t209 = 1.0 - 8.0 * t202;
@@ -176,16 +176,16 @@ pub fn gga_x_lcgau_exc_pol(
         let t235 = t234 * t234;
         let t237 = 1.0 / t235 / t233;
         let t238 = sigma2 * t237;
-        let t239 = f64::sqrt(sigma2);
+        let t239 = rmath::sqrt(sigma2);
         let t241 = 1.0 / t234 / rho1;
         let t242 = t239 * t241;
-        let t243 = f64::ln(t242 + f64::sqrt(t242 * t242 + 1.0));
+        let t243 = rmath::ln(t242 + rmath::sqrt(t242 * t242 + 1.0));
         let t246 = 1.0 + 0.0252 * t242 * t243;
         let t247 = 1.0 / t246;
         let t251 = 1.0 + 0.0009333333333333333 * t34 * t238 * t247;
         let t252 = t27 * t251;
         let t255 = t57 * t58 * t251 * t29;
-        let t256 = f64::sqrt(t255);
+        let t256 = rmath::sqrt(t255);
         let t257 = t256 * t63;
         let t258 = t227 * t6;
         let t259 = pow_1_3(t258);
@@ -209,10 +209,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t289 = 1.0 / t288;
         let t292 = piecewise3(t265, 1.35, t263);
         let t293 = 1.0 / t292;
-        let t295 = erf_approx(t293 / 2.0);
+        let t295 = rmath::erf(t293 / 2.0);
         let t297 = t292 * t292;
         let t298 = 1.0 / t297;
-        let t300 = f64::exp(-t298 / 4.0);
+        let t300 = rmath::exp(-t298 / 4.0);
         let t301 = t300 - 1.0;
         let t304 = t300 - 3.0 / 2.0 - 2.0 * t297 * t301;
         let t307 = t100 * t295 + 2.0 * t292 * t304;
@@ -233,10 +233,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t336 = 1.0 / t326 / t323;
         let t339 = piecewise3(t315, 2.07, t313);
         let t340 = 1.0 / t339;
-        let t342 = erf_approx(t340 / 2.0);
+        let t342 = rmath::erf(t340 / 2.0);
         let t344 = t339 * t339;
         let t345 = 1.0 / t344;
-        let t347 = f64::exp(-t345 / 4.0);
+        let t347 = rmath::exp(-t345 / 4.0);
         let t348 = t347 - 1.0;
         let t349 = t339 * t348;
         let t351 = 1.0 - 8.0 * t344;
@@ -258,10 +258,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t384 = 1.0 / t374 / t371;
         let t387 = piecewise3(t363, 2.07, t361);
         let t388 = 1.0 / t387;
-        let t390 = erf_approx(t388 / 2.0);
+        let t390 = rmath::erf(t388 / 2.0);
         let t392 = t387 * t387;
         let t393 = 1.0 / t392;
-        let t395 = f64::exp(-t393 / 4.0);
+        let t395 = rmath::exp(-t393 / 4.0);
         let t396 = t395 - 1.0;
         let t397 = t387 * t396;
         let t399 = 1.0 - 8.0 * t392;

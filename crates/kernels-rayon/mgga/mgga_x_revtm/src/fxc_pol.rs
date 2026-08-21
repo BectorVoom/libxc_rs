@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -97,7 +98,7 @@ pub fn mgga_x_revtm_fxc_pol(
         let t64 = t63 * rho0;
         let t66 = 1.0 / t51 / t64;
         let t70 = 1.0 + 0.1504548888888889 * t56 + 0.002689949046226295 * t61 * t62 * t66;
-        let t71 = f64::powf(t70, 1.0 / 5.0);
+        let t71 = rmath::pow(t70, 1.0 / 5.0);
         let t75 = 1.0 / t52 / rho0;
         let t76 = tau0 * t75;
         let t79 = 0.256337604 * t58 * t47;
@@ -113,14 +114,14 @@ pub fn mgga_x_revtm_fxc_pol(
         let t105 = 5.0 / 9.0 * t102 * t48 - 1.0;
         let t106 = t48 * t105;
         let t109 = 1.0 + 0.2222222222222222 * t102 * t106;
-        let t110 = f64::sqrt(t109);
+        let t110 = rmath::sqrt(t109);
         let t111 = 1.0 / t110;
         let t115 = 9.0 / 20.0 * t105 * t111 + t56 / 36.0;
         let t116 = t115 * t115;
         let t118 = t115 * t35;
         let t119 = 1.0 - t35;
         let t122 = 1.0 + 5.0 / 12.0 * t95 * t96 * t54 + 292.0 / 405.0 * t116 - 146.0 / 135.0 * t118 * t119;
-        let t123 = f64::powf(t122, 1.0 / 10.0);
+        let t123 = rmath::pow(t122, 1.0 / 10.0);
         let t125 = t92 * t123 + t43 * t90;
         let t129 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t28 * t125);
         let t130 = rho1 <= dens_threshold;
@@ -155,7 +156,7 @@ pub fn mgga_x_revtm_fxc_pol(
         let t165 = t164 * rho1;
         let t167 = 1.0 / t156 / t165;
         let t171 = 1.0 + 0.1504548888888889 * t161 + 0.002689949046226295 * t61 * t163 * t167;
-        let t172 = f64::powf(t171, 1.0 / 5.0);
+        let t172 = rmath::pow(t171, 1.0 / 5.0);
         let t176 = 1.0 / t157 / rho1;
         let t177 = tau1 * t176;
         let t184 = 1.0 + 0.06394332777777778 * t161 - 5.0 / 9.0 * (0.14554132 * t177 + t79 + 0.011867481666666667 * t160) * t44 * t48;
@@ -170,14 +171,14 @@ pub fn mgga_x_revtm_fxc_pol(
         let t204 = 5.0 / 9.0 * t201 * t48 - 1.0;
         let t205 = t48 * t204;
         let t208 = 1.0 + 0.2222222222222222 * t201 * t205;
-        let t209 = f64::sqrt(t208);
+        let t209 = rmath::sqrt(t208);
         let t210 = 1.0 / t209;
         let t214 = 9.0 / 20.0 * t204 * t210 + t161 / 36.0;
         let t215 = t214 * t214;
         let t217 = t214 * t146;
         let t218 = 1.0 - t146;
         let t221 = 1.0 + 5.0 / 12.0 * t194 * t195 * t159 + 292.0 / 405.0 * t215 - 146.0 / 135.0 * t217 * t218;
-        let t222 = f64::powf(t221, 1.0 / 10.0);
+        let t222 = rmath::pow(t221, 1.0 / 10.0);
         let t224 = t154 * t189 + t191 * t222;
         let t228 = piecewise3(t130, 0.0, -3.0 / 8.0 * t6 * t139 * t224);
         let tzk0 = t129 + t228;

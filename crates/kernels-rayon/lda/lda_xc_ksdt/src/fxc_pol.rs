@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -86,7 +87,7 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t25 = pow_1_3(t24);
         let t26 = t25 * t25;
         let t27 = 1.0 / t26;
-        let t31 = f64::tanh(t14 * t19 * t27 / 6.0);
+        let t31 = rmath::tanh(t14 * t19 * t27 / 6.0);
         let t32 = t8 * t31;
         let t33 = M_PI * M_PI;
         let t34 = 1.0 / t33;
@@ -128,8 +129,8 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t81 = 1.0 / t18;
         let t82 = t61 * t81;
         let t84 = t80 * t82 * t26;
-        let t85 = f64::sqrt(t84);
-        let t89 = f64::tanh(3.0 / 2.0 * t78 / t85);
+        let t85 = rmath::sqrt(t84);
+        let t89 = rmath::tanh(3.0 / 2.0 * t78 / t85);
         let t92 = param_b_0_1 * t9;
         let t93 = t92 * t36;
         let t94 = t38 * t15;
@@ -150,13 +151,13 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t122 = 1.0 / t17;
         let t123 = t3 * t122;
         let t124 = t121 * t123;
-        let t125 = f64::sqrt(t124);
+        let t125 = rmath::sqrt(t124);
         let t126 = t120 * t125;
         let t130 = param_c_0_1;
         let t132 = param_c_0_2 * t9;
         let t133 = t132 * t11;
         let t134 = t13 * t15;
-        let t139 = f64::exp(-t133 * t134 * t18 * t27 / 6.0);
+        let t139 = rmath::exp(-t133 * t134 * t18 * t27 / 6.0);
         let t141 = t130 * t139 + param_c_0_0;
         let t142 = t141 * t31;
         let t145 = param_e_0_1 * t9;
@@ -202,17 +203,17 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t218 = t26 * t125;
         let t222 = 1.064009 + 0.06361833333333333 * t80 * t82 * t218;
         let t223 = t26 * t222;
-        let t227 = f64::exp(-2.0 / 9.0 * t80 * t82 * t223);
+        let t227 = rmath::exp(-2.0 / 9.0 * t80 * t82 * t223);
         let t229 = -t217 * t227 + 2.0;
-        let t230 = f64::powf(zeta_threshold, t229);
-        let t231 = f64::powf(t210, t229);
+        let t230 = rmath::pow(zeta_threshold, t229);
+        let t231 = rmath::pow(t210, t229);
         let t232 = piecewise3(t211, t230, t231);
         let t233 = 1.0 - t209;
         let t234 = t233 <= zeta_threshold;
-        let t235 = f64::powf(t233, t229);
+        let t235 = rmath::pow(t233, t229);
         let t236 = piecewise3(t234, t230, t235);
         let t237 = t232 + t236 - 2.0;
-        let t238 = f64::powf(2.0, t229);
+        let t238 = rmath::pow(2.0, t229);
         let t239 = t238 - 2.0;
         let t240 = 1.0 / t239;
         let t241 = t237 * t240;
@@ -227,7 +228,7 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t250 = t246 * t246;
         let t251 = t27 * t250;
         let t252 = t19 * t251;
-        let t255 = f64::tanh(t14 * t252 / 6.0);
+        let t255 = rmath::tanh(t14 * t252 / 6.0);
         let t256 = t8 * t255;
         let t257 = t43 * t250;
         let t258 = t42 * t257;
@@ -241,8 +242,8 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t271 = t266 * t270;
         let t275 = t26 * t246;
         let t277 = t80 * t82 * t275;
-        let t278 = f64::sqrt(t277);
-        let t281 = f64::tanh(3.0 / t278);
+        let t278 = rmath::sqrt(t277);
+        let t281 = rmath::tanh(3.0 / t278);
         let t284 = param_b_1_1 * t9;
         let t285 = t36 * t38;
         let t286 = t284 * t285;
@@ -262,7 +263,7 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t315 = param_c_1_2 * t9;
         let t316 = t11 * t13;
         let t317 = t315 * t316;
-        let t320 = f64::exp(-t317 * t252 / 6.0);
+        let t320 = rmath::exp(-t317 * t252 / 6.0);
         let t322 = t313 * t320 + param_c_1_0;
         let t323 = t322 * t255;
         let t326 = param_e_1_1 * t9;
@@ -493,16 +494,16 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t697 = t696 * t227;
         let t699 = -t217 * t697 - t659 - t665;
         let t700 = t230 * t699;
-        let t701 = f64::ln(zeta_threshold);
+        let t701 = rmath::ln(zeta_threshold);
         let t702 = t700 * t701;
-        let t703 = f64::ln(t210);
+        let t703 = rmath::ln(t210);
         let t705 = t20 * t49;
         let t706 = t22 - t705;
         let t708 = 1.0 / t210;
         let t710 = t229 * t706 * t708 + t699 * t703;
         let t711 = t231 * t710;
         let t712 = piecewise3(t211, t702, t711);
-        let t713 = f64::ln(t233);
+        let t713 = rmath::ln(t233);
         let t715 = -t706;
         let t717 = 1.0 / t233;
         let t719 = t229 * t715 * t717 + t699 * t713;
@@ -514,7 +515,7 @@ pub fn lda_xc_ksdt_fxc_pol(
         let t725 = 1.0 / t724;
         let t726 = t237 * t725;
         let t727 = t238 * t699;
-        let t728 = f64::ln(2.0);
+        let t728 = rmath::ln(2.0);
         let t729 = t727 * t728;
         let t731 = t726 * t729 - t723;
         let t732 = t208 * t731;

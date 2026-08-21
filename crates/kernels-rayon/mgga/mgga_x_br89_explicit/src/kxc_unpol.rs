@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
@@ -80,7 +81,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t34 = param_gamma * sigma[ip];
         let t35 = rho[ip] * rho[ip];
         let t37 = 1.0 / t26 / t35;
-        let t41 = f64::abs(lapl[ip] * t28 / 2.0 - 2.0 * t31 * t28 + t34 * t37 / 4.0);
+        let t41 = rmath::abs(lapl[ip] * t28 / 2.0 - 2.0 * t31 * t28 + t34 * t37 / 4.0);
         let t44 = t25 * t41 / 3.0 < 5e-13;
         let t45 = lapl[ip] * t25;
         let t48 = t25 * t28;
@@ -94,7 +95,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t62 = -5e-13 < t60;
         let t63 = piecewise3(t62, -5e-13, t60);
         let t65 = 1.525525181200953 * t63 + 0.4576575543602858;
-        let t66 = f64::atan(t65);
+        let t66 = rmath::atan(t65);
         let t67 = -t66 + 0.4292036732051034;
         let t69 = t63 * t63;
         let t71 = t69 * t63;
@@ -106,7 +107,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t85 = 1.0 / t84;
         let t87 = 5e-13 < t60;
         let t88 = piecewise3(t87, t60, 5e-13);
-        let t90 = f64::ln(1.0 / (2.085749716493756 * t88) + f64::sqrt(pow_2(1.0 / (2.085749716493756 * t88)) + 1.0));
+        let t90 = rmath::ln(1.0 / (2.085749716493756 * t88) + rmath::sqrt(pow_2(1.0 / (2.085749716493756 * t88)) + 1.0));
         let t91 = t90 + 2.0;
         let t93 = t88 * t88;
         let t95 = t93 * t88;
@@ -117,9 +118,9 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t108 = 3.347285060926091e-05 + 0.4791793102397135 * t88 + 62.39226833857424 * t93 + 463.1481642793812 * t95 + 785.2360350104029 * t97 + 1657.962968223273 * t99;
         let t109 = 1.0 / t108;
         let t111 = piecewise3(t61, t78 * t85, t102 * t109);
-        let t113 = f64::exp(t111 / 3.0);
+        let t113 = rmath::exp(t111 / 3.0);
         let t114 = t21 * t113;
-        let t115 = f64::exp(-t111);
+        let t115 = rmath::exp(-t111);
         let t117 = 1.0 + t111 / 2.0;
         let t118 = t115 * t117;
         let t119 = 1.0 - t118;
@@ -160,7 +161,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
         let t183 = 1.0 / t93;
         let t184 = t182 * t183;
         let t186 = 1.0 + 0.2298664631316238 * t183;
-        let t187 = f64::sqrt(t186);
+        let t187 = rmath::sqrt(t186);
         let t188 = 1.0 / t187;
         let t189 = t188 * t101;
         let t190 = t189 * t109;

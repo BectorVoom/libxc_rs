@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -41,7 +42,7 @@ pub fn mgga_c_cs_exc_pol(
         let t12 = 1.0 + 0.349 * t10;
         let t13 = 1.0 / t12;
         let t14 = t8 * t13;
-        let t16 = f64::exp(-0.2533 * t10);
+        let t16 = rmath::exp(-0.2533 * t10);
         let t17 = 1.0 / t4;
         let t18 = t2 * t17;
         let t19 = 1.0 + t18;

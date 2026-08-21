@@ -6,6 +6,7 @@
 
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
@@ -64,15 +65,15 @@ pub fn gga_x_hjs_b88_v2_vxc_unpol(
         let t30 = M_CBRT6;
         let t31 = t30 * t30;
         let t32 = t31 * t24;
-        let t33 = f64::sqrt(sigma[ip]);
+        let t33 = rmath::sqrt(sigma[ip]);
         let t34 = M_CBRT2;
         let t35 = t33 * t34;
         let t37 = 1.0 / t18 / rho[ip];
-        let t41 = f64::exp(-t32 * t35 * t37 / 12.0);
-        let t42 = f64::exp(20.0);
+        let t41 = rmath::exp(-t32 * t35 * t37 / 12.0);
+        let t42 = rmath::exp(20.0);
         let t44 = 1.0 / (t42 - 1.0);
         let t45 = t41 + t44;
-        let t49 = f64::ln(t45 / (1.0 + t44));
+        let t49 = rmath::ln(t45 / (1.0 + t44));
         let t50 = t49 * t49;
         let t51 = param_a_0;
         let t53 = param_a_1;
@@ -112,7 +113,7 @@ pub fn gga_x_hjs_b88_v2_vxc_unpol(
         let t103 = 1.0 / t102;
         let t105 = t96 * t101 * t103;
         let t107 = 0.60965 + t94 + t105 / 3.0;
-        let t108 = f64::sqrt(t107);
+        let t108 = rmath::sqrt(t107);
         let t109 = 1.0 / t108;
         let t111 = t25 * t29 * t109;
         let t113 = 1.0 - t111 / 3.0;
@@ -133,13 +134,13 @@ pub fn gga_x_hjs_b88_v2_vxc_unpol(
         let t139 = t114 * t114;
         let t140 = 1.0 / t139;
         let t146 = t139 * t114;
-        let t148 = f64::sqrt(t114);
+        let t148 = rmath::sqrt(t114);
         let t149 = t148 * t146;
-        let t150 = f64::sqrt(M_PI);
-        let t152 = f64::sqrt(t94);
+        let t150 = rmath::sqrt(M_PI);
+        let t152 = rmath::sqrt(t94);
         let t155 = 0.0 < 0.7572109999 + t94;
         let t157 = piecewise3(t155, 0.757211 + t94, 1e-10);
-        let t158 = f64::sqrt(t157);
+        let t158 = rmath::sqrt(t157);
         let t160 = 4.0 / 5.0 * t150 + 12.0 / 5.0 * t152 - 12.0 / 5.0 * t158;
         let t162 = 0.0474596 * t124 * t114 + 0.028363733333333332 * t139 - 0.9086532 * t146 - t149 * t160;
         let t165 = t95 * t95;
@@ -157,18 +158,18 @@ pub fn gga_x_hjs_b88_v2_vxc_unpol(
         let t185 = 1.0 / t146;
         let t189 = 3.0 * t105;
         let t190 = 9.0 * t94 + t189;
-        let t191 = f64::sqrt(t190);
+        let t191 = rmath::sqrt(t190);
         let t193 = 9.0 * t157 + t189;
-        let t194 = f64::sqrt(t193);
+        let t194 = rmath::sqrt(t193);
         let t196 = t191 / 3.0 - t194 / 3.0;
         let t200 = t24 * t27;
         let t202 = t21 * t200 * t28;
         let t204 = t202 / 3.0 + t191 / 3.0;
         let t206 = t202 / 3.0 + t108;
         let t207 = 1.0 / t206;
-        let t209 = f64::ln(t204 * t207);
+        let t209 = rmath::ln(t204 * t207);
         let t213 = t202 / 3.0 + t194 / 3.0;
-        let t215 = f64::ln(t213 * t207);
+        let t215 = rmath::ln(t213 * t207);
         let t218 = 0.757211 + 0.04727288888888889 * t113 * t115 + 0.026366444444444446 * t138 * t140 - t184 * t185 / 9.0 + 2.0 / 3.0 * t25 * t29 * t196 + 2.0 * t94 * t209 - 2.0 * t157 * t215;
         let t222 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t218);
         let tzk0 = 2.0 * t222;
