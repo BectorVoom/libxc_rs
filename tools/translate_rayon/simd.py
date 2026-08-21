@@ -41,18 +41,44 @@ L = LANES
 # `.method()` on f64x8 — wide's ~1 ulp forms. Only the calls with no
 # bit-exact `simd::` replacement stay here; a kernel that uses any of the
 # non-sqrt ones cannot be fingerprint-compared against its scalar form.
-UNARY = {"f64::sqrt": "sqrt", "f64::atan": "atan",
-         "f64::abs": "abs", "f64::tanh": "tanh", "f64::sinh": "sinh", "f64::cosh": "cosh",
-         "f64::asin": "asin", "f64::acos": "acos", "f64::exp_m1": "exp_m1",
-         "f64::ln_1p": "ln_1p"}
+UNARY_EXACT = {
+    "f64::sqrt": "sqrt", "f64::atan": "atan",
+    "f64::abs": "abs", "f64::tanh": "tanh", "f64::sinh": "sinh", "f64::cosh": "cosh",
+    "f64::asin": "asin", "f64::acos": "acos", "f64::exp_m1": "exp_m1",
+    "f64::ln_1p": "ln_1p",
+}
 # Free functions from `libxc_rkernel_math::simd` — bit-identical per lane to
 # the scalar call the scalar kernel makes (exp/ln to glibc's `_fma` ifuncs,
 # the cube-root family to `powers::cbrt_f64`). A kernel whose transcendentals
 # all come from this set produces output bit-identical to its scalar form.
-FREE = {"f64::exp": "simd::exp", "f64::ln": "simd::ln", "pow_1_3": "simd::cbrt",
-        "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
-        "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3"}
-BINARY = {"f64::powf": "powf_simd", "f64::atan2": "atan2"}
+FREE_EXACT = {
+    "f64::exp": "simd::exp", "f64::ln": "simd::ln", "pow_1_3": "simd::cbrt",
+    "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
+    "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
+}
+BINARY_METHODS_EXACT = {
+    "f64::powf": "powf_simd", "f64::atan2": "atan2",
+}
+
+# `rmath_fast` forms for high-throughput vectorized approximation kernels.
+UNARY_FAST = {
+    "f64::sqrt": "sqrt", "f64::abs": "abs",
+}
+FREE_FAST = {
+    "f64::exp": "rmath_fast::exp", "f64::ln": "rmath_fast::ln",
+    "f64::exp_m1": "rmath_fast::expm1", "f64::ln_1p": "rmath_fast::log1p",
+    "f64::atan": "rmath_fast::atan", "f64::tanh": "rmath_fast::tanh",
+    "f64::sinh": "rmath_fast::sinh", "f64::cosh": "rmath_fast::cosh",
+    "f64::asin": "rmath_fast::asin", "f64::acos": "rmath_fast::acos",
+    "erf": "rmath_fast::erf", "erfc": "rmath_fast::erfc",
+    "pow_1_3": "rmath_fast::cbrt",
+    "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
+    "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
+}
+BINARY_FREE_FAST = {
+    "f64::powf": "rmath_fast::pow", "f64::atan2": "rmath_fast::atan2",
+}
+
 CMP = {"<=": "simd_le", ">=": "simd_ge", "<": "simd_lt", ">": "simd_gt",
        "==": "simd_eq", "!=": "simd_ne"}
 EXPAND = {"pow_2": "(({a}) * ({a}))",
@@ -93,42 +119,52 @@ def find_call(expr, name):
     return None
 
 
-def _rewrite_one(expr):
+def _rewrite_one(expr, math_mode="exact"):
     """Apply the first applicable call rewrite; None if nothing matched."""
     for name, tmpl in EXPAND.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + tmpl.format(a=rewrite_calls(arg)) + expr[j:]
-    for name, fn in FREE.items():
+            return expr[:i] + tmpl.format(a=rewrite_calls(arg, math_mode=math_mode)) + expr[j:]
+    free_table = FREE_FAST if math_mode == "fast" else FREE_EXACT
+    for name, fn in free_table.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + f"({fn}({rewrite_calls(arg)}))" + expr[j:]
-    for name, meth in UNARY.items():
+            return expr[:i] + f"({fn}({rewrite_calls(arg, math_mode=math_mode)}))" + expr[j:]
+    unary_table = UNARY_FAST if math_mode == "fast" else UNARY_EXACT
+    for name, meth in unary_table.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + f"(({rewrite_calls(arg)}).{meth}())" + expr[j:]
-    for name, meth in BINARY.items():
-        r = find_call(expr, name)
-        if r:
-            i, j, args = r
-            a, b = [rewrite_calls(x) for x in split_args(args)]
-            return expr[:i] + f"(({a}).{meth}({b}))" + expr[j:]
+            return expr[:i] + f"(({rewrite_calls(arg, math_mode=math_mode)}).{meth}())" + expr[j:]
+    if math_mode == "fast":
+        for name, fn in BINARY_FREE_FAST.items():
+            r = find_call(expr, name)
+            if r:
+                i, j, args = r
+                a, b = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
+                return expr[:i] + f"({fn}({a}, {b}))" + expr[j:]
+    else:
+        for name, meth in BINARY_METHODS_EXACT.items():
+            r = find_call(expr, name)
+            if r:
+                i, j, args = r
+                a, b = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
+                return expr[:i] + f"(({a}).{meth}({b}))" + expr[j:]
     # Argument 0 of piecewise3, and 0 and 2 of piecewise5, are *conditions*:
     # they may be a bare comparison, which has to become a lane mask before
     # `select` can take it.
     r = find_call(expr, "piecewise3")
     if r:
         i, j, args = r
-        p = [rewrite_calls(x) for x in split_args(args)]
+        p = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
         p[0] = rewrite_cmp(p[0])
         return expr[:i] + f"(({p[0]}).select({p[1]}, {p[2]}))" + expr[j:]
     r = find_call(expr, "piecewise5")
     if r:
         i, j, args = r
-        p = [rewrite_calls(x) for x in split_args(args)]
+        p = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
         p[0] = rewrite_cmp(p[0])
         p[2] = rewrite_cmp(p[2])
         return (expr[:i]
@@ -137,16 +173,16 @@ def _rewrite_one(expr):
     r = find_call(expr, "Heaviside")
     if r:
         i, j, arg = r
-        a = rewrite_calls(arg)
+        a = rewrite_calls(arg, math_mode=math_mode)
         return expr[:i] + f"(({a}).simd_ge(V_ZERO).select(V_ONE, V_ZERO))" + expr[j:]
     return None
 
 
-def rewrite_calls(expr):
+def rewrite_calls(expr, math_mode="exact"):
     """Map math-helper and libm calls onto f64xN forms. Recursive; leaves
     numeric/constant leaves alone (see splat_leaves)."""
     while True:
-        nxt = _rewrite_one(expr)
+        nxt = _rewrite_one(expr, math_mode=math_mode)
         if nxt is None:
             return expr
         expr = nxt
@@ -199,7 +235,7 @@ def splat_leaves(expr):
 
 
 
-def simd_body(lines, ins, outs, scalars, fn):
+def simd_body(lines, ins, outs, scalars, fn, math_mode="exact"):
     """Turn the emitted scalar statement list into a SIMD function body."""
     out_lines = []
     for st in lines:
@@ -211,7 +247,7 @@ def simd_body(lines, ins, outs, scalars, fn):
             e = re.sub(r"\b(rho|sigma|lapl|tau)\[ip\]", r"v_\1", m.group(2))
             out_lines.append(
                 f"            let {m.group(1)} = "
-                f"{splat_leaves(rewrite_cmp(rewrite_calls(e)))};")
+                f"{splat_leaves(rewrite_cmp(rewrite_calls(e, math_mode=math_mode)))};")
             continue
         m = re.match(r"^(\w+)\[ip\] \+= (\w+);$", st)
         if m:
@@ -219,10 +255,13 @@ def simd_body(lines, ins, outs, scalars, fn):
             continue
         raise ValueError(f"SIMD rewrite does not handle: {st}")
 
+    math_import = ("use libxc_rkernel_math::rmath_fast;\nuse libxc_rkernel_math::simd;"
+                   if math_mode == "fast" else "use libxc_rkernel_math::simd;")
+
     nl = chr(10)
     return f'''#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 use libxc_rkernel_math::constants::*;
-use libxc_rkernel_math::simd;
+{math_import}
 use libxc_rkernel_math::wide::{{{VT}, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe}};
 
 const V_ZERO: {VT} = {VT}::new([0.0; {L}]);

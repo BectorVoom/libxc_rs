@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+rmath = { path = "../../../../rmath", default-features = false, features = ["wide"] }
 # Explicit SIMD for the kernels that need it. Pure Rust (no C, per the
 # project's no-C-in-production-path constraint), and a tiny tree: wide pulls
 # only safe_arch + bytemuck. Re-exported below so a kernel crate needs one

@@ -13,6 +13,7 @@
 /// second dependency. See `docs/perf/simd-kernels.md` for when a kernel is
 /// emitted in SIMD form at all.
 pub use wide;
+pub use rmath::fast as rmath_fast;
 
 pub mod constants;
 pub mod piecewise;

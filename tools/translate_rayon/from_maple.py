@@ -68,13 +68,7 @@ ORDERS = ["exc", "vxc", "fxc", "kxc", "lxc"]
 # already auto-vectorise 8-wide) or a silent accuracy loss (the derivative
 # expressions amplify wide's ~1 ulp transcendentals by orders of magnitude, and
 # by how much is a property of the formula).
-SIMD_FUNCS = {
-    # 5.06x scalar->SIMD, worst rel 2.7e-15 vs the scalar kernel, and oracle
-    # parity against C libxc unchanged. This was the one functional in
-    # docs/perf/vs-libxc.md that lost to libxc; six libm calls per point meant
-    # LLVM would not vectorise the loop at all.
-    ("lda_c_vwn", "vxc", "unpol"),
-    ("lda_c_vwn", "exc", "unpol"),
+SIMD_EXACT_FUNCS = {
     # The three most libm-heavy *routed* kernels (21, 11, 11 calls/pt in vxc
     # unpol; LLVM declines to vectorise loops with libm calls, so these ran
     # scalar). All three use only exp/ln/sqrt/cbrt-family transcendentals,
@@ -88,6 +82,20 @@ SIMD_FUNCS = {
     ("mgga_c_rregtm", "vxc", "unpol"),
     ("mgga_c_rregtm", "exc", "unpol"),
 }
+
+# High-throughput candidate functional triples using `rmath::fast` vectorized approximations.
+# lda_c_vwn uses atan, ln, cbrt and achieves ~3x speedup with rmath::fast while staying within 5.7e-11 relative error.
+SIMD_RMATH_FAST_FUNCS = {
+    ("lda_c_vwn", "vxc", "unpol"),
+    ("lda_c_vwn", "exc", "unpol"),
+}
+
+assert SIMD_EXACT_FUNCS.isdisjoint(
+    SIMD_RMATH_FAST_FUNCS
+), "Functional cannot be both exact SIMD and fast SIMD"
+
+# Legacy alias for backward-compatible references
+SIMD_FUNCS = SIMD_EXACT_FUNCS | SIMD_RMATH_FAST_FUNCS
 SPINS = ["unpol", "pol"]
 
 
@@ -586,13 +594,16 @@ def emit_function(fam: str, func: str, order: str, spin: str,
     gd = dim_of(guard, fam, pol)
     bound = f"{guard}.len()" if gd == 1 else f"{guard}.len() / {gd}"
 
-    if (func, order, spin) in SIMD_FUNCS:
+    triple = (func, order, spin)
+    if triple in SIMD_EXACT_FUNCS or triple in SIMD_RMATH_FAST_FUNCS:
+        math_mode = "fast" if triple in SIMD_RMATH_FAST_FUNCS else "exact"
+        mode_str = "rmath::fast" if math_mode == "fast" else "exact"
         head = "\n".join([
-            f"//! {func.upper()} {order} {spin} kernel — explicit SIMD.",
+            f"//! {func.upper()} {order} {spin} kernel — explicit SIMD ({mode_str}).",
             "//!",
             f"//! Auto-translated from `libxc-master/src/maple2c/{fam}_exc/{func}.c`",
             "//! by tools/translate_rayon/from_maple.py, then rewritten to",
-            f"//! `wide::f64x8` by simd.py. {LANES_NOTE}",
+            f"//! `wide::f64x8` by simd.py ({mode_str} math). {LANES_NOTE}",
             "",
         ])
         # The scalar path appends the two thresholds to the signature after
@@ -601,7 +612,8 @@ def emit_function(fam: str, func: str, order: str, spin: str,
         body = simd_mod.simd_body(
             [l.strip() for l in lines], ctx.inputs, wanted,
             list(params) + ["dens_threshold", "zeta_threshold"],
-            f"{func}_{order}_{spin}")
+            f"{func}_{order}_{spin}",
+            math_mode=math_mode)
         return head + body, seen_writes, set(wanted)
 
     src = [

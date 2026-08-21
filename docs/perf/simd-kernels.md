@@ -278,3 +278,48 @@ Notes from the switch:
   other — in C libxc as well as here (verified on the benchmark grid and spot
   inputs). Upstream's revised-regTM correlation evidently coincides with SCAN
   correlation for unpolarized inputs.
+
+## Fast Vector Math with `rmath` (2026-08-21)
+
+To claim further performance on functionals with heavy transcendental evaluation while strictly maintaining physical accuracy, the kernel pipeline integrates the in-tree `rmath` pure-Rust vector math library (`rmath::fast`) behind `libxc_rkernel_math::rmath_fast`.
+
+### Dual Allowlist Architecture
+
+The generator in `tools/translate_rayon/from_maple.py` and `tools/translate_rayon/simd.py` maintains two disjoint SIMD allowlists:
+
+1. **`SIMD_EXACT_FUNCS`** (Bit-Exact Mode):
+   - Targets: `mgga_c_tpssloc`, `mgga_c_scan`, `mgga_c_rregtm` (`exc`, `vxc`, `unpol`).
+   - Uses `libxc_rkernel_math::simd` (replicated glibc FMA schedules for `exp`/`ln` and exact `powers::cbrt_f64`).
+   - **Contract:** Bit-identical per-lane output to scalar Rust kernels (0 bits difference).
+
+2. **`SIMD_RMATH_FAST_FUNCS`** (Fast Vector Mode):
+   - Targets: `lda_c_vwn` (`exc`, `vxc`, `unpol`).
+   - Uses `libxc_rkernel_math::rmath_fast` vector polynomials (`ln`, `atan`, `cbrt`, etc.) over `wide::f64x8`.
+   - **Contract:** Relative error bounded well within physical tolerance (< 1e-10 vs C libxc 7.0.0; measured worst-case relative error is `5.71e-11` on `vrho` and `2.98e-15` on `zk`).
+
+### Measured Performance & Accuracy
+
+Measured on Zen 5 (`-C target-cpu=native`, 100k-point physical grid, 16 rayon threads):
+
+| Functional | Baseline (libxc-1t) | libxc-Nt (16t) | `rmath_fast` (1t) | `rmath_fast` (16t) | Speedup vs libxc-Nt | Speedup vs libxc-1t | Worst Rel Error |
+|---|---|---|---|---|---|---|---|
+| `lda_c_vwn` | 89.02 ns/pt | 15.39 ns/pt | **28.22 ns/pt** | **5.22 ns/pt** | **2.95x** | **17.06x** | 5.71e-11 (`vrho`) |
+
+### Verification & Constraints Kept
+
+- **Libxc Parity:** `crates/kernels-rayon/oracle` passes across all 344 field comparisons against C libxc 7.0.0 (with only the 7 pre-existing known defects in unrouted/boundary edge cases).
+- **Chunk Invariance:** `revalcheck` confirms chunked parallel evaluation across 482,775,350 values (only the 4 pre-existing `gga_c_op_pw91` differences).
+- **Zero Allocations:** Evaluated with counting allocators and memory hooks — strictly 0 heap allocations on the evaluation hot paths.
+- **Dependency Hygiene:** `cargo tree -e normal` has 0 `cubecl` crates in the default production graph; `cargo tree -d` has 0 duplicate versions; `cargo test -p libxc-rkernel-math --features cubecl` remains intact.
+
+### Rollback Procedure
+
+If a functional in `SIMD_RMATH_FAST_FUNCS` needs to be reverted to scalar or bit-exact SIMD:
+1. Remove the triple from `SIMD_RMATH_FAST_FUNCS` in `tools/translate_rayon/from_maple.py` (and optionally move to `SIMD_EXACT_FUNCS` if only bit-exact schedules are desired).
+2. Regenerate kernels and eval layer:
+   ```bash
+   python3 tools/translate_rayon/from_maple.py --all
+   python3 tools/translate_rayon/gen_eval.py
+   ```
+3. Run verification suite (`revalcheck`, `oracle`, `test_simd.py`).
+
