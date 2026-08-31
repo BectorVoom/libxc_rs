@@ -14,9 +14,9 @@ use libxc_rkernel_mgga_x_rlda as k;
 /// libxc default for `param_prefactor`.
 pub const PARAM_PREFACTOR: f64 = 1.0;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

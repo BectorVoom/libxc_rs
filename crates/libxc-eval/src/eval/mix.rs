@@ -12,16 +12,15 @@
 use libxc_core::dims::Dimensions;
 use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): eval-level dispatch_* (real under family feature, stub when off).
-use crate::eval::dispatch_lda;
-use crate::eval::dispatch_gga;
-use crate::eval::dispatch_mgga;
+use crate::eval::{
+    dispatch_gga_by_id, dispatch_lda, dispatch_lda_by_id, dispatch_mgga_by_id,
+};
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::functional::params_lda::LdaXParams;
 use crate::functional::Functional;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
 use libxc_core::model::{
-    DerivativeOrder, Family, FunctionalFlags, GgaFunctional, LdaFunctional, MggaFunctional,
-    Thresholds,
+    DerivativeOrder, Family, FunctionalFlags, LdaFunctional, Thresholds,
 };
 use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
 
@@ -302,7 +301,6 @@ pub fn evaluate_mixed_lda_functional(
                 reason: "non-LDA auxiliary inside LDA parent",
             });
         }
-        let lda_fn = LdaFunctional::from_id(aux.meta.id)?;
 
         workspace.zero_scratch();
         {
@@ -314,8 +312,8 @@ pub fn evaluate_mixed_lda_functional(
                 v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
                 v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
             };
-            dispatch_lda(
-                lda_fn,
+            dispatch_lda_by_id(
+                aux.meta.id,
                 input,
                 order,
                 &mut scratch_output,
@@ -439,7 +437,6 @@ pub fn evaluate_mixed_gga(
                 // LDA aux: build LdaInput from the GGA input's rho buffer,
                 // dispatch into LDA-shaped scratch, accumulate rho-only
                 // into the GGA caller output.
-                let lda_fn = LdaFunctional::from_id(aux.meta.id)?;
                 let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
 
                 workspace.zero_scratch();
@@ -452,8 +449,8 @@ pub fn evaluate_mixed_gga(
                         v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
                         v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
                     };
-                    dispatch_lda(
-                        lda_fn,
+                    dispatch_lda_by_id(
+                        aux.meta.id,
                         &lda_input,
                         order,
                         &mut aux_output,
@@ -478,8 +475,6 @@ pub fn evaluate_mixed_gga(
                 // Sigma-derivative fields intentionally skipped — Pitfall 5.
             }
             Family::Gga => {
-                let gga_fn = GgaFunctional::from_id(aux.meta.id)?;
-
                 workspace.zero_scratch();
                 {
                     let scratch = workspace.gga_scratch_mut();
@@ -500,8 +495,8 @@ pub fn evaluate_mixed_gga(
                         v4rhosigma3: if order >= DerivativeOrder::Lxc { Some(scratch.v4rhosigma3) } else { None },
                         v4sigma4: if order >= DerivativeOrder::Lxc { Some(scratch.v4sigma4) } else { None },
                     };
-                    dispatch_gga(
-                        gga_fn,
+                    dispatch_gga_by_id(
+                        aux.meta.id,
                         input,
                         order,
                         &mut aux_output,
@@ -663,7 +658,6 @@ pub fn evaluate_mixed_mgga(
     {
         match aux.meta.family {
             Family::Lda => {
-                let lda_fn = LdaFunctional::from_id(aux.meta.id)?;
                 let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
                 workspace.zero_scratch();
                 {
@@ -675,7 +669,7 @@ pub fn evaluate_mixed_mgga(
                         v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
                         v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
                     };
-                    dispatch_lda(lda_fn, &lda_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_lda_by_id(aux.meta.id, &lda_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
                 }
                 let scratch = workspace.lda_scratch_mut();
                 add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, lda_zk_len, "zk")?;
@@ -694,7 +688,6 @@ pub fn evaluate_mixed_mgga(
                 // shape, which equals lda_dims for the rho-only chain).
             }
             Family::Gga => {
-                let gga_fn = GgaFunctional::from_id(aux.meta.id)?;
                 let gga_input = GgaInput::new(input.rho(), input.sigma(), input.np(), input.spin())?;
                 workspace.zero_scratch();
                 {
@@ -716,7 +709,7 @@ pub fn evaluate_mixed_mgga(
                         v4rhosigma3: if order >= DerivativeOrder::Lxc { Some(scratch.v4rhosigma3) } else { None },
                         v4sigma4: if order >= DerivativeOrder::Lxc { Some(scratch.v4sigma4) } else { None },
                     };
-                    dispatch_gga(gga_fn, &gga_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_gga_by_id(aux.meta.id, &gga_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
                 }
                 let scratch = workspace.gga_scratch_mut();
                 add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, gga_zk_len, "zk")?;
@@ -740,7 +733,6 @@ pub fn evaluate_mixed_mgga(
                 // re-add these calls using mgga-derived lengths.
             }
             Family::Mgga => {
-                let mgga_fn = MggaFunctional::from_id(aux.meta.id)?;
                 let aux_needs_lapl = aux.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
                 let aux_needs_tau = aux.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
                 // CR-03 fix (Plan 05-06): gate on parent AND aux flags per
@@ -756,8 +748,10 @@ pub fn evaluate_mixed_mgga(
                 workspace.zero_scratch();
                 {
                     let scratch = workspace.mgga_scratch_mut();
-                    let mut aux_output = MggaOutput::default();
-                    aux_output.zk = Some(scratch.zk);
+                    let mut aux_output = MggaOutput {
+                        zk: Some(scratch.zk),
+                        ..Default::default()
+                    };
                     if order >= DerivativeOrder::Vxc {
                         aux_output.vrho = Some(scratch.vrho);
                         aux_output.vsigma = Some(scratch.vsigma);
@@ -789,7 +783,7 @@ pub fn evaluate_mixed_mgga(
                     // consumed needs_lapl / needs_tau / needs_both has been
                     // removed since those variables are load-bearing below in
                     // the gated accumulation block.)
-                    dispatch_mgga(mgga_fn, input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_mgga_by_id(aux.meta.id, input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
                 }
                 let scratch = workspace.mgga_scratch_mut();
                 // Always-accumulate (rho-chain, all aux families contribute).

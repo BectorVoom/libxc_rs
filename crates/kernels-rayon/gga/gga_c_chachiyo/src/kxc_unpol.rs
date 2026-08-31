@@ -4,12 +4,19 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3};
+use libxc_rkernel_math::piecewise::piecewise3;
+use libxc_rkernel_math::powers::pow_1_3;
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_chachiyo_kxc_unpol(
@@ -142,9 +149,13 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t177 = 1.0 / t176;
         let t178 = t175 * t177;
         let t179 = t170 * t173 * t178;
-        let t182 = 2.0 * t151 * t153 - t85 * t141 * t86 + 7.0 / 72.0 * t159 * t96 + 35.0 / 216.0 * t89 * t166 - 49.0 / 6912.0 * t169 * t179;
+        let t182 = 2.0 * t151 * t153 - t85 * t141 * t86
+            + 7.0 / 72.0 * t159 * t96
+            + 35.0 / 216.0 * t89 * t166
+            - 49.0 / 6912.0 * t169 * t179;
         let t183 = t56 * t182;
-        let tv2rho20 = 2.0 * t80 * t100 + 2.0 * t110 * t99 + t142 * t56 + t82 * t147 + t82 * t183 + 2.0 * t108;
+        let tv2rho20 =
+            2.0 * t80 * t100 + 2.0 * t110 * t99 + t142 * t56 + t82 * t147 + t82 * t183 + 2.0 * t108;
         v2rho2[ip] += tv2rho20;
         let t185 = t49 * t56;
         let t192 = param_h * t2 * t45 * t94;
@@ -152,7 +163,8 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t198 = t197 * param_h;
         let t199 = t1 * t170;
         let t201 = t199 * t177 * sigma[ip];
-        let tv2rhosigma0 = -t185 * param_h * t106 / 36.0 + t104 * t99 * t192 / 48.0 + 7.0 / 2304.0 * t198 * t201;
+        let tv2rhosigma0 =
+            -t185 * param_h * t106 / 36.0 + t104 * t99 * t192 / 48.0 + 7.0 / 2304.0 * t198 * t201;
         v2rhosigma[ip] += tv2rhosigma0;
         let t205 = 1.0 / t18 / t90;
         let t206 = t205 * t56;
@@ -174,7 +186,11 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t250 = param_af * (10.0 / 81.0 * t25 * t227 + 8.0 / 81.0 * t28 * t230);
         let t252 = t137 * t73;
         let t258 = 1.0 / t136 / t31;
-        let t263 = t235 - t238 + t244 + (2.0 * param_af * t134 * t73 * t258 - 3.0 * t132 * t252 + t250 * t75 - t235 + t238 - t244) * t42;
+        let t263 = t235 - t238
+            + t244
+            + (2.0 * param_af * t134 * t73 * t258 - 3.0 * t132 * t252 + t250 * t75 - t235 + t238
+                - t244)
+                * t42;
         let t264 = rho[ip] * t263;
         let t272 = t146 * t99;
         let t273 = t56 * t272;
@@ -195,9 +211,27 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t321 = 1.0 / t320;
         let t322 = t175 * sigma[ip];
         let t325 = 1.0 / t176 / t53;
-        let t329 = -6.0 * t280 * t281 * t86 + 6.0 * t151 * t87 * t141 - 7.0 / 24.0 * t289 * t96 - t85 * t263 * t86 + 7.0 / 48.0 * t295 * t96 - 35.0 / 72.0 * t159 * t166 + 49.0 / 2304.0 * t301 * t179 - 455.0 / 648.0 * t89 * t308 + 245.0 / 3456.0 * t169 * t315 - 343.0 / 165888.0 * t318 * t321 * t322 * t325;
+        let t329 = -6.0 * t280 * t281 * t86 + 6.0 * t151 * t87 * t141
+            - 7.0 / 24.0 * t289 * t96
+            - t85 * t263 * t86
+            + 7.0 / 48.0 * t295 * t96
+            - 35.0 / 72.0 * t159 * t166
+            + 49.0 / 2304.0 * t301 * t179
+            - 455.0 / 648.0 * t89 * t308
+            + 245.0 / 3456.0 * t169 * t315
+            - 343.0 / 165888.0 * t318 * t321 * t322 * t325;
         let t330 = t56 * t329;
-        let tv3rho30 = 3.0 * t142 * t100 + 6.0 * t108 * t99 + 3.0 * t110 * t146 + 3.0 * t110 * t182 + 3.0 * t80 * t147 + 3.0 * t80 * t183 + t264 * t56 + t82 * t273 + 3.0 * t82 * t275 + t82 * t330 + 3.0 * t217;
+        let tv3rho30 = 3.0 * t142 * t100
+            + 6.0 * t108 * t99
+            + 3.0 * t110 * t146
+            + 3.0 * t110 * t182
+            + 3.0 * t80 * t147
+            + 3.0 * t80 * t183
+            + t264 * t56
+            + t82 * t273
+            + 3.0 * t82 * t275
+            + t82 * t330
+            + 3.0 * t217;
         v3rho3[ip] += tv3rho30;
         let t332 = t92 * t56;
         let t341 = 1.0 / t18 / t304 * t56;
@@ -207,7 +241,13 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t357 = t356 * param_h;
         let t358 = M_PI * t325;
         let t359 = t358 * t175;
-        let tv3rho2sigma0 = 7.0 / 108.0 * t332 * param_h * t106 - t185 * t99 * t192 / 18.0 - 7.0 / 384.0 * t342 * t201 + t104 * t146 * t192 / 48.0 + t104 * t182 * t192 / 48.0 + 7.0 / 1152.0 * t197 * t351 * t201 + 49.0 / 55296.0 * t357 * t359;
+        let tv3rho2sigma0 = 7.0 / 108.0 * t332 * param_h * t106
+            - t185 * t99 * t192 / 18.0
+            - 7.0 / 384.0 * t342 * t201
+            + t104 * t146 * t192 / 48.0
+            + t104 * t182 * t192 / 48.0
+            + 7.0 / 1152.0 * t197 * t351 * t201
+            + 49.0 / 55296.0 * t357 * t359;
         v3rho2sigma[ip] += tv3rho2sigma0;
         let t365 = t99 * t207;
         let t366 = t206 * t365;
@@ -221,7 +261,12 @@ pub fn gga_c_chachiyo_kxc_unpol(
         let t380 = t378 * t379;
         let t387 = param_h * t1 * t210;
         let t391 = t358 * sigma[ip];
-        let tv3rhosigma20 = -11.0 / 2304.0 * t197 * t207 * t211 + t366 * t211 / 768.0 - t370 * t372 / 768.0 + 7.0 / 18432.0 * t377 * t380 + 11.0 / 2304.0 * t198 * t214 - t206 * t99 * t387 / 768.0 - 7.0 / 18432.0 * t376 * param_h * t391;
+        let tv3rhosigma20 = -11.0 / 2304.0 * t197 * t207 * t211 + t366 * t211 / 768.0
+            - t370 * t372 / 768.0
+            + 7.0 / 18432.0 * t377 * t380
+            + 11.0 / 2304.0 * t198 * t214
+            - t206 * t99 * t387 / 768.0
+            - 7.0 / 18432.0 * t376 * param_h * t391;
         v3rhosigma2[ip] += tv3rhosigma20;
         let t395 = 1.0 / t171 * t56;
         let t396 = t207 * param_h;

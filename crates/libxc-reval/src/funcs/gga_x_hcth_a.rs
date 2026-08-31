@@ -13,9 +13,9 @@ use libxc_rkernel_gga_x_hcth_a as k;
 
 
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

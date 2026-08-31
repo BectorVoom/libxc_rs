@@ -18,6 +18,7 @@ use libxc_core::model::{FunctionalId, Spin};
 ///
 /// Re-init replaces the inner `Functional`, dropping the old one (Pitfall 1).
 #[repr(C)]
+#[allow(clippy::large_enum_variant)]
 pub enum FunctionalSlot {
     Empty,
     Initialized(Functional),
@@ -68,7 +69,7 @@ impl FunctionalSlot {
 /// `xc_func_type *xc_func_alloc();` — allocates an empty slot.
 ///
 /// Caller must release with [`xc_func_free`].
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_func_alloc() -> *mut xc_func_type {
     Box::into_raw(Box::new(FunctionalSlot::Empty)) as *mut xc_func_type
 }
@@ -80,7 +81,7 @@ pub extern "C" fn xc_func_alloc() -> *mut xc_func_type {
 ///
 /// # Safety
 /// Caller must pass a pointer obtained from [`xc_func_alloc`].
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_init(
     p: *mut xc_func_type,
     functional: i32,
@@ -113,7 +114,7 @@ pub unsafe extern "C" fn xc_func_init(
 ///
 /// # Safety
 /// Caller must pass a pointer obtained from [`xc_func_alloc`].
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_end(p: *mut xc_func_type) -> i32 {
     extern_c_wrapper!(p, "xc_func_end", {
         // SAFETY: p is non-null (wrapper macro NULL-checked). std::ptr::replace
@@ -130,7 +131,7 @@ pub unsafe extern "C" fn xc_func_end(p: *mut xc_func_type) -> i32 {
 /// # Safety
 /// Caller must pass a pointer obtained from [`xc_func_alloc`]. After this call
 /// the pointer is dangling; do not use it again.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_free(p: *mut xc_func_type) {
     if p.is_null() {
         return;
@@ -150,7 +151,7 @@ pub unsafe extern "C" fn xc_func_free(p: *mut xc_func_type) {
 ///
 /// # Safety
 /// Caller must pass a pointer obtained from [`xc_func_alloc`].
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_get_info(p: *const xc_func_type) -> *const xc_func_info_type {
     if p.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_func_get_info: null handle");

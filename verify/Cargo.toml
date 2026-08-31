@@ -14,6 +14,7 @@ libxc_rs = { path = "..", default-features = false }
 
 [features]
 default = []
+c-abi = ["libxc_rs/c-abi"]
 
 # Dev-dep narrowing per Phase 11 D-05 (11-CONTEXT.md): verify/ must depend on
 # INDIVIDUAL per-functional kernel subcrates, NEVER on umbrella/family kernel
@@ -27,6 +28,7 @@ default = []
 # or `libxc_rs::kernel::...` re-exports and so do NOT need direct kernel dev-deps.
 [dev-dependencies]
 approx = "0.5.1"
+toml = "0.8"
 
 # PHASE11_SMOKE — 3 LDA + 3 GGA + 4 MGGA (D-05 narrowed witness; 11-04)
 

@@ -20,9 +20,9 @@ pub const PARAM_E1: f64 = -1.6665;
 /// libxc default for `param_k0`.
 pub const PARAM_K0: f64 = 0.174;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

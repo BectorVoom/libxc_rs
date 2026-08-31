@@ -9,28 +9,31 @@ Why an allowlist rather than "SIMD everywhere"
 The kernels already loop-vectorise 8-wide under `target-cpu=native` wherever
 LLVM's cost model agrees (`docs/perf/kernel-codegen.md`), so forcing explicit
 SIMD on top is only a win where LLVM *declined* -- which in practice means
-kernels dominated by libm calls. Measured, `vxc` unpolarized, 100k points:
+kernels dominated by libm calls, because a call is what stops a loop
+vectorising. Below roughly two libm calls per point the explicit form loses:
+LLVM was already emitting 512-bit code and the hand-written load/store is pure
+overhead. `gga_x_pbe` (0 calls) measured 0.55x and `gga_x_b88` (1 call) 0.96x;
+both stand as rejections.
 
-    kernel        libm calls   scalar    f64x8    ratio    vs scalar kernel
-    lda_c_vwn          6       68.84    13.59    5.06x     2.7e-15
-    gga_c_lyp          1        9.07     8.85    1.02x     4.7e-12  <- fails tol
-    gga_x_b88          1        8.85     9.20    0.96x     1.3e-15
-    gga_x_pbe          0        3.98     7.25    0.55x     1.3e-15
+That is now the *only* reason to measure. There used to be a second --
+accuracy -- because the transcendentals came from `wide`'s ~1 ulp forms and the
+derivative expressions amplify (`gga_c_lyp` reached 4.7e-12 against its scalar
+kernel, past the 1e-12 contract). Every transcendental now maps to a bit-exact
+`libxc_rkernel_math::simd` form, so a SIMD kernel is bit-identical to its
+scalar kernel by construction, and the gate is an unchanged `bench-vs-libxc`
+fingerprint plus a measured speedup. `tools/translate_rayon/simd_qualify.py`
+runs that gate and records every verdict in `docs/perf/simd-ledger.json`.
 
-Two independent reasons a functional must be measured before being added:
-
-* **Speed.** Below ~2 libm calls per point the explicit form loses, because
-  LLVM was already emitting 512-bit code and this adds load/store overhead on
-  top.
-* **Accuracy.** `wide`'s transcendentals are ~1 ulp (2.2e-16), but the
-  derivative expressions amplify: `gga_c_lyp` comes out at 4.7e-12 against the
-  scalar kernel, past the project's 1e-12 contract. `lda_c_vwn`, with six libm
-  calls, stays at 2.7e-15. Amplification is a property of the formula, not of
-  the call count, so it cannot be predicted -- only measured.
+There is deliberately no approximate mode here. rmath's own free functions are
+its `Fast` path and this tree called them by accident until 2026-08-31, running
+4-ulp `ln` against a 1e-12 contract without any test noticing; see
+`crates/kernels-rayon/math/src/rmath_bitexact.rs`. `simd_body` now refuses to
+emit any call it could not map to a bit-exact form, rather than silently
+falling back.
 
 Every lane runs maple2c's expression sequence in its original order, so the
-arithmetic (+,-,*,/,sqrt) is elementwise-identical to the scalar kernel; only
-the transcendentals differ.
+arithmetic (+,-,*,/,sqrt) is elementwise-identical to the scalar kernel, and so
+now are the transcendentals.
 """
 import re
 
@@ -38,67 +41,41 @@ LANES = 8
 VT = f"f64x{LANES}"
 L = LANES
 
-# `.method()` on f64x8 — wide's ~1 ulp forms. Only the calls with no
-# bit-exact `simd::` replacement stay here; a kernel that uses any of the
-# non-sqrt ones cannot be fingerprint-compared against its scalar form.
+# `.method()` on f64x8. Only sqrt and abs are dispatched this way, and both
+# are exact in any policy, so nothing here can cost a kernel its bit-identity
+# with its scalar form. Every transcendental goes through FREE_EXACT below.
 UNARY_EXACT = {
     "rmath::sqrt": "sqrt", "f64::sqrt": "sqrt",
-    "rmath::atan": "atan", "f64::atan": "atan",
     "rmath::abs": "abs", "f64::abs": "abs",
-    "rmath::tanh": "tanh", "f64::tanh": "tanh",
-    "rmath::sinh": "sinh", "f64::sinh": "sinh",
-    "rmath::cosh": "cosh", "f64::cosh": "cosh",
-    "rmath::asin": "asin", "f64::asin": "asin",
-    "rmath::acos": "acos", "f64::acos": "acos",
-    "rmath::expm1": "exp_m1", "f64::exp_m1": "exp_m1",
-    "rmath::log1p": "ln_1p", "f64::ln_1p": "ln_1p",
-    "rmath::atanh": "atanh", "f64::atanh": "atanh",
 }
 # Free functions from `libxc_rkernel_math::simd` — bit-identical per lane to
-# the scalar call the scalar kernel makes (exp/ln to glibc's `_fma` ifuncs,
-# the cube-root family to `powers::cbrt_f64`). A kernel whose transcendentals
-# all come from this set produces output bit-identical to its scalar form.
+# the scalar call the scalar kernel makes, because both resolve to the same
+# `<BitExact, FullRange>` rmath kernel (`math/src/rmath_bitexact.rs`).
 FREE_EXACT = {
     "rmath::exp": "simd::exp", "f64::exp": "simd::exp",
     "rmath::ln": "simd::ln", "f64::ln": "simd::ln",
     "rmath::cbrt": "simd::cbrt", "pow_1_3": "simd::cbrt",
     "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
     "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
+    "rmath::expm1": "simd::expm1", "f64::exp_m1": "simd::expm1",
+    "rmath::log1p": "simd::log1p", "f64::ln_1p": "simd::log1p",
+    "rmath::atan": "simd::atan", "f64::atan": "simd::atan",
+    "rmath::tanh": "simd::tanh", "f64::tanh": "simd::tanh",
+    "rmath::sinh": "simd::sinh", "f64::sinh": "simd::sinh",
+    "rmath::cosh": "simd::cosh", "f64::cosh": "simd::cosh",
+    "rmath::asin": "simd::asin", "f64::asin": "simd::asin",
+    "rmath::acos": "simd::acos", "f64::acos": "simd::acos",
+    "rmath::atanh": "simd::atanh", "f64::atanh": "simd::atanh",
+    "rmath::sin": "simd::sin", "f64::sin": "simd::sin",
+    "rmath::cos": "simd::cos", "f64::cos": "simd::cos",
+    "rmath::tan": "simd::tan", "f64::tan": "simd::tan",
+    "rmath::erf": "simd::erf", "erf": "simd::erf",
+    "rmath::erfc": "simd::erfc", "erfc": "simd::erfc",
+    "lambert_w": "simd::lambert_w", "LambertW": "simd::lambert_w",
 }
-BINARY_METHODS_EXACT = {
-    "rmath::pow": "powf_simd", "f64::powf": "powf_simd",
-    "rmath::atan2": "atan2", "f64::atan2": "atan2",
-}
-
-# `rmath_fast` forms for high-throughput vectorized approximation kernels.
-UNARY_FAST = {
-    "rmath::sqrt": "sqrt", "f64::sqrt": "sqrt",
-    "rmath::abs": "abs", "f64::abs": "abs",
-}
-FREE_FAST = {
-    "rmath::exp": "rmath_fast::exp", "f64::exp": "rmath_fast::exp",
-    "rmath::ln": "rmath_fast::ln", "f64::ln": "rmath_fast::ln",
-    "rmath::expm1": "rmath_fast::expm1", "f64::exp_m1": "rmath_fast::expm1",
-    "rmath::log1p": "rmath_fast::log1p", "f64::ln_1p": "rmath_fast::log1p",
-    "rmath::atan": "rmath_fast::atan", "f64::atan": "rmath_fast::atan",
-    "rmath::tanh": "rmath_fast::tanh", "f64::tanh": "rmath_fast::tanh",
-    "rmath::sinh": "rmath_fast::sinh", "f64::sinh": "rmath_fast::sinh",
-    "rmath::cosh": "rmath_fast::cosh", "f64::cosh": "rmath_fast::cosh",
-    "rmath::asin": "rmath_fast::asin", "f64::asin": "rmath_fast::asin",
-    "rmath::acos": "rmath_fast::acos", "f64::acos": "rmath_fast::acos",
-    "rmath::atanh": "rmath_fast::atanh", "f64::atanh": "rmath_fast::atanh",
-    "rmath::sin": "rmath_fast::sin", "f64::sin": "rmath_fast::sin",
-    "rmath::cos": "rmath_fast::cos", "f64::cos": "rmath_fast::cos",
-    "rmath::tan": "rmath_fast::tan", "f64::tan": "rmath_fast::tan",
-    "rmath::erf": "rmath_fast::erf", "erf": "rmath_fast::erf",
-    "rmath::erfc": "rmath_fast::erfc", "erfc": "rmath_fast::erfc",
-    "rmath::cbrt": "rmath_fast::cbrt", "pow_1_3": "rmath_fast::cbrt",
-    "pow_2_3": "simd::pow_2_3", "pow_4_3": "simd::pow_4_3",
-    "pow_5_3": "simd::pow_5_3", "pow_7_3": "simd::pow_7_3",
-}
-BINARY_FREE_FAST = {
-    "rmath::pow": "rmath_fast::pow", "f64::powf": "rmath_fast::pow",
-    "rmath::atan2": "rmath_fast::atan2", "f64::atan2": "rmath_fast::atan2",
+BINARY_FREE_EXACT = {
+    "rmath::pow": "simd::pow", "f64::powf": "simd::pow",
+    "rmath::atan2": "simd::atan2", "f64::atan2": "simd::atan2",
 }
 
 CMP = {"<=": "simd_le", ">=": "simd_ge", "<": "simd_lt", ">": "simd_gt",
@@ -141,52 +118,42 @@ def find_call(expr, name):
     return None
 
 
-def _rewrite_one(expr, math_mode="exact"):
+def _rewrite_one(expr):
     """Apply the first applicable call rewrite; None if nothing matched."""
     for name, tmpl in EXPAND.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + tmpl.format(a=rewrite_calls(arg, math_mode=math_mode)) + expr[j:]
-    free_table = FREE_FAST if math_mode == "fast" else FREE_EXACT
-    for name, fn in free_table.items():
+            return expr[:i] + tmpl.format(a=rewrite_calls(arg)) + expr[j:]
+    for name, fn in FREE_EXACT.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + f"({fn}({rewrite_calls(arg, math_mode=math_mode)}))" + expr[j:]
-    unary_table = UNARY_FAST if math_mode == "fast" else UNARY_EXACT
-    for name, meth in unary_table.items():
+            return expr[:i] + f"({fn}({rewrite_calls(arg)}))" + expr[j:]
+    for name, meth in UNARY_EXACT.items():
         r = find_call(expr, name)
         if r:
             i, j, arg = r
-            return expr[:i] + f"(({rewrite_calls(arg, math_mode=math_mode)}).{meth}())" + expr[j:]
-    if math_mode == "fast":
-        for name, fn in BINARY_FREE_FAST.items():
-            r = find_call(expr, name)
-            if r:
-                i, j, args = r
-                a, b = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
-                return expr[:i] + f"({fn}({a}, {b}))" + expr[j:]
-    else:
-        for name, meth in BINARY_METHODS_EXACT.items():
-            r = find_call(expr, name)
-            if r:
-                i, j, args = r
-                a, b = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
-                return expr[:i] + f"(({a}).{meth}({b}))" + expr[j:]
+            return expr[:i] + f"(({rewrite_calls(arg)}).{meth}())" + expr[j:]
+    for name, fn in BINARY_FREE_EXACT.items():
+        r = find_call(expr, name)
+        if r:
+            i, j, args = r
+            a, b = [rewrite_calls(x) for x in split_args(args)]
+            return expr[:i] + f"({fn}({a}, {b}))" + expr[j:]
     # Argument 0 of piecewise3, and 0 and 2 of piecewise5, are *conditions*:
     # they may be a bare comparison, which has to become a lane mask before
     # `select` can take it.
     r = find_call(expr, "piecewise3")
     if r:
         i, j, args = r
-        p = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
+        p = [rewrite_calls(x) for x in split_args(args)]
         p[0] = rewrite_cmp(p[0])
         return expr[:i] + f"(({p[0]}).select({p[1]}, {p[2]}))" + expr[j:]
     r = find_call(expr, "piecewise5")
     if r:
         i, j, args = r
-        p = [rewrite_calls(x, math_mode=math_mode) for x in split_args(args)]
+        p = [rewrite_calls(x) for x in split_args(args)]
         p[0] = rewrite_cmp(p[0])
         p[2] = rewrite_cmp(p[2])
         return (expr[:i]
@@ -195,16 +162,16 @@ def _rewrite_one(expr, math_mode="exact"):
     r = find_call(expr, "Heaviside")
     if r:
         i, j, arg = r
-        a = rewrite_calls(arg, math_mode=math_mode)
+        a = rewrite_calls(arg)
         return expr[:i] + f"(({a}).simd_ge(V_ZERO).select(V_ONE, V_ZERO))" + expr[j:]
     return None
 
 
-def rewrite_calls(expr, math_mode="exact"):
+def rewrite_calls(expr):
     """Map math-helper and libm calls onto f64xN forms. Recursive; leaves
     numeric/constant leaves alone (see splat_leaves)."""
     while True:
-        nxt = _rewrite_one(expr, math_mode=math_mode)
+        nxt = _rewrite_one(expr)
         if nxt is None:
             return expr
         expr = nxt
@@ -257,8 +224,13 @@ def splat_leaves(expr):
 
 
 
-def simd_body(lines, ins, outs, scalars, fn, math_mode="exact"):
+def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
     """Turn the emitted scalar statement list into a SIMD function body."""
+    if in_dims is None:
+        in_dims = {n: 1 for n in ins}
+    if out_dims is None:
+        out_dims = {n: 1 for n in outs}
+
     out_lines = []
     for st in lines:
         st = st.strip()
@@ -267,18 +239,92 @@ def simd_body(lines, ins, outs, scalars, fn, math_mode="exact"):
         m = re.match(r"^let (\w+) = (.*);$", st)
         if m:
             e = re.sub(r"\b(rho|sigma|lapl|tau)\[ip\]", r"v_\1", m.group(2))
-            out_lines.append(
-                f"            let {m.group(1)} = "
-                f"{splat_leaves(rewrite_cmp(rewrite_calls(e, math_mode=math_mode)))};")
+            e = re.sub(r"\b(rho|sigma|lapl|tau)(\d+)\b", r"v_\1\2", e)
+            trans = f"            let {m.group(1)} = {splat_leaves(rewrite_cmp(rewrite_calls(e)))};"
+            # Every transcendental must have been mapped to a bit-exact
+            # `simd::` form above. Anything left that would evaluate
+            # approximately -- one of wide's own methods, or a scalar call the
+            # tables missed -- is a translation bug, not a tuning choice, so it
+            # stops the emit rather than producing a kernel whose bits differ
+            # from its scalar form.
+            for pat, desc in [
+                (r"\.powf_simd\(", "wide powf_simd"),
+                (r"\.(atan|tanh|sinh|cosh|asin|acos|atanh|exp_m1|ln_1p)\(\)", "wide approximate method"),
+                (r"\bf64::(exp|ln|atan|atan2|tanh|sinh|cosh|asin|acos|atanh|sin|cos|tan|erf|erfc|powf|exp_m1|ln_1p)\b", "unmapped scalar f64 transcendental"),
+                (r"\brmath::(exp|ln|atan|atan2|tanh|sinh|cosh|asin|acos|atanh|sin|cos|tan|erf|erfc|pow|cbrt|expm1|log1p)\b", "unmapped scalar rmath transcendental"),
+            ]:
+                if re.search(pat, trans):
+                    raise ValueError(f"Exact SIMD violation ({desc}) in {fn}: {trans}")
+            out_lines.append(trans)
             continue
         m = re.match(r"^(\w+)\[ip\] \+= (\w+);$", st)
         if m:
             out_lines.append(f"            acc_{m.group(1)} = {m.group(2)};")
             continue
+        m = re.match(r"^(\w+)\[ip \* (\d+)(?: \+ (\d+))?\] \+= (\w+);$", st)
+        if m:
+            k = int(m.group(3) or 0)
+            out_lines.append(f"            acc_{m.group(1)}_{k} = {m.group(4)};")
+            continue
         raise ValueError(f"SIMD rewrite does not handle: {st}")
 
-    math_import = ("use libxc_rkernel_math::rmath_fast;\nuse libxc_rkernel_math::simd;"
-                   if math_mode == "fast" else "use libxc_rkernel_math::simd;")
+    math_import = "use libxc_rkernel_math::simd;"
+
+    has_strided = any(d > 1 for d in in_dims.values()) or any(d > 1 for d in out_dims.values())
+    strided_helpers = f'''
+/// Load {L} elements with a given stride and offset.
+#[inline(always)]
+fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -> {VT} {{
+    let mut b = [0.0f64; {L}];
+    for k in 0..{L} {{
+        let p = (ip + k).min(np - 1);
+        b[k] = s[p * stride + offset];
+    }}
+    {VT}::new(b)
+}}
+
+/// Store {L} elements with a given stride and offset.
+#[inline(always)]
+fn store_strided(s: &mut [f64], ip: usize, m: usize, stride: usize, offset: usize, acc: {VT}) {{
+    let a: [f64; {L}] = acc.into();
+    for k in 0..m {{
+        s[(ip + k) * stride + offset] = a[k];
+    }}
+}}
+''' if has_strided else ""
+
+    # Input bindings
+    in_loads = []
+    for n in ins:
+        d = in_dims.get(n, 1)
+        if d == 1:
+            in_loads.append(f"        let v_{n} = load({n}, ip, np);")
+        else:
+            for k in range(d):
+                in_loads.append(f"        let v_{n}{k} = load_strided({n}, ip, np, {d}, {k});")
+
+    # Output accumulators
+    out_accs = []
+    for n in outs:
+        d = out_dims.get(n, 1)
+        if d == 1:
+            out_accs.append(f"        let mut acc_{n} = V_ZERO;")
+        else:
+            for k in range(d):
+                out_accs.append(f"        let mut acc_{n}_{k} = V_ZERO;")
+
+    # Output stores
+    out_stores = []
+    for n in outs:
+        d = out_dims.get(n, 1)
+        if d == 1:
+            out_stores.append(f"        {{ let a: [f64; {L}] = acc_{n}.into(); {n}[ip..ip + m].copy_from_slice(&a[..m]); }}")
+        else:
+            for k in range(d):
+                out_stores.append(f"        store_strided({n}, ip, m, {d}, {k}, acc_{n}_{k});")
+
+    gd = out_dims[outs[0]]
+    bound = f"{outs[0]}.len()" if gd == 1 else f"{outs[0]}.len() / {gd}"
 
     nl = chr(10)
     return f'''#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
@@ -289,11 +335,10 @@ use libxc_rkernel_math::wide::{{{VT}, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe}}
 const V_ZERO: {VT} = {VT}::new([0.0; {L}]);
 const V_ONE: {VT} = {VT}::new([1.0; {L}]);
 
-// `exp`, `ln` and the cube-root family come from `libxc_rkernel_math::simd`,
-// which is bit-identical per lane to the scalar calls the scalar kernel makes
-// (exp/ln to glibc's `_fma` ifuncs, cbrt to `powers::cbrt_f64`). Only
-// `atan`/`tanh`-class calls still use `wide`'s ~1 ulp forms; a kernel with
-// none of those produces output bit-identical to its scalar form.
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
 
 /// Load {L} consecutive grid points.
 ///
@@ -313,24 +358,24 @@ fn load(s: &[f64], ip: usize, np: usize) -> {VT} {{
         {VT}::new(b)
     }}
 }}
-
+{strided_helpers}
 #[allow(unused_variables, non_snake_case)]
 pub fn {fn}(
 {nl.join(f"    {n}: &[f64]," for n in ins)}
 {nl.join(f"    {n}: &mut [f64]," for n in outs)}
 {nl.join(f"    {n}: f64," for n in scalars)}
 ) {{
-    let np = {outs[0]}.len();
+    let np = {bound};
 {nl.join(f"    let {n} = {VT}::splat({n});" for n in scalars)}
     let mut ip = 0usize;
     while ip < np {{
         let m = (np - ip).min({L});
-{nl.join(f"        let v_{n} = load({n}, ip, np);" for n in ins)}
-{nl.join(f"        let mut acc_{n} = V_ZERO;" for n in outs)}
+{nl.join(in_loads)}
+{nl.join(out_accs)}
         {{
 {nl.join(out_lines)}
         }}
-{nl.join(f"        {{ let a: [f64; {L}] = acc_{n}.into(); {n}[ip..ip + m].copy_from_slice(&a[..m]); }}" for n in outs)}
+{nl.join(out_stores)}
         ip += {L};
     }}
 }}

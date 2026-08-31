@@ -90,7 +90,7 @@ pub fn cache_cstring(s: &'static str) -> *const c_char {
 }
 
 /// Retrieve the most recent error code on this thread, or `LIBXC_RS_OK`.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_rs_last_error_code() -> i32 {
     LAST_ERROR.with(|cell| {
         cell.borrow().as_ref().map(|(code, _)| *code).unwrap_or(LIBXC_RS_OK)
@@ -101,7 +101,7 @@ pub extern "C" fn xc_rs_last_error_code() -> i32 {
 /// Returns a pointer to a thread-local `CString`; valid until the next
 /// error-setting call on this thread. Never returns NULL — when no error
 /// has been recorded, returns a static empty C string.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_rs_last_error_message() -> *const c_char {
     LAST_ERROR.with(|cell| match cell.borrow().as_ref() {
         Some((_, cstr)) => cstr.as_ptr(),

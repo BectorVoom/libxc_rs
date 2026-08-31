@@ -22,9 +22,9 @@ pub const PARAM_KAPPA: f64 = 0.8040;
 /// libxc default for `param_mu`.
 pub const PARAM_MU: f64 = 0.21951;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

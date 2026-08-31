@@ -4,11 +4,18 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT6, M_PI};
-use libxc_rkernel_math::powers::{pow_1_3};
+use libxc_rkernel_math::powers::pow_1_3;
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_ccdf_fxc_unpol(
@@ -97,7 +104,11 @@ pub fn gga_c_ccdf_fxc_unpol(
         let t106 = t105 * sigma[ip];
         let t107 = t23 * t23;
         let t112 = t95 * t39;
-        let tv2rho20 = 2.0 / 9.0 * t54 * t55 * t17 - t61 * t62 * t14 * t65 * t23 / 27.0 + 2.0 / 9.0 * t74 * t76 * t27 * t78 + 2.0 / 27.0 * t86 * t62 * t88 - 4.0 / 27.0 * t99 * t103 * t106 * t107 + 2.0 / 27.0 * t112 * t103 * t106 * t23;
+        let tv2rho20 = 2.0 / 9.0 * t54 * t55 * t17 - t61 * t62 * t14 * t65 * t23 / 27.0
+            + 2.0 / 9.0 * t74 * t76 * t27 * t78
+            + 2.0 / 27.0 * t86 * t62 * t88
+            - 4.0 / 27.0 * t99 * t103 * t106 * t107
+            + 2.0 / 27.0 * t112 * t103 * t106 * t23;
         v2rho2[ip] += tv2rho20;
         let t120 = t74 * t30 * t60;
         let t121 = t48 * t23;
@@ -108,7 +119,8 @@ pub fn gga_c_ccdf_fxc_unpol(
         let t129 = t102 * t127 * t107;
         let t132 = t84 * t39;
         let t134 = t102 * t127 * t23;
-        let tv2rhosigma0 = t40 * t51 / 72.0 - t120 * t123 / 72.0 + t126 * t129 / 18.0 - t132 * t134 / 36.0;
+        let tv2rhosigma0 =
+            t40 * t51 / 72.0 - t120 * t123 / 72.0 + t126 * t129 / 18.0 - t132 * t134 / 36.0;
         v2rhosigma[ip] += tv2rhosigma0;
         let t137 = t74 * t98;
         let t138 = 1.0 / sigma[ip];

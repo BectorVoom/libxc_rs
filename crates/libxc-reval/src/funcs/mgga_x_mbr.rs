@@ -18,9 +18,9 @@ pub const PARAM_GAMMA: f64 = 1.0;
 /// libxc default for `param_lambda`.
 pub const PARAM_LAMBDA: f64 = 0.877;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

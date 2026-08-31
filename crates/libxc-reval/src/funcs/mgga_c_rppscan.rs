@@ -14,9 +14,9 @@ use libxc_rkernel_mgga_c_rppscan as k;
 /// libxc default for `param_eta`.
 pub const PARAM_ETA: f64 = 0.001;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

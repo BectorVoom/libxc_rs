@@ -4,12 +4,19 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::piecewise::piecewise3;
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_acggap_vxc_unpol(
@@ -141,7 +148,10 @@ pub fn gga_c_acggap_vxc_unpol(
         let t171 = t170 * t1;
         let t172 = t171 * t165;
         let t177 = t20 * t5 / t21 / rho[ip];
-        let t179 = -0.632975 * t166 - 0.29896666666666666 * t168 - 0.1023875 * t172 - 0.08215666666666667 * t177;
+        let t179 = -0.632975 * t166
+            - 0.29896666666666666 * t168
+            - 0.1023875 * t172
+            - 0.08215666666666667 * t177;
         let t180 = 1.0 / t29;
         let t181 = t179 * t180;
         let t182 = t162 * t181;
@@ -152,7 +162,8 @@ pub fn gga_c_acggap_vxc_unpol(
         let t189 = t43 * t45;
         let t190 = t50 * t50;
         let t191 = 1.0 / t190;
-        let t196 = -0.8630833333333333 * t166 - 0.301925 * t168 - 0.05501625 * t172 - 0.082785 * t177;
+        let t196 =
+            -0.8630833333333333 * t166 - 0.301925 * t168 - 0.05501625 * t172 - 0.082785 * t177;
         let t198 = 1.0 / t53;
         let t199 = t191 * t196 * t198;
         let t200 = t189 * t199;
@@ -224,7 +235,13 @@ pub fn gga_c_acggap_vxc_unpol(
         let t312 = 1.0 / t134 / t104;
         let t313 = t312 * t255;
         let t315 = t269 * t270 * t313;
-        let t318 = -7.0 / 288.0 * t227 * t107 + t87 * t246 / 96.0 - t250 * t257 / 96.0 + 0.0002143700905903487 * t261 * t138 - 0.0002143700905903487 * t267 * t273 + 0.0002143700905903487 * t287 * t294 - 0.0010003937560882938 * t301 * t138 + 0.0004287401811806974 * t304 * t308 - 0.0004287401811806974 * t304 * t315;
+        let t318 = -7.0 / 288.0 * t227 * t107 + t87 * t246 / 96.0 - t250 * t257 / 96.0
+            + 0.0002143700905903487 * t261 * t138
+            - 0.0002143700905903487 * t267 * t273
+            + 0.0002143700905903487 * t287 * t294
+            - 0.0010003937560882938 * t301 * t138
+            + 0.0004287401811806974 * t304 * t308
+            - 0.0004287401811806974 * t304 * t315;
         let t320 = t318 * t110 * t148;
         let t323 = t80 * t141;
         let t324 = t147 * t147;
@@ -235,9 +252,13 @@ pub fn gga_c_acggap_vxc_unpol(
         let t334 = t115 * t117;
         let t335 = t141 * t290 * t334;
         let t338 = t143 * t318;
-        let t341 = 0.6585449182935511 * t207 * t144 - 0.6585449182935511 * t264 * t330 + 0.6585449182935511 * t281 * t335 + 0.6585449182935511 * t80 * t338;
+        let t341 = 0.6585449182935511 * t207 * t144 - 0.6585449182935511 * t264 * t330
+            + 0.6585449182935511 * t281 * t335
+            + 0.6585449182935511 * t80 * t338;
         let t342 = t326 * t341;
-        let t345 = 0.6585449182935511 * t207 * t149 - 0.6585449182935511 * t213 * t220 + 0.6585449182935511 * t80 * t320 - 0.6585449182935511 * t323 * t342;
+        let t345 = 0.6585449182935511 * t207 * t149 - 0.6585449182935511 * t213 * t220
+            + 0.6585449182935511 * t80 * t320
+            - 0.6585449182935511 * t323 * t342;
         let t347 = 1.0 / t152;
         let t349 = t62 * t66 * t345 * t347;
         let tvrho0 = -t32 + t57 + t155 + rho[ip] * (t159 + t183 - t188 - t201 + t349);
@@ -273,7 +294,10 @@ pub fn gga_c_acggap_vxc_unpol(
         let t392 = t389 * t305 * t390;
         let t395 = t312 * t97;
         let t397 = t389 * t270 * t395;
-        let t400 = t356 * t358 / 96.0 + t365 * t367 / 384.0 - 0.0038203125 * t365 * t371 + 0.0004287401811806974 * t376 * t138 + 0.00010718504529517435 * t385 * t392 - 0.00015724046144802075 * t385 * t397;
+        let t400 = t356 * t358 / 96.0 + t365 * t367 / 384.0 - 0.0038203125 * t365 * t371
+            + 0.0004287401811806974 * t376 * t138
+            + 0.00010718504529517435 * t385 * t392
+            - 0.00015724046144802075 * t385 * t397;
         let t402 = t400 * t110 * t148;
         let t405 = t72 * t72;
         let t406 = t405 * t211;

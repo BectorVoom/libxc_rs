@@ -33,9 +33,9 @@ pub use dims::Dimensions;
 pub use registry::{lookup_by_id, lookup_by_name, functional_count, version, version_string};
 pub use input::{LdaInput, GgaInput, MggaInput};
 pub use output::{LdaOutput, GgaOutput, MggaOutput, OutputMask};
-pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga};
+pub use eval::{dispatch_lda, dispatch_gga, dispatch_mgga, EvaluationWorkspace};
 pub use functional::{
-    classify_hybrid, CamCoefficients, Functional, FunctionalParams, NlcCoefficients, NoParams,
+    classify_hybrid, CamCoefficients, Functional, FunctionalParams, GenericParams, NlcCoefficients, NoParams,
 };
 pub use api::{BatchEvaluator, EvaluateInput, FunctionalBuilder};
 // Opaque C-ABI handle types (compat layer). Re-exported at the crate root so

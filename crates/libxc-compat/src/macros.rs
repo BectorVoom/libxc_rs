@@ -57,7 +57,7 @@ macro_rules! __extern_c_wrapper_body {
 #[cfg(test)] mod tests {
     use crate::errno;
 
-    #[unsafe(no_mangle)]
+    #[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
     unsafe extern "C" fn __test_compat_panic_fn() -> i32 {
         crate::extern_c_wrapper!(_, "__test_compat_panic_fn", {
             panic!("test panic from wrapper");

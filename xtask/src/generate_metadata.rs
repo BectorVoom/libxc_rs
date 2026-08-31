@@ -689,7 +689,7 @@ fn write_generated_propagation_rs(root: &Path, snapshots: &[Snapshot]) -> Result
         ("XC_HYB_GGA_XC_WB97X_V", "_omega", 1, "_omega"),
         ("XC_HYB_GGA_XC_WB97X_D3", "_omega", 1, "_omega"),
         // LC-wPBE family
-        ("XC_HYB_GGA_XC_LC_WPBE", "_omega", 1, "_omega"),
+        ("XC_HYB_GGA_XC_LC_WPBE", "_omega", 0, "_omega"),
         ("XC_HYB_GGA_XC_LC_WPBEH", "_omega", 1, "_omega"),
     ];
 

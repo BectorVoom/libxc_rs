@@ -1,5 +1,9 @@
 //! Error function (erf) and complementary error function (erfc) implementations backed by rmath.
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 pub use crate::special::xc_erfcx;
 
 /// Compute the error function erf(x) with full f64 precision.

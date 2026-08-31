@@ -16,6 +16,10 @@
 )]
 
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 /// (32 * pi)^(2/3) — precomputed constant used in the rhs formula.
 const POW_32PI_TWO_THIRDS: f64 = 21.620541520507917;
 

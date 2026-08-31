@@ -13,9 +13,9 @@ use libxc_rkernel_lda_c_vwn as k;
 
 
 
-pub fn dispatch<'a>(
-    input: &'a LdaInput<'a>,
-    output: &'a mut LdaOutput<'a>,
+pub fn dispatch(
+    input: &LdaInput<'_>,
+    output: &mut LdaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

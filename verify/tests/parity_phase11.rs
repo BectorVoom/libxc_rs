@@ -147,9 +147,9 @@ const PHASE11_SMOKE: &[PhaseEntry] = &[
     // execution-time re-selection if any fails at strict 1e-12 against today's
     // tree per the W-D10-6 selection rule).
     PhaseEntry { canonical: "mgga_x_lta",      family: Family::Mgga, id: 201 },
-    PhaseEntry { canonical: "mgga_x_tpss",     family: Family::Mgga, id: 202 },
-    PhaseEntry { canonical: "mgga_x_pkzb",     family: Family::Mgga, id: 213 },
-    PhaseEntry { canonical: "mgga_x_th",       family: Family::Mgga, id: 225 },
+    PhaseEntry { canonical: "mgga_x_rlda",     family: Family::Mgga, id: 688 },
+    PhaseEntry { canonical: "mgga_k_rda",      family: Family::Mgga, id: 621 },
+    PhaseEntry { canonical: "mgga_xc_zlp",     family: Family::Mgga, id: 42 },
 ];
 
 // ---- Worst-case set (Phase 11 closure target) -----------------------------
@@ -288,7 +288,7 @@ fn run_lda_exc_unpol(entry: &PhaseEntry) -> TupleResult {
         &input,
         DerivativeOrder::Exc,
         &mut output,
-        &libxc_rs::NoParams,
+        &libxc_rs::NoParams::default(),
         &Thresholds::default(),
     ) {
         return classify_dispatch_err(e);
@@ -344,7 +344,7 @@ fn run_gga_exc_unpol(entry: &PhaseEntry) -> TupleResult {
         &input,
         DerivativeOrder::Exc,
         &mut output,
-        &libxc_rs::NoParams,
+        &libxc_rs::NoParams::default(),
         &Thresholds::default(),
     ) {
         return classify_dispatch_err(e);
@@ -402,7 +402,7 @@ fn run_mgga_exc_unpol(entry: &PhaseEntry) -> TupleResult {
         &input,
         DerivativeOrder::Exc,
         &mut output,
-        &libxc_rs::NoParams,
+        &libxc_rs::NoParams::default(),
         &Thresholds::default(),
     ) {
         return classify_dispatch_err(e);

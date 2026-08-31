@@ -1,214 +1,74 @@
 {
  "resolved": {
-  "lda_c_1d_loos": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_2d_amgb": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_chachiyo": {
-   "family": "lda",
-   "params": [
-    "param_af",
-    "param_ap",
-    "param_bf",
-    "param_bp",
-    "param_cf",
-    "param_cp"
-   ],
-   "values": [
-    "-0.007772675",
-    "-0.01554535",
-    "27.4203609",
-    "20.4562557",
-    "27.4203609",
-    "20.4562557"
-   ]
-  },
-  "lda_c_chachiyo_mod": {
-   "family": "lda",
-   "params": [
-    "param_af",
-    "param_ap",
-    "param_bf",
-    "param_bp",
-    "param_cf",
-    "param_cp"
-   ],
-   "values": [
-    "-0.007772675",
-    "-0.01554535",
-    "27.4203609",
-    "20.4562557",
-    "27.4203609",
-    "20.4562557"
-   ]
-  },
-  "lda_c_gk72": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_gombas": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_lp96": {
-   "family": "lda",
-   "params": [
-    "param_C1",
-    "param_C2",
-    "param_C3"
-   ],
-   "values": [
-    "-0.0603",
-    "0.0175",
-    "-0.00053"
-   ]
-  },
-  "lda_c_ml1": {
-   "family": "lda",
-   "params": [
-    "param_fc",
-    "param_q"
-   ],
-   "values": [
-    "0.2026",
-    "0.084"
-   ]
-  },
-  "lda_c_pk09": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_rc04": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_rpa": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn_1": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn_2": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn_3": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn_4": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_vwn_rpa": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_w20": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_c_wigner": {
-   "family": "lda",
-   "params": [
-    "param_a",
-    "param_b"
-   ],
-   "values": [
-    "-0.44",
-    "7.8"
-   ]
-  },
-  "lda_k_gds08_worker": {
-   "family": "lda",
-   "params": [
-    "param_A",
-    "param_B",
-    "param_C"
-   ],
-   "values": [
-    "0.860",
-    "0.224",
-    "0.0"
-   ]
-  },
-  "lda_k_zlp": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_x_2d": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_x_rel": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_x_sloc": {
-   "family": "lda",
-   "params": [
-    "param_a",
-    "param_b"
-   ],
-   "values": [
-    "1.67",
-    "0.3"
-   ]
-  },
-  "lda_xc_teter93": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_xc_tih": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
-  "lda_xc_zlp": {
-   "family": "lda",
-   "params": [],
-   "values": []
-  },
   "gga_c_acgga": {
    "family": "gga",
+   "base_kernel": "gga_c_acgga",
    "params": [],
    "values": []
   },
   "gga_c_acggap": {
    "family": "gga",
+   "base_kernel": "gga_c_acggap",
    "params": [],
    "values": []
   },
+  "gga_c_am05": {
+   "family": "gga",
+   "base_kernel": "gga_c_am05",
+   "params": [
+    "param_alpha",
+    "param_gamma"
+   ],
+   "values": [
+    "2.804",
+    "0.8098"
+   ]
+  },
+  "gga_c_apbe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.079030523241023461723"
+   ]
+  },
+  "gga_c_bmk": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "23.8939",
+    "-44.3303",
+    "22.5982",
+    "0.0",
+    "-2.19098",
+    "-3.4631",
+    "10.0731",
+    "-11.1974",
+    "0.0",
+    "1.22334"
+   ]
+  },
   "gga_c_ccdf": {
    "family": "gga",
+   "base_kernel": "gga_c_ccdf",
    "params": [
     "param_c1",
     "param_c2",
@@ -226,6 +86,7 @@
   },
   "gga_c_chachiyo": {
    "family": "gga",
+   "base_kernel": "gga_c_chachiyo",
    "params": [
     "param_af",
     "param_ap",
@@ -247,31 +108,103 @@
   },
   "gga_c_cs1": {
    "family": "gga",
+   "base_kernel": "gga_c_cs1",
    "params": [],
    "values": []
   },
   "gga_c_ft97": {
    "family": "gga",
+   "base_kernel": "gga_c_ft97",
    "params": [],
    "values": []
   },
+  "gga_c_gam": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.575592",
+    "-3.43391",
+    "-5.77281",
+    "9.52448",
+    "0.231765",
+    "-2.94135",
+    "15.4176",
+    "-5.99825",
+    "-23.4119",
+    "0.860548"
+   ]
+  },
   "gga_c_gapc": {
    "family": "gga",
+   "base_kernel": "gga_c_gapc",
    "params": [],
    "values": []
   },
   "gga_c_gaploc": {
    "family": "gga",
+   "base_kernel": "gga_c_gaploc",
    "params": [],
    "values": []
   },
   "gga_c_hcth_a": {
    "family": "gga",
+   "base_kernel": "gga_c_hcth_a",
    "params": [],
    "values": []
   },
+  "gga_c_hyb_tau_hcth": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "3.9782",
+    "-7.0694",
+    "3.4747",
+    "0.0",
+    "0.18600",
+    "3.8388",
+    "-13.547",
+    "3.9133",
+    "0.0",
+    "0.80490"
+   ]
+  },
+  "gga_c_lm": {
+   "family": "gga",
+   "base_kernel": "gga_c_lm",
+   "params": [
+    "param_lm_f"
+   ],
+   "values": [
+    "0.15"
+   ]
+  },
   "gga_c_lyp": {
    "family": "gga",
+   "base_kernel": "gga_c_lyp",
    "params": [
     "param_a",
     "param_b",
@@ -285,78 +218,563 @@
     "0.349"
    ]
   },
+  "gga_c_lypr": {
+   "family": "gga",
+   "base_kernel": "gga_c_lypr",
+   "params": [
+    "param_m1",
+    "param_omega",
+    "param_d",
+    "param_m2",
+    "param_b",
+    "param_c",
+    "param_a"
+   ],
+   "values": [
+    "0.15283842794759825",
+    "0.33",
+    "0.349",
+    "0.8733624454148472",
+    "0.132",
+    "0.2533",
+    "0.04918"
+   ]
+  },
+  "gga_c_mggac": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.030"
+   ]
+  },
+  "gga_c_n12": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-5.53170e+00",
+    "3.07958e+01",
+    "-5.64196e+01",
+    "3.21250e+01",
+    "1.00000e+00",
+    "3.24511e+00",
+    "-2.52893e+01",
+    "1.44407e+01",
+    "1.96870e+01",
+    "1.00000e+00"
+   ]
+  },
+  "gga_c_n12_sx": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-1.05450e+00",
+    "-7.29853e-01",
+    "4.94024e+00",
+    "-7.31760e+00",
+    "2.63373e+00",
+    "3.24128e+00",
+    "-1.06407e+01",
+    "-1.60471e+01",
+    "2.51047e+01",
+    "8.33615e-01"
+   ]
+  },
   "gga_c_op_b88": {
    "family": "gga",
+   "base_kernel": "gga_c_op_b88",
    "params": [],
    "values": []
   },
   "gga_c_op_g96": {
    "family": "gga",
+   "base_kernel": "gga_c_op_g96",
    "params": [],
    "values": []
   },
   "gga_c_op_pbe": {
    "family": "gga",
+   "base_kernel": "gga_c_op_pbe",
    "params": [],
    "values": []
   },
   "gga_c_op_pw91": {
    "family": "gga",
+   "base_kernel": "gga_c_op_pw91",
    "params": [],
    "values": []
   },
   "gga_c_op_xalpha": {
    "family": "gga",
+   "base_kernel": "gga_c_op_xalpha",
    "params": [],
    "values": []
   },
+  "gga_c_optc": {
+   "family": "gga",
+   "base_kernel": "gga_c_optc",
+   "params": [
+    "param_c1",
+    "param_c2"
+   ],
+   "values": [
+    "1.1015",
+    "0.6625"
+   ]
+  },
+  "gga_c_p86": {
+   "family": "gga",
+   "base_kernel": "gga_c_p86",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_ftilde",
+    "param_malpha",
+    "param_mbeta",
+    "param_mgamma",
+    "param_mdelta"
+   ],
+   "values": [
+    "0.001667",
+    "0.002568",
+    "0.19195",
+    "0.023266",
+    "7.389e-6",
+    "8.723",
+    "0.472"
+   ]
+  },
+  "gga_c_p86_ft": {
+   "family": "gga",
+   "base_kernel": "gga_c_p86",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_ftilde",
+    "param_malpha",
+    "param_mbeta",
+    "param_mgamma",
+    "param_mdelta"
+   ],
+   "values": [
+    "0.001667",
+    "0.002568",
+    "0.19199566167376364",
+    "0.023266",
+    "7.389e-6",
+    "8.723",
+    "0.472"
+   ]
+  },
+  "gga_c_p86vwn": {
+   "family": "gga",
+   "base_kernel": "gga_c_p86vwn",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_ftilde",
+    "param_malpha",
+    "param_mbeta",
+    "param_mgamma",
+    "param_mdelta"
+   ],
+   "values": [
+    "0.001667",
+    "0.002568",
+    "0.19195",
+    "0.023266",
+    "7.389e-6",
+    "8.723",
+    "0.472"
+   ]
+  },
+  "gga_c_p86vwn_ft": {
+   "family": "gga",
+   "base_kernel": "gga_c_p86vwn",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_ftilde",
+    "param_malpha",
+    "param_mbeta",
+    "param_mgamma",
+    "param_mdelta"
+   ],
+   "values": [
+    "0.001667",
+    "0.002568",
+    "0.19199566167376364",
+    "0.023266",
+    "7.389e-6",
+    "8.723",
+    "0.472"
+   ]
+  },
+  "gga_c_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.06672455060314922"
+   ]
+  },
+  "gga_c_pbe_erf_gws": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe_erf_gws",
+   "params": [
+    "param_gamma",
+    "param_a_c",
+    "param_beta",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "2.78",
+    "0.06672455060314922",
+    "0.5"
+   ]
+  },
+  "gga_c_pbe_gaussian": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.0667263212"
+   ]
+  },
+  "gga_c_pbe_jrgx": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.037526364314979061530"
+   ]
+  },
+  "gga_c_pbe_mol": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.08384"
+   ]
+  },
+  "gga_c_pbe_sol": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.046"
+   ]
+  },
+  "gga_c_pbe_vwn": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe_vwn",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.06672455060314922"
+   ]
+  },
+  "gga_c_pbefe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.043"
+   ]
+  },
+  "gga_c_pbeint": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.052"
+   ]
+  },
   "gga_c_pbeloc": {
    "family": "gga",
+   "base_kernel": "gga_c_pbeloc",
    "params": [],
    "values": []
   },
   "gga_c_pw91": {
    "family": "gga",
+   "base_kernel": "gga_c_pw91",
    "params": [],
    "values": []
   },
   "gga_c_q2d": {
    "family": "gga",
+   "base_kernel": "gga_c_q2d",
    "params": [],
    "values": []
   },
   "gga_c_regtpss": {
    "family": "gga",
+   "base_kernel": "gga_c_regtpss",
    "params": [],
    "values": []
   },
   "gga_c_revtca": {
    "family": "gga",
+   "base_kernel": "gga_c_revtca",
    "params": [],
    "values": []
   },
+  "gga_c_rge2": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "1.0",
+    "0.053"
+   ]
+  },
   "gga_c_scan_e0": {
    "family": "gga",
+   "base_kernel": "gga_c_scan_e0",
    "params": [],
    "values": []
   },
   "gga_c_sg4": {
    "family": "gga",
+   "base_kernel": "gga_c_sg4",
    "params": [],
    "values": []
+  },
+  "gga_c_sogga11": {
+   "family": "gga",
+   "base_kernel": "gga_c_sogga11",
+   "params": [
+    "param_sogga11_a_1",
+    "param_sogga11_a_2",
+    "param_sogga11_a_3",
+    "param_sogga11_a_4",
+    "param_sogga11_a_5",
+    "param_sogga11_b_1",
+    "param_sogga11_b_2",
+    "param_sogga11_b_3",
+    "param_sogga11_b_4",
+    "param_sogga11_b_5",
+    "param_sogga11_a_0",
+    "param_sogga11_b_0"
+   ],
+   "values": [
+    "-4.62334",
+    "8.00410",
+    "-130.226",
+    "38.2685",
+    "69.5599",
+    "3.62334",
+    "9.36393",
+    "34.5114",
+    "-18.5684",
+    "-0.16519",
+    "0.50000",
+    "0.50000"
+   ]
+  },
+  "gga_c_sogga11_x": {
+   "family": "gga",
+   "base_kernel": "gga_c_sogga11",
+   "params": [
+    "param_sogga11_a_1",
+    "param_sogga11_a_2",
+    "param_sogga11_a_3",
+    "param_sogga11_a_4",
+    "param_sogga11_a_5",
+    "param_sogga11_b_1",
+    "param_sogga11_b_2",
+    "param_sogga11_b_3",
+    "param_sogga11_b_4",
+    "param_sogga11_b_5",
+    "param_sogga11_a_0",
+    "param_sogga11_b_0"
+   ],
+   "values": [
+    "78.2439",
+    "25.7211",
+    "-13.8830",
+    "-9.87375",
+    "-14.1357",
+    "-79.2439",
+    "16.3725",
+    "2.08129",
+    "7.50769",
+    "-10.1861",
+    "0.50000",
+    "0.50000"
+   ]
+  },
+  "gga_c_spbe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.031090690869654895034",
+    "0.0",
+    "0.06672455060314922"
+   ]
+  },
+  "gga_c_tau_hcth": {
+   "family": "gga",
+   "base_kernel": "gga_c_bmk",
+   "params": [
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.9086",
+    "-0.0549",
+    "1.7480",
+    "0.0",
+    "0.41385",
+    "6.3638",
+    "-14.080",
+    "-3.3755",
+    "0.0",
+    "0.65262"
+   ]
   },
   "gga_c_tca": {
    "family": "gga",
+   "base_kernel": "gga_c_tca",
    "params": [],
    "values": []
   },
+  "gga_c_tm_lyp": {
+   "family": "gga",
+   "base_kernel": "gga_c_lyp",
+   "params": [
+    "param_a",
+    "param_b",
+    "param_c",
+    "param_d"
+   ],
+   "values": [
+    "0.0393",
+    "0.21",
+    "0.41",
+    "0.15"
+   ]
+  },
+  "gga_c_tm_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "-0.0156",
+    "1.0",
+    "-0.052728"
+   ]
+  },
   "gga_c_w94": {
    "family": "gga",
+   "base_kernel": "gga_c_w94",
    "params": [],
    "values": []
   },
   "gga_c_wi": {
    "family": "gga",
+   "base_kernel": "gga_c_wi",
    "params": [
     "param_a",
     "param_b",
@@ -372,23 +790,321 @@
     "0.001"
    ]
   },
+  "gga_c_wi0": {
+   "family": "gga",
+   "base_kernel": "gga_c_wi",
+   "params": [
+    "param_a",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_k"
+   ],
+   "values": [
+    "-0.44",
+    "0.0032407",
+    "7.8",
+    "0.0073",
+    "0.000311"
+   ]
+  },
   "gga_c_wl": {
    "family": "gga",
+   "base_kernel": "gga_c_wl",
    "params": [],
    "values": []
+  },
+  "gga_c_xpbe": {
+   "family": "gga",
+   "base_kernel": "gga_c_pbe",
+   "params": [
+    "param_gamma",
+    "param_BB",
+    "param_beta"
+   ],
+   "values": [
+    "0.02043355766025040154",
+    "1.0",
+    "0.089809"
+   ]
+  },
+  "gga_c_zpbeint": {
+   "family": "gga",
+   "base_kernel": "gga_c_zpbeint",
+   "params": [
+    "param_alpha",
+    "param_beta"
+   ],
+   "values": [
+    "2.4",
+    "0.052"
+   ]
+  },
+  "gga_c_zpbesol": {
+   "family": "gga",
+   "base_kernel": "gga_c_zpbeint",
+   "params": [
+    "param_alpha",
+    "param_beta"
+   ],
+   "values": [
+    "4.8",
+    "0.046"
+   ]
+  },
+  "gga_c_zvpbeint": {
+   "family": "gga",
+   "base_kernel": "gga_c_zvpbeint",
+   "params": [
+    "param_alpha",
+    "param_omega",
+    "param_beta"
+   ],
+   "values": [
+    "1.0",
+    "4.5",
+    "0.052"
+   ]
   },
   "gga_c_zvpbeloc": {
    "family": "gga",
+   "base_kernel": "gga_c_zvpbeloc",
    "params": [],
    "values": []
+  },
+  "gga_c_zvpbesol": {
+   "family": "gga",
+   "base_kernel": "gga_c_zvpbeint",
+   "params": [
+    "param_alpha",
+    "param_omega",
+    "param_beta"
+   ],
+   "values": [
+    "1.8",
+    "4.5",
+    "0.046"
+   ]
+  },
+  "gga_k_absp1": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "-0.4119999999999999"
+   ]
+  },
+  "gga_k_absp2": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "-0.3320000000000001"
+   ]
+  },
+  "gga_k_absp3": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "-0.5129999999999999"
+   ]
+  },
+  "gga_k_absp4": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.42881646655231564",
+    "0.42881646655231564"
+   ]
+  },
+  "gga_k_apbe": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.23889"
+   ]
+  },
+  "gga_k_apbeint": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbeint",
+   "params": [
+    "param_muPBE",
+    "param_muGE",
+    "param_alpha",
+    "param_kappa"
+   ],
+   "values": [
+    "0.23899",
+    "0.18518518518518517",
+    "1.6666666666666667",
+    "0.8040"
+   ]
+  },
+  "gga_k_baltin": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.5555555555555556",
+    "1.0"
+   ]
+  },
+  "gga_k_dk": {
+   "family": "gga",
+   "base_kernel": "gga_k_dk",
+   "params": [
+    "param_aa_1",
+    "param_aa_2",
+    "param_aa_3",
+    "param_aa_4",
+    "param_aa_0",
+    "param_bb_1",
+    "param_bb_2",
+    "param_bb_3",
+    "param_bb_4",
+    "param_bb_0"
+   ],
+   "values": [
+    "0.002894915269207321",
+    "0.00013261312158741373",
+    "-5.540398637453735e-07",
+    "2.297777234019837e-09",
+    "1.0",
+    "-0.00015236396153722742",
+    "9.284072099806483e-05",
+    "8.398620696364157e-08",
+    "0.0",
+    "1.0"
+   ]
+  },
+  "gga_k_ernzerhof": {
+   "family": "gga",
+   "base_kernel": "gga_k_dk",
+   "params": [
+    "param_aa_1",
+    "param_aa_2",
+    "param_aa_3",
+    "param_aa_4",
+    "param_aa_0",
+    "param_bb_1",
+    "param_bb_2",
+    "param_bb_3",
+    "param_bb_4",
+    "param_bb_0"
+   ],
+   "values": [
+    "0.4607486196885757",
+    "0.0013538857815365293",
+    "0.0",
+    "0.0",
+    "135.0",
+    "0.049365923538061685",
+    "0.0",
+    "0.0",
+    "0.0",
+    "135.0"
+   ]
   },
   "gga_k_exp4": {
    "family": "gga",
+   "base_kernel": "gga_k_exp4",
    "params": [],
    "values": []
   },
+  "gga_k_fr_b88": {
+   "family": "gga",
+   "base_kernel": "gga_k_llp",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.004276696284260464",
+    "6.48631517325455"
+   ]
+  },
+  "gga_k_fr_pw86": {
+   "family": "gga",
+   "base_kernel": "gga_k_pw86",
+   "params": [],
+   "values": []
+  },
+  "gga_k_ge2": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.1111111111111111",
+    "1.0"
+   ]
+  },
+  "gga_k_golden": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.28888888888888886",
+    "1.0"
+   ]
+  },
+  "gga_k_gp85": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "0.0"
+   ]
+  },
+  "gga_k_gr": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "0.16502535559436077"
+   ]
+  },
   "gga_k_lc94": {
    "family": "gga",
+   "base_kernel": "gga_k_lc94",
    "params": [
     "param_a",
     "param_alpha",
@@ -408,8 +1124,51 @@
     "0.000057767"
    ]
   },
+  "gga_k_lgap": {
+   "family": "gga",
+   "base_kernel": "gga_k_lgap",
+   "params": [
+    "param_mu_0",
+    "param_mu_1",
+    "param_mu_2",
+    "param_kappa"
+   ],
+   "values": [
+    "0.016375000000000000000",
+    "0.23173407031250000000",
+    "0.036536516531615524505",
+    "0.8"
+   ]
+  },
+  "gga_k_lgap_ge": {
+   "family": "gga",
+   "base_kernel": "gga_k_lgap_ge",
+   "params": [
+    "param_mu_0",
+    "param_mu_1",
+    "param_mu_2"
+   ],
+   "values": [
+    "0.0131",
+    "0.18528",
+    "0.0262"
+   ]
+  },
+  "gga_k_lieb": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.185909191",
+    "1.0"
+   ]
+  },
   "gga_k_lkt": {
    "family": "gga",
+   "base_kernel": "gga_k_lkt",
    "params": [
     "param_a"
    ],
@@ -417,33 +1176,325 @@
     "1.3"
    ]
   },
+  "gga_k_llp": {
+   "family": "gga",
+   "base_kernel": "gga_k_llp",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.004111807123779403",
+    "6.153012346733153"
+   ]
+  },
+  "gga_k_ludena": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "0.0"
+   ]
+  },
   "gga_k_meyer": {
    "family": "gga",
+   "base_kernel": "gga_k_meyer",
    "params": [],
    "values": []
   },
   "gga_k_ol1": {
    "family": "gga",
+   "base_kernel": "gga_k_ol1",
    "params": [],
    "values": []
+  },
+  "gga_k_ol2": {
+   "family": "gga",
+   "base_kernel": "gga_k_ol2",
+   "params": [
+    "param_bb",
+    "param_cc",
+    "param_aa"
+   ],
+   "values": [
+    "0.21940410461360746",
+    "0.03089264058386961",
+    "1.0"
+   ]
+  },
+  "gga_k_pbe2": {
+   "family": "gga",
+   "base_kernel": "gga_k_mpbe",
+   "params": [
+    "param_c1",
+    "param_a",
+    "param_c2",
+    "param_c3"
+   ],
+   "values": [
+    "2.0309",
+    "0.2942",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "gga_k_pbe3": {
+   "family": "gga",
+   "base_kernel": "gga_k_mpbe",
+   "params": [
+    "param_c1",
+    "param_a",
+    "param_c2",
+    "param_c3"
+   ],
+   "values": [
+    "-3.7425",
+    "4.1355",
+    "50.258",
+    "0.0"
+   ]
+  },
+  "gga_k_pbe4": {
+   "family": "gga",
+   "base_kernel": "gga_k_mpbe",
+   "params": [
+    "param_c1",
+    "param_a",
+    "param_c2",
+    "param_c3"
+   ],
+   "values": [
+    "-7.2333",
+    "1.7107",
+    "61.645",
+    "-93.683"
+   ]
   },
   "gga_k_pearson": {
    "family": "gga",
+   "base_kernel": "gga_k_pearson",
    "params": [],
    "values": []
   },
-  "gga_k_pw86": {
+  "gga_k_perdew": {
    "family": "gga",
-   "params": [],
-   "values": []
+   "base_kernel": "gga_k_dk",
+   "params": [
+    "param_aa_1",
+    "param_aa_2",
+    "param_aa_3",
+    "param_aa_4",
+    "param_aa_0",
+    "param_bb_1",
+    "param_bb_2",
+    "param_bb_3",
+    "param_bb_4",
+    "param_bb_0"
+   ],
+   "values": [
+    "1.4545833923568336",
+    "0.004432161727584875",
+    "0.0",
+    "0.0",
+    "1.0",
+    "1.4515358693437506",
+    "0.0",
+    "0.0",
+    "0.0",
+    "1.0"
+   ]
+  },
+  "gga_k_pg1": {
+   "family": "gga",
+   "base_kernel": "gga_k_pg",
+   "params": [
+    "param_pg_mu"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "gga_k_rational_p": {
+   "family": "gga",
+   "base_kernel": "gga_k_rational_p",
+   "params": [
+    "param_p",
+    "param_C2"
+   ],
+   "values": [
+    "1.5",
+    "0.7687"
+   ]
+  },
+  "gga_k_revapbe": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "1.245",
+    "0.23889"
+   ]
+  },
+  "gga_k_revapbeint": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbeint",
+   "params": [
+    "param_muPBE",
+    "param_muGE",
+    "param_alpha",
+    "param_kappa"
+   ],
+   "values": [
+    "0.23899",
+    "0.18518518518518517",
+    "1.6666666666666667",
+    "1.245"
+   ]
+  },
+  "gga_k_tfvw": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "1.0"
+   ]
+  },
+  "gga_k_tfvw_opt": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.599",
+    "0.697"
+   ]
   },
   "gga_k_thakkar": {
    "family": "gga",
+   "base_kernel": "gga_k_thakkar",
    "params": [],
    "values": []
   },
+  "gga_k_tw1": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8209",
+    "0.2335"
+   ]
+  },
+  "gga_k_tw2": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.6774",
+    "0.2371"
+   ]
+  },
+  "gga_k_tw3": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8438",
+    "0.2319"
+   ]
+  },
+  "gga_k_tw4": {
+   "family": "gga",
+   "base_kernel": "gga_k_apbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8589",
+    "0.2309"
+   ]
+  },
+  "gga_k_vjks": {
+   "family": "gga",
+   "base_kernel": "gga_k_dk",
+   "params": [
+    "param_aa_1",
+    "param_aa_2",
+    "param_aa_3",
+    "param_aa_4",
+    "param_aa_0",
+    "param_bb_1",
+    "param_bb_2",
+    "param_bb_3",
+    "param_bb_4",
+    "param_bb_0"
+   ],
+   "values": [
+    "0.01471762733748079",
+    "0.0",
+    "-1.9204159512886074e-07",
+    "0.0",
+    "1.0",
+    "0.010714050938543988",
+    "1.1670495436844882e-05",
+    "0.0",
+    "0.0",
+    "1.0"
+   ]
+  },
+  "gga_k_vsk": {
+   "family": "gga",
+   "base_kernel": "gga_k_dk",
+   "params": [
+    "param_aa_1",
+    "param_aa_2",
+    "param_aa_3",
+    "param_aa_4",
+    "param_aa_0",
+    "param_bb_1",
+    "param_bb_2",
+    "param_bb_3",
+    "param_bb_4",
+    "param_bb_0"
+   ],
+   "values": [
+    "0.002894915269207321",
+    "0.0",
+    "1.008496627814284e-07",
+    "0.0",
+    "1.0",
+    "-0.00015236396153722742",
+    "3.6772206412103267e-06",
+    "0.0",
+    "0.0",
+    "1.0"
+   ]
+  },
   "gga_k_vt84f": {
    "family": "gga",
+   "base_kernel": "gga_k_vt84f",
    "params": [
     "param_alpha",
     "param_mu"
@@ -453,33 +1504,63 @@
     "2.778"
    ]
   },
+  "gga_k_vw": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "1.0",
+    "0.0"
+   ]
+  },
+  "gga_k_yt65": {
+   "family": "gga",
+   "base_kernel": "gga_k_tflw",
+   "params": [
+    "param_lambda",
+    "param_gamma"
+   ],
+   "values": [
+    "0.2",
+    "1.0"
+   ]
+  },
   "gga_x_2d_b86": {
    "family": "gga",
+   "base_kernel": "gga_x_2d_b86",
    "params": [],
    "values": []
   },
   "gga_x_2d_b86_mgc": {
    "family": "gga",
+   "base_kernel": "gga_x_2d_b86_mgc",
    "params": [],
    "values": []
   },
   "gga_x_2d_b88": {
    "family": "gga",
+   "base_kernel": "gga_x_2d_b88",
    "params": [],
    "values": []
   },
   "gga_x_2d_pbe": {
    "family": "gga",
+   "base_kernel": "gga_x_2d_pbe",
    "params": [],
    "values": []
   },
   "gga_x_airy": {
    "family": "gga",
+   "base_kernel": "gga_x_airy",
    "params": [],
    "values": []
   },
   "gga_x_ak13": {
    "family": "gga",
+   "base_kernel": "gga_x_ak13",
    "params": [
     "param_B1",
     "param_B2"
@@ -489,8 +1570,75 @@
     "-1.62613336586517367779736042170"
    ]
   },
+  "gga_x_am05": {
+   "family": "gga",
+   "base_kernel": "gga_x_am05",
+   "params": [
+    "param_alpha",
+    "param_c"
+   ],
+   "values": [
+    "2.804",
+    "0.7168"
+   ]
+  },
+  "gga_x_apbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.260"
+   ]
+  },
+  "gga_x_b86": {
+   "family": "gga",
+   "base_kernel": "gga_x_b86",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_omega"
+   ],
+   "values": [
+    "0.003868780689639527",
+    "0.004",
+    "1.0"
+   ]
+  },
+  "gga_x_b86_mgc": {
+   "family": "gga",
+   "base_kernel": "gga_x_b86",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_omega"
+   ],
+   "values": [
+    "0.0040299798850411735",
+    "0.007",
+    "0.8"
+   ]
+  },
+  "gga_x_b86_r": {
+   "family": "gga",
+   "base_kernel": "gga_x_b86",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_omega"
+   ],
+   "values": [
+    "0.002031519487163032",
+    "0.0028556641652558784",
+    "0.8"
+   ]
+  },
   "gga_x_b88": {
    "family": "gga",
+   "base_kernel": "gga_x_b88",
    "params": [
     "param_beta",
     "param_gamma"
@@ -500,33 +1648,147 @@
     "6.0"
    ]
   },
+  "gga_x_b88_6311g": {
+   "family": "gga",
+   "base_kernel": "gga_x_b88",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0051",
+    "6.0"
+   ]
+  },
+  "gga_x_b88m": {
+   "family": "gga",
+   "base_kernel": "gga_x_b88",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0045",
+    "6.0"
+   ]
+  },
   "gga_x_bayesian": {
    "family": "gga",
+   "base_kernel": "gga_x_bayesian",
    "params": [],
    "values": []
   },
+  "gga_x_bcgp": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.249"
+   ]
+  },
   "gga_x_beefvdw": {
    "family": "gga",
+   "base_kernel": "gga_x_beefvdw",
    "params": [],
    "values": []
   },
   "gga_x_bpccac": {
    "family": "gga",
+   "base_kernel": "gga_x_bpccac",
    "params": [],
    "values": []
   },
   "gga_x_c09x": {
    "family": "gga",
+   "base_kernel": "gga_x_c09x",
    "params": [],
    "values": []
+  },
+  "gga_x_cap": {
+   "family": "gga",
+   "base_kernel": "gga_x_cap",
+   "params": [
+    "param_alphaoAx",
+    "param_c"
+   ],
+   "values": [
+    "-0.2195149727645171",
+    "0.05240533950570443"
+   ]
   },
   "gga_x_chachiyo": {
    "family": "gga",
+   "base_kernel": "gga_x_chachiyo",
    "params": [],
    "values": []
   },
+  "gga_x_dk87_r1": {
+   "family": "gga",
+   "base_kernel": "gga_x_dk87",
+   "params": [
+    "param_alpha",
+    "param_a1",
+    "param_b1"
+   ],
+   "values": [
+    "1.0",
+    "0.861504",
+    "0.044286"
+   ]
+  },
+  "gga_x_dk87_r2": {
+   "family": "gga",
+   "base_kernel": "gga_x_dk87",
+   "params": [
+    "param_alpha",
+    "param_a1",
+    "param_b1"
+   ],
+   "values": [
+    "0.98",
+    "0.861213",
+    "0.042076"
+   ]
+  },
+  "gga_x_eb88": {
+   "family": "gga",
+   "base_kernel": "gga_x_b88",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0039685026299204986870",
+    "6.0"
+   ]
+  },
+  "gga_x_ecmv92": {
+   "family": "gga",
+   "base_kernel": "gga_x_ev93",
+   "params": [
+    "param_a1",
+    "param_a2",
+    "param_a3",
+    "param_b1",
+    "param_b2",
+    "param_b3"
+   ],
+   "values": [
+    "27.8428",
+    "11.7683",
+    "0.0",
+    "27.5026",
+    "5.7728",
+    "0.0"
+   ]
+  },
   "gga_x_ev93": {
    "family": "gga",
+   "base_kernel": "gga_x_ev93",
    "params": [
     "param_a1",
     "param_a2",
@@ -546,6 +1808,7 @@
   },
   "gga_x_fd_lb94": {
    "family": "gga",
+   "base_kernel": "gga_x_fd_lb94",
    "params": [
     "param_beta"
    ],
@@ -553,63 +1816,817 @@
     "0.05"
    ]
   },
+  "gga_x_fd_revlb94": {
+   "family": "gga",
+   "base_kernel": "gga_x_fd_lb94",
+   "params": [
+    "param_beta"
+   ],
+   "values": [
+    "0.004"
+   ]
+  },
+  "gga_x_ft97_a": {
+   "family": "gga",
+   "base_kernel": "gga_x_ft97",
+   "params": [
+    "param_beta1",
+    "param_beta2",
+    "param_beta0"
+   ],
+   "values": [
+    "0.0",
+    "0.0",
+    "0.00293"
+   ]
+  },
+  "gga_x_ft97_b": {
+   "family": "gga",
+   "base_kernel": "gga_x_ft97",
+   "params": [
+    "param_beta1",
+    "param_beta2",
+    "param_beta0"
+   ],
+   "values": [
+    "0.0009474169",
+    "6255746.320201",
+    "0.002913644"
+   ]
+  },
   "gga_x_g96": {
    "family": "gga",
+   "base_kernel": "gga_x_g96",
    "params": [],
    "values": []
   },
+  "gga_x_gam": {
+   "family": "gga",
+   "base_kernel": "gga_x_n12",
+   "params": [
+    "param_CC_0_1",
+    "param_CC_0_2",
+    "param_CC_0_3",
+    "param_CC_1_1",
+    "param_CC_1_2",
+    "param_CC_1_3",
+    "param_CC_1_0",
+    "param_CC_2_1",
+    "param_CC_2_2",
+    "param_CC_2_3",
+    "param_CC_2_0",
+    "param_CC_3_1",
+    "param_CC_3_2",
+    "param_CC_3_3",
+    "param_CC_3_0",
+    "param_CC_0_0"
+   ],
+   "values": [
+    "0.886102",
+    "-5.73833",
+    "8.60197",
+    "-4.78787",
+    "3.90989",
+    "-2.11611",
+    "-0.786018",
+    "14.4363",
+    "8.42735",
+    "-6.21552",
+    "0.802575",
+    "-13.4598",
+    "1.52355",
+    "-10.0530",
+    "-0.142331",
+    "1.32730"
+   ]
+  },
   "gga_x_gg99": {
    "family": "gga",
+   "base_kernel": "gga_x_gg99",
    "params": [],
    "values": []
   },
   "gga_x_hcth_a": {
    "family": "gga",
+   "base_kernel": "gga_x_hcth_a",
    "params": [],
    "values": []
   },
-  "gga_x_herman": {
+  "gga_x_hjs_b88": {
    "family": "gga",
-   "params": [],
-   "values": []
+   "base_kernel": "gga_x_hjs",
+   "params": [
+    "param_a_0",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.00968615",
+    "-0.0242498",
+    "0.0259009",
+    "-0.0136606",
+    "0.00309606",
+    "-7.32583e-5",
+    "-2.50356",
+    "2.79656",
+    "-1.79401",
+    "0.714888",
+    "-0.165924",
+    "0.0118379",
+    "0.0037806",
+    "-1.57905e-4",
+    "1.45323e-6",
+    "0.11"
+   ]
+  },
+  "gga_x_hjs_b88_v2": {
+   "family": "gga",
+   "base_kernel": "gga_x_hjs_b88_v2",
+   "params": [
+    "param_a_0",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.0253933",
+    "-0.0673075",
+    "0.0891476",
+    "-0.0454168",
+    "-0.00765813",
+    "0.0142506",
+    "-2.6506",
+    "3.91108",
+    "-3.31509",
+    "1.54485",
+    "-0.198386",
+    "-0.136112",
+    "0.0647862",
+    "0.0159586",
+    "-0.000245066",
+    "0.11"
+   ]
+  },
+  "gga_x_hjs_b97x": {
+   "family": "gga",
+   "base_kernel": "gga_x_hjs",
+   "params": [
+    "param_a_0",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.0027355",
+    "0.0432970",
+    "-0.0669379",
+    "0.0699060",
+    "-0.0474635",
+    "0.0153092",
+    "15.8279",
+    "-26.8145",
+    "17.8127",
+    "-5.98246",
+    "1.25408",
+    "-0.270783",
+    "0.0919536",
+    "-0.0140960",
+    "0.0045466",
+    "0.11"
+   ]
+  },
+  "gga_x_hjs_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_hjs",
+   "params": [
+    "param_a_0",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.0159941",
+    "0.0852995",
+    "-0.160368",
+    "0.152645",
+    "-0.0971263",
+    "0.0422061",
+    "5.33319",
+    "-12.4780",
+    "11.0988",
+    "-5.11013",
+    "1.71468",
+    "-0.610380",
+    "0.307555",
+    "-0.0770547",
+    "0.0334840",
+    "0.11"
+   ]
+  },
+  "gga_x_hjs_pbe_sol": {
+   "family": "gga",
+   "base_kernel": "gga_x_hjs",
+   "params": [
+    "param_a_0",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.0047333",
+    "0.0403304",
+    "-0.0574615",
+    "0.0435395",
+    "-0.0216251",
+    "0.0063721",
+    "8.52056",
+    "-13.9885",
+    "9.28583",
+    "-3.27287",
+    "0.843499",
+    "-0.235543",
+    "0.0847074",
+    "-0.0171561",
+    "0.0050552",
+    "0.11"
+   ]
   },
   "gga_x_htbs": {
    "family": "gga",
+   "base_kernel": "gga_x_htbs",
    "params": [],
    "values": []
+  },
+  "gga_x_ityh": {
+   "family": "gga",
+   "base_kernel": "gga_x_ityh",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.2"
+   ]
+  },
+  "gga_x_ityh_optx": {
+   "family": "gga",
+   "base_kernel": "gga_x_ityh_optx",
+   "params": [
+    "param_b",
+    "param_a",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "1.5385818404305593",
+    "1.05151",
+    "0.2"
+   ]
+  },
+  "gga_x_ityh_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_ityh_pbe",
+   "params": [
+    "param_mu",
+    "param_kappa",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.8040",
+    "0.33"
+   ]
+  },
+  "gga_x_kt1": {
+   "family": "gga",
+   "base_kernel": "gga_x_kt",
+   "params": [
+    "param_gamma",
+    "param_delta"
+   ],
+   "values": [
+    "-0.006",
+    "0.1"
+   ]
   },
   "gga_x_lag": {
    "family": "gga",
+   "base_kernel": "gga_x_lag",
    "params": [],
    "values": []
+  },
+  "gga_x_lambda_ch_n": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.7580466650547808",
+    "0.2195149727645171"
+   ]
+  },
+  "gga_x_lambda_lo_n": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040812955618588",
+    "0.2195149727645171"
+   ]
+  },
+  "gga_x_lambda_oc2_n": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.5874010519681994",
+    "0.2195149727645171"
+   ]
+  },
+  "gga_x_lb": {
+   "family": "gga",
+   "base_kernel": "gga_x_lb",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_alpha"
+   ],
+   "values": [
+    "0.05",
+    "1.0",
+    "1.0"
+   ]
+  },
+  "gga_x_lbm": {
+   "family": "gga",
+   "base_kernel": "gga_x_lb",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_alpha"
+   ],
+   "values": [
+    "0.01",
+    "1.0",
+    "1.19"
+   ]
   },
   "gga_x_lg93": {
    "family": "gga",
+   "base_kernel": "gga_x_lg93",
    "params": [],
    "values": []
+  },
+  "gga_x_lspbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_lspbe",
+   "params": [
+    "param_mu",
+    "param_kappa",
+    "param_alpha"
+   ],
+   "values": [
+    "0.2221337493645171",
+    "0.804",
+    "0.00145165"
+   ]
+  },
+  "gga_x_lsrpbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_lsrpbe",
+   "params": [
+    "param_mu",
+    "param_kappa",
+    "param_alpha"
+   ],
+   "values": [
+    "0.2317982644445171",
+    "0.804",
+    "0.00680892"
+   ]
   },
   "gga_x_lv_rpw86": {
    "family": "gga",
+   "base_kernel": "gga_x_lv_rpw86",
    "params": [],
    "values": []
+  },
+  "gga_x_mb88": {
+   "family": "gga",
+   "base_kernel": "gga_x_b88",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0011",
+    "6.0"
+   ]
+  },
+  "gga_x_mpbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_mpbe",
+   "params": [
+    "param_c1",
+    "param_a",
+    "param_c2",
+    "param_c3"
+   ],
+   "values": [
+    "0.21951",
+    "0.157",
+    "-0.015",
+    "0.0"
+   ]
+  },
+  "gga_x_mpw91": {
+   "family": "gga",
+   "base_kernel": "gga_x_pw91",
+   "params": [
+    "param_a",
+    "param_alpha",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_expo",
+    "param_f"
+   ],
+   "values": [
+    "0.19925436482652492",
+    "100.0",
+    "7.795554179441507",
+    "0.27821157721542716",
+    "-0.15475478709197044",
+    "3.72",
+    "0.002233276157114453"
+   ]
+  },
+  "gga_x_n12": {
+   "family": "gga",
+   "base_kernel": "gga_x_n12",
+   "params": [
+    "param_CC_0_1",
+    "param_CC_0_2",
+    "param_CC_0_3",
+    "param_CC_1_1",
+    "param_CC_1_2",
+    "param_CC_1_3",
+    "param_CC_1_0",
+    "param_CC_2_1",
+    "param_CC_2_2",
+    "param_CC_2_3",
+    "param_CC_2_0",
+    "param_CC_3_1",
+    "param_CC_3_2",
+    "param_CC_3_3",
+    "param_CC_3_0",
+    "param_CC_0_0"
+   ],
+   "values": [
+    "5.07880e-01",
+    "1.68233e-01",
+    "1.28887e-01",
+    "-1.71008e+01",
+    "6.50814e+01",
+    "-7.01726e+01",
+    "8.60211e-02",
+    "5.13392e+01",
+    "-1.66220e+02",
+    "1.42738e+02",
+    "-3.90755e-01",
+    "-3.44631e+01",
+    "7.61661e+01",
+    "-2.41834e+00",
+    "4.03611e-01",
+    "1.00000e+00"
+   ]
+  },
+  "gga_x_ncap": {
+   "family": "gga",
+   "base_kernel": "gga_x_ncap",
+   "params": [
+    "param_mu",
+    "param_zeta",
+    "param_alpha",
+    "param_beta"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.30412141859531383",
+    "0.3451117169263783",
+    "0.01808569669"
+   ]
+  },
+  "gga_x_ncapr": {
+   "family": "gga",
+   "base_kernel": "gga_x_ncap",
+   "params": [
+    "param_mu",
+    "param_zeta",
+    "param_alpha",
+    "param_beta"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.5",
+    "0.3431510377915187",
+    "0.017982946634292535"
+   ]
+  },
+  "gga_x_ol2": {
+   "family": "gga",
+   "base_kernel": "gga_x_ol2",
+   "params": [
+    "param_bb",
+    "param_cc",
+    "param_aa"
+   ],
+   "values": [
+    "0.09564574034649151285038696952714226444963",
+    "4.098833606342553442039881031486386917472",
+    "0.09564574034649151285038696952714226444963"
+   ]
+  },
+  "gga_x_optb86b_vdw": {
+   "family": "gga",
+   "base_kernel": "gga_x_b86",
+   "params": [
+    "param_beta",
+    "param_gamma",
+    "param_omega"
+   ],
+   "values": [
+    "0.002031519487163032",
+    "0.002031519487163032",
+    "0.8"
+   ]
+  },
+  "gga_x_optb88_vdw": {
+   "family": "gga",
+   "base_kernel": "gga_x_b88",
+   "params": [
+    "param_beta",
+    "param_gamma"
+   ],
+   "values": [
+    "0.00336865923905927",
+    "6.98131700797731"
+   ]
+  },
+  "gga_x_optx": {
+   "family": "gga",
+   "base_kernel": "gga_x_optx",
+   "params": [
+    "param_gamma",
+    "param_b",
+    "param_a"
+   ],
+   "values": [
+    "0.006",
+    "1.5385818404305593",
+    "1.05151"
+   ]
+  },
+  "gga_x_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.2195149727645171"
+   ]
+  },
+  "gga_x_pbe_erf_gws": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe_erf_gws",
+   "params": [
+    "param_ax",
+    "param_b_PBE",
+    "param_kappa",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "19.0",
+    "0.2195149727645171",
+    "0.8040",
+    "0.5"
+   ]
+  },
+  "gga_x_pbe_gaussian": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.804000423825475",
+    "0.219510240580611"
+   ]
+  },
+  "gga_x_pbe_jsjr": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.15133393415003682"
+   ]
+  },
+  "gga_x_pbe_mod": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.2195164512208958"
+   ]
+  },
+  "gga_x_pbe_mol": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.8040",
+    "0.27583"
+   ]
+  },
+  "gga_x_pbe_r": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "1.245",
+    "0.2195149727645171"
+   ]
+  },
+  "gga_x_pbe_sol": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.804",
+    "0.12345679012345678"
+   ]
+  },
+  "gga_x_pbe_tca": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "1.227",
+    "0.2195149727645171"
+   ]
   },
   "gga_x_pbea": {
    "family": "gga",
+   "base_kernel": "gga_x_pbea",
    "params": [],
    "values": []
   },
+  "gga_x_pbefe": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.437",
+    "0.346"
+   ]
+  },
+  "gga_x_pbeint": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbeint",
+   "params": [
+    "param_muPBE",
+    "param_muGE",
+    "param_alpha",
+    "param_kappa"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.12345679012345678",
+    "0.197",
+    "0.8040"
+   ]
+  },
+  "gga_x_pbek1_vdw": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "1.0",
+    "0.2195149727645171"
+   ]
+  },
   "gga_x_pbepow": {
    "family": "gga",
+   "base_kernel": "gga_x_pbepow",
    "params": [],
    "values": []
   },
   "gga_x_pbetrans": {
    "family": "gga",
+   "base_kernel": "gga_x_pbetrans",
    "params": [],
    "values": []
   },
   "gga_x_pw86": {
    "family": "gga",
+   "base_kernel": "gga_x_pw86",
    "params": [
     "param_aa",
     "param_bb",
@@ -623,6 +2640,7 @@
   },
   "gga_x_pw91": {
    "family": "gga",
+   "base_kernel": "gga_x_pw91",
    "params": [
     "param_a",
     "param_alpha",
@@ -642,28 +2660,157 @@
     "0.004"
    ]
   },
+  "gga_x_pw91_mod": {
+   "family": "gga",
+   "base_kernel": "gga_x_pw91",
+   "params": [
+    "param_a",
+    "param_alpha",
+    "param_b",
+    "param_c",
+    "param_d",
+    "param_expo",
+    "param_f"
+   ],
+   "values": [
+    "0.196447965321926",
+    "100.0",
+    "7.795554179441507",
+    "0.2742931042969",
+    "-0.1508363141734433",
+    "4.0",
+    "0.003968803415078375"
+   ]
+  },
   "gga_x_q1d": {
    "family": "gga",
+   "base_kernel": "gga_x_q1d",
    "params": [],
    "values": []
   },
   "gga_x_q2d": {
    "family": "gga",
+   "base_kernel": "gga_x_q2d",
    "params": [],
    "values": []
   },
   "gga_x_rge2": {
    "family": "gga",
+   "base_kernel": "gga_x_rge2",
    "params": [],
    "values": []
+  },
+  "gga_x_rpbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_rpbe",
+   "params": [
+    "param_rpbe_mu",
+    "param_rpbe_kappa"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.8040"
+   ]
+  },
+  "gga_x_rpw86": {
+   "family": "gga",
+   "base_kernel": "gga_x_pw86",
+   "params": [
+    "param_aa",
+    "param_bb",
+    "param_cc"
+   ],
+   "values": [
+    "1.851",
+    "17.33",
+    "0.163"
+   ]
+  },
+  "gga_x_s12g": {
+   "family": "gga",
+   "base_kernel": "gga_x_s12",
+   "params": [
+    "param_bx",
+    "param_C",
+    "param_D",
+    "param_B",
+    "param_E",
+    "param_A"
+   ],
+   "values": [
+    "1.0",
+    "0.00403198",
+    "0.00104596",
+    "0.7185796799999999",
+    "0.00594635",
+    "1.03842032"
+   ]
+  },
+  "gga_x_sfat": {
+   "family": "gga",
+   "base_kernel": "gga_x_sfat",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.44"
+   ]
+  },
+  "gga_x_sfat_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_sfat_pbe",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.44"
+   ]
   },
   "gga_x_sg4": {
    "family": "gga",
+   "base_kernel": "gga_x_sg4",
    "params": [],
    "values": []
   },
+  "gga_x_sogga11": {
+   "family": "gga",
+   "base_kernel": "gga_x_sogga11",
+   "params": [
+    "param_a_1",
+    "param_mu",
+    "param_kappa",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_a_0",
+    "param_b_0"
+   ],
+   "values": [
+    "-2.95535",
+    "0.12345679012345678",
+    "0.552",
+    "15.7974",
+    "-91.1804",
+    "96.2030",
+    "0.18683",
+    "3.50743",
+    "-12.9523",
+    "49.7870",
+    "-33.2545",
+    "-11.1396",
+    "0.50000",
+    "0.50000"
+   ]
+  },
   "gga_x_ssb_sw": {
    "family": "gga",
+   "base_kernel": "gga_x_ssb_sw",
    "params": [
     "param_A",
     "param_B",
@@ -679,28 +2826,3945 @@
     "4.036674"
    ]
   },
+  "gga_x_vmt84_ge": {
+   "family": "gga",
+   "base_kernel": "gga_x_vmt84",
+   "params": [
+    "param_mu",
+    "param_alpha"
+   ],
+   "values": [
+    "0.12345679012345678",
+    "0.000023"
+   ]
+  },
+  "gga_x_vmt84_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_vmt84",
+   "params": [
+    "param_mu",
+    "param_alpha"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.000074"
+   ]
+  },
+  "gga_x_vmt_ge": {
+   "family": "gga",
+   "base_kernel": "gga_x_vmt",
+   "params": [
+    "param_mu",
+    "param_alpha"
+   ],
+   "values": [
+    "0.12345679012345678",
+    "0.001553"
+   ]
+  },
+  "gga_x_vmt_pbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_vmt",
+   "params": [
+    "param_mu",
+    "param_alpha"
+   ],
+   "values": [
+    "0.2195149727645171",
+    "0.002762"
+   ]
+  },
   "gga_x_wc": {
    "family": "gga",
+   "base_kernel": "gga_x_wc",
    "params": [],
    "values": []
+  },
+  "gga_x_wpbeh": {
+   "family": "gga",
+   "base_kernel": "gga_x_wpbeh",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.0"
+   ]
+  },
+  "gga_x_xpbe": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe",
+   "params": [
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "0.91954",
+    "0.23214"
+   ]
+  },
+  "gga_xc_b97_3c": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.469912",
+    "3.322442",
+    "0.0",
+    "0.0",
+    "1.076616",
+    "-1.444420",
+    "1.637436",
+    "0.0",
+    "0.0",
+    "0.543788",
+    "5.532103",
+    "-15.301575",
+    "0.0",
+    "0.0",
+    "0.635047"
+   ]
+  },
+  "gga_xc_b97_d": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.52127",
+    "3.25429",
+    "0.0",
+    "0.0",
+    "1.08662",
+    "-1.56208",
+    "1.94293",
+    "0.0",
+    "0.0",
+    "0.2234",
+    "6.3027",
+    "-14.9712",
+    "0.0",
+    "0.0",
+    "0.69041"
+   ]
+  },
+  "gga_xc_b97_gga1": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.8765",
+    "4.2639",
+    "0.0",
+    "0.0",
+    "1.1068",
+    "-2.117",
+    "2.3235",
+    "0.0",
+    "0.0",
+    "0.4883",
+    "5.706",
+    "-14.982",
+    "0.0",
+    "0.0",
+    "0.7961"
+   ]
+  },
+  "gga_xc_hcth_120": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.747215",
+    "5.07833",
+    "-4.10746",
+    "1.17173",
+    "1.09163",
+    "-0.260699",
+    "0.432917",
+    "-1.99247",
+    "2.48531",
+    "0.489508",
+    "6.92982",
+    "-24.7073",
+    "23.1098",
+    "-11.3234",
+    "0.51473"
+   ]
+  },
+  "gga_xc_hcth_147": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.799194",
+    "5.57212",
+    "-5.8676",
+    "3.04544",
+    "1.09025",
+    "0.0171436",
+    "-1.30636",
+    "1.05747",
+    "0.885429",
+    "0.562576",
+    "7.01464",
+    "-28.3822",
+    "35.0329",
+    "-20.4284",
+    "0.542352"
+   ]
+  },
+  "gga_xc_hcth_407": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.518339",
+    "3.42562",
+    "-2.62901",
+    "2.28855",
+    "1.08184",
+    "-2.40292",
+    "5.61741",
+    "-9.17923",
+    "6.24798",
+    "1.18777",
+    "4.42374",
+    "-19.2218",
+    "42.5721",
+    "-42.0052",
+    "0.589076"
+   ]
+  },
+  "gga_xc_hcth_407p": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.4117",
+    "2.4368",
+    "1.389",
+    "-1.3529",
+    "1.08018",
+    "-1.0479",
+    "4.9807",
+    "-12.89",
+    "9.6446",
+    "0.80302",
+    "3.027",
+    "-10.075",
+    "20.611",
+    "-29.418",
+    "0.73604"
+   ]
+  },
+  "gga_xc_hcth_93": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.744056",
+    "5.5992",
+    "-6.78549",
+    "4.49357",
+    "1.0932",
+    "-0.0338622",
+    "-0.012517",
+    "-0.802496",
+    "1.55396",
+    "0.222601",
+    "3.35287",
+    "-11.543",
+    "8.08564",
+    "-4.47857",
+    "0.729974"
+   ]
+  },
+  "gga_xc_hcth_p14": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.360781",
+    "3.51994",
+    "-4.95944",
+    "2.41165",
+    "1.03161",
+    "0.0318843",
+    "-1.78512",
+    "2.39795",
+    "-0.876909",
+    "2.82414",
+    "4.56466",
+    "-13.5529",
+    "13.382",
+    "-3.17493",
+    "0.0821827"
+   ]
+  },
+  "gga_xc_hcth_p76": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.583033",
+    "2.51769",
+    "3.81278",
+    "-5.45906",
+    "1.16525",
+    "-1.10098",
+    "-0.091405",
+    "-0.859723",
+    "2.07184",
+    "-3.92143",
+    "-5.73335",
+    "50.8757",
+    "-135.475",
+    "101.268",
+    "0.192949"
+   ]
+  },
+  "gga_xc_hle16": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.64792375",
+    "4.282025",
+    "-3.2862625",
+    "2.8606875",
+    "1.3523",
+    "-1.20146",
+    "2.808705",
+    "-4.589615",
+    "3.12399",
+    "0.593885",
+    "2.21187",
+    "-9.6109",
+    "21.28605",
+    "-21.0026",
+    "0.294538"
+   ]
+  },
+  "gga_xc_th1": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th1",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_20",
+    "param_omega_16",
+    "param_omega_17",
+    "param_omega_18",
+    "param_omega_19"
+   ],
+   "values": [
+    "-0.728255e+00",
+    "+0.331699e+00",
+    "-0.102946e+01",
+    "+0.235703e+00",
+    "-0.876221e-01",
+    "+0.140854e+00",
+    "+0.336982e-01",
+    "-0.353615e-01",
+    "+0.497930e-02",
+    "-0.645900e-01",
+    "+0.461795e-01",
+    "-0.757191e-02",
+    "-0.242717e-02",
+    "+0.428140e-01",
+    "-0.744891e-01",
+    "+0.386577e-01",
+    "+0.128877e+00",
+    "-0.352519e+00",
+    "+0.219805e+01",
+    "-0.372927e+01",
+    "+0.194441e+01"
+   ]
   },
   "gga_xc_th2": {
    "family": "gga",
+   "base_kernel": "gga_xc_th2",
    "params": [],
    "values": []
   },
+  "gga_xc_th3": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th3",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_18",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_16",
+    "param_omega_17"
+   ],
+   "values": [
+    "-0.142542e+00",
+    "-0.783603e+00",
+    "-0.188875e+00",
+    "+0.426830e-01",
+    "-0.304953e+00",
+    "+0.430407e+00",
+    "-0.997699e-01",
+    "+0.355789e-02",
+    "-0.344374e-01",
+    "+0.192108e-01",
+    "-0.230906e-02",
+    "+0.235189e-01",
+    "-0.331157e-01",
+    "+0.121316e-01",
+    "+0.360204e-01",
+    "+0.441190e+00",
+    "-0.227167e+01",
+    "+0.403051e+01",
+    "-0.228074e+01"
+   ]
+  },
+  "gga_xc_th4": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th3",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_18",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_16",
+    "param_omega_17"
+   ],
+   "values": [
+    "+0.677353e-01",
+    "-0.106763e+01",
+    "-0.419018e-01",
+    "+0.226313e-01",
+    "-0.222478e+00",
+    "+0.283432e+00",
+    "-0.165089e-01",
+    "-0.167204e-01",
+    "-0.332362e-01",
+    "+0.162254e-01",
+    "-0.984119e-03",
+    "+0.376713e-01",
+    "-0.653419e-01",
+    "+0.222835e-01",
+    "-0.235810e-01",
+    "+0.375782e+00",
+    "-0.190675e+01",
+    "+0.322494e+01",
+    "-0.168698e+01"
+   ]
+  },
+  "gga_xc_th_fc": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th1",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_20",
+    "param_omega_16",
+    "param_omega_17",
+    "param_omega_18",
+    "param_omega_19"
+   ],
+   "values": [
+    "-0.864448e+00",
+    "+0.565130e+00",
+    "-0.127306e+01",
+    "+0.309681e+00",
+    "-0.287658e+00",
+    "+0.588767e+00",
+    "-0.252700e+00",
+    "+0.223563e-01",
+    "+0.140131e-01",
+    "-0.826608e-01",
+    "+0.556080e-01",
+    "-0.936227e-02",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "gga_xc_th_fcfo": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th1",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_20",
+    "param_omega_16",
+    "param_omega_17",
+    "param_omega_18",
+    "param_omega_19"
+   ],
+   "values": [
+    "-0.864448e+00",
+    "+0.565130e+00",
+    "-0.127306e+01",
+    "+0.309681e+00",
+    "-0.287658e+00",
+    "+0.588767e+00",
+    "-0.252700e+00",
+    "+0.223563e-01",
+    "+0.140131e-01",
+    "-0.826608e-01",
+    "+0.556080e-01",
+    "-0.936227e-02",
+    "-0.677146e-02",
+    "+0.515199e-01",
+    "-0.874213e-01",
+    "+0.423827e-01",
+    "0.0",
+    "+0.431940e+00",
+    "-0.691153e+00",
+    "-0.637866e+00",
+    "+0.107565e+01"
+   ]
+  },
+  "gga_xc_th_fco": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th1",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_20",
+    "param_omega_16",
+    "param_omega_17",
+    "param_omega_18",
+    "param_omega_19"
+   ],
+   "values": [
+    "-0.962998e+00",
+    "+0.860233e+00",
+    "-0.154092e+01",
+    "+0.381602e+00",
+    "-0.210208e+00",
+    "+0.391496e+00",
+    "-0.107660e+00",
+    "-0.105324e-01",
+    "+0.837384e-02",
+    "-0.617859e-01",
+    "+0.383072e-01",
+    "-0.526905e-02",
+    "-0.381514e-02",
+    "+0.321541e-01",
+    "-0.568280e-01",
+    "+0.288585e-01",
+    "0.0",
+    "+0.368326e+00",
+    "-0.328799e+00",
+    "-0.122595e+01",
+    "+0.136412e+01"
+   ]
+  },
+  "gga_xc_th_fl": {
+   "family": "gga",
+   "base_kernel": "gga_xc_th1",
+   "params": [
+    "param_omega_0",
+    "param_omega_1",
+    "param_omega_2",
+    "param_omega_3",
+    "param_omega_4",
+    "param_omega_5",
+    "param_omega_6",
+    "param_omega_7",
+    "param_omega_8",
+    "param_omega_9",
+    "param_omega_10",
+    "param_omega_11",
+    "param_omega_12",
+    "param_omega_13",
+    "param_omega_14",
+    "param_omega_15",
+    "param_omega_20",
+    "param_omega_16",
+    "param_omega_17",
+    "param_omega_18",
+    "param_omega_19"
+   ],
+   "values": [
+    "-0.106141e01",
+    "+0.898203e00",
+    "-0.134439e01",
+    "+0.302369e00",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "hyb_gga_x_cam_s12g": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_x_cam_s12",
+   "params": [
+    "param_C",
+    "param_D",
+    "param_B",
+    "param_E",
+    "param_A",
+    "param_hyb_omega_0",
+    "param_hyb_coeff_0",
+    "param_hyb_coeff_1"
+   ],
+   "values": [
+    "0.00417251",
+    "0.00115216",
+    "0.7237644399999998",
+    "0.00706184",
+    "1.03323556",
+    "1.52420731",
+    "-0.34485046",
+    "0.34485046"
+   ]
+  },
+  "hyb_gga_x_cam_s12h": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_x_cam_s12",
+   "params": [
+    "param_C",
+    "param_D",
+    "param_B",
+    "param_E",
+    "param_A",
+    "param_hyb_omega_0",
+    "param_hyb_coeff_0",
+    "param_hyb_coeff_1"
+   ],
+   "values": [
+    "0.00825905",
+    "0.00235804",
+    "0.7355035799999998",
+    "0.00654977",
+    "1.02149642",
+    "0.48516891",
+    "-0.10897845",
+    "0.35897845"
+   ]
+  },
+  "hyb_gga_x_lc2gau": {
+   "family": "gga",
+   "base_kernel": "gga_x_lcgau",
+   "params": [
+    "param_hyb_omega_0",
+    "param_hyb_omega_2",
+    "param_hyb_omega_3",
+    "param_hyb_coeff_2",
+    "param_hyb_coeff_3"
+   ],
+   "values": [
+    "0.42",
+    "3.8340579025361627",
+    "4.106609884305277",
+    "10.954451150103322",
+    "-10.329688281840843"
+   ]
+  },
+  "hyb_gga_x_lcgau": {
+   "family": "gga",
+   "base_kernel": "gga_x_lcgau",
+   "params": [
+    "param_hyb_omega_0",
+    "param_hyb_omega_2",
+    "param_hyb_omega_3",
+    "param_hyb_coeff_2",
+    "param_hyb_coeff_3"
+   ],
+   "values": [
+    "0.42",
+    "4.004542874831487",
+    "4.004542874831487",
+    "1.887855926706273",
+    "0.0"
+   ]
+  },
+  "hyb_gga_x_lcgau_core": {
+   "family": "gga",
+   "base_kernel": "gga_x_lcgau",
+   "params": [
+    "param_hyb_omega_0",
+    "param_hyb_omega_2",
+    "param_hyb_omega_3",
+    "param_hyb_coeff_2",
+    "param_hyb_coeff_3"
+   ],
+   "values": [
+    "0.42",
+    "2.2947051317742426",
+    "2.2947051317742426",
+    "1.0798773078456647",
+    "0.0"
+   ]
+  },
+  "hyb_gga_x_n12_sx": {
+   "family": "gga",
+   "base_kernel": "gga_x_n12",
+   "params": [
+    "param_CC_0_1",
+    "param_CC_0_2",
+    "param_CC_0_3",
+    "param_CC_1_1",
+    "param_CC_1_2",
+    "param_CC_1_3",
+    "param_CC_1_0",
+    "param_CC_2_1",
+    "param_CC_2_2",
+    "param_CC_2_3",
+    "param_CC_2_0",
+    "param_CC_3_1",
+    "param_CC_3_2",
+    "param_CC_3_3",
+    "param_CC_3_0",
+    "param_CC_0_0"
+   ],
+   "values": [
+    "1.88858e+00",
+    "1.78590e+00",
+    "8.79456e-01",
+    "-1.08723e+00",
+    "-4.18682e+00",
+    "-3.00000e+01",
+    "-8.12270e-02",
+    "-5.45678e+00",
+    "3.00000e+01",
+    "5.51105e+01",
+    "5.36236e-01",
+    "1.30001e+01",
+    "-7.24877e+01",
+    "2.98363e+01",
+    "-7.09913e-01",
+    "6.81116e-01"
+   ]
+  },
+  "hyb_gga_x_pbe_erf_gws": {
+   "family": "gga",
+   "base_kernel": "gga_x_pbe_erf_gws",
+   "params": [
+    "param_ax",
+    "param_b_PBE",
+    "param_kappa",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "19.0",
+    "0.2195149727645171",
+    "0.8040",
+    "0.5"
+   ]
+  },
+  "hyb_gga_x_s12h": {
+   "family": "gga",
+   "base_kernel": "gga_x_s12",
+   "params": [
+    "param_bx",
+    "param_C",
+    "param_D",
+    "param_B",
+    "param_E",
+    "param_A"
+   ],
+   "values": [
+    "0.75",
+    "0.00761554",
+    "0.00211063",
+    "0.7315604899999999",
+    "0.00604672",
+    "1.02543951"
+   ]
+  },
+  "hyb_gga_x_sogga11_x": {
+   "family": "gga",
+   "base_kernel": "gga_x_sogga11",
+   "params": [
+    "param_a_1",
+    "param_mu",
+    "param_kappa",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_a_0",
+    "param_b_0"
+   ],
+   "values": [
+    "3.21638",
+    "0.12345679012345678",
+    "0.552",
+    "-3.55605",
+    "7.65852",
+    "-11.2830",
+    "5.25813",
+    "-2.88595",
+    "3.23617",
+    "-2.45393",
+    "-3.75495",
+    "3.96613",
+    "0.29925",
+    "0.29925"
+   ]
+  },
+  "hyb_gga_xc_b97": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.5073",
+    "0.7481",
+    "0.0",
+    "0.0",
+    "0.8094",
+    "2.3487",
+    "-2.4868",
+    "0.0",
+    "0.0",
+    "0.1737",
+    "0.7471",
+    "-4.5961",
+    "0.0",
+    "0.0",
+    "0.9454"
+   ]
+  },
+  "hyb_gga_xc_b97_1": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.573805",
+    "0.660975",
+    "0.0",
+    "0.0",
+    "0.789518",
+    "2.71681",
+    "-2.87103",
+    "0.0",
+    "0.0",
+    "0.0820011",
+    "0.788552",
+    "-5.47869",
+    "0.0",
+    "0.0",
+    "0.955689"
+   ]
+  },
+  "hyb_gga_xc_b97_1p": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.2149",
+    "1.5204",
+    "0.0",
+    "0.0",
+    "0.8773",
+    "1.3678",
+    "-1.5068",
+    "0.0",
+    "0.0",
+    "0.2228",
+    "2.027",
+    "-7.3431",
+    "0.0",
+    "0.0",
+    "0.9253"
+   ]
+  },
+  "hyb_gga_xc_b97_2": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.04784",
+    "1.76125",
+    "0.0",
+    "0.0",
+    "0.827642",
+    "-0.691682",
+    "0.394796",
+    "0.0",
+    "0.0",
+    "0.585808",
+    "1.40626",
+    "-7.4406",
+    "0.0",
+    "0.0",
+    "0.999849"
+   ]
+  },
+  "hyb_gga_xc_b97_3": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.292527",
+    "3.338789",
+    "-10.51158",
+    "10.60907",
+    "0.7334648",
+    "-1.32298",
+    "6.359191",
+    "-7.464002",
+    "1.827082",
+    "0.5623649",
+    "-2.811967",
+    "7.431302",
+    "-1.969342",
+    "-11.74423",
+    "1.13383"
+   ]
+  },
+  "hyb_gga_xc_b97_k": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "1.46873",
+    "-1.51301",
+    "0.0",
+    "0.0",
+    "0.507863",
+    "2.65399",
+    "-3.20694",
+    "0.0",
+    "0.0",
+    "0.12355",
+    "-6.20977",
+    "6.46106",
+    "0.0",
+    "0.0",
+    "1.58613"
+   ]
+  },
+  "hyb_gga_xc_case21": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_case21",
+   "params": [
+    "param_ax",
+    "param_gammax",
+    "param_gammac",
+    "param_cx_0",
+    "param_cx_1",
+    "param_cx_2",
+    "param_cx_3",
+    "param_cx_4",
+    "param_cx_5",
+    "param_cx_6",
+    "param_cx_7",
+    "param_cx_8",
+    "param_cx_9",
+    "param_cc_0",
+    "param_cc_1",
+    "param_cc_2",
+    "param_cc_3",
+    "param_cc_4",
+    "param_cc_5",
+    "param_cc_6",
+    "param_cc_7",
+    "param_cc_8",
+    "param_cc_9"
+   ],
+   "values": [
+    "0.25",
+    "0.27302857309019535",
+    "14.986987412588174",
+    "0.889402",
+    "0.997849",
+    "1.11912",
+    "1.24555",
+    "1.35175",
+    "1.4474",
+    "1.54252",
+    "1.63761",
+    "1.73269",
+    "1.82777",
+    "1.14597",
+    "0.998463",
+    "0.860252",
+    "0.730431",
+    "0.597762",
+    "0.457063",
+    "0.30876",
+    "0.155654",
+    "7.45555E-05",
+    "-0.1559416"
+   ]
+  },
+  "hyb_gga_xc_sb98_1a": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.228183",
+    "0.749949",
+    "0.0",
+    "0.0",
+    "0.845975",
+    "-0.054676",
+    "0.592163",
+    "0.0",
+    "0.0",
+    "-0.817637",
+    "0.398379",
+    "-3.7354",
+    "0.0",
+    "0.0",
+    "0.975483"
+   ]
+  },
+  "hyb_gga_xc_sb98_1b": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "-0.084192",
+    "1.47742",
+    "0.0",
+    "0.0",
+    "0.800103",
+    "-2.37073",
+    "2.13564",
+    "0.0",
+    "0.0",
+    "1.44946",
+    "0.931199",
+    "-4.76973",
+    "0.0",
+    "0.0",
+    "0.977621"
+   ]
+  },
+  "hyb_gga_xc_sb98_1c": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.49609",
+    "0.772385",
+    "0.0",
+    "0.0",
+    "0.810936",
+    "2.12576",
+    "-2.30465",
+    "0.0",
+    "0.0",
+    "0.262077",
+    "0.898121",
+    "-4.91276",
+    "0.0",
+    "0.0",
+    "0.939269"
+   ]
+  },
+  "hyb_gga_xc_sb98_2a": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.402322",
+    "0.620779",
+    "0.0",
+    "0.0",
+    "0.7492",
+    "1.67146",
+    "-1.22565",
+    "0.0",
+    "0.0",
+    "1.26686",
+    "0.050527",
+    "-3.01966",
+    "0.0",
+    "0.0",
+    "0.964641"
+   ]
+  },
+  "hyb_gga_xc_sb98_2b": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.180767",
+    "0.955246",
+    "0.0",
+    "0.0",
+    "0.770587",
+    "1.24051",
+    "-0.862711",
+    "0.0",
+    "0.0",
+    "0.170473",
+    "0.8633",
+    "-4.61778",
+    "0.0",
+    "0.0",
+    "0.965362"
+   ]
+  },
+  "hyb_gga_xc_sb98_2c": {
+   "family": "gga",
+   "base_kernel": "gga_xc_b97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0"
+   ],
+   "values": [
+    "0.400271",
+    "0.832857",
+    "0.0",
+    "0.0",
+    "0.790194",
+    "2.82332",
+    "-2.59412",
+    "0.0",
+    "0.0",
+    "-0.120163",
+    "1.14105",
+    "-5.33398",
+    "0.0",
+    "0.0",
+    "0.934715"
+   ]
+  },
+  "hyb_gga_xc_wb97": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_wb97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "1.13116e+00",
+    "-2.74915e+00",
+    "1.20900e+01",
+    "-5.71642e+00",
+    "1.00000e+00",
+    "-2.55352e+00",
+    "1.18926e+01",
+    "-2.69452e+01",
+    "1.70927e+01",
+    "1.00000e+00",
+    "3.99051e+00",
+    "-1.70066e+01",
+    "1.07292e+00",
+    "8.88211e+00",
+    "1.00000e+00",
+    "0.4"
+   ]
+  },
+  "hyb_gga_xc_wb97x": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_wb97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "7.26479e-01",
+    "1.04760e+00",
+    "-5.70635e+00",
+    "1.32794e+01",
+    "8.42294e-01",
+    "-4.33879e+00",
+    "1.82308e+01",
+    "-3.17430e+01",
+    "1.72901e+01",
+    "1.00000e+00",
+    "2.37031e+00",
+    "-1.13995e+01",
+    "6.58405e+00",
+    "-3.78132e+00",
+    "1.00000e+00",
+    "0.3"
+   ]
+  },
+  "hyb_gga_xc_wb97x_d": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_wb97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "6.61160e-01",
+    "5.74541e-01",
+    "-5.25671e+00",
+    "1.16386e+01",
+    "7.77964e-01",
+    "-6.90539e+00",
+    "3.13343e+01",
+    "-5.10533e+01",
+    "2.64423e+01",
+    "1.00000e+00",
+    "1.79413e+00",
+    "-1.20477e+01",
+    "1.40847e+01",
+    "-8.50809e+00",
+    "1.00000e+00",
+    "0.2"
+   ]
+  },
+  "hyb_gga_xc_wb97x_d3": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_wb97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.698900",
+    "0.508940",
+    "-3.744903",
+    "10.060790",
+    "0.804272",
+    "-4.868902",
+    "21.295726",
+    "-36.020866",
+    "19.177018",
+    "1.000000",
+    "2.433266",
+    "-15.446008",
+    "17.644390",
+    "-8.879494",
+    "1.000000",
+    "0.25"
+   ]
+  },
+  "hyb_gga_xc_wb97x_v": {
+   "family": "gga",
+   "base_kernel": "hyb_gga_xc_wb97",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_ab_1",
+    "param_c_ab_2",
+    "param_c_ab_3",
+    "param_c_ab_4",
+    "param_c_ab_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.603",
+    "1.194",
+    "0.0",
+    "0.0",
+    "0.833",
+    "-0.257",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.556",
+    "-1.850",
+    "0.0",
+    "0.0",
+    "0.0",
+    "1.219",
+    "0.3"
+   ]
+  },
+  "hyb_lda_x_erf": {
+   "family": "lda",
+   "base_kernel": "lda_x_erf",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.3"
+   ]
+  },
+  "hyb_lda_xc_bn05": {
+   "family": "lda",
+   "base_kernel": "hyb_lda_xc_bn05",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "hyb_mgga_x_bmk": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tau_hcth",
+   "params": [
+    "param_cx_local_1",
+    "param_cx_local_2",
+    "param_cx_local_3",
+    "param_cx_nlocal_1",
+    "param_cx_nlocal_2",
+    "param_cx_nlocal_3",
+    "param_cx_nlocal_0",
+    "param_cx_local_0"
+   ],
+   "values": [
+    "2.77701",
+    "-11.4230",
+    "11.7167",
+    "4.73936",
+    "-26.6188",
+    "22.4891",
+    "-0.192212",
+    "0.474302"
+   ]
+  },
   "hyb_mgga_x_dldf": {
    "family": "mgga",
+   "base_kernel": "hyb_mgga_x_dldf",
+   "params": [],
+   "values": []
+  },
+  "hyb_mgga_x_js18": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_x_js18",
+   "params": [
+    "param_hyb_omega_0",
+    "param_hyb_coeff_0"
+   ],
+   "values": [
+    "0.33",
+    "0.1"
+   ]
+  },
+  "hyb_mgga_x_m05": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_x_m05",
+   "params": [
+    "param_csi_HF",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0"
+   ],
+   "values": [
+    "0.72",
+    "0.08151",
+    "-0.43956",
+    "-3.22422",
+    "2.01819",
+    "8.79431",
+    "-0.00295",
+    "9.82029",
+    "-4.82351",
+    "-48.17574",
+    "3.64802",
+    "34.02248",
+    "1.0"
+   ]
+  },
+  "hyb_mgga_x_m05_2x": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_x_m05",
+   "params": [
+    "param_csi_HF",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0"
+   ],
+   "values": [
+    "0.43999999999999995",
+    "-0.56833",
+    "-1.30057",
+    "5.50070",
+    "9.06402",
+    "-32.21075",
+    "-23.73298",
+    "70.22996",
+    "29.88614",
+    "-60.25778",
+    "-13.22205",
+    "15.23694",
+    "1.0"
+   ]
+  },
+  "hyb_mgga_x_m06": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "-1.371776e-01",
+    "2.682367e-01",
+    "-2.515898e+00",
+    "-2.978892e+00",
+    "8.710679e+00",
+    "1.688195e+01",
+    "-4.489724e+00",
+    "-3.299983e+01",
+    "-1.449050e+01",
+    "2.043747e+01",
+    "1.256504e+01",
+    "5.877943e-01",
+    "1.422057e-01",
+    "7.370319e-04",
+    "-1.601373e-02",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "hyb_mgga_x_m06_2x": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_x_m05",
+   "params": [
+    "param_csi_HF",
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0"
+   ],
+   "values": [
+    "1.0",
+    "-2.206052e-01",
+    "-9.431788e-02",
+    "2.164494e+00",
+    "-2.556466e+00",
+    "-1.422133e+01",
+    "1.555044e+01",
+    "3.598078e+01",
+    "-2.722754e+01",
+    "-3.924093e+01",
+    "1.522808e+01",
+    "1.522227e+01",
+    "4.600000e-01"
+   ]
+  },
+  "hyb_mgga_x_m06_hf": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "-1.066708e+00",
+    "-1.462405e-01",
+    "7.481848e+00",
+    "3.776679e+00",
+    "-4.436118e+01",
+    "-1.830962e+01",
+    "1.003903e+02",
+    "3.864360e+01",
+    "-9.806018e+01",
+    "-2.557716e+01",
+    "3.590404e+01",
+    "1.179732e-01",
+    "-1.179732e-01",
+    "-2.500000e-03",
+    "-1.180065e-02",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "hyb_mgga_x_m06_sx": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "3.01264933631367E-02",
+    "-1.03366758333673E-01",
+    "-1.55653062500239E-01",
+    "7.95768051149902E-03",
+    "8.71986277454856E-02",
+    "-8.16152625764469E-01",
+    "6.72773006612420E-01",
+    "5.21127186174968E-01",
+    "3.99466945122217E-01",
+    "5.19400018999204E-01",
+    "-9.65261552636835E-01",
+    "9.96501680264007E-01",
+    "-3.47792307472902E-01",
+    "0.0",
+    "-2.70366787478266E-03",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "hyb_mgga_x_m08_hx": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m08",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_b_9",
+    "param_b_10",
+    "param_b_11",
+    "param_b_0"
+   ],
+   "values": [
+    "-9.4751087e+00",
+    "-1.2541893e+01",
+    "9.1369974e+00",
+    "3.4717204e+01",
+    "5.8831807e+01",
+    "7.1369574e+01",
+    "2.3312961e+01",
+    "4.8314679e+00",
+    "-6.5044167e+00",
+    "-1.4058265e+01",
+    "1.2880570e+01",
+    "1.3340172e+00",
+    "9.2810354e+00",
+    "1.2260749e+01",
+    "-5.5189665e+00",
+    "-3.5534989e+01",
+    "-8.2049996e+01",
+    "-6.8586558e+01",
+    "3.6085694e+01",
+    "-9.3740983e+00",
+    "-5.9731688e+01",
+    "1.6587868e+01",
+    "1.3993203e+01",
+    "-8.5631823e-01"
+   ]
+  },
+  "hyb_mgga_x_m08_so": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m08",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_b_9",
+    "param_b_10",
+    "param_b_11",
+    "param_b_0"
+   ],
+   "values": [
+    "-5.8157416e+00",
+    "3.7550810e+01",
+    "6.3727406e+01",
+    "-5.3742313e+01",
+    "-9.8595529e+01",
+    "1.6282216e+01",
+    "1.7513468e+01",
+    "-6.7627553e+00",
+    "1.1106658e+01",
+    "1.5663545e+00",
+    "8.7603470e+00",
+    "-3.4888428e-01",
+    "5.4538178e+00",
+    "-3.7853348e+01",
+    "-6.2295080e+01",
+    "4.6713254e+01",
+    "8.7321376e+01",
+    "1.6053446e+01",
+    "2.0126920e+01",
+    "-4.0343695e+01",
+    "-5.8577565e+01",
+    "2.0890272e+01",
+    "1.0946903e+01",
+    "7.8098428e-01"
+   ]
+  },
+  "hyb_mgga_x_m11": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m11",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_b_9",
+    "param_b_10",
+    "param_b_11",
+    "param_b_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "-1.39046703e+01",
+    "1.18206837e+01",
+    "3.10098465e+01",
+    "-5.19625696e+01",
+    "1.55750312e+01",
+    "-6.94775730e+00",
+    "-1.58465014e+02",
+    "-1.48447565e+00",
+    "5.51042124e+01",
+    "-1.34714184e+01",
+    "0.00000000e+00",
+    "-0.18399900e+00",
+    "1.37137944e+01",
+    "-1.27998304e+01",
+    "-2.93428814e+01",
+    "5.91075674e+01",
+    "-2.27604866e+01",
+    "-1.02769340e+01",
+    "1.64752731e+02",
+    "1.85349258e+01",
+    "-5.56825639e+01",
+    "7.47980859e+00",
+    "0.00000000e+00",
+    "0.75599900e+00",
+    "0.25"
+   ]
+  },
+  "hyb_mgga_x_mn12_sx": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_mn12",
+   "params": [
+    "param_c_1",
+    "param_c_2",
+    "param_c_3",
+    "param_c_4",
+    "param_c_5",
+    "param_c_7",
+    "param_c_8",
+    "param_c_9",
+    "param_c_10",
+    "param_c_6",
+    "param_c_12",
+    "param_c_13",
+    "param_c_14",
+    "param_c_11",
+    "param_c_16",
+    "param_c_17",
+    "param_c_15",
+    "param_c_19",
+    "param_c_20",
+    "param_c_21",
+    "param_c_22",
+    "param_c_18",
+    "param_c_24",
+    "param_c_25",
+    "param_c_26",
+    "param_c_23",
+    "param_c_28",
+    "param_c_29",
+    "param_c_27",
+    "param_c_31",
+    "param_c_32",
+    "param_c_33",
+    "param_c_30",
+    "param_c_35",
+    "param_c_36",
+    "param_c_34",
+    "param_c_38",
+    "param_c_39",
+    "param_c_37",
+    "param_c_0"
+   ],
+   "values": [
+    "-2.681208e-01",
+    "-4.670705e+00",
+    "3.067320e+00",
+    "4.095370e+00",
+    "2.653023e+00",
+    "-2.035442e+01",
+    "-9.946472e+00",
+    "2.938637e+00",
+    "1.131100e+01",
+    "5.165969e-01",
+    "-3.061331e+00",
+    "-2.523173e+01",
+    "1.710903e+01",
+    "4.752452e+00",
+    "-2.727754e+01",
+    "1.603291e+01",
+    "-2.357480e+01",
+    "1.927120e+00",
+    "1.107987e+01",
+    "-1.182087e+01",
+    "-1.117768e+01",
+    "1.842503e+00",
+    "2.266545e+01",
+    "8.246708e+00",
+    "-4.778364e+00",
+    "-5.821000e+00",
+    "-6.666755e+00",
+    "1.671429e+00",
+    "5.329122e-01",
+    "3.415913e-01",
+    "-6.413076e+00",
+    "1.038584e+01",
+    "-3.311409e+00",
+    "1.929689e+01",
+    "2.669232e+01",
+    "9.026277e+00",
+    "-3.442503e+00",
+    "1.100161e+00",
+    "1.517278e+00",
+    "5.226556e-01"
+   ]
+  },
+  "hyb_mgga_x_mn15": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_mn12",
+   "params": [
+    "param_c_1",
+    "param_c_2",
+    "param_c_3",
+    "param_c_4",
+    "param_c_5",
+    "param_c_7",
+    "param_c_8",
+    "param_c_9",
+    "param_c_10",
+    "param_c_6",
+    "param_c_12",
+    "param_c_13",
+    "param_c_14",
+    "param_c_11",
+    "param_c_16",
+    "param_c_17",
+    "param_c_15",
+    "param_c_19",
+    "param_c_20",
+    "param_c_21",
+    "param_c_22",
+    "param_c_18",
+    "param_c_24",
+    "param_c_25",
+    "param_c_26",
+    "param_c_23",
+    "param_c_28",
+    "param_c_29",
+    "param_c_27",
+    "param_c_31",
+    "param_c_32",
+    "param_c_33",
+    "param_c_30",
+    "param_c_35",
+    "param_c_36",
+    "param_c_34",
+    "param_c_38",
+    "param_c_39",
+    "param_c_37",
+    "param_c_0"
+   ],
+   "values": [
+    "-0.839976156",
+    "-3.082660125",
+    "-1.02881285",
+    "-0.811697255",
+    "-0.063404387",
+    "-5.031578906",
+    "0.31702159",
+    "2.981868205",
+    "-0.749503735",
+    "2.54805518",
+    "1.261961411",
+    "1.665920815",
+    "7.483304941",
+    "0.231825661",
+    "1.384720031",
+    "6.902569885",
+    "-2.544245723",
+    "2.98526709",
+    "6.89391326",
+    "2.489813993",
+    "1.454724691",
+    "1.657399451",
+    "2.35273334",
+    "1.299104132",
+    "1.203168217",
+    "-5.054324071",
+    "8.048348238",
+    "21.91203659",
+    "0.121595877",
+    "-3.4722735",
+    "-1.564591493",
+    "-2.29578769",
+    "-1.852335832",
+    "10.87074639",
+    "9.696691388",
+    "3.666482991",
+    "-0.505825216",
+    "-3.562354535",
+    "0.630701064",
+    "0.073852235"
+   ]
+  },
+  "hyb_mgga_x_pjs18": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_x_pjs18",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.33"
+   ]
+  },
+  "hyb_mgga_x_revm06": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "-0.1214497763",
+    "-0.1367041135",
+    "0.3987218551",
+    "0.6056741356",
+    "-2.379738662",
+    "-1.492098351",
+    "3.031473420",
+    "0.5149637108",
+    "2.633751911",
+    "0.9886749252",
+    "-4.243714128",
+    "0.6511394014",
+    "-0.05523940140",
+    "0.0",
+    "-0.003782631233",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "hyb_mgga_x_revm11": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m11",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_b_9",
+    "param_b_10",
+    "param_b_11",
+    "param_b_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "-8.3888150476e+00",
+    "0.7123891057e+00",
+    "3.6196212952e+00",
+    "4.3941708207e+00",
+    "5.0453345584e+00",
+    "7.8667061191e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "-0.3288860885e+00",
+    "8.0476369587e+00",
+    "-0.7353624773e+00",
+    "-2.4735275550e+00",
+    "-4.7319060355e+00",
+    "-5.8502502096e+00",
+    "-7.5059975327e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "1.1038860885e+00",
+    "0.40"
+   ]
+  },
+  "hyb_mgga_x_tau_hcth": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tau_hcth",
+   "params": [
+    "param_cx_local_1",
+    "param_cx_local_2",
+    "param_cx_local_3",
+    "param_cx_nlocal_1",
+    "param_cx_nlocal_2",
+    "param_cx_nlocal_3",
+    "param_cx_nlocal_0",
+    "param_cx_local_0"
+   ],
+   "values": [
+    "0.3008",
+    "1.2208",
+    "0.1574",
+    "-0.2849",
+    "5.4146",
+    "-10.909",
+    "-0.00230",
+    "0.86735"
+   ]
+  },
+  "hyb_mgga_xc_b0kcis": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_kcis",
+   "params": [],
+   "values": []
+  },
+  "hyb_mgga_xc_b98": {
+   "family": "mgga",
+   "base_kernel": "mgga_xc_b98",
+   "params": [],
+   "values": []
+  },
+  "hyb_mgga_xc_gas22": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_xc_gas22",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_0",
+    "param_c_ss_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_os_1",
+    "param_c_os_2",
+    "param_c_os_3",
+    "param_c_os_4",
+    "param_c_os_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.936993691972698",
+    "0.317533683085033",
+    "0.862139736374172",
+    "1.0",
+    "-4.10753796482853",
+    "-5.24218990333846",
+    "-1.76643208454076",
+    "7.5380689617542",
+    "7.98909430970845",
+    "-7.54815900595292",
+    "2.00093961824784",
+    "-1.76098915061634",
+    "0.805124374375355",
+    "0.3"
+   ]
+  },
+  "hyb_mgga_xc_wb97m_v": {
+   "family": "mgga",
+   "base_kernel": "hyb_mgga_xc_wb97mv",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_os_1",
+    "param_c_os_2",
+    "param_c_os_3",
+    "param_c_os_4",
+    "param_c_os_5",
+    "param_c_os_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "1.007",
+    "0.259",
+    "0.85",
+    "-1.437",
+    "-4.535",
+    "-3.39",
+    "4.278",
+    "0.443",
+    "1.358",
+    "2.924",
+    "-8.812",
+    "-1.39",
+    "9.142",
+    "1.0",
+    "0.3"
+   ]
+  },
+  "lda_c_1d_csc": {
+   "family": "lda",
+   "base_kernel": "lda_c_1d_csc",
+   "params": [
+    "param_para_4",
+    "param_para_7",
+    "param_para_9",
+    "param_para_8",
+    "param_para_1",
+    "param_para_5",
+    "param_para_2",
+    "param_para_6",
+    "param_para_3",
+    "param_para_0",
+    "param_ferro_4",
+    "param_ferro_7",
+    "param_ferro_9",
+    "param_ferro_8",
+    "param_ferro_1",
+    "param_ferro_5",
+    "param_ferro_2",
+    "param_ferro_6",
+    "param_ferro_3",
+    "param_ferro_0"
+   ],
+   "values": [
+    "0.012827",
+    "1.511",
+    "4.424",
+    "0.258",
+    "0.0",
+    "2.0",
+    "7.501",
+    "3.0",
+    "0.10185",
+    "18.40",
+    "0.003201",
+    "0.0538",
+    "2.958",
+    "1.56e-5",
+    "0.0",
+    "2.0",
+    "1.568",
+    "3.0",
+    "0.12856",
+    "5.24"
+   ]
+  },
+  "lda_c_1d_loos": {
+   "family": "lda",
+   "base_kernel": "lda_c_1d_loos",
+   "params": [],
+   "values": []
+  },
+  "lda_c_2d_amgb": {
+   "family": "lda",
+   "base_kernel": "lda_c_2d_amgb",
+   "params": [],
+   "values": []
+  },
+  "lda_c_2d_prm": {
+   "family": "lda",
+   "base_kernel": "lda_c_2d_prm",
+   "params": [
+    "param_N",
+    "param_c"
+   ],
+   "values": [
+    "2.0",
+    "0.10183793993557394"
+   ]
+  },
+  "lda_c_br78": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.02893830717448337",
+    "0.2838847933816818"
+   ]
+  },
+  "lda_c_chachiyo": {
+   "family": "lda",
+   "base_kernel": "lda_c_chachiyo",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "27.4203609",
+    "20.4562557",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_chachiyo_mod": {
+   "family": "lda",
+   "base_kernel": "lda_c_chachiyo_mod",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "27.4203609",
+    "20.4562557",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_gk72": {
+   "family": "lda",
+   "base_kernel": "lda_c_gk72",
+   "params": [],
+   "values": []
+  },
+  "lda_c_gl": {
+   "family": "lda",
+   "base_kernel": "lda_c_hl",
+   "params": [
+    "param_hl_c_0",
+    "param_hl_r_0",
+    "param_hl_c_1",
+    "param_hl_r_1"
+   ],
+   "values": [
+    "0.0333",
+    "11.4",
+    "0.0203",
+    "15.9"
+   ]
+  },
+  "lda_c_gombas": {
+   "family": "lda",
+   "base_kernel": "lda_c_gombas",
+   "params": [],
+   "values": []
+  },
+  "lda_c_hl": {
+   "family": "lda",
+   "base_kernel": "lda_c_hl",
+   "params": [
+    "param_hl_c_0",
+    "param_hl_r_0",
+    "param_hl_c_1",
+    "param_hl_r_1"
+   ],
+   "values": [
+    "0.0225",
+    "21.0",
+    "0.0225",
+    "21.0"
+   ]
+  },
+  "lda_c_karasiev": {
+   "family": "lda",
+   "base_kernel": "lda_c_chachiyo",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "28.3559732",
+    "21.7392245",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_karasiev_mod": {
+   "family": "lda",
+   "base_kernel": "lda_c_chachiyo_mod",
+   "params": [
+    "param_af",
+    "param_ap",
+    "param_bf",
+    "param_bp",
+    "param_cf",
+    "param_cp"
+   ],
+   "values": [
+    "-0.007772675",
+    "-0.01554535",
+    "28.3559732",
+    "21.7392245",
+    "27.4203609",
+    "20.4562557"
+   ]
+  },
+  "lda_c_lp96": {
+   "family": "lda",
+   "base_kernel": "lda_c_lp96",
+   "params": [
+    "param_C1",
+    "param_C2",
+    "param_C3"
+   ],
+   "values": [
+    "-0.0603",
+    "0.0175",
+    "-0.00053"
+   ]
+  },
+  "lda_c_mcweeny": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.21057382583143244",
+    "2.0324585669249857"
+   ]
+  },
+  "lda_c_ml1": {
+   "family": "lda",
+   "base_kernel": "lda_c_ml1",
+   "params": [
+    "param_fc",
+    "param_q"
+   ],
+   "values": [
+    "0.2026",
+    "0.084"
+   ]
+  },
+  "lda_c_ml2": {
+   "family": "lda",
+   "base_kernel": "lda_c_ml1",
+   "params": [
+    "param_fc",
+    "param_q"
+   ],
+   "values": [
+    "0.266",
+    "0.5"
+   ]
+  },
+  "lda_c_ob_pw": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.031091",
+    "0.026481",
+    "7.5957",
+    "3.5876",
+    "-0.46647",
+    "1.0",
+    "0.13354",
+    "0.016887",
+    "0.11125",
+    "10.357",
+    "3.6231",
+    "0.88026",
+    "1.0",
+    "0.49671",
+    "1.709921",
+    "0.015545",
+    "0.022465",
+    "14.1189",
+    "6.1977",
+    "-0.56043",
+    "1.0",
+    "0.11313"
+   ]
+  },
+  "lda_c_ob_pz": {
+   "family": "lda",
+   "base_kernel": "lda_c_pz",
+   "params": [
+    "param_gamma_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_a_0",
+    "param_c_0",
+    "param_d_0",
+    "param_b_0",
+    "param_gamma_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_a_1",
+    "param_c_1",
+    "param_d_1",
+    "param_b_1"
+   ],
+   "values": [
+    "-0.103756",
+    "0.56371",
+    "0.27358",
+    "0.031091",
+    "0.00419",
+    "-0.00983",
+    "-0.046644",
+    "-0.065951",
+    "1.11846",
+    "0.18797",
+    "0.015545",
+    "0.00329",
+    "-0.00300",
+    "-0.025599"
+   ]
+  },
+  "lda_c_ow": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.09349695077738808",
+    "1.777508569912321"
+   ]
+  },
+  "lda_c_ow_lyp": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.08741787146828796",
+    "1.777508569912321"
+   ]
+  },
+  "lda_c_pk09": {
+   "family": "lda",
+   "base_kernel": "lda_c_pk09",
+   "params": [],
+   "values": []
+  },
+  "lda_c_pmgb06": {
+   "family": "lda",
+   "base_kernel": "lda_c_pmgb06",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.3"
+   ]
+  },
+  "lda_c_pw": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.031091",
+    "0.21370",
+    "7.5957",
+    "3.5876",
+    "1.6382",
+    "1.0",
+    "0.49294",
+    "0.016887",
+    "0.11125",
+    "10.357",
+    "3.6231",
+    "0.88026",
+    "1.0",
+    "0.49671",
+    "1.709921",
+    "0.015545",
+    "0.20548",
+    "14.1189",
+    "6.1977",
+    "3.3662",
+    "1.0",
+    "0.62517"
+   ]
+  },
+  "lda_c_pw_erf": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw_erf",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.5"
+   ]
+  },
+  "lda_c_pw_mod": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.0310907",
+    "0.21370",
+    "7.5957",
+    "3.5876",
+    "1.6382",
+    "1.0",
+    "0.49294",
+    "0.0168869",
+    "0.11125",
+    "10.357",
+    "3.6231",
+    "0.88026",
+    "1.0",
+    "0.49671",
+    "1.709920934161365617563962776245",
+    "0.01554535",
+    "0.20548",
+    "14.1189",
+    "6.1977",
+    "3.3662",
+    "1.0",
+    "0.62517"
+   ]
+  },
+  "lda_c_pw_rpa": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.031091",
+    "0.082477",
+    "5.1486",
+    "1.6483",
+    "0.23647",
+    "0.75",
+    "0.20614",
+    "0.016887",
+    "0.028829",
+    "10.357",
+    "3.6231",
+    "0.47990",
+    "1.0",
+    "0.12279",
+    "1.709921",
+    "0.015545",
+    "0.035374",
+    "6.4869",
+    "1.3083",
+    "0.15180",
+    "0.75",
+    "0.082349"
+   ]
+  },
+  "lda_c_pz": {
+   "family": "lda",
+   "base_kernel": "lda_c_pz",
+   "params": [
+    "param_gamma_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_a_0",
+    "param_c_0",
+    "param_d_0",
+    "param_b_0",
+    "param_gamma_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_a_1",
+    "param_c_1",
+    "param_d_1",
+    "param_b_1"
+   ],
+   "values": [
+    "-0.1423",
+    "1.0529",
+    "0.3334",
+    "0.0311",
+    "0.0020",
+    "-0.0116",
+    "-0.048",
+    "-0.0843",
+    "1.3981",
+    "0.2611",
+    "0.01555",
+    "0.0007",
+    "-0.0048",
+    "-0.0269"
+   ]
+  },
+  "lda_c_pz_mod": {
+   "family": "lda",
+   "base_kernel": "lda_c_pz",
+   "params": [
+    "param_gamma_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_a_0",
+    "param_c_0",
+    "param_d_0",
+    "param_b_0",
+    "param_gamma_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_a_1",
+    "param_c_1",
+    "param_d_1",
+    "param_b_1"
+   ],
+   "values": [
+    "-0.1423",
+    "1.0529",
+    "0.3334",
+    "0.0311",
+    "0.0020191519406228",
+    "-0.0116320663789130",
+    "-0.048",
+    "-0.0843",
+    "1.3981",
+    "0.2611",
+    "0.01555",
+    "0.00069255121311694",
+    "-0.00480126353790614",
+    "-0.0269"
+   ]
+  },
+  "lda_c_rc04": {
+   "family": "lda",
+   "base_kernel": "lda_c_rc04",
+   "params": [],
+   "values": []
+  },
+  "lda_c_rpa": {
+   "family": "lda",
+   "base_kernel": "lda_c_rpa",
+   "params": [],
+   "values": []
+  },
+  "lda_c_rpw92": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.0310907",
+    "0.21370",
+    "7.5957",
+    "3.5876",
+    "1.6382",
+    "1.0",
+    "0.49294",
+    "0.0168869",
+    "0.11125",
+    "10.357",
+    "3.6231",
+    "0.88026",
+    "1.0",
+    "0.49671",
+    "1.709920934161365617563962776245",
+    "0.01554535",
+    "0.266529",
+    "14.1189",
+    "6.1977",
+    "4.86059",
+    "1.0",
+    "0.750188"
+   ]
+  },
+  "lda_c_upw92": {
+   "family": "lda",
+   "base_kernel": "lda_c_pw",
+   "params": [
+    "param_a_0",
+    "param_alpha1_0",
+    "param_beta1_0",
+    "param_beta2_0",
+    "param_beta3_0",
+    "param_pp_0",
+    "param_beta4_0",
+    "param_a_2",
+    "param_alpha1_2",
+    "param_beta1_2",
+    "param_beta2_2",
+    "param_beta3_2",
+    "param_pp_2",
+    "param_beta4_2",
+    "param_fz20",
+    "param_a_1",
+    "param_alpha1_1",
+    "param_beta1_1",
+    "param_beta2_1",
+    "param_beta3_1",
+    "param_pp_1",
+    "param_beta4_1"
+   ],
+   "values": [
+    "0.0310907",
+    "0.227012",
+    "7.5957",
+    "3.5876",
+    "1.76522",
+    "1.0",
+    "0.523918",
+    "0.0168869",
+    "0.11125",
+    "10.357",
+    "3.6231",
+    "0.88026",
+    "1.0",
+    "0.49671",
+    "1.709920934161365617563962776245",
+    "0.01554535",
+    "0.264193",
+    "14.1189",
+    "6.1977",
+    "4.78287",
+    "1.0",
+    "0.750424"
+   ]
+  },
+  "lda_c_vbh": {
+   "family": "lda",
+   "base_kernel": "lda_c_hl",
+   "params": [
+    "param_hl_c_0",
+    "param_hl_r_0",
+    "param_hl_c_1",
+    "param_hl_r_1"
+   ],
+   "values": [
+    "0.0252",
+    "30.0",
+    "0.0127",
+    "75.0"
+   ]
+  },
+  "lda_c_vwn": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_1": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn_1",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_2": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn_2",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_3": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn_3",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_4": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn_4",
+   "params": [],
+   "values": []
+  },
+  "lda_c_vwn_rpa": {
+   "family": "lda",
+   "base_kernel": "lda_c_vwn_rpa",
+   "params": [],
+   "values": []
+  },
+  "lda_c_w20": {
+   "family": "lda",
+   "base_kernel": "lda_c_w20",
+   "params": [],
+   "values": []
+  },
+  "lda_c_wigner": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.44",
+    "7.8"
+   ]
+  },
+  "lda_c_xalpha": {
+   "family": "lda",
+   "base_kernel": "lda_x",
+   "params": [
+    "param_alpha"
+   ],
+   "values": [
+    "0.5"
+   ]
+  },
+  "lda_k_gds08_worker": {
+   "family": "lda",
+   "base_kernel": "lda_k_gds08_worker",
+   "params": [
+    "param_A",
+    "param_B",
+    "param_C"
+   ],
+   "values": [
+    "0.860",
+    "0.224",
+    "0.0"
+   ]
+  },
+  "lda_k_lp": {
+   "family": "lda",
+   "base_kernel": "lda_k_tf",
+   "params": [
+    "param_ax"
+   ],
+   "values": [
+    "1.142427709758666675644309251677891925671"
+   ]
+  },
+  "lda_k_lp96": {
+   "family": "lda",
+   "base_kernel": "lda_c_lp96",
+   "params": [
+    "param_C1",
+    "param_C2",
+    "param_C3"
+   ],
+   "values": [
+    "0.03777",
+    "-0.01002",
+    "0.00039"
+   ]
+  },
+  "lda_k_tf": {
+   "family": "lda",
+   "base_kernel": "lda_k_tf",
+   "params": [
+    "param_ax"
+   ],
+   "values": [
+    "1.104950565705860002098832079519635692942"
+   ]
+  },
+  "lda_k_zlp": {
+   "family": "lda",
+   "base_kernel": "lda_k_zlp",
+   "params": [],
+   "values": []
+  },
+  "lda_x": {
+   "family": "lda",
+   "base_kernel": "lda_x",
+   "params": [
+    "param_alpha"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "lda_x_1d_exponential": {
+   "family": "lda",
+   "base_kernel": "lda_x_1d_exponential",
+   "params": [
+    "param_beta"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "lda_x_1d_soft": {
+   "family": "lda",
+   "base_kernel": "lda_x_1d_soft",
+   "params": [
+    "param_beta"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "lda_x_2d": {
+   "family": "lda",
+   "base_kernel": "lda_x_2d",
+   "params": [],
+   "values": []
+  },
+  "lda_x_erf": {
+   "family": "lda",
+   "base_kernel": "lda_x_erf",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.3"
+   ]
+  },
+  "lda_x_rae": {
+   "family": "lda",
+   "base_kernel": "lda_x",
+   "params": [
+    "param_alpha"
+   ],
+   "values": [
+    "0.06130908237864922"
+   ]
+  },
+  "lda_x_rel": {
+   "family": "lda",
+   "base_kernel": "lda_x_rel",
+   "params": [],
+   "values": []
+  },
+  "lda_x_sloc": {
+   "family": "lda",
+   "base_kernel": "lda_x_sloc",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "1.67",
+    "0.3"
+   ]
+  },
+  "lda_x_yukawa": {
+   "family": "lda",
+   "base_kernel": "lda_x_yukawa",
+   "params": [
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "0.3"
+   ]
+  },
+  "lda_xc_1d_ehwlrg_1": {
+   "family": "lda",
+   "base_kernel": "lda_xc_1d_ehwlrg",
+   "params": [
+    "param_a2",
+    "param_a3",
+    "param_a1",
+    "param_alpha"
+   ],
+   "values": [
+    "0.82",
+    "-0.47",
+    "-0.803",
+    "0.638"
+   ]
+  },
+  "lda_xc_1d_ehwlrg_2": {
+   "family": "lda",
+   "base_kernel": "lda_xc_1d_ehwlrg",
+   "params": [
+    "param_a2",
+    "param_a3",
+    "param_a1",
+    "param_alpha"
+   ],
+   "values": [
+    "0.68",
+    "-0.38",
+    "-0.74",
+    "0.604"
+   ]
+  },
+  "lda_xc_1d_ehwlrg_3": {
+   "family": "lda",
+   "base_kernel": "lda_xc_1d_ehwlrg",
+   "params": [
+    "param_a2",
+    "param_a3",
+    "param_a1",
+    "param_alpha"
+   ],
+   "values": [
+    "0.79",
+    "-0.48",
+    "-0.77",
+    "0.61"
+   ]
+  },
+  "lda_xc_corrksdt": {
+   "family": "lda",
+   "base_kernel": "lda_xc_ksdt",
+   "params": [
+    "param_T",
+    "param_b_0_1",
+    "param_b_0_2",
+    "param_b_0_0",
+    "param_b_0_3",
+    "param_b_0_4",
+    "param_c_0_1",
+    "param_c_0_2",
+    "param_c_0_0",
+    "param_e_0_1",
+    "param_e_0_2",
+    "param_e_0_0",
+    "param_e_0_3",
+    "param_e_0_4",
+    "param_d_0_1",
+    "param_d_0_2",
+    "param_d_0_0",
+    "param_d_0_3",
+    "param_d_0_4",
+    "param_b_1_1",
+    "param_b_1_2",
+    "param_b_1_0",
+    "param_b_1_3",
+    "param_b_1_4",
+    "param_c_1_1",
+    "param_c_1_2",
+    "param_c_1_0",
+    "param_e_1_1",
+    "param_e_1_2",
+    "param_e_1_0",
+    "param_e_1_3",
+    "param_e_1_4",
+    "param_d_1_1",
+    "param_d_1_2",
+    "param_d_1_0",
+    "param_d_1_3",
+    "param_d_1_4",
+    "param_thetaParam"
+   ],
+   "values": [
+    "1e-08",
+    "9.141315",
+    "0.448483",
+    "0.342554",
+    "18.553096",
+    "1.054149997293224",
+    "-0.25632",
+    "0.953988",
+    "0.87513",
+    "0.931933",
+    "0.115398",
+    "0.255415",
+    "17.234117",
+    "0.451437",
+    "2.237347",
+    "0.280748",
+    "0.725917",
+    "4.185911",
+    "0.692183",
+    "111.598308",
+    "0.537053",
+    "0.329001",
+    "105.086663",
+    "1.262331946799138",
+    "0.167952",
+    "0.08882",
+    "0.84893",
+    "19.543945",
+    "43.400337",
+    "0.153124",
+    "120.255145",
+    "15.662836",
+    "180.213159",
+    "134.486231",
+    "0.55133",
+    "103.861695",
+    "17.75071",
+    "0.0"
+   ]
+  },
+  "lda_xc_gdsmfb": {
+   "family": "lda",
+   "base_kernel": "lda_xc_ksdt",
+   "params": [
+    "param_T",
+    "param_b_0_1",
+    "param_b_0_2",
+    "param_b_0_0",
+    "param_b_0_3",
+    "param_b_0_4",
+    "param_c_0_1",
+    "param_c_0_2",
+    "param_c_0_0",
+    "param_e_0_1",
+    "param_e_0_2",
+    "param_e_0_0",
+    "param_e_0_3",
+    "param_e_0_4",
+    "param_d_0_1",
+    "param_d_0_2",
+    "param_d_0_0",
+    "param_d_0_3",
+    "param_d_0_4",
+    "param_b_1_1",
+    "param_b_1_2",
+    "param_b_1_0",
+    "param_b_1_3",
+    "param_b_1_4",
+    "param_c_1_1",
+    "param_c_1_2",
+    "param_c_1_0",
+    "param_e_1_1",
+    "param_e_1_2",
+    "param_e_1_0",
+    "param_e_1_3",
+    "param_e_1_4",
+    "param_d_1_1",
+    "param_d_1_2",
+    "param_d_1_0",
+    "param_d_1_3",
+    "param_d_1_4",
+    "param_thetaParam"
+   ],
+   "values": [
+    "1e-08",
+    "7.82159531356",
+    "0.300483986662",
+    "0.3436902",
+    "15.8443467125",
+    "0.7062813835226853",
+    "-0.230130843551",
+    "1.0",
+    "0.8759442",
+    "0.815795138599",
+    "0.0646844410481",
+    "0.25388214",
+    "15.0984620477",
+    "0.230761357474",
+    "2.38264734144",
+    "0.30221237251",
+    "0.72700876",
+    "4.39347718395",
+    "0.729951339845",
+    "3.04033012073",
+    "0.0775730131248",
+    "0.84987704",
+    "7.57703592489",
+    "0.22972614201992675",
+    "-0.0307957123308",
+    "1.0",
+    "0.91126873",
+    "0.400994856555",
+    "2.88773194962",
+    "0.27454097",
+    "6.33499237092",
+    "24.823008753",
+    "4.92684905511",
+    "0.0849387225179",
+    "1.48658718",
+    "8.3269821188",
+    "0.218864952126",
+    "0.0"
+   ]
+  },
+  "lda_xc_ksdt": {
+   "family": "lda",
+   "base_kernel": "lda_xc_ksdt",
+   "params": [
+    "param_T",
+    "param_b_0_1",
+    "param_b_0_2",
+    "param_b_0_0",
+    "param_b_0_3",
+    "param_b_0_4",
+    "param_c_0_1",
+    "param_c_0_2",
+    "param_c_0_0",
+    "param_e_0_1",
+    "param_e_0_2",
+    "param_e_0_0",
+    "param_e_0_3",
+    "param_e_0_4",
+    "param_d_0_1",
+    "param_d_0_2",
+    "param_d_0_0",
+    "param_d_0_3",
+    "param_d_0_4",
+    "param_b_1_1",
+    "param_b_1_2",
+    "param_b_1_0",
+    "param_b_1_3",
+    "param_b_1_4",
+    "param_c_1_1",
+    "param_c_1_2",
+    "param_c_1_0",
+    "param_e_1_1",
+    "param_e_1_2",
+    "param_e_1_0",
+    "param_e_1_3",
+    "param_e_1_4",
+    "param_d_1_1",
+    "param_d_1_2",
+    "param_d_1_0",
+    "param_d_1_3",
+    "param_d_1_4",
+    "param_thetaParam"
+   ],
+   "values": [
+    "1e-08",
+    "48.932154",
+    "0.370919",
+    "0.283997",
+    "61.095357",
+    "0.8718374227027677",
+    "0.193077",
+    "2.414644",
+    "0.870089",
+    "16.731249",
+    "28.485792",
+    "0.212036",
+    "34.028876",
+    "17.235515",
+    "94.537454",
+    "97.839603",
+    "0.579824",
+    "59.939999",
+    "24.388037",
+    "111.598308",
+    "0.537053",
+    "0.329001",
+    "105.086663",
+    "1.262331946799138",
+    "0.167952",
+    "0.08882",
+    "0.84893",
+    "19.543945",
+    "43.400337",
+    "0.153124",
+    "120.255145",
+    "15.662836",
+    "180.213159",
+    "134.486231",
+    "0.55133",
+    "103.861695",
+    "17.75071",
+    "0.0"
+   ]
+  },
+  "lda_xc_lp_a": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.5351143334498224",
+    "0.0"
+   ]
+  },
+  "lda_xc_lp_b": {
+   "family": "lda",
+   "base_kernel": "lda_c_wigner",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "-0.5620375447548563",
+    "0.013639646243405107"
+   ]
+  },
+  "lda_xc_teter93": {
+   "family": "lda",
+   "base_kernel": "lda_xc_teter93",
+   "params": [],
+   "values": []
+  },
+  "lda_xc_tih": {
+   "family": "lda",
+   "base_kernel": "lda_xc_tih",
+   "params": [],
+   "values": []
+  },
+  "lda_xc_zlp": {
+   "family": "lda",
+   "base_kernel": "lda_xc_zlp",
    "params": [],
    "values": []
   },
   "mgga_c_b88": {
    "family": "mgga",
+   "base_kernel": "mgga_c_b88",
    "params": [],
    "values": []
   },
   "mgga_c_b94": {
    "family": "mgga",
+   "base_kernel": "mgga_c_b94",
    "params": [
     "param_cab",
     "param_css",
@@ -714,6 +6778,7 @@
   },
   "mgga_c_bc95": {
    "family": "mgga",
+   "base_kernel": "mgga_c_bc95",
    "params": [
     "param_copp",
     "param_css"
@@ -725,11 +6790,13 @@
   },
   "mgga_c_cc": {
    "family": "mgga",
+   "base_kernel": "mgga_c_cc",
    "params": [],
    "values": []
   },
   "mgga_c_ccalda": {
    "family": "mgga",
+   "base_kernel": "mgga_c_ccalda",
    "params": [
     "param_c"
    ],
@@ -739,26 +6806,901 @@
   },
   "mgga_c_cs": {
    "family": "mgga",
+   "base_kernel": "mgga_c_cs",
    "params": [],
    "values": []
   },
+  "mgga_c_dldf": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m05",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0"
+   ],
+   "values": [
+    "-2.5960897",
+    "0.06",
+    "2.2233793",
+    "0.0",
+    "0.0",
+    "1.00000e0",
+    "1e-10",
+    "5.9515308",
+    "0.0031",
+    "-11.1602877",
+    "0.0",
+    "0.0",
+    "1.00000e0"
+   ]
+  },
+  "mgga_c_hltapw": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_ltapw",
+   "params": [
+    "param_ltafrac"
+   ],
+   "values": [
+    "0.5"
+   ]
+  },
   "mgga_c_kcis": {
    "family": "mgga",
+   "base_kernel": "mgga_c_kcis",
    "params": [],
    "values": []
   },
   "mgga_c_kcisk": {
    "family": "mgga",
+   "base_kernel": "mgga_c_kcisk",
    "params": [],
    "values": []
   },
+  "mgga_c_m05": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m05",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0"
+   ],
+   "values": [
+    "3.77344e0",
+    "0.06",
+    "-26.04463e0",
+    "30.69913e0",
+    "-9.22695e0",
+    "1.00000e0",
+    "1e-10",
+    "3.78569e0",
+    "0.0031",
+    "-14.15261e0",
+    "-7.46589e0",
+    "17.94491e0",
+    "1.00000e0"
+   ]
+  },
+  "mgga_c_m05_2x": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m05",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0"
+   ],
+   "values": [
+    "-3.05430e0",
+    "0.06",
+    "7.61854e0",
+    "1.47665e0",
+    "-11.92365e0",
+    "1.00000e0",
+    "1e-10",
+    "1.09297e0",
+    "0.0031",
+    "-3.79171e0",
+    "2.82810e0",
+    "-10.58909e0",
+    "1.00000e0"
+   ]
+  },
+  "mgga_c_m06": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "-1.491085e+00",
+    "0.06",
+    "1.723922e+01",
+    "-3.859018e+01",
+    "2.845044e+01",
+    "5.094055e-01",
+    "1e-10",
+    "2.187098e+02",
+    "0.0031",
+    "-4.531252e+02",
+    "2.936479e+02",
+    "-6.287470e+01",
+    "3.741539e+00",
+    "4.905945e-01",
+    "0.00515088",
+    "-1.437348e-01",
+    "2.357824e-01",
+    "1.871015e-03",
+    "-3.788963e-03",
+    "0.000000e+00",
+    "-2.741539e+00",
+    "0.00304966",
+    "-6.720113e-01",
+    "-7.932688e-02",
+    "1.918681e-03",
+    "-2.032902e-03",
+    "0.000000e+00"
+   ]
+  },
+  "mgga_c_m06_2x": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "-5.528642e+00",
+    "0.06",
+    "1.347420e+01",
+    "-3.213623e+01",
+    "2.846742e+01",
+    "3.097855e-01",
+    "1e-10",
+    "3.357972e+01",
+    "0.0031",
+    "-7.043548e+01",
+    "4.978271e+01",
+    "-1.852891e+01",
+    "8.833596e-01",
+    "6.902145e-01",
+    "0.00515088",
+    "9.847204e-02",
+    "2.214797e-01",
+    "-1.968264e-03",
+    "-6.775479e-03",
+    "0.000000e+00",
+    "1.166404e-01",
+    "0.00304966",
+    "-9.120847e-02",
+    "-6.726189e-02",
+    "6.720580e-05",
+    "8.448011e-04",
+    "0.000000e+00"
+   ]
+  },
+  "mgga_c_m06_hf": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "-2.453783e+00",
+    "0.06",
+    "2.913180e+01",
+    "-3.494358e+01",
+    "2.315955e+01",
+    "1.023254e-01",
+    "1e-10",
+    "5.732017e+01",
+    "0.0031",
+    "5.955416e+01",
+    "-2.311007e+02",
+    "1.255199e+02",
+    "1.674634e+00",
+    "8.976746e-01",
+    "0.00515088",
+    "-2.345830e-01",
+    "2.368173e-01",
+    "-9.913890e-04",
+    "-1.146165e-02",
+    "0.000000e+00",
+    "-6.746338e-01",
+    "0.00304966",
+    "-1.534002e-01",
+    "-9.021521e-02",
+    "-1.292037e-03",
+    "-2.352983e-04",
+    "0.000000e+00"
+   ]
+  },
+  "mgga_c_m06_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "5.396620e-01",
+    "0.06",
+    "-3.161217e+01",
+    "5.149592e+01",
+    "-2.919613e+01",
+    "5.349466e-01",
+    "1e-10",
+    "1.776783e+02",
+    "0.0031",
+    "-2.513252e+02",
+    "7.635173e+01",
+    "-1.255699e+01",
+    "6.042374e-01",
+    "4.650534e-01",
+    "0.00515088",
+    "1.617589e-01",
+    "1.833657e-01",
+    "4.692100e-04",
+    "-4.990573e-03",
+    "0.000000e+00",
+    "3.957626e-01",
+    "0.00304966",
+    "-5.614546e-01",
+    "1.403963e-02",
+    "9.831442e-04",
+    "-3.577176e-03",
+    "0.000000e+00"
+   ]
+  },
+  "mgga_c_m06_sx": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "6.58083496678423E-01",
+    "0.06",
+    "-2.78913774852905E+00",
+    "-1.18597601856255E+00",
+    "1.16439928209688E+00",
+    "1.17575011057022E+00",
+    "1e-10",
+    "-4.36481171027951E-01",
+    "0.0031",
+    "-1.90232628449712E+00",
+    "-1.42432902881841E+00",
+    "-9.05909137360893E-01",
+    "1.63738167314691E-01",
+    "8.17322574473352E-02",
+    "0.00515088",
+    "-2.88531085759385E-02",
+    "9.05917734868130E-02",
+    "0.0",
+    "0.0",
+    "-4.86297499082106E-04",
+    "7.40594619832397E-01",
+    "0.00304966",
+    "1.23306511345974E-02",
+    "-1.88253421850249E-02",
+    "0.0",
+    "0.0",
+    "4.87276242162303E-04"
+   ]
+  },
+  "mgga_c_m08_hx": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "-4.0661387e-01",
+    "-3.3232530e+00",
+    "1.5540980e+00",
+    "4.4248033e+01",
+    "-8.4351930e+01",
+    "-1.1955581e+02",
+    "3.9147081e+02",
+    "1.8363851e+02",
+    "-6.3268223e+02",
+    "-1.1297403e+02",
+    "3.3629312e+02",
+    "1.0000000e+00",
+    "-2.4683806e+00",
+    "-1.1901501e+01",
+    "-5.4112667e+01",
+    "1.0055846e+01",
+    "1.4800687e+02",
+    "1.1561420e+02",
+    "2.5591815e+02",
+    "2.1320772e+02",
+    "-4.8412067e+02",
+    "-4.3430813e+02",
+    "5.6627964e+01",
+    "1.3812334e+00"
+   ]
+  },
+  "mgga_c_m08_so": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "0.0000000e+00",
+    "-3.9980886e+00",
+    "1.2982340e+01",
+    "1.0117507e+02",
+    "-8.9541984e+01",
+    "-3.5640242e+02",
+    "2.0698803e+02",
+    "4.6037780e+02",
+    "-2.4510559e+02",
+    "-1.9638425e+02",
+    "1.1881459e+02",
+    "1.0000000e+00",
+    "-4.4117403e+00",
+    "-6.4128622e+00",
+    "4.7583635e+01",
+    "1.8630053e+02",
+    "-1.2800784e+02",
+    "-5.5385258e+02",
+    "1.3873727e+02",
+    "4.1646537e+02",
+    "-2.6626577e+02",
+    "5.6676300e+01",
+    "3.1673746e+02",
+    "1.0000000e+00"
+   ]
+  },
+  "mgga_c_m11": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "0.0000000e+00",
+    "-3.8933250e+00",
+    "-2.1688455e+00",
+    "9.3497200e+00",
+    "-1.9845140e+01",
+    "2.3455253e+00",
+    "7.9246513e+01",
+    "9.6042757e+00",
+    "-6.7856719e+01",
+    "-9.1841067e+00",
+    "0.0000000e+00",
+    "1.0000000e+00",
+    "4.3730564e-01",
+    "-1.6088809e+01",
+    "-6.5542437e+01",
+    "3.2057230e+01",
+    "1.8617888e+02",
+    "2.0483468e+01",
+    "-7.0853739e+01",
+    "4.4483915e+01",
+    "-9.4484747e+01",
+    "-1.1459868e+02",
+    "0.0000000e+00",
+    "7.2239798e-01"
+   ]
+  },
+  "mgga_c_m11_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "0.000000e+00",
+    "2.750880e+00",
+    "-1.562287e+01",
+    "9.363381e+00",
+    "2.141024e+01",
+    "-1.424975e+01",
+    "-1.134712e+01",
+    "1.022365e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "1.000000e+00",
+    "-9.082060e+00",
+    "6.134682e+00",
+    "-1.333216e+01",
+    "-1.464115e+01",
+    "1.713143e+01",
+    "2.480738e+00",
+    "-1.007036e+01",
+    "-1.117521e-01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "1.000000e+00"
+   ]
+  },
+  "mgga_c_mn12_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "-2.202279e-01",
+    "5.701372e+00",
+    "-2.562378e+00",
+    "-9.646827e-01",
+    "1.982183e-01",
+    "1.019976e+01",
+    "9.789352e-01",
+    "-1.512722e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "8.844610e-01",
+    "-5.831909e+00",
+    "3.882386e+00",
+    "5.878488e+00",
+    "1.493228e+01",
+    "-1.374636e+01",
+    "-8.492327e+00",
+    "-2.486548e+00",
+    "-1.822346e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "5.323948e-01"
+   ]
+  },
+  "mgga_c_mn12_sx": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "-2.380914e+00",
+    "5.793565e+00",
+    "-1.243624e+00",
+    "1.364920e+01",
+    "-2.110812e+01",
+    "-1.598767e+01",
+    "1.429208e+01",
+    "6.149191e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "7.171161e-01",
+    "-9.110685e+00",
+    "8.705051e+00",
+    "-1.813949e+00",
+    "-4.147211e-01",
+    "-1.021527e+01",
+    "8.240270e-01",
+    "4.993815e+00",
+    "-2.563930e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "4.663699e-01"
+   ]
+  },
+  "mgga_c_mn15": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "-0.269735037",
+    "6.368997613",
+    "-0.245337101",
+    "-1.587103441",
+    "0.124698862",
+    "1.605819855",
+    "0.466206031",
+    "3.484978654",
+    "0.0",
+    "0.0",
+    "0.0",
+    "1.093250748",
+    "-3.57883682",
+    "7.398727547",
+    "3.927810559",
+    "2.789804639",
+    "4.988320462",
+    "3.079464318",
+    "3.521636859",
+    "4.769671992",
+    "0.0",
+    "0.0",
+    "0.0",
+    "1.427424993"
+   ]
+  },
+  "mgga_c_mn15_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "-0.756954364",
+    "5.677396094",
+    "-5.017104782",
+    "-5.10654071",
+    "-4.812053335",
+    "3.397640087",
+    "1.980041517",
+    "10.1231046",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.952058087",
+    "-7.689358913",
+    "-0.70532663",
+    "-0.600096421",
+    "11.03332527",
+    "5.861969337",
+    "8.913865465",
+    "5.74529876",
+    "4.254880837",
+    "0.0",
+    "0.0",
+    "0.0",
+    "0.819504932"
+   ]
+  },
   "mgga_c_pkzb": {
    "family": "mgga",
+   "base_kernel": "mgga_c_pkzb",
    "params": [],
    "values": []
   },
   "mgga_c_r2scan": {
    "family": "mgga",
+   "base_kernel": "mgga_c_r2scan",
    "params": [
     "param_eta"
    ],
@@ -766,18 +7708,247 @@
     "0.001"
    ]
   },
+  "mgga_c_r2scan01": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_r2scan",
+   "params": [
+    "param_eta"
+   ],
+   "values": [
+    "0.01"
+   ]
+  },
+  "mgga_c_revm06": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "0.2079991827",
+    "0.06",
+    "-1.823747562",
+    "-1.384430429",
+    "-0.4423253381",
+    "0.9017224575",
+    "1e-10",
+    "0.6613907336",
+    "0.0031",
+    "-1.884581043",
+    "-2.780360568",
+    "-3.068579344",
+    "1.222401598",
+    "-0.1467095900",
+    "0.00515088",
+    "-0.0001832187007",
+    "0.08484372430",
+    "0.0",
+    "0.0",
+    "0.0002280677172",
+    "-0.3390666720",
+    "0.00304966",
+    "0.003790156384",
+    "-0.02762485975",
+    "0.0",
+    "0.0",
+    "0.0004076285162"
+   ]
+  },
+  "mgga_c_revm06_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m06l",
+   "params": [
+    "param_css_1",
+    "param_gamma_ss",
+    "param_css_2",
+    "param_css_3",
+    "param_css_4",
+    "param_css_0",
+    "param_Fermi_D_cnst",
+    "param_cab_1",
+    "param_gamma_ab",
+    "param_cab_2",
+    "param_cab_3",
+    "param_cab_4",
+    "param_cab_0",
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "0.855201283",
+    "0.06",
+    "-3.113346677",
+    "-2.239678026",
+    "0.354638962",
+    "1.227659748",
+    "1e-10",
+    "-0.557080242",
+    "0.0031",
+    "-2.009821162",
+    "-1.857641887",
+    "-1.076639864",
+    "0.344360696",
+    "-0.538821292",
+    "0.00515088",
+    "-0.028296030",
+    "0.023889696",
+    "0.0",
+    "0.0",
+    "-0.002437902",
+    "0.400714600",
+    "0.00304966",
+    "0.015796569",
+    "-0.032680984",
+    "0.0",
+    "0.0",
+    "0.001260132"
+   ]
+  },
+  "mgga_c_revm11": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_m08",
+   "params": [
+    "param_m08_a_1",
+    "param_m08_a_2",
+    "param_m08_a_3",
+    "param_m08_a_4",
+    "param_m08_a_5",
+    "param_m08_a_6",
+    "param_m08_a_7",
+    "param_m08_a_8",
+    "param_m08_a_9",
+    "param_m08_a_10",
+    "param_m08_a_11",
+    "param_m08_a_0",
+    "param_m08_b_1",
+    "param_m08_b_2",
+    "param_m08_b_3",
+    "param_m08_b_4",
+    "param_m08_b_5",
+    "param_m08_b_6",
+    "param_m08_b_7",
+    "param_m08_b_8",
+    "param_m08_b_9",
+    "param_m08_b_10",
+    "param_m08_b_11",
+    "param_m08_b_0"
+   ],
+   "values": [
+    "0.0000000000e+00",
+    "-0.7860212983e+00",
+    "-5.1132585425e+00",
+    "-4.0716488878e+00",
+    "1.5806421214e+00",
+    "8.4135687567e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "0.0000000000e+00",
+    "1.0000000000e+00",
+    "-2.16744503960e+00",
+    "-9.33183245720e+00",
+    "-12.9399606617e+00",
+    "-2.21293206600e+00",
+    "-2.95085491000e+00",
+    "-1.50663193600e+00",
+    "0.00000000000e+00",
+    "0.00000000000e+00",
+    "0.00000000000e+00",
+    "0.00000000000e+00",
+    "0.00000000000e+00",
+    "0.97328390240e+00"
+   ]
+  },
   "mgga_c_revscan": {
    "family": "mgga",
+   "base_kernel": "mgga_c_revscan",
    "params": [],
    "values": []
   },
+  "mgga_c_revtm": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_revtpss",
+   "params": [
+    "param_C0_c_0",
+    "param_C0_c_1",
+    "param_C0_c_2",
+    "param_C0_c_3",
+    "param_d"
+   ],
+   "values": [
+    "0.0",
+    "0.1",
+    "0.32",
+    "0.0",
+    "2.8"
+   ]
+  },
+  "mgga_c_revtpss": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_revtpss",
+   "params": [
+    "param_C0_c_0",
+    "param_C0_c_1",
+    "param_C0_c_2",
+    "param_C0_c_3",
+    "param_d"
+   ],
+   "values": [
+    "0.59",
+    "0.9269",
+    "0.6225",
+    "2.1540",
+    "2.8"
+   ]
+  },
   "mgga_c_rmggac": {
    "family": "mgga",
+   "base_kernel": "mgga_c_rmggac",
    "params": [],
    "values": []
   },
   "mgga_c_rppscan": {
    "family": "mgga",
+   "base_kernel": "mgga_c_rppscan",
    "params": [
     "param_eta"
    ],
@@ -787,36 +7958,207 @@
   },
   "mgga_c_rregtm": {
    "family": "mgga",
+   "base_kernel": "mgga_c_rregtm",
    "params": [],
    "values": []
   },
   "mgga_c_rscan": {
    "family": "mgga",
+   "base_kernel": "mgga_c_rscan",
    "params": [],
    "values": []
   },
   "mgga_c_scan": {
    "family": "mgga",
+   "base_kernel": "mgga_c_scan",
    "params": [],
    "values": []
+  },
+  "mgga_c_tm": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_tpss",
+   "params": [
+    "param_C0_c_0",
+    "param_C0_c_1",
+    "param_C0_c_2",
+    "param_C0_c_3",
+    "param_beta",
+    "param_d"
+   ],
+   "values": [
+    "0.0",
+    "0.1",
+    "0.32",
+    "0.0",
+    "0.06672455060314922",
+    "2.8"
+   ]
+  },
+  "mgga_c_tpss": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_tpss",
+   "params": [
+    "param_C0_c_0",
+    "param_C0_c_1",
+    "param_C0_c_2",
+    "param_C0_c_3",
+    "param_beta",
+    "param_d"
+   ],
+   "values": [
+    "0.53",
+    "0.87",
+    "0.50",
+    "2.26",
+    "0.06672455060314922",
+    "2.8"
+   ]
+  },
+  "mgga_c_tpss_gaussian": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_tpss",
+   "params": [
+    "param_C0_c_0",
+    "param_C0_c_1",
+    "param_C0_c_2",
+    "param_C0_c_3",
+    "param_beta",
+    "param_d"
+   ],
+   "values": [
+    "0.53",
+    "0.87",
+    "0.50",
+    "2.26",
+    "0.0667263212",
+    "2.8"
+   ]
   },
   "mgga_c_tpssloc": {
    "family": "mgga",
+   "base_kernel": "mgga_c_tpssloc",
    "params": [],
    "values": []
   },
+  "mgga_c_vsxc": {
+   "family": "mgga",
+   "base_kernel": "mgga_c_vsxc",
+   "params": [
+    "param_dss_0",
+    "param_alpha_ss",
+    "param_dss_1",
+    "param_dss_2",
+    "param_dss_3",
+    "param_dss_4",
+    "param_dss_5",
+    "param_dab_0",
+    "param_alpha_ab",
+    "param_dab_1",
+    "param_dab_2",
+    "param_dab_3",
+    "param_dab_4",
+    "param_dab_5"
+   ],
+   "values": [
+    "3.270912e-01",
+    "0.00515088",
+    "-3.228915e-02",
+    "-2.942406e-02",
+    "2.134222e-03",
+    "-5.451559e-03",
+    "1.577575e-02",
+    "7.035010e-01",
+    "0.00304966",
+    "7.694574e-03",
+    "5.152765e-02",
+    "3.394308e-05",
+    "-1.269420e-03",
+    "1.296118e-03"
+   ]
+  },
+  "mgga_k_csk1": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_csk",
+   "params": [
+    "param_csk_a"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
+  "mgga_k_csk4": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_csk",
+   "params": [
+    "param_csk_a"
+   ],
+   "values": [
+    "4.0"
+   ]
+  },
+  "mgga_k_csk_loc1": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_csk_loc",
+   "params": [
+    "param_csk_cp",
+    "param_csk_cq",
+    "param_csk_a"
+   ],
+   "values": [
+    "-0.275",
+    "2.895",
+    "1.0"
+   ]
+  },
+  "mgga_k_csk_loc4": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_csk_loc",
+   "params": [
+    "param_csk_cp",
+    "param_csk_cq",
+    "param_csk_a"
+   ],
+   "values": [
+    "-0.275",
+    "2.895",
+    "4.0"
+   ]
+  },
   "mgga_k_gea2": {
    "family": "mgga",
+   "base_kernel": "mgga_k_gea2",
    "params": [],
    "values": []
   },
   "mgga_k_gea4": {
    "family": "mgga",
+   "base_kernel": "mgga_k_gea4",
    "params": [],
    "values": []
   },
+  "mgga_k_l04": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_lk",
+   "params": [
+    "param_kappa"
+   ],
+   "values": [
+    "0.402"
+   ]
+  },
+  "mgga_k_l06": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_lk",
+   "params": [
+    "param_kappa"
+   ],
+   "values": [
+    "0.623"
+   ]
+  },
   "mgga_k_pc07": {
    "family": "mgga",
+   "base_kernel": "mgga_k_pc07",
    "params": [
     "param_a",
     "param_b"
@@ -826,8 +8168,33 @@
     "3"
    ]
   },
+  "mgga_k_pc07_opt": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_pc07",
+   "params": [
+    "param_a",
+    "param_b"
+   ],
+   "values": [
+    "1.784720",
+    "0.258304"
+   ]
+  },
+  "mgga_k_pgsl025": {
+   "family": "mgga",
+   "base_kernel": "mgga_k_pgslb",
+   "params": [
+    "param_pgslb_mu",
+    "param_pgslb_beta"
+   ],
+   "values": [
+    "1.4814814814814814",
+    "0.25"
+   ]
+  },
   "mgga_k_rda": {
    "family": "mgga",
+   "base_kernel": "mgga_k_rda",
    "params": [
     "param_A0",
     "param_A1",
@@ -855,21 +8222,71 @@
   },
   "mgga_x_2d_js17": {
    "family": "mgga",
+   "base_kernel": "mgga_x_2d_js17",
    "params": [],
    "values": []
   },
   "mgga_x_2d_prhg07": {
    "family": "mgga",
+   "base_kernel": "mgga_x_2d_prhg07",
    "params": [],
    "values": []
   },
-  "mgga_x_2d_prp10": {
+  "mgga_x_2d_prhg07_prp10": {
    "family": "mgga",
+   "base_kernel": "mgga_x_2d_prp10",
    "params": [],
    "values": []
+  },
+  "mgga_x_b00": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_br89",
+   "params": [
+    "param_at",
+    "param_gamma"
+   ],
+   "values": [
+    "0.928",
+    "1.0"
+   ]
+  },
+  "mgga_x_bj06": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tb09",
+   "params": [
+    "param_c",
+    "param_alpha"
+   ],
+   "values": [
+    "1.0",
+    "0.0"
+   ]
+  },
+  "mgga_x_bloc": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tpss",
+   "params": [
+    "param_BLOC_a",
+    "param_BLOC_b",
+    "param_b",
+    "param_c",
+    "param_e",
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "4.0",
+    "-3.3",
+    "0.40",
+    "1.59096",
+    "1.537",
+    "0.804",
+    "0.21951"
+   ]
   },
   "mgga_x_br89": {
    "family": "mgga",
+   "base_kernel": "mgga_x_br89",
    "params": [
     "param_at",
     "param_gamma"
@@ -879,8 +8296,21 @@
     "0.8"
    ]
   },
+  "mgga_x_br89_1": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_br89",
+   "params": [
+    "param_at",
+    "param_gamma"
+   ],
+   "values": [
+    "0.0",
+    "1.0"
+   ]
+  },
   "mgga_x_br89_explicit": {
    "family": "mgga",
+   "base_kernel": "mgga_x_br89_explicit",
    "params": [
     "param_gamma"
    ],
@@ -888,13 +8318,25 @@
     "0.8"
    ]
   },
+  "mgga_x_br89_explicit_1": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_br89_explicit",
+   "params": [
+    "param_gamma"
+   ],
+   "values": [
+    "1.0"
+   ]
+  },
   "mgga_x_edmgga": {
    "family": "mgga",
+   "base_kernel": "mgga_x_edmgga",
    "params": [],
    "values": []
   },
   "mgga_x_ft98": {
    "family": "mgga",
+   "base_kernel": "mgga_x_ft98",
    "params": [
     "param_a",
     "param_a1",
@@ -912,13 +8354,95 @@
     "66.364138"
    ]
   },
+  "mgga_x_gdme_0": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_gdme",
+   "params": [
+    "param_a",
+    "param_AA",
+    "param_BB"
+   ],
+   "values": [
+    "0.0",
+    "7.0685834705770345",
+    "9.16297857297023"
+   ]
+  },
+  "mgga_x_gdme_kos": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_gdme",
+   "params": [
+    "param_a",
+    "param_AA",
+    "param_BB"
+   ],
+   "values": [
+    "0.00638",
+    "7.0685834705770345",
+    "9.16297857297023"
+   ]
+  },
+  "mgga_x_gdme_nv": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_gdme",
+   "params": [
+    "param_a",
+    "param_AA",
+    "param_BB"
+   ],
+   "values": [
+    "0.5",
+    "7.0685834705770345",
+    "9.16297857297023"
+   ]
+  },
+  "mgga_x_gdme_vt": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_gdme",
+   "params": [
+    "param_a",
+    "param_AA",
+    "param_BB"
+   ],
+   "values": [
+    "0.0",
+    "7.31275",
+    "5.43182"
+   ]
+  },
   "mgga_x_gvt4": {
    "family": "mgga",
+   "base_kernel": "mgga_x_gvt4",
    "params": [],
    "values": []
   },
+  "mgga_x_gx": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_gx",
+   "params": [
+    "param_c0",
+    "param_c1",
+    "param_alphainf"
+   ],
+   "values": [
+    "0.827411",
+    "-0.643560",
+    "0.852"
+   ]
+  },
+  "mgga_x_hlta": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_lta",
+   "params": [
+    "param_ltafrac"
+   ],
+   "values": [
+    "0.5"
+   ]
+  },
   "mgga_x_jk": {
    "family": "mgga",
+   "base_kernel": "mgga_x_jk",
    "params": [
     "param_beta",
     "param_gamma"
@@ -930,6 +8454,7 @@
   },
   "mgga_x_lta": {
    "family": "mgga",
+   "base_kernel": "mgga_x_lta",
    "params": [
     "param_ltafrac"
    ],
@@ -937,18 +8462,171 @@
     "1.0"
    ]
   },
+  "mgga_x_m06_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "0.2548219",
+    "0.3923994",
+    "-2.103655",
+    "-6.302147",
+    "10.97615",
+    "30.97273",
+    "-23.18489",
+    "-56.73480",
+    "21.60364",
+    "34.21814",
+    "-9.049762",
+    "0.3987756",
+    "0.6012244",
+    "0.004748822",
+    "-0.008635108",
+    "-0.000009308062",
+    "0.00004482811",
+    "0.0"
+   ]
+  },
+  "mgga_x_m11_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m11_l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_b_1",
+    "param_b_2",
+    "param_b_3",
+    "param_b_4",
+    "param_b_5",
+    "param_b_6",
+    "param_b_7",
+    "param_b_8",
+    "param_b_9",
+    "param_b_10",
+    "param_b_11",
+    "param_b_0",
+    "param_c_1",
+    "param_c_2",
+    "param_c_3",
+    "param_c_4",
+    "param_c_5",
+    "param_c_6",
+    "param_c_7",
+    "param_c_8",
+    "param_c_9",
+    "param_c_10",
+    "param_c_11",
+    "param_c_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5",
+    "param_d_6",
+    "param_d_7",
+    "param_d_8",
+    "param_d_9",
+    "param_d_10",
+    "param_d_11",
+    "param_d_0",
+    "param_hyb_omega_0"
+   ],
+   "values": [
+    "1.738124e+01",
+    "1.154007e+00",
+    "6.869556e+01",
+    "1.016864e+02",
+    "-5.887467e+00",
+    "4.517409e+01",
+    "-2.773149e+00",
+    "-2.617211e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "8.121131e-01",
+    "-1.653877e+01",
+    "6.755753e-01",
+    "-7.567572e+01",
+    "-1.040272e+02",
+    "1.831853e+01",
+    "-5.573352e+01",
+    "-3.520210e+00",
+    "3.724276e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "1.878869e-01",
+    "-1.214016e+02",
+    "-1.393573e+02",
+    "-2.046649e+00",
+    "2.804098e+01",
+    "-1.312258e+01",
+    "-6.361819e+00",
+    "-8.055758e-01",
+    "3.736551e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "-4.386615e-01",
+    "1.209465e+02",
+    "1.328252e+02",
+    "1.296355e+01",
+    "5.854866e+00",
+    "-3.378162e+00",
+    "-4.423393e+01",
+    "6.844475e+00",
+    "1.949541e+01",
+    "0.000000e+00",
+    "0.000000e+00",
+    "0.000000e+00",
+    "1.438662e+00",
+    "0.25"
+   ]
+  },
   "mgga_x_mbeef": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mbeef",
    "params": [],
    "values": []
   },
   "mgga_x_mbeefvdw": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mbeefvdw",
    "params": [],
    "values": []
   },
   "mgga_x_mbr": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mbr",
    "params": [
     "param_beta",
     "param_gamma",
@@ -962,26 +8640,353 @@
   },
   "mgga_x_mbrxc_bg": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mbrxc_bg",
    "params": [],
    "values": []
   },
   "mgga_x_mbrxh_bg": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mbrxh_bg",
    "params": [],
    "values": []
   },
   "mgga_x_mcml": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mcml",
    "params": [],
    "values": []
   },
   "mgga_x_mggac": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mggac",
    "params": [],
    "values": []
   },
+  "mgga_x_mk00": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_rlda",
+   "params": [
+    "param_prefactor"
+   ],
+   "values": [
+    "0.8"
+   ]
+  },
+  "mgga_x_mn12_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_mn12",
+   "params": [
+    "param_c_1",
+    "param_c_2",
+    "param_c_3",
+    "param_c_4",
+    "param_c_5",
+    "param_c_7",
+    "param_c_8",
+    "param_c_9",
+    "param_c_10",
+    "param_c_6",
+    "param_c_12",
+    "param_c_13",
+    "param_c_14",
+    "param_c_11",
+    "param_c_16",
+    "param_c_17",
+    "param_c_15",
+    "param_c_19",
+    "param_c_20",
+    "param_c_21",
+    "param_c_22",
+    "param_c_18",
+    "param_c_24",
+    "param_c_25",
+    "param_c_26",
+    "param_c_23",
+    "param_c_28",
+    "param_c_29",
+    "param_c_27",
+    "param_c_31",
+    "param_c_32",
+    "param_c_33",
+    "param_c_30",
+    "param_c_35",
+    "param_c_36",
+    "param_c_34",
+    "param_c_38",
+    "param_c_39",
+    "param_c_37",
+    "param_c_0"
+   ],
+   "values": [
+    "-2.270598e+00",
+    "-2.613712e+00",
+    "3.993609e+00",
+    "4.635575e+00",
+    "1.250676e+00",
+    "-1.301173e+01",
+    "-1.777730e+01",
+    "-4.627211e+00",
+    "5.976605e+00",
+    "8.444920e-01",
+    "-2.040226e+01",
+    "-2.382843e+01",
+    "7.119109e+00",
+    "1.142897e+00",
+    "-1.622633e+01",
+    "1.482732e+01",
+    "-2.335726e+01",
+    "1.020598e+01",
+    "4.407450e+00",
+    "-2.008193e+01",
+    "-1.253561e+01",
+    "1.449285e+00",
+    "1.656736e+01",
+    "2.000229e+01",
+    "-2.513105e+00",
+    "-5.435031e+00",
+    "-3.825281e+00",
+    "-2.500000e+01",
+    "9.658436e+00",
+    "-9.951913e+00",
+    "8.731211e-01",
+    "2.210891e+01",
+    "-2.070080e+00",
+    "2.499949e+01",
+    "2.500000e+01",
+    "8.822633e+00",
+    "-7.406948e-02",
+    "-6.788000e-01",
+    "6.851693e-01",
+    "6.735981e-01"
+   ]
+  },
+  "mgga_x_mn15_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_mn12",
+   "params": [
+    "param_c_1",
+    "param_c_2",
+    "param_c_3",
+    "param_c_4",
+    "param_c_5",
+    "param_c_7",
+    "param_c_8",
+    "param_c_9",
+    "param_c_10",
+    "param_c_6",
+    "param_c_12",
+    "param_c_13",
+    "param_c_14",
+    "param_c_11",
+    "param_c_16",
+    "param_c_17",
+    "param_c_15",
+    "param_c_19",
+    "param_c_20",
+    "param_c_21",
+    "param_c_22",
+    "param_c_18",
+    "param_c_24",
+    "param_c_25",
+    "param_c_26",
+    "param_c_23",
+    "param_c_28",
+    "param_c_29",
+    "param_c_27",
+    "param_c_31",
+    "param_c_32",
+    "param_c_33",
+    "param_c_30",
+    "param_c_35",
+    "param_c_36",
+    "param_c_34",
+    "param_c_38",
+    "param_c_39",
+    "param_c_37",
+    "param_c_0"
+   ],
+   "values": [
+    "-0.822003903",
+    "-1.022407046",
+    "1.689460986",
+    "-0.00562032",
+    "-0.110293849",
+    "-6.697641991",
+    "-4.322814495",
+    "-6.786641376",
+    "-5.687461462",
+    "0.972245178",
+    "11.83939406",
+    "5.086951311",
+    "4.302369948",
+    "9.419643818",
+    "2.429988978",
+    "11.09485698",
+    "-8.07344065",
+    "3.700485291",
+    "0.867791614",
+    "-0.591190518",
+    "-0.295305435",
+    "1.247333909",
+    "2.537532196",
+    "3.143390933",
+    "2.939126332",
+    "-5.825759145",
+    "2.241702738",
+    "2.035713838",
+    "0.599342114",
+    "-2.325875691",
+    "1.141940663",
+    "-1.563165026",
+    "-1.525344043",
+    "11.93400684",
+    "9.852928303",
+    "7.882032871",
+    "-0.720941131",
+    "-2.836037078",
+    "0.584030245",
+    "0.670864162"
+   ]
+  },
+  "mgga_x_modtpss": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tpss",
+   "params": [
+    "param_BLOC_a",
+    "param_BLOC_b",
+    "param_b",
+    "param_c",
+    "param_e",
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "2.0",
+    "0.0",
+    "0.40",
+    "1.38496",
+    "1.37",
+    "0.804",
+    "0.252"
+   ]
+  },
+  "mgga_x_ms0": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_ms",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.29",
+    "1.0",
+    "0.28771"
+   ]
+  },
+  "mgga_x_ms1": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_ms",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.404",
+    "1.0",
+    "0.18150"
+   ]
+  },
+  "mgga_x_ms2": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_ms",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.504",
+    "4.0",
+    "0.14601"
+   ]
+  },
+  "mgga_x_ms2_rev": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_ms",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.504",
+    "4.0",
+    "0.14607"
+   ]
+  },
+  "mgga_x_ms2b": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_msb",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.504",
+    "1.546875",
+    "0.14607"
+   ]
+  },
+  "mgga_x_ms2bs": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_msb",
+   "params": [
+    "param_kappa",
+    "param_b",
+    "param_c"
+   ],
+   "values": [
+    "0.6263",
+    "4.3011",
+    "0.12268"
+   ]
+  },
+  "mgga_x_mtask": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_task",
+   "params": [
+    "param_task_c",
+    "param_task_bnu_0",
+    "param_task_bnu_1",
+    "param_task_bnu_2",
+    "param_task_bnu_3",
+    "param_task_bnu_4",
+    "param_task_anu_0",
+    "param_task_anu_1",
+    "param_task_anu_2",
+    "param_task_h0x",
+    "param_task_d"
+   ],
+   "values": [
+    "4.9479",
+    "-0.639572",
+    "-2.087488",
+    "-0.625",
+    "-0.162512",
+    "0.014572",
+    "0.924374",
+    "-0.09276847",
+    "-0.017143",
+    "1.29",
+    "10.0"
+   ]
+  },
   "mgga_x_mvs": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mvs",
    "params": [
     "param_b",
     "param_c1",
@@ -997,6 +9002,7 @@
   },
   "mgga_x_mvsb": {
    "family": "mgga",
+   "base_kernel": "mgga_x_mvsb",
    "params": [
     "param_b",
     "param_c1",
@@ -1010,18 +9016,37 @@
     "0.174"
    ]
   },
+  "mgga_x_mvsbs": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_mvsb",
+   "params": [
+    "param_b",
+    "param_c1",
+    "param_e1",
+    "param_k0"
+   ],
+   "values": [
+    "0.0233",
+    "6.3783",
+    "-2.3800",
+    "0.174"
+   ]
+  },
   "mgga_x_pbe_gx": {
    "family": "mgga",
+   "base_kernel": "mgga_x_pbe_gx",
    "params": [],
    "values": []
   },
   "mgga_x_pkzb": {
    "family": "mgga",
+   "base_kernel": "mgga_x_pkzb",
    "params": [],
    "values": []
   },
   "mgga_x_r2scan": {
    "family": "mgga",
+   "base_kernel": "mgga_x_r2scan",
    "params": [
     "param_c1",
     "param_c2",
@@ -1039,8 +9064,29 @@
     "0.065"
    ]
   },
+  "mgga_x_r2scan01": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_r2scan",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_d",
+    "param_dp2",
+    "param_eta",
+    "param_k1"
+   ],
+   "values": [
+    "0.667",
+    "0.8",
+    "1.24",
+    "0.361",
+    "0.01",
+    "0.065"
+   ]
+  },
   "mgga_x_r4scan": {
    "family": "mgga",
+   "base_kernel": "mgga_x_r4scan",
    "params": [
     "param_c1",
     "param_c2",
@@ -1064,21 +9110,107 @@
   },
   "mgga_x_regtm": {
    "family": "mgga",
+   "base_kernel": "mgga_x_regtm",
    "params": [],
    "values": []
   },
   "mgga_x_regtpss": {
    "family": "mgga",
+   "base_kernel": "mgga_x_regtpss",
    "params": [],
    "values": []
+  },
+  "mgga_x_revm06_l": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_m06l",
+   "params": [
+    "param_a_1",
+    "param_a_2",
+    "param_a_3",
+    "param_a_4",
+    "param_a_5",
+    "param_a_6",
+    "param_a_7",
+    "param_a_8",
+    "param_a_9",
+    "param_a_10",
+    "param_a_11",
+    "param_a_0",
+    "param_d_0",
+    "param_d_1",
+    "param_d_2",
+    "param_d_3",
+    "param_d_4",
+    "param_d_5"
+   ],
+   "values": [
+    "0.471820438",
+    "-0.167555701",
+    "-0.250154262",
+    "0.062487588",
+    "0.733501240",
+    "-2.359736776",
+    "-1.436594372",
+    "0.444643793",
+    "1.529925054",
+    "2.053941717",
+    "-0.036536031",
+    "1.423227252",
+    "-0.423227252",
+    "0.0",
+    "0.003724234",
+    "0.0",
+    "0.0",
+    "0.0"
+   ]
+  },
+  "mgga_x_revscan": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_scan",
+   "params": [
+    "param_c1",
+    "param_c2",
+    "param_d",
+    "param_k1"
+   ],
+   "values": [
+    "0.607",
+    "0.7",
+    "1.37",
+    "0.065"
+   ]
   },
   "mgga_x_revtm": {
    "family": "mgga",
+   "base_kernel": "mgga_x_revtm",
    "params": [],
    "values": []
   },
+  "mgga_x_revtpss": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tpss",
+   "params": [
+    "param_BLOC_a",
+    "param_BLOC_b",
+    "param_b",
+    "param_c",
+    "param_e",
+    "param_kappa",
+    "param_mu"
+   ],
+   "values": [
+    "3.0",
+    "0.0",
+    "0.40",
+    "2.35203946",
+    "2.16769874",
+    "0.804",
+    "0.14"
+   ]
+  },
   "mgga_x_rlda": {
    "family": "mgga",
+   "base_kernel": "mgga_x_rlda",
    "params": [
     "param_prefactor"
    ],
@@ -1086,8 +9218,21 @@
     "1.0"
    ]
   },
+  "mgga_x_rpp09": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tb09",
+   "params": [
+    "param_c",
+    "param_alpha"
+   ],
+   "values": [
+    "1.0",
+    "1.0"
+   ]
+  },
   "mgga_x_rppscan": {
    "family": "mgga",
+   "base_kernel": "mgga_x_rppscan",
    "params": [
     "param_c2",
     "param_d",
@@ -1103,6 +9248,7 @@
   },
   "mgga_x_rscan": {
    "family": "mgga",
+   "base_kernel": "mgga_x_rscan",
    "params": [
     "param_alphar",
     "param_c2",
@@ -1120,6 +9266,7 @@
   },
   "mgga_x_rtpss": {
    "family": "mgga",
+   "base_kernel": "mgga_x_rtpss",
    "params": [
     "param_b",
     "param_c",
@@ -1137,11 +9284,13 @@
   },
   "mgga_x_sa_tpss": {
    "family": "mgga",
+   "base_kernel": "mgga_x_sa_tpss",
    "params": [],
    "values": []
   },
   "mgga_x_scan": {
    "family": "mgga",
+   "base_kernel": "mgga_x_scan",
    "params": [
     "param_c1",
     "param_c2",
@@ -1155,18 +9304,97 @@
     "0.065"
    ]
   },
+  "mgga_x_task": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_task",
+   "params": [
+    "param_task_c",
+    "param_task_bnu_0",
+    "param_task_bnu_1",
+    "param_task_bnu_2",
+    "param_task_bnu_3",
+    "param_task_bnu_4",
+    "param_task_anu_0",
+    "param_task_anu_1",
+    "param_task_anu_2",
+    "param_task_h0x",
+    "param_task_d"
+   ],
+   "values": [
+    "4.9479",
+    "-0.628591",
+    "-2.10315",
+    "-0.5",
+    "0.103153",
+    "0.128591",
+    "0.938719",
+    "-0.076371",
+    "-0.0150899",
+    "1.174",
+    "10.0"
+   ]
+  },
+  "mgga_x_tau_hcth": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tau_hcth",
+   "params": [
+    "param_cx_local_1",
+    "param_cx_local_2",
+    "param_cx_local_3",
+    "param_cx_nlocal_1",
+    "param_cx_nlocal_2",
+    "param_cx_nlocal_3",
+    "param_cx_nlocal_0",
+    "param_cx_local_0"
+   ],
+   "values": [
+    "-1.0534",
+    "6.3491",
+    "-2.5531",
+    "-0.3041",
+    "6.9543",
+    "-0.7235",
+    "0.00110",
+    "1.10734"
+   ]
+  },
+  "mgga_x_tb09": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_tb09",
+   "params": [
+    "param_c",
+    "param_alpha"
+   ],
+   "values": [
+    "1.0",
+    "0.0"
+   ]
+  },
   "mgga_x_th": {
    "family": "mgga",
+   "base_kernel": "mgga_x_th",
    "params": [],
    "values": []
   },
+  "mgga_x_tlda": {
+   "family": "mgga",
+   "base_kernel": "mgga_x_lta",
+   "params": [
+    "param_ltafrac"
+   ],
+   "values": [
+    "0.25"
+   ]
+  },
   "mgga_x_tm": {
    "family": "mgga",
+   "base_kernel": "mgga_x_tm",
    "params": [],
    "values": []
   },
   "mgga_x_tpss": {
    "family": "mgga",
+   "base_kernel": "mgga_x_tpss",
    "params": [
     "param_BLOC_a",
     "param_BLOC_b",
@@ -1188,141 +9416,98 @@
   },
   "mgga_x_vcml": {
    "family": "mgga",
+   "base_kernel": "mgga_x_vcml",
    "params": [],
    "values": []
   },
   "mgga_x_vt84": {
    "family": "mgga",
+   "base_kernel": "mgga_x_vt84",
    "params": [],
    "values": []
   },
-  "mgga_xc_b98": {
+  "mgga_xc_b97m_v": {
    "family": "mgga",
-   "params": [],
-   "values": []
+   "base_kernel": "mgga_xc_b97mv",
+   "params": [
+    "param_c_x_1",
+    "param_c_x_2",
+    "param_c_x_3",
+    "param_c_x_4",
+    "param_c_x_0",
+    "param_c_ss_1",
+    "param_c_ss_2",
+    "param_c_ss_3",
+    "param_c_ss_4",
+    "param_c_ss_0",
+    "param_c_os_1",
+    "param_c_os_2",
+    "param_c_os_3",
+    "param_c_os_4",
+    "param_c_os_0"
+   ],
+   "values": [
+    "1.308",
+    "1.901",
+    "0.416",
+    "3.070",
+    "1.000",
+    "-1.855",
+    "-5.668",
+    "-20.497",
+    "-20.364",
+    "1.000",
+    "1.573",
+    "-6.298",
+    "2.535",
+    "-6.427",
+    "1.000"
+   ]
   },
   "mgga_xc_cc06": {
    "family": "mgga",
+   "base_kernel": "mgga_xc_cc06",
    "params": [],
    "values": []
   },
   "mgga_xc_lp90": {
    "family": "mgga",
+   "base_kernel": "mgga_xc_lp90",
    "params": [],
    "values": []
   },
   "mgga_xc_zlp": {
    "family": "mgga",
+   "base_kernel": "mgga_xc_zlp",
    "params": [],
    "values": []
   }
  },
  "unresolved": {
-  "hyb_lda_xc_bn05": "setter is bn05_set_ext_params, not a plain copy",
-  "lda_c_1d_csc": "setter is csc_set_ext_params, not a plain copy",
-  "lda_c_2d_prm": "setter is N_set_ext_params, not a plain copy",
-  "lda_c_hl": "param set mismatch; kernel-only=['param_hl_c_0', 'param_hl_c_1', 'param_hl_r_0', 'param_hl_r_1'] libxc-only=['param_c0', 'param_c1', 'param_r0', 'param_r1']",
-  "lda_c_pmgb06": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "lda_c_pw": "param set mismatch; kernel-only=['param_a_0', 'param_a_1', 'param_a_2', 'param_alpha1_0'] libxc-only=['param_a[0]', 'param_a[1]', 'param_a[2]', 'param_alpha1[0]']",
-  "lda_c_pw_erf": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "lda_c_pz": "param set mismatch; kernel-only=['param_a_0', 'param_a_1', 'param_b_0', 'param_b_1'] libxc-only=['param_a0', 'param_a1', 'param_b0', 'param_b1']",
-  "lda_k_tf": "setter is NULL, not a plain copy",
-  "lda_x": "setter is NULL, not a plain copy",
-  "lda_x_1d_exponential": "param set mismatch; kernel-only=['param_beta'] libxc-only=['parambeta']",
-  "lda_x_1d_soft": "param set mismatch; kernel-only=['param_beta'] libxc-only=['parambeta']",
-  "lda_x_erf": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "lda_x_yukawa": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "lda_xc_1d_ehwlrg": "no xc_func_info_ block in libxc source",
-  "lda_xc_ksdt": "setter is T_set_ext_params, not a plain copy",
-  "gga_c_am05": "non-literal value(s): ['2.804L', '0.8098L']",
-  "gga_c_bmk": "param set mismatch; kernel-only=['param_c_ab_0', 'param_c_ab_1', 'param_c_ab_2', 'param_c_ab_3'] libxc-only=['param_cos0', 'param_cos1', 'param_cos2', 'param_cos3']",
-  "gga_c_lm": "param set mismatch; kernel-only=['param_lm_f'] libxc-only=['param_f']",
-  "gga_c_lypr": "non-literal value(s): ['0.35/2.29', '2.0/2.29']",
-  "gga_c_optc": "non-literal value(s): ['1.1015L', '0.6625L']",
-  "gga_c_p86": "non-literal value(s): ['1.745*0.11']",
-  "gga_c_p86vwn": "non-literal value(s): ['1.745*0.11']",
-  "gga_c_pbe": "param set mismatch; kernel-only=['param_BB'] libxc-only=['param_B']",
-  "gga_c_pbe_erf_gws": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_c_pbe_vwn": "param set mismatch; kernel-only=['param_BB'] libxc-only=['param_B']",
-  "gga_c_sogga11": "param set mismatch; kernel-only=['param_sogga11_a_0', 'param_sogga11_a_1', 'param_sogga11_a_2', 'param_sogga11_a_3'] libxc-only=['param_a0', 'param_a1', 'param_a2', 'param_a3']",
-  "gga_c_zpbeint": "setter is NULL, not a plain copy",
-  "gga_c_zvpbeint": "setter is NULL, not a plain copy",
-  "gga_k_apbe": "setter is NULL, not a plain copy",
-  "gga_k_apbeint": "setter is NULL, not a plain copy",
-  "gga_k_dk": "non-literal value(s): ['0.95*KINX', '14.281111*KINX*KINX', '-19.57962*KINX*KINX*KINX']",
-  "gga_k_lgap": "param set mismatch; kernel-only=['param_mu_0', 'param_mu_1', 'param_mu_2'] libxc-only=['param_mu1', 'param_mu2', 'param_mu3']",
-  "gga_k_lgap_ge": "param set mismatch; kernel-only=['param_mu_0', 'param_mu_1', 'param_mu_2'] libxc-only=['param_mu1', 'param_mu2', 'param_mu3']",
-  "gga_k_llp": "setter is NULL, not a plain copy",
-  "gga_k_mpbe": "no xc_func_info_ block in libxc source",
-  "gga_k_ol2": "setter is NULL, not a plain copy",
-  "gga_k_pg": "no xc_func_info_ block in libxc source",
-  "gga_k_rational_p": "non-literal value(s): ['3.0/2.0']",
-  "gga_k_tflw": "no xc_func_info_ block in libxc source",
-  "gga_x_am05": "non-literal value(s): ['2.804L', '0.7168L']",
-  "gga_x_b86": "non-literal value(s): ['0.0036/X_FACTOR_C']",
-  "gga_x_cap": "non-literal value(s): ['-0.2195149727645171L', '0.05240533950570443L']",
-  "gga_x_dk87": "no xc_func_info_ block in libxc source",
-  "gga_x_ft97": "no xc_func_info_ block in libxc source",
-  "gga_x_hjs": "no xc_func_info_ block in libxc source",
-  "gga_x_hjs_b88_v2": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_ityh": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_ityh_optx": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_ityh_pbe": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_kt": "no xc_func_info_ block in libxc source",
-  "gga_x_lb": "setter is NULL, not a plain copy",
-  "gga_x_lcgau": "no xc_func_info_ block in libxc source",
-  "gga_x_lspbe": "setter is lspbe_set_ext_params, not a plain copy",
-  "gga_x_lsrpbe": "setter is lsrpbe_set_ext_params, not a plain copy",
-  "gga_x_mpbe": "setter is NULL, not a plain copy",
-  "gga_x_n12": "param set mismatch; kernel-only=['param_CC_0_0', 'param_CC_0_1', 'param_CC_0_2', 'param_CC_0_3'] libxc-only=['param_CC00', 'param_CC01', 'param_CC02', 'param_CC03']",
-  "gga_x_ncap": "non-literal value(s): ['0.3451117169263783L', '0.01808569669L', '0.2195149727645171L']",
-  "gga_x_ol2": "non-literal value(s): ['0.09564574034649151285038696952714226444963L', '0.09564574034649151285038696952714226444963L', '4.098833606342553442039881031486386917472L']",
-  "gga_x_optx": "non-literal value(s): ['1.43169/X_FACTOR_C']",
-  "gga_x_pbe": "non-literal value(s): ['MU_PBE']",
-  "gga_x_pbe_erf_gws": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_pbeint": "non-literal value(s): ['MU_PBE', 'MU_GE']",
-  "gga_x_rpbe": "non-literal value(s): ['MU_PBE']",
-  "gga_x_s12": "no xc_func_info_ block in libxc source",
-  "gga_x_sfat": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_sfat_pbe": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_x_sogga11": "non-literal value(s): ['MU_GE']",
-  "gga_x_vmt": "no xc_func_info_ block in libxc source",
-  "gga_x_vmt84": "no xc_func_info_ block in libxc source",
-  "gga_x_wpbeh": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "gga_xc_b97": "no xc_func_info_ block in libxc source",
-  "gga_xc_th1": "param set mismatch; kernel-only=['param_omega_0', 'param_omega_1', 'param_omega_10', 'param_omega_11'] libxc-only=['param_w[0]', 'param_w[10]', 'param_w[11]', 'param_w[12]']",
-  "gga_xc_th3": "setter is NULL, not a plain copy",
-  "hyb_gga_x_cam_s12": "no xc_func_info_ block in libxc source",
-  "hyb_gga_xc_case21": "setter is case21_set_ext_params, not a plain copy",
-  "hyb_gga_xc_wb97": "setter is set_ext_params_cpy_cam, not a plain copy",
-  "hyb_mgga_x_js18": "setter is set_ext_params_cpy_cam_sr, not a plain copy",
-  "hyb_mgga_x_m05": "setter is set_ext_params_cpy_exx, not a plain copy",
-  "hyb_mgga_x_pjs18": "setter is set_ext_params_cpy_lc, not a plain copy",
-  "hyb_mgga_xc_gas22": "setter is set_ext_params_cpy_cam, not a plain copy",
-  "hyb_mgga_xc_wb97mv": "no xc_func_info_ block in libxc source",
-  "mgga_c_ltapw": "no xc_func_info_ block in libxc source",
-  "mgga_c_m05": "param set mismatch; kernel-only=['param_cab_0', 'param_cab_1', 'param_cab_2', 'param_cab_3'] libxc-only=['param_cab0', 'param_cab1', 'param_cab2', 'param_cab3']",
-  "mgga_c_m06l": "no xc_func_info_ block in libxc source",
-  "mgga_c_m08": "no xc_func_info_ block in libxc source",
-  "mgga_c_revtpss": "param set mismatch; kernel-only=['param_C0_c_0', 'param_C0_c_1', 'param_C0_c_2', 'param_C0_c_3'] libxc-only=['param_C0_c0', 'param_C0_c1', 'param_C0_c2', 'param_C0_c3']",
-  "mgga_c_tpss": "param set mismatch; kernel-only=['param_C0_c_0', 'param_C0_c_1', 'param_C0_c_2', 'param_C0_c_3'] libxc-only=['param_C0_c0', 'param_C0_c1', 'param_C0_c2', 'param_C0_c3']",
-  "mgga_c_vsxc": "param set mismatch; kernel-only=['param_alpha_ab', 'param_dab_0', 'param_dab_1', 'param_dab_2'] libxc-only=['param_alpha_os', 'param_dab0', 'param_dab1', 'param_dab2']",
-  "mgga_k_csk": "no xc_func_info_ block in libxc source",
-  "mgga_k_csk_loc": "no xc_func_info_ block in libxc source",
-  "mgga_k_lk": "no xc_func_info_ block in libxc source",
-  "mgga_k_pgslb": "no xc_func_info_ block in libxc source",
-  "mgga_x_gdme": "no xc_func_info_ block in libxc source",
-  "mgga_x_gx": "non-literal value(s): ['0.827411L', '-0.643560L']",
-  "mgga_x_m06l": "no xc_func_info_ block in libxc source",
-  "mgga_x_m08": "no xc_func_info_ block in libxc source",
-  "mgga_x_m11": "no xc_func_info_ block in libxc source",
-  "mgga_x_m11_l": "setter is set_ext_params_cpy_omega, not a plain copy",
-  "mgga_x_mn12": "no xc_func_info_ block in libxc source",
-  "mgga_x_ms": "no xc_func_info_ block in libxc source",
-  "mgga_x_msb": "no xc_func_info_ block in libxc source",
-  "mgga_x_task": "param set mismatch; kernel-only=['param_task_anu_0', 'param_task_anu_1', 'param_task_anu_2', 'param_task_bnu_0'] libxc-only=['param_anu0', 'param_anu1', 'param_anu2', 'param_bnu0']",
-  "mgga_x_tau_hcth": "names/values array not found in mgga_x_tau_hcth.c (pure_names, tHCTH_val)",
-  "mgga_x_tb09": "param set mismatch; kernel-only=['param_c'] libxc-only=['paramc']",
-  "mgga_xc_b97mv": "no xc_func_info_ block in libxc source"
+  "gga_x_kgg99": "composed functional: gga_x_gg99.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_x_revssb_d": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_x_ssb": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_x_ssb_d": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_xc_beefvdw": "composed functional: gga_x_beefvdw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_xc_kt1": "composed functional: gga_x_kt.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_xc_kt2": "composed functional: gga_x_kt.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_xc_kt3": "composed functional: gga_x_kt.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "gga_xc_ncap": "composed functional: gga_x_ncap.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_gga_xc_apbe0": "composed functional: gga_c_zvpbeloc.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_gga_xc_cap0": "composed functional: gga_x_cap.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_gga_xc_hapbe": "composed functional: gga_c_zvpbeloc.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_gga_xc_hflyp": "composed functional: gga_c_lyp.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_lda_xc_lda0": "composed functional: lda_x.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_x_ms2h": "composed functional: mgga_x_ms.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_x_revscan0": "composed functional: mgga_x_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_x_scan0": "composed functional: mgga_x_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_xc_b94_hyb": "composed functional: mgga_c_b94.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_xc_edmggah": "composed functional: mgga_x_edmgga.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "hyb_mgga_xc_lc_tmlyp": "composed functional: hyb_mgga_x_pjs18.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "mgga_c_revscan_vv10": "composed functional: mgga_c_revscan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "mgga_c_scan_rvv10": "composed functional: mgga_c_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "mgga_c_scan_vv10": "composed functional: mgga_c_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "mgga_x_mk00b": "composed functional: mgga_x_rlda.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
+  "mgga_xc_vcml_rvv10": "composed functional: mgga_x_vcml.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"
  }
 }

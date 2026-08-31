@@ -4,12 +4,19 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::piecewise::piecewise3;
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_bmk_exc_unpol(
@@ -76,7 +83,14 @@ pub fn gga_c_bmk_exc_unpol(
         let t81 = 1.0 + 29.608574643216677 / t78;
         let t82 = rmath::ln(t81);
         let t83 = t73 * t82;
-        let t92 = piecewise3(t4, 0.0, t5 * (-t47 + t58 * (-0.03109 * t60 * t69 + t47 - 0.019751789702565206 * t83) + 0.019751789702565206 * t58 * t83) / 2.0);
+        let t92 = piecewise3(
+            t4,
+            0.0,
+            t5 * (-t47
+                + t58 * (-0.03109 * t60 * t69 + t47 - 0.019751789702565206 * t83)
+                + 0.019751789702565206 * t58 * t83)
+                / 2.0,
+        );
         let t94 = param_c_ss_1;
         let t95 = t94 * sigma[ip];
         let t96 = rho[ip] * rho[ip];
@@ -112,7 +126,11 @@ pub fn gga_c_bmk_exc_unpol(
         let t138 = t116 * t116;
         let t139 = 1.0 / t138;
         let t140 = t137 * t139;
-        let t143 = param_c_ss_0 + 0.2 * t95 * t99 * t104 + 0.08 * t110 * t118 + 0.032 * t123 * t128 + 0.0064 * t133 * t140;
+        let t143 = param_c_ss_0
+            + 0.2 * t95 * t99 * t104
+            + 0.08 * t110 * t118
+            + 0.032 * t123 * t128
+            + 0.0064 * t133 * t140;
         let t145 = 2.0 * t92 * t143;
         let t147 = t9 * t11 * t14;
         let t149 = 1.0 + 0.053425 * t147;
@@ -148,7 +166,11 @@ pub fn gga_c_bmk_exc_unpol(
         let t210 = t196 * t196;
         let t211 = 1.0 / t210;
         let t212 = t137 * t211;
-        let t215 = param_c_ab_0 + 0.006 * t187 * t99 * t190 + 7.2e-05 * t195 * t198 + 8.64e-07 * t202 * t205 + 5.184e-09 * t209 * t212;
+        let t215 = param_c_ab_0
+            + 0.006 * t187 * t99 * t190
+            + 7.2e-05 * t195 * t198
+            + 8.64e-07 * t202 * t205
+            + 5.184e-09 * t209 * t212;
         let t216 = t184 * t215;
         let tzk0 = t145 + t216;
         zk[ip] += tzk0;

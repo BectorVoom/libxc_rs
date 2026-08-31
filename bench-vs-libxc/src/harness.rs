@@ -90,7 +90,10 @@ const TICKS_PER_SEC: f64 = 100.0;
 /// make a run slower, so a looser gate costs accuracy far more gently than an
 /// empty sample does.
 pub fn contention_limit() -> f64 {
-    std::env::var("XCVS_CONTENTION").ok().and_then(|s| s.parse().ok()).unwrap_or(1.5)
+    std::env::var("XCVS_CONTENTION")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(1.5)
 }
 /// Target duration of one timed rep. Jiffy resolution is 10 ms, so reps need to
 /// be long enough that the contention estimate is meaningful.

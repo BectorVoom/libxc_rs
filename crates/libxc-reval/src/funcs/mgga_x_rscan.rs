@@ -22,9 +22,9 @@ pub const PARAM_K1: f64 = 0.065;
 /// libxc default for `param_taur`.
 pub const PARAM_TAUR: f64 = 1.0e-4;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

@@ -14,5 +14,5 @@ pub const PROPAGATION_RULES: &[PropagationRule] = &[
     PropagationRule { parent_id: FunctionalId(490), parent_param_name: "_omega", parent_param_index: 3, aux_slot: 1, aux_param_name: "_omega" },
     PropagationRule { parent_id: FunctionalId(482), parent_param_name: "_omega", parent_param_index: 3, aux_slot: 1, aux_param_name: "_omega" },
     PropagationRule { parent_id: FunctionalId(491), parent_param_name: "_omega", parent_param_index: 3, aux_slot: 1, aux_param_name: "_omega" },
-    PropagationRule { parent_id: FunctionalId(478), parent_param_name: "_omega", parent_param_index: 2, aux_slot: 1, aux_param_name: "_omega" },
+    PropagationRule { parent_id: FunctionalId(478), parent_param_name: "_omega", parent_param_index: 2, aux_slot: 0, aux_param_name: "_omega" },
 ];

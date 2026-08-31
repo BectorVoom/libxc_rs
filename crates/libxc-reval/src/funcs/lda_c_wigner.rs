@@ -16,9 +16,9 @@ pub const PARAM_A: f64 = -0.44;
 /// libxc default for `param_b`.
 pub const PARAM_B: f64 = 7.8;
 
-pub fn dispatch<'a>(
-    input: &'a LdaInput<'a>,
-    output: &'a mut LdaOutput<'a>,
+pub fn dispatch(
+    input: &LdaInput<'_>,
+    output: &mut LdaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

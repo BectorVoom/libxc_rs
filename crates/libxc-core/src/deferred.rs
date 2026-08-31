@@ -13,13 +13,13 @@
 //! launch a kernel that cannot currently be compiled.
 
 /// LDA functionals deferred from translation due to CubeCL proc macro stack limits.
+///
+/// These 4 functionals were translated with the incremental derivative
+/// structure (so source files exist under their respective modules), but
+/// the generated `kxc_pol` or `lxc_pol` functions exceed CubeCL's
+/// proc-macro stack limit (~10K lines per `#[cube]` fn). Compiling them
+/// aborts with stack overflow.
 pub mod lda {
-    //! These 4 functionals were translated with the incremental derivative
-    //! structure (so source files exist under their respective modules), but
-    //! the generated `kxc_pol` or `lxc_pol` functions exceed CubeCL's
-    //! proc-macro stack limit (~10K lines per `#[cube]` fn). Compiling them
-    //! aborts with stack overflow.
-
     /// A deferred LDA functional that cannot currently be compiled.
     pub struct DeferredLda {
         /// Functional name (e.g., "lda_c_pk09")
@@ -107,12 +107,12 @@ pub mod lda {
 }
 
 /// MGGA functionals deferred from translation due to missing math primitives.
+///
+/// These 6 functionals require iterative root-finder implementations
+/// (Brent's method) that are not yet available in kernel-math. They use
+/// either `xc_mgga_x_br89_get_x` (solves x * exp(-2x/3) = C) or
+/// `xc_mgga_x_mbrxc_get_x` (similar nonlinear solve).
 pub mod mgga {
-    //! These 6 functionals require iterative root-finder implementations
-    //! (Brent's method) that are not yet available in kernel-math. They use
-    //! either `xc_mgga_x_br89_get_x` (solves x * exp(-2x/3) = C) or
-    //! `xc_mgga_x_mbrxc_get_x` (similar nonlinear solve).
-
     /// A deferred MGGA functional that could not be translated.
     pub struct DeferredMgga {
         /// Functional name (e.g., "mgga_c_b94")

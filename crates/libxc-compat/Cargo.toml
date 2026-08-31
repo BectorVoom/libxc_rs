@@ -5,21 +5,12 @@ edition = "2024"
 
 [lib]
 crate-type = ["rlib", "cdylib", "staticlib"]
-# default name "libxc_rs" -> libxc_rs.so / .a / .rlib (D-08); NO [bin] (D-07).
 
 [dependencies]
 libxc-core = { path = "../libxc-core" }
-# Pin default-features=false + forward the family features here. A functional
-# cdylib needs all families (build libxc-compat directly with --features, or via
-# the `default` below — OOM-heavy, which is why compat is EXCLUDED from
-# [workspace] default-members). The pin keeps the umbrella `cargo check -p
-# libxc_rs` kernel-free: root deps libxc-compat default-features=false, so
-# compat contributes ZERO kernels unless its features are explicitly activated.
 libxc-eval = { path = "../libxc-eval", default-features = false }
+libxc-reval = { path = "../libxc-reval" }
 
 [features]
-# Off by default since ADR 0001. These features pull the archived CubeCL kernel
-# tree (306 crates) through libxc-eval, and libxc-compat only needs two
-# orchestration types from it (`Functional`, `EvaluationWorkspace`), which
-# compile without any kernels. `verify` opts in explicitly.
-default     = []
+default = []
+c-abi = []

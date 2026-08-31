@@ -25,7 +25,7 @@ use libxc_core::model::FunctionalId;
 /// is responsible for boxing.
 #[allow(dead_code)]
 pub(crate) fn default_gga_params() -> crate::functional::params::NoParams {
-    crate::functional::params::NoParams
+    crate::functional::params::NoParams::default()
 }
 
 #[cfg(test)]

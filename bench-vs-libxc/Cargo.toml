@@ -17,3 +17,9 @@ rayon = "1.11"
 [[bin]]
 name = "xcvs"
 path = "src/main.rs"
+
+# The SIMD-allowlist qualification harness: Rust legs and a fingerprint only,
+# no C side. See the module docs in src/qual.rs.
+[[bin]]
+name = "xcqual"
+path = "src/qual.rs"

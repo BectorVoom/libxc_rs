@@ -16,9 +16,9 @@ pub const PARAM_BETA: f64 = 0.0042;
 /// libxc default for `param_gamma`.
 pub const PARAM_GAMMA: f64 = 6.0;
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

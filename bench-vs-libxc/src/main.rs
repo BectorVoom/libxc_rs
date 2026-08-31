@@ -59,7 +59,10 @@ unsafe impl GlobalAlloc for Counting {
 static A: Counting = Counting;
 
 fn alloc_snapshot() -> (u64, u64) {
-    (ALLOC_CALLS.load(Ordering::Relaxed), ALLOC_BYTES.load(Ordering::Relaxed))
+    (
+        ALLOC_CALLS.load(Ordering::Relaxed),
+        ALLOC_BYTES.load(Ordering::Relaxed),
+    )
 }
 
 // glibc's malloc arena totals. The Rust counter above only sees Rust's own
@@ -220,39 +223,104 @@ unsafe impl Send for CFunc {}
 // ---------------------------------------------------------------------------
 
 fn arg_val(args: &[String], key: &str) -> Option<String> {
-    args.iter().position(|a| a == key).and_then(|i| args.get(i + 1)).cloned()
+    args.iter()
+        .position(|a| a == key)
+        .and_then(|i| args.get(i + 1))
+        .cloned()
 }
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let np: usize = arg_val(&args, "--np").and_then(|s| s.parse().ok()).unwrap_or(100_000);
-    let reps: usize = arg_val(&args, "--reps").and_then(|s| s.parse().ok()).unwrap_or(9);
+    let np: usize = arg_val(&args, "--np")
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(100_000);
+    let reps: usize = arg_val(&args, "--reps")
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(9);
     let only = arg_val(&args, "--only");
 
     let cases = [
-        Case { fam: Fam::Lda, name: "lda_c_vwn", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Gga, name: "gga_x_b88", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Gga, name: "gga_c_lyp", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Gga, name: "gga_x_b88", order: DerivativeOrder::Fxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Gga, name: "gga_x_b88", order: DerivativeOrder::Vxc, spin: Spin::Polarized },
-        Case { fam: Fam::Mgga, name: "mgga_x_scan", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Mgga, name: "mgga_c_r2scan", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Mgga, name: "mgga_x_scan", order: DerivativeOrder::Vxc, spin: Spin::Polarized },
+        Case {
+            fam: Fam::Lda,
+            name: "lda_c_vwn",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_b88",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_c_lyp",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_b88",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_b88",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_x_scan",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_c_r2scan",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_x_scan",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
         // SIMD-allowlist candidates (docs/perf/simd-kernels.md): the most
         // libm-heavy routed kernels, where LLVM declines to vectorise the
         // grid loop. Their transcendentals are exp/ln only, so the SIMD form
         // is bit-identical to the scalar form and the fingerprint must not
         // move when one is added to SIMD_FUNCS.
-        Case { fam: Fam::Mgga, name: "mgga_c_tpssloc", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Mgga, name: "mgga_c_scan", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
-        Case { fam: Fam::Mgga, name: "mgga_c_rregtm", order: DerivativeOrder::Vxc, spin: Spin::Unpolarized },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_c_tpssloc",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_c_scan",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Mgga,
+            name: "mgga_c_rregtm",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
     ];
 
     let threads = rayon::current_num_threads();
     println!("grid points: {np}   rayon threads: {threads}   reps: {reps}");
     println!("load average at start: {:.2}", harness::loadavg());
     println!("min_chunk (rust-Nt): {}", default_min_chunk());
-    println!("tail fraction (points below every threshold): {:.0}%\n", grid::tail_fraction() * 100.0);
+    println!(
+        "tail fraction (points below every threshold): {:.0}%\n",
+        grid::tail_fraction() * 100.0
+    );
 
     for c in cases {
         if let Some(f) = &only {
@@ -269,7 +337,10 @@ fn main() {
 }
 
 fn default_min_chunk() -> usize {
-    std::env::var("XCVS_MIN_CHUNK").ok().and_then(|s| s.parse().ok()).unwrap_or(2048)
+    std::env::var("XCVS_MIN_CHUNK")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(2048)
 }
 
 fn set_min_chunk(fam: Fam, n: usize) {
@@ -296,7 +367,11 @@ fn header(c: &Case, np: usize) {
         "{}  [{}]  {}  np={}",
         c.name,
         order_name(c.order),
-        if c.spin == Spin::Unpolarized { "unpolarized" } else { "polarized" },
+        if c.spin == Spin::Unpolarized {
+            "unpolarized"
+        } else {
+            "polarized"
+        },
         np
     );
 }
@@ -336,7 +411,11 @@ fn check(pairs: &[(&str, &[f64], &[f64])], name: &str) {
             if !x.is_finite() || !y.is_finite() {
                 continue;
             }
-            let e = if y.abs() < 1e-280 { (x - y).abs() } else { ((x - y) / y).abs() };
+            let e = if y.abs() < 1e-280 {
+                (x - y).abs()
+            } else {
+                ((x - y) / y).abs()
+            };
             if e > worst {
                 worst = e;
                 worst_field = f;
@@ -414,20 +493,43 @@ fn bench_lda(c: Case, np: usize, reps: usize, threads: usize) {
     let in_mb = g.rho.len() as f64 * 8.0 / 1e6;
 
     let rho = CP(g.rho.as_ptr());
-    let (p_zk1, p_vr1, p_v21) = (P(zk1.as_mut_ptr()), P(vr1.as_mut_ptr()), P(v21.as_mut_ptr()));
-    let (p_zkn, p_vrn, p_v2n) = (P(zkn.as_mut_ptr()), P(vrn.as_mut_ptr()), P(v2n.as_mut_ptr()));
+    let (p_zk1, p_vr1, p_v21) = (
+        P(zk1.as_mut_ptr()),
+        P(vr1.as_mut_ptr()),
+        P(v21.as_mut_ptr()),
+    );
+    let (p_zkn, p_vrn, p_v2n) = (
+        P(zkn.as_mut_ptr()),
+        P(vrn.as_mut_ptr()),
+        P(v2n.as_mut_ptr()),
+    );
     let cn = np.div_ceil(threads);
-    let (dr, dz, dv, d2) =
-        (d.rho as usize, d.zk as usize, d.vrho as usize, d.v2rho2 as usize);
+    let (dr, dz, dv, d2) = (
+        d.rho as usize,
+        d.zk as usize,
+        d.vrho as usize,
+        d.v2rho2 as usize,
+    );
     let f = &cf;
 
     let call_c = move |p: (P, P, P), off: usize, len: usize| unsafe {
         if fxc {
             libxc_sys::xc_lda_exc_vxc_fxc(
-                f.0, len, rho.at(off * dr), p.0.at(off * dz), p.1.at(off * dv), p.2.at(off * d2),
+                f.0,
+                len,
+                rho.at(off * dr),
+                p.0.at(off * dz),
+                p.1.at(off * dv),
+                p.2.at(off * d2),
             );
         } else {
-            libxc_sys::xc_lda_exc_vxc(f.0, len, rho.at(off * dr), p.0.at(off * dz), p.1.at(off * dv));
+            libxc_sys::xc_lda_exc_vxc(
+                f.0,
+                len,
+                rho.at(off * dr),
+                p.0.at(off * dz),
+                p.1.at(off * dv),
+            );
         }
     };
 
@@ -444,10 +546,15 @@ fn bench_lda(c: Case, np: usize, reps: usize, threads: usize) {
 
     let rho_s: &[f64] = &g.rho;
     let mut legs = vec![
-        Leg::new("libxc-1t", Box::new(move || call_c((p_zk1, p_vr1, p_v21), 0, np))),
+        Leg::new(
+            "libxc-1t",
+            Box::new(move || call_c((p_zk1, p_vr1, p_v21), 0, np)),
+        ),
         Leg::new(
             "libxc-Nt",
-            Box::new(move || par_chunks(np, cn, |off, len| call_c((p_zkn, p_vrn, p_v2n), off, len))),
+            Box::new(move || {
+                par_chunks(np, cn, |off, len| call_c((p_zkn, p_vrn, p_v2n), off, len))
+            }),
         ),
         Leg::new(
             "rust-1t",
@@ -469,8 +576,7 @@ fn bench_lda(c: Case, np: usize, reps: usize, threads: usize) {
     drop(legs);
 
     mem_report(buf_mb, in_mb, hwm0, rss0, a0);
-    let mut pairs: Vec<(&str, &[f64], &[f64])> =
-        vec![("zk", &zk1, &zkrn), ("vrho", &vr1, &vrrn)];
+    let mut pairs: Vec<(&str, &[f64], &[f64])> = vec![("zk", &zk1, &zkrn), ("vrho", &vr1, &vrrn)];
     if fxc {
         pairs.push(("v2rho2", &v21, &v2rn));
     }
@@ -527,7 +633,10 @@ impl GgaBufs {
         }
     }
     fn mb(&self) -> f64 {
-        (self.zk.len() + self.vrho.len() + self.vsigma.len() + self.v2rho2.len()
+        (self.zk.len()
+            + self.vrho.len()
+            + self.vsigma.len()
+            + self.v2rho2.len()
             + self.v2rhosigma.len()
             + self.v2sigma2.len()) as f64
             * 8.0
@@ -618,7 +727,10 @@ fn bench_gga(c: Case, np: usize, reps: usize, threads: usize) {
     let (rho_s, sig_s): (&[f64], &[f64]) = (&g.rho, &g.sigma);
     let mut legs = vec![
         Leg::new("libxc-1t", Box::new(move || call_c(q1, 0, np))),
-        Leg::new("libxc-Nt", Box::new(move || par_chunks(np, cn, |off, len| call_c(qn, off, len)))),
+        Leg::new(
+            "libxc-Nt",
+            Box::new(move || par_chunks(np, cn, |off, len| call_c(qn, off, len))),
+        ),
         Leg::new(
             "rust-1t",
             Box::new(|| {
@@ -745,7 +857,12 @@ fn bench_mgga(c: Case, np: usize, reps: usize, threads: usize) {
         d.vlapl as usize,
         d.vtau as usize,
     ];
-    let (dr, ds, dl, dt) = (d.rho as usize, d.sigma as usize, d.lapl as usize, d.tau as usize);
+    let (dr, ds, dl, dt) = (
+        d.rho as usize,
+        d.sigma as usize,
+        d.lapl as usize,
+        d.tau as usize,
+    );
     let cn = np.div_ceil(threads);
     let f = &cf;
 
@@ -780,7 +897,10 @@ fn bench_mgga(c: Case, np: usize, reps: usize, threads: usize) {
         (&g.rho, &g.sigma, &g.lapl, &g.tau);
     let mut legs = vec![
         Leg::new("libxc-1t", Box::new(move || call_c(q1, 0, np))),
-        Leg::new("libxc-Nt", Box::new(move || par_chunks(np, cn, |off, len| call_c(qn, off, len)))),
+        Leg::new(
+            "libxc-Nt",
+            Box::new(move || par_chunks(np, cn, |off, len| call_c(qn, off, len))),
+        ),
         Leg::new(
             "rust-1t",
             Box::new(|| {

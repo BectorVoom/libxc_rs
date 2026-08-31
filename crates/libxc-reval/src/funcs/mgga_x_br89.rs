@@ -16,9 +16,9 @@ pub const PARAM_AT: f64 = 0.0;
 /// libxc default for `param_gamma`.
 pub const PARAM_GAMMA: f64 = 0.8;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

@@ -29,12 +29,12 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {
 /// higher than the one requested are still cleared here: they are dropped from
 /// the chunk, so the sweep never sees them, and leaving stale values in a
 /// buffer the caller handed us would be worse than the cost of clearing it.
-pub fn prepare<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn prepare<'inp, 'out>(
+    input: &MggaInput<'inp>,
+    output: &mut MggaOutput<'out>,
     order: DerivativeOrder,
     d: &Dimensions,
-) -> Result<MggaChunk<'a>, LibxcRsError> {
+) -> Result<MggaChunk<'inp, 'out>, LibxcRsError> {
     let np = input.np();
     let need = required_fields(order);
 
@@ -171,7 +171,7 @@ macro_rules! ten_arm_dispatch_rmgga {
         let chunk = $crate::mgga::prepare($input, $output, $order, &d)?;
 
         match ($order, $spin) {
-            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($exc_u)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -179,7 +179,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($vxc_u)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -191,7 +191,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($fxc_u)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -213,7 +213,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($kxc_u)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -255,7 +255,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($lxc_u)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -332,7 +332,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($exc_p)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -340,7 +340,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($vxc_p)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -352,7 +352,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($fxc_p)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -374,7 +374,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($kxc_p)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -416,7 +416,7 @@ macro_rules! ten_arm_dispatch_rmgga {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_>| {
+            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_mgga::MggaChunk<'_, '_>| {
                 $($lxc_p)::+(
                         c.rho, c.sigma, c.lapl, c.tau,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),

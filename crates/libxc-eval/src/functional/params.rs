@@ -30,12 +30,70 @@ pub trait FunctionalParams: Send + Sync {
     fn as_any(&self) -> &dyn Any;
 }
 
+/// Generic ext_params carrier for functionals with runtime parameters.
+#[derive(Debug, Clone)]
+pub struct GenericParams {
+    id: FunctionalId,
+    raw: Box<[f64]>,
+}
+
+impl GenericParams {
+    pub fn new(id: FunctionalId, defaults: &[f64]) -> Self {
+        Self {
+            id,
+            raw: Box::from(defaults),
+        }
+    }
+}
+
+impl FunctionalParams for GenericParams {
+    fn ext_param_count(&self) -> usize {
+        self.raw.len()
+    }
+
+    fn raw_ext_params(&self) -> &[f64] {
+        &self.raw
+    }
+
+    fn set_ext_params(&mut self, vals: &[f64]) -> Result<(), LibxcRsError> {
+        if vals.len() != self.raw.len() {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: self.id,
+                expected: self.raw.len(),
+                actual: vals.len(),
+            });
+        }
+        self.raw.copy_from_slice(vals);
+        Ok(())
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+}
+
 /// Zero-ext_params blanket impl. Used by the majority of functionals.
 ///
 /// Zero-sized type: no per-instance allocation cost beyond the `Box<dyn ...>`
 /// vtable pointer.
-#[derive(Debug, Default, Clone, Copy)]
-pub struct NoParams;
+#[derive(Debug, Clone, Copy)]
+pub struct NoParams {
+    id: FunctionalId,
+}
+
+impl Default for NoParams {
+    fn default() -> Self {
+        Self {
+            id: FunctionalId(0),
+        }
+    }
+}
+
+impl NoParams {
+    pub const fn new(id: FunctionalId) -> Self {
+        Self { id }
+    }
+}
 
 impl FunctionalParams for NoParams {
     fn ext_param_count(&self) -> usize {
@@ -49,7 +107,7 @@ impl FunctionalParams for NoParams {
     fn set_ext_params(&mut self, vals: &[f64]) -> Result<(), LibxcRsError> {
         if !vals.is_empty() {
             return Err(LibxcRsError::ExtParamCountMismatch {
-                id: FunctionalId(0),
+                id: self.id,
                 expected: 0,
                 actual: vals.len(),
             });
@@ -68,20 +126,20 @@ mod tests {
 
     #[test]
     fn no_params_count_is_zero() {
-        let p = NoParams;
+        let p = NoParams::default();
         assert_eq!(p.ext_param_count(), 0);
         assert!(p.raw_ext_params().is_empty());
     }
 
     #[test]
     fn no_params_set_empty_ok() {
-        let mut p = NoParams;
+        let mut p = NoParams::default();
         assert!(p.set_ext_params(&[]).is_ok());
     }
 
     #[test]
     fn no_params_set_nonempty_errors() {
-        let mut p = NoParams;
+        let mut p = NoParams::default();
         let result = p.set_ext_params(&[1.0]);
         match result {
             Err(LibxcRsError::ExtParamCountMismatch { expected, actual, .. }) => {
@@ -94,14 +152,14 @@ mod tests {
 
     #[test]
     fn no_params_as_any_downcasts() {
-        let p: Box<dyn FunctionalParams> = Box::new(NoParams);
+        let p: Box<dyn FunctionalParams> = Box::new(NoParams::default());
         let downcast = p.as_any().downcast_ref::<NoParams>();
         assert!(downcast.is_some());
     }
 
     #[test]
     fn no_params_wrong_type_downcast_returns_none() {
-        let p: Box<dyn FunctionalParams> = Box::new(NoParams);
+        let p: Box<dyn FunctionalParams> = Box::new(NoParams::default());
         // Some other ZST; should not match NoParams.
         struct OtherType;
         let downcast = p.as_any().downcast_ref::<OtherType>();

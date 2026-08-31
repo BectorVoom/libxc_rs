@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 libxc-core = { path = "../libxc-core" }
+libxc-reval = { path = "../libxc-reval" }
 bytemuck = { version = "1.25.0", features = ["derive"] }
 
 [features]

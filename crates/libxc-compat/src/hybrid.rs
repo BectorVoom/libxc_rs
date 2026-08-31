@@ -28,7 +28,7 @@ fn hybrid_type_to_int(t: HybridType) -> i32 {
 }
 
 /// `int xc_hyb_type(const xc_func_type *p);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_hyb_type(p: *const xc_func_type) -> i32 {
     extern_c_wrapper!(p, "xc_hyb_type", {
         let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
@@ -37,7 +37,7 @@ pub unsafe extern "C" fn xc_hyb_type(p: *const xc_func_type) -> i32 {
 }
 
 /// `double xc_hyb_exx_coef(const xc_func_type *p);` — returns NaN on error.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_hyb_exx_coef(p: *const xc_func_type) -> f64 {
     if p.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_hyb_exx_coef: null handle");
@@ -63,7 +63,7 @@ pub unsafe extern "C" fn xc_hyb_exx_coef(p: *const xc_func_type) -> f64 {
 }
 
 /// `void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_hyb_cam_coef(
     p: *const xc_func_type,
     omega: *mut f64,
@@ -103,7 +103,7 @@ pub unsafe extern "C" fn xc_hyb_cam_coef(
 }
 
 /// `void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_c);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_nlc_coef(p: *const xc_func_type, nlc_b: *mut f64, nlc_c: *mut f64) {
     if p.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_nlc_coef: null handle");
@@ -126,7 +126,7 @@ pub unsafe extern "C" fn xc_nlc_coef(p: *const xc_func_type, nlc_b: *mut f64, nl
 }
 
 /// `int xc_num_aux_funcs(const xc_func_type *p);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_num_aux_funcs(p: *const xc_func_type) -> i32 {
     extern_c_wrapper!(p, "xc_num_aux_funcs", {
         let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
@@ -135,7 +135,7 @@ pub unsafe extern "C" fn xc_num_aux_funcs(p: *const xc_func_type) -> i32 {
 }
 
 /// `void xc_aux_func_ids(const xc_func_type *p, int *ids);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_aux_func_ids(p: *const xc_func_type, ids: *mut i32) {
     if p.is_null() || ids.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_aux_func_ids: null pointer");
@@ -154,7 +154,7 @@ pub unsafe extern "C" fn xc_aux_func_ids(p: *const xc_func_type, ids: *mut i32) 
 }
 
 /// `void xc_aux_func_weights(const xc_func_type *p, double *weights);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_aux_func_weights(p: *const xc_func_type, weights: *mut f64) {
     if p.is_null() || weights.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_aux_func_weights: null pointer");
@@ -184,14 +184,14 @@ const X_FACTOR_C: f64 = 0.9305257363491000250020102180716672510262;
 
 /// `double xc_gga_ak13_get_asymptotic(double homo);`
 /// libxc-master/src/gga_x_ak13.c:35-38 — forwards to the inner formula with par_ak13[0].
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_gga_ak13_get_asymptotic(homo: f64) -> f64 {
     ak13_pars_asymptotic_inner(homo, AK13_PAR_B1)
 }
 
 /// `double xc_gga_ak13_pars_get_asymptotic(double homo, const double *ext_params);`
 /// libxc-master/src/gga_x_ak13.c:40-55 — `ext_params[0]` supplies B1.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_ak13_pars_get_asymptotic(homo: f64, ext_params: *const f64) -> f64 {
     let b1 = if ext_params.is_null() {
         AK13_PAR_B1

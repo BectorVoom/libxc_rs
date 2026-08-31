@@ -16,9 +16,9 @@ pub const PARAM_COPP: f64 = 0.0031;
 /// libxc default for `param_css`.
 pub const PARAM_CSS: f64 = 0.038;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

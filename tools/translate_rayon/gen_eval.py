@@ -75,8 +75,8 @@ def order_slices(fam: str, outputs: list[str]) -> dict[str, list[str]]:
 
 def gen_sweep(fam: str, inputs: list[str], outputs: list[str]) -> str:
     Fam = fam.capitalize()
-    in_fields = "\n".join(f"    pub {n}: &'a [f64]," for n in inputs)
-    out_fields = "\n".join(f"    pub {n}: Option<&'a mut [f64]>," for n in outputs)
+    in_fields = "\n".join(f"    pub {n}: &'inp [f64]," for n in inputs)
+    out_fields = "\n".join(f"    pub {n}: Option<&'out mut [f64]>," for n in outputs)
     in_split = "\n".join(
         f"        let ({n}_l, {n}_r) = self.{n}.split_at(mid * d.{n} as usize);"
         for n in inputs
@@ -134,14 +134,14 @@ def gen_sweep(fam: str, inputs: list[str], outputs: list[str]) -> str:
 use libxc_core::dims::Dimensions;
 
 /// One contiguous run of grid points, every array narrowed to it.
-pub struct {Fam}Chunk<'a> {{
+pub struct {Fam}Chunk<'inp, 'out> {{
     pub np: usize,
 {in_fields}
 {out_fields}
 }}
 
 #[inline]
-fn split_opt(o: Option<&mut [f64]>, at: usize) -> (Option<&mut [f64]>, Option<&mut [f64]>) {{
+fn split_opt<'out>(o: Option<&'out mut [f64]>, at: usize) -> (Option<&'out mut [f64]>, Option<&'out mut [f64]>) {{
     match o {{
         Some(s) => {{
             let (l, r) = s.split_at_mut(at);
@@ -151,9 +151,9 @@ fn split_opt(o: Option<&mut [f64]>, at: usize) -> (Option<&mut [f64]>, Option<&m
     }}
 }}
 
-impl<'a> {Fam}Chunk<'a> {{
+impl<'inp, 'out> {Fam}Chunk<'inp, 'out> {{
     /// Split at grid point `mid`, narrowing every array at its own stride.
-    pub fn split_at(self, mid: usize, d: &Dimensions) -> ({Fam}Chunk<'a>, {Fam}Chunk<'a>) {{
+    pub fn split_at(self, mid: usize, d: &Dimensions) -> ({Fam}Chunk<'inp, 'out>, {Fam}Chunk<'inp, 'out>) {{
 {in_split}
 {out_split}
         (
@@ -173,7 +173,7 @@ impl<'a> {Fam}Chunk<'a> {{
     /// as several disjoint windows and then still be available to clean up
     /// afterwards. Reborrowing keeps ownership with the caller. Every array is
     /// narrowed at its own stride, for the same reason `split_at` is.
-    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> {Fam}Chunk<'_> {{
+    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> {Fam}Chunk<'inp, '_> {{
         let end = start + len;
         {Fam}Chunk {{
             np: len,
@@ -213,7 +213,7 @@ pub fn set_min_chunk(n: usize) {{
 /// Bit-exactness is unaffected: the stored value and the order of the
 /// accumulations are identical either way, only the moment of the store moves.
 #[inline]
-fn zero_outputs(chunk: &mut {Fam}Chunk<'_>) {{
+fn zero_outputs(chunk: &mut {Fam}Chunk<'_, '_>) {{
 {zero_outs}
 }}
 
@@ -225,7 +225,7 @@ fn total_density(rho: &[f64], ip: usize, nc: usize) -> f64 {{
 
 /// Clear every output at one grid point.
 #[inline]
-fn zero_point(chunk: &mut {Fam}Chunk<'_>, ip: usize, d: &Dimensions) {{
+fn zero_point(chunk: &mut {Fam}Chunk<'_, '_>, ip: usize, d: &Dimensions) {{
 {zero_point_outs}
 }}
 
@@ -238,7 +238,7 @@ fn zero_point(chunk: &mut {Fam}Chunk<'_>, ip: usize, d: &Dimensions) {{
 /// -- cost about 14 ns per call, which turned `gga_x_b88` from 1.98 to 6.84
 /// ns/point: worse than doing no screening at all. So a fragmented chunk takes
 /// the other route below instead.
-const MIN_RUN: usize = 64;
+const MIN_RUN: usize = 128;
 
 /// Evaluate `f` over the above-threshold points only, leaving the rest zero.
 ///
@@ -281,9 +281,9 @@ const MIN_RUN: usize = 64;
 ///   it saves. Then the kernel runs over the whole chunk and the screened
 ///   points are zeroed afterwards. No arithmetic is saved, but the answer is
 ///   the same one, which is the part that matters.
-fn screened_call<F>(mut chunk: {Fam}Chunk<'_>, d: &Dimensions, dens_threshold: f64, f: &F)
+fn screened_call<F>(mut chunk: {Fam}Chunk<'_, '_>, d: &Dimensions, dens_threshold: f64, f: &F)
 where
-    F: Fn(&mut {Fam}Chunk<'_>) + Sync,
+    F: Fn(&mut {Fam}Chunk<'_, '_>) + Sync,
 {{
     let nc = d.rho as usize;
     let np = chunk.np;
@@ -340,13 +340,13 @@ where
 
 /// Recursively halve the grid and evaluate each piece in parallel.
 pub fn par_sweep<F>(
-    mut chunk: {Fam}Chunk<'_>,
+    mut chunk: {Fam}Chunk<'_, '_>,
     d: &Dimensions,
     min_chunk: usize,
     dens_threshold: f64,
     f: &F,
 ) where
-    F: Fn(&mut {Fam}Chunk<'_>) + Sync,
+    F: Fn(&mut {Fam}Chunk<'_, '_>) + Sync,
 {{
     if chunk.np <= min_chunk {{
         zero_outputs(&mut chunk);
@@ -388,7 +388,7 @@ def gen_family(fam: str, inputs: list[str], outputs: list[str]) -> str:
             # inner `$` is what makes it a metavariable rather than the literal
             # token `exc_u`.
             arms.append(
-                f'''            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_{fam}::{Fam}Chunk<'_>| {{
+                f'''            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_{fam}::{Fam}Chunk<'_, '_>| {{
                 $(${o.lower()}_{suf})::+(
                         {ins},
 {fields}
@@ -431,12 +431,12 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {{
 /// higher than the one requested are still cleared here: they are dropped from
 /// the chunk, so the sweep never sees them, and leaving stale values in a
 /// buffer the caller handed us would be worse than the cost of clearing it.
-pub fn prepare<'a>(
-    input: &'a {Fam}Input<'a>,
-    output: &'a mut {Fam}Output<'a>,
+pub fn prepare<'inp, 'out>(
+    input: &{Fam}Input<'inp>,
+    output: &mut {Fam}Output<'out>,
     order: DerivativeOrder,
     d: &Dimensions,
-) -> Result<{Fam}Chunk<'a>, LibxcRsError> {{
+) -> Result<{Fam}Chunk<'inp, 'out>, LibxcRsError> {{
     let np = input.np();
     let need = required_fields(order);
 
@@ -500,10 +500,10 @@ macro_rules! ten_arm_dispatch_r{fam} {{
 '''
 
 
-def gen_func(fam: str, func: str, params: list[str], values: list[str],
+def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str],
              modules: set[str]) -> str | None:
     """One dispatch entry point. Returns None if any of the 10 arms is missing."""
-    krate = f"libxc_rkernel_{func}"
+    krate = f"libxc_rkernel_{base}"
     slots = []
     for suf, spin in (("unpol", "u"), ("pol", "p")):
         pass
@@ -512,9 +512,10 @@ def gen_func(fam: str, func: str, params: list[str], values: list[str],
             mod = f"{o}_{spin_sfx}"
             if mod not in modules:
                 return None
-            slots.append(f"        [k::{mod}::{func}_{mod}],")
+            slots.append(f"        [k::{mod}::{base}_{mod}],")
     def as_f64(v: str) -> str:
-        """libxc writes some defaults as integers (`3`); Rust needs a float."""
+        """libxc writes some defaults as integers (`3`) or with leading `+`; Rust needs a float."""
+        v = v.lstrip("+")
         return v if ("." in v or "e" in v or "E" in v) else f"{v}.0"
 
     consts = "\n".join(
@@ -537,9 +538,9 @@ use {krate} as k;
 
 {consts}
 
-pub fn dispatch<'a>(
-    input: &'a {fam.capitalize()}Input<'a>,
-    output: &'a mut {fam.capitalize()}Output<'a>,
+pub fn dispatch(
+    input: &{fam.capitalize()}Input<'_>,
+    output: &mut {fam.capitalize()}Output<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,
@@ -580,6 +581,9 @@ def main() -> int:
     FAMILIES["mgga"]["outputs"] = mgga_outputs()
 
     (OUT / "funcs").mkdir(parents=True, exist_ok=True)
+    for p in (OUT / "funcs").glob("*.rs"):
+        if p.name != "mod.rs":
+            p.unlink()
 
     for fam, spec in FAMILIES.items():
         (OUT / f"sweep_{fam}.rs").write_text(
@@ -590,20 +594,24 @@ def main() -> int:
     emitted, skipped = [], dict(unresolved)
     for func, info in sorted(resolved.items()):
         fam = info["family"]
-        srcdir = KERNELS / fam / func / "src"
+        base = info.get("base_kernel", func)
+        srcdir = KERNELS / fam / base / "src"
         modules = {p.stem for p in srcdir.glob("*.rs")} | {
             p.name for p in srcdir.iterdir() if p.is_dir()}
-        text = gen_func(fam, func, info["params"], info["values"], modules)
+        text = gen_func(fam, func, base, info["params"], info["values"], modules)
         if text is None:
-            skipped[func] = "kernel tree is missing one of the 10 (order, spin) modules"
+            if func in ("mgga_x_bj06", "mgga_x_rpp09", "mgga_x_tb09", "gga_x_lb", "gga_x_lbm"):
+                skipped[func] = "potential-only functional; no exc by construction"
+            else:
+                skipped[func] = "kernel tree is missing one of the 10 (order, spin) modules"
             continue
         (OUT / "funcs" / f"{func}.rs").write_text(text)
-        emitted.append((fam, func))
+        emitted.append((fam, func, base))
 
     (OUT / "funcs" / "mod.rs").write_text(
         "//! Per-functional dispatch entry points.\n"
         "//!\n//! GENERATED by tools/translate_rayon/gen_eval.py -- do not hand-edit.\n\n"
-        + "\n".join(f'#[cfg(feature = "{f}")]\npub mod {f};' for _, f in emitted)
+        + "\n".join(f'#[cfg(feature = "{f}")]\npub mod {f};' for _, f, _ in emitted)
         + "\n")
 
     lines = [
@@ -627,13 +635,17 @@ def main() -> int:
     lines += ["];", "",
               "/// Functionals wired to a rayon kernel, by family.",
               "pub const SUPPORTED: &[(&str, &str)] = &["]
-    for fam, func in emitted:
+    for fam, func, _ in emitted:
         lines.append(f'    ("{fam}", "{func}"),')
     lines += ["];", ""]
 
+    import re as _re
+    s_reg = (REPO / "crates/libxc-core/src/registry/by_name.rs").read_text()
+    name_to_id = {m.group(1).lower(): int(m.group(2)) for m in _re.finditer(r'\("XC_(\w+)",\s*(\d+)\)', s_reg)}
+
     for fam in ("lda", "gga", "mgga"):
         Fam = fam.capitalize()
-        fam_funcs = [f for g, f in emitted if g == fam]
+        fam_funcs = [f for g, f, _ in emitted if g == fam]
         arms = "\n".join(
             f'        "{f}" => Some(crate::funcs::{f}::dispatch('
             f'input, output, order, spin, thresholds)),'
@@ -646,10 +658,10 @@ def main() -> int:
             "/// for why. `None` rather than an error because building an",
             "/// `UnsupportedFunctional` needs a `FunctionalId`, which a name lookup",
             "/// does not have; the caller knows its own id and can raise it.",
-            f"pub fn dispatch_{fam}_by_name<'a>(",
+            f"pub fn dispatch_{fam}_by_name(",
             "    name: &str,",
-            f"    input: &'a libxc_core::input::{Fam}Input<'a>,",
-            f"    output: &'a mut libxc_core::output::{Fam}Output<'a>,",
+            f"    input: &libxc_core::input::{Fam}Input<'_>,",
+            f"    output: &mut libxc_core::output::{Fam}Output<'_>,",
             "    order: libxc_core::model::DerivativeOrder,",
             "    spin: libxc_core::model::Spin,",
             "    thresholds: &libxc_core::model::Thresholds,",
@@ -662,67 +674,56 @@ def main() -> int:
             "",
         ]
 
-    # --- typed (enum) dispatch -------------------------------------------
-    # The facade and C-ABI take a `<Fam>Functional` enum, not a name. The enums
-    # cover only 168 of the 305 functionals in the kernel tree, so this is a
-    # partial view by construction: variants with no wired kernel return
-    # UnsupportedFunctional, which is the honest answer and carries the id the
-    # caller needs.
-    import re as _re
-    enum_variants = {}
-    for fam_, file_ in (("lda", "lda_functional.rs"), ("gga", "gga_functional.rs"),
-                        ("mgga", "mgga_functional.rs")):
-        src_ = (REPO / "crates/libxc-core/src/model" / file_).read_text()
-        m_ = _re.search(r"pub enum \w+Functional\s*\{(.*?)\n\}", src_, _re.S)
-        enum_variants[fam_] = set(_re.findall(r"^\s{4}([A-Z]\w*)\s*,", m_.group(1), _re.M))
-
-    def pascal(n: str) -> str:
-        return "".join(part.capitalize() for part in n.split("_"))
-
-    for fam in ("lda", "gga", "mgga"):
-        Fam = fam.capitalize()
-        wired = [f for g, f in emitted if g == fam]
-        typed = [f for f in wired if pascal(f) in enum_variants[fam]]
-        arms = "\n".join(
-            f"        {Fam}Functional::{pascal(f)} => "
-            f'crate::funcs::{f}::dispatch(input, output, order, spin, thresholds),'
-            for f in typed
-        )
+        id_arms = []
+        for f in fam_funcs:
+            if f in name_to_id:
+                raw_id = name_to_id[f]
+                id_arms.append(
+                    f"        {raw_id} => crate::funcs::{f}::dispatch(input, output, order, spin, thresholds),"
+                )
+        id_arms_str = "\n".join(id_arms)
         lines += [
-            f"/// Dispatch a {fam.upper()} functional by enum -- the typed entry point the",
-            "/// facade and C-ABI use.",
-            "///",
-            f"/// {len(typed)} of the {len(wired)} wired {fam.upper()} functionals have an enum",
-            "/// variant; the rest are reachable only by name. Variants with no wired",
-            "/// kernel return `UnsupportedFunctional` carrying their own id.",
-            f"pub fn dispatch_{fam}<'a>(",
-            f"    functional: libxc_core::model::{Fam}Functional,",
-            f"    input: &'a libxc_core::input::{Fam}Input<'a>,",
-            f"    output: &'a mut libxc_core::output::{Fam}Output<'a>,",
+            f"/// Dispatch a {fam.upper()} functional by FunctionalId (raw integer id).",
+            f"pub fn dispatch_{fam}_by_id(",
+            "    id: libxc_core::model::FunctionalId,",
+            f"    input: &libxc_core::input::{Fam}Input<'_>,",
+            f"    output: &mut libxc_core::output::{Fam}Output<'_>,",
             "    order: libxc_core::model::DerivativeOrder,",
             "    spin: libxc_core::model::Spin,",
             "    thresholds: &libxc_core::model::Thresholds,",
             ") -> Result<(), libxc_core::error::LibxcRsError> {",
-            f"    use libxc_core::model::{Fam}Functional;",
-            "    match functional {",
-            arms,
-            "        other => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {",
-            "            id: other.to_id(),",
+            "    match id.raw() {",
+            id_arms_str,
+            "        _ => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {",
+            "            id,",
             '            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",',
             "        }),",
             "    }",
+            "}",
+            "",
+            f"/// Dispatch a {fam.upper()} functional by enum -- delegates to by-id routing.",
+            f"pub fn dispatch_{fam}(",
+            f"    functional: libxc_core::model::{Fam}Functional,",
+            f"    input: &libxc_core::input::{Fam}Input<'_>,",
+            f"    output: &mut libxc_core::output::{Fam}Output<'_>,",
+            "    order: libxc_core::model::DerivativeOrder,",
+            "    spin: libxc_core::model::Spin,",
+            "    thresholds: &libxc_core::model::Thresholds,",
+            ") -> Result<(), libxc_core::error::LibxcRsError> {",
+            f"    dispatch_{fam}_by_id(functional.to_id(), input, output, order, spin, thresholds)",
             "}",
             "",
         ]
 
     (OUT / "routing.rs").write_text("\n".join(lines))
 
-    # Cargo.toml: one optional dep + feature per wired functional.
+    # Cargo.toml: one optional dep per unique base kernel, and one feature per wired functional.
+    unique_bases = sorted(set((fam, b) for fam, _, b in emitted))
     deps = "\n".join(
-        f'libxc-rkernel-{f} = {{ path = "../kernels-rayon/{fam}/{f}", optional = true }}'
-        for fam, f in emitted)
-    feats = "\n".join(f'{f} = ["dep:libxc-rkernel-{f}"]' for _, f in emitted)
-    default = ", ".join(f'"{f}"' for _, f in emitted)
+        f'libxc-rkernel-{b} = {{ path = "../kernels-rayon/{fam}/{b}", optional = true }}'
+        for fam, b in unique_bases)
+    feats = "\n".join(f'{f} = ["dep:libxc-rkernel-{b}"]' for _, f, b in emitted)
+    default = ", ".join(f'"{f}"' for _, f, _ in emitted)
     (REPO / "crates/libxc-reval/Cargo.toml").write_text(f'''[package]
 name = "libxc-reval"
 version = "0.1.0"
@@ -755,7 +756,7 @@ pub mod sweep_mgga;
 ''')
 
     by_fam = {}
-    for fam, f in emitted:
+    for fam, f, _ in emitted:
         by_fam[fam] = by_fam.get(fam, 0) + 1
     print(f"emitted {len(emitted)} functionals: " +
           ", ".join(f"{k}={v}" for k, v in sorted(by_fam.items())))

@@ -14,9 +14,9 @@ use libxc_rkernel_mgga_c_ccalda as k;
 /// libxc default for `param_c`.
 pub const PARAM_C: f64 = 10000.0;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

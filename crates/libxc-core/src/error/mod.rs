@@ -1,5 +1,17 @@
 use crate::model::{DerivativeOrder, Family, FunctionalId, Spin};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, thiserror::Error)]
+pub enum PropagationConflictCause {
+    #[error("parent has no ext_params")]
+    ParentHasNoExtParams,
+    #[error("parent param index out of range")]
+    ParentParamIndexOutOfRange,
+    #[error("aux slot out of range")]
+    AuxSlotOutOfRange,
+    #[error("aux rejected param")]
+    AuxRejectedParam,
+}
+
 #[derive(Debug, thiserror::Error)]
 pub enum LibxcRsError {
     #[error("unknown functional ID: {0}")]
@@ -109,12 +121,13 @@ pub enum LibxcRsError {
         source: Box<LibxcRsError>,
     },
 
-    #[error("propagation conflict for functional {id}: parent param '{parent_name}' targets aux slot {aux_slot} param '{aux_name}' which is not present")]
+    #[error("propagation conflict for functional {id} ({cause}): parent param '{parent_name}' targets aux slot {aux_slot} param '{aux_name}'")]
     PropagationConflict {
         id: FunctionalId,
         parent_name: &'static str,
         aux_slot: u8,
         aux_name: &'static str,
+        cause: PropagationConflictCause,
     },
 
     // ── Phase 6 plan 06-01 Task 1: new error variants ────────────────
@@ -277,6 +290,7 @@ mod tests {
             parent_name: "_omega",
             aux_slot: 1,
             aux_name: "_omega",
+            cause: PropagationConflictCause::AuxRejectedParam,
         };
         let msg = format!("{err}");
         assert!(msg.contains("propagation conflict"), "got: {msg}");
@@ -356,7 +370,7 @@ mod discriminant_tests {
             LibxcRsError::ExtParamIndexOutOfRange { id, index: 0, count: 0 },
             LibxcRsError::UnknownExtParamName { id, name: String::new() },
             LibxcRsError::AuxiliaryInitFailed { parent_id: id, aux_id: id, source: Box::new(LibxcRsError::UnknownFunctionalId(0)) },
-            LibxcRsError::PropagationConflict { id, parent_name: "", aux_slot: 0, aux_name: "" },
+            LibxcRsError::PropagationConflict { id, parent_name: "", aux_slot: 0, aux_name: "", cause: PropagationConflictCause::ParentHasNoExtParams },
             LibxcRsError::BatchOverflow { requested: 0, capacity: 0 },
             LibxcRsError::UninitializedHandle,
             LibxcRsError::Panicked { message: String::new() },

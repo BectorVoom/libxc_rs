@@ -3,6 +3,10 @@
 //! Wigner-Seitz radius, reduced gradient, Thomas-Fermi kinetic energy density,
 //! and dimensionless inhomogeneity parameter alpha.
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 use super::constants::{RS_CONST, KF_CONST};
 use super::powers::{pow_1_3, pow_4_3, pow_5_3};
 

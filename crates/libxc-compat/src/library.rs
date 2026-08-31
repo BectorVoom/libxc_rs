@@ -11,7 +11,7 @@ static REFERENCE_DOI: &CStr = c"10.1016/j.softx.2017.11.002"; // Lehtola 2018 So
 static REFERENCE_KEY: &CStr = c"Lehtola2018";
 
 /// `void xc_version(int *major, int *minor, int *micro);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_version(major: *mut i32, minor: *mut i32, micro: *mut i32) {
     let (ma, mi, mc) = registry::version();
     if !major.is_null() {
@@ -29,25 +29,25 @@ pub unsafe extern "C" fn xc_version(major: *mut i32, minor: *mut i32, micro: *mu
 }
 
 /// `const char *xc_version_string(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_version_string() -> *const c_char {
     VERSION_STRING.as_ptr()
 }
 
 /// `const char *xc_reference(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_reference() -> *const c_char {
     REFERENCE.as_ptr()
 }
 
 /// `const char *xc_reference_doi(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_reference_doi() -> *const c_char {
     REFERENCE_DOI.as_ptr()
 }
 
 /// `const char *xc_reference_key(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_reference_key() -> *const c_char {
     REFERENCE_KEY.as_ptr()
 }

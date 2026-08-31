@@ -1,3 +1,14 @@
+# libxc_rs
+
+A Rust implementation of the libxc density functional theory (DFT) exchange-correlation library.
+
+**Key Property:** Bit-exact against C libxc 7.0.0 (worst relative deviation ≤ 2.14e-16, under 1 ulp across LDA, GGA, MGGA, and hybrid functionals, with exact analytic and bit-identical agreement across multiple benchmark quantities).
+
+- Safe, typed Rust API (`Functional`, `FunctionalBuilder`, `EvaluationWorkspace`)
+- Parallel evaluation via Rayon (`libxc-reval`)
+- Optional C-ABI compatibility layer (`libxc-compat`)
+- Oracle-verified parity against C libxc 7.0.0
+
 ## 20. Source Tree
 
 ```

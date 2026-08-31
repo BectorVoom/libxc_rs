@@ -14,86 +14,86 @@
 use libxc_core::dims::Dimensions;
 
 /// One contiguous run of grid points, every array narrowed to it.
-pub struct MggaChunk<'a> {
+pub struct MggaChunk<'inp, 'out> {
     pub np: usize,
-    pub rho: &'a [f64],
-    pub sigma: &'a [f64],
-    pub lapl: &'a [f64],
-    pub tau: &'a [f64],
-    pub zk: Option<&'a mut [f64]>,
-    pub vrho: Option<&'a mut [f64]>,
-    pub vsigma: Option<&'a mut [f64]>,
-    pub vlapl: Option<&'a mut [f64]>,
-    pub vtau: Option<&'a mut [f64]>,
-    pub v2rho2: Option<&'a mut [f64]>,
-    pub v2rhosigma: Option<&'a mut [f64]>,
-    pub v2rholapl: Option<&'a mut [f64]>,
-    pub v2rhotau: Option<&'a mut [f64]>,
-    pub v2sigma2: Option<&'a mut [f64]>,
-    pub v2sigmalapl: Option<&'a mut [f64]>,
-    pub v2sigmatau: Option<&'a mut [f64]>,
-    pub v2lapl2: Option<&'a mut [f64]>,
-    pub v2lapltau: Option<&'a mut [f64]>,
-    pub v2tau2: Option<&'a mut [f64]>,
-    pub v3rho3: Option<&'a mut [f64]>,
-    pub v3rho2sigma: Option<&'a mut [f64]>,
-    pub v3rho2lapl: Option<&'a mut [f64]>,
-    pub v3rho2tau: Option<&'a mut [f64]>,
-    pub v3rhosigma2: Option<&'a mut [f64]>,
-    pub v3rhosigmalapl: Option<&'a mut [f64]>,
-    pub v3rhosigmatau: Option<&'a mut [f64]>,
-    pub v3rholapl2: Option<&'a mut [f64]>,
-    pub v3rholapltau: Option<&'a mut [f64]>,
-    pub v3rhotau2: Option<&'a mut [f64]>,
-    pub v3sigma3: Option<&'a mut [f64]>,
-    pub v3sigma2lapl: Option<&'a mut [f64]>,
-    pub v3sigma2tau: Option<&'a mut [f64]>,
-    pub v3sigmalapl2: Option<&'a mut [f64]>,
-    pub v3sigmalapltau: Option<&'a mut [f64]>,
-    pub v3sigmatau2: Option<&'a mut [f64]>,
-    pub v3lapl3: Option<&'a mut [f64]>,
-    pub v3lapl2tau: Option<&'a mut [f64]>,
-    pub v3lapltau2: Option<&'a mut [f64]>,
-    pub v3tau3: Option<&'a mut [f64]>,
-    pub v4rho4: Option<&'a mut [f64]>,
-    pub v4rho3sigma: Option<&'a mut [f64]>,
-    pub v4rho3lapl: Option<&'a mut [f64]>,
-    pub v4rho3tau: Option<&'a mut [f64]>,
-    pub v4rho2sigma2: Option<&'a mut [f64]>,
-    pub v4rho2sigmalapl: Option<&'a mut [f64]>,
-    pub v4rho2sigmatau: Option<&'a mut [f64]>,
-    pub v4rho2lapl2: Option<&'a mut [f64]>,
-    pub v4rho2lapltau: Option<&'a mut [f64]>,
-    pub v4rho2tau2: Option<&'a mut [f64]>,
-    pub v4rhosigma3: Option<&'a mut [f64]>,
-    pub v4rhosigma2lapl: Option<&'a mut [f64]>,
-    pub v4rhosigma2tau: Option<&'a mut [f64]>,
-    pub v4rhosigmalapl2: Option<&'a mut [f64]>,
-    pub v4rhosigmalapltau: Option<&'a mut [f64]>,
-    pub v4rhosigmatau2: Option<&'a mut [f64]>,
-    pub v4rholapl3: Option<&'a mut [f64]>,
-    pub v4rholapl2tau: Option<&'a mut [f64]>,
-    pub v4rholapltau2: Option<&'a mut [f64]>,
-    pub v4rhotau3: Option<&'a mut [f64]>,
-    pub v4sigma4: Option<&'a mut [f64]>,
-    pub v4sigma3lapl: Option<&'a mut [f64]>,
-    pub v4sigma3tau: Option<&'a mut [f64]>,
-    pub v4sigma2lapl2: Option<&'a mut [f64]>,
-    pub v4sigma2lapltau: Option<&'a mut [f64]>,
-    pub v4sigma2tau2: Option<&'a mut [f64]>,
-    pub v4sigmalapl3: Option<&'a mut [f64]>,
-    pub v4sigmalapl2tau: Option<&'a mut [f64]>,
-    pub v4sigmalapltau2: Option<&'a mut [f64]>,
-    pub v4sigmatau3: Option<&'a mut [f64]>,
-    pub v4lapl4: Option<&'a mut [f64]>,
-    pub v4lapl3tau: Option<&'a mut [f64]>,
-    pub v4lapl2tau2: Option<&'a mut [f64]>,
-    pub v4lapltau3: Option<&'a mut [f64]>,
-    pub v4tau4: Option<&'a mut [f64]>,
+    pub rho: &'inp [f64],
+    pub sigma: &'inp [f64],
+    pub lapl: &'inp [f64],
+    pub tau: &'inp [f64],
+    pub zk: Option<&'out mut [f64]>,
+    pub vrho: Option<&'out mut [f64]>,
+    pub vsigma: Option<&'out mut [f64]>,
+    pub vlapl: Option<&'out mut [f64]>,
+    pub vtau: Option<&'out mut [f64]>,
+    pub v2rho2: Option<&'out mut [f64]>,
+    pub v2rhosigma: Option<&'out mut [f64]>,
+    pub v2rholapl: Option<&'out mut [f64]>,
+    pub v2rhotau: Option<&'out mut [f64]>,
+    pub v2sigma2: Option<&'out mut [f64]>,
+    pub v2sigmalapl: Option<&'out mut [f64]>,
+    pub v2sigmatau: Option<&'out mut [f64]>,
+    pub v2lapl2: Option<&'out mut [f64]>,
+    pub v2lapltau: Option<&'out mut [f64]>,
+    pub v2tau2: Option<&'out mut [f64]>,
+    pub v3rho3: Option<&'out mut [f64]>,
+    pub v3rho2sigma: Option<&'out mut [f64]>,
+    pub v3rho2lapl: Option<&'out mut [f64]>,
+    pub v3rho2tau: Option<&'out mut [f64]>,
+    pub v3rhosigma2: Option<&'out mut [f64]>,
+    pub v3rhosigmalapl: Option<&'out mut [f64]>,
+    pub v3rhosigmatau: Option<&'out mut [f64]>,
+    pub v3rholapl2: Option<&'out mut [f64]>,
+    pub v3rholapltau: Option<&'out mut [f64]>,
+    pub v3rhotau2: Option<&'out mut [f64]>,
+    pub v3sigma3: Option<&'out mut [f64]>,
+    pub v3sigma2lapl: Option<&'out mut [f64]>,
+    pub v3sigma2tau: Option<&'out mut [f64]>,
+    pub v3sigmalapl2: Option<&'out mut [f64]>,
+    pub v3sigmalapltau: Option<&'out mut [f64]>,
+    pub v3sigmatau2: Option<&'out mut [f64]>,
+    pub v3lapl3: Option<&'out mut [f64]>,
+    pub v3lapl2tau: Option<&'out mut [f64]>,
+    pub v3lapltau2: Option<&'out mut [f64]>,
+    pub v3tau3: Option<&'out mut [f64]>,
+    pub v4rho4: Option<&'out mut [f64]>,
+    pub v4rho3sigma: Option<&'out mut [f64]>,
+    pub v4rho3lapl: Option<&'out mut [f64]>,
+    pub v4rho3tau: Option<&'out mut [f64]>,
+    pub v4rho2sigma2: Option<&'out mut [f64]>,
+    pub v4rho2sigmalapl: Option<&'out mut [f64]>,
+    pub v4rho2sigmatau: Option<&'out mut [f64]>,
+    pub v4rho2lapl2: Option<&'out mut [f64]>,
+    pub v4rho2lapltau: Option<&'out mut [f64]>,
+    pub v4rho2tau2: Option<&'out mut [f64]>,
+    pub v4rhosigma3: Option<&'out mut [f64]>,
+    pub v4rhosigma2lapl: Option<&'out mut [f64]>,
+    pub v4rhosigma2tau: Option<&'out mut [f64]>,
+    pub v4rhosigmalapl2: Option<&'out mut [f64]>,
+    pub v4rhosigmalapltau: Option<&'out mut [f64]>,
+    pub v4rhosigmatau2: Option<&'out mut [f64]>,
+    pub v4rholapl3: Option<&'out mut [f64]>,
+    pub v4rholapl2tau: Option<&'out mut [f64]>,
+    pub v4rholapltau2: Option<&'out mut [f64]>,
+    pub v4rhotau3: Option<&'out mut [f64]>,
+    pub v4sigma4: Option<&'out mut [f64]>,
+    pub v4sigma3lapl: Option<&'out mut [f64]>,
+    pub v4sigma3tau: Option<&'out mut [f64]>,
+    pub v4sigma2lapl2: Option<&'out mut [f64]>,
+    pub v4sigma2lapltau: Option<&'out mut [f64]>,
+    pub v4sigma2tau2: Option<&'out mut [f64]>,
+    pub v4sigmalapl3: Option<&'out mut [f64]>,
+    pub v4sigmalapl2tau: Option<&'out mut [f64]>,
+    pub v4sigmalapltau2: Option<&'out mut [f64]>,
+    pub v4sigmatau3: Option<&'out mut [f64]>,
+    pub v4lapl4: Option<&'out mut [f64]>,
+    pub v4lapl3tau: Option<&'out mut [f64]>,
+    pub v4lapl2tau2: Option<&'out mut [f64]>,
+    pub v4lapltau3: Option<&'out mut [f64]>,
+    pub v4tau4: Option<&'out mut [f64]>,
 }
 
 #[inline]
-fn split_opt(o: Option<&mut [f64]>, at: usize) -> (Option<&mut [f64]>, Option<&mut [f64]>) {
+fn split_opt<'out>(o: Option<&'out mut [f64]>, at: usize) -> (Option<&'out mut [f64]>, Option<&'out mut [f64]>) {
     match o {
         Some(s) => {
             let (l, r) = s.split_at_mut(at);
@@ -103,9 +103,9 @@ fn split_opt(o: Option<&mut [f64]>, at: usize) -> (Option<&mut [f64]>, Option<&m
     }
 }
 
-impl<'a> MggaChunk<'a> {
+impl<'inp, 'out> MggaChunk<'inp, 'out> {
     /// Split at grid point `mid`, narrowing every array at its own stride.
-    pub fn split_at(self, mid: usize, d: &Dimensions) -> (MggaChunk<'a>, MggaChunk<'a>) {
+    pub fn split_at(self, mid: usize, d: &Dimensions) -> (MggaChunk<'inp, 'out>, MggaChunk<'inp, 'out>) {
         let (rho_l, rho_r) = self.rho.split_at(mid * d.rho as usize);
         let (sigma_l, sigma_r) = self.sigma.split_at(mid * d.sigma as usize);
         let (lapl_l, lapl_r) = self.lapl.split_at(mid * d.lapl as usize);
@@ -345,7 +345,7 @@ impl<'a> MggaChunk<'a> {
     /// as several disjoint windows and then still be available to clean up
     /// afterwards. Reborrowing keeps ownership with the caller. Every array is
     /// narrowed at its own stride, for the same reason `split_at` is.
-    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> MggaChunk<'_> {
+    fn window(&mut self, start: usize, len: usize, d: &Dimensions) -> MggaChunk<'inp, '_> {
         let end = start + len;
         MggaChunk {
             np: len,
@@ -527,7 +527,7 @@ pub fn set_min_chunk(n: usize) {
 /// Bit-exactness is unaffected: the stored value and the order of the
 /// accumulations are identical either way, only the moment of the store moves.
 #[inline]
-fn zero_outputs(chunk: &mut MggaChunk<'_>) {
+fn zero_outputs(chunk: &mut MggaChunk<'_, '_>) {
     if let Some(s) = chunk.zk.as_deref_mut() { s.fill(0.0); }
     if let Some(s) = chunk.vrho.as_deref_mut() { s.fill(0.0); }
     if let Some(s) = chunk.vsigma.as_deref_mut() { s.fill(0.0); }
@@ -608,7 +608,7 @@ fn total_density(rho: &[f64], ip: usize, nc: usize) -> f64 {
 
 /// Clear every output at one grid point.
 #[inline]
-fn zero_point(chunk: &mut MggaChunk<'_>, ip: usize, d: &Dimensions) {
+fn zero_point(chunk: &mut MggaChunk<'_, '_>, ip: usize, d: &Dimensions) {
     if let Some(s) = chunk.zk.as_deref_mut() {
         let w = d.zk as usize;
         s[ip * w..(ip + 1) * w].fill(0.0);
@@ -900,7 +900,7 @@ fn zero_point(chunk: &mut MggaChunk<'_>, ip: usize, d: &Dimensions) {
 /// -- cost about 14 ns per call, which turned `gga_x_b88` from 1.98 to 6.84
 /// ns/point: worse than doing no screening at all. So a fragmented chunk takes
 /// the other route below instead.
-const MIN_RUN: usize = 64;
+const MIN_RUN: usize = 128;
 
 /// Evaluate `f` over the above-threshold points only, leaving the rest zero.
 ///
@@ -943,9 +943,9 @@ const MIN_RUN: usize = 64;
 ///   it saves. Then the kernel runs over the whole chunk and the screened
 ///   points are zeroed afterwards. No arithmetic is saved, but the answer is
 ///   the same one, which is the part that matters.
-fn screened_call<F>(mut chunk: MggaChunk<'_>, d: &Dimensions, dens_threshold: f64, f: &F)
+fn screened_call<F>(mut chunk: MggaChunk<'_, '_>, d: &Dimensions, dens_threshold: f64, f: &F)
 where
-    F: Fn(&mut MggaChunk<'_>) + Sync,
+    F: Fn(&mut MggaChunk<'_, '_>) + Sync,
 {
     let nc = d.rho as usize;
     let np = chunk.np;
@@ -1002,13 +1002,13 @@ where
 
 /// Recursively halve the grid and evaluate each piece in parallel.
 pub fn par_sweep<F>(
-    mut chunk: MggaChunk<'_>,
+    mut chunk: MggaChunk<'_, '_>,
     d: &Dimensions,
     min_chunk: usize,
     dens_threshold: f64,
     f: &F,
 ) where
-    F: Fn(&mut MggaChunk<'_>) + Sync,
+    F: Fn(&mut MggaChunk<'_, '_>) + Sync,
 {
     if chunk.np <= min_chunk {
         zero_outputs(&mut chunk);

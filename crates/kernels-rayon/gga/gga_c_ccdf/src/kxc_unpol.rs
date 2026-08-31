@@ -4,11 +4,18 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT6, M_PI};
-use libxc_rkernel_math::powers::{pow_1_3};
+use libxc_rkernel_math::powers::pow_1_3;
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_ccdf_kxc_unpol(
@@ -101,7 +108,11 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t106 = t105 * sigma[ip];
         let t107 = t23 * t23;
         let t112 = t95 * t39;
-        let tv2rho20 = 2.0 / 9.0 * t54 * t55 * t17 - t61 * t62 * t14 * t65 * t23 / 27.0 + 2.0 / 9.0 * t74 * t76 * t27 * t78 + 2.0 / 27.0 * t86 * t62 * t88 - 4.0 / 27.0 * t99 * t103 * t106 * t107 + 2.0 / 27.0 * t112 * t103 * t106 * t23;
+        let tv2rho20 = 2.0 / 9.0 * t54 * t55 * t17 - t61 * t62 * t14 * t65 * t23 / 27.0
+            + 2.0 / 9.0 * t74 * t76 * t27 * t78
+            + 2.0 / 27.0 * t86 * t62 * t88
+            - 4.0 / 27.0 * t99 * t103 * t106 * t107
+            + 2.0 / 27.0 * t112 * t103 * t106 * t23;
         v2rho2[ip] += tv2rho20;
         let t120 = t74 * t30 * t60;
         let t121 = t48 * t23;
@@ -112,7 +123,8 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t129 = t102 * t127 * t107;
         let t132 = t84 * t39;
         let t134 = t102 * t127 * t23;
-        let tv2rhosigma0 = t40 * t51 / 72.0 - t120 * t123 / 72.0 + t126 * t129 / 18.0 - t132 * t134 / 36.0;
+        let tv2rhosigma0 =
+            t40 * t51 / 72.0 - t120 * t123 / 72.0 + t126 * t129 / 18.0 - t132 * t134 / 36.0;
         v2rhosigma[ip] += tv2rhosigma0;
         let t137 = t74 * t98;
         let t138 = 1.0 / sigma[ip];
@@ -167,7 +179,19 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t244 = t107 * t23;
         let t249 = t97 * t240;
         let t254 = t38 * t240;
-        let tv3rho30 = -2.0 / 9.0 * t156 * t157 * t83 - 5.0 / 27.0 * t164 * t166 * t94 * t23 * param_c2 - 8.0 / 27.0 * t54 * t55 * t65 + 16.0 / 27.0 * t177 * t179 * t183 * t107 + 7.0 / 81.0 * t61 * t62 * t14 * t189 * t23 - 8.0 / 27.0 * t196 * t179 * t183 * t23 + 2.0 / 9.0 * t202 * t204 * t27 * t206 + 2.0 / 27.0 * t213 * t62 * t87 * t78 - 4.0 / 27.0 * t221 * t176 * t179 * t223 * param_c2 + 2.0 / 27.0 * t221 * t195 * t179 * t229 * param_c2 + 16.0 / 27.0 * t237 * t241 * t243 * t244 - 16.0 / 27.0 * t237 * t249 * t243 * t107 + 8.0 / 81.0 * t237 * t254 * t243 * t23;
+        let tv3rho30 = -2.0 / 9.0 * t156 * t157 * t83
+            - 5.0 / 27.0 * t164 * t166 * t94 * t23 * param_c2
+            - 8.0 / 27.0 * t54 * t55 * t65
+            + 16.0 / 27.0 * t177 * t179 * t183 * t107
+            + 7.0 / 81.0 * t61 * t62 * t14 * t189 * t23
+            - 8.0 / 27.0 * t196 * t179 * t183 * t23
+            + 2.0 / 9.0 * t202 * t204 * t27 * t206
+            + 2.0 / 27.0 * t213 * t62 * t87 * t78
+            - 4.0 / 27.0 * t221 * t176 * t179 * t223 * param_c2
+            + 2.0 / 27.0 * t221 * t195 * t179 * t229 * param_c2
+            + 16.0 / 27.0 * t237 * t241 * t243 * t244
+            - 16.0 / 27.0 * t237 * t249 * t243 * t107
+            + 8.0 / 81.0 * t237 * t254 * t243 * t23;
         v3rho3[ip] += tv3rho30;
         let t260 = t65 * param_c1 * t39;
         let t270 = t202 * t76 * t60;
@@ -185,7 +209,14 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t296 = t242 * t107;
         let t298 = t249 * t296 * t14;
         let t303 = t254 * t242 * t14 * t23;
-        let tv3rho2sigma0 = -t260 * t51 / 54.0 + t86 * t123 / 36.0 - t99 * t129 / 6.0 + t112 * t134 / 12.0 - t270 * t272 / 108.0 + t211 * t276 * t280 / 27.0 - t211 * t283 * t287 / 54.0 - 2.0 / 9.0 * t290 * t293 + 2.0 / 9.0 * t290 * t298 - t290 * t303 / 27.0;
+        let tv3rho2sigma0 = -t260 * t51 / 54.0 + t86 * t123 / 36.0 - t99 * t129 / 6.0
+            + t112 * t134 / 12.0
+            - t270 * t272 / 108.0
+            + t211 * t276 * t280 / 27.0
+            - t211 * t283 * t287 / 54.0
+            - 2.0 / 9.0 * t290 * t293
+            + 2.0 / 9.0 * t290 * t298
+            - t290 * t303 / 27.0;
         v3rho2sigma[ip] += tv3rho2sigma0;
         let t308 = t202 * t30;
         let t309 = t308 * t176;
@@ -202,7 +233,13 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t335 = t138 * t23;
         let t337 = t179 * t335 * param_c2;
         let t341 = t254 * t316 * t23;
-        let tv3rhosigma20 = t126 * t141 / 144.0 - t309 * t312 / 144.0 + t315 * t318 / 12.0 - t315 * t322 / 12.0 - t40 * t148 / 144.0 + t120 * t329 / 144.0 - t132 * t153 / 288.0 + t334 * t337 / 288.0 + t315 * t341 / 72.0;
+        let tv3rhosigma20 = t126 * t141 / 144.0 - t309 * t312 / 144.0 + t315 * t318 / 12.0
+            - t315 * t322 / 12.0
+            - t40 * t148 / 144.0
+            + t120 * t329 / 144.0
+            - t132 * t153 / 288.0
+            + t334 * t337 / 288.0
+            + t315 * t341 / 72.0;
         v3rhosigma2[ip] += tv3rhosigma20;
         let t344 = t202 * t36;
         let t345 = t242 * t145;
@@ -216,7 +253,10 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t365 = t42 * t13 * t362 * t23;
         let t369 = t103 * t352 * t23;
         let t373 = t254 * t345 * t23;
-        let tv3sigma30 = -t344 * t347 / 32.0 + t137 * t354 / 32.0 + t344 * t358 / 32.0 - t47 * t365 / 32.0 - t151 * t369 / 64.0 - t344 * t373 / 192.0;
+        let tv3sigma30 = -t344 * t347 / 32.0 + t137 * t354 / 32.0 + t344 * t358 / 32.0
+            - t47 * t365 / 32.0
+            - t151 * t369 / 64.0
+            - t344 * t373 / 192.0;
         v3sigma3[ip] += tv3sigma30;
     }
 }

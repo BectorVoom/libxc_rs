@@ -5,10 +5,7 @@
 `libxc_rs` is a Rust re-architecture of the public `libxc 7.0.0` API surface. The library keeps upstream capability reachability, but replaces the original C-style surface with a three-layer Rust design: compatibility shims, a typed safe core, and ergonomic high-level APIs.
 
 **Core value:** deliver full libxc public capability coverage through a safer Rust API, with no C/Fortran in the production path.
-
-**CPU only.** The CubeCL substrate that previously served CPU and GPU from one kernel source was retired in `docs/adr/0001-rayon-over-cubecl.md`, and its archived kernel tree was deleted on 2026-08-18. Kernels are plain Rust over `&[f64]` slices, parallelised with rayon. There is no GPU path.
-
-CubeCL kernels and the `cubecl` feature have been completely removed. All kernels run on plain Rust with Rayon parallelism and optional explicit SIMD via `rmath`/`wide`.
+ Rust with Rayon parallelism and optional explicit SIMD via `rmath`/`wide`.
 
 
 ## Layout
@@ -23,12 +20,12 @@ CubeCL kernels and the `cubecl` feature have been completely removed. All kernel
 | `bench-vs-libxc` | head-to-head speed/memory benchmark against C libxc (see below) |
 | `crates/libxc-eval` | orchestration types the facade and C-ABI take (`Functional`, `EvaluationWorkspace`); no longer holds any kernel path |
 
-`docs/adr/0001-rayon-over-cubecl.md` records the decision, the measurements behind it, and — importantly — what the decision is *not* based on.
+
 
 
 ## Key Constraints
 
-- Numerical execution is plain Rust + rayon (ADR 0001). CubeCL has been completely deleted; nothing in the build depends on it.
+- Numerical execution is plain Rust + rayon (ADR 0001). 
 - Kernels are generated. **Never hand-edit anything under `crates/kernels-rayon/`** — regenerate with `tools/translate_rayon/`.
 - f64 only. Energy relative error must stay within 1e-12 of the libxc oracle.
 - Maple2c formula translations must preserve floating-point operation order.
@@ -36,7 +33,7 @@ CubeCL kernels and the `cubecl` feature have been completely removed. All kernel
 - Public APIs must use typed Rust boundaries and `thiserror` v2 errors.
 - libxc is an oracle for verification only; it is not part of the production runtime.
 - Repeated workloads must reuse workspaces and caches rather than reallocating on hot paths.
-- Kernel crates must stay cheap to compile. The retired CubeCL tree needed >12 min and 1.5 GB RSS for a single MGGA functional; `mgga_c_tpssloc` could not be built at all on 30 GB. The current tree builds all 266 crates in ~24 min wall.
+- Kernel crates must stay cheap to compile. 
 
 
 ## Regenerating kernels
@@ -51,14 +48,7 @@ python3 tools/translate_rayon/gen_eval.py                        # eval layer + 
 libxc's own Maple-generated C -- and emits one Rust function per
 (functional, order, spin). 2,648 functions across 266 functionals, ~100 s.
 
-**This replaced a three-stage transform of an archived CubeCL tree**
-(`xform.py` -> `flatten.py` -> `vnmerge.py`), which was deleted along with the
-tree it read. That tree was never the real source: it too was generated from
-these same maple2c files, and every pass in the old pipeline existed to undo
-damage the CubeCL emitter had done to fit under `cubecl-macros`' memory ceiling
--- splitting each function into `partN` pieces that re-derived shared
-intermediates 2-16x over, fanning those across 231,749 `chunkN.rs` files, and
-spilling five MGGA functionals into 39 `_pN` companion crates.
+
 
 maple2c emits **one fully CSE'd function per (order, spin)**, so reading it
 directly needs none of that. Consequences, all measured:
@@ -94,7 +84,7 @@ The generated kernel tree (266 crates) is workspace **`exclude`d**, not merely l
 - Excluded harnesses need `--manifest-path`: `verify/`, `verify-canary/`, `crates/kernels-rayon/{verify,oracle}/`.
 
 
-**Rayon-tree builds are parallelism-bound, not memory-bound.** A rayon kernel rustc peaks at ~0.2-2.3 GB, and `jobs` also caps rustc's codegen-unit parallelism through the jobserver. The workspace profiles use `codegen-units = 16`; with `jobs = 12` the monster crates (e.g. `mgga_c_kcis`, 16 MB source since the fan-out flattening; 58 MB before) drop from ~5 min to ~1.5 min each, and codegen-unit count is runtime-neutral for these kernels (measured: identical ns/pt and checksums at CGU 2 vs 16). Note that a standalone `--manifest-path` build of an excluded kernel crate does not see the workspace `[profile.*]` at all — it uses cargo's defaults, which are already CGU 16 for release.
+**Rayon-tree builds are parallelism-bound, not memory-bound.** A cold release build of the kernel tree is >40 min (debug builds take minutes). A rayon kernel rustc peaks at ~0.2-2.3 GB, and `jobs` also caps rustc's codegen-unit parallelism through the jobserver. The workspace profiles use `codegen-units = 16`; with `jobs = 12` the monster crates (e.g. `mgga_c_kcis`, 16 MB source since the fan-out flattening; 58 MB before) drop from ~5 min to ~1.5 min each, and codegen-unit count is runtime-neutral for these kernels (measured: identical ns/pt and checksums at CGU 2 vs 16). Note that a standalone `--manifest-path` build of an excluded kernel crate does not see the workspace `[profile.*]` at all — it uses cargo's defaults, which are already CGU 16 for release.
 
 
 ## Performance against libxc
@@ -122,18 +112,48 @@ headroom (6.2x, measured) is in the libm transcendentals, not the translator.
 `wide::f64x8` only for the `(functional, order, spin)` triples in its
 `SIMD_FUNCS` allowlist. The kernels already loop-vectorise 8-wide, so forcing
 explicit SIMD where LLVM did *not* decline is a regression (`gga_x_pbe` 0.55x).
-**The SIMD transcendentals are bit-exact (2026-08-18):** `exp`, `ln` and the
-cube-root family come from `libxc_rkernel_math::simd`, bit-identical per lane
-to the scalar calls the scalar kernels make (exp/ln replicate glibc's
-`__ieee754_{exp,log}_fma` schedule from disassembly, with the MIT
-optimized-routines tables; cbrt replicates `powers::cbrt_f64`; asserted over
-~7M inputs in `math/tests/simd_exact.rs`). So a kernel whose transcendentals
-are exp/ln/sqrt/cbrt-family only produces output **bit-identical to its scalar
-form** — the allowlist gate for such kernels is measured speed with an
-unchanged `bench-vs-libxc` fingerprint (`lda_c_vwn` 5.1x; `mgga_c_scan` 1.5x;
-`mgga_c_tpssloc` 1.26x). Only `atan`/`tanh`-class calls still use `wide`'s
-~1 ulp forms, so kernels using those (e.g. `lda_c_vwn`) remain
-tolerance-checked. `#[inline(always)]` on the `simd::` functions is
+Candidates are qualified by `tools/translate_rayon/simd_qualify.py`, which
+tries them in batches against `bench-vs-libxc`'s `xcqual` binary (Rust legs and
+a fingerprint, no C side, any order or spin) and records every verdict —
+accepts and rejects alike, with the numbers — in `docs/perf/simd-ledger.json`.
+It applies a batch through the `LIBXC_RS_SIMD_EXTRA` environment variable
+rather than editing the allowlist, so an interrupted sweep leaves the tree
+untouched; writing winners into `SIMD_EXACT_FUNCS` is a separate `--apply`
+step.
+**This project uses rmath's bit-exact path only.** Every transcendental, in
+both kernel forms, resolves to a `<BitExact, FullRange>` rmath kernel, so a
+SIMD kernel's output is bit-identical to its scalar form *and* to the libm C
+libxc calls. That is enforced structurally, not by convention: the upstream
+crate is renamed `rmath_upstream` in `crates/kernels-rayon/math/Cargo.toml`,
+and `libxc_rkernel_math::rmath` is a shadow module
+(`math/src/rmath_bitexact.rs`) that re-exports the crate but overrides every
+transcendental with the BitExact form. A bare `rmath::` inside the math crate
+is a compile error rather than silent drift, and a kernel crate — which depends
+only on the math crate — cannot reach the fast path at all. There is no
+approximate emitter mode: `simd.py` has one math path and `simd_body` refuses
+to emit any call it could not map to a bit-exact form.
+
+**Why that is spelled out so forcefully (2026-08-31):** rmath's *own* free
+functions (`rmath::exp`, `rmath::ln`, …) are deliberately its `Fast` path —
+documented as such per function, and asserted by rmath's
+`tests/fast_path.rs`, which requires `rmath::exp(x) == rmath::fast::exp(x)`.
+This tree called them by accident, through `from_maple.py`'s `LIBM` map and
+`simd.py`'s `FREE_EXACT`, and so ran approximate math against a 1e-12 contract:
+measured against glibc, `ln` differed on 22% of inputs by up to **4 ulp**,
+`atan` on 25% by 2 ulp, `exp` 11%, `cbrt` 8%. Nothing caught it, because both
+kernel forms called the same approximate function and therefore agreed with
+each other — fingerprints never moved, and `math/tests/simd_exact.rs` passed
+by comparing **rmath against rmath**. That hole is now closed by
+`simd_exact.rs::rmath_free_functions_are_bit_exact_against_platform_libm`,
+which compares against `f64::` itself. **Do not "fix" rmath** — its behaviour
+is intended; fix the call site.
+
+Consequence for tuning: **every SIMD speedup recorded before 2026-08-31 was
+measured on the fast path and overstates what bit-exact costs.** Bit-exact
+vector-vs-scalar is roughly `ln` 1.5x, `exp` 2.8x, `cbrt` 1.8x, `atan` 1.5x,
+against the fast path's 4.4x/5.9x/7.6x/14.7x. The SIMD win that remains comes
+mostly from removing the libm *calls* so the grid loop vectorises 8-wide, not
+from faster transcendentals. `#[inline(always)]` on the `simd::` functions is
 load-bearing — outlined, they cost `lda_c_vwn` 1.47x. Details and procedure:
 `docs/perf/simd-kernels.md`; the pure-Rust `libm`
 (rust-lang/compiler-builtins) remains 0.14x as a runtime replacement and is
@@ -165,19 +185,7 @@ Three things from that work bind future changes:
 
 `revalcheck` only shows the chunked sweep agrees with a whole-grid call. The oracle harness is the one that shows the numbers are right — prefer it when judging correctness.
 
-**Emitter changes are gated on the libxc oracle, not on an old-vs-new diff.**
-Regenerate, then run `crates/kernels-rayon/oracle` (parity with C libxc 7.0.0
-within 1e-12) and `revalcheck` (chunked evaluation bit-identical to a whole-grid
-call). `bench-vs-libxc` additionally prints an order-sensitive fingerprint over
-`to_bits()` of every output, which makes a change that is *supposed* to be
-value-preserving -- a scheduling or codegen change -- checkable exactly rather
-than by tolerance.
 
-The previous process compared each regenerated crate against the previously
-emitted one bit-for-bit, and `rkverify` compared the rayon tree against the
-CubeCL tree. Both were removed: comparing against libxc and the oracle is the
-check that shows the numbers are *right*, whereas old-vs-new only ever showed a
-transform was faithful to something that was itself unverified.
 
 That harness counts **NaN-vs-NaN differences separately** from real ones, and the distinction matters. It feeds each input array independently at random, which for MGGA produces points outside the functional's domain (`tau` below the von Weizsäcker bound `sigma/8rho`), and those evaluate to NaN. Deduplicating a computation can flip the *sign bit* of such a NaN — `mgga_x_scan` shows 1,679 of them — because a value the split form derived twice down two expression paths is now derived once. No finite value changes: the gate is 0 real mismatches, and NaN payload is IEEE-unspecified anyway. `revalcheck` and the oracle harness use physical inputs and do not hit this.
 
@@ -211,22 +219,22 @@ points are contiguous and always take the fast route.
 
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
-- The facade and C-ABI still take `Functional` and `EvaluationWorkspace` from `crates/libxc-eval`. Both are cubecl-free, so no CubeCL enters the default build, but the layering is untidy.
 - Kernel correctness rests on `crates/kernels-rayon/oracle` (C libxc parity) and `revalcheck` (chunked vs whole-grid). The oracle covers **unpolarized LDA/GGA only**, so polarized and MGGA kernels have no direct parity test against libxc -- the largest remaining coverage gap.
 - The maple2c rewrite was validated against the tree it replaced before that tree was regenerated: of 2,648 emitted functions, **2,420 were token-for-token identical** (numbers compared by value, not spelling), 218 differed only because the old ones had been reconstructed by `vnmerge` and carried its `vN` names, and 3 differed by a redundant paren. All 8 `bench-vs-libxc` output fingerprints and the full oracle result (7/344 over tolerance, same three functionals) were unchanged across the rewrite.
 - `revalcheck` reports **4 differing values in `gga_c_op_pw91 Lxc Polarized`** (chunked vs whole-grid). Pre-existing and reproduced on an untouched tree; the other 482,775,350 values are bit-identical.
-- **7 of 344 oracle field comparisons exceed the 1e-12 contract** (first measured 2026-08-17, when the harness was made to run at all). Worst by far is `gga_x_fd_lb94`: v2rho2 1.1e-1, zk 4.6e-2, vrho 4.4e-2 — percent-level, so a real defect, not FP noise. Then `gga_x_beefvdw` (v2rho2 1.5e-11, vsigma 1.0e-12) and `gga_c_hcth_a` (vsigma 1.4e-12), which are marginal. **These are pre-existing, not from the flatten/value-merge passes**: all three crates are bit-identical to their pre-merge form (816,585 values each, 0 mismatches). Suspect the `ext_params` defaults or the CubeCL-era translation of those functionals, and start by diffing the emitted constants against libxc's own.
-- The oracle harness had never run before that date: it did not compile (`drop(out)` could not end a borrow that `dispatch_*_by_name` ties to the input's lifetime) and looked functionals up by bare name when the registry is keyed by the `XC_`-prefixed macro name. Both are fixed. It is still untracked (`??` in git) — commit it.
-- `bench-vs-libxc`'s elementwise cross-check flags `mgga_c_r2scan` (`vtau`, 9e-8) and `mgga_x_scan` polarized (`vsigma`, 3.5e-9) against C libxc. Unrelated to the threshold screening -- present with and without it, and on a grid with no below-threshold points at all. Not yet diagnosed; the grid feeds `tau` close to the von Weizsaecker bound, where libxc's `work_mgga_inc.c` clamps and this tree does not, so check that before assuming a formula bug.
+- **9 of 1221 oracle field comparisons exceed 1e-12** (2026-08-31, down from 48). **All nine are `v2rho2` (5) or `vsigma` (4); `zk` has none**, so the project's stated contract -- *energy* relative error <= 1e-12 -- is met. The harness applies 1e-12 uniformly to `zk`/`vrho`/`vsigma`/`v2rho2`, which is stricter than that.
+  They are not translation errors. Constants, call counts, parameters, thresholds and every math function were checked against the maple2c source and glibc. What remains is accumulated floating-point divergence from a differently-compiled implementation: **GCC contracts `a*b+c` into FMA by default and rustc does not** (`gga_c_optc.o` carries 40,564 FMA instructions). Rebuilding the oracle's libxc with `-ffp-contract=off` removes `gga_x_beefvdw` and `hyb_gga_xc_wb97x_d` outright and takes `wb97x_d3` from 4.1e-11 to 5.5e-12; it was **not adopted**, because it compares against a libxc nobody builds and only fixes a third of the tail. Worst remaining: `hyb_gga_xc_wb97x_d3` v2rho2 4.7e-11, `gga_x_beefvdw` v2rho2 1.5e-11, then six between 1.0e-12 and 8.4e-12.
+- Four real defects were fixed to get there, all found by `crates/kernels-rayon/oracle/tests/diagnose.rs` (dumps ours-vs-libxc pointwise; `XCDIAG=<name> ... --test diagnose -- --nocapture`):
+  1. **Composed functionals were wired to an unrelated kernel** (15 failures). `extract_params.py` paired every `xc_func_info_` block in a libxc `.c` file with that file's one `maple2c` include. Files also define `xc_mix_init` composites that have no formula -- so `hyb_gga_xc_apbe0` was evaluating `gga_c_zvpbeloc`, 238x off. libxc marks the difference with a work pointer (`NULL, &work_gga, NULL`) vs an init fn and none; that is now required, and the 9 affected functionals are reported as UNSUPPORTED rather than guessed.
+  2. **`gga_x_fd_lb94` integrated what libxc doesn't** (8). Its `FT_inter` returns `-3/4 * ...`, and `-3/4` is **integer division** in C, so the integrand is identically zero and both `xc_integrate` calls vanish. We had 886 lines of correct Gauss-Legendre computing the intended value.
+  3. **`zeta_threshold` was 1e-10; libxc uses `DBL_EPSILON`** (10). This is not a screening knob -- the maple bodies evaluate `zeta_threshold^(4/3)` and add it into terms of order 1. Fixing it cleared all four `gga_c_optc` failures and six others. `Thresholds::default()` now mirrors `functionals.c`. Still divergent and worth attention: libxc's `dens_threshold` and `sigma_threshold` are **per-functional** (`info->dens_threshold`, and `sigma = dens^(4/3)`), while this tree carries one global default -- harmless on the oracle grid, wrong for low-density points.
+  4. **The harness scored cancellation dust as signal** (2). `gga_k_tfvw`/`gga_k_absp4` have an identically-zero `vrho`; libxc's own answer is exact `0.0` at one grid point and 1e-20..1e-14 elsewhere. `worst_rel` now skips an element only when *both* sides are below `scale * 1e-12` (scale = that functional's max `|zk|`); anything carrying magnitude still faces the full relative tolerance.
+- **`xc_integrate` is QUADPACK now** (`math/src/quadpack.rs`, a transcription of `dqagse` from `libxc-master/src/integrate.c`). The hand-written Gauss-Legendre it replaced was accurate to ~1e-12 of the *true* integral and still missed libxc by 7.8e-8, because libxc runs `dqagse` to only 1e-10 -- matching it needs the *same* approximation, not a better one. That cleared the four `lda_x_1d_{soft,exponential}` failures. The old code existed because QUADPACK "uses malloc and function pointers, which are not available in `#[cube]` kernels"; CubeCL is gone, so that no longer binds. Note `lda_x_1d_exponential` integrates from **1e-20**, not 0.
+- `bench-vs-libxc`'s elementwise cross-check flags `mgga_c_r2scan` (`vtau`, 9e-8) and `mgga_x_scan` polarized (`vsigma`, 3.5e-9) against C libxc. Unrelated to the threshold screening -- present with and without it, and on a grid with no below-threshold points at all. Not yet diagnosed; the grid feeds `tau` close to the von Weizsaecker bound, where libxc's `work_mgga_inc.c` clamps and this tree does not, so check that before assuming a formula b
 - The rayon oracle harness (`crates/kernels-rayon/oracle`) compares against C libxc for **unpolarized** LDA/GGA only. The polarized split-kernel paths (fixed 2026-08-16: loop bound was `first_buf.len()` even when that buffer has D>1 elements per point, sweeping D× too far — 2,495 files regenerated with `len() / D`) are exercised bitwise by `revalcheck` but have no oracle-parity test yet.
 
 
-## Reference
-
-`docs/Adaptive Precision Architecture for High-Accuracy Quantum Chemistry on Commodity GPUs.md` — background on the GPU precision question. Historical: the GPU path no longer exists.
-
-## optimise Cubecl kernel manual
-/home/user/Documents/workspace/cubecl_manual/manual/Cubecl
-
 ## Optimise in Rust
 /home/user/Documents/workspace/cubecl_manual/manual/optimiser
+
+Do not need to check FMA

@@ -22,9 +22,9 @@ pub const PARAM_C4: f64 = 23.401;
 /// libxc default for `param_c5`.
 pub const PARAM_C5: f64 = 0.479;
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

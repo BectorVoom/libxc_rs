@@ -1,5 +1,9 @@
 //! Safe fractional power functions, backed by rmath.
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 // 2^(k/3) rescaling factors, selected by `xe % 3` in {-2, -1, 0, 1, 2}.
 // pub(crate) because `simd::cbrt` replicates this function lanewise and must
 // use the identical constants to stay bit-identical.

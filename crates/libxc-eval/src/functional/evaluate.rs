@@ -14,21 +14,19 @@
 use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): import the eval-level dispatch_* (real under the family feature,
 // stub when off) so this router needs no per-family cfg.
-use crate::eval::dispatch_lda;
-use crate::eval::dispatch_gga;
-use crate::eval::dispatch_mgga;
+use crate::eval::{dispatch_gga_by_id, dispatch_lda_by_id, dispatch_mgga_by_id};
 use crate::eval::mix::{evaluate_mixed_gga, evaluate_mixed_lda_functional, evaluate_mixed_mgga};
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::functional::Functional;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
-use libxc_core::model::{DerivativeOrder, GgaFunctional, LdaFunctional, MggaFunctional};
+use libxc_core::model::DerivativeOrder;
 use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
 
 impl Functional {
     /// Evaluate this LDA functional over `input` at the requested derivative
     /// order, writing results into `output`.
     ///
-    /// Routes to direct `dispatch_lda` when this functional has no
+    /// Routes to direct `dispatch_lda_by_id` when this functional has no
     /// auxiliaries (semilocal/non-hybrid), or to the mixed-evaluation
     /// accumulator when it does. The `workspace` argument is only used
     /// in the mixed path; it can be a freshly-allocated workspace or a
@@ -41,9 +39,8 @@ impl Functional {
         workspace: &mut EvaluationWorkspace,
     ) -> Result<(), LibxcRsError> {
         if self.auxiliaries.is_empty() {
-            let lda_fn = LdaFunctional::from_id(self.meta.id)?;
-            dispatch_lda(
-                lda_fn,
+            dispatch_lda_by_id(
+                self.meta.id,
                 input,
                 order,
                 output,
@@ -65,9 +62,8 @@ impl Functional {
         workspace: &mut EvaluationWorkspace,
     ) -> Result<(), LibxcRsError> {
         if self.auxiliaries.is_empty() {
-            let gga_fn = GgaFunctional::from_id(self.meta.id)?;
-            dispatch_gga(
-                gga_fn,
+            dispatch_gga_by_id(
+                self.meta.id,
                 input,
                 order,
                 output,
@@ -89,9 +85,8 @@ impl Functional {
         workspace: &mut EvaluationWorkspace,
     ) -> Result<(), LibxcRsError> {
         if self.auxiliaries.is_empty() {
-            let mgga_fn = MggaFunctional::from_id(self.meta.id)?;
-            dispatch_mgga(
-                mgga_fn,
+            dispatch_mgga_by_id(
+                self.meta.id,
                 input,
                 order,
                 output,

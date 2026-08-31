@@ -9,6 +9,10 @@
 //! instead of early returns. No runtime arrays; all coefficients are inlined.
 
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 // Each Chebyshev evaluator computes: sum via Clenshaw recurrence b0 = 2x*b1 - b2 + c[i]
 // then returns 0.5*(b0 - b2). Coefficients are hardcoded constants.
 

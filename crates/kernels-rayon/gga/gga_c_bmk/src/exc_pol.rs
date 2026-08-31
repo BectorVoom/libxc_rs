@@ -4,12 +4,19 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::piecewise::piecewise3;
 use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_bmk_exc_pol(
@@ -90,7 +97,9 @@ pub fn gga_c_bmk_exc_pol(
         let t87 = 1.0 + 29.608574643216677 / t84;
         let t88 = rmath::ln(t87);
         let t89 = t79 * t88;
-        let t95 = -t53 + t64 * (-0.03109 * t66 * t75 + t53 - 0.019751789702565206 * t89) + 0.019751789702565206 * t64 * t89;
+        let t95 = -t53
+            + t64 * (-0.03109 * t66 * t75 + t53 - 0.019751789702565206 * t89)
+            + 0.019751789702565206 * t64 * t89;
         let t98 = piecewise3(t8, 0.0, t9 * t95 / 2.0);
         let t99 = param_c_ss_0;
         let t100 = param_c_ss_1;
@@ -127,7 +136,11 @@ pub fn gga_c_bmk_exc_pol(
         let t142 = t121 * t121;
         let t143 = 1.0 / t142;
         let t144 = t141 * t143;
-        let t147 = t99 + 0.2 * t101 * t106 * t110 + 0.04 * t116 * t123 + 0.008 * t128 * t133 + 0.0016 * t138 * t144;
+        let t147 = t99
+            + 0.2 * t101 * t106 * t110
+            + 0.04 * t116 * t123
+            + 0.008 * t128 * t133
+            + 0.0016 * t138 * t144;
         let t148 = t98 * t147;
         let t150 = 1.0 - t5;
         let t151 = t150 <= zeta_threshold;
@@ -154,7 +167,9 @@ pub fn gga_c_bmk_exc_pol(
         let t199 = 1.0 + 29.608574643216677 / t196;
         let t200 = rmath::ln(t199);
         let t201 = t191 * t200;
-        let t207 = -t176 + t64 * (-0.03109 * t178 * t187 + t176 - 0.019751789702565206 * t201) + 0.019751789702565206 * t64 * t201;
+        let t207 = -t176
+            + t64 * (-0.03109 * t178 * t187 + t176 - 0.019751789702565206 * t201)
+            + 0.019751789702565206 * t64 * t201;
         let t210 = piecewise3(t152, 0.0, t153 * t207 / 2.0);
         let t211 = t100 * sigma2;
         let t212 = rho1 * rho1;
@@ -186,7 +201,11 @@ pub fn gga_c_bmk_exc_pol(
         let t249 = t230 * t230;
         let t250 = 1.0 / t249;
         let t251 = t248 * t250;
-        let t254 = t99 + 0.2 * t211 * t216 * t220 + 0.04 * t225 * t232 + 0.008 * t236 * t241 + 0.0016 * t245 * t251;
+        let t254 = t99
+            + 0.2 * t211 * t216 * t220
+            + 0.04 * t225 * t232
+            + 0.008 * t236 * t241
+            + 0.0016 * t245 * t251;
         let t255 = t210 * t254;
         let t257 = t13 * t15 * t18;
         let t259 = 1.0 + 0.053425 * t257;
@@ -241,7 +260,11 @@ pub fn gga_c_bmk_exc_pol(
         let t345 = t343 * t344;
         let t346 = t332 * t332;
         let t347 = 1.0 / t346;
-        let t350 = param_c_ab_0 + 0.003 * t322 * t326 + 9e-06 * t331 * t333 + 2.7e-08 * t338 * t340 + 8.1e-11 * t345 * t347;
+        let t350 = param_c_ab_0
+            + 0.003 * t322 * t326
+            + 9e-06 * t331 * t333
+            + 2.7e-08 * t338 * t340
+            + 8.1e-11 * t345 * t347;
         let t351 = t318 * t350;
         let tzk0 = t148 + t255 + t351;
         zk[ip] += tzk0;

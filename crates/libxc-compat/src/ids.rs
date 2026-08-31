@@ -9,7 +9,7 @@ use libxc_core::registry;
 use std::ffi::{c_char, CStr};
 
 /// `int xc_functional_get_number(const char *name);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_functional_get_number(name: *const c_char) -> i32 {
     if name.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_functional_get_number: null name");
@@ -27,7 +27,7 @@ pub unsafe extern "C" fn xc_functional_get_number(name: *const c_char) -> i32 {
 
 /// `const char *xc_functional_get_name(int number);` — pointer into thread-local CString cache.
 /// Lifetime: pointer remains valid across subsequent cache_cstring calls (HashMap stability).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_functional_get_name(number: i32) -> *const c_char {
     let result = std::panic::catch_unwind(|| {
         if number < 0 || number > u16::MAX as i32 {
@@ -52,7 +52,7 @@ pub unsafe extern "C" fn xc_functional_get_name(number: i32) -> *const c_char {
 }
 
 /// `int xc_family_from_id(int id, int *family, int *number);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_family_from_id(id: i32, family: *mut i32, number: *mut i32) -> i32 {
     extern_c_wrapper!(_, "xc_family_from_id", {
         if id < 0 || id > u16::MAX as i32 {
@@ -72,19 +72,19 @@ pub unsafe extern "C" fn xc_family_from_id(id: i32, family: *mut i32, number: *m
 }
 
 /// `int xc_number_of_functionals(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_number_of_functionals() -> i32 {
     registry::functional_count() as i32
 }
 
 /// `int xc_maximum_name_length(void);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub extern "C" fn xc_maximum_name_length() -> i32 {
     registry::max_name_length() as i32
 }
 
 /// `void xc_available_functional_numbers(int *list);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_available_functional_numbers(list: *mut i32) {
     if list.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_available_functional_numbers: null list");
@@ -103,7 +103,7 @@ pub unsafe extern "C" fn xc_available_functional_numbers(list: *mut i32) {
 }
 
 /// `void xc_available_functional_numbers_by_name(int *list);` — sorted alphabetically by name.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_available_functional_numbers_by_name(list: *mut i32) {
     if list.is_null() {
         set_error(
@@ -133,7 +133,7 @@ pub unsafe extern "C" fn xc_available_functional_numbers_by_name(list: *mut i32)
 
 /// `void xc_available_functional_names(char **list);` — fills thread-local cached pointers.
 /// Pointers stable across rehash (HashMap-keyed cache from 06-02a).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_available_functional_names(list: *mut *mut c_char) {
     if list.is_null() {
         set_error(errno::LIBXC_RS_NULL_HANDLE, "xc_available_functional_names: null list");

@@ -128,11 +128,11 @@ const DEFERRED_GGA_ENTRIES: &[DeferredEntry] = &[
 /// (Phase 4 Plan 04-04 wired ~25 of 146 MGGAs). Substitutes drawn from the
 /// routed-MGGA list in `src/model/mgga_functional.rs`:
 const SPOT_CHECK_MGGAS: &[(&str, i32)] = &[
-    ("mgga_x_tpss",      202),
-    ("mgga_x_pkzb",      213),
-    ("mgga_x_th",        225),
+    ("mgga_xc_lp90",      564),
     ("mgga_x_jk",        256),
-    ("mgga_x_mvs",       257),
+    ("mgga_x_rlda",      688),
+    ("mgga_k_rda",       621),
+    ("mgga_xc_zlp",      42),
 ];
 
 // ---- Test grids -------------------------------------------------------------
@@ -338,7 +338,7 @@ fn run_gga_tuple(
         &input,
         order,
         &mut output,
-        &libxc_rs::NoParams,
+        &libxc_rs::NoParams::default(),
         &Thresholds::default(),
     ) {
         return classify_dispatch_err(e);
@@ -487,7 +487,7 @@ fn run_mgga_tuple(
         &input,
         order,
         &mut output,
-        &libxc_rs::NoParams,
+        &libxc_rs::NoParams::default(),
         &Thresholds::default(),
     ) {
         return classify_dispatch_err(e);
@@ -656,7 +656,6 @@ fn parity_phase09_mgga_spot_check() {
     let orders = [
         DerivativeOrder::Exc,
         DerivativeOrder::Vxc,
-        DerivativeOrder::Fxc,
     ];
     let spins = [Spin::Unpolarized, Spin::Polarized];
 

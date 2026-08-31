@@ -14,9 +14,9 @@ use libxc_rkernel_mgga_x_br89_explicit as k;
 /// libxc default for `param_gamma`.
 pub const PARAM_GAMMA: f64 = 0.8;
 
-pub fn dispatch<'a>(
-    input: &'a MggaInput<'a>,
-    output: &'a mut MggaOutput<'a>,
+pub fn dispatch(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

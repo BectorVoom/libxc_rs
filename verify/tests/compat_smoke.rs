@@ -136,7 +136,7 @@ fn discovery_matches_registry() {
         let name_back = xc_functional_get_name(id);
         assert!(!name_back.is_null());
         let s = CStr::from_ptr(name_back).to_string_lossy();
-        assert_eq!(s, "lda_x");
+        assert_eq!(s, "XC_LDA_X");
         let mut family = 0i32;
         let mut number = 0i32;
         assert_eq!(xc_family_from_id(id, &mut family, &mut number), 0);

@@ -16,7 +16,7 @@ pub mod params_lda;
 pub mod params_mgga;
 
 pub use hybrid::{classify_hybrid, CamCoefficients, NlcCoefficients};
-pub use params::{FunctionalParams, NoParams};
+pub use params::{FunctionalParams, GenericParams, NoParams};
 
 use libxc_core::dims::Dimensions;
 use libxc_core::meta::FunctionalMeta;

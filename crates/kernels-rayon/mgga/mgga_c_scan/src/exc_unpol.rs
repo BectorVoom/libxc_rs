@@ -12,11 +12,10 @@ use libxc_rkernel_math::wide::{f64x8, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe};
 const V_ZERO: f64x8 = f64x8::new([0.0; 8]);
 const V_ONE: f64x8 = f64x8::new([1.0; 8]);
 
-// `exp`, `ln` and the cube-root family come from `libxc_rkernel_math::simd`,
-// which is bit-identical per lane to the scalar calls the scalar kernel makes
-// (exp/ln to glibc's `_fma` ifuncs, cbrt to `powers::cbrt_f64`). Only
-// `atan`/`tanh`-class calls still use `wide`'s ~1 ulp forms; a kernel with
-// none of those produces output bit-identical to its scalar form.
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
 
 /// Load 8 consecutive grid points.
 ///

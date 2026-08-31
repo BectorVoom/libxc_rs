@@ -4,7 +4,14 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rmath = { path = "../../../../rmath", default-features = false, features = ["wide"], version = "0.1.0" }
+# Renamed on purpose. rmath's own free functions (`rmath::exp`, `rmath::ln`, …)
+# are deliberately its `Fast` path -- documented as such, and asserted by its
+# `tests/fast_path.rs` -- so a bare `rmath::exp` anywhere in this crate would
+# silently give the kernels approximate math against a 1e-12 contract. With the
+# crate reachable only as `rmath_upstream`, that mistake is a compile error;
+# `crate::rmath` (src/rmath_bitexact.rs) is the BitExact surface everything
+# here and every generated kernel is meant to call.
+rmath_upstream = { package = "rmath", path = "../../../../rmath", default-features = false, features = ["wide"], version = "0.1.0" }
 # Explicit SIMD for the kernels that need it. Pure Rust (no C, per the
 # project's no-C-in-production-path constraint), and a tiny tree: wide pulls
 # only safe_arch + bytemuck. Re-exported below so a kernel crate needs one

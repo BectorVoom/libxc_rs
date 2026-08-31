@@ -21,7 +21,7 @@ use std::ffi::{c_char, CStr};
 //     walks auxiliaries per the Pitfall 4 fix in 06-02a-T1 Step 5). ===
 
 /// `int xc_func_set_dens_threshold(xc_func_type *p, double t_dens);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_dens_threshold(p: *mut xc_func_type, t: f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_set_dens_threshold", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
@@ -31,7 +31,7 @@ pub unsafe extern "C" fn xc_func_set_dens_threshold(p: *mut xc_func_type, t: f64
 }
 
 /// `int xc_func_set_zeta_threshold(xc_func_type *p, double t_zeta);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_zeta_threshold(p: *mut xc_func_type, t: f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_set_zeta_threshold", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
@@ -41,7 +41,7 @@ pub unsafe extern "C" fn xc_func_set_zeta_threshold(p: *mut xc_func_type, t: f64
 }
 
 /// `int xc_func_set_sigma_threshold(xc_func_type *p, double t_sigma);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_sigma_threshold(p: *mut xc_func_type, t: f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_set_sigma_threshold", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
@@ -51,7 +51,7 @@ pub unsafe extern "C" fn xc_func_set_sigma_threshold(p: *mut xc_func_type, t: f6
 }
 
 /// `int xc_func_set_tau_threshold(xc_func_type *p, double t_tau);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_tau_threshold(p: *mut xc_func_type, t: f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_set_tau_threshold", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
@@ -66,7 +66,7 @@ pub unsafe extern "C" fn xc_func_set_tau_threshold(p: *mut xc_func_type, t: f64)
 ///
 /// Pitfall 10: any value equal to `LIBXC_EXT_PARAMS_DEFAULT` (-999998888.0) is
 /// substituted with that parameter's per-spec `default_value` before forwarding.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_ext_params(p: *mut xc_func_type, ext_params: *const f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_set_ext_params", {
         let f = unsafe { FunctionalSlot::as_initialized_mut(p)? };
@@ -98,7 +98,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params(p: *mut xc_func_type, ext_params
 }
 
 /// `int xc_func_get_ext_params(const xc_func_type *p, double *ext_params);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_get_ext_params(p: *const xc_func_type, ext_params: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_func_get_ext_params", {
         let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
@@ -127,7 +127,7 @@ pub unsafe extern "C" fn xc_func_get_ext_params(p: *const xc_func_type, ext_para
 /// `int xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par);`
 ///
 /// Pitfall 10 substitution applies at the single-name level too.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_set_ext_params_name(
     p: *mut xc_func_type,
     name: *const c_char,
@@ -172,7 +172,7 @@ pub unsafe extern "C" fn xc_func_set_ext_params_name(
 ///
 /// Returns NaN on error (errno set). Double-returning fns cannot use
 /// `extern_c_wrapper!` (which returns `i32`), so they hand-roll `catch_unwind`.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_get_ext_params_name(
     p: *const xc_func_type,
     name: *const c_char,
@@ -216,7 +216,7 @@ pub unsafe extern "C" fn xc_func_get_ext_params_name(
 /// `double xc_func_get_ext_params_value(const xc_func_type *p, int number);`
 ///
 /// Returns NaN on error (errno set).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_get_ext_params_value(p: *const xc_func_type, number: i32) -> f64 {
     if p.is_null() {
         set_error(
@@ -354,17 +354,53 @@ unsafe fn lda_evaluate(
     // SAFETY: rho covers np * dims.rho per the C-ABI contract.
     let rho_slice = unsafe { input_slice(rho, np, dims.rho as usize) };
     let input = LdaInput::new(rho_slice, np, spin)?;
+
+    let max_provided = if !v4rho4.is_null() {
+        DerivativeOrder::Lxc
+    } else if !v3rho3.is_null() {
+        DerivativeOrder::Kxc
+    } else if !v2rho2.is_null() {
+        DerivativeOrder::Fxc
+    } else if !vrho.is_null() {
+        DerivativeOrder::Vxc
+    } else if !zk.is_null() {
+        DerivativeOrder::Exc
+    } else {
+        return Ok(0);
+    };
+    let effective_order = order.min(max_provided);
+
+    let mut scratch = vec![0.0; dims.total_output_components() * np];
+    #[allow(unused_assignments)]
+    let mut cursor = scratch.as_mut_slice();
+
+    macro_rules! lda_slot {
+        ($ptr:expr, $field:ident, $req_order:ident) => {{
+            let len = dims.$field as usize * np;
+            if !$ptr.is_null() {
+                unsafe { ptr_to_opt_slice($ptr, np, dims.$field as usize) }
+            } else if effective_order >= DerivativeOrder::$req_order {
+                let (head, rest) = cursor.split_at_mut(len);
+                cursor = rest;
+                let _ = &cursor;
+                Some(head)
+            } else {
+                None
+            }
+        }};
+    }
+
     let mut output = LdaOutput::new(
-        unsafe { ptr_to_opt_slice(zk, np, dims.zk as usize) },
-        unsafe { ptr_to_opt_slice(vrho, np, dims.vrho as usize) },
-        unsafe { ptr_to_opt_slice(v2rho2, np, dims.v2rho2 as usize) },
-        unsafe { ptr_to_opt_slice(v3rho3, np, dims.v3rho3 as usize) },
-        unsafe { ptr_to_opt_slice(v4rho4, np, dims.v4rho4 as usize) },
+        lda_slot!(zk, zk, Exc),
+        lda_slot!(vrho, vrho, Vxc),
+        lda_slot!(v2rho2, v2rho2, Fxc),
+        lda_slot!(v3rho3, v3rho3, Kxc),
+        lda_slot!(v4rho4, v4rho4, Lxc),
         np,
         spin,
     )?;
     let mut ws = EvaluationWorkspace::new(np, spin);
-    f.evaluate_lda(&input, order, &mut output, &mut ws)?;
+    f.evaluate_lda(&input, effective_order, &mut output, &mut ws)?;
     Ok(0)
 }
 
@@ -381,7 +417,7 @@ pub struct XcLdaOutParams {
 const NULL_F64: *mut f64 = std::ptr::null_mut();
 
 /// `void xc_lda_exc(p, np, rho, zk);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_exc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_exc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Exc, zk, NULL_F64, NULL_F64, NULL_F64, NULL_F64) }
@@ -389,7 +425,7 @@ pub unsafe extern "C" fn xc_lda_exc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_lda_exc_vxc(p, np, rho, zk, vrho);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_exc_vxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Vxc, zk, vrho, NULL_F64, NULL_F64, NULL_F64) }
@@ -397,7 +433,7 @@ pub unsafe extern "C" fn xc_lda_exc_vxc(p: *const xc_func_type, np: usize, rho: 
 }
 
 /// `void xc_lda_vxc(p, np, rho, vrho);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_vxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_vxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Vxc, NULL_F64, vrho, NULL_F64, NULL_F64, NULL_F64) }
@@ -405,7 +441,7 @@ pub unsafe extern "C" fn xc_lda_vxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_lda_exc_vxc_fxc(p, np, rho, zk, vrho, v2rho2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_exc_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64, v2rho2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_exc_vxc_fxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, zk, vrho, v2rho2, NULL_F64, NULL_F64) }
@@ -413,7 +449,7 @@ pub unsafe extern "C" fn xc_lda_exc_vxc_fxc(p: *const xc_func_type, np: usize, r
 }
 
 /// `void xc_lda_vxc_fxc(p, np, rho, vrho, v2rho2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64, v2rho2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_vxc_fxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, NULL_F64, vrho, v2rho2, NULL_F64, NULL_F64) }
@@ -421,7 +457,7 @@ pub unsafe extern "C" fn xc_lda_vxc_fxc(p: *const xc_func_type, np: usize, rho: 
 }
 
 /// `void xc_lda_fxc(p, np, rho, v2rho2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_fxc(p: *const xc_func_type, np: usize, rho: *const f64, v2rho2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_fxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Fxc, NULL_F64, NULL_F64, v2rho2, NULL_F64, NULL_F64) }
@@ -429,7 +465,7 @@ pub unsafe extern "C" fn xc_lda_fxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_lda_exc_vxc_fxc_kxc(p, np, rho, zk, vrho, v2rho2, v3rho3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, zk: *mut f64, vrho: *mut f64, v2rho2: *mut f64, v3rho3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_exc_vxc_fxc_kxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, zk, vrho, v2rho2, v3rho3, NULL_F64) }
@@ -437,7 +473,7 @@ pub unsafe extern "C" fn xc_lda_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usiz
 }
 
 /// `void xc_lda_vxc_fxc_kxc(p, np, rho, vrho, v2rho2, v3rho3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, vrho: *mut f64, v2rho2: *mut f64, v3rho3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_vxc_fxc_kxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, NULL_F64, vrho, v2rho2, v3rho3, NULL_F64) }
@@ -445,7 +481,7 @@ pub unsafe extern "C" fn xc_lda_vxc_fxc_kxc(p: *const xc_func_type, np: usize, r
 }
 
 /// `void xc_lda_kxc(p, np, rho, v3rho3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_kxc(p: *const xc_func_type, np: usize, rho: *const f64, v3rho3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_kxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Kxc, NULL_F64, NULL_F64, NULL_F64, v3rho3, NULL_F64) }
@@ -453,7 +489,7 @@ pub unsafe extern "C" fn xc_lda_kxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_lda_lxc(p, np, rho, v4rho4);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_lxc(p: *const xc_func_type, np: usize, rho: *const f64, v4rho4: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_lda_lxc", {
         unsafe { lda_evaluate(p, np, rho, DerivativeOrder::Lxc, NULL_F64, NULL_F64, NULL_F64, NULL_F64, v4rho4) }
@@ -462,7 +498,7 @@ pub unsafe extern "C" fn xc_lda_lxc(p: *const xc_func_type, np: usize, rho: *con
 
 /// `void xc_lda(p, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);`
 /// Family-summary: infers `order` from the highest non-NULL output (Pitfall 8).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda(
     p: *const xc_func_type,
     np: usize,
@@ -492,7 +528,7 @@ pub unsafe extern "C" fn xc_lda(
 }
 
 /// `void xc_lda_new(p, order, np, rho, xc_lda_out_params *out);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_lda_new(
     p: *const xc_func_type,
     order: i32,
@@ -637,27 +673,72 @@ unsafe fn gga_evaluate(
     let rho_slice = unsafe { input_slice(rho, np, dims.rho as usize) };
     let sigma_slice = unsafe { input_slice(sigma, np, dims.sigma as usize) };
     let input = GgaInput::new(rho_slice, sigma_slice, np, spin)?;
+
+    let max_provided = if !v4rho4.is_null()
+        || !v4rho3sigma.is_null()
+        || !v4rho2sigma2.is_null()
+        || !v4rhosigma3.is_null()
+        || !v4sigma4.is_null()
+    {
+        DerivativeOrder::Lxc
+    } else if !v3rho3.is_null()
+        || !v3rho2sigma.is_null()
+        || !v3rhosigma2.is_null()
+        || !v3sigma3.is_null()
+    {
+        DerivativeOrder::Kxc
+    } else if !v2rho2.is_null() || !v2rhosigma.is_null() || !v2sigma2.is_null() {
+        DerivativeOrder::Fxc
+    } else if !vrho.is_null() || !vsigma.is_null() {
+        DerivativeOrder::Vxc
+    } else if !zk.is_null() {
+        DerivativeOrder::Exc
+    } else {
+        return Ok(0);
+    };
+    let effective_order = order.min(max_provided);
+
+    let mut scratch = vec![0.0; dims.total_output_components() * np];
+    #[allow(unused_assignments)]
+    let mut cursor = scratch.as_mut_slice();
+
+    macro_rules! gga_slot {
+        ($ptr:expr, $field:ident, $req_order:ident) => {{
+            let len = dims.$field as usize * np;
+            if !$ptr.is_null() {
+                unsafe { ptr_to_opt_slice($ptr, np, dims.$field as usize) }
+            } else if effective_order >= DerivativeOrder::$req_order {
+                let (head, rest) = cursor.split_at_mut(len);
+                cursor = rest;
+                let _ = &cursor;
+                Some(head)
+            } else {
+                None
+            }
+        }};
+    }
+
     let mut output = GgaOutput::new(
-        unsafe { ptr_to_opt_slice(zk, np, dims.zk as usize) },
-        unsafe { ptr_to_opt_slice(vrho, np, dims.vrho as usize) },
-        unsafe { ptr_to_opt_slice(vsigma, np, dims.vsigma as usize) },
-        unsafe { ptr_to_opt_slice(v2rho2, np, dims.v2rho2 as usize) },
-        unsafe { ptr_to_opt_slice(v2rhosigma, np, dims.v2rhosigma as usize) },
-        unsafe { ptr_to_opt_slice(v2sigma2, np, dims.v2sigma2 as usize) },
-        unsafe { ptr_to_opt_slice(v3rho3, np, dims.v3rho3 as usize) },
-        unsafe { ptr_to_opt_slice(v3rho2sigma, np, dims.v3rho2sigma as usize) },
-        unsafe { ptr_to_opt_slice(v3rhosigma2, np, dims.v3rhosigma2 as usize) },
-        unsafe { ptr_to_opt_slice(v3sigma3, np, dims.v3sigma3 as usize) },
-        unsafe { ptr_to_opt_slice(v4rho4, np, dims.v4rho4 as usize) },
-        unsafe { ptr_to_opt_slice(v4rho3sigma, np, dims.v4rho3sigma as usize) },
-        unsafe { ptr_to_opt_slice(v4rho2sigma2, np, dims.v4rho2sigma2 as usize) },
-        unsafe { ptr_to_opt_slice(v4rhosigma3, np, dims.v4rhosigma3 as usize) },
-        unsafe { ptr_to_opt_slice(v4sigma4, np, dims.v4sigma4 as usize) },
+        gga_slot!(zk, zk, Exc),
+        gga_slot!(vrho, vrho, Vxc),
+        gga_slot!(vsigma, vsigma, Vxc),
+        gga_slot!(v2rho2, v2rho2, Fxc),
+        gga_slot!(v2rhosigma, v2rhosigma, Fxc),
+        gga_slot!(v2sigma2, v2sigma2, Fxc),
+        gga_slot!(v3rho3, v3rho3, Kxc),
+        gga_slot!(v3rho2sigma, v3rho2sigma, Kxc),
+        gga_slot!(v3rhosigma2, v3rhosigma2, Kxc),
+        gga_slot!(v3sigma3, v3sigma3, Kxc),
+        gga_slot!(v4rho4, v4rho4, Lxc),
+        gga_slot!(v4rho3sigma, v4rho3sigma, Lxc),
+        gga_slot!(v4rho2sigma2, v4rho2sigma2, Lxc),
+        gga_slot!(v4rhosigma3, v4rhosigma3, Lxc),
+        gga_slot!(v4sigma4, v4sigma4, Lxc),
         np,
         spin,
     )?;
     let mut ws = EvaluationWorkspace::new(np, spin);
-    f.evaluate_gga(&input, order, &mut output, &mut ws)?;
+    f.evaluate_gga(&input, effective_order, &mut output, &mut ws)?;
     Ok(0)
 }
 
@@ -682,7 +763,7 @@ pub struct XcGgaOutParams {
 }
 
 /// `void xc_gga_exc(p, np, rho, sigma, zk);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_exc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_exc", {
         unsafe {
@@ -694,7 +775,7 @@ pub unsafe extern "C" fn xc_gga_exc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_exc_vxc", {
         unsafe {
@@ -706,7 +787,7 @@ pub unsafe extern "C" fn xc_gga_exc_vxc(p: *const xc_func_type, np: usize, rho: 
 }
 
 /// `void xc_gga_vxc(p, np, rho, sigma, vrho, vsigma);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_vxc", {
         unsafe {
@@ -718,7 +799,7 @@ pub unsafe extern "C" fn xc_gga_vxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_gga_exc_vxc_fxc(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_exc_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_exc_vxc_fxc", {
         unsafe {
@@ -729,7 +810,7 @@ pub unsafe extern "C" fn xc_gga_exc_vxc_fxc(p: *const xc_func_type, np: usize, r
 }
 
 /// `void xc_gga_vxc_fxc(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_vxc_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_vxc_fxc", {
         unsafe {
@@ -740,7 +821,7 @@ pub unsafe extern "C" fn xc_gga_vxc_fxc(p: *const xc_func_type, np: usize, rho: 
 }
 
 /// `void xc_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_fxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_fxc", {
         unsafe {
@@ -751,7 +832,7 @@ pub unsafe extern "C" fn xc_gga_fxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_gga_exc_vxc_fxc_kxc(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_exc_vxc_fxc_kxc", {
         unsafe {
@@ -762,7 +843,7 @@ pub unsafe extern "C" fn xc_gga_exc_vxc_fxc_kxc(p: *const xc_func_type, np: usiz
 }
 
 /// `void xc_gga_vxc_fxc_kxc(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_vxc_fxc_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, vrho: *mut f64, vsigma: *mut f64, v2rho2: *mut f64, v2rhosigma: *mut f64, v2sigma2: *mut f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_vxc_fxc_kxc", {
         unsafe {
@@ -773,7 +854,7 @@ pub unsafe extern "C" fn xc_gga_vxc_fxc_kxc(p: *const xc_func_type, np: usize, r
 }
 
 /// `void xc_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_kxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rhosigma2: *mut f64, v3sigma3: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_kxc", {
         unsafe {
@@ -784,7 +865,7 @@ pub unsafe extern "C" fn xc_gga_kxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_gga_lxc(p, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_lxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, v4rho4: *mut f64, v4rho3sigma: *mut f64, v4rho2sigma2: *mut f64, v4rhosigma3: *mut f64, v4sigma4: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_gga_lxc", {
         unsafe {
@@ -795,7 +876,7 @@ pub unsafe extern "C" fn xc_gga_lxc(p: *const xc_func_type, np: usize, rho: *con
 }
 
 /// `void xc_gga(p, np, rho, sigma, zk … v4sigma4);` — family-summary, order inferred (Pitfall 8).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 #[allow(clippy::too_many_arguments)]
 pub unsafe extern "C" fn xc_gga(
     p: *const xc_func_type,
@@ -840,7 +921,7 @@ pub unsafe extern "C" fn xc_gga(
 }
 
 /// `void xc_gga_new(p, order, np, rho, sigma, xc_gga_out_params *out);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_gga_new(
     p: *const xc_func_type,
     order: i32,
@@ -949,7 +1030,7 @@ unsafe fn mgga_run(
 }
 
 /// `void xc_mgga_exc(p, np, rho, sigma, lapl, tau, zk);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_exc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, zk: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_mgga_exc", {
         let dims = unsafe { mgga_dims(p) }?;
@@ -959,7 +1040,7 @@ pub unsafe extern "C" fn xc_mgga_exc(p: *const xc_func_type, np: usize, rho: *co
 }
 
 /// `void xc_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_exc_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_mgga_exc_vxc", {
         let dims = unsafe { mgga_dims(p) }?;
@@ -969,7 +1050,7 @@ pub unsafe extern "C" fn xc_mgga_exc_vxc(p: *const xc_func_type, np: usize, rho:
 }
 
 /// `void xc_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau);`
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_vxc(p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64) -> i32 {
     extern_c_wrapper!(p, "xc_mgga_vxc", {
         let dims = unsafe { mgga_dims(p) }?;
@@ -979,7 +1060,7 @@ pub unsafe extern "C" fn xc_mgga_vxc(p: *const xc_func_type, np: usize, rho: *co
 }
 
 /// `void xc_mgga_exc_vxc_fxc(...)` — orders 0,1,2.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
@@ -997,7 +1078,7 @@ pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc(
 }
 
 /// `void xc_mgga_vxc_fxc(...)` — orders 1,2.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_vxc_fxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
@@ -1015,7 +1096,7 @@ pub unsafe extern "C" fn xc_mgga_vxc_fxc(
 }
 
 /// `void xc_mgga_fxc(...)` — order 2 only.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_fxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     v2rho2: *mut f64, v2rhosigma: *mut f64, v2rholapl: *mut f64, v2rhotau: *mut f64,
@@ -1031,7 +1112,7 @@ pub unsafe extern "C" fn xc_mgga_fxc(
 }
 
 /// `void xc_mgga_exc_vxc_fxc_kxc(...)` — orders 0,1,2,3.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc_kxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     zk: *mut f64, vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
@@ -1058,7 +1139,7 @@ pub unsafe extern "C" fn xc_mgga_exc_vxc_fxc_kxc(
 }
 
 /// `void xc_mgga_vxc_fxc_kxc(...)` — orders 1,2,3.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_vxc_fxc_kxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     vrho: *mut f64, vsigma: *mut f64, vlapl: *mut f64, vtau: *mut f64,
@@ -1085,7 +1166,7 @@ pub unsafe extern "C" fn xc_mgga_vxc_fxc_kxc(
 }
 
 /// `void xc_mgga_kxc(...)` — order 3 only.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_kxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     v3rho3: *mut f64, v3rho2sigma: *mut f64, v3rho2lapl: *mut f64, v3rho2tau: *mut f64,
@@ -1106,7 +1187,7 @@ pub unsafe extern "C" fn xc_mgga_kxc(
 }
 
 /// `void xc_mgga_lxc(...)` — order 4 only (35 fields).
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_mgga_lxc(
     p: *const xc_func_type, np: usize, rho: *const f64, sigma: *const f64, lapl: *const f64, tau: *const f64,
     v4rho4: *mut f64, v4rho3sigma: *mut f64, v4rho3lapl: *mut f64, v4rho3tau: *mut f64, v4rho2sigma2: *mut f64,
@@ -1134,7 +1215,7 @@ pub unsafe extern "C" fn xc_mgga_lxc(
 
 /// `void xc_mgga(p, np, rho, sigma, lapl, tau, zk … v4tau4);` — family-summary,
 /// order inferred from highest non-NULL output (Pitfall 8). All 70 output pointers.
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 // This entry point specifies every MggaOutput field, so the macro's trailing
 // `..Default::default()` is a no-op here (harmless; the macro is shared with the
 // partial-field entry points above).
@@ -1201,9 +1282,8 @@ mod mgga_evaluate_tests {
     fn mgga_exc_smoke() {
         unsafe {
             let p = xc_func_alloc();
-            let mgga_id = libxc_core::registry::lookup_by_name("mgga_x_scan")
-                .or_else(|_| libxc_core::registry::lookup_by_name("mgga_x_tpss"))
-                .expect("at least one MGGA functional compiled")
+            let mgga_id = libxc_core::registry::lookup_by_name("mgga_x_tpss")
+                .expect("mgga_x_tpss in registry")
                 .raw() as i32;
             assert_eq!(xc_func_init(p, mgga_id, 1), 0);
             let rho = [0.1f64, 0.2, 0.3, 0.4];

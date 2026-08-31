@@ -371,7 +371,7 @@ impl GgaFunctional {
             734 => Ok(Self::GgaXQ1d),
             _ => Err(LibxcRsError::UnsupportedFunctional {
                 id,
-                reason: "GGA functional not yet translated into crates/kernel-gga*",
+                reason: "GGA functional has no typed enum variant in GgaFunctional; use Functional::new or dispatch_gga_by_id",
             }),
         }
     }
@@ -642,7 +642,7 @@ mod tests {
         match err {
             LibxcRsError::UnsupportedFunctional { id: e_id, reason } => {
                 assert_eq!(e_id.raw(), 1);
-                assert!(reason.contains("not yet translated"), "reason: {reason}");
+                assert!(reason.contains("no typed enum variant"), "reason: {reason}");
             }
             other => panic!("expected UnsupportedFunctional, got {other:?}"),
         }

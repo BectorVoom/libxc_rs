@@ -8,7 +8,7 @@
 
 use libxc_core::dims::Dimensions;
 use libxc_core::error::LibxcRsError;
-use crate::functional::params::{FunctionalParams, NoParams};
+use crate::functional::params::{FunctionalParams, GenericParams, NoParams};
 use crate::functional::{params_lda, Functional};
 use libxc_core::meta::generated_propagation::PROPAGATION_RULES;
 use libxc_core::meta::FunctionalMeta;
@@ -66,13 +66,20 @@ impl Functional {
         let mut auxiliaries: Vec<Functional> = Vec::with_capacity(meta.auxiliaries.len());
         let mut mix_coefficients: Vec<f64> = Vec::with_capacity(meta.auxiliaries.len());
         for &(aux_id, weight) in meta.auxiliaries {
-            let aux = Functional::new(aux_id, spin).map_err(|e| {
-                LibxcRsError::AuxiliaryInitFailed {
-                    parent_id: meta.id,
-                    aux_id,
-                    source: Box::new(e),
+            let aux = match Functional::new(aux_id, spin) {
+                Ok(aux) => aux,
+                Err(LibxcRsError::UnknownFunctionalId(_)) => {
+                    // Internal worker functional not exposed in public registry (e.g. XC_LDA_K_GDS08_WORKER)
+                    continue;
                 }
-            })?;
+                Err(e) => {
+                    return Err(LibxcRsError::AuxiliaryInitFailed {
+                        parent_id: meta.id,
+                        aux_id,
+                        source: Box::new(e),
+                    });
+                }
+            };
             auxiliaries.push(aux);
             mix_coefficients.push(weight);
         }
@@ -103,9 +110,7 @@ impl Functional {
     ///
     /// Returns `PropagationConflict` if any rule references an out-of-range
     /// `parent_param_index`, an `aux_slot >= auxiliaries.len()`, or an
-    /// `aux_param_name` not present on the targeted aux. Real
-    /// `PROPAGATION_RULES` (xtask-validated) never trigger these branches;
-    /// they exist as defense-in-depth against snapshot drift.
+    /// `aux_param_name` not present on the targeted aux.
     pub(crate) fn propagate_to_aux(&mut self) -> Result<(), LibxcRsError> {
         let id = self.meta.id;
         let ext_snapshot: Option<Vec<f64>> =
@@ -117,6 +122,7 @@ impl Functional {
                     parent_name: rule.parent_param_name,
                     aux_slot: rule.aux_slot,
                     aux_name: rule.aux_param_name,
+                    cause: libxc_core::error::PropagationConflictCause::ParentHasNoExtParams,
                 },
             )?;
             let parent_value = ext
@@ -127,6 +133,7 @@ impl Functional {
                     parent_name: rule.parent_param_name,
                     aux_slot: rule.aux_slot,
                     aux_name: rule.aux_param_name,
+                    cause: libxc_core::error::PropagationConflictCause::ParentParamIndexOutOfRange,
                 })?;
             let aux = self
                 .auxiliaries
@@ -136,6 +143,7 @@ impl Functional {
                     parent_name: rule.parent_param_name,
                     aux_slot: rule.aux_slot,
                     aux_name: rule.aux_param_name,
+                    cause: libxc_core::error::PropagationConflictCause::AuxSlotOutOfRange,
                 })?;
             aux.set_ext_param(rule.aux_param_name, parent_value)
                 .map_err(|_| LibxcRsError::PropagationConflict {
@@ -143,6 +151,7 @@ impl Functional {
                     parent_name: rule.parent_param_name,
                     aux_slot: rule.aux_slot,
                     aux_name: rule.aux_param_name,
+                    cause: libxc_core::error::PropagationConflictCause::AuxRejectedParam,
                 })?;
         }
         Ok(())
@@ -160,28 +169,26 @@ impl Drop for Functional {
 
 /// Dispatch table from `meta.id` to a concrete `FunctionalParams` impl.
 ///
-/// Plan 05-02 scope: only `LdaX` (id 1) gets a concrete impl beyond the
-/// `NoParams` blanket. All other ids fall through to `NoParams` — the
-/// dispatch arms in `src/eval/{dispatch,gga_dispatch,mgga_dispatch}.rs`
-/// continue to use hardcoded libxc defaults at the call site, so this
-/// is bit-for-bit equivalent to the pre-Plan-05-02 behavior.
-///
-/// Follow-up plans will extend this match to cover the 36 ext-param-bearing
-/// LDA functionals + ~25 ext-param-bearing GGA + ~15 ext-param-bearing MGGA.
+/// If `defaults` is `Some`, constructs a params instance populated with default
+/// values (`LdaXParams` for id 1; `GenericParams` for other parameterized
+/// functionals). If `defaults` is `None`, uses `NoParams`.
 pub(crate) fn construct_params(
     id: FunctionalId,
-    _defaults: Option<&[f64]>,
+    defaults: Option<&[f64]>,
 ) -> Result<Box<dyn FunctionalParams>, LibxcRsError> {
     match id.raw() {
         1 => {
             // XC_LDA_X: alpha (Slater scaling). Concrete params for downcast.
-            let p = params_lda::LdaXParams::from_defaults();
+            let alpha = defaults.and_then(|d| d.first().copied()).unwrap_or(1.0);
+            let p = params_lda::LdaXParams::new(alpha);
             Ok(Box::new(p))
         }
         _ => {
-            // All other functionals: NoParams. Dispatch arms ignore the
-            // trait-object params and use hardcoded libxc defaults.
-            Ok(Box::new(NoParams))
+            if let Some(defs) = defaults {
+                Ok(Box::new(GenericParams::new(id, defs)))
+            } else {
+                Ok(Box::new(NoParams::new(id)))
+            }
         }
     }
 }
@@ -292,12 +299,10 @@ mod tests {
 
     #[test]
     fn non_lda_x_construct_params_yields_no_params() {
-        let id =
-            FunctionalId::from_name("gga_x_pbe").unwrap_or_else(|_| FunctionalId::from_raw(101).unwrap());
+        let id = FunctionalId::from_raw(7).unwrap(); // lda_c_vwn (zero ext_params)
         let f = Functional::new(id, Spin::Unpolarized).unwrap();
-        // GGA functionals fall through to NoParams in Plan 05-02.
         let downcast = f.params.as_any().downcast_ref::<NoParams>();
-        assert!(downcast.is_some(), "Non-LDA-X functionals should yield NoParams in Plan 05-02");
+        assert!(downcast.is_some(), "Zero-ext-param functionals should yield NoParams");
     }
 
     // ── Plan 05-03: aux recursion + propagation invariants ────────────
@@ -417,7 +422,7 @@ mod tests {
     fn empty_propagation_rules_runs_clean() {
         // Construct several ids; if propagate_to_aux had any unguarded
         // panic path it would surface here.
-        for raw in [1u16, 101, 130, 202, 287] {
+        for raw in [1u16, 9, 130, 202, 287] {
             if let Ok(id) = FunctionalId::from_raw(raw) {
                 let _ = Functional::new(id, Spin::Unpolarized).unwrap();
             }

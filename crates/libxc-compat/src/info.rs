@@ -31,37 +31,37 @@ unsafe fn ref_ref<'a>(r: *const func_reference_type) -> Option<&'a Reference> {
     }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_number(info: *const xc_func_info_type) -> i32 {
     if let Some(m) = unsafe { info_ref(info) } { m.id.raw() as i32 } else { -1 }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_kind(info: *const xc_func_info_type) -> i32 {
     if let Some(m) = unsafe { info_ref(info) } { m.kind as i32 } else { -1 }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_name(info: *const xc_func_info_type) -> *const c_char {
     if let Some(m) = unsafe { info_ref(info) } { cache_cstring(m.name) } else { std::ptr::null() }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_family(info: *const xc_func_info_type) -> i32 {
     if let Some(m) = unsafe { info_ref(info) } { m.family as i32 } else { -1 }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_flags(info: *const xc_func_info_type) -> i32 {
     if let Some(m) = unsafe { info_ref(info) } { m.flags.bits() as i32 } else { 0 }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_n_ext_params(info: *const xc_func_info_type) -> i32 {
     if let Some(m) = unsafe { info_ref(info) } { m.ext_params.len() as i32 } else { -1 }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_ext_params_name(
     info: *const xc_func_info_type,
     number: i32,
@@ -75,7 +75,7 @@ pub unsafe extern "C" fn xc_func_info_get_ext_params_name(
     std::ptr::null()
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_ext_params_description(
     info: *const xc_func_info_type,
     number: i32,
@@ -89,7 +89,7 @@ pub unsafe extern "C" fn xc_func_info_get_ext_params_description(
     std::ptr::null()
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_ext_params_default_value(
     info: *const xc_func_info_type,
     number: i32,
@@ -103,7 +103,7 @@ pub unsafe extern "C" fn xc_func_info_get_ext_params_default_value(
     f64::NAN
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_info_get_references(
     info: *const xc_func_info_type,
     number: i32,
@@ -120,22 +120,22 @@ pub unsafe extern "C" fn xc_func_info_get_references(
 // 4 reference accessors — Reference field names verified against src/meta/mod.rs
 // (citation / doi / bibtex / key, all &'static str).
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_reference_get_ref(r: *const func_reference_type) -> *const c_char {
     if let Some(rr) = unsafe { ref_ref(r) } { cache_cstring(rr.citation) } else { std::ptr::null() }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_reference_get_doi(r: *const func_reference_type) -> *const c_char {
     if let Some(rr) = unsafe { ref_ref(r) } { cache_cstring(rr.doi) } else { std::ptr::null() }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_reference_get_bibtex(r: *const func_reference_type) -> *const c_char {
     if let Some(rr) = unsafe { ref_ref(r) } { cache_cstring(rr.bibtex) } else { std::ptr::null() }
 }
 
-#[unsafe(no_mangle)]
+#[cfg_attr(feature = "c-abi", unsafe(no_mangle))]
 pub unsafe extern "C" fn xc_func_reference_get_key(r: *const func_reference_type) -> *const c_char {
     if let Some(rr) = unsafe { ref_ref(r) } { cache_cstring(rr.key) } else { std::ptr::null() }
 }

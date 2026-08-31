@@ -18,9 +18,9 @@ pub const PARAM_BB: f64 = 14.0;
 /// libxc default for `param_cc`.
 pub const PARAM_CC: f64 = 0.2;
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

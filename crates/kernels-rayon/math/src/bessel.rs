@@ -14,6 +14,10 @@
 #![allow(clippy::excessive_precision, clippy::needless_return, non_snake_case)]
 
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 // ---------------------------------------------------------------------------
 // Useful constants (from libxc `util.h`)
 // ---------------------------------------------------------------------------

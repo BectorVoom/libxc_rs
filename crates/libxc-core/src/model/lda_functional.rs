@@ -125,7 +125,7 @@ impl LdaFunctional {
             692 => Ok(Self::LdaXSloc),
             _ => Err(LibxcRsError::UnsupportedFunctional {
                 id,
-                reason: "LDA functional not yet translated into crates/kernel-lda",
+                reason: "LDA functional has no typed enum variant in LdaFunctional; use Functional::new or dispatch_lda_by_id",
             }),
         }
     }
@@ -173,10 +173,7 @@ impl LdaFunctional {
             Self::LdaXcTih        => 599,
             Self::LdaXcZlp        => 43,
         };
-        // Constructed via from_raw below — every raw ID listed here is
-        // guaranteed valid in the registry. Unwrap is safe.
-        FunctionalId::from_raw(raw)
-            .expect("LdaFunctional::to_id produced a registry-valid id")
+        FunctionalId(raw)
     }
 
     /// True when this functional's kernels include exc_unpol/exc_pol.
@@ -189,6 +186,7 @@ impl LdaFunctional {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::FunctionalId;
 
     #[test]
     fn from_id_routes_lda_x() {
@@ -225,7 +223,10 @@ mod tests {
         match err {
             LibxcRsError::UnsupportedFunctional { id: e_id, reason } => {
                 assert_eq!(e_id.raw(), 554);
-                assert!(reason.contains("deferred"), "reason: {reason}");
+                assert!(
+                    reason.contains("deferred"),
+                    "expected 'deferred' in reason, got: {reason}"
+                );
             }
             other => panic!("expected UnsupportedFunctional, got {other:?}"),
         }
@@ -255,15 +256,15 @@ mod tests {
     #[test]
     fn from_id_rejects_lda_family_id_not_compiled() {
         // lda_c_xalpha (id 6) is a registry-valid LDA functional, but
-        // crates/kernel-lda doesn't have a module for it. Expect the
-        // "not yet translated" branch.
+        // LdaFunctional doesn't have an enum variant for it. Expect the
+        // "no typed enum variant" branch.
         let id = FunctionalId::from_raw(6).unwrap();
         let err = LdaFunctional::from_id(id).unwrap_err();
         match err {
             LibxcRsError::UnsupportedFunctional { id: e_id, reason } => {
                 assert_eq!(e_id.raw(), 6);
                 assert!(
-                    reason.contains("not yet translated"),
+                    reason.contains("no typed enum variant"),
                     "reason: {reason}"
                 );
             }

@@ -14,9 +14,9 @@ use libxc_rkernel_gga_k_lkt as k;
 /// libxc default for `param_a`.
 pub const PARAM_A: f64 = 1.3;
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

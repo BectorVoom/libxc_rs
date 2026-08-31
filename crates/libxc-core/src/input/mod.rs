@@ -81,7 +81,7 @@ impl<'a> LdaInput<'a> {
     }
 
     /// Electron density buffer.
-    pub fn rho(&self) -> &[f64] {
+    pub fn rho(&self) -> &'a [f64] {
         self.rho
     }
 }
@@ -114,12 +114,12 @@ impl<'a> GgaInput<'a> {
     }
 
     /// Electron density buffer.
-    pub fn rho(&self) -> &[f64] {
+    pub fn rho(&self) -> &'a [f64] {
         self.rho
     }
 
     /// Density gradient buffer.
-    pub fn sigma(&self) -> &[f64] {
+    pub fn sigma(&self) -> &'a [f64] {
         self.sigma
     }
 }
@@ -156,22 +156,22 @@ impl<'a> MggaInput<'a> {
     }
 
     /// Electron density buffer.
-    pub fn rho(&self) -> &[f64] {
+    pub fn rho(&self) -> &'a [f64] {
         self.rho
     }
 
     /// Density gradient buffer.
-    pub fn sigma(&self) -> &[f64] {
+    pub fn sigma(&self) -> &'a [f64] {
         self.sigma
     }
 
     /// Laplacian of density buffer.
-    pub fn lapl(&self) -> &[f64] {
+    pub fn lapl(&self) -> &'a [f64] {
         self.lapl
     }
 
     /// Kinetic energy density buffer.
-    pub fn tau(&self) -> &[f64] {
+    pub fn tau(&self) -> &'a [f64] {
         self.tau
     }
 }

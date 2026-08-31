@@ -48,6 +48,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import sys
@@ -69,33 +70,92 @@ ORDERS = ["exc", "vxc", "fxc", "kxc", "lxc"]
 # expressions amplify wide's ~1 ulp transcendentals by orders of magnitude, and
 # by how much is a property of the formula).
 SIMD_EXACT_FUNCS = {
-    # The three most libm-heavy *routed* kernels (21, 11, 11 calls/pt in vxc
-    # unpol; LLVM declines to vectorise loops with libm calls, so these ran
-    # scalar). All three use only exp/ln/sqrt/cbrt-family transcendentals,
-    # which `simd.py` now maps to the bit-exact `libxc_rkernel_math::simd`
-    # forms — so the SIMD kernel is bit-identical to the scalar one, checked
-    # by the `bench-vs-libxc` fingerprint staying put across the switch.
+    # The most libm-heavy routed kernels:
+    # All transcendentals are mapped to bit-exact libxc_rkernel_math::simd forms.
+    ("lda_c_vwn", "vxc", "unpol"),
+    ("lda_c_vwn", "exc", "unpol"),
+    ("lda_c_vwn", "vxc", "pol"),
+    ("lda_c_vwn", "exc", "pol"),
+    ("lda_c_vwn_1", "vxc", "unpol"),
+    ("lda_c_vwn_1", "exc", "unpol"),
+    ("lda_c_vwn_2", "vxc", "unpol"),
+    ("lda_c_vwn_2", "exc", "unpol"),
+    ("lda_c_vwn_3", "vxc", "unpol"),
+    ("lda_c_vwn_3", "exc", "unpol"),
+    ("lda_c_vwn_4", "vxc", "unpol"),
+    ("lda_c_vwn_4", "exc", "unpol"),
+    ("lda_c_vwn_rpa", "vxc", "unpol"),
+    ("lda_c_vwn_rpa", "exc", "unpol"),
+    ("lda_c_w20", "vxc", "unpol"),
+    ("lda_c_w20", "exc", "unpol"),
+    ("gga_c_lyp", "vxc", "unpol"),
+    ("gga_c_lyp", "exc", "unpol"),
+    ("gga_c_zvpbeloc", "vxc", "unpol"),
+    ("gga_c_zvpbeloc", "exc", "unpol"),
+    ("gga_c_gaploc", "vxc", "unpol"),
+    ("gga_c_gaploc", "exc", "unpol"),
+    ("gga_xc_th2", "vxc", "unpol"),
+    ("gga_xc_th2", "exc", "unpol"),
     ("mgga_c_tpssloc", "vxc", "unpol"),
     ("mgga_c_tpssloc", "exc", "unpol"),
     ("mgga_c_scan", "vxc", "unpol"),
     ("mgga_c_scan", "exc", "unpol"),
     ("mgga_c_rregtm", "vxc", "unpol"),
     ("mgga_c_rregtm", "exc", "unpol"),
+    ("mgga_c_r2scan", "vxc", "unpol"),
+    ("mgga_c_r2scan", "exc", "unpol"),
+    ("mgga_c_revscan", "vxc", "unpol"),
+    ("mgga_c_revscan", "exc", "unpol"),
+    ("mgga_c_kcis", "vxc", "unpol"),
+    ("mgga_c_kcis", "exc", "unpol"),
+    ("mgga_c_kcisk", "vxc", "unpol"),
+    ("mgga_c_kcisk", "exc", "unpol"),
+    ("mgga_k_pc07", "vxc", "unpol"),
+    ("mgga_k_pc07", "exc", "unpol"),
+    ("mgga_x_scan", "vxc", "unpol"),
+    ("mgga_x_scan", "exc", "unpol"),
+    ("mgga_x_scan", "vxc", "pol"),
+    ("mgga_x_scan", "exc", "pol"),
+    ("mgga_x_rscan", "vxc", "unpol"),
+    ("mgga_x_rscan", "exc", "unpol"),
+    # Added by tools/translate_rayon/simd_qualify.py; each line's
+    # ratio is sweep ns/pt before -> after, fingerprint unchanged.
+    ("mgga_c_rscan", "exc", "unpol"),  # 2.06x  (20.16 -> 9.81 ns/pt)
+    ("mgga_c_rscan", "vxc", "unpol"),  # 2.31x  (27.52 -> 11.89 ns/pt)
+    ("mgga_x_r2scan", "exc", "unpol"),  # 1.50x  (14.14 -> 9.40 ns/pt)
+    ("mgga_x_r2scan", "vxc", "unpol"),  # 2.04x  (21.69 -> 10.64 ns/pt)
+    # Added by tools/translate_rayon/simd_qualify.py; each line's
+    # ratio is sweep ns/pt before -> after, fingerprint unchanged.
+    ("mgga_x_tpss", "exc", "unpol"),  # 1.59x  (11.90 -> 7.49 ns/pt)
+    ("mgga_x_tpss", "vxc", "unpol"),  # 1.86x  (18.26 -> 9.82 ns/pt)
 }
 
-# High-throughput candidate functional triples using `rmath::fast` vectorized approximations.
-# lda_c_vwn uses atan, ln, cbrt and achieves ~3x speedup with rmath::fast while staying within 5.7e-11 relative error.
-SIMD_RMATH_FAST_FUNCS = {
-    ("lda_c_vwn", "vxc", "unpol"),
-    ("lda_c_vwn", "exc", "unpol"),
-}
+# Sweep override, read by tools/translate_rayon/simd_qualify.py. It lets the
+# qualification driver try a batch of candidate triples without rewriting the
+# literal above, so a sweep that is interrupted leaves no half-edited allowlist
+# behind; only triples that actually passed the gate are written into the set,
+# and that is a separate deliberate step (`simd_qualify.py --apply`). Format is
+# `func:order:spin,func:order:spin,...`. Unset -- the normal case, including
+# every `--all` regeneration -- reproduces the committed allowlist exactly.
+_simd_extra = os.environ.get("LIBXC_RS_SIMD_EXTRA", "").strip()
+if _simd_extra:
+    for _t in _simd_extra.split(","):
+        _t = _t.strip()
+        if not _t:
+            continue
+        _p = _t.split(":")
+        if len(_p) != 3:
+            raise SystemExit(
+                f"LIBXC_RS_SIMD_EXTRA: expected func:order:spin, got {_t!r}")
+        if _p[1] not in ORDERS or _p[2] not in ("unpol", "pol"):
+            raise SystemExit(f"LIBXC_RS_SIMD_EXTRA: bad order/spin in {_t!r}")
+        SIMD_EXACT_FUNCS.add((_p[0], _p[1], _p[2]))
 
-assert SIMD_EXACT_FUNCS.isdisjoint(
-    SIMD_RMATH_FAST_FUNCS
-), "Functional cannot be both exact SIMD and fast SIMD"
-
-# Legacy alias for backward-compatible references
-SIMD_FUNCS = SIMD_EXACT_FUNCS | SIMD_RMATH_FAST_FUNCS
+# There is no second, approximate mode. This project uses rmath's bit-exact
+# path only: `libxc_rkernel_math::rmath` is a `<BitExact, FullRange>` surface
+# (`math/src/rmath_bitexact.rs`) and the upstream crate -- whose own free
+# functions are deliberately its Fast path -- is not reachable from a kernel.
+SIMD_FUNCS = SIMD_EXACT_FUNCS
 SPINS = ["unpol", "pol"]
 
 
@@ -594,25 +654,25 @@ def emit_function(fam: str, func: str, order: str, spin: str,
     bound = f"{guard}.len()" if gd == 1 else f"{guard}.len() / {gd}"
 
     triple = (func, order, spin)
-    if triple in SIMD_EXACT_FUNCS or triple in SIMD_RMATH_FAST_FUNCS:
-        math_mode = "fast" if triple in SIMD_RMATH_FAST_FUNCS else "exact"
-        mode_str = "rmath::fast" if math_mode == "fast" else "exact"
+    if triple in SIMD_EXACT_FUNCS:
         head = "\n".join([
-            f"//! {func.upper()} {order} {spin} kernel — explicit SIMD ({mode_str}).",
+            f"//! {func.upper()} {order} {spin} kernel — explicit SIMD (bit-exact).",
             "//!",
             f"//! Auto-translated from `libxc-master/src/maple2c/{fam}_exc/{func}.c`",
             "//! by tools/translate_rayon/from_maple.py, then rewritten to",
-            f"//! `wide::f64x8` by simd.py ({mode_str} math). {LANES_NOTE}",
+            f"//! `wide::f64x8` by simd.py. {LANES_NOTE}",
             "",
         ])
         # The scalar path appends the two thresholds to the signature after
         # the functional's own parameters; the SIMD form takes the same
         # arguments in the same order, so they have to be included here too.
+        in_dims = {n: dim_of(n, fam, pol) for n in ctx.inputs}
+        out_dims = {n: dim_of(n, fam, pol) for n in wanted}
         body = simd_mod.simd_body(
             [l.strip() for l in lines], ctx.inputs, wanted,
             list(params) + ["dens_threshold", "zeta_threshold"],
             f"{func}_{order}_{spin}",
-            math_mode=math_mode)
+            in_dims=in_dims, out_dims=out_dims)
         return head + body, seen_writes, set(wanted)
 
     src = [
@@ -622,7 +682,7 @@ def emit_function(fam: str, func: str, order: str, spin: str,
         "//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact",
         "//! variable names and floating-point operation order.",
         "",
-        "#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]",
+        "#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]",
         "",
         "use libxc_rkernel_math::rmath;",
     ]

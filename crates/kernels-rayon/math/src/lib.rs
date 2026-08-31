@@ -13,9 +13,14 @@
 /// second dependency. See `docs/perf/simd-kernels.md` for when a kernel is
 /// emitted in SIMD form at all.
 pub use wide;
-pub use rmath;
-pub use rmath::fast as rmath_fast;
-pub use rmath::prelude::*;
+/// The kernels' `rmath`, pinned to `BitExact`.
+///
+/// NOT a re-export of the crate: rmath's own free functions are deliberately
+/// the `Fast` path, and the kernels must not silently get it. See the module
+/// docs for the measurement that prompted this.
+#[path = "rmath_bitexact.rs"]
+pub mod rmath;
+pub use ::rmath_upstream::prelude::*;
 
 pub mod constants;
 pub mod piecewise;
@@ -28,6 +33,7 @@ pub mod dft_quantities;
 pub mod erf;
 pub mod expint_e1;
 pub mod integrate;
+pub mod quadpack;
 pub mod lambert_w;
 pub mod mbrxc;
 pub mod polynomials;

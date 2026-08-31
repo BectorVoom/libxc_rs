@@ -10,6 +10,8 @@ edition = "2024"
 libxc-core   = { path = "crates/libxc-core" }
 libxc-eval   = { path = "crates/libxc-eval", default-features = false }
 libxc-compat = { path = "crates/libxc-compat", default-features = false }
+libxc-reval  = { path = "crates/libxc-reval" }
+
 
 
 [features]
@@ -17,6 +19,7 @@ libxc-compat = { path = "crates/libxc-compat", default-features = false }
 # archived CubeCL tree they selected. Numerical work is `libxc-reval` and the
 # generated kernels in `crates/kernels-rayon`, neither of which is optional.
 default     = []
+c-abi       = ["libxc-compat/c-abi"]
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
@@ -28,6 +31,7 @@ resolver = "3"
 # Hand-written crates only. The generated kernel tree (266 crates) is
 # deliberately NOT a member -- see `exclude`.
 members = [
+    ".",
     # --- core library ---------------------------------------------------
     "crates/libxc-core",
     "crates/libxc-compat",
@@ -87,11 +91,13 @@ exclude = [
 
 # A bare `cargo build` builds the active library only.
 default-members = [
+    ".",
     "crates/libxc-core",
     "crates/libxc-compat",
     "crates/libxc-reval",
     "crates/kernels-rayon/math",
 ]
+# Build cost note: cold release build of the kernel tree is >40 min; debug builds take minutes.
 # debug=0 skips LLVM debug scope tracking.
 # incremental=false so sccache can cache compiled crates.
 #

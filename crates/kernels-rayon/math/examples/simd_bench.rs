@@ -98,5 +98,34 @@ fn main() {
     });
     let b = bench("wide cbrt+Newton (1 ulp)", &dens, vec_loop(cbrt_refined));
     let c = bench("simd::cbrt   (bit-exact)", &dens, vec_loop(simd::cbrt));
-    println!("  -> bit-exact vs scalar: {:.2}x, vs wide: {:.2}x", a / c, b / c);
+    println!("  -> bit-exact vs scalar: {:.2}x, vs wide: {:.2}x\n", a / c, b / c);
+
+    println!("atan ({} elems, best of {REPS}):", N);
+    let a = bench("scalar f64::atan", &dens, |xs, out| {
+        for (x, o) in xs.iter().zip(out) {
+            *o = x.atan();
+        }
+    });
+    let b = bench("wide .atan()  (~1 ulp)", &dens, vec_loop(|v| v.atan()));
+    let c = bench("simd::atan   (bit-exact)", &dens, vec_loop(simd::atan));
+    println!("  -> bit-exact vs scalar: {:.2}x, vs wide: {:.2}x\n", a / c, b / c);
+
+    println!("tanh ({} elems, best of {REPS}):", N);
+    let a = bench("scalar f64::tanh", &expargs, |xs, out| {
+        for (x, o) in xs.iter().zip(out) {
+            *o = x.tanh();
+        }
+    });
+    let b = bench("wide .tanh()  (~1 ulp)", &expargs, vec_loop(|v| v.tanh()));
+    let c = bench("simd::tanh   (bit-exact)", &expargs, vec_loop(simd::tanh));
+    println!("  -> bit-exact vs scalar: {:.2}x, vs wide: {:.2}x\n", a / c, b / c);
+
+    println!("erf ({} elems, best of {REPS}):", N);
+    let a = bench("scalar rmath::erf", &expargs, |xs, out| {
+        for (x, o) in xs.iter().zip(out) {
+            *o = rmath::erf(*x);
+        }
+    });
+    let c = bench("simd::erf    (correctly rounded)", &expargs, vec_loop(simd::erf));
+    println!("  -> correctly rounded vs scalar: {:.2}x\n", a / c);
 }

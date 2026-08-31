@@ -54,7 +54,10 @@ const RHO_HI: f64 = 1e1;
 /// that exposes the screening gap. Set with `XCVS_TAIL` (0.0 by default, so the
 /// headline numbers describe the active region only).
 pub fn tail_fraction() -> f64 {
-    std::env::var("XCVS_TAIL").ok().and_then(|s| s.parse().ok()).unwrap_or(0.0)
+    std::env::var("XCVS_TAIL")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0.0)
 }
 
 /// Density for a tail point: far below both libraries' thresholds.
@@ -99,7 +102,9 @@ pub struct MggaGrid {
 /// into runs -- so it is the one to check for a regression, not the one to
 /// quote. Set with `XCVS_TAIL_LAYOUT=scatter`.
 fn scattered() -> bool {
-    std::env::var("XCVS_TAIL_LAYOUT").map(|v| v == "scatter").unwrap_or(false)
+    std::env::var("XCVS_TAIL_LAYOUT")
+        .map(|v| v == "scatter")
+        .unwrap_or(false)
 }
 
 /// Length of one simulated radial batch in the `block` layout.
@@ -119,7 +124,11 @@ fn is_tail(r: &mut Rng, ip: usize, tail: f64, scatter: bool) -> bool {
 }
 
 fn draw_rho(r: &mut Rng, ip: usize, tail: f64, scatter: bool) -> f64 {
-    if is_tail(r, ip, tail, scatter) { RHO_TAIL } else { r.log_range(RHO_LO, RHO_HI) }
+    if is_tail(r, ip, tail, scatter) {
+        RHO_TAIL
+    } else {
+        r.log_range(RHO_LO, RHO_HI)
+    }
 }
 
 /// `nc` is the number of density channels: 1 unpolarized, 2 polarized.
@@ -148,7 +157,11 @@ pub fn gga(np: usize, nc: usize, seed: u64) -> GgaGrid {
         let is_tail = is_tail(&mut r, ip, tail, scatter);
         let mut ch = [0.0f64; 2];
         for c in 0..nc {
-            ch[c] = if is_tail { RHO_TAIL } else { r.log_range(RHO_LO, RHO_HI) };
+            ch[c] = if is_tail {
+                RHO_TAIL
+            } else {
+                r.log_range(RHO_LO, RHO_HI)
+            };
             rho.push(ch[c]);
         }
         if nc == 1 {
@@ -186,7 +199,11 @@ pub fn mgga(np: usize, nc: usize, seed: u64) -> MggaGrid {
                 g.sigma[ip * 3 + 2]
             };
             // Polarized channels carry half the uniform-gas density each.
-            let (rs, ss) = if nc == 1 { (rho_c, sig_c) } else { (2.0 * rho_c, 4.0 * sig_c) };
+            let (rs, ss) = if nc == 1 {
+                (rho_c, sig_c)
+            } else {
+                (2.0 * rho_c, 4.0 * sig_c)
+            };
             let tw = ss / (8.0 * rs);
             // tau >= tau_W is the exact constraint; staying above it keeps the
             // point inside the domain, so the kernel runs its real branch
@@ -196,5 +213,10 @@ pub fn mgga(np: usize, nc: usize, seed: u64) -> MggaGrid {
             lapl.push(r.range(-1.0, 1.0) * tau_unif(rs) * 4.0);
         }
     }
-    MggaGrid { rho: g.rho, sigma: g.sigma, lapl, tau }
+    MggaGrid {
+        rho: g.rho,
+        sigma: g.sigma,
+        lapl,
+        tau,
+    }
 }

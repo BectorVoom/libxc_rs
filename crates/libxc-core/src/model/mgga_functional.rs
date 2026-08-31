@@ -54,6 +54,7 @@ use crate::deferred::mgga::is_deferred as is_deferred_mgga;
 /// 2. Partial-translation modules that lack a full 10-arm coverage (most of
 ///    the large correlation kernels split across multiple sub-crate batches).
 /// 3. Template kernels with no direct libxc id match (5 kernels).
+///
 /// …the actual dispatchable count is 25 FULL + 1 VXC-only = 26 variants.
 /// The 62 remaining modules on-disk are partially translated or template-
 /// backed; completing them is deferred to Phase 4 follow-up plans.
@@ -162,7 +163,7 @@ impl MggaFunctional {
             707 => Ok(Self::MggaXTask),
             _ => Err(LibxcRsError::UnsupportedFunctional {
                 id,
-                reason: "MGGA functional not yet translated into crates/kernel-mgga*",
+                reason: "MGGA functional has no typed enum variant in MggaFunctional; use Functional::new or dispatch_mgga_by_id",
             }),
         }
     }
@@ -295,7 +296,7 @@ mod tests {
         match err {
             LibxcRsError::UnsupportedFunctional { id: e_id, reason } => {
                 assert_eq!(e_id.raw(), 1);
-                assert!(reason.contains("not yet translated"), "reason: {reason}");
+                assert!(reason.contains("no typed enum variant"), "reason: {reason}");
             }
             other => panic!("expected UnsupportedFunctional, got {other:?}"),
         }

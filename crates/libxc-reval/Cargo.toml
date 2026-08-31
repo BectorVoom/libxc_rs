@@ -8,6 +8,8 @@ libxc-core = { path = "../libxc-core" }
 rayon = "1.11"
 libxc-rkernel-gga_c_acgga = { path = "../kernels-rayon/gga/gga_c_acgga", optional = true }
 libxc-rkernel-gga_c_acggap = { path = "../kernels-rayon/gga/gga_c_acggap", optional = true }
+libxc-rkernel-gga_c_am05 = { path = "../kernels-rayon/gga/gga_c_am05", optional = true }
+libxc-rkernel-gga_c_bmk = { path = "../kernels-rayon/gga/gga_c_bmk", optional = true }
 libxc-rkernel-gga_c_ccdf = { path = "../kernels-rayon/gga/gga_c_ccdf", optional = true }
 libxc-rkernel-gga_c_chachiyo = { path = "../kernels-rayon/gga/gga_c_chachiyo", optional = true }
 libxc-rkernel-gga_c_cs1 = { path = "../kernels-rayon/gga/gga_c_cs1", optional = true }
@@ -15,12 +17,20 @@ libxc-rkernel-gga_c_ft97 = { path = "../kernels-rayon/gga/gga_c_ft97", optional 
 libxc-rkernel-gga_c_gapc = { path = "../kernels-rayon/gga/gga_c_gapc", optional = true }
 libxc-rkernel-gga_c_gaploc = { path = "../kernels-rayon/gga/gga_c_gaploc", optional = true }
 libxc-rkernel-gga_c_hcth_a = { path = "../kernels-rayon/gga/gga_c_hcth_a", optional = true }
+libxc-rkernel-gga_c_lm = { path = "../kernels-rayon/gga/gga_c_lm", optional = true }
 libxc-rkernel-gga_c_lyp = { path = "../kernels-rayon/gga/gga_c_lyp", optional = true }
+libxc-rkernel-gga_c_lypr = { path = "../kernels-rayon/gga/gga_c_lypr", optional = true }
 libxc-rkernel-gga_c_op_b88 = { path = "../kernels-rayon/gga/gga_c_op_b88", optional = true }
 libxc-rkernel-gga_c_op_g96 = { path = "../kernels-rayon/gga/gga_c_op_g96", optional = true }
 libxc-rkernel-gga_c_op_pbe = { path = "../kernels-rayon/gga/gga_c_op_pbe", optional = true }
 libxc-rkernel-gga_c_op_pw91 = { path = "../kernels-rayon/gga/gga_c_op_pw91", optional = true }
 libxc-rkernel-gga_c_op_xalpha = { path = "../kernels-rayon/gga/gga_c_op_xalpha", optional = true }
+libxc-rkernel-gga_c_optc = { path = "../kernels-rayon/gga/gga_c_optc", optional = true }
+libxc-rkernel-gga_c_p86 = { path = "../kernels-rayon/gga/gga_c_p86", optional = true }
+libxc-rkernel-gga_c_p86vwn = { path = "../kernels-rayon/gga/gga_c_p86vwn", optional = true }
+libxc-rkernel-gga_c_pbe = { path = "../kernels-rayon/gga/gga_c_pbe", optional = true }
+libxc-rkernel-gga_c_pbe_erf_gws = { path = "../kernels-rayon/gga/gga_c_pbe_erf_gws", optional = true }
+libxc-rkernel-gga_c_pbe_vwn = { path = "../kernels-rayon/gga/gga_c_pbe_vwn", optional = true }
 libxc-rkernel-gga_c_pbeloc = { path = "../kernels-rayon/gga/gga_c_pbeloc", optional = true }
 libxc-rkernel-gga_c_pw91 = { path = "../kernels-rayon/gga/gga_c_pw91", optional = true }
 libxc-rkernel-gga_c_q2d = { path = "../kernels-rayon/gga/gga_c_q2d", optional = true }
@@ -28,18 +38,32 @@ libxc-rkernel-gga_c_regtpss = { path = "../kernels-rayon/gga/gga_c_regtpss", opt
 libxc-rkernel-gga_c_revtca = { path = "../kernels-rayon/gga/gga_c_revtca", optional = true }
 libxc-rkernel-gga_c_scan_e0 = { path = "../kernels-rayon/gga/gga_c_scan_e0", optional = true }
 libxc-rkernel-gga_c_sg4 = { path = "../kernels-rayon/gga/gga_c_sg4", optional = true }
+libxc-rkernel-gga_c_sogga11 = { path = "../kernels-rayon/gga/gga_c_sogga11", optional = true }
 libxc-rkernel-gga_c_tca = { path = "../kernels-rayon/gga/gga_c_tca", optional = true }
 libxc-rkernel-gga_c_w94 = { path = "../kernels-rayon/gga/gga_c_w94", optional = true }
 libxc-rkernel-gga_c_wi = { path = "../kernels-rayon/gga/gga_c_wi", optional = true }
 libxc-rkernel-gga_c_wl = { path = "../kernels-rayon/gga/gga_c_wl", optional = true }
+libxc-rkernel-gga_c_zpbeint = { path = "../kernels-rayon/gga/gga_c_zpbeint", optional = true }
+libxc-rkernel-gga_c_zvpbeint = { path = "../kernels-rayon/gga/gga_c_zvpbeint", optional = true }
 libxc-rkernel-gga_c_zvpbeloc = { path = "../kernels-rayon/gga/gga_c_zvpbeloc", optional = true }
+libxc-rkernel-gga_k_apbe = { path = "../kernels-rayon/gga/gga_k_apbe", optional = true }
+libxc-rkernel-gga_k_apbeint = { path = "../kernels-rayon/gga/gga_k_apbeint", optional = true }
+libxc-rkernel-gga_k_dk = { path = "../kernels-rayon/gga/gga_k_dk", optional = true }
 libxc-rkernel-gga_k_exp4 = { path = "../kernels-rayon/gga/gga_k_exp4", optional = true }
 libxc-rkernel-gga_k_lc94 = { path = "../kernels-rayon/gga/gga_k_lc94", optional = true }
+libxc-rkernel-gga_k_lgap = { path = "../kernels-rayon/gga/gga_k_lgap", optional = true }
+libxc-rkernel-gga_k_lgap_ge = { path = "../kernels-rayon/gga/gga_k_lgap_ge", optional = true }
 libxc-rkernel-gga_k_lkt = { path = "../kernels-rayon/gga/gga_k_lkt", optional = true }
+libxc-rkernel-gga_k_llp = { path = "../kernels-rayon/gga/gga_k_llp", optional = true }
 libxc-rkernel-gga_k_meyer = { path = "../kernels-rayon/gga/gga_k_meyer", optional = true }
+libxc-rkernel-gga_k_mpbe = { path = "../kernels-rayon/gga/gga_k_mpbe", optional = true }
 libxc-rkernel-gga_k_ol1 = { path = "../kernels-rayon/gga/gga_k_ol1", optional = true }
+libxc-rkernel-gga_k_ol2 = { path = "../kernels-rayon/gga/gga_k_ol2", optional = true }
 libxc-rkernel-gga_k_pearson = { path = "../kernels-rayon/gga/gga_k_pearson", optional = true }
+libxc-rkernel-gga_k_pg = { path = "../kernels-rayon/gga/gga_k_pg", optional = true }
 libxc-rkernel-gga_k_pw86 = { path = "../kernels-rayon/gga/gga_k_pw86", optional = true }
+libxc-rkernel-gga_k_rational_p = { path = "../kernels-rayon/gga/gga_k_rational_p", optional = true }
+libxc-rkernel-gga_k_tflw = { path = "../kernels-rayon/gga/gga_k_tflw", optional = true }
 libxc-rkernel-gga_k_thakkar = { path = "../kernels-rayon/gga/gga_k_thakkar", optional = true }
 libxc-rkernel-gga_k_vt84f = { path = "../kernels-rayon/gga/gga_k_vt84f", optional = true }
 libxc-rkernel-gga_x_2d_b86 = { path = "../kernels-rayon/gga/gga_x_2d_b86", optional = true }
@@ -48,23 +72,44 @@ libxc-rkernel-gga_x_2d_b88 = { path = "../kernels-rayon/gga/gga_x_2d_b88", optio
 libxc-rkernel-gga_x_2d_pbe = { path = "../kernels-rayon/gga/gga_x_2d_pbe", optional = true }
 libxc-rkernel-gga_x_airy = { path = "../kernels-rayon/gga/gga_x_airy", optional = true }
 libxc-rkernel-gga_x_ak13 = { path = "../kernels-rayon/gga/gga_x_ak13", optional = true }
+libxc-rkernel-gga_x_am05 = { path = "../kernels-rayon/gga/gga_x_am05", optional = true }
+libxc-rkernel-gga_x_b86 = { path = "../kernels-rayon/gga/gga_x_b86", optional = true }
 libxc-rkernel-gga_x_b88 = { path = "../kernels-rayon/gga/gga_x_b88", optional = true }
 libxc-rkernel-gga_x_bayesian = { path = "../kernels-rayon/gga/gga_x_bayesian", optional = true }
 libxc-rkernel-gga_x_beefvdw = { path = "../kernels-rayon/gga/gga_x_beefvdw", optional = true }
 libxc-rkernel-gga_x_bpccac = { path = "../kernels-rayon/gga/gga_x_bpccac", optional = true }
 libxc-rkernel-gga_x_c09x = { path = "../kernels-rayon/gga/gga_x_c09x", optional = true }
+libxc-rkernel-gga_x_cap = { path = "../kernels-rayon/gga/gga_x_cap", optional = true }
 libxc-rkernel-gga_x_chachiyo = { path = "../kernels-rayon/gga/gga_x_chachiyo", optional = true }
+libxc-rkernel-gga_x_dk87 = { path = "../kernels-rayon/gga/gga_x_dk87", optional = true }
 libxc-rkernel-gga_x_ev93 = { path = "../kernels-rayon/gga/gga_x_ev93", optional = true }
 libxc-rkernel-gga_x_fd_lb94 = { path = "../kernels-rayon/gga/gga_x_fd_lb94", optional = true }
+libxc-rkernel-gga_x_ft97 = { path = "../kernels-rayon/gga/gga_x_ft97", optional = true }
 libxc-rkernel-gga_x_g96 = { path = "../kernels-rayon/gga/gga_x_g96", optional = true }
 libxc-rkernel-gga_x_gg99 = { path = "../kernels-rayon/gga/gga_x_gg99", optional = true }
 libxc-rkernel-gga_x_hcth_a = { path = "../kernels-rayon/gga/gga_x_hcth_a", optional = true }
-libxc-rkernel-gga_x_herman = { path = "../kernels-rayon/gga/gga_x_herman", optional = true }
+libxc-rkernel-gga_x_hjs = { path = "../kernels-rayon/gga/gga_x_hjs", optional = true }
+libxc-rkernel-gga_x_hjs_b88_v2 = { path = "../kernels-rayon/gga/gga_x_hjs_b88_v2", optional = true }
 libxc-rkernel-gga_x_htbs = { path = "../kernels-rayon/gga/gga_x_htbs", optional = true }
+libxc-rkernel-gga_x_ityh = { path = "../kernels-rayon/gga/gga_x_ityh", optional = true }
+libxc-rkernel-gga_x_ityh_optx = { path = "../kernels-rayon/gga/gga_x_ityh_optx", optional = true }
+libxc-rkernel-gga_x_ityh_pbe = { path = "../kernels-rayon/gga/gga_x_ityh_pbe", optional = true }
+libxc-rkernel-gga_x_kt = { path = "../kernels-rayon/gga/gga_x_kt", optional = true }
 libxc-rkernel-gga_x_lag = { path = "../kernels-rayon/gga/gga_x_lag", optional = true }
+libxc-rkernel-gga_x_lcgau = { path = "../kernels-rayon/gga/gga_x_lcgau", optional = true }
 libxc-rkernel-gga_x_lg93 = { path = "../kernels-rayon/gga/gga_x_lg93", optional = true }
+libxc-rkernel-gga_x_lspbe = { path = "../kernels-rayon/gga/gga_x_lspbe", optional = true }
+libxc-rkernel-gga_x_lsrpbe = { path = "../kernels-rayon/gga/gga_x_lsrpbe", optional = true }
 libxc-rkernel-gga_x_lv_rpw86 = { path = "../kernels-rayon/gga/gga_x_lv_rpw86", optional = true }
+libxc-rkernel-gga_x_mpbe = { path = "../kernels-rayon/gga/gga_x_mpbe", optional = true }
+libxc-rkernel-gga_x_n12 = { path = "../kernels-rayon/gga/gga_x_n12", optional = true }
+libxc-rkernel-gga_x_ncap = { path = "../kernels-rayon/gga/gga_x_ncap", optional = true }
+libxc-rkernel-gga_x_ol2 = { path = "../kernels-rayon/gga/gga_x_ol2", optional = true }
+libxc-rkernel-gga_x_optx = { path = "../kernels-rayon/gga/gga_x_optx", optional = true }
+libxc-rkernel-gga_x_pbe = { path = "../kernels-rayon/gga/gga_x_pbe", optional = true }
+libxc-rkernel-gga_x_pbe_erf_gws = { path = "../kernels-rayon/gga/gga_x_pbe_erf_gws", optional = true }
 libxc-rkernel-gga_x_pbea = { path = "../kernels-rayon/gga/gga_x_pbea", optional = true }
+libxc-rkernel-gga_x_pbeint = { path = "../kernels-rayon/gga/gga_x_pbeint", optional = true }
 libxc-rkernel-gga_x_pbepow = { path = "../kernels-rayon/gga/gga_x_pbepow", optional = true }
 libxc-rkernel-gga_x_pbetrans = { path = "../kernels-rayon/gga/gga_x_pbetrans", optional = true }
 libxc-rkernel-gga_x_pw86 = { path = "../kernels-rayon/gga/gga_x_pw86", optional = true }
@@ -72,19 +117,40 @@ libxc-rkernel-gga_x_pw91 = { path = "../kernels-rayon/gga/gga_x_pw91", optional 
 libxc-rkernel-gga_x_q1d = { path = "../kernels-rayon/gga/gga_x_q1d", optional = true }
 libxc-rkernel-gga_x_q2d = { path = "../kernels-rayon/gga/gga_x_q2d", optional = true }
 libxc-rkernel-gga_x_rge2 = { path = "../kernels-rayon/gga/gga_x_rge2", optional = true }
+libxc-rkernel-gga_x_rpbe = { path = "../kernels-rayon/gga/gga_x_rpbe", optional = true }
+libxc-rkernel-gga_x_s12 = { path = "../kernels-rayon/gga/gga_x_s12", optional = true }
+libxc-rkernel-gga_x_sfat = { path = "../kernels-rayon/gga/gga_x_sfat", optional = true }
+libxc-rkernel-gga_x_sfat_pbe = { path = "../kernels-rayon/gga/gga_x_sfat_pbe", optional = true }
 libxc-rkernel-gga_x_sg4 = { path = "../kernels-rayon/gga/gga_x_sg4", optional = true }
+libxc-rkernel-gga_x_sogga11 = { path = "../kernels-rayon/gga/gga_x_sogga11", optional = true }
 libxc-rkernel-gga_x_ssb_sw = { path = "../kernels-rayon/gga/gga_x_ssb_sw", optional = true }
+libxc-rkernel-gga_x_vmt = { path = "../kernels-rayon/gga/gga_x_vmt", optional = true }
+libxc-rkernel-gga_x_vmt84 = { path = "../kernels-rayon/gga/gga_x_vmt84", optional = true }
 libxc-rkernel-gga_x_wc = { path = "../kernels-rayon/gga/gga_x_wc", optional = true }
+libxc-rkernel-gga_x_wpbeh = { path = "../kernels-rayon/gga/gga_x_wpbeh", optional = true }
+libxc-rkernel-gga_xc_b97 = { path = "../kernels-rayon/gga/gga_xc_b97", optional = true }
+libxc-rkernel-gga_xc_th1 = { path = "../kernels-rayon/gga/gga_xc_th1", optional = true }
 libxc-rkernel-gga_xc_th2 = { path = "../kernels-rayon/gga/gga_xc_th2", optional = true }
-libxc-rkernel-hyb_mgga_x_dldf = { path = "../kernels-rayon/mgga/hyb_mgga_x_dldf", optional = true }
+libxc-rkernel-gga_xc_th3 = { path = "../kernels-rayon/gga/gga_xc_th3", optional = true }
+libxc-rkernel-hyb_gga_x_cam_s12 = { path = "../kernels-rayon/gga/hyb_gga_x_cam_s12", optional = true }
+libxc-rkernel-hyb_gga_xc_case21 = { path = "../kernels-rayon/gga/hyb_gga_xc_case21", optional = true }
+libxc-rkernel-hyb_gga_xc_wb97 = { path = "../kernels-rayon/gga/hyb_gga_xc_wb97", optional = true }
+libxc-rkernel-hyb_lda_xc_bn05 = { path = "../kernels-rayon/lda/hyb_lda_xc_bn05", optional = true }
+libxc-rkernel-lda_c_1d_csc = { path = "../kernels-rayon/lda/lda_c_1d_csc", optional = true }
 libxc-rkernel-lda_c_1d_loos = { path = "../kernels-rayon/lda/lda_c_1d_loos", optional = true }
 libxc-rkernel-lda_c_2d_amgb = { path = "../kernels-rayon/lda/lda_c_2d_amgb", optional = true }
+libxc-rkernel-lda_c_2d_prm = { path = "../kernels-rayon/lda/lda_c_2d_prm", optional = true }
 libxc-rkernel-lda_c_chachiyo = { path = "../kernels-rayon/lda/lda_c_chachiyo", optional = true }
 libxc-rkernel-lda_c_chachiyo_mod = { path = "../kernels-rayon/lda/lda_c_chachiyo_mod", optional = true }
 libxc-rkernel-lda_c_gk72 = { path = "../kernels-rayon/lda/lda_c_gk72", optional = true }
 libxc-rkernel-lda_c_gombas = { path = "../kernels-rayon/lda/lda_c_gombas", optional = true }
+libxc-rkernel-lda_c_hl = { path = "../kernels-rayon/lda/lda_c_hl", optional = true }
 libxc-rkernel-lda_c_lp96 = { path = "../kernels-rayon/lda/lda_c_lp96", optional = true }
 libxc-rkernel-lda_c_ml1 = { path = "../kernels-rayon/lda/lda_c_ml1", optional = true }
+libxc-rkernel-lda_c_pmgb06 = { path = "../kernels-rayon/lda/lda_c_pmgb06", optional = true }
+libxc-rkernel-lda_c_pw = { path = "../kernels-rayon/lda/lda_c_pw", optional = true }
+libxc-rkernel-lda_c_pw_erf = { path = "../kernels-rayon/lda/lda_c_pw_erf", optional = true }
+libxc-rkernel-lda_c_pz = { path = "../kernels-rayon/lda/lda_c_pz", optional = true }
 libxc-rkernel-lda_c_rc04 = { path = "../kernels-rayon/lda/lda_c_rc04", optional = true }
 libxc-rkernel-lda_c_rpa = { path = "../kernels-rayon/lda/lda_c_rpa", optional = true }
 libxc-rkernel-lda_c_vwn = { path = "../kernels-rayon/lda/lda_c_vwn", optional = true }
@@ -96,12 +162,26 @@ libxc-rkernel-lda_c_vwn_rpa = { path = "../kernels-rayon/lda/lda_c_vwn_rpa", opt
 libxc-rkernel-lda_c_w20 = { path = "../kernels-rayon/lda/lda_c_w20", optional = true }
 libxc-rkernel-lda_c_wigner = { path = "../kernels-rayon/lda/lda_c_wigner", optional = true }
 libxc-rkernel-lda_k_gds08_worker = { path = "../kernels-rayon/lda/lda_k_gds08_worker", optional = true }
+libxc-rkernel-lda_k_tf = { path = "../kernels-rayon/lda/lda_k_tf", optional = true }
 libxc-rkernel-lda_k_zlp = { path = "../kernels-rayon/lda/lda_k_zlp", optional = true }
+libxc-rkernel-lda_x = { path = "../kernels-rayon/lda/lda_x", optional = true }
+libxc-rkernel-lda_x_1d_exponential = { path = "../kernels-rayon/lda/lda_x_1d_exponential", optional = true }
+libxc-rkernel-lda_x_1d_soft = { path = "../kernels-rayon/lda/lda_x_1d_soft", optional = true }
 libxc-rkernel-lda_x_2d = { path = "../kernels-rayon/lda/lda_x_2d", optional = true }
+libxc-rkernel-lda_x_erf = { path = "../kernels-rayon/lda/lda_x_erf", optional = true }
 libxc-rkernel-lda_x_rel = { path = "../kernels-rayon/lda/lda_x_rel", optional = true }
 libxc-rkernel-lda_x_sloc = { path = "../kernels-rayon/lda/lda_x_sloc", optional = true }
+libxc-rkernel-lda_x_yukawa = { path = "../kernels-rayon/lda/lda_x_yukawa", optional = true }
+libxc-rkernel-lda_xc_1d_ehwlrg = { path = "../kernels-rayon/lda/lda_xc_1d_ehwlrg", optional = true }
+libxc-rkernel-lda_xc_ksdt = { path = "../kernels-rayon/lda/lda_xc_ksdt", optional = true }
 libxc-rkernel-lda_xc_teter93 = { path = "../kernels-rayon/lda/lda_xc_teter93", optional = true }
 libxc-rkernel-lda_xc_zlp = { path = "../kernels-rayon/lda/lda_xc_zlp", optional = true }
+libxc-rkernel-hyb_mgga_x_dldf = { path = "../kernels-rayon/mgga/hyb_mgga_x_dldf", optional = true }
+libxc-rkernel-hyb_mgga_x_js18 = { path = "../kernels-rayon/mgga/hyb_mgga_x_js18", optional = true }
+libxc-rkernel-hyb_mgga_x_m05 = { path = "../kernels-rayon/mgga/hyb_mgga_x_m05", optional = true }
+libxc-rkernel-hyb_mgga_x_pjs18 = { path = "../kernels-rayon/mgga/hyb_mgga_x_pjs18", optional = true }
+libxc-rkernel-hyb_mgga_xc_gas22 = { path = "../kernels-rayon/mgga/hyb_mgga_xc_gas22", optional = true }
+libxc-rkernel-hyb_mgga_xc_wb97mv = { path = "../kernels-rayon/mgga/hyb_mgga_xc_wb97mv", optional = true }
 libxc-rkernel-mgga_c_b88 = { path = "../kernels-rayon/mgga/mgga_c_b88", optional = true }
 libxc-rkernel-mgga_c_bc95 = { path = "../kernels-rayon/mgga/mgga_c_bc95", optional = true }
 libxc-rkernel-mgga_c_cc = { path = "../kernels-rayon/mgga/mgga_c_cc", optional = true }
@@ -109,18 +189,29 @@ libxc-rkernel-mgga_c_ccalda = { path = "../kernels-rayon/mgga/mgga_c_ccalda", op
 libxc-rkernel-mgga_c_cs = { path = "../kernels-rayon/mgga/mgga_c_cs", optional = true }
 libxc-rkernel-mgga_c_kcis = { path = "../kernels-rayon/mgga/mgga_c_kcis", optional = true }
 libxc-rkernel-mgga_c_kcisk = { path = "../kernels-rayon/mgga/mgga_c_kcisk", optional = true }
+libxc-rkernel-mgga_c_ltapw = { path = "../kernels-rayon/mgga/mgga_c_ltapw", optional = true }
+libxc-rkernel-mgga_c_m05 = { path = "../kernels-rayon/mgga/mgga_c_m05", optional = true }
+libxc-rkernel-mgga_c_m06l = { path = "../kernels-rayon/mgga/mgga_c_m06l", optional = true }
+libxc-rkernel-mgga_c_m08 = { path = "../kernels-rayon/mgga/mgga_c_m08", optional = true }
 libxc-rkernel-mgga_c_pkzb = { path = "../kernels-rayon/mgga/mgga_c_pkzb", optional = true }
 libxc-rkernel-mgga_c_r2scan = { path = "../kernels-rayon/mgga/mgga_c_r2scan", optional = true }
 libxc-rkernel-mgga_c_revscan = { path = "../kernels-rayon/mgga/mgga_c_revscan", optional = true }
+libxc-rkernel-mgga_c_revtpss = { path = "../kernels-rayon/mgga/mgga_c_revtpss", optional = true }
 libxc-rkernel-mgga_c_rmggac = { path = "../kernels-rayon/mgga/mgga_c_rmggac", optional = true }
 libxc-rkernel-mgga_c_rppscan = { path = "../kernels-rayon/mgga/mgga_c_rppscan", optional = true }
 libxc-rkernel-mgga_c_rregtm = { path = "../kernels-rayon/mgga/mgga_c_rregtm", optional = true }
 libxc-rkernel-mgga_c_rscan = { path = "../kernels-rayon/mgga/mgga_c_rscan", optional = true }
 libxc-rkernel-mgga_c_scan = { path = "../kernels-rayon/mgga/mgga_c_scan", optional = true }
+libxc-rkernel-mgga_c_tpss = { path = "../kernels-rayon/mgga/mgga_c_tpss", optional = true }
 libxc-rkernel-mgga_c_tpssloc = { path = "../kernels-rayon/mgga/mgga_c_tpssloc", optional = true }
+libxc-rkernel-mgga_c_vsxc = { path = "../kernels-rayon/mgga/mgga_c_vsxc", optional = true }
+libxc-rkernel-mgga_k_csk = { path = "../kernels-rayon/mgga/mgga_k_csk", optional = true }
+libxc-rkernel-mgga_k_csk_loc = { path = "../kernels-rayon/mgga/mgga_k_csk_loc", optional = true }
 libxc-rkernel-mgga_k_gea2 = { path = "../kernels-rayon/mgga/mgga_k_gea2", optional = true }
 libxc-rkernel-mgga_k_gea4 = { path = "../kernels-rayon/mgga/mgga_k_gea4", optional = true }
+libxc-rkernel-mgga_k_lk = { path = "../kernels-rayon/mgga/mgga_k_lk", optional = true }
 libxc-rkernel-mgga_k_pc07 = { path = "../kernels-rayon/mgga/mgga_k_pc07", optional = true }
+libxc-rkernel-mgga_k_pgslb = { path = "../kernels-rayon/mgga/mgga_k_pgslb", optional = true }
 libxc-rkernel-mgga_k_rda = { path = "../kernels-rayon/mgga/mgga_k_rda", optional = true }
 libxc-rkernel-mgga_x_2d_js17 = { path = "../kernels-rayon/mgga/mgga_x_2d_js17", optional = true }
 libxc-rkernel-mgga_x_2d_prhg07 = { path = "../kernels-rayon/mgga/mgga_x_2d_prhg07", optional = true }
@@ -128,9 +219,15 @@ libxc-rkernel-mgga_x_br89 = { path = "../kernels-rayon/mgga/mgga_x_br89", option
 libxc-rkernel-mgga_x_br89_explicit = { path = "../kernels-rayon/mgga/mgga_x_br89_explicit", optional = true }
 libxc-rkernel-mgga_x_edmgga = { path = "../kernels-rayon/mgga/mgga_x_edmgga", optional = true }
 libxc-rkernel-mgga_x_ft98 = { path = "../kernels-rayon/mgga/mgga_x_ft98", optional = true }
+libxc-rkernel-mgga_x_gdme = { path = "../kernels-rayon/mgga/mgga_x_gdme", optional = true }
 libxc-rkernel-mgga_x_gvt4 = { path = "../kernels-rayon/mgga/mgga_x_gvt4", optional = true }
+libxc-rkernel-mgga_x_gx = { path = "../kernels-rayon/mgga/mgga_x_gx", optional = true }
 libxc-rkernel-mgga_x_jk = { path = "../kernels-rayon/mgga/mgga_x_jk", optional = true }
 libxc-rkernel-mgga_x_lta = { path = "../kernels-rayon/mgga/mgga_x_lta", optional = true }
+libxc-rkernel-mgga_x_m06l = { path = "../kernels-rayon/mgga/mgga_x_m06l", optional = true }
+libxc-rkernel-mgga_x_m08 = { path = "../kernels-rayon/mgga/mgga_x_m08", optional = true }
+libxc-rkernel-mgga_x_m11 = { path = "../kernels-rayon/mgga/mgga_x_m11", optional = true }
+libxc-rkernel-mgga_x_m11_l = { path = "../kernels-rayon/mgga/mgga_x_m11_l", optional = true }
 libxc-rkernel-mgga_x_mbeef = { path = "../kernels-rayon/mgga/mgga_x_mbeef", optional = true }
 libxc-rkernel-mgga_x_mbeefvdw = { path = "../kernels-rayon/mgga/mgga_x_mbeefvdw", optional = true }
 libxc-rkernel-mgga_x_mbr = { path = "../kernels-rayon/mgga/mgga_x_mbr", optional = true }
@@ -138,6 +235,9 @@ libxc-rkernel-mgga_x_mbrxc_bg = { path = "../kernels-rayon/mgga/mgga_x_mbrxc_bg"
 libxc-rkernel-mgga_x_mbrxh_bg = { path = "../kernels-rayon/mgga/mgga_x_mbrxh_bg", optional = true }
 libxc-rkernel-mgga_x_mcml = { path = "../kernels-rayon/mgga/mgga_x_mcml", optional = true }
 libxc-rkernel-mgga_x_mggac = { path = "../kernels-rayon/mgga/mgga_x_mggac", optional = true }
+libxc-rkernel-mgga_x_mn12 = { path = "../kernels-rayon/mgga/mgga_x_mn12", optional = true }
+libxc-rkernel-mgga_x_ms = { path = "../kernels-rayon/mgga/mgga_x_ms", optional = true }
+libxc-rkernel-mgga_x_msb = { path = "../kernels-rayon/mgga/mgga_x_msb", optional = true }
 libxc-rkernel-mgga_x_mvs = { path = "../kernels-rayon/mgga/mgga_x_mvs", optional = true }
 libxc-rkernel-mgga_x_mvsb = { path = "../kernels-rayon/mgga/mgga_x_mvsb", optional = true }
 libxc-rkernel-mgga_x_pbe_gx = { path = "../kernels-rayon/mgga/mgga_x_pbe_gx", optional = true }
@@ -153,99 +253,333 @@ libxc-rkernel-mgga_x_rscan = { path = "../kernels-rayon/mgga/mgga_x_rscan", opti
 libxc-rkernel-mgga_x_rtpss = { path = "../kernels-rayon/mgga/mgga_x_rtpss", optional = true }
 libxc-rkernel-mgga_x_sa_tpss = { path = "../kernels-rayon/mgga/mgga_x_sa_tpss", optional = true }
 libxc-rkernel-mgga_x_scan = { path = "../kernels-rayon/mgga/mgga_x_scan", optional = true }
+libxc-rkernel-mgga_x_task = { path = "../kernels-rayon/mgga/mgga_x_task", optional = true }
+libxc-rkernel-mgga_x_tau_hcth = { path = "../kernels-rayon/mgga/mgga_x_tau_hcth", optional = true }
 libxc-rkernel-mgga_x_th = { path = "../kernels-rayon/mgga/mgga_x_th", optional = true }
 libxc-rkernel-mgga_x_tm = { path = "../kernels-rayon/mgga/mgga_x_tm", optional = true }
 libxc-rkernel-mgga_x_tpss = { path = "../kernels-rayon/mgga/mgga_x_tpss", optional = true }
 libxc-rkernel-mgga_x_vcml = { path = "../kernels-rayon/mgga/mgga_x_vcml", optional = true }
 libxc-rkernel-mgga_x_vt84 = { path = "../kernels-rayon/mgga/mgga_x_vt84", optional = true }
+libxc-rkernel-mgga_xc_b97mv = { path = "../kernels-rayon/mgga/mgga_xc_b97mv", optional = true }
 libxc-rkernel-mgga_xc_b98 = { path = "../kernels-rayon/mgga/mgga_xc_b98", optional = true }
 libxc-rkernel-mgga_xc_cc06 = { path = "../kernels-rayon/mgga/mgga_xc_cc06", optional = true }
 libxc-rkernel-mgga_xc_lp90 = { path = "../kernels-rayon/mgga/mgga_xc_lp90", optional = true }
 libxc-rkernel-mgga_xc_zlp = { path = "../kernels-rayon/mgga/mgga_xc_zlp", optional = true }
 
 [features]
-default = ["gga_c_acgga", "gga_c_acggap", "gga_c_ccdf", "gga_c_chachiyo", "gga_c_cs1", "gga_c_ft97", "gga_c_gapc", "gga_c_gaploc", "gga_c_hcth_a", "gga_c_lyp", "gga_c_op_b88", "gga_c_op_g96", "gga_c_op_pbe", "gga_c_op_pw91", "gga_c_op_xalpha", "gga_c_pbeloc", "gga_c_pw91", "gga_c_q2d", "gga_c_regtpss", "gga_c_revtca", "gga_c_scan_e0", "gga_c_sg4", "gga_c_tca", "gga_c_w94", "gga_c_wi", "gga_c_wl", "gga_c_zvpbeloc", "gga_k_exp4", "gga_k_lc94", "gga_k_lkt", "gga_k_meyer", "gga_k_ol1", "gga_k_pearson", "gga_k_pw86", "gga_k_thakkar", "gga_k_vt84f", "gga_x_2d_b86", "gga_x_2d_b86_mgc", "gga_x_2d_b88", "gga_x_2d_pbe", "gga_x_airy", "gga_x_ak13", "gga_x_b88", "gga_x_bayesian", "gga_x_beefvdw", "gga_x_bpccac", "gga_x_c09x", "gga_x_chachiyo", "gga_x_ev93", "gga_x_fd_lb94", "gga_x_g96", "gga_x_gg99", "gga_x_hcth_a", "gga_x_herman", "gga_x_htbs", "gga_x_lag", "gga_x_lg93", "gga_x_lv_rpw86", "gga_x_pbea", "gga_x_pbepow", "gga_x_pbetrans", "gga_x_pw86", "gga_x_pw91", "gga_x_q1d", "gga_x_q2d", "gga_x_rge2", "gga_x_sg4", "gga_x_ssb_sw", "gga_x_wc", "gga_xc_th2", "hyb_mgga_x_dldf", "lda_c_1d_loos", "lda_c_2d_amgb", "lda_c_chachiyo", "lda_c_chachiyo_mod", "lda_c_gk72", "lda_c_gombas", "lda_c_lp96", "lda_c_ml1", "lda_c_rc04", "lda_c_rpa", "lda_c_vwn", "lda_c_vwn_1", "lda_c_vwn_2", "lda_c_vwn_3", "lda_c_vwn_4", "lda_c_vwn_rpa", "lda_c_w20", "lda_c_wigner", "lda_k_gds08_worker", "lda_k_zlp", "lda_x_2d", "lda_x_rel", "lda_x_sloc", "lda_xc_teter93", "lda_xc_zlp", "mgga_c_b88", "mgga_c_bc95", "mgga_c_cc", "mgga_c_ccalda", "mgga_c_cs", "mgga_c_kcis", "mgga_c_kcisk", "mgga_c_pkzb", "mgga_c_r2scan", "mgga_c_revscan", "mgga_c_rmggac", "mgga_c_rppscan", "mgga_c_rregtm", "mgga_c_rscan", "mgga_c_scan", "mgga_c_tpssloc", "mgga_k_gea2", "mgga_k_gea4", "mgga_k_pc07", "mgga_k_rda", "mgga_x_2d_js17", "mgga_x_2d_prhg07", "mgga_x_br89", "mgga_x_br89_explicit", "mgga_x_edmgga", "mgga_x_ft98", "mgga_x_gvt4", "mgga_x_jk", "mgga_x_lta", "mgga_x_mbeef", "mgga_x_mbeefvdw", "mgga_x_mbr", "mgga_x_mbrxc_bg", "mgga_x_mbrxh_bg", "mgga_x_mcml", "mgga_x_mggac", "mgga_x_mvs", "mgga_x_mvsb", "mgga_x_pbe_gx", "mgga_x_pkzb", "mgga_x_r2scan", "mgga_x_r4scan", "mgga_x_regtm", "mgga_x_regtpss", "mgga_x_revtm", "mgga_x_rlda", "mgga_x_rppscan", "mgga_x_rscan", "mgga_x_rtpss", "mgga_x_sa_tpss", "mgga_x_scan", "mgga_x_th", "mgga_x_tm", "mgga_x_tpss", "mgga_x_vcml", "mgga_x_vt84", "mgga_xc_b98", "mgga_xc_cc06", "mgga_xc_lp90", "mgga_xc_zlp"]
+default = ["gga_c_acgga", "gga_c_acggap", "gga_c_am05", "gga_c_apbe", "gga_c_bmk", "gga_c_ccdf", "gga_c_chachiyo", "gga_c_cs1", "gga_c_ft97", "gga_c_gam", "gga_c_gapc", "gga_c_gaploc", "gga_c_hcth_a", "gga_c_hyb_tau_hcth", "gga_c_lm", "gga_c_lyp", "gga_c_lypr", "gga_c_mggac", "gga_c_n12", "gga_c_n12_sx", "gga_c_op_b88", "gga_c_op_g96", "gga_c_op_pbe", "gga_c_op_pw91", "gga_c_op_xalpha", "gga_c_optc", "gga_c_p86", "gga_c_p86_ft", "gga_c_p86vwn", "gga_c_p86vwn_ft", "gga_c_pbe", "gga_c_pbe_erf_gws", "gga_c_pbe_gaussian", "gga_c_pbe_jrgx", "gga_c_pbe_mol", "gga_c_pbe_sol", "gga_c_pbe_vwn", "gga_c_pbefe", "gga_c_pbeint", "gga_c_pbeloc", "gga_c_pw91", "gga_c_q2d", "gga_c_regtpss", "gga_c_revtca", "gga_c_rge2", "gga_c_scan_e0", "gga_c_sg4", "gga_c_sogga11", "gga_c_sogga11_x", "gga_c_spbe", "gga_c_tau_hcth", "gga_c_tca", "gga_c_tm_lyp", "gga_c_tm_pbe", "gga_c_w94", "gga_c_wi", "gga_c_wi0", "gga_c_wl", "gga_c_xpbe", "gga_c_zpbeint", "gga_c_zpbesol", "gga_c_zvpbeint", "gga_c_zvpbeloc", "gga_c_zvpbesol", "gga_k_absp1", "gga_k_absp2", "gga_k_absp3", "gga_k_absp4", "gga_k_apbe", "gga_k_apbeint", "gga_k_baltin", "gga_k_dk", "gga_k_ernzerhof", "gga_k_exp4", "gga_k_fr_b88", "gga_k_fr_pw86", "gga_k_ge2", "gga_k_golden", "gga_k_gp85", "gga_k_gr", "gga_k_lc94", "gga_k_lgap", "gga_k_lgap_ge", "gga_k_lieb", "gga_k_lkt", "gga_k_llp", "gga_k_ludena", "gga_k_meyer", "gga_k_ol1", "gga_k_ol2", "gga_k_pbe2", "gga_k_pbe3", "gga_k_pbe4", "gga_k_pearson", "gga_k_perdew", "gga_k_pg1", "gga_k_rational_p", "gga_k_revapbe", "gga_k_revapbeint", "gga_k_tfvw", "gga_k_tfvw_opt", "gga_k_thakkar", "gga_k_tw1", "gga_k_tw2", "gga_k_tw3", "gga_k_tw4", "gga_k_vjks", "gga_k_vsk", "gga_k_vt84f", "gga_k_vw", "gga_k_yt65", "gga_x_2d_b86", "gga_x_2d_b86_mgc", "gga_x_2d_b88", "gga_x_2d_pbe", "gga_x_airy", "gga_x_ak13", "gga_x_am05", "gga_x_apbe", "gga_x_b86", "gga_x_b86_mgc", "gga_x_b86_r", "gga_x_b88", "gga_x_b88_6311g", "gga_x_b88m", "gga_x_bayesian", "gga_x_bcgp", "gga_x_beefvdw", "gga_x_bpccac", "gga_x_c09x", "gga_x_cap", "gga_x_chachiyo", "gga_x_dk87_r1", "gga_x_dk87_r2", "gga_x_eb88", "gga_x_ecmv92", "gga_x_ev93", "gga_x_fd_lb94", "gga_x_fd_revlb94", "gga_x_ft97_a", "gga_x_ft97_b", "gga_x_g96", "gga_x_gam", "gga_x_gg99", "gga_x_hcth_a", "gga_x_hjs_b88", "gga_x_hjs_b88_v2", "gga_x_hjs_b97x", "gga_x_hjs_pbe", "gga_x_hjs_pbe_sol", "gga_x_htbs", "gga_x_ityh", "gga_x_ityh_optx", "gga_x_ityh_pbe", "gga_x_kt1", "gga_x_lag", "gga_x_lambda_ch_n", "gga_x_lambda_lo_n", "gga_x_lambda_oc2_n", "gga_x_lg93", "gga_x_lspbe", "gga_x_lsrpbe", "gga_x_lv_rpw86", "gga_x_mb88", "gga_x_mpbe", "gga_x_mpw91", "gga_x_n12", "gga_x_ncap", "gga_x_ncapr", "gga_x_ol2", "gga_x_optb86b_vdw", "gga_x_optb88_vdw", "gga_x_optx", "gga_x_pbe", "gga_x_pbe_erf_gws", "gga_x_pbe_gaussian", "gga_x_pbe_jsjr", "gga_x_pbe_mod", "gga_x_pbe_mol", "gga_x_pbe_r", "gga_x_pbe_sol", "gga_x_pbe_tca", "gga_x_pbea", "gga_x_pbefe", "gga_x_pbeint", "gga_x_pbek1_vdw", "gga_x_pbepow", "gga_x_pbetrans", "gga_x_pw86", "gga_x_pw91", "gga_x_pw91_mod", "gga_x_q1d", "gga_x_q2d", "gga_x_rge2", "gga_x_rpbe", "gga_x_rpw86", "gga_x_s12g", "gga_x_sfat", "gga_x_sfat_pbe", "gga_x_sg4", "gga_x_sogga11", "gga_x_ssb_sw", "gga_x_vmt84_ge", "gga_x_vmt84_pbe", "gga_x_vmt_ge", "gga_x_vmt_pbe", "gga_x_wc", "gga_x_wpbeh", "gga_x_xpbe", "gga_xc_b97_3c", "gga_xc_b97_d", "gga_xc_b97_gga1", "gga_xc_hcth_120", "gga_xc_hcth_147", "gga_xc_hcth_407", "gga_xc_hcth_407p", "gga_xc_hcth_93", "gga_xc_hcth_p14", "gga_xc_hcth_p76", "gga_xc_hle16", "gga_xc_th1", "gga_xc_th2", "gga_xc_th3", "gga_xc_th4", "gga_xc_th_fc", "gga_xc_th_fcfo", "gga_xc_th_fco", "gga_xc_th_fl", "hyb_gga_x_cam_s12g", "hyb_gga_x_cam_s12h", "hyb_gga_x_lc2gau", "hyb_gga_x_lcgau", "hyb_gga_x_lcgau_core", "hyb_gga_x_n12_sx", "hyb_gga_x_pbe_erf_gws", "hyb_gga_x_s12h", "hyb_gga_x_sogga11_x", "hyb_gga_xc_b97", "hyb_gga_xc_b97_1", "hyb_gga_xc_b97_1p", "hyb_gga_xc_b97_2", "hyb_gga_xc_b97_3", "hyb_gga_xc_b97_k", "hyb_gga_xc_case21", "hyb_gga_xc_sb98_1a", "hyb_gga_xc_sb98_1b", "hyb_gga_xc_sb98_1c", "hyb_gga_xc_sb98_2a", "hyb_gga_xc_sb98_2b", "hyb_gga_xc_sb98_2c", "hyb_gga_xc_wb97", "hyb_gga_xc_wb97x", "hyb_gga_xc_wb97x_d", "hyb_gga_xc_wb97x_d3", "hyb_gga_xc_wb97x_v", "hyb_lda_x_erf", "hyb_lda_xc_bn05", "hyb_mgga_x_bmk", "hyb_mgga_x_dldf", "hyb_mgga_x_js18", "hyb_mgga_x_m05", "hyb_mgga_x_m05_2x", "hyb_mgga_x_m06", "hyb_mgga_x_m06_2x", "hyb_mgga_x_m06_hf", "hyb_mgga_x_m06_sx", "hyb_mgga_x_m08_hx", "hyb_mgga_x_m08_so", "hyb_mgga_x_m11", "hyb_mgga_x_mn12_sx", "hyb_mgga_x_mn15", "hyb_mgga_x_pjs18", "hyb_mgga_x_revm06", "hyb_mgga_x_revm11", "hyb_mgga_x_tau_hcth", "hyb_mgga_xc_b0kcis", "hyb_mgga_xc_b98", "hyb_mgga_xc_gas22", "hyb_mgga_xc_wb97m_v", "lda_c_1d_csc", "lda_c_1d_loos", "lda_c_2d_amgb", "lda_c_2d_prm", "lda_c_br78", "lda_c_chachiyo", "lda_c_chachiyo_mod", "lda_c_gk72", "lda_c_gl", "lda_c_gombas", "lda_c_hl", "lda_c_karasiev", "lda_c_karasiev_mod", "lda_c_lp96", "lda_c_mcweeny", "lda_c_ml1", "lda_c_ml2", "lda_c_ob_pw", "lda_c_ob_pz", "lda_c_ow", "lda_c_ow_lyp", "lda_c_pmgb06", "lda_c_pw", "lda_c_pw_erf", "lda_c_pw_mod", "lda_c_pw_rpa", "lda_c_pz", "lda_c_pz_mod", "lda_c_rc04", "lda_c_rpa", "lda_c_rpw92", "lda_c_upw92", "lda_c_vbh", "lda_c_vwn", "lda_c_vwn_1", "lda_c_vwn_2", "lda_c_vwn_3", "lda_c_vwn_4", "lda_c_vwn_rpa", "lda_c_w20", "lda_c_wigner", "lda_c_xalpha", "lda_k_gds08_worker", "lda_k_lp", "lda_k_lp96", "lda_k_tf", "lda_k_zlp", "lda_x", "lda_x_1d_exponential", "lda_x_1d_soft", "lda_x_2d", "lda_x_erf", "lda_x_rae", "lda_x_rel", "lda_x_sloc", "lda_x_yukawa", "lda_xc_1d_ehwlrg_1", "lda_xc_1d_ehwlrg_2", "lda_xc_1d_ehwlrg_3", "lda_xc_corrksdt", "lda_xc_gdsmfb", "lda_xc_ksdt", "lda_xc_lp_a", "lda_xc_lp_b", "lda_xc_teter93", "lda_xc_zlp", "mgga_c_b88", "mgga_c_bc95", "mgga_c_cc", "mgga_c_ccalda", "mgga_c_cs", "mgga_c_dldf", "mgga_c_hltapw", "mgga_c_kcis", "mgga_c_kcisk", "mgga_c_m05", "mgga_c_m05_2x", "mgga_c_m06", "mgga_c_m06_2x", "mgga_c_m06_hf", "mgga_c_m06_l", "mgga_c_m06_sx", "mgga_c_m08_hx", "mgga_c_m08_so", "mgga_c_m11", "mgga_c_m11_l", "mgga_c_mn12_l", "mgga_c_mn12_sx", "mgga_c_mn15", "mgga_c_mn15_l", "mgga_c_pkzb", "mgga_c_r2scan", "mgga_c_r2scan01", "mgga_c_revm06", "mgga_c_revm06_l", "mgga_c_revm11", "mgga_c_revscan", "mgga_c_revtm", "mgga_c_revtpss", "mgga_c_rmggac", "mgga_c_rppscan", "mgga_c_rregtm", "mgga_c_rscan", "mgga_c_scan", "mgga_c_tm", "mgga_c_tpss", "mgga_c_tpss_gaussian", "mgga_c_tpssloc", "mgga_c_vsxc", "mgga_k_csk1", "mgga_k_csk4", "mgga_k_csk_loc1", "mgga_k_csk_loc4", "mgga_k_gea2", "mgga_k_gea4", "mgga_k_l04", "mgga_k_l06", "mgga_k_pc07", "mgga_k_pc07_opt", "mgga_k_pgsl025", "mgga_k_rda", "mgga_x_2d_js17", "mgga_x_2d_prhg07", "mgga_x_b00", "mgga_x_bloc", "mgga_x_br89", "mgga_x_br89_1", "mgga_x_br89_explicit", "mgga_x_br89_explicit_1", "mgga_x_edmgga", "mgga_x_ft98", "mgga_x_gdme_0", "mgga_x_gdme_kos", "mgga_x_gdme_nv", "mgga_x_gdme_vt", "mgga_x_gvt4", "mgga_x_gx", "mgga_x_hlta", "mgga_x_jk", "mgga_x_lta", "mgga_x_m06_l", "mgga_x_m11_l", "mgga_x_mbeef", "mgga_x_mbeefvdw", "mgga_x_mbr", "mgga_x_mbrxc_bg", "mgga_x_mbrxh_bg", "mgga_x_mcml", "mgga_x_mggac", "mgga_x_mk00", "mgga_x_mn12_l", "mgga_x_mn15_l", "mgga_x_modtpss", "mgga_x_ms0", "mgga_x_ms1", "mgga_x_ms2", "mgga_x_ms2_rev", "mgga_x_ms2b", "mgga_x_ms2bs", "mgga_x_mtask", "mgga_x_mvs", "mgga_x_mvsb", "mgga_x_mvsbs", "mgga_x_pbe_gx", "mgga_x_pkzb", "mgga_x_r2scan", "mgga_x_r2scan01", "mgga_x_r4scan", "mgga_x_regtm", "mgga_x_regtpss", "mgga_x_revm06_l", "mgga_x_revscan", "mgga_x_revtm", "mgga_x_revtpss", "mgga_x_rlda", "mgga_x_rppscan", "mgga_x_rscan", "mgga_x_rtpss", "mgga_x_sa_tpss", "mgga_x_scan", "mgga_x_task", "mgga_x_tau_hcth", "mgga_x_th", "mgga_x_tlda", "mgga_x_tm", "mgga_x_tpss", "mgga_x_vcml", "mgga_x_vt84", "mgga_xc_b97m_v", "mgga_xc_cc06", "mgga_xc_lp90", "mgga_xc_zlp"]
 gga_c_acgga = ["dep:libxc-rkernel-gga_c_acgga"]
 gga_c_acggap = ["dep:libxc-rkernel-gga_c_acggap"]
+gga_c_am05 = ["dep:libxc-rkernel-gga_c_am05"]
+gga_c_apbe = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_bmk = ["dep:libxc-rkernel-gga_c_bmk"]
 gga_c_ccdf = ["dep:libxc-rkernel-gga_c_ccdf"]
 gga_c_chachiyo = ["dep:libxc-rkernel-gga_c_chachiyo"]
 gga_c_cs1 = ["dep:libxc-rkernel-gga_c_cs1"]
 gga_c_ft97 = ["dep:libxc-rkernel-gga_c_ft97"]
+gga_c_gam = ["dep:libxc-rkernel-gga_c_bmk"]
 gga_c_gapc = ["dep:libxc-rkernel-gga_c_gapc"]
 gga_c_gaploc = ["dep:libxc-rkernel-gga_c_gaploc"]
 gga_c_hcth_a = ["dep:libxc-rkernel-gga_c_hcth_a"]
+gga_c_hyb_tau_hcth = ["dep:libxc-rkernel-gga_c_bmk"]
+gga_c_lm = ["dep:libxc-rkernel-gga_c_lm"]
 gga_c_lyp = ["dep:libxc-rkernel-gga_c_lyp"]
+gga_c_lypr = ["dep:libxc-rkernel-gga_c_lypr"]
+gga_c_mggac = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_n12 = ["dep:libxc-rkernel-gga_c_bmk"]
+gga_c_n12_sx = ["dep:libxc-rkernel-gga_c_bmk"]
 gga_c_op_b88 = ["dep:libxc-rkernel-gga_c_op_b88"]
 gga_c_op_g96 = ["dep:libxc-rkernel-gga_c_op_g96"]
 gga_c_op_pbe = ["dep:libxc-rkernel-gga_c_op_pbe"]
 gga_c_op_pw91 = ["dep:libxc-rkernel-gga_c_op_pw91"]
 gga_c_op_xalpha = ["dep:libxc-rkernel-gga_c_op_xalpha"]
+gga_c_optc = ["dep:libxc-rkernel-gga_c_optc"]
+gga_c_p86 = ["dep:libxc-rkernel-gga_c_p86"]
+gga_c_p86_ft = ["dep:libxc-rkernel-gga_c_p86"]
+gga_c_p86vwn = ["dep:libxc-rkernel-gga_c_p86vwn"]
+gga_c_p86vwn_ft = ["dep:libxc-rkernel-gga_c_p86vwn"]
+gga_c_pbe = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbe_erf_gws = ["dep:libxc-rkernel-gga_c_pbe_erf_gws"]
+gga_c_pbe_gaussian = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbe_jrgx = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbe_mol = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbe_sol = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbe_vwn = ["dep:libxc-rkernel-gga_c_pbe_vwn"]
+gga_c_pbefe = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_pbeint = ["dep:libxc-rkernel-gga_c_pbe"]
 gga_c_pbeloc = ["dep:libxc-rkernel-gga_c_pbeloc"]
 gga_c_pw91 = ["dep:libxc-rkernel-gga_c_pw91"]
 gga_c_q2d = ["dep:libxc-rkernel-gga_c_q2d"]
 gga_c_regtpss = ["dep:libxc-rkernel-gga_c_regtpss"]
 gga_c_revtca = ["dep:libxc-rkernel-gga_c_revtca"]
+gga_c_rge2 = ["dep:libxc-rkernel-gga_c_pbe"]
 gga_c_scan_e0 = ["dep:libxc-rkernel-gga_c_scan_e0"]
 gga_c_sg4 = ["dep:libxc-rkernel-gga_c_sg4"]
+gga_c_sogga11 = ["dep:libxc-rkernel-gga_c_sogga11"]
+gga_c_sogga11_x = ["dep:libxc-rkernel-gga_c_sogga11"]
+gga_c_spbe = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_tau_hcth = ["dep:libxc-rkernel-gga_c_bmk"]
 gga_c_tca = ["dep:libxc-rkernel-gga_c_tca"]
+gga_c_tm_lyp = ["dep:libxc-rkernel-gga_c_lyp"]
+gga_c_tm_pbe = ["dep:libxc-rkernel-gga_c_pbe"]
 gga_c_w94 = ["dep:libxc-rkernel-gga_c_w94"]
 gga_c_wi = ["dep:libxc-rkernel-gga_c_wi"]
+gga_c_wi0 = ["dep:libxc-rkernel-gga_c_wi"]
 gga_c_wl = ["dep:libxc-rkernel-gga_c_wl"]
+gga_c_xpbe = ["dep:libxc-rkernel-gga_c_pbe"]
+gga_c_zpbeint = ["dep:libxc-rkernel-gga_c_zpbeint"]
+gga_c_zpbesol = ["dep:libxc-rkernel-gga_c_zpbeint"]
+gga_c_zvpbeint = ["dep:libxc-rkernel-gga_c_zvpbeint"]
 gga_c_zvpbeloc = ["dep:libxc-rkernel-gga_c_zvpbeloc"]
+gga_c_zvpbesol = ["dep:libxc-rkernel-gga_c_zvpbeint"]
+gga_k_absp1 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_absp2 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_absp3 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_absp4 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_apbe = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_apbeint = ["dep:libxc-rkernel-gga_k_apbeint"]
+gga_k_baltin = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_dk = ["dep:libxc-rkernel-gga_k_dk"]
+gga_k_ernzerhof = ["dep:libxc-rkernel-gga_k_dk"]
 gga_k_exp4 = ["dep:libxc-rkernel-gga_k_exp4"]
+gga_k_fr_b88 = ["dep:libxc-rkernel-gga_k_llp"]
+gga_k_fr_pw86 = ["dep:libxc-rkernel-gga_k_pw86"]
+gga_k_ge2 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_golden = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_gp85 = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_gr = ["dep:libxc-rkernel-gga_k_tflw"]
 gga_k_lc94 = ["dep:libxc-rkernel-gga_k_lc94"]
+gga_k_lgap = ["dep:libxc-rkernel-gga_k_lgap"]
+gga_k_lgap_ge = ["dep:libxc-rkernel-gga_k_lgap_ge"]
+gga_k_lieb = ["dep:libxc-rkernel-gga_k_tflw"]
 gga_k_lkt = ["dep:libxc-rkernel-gga_k_lkt"]
+gga_k_llp = ["dep:libxc-rkernel-gga_k_llp"]
+gga_k_ludena = ["dep:libxc-rkernel-gga_k_tflw"]
 gga_k_meyer = ["dep:libxc-rkernel-gga_k_meyer"]
 gga_k_ol1 = ["dep:libxc-rkernel-gga_k_ol1"]
+gga_k_ol2 = ["dep:libxc-rkernel-gga_k_ol2"]
+gga_k_pbe2 = ["dep:libxc-rkernel-gga_k_mpbe"]
+gga_k_pbe3 = ["dep:libxc-rkernel-gga_k_mpbe"]
+gga_k_pbe4 = ["dep:libxc-rkernel-gga_k_mpbe"]
 gga_k_pearson = ["dep:libxc-rkernel-gga_k_pearson"]
-gga_k_pw86 = ["dep:libxc-rkernel-gga_k_pw86"]
+gga_k_perdew = ["dep:libxc-rkernel-gga_k_dk"]
+gga_k_pg1 = ["dep:libxc-rkernel-gga_k_pg"]
+gga_k_rational_p = ["dep:libxc-rkernel-gga_k_rational_p"]
+gga_k_revapbe = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_revapbeint = ["dep:libxc-rkernel-gga_k_apbeint"]
+gga_k_tfvw = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_tfvw_opt = ["dep:libxc-rkernel-gga_k_tflw"]
 gga_k_thakkar = ["dep:libxc-rkernel-gga_k_thakkar"]
+gga_k_tw1 = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_tw2 = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_tw3 = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_tw4 = ["dep:libxc-rkernel-gga_k_apbe"]
+gga_k_vjks = ["dep:libxc-rkernel-gga_k_dk"]
+gga_k_vsk = ["dep:libxc-rkernel-gga_k_dk"]
 gga_k_vt84f = ["dep:libxc-rkernel-gga_k_vt84f"]
+gga_k_vw = ["dep:libxc-rkernel-gga_k_tflw"]
+gga_k_yt65 = ["dep:libxc-rkernel-gga_k_tflw"]
 gga_x_2d_b86 = ["dep:libxc-rkernel-gga_x_2d_b86"]
 gga_x_2d_b86_mgc = ["dep:libxc-rkernel-gga_x_2d_b86_mgc"]
 gga_x_2d_b88 = ["dep:libxc-rkernel-gga_x_2d_b88"]
 gga_x_2d_pbe = ["dep:libxc-rkernel-gga_x_2d_pbe"]
 gga_x_airy = ["dep:libxc-rkernel-gga_x_airy"]
 gga_x_ak13 = ["dep:libxc-rkernel-gga_x_ak13"]
+gga_x_am05 = ["dep:libxc-rkernel-gga_x_am05"]
+gga_x_apbe = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_b86 = ["dep:libxc-rkernel-gga_x_b86"]
+gga_x_b86_mgc = ["dep:libxc-rkernel-gga_x_b86"]
+gga_x_b86_r = ["dep:libxc-rkernel-gga_x_b86"]
 gga_x_b88 = ["dep:libxc-rkernel-gga_x_b88"]
+gga_x_b88_6311g = ["dep:libxc-rkernel-gga_x_b88"]
+gga_x_b88m = ["dep:libxc-rkernel-gga_x_b88"]
 gga_x_bayesian = ["dep:libxc-rkernel-gga_x_bayesian"]
+gga_x_bcgp = ["dep:libxc-rkernel-gga_x_pbe"]
 gga_x_beefvdw = ["dep:libxc-rkernel-gga_x_beefvdw"]
 gga_x_bpccac = ["dep:libxc-rkernel-gga_x_bpccac"]
 gga_x_c09x = ["dep:libxc-rkernel-gga_x_c09x"]
+gga_x_cap = ["dep:libxc-rkernel-gga_x_cap"]
 gga_x_chachiyo = ["dep:libxc-rkernel-gga_x_chachiyo"]
+gga_x_dk87_r1 = ["dep:libxc-rkernel-gga_x_dk87"]
+gga_x_dk87_r2 = ["dep:libxc-rkernel-gga_x_dk87"]
+gga_x_eb88 = ["dep:libxc-rkernel-gga_x_b88"]
+gga_x_ecmv92 = ["dep:libxc-rkernel-gga_x_ev93"]
 gga_x_ev93 = ["dep:libxc-rkernel-gga_x_ev93"]
 gga_x_fd_lb94 = ["dep:libxc-rkernel-gga_x_fd_lb94"]
+gga_x_fd_revlb94 = ["dep:libxc-rkernel-gga_x_fd_lb94"]
+gga_x_ft97_a = ["dep:libxc-rkernel-gga_x_ft97"]
+gga_x_ft97_b = ["dep:libxc-rkernel-gga_x_ft97"]
 gga_x_g96 = ["dep:libxc-rkernel-gga_x_g96"]
+gga_x_gam = ["dep:libxc-rkernel-gga_x_n12"]
 gga_x_gg99 = ["dep:libxc-rkernel-gga_x_gg99"]
 gga_x_hcth_a = ["dep:libxc-rkernel-gga_x_hcth_a"]
-gga_x_herman = ["dep:libxc-rkernel-gga_x_herman"]
+gga_x_hjs_b88 = ["dep:libxc-rkernel-gga_x_hjs"]
+gga_x_hjs_b88_v2 = ["dep:libxc-rkernel-gga_x_hjs_b88_v2"]
+gga_x_hjs_b97x = ["dep:libxc-rkernel-gga_x_hjs"]
+gga_x_hjs_pbe = ["dep:libxc-rkernel-gga_x_hjs"]
+gga_x_hjs_pbe_sol = ["dep:libxc-rkernel-gga_x_hjs"]
 gga_x_htbs = ["dep:libxc-rkernel-gga_x_htbs"]
+gga_x_ityh = ["dep:libxc-rkernel-gga_x_ityh"]
+gga_x_ityh_optx = ["dep:libxc-rkernel-gga_x_ityh_optx"]
+gga_x_ityh_pbe = ["dep:libxc-rkernel-gga_x_ityh_pbe"]
+gga_x_kt1 = ["dep:libxc-rkernel-gga_x_kt"]
 gga_x_lag = ["dep:libxc-rkernel-gga_x_lag"]
+gga_x_lambda_ch_n = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_lambda_lo_n = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_lambda_oc2_n = ["dep:libxc-rkernel-gga_x_pbe"]
 gga_x_lg93 = ["dep:libxc-rkernel-gga_x_lg93"]
+gga_x_lspbe = ["dep:libxc-rkernel-gga_x_lspbe"]
+gga_x_lsrpbe = ["dep:libxc-rkernel-gga_x_lsrpbe"]
 gga_x_lv_rpw86 = ["dep:libxc-rkernel-gga_x_lv_rpw86"]
+gga_x_mb88 = ["dep:libxc-rkernel-gga_x_b88"]
+gga_x_mpbe = ["dep:libxc-rkernel-gga_x_mpbe"]
+gga_x_mpw91 = ["dep:libxc-rkernel-gga_x_pw91"]
+gga_x_n12 = ["dep:libxc-rkernel-gga_x_n12"]
+gga_x_ncap = ["dep:libxc-rkernel-gga_x_ncap"]
+gga_x_ncapr = ["dep:libxc-rkernel-gga_x_ncap"]
+gga_x_ol2 = ["dep:libxc-rkernel-gga_x_ol2"]
+gga_x_optb86b_vdw = ["dep:libxc-rkernel-gga_x_b86"]
+gga_x_optb88_vdw = ["dep:libxc-rkernel-gga_x_b88"]
+gga_x_optx = ["dep:libxc-rkernel-gga_x_optx"]
+gga_x_pbe = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_erf_gws = ["dep:libxc-rkernel-gga_x_pbe_erf_gws"]
+gga_x_pbe_gaussian = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_jsjr = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_mod = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_mol = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_r = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_sol = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbe_tca = ["dep:libxc-rkernel-gga_x_pbe"]
 gga_x_pbea = ["dep:libxc-rkernel-gga_x_pbea"]
+gga_x_pbefe = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_x_pbeint = ["dep:libxc-rkernel-gga_x_pbeint"]
+gga_x_pbek1_vdw = ["dep:libxc-rkernel-gga_x_pbe"]
 gga_x_pbepow = ["dep:libxc-rkernel-gga_x_pbepow"]
 gga_x_pbetrans = ["dep:libxc-rkernel-gga_x_pbetrans"]
 gga_x_pw86 = ["dep:libxc-rkernel-gga_x_pw86"]
 gga_x_pw91 = ["dep:libxc-rkernel-gga_x_pw91"]
+gga_x_pw91_mod = ["dep:libxc-rkernel-gga_x_pw91"]
 gga_x_q1d = ["dep:libxc-rkernel-gga_x_q1d"]
 gga_x_q2d = ["dep:libxc-rkernel-gga_x_q2d"]
 gga_x_rge2 = ["dep:libxc-rkernel-gga_x_rge2"]
+gga_x_rpbe = ["dep:libxc-rkernel-gga_x_rpbe"]
+gga_x_rpw86 = ["dep:libxc-rkernel-gga_x_pw86"]
+gga_x_s12g = ["dep:libxc-rkernel-gga_x_s12"]
+gga_x_sfat = ["dep:libxc-rkernel-gga_x_sfat"]
+gga_x_sfat_pbe = ["dep:libxc-rkernel-gga_x_sfat_pbe"]
 gga_x_sg4 = ["dep:libxc-rkernel-gga_x_sg4"]
+gga_x_sogga11 = ["dep:libxc-rkernel-gga_x_sogga11"]
 gga_x_ssb_sw = ["dep:libxc-rkernel-gga_x_ssb_sw"]
+gga_x_vmt84_ge = ["dep:libxc-rkernel-gga_x_vmt84"]
+gga_x_vmt84_pbe = ["dep:libxc-rkernel-gga_x_vmt84"]
+gga_x_vmt_ge = ["dep:libxc-rkernel-gga_x_vmt"]
+gga_x_vmt_pbe = ["dep:libxc-rkernel-gga_x_vmt"]
 gga_x_wc = ["dep:libxc-rkernel-gga_x_wc"]
+gga_x_wpbeh = ["dep:libxc-rkernel-gga_x_wpbeh"]
+gga_x_xpbe = ["dep:libxc-rkernel-gga_x_pbe"]
+gga_xc_b97_3c = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_b97_d = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_b97_gga1 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_120 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_147 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_407 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_407p = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_93 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_p14 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hcth_p76 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_hle16 = ["dep:libxc-rkernel-gga_xc_b97"]
+gga_xc_th1 = ["dep:libxc-rkernel-gga_xc_th1"]
 gga_xc_th2 = ["dep:libxc-rkernel-gga_xc_th2"]
+gga_xc_th3 = ["dep:libxc-rkernel-gga_xc_th3"]
+gga_xc_th4 = ["dep:libxc-rkernel-gga_xc_th3"]
+gga_xc_th_fc = ["dep:libxc-rkernel-gga_xc_th1"]
+gga_xc_th_fcfo = ["dep:libxc-rkernel-gga_xc_th1"]
+gga_xc_th_fco = ["dep:libxc-rkernel-gga_xc_th1"]
+gga_xc_th_fl = ["dep:libxc-rkernel-gga_xc_th1"]
+hyb_gga_x_cam_s12g = ["dep:libxc-rkernel-hyb_gga_x_cam_s12"]
+hyb_gga_x_cam_s12h = ["dep:libxc-rkernel-hyb_gga_x_cam_s12"]
+hyb_gga_x_lc2gau = ["dep:libxc-rkernel-gga_x_lcgau"]
+hyb_gga_x_lcgau = ["dep:libxc-rkernel-gga_x_lcgau"]
+hyb_gga_x_lcgau_core = ["dep:libxc-rkernel-gga_x_lcgau"]
+hyb_gga_x_n12_sx = ["dep:libxc-rkernel-gga_x_n12"]
+hyb_gga_x_pbe_erf_gws = ["dep:libxc-rkernel-gga_x_pbe_erf_gws"]
+hyb_gga_x_s12h = ["dep:libxc-rkernel-gga_x_s12"]
+hyb_gga_x_sogga11_x = ["dep:libxc-rkernel-gga_x_sogga11"]
+hyb_gga_xc_b97 = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_b97_1 = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_b97_1p = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_b97_2 = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_b97_3 = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_b97_k = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_case21 = ["dep:libxc-rkernel-hyb_gga_xc_case21"]
+hyb_gga_xc_sb98_1a = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_sb98_1b = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_sb98_1c = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_sb98_2a = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_sb98_2b = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_sb98_2c = ["dep:libxc-rkernel-gga_xc_b97"]
+hyb_gga_xc_wb97 = ["dep:libxc-rkernel-hyb_gga_xc_wb97"]
+hyb_gga_xc_wb97x = ["dep:libxc-rkernel-hyb_gga_xc_wb97"]
+hyb_gga_xc_wb97x_d = ["dep:libxc-rkernel-hyb_gga_xc_wb97"]
+hyb_gga_xc_wb97x_d3 = ["dep:libxc-rkernel-hyb_gga_xc_wb97"]
+hyb_gga_xc_wb97x_v = ["dep:libxc-rkernel-hyb_gga_xc_wb97"]
+hyb_lda_x_erf = ["dep:libxc-rkernel-lda_x_erf"]
+hyb_lda_xc_bn05 = ["dep:libxc-rkernel-hyb_lda_xc_bn05"]
+hyb_mgga_x_bmk = ["dep:libxc-rkernel-mgga_x_tau_hcth"]
 hyb_mgga_x_dldf = ["dep:libxc-rkernel-hyb_mgga_x_dldf"]
+hyb_mgga_x_js18 = ["dep:libxc-rkernel-hyb_mgga_x_js18"]
+hyb_mgga_x_m05 = ["dep:libxc-rkernel-hyb_mgga_x_m05"]
+hyb_mgga_x_m05_2x = ["dep:libxc-rkernel-hyb_mgga_x_m05"]
+hyb_mgga_x_m06 = ["dep:libxc-rkernel-mgga_x_m06l"]
+hyb_mgga_x_m06_2x = ["dep:libxc-rkernel-hyb_mgga_x_m05"]
+hyb_mgga_x_m06_hf = ["dep:libxc-rkernel-mgga_x_m06l"]
+hyb_mgga_x_m06_sx = ["dep:libxc-rkernel-mgga_x_m06l"]
+hyb_mgga_x_m08_hx = ["dep:libxc-rkernel-mgga_x_m08"]
+hyb_mgga_x_m08_so = ["dep:libxc-rkernel-mgga_x_m08"]
+hyb_mgga_x_m11 = ["dep:libxc-rkernel-mgga_x_m11"]
+hyb_mgga_x_mn12_sx = ["dep:libxc-rkernel-mgga_x_mn12"]
+hyb_mgga_x_mn15 = ["dep:libxc-rkernel-mgga_x_mn12"]
+hyb_mgga_x_pjs18 = ["dep:libxc-rkernel-hyb_mgga_x_pjs18"]
+hyb_mgga_x_revm06 = ["dep:libxc-rkernel-mgga_x_m06l"]
+hyb_mgga_x_revm11 = ["dep:libxc-rkernel-mgga_x_m11"]
+hyb_mgga_x_tau_hcth = ["dep:libxc-rkernel-mgga_x_tau_hcth"]
+hyb_mgga_xc_b0kcis = ["dep:libxc-rkernel-mgga_c_kcis"]
+hyb_mgga_xc_b98 = ["dep:libxc-rkernel-mgga_xc_b98"]
+hyb_mgga_xc_gas22 = ["dep:libxc-rkernel-hyb_mgga_xc_gas22"]
+hyb_mgga_xc_wb97m_v = ["dep:libxc-rkernel-hyb_mgga_xc_wb97mv"]
+lda_c_1d_csc = ["dep:libxc-rkernel-lda_c_1d_csc"]
 lda_c_1d_loos = ["dep:libxc-rkernel-lda_c_1d_loos"]
 lda_c_2d_amgb = ["dep:libxc-rkernel-lda_c_2d_amgb"]
+lda_c_2d_prm = ["dep:libxc-rkernel-lda_c_2d_prm"]
+lda_c_br78 = ["dep:libxc-rkernel-lda_c_wigner"]
 lda_c_chachiyo = ["dep:libxc-rkernel-lda_c_chachiyo"]
 lda_c_chachiyo_mod = ["dep:libxc-rkernel-lda_c_chachiyo_mod"]
 lda_c_gk72 = ["dep:libxc-rkernel-lda_c_gk72"]
+lda_c_gl = ["dep:libxc-rkernel-lda_c_hl"]
 lda_c_gombas = ["dep:libxc-rkernel-lda_c_gombas"]
+lda_c_hl = ["dep:libxc-rkernel-lda_c_hl"]
+lda_c_karasiev = ["dep:libxc-rkernel-lda_c_chachiyo"]
+lda_c_karasiev_mod = ["dep:libxc-rkernel-lda_c_chachiyo_mod"]
 lda_c_lp96 = ["dep:libxc-rkernel-lda_c_lp96"]
+lda_c_mcweeny = ["dep:libxc-rkernel-lda_c_wigner"]
 lda_c_ml1 = ["dep:libxc-rkernel-lda_c_ml1"]
+lda_c_ml2 = ["dep:libxc-rkernel-lda_c_ml1"]
+lda_c_ob_pw = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_ob_pz = ["dep:libxc-rkernel-lda_c_pz"]
+lda_c_ow = ["dep:libxc-rkernel-lda_c_wigner"]
+lda_c_ow_lyp = ["dep:libxc-rkernel-lda_c_wigner"]
+lda_c_pmgb06 = ["dep:libxc-rkernel-lda_c_pmgb06"]
+lda_c_pw = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_pw_erf = ["dep:libxc-rkernel-lda_c_pw_erf"]
+lda_c_pw_mod = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_pw_rpa = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_pz = ["dep:libxc-rkernel-lda_c_pz"]
+lda_c_pz_mod = ["dep:libxc-rkernel-lda_c_pz"]
 lda_c_rc04 = ["dep:libxc-rkernel-lda_c_rc04"]
 lda_c_rpa = ["dep:libxc-rkernel-lda_c_rpa"]
+lda_c_rpw92 = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_upw92 = ["dep:libxc-rkernel-lda_c_pw"]
+lda_c_vbh = ["dep:libxc-rkernel-lda_c_hl"]
 lda_c_vwn = ["dep:libxc-rkernel-lda_c_vwn"]
 lda_c_vwn_1 = ["dep:libxc-rkernel-lda_c_vwn_1"]
 lda_c_vwn_2 = ["dep:libxc-rkernel-lda_c_vwn_2"]
@@ -254,11 +588,29 @@ lda_c_vwn_4 = ["dep:libxc-rkernel-lda_c_vwn_4"]
 lda_c_vwn_rpa = ["dep:libxc-rkernel-lda_c_vwn_rpa"]
 lda_c_w20 = ["dep:libxc-rkernel-lda_c_w20"]
 lda_c_wigner = ["dep:libxc-rkernel-lda_c_wigner"]
+lda_c_xalpha = ["dep:libxc-rkernel-lda_x"]
 lda_k_gds08_worker = ["dep:libxc-rkernel-lda_k_gds08_worker"]
+lda_k_lp = ["dep:libxc-rkernel-lda_k_tf"]
+lda_k_lp96 = ["dep:libxc-rkernel-lda_c_lp96"]
+lda_k_tf = ["dep:libxc-rkernel-lda_k_tf"]
 lda_k_zlp = ["dep:libxc-rkernel-lda_k_zlp"]
+lda_x = ["dep:libxc-rkernel-lda_x"]
+lda_x_1d_exponential = ["dep:libxc-rkernel-lda_x_1d_exponential"]
+lda_x_1d_soft = ["dep:libxc-rkernel-lda_x_1d_soft"]
 lda_x_2d = ["dep:libxc-rkernel-lda_x_2d"]
+lda_x_erf = ["dep:libxc-rkernel-lda_x_erf"]
+lda_x_rae = ["dep:libxc-rkernel-lda_x"]
 lda_x_rel = ["dep:libxc-rkernel-lda_x_rel"]
 lda_x_sloc = ["dep:libxc-rkernel-lda_x_sloc"]
+lda_x_yukawa = ["dep:libxc-rkernel-lda_x_yukawa"]
+lda_xc_1d_ehwlrg_1 = ["dep:libxc-rkernel-lda_xc_1d_ehwlrg"]
+lda_xc_1d_ehwlrg_2 = ["dep:libxc-rkernel-lda_xc_1d_ehwlrg"]
+lda_xc_1d_ehwlrg_3 = ["dep:libxc-rkernel-lda_xc_1d_ehwlrg"]
+lda_xc_corrksdt = ["dep:libxc-rkernel-lda_xc_ksdt"]
+lda_xc_gdsmfb = ["dep:libxc-rkernel-lda_xc_ksdt"]
+lda_xc_ksdt = ["dep:libxc-rkernel-lda_xc_ksdt"]
+lda_xc_lp_a = ["dep:libxc-rkernel-lda_c_wigner"]
+lda_xc_lp_b = ["dep:libxc-rkernel-lda_c_wigner"]
 lda_xc_teter93 = ["dep:libxc-rkernel-lda_xc_teter93"]
 lda_xc_zlp = ["dep:libxc-rkernel-lda_xc_zlp"]
 mgga_c_b88 = ["dep:libxc-rkernel-mgga_c_b88"]
@@ -266,30 +618,77 @@ mgga_c_bc95 = ["dep:libxc-rkernel-mgga_c_bc95"]
 mgga_c_cc = ["dep:libxc-rkernel-mgga_c_cc"]
 mgga_c_ccalda = ["dep:libxc-rkernel-mgga_c_ccalda"]
 mgga_c_cs = ["dep:libxc-rkernel-mgga_c_cs"]
+mgga_c_dldf = ["dep:libxc-rkernel-mgga_c_m05"]
+mgga_c_hltapw = ["dep:libxc-rkernel-mgga_c_ltapw"]
 mgga_c_kcis = ["dep:libxc-rkernel-mgga_c_kcis"]
 mgga_c_kcisk = ["dep:libxc-rkernel-mgga_c_kcisk"]
+mgga_c_m05 = ["dep:libxc-rkernel-mgga_c_m05"]
+mgga_c_m05_2x = ["dep:libxc-rkernel-mgga_c_m05"]
+mgga_c_m06 = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_m06_2x = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_m06_hf = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_m06_l = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_m06_sx = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_m08_hx = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_m08_so = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_m11 = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_m11_l = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_mn12_l = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_mn12_sx = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_mn15 = ["dep:libxc-rkernel-mgga_c_m08"]
+mgga_c_mn15_l = ["dep:libxc-rkernel-mgga_c_m08"]
 mgga_c_pkzb = ["dep:libxc-rkernel-mgga_c_pkzb"]
 mgga_c_r2scan = ["dep:libxc-rkernel-mgga_c_r2scan"]
+mgga_c_r2scan01 = ["dep:libxc-rkernel-mgga_c_r2scan"]
+mgga_c_revm06 = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_revm06_l = ["dep:libxc-rkernel-mgga_c_m06l"]
+mgga_c_revm11 = ["dep:libxc-rkernel-mgga_c_m08"]
 mgga_c_revscan = ["dep:libxc-rkernel-mgga_c_revscan"]
+mgga_c_revtm = ["dep:libxc-rkernel-mgga_c_revtpss"]
+mgga_c_revtpss = ["dep:libxc-rkernel-mgga_c_revtpss"]
 mgga_c_rmggac = ["dep:libxc-rkernel-mgga_c_rmggac"]
 mgga_c_rppscan = ["dep:libxc-rkernel-mgga_c_rppscan"]
 mgga_c_rregtm = ["dep:libxc-rkernel-mgga_c_rregtm"]
 mgga_c_rscan = ["dep:libxc-rkernel-mgga_c_rscan"]
 mgga_c_scan = ["dep:libxc-rkernel-mgga_c_scan"]
+mgga_c_tm = ["dep:libxc-rkernel-mgga_c_tpss"]
+mgga_c_tpss = ["dep:libxc-rkernel-mgga_c_tpss"]
+mgga_c_tpss_gaussian = ["dep:libxc-rkernel-mgga_c_tpss"]
 mgga_c_tpssloc = ["dep:libxc-rkernel-mgga_c_tpssloc"]
+mgga_c_vsxc = ["dep:libxc-rkernel-mgga_c_vsxc"]
+mgga_k_csk1 = ["dep:libxc-rkernel-mgga_k_csk"]
+mgga_k_csk4 = ["dep:libxc-rkernel-mgga_k_csk"]
+mgga_k_csk_loc1 = ["dep:libxc-rkernel-mgga_k_csk_loc"]
+mgga_k_csk_loc4 = ["dep:libxc-rkernel-mgga_k_csk_loc"]
 mgga_k_gea2 = ["dep:libxc-rkernel-mgga_k_gea2"]
 mgga_k_gea4 = ["dep:libxc-rkernel-mgga_k_gea4"]
+mgga_k_l04 = ["dep:libxc-rkernel-mgga_k_lk"]
+mgga_k_l06 = ["dep:libxc-rkernel-mgga_k_lk"]
 mgga_k_pc07 = ["dep:libxc-rkernel-mgga_k_pc07"]
+mgga_k_pc07_opt = ["dep:libxc-rkernel-mgga_k_pc07"]
+mgga_k_pgsl025 = ["dep:libxc-rkernel-mgga_k_pgslb"]
 mgga_k_rda = ["dep:libxc-rkernel-mgga_k_rda"]
 mgga_x_2d_js17 = ["dep:libxc-rkernel-mgga_x_2d_js17"]
 mgga_x_2d_prhg07 = ["dep:libxc-rkernel-mgga_x_2d_prhg07"]
+mgga_x_b00 = ["dep:libxc-rkernel-mgga_x_br89"]
+mgga_x_bloc = ["dep:libxc-rkernel-mgga_x_tpss"]
 mgga_x_br89 = ["dep:libxc-rkernel-mgga_x_br89"]
+mgga_x_br89_1 = ["dep:libxc-rkernel-mgga_x_br89"]
 mgga_x_br89_explicit = ["dep:libxc-rkernel-mgga_x_br89_explicit"]
+mgga_x_br89_explicit_1 = ["dep:libxc-rkernel-mgga_x_br89_explicit"]
 mgga_x_edmgga = ["dep:libxc-rkernel-mgga_x_edmgga"]
 mgga_x_ft98 = ["dep:libxc-rkernel-mgga_x_ft98"]
+mgga_x_gdme_0 = ["dep:libxc-rkernel-mgga_x_gdme"]
+mgga_x_gdme_kos = ["dep:libxc-rkernel-mgga_x_gdme"]
+mgga_x_gdme_nv = ["dep:libxc-rkernel-mgga_x_gdme"]
+mgga_x_gdme_vt = ["dep:libxc-rkernel-mgga_x_gdme"]
 mgga_x_gvt4 = ["dep:libxc-rkernel-mgga_x_gvt4"]
+mgga_x_gx = ["dep:libxc-rkernel-mgga_x_gx"]
+mgga_x_hlta = ["dep:libxc-rkernel-mgga_x_lta"]
 mgga_x_jk = ["dep:libxc-rkernel-mgga_x_jk"]
 mgga_x_lta = ["dep:libxc-rkernel-mgga_x_lta"]
+mgga_x_m06_l = ["dep:libxc-rkernel-mgga_x_m06l"]
+mgga_x_m11_l = ["dep:libxc-rkernel-mgga_x_m11_l"]
 mgga_x_mbeef = ["dep:libxc-rkernel-mgga_x_mbeef"]
 mgga_x_mbeefvdw = ["dep:libxc-rkernel-mgga_x_mbeefvdw"]
 mgga_x_mbr = ["dep:libxc-rkernel-mgga_x_mbr"]
@@ -297,27 +696,46 @@ mgga_x_mbrxc_bg = ["dep:libxc-rkernel-mgga_x_mbrxc_bg"]
 mgga_x_mbrxh_bg = ["dep:libxc-rkernel-mgga_x_mbrxh_bg"]
 mgga_x_mcml = ["dep:libxc-rkernel-mgga_x_mcml"]
 mgga_x_mggac = ["dep:libxc-rkernel-mgga_x_mggac"]
+mgga_x_mk00 = ["dep:libxc-rkernel-mgga_x_rlda"]
+mgga_x_mn12_l = ["dep:libxc-rkernel-mgga_x_mn12"]
+mgga_x_mn15_l = ["dep:libxc-rkernel-mgga_x_mn12"]
+mgga_x_modtpss = ["dep:libxc-rkernel-mgga_x_tpss"]
+mgga_x_ms0 = ["dep:libxc-rkernel-mgga_x_ms"]
+mgga_x_ms1 = ["dep:libxc-rkernel-mgga_x_ms"]
+mgga_x_ms2 = ["dep:libxc-rkernel-mgga_x_ms"]
+mgga_x_ms2_rev = ["dep:libxc-rkernel-mgga_x_ms"]
+mgga_x_ms2b = ["dep:libxc-rkernel-mgga_x_msb"]
+mgga_x_ms2bs = ["dep:libxc-rkernel-mgga_x_msb"]
+mgga_x_mtask = ["dep:libxc-rkernel-mgga_x_task"]
 mgga_x_mvs = ["dep:libxc-rkernel-mgga_x_mvs"]
 mgga_x_mvsb = ["dep:libxc-rkernel-mgga_x_mvsb"]
+mgga_x_mvsbs = ["dep:libxc-rkernel-mgga_x_mvsb"]
 mgga_x_pbe_gx = ["dep:libxc-rkernel-mgga_x_pbe_gx"]
 mgga_x_pkzb = ["dep:libxc-rkernel-mgga_x_pkzb"]
 mgga_x_r2scan = ["dep:libxc-rkernel-mgga_x_r2scan"]
+mgga_x_r2scan01 = ["dep:libxc-rkernel-mgga_x_r2scan"]
 mgga_x_r4scan = ["dep:libxc-rkernel-mgga_x_r4scan"]
 mgga_x_regtm = ["dep:libxc-rkernel-mgga_x_regtm"]
 mgga_x_regtpss = ["dep:libxc-rkernel-mgga_x_regtpss"]
+mgga_x_revm06_l = ["dep:libxc-rkernel-mgga_x_m06l"]
+mgga_x_revscan = ["dep:libxc-rkernel-mgga_x_scan"]
 mgga_x_revtm = ["dep:libxc-rkernel-mgga_x_revtm"]
+mgga_x_revtpss = ["dep:libxc-rkernel-mgga_x_tpss"]
 mgga_x_rlda = ["dep:libxc-rkernel-mgga_x_rlda"]
 mgga_x_rppscan = ["dep:libxc-rkernel-mgga_x_rppscan"]
 mgga_x_rscan = ["dep:libxc-rkernel-mgga_x_rscan"]
 mgga_x_rtpss = ["dep:libxc-rkernel-mgga_x_rtpss"]
 mgga_x_sa_tpss = ["dep:libxc-rkernel-mgga_x_sa_tpss"]
 mgga_x_scan = ["dep:libxc-rkernel-mgga_x_scan"]
+mgga_x_task = ["dep:libxc-rkernel-mgga_x_task"]
+mgga_x_tau_hcth = ["dep:libxc-rkernel-mgga_x_tau_hcth"]
 mgga_x_th = ["dep:libxc-rkernel-mgga_x_th"]
+mgga_x_tlda = ["dep:libxc-rkernel-mgga_x_lta"]
 mgga_x_tm = ["dep:libxc-rkernel-mgga_x_tm"]
 mgga_x_tpss = ["dep:libxc-rkernel-mgga_x_tpss"]
 mgga_x_vcml = ["dep:libxc-rkernel-mgga_x_vcml"]
 mgga_x_vt84 = ["dep:libxc-rkernel-mgga_x_vt84"]
-mgga_xc_b98 = ["dep:libxc-rkernel-mgga_xc_b98"]
+mgga_xc_b97m_v = ["dep:libxc-rkernel-mgga_xc_b97mv"]
 mgga_xc_cc06 = ["dep:libxc-rkernel-mgga_xc_cc06"]
 mgga_xc_lp90 = ["dep:libxc-rkernel-mgga_xc_lp90"]
 mgga_xc_zlp = ["dep:libxc-rkernel-mgga_xc_zlp"]

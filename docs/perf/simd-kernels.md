@@ -1,5 +1,56 @@
 # Explicit SIMD in the production kernels
 
+> **2026-08-31 correction — every speed number below and in the 2026-08-21
+> table was measured on rmath's `Fast` path, not its bit-exact one.** rmath's
+> public free functions (`rmath::exp`, `rmath::ln`, …) are deliberately its
+> `Fast` policy — its own `tests/fast_path.rs` asserts
+> `rmath::exp(x) == rmath::fast::exp(x)` — and this tree reached them through
+> `from_maple.py`'s `LIBM` map and `simd.py`'s `FREE_EXACT`. Both kernel forms
+> called the same approximate function, so they agreed with each other and no
+> fingerprint ever moved; `math/tests/simd_exact.rs` passed because it compares
+> **rmath against rmath**. Measured against glibc, `ln` differed on 22.24% of
+> 200k inputs by up to **4 ulp**, `atan` 24.86% / 2 ulp, `exp` 10.56% / 1 ulp,
+> `cbrt` 8.47% / 1 ulp.
+>
+> Fixed by `crates/kernels-rayon/math/src/rmath_bitexact.rs`, a shadow module
+> exported as `libxc_rkernel_math::rmath` that pins every transcendental to
+> `<BitExact, FullRange>`; the upstream crate is renamed `rmath_upstream` so
+> the fast path is unreachable, and the emitter's approximate mode is gone.
+> **rmath itself was not changed — its behaviour is intended.**
+>
+> What this costs: bit-exact vector-vs-scalar is about `ln` 1.5x, `exp` 2.8x,
+> `cbrt` 1.8x, `atan` 1.5x, where the fast path gave 4.4x / 5.9x / 7.6x /
+> 14.7x. So the per-transcendental win is far smaller than recorded here, and
+> what remains of the SIMD advantage comes mostly from removing the libm
+> *calls* so the grid loop vectorises 8-wide. **Treat every ratio below as an
+> upper bound that has not been re-measured.** New verdicts, measured on the
+> bit-exact tree, go in `docs/perf/simd-ledger.json` via
+> `tools/translate_rayon/simd_qualify.py`.
+>
+> **What the fast path was actually costing, measured on the oracle.** The same
+> harness (`crates/kernels-rayon/oracle`, rel tol 1e-12, 1237 field
+> comparisons) run against both maths, differing only in that policy:
+>
+> | | over tol |
+> |---|--:|
+> | rmath `Fast` (what the tree was doing) | **65** / 1237 |
+> | rmath `BitExact` (the fix) | **48** / 1237 |
+>
+> Seventeen failures removed, none introduced. And the ones removed were not
+> marginal — the `Fast` path put `lda_xc_{ksdt,corrksdt,gdsmfb}` at a relative
+> error of **2.4e18 on `v2rho2`** and 1.4e9 on `vrho`, and broke `gga_x_wpbeh`
+> outright (`vsigma` 1.0e0). Those functionals lean on `tanh`; a few ulp in the
+> value became eighteen orders of magnitude in the second derivative. This is
+> the amplification `rmath::policy::Fast`'s own rustdoc warns about, and it is
+> why "a few ulp" is not a tolerable trade in a library that ships derivatives.
+>
+> The 48 that remain are pre-existing and structural — hybrids
+> (`hyb_gga_xc_apbe0` `vsigma` 2.4e2), `gga_x_fd_lb94`, `gga_xc_beefvdw`,
+> `gga_k_absp4` — unchanged between the two runs, and far too large to be a
+> precision effect. Note the denominator: the recorded "7 of 344" in
+> `AGENTS.md` predates a large growth in how many functionals the harness
+> routes, so it is stale rather than contradicted.
+
 > **2026-08-18 update — the accuracy problem below is solved.** `exp`, `ln`
 > and the cube-root family in SIMD kernels no longer come from `wide`; they
 > come from `libxc_rkernel_math::simd`, which is **bit-identical per lane** to
@@ -78,14 +129,116 @@ because nothing else was regenerated in SIMD form.
 
 ## Adding a functional to the list
 
-1. Generate both forms and time them on a physical grid at the order you care
-   about. If the ratio is under ~1.5x, stop — it is not worth the divergence
-   from the scalar kernel.
-2. Compare the SIMD output against the scalar kernel elementwise. It must stay
-   well inside 1e-12; `gga_c_lyp` is the cautionary case at 4.7e-12.
-3. Add the `(func, order, spin)` triple to `SIMD_FUNCS`, regenerate, and run
-   `crates/kernels-rayon/oracle`. The functional must not join the offender
-   list.
+Use the driver; do not do this by hand.
+
+```bash
+# What would be tried, in order, without building anything.
+python3 tools/translate_rayon/simd_qualify.py --tier 1 --dry-run
+
+# Sweep. Resumable: anything already decided in the ledger is skipped.
+python3 tools/translate_rayon/simd_qualify.py --tier 1 --batch 12
+
+# Write the winners into from_maple.py's SIMD_EXACT_FUNCS.
+python3 tools/translate_rayon/simd_qualify.py --apply
+```
+
+Tiers are `1` unpolarized exc/vxc, `2` polarized exc/vxc, `3` unpolarized fxc,
+`4` kxc/lxc. Candidates come from `candidate_profiler.py` (routed, no scalar
+helper, all calls exact-translatable, at least two libm calls per point) and are
+ordered hot-functional-first, so an interrupted sweep has still done the part a
+real DFT workload cares about.
+
+**The gate**, applied per triple from one batched run:
+
+1. **The fingerprint must not move.** Exact, not a tolerance — both kernel forms
+   resolve to the same bit-exact rmath kernel, so a SIMD kernel that changes any
+   bit has a translation bug. This half is load-independent and always sound.
+2. **The sweep must get faster.** The old "at least 1.5x" bar is retired; with
+   no accuracy cost to trade against, any measured speedup qualifies.
+
+Verdicts are recorded in `docs/perf/simd-ledger.json` — accepts *and* rejects,
+with the numbers behind them, so a rejected triple is never retried blind. A run
+on a busy machine records `deferred-contention` rather than a coin-flip verdict:
+the fingerprint is kept, the speed verdict is not, and the triple stays pending.
+**Benchmark on a quiet box** — `xcqual` reports `minforeign`, the number of
+foreign cores seen, and anything above ~2 makes a ratio near 1 meaningless.
+
+Batching is safe because triples are separate functions in separate crates and
+cannot interfere; `xcqual` reports per-case results, so one build yields N
+verdicts with no bisection. A batch is applied through the
+`LIBXC_RS_SIMD_EXTRA` environment variable rather than by editing the
+allowlist, so an interrupt leaves the tree untouched.
+
+Afterwards, run `crates/kernels-rayon/oracle`: no functional may join the
+offender list.
+
+`xcqual` (`bench-vs-libxc/src/qual.rs`) is what makes this affordable — Rust
+legs and a fingerprint only, no C side. That drops the per-family order limits
+`xcvs` has (its MGGA bencher is Vxc-only and no family benches kxc/lxc, because
+each needs a matching C entry point and its own output buffers), so any order
+and either spin can be qualified.
+
+## First bit-exact-era measurements (2026-08-31)
+
+The pilot run of `simd_qualify.py`, and the only SIMD numbers on this page not
+measured on the fast path. Four hot MGGA candidates, `--np 100000 --reps 5`,
+scalar vs `f64x8`, sweep ns/pt, all four **accepted**:
+
+| triple                    | scalar | f64x8 | ratio | fingerprint |
+|---------------------------|-------:|------:|------:|-------------|
+| `mgga_c_rscan`  vxc unpol |  27.52 | 11.89 | 2.31x | unchanged   |
+| `mgga_c_rscan`  exc unpol |  20.16 |  9.81 | 2.05x | unchanged   |
+| `mgga_x_r2scan` vxc unpol |  21.69 | 10.64 | 2.04x | unchanged   |
+| `mgga_x_r2scan` exc unpol |  14.14 |  9.40 | 1.50x | unchanged   |
+| `mgga_x_tpss`   vxc unpol |  18.26 |  9.82 | 1.86x | unchanged   |
+| `mgga_x_tpss`   exc unpol |  11.90 |  7.49 | 1.59x | unchanged   |
+
+**1.5-2.3x, not the 4-5x the fast-path tables above report.** That is what
+bit-exact SIMD is worth, and it matches the mechanism: the win is removing the
+libm calls so the grid loop vectorises, while the bit-exact vector
+transcendentals are themselves only 1.5-2.8x their scalar calls.
+
+### The contention guard, in one table
+
+A twelve-candidate batch run while another process came and went on the box
+separates cleanly on `minforeign` alone:
+
+| verdict | count | ratio range | foreign cores |
+|---|--:|---|---|
+| `accept` | 6 | 1.50x - 2.31x | **0.12 - 1.15** |
+| `deferred-contention` | 8 | 8.46x - 18.76x | **12.7 - 14.3** |
+
+Every plausible ratio came from a quiet measurement and every absurd one from a
+loaded measurement, with no overlap. The eight "8x-19x" rows are not results;
+they are the baseline being timed against a busy machine. They stay pending and
+are retried, which is the whole point of keeping the verdict separate from the
+numbers. In the run above the load arrived *mid-batch* -- the first two cases
+were clean and were accepted, the remaining eight were not.
+
+### Measure the baseline beside the batch, not before it
+
+An earlier attempt at these same four reported **12.6x-26.1x**. It was wrong,
+and the way it was wrong is worth keeping:
+
+    baseline measured first        14.8 foreign cores busy   282 ns/pt
+    ... SIMD build, 357 s ...
+    SIMD measured after            idle machine               10.8 ns/pt
+                                                              = "26x"
+
+Two measurements taken minutes apart across a build are not a comparison; the
+machine changed underneath them. The `minforeign` guard did reject all four
+(nothing false was ever written to the ledger), but only because the load
+happened to land on the baseline half.
+
+So `simd_qualify.py` now keeps the baseline build as `xcqual-baseline` and
+re-times it **immediately beside each batch**, seconds apart, in the same
+machine state. The numbers in the table above are from that arrangement. Note
+that `uptime`'s load average is useless for this — it lagged reality by minutes
+in both directions during these runs. Trust `xcqual`'s own `minforeign`, which
+is measured per rep from `/proc/stat` minus this process's own time.
+
+Build cost, for planning a full sweep: 305 s for the baseline build, 267 s for a
+four-candidate batch. Batching is what makes 426 candidates tractable.
 
 ## Calibrating against `libm` (rust-lang/compiler-builtins)
 
@@ -279,47 +432,58 @@ Notes from the switch:
   inputs). Upstream's revised-regTM correlation evidently coincides with SCAN
   correlation for unpolarized inputs.
 
-## Fast Vector Math with `rmath` (2026-08-21)
+## Bit-Exact & Fast Vector Math with `rmath` (2026-08-21)
 
-To claim further performance on functionals with heavy transcendental evaluation while strictly maintaining physical accuracy, the kernel pipeline integrates the in-tree `rmath` pure-Rust vector math library (`rmath::fast`) behind `libxc_rkernel_math::rmath_fast`.
+To claim further performance on functionals with heavy transcendental evaluation while strictly maintaining physical accuracy, the kernel pipeline integrates the in-tree `rmath` pure-Rust vector math library behind `libxc_rkernel_math::simd` (bit-exact) and `libxc_rkernel_math::rmath_fast` (fast polynomial).
 
 ### Dual Allowlist Architecture
 
 The generator in `tools/translate_rayon/from_maple.py` and `tools/translate_rayon/simd.py` maintains two disjoint SIMD allowlists:
 
 1. **`SIMD_EXACT_FUNCS`** (Bit-Exact Mode):
-   - Targets: `mgga_c_tpssloc`, `mgga_c_scan`, `mgga_c_rregtm` (`exc`, `vxc`, `unpol`).
-   - Uses `libxc_rkernel_math::simd` (replicated glibc FMA schedules for `exp`/`ln` and exact `powers::cbrt_f64`).
-   - **Contract:** Bit-identical per-lane output to scalar Rust kernels (0 bits difference).
+   - Targets: 21 functionals, 46 `(func, order, spin)` kernel triples including:
+     - `lda_c_vwn`, `lda_c_vwn_1`, `lda_c_vwn_2`, `lda_c_vwn_3`, `lda_c_vwn_4`, `lda_c_vwn_rpa` (unpolarized and polarized)
+     - `lda_c_w20`
+     - `gga_c_lyp`, `gga_c_zvpbeloc`, `gga_c_gaploc`, `gga_xc_th2`
+     - `mgga_c_tpssloc`, `mgga_c_scan`, `mgga_c_rregtm`, `mgga_c_r2scan`, `mgga_c_revscan`, `mgga_c_kcis`, `mgga_c_kcisk`, `mgga_k_pc07`
+     - `mgga_x_scan` (unpolarized and polarized), `mgga_x_rscan`
+   - Uses `libxc_rkernel_math::simd` (replicated glibc FMA schedules for `exp`/`ln`, exact `powers::cbrt_f64`, vector `lambert_w`, and full elementary functions).
+   - **Contract:** Bit-identical per-lane output to scalar Rust kernels (0 bits difference in `bench-vs-libxc` fingerprints).
 
 2. **`SIMD_RMATH_FAST_FUNCS`** (Fast Vector Mode):
-   - Targets: `lda_c_vwn` (`exc`, `vxc`, `unpol`).
-   - Uses `libxc_rkernel_math::rmath_fast` vector polynomials (`ln`, `atan`, `cbrt`, etc.) over `wide::f64x8`.
-   - **Contract:** Relative error bounded well within physical tolerance (< 1e-10 vs C libxc 7.0.0; measured worst-case relative error is `5.71e-11` on `vrho` and `2.98e-15` on `zk`).
+   - Kept as an explicit opt-in for approximate calculations where exactness can be relaxed for speed.
 
 ### Measured Performance & Accuracy
 
-Measured on Zen 5 (`-C target-cpu=native`, 100k-point physical grid, 16 rayon threads):
+Measured on Zen 5 (`-C target-cpu=native`, 100k-point physical grid, 16 rayon threads, `bench-vs-libxc`):
 
-| Functional | Baseline (libxc-1t) | libxc-Nt (16t) | `rmath_fast` (1t) | `rmath_fast` (16t) | Speedup vs libxc-Nt | Speedup vs libxc-1t | Worst Rel Error |
+| Functional | Baseline (libxc-1t) | libxc-Nt (16t) | Rust Exact SIMD (1t) | Rust Exact SIMD (16t) | Speedup vs libxc-Nt | Speedup vs libxc-1t | Fingerprint vs Scalar Rust |
 |---|---|---|---|---|---|---|---|
-| `lda_c_vwn` | 89.02 ns/pt | 15.39 ns/pt | **28.22 ns/pt** | **5.22 ns/pt** | **2.95x** | **17.06x** | 5.71e-11 (`vrho`) |
+| `mgga_c_r2scan` | 176.06 ns/pt | 30.57 ns/pt | **40.66 ns/pt** | **6.88 ns/pt** | **4.35x** | **25.6x** | **Identical** (`7ec6d5635244c719`) |
+| `mgga_x_scan` (pol) | 205.27 ns/pt | 35.80 ns/pt | **42.33 ns/pt** | **7.47 ns/pt** | **4.79x** | **27.5x** | **Identical** (`a460bea87a566f47`) |
+| `gga_c_lyp` | 40.89 ns/pt | 6.85 ns/pt | **8.05 ns/pt** | **1.53 ns/pt** | **4.48x** | **26.7x** | **Identical** (`985cb96f30a91dfb`) |
+| `mgga_c_scan` | 130.92 ns/pt | 20.04 ns/pt | **27.08 ns/pt** | **4.57 ns/pt** | **4.38x** | **28.6x** | **Identical** (`00fe5e050d0e249c`) |
+| `mgga_c_rregtm` | 131.86 ns/pt | 20.30 ns/pt | **26.85 ns/pt** | **4.73 ns/pt** | **4.29x** | **27.9x** | **Identical** (`00fe5e050d0e249c`) |
+| `mgga_c_tpssloc` | 356.45 ns/pt | 59.18 ns/pt | **73.89 ns/pt** | **12.12 ns/pt** | **4.88x** | **29.4x** | **Identical** (`65153bc0ada1e92e`) |
+| `lda_c_vwn` | 89.02 ns/pt | 6.33 ns/pt | **31.42 ns/pt** | **5.70 ns/pt** | **1.11x** | **15.6x** | **Identical** (`126d4ca93c403ba7`) |
 
 ### Verification & Constraints Kept
 
-- **Libxc Parity:** `crates/kernels-rayon/oracle` passes across all 344 field comparisons against C libxc 7.0.0 (with only the 7 pre-existing known defects in unrouted/boundary edge cases).
-- **Chunk Invariance:** `revalcheck` confirms chunked parallel evaluation across 482,775,350 values (only the 4 pre-existing `gga_c_op_pw91` differences).
+- **Libxc Parity:** `crates/kernels-rayon/oracle` passes across all 344 field comparisons against C libxc 7.0.0 (exact 7 pre-existing known defects remain unchanged).
+- **Chunk Invariance:** `revalcheck` confirms chunked parallel evaluation across 482,775,350 values is bit-identical to whole-grid evaluation.
 - **Zero Allocations:** Evaluated with counting allocators and memory hooks — strictly 0 heap allocations on the evaluation hot paths.
-- **Dependency Hygiene:** `cargo tree -e normal` has 0 `cubecl` crates in the default production graph; `cargo tree -d` has 0 duplicate versions; `cargo test -p libxc-rkernel-math --features cubecl` remains intact.
+- **Fingerprint Bit-Exactness:** All promoted exact SIMD kernels maintain exact scalar-Rust bit fingerprints.
+- **Polarized & Higher-Derivative Strided Support:** `simd.py` generates stride-aware load/store loops (`load_strided` and `store_strided`) correctly handling multi-dimensional buffers.
 
 ### Rollback Procedure
 
-If a functional in `SIMD_RMATH_FAST_FUNCS` needs to be reverted to scalar or bit-exact SIMD:
-1. Remove the triple from `SIMD_RMATH_FAST_FUNCS` in `tools/translate_rayon/from_maple.py` (and optionally move to `SIMD_EXACT_FUNCS` if only bit-exact schedules are desired).
+If a functional needs to be reverted to scalar form:
+1. Remove the triple from `SIMD_EXACT_FUNCS` in `tools/translate_rayon/from_maple.py`.
 2. Regenerate kernels and eval layer:
    ```bash
    python3 tools/translate_rayon/from_maple.py --all
+   python3 tools/translate_rayon/extract_params.py --json tools/translate_rayon/params.json
    python3 tools/translate_rayon/gen_eval.py
    ```
-3. Run verification suite (`revalcheck`, `oracle`, `test_simd.py`).
+3. Run verification suite (`revalcheck`, `oracle`, `test_simd.py`, `math/tests/simd_exact.rs`).
 

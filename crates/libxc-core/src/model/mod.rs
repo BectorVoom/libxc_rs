@@ -160,10 +160,18 @@ pub struct Thresholds {
 }
 
 impl Default for Thresholds {
+    /// libxc's own defaults, from `functionals.c` (`xc_func_init`).
+    ///
+    /// These are not free parameters: `zeta` and `tau` reach the maple2c
+    /// formulas as values, not just as screening cutoffs, so a different
+    /// number is a different functional. `gga_c_optc`, for instance, evaluates
+    /// `zeta_threshold^(4/3)` and adds it into a term of order 0.5.
     fn default() -> Self {
         Self {
             density: 1e-15,
-            zeta: 1e-10,
+            // libxc: `func->zeta_threshold = DBL_EPSILON;`. This was 1e-10 --
+            // six orders too large, and visible in the oracle.
+            zeta: f64::EPSILON,
             sigma: 1e-24,
             tau: 1e-20,
         }

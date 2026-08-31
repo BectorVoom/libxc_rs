@@ -116,10 +116,11 @@ fn bspline_k3_eval(i: u32, u: f64, ider: u32) -> f64 {
 /// cx_0..cx_9 are the 10 exchange enhancement coefficients.
 #[allow(clippy::too_many_arguments)]
 pub fn case21_xbspline(
-    u: f64, ider: u32,
+    u: f64, ider: f64,
     cx_0: f64, cx_1: f64, cx_2: f64, cx_3: f64, cx_4: f64,
     cx_5: f64, cx_6: f64, cx_7: f64, cx_8: f64, cx_9: f64,
 ) -> f64 {
+    let ider = ider as u32;
     cx_0 * bspline_k3_eval(0, u, ider)
         + cx_1 * bspline_k3_eval(1, u, ider)
         + cx_2 * bspline_k3_eval(2, u, ider)
@@ -137,10 +138,11 @@ pub fn case21_xbspline(
 /// cc_0..cc_9 are the 10 correlation enhancement coefficients.
 #[allow(clippy::too_many_arguments)]
 pub fn case21_cbspline(
-    u: f64, ider: u32,
+    u: f64, ider: f64,
     cc_0: f64, cc_1: f64, cc_2: f64, cc_3: f64, cc_4: f64,
     cc_5: f64, cc_6: f64, cc_7: f64, cc_8: f64, cc_9: f64,
 ) -> f64 {
+    let ider = ider as u32;
     cc_0 * bspline_k3_eval(0, u, ider)
         + cc_1 * bspline_k3_eval(1, u, ider)
         + cc_2 * bspline_k3_eval(2, u, ider)

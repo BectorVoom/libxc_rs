@@ -14,9 +14,9 @@ use libxc_rkernel_gga_x_fd_lb94 as k;
 /// libxc default for `param_beta`.
 pub const PARAM_BETA: f64 = 0.05;
 
-pub fn dispatch<'a>(
-    input: &'a GgaInput<'a>,
-    output: &'a mut GgaOutput<'a>,
+pub fn dispatch(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,

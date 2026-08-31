@@ -23,7 +23,7 @@ use libxc_core::model::FunctionalId;
 /// Constructor helper used by `lifecycle.rs::construct_params` for MGGA family IDs.
 #[allow(dead_code)]
 pub(crate) fn default_mgga_params() -> crate::functional::params::NoParams {
-    crate::functional::params::NoParams
+    crate::functional::params::NoParams::default()
 }
 
 #[cfg(test)]

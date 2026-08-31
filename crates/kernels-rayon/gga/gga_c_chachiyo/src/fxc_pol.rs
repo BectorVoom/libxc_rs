@@ -4,12 +4,19 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+#![allow(
+    unused_imports,
+    unused_variables,
+    non_snake_case,
+    clippy::excessive_precision,
+    clippy::too_many_arguments,
+    clippy::needless_return
+)]
 
-use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3};
+use libxc_rkernel_math::piecewise::piecewise3;
+use libxc_rkernel_math::powers::pow_1_3;
+use libxc_rkernel_math::rmath;
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_chachiyo_fxc_pol(
@@ -214,7 +221,8 @@ pub fn gga_c_chachiyo_fxc_pol(
         let t268 = 49.0 / 6912.0 * t256 * t266;
         let t269 = 2.0 * t238 * t240 - t118 * t228 * t119 + 7.0 / 72.0 * t247 + t255 - t268;
         let t270 = t72 * t269;
-        let tv2rho20 = 2.0 * t113 * t133 + t115 * t234 + t115 * t270 + t229 * t72 + 2.0 * t161 + 2.0 * t164;
+        let tv2rho20 =
+            2.0 * t113 * t133 + t115 * t234 + t115 * t270 + t229 * t72 + 2.0 * t161 + 2.0 * t164;
         v2rho2[ip * 3] += tv2rho20;
         let t272 = t147 * t72;
         let t274 = t194 * t144;
@@ -226,7 +234,8 @@ pub fn gga_c_chachiyo_fxc_pol(
         let t290 = t103 * t36;
         let t294 = piecewise3(t47, 0.0, -2.0 / 9.0 * t287 * t104 - 4.0 / 3.0 * t290 * t206);
         let t296 = t286 / 2.0 + t294 / 2.0;
-        let t299 = -12.0 * t197 * t276 - 6.0 * t95 * t296 + t175 - t180 + t193 - 6.0 * t195 - 6.0 * t274;
+        let t299 =
+            -12.0 * t197 * t276 - 6.0 * t95 * t296 + t175 - t180 + t193 - 6.0 * t195 - 6.0 * t274;
         let t300 = t9 * t299;
         let t303 = t163 * t152;
         let t305 = t133 * t152;
@@ -234,9 +243,19 @@ pub fn gga_c_chachiyo_fxc_pol(
         let t312 = t147 * t2;
         let t313 = t118 * t312;
         let t314 = t313 * t129;
-        let t317 = 2.0 * t238 * t150 * t112 - t118 * t310 + 7.0 / 144.0 * t314 + 7.0 / 144.0 * t247 + t255 - t268;
+        let t317 =
+            2.0 * t238 * t150 * t112 - t118 * t310 + 7.0 / 144.0 * t314 + 7.0 / 144.0 * t247 + t255
+                - t268;
         let t318 = t72 * t317;
-        let tv2rho21 = t113 * t153 + t115 * t305 + t115 * t318 + t148 * t133 + t300 * t72 + t161 + t164 + t272 + t303;
+        let tv2rho21 = t113 * t153
+            + t115 * t305
+            + t115 * t318
+            + t148 * t133
+            + t300 * t72
+            + t161
+            + t164
+            + t272
+            + t303;
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t323 = t144 * t144;
         let t326 = t135 * t135;
@@ -255,7 +274,8 @@ pub fn gga_c_chachiyo_fxc_pol(
         let t359 = t347 * t119;
         let t362 = 2.0 * t238 * t356 - t118 * t359 + 7.0 / 72.0 * t314 + t255 - t268;
         let t363 = t72 * t362;
-        let tv2rho22 = t115 * t353 + t115 * t363 + 2.0 * t148 * t153 + t348 * t72 + 2.0 * t272 + 2.0 * t303;
+        let tv2rho22 =
+            t115 * t353 + t115 * t363 + 2.0 * t148 * t153 + t348 * t72 + 2.0 * t272 + 2.0 * t303;
         v2rho2[ip * 3 + 2] += tv2rho22;
         let t365 = t63 * t72;
         let t367 = t365 * param_h * t159;

@@ -13,6 +13,10 @@
 //! without `return` support).
 
 
+// `rmath` below is `crate::rmath` -- this crate's BitExact surface, not the
+// upstream crate, whose free functions are deliberately the Fast path.
+use crate::rmath;
+
 /// Evaluate the principal branch of the Lambert W function.
 ///
 /// For z >= -1/e, returns W_0(z). Uses `if/else` guards for special cases
