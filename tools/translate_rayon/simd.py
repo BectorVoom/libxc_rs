@@ -276,9 +276,21 @@ def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
 #[inline(always)]
 fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -> {VT} {{
     let mut b = [0.0f64; {L}];
-    for k in 0..{L} {{
-        let p = (ip + k).min(np - 1);
-        b[k] = s[p * stride + offset];
+    if ip + {L} <= np {{
+        let base = ip * stride + offset;
+        b[0] = s[base];
+        b[1] = s[base + stride];
+        b[2] = s[base + 2 * stride];
+        b[3] = s[base + 3 * stride];
+        b[4] = s[base + 4 * stride];
+        b[5] = s[base + 5 * stride];
+        b[6] = s[base + 6 * stride];
+        b[7] = s[base + 7 * stride];
+    }} else {{
+        for k in 0..{L} {{
+            let p = (ip + k).min(np - 1);
+            b[k] = s[p * stride + offset];
+        }}
     }}
     {VT}::new(b)
 }}
@@ -287,8 +299,20 @@ fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -
 #[inline(always)]
 fn store_strided(s: &mut [f64], ip: usize, m: usize, stride: usize, offset: usize, acc: {VT}) {{
     let a: [f64; {L}] = acc.into();
-    for k in 0..m {{
-        s[(ip + k) * stride + offset] = a[k];
+    if m == {L} {{
+        let base = ip * stride + offset;
+        s[base] = a[0];
+        s[base + stride] = a[1];
+        s[base + 2 * stride] = a[2];
+        s[base + 3 * stride] = a[3];
+        s[base + 4 * stride] = a[4];
+        s[base + 5 * stride] = a[5];
+        s[base + 6 * stride] = a[6];
+        s[base + 7 * stride] = a[7];
+    }} else {{
+        for k in 0..m {{
+            s[(ip + k) * stride + offset] = a[k];
+        }}
     }}
 }}
 ''' if has_strided else ""

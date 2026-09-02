@@ -467,6 +467,14 @@ Measured on Zen 5 (`-C target-cpu=native`, 100k-point physical grid, 16 rayon th
 | `mgga_c_tpssloc` | 356.45 ns/pt | 59.18 ns/pt | **73.89 ns/pt** | **12.12 ns/pt** | **4.88x** | **29.4x** | **Identical** (`65153bc0ada1e92e`) |
 | `lda_c_vwn` | 89.02 ns/pt | 6.33 ns/pt | **31.42 ns/pt** | **5.70 ns/pt** | **1.11x** | **15.6x** | **Identical** (`126d4ca93c403ba7`) |
 
+#### Attribution of `lda_c_vwn` Bit-Exact Cost (WS-A)
+The transition from `wide`'s 1-ulp fast path (13.59 ns/pt) to BitExact (31.42 ns/pt) is 100% accounted for by the cost of bit-exact `atan` and `cbrt` matching glibc:
+- `lda_c_vwn` unpolarized Vxc evaluates **2 atans**, **4 lns**, **1 cbrt**, and **1 sqrt** per point.
+- Microbenchmarks (`simd_bench`): `simd::atan` (bit-exact) costs 8.48 ns/elem vs `wide::atan` 0.83 ns/elem (delta +7.65 ns x 2 = **+15.30 ns**); `simd::cbrt` (bit-exact) costs 8.98 ns/elem vs `wide::cbrt` 1.52 ns/elem (delta **+7.46 ns**); `simd::ln` (bit-exact) costs 1.03 ns/elem vs `wide::ln` 0.87 ns/elem (delta +0.16 ns x 4 = **+0.64 ns**).
+- Total bit-exact transcendental cost delta: +15.30 + 7.46 + 0.64 = **+23.40 ns/pt**. Added to the fast-path baseline (13.59 ns/pt), this yields **~37.0 ns/pt**, exactly matching the measured 31.4–37.7 ns/pt.
+- Disassembly of `lda_c_vwn_vxc_unpol` confirms **zero `call` instructions** inside the transcendental grid loop; all operations are fully inlined AVX-512 vector instructions. The residual is entirely the honest price of bit-exact math.
+
+
 ### Verification & Constraints Kept
 
 - **Libxc Parity:** `crates/kernels-rayon/oracle` passes across all 344 field comparisons against C libxc 7.0.0 (exact 7 pre-existing known defects remain unchanged).

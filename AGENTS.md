@@ -236,5 +236,3 @@ points are contiguous and always take the fast route.
 
 ## Optimise in Rust
 /home/user/Documents/workspace/cubecl_manual/manual/optimiser
-
-Do not need to check FMA
