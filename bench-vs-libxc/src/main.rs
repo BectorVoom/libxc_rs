@@ -168,6 +168,10 @@ enum Fam {
     Lda,
     Gga,
     Mgga,
+    /// A composite (`xc_mix_init`) GGA such as HSE06. The Rust leg has to go
+    /// through `Functional::evaluate_gga`, because the reval dispatch layer
+    /// only knows individual kernels -- mixing lives one layer up.
+    HybGga,
 }
 
 #[derive(Clone, Copy)]
@@ -299,6 +303,20 @@ fn main() {
             order: DerivativeOrder::Fxc,
             spin: Spin::Unpolarized,
         },
+        // HSE06 itself: three auxiliary sweeps (two `gga_x_wpbeh` at different
+        // screening parameters, plus `gga_c_pbe`) accumulated by the mix layer.
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_hse06",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_hse06",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
         // The screened-exchange leg HSE06 is built from. Timed on its own so
         // the composite's cost can be attributed: HSE06 evaluates this twice
         // (once per omega) plus `gga_c_pbe`.
@@ -382,6 +400,7 @@ fn main() {
             Fam::Lda => bench_lda(c, np, reps, threads),
             Fam::Gga => bench_gga(c, np, reps, threads),
             Fam::Mgga => bench_mgga(c, np, reps, threads),
+            Fam::HybGga => bench_hyb_gga(c, np, reps, threads),
         }
     }
 }
@@ -398,6 +417,7 @@ fn set_min_chunk(fam: Fam, n: usize) {
         Fam::Lda => libxc_reval::sweep_lda::set_min_chunk(n),
         Fam::Gga => libxc_reval::sweep_gga::set_min_chunk(n),
         Fam::Mgga => libxc_reval::sweep_mgga::set_min_chunk(n),
+        Fam::HybGga => libxc_reval::sweep_gga::set_min_chunk(n),
     }
 }
 
@@ -451,6 +471,14 @@ fn fingerprint(bufs: &[(&str, &[f64])]) -> u64 {
 /// grid. Not the accuracy test — that is `crates/kernels-rayon/oracle` — but it
 /// catches a leg that skipped work.
 fn check(pairs: &[(&str, &[f64], &[f64])], name: &str) {
+    // Scale for the cancellation guard below: the largest |zk| on this grid,
+    // which is the natural magnitude of the functional here.
+    let scale = pairs
+        .iter()
+        .find(|(f, _, _)| *f == "zk")
+        .map(|(_, a, _)| a.iter().fold(0.0f64, |m, v| m.max(v.abs())))
+        .unwrap_or(1.0);
+
     let mut worst = 0.0f64;
     let mut worst_field = "";
     for (f, a, b) in pairs {
@@ -459,6 +487,19 @@ fn check(pairs: &[(&str, &[f64], &[f64])], name: &str) {
                 continue;
             }
             if !x.is_finite() || !y.is_finite() {
+                continue;
+            }
+            // Skip an element only when BOTH sides are negligible against the
+            // functional's own scale. Without this the relative comparison
+            // reports cancellation dust as signal: a `vsigma` that is 1e-20 on
+            // both sides because the point has essentially no gradient can
+            // differ in its last digits and show up as a 1e-7 "disagreement".
+            // `gga_x_wpbeh` was flagged at 4.5e-7 this way while a direct
+            // sweep over the same (rho, s) domain agrees to 2e-13 everywhere
+            // and the rayon oracle reports 0 of 1221 fields out of tolerance.
+            // Same rule the oracle harness already uses (AGENTS.md records the
+            // `gga_k_tfvw` case that put it there).
+            if x.abs() < scale * 1e-12 && y.abs() < scale * 1e-12 {
                 continue;
             }
             let e = if y.abs() < 1e-280 {
@@ -837,6 +878,146 @@ fn run_gga(
     routing::dispatch_gga_by_name(c.name, &input, &mut out, c.order, c.spin, th)
         .expect("routed")
         .expect("evaluated");
+}
+
+// ---------------------------------------------------------------------------
+// Composite (mixed) GGA — HSE06 and friends
+// ---------------------------------------------------------------------------
+
+/// Time a composite functional, which neither `xcvs` nor the reval layer could
+/// reach before.
+///
+/// The C side is unchanged: `xc_gga_exc_vxc` on a functional libxc built with
+/// `xc_mix_init`, so libxc does its own mixing in `xc_mix_func`. The Rust side
+/// has to go through `Functional::evaluate_gga`, which is the only path that
+/// knows about auxiliaries; `routing::dispatch_gga_by_name` would evaluate one
+/// kernel, not a mix.
+///
+/// The allocation probe matters more here than anywhere else in this harness.
+/// libxc's `xc_mix_func` mallocs per call, and this library used to build a
+/// fresh `EvaluationWorkspace` per call sized for the MGGA all-orders superset
+/// -- 767 doubles per grid point polarized, against the 6 a GGA Vxc evaluation
+/// writes. Both numbers show up below.
+fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
+    use libxc_eval::eval::workspace::EvaluationWorkspace;
+    use libxc_eval::functional::Functional;
+
+    header(&c, np);
+    let n = nc(c.spin);
+    let d = Dimensions::gga(c.spin);
+    let g = grid::gga(np, n, 0x1234);
+    let cf = CFunc::new(c.name, c.spin);
+    let fxc = c.order >= DerivativeOrder::Fxc;
+    assert!(!fxc, "composite bench is exc+vxc only");
+
+    let id = lookup_by_name(&format!("XC_{}", c.name)).expect("registry");
+    let f = Functional::new(id, c.spin).expect("Functional::new");
+
+    let mut b1 = GgaBufs::new(np, &d, fxc);
+    let mut bn = GgaBufs::new(np, &d, fxc);
+    let mut r1 = GgaBufs::new(np, &d, fxc);
+    let mut rn = GgaBufs::new(np, &d, fxc);
+    let buf_mb = b1.mb();
+    let in_mb = (g.rho.len() + g.sigma.len()) as f64 * 8.0 / 1e6;
+
+    let rho = CP(g.rho.as_ptr());
+    let sigma = CP(g.sigma.as_ptr());
+    let q1 = b1.ptrs();
+    let qn = bn.ptrs();
+    let st = [d.zk as usize, d.vrho as usize, d.vsigma as usize];
+    let (dr, ds) = (d.rho as usize, d.sigma as usize);
+    let cn = np.div_ceil(threads);
+    let cfr = &cf;
+
+    let call_c = move |q: [P; 6], off: usize, len: usize| unsafe {
+        libxc_sys::xc_gga_exc_vxc(
+            cfr.0,
+            len,
+            rho.at(off * dr),
+            sigma.at(off * ds),
+            q[0].at(off * st[0]),
+            q[1].at(off * st[1]),
+            q[2].at(off * st[2]),
+        );
+    };
+
+    // One workspace, reused across every call -- which is the point. It starts
+    // at `Exc` and `evaluate_mixed_gga` grows it once to the order in use.
+    let mut ws1 = EvaluationWorkspace::with_order(np, c.spin, DerivativeOrder::Exc);
+    let mut wsn = EvaluationWorkspace::with_order(np, c.spin, DerivativeOrder::Exc);
+
+    let (rho_s, sig_s): (&[f64], &[f64]) = (&g.rho, &g.sigma);
+    let run = |f: &Functional,
+               ws: &mut EvaluationWorkspace,
+               b: &mut GgaBufs| {
+        let input = GgaInput::new(rho_s, sig_s, np, c.spin).expect("gga input");
+        let mut out = GgaOutput {
+            zk: Some(&mut b.zk),
+            vrho: Some(&mut b.vrho),
+            vsigma: Some(&mut b.vsigma),
+            ..Default::default()
+        };
+        f.evaluate_gga(&input, c.order, &mut out, ws).expect("evaluated");
+    };
+
+    println!("per-call allocation probe (before timing):");
+    alloc_probe("libxc", || call_c(q1, 0, np));
+    alloc_probe("rust ", || {
+        set_min_chunk(Fam::Gga, default_min_chunk());
+        run(&f, &mut ws1, &mut r1);
+    });
+    println!(
+        "        rust scratch: {} elems ({:.2} MB) for {} grid points, order {:?}",
+        ws1.scratch_len(),
+        ws1.scratch_len() as f64 * 8.0 / 1e6,
+        np,
+        ws1.alloc_order()
+    );
+    println!(
+        "        (the all-orders MGGA superset this used to allocate: {} elems, {:.1} MB)",
+        Dimensions::mgga(c.spin).total_output_components() * np,
+        Dimensions::mgga(c.spin).total_output_components() as f64 * np as f64 * 8.0 / 1e6
+    );
+
+    let rss0 = vm_rss();
+    let hwm0 = vm_hwm();
+    let a0 = alloc_snapshot();
+
+    let mut legs = vec![
+        Leg::new("libxc-1t", Box::new(move || call_c(q1, 0, np))),
+        Leg::new(
+            "libxc-Nt",
+            Box::new(move || par_chunks(np, cn, |off, len| call_c(qn, off, len))),
+        ),
+        Leg::new(
+            "rust-1t",
+            Box::new(|| {
+                set_min_chunk(Fam::Gga, usize::MAX);
+                run(&f, &mut ws1, &mut r1);
+            }),
+        ),
+        Leg::new(
+            "rust-Nt",
+            Box::new(|| {
+                set_min_chunk(Fam::Gga, default_min_chunk());
+                run(&f, &mut wsn, &mut rn);
+            }),
+        ),
+    ];
+    run_interleaved(&mut legs, 2, reps);
+    report(&legs, np, "libxc-1t");
+    drop(legs);
+
+    mem_report(buf_mb, in_mb, hwm0, rss0, a0);
+    check(
+        &[
+            ("zk", &b1.zk, &rn.zk),
+            ("vrho", &b1.vrho, &rn.vrho),
+            ("vsigma", &b1.vsigma, &rn.vsigma),
+        ],
+        c.name,
+    );
+    println!();
 }
 
 // ---------------------------------------------------------------------------

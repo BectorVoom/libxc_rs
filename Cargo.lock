@@ -37,6 +37,7 @@ name = "bench-vs-libxc"
 version = "0.1.0"
 dependencies = [
  "libxc-core",
+ "libxc-eval",
  "libxc-reval",
  "libxc-sys",
  "rayon",
@@ -2371,6 +2372,8 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "approx",
+ "libxc-reval",
+ "libxc-rkernel-math",
  "libxc-sys",
  "libxc_rs",
  "toml",

@@ -29,6 +29,7 @@ c-abi = ["libxc_rs/c-abi"]
 [dev-dependencies]
 approx = "0.5.1"
 libxc-rkernel-math = { path = "../crates/kernels-rayon/math" }
+libxc-reval = { path = "../crates/libxc-reval" }
 toml = "0.8"
 
 # PHASE11_SMOKE — 3 LDA + 3 GGA + 4 MGGA (D-05 narrowed witness; 11-04)

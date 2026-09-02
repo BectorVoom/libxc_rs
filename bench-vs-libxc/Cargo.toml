@@ -10,6 +10,7 @@ publish = false
 
 [dependencies]
 libxc-core = { path = "../crates/libxc-core" }
+libxc-eval = { path = "../crates/libxc-eval" }
 libxc-reval = { path = "../crates/libxc-reval" }
 libxc-sys = { path = "../libxc-sys" }
 rayon = "1.11"
