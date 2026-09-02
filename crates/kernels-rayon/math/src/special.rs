@@ -203,65 +203,39 @@ pub fn xc_dilogarithm(x: f64) -> f64 {
 // erfcx — scaled complementary error function: erfcx(x) = exp(x²) * erfc(x)
 // ============================================================================
 
-/// Compute erfcx(x) = exp(x²) * erfc(x) using the Faddeeva/libxc algorithm.
+/// `erfcx(x) = exp(x^2) * erfc(x)`.
 ///
-/// Translated from libxc `faddeeva.c` `xc_erfcx`.
-/// Uses a 100-point Chebyshev expansion for the core range,
-/// with asymptotic expansions for large |x|.
+/// Transcribed from libxc `faddeeva.c::xc_erfcx`, including its two
+/// continued-fraction shortcuts for large positive `x` and the reflection for
+/// negative `x`. The core range defers to [`erfcx_table::erfcx_y100`], which is
+/// libxc's own 100-interval Chebyshev look-up.
+///
+/// Verified bit-for-bit against libxc's C by
+/// `verify/tests/screening_helpers.rs`. That test exists because this function
+/// is reached only on the screened-exchange path -- `gga_x_wpbeh` at its
+/// default `_omega = 0` never calls it -- so it went unverified for as long as
+/// nothing evaluated a screened hybrid.
 pub fn xc_erfcx(x: f64) -> f64 {
-    let ispi: f64 = 0.56418958354775628694807945156_f64; // 1 / sqrt(pi)
-    let mut result: f64 = 0.0_f64;
+    const ISPI: f64 = 0.56418958354775628694807945156_f64; // 1 / sqrt(pi)
 
     if x >= 0.0_f64 {
-        if x > 5.0e7_f64 {
-            // 1-term continued fraction
-            result = ispi / x;
-        } else if x > 50.0_f64 {
-            // 5-term continued fraction
-            result = ispi * ((x * x) * (x * x + 4.5_f64) + 2.0_f64)
-                   / (x * ((x * x) * (x * x + 5.0_f64) + 3.75_f64));
-        } else {
-            // Core range
-            result = erfcx_y100(400.0_f64 / (4.0_f64 + x));
+        if x > 50.0_f64 {
+            // Continued-fraction expansion is faster out here.
+            if x > 5.0e7_f64 {
+                // 1-term expansion; important to avoid overflow in x*x.
+                return ISPI / x;
+            }
+            // 5-term expansion, simplified from
+            //   ispi / (x + 0.5/(x + 1/(x + 1.5/(x + 2/x))))
+            return ISPI * ((x * x) * (x * x + 4.5_f64) + 2.0_f64)
+                / (x * ((x * x) * (x * x + 5.0_f64) + 3.75_f64));
         }
+        crate::erfcx_table::erfcx_y100(400.0_f64 / (4.0_f64 + x))
+    } else if x < -26.7_f64 {
+        f64::INFINITY
+    } else if x < -6.1_f64 {
+        2.0_f64 * rmath::exp(x * x)
     } else {
-        if x < -26.7_f64 {
-            result = (f64::MAX as f64);
-        } else if x < -6.1_f64 {
-            result = 2.0_f64 * rmath::exp(x * x);
-        } else {
-            result = 2.0_f64 * rmath::exp(x * x) - erfcx_y100(400.0_f64 / (4.0_f64 - x));
-        }
+        2.0_f64 * rmath::exp(x * x) - crate::erfcx_table::erfcx_y100(400.0_f64 / (4.0_f64 - x))
     }
-
-    result
-}
-
-/// Core erfcx computation using rational approximations.
-/// y = 400/(4+x) maps x in [0, ∞) to y in (0, 100].
-fn erfcx_y100(y: f64) -> f64 {
-    let x = 400.0_f64 / y - 4.0_f64;
-    let ispi: f64 = 0.56418958354775628694807945156_f64;
-    let x2 = x * x;
-    let mut result: f64 = 0.0_f64;
-
-    if x < 1.0e-10_f64 {
-        result = 1.0_f64;
-    } else if x < 4.0_f64 {
-        let p: f64 = 0.3275911_f64;
-        let t = 1.0_f64 / (1.0_f64 + p * x);
-        let a1: f64 = 0.254829592_f64;
-        let a2: f64 = -0.284496736_f64;
-        let a3: f64 = 1.421413741_f64;
-        let a4: f64 = -1.453152027_f64;
-        let a5: f64 = 1.061405429_f64;
-        result = t * (a1 + t * (a2 + t * (a3 + t * (a4 + t * a5))));
-    } else {
-        let ix2 = 1.0_f64 / x2;
-        result = ispi / x * (1.0_f64 - 0.5_f64 * ix2 + 0.75_f64 * ix2 * ix2
-                    - 1.875_f64 * ix2 * ix2 * ix2
-                    + 6.5625_f64 * ix2 * ix2 * ix2 * ix2);
-    }
-
-    result
 }

@@ -37,6 +37,7 @@ pub mod quadpack;
 pub mod lambert_w;
 pub mod mbrxc;
 pub mod polynomials;
+pub(crate) mod erfcx_table;
 pub mod special;
 pub mod spin;
 
