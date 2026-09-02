@@ -105,7 +105,7 @@ mod tests {
     use crate::eval::workspace::EvaluationWorkspace;
     use crate::eval::{dispatch_lda, LdaFunctionalParams};
     use libxc_core::input::LdaInput;
-    use libxc_core::model::{FunctionalId, Spin, Thresholds};
+    use libxc_core::model::{FunctionalId, LdaFunctional, Spin, Thresholds};
     use libxc_core::output::LdaOutput;
 
     /// Test 5: For a non-aux LDA functional, `Functional::evaluate_lda`

@@ -232,7 +232,11 @@ mod tests {
     fn test_thresholds_default() {
         let t = Thresholds::default();
         assert_eq!(t.density, 1e-15);
-        assert_eq!(t.zeta, 1e-10);
+        // libxc uses DBL_EPSILON here, not 1e-10. `zeta` reaches the maple2c
+        // formulas as a value rather than as a screening cutoff, so this is
+        // part of the functional's definition; the constant was corrected when
+        // it showed up in the oracle, and this assertion was left behind.
+        assert_eq!(t.zeta, f64::EPSILON);
         assert_eq!(t.sigma, 1e-24);
         assert_eq!(t.tau, 1e-20);
     }

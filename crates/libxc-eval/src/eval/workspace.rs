@@ -363,37 +363,31 @@ impl EvaluationWorkspace {
     pub fn lda_scratch_mut(&mut self) -> LdaScratch<'_> {
         let offsets = self.lda_field_offsets();
 
-        // Use split_at_mut to create non-overlapping mutable slices.
-        // We split progressively, keeping track of the "rest" slice.
-        // Since fields are at known offsets, we skip over non-LDA fields.
+        // Walk the MGGA-ordered buffer once, skipping the fields LDA does not
+        // expose. `take_n` clamps, so a workspace sized for a lower derivative
+        // order yields empty slices for the orders above it rather than
+        // panicking -- the mixed evaluators gate every access on the same
+        // order the workspace was grown to, so those are never read.
+        let mut cursor = self.scratch.as_mut_slice();
 
-        // zk is at offset 0
-        let (zk_and_rest, after_zk) = self.scratch.split_at_mut(offsets.zk_len);
-        let zk = &mut zk_and_rest[..offsets.zk_len];
-
-        // vrho starts at vrho_off, which is right after zk for MGGA (zk is order 0, vrho is first in order 1)
-        // The gap between end of zk and start of vrho is 0 (vrho immediately follows zk)
-        let vrho_local_off = offsets.vrho_off - offsets.zk_len;
-        let (_, vrho_start) = after_zk.split_at_mut(vrho_local_off);
-        let (vrho, after_vrho) = vrho_start.split_at_mut(offsets.vrho_len);
-
-        // v2rho2 starts at v2rho2_off
-        let v2rho2_local_off =
-            offsets.v2rho2_off - offsets.vrho_off - offsets.vrho_len;
-        let (_, v2rho2_start) = after_vrho.split_at_mut(v2rho2_local_off);
-        let (v2rho2, after_v2rho2) = v2rho2_start.split_at_mut(offsets.v2rho2_len);
-
-        // v3rho3
-        let v3rho3_local_off =
-            offsets.v3rho3_off - offsets.v2rho2_off - offsets.v2rho2_len;
-        let (_, v3rho3_start) = after_v2rho2.split_at_mut(v3rho3_local_off);
-        let (v3rho3, after_v3rho3) = v3rho3_start.split_at_mut(offsets.v3rho3_len);
-
-        // v4rho4
-        let v4rho4_local_off =
-            offsets.v4rho4_off - offsets.v3rho3_off - offsets.v3rho3_len;
-        let (_, v4rho4_start) = after_v3rho3.split_at_mut(v4rho4_local_off);
-        let (v4rho4, _) = v4rho4_start.split_at_mut(offsets.v4rho4_len);
+        let zk = take_n(&mut cursor, offsets.zk_len);
+        let _ = take_n(&mut cursor, offsets.vrho_off - offsets.zk_len);
+        let vrho = take_n(&mut cursor, offsets.vrho_len);
+        let _ = take_n(
+            &mut cursor,
+            offsets.v2rho2_off - offsets.vrho_off - offsets.vrho_len,
+        );
+        let v2rho2 = take_n(&mut cursor, offsets.v2rho2_len);
+        let _ = take_n(
+            &mut cursor,
+            offsets.v3rho3_off - offsets.v2rho2_off - offsets.v2rho2_len,
+        );
+        let v3rho3 = take_n(&mut cursor, offsets.v3rho3_len);
+        let _ = take_n(
+            &mut cursor,
+            offsets.v4rho4_off - offsets.v3rho3_off - offsets.v3rho3_len,
+        );
+        let v4rho4 = take_n(&mut cursor, offsets.v4rho4_len);
 
         LdaScratch {
             zk,
@@ -422,7 +416,7 @@ impl EvaluationWorkspace {
         // Each call advances the cursor and returns the carved &mut [f64].
         // `split_at_mut` would panic once the cursor runs out, which it does
         // whenever the workspace was sized for a lower order than the full
-        // superset -- so the splits below go through `take`, which clamps and
+        // superset -- so the splits below go through `take_n`, which clamps and
         // hands back an empty slice instead. Callers gate every high-order
         // field on the same `order` the workspace was sized for, so an empty
         // slice is never read.
@@ -617,7 +611,7 @@ impl EvaluationWorkspace {
 mod tests {
     use super::*;
     use libxc_core::dims::Dimensions;
-    use libxc_core::model::Spin;
+    use libxc_core::model::{DerivativeOrder, Spin};
 
     #[test]
     fn new_unpolarized_allocates_correct_size() {
@@ -803,6 +797,82 @@ mod tests {
             + s.v4tau4.len();
         let expected = Dimensions::mgga(Spin::Polarized).total_output_components() * np;
         assert_eq!(total, expected);
+    }
+
+    /// A workspace sized for a low derivative order must hand out empty
+    /// slices for the orders above it, not panic.
+    ///
+    /// Regression guard: the accessors used to carve the buffer with
+    /// `split_at_mut`, which panics the moment the cursor runs out. That is
+    /// reachable from `evaluate_mixed_gga`, whose LDA-auxiliary branch calls
+    /// `lda_scratch_mut()` on whatever workspace the caller supplied -- so a
+    /// GGA hybrid with an LDA auxiliary (B3LYP has two) plus a right-sized
+    /// workspace would have gone straight through it.
+    #[test]
+    fn low_order_workspace_yields_empty_high_order_slices() {
+        let np = 32;
+        for spin in [Spin::Unpolarized, Spin::Polarized] {
+            let mut ws = EvaluationWorkspace::with_order(np, spin, DerivativeOrder::Vxc);
+            let d = Dimensions::mgga(spin);
+            assert_eq!(
+                ws.scratch_len(),
+                d.output_components_through(DerivativeOrder::Vxc) * np
+            );
+
+            let lda = ws.lda_scratch_mut();
+            assert_eq!(lda.zk.len(), Dimensions::lda(spin).zk as usize * np);
+            assert_eq!(lda.vrho.len(), Dimensions::lda(spin).vrho as usize * np);
+            assert!(lda.v2rho2.is_empty(), "order 2 is above the allocation");
+            assert!(lda.v3rho3.is_empty());
+            assert!(lda.v4rho4.is_empty());
+
+            let gga = ws.gga_scratch_mut();
+            assert_eq!(gga.vsigma.len(), Dimensions::gga(spin).vsigma as usize * np);
+            assert!(gga.v2sigma2.is_empty());
+            assert!(gga.v4sigma4.is_empty());
+
+            let mg = ws.mgga_scratch_mut();
+            assert_eq!(mg.vtau.len(), d.vtau as usize * np);
+            assert!(mg.v2tau2.is_empty());
+        }
+    }
+
+    /// `ensure_order` grows and never shrinks, so a reused workspace pays for
+    /// each distinct order at most once.
+    #[test]
+    fn ensure_order_grows_monotonically() {
+        let np = 16;
+        let d = Dimensions::mgga(Spin::Polarized);
+        let mut ws = EvaluationWorkspace::with_order(np, Spin::Polarized, DerivativeOrder::Exc);
+        assert_eq!(ws.scratch_len(), d.output_components_through(DerivativeOrder::Exc) * np);
+
+        ws.ensure_order(DerivativeOrder::Fxc);
+        let after_fxc = ws.scratch_len();
+        assert_eq!(after_fxc, d.output_components_through(DerivativeOrder::Fxc) * np);
+
+        // Asking for less must not shrink it -- that would make a reused
+        // workspace reallocate on every alternation.
+        ws.ensure_order(DerivativeOrder::Vxc);
+        assert_eq!(ws.scratch_len(), after_fxc);
+        assert_eq!(ws.alloc_order(), DerivativeOrder::Fxc);
+
+        ws.ensure_order(DerivativeOrder::Lxc);
+        assert_eq!(ws.scratch_len(), d.total_output_components() * np);
+    }
+
+    /// The default constructor still covers everything, so existing callers
+    /// see no change.
+    #[test]
+    fn new_is_the_full_superset() {
+        let np = 8;
+        for spin in [Spin::Unpolarized, Spin::Polarized] {
+            let ws = EvaluationWorkspace::new(np, spin);
+            assert_eq!(
+                ws.scratch_len(),
+                Dimensions::mgga(spin).total_output_components() * np
+            );
+            assert_eq!(ws.alloc_order(), DerivativeOrder::Lxc);
+        }
     }
 
     #[test]
