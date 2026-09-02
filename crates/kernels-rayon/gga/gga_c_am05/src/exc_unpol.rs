@@ -4,19 +4,12 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(
-    unused_imports,
-    unused_variables,
-    non_snake_case,
-    clippy::excessive_precision,
-    clippy::too_many_arguments,
-    clippy::needless_return
-)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
-use libxc_rkernel_math::piecewise::piecewise3;
-use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_rkernel_math::rmath;
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_am05_exc_unpol(

@@ -1,8 +1,8 @@
-//! MGGA_K_PC07 exc unpol kernel — explicit SIMD (exact).
+//! MGGA_K_PC07 exc unpol kernel — explicit SIMD (bit-exact).
 //!
 //! Auto-translated from `libxc-master/src/maple2c/mgga_exc/mgga_k_pc07.c`
 //! by tools/translate_rayon/from_maple.py, then rewritten to
-//! `wide::f64x8` by simd.py (exact math). Eight grid points per step; every lane runs maple2c's expression
+//! `wide::f64x8` by simd.py. Eight grid points per step; every lane runs maple2c's expression
 //! sequence in its original order.
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
 use libxc_rkernel_math::constants::*;

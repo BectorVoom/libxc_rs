@@ -4,19 +4,12 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(
-    unused_imports,
-    unused_variables,
-    non_snake_case,
-    clippy::excessive_precision,
-    clippy::too_many_arguments,
-    clippy::needless_return
-)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::piecewise::piecewise3;
-use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_rkernel_math::rmath;
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_acgga_vxc_unpol(
@@ -136,10 +129,7 @@ pub fn gga_c_acgga_vxc_unpol(
         let t153 = t152 * t1;
         let t154 = t153 * t147;
         let t159 = t20 * t5 / t21 / rho[ip];
-        let t161 = -0.632975 * t148
-            - 0.29896666666666666 * t150
-            - 0.1023875 * t154
-            - 0.08215666666666667 * t159;
+        let t161 = -0.632975 * t148 - 0.29896666666666666 * t150 - 0.1023875 * t154 - 0.08215666666666667 * t159;
         let t162 = 1.0 / t29;
         let t163 = t161 * t162;
         let t164 = t144 * t163;
@@ -150,8 +140,7 @@ pub fn gga_c_acgga_vxc_unpol(
         let t171 = t43 * t45;
         let t172 = t50 * t50;
         let t173 = 1.0 / t172;
-        let t178 =
-            -0.8630833333333333 * t148 - 0.301925 * t150 - 0.05501625 * t154 - 0.082785 * t159;
+        let t178 = -0.8630833333333333 * t148 - 0.301925 * t150 - 0.05501625 * t154 - 0.082785 * t159;
         let t180 = 1.0 / t53;
         let t181 = t173 * t178 * t180;
         let t182 = t171 * t181;
@@ -205,11 +194,7 @@ pub fn gga_c_acgga_vxc_unpol(
         let t260 = 1.0 / t120 / t90;
         let t261 = t118 * t260;
         let t263 = t254 * t261 * t216;
-        let t266 = -7.0 / 288.0 * t188 * t93 + t73 * t207 / 96.0 - t211 * t218 / 96.0
-            + 0.0002143700905903487 * t232 * t239
-            - 0.0010003937560882938 * t247 * t123
-            + 0.0004287401811806974 * t252 * t256
-            - 0.0004287401811806974 * t252 * t263;
+        let t266 = -7.0 / 288.0 * t188 * t93 + t73 * t207 / 96.0 - t211 * t218 / 96.0 + 0.0002143700905903487 * t232 * t239 - 0.0010003937560882938 * t247 * t123 + 0.0004287401811806974 * t252 * t256 - 0.0004287401811806974 * t252 * t263;
         let t267 = t266 * t96;
         let t270 = t130 * t130;
         let t271 = 1.0 / t270;
@@ -251,10 +236,7 @@ pub fn gga_c_acgga_vxc_unpol(
         let t326 = t319 * t325;
         let t327 = t254 * t309;
         let t331 = t254 * t261 * t83;
-        let t334 = t295 * t297 / 96.0 + t304 * t306 / 384.0 - 0.0038203125 * t304 * t310
-            + 0.0004287401811806974 * t315 * t123
-            + 0.00010718504529517435 * t326 * t327
-            - 0.00015724046144802075 * t326 * t331;
+        let t334 = t295 * t297 / 96.0 + t304 * t306 / 384.0 - 0.0038203125 * t304 * t310 + 0.0004287401811806974 * t315 * t123 + 0.00010718504529517435 * t326 * t327 - 0.00015724046144802075 * t326 * t331;
         let t335 = t334 * t96;
         let t338 = t126 * t222;
         let t339 = t271 * t104;

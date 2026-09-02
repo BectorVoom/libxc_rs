@@ -4,19 +4,12 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(
-    unused_imports,
-    unused_variables,
-    non_snake_case,
-    clippy::excessive_precision,
-    clippy::too_many_arguments,
-    clippy::needless_return
-)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
-use libxc_rkernel_math::piecewise::piecewise3;
-use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 use libxc_rkernel_math::rmath;
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRT6, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3, pow_3_2};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_am05_vxc_unpol(
@@ -91,10 +84,7 @@ pub fn gga_c_am05_vxc_unpol(
         let t99 = t98 * t1;
         let t100 = t99 * t93;
         let t105 = t20 * t5 / t21 / rho[ip];
-        let t107 = -0.632975 * t94
-            - 0.29896666666666666 * t96
-            - 0.1023875 * t100
-            - 0.08215666666666667 * t105;
+        let t107 = -0.632975 * t94 - 0.29896666666666666 * t96 - 0.1023875 * t100 - 0.08215666666666667 * t105;
         let t108 = 1.0 / t29;
         let t109 = t107 * t108;
         let t112 = t43 * t1;
@@ -104,9 +94,7 @@ pub fn gga_c_am05_vxc_unpol(
         let t124 = -0.8630833333333333 * t94 - 0.301925 * t96 - 0.05501625 * t100 - 0.082785 * t105;
         let t126 = 1.0 / t53;
         let t127 = t119 * t124 * t126;
-        let t130 = 0.0011073470983333333 * t4 * t83 * t30 + 1.0 * t89 * t109
-            - 0.00018311447306006544 * t112 * t92 * t82 * t54
-            - 0.5848223622634646 * t117 * t127;
+        let t130 = 0.0011073470983333333 * t4 * t83 * t30 + 1.0 * t89 * t109 - 0.00018311447306006544 * t112 * t92 * t82 * t54 - 0.5848223622634646 * t117 * t127;
         let t131 = rho[ip] * t130;
         let t132 = t59 * t80;
         let t134 = rho[ip] * t58;

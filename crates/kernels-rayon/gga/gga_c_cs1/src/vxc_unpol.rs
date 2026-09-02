@@ -4,19 +4,12 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(
-    unused_imports,
-    unused_variables,
-    non_snake_case,
-    clippy::excessive_precision,
-    clippy::too_many_arguments,
-    clippy::needless_return
-)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
-use libxc_rkernel_math::constants::M_CBRT2;
-use libxc_rkernel_math::piecewise::piecewise3;
-use libxc_rkernel_math::powers::pow_1_3;
 use libxc_rkernel_math::rmath;
+use libxc_rkernel_math::constants::{M_CBRT2};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_cs1_vxc_unpol(
@@ -88,10 +81,7 @@ pub fn gga_c_cs1_vxc_unpol(
         let t91 = 1.0 / t41 / t40;
         let t94 = -5.961216e-05 * t36 * t87 + 7.1534592e-07 * t67 * t91;
         let t96 = t30 * t35 * t94;
-        let tvrho0 = t25
-            + t49
-            + rho[ip]
-                * (0.029083333333333333 * t55 + t73 / 4.0 + t78 / 6.0 - t85 / 6.0 + t96 / 2.0);
+        let tvrho0 = t25 + t49 + rho[ip] * (0.029083333333333333 * t55 + t73 / 4.0 + t78 / 6.0 - t85 / 6.0 + t96 / 2.0);
         vrho[ip] += tvrho0;
         let t103 = 1.0 / t64;
         let t104 = t6 * t103;

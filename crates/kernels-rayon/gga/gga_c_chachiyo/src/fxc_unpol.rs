@@ -4,19 +4,12 @@
 //! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
 //! variable names and floating-point operation order.
 
-#![allow(
-    unused_imports,
-    unused_variables,
-    non_snake_case,
-    clippy::excessive_precision,
-    clippy::too_many_arguments,
-    clippy::needless_return
-)]
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
-use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
-use libxc_rkernel_math::piecewise::piecewise3;
-use libxc_rkernel_math::powers::pow_1_3;
 use libxc_rkernel_math::rmath;
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::piecewise::{piecewise3};
+use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_chachiyo_fxc_unpol(
@@ -145,13 +138,9 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t177 = 1.0 / t176;
         let t178 = t175 * t177;
         let t179 = t170 * t173 * t178;
-        let t182 = 2.0 * t151 * t153 - t85 * t141 * t86
-            + 7.0 / 72.0 * t159 * t96
-            + 35.0 / 216.0 * t89 * t166
-            - 49.0 / 6912.0 * t169 * t179;
+        let t182 = 2.0 * t151 * t153 - t85 * t141 * t86 + 7.0 / 72.0 * t159 * t96 + 35.0 / 216.0 * t89 * t166 - 49.0 / 6912.0 * t169 * t179;
         let t183 = t56 * t182;
-        let tv2rho20 =
-            2.0 * t80 * t100 + 2.0 * t110 * t99 + t142 * t56 + t82 * t147 + t82 * t183 + 2.0 * t108;
+        let tv2rho20 = 2.0 * t80 * t100 + 2.0 * t110 * t99 + t142 * t56 + t82 * t147 + t82 * t183 + 2.0 * t108;
         v2rho2[ip] += tv2rho20;
         let t185 = t49 * t56;
         let t192 = param_h * t2 * t45 * t94;
@@ -159,8 +148,7 @@ pub fn gga_c_chachiyo_fxc_unpol(
         let t198 = t197 * param_h;
         let t199 = t1 * t170;
         let t201 = t199 * t177 * sigma[ip];
-        let tv2rhosigma0 =
-            -t185 * param_h * t106 / 36.0 + t104 * t99 * t192 / 48.0 + 7.0 / 2304.0 * t198 * t201;
+        let tv2rhosigma0 = -t185 * param_h * t106 / 36.0 + t104 * t99 * t192 / 48.0 + 7.0 / 2304.0 * t198 * t201;
         v2rhosigma[ip] += tv2rhosigma0;
         let t205 = 1.0 / t18 / t90;
         let t206 = t205 * t56;

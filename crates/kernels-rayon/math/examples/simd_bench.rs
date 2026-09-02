@@ -8,6 +8,7 @@
 //! moderate exponents for exp), the same distribution for every contender.
 
 use libxc_rkernel_math::powers;
+use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::simd;
 use libxc_rkernel_math::wide::f64x8;
 use std::time::Instant;
