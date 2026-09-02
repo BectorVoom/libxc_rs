@@ -11,6 +11,9 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_hyb_gga_xc_wb97 as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 464;
+
 /// libxc default for `param_c_x_1`.
 pub const PARAM_C_X_1: f64 = 7.26479e-01;
 /// libxc default for `param_c_x_2`.
@@ -43,6 +46,89 @@ pub const PARAM_C_AB_4: f64 = -3.78132e+00;
 pub const PARAM_C_AB_0: f64 = 1.00000e+00;
 /// libxc default for `param_hyb_omega_0`.
 pub const PARAM_HYB_OMEGA_0: f64 = 0.3;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 18;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 18] = ["_cx0", "_cx1", "_cx2", "_cx3", "_cx4", "_css0", "_css1", "_css2", "_css3", "_css4", "_cos0", "_cos1", "_cos2", "_cos3", "_cos4", "_alpha", "_beta", "_omega"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_cx0` | `param_c_x_0` |
+/// | `_cx1` | `param_c_x_1` |
+/// | `_cx2` | `param_c_x_2` |
+/// | `_cx3` | `param_c_x_3` |
+/// | `_cx4` | `param_c_x_4` |
+/// | `_css0` | `param_c_ss_0` |
+/// | `_css1` | `param_c_ss_1` |
+/// | `_css2` | `param_c_ss_2` |
+/// | `_css3` | `param_c_ss_3` |
+/// | `_css4` | `param_c_ss_4` |
+/// | `_cos0` | `param_c_ab_0` |
+/// | `_cos1` | `param_c_ab_1` |
+/// | `_cos2` | `param_c_ab_2` |
+/// | `_cos3` | `param_c_ab_3` |
+/// | `_cos4` | `param_c_ab_4` |
+/// | `_alpha` | *(unused by the kernel)* |
+/// | `_beta` | *(unused by the kernel)* |
+/// | `_omega` | `param_hyb_omega_0` |
+pub const EXT_TO_KERNEL: [usize; 18] = [4, 0, 1, 2, 3, 9, 5, 6, 7, 8, 14, 10, 11, 12, 13, usize::MAX, usize::MAX, 15];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 16] = [PARAM_C_X_1, PARAM_C_X_2, PARAM_C_X_3, PARAM_C_X_4, PARAM_C_X_0, PARAM_C_SS_1, PARAM_C_SS_2, PARAM_C_SS_3, PARAM_C_SS_4, PARAM_C_SS_0, PARAM_C_AB_1, PARAM_C_AB_2, PARAM_C_AB_3, PARAM_C_AB_4, PARAM_C_AB_0, PARAM_HYB_OMEGA_0];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::hyb_gga_xc_wb97_exc_unpol],
+        [k::vxc_unpol::hyb_gga_xc_wb97_vxc_unpol],
+        [k::fxc_unpol::hyb_gga_xc_wb97_fxc_unpol],
+        [k::kxc_unpol::hyb_gga_xc_wb97_kxc_unpol],
+        [k::lxc_unpol::hyb_gga_xc_wb97_lxc_unpol],
+        [k::exc_pol::hyb_gga_xc_wb97_exc_pol],
+        [k::vxc_pol::hyb_gga_xc_wb97_vxc_pol],
+        [k::fxc_pol::hyb_gga_xc_wb97_fxc_pol],
+        [k::kxc_pol::hyb_gga_xc_wb97_kxc_pol],
+        [k::lxc_pol::hyb_gga_xc_wb97_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13], p[14], p[15])
+    )
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

@@ -11,6 +11,9 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_gga_xc_th3 as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 156;
+
 /// libxc default for `param_omega_0`.
 pub const PARAM_OMEGA_0: f64 = -0.142542e+00;
 /// libxc default for `param_omega_1`.
@@ -49,6 +52,35 @@ pub const PARAM_OMEGA_15: f64 = -0.227167e+01;
 pub const PARAM_OMEGA_16: f64 = 0.403051e+01;
 /// libxc default for `param_omega_17`.
 pub const PARAM_OMEGA_17: f64 = -0.228074e+01;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime: none,
+/// because its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py.
+pub const N_EXT_PARAMS: usize = 0;
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// This functional does not accept runtime ext_params (its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py), so a non-empty
+/// `ext` is rejected rather than guessed at.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    if let Some(e) = ext
+        && !e.is_empty()
+    {
+        return Err(LibxcRsError::ExtParamCountMismatch {
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        });
+    }
+    dispatch(input, output, order, spin, thresholds)
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

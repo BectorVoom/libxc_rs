@@ -11,7 +11,39 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_gga_c_op_xalpha as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 84;
 
+
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime: none,
+/// because this functional has no ext_params.
+pub const N_EXT_PARAMS: usize = 0;
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// This functional does not accept runtime ext_params (this functional has no ext_params), so a non-empty
+/// `ext` is rejected rather than guessed at.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    if let Some(e) = ext
+        && !e.is_empty()
+    {
+        return Err(LibxcRsError::ExtParamCountMismatch {
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        });
+    }
+    dispatch(input, output, order, spin, thresholds)
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

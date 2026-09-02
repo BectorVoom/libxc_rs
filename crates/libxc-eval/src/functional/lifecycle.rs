@@ -11,6 +11,7 @@ use libxc_core::error::LibxcRsError;
 use crate::functional::params::{FunctionalParams, GenericParams, NoParams};
 use crate::functional::{params_lda, Functional};
 use libxc_core::meta::generated_propagation::PROPAGATION_RULES;
+use libxc_core::meta::{COMPOSITE_SETTER_RULES, SetterSource, SetterTarget};
 use libxc_core::meta::FunctionalMeta;
 use libxc_core::model::{Family, FunctionalId, Spin, Thresholds};
 use libxc_core::registry::lookup_by_id;
@@ -100,8 +101,90 @@ impl Functional {
         // for O(1) access; xtask validates indices at snapshot time) into
         // the named aux slot's ext_param.
         out.propagate_to_aux()?;
+        out.apply_composite_setters()?;
 
         Ok(out)
+    }
+
+    /// Reproduce the libxc `set_ext_params` assignments that are not plain
+    /// copies, from `COMPOSITE_SETTER_RULES`.
+    ///
+    /// `propagate_to_aux` handles the copy-shaped flows that
+    /// `cargo xtask generate-metadata` was able to emit. It deliberately
+    /// rejects setters that transform values, which left the HSE family with
+    /// no way to say `func_aux[1]._omega = omega_PBE` — so both of HSE06's
+    /// screened-exchange legs ran at `gga_x_wpbeh`'s own default of zero and
+    /// the functional silently lost its screening. See
+    /// `libxc_core::meta::composite_setters` for the C this transcribes.
+    ///
+    /// Runs after `propagate_to_aux` so that where both touch the same slot
+    /// the composite rule wins, matching libxc: the generic copy happens
+    /// inside `xc_mix_init`, the specific assignment in the setter that runs
+    /// after it.
+    pub(crate) fn apply_composite_setters(&mut self) -> Result<(), LibxcRsError> {
+        let id = self.meta.id;
+        let ext: Option<Vec<f64>> = self.ext_params.as_deref().map(|s| s.to_vec());
+        for rule in COMPOSITE_SETTER_RULES.iter().filter(|r| r.parent_id == id) {
+            let value = match rule.source {
+                SetterSource::Constant(c) => c,
+                SetterSource::ParentParam { index, scale } => {
+                    let e = ext.as_deref().ok_or(LibxcRsError::PropagationConflict {
+                        id,
+                        parent_name: "<composite setter>",
+                        aux_slot: 0,
+                        aux_name: "<composite setter>",
+                        cause:
+                            libxc_core::error::PropagationConflictCause::ParentHasNoExtParams,
+                    })?;
+                    let v = e.get(index as usize).copied().ok_or(
+                        LibxcRsError::PropagationConflict {
+                            id,
+                            parent_name: "<composite setter>",
+                            aux_slot: 0,
+                            aux_name: "<composite setter>",
+                            cause: libxc_core::error::PropagationConflictCause::ParentParamIndexOutOfRange,
+                        },
+                    )?;
+                    scale * v
+                }
+            };
+            match rule.target {
+                SetterTarget::AuxExtParam { slot, name } => {
+                    let aux = self.auxiliaries.get_mut(slot as usize).ok_or(
+                        LibxcRsError::PropagationConflict {
+                            id,
+                            parent_name: "<composite setter>",
+                            aux_slot: slot,
+                            aux_name: name,
+                            cause: libxc_core::error::PropagationConflictCause::AuxSlotOutOfRange,
+                        },
+                    )?;
+                    aux.set_ext_param(name, value).map_err(|_| {
+                        LibxcRsError::PropagationConflict {
+                            id,
+                            parent_name: "<composite setter>",
+                            aux_slot: slot,
+                            aux_name: name,
+                            cause:
+                                libxc_core::error::PropagationConflictCause::AuxRejectedParam,
+                        }
+                    })?;
+                }
+                SetterTarget::MixCoefficient { slot } => {
+                    let c = self.mix_coefficients.get_mut(slot as usize).ok_or(
+                        LibxcRsError::PropagationConflict {
+                            id,
+                            parent_name: "<composite setter>",
+                            aux_slot: slot,
+                            aux_name: "<mix_coef>",
+                            cause: libxc_core::error::PropagationConflictCause::AuxSlotOutOfRange,
+                        },
+                    )?;
+                    *c = value;
+                }
+            }
+        }
+        Ok(())
     }
 
     /// Apply `PROPAGATION_RULES` for this functional id to its auxiliary

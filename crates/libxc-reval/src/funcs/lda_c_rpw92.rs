@@ -11,6 +11,9 @@ use libxc_core::output::LdaOutput;
 
 use libxc_rkernel_lda_c_pw as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 684;
+
 /// libxc default for `param_a_0`.
 pub const PARAM_A_0: f64 = 0.0310907;
 /// libxc default for `param_alpha1_0`.
@@ -55,6 +58,93 @@ pub const PARAM_BETA3_1: f64 = 4.86059;
 pub const PARAM_PP_1: f64 = 1.0;
 /// libxc default for `param_beta4_1`.
 pub const PARAM_BETA4_1: f64 = 0.750188;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 22;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 22] = ["_pp[0]", "_pp[1]", "_pp[2]", "_a[0]", "_a[1]", "_a[2]", "_alpha1[0]", "_alpha1[1]", "_alpha1[2]", "_beta1[0]", "_beta1[1]", "_beta1[2]", "_beta2[0]", "_beta2[1]", "_beta2[2]", "_beta3[0]", "_beta3[1]", "_beta3[2]", "_beta4[0]", "_beta4[1]", "_beta4[2]", "_fz20"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_pp[0]` | `param_pp_0` |
+/// | `_pp[1]` | `param_pp_1` |
+/// | `_pp[2]` | `param_pp_2` |
+/// | `_a[0]` | `param_a_0` |
+/// | `_a[1]` | `param_a_1` |
+/// | `_a[2]` | `param_a_2` |
+/// | `_alpha1[0]` | `param_alpha1_0` |
+/// | `_alpha1[1]` | `param_alpha1_1` |
+/// | `_alpha1[2]` | `param_alpha1_2` |
+/// | `_beta1[0]` | `param_beta1_0` |
+/// | `_beta1[1]` | `param_beta1_1` |
+/// | `_beta1[2]` | `param_beta1_2` |
+/// | `_beta2[0]` | `param_beta2_0` |
+/// | `_beta2[1]` | `param_beta2_1` |
+/// | `_beta2[2]` | `param_beta2_2` |
+/// | `_beta3[0]` | `param_beta3_0` |
+/// | `_beta3[1]` | `param_beta3_1` |
+/// | `_beta3[2]` | `param_beta3_2` |
+/// | `_beta4[0]` | `param_beta4_0` |
+/// | `_beta4[1]` | `param_beta4_1` |
+/// | `_beta4[2]` | `param_beta4_2` |
+/// | `_fz20` | `param_fz20` |
+pub const EXT_TO_KERNEL: [usize; 22] = [5, 20, 12, 0, 15, 7, 1, 16, 8, 2, 17, 9, 3, 18, 10, 4, 19, 11, 6, 21, 13, 14];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 22] = [PARAM_A_0, PARAM_ALPHA1_0, PARAM_BETA1_0, PARAM_BETA2_0, PARAM_BETA3_0, PARAM_PP_0, PARAM_BETA4_0, PARAM_A_2, PARAM_ALPHA1_2, PARAM_BETA1_2, PARAM_BETA2_2, PARAM_BETA3_2, PARAM_PP_2, PARAM_BETA4_2, PARAM_FZ20, PARAM_A_1, PARAM_ALPHA1_1, PARAM_BETA1_1, PARAM_BETA2_1, PARAM_BETA3_1, PARAM_PP_1, PARAM_BETA4_1];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &LdaInput<'_>,
+    output: &mut LdaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rlda!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::lda_c_pw_exc_unpol],
+        [k::vxc_unpol::lda_c_pw_vxc_unpol],
+        [k::fxc_unpol::lda_c_pw_fxc_unpol],
+        [k::kxc_unpol::lda_c_pw_kxc_unpol],
+        [k::lxc_unpol::lda_c_pw_lxc_unpol],
+        [k::exc_pol::lda_c_pw_exc_pol],
+        [k::vxc_pol::lda_c_pw_vxc_pol],
+        [k::fxc_pol::lda_c_pw_fxc_pol],
+        [k::kxc_pol::lda_c_pw_kxc_pol],
+        [k::lxc_pol::lda_c_pw_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13], p[14], p[15], p[16], p[17], p[18], p[19], p[20], p[21])
+    )
+}
 
 pub fn dispatch(
     input: &LdaInput<'_>,

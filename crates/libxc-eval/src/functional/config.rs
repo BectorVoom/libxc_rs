@@ -12,6 +12,29 @@ impl Functional {
     // Ext_param getters
     // ====================================================================
 
+    /// The `ext_params` array to hand a kernel, or `None` to let it use its
+    /// compiled-in libxc defaults.
+    ///
+    /// `None` whenever every value still equals the metadata default, which
+    /// keeps the overwhelmingly common path byte-for-byte what it was before
+    /// runtime ext_params existed: the generated `dispatch_with` takes `None`
+    /// straight to the same constants the old `dispatch` used. Only a
+    /// functional whose parameters have actually been changed -- by a caller,
+    /// or by a hybrid's composite setter, which is how HSE06's screened leg
+    /// gets `_omega = 0.11` -- takes the runtime path.
+    ///
+    /// Compared by bits rather than by `==` so that a deliberate `-0.0` or a
+    /// NaN parameter is treated as a change rather than silently ignored.
+    pub(crate) fn kernel_ext_params(&self) -> Option<&[f64]> {
+        let cur = self.ext_params.as_deref()?;
+        let changed = cur.len() != self.meta.ext_params.len()
+            || cur
+                .iter()
+                .zip(self.meta.ext_params.iter())
+                .any(|(v, spec)| v.to_bits() != spec.default_value.to_bits());
+        if changed { Some(cur) } else { None }
+    }
+
     /// Borrow the raw ext_params array.
     /// Returns `None` if this functional has no ext_params (`meta.ext_params`
     /// is empty); `Some(&[f64])` otherwise.
@@ -83,6 +106,10 @@ impl Functional {
         // Plan 05-03 D-16 — re-apply PROPAGATION_RULES so any aux ext_params
         // that mirror parent values stay in sync after this mutation.
         self.propagate_to_aux()?;
+        // ...and the non-copy assignments too, or changing HSE06's `_beta`
+        // would leave `mix_coef[1]` and the screened leg's `_omega` describing
+        // the previous value. libxc re-runs the whole setter here as well.
+        self.apply_composite_setters()?;
         Ok(())
     }
 

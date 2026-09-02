@@ -44,7 +44,7 @@ impl Functional {
                 input,
                 order,
                 output,
-                &*self.params,
+                self.kernel_ext_params(),
                 &self.thresholds,
             )
         } else {
@@ -67,7 +67,7 @@ impl Functional {
                 input,
                 order,
                 output,
-                &*self.params,
+                self.kernel_ext_params(),
                 &self.thresholds,
             )
         } else {
@@ -90,7 +90,7 @@ impl Functional {
                 input,
                 order,
                 output,
-                &*self.params,
+                self.kernel_ext_params(),
                 &self.thresholds,
             )
         } else {

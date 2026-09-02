@@ -11,6 +11,9 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_gga_x_sogga11 as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 426;
+
 /// libxc default for `param_a_1`.
 pub const PARAM_A_1: f64 = 3.21638;
 /// libxc default for `param_mu`.
@@ -39,6 +42,86 @@ pub const PARAM_B_5: f64 = 3.96613;
 pub const PARAM_A_0: f64 = 0.29925;
 /// libxc default for `param_b_0`.
 pub const PARAM_B_0: f64 = 0.29925;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 15;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 15] = ["_kappa", "_mu", "_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_cx"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_kappa` | `param_kappa` |
+/// | `_mu` | `param_mu` |
+/// | `_a0` | `param_a_0` |
+/// | `_a1` | `param_a_1` |
+/// | `_a2` | `param_a_2` |
+/// | `_a3` | `param_a_3` |
+/// | `_a4` | `param_a_4` |
+/// | `_a5` | `param_a_5` |
+/// | `_b0` | `param_b_0` |
+/// | `_b1` | `param_b_1` |
+/// | `_b2` | `param_b_2` |
+/// | `_b3` | `param_b_3` |
+/// | `_b4` | `param_b_4` |
+/// | `_b5` | `param_b_5` |
+/// | `_cx` | *(unused by the kernel)* |
+pub const EXT_TO_KERNEL: [usize; 15] = [2, 1, 12, 0, 3, 4, 5, 6, 13, 7, 8, 9, 10, 11, usize::MAX];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 14] = [PARAM_A_1, PARAM_MU, PARAM_KAPPA, PARAM_A_2, PARAM_A_3, PARAM_A_4, PARAM_A_5, PARAM_B_1, PARAM_B_2, PARAM_B_3, PARAM_B_4, PARAM_B_5, PARAM_A_0, PARAM_B_0];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::gga_x_sogga11_exc_unpol],
+        [k::vxc_unpol::gga_x_sogga11_vxc_unpol],
+        [k::fxc_unpol::gga_x_sogga11_fxc_unpol],
+        [k::kxc_unpol::gga_x_sogga11_kxc_unpol],
+        [k::lxc_unpol::gga_x_sogga11_lxc_unpol],
+        [k::exc_pol::gga_x_sogga11_exc_pol],
+        [k::vxc_pol::gga_x_sogga11_vxc_pol],
+        [k::fxc_pol::gga_x_sogga11_fxc_pol],
+        [k::kxc_pol::gga_x_sogga11_kxc_pol],
+        [k::lxc_pol::gga_x_sogga11_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13])
+    )
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

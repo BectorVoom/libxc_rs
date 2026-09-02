@@ -11,6 +11,9 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_hyb_gga_x_cam_s12 as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 647;
+
 /// libxc default for `param_C`.
 pub const PARAM_C: f64 = 0.00825905;
 /// libxc default for `param_D`.
@@ -27,6 +30,79 @@ pub const PARAM_HYB_OMEGA_0: f64 = 0.48516891;
 pub const PARAM_HYB_COEFF_0: f64 = -0.10897845;
 /// libxc default for `param_hyb_coeff_1`.
 pub const PARAM_HYB_COEFF_1: f64 = 0.35897845;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 8;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 8] = ["_A", "_B", "_C", "_D", "_E", "_alpha", "_beta", "_omega"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_A` | `param_A` |
+/// | `_B` | `param_B` |
+/// | `_C` | `param_C` |
+/// | `_D` | `param_D` |
+/// | `_E` | `param_E` |
+/// | `_alpha` | `param_hyb_coeff_1` |
+/// | `_beta` | `param_hyb_coeff_0` |
+/// | `_omega` | `param_hyb_omega_0` |
+pub const EXT_TO_KERNEL: [usize; 8] = [4, 2, 0, 1, 3, 7, 6, 5];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 8] = [PARAM_C, PARAM_D, PARAM_B, PARAM_E, PARAM_A, PARAM_HYB_OMEGA_0, PARAM_HYB_COEFF_0, PARAM_HYB_COEFF_1];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::hyb_gga_x_cam_s12_exc_unpol],
+        [k::vxc_unpol::hyb_gga_x_cam_s12_vxc_unpol],
+        [k::fxc_unpol::hyb_gga_x_cam_s12_fxc_unpol],
+        [k::kxc_unpol::hyb_gga_x_cam_s12_kxc_unpol],
+        [k::lxc_unpol::hyb_gga_x_cam_s12_lxc_unpol],
+        [k::exc_pol::hyb_gga_x_cam_s12_exc_pol],
+        [k::vxc_pol::hyb_gga_x_cam_s12_vxc_pol],
+        [k::fxc_pol::hyb_gga_x_cam_s12_fxc_pol],
+        [k::kxc_pol::hyb_gga_x_cam_s12_kxc_pol],
+        [k::lxc_pol::hyb_gga_x_cam_s12_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+    )
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

@@ -11,8 +11,77 @@ use libxc_core::output::LdaOutput;
 
 use libxc_rkernel_lda_c_pw_erf as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 654;
+
 /// libxc default for `param_hyb_omega_0`.
 pub const PARAM_HYB_OMEGA_0: f64 = 0.5;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 1;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 1] = ["short_range_omega"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `short_range_omega` | `param_hyb_omega_0` |
+pub const EXT_TO_KERNEL: [usize; 1] = [0];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 1] = [PARAM_HYB_OMEGA_0];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &LdaInput<'_>,
+    output: &mut LdaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rlda!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::lda_c_pw_erf_exc_unpol],
+        [k::vxc_unpol::lda_c_pw_erf_vxc_unpol],
+        [k::fxc_unpol::lda_c_pw_erf_fxc_unpol],
+        [k::kxc_unpol::lda_c_pw_erf_kxc_unpol],
+        [k::lxc_unpol::lda_c_pw_erf_lxc_unpol],
+        [k::exc_pol::lda_c_pw_erf_exc_pol],
+        [k::vxc_pol::lda_c_pw_erf_vxc_pol],
+        [k::fxc_pol::lda_c_pw_erf_fxc_pol],
+        [k::kxc_pol::lda_c_pw_erf_kxc_pol],
+        [k::lxc_pol::lda_c_pw_erf_lxc_pol],
+        params = (p[0])
+    )
+}
 
 pub fn dispatch(
     input: &LdaInput<'_>,

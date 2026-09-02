@@ -17,10 +17,12 @@ pub fn dispatch_lda_by_id(
     input: &libxc_core::input::LdaInput,
     order: libxc_core::model::DerivativeOrder,
     output: &mut libxc_core::output::LdaOutput,
-    _params: &dyn crate::functional::FunctionalParams,
+    ext: Option<&[f64]>,
     thresholds: &libxc_core::model::Thresholds,
 ) -> Result<(), libxc_core::error::LibxcRsError> {
-    libxc_reval::routing::dispatch_lda_by_id(id, input, output, order, input.spin(), thresholds)
+    libxc_reval::routing::dispatch_lda_by_id_with(
+        id, input, output, order, input.spin(), thresholds, ext,
+    )
 }
 
 pub fn dispatch_gga(
@@ -39,10 +41,12 @@ pub fn dispatch_gga_by_id(
     input: &libxc_core::input::GgaInput,
     order: libxc_core::model::DerivativeOrder,
     output: &mut libxc_core::output::GgaOutput,
-    _params: &dyn crate::functional::FunctionalParams,
+    ext: Option<&[f64]>,
     thresholds: &libxc_core::model::Thresholds,
 ) -> Result<(), libxc_core::error::LibxcRsError> {
-    libxc_reval::routing::dispatch_gga_by_id(id, input, output, order, input.spin(), thresholds)
+    libxc_reval::routing::dispatch_gga_by_id_with(
+        id, input, output, order, input.spin(), thresholds, ext,
+    )
 }
 
 pub fn dispatch_mgga(
@@ -61,10 +65,12 @@ pub fn dispatch_mgga_by_id(
     input: &libxc_core::input::MggaInput,
     order: libxc_core::model::DerivativeOrder,
     output: &mut libxc_core::output::MggaOutput,
-    _params: &dyn crate::functional::FunctionalParams,
+    ext: Option<&[f64]>,
     thresholds: &libxc_core::model::Thresholds,
 ) -> Result<(), libxc_core::error::LibxcRsError> {
-    libxc_reval::routing::dispatch_mgga_by_id(id, input, output, order, input.spin(), thresholds)
+    libxc_reval::routing::dispatch_mgga_by_id_with(
+        id, input, output, order, input.spin(), thresholds, ext,
+    )
 }
 pub use mix::{
     add_to_mix, evaluate_mixed_gga, evaluate_mixed_lda, evaluate_mixed_lda_functional,

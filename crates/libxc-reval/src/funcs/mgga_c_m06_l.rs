@@ -11,6 +11,9 @@ use libxc_core::output::MggaOutput;
 
 use libxc_rkernel_mgga_c_m06l as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 233;
+
 /// libxc default for `param_css_1`.
 pub const PARAM_CSS_1: f64 = 5.396620e-01;
 /// libxc default for `param_gamma_ss`.
@@ -65,6 +68,98 @@ pub const PARAM_DAB_3: f64 = 9.831442e-04;
 pub const PARAM_DAB_4: f64 = -3.577176e-03;
 /// libxc default for `param_dab_5`.
 pub const PARAM_DAB_5: f64 = 0.000000e+00;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 27;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 27] = ["_gamma_ss", "_gamma_ab", "_alpha_ss", "_alpha_ab", "_css0", "_css1", "_css2", "_css3", "_css4", "_cab0", "_cab1", "_cab2", "_cab3", "_cab4", "_dss0", "_dss1", "_dss2", "_dss3", "_dss4", "_dss5", "_dab0", "_dab1", "_dab2", "_dab3", "_dab4", "_dab5", "_Fermi_D_cnst"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_gamma_ss` | `param_gamma_ss` |
+/// | `_gamma_ab` | `param_gamma_ab` |
+/// | `_alpha_ss` | `param_alpha_ss` |
+/// | `_alpha_ab` | `param_alpha_ab` |
+/// | `_css0` | `param_css_0` |
+/// | `_css1` | `param_css_1` |
+/// | `_css2` | `param_css_2` |
+/// | `_css3` | `param_css_3` |
+/// | `_css4` | `param_css_4` |
+/// | `_cab0` | `param_cab_0` |
+/// | `_cab1` | `param_cab_1` |
+/// | `_cab2` | `param_cab_2` |
+/// | `_cab3` | `param_cab_3` |
+/// | `_cab4` | `param_cab_4` |
+/// | `_dss0` | `param_dss_0` |
+/// | `_dss1` | `param_dss_1` |
+/// | `_dss2` | `param_dss_2` |
+/// | `_dss3` | `param_dss_3` |
+/// | `_dss4` | `param_dss_4` |
+/// | `_dss5` | `param_dss_5` |
+/// | `_dab0` | `param_dab_0` |
+/// | `_dab1` | `param_dab_1` |
+/// | `_dab2` | `param_dab_2` |
+/// | `_dab3` | `param_dab_3` |
+/// | `_dab4` | `param_dab_4` |
+/// | `_dab5` | `param_dab_5` |
+/// | `_Fermi_D_cnst` | `param_Fermi_D_cnst` |
+pub const EXT_TO_KERNEL: [usize; 27] = [1, 8, 14, 21, 5, 0, 2, 3, 4, 12, 7, 9, 10, 11, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 6];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 27] = [PARAM_CSS_1, PARAM_GAMMA_SS, PARAM_CSS_2, PARAM_CSS_3, PARAM_CSS_4, PARAM_CSS_0, PARAM_FERMI_D_CNST, PARAM_CAB_1, PARAM_GAMMA_AB, PARAM_CAB_2, PARAM_CAB_3, PARAM_CAB_4, PARAM_CAB_0, PARAM_DSS_0, PARAM_ALPHA_SS, PARAM_DSS_1, PARAM_DSS_2, PARAM_DSS_3, PARAM_DSS_4, PARAM_DSS_5, PARAM_DAB_0, PARAM_ALPHA_AB, PARAM_DAB_1, PARAM_DAB_2, PARAM_DAB_3, PARAM_DAB_4, PARAM_DAB_5];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rmgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::mgga_c_m06l_exc_unpol],
+        [k::vxc_unpol::mgga_c_m06l_vxc_unpol],
+        [k::fxc_unpol::mgga_c_m06l_fxc_unpol],
+        [k::kxc_unpol::mgga_c_m06l_kxc_unpol],
+        [k::lxc_unpol::mgga_c_m06l_lxc_unpol],
+        [k::exc_pol::mgga_c_m06l_exc_pol],
+        [k::vxc_pol::mgga_c_m06l_vxc_pol],
+        [k::fxc_pol::mgga_c_m06l_fxc_pol],
+        [k::kxc_pol::mgga_c_m06l_kxc_pol],
+        [k::lxc_pol::mgga_c_m06l_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13], p[14], p[15], p[16], p[17], p[18], p[19], p[20], p[21], p[22], p[23], p[24], p[25], p[26])
+    )
+}
 
 pub fn dispatch(
     input: &MggaInput<'_>,

@@ -501,7 +501,8 @@ macro_rules! ten_arm_dispatch_r{fam} {{
 
 
 def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str],
-             modules: set[str]) -> str | None:
+             modules: set[str], ext_names: list[str] | None = None,
+             ext_to_kernel: list[int | None] | None = None) -> str | None:
     """One dispatch entry point. Returns None if any of the 10 arms is missing."""
     krate = f"libxc_rkernel_{base}"
     slots = []
@@ -523,6 +524,128 @@ def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str
         for p, v in zip(params, values)
     )
     plist = ", ".join(p.upper() for p in params)
+    Fam = fam.capitalize()
+    n = len(params)
+
+    # Runtime ext_params support.
+    #
+    # `dispatch` keeps its exact previous shape and behaviour: the compiled-in
+    # libxc defaults, passed straight to the kernel. `dispatch_with` is the
+    # same thing with an optional caller-supplied ext_params array, which is
+    # what a hybrid's auxiliary needs (HSE06 evaluates `gga_x_wpbeh` twice at
+    # two different `_omega` values, and until this existed both legs ran at
+    # the compiled-in 0.0).
+    #
+    # `EXT_TO_KERNEL` is the permutation from libxc ext_params order to kernel
+    # argument order, built by name in extract_params.py -- NOT positional.
+    # For 160 of 276 functionals those orders differ (`gga_c_pbe` is
+    # `[gamma, BB, beta]` against libxc's `[_beta, _gamma, _B]`), so a
+    # positional copy would silently swap constants.
+    if ext_to_kernel is None or n == 0:
+        why = ("this functional has no ext_params"
+               if n == 0 else
+               "its libxc ext_params could not be put in correspondence with the "
+               "kernel's arguments; see extract_params.py")
+        ext_block = f'''
+/// Number of libxc `ext_params` this dispatch accepts at runtime: none,
+/// because {why}.
+pub const N_EXT_PARAMS: usize = 0;
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// This functional does not accept runtime ext_params ({why}), so a non-empty
+/// `ext` is rejected rather than guessed at.
+pub fn dispatch_with(
+    input: &{Fam}Input<'_>,
+    output: &mut {Fam}Output<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {{
+    if let Some(e) = ext
+        && !e.is_empty()
+    {{
+        return Err(LibxcRsError::ExtParamCountMismatch {{
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        }});
+    }}
+    dispatch(input, output, order, spin, thresholds)
+}}
+'''
+    else:
+        slot_lit = ", ".join(
+            "usize::MAX" if k is None else str(k) for k in ext_to_kernel)
+        names_lit = ", ".join(f'"{x}"' for x in (ext_names or []))
+        defaults_lit = ", ".join(p.upper() for p in params)
+        pass_lit = ", ".join(f"p[{i}]" for i in range(n))
+        doc_rows = "\n".join(
+            f"/// | `{en}` | "
+            + (f"`{params[k]}`" if k is not None else "*(unused by the kernel)*")
+            + " |"
+            for en, k in zip(ext_names or [], ext_to_kernel))
+        ext_block = f'''
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = {len(ext_to_kernel)};
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; {len(ext_to_kernel)}] = [{names_lit}];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+{doc_rows}
+pub const EXT_TO_KERNEL: [usize; {len(ext_to_kernel)}] = [{slot_lit}];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; {n}] = [{defaults_lit}];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &{Fam}Input<'_>,
+    output: &mut {Fam}Output<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {{
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {{
+        if e.len() != N_EXT_PARAMS {{
+            return Err(LibxcRsError::ExtParamCountMismatch {{
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            }});
+        }}
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {{
+            if slot != usize::MAX {{
+                p[slot] = e[i];
+            }}
+        }}
+    }}
+    crate::ten_arm_dispatch_r{fam}!(
+        input, output, order, spin, thresholds,
+{chr(10).join(slots)}
+        params = ({pass_lit})
+    )
+}}
+'''
+
     return f'''//! Dispatch for `{func}` over the rayon kernels.
 //!
 //! GENERATED by tools/translate_rayon/gen_eval.py -- do not hand-edit.
@@ -530,17 +653,20 @@ def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str
 //! tools/translate_rayon/extract_params.py.
 
 use libxc_core::error::LibxcRsError;
-use libxc_core::input::{fam.capitalize()}Input;
+use libxc_core::input::{Fam}Input;
 use libxc_core::model::{{DerivativeOrder, Spin, Thresholds}};
-use libxc_core::output::{fam.capitalize()}Output;
+use libxc_core::output::{Fam}Output;
 
 use {krate} as k;
 
-{consts}
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = {{ID_PLACEHOLDER}};
 
+{consts}
+{ext_block}
 pub fn dispatch(
-    input: &{fam.capitalize()}Input<'_>,
-    output: &mut {fam.capitalize()}Output<'_>,
+    input: &{Fam}Input<'_>,
+    output: &mut {Fam}Output<'_>,
     order: DerivativeOrder,
     spin: Spin,
     thresholds: &Thresholds,
@@ -592,13 +718,24 @@ def main() -> int:
             gen_family(fam, spec["inputs"], spec["outputs"]))
 
     emitted, skipped = [], dict(unresolved)
+    import re as _re
+    s_reg = (REPO / "crates/libxc-core/src/registry/by_name.rs").read_text()
+    name_to_id = {m.group(1).lower(): int(m.group(2))
+                  for m in _re.finditer(r'\("XC_(\w+)",\s*(\d+)\)', s_reg)}
+
     for func, info in sorted(resolved.items()):
         fam = info["family"]
         base = info.get("base_kernel", func)
         srcdir = KERNELS / fam / base / "src"
         modules = {p.stem for p in srcdir.glob("*.rs")} | {
             p.name for p in srcdir.iterdir() if p.is_dir()}
-        text = gen_func(fam, func, base, info["params"], info["values"], modules)
+        text = gen_func(fam, func, base, info["params"], info["values"], modules,
+                        info.get("ext_names"), info.get("ext_to_kernel"))
+        if text is not None:
+            # `ID` is only used to build a typed ExtParamCountMismatch, so a
+            # functional the registry does not know can carry 0 rather than
+            # block emission.
+            text = text.replace("{ID_PLACEHOLDER}", str(name_to_id.get(func, 0)))
         if text is None:
             if func in ("mgga_x_bj06", "mgga_x_rpp09", "mgga_x_tb09", "gga_x_lb", "gga_x_lbm"):
                 skipped[func] = "potential-only functional; no exc by construction"
@@ -639,10 +776,6 @@ def main() -> int:
         lines.append(f'    ("{fam}", "{func}"),')
     lines += ["];", ""]
 
-    import re as _re
-    s_reg = (REPO / "crates/libxc-core/src/registry/by_name.rs").read_text()
-    name_to_id = {m.group(1).lower(): int(m.group(2)) for m in _re.finditer(r'\("XC_(\w+)",\s*(\d+)\)', s_reg)}
-
     for fam in ("lda", "gga", "mgga"):
         Fam = fam.capitalize()
         fam_funcs = [f for g, f, _ in emitted if g == fam]
@@ -682,6 +815,14 @@ def main() -> int:
                     f"        {raw_id} => crate::funcs::{f}::dispatch(input, output, order, spin, thresholds),"
                 )
         id_arms_str = "\n".join(id_arms)
+        with_arms = []
+        for f in fam_funcs:
+            if f in name_to_id:
+                with_arms.append(
+                    f"        {name_to_id[f]} => crate::funcs::{f}::dispatch_with("
+                    f"input, output, order, spin, thresholds, ext),"
+                )
+        with_arms_str = "\n".join(with_arms)
         lines += [
             f"/// Dispatch a {fam.upper()} functional by FunctionalId (raw integer id).",
             f"pub fn dispatch_{fam}_by_id(",
@@ -694,6 +835,35 @@ def main() -> int:
             ") -> Result<(), libxc_core::error::LibxcRsError> {",
             "    match id.raw() {",
             id_arms_str,
+            "        _ => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {",
+            "            id,",
+            '            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",',
+            "        }),",
+            "    }",
+            "}",
+            "",
+            f"/// Dispatch a {fam.upper()} functional by id, with runtime `ext_params`.",
+            "///",
+            "/// `ext` is in **libxc's** ext_params order; each functional's",
+            "/// `dispatch_with` permutes it into its own kernel argument order by the",
+            "/// name-built `EXT_TO_KERNEL` map. `None` is exactly",
+            f"/// [`dispatch_{fam}_by_id`] -- same compiled-in defaults, same bits.",
+            "///",
+            "/// This is what a mixed/hybrid functional needs: HSE06 evaluates",
+            "/// `gga_x_wpbeh` twice at two different `_omega` values, and without a",
+            "/// path for the value to reach the kernel both legs silently ran at the",
+            "/// compiled-in default of 0.0.",
+            f"pub fn dispatch_{fam}_by_id_with(",
+            "    id: libxc_core::model::FunctionalId,",
+            f"    input: &libxc_core::input::{Fam}Input<'_>,",
+            f"    output: &mut libxc_core::output::{Fam}Output<'_>,",
+            "    order: libxc_core::model::DerivativeOrder,",
+            "    spin: libxc_core::model::Spin,",
+            "    thresholds: &libxc_core::model::Thresholds,",
+            "    ext: Option<&[f64]>,",
+            ") -> Result<(), libxc_core::error::LibxcRsError> {",
+            "    match id.raw() {",
+            with_arms_str,
             "        _ => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {",
             "            id,",
             '            reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",',

@@ -11,6 +11,9 @@ use libxc_core::output::LdaOutput;
 
 use libxc_rkernel_lda_c_chachiyo_mod as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 308;
+
 /// libxc default for `param_af`.
 pub const PARAM_AF: f64 = -0.007772675;
 /// libxc default for `param_ap`.
@@ -23,6 +26,77 @@ pub const PARAM_BP: f64 = 21.7392245;
 pub const PARAM_CF: f64 = 27.4203609;
 /// libxc default for `param_cp`.
 pub const PARAM_CP: f64 = 20.4562557;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 6;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 6] = ["_ap", "_bp", "_cp", "_af", "_bf", "_cf"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_ap` | `param_ap` |
+/// | `_bp` | `param_bp` |
+/// | `_cp` | `param_cp` |
+/// | `_af` | `param_af` |
+/// | `_bf` | `param_bf` |
+/// | `_cf` | `param_cf` |
+pub const EXT_TO_KERNEL: [usize; 6] = [1, 3, 5, 0, 2, 4];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 6] = [PARAM_AF, PARAM_AP, PARAM_BF, PARAM_BP, PARAM_CF, PARAM_CP];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &LdaInput<'_>,
+    output: &mut LdaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rlda!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::lda_c_chachiyo_mod_exc_unpol],
+        [k::vxc_unpol::lda_c_chachiyo_mod_vxc_unpol],
+        [k::fxc_unpol::lda_c_chachiyo_mod_fxc_unpol],
+        [k::kxc_unpol::lda_c_chachiyo_mod_kxc_unpol],
+        [k::lxc_unpol::lda_c_chachiyo_mod_lxc_unpol],
+        [k::exc_pol::lda_c_chachiyo_mod_exc_pol],
+        [k::vxc_pol::lda_c_chachiyo_mod_vxc_pol],
+        [k::fxc_pol::lda_c_chachiyo_mod_fxc_pol],
+        [k::kxc_pol::lda_c_chachiyo_mod_kxc_pol],
+        [k::lxc_pol::lda_c_chachiyo_mod_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5])
+    )
+}
 
 pub fn dispatch(
     input: &LdaInput<'_>,

@@ -4,13 +4,17 @@
    "family": "gga",
    "base_kernel": "gga_c_acgga",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_acggap": {
    "family": "gga",
    "base_kernel": "gga_c_acggap",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_am05": {
    "family": "gga",
@@ -22,6 +26,14 @@
    "values": [
     "2.804",
     "0.8098"
+   ],
+   "ext_names": [
+    "_alpha",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_c_apbe": {
@@ -36,6 +48,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.079030523241023461723"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_bmk": {
@@ -64,6 +86,30 @@
     "-11.1974",
     "0.0",
     "1.22334"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_ccdf": {
@@ -82,6 +128,20 @@
     "0.544",
     "23.401",
     "0.479"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_c3",
+    "_c4",
+    "_c5"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4
    ]
   },
   "gga_c_chachiyo": {
@@ -104,19 +164,41 @@
     "27.4203609",
     "20.4562557",
     "0.06672632"
+   ],
+   "ext_names": [
+    "_ap",
+    "_bp",
+    "_cp",
+    "_af",
+    "_bf",
+    "_cf",
+    "_h"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    5,
+    0,
+    2,
+    4,
+    6
    ]
   },
   "gga_c_cs1": {
    "family": "gga",
    "base_kernel": "gga_c_cs1",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_ft97": {
    "family": "gga",
    "base_kernel": "gga_c_ft97",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_gam": {
    "family": "gga",
@@ -144,25 +226,55 @@
     "-5.99825",
     "-23.4119",
     "0.860548"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_gapc": {
    "family": "gga",
    "base_kernel": "gga_c_gapc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_gaploc": {
    "family": "gga",
    "base_kernel": "gga_c_gaploc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_hcth_a": {
    "family": "gga",
    "base_kernel": "gga_c_hcth_a",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_hyb_tau_hcth": {
    "family": "gga",
@@ -190,6 +302,30 @@
     "3.9133",
     "0.0",
     "0.80490"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_lm": {
@@ -200,6 +336,12 @@
    ],
    "values": [
     "0.15"
+   ],
+   "ext_names": [
+    "_f"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_c_lyp": {
@@ -216,6 +358,18 @@
     "0.132",
     "0.2533",
     "0.349"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3
    ]
   },
   "gga_c_lypr": {
@@ -238,6 +392,24 @@
     "0.132",
     "0.2533",
     "0.04918"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d",
+    "_m1",
+    "_m2",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    6,
+    4,
+    5,
+    2,
+    0,
+    3,
+    1
    ]
   },
   "gga_c_mggac": {
@@ -252,6 +424,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.030"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_n12": {
@@ -280,6 +462,30 @@
     "1.44407e+01",
     "1.96870e+01",
     "1.00000e+00"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_n12_sx": {
@@ -308,37 +514,71 @@
     "-1.60471e+01",
     "2.51047e+01",
     "8.33615e-01"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_op_b88": {
    "family": "gga",
    "base_kernel": "gga_c_op_b88",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_op_g96": {
    "family": "gga",
    "base_kernel": "gga_c_op_g96",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_op_pbe": {
    "family": "gga",
    "base_kernel": "gga_c_op_pbe",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_op_pw91": {
    "family": "gga",
    "base_kernel": "gga_c_op_pw91",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_op_xalpha": {
    "family": "gga",
    "base_kernel": "gga_c_op_xalpha",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_optc": {
    "family": "gga",
@@ -350,6 +590,14 @@
    "values": [
     "1.1015",
     "0.6625"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_c_p86": {
@@ -372,6 +620,24 @@
     "7.389e-6",
     "8.723",
     "0.472"
+   ],
+   "ext_names": [
+    "_malpha",
+    "_mbeta",
+    "_mgamma",
+    "_mdelta",
+    "_aa",
+    "_bb",
+    "_ftilde"
+   ],
+   "ext_to_kernel": [
+    3,
+    4,
+    5,
+    6,
+    0,
+    1,
+    2
    ]
   },
   "gga_c_p86_ft": {
@@ -394,6 +660,24 @@
     "7.389e-6",
     "8.723",
     "0.472"
+   ],
+   "ext_names": [
+    "_malpha",
+    "_mbeta",
+    "_mgamma",
+    "_mdelta",
+    "_aa",
+    "_bb",
+    "_ftilde"
+   ],
+   "ext_to_kernel": [
+    3,
+    4,
+    5,
+    6,
+    0,
+    1,
+    2
    ]
   },
   "gga_c_p86vwn": {
@@ -416,6 +700,24 @@
     "7.389e-6",
     "8.723",
     "0.472"
+   ],
+   "ext_names": [
+    "_malpha",
+    "_mbeta",
+    "_mgamma",
+    "_mdelta",
+    "_aa",
+    "_bb",
+    "_ftilde"
+   ],
+   "ext_to_kernel": [
+    3,
+    4,
+    5,
+    6,
+    0,
+    1,
+    2
    ]
   },
   "gga_c_p86vwn_ft": {
@@ -438,6 +740,24 @@
     "7.389e-6",
     "8.723",
     "0.472"
+   ],
+   "ext_names": [
+    "_malpha",
+    "_mbeta",
+    "_mgamma",
+    "_mdelta",
+    "_aa",
+    "_bb",
+    "_ftilde"
+   ],
+   "ext_to_kernel": [
+    3,
+    4,
+    5,
+    6,
+    0,
+    1,
+    2
    ]
   },
   "gga_c_pbe": {
@@ -452,6 +772,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.06672455060314922"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbe_erf_gws": {
@@ -468,6 +798,18 @@
     "2.78",
     "0.06672455060314922",
     "0.5"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_a_c",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1,
+    3
    ]
   },
   "gga_c_pbe_gaussian": {
@@ -482,6 +824,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.0667263212"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbe_jrgx": {
@@ -496,6 +848,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.037526364314979061530"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbe_mol": {
@@ -510,6 +872,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.08384"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbe_sol": {
@@ -524,6 +896,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.046"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbe_vwn": {
@@ -538,6 +920,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.06672455060314922"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbefe": {
@@ -552,6 +944,16 @@
     "0.031090690869654895034",
     "1.0",
     "0.043"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbeint": {
@@ -566,37 +968,57 @@
     "0.031090690869654895034",
     "1.0",
     "0.052"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_pbeloc": {
    "family": "gga",
    "base_kernel": "gga_c_pbeloc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_pw91": {
    "family": "gga",
    "base_kernel": "gga_c_pw91",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_q2d": {
    "family": "gga",
    "base_kernel": "gga_c_q2d",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_regtpss": {
    "family": "gga",
    "base_kernel": "gga_c_regtpss",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_revtca": {
    "family": "gga",
    "base_kernel": "gga_c_revtca",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_rge2": {
    "family": "gga",
@@ -610,19 +1032,33 @@
     "0.031090690869654895034",
     "1.0",
     "0.053"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_scan_e0": {
    "family": "gga",
    "base_kernel": "gga_c_scan_e0",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_sg4": {
    "family": "gga",
    "base_kernel": "gga_c_sg4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_sogga11": {
    "family": "gga",
@@ -654,6 +1090,34 @@
     "-0.16519",
     "0.50000",
     "0.50000"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5"
+   ],
+   "ext_to_kernel": [
+    10,
+    0,
+    1,
+    2,
+    3,
+    4,
+    11,
+    5,
+    6,
+    7,
+    8,
+    9
    ]
   },
   "gga_c_sogga11_x": {
@@ -686,6 +1150,34 @@
     "-10.1861",
     "0.50000",
     "0.50000"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5"
+   ],
+   "ext_to_kernel": [
+    10,
+    0,
+    1,
+    2,
+    3,
+    4,
+    11,
+    5,
+    6,
+    7,
+    8,
+    9
    ]
   },
   "gga_c_spbe": {
@@ -700,6 +1192,16 @@
     "0.031090690869654895034",
     "0.0",
     "0.06672455060314922"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_tau_hcth": {
@@ -728,13 +1230,39 @@
     "-3.3755",
     "0.0",
     "0.65262"
+   ],
+   "ext_names": [
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_c_tca": {
    "family": "gga",
    "base_kernel": "gga_c_tca",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_tm_lyp": {
    "family": "gga",
@@ -750,6 +1278,18 @@
     "0.21",
     "0.41",
     "0.15"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3
    ]
   },
   "gga_c_tm_pbe": {
@@ -764,13 +1304,25 @@
     "-0.0156",
     "1.0",
     "-0.052728"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_w94": {
    "family": "gga",
    "base_kernel": "gga_c_w94",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_wi": {
    "family": "gga",
@@ -788,6 +1340,20 @@
     "0.21",
     "0.002",
     "0.001"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d",
+    "_k"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4
    ]
   },
   "gga_c_wi0": {
@@ -806,13 +1372,29 @@
     "7.8",
     "0.0073",
     "0.000311"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d",
+    "_k"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4
    ]
   },
   "gga_c_wl": {
    "family": "gga",
    "base_kernel": "gga_c_wl",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_xpbe": {
    "family": "gga",
@@ -826,6 +1408,16 @@
     "0.02043355766025040154",
     "1.0",
     "0.089809"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_B"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_c_zpbeint": {
@@ -838,7 +1430,9 @@
    "values": [
     "2.4",
     "0.052"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_c_zpbesol": {
    "family": "gga",
@@ -850,7 +1444,9 @@
    "values": [
     "4.8",
     "0.046"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_c_zvpbeint": {
    "family": "gga",
@@ -864,13 +1460,17 @@
     "1.0",
     "4.5",
     "0.052"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_c_zvpbeloc": {
    "family": "gga",
    "base_kernel": "gga_c_zvpbeloc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_c_zvpbesol": {
    "family": "gga",
@@ -884,7 +1484,9 @@
     "1.8",
     "4.5",
     "0.046"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_absp1": {
    "family": "gga",
@@ -896,7 +1498,9 @@
    "values": [
     "1.0",
     "-0.4119999999999999"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_absp2": {
    "family": "gga",
@@ -908,7 +1512,9 @@
    "values": [
     "1.0",
     "-0.3320000000000001"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_absp3": {
    "family": "gga",
@@ -920,7 +1526,9 @@
    "values": [
     "1.0",
     "-0.5129999999999999"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_absp4": {
    "family": "gga",
@@ -932,7 +1540,9 @@
    "values": [
     "0.42881646655231564",
     "0.42881646655231564"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_apbe": {
    "family": "gga",
@@ -944,7 +1554,9 @@
    "values": [
     "0.8040",
     "0.23889"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_apbeint": {
    "family": "gga",
@@ -960,7 +1572,9 @@
     "0.18518518518518517",
     "1.6666666666666667",
     "0.8040"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_baltin": {
    "family": "gga",
@@ -972,6 +1586,14 @@
    "values": [
     "0.5555555555555556",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_dk": {
@@ -1000,6 +1622,30 @@
     "8.398620696364157e-08",
     "0.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_k_ernzerhof": {
@@ -1028,13 +1674,39 @@
     "0.0",
     "0.0",
     "135.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_k_exp4": {
    "family": "gga",
    "base_kernel": "gga_k_exp4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_fr_b88": {
    "family": "gga",
@@ -1046,13 +1718,17 @@
    "values": [
     "0.004276696284260464",
     "6.48631517325455"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_fr_pw86": {
    "family": "gga",
    "base_kernel": "gga_k_pw86",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_ge2": {
    "family": "gga",
@@ -1064,6 +1740,14 @@
    "values": [
     "0.1111111111111111",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_golden": {
@@ -1076,6 +1760,14 @@
    "values": [
     "0.28888888888888886",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_gp85": {
@@ -1088,7 +1780,9 @@
    "values": [
     "1.0",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_gr": {
    "family": "gga",
@@ -1100,7 +1794,9 @@
    "values": [
     "1.0",
     "0.16502535559436077"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_lc94": {
    "family": "gga",
@@ -1122,6 +1818,24 @@
     "-0.0809615",
     "4.0",
     "0.000057767"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d",
+    "_f",
+    "_alpha",
+    "_expo"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    3,
+    4,
+    6,
+    1,
+    5
    ]
   },
   "gga_k_lgap": {
@@ -1138,6 +1852,18 @@
     "0.23173407031250000000",
     "0.036536516531615524505",
     "0.8"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu1",
+    "_mu2",
+    "_mu3"
+   ],
+   "ext_to_kernel": [
+    3,
+    0,
+    1,
+    2
    ]
   },
   "gga_k_lgap_ge": {
@@ -1152,6 +1878,16 @@
     "0.0131",
     "0.18528",
     "0.0262"
+   ],
+   "ext_names": [
+    "_mu1",
+    "_mu2",
+    "_mu3"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_k_lieb": {
@@ -1164,6 +1900,14 @@
    "values": [
     "0.185909191",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_lkt": {
@@ -1174,6 +1918,12 @@
    ],
    "values": [
     "1.3"
+   ],
+   "ext_names": [
+    "_a"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_k_llp": {
@@ -1186,7 +1936,9 @@
    "values": [
     "0.004111807123779403",
     "6.153012346733153"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_ludena": {
    "family": "gga",
@@ -1198,19 +1950,25 @@
    "values": [
     "1.0",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_meyer": {
    "family": "gga",
    "base_kernel": "gga_k_meyer",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_ol1": {
    "family": "gga",
    "base_kernel": "gga_k_ol1",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_ol2": {
    "family": "gga",
@@ -1224,7 +1982,9 @@
     "0.21940410461360746",
     "0.03089264058386961",
     "1.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_pbe2": {
    "family": "gga",
@@ -1240,6 +2000,18 @@
     "0.2942",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a",
+    "_c1",
+    "_c2",
+    "_c3"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    2,
+    3
    ]
   },
   "gga_k_pbe3": {
@@ -1256,6 +2028,18 @@
     "4.1355",
     "50.258",
     "0.0"
+   ],
+   "ext_names": [
+    "_a",
+    "_c1",
+    "_c2",
+    "_c3"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    2,
+    3
    ]
   },
   "gga_k_pbe4": {
@@ -1272,13 +2056,27 @@
     "1.7107",
     "61.645",
     "-93.683"
+   ],
+   "ext_names": [
+    "_a",
+    "_c1",
+    "_c2",
+    "_c3"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    2,
+    3
    ]
   },
   "gga_k_pearson": {
    "family": "gga",
    "base_kernel": "gga_k_pearson",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_perdew": {
    "family": "gga",
@@ -1306,6 +2104,30 @@
     "0.0",
     "0.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_k_pg1": {
@@ -1316,6 +2138,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_k_rational_p": {
@@ -1328,6 +2156,14 @@
    "values": [
     "1.5",
     "0.7687"
+   ],
+   "ext_names": [
+    "_C2",
+    "_p"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "gga_k_revapbe": {
@@ -1340,7 +2176,9 @@
    "values": [
     "1.245",
     "0.23889"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_revapbeint": {
    "family": "gga",
@@ -1356,7 +2194,9 @@
     "0.18518518518518517",
     "1.6666666666666667",
     "1.245"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_tfvw": {
    "family": "gga",
@@ -1368,6 +2208,14 @@
    "values": [
     "1.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_tfvw_opt": {
@@ -1380,13 +2228,23 @@
    "values": [
     "0.599",
     "0.697"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_thakkar": {
    "family": "gga",
    "base_kernel": "gga_k_thakkar",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_k_tw1": {
    "family": "gga",
@@ -1398,7 +2256,9 @@
    "values": [
     "0.8209",
     "0.2335"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_tw2": {
    "family": "gga",
@@ -1410,7 +2270,9 @@
    "values": [
     "0.6774",
     "0.2371"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_tw3": {
    "family": "gga",
@@ -1422,7 +2284,9 @@
    "values": [
     "0.8438",
     "0.2319"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_tw4": {
    "family": "gga",
@@ -1434,7 +2298,9 @@
    "values": [
     "0.8589",
     "0.2309"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_k_vjks": {
    "family": "gga",
@@ -1462,6 +2328,30 @@
     "0.0",
     "0.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_k_vsk": {
@@ -1490,6 +2380,30 @@
     "0.0",
     "0.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8
    ]
   },
   "gga_k_vt84f": {
@@ -1502,6 +2416,14 @@
    "values": [
     "1.2965",
     "2.778"
+   ],
+   "ext_names": [
+    "_mu",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "gga_k_vw": {
@@ -1514,6 +2436,14 @@
    "values": [
     "1.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_k_yt65": {
@@ -1526,37 +2456,55 @@
    "values": [
     "0.2",
     "1.0"
+   ],
+   "ext_names": [
+    "_lambda",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_2d_b86": {
    "family": "gga",
    "base_kernel": "gga_x_2d_b86",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_2d_b86_mgc": {
    "family": "gga",
    "base_kernel": "gga_x_2d_b86_mgc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_2d_b88": {
    "family": "gga",
    "base_kernel": "gga_x_2d_b88",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_2d_pbe": {
    "family": "gga",
    "base_kernel": "gga_x_2d_pbe",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_airy": {
    "family": "gga",
    "base_kernel": "gga_x_airy",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_ak13": {
    "family": "gga",
@@ -1568,6 +2516,14 @@
    "values": [
     "1.74959015598863046792081721182",
     "-1.62613336586517367779736042170"
+   ],
+   "ext_names": [
+    "_B1",
+    "_B2"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_am05": {
@@ -1580,6 +2536,14 @@
    "values": [
     "2.804",
     "0.7168"
+   ],
+   "ext_names": [
+    "_alpha",
+    "_c"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_apbe": {
@@ -1592,6 +2556,14 @@
    "values": [
     "0.8040",
     "0.260"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_b86": {
@@ -1606,6 +2578,16 @@
     "0.003868780689639527",
     "0.004",
     "1.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_b86_mgc": {
@@ -1620,6 +2602,16 @@
     "0.0040299798850411735",
     "0.007",
     "0.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_b86_r": {
@@ -1634,6 +2626,16 @@
     "0.002031519487163032",
     "0.0028556641652558784",
     "0.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_b88": {
@@ -1646,6 +2648,14 @@
    "values": [
     "0.0042",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_b88_6311g": {
@@ -1658,6 +2668,14 @@
    "values": [
     "0.0051",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_b88m": {
@@ -1670,13 +2688,23 @@
    "values": [
     "0.0045",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_bayesian": {
    "family": "gga",
    "base_kernel": "gga_x_bayesian",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_bcgp": {
    "family": "gga",
@@ -1688,25 +2716,39 @@
    "values": [
     "0.8040",
     "0.249"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_beefvdw": {
    "family": "gga",
    "base_kernel": "gga_x_beefvdw",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_bpccac": {
    "family": "gga",
    "base_kernel": "gga_x_bpccac",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_c09x": {
    "family": "gga",
    "base_kernel": "gga_x_c09x",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_cap": {
    "family": "gga",
@@ -1718,13 +2760,23 @@
    "values": [
     "-0.2195149727645171",
     "0.05240533950570443"
+   ],
+   "ext_names": [
+    "_alphaoAx",
+    "_c"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_chachiyo": {
    "family": "gga",
    "base_kernel": "gga_x_chachiyo",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_dk87_r1": {
    "family": "gga",
@@ -1738,6 +2790,16 @@
     "1.0",
     "0.861504",
     "0.044286"
+   ],
+   "ext_names": [
+    "_a1",
+    "_b1",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    1,
+    2,
+    0
    ]
   },
   "gga_x_dk87_r2": {
@@ -1752,6 +2814,16 @@
     "0.98",
     "0.861213",
     "0.042076"
+   ],
+   "ext_names": [
+    "_a1",
+    "_b1",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    1,
+    2,
+    0
    ]
   },
   "gga_x_eb88": {
@@ -1764,6 +2836,14 @@
    "values": [
     "0.0039685026299204986870",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_ecmv92": {
@@ -1784,6 +2864,22 @@
     "27.5026",
     "5.7728",
     "0.0"
+   ],
+   "ext_names": [
+    "_a1",
+    "_a2",
+    "_a3",
+    "_b1",
+    "_b2",
+    "_b3"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
    ]
   },
   "gga_x_ev93": {
@@ -1804,6 +2900,22 @@
     "1.523671",
     "0.367229",
     "0.011282"
+   ],
+   "ext_names": [
+    "_a1",
+    "_a2",
+    "_a3",
+    "_b1",
+    "_b2",
+    "_b3"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
    ]
   },
   "gga_x_fd_lb94": {
@@ -1814,6 +2926,12 @@
    ],
    "values": [
     "0.05"
+   ],
+   "ext_names": [
+    "_beta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_fd_revlb94": {
@@ -1824,6 +2942,12 @@
    ],
    "values": [
     "0.004"
+   ],
+   "ext_names": [
+    "_beta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_ft97_a": {
@@ -1838,6 +2962,16 @@
     "0.0",
     "0.0",
     "0.00293"
+   ],
+   "ext_names": [
+    "_beta0",
+    "_beta1",
+    "_beta2"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_x_ft97_b": {
@@ -1852,13 +2986,25 @@
     "0.0009474169",
     "6255746.320201",
     "0.002913644"
+   ],
+   "ext_names": [
+    "_beta0",
+    "_beta1",
+    "_beta2"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_x_g96": {
    "family": "gga",
    "base_kernel": "gga_x_g96",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_gam": {
    "family": "gga",
@@ -1898,19 +3044,59 @@
     "-10.0530",
     "-0.142331",
     "1.32730"
+   ],
+   "ext_names": [
+    "_CC00",
+    "_CC01",
+    "_CC02",
+    "_CC03",
+    "_CC10",
+    "_CC11",
+    "_CC12",
+    "_CC13",
+    "_CC20",
+    "_CC21",
+    "_CC22",
+    "_CC23",
+    "_CC30",
+    "_CC31",
+    "_CC32",
+    "_CC33"
+   ],
+   "ext_to_kernel": [
+    15,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5,
+    10,
+    7,
+    8,
+    9,
+    14,
+    11,
+    12,
+    13
    ]
   },
   "gga_x_gg99": {
    "family": "gga",
    "base_kernel": "gga_x_gg99",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_hcth_a": {
    "family": "gga",
    "base_kernel": "gga_x_hcth_a",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_hjs_b88": {
    "family": "gga",
@@ -1950,6 +3136,42 @@
     "-1.57905e-4",
     "1.45323e-6",
     "0.11"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
    ]
   },
   "gga_x_hjs_b88_v2": {
@@ -1990,6 +3212,42 @@
     "0.0159586",
     "-0.000245066",
     "0.11"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
    ]
   },
   "gga_x_hjs_b97x": {
@@ -2030,6 +3288,42 @@
     "-0.0140960",
     "0.0045466",
     "0.11"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
    ]
   },
   "gga_x_hjs_pbe": {
@@ -2070,6 +3364,42 @@
     "-0.0770547",
     "0.0334840",
     "0.11"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
    ]
   },
   "gga_x_hjs_pbe_sol": {
@@ -2110,13 +3440,51 @@
     "-0.0171561",
     "0.0050552",
     "0.11"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
    ]
   },
   "gga_x_htbs": {
    "family": "gga",
    "base_kernel": "gga_x_htbs",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_ityh": {
    "family": "gga",
@@ -2126,6 +3494,12 @@
    ],
    "values": [
     "0.2"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_ityh_optx": {
@@ -2140,6 +3514,18 @@
     "1.5385818404305593",
     "1.05151",
     "0.2"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_gamma",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    null,
+    2
    ]
   },
   "gga_x_ityh_pbe": {
@@ -2154,6 +3540,16 @@
     "0.2195149727645171",
     "0.8040",
     "0.33"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    2
    ]
   },
   "gga_x_kt1": {
@@ -2166,13 +3562,23 @@
    "values": [
     "-0.006",
     "0.1"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_delta"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_lag": {
    "family": "gga",
    "base_kernel": "gga_x_lag",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_lambda_ch_n": {
    "family": "gga",
@@ -2184,7 +3590,9 @@
    "values": [
     "0.7580466650547808",
     "0.2195149727645171"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lambda_lo_n": {
    "family": "gga",
@@ -2196,7 +3604,9 @@
    "values": [
     "0.8040812955618588",
     "0.2195149727645171"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lambda_oc2_n": {
    "family": "gga",
@@ -2208,7 +3618,9 @@
    "values": [
     "0.5874010519681994",
     "0.2195149727645171"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lb": {
    "family": "gga",
@@ -2222,7 +3634,9 @@
     "0.05",
     "1.0",
     "1.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lbm": {
    "family": "gga",
@@ -2236,13 +3650,17 @@
     "0.01",
     "1.0",
     "1.19"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lg93": {
    "family": "gga",
    "base_kernel": "gga_x_lg93",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_lspbe": {
    "family": "gga",
@@ -2256,7 +3674,9 @@
     "0.2221337493645171",
     "0.804",
     "0.00145165"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lsrpbe": {
    "family": "gga",
@@ -2270,13 +3690,17 @@
     "0.2317982644445171",
     "0.804",
     "0.00680892"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_lv_rpw86": {
    "family": "gga",
    "base_kernel": "gga_x_lv_rpw86",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_mb88": {
    "family": "gga",
@@ -2288,6 +3712,14 @@
    "values": [
     "0.0011",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_mpbe": {
@@ -2304,7 +3736,9 @@
     "0.157",
     "-0.015",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_mpw91": {
    "family": "gga",
@@ -2326,7 +3760,9 @@
     "-0.15475478709197044",
     "3.72",
     "0.002233276157114453"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_n12": {
    "family": "gga",
@@ -2366,6 +3802,42 @@
     "-2.41834e+00",
     "4.03611e-01",
     "1.00000e+00"
+   ],
+   "ext_names": [
+    "_CC00",
+    "_CC01",
+    "_CC02",
+    "_CC03",
+    "_CC10",
+    "_CC11",
+    "_CC12",
+    "_CC13",
+    "_CC20",
+    "_CC21",
+    "_CC22",
+    "_CC23",
+    "_CC30",
+    "_CC31",
+    "_CC32",
+    "_CC33"
+   ],
+   "ext_to_kernel": [
+    15,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5,
+    10,
+    7,
+    8,
+    9,
+    14,
+    11,
+    12,
+    13
    ]
   },
   "gga_x_ncap": {
@@ -2382,6 +3854,18 @@
     "0.30412141859531383",
     "0.3451117169263783",
     "0.01808569669"
+   ],
+   "ext_names": [
+    "_alpha",
+    "_beta",
+    "_mu",
+    "_zeta"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    0,
+    1
    ]
   },
   "gga_x_ncapr": {
@@ -2398,6 +3882,18 @@
     "0.5",
     "0.3431510377915187",
     "0.017982946634292535"
+   ],
+   "ext_names": [
+    "_alpha",
+    "_beta",
+    "_mu",
+    "_zeta"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    0,
+    1
    ]
   },
   "gga_x_ol2": {
@@ -2412,6 +3908,16 @@
     "0.09564574034649151285038696952714226444963",
     "4.098833606342553442039881031486386917472",
     "0.09564574034649151285038696952714226444963"
+   ],
+   "ext_names": [
+    "_aa",
+    "_bb",
+    "_cc"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "gga_x_optb86b_vdw": {
@@ -2426,6 +3932,16 @@
     "0.002031519487163032",
     "0.002031519487163032",
     "0.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_optb88_vdw": {
@@ -2438,6 +3954,14 @@
    "values": [
     "0.00336865923905927",
     "6.98131700797731"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_optx": {
@@ -2452,6 +3976,16 @@
     "0.006",
     "1.5385818404305593",
     "1.05151"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    0
    ]
   },
   "gga_x_pbe": {
@@ -2464,6 +3998,14 @@
    "values": [
     "0.8040",
     "0.2195149727645171"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_erf_gws": {
@@ -2480,6 +4022,18 @@
     "0.2195149727645171",
     "0.8040",
     "0.5"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_b_PBE",
+    "_ax",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    0,
+    3
    ]
   },
   "gga_x_pbe_gaussian": {
@@ -2492,6 +4046,14 @@
    "values": [
     "0.804000423825475",
     "0.219510240580611"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_jsjr": {
@@ -2504,6 +4066,14 @@
    "values": [
     "0.8040",
     "0.15133393415003682"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_mod": {
@@ -2516,6 +4086,14 @@
    "values": [
     "0.8040",
     "0.2195164512208958"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_mol": {
@@ -2528,6 +4106,14 @@
    "values": [
     "0.8040",
     "0.27583"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_r": {
@@ -2540,6 +4126,14 @@
    "values": [
     "1.245",
     "0.2195149727645171"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_sol": {
@@ -2552,6 +4146,14 @@
    "values": [
     "0.804",
     "0.12345679012345678"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbe_tca": {
@@ -2564,13 +4166,23 @@
    "values": [
     "1.227",
     "0.2195149727645171"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbea": {
    "family": "gga",
    "base_kernel": "gga_x_pbea",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_pbefe": {
    "family": "gga",
@@ -2582,6 +4194,14 @@
    "values": [
     "0.437",
     "0.346"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbeint": {
@@ -2598,6 +4218,18 @@
     "0.12345679012345678",
     "0.197",
     "0.8040"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_alpha",
+    "_muPBE",
+    "_muGE"
+   ],
+   "ext_to_kernel": [
+    3,
+    2,
+    0,
+    1
    ]
   },
   "gga_x_pbek1_vdw": {
@@ -2610,19 +4242,31 @@
    "values": [
     "1.0",
     "0.2195149727645171"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_x_pbepow": {
    "family": "gga",
    "base_kernel": "gga_x_pbepow",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_pbetrans": {
    "family": "gga",
    "base_kernel": "gga_x_pbetrans",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_pw86": {
    "family": "gga",
@@ -2636,6 +4280,16 @@
     "1.296",
     "14.0",
     "0.2"
+   ],
+   "ext_names": [
+    "_aa",
+    "_bb",
+    "_cc"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_pw91": {
@@ -2658,6 +4312,24 @@
     "-0.1508",
     "4.0",
     "0.004"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_c",
+    "_d",
+    "_f",
+    "_alpha",
+    "_expo"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    3,
+    4,
+    6,
+    1,
+    5
    ]
   },
   "gga_x_pw91_mod": {
@@ -2680,25 +4352,33 @@
     "-0.1508363141734433",
     "4.0",
     "0.003968803415078375"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_q1d": {
    "family": "gga",
    "base_kernel": "gga_x_q1d",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_q2d": {
    "family": "gga",
    "base_kernel": "gga_x_q2d",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_rge2": {
    "family": "gga",
    "base_kernel": "gga_x_rge2",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_rpbe": {
    "family": "gga",
@@ -2710,6 +4390,14 @@
    "values": [
     "0.2195149727645171",
     "0.8040"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "gga_x_rpw86": {
@@ -2724,6 +4412,16 @@
     "1.851",
     "17.33",
     "0.163"
+   ],
+   "ext_names": [
+    "_aa",
+    "_bb",
+    "_cc"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "gga_x_s12g": {
@@ -2744,6 +4442,20 @@
     "0.7185796799999999",
     "0.00594635",
     "1.03842032"
+   ],
+   "ext_names": [
+    "_A",
+    "_B",
+    "_C",
+    "_D",
+    "_E"
+   ],
+   "ext_to_kernel": [
+    5,
+    3,
+    1,
+    2,
+    4
    ]
   },
   "gga_x_sfat": {
@@ -2754,6 +4466,12 @@
    ],
    "values": [
     "0.44"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_sfat_pbe": {
@@ -2764,13 +4482,21 @@
    ],
    "values": [
     "0.44"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_sg4": {
    "family": "gga",
    "base_kernel": "gga_x_sg4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_sogga11": {
    "family": "gga",
@@ -2806,6 +4532,38 @@
     "-11.1396",
     "0.50000",
     "0.50000"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu",
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    12,
+    0,
+    3,
+    4,
+    5,
+    6,
+    13,
+    7,
+    8,
+    9,
+    10,
+    11
    ]
   },
   "gga_x_ssb_sw": {
@@ -2824,6 +4582,20 @@
     "0.254443",
     "0.180708",
     "4.036674"
+   ],
+   "ext_names": [
+    "_A",
+    "_B",
+    "_C",
+    "_D",
+    "_E"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4
    ]
   },
   "gga_x_vmt84_ge": {
@@ -2836,7 +4608,9 @@
    "values": [
     "0.12345679012345678",
     "0.000023"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_vmt84_pbe": {
    "family": "gga",
@@ -2848,7 +4622,9 @@
    "values": [
     "0.2195149727645171",
     "0.000074"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_vmt_ge": {
    "family": "gga",
@@ -2860,7 +4636,9 @@
    "values": [
     "0.12345679012345678",
     "0.001553"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_vmt_pbe": {
    "family": "gga",
@@ -2872,13 +4650,17 @@
    "values": [
     "0.2195149727645171",
     "0.002762"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_x_wc": {
    "family": "gga",
    "base_kernel": "gga_x_wc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_x_wpbeh": {
    "family": "gga",
@@ -2888,6 +4670,12 @@
    ],
    "values": [
     "0.0"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "gga_x_xpbe": {
@@ -2900,6 +4688,14 @@
    "values": [
     "0.91954",
     "0.23214"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "gga_xc_b97_3c": {
@@ -2938,7 +4734,9 @@
     "0.0",
     "0.0",
     "0.635047"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_b97_d": {
    "family": "gga",
@@ -2976,7 +4774,9 @@
     "0.0",
     "0.0",
     "0.69041"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_b97_gga1": {
    "family": "gga",
@@ -3014,7 +4814,9 @@
     "0.0",
     "0.0",
     "0.7961"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_120": {
    "family": "gga",
@@ -3052,7 +4854,9 @@
     "23.1098",
     "-11.3234",
     "0.51473"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_147": {
    "family": "gga",
@@ -3090,7 +4894,9 @@
     "35.0329",
     "-20.4284",
     "0.542352"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_407": {
    "family": "gga",
@@ -3128,7 +4934,9 @@
     "42.5721",
     "-42.0052",
     "0.589076"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_407p": {
    "family": "gga",
@@ -3166,7 +4974,9 @@
     "20.611",
     "-29.418",
     "0.73604"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_93": {
    "family": "gga",
@@ -3204,7 +5014,9 @@
     "8.08564",
     "-4.47857",
     "0.729974"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_p14": {
    "family": "gga",
@@ -3242,7 +5054,9 @@
     "13.382",
     "-3.17493",
     "0.0821827"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hcth_p76": {
    "family": "gga",
@@ -3280,7 +5094,9 @@
     "-135.475",
     "101.268",
     "0.192949"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_hle16": {
    "family": "gga",
@@ -3318,7 +5134,9 @@
     "21.28605",
     "-21.0026",
     "0.294538"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_th1": {
    "family": "gga",
@@ -3368,13 +5186,61 @@
     "+0.219805e+01",
     "-0.372927e+01",
     "+0.194441e+01"
+   ],
+   "ext_names": [
+    "_w[0]",
+    "_w[1]",
+    "_w[2]",
+    "_w[3]",
+    "_w[4]",
+    "_w[5]",
+    "_w[6]",
+    "_w[7]",
+    "_w[8]",
+    "_w[9]",
+    "_w[10]",
+    "_w[11]",
+    "_w[12]",
+    "_w[13]",
+    "_w[14]",
+    "_w[15]",
+    "_w[16]",
+    "_w[17]",
+    "_w[18]",
+    "_w[19]",
+    "_w[20]"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    16
    ]
   },
   "gga_xc_th2": {
    "family": "gga",
    "base_kernel": "gga_xc_th2",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "gga_xc_th3": {
    "family": "gga",
@@ -3420,7 +5286,9 @@
     "-0.227167e+01",
     "+0.403051e+01",
     "-0.228074e+01"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_th4": {
    "family": "gga",
@@ -3466,7 +5334,9 @@
     "-0.190675e+01",
     "+0.322494e+01",
     "-0.168698e+01"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "gga_xc_th_fc": {
    "family": "gga",
@@ -3516,6 +5386,52 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_w[0]",
+    "_w[1]",
+    "_w[2]",
+    "_w[3]",
+    "_w[4]",
+    "_w[5]",
+    "_w[6]",
+    "_w[7]",
+    "_w[8]",
+    "_w[9]",
+    "_w[10]",
+    "_w[11]",
+    "_w[12]",
+    "_w[13]",
+    "_w[14]",
+    "_w[15]",
+    "_w[16]",
+    "_w[17]",
+    "_w[18]",
+    "_w[19]",
+    "_w[20]"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    16
    ]
   },
   "gga_xc_th_fcfo": {
@@ -3566,6 +5482,52 @@
     "-0.691153e+00",
     "-0.637866e+00",
     "+0.107565e+01"
+   ],
+   "ext_names": [
+    "_w[0]",
+    "_w[1]",
+    "_w[2]",
+    "_w[3]",
+    "_w[4]",
+    "_w[5]",
+    "_w[6]",
+    "_w[7]",
+    "_w[8]",
+    "_w[9]",
+    "_w[10]",
+    "_w[11]",
+    "_w[12]",
+    "_w[13]",
+    "_w[14]",
+    "_w[15]",
+    "_w[16]",
+    "_w[17]",
+    "_w[18]",
+    "_w[19]",
+    "_w[20]"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    16
    ]
   },
   "gga_xc_th_fco": {
@@ -3616,6 +5578,52 @@
     "-0.328799e+00",
     "-0.122595e+01",
     "+0.136412e+01"
+   ],
+   "ext_names": [
+    "_w[0]",
+    "_w[1]",
+    "_w[2]",
+    "_w[3]",
+    "_w[4]",
+    "_w[5]",
+    "_w[6]",
+    "_w[7]",
+    "_w[8]",
+    "_w[9]",
+    "_w[10]",
+    "_w[11]",
+    "_w[12]",
+    "_w[13]",
+    "_w[14]",
+    "_w[15]",
+    "_w[16]",
+    "_w[17]",
+    "_w[18]",
+    "_w[19]",
+    "_w[20]"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    16
    ]
   },
   "gga_xc_th_fl": {
@@ -3666,6 +5674,52 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_w[0]",
+    "_w[1]",
+    "_w[2]",
+    "_w[3]",
+    "_w[4]",
+    "_w[5]",
+    "_w[6]",
+    "_w[7]",
+    "_w[8]",
+    "_w[9]",
+    "_w[10]",
+    "_w[11]",
+    "_w[12]",
+    "_w[13]",
+    "_w[14]",
+    "_w[15]",
+    "_w[16]",
+    "_w[17]",
+    "_w[18]",
+    "_w[19]",
+    "_w[20]"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    16
    ]
   },
   "hyb_gga_x_cam_s12g": {
@@ -3690,6 +5744,26 @@
     "1.52420731",
     "-0.34485046",
     "0.34485046"
+   ],
+   "ext_names": [
+    "_A",
+    "_B",
+    "_C",
+    "_D",
+    "_E",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    2,
+    0,
+    1,
+    3,
+    7,
+    6,
+    5
    ]
   },
   "hyb_gga_x_cam_s12h": {
@@ -3714,6 +5788,26 @@
     "0.48516891",
     "-0.10897845",
     "0.35897845"
+   ],
+   "ext_names": [
+    "_A",
+    "_B",
+    "_C",
+    "_D",
+    "_E",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    2,
+    0,
+    1,
+    3,
+    7,
+    6,
+    5
    ]
   },
   "hyb_gga_x_lc2gau": {
@@ -3732,7 +5826,9 @@
     "4.106609884305277",
     "10.954451150103322",
     "-10.329688281840843"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "hyb_gga_x_lcgau": {
    "family": "gga",
@@ -3750,7 +5846,9 @@
     "4.004542874831487",
     "1.887855926706273",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "hyb_gga_x_lcgau_core": {
    "family": "gga",
@@ -3768,7 +5866,9 @@
     "2.2947051317742426",
     "1.0798773078456647",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "hyb_gga_x_n12_sx": {
    "family": "gga",
@@ -3808,6 +5908,46 @@
     "2.98363e+01",
     "-7.09913e-01",
     "6.81116e-01"
+   ],
+   "ext_names": [
+    "_CC00",
+    "_CC01",
+    "_CC02",
+    "_CC03",
+    "_CC10",
+    "_CC11",
+    "_CC12",
+    "_CC13",
+    "_CC20",
+    "_CC21",
+    "_CC22",
+    "_CC23",
+    "_CC30",
+    "_CC31",
+    "_CC32",
+    "_CC33",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    15,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5,
+    10,
+    7,
+    8,
+    9,
+    14,
+    11,
+    12,
+    13,
+    null,
+    null
    ]
   },
   "hyb_gga_x_pbe_erf_gws": {
@@ -3824,6 +5964,18 @@
     "0.2195149727645171",
     "0.8040",
     "0.5"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_b_PBE",
+    "_ax",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    0,
+    3
    ]
   },
   "hyb_gga_x_s12h": {
@@ -3844,7 +5996,9 @@
     "0.7315604899999999",
     "0.00604672",
     "1.02543951"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "hyb_gga_x_sogga11_x": {
    "family": "gga",
@@ -3880,6 +6034,40 @@
     "3.96613",
     "0.29925",
     "0.29925"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_mu",
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_cx"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    12,
+    0,
+    3,
+    4,
+    5,
+    6,
+    13,
+    7,
+    8,
+    9,
+    10,
+    11,
+    null
    ]
   },
   "hyb_gga_xc_b97": {
@@ -3918,6 +6106,42 @@
     "0.0",
     "0.0",
     "0.9454"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_b97_1": {
@@ -3956,6 +6180,42 @@
     "0.0",
     "0.0",
     "0.955689"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_b97_1p": {
@@ -3994,6 +6254,42 @@
     "0.0",
     "0.0",
     "0.9253"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_b97_2": {
@@ -4032,6 +6328,42 @@
     "0.0",
     "0.0",
     "0.999849"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_b97_3": {
@@ -4070,6 +6402,42 @@
     "-1.969342",
     "-11.74423",
     "1.13383"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_b97_k": {
@@ -4108,6 +6476,42 @@
     "0.0",
     "0.0",
     "1.58613"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_case21": {
@@ -4162,6 +6566,56 @@
     "0.155654",
     "7.45555E-05",
     "-0.1559416"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_cx5",
+    "_cx6",
+    "_cx7",
+    "_cx8",
+    "_cx9",
+    "_cc0",
+    "_cc1",
+    "_cc2",
+    "_cc3",
+    "_cc4",
+    "_cc5",
+    "_cc6",
+    "_cc7",
+    "_cc8",
+    "_cc9",
+    "_gammax",
+    "_gammac",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    1,
+    2,
+    0
    ]
   },
   "hyb_gga_xc_sb98_1a": {
@@ -4200,6 +6654,42 @@
     "0.0",
     "0.0",
     "0.975483"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_sb98_1b": {
@@ -4238,6 +6728,42 @@
     "0.0",
     "0.0",
     "0.977621"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_sb98_1c": {
@@ -4276,6 +6802,42 @@
     "0.0",
     "0.0",
     "0.939269"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_sb98_2a": {
@@ -4314,6 +6876,42 @@
     "0.0",
     "0.0",
     "0.964641"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_sb98_2b": {
@@ -4352,6 +6950,42 @@
     "0.0",
     "0.0",
     "0.965362"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_sb98_2c": {
@@ -4390,6 +7024,42 @@
     "0.0",
     "0.0",
     "0.934715"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_cxx"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null
    ]
   },
   "hyb_gga_xc_wb97": {
@@ -4430,6 +7100,46 @@
     "8.88211e+00",
     "1.00000e+00",
     "0.4"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null,
+    null,
+    15
    ]
   },
   "hyb_gga_xc_wb97x": {
@@ -4470,6 +7180,46 @@
     "-3.78132e+00",
     "1.00000e+00",
     "0.3"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null,
+    null,
+    15
    ]
   },
   "hyb_gga_xc_wb97x_d": {
@@ -4510,6 +7260,46 @@
     "-8.50809e+00",
     "1.00000e+00",
     "0.2"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null,
+    null,
+    15
    ]
   },
   "hyb_gga_xc_wb97x_d3": {
@@ -4550,6 +7340,46 @@
     "-8.879494",
     "1.000000",
     "0.25"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null,
+    null,
+    15
    ]
   },
   "hyb_gga_xc_wb97x_v": {
@@ -4590,6 +7420,46 @@
     "0.0",
     "1.219",
     "0.3"
+   ],
+   "ext_names": [
+    "_cx0",
+    "_cx1",
+    "_cx2",
+    "_cx3",
+    "_cx4",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cos0",
+    "_cos1",
+    "_cos2",
+    "_cos3",
+    "_cos4",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13,
+    null,
+    null,
+    15
    ]
   },
   "hyb_lda_x_erf": {
@@ -4600,6 +7470,12 @@
    ],
    "values": [
     "0.3"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "hyb_lda_xc_bn05": {
@@ -4610,6 +7486,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "hyb_mgga_x_bmk": {
@@ -4634,13 +7516,37 @@
     "22.4891",
     "-0.192212",
     "0.474302"
+   ],
+   "ext_names": [
+    "_cxl0",
+    "_cxl1",
+    "_cxl2",
+    "_cxl3",
+    "_cxnl0",
+    "_cxnl1",
+    "_cxnl2",
+    "_cxnl3",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    7,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5,
+    null
    ]
   },
   "hyb_mgga_x_dldf": {
    "family": "mgga",
    "base_kernel": "hyb_mgga_x_dldf",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "hyb_mgga_x_js18": {
    "family": "mgga",
@@ -4652,6 +7558,14 @@
    "values": [
     "0.33",
     "0.1"
+   ],
+   "ext_names": [
+    "_a",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "hyb_mgga_x_m05": {
@@ -4686,6 +7600,38 @@
     "3.64802",
     "34.02248",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_csi_HF",
+    "_cx"
+   ],
+   "ext_to_kernel": [
+    12,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    0,
+    null
    ]
   },
   "hyb_mgga_x_m05_2x": {
@@ -4720,6 +7666,38 @@
     "-13.22205",
     "15.23694",
     "1.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_csi_HF",
+    "_cx"
+   ],
+   "ext_to_kernel": [
+    12,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    0,
+    null
    ]
   },
   "hyb_mgga_x_m06": {
@@ -4764,6 +7742,48 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5",
+    "_X"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    null
    ]
   },
   "hyb_mgga_x_m06_2x": {
@@ -4798,6 +7818,38 @@
     "1.522808e+01",
     "1.522227e+01",
     "4.600000e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_csi_HF",
+    "_cx"
+   ],
+   "ext_to_kernel": [
+    12,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    0,
+    null
    ]
   },
   "hyb_mgga_x_m06_hf": {
@@ -4842,6 +7894,48 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5",
+    "_X"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    null
    ]
   },
   "hyb_mgga_x_m06_sx": {
@@ -4886,6 +7980,50 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "b3",
+    "_b4",
+    "_b5",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    null,
+    null
    ]
   },
   "hyb_mgga_x_m08_hx": {
@@ -4942,6 +8080,60 @@
     "1.6587868e+01",
     "1.3993203e+01",
     "-8.5631823e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    null
    ]
   },
   "hyb_mgga_x_m08_so": {
@@ -4998,6 +8190,60 @@
     "2.0890272e+01",
     "1.0946903e+01",
     "7.8098428e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    null
    ]
   },
   "hyb_mgga_x_m11": {
@@ -5056,6 +8302,64 @@
     "0.00000000e+00",
     "0.75599900e+00",
     "0.25"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    null,
+    null,
+    24
    ]
   },
   "hyb_mgga_x_mn12_sx": {
@@ -5144,6 +8448,96 @@
     "1.100161e+00",
     "1.517278e+00",
     "5.226556e-01"
+   ],
+   "ext_names": [
+    "_CC000",
+    "_CC001",
+    "_CC002",
+    "_CC003",
+    "_CC004",
+    "_CC005",
+    "_CC010",
+    "_CC011",
+    "_CC012",
+    "_CC013",
+    "_CC014",
+    "_CC020",
+    "_CC021",
+    "_CC022",
+    "_CC023",
+    "_CC030",
+    "_CC031",
+    "_CC032",
+    "_CC100",
+    "_CC101",
+    "_CC102",
+    "_CC103",
+    "_CC104",
+    "_CC110",
+    "_CC111",
+    "_CC112",
+    "_CC113",
+    "_CC120",
+    "_CC121",
+    "_CC122",
+    "_CC200",
+    "_CC201",
+    "_CC202",
+    "_CC203",
+    "_CC210",
+    "_CC211",
+    "_CC212",
+    "_CC300",
+    "_CC301",
+    "_CC302",
+    "_ax",
+    "_sx",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    39,
+    0,
+    1,
+    2,
+    3,
+    4,
+    9,
+    5,
+    6,
+    7,
+    8,
+    13,
+    10,
+    11,
+    12,
+    16,
+    14,
+    15,
+    21,
+    17,
+    18,
+    19,
+    20,
+    25,
+    22,
+    23,
+    24,
+    28,
+    26,
+    27,
+    32,
+    29,
+    30,
+    31,
+    35,
+    33,
+    34,
+    38,
+    36,
+    37,
+    null,
+    null,
+    null
    ]
   },
   "hyb_mgga_x_mn15": {
@@ -5232,6 +8626,92 @@
     "-3.562354535",
     "0.630701064",
     "0.073852235"
+   ],
+   "ext_names": [
+    "_CC000",
+    "_CC001",
+    "_CC002",
+    "_CC003",
+    "_CC004",
+    "_CC005",
+    "_CC010",
+    "_CC011",
+    "_CC012",
+    "_CC013",
+    "_CC014",
+    "_CC020",
+    "_CC021",
+    "_CC022",
+    "_CC023",
+    "_CC030",
+    "_CC031",
+    "_CC032",
+    "_CC100",
+    "_CC101",
+    "_CC102",
+    "_CC103",
+    "_CC104",
+    "_CC110",
+    "_CC111",
+    "_CC112",
+    "_CC113",
+    "_CC120",
+    "_CC121",
+    "_CC122",
+    "_CC200",
+    "_CC201",
+    "_CC202",
+    "_CC203",
+    "_CC210",
+    "_CC211",
+    "_CC212",
+    "_CC300",
+    "_CC301",
+    "_CC302",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    39,
+    0,
+    1,
+    2,
+    3,
+    4,
+    9,
+    5,
+    6,
+    7,
+    8,
+    13,
+    10,
+    11,
+    12,
+    16,
+    14,
+    15,
+    21,
+    17,
+    18,
+    19,
+    20,
+    25,
+    22,
+    23,
+    24,
+    28,
+    26,
+    27,
+    32,
+    29,
+    30,
+    31,
+    35,
+    33,
+    34,
+    38,
+    36,
+    37,
+    null
    ]
   },
   "hyb_mgga_x_pjs18": {
@@ -5242,6 +8722,12 @@
    ],
    "values": [
     "0.33"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "hyb_mgga_x_revm06": {
@@ -5286,6 +8772,48 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5",
+    "_X"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    null
    ]
   },
   "hyb_mgga_x_revm11": {
@@ -5344,6 +8872,64 @@
     "0.0000000000e+00",
     "1.1038860885e+00",
     "0.40"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    null,
+    null,
+    24
    ]
   },
   "hyb_mgga_x_tau_hcth": {
@@ -5368,19 +8954,45 @@
     "-10.909",
     "-0.00230",
     "0.86735"
+   ],
+   "ext_names": [
+    "_cxl0",
+    "_cxl1",
+    "_cxl2",
+    "_cxl3",
+    "_cxnl0",
+    "_cxnl1",
+    "_cxnl2",
+    "_cxnl3",
+    "_ax"
+   ],
+   "ext_to_kernel": [
+    7,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5,
+    null
    ]
   },
   "hyb_mgga_xc_b0kcis": {
    "family": "mgga",
    "base_kernel": "mgga_c_kcis",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "hyb_mgga_xc_b98": {
    "family": "mgga",
    "base_kernel": "mgga_xc_b98",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "hyb_mgga_xc_gas22": {
    "family": "mgga",
@@ -5416,6 +9028,42 @@
     "-1.76098915061634",
     "0.805124374375355",
     "0.3"
+   ],
+   "ext_names": [
+    "_cx00",
+    "_cx01",
+    "_cx10",
+    "_css00",
+    "_css04",
+    "_css10",
+    "_css20",
+    "_css43",
+    "_cos00",
+    "_cos10",
+    "_cos20",
+    "_cos21",
+    "_cos60",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    12,
+    8,
+    9,
+    10,
+    11,
+    null,
+    null,
+    13
    ]
   },
   "hyb_mgga_xc_wb97m_v": {
@@ -5454,6 +9102,44 @@
     "9.142",
     "1.0",
     "0.3"
+   ],
+   "ext_names": [
+    "_cx00",
+    "_cx01",
+    "_cx10",
+    "_css00",
+    "_css04",
+    "_css10",
+    "_css20",
+    "_css43",
+    "_cos00",
+    "_cos10",
+    "_cos20",
+    "_cos21",
+    "_cos60",
+    "_cos61",
+    "_alpha",
+    "_beta",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1,
+    7,
+    3,
+    4,
+    5,
+    6,
+    13,
+    8,
+    9,
+    10,
+    11,
+    12,
+    null,
+    null,
+    14
    ]
   },
   "lda_c_1d_csc": {
@@ -5502,19 +9188,25 @@
     "3.0",
     "0.12856",
     "5.24"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_c_1d_loos": {
    "family": "lda",
    "base_kernel": "lda_c_1d_loos",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_2d_amgb": {
    "family": "lda",
    "base_kernel": "lda_c_2d_amgb",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_2d_prm": {
    "family": "lda",
@@ -5526,7 +9218,9 @@
    "values": [
     "2.0",
     "0.10183793993557394"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_c_br78": {
    "family": "lda",
@@ -5538,6 +9232,14 @@
    "values": [
     "-0.02893830717448337",
     "0.2838847933816818"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_chachiyo": {
@@ -5558,6 +9260,22 @@
     "20.4562557",
     "27.4203609",
     "20.4562557"
+   ],
+   "ext_names": [
+    "_ap",
+    "_bp",
+    "_cp",
+    "_af",
+    "_bf",
+    "_cf"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    5,
+    0,
+    2,
+    4
    ]
   },
   "lda_c_chachiyo_mod": {
@@ -5578,13 +9296,31 @@
     "20.4562557",
     "27.4203609",
     "20.4562557"
+   ],
+   "ext_names": [
+    "_ap",
+    "_bp",
+    "_cp",
+    "_af",
+    "_bf",
+    "_cf"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    5,
+    0,
+    2,
+    4
    ]
   },
   "lda_c_gk72": {
    "family": "lda",
    "base_kernel": "lda_c_gk72",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_gl": {
    "family": "lda",
@@ -5600,13 +9336,27 @@
     "11.4",
     "0.0203",
     "15.9"
+   ],
+   "ext_names": [
+    "_r0",
+    "_r1",
+    "_c0",
+    "_c1"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    0,
+    2
    ]
   },
   "lda_c_gombas": {
    "family": "lda",
    "base_kernel": "lda_c_gombas",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_hl": {
    "family": "lda",
@@ -5622,6 +9372,18 @@
     "21.0",
     "0.0225",
     "21.0"
+   ],
+   "ext_names": [
+    "_r0",
+    "_r1",
+    "_c0",
+    "_c1"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    0,
+    2
    ]
   },
   "lda_c_karasiev": {
@@ -5642,6 +9404,22 @@
     "21.7392245",
     "27.4203609",
     "20.4562557"
+   ],
+   "ext_names": [
+    "_ap",
+    "_bp",
+    "_cp",
+    "_af",
+    "_bf",
+    "_cf"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    5,
+    0,
+    2,
+    4
    ]
   },
   "lda_c_karasiev_mod": {
@@ -5662,6 +9440,22 @@
     "21.7392245",
     "27.4203609",
     "20.4562557"
+   ],
+   "ext_names": [
+    "_ap",
+    "_bp",
+    "_cp",
+    "_af",
+    "_bf",
+    "_cf"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    5,
+    0,
+    2,
+    4
    ]
   },
   "lda_c_lp96": {
@@ -5676,6 +9470,16 @@
     "-0.0603",
     "0.0175",
     "-0.00053"
+   ],
+   "ext_names": [
+    "_C1",
+    "_C2",
+    "_C3"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "lda_c_mcweeny": {
@@ -5688,6 +9492,14 @@
    "values": [
     "-0.21057382583143244",
     "2.0324585669249857"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_ml1": {
@@ -5700,6 +9512,14 @@
    "values": [
     "0.2026",
     "0.084"
+   ],
+   "ext_names": [
+    "_fc",
+    "_q"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_ml2": {
@@ -5712,6 +9532,14 @@
    "values": [
     "0.266",
     "0.5"
+   ],
+   "ext_names": [
+    "_fc",
+    "_q"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_ob_pw": {
@@ -5764,6 +9592,54 @@
     "-0.56043",
     "1.0",
     "0.11313"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_ob_pz": {
@@ -5800,6 +9676,38 @@
     "0.00329",
     "-0.00300",
     "-0.025599"
+   ],
+   "ext_names": [
+    "_gamma0",
+    "_gamma1",
+    "_beta10",
+    "_beta11",
+    "_beta20",
+    "_beta21",
+    "_a0",
+    "_a1",
+    "_b0",
+    "_b1",
+    "_c0",
+    "_c1",
+    "_d0",
+    "_d1"
+   ],
+   "ext_to_kernel": [
+    0,
+    7,
+    1,
+    8,
+    2,
+    9,
+    3,
+    10,
+    6,
+    13,
+    4,
+    11,
+    5,
+    12
    ]
   },
   "lda_c_ow": {
@@ -5812,6 +9720,14 @@
    "values": [
     "-0.09349695077738808",
     "1.777508569912321"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_ow_lyp": {
@@ -5824,13 +9740,23 @@
    "values": [
     "-0.08741787146828796",
     "1.777508569912321"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_pk09": {
    "family": "lda",
    "base_kernel": "lda_c_pk09",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_pmgb06": {
    "family": "lda",
@@ -5840,6 +9766,12 @@
    ],
    "values": [
     "0.3"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_c_pw": {
@@ -5892,6 +9824,54 @@
     "3.3662",
     "1.0",
     "0.62517"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_pw_erf": {
@@ -5902,6 +9882,12 @@
    ],
    "values": [
     "0.5"
+   ],
+   "ext_names": [
+    "short_range_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_c_pw_mod": {
@@ -5954,6 +9940,54 @@
     "3.3662",
     "1.0",
     "0.62517"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_pw_rpa": {
@@ -6006,6 +10040,54 @@
     "0.15180",
     "0.75",
     "0.082349"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_pz": {
@@ -6042,6 +10124,38 @@
     "0.0007",
     "-0.0048",
     "-0.0269"
+   ],
+   "ext_names": [
+    "_gamma0",
+    "_gamma1",
+    "_beta10",
+    "_beta11",
+    "_beta20",
+    "_beta21",
+    "_a0",
+    "_a1",
+    "_b0",
+    "_b1",
+    "_c0",
+    "_c1",
+    "_d0",
+    "_d1"
+   ],
+   "ext_to_kernel": [
+    0,
+    7,
+    1,
+    8,
+    2,
+    9,
+    3,
+    10,
+    6,
+    13,
+    4,
+    11,
+    5,
+    12
    ]
   },
   "lda_c_pz_mod": {
@@ -6078,19 +10192,55 @@
     "0.00069255121311694",
     "-0.00480126353790614",
     "-0.0269"
+   ],
+   "ext_names": [
+    "_gamma0",
+    "_gamma1",
+    "_beta10",
+    "_beta11",
+    "_beta20",
+    "_beta21",
+    "_a0",
+    "_a1",
+    "_b0",
+    "_b1",
+    "_c0",
+    "_c1",
+    "_d0",
+    "_d1"
+   ],
+   "ext_to_kernel": [
+    0,
+    7,
+    1,
+    8,
+    2,
+    9,
+    3,
+    10,
+    6,
+    13,
+    4,
+    11,
+    5,
+    12
    ]
   },
   "lda_c_rc04": {
    "family": "lda",
    "base_kernel": "lda_c_rc04",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_rpa": {
    "family": "lda",
    "base_kernel": "lda_c_rpa",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_rpw92": {
    "family": "lda",
@@ -6142,6 +10292,54 @@
     "4.86059",
     "1.0",
     "0.750188"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_upw92": {
@@ -6194,6 +10392,54 @@
     "4.78287",
     "1.0",
     "0.750424"
+   ],
+   "ext_names": [
+    "_pp[0]",
+    "_pp[1]",
+    "_pp[2]",
+    "_a[0]",
+    "_a[1]",
+    "_a[2]",
+    "_alpha1[0]",
+    "_alpha1[1]",
+    "_alpha1[2]",
+    "_beta1[0]",
+    "_beta1[1]",
+    "_beta1[2]",
+    "_beta2[0]",
+    "_beta2[1]",
+    "_beta2[2]",
+    "_beta3[0]",
+    "_beta3[1]",
+    "_beta3[2]",
+    "_beta4[0]",
+    "_beta4[1]",
+    "_beta4[2]",
+    "_fz20"
+   ],
+   "ext_to_kernel": [
+    5,
+    20,
+    12,
+    0,
+    15,
+    7,
+    1,
+    16,
+    8,
+    2,
+    17,
+    9,
+    3,
+    18,
+    10,
+    4,
+    19,
+    11,
+    6,
+    21,
+    13,
+    14
    ]
   },
   "lda_c_vbh": {
@@ -6210,49 +10456,75 @@
     "30.0",
     "0.0127",
     "75.0"
+   ],
+   "ext_names": [
+    "_r0",
+    "_r1",
+    "_c0",
+    "_c1"
+   ],
+   "ext_to_kernel": [
+    1,
+    3,
+    0,
+    2
    ]
   },
   "lda_c_vwn": {
    "family": "lda",
    "base_kernel": "lda_c_vwn",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_vwn_1": {
    "family": "lda",
    "base_kernel": "lda_c_vwn_1",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_vwn_2": {
    "family": "lda",
    "base_kernel": "lda_c_vwn_2",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_vwn_3": {
    "family": "lda",
    "base_kernel": "lda_c_vwn_3",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_vwn_4": {
    "family": "lda",
    "base_kernel": "lda_c_vwn_4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_vwn_rpa": {
    "family": "lda",
    "base_kernel": "lda_c_vwn_rpa",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_w20": {
    "family": "lda",
    "base_kernel": "lda_c_w20",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_c_wigner": {
    "family": "lda",
@@ -6264,6 +10536,14 @@
    "values": [
     "-0.44",
     "7.8"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_c_xalpha": {
@@ -6274,7 +10554,9 @@
    ],
    "values": [
     "0.5"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_k_gds08_worker": {
    "family": "lda",
@@ -6288,7 +10570,9 @@
     "0.860",
     "0.224",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_k_lp": {
    "family": "lda",
@@ -6298,7 +10582,9 @@
    ],
    "values": [
     "1.142427709758666675644309251677891925671"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_k_lp96": {
    "family": "lda",
@@ -6312,6 +10598,16 @@
     "0.03777",
     "-0.01002",
     "0.00039"
+   ],
+   "ext_names": [
+    "_C1",
+    "_C2",
+    "_C3"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "lda_k_tf": {
@@ -6322,13 +10618,17 @@
    ],
    "values": [
     "1.104950565705860002098832079519635692942"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_k_zlp": {
    "family": "lda",
    "base_kernel": "lda_k_zlp",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_x": {
    "family": "lda",
@@ -6338,7 +10638,9 @@
    ],
    "values": [
     "1.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_x_1d_exponential": {
    "family": "lda",
@@ -6348,6 +10650,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "beta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_x_1d_soft": {
@@ -6358,13 +10666,21 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "beta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_x_2d": {
    "family": "lda",
    "base_kernel": "lda_x_2d",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_x_erf": {
    "family": "lda",
@@ -6374,6 +10690,12 @@
    ],
    "values": [
     "0.3"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_x_rae": {
@@ -6384,13 +10706,17 @@
    ],
    "values": [
     "0.06130908237864922"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_x_rel": {
    "family": "lda",
    "base_kernel": "lda_x_rel",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_x_sloc": {
    "family": "lda",
@@ -6402,6 +10728,14 @@
    "values": [
     "1.67",
     "0.3"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_x_yukawa": {
@@ -6412,6 +10746,12 @@
    ],
    "values": [
     "0.3"
+   ],
+   "ext_names": [
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "lda_xc_1d_ehwlrg_1": {
@@ -6428,7 +10768,9 @@
     "-0.47",
     "-0.803",
     "0.638"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_1d_ehwlrg_2": {
    "family": "lda",
@@ -6444,7 +10786,9 @@
     "-0.38",
     "-0.74",
     "0.604"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_1d_ehwlrg_3": {
    "family": "lda",
@@ -6460,7 +10804,9 @@
     "-0.48",
     "-0.77",
     "0.61"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_corrksdt": {
    "family": "lda",
@@ -6544,7 +10890,9 @@
     "103.861695",
     "17.75071",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_gdsmfb": {
    "family": "lda",
@@ -6628,7 +10976,9 @@
     "8.3269821188",
     "0.218864952126",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_ksdt": {
    "family": "lda",
@@ -6712,7 +11062,9 @@
     "103.861695",
     "17.75071",
     "0.0"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "lda_xc_lp_a": {
    "family": "lda",
@@ -6724,6 +11076,14 @@
    "values": [
     "-0.5351143334498224",
     "0.0"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_xc_lp_b": {
@@ -6736,31 +11096,47 @@
    "values": [
     "-0.5620375447548563",
     "0.013639646243405107"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "lda_xc_teter93": {
    "family": "lda",
    "base_kernel": "lda_xc_teter93",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_xc_tih": {
    "family": "lda",
    "base_kernel": "lda_xc_tih",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "lda_xc_zlp": {
    "family": "lda",
    "base_kernel": "lda_xc_zlp",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_b88": {
    "family": "mgga",
    "base_kernel": "mgga_c_b88",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_b94": {
    "family": "mgga",
@@ -6774,6 +11150,16 @@
     "0.63",
     "0.88",
     "1.0"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_css",
+    "_cab"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    0
    ]
   },
   "mgga_c_bc95": {
@@ -6786,13 +11172,23 @@
    "values": [
     "0.0031",
     "0.038"
+   ],
+   "ext_names": [
+    "_css",
+    "_copp"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "mgga_c_cc": {
    "family": "mgga",
    "base_kernel": "mgga_c_cc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_ccalda": {
    "family": "mgga",
@@ -6802,13 +11198,21 @@
    ],
    "values": [
     "10000.0"
+   ],
+   "ext_names": [
+    "_c"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_c_cs": {
    "family": "mgga",
    "base_kernel": "mgga_c_cs",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_dldf": {
    "family": "mgga",
@@ -6842,6 +11246,36 @@
     "0.0",
     "0.0",
     "1.00000e0"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    6
    ]
   },
   "mgga_c_hltapw": {
@@ -6852,19 +11286,29 @@
    ],
    "values": [
     "0.5"
+   ],
+   "ext_names": [
+    "_ltafrac"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_c_kcis": {
    "family": "mgga",
    "base_kernel": "mgga_c_kcis",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_kcisk": {
    "family": "mgga",
    "base_kernel": "mgga_c_kcisk",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_m05": {
    "family": "mgga",
@@ -6898,6 +11342,36 @@
     "-7.46589e0",
     "17.94491e0",
     "1.00000e0"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    6
    ]
   },
   "mgga_c_m05_2x": {
@@ -6932,6 +11406,36 @@
     "2.82810e0",
     "-10.58909e0",
     "1.00000e0"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    6
    ]
   },
   "mgga_c_m06": {
@@ -6994,6 +11498,64 @@
     "1.918681e-03",
     "-2.032902e-03",
     "0.000000e+00"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_m06_2x": {
@@ -7056,6 +11618,64 @@
     "6.720580e-05",
     "8.448011e-04",
     "0.000000e+00"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_m06_hf": {
@@ -7118,6 +11738,64 @@
     "-1.292037e-03",
     "-2.352983e-04",
     "0.000000e+00"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_m06_l": {
@@ -7180,6 +11858,64 @@
     "9.831442e-04",
     "-3.577176e-03",
     "0.000000e+00"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_m06_sx": {
@@ -7242,6 +11978,64 @@
     "0.0",
     "0.0",
     "4.87276242162303E-04"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_m08_hx": {
@@ -7298,6 +12092,58 @@
     "-4.3430813e+02",
     "5.6627964e+01",
     "1.3812334e+00"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_m08_so": {
@@ -7354,6 +12200,58 @@
     "5.6676300e+01",
     "3.1673746e+02",
     "1.0000000e+00"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_m11": {
@@ -7410,6 +12308,58 @@
     "-1.1459868e+02",
     "0.0000000e+00",
     "7.2239798e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_m11_l": {
@@ -7466,6 +12416,58 @@
     "0.000000e+00",
     "0.000000e+00",
     "1.000000e+00"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_mn12_l": {
@@ -7522,6 +12524,58 @@
     "0.000000e+00",
     "0.000000e+00",
     "5.323948e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_mn12_sx": {
@@ -7578,6 +12632,58 @@
     "0.000000e+00",
     "0.000000e+00",
     "4.663699e-01"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_mn15": {
@@ -7634,6 +12740,58 @@
     "0.0",
     "0.0",
     "1.427424993"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_mn15_l": {
@@ -7690,13 +12848,67 @@
     "0.0",
     "0.0",
     "0.819504932"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_pkzb": {
    "family": "mgga",
    "base_kernel": "mgga_c_pkzb",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_r2scan": {
    "family": "mgga",
@@ -7706,6 +12918,12 @@
    ],
    "values": [
     "0.001"
+   ],
+   "ext_names": [
+    "_eta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_c_r2scan01": {
@@ -7716,6 +12934,12 @@
    ],
    "values": [
     "0.01"
+   ],
+   "ext_names": [
+    "_eta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_c_revm06": {
@@ -7778,6 +13002,64 @@
     "0.0",
     "0.0",
     "0.0004076285162"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_revm06_l": {
@@ -7840,6 +13122,64 @@
     "0.0",
     "0.0",
     "0.001260132"
+   ],
+   "ext_names": [
+    "_gamma_ss",
+    "_gamma_ab",
+    "_alpha_ss",
+    "_alpha_ab",
+    "_css0",
+    "_css1",
+    "_css2",
+    "_css3",
+    "_css4",
+    "_cab0",
+    "_cab1",
+    "_cab2",
+    "_cab3",
+    "_cab4",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5",
+    "_Fermi_D_cnst"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    14,
+    21,
+    5,
+    0,
+    2,
+    3,
+    4,
+    12,
+    7,
+    9,
+    10,
+    11,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    6
    ]
   },
   "mgga_c_revm11": {
@@ -7896,13 +13236,67 @@
     "0.00000000000e+00",
     "0.00000000000e+00",
     "0.97328390240e+00"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
    ]
   },
   "mgga_c_revscan": {
    "family": "mgga",
    "base_kernel": "mgga_c_revscan",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_revtm": {
    "family": "mgga",
@@ -7920,6 +13314,20 @@
     "0.32",
     "0.0",
     "2.8"
+   ],
+   "ext_names": [
+    "_d",
+    "_C0_c0",
+    "_C0_c1",
+    "_C0_c2",
+    "_C0_c3"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_c_revtpss": {
@@ -7938,13 +13346,29 @@
     "0.6225",
     "2.1540",
     "2.8"
+   ],
+   "ext_names": [
+    "_d",
+    "_C0_c0",
+    "_C0_c1",
+    "_C0_c2",
+    "_C0_c3"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_c_rmggac": {
    "family": "mgga",
    "base_kernel": "mgga_c_rmggac",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_rppscan": {
    "family": "mgga",
@@ -7954,25 +13378,37 @@
    ],
    "values": [
     "0.001"
+   ],
+   "ext_names": [
+    "_eta"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_c_rregtm": {
    "family": "mgga",
    "base_kernel": "mgga_c_rregtm",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_rscan": {
    "family": "mgga",
    "base_kernel": "mgga_c_rscan",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_scan": {
    "family": "mgga",
    "base_kernel": "mgga_c_scan",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_tm": {
    "family": "mgga",
@@ -7992,6 +13428,22 @@
     "0.0",
     "0.06672455060314922",
     "2.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_d",
+    "_C0_c0",
+    "_C0_c1",
+    "_C0_c2",
+    "_C0_c3"
+   ],
+   "ext_to_kernel": [
+    4,
+    5,
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_c_tpss": {
@@ -8012,6 +13464,22 @@
     "2.26",
     "0.06672455060314922",
     "2.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_d",
+    "_C0_c0",
+    "_C0_c1",
+    "_C0_c2",
+    "_C0_c3"
+   ],
+   "ext_to_kernel": [
+    4,
+    5,
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_c_tpss_gaussian": {
@@ -8032,13 +13500,31 @@
     "2.26",
     "0.0667263212",
     "2.8"
+   ],
+   "ext_names": [
+    "_beta",
+    "_d",
+    "_C0_c0",
+    "_C0_c1",
+    "_C0_c2",
+    "_C0_c3"
+   ],
+   "ext_to_kernel": [
+    4,
+    5,
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_c_tpssloc": {
    "family": "mgga",
    "base_kernel": "mgga_c_tpssloc",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_c_vsxc": {
    "family": "mgga",
@@ -8074,6 +13560,38 @@
     "3.394308e-05",
     "-1.269420e-03",
     "1.296118e-03"
+   ],
+   "ext_names": [
+    "_alpha_ss",
+    "_alpha_os",
+    "_dss0",
+    "_dss1",
+    "_dss2",
+    "_dss3",
+    "_dss4",
+    "_dss5",
+    "_dab0",
+    "_dab1",
+    "_dab2",
+    "_dab3",
+    "_dab4",
+    "_dab5"
+   ],
+   "ext_to_kernel": [
+    1,
+    8,
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13
    ]
   },
   "mgga_k_csk1": {
@@ -8084,6 +13602,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_a"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_k_csk4": {
@@ -8094,6 +13618,12 @@
    ],
    "values": [
     "4.0"
+   ],
+   "ext_names": [
+    "_a"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_k_csk_loc1": {
@@ -8108,6 +13638,16 @@
     "-0.275",
     "2.895",
     "1.0"
+   ],
+   "ext_names": [
+    "_a",
+    "_cp",
+    "_cq"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "mgga_k_csk_loc4": {
@@ -8122,19 +13662,33 @@
     "-0.275",
     "2.895",
     "4.0"
+   ],
+   "ext_names": [
+    "_a",
+    "_cp",
+    "_cq"
+   ],
+   "ext_to_kernel": [
+    2,
+    0,
+    1
    ]
   },
   "mgga_k_gea2": {
    "family": "mgga",
    "base_kernel": "mgga_k_gea2",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_k_gea4": {
    "family": "mgga",
    "base_kernel": "mgga_k_gea4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_k_l04": {
    "family": "mgga",
@@ -8144,6 +13698,12 @@
    ],
    "values": [
     "0.402"
+   ],
+   "ext_names": [
+    "_kappa"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_k_l06": {
@@ -8154,6 +13714,12 @@
    ],
    "values": [
     "0.623"
+   ],
+   "ext_names": [
+    "_kappa"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_k_pc07": {
@@ -8166,6 +13732,14 @@
    "values": [
     "0.5389",
     "3"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_k_pc07_opt": {
@@ -8178,6 +13752,14 @@
    "values": [
     "1.784720",
     "0.258304"
+   ],
+   "ext_names": [
+    "_a",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_k_pgsl025": {
@@ -8190,6 +13772,14 @@
    "values": [
     "1.4814814814814814",
     "0.25"
+   ],
+   "ext_names": [
+    "_mu",
+    "_beta"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_k_rda": {
@@ -8218,25 +13808,55 @@
     "0.56184",
     "0.21944",
     "-0.90346"
+   ],
+   "ext_names": [
+    "_A0",
+    "_A1",
+    "_A2",
+    "_A3",
+    "_beta1",
+    "_beta2",
+    "_beta3",
+    "_a",
+    "_b",
+    "_c"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7,
+    8,
+    4,
+    5,
+    9
    ]
   },
   "mgga_x_2d_js17": {
    "family": "mgga",
    "base_kernel": "mgga_x_2d_js17",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_2d_prhg07": {
    "family": "mgga",
    "base_kernel": "mgga_x_2d_prhg07",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_2d_prhg07_prp10": {
    "family": "mgga",
    "base_kernel": "mgga_x_2d_prp10",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_b00": {
    "family": "mgga",
@@ -8248,6 +13868,14 @@
    "values": [
     "0.928",
     "1.0"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_at"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "mgga_x_bj06": {
@@ -8260,6 +13888,14 @@
    "values": [
     "1.0",
     "0.0"
+   ],
+   "ext_names": [
+    "c",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_x_bloc": {
@@ -8282,6 +13918,24 @@
     "1.537",
     "0.804",
     "0.21951"
+   ],
+   "ext_names": [
+    "_b",
+    "_c",
+    "_e",
+    "_kappa",
+    "_mu",
+    "_BLOC_a",
+    "_BLOC_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    1
    ]
   },
   "mgga_x_br89": {
@@ -8294,6 +13948,14 @@
    "values": [
     "0.0",
     "0.8"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_at"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "mgga_x_br89_1": {
@@ -8306,6 +13968,14 @@
    "values": [
     "0.0",
     "1.0"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_at"
+   ],
+   "ext_to_kernel": [
+    1,
+    0
    ]
   },
   "mgga_x_br89_explicit": {
@@ -8316,6 +13986,12 @@
    ],
    "values": [
     "0.8"
+   ],
+   "ext_names": [
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_br89_explicit_1": {
@@ -8326,13 +14002,21 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_edmgga": {
    "family": "mgga",
    "base_kernel": "mgga_x_edmgga",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_ft98": {
    "family": "mgga",
@@ -8352,6 +14036,22 @@
     "0.00003904539",
     "0.398773",
     "66.364138"
+   ],
+   "ext_names": [
+    "_a",
+    "_b",
+    "_a1",
+    "_a2",
+    "_b1",
+    "_b2"
+   ],
+   "ext_to_kernel": [
+    0,
+    3,
+    1,
+    2,
+    4,
+    5
    ]
   },
   "mgga_x_gdme_0": {
@@ -8366,6 +14066,16 @@
     "0.0",
     "7.0685834705770345",
     "9.16297857297023"
+   ],
+   "ext_names": [
+    "_a",
+    "_AA",
+    "_BB"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "mgga_x_gdme_kos": {
@@ -8380,6 +14090,16 @@
     "0.00638",
     "7.0685834705770345",
     "9.16297857297023"
+   ],
+   "ext_names": [
+    "_a",
+    "_AA",
+    "_BB"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "mgga_x_gdme_nv": {
@@ -8394,6 +14114,16 @@
     "0.5",
     "7.0685834705770345",
     "9.16297857297023"
+   ],
+   "ext_names": [
+    "_a",
+    "_AA",
+    "_BB"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "mgga_x_gdme_vt": {
@@ -8408,13 +14138,25 @@
     "0.0",
     "7.31275",
     "5.43182"
+   ],
+   "ext_names": [
+    "_a",
+    "_AA",
+    "_BB"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "mgga_x_gvt4": {
    "family": "mgga",
    "base_kernel": "mgga_x_gvt4",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_gx": {
    "family": "mgga",
@@ -8428,6 +14170,16 @@
     "0.827411",
     "-0.643560",
     "0.852"
+   ],
+   "ext_names": [
+    "_c0",
+    "_c1",
+    "_alphainf"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2
    ]
   },
   "mgga_x_hlta": {
@@ -8438,6 +14190,12 @@
    ],
    "values": [
     "0.5"
+   ],
+   "ext_names": [
+    "_ltafrac"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_jk": {
@@ -8450,6 +14208,14 @@
    "values": [
     "0.0586",
     "6.0"
+   ],
+   "ext_names": [
+    "_beta",
+    "_gamma"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_x_lta": {
@@ -8460,6 +14226,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_ltafrac"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_m06_l": {
@@ -8504,6 +14276,46 @@
     "-0.000009308062",
     "0.00004482811",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
    ]
   },
   "mgga_x_m11_l": {
@@ -8610,19 +14422,125 @@
     "0.000000e+00",
     "1.438662e+00",
     "0.25"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_b0",
+    "_b1",
+    "_b2",
+    "_b3",
+    "_b4",
+    "_b5",
+    "_b6",
+    "_b7",
+    "_b8",
+    "_b9",
+    "_b10",
+    "_b11",
+    "_c0",
+    "_c1",
+    "_c2",
+    "_c3",
+    "_c4",
+    "_c5",
+    "_c6",
+    "_c7",
+    "_c8",
+    "_c9",
+    "_c10",
+    "_c11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5",
+    "_d6",
+    "_d7",
+    "_d8",
+    "_d9",
+    "_d10",
+    "_d11",
+    "_omega"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    23,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    35,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    47,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    48
    ]
   },
   "mgga_x_mbeef": {
    "family": "mgga",
    "base_kernel": "mgga_x_mbeef",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mbeefvdw": {
    "family": "mgga",
    "base_kernel": "mgga_x_mbeefvdw",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mbr": {
    "family": "mgga",
@@ -8636,31 +14554,49 @@
     "20.0",
     "1.0",
     "0.877"
+   ],
+   "ext_names": [
+    "_gamma",
+    "_beta",
+    "_lambda"
+   ],
+   "ext_to_kernel": [
+    1,
+    0,
+    2
    ]
   },
   "mgga_x_mbrxc_bg": {
    "family": "mgga",
    "base_kernel": "mgga_x_mbrxc_bg",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mbrxh_bg": {
    "family": "mgga",
    "base_kernel": "mgga_x_mbrxh_bg",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mcml": {
    "family": "mgga",
    "base_kernel": "mgga_x_mcml",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mggac": {
    "family": "mgga",
    "base_kernel": "mgga_x_mggac",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_mk00": {
    "family": "mgga",
@@ -8670,6 +14606,12 @@
    ],
    "values": [
     "0.8"
+   ],
+   "ext_names": [
+    "_prefactor"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_mn12_l": {
@@ -8758,6 +14700,90 @@
     "-6.788000e-01",
     "6.851693e-01",
     "6.735981e-01"
+   ],
+   "ext_names": [
+    "_CC000",
+    "_CC001",
+    "_CC002",
+    "_CC003",
+    "_CC004",
+    "_CC005",
+    "_CC010",
+    "_CC011",
+    "_CC012",
+    "_CC013",
+    "_CC014",
+    "_CC020",
+    "_CC021",
+    "_CC022",
+    "_CC023",
+    "_CC030",
+    "_CC031",
+    "_CC032",
+    "_CC100",
+    "_CC101",
+    "_CC102",
+    "_CC103",
+    "_CC104",
+    "_CC110",
+    "_CC111",
+    "_CC112",
+    "_CC113",
+    "_CC120",
+    "_CC121",
+    "_CC122",
+    "_CC200",
+    "_CC201",
+    "_CC202",
+    "_CC203",
+    "_CC210",
+    "_CC211",
+    "_CC212",
+    "_CC300",
+    "_CC301",
+    "_CC302"
+   ],
+   "ext_to_kernel": [
+    39,
+    0,
+    1,
+    2,
+    3,
+    4,
+    9,
+    5,
+    6,
+    7,
+    8,
+    13,
+    10,
+    11,
+    12,
+    16,
+    14,
+    15,
+    21,
+    17,
+    18,
+    19,
+    20,
+    25,
+    22,
+    23,
+    24,
+    28,
+    26,
+    27,
+    32,
+    29,
+    30,
+    31,
+    35,
+    33,
+    34,
+    38,
+    36,
+    37
    ]
   },
   "mgga_x_mn15_l": {
@@ -8846,6 +14872,90 @@
     "-2.836037078",
     "0.584030245",
     "0.670864162"
+   ],
+   "ext_names": [
+    "_CC000",
+    "_CC001",
+    "_CC002",
+    "_CC003",
+    "_CC004",
+    "_CC005",
+    "_CC010",
+    "_CC011",
+    "_CC012",
+    "_CC013",
+    "_CC014",
+    "_CC020",
+    "_CC021",
+    "_CC022",
+    "_CC023",
+    "_CC030",
+    "_CC031",
+    "_CC032",
+    "_CC100",
+    "_CC101",
+    "_CC102",
+    "_CC103",
+    "_CC104",
+    "_CC110",
+    "_CC111",
+    "_CC112",
+    "_CC113",
+    "_CC120",
+    "_CC121",
+    "_CC122",
+    "_CC200",
+    "_CC201",
+    "_CC202",
+    "_CC203",
+    "_CC210",
+    "_CC211",
+    "_CC212",
+    "_CC300",
+    "_CC301",
+    "_CC302"
+   ],
+   "ext_to_kernel": [
+    39,
+    0,
+    1,
+    2,
+    3,
+    4,
+    9,
+    5,
+    6,
+    7,
+    8,
+    13,
+    10,
+    11,
+    12,
+    16,
+    14,
+    15,
+    21,
+    17,
+    18,
+    19,
+    20,
+    25,
+    22,
+    23,
+    24,
+    28,
+    26,
+    27,
+    32,
+    29,
+    30,
+    31,
+    35,
+    33,
+    34,
+    38,
+    36,
+    37
    ]
   },
   "mgga_x_modtpss": {
@@ -8868,6 +14978,24 @@
     "1.37",
     "0.804",
     "0.252"
+   ],
+   "ext_names": [
+    "_b",
+    "_c",
+    "_e",
+    "_kappa",
+    "_mu",
+    "_BLOC_a",
+    "_BLOC_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    1
    ]
   },
   "mgga_x_ms0": {
@@ -8882,6 +15010,16 @@
     "0.29",
     "1.0",
     "0.28771"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_c",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    1
    ]
   },
   "mgga_x_ms1": {
@@ -8896,6 +15034,16 @@
     "0.404",
     "1.0",
     "0.18150"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_c",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    1
    ]
   },
   "mgga_x_ms2": {
@@ -8910,6 +15058,16 @@
     "0.504",
     "4.0",
     "0.14601"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_c",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    1
    ]
   },
   "mgga_x_ms2_rev": {
@@ -8924,6 +15082,16 @@
     "0.504",
     "4.0",
     "0.14607"
+   ],
+   "ext_names": [
+    "_kappa",
+    "_c",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    0,
+    2,
+    1
    ]
   },
   "mgga_x_ms2b": {
@@ -8938,7 +15106,9 @@
     "0.504",
     "1.546875",
     "0.14607"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "mgga_x_ms2bs": {
    "family": "mgga",
@@ -8952,7 +15122,9 @@
     "0.6263",
     "4.3011",
     "0.12268"
-   ]
+   ],
+   "ext_names": null,
+   "ext_to_kernel": null
   },
   "mgga_x_mtask": {
    "family": "mgga",
@@ -8982,6 +15154,32 @@
     "-0.017143",
     "1.29",
     "10.0"
+   ],
+   "ext_names": [
+    "_c",
+    "_d",
+    "_h0x",
+    "_anu0",
+    "_anu1",
+    "_anu2",
+    "_bnu0",
+    "_bnu1",
+    "_bnu2",
+    "_bnu3",
+    "_bnu4"
+   ],
+   "ext_to_kernel": [
+    0,
+    10,
+    9,
+    6,
+    7,
+    8,
+    1,
+    2,
+    3,
+    4,
+    5
    ]
   },
   "mgga_x_mvs": {
@@ -8998,6 +15196,18 @@
     "0.7438",
     "-1.6665",
     "0.174"
+   ],
+   "ext_names": [
+    "_e1",
+    "_c1",
+    "_k0",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    3,
+    0
    ]
   },
   "mgga_x_mvsb": {
@@ -9014,6 +15224,18 @@
     "7.8393",
     "-1.6665",
     "0.174"
+   ],
+   "ext_names": [
+    "_e1",
+    "_c1",
+    "_k0",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    3,
+    0
    ]
   },
   "mgga_x_mvsbs": {
@@ -9030,19 +15252,35 @@
     "6.3783",
     "-2.3800",
     "0.174"
+   ],
+   "ext_names": [
+    "_e1",
+    "_c1",
+    "_k0",
+    "_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    3,
+    0
    ]
   },
   "mgga_x_pbe_gx": {
    "family": "mgga",
    "base_kernel": "mgga_x_pbe_gx",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_pkzb": {
    "family": "mgga",
    "base_kernel": "mgga_x_pkzb",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_r2scan": {
    "family": "mgga",
@@ -9062,6 +15300,22 @@
     "0.361",
     "0.001",
     "0.065"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_d",
+    "_k1",
+    "_eta",
+    "_dp2"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    5,
+    4,
+    3
    ]
   },
   "mgga_x_r2scan01": {
@@ -9082,6 +15336,22 @@
     "0.361",
     "0.01",
     "0.065"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_d",
+    "_k1",
+    "_eta",
+    "_dp2"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    5,
+    4,
+    3
    ]
   },
   "mgga_x_r4scan": {
@@ -9106,19 +15376,43 @@
     "0.802",
     "0.001",
     "0.065"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_d",
+    "_k1",
+    "_eta",
+    "_dp2",
+    "_dp4",
+    "_da4"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    7,
+    6,
+    4,
+    5,
+    3
    ]
   },
   "mgga_x_regtm": {
    "family": "mgga",
    "base_kernel": "mgga_x_regtm",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_regtpss": {
    "family": "mgga",
    "base_kernel": "mgga_x_regtpss",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_revm06_l": {
    "family": "mgga",
@@ -9162,6 +15456,46 @@
     "0.0",
     "0.0",
     "0.0"
+   ],
+   "ext_names": [
+    "_a0",
+    "_a1",
+    "_a2",
+    "_a3",
+    "_a4",
+    "_a5",
+    "_a6",
+    "_a7",
+    "_a8",
+    "_a9",
+    "_a10",
+    "_a11",
+    "_d0",
+    "_d1",
+    "_d2",
+    "_d3",
+    "_d4",
+    "_d5"
+   ],
+   "ext_to_kernel": [
+    11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
    ]
   },
   "mgga_x_revscan": {
@@ -9178,13 +15512,27 @@
     "0.7",
     "1.37",
     "0.065"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_d",
+    "_k1"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_x_revtm": {
    "family": "mgga",
    "base_kernel": "mgga_x_revtm",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_revtpss": {
    "family": "mgga",
@@ -9206,6 +15554,24 @@
     "2.16769874",
     "0.804",
     "0.14"
+   ],
+   "ext_names": [
+    "_b",
+    "_c",
+    "_e",
+    "_kappa",
+    "_mu",
+    "_BLOC_a",
+    "_BLOC_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    1
    ]
   },
   "mgga_x_rlda": {
@@ -9216,6 +15582,12 @@
    ],
    "values": [
     "1.0"
+   ],
+   "ext_names": [
+    "_prefactor"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_rpp09": {
@@ -9228,6 +15600,14 @@
    "values": [
     "1.0",
     "1.0"
+   ],
+   "ext_names": [
+    "c",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_x_rppscan": {
@@ -9244,6 +15624,18 @@
     "1.24",
     "0.001",
     "0.065"
+   ],
+   "ext_names": [
+    "_c2",
+    "_d",
+    "_k1",
+    "_eta"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    3,
+    2
    ]
   },
   "mgga_x_rscan": {
@@ -9262,6 +15654,20 @@
     "1.24",
     "0.065",
     "1.0e-4"
+   ],
+   "ext_names": [
+    "_c2",
+    "_d",
+    "_k1",
+    "_taur",
+    "_alphar"
+   ],
+   "ext_to_kernel": [
+    1,
+    2,
+    3,
+    4,
+    0
    ]
   },
   "mgga_x_rtpss": {
@@ -9280,13 +15686,29 @@
     "1.537",
     "0.8040",
     "0.21951"
+   ],
+   "ext_names": [
+    "_b",
+    "_c",
+    "_e",
+    "_kappa",
+    "_mu"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3,
+    4
    ]
   },
   "mgga_x_sa_tpss": {
    "family": "mgga",
    "base_kernel": "mgga_x_sa_tpss",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_scan": {
    "family": "mgga",
@@ -9302,6 +15724,18 @@
     "0.8",
     "1.24",
     "0.065"
+   ],
+   "ext_names": [
+    "_c1",
+    "_c2",
+    "_d",
+    "_k1"
+   ],
+   "ext_to_kernel": [
+    0,
+    1,
+    2,
+    3
    ]
   },
   "mgga_x_task": {
@@ -9332,6 +15766,32 @@
     "-0.0150899",
     "1.174",
     "10.0"
+   ],
+   "ext_names": [
+    "_c",
+    "_d",
+    "_h0x",
+    "_anu0",
+    "_anu1",
+    "_anu2",
+    "_bnu0",
+    "_bnu1",
+    "_bnu2",
+    "_bnu3",
+    "_bnu4"
+   ],
+   "ext_to_kernel": [
+    0,
+    10,
+    9,
+    6,
+    7,
+    8,
+    1,
+    2,
+    3,
+    4,
+    5
    ]
   },
   "mgga_x_tau_hcth": {
@@ -9356,6 +15816,26 @@
     "-0.7235",
     "0.00110",
     "1.10734"
+   ],
+   "ext_names": [
+    "_cxl0",
+    "_cxl1",
+    "_cxl2",
+    "_cxl3",
+    "_cxnl0",
+    "_cxnl1",
+    "_cxnl2",
+    "_cxnl3"
+   ],
+   "ext_to_kernel": [
+    7,
+    0,
+    1,
+    2,
+    6,
+    3,
+    4,
+    5
    ]
   },
   "mgga_x_tb09": {
@@ -9368,13 +15848,23 @@
    "values": [
     "1.0",
     "0.0"
+   ],
+   "ext_names": [
+    "c",
+    "_alpha"
+   ],
+   "ext_to_kernel": [
+    0,
+    1
    ]
   },
   "mgga_x_th": {
    "family": "mgga",
    "base_kernel": "mgga_x_th",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_tlda": {
    "family": "mgga",
@@ -9384,13 +15874,21 @@
    ],
    "values": [
     "0.25"
+   ],
+   "ext_names": [
+    "_ltafrac"
+   ],
+   "ext_to_kernel": [
+    0
    ]
   },
   "mgga_x_tm": {
    "family": "mgga",
    "base_kernel": "mgga_x_tm",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_tpss": {
    "family": "mgga",
@@ -9412,19 +15910,41 @@
     "1.537",
     "0.8040",
     "0.21951"
+   ],
+   "ext_names": [
+    "_b",
+    "_c",
+    "_e",
+    "_kappa",
+    "_mu",
+    "_BLOC_a",
+    "_BLOC_b"
+   ],
+   "ext_to_kernel": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    0,
+    1
    ]
   },
   "mgga_x_vcml": {
    "family": "mgga",
    "base_kernel": "mgga_x_vcml",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_x_vt84": {
    "family": "mgga",
    "base_kernel": "mgga_x_vt84",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_xc_b97m_v": {
    "family": "mgga",
@@ -9462,25 +15982,65 @@
     "2.535",
     "-6.427",
     "1.000"
+   ],
+   "ext_names": [
+    "_cx00",
+    "_cx01",
+    "_cx02",
+    "_cx10",
+    "_cx11",
+    "_css00",
+    "_css02",
+    "_css10",
+    "_css32",
+    "_css42",
+    "_cos00",
+    "_cos01",
+    "_cos03",
+    "_cos10",
+    "_cos32"
+   ],
+   "ext_to_kernel": [
+    4,
+    0,
+    1,
+    2,
+    3,
+    9,
+    5,
+    6,
+    7,
+    8,
+    14,
+    10,
+    11,
+    12,
+    13
    ]
   },
   "mgga_xc_cc06": {
    "family": "mgga",
    "base_kernel": "mgga_xc_cc06",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_xc_lp90": {
    "family": "mgga",
    "base_kernel": "mgga_xc_lp90",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   },
   "mgga_xc_zlp": {
    "family": "mgga",
    "base_kernel": "mgga_xc_zlp",
    "params": [],
-   "values": []
+   "values": [],
+   "ext_names": [],
+   "ext_to_kernel": []
   }
  },
  "unresolved": {

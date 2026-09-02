@@ -11,6 +11,9 @@ use libxc_core::output::MggaOutput;
 
 use libxc_rkernel_mgga_x_r4scan as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 650;
+
 /// libxc default for `param_c1`.
 pub const PARAM_C1: f64 = 0.667;
 /// libxc default for `param_c2`.
@@ -27,6 +30,79 @@ pub const PARAM_DP4: f64 = 0.802;
 pub const PARAM_ETA: f64 = 0.001;
 /// libxc default for `param_k1`.
 pub const PARAM_K1: f64 = 0.065;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 8;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 8] = ["_c1", "_c2", "_d", "_k1", "_eta", "_dp2", "_dp4", "_da4"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_c1` | `param_c1` |
+/// | `_c2` | `param_c2` |
+/// | `_d` | `param_d` |
+/// | `_k1` | `param_k1` |
+/// | `_eta` | `param_eta` |
+/// | `_dp2` | `param_dp2` |
+/// | `_dp4` | `param_dp4` |
+/// | `_da4` | `param_da4` |
+pub const EXT_TO_KERNEL: [usize; 8] = [0, 1, 2, 7, 6, 4, 5, 3];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 8] = [PARAM_C1, PARAM_C2, PARAM_D, PARAM_DA4, PARAM_DP2, PARAM_DP4, PARAM_ETA, PARAM_K1];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rmgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::mgga_x_r4scan_exc_unpol],
+        [k::vxc_unpol::mgga_x_r4scan_vxc_unpol],
+        [k::fxc_unpol::mgga_x_r4scan_fxc_unpol],
+        [k::kxc_unpol::mgga_x_r4scan_kxc_unpol],
+        [k::lxc_unpol::mgga_x_r4scan_lxc_unpol],
+        [k::exc_pol::mgga_x_r4scan_exc_pol],
+        [k::vxc_pol::mgga_x_r4scan_vxc_pol],
+        [k::fxc_pol::mgga_x_r4scan_fxc_pol],
+        [k::kxc_pol::mgga_x_r4scan_kxc_pol],
+        [k::lxc_pol::mgga_x_r4scan_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+    )
+}
 
 pub fn dispatch(
     input: &MggaInput<'_>,

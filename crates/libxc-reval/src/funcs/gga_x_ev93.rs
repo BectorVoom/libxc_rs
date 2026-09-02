@@ -11,6 +11,9 @@ use libxc_core::output::GgaOutput;
 
 use libxc_rkernel_gga_x_ev93 as k;
 
+/// libxc's raw integer id for this functional.
+pub const ID: u16 = 35;
+
 /// libxc default for `param_a1`.
 pub const PARAM_A1: f64 = 1.647127;
 /// libxc default for `param_a2`.
@@ -23,6 +26,77 @@ pub const PARAM_B1: f64 = 1.523671;
 pub const PARAM_B2: f64 = 0.367229;
 /// libxc default for `param_b3`.
 pub const PARAM_B3: f64 = 0.011282;
+
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 6;
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 6] = ["_a1", "_a2", "_a3", "_b1", "_b2", "_b3"];
+
+/// Permutation: libxc `ext_params` index -> this kernel's argument slot.
+///
+/// `usize::MAX` marks an ext_param the kernel does not consume. Built by
+/// *name* in `extract_params.py`, not by position -- the two orders differ for
+/// most functionals, because libxc's order is its C params-struct order
+/// (`util.c::copy_params` writes `ext_params[i]` into struct slot `i`) while
+/// the kernel's is the maple2c argument order.
+/// | libxc `ext_params` name | kernel argument |
+/// |---|---|
+/// | `_a1` | `param_a1` |
+/// | `_a2` | `param_a2` |
+/// | `_a3` | `param_a3` |
+/// | `_b1` | `param_b1` |
+/// | `_b2` | `param_b2` |
+/// | `_b3` | `param_b3` |
+pub const EXT_TO_KERNEL: [usize; 6] = [0, 1, 2, 3, 4, 5];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 6] = [PARAM_A1, PARAM_A2, PARAM_A3, PARAM_B1, PARAM_B2, PARAM_B3];
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let mut p = DEFAULTS;
+    if let Some(e) = ext {
+        if e.len() != N_EXT_PARAMS {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: libxc_core::model::FunctionalId(ID),
+                expected: N_EXT_PARAMS,
+                actual: e.len(),
+            });
+        }
+        for (i, &slot) in EXT_TO_KERNEL.iter().enumerate() {
+            if slot != usize::MAX {
+                p[slot] = e[i];
+            }
+        }
+    }
+    crate::ten_arm_dispatch_rgga!(
+        input, output, order, spin, thresholds,
+        [k::exc_unpol::gga_x_ev93_exc_unpol],
+        [k::vxc_unpol::gga_x_ev93_vxc_unpol],
+        [k::fxc_unpol::gga_x_ev93_fxc_unpol],
+        [k::kxc_unpol::gga_x_ev93_kxc_unpol],
+        [k::lxc_unpol::gga_x_ev93_lxc_unpol],
+        [k::exc_pol::gga_x_ev93_exc_pol],
+        [k::vxc_pol::gga_x_ev93_vxc_pol],
+        [k::fxc_pol::gga_x_ev93_fxc_pol],
+        [k::kxc_pol::gga_x_ev93_kxc_pol],
+        [k::lxc_pol::gga_x_ev93_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5])
+    )
+}
 
 pub fn dispatch(
     input: &GgaInput<'_>,

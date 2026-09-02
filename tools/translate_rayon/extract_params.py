@@ -35,6 +35,7 @@ import json
 import math
 import operator
 import re
+import struct
 import sys
 from pathlib import Path
 
@@ -303,6 +304,82 @@ SUPPORTED_SETTERS = {
 }
 
 
+
+# ---------------------------------------------------------------------------
+# Runtime ext_params validation
+# ---------------------------------------------------------------------------
+
+_META_RS = REPO / "crates" / "libxc-core" / "src" / "meta" / "generated.rs"
+
+
+def load_meta_ext_params() -> dict[str, list[tuple[str, str]]]:
+    """`XC_<NAME>` -> [(ext_param name, default_value literal)], in libxc order.
+
+    This is the array `libxc-eval` hands to `dispatch_with` at runtime, so it
+    is the one the permutation has to be consistent with. Reading it here --
+    rather than trusting that it agrees with the C source we just parsed --
+    is what turns "runtime ext_params are wired" into a checked claim.
+    """
+    if not _META_RS.is_file():
+        return {}
+    src = _META_RS.read_text(errors="replace")
+    out: dict[str, list[tuple[str, str]]] = {}
+    for m in re.finditer(
+            r"static (XC_[A-Z0-9_]+)_EXT_PARAMS: &\[ExtParamSpec\] = &\[(.*?)\];",
+            src, re.S):
+        out[m.group(1)] = [
+            (n, v.strip()) for n, v in re.findall(
+                r'ExtParamSpec \{ name: "([^"]*)", description: '
+                r'"(?:[^"\\]|\\.)*", default_value: ([^,]+),', m.group(2))]
+    return out
+
+
+def _same_f64(a: str, b: str) -> bool:
+    try:
+        return struct.pack("<d", float(a)) == struct.pack("<d", float(b))
+    except (ValueError, OverflowError):
+        return False
+
+
+def validate_ext_wiring(func, kp, values, ext_names, ext_to_kernel, meta_ext):
+    """Return (ext_names, ext_to_kernel, reason_if_refused).
+
+    A functional may accept runtime ext_params only if all three hold:
+
+      1. a permutation was built at all;
+      2. the metadata ext_param NAMES are exactly the libxc names, in order;
+      3. every metadata DEFAULT lands, through the permutation, bit-for-bit on
+         the kernel default it is supposed to feed.
+
+    (3) is the real gate. It proves the permutation is value-consistent, which
+    makes "pass the metadata defaults" a provable no-op -- the same bits the
+    compiled-in constants already produce. Where it fails, the setter is doing
+    something other than a copy: `gga_x_lspbe`'s does `mu += alpha*(1+kappa)`,
+    so the metadata carries libxc's raw `_mu` while the kernel wants the
+    transformed one. Feeding that raw value through would silently change the
+    functional. Refuse instead, exactly as `UNSUPPORTED` does elsewhere.
+    """
+    if ext_to_kernel is None:
+        return None, None, None
+    key = "XC_" + func.upper()
+    mp = meta_ext.get(key)
+    if mp is None:
+        return None, None, "no ext_params block in libxc-core metadata"
+    if [n for n, _ in mp] != list(ext_names):
+        return None, None, (
+            f"metadata ext_param names {[n for n, _ in mp]} differ from libxc's "
+            f"{list(ext_names)}")
+    for i, (slot, (mn, mv)) in enumerate(zip(ext_to_kernel, mp)):
+        if slot is None:
+            continue
+        if not _same_f64(mv, values[slot]):
+            return None, None, (
+                f"metadata default {mn}={mv} does not match the kernel default "
+                f"{kp[slot]}={values[slot]}; the libxc setter transforms values "
+                f"rather than copying them")
+    return ext_names, ext_to_kernel, None
+
+
 def strip_comments(src: str) -> str:
     src = re.sub(r"/\*.*?\*/", "", src, flags=re.S)
     return re.sub(r"//[^\n]*", "", src)
@@ -509,6 +586,10 @@ def resolve_init_defaults(func: str, fam: str, base: str, sfile: str, kp: list[s
         "base_kernel": base,
         "params": kp,
         "values": [mapping[p] for p in kp],
+        # npar == 0: the values were scraped from the _init function, so this
+        # functional has no libxc ext_params array to accept at runtime.
+        "ext_names": None,
+        "ext_to_kernel": None,
     }, None
 
 
@@ -568,13 +649,17 @@ def main() -> int:
             f"composed functional: {srcfile} builds it with xc_mix_init out of "
             "other functionals, so it has no maple2c kernel of its own")
 
+    meta_ext = load_meta_ext_params()
+    ext_unwired: dict[str, str] = {}
+
     for func, (fam, base, srcfile) in sorted(c_to_base.items()):
         kp = kernel_params(fam, base)
         if kp is None:
             unresolved[func] = f"base kernel {base} not found in kernel tree"
             continue
         if not kp:
-            resolved[func] = {"family": fam, "base_kernel": base, "params": [], "values": []}
+            resolved[func] = {"family": fam, "base_kernel": base, "params": [], "values": [],
+                              "ext_names": [], "ext_to_kernel": []}
             continue
 
         if func in NULL_SETTER_DEFAULTS:
@@ -585,6 +670,10 @@ def main() -> int:
                     "base_kernel": base,
                     "params": kp,
                     "values": [mapping[p] for p in kp],
+                    # Defaults come from the functional's _init, not from an
+                    # ext_params array, so there is no runtime order to honour.
+                    "ext_names": None,
+                    "ext_to_kernel": None,
                 }
                 continue
 
@@ -790,12 +879,62 @@ def main() -> int:
             )
             continue
 
+        # Runtime ext_params wiring.
+        #
+        # libxc's `copy_params` (util.c:94) writes `ext_params[ii]` into slot
+        # `ii` of the functional's C params struct, so the struct field order
+        # IS the ext_params order -- that identity is what makes
+        # `set_ext_params_cpy` correct. The kernel's *argument* order is a
+        # different thing: `from_maple.py` takes it from the maple2c body, and
+        # for 160 of 276 functionals it is a permutation of the ext_params
+        # order (`gga_c_pbe` is `[gamma, BB, beta]` against libxc's
+        # `[_beta, _gamma, _B]`). Feeding ext_params to a kernel positionally
+        # would therefore silently swap constants.
+        #
+        # `norm_names[i]` is already the kernel parameter that libxc ext_param
+        # `libnames[i]` feeds -- that mapping is built by name above, with an
+        # explicit alias table, and the block below this refuses the functional
+        # outright if it does not cover every kernel parameter. So the
+        # permutation is just the index of each `norm_names` entry in `kp`,
+        # with `None` for an ext_param the kernel does not consume (e.g. `_exx`
+        # on a pure exchange kernel, dropped by the `mapping` filter above).
+        #
+        # If the two lists cannot be put in correspondence at all, emit `None`
+        # rather than a guess: `gen_eval.py` turns that into a dispatch that
+        # rejects runtime ext_params and keeps using the compiled-in defaults.
+        if len(norm_names) == len(libnames):
+            ext_to_kernel = [kp.index(n) if n in kp else None for n in norm_names]
+            ext_names = list(libnames)
+        else:
+            ext_to_kernel = None
+            ext_names = None
+
+        # Gate it on the metadata the eval layer will actually hand us.
+        ext_names, ext_to_kernel, why = validate_ext_wiring(
+            func, kp, [mapping[p] for p in kp], ext_names, ext_to_kernel, meta_ext)
+        if why:
+            ext_unwired[func] = why
+
         resolved[func] = {
             "family": fam,
             "base_kernel": base,
             "params": kp,
             "values": [mapping[p] for p in kp],
+            "ext_names": ext_names,
+            "ext_to_kernel": ext_to_kernel,
         }
+
+    n_ext_wired = sum(1 for v in resolved.values() if v.get("ext_to_kernel"))
+    print(f"runtime ext_params wired : {n_ext_wired}")
+    if ext_unwired:
+        print(f"runtime ext_params REFUSED for {len(ext_unwired)} "
+              f"(kept on compiled-in defaults):")
+        groups: dict[str, list[str]] = {}
+        for f, why in ext_unwired.items():
+            groups.setdefault(why.split(";")[0].split("=")[0].strip(), []).append(f)
+        for key, fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
+            print(f"  {len(fs):3d}  {key}")
+            print(f"       e.g. {', '.join(sorted(fs)[:4])}")
 
     n_paramless = sum(1 for v in resolved.values() if not v["params"])
     n_wired = len(resolved) - n_paramless
