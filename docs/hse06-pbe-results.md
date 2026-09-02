@@ -162,6 +162,30 @@ expected: it is pure arithmetic plus five cbrts, so once the cbrts vectorise
 there is very little else for the library to win on. libxc runs the same
 formula with the same glibc cbrt.
 
+### Final table, quiet box, `--reps 9`
+
+Both legs measured in the same run, so the ratio is the meaningful column.
+(The absolute numbers are lower than the section above because that run was
+taken under load; ratios agree.)
+
+| case | libxc-Nt | rust-Nt | vs libxc |
+|---|--:|--:|--:|
+| `lda_c_vwn` exc+vxc unpol | 10.61 | 5.37 | 1.98x |
+| `gga_c_lyp` exc+vxc unpol | 6.38 | 3.24 | 1.97x |
+| `gga_x_b88` exc+vxc unpol | 6.36 | 7.34 | **0.87x** |
+| `gga_x_pbe` exc+vxc unpol | 3.54 | 3.30 | 1.07x |
+| `gga_c_pbe` exc+vxc unpol | 12.91 | 5.26 | 2.45x |
+| `gga_x_pbe` exc+vxc pol | 16.94 | 5.91 | 2.87x |
+| `gga_c_pbe` exc+vxc pol | 25.01 | 7.71 | 3.24x |
+| `gga_x_pbe` exc+vxc+fxc unpol | 6.31 | 3.90 | 1.62x |
+| `gga_c_pbe` exc+vxc+fxc unpol | 20.02 | 6.28 | 3.19x |
+| `hyb_gga_xc_hse06` exc+vxc unpol | 108.92 | 96.83 | 1.12x |
+
+`gga_x_b88` at **0.87x** is the case to look at next. It is not in scope here
+and was not re-qualified, and it is sitting below libxc on a functional the
+docs record at 3.69x — which is §2.4 showing up on a functional nobody has
+swept yet.
+
 ### HSE06
 
 | case | libxc-Nt | rust-Nt | vs libxc |
