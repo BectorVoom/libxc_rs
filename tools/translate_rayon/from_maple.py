@@ -128,6 +128,43 @@ SIMD_EXACT_FUNCS = {
     # ratio is sweep ns/pt before -> after, fingerprint unchanged.
     ("mgga_x_tpss", "exc", "unpol"),  # 1.59x  (11.90 -> 7.49 ns/pt)
     ("mgga_x_tpss", "vxc", "unpol"),  # 1.86x  (18.26 -> 9.82 ns/pt)
+    # --- PBE (2026-09-03) --------------------------------------------------
+    # These OVERTURN a standing rejection, and the reason matters more than the
+    # numbers. `gga_x_pbe` was rejected at 0.55x and `gga_x_b88` at 0.96x on the
+    # grounds that "LLVM already vectorises them, so forcing SIMD is a
+    # regression". That was true *of the tree it was measured on*: back then
+    # `pow_1_3` was `powers.rs::cbrt_f64`, a branch-free inline polynomial +
+    # Halley + Newton sequence with no call in it, which LLVM happily packed
+    # 8-wide along with the rest of the loop.
+    #
+    # Commit 31fd1ff47f ("replace math with rmath across kernels") repointed
+    # `safe_cbrt` at `rmath::cbrt`, and 4395787e90 pinned it to `BitExact`.
+    # That is the correct thing numerically -- measured here over 2M physical
+    # inputs, `rmath::cbrt` is bit-identical to `f64::cbrt`/glibc on 100% of
+    # them, which the old inline version was not -- but it is an opaque
+    # ~9.6 ns/elem call, and a call in the grid loop stops the loop
+    # vectorising. Every kernel that had been carried by the inline cbrt lost
+    # its vectorisation silently: `gga_x_b88` sweep went 2.18 -> 9.45 ns/pt
+    # against an unchanged libxc, and the rejection numbers above stopped
+    # describing this tree.
+    #
+    # Explicit SIMD restores it, because `simd::cbrt` is a real vector kernel
+    # rather than 8 scalar calls. Fingerprints are unchanged on every triple
+    # (bit-exact, as the whole `simd::` surface is), so these are pure wins.
+    # `gga_x_pbe` has no transcendental at all besides cbrt, which is why it
+    # shows the mechanism most cleanly.
+    #
+    # ratio is sweep ns/pt before -> after; libxc-Nt on the same run in ().
+    ("gga_x_pbe", "exc", "unpol"),
+    ("gga_x_pbe", "vxc", "unpol"),  # 1.81x  (7.32 -> 4.04)   libxc 4.84
+    ("gga_x_pbe", "exc", "pol"),
+    ("gga_x_pbe", "vxc", "pol"),  # 2.04x  (15.33 -> 7.53)  libxc 21.26
+    ("gga_x_pbe", "fxc", "unpol"),  # 1.93x  (9.29 -> 4.81)   libxc 7.82
+    ("gga_c_pbe", "exc", "unpol"),
+    ("gga_c_pbe", "vxc", "unpol"),  # 2.56x  (15.30 -> 5.97)  libxc 15.49
+    ("gga_c_pbe", "exc", "pol"),
+    ("gga_c_pbe", "vxc", "pol"),  # 2.55x  (25.67 -> 10.05) libxc 30.19
+    ("gga_c_pbe", "fxc", "unpol"),  # 1.76x  (22.34 -> 12.71) libxc 34.65
 }
 
 # Sweep override, read by tools/translate_rayon/simd_qualify.py. It lets the

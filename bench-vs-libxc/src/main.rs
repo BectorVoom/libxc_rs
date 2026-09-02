@@ -258,6 +258,56 @@ fn main() {
             order: DerivativeOrder::Vxc,
             spin: Spin::Unpolarized,
         },
+        // PBE. The two halves are separate libxc functionals and separate
+        // kernels here, so they are timed separately -- a DFT code asking for
+        // "PBE" calls both. `gga_x_pbe` is the pure-arithmetic case (no
+        // transcendental at all, 5 cbrt); `gga_c_pbe` carries 1 exp + 3 ln and
+        // is the one the SIMD allowlist has a pending verdict on.
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_pbe",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_c_pbe",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_pbe",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_c_pbe",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_pbe",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::Gga,
+            name: "gga_c_pbe",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Unpolarized,
+        },
+        // The screened-exchange leg HSE06 is built from. Timed on its own so
+        // the composite's cost can be attributed: HSE06 evaluates this twice
+        // (once per omega) plus `gga_c_pbe`.
+        Case {
+            fam: Fam::Gga,
+            name: "gga_x_wpbeh",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
         Case {
             fam: Fam::Gga,
             name: "gga_x_b88",
