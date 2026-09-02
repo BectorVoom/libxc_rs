@@ -209,7 +209,7 @@ every unguarded functional. It is bit-neutral where a guard already existed
 which is checked by fingerprint.
 
 It has a deliberate second route: a chunk whose above-threshold runs would
-average under `MIN_RUN` (64) points runs the kernel over everything and re-zeros
+average under `MIN_RUN` (128) points runs the kernel over everything and re-zeros
 the screened points instead of splitting. Splitting into ~1.7-point runs costs
 about 14 ns per call and made `gga_x_b88` *slower* than doing nothing (1.98 ->
 6.84 ns/pt). Real quadratures order points by radial shell, so their empty
@@ -217,6 +217,73 @@ points are contiguous and always take the fast route.
 
 ## Known gaps
 
+- **A rejection in `docs/perf/simd-ledger.json` is only valid for the tree it was
+  measured on.** `gga_x_pbe` carried a standing "do not SIMD, LLVM already
+  vectorises it" rejection at 0.55x. That was true when `pow_1_3` resolved to
+  `powers.rs::cbrt_f64`, inline branch-free arithmetic LLVM packed 8-wide.
+  Commit 31fd1ff47f repointed it at `rmath::cbrt` and 4395787e90 pinned that to
+  `BitExact` -- correct numerically (bit-identical to glibc on 100% of 2M
+  physical inputs, which the inline version was not) but an opaque ~9.6 ns/elem
+  **call**, and a call in the grid loop stops the loop vectorising. Every kernel
+  the inline cbrt had been carrying lost its vectorisation silently:
+  `gga_x_b88`'s sweep went from the documented 2.18 to 9.45 ns/pt against an
+  unchanged libxc. Fingerprints do not move when a loop stops vectorising, so
+  nothing caught it. PBE was re-qualified and now runs 1.8-2.6x faster with
+  identical fingerprints; **the rest of the allowlist has not been re-swept and
+  the pre-2026-08-31 rejections should be assumed stale.**
+
+
+- **`gga_x_wpbeh`'s `vsigma` diverges from libxc as the reduced gradient goes to
+  zero, and always did.** Characterised 2026-09-03 by
+  `verify/tests/wpbeh_domain.rs`, which sweeps (rho, s) directly rather than
+  relying on a random grid. At `omega = 0`, relative difference in `vsigma`:
+
+  | s | 1e-8 | 1e-5 | 1e-3 | 1e-2 | 5e-2 | >= 0.1 |
+  |---|---|---|---|---|---|---|
+  | rel err | 6.3e0 | 1.6e-6 | 1e-9 | 1e-11 | 4e-13 | <= 2e-13 |
+
+  `zk` and `vrho` stay at 2e-15 across the whole domain, and everything is
+  machine-precision for `s >= 0.05`. This is what makes `bench-vs-libxc` report
+  `gga_x_wpbeh` at 4.5e-7 and HSE06 at 1.2e-6 while the rayon oracle passes
+  1221 of 1221 fields: the bench grid draws `s` uniformly from [0, 3] and so
+  lands on points the oracle grid does not. **Pre-existing** -- the wpbeh
+  output fingerprint (`d67311fbdf2bab7d`) is byte-identical before and after
+  the 2026-09-03 erfcx/E1 fixes. Not yet diagnosed; the first thing to check is
+  the `wpbeh_EG` piecewise on `s` in `libxc-master/maple/gga_exc/gga_x_wpbeh.mpl`,
+  since the divergence sits below its cutoff.
+- **Screened hybrids were wrong until 2026-09-03, and two math helpers with
+  them.** HSE06 is `1.0*wpbeh(w=0) - beta*wpbeh(w=omega_PBE) + PBEc`. Three
+  independent gaps meant `omega` never reached the kernel -- the generated
+  dispatch took no parameters, `libxc-eval` discarded the aux's `params`, and
+  there was no propagation rule for the HSE family -- so both legs evaluated the
+  same unscreened function. Fixing the plumbing then exposed that
+  `math/src/special.rs::xc_erfcx` was **Abramowitz & Stegun 7.1.26** (a 1.5e-7
+  *absolute* erf fit) rather than libxc's Faddeeva table, and that six
+  `E11_data` coefficients in `expint_e1.rs` had been transcribed 1000x too
+  small. Both helpers are reachable *only* on the screened path, which is why
+  `gga_oracle.rs` (wpbeh at its default `omega = 0`) never touched them.
+  HSE06 `zk` went from 8.2e-3 relative error to 3.4e-14. Guarded now by
+  `verify/tests/hse06_oracle.rs` and `verify/tests/screening_helpers.rs`, the
+  latter comparing both helpers against libxc's own C.
+- **Runtime `ext_params` reach the kernels via a name-built permutation, never
+  positionally.** libxc's `copy_params` writes `ext_params[i]` into slot `i` of
+  the C params struct, so struct order *is* ext_params order; the kernel's
+  argument order comes from maple2c and differs for **160 of 276** functionals
+  (`gga_c_pbe` is `[gamma, BB, beta]` against libxc's `[_beta, _gamma, _B]`).
+  `extract_params.py` emits `ext_to_kernel` per functional and refuses to emit
+  one at all unless every metadata default lands bit-for-bit on the kernel
+  default it feeds -- which is what makes "pass the defaults" a provable no-op.
+  18 functionals are refused on that gate (transforming setters such as
+  `gga_x_lspbe`'s `mu += alpha*(1+kappa)`); they keep their compiled-in
+  constants and reject runtime ext_params rather than running with a wrong one.
+- **28 `xc_func_set_ext_params_name(p->func_aux[...], ...)` assignments across
+  10 libxc source files** set an auxiliary's parameter from a parent. Nine are
+  covered by the generated `PROPAGATION_RULES`, and the HSE family (five ids) by
+  the hand-written `meta::composite_setters`. The remainder --
+  `hyb_gga_xc_{lc_blyp,cam_b3lyp,cam_o3lyp,camy_b3lyp,src1_blyp,b2plyp}`,
+  `gga_xc_{vv10,edf1}`, `mgga_c_b94` -- have **not** been audited and may carry
+  the same defect HSE06 did. Anyone evaluating one of those should check it
+  against C libxc first.
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
 - Kernel correctness rests on `crates/kernels-rayon/oracle` (C libxc parity) and `revalcheck` (chunked vs whole-grid). The oracle covers **unpolarized LDA/GGA only**, so polarized and MGGA kernels have no direct parity test against libxc -- the largest remaining coverage gap.
