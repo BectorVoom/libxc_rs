@@ -275,8 +275,33 @@ impl Dimensions {
         d
     }
 
+    /// Sum of the output dimension fields for derivative orders `0..=order`.
+    ///
+    /// The scratch layout in `EvaluationWorkspace` is order-major -- every
+    /// order-0 field, then every order-1 field, and so on -- so a workspace
+    /// that will only ever be asked for derivatives up to `order` needs only
+    /// this many components per grid point, not the full superset. For a
+    /// polarized GGA `Vxc` evaluation that is 11 rather than 767.
+    pub fn output_components_through(&self, order: crate::model::DerivativeOrder) -> usize {
+        use crate::model::DerivativeOrder as O;
+        let (o0, o1, o2, o3, o4) = self.output_components_by_order();
+        match order {
+            O::Exc => o0,
+            O::Vxc => o0 + o1,
+            O::Fxc => o0 + o1 + o2,
+            O::Kxc => o0 + o1 + o2 + o3,
+            O::Lxc => o0 + o1 + o2 + o3 + o4,
+        }
+    }
+
     /// Sum of all output dimension fields (all derivative orders).
     pub fn total_output_components(&self) -> usize {
+        let (o0, o1, o2, o3, o4) = self.output_components_by_order();
+        o0 + o1 + o2 + o3 + o4
+    }
+
+    /// Per-order component counts, in the scratch buffer's own layout order.
+    fn output_components_by_order(&self) -> (usize, usize, usize, usize, usize) {
         let o0 = self.zk as usize;
         let o1 = self.vrho as usize
             + self.vsigma as usize
@@ -347,7 +372,7 @@ impl Dimensions {
             + self.v4lapl2tau2 as usize
             + self.v4lapltau3 as usize
             + self.v4tau4 as usize;
-        o0 + o1 + o2 + o3 + o4
+        (o0, o1, o2, o3, o4)
     }
 
     fn zeroed() -> Self {

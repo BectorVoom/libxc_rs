@@ -86,6 +86,11 @@ pub fn evaluate_mixed_lda(
             actual_spin: workspace.spin(),
         });
     }
+    // Grow the scratch to exactly this evaluation's order (a no-op if it is
+    // already at least that big). Lets a caller hand over a minimally-sized
+    // workspace and have it reach the right size once, rather than every
+    // caller paying for the MGGA all-orders superset up front.
+    workspace.ensure_order(order);
 
     let np = input.np();
     let dims = Dimensions::lda(input.spin());
@@ -114,13 +119,13 @@ pub fn evaluate_mixed_lda(
     let v4rho4_len = dims.v4rho4 as usize * np;
 
     for aux in auxiliaries {
-        // Zero scratch before each auxiliary (T-03-07 mitigation).
-        // Note: dispatch_lda also zeros its output buffers on entry.
-        // The double-zero is intentional -- this call prevents
-        // cross-contamination between the accumulation readback and the
-        // next dispatch_lda call, while dispatch_lda's internal zero
-        // keeps it self-contained for direct (non-mixed) callers.
-        workspace.zero_scratch();
+        // No `zero_scratch()` here. The rayon sweep clears each chunk of
+        // every output it writes before the kernel accumulates into it, and
+        // `prepare` clears any buffer the requested order does not use, so
+        // every element read back below has already been written by the
+        // dispatch that produced it. Zeroing the MGGA superset once per
+        // auxiliary was three full passes over 767 doubles per grid point of
+        // dead stores.
 
         // Evaluate auxiliary into workspace scratch.
         // We need to build an LdaOutput pointing into the scratch,
@@ -272,6 +277,11 @@ pub fn evaluate_mixed_lda_functional(
             actual_spin: workspace.spin(),
         });
     }
+    // Grow the scratch to exactly this evaluation's order (a no-op if it is
+    // already at least that big). Lets a caller hand over a minimally-sized
+    // workspace and have it reach the right size once, rather than every
+    // caller paying for the MGGA all-orders superset up front.
+    workspace.ensure_order(order);
 
     let np = input.np();
     let dims = Dimensions::lda(input.spin());
@@ -302,7 +312,6 @@ pub fn evaluate_mixed_lda_functional(
             });
         }
 
-        workspace.zero_scratch();
         {
             let scratch = workspace.lda_scratch_mut();
             let mut scratch_output = LdaOutput {
@@ -317,7 +326,7 @@ pub fn evaluate_mixed_lda_functional(
                 input,
                 order,
                 &mut scratch_output,
-                &*aux.params,
+                aux.kernel_ext_params(),
                 &aux.thresholds,
             )?;
         }
@@ -378,6 +387,11 @@ pub fn evaluate_mixed_gga(
             actual_spin: workspace.spin(),
         });
     }
+    // Grow the scratch to exactly this evaluation's order (a no-op if it is
+    // already at least that big). Lets a caller hand over a minimally-sized
+    // workspace and have it reach the right size once, rather than every
+    // caller paying for the MGGA all-orders superset up front.
+    workspace.ensure_order(order);
 
     // CR-02 (Plan 05-06): pre-compute per-family per-field lengths once so
     // every accumulation site uses an explicit, length-checked length parameter
@@ -439,7 +453,6 @@ pub fn evaluate_mixed_gga(
                 // into the GGA caller output.
                 let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
 
-                workspace.zero_scratch();
                 {
                     let scratch = workspace.lda_scratch_mut();
                     let mut aux_output = LdaOutput {
@@ -454,7 +467,7 @@ pub fn evaluate_mixed_gga(
                         &lda_input,
                         order,
                         &mut aux_output,
-                        &*aux.params,
+                        aux.kernel_ext_params(),
                         &aux.thresholds,
                     )?;
                 }
@@ -475,7 +488,6 @@ pub fn evaluate_mixed_gga(
                 // Sigma-derivative fields intentionally skipped — Pitfall 5.
             }
             Family::Gga => {
-                workspace.zero_scratch();
                 {
                     let scratch = workspace.gga_scratch_mut();
                     let mut aux_output = GgaOutput {
@@ -500,7 +512,7 @@ pub fn evaluate_mixed_gga(
                         input,
                         order,
                         &mut aux_output,
-                        &*aux.params,
+                        aux.kernel_ext_params(),
                         &aux.thresholds,
                     )?;
                 }
@@ -578,6 +590,11 @@ pub fn evaluate_mixed_mgga(
             actual_spin: workspace.spin(),
         });
     }
+    // Grow the scratch to exactly this evaluation's order (a no-op if it is
+    // already at least that big). Lets a caller hand over a minimally-sized
+    // workspace and have it reach the right size once, rather than every
+    // caller paying for the MGGA all-orders superset up front.
+    workspace.ensure_order(order);
 
     // CR-02 (Plan 05-06): pre-compute per-family per-field lengths once so
     // every accumulation site uses an explicit length parameter (no silent
@@ -659,7 +676,6 @@ pub fn evaluate_mixed_mgga(
         match aux.meta.family {
             Family::Lda => {
                 let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
-                workspace.zero_scratch();
                 {
                     let scratch = workspace.lda_scratch_mut();
                     let mut aux_output = LdaOutput {
@@ -669,7 +685,7 @@ pub fn evaluate_mixed_mgga(
                         v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
                         v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
                     };
-                    dispatch_lda_by_id(aux.meta.id, &lda_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_lda_by_id(aux.meta.id, &lda_input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
                 }
                 let scratch = workspace.lda_scratch_mut();
                 add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, lda_zk_len, "zk")?;
@@ -689,7 +705,6 @@ pub fn evaluate_mixed_mgga(
             }
             Family::Gga => {
                 let gga_input = GgaInput::new(input.rho(), input.sigma(), input.np(), input.spin())?;
-                workspace.zero_scratch();
                 {
                     let scratch = workspace.gga_scratch_mut();
                     let mut aux_output = GgaOutput {
@@ -709,7 +724,7 @@ pub fn evaluate_mixed_mgga(
                         v4rhosigma3: if order >= DerivativeOrder::Lxc { Some(scratch.v4rhosigma3) } else { None },
                         v4sigma4: if order >= DerivativeOrder::Lxc { Some(scratch.v4sigma4) } else { None },
                     };
-                    dispatch_gga_by_id(aux.meta.id, &gga_input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_gga_by_id(aux.meta.id, &gga_input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
                 }
                 let scratch = workspace.gga_scratch_mut();
                 add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, gga_zk_len, "zk")?;
@@ -745,7 +760,6 @@ pub fn evaluate_mixed_mgga(
                 let needs_tau = aux_needs_tau && parent_needs_tau;
                 let needs_both = needs_lapl && needs_tau;
 
-                workspace.zero_scratch();
                 {
                     let scratch = workspace.mgga_scratch_mut();
                     let mut aux_output = MggaOutput {
@@ -783,7 +797,7 @@ pub fn evaluate_mixed_mgga(
                     // consumed needs_lapl / needs_tau / needs_both has been
                     // removed since those variables are load-bearing below in
                     // the gated accumulation block.)
-                    dispatch_mgga_by_id(aux.meta.id, input, order, &mut aux_output, &*aux.params, &aux.thresholds)?;
+                    dispatch_mgga_by_id(aux.meta.id, input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
                 }
                 let scratch = workspace.mgga_scratch_mut();
                 // Always-accumulate (rho-chain, all aux families contribute).

@@ -11,6 +11,54 @@ use crate::errno::{self, set_error};
 use crate::raw_handle::FunctionalSlot;
 use libxc_core::dims::Dimensions;
 use libxc_eval::eval::workspace::EvaluationWorkspace;
+
+// ---------------------------------------------------------------------------
+// Reused evaluation workspace
+// ---------------------------------------------------------------------------
+
+/// One `EvaluationWorkspace` per thread, reused across calls.
+///
+/// The C API hands back a `*mut xc_func_type` with a fixed layout, so the
+/// workspace cannot live on the handle without changing that layout. A
+/// thread-local achieves the same thing for the property that matters:
+/// `AGENTS.md` requires that repeated workloads reuse workspaces instead of
+/// reallocating on hot paths, and every `xc_lda`/`xc_gga`/`xc_mgga` call used
+/// to build a fresh one.
+///
+/// It starts at `DerivativeOrder::Exc`, which is one or two doubles per grid
+/// point. A semilocal functional never grows it, because it never touches the
+/// scratch at all; a mixed one grows it once, in `evaluate_mixed_*`, to
+/// exactly the order being evaluated. Either way the second and later calls at
+/// a given `(np, spin)` allocate nothing.
+///
+/// A change of `np` or `spin` replaces it. In a DFT code `np` is the grid
+/// batch size and does not vary call to call.
+fn with_workspace<R>(
+    np: usize,
+    spin: libxc_core::model::Spin,
+    f: impl FnOnce(&mut EvaluationWorkspace) -> R,
+) -> R {
+    use std::cell::RefCell;
+    thread_local! {
+        static WS: RefCell<Option<EvaluationWorkspace>> = const { RefCell::new(None) };
+    }
+    WS.with(|cell| {
+        let mut slot = cell.borrow_mut();
+        let stale = match slot.as_ref() {
+            Some(w) => w.np() != np || w.spin() != spin,
+            None => true,
+        };
+        if stale {
+            *slot = Some(EvaluationWorkspace::with_order(
+                np,
+                spin,
+                libxc_core::model::DerivativeOrder::Exc,
+            ));
+        }
+        f(slot.as_mut().expect("just populated"))
+    })
+}
+
 use crate::extern_c_wrapper;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
 use libxc_core::model::DerivativeOrder;
@@ -399,8 +447,9 @@ unsafe fn lda_evaluate(
         np,
         spin,
     )?;
-    let mut ws = EvaluationWorkspace::new(np, spin);
-    f.evaluate_lda(&input, effective_order, &mut output, &mut ws)?;
+    with_workspace(np, spin, |ws| {
+        f.evaluate_lda(&input, effective_order, &mut output, ws)
+    })?;
     Ok(0)
 }
 
@@ -737,8 +786,9 @@ unsafe fn gga_evaluate(
         np,
         spin,
     )?;
-    let mut ws = EvaluationWorkspace::new(np, spin);
-    f.evaluate_gga(&input, effective_order, &mut output, &mut ws)?;
+    with_workspace(np, spin, |ws| {
+        f.evaluate_gga(&input, effective_order, &mut output, ws)
+    })?;
     Ok(0)
 }
 
@@ -1024,8 +1074,9 @@ unsafe fn mgga_run(
     let tau_slice = unsafe { input_slice(tau, np, dims.tau as usize) };
     let input = MggaInput::new(rho_slice, sigma_slice, lapl_slice, tau_slice, np, spin)?;
     output.validate(np, spin)?;
-    let mut ws = EvaluationWorkspace::new(np, spin);
-    f.evaluate_mgga(&input, order, &mut output, &mut ws)?;
+    with_workspace(np, spin, |ws| {
+        f.evaluate_mgga(&input, order, &mut output, ws)
+    })?;
     Ok(0)
 }
 

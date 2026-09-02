@@ -6,7 +6,7 @@
 //! evaluation loops.
 
 use libxc_core::dims::Dimensions;
-use libxc_core::model::Spin;
+use libxc_core::model::{DerivativeOrder, Spin};
 
 /// Scratch slices for LDA derivative fields.
 ///
@@ -160,28 +160,99 @@ pub struct EvaluationWorkspace {
     np: usize,
     spin: Spin,
     dims: Dimensions,
+    /// Highest derivative order `scratch` is currently sized for.
+    alloc_order: DerivativeOrder,
+}
+
+/// Split `n` elements off the front of `cursor`, clamped to what is left.
+///
+/// Returns an empty slice once the cursor is exhausted rather than panicking,
+/// which is what lets a workspace be sized for one derivative order while the
+/// accessors still lay out the full field list.
+#[inline]
+fn take_n<'a>(cursor: &mut &'a mut [f64], n: usize) -> &'a mut [f64] {
+    let k = n.min(cursor.len());
+    let (head, tail) = std::mem::take(cursor).split_at_mut(k);
+    *cursor = tail;
+    head
 }
 
 impl EvaluationWorkspace {
-    /// Create a new workspace with scratch sized for MGGA superset.
+    /// Create a workspace sized for the MGGA superset at every derivative
+    /// order.
     ///
-    /// The scratch buffer has `dims.total_output_components() * np` elements,
-    /// all initialized to 0.0.
+    /// This is the conservative constructor and stays the default so existing
+    /// callers keep working. It is also, for almost every caller, far more
+    /// memory than the evaluation needs: the superset is 70 doubles per grid
+    /// point unpolarized and **767 polarized**, where a polarized GGA `Vxc`
+    /// evaluation touches 11. On a million-point grid that is 6.1 GB of
+    /// scratch to hold 48 MB of results.
+    ///
+    /// Prefer [`EvaluationWorkspace::with_order`] when the derivative order is
+    /// known, or just let the mixed evaluators call
+    /// [`EvaluationWorkspace::ensure_order`], which grows on demand.
     pub fn new(np: usize, spin: Spin) -> Self {
+        Self::with_order(np, spin, DerivativeOrder::Lxc)
+    }
+
+    /// Create a workspace sized for derivative orders up to `order`.
+    ///
+    /// The scratch layout is order-major, so everything an evaluation of
+    /// `order` can touch lives in the first
+    /// `dims.output_components_through(order) * np` elements. Fields above
+    /// `order` are handed out as empty slices, which the mixed evaluators
+    /// never read because they gate every access on the same `order`.
+    pub fn with_order(np: usize, spin: Spin, order: DerivativeOrder) -> Self {
         let dims = Dimensions::mgga(spin);
-        let total = dims.total_output_components() * np;
+        let total = dims.output_components_through(order) * np;
         Self {
             scratch: vec![0.0; total],
             np,
             spin,
             dims,
+            alloc_order: order,
         }
     }
 
-    /// Zero all scratch buffer elements.
+    /// Grow the scratch so it covers derivative orders up to `order`.
     ///
-    /// Must be called before each auxiliary evaluation to prevent
-    /// cross-contamination (T-03-07, T-03-08 mitigation).
+    /// A no-op when it already does, so a workspace reused across a run
+    /// allocates at most once per distinct order and never shrinks. This is
+    /// what makes reuse across repeated evaluations allocation-free, which the
+    /// project's "reuse workspaces on hot paths" constraint requires.
+    pub fn ensure_order(&mut self, order: DerivativeOrder) {
+        if order <= self.alloc_order {
+            return;
+        }
+        let needed = self.dims.output_components_through(order) * self.np;
+        self.scratch.resize(needed, 0.0);
+        self.alloc_order = order;
+    }
+
+    /// Highest derivative order the scratch is currently sized for.
+    pub fn alloc_order(&self) -> DerivativeOrder {
+        self.alloc_order
+    }
+
+    /// Scratch capacity in elements. Exposed so a test can assert that a
+    /// workspace is the size it claims to be.
+    pub fn scratch_len(&self) -> usize {
+        self.scratch.len()
+    }
+
+    /// Zero every scratch element.
+    ///
+    /// **Not needed before an auxiliary evaluation, and no longer called
+    /// there.** The rayon sweep clears each chunk of every output it is about
+    /// to write (`sweep_gga.rs::zero_outputs`, and its LDA/MGGA twins), and
+    /// `prepare` clears any buffer the caller supplied that the requested
+    /// order does not use. So every element a mixed evaluation reads back has
+    /// already been written by the sweep that produced it. Zeroing the whole
+    /// superset up front was three extra full passes over 767 doubles per grid
+    /// point per auxiliary, all of them dead stores.
+    ///
+    /// Kept public because it is cheap insurance for a caller doing something
+    /// unusual with the raw scratch accessors.
     pub fn zero_scratch(&mut self) {
         self.scratch.fill(0.0);
     }
@@ -349,118 +420,57 @@ impl EvaluationWorkspace {
 
         // Helper: pop a slice of `count_per_pt * np` from the cursor.
         // Each call advances the cursor and returns the carved &mut [f64].
+        // `split_at_mut` would panic once the cursor runs out, which it does
+        // whenever the workspace was sized for a lower order than the full
+        // superset -- so the splits below go through `take`, which clamps and
+        // hands back an empty slice instead. Callers gate every high-order
+        // field on the same `order` the workspace was sized for, so an empty
+        // slice is never read.
         let buf = self.scratch.as_mut_slice();
         let mut cursor = buf;
 
         // === Order 0 ===
-        let (zk, rest) = cursor.split_at_mut(d.zk as usize * np);
-        cursor = rest;
+        let zk = take_n(&mut cursor, d.zk as usize * np);
 
         // === Order 1: vrho, vsigma, vlapl, vtau (MGGA layout) ===
-        let (vrho, rest) = cursor.split_at_mut(d.vrho as usize * np);
-        cursor = rest;
-        let (vsigma, rest) = cursor.split_at_mut(d.vsigma as usize * np);
-        cursor = rest;
+        let vrho = take_n(&mut cursor, d.vrho as usize * np);
+        let vsigma = take_n(&mut cursor, d.vsigma as usize * np);
         // Skip vlapl + vtau (MGGA-only fields, zero-length for GGA d.)
-        let (_, rest) = cursor.split_at_mut(mgga_d.vlapl as usize * np + mgga_d.vtau as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.vlapl as usize * np + mgga_d.vtau as usize * np);
 
         // === Order 2 (10 MGGA fields, 3 of which GGA exposes) ===
-        let (v2rho2, rest) = cursor.split_at_mut(d.v2rho2 as usize * np);
-        cursor = rest;
-        let (v2rhosigma, rest) = cursor.split_at_mut(d.v2rhosigma as usize * np);
-        cursor = rest;
+        let v2rho2 = take_n(&mut cursor, d.v2rho2 as usize * np);
+        let v2rhosigma = take_n(&mut cursor, d.v2rhosigma as usize * np);
         // Skip v2rholapl + v2rhotau
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v2rholapl as usize * np + mgga_d.v2rhotau as usize * np,
-        );
-        cursor = rest;
-        let (v2sigma2, rest) = cursor.split_at_mut(d.v2sigma2 as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v2rholapl as usize * np + mgga_d.v2rhotau as usize * np,);
+        let v2sigma2 = take_n(&mut cursor, d.v2sigma2 as usize * np);
         // Skip v2sigmalapl + v2sigmatau + v2lapl2 + v2lapltau + v2tau2
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v2sigmalapl as usize * np
-                + mgga_d.v2sigmatau as usize * np
-                + mgga_d.v2lapl2 as usize * np
-                + mgga_d.v2lapltau as usize * np
-                + mgga_d.v2tau2 as usize * np,
-        );
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v2sigmalapl as usize * np + mgga_d.v2sigmatau as usize * np + mgga_d.v2lapl2 as usize * np + mgga_d.v2lapltau as usize * np + mgga_d.v2tau2 as usize * np,);
 
         // === Order 3 (20 MGGA fields, 4 of which GGA exposes) ===
-        let (v3rho3, rest) = cursor.split_at_mut(d.v3rho3 as usize * np);
-        cursor = rest;
-        let (v3rho2sigma, rest) = cursor.split_at_mut(d.v3rho2sigma as usize * np);
-        cursor = rest;
+        let v3rho3 = take_n(&mut cursor, d.v3rho3 as usize * np);
+        let v3rho2sigma = take_n(&mut cursor, d.v3rho2sigma as usize * np);
         // Skip v3rho2lapl + v3rho2tau
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v3rho2lapl as usize * np + mgga_d.v3rho2tau as usize * np,
-        );
-        cursor = rest;
-        let (v3rhosigma2, rest) = cursor.split_at_mut(d.v3rhosigma2 as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v3rho2lapl as usize * np + mgga_d.v3rho2tau as usize * np,);
+        let v3rhosigma2 = take_n(&mut cursor, d.v3rhosigma2 as usize * np);
         // Skip v3rhosigmalapl + v3rhosigmatau + v3rholapl2 + v3rholapltau + v3rhotau2
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v3rhosigmalapl as usize * np
-                + mgga_d.v3rhosigmatau as usize * np
-                + mgga_d.v3rholapl2 as usize * np
-                + mgga_d.v3rholapltau as usize * np
-                + mgga_d.v3rhotau2 as usize * np,
-        );
-        cursor = rest;
-        let (v3sigma3, rest) = cursor.split_at_mut(d.v3sigma3 as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v3rhosigmalapl as usize * np + mgga_d.v3rhosigmatau as usize * np + mgga_d.v3rholapl2 as usize * np + mgga_d.v3rholapltau as usize * np + mgga_d.v3rhotau2 as usize * np,);
+        let v3sigma3 = take_n(&mut cursor, d.v3sigma3 as usize * np);
         // Skip remaining order 3 MGGA fields: v3sigma2lapl..v3tau3 (10 fields)
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v3sigma2lapl as usize * np
-                + mgga_d.v3sigma2tau as usize * np
-                + mgga_d.v3sigmalapl2 as usize * np
-                + mgga_d.v3sigmalapltau as usize * np
-                + mgga_d.v3sigmatau2 as usize * np
-                + mgga_d.v3lapl3 as usize * np
-                + mgga_d.v3lapl2tau as usize * np
-                + mgga_d.v3lapltau2 as usize * np
-                + mgga_d.v3tau3 as usize * np,
-        );
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v3sigma2lapl as usize * np + mgga_d.v3sigma2tau as usize * np + mgga_d.v3sigmalapl2 as usize * np + mgga_d.v3sigmalapltau as usize * np + mgga_d.v3sigmatau2 as usize * np + mgga_d.v3lapl3 as usize * np + mgga_d.v3lapl2tau as usize * np + mgga_d.v3lapltau2 as usize * np + mgga_d.v3tau3 as usize * np,);
 
         // === Order 4 (35 MGGA fields, 5 of which GGA exposes) ===
-        let (v4rho4, rest) = cursor.split_at_mut(d.v4rho4 as usize * np);
-        cursor = rest;
-        let (v4rho3sigma, rest) = cursor.split_at_mut(d.v4rho3sigma as usize * np);
-        cursor = rest;
+        let v4rho4 = take_n(&mut cursor, d.v4rho4 as usize * np);
+        let v4rho3sigma = take_n(&mut cursor, d.v4rho3sigma as usize * np);
         // Skip v4rho3lapl + v4rho3tau
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v4rho3lapl as usize * np + mgga_d.v4rho3tau as usize * np,
-        );
-        cursor = rest;
-        let (v4rho2sigma2, rest) = cursor.split_at_mut(d.v4rho2sigma2 as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v4rho3lapl as usize * np + mgga_d.v4rho3tau as usize * np,);
+        let v4rho2sigma2 = take_n(&mut cursor, d.v4rho2sigma2 as usize * np);
         // Skip v4rho2sigmalapl + v4rho2sigmatau + v4rho2lapl2 + v4rho2lapltau + v4rho2tau2
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v4rho2sigmalapl as usize * np
-                + mgga_d.v4rho2sigmatau as usize * np
-                + mgga_d.v4rho2lapl2 as usize * np
-                + mgga_d.v4rho2lapltau as usize * np
-                + mgga_d.v4rho2tau2 as usize * np,
-        );
-        cursor = rest;
-        let (v4rhosigma3, rest) = cursor.split_at_mut(d.v4rhosigma3 as usize * np);
-        cursor = rest;
+        let _ = take_n(&mut cursor, mgga_d.v4rho2sigmalapl as usize * np + mgga_d.v4rho2sigmatau as usize * np + mgga_d.v4rho2lapl2 as usize * np + mgga_d.v4rho2lapltau as usize * np + mgga_d.v4rho2tau2 as usize * np,);
+        let v4rhosigma3 = take_n(&mut cursor, d.v4rhosigma3 as usize * np);
         // Skip v4rhosigma2lapl..v4rhotau3 (9 fields)
-        let (_, rest) = cursor.split_at_mut(
-            mgga_d.v4rhosigma2lapl as usize * np
-                + mgga_d.v4rhosigma2tau as usize * np
-                + mgga_d.v4rhosigmalapl2 as usize * np
-                + mgga_d.v4rhosigmalapltau as usize * np
-                + mgga_d.v4rhosigmatau2 as usize * np
-                + mgga_d.v4rholapl3 as usize * np
-                + mgga_d.v4rholapl2tau as usize * np
-                + mgga_d.v4rholapltau2 as usize * np
-                + mgga_d.v4rhotau3 as usize * np,
-        );
-        cursor = rest;
-        let (v4sigma4, _rest) = cursor.split_at_mut(d.v4sigma4 as usize * np);
+        let _ = take_n(&mut cursor, mgga_d.v4rhosigma2lapl as usize * np + mgga_d.v4rhosigma2tau as usize * np + mgga_d.v4rhosigmalapl2 as usize * np + mgga_d.v4rhosigmalapltau as usize * np + mgga_d.v4rhosigmatau2 as usize * np + mgga_d.v4rholapl3 as usize * np + mgga_d.v4rholapl2tau as usize * np + mgga_d.v4rholapltau2 as usize * np + mgga_d.v4rhotau3 as usize * np,);
+        let v4sigma4 = take_n(&mut cursor, d.v4sigma4 as usize * np);
 
         GgaScratch {
             zk,
@@ -495,8 +505,7 @@ impl EvaluationWorkspace {
 
         macro_rules! pop {
             ($field:ident) => {{
-                let (out, rest) = cursor.split_at_mut(d.$field as usize * np);
-                cursor = rest;
+                let out = take_n(&mut cursor, d.$field as usize * np);
                 out
             }};
         }
