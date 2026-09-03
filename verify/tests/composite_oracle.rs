@@ -34,10 +34,15 @@ use libxc_sys::{
 /// Both reasons are structural and predate the composite work; neither is a
 /// mixing fault. A functional not on this list must meet the gate.
 const KNOWN_GAPS: &[(u16, &str)] = &[
-    // These four mix an internal libxc worker functional (id ~100001) that the
-    // public registry does not expose, so `Functional::new` drops it and the
-    // mix is missing a whole component. Nothing to do with parameters: they
-    // disagree by the same amount with and without the override table.
+    // These four mix `lda_k_gds08_worker`, which libxc declares in
+    // `xc_funcs_worker.h` rather than `xc_funcs.h` -- not part of its public
+    // API, not resolvable through `xc_functional_get_number`, and numbered
+    // 100001, which does not fit the `u16` `FunctionalId` anyway. The
+    // generators take the public header as the definition of what exists, so
+    // no dispatch path is emitted for it and `Functional::new` drops it from
+    // the mix, leaving these four missing a whole component. Nothing to do
+    // with parameters: they disagree by the same amount with and without the
+    // override table.
     (591, "gga_k_gds08: aux list is missing libxc's internal worker functional"),
     (592, "gga_k_ghds10: aux list is missing libxc's internal worker functional"),
     (593, "gga_k_ghds10r: aux list is missing libxc's internal worker functional"),

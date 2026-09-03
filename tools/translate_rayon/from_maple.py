@@ -1012,10 +1012,46 @@ def is_vxc_type(path: Path) -> bool:
     return path.parent.name.endswith("_vxc")
 
 
+# Base kernels reachable only from a functional libxc keeps out of
+# `xc_funcs.h`. Emitting one produces a crate nothing can reference: the eval
+# layer is generated from `params.json`, which is itself filtered to the public
+# header, so the dispatch module never appears.
+#
+# `lda_k_gds08_worker` is the only entry today. libxc declares it in
+# `xc_funcs_worker.h` at id **100001**, does not resolve it through
+# `xc_functional_get_number`, and returns it from no documented entry point.
+# It could not have been called from here in any case -- `FunctionalId` is a
+# `u16` and 100001 does not fit.
+#
+# Derived rather than hard-coded: a base is skipped when every functional that
+# uses it is non-public. The four composites that mix this one
+# (`gga_k_gds08`, `ghds10`, `ghds10r`, `tkvln`) are public and stay wired; they
+# are simply not evaluable, which
+# `verify/tests/composite_oracle.rs::KNOWN_GAPS` records with the reason.
+def nonpublic_bases() -> set[str]:
+    header = REPO / "libxc-master" / "src" / "xc_funcs.h"
+    public = {m.group(1).lower() for m in
+              re.finditer(r"^#define\s+XC_(\w+)\s+\d+", header.read_text(errors="replace"), re.M)}
+    src = REPO / "libxc-master" / "src"
+    skip: set[str] = set()
+    for c in sorted(src.glob("*.c")):
+        text = c.read_text(errors="replace")
+        incs = re.findall(r"#include\s+[\"<]maple2c/[^/\">]+/([^/\">]+)\.c[\">]", text)
+        if not incs:
+            continue
+        infos = re.findall(r"const\s+xc_func_info_type\s+xc_func_info_(\w+)\s*=", text)
+        if infos and not any(i in public for i in infos):
+            skip.update(incs)
+    return skip
+
+
 def maple_files() -> dict[str, Path]:
+    skip = nonpublic_bases()
     out: dict[str, Path] = {}
     for d in ("lda_exc", "lda_vxc", "gga_exc", "gga_vxc", "mgga_exc", "mgga_vxc"):
         for p in sorted((MAPLE / d).glob("*.c")):
+            if p.stem in skip:
+                continue
             out[p.stem] = p
     return out
 

@@ -10558,22 +10558,6 @@
    "ext_names": null,
    "ext_to_kernel": null
   },
-  "lda_k_gds08_worker": {
-   "family": "lda",
-   "base_kernel": "lda_k_gds08_worker",
-   "params": [
-    "param_A",
-    "param_B",
-    "param_C"
-   ],
-   "values": [
-    "0.860",
-    "0.224",
-    "0.0"
-   ],
-   "ext_names": null,
-   "ext_to_kernel": null
-  },
   "lda_k_lp": {
    "family": "lda",
    "base_kernel": "lda_k_tf",
@@ -16044,6 +16028,7 @@
   }
  },
  "unresolved": {
+  "lda_k_gds08_worker": "not in libxc's public header xc_funcs.h (lda_k_gds08_worker.c declares it in xc_funcs_worker.h); libxc does not expose it and this tree does not generate a dispatch path for it",
   "gga_x_kgg99": "composed functional: gga_x_gg99.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
   "gga_x_revssb_d": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
   "gga_x_ssb": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",

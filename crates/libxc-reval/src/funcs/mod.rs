@@ -644,8 +644,6 @@ pub mod lda_c_w20;
 pub mod lda_c_wigner;
 #[cfg(feature = "lda_c_xalpha")]
 pub mod lda_c_xalpha;
-#[cfg(feature = "lda_k_gds08_worker")]
-pub mod lda_k_gds08_worker;
 #[cfg(feature = "lda_k_lp")]
 pub mod lda_k_lp;
 #[cfg(feature = "lda_k_lp96")]

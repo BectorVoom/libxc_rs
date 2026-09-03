@@ -380,6 +380,43 @@ def validate_ext_wiring(func, kp, values, ext_names, ext_to_kernel, meta_ext):
     return ext_names, ext_to_kernel, None
 
 
+
+# ---------------------------------------------------------------------------
+# libxc's public surface
+# ---------------------------------------------------------------------------
+
+_PUBLIC_HEADER = LIBXC_SRC / "xc_funcs.h"
+
+
+def public_functionals() -> dict[str, int]:
+    """`{functional name: id}` for every functional in `xc_funcs.h`.
+
+    **This header is the definition of what exists.** libxc ships 649
+    functionals in `xc_funcs.h` and a second header, `xc_funcs_worker.h`, that
+    declares internal helpers it deliberately does not expose -- one entry
+    today, `XC_LDA_K_GDS08_WORKER` at id 100001. Those are not part of the
+    public API: `xc_functional_get_number` does not resolve them, and no
+    documented entry point returns one.
+
+    Generating a dispatch path for a worker functional therefore ships an API
+    surface libxc does not have. It also cannot be reached: `FunctionalId` is a
+    `u16` and 100001 does not fit, so nothing in this tree could ever call it
+    even though the code existed and compiled.
+
+    The four composites that mix it (`gga_k_gds08`, `ghds10`, `ghds10r`,
+    `tkvln`) are public and stay wired; they simply cannot be evaluated,
+    which `verify/tests/composite_oracle.rs::KNOWN_GAPS` records with the
+    reason.
+    """
+    out: dict[str, int] = {}
+    for m in re.finditer(r"^#define\s+XC_(\w+)\s+(\d+)",
+                         _PUBLIC_HEADER.read_text(errors="replace"), re.M):
+        out[m.group(1).lower()] = int(m.group(2))
+    if not out:
+        raise SystemExit(f"no functionals found in {_PUBLIC_HEADER}")
+    return out
+
+
 def strip_comments(src: str) -> str:
     src = re.sub(r"/\*.*?\*/", "", src, flags=re.S)
     return re.sub(r"//[^\n]*", "", src)
@@ -618,8 +655,10 @@ def main() -> int:
     # (`NULL, &work_gga, NULL`), a composed one has an init function and no work
     # pointer at all (`xc_hyb_gga_xc_apbe0_init, NULL,  NULL, NULL, NULL`).
     # So require the work pointer, and report the rest rather than guessing.
+    PUBLIC = public_functionals()
     c_to_base: dict[str, tuple[str, str, str]] = {}
     composed: dict[str, str] = {}
+    nonpublic: dict[str, str] = {}
     for c in sorted(LIBXC_SRC.glob("*.c")):
         text = c.read_text(errors="replace")
         incs = re.findall(r"#include\s+[\"<]maple2c/([^/\">]+)/([^/\">]+)\.c[\">]", text)
@@ -638,12 +677,22 @@ def main() -> int:
                 r"const\s+xc_func_info_type\s+xc_func_info_(\w+)\s*=\s*\{(.*?)\n\};",
                 text, re.S):
             info, body = m.group(1), m.group(2)
+            if info not in PUBLIC:
+                # Not in `xc_funcs.h`: an internal worker libxc does not
+                # expose. Recorded, never emitted. See `public_functionals`.
+                nonpublic[info] = c.name
+                continue
             if re.search(r"&\s*work_", body):
                 c_to_base[info] = (fam, maple_base, c.name)
             else:
                 composed[info] = c.name
 
     resolved, unresolved = {}, {}
+    for info, srcfile in sorted(nonpublic.items()):
+        unresolved[info] = (
+            f"not in libxc's public header xc_funcs.h ({srcfile} declares it in "
+            "xc_funcs_worker.h); libxc does not expose it and this tree does "
+            "not generate a dispatch path for it")
     for info, srcfile in sorted(composed.items()):
         unresolved[info] = (
             f"composed functional: {srcfile} builds it with xc_mix_init out of "
