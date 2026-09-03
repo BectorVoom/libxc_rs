@@ -376,31 +376,45 @@ four kinetic functionals is not a trade worth making.
 
 ## 7. After the plan: the sweep it implied
 
-The stale-rejection finding (§2.1.4) was scoped to PBE. Following it up:
+The stale-rejection finding (§2.1.4) was scoped to PBE. Following it up across
+two sweeps of the tier-1 candidate pool:
 
-**Tier-1 SIMD re-sweep.** Of the 120 hottest undecided candidates, **118
-accepted** — median 1.92x, range 1.38x to 2.68x, every fingerprint unchanged.
-Two deferred for machine contention. **Nothing was rejected on its merits.**
-The allowlist went from 68 to 170 triples across 82 functionals.
+| | verdicts | accepted | rejected on merit |
+|---|--:|--:|--:|
+| first sweep | 120 | 118 | 0 (2 deferred for contention) |
+| second sweep | 264 | 262 | **2** |
 
-| case | libxc-Nt | rust-Nt | vs libxc | before |
-|---|--:|--:|--:|--:|
-| `gga_x_b88` exc+vxc unpol | 5.87 | 3.74 | **1.57x** | 0.87x |
-| `gga_c_lyp` exc+vxc unpol | 6.33 | 2.78 | **2.28x** | 1.97x |
-| `gga_x_pbe` exc+vxc unpol | 3.63 | 3.10 | 1.17x | 1.07x |
-| `gga_c_pbe` exc+vxc unpol | 13.41 | 5.35 | 2.51x | 2.45x |
-| `gga_x_pbe` exc+vxc pol | 20.41 | 7.01 | 2.91x | 2.87x |
-| `gga_c_pbe` exc+vxc pol | 23.85 | 7.56 | 3.15x | 3.24x |
+Median ratio 1.76x, range 0.87x to 2.69x. The allowlist went from 68 triples
+across 24 functionals to **308 across 149**. The two rejections matter as much
+as the acceptances: the driver discriminates rather than accepting whatever is
+put to it.
 
-294 tier-1 candidates remain undecided; the ledger records every verdict so
-the sweep resumes where it stopped.
+### Final table, quiet box, `--reps 9`, ns per grid point
 
-**Composite MGGAs could not evaluate at all.** 36 of 39 failed with an output
-buffer error, so they had never been compared against libxc. The mix layer
-gated the *auxiliary's* buffers on the parent's Laplacian and tau flags; that
-gate belongs on the accumulation. Survey now compares 34, two over the gate
-(`hyb_mgga_xc_b0kcis` zk 2.6e-1, a real disagreement; `hyb_mgga_xc_br3p86`
-vsigma 2.1e-7). Neither fixed.
+| case | libxc-Nt | rust-Nt | vs libxc |
+|---|--:|--:|--:|
+| `lda_c_vwn` exc+vxc unpol | 10.60 | 5.38 | 1.97x |
+| `gga_x_b88` exc+vxc unpol | 6.51 | 3.96 | **1.64x** (was 0.87x) |
+| `gga_c_lyp` exc+vxc unpol | 6.64 | 3.14 | 2.11x |
+| `gga_x_pbe` exc+vxc unpol | 3.71 | 3.35 | 1.11x |
+| `gga_c_pbe` exc+vxc unpol | 13.30 | 4.66 | 2.85x |
+| `gga_x_pbe` exc+vxc pol | 16.07 | 6.08 | 2.64x |
+| `gga_c_pbe` exc+vxc pol | 24.75 | 8.33 | 2.97x |
+| `gga_c_pbe` exc+vxc+fxc unpol | 18.98 | 6.44 | 2.95x |
+| `mgga_x_scan` exc+vxc unpol | 15.43 | 6.58 | 2.34x |
+| `mgga_c_r2scan` exc+vxc unpol | 32.26 | 10.55 | 3.06x |
+| `mgga_x_scan` exc+vxc pol | 36.50 | 11.84 | 3.08x |
+| `mgga_c_tpssloc` exc+vxc unpol | 60.58 | 21.70 | 2.79x |
+| `hyb_gga_xc_hse06` exc+vxc unpol | 105.46 | 103.19 | 1.02x |
+| `gga_x_b88` exc+vxc+fxc unpol | 9.64 | 10.05 | 0.96x |
+
+The last row is the shape of the remaining work rather than a regression:
+`gga_x_b88`'s `fxc` triple has not been qualified, since that is tier 3, so
+only its `exc`/`vxc` are vectorised while the `fxc` body still calls scalar
+cbrt. About 1,400 candidates remain across tiers 1-4.
+
+HSE06 stays at parity because `gga_x_wpbeh` is evaluated twice and is still
+scalar; see §8.
 
 ## 8. What is not done
 

@@ -250,11 +250,14 @@ points are contiguous and always take the fast route.
 
 - **A rejection in `docs/perf/simd-ledger.json` is only valid for the tree it was
   measured on.** Re-swept 2026-09-03: of the 120 hottest undecided tier-1
-  candidates, **118 accepted** (median 1.92x, range 1.38-2.68x), two deferred
-  for contention, none rejected on merit. The allowlist went 68 -> 170 triples
-  across 82 functionals and `gga_x_b88` went from 0.87x *behind* libxc to
-  1.57x ahead. **294 tier-1 candidates are still undecided** -- resume with
-  `simd_qualify.py --tier 1`; the ledger records every verdict. `gga_x_pbe` carried a standing "do not SIMD, LLVM already
+  candidates over two sweeps, **262 of 264 verdicts accept** (median 1.76x,
+  range 0.87-2.69x); two were deferred for contention and **two rejected on
+  merit**, which is what shows the driver discriminates. The allowlist went
+  68 -> **308 triples across 149 functionals**, and `gga_x_b88` went from 0.87x
+  *behind* libxc to 1.64x ahead. **About 1,400 candidates remain across tiers
+  1-4** -- resume with `simd_qualify.py --tier N`; the ledger records every
+  verdict, and `gga_x_b88 exc+vxc+fxc` at 0.96x is the visible cost of the
+  tier-3 backlog rather than a regression. `gga_x_pbe` carried a standing "do not SIMD, LLVM already
   vectorises it" rejection at 0.55x. That was true when `pow_1_3` resolved to
   `powers.rs::cbrt_f64`, inline branch-free arithmetic LLVM packed 8-wide.
   Commit 31fd1ff47f repointed it at `rmath::cbrt` and 4395787e90 pinned that to
