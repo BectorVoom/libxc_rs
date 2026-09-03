@@ -1,15 +1,84 @@
-//! GGA_X_BEEFVDW vxc pol kernel (rayon backend).
+//! GGA_X_BEEFVDW vxc pol kernel — explicit SIMD (bit-exact).
 //!
 //! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_x_beefvdw.c`
-//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
-//! variable names and floating-point operation order.
+//! by tools/translate_rayon/from_maple.py, then rewritten to
+//! `wide::f64x8` by simd.py. Eight grid points per step; every lane runs maple2c's expression
+//! sequence in its original order.
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+use libxc_rkernel_math::constants::*;
+use libxc_rkernel_math::simd;
+use libxc_rkernel_math::wide::{f64x8, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe};
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
+const V_ZERO: f64x8 = f64x8::new([0.0; 8]);
+const V_ONE: f64x8 = f64x8::new([1.0; 8]);
 
-use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3};
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
+
+/// Load 8 consecutive grid points.
+///
+/// The tail is padded by repeating the last element, not by zero-filling:
+/// these formulas divide by rho, so a zero lane would raise inf/NaN in lanes
+/// whose results are then discarded -- harmless to the answer, but it makes
+/// any real NaN impossible to spot while debugging.
+#[inline(always)]
+fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
+    if ip + 8 <= np {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        f64x8::new(b)
+    } else {
+        let mut b = [s[np - 1]; 8];
+        b[..np - ip].copy_from_slice(&s[ip..np]);
+        f64x8::new(b)
+    }
+}
+
+/// Load 8 elements with a given stride and offset.
+#[inline(always)]
+fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -> f64x8 {
+    let mut b = [0.0f64; 8];
+    if ip + 8 <= np {
+        let base = ip * stride + offset;
+        b[0] = s[base];
+        b[1] = s[base + stride];
+        b[2] = s[base + 2 * stride];
+        b[3] = s[base + 3 * stride];
+        b[4] = s[base + 4 * stride];
+        b[5] = s[base + 5 * stride];
+        b[6] = s[base + 6 * stride];
+        b[7] = s[base + 7 * stride];
+    } else {
+        for k in 0..8 {
+            let p = (ip + k).min(np - 1);
+            b[k] = s[p * stride + offset];
+        }
+    }
+    f64x8::new(b)
+}
+
+/// Store 8 elements with a given stride and offset.
+#[inline(always)]
+fn store_strided(s: &mut [f64], ip: usize, m: usize, stride: usize, offset: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let base = ip * stride + offset;
+        s[base] = a[0];
+        s[base + stride] = a[1];
+        s[base + 2 * stride] = a[2];
+        s[base + 3 * stride] = a[3];
+        s[base + 4 * stride] = a[4];
+        s[base + 5 * stride] = a[5];
+        s[base + 6 * stride] = a[6];
+        s[base + 7 * stride] = a[7];
+    } else {
+        for k in 0..m {
+            s[(ip + k) * stride + offset] = a[k];
+        }
+    }
+}
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_x_beefvdw_vxc_pol(
@@ -21,266 +90,286 @@ pub fn gga_x_beefvdw_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..zk.len() {
-        let rho0 = rho[ip * 2];
-        let rho1 = rho[ip * 2 + 1];
-        let sigma0 = sigma[ip * 3];
-        let sigma1 = sigma[ip * 3 + 1];
-        let sigma2 = sigma[ip * 3 + 2];
-        let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t5 = t2 / t3;
-        let t6 = rho0 + rho1;
-        let t7 = 1.0 / t6;
-        let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
-        let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
-        let t16 = rho0 - rho1;
-        let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
-        let t19 = t18 + 1.0;
-        let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
-        let t23 = pow_1_3(t19);
-        let t25 = piecewise3(t20, t22, t23 * t19);
-        let t26 = pow_1_3(t6);
-        let t27 = t25 * t26;
-        let t28 = M_CBRT6;
-        let t29 = M_PI * M_PI;
-        let t30 = pow_1_3(t29);
-        let t31 = t30 * t30;
-        let t32 = 1.0 / t31;
-        let t33 = t28 * t32;
-        let t34 = rho0 * rho0;
-        let t35 = pow_1_3(rho0);
-        let t36 = t35 * t35;
-        let t38 = 1.0 / t36 / t34;
-        let t39 = sigma0 * t38;
-        let t42 = 4.0 + t33 * t39 / 24.0;
-        let t43 = 1.0 / t42;
-        let t45 = t33 * t39 * t43;
-        let t47 = t45 / 12.0 - 1.0;
-        let t48 = t47 * t47;
-        let t49 = t48 * t48;
-        let t51 = t48 * t47;
-        let t54 = t49 * t49;
-        let t55 = t54 * t54;
-        let t57 = t49 * t47;
-        let t58 = t54 * t57;
-        let t60 = t49 * t48;
-        let t61 = t54 * t60;
-        let t63 = t54 * t51;
-        let t65 = t54 * t49;
-        let t68 = t49 * t51;
-        let t71 = t55 * t49;
-        let t73 = t55 * t57;
-        let t75 = t55 * t60;
-        let t77 = t55 * t54;
-        let t79 = -0.6945973517763898 * t49 + 0.527556201155898 * t51 - 0.38916037779196816 * t48 - 168370.8413901412 * t55 - 2810.240180568463 * t58 + 70504.54186903402 * t61 + 2274.8997850816486 * t63 - 20148.24517562505 * t65 - 442.33229018433804 * t54 + 86.00573049927964 * t68 + 30.54203495931585 * t60 - 323524.0313604933 * t71 + 180782.00670879145 * t73 + 255894.79526235335 * t75 - 132044.6618218215 * t77;
-        let t80 = t55 * t68;
-        let t82 = t54 * t47;
-        let t83 = t55 * t82;
-        let t85 = t55 * t65;
-        let t87 = t54 * t48;
-        let t88 = t55 * t87;
-        let t90 = t55 * t63;
-        let t94 = t55 * t51;
-        let t96 = t55 * t47;
-        let t98 = t55 * t48;
-        let t104 = t54 * t68;
-        let t106 = 1.1313514630621233 - 161142.1539984628 * t80 + 90365.6111085228 * t83 - 5427.777462637186 * t85 + 40074.93585443239 * t88 - 29150.193011493262 * t90 + 4135.586188014654 * t55 * t58 - 129814.81812794984 * t94 + 56174.00797937267 * t96 + 279670.48856303055 * t98 + 3783.53964072524 * t87 - 7.2975787893717134 * t57 - 617.547861045286 * t82 + 0.037534251004296526 * t45 - 10276.426607863825 * t104;
-        let t107 = t79 + t106;
-        let t111 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t107);
-        let t112 = rho1 <= dens_threshold;
-        let t113 = -t16;
-        let t115 = piecewise5(t14, t11, t10, t15, t113 * t7);
-        let t116 = t115 + 1.0;
-        let t117 = t116 <= zeta_threshold;
-        let t118 = pow_1_3(t116);
-        let t120 = piecewise3(t117, t22, t118 * t116);
-        let t121 = t120 * t26;
-        let t122 = rho1 * rho1;
-        let t123 = pow_1_3(rho1);
-        let t124 = t123 * t123;
-        let t126 = 1.0 / t124 / t122;
-        let t127 = sigma2 * t126;
-        let t130 = 4.0 + t33 * t127 / 24.0;
-        let t131 = 1.0 / t130;
-        let t133 = t33 * t127 * t131;
-        let t135 = t133 / 12.0 - 1.0;
-        let t136 = t135 * t135;
-        let t137 = t136 * t135;
-        let t138 = t136 * t136;
-        let t139 = t138 * t137;
-        let t140 = t138 * t138;
-        let t141 = t140 * t139;
-        let t143 = t140 * t138;
-        let t145 = t138 * t135;
-        let t146 = t140 * t145;
-        let t148 = t140 * t137;
-        let t152 = t140 * t135;
-        let t155 = t140 * t140;
-        let t156 = t155 * t148;
-        let t160 = t138 * t136;
-        let t163 = t155 * t140;
-        let t165 = t155 * t152;
-        let t167 = -10276.426607863825 * t141 - 20148.24517562505 * t143 - 2810.240180568463 * t146 + 2274.8997850816486 * t148 + 86.00573049927964 * t139 - 442.33229018433804 * t140 - 617.547861045286 * t152 + 0.527556201155898 * t137 - 29150.193011493262 * t156 - 0.38916037779196816 * t136 - 7.2975787893717134 * t145 + 30.54203495931585 * t160 - 0.6945973517763898 * t138 - 132044.6618218215 * t163 + 90365.6111085228 * t165;
-        let t169 = t155 * t135;
-        let t171 = t140 * t160;
-        let t175 = t155 * t143;
-        let t177 = t155 * t139;
-        let t179 = t155 * t145;
-        let t181 = t155 * t160;
-        let t183 = t155 * t138;
-        let t185 = t155 * t136;
-        let t187 = t155 * t137;
-        let t189 = t140 * t136;
-        let t192 = t155 * t189;
-        let t194 = 1.1313514630621233 - 168370.8413901412 * t155 + 56174.00797937267 * t169 + 70504.54186903402 * t171 + 4135.586188014654 * t155 * t146 - 5427.777462637186 * t175 - 161142.1539984628 * t177 + 180782.00670879145 * t179 + 255894.79526235335 * t181 - 323524.0313604933 * t183 + 279670.48856303055 * t185 - 129814.81812794984 * t187 + 3783.53964072524 * t189 + 0.037534251004296526 * t133 + 40074.93585443239 * t192;
-        let t195 = t167 + t194;
-        let t199 = piecewise3(t112, 0.0, -3.0 / 8.0 * t5 * t121 * t195);
-        let tzk0 = t111 + t199;
-        zk[ip] += tzk0;
-        let t200 = t6 * t6;
-        let t201 = 1.0 / t200;
-        let t202 = t16 * t201;
-        let t204 = piecewise5(t10, 0.0, t14, 0.0, t7 - t202);
-        let t207 = piecewise3(t20, 0.0, 4.0 / 3.0 * t23 * t204);
-        let t208 = t207 * t26;
-        let t212 = t26 * t26;
-        let t213 = 1.0 / t212;
-        let t214 = t25 * t213;
-        let t217 = t5 * t214 * t107 / 8.0;
-        let t218 = t34 * rho0;
-        let t220 = 1.0 / t36 / t218;
-        let t223 = t33 * sigma0 * t220 * t43;
-        let t225 = t28 * t28;
-        let t227 = 1.0 / t30 / t29;
-        let t228 = t225 * t227;
-        let t229 = sigma0 * sigma0;
-        let t230 = t34 * t34;
-        let t231 = t230 * t34;
-        let t233 = 1.0 / t35 / t231;
-        let t235 = t42 * t42;
-        let t236 = 1.0 / t235;
-        let t238 = t228 * t229 * t233 * t236;
-        let t240 = -2.0 / 9.0 * t223 + t238 / 108.0;
-        let t271 = -2693933.462242259 * t104 * t240 - 36533.12234739002 * t65 * t240 + 987063.5861664761 * t58 * t240 + 25023.897635898134 * t87 * t240 - 241778.94210750057 * t63 * t240 - 3538.6583214747043 * t68 * t240 - 5557.930749407574 * t54 * t240 + 37835.3964072524 * t82 * t240 - 36.48789394685857 * t49 * t240 + 183.2522097558951 * t57 * t240 + 602.0401134949575 * t60 * t240 - 0.7783207555839363 * t47 * t240 + 1.582668603467694 * t48 * t240 - 2.7783894071055593 * t51 * t240 + 119931.99945242496 * t85 * t240;
-        let t300 = -787055.2113103181 * t88 * t240 - 151977.7689538412 * t90 * t240 + 1041948.3322152421 * t83 * t240 + 2259140.27771307 * t77 * t240 - 3706269.5419646446 * t75 * t240 - 3169071.8837237163 * t80 * t240 + 5629685.495771773 * t73 * t240 - 6470480.6272098655 * t94 * t240 + 3796422.1408846206 * t71 * t240 - 2466481.544431047 * t98 * t240 + 954958.1356493353 * t55 * t240 + 5034068.79413455 * t96 * t240 - 154146.39911795736 * t61 * t240 - 0.10009133601145741 * t223 + 0.004170472333810725 * t238;
-        let t301 = t271 + t300;
-        let t306 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t208 * t107 - t217 - 3.0 / 8.0 * t5 * t27 * t301);
-        let t307 = t113 * t201;
-        let t309 = piecewise5(t14, 0.0, t10, 0.0, -t7 - t307);
-        let t312 = piecewise3(t117, 0.0, 4.0 / 3.0 * t118 * t309);
-        let t313 = t312 * t26;
-        let t317 = t120 * t213;
-        let t320 = t5 * t317 * t195 / 8.0;
-        let t322 = piecewise3(t112, 0.0, -3.0 / 8.0 * t5 * t313 * t195 - t320);
-        let tvrho0 = t111 + t199 + t6 * (t306 + t322);
-        vrho[ip * 2] += tvrho0;
-        let t326 = piecewise5(t10, 0.0, t14, 0.0, -t7 - t202);
-        let t329 = piecewise3(t20, 0.0, 4.0 / 3.0 * t23 * t326);
-        let t330 = t329 * t26;
-        let t335 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t330 * t107 - t217);
-        let t337 = piecewise5(t14, 0.0, t10, 0.0, t7 - t307);
-        let t340 = piecewise3(t117, 0.0, 4.0 / 3.0 * t118 * t337);
-        let t341 = t340 * t26;
-        let t345 = t122 * rho1;
-        let t347 = 1.0 / t124 / t345;
-        let t350 = t33 * sigma2 * t347 * t131;
-        let t352 = sigma2 * sigma2;
-        let t353 = t122 * t122;
-        let t354 = t353 * t122;
-        let t356 = 1.0 / t123 / t354;
-        let t358 = t130 * t130;
-        let t359 = 1.0 / t358;
-        let t361 = t228 * t352 * t356 * t359;
-        let t365 = -2.0 / 9.0 * t350 + t361 / 108.0;
-        let t392 = -0.10009133601145741 * t350 + 0.004170472333810725 * t361 - 0.7783207555839363 * t135 * t365 - 787055.2113103181 * t192 * t365 + 1041948.3322152421 * t165 * t365 - 3169071.8837237163 * t177 * t365 + 2259140.27771307 * t163 * t365 - 3706269.5419646446 * t181 * t365 + 3796422.1408846206 * t183 * t365 + 5629685.495771773 * t179 * t365 - 6470480.6272098655 * t187 * t365 + 5034068.79413455 * t169 * t365 - 2466481.544431047 * t185 * t365 - 2693933.462242259 * t141 * t365 + 954958.1356493353 * t155 * t365;
-        let t423 = 987063.5861664761 * t146 * t365 - 154146.39911795736 * t171 * t365 - 241778.94210750057 * t148 * t365 - 36533.12234739002 * t143 * t365 + 37835.3964072524 * t152 * t365 + 25023.897635898134 * t189 * t365 + 602.0401134949575 * t160 * t365 - 3538.6583214747043 * t139 * t365 - 5557.930749407574 * t140 * t365 + 1.582668603467694 * t136 * t365 - 2.7783894071055593 * t137 * t365 - 36.48789394685857 * t138 * t365 + 183.2522097558951 * t145 * t365 + 119931.99945242496 * t175 * t365 - 151977.7689538412 * t156 * t365;
-        let t424 = t392 + t423;
-        let t429 = piecewise3(t112, 0.0, -3.0 / 8.0 * t5 * t341 * t195 - t320 - 3.0 / 8.0 * t5 * t121 * t424);
-        let tvrho1 = t111 + t199 + t6 * (t335 + t429);
-        vrho[ip * 2 + 1] += tvrho1;
-        let t432 = t230 * rho0;
-        let t434 = 1.0 / t35 / t432;
-        let t437 = t228 * sigma0 * t434 * t236;
-        let t440 = t33 * t38 * t43;
-        let t444 = t440 / 12.0 - t437 / 288.0;
-        let t445 = t49 * t444;
-        let t447 = t57 * t444;
-        let t449 = t60 * t444;
-        let t451 = t47 * t444;
-        let t453 = t48 * t444;
-        let t455 = t51 * t444;
-        let t459 = t88 * t444;
-        let t461 = t90 * t444;
-        let t463 = t83 * t444;
-        let t465 = t77 * t444;
-        let t467 = t75 * t444;
-        let t469 = t80 * t444;
-        let t471 = -0.001563927125179022 * t437 + 0.037534251004296526 * t440 - 36.48789394685857 * t445 + 183.2522097558951 * t447 + 602.0401134949575 * t449 - 0.7783207555839363 * t451 + 1.582668603467694 * t453 - 2.7783894071055593 * t455 + 119931.99945242496 * t85 * t444 - 787055.2113103181 * t459 - 151977.7689538412 * t461 + 1041948.3322152421 * t463 + 2259140.27771307 * t465 - 3706269.5419646446 * t467 - 3169071.8837237163 * t469;
-        let t472 = t73 * t444;
-        let t474 = t94 * t444;
-        let t476 = t71 * t444;
-        let t478 = t98 * t444;
-        let t480 = t55 * t444;
-        let t482 = t96 * t444;
-        let t484 = t61 * t444;
-        let t486 = t104 * t444;
-        let t488 = t65 * t444;
-        let t490 = t58 * t444;
-        let t492 = t87 * t444;
-        let t494 = t63 * t444;
-        let t496 = t68 * t444;
-        let t498 = t54 * t444;
-        let t500 = t82 * t444;
-        let t502 = 5629685.495771773 * t472 - 6470480.6272098655 * t474 + 3796422.1408846206 * t476 - 2466481.544431047 * t478 + 954958.1356493353 * t480 + 5034068.79413455 * t482 - 154146.39911795736 * t484 - 2693933.462242259 * t486 - 36533.12234739002 * t488 + 987063.5861664761 * t490 + 25023.897635898134 * t492 - 241778.94210750057 * t494 - 3538.6583214747043 * t496 - 5557.930749407574 * t498 + 37835.3964072524 * t500;
-        let t503 = t471 + t502;
-        let t507 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t503);
-        let tvsigma0 = t6 * t507;
-        vsigma[ip * 3] += tvsigma0;
-        let tvsigma1 = 0.0;
-        vsigma[ip * 3 + 1] += tvsigma1;
-        let t508 = t353 * rho1;
-        let t510 = 1.0 / t123 / t508;
-        let t513 = t228 * sigma2 * t510 * t359;
-        let t516 = t33 * t126 * t131;
-        let t520 = t516 / 12.0 - t513 / 288.0;
-        let t521 = t138 * t520;
-        let t523 = t145 * t520;
-        let t525 = t135 * t520;
-        let t529 = t156 * t520;
-        let t531 = t192 * t520;
-        let t533 = t165 * t520;
-        let t535 = t177 * t520;
-        let t537 = t163 * t520;
-        let t539 = t181 * t520;
-        let t541 = t183 * t520;
-        let t543 = t179 * t520;
-        let t545 = t187 * t520;
-        let t547 = -0.001563927125179022 * t513 + 0.037534251004296526 * t516 - 36.48789394685857 * t521 + 183.2522097558951 * t523 - 0.7783207555839363 * t525 + 119931.99945242496 * t175 * t520 - 151977.7689538412 * t529 - 787055.2113103181 * t531 + 1041948.3322152421 * t533 - 3169071.8837237163 * t535 + 2259140.27771307 * t537 - 3706269.5419646446 * t539 + 3796422.1408846206 * t541 + 5629685.495771773 * t543 - 6470480.6272098655 * t545;
-        let t548 = t169 * t520;
-        let t550 = t185 * t520;
-        let t552 = t141 * t520;
-        let t554 = t155 * t520;
-        let t556 = t146 * t520;
-        let t558 = t171 * t520;
-        let t560 = t148 * t520;
-        let t562 = t143 * t520;
-        let t564 = t152 * t520;
-        let t566 = t189 * t520;
-        let t568 = t160 * t520;
-        let t570 = t139 * t520;
-        let t572 = t140 * t520;
-        let t574 = t136 * t520;
-        let t576 = t137 * t520;
-        let t578 = 5034068.79413455 * t548 - 2466481.544431047 * t550 - 2693933.462242259 * t552 + 954958.1356493353 * t554 + 987063.5861664761 * t556 - 154146.39911795736 * t558 - 241778.94210750057 * t560 - 36533.12234739002 * t562 + 37835.3964072524 * t564 + 25023.897635898134 * t566 + 602.0401134949575 * t568 - 3538.6583214747043 * t570 - 5557.930749407574 * t572 + 1.582668603467694 * t574 - 2.7783894071055593 * t576;
-        let t579 = t547 + t578;
-        let t583 = piecewise3(t112, 0.0, -3.0 / 8.0 * t5 * t121 * t579);
-        let tvsigma2 = t6 * t583;
-        vsigma[ip * 3 + 2] += tvsigma2;
+    let np = zk.len();
+    let dens_threshold = f64x8::splat(dens_threshold);
+    let zeta_threshold = f64x8::splat(zeta_threshold);
+    let mut ip = 0usize;
+    while ip < np {
+        let m = (np - ip).min(8);
+        let v_rho0 = load_strided(rho, ip, np, 2, 0);
+        let v_rho1 = load_strided(rho, ip, np, 2, 1);
+        let v_sigma0 = load_strided(sigma, ip, np, 3, 0);
+        let v_sigma1 = load_strided(sigma, ip, np, 3, 1);
+        let v_sigma2 = load_strided(sigma, ip, np, 3, 2);
+        let mut acc_zk = V_ZERO;
+        let mut acc_vrho_0 = V_ZERO;
+        let mut acc_vrho_1 = V_ZERO;
+        let mut acc_vsigma_0 = V_ZERO;
+        let mut acc_vsigma_1 = V_ZERO;
+        let mut acc_vsigma_2 = V_ZERO;
+        {
+            let t1 = (v_rho0).simd_le(dens_threshold);
+            let t2 = f64x8::splat(M_CBRT3);
+            let t3 = f64x8::splat(M_CBRTPI);
+            let t5 = t2 / t3;
+            let t6 = v_rho0 + v_rho1;
+            let t7 = f64x8::splat(1.0) / t6;
+            let t10 = (f64x8::splat(2.0) * v_rho0 * t7).simd_le(zeta_threshold);
+            let t11 = zeta_threshold - f64x8::splat(1.0);
+            let t14 = (f64x8::splat(2.0) * v_rho1 * t7).simd_le(zeta_threshold);
+            let t15 = -t11;
+            let t16 = v_rho0 - v_rho1;
+            let t18 = ((t10).select(t11, (t14).select(t15, t16 * t7)));
+            let t19 = t18 + f64x8::splat(1.0);
+            let t20 = (t19).simd_le(zeta_threshold);
+            let t21 = (simd::cbrt(zeta_threshold));
+            let t22 = t21 * zeta_threshold;
+            let t23 = (simd::cbrt(t19));
+            let t25 = ((t20).select(t22, t23 * t19));
+            let t26 = (simd::cbrt(t6));
+            let t27 = t25 * t26;
+            let t28 = f64x8::splat(M_CBRT6);
+            let t29 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+            let t30 = (simd::cbrt(t29));
+            let t31 = t30 * t30;
+            let t32 = f64x8::splat(1.0) / t31;
+            let t33 = t28 * t32;
+            let t34 = v_rho0 * v_rho0;
+            let t35 = (simd::cbrt(v_rho0));
+            let t36 = t35 * t35;
+            let t38 = f64x8::splat(1.0) / t36 / t34;
+            let t39 = v_sigma0 * t38;
+            let t42 = f64x8::splat(4.0) + t33 * t39 / f64x8::splat(24.0);
+            let t43 = f64x8::splat(1.0) / t42;
+            let t45 = t33 * t39 * t43;
+            let t47 = t45 / f64x8::splat(12.0) - f64x8::splat(1.0);
+            let t48 = t47 * t47;
+            let t49 = t48 * t48;
+            let t51 = t48 * t47;
+            let t54 = t49 * t49;
+            let t55 = t54 * t54;
+            let t57 = t49 * t47;
+            let t58 = t54 * t57;
+            let t60 = t49 * t48;
+            let t61 = t54 * t60;
+            let t63 = t54 * t51;
+            let t65 = t54 * t49;
+            let t68 = t49 * t51;
+            let t71 = t55 * t49;
+            let t73 = t55 * t57;
+            let t75 = t55 * t60;
+            let t77 = t55 * t54;
+            let t79 = -f64x8::splat(0.6945973517763898) * t49 + f64x8::splat(0.527556201155898) * t51 - f64x8::splat(0.38916037779196816) * t48 - f64x8::splat(168370.8413901412) * t55 - f64x8::splat(2810.240180568463) * t58 + f64x8::splat(70504.54186903402) * t61 + f64x8::splat(2274.8997850816486) * t63 - f64x8::splat(20148.24517562505) * t65 - f64x8::splat(442.33229018433804) * t54 + f64x8::splat(86.00573049927964) * t68 + f64x8::splat(30.54203495931585) * t60 - f64x8::splat(323524.0313604933) * t71 + f64x8::splat(180782.00670879145) * t73 + f64x8::splat(255894.79526235335) * t75 - f64x8::splat(132044.6618218215) * t77;
+            let t80 = t55 * t68;
+            let t82 = t54 * t47;
+            let t83 = t55 * t82;
+            let t85 = t55 * t65;
+            let t87 = t54 * t48;
+            let t88 = t55 * t87;
+            let t90 = t55 * t63;
+            let t94 = t55 * t51;
+            let t96 = t55 * t47;
+            let t98 = t55 * t48;
+            let t104 = t54 * t68;
+            let t106 = f64x8::splat(1.1313514630621233) - f64x8::splat(161142.1539984628) * t80 + f64x8::splat(90365.6111085228) * t83 - f64x8::splat(5427.777462637186) * t85 + f64x8::splat(40074.93585443239) * t88 - f64x8::splat(29150.193011493262) * t90 + f64x8::splat(4135.586188014654) * t55 * t58 - f64x8::splat(129814.81812794984) * t94 + f64x8::splat(56174.00797937267) * t96 + f64x8::splat(279670.48856303055) * t98 + f64x8::splat(3783.53964072524) * t87 - f64x8::splat(7.2975787893717134) * t57 - f64x8::splat(617.547861045286) * t82 + f64x8::splat(0.037534251004296526) * t45 - f64x8::splat(10276.426607863825) * t104;
+            let t107 = t79 + t106;
+            let t111 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t107));
+            let t112 = (v_rho1).simd_le(dens_threshold);
+            let t113 = -t16;
+            let t115 = ((t14).select(t11, (t10).select(t15, t113 * t7)));
+            let t116 = t115 + f64x8::splat(1.0);
+            let t117 = (t116).simd_le(zeta_threshold);
+            let t118 = (simd::cbrt(t116));
+            let t120 = ((t117).select(t22, t118 * t116));
+            let t121 = t120 * t26;
+            let t122 = v_rho1 * v_rho1;
+            let t123 = (simd::cbrt(v_rho1));
+            let t124 = t123 * t123;
+            let t126 = f64x8::splat(1.0) / t124 / t122;
+            let t127 = v_sigma2 * t126;
+            let t130 = f64x8::splat(4.0) + t33 * t127 / f64x8::splat(24.0);
+            let t131 = f64x8::splat(1.0) / t130;
+            let t133 = t33 * t127 * t131;
+            let t135 = t133 / f64x8::splat(12.0) - f64x8::splat(1.0);
+            let t136 = t135 * t135;
+            let t137 = t136 * t135;
+            let t138 = t136 * t136;
+            let t139 = t138 * t137;
+            let t140 = t138 * t138;
+            let t141 = t140 * t139;
+            let t143 = t140 * t138;
+            let t145 = t138 * t135;
+            let t146 = t140 * t145;
+            let t148 = t140 * t137;
+            let t152 = t140 * t135;
+            let t155 = t140 * t140;
+            let t156 = t155 * t148;
+            let t160 = t138 * t136;
+            let t163 = t155 * t140;
+            let t165 = t155 * t152;
+            let t167 = -f64x8::splat(10276.426607863825) * t141 - f64x8::splat(20148.24517562505) * t143 - f64x8::splat(2810.240180568463) * t146 + f64x8::splat(2274.8997850816486) * t148 + f64x8::splat(86.00573049927964) * t139 - f64x8::splat(442.33229018433804) * t140 - f64x8::splat(617.547861045286) * t152 + f64x8::splat(0.527556201155898) * t137 - f64x8::splat(29150.193011493262) * t156 - f64x8::splat(0.38916037779196816) * t136 - f64x8::splat(7.2975787893717134) * t145 + f64x8::splat(30.54203495931585) * t160 - f64x8::splat(0.6945973517763898) * t138 - f64x8::splat(132044.6618218215) * t163 + f64x8::splat(90365.6111085228) * t165;
+            let t169 = t155 * t135;
+            let t171 = t140 * t160;
+            let t175 = t155 * t143;
+            let t177 = t155 * t139;
+            let t179 = t155 * t145;
+            let t181 = t155 * t160;
+            let t183 = t155 * t138;
+            let t185 = t155 * t136;
+            let t187 = t155 * t137;
+            let t189 = t140 * t136;
+            let t192 = t155 * t189;
+            let t194 = f64x8::splat(1.1313514630621233) - f64x8::splat(168370.8413901412) * t155 + f64x8::splat(56174.00797937267) * t169 + f64x8::splat(70504.54186903402) * t171 + f64x8::splat(4135.586188014654) * t155 * t146 - f64x8::splat(5427.777462637186) * t175 - f64x8::splat(161142.1539984628) * t177 + f64x8::splat(180782.00670879145) * t179 + f64x8::splat(255894.79526235335) * t181 - f64x8::splat(323524.0313604933) * t183 + f64x8::splat(279670.48856303055) * t185 - f64x8::splat(129814.81812794984) * t187 + f64x8::splat(3783.53964072524) * t189 + f64x8::splat(0.037534251004296526) * t133 + f64x8::splat(40074.93585443239) * t192;
+            let t195 = t167 + t194;
+            let t199 = ((t112).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t121 * t195));
+            let tzk0 = t111 + t199;
+            acc_zk = tzk0;
+            let t200 = t6 * t6;
+            let t201 = f64x8::splat(1.0) / t200;
+            let t202 = t16 * t201;
+            let t204 = ((t10).select(f64x8::splat(0.0), (t14).select(f64x8::splat(0.0), t7 - t202)));
+            let t207 = ((t20).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t23 * t204));
+            let t208 = t207 * t26;
+            let t212 = t26 * t26;
+            let t213 = f64x8::splat(1.0) / t212;
+            let t214 = t25 * t213;
+            let t217 = t5 * t214 * t107 / f64x8::splat(8.0);
+            let t218 = t34 * v_rho0;
+            let t220 = f64x8::splat(1.0) / t36 / t218;
+            let t223 = t33 * v_sigma0 * t220 * t43;
+            let t225 = t28 * t28;
+            let t227 = f64x8::splat(1.0) / t30 / t29;
+            let t228 = t225 * t227;
+            let t229 = v_sigma0 * v_sigma0;
+            let t230 = t34 * t34;
+            let t231 = t230 * t34;
+            let t233 = f64x8::splat(1.0) / t35 / t231;
+            let t235 = t42 * t42;
+            let t236 = f64x8::splat(1.0) / t235;
+            let t238 = t228 * t229 * t233 * t236;
+            let t240 = -f64x8::splat(2.0) / f64x8::splat(9.0) * t223 + t238 / f64x8::splat(108.0);
+            let t271 = -f64x8::splat(2693933.462242259) * t104 * t240 - f64x8::splat(36533.12234739002) * t65 * t240 + f64x8::splat(987063.5861664761) * t58 * t240 + f64x8::splat(25023.897635898134) * t87 * t240 - f64x8::splat(241778.94210750057) * t63 * t240 - f64x8::splat(3538.6583214747043) * t68 * t240 - f64x8::splat(5557.930749407574) * t54 * t240 + f64x8::splat(37835.3964072524) * t82 * t240 - f64x8::splat(36.48789394685857) * t49 * t240 + f64x8::splat(183.2522097558951) * t57 * t240 + f64x8::splat(602.0401134949575) * t60 * t240 - f64x8::splat(0.7783207555839363) * t47 * t240 + f64x8::splat(1.582668603467694) * t48 * t240 - f64x8::splat(2.7783894071055593) * t51 * t240 + f64x8::splat(119931.99945242496) * t85 * t240;
+            let t300 = -f64x8::splat(787055.2113103181) * t88 * t240 - f64x8::splat(151977.7689538412) * t90 * t240 + f64x8::splat(1041948.3322152421) * t83 * t240 + f64x8::splat(2259140.27771307) * t77 * t240 - f64x8::splat(3706269.5419646446) * t75 * t240 - f64x8::splat(3169071.8837237163) * t80 * t240 + f64x8::splat(5629685.495771773) * t73 * t240 - f64x8::splat(6470480.6272098655) * t94 * t240 + f64x8::splat(3796422.1408846206) * t71 * t240 - f64x8::splat(2466481.544431047) * t98 * t240 + f64x8::splat(954958.1356493353) * t55 * t240 + f64x8::splat(5034068.79413455) * t96 * t240 - f64x8::splat(154146.39911795736) * t61 * t240 - f64x8::splat(0.10009133601145741) * t223 + f64x8::splat(0.004170472333810725) * t238;
+            let t301 = t271 + t300;
+            let t306 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t208 * t107 - t217 - f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t301));
+            let t307 = t113 * t201;
+            let t309 = ((t14).select(f64x8::splat(0.0), (t10).select(f64x8::splat(0.0), -t7 - t307)));
+            let t312 = ((t117).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t118 * t309));
+            let t313 = t312 * t26;
+            let t317 = t120 * t213;
+            let t320 = t5 * t317 * t195 / f64x8::splat(8.0);
+            let t322 = ((t112).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t313 * t195 - t320));
+            let tvrho0 = t111 + t199 + t6 * (t306 + t322);
+            acc_vrho_0 = tvrho0;
+            let t326 = ((t10).select(f64x8::splat(0.0), (t14).select(f64x8::splat(0.0), -t7 - t202)));
+            let t329 = ((t20).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t23 * t326));
+            let t330 = t329 * t26;
+            let t335 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t330 * t107 - t217));
+            let t337 = ((t14).select(f64x8::splat(0.0), (t10).select(f64x8::splat(0.0), t7 - t307)));
+            let t340 = ((t117).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t118 * t337));
+            let t341 = t340 * t26;
+            let t345 = t122 * v_rho1;
+            let t347 = f64x8::splat(1.0) / t124 / t345;
+            let t350 = t33 * v_sigma2 * t347 * t131;
+            let t352 = v_sigma2 * v_sigma2;
+            let t353 = t122 * t122;
+            let t354 = t353 * t122;
+            let t356 = f64x8::splat(1.0) / t123 / t354;
+            let t358 = t130 * t130;
+            let t359 = f64x8::splat(1.0) / t358;
+            let t361 = t228 * t352 * t356 * t359;
+            let t365 = -f64x8::splat(2.0) / f64x8::splat(9.0) * t350 + t361 / f64x8::splat(108.0);
+            let t392 = -f64x8::splat(0.10009133601145741) * t350 + f64x8::splat(0.004170472333810725) * t361 - f64x8::splat(0.7783207555839363) * t135 * t365 - f64x8::splat(787055.2113103181) * t192 * t365 + f64x8::splat(1041948.3322152421) * t165 * t365 - f64x8::splat(3169071.8837237163) * t177 * t365 + f64x8::splat(2259140.27771307) * t163 * t365 - f64x8::splat(3706269.5419646446) * t181 * t365 + f64x8::splat(3796422.1408846206) * t183 * t365 + f64x8::splat(5629685.495771773) * t179 * t365 - f64x8::splat(6470480.6272098655) * t187 * t365 + f64x8::splat(5034068.79413455) * t169 * t365 - f64x8::splat(2466481.544431047) * t185 * t365 - f64x8::splat(2693933.462242259) * t141 * t365 + f64x8::splat(954958.1356493353) * t155 * t365;
+            let t423 = f64x8::splat(987063.5861664761) * t146 * t365 - f64x8::splat(154146.39911795736) * t171 * t365 - f64x8::splat(241778.94210750057) * t148 * t365 - f64x8::splat(36533.12234739002) * t143 * t365 + f64x8::splat(37835.3964072524) * t152 * t365 + f64x8::splat(25023.897635898134) * t189 * t365 + f64x8::splat(602.0401134949575) * t160 * t365 - f64x8::splat(3538.6583214747043) * t139 * t365 - f64x8::splat(5557.930749407574) * t140 * t365 + f64x8::splat(1.582668603467694) * t136 * t365 - f64x8::splat(2.7783894071055593) * t137 * t365 - f64x8::splat(36.48789394685857) * t138 * t365 + f64x8::splat(183.2522097558951) * t145 * t365 + f64x8::splat(119931.99945242496) * t175 * t365 - f64x8::splat(151977.7689538412) * t156 * t365;
+            let t424 = t392 + t423;
+            let t429 = ((t112).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t341 * t195 - t320 - f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t121 * t424));
+            let tvrho1 = t111 + t199 + t6 * (t335 + t429);
+            acc_vrho_1 = tvrho1;
+            let t432 = t230 * v_rho0;
+            let t434 = f64x8::splat(1.0) / t35 / t432;
+            let t437 = t228 * v_sigma0 * t434 * t236;
+            let t440 = t33 * t38 * t43;
+            let t444 = t440 / f64x8::splat(12.0) - t437 / f64x8::splat(288.0);
+            let t445 = t49 * t444;
+            let t447 = t57 * t444;
+            let t449 = t60 * t444;
+            let t451 = t47 * t444;
+            let t453 = t48 * t444;
+            let t455 = t51 * t444;
+            let t459 = t88 * t444;
+            let t461 = t90 * t444;
+            let t463 = t83 * t444;
+            let t465 = t77 * t444;
+            let t467 = t75 * t444;
+            let t469 = t80 * t444;
+            let t471 = -f64x8::splat(0.001563927125179022) * t437 + f64x8::splat(0.037534251004296526) * t440 - f64x8::splat(36.48789394685857) * t445 + f64x8::splat(183.2522097558951) * t447 + f64x8::splat(602.0401134949575) * t449 - f64x8::splat(0.7783207555839363) * t451 + f64x8::splat(1.582668603467694) * t453 - f64x8::splat(2.7783894071055593) * t455 + f64x8::splat(119931.99945242496) * t85 * t444 - f64x8::splat(787055.2113103181) * t459 - f64x8::splat(151977.7689538412) * t461 + f64x8::splat(1041948.3322152421) * t463 + f64x8::splat(2259140.27771307) * t465 - f64x8::splat(3706269.5419646446) * t467 - f64x8::splat(3169071.8837237163) * t469;
+            let t472 = t73 * t444;
+            let t474 = t94 * t444;
+            let t476 = t71 * t444;
+            let t478 = t98 * t444;
+            let t480 = t55 * t444;
+            let t482 = t96 * t444;
+            let t484 = t61 * t444;
+            let t486 = t104 * t444;
+            let t488 = t65 * t444;
+            let t490 = t58 * t444;
+            let t492 = t87 * t444;
+            let t494 = t63 * t444;
+            let t496 = t68 * t444;
+            let t498 = t54 * t444;
+            let t500 = t82 * t444;
+            let t502 = f64x8::splat(5629685.495771773) * t472 - f64x8::splat(6470480.6272098655) * t474 + f64x8::splat(3796422.1408846206) * t476 - f64x8::splat(2466481.544431047) * t478 + f64x8::splat(954958.1356493353) * t480 + f64x8::splat(5034068.79413455) * t482 - f64x8::splat(154146.39911795736) * t484 - f64x8::splat(2693933.462242259) * t486 - f64x8::splat(36533.12234739002) * t488 + f64x8::splat(987063.5861664761) * t490 + f64x8::splat(25023.897635898134) * t492 - f64x8::splat(241778.94210750057) * t494 - f64x8::splat(3538.6583214747043) * t496 - f64x8::splat(5557.930749407574) * t498 + f64x8::splat(37835.3964072524) * t500;
+            let t503 = t471 + t502;
+            let t507 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t503));
+            let tvsigma0 = t6 * t507;
+            acc_vsigma_0 = tvsigma0;
+            let tvsigma1 = f64x8::splat(0.0);
+            acc_vsigma_1 = tvsigma1;
+            let t508 = t353 * v_rho1;
+            let t510 = f64x8::splat(1.0) / t123 / t508;
+            let t513 = t228 * v_sigma2 * t510 * t359;
+            let t516 = t33 * t126 * t131;
+            let t520 = t516 / f64x8::splat(12.0) - t513 / f64x8::splat(288.0);
+            let t521 = t138 * t520;
+            let t523 = t145 * t520;
+            let t525 = t135 * t520;
+            let t529 = t156 * t520;
+            let t531 = t192 * t520;
+            let t533 = t165 * t520;
+            let t535 = t177 * t520;
+            let t537 = t163 * t520;
+            let t539 = t181 * t520;
+            let t541 = t183 * t520;
+            let t543 = t179 * t520;
+            let t545 = t187 * t520;
+            let t547 = -f64x8::splat(0.001563927125179022) * t513 + f64x8::splat(0.037534251004296526) * t516 - f64x8::splat(36.48789394685857) * t521 + f64x8::splat(183.2522097558951) * t523 - f64x8::splat(0.7783207555839363) * t525 + f64x8::splat(119931.99945242496) * t175 * t520 - f64x8::splat(151977.7689538412) * t529 - f64x8::splat(787055.2113103181) * t531 + f64x8::splat(1041948.3322152421) * t533 - f64x8::splat(3169071.8837237163) * t535 + f64x8::splat(2259140.27771307) * t537 - f64x8::splat(3706269.5419646446) * t539 + f64x8::splat(3796422.1408846206) * t541 + f64x8::splat(5629685.495771773) * t543 - f64x8::splat(6470480.6272098655) * t545;
+            let t548 = t169 * t520;
+            let t550 = t185 * t520;
+            let t552 = t141 * t520;
+            let t554 = t155 * t520;
+            let t556 = t146 * t520;
+            let t558 = t171 * t520;
+            let t560 = t148 * t520;
+            let t562 = t143 * t520;
+            let t564 = t152 * t520;
+            let t566 = t189 * t520;
+            let t568 = t160 * t520;
+            let t570 = t139 * t520;
+            let t572 = t140 * t520;
+            let t574 = t136 * t520;
+            let t576 = t137 * t520;
+            let t578 = f64x8::splat(5034068.79413455) * t548 - f64x8::splat(2466481.544431047) * t550 - f64x8::splat(2693933.462242259) * t552 + f64x8::splat(954958.1356493353) * t554 + f64x8::splat(987063.5861664761) * t556 - f64x8::splat(154146.39911795736) * t558 - f64x8::splat(241778.94210750057) * t560 - f64x8::splat(36533.12234739002) * t562 + f64x8::splat(37835.3964072524) * t564 + f64x8::splat(25023.897635898134) * t566 + f64x8::splat(602.0401134949575) * t568 - f64x8::splat(3538.6583214747043) * t570 - f64x8::splat(5557.930749407574) * t572 + f64x8::splat(1.582668603467694) * t574 - f64x8::splat(2.7783894071055593) * t576;
+            let t579 = t547 + t578;
+            let t583 = ((t112).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t121 * t579));
+            let tvsigma2 = t6 * t583;
+            acc_vsigma_2 = tvsigma2;
+        }
+        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_strided(vrho, ip, m, 2, 0, acc_vrho_0);
+        store_strided(vrho, ip, m, 2, 1, acc_vrho_1);
+        store_strided(vsigma, ip, m, 3, 0, acc_vsigma_0);
+        store_strided(vsigma, ip, m, 3, 1, acc_vsigma_1);
+        store_strided(vsigma, ip, m, 3, 2, acc_vsigma_2);
+        ip += 8;
     }
 }
