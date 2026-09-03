@@ -458,12 +458,123 @@ fn report_mgga(spin: Spin) {
     }
 }
 
-/// Reporting only for now: the MGGA composites have never been compared
-/// against libxc, so the first run is a survey, not a gate. Promote to an
-/// assertion once the failures it finds are either fixed or listed.
+fn sweep_lda(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
+    let np = 400usize;
+    let nspin = if spin == Spin::Unpolarized { 1 } else { 2 };
+    let (rho, _) = grid(np, nspin);
+    let mut rows = Vec::new();
+    let mut skipped = Vec::new();
+
+    for id in all_functional_ids() {
+        let Ok(meta) = lookup_by_id(id.raw()) else { continue };
+        if meta.family != Family::Lda || meta.auxiliaries.is_empty() {
+            continue;
+        }
+        let f = match Functional::new(id, spin) {
+            Ok(f) => f,
+            Err(e) => {
+                skipped.push((meta.name.to_string(), format!("Functional::new: {e}")));
+                continue;
+            }
+        };
+        let input = libxc_rs::input::LdaInput::new(&rho, np, spin).unwrap();
+        let mut r_zk = vec![0.0f64; np];
+        let mut r_vr = vec![0.0f64; np * nspin];
+        let mut ws = EvaluationWorkspace::new(np, spin);
+        {
+            let mut out = libxc_rs::output::LdaOutput {
+                zk: Some(&mut r_zk),
+                vrho: Some(&mut r_vr),
+                ..Default::default()
+            };
+            if let Err(e) = f.evaluate_lda(&input, DerivativeOrder::Vxc, &mut out, &mut ws) {
+                skipped.push((meta.name.to_string(), format!("evaluate_lda: {e}")));
+                continue;
+            }
+        }
+        let mut t: xc_func_type = unsafe { std::mem::zeroed() };
+        let n = if nspin == 1 { XC_UNPOLARIZED } else { XC_POLARIZED } as i32;
+        if unsafe { xc_func_init(&mut t, id.raw() as i32, n) } != 0 {
+            skipped.push((meta.name.to_string(), "libxc xc_func_init failed".into()));
+            continue;
+        }
+        let cf = CFunc(t);
+        let mut c_zk = vec![0.0f64; np];
+        let mut c_vr = vec![0.0f64; np * nspin];
+        unsafe {
+            libxc_sys::xc_lda_exc_vxc(
+                &cf.0, np, rho.as_ptr(), c_zk.as_mut_ptr(), c_vr.as_mut_ptr(),
+            );
+        }
+        let scale = c_zk.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+        if scale == 0.0 || !scale.is_finite() {
+            skipped.push((meta.name.to_string(), "libxc produced no finite zk".into()));
+            continue;
+        }
+        rows.push(Row {
+            name: meta.name,
+            id: id.raw(),
+            zk: worst_rel(&r_zk, &c_zk, scale),
+            vrho: worst_rel(&r_vr, &c_vr, scale),
+            vsigma: 0.0,
+        });
+    }
+    (rows, skipped)
+}
+
+/// The two composite LDA functionals, `hyb_lda_xc_lda0` and
+/// `hyb_lda_xc_cam_lda0`. Small, but they were the last family with no
+/// composite coverage at all.
 #[test]
-fn composite_mgga_survey() {
+fn composite_lda_matches_libxc() {
+    for spin in [Spin::Unpolarized, Spin::Polarized] {
+        let (rows, skipped) = sweep_lda(spin);
+        println!("\n=== composite LDA functionals vs libxc, {spin:?} ===");
+        println!("compared : {}", rows.len());
+        for r in &rows {
+            println!("  {:<32} zk {:>11.3e}  vrho {:>11.3e}", r.name.to_lowercase(), r.zk, r.vrho);
+        }
+        for (n, why) in &skipped {
+            println!("  skipped {:<28} {why}", n.to_lowercase());
+        }
+        let bad: Vec<&Row> = rows
+            .iter()
+            .filter(|r| r.zk > TOL_ZK || r.vrho > TOL_VXC)
+            .collect();
+        assert!(
+            bad.is_empty(),
+            "{:?} composite LDA over the gate",
+            bad.iter().map(|r| (r.name, r.zk, r.vrho)).collect::<Vec<_>>()
+        );
+    }
+}
+
+/// Composite MGGA functionals whose residual is recorded rather than fixed.
+const MGGA_KNOWN: &[(u16, &str)] = &[
+    // 2.1e-7 on vsigma, zk 2.6e-13 (inside the energy contract). Downstream of
+    // `mgga_x_br89`, whose own vsigma sits at 3.8e-9 against libxc: the
+    // Becke-Roussel inversion is a root-find, and the two builds converge to
+    // slightly different roots. `kernel_oracle.rs` records the same effect on
+    // `mgga_x_br89`, `mgga_x_br89_1`, `mgga_x_b00` and `mgga_x_mggac`.
+    (389, "hyb_mgga_xc_br3p86: inherits the BR89 inversion residual, vsigma 2.1e-7"),
+];
+
+#[test]
+fn composite_mgga_matches_libxc() {
+    let (rows, skipped) = sweep_mgga(Spin::Unpolarized);
     report_mgga(Spin::Unpolarized);
+    let bad: Vec<&Row> = rows
+        .iter()
+        .filter(|r| r.zk > TOL_ZK || r.vrho > TOL_VXC || r.vsigma > TOL_VXC)
+        .filter(|r| !MGGA_KNOWN.iter().any(|(id, _)| *id == r.id))
+        .collect();
+    let _ = skipped;
+    assert!(
+        bad.is_empty(),
+        "{} composite MGGA functionals disagree with libxc: {:?}",
+        bad.len(),
+        bad.iter().map(|r| (r.name, r.zk, r.vsigma)).collect::<Vec<_>>()
+    );
 }
 
 #[test]
