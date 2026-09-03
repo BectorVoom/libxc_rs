@@ -423,7 +423,6 @@ dependencies = [
  "libxc-rkernel-lda_c_vwn_rpa",
  "libxc-rkernel-lda_c_w20",
  "libxc-rkernel-lda_c_wigner",
- "libxc-rkernel-lda_k_gds08_worker",
  "libxc-rkernel-lda_k_tf",
  "libxc-rkernel-lda_k_zlp",
  "libxc-rkernel-lda_x",
@@ -1646,13 +1645,6 @@ dependencies = [
 
 [[package]]
 name = "libxc-rkernel-lda_c_wigner"
-version = "0.1.0"
-dependencies = [
- "libxc-rkernel-math",
-]
-
-[[package]]
-name = "libxc-rkernel-lda_k_gds08_worker"
 version = "0.1.0"
 dependencies = [
  "libxc-rkernel-math",
