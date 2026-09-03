@@ -12,16 +12,12 @@
 use libxc_core::dims::Dimensions;
 use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): eval-level dispatch_* (real under family feature, stub when off).
-use crate::eval::{
-    dispatch_gga_by_id, dispatch_lda, dispatch_lda_by_id, dispatch_mgga_by_id,
-};
 use crate::eval::workspace::EvaluationWorkspace;
-use crate::functional::params_lda::LdaXParams;
+use crate::eval::{dispatch_gga_by_id, dispatch_lda, dispatch_lda_by_id, dispatch_mgga_by_id};
 use crate::functional::Functional;
+use crate::functional::params_lda::LdaXParams;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
-use libxc_core::model::{
-    DerivativeOrder, Family, FunctionalFlags, LdaFunctional, Thresholds,
-};
+use libxc_core::model::{DerivativeOrder, Family, FunctionalFlags, LdaFunctional, Thresholds};
 use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
 
 /// Configuration for one auxiliary functional in a mixed evaluation.
@@ -46,7 +42,11 @@ pub struct AuxiliaryConfig {
 /// is now an always-on `assert_eq!` so any caller-side length bug fails loudly
 /// in every build configuration.
 pub fn add_to_mix(dst: &mut [f64], coeff: f64, src: &[f64]) {
-    assert_eq!(dst.len(), src.len(), "add_to_mix: dst and src must have equal length");
+    assert_eq!(
+        dst.len(),
+        src.len(),
+        "add_to_mix: dst and src must have equal length"
+    );
     for (d, s) in dst.iter_mut().zip(src.iter()) {
         *d += coeff * *s;
     }
@@ -287,11 +287,21 @@ pub fn evaluate_mixed_lda_functional(
     let dims = Dimensions::lda(input.spin());
 
     // Zero caller output once before accumulation.
-    if let Some(ref mut buf) = output.zk { buf.fill(0.0); }
-    if let Some(ref mut buf) = output.vrho { buf.fill(0.0); }
-    if let Some(ref mut buf) = output.v2rho2 { buf.fill(0.0); }
-    if let Some(ref mut buf) = output.v3rho3 { buf.fill(0.0); }
-    if let Some(ref mut buf) = output.v4rho4 { buf.fill(0.0); }
+    if let Some(ref mut buf) = output.zk {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.vrho {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v2rho2 {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v3rho3 {
+        buf.fill(0.0);
+    }
+    if let Some(ref mut buf) = output.v4rho4 {
+        buf.fill(0.0);
+    }
 
     let zk_len = dims.zk as usize * np;
     let vrho_len = dims.vrho as usize * np;
@@ -316,10 +326,26 @@ pub fn evaluate_mixed_lda_functional(
             let scratch = workspace.lda_scratch_mut();
             let mut scratch_output = LdaOutput {
                 zk: Some(scratch.zk),
-                vrho: if order >= DerivativeOrder::Vxc { Some(scratch.vrho) } else { None },
-                v2rho2: if order >= DerivativeOrder::Fxc { Some(scratch.v2rho2) } else { None },
-                v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
-                v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
+                vrho: if order >= DerivativeOrder::Vxc {
+                    Some(scratch.vrho)
+                } else {
+                    None
+                },
+                v2rho2: if order >= DerivativeOrder::Fxc {
+                    Some(scratch.v2rho2)
+                } else {
+                    None
+                },
+                v3rho3: if order >= DerivativeOrder::Kxc {
+                    Some(scratch.v3rho3)
+                } else {
+                    None
+                },
+                v4rho4: if order >= DerivativeOrder::Lxc {
+                    Some(scratch.v4rho4)
+                } else {
+                    None
+                },
             };
             dispatch_lda_by_id(
                 aux.meta.id,
@@ -425,21 +451,51 @@ pub fn evaluate_mixed_gga(
     let lda_v4rho4_len = lda_dims.v4rho4 as usize * np;
 
     // Zero all 15 GGA output fields.
-    if let Some(ref mut b) = output.zk { b.fill(0.0); }
-    if let Some(ref mut b) = output.vrho { b.fill(0.0); }
-    if let Some(ref mut b) = output.vsigma { b.fill(0.0); }
-    if let Some(ref mut b) = output.v2rho2 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v2rhosigma { b.fill(0.0); }
-    if let Some(ref mut b) = output.v2sigma2 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v3rho3 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v3rho2sigma { b.fill(0.0); }
-    if let Some(ref mut b) = output.v3rhosigma2 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v3sigma3 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v4rho4 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v4rho3sigma { b.fill(0.0); }
-    if let Some(ref mut b) = output.v4rho2sigma2 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v4rhosigma3 { b.fill(0.0); }
-    if let Some(ref mut b) = output.v4sigma4 { b.fill(0.0); }
+    if let Some(ref mut b) = output.zk {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.vrho {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.vsigma {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v2rho2 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v2rhosigma {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v2sigma2 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v3rho3 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v3rho2sigma {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v3rhosigma2 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v3sigma3 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v4rho4 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v4rho3sigma {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v4rho2sigma2 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v4rhosigma3 {
+        b.fill(0.0);
+    }
+    if let Some(ref mut b) = output.v4sigma4 {
+        b.fill(0.0);
+    }
 
     for (aux, &weight) in functional
         .auxiliaries
@@ -457,10 +513,26 @@ pub fn evaluate_mixed_gga(
                     let scratch = workspace.lda_scratch_mut();
                     let mut aux_output = LdaOutput {
                         zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc { Some(scratch.vrho) } else { None },
-                        v2rho2: if order >= DerivativeOrder::Fxc { Some(scratch.v2rho2) } else { None },
-                        v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
-                        v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
+                        vrho: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vrho)
+                        } else {
+                            None
+                        },
+                        v2rho2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rho2)
+                        } else {
+                            None
+                        },
+                        v3rho3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho3)
+                        } else {
+                            None
+                        },
+                        v4rho4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho4)
+                        } else {
+                            None
+                        },
                     };
                     dispatch_lda_by_id(
                         aux.meta.id,
@@ -472,18 +544,48 @@ pub fn evaluate_mixed_gga(
                     )?;
                 }
                 let scratch = workspace.lda_scratch_mut();
-                add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, lda_zk_len, "zk")?;
+                add_opt_n(
+                    output.zk.as_deref_mut(),
+                    weight,
+                    scratch.zk,
+                    lda_zk_len,
+                    "zk",
+                )?;
                 if order >= DerivativeOrder::Vxc {
-                    add_opt_n(output.vrho.as_deref_mut(), weight, scratch.vrho, lda_vrho_len, "vrho")?;
+                    add_opt_n(
+                        output.vrho.as_deref_mut(),
+                        weight,
+                        scratch.vrho,
+                        lda_vrho_len,
+                        "vrho",
+                    )?;
                 }
                 if order >= DerivativeOrder::Fxc {
-                    add_opt_n(output.v2rho2.as_deref_mut(), weight, scratch.v2rho2, lda_v2rho2_len, "v2rho2")?;
+                    add_opt_n(
+                        output.v2rho2.as_deref_mut(),
+                        weight,
+                        scratch.v2rho2,
+                        lda_v2rho2_len,
+                        "v2rho2",
+                    )?;
                 }
                 if order >= DerivativeOrder::Kxc {
-                    add_opt_n(output.v3rho3.as_deref_mut(), weight, scratch.v3rho3, lda_v3rho3_len, "v3rho3")?;
+                    add_opt_n(
+                        output.v3rho3.as_deref_mut(),
+                        weight,
+                        scratch.v3rho3,
+                        lda_v3rho3_len,
+                        "v3rho3",
+                    )?;
                 }
                 if order >= DerivativeOrder::Lxc {
-                    add_opt_n(output.v4rho4.as_deref_mut(), weight, scratch.v4rho4, lda_v4rho4_len, "v4rho4")?;
+                    add_opt_n(
+                        output.v4rho4.as_deref_mut(),
+                        weight,
+                        scratch.v4rho4,
+                        lda_v4rho4_len,
+                        "v4rho4",
+                    )?;
                 }
                 // Sigma-derivative fields intentionally skipped — Pitfall 5.
             }
@@ -492,20 +594,76 @@ pub fn evaluate_mixed_gga(
                     let scratch = workspace.gga_scratch_mut();
                     let mut aux_output = GgaOutput {
                         zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc { Some(scratch.vrho) } else { None },
-                        vsigma: if order >= DerivativeOrder::Vxc { Some(scratch.vsigma) } else { None },
-                        v2rho2: if order >= DerivativeOrder::Fxc { Some(scratch.v2rho2) } else { None },
-                        v2rhosigma: if order >= DerivativeOrder::Fxc { Some(scratch.v2rhosigma) } else { None },
-                        v2sigma2: if order >= DerivativeOrder::Fxc { Some(scratch.v2sigma2) } else { None },
-                        v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
-                        v3rho2sigma: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho2sigma) } else { None },
-                        v3rhosigma2: if order >= DerivativeOrder::Kxc { Some(scratch.v3rhosigma2) } else { None },
-                        v3sigma3: if order >= DerivativeOrder::Kxc { Some(scratch.v3sigma3) } else { None },
-                        v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
-                        v4rho3sigma: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho3sigma) } else { None },
-                        v4rho2sigma2: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho2sigma2) } else { None },
-                        v4rhosigma3: if order >= DerivativeOrder::Lxc { Some(scratch.v4rhosigma3) } else { None },
-                        v4sigma4: if order >= DerivativeOrder::Lxc { Some(scratch.v4sigma4) } else { None },
+                        vrho: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vrho)
+                        } else {
+                            None
+                        },
+                        vsigma: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vsigma)
+                        } else {
+                            None
+                        },
+                        v2rho2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rho2)
+                        } else {
+                            None
+                        },
+                        v2rhosigma: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rhosigma)
+                        } else {
+                            None
+                        },
+                        v2sigma2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2sigma2)
+                        } else {
+                            None
+                        },
+                        v3rho3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho3)
+                        } else {
+                            None
+                        },
+                        v3rho2sigma: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho2sigma)
+                        } else {
+                            None
+                        },
+                        v3rhosigma2: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rhosigma2)
+                        } else {
+                            None
+                        },
+                        v3sigma3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3sigma3)
+                        } else {
+                            None
+                        },
+                        v4rho4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho4)
+                        } else {
+                            None
+                        },
+                        v4rho3sigma: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho3sigma)
+                        } else {
+                            None
+                        },
+                        v4rho2sigma2: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho2sigma2)
+                        } else {
+                            None
+                        },
+                        v4rhosigma3: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rhosigma3)
+                        } else {
+                            None
+                        },
+                        v4sigma4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4sigma4)
+                        } else {
+                            None
+                        },
                     };
                     dispatch_gga_by_id(
                         aux.meta.id,
@@ -519,26 +677,110 @@ pub fn evaluate_mixed_gga(
                 let scratch = workspace.gga_scratch_mut();
                 add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, zk_len, "zk")?;
                 if order >= DerivativeOrder::Vxc {
-                    add_opt_n(output.vrho.as_deref_mut(), weight, scratch.vrho, vrho_len, "vrho")?;
-                    add_opt_n(output.vsigma.as_deref_mut(), weight, scratch.vsigma, vsigma_len, "vsigma")?;
+                    add_opt_n(
+                        output.vrho.as_deref_mut(),
+                        weight,
+                        scratch.vrho,
+                        vrho_len,
+                        "vrho",
+                    )?;
+                    add_opt_n(
+                        output.vsigma.as_deref_mut(),
+                        weight,
+                        scratch.vsigma,
+                        vsigma_len,
+                        "vsigma",
+                    )?;
                 }
                 if order >= DerivativeOrder::Fxc {
-                    add_opt_n(output.v2rho2.as_deref_mut(), weight, scratch.v2rho2, v2rho2_len, "v2rho2")?;
-                    add_opt_n(output.v2rhosigma.as_deref_mut(), weight, scratch.v2rhosigma, v2rhosigma_len, "v2rhosigma")?;
-                    add_opt_n(output.v2sigma2.as_deref_mut(), weight, scratch.v2sigma2, v2sigma2_len, "v2sigma2")?;
+                    add_opt_n(
+                        output.v2rho2.as_deref_mut(),
+                        weight,
+                        scratch.v2rho2,
+                        v2rho2_len,
+                        "v2rho2",
+                    )?;
+                    add_opt_n(
+                        output.v2rhosigma.as_deref_mut(),
+                        weight,
+                        scratch.v2rhosigma,
+                        v2rhosigma_len,
+                        "v2rhosigma",
+                    )?;
+                    add_opt_n(
+                        output.v2sigma2.as_deref_mut(),
+                        weight,
+                        scratch.v2sigma2,
+                        v2sigma2_len,
+                        "v2sigma2",
+                    )?;
                 }
                 if order >= DerivativeOrder::Kxc {
-                    add_opt_n(output.v3rho3.as_deref_mut(), weight, scratch.v3rho3, v3rho3_len, "v3rho3")?;
-                    add_opt_n(output.v3rho2sigma.as_deref_mut(), weight, scratch.v3rho2sigma, v3rho2sigma_len, "v3rho2sigma")?;
-                    add_opt_n(output.v3rhosigma2.as_deref_mut(), weight, scratch.v3rhosigma2, v3rhosigma2_len, "v3rhosigma2")?;
-                    add_opt_n(output.v3sigma3.as_deref_mut(), weight, scratch.v3sigma3, v3sigma3_len, "v3sigma3")?;
+                    add_opt_n(
+                        output.v3rho3.as_deref_mut(),
+                        weight,
+                        scratch.v3rho3,
+                        v3rho3_len,
+                        "v3rho3",
+                    )?;
+                    add_opt_n(
+                        output.v3rho2sigma.as_deref_mut(),
+                        weight,
+                        scratch.v3rho2sigma,
+                        v3rho2sigma_len,
+                        "v3rho2sigma",
+                    )?;
+                    add_opt_n(
+                        output.v3rhosigma2.as_deref_mut(),
+                        weight,
+                        scratch.v3rhosigma2,
+                        v3rhosigma2_len,
+                        "v3rhosigma2",
+                    )?;
+                    add_opt_n(
+                        output.v3sigma3.as_deref_mut(),
+                        weight,
+                        scratch.v3sigma3,
+                        v3sigma3_len,
+                        "v3sigma3",
+                    )?;
                 }
                 if order >= DerivativeOrder::Lxc {
-                    add_opt_n(output.v4rho4.as_deref_mut(), weight, scratch.v4rho4, v4rho4_len, "v4rho4")?;
-                    add_opt_n(output.v4rho3sigma.as_deref_mut(), weight, scratch.v4rho3sigma, v4rho3sigma_len, "v4rho3sigma")?;
-                    add_opt_n(output.v4rho2sigma2.as_deref_mut(), weight, scratch.v4rho2sigma2, v4rho2sigma2_len, "v4rho2sigma2")?;
-                    add_opt_n(output.v4rhosigma3.as_deref_mut(), weight, scratch.v4rhosigma3, v4rhosigma3_len, "v4rhosigma3")?;
-                    add_opt_n(output.v4sigma4.as_deref_mut(), weight, scratch.v4sigma4, v4sigma4_len, "v4sigma4")?;
+                    add_opt_n(
+                        output.v4rho4.as_deref_mut(),
+                        weight,
+                        scratch.v4rho4,
+                        v4rho4_len,
+                        "v4rho4",
+                    )?;
+                    add_opt_n(
+                        output.v4rho3sigma.as_deref_mut(),
+                        weight,
+                        scratch.v4rho3sigma,
+                        v4rho3sigma_len,
+                        "v4rho3sigma",
+                    )?;
+                    add_opt_n(
+                        output.v4rho2sigma2.as_deref_mut(),
+                        weight,
+                        scratch.v4rho2sigma2,
+                        v4rho2sigma2_len,
+                        "v4rho2sigma2",
+                    )?;
+                    add_opt_n(
+                        output.v4rhosigma3.as_deref_mut(),
+                        weight,
+                        scratch.v4rhosigma3,
+                        v4rhosigma3_len,
+                        "v4rhosigma3",
+                    )?;
+                    add_opt_n(
+                        output.v4sigma4.as_deref_mut(),
+                        weight,
+                        scratch.v4sigma4,
+                        v4sigma4_len,
+                        "v4sigma4",
+                    )?;
                 }
             }
             Family::Mgga => {
@@ -640,33 +882,89 @@ pub fn evaluate_mixed_mgga(
 
     // Capture parent flags once (CR-03 fix): the gate is parent AND aux per
     // mix_func.c:184-305 + parent assertion at mix_func.c:104-120.
-    let parent_needs_lapl = functional.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
+    let parent_needs_lapl = functional
+        .meta
+        .flags
+        .contains(FunctionalFlags::NEEDS_LAPLACIAN);
     let parent_needs_tau = functional.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
 
-    macro_rules! zero_field { ($field:ident) => {
-        if let Some(ref mut b) = output.$field { b.fill(0.0); }
-    }; }
+    macro_rules! zero_field {
+        ($field:ident) => {
+            if let Some(ref mut b) = output.$field {
+                b.fill(0.0);
+            }
+        };
+    }
     zero_field!(zk);
-    zero_field!(vrho); zero_field!(vsigma); zero_field!(vlapl); zero_field!(vtau);
-    zero_field!(v2rho2); zero_field!(v2rhosigma); zero_field!(v2rholapl); zero_field!(v2rhotau);
-    zero_field!(v2sigma2); zero_field!(v2sigmalapl); zero_field!(v2sigmatau);
-    zero_field!(v2lapl2); zero_field!(v2lapltau); zero_field!(v2tau2);
-    zero_field!(v3rho3); zero_field!(v3rho2sigma); zero_field!(v3rho2lapl); zero_field!(v3rho2tau);
-    zero_field!(v3rhosigma2); zero_field!(v3rhosigmalapl); zero_field!(v3rhosigmatau);
-    zero_field!(v3rholapl2); zero_field!(v3rholapltau); zero_field!(v3rhotau2);
-    zero_field!(v3sigma3); zero_field!(v3sigma2lapl); zero_field!(v3sigma2tau);
-    zero_field!(v3sigmalapl2); zero_field!(v3sigmalapltau); zero_field!(v3sigmatau2);
-    zero_field!(v3lapl3); zero_field!(v3lapl2tau); zero_field!(v3lapltau2); zero_field!(v3tau3);
-    zero_field!(v4rho4); zero_field!(v4rho3sigma); zero_field!(v4rho3lapl); zero_field!(v4rho3tau);
-    zero_field!(v4rho2sigma2); zero_field!(v4rho2sigmalapl); zero_field!(v4rho2sigmatau);
-    zero_field!(v4rho2lapl2); zero_field!(v4rho2lapltau); zero_field!(v4rho2tau2);
-    zero_field!(v4rhosigma3); zero_field!(v4rhosigma2lapl); zero_field!(v4rhosigma2tau);
-    zero_field!(v4rhosigmalapl2); zero_field!(v4rhosigmalapltau); zero_field!(v4rhosigmatau2);
-    zero_field!(v4rholapl3); zero_field!(v4rholapl2tau); zero_field!(v4rholapltau2); zero_field!(v4rhotau3);
-    zero_field!(v4sigma4); zero_field!(v4sigma3lapl); zero_field!(v4sigma3tau);
-    zero_field!(v4sigma2lapl2); zero_field!(v4sigma2lapltau); zero_field!(v4sigma2tau2);
-    zero_field!(v4sigmalapl3); zero_field!(v4sigmalapl2tau); zero_field!(v4sigmalapltau2); zero_field!(v4sigmatau3);
-    zero_field!(v4lapl4); zero_field!(v4lapl3tau); zero_field!(v4lapl2tau2); zero_field!(v4lapltau3); zero_field!(v4tau4);
+    zero_field!(vrho);
+    zero_field!(vsigma);
+    zero_field!(vlapl);
+    zero_field!(vtau);
+    zero_field!(v2rho2);
+    zero_field!(v2rhosigma);
+    zero_field!(v2rholapl);
+    zero_field!(v2rhotau);
+    zero_field!(v2sigma2);
+    zero_field!(v2sigmalapl);
+    zero_field!(v2sigmatau);
+    zero_field!(v2lapl2);
+    zero_field!(v2lapltau);
+    zero_field!(v2tau2);
+    zero_field!(v3rho3);
+    zero_field!(v3rho2sigma);
+    zero_field!(v3rho2lapl);
+    zero_field!(v3rho2tau);
+    zero_field!(v3rhosigma2);
+    zero_field!(v3rhosigmalapl);
+    zero_field!(v3rhosigmatau);
+    zero_field!(v3rholapl2);
+    zero_field!(v3rholapltau);
+    zero_field!(v3rhotau2);
+    zero_field!(v3sigma3);
+    zero_field!(v3sigma2lapl);
+    zero_field!(v3sigma2tau);
+    zero_field!(v3sigmalapl2);
+    zero_field!(v3sigmalapltau);
+    zero_field!(v3sigmatau2);
+    zero_field!(v3lapl3);
+    zero_field!(v3lapl2tau);
+    zero_field!(v3lapltau2);
+    zero_field!(v3tau3);
+    zero_field!(v4rho4);
+    zero_field!(v4rho3sigma);
+    zero_field!(v4rho3lapl);
+    zero_field!(v4rho3tau);
+    zero_field!(v4rho2sigma2);
+    zero_field!(v4rho2sigmalapl);
+    zero_field!(v4rho2sigmatau);
+    zero_field!(v4rho2lapl2);
+    zero_field!(v4rho2lapltau);
+    zero_field!(v4rho2tau2);
+    zero_field!(v4rhosigma3);
+    zero_field!(v4rhosigma2lapl);
+    zero_field!(v4rhosigma2tau);
+    zero_field!(v4rhosigmalapl2);
+    zero_field!(v4rhosigmalapltau);
+    zero_field!(v4rhosigmatau2);
+    zero_field!(v4rholapl3);
+    zero_field!(v4rholapl2tau);
+    zero_field!(v4rholapltau2);
+    zero_field!(v4rhotau3);
+    zero_field!(v4sigma4);
+    zero_field!(v4sigma3lapl);
+    zero_field!(v4sigma3tau);
+    zero_field!(v4sigma2lapl2);
+    zero_field!(v4sigma2lapltau);
+    zero_field!(v4sigma2tau2);
+    zero_field!(v4sigmalapl3);
+    zero_field!(v4sigmalapl2tau);
+    zero_field!(v4sigmalapltau2);
+    zero_field!(v4sigmatau3);
+    zero_field!(v4lapl4);
+    zero_field!(v4lapl3tau);
+    zero_field!(v4lapl2tau2);
+    zero_field!(v4lapltau3);
+    zero_field!(v4tau4);
 
     for (aux, &weight) in functional
         .auxiliaries
@@ -680,20 +978,61 @@ pub fn evaluate_mixed_mgga(
                     let scratch = workspace.lda_scratch_mut();
                     let mut aux_output = LdaOutput {
                         zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc { Some(scratch.vrho) } else { None },
-                        v2rho2: if order >= DerivativeOrder::Fxc { Some(scratch.v2rho2) } else { None },
-                        v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
-                        v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
+                        vrho: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vrho)
+                        } else {
+                            None
+                        },
+                        v2rho2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rho2)
+                        } else {
+                            None
+                        },
+                        v3rho3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho3)
+                        } else {
+                            None
+                        },
+                        v4rho4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho4)
+                        } else {
+                            None
+                        },
                     };
-                    dispatch_lda_by_id(aux.meta.id, &lda_input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
+                    dispatch_lda_by_id(
+                        aux.meta.id,
+                        &lda_input,
+                        order,
+                        &mut aux_output,
+                        aux.kernel_ext_params(),
+                        &aux.thresholds,
+                    )?;
                 }
                 let scratch = workspace.lda_scratch_mut();
-                add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, lda_zk_len, "zk")?;
+                add_opt_n(
+                    output.zk.as_deref_mut(),
+                    weight,
+                    scratch.zk,
+                    lda_zk_len,
+                    "zk",
+                )?;
                 if order >= DerivativeOrder::Vxc {
-                    add_opt_n(output.vrho.as_deref_mut(), weight, scratch.vrho, lda_vrho_len, "vrho")?;
+                    add_opt_n(
+                        output.vrho.as_deref_mut(),
+                        weight,
+                        scratch.vrho,
+                        lda_vrho_len,
+                        "vrho",
+                    )?;
                 }
                 if order >= DerivativeOrder::Fxc {
-                    add_opt_n(output.v2rho2.as_deref_mut(), weight, scratch.v2rho2, lda_v2rho2_len, "v2rho2")?;
+                    add_opt_n(
+                        output.v2rho2.as_deref_mut(),
+                        weight,
+                        scratch.v2rho2,
+                        lda_v2rho2_len,
+                        "v2rho2",
+                    )?;
                 }
                 // Note: dispatch_mgga currently rejects Kxc/Lxc orders upstream
                 // (the function returns UnsupportedDerivativeOrder before this
@@ -704,38 +1043,138 @@ pub fn evaluate_mixed_mgga(
                 // shape, which equals lda_dims for the rho-only chain).
             }
             Family::Gga => {
-                let gga_input = GgaInput::new(input.rho(), input.sigma(), input.np(), input.spin())?;
+                let gga_input =
+                    GgaInput::new(input.rho(), input.sigma(), input.np(), input.spin())?;
                 {
                     let scratch = workspace.gga_scratch_mut();
                     let mut aux_output = GgaOutput {
                         zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc { Some(scratch.vrho) } else { None },
-                        vsigma: if order >= DerivativeOrder::Vxc { Some(scratch.vsigma) } else { None },
-                        v2rho2: if order >= DerivativeOrder::Fxc { Some(scratch.v2rho2) } else { None },
-                        v2rhosigma: if order >= DerivativeOrder::Fxc { Some(scratch.v2rhosigma) } else { None },
-                        v2sigma2: if order >= DerivativeOrder::Fxc { Some(scratch.v2sigma2) } else { None },
-                        v3rho3: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho3) } else { None },
-                        v3rho2sigma: if order >= DerivativeOrder::Kxc { Some(scratch.v3rho2sigma) } else { None },
-                        v3rhosigma2: if order >= DerivativeOrder::Kxc { Some(scratch.v3rhosigma2) } else { None },
-                        v3sigma3: if order >= DerivativeOrder::Kxc { Some(scratch.v3sigma3) } else { None },
-                        v4rho4: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho4) } else { None },
-                        v4rho3sigma: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho3sigma) } else { None },
-                        v4rho2sigma2: if order >= DerivativeOrder::Lxc { Some(scratch.v4rho2sigma2) } else { None },
-                        v4rhosigma3: if order >= DerivativeOrder::Lxc { Some(scratch.v4rhosigma3) } else { None },
-                        v4sigma4: if order >= DerivativeOrder::Lxc { Some(scratch.v4sigma4) } else { None },
+                        vrho: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vrho)
+                        } else {
+                            None
+                        },
+                        vsigma: if order >= DerivativeOrder::Vxc {
+                            Some(scratch.vsigma)
+                        } else {
+                            None
+                        },
+                        v2rho2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rho2)
+                        } else {
+                            None
+                        },
+                        v2rhosigma: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2rhosigma)
+                        } else {
+                            None
+                        },
+                        v2sigma2: if order >= DerivativeOrder::Fxc {
+                            Some(scratch.v2sigma2)
+                        } else {
+                            None
+                        },
+                        v3rho3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho3)
+                        } else {
+                            None
+                        },
+                        v3rho2sigma: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rho2sigma)
+                        } else {
+                            None
+                        },
+                        v3rhosigma2: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3rhosigma2)
+                        } else {
+                            None
+                        },
+                        v3sigma3: if order >= DerivativeOrder::Kxc {
+                            Some(scratch.v3sigma3)
+                        } else {
+                            None
+                        },
+                        v4rho4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho4)
+                        } else {
+                            None
+                        },
+                        v4rho3sigma: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho3sigma)
+                        } else {
+                            None
+                        },
+                        v4rho2sigma2: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rho2sigma2)
+                        } else {
+                            None
+                        },
+                        v4rhosigma3: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4rhosigma3)
+                        } else {
+                            None
+                        },
+                        v4sigma4: if order >= DerivativeOrder::Lxc {
+                            Some(scratch.v4sigma4)
+                        } else {
+                            None
+                        },
                     };
-                    dispatch_gga_by_id(aux.meta.id, &gga_input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
+                    dispatch_gga_by_id(
+                        aux.meta.id,
+                        &gga_input,
+                        order,
+                        &mut aux_output,
+                        aux.kernel_ext_params(),
+                        &aux.thresholds,
+                    )?;
                 }
                 let scratch = workspace.gga_scratch_mut();
-                add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, gga_zk_len, "zk")?;
+                add_opt_n(
+                    output.zk.as_deref_mut(),
+                    weight,
+                    scratch.zk,
+                    gga_zk_len,
+                    "zk",
+                )?;
                 if order >= DerivativeOrder::Vxc {
-                    add_opt_n(output.vrho.as_deref_mut(), weight, scratch.vrho, gga_vrho_len, "vrho")?;
-                    add_opt_n(output.vsigma.as_deref_mut(), weight, scratch.vsigma, gga_vsigma_len, "vsigma")?;
+                    add_opt_n(
+                        output.vrho.as_deref_mut(),
+                        weight,
+                        scratch.vrho,
+                        gga_vrho_len,
+                        "vrho",
+                    )?;
+                    add_opt_n(
+                        output.vsigma.as_deref_mut(),
+                        weight,
+                        scratch.vsigma,
+                        gga_vsigma_len,
+                        "vsigma",
+                    )?;
                 }
                 if order >= DerivativeOrder::Fxc {
-                    add_opt_n(output.v2rho2.as_deref_mut(), weight, scratch.v2rho2, gga_v2rho2_len, "v2rho2")?;
-                    add_opt_n(output.v2rhosigma.as_deref_mut(), weight, scratch.v2rhosigma, gga_v2rhosigma_len, "v2rhosigma")?;
-                    add_opt_n(output.v2sigma2.as_deref_mut(), weight, scratch.v2sigma2, gga_v2sigma2_len, "v2sigma2")?;
+                    add_opt_n(
+                        output.v2rho2.as_deref_mut(),
+                        weight,
+                        scratch.v2rho2,
+                        gga_v2rho2_len,
+                        "v2rho2",
+                    )?;
+                    add_opt_n(
+                        output.v2rhosigma.as_deref_mut(),
+                        weight,
+                        scratch.v2rhosigma,
+                        gga_v2rhosigma_len,
+                        "v2rhosigma",
+                    )?;
+                    add_opt_n(
+                        output.v2sigma2.as_deref_mut(),
+                        weight,
+                        scratch.v2sigma2,
+                        gga_v2sigma2_len,
+                        "v2sigma2",
+                    )?;
                 }
                 // Note: dispatch_mgga currently rejects Kxc/Lxc orders, so the
                 // higher-order GGA-aux accumulation paths are unreachable from
@@ -761,6 +1200,20 @@ pub fn evaluate_mixed_mgga(
                 let needs_both = needs_lapl && needs_tau;
 
                 {
+                    // The auxiliary gets a buffer for every field its own
+                    // family and order requires, unconditionally.
+                    //
+                    // These used to be gated on `needs_lapl`/`needs_tau` --
+                    // the aux's flag ANDed with the parent's. But that gate
+                    // belongs on the *accumulation* below, which is where a
+                    // parent that does not expose `vlapl` must not receive an
+                    // aux's contribution. Applying it here instead withheld a
+                    // buffer the aux kernel demands: `prepare` requires every
+                    // field of the requested order, so `evaluate_mgga` failed
+                    // outright with "output buffer 'vlapl' size mismatch" for
+                    // **36 of the 39 composite MGGA functionals** -- every
+                    // TPSS0/B95/BR3P86/MS2h/SCAN0 hybrid. The accumulation
+                    // gating below is unchanged, so nothing leaks.
                     let scratch = workspace.mgga_scratch_mut();
                     let mut aux_output = MggaOutput {
                         zk: Some(scratch.zk),
@@ -769,26 +1222,20 @@ pub fn evaluate_mixed_mgga(
                     if order >= DerivativeOrder::Vxc {
                         aux_output.vrho = Some(scratch.vrho);
                         aux_output.vsigma = Some(scratch.vsigma);
-                        if needs_lapl { aux_output.vlapl = Some(scratch.vlapl); }
-                        if needs_tau { aux_output.vtau = Some(scratch.vtau); }
+                        aux_output.vlapl = Some(scratch.vlapl);
+                        aux_output.vtau = Some(scratch.vtau);
                     }
                     if order >= DerivativeOrder::Fxc {
                         aux_output.v2rho2 = Some(scratch.v2rho2);
                         aux_output.v2rhosigma = Some(scratch.v2rhosigma);
                         aux_output.v2sigma2 = Some(scratch.v2sigma2);
-                        if needs_lapl {
-                            aux_output.v2rholapl = Some(scratch.v2rholapl);
-                            aux_output.v2sigmalapl = Some(scratch.v2sigmalapl);
-                            aux_output.v2lapl2 = Some(scratch.v2lapl2);
-                        }
-                        if needs_tau {
-                            aux_output.v2rhotau = Some(scratch.v2rhotau);
-                            aux_output.v2sigmatau = Some(scratch.v2sigmatau);
-                            aux_output.v2tau2 = Some(scratch.v2tau2);
-                        }
-                        if needs_both {
-                            aux_output.v2lapltau = Some(scratch.v2lapltau);
-                        }
+                        aux_output.v2rholapl = Some(scratch.v2rholapl);
+                        aux_output.v2sigmalapl = Some(scratch.v2sigmalapl);
+                        aux_output.v2lapl2 = Some(scratch.v2lapl2);
+                        aux_output.v2rhotau = Some(scratch.v2rhotau);
+                        aux_output.v2sigmatau = Some(scratch.v2sigmatau);
+                        aux_output.v2tau2 = Some(scratch.v2tau2);
+                        aux_output.v2lapltau = Some(scratch.v2lapltau);
                     }
                     // Order >= Kxc / Lxc: dispatch_mgga currently rejects them
                     // upstream, so leave the higher-order aux_output fields as
@@ -797,37 +1244,134 @@ pub fn evaluate_mixed_mgga(
                     // consumed needs_lapl / needs_tau / needs_both has been
                     // removed since those variables are load-bearing below in
                     // the gated accumulation block.)
-                    dispatch_mgga_by_id(aux.meta.id, input, order, &mut aux_output, aux.kernel_ext_params(), &aux.thresholds)?;
+                    dispatch_mgga_by_id(
+                        aux.meta.id,
+                        input,
+                        order,
+                        &mut aux_output,
+                        aux.kernel_ext_params(),
+                        &aux.thresholds,
+                    )?;
                 }
                 let scratch = workspace.mgga_scratch_mut();
                 // Always-accumulate (rho-chain, all aux families contribute).
-                add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, mgga_zk_len, "zk")?;
+                add_opt_n(
+                    output.zk.as_deref_mut(),
+                    weight,
+                    scratch.zk,
+                    mgga_zk_len,
+                    "zk",
+                )?;
                 if order >= DerivativeOrder::Vxc {
-                    add_opt_n(output.vrho.as_deref_mut(), weight, scratch.vrho, mgga_vrho_len, "vrho")?;
-                    add_opt_n(output.vsigma.as_deref_mut(), weight, scratch.vsigma, mgga_vsigma_len, "vsigma")?;
+                    add_opt_n(
+                        output.vrho.as_deref_mut(),
+                        weight,
+                        scratch.vrho,
+                        mgga_vrho_len,
+                        "vrho",
+                    )?;
+                    add_opt_n(
+                        output.vsigma.as_deref_mut(),
+                        weight,
+                        scratch.vsigma,
+                        mgga_vsigma_len,
+                        "vsigma",
+                    )?;
                     if needs_lapl {
-                        add_opt_n(output.vlapl.as_deref_mut(), weight, scratch.vlapl, mgga_vlapl_len, "vlapl")?;
+                        add_opt_n(
+                            output.vlapl.as_deref_mut(),
+                            weight,
+                            scratch.vlapl,
+                            mgga_vlapl_len,
+                            "vlapl",
+                        )?;
                     }
                     if needs_tau {
-                        add_opt_n(output.vtau.as_deref_mut(), weight, scratch.vtau, mgga_vtau_len, "vtau")?;
+                        add_opt_n(
+                            output.vtau.as_deref_mut(),
+                            weight,
+                            scratch.vtau,
+                            mgga_vtau_len,
+                            "vtau",
+                        )?;
                     }
                 }
                 if order >= DerivativeOrder::Fxc {
-                    add_opt_n(output.v2rho2.as_deref_mut(), weight, scratch.v2rho2, mgga_v2rho2_len, "v2rho2")?;
-                    add_opt_n(output.v2rhosigma.as_deref_mut(), weight, scratch.v2rhosigma, mgga_v2rhosigma_len, "v2rhosigma")?;
-                    add_opt_n(output.v2sigma2.as_deref_mut(), weight, scratch.v2sigma2, mgga_v2sigma2_len, "v2sigma2")?;
+                    add_opt_n(
+                        output.v2rho2.as_deref_mut(),
+                        weight,
+                        scratch.v2rho2,
+                        mgga_v2rho2_len,
+                        "v2rho2",
+                    )?;
+                    add_opt_n(
+                        output.v2rhosigma.as_deref_mut(),
+                        weight,
+                        scratch.v2rhosigma,
+                        mgga_v2rhosigma_len,
+                        "v2rhosigma",
+                    )?;
+                    add_opt_n(
+                        output.v2sigma2.as_deref_mut(),
+                        weight,
+                        scratch.v2sigma2,
+                        mgga_v2sigma2_len,
+                        "v2sigma2",
+                    )?;
                     if needs_lapl {
-                        add_opt_n(output.v2rholapl.as_deref_mut(), weight, scratch.v2rholapl, mgga_v2rholapl_len, "v2rholapl")?;
-                        add_opt_n(output.v2sigmalapl.as_deref_mut(), weight, scratch.v2sigmalapl, mgga_v2sigmalapl_len, "v2sigmalapl")?;
-                        add_opt_n(output.v2lapl2.as_deref_mut(), weight, scratch.v2lapl2, mgga_v2lapl2_len, "v2lapl2")?;
+                        add_opt_n(
+                            output.v2rholapl.as_deref_mut(),
+                            weight,
+                            scratch.v2rholapl,
+                            mgga_v2rholapl_len,
+                            "v2rholapl",
+                        )?;
+                        add_opt_n(
+                            output.v2sigmalapl.as_deref_mut(),
+                            weight,
+                            scratch.v2sigmalapl,
+                            mgga_v2sigmalapl_len,
+                            "v2sigmalapl",
+                        )?;
+                        add_opt_n(
+                            output.v2lapl2.as_deref_mut(),
+                            weight,
+                            scratch.v2lapl2,
+                            mgga_v2lapl2_len,
+                            "v2lapl2",
+                        )?;
                     }
                     if needs_tau {
-                        add_opt_n(output.v2rhotau.as_deref_mut(), weight, scratch.v2rhotau, mgga_v2rhotau_len, "v2rhotau")?;
-                        add_opt_n(output.v2sigmatau.as_deref_mut(), weight, scratch.v2sigmatau, mgga_v2sigmatau_len, "v2sigmatau")?;
-                        add_opt_n(output.v2tau2.as_deref_mut(), weight, scratch.v2tau2, mgga_v2tau2_len, "v2tau2")?;
+                        add_opt_n(
+                            output.v2rhotau.as_deref_mut(),
+                            weight,
+                            scratch.v2rhotau,
+                            mgga_v2rhotau_len,
+                            "v2rhotau",
+                        )?;
+                        add_opt_n(
+                            output.v2sigmatau.as_deref_mut(),
+                            weight,
+                            scratch.v2sigmatau,
+                            mgga_v2sigmatau_len,
+                            "v2sigmatau",
+                        )?;
+                        add_opt_n(
+                            output.v2tau2.as_deref_mut(),
+                            weight,
+                            scratch.v2tau2,
+                            mgga_v2tau2_len,
+                            "v2tau2",
+                        )?;
                     }
                     if needs_both {
-                        add_opt_n(output.v2lapltau.as_deref_mut(), weight, scratch.v2lapltau, mgga_v2lapltau_len, "v2lapltau")?;
+                        add_opt_n(
+                            output.v2lapltau.as_deref_mut(),
+                            weight,
+                            scratch.v2lapltau,
+                            mgga_v2lapltau_len,
+                            "v2lapltau",
+                        )?;
                     }
                 }
                 // Higher-order MGGA accumulation (Kxc/Lxc) deferred — current
@@ -893,11 +1437,24 @@ mod tests {
         let mut vrho_direct = vec![0.0f64; np];
         {
             let mut out_direct = LdaOutput::new(
-                Some(&mut zk_direct), Some(&mut vrho_direct), None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
-            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Vxc, &mut out_direct,
-                         &LdaXParams::default(), &default_thresholds()).unwrap();
+                Some(&mut zk_direct),
+                Some(&mut vrho_direct),
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
+            dispatch_lda(
+                LdaFunctional::LdaX,
+                &input,
+                DerivativeOrder::Vxc,
+                &mut out_direct,
+                &LdaXParams::default(),
+                &default_thresholds(),
+            )
+            .unwrap();
         }
 
         // Mixed with single aux, weight=1.0
@@ -906,25 +1463,42 @@ mod tests {
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
             let mut out_mixed = LdaOutput::new(
-                Some(&mut zk_mixed), Some(&mut vrho_mixed), None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+                Some(&mut zk_mixed),
+                Some(&mut vrho_mixed),
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
             let auxes = vec![AuxiliaryConfig {
                 alpha: 1.0,
                 weight: 1.0,
                 thresholds: default_thresholds(),
             }];
-            evaluate_mixed_lda(&input, DerivativeOrder::Vxc, &mut out_mixed, &auxes, &mut ws).unwrap();
+            evaluate_mixed_lda(
+                &input,
+                DerivativeOrder::Vxc,
+                &mut out_mixed,
+                &auxes,
+                &mut ws,
+            )
+            .unwrap();
         }
 
         for i in 0..np {
             assert!(
                 (zk_mixed[i] - zk_direct[i]).abs() < 1e-15,
-                "zk[{i}]: mixed={} vs direct={}", zk_mixed[i], zk_direct[i]
+                "zk[{i}]: mixed={} vs direct={}",
+                zk_mixed[i],
+                zk_direct[i]
             );
             assert!(
                 (vrho_mixed[i] - vrho_direct[i]).abs() < 1e-15,
-                "vrho[{i}]: mixed={} vs direct={}", vrho_mixed[i], vrho_direct[i]
+                "vrho[{i}]: mixed={} vs direct={}",
+                vrho_mixed[i],
+                vrho_direct[i]
             );
         }
     }
@@ -939,11 +1513,24 @@ mod tests {
         let mut zk_direct = vec![0.0f64; np];
         {
             let mut out_direct = LdaOutput::new(
-                Some(&mut zk_direct), None, None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
-            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
-                         &LdaXParams::default(), &default_thresholds()).unwrap();
+                Some(&mut zk_direct),
+                None,
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
+            dispatch_lda(
+                LdaFunctional::LdaX,
+                &input,
+                DerivativeOrder::Exc,
+                &mut out_direct,
+                &LdaXParams::default(),
+                &default_thresholds(),
+            )
+            .unwrap();
         }
 
         // Mixed with two auxes: 0.7 + 0.3 = 1.0
@@ -951,20 +1538,43 @@ mod tests {
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
             let mut out_mixed = LdaOutput::new(
-                Some(&mut zk_mixed), None, None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+                Some(&mut zk_mixed),
+                None,
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
             let auxes = vec![
-                AuxiliaryConfig { alpha: 1.0, weight: 0.7, thresholds: default_thresholds() },
-                AuxiliaryConfig { alpha: 1.0, weight: 0.3, thresholds: default_thresholds() },
+                AuxiliaryConfig {
+                    alpha: 1.0,
+                    weight: 0.7,
+                    thresholds: default_thresholds(),
+                },
+                AuxiliaryConfig {
+                    alpha: 1.0,
+                    weight: 0.3,
+                    thresholds: default_thresholds(),
+                },
             ];
-            evaluate_mixed_lda(&input, DerivativeOrder::Exc, &mut out_mixed, &auxes, &mut ws).unwrap();
+            evaluate_mixed_lda(
+                &input,
+                DerivativeOrder::Exc,
+                &mut out_mixed,
+                &auxes,
+                &mut ws,
+            )
+            .unwrap();
         }
 
         for i in 0..np {
             assert!(
                 (zk_mixed[i] - zk_direct[i]).abs() < 1e-14,
-                "zk[{i}]: mixed={} vs direct={}", zk_mixed[i], zk_direct[i]
+                "zk[{i}]: mixed={} vs direct={}",
+                zk_mixed[i],
+                zk_direct[i]
             );
         }
     }
@@ -979,11 +1589,24 @@ mod tests {
         let mut zk_direct = vec![0.0f64; np];
         {
             let mut out_direct = LdaOutput::new(
-                Some(&mut zk_direct), None, None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
-            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Exc, &mut out_direct,
-                         &LdaXParams::default(), &default_thresholds()).unwrap();
+                Some(&mut zk_direct),
+                None,
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
+            dispatch_lda(
+                LdaFunctional::LdaX,
+                &input,
+                DerivativeOrder::Exc,
+                &mut out_direct,
+                &LdaXParams::default(),
+                &default_thresholds(),
+            )
+            .unwrap();
         }
 
         // Mixed with weight=0.5
@@ -991,22 +1614,37 @@ mod tests {
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
             let mut out_mixed = LdaOutput::new(
-                Some(&mut zk_mixed), None, None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+                Some(&mut zk_mixed),
+                None,
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
             let auxes = vec![AuxiliaryConfig {
                 alpha: 1.0,
                 weight: 0.5,
                 thresholds: default_thresholds(),
             }];
-            evaluate_mixed_lda(&input, DerivativeOrder::Exc, &mut out_mixed, &auxes, &mut ws).unwrap();
+            evaluate_mixed_lda(
+                &input,
+                DerivativeOrder::Exc,
+                &mut out_mixed,
+                &auxes,
+                &mut ws,
+            )
+            .unwrap();
         }
 
         for i in 0..np {
             let expected = zk_direct[i] * 0.5;
             assert!(
                 (zk_mixed[i] - expected).abs() < 1e-15,
-                "zk[{i}]: mixed={} vs expected={}", zk_mixed[i], expected
+                "zk[{i}]: mixed={} vs expected={}",
+                zk_mixed[i],
+                expected
             );
         }
     }
@@ -1022,9 +1660,15 @@ mod tests {
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
             let mut out = LdaOutput::new(
-                Some(&mut zk), Some(&mut vrho), None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+                Some(&mut zk),
+                Some(&mut vrho),
+                None,
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
             let auxes = vec![AuxiliaryConfig {
                 alpha: 1.0,
                 weight: 1.0,
@@ -1046,10 +1690,9 @@ mod tests {
         let mut zk = vec![0.0f64; np];
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
-            let mut out = LdaOutput::new(
-                Some(&mut zk), None, None, None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+            let mut out =
+                LdaOutput::new(Some(&mut zk), None, None, None, None, np, Spin::Unpolarized)
+                    .unwrap();
             let auxes = vec![AuxiliaryConfig {
                 alpha: 1.0,
                 weight: 1.0,
@@ -1076,11 +1719,24 @@ mod tests {
         let mut v2rho2_d = vec![0.0f64; np];
         {
             let mut out = LdaOutput::new(
-                Some(&mut zk_d), Some(&mut vrho_d), Some(&mut v2rho2_d), None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
-            dispatch_lda(LdaFunctional::LdaX, &input, DerivativeOrder::Fxc, &mut out,
-                         &LdaXParams::default(), &default_thresholds()).unwrap();
+                Some(&mut zk_d),
+                Some(&mut vrho_d),
+                Some(&mut v2rho2_d),
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
+            dispatch_lda(
+                LdaFunctional::LdaX,
+                &input,
+                DerivativeOrder::Fxc,
+                &mut out,
+                &LdaXParams::default(),
+                &default_thresholds(),
+            )
+            .unwrap();
         }
 
         // Mixed with weight=1.0
@@ -1090,9 +1746,15 @@ mod tests {
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         {
             let mut out = LdaOutput::new(
-                Some(&mut zk_m), Some(&mut vrho_m), Some(&mut v2rho2_m), None, None,
-                np, Spin::Unpolarized,
-            ).unwrap();
+                Some(&mut zk_m),
+                Some(&mut vrho_m),
+                Some(&mut v2rho2_m),
+                None,
+                None,
+                np,
+                Spin::Unpolarized,
+            )
+            .unwrap();
             let auxes = vec![AuxiliaryConfig {
                 alpha: 1.0,
                 weight: 1.0,
@@ -1129,7 +1791,11 @@ mod tests {
         let src = vec![1.0, 2.0, 3.0];
         let res = add_opt_n(Some(dst.as_mut_slice()), 0.5, &src, 3, "v2lapl2");
         match res {
-            Err(LibxcRsError::OutputBufferSizeMismatch { field, expected, actual }) => {
+            Err(LibxcRsError::OutputBufferSizeMismatch {
+                field,
+                expected,
+                actual,
+            }) => {
                 assert_eq!(field, "v2lapl2");
                 assert_eq!(expected, 3);
                 assert_eq!(actual, 2);
@@ -1170,15 +1836,22 @@ mod tests {
         // Parent does NOT need laplacian; aux DOES need laplacian.
         // The combined gate `aux_needs && parent_needs` MUST be false.
         let parent_flags = FunctionalFlags::HAVE_EXC | FunctionalFlags::HAVE_VXC;
-        let aux_flags =
-            FunctionalFlags::HAVE_EXC | FunctionalFlags::HAVE_VXC | FunctionalFlags::NEEDS_LAPLACIAN;
+        let aux_flags = FunctionalFlags::HAVE_EXC
+            | FunctionalFlags::HAVE_VXC
+            | FunctionalFlags::NEEDS_LAPLACIAN;
 
         let parent_needs_lapl = parent_flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
         let aux_needs_lapl = aux_flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
         let combined_needs_lapl = aux_needs_lapl && parent_needs_lapl;
 
-        assert!(aux_needs_lapl, "test premise: aux must declare NEEDS_LAPLACIAN");
-        assert!(!parent_needs_lapl, "test premise: parent must NOT declare NEEDS_LAPLACIAN");
+        assert!(
+            aux_needs_lapl,
+            "test premise: aux must declare NEEDS_LAPLACIAN"
+        );
+        assert!(
+            !parent_needs_lapl,
+            "test premise: parent must NOT declare NEEDS_LAPLACIAN"
+        );
         assert!(
             !combined_needs_lapl,
             "CR-03 gate must be FALSE when parent doesn't need laplacian, regardless of aux flags"

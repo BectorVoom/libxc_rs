@@ -20,12 +20,13 @@
 
 use libxc_rs::eval::workspace::EvaluationWorkspace;
 use libxc_rs::functional::Functional;
-use libxc_rs::input::GgaInput;
+use libxc_rs::input::{GgaInput, MggaInput};
 use libxc_rs::model::{DerivativeOrder, Family, Spin};
-use libxc_rs::output::GgaOutput;
+use libxc_rs::output::{GgaOutput, MggaOutput};
 use libxc_rs::registry::{all_functional_ids, lookup_by_id};
 use libxc_sys::{
-    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, XC_POLARIZED, XC_UNPOLARIZED,
+    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, xc_mgga_exc_vxc, XC_POLARIZED,
+    XC_UNPOLARIZED,
 };
 
 /// Functionals allowed to exceed the gate, each with the reason.
@@ -297,6 +298,172 @@ fn report(spin: Spin) {
          see the table above",
         bad.len()
     );
+}
+
+/// MGGA grid: same densities and gradients as the GGA one, plus a Laplacian
+/// and a kinetic energy density held safely above the von Weizsacker bound
+/// `tau >= sigma / (8 rho)`.
+///
+/// Staying above that bound is not cosmetic. Below it the point is outside
+/// every MGGA's domain, libxc's `work_mgga_inc.c` clamps and this tree does
+/// not, and the comparison stops being about the functional -- which is
+/// already recorded in AGENTS.md as the reason `mgga_c_r2scan` shows up in the
+/// bench cross-check.
+fn mgga_grid(np: usize, nspin: usize) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
+    let (rho, sigma) = grid(np, nspin);
+    let nsig = if nspin == 1 { 1 } else { 3 };
+    let mut lapl = Vec::with_capacity(np * nspin);
+    let mut tau = Vec::with_capacity(np * nspin);
+    let mut s = 0xabcd_ef01_2345_6789u64;
+    let mut next = || {
+        s = s
+            .wrapping_mul(6364136223846793005)
+            .wrapping_add(1442695040888963407);
+        ((s >> 11) as f64) / ((1u64 << 53) as f64)
+    };
+    for ip in 0..np {
+        for k in 0..nspin {
+            let r = rho[ip * nspin + k];
+            // Per-channel sigma: sigma_aa is index 0, sigma_bb index 2.
+            let sig = if nspin == 1 {
+                sigma[ip]
+            } else {
+                sigma[ip * nsig + if k == 0 { 0 } else { 2 }]
+            };
+            let tau_w = sig / (8.0 * r);
+            // 1.05x .. 6x the von Weizsacker bound.
+            tau.push(tau_w * (1.05 + 5.0 * next()));
+            lapl.push(r.powf(5.0 / 3.0) * (2.0 * next() - 1.0));
+        }
+    }
+    (rho, sigma, lapl, tau)
+}
+
+fn sweep_mgga(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
+    let np = 400usize;
+    let nspin = if spin == Spin::Unpolarized { 1 } else { 2 };
+    let (rho, sigma, lapl, tau) = mgga_grid(np, nspin);
+    let nvr = nspin;
+    let nvs = if nspin == 1 { 1 } else { 3 };
+
+    let mut rows = Vec::new();
+    let mut skipped = Vec::new();
+
+    for id in all_functional_ids() {
+        let Ok(meta) = lookup_by_id(id.raw()) else { continue };
+        if meta.family != Family::Mgga || meta.auxiliaries.is_empty() {
+            continue;
+        }
+        let f = match Functional::new(id, spin) {
+            Ok(f) => f,
+            Err(e) => {
+                skipped.push((meta.name.to_string(), format!("Functional::new: {e}")));
+                continue;
+            }
+        };
+        let input = MggaInput::new(&rho, &sigma, &lapl, &tau, np, spin).unwrap();
+        let mut r_zk = vec![0.0f64; np];
+        let mut r_vr = vec![0.0f64; np * nvr];
+        let mut r_vs = vec![0.0f64; np * nvs];
+        let mut r_vl = vec![0.0f64; np * nvr];
+        let mut r_vt = vec![0.0f64; np * nvr];
+        let mut ws = EvaluationWorkspace::new(np, spin);
+        {
+            let mut out = MggaOutput {
+                zk: Some(&mut r_zk),
+                vrho: Some(&mut r_vr),
+                vsigma: Some(&mut r_vs),
+                vlapl: Some(&mut r_vl),
+                vtau: Some(&mut r_vt),
+                ..Default::default()
+            };
+            if let Err(e) = f.evaluate_mgga(&input, DerivativeOrder::Vxc, &mut out, &mut ws) {
+                skipped.push((meta.name.to_string(), format!("evaluate_mgga: {e}")));
+                continue;
+            }
+        }
+
+        let mut t: xc_func_type = unsafe { std::mem::zeroed() };
+        let rc = unsafe {
+            xc_func_init(
+                &mut t,
+                id.raw() as i32,
+                if nspin == 1 { XC_UNPOLARIZED } else { XC_POLARIZED } as i32,
+            )
+        };
+        if rc != 0 {
+            skipped.push((meta.name.to_string(), "libxc xc_func_init failed".into()));
+            continue;
+        }
+        let cf = CFunc(t);
+        let mut c_zk = vec![0.0f64; np];
+        let mut c_vr = vec![0.0f64; np * nvr];
+        let mut c_vs = vec![0.0f64; np * nvs];
+        let mut c_vl = vec![0.0f64; np * nvr];
+        let mut c_vt = vec![0.0f64; np * nvr];
+        unsafe {
+            xc_mgga_exc_vxc(
+                &cf.0,
+                np,
+                rho.as_ptr(),
+                sigma.as_ptr(),
+                lapl.as_ptr(),
+                tau.as_ptr(),
+                c_zk.as_mut_ptr(),
+                c_vr.as_mut_ptr(),
+                c_vs.as_mut_ptr(),
+                c_vl.as_mut_ptr(),
+                c_vt.as_mut_ptr(),
+            );
+        }
+        let scale = c_zk.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+        if scale == 0.0 || !scale.is_finite() {
+            skipped.push((meta.name.to_string(), "libxc produced no finite zk".into()));
+            continue;
+        }
+        rows.push(Row {
+            name: meta.name,
+            id: id.raw(),
+            zk: worst_rel(&r_zk, &c_zk, scale),
+            vrho: worst_rel(&r_vr, &c_vr, scale),
+            vsigma: worst_rel(&r_vs, &c_vs, scale),
+        });
+    }
+    (rows, skipped)
+}
+
+fn report_mgga(spin: Spin) {
+    let (mut rows, skipped) = sweep_mgga(spin);
+    rows.sort_by(|a, b| b.zk.partial_cmp(&a.zk).unwrap());
+    println!("\n=== composite MGGA functionals vs libxc, {spin:?} ===");
+    println!("compared : {}", rows.len());
+    println!("skipped  : {}", skipped.len());
+    let over: Vec<&Row> = rows
+        .iter()
+        .filter(|r| r.zk > TOL_ZK || r.vrho > TOL_VXC || r.vsigma > TOL_VXC)
+        .collect();
+    println!("over gate: {}", over.len());
+    println!("\n{:<38} {:>6} {:>11} {:>11} {:>11}", "functional", "id", "zk", "vrho", "vsigma");
+    for r in over.iter() {
+        println!(
+            "{:<38} {:>6} {:>11.3e} {:>11.3e} {:>11.3e}",
+            r.name.to_lowercase(), r.id, r.zk, r.vrho, r.vsigma
+        );
+    }
+    if !skipped.is_empty() {
+        println!("\nskipped ({}):", skipped.len());
+        for (n, why) in skipped.iter().take(12) {
+            println!("  {:<34} {why}", n.to_lowercase());
+        }
+    }
+}
+
+/// Reporting only for now: the MGGA composites have never been compared
+/// against libxc, so the first run is a survey, not a gate. Promote to an
+/// assertion once the failures it finds are either fixed or listed.
+#[test]
+fn composite_mgga_survey() {
+    report_mgga(Spin::Unpolarized);
 }
 
 #[test]
