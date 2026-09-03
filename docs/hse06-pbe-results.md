@@ -264,7 +264,7 @@ The polarized figure is the one that mattered: 613.6 MB of scratch per call at
 100 000 points, which is 6.1 GB at the million-point grid a real calculation
 uses, to hold 4.8 MB of results.
 
-## 5. One thing this uncovered and did not fix
+## 5. The `gga_x_wpbeh` small-gradient question, settled
 
 `bench-vs-libxc` reports `gga_x_wpbeh` disagreeing with libxc by 4.5e-7 on
 `vsigma`, and HSE06 by 1.2e-6, while the rayon oracle passes 1221 of 1221
@@ -281,12 +281,100 @@ confined to `vsigma` at very small reduced gradient, the bench grid draws `s`
 uniformly from [0, 3] and lands there, and the oracle grid does not.
 
 It is **pre-existing**: the `gga_x_wpbeh` output fingerprint is byte-identical
-before and after this session's erfcx/E1 fixes. It is recorded in `AGENTS.md`
-rather than fixed, because diagnosing it properly means going into the
-`wpbeh_EG` piecewise on `s` in the maple source, which is a different piece of
-work from the one this plan scoped.
+before and after this session's erfcx/E1 fixes.
 
-## 6. After the plan: the sweep it implied
+**Settled on the second pass.** Over `s` in 0.01..5 at four densities and both
+screening parameters, our `zk`, `vrho` and `vsigma` agree with libxc to
+**1.07e-11**, and a real molecular quadrature lives at `s` of order 0.1 to 5.
+The divergence is confined to gradients no calculation visits, and
+`wpbeh_domain.rs` now gates the range that matters.
+
+An attempt to referee the small-`s` region with a finite-difference reference
+was inconclusive, which is itself worth recording: `d(rho*eps)/dsigma` by
+central difference is *also* ill-conditioned there, because `sigma` scales as
+`s^2` and the step vanishes with it. At `s = 1e-6` the finite difference came
+out -1.77e2 where both analytic implementations said -3.28e1 -- disagreeing
+with both by 80% while they agreed with each other to 5e-4. The reference had
+no digits left, not the implementations.
+
+## 6. Second pass: fixing everything the first pass had found
+
+The first pass ended with a list of known-outstanding items. Working through
+them turned up two more defects and closed the project's longest-standing
+coverage gap.
+
+### 6.1 `hyb_mgga_xc_b0kcis` was 96% wrong
+
+It is the only functional in libxc 7.0.0 whose info block carries **both** a
+work pointer and an `xc_mix_init` init. `xc_mgga_new` evaluates the
+functional's own kernel and *then* calls `xc_mix_func`, with no guard between
+them, so it is the sum of the two:
+
+```
+b0kcis = mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)
+```
+
+Twice the KCIS correlation. Confirmed against libxc to 1.7e-16 by arithmetic
+rather than by reading more C. This tree treated the two as either-or, which
+gets it 96% wrong via the kernel alone or 20% wrong via the mix alone.
+
+One pitfall is worth remembering: dispatching the own kernel straight into the
+caller's output does not work, because `prepare` *takes* the output buffers.
+The kernel goes through the workspace scratch instead.
+
+### 6.2 The polarized and MGGA coverage gap is closed
+
+`AGENTS.md` had called this "the largest remaining coverage gap" for as long as
+it existed: the rayon oracle compares **unpolarized LDA and GGA only**. That is
+why `b0kcis` survived.
+
+| oracle | before | after |
+|---|--:|--:|
+| routed kernels, zk + first derivatives | 344 fields, unpol LDA/GGA | **454 kernels x 2 spins, all families** |
+| routed kernels, second derivatives | `v2rho2` only, unpol LDA/GGA | **308 kernels x 2 spins** |
+| composite functionals | none | **124 GGA + 34 MGGA + 2 LDA** |
+
+All are gates. Every residual is either zero or recorded with its measured
+value and gated at 4x.
+
+Getting a meaningful number out of the second-derivative sweep took three
+attempts at the dust threshold, and the failures were instructive. A global
+threshold called 146 of 308 polarized kernels broken; a `zk`-scaled per-point
+threshold still called 145. Both are wrong because `zk` is an energy per
+particle and says nothing about the magnitude of `v2rhosigma`, and because a
+grid spanning five decades of density produces outputs spanning ten. The scale
+that works is **the field's own largest component at the same grid point**:
+`gga_x_pbe`'s polarized `v2rhosigma` has four analytically-zero cross-spin
+components that both libraries return as roundoff beside siblings of order
+1e-1. 145 became 4.
+
+### 6.3 Composite MGGAs could not evaluate at all
+
+36 of 39 failed with an output-buffer error, so none had ever been compared.
+The mix layer gated the *auxiliary's* buffers on the parent's Laplacian and tau
+flags; that gate belongs on the accumulation. 34 now compare.
+
+### 6.4 Five test files were dead
+
+`gga_oracle`, `lda_oracle` and `mgga_oracle` are gated on features deleted with
+the old GPU backend, so they compiled to zero tests: 1,900 lines presenting as
+coverage that did not exist. `lda_x_oracle` and `lda_x_stress` reference an API
+removed with the same backend and did not compile at all. All five deleted; the
+new oracles cover their ground and more.
+
+`compat_smoke` was not broken. It needs `--features c-abi`, and that feature is
+mutually exclusive with every other test in the directory, because the compat
+shim exports the same C symbol names as libxc itself.
+
+### 6.5 What is provably not fixable
+
+The four `gga_k_*` composites mix `lda_k_gds08_worker`, which libxc numbers
+**100001** and keeps out of its public header. `FunctionalId` is a `u16`, so
+that id is not representable. The kernel exists and is routed by name; only the
+id-keyed path cannot reach it. Widening the id type across the codebase for
+four kinetic functionals is not a trade worth making.
+
+## 7. After the plan: the sweep it implied
 
 The stale-rejection finding (§2.1.4) was scoped to PBE. Following it up:
 
@@ -314,22 +402,22 @@ gate belongs on the accumulation. Survey now compares 34, two over the gate
 (`hyb_mgga_xc_b0kcis` zk 2.6e-1, a real disagreement; `hyb_mgga_xc_br3p86`
 vsigma 2.1e-7). Neither fixed.
 
-## 7. What is not done
+## 8. What is not done
 
-- **WS-3a (accumulate straight into the caller's outputs).** Would remove the
-  mix scratch entirely rather than shrinking it, and delete the remaining
-  serial accumulation passes. Not attempted; it needs an accumulate mode in the
-  generated `par_sweep` and a bit-exactness argument about `0 + v == v`, which
-  the plan sets out.
-- **WS-3c (fusing the two `gga_x_wpbeh` legs).** Everything not depending on
-  `omega` is computed twice per HSE06 point. Worth doing only after 3a and only
-  if a binding count says the shared prefix is large.
-- **WS-3d (SIMD `gga_x_wpbeh`).** Blocked on bit-exact vector `erfcx` and
-  `e1_scaled`; both are branch-heavy region selections that would need
+- **~1,400 SIMD candidates remain undecided** across tiers 1-4. Every one
+  measured so far has accepted, so this is unclaimed speed rather than risk.
+- **HSE06 is at parity with libxc (1.06x), not ahead.** `gga_x_wpbeh` is
+  evaluated twice and is still scalar; making it fast needs bit-exact vector
+  `erfcx` and `e1_scaled`, both branch-heavy region selections that would need
   mask-select rewrites. Now that the scalar versions are correct and tested
   against C, this is a well-defined next step rather than a guess.
-- **294 tier-1 SIMD candidates remain undecided**, plus all of tiers 2-4
-  (polarized, fxc, kxc/lxc). Every one measured so far has accepted.
-- **Two composite MGGAs still disagree** (`hyb_mgga_xc_b0kcis`,
-  `hyb_mgga_xc_br3p86`), and the MGGA survey is reporting-only until they are
-  resolved. LDA composites (2) have not been swept at all.
+- **Third and fourth derivatives are uncovered**, as are MGGA second
+  derivatives. `kernel_oracle_fxc.rs` is the pattern to extend.
+- **Two recorded residuals**: `hyb_mgga_xc_br3p86` at `vsigma` 2.1e-7,
+  downstream of the Becke-Roussel root-find, and `gga_xc_beefvdw` at 1.6e-10.
+  Both are gated at their measured values.
+- **Four `gga_k_*` composites cannot be fixed** without widening `FunctionalId`
+  from `u16`; see §6.5.
+- The plan's own WS-3a (accumulate straight into the caller's outputs, removing
+  the mix scratch entirely) and WS-3c (fusing the two `gga_x_wpbeh` legs) were
+  not attempted.
