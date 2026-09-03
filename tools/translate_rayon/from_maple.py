@@ -903,6 +903,26 @@ SIMD_EXACT_FUNCS = {
     ("mgga_xc_lp90", "vxc", "pol"),  # 1.28x  (21.10 -> 16.43 ns/pt)
     ("mgga_xc_zlp", "exc", "pol"),  # 1.23x  (22.12 -> 18.03 ns/pt)
     ("mgga_xc_zlp", "vxc", "pol"),  # 1.27x  (22.14 -> 17.45 ns/pt)
+    # Added by tools/translate_rayon/simd_qualify.py; each line's
+    # ratio is sweep ns/pt before -> after, fingerprint unchanged.
+    ("gga_c_op_xalpha", "exc", "unpol"),  # 1.59x  (7.38 -> 4.63 ns/pt)
+    ("gga_c_w94", "exc", "unpol"),  # 1.62x  (7.67 -> 4.72 ns/pt)
+    ("gga_c_w94", "vxc", "unpol"),  # 1.62x  (8.01 -> 4.95 ns/pt)
+    ("gga_k_lkt", "vxc", "pol"),  # 1.30x  (58.46 -> 45.02 ns/pt)
+    ("gga_k_thakkar", "vxc", "unpol"),  # 2.08x  (12.20 -> 5.87 ns/pt)
+    ("gga_x_ak13", "exc", "pol"),  # 1.20x  (53.74 -> 44.86 ns/pt)
+    ("gga_x_ak13", "vxc", "pol"),  # 1.26x  (57.32 -> 45.58 ns/pt)
+    ("gga_x_lsrpbe", "exc", "pol"),  # 1.17x  (51.96 -> 44.46 ns/pt)
+    ("gga_x_sfat_pbe", "exc", "pol"),  # 1.33x  (69.88 -> 52.66 ns/pt)
+    ("gga_x_wc", "vxc", "pol"),  # 1.23x  (55.30 -> 45.00 ns/pt)
+    ("mgga_c_cc", "vxc", "unpol"),  # 1.68x  (10.48 -> 6.25 ns/pt)
+    ("mgga_c_cs", "exc", "pol"),  # 1.25x  (31.69 -> 25.35 ns/pt)
+    ("mgga_c_cs", "vxc", "pol"),  # 1.43x  (34.66 -> 24.21 ns/pt)
+    ("mgga_c_rregtm", "vxc", "pol"),  # 1.98x  (61.89 -> 31.32 ns/pt)
+    ("mgga_c_tpss", "exc", "pol"),  # 2.41x  (97.61 -> 40.52 ns/pt)
+    ("mgga_c_tpss", "vxc", "pol"),  # 2.87x  (151.50 -> 52.88 ns/pt)
+    ("mgga_xc_cc06", "exc", "unpol"),  # 1.68x  (9.79 -> 5.84 ns/pt)
+    ("mgga_xc_cc06", "vxc", "unpol"),  # 1.98x  (12.46 -> 6.30 ns/pt)
 }
 
 # Sweep override, read by tools/translate_rayon/simd_qualify.py. It lets the
