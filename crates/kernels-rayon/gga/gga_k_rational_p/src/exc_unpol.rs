@@ -1,15 +1,40 @@
-//! GGA_K_RATIONAL_P exc unpol kernel (rayon backend).
+//! GGA_K_RATIONAL_P exc unpol kernel — explicit SIMD (bit-exact).
 //!
 //! Auto-translated from `libxc-master/src/maple2c/gga_exc/gga_k_rational_p.c`
-//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
-//! variable names and floating-point operation order.
+//! by tools/translate_rayon/from_maple.py, then rewritten to
+//! `wide::f64x8` by simd.py. Eight grid points per step; every lane runs maple2c's expression
+//! sequence in its original order.
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+use libxc_rkernel_math::constants::*;
+use libxc_rkernel_math::simd;
+use libxc_rkernel_math::wide::{f64x8, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe};
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
+const V_ZERO: f64x8 = f64x8::new([0.0; 8]);
+const V_ONE: f64x8 = f64x8::new([1.0; 8]);
 
-use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT6, M_CBRTPI, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3};
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
+
+/// Load 8 consecutive grid points.
+///
+/// The tail is padded by repeating the last element, not by zero-filling:
+/// these formulas divide by rho, so a zero lane would raise inf/NaN in lanes
+/// whose results are then discarded -- harmless to the answer, but it makes
+/// any real NaN impossible to spot while debugging.
+#[inline(always)]
+fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
+    if ip + 8 <= np {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        f64x8::new(b)
+    } else {
+        let mut b = [s[np - 1]; 8];
+        b[..np - ip].copy_from_slice(&s[ip..np]);
+        f64x8::new(b)
+    }
+}
 
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_k_rational_p_exc_unpol(
@@ -21,37 +46,51 @@ pub fn gga_k_rational_p_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = t3 * t3;
-        let t5 = M_CBRTPI;
-        let t7 = t4 * t5 * M_PI;
-        let t8 = 1.0 <= zeta_threshold;
-        let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
-        let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
-        let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
-        let t21 = pow_1_3(rho[ip]);
-        let t22 = t21 * t21;
-        let t24 = 1.0 / param_p;
-        let t26 = M_CBRT6;
-        let t28 = M_PI * M_PI;
-        let t29 = pow_1_3(t28);
-        let t30 = t29 * t29;
-        let t31 = 1.0 / t30;
-        let t32 = t31 * sigma[ip];
-        let t33 = M_CBRT2;
-        let t34 = t33 * t33;
-        let t35 = rho[ip] * rho[ip];
-        let t42 = 1.0 + param_C2 * t24 * t26 * t32 * t34 / t22 / t35 / 24.0;
-        let t43 = rmath::pow(t42, -param_p);
-        let t47 = piecewise3(t2, 0.0, 3.0 / 20.0 * t7 * t20 * t22 * t43);
-        let tzk0 = 2.0 * t47;
-        zk[ip] += tzk0;
+    let np = zk.len();
+    let param_p = f64x8::splat(param_p);
+    let param_C2 = f64x8::splat(param_C2);
+    let dens_threshold = f64x8::splat(dens_threshold);
+    let zeta_threshold = f64x8::splat(zeta_threshold);
+    let mut ip = 0usize;
+    while ip < np {
+        let m = (np - ip).min(8);
+        let v_rho = load(rho, ip, np);
+        let v_sigma = load(sigma, ip, np);
+        let mut acc_zk = V_ZERO;
+        {
+            let t2 = (v_rho / f64x8::splat(2.0)).simd_le(dens_threshold);
+            let t3 = f64x8::splat(M_CBRT3);
+            let t4 = t3 * t3;
+            let t5 = f64x8::splat(M_CBRTPI);
+            let t7 = t4 * t5 * f64x8::splat(M_PI);
+            let t8 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+            let t9 = zeta_threshold - f64x8::splat(1.0);
+            let t11 = ((t8).select(t9, (t8).select(-t9, f64x8::splat(0.0))));
+            let t12 = f64x8::splat(1.0) + t11;
+            let t14 = (simd::cbrt(zeta_threshold));
+            let t15 = t14 * t14;
+            let t17 = (simd::cbrt(t12));
+            let t18 = t17 * t17;
+            let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
+            let t21 = (simd::cbrt(v_rho));
+            let t22 = t21 * t21;
+            let t24 = f64x8::splat(1.0) / param_p;
+            let t26 = f64x8::splat(M_CBRT6);
+            let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+            let t29 = (simd::cbrt(t28));
+            let t30 = t29 * t29;
+            let t31 = f64x8::splat(1.0) / t30;
+            let t32 = t31 * v_sigma;
+            let t33 = f64x8::splat(M_CBRT2);
+            let t34 = t33 * t33;
+            let t35 = v_rho * v_rho;
+            let t42 = f64x8::splat(1.0) + param_C2 * t24 * t26 * t32 * t34 / t22 / t35 / f64x8::splat(24.0);
+            let t43 = (simd::pow(t42, -param_p));
+            let t47 = ((t2).select(f64x8::splat(0.0), f64x8::splat(3.0) / f64x8::splat(20.0) * t7 * t20 * t22 * t43));
+            let tzk0 = f64x8::splat(2.0) * t47;
+            acc_zk = tzk0;
+        }
+        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        ip += 8;
     }
 }

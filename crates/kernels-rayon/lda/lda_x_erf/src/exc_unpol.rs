@@ -1,15 +1,40 @@
-//! LDA_X_ERF exc unpol kernel (rayon backend).
+//! LDA_X_ERF exc unpol kernel — explicit SIMD (bit-exact).
 //!
 //! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_x_erf.c`
-//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
-//! variable names and floating-point operation order.
+//! by tools/translate_rayon/from_maple.py, then rewritten to
+//! `wide::f64x8` by simd.py. Eight grid points per step; every lane runs maple2c's expression
+//! sequence in its original order.
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+use libxc_rkernel_math::constants::*;
+use libxc_rkernel_math::simd;
+use libxc_rkernel_math::wide::{f64x8, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe};
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
+const V_ZERO: f64x8 = f64x8::new([0.0; 8]);
+const V_ONE: f64x8 = f64x8::new([1.0; 8]);
 
-use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
-use libxc_rkernel_math::piecewise::{piecewise3};
-use libxc_rkernel_math::powers::{pow_1_3};
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
+
+/// Load 8 consecutive grid points.
+///
+/// The tail is padded by repeating the last element, not by zero-filling:
+/// these formulas divide by rho, so a zero lane would raise inf/NaN in lanes
+/// whose results are then discarded -- harmless to the answer, but it makes
+/// any real NaN impossible to spot while debugging.
+#[inline(always)]
+fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
+    if ip + 8 <= np {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        f64x8::new(b)
+    } else {
+        let mut b = [s[np - 1]; 8];
+        b[..np - ip].copy_from_slice(&s[ip..np]);
+        f64x8::new(b)
+    }
+}
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_x_erf_exc_unpol(
@@ -19,54 +44,66 @@ pub fn lda_x_erf_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..zk.len() {
-        let t1 = M_CBRT3;
-        let t3 = pow_1_3(1.0 / M_PI);
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
-        let t7 = t1 * t3 * t6;
-        let t8 = M_CBRT2;
-        let t9 = t8 * t8;
-        let t10 = 1.0 <= zeta_threshold;
-        let t11 = pow_1_3(zeta_threshold);
-        let t13 = piecewise3(t10, t11 * zeta_threshold, 1.0);
-        let t14 = t9 * t13;
-        let t15 = pow_1_3(rho[ip]);
-        let t16 = pow_1_3(9.0);
-        let t17 = t16 * t16;
-        let t18 = t3 * t3;
-        let t20 = t17 * t18 * param_hyb_omega_0;
-        let t23 = piecewise3(t10, t11, 1.0);
-        let t24 = 1.0 / t23;
-        let t27 = t20 * t1 / t15 * t24 / 18.0;
-        let t28 = 1.35 <= t27;
-        let t29 = 1.35 < t27;
-        let t30 = piecewise3(t29, t27, 1.35);
-        let t31 = t30 * t30;
-        let t34 = t31 * t31;
-        let t35 = 1.0 / t34;
-        let t37 = t34 * t31;
-        let t38 = 1.0 / t37;
-        let t40 = t34 * t34;
-        let t41 = 1.0 / t40;
-        let t44 = 1.0 / t40 / t31;
-        let t47 = 1.0 / t40 / t34;
-        let t50 = 1.0 / t40 / t37;
-        let t52 = t40 * t40;
-        let t53 = 1.0 / t52;
-        let t56 = piecewise3(t29, 1.35, t27);
-        let t57 = rmath::sqrt(M_PI);
-        let t58 = 1.0 / t56;
-        let t60 = rmath::erf(t58 / 2.0);
-        let t62 = t56 * t56;
-        let t63 = 1.0 / t62;
-        let t65 = rmath::exp(-t63 / 4.0);
-        let t66 = t65 - 1.0;
-        let t69 = t65 - 3.0 / 2.0 - 2.0 * t62 * t66;
-        let t72 = 2.0 * t56 * t69 + t57 * t60;
-        let t76 = piecewise3(t28, 1.0 / t31 / 36.0 - t35 / 960.0 + t38 / 26880.0 - t41 / 829440.0 + t44 / 28385280.0 - t47 / 1073479680.0 + t50 / 44590694400.0 - t53 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t56 * t72);
-        let t79 = t7 * t14 * t15 * t76;
-        let tzk0 = -3.0 / 16.0 * t79;
-        zk[ip] += tzk0;
+    let np = zk.len();
+    let param_hyb_omega_0 = f64x8::splat(param_hyb_omega_0);
+    let dens_threshold = f64x8::splat(dens_threshold);
+    let zeta_threshold = f64x8::splat(zeta_threshold);
+    let mut ip = 0usize;
+    while ip < np {
+        let m = (np - ip).min(8);
+        let v_rho = load(rho, ip, np);
+        let mut acc_zk = V_ZERO;
+        {
+            let t1 = f64x8::splat(M_CBRT3);
+            let t3 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+            let t5 = f64x8::splat(M_CBRT4);
+            let t6 = t5 * t5;
+            let t7 = t1 * t3 * t6;
+            let t8 = f64x8::splat(M_CBRT2);
+            let t9 = t8 * t8;
+            let t10 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+            let t11 = (simd::cbrt(zeta_threshold));
+            let t13 = ((t10).select(t11 * zeta_threshold, f64x8::splat(1.0)));
+            let t14 = t9 * t13;
+            let t15 = (simd::cbrt(v_rho));
+            let t16 = (simd::cbrt(f64x8::splat(9.0)));
+            let t17 = t16 * t16;
+            let t18 = t3 * t3;
+            let t20 = t17 * t18 * param_hyb_omega_0;
+            let t23 = ((t10).select(t11, f64x8::splat(1.0)));
+            let t24 = f64x8::splat(1.0) / t23;
+            let t27 = t20 * t1 / t15 * t24 / f64x8::splat(18.0);
+            let t28 = (f64x8::splat(1.35)).simd_le(t27);
+            let t29 = (f64x8::splat(1.35)).simd_lt(t27);
+            let t30 = ((t29).select(t27, f64x8::splat(1.35)));
+            let t31 = t30 * t30;
+            let t34 = t31 * t31;
+            let t35 = f64x8::splat(1.0) / t34;
+            let t37 = t34 * t31;
+            let t38 = f64x8::splat(1.0) / t37;
+            let t40 = t34 * t34;
+            let t41 = f64x8::splat(1.0) / t40;
+            let t44 = f64x8::splat(1.0) / t40 / t31;
+            let t47 = f64x8::splat(1.0) / t40 / t34;
+            let t50 = f64x8::splat(1.0) / t40 / t37;
+            let t52 = t40 * t40;
+            let t53 = f64x8::splat(1.0) / t52;
+            let t56 = ((t29).select(f64x8::splat(1.35), t27));
+            let t57 = ((f64x8::splat(M_PI)).sqrt());
+            let t58 = f64x8::splat(1.0) / t56;
+            let t60 = (simd::erf(t58 / f64x8::splat(2.0)));
+            let t62 = t56 * t56;
+            let t63 = f64x8::splat(1.0) / t62;
+            let t65 = (simd::exp(-t63 / f64x8::splat(4.0)));
+            let t66 = t65 - f64x8::splat(1.0);
+            let t69 = t65 - f64x8::splat(3.0) / f64x8::splat(2.0) - f64x8::splat(2.0) * t62 * t66;
+            let t72 = f64x8::splat(2.0) * t56 * t69 + t57 * t60;
+            let t76 = ((t28).select(f64x8::splat(1.0) / t31 / f64x8::splat(36.0) - t35 / f64x8::splat(960.0) + t38 / f64x8::splat(26880.0) - t41 / f64x8::splat(829440.0) + t44 / f64x8::splat(28385280.0) - t47 / f64x8::splat(1073479680.0) + t50 / f64x8::splat(44590694400.0) - t53 / f64x8::splat(2021444812800.0), f64x8::splat(1.0) - f64x8::splat(8.0) / f64x8::splat(3.0) * t56 * t72));
+            let t79 = t7 * t14 * t15 * t76;
+            let tzk0 = -f64x8::splat(3.0) / f64x8::splat(16.0) * t79;
+            acc_zk = tzk0;
+        }
+        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        ip += 8;
     }
 }
