@@ -178,6 +178,37 @@ Three things from that work bind future changes:
 
 ## Verification
 
+**Run the `verify/` suite in two parts.** Every test there needs libxc linked
+in as the oracle, except `compat_smoke`, which needs `--features c-abi` -- and
+that feature is mutually exclusive with the rest, because the compat shim
+exports the same C symbol names as libxc itself, so a binary links one or the
+other:
+
+```bash
+cargo test --release --manifest-path verify/Cargo.toml                          # 14 files
+cargo test --release --manifest-path verify/Cargo.toml --features c-abi \
+    --test compat_smoke                                                         # on its own
+```
+
+| file | what it proves |
+|---|---|
+| `kernel_oracle.rs` | every routed kernel (454) vs libxc, **both spins, all three families**, zk + first derivatives |
+| `kernel_oracle_fxc.rs` | second derivatives of every routed LDA/GGA kernel (308), both spins |
+| `composite_oracle.rs` | every composite functional (124 GGA + 34 MGGA + 2 LDA) vs libxc |
+| `composite_diagnose.rs` | when a composite fails: diffs our mix against libxc's own `xc_func_type` through the FFI |
+| `gen_aux_overrides.rs` | regenerates `meta::generated_aux_overrides` from libxc |
+| `hse06_oracle.rs` | the HSE family, and `gga_x_wpbeh` at a non-default screening parameter |
+| `screening_helpers.rs` | `xc_erfcx` and `xc_E1_scaled` against libxc's C directly |
+| `wpbeh_domain.rs` | where `gga_x_wpbeh` diverges as a function of reduced gradient |
+
+`gga_oracle.rs`, `lda_oracle.rs`, `mgga_oracle.rs`, `lda_x_oracle.rs` and
+`lda_x_stress.rs` were **deleted** on 2026-09-03. The first three were gated on
+`oracle-{gga,lda,mgga}` features removed with the CubeCL backend and compiled
+to zero tests; the last two were written against the removed
+`libxc_rs::kernel::launch` API and did not compile. `kernel_oracle*.rs` covers
+their ground and more.
+
+
 | harness | what it proves | invocation |
 |---------|----------------|------------|
 | `crates/libxc-reval` (`revalcheck`) | chunked parallel evaluation is bit-identical to a whole-grid call | `cargo run --release -p libxc-reval --bin revalcheck` |
@@ -281,6 +312,18 @@ points are contiguous and always take the fast route.
   18 functionals are refused on that gate (transforming setters such as
   `gga_x_lspbe`'s `mu += alpha*(1+kappa)`); they keep their compiled-in
   constants and reject runtime ext_params rather than running with a wrong one.
+- **`hyb_mgga_xc_b0kcis` is its own kernel PLUS its mix.** It is the only
+  functional in libxc 7.0.0 whose info block carries both a work pointer and an
+  `xc_mix_init` init. `xc_mgga_new` evaluates the kernel and *then* calls
+  `xc_mix_func`, with no guard between them, so the functional is
+  `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)` -- twice the KCIS
+  correlation, confirmed against libxc to 1.7e-16. Treating it as either-or
+  gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
+  `routing::*_has_own_kernel` is the predicate; `evaluate_mgga` runs the mix
+  first and adds the kernel through the workspace scratch, **not** straight
+  into the output -- `prepare` *takes* the caller's buffers, so dispatching
+  into the output leaves every field `None` and silently discards whatever was
+  accumulated afterwards.
 - **Composite functionals ran their auxiliaries on the wrong constants until
   2026-09-03: 52 of 125 composite GGAs disagreed with libxc.** HSE06 was not a
   special case. When `xc_mix_init` builds a composite, each auxiliary starts on
@@ -309,12 +352,15 @@ points are contiguous and always take the fast route.
   are.
 - Five composite GGAs remain over the gate, listed with reasons in
   `composite_oracle.rs::KNOWN_GAPS`. Four (`gga_k_gds08`, `ghds10`, `ghds10r`,
-  `tkvln`) mix an internal libxc worker functional (id ~100001) the public
-  registry does not expose, so the mix is missing a whole component; the fifth
-  is `gga_xc_beefvdw` at zk 1.6e-10. LDA composites (2) have **not** been swept.
+  `tkvln`) mix `lda_k_gds08_worker`, which libxc numbers **100001** and keeps
+  out of its public `xc_funcs.h`. **`FunctionalId` is a `u16`, so that id is
+  not representable at all** -- the kernel exists and is routed by name, only
+  the id-keyed path cannot reach it. Widening the id type across the codebase
+  for four kinetic functionals is not a trade worth making. The fifth is
+  `gga_xc_beefvdw` at zk 1.6e-10.
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
-- Kernel correctness rests on `crates/kernels-rayon/oracle` (C libxc parity) and `revalcheck` (chunked vs whole-grid). The oracle covers **unpolarized LDA/GGA only**, so polarized and MGGA kernels have no direct parity test against libxc -- the largest remaining coverage gap.
+- Kernel correctness rests on `verify/tests/kernel_oracle*.rs` (C libxc parity for all 454 routed kernels, **both spins, all three families**, first and second derivatives), `crates/kernels-rayon/oracle` (unpolarized LDA/GGA, kept as a second opinion) and `revalcheck` (chunked vs whole-grid). The polarized/MGGA gap this list used to call "the largest remaining" was closed on 2026-09-03, and closing it is what found the `b0kcis` defect. **Third and fourth derivatives are still uncovered**, as are MGGA second derivatives.
 - The maple2c rewrite was validated against the tree it replaced before that tree was regenerated: of 2,648 emitted functions, **2,420 were token-for-token identical** (numbers compared by value, not spelling), 218 differed only because the old ones had been reconstructed by `vnmerge` and carried its `vN` names, and 3 differed by a redundant paren. All 8 `bench-vs-libxc` output fingerprints and the full oracle result (7/344 over tolerance, same three functionals) were unchanged across the rewrite.
 - `revalcheck` reports **4 differing values in `gga_c_op_pw91 Lxc Polarized`** (chunked vs whole-grid). Pre-existing and reproduced on an untouched tree; the other 482,775,350 values are bit-identical.
 - **9 of 1221 oracle field comparisons exceed 1e-12** (2026-08-31, down from 48). **All nine are `v2rho2` (5) or `vsigma` (4); `zk` has none**, so the project's stated contract -- *energy* relative error <= 1e-12 -- is met. The harness applies 1e-12 uniformly to `zk`/`vrho`/`vsigma`/`v2rho2`, which is stricter than that.
