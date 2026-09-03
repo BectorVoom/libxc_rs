@@ -15,7 +15,10 @@ use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): import the eval-level dispatch_* (real under the family feature,
 // stub when off) so this router needs no per-family cfg.
 use crate::eval::{dispatch_gga_by_id, dispatch_lda_by_id, dispatch_mgga_by_id};
-use crate::eval::mix::{evaluate_mixed_gga, evaluate_mixed_lda_functional, evaluate_mixed_mgga};
+use crate::eval::mix::{
+    add_own_kernel_mgga, evaluate_mixed_gga, evaluate_mixed_lda_functional,
+    evaluate_mixed_mgga,
+};
 use crate::eval::workspace::EvaluationWorkspace;
 use crate::functional::Functional;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
@@ -94,7 +97,16 @@ impl Functional {
                 &self.thresholds,
             )
         } else {
-            evaluate_mixed_mgga(self, input, order, output, workspace)
+            // The mix first: it zeroes the caller's buffers and accumulates
+            // every auxiliary into them.
+            evaluate_mixed_mgga(self, input, order, output, workspace)?;
+            // Then the functional's own kernel on top, if it has one. libxc
+            // runs both with no guard between them; see `add_own_kernel_mgga`.
+            // `hyb_mgga_xc_b0kcis` is the only functional this applies to.
+            if libxc_reval::routing::mgga_has_own_kernel(self.meta.id) {
+                add_own_kernel_mgga(self, input, order, output, workspace)?;
+            }
+            Ok(())
         }
     }
 }

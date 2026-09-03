@@ -785,6 +785,24 @@ pub fn dispatch_lda_by_id_with(
     }
 }
 
+/// Does this LDA functional have a maple2c kernel of its own?
+///
+/// libxc's `xc_{fam}_new` evaluates the functional's own kernel when its
+/// info block carries a work pointer, and *then* adds `xc_mix_func` on top
+/// when `mix_coef` is non-NULL. There is no guard between them, so a
+/// functional with both is the sum of the two.
+///
+/// `hyb_mgga_xc_b0kcis` is the only functional in libxc 7.0.0 that has
+/// both, and it is why this predicate exists: it is
+/// `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)`, i.e. twice the KCIS
+/// correlation, verified against libxc to 1.7e-16. Treating it as
+/// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
+pub fn lda_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
+    matches!(id.raw(),
+        653 | 588 | 18 | 26 | 15 | 16 | 552 | 287 | 307 | 578 | 5 | 24 | 4 | 579 | 308 | 289 | 551 | 22 | 23 | 14 | 11 | 574 | 573 | 590 | 12 | 654 | 13 | 25 | 9 | 10 | 27 | 3 | 684 | 683 | 17 | 7 | 28 | 29 | 30 | 31 | 8 | 317 | 2 | 6 | 51 | 580 | 50 | 550 | 1 | 600 | 21 | 19 | 546 | 549 | 532 | 692 | 641 | 536 | 537 | 538 | 318 | 577 | 259 | 547 | 548 | 20 | 43
+    )
+}
+
 /// Dispatch a LDA functional by enum -- delegates to by-id routing.
 pub fn dispatch_lda(
     functional: libxc_core::model::LdaFunctional,
@@ -1626,6 +1644,24 @@ pub fn dispatch_gga_by_id_with(
     }
 }
 
+/// Does this GGA functional have a maple2c kernel of its own?
+///
+/// libxc's `xc_{fam}_new` evaluates the functional's own kernel when its
+/// info block carries a work pointer, and *then* adds `xc_mix_func` on top
+/// when `mix_coef` is non-NULL. There is no guard between them, so a
+/// functional with both is the sum of the two.
+///
+/// `hyb_mgga_xc_b0kcis` is the only functional in libxc 7.0.0 that has
+/// both, and it is why this predicate exists: it is
+/// `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)`, i.e. twice the KCIS
+/// correlation, verified against libxc to 1.7e-16. Treating it as
+/// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
+pub fn gga_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
+    matches!(id.raw(),
+        39 | 176 | 135 | 186 | 280 | 313 | 309 | 565 | 88 | 33 | 555 | 556 | 97 | 283 | 137 | 131 | 624 | 712 | 80 | 79 | 87 | 85 | 86 | 262 | 84 | 200 | 132 | 217 | 252 | 253 | 130 | 657 | 322 | 138 | 272 | 133 | 216 | 258 | 62 | 246 | 134 | 47 | 83 | 99 | 143 | 553 | 534 | 152 | 159 | 89 | 281 | 100 | 559 | 560 | 561 | 148 | 153 | 147 | 136 | 61 | 63 | 557 | 606 | 558 | 506 | 507 | 277 | 278 | 185 | 54 | 504 | 516 | 520 | 597 | 514 | 515 | 501 | 502 | 510 | 508 | 521 | 620 | 633 | 505 | 613 | 522 | 509 | 57 | 512 | 513 | 616 | 595 | 596 | 511 | 517 | 219 | 218 | 55 | 53 | 52 | 635 | 523 | 187 | 188 | 189 | 190 | 519 | 518 | 619 | 500 | 503 | 128 | 124 | 127 | 129 | 192 | 56 | 120 | 184 | 103 | 105 | 41 | 106 | 179 | 570 | 125 | 38 | 285 | 98 | 158 | 270 | 298 | 111 | 112 | 271 | 215 | 35 | 604 | 605 | 114 | 115 | 107 | 32 | 535 | 34 | 527 | 46 | 528 | 525 | 526 | 191 | 529 | 622 | 623 | 145 | 193 | 44 | 45 | 40 | 113 | 168 | 169 | 58 | 149 | 122 | 119 | 82 | 180 | 324 | 183 | 171 | 139 | 110 | 101 | 655 | 321 | 126 | 320 | 49 | 102 | 116 | 59 | 121 | 265 | 60 | 140 | 539 | 291 | 108 | 109 | 316 | 734 | 48 | 142 | 117 | 144 | 495 | 530 | 601 | 533 | 151 | 90 | 68 | 69 | 70 | 71 | 118 | 524 | 123 | 327 | 170 | 96 | 162 | 163 | 164 | 93 | 161 | 95 | 94 | 545 | 154 | 155 | 156 | 157 | 197 | 198 | 199 | 196 | 646 | 647 | 710 | 708 | 709 | 81 | 656 | 496 | 426 | 407 | 408 | 266 | 410 | 414 | 413 | 390 | 420 | 421 | 422 | 423 | 424 | 425 | 463 | 464 | 471 | 399 | 466
+    )
+}
+
 /// Dispatch a GGA functional by enum -- delegates to by-id routing.
 pub fn dispatch_gga(
     functional: libxc_core::model::GgaFunctional,
@@ -2144,6 +2180,24 @@ pub fn dispatch_mgga_by_id_with(
             reason: "not wired to a rayon kernel; see routing::UNSUPPORTED",
         }),
     }
+}
+
+/// Does this MGGA functional have a maple2c kernel of its own?
+///
+/// libxc's `xc_{fam}_new` evaluates the functional's own kernel when its
+/// info block carries a work pointer, and *then* adds `xc_mix_func` on top
+/// when `mix_coef` is non-NULL. There is no guard between them, so a
+/// functional with both is the sum of the two.
+///
+/// `hyb_mgga_xc_b0kcis` is the only functional in libxc 7.0.0 that has
+/// both, and it is why this predicate exists: it is
+/// `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)`, i.e. twice the KCIS
+/// correlation, verified against libxc to 1.7e-16. Treating it as
+/// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
+pub fn mgga_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
+    matches!(id.raw(),
+        279 | 36 | 705 | 438 | 439 | 449 | 450 | 444 | 310 | 295 | 296 | 297 | 248 | 268 | 706 | 305 | 304 | 282 | 563 | 598 | 658 | 531 | 571 | 240 | 387 | 388 | 72 | 37 | 699 | 562 | 638 | 237 | 238 | 235 | 236 | 234 | 233 | 311 | 78 | 77 | 76 | 75 | 74 | 73 | 269 | 261 | 239 | 498 | 642 | 306 | 294 | 172 | 582 | 694 | 241 | 643 | 649 | 391 | 494 | 267 | 251 | 231 | 323 | 247 | 232 | 629 | 630 | 631 | 632 | 627 | 628 | 617 | 618 | 543 | 634 | 220 | 621 | 609 | 210 | 284 | 244 | 206 | 214 | 586 | 602 | 686 | 319 | 689 | 690 | 687 | 691 | 204 | 575 | 698 | 256 | 201 | 203 | 226 | 249 | 250 | 716 | 696 | 697 | 644 | 711 | 230 | 227 | 260 | 245 | 221 | 222 | 223 | 228 | 300 | 301 | 724 | 257 | 302 | 303 | 576 | 213 | 497 | 645 | 650 | 626 | 603 | 293 | 581 | 693 | 212 | 688 | 648 | 493 | 299 | 542 | 263 | 707 | 205 | 225 | 685 | 540 | 202 | 651 | 541 | 254 | 229 | 564 | 42
+    )
 }
 
 /// Dispatch a MGGA functional by enum -- delegates to by-id routing.

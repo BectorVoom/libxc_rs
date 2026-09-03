@@ -269,6 +269,25 @@ pub fn evaluate_mixed_lda_functional(
     output: &mut LdaOutput,
     workspace: &mut EvaluationWorkspace,
 ) -> Result<(), LibxcRsError> {
+    evaluate_mixed_lda_functional_into(functional, input, order, output, workspace, true)
+}
+
+/// As [`evaluate_mixed_lda_functional`], but `zero_first = false` accumulates into
+/// whatever the output already holds.
+///
+/// libxc's `xc_lda_new` evaluates a functional's own kernel and *then* adds
+/// `xc_mix_func` on top when the info block carries both a work pointer and a
+/// non-NULL `mix_coef`. Reproducing that needs a mix pass that does not first
+/// wipe the kernel's contribution. `hyb_mgga_xc_b0kcis` is the only functional
+/// in libxc 7.0.0 that needs it.
+pub fn evaluate_mixed_lda_functional_into(
+    functional: &Functional,
+    input: &LdaInput,
+    order: DerivativeOrder,
+    output: &mut LdaOutput,
+    workspace: &mut EvaluationWorkspace,
+    zero_first: bool,
+) -> Result<(), LibxcRsError> {
     if workspace.np() != input.np() || workspace.spin() != input.spin() {
         return Err(LibxcRsError::WorkspaceMismatch {
             expected_np: input.np(),
@@ -286,21 +305,25 @@ pub fn evaluate_mixed_lda_functional(
     let np = input.np();
     let dims = Dimensions::lda(input.spin());
 
-    // Zero caller output once before accumulation.
-    if let Some(ref mut buf) = output.zk {
-        buf.fill(0.0);
-    }
-    if let Some(ref mut buf) = output.vrho {
-        buf.fill(0.0);
-    }
-    if let Some(ref mut buf) = output.v2rho2 {
-        buf.fill(0.0);
-    }
-    if let Some(ref mut buf) = output.v3rho3 {
-        buf.fill(0.0);
-    }
-    if let Some(ref mut buf) = output.v4rho4 {
-        buf.fill(0.0);
+    // Skipped when accumulating on top of a kernel result -- see the
+    // `zero_first` note on this function.
+    if zero_first {
+        // Zero caller output once before accumulation.
+        if let Some(ref mut buf) = output.zk {
+            buf.fill(0.0);
+        }
+        if let Some(ref mut buf) = output.vrho {
+            buf.fill(0.0);
+        }
+        if let Some(ref mut buf) = output.v2rho2 {
+            buf.fill(0.0);
+        }
+        if let Some(ref mut buf) = output.v3rho3 {
+            buf.fill(0.0);
+        }
+        if let Some(ref mut buf) = output.v4rho4 {
+            buf.fill(0.0);
+        }
     }
 
     let zk_len = dims.zk as usize * np;
@@ -405,6 +428,25 @@ pub fn evaluate_mixed_gga(
     output: &mut GgaOutput,
     workspace: &mut EvaluationWorkspace,
 ) -> Result<(), LibxcRsError> {
+    evaluate_mixed_gga_into(functional, input, order, output, workspace, true)
+}
+
+/// As [`evaluate_mixed_gga`], but `zero_first = false` accumulates into
+/// whatever the output already holds.
+///
+/// libxc's `xc_gga_new` evaluates a functional's own kernel and *then* adds
+/// `xc_mix_func` on top when the info block carries both a work pointer and a
+/// non-NULL `mix_coef`. Reproducing that needs a mix pass that does not first
+/// wipe the kernel's contribution. `hyb_mgga_xc_b0kcis` is the only functional
+/// in libxc 7.0.0 that needs it.
+pub fn evaluate_mixed_gga_into(
+    functional: &Functional,
+    input: &GgaInput,
+    order: DerivativeOrder,
+    output: &mut GgaOutput,
+    workspace: &mut EvaluationWorkspace,
+    zero_first: bool,
+) -> Result<(), LibxcRsError> {
     if workspace.np() != input.np() || workspace.spin() != input.spin() {
         return Err(LibxcRsError::WorkspaceMismatch {
             expected_np: input.np(),
@@ -450,51 +492,55 @@ pub fn evaluate_mixed_gga(
     let lda_v3rho3_len = lda_dims.v3rho3 as usize * np;
     let lda_v4rho4_len = lda_dims.v4rho4 as usize * np;
 
-    // Zero all 15 GGA output fields.
-    if let Some(ref mut b) = output.zk {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.vrho {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.vsigma {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v2rho2 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v2rhosigma {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v2sigma2 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v3rho3 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v3rho2sigma {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v3rhosigma2 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v3sigma3 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v4rho4 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v4rho3sigma {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v4rho2sigma2 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v4rhosigma3 {
-        b.fill(0.0);
-    }
-    if let Some(ref mut b) = output.v4sigma4 {
-        b.fill(0.0);
+    // Skipped when accumulating on top of a kernel result -- see the
+    // `zero_first` note on this function.
+    if zero_first {
+        // Zero all 15 GGA output fields.
+        if let Some(ref mut b) = output.zk {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.vrho {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.vsigma {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v2rho2 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v2rhosigma {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v2sigma2 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v3rho3 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v3rho2sigma {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v3rhosigma2 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v3sigma3 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v4rho4 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v4rho3sigma {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v4rho2sigma2 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v4rhosigma3 {
+            b.fill(0.0);
+        }
+        if let Some(ref mut b) = output.v4sigma4 {
+            b.fill(0.0);
+        }
     }
 
     for (aux, &weight) in functional
@@ -824,6 +870,25 @@ pub fn evaluate_mixed_mgga(
     output: &mut MggaOutput,
     workspace: &mut EvaluationWorkspace,
 ) -> Result<(), LibxcRsError> {
+    evaluate_mixed_mgga_into(functional, input, order, output, workspace, true)
+}
+
+/// As [`evaluate_mixed_mgga`], but `zero_first = false` accumulates into
+/// whatever the output already holds.
+///
+/// libxc's `xc_mgga_new` evaluates a functional's own kernel and *then* adds
+/// `xc_mix_func` on top when the info block carries both a work pointer and a
+/// non-NULL `mix_coef`. Reproducing that needs a mix pass that does not first
+/// wipe the kernel's contribution. `hyb_mgga_xc_b0kcis` is the only functional
+/// in libxc 7.0.0 that needs it.
+pub fn evaluate_mixed_mgga_into(
+    functional: &Functional,
+    input: &MggaInput,
+    order: DerivativeOrder,
+    output: &mut MggaOutput,
+    workspace: &mut EvaluationWorkspace,
+    zero_first: bool,
+) -> Result<(), LibxcRsError> {
     if workspace.np() != input.np() || workspace.spin() != input.spin() {
         return Err(LibxcRsError::WorkspaceMismatch {
             expected_np: input.np(),
@@ -888,9 +953,13 @@ pub fn evaluate_mixed_mgga(
         .contains(FunctionalFlags::NEEDS_LAPLACIAN);
     let parent_needs_tau = functional.meta.flags.contains(FunctionalFlags::NEEDS_TAU);
 
+    // Skipped when accumulating on top of a kernel result -- see the
+    // `zero_first` note on this function.
     macro_rules! zero_field {
         ($field:ident) => {
-            if let Some(ref mut b) = output.$field {
+            if zero_first
+                && let Some(ref mut b) = output.$field
+            {
                 b.fill(0.0);
             }
         };
@@ -1877,4 +1946,71 @@ mod tests {
             "CR-03 gate must be FALSE for vtau when parent doesn't need tau"
         );
     }
+}
+
+/// Add a functional's *own* maple2c kernel on top of an already-accumulated
+/// mix, with weight 1.0.
+///
+/// libxc's `xc_mgga_new` evaluates `func->info->mgga->unpol[order]` when the
+/// info block carries a work pointer, and *then* calls `xc_mix_func` when
+/// `mix_coef` is non-NULL. There is no guard between them, so a functional
+/// with both is the sum of the two. `hyb_mgga_xc_b0kcis` is the only such
+/// functional in libxc 7.0.0: it is
+/// `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)`, i.e. twice the KCIS
+/// correlation. Verified against libxc to 1.7e-16 by
+/// `verify/tests/b0kcis_probe.rs`.
+///
+/// The kernel goes into the workspace scratch rather than straight into
+/// `output`, because `prepare` *takes* the caller's buffers out of the output
+/// struct: dispatching into `output` directly would leave every field `None`
+/// and silently discard everything accumulated afterwards.
+pub fn add_own_kernel_mgga(
+    functional: &Functional,
+    input: &MggaInput,
+    order: DerivativeOrder,
+    output: &mut MggaOutput,
+    workspace: &mut EvaluationWorkspace,
+) -> Result<(), LibxcRsError> {
+    workspace.ensure_order(order);
+    let np = input.np();
+    let d = Dimensions::mgga(input.spin());
+
+    {
+        let scratch = workspace.mgga_scratch_mut();
+        let mut own = MggaOutput {
+            zk: Some(scratch.zk),
+            ..Default::default()
+        };
+        if order >= DerivativeOrder::Vxc {
+            own.vrho = Some(scratch.vrho);
+            own.vsigma = Some(scratch.vsigma);
+            own.vlapl = Some(scratch.vlapl);
+            own.vtau = Some(scratch.vtau);
+        }
+        if order >= DerivativeOrder::Fxc {
+            return Err(LibxcRsError::UnsupportedDerivativeOrder {
+                id: functional.meta.id,
+                order,
+                max: DerivativeOrder::Vxc,
+            });
+        }
+        dispatch_mgga_by_id(
+            functional.meta.id,
+            input,
+            order,
+            &mut own,
+            functional.kernel_ext_params(),
+            &functional.thresholds,
+        )?;
+    }
+
+    let scratch = workspace.mgga_scratch_mut();
+    add_opt_n(output.zk.as_deref_mut(), 1.0, scratch.zk, d.zk as usize * np, "zk")?;
+    if order >= DerivativeOrder::Vxc {
+        add_opt_n(output.vrho.as_deref_mut(), 1.0, scratch.vrho, d.vrho as usize * np, "vrho")?;
+        add_opt_n(output.vsigma.as_deref_mut(), 1.0, scratch.vsigma, d.vsigma as usize * np, "vsigma")?;
+        add_opt_n(output.vlapl.as_deref_mut(), 1.0, scratch.vlapl, d.vlapl as usize * np, "vlapl")?;
+        add_opt_n(output.vtau.as_deref_mut(), 1.0, scratch.vtau, d.vtau as usize * np, "vtau")?;
+    }
+    Ok(())
 }
