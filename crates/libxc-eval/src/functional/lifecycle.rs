@@ -11,7 +11,7 @@ use libxc_core::error::LibxcRsError;
 use crate::functional::params::{FunctionalParams, GenericParams, NoParams};
 use crate::functional::{params_lda, Functional};
 use libxc_core::meta::generated_propagation::PROPAGATION_RULES;
-use libxc_core::meta::{COMPOSITE_SETTER_RULES, SetterSource, SetterTarget};
+use libxc_core::meta::{AUX_EXT_PARAM_OVERRIDES, COMPOSITE_SETTER_RULES, SetterSource, SetterTarget};
 use libxc_core::meta::FunctionalMeta;
 use libxc_core::model::{Family, FunctionalId, Spin, Thresholds};
 use libxc_core::registry::lookup_by_id;
@@ -100,10 +100,68 @@ impl Functional {
         // self.meta.id, copy the parent's ext_param value (read by index
         // for O(1) access; xtask validates indices at snapshot time) into
         // the named aux slot's ext_param.
+        // Order matters. The snapshot goes on first, then the rules, so a
+        // functional that has a rule ends up with the rule's
+        // parameter-dependent value (which at the defaults equals the
+        // snapshot) and everything else at least gets the defaults right.
+        out.apply_aux_overrides()?;
         out.propagate_to_aux()?;
         out.apply_composite_setters()?;
 
         Ok(out)
+    }
+
+    /// Apply `AUX_EXT_PARAM_OVERRIDES`: the auxiliary parameters libxc's own
+    /// `xc_mix_init` composites set on their children.
+    ///
+    /// `xc_mix_init` gives each auxiliary that functional's own defaults, and
+    /// then the parent's init or setter frequently changes them --
+    /// `hyb_gga_xc_lc_blyp` hands its `_omega` of 0.33 down to `gga_x_ityh`,
+    /// whose own default is 0.2; `gga_x_sogga` overrides PBE's `_kappa` 0.804
+    /// with 0.552. Without this, **47 of the 125 composite GGA functionals ran
+    /// their auxiliaries on the wrong constants**, which for a screened hybrid
+    /// means evaluating an entirely different functional.
+    ///
+    /// The table is generated from libxc itself rather than scraped from its C
+    /// -- see `libxc_core::meta::generated_aux_overrides`.
+    pub(crate) fn apply_aux_overrides(&mut self) -> Result<(), LibxcRsError> {
+        let id = self.meta.id;
+
+        // The constructor skips auxiliaries the public registry does not know
+        // (libxc's internal worker functionals, ids around 100000), which
+        // *shifts every slot index after the one dropped*. Applying a
+        // slot-indexed override to a shortened list would silently write the
+        // right value onto the wrong auxiliary -- worse than not applying it.
+        //
+        // Such a functional is already incomplete: `gga_k_gds08` and friends
+        // are missing a whole component and disagree with libxc by 7e0 with or
+        // without this table. Skip them here and leave that recorded as the
+        // metadata gap it is, rather than layering a second fault on top.
+        if self.auxiliaries.len() != self.meta.auxiliaries.len() {
+            return Ok(());
+        }
+
+        for ov in AUX_EXT_PARAM_OVERRIDES.iter().filter(|o| o.parent_id == id) {
+            let aux = self.auxiliaries.get_mut(ov.aux_slot as usize).ok_or(
+                LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: "<aux override>",
+                    aux_slot: ov.aux_slot,
+                    aux_name: ov.name,
+                    cause: libxc_core::error::PropagationConflictCause::AuxSlotOutOfRange,
+                },
+            )?;
+            aux.set_ext_param(ov.name, ov.value).map_err(|_| {
+                LibxcRsError::PropagationConflict {
+                    id,
+                    parent_name: "<aux override>",
+                    aux_slot: ov.aux_slot,
+                    aux_name: ov.name,
+                    cause: libxc_core::error::PropagationConflictCause::AuxRejectedParam,
+                }
+            })?;
+        }
+        Ok(())
     }
 
     /// Reproduce the libxc `set_ext_params` assignments that are not plain

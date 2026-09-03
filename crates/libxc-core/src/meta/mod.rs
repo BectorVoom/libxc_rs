@@ -1,7 +1,9 @@
 pub(crate) mod generated;
 pub(crate) mod generated_hybrid;
 pub mod composite_setters;
+pub mod generated_aux_overrides;
 pub mod generated_propagation;
+pub use generated_aux_overrides::{AUX_EXT_PARAM_OVERRIDES, AuxExtParamOverride};
 pub use composite_setters::{
     COMPOSITE_SETTER_RULES, CompositeSetterRule, SetterSource, SetterTarget,
 };
