@@ -286,7 +286,35 @@ rather than fixed, because diagnosing it properly means going into the
 `wpbeh_EG` piecewise on `s` in the maple source, which is a different piece of
 work from the one this plan scoped.
 
-## 6. What is not done
+## 6. After the plan: the sweep it implied
+
+The stale-rejection finding (§2.1.4) was scoped to PBE. Following it up:
+
+**Tier-1 SIMD re-sweep.** Of the 120 hottest undecided candidates, **118
+accepted** — median 1.92x, range 1.38x to 2.68x, every fingerprint unchanged.
+Two deferred for machine contention. **Nothing was rejected on its merits.**
+The allowlist went from 68 to 170 triples across 82 functionals.
+
+| case | libxc-Nt | rust-Nt | vs libxc | before |
+|---|--:|--:|--:|--:|
+| `gga_x_b88` exc+vxc unpol | 5.87 | 3.74 | **1.57x** | 0.87x |
+| `gga_c_lyp` exc+vxc unpol | 6.33 | 2.78 | **2.28x** | 1.97x |
+| `gga_x_pbe` exc+vxc unpol | 3.63 | 3.10 | 1.17x | 1.07x |
+| `gga_c_pbe` exc+vxc unpol | 13.41 | 5.35 | 2.51x | 2.45x |
+| `gga_x_pbe` exc+vxc pol | 20.41 | 7.01 | 2.91x | 2.87x |
+| `gga_c_pbe` exc+vxc pol | 23.85 | 7.56 | 3.15x | 3.24x |
+
+294 tier-1 candidates remain undecided; the ledger records every verdict so
+the sweep resumes where it stopped.
+
+**Composite MGGAs could not evaluate at all.** 36 of 39 failed with an output
+buffer error, so they had never been compared against libxc. The mix layer
+gated the *auxiliary's* buffers on the parent's Laplacian and tau flags; that
+gate belongs on the accumulation. Survey now compares 34, two over the gate
+(`hyb_mgga_xc_b0kcis` zk 2.6e-1, a real disagreement; `hyb_mgga_xc_br3p86`
+vsigma 2.1e-7). Neither fixed.
+
+## 7. What is not done
 
 - **WS-3a (accumulate straight into the caller's outputs).** Would remove the
   mix scratch entirely rather than shrinking it, and delete the remaining
@@ -300,8 +328,8 @@ work from the one this plan scoped.
   `e1_scaled`; both are branch-heavy region selections that would need
   mask-select rewrites. Now that the scalar versions are correct and tested
   against C, this is a well-defined next step rather than a guess.
-- **The rest of the SIMD allowlist has not been re-swept** against the stale
-  rejection finding in §2.4. `gga_x_b88` alone is sitting at 1.20x where the
-  docs claim 3.69x.
-- **The other 23 aux-parameter assignments** in libxc (§ `AGENTS.md` known
-  gaps) have not been audited for the HSE06 defect.
+- **294 tier-1 SIMD candidates remain undecided**, plus all of tiers 2-4
+  (polarized, fxc, kxc/lxc). Every one measured so far has accepted.
+- **Two composite MGGAs still disagree** (`hyb_mgga_xc_b0kcis`,
+  `hyb_mgga_xc_br3p86`), and the MGGA survey is reporting-only until they are
+  resolved. LDA composites (2) have not been swept at all.

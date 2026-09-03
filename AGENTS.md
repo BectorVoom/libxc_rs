@@ -218,7 +218,12 @@ points are contiguous and always take the fast route.
 ## Known gaps
 
 - **A rejection in `docs/perf/simd-ledger.json` is only valid for the tree it was
-  measured on.** `gga_x_pbe` carried a standing "do not SIMD, LLVM already
+  measured on.** Re-swept 2026-09-03: of the 120 hottest undecided tier-1
+  candidates, **118 accepted** (median 1.92x, range 1.38-2.68x), two deferred
+  for contention, none rejected on merit. The allowlist went 68 -> 170 triples
+  across 82 functionals and `gga_x_b88` went from 0.87x *behind* libxc to
+  1.57x ahead. **294 tier-1 candidates are still undecided** -- resume with
+  `simd_qualify.py --tier 1`; the ledger records every verdict. `gga_x_pbe` carried a standing "do not SIMD, LLVM already
   vectorises it" rejection at 0.55x. That was true when `pow_1_3` resolved to
   `powers.rs::cbrt_f64`, inline branch-free arithmetic LLVM packed 8-wide.
   Commit 31fd1ff47f repointed it at `rmath::cbrt` and 4395787e90 pinned that to
@@ -229,8 +234,8 @@ points are contiguous and always take the fast route.
   `gga_x_b88`'s sweep went from the documented 2.18 to 9.45 ns/pt against an
   unchanged libxc. Fingerprints do not move when a loop stops vectorising, so
   nothing caught it. PBE was re-qualified and now runs 1.8-2.6x faster with
-  identical fingerprints; **the rest of the allowlist has not been re-swept and
-  the pre-2026-08-31 rejections should be assumed stale.**
+  identical fingerprints, and the sweep above confirmed the same for another
+  118 triples. Any pre-2026-08-31 verdict should be assumed stale.
 
 
 - **`gga_x_wpbeh`'s `vsigma` diverges from libxc as the reduced gradient goes to
@@ -293,12 +298,20 @@ points are contiguous and always take the fast route.
   parent parameter that feeds an auxiliary and it goes stale unless
   `composite_setters` or `PROPAGATION_RULES` also describes the relationship.
   Only the HSE family and the nine generated copy rules have that today.
+- **Composite MGGAs could not evaluate at all until 2026-09-03** (36 of 39
+  failed with "output buffer 'vlapl' size mismatch"). `evaluate_mixed_mgga`
+  gated the *auxiliary's* buffers on the parent's `NEEDS_LAPLACIAN`/`NEEDS_TAU`
+  flags; that gate belongs on the accumulation, not on the buffers the kernel
+  demands. Survey now compares 34, with two over the gate --
+  `hyb_mgga_xc_b0kcis` (zk 2.6e-1, a real disagreement) and
+  `hyb_mgga_xc_br3p86` (vsigma 2.1e-7, zk within contract). Neither is fixed.
+  `composite_oracle.rs::composite_mgga_survey` is reporting-only until they
+  are.
 - Five composite GGAs remain over the gate, listed with reasons in
   `composite_oracle.rs::KNOWN_GAPS`. Four (`gga_k_gds08`, `ghds10`, `ghds10r`,
   `tkvln`) mix an internal libxc worker functional (id ~100001) the public
   registry does not expose, so the mix is missing a whole component; the fifth
-  is `gga_xc_beefvdw` at zk 1.6e-10. MGGA composites (39) and LDA (2) have
-  **not** been swept -- `composite_oracle.rs` covers GGA only.
+  is `gga_xc_beefvdw` at zk 1.6e-10. LDA composites (2) have **not** been swept.
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
 - Kernel correctness rests on `crates/kernels-rayon/oracle` (C libxc parity) and `revalcheck` (chunked vs whole-grid). The oracle covers **unpolarized LDA/GGA only**, so polarized and MGGA kernels have no direct parity test against libxc -- the largest remaining coverage gap.
