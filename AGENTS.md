@@ -276,14 +276,29 @@ points are contiguous and always take the fast route.
   18 functionals are refused on that gate (transforming setters such as
   `gga_x_lspbe`'s `mu += alpha*(1+kappa)`); they keep their compiled-in
   constants and reject runtime ext_params rather than running with a wrong one.
-- **28 `xc_func_set_ext_params_name(p->func_aux[...], ...)` assignments across
-  10 libxc source files** set an auxiliary's parameter from a parent. Nine are
-  covered by the generated `PROPAGATION_RULES`, and the HSE family (five ids) by
-  the hand-written `meta::composite_setters`. The remainder --
-  `hyb_gga_xc_{lc_blyp,cam_b3lyp,cam_o3lyp,camy_b3lyp,src1_blyp,b2plyp}`,
-  `gga_xc_{vv10,edf1}`, `mgga_c_b94` -- have **not** been audited and may carry
-  the same defect HSE06 did. Anyone evaluating one of those should check it
-  against C libxc first.
+- **Composite functionals ran their auxiliaries on the wrong constants until
+  2026-09-03: 52 of 125 composite GGAs disagreed with libxc.** HSE06 was not a
+  special case. When `xc_mix_init` builds a composite, each auxiliary starts on
+  *its own* defaults and the parent's init or setter then overrides them --
+  `hyb_gga_xc_lc_blyp` hands its `_omega` of 0.33 to `gga_x_ityh` (own default
+  0.2), `gga_x_sogga` replaces PBE's `_kappa` 0.804 with 0.552. This tree built
+  the auxiliaries and never applied the overrides, so the entire long-range
+  corrected family (`lc_*`, `lcy_*`, `lrc_*`, `cam_*`, `hjs_*`, `hiss`,
+  `whpbe0`) evaluated a different functional than its name.
+  `meta::generated_aux_overrides` now carries those 141 assignments, read out
+  of libxc's own `xc_func_type` by `verify/tests/gen_aux_overrides.rs` rather
+  than scraped from its C. Gate: `verify/tests/composite_oracle.rs`, 0
+  unexpected failures; diagnosis: `verify/tests/composite_diagnose.rs`.
+  **The table is a snapshot at the parent's default ext_params** -- change a
+  parent parameter that feeds an auxiliary and it goes stale unless
+  `composite_setters` or `PROPAGATION_RULES` also describes the relationship.
+  Only the HSE family and the nine generated copy rules have that today.
+- Five composite GGAs remain over the gate, listed with reasons in
+  `composite_oracle.rs::KNOWN_GAPS`. Four (`gga_k_gds08`, `ghds10`, `ghds10r`,
+  `tkvln`) mix an internal libxc worker functional (id ~100001) the public
+  registry does not expose, so the mix is missing a whole component; the fifth
+  is `gga_xc_beefvdw` at zk 1.6e-10. MGGA composites (39) and LDA (2) have
+  **not** been swept -- `composite_oracle.rs` covers GGA only.
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
 - Kernel correctness rests on `crates/kernels-rayon/oracle` (C libxc parity) and `revalcheck` (chunked vs whole-grid). The oracle covers **unpolarized LDA/GGA only**, so polarized and MGGA kernels have no direct parity test against libxc -- the largest remaining coverage gap.
