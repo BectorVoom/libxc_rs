@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_pw91_lxc_unpol(
     rho: &[f64],
@@ -998,21 +1021,21 @@ pub fn gga_c_pw91_lxc_unpol(
             let tv4sigma40 = v_rho * (f64x8::splat(0.002584488143490343) * t61 * t65 * (f64x8::splat(0.1813705360501111) * t1365 * t122 * t2645 * t725 - f64x8::splat(0.016447635673552327) * t1094 * t2892 * t2898 - f64x8::splat(66.76348024157765) * t67 * t2371 * t1463 + f64x8::splat(0.30672273446566456) * t1459 * t1467 * t124 - f64x8::splat(0.0016664939145622612) * t107 * t2892 * t2898 + f64x8::splat(66.76348024157765) * t67 * t1992 * t2910 - f64x8::splat(0.46008410169849684) * t729 * t1383 * t118 * t124 + f64x8::splat(0.027815233384396735) * t507 * t83 * t540 * t2891 * t39 * t513 * t2895 * t5) * t284 - f64x8::splat(0.010337952573961372) * t686 * t2841 * t350 + f64x8::splat(0.031013857721884117) * t686 * t2590 * t739 - f64x8::splat(0.007753464430471029) * t61 * t65 * t2937 * t577 - f64x8::splat(0.015506928860942059) * t61 * t65 * t2942 * t2229 - f64x8::splat(31250.0) / f64x8::splat(9.0) * t760 * t761 * t1494 + f64x8::splat(390625.0) / f64x8::splat(324.0) * t1636 * t1638 * v_sigma / t765 * t6 * t1647);
             acc_v4sigma4 = tv4sigma40;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vrho.into(); vrho[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vsigma.into(); vsigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rho2.into(); v2rho2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rhosigma.into(); v2rhosigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2sigma2.into(); v2sigma2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho3.into(); v3rho3[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho2sigma.into(); v3rho2sigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rhosigma2.into(); v3rhosigma2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3sigma3.into(); v3sigma3[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4rho4.into(); v4rho4[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4rho3sigma.into(); v4rho3sigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4rho2sigma2.into(); v4rho2sigma2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4rhosigma3.into(); v4rhosigma3[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4sigma4.into(); v4sigma4[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
+        store_add(vrho, ip, m, acc_vrho);
+        store_add(vsigma, ip, m, acc_vsigma);
+        store_add(v2rho2, ip, m, acc_v2rho2);
+        store_add(v2rhosigma, ip, m, acc_v2rhosigma);
+        store_add(v2sigma2, ip, m, acc_v2sigma2);
+        store_add(v3rho3, ip, m, acc_v3rho3);
+        store_add(v3rho2sigma, ip, m, acc_v3rho2sigma);
+        store_add(v3rhosigma2, ip, m, acc_v3rhosigma2);
+        store_add(v3sigma3, ip, m, acc_v3sigma3);
+        store_add(v4rho4, ip, m, acc_v4rho4);
+        store_add(v4rho3sigma, ip, m, acc_v4rho3sigma);
+        store_add(v4rho2sigma2, ip, m, acc_v4rho2sigma2);
+        store_add(v4rhosigma3, ip, m, acc_v4rhosigma3);
+        store_add(v4sigma4, ip, m, acc_v4sigma4);
         ip += 8;
     }
 }

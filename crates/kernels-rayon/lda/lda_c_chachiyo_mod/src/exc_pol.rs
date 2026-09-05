@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 /// Load 8 elements with a given stride and offset.
 #[inline(always)]
 fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -> f64x8 {
@@ -59,23 +82,37 @@ fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -
     f64x8::new(b)
 }
 
-/// Store 8 elements with a given stride and offset.
+/// Accumulate 8 elements with a given stride and offset.
+///
+/// `+=`, not `=`: the scalar kernel this was translated from writes
+/// `out[ip * stride + offset] += v`, and a plain store is not the same
+/// operation. It differs on the sign of zero -- `0.0 + -0.0` is `+0.0`
+/// while a store of `-0.0` keeps the sign -- which is a bit difference
+/// the fingerprint gate sees, and it would silently drop a caller's
+/// existing contribution if one were ever there.
+///
+/// The read is not free on this path: a polarized `kxc`/`lxc` kernel
+/// writes many strided outputs per point, and `lda_c_pw_erf kxc pol`
+/// measured 84 -> 114 ns/pt (1.36x). It is charged anyway, because the
+/// scalar kernel this is compared against does the same read. Gathering
+/// into a vector, adding once and scattering back was tried and is no
+/// faster (117 ns/pt), so the cost is the load itself, not scheduling.
 #[inline(always)]
 fn store_strided(s: &mut [f64], ip: usize, m: usize, stride: usize, offset: usize, acc: f64x8) {
     let a: [f64; 8] = acc.into();
     if m == 8 {
         let base = ip * stride + offset;
-        s[base] = a[0];
-        s[base + stride] = a[1];
-        s[base + 2 * stride] = a[2];
-        s[base + 3 * stride] = a[3];
-        s[base + 4 * stride] = a[4];
-        s[base + 5 * stride] = a[5];
-        s[base + 6 * stride] = a[6];
-        s[base + 7 * stride] = a[7];
+        s[base] += a[0];
+        s[base + stride] += a[1];
+        s[base + 2 * stride] += a[2];
+        s[base + 3 * stride] += a[3];
+        s[base + 4 * stride] += a[4];
+        s[base + 5 * stride] += a[5];
+        s[base + 6 * stride] += a[6];
+        s[base + 7 * stride] += a[7];
     } else {
         for k in 0..m {
-            s[(ip + k) * stride + offset] = a[k];
+            s[(ip + k) * stride + offset] += a[k];
         }
     }
 }
@@ -154,7 +191,7 @@ pub fn lda_c_chachiyo_mod_exc_pol(
             let tzk0 = t25 + t57;
             acc_zk = tzk0;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
         ip += 8;
     }
 }

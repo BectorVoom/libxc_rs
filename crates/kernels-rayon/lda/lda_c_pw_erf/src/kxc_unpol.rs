@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_pw_erf_kxc_unpol(
     rho: &[f64],
@@ -587,10 +610,10 @@ pub fn lda_c_pw_erf_kxc_unpol(
             let tv3rho30 = v_rho * (t867 + t1337) - f64x8::splat(6.0) * t465 - f64x8::splat(3.0) * t785 - f64x8::splat(0.004429431133333333) * t454 - f64x8::splat(1.7544670192365612) * t521 - f64x8::splat(51.94726769812759) * t529 - f64x8::splat(0.10685) * t458 + f64x8::splat(3.5089340384731225) * t510 - f64x8::splat(2.464579730404) * t788 - f64x8::splat(1.898172889849454) * t797 + f64x8::splat(0.032530742648344574) * t503 + f64x8::splat(0.0007324622014701264) * t499 + f64x8::splat(2.0538164420033334) * t801 + f64x8::splat(3.0) * t487 + f64x8::splat(48.24547296645331) * t495;
             acc_v3rho3 = tv3rho30;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vrho.into(); vrho[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rho2.into(); v2rho2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho3.into(); v3rho3[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
+        store_add(vrho, ip, m, acc_vrho);
+        store_add(v2rho2, ip, m, acc_v2rho2);
+        store_add(v3rho3, ip, m, acc_v3rho3);
         ip += 8;
     }
 }

@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_x_rel_lxc_unpol(
     rho: &[f64],
@@ -147,11 +170,11 @@ pub fn lda_x_rel_lxc_unpol(
             let tv4rho40 = f64x8::splat(8.0) * t141 * t51 - f64x8::splat(72.0) * t92 * t48 * t80 - f64x8::splat(72.0) * t56 * t98 - f64x8::splat(72.0) * t131 * t125 - f64x8::splat(72.0) * t15 * t80 * t125 - f64x8::splat(24.0) * t86 * t184 + f64x8::splat(2.0) * v_rho * t205 * t51 - f64x8::splat(24.0) * t142 * t81 - f64x8::splat(36.0) * t93 * t98 - f64x8::splat(36.0) * t93 * t126 - f64x8::splat(72.0) * t57 * t151 - f64x8::splat(24.0) * t57 * t185 - f64x8::splat(18.0) * t60 * t219 - f64x8::splat(24.0) * t60 * t80 * t184 - f64x8::splat(6.0) * t60 * t48 * (-f64x8::splat(2.7800399189128234e-14) * t227 * t76 * t36 / t20 / t19 - f64x8::splat(1.6225417063347515e-10) * t156 * t111 * t158 - f64x8::splat(7.81258317904229e-06) * t102 * t237 - f64x8::splat(0.007916772837898746) * t62 * t240 + f64x8::splat(35.93755700803243) * t29 * t246 + f64x8::splat(8.112708531673758e-11) * t227 * t111 * t158 + f64x8::splat(7.244395311475577e-06) * t156 * t237 + f64x8::splat(0.006157489985032357) * t115 * t240 + f64x8::splat(77.00905073149806) * t72 * t246 - f64x8::splat(10567.9619201174) * t42 * t43 / t23 / t243);
             acc_v4rho4 = tv4rho40;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vrho.into(); vrho[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rho2.into(); v2rho2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho3.into(); v3rho3[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v4rho4.into(); v4rho4[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
+        store_add(vrho, ip, m, acc_vrho);
+        store_add(v2rho2, ip, m, acc_v2rho2);
+        store_add(v3rho3, ip, m, acc_v3rho3);
+        store_add(v4rho4, ip, m, acc_v4rho4);
         ip += 8;
     }
 }

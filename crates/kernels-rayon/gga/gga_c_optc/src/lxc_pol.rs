@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 /// Load 8 elements with a given stride and offset.
 #[inline(always)]
 fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -> f64x8 {
@@ -59,23 +82,37 @@ fn load_strided(s: &[f64], ip: usize, np: usize, stride: usize, offset: usize) -
     f64x8::new(b)
 }
 
-/// Store 8 elements with a given stride and offset.
+/// Accumulate 8 elements with a given stride and offset.
+///
+/// `+=`, not `=`: the scalar kernel this was translated from writes
+/// `out[ip * stride + offset] += v`, and a plain store is not the same
+/// operation. It differs on the sign of zero -- `0.0 + -0.0` is `+0.0`
+/// while a store of `-0.0` keeps the sign -- which is a bit difference
+/// the fingerprint gate sees, and it would silently drop a caller's
+/// existing contribution if one were ever there.
+///
+/// The read is not free on this path: a polarized `kxc`/`lxc` kernel
+/// writes many strided outputs per point, and `lda_c_pw_erf kxc pol`
+/// measured 84 -> 114 ns/pt (1.36x). It is charged anyway, because the
+/// scalar kernel this is compared against does the same read. Gathering
+/// into a vector, adding once and scattering back was tried and is no
+/// faster (117 ns/pt), so the cost is the load itself, not scheduling.
 #[inline(always)]
 fn store_strided(s: &mut [f64], ip: usize, m: usize, stride: usize, offset: usize, acc: f64x8) {
     let a: [f64; 8] = acc.into();
     if m == 8 {
         let base = ip * stride + offset;
-        s[base] = a[0];
-        s[base + stride] = a[1];
-        s[base + 2 * stride] = a[2];
-        s[base + 3 * stride] = a[3];
-        s[base + 4 * stride] = a[4];
-        s[base + 5 * stride] = a[5];
-        s[base + 6 * stride] = a[6];
-        s[base + 7 * stride] = a[7];
+        s[base] += a[0];
+        s[base + stride] += a[1];
+        s[base + 2 * stride] += a[2];
+        s[base + 3 * stride] += a[3];
+        s[base + 4 * stride] += a[4];
+        s[base + 5 * stride] += a[5];
+        s[base + 6 * stride] += a[6];
+        s[base + 7 * stride] += a[7];
     } else {
         for k in 0..m {
-            s[(ip + k) * stride + offset] = a[k];
+            s[(ip + k) * stride + offset] += a[k];
         }
     }
 }
@@ -19556,7 +19593,7 @@ pub fn gga_c_optc_lxc_pol(
             let tv4sigma414 = t7 * (t74687 + t208 * (f64x8::splat(0.002584488143490343) * t95 * t277 * (f64x8::splat(0.1813705360501111) * t6266 * t894 * t70238 * t6274 - f64x8::splat(0.008223817836776164) * t8196 * t75027 * t75031 - f64x8::splat(66.76348024157765) * t106 * t61848 * t21825 + f64x8::splat(0.30672273446566456) * t21821 * t21829 * t21831 - f64x8::splat(0.0008332469572811306) * t146 * t75027 * t75031 + f64x8::splat(66.76348024157765) * t106 * t27277 * t75043 - f64x8::splat(0.46008410169849684) * t6278 * t21147 * t463 * t21831 + f64x8::splat(0.013907616692198367) * t3170 * t123 * t3182 * t21855 * t74720 * t74721 * t1113) * t1188 - f64x8::splat(0.010337952573961372) * t3980 * t73858 * t1733 + f64x8::splat(0.031013857721884117) * t3980 * t70370 * t6289 - f64x8::splat(0.007753464430471029) * t95 * t277 * t75069 * t2911 - f64x8::splat(0.015506928860942059) * t95 * t277 * t75074 * t28031 - f64x8::splat(31250.0) / f64x8::splat(9.0) * t8287 * t17533 * t21855 * t430 * t17542 + f64x8::splat(390625.0) / f64x8::splat(324.0) * t58560 * t23520 * v_sigma2 / t423 / t17537 * t1588) * t502 / f64x8::splat(2.0));
             acc_v4sigma4_14 = tv4sigma414;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
         store_strided(vrho, ip, m, 2, 0, acc_vrho_0);
         store_strided(vrho, ip, m, 2, 1, acc_vrho_1);
         store_strided(vsigma, ip, m, 3, 0, acc_vsigma_0);

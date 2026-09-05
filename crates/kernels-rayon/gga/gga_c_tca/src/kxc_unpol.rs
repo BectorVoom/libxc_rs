@@ -36,6 +36,29 @@ fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
     }
 }
 
+/// Accumulate 8 consecutive grid points into an output array.
+///
+/// `+=`, not `=`. The scalar kernel writes `out[ip] += v`; a plain store is a
+/// different operation in two ways. It keeps the sign of a negative zero where
+/// `0.0 + -0.0` gives `+0.0` -- a bit difference the fingerprint gate reports
+/// as a rejection even though no value changed (`gga_x_pbepow fxc` was
+/// rejected on exactly this, 273 of 200,000 `v2sigma2` elements) -- and it
+/// would discard whatever a caller had already put in the buffer.
+#[inline(always)]
+fn store_add(s: &mut [f64], ip: usize, m: usize, acc: f64x8) {
+    let a: [f64; 8] = acc.into();
+    if m == 8 {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        let r: [f64; 8] = (f64x8::new(b) + acc).into();
+        s[ip..ip + 8].copy_from_slice(&r);
+    } else {
+        for k in 0..m {
+            s[ip + k] += a[k];
+        }
+    }
+}
+
 #[allow(unused_variables, non_snake_case)]
 pub fn gga_c_tca_kxc_unpol(
     rho: &[f64],
@@ -268,16 +291,16 @@ pub fn gga_c_tca_kxc_unpol(
             let tv3sigma30 = -f64x8::splat(2.3217410626059214e-06) * t298 * t299 * t360 * t191 + f64x8::splat(0.0018323929555280486) * t70 * t231 * t366 - f64x8::splat(0.00017619163033923545) * t147 * t149 * t373 + f64x8::splat(9.283011157599174e-05) * t298 * t265 * t377 * t191 - f64x8::splat(0.012680397542963165) * t70 * t319 * t366 + f64x8::splat(0.010566997952469305) * t157 * t159 * t373 - f64x8::splat(0.0013547433272396543) * t70 * t64 * t390;
             acc_v3sigma3 = tv3sigma30;
         }
-        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vrho.into(); vrho[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_vsigma.into(); vsigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rho2.into(); v2rho2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2rhosigma.into(); v2rhosigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v2sigma2.into(); v2sigma2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho3.into(); v3rho3[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rho2sigma.into(); v3rho2sigma[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3rhosigma2.into(); v3rhosigma2[ip..ip + m].copy_from_slice(&a[..m]); }
-        { let a: [f64; 8] = acc_v3sigma3.into(); v3sigma3[ip..ip + m].copy_from_slice(&a[..m]); }
+        store_add(zk, ip, m, acc_zk);
+        store_add(vrho, ip, m, acc_vrho);
+        store_add(vsigma, ip, m, acc_vsigma);
+        store_add(v2rho2, ip, m, acc_v2rho2);
+        store_add(v2rhosigma, ip, m, acc_v2rhosigma);
+        store_add(v2sigma2, ip, m, acc_v2sigma2);
+        store_add(v3rho3, ip, m, acc_v3rho3);
+        store_add(v3rho2sigma, ip, m, acc_v3rho2sigma);
+        store_add(v3rhosigma2, ip, m, acc_v3rhosigma2);
+        store_add(v3sigma3, ip, m, acc_v3sigma3);
         ip += 8;
     }
 }
