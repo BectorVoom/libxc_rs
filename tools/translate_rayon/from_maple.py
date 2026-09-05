@@ -1530,6 +1530,13 @@ SIMD_EXACT_FUNCS = {
     ("mgga_x_vcml", "fxc", "unpol"),  # 4.24x  (85.70 -> 20.21 ns/pt)
     ("mgga_xc_cc06", "fxc", "unpol"),  # 2.34x  (11.86 -> 5.06 ns/pt)
     ("mgga_xc_zlp", "fxc", "unpol"),  # 1.91x  (5.74 -> 3.01 ns/pt)
+    # Added by tools/translate_rayon/simd_qualify.py; each line's
+    # ratio is sweep ns/pt before -> after, fingerprint unchanged.
+    ("gga_x_pbepow", "fxc", "unpol"),  # 2.09x  (12.89 -> 6.16 ns/pt)
+    ("gga_x_pbepow", "kxc", "pol"),  # 1.48x  (74.95 -> 50.66 ns/pt)
+    ("gga_x_pbepow", "kxc", "unpol"),  # 2.62x  (20.91 -> 7.99 ns/pt)
+    ("gga_x_pbepow", "lxc", "pol"),  # 1.74x  (121.52 -> 69.75 ns/pt)
+    ("gga_x_pbepow", "lxc", "unpol"),  # 3.05x  (31.56 -> 10.35 ns/pt)
 }
 
 # Sweep override, read by tools/translate_rayon/simd_qualify.py. It lets the
