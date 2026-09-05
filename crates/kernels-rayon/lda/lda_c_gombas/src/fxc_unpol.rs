@@ -1,13 +1,40 @@
-//! LDA_C_GOMBAS fxc unpol kernel (rayon backend).
+//! LDA_C_GOMBAS fxc unpol kernel — explicit SIMD (bit-exact).
 //!
 //! Auto-translated from `libxc-master/src/maple2c/lda_exc/lda_c_gombas.c`
-//! by tools/translate_rayon/from_maple.py. Preserves maple2c's exact
-//! variable names and floating-point operation order.
+//! by tools/translate_rayon/from_maple.py, then rewritten to
+//! `wide::f64x8` by simd.py. Eight grid points per step; every lane runs maple2c's expression
+//! sequence in its original order.
+#![allow(unused_imports, unused_variables, non_snake_case, clippy::excessive_precision, clippy::too_many_arguments, clippy::needless_return)]
+use libxc_rkernel_math::constants::*;
+use libxc_rkernel_math::simd;
+use libxc_rkernel_math::wide::{f64x8, CmpEq, CmpGe, CmpGt, CmpLe, CmpLt, CmpNe};
 
-#![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
+const V_ZERO: f64x8 = f64x8::new([0.0; 8]);
+const V_ONE: f64x8 = f64x8::new([1.0; 8]);
 
-use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::powers::{pow_1_3};
+// Transcendentals in exact mode come from `libxc_rkernel_math::simd`,
+// which is bit-identical / correctly-rounded per lane to the scalar calls
+// the scalar kernel makes. In exact mode, the SIMD kernel produces output
+// bit-identical to its scalar form.
+
+/// Load 8 consecutive grid points.
+///
+/// The tail is padded by repeating the last element, not by zero-filling:
+/// these formulas divide by rho, so a zero lane would raise inf/NaN in lanes
+/// whose results are then discarded -- harmless to the answer, but it makes
+/// any real NaN impossible to spot while debugging.
+#[inline(always)]
+fn load(s: &[f64], ip: usize, np: usize) -> f64x8 {
+    if ip + 8 <= np {
+        let mut b = [0.0f64; 8];
+        b.copy_from_slice(&s[ip..ip + 8]);
+        f64x8::new(b)
+    } else {
+        let mut b = [s[np - 1]; 8];
+        b[..np - ip].copy_from_slice(&s[ip..np]);
+        f64x8::new(b)
+    }
+}
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_gombas_fxc_unpol(
@@ -18,43 +45,58 @@ pub fn lda_c_gombas_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
-    for ip in 0..zk.len() {
-        let t1 = pow_1_3(rho[ip]);
-        let t2 = 1.0 / t1;
-        let t4 = 1.0 + 0.0562 * t2;
-        let t6 = 0.0357 / t4;
-        let t7 = t2 + 2.39;
-        let t9 = rmath::ln(t7 * t1);
-        let t10 = 0.0311 * t9;
-        let tzk0 = -t6 - t10;
-        zk[ip] += tzk0;
-        let t11 = t4 * t4;
-        let t12 = 1.0 / t11;
-        let t14 = 1.0 / t1 / rho[ip];
-        let t15 = t12 * t14;
-        let t18 = t1 * t1;
-        let t22 = -1.0 / rho[ip] / 3.0 + t7 / t18 / 3.0;
-        let t23 = 1.0 / t7;
-        let t24 = t22 * t23;
-        let t25 = t24 * t2;
-        let tvrho0 = -t6 - t10 + rho[ip] * (-0.00066878 * t15 - 0.0311 * t25);
-        vrho[ip] += tvrho0;
-        let t32 = 1.0 / t11 / t4;
-        let t33 = rho[ip] * rho[ip];
-        let t35 = 1.0 / t18 / t33;
-        let t36 = t32 * t35;
-        let t39 = 1.0 / t1 / t33;
-        let t40 = t12 * t39;
-        let t44 = 1.0 / t18 / rho[ip];
-        let t47 = 2.0 / 9.0 / t33 - 2.0 / 9.0 * t7 * t44;
-        let t48 = t47 * t23;
-        let t49 = t48 * t2;
-        let t51 = t7 * t7;
-        let t52 = 1.0 / t51;
-        let t53 = t22 * t52;
-        let t54 = t53 * t44;
-        let t56 = t24 * t14;
-        let tv2rho20 = -0.00133756 * t15 - 0.0622 * t25 + rho[ip] * (-2.5056957333333333e-05 * t36 + 0.0008917066666666667 * t40 - 0.0311 * t49 - 0.010366666666666666 * t54 + 0.010366666666666666 * t56);
-        v2rho2[ip] += tv2rho20;
+    let np = zk.len();
+    let dens_threshold = f64x8::splat(dens_threshold);
+    let zeta_threshold = f64x8::splat(zeta_threshold);
+    let mut ip = 0usize;
+    while ip < np {
+        let m = (np - ip).min(8);
+        let v_rho = load(rho, ip, np);
+        let mut acc_zk = V_ZERO;
+        let mut acc_vrho = V_ZERO;
+        let mut acc_v2rho2 = V_ZERO;
+        {
+            let t1 = (simd::cbrt(v_rho));
+            let t2 = f64x8::splat(1.0) / t1;
+            let t4 = f64x8::splat(1.0) + f64x8::splat(0.0562) * t2;
+            let t6 = f64x8::splat(0.0357) / t4;
+            let t7 = t2 + f64x8::splat(2.39);
+            let t9 = (simd::ln(t7 * t1));
+            let t10 = f64x8::splat(0.0311) * t9;
+            let tzk0 = -t6 - t10;
+            acc_zk = tzk0;
+            let t11 = t4 * t4;
+            let t12 = f64x8::splat(1.0) / t11;
+            let t14 = f64x8::splat(1.0) / t1 / v_rho;
+            let t15 = t12 * t14;
+            let t18 = t1 * t1;
+            let t22 = -f64x8::splat(1.0) / v_rho / f64x8::splat(3.0) + t7 / t18 / f64x8::splat(3.0);
+            let t23 = f64x8::splat(1.0) / t7;
+            let t24 = t22 * t23;
+            let t25 = t24 * t2;
+            let tvrho0 = -t6 - t10 + v_rho * (-f64x8::splat(0.00066878) * t15 - f64x8::splat(0.0311) * t25);
+            acc_vrho = tvrho0;
+            let t32 = f64x8::splat(1.0) / t11 / t4;
+            let t33 = v_rho * v_rho;
+            let t35 = f64x8::splat(1.0) / t18 / t33;
+            let t36 = t32 * t35;
+            let t39 = f64x8::splat(1.0) / t1 / t33;
+            let t40 = t12 * t39;
+            let t44 = f64x8::splat(1.0) / t18 / v_rho;
+            let t47 = f64x8::splat(2.0) / f64x8::splat(9.0) / t33 - f64x8::splat(2.0) / f64x8::splat(9.0) * t7 * t44;
+            let t48 = t47 * t23;
+            let t49 = t48 * t2;
+            let t51 = t7 * t7;
+            let t52 = f64x8::splat(1.0) / t51;
+            let t53 = t22 * t52;
+            let t54 = t53 * t44;
+            let t56 = t24 * t14;
+            let tv2rho20 = -f64x8::splat(0.00133756) * t15 - f64x8::splat(0.0622) * t25 + v_rho * (-f64x8::splat(2.5056957333333333e-05) * t36 + f64x8::splat(0.0008917066666666667) * t40 - f64x8::splat(0.0311) * t49 - f64x8::splat(0.010366666666666666) * t54 + f64x8::splat(0.010366666666666666) * t56);
+            acc_v2rho2 = tv2rho20;
+        }
+        { let a: [f64; 8] = acc_zk.into(); zk[ip..ip + m].copy_from_slice(&a[..m]); }
+        { let a: [f64; 8] = acc_vrho.into(); vrho[ip..ip + m].copy_from_slice(&a[..m]); }
+        { let a: [f64; 8] = acc_v2rho2.into(); v2rho2[ip..ip + m].copy_from_slice(&a[..m]); }
+        ip += 8;
     }
 }
