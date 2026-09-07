@@ -19221,6 +19221,29 @@
   "reps": 7,
   "verdict": "accept"
  },
+ "gga_x_wpbeh:kxc:pol": {
+  "base_fp": "50526c7939f071b6",
+  "base_ns1t": 8056.974,
+  "base_nsNt": 1439.677,
+  "breakdown": {
+   "cbrt": 9,
+   "erf": 2,
+   "exp": 6,
+   "ln": 8
+  },
+  "calls": 25,
+  "case": "gga:gga_x_wpbeh:kxc:pol",
+  "fingerprint_same": true,
+  "fp": "50526c7939f071b6",
+  "minforeign": 1.12,
+  "np": 100000,
+  "ns1t": 2009.106,
+  "nsNt": 455.522,
+  "ratio": 3.16,
+  "ratio1t": 4.01,
+  "reps": 5,
+  "verdict": "accept"
+ },
  "gga_x_wpbeh:vxc:pol": {
   "base_fp": "27fbb0f234a440b0",
   "base_ns1t": 688.747,
