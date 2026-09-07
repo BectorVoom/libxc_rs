@@ -195,29 +195,119 @@ pub fn lambert_w(z: f64x8) -> f64x8 {
 
 /// Run a scalar helper on every lane.
 ///
-/// For the special functions that have no vector form -- `xc_erfcx` and
-/// `xc_E1_scaled`, both branchy table/Chebyshev evaluations transcribed from
-/// libxc -- this is what makes a kernel that calls them eligible for the SIMD
-/// emitter at all. It is bit-exact by construction: each lane runs the very
+/// The fallback for the special functions below when a lane is outside the
+/// branches they vectorise -- negative, NaN, or (for `erfcx`) beyond the
+/// table's range. It is bit-exact by construction: each lane runs the very
 /// function the scalar kernel runs, on the very value the scalar kernel would
-/// pass. The eight calls cost what the scalar kernel's eight calls cost; the
-/// win is that everything *around* them (`gga_x_wpbeh vxc` carries 8 `sqrt`,
-/// 4 `ln`, 3 `exp` and an `erf` per point besides) now runs eight lanes wide
-/// instead of the whole grid loop being held to scalar by two helper calls.
+/// pass. It was the *only* form of `erfcx`/`e1_scaled` until 2026-09-07, and
+/// then cost `gga_x_wpbeh vxc` about half its time: 24 scalar calls per
+/// 8-point step, each a branchy table or Chebyshev evaluation, inside a loop
+/// that was otherwise eight wide.
 #[inline(always)]
 fn lanewise(x: f64x8, f: fn(f64) -> f64) -> f64x8 {
     let a: [f64; 8] = x.into();
     f64x8::new([f(a[0]), f(a[1]), f(a[2]), f(a[3]), f(a[4]), f(a[5]), f(a[6]), f(a[7])])
 }
 
-/// libxc's `xc_erfcx` (scaled complementary error function), per lane.
+/// `util.h::xc_cheb_eval` (Clenshaw) on eight lanes, in the scalar's operand
+/// order: `b0 = (twox*b1 - b2) + cs[i]`, then `0.5*(b0 - b2)`. Vector mul,
+/// sub and add are IEEE per lane and rustc does not contract them into FMAs,
+/// so every lane carries the bits `expint_e1::cheb_eval` would produce.
 #[inline(always)]
-pub fn erfcx(x: f64x8) -> f64x8 {
-    lanewise(x, crate::special::xc_erfcx)
+fn cheb_eval(x: f64x8, cs: &[f64]) -> f64x8 {
+    let twox = f64x8::splat(2.0) * x;
+    let (mut b0, mut b1, mut b2) = (f64x8::ZERO, f64x8::ZERO, f64x8::ZERO);
+    for &c in cs.iter().rev() {
+        b2 = b1;
+        b1 = b0;
+        b0 = twox * b1 - b2 + f64x8::splat(c);
+    }
+    f64x8::splat(0.5) * (b0 - b2)
 }
 
-/// libxc's `xc_E1_scaled` (exponentially scaled `E1`), per lane.
+/// libxc's `xc_erfcx` (scaled complementary error function), eight lanes.
+///
+/// Bit-identical to [`crate::special::xc_erfcx`] on every lane. For `x >= 0`
+/// -- which is every call the kernels make, their argument being a `sqrt` --
+/// the three arms of the scalar (`x > 5e7`, `x > 50`, and the Faddeeva table
+/// for the rest) are all evaluated in vector form and selected per lane. The
+/// table arm gathers each lane's seven Chebyshev coefficients from
+/// [`crate::erfcx_coef`] by the same `(int) y100` index the scalar `match`
+/// dispatches on, then runs the same Horner polynomial. A vector with any
+/// negative or NaN lane takes the scalar path for all eight lanes; no
+/// generated kernel produces one outside a NaN input.
+#[inline(always)]
+pub fn erfcx(x: f64x8) -> f64x8 {
+    use crate::erfcx_coef::ERFCX_Y100_COEF;
+    const ISPI: f64 = 0.56418958354775628694807945156_f64; // 1 / sqrt(pi)
+
+    if !x.simd_ge(f64x8::ZERO).all() {
+        return lanewise(x, crate::special::xc_erfcx);
+    }
+
+    // Faddeeva table, `y100 = 400/(4+x)` in (0, 100]; `x == 0` lands on
+    // `y100 == 100`, which the scalar's `match` sends to its `_ => 1.0` arm.
+    let y100 = f64x8::splat(400.0) / (f64x8::splat(4.0) + x);
+    let ya: [f64; 8] = y100.into();
+    // `as i32` truncates toward zero like C's `(int)` cast. Lanes in the
+    // `x > 50` arms have y100 < 7.4 and gather a row they will not use.
+    let idx: [usize; 8] = std::array::from_fn(|l| (ya[l] as i32).clamp(0, 100) as usize);
+    let row = |l: usize| &ERFCX_Y100_COEF[idx[l].min(99)];
+    let coef = |j: usize| f64x8::new([row(0)[j], row(1)[j], row(2)[j], row(3)[j], row(4)[j], row(5)[j], row(6)[j], row(7)[j]]);
+    let offs = f64x8::new(std::array::from_fn(|l| (2 * idx[l] + 1) as f64));
+    let t = f64x8::splat(2.0) * y100 - offs;
+    let table = coef(0)
+        + (coef(1) + (coef(2) + (coef(3) + (coef(4) + (coef(5) + coef(6) * t) * t) * t) * t) * t) * t;
+    let at_one = f64x8::new(std::array::from_fn(|l| if idx[l] == 100 { 1.0 } else { 0.0 }));
+    let table = at_one.simd_eq(f64x8::ONE).select(f64x8::ONE, table);
+
+    let gt50 = x.simd_gt(f64x8::splat(50.0));
+    if !gt50.any() {
+        return table;
+    }
+    // Continued-fraction arms, exactly as the scalar spells them.
+    let xx = x * x;
+    let cf5 = f64x8::splat(ISPI) * (xx * (xx + f64x8::splat(4.5)) + f64x8::splat(2.0))
+        / (x * (xx * (xx + f64x8::splat(5.0)) + f64x8::splat(3.75)));
+    let cf1 = f64x8::splat(ISPI) / x;
+    let big = x.simd_gt(f64x8::splat(5.0e7));
+    gt50.select(big.select(cf1, cf5), table)
+}
+
+/// libxc's `xc_E1_scaled` (exponentially scaled `E1`), eight lanes.
+///
+/// Bit-identical to [`crate::expint_e1::xc_e1_scaled`] on every lane. The
+/// three positive arms (`x <= 1`, `x <= 4`, `x > 4`) are vectorised, each
+/// evaluated only when some lane needs it and selected per lane; a vector
+/// with a lane at or below zero, or NaN, takes the scalar path for all
+/// eight. The kernels' arguments are sums of squares, so that path is never
+/// taken on a finite input. `exp`/`ln` are this module's bit-exact forms,
+/// which [`crate::expint_e1::xc_e1_scaled`] also calls (through `rmath`).
 #[inline(always)]
 pub fn e1_scaled(x: f64x8) -> f64x8 {
-    lanewise(x, crate::expint_e1::xc_e1_scaled)
+    use crate::expint_e1::{AE13, AE14, E12};
+
+    if !x.simd_gt(f64x8::ZERO).all() {
+        return lanewise(x, crate::expint_e1::xc_e1_scaled);
+    }
+    let le1 = x.simd_le(f64x8::ONE);
+    let le4 = x.simd_le(f64x8::splat(4.0));
+    let s = f64x8::ONE / x;
+    let mut r = f64x8::ZERO;
+    if !le4.all() {
+        // x > 4
+        r = s * (f64x8::ONE + cheb_eval(f64x8::splat(8.0) / x - f64x8::ONE, &AE14));
+    }
+    if le4.any() {
+        // 1 < x <= 4
+        let mid = s * (f64x8::ONE + cheb_eval((f64x8::splat(8.0) / x - f64x8::splat(5.0)) / f64x8::splat(3.0), &AE13));
+        r = le4.select(mid, r);
+    }
+    if le1.any() {
+        // 0 < x <= 1
+        let sf = exp(x);
+        let lo = sf * (-ln(x.abs()) - f64x8::splat(0.6875) + x + cheb_eval(x, &E12));
+        r = le1.select(lo, r);
+    }
+    r
 }

@@ -406,3 +406,144 @@ fn rmath_binary_free_functions_are_bit_exact_against_platform_libm() {
     }
     assert_eq!(mism, 0, "pow/atan2: {mism} results differ from the platform libm");
 }
+
+/// Every branch of `xc_erfcx`, dense and log-spaced, plus the specials and a
+/// deterministic shuffle so lanes straddle branches.
+fn erfcx_inputs() -> Vec<f64> {
+    let mut v = specials();
+    let mut x = 0.0;
+    while x <= 60.0 {
+        v.push(x);
+        x += 1.0e-3;
+    }
+    // Interval edges of the table: y100 = 400/(4+x) integral.
+    for k in 1..=100 {
+        let xe = 400.0 / k as f64 - 4.0;
+        for d in [-2i64, -1, 0, 1, 2] {
+            v.push(f64::from_bits(xe.to_bits().wrapping_add(d as u64)));
+        }
+    }
+    for c in [50.0_f64, 5.0e7, -6.1, -26.7] {
+        for d in [-2i64, -1, 0, 1, 2] {
+            v.push(f64::from_bits(c.to_bits().wrapping_add(d as u64)));
+        }
+    }
+    let mut rng = Rng(0xA5A5_5A5A_1234_5678);
+    for _ in 0..200_000 {
+        v.push(rng.logmag(1e-300, 1e300, false));
+    }
+    for _ in 0..50_000 {
+        v.push(rng.uniform(-30.0, 0.0));
+    }
+    // Shuffle so a vector mixes table, continued-fraction and negative lanes.
+    for i in (1..v.len()).rev() {
+        let j = (rng.next() % (i as u64 + 1)) as usize;
+        v.swap(i, j);
+    }
+    v
+}
+
+#[test]
+fn erfcx_bit_identical_to_scalar() {
+    let vals = erfcx_inputs();
+    check_all(&vals, libxc_rkernel_math::special::xc_erfcx, simd::erfcx, "erfcx");
+}
+
+/// Every branch of `xc_E1_scaled` (`<= -10`, `<= -4`, `<= -1`, `0`, `<= 1`,
+/// `<= 4`, `> 4`), dense and log-spaced, edges, specials, shuffled.
+fn e1_inputs() -> Vec<f64> {
+    let mut v = specials();
+    let mut x = -12.0;
+    while x <= 12.0 {
+        v.push(x);
+        x += 1.0e-3;
+    }
+    for c in [-10.0_f64, -4.0, -1.0, 1.0, 4.0] {
+        for d in [-2i64, -1, 0, 1, 2] {
+            v.push(f64::from_bits(c.to_bits().wrapping_add(d as u64)));
+        }
+    }
+    let mut rng = Rng(0x0F0F_F0F0_8765_4321);
+    for _ in 0..200_000 {
+        v.push(rng.logmag(1e-300, 1e300, true));
+    }
+    for i in (1..v.len()).rev() {
+        let j = (rng.next() % (i as u64 + 1)) as usize;
+        v.swap(i, j);
+    }
+    v
+}
+
+#[test]
+fn e1_scaled_bit_identical_to_scalar() {
+    let vals = e1_inputs();
+    check_all(&vals, libxc_rkernel_math::expint_e1::xc_e1_scaled, simd::e1_scaled, "e1_scaled");
+}
+
+/// Lanes that force the scalar fallback (negative, NaN) next to lanes on
+/// every vector arm, and vectors with all three positive `E1` arms at once.
+#[test]
+fn erfcx_e1_mixed_lanes_do_not_leak() {
+    let cases = [
+        [0.0, 1.0e-9, 3.7, 49.999, 50.001, 6.0e7, f64::INFINITY, 12.5],
+        [f64::NAN, 0.5, -0.5, 60.0, 1.0, 4.0, 4.000001, 0.999999],
+        [-27.0, -6.2, -6.0, 5.0e7, 2.0, 0.25, 8.0, 100.0],
+    ];
+    for lanes in cases {
+        let ge: [f64; 8] = simd::erfcx(f64x8::new(lanes)).into();
+        let g1: [f64; 8] = simd::e1_scaled(f64x8::new(lanes)).into();
+        for l in 0..8 {
+            assert_eq!(
+                ge[l].to_bits(),
+                libxc_rkernel_math::special::xc_erfcx(lanes[l]).to_bits(),
+                "erfcx lane {l} x={}", lanes[l]
+            );
+            assert_eq!(
+                g1[l].to_bits(),
+                libxc_rkernel_math::expint_e1::xc_e1_scaled(lanes[l]).to_bits(),
+                "e1_scaled lane {l} x={}", lanes[l]
+            );
+        }
+    }
+}
+
+/// Not a correctness test: prints ns per point for the scalar helpers, the
+/// old lane-wise form (eight scalar calls) and the vector form, over the
+/// argument range `gga_x_wpbeh` actually produces. Run with
+/// `--release -- --ignored --nocapture`.
+#[test]
+#[ignore]
+fn erfcx_e1_timing() {
+    use std::time::Instant;
+    let mut rng = Rng(0x1111_2222_3333_4444);
+    let n = 1 << 20;
+    let xs: Vec<f64> = (0..n).map(|_| rng.logmag(1e-2, 1e2, false)).collect();
+    let time = |what: &str, f: &dyn Fn(&[f64]) -> f64| {
+        let mut best = f64::MAX;
+        let mut acc = 0.0;
+        for _ in 0..5 {
+            let t0 = Instant::now();
+            acc += f(&xs);
+            best = best.min(t0.elapsed().as_secs_f64());
+        }
+        eprintln!("{what:<24} {:7.2} ns/point   (checksum {acc:e})", best * 1e9 / n as f64);
+    };
+    let scalar = |f: fn(f64) -> f64| move |xs: &[f64]| xs.iter().map(|&x| f(x)).sum::<f64>();
+    let vector = |f: fn(f64x8) -> f64x8| {
+        move |xs: &[f64]| {
+            let mut acc = f64x8::ZERO;
+            for c in xs.chunks_exact(8) {
+                let mut b = [0.0; 8];
+                b.copy_from_slice(c);
+                acc += f(f64x8::new(b));
+            }
+            let a: [f64; 8] = acc.into();
+            a.iter().sum()
+        }
+    };
+    time("erfcx scalar", &scalar(libxc_rkernel_math::special::xc_erfcx));
+    time("erfcx simd", &vector(simd::erfcx));
+    time("e1_scaled scalar", &scalar(libxc_rkernel_math::expint_e1::xc_e1_scaled));
+    time("e1_scaled simd", &vector(simd::e1_scaled));
+    time("exp simd (reference)", &vector(simd::exp));
+}

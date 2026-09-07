@@ -72,16 +72,21 @@ FREE_EXACT = {
     "rmath::erf": "simd::erf", "erf": "simd::erf",
     "rmath::erfc": "simd::erfc", "erfc": "simd::erfc",
     "lambert_w": "simd::lambert_w", "LambertW": "simd::lambert_w",
-    # Scalar helpers with no vector form, run lane by lane
-    # (`math/src/simd.rs::lanewise`). Bit-exact trivially: each lane calls the
-    # same function the scalar kernel calls. Listing them here is what lets
+    # libxc's special-function helpers. `simd::erfcx` / `simd::e1_scaled`
+    # are real vector forms (gather the Faddeeva-table row per lane, Clenshaw
+    # on eight lanes) that keep the scalar's operation order, so they are
+    # bit-identical to `xc_erfcx` / `xc_e1_scaled`; lanes outside the arms
+    # they vectorise (negative, NaN) fall back to the scalar function per lane
+    # (`math/src/simd.rs::lanewise`). Listing them here is what lets
     # `gga_x_wpbeh` -- and so HSE06 -- into the SIMD emitter at all.
     "xc_erfcx": "simd::erfcx",
     "xc_e1_scaled": "simd::e1_scaled",
 }
 
-# Helper names (as the profiler reports them) that FREE_EXACT covers lane-wise.
-# `simd_qualify.py` admits a kernel whose helpers are all in this set.
+# Helper names (as the profiler reports them) that FREE_EXACT covers.
+# `simd_qualify.py` admits a kernel whose helpers are all in this set. (The
+# name dates from when these ran the scalar helper on each lane; they have
+# had vector forms since 2026-09-07.)
 LANEWISE_HELPERS = {"xc_erfcx", "xc_e1_scaled"}
 BINARY_FREE_EXACT = {
     "rmath::pow": "simd::pow", "f64::powf": "simd::pow",

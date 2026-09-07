@@ -59,6 +59,57 @@ fn with_workspace<R>(
     })
 }
 
+// ---------------------------------------------------------------------------
+// Stand-in buffers for NULL outputs the order still requires
+// ---------------------------------------------------------------------------
+
+/// A thread-local buffer standing in for outputs the caller passed as NULL
+/// but the derivative order still writes -- `zk` under `xc_gga_vxc`, `vlapl`
+/// for a tau-only functional under `xc_mgga_vxc`. libxc skips the *store*
+/// for a NULL pointer; the kernels here take every output of the order, so a
+/// NULL one is pointed at this instead and what lands there is discarded.
+///
+/// Sized to the NULL fields only, and reused. Until 2026-09-07 every
+/// `xc_lda_*` and `xc_gga_*` call allocated and zero-filled a scratch for
+/// *all* outputs of *all* orders -- 15 (unpolarized) or 126 (polarized)
+/// doubles per point for a GGA, a gigabyte per million polarized points --
+/// whether or not any pointer was NULL; and the MGGA path had no stand-in at
+/// all, so `xc_mgga_vxc` with a NULL `zk` or `vlapl` failed with a
+/// buffer-size error. Now a call with every pointer supplied touches no
+/// scratch, and a call with NULLs allocates once per thread and size.
+struct FillBuf(Vec<f64>);
+
+thread_local! {
+    static FILL: std::cell::RefCell<Vec<f64>> = const { std::cell::RefCell::new(Vec::new()) };
+}
+
+impl FillBuf {
+    fn take(len: usize) -> Self {
+        FILL.with(|c| {
+            let mut v = c.take();
+            if v.len() < len {
+                v.resize(len, 0.0);
+            }
+            FillBuf(v)
+        })
+    }
+
+    fn as_mut_slice(&mut self) -> &mut [f64] {
+        &mut self.0
+    }
+}
+
+impl Drop for FillBuf {
+    fn drop(&mut self) {
+        let v = std::mem::take(&mut self.0);
+        FILL.with(|c| {
+            if c.borrow().len() < v.len() {
+                c.replace(v);
+            }
+        });
+    }
+}
+
 use crate::extern_c_wrapper;
 use libxc_core::input::{GgaInput, LdaInput, MggaInput};
 use libxc_core::model::DerivativeOrder;
@@ -418,7 +469,21 @@ unsafe fn lda_evaluate(
     };
     let effective_order = order.min(max_provided);
 
-    let mut scratch = vec![0.0; dims.total_output_components() * np];
+    macro_rules! fill_len {
+        ($ptr:expr, $field:ident, $req_order:ident) => {
+            if $ptr.is_null() && effective_order >= DerivativeOrder::$req_order {
+                dims.$field as usize * np
+            } else {
+                0
+            }
+        };
+    }
+    let need = fill_len!(zk, zk, Exc)
+        + fill_len!(vrho, vrho, Vxc)
+        + fill_len!(v2rho2, v2rho2, Fxc)
+        + fill_len!(v3rho3, v3rho3, Kxc)
+        + fill_len!(v4rho4, v4rho4, Lxc);
+    let mut scratch = FillBuf::take(need);
     #[allow(unused_assignments)]
     let mut cursor = scratch.as_mut_slice();
 
@@ -747,7 +812,31 @@ unsafe fn gga_evaluate(
     };
     let effective_order = order.min(max_provided);
 
-    let mut scratch = vec![0.0; dims.total_output_components() * np];
+    macro_rules! fill_len {
+        ($ptr:expr, $field:ident, $req_order:ident) => {
+            if $ptr.is_null() && effective_order >= DerivativeOrder::$req_order {
+                dims.$field as usize * np
+            } else {
+                0
+            }
+        };
+    }
+    let need = fill_len!(zk, zk, Exc)
+        + fill_len!(vrho, vrho, Vxc)
+        + fill_len!(vsigma, vsigma, Vxc)
+        + fill_len!(v2rho2, v2rho2, Fxc)
+        + fill_len!(v2rhosigma, v2rhosigma, Fxc)
+        + fill_len!(v2sigma2, v2sigma2, Fxc)
+        + fill_len!(v3rho3, v3rho3, Kxc)
+        + fill_len!(v3rho2sigma, v3rho2sigma, Kxc)
+        + fill_len!(v3rhosigma2, v3rhosigma2, Kxc)
+        + fill_len!(v3sigma3, v3sigma3, Kxc)
+        + fill_len!(v4rho4, v4rho4, Lxc)
+        + fill_len!(v4rho3sigma, v4rho3sigma, Lxc)
+        + fill_len!(v4rho2sigma2, v4rho2sigma2, Lxc)
+        + fill_len!(v4rhosigma3, v4rhosigma3, Lxc)
+        + fill_len!(v4sigma4, v4sigma4, Lxc);
+    let mut scratch = FillBuf::take(need);
     #[allow(unused_assignments)]
     let mut cursor = scratch.as_mut_slice();
 
@@ -1003,6 +1092,71 @@ mod gga_evaluate_tests {
     use super::*;
     use crate::raw_handle::*;
 
+    /// `xc_gga_vxc` (NULL `zk`) must give the same `vrho`/`vsigma` bits as
+    /// `xc_gga_exc_vxc`, through the stand-in buffer rather than an error.
+    #[test]
+    fn gga_vxc_with_null_zk_matches_exc_vxc() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 101, 1), 0); // gga_x_pbe
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let sigma = [0.01f64, 0.02, 0.03, 0.04];
+            let mut zk = [0.0f64; 4];
+            let (mut vrho_a, mut vsigma_a) = ([0.0f64; 4], [0.0f64; 4]);
+            let (mut vrho_b, mut vsigma_b) = ([0.0f64; 4], [0.0f64; 4]);
+            assert_eq!(
+                xc_gga_exc_vxc(p, 4, rho.as_ptr(), sigma.as_ptr(), zk.as_mut_ptr(), vrho_a.as_mut_ptr(), vsigma_a.as_mut_ptr()),
+                0
+            );
+            assert_eq!(
+                xc_gga_vxc(p, 4, rho.as_ptr(), sigma.as_ptr(), vrho_b.as_mut_ptr(), vsigma_b.as_mut_ptr()),
+                0
+            );
+            for i in 0..4 {
+                assert!(zk[i] < 0.0);
+                assert_eq!(vrho_a[i].to_bits(), vrho_b[i].to_bits(), "vrho[{i}]");
+                assert_eq!(vsigma_a[i].to_bits(), vsigma_b[i].to_bits(), "vsigma[{i}]");
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+
+    /// After warm-up, an evaluation through the shim allocates nothing --
+    /// with every pointer supplied, and with `zk` NULL (the stand-in is
+    /// reused). This is the regression guard for the per-call all-orders
+    /// scratch the shim used to allocate.
+    #[test]
+    fn gga_repeat_calls_do_not_allocate() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 101, 2), 0); // gga_x_pbe, polarized
+            let np = 3000;
+            let rho: Vec<f64> = (0..2 * np).map(|i| 0.05 + 1e-4 * i as f64).collect();
+            let sigma: Vec<f64> = (0..3 * np).map(|i| 1e-3 + 1e-6 * i as f64).collect();
+            let mut zk = vec![0.0f64; np];
+            let mut vrho = vec![0.0f64; 2 * np];
+            let mut vsigma = vec![0.0f64; 3 * np];
+            let mut full = || {
+                xc_gga_exc_vxc(p, np, rho.as_ptr(), sigma.as_ptr(), zk.as_mut_ptr(), vrho.as_mut_ptr(), vsigma.as_mut_ptr())
+            };
+            assert_eq!(full(), 0);
+            assert_eq!(full(), 0);
+            let before = super::alloc_probe::bytes_allocated();
+            assert_eq!(full(), 0);
+            assert_eq!(super::alloc_probe::bytes_allocated() - before, 0, "all-pointers call allocated");
+
+            let mut null_zk = || xc_gga_vxc(p, np, rho.as_ptr(), sigma.as_ptr(), vrho.as_mut_ptr(), vsigma.as_mut_ptr());
+            assert_eq!(null_zk(), 0);
+            assert_eq!(null_zk(), 0);
+            let before = super::alloc_probe::bytes_allocated();
+            assert_eq!(null_zk(), 0);
+            assert_eq!(super::alloc_probe::bytes_allocated() - before, 0, "NULL-zk call allocated");
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+
     #[test]
     fn gga_exc_smoke() {
         unsafe {
@@ -1061,7 +1215,7 @@ unsafe fn mgga_run(
     lapl: *const f64,
     tau: *const f64,
     order: DerivativeOrder,
-    mut output: MggaOutput,
+    output: MggaOutput,
 ) -> Result<i32, libxc_core::error::LibxcRsError> {
     // SAFETY: p non-null + initialized (wrapper macro + slot accessor enforce).
     let f = unsafe { FunctionalSlot::as_initialized_const(p)? };
@@ -1074,6 +1228,59 @@ unsafe fn mgga_run(
     let tau_slice = unsafe { input_slice(tau, np, dims.tau as usize) };
     let input = MggaInput::new(rho_slice, sigma_slice, lapl_slice, tau_slice, np, spin)?;
     output.validate(np, spin)?;
+
+    // The kernels take every output of `order` (`prepare` rejects a missing
+    // one), so NULL pointers the order still writes -- typically `zk` under
+    // `xc_mgga_vxc`, and `vlapl` from a caller whose functional does not use
+    // the laplacian -- are pointed at a stand-in (see `FillBuf`).
+    let vxc = order >= DerivativeOrder::Vxc;
+    let fxc = order >= DerivativeOrder::Fxc;
+    let kxc = order >= DerivativeOrder::Kxc;
+    let lxc = order >= DerivativeOrder::Lxc;
+    macro_rules! per_order {
+        ($m:ident) => {
+            $m!(true; zk);
+            $m!(vxc; vrho, vsigma, vlapl, vtau);
+            $m!(fxc; v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,
+                v2lapl2, v2lapltau, v2tau2);
+            $m!(kxc; v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
+                v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
+                v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
+                v3lapltau2, v3tau3);
+            $m!(lxc; v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2, v4rho2sigmalapl,
+                v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2, v4rhosigma3,
+                v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau,
+                v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3, v4sigma4,
+                v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau, v4sigma2tau2,
+                v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4,
+                v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4);
+        };
+    }
+    let mut need = 0usize;
+    macro_rules! count_need {
+        ($on:expr; $($f:ident),* $(,)?) => {
+            $( if $on && output.$f.is_none() { need += dims.$f as usize * np; } )*
+        };
+    }
+    per_order!(count_need);
+    let mut scratch = FillBuf::take(need);
+    // Rebound so the stand-in slices, which live only as long as `scratch`,
+    // can be stored next to the caller's (`MggaOutput` is covariant).
+    let mut output: MggaOutput<'_> = output;
+    #[allow(unused_assignments)]
+    let mut cursor = scratch.as_mut_slice();
+    macro_rules! point_at_fill {
+        ($on:expr; $($f:ident),* $(,)?) => {
+            $( if $on && output.$f.is_none() {
+                let (head, rest) = cursor.split_at_mut(dims.$f as usize * np);
+                cursor = rest;
+                let _ = &cursor;
+                output.$f = Some(head);
+            } )*
+        };
+    }
+    per_order!(point_at_fill);
+
     with_workspace(np, spin, |ws| {
         f.evaluate_mgga(&input, order, &mut output, ws)
     })?;
@@ -1329,6 +1536,44 @@ mod mgga_evaluate_tests {
     use super::*;
     use crate::raw_handle::*;
 
+    /// `xc_mgga_vxc` with NULL `zk` and NULL `vlapl` -- what a caller of a
+    /// tau-only functional passes -- must succeed and agree bit for bit with
+    /// the all-pointers call. Before the stand-in buffer this failed with an
+    /// output-buffer-size error.
+    #[test]
+    fn mgga_vxc_with_null_zk_and_vlapl_matches_exc_vxc() {
+        unsafe {
+            let p = xc_func_alloc();
+            assert_eq!(xc_func_init(p, 263, 1), 0); // mgga_x_scan
+            let rho = [0.1f64, 0.2, 0.3, 0.4];
+            let sigma = [0.01f64, 0.02, 0.03, 0.04];
+            let lapl = [0.0f64; 4];
+            // tau above the von Weizsaecker bound sigma / (8 rho).
+            let tau = [0.05f64, 0.06, 0.07, 0.08];
+            let mut zk = [0.0f64; 4];
+            let (mut vrho_a, mut vsigma_a, mut vlapl_a, mut vtau_a) = ([0.0f64; 4], [0.0f64; 4], [0.0f64; 4], [0.0f64; 4]);
+            let (mut vrho_b, mut vsigma_b, mut vtau_b) = ([0.0f64; 4], [0.0f64; 4], [0.0f64; 4]);
+            assert_eq!(
+                xc_mgga_exc_vxc(p, 4, rho.as_ptr(), sigma.as_ptr(), lapl.as_ptr(), tau.as_ptr(), zk.as_mut_ptr(),
+                    vrho_a.as_mut_ptr(), vsigma_a.as_mut_ptr(), vlapl_a.as_mut_ptr(), vtau_a.as_mut_ptr()),
+                0
+            );
+            assert_eq!(
+                xc_mgga_vxc(p, 4, rho.as_ptr(), sigma.as_ptr(), lapl.as_ptr(), tau.as_ptr(),
+                    vrho_b.as_mut_ptr(), vsigma_b.as_mut_ptr(), NULL_F64, vtau_b.as_mut_ptr()),
+                0
+            );
+            for i in 0..4 {
+                assert!(zk[i] < 0.0);
+                assert_eq!(vrho_a[i].to_bits(), vrho_b[i].to_bits(), "vrho[{i}]");
+                assert_eq!(vsigma_a[i].to_bits(), vsigma_b[i].to_bits(), "vsigma[{i}]");
+                assert_eq!(vtau_a[i].to_bits(), vtau_b[i].to_bits(), "vtau[{i}]");
+            }
+            xc_func_end(p);
+            xc_func_free(p);
+        }
+    }
+
     #[test]
     fn mgga_exc_smoke() {
         unsafe {
@@ -1352,5 +1597,33 @@ mod mgga_evaluate_tests {
             xc_func_end(p);
             xc_func_free(p);
         }
+    }
+}
+
+/// Byte-counting global allocator for the allocation-free tests above.
+#[cfg(test)]
+pub(crate) mod alloc_probe {
+    use std::alloc::{GlobalAlloc, Layout, System};
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    struct Counting;
+    static BYTES: AtomicUsize = AtomicUsize::new(0);
+
+    unsafe impl GlobalAlloc for Counting {
+        unsafe fn alloc(&self, l: Layout) -> *mut u8 {
+            BYTES.fetch_add(l.size(), Ordering::Relaxed);
+            unsafe { System.alloc(l) }
+        }
+        unsafe fn dealloc(&self, p: *mut u8, l: Layout) {
+            unsafe { System.dealloc(p, l) }
+        }
+    }
+
+    #[global_allocator]
+    static A: Counting = Counting;
+
+    /// Bytes handed out since the process started, on any thread.
+    pub(crate) fn bytes_allocated() -> usize {
+        BYTES.load(Ordering::Relaxed)
     }
 }

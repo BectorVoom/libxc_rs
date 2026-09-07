@@ -38,6 +38,7 @@ pub mod lambert_w;
 pub mod mbrxc;
 pub mod polynomials;
 pub(crate) mod erfcx_table;
+pub(crate) mod erfcx_coef;
 pub mod special;
 pub mod spin;
 

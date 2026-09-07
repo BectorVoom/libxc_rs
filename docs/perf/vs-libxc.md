@@ -203,11 +203,11 @@ That holds for every case in the table, LDA through polarized MGGA. Peak RSS
 over a whole timed case stays within a few MB of the caller's own buffers, and
 the recursive `rayon::join` split allocates nothing: workers get disjoint
 `&mut` sub-slices of the caller's arrays, so there is no staging buffer, no
-per-chunk scratch and no device-side copy. Where the two differ is that this
-library still *requires* the caller to pass a buffer for every output of the
-requested order, while libxc offers `xc_gga_vxc`-style entry points that let
-you skip `zk`; closing that would save `np * (1 + nspin + 3)` doubles on a
-response calculation that only wants the second derivatives.
+per-chunk scratch and no device-side copy. The typed API still *requires* a
+buffer for every output of the requested order; the C-ABI shim accepts
+libxc's NULLs (`xc_gga_vxc` without `zk`, `xc_mgga_vxc` without `vlapl`) and
+points them at a thread-local stand-in sized to the NULL fields only -- see
+"The C-ABI shim's scratch" below for what it did before 2026-09-07.
 
 ## Verification
 
@@ -333,3 +333,93 @@ kernel is three `cbrt` and ~40 flops per point, `docs/perf/kernel-codegen.md`
 already closed hoisting, bounds checks and scheduling on it, and its whole
 body is 3.3 ns/pt across 16 threads. The remaining lever there is the
 correctly-rounded `cbrt` itself, which is not one this project will pull.
+
+## HSE06: the helpers (2026-09-07, later the same day)
+
+After the section above, `gga_x_wpbeh vxc` was eight lanes wide everywhere
+except its two special functions: `xc_erfcx` and `xc_E1_scaled` ran as
+`lanewise` -- eight scalar calls per 8-point step, three helper calls per
+point (one `erfcx`, two `E1`) -- and a microbenchmark over the argument range
+the kernel produces put them at 16.3 and 22.0 ns per point, i.e. about
+60 ns of the 123 ns single-threaded point.
+
+Both now have vector forms in `math/src/simd.rs`, bit-identical to the scalar
+helpers by construction rather than by tolerance:
+
+- `erfcx`: `y100 = 400/(4+x)` on eight lanes, the interval index taken per
+  lane by the same `(int)` truncation libxc's `switch` uses, the seven
+  Chebyshev coefficients of that interval gathered from a 100 x 7 table
+  (`erfcx_coef.rs`, generated from the scalar `match` by
+  `tools/translate_rayon/gen_erfcx_coef.py` so both parse the same
+  constants), then the same Horner polynomial. The `x > 50` and `x > 5e7`
+  continued-fraction arms are evaluated in vector form and selected per
+  lane -- a low-density tail point does reach `x > 50`.
+- `e1_scaled`: Clenshaw on eight lanes in the scalar's operand order
+  (`(twox*b1 - b2) + cs[i]`), one arm per positive interval (`<= 1`,
+  `<= 4`, `> 4`), each evaluated only when some lane needs it and selected
+  per lane; `exp`/`ln` are the module's bit-exact forms, which the scalar
+  helper also calls.
+
+Vector mul/add/sub/div are IEEE per lane and rustc does not contract them
+into FMAs, so an expression with the scalar's grouping gives the scalar's
+bits. A lane that is negative or NaN -- which no kernel produces from a
+finite input, the arguments being a `sqrt` and sums of squares -- sends the
+whole vector down the old lane-wise path. `math/tests/simd_exact.rs` sweeps
+every branch of both functions (250k inputs each, dense across the interval
+edges, log-spaced to 1e300, shuffled so vectors straddle arms) and requires
+`to_bits()` equality on every lane.
+
+| helper, ns per point | scalar (lane-wise) | vector | ratio |
+|---|--:|--:|--:|
+| `erfcx` | 16.26 | 4.29 | 3.8x |
+| `e1_scaled` | 21.95 | 10.28 | 2.1x |
+
+`--np 100000 --reps 7`, ns per grid point; "was" is the previous section's
+tree. Every `rust` fingerprint is byte-identical before and after (`hse06`
+unpol `bf57a89529581840`, pol `462c5fd0c8ef8b4d`, `wpbeh`
+`d67311fbdf2bab7d`), and `rust-1t == rust-Nt` bitwise on the composites:
+
+| case | libxc-1t | rust-1t was | rust-1t now | libxc-Nt | rust-Nt was | rust-Nt now | **vs libxc** (was) |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| `hyb_gga_xc_hse06` exc+vxc unpol | 618.1 | 279.3 | **198.1** | 100.1 | 41.7 | **30.7** | **3.26x** (2.25x) |
+| `hyb_gga_xc_hse06` exc+vxc pol | 1440.2 | 642.4 | **460.0** | 254.0 | 132.5 | **83.0** | **3.06x** (1.92x) |
+| `gga_x_wpbeh` exc+vxc unpol | 254.6 | 123.5 | **82.0** | 50.1 | 24.4 | **15.7** | **3.19x** (2.05x) |
+| `hyb_gga_xc_pbeh` exc+vxc unpol | 108.9 | 51.8 | 51.2 | 17.7 | 10.0 | 9.0 | 1.97x (unchanged) |
+| `hyb_gga_xc_pbeh` exc+vxc pol | 231.8 | 94.5 | 95.3 | 51.5 | 18.4 | 19.0 | 2.71x (unchanged) |
+
+("was" ratios are recomputed against this run's `libxc-Nt`; the previous
+section quoted 2.31x/2.43x against its own.) The `wpbeh` and `pbeh` rows
+are the mean of two runs each. PBE0 does not call either helper and moves
+only by noise. What is left in `wpbeh` is the bit-exact `ln`/`exp`/`sqrt`
+and the erf, and `e1_scaled` at 10 ns: when a vector's lanes straddle the
+`x <= 1` / `x > 1` boundary both arms run, and a coherent grid keeps that
+rarer than the microbenchmark's log-uniform draw does.
+
+## The C-ABI shim's scratch (2026-09-07)
+
+Not a benchmark result -- the benchmark calls the typed API -- but the path
+a C or Fortran DFT code takes to HSE06 or PBE, and the largest memory defect
+in the tree. Every `xc_lda_*` and `xc_gga_*` entry point allocated and
+zero-filled
+
+```rust
+let mut scratch = vec![0.0; dims.total_output_components() * np];
+```
+
+on every call: every output of every derivative order through `lxc`, 15
+doubles per unpolarized GGA point and 126 per polarized one, whether or not
+any pointer was NULL. At a million polarized points that is a **1.0 GB
+allocation and memset per `xc_gga_exc_vxc` call**, against 48 MB of
+results. The MGGA entry points had the opposite defect: no stand-in at all,
+so `xc_mgga_vxc` with a NULL `zk`, or a NULL `vlapl` from a caller whose
+functional does not use the laplacian (which is how every tau-only MGGA is
+called), failed with an output-buffer-size error.
+
+Both now go through one thread-local `FillBuf` (`legacy_eval.rs`), sized to
+the NULL-but-required fields only and reused across calls. A call with every
+pointer supplied touches no scratch; `xc_gga_vxc` with a NULL `zk` uses `np`
+doubles, allocated once per thread and size. `legacy_eval.rs` tests it with a
+counting allocator: after warm-up, neither form allocates a byte, and the
+NULL-`zk` and NULL-`vlapl` forms agree bit for bit with the all-pointers
+call. The workspace was already thread-local and reused; this closes the
+other allocation on that path.

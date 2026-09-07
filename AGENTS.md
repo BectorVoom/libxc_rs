@@ -171,16 +171,30 @@ Three things from that work bind future changes:
 - **Output buffers are zeroed per chunk in `par_sweep`, not per array in
   `prepare`.** Worth 5-10% on the parallel path, and bit-neutral.
 - **`screened_call` is not optional.** See below.
-- **Scalar helpers no longer bar a kernel from the SIMD emitter.** `xc_erfcx`
-  and `xc_E1_scaled` have no vector form; `simd.py` maps them to
-  `simd::erfcx` / `simd::e1_scaled`, which run the same scalar function on
-  each lane (`math/src/simd.rs::lanewise`, bit-exact by construction), and
+- **Scalar helpers no longer bar a kernel from the SIMD emitter.** `simd.py`
+  maps `xc_erfcx` / `xc_E1_scaled` to `simd::erfcx` / `simd::e1_scaled`, and
   `simd_qualify.py` admits a kernel whose helpers are all in
   `simd.LANEWISE_HELPERS`. That is what got `gga_x_wpbeh` -- both exchange
   legs of HSE06, and 95% of its cost -- onto the allowlist (2026-09-07; vxc
   2.10x unpol / 1.68x pol, fxc 3.17x, fingerprints unchanged) and took HSE06
-  from a tie with libxc to 2.3-2.4x. Its `kxc`/`lxc` triples are undecided:
-  the tier-4 build was OOM-killed on the 4 MB `lxc_pol` body. Other helpers
+  from a tie with libxc to 2.3-2.4x. Those two first ran the scalar helper on
+  each lane (`math/src/simd.rs::lanewise`); later the same day they became
+  real vector forms -- the Faddeeva-table row gathered per lane, Clenshaw on
+  eight lanes, the scalar's operation order kept, so still bit-identical
+  (`math/tests/simd_exact.rs` sweeps every branch) -- which took the helpers
+  from about half of `wpbeh vxc`'s time to a fifth and HSE06 to 3.3x/3.1x
+  (`docs/perf/vs-libxc.md`, "HSE06: the helpers"). The lane-wise fallback
+  remains for negative/NaN lanes only. **`gga_x_wpbeh lxc:pol` cannot be
+  compiled as SIMD on a 30 GB box**: rustc reaches 28.8 GB on the 4 MB body
+  and is OOM-killed -- and because the kill lands on the whole terminal
+  scope, it takes the editor session with it. A SIMD `lxc_pol.rs` for it was
+  committed by mistake in edb96b2354 (with twelve other tier-4 files whose
+  ledger verdicts were `deferred-contention`, none in the allowlist) and
+  regenerated back to scalar on 2026-09-07; the allowlist is the source of
+  truth, and a kernel file that says "explicit SIMD" in its header while its
+  triple is not in `SIMD_EXACT_FUNCS` is a leftover from an interrupted
+  sweep, not a decision. `kxc:pol` has a ledger accept (3.16x) but is not
+  applied; if it is ever wanted, build it alone and watch RSS. Other helpers
   (`lambert_w` already has a real vector form; bessel, dilogarithm, br89,
   integrate do not) could be admitted the same way if a hot kernel needs it.
 - **Composite GGAs (`evaluate_mixed_gga`) run leaf by leaf, not sweep by
