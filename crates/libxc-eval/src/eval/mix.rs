@@ -420,7 +420,21 @@ pub fn evaluate_mixed_lda_functional_into(
 /// - **MGGA aux inside a GGA parent** is rejected with
 ///   `UnsupportedFunctional` (mix_func.c does not support this combination).
 ///
-/// Caller output is zeroed once before the accumulation loop.
+/// The work is done leaf by leaf, not auxiliary by auxiliary. The grid is
+/// split exactly as `par_sweep` splits it (`sweep_gga::par_leaves`), and on
+/// each leaf every auxiliary kernel runs over that leaf into a pooled,
+/// leaf-sized scratch (`EvaluationWorkspace::leaf_scratch`) and is folded into
+/// the caller's outputs straight away, while the leaf's inputs and outputs are
+/// still in cache. Compared with the previous whole-grid form -- one full sweep
+/// per auxiliary into an `np`-sized scratch, then a serial `out += w * scratch`
+/// pass per field per auxiliary on the calling thread -- this removes the
+/// serial passes and the up-front serial zeroing, and shrinks the scratch from
+/// `O(np * components)` to `O(workers * leaf * components)`, roughly 1.5 MB for
+/// a polarized `vxc` HSE06 regardless of grid size. The arithmetic is
+/// unchanged: each element still receives `0`, then `+= w_k * aux_k` for each
+/// auxiliary in metadata order, and each auxiliary value is what the same
+/// kernel writes into a freshly zeroed buffer -- so the result is bit-identical,
+/// which `bench-vs-libxc`'s fingerprint checks.
 pub fn evaluate_mixed_gga(
     functional: &Functional,
     input: &GgaInput,
@@ -447,6 +461,9 @@ pub fn evaluate_mixed_gga_into(
     workspace: &mut EvaluationWorkspace,
     zero_first: bool,
 ) -> Result<(), LibxcRsError> {
+    use libxc_reval::sweep_gga::{GgaChunk, min_chunk, par_leaves};
+    use std::sync::Mutex;
+
     if workspace.np() != input.np() || workspace.spin() != input.spin() {
         return Err(LibxcRsError::WorkspaceMismatch {
             expected_np: input.np(),
@@ -455,92 +472,167 @@ pub fn evaluate_mixed_gga_into(
             actual_spin: workspace.spin(),
         });
     }
-    // Grow the scratch to exactly this evaluation's order (a no-op if it is
-    // already at least that big). Lets a caller hand over a minimally-sized
-    // workspace and have it reach the right size once, rather than every
-    // caller paying for the MGGA all-orders superset up front.
-    workspace.ensure_order(order);
-
-    // CR-02 (Plan 05-06): pre-compute per-family per-field lengths once so
-    // every accumulation site uses an explicit, length-checked length parameter
-    // instead of the silently-truncating `add_opt` helper.
     let np = input.np();
-    let dims = Dimensions::gga(input.spin());
-    let zk_len = dims.zk as usize * np;
-    let vrho_len = dims.vrho as usize * np;
-    let vsigma_len = dims.vsigma as usize * np;
-    let v2rho2_len = dims.v2rho2 as usize * np;
-    let v2rhosigma_len = dims.v2rhosigma as usize * np;
-    let v2sigma2_len = dims.v2sigma2 as usize * np;
-    let v3rho3_len = dims.v3rho3 as usize * np;
-    let v3rho2sigma_len = dims.v3rho2sigma as usize * np;
-    let v3rhosigma2_len = dims.v3rhosigma2 as usize * np;
-    let v3sigma3_len = dims.v3sigma3 as usize * np;
-    let v4rho4_len = dims.v4rho4 as usize * np;
-    let v4rho3sigma_len = dims.v4rho3sigma as usize * np;
-    let v4rho2sigma2_len = dims.v4rho2sigma2 as usize * np;
-    let v4rhosigma3_len = dims.v4rhosigma3 as usize * np;
-    let v4sigma4_len = dims.v4sigma4 as usize * np;
+    let spin = input.spin();
+    let dims = Dimensions::gga(spin);
 
-    // LDA-aux per-field lengths (scratch is shaped per-family, but the GGA
-    // output buffer fields rho/v2rho2/v3rho3/v4rho4 are sized to GGA dims —
-    // which match LDA dims for the rho-only chain since GGA = LDA + sigma).
-    let lda_dims = Dimensions::lda(input.spin());
-    let lda_zk_len = lda_dims.zk as usize * np;
-    let lda_vrho_len = lda_dims.vrho as usize * np;
-    let lda_v2rho2_len = lda_dims.v2rho2 as usize * np;
-    let lda_v3rho3_len = lda_dims.v3rho3 as usize * np;
-    let lda_v4rho4_len = lda_dims.v4rho4 as usize * np;
+    // Reject the unsupported combination before touching any buffer, so a
+    // caller sees the error and not a half-accumulated output.
+    if functional.auxiliaries.iter().any(|a| a.meta.family == Family::Mgga) {
+        return Err(LibxcRsError::UnsupportedFunctional {
+            id: functional.meta.id,
+            reason: "MGGA auxiliary inside GGA parent (mix_func.c rejects this combination)",
+        });
+    }
 
-    // Skipped when accumulating on top of a kernel result -- see the
-    // `zero_first` note on this function.
+    // Every buffer the caller supplied must be the length its field implies
+    // at this grid size. Checked once here rather than per field per leaf.
+    macro_rules! check {
+        ($f:ident, $name:literal, $dim:expr) => {
+            if let Some(b) = output.$f.as_deref() {
+                let expected = $dim as usize * np;
+                if b.len() != expected {
+                    return Err(LibxcRsError::OutputBufferSizeMismatch {
+                        field: $name,
+                        expected,
+                        actual: b.len(),
+                    });
+                }
+            }
+        };
+    }
+    check!(zk, "zk", dims.zk);
+    check!(vrho, "vrho", dims.vrho);
+    check!(vsigma, "vsigma", dims.vsigma);
+    check!(v2rho2, "v2rho2", dims.v2rho2);
+    check!(v2rhosigma, "v2rhosigma", dims.v2rhosigma);
+    check!(v2sigma2, "v2sigma2", dims.v2sigma2);
+    check!(v3rho3, "v3rho3", dims.v3rho3);
+    check!(v3rho2sigma, "v3rho2sigma", dims.v3rho2sigma);
+    check!(v3rhosigma2, "v3rhosigma2", dims.v3rhosigma2);
+    check!(v3sigma3, "v3sigma3", dims.v3sigma3);
+    check!(v4rho4, "v4rho4", dims.v4rho4);
+    check!(v4rho3sigma, "v4rho3sigma", dims.v4rho3sigma);
+    check!(v4rho2sigma2, "v4rho2sigma2", dims.v4rho2sigma2);
+    check!(v4rhosigma3, "v4rhosigma3", dims.v4rhosigma3);
+    check!(v4sigma4, "v4sigma4", dims.v4sigma4);
+
+    // The whole grid as one chunk, reborrowing every buffer the caller
+    // supplied. Unlike `prepare`, nothing is required to be present: a field
+    // the caller did not ask for is simply never accumulated into.
+    let parent = GgaChunk {
+        np,
+        rho: input.rho(),
+        sigma: input.sigma(),
+        zk: output.zk.as_deref_mut(),
+        vrho: output.vrho.as_deref_mut(),
+        vsigma: output.vsigma.as_deref_mut(),
+        v2rho2: output.v2rho2.as_deref_mut(),
+        v2rhosigma: output.v2rhosigma.as_deref_mut(),
+        v2sigma2: output.v2sigma2.as_deref_mut(),
+        v3rho3: output.v3rho3.as_deref_mut(),
+        v3rho2sigma: output.v3rho2sigma.as_deref_mut(),
+        v3rhosigma2: output.v3rhosigma2.as_deref_mut(),
+        v3sigma3: output.v3sigma3.as_deref_mut(),
+        v4rho4: output.v4rho4.as_deref_mut(),
+        v4rho3sigma: output.v4rho3sigma.as_deref_mut(),
+        v4rho2sigma2: output.v4rho2sigma2.as_deref_mut(),
+        v4rhosigma3: output.v4rhosigma3.as_deref_mut(),
+        v4sigma4: output.v4sigma4.as_deref_mut(),
+    };
+
+    // Leaves run in parallel and cannot return, so the first error any of
+    // them hits is parked here. The errors an auxiliary dispatch can raise
+    // (unrouted id, ext_params count) do not depend on which leaf it is on,
+    // so "first" is also "every".
+    let first_err: Mutex<Option<LibxcRsError>> = Mutex::new(None);
+    let ws: &EvaluationWorkspace = workspace;
+    par_leaves(parent, &dims, min_chunk(), &|leaf: &mut GgaChunk<'_, '_>| {
+        if let Err(e) = mix_gga_leaf(functional, leaf, order, spin, &dims, ws, zero_first) {
+            let mut slot = first_err.lock().unwrap_or_else(|p| p.into_inner());
+            if slot.is_none() {
+                *slot = Some(e);
+            }
+        }
+    });
+    match first_err.into_inner().unwrap_or_else(|p| p.into_inner()) {
+        Some(e) => Err(e),
+        None => Ok(()),
+    }
+}
+
+/// Split `n` elements off the front of `cursor`.
+fn carve<'a>(cursor: &mut &'a mut [f64], n: usize) -> &'a mut [f64] {
+    let taken = std::mem::take(cursor);
+    let (head, tail) = taken.split_at_mut(n);
+    *cursor = tail;
+    head
+}
+
+/// `dst += w * src`, elementwise, when `dst` is present.
+///
+/// The one arithmetic operation of the mix, written exactly as the whole-grid
+/// form wrote it (`d[i] += coeff * src[i]`), so the bits are the same.
+#[inline]
+fn axpy_into(dst: Option<&mut [f64]>, w: f64, src: &[f64]) {
+    if let Some(d) = dst {
+        for (d, s) in d.iter_mut().zip(src.iter()) {
+            *d += w * *s;
+        }
+    }
+}
+
+/// One leaf of [`evaluate_mixed_gga_into`]: zero the caller's slice of every
+/// output (if asked), then run each auxiliary over the leaf into pooled scratch
+/// and fold it in.
+fn mix_gga_leaf(
+    functional: &Functional,
+    leaf: &mut libxc_reval::sweep_gga::GgaChunk<'_, '_>,
+    order: DerivativeOrder,
+    spin: libxc_core::model::Spin,
+    dims: &Dimensions,
+    ws: &EvaluationWorkspace,
+    zero_first: bool,
+) -> Result<(), LibxcRsError> {
+    let n = leaf.np;
+
     if zero_first {
-        // Zero all 15 GGA output fields.
-        if let Some(ref mut b) = output.zk {
+        // Every buffer the caller supplied, not only those this order writes:
+        // a stale value left in one the caller handed over would be worse than
+        // the cost of clearing it (as `prepare` also reasons).
+        for b in [
+            leaf.zk.as_deref_mut(),
+            leaf.vrho.as_deref_mut(),
+            leaf.vsigma.as_deref_mut(),
+            leaf.v2rho2.as_deref_mut(),
+            leaf.v2rhosigma.as_deref_mut(),
+            leaf.v2sigma2.as_deref_mut(),
+            leaf.v3rho3.as_deref_mut(),
+            leaf.v3rho2sigma.as_deref_mut(),
+            leaf.v3rhosigma2.as_deref_mut(),
+            leaf.v3sigma3.as_deref_mut(),
+            leaf.v4rho4.as_deref_mut(),
+            leaf.v4rho3sigma.as_deref_mut(),
+            leaf.v4rho2sigma2.as_deref_mut(),
+            leaf.v4rhosigma3.as_deref_mut(),
+            leaf.v4sigma4.as_deref_mut(),
+        ]
+        .into_iter()
+        .flatten()
+        {
             b.fill(0.0);
         }
-        if let Some(ref mut b) = output.vrho {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.vsigma {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v2rho2 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v2rhosigma {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v2sigma2 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v3rho3 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v3rho2sigma {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v3rhosigma2 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v3sigma3 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v4rho4 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v4rho3sigma {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v4rho2sigma2 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v4rhosigma3 {
-            b.fill(0.0);
-        }
-        if let Some(ref mut b) = output.v4sigma4 {
-            b.fill(0.0);
-        }
+    }
+
+    let vxc = order >= DerivativeOrder::Vxc;
+    let fxc = order >= DerivativeOrder::Fxc;
+    let kxc = order >= DerivativeOrder::Kxc;
+    let lxc = order >= DerivativeOrder::Lxc;
+    // Elements a field of `dim` per point occupies on this leaf, or 0 when the
+    // order does not reach it (a zero-length carve is a `None` buffer).
+    let len = |dim: usize, on: bool| if on { dim * n } else { 0 };
+    fn opt(s: &mut [f64]) -> Option<&mut [f64]> {
+        if s.is_empty() { None } else { Some(s) }
     }
 
     for (aux, &weight) in functional
@@ -550,286 +642,134 @@ pub fn evaluate_mixed_gga_into(
     {
         match aux.meta.family {
             Family::Lda => {
-                // LDA aux: build LdaInput from the GGA input's rho buffer,
-                // dispatch into LDA-shaped scratch, accumulate rho-only
-                // into the GGA caller output.
-                let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
+                // Rho-derivative chain only; the sigma fields are never touched
+                // by an LDA auxiliary (Pitfall 5).
+                let ld = Dimensions::lda(spin);
+                let lens = [
+                    len(ld.zk as usize, true),
+                    len(ld.vrho as usize, vxc),
+                    len(ld.v2rho2 as usize, fxc),
+                    len(ld.v3rho3 as usize, kxc),
+                    len(ld.v4rho4 as usize, lxc),
+                ];
+                let mut scratch = ws.leaf_scratch(lens.iter().sum());
+                let mut cur: &mut [f64] = &mut scratch;
+                let zk = carve(&mut cur, lens[0]);
+                let vrho = carve(&mut cur, lens[1]);
+                let v2rho2 = carve(&mut cur, lens[2]);
+                let v3rho3 = carve(&mut cur, lens[3]);
+                let v4rho4 = carve(&mut cur, lens[4]);
 
-                {
-                    let scratch = workspace.lda_scratch_mut();
-                    let mut aux_output = LdaOutput {
-                        zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vrho)
-                        } else {
-                            None
-                        },
-                        v2rho2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rho2)
-                        } else {
-                            None
-                        },
-                        v3rho3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho3)
-                        } else {
-                            None
-                        },
-                        v4rho4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho4)
-                        } else {
-                            None
-                        },
-                    };
-                    dispatch_lda_by_id(
-                        aux.meta.id,
-                        &lda_input,
-                        order,
-                        &mut aux_output,
-                        aux.kernel_ext_params(),
-                        &aux.thresholds,
-                    )?;
-                }
-                let scratch = workspace.lda_scratch_mut();
-                add_opt_n(
-                    output.zk.as_deref_mut(),
-                    weight,
-                    scratch.zk,
-                    lda_zk_len,
-                    "zk",
+                let lda_input = LdaInput::new(leaf.rho, n, spin)?;
+                let mut aux_out = LdaOutput {
+                    zk: Some(zk),
+                    vrho: opt(vrho),
+                    v2rho2: opt(v2rho2),
+                    v3rho3: opt(v3rho3),
+                    v4rho4: opt(v4rho4),
+                };
+                dispatch_lda_by_id(
+                    aux.meta.id,
+                    &lda_input,
+                    order,
+                    &mut aux_out,
+                    aux.kernel_ext_params(),
+                    &aux.thresholds,
                 )?;
-                if order >= DerivativeOrder::Vxc {
-                    add_opt_n(
-                        output.vrho.as_deref_mut(),
-                        weight,
-                        scratch.vrho,
-                        lda_vrho_len,
-                        "vrho",
-                    )?;
-                }
-                if order >= DerivativeOrder::Fxc {
-                    add_opt_n(
-                        output.v2rho2.as_deref_mut(),
-                        weight,
-                        scratch.v2rho2,
-                        lda_v2rho2_len,
-                        "v2rho2",
-                    )?;
-                }
-                if order >= DerivativeOrder::Kxc {
-                    add_opt_n(
-                        output.v3rho3.as_deref_mut(),
-                        weight,
-                        scratch.v3rho3,
-                        lda_v3rho3_len,
-                        "v3rho3",
-                    )?;
-                }
-                if order >= DerivativeOrder::Lxc {
-                    add_opt_n(
-                        output.v4rho4.as_deref_mut(),
-                        weight,
-                        scratch.v4rho4,
-                        lda_v4rho4_len,
-                        "v4rho4",
-                    )?;
-                }
-                // Sigma-derivative fields intentionally skipped — Pitfall 5.
+
+                // `prepare` took the slices out of `aux_out`; read them back
+                // from the scratch at the same offsets.
+                let mut cur: &[f64] = &scratch;
+                let mut next = |k: usize| -> &[f64] {
+                    let (h, t) = cur.split_at(lens[k]);
+                    cur = t;
+                    h
+                };
+                axpy_into(leaf.zk.as_deref_mut(), weight, next(0));
+                axpy_into(leaf.vrho.as_deref_mut(), weight, next(1));
+                axpy_into(leaf.v2rho2.as_deref_mut(), weight, next(2));
+                axpy_into(leaf.v3rho3.as_deref_mut(), weight, next(3));
+                axpy_into(leaf.v4rho4.as_deref_mut(), weight, next(4));
             }
             Family::Gga => {
-                {
-                    let scratch = workspace.gga_scratch_mut();
-                    let mut aux_output = GgaOutput {
-                        zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vrho)
-                        } else {
-                            None
-                        },
-                        vsigma: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vsigma)
-                        } else {
-                            None
-                        },
-                        v2rho2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rho2)
-                        } else {
-                            None
-                        },
-                        v2rhosigma: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rhosigma)
-                        } else {
-                            None
-                        },
-                        v2sigma2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2sigma2)
-                        } else {
-                            None
-                        },
-                        v3rho3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho3)
-                        } else {
-                            None
-                        },
-                        v3rho2sigma: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho2sigma)
-                        } else {
-                            None
-                        },
-                        v3rhosigma2: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rhosigma2)
-                        } else {
-                            None
-                        },
-                        v3sigma3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3sigma3)
-                        } else {
-                            None
-                        },
-                        v4rho4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho4)
-                        } else {
-                            None
-                        },
-                        v4rho3sigma: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho3sigma)
-                        } else {
-                            None
-                        },
-                        v4rho2sigma2: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho2sigma2)
-                        } else {
-                            None
-                        },
-                        v4rhosigma3: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rhosigma3)
-                        } else {
-                            None
-                        },
-                        v4sigma4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4sigma4)
-                        } else {
-                            None
-                        },
-                    };
-                    dispatch_gga_by_id(
-                        aux.meta.id,
-                        input,
-                        order,
-                        &mut aux_output,
-                        aux.kernel_ext_params(),
-                        &aux.thresholds,
-                    )?;
+                let lens = [
+                    len(dims.zk as usize, true),
+                    len(dims.vrho as usize, vxc),
+                    len(dims.vsigma as usize, vxc),
+                    len(dims.v2rho2 as usize, fxc),
+                    len(dims.v2rhosigma as usize, fxc),
+                    len(dims.v2sigma2 as usize, fxc),
+                    len(dims.v3rho3 as usize, kxc),
+                    len(dims.v3rho2sigma as usize, kxc),
+                    len(dims.v3rhosigma2 as usize, kxc),
+                    len(dims.v3sigma3 as usize, kxc),
+                    len(dims.v4rho4 as usize, lxc),
+                    len(dims.v4rho3sigma as usize, lxc),
+                    len(dims.v4rho2sigma2 as usize, lxc),
+                    len(dims.v4rhosigma3 as usize, lxc),
+                    len(dims.v4sigma4 as usize, lxc),
+                ];
+                let mut scratch = ws.leaf_scratch(lens.iter().sum());
+                let mut cur: &mut [f64] = &mut scratch;
+                let mut fields: [&mut [f64]; 15] = std::array::from_fn(|_| &mut [][..]);
+                for (k, f) in fields.iter_mut().enumerate() {
+                    *f = carve(&mut cur, lens[k]);
                 }
-                let scratch = workspace.gga_scratch_mut();
-                add_opt_n(output.zk.as_deref_mut(), weight, scratch.zk, zk_len, "zk")?;
-                if order >= DerivativeOrder::Vxc {
-                    add_opt_n(
-                        output.vrho.as_deref_mut(),
-                        weight,
-                        scratch.vrho,
-                        vrho_len,
-                        "vrho",
-                    )?;
-                    add_opt_n(
-                        output.vsigma.as_deref_mut(),
-                        weight,
-                        scratch.vsigma,
-                        vsigma_len,
-                        "vsigma",
-                    )?;
-                }
-                if order >= DerivativeOrder::Fxc {
-                    add_opt_n(
-                        output.v2rho2.as_deref_mut(),
-                        weight,
-                        scratch.v2rho2,
-                        v2rho2_len,
-                        "v2rho2",
-                    )?;
-                    add_opt_n(
-                        output.v2rhosigma.as_deref_mut(),
-                        weight,
-                        scratch.v2rhosigma,
-                        v2rhosigma_len,
-                        "v2rhosigma",
-                    )?;
-                    add_opt_n(
-                        output.v2sigma2.as_deref_mut(),
-                        weight,
-                        scratch.v2sigma2,
-                        v2sigma2_len,
-                        "v2sigma2",
-                    )?;
-                }
-                if order >= DerivativeOrder::Kxc {
-                    add_opt_n(
-                        output.v3rho3.as_deref_mut(),
-                        weight,
-                        scratch.v3rho3,
-                        v3rho3_len,
-                        "v3rho3",
-                    )?;
-                    add_opt_n(
-                        output.v3rho2sigma.as_deref_mut(),
-                        weight,
-                        scratch.v3rho2sigma,
-                        v3rho2sigma_len,
-                        "v3rho2sigma",
-                    )?;
-                    add_opt_n(
-                        output.v3rhosigma2.as_deref_mut(),
-                        weight,
-                        scratch.v3rhosigma2,
-                        v3rhosigma2_len,
-                        "v3rhosigma2",
-                    )?;
-                    add_opt_n(
-                        output.v3sigma3.as_deref_mut(),
-                        weight,
-                        scratch.v3sigma3,
-                        v3sigma3_len,
-                        "v3sigma3",
-                    )?;
-                }
-                if order >= DerivativeOrder::Lxc {
-                    add_opt_n(
-                        output.v4rho4.as_deref_mut(),
-                        weight,
-                        scratch.v4rho4,
-                        v4rho4_len,
-                        "v4rho4",
-                    )?;
-                    add_opt_n(
-                        output.v4rho3sigma.as_deref_mut(),
-                        weight,
-                        scratch.v4rho3sigma,
-                        v4rho3sigma_len,
-                        "v4rho3sigma",
-                    )?;
-                    add_opt_n(
-                        output.v4rho2sigma2.as_deref_mut(),
-                        weight,
-                        scratch.v4rho2sigma2,
-                        v4rho2sigma2_len,
-                        "v4rho2sigma2",
-                    )?;
-                    add_opt_n(
-                        output.v4rhosigma3.as_deref_mut(),
-                        weight,
-                        scratch.v4rhosigma3,
-                        v4rhosigma3_len,
-                        "v4rhosigma3",
-                    )?;
-                    add_opt_n(
-                        output.v4sigma4.as_deref_mut(),
-                        weight,
-                        scratch.v4sigma4,
-                        v4sigma4_len,
-                        "v4sigma4",
-                    )?;
-                }
+                let [zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma,
+                    v3rhosigma2, v3sigma3, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3,
+                    v4sigma4] = fields;
+
+                let gga_input = GgaInput::new(leaf.rho, leaf.sigma, n, spin)?;
+                let mut aux_out = GgaOutput {
+                    zk: Some(zk),
+                    vrho: opt(vrho),
+                    vsigma: opt(vsigma),
+                    v2rho2: opt(v2rho2),
+                    v2rhosigma: opt(v2rhosigma),
+                    v2sigma2: opt(v2sigma2),
+                    v3rho3: opt(v3rho3),
+                    v3rho2sigma: opt(v3rho2sigma),
+                    v3rhosigma2: opt(v3rhosigma2),
+                    v3sigma3: opt(v3sigma3),
+                    v4rho4: opt(v4rho4),
+                    v4rho3sigma: opt(v4rho3sigma),
+                    v4rho2sigma2: opt(v4rho2sigma2),
+                    v4rhosigma3: opt(v4rhosigma3),
+                    v4sigma4: opt(v4sigma4),
+                };
+                dispatch_gga_by_id(
+                    aux.meta.id,
+                    &gga_input,
+                    order,
+                    &mut aux_out,
+                    aux.kernel_ext_params(),
+                    &aux.thresholds,
+                )?;
+
+                let mut cur: &[f64] = &scratch;
+                let mut next = |k: usize| -> &[f64] {
+                    let (h, t) = cur.split_at(lens[k]);
+                    cur = t;
+                    h
+                };
+                axpy_into(leaf.zk.as_deref_mut(), weight, next(0));
+                axpy_into(leaf.vrho.as_deref_mut(), weight, next(1));
+                axpy_into(leaf.vsigma.as_deref_mut(), weight, next(2));
+                axpy_into(leaf.v2rho2.as_deref_mut(), weight, next(3));
+                axpy_into(leaf.v2rhosigma.as_deref_mut(), weight, next(4));
+                axpy_into(leaf.v2sigma2.as_deref_mut(), weight, next(5));
+                axpy_into(leaf.v3rho3.as_deref_mut(), weight, next(6));
+                axpy_into(leaf.v3rho2sigma.as_deref_mut(), weight, next(7));
+                axpy_into(leaf.v3rhosigma2.as_deref_mut(), weight, next(8));
+                axpy_into(leaf.v3sigma3.as_deref_mut(), weight, next(9));
+                axpy_into(leaf.v4rho4.as_deref_mut(), weight, next(10));
+                axpy_into(leaf.v4rho3sigma.as_deref_mut(), weight, next(11));
+                axpy_into(leaf.v4rho2sigma2.as_deref_mut(), weight, next(12));
+                axpy_into(leaf.v4rhosigma3.as_deref_mut(), weight, next(13));
+                axpy_into(leaf.v4sigma4.as_deref_mut(), weight, next(14));
             }
             Family::Mgga => {
+                // Rejected before the sweep started; unreachable in practice.
                 return Err(LibxcRsError::UnsupportedFunctional {
                     id: functional.meta.id,
                     reason: "MGGA auxiliary inside GGA parent (mix_func.c rejects this combination)",
@@ -1458,6 +1398,178 @@ mod tests {
     use libxc_core::input::LdaInput;
     use libxc_core::model::{DerivativeOrder, Spin, Thresholds};
     use libxc_core::output::LdaOutput;
+
+    /// `sweep_gga::set_min_chunk` is a process-wide knob and the test harness
+    /// runs tests on parallel threads, so every test that sets or depends on
+    /// it holds this while it runs.
+    static MIN_CHUNK_GUARD: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+    /// A synthetic grid with the shape a molecular quadrature has: a
+    /// below-threshold tail, so density screening is exercised inside the
+    /// leaves too.
+    fn gga_grid(np: usize, nc: usize) -> (Vec<f64>, Vec<f64>) {
+        let ns = if nc == 1 { 1 } else { 3 };
+        let mut rho = vec![0.0; np * nc];
+        let mut sigma = vec![0.0; np * ns];
+        for ip in 0..np {
+            let t = ip as f64 / np as f64;
+            // Exponential decay into the tail; the last 30% sit under any
+            // sensible dens_threshold.
+            let r = 2.0 * (-24.0 * t).exp() + 1e-40;
+            let g = 0.7 * r * r;
+            for c in 0..nc {
+                rho[ip * nc + c] = r * (1.0 + 0.3 * c as f64);
+            }
+            for c in 0..ns {
+                sigma[ip * ns + c] = g * (1.0 + 0.1 * c as f64);
+            }
+        }
+        (rho, sigma)
+    }
+
+    fn run_composite(
+        name: &str,
+        spin: Spin,
+        order: DerivativeOrder,
+        np: usize,
+        min_chunk: usize,
+        with_vsigma: bool,
+    ) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
+        use libxc_core::registry::lookup_by_name;
+        let _guard = MIN_CHUNK_GUARD.lock().unwrap_or_else(|p| p.into_inner());
+        let id = lookup_by_name(name).unwrap();
+        let f = Functional::new(id, spin).unwrap();
+        assert!(!f.auxiliaries.is_empty(), "{name} must be a composite");
+        let nc = if spin == Spin::Polarized { 2 } else { 1 };
+        let d = Dimensions::gga(spin);
+        let (rho, sigma) = gga_grid(np, nc);
+        let input = GgaInput::new(&rho, &sigma, np, spin).unwrap();
+        let mut zk = vec![0.0; np * d.zk as usize];
+        let mut vrho = vec![0.0; np * d.vrho as usize];
+        let mut vsigma = vec![0.0; np * d.vsigma as usize];
+        let mut v2rho2 = vec![0.0; np * d.v2rho2 as usize];
+        let mut ws = EvaluationWorkspace::with_order(np, spin, DerivativeOrder::Exc);
+        {
+            let mut out = GgaOutput {
+                zk: Some(&mut zk),
+                vrho: Some(&mut vrho),
+                vsigma: if with_vsigma { Some(&mut vsigma) } else { None },
+                v2rho2: if order >= DerivativeOrder::Fxc { Some(&mut v2rho2) } else { None },
+                ..Default::default()
+            };
+            let saved = libxc_reval::sweep_gga::min_chunk();
+            libxc_reval::sweep_gga::set_min_chunk(min_chunk);
+            let r = f.evaluate_gga(&input, order, &mut out, &mut ws);
+            libxc_reval::sweep_gga::set_min_chunk(saved);
+            r.unwrap();
+        }
+        // The chunked path must not have materialised the whole-grid scratch.
+        assert_eq!(ws.scratch_allocated(), 0, "composite GGA path touched the whole-grid scratch");
+        (zk, vrho, vsigma, v2rho2)
+    }
+
+    /// The leaf-by-leaf composite path reproduces the one-chunk evaluation
+    /// bit for bit, on a grid several leaves long with a screened tail, for a
+    /// composite with GGA auxiliaries (PBE0), one with an LDA auxiliary in
+    /// the mix (B3LYP), and the screened hybrid HSE06.
+    #[test]
+    fn chunked_composite_gga_is_bit_identical_to_one_chunk() {
+        for name in ["XC_HYB_GGA_XC_PBEH", "XC_HYB_GGA_XC_B3LYP", "XC_HYB_GGA_XC_HSE06"] {
+            for spin in [Spin::Unpolarized, Spin::Polarized] {
+                for order in [DerivativeOrder::Vxc, DerivativeOrder::Fxc] {
+                    let np = 5000;
+                    let whole = run_composite(name, spin, order, np, usize::MAX, true);
+                    let leaves = run_composite(name, spin, order, np, 512, true);
+                    for (k, (a, b)) in [(&whole.0, &leaves.0), (&whole.1, &leaves.1), (&whole.2, &leaves.2), (&whole.3, &leaves.3)]
+                        .iter()
+                        .enumerate()
+                    {
+                        let bad = a.iter().zip(b.iter()).filter(|(x, y)| x.to_bits() != y.to_bits()).count();
+                        assert_eq!(bad, 0, "{name} {spin:?} {order:?}: field {k} differs in {bad} values");
+                    }
+                    assert!(whole.0.iter().any(|v| *v != 0.0), "{name}: zk is identically zero");
+                }
+            }
+        }
+    }
+
+    /// A caller may leave a field out; it is simply not accumulated into.
+    #[test]
+    fn chunked_composite_gga_skips_absent_fields() {
+        let full = run_composite("XC_HYB_GGA_XC_PBEH", Spin::Unpolarized, DerivativeOrder::Vxc, 3000, 512, true);
+        let part = run_composite("XC_HYB_GGA_XC_PBEH", Spin::Unpolarized, DerivativeOrder::Vxc, 3000, 512, false);
+        assert_eq!(full.0, part.0);
+        assert_eq!(full.1, part.1);
+        assert!(part.2.iter().all(|v| *v == 0.0));
+    }
+
+    /// A wrong-length caller buffer is rejected up front, before any leaf runs.
+    #[test]
+    fn chunked_composite_gga_rejects_wrong_buffer_length() {
+        use libxc_core::registry::lookup_by_name;
+        let np = 100;
+        let spin = Spin::Unpolarized;
+        let f = Functional::new(lookup_by_name("XC_HYB_GGA_XC_PBEH").unwrap(), spin).unwrap();
+        let (rho, sigma) = gga_grid(np, 1);
+        let input = GgaInput::new(&rho, &sigma, np, spin).unwrap();
+        let mut zk = vec![0.0; np];
+        let mut vrho = vec![0.0; np + 1];
+        let mut vsigma = vec![0.0; np];
+        let mut ws = EvaluationWorkspace::with_order(np, spin, DerivativeOrder::Exc);
+        let mut out = GgaOutput {
+            zk: Some(&mut zk),
+            vrho: Some(&mut vrho),
+            vsigma: Some(&mut vsigma),
+            ..Default::default()
+        };
+        match f.evaluate_gga(&input, DerivativeOrder::Vxc, &mut out, &mut ws) {
+            Err(LibxcRsError::OutputBufferSizeMismatch { field: "vrho", expected, actual }) => {
+                assert_eq!((expected, actual), (np, np + 1));
+            }
+            other => panic!("expected OutputBufferSizeMismatch on vrho, got {other:?}"),
+        }
+    }
+
+    /// The pool holds at most one buffer per worker that was busy at once,
+    /// and a second evaluation through the same workspace allocates nothing.
+    #[test]
+    fn leaf_pool_is_bounded_and_reused() {
+        use libxc_core::registry::lookup_by_name;
+        // Enough points that there are many more leaves than workers, so the
+        // pool size is set by the workers and not by the grid.
+        let _guard = MIN_CHUNK_GUARD.lock().unwrap_or_else(|p| p.into_inner());
+        let np = 400_000;
+        let spin = Spin::Polarized;
+        let f = Functional::new(lookup_by_name("XC_HYB_GGA_XC_PBEH").unwrap(), spin).unwrap();
+        let (rho, sigma) = gga_grid(np, 2);
+        let input = GgaInput::new(&rho, &sigma, np, spin).unwrap();
+        let d = Dimensions::gga(spin);
+        let mut zk = vec![0.0; np];
+        let mut vrho = vec![0.0; np * d.vrho as usize];
+        let mut vsigma = vec![0.0; np * d.vsigma as usize];
+        let mut ws = EvaluationWorkspace::with_order(np, spin, DerivativeOrder::Exc);
+        let mut go = |ws: &mut EvaluationWorkspace| {
+            let mut out = GgaOutput {
+                zk: Some(&mut zk),
+                vrho: Some(&mut vrho),
+                vsigma: Some(&mut vsigma),
+                ..Default::default()
+            };
+            f.evaluate_gga(&input, DerivativeOrder::Vxc, &mut out, ws).unwrap();
+        };
+        go(&mut ws);
+        let after_first = ws.pool_len();
+        let per_leaf = libxc_reval::sweep_gga::min_chunk() * (d.zk + d.vrho + d.vsigma) as usize;
+        assert!(after_first > 0);
+        assert!(
+            after_first <= rayon::current_num_threads() * per_leaf,
+            "pool {after_first} exceeds workers x leaf ({} x {per_leaf})",
+            rayon::current_num_threads()
+        );
+        assert!(after_first * 4 < (d.zk + d.vrho + d.vsigma) as usize * np, "pool is grid-sized");
+        go(&mut ws);
+        assert_eq!(ws.pool_len(), after_first, "second evaluation grew the pool");
+    }
 
     fn default_thresholds() -> Thresholds {
         Thresholds::default()

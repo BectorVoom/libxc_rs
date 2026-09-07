@@ -317,6 +317,21 @@ fn main() {
             order: DerivativeOrder::Vxc,
             spin: Spin::Polarized,
         },
+        // PBE0: `0.75 * gga_x_pbe + gga_c_pbe`, the plain global hybrid of the
+        // PBE pair above. Both auxiliaries are SIMD kernels, so this is the
+        // composite whose cost is closest to pure mix overhead.
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_pbeh",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_pbeh",
+            order: DerivativeOrder::Vxc,
+            spin: Spin::Polarized,
+        },
         // The screened-exchange leg HSE06 is built from. Timed on its own so
         // the composite's cost can be attributed: HSE06 evaluates this twice
         // (once per omega) plus `gga_c_pbe`.
@@ -966,16 +981,26 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
         set_min_chunk(Fam::Gga, default_min_chunk());
         run(&f, &mut ws1, &mut r1);
     });
+    // The composite GGA path works leaf by leaf out of the workspace's pool
+    // and never touches the whole-grid scratch, so that stays unallocated;
+    // what is resident is the pool, sized by workers x leaf, not by the grid.
     println!(
-        "        rust scratch: {} elems ({:.2} MB) for {} grid points, order {:?}",
+        "        rust scratch: {} elems allocated of {} sized-for ({:.2} MB) for {} grid points, order {:?}",
+        ws1.scratch_allocated(),
         ws1.scratch_len(),
-        ws1.scratch_len() as f64 * 8.0 / 1e6,
+        ws1.scratch_allocated() as f64 * 8.0 / 1e6,
         np,
         ws1.alloc_order()
     );
     println!(
-        "        (the all-orders MGGA superset this used to allocate: {} elems, {:.1} MB)",
-        Dimensions::mgga(c.spin).total_output_components() * np,
+        "        rust leaf pool: {} elems ({:.3} MB) -- workers x leaf x components, independent of np",
+        ws1.pool_len(),
+        ws1.pool_len() as f64 * 8.0 / 1e6
+    );
+    println!(
+        "        (the whole-grid scratch this used to need: {} elems, {:.2} MB; the all-orders MGGA superset before that: {:.1} MB)",
+        Dimensions::mgga(c.spin).output_components_through(c.order) * np,
+        Dimensions::mgga(c.spin).output_components_through(c.order) as f64 * np as f64 * 8.0 / 1e6,
         Dimensions::mgga(c.spin).total_output_components() as f64 * np as f64 * 8.0 / 1e6
     );
 
@@ -1009,6 +1034,18 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
     drop(legs);
 
     mem_report(buf_mb, in_mb, hwm0, rss0, a0);
+    // The chunked composite path has to reproduce the one-chunk evaluation
+    // bit for bit: same zero, same `+= w * aux` per element in the same order,
+    // only carved into leaves. Checked exactly, not to a tolerance.
+    let bitwise = [(&r1.zk, &rn.zk), (&r1.vrho, &rn.vrho), (&r1.vsigma, &rn.vsigma)]
+        .iter()
+        .map(|(a, b)| a.iter().zip(b.iter()).filter(|(x, y)| x.to_bits() != y.to_bits()).count())
+        .sum::<usize>();
+    println!(
+        "        rust-1t vs rust-Nt bitwise: {} differing values{}",
+        bitwise,
+        if bitwise == 0 { " (identical)" } else { "  !! chunked composite is not bit-exact" }
+    );
     check(
         &[
             ("zk", &b1.zk, &rn.zk),

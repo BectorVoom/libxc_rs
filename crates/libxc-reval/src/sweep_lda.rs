@@ -292,3 +292,28 @@ pub fn par_sweep<F>(
         || par_sweep(r, d, min_chunk, dens_threshold, f),
     );
 }
+
+/// Recursively halve the grid and hand every leaf to `f`, in parallel.
+///
+/// The same split as [`par_sweep`] -- every array narrowed at its own stride,
+/// leaves of at most `min_chunk` points -- but with nothing done to the leaf:
+/// no zeroing, no density screening. It exists for the composite (mixed)
+/// path in `libxc-eval`, which runs several auxiliary kernels over each leaf
+/// and accumulates them into the parent's outputs while the leaf is still in
+/// cache. Each auxiliary is dispatched as an ordinary whole-"grid" call over
+/// the leaf, so it gets its own zeroing and its own screening from
+/// [`par_sweep`] exactly as it would on the full grid; and because a leaf is
+/// already at most `min_chunk` points, that inner call never splits again.
+pub fn par_leaves<F>(chunk: LdaChunk<'_, '_>, d: &Dimensions, min_chunk: usize, f: &F)
+where
+    F: Fn(&mut LdaChunk<'_, '_>) + Sync,
+{
+    if chunk.np <= min_chunk {
+        let mut leaf = chunk;
+        f(&mut leaf);
+        return;
+    }
+    let mid = chunk.np / 2;
+    let (l, r) = chunk.split_at(mid, d);
+    rayon::join(|| par_leaves(l, d, min_chunk, f), || par_leaves(r, d, min_chunk, f));
+}

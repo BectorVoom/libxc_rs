@@ -67,8 +67,8 @@
  },
  "gga_c_acgga:kxc:pol": {
   "base_fp": "bcbcd483c57315fc",
-  "base_ns1t": 1977.534,
-  "base_nsNt": 386.497,
+  "base_ns1t": 1903.477,
+  "base_nsNt": 276.282,
   "breakdown": {
    "cbrt": 5,
    "exp": 1,
@@ -78,14 +78,14 @@
   "case": "gga:gga_c_acgga:kxc:pol",
   "fingerprint_same": true,
   "fp": "bcbcd483c57315fc",
-  "minforeign": 2.2,
+  "minforeign": 0.11,
   "np": 100000,
-  "ns1t": 383.958,
-  "nsNt": 115.856,
-  "ratio": 3.336,
-  "ratio1t": 5.15,
+  "ns1t": 467.208,
+  "nsNt": 117.709,
+  "ratio": 2.347,
+  "ratio1t": 4.074,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_c_acgga:kxc:unpol": {
   "base_fp": "5490bbfb35bb0077",
@@ -1382,8 +1382,8 @@
  },
  "gga_c_gapc:lxc:unpol": {
   "base_fp": "35dcca717b5137ae",
-  "base_ns1t": 10503.808,
-  "base_nsNt": 2041.891,
+  "base_ns1t": 7076.244,
+  "base_nsNt": 1074.714,
   "breakdown": {
    "cbrt": 3,
    "ln": 4,
@@ -1393,14 +1393,14 @@
   "case": "gga:gga_c_gapc:lxc:unpol",
   "fingerprint_same": true,
   "fp": "35dcca717b5137ae",
-  "minforeign": 9.22,
+  "minforeign": 0.12,
   "np": 100000,
-  "ns1t": 2603.07,
-  "nsNt": 817.527,
-  "ratio": 2.498,
-  "ratio1t": 4.035,
+  "ns1t": 1618.639,
+  "nsNt": 322.006,
+  "ratio": 3.338,
+  "ratio1t": 4.372,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_c_gapc:vxc:pol": {
   "base_fp": "8a8c70712498479f",
@@ -3548,8 +3548,8 @@
  },
  "gga_c_p86:kxc:pol": {
   "base_fp": "ae5293c724f11524",
-  "base_ns1t": 691.46,
-  "base_nsNt": 221.763,
+  "base_ns1t": 337.439,
+  "base_nsNt": 72.724,
   "breakdown": {
    "cbrt": 5,
    "exp": 1,
@@ -3560,14 +3560,14 @@
   "case": "gga:gga_c_p86:kxc:pol",
   "fingerprint_same": true,
   "fp": "ae5293c724f11524",
-  "minforeign": 9.1,
+  "minforeign": 0.06,
   "np": 100000,
-  "ns1t": 157.602,
-  "nsNt": 49.272,
-  "ratio": 4.501,
-  "ratio1t": 4.387,
+  "ns1t": 147.457,
+  "nsNt": 48.223,
+  "ratio": 1.508,
+  "ratio1t": 2.288,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_c_p86:kxc:unpol": {
   "base_fp": "75651ef0ac279c7e",
@@ -3594,8 +3594,8 @@
  },
  "gga_c_p86:lxc:pol": {
   "base_fp": "f02fb70152b44991",
-  "base_ns1t": 1547.15,
-  "base_nsNt": 245.255,
+  "base_ns1t": 992.04,
+  "base_nsNt": 151.68,
   "breakdown": {
    "cbrt": 5,
    "exp": 1,
@@ -3606,14 +3606,14 @@
   "case": "gga:gga_c_p86:lxc:pol",
   "fingerprint_same": true,
   "fp": "f02fb70152b44991",
-  "minforeign": 9.5,
+  "minforeign": 0.05,
   "np": 100000,
-  "ns1t": 491.445,
-  "nsNt": 163.938,
-  "ratio": 1.496,
-  "ratio1t": 3.148,
+  "ns1t": 314.634,
+  "nsNt": 78.994,
+  "ratio": 1.92,
+  "ratio1t": 3.153,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_c_p86:lxc:unpol": {
   "base_fp": "c0f2373f079e0541",
@@ -7698,8 +7698,8 @@
  },
  "gga_k_apbeint:lxc:pol": {
   "base_fp": "6e16a831c90a107e",
-  "base_ns1t": 1406.461,
-  "base_nsNt": 534.026,
+  "base_ns1t": 659.364,
+  "base_nsNt": 129.048,
   "breakdown": {
    "cbrt": 7
   },
@@ -7707,14 +7707,14 @@
   "case": "gga:gga_k_apbeint:lxc:pol",
   "fingerprint_same": true,
   "fp": "6e16a831c90a107e",
-  "minforeign": 13.28,
+  "minforeign": 0.2,
   "np": 100000,
-  "ns1t": 676.775,
-  "nsNt": 241.048,
-  "ratio": 2.215,
-  "ratio1t": 2.078,
+  "ns1t": 263.86,
+  "nsNt": 66.58,
+  "ratio": 1.938,
+  "ratio1t": 2.499,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_apbeint:lxc:unpol": {
   "base_fp": "adddcf803ed67c70",
@@ -8603,8 +8603,8 @@
  },
  "gga_k_lgap_ge:kxc:pol": {
   "base_fp": "c55e77b8183d9d7b",
-  "base_ns1t": 434.959,
-  "base_nsNt": 288.911,
+  "base_ns1t": 219.019,
+  "base_nsNt": 60.126,
   "breakdown": {
    "cbrt": 7
   },
@@ -8612,14 +8612,14 @@
   "case": "gga:gga_k_lgap_ge:kxc:pol",
   "fingerprint_same": true,
   "fp": "c55e77b8183d9d7b",
-  "minforeign": 14.3,
+  "minforeign": 0.18,
   "np": 100000,
-  "ns1t": 275.858,
-  "nsNt": 172.78,
-  "ratio": 1.672,
-  "ratio1t": 1.577,
+  "ns1t": 111.178,
+  "nsNt": 44.05,
+  "ratio": 1.365,
+  "ratio1t": 1.97,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_lgap_ge:kxc:unpol": {
   "base_fp": "ba2a47607722cb27",
@@ -8643,8 +8643,8 @@
  },
  "gga_k_lgap_ge:lxc:pol": {
   "base_fp": "3c2e61ca34b1dd31",
-  "base_ns1t": 1234.864,
-  "base_nsNt": 337.409,
+  "base_ns1t": 381.465,
+  "base_nsNt": 98.273,
   "breakdown": {
    "cbrt": 7
   },
@@ -8652,14 +8652,14 @@
   "case": "gga:gga_k_lgap_ge:lxc:pol",
   "fingerprint_same": true,
   "fp": "3c2e61ca34b1dd31",
-  "minforeign": 13.44,
+  "minforeign": 0.31,
   "np": 100000,
-  "ns1t": 480.258,
-  "nsNt": 223.21,
-  "ratio": 1.512,
-  "ratio1t": 2.571,
+  "ns1t": 221.977,
+  "nsNt": 60.499,
+  "ratio": 1.624,
+  "ratio1t": 1.718,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_lgap_ge:lxc:unpol": {
   "base_fp": "886e788d9772af2d",
@@ -9357,8 +9357,8 @@
  },
  "gga_k_ol1:kxc:pol": {
   "base_fp": "55f467c864342ce0",
-  "base_ns1t": 455.054,
-  "base_nsNt": 263.032,
+  "base_ns1t": 228.392,
+  "base_nsNt": 60.494,
   "breakdown": {
    "cbrt": 7
   },
@@ -9366,14 +9366,14 @@
   "case": "gga:gga_k_ol1:kxc:pol",
   "fingerprint_same": true,
   "fp": "55f467c864342ce0",
-  "minforeign": 14.5,
+  "minforeign": 0.13,
   "np": 100000,
-  "ns1t": 245.477,
-  "nsNt": 192.119,
-  "ratio": 1.369,
-  "ratio1t": 1.854,
+  "ns1t": 114.245,
+  "nsNt": 44.444,
+  "ratio": 1.361,
+  "ratio1t": 1.999,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_ol1:kxc:unpol": {
   "base_fp": "edaca2031123db8d",
@@ -9397,8 +9397,8 @@
  },
  "gga_k_ol1:lxc:pol": {
   "base_fp": "4027706c8a4d26fc",
-  "base_ns1t": 917.654,
-  "base_nsNt": 362.562,
+  "base_ns1t": 405.512,
+  "base_nsNt": 98.082,
   "breakdown": {
    "cbrt": 7
   },
@@ -9406,14 +9406,14 @@
   "case": "gga:gga_k_ol1:lxc:pol",
   "fingerprint_same": true,
   "fp": "4027706c8a4d26fc",
-  "minforeign": 13.86,
+  "minforeign": 0.18,
   "np": 100000,
-  "ns1t": 515.878,
-  "nsNt": 237.691,
-  "ratio": 1.525,
-  "ratio1t": 1.779,
+  "ns1t": 230.735,
+  "nsNt": 61.264,
+  "ratio": 1.601,
+  "ratio1t": 1.757,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_ol1:lxc:unpol": {
   "base_fp": "5b11b815b86aa47c",
@@ -9717,8 +9717,8 @@
  },
  "gga_k_pearson:kxc:pol": {
   "base_fp": "e7bcca727e772d73",
-  "base_ns1t": 425.867,
-  "base_nsNt": 255.364,
+  "base_ns1t": 218.557,
+  "base_nsNt": 60.741,
   "breakdown": {
    "cbrt": 7
   },
@@ -9726,14 +9726,14 @@
   "case": "gga:gga_k_pearson:kxc:pol",
   "fingerprint_same": true,
   "fp": "e7bcca727e772d73",
-  "minforeign": 14.33,
+  "minforeign": 0.06,
   "np": 100000,
-  "ns1t": 400.598,
-  "nsNt": 186.262,
-  "ratio": 1.371,
-  "ratio1t": 1.063,
+  "ns1t": 109.401,
+  "nsNt": 43.691,
+  "ratio": 1.39,
+  "ratio1t": 1.998,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_pearson:kxc:unpol": {
   "base_fp": "4f27b30699d2ed73",
@@ -9757,8 +9757,8 @@
  },
  "gga_k_pearson:lxc:pol": {
   "base_fp": "c68f2689e2226e6d",
-  "base_ns1t": 1015.166,
-  "base_nsNt": 357.079,
+  "base_ns1t": 448.816,
+  "base_nsNt": 100.31,
   "breakdown": {
    "cbrt": 7
   },
@@ -9766,14 +9766,14 @@
   "case": "gga:gga_k_pearson:lxc:pol",
   "fingerprint_same": true,
   "fp": "c68f2689e2226e6d",
-  "minforeign": 13.79,
+  "minforeign": 0.13,
   "np": 100000,
-  "ns1t": 562.815,
-  "nsNt": 218.667,
-  "ratio": 1.633,
-  "ratio1t": 1.804,
+  "ns1t": 225.481,
+  "nsNt": 61.594,
+  "ratio": 1.629,
+  "ratio1t": 1.99,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_k_pearson:lxc:unpol": {
   "base_fp": "9f4cd51112c629d7",
@@ -11300,8 +11300,8 @@
  },
  "gga_x_bayesian:kxc:pol": {
   "base_fp": "81dcf6bc5f69c819",
-  "base_ns1t": 810.161,
-  "base_nsNt": 320.828,
+  "base_ns1t": 290.883,
+  "base_nsNt": 72.698,
   "breakdown": {
    "cbrt": 7
   },
@@ -11309,14 +11309,14 @@
   "case": "gga:gga_x_bayesian:kxc:pol",
   "fingerprint_same": true,
   "fp": "81dcf6bc5f69c819",
-  "minforeign": 14.29,
+  "minforeign": 0.28,
   "np": 100000,
-  "ns1t": 284.653,
-  "nsNt": 202.316,
-  "ratio": 1.586,
-  "ratio1t": 2.846,
+  "ns1t": 127.263,
+  "nsNt": 46.488,
+  "ratio": 1.564,
+  "ratio1t": 2.286,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_x_bayesian:kxc:unpol": {
   "base_fp": "34b4e1311e9ae73b",
@@ -16015,8 +16015,8 @@
  },
  "gga_x_pbe_erf_gws:kxc:unpol": {
   "base_fp": "7aaf6ebab1f1eaf5",
-  "base_ns1t": 374.797,
-  "base_nsNt": 125.312,
+  "base_ns1t": 238.733,
+  "base_nsNt": 40.522,
   "breakdown": {
    "cbrt": 2,
    "erf": 2,
@@ -16027,14 +16027,14 @@
   "case": "gga:gga_x_pbe_erf_gws:kxc:unpol",
   "fingerprint_same": true,
   "fp": "7aaf6ebab1f1eaf5",
-  "minforeign": 7.8,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 149.845,
-  "nsNt": 27.475,
-  "ratio": 4.561,
-  "ratio1t": 2.501,
+  "ns1t": 78.31,
+  "nsNt": 13.469,
+  "ratio": 3.009,
+  "ratio1t": 3.049,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_x_pbe_erf_gws:lxc:pol": {
   "base_fp": "b49a7fd44985cf46",
@@ -16061,8 +16061,8 @@
  },
  "gga_x_pbe_erf_gws:lxc:unpol": {
   "base_fp": "b3b59f61b009ea70",
-  "base_ns1t": 756.248,
-  "base_nsNt": 259.603,
+  "base_ns1t": 458.152,
+  "base_nsNt": 72.944,
   "breakdown": {
    "cbrt": 2,
    "erf": 2,
@@ -16073,14 +16073,14 @@
   "case": "gga:gga_x_pbe_erf_gws:lxc:unpol",
   "fingerprint_same": true,
   "fp": "b3b59f61b009ea70",
-  "minforeign": 8.76,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 250.461,
-  "nsNt": 39.346,
-  "ratio": 6.598,
-  "ratio1t": 3.019,
+  "ns1t": 120.771,
+  "nsNt": 21.62,
+  "ratio": 3.374,
+  "ratio1t": 3.794,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_x_pbe_erf_gws:vxc:pol": {
   "base_fp": "c3ca6d52c7b77808",
@@ -18099,8 +18099,8 @@
  },
  "gga_x_sfat:kxc:unpol": {
   "base_fp": "6e189001a5c6f7dc",
-  "base_ns1t": 725.595,
-  "base_nsNt": 106.128,
+  "base_ns1t": 371.256,
+  "base_nsNt": 59.611,
   "breakdown": {
    "atan2": 1,
    "cbrt": 5,
@@ -18110,14 +18110,14 @@
   "case": "gga:gga_x_sfat:kxc:unpol",
   "fingerprint_same": true,
   "fp": "6e189001a5c6f7dc",
-  "minforeign": 4.24,
+  "minforeign": 0.05,
   "np": 100000,
-  "ns1t": 229.46,
-  "nsNt": 32.215,
-  "ratio": 3.294,
-  "ratio1t": 3.162,
+  "ns1t": 115.039,
+  "nsNt": 19.677,
+  "ratio": 3.029,
+  "ratio1t": 3.227,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_x_sfat:lxc:pol": {
   "base_fp": "9dceb73bce210c64",
@@ -18143,8 +18143,8 @@
  },
  "gga_x_sfat:lxc:unpol": {
   "base_fp": "e6ab4ac1a719cd9d",
-  "base_ns1t": 1448.554,
-  "base_nsNt": 193.362,
+  "base_ns1t": 975.583,
+  "base_nsNt": 139.125,
   "breakdown": {
    "atan2": 1,
    "cbrt": 5,
@@ -18154,14 +18154,14 @@
   "case": "gga:gga_x_sfat:lxc:unpol",
   "fingerprint_same": true,
   "fp": "e6ab4ac1a719cd9d",
-  "minforeign": 3.45,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 268.242,
-  "nsNt": 57.533,
-  "ratio": 3.361,
-  "ratio1t": 5.4,
+  "ns1t": 207.545,
+  "nsNt": 39.697,
+  "ratio": 3.505,
+  "ratio1t": 4.701,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "gga_x_sfat:vxc:pol": {
   "base_fp": "a5efb9409ce1d70b",
@@ -19150,6 +19150,121 @@
   "ratio": 1.782,
   "ratio1t": 2.215,
   "reps": 5,
+  "verdict": "accept"
+ },
+ "gga_x_wpbeh:exc:pol": {
+  "base_fp": "a316190443cc4ae7",
+  "base_ns1t": 407.459,
+  "base_nsNt": 86.24,
+  "breakdown": {
+   "cbrt": 9,
+   "erf": 2,
+   "exp": 4,
+   "ln": 8
+  },
+  "calls": 23,
+  "case": "gga:gga_x_wpbeh:exc:pol",
+  "fingerprint_same": true,
+  "fp": "a316190443cc4ae7",
+  "minforeign": 0.0,
+  "np": 100000,
+  "ns1t": 234.743,
+  "nsNt": 64.917,
+  "ratio": 1.328,
+  "ratio1t": 1.736,
+  "reps": 7,
+  "verdict": "accept"
+ },
+ "gga_x_wpbeh:exc:unpol": {
+  "base_fp": "64151df0fb28c08a",
+  "base_ns1t": 180.969,
+  "base_nsNt": 25.81,
+  "breakdown": {
+   "cbrt": 4,
+   "erf": 1,
+   "exp": 2,
+   "ln": 4
+  },
+  "calls": 11,
+  "case": "gga:gga_x_wpbeh:exc:unpol",
+  "fingerprint_same": true,
+  "fp": "64151df0fb28c08a",
+  "minforeign": 0.0,
+  "np": 100000,
+  "ns1t": 101.463,
+  "nsNt": 15.258,
+  "ratio": 1.692,
+  "ratio1t": 1.784,
+  "reps": 7,
+  "verdict": "accept"
+ },
+ "gga_x_wpbeh:fxc:unpol": {
+  "base_fp": "cf6bf5aeafe58e8d",
+  "base_ns1t": 640.55,
+  "base_nsNt": 99.225,
+  "breakdown": {
+   "cbrt": 4,
+   "erf": 1,
+   "exp": 3,
+   "ln": 4
+  },
+  "calls": 12,
+  "case": "gga:gga_x_wpbeh:fxc:unpol",
+  "fingerprint_same": true,
+  "fp": "cf6bf5aeafe58e8d",
+  "minforeign": 0.0,
+  "np": 100000,
+  "ns1t": 178.21,
+  "nsNt": 31.253,
+  "ratio": 3.175,
+  "ratio1t": 3.594,
+  "reps": 7,
+  "verdict": "accept"
+ },
+ "gga_x_wpbeh:vxc:pol": {
+  "base_fp": "27fbb0f234a440b0",
+  "base_ns1t": 688.747,
+  "base_nsNt": 134.06,
+  "breakdown": {
+   "cbrt": 9,
+   "erf": 2,
+   "exp": 6,
+   "ln": 8
+  },
+  "calls": 25,
+  "case": "gga:gga_x_wpbeh:vxc:pol",
+  "fingerprint_same": true,
+  "fp": "27fbb0f234a440b0",
+  "minforeign": 0.0,
+  "np": 100000,
+  "ns1t": 299.006,
+  "nsNt": 79.98,
+  "ratio": 1.676,
+  "ratio1t": 2.303,
+  "reps": 7,
+  "verdict": "accept"
+ },
+ "gga_x_wpbeh:vxc:unpol": {
+  "base_fp": "e24a518274e63c13",
+  "base_ns1t": 270.168,
+  "base_nsNt": 42.492,
+  "breakdown": {
+   "cbrt": 4,
+   "erf": 1,
+   "exp": 3,
+   "ln": 4
+  },
+  "calls": 12,
+  "case": "gga:gga_x_wpbeh:vxc:unpol",
+  "fingerprint_same": true,
+  "fp": "e24a518274e63c13",
+  "minforeign": 0.0,
+  "np": 100000,
+  "ns1t": 120.401,
+  "nsNt": 20.194,
+  "ratio": 2.104,
+  "ratio1t": 2.244,
+  "reps": 7,
   "verdict": "accept"
  },
  "gga_xc_th1:exc:pol": {
@@ -22032,8 +22147,8 @@
  },
  "lda_c_ml1:kxc:pol": {
   "base_fp": "5ca3b7d6924bb4a5",
-  "base_ns1t": 1311.988,
-  "base_nsNt": 166.008,
+  "base_ns1t": 782.743,
+  "base_nsNt": 109.3,
   "breakdown": {
    "cbrt": 4,
    "ln": 1,
@@ -22043,19 +22158,19 @@
   "case": "lda:lda_c_ml1:kxc:pol",
   "fingerprint_same": true,
   "fp": "5ca3b7d6924bb4a5",
-  "minforeign": 6.85,
+  "minforeign": 0.11,
   "np": 100000,
-  "ns1t": 280.94,
-  "nsNt": 97.938,
-  "ratio": 1.695,
-  "ratio1t": 4.67,
+  "ns1t": 179.879,
+  "nsNt": 40.278,
+  "ratio": 2.714,
+  "ratio1t": 4.351,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_ml1:kxc:unpol": {
   "base_fp": "3656d52eae96fbfb",
-  "base_ns1t": 149.803,
-  "base_nsNt": 36.773,
+  "base_ns1t": 78.651,
+  "base_nsNt": 12.859,
   "breakdown": {
    "cbrt": 4,
    "ln": 1,
@@ -22065,19 +22180,19 @@
   "case": "lda:lda_c_ml1:kxc:unpol",
   "fingerprint_same": true,
   "fp": "3656d52eae96fbfb",
-  "minforeign": 7.84,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 92.763,
-  "nsNt": 15.481,
-  "ratio": 2.375,
-  "ratio1t": 1.615,
+  "ns1t": 45.403,
+  "nsNt": 7.527,
+  "ratio": 1.708,
+  "ratio1t": 1.732,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_ml1:lxc:pol": {
   "base_fp": "4b5d87719d07c2c8",
-  "base_ns1t": 4892.589,
-  "base_nsNt": 756.305,
+  "base_ns1t": 2959.679,
+  "base_nsNt": 387.604,
   "breakdown": {
    "cbrt": 4,
    "ln": 1,
@@ -22087,19 +22202,19 @@
   "case": "lda:lda_c_ml1:lxc:pol",
   "fingerprint_same": true,
   "fp": "4b5d87719d07c2c8",
-  "minforeign": 10.25,
+  "minforeign": 0.13,
   "np": 100000,
-  "ns1t": 1023.044,
-  "nsNt": 338.287,
-  "ratio": 2.236,
-  "ratio1t": 4.782,
+  "ns1t": 823.46,
+  "nsNt": 178.555,
+  "ratio": 2.171,
+  "ratio1t": 3.594,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_ml1:lxc:unpol": {
   "base_fp": "2a4f61e36357e700",
-  "base_ns1t": 152.051,
-  "base_nsNt": 59.095,
+  "base_ns1t": 99.953,
+  "base_nsNt": 15.094,
   "breakdown": {
    "cbrt": 4,
    "ln": 1,
@@ -22109,14 +22224,14 @@
   "case": "lda:lda_c_ml1:lxc:unpol",
   "fingerprint_same": true,
   "fp": "2a4f61e36357e700",
-  "minforeign": 5.43,
+  "minforeign": 0.07,
   "np": 100000,
-  "ns1t": 99.978,
-  "nsNt": 14.453,
-  "ratio": 4.089,
-  "ratio1t": 1.521,
+  "ns1t": 50.224,
+  "nsNt": 7.419,
+  "ratio": 2.035,
+  "ratio1t": 1.99,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_ml1:vxc:pol": {
   "base_fp": "1659dc0af135b60d",
@@ -23505,8 +23620,8 @@
  },
  "lda_c_vwn_1:kxc:unpol": {
   "base_fp": "68cc1d57887d37cc",
-  "base_ns1t": 231.303,
-  "base_nsNt": 48.813,
+  "base_ns1t": 127.852,
+  "base_nsNt": 20.786,
   "breakdown": {
    "atan": 2,
    "cbrt": 3,
@@ -23516,14 +23631,14 @@
   "case": "lda:lda_c_vwn_1:kxc:unpol",
   "fingerprint_same": true,
   "fp": "68cc1d57887d37cc",
-  "minforeign": 7.0,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 79.696,
-  "nsNt": 19.082,
-  "ratio": 2.558,
-  "ratio1t": 2.902,
+  "ns1t": 49.97,
+  "nsNt": 8.686,
+  "ratio": 2.393,
+  "ratio1t": 2.559,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_vwn_1:lxc:pol": {
   "base_fp": "bc5d64fc6e8c27e5",
@@ -24011,8 +24126,8 @@
  },
  "lda_c_vwn_4:lxc:unpol": {
   "base_fp": "e35002cd726f23dd",
-  "base_ns1t": 393.534,
-  "base_nsNt": 93.839,
+  "base_ns1t": 237.418,
+  "base_nsNt": 39.656,
   "breakdown": {
    "atan": 2,
    "cbrt": 3,
@@ -24022,14 +24137,14 @@
   "case": "lda:lda_c_vwn_4:lxc:unpol",
   "fingerprint_same": true,
   "fp": "e35002cd726f23dd",
-  "minforeign": 8.07,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 78.537,
-  "nsNt": 20.445,
-  "ratio": 4.59,
-  "ratio1t": 5.011,
+  "ns1t": 74.028,
+  "nsNt": 13.352,
+  "ratio": 2.97,
+  "ratio1t": 3.207,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_vwn_4:vxc:pol": {
   "base_fp": "bb756cf6a491ba3e",
@@ -24121,8 +24236,8 @@
  },
  "lda_c_vwn_rpa:kxc:unpol": {
   "base_fp": "7a1297d3497da6e5",
-  "base_ns1t": 245.383,
-  "base_nsNt": 36.134,
+  "base_ns1t": 120.768,
+  "base_nsNt": 19.97,
   "breakdown": {
    "atan": 2,
    "cbrt": 3,
@@ -24132,14 +24247,14 @@
   "case": "lda:lda_c_vwn_rpa:kxc:unpol",
   "fingerprint_same": true,
   "fp": "7a1297d3497da6e5",
-  "minforeign": 4.46,
+  "minforeign": 0.0,
   "np": 100000,
-  "ns1t": 46.696,
-  "nsNt": 11.596,
-  "ratio": 3.116,
-  "ratio1t": 5.255,
+  "ns1t": 41.551,
+  "nsNt": 7.13,
+  "ratio": 2.801,
+  "ratio1t": 2.907,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_vwn_rpa:lxc:pol": {
   "base_fp": "1d84c59faddf9ac6",
@@ -24165,8 +24280,8 @@
  },
  "lda_c_vwn_rpa:lxc:unpol": {
   "base_fp": "d969d406938d042b",
-  "base_ns1t": 309.922,
-  "base_nsNt": 66.37,
+  "base_ns1t": 199.544,
+  "base_nsNt": 35.652,
   "breakdown": {
    "atan": 2,
    "cbrt": 3,
@@ -24176,14 +24291,14 @@
   "case": "lda:lda_c_vwn_rpa:lxc:unpol",
   "fingerprint_same": true,
   "fp": "d969d406938d042b",
-  "minforeign": 3.16,
+  "minforeign": 0.07,
   "np": 100000,
-  "ns1t": 65.729,
-  "nsNt": 16.451,
-  "ratio": 4.034,
-  "ratio1t": 4.715,
+  "ns1t": 59.867,
+  "nsNt": 10.807,
+  "ratio": 3.299,
+  "ratio1t": 3.333,
   "reps": 5,
-  "verdict": "deferred-contention"
+  "verdict": "accept"
  },
  "lda_c_vwn_rpa:vxc:pol": {
   "base_fp": "ffd79952ed42bdbc",

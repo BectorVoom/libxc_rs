@@ -255,6 +255,7 @@ dependencies = [
  "bytemuck",
  "libxc-core",
  "libxc-reval",
+ "rayon",
 ]
 
 [[package]]

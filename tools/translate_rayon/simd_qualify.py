@@ -58,6 +58,7 @@ from pathlib import Path
 
 import candidate_profiler
 import from_maple
+import simd as simd_mod
 
 REPO = Path(__file__).resolve().parents[2]
 LEDGER = REPO / "docs" / "perf" / "simd-ledger.json"
@@ -93,7 +94,11 @@ def candidates(tier: int, records: list[dict]) -> list[dict]:
     """
     out = []
     for r in records:
-        if not r["routed"] or r["helpers"] or not r["all_exact"]:
+        if not r["routed"] or not r["all_exact"]:
+            continue
+        # A scalar helper the emitter can only run lane by lane still leaves
+        # everything around it eight lanes wide, so those are candidates too.
+        if any(h not in simd_mod.LANEWISE_HELPERS for h in r["helpers"]):
             continue
         if r["tot_calls"] < 2:
             continue

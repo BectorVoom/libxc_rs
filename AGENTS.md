@@ -171,6 +171,36 @@ Three things from that work bind future changes:
 - **Output buffers are zeroed per chunk in `par_sweep`, not per array in
   `prepare`.** Worth 5-10% on the parallel path, and bit-neutral.
 - **`screened_call` is not optional.** See below.
+- **Scalar helpers no longer bar a kernel from the SIMD emitter.** `xc_erfcx`
+  and `xc_E1_scaled` have no vector form; `simd.py` maps them to
+  `simd::erfcx` / `simd::e1_scaled`, which run the same scalar function on
+  each lane (`math/src/simd.rs::lanewise`, bit-exact by construction), and
+  `simd_qualify.py` admits a kernel whose helpers are all in
+  `simd.LANEWISE_HELPERS`. That is what got `gga_x_wpbeh` -- both exchange
+  legs of HSE06, and 95% of its cost -- onto the allowlist (2026-09-07; vxc
+  2.10x unpol / 1.68x pol, fxc 3.17x, fingerprints unchanged) and took HSE06
+  from a tie with libxc to 2.3-2.4x. Its `kxc`/`lxc` triples are undecided:
+  the tier-4 build was OOM-killed on the 4 MB `lxc_pol` body. Other helpers
+  (`lambert_w` already has a real vector form; bessel, dilogarithm, br89,
+  integrate do not) could be admitted the same way if a hot kernel needs it.
+- **Composite GGAs (`evaluate_mixed_gga`) run leaf by leaf, not sweep by
+  sweep.** The grid is split as `par_sweep` splits it (`sweep_gga::par_leaves`,
+  generated), and on each leaf every auxiliary runs into a leaf-sized buffer
+  leased from `EvaluationWorkspace::leaf_scratch` (a pool, one buffer per
+  worker that was ever busy at once) and is folded into the caller's output
+  while the leaf is in cache. Scratch is `O(workers * leaf * components)`
+  instead of `O(np * components)` -- 0.6 / 1.2 MB for HSE06 vxc at any grid
+  size, against 4 / 8 MB whole-grid and the 56 / 614 MB that
+  `EvaluationWorkspace::new` used to allocate up front -- and the whole-grid
+  scratch is now lazy (`scratch_len` is the promise, `scratch_allocated` the
+  fact), so a GGA composite never materialises it. Bit-identical to the
+  one-chunk evaluation: same zero, same `+= w * aux` per element in the same
+  order; `bench-vs-libxc` asserts `rust-1t == rust-Nt` bitwise on every
+  composite case and `eval::mix` tests do the same for PBE0, B3LYP and HSE06.
+  PBE0 got 10% from losing the serial passes; HSE06 nothing measurable, its
+  cost is the kernel. The LDA and MGGA mixed paths still use the whole-grid
+  scratch. `set_min_chunk` is process-wide, so tests that touch it take
+  `MIN_CHUNK_GUARD`.
 - **The grid loop now vectorises 8-wide (AVX-512), not 2-wide SLP.** The note in
   the CLAUDE.md risk table about "always SSE, `xmm` only" described the
   pre-`target-cpu` build. Anything that puts a function boundary or a libm call

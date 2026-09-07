@@ -72,7 +72,17 @@ FREE_EXACT = {
     "rmath::erf": "simd::erf", "erf": "simd::erf",
     "rmath::erfc": "simd::erfc", "erfc": "simd::erfc",
     "lambert_w": "simd::lambert_w", "LambertW": "simd::lambert_w",
+    # Scalar helpers with no vector form, run lane by lane
+    # (`math/src/simd.rs::lanewise`). Bit-exact trivially: each lane calls the
+    # same function the scalar kernel calls. Listing them here is what lets
+    # `gga_x_wpbeh` -- and so HSE06 -- into the SIMD emitter at all.
+    "xc_erfcx": "simd::erfcx",
+    "xc_e1_scaled": "simd::e1_scaled",
 }
+
+# Helper names (as the profiler reports them) that FREE_EXACT covers lane-wise.
+# `simd_qualify.py` admits a kernel whose helpers are all in this set.
+LANEWISE_HELPERS = {"xc_erfcx", "xc_e1_scaled"}
 BINARY_FREE_EXACT = {
     "rmath::pow": "simd::pow", "f64::powf": "simd::pow",
     "rmath::atan2": "simd::atan2", "f64::atan2": "simd::atan2",

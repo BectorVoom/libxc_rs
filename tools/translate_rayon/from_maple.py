@@ -165,6 +165,18 @@ SIMD_EXACT_FUNCS = {
     ("gga_c_pbe", "exc", "pol"),
     ("gga_c_pbe", "vxc", "pol"),  # 2.55x  (25.67 -> 10.05) libxc 30.19
     ("gga_c_pbe", "fxc", "unpol"),  # 1.76x  (22.34 -> 12.71) libxc 34.65
+    # gga_x_wpbeh -- both exchange legs of HSE06. It calls `xc_erfcx` and
+    # `xc_E1_scaled`, scalar helpers with no vector form, which kept it out of
+    # every sweep; simd.py now runs those lane by lane (`simd::erfcx`,
+    # `simd::e1_scaled`) and everything else in the body (8 sqrt, 4 ln, 3 exp,
+    # 1 erf per point) goes eight wide. Qualified 2026-09-07, fingerprints
+    # unchanged; kxc/lxc were not decided (the tier-4 build ran out of memory
+    # on the 4 MB `lxc_pol` body) and stay scalar.
+    ("gga_x_wpbeh", "exc", "unpol"),  # 1.69x  (25.81 -> 15.26 ns/pt)
+    ("gga_x_wpbeh", "vxc", "unpol"),  # 2.10x  (42.49 -> 20.19 ns/pt)
+    ("gga_x_wpbeh", "exc", "pol"),  # 1.33x  (86.24 -> 64.92 ns/pt)
+    ("gga_x_wpbeh", "vxc", "pol"),  # 1.68x  (134.06 -> 79.98 ns/pt)
+    ("gga_x_wpbeh", "fxc", "unpol"),  # 3.17x  (99.22 -> 31.25 ns/pt)
     # Added by tools/translate_rayon/simd_qualify.py; each line's
     # ratio is sweep ns/pt before -> after, fingerprint unchanged.
     ("gga_c_hcth_a", "exc", "unpol"),  # 1.44x  (14.61 -> 10.13 ns/pt)

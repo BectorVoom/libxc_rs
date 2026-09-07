@@ -192,3 +192,32 @@ pub fn lambert_w(z: f64x8) -> f64x8 {
     is_below_branch.select(f64x8::splat(-1.0), is_small_z.select(small_res, w))
 }
 
+
+/// Run a scalar helper on every lane.
+///
+/// For the special functions that have no vector form -- `xc_erfcx` and
+/// `xc_E1_scaled`, both branchy table/Chebyshev evaluations transcribed from
+/// libxc -- this is what makes a kernel that calls them eligible for the SIMD
+/// emitter at all. It is bit-exact by construction: each lane runs the very
+/// function the scalar kernel runs, on the very value the scalar kernel would
+/// pass. The eight calls cost what the scalar kernel's eight calls cost; the
+/// win is that everything *around* them (`gga_x_wpbeh vxc` carries 8 `sqrt`,
+/// 4 `ln`, 3 `exp` and an `erf` per point besides) now runs eight lanes wide
+/// instead of the whole grid loop being held to scalar by two helper calls.
+#[inline(always)]
+fn lanewise(x: f64x8, f: fn(f64) -> f64) -> f64x8 {
+    let a: [f64; 8] = x.into();
+    f64x8::new([f(a[0]), f(a[1]), f(a[2]), f(a[3]), f(a[4]), f(a[5]), f(a[6]), f(a[7])])
+}
+
+/// libxc's `xc_erfcx` (scaled complementary error function), per lane.
+#[inline(always)]
+pub fn erfcx(x: f64x8) -> f64x8 {
+    lanewise(x, crate::special::xc_erfcx)
+}
+
+/// libxc's `xc_E1_scaled` (exponentially scaled `E1`), per lane.
+#[inline(always)]
+pub fn e1_scaled(x: f64x8) -> f64x8 {
+    lanewise(x, crate::expint_e1::xc_e1_scaled)
+}

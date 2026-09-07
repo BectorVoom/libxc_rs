@@ -230,3 +230,106 @@ sites left in the patched functions). Measured on three kernels it was worth
 kernels that were *not* patched, so even that is mostly run-to-run drift. Not
 worth a tree-wide emitter change, a full regen and a bitwise gate. The
 experiment is reproducible: reslice, rebuild, compare fingerprints (they match).
+
+## HSE06 and PBE0: the composite path (2026-09-07)
+
+Two changes, measured separately because they land in different layers.
+Same harness, `--np 100000 --reps 7`, ns per grid point, `libxc-Nt` is
+the bar. Every `rust` fingerprint is byte-identical before and after both
+changes (`hse06` unpol `bf57a89529581840`, pol `462c5fd0c8ef8b4d`, `wpbeh`
+`d67311fbdf2bab7d`), and the composite bench now also asserts that
+`rust-1t` and `rust-Nt` agree **bit for bit** -- the chunked mix is checked
+exactly, not to a tolerance.
+
+### 1. `gga_x_wpbeh` was scalar, and HSE06 is two of them
+
+HSE06 is `wpbeh(omega=0) - 0.25 * wpbeh(omega=0.11) + PBEc`. Before this,
+HSE06 was a dead tie with libxc (105.3 vs 105.9 ns/pt parallel; 611 vs 630
+single-threaded) because `gga_x_wpbeh` -- 95% of the cost -- ran the scalar
+kernel, and the scalar kernel is *slower* than libxc's C (294 vs 270 ns/pt),
+as every unvectorised kernel here is since `cbrt`/`ln`/`exp` moved to rmath's
+bit-exact scalar forms.
+
+It was never a SIMD candidate because it calls `xc_erfcx` and `xc_E1_scaled`,
+scalar helpers (a Faddeeva table and a Chebyshev series, transcribed from
+libxc) that have no vector form, and `simd_qualify.py` skipped any kernel with
+a helper. `simd.py` now maps those two to `simd::erfcx` / `simd::e1_scaled`,
+which run the *same scalar function on each lane*
+(`math/src/simd.rs::lanewise`) -- bit-exact by construction -- and everything
+else in the body (8 `sqrt`, 4 `ln`, 3 `exp`, 1 `erf` per point) goes eight
+wide. Qualified through the normal ledger gate:
+
+| triple | before | after | ratio |
+|---|--:|--:|--:|
+| `gga_x_wpbeh exc unpol` | 25.81 | 15.26 | 1.69x |
+| `gga_x_wpbeh vxc unpol` | 42.49 | 20.19 | 2.10x |
+| `gga_x_wpbeh exc pol` | 86.24 | 64.92 | 1.33x |
+| `gga_x_wpbeh vxc pol` | 134.06 | 79.98 | 1.68x |
+| `gga_x_wpbeh fxc unpol` | 99.22 | 31.25 | 3.17x |
+
+`kxc`/`lxc` are undecided: the tier-4 build was killed for memory on the
+4 MB `lxc_pol` body with other builds running, and a screened hybrid's third
+and fourth derivatives are not on any SCF or response hot path. They stay
+scalar.
+
+### 2. The mix runs leaf by leaf, out of a pooled scratch
+
+`evaluate_mixed_gga` used to run each auxiliary as a whole-grid sweep into an
+`np`-sized scratch and then add `w * scratch` into the caller's output in a
+serial pass, per field, per auxiliary, on the calling thread -- after a
+serial zeroing of every output. It now splits the grid exactly as `par_sweep`
+does (`sweep_gga::par_leaves`) and on each leaf runs every auxiliary into a
+leaf-sized buffer leased from the workspace's pool
+(`EvaluationWorkspace::leaf_scratch`), folding it into the output while the
+leaf is in cache. The arithmetic per element is unchanged (`0`, then
+`+= w_k * aux_k` in metadata order), so the bits are the same.
+
+Memory is what this is for. The scratch was `np * components` (and
+`EvaluationWorkspace::new` promised the all-orders MGGA superset, 767 doubles
+per polarized point, 613 MB at 100k points); it is now bounded by
+`workers * leaf * components` and does not grow with the grid, and the
+whole-grid scratch is allocated only when an LDA or MGGA composite first
+needs it:
+
+| HSE06 `vxc`, 100k points | whole-grid scratch | now (pool) | `EvaluationWorkspace::new` used to hold |
+|---|--:|--:|--:|
+| unpolarized | 4.00 MB | 0.60 MB | 56 MB |
+| polarized | 8.00 MB | 1.20 MB | 614 MB |
+
+Speed: for HSE06 the mix layer was never the bottleneck (46.1 -> 47.1 ns/pt
+unpol, 106.5 -> 106.6 pol, with the SIMD `wpbeh` in both) -- the serial passes
+were a few percent under the kernel cost. For PBE0, whose two auxiliaries are
+both cheap SIMD kernels, the serial passes were a visible share and go away:
+
+| case | libxc-Nt | old mix | **new mix** | vs libxc |
+|---|--:|--:|--:|--:|
+| `hyb_gga_xc_pbeh` exc+vxc unpol | 15.75 | 9.16 | **8.25** | 2.08x |
+| `hyb_gga_xc_pbeh` exc+vxc pol | 39.88 | 16.56 | **14.74** | 3.02x |
+
+### Results
+
+| case | libxc-1t | rust-1t was | rust-1t now | libxc-Nt | rust-Nt was | rust-Nt now | **vs libxc** (was) |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| `hyb_gga_xc_hse06` exc+vxc unpol | 621.3 | 611.4 | 276.5 | 108.7 | 105.3 | **47.1** | **2.31x** (1.01x) |
+| `hyb_gga_xc_hse06` exc+vxc pol | 1428.1 | 1497.0 | 627.2 | 259.3 | 242.2 | **106.6** | **2.43x** (1.08x) |
+| `gga_x_wpbeh` exc+vxc unpol | 253.0 | 294.3 | 120.0 | 48.4 | 47.5 | **19.9** | **2.43x** (1.03x) |
+| `hyb_gga_xc_pbeh` exc+vxc unpol | 104.2 | -- | 49.7 | 17.1 | -- | **8.25** | **2.08x** |
+| `hyb_gga_xc_pbeh` exc+vxc pol | 230.8 | -- | 93.8 | 44.5 | -- | **14.7** | **3.02x** |
+
+PBE's own kernels were already on the allowlist and are untouched; their rows
+are here so the two names in the question have their numbers side by side:
+
+| case | libxc-Nt | rust-Nt | vs libxc |
+|---|--:|--:|--:|
+| `gga_x_pbe` exc+vxc unpol | 3.54 | 3.35 | 1.06x (run-to-run noise on a 3 ns kernel: the earlier run gave 4.65 vs 3.46, 1.34x) |
+| `gga_x_pbe` exc+vxc pol | 17.98 | 6.16 | 2.92x |
+| `gga_x_pbe` exc+vxc+fxc unpol | 6.33 | 3.85 | 1.64x |
+| `gga_c_pbe` exc+vxc unpol | 13.14 | 4.69 | 2.80x |
+| `gga_c_pbe` exc+vxc pol | 25.91 | 8.41 | 3.08x |
+| `gga_c_pbe` exc+vxc+fxc unpol | 21.37 | 6.93 | 3.08x |
+
+`gga_x_pbe` unpolarized `vxc` is the weakest row and it is at the floor: the
+kernel is three `cbrt` and ~40 flops per point, `docs/perf/kernel-codegen.md`
+already closed hoisting, bounds checks and scheduling on it, and its whole
+body is 3.3 ns/pt across 16 threads. The remaining lever there is the
+correctly-rounded `cbrt` itself, which is not one this project will pull.

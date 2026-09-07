@@ -5,6 +5,9 @@
 //! scratch allocation sized for the MGGA superset (D-12), enabling zero-allocation
 //! evaluation loops.
 
+use std::ops::{Deref, DerefMut};
+use std::sync::Mutex;
+
 use libxc_core::dims::Dimensions;
 use libxc_core::model::{DerivativeOrder, Spin};
 
@@ -156,12 +159,53 @@ struct LdaFieldOffsets {
 /// }
 /// ```
 pub struct EvaluationWorkspace {
+    /// The whole-grid scratch. Allocated on first use, not on construction:
+    /// the composite GGA path no longer touches it at all (it works leaf by
+    /// leaf out of `pool`), so a caller who builds a workspace with
+    /// [`EvaluationWorkspace::new`] for an HSE06 or PBE0 run pays nothing for
+    /// the 767-doubles-per-point MGGA superset that constructor promises.
     scratch: Vec<f64>,
     np: usize,
     spin: Spin,
     dims: Dimensions,
-    /// Highest derivative order `scratch` is currently sized for.
+    /// Highest derivative order `scratch` is sized for (or will be, once it is
+    /// first touched).
     alloc_order: DerivativeOrder,
+    /// Leaf-sized buffers for the chunked composite path, one per worker that
+    /// has ever needed one. See [`EvaluationWorkspace::leaf_scratch`].
+    pool: Mutex<Vec<Vec<f64>>>,
+}
+
+/// A leaf-sized scratch buffer borrowed from an [`EvaluationWorkspace`]'s
+/// pool; hands itself back on drop.
+///
+/// Derefs to exactly the `len` elements asked for. The contents are whatever
+/// the last user left there -- every consumer in this crate hands the slice
+/// to a kernel dispatch, which zeroes what it writes.
+pub struct LeafScratch<'w> {
+    ws: &'w EvaluationWorkspace,
+    buf: Vec<f64>,
+    len: usize,
+}
+
+impl Deref for LeafScratch<'_> {
+    type Target = [f64];
+    fn deref(&self) -> &[f64] {
+        &self.buf[..self.len]
+    }
+}
+
+impl DerefMut for LeafScratch<'_> {
+    fn deref_mut(&mut self) -> &mut [f64] {
+        &mut self.buf[..self.len]
+    }
+}
+
+impl Drop for LeafScratch<'_> {
+    fn drop(&mut self) {
+        let buf = std::mem::take(&mut self.buf);
+        self.ws.pool_lock().push(buf);
+    }
 }
 
 /// Split `n` elements off the front of `cursor`, clamped to what is left.
@@ -204,14 +248,73 @@ impl EvaluationWorkspace {
     /// never read because they gate every access on the same `order`.
     pub fn with_order(np: usize, spin: Spin, order: DerivativeOrder) -> Self {
         let dims = Dimensions::mgga(spin);
-        let total = dims.output_components_through(order) * np;
         Self {
-            scratch: vec![0.0; total],
+            scratch: Vec::new(),
             np,
             spin,
             dims,
             alloc_order: order,
+            pool: Mutex::new(Vec::new()),
         }
+    }
+
+    /// Elements the whole-grid scratch is sized for at the current
+    /// `alloc_order`.
+    fn sized_len(&self) -> usize {
+        self.dims.output_components_through(self.alloc_order) * self.np
+    }
+
+    /// Bring the whole-grid scratch up to its promised size. Called by every
+    /// accessor that hands out slices of it, so the allocation happens once,
+    /// the first time an LDA or MGGA composite (or a raw-scratch caller)
+    /// actually needs it, and never on a path that does not.
+    fn ensure_scratch(&mut self) {
+        let need = self.sized_len();
+        if self.scratch.len() < need {
+            self.scratch.resize(need, 0.0);
+        }
+    }
+
+    fn pool_lock(&self) -> std::sync::MutexGuard<'_, Vec<Vec<f64>>> {
+        // A poisoned pool only means a worker panicked mid-leaf; the buffers
+        // in it are plain `Vec<f64>` and still fine to reuse.
+        self.pool.lock().unwrap_or_else(|e| e.into_inner())
+    }
+
+    /// Borrow a scratch buffer of `len` elements for one leaf of a chunked
+    /// composite evaluation.
+    ///
+    /// This is what lets the composite GGA path run in
+    /// `O(workers * leaf * components)` memory instead of
+    /// `O(grid * components)`: each rayon worker takes a buffer sized for the
+    /// leaf it is on, runs every auxiliary kernel over that leaf into it, and
+    /// returns it when the leaf is done. Buffers are pooled, so after the
+    /// first pass a workspace reused across evaluations allocates nothing --
+    /// the pool holds at most as many buffers as there were workers busy at
+    /// once, and each only ever grows.
+    ///
+    /// Takes `&self`: leaves run in parallel, so the workspace is shared
+    /// across them, and the pool is the one piece of it they contend on --
+    /// two short lock holds per leaf of thousands of points.
+    pub fn leaf_scratch(&self, len: usize) -> LeafScratch<'_> {
+        let mut buf = self.pool_lock().pop().unwrap_or_default();
+        if buf.len() < len {
+            buf.resize(len, 0.0);
+        }
+        LeafScratch { ws: self, buf, len }
+    }
+
+    /// Elements held across every pooled leaf buffer. Exposed so a benchmark
+    /// or test can report what the chunked composite path actually keeps
+    /// resident, next to [`EvaluationWorkspace::scratch_allocated`].
+    pub fn pool_len(&self) -> usize {
+        self.pool_lock().iter().map(Vec::len).sum()
+    }
+
+    /// Elements of the whole-grid scratch actually allocated so far -- zero
+    /// until an accessor first needs it, then [`EvaluationWorkspace::scratch_len`].
+    pub fn scratch_allocated(&self) -> usize {
+        self.scratch.len()
     }
 
     /// Grow the scratch so it covers derivative orders up to `order`.
@@ -224,9 +327,12 @@ impl EvaluationWorkspace {
         if order <= self.alloc_order {
             return;
         }
-        let needed = self.dims.output_components_through(order) * self.np;
-        self.scratch.resize(needed, 0.0);
         self.alloc_order = order;
+        // Grow now only if the scratch has already been materialised; an
+        // untouched one stays untouched and picks the new size up on first use.
+        if !self.scratch.is_empty() {
+            self.ensure_scratch();
+        }
     }
 
     /// Highest derivative order the scratch is currently sized for.
@@ -234,10 +340,13 @@ impl EvaluationWorkspace {
         self.alloc_order
     }
 
-    /// Scratch capacity in elements. Exposed so a test can assert that a
-    /// workspace is the size it claims to be.
+    /// Whole-grid scratch size in elements at the current `alloc_order` --
+    /// the size the accessors will hand out, whether or not it has been
+    /// allocated yet (see [`EvaluationWorkspace::scratch_allocated`] for
+    /// that). Exposed so a test can assert that a workspace is the size it
+    /// claims to be.
     pub fn scratch_len(&self) -> usize {
-        self.scratch.len()
+        self.sized_len()
     }
 
     /// Zero every scratch element.
@@ -254,6 +363,7 @@ impl EvaluationWorkspace {
     /// Kept public because it is cheap insurance for a caller doing something
     /// unusual with the raw scratch accessors.
     pub fn zero_scratch(&mut self) {
+        self.ensure_scratch();
         self.scratch.fill(0.0);
     }
 
@@ -361,6 +471,7 @@ impl EvaluationWorkspace {
     /// v2rho2, v3rho3, v4rho4) at their correct offsets within the MGGA-ordered
     /// layout.
     pub fn lda_scratch_mut(&mut self) -> LdaScratch<'_> {
+        self.ensure_scratch();
         let offsets = self.lda_field_offsets();
 
         // Walk the MGGA-ordered buffer once, skipping the fields LDA does not
@@ -408,6 +519,7 @@ impl EvaluationWorkspace {
     /// The MGGA-ordered scratch layout follows
     /// `Dimensions::total_output_components()`'s field ordering exactly.
     pub fn gga_scratch_mut(&mut self) -> GgaScratch<'_> {
+        self.ensure_scratch();
         let d = &self.dims;
         let np = self.np;
         let mgga_d = Dimensions::mgga(self.spin);
@@ -492,6 +604,7 @@ impl EvaluationWorkspace {
     ///
     /// Field ordering follows `Dimensions::total_output_components()` exactly.
     pub fn mgga_scratch_mut(&mut self) -> MggaScratch<'_> {
+        self.ensure_scratch();
         let d = &self.dims;
         let np = self.np;
         let buf = self.scratch.as_mut_slice();
@@ -618,9 +731,16 @@ mod tests {
         let np = 100;
         let ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
         let expected = Dimensions::mgga(Spin::Unpolarized).total_output_components() * np;
-        assert_eq!(ws.scratch.len(), expected);
+        // Sized for the full superset, but nothing is allocated until an
+        // accessor first needs it.
+        assert_eq!(ws.scratch_len(), expected);
+        assert_eq!(ws.scratch_allocated(), 0);
         assert_eq!(ws.np(), np);
         assert_eq!(ws.spin(), Spin::Unpolarized);
+        let mut ws = ws;
+        let _ = ws.lda_scratch_mut();
+        assert_eq!(ws.scratch_allocated(), expected);
+        assert_eq!(ws.scratch.len(), expected);
     }
 
     #[test]
@@ -630,6 +750,10 @@ mod tests {
         let expected = Dimensions::mgga(Spin::Polarized).total_output_components() * np;
         // 767 * 100 = 76700
         assert_eq!(expected, 76700);
+        assert_eq!(ws.scratch_len(), expected);
+        assert_eq!(ws.scratch_allocated(), 0, "allocated eagerly");
+        let mut ws = ws;
+        let _ = ws.mgga_scratch_mut();
         assert_eq!(ws.scratch.len(), expected);
     }
 
