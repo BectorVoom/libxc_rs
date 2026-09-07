@@ -21,6 +21,87 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {
     }
 }
 
+/// Does `output` carry every buffer `prepare` will demand for `order`?
+///
+/// `prepare` *takes* the buffers it validates, so a caller that has to decide
+/// between this path and one that tolerates a missing field (the composite
+/// mix) asks here first.
+pub fn has_required_fields(output: &MggaOutput<'_>, order: DerivativeOrder) -> bool {
+    required_fields(order).iter().all(|f| match *f {
+        "zk" => output.zk.is_some(),
+        "vrho" => output.vrho.is_some(),
+        "vsigma" => output.vsigma.is_some(),
+        "vlapl" => output.vlapl.is_some(),
+        "vtau" => output.vtau.is_some(),
+        "v2rho2" => output.v2rho2.is_some(),
+        "v2rhosigma" => output.v2rhosigma.is_some(),
+        "v2rholapl" => output.v2rholapl.is_some(),
+        "v2rhotau" => output.v2rhotau.is_some(),
+        "v2sigma2" => output.v2sigma2.is_some(),
+        "v2sigmalapl" => output.v2sigmalapl.is_some(),
+        "v2sigmatau" => output.v2sigmatau.is_some(),
+        "v2lapl2" => output.v2lapl2.is_some(),
+        "v2lapltau" => output.v2lapltau.is_some(),
+        "v2tau2" => output.v2tau2.is_some(),
+        "v3rho3" => output.v3rho3.is_some(),
+        "v3rho2sigma" => output.v3rho2sigma.is_some(),
+        "v3rho2lapl" => output.v3rho2lapl.is_some(),
+        "v3rho2tau" => output.v3rho2tau.is_some(),
+        "v3rhosigma2" => output.v3rhosigma2.is_some(),
+        "v3rhosigmalapl" => output.v3rhosigmalapl.is_some(),
+        "v3rhosigmatau" => output.v3rhosigmatau.is_some(),
+        "v3rholapl2" => output.v3rholapl2.is_some(),
+        "v3rholapltau" => output.v3rholapltau.is_some(),
+        "v3rhotau2" => output.v3rhotau2.is_some(),
+        "v3sigma3" => output.v3sigma3.is_some(),
+        "v3sigma2lapl" => output.v3sigma2lapl.is_some(),
+        "v3sigma2tau" => output.v3sigma2tau.is_some(),
+        "v3sigmalapl2" => output.v3sigmalapl2.is_some(),
+        "v3sigmalapltau" => output.v3sigmalapltau.is_some(),
+        "v3sigmatau2" => output.v3sigmatau2.is_some(),
+        "v3lapl3" => output.v3lapl3.is_some(),
+        "v3lapl2tau" => output.v3lapl2tau.is_some(),
+        "v3lapltau2" => output.v3lapltau2.is_some(),
+        "v3tau3" => output.v3tau3.is_some(),
+        "v4rho4" => output.v4rho4.is_some(),
+        "v4rho3sigma" => output.v4rho3sigma.is_some(),
+        "v4rho3lapl" => output.v4rho3lapl.is_some(),
+        "v4rho3tau" => output.v4rho3tau.is_some(),
+        "v4rho2sigma2" => output.v4rho2sigma2.is_some(),
+        "v4rho2sigmalapl" => output.v4rho2sigmalapl.is_some(),
+        "v4rho2sigmatau" => output.v4rho2sigmatau.is_some(),
+        "v4rho2lapl2" => output.v4rho2lapl2.is_some(),
+        "v4rho2lapltau" => output.v4rho2lapltau.is_some(),
+        "v4rho2tau2" => output.v4rho2tau2.is_some(),
+        "v4rhosigma3" => output.v4rhosigma3.is_some(),
+        "v4rhosigma2lapl" => output.v4rhosigma2lapl.is_some(),
+        "v4rhosigma2tau" => output.v4rhosigma2tau.is_some(),
+        "v4rhosigmalapl2" => output.v4rhosigmalapl2.is_some(),
+        "v4rhosigmalapltau" => output.v4rhosigmalapltau.is_some(),
+        "v4rhosigmatau2" => output.v4rhosigmatau2.is_some(),
+        "v4rholapl3" => output.v4rholapl3.is_some(),
+        "v4rholapl2tau" => output.v4rholapl2tau.is_some(),
+        "v4rholapltau2" => output.v4rholapltau2.is_some(),
+        "v4rhotau3" => output.v4rhotau3.is_some(),
+        "v4sigma4" => output.v4sigma4.is_some(),
+        "v4sigma3lapl" => output.v4sigma3lapl.is_some(),
+        "v4sigma3tau" => output.v4sigma3tau.is_some(),
+        "v4sigma2lapl2" => output.v4sigma2lapl2.is_some(),
+        "v4sigma2lapltau" => output.v4sigma2lapltau.is_some(),
+        "v4sigma2tau2" => output.v4sigma2tau2.is_some(),
+        "v4sigmalapl3" => output.v4sigmalapl3.is_some(),
+        "v4sigmalapl2tau" => output.v4sigmalapl2tau.is_some(),
+        "v4sigmalapltau2" => output.v4sigmalapltau2.is_some(),
+        "v4sigmatau3" => output.v4sigmatau3.is_some(),
+        "v4lapl4" => output.v4lapl4.is_some(),
+        "v4lapl3tau" => output.v4lapl3tau.is_some(),
+        "v4lapl2tau2" => output.v4lapl2tau2.is_some(),
+        "v4lapltau3" => output.v4lapltau3.is_some(),
+        "v4tau4" => output.v4tau4.is_some(),
+        _ => false,
+    })
+}
+
 /// Validate the caller's buffers and build the chunk view.
 ///
 /// Kernels accumulate with `+=`, so every destination must start at zero --

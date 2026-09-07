@@ -59,6 +59,30 @@ pub const PARAM_FERRO_0: f64 = 5.24;
 /// because its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py.
 pub const N_EXT_PARAMS: usize = 0;
 
+/// Number of kernel arguments (compiled-in constants).
+pub const N_PARAMS: usize = 20;
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 20] = [PARAM_PARA_4, PARAM_PARA_7, PARAM_PARA_9, PARAM_PARA_8, PARAM_PARA_1, PARAM_PARA_5, PARAM_PARA_2, PARAM_PARA_6, PARAM_PARA_3, PARAM_PARA_0, PARAM_FERRO_4, PARAM_FERRO_7, PARAM_FERRO_9, PARAM_FERRO_8, PARAM_FERRO_1, PARAM_FERRO_5, PARAM_FERRO_2, PARAM_FERRO_6, PARAM_FERRO_3, PARAM_FERRO_0];
+
+/// The kernel's parameters for a caller-supplied `ext_params` array: always
+/// [`DEFAULTS`] here, and a non-empty `ext` is rejected rather than guessed
+/// at (its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py). The fused composite dispatch (`crate::fused`) uses this to
+/// hand an auxiliary's constants to a kernel that evaluates several
+/// auxiliaries in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {
+    if let Some(e) = ext
+        && !e.is_empty()
+    {
+        return Err(LibxcRsError::ExtParamCountMismatch {
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        });
+    }
+    Ok(DEFAULTS)
+}
+
 /// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
 /// in libxc's own order.
 ///
@@ -72,15 +96,7 @@ pub fn dispatch_with(
     thresholds: &Thresholds,
     ext: Option<&[f64]>,
 ) -> Result<(), LibxcRsError> {
-    if let Some(e) = ext
-        && !e.is_empty()
-    {
-        return Err(LibxcRsError::ExtParamCountMismatch {
-            id: libxc_core::model::FunctionalId(ID),
-            expected: 0,
-            actual: e.len(),
-        });
-    }
+    kernel_params(ext)?;
     dispatch(input, output, order, spin, thresholds)
 }
 

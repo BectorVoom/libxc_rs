@@ -5,6 +5,7 @@
 //! upload/launch/read-back cycle.
 
 pub mod funcs;
+pub mod fused;
 pub mod gga;
 pub mod lda;
 pub mod mgga;

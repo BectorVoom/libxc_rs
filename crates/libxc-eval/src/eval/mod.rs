@@ -1,6 +1,27 @@
 pub mod mix;
 pub mod workspace;
 
+use std::sync::atomic::{AtomicBool, Ordering};
+
+/// Whether composites with a fused kernel (`libxc_reval::fused`) take it.
+///
+/// On by default. The switch exists for one reason: the fused kernel is
+/// required to be bit-identical to the leaf-by-leaf mix, and
+/// `bench-vs-libxc` proves that by evaluating the same composite both ways in
+/// one process and comparing every output bit for bit. Process-wide, like
+/// `set_min_chunk`; tests that flip it hold `MIN_CHUNK_GUARD`.
+static FUSED_ENABLED: AtomicBool = AtomicBool::new(true);
+
+/// See [`FUSED_ENABLED`].
+pub fn set_fused_enabled(on: bool) {
+    FUSED_ENABLED.store(on, Ordering::Relaxed);
+}
+
+/// See [`FUSED_ENABLED`].
+pub fn fused_enabled() -> bool {
+    FUSED_ENABLED.load(Ordering::Relaxed)
+}
+
 pub fn dispatch_lda(
     functional: libxc_core::model::LdaFunctional,
     input: &libxc_core::input::LdaInput,

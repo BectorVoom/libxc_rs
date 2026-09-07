@@ -74,8 +74,58 @@ impl Functional {
                 &self.thresholds,
             )
         } else {
+            if let Some(r) = self.try_fused_gga(input, order, output, workspace) {
+                return r;
+            }
             evaluate_mixed_gga(self, input, order, output, workspace)
         }
+    }
+
+    /// The fused path for a composite: one generated kernel evaluating every
+    /// auxiliary in the same loop (`libxc_reval::fused`, emitted by
+    /// `tools/translate_rayon/fuse.py`), bit-identical to the mix and with no
+    /// scratch at all. `None` when it does not apply -- the caller then runs
+    /// the mix, which is what every composite without a fused kernel does.
+    ///
+    /// The workspace is not used on this path, but a mismatched one is still
+    /// an error on the mix path, and the two must agree on what they reject.
+    fn try_fused_gga(
+        &self,
+        input: &GgaInput,
+        order: DerivativeOrder,
+        output: &mut GgaOutput,
+        workspace: &EvaluationWorkspace,
+    ) -> Option<Result<(), LibxcRsError>> {
+        use libxc_reval::fused::{FusedLeg, try_fused_gga};
+
+        /// A fused kernel has a fixed, small number of legs; anything larger
+        /// is not one and is not worth building a leg list for.
+        const MAX_LEGS: usize = 4;
+
+        if !crate::eval::fused_enabled()
+            || self.auxiliaries.len() > MAX_LEGS
+            || workspace.np() != input.np()
+            || workspace.spin() != input.spin()
+        {
+            return None;
+        }
+        let mut legs = [FusedLeg { id: 0, ext: None, thresholds: self.thresholds }; MAX_LEGS];
+        for (slot, aux) in legs.iter_mut().zip(self.auxiliaries.iter()) {
+            *slot = FusedLeg {
+                id: aux.meta.id.raw(),
+                ext: aux.kernel_ext_params(),
+                thresholds: aux.thresholds,
+            };
+        }
+        try_fused_gga(
+            self.meta.id.raw(),
+            &legs[..self.auxiliaries.len()],
+            &self.mix_coefficients,
+            input,
+            output,
+            order,
+            input.spin(),
+        )
     }
 
     /// Evaluate this MGGA functional. See [`Functional::evaluate_lda`] for

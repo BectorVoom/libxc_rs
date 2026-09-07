@@ -47,6 +47,10 @@ python3 tools/translate_rayon/gen_eval.py                        # eval layer + 
 `from_maple.py` reads `libxc-master/src/maple2c/<fam>_{exc,vxc}/<func>.c` --
 libxc's own Maple-generated C -- and emits one Rust function per
 (functional, order, spin). 2,648 functions across 266 functionals, ~100 s.
+`--all` also emits the **fused composite kernels** in `fuse.py::FUSED`
+(`--fused NAME` for one): `crates/kernels-rayon/gga/fused_{hse,pbeh}`, one
+loop per libxc mix, and `gen_eval.py` wires them through
+`libxc-reval/src/fused.rs`. See "Fused composites" below.
 
 
 
@@ -215,6 +219,30 @@ Three things from that work bind future changes:
   cost is the kernel. The LDA and MGGA mixed paths still use the whole-grid
   scratch. `set_min_chunk` is process-wide, so tests that touch it take
   `MIN_CHUNK_GUARD`.
+- **HSE06 and PBE0 (and HSE03/12/12s, PBE50, PBE0-1/3) run as one fused
+  kernel, not as a mix (2026-09-07).** `tools/translate_rayon/fuse.py`
+  concatenates the auxiliaries' maple2c bodies, value-numbers them so a
+  subexpression two legs share is computed once, specialises HSE's first
+  `wpbeh` leg on its pinned `omega = 0` by an abstract fold over the C
+  (a signed zero absorbs products, drops out of sums, decides comparisons;
+  anything else it reaches keeps its libxc definition), and emits the mix's
+  own `out += w_k * (0.0 + v_k)` inline. Bit-identical to the mix by
+  construction and by gate: `bench-vs-libxc` evaluates every composite case
+  both ways and requires 0 differing values, `libxc-eval`'s
+  `fused_composite_is_bit_identical_to_mix` does the same at exc/vxc/fxc on
+  a screened grid, and the oracle tests go through `Functional::evaluate_gga`
+  and so through the fused path. HSE06 went 29.5 -> 18.9 ns/pt unpol vxc,
+  72.5 -> 49.9 pol, 673 -> 129 pol fxc (5.0x/4.8x/5.8x vs libxc), PBE0
+  7.5 -> 5.8 / 13.9 -> 11.3, with **no scratch at all** (leaf pool 0, zero
+  allocations per call). The dispatch (`libxc-reval/src/fused.rs`,
+  generated) falls back to the mix whenever the auxiliaries, thresholds,
+  order/spin arm or a specialised parameter do not match, so changing
+  `_beta`/`_omega_PBE` at runtime still fuses and changing the first leg's
+  omega does not. kxc/lxc stay on the mix. The two assumptions the
+  specialisation rests on are stated in `fuse.py`'s module docs; do not add
+  a `bind` to a leg without checking them for that functional.
+  `XCVS_NO_FUSED=1` times the mix path; `libxc_eval::eval::set_fused_enabled`
+  is the process-wide switch.
 - **The grid loop now vectorises 8-wide (AVX-512), not 2-wide SLP.** The note in
   the CLAUDE.md risk table about "always SSE, `xmm` only" described the
   pre-`target-cpu` build. Anything that puts a function boundary or a libm call
@@ -418,6 +446,13 @@ points are contiguous and always take the fast route.
   3. **`zeta_threshold` was 1e-10; libxc uses `DBL_EPSILON`** (10). This is not a screening knob -- the maple bodies evaluate `zeta_threshold^(4/3)` and add it into terms of order 1. Fixing it cleared all four `gga_c_optc` failures and six others. `Thresholds::default()` now mirrors `functionals.c`. Still divergent and worth attention: libxc's `dens_threshold` and `sigma_threshold` are **per-functional** (`info->dens_threshold`, and `sigma = dens^(4/3)`), while this tree carries one global default -- harmless on the oracle grid, wrong for low-density points.
   4. **The harness scored cancellation dust as signal** (2). `gga_k_tfvw`/`gga_k_absp4` have an identically-zero `vrho`; libxc's own answer is exact `0.0` at one grid point and 1e-20..1e-14 elsewhere. `worst_rel` now skips an element only when *both* sides are below `scale * 1e-12` (scale = that functional's max `|zk|`); anything carrying magnitude still faces the full relative tolerance.
 - **`xc_integrate` is QUADPACK now** (`math/src/quadpack.rs`, a transcription of `dqagse` from `libxc-master/src/integrate.c`). The hand-written Gauss-Legendre it replaced was accurate to ~1e-12 of the *true* integral and still missed libxc by 7.8e-8, because libxc runs `dqagse` to only 1e-10 -- matching it needs the *same* approximation, not a better one. That cleared the four `lda_x_1d_{soft,exponential}` failures. The old code existed because QUADPACK "uses malloc and function pointers, which are not available in `#[cube]` kernels"; CubeCL is gone, so that no longer binds. Note `lda_x_1d_exponential` integrates from **1e-20**, not 0.
+- **HSE06 `fxc` disagrees with libxc on `v2sigma2`** on the bench grid
+  (2.1e0 unpolarized, 2.9e2 polarized relative, 2026-09-07), identically on
+  the mix and the fused path, so it is not the fusion. `zk`/`vrho` agree.
+  The bench grid draws the reduced gradient uniformly from [0, 3] and so
+  lands where `gga_x_wpbeh`'s `vsigma` already diverges as `s -> 0` (the
+  `wpbeh_domain.rs` gap above); the second sigma derivative amplifies it.
+  Not diagnosed beyond that; the composite `fxc` cases are new to the bench.
 - `bench-vs-libxc`'s elementwise cross-check flags `mgga_c_r2scan` (`vtau`, 9e-8) and `mgga_x_scan` polarized (`vsigma`, 3.5e-9) against C libxc. Unrelated to the threshold screening -- present with and without it, and on a grid with no below-threshold points at all. Not yet diagnosed; the grid feeds `tau` close to the von Weizsaecker bound, where libxc's `work_mgga_inc.c` clamps and this tree does not, so check that before assuming a formula b
 - The rayon oracle harness (`crates/kernels-rayon/oracle`) compares against C libxc for **unpolarized** LDA/GGA only. The polarized split-kernel paths (fixed 2026-08-16: loop bound was `first_buf.len()` even when that buffer has D>1 elements per point, sweeping D× too far — 2,495 files regenerated with `len() / D`) are exercised bitwise by `revalcheck` but have no oracle-parity test yet.
 

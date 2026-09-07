@@ -398,6 +398,9 @@ def gen_family(fam: str, inputs: list[str], outputs: list[str]) -> str:
     takes = "\n".join(
         f'        {n}: take!({n}, "{n}", d.{n}),' for n in outputs
     )
+    has_arms = "\n".join(
+        f'        "{n}" => output.{n}.is_some(),' for n in outputs
+    )
     in_binds = "\n".join(f"        {n}: input.{n}()," for n in inputs)
 
     arms = []
@@ -446,6 +449,18 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {{
     match order {{
 {req}
     }}
+}}
+
+/// Does `output` carry every buffer `prepare` will demand for `order`?
+///
+/// `prepare` *takes* the buffers it validates, so a caller that has to decide
+/// between this path and one that tolerates a missing field (the composite
+/// mix) asks here first.
+pub fn has_required_fields(output: &{Fam}Output<'_>, order: DerivativeOrder) -> bool {{
+    required_fields(order).iter().all(|f| match *f {{
+{has_arms}
+        _ => false,
+    }})
 }}
 
 /// Validate the caller's buffers and build the chunk view.
@@ -571,10 +586,35 @@ def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str
                if n == 0 else
                "its libxc ext_params could not be put in correspondence with the "
                "kernel's arguments; see extract_params.py")
+        defaults_lit = ", ".join(p.upper() for p in params)
         ext_block = f'''
 /// Number of libxc `ext_params` this dispatch accepts at runtime: none,
 /// because {why}.
 pub const N_EXT_PARAMS: usize = 0;
+
+/// Number of kernel arguments (compiled-in constants).
+pub const N_PARAMS: usize = {n};
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; {n}] = [{defaults_lit}];
+
+/// The kernel's parameters for a caller-supplied `ext_params` array: always
+/// [`DEFAULTS`] here, and a non-empty `ext` is rejected rather than guessed
+/// at ({why}). The fused composite dispatch (`crate::fused`) uses this to
+/// hand an auxiliary's constants to a kernel that evaluates several
+/// auxiliaries in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {{
+    if let Some(e) = ext
+        && !e.is_empty()
+    {{
+        return Err(LibxcRsError::ExtParamCountMismatch {{
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        }});
+    }}
+    Ok(DEFAULTS)
+}}
 
 /// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
 /// in libxc's own order.
@@ -589,15 +629,7 @@ pub fn dispatch_with(
     thresholds: &Thresholds,
     ext: Option<&[f64]>,
 ) -> Result<(), LibxcRsError> {{
-    if let Some(e) = ext
-        && !e.is_empty()
-    {{
-        return Err(LibxcRsError::ExtParamCountMismatch {{
-            id: libxc_core::model::FunctionalId(ID),
-            expected: 0,
-            actual: e.len(),
-        }});
-    }}
+    kernel_params(ext)?;
     dispatch(input, output, order, spin, thresholds)
 }}
 '''
@@ -634,20 +666,16 @@ pub const EXT_TO_KERNEL: [usize; {len(ext_to_kernel)}] = [{slot_lit}];
 /// Compiled-in libxc defaults, in kernel argument order.
 pub const DEFAULTS: [f64; {n}] = [{defaults_lit}];
 
-/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
-/// in libxc's own order.
-///
-/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
-/// starts from those defaults and overwrites only the slots `e` actually
-/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
-pub fn dispatch_with(
-    input: &{Fam}Input<'_>,
-    output: &mut {Fam}Output<'_>,
-    order: DerivativeOrder,
-    spin: Spin,
-    thresholds: &Thresholds,
-    ext: Option<&[f64]>,
-) -> Result<(), LibxcRsError> {{
+/// Number of kernel arguments.
+pub const N_PARAMS: usize = {n};
+
+/// The kernel's parameters for a caller-supplied `ext_params` array in
+/// libxc's order: [`DEFAULTS`] with only the slots `ext` feeds overwritten
+/// (through [`EXT_TO_KERNEL`]). `None` is exactly [`DEFAULTS`]. This is what
+/// [`dispatch_with`] passes to the kernel, and what the fused composite
+/// dispatch (`crate::fused`) passes for each auxiliary of a mix it evaluates
+/// in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {{
     let mut p = DEFAULTS;
     if let Some(e) = ext {{
         if e.len() != N_EXT_PARAMS {{
@@ -663,6 +691,24 @@ pub fn dispatch_with(
             }}
         }}
     }}
+    Ok(p)
+}}
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &{Fam}Input<'_>,
+    output: &mut {Fam}Output<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {{
+    let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_r{fam}!(
         input, output, order, spin, thresholds,
 {chr(10).join(slots)}
@@ -703,6 +749,223 @@ pub fn dispatch(
     )
 }}
 '''
+
+
+def gen_fused(resolved: dict, name_to_id: dict[str, int]) -> tuple[str, list[str]]:
+    """`crates/libxc-reval/src/fused.rs`: the dispatch for every fused
+    composite kernel in `fuse.FUSED` whose crate exists. Returns (source,
+    names of the fused kernels that were wired)."""
+    import fuse
+
+    mods: list[str] = []
+    arms: list[str] = []
+    arm_avail: list[str] = []
+    wired: list[str] = []
+    for name in sorted(fuse.FUSED):
+        spec = fuse.FUSED[name]
+        fam = spec["fam"]
+        if fam != "gga":
+            raise SystemExit(f"fused {name}: only GGA composites are supported")
+        srcdir = KERNELS / fam / name / "src"
+        present = {p.stem for p in srcdir.glob("*.rs")} if srcdir.is_dir() else set()
+        present.discard("lib")
+        if not present:
+            continue
+        legs = spec["legs"]
+        plists = fuse.leg_params(spec, resolved)
+        scalars = fuse.fused_scalars(spec, resolved)
+        leg_ids = [name_to_id[l["func"]] for l in legs]
+        parent_ids = [name_to_id[p] for p in spec["parents"]]
+        n = len(legs)
+        outs = FAMILIES[fam]["outputs"]
+        slices = order_slices(fam, outs)
+
+        # Per-leg parameter arrays, and the argument list in fused_scalars order.
+        param_lines = []
+        args = [f"weights[{k}]" for k in range(n)]
+        bound_checks = []
+        for k, (leg, plist) in enumerate(zip(legs, plists)):
+            f = leg["func"]
+            uses = any(b is None for _, b in plist) or any(b is not None for _, b in plist)
+            var = f"p{k}" if uses else "_"
+            param_lines.append(
+                f"        let {var} = match crate::funcs::{f}::kernel_params(legs[{k}].ext) {{\n"
+                f"            Ok(p) => p,\n"
+                f"            Err(e) => return Some(Err(e)),\n"
+                f"        }};")
+            for i, (p, bound) in enumerate(plist):
+                if bound is None:
+                    args.append(f"p{k}[{i}]")
+                else:
+                    bound_checks.append(
+                        f"        // leg {k} (`{f}`) is specialised on `{p} = {bound!r}`.\n"
+                        f"        if p{k}[{i}].to_bits() != ({float(bound)!r}f64).to_bits() {{\n"
+                        f"            return None;\n"
+                        f"        }}")
+        args += ["dt", "zt"]
+        assert len(args) == len(scalars), (args, scalars)
+
+        arm_lines = []
+        avail = []
+        for spin_sfx, spin_var in (("unpol", "Unpolarized"), ("pol", "Polarized")):
+            for O in ORDERS:
+                o = O.lower()
+                mod = f"{o}_{spin_sfx}"
+                if mod not in present:
+                    continue
+                avail.append(f"(DerivativeOrder::{O}, Spin::{spin_var})")
+                bufs = [f"c.{b}.as_deref_mut().expect(\"prepare guarantees this buffer\")"
+                        for b in slices[O]]
+                call_args = ", ".join(["c.rho", "c.sigma"] + bufs + args)
+                arm_lines.append(
+                    f"            (DerivativeOrder::{O}, Spin::{spin_var}) => "
+                    f"par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {{\n"
+                    f"                k::{mod}::{name}_{mod}({call_args})\n"
+                    f"            }}),")
+        legs_doc = " + ".join(
+            f"w{k}*{l['func']}" + ("" if not l["bind"] else "(" + ", ".join(
+                f"{p}={v!r}" for p, v in l["bind"].items()) + ")")
+            for k, l in enumerate(legs))
+        parents_doc = ", ".join(spec["parents"])
+        mods.append(f'''
+/// `{legs_doc}` in one loop, for {parents_doc}.
+#[cfg(feature = "{name}")]
+pub mod {name} {{
+    use super::*;
+    use libxc_rkernel_{name} as k;
+
+    /// libxc ids of the auxiliaries, in `xc_mix_init` order.
+    pub const LEG_IDS: [u16; {n}] = [{", ".join(str(i) for i in leg_ids)}];
+
+    /// Parent functionals routed here.
+    pub const PARENT_IDS: [u16; {len(parent_ids)}] = [{", ".join(str(i) for i in parent_ids)}];
+
+    /// The (order, spin) pairs this fused kernel was emitted for; every other
+    /// pair falls back to the mix.
+    pub const ARMS: [(DerivativeOrder, Spin); {len(avail)}] = [{", ".join(avail)}];
+
+    pub fn dispatch(
+        legs: &[FusedLeg<'_>],
+        weights: &[f64],
+        input: &GgaInput<'_>,
+        output: &mut GgaOutput<'_>,
+        order: DerivativeOrder,
+        spin: Spin,
+    ) -> Option<Result<(), LibxcRsError>> {{
+        use crate::sweep_gga::{{GgaChunk, min_chunk, par_sweep}};
+        use libxc_core::dims::Dimensions;
+
+        if legs.len() != {n} || weights.len() != {n} {{
+            return None;
+        }}
+        if legs.iter().zip(LEG_IDS.iter()).any(|(l, &id)| l.id != id) {{
+            return None;
+        }}
+        if !ARMS.contains(&(order, spin)) {{
+            return None;
+        }}
+        // One screen serves every leg only if every leg screens alike.
+        let t = legs[0].thresholds;
+        if legs.iter().any(|l| {{
+            l.thresholds.density.to_bits() != t.density.to_bits()
+                || l.thresholds.zeta.to_bits() != t.zeta.to_bits()
+        }}) {{
+            return None;
+        }}
+        // `prepare` requires every buffer of the order and *takes* them, so
+        // the check has to come first; the mix tolerates a missing one.
+        if !crate::gga::has_required_fields(output, order) {{
+            return None;
+        }}
+{chr(10).join(param_lines)}
+{chr(10).join(bound_checks)}
+        let d = Dimensions::gga(spin);
+        let dt = t.density;
+        let zt = t.zeta;
+        let chunk = match crate::gga::prepare(input, output, order, &d) {{
+            Ok(c) => c,
+            Err(e) => return Some(Err(e)),
+        }};
+        match (order, spin) {{
+{chr(10).join(arm_lines)}
+            _ => unreachable!("ARMS was checked above"),
+        }}
+        Some(Ok(()))
+    }}
+}}
+''')
+        arm_avail.append(
+            f'        #[cfg(feature = "{name}")]\n'
+            f"        {' | '.join(str(i) for i in parent_ids)} => "
+            f"{name}::ARMS.contains(&(order, spin)),")
+        arms.append(
+            f'        #[cfg(feature = "{name}")]\n'
+            f"        {' | '.join(str(i) for i in parent_ids)} => "
+            f"{name}::dispatch(legs, weights, input, output, order, spin),")
+        wired.append(name)
+
+    src = f'''//! Fused composite dispatch: a libxc mix evaluated as one kernel.
+//!
+//! GENERATED by tools/translate_rayon/gen_eval.py -- do not hand-edit. The
+//! kernels come from tools/translate_rayon/fuse.py, which documents why the
+//! result is bit-identical to the leaf-by-leaf mix.
+//!
+//! Every entry point here returns `None` -- "not applicable, use the mix" --
+//! rather than guessing: when the parent is not one of the composites a fused
+//! kernel was emitted for, when its auxiliaries are not the ones the kernel
+//! was built from, when the (order, spin) pair has no fused arm, when the legs
+//! do not share thresholds, when a parameter the kernel was specialised on has
+//! been changed at runtime, or when a buffer the order needs is missing.
+//! `Some(Err)` is reserved for the errors the mix would also raise.
+
+use libxc_core::error::LibxcRsError;
+use libxc_core::input::GgaInput;
+use libxc_core::model::{{DerivativeOrder, Spin, Thresholds}};
+use libxc_core::output::GgaOutput;
+
+/// One auxiliary of a composite, as the fused dispatch needs to see it.
+#[derive(Clone, Copy, Debug)]
+pub struct FusedLeg<'a> {{
+    /// libxc id of the auxiliary functional.
+    pub id: u16,
+    /// Its runtime `ext_params` in libxc order; `None` means the defaults.
+    pub ext: Option<&'a [f64]>,
+    /// Its thresholds.
+    pub thresholds: Thresholds,
+}}
+
+/// Evaluate `parent` -- a composite of `legs` with `weights` -- through its
+/// fused kernel if one applies. `None` means no fused kernel applies and the
+/// caller should run the mix.
+pub fn try_fused_gga(
+    parent: u16,
+    legs: &[FusedLeg<'_>],
+    weights: &[f64],
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+) -> Option<Result<(), LibxcRsError>> {{
+    #[allow(unused_variables)]
+    let (legs, weights, input, output, order, spin) = (legs, weights, input, output, order, spin);
+    match parent {{
+{chr(10).join(arms)}
+        _ => None,
+    }}
+}}
+
+/// Is there a fused kernel for `parent` at this (order, spin)? Reporting
+/// only: the dispatch above still re-checks legs, parameters and buffers.
+pub fn has_fused_arm(parent: u16, order: DerivativeOrder, spin: Spin) -> bool {{
+    #[allow(unused_variables)]
+    let (order, spin) = (order, spin);
+    match parent {{
+{chr(10).join(arm_avail)}
+        _ => false,
+    }}
+}}
+{"".join(mods)}'''
+    return src, wired
 
 
 def main() -> int:
@@ -930,13 +1193,26 @@ def main() -> int:
 
     (OUT / "routing.rs").write_text("\n".join(lines))
 
+    fused_src, fused_wired = gen_fused(resolved, name_to_id)
+    (OUT / "fused.rs").write_text(fused_src)
+
     # Cargo.toml: one optional dep per unique base kernel, and one feature per wired functional.
+    import fuse
     unique_bases = sorted(set((fam, b) for fam, _, b in emitted))
     deps = "\n".join(
         f'libxc-rkernel-{b} = {{ path = "../kernels-rayon/{fam}/{b}", optional = true }}'
         for fam, b in unique_bases)
+    deps += "".join(
+        f'\nlibxc-rkernel-{nm} = {{ path = "../kernels-rayon/{fuse.FUSED[nm]["fam"]}/{nm}", optional = true }}'
+        for nm in fused_wired)
     feats = "\n".join(f'{f} = ["dep:libxc-rkernel-{b}"]' for _, f, b in emitted)
+    # A fused kernel needs its legs' dispatch modules for `kernel_params`.
+    feats += "".join(
+        f'\n{nm} = ["dep:libxc-rkernel-{nm}", '
+        + ", ".join(sorted({f'"{l["func"]}"' for l in fuse.FUSED[nm]["legs"]})) + "]"
+        for nm in fused_wired)
     default = ", ".join(f'"{f}"' for _, f, _ in emitted)
+    default += "".join(f', "{nm}"' for nm in fused_wired)
     (REPO / "crates/libxc-reval/Cargo.toml").write_text(f'''[package]
 name = "libxc-reval"
 version = "0.1.0"
@@ -959,6 +1235,7 @@ default = [{default}]
 //! upload/launch/read-back cycle.
 
 pub mod funcs;
+pub mod fused;
 pub mod gga;
 pub mod lda;
 pub mod mgga;
@@ -971,6 +1248,7 @@ pub mod sweep_mgga;
     by_fam = {}
     for fam, f, _ in emitted:
         by_fam[fam] = by_fam.get(fam, 0) + 1
+    print(f"fused composites wired: {', '.join(fused_wired) or 'none'}")
     print(f"emitted {len(emitted)} functionals: " +
           ", ".join(f"{k}={v}" for k, v in sorted(by_fam.items())))
     print(f"skipped {len(skipped)} (listed in routing.rs UNSUPPORTED)")

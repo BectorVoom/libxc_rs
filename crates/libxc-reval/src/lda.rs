@@ -21,6 +21,22 @@ fn required_fields(order: DerivativeOrder) -> &'static [&'static str] {
     }
 }
 
+/// Does `output` carry every buffer `prepare` will demand for `order`?
+///
+/// `prepare` *takes* the buffers it validates, so a caller that has to decide
+/// between this path and one that tolerates a missing field (the composite
+/// mix) asks here first.
+pub fn has_required_fields(output: &LdaOutput<'_>, order: DerivativeOrder) -> bool {
+    required_fields(order).iter().all(|f| match *f {
+        "zk" => output.zk.is_some(),
+        "vrho" => output.vrho.is_some(),
+        "v2rho2" => output.v2rho2.is_some(),
+        "v3rho3" => output.v3rho3.is_some(),
+        "v4rho4" => output.v4rho4.is_some(),
+        _ => false,
+    })
+}
+
 /// Validate the caller's buffers and build the chunk view.
 ///
 /// Kernels accumulate with `+=`, so every destination must start at zero --

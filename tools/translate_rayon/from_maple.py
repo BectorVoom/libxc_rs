@@ -177,6 +177,22 @@ SIMD_EXACT_FUNCS = {
     ("gga_x_wpbeh", "exc", "pol"),  # 1.33x  (86.24 -> 64.92 ns/pt)
     ("gga_x_wpbeh", "vxc", "pol"),  # 1.68x  (134.06 -> 79.98 ns/pt)
     ("gga_x_wpbeh", "fxc", "unpol"),  # 3.17x  (99.22 -> 31.25 ns/pt)
+    # Fused composites (tools/translate_rayon/fuse.py): one loop per libxc
+    # mix, legs value-numbered together. Ratios are HSE06 / PBE0 sweep ns/pt
+    # against the leaf-by-leaf mix of the (already SIMD) legs; see
+    # docs/perf/vs-libxc.md, "Fused composites".
+    ("fused_hse", "exc", "unpol"),
+    ("fused_hse", "vxc", "unpol"),  # 1.61x  (29.5 -> 18.4 ns/pt)
+    ("fused_hse", "fxc", "unpol"),  # 1.55x  (61.4 -> 39.6 ns/pt)
+    ("fused_hse", "exc", "pol"),
+    ("fused_hse", "vxc", "pol"),  # 1.48x  (72.5 -> 49.1 ns/pt)
+    ("fused_hse", "fxc", "pol"),  # 5.2x  (672.9 -> 129.3 ns/pt; the mix ran scalar legs)
+    ("fused_pbeh", "exc", "unpol"),
+    ("fused_pbeh", "vxc", "unpol"),  # 1.29x  (7.5 -> 5.8 ns/pt)
+    ("fused_pbeh", "fxc", "unpol"),  # 1.14x  (9.2 -> 8.1 ns/pt)
+    ("fused_pbeh", "exc", "pol"),
+    ("fused_pbeh", "vxc", "pol"),  # 1.23x  (13.9 -> 11.3 ns/pt)
+    ("fused_pbeh", "fxc", "pol"),
     # Added by tools/translate_rayon/simd_qualify.py; each line's
     # ratio is sweep ns/pt before -> after, fingerprint unchanged.
     ("gga_c_hcth_a", "exc", "unpol"),  # 1.44x  (14.61 -> 10.13 ns/pt)
@@ -2285,14 +2301,17 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--func", action="append", default=[])
+    ap.add_argument("--fused", action="append", default=[],
+                    help="emit a fused composite kernel from fuse.FUSED "
+                         "(`--all` emits every one)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     files = maple_files()
     resolved = load_params()
     names = args.func or (sorted(files) if args.all else [])
-    if not names:
-        ap.error("pass --all or --func NAME")
+    if not names and not args.fused:
+        ap.error("pass --all, --func NAME or --fused NAME")
 
     tot_fn, all_failed, no_params, done = 0, [], [], 0
     for func in names:
@@ -2304,6 +2323,16 @@ def main() -> int:
             no_params.append(func)
         n, failed = emit_functional(
             func, files[func], info["params"] if info else None, args.dry_run)
+        tot_fn += n
+        all_failed += failed
+        if n:
+            done += 1
+
+    # Fused composites are built from the same maple2c bodies, so they are
+    # regenerated whenever the tree is.
+    import fuse
+    for nm in (sorted(fuse.FUSED) if args.all else args.fused):
+        n, failed = fuse.emit_fused(nm, args.dry_run)
         tot_fn += n
         all_failed += failed
         if n:

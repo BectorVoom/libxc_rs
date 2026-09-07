@@ -116,20 +116,16 @@ pub const EXT_TO_KERNEL: [usize; 27] = [1, 8, 14, 21, 5, 0, 2, 3, 4, 12, 7, 9, 1
 /// Compiled-in libxc defaults, in kernel argument order.
 pub const DEFAULTS: [f64; 27] = [PARAM_CSS_1, PARAM_GAMMA_SS, PARAM_CSS_2, PARAM_CSS_3, PARAM_CSS_4, PARAM_CSS_0, PARAM_FERMI_D_CNST, PARAM_CAB_1, PARAM_GAMMA_AB, PARAM_CAB_2, PARAM_CAB_3, PARAM_CAB_4, PARAM_CAB_0, PARAM_DSS_0, PARAM_ALPHA_SS, PARAM_DSS_1, PARAM_DSS_2, PARAM_DSS_3, PARAM_DSS_4, PARAM_DSS_5, PARAM_DAB_0, PARAM_ALPHA_AB, PARAM_DAB_1, PARAM_DAB_2, PARAM_DAB_3, PARAM_DAB_4, PARAM_DAB_5];
 
-/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
-/// in libxc's own order.
-///
-/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
-/// starts from those defaults and overwrites only the slots `e` actually
-/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
-pub fn dispatch_with(
-    input: &MggaInput<'_>,
-    output: &mut MggaOutput<'_>,
-    order: DerivativeOrder,
-    spin: Spin,
-    thresholds: &Thresholds,
-    ext: Option<&[f64]>,
-) -> Result<(), LibxcRsError> {
+/// Number of kernel arguments.
+pub const N_PARAMS: usize = 27;
+
+/// The kernel's parameters for a caller-supplied `ext_params` array in
+/// libxc's order: [`DEFAULTS`] with only the slots `ext` feeds overwritten
+/// (through [`EXT_TO_KERNEL`]). `None` is exactly [`DEFAULTS`]. This is what
+/// [`dispatch_with`] passes to the kernel, and what the fused composite
+/// dispatch (`crate::fused`) passes for each auxiliary of a mix it evaluates
+/// in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {
     let mut p = DEFAULTS;
     if let Some(e) = ext {
         if e.len() != N_EXT_PARAMS {
@@ -145,6 +141,24 @@ pub fn dispatch_with(
             }
         }
     }
+    Ok(p)
+}
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &MggaInput<'_>,
+    output: &mut MggaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rmgga!(
         input, output, order, spin, thresholds,
         [k::exc_unpol::mgga_c_m06l_exc_unpol],

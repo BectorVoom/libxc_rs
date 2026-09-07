@@ -85,20 +85,16 @@ pub const EXT_TO_KERNEL: [usize; 18] = [15, 0, 1, 2, 6, 3, 4, 5, 10, 7, 8, 9, 14
 /// Compiled-in libxc defaults, in kernel argument order.
 pub const DEFAULTS: [f64; 16] = [PARAM_CC_0_1, PARAM_CC_0_2, PARAM_CC_0_3, PARAM_CC_1_1, PARAM_CC_1_2, PARAM_CC_1_3, PARAM_CC_1_0, PARAM_CC_2_1, PARAM_CC_2_2, PARAM_CC_2_3, PARAM_CC_2_0, PARAM_CC_3_1, PARAM_CC_3_2, PARAM_CC_3_3, PARAM_CC_3_0, PARAM_CC_0_0];
 
-/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
-/// in libxc's own order.
-///
-/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
-/// starts from those defaults and overwrites only the slots `e` actually
-/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
-pub fn dispatch_with(
-    input: &GgaInput<'_>,
-    output: &mut GgaOutput<'_>,
-    order: DerivativeOrder,
-    spin: Spin,
-    thresholds: &Thresholds,
-    ext: Option<&[f64]>,
-) -> Result<(), LibxcRsError> {
+/// Number of kernel arguments.
+pub const N_PARAMS: usize = 16;
+
+/// The kernel's parameters for a caller-supplied `ext_params` array in
+/// libxc's order: [`DEFAULTS`] with only the slots `ext` feeds overwritten
+/// (through [`EXT_TO_KERNEL`]). `None` is exactly [`DEFAULTS`]. This is what
+/// [`dispatch_with`] passes to the kernel, and what the fused composite
+/// dispatch (`crate::fused`) passes for each auxiliary of a mix it evaluates
+/// in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {
     let mut p = DEFAULTS;
     if let Some(e) = ext {
         if e.len() != N_EXT_PARAMS {
@@ -114,6 +110,24 @@ pub fn dispatch_with(
             }
         }
     }
+    Ok(p)
+}
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order.
+///
+/// `None` is exactly [`dispatch`] -- same constants, same bits. `Some(e)`
+/// starts from those defaults and overwrites only the slots `e` actually
+/// feeds, so an ext_param the kernel ignores cannot disturb one it uses.
+pub fn dispatch_with(
+    input: &GgaInput<'_>,
+    output: &mut GgaOutput<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {
+    let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
         [k::exc_unpol::gga_x_n12_exc_unpol],

@@ -23,6 +23,30 @@ pub const PARAM_GAMMA: f64 = -0.3320000000000001;
 /// because its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py.
 pub const N_EXT_PARAMS: usize = 0;
 
+/// Number of kernel arguments (compiled-in constants).
+pub const N_PARAMS: usize = 2;
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; 2] = [PARAM_LAMBDA, PARAM_GAMMA];
+
+/// The kernel's parameters for a caller-supplied `ext_params` array: always
+/// [`DEFAULTS`] here, and a non-empty `ext` is rejected rather than guessed
+/// at (its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py). The fused composite dispatch (`crate::fused`) uses this to
+/// hand an auxiliary's constants to a kernel that evaluates several
+/// auxiliaries in one loop.
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {
+    if let Some(e) = ext
+        && !e.is_empty()
+    {
+        return Err(LibxcRsError::ExtParamCountMismatch {
+            id: libxc_core::model::FunctionalId(ID),
+            expected: 0,
+            actual: e.len(),
+        });
+    }
+    Ok(DEFAULTS)
+}
+
 /// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
 /// in libxc's own order.
 ///
@@ -36,15 +60,7 @@ pub fn dispatch_with(
     thresholds: &Thresholds,
     ext: Option<&[f64]>,
 ) -> Result<(), LibxcRsError> {
-    if let Some(e) = ext
-        && !e.is_empty()
-    {
-        return Err(LibxcRsError::ExtParamCountMismatch {
-            id: libxc_core::model::FunctionalId(ID),
-            expected: 0,
-            actual: e.len(),
-        });
-    }
+    kernel_params(ext)?;
     dispatch(input, output, order, spin, thresholds)
 }
 

@@ -239,6 +239,15 @@ def splat_leaves(expr):
 
 
 
+def _vec_expr(e):
+    """One scalar right-hand side -> its f64x8 form: input loads become the
+    per-step vectors, calls map to the bit-exact `simd::` forms, comparisons
+    become lane masks, and every f64 leaf is splatted."""
+    e = re.sub(r"\b(rho|sigma|lapl|tau)\[ip\]", r"v_\1", e)
+    e = re.sub(r"\b(rho|sigma|lapl|tau)(\d+)\b", r"v_\1\2", e)
+    return splat_leaves(rewrite_cmp(rewrite_calls(e)))
+
+
 def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
     """Turn the emitted scalar statement list into a SIMD function body."""
     if in_dims is None:
@@ -253,9 +262,7 @@ def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
             continue
         m = re.match(r"^let (\w+) = (.*);$", st)
         if m:
-            e = re.sub(r"\b(rho|sigma|lapl|tau)\[ip\]", r"v_\1", m.group(2))
-            e = re.sub(r"\b(rho|sigma|lapl|tau)(\d+)\b", r"v_\1\2", e)
-            trans = f"            let {m.group(1)} = {splat_leaves(rewrite_cmp(rewrite_calls(e)))};"
+            trans = f"            let {m.group(1)} = {_vec_expr(m.group(2))};"
             # Every transcendental must have been mapped to a bit-exact
             # `simd::` form above. Anything left that would evaluate
             # approximately -- one of wide's own methods, or a scalar call the
@@ -280,6 +287,23 @@ def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
         if m:
             k = int(m.group(3) or 0)
             out_lines.append(f"            acc_{m.group(1)}_{k} = {m.group(4)};")
+            continue
+        # A fused composite (fuse.py) accumulates several legs into one
+        # output: `zk[ip] += w1 * (0.0 + l1_tzk0);`. The accumulator starts
+        # at V_ZERO and the store is `+=`, so `acc = acc + e_k` in leg order
+        # followed by `out += acc` is the scalar kernel's
+        # `out += e_0; out += e_1; ...` on a zeroed output, bit for bit
+        # (`0 + e_0` is never -0.0, so the final `0 + acc` is the identity).
+        m = re.match(r"^(\w+)\[ip\] \+= (.+);$", st)
+        if m:
+            e = _vec_expr(m.group(2))
+            out_lines.append(f"            acc_{m.group(1)} = acc_{m.group(1)} + ({e});")
+            continue
+        m = re.match(r"^(\w+)\[ip \* (\d+)(?: \+ (\d+))?\] \+= (.+);$", st)
+        if m:
+            k = int(m.group(3) or 0)
+            e = _vec_expr(m.group(4))
+            out_lines.append(f"            acc_{m.group(1)}_{k} = acc_{m.group(1)}_{k} + ({e});")
             continue
         raise ValueError(f"SIMD rewrite does not handle: {st}")
 

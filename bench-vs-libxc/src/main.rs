@@ -242,6 +242,11 @@ fn main() {
         .and_then(|s| s.parse().ok())
         .unwrap_or(9);
     let only = arg_val(&args, "--only");
+    // `XCVS_NO_FUSED=1` times a composite through the leaf-by-leaf mix even
+    // where a fused kernel exists -- the "before" of the fused numbers.
+    if std::env::var_os("XCVS_NO_FUSED").is_some() {
+        libxc_eval::eval::set_fused_enabled(false);
+    }
 
     let cases = [
         Case {
@@ -331,6 +336,28 @@ fn main() {
             name: "hyb_gga_xc_pbeh",
             order: DerivativeOrder::Vxc,
             spin: Spin::Polarized,
+        },
+        // Second derivatives of both composites: the fused kernels carry an
+        // `fxc` arm (`fused_hse` unpolarized only; polarized `fxc` is a scalar
+        // fused kernel, its `gga_x_wpbeh fxc pol` leg not being on the SIMD
+        // allowlist either).
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_hse06",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Unpolarized,
+        },
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_hse06",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Polarized,
+        },
+        Case {
+            fam: Fam::HybGga,
+            name: "hyb_gga_xc_pbeh",
+            order: DerivativeOrder::Fxc,
+            spin: Spin::Unpolarized,
         },
         // The screened-exchange leg HSE06 is built from. Timed on its own so
         // the composite's cost can be attributed: HSE06 evaluates this twice
@@ -923,7 +950,6 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
     let g = grid::gga(np, n, 0x1234);
     let cf = CFunc::new(c.name, c.spin);
     let fxc = c.order >= DerivativeOrder::Fxc;
-    assert!(!fxc, "composite bench is exc+vxc only");
 
     let id = lookup_by_name(&format!("XC_{}", c.name)).expect("registry");
     let f = Functional::new(id, c.spin).expect("Functional::new");
@@ -939,21 +965,43 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
     let sigma = CP(g.sigma.as_ptr());
     let q1 = b1.ptrs();
     let qn = bn.ptrs();
-    let st = [d.zk as usize, d.vrho as usize, d.vsigma as usize];
+    let st = [
+        d.zk as usize,
+        d.vrho as usize,
+        d.vsigma as usize,
+        d.v2rho2 as usize,
+        d.v2rhosigma as usize,
+        d.v2sigma2 as usize,
+    ];
     let (dr, ds) = (d.rho as usize, d.sigma as usize);
     let cn = np.div_ceil(threads);
     let cfr = &cf;
 
     let call_c = move |q: [P; 6], off: usize, len: usize| unsafe {
-        libxc_sys::xc_gga_exc_vxc(
-            cfr.0,
-            len,
-            rho.at(off * dr),
-            sigma.at(off * ds),
-            q[0].at(off * st[0]),
-            q[1].at(off * st[1]),
-            q[2].at(off * st[2]),
-        );
+        if fxc {
+            libxc_sys::xc_gga_exc_vxc_fxc(
+                cfr.0,
+                len,
+                rho.at(off * dr),
+                sigma.at(off * ds),
+                q[0].at(off * st[0]),
+                q[1].at(off * st[1]),
+                q[2].at(off * st[2]),
+                q[3].at(off * st[3]),
+                q[4].at(off * st[4]),
+                q[5].at(off * st[5]),
+            );
+        } else {
+            libxc_sys::xc_gga_exc_vxc(
+                cfr.0,
+                len,
+                rho.at(off * dr),
+                sigma.at(off * ds),
+                q[0].at(off * st[0]),
+                q[1].at(off * st[1]),
+                q[2].at(off * st[2]),
+            );
+        }
     };
 
     // One workspace, reused across every call -- which is the point. It starts
@@ -970,6 +1018,9 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
             zk: Some(&mut b.zk),
             vrho: Some(&mut b.vrho),
             vsigma: Some(&mut b.vsigma),
+            v2rho2: if fxc { Some(&mut b.v2rho2) } else { None },
+            v2rhosigma: if fxc { Some(&mut b.v2rhosigma) } else { None },
+            v2sigma2: if fxc { Some(&mut b.v2sigma2) } else { None },
             ..Default::default()
         };
         f.evaluate_gga(&input, c.order, &mut out, ws).expect("evaluated");
@@ -1037,23 +1088,57 @@ fn bench_hyb_gga(c: Case, np: usize, reps: usize, threads: usize) {
     // The chunked composite path has to reproduce the one-chunk evaluation
     // bit for bit: same zero, same `+= w * aux` per element in the same order,
     // only carved into leaves. Checked exactly, not to a tolerance.
-    let bitwise = [(&r1.zk, &rn.zk), (&r1.vrho, &rn.vrho), (&r1.vsigma, &rn.vsigma)]
+    let ndiff = |a: &GgaBufs, b: &GgaBufs| {
+        [
+            (&a.zk, &b.zk),
+            (&a.vrho, &b.vrho),
+            (&a.vsigma, &b.vsigma),
+            (&a.v2rho2, &b.v2rho2),
+            (&a.v2rhosigma, &b.v2rhosigma),
+            (&a.v2sigma2, &b.v2sigma2),
+        ]
         .iter()
-        .map(|(a, b)| a.iter().zip(b.iter()).filter(|(x, y)| x.to_bits() != y.to_bits()).count())
-        .sum::<usize>();
+        .map(|(x, y)| x.iter().zip(y.iter()).filter(|(u, v)| u.to_bits() != v.to_bits()).count())
+        .sum::<usize>()
+    };
+    let bitwise = ndiff(&r1, &rn);
     println!(
         "        rust-1t vs rust-Nt bitwise: {} differing values{}",
         bitwise,
         if bitwise == 0 { " (identical)" } else { "  !! chunked composite is not bit-exact" }
     );
-    check(
-        &[
-            ("zk", &b1.zk, &rn.zk),
-            ("vrho", &b1.vrho, &rn.vrho),
-            ("vsigma", &b1.vsigma, &rn.vsigma),
-        ],
-        c.name,
+    // A composite with a fused kernel (`libxc_reval::fused`) has to reproduce
+    // the leaf-by-leaf mix bit for bit: the same shared subexpressions, the
+    // same `+= w * (0 + aux)` per element in the same order, only in one loop.
+    // Evaluate the same composite through the mix and compare exactly.
+    let mut rm = GgaBufs::new(np, &d, fxc);
+    let fused_was = libxc_eval::eval::fused_enabled();
+    libxc_eval::eval::set_fused_enabled(false);
+    set_min_chunk(Fam::Gga, default_min_chunk());
+    run(&f, &mut wsn, &mut rm);
+    libxc_eval::eval::set_fused_enabled(fused_was);
+    let fused_diff = ndiff(&rm, &rn);
+    println!(
+        "        fused kernel: {}   fused vs mix bitwise: {} differing values{}",
+        if libxc_reval::fused::has_fused_arm(id.raw(), c.order, c.spin) && fused_was {
+            "yes"
+        } else {
+            "no (mix path timed)"
+        },
+        fused_diff,
+        if fused_diff == 0 { " (identical)" } else { "  !! fused composite is not bit-exact" }
     );
+    let mut pairs: Vec<(&str, &[f64], &[f64])> = vec![
+        ("zk", &b1.zk, &rn.zk),
+        ("vrho", &b1.vrho, &rn.vrho),
+        ("vsigma", &b1.vsigma, &rn.vsigma),
+    ];
+    if fxc {
+        pairs.push(("v2rho2", &b1.v2rho2, &rn.v2rho2));
+        pairs.push(("v2rhosigma", &b1.v2rhosigma, &rn.v2rhosigma));
+        pairs.push(("v2sigma2", &b1.v2sigma2, &rn.v2sigma2));
+    }
+    check(&pairs, c.name);
     println!();
 }
 

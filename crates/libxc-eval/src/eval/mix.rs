@@ -1435,8 +1435,32 @@ mod tests {
         min_chunk: usize,
         with_vsigma: bool,
     ) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
+        run_composite_via(name, spin, order, np, min_chunk, with_vsigma, true)
+    }
+
+    /// As [`run_composite`], choosing whether a composite with a fused kernel
+    /// (`libxc_reval::fused`) may take it (`fused = true`) or must run the
+    /// leaf-by-leaf mix (`fused = false`). The switch is process-wide, so it
+    /// is flipped under `MIN_CHUNK_GUARD` and restored before returning.
+    fn run_composite_via(
+        name: &str,
+        spin: Spin,
+        order: DerivativeOrder,
+        np: usize,
+        min_chunk: usize,
+        with_vsigma: bool,
+        fused: bool,
+    ) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
         use libxc_core::registry::lookup_by_name;
         let _guard = MIN_CHUNK_GUARD.lock().unwrap_or_else(|p| p.into_inner());
+        struct Restore(bool);
+        impl Drop for Restore {
+            fn drop(&mut self) {
+                crate::eval::set_fused_enabled(self.0);
+            }
+        }
+        let _restore = Restore(crate::eval::fused_enabled());
+        crate::eval::set_fused_enabled(fused);
         let id = lookup_by_name(name).unwrap();
         let f = Functional::new(id, spin).unwrap();
         assert!(!f.auxiliaries.is_empty(), "{name} must be a composite");
@@ -1493,6 +1517,84 @@ mod tests {
         }
     }
 
+    /// A composite with a fused kernel reproduces the leaf-by-leaf mix bit
+    /// for bit: the fused body is the legs' maple2c bodies value-numbered
+    /// together, and its accumulation is the mix's `+= w * (0 + aux)` in the
+    /// same order (`tools/translate_rayon/fuse.py`). HSE06's first leg is
+    /// further specialised on `omega = 0`, which is what this test is
+    /// really guarding. The grid has a screened tail, so the single screen
+    /// of the fused kernel is compared against the per-leg screens of the
+    /// mix as well.
+    #[test]
+    fn fused_composite_is_bit_identical_to_mix() {
+        use libxc_core::registry::lookup_by_name;
+        let mut covered = 0;
+        for name in ["XC_HYB_GGA_XC_PBEH", "XC_HYB_GGA_XC_HSE06", "XC_HYB_GGA_XC_HSE03"] {
+            let id = lookup_by_name(name).unwrap();
+            for spin in [Spin::Unpolarized, Spin::Polarized] {
+                for order in [DerivativeOrder::Exc, DerivativeOrder::Vxc, DerivativeOrder::Fxc] {
+                    if !libxc_reval::fused::has_fused_arm(id.raw(), order, spin) {
+                        continue;
+                    }
+                    covered += 1;
+                    let np = 5000;
+                    let fused = run_composite_via(name, spin, order, np, 512, true, true);
+                    let mix = run_composite_via(name, spin, order, np, 512, true, false);
+                    for (k, (a, b)) in [(&fused.0, &mix.0), (&fused.1, &mix.1), (&fused.2, &mix.2), (&fused.3, &mix.3)]
+                        .iter()
+                        .enumerate()
+                    {
+                        let bad = a.iter().zip(b.iter()).filter(|(x, y)| x.to_bits() != y.to_bits()).count();
+                        assert_eq!(bad, 0, "{name} {spin:?} {order:?}: field {k} differs in {bad} values");
+                    }
+                    assert!(fused.0.iter().any(|v| *v != 0.0), "{name}: zk is identically zero");
+                }
+            }
+        }
+        assert!(covered >= 12, "only {covered} fused arms were exercised");
+    }
+
+    /// The fused path is refused, and the mix used, when a parameter the
+    /// kernel was specialised on is changed: HSE06 with `_omega_PBE` moved
+    /// still fuses (that leg takes omega at runtime), but its `_beta` only
+    /// changes a weight, so both must agree with the mix either way.
+    #[test]
+    fn fused_composite_follows_runtime_ext_params() {
+        use libxc_core::registry::lookup_by_name;
+        let _guard = MIN_CHUNK_GUARD.lock().unwrap_or_else(|p| p.into_inner());
+        let spin = Spin::Unpolarized;
+        let np = 3000;
+        let (rho, sigma) = gga_grid(np, 1);
+        let input = GgaInput::new(&rho, &sigma, np, spin).unwrap();
+        let d = Dimensions::gga(spin);
+        let run = |fused: bool| {
+            let mut f = Functional::new(lookup_by_name("XC_HYB_GGA_XC_HSE06").unwrap(), spin).unwrap();
+            f.set_ext_params(&[0.4, 0.2, 0.2]).unwrap();
+            let mut zk = vec![0.0; np];
+            let mut vrho = vec![0.0; np * d.vrho as usize];
+            let mut vsigma = vec![0.0; np * d.vsigma as usize];
+            let mut ws = EvaluationWorkspace::with_order(np, spin, DerivativeOrder::Exc);
+            let mut out = GgaOutput {
+                zk: Some(&mut zk),
+                vrho: Some(&mut vrho),
+                vsigma: Some(&mut vsigma),
+                ..Default::default()
+            };
+            let was = crate::eval::fused_enabled();
+            crate::eval::set_fused_enabled(fused);
+            let r = f.evaluate_gga(&input, DerivativeOrder::Vxc, &mut out, &mut ws);
+            crate::eval::set_fused_enabled(was);
+            r.unwrap();
+            (zk, vrho, vsigma)
+        };
+        let a = run(true);
+        let b = run(false);
+        for (x, y) in [(&a.0, &b.0), (&a.1, &b.1), (&a.2, &b.2)] {
+            assert!(x.iter().zip(y.iter()).all(|(u, v)| u.to_bits() == v.to_bits()));
+        }
+        assert!(a.0.iter().any(|v| *v != 0.0));
+    }
+
     /// A caller may leave a field out; it is simply not accumulated into.
     #[test]
     fn chunked_composite_gga_skips_absent_fields() {
@@ -1538,6 +1640,16 @@ mod tests {
         // Enough points that there are many more leaves than workers, so the
         // pool size is set by the workers and not by the grid.
         let _guard = MIN_CHUNK_GUARD.lock().unwrap_or_else(|p| p.into_inner());
+        // PBE0 has a fused kernel now, which uses no pool at all; this test is
+        // about the mix's pool, so pin the mix path for its duration.
+        struct Restore(bool);
+        impl Drop for Restore {
+            fn drop(&mut self) {
+                crate::eval::set_fused_enabled(self.0);
+            }
+        }
+        let _restore = Restore(crate::eval::fused_enabled());
+        crate::eval::set_fused_enabled(false);
         let np = 400_000;
         let spin = Spin::Polarized;
         let f = Functional::new(lookup_by_name("XC_HYB_GGA_XC_PBEH").unwrap(), spin).unwrap();
