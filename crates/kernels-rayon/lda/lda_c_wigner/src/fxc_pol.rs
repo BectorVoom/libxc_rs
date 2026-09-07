@@ -21,6 +21,17 @@ pub fn lda_c_wigner_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = M_CBRT3;
+    let t10 = 1.0 / M_PI;
+    let t11 = pow_1_3(t10);
+    let t12 = t9 * t11;
+    let t13 = M_CBRT4;
+    let t14 = t13 * t13;
+    let t36 = t11 * t14;
+    let t75 = t9 * t9;
+    let t77 = t11 * t11;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -31,15 +42,9 @@ pub fn lda_c_wigner_fxc_pol(
         let t5 = 1.0 / t4;
         let t7 = -t2 * t5 + 1.0;
         let t8 = t7 * param_a;
-        let t9 = M_CBRT3;
-        let t10 = 1.0 / M_PI;
-        let t11 = pow_1_3(t10);
-        let t12 = t9 * t11;
-        let t13 = M_CBRT4;
-        let t14 = t13 * t13;
         let t15 = pow_1_3(t3);
         let t16 = 1.0 / t15;
-        let t20 = param_b + t12 * t14 * t16 / 4.0;
+        let t20 = param_b + t12 * t14 * t16 * 0.25;
         let t21 = 1.0 / t20;
         let tzk0 = t8 * t21;
         zk[ip] += tzk0;
@@ -51,7 +56,6 @@ pub fn lda_c_wigner_fxc_pol(
         let t29 = param_a * t21;
         let t33 = t20 * t20;
         let t34 = 1.0 / t33;
-        let t36 = t11 * t14;
         let t37 = t34 * t9 * t36;
         let t39 = t16 * t7 * param_a * t37 / 12.0;
         let tvrho0 = t3 * t27 * t29 + t39 + tzk0;
@@ -74,8 +78,6 @@ pub fn lda_c_wigner_fxc_pol(
         let t68 = t15 * t15;
         let t70 = 1.0 / t68 / t3;
         let t74 = 1.0 / t33 / t20;
-        let t75 = t9 * t9;
-        let t77 = t11 * t11;
         let t79 = t74 * t75 * t77 * t13;
         let t81 = t70 * t7 * param_a * t79 / 18.0;
         let tv2rho20 = 2.0 * t45 + t53 + t3 * t61 * t29 + t66 / 6.0 + t81;

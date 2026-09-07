@@ -24,39 +24,42 @@ pub fn gga_x_herman_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t6 = t3 / t4;
+    let t7 = 1.0 <= zeta_threshold;
+    let t8 = zeta_threshold - 1.0;
+    let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+    let t11 = 1.0 + t10;
+    let t13 = pow_1_3(zeta_threshold);
+    let t15 = pow_1_3(t11);
+    let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+    let t20 = t3 * t3;
+    let t22 = pow_1_3(1.0 / M_PI);
+    let t23 = 1.0 / t22;
+    let t25 = M_CBRT4;
+    let t27 = M_CBRT2;
+    let t28 = t27 * t27;
+    let t64 = t23 * t25 * t28;
+    let tv2sigma20 = 0.0;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t6 = t3 / t4;
-        let t7 = 1.0 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
-        let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t18 = pow_1_3(rho[ip]);
-        let t20 = t3 * t3;
-        let t22 = pow_1_3(1.0 / M_PI);
-        let t23 = 1.0 / t22;
-        let t25 = M_CBRT4;
-        let t27 = M_CBRT2;
-        let t28 = t27 * t27;
         let t30 = rho[ip] * rho[ip];
         let t31 = t18 * t18;
         let t33 = 1.0 / t31 / t30;
         let t37 = 1.0 + 0.0006666666666666666 * t20 * t23 * t25 * sigma[ip] * t28 * t33;
-        let t41 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t17 * t18 * t37);
+        let t41 = piecewise3(t2, 0.0, -3.0 * 0.125 * t6 * t17 * t18 * t37);
         let tzk0 = 2.0 * t41;
         zk[ip] += tzk0;
         let t47 = t30 * rho[ip];
         let t50 = t17 / t18 / t47;
         let t53 = t25 * sigma[ip] * t28;
-        let t57 = piecewise3(t2, 0.0, -t6 * t17 / t31 * t37 / 8.0 + 0.0013655681265105914 * t50 * t23 * t53);
+        let t57 = piecewise3(t2, 0.0, -t6 * t17 / t31 * t37 * 0.125 + 0.0013655681265105914 * t50 * t23 * t53);
         let tvrho0 = 2.0 * rho[ip] * t57 + 2.0 * t41;
         vrho[ip] += tvrho0;
-        let t64 = t23 * t25 * t28;
         let t67 = piecewise3(t2, 0.0, -0.0005120880474414717 * t17 / t18 / t30 * t64);
         let tvsigma0 = 2.0 * rho[ip] * t67;
         vsigma[ip] += tvsigma0;
@@ -68,7 +71,6 @@ pub fn gga_x_herman_fxc_unpol(
         let t89 = piecewise3(t2, 0.0, 0.0011948721106967675 * t50 * t64);
         let tv2rhosigma0 = 2.0 * rho[ip] * t89 + 2.0 * t67;
         v2rhosigma[ip] += tv2rhosigma0;
-        let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
     }
 }

@@ -134,6 +134,10 @@ pub fn mgga_xc_lp90_vxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let tvtau0 = f64x8::splat(0.0);
+    let tvtau1 = f64x8::splat(0.0);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -170,7 +174,7 @@ pub fn mgga_xc_lp90_vxc_pol(
             let t17 = v_rho0 - v_rho1;
             let t18 = f64x8::splat(1.0) / t4;
             let t19 = t17 * t18;
-            let t21 = f64x8::splat(1.0) / f64x8::splat(2.0) + t19 / f64x8::splat(2.0);
+            let t21 = f64x8::splat(1.0) * f64x8::splat(0.5) + t19 * f64x8::splat(0.5);
             let t22 = (simd::cbrt(t21));
             let t23 = t22 * t22;
             let t24 = t23 * t21;
@@ -178,7 +182,7 @@ pub fn mgga_xc_lp90_vxc_pol(
             let t28 = t27 * t27;
             let t30 = f64x8::splat(1.0) / t28 / v_rho1;
             let t31 = v_lapl1 * t30;
-            let t33 = f64x8::splat(1.0) / f64x8::splat(2.0) - t19 / f64x8::splat(2.0);
+            let t33 = f64x8::splat(1.0) * f64x8::splat(0.5) - t19 * f64x8::splat(0.5);
             let t34 = (simd::cbrt(t33));
             let t35 = t34 * t34;
             let t36 = t35 * t33;
@@ -196,7 +200,7 @@ pub fn mgga_xc_lp90_vxc_pol(
             let t52 = v_lapl0 * t51;
             let t55 = f64x8::splat(1.0) / t5;
             let t56 = t17 * t55;
-            let t58 = t18 / f64x8::splat(2.0) - t56 / f64x8::splat(2.0);
+            let t58 = t18 * f64x8::splat(0.5) - t56 * f64x8::splat(0.5);
             let t59 = t23 * t58;
             let t62 = -t58;
             let t63 = t35 * t62;
@@ -206,7 +210,7 @@ pub fn mgga_xc_lp90_vxc_pol(
             let t73 = t40 * t39 * t71 / f64x8::splat(3.0);
             let tvrho0 = -t4 * t66 * t42 - t73 + tzk0;
             acc_vrho_0 = tvrho0;
-            let t75 = -t18 / f64x8::splat(2.0) - t56 / f64x8::splat(2.0);
+            let t75 = -t18 * f64x8::splat(0.5) - t56 * f64x8::splat(0.5);
             let t76 = t23 * t75;
             let t79 = v_rho1 * v_rho1;
             let t81 = f64x8::splat(1.0) / t28 / t79;
@@ -232,9 +236,7 @@ pub fn mgga_xc_lp90_vxc_pol(
             let t101 = t36 * t42;
             let tvlapl1 = f64x8::splat(0.00037655) * t100 * t101;
             acc_vlapl_1 = tvlapl1;
-            let tvtau0 = f64x8::splat(0.0);
             acc_vtau_0 = tvtau0;
-            let tvtau1 = f64x8::splat(0.0);
             acc_vtau_1 = tvtau1;
         }
         store_add(zk, ip, m, acc_zk);

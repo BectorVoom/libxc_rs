@@ -22,6 +22,35 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t6 = t3 / t4;
+    let t12 = zeta_threshold - 1.0;
+    let t16 = -t12;
+    let t22 = pow_1_3(zeta_threshold);
+    let t23 = t22 * zeta_threshold;
+    let t35 = M_CBRT6;
+    let t36 = t35 * t35;
+    let t37 = M_PI * M_PI;
+    let t38 = pow_1_3(t37);
+    let t39 = t38 * t38;
+    let t41 = 3.0 / 10.0 * t36 * t39;
+    let t56 = pow_1_4(f64::EPSILON);
+    let t58 = pow_1_3(32.0);
+    let t59 = t58 * t4;
+    let t60 = t3 * t3;
+    let t62 = pow_1_3(1.0 / M_PI);
+    let t63 = 1.0 / t62;
+    let t64 = t60 * t63;
+    let t65 = M_CBRT4;
+    let t66 = t64 * t65;
+    let t67 = t59 * t66;
+    let t68 = t67 / 12.0;
+    let t69 = t59 * t60;
+    let t70 = t63 * t65;
+    let t96 = t59 * t64;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -33,21 +62,14 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
         let t2 = rho0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t6 = t3 / t4;
         let t7 = rho0 + rho1;
         let t8 = 1.0 / t7;
         let t11 = 2.0 * rho0 * t8 <= zeta_threshold;
-        let t12 = zeta_threshold - 1.0;
         let t15 = 2.0 * rho1 * t8 <= zeta_threshold;
-        let t16 = -t12;
         let t17 = rho0 - rho1;
         let t19 = piecewise5(t11, t12, t15, t16, t17 * t8);
         let t20 = 1.0 + t19;
         let t21 = t20 <= zeta_threshold;
-        let t22 = pow_1_3(zeta_threshold);
-        let t23 = t22 * zeta_threshold;
         let t24 = pow_1_3(t20);
         let t26 = piecewise3(t21, t23, t24 * t20);
         let t27 = pow_1_3(t7);
@@ -55,12 +77,6 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t29 = pow_1_3(rho0);
         let t30 = t29 * t29;
         let t32 = 1.0 / t30 / rho0;
-        let t35 = M_CBRT6;
-        let t36 = t35 * t35;
-        let t37 = M_PI * M_PI;
-        let t38 = pow_1_3(t37);
-        let t39 = t38 * t38;
-        let t41 = 3.0 / 10.0 * t36 * t39;
         let t42 = rho0 * rho0;
         let t44 = 1.0 / t30 / t42;
         let t47 = sigma0 * sigma0;
@@ -69,20 +85,7 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t51 = 1.0 / t29 / t49;
         let t54 = 0.149492 * tau0 * t32 - t41 + 0.147 * sigma0 * t44 + 0.0032 * t47 * t51;
         let t55 = xc_mgga_x_mbrxc_get_x(t54);
-        let t56 = pow_1_4(f64::EPSILON);
         let t57 = t55 < t56;
-        let t58 = pow_1_3(32.0);
-        let t59 = t58 * t4;
-        let t60 = t3 * t3;
-        let t62 = pow_1_3(1.0 / M_PI);
-        let t63 = 1.0 / t62;
-        let t64 = t60 * t63;
-        let t65 = M_CBRT4;
-        let t66 = t64 * t65;
-        let t67 = t59 * t66;
-        let t68 = t67 / 12.0;
-        let t69 = t59 * t60;
-        let t70 = t63 * t65;
         let t71 = t55 * t55;
         let t72 = t70 * t71;
         let t75 = t71 * t55;
@@ -93,7 +96,6 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t84 = t70 * t83;
         let t87 = t79 * t71;
         let t88 = t70 * t87;
-        let t96 = t59 * t64;
         let t97 = t56 < t55;
         let t98 = piecewise3(t97, t55, t56);
         let t100 = rmath::exp(t98 / 3.0);
@@ -110,7 +112,7 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t112 = 1.0 / t111;
         let t113 = t109 * t112;
         let t117 = piecewise3(t57, -t68 - t69 * t72 / 108.0 + t69 * t76 / 108.0 - 13.0 / 1620.0 * t69 * t80 + 67.0 / 9720.0 * t69 * t84 - 52.0 / 8505.0 * t69 * t88 + 1811.0 / 326592.0 * t69 * t70 * t79 * t75, -t96 * t101 * t113 / 36.0);
-        let t121 = piecewise3(t2, 0.0, 3.0 / 16.0 * t6 * t28 * t117);
+        let t121 = piecewise3(t2, 0.0, 3.0 * 0.0625 * t6 * t28 * t117);
         let t122 = rho1 <= dens_threshold;
         let t123 = -t17;
         let t125 = piecewise5(t15, t12, t11, t16, t123 * t8);
@@ -157,7 +159,7 @@ pub fn mgga_x_mbrxc_bg_exc_pol(
         let t193 = 1.0 / t192;
         let t194 = t190 * t193;
         let t198 = piecewise3(t152, -t68 - t69 * t154 / 108.0 + t69 * t158 / 108.0 - 13.0 / 1620.0 * t69 * t162 + 67.0 / 9720.0 * t69 * t166 - 52.0 / 8505.0 * t69 * t170 + 1811.0 / 326592.0 * t69 * t70 * t161 * t157, -t96 * t182 * t194 / 36.0);
-        let t202 = piecewise3(t122, 0.0, 3.0 / 16.0 * t6 * t131 * t198);
+        let t202 = piecewise3(t122, 0.0, 3.0 * 0.0625 * t6 * t131 * t198);
         let tzk0 = t121 + t202;
         zk[ip] += tzk0;
     }

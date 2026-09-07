@@ -19,21 +19,23 @@ pub fn lda_x_2d_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_SQRT2;
+    let t2 = rmath::sqrt(M_PI);
+    let t3 = 1.0 / t2;
+    let t4 = t1 * t3;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t12 = t11 * zeta_threshold;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        let t1 = M_SQRT2;
-        let t2 = rmath::sqrt(M_PI);
-        let t3 = 1.0 / t2;
-        let t4 = t1 * t3;
         let t5 = rho0 - rho1;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t8 = t5 * t7;
         let t9 = 1.0 + t8;
         let t10 = t9 <= zeta_threshold;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t12 = t11 * zeta_threshold;
         let t13 = rmath::sqrt(t9);
         let t14 = t13 * t9;
         let t15 = piecewise3(t10, t12, t14);
@@ -42,7 +44,7 @@ pub fn lda_x_2d_fxc_pol(
         let t18 = rmath::sqrt(t16);
         let t19 = t18 * t16;
         let t20 = piecewise3(t17, t12, t19);
-        let t22 = t15 / 2.0 + t20 / 2.0;
+        let t22 = t15 * 0.5 + t20 * 0.5;
         let t23 = rmath::sqrt(t6);
         let t25 = t4 * t22 * t23;
         let tzk0 = -4.0 / 3.0 * t25;
@@ -54,17 +56,17 @@ pub fn lda_x_2d_fxc_pol(
         let t31 = 1.0 / t30;
         let t32 = t5 * t31;
         let t33 = t7 - t32;
-        let t36 = piecewise3(t10, 0.0, 3.0 / 2.0 * t13 * t33);
+        let t36 = piecewise3(t10, 0.0, 3.0 * 0.5 * t13 * t33);
         let t37 = -t33;
-        let t40 = piecewise3(t17, 0.0, 3.0 / 2.0 * t18 * t37);
-        let t42 = t36 / 2.0 + t40 / 2.0;
+        let t40 = piecewise3(t17, 0.0, 3.0 * 0.5 * t18 * t37);
+        let t42 = t36 * 0.5 + t40 * 0.5;
         let tvrho0 = -t27 - 4.0 / 3.0 * t29 * t3 * t42;
         vrho[ip * 2] += tvrho0;
         let t46 = -t7 - t32;
-        let t49 = piecewise3(t10, 0.0, 3.0 / 2.0 * t13 * t46);
+        let t49 = piecewise3(t10, 0.0, 3.0 * 0.5 * t13 * t46);
         let t50 = -t46;
-        let t53 = piecewise3(t17, 0.0, 3.0 / 2.0 * t18 * t50);
-        let t56 = t3 * (t49 / 2.0 + t53 / 2.0);
+        let t53 = piecewise3(t17, 0.0, 3.0 * 0.5 * t18 * t50);
+        let t56 = t3 * (t49 * 0.5 + t53 * 0.5);
         let tvrho1 = -t27 - 4.0 / 3.0 * t29 * t56;
         vrho[ip * 2 + 1] += tvrho1;
         let t60 = t4 * t42 * t23;
@@ -75,32 +77,32 @@ pub fn lda_x_2d_fxc_pol(
         let t70 = 1.0 / t30 / t6;
         let t71 = t5 * t70;
         let t73 = -2.0 * t31 + 2.0 * t71;
-        let t77 = piecewise3(t10, 0.0, 3.0 / 4.0 * t65 * t66 + 3.0 / 2.0 * t13 * t73);
+        let t77 = piecewise3(t10, 0.0, 3.0 * 0.25 * t65 * t66 + 3.0 * 0.5 * t13 * t73);
         let t78 = 1.0 / t18;
         let t79 = t37 * t37;
         let t82 = -t73;
-        let t86 = piecewise3(t17, 0.0, 3.0 / 4.0 * t78 * t79 + 3.0 / 2.0 * t18 * t82);
-        let t88 = t77 / 2.0 + t86 / 2.0;
+        let t86 = piecewise3(t17, 0.0, 3.0 * 0.25 * t78 * t79 + 3.0 * 0.5 * t18 * t82);
+        let t88 = t77 * 0.5 + t86 * 0.5;
         let tv2rho20 = -4.0 * t60 - t64 - 4.0 / 3.0 * t29 * t3 * t88;
         v2rho2[ip * 3] += tv2rho20;
         let t93 = t23 * t1;
         let t94 = t93 * t56;
         let t96 = t65 * t46;
         let t99 = t13 * t5;
-        let t103 = piecewise3(t10, 0.0, 3.0 / 4.0 * t96 * t33 + 3.0 * t99 * t70);
+        let t103 = piecewise3(t10, 0.0, 3.0 * 0.25 * t96 * t33 + 3.0 * t99 * t70);
         let t104 = t78 * t50;
         let t107 = t18 * t5;
-        let t111 = piecewise3(t17, 0.0, 3.0 / 4.0 * t104 * t37 - 3.0 * t107 * t70);
-        let t114 = t3 * (t103 / 2.0 + t111 / 2.0);
+        let t111 = piecewise3(t17, 0.0, 3.0 * 0.25 * t104 * t37 - 3.0 * t107 * t70);
+        let t114 = t3 * (t103 * 0.5 + t111 * 0.5);
         let tv2rho21 = -2.0 * t60 - t64 - 2.0 * t94 - 4.0 / 3.0 * t29 * t114;
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t118 = t46 * t46;
         let t122 = 2.0 * t31 + 2.0 * t71;
-        let t126 = piecewise3(t10, 0.0, 3.0 / 4.0 * t65 * t118 + 3.0 / 2.0 * t13 * t122);
+        let t126 = piecewise3(t10, 0.0, 3.0 * 0.25 * t65 * t118 + 3.0 * 0.5 * t13 * t122);
         let t127 = t50 * t50;
         let t130 = -t122;
-        let t134 = piecewise3(t17, 0.0, 3.0 / 4.0 * t78 * t127 + 3.0 / 2.0 * t18 * t130);
-        let t137 = t3 * (t126 / 2.0 + t134 / 2.0);
+        let t134 = piecewise3(t17, 0.0, 3.0 * 0.25 * t78 * t127 + 3.0 * 0.5 * t18 * t130);
+        let t137 = t3 * (t126 * 0.5 + t134 * 0.5);
         let tv2rho22 = -4.0 * t94 - t64 - 4.0 / 3.0 * t29 * t137;
         v2rho2[ip * 3 + 2] += tv2rho22;
     }

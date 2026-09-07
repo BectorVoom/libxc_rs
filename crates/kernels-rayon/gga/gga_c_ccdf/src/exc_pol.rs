@@ -138,6 +138,15 @@ pub fn gga_c_ccdf_exc_pol(
     let param_c5 = f64x8::splat(param_c5);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t8 = f64x8::splat(M_CBRT2);
+    let t9 = f64x8::splat(M_CBRT6);
+    let t10 = t9 * t9;
+    let t11 = t8 * t10;
+    let t12 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t13 = (simd::cbrt(t12));
+    let t14 = f64x8::splat(1.0) / t13;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -154,13 +163,6 @@ pub fn gga_c_ccdf_exc_pol(
             let t5 = param_c2 * t3 + f64x8::splat(1.0);
             let t6 = f64x8::splat(1.0) / t5;
             let t7 = param_c1 * t6;
-            let t8 = f64x8::splat(M_CBRT2);
-            let t9 = f64x8::splat(M_CBRT6);
-            let t10 = t9 * t9;
-            let t11 = t8 * t10;
-            let t12 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t13 = (simd::cbrt(t12));
-            let t14 = f64x8::splat(1.0) / t13;
             let t16 = v_sigma0 + f64x8::splat(2.0) * v_sigma1 + v_sigma2;
             let t17 = ((t16).sqrt());
             let t18 = t14 * t17;

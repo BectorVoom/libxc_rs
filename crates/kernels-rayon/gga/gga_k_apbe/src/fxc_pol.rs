@@ -26,6 +26,36 @@ pub fn gga_k_apbe_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = t2 * t2;
+    let t4 = M_CBRTPI;
+    let t6 = t3 * t4 * M_PI;
+    let t12 = zeta_threshold - 1.0;
+    let t16 = -t12;
+    let t22 = pow_1_3(zeta_threshold);
+    let t23 = t22 * t22;
+    let t24 = t23 * zeta_threshold;
+    let t32 = M_CBRT6;
+    let t33 = param_mu * t32;
+    let t34 = M_PI * M_PI;
+    let t35 = pow_1_3(t34);
+    let t36 = t35 * t35;
+    let t37 = 1.0 / t36;
+    let t104 = param_kappa * param_kappa;
+    let t175 = t32 * t37;
+    let tvsigma1 = 0.0;
+    let t226 = param_mu * param_mu;
+    let t228 = t32 * t32;
+    let t231 = 1.0 / t35 / t34;
+    let tv2rhosigma1 = 0.0;
+    let tv2rhosigma4 = 0.0;
+    let t444 = t228 * t231;
+    let tv2sigma21 = 0.0;
+    let tv2sigma22 = 0.0;
+    let tv2sigma23 = 0.0;
+    let tv2sigma24 = 0.0;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -33,35 +63,20 @@ pub fn gga_k_apbe_fxc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = t2 * t2;
-        let t4 = M_CBRTPI;
-        let t6 = t3 * t4 * M_PI;
         let t7 = rho0 + rho1;
         let t8 = 1.0 / t7;
         let t11 = 2.0 * rho0 * t8 <= zeta_threshold;
-        let t12 = zeta_threshold - 1.0;
         let t15 = 2.0 * rho1 * t8 <= zeta_threshold;
-        let t16 = -t12;
         let t17 = rho0 - rho1;
         let t19 = piecewise5(t11, t12, t15, t16, t17 * t8);
         let t20 = 1.0 + t19;
         let t21 = t20 <= zeta_threshold;
-        let t22 = pow_1_3(zeta_threshold);
-        let t23 = t22 * t22;
-        let t24 = t23 * zeta_threshold;
         let t25 = pow_1_3(t20);
         let t26 = t25 * t25;
         let t28 = piecewise3(t21, t24, t26 * t20);
         let t29 = pow_1_3(t7);
         let t30 = t29 * t29;
         let t31 = t28 * t30;
-        let t32 = M_CBRT6;
-        let t33 = param_mu * t32;
-        let t34 = M_PI * M_PI;
-        let t35 = pow_1_3(t34);
-        let t36 = t35 * t35;
-        let t37 = 1.0 / t36;
         let t38 = t37 * sigma0;
         let t39 = rho0 * rho0;
         let t40 = pow_1_3(rho0);
@@ -98,7 +113,6 @@ pub fn gga_k_apbe_fxc_pol(
         let t99 = 1.0 / t29;
         let t100 = t28 * t99;
         let t103 = t6 * t100 * t52 / 10.0;
-        let t104 = param_kappa * param_kappa;
         let t105 = t31 * t104;
         let t106 = t6 * t105;
         let t107 = t47 * t47;
@@ -135,12 +149,10 @@ pub fn gga_k_apbe_fxc_pol(
         let t172 = piecewise3(t57, 0.0, 3.0 / 20.0 * t6 * t154 * t82 + t133 - t159 * t168 / 60.0);
         let tvrho1 = t56 + t86 + t7 * (t148 + t172);
         vrho[ip * 2 + 1] += tvrho1;
-        let t175 = t32 * t37;
         let t177 = t109 * t175 * t43;
         let t180 = piecewise3(t1, 0.0, t106 * t177 / 160.0);
         let tvsigma0 = t7 * t180;
         vsigma[ip * 3] += tvsigma0;
-        let tvsigma1 = 0.0;
         vsigma[ip * 3 + 1] += tvsigma1;
         let t182 = t162 * t175 * t73;
         let t185 = piecewise3(t57, 0.0, t159 * t182 / 160.0);
@@ -162,11 +174,8 @@ pub fn gga_k_apbe_fxc_pol(
         let t219 = t6 * t216 * t52 / 30.0;
         let t221 = t6 * t100 * t104;
         let t222 = t221 * t115;
-        let t226 = param_mu * param_mu;
         let t227 = 1.0 / t107 / t47 * t226;
-        let t228 = t32 * t32;
         let t229 = t227 * t228;
-        let t231 = 1.0 / t35 / t34;
         let t232 = sigma0 * sigma0;
         let t233 = t231 * t232;
         let t234 = t39 * t39;
@@ -238,7 +247,6 @@ pub fn gga_k_apbe_fxc_pol(
         let t413 = piecewise3(t1, 0.0, t211 * t177 / 160.0 + t399 + t106 * t405 / 720.0 - t106 * t409 / 60.0);
         let tv2rhosigma0 = t7 * t413 + t180;
         v2rhosigma[ip * 6] += tv2rhosigma0;
-        let tv2rhosigma1 = 0.0;
         v2rhosigma[ip * 6 + 1] += tv2rhosigma1;
         let t418 = t326 * t182 / 240.0;
         let t420 = piecewise3(t57, 0.0, t322 * t182 / 160.0 + t418);
@@ -247,7 +255,6 @@ pub fn gga_k_apbe_fxc_pol(
         let t425 = piecewise3(t1, 0.0, t296 * t177 / 160.0 + t399);
         let tv2rhosigma3 = t7 * t425 + t180;
         v2rhosigma[ip * 6 + 3] += tv2rhosigma3;
-        let tv2rhosigma4 = 0.0;
         v2rhosigma[ip * 6 + 4] += tv2rhosigma4;
         let t429 = t378 * t69;
         let t431 = 1.0 / t70 / t429;
@@ -256,19 +263,14 @@ pub fn gga_k_apbe_fxc_pol(
         let t442 = piecewise3(t57, 0.0, t368 * t182 / 160.0 + t418 + t159 * t434 / 720.0 - t159 * t438 / 60.0);
         let tv2rhosigma5 = t7 * t442 + t185;
         v2rhosigma[ip * 6 + 5] += tv2rhosigma5;
-        let t444 = t228 * t231;
         let t445 = t234 * rho0;
         let t449 = t227 * t444 / t40 / t445;
         let t452 = piecewise3(t1, 0.0, -t106 * t449 / 1920.0);
         let tv2sigma20 = t7 * t452;
         v2sigma2[ip * 6] += tv2sigma20;
-        let tv2sigma21 = 0.0;
         v2sigma2[ip * 6 + 1] += tv2sigma21;
-        let tv2sigma22 = 0.0;
         v2sigma2[ip * 6 + 2] += tv2sigma22;
-        let tv2sigma23 = 0.0;
         v2sigma2[ip * 6 + 3] += tv2sigma23;
-        let tv2sigma24 = 0.0;
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let t453 = t378 * rho1;
         let t457 = t374 * t444 / t70 / t453;

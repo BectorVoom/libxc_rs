@@ -20,6 +20,13 @@ pub fn lda_c_2d_amgb_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t12 = rmath::sqrt(M_PI);
+    let t13 = 1.0 / t12;
+    let t63 = M_SQRT2;
+    let t69 = rmath::sqrt(zeta_threshold);
+    let t70 = t69 * zeta_threshold;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -29,8 +36,6 @@ pub fn lda_c_2d_amgb_fxc_pol(
         let t5 = 1.0 / t1;
         let t8 = 1.0 / t2 / t1;
         let t10 = 0.04869723403850762 * t3 + 0.018219548589342285 * t5 + 0.000603947002028882 * t8;
-        let t12 = rmath::sqrt(M_PI);
-        let t13 = 1.0 / t12;
         let t14 = t13 * t3;
         let t15 = pow_3_2(t14);
         let t19 = 0.5654308006315614 * t3 - 0.02069 * t15 + 0.10821581200590331 * t5 + 0.00313738702352666 * t8;
@@ -59,14 +64,11 @@ pub fn lda_c_2d_amgb_fxc_pol(
         let t58 = 1.0 / t57;
         let t59 = t56 * t58;
         let t61 = rmath::exp(-0.7552241765370266 * t3);
-        let t63 = M_SQRT2;
         let t64 = (t61 - 1.0) * t63;
         let t65 = t13 * t2;
         let t66 = t37 * t5;
         let t67 = 1.0 + t66;
         let t68 = t67 <= zeta_threshold;
-        let t69 = rmath::sqrt(zeta_threshold);
-        let t70 = t69 * zeta_threshold;
         let t71 = rmath::sqrt(t67);
         let t72 = t71 * t67;
         let t73 = piecewise3(t68, t70, t72);
@@ -75,7 +77,7 @@ pub fn lda_c_2d_amgb_fxc_pol(
         let t77 = rmath::sqrt(t75);
         let t78 = t77 * t75;
         let t79 = piecewise3(t76, t70, t78);
-        let t85 = t73 / 2.0 + t79 / 2.0 - 1.0 - 3.0 / 8.0 * t38 * t41 - 3.0 / 128.0 * t55 * t58;
+        let t85 = t73 * 0.5 + t79 * 0.5 - 1.0 - 3.0 * 0.125 * t38 * t41 - 3.0 * 0.0078125 * t55 * t58;
         let t88 = 4.0 / 3.0 * t64 * t65 * t85;
         let tzk0 = -0.1925 + t23 + t42 + t59 - t88;
         zk[ip] += tzk0;
@@ -134,24 +136,24 @@ pub fn lda_c_2d_amgb_fxc_pol(
         let t166 = 2.0 / 3.0 * t165;
         let t167 = t37 * t41;
         let t168 = t5 - t167;
-        let t171 = piecewise3(t68, 0.0, 3.0 / 2.0 * t71 * t168);
+        let t171 = piecewise3(t68, 0.0, 3.0 * 0.5 * t71 * t168);
         let t173 = -t168;
-        let t176 = piecewise3(t76, 0.0, 3.0 / 2.0 * t77 * t173);
-        let t178 = 3.0 / 4.0 * t167;
-        let t180 = 3.0 / 4.0 * t38 * t132;
-        let t182 = 3.0 / 32.0 * t152 * t58;
-        let t184 = 3.0 / 32.0 * t55 * t157;
-        let t185 = t171 / 2.0 + t176 / 2.0 - t178 + t180 - t182 + t184;
+        let t176 = piecewise3(t76, 0.0, 3.0 * 0.5 * t77 * t173);
+        let t178 = 3.0 * 0.25 * t167;
+        let t180 = 3.0 * 0.25 * t38 * t132;
+        let t182 = 3.0 * 0.03125 * t152 * t58;
+        let t184 = 3.0 * 0.03125 * t55 * t157;
+        let t185 = t171 * 0.5 + t176 * 0.5 - t178 + t180 - t182 + t184;
         let t187 = t64 * t65 * t185;
         let t188 = 4.0 / 3.0 * t187;
         let t189 = t95 - t109 + t127 + t130 - t134 + t151 + t155 - t159 - t163 - t166 - t188;
         let tvrho0 = -0.1925 + t23 + t42 + t59 - t88 + t1 * t189;
         vrho[ip * 2] += tvrho0;
         let t191 = -t5 - t167;
-        let t194 = piecewise3(t68, 0.0, 3.0 / 2.0 * t71 * t191);
+        let t194 = piecewise3(t68, 0.0, 3.0 * 0.5 * t71 * t191);
         let t196 = -t191;
-        let t199 = piecewise3(t76, 0.0, 3.0 / 2.0 * t77 * t196);
-        let t201 = t194 / 2.0 + t199 / 2.0 + t178 + t180 + t182 + t184;
+        let t199 = piecewise3(t76, 0.0, 3.0 * 0.5 * t77 * t196);
+        let t201 = t194 * 0.5 + t199 * 0.5 + t178 + t180 + t182 + t184;
         let t203 = t64 * t65 * t201;
         let t204 = 4.0 / 3.0 * t203;
         let t205 = t95 - t109 + t127 - t130 - t134 + t151 - t155 - t159 - t163 - t166 - t204;
@@ -183,19 +185,19 @@ pub fn lda_c_2d_amgb_fxc_pol(
         let t232 = t168 * t168;
         let t235 = t37 * t132;
         let t237 = -2.0 * t41 + 2.0 * t235;
-        let t241 = piecewise3(t68, 0.0, 3.0 / 4.0 * t231 * t232 + 3.0 / 2.0 * t71 * t237);
+        let t241 = piecewise3(t68, 0.0, 3.0 * 0.25 * t231 * t232 + 3.0 * 0.5 * t71 * t237);
         let t243 = 1.0 / t77;
         let t244 = t173 * t173;
         let t247 = -t237;
-        let t251 = piecewise3(t76, 0.0, 3.0 / 4.0 * t243 * t244 + 3.0 / 2.0 * t77 * t247);
-        let t253 = 3.0 / 4.0 * t41;
+        let t251 = piecewise3(t76, 0.0, 3.0 * 0.25 * t243 * t244 + 3.0 * 0.5 * t77 * t247);
+        let t253 = 3.0 * 0.25 * t41;
         let t254 = 3.0 * t235;
         let t255 = t38 * t58;
-        let t256 = 81.0 / 32.0 * t255;
-        let t258 = 3.0 / 4.0 * t152 * t157;
+        let t256 = 81.0 * 0.03125 * t255;
+        let t258 = 3.0 * 0.25 * t152 * t157;
         let t260 = 1.0 / t57 / t40;
-        let t262 = 15.0 / 32.0 * t55 * t260;
-        let t263 = t241 / 2.0 + t251 / 2.0 - t253 + t254 - t256 + t258 - t262;
+        let t262 = 15.0 * 0.03125 * t55 * t260;
+        let t263 = t241 * 0.5 + t251 * 0.5 - t253 + t254 - t256 + t258 - t262;
         let t265 = t64 * t65 * t263;
         let t266 = 4.0 / 3.0 * t265;
         let t267 = t94 * t97;
@@ -290,11 +292,11 @@ pub fn lda_c_2d_amgb_fxc_pol(
         v2rho2[ip * 3] += tv2rho20;
         let t396 = t231 * t191;
         let t399 = t71 * t37;
-        let t403 = piecewise3(t68, 0.0, 3.0 / 4.0 * t396 * t168 + 3.0 * t399 * t132);
+        let t403 = piecewise3(t68, 0.0, 3.0 * 0.25 * t396 * t168 + 3.0 * t399 * t132);
         let t405 = t243 * t196;
         let t408 = t77 * t37;
-        let t412 = piecewise3(t76, 0.0, 3.0 / 4.0 * t405 * t173 - 3.0 * t408 * t132);
-        let t415 = t403 / 2.0 + t412 / 2.0 + t253 - 63.0 / 32.0 * t255 - t262;
+        let t412 = piecewise3(t76, 0.0, 3.0 * 0.25 * t405 * t173 - 3.0 * t408 * t132);
+        let t415 = t403 * 0.5 + t412 * 0.5 + t253 - 63.0 * 0.03125 * t255 - t262;
         let t417 = t64 * t65 * t415;
         let t421 = t63 * t201;
         let t422 = t160 * t421;
@@ -304,11 +306,11 @@ pub fn lda_c_2d_amgb_fxc_pol(
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t431 = t191 * t191;
         let t435 = 2.0 * t41 + 2.0 * t235;
-        let t439 = piecewise3(t68, 0.0, 3.0 / 4.0 * t231 * t431 + 3.0 / 2.0 * t71 * t435);
+        let t439 = piecewise3(t68, 0.0, 3.0 * 0.25 * t231 * t431 + 3.0 * 0.5 * t71 * t435);
         let t441 = t196 * t196;
         let t444 = -t435;
-        let t448 = piecewise3(t76, 0.0, 3.0 / 4.0 * t243 * t441 + 3.0 / 2.0 * t77 * t444);
-        let t450 = t439 / 2.0 + t448 / 2.0 - t253 - t254 - t256 - t258 - t262;
+        let t448 = piecewise3(t76, 0.0, 3.0 * 0.25 * t243 * t441 + 3.0 * 0.5 * t77 * t444);
+        let t450 = t439 * 0.5 + t448 * 0.5 - t253 - t254 - t256 - t258 - t262;
         let t452 = t64 * t65 * t450;
         let t453 = 4.0 / 3.0 * t452;
         let t454 = t224 + t227 - t453 - t269 - t284 - t291 - t294 - t296 + t298 + t300 - t304;

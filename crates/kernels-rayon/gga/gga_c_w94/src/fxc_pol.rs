@@ -24,6 +24,13 @@ pub fn gga_c_w94_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t35 = M_CBRT3;
+    let t37 = pow_1_3(1.0 / M_PI);
+    let t38 = t35 * t37;
+    let t39 = M_CBRT4;
+    let t40 = t39 * t39;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -51,17 +58,12 @@ pub fn gga_c_w94_fxc_pol(
         let t22 = pow_1_3(t2);
         let t24 = 1.0 / t22 / t2;
         let t25 = t16 * t24;
-        let t26 = rmath::pow(t25, 1.0 / 16.0);
+        let t26 = rmath::pow(t25, 1.0 * 0.0625);
         let t27 = t26 * t26;
         let t28 = t27 * t26;
         let t31 = t18 * t2;
         let t32 = 1.0 / t31;
-        let t35 = M_CBRT3;
-        let t37 = pow_1_3(1.0 / M_PI);
-        let t38 = t35 * t37;
-        let t39 = M_CBRT4;
-        let t40 = t39 * t39;
-        let t45 = 11.8 + 0.15067 * t28 * t17 * t20 + 0.01102 * t15 * t32 + t38 * t40 / t22 / 4.0;
+        let t45 = 11.8 + 0.15067 * t28 * t17 * t20 + 0.01102 * t15 * t32 + t38 * t40 / t22 * 0.25;
         let t46 = 1.0 / t45;
         let tzk0 = -t13 * t46;
         zk[ip] += tzk0;

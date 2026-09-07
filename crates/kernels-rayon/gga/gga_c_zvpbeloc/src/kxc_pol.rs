@@ -137,6 +137,52 @@ pub fn gga_c_zvpbeloc_kxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t2 = t1 * t1;
+    let t3 = t2 * t2;
+    let t5 = (simd::pow(f64x8::splat(3.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t7 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t8 = f64x8::splat(1.0) / t7;
+    let t9 = (simd::pow(t8, f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t10 = t3 * t1 * t5 * t9;
+    let t11 = f64x8::splat(1.0) / f64x8::splat(M_PI);
+    let t12 = (simd::cbrt(t11));
+    let t28 = f64x8::splat(M_CBRT3);
+    let t29 = t28 * t12;
+    let t30 = f64x8::splat(M_CBRT4);
+    let t31 = t30 * t30;
+    let t41 = t28 * t28;
+    let t42 = t12 * t12;
+    let t43 = t41 * t42;
+    let t64 = (simd::cbrt(zeta_threshold));
+    let t65 = t64 * zeta_threshold;
+    let t75 = f64x8::splat(M_CBRT2);
+    let t78 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t75 - f64x8::splat(2.0));
+    let t111 = (simd::ln(f64x8::splat(2.0)));
+    let t112 = f64x8::splat(1.0) - t111;
+    let t113 = t112 * t8;
+    let t114 = t64 * t64;
+    let t131 = f64x8::splat(1.0) / t12;
+    let t132 = t41 * t131;
+    let t143 = t131 * t30;
+    let t147 = f64x8::splat(1.0) / t112;
+    let t163 = t75 * t75;
+    let t168 = f64x8::splat(1.0) / t42;
+    let t169 = t28 * t168;
+    let t170 = t169 * t31;
+    let t176 = t147 * t7;
+    let t217 = t12 * t31;
+    let t357 = t168 * t31;
+    let t505 = t132 * t30;
+    let t591 = t42 * t30;
+    let t656 = t29 * t31;
+    let t4417 = t43 * t30;
+    let t4514 = t12 * t11;
+    let t4515 = t28 * t4514;
+    let t6589 = t112 * t112;
+    let t6590 = f64x8::splat(1.0) / t6589;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -202,16 +248,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
         let mut acc_v3sigma3_8 = V_ZERO;
         let mut acc_v3sigma3_9 = V_ZERO;
         {
-            let t1 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
-            let t2 = t1 * t1;
-            let t3 = t2 * t2;
-            let t5 = (simd::pow(f64x8::splat(3.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
-            let t7 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t8 = f64x8::splat(1.0) / t7;
-            let t9 = (simd::pow(t8, f64x8::splat(1.0) / f64x8::splat(6.0)));
-            let t10 = t3 * t1 * t5 * t9;
-            let t11 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-            let t12 = (simd::cbrt(t11));
             let t13 = v_rho0 + v_rho1;
             let t14 = (simd::cbrt(t13));
             let t15 = f64x8::splat(1.0) / t14;
@@ -224,17 +260,10 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t22 = (f64x8::splat(1e-20)).simd_lt(t21);
             let t23 = ((t22).select(t21, f64x8::splat(1e-20)));
             let t27 = (simd::exp(-f64x8::splat(1.0) * t10 * t16 * t23));
-            let t28 = f64x8::splat(M_CBRT3);
-            let t29 = t28 * t12;
-            let t30 = f64x8::splat(M_CBRT4);
-            let t31 = t30 * t30;
             let t33 = t29 * t31 * t15;
             let t35 = f64x8::splat(1.0) + f64x8::splat(0.053425) * t33;
             let t36 = ((t33).sqrt());
             let t39 = ((t33) * (t33).sqrt());
-            let t41 = t28 * t28;
-            let t42 = t12 * t12;
-            let t43 = t41 * t42;
             let t44 = t14 * t14;
             let t47 = t43 * t30 / t44;
             let t49 = f64x8::splat(3.79785) * t36 + f64x8::splat(0.8969) * t33 + f64x8::splat(0.204775) * t39 + f64x8::splat(0.123235) * t47;
@@ -249,8 +278,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t61 = t17 * t60;
             let t62 = f64x8::splat(1.0) + t61;
             let t63 = (t62).simd_le(zeta_threshold);
-            let t64 = (simd::cbrt(zeta_threshold));
-            let t65 = t64 * zeta_threshold;
             let t66 = (simd::cbrt(t62));
             let t67 = t66 * t62;
             let t68 = ((t63).select(t65, t67));
@@ -260,8 +287,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t72 = t71 * t69;
             let t73 = ((t70).select(t65, t72));
             let t74 = t68 + t73 - f64x8::splat(2.0);
-            let t75 = f64x8::splat(M_CBRT2);
-            let t78 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t75 - f64x8::splat(2.0));
             let t79 = t74 * t78;
             let t81 = f64x8::splat(1.0) + f64x8::splat(0.05137) * t33;
             let t86 = f64x8::splat(7.05945) * t36 + f64x8::splat(1.549425) * t33 + f64x8::splat(0.420775) * t39 + f64x8::splat(0.1562925) * t47;
@@ -276,15 +301,11 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t107 = t79 * t106;
             let t108 = t59 * t107;
             let t110 = f64x8::splat(0.0197516734986138) * t79 * t104;
-            let t111 = (simd::ln(f64x8::splat(2.0)));
-            let t112 = f64x8::splat(1.0) - t111;
-            let t113 = t112 * t8;
-            let t114 = t64 * t64;
             let t115 = t66 * t66;
             let t116 = ((t63).select(t114, t115));
             let t117 = t71 * t71;
             let t118 = ((t70).select(t114, t117));
-            let t120 = t116 / f64x8::splat(2.0) + t118 / f64x8::splat(2.0);
+            let t120 = t116 * f64x8::splat(0.5) + t118 * f64x8::splat(0.5);
             let t121 = t120 * t120;
             let t122 = t121 * t120;
             let t124 = v_sigma0 + f64x8::splat(2.0) * v_sigma1 + v_sigma2;
@@ -292,17 +313,13 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t127 = t124 * t126;
             let t128 = f64x8::splat(1.0) / t121;
             let t129 = t75 * t128;
-            let t131 = f64x8::splat(1.0) / t12;
-            let t132 = t41 * t131;
-            let t134 = (simd::exp(-t47 / f64x8::splat(4.0)));
+            let t134 = (simd::exp(-t47 * f64x8::splat(0.25)));
             let t135 = f64x8::splat(1.0) - t134;
             let t136 = t30 * t135;
             let t137 = t132 * t136;
             let t140 = f64x8::splat(0.0375) + f64x8::splat(0.0008333333333333334) * t127 * t129 * t137;
             let t142 = t128 * t41;
-            let t143 = t131 * t30;
             let t144 = t142 * t143;
-            let t147 = f64x8::splat(1.0) / t112;
             let t148 = t140 * t147;
             let t150 = (-t55 + t108 + t110) * t147;
             let t151 = f64x8::splat(1.0) / t122;
@@ -315,17 +332,12 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t159 = t157 * t158;
             let t160 = t148 * t159;
             let t162 = f64x8::splat(1.0) / t44 / t57;
-            let t163 = t75 * t75;
             let t164 = t162 * t163;
             let t165 = t121 * t121;
             let t166 = f64x8::splat(1.0) / t165;
-            let t168 = f64x8::splat(1.0) / t42;
-            let t169 = t28 * t168;
-            let t170 = t169 * t31;
             let t171 = t164 * t166 * t170;
             let t174 = t127 * t75 * t144 / f64x8::splat(96.0) + t160 * t171 / f64x8::splat(3072.0);
             let t175 = t140 * t174;
-            let t176 = t147 * t7;
             let t177 = t157 * t174;
             let t179 = t148 * t177 + f64x8::splat(1.0);
             let t180 = f64x8::splat(1.0) / t179;
@@ -352,7 +364,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t213 = f64x8::splat(1.0) / t212;
             let t214 = t35 * t213;
             let t216 = f64x8::splat(1.0) / t36 * t28;
-            let t217 = t12 * t31;
             let t218 = t217 * t189;
             let t219 = t216 * t218;
             let t221 = t29 * t208;
@@ -405,7 +416,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t307 = ((t63).select(f64x8::splat(0.0), f64x8::splat(2.0) / f64x8::splat(3.0) * t304 * t246));
             let t308 = f64x8::splat(1.0) / t71;
             let t311 = ((t70).select(f64x8::splat(0.0), f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t250));
-            let t313 = t307 / f64x8::splat(2.0) + t311 / f64x8::splat(2.0);
+            let t313 = t307 * f64x8::splat(0.5) + t311 * f64x8::splat(0.5);
             let t318 = f64x8::splat(1.0) / t14 / t195;
             let t319 = t124 * t318;
             let t322 = f64x8::splat(0.0019444444444444444) * t319 * t129 * t137;
@@ -431,7 +442,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t354 = t349 * t353;
             let t355 = t163 * t166;
             let t356 = t355 * t28;
-            let t357 = t168 * t31;
             let t359 = (t211 + t236 + t240 - t245 + t257 + t290 + t292 - t297 - t302) * t147;
             let t361 = t7 * t166;
             let t362 = t361 * t313;
@@ -477,7 +487,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t434 = f64x8::splat(0.0197516734986138) * t430 * t104;
             let t437 = ((t63).select(f64x8::splat(0.0), f64x8::splat(2.0) / f64x8::splat(3.0) * t304 * t421));
             let t440 = ((t70).select(f64x8::splat(0.0), f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t425));
-            let t442 = t437 / f64x8::splat(2.0) + t440 / f64x8::splat(2.0);
+            let t442 = t437 * f64x8::splat(0.5) + t440 * f64x8::splat(0.5);
             let t447 = t132 * t136 * t442;
             let t450 = -t322 - f64x8::splat(0.0016666666666666668) * t324 * t447 - t334;
             let t451 = t450 * t174;
@@ -509,7 +519,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t500 = t174 * t147 * t180;
             let t501 = t136 * t500;
             let t502 = t498 * t501;
-            let t505 = t132 * t30;
             let t506 = t496 * t128 * t505;
             let t508 = t57 * t195;
             let t509 = f64x8::splat(1.0) / t508;
@@ -566,7 +575,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t583 = t113 * t121;
             let t584 = t405 * t407;
             let t590 = f64x8::splat(1.0) / t36 / t33 * t41;
-            let t591 = t42 * t30;
             let t593 = f64x8::splat(1.0) / t44 / t19;
             let t594 = t591 * t593;
             let t595 = t590 * t594;
@@ -604,7 +612,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t653 = t255 * t28;
             let t654 = t653 * t295;
             let t655 = f64x8::splat(0.0003662289461201309) * t654;
-            let t656 = t29 * t31;
             let t657 = t189 * t213;
             let t660 = f64x8::splat(0.035616666666666665) * t656 * t657 * t234;
             let t663 = f64x8::splat(0.0014764627977777779) * t29 * t600 * t53;
@@ -685,7 +692,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t796 = ((t63).select(f64x8::splat(0.0), -f64x8::splat(2.0) / f64x8::splat(9.0) * t790 * t618 + f64x8::splat(2.0) / f64x8::splat(3.0) * t304 * t622));
             let t797 = f64x8::splat(1.0) / t72;
             let t803 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(2.0) / f64x8::splat(9.0) * t797 * t628 + f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t631));
-            let t805 = t796 / f64x8::splat(2.0) + t803 / f64x8::splat(2.0);
+            let t805 = t796 * f64x8::splat(0.5) + t803 * f64x8::splat(0.5);
             let t810 = f64x8::splat(1.0) / t14 / t57;
             let t811 = t124 * t810;
             let t814 = f64x8::splat(0.006481481481481481) * t811 * t129 * t137;
@@ -760,7 +767,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t941 = t940 * t28;
             let t943 = t941 * t357 * t665;
             let t947 = t384 * t357 * t805;
-            let t950 = t854 + f64x8::splat(7.0) / f64x8::splat(72.0) * t855 + t823 * t858 / f64x8::splat(16.0) - t324 * t862 / f64x8::splat(48.0) + t866 * t171 / f64x8::splat(3072.0) - t870 * t368 / f64x8::splat(1536.0) - f64x8::splat(7.0) / f64x8::splat(2304.0) * t873 - t875 * t386 / f64x8::splat(384.0) + t882 * t887 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(2304.0) * t892 + t895 * t901 / f64x8::splat(384.0) - t354 * t921 / f64x8::splat(3072.0) - t354 * t926 / f64x8::splat(3072.0) + t935 + f64x8::splat(7.0) / f64x8::splat(576.0) * t938 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t943 - t380 * t947 / f64x8::splat(768.0);
+            let t950 = t854 + f64x8::splat(7.0) / f64x8::splat(72.0) * t855 + t823 * t858 * f64x8::splat(0.0625) - t324 * t862 / f64x8::splat(48.0) + t866 * t171 / f64x8::splat(3072.0) - t870 * t368 / f64x8::splat(1536.0) - f64x8::splat(7.0) / f64x8::splat(2304.0) * t873 - t875 * t386 / f64x8::splat(384.0) + t882 * t887 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(2304.0) * t892 + t895 * t901 / f64x8::splat(384.0) - t354 * t921 / f64x8::splat(3072.0) - t354 * t926 / f64x8::splat(3072.0) + t935 + f64x8::splat(7.0) / f64x8::splat(576.0) * t938 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t943 - t380 * t947 / f64x8::splat(768.0);
             let t951 = t140 * t950;
             let t953 = t390 * t147;
             let t957 = f64x8::splat(1.0) / t393 / t179;
@@ -820,7 +827,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t1064 = t797 * t425;
             let t1067 = t308 * t17;
             let t1071 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(2.0) / f64x8::splat(9.0) * t1064 * t250 - f64x8::splat(4.0) / f64x8::splat(3.0) * t1067 * t196));
-            let t1073 = t1063 / f64x8::splat(2.0) + t1071 / f64x8::splat(2.0);
+            let t1073 = t1063 * f64x8::splat(0.5) + t1071 * f64x8::splat(0.5);
             let t1078 = t815 * t447;
             let t1080 = t822 * t41;
             let t1081 = t127 * t1080;
@@ -852,7 +859,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t1136 = t884 * t365;
             let t1138 = t1134 * t1135 * t1136;
             let t1141 = t891 * t470;
-            let t1143 = t854 + f64x8::splat(7.0) / f64x8::splat(144.0) * t855 + f64x8::splat(7.0) / f64x8::splat(144.0) * t1106 + t823 * t1109 / f64x8::splat(16.0) - t324 * t1113 / f64x8::splat(48.0) + t1117 * t171 / f64x8::splat(3072.0) - t1121 * t368 / f64x8::splat(3072.0) - f64x8::splat(7.0) / f64x8::splat(4608.0) * t1124 - t1126 * t386 / f64x8::splat(768.0) - t870 * t470 / f64x8::splat(3072.0) + t1132 * t1138 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(4608.0) * t1141;
+            let t1143 = t854 + f64x8::splat(7.0) / f64x8::splat(144.0) * t855 + f64x8::splat(7.0) / f64x8::splat(144.0) * t1106 + t823 * t1109 * f64x8::splat(0.0625) - t324 * t1113 / f64x8::splat(48.0) + t1117 * t171 / f64x8::splat(3072.0) - t1121 * t368 / f64x8::splat(3072.0) - f64x8::splat(7.0) / f64x8::splat(4608.0) * t1124 - t1126 * t386 / f64x8::splat(768.0) - t870 * t470 / f64x8::splat(3072.0) + t1132 * t1138 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(4608.0) * t1141;
             let t1145 = t897 * t1135 * t899;
             let t1148 = t1011 - t1013 + t1033 + t1035 + t1037 - t616 - t1049 + t648 + t652 - t1050 - t660 - t663 + t750;
             let t1149 = f64x8::splat(0.5848223622634646) * t770;
@@ -929,7 +936,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t1303 = t488 * t488;
             let t1312 = ((t63).select(f64x8::splat(0.0), -f64x8::splat(2.0) / f64x8::splat(9.0) * t790 * t1276 + f64x8::splat(2.0) / f64x8::splat(3.0) * t304 * t1280));
             let t1318 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(2.0) / f64x8::splat(9.0) * t797 * t1285 + f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t1288));
-            let t1320 = t1312 / f64x8::splat(2.0) + t1318 / f64x8::splat(2.0);
+            let t1320 = t1312 * f64x8::splat(0.5) + t1318 * f64x8::splat(0.5);
             let t1326 = t132 * t136 * t1271;
             let t1331 = t132 * t136 * t1320;
             let t1334 = t814 + f64x8::splat(0.0077777777777777776) * t1078 + t821 + f64x8::splat(0.005) * t823 * t1326 + f64x8::splat(0.0016666666666666668) * t1089 - f64x8::splat(0.0016666666666666668) * t324 * t1331 - t842;
@@ -958,7 +965,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t1393 = t356 * t357 * t1391;
             let t1398 = t941 * t357 * t1271;
             let t1402 = t384 * t357 * t1320;
-            let t1405 = t854 + f64x8::splat(7.0) / f64x8::splat(72.0) * t1106 + t823 * t1344 / f64x8::splat(16.0) - t324 * t1348 / f64x8::splat(48.0) + t1352 * t171 / f64x8::splat(3072.0) - t1121 * t470 / f64x8::splat(1536.0) - f64x8::splat(7.0) / f64x8::splat(2304.0) * t1124 - t1126 * t474 / f64x8::splat(384.0) + t882 * t1363 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(2304.0) * t1141 + t895 * t1369 / f64x8::splat(384.0) - t354 * t1388 / f64x8::splat(3072.0) - t354 * t1393 / f64x8::splat(3072.0) + t935 + f64x8::splat(7.0) / f64x8::splat(576.0) * t1191 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t1398 - t380 * t1402 / f64x8::splat(768.0);
+            let t1405 = t854 + f64x8::splat(7.0) / f64x8::splat(72.0) * t1106 + t823 * t1344 * f64x8::splat(0.0625) - t324 * t1348 / f64x8::splat(48.0) + t1352 * t171 / f64x8::splat(3072.0) - t1121 * t470 / f64x8::splat(1536.0) - f64x8::splat(7.0) / f64x8::splat(2304.0) * t1124 - t1126 * t474 / f64x8::splat(384.0) + t882 * t1363 / f64x8::splat(1536.0) + f64x8::splat(7.0) / f64x8::splat(2304.0) * t1141 + t895 * t1369 / f64x8::splat(384.0) - t354 * t1388 / f64x8::splat(3072.0) - t354 * t1393 / f64x8::splat(3072.0) + t935 + f64x8::splat(7.0) / f64x8::splat(576.0) * t1191 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t1398 - t380 * t1402 / f64x8::splat(768.0);
             let t1406 = t140 * t1405;
             let t1410 = t485 * t485;
             let t1411 = t958 * t1410;
@@ -1312,7 +1319,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2004 = t81 * t2003;
             let t2005 = t679 * t268;
             let t2006 = t2005 * t697;
-            let t2012 = f64x8::splat(1.0) / t36 / t47 * t11 / f64x8::splat(4.0);
+            let t2012 = f64x8::splat(1.0) / t36 / t47 * t11 * f64x8::splat(0.25);
             let t2013 = t2012 * t58;
             let t2016 = f64x8::splat(1.0) / t44 / t195;
             let t2017 = t591 * t2016;
@@ -1378,7 +1385,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2141 = t797 * t250;
             let t2144 = -t2130;
             let t2148 = ((t70).select(f64x8::splat(0.0), f64x8::splat(8.0) / f64x8::splat(27.0) * t2137 * t2138 - f64x8::splat(2.0) / f64x8::splat(3.0) * t2141 * t631 + f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t2144));
-            let t2150 = t2134 / f64x8::splat(2.0) + t2148 / f64x8::splat(2.0);
+            let t2150 = t2134 * f64x8::splat(0.5) + t2148 * f64x8::splat(0.5);
             let t2154 = t846 * t147;
             let t2159 = t884 * t918;
             let t2160 = t1557 * t2159;
@@ -1527,7 +1534,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2427 = t2392 * t379;
             let t2430 = t869 * t890;
             let t2431 = t2430 * t368;
-            let t2435 = t895 * t2399 / f64x8::splat(256.0) - f64x8::splat(5.0) / f64x8::splat(256.0) * t895 * t2406 + t2409 * t901 / f64x8::splat(128.0) - f64x8::splat(119.0) / f64x8::splat(1152.0) * t2414 + f64x8::splat(7.0) / f64x8::splat(384.0) * t2416 - t380 * t2419 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(192.0) * t2423 - t875 * t947 / f64x8::splat(256.0) - t2427 * t386 / f64x8::splat(256.0) + f64x8::splat(7.0) / f64x8::splat(768.0) * t2431 - t870 * t926 / f64x8::splat(1024.0);
+            let t2435 = t895 * t2399 * f64x8::splat(0.00390625) - f64x8::splat(5.0) * f64x8::splat(0.00390625) * t895 * t2406 + t2409 * t901 * f64x8::splat(0.0078125) - f64x8::splat(119.0) / f64x8::splat(1152.0) * t2414 + f64x8::splat(7.0) / f64x8::splat(384.0) * t2416 - t380 * t2419 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(192.0) * t2423 - t875 * t947 * f64x8::splat(0.00390625) - t2427 * t386 * f64x8::splat(0.00390625) + f64x8::splat(7.0) / f64x8::splat(768.0) * t2431 - t870 * t926 * f64x8::splat(0.0009765625);
             let t2437 = t880 * t372;
             let t2438 = t349 * t2437;
             let t2439 = t2438 * t887;
@@ -1550,7 +1557,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2473 = t897 * t898 * t2471;
             let t2477 = t1134 * t2466 * t366;
             let t2482 = f64x8::splat(455.0) / f64x8::splat(1296.0) * t2210 * t75 * t144;
-            let t2483 = -f64x8::splat(7.0) / f64x8::splat(768.0) * t2439 - f64x8::splat(119.0) / f64x8::splat(4608.0) * t2443 + f64x8::splat(7.0) / f64x8::splat(1536.0) * t2445 - t354 * t2450 / f64x8::splat(3072.0) - t1132 * t2455 / f64x8::splat(128.0) + t1132 * t2459 / f64x8::splat(512.0) - f64x8::splat(7.0) / f64x8::splat(192.0) * t2464 + t895 * t2468 / f64x8::splat(256.0) + t895 * t2473 / f64x8::splat(256.0) - t895 * t2477 / f64x8::splat(1024.0) - t2482;
+            let t2483 = -f64x8::splat(7.0) / f64x8::splat(768.0) * t2439 - f64x8::splat(119.0) / f64x8::splat(4608.0) * t2443 + f64x8::splat(7.0) / f64x8::splat(1536.0) * t2445 - t354 * t2450 / f64x8::splat(3072.0) - t1132 * t2455 * f64x8::splat(0.0078125) + t1132 * t2459 * f64x8::splat(0.001953125) - f64x8::splat(7.0) / f64x8::splat(192.0) * t2464 + t895 * t2468 * f64x8::splat(0.00390625) + t895 * t2473 * f64x8::splat(0.00390625) - t895 * t2477 * f64x8::splat(0.0009765625) - t2482;
             let t2484 = t2193 * t858;
             let t2487 = t132 * t30 * t2198;
             let t2490 = t815 * t862;
@@ -1571,8 +1578,8 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2518 = t163 * t1499 * t28;
             let t2520 = t2518 * t357 * t2198;
             let t2523 = t937 * t943;
-            let t2527 = -f64x8::splat(7.0) / f64x8::splat(16.0) * t2484 - t2197 * t2487 / f64x8::splat(4.0) + f64x8::splat(7.0) / f64x8::splat(48.0) * t2490 - t324 * t2493 / f64x8::splat(48.0) - f64x8::splat(35.0) / f64x8::splat(72.0) * t2496 - t2502 * t2506 / f64x8::splat(512.0) + t882 * t2511 / f64x8::splat(512.0) + t2514 * t887 / f64x8::splat(512.0) - f64x8::splat(5.0) / f64x8::splat(128.0) * t380 * t2520 - f64x8::splat(35.0) / f64x8::splat(384.0) * t2523 + f64x8::splat(5.0) / f64x8::splat(256.0) * t875 * t943;
-            let t2529 = f64x8::splat(3.0) / f64x8::splat(16.0) * t823 * t2166 - t2175 + f64x8::splat(119.0) / f64x8::splat(4608.0) * t2176 - f64x8::splat(7.0) / f64x8::splat(1536.0) * t2178 + t2246 * t171 / f64x8::splat(3072.0) + f64x8::splat(5.0) / f64x8::splat(256.0) * t380 * t2251 - t354 * t2385 / f64x8::splat(3072.0) + f64x8::splat(7.0) / f64x8::splat(1536.0) * t2388 - t870 * t921 / f64x8::splat(1024.0) - t2393 * t368 / f64x8::splat(1024.0) + t2435 + t2483 + t2527;
+            let t2527 = -f64x8::splat(7.0) * f64x8::splat(0.0625) * t2484 - t2197 * t2487 * f64x8::splat(0.25) + f64x8::splat(7.0) / f64x8::splat(48.0) * t2490 - t324 * t2493 / f64x8::splat(48.0) - f64x8::splat(35.0) / f64x8::splat(72.0) * t2496 - t2502 * t2506 * f64x8::splat(0.001953125) + t882 * t2511 * f64x8::splat(0.001953125) + t2514 * t887 * f64x8::splat(0.001953125) - f64x8::splat(5.0) * f64x8::splat(0.0078125) * t380 * t2520 - f64x8::splat(35.0) / f64x8::splat(384.0) * t2523 + f64x8::splat(5.0) * f64x8::splat(0.00390625) * t875 * t943;
+            let t2529 = f64x8::splat(3.0) * f64x8::splat(0.0625) * t823 * t2166 - t2175 + f64x8::splat(119.0) / f64x8::splat(4608.0) * t2176 - f64x8::splat(7.0) / f64x8::splat(1536.0) * t2178 + t2246 * t171 / f64x8::splat(3072.0) + f64x8::splat(5.0) * f64x8::splat(0.00390625) * t380 * t2251 - t354 * t2385 / f64x8::splat(3072.0) + f64x8::splat(7.0) / f64x8::splat(1536.0) * t2388 - t870 * t921 * f64x8::splat(0.0009765625) - t2393 * t368 * f64x8::splat(0.0009765625) + t2435 + t2483 + t2527;
             let t2530 = t157 * t2529;
             let t2535 = t397 * t2448;
             let t2537 = t174 * t918;
@@ -1652,7 +1659,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2729 = t797 * t17;
             let t2730 = t196 * t250;
             let t2740 = ((t70).select(f64x8::splat(0.0), f64x8::splat(8.0) / f64x8::splat(27.0) * t2726 * t628 + f64x8::splat(8.0) / f64x8::splat(9.0) * t2729 * t2730 - f64x8::splat(2.0) / f64x8::splat(9.0) * t1064 * t631 - f64x8::splat(4.0) / f64x8::splat(3.0) * t308 * t196 + f64x8::splat(4.0) * t1067 * t58));
-            let t2742 = t2725 / f64x8::splat(2.0) + t2740 / f64x8::splat(2.0);
+            let t2742 = t2725 * f64x8::splat(0.5) + t2740 * f64x8::splat(0.5);
             let t2747 = t485 * t959;
             let t2748 = t2596 * t2747;
             let t2753 = t2402 * t357;
@@ -1760,7 +1767,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t2974 = t442 * t805;
             let t2976 = t941 * t357 * t2974;
             let t2980 = t897 * t1186 * t924;
-            let t2983 = -t2914 * t368 / f64x8::splat(1536.0) + t895 * t2918 / f64x8::splat(768.0) + t895 * t2922 / f64x8::splat(768.0) - t895 * t2927 / f64x8::splat(1536.0) - t895 * t2931 / f64x8::splat(3072.0) + t1132 * t2935 / f64x8::splat(768.0) + t1132 * t2939 / f64x8::splat(1536.0) - t2943 + t2945 + t895 * t2947 / f64x8::splat(384.0) + t2950 * t887 / f64x8::splat(1536.0) - f64x8::splat(5.0) / f64x8::splat(128.0) * t380 * t2955 - f64x8::splat(119.0) / f64x8::splat(13824.0) * t2958 + t2961 + t2964 - t1121 * t926 / f64x8::splat(3072.0) - t2968 + f64x8::splat(5.0) / f64x8::splat(384.0) * t380 * t2971 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t2976 + t895 * t2980 / f64x8::splat(768.0);
+            let t2983 = -t2914 * t368 / f64x8::splat(1536.0) + t895 * t2918 / f64x8::splat(768.0) + t895 * t2922 / f64x8::splat(768.0) - t895 * t2927 / f64x8::splat(1536.0) - t895 * t2931 / f64x8::splat(3072.0) + t1132 * t2935 / f64x8::splat(768.0) + t1132 * t2939 / f64x8::splat(1536.0) - t2943 + t2945 + t895 * t2947 / f64x8::splat(384.0) + t2950 * t887 / f64x8::splat(1536.0) - f64x8::splat(5.0) * f64x8::splat(0.0078125) * t380 * t2955 - f64x8::splat(119.0) / f64x8::splat(13824.0) * t2958 + t2961 + t2964 - t1121 * t926 / f64x8::splat(3072.0) - t2968 + f64x8::splat(5.0) / f64x8::splat(384.0) * t380 * t2971 + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t2976 + t895 * t2980 / f64x8::splat(768.0);
             let t2986 = t1134 * t1135 * t924;
             let t2990 = f64x8::splat(7.0) / f64x8::splat(576.0) * t2463 * t1188;
             let t2992 = t2403 * t1135 * t2404;
@@ -1780,7 +1787,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3030 = t30 * t2742;
             let t3031 = t132 * t3030;
             let t3035 = f64x8::splat(7.0) / f64x8::splat(72.0) * t815 * t1113;
-            let t3041 = -t895 * t2986 / f64x8::splat(3072.0) - t2990 - f64x8::splat(5.0) / f64x8::splat(768.0) * t895 * t2992 + t2995 * t1138 / f64x8::splat(768.0) - t3001 + t2409 * t1145 / f64x8::splat(384.0) - t2409 * t1178 / f64x8::splat(1536.0) + t3006 * t901 / f64x8::splat(384.0) - f64x8::splat(35.0) / f64x8::splat(216.0) * t3009 - t2197 * t3012 / f64x8::splat(4.0) - t3016 * t3019 / f64x8::splat(512.0) + t1132 * t3023 / f64x8::splat(512.0) - t1132 * t3027 / f64x8::splat(384.0) - t324 * t3031 / f64x8::splat(48.0) + t3035 - f64x8::splat(119.0) / f64x8::splat(1728.0) * t2414 + f64x8::splat(7.0) / f64x8::splat(1152.0) * t2416 + f64x8::splat(7.0) / f64x8::splat(576.0) * t2423 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t2431 - f64x8::splat(7.0) / f64x8::splat(2304.0) * t2439;
+            let t3041 = -t895 * t2986 / f64x8::splat(3072.0) - t2990 - f64x8::splat(5.0) / f64x8::splat(768.0) * t895 * t2992 + t2995 * t1138 / f64x8::splat(768.0) - t3001 + t2409 * t1145 / f64x8::splat(384.0) - t2409 * t1178 / f64x8::splat(1536.0) + t3006 * t901 / f64x8::splat(384.0) - f64x8::splat(35.0) / f64x8::splat(216.0) * t3009 - t2197 * t3012 * f64x8::splat(0.25) - t3016 * t3019 * f64x8::splat(0.001953125) + t1132 * t3023 * f64x8::splat(0.001953125) - t1132 * t3027 / f64x8::splat(384.0) - t324 * t3031 / f64x8::splat(48.0) + t3035 - f64x8::splat(119.0) / f64x8::splat(1728.0) * t2414 + f64x8::splat(7.0) / f64x8::splat(1152.0) * t2416 + f64x8::splat(7.0) / f64x8::splat(576.0) * t2423 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t2431 - f64x8::splat(7.0) / f64x8::splat(2304.0) * t2439;
             let t3044 = t2913 * t379;
             let t3048 = f64x8::splat(7.0) / f64x8::splat(576.0) * t2422 * t474;
             let t3049 = t2413 * t474;
@@ -1817,7 +1824,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3129 = t3110 + t3128;
             let t3130 = t3129 * t147;
             let t3131 = t3130 * t159;
-            let t3135 = -f64x8::splat(119.0) / f64x8::splat(6912.0) * t2443 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t2445 - t3044 * t386 / f64x8::splat(384.0) + t3048 - f64x8::splat(119.0) / f64x8::splat(3456.0) * t3049 + f64x8::splat(5.0) / f64x8::splat(768.0) * t1126 * t943 - f64x8::splat(7.0) / f64x8::splat(576.0) * t2464 - t2482 - f64x8::splat(7.0) / f64x8::splat(48.0) * t2484 + f64x8::splat(7.0) / f64x8::splat(144.0) * t2490 - f64x8::splat(35.0) / f64x8::splat(108.0) * t2496 + t2409 * t1188 / f64x8::splat(384.0) + t895 * t3061 / f64x8::splat(384.0) - t3065 + t823 * t3067 / f64x8::splat(8.0) + t823 * t3071 / f64x8::splat(16.0) + f64x8::splat(119.0) / f64x8::splat(13824.0) * t3074 - t3077 + t3131 * t171 / f64x8::splat(3072.0) - f64x8::splat(35.0) / f64x8::splat(1152.0) * t2523;
+            let t3135 = -f64x8::splat(119.0) / f64x8::splat(6912.0) * t2443 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t2445 - t3044 * t386 / f64x8::splat(384.0) + t3048 - f64x8::splat(119.0) / f64x8::splat(3456.0) * t3049 + f64x8::splat(5.0) / f64x8::splat(768.0) * t1126 * t943 - f64x8::splat(7.0) / f64x8::splat(576.0) * t2464 - t2482 - f64x8::splat(7.0) / f64x8::splat(48.0) * t2484 + f64x8::splat(7.0) / f64x8::splat(144.0) * t2490 - f64x8::splat(35.0) / f64x8::splat(108.0) * t2496 + t2409 * t1188 / f64x8::splat(384.0) + t895 * t3061 / f64x8::splat(384.0) - t3065 + t823 * t3067 * f64x8::splat(0.125) + t823 * t3071 * f64x8::splat(0.0625) + f64x8::splat(119.0) / f64x8::splat(13824.0) * t3074 - t3077 + t3131 * t171 / f64x8::splat(3072.0) - f64x8::splat(35.0) / f64x8::splat(1152.0) * t2523;
             let t3137 = t2912 + t2983 + t3041 + t3135;
             let t3138 = t140 * t3137;
             let t3141 = t1096 * t389;
@@ -1949,7 +1956,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3489 = t2137 * t1285;
             let t3494 = t797 * t1288;
             let t3500 = ((t70).select(f64x8::splat(0.0), f64x8::splat(8.0) / f64x8::splat(27.0) * t3489 * t250 + f64x8::splat(8.0) / f64x8::splat(9.0) * t1064 * t566 - f64x8::splat(2.0) / f64x8::splat(9.0) * t3494 * t250 + f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t3389));
-            let t3502 = t3488 / f64x8::splat(2.0) + t3500 / f64x8::splat(2.0);
+            let t3502 = t3488 * f64x8::splat(0.5) + t3500 * f64x8::splat(0.5);
             let t3506 = t1410 * t402;
             let t3507 = t2596 * t3506;
             let t3510 = t450 * t1203;
@@ -1996,7 +2003,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3648 = t2759 * t3647;
             let t3652 = t31 * t1385;
             let t3654 = t1134 * t3652 * t1136;
-            let t3657 = -t2990 - t3001 - t870 * t1393 / f64x8::splat(3072.0) + f64x8::splat(5.0) / f64x8::splat(384.0) * t1126 * t1195 + t2514 * t1363 / f64x8::splat(1536.0) - t870 * t1388 / f64x8::splat(3072.0) - t2914 * t470 / f64x8::splat(1536.0) - t1121 * t1174 / f64x8::splat(1536.0) - t3581 * t368 / f64x8::splat(3072.0) + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t3586 - f64x8::splat(35.0) / f64x8::splat(108.0) * t3009 + t3631 * t171 / f64x8::splat(3072.0) - t2197 * t3635 / f64x8::splat(4.0) + t823 * t3639 / f64x8::splat(8.0) + t823 * t3643 / f64x8::splat(16.0) + t3035 - f64x8::splat(119.0) / f64x8::splat(3456.0) * t2414 - t1132 * t3648 / f64x8::splat(192.0) - f64x8::splat(119.0) / f64x8::splat(13824.0) * t2443 + t1132 * t3654 / f64x8::splat(1536.0);
+            let t3657 = -t2990 - t3001 - t870 * t1393 / f64x8::splat(3072.0) + f64x8::splat(5.0) / f64x8::splat(384.0) * t1126 * t1195 + t2514 * t1363 / f64x8::splat(1536.0) - t870 * t1388 / f64x8::splat(3072.0) - t2914 * t470 / f64x8::splat(1536.0) - t1121 * t1174 / f64x8::splat(1536.0) - t3581 * t368 / f64x8::splat(3072.0) + f64x8::splat(5.0) / f64x8::splat(768.0) * t380 * t3586 - f64x8::splat(35.0) / f64x8::splat(108.0) * t3009 + t3631 * t171 / f64x8::splat(3072.0) - t2197 * t3635 * f64x8::splat(0.25) + t823 * t3639 * f64x8::splat(0.125) + t823 * t3643 * f64x8::splat(0.0625) + t3035 - f64x8::splat(119.0) / f64x8::splat(3456.0) * t2414 - t1132 * t3648 / f64x8::splat(192.0) - f64x8::splat(119.0) / f64x8::splat(13824.0) * t2443 + t1132 * t3654 / f64x8::splat(1536.0);
             let t3660 = t468 * t1193;
             let t3661 = t2753 * t3660;
             let t3664 = t2760 * t1367;
@@ -2027,7 +2034,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3729 = t937 * t1398;
             let t3736 = t384 * t357 * t3502;
             let t3739 = t2782 * t474;
-            let t3745 = t3048 - f64x8::splat(119.0) / f64x8::splat(1728.0) * t3049 - f64x8::splat(5.0) / f64x8::splat(384.0) * t895 * t3661 + t895 * t3665 / f64x8::splat(384.0) - f64x8::splat(5.0) / f64x8::splat(128.0) * t380 * t3670 + f64x8::splat(5.0) / f64x8::splat(384.0) * t380 * t3675 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t3678 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t3680 - f64x8::splat(7.0) / f64x8::splat(2304.0) * t3682 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t3684 - t354 * t3725 / f64x8::splat(3072.0) - t2482 - f64x8::splat(35.0) / f64x8::splat(216.0) * t2496 - f64x8::splat(35.0) / f64x8::splat(1152.0) * t3729 + f64x8::splat(5.0) / f64x8::splat(768.0) * t875 * t1398 - t875 * t1402 / f64x8::splat(768.0) - t380 * t3736 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(576.0) * t3739 - t3044 * t474 / f64x8::splat(384.0) - t1126 * t1199 / f64x8::splat(384.0);
+            let t3745 = t3048 - f64x8::splat(119.0) / f64x8::splat(1728.0) * t3049 - f64x8::splat(5.0) / f64x8::splat(384.0) * t895 * t3661 + t895 * t3665 / f64x8::splat(384.0) - f64x8::splat(5.0) * f64x8::splat(0.0078125) * t380 * t3670 + f64x8::splat(5.0) / f64x8::splat(384.0) * t380 * t3675 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t3678 + f64x8::splat(7.0) / f64x8::splat(4608.0) * t3680 - f64x8::splat(7.0) / f64x8::splat(2304.0) * t3682 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t3684 - t354 * t3725 / f64x8::splat(3072.0) - t2482 - f64x8::splat(35.0) / f64x8::splat(216.0) * t2496 - f64x8::splat(35.0) / f64x8::splat(1152.0) * t3729 + f64x8::splat(5.0) / f64x8::splat(768.0) * t875 * t1398 - t875 * t1402 / f64x8::splat(768.0) - t380 * t3736 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(576.0) * t3739 - t3044 * t474 / f64x8::splat(384.0) - t1126 * t1199 / f64x8::splat(384.0);
             let t3746 = t3580 * t379;
             let t3749 = t937 * t1402;
             let t3751 = t2463 * t1369;
@@ -2049,7 +2056,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3801 = t897 * t1135 * t3799;
             let t3805 = t897 * t3652 * t899;
             let t3809 = t897 * t3756 * t2453;
-            let t3812 = -t3746 * t386 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(1152.0) * t3749 - f64x8::splat(7.0) / f64x8::splat(576.0) * t3751 + t3753 * t1138 / f64x8::splat(768.0) - t3016 * t3759 / f64x8::splat(512.0) + t1132 * t3763 / f64x8::splat(512.0) - t3065 + f64x8::splat(119.0) / f64x8::splat(6912.0) * t3074 - t3077 - f64x8::splat(5.0) / f64x8::splat(768.0) * t895 * t3769 + t895 * t3774 / f64x8::splat(768.0) - t895 * t3778 / f64x8::splat(3072.0) + t895 * t3782 / f64x8::splat(768.0) - t895 * t3786 / f64x8::splat(1536.0) - t895 * t3790 / f64x8::splat(3072.0) + t2409 * t1369 / f64x8::splat(384.0) + t895 * t3796 / f64x8::splat(384.0) + t895 * t3801 / f64x8::splat(384.0) + t895 * t3805 / f64x8::splat(768.0) - t1132 * t3809 / f64x8::splat(384.0);
+            let t3812 = -t3746 * t386 / f64x8::splat(768.0) + f64x8::splat(7.0) / f64x8::splat(1152.0) * t3749 - f64x8::splat(7.0) / f64x8::splat(576.0) * t3751 + t3753 * t1138 / f64x8::splat(768.0) - t3016 * t3759 * f64x8::splat(0.001953125) + t1132 * t3763 * f64x8::splat(0.001953125) - t3065 + f64x8::splat(119.0) / f64x8::splat(6912.0) * t3074 - t3077 - f64x8::splat(5.0) / f64x8::splat(768.0) * t895 * t3769 + t895 * t3774 / f64x8::splat(768.0) - t895 * t3778 / f64x8::splat(3072.0) + t895 * t3782 / f64x8::splat(768.0) - t895 * t3786 / f64x8::splat(1536.0) - t895 * t3790 / f64x8::splat(3072.0) + t2409 * t1369 / f64x8::splat(384.0) + t895 * t3796 / f64x8::splat(384.0) + t895 * t3801 / f64x8::splat(384.0) + t895 * t3805 / f64x8::splat(768.0) - t1132 * t3809 / f64x8::splat(384.0);
             let t3814 = t3567 + t3657 + t3745 + t3812;
             let t3815 = t140 * t3814;
             let t3821 = t3629 * t174;
@@ -2102,7 +2109,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t3963 = t1285 * t425;
             let t3968 = -t3958;
             let t3972 = ((t70).select(f64x8::splat(0.0), f64x8::splat(8.0) / f64x8::splat(27.0) * t2137 * t3963 - f64x8::splat(2.0) / f64x8::splat(3.0) * t1064 * t1288 + f64x8::splat(2.0) / f64x8::splat(3.0) * t308 * t3968));
-            let t3974 = t3962 / f64x8::splat(2.0) + t3972 / f64x8::splat(2.0);
+            let t3974 = t3962 * f64x8::splat(0.5) + t3972 * f64x8::splat(0.5);
             let t3984 = t450 * t1405;
             let t3990 = t1271 * t442;
             let t3992 = t132 * t136 * t3990;
@@ -2163,12 +2170,12 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4136 = t356 * t357 * t4134;
             let t4140 = t30 * t3990;
             let t4141 = t132 * t4140;
-            let t4144 = -t1121 * t1388 / f64x8::splat(1024.0) - t3581 * t470 / f64x8::splat(1024.0) - t354 * t4049 / f64x8::splat(3072.0) - t2502 * t4054 / f64x8::splat(512.0) + t882 * t4059 / f64x8::splat(512.0) + t2950 * t1363 / f64x8::splat(512.0) - t1121 * t1393 / f64x8::splat(1024.0) + f64x8::splat(5.0) / f64x8::splat(256.0) * t380 * t4068 - t354 * t4136 / f64x8::splat(3072.0) - f64x8::splat(119.0) / f64x8::splat(1152.0) * t3049 - t2197 * t4141 / f64x8::splat(4.0);
+            let t4144 = -t1121 * t1388 * f64x8::splat(0.0009765625) - t3581 * t470 * f64x8::splat(0.0009765625) - t354 * t4049 / f64x8::splat(3072.0) - t2502 * t4054 * f64x8::splat(0.001953125) + t882 * t4059 * f64x8::splat(0.001953125) + t2950 * t1363 * f64x8::splat(0.001953125) - t1121 * t1393 * f64x8::splat(0.0009765625) + f64x8::splat(5.0) * f64x8::splat(0.00390625) * t380 * t4068 - t354 * t4136 / f64x8::splat(3072.0) - f64x8::splat(119.0) / f64x8::splat(1152.0) * t3049 - t2197 * t4141 * f64x8::splat(0.25);
             let t4146 = t30 * t3974;
             let t4147 = t132 * t4146;
             let t4157 = t384 * t357 * t3974;
             let t4165 = t2518 * t357 * t3990;
-            let t4168 = -t324 * t4147 / f64x8::splat(48.0) + f64x8::splat(7.0) / f64x8::splat(1536.0) * t3678 + f64x8::splat(7.0) / f64x8::splat(1536.0) * t3680 - f64x8::splat(7.0) / f64x8::splat(768.0) * t3682 + f64x8::splat(7.0) / f64x8::splat(768.0) * t3684 - t2482 + f64x8::splat(5.0) / f64x8::splat(256.0) * t1126 * t1398 - t380 * t4157 / f64x8::splat(768.0) - t1126 * t1402 / f64x8::splat(256.0) - t3746 * t474 / f64x8::splat(256.0) - f64x8::splat(5.0) / f64x8::splat(128.0) * t380 * t4165;
+            let t4168 = -t324 * t4147 / f64x8::splat(48.0) + f64x8::splat(7.0) / f64x8::splat(1536.0) * t3678 + f64x8::splat(7.0) / f64x8::splat(1536.0) * t3680 - f64x8::splat(7.0) / f64x8::splat(768.0) * t3682 + f64x8::splat(7.0) / f64x8::splat(768.0) * t3684 - t2482 + f64x8::splat(5.0) * f64x8::splat(0.00390625) * t1126 * t1398 - t380 * t4157 / f64x8::splat(768.0) - t1126 * t1402 * f64x8::splat(0.00390625) - t3746 * t474 * f64x8::splat(0.00390625) - f64x8::splat(5.0) * f64x8::splat(0.0078125) * t380 * t4165;
             let t4170 = t132 * t453 * t1320;
             let t4178 = t1134 * t3652 * t468;
             let t4182 = t897 * t3652 * t1367;
@@ -2176,8 +2183,8 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4189 = t1134 * t1135 * t4187;
             let t4192 = t884 * t442;
             let t4194 = t897 * t3756 * t4192;
-            let t4198 = f64x8::splat(3.0) / f64x8::splat(16.0) * t823 * t4170 - f64x8::splat(35.0) / f64x8::splat(384.0) * t3729 + f64x8::splat(7.0) / f64x8::splat(192.0) * t3739 + f64x8::splat(7.0) / f64x8::splat(384.0) * t3749 - f64x8::splat(7.0) / f64x8::splat(192.0) * t3751 - t895 * t4178 / f64x8::splat(1024.0) + t895 * t4182 / f64x8::splat(256.0) + t3006 * t1369 / f64x8::splat(128.0) + t1132 * t4189 / f64x8::splat(512.0) - t1132 * t4194 / f64x8::splat(128.0) + f64x8::splat(119.0) / f64x8::splat(4608.0) * t3074;
-            let t4200 = -t2175 - f64x8::splat(7.0) / f64x8::splat(1536.0) * t3556 - f64x8::splat(119.0) / f64x8::splat(4608.0) * t2958 - f64x8::splat(7.0) / f64x8::splat(16.0) * t3563 + f64x8::splat(7.0) / f64x8::splat(48.0) * t3565 + t895 * t4024 / f64x8::splat(256.0) - f64x8::splat(5.0) / f64x8::splat(256.0) * t895 * t4029 + t895 * t4033 / f64x8::splat(256.0) - f64x8::splat(35.0) / f64x8::splat(72.0) * t3009 + t4038 * t171 / f64x8::splat(3072.0) + t4144 + t4168 + t4198;
+            let t4198 = f64x8::splat(3.0) * f64x8::splat(0.0625) * t823 * t4170 - f64x8::splat(35.0) / f64x8::splat(384.0) * t3729 + f64x8::splat(7.0) / f64x8::splat(192.0) * t3739 + f64x8::splat(7.0) / f64x8::splat(384.0) * t3749 - f64x8::splat(7.0) / f64x8::splat(192.0) * t3751 - t895 * t4178 * f64x8::splat(0.0009765625) + t895 * t4182 * f64x8::splat(0.00390625) + t3006 * t1369 * f64x8::splat(0.0078125) + t1132 * t4189 * f64x8::splat(0.001953125) - t1132 * t4194 * f64x8::splat(0.0078125) + f64x8::splat(119.0) / f64x8::splat(4608.0) * t3074;
+            let t4200 = -t2175 - f64x8::splat(7.0) / f64x8::splat(1536.0) * t3556 - f64x8::splat(119.0) / f64x8::splat(4608.0) * t2958 - f64x8::splat(7.0) * f64x8::splat(0.0625) * t3563 + f64x8::splat(7.0) / f64x8::splat(48.0) * t3565 + t895 * t4024 * f64x8::splat(0.00390625) - f64x8::splat(5.0) * f64x8::splat(0.00390625) * t895 * t4029 + t895 * t4033 * f64x8::splat(0.00390625) - f64x8::splat(35.0) / f64x8::splat(72.0) * t3009 + t4038 * t171 / f64x8::splat(3072.0) + t4144 + t4168 + t4198;
             let t4201 = t157 * t4200;
             let t4203 = t397 * t4047;
             let t4205 = t3851 * t468;
@@ -2286,7 +2293,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4412 = t1531 * t947;
             let t4414 = t869 * t1530;
             let t4415 = t4414 * t386;
-            let t4417 = t43 * t30;
             let t4418 = t1508 * t4417;
             let t4421 = t4369 * t158 * t365 * t154;
             let t4422 = t4418 * t4421;
@@ -2313,7 +2319,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4450 = t1515 * t4449;
             let t4452 = t352 * t919;
             let t4453 = t1515 * t4452;
-            let t4455 = t4404 / f64x8::splat(192.0) + f64x8::splat(5.0) / f64x8::splat(384.0) * t4406 + t4411 - t4412 / f64x8::splat(384.0) - t4415 / f64x8::splat(192.0) + f64x8::splat(6.728792682356732e-05) * t4422 + t4425 / f64x8::splat(1536.0) + t4428 - t4430 + f64x8::splat(0.008478278779769482) * t4437 + t4440 / f64x8::splat(16.0) - t4442 / f64x8::splat(1536.0) + t4447 / f64x8::splat(768.0) + f64x8::splat(0.0004037275609414039) * t4450 - f64x8::splat(0.00020186378047070194) * t4453;
+            let t4455 = t4404 / f64x8::splat(192.0) + f64x8::splat(5.0) / f64x8::splat(384.0) * t4406 + t4411 - t4412 / f64x8::splat(384.0) - t4415 / f64x8::splat(192.0) + f64x8::splat(6.728792682356732e-05) * t4422 + t4425 / f64x8::splat(1536.0) + t4428 - t4430 + f64x8::splat(0.008478278779769482) * t4437 + t4440 * f64x8::splat(0.0625) - t4442 / f64x8::splat(1536.0) + t4447 / f64x8::splat(768.0) + f64x8::splat(0.0004037275609414039) * t4450 - f64x8::splat(0.00020186378047070194) * t4453;
             let t4456 = t1494 * t1514;
             let t4457 = t4456 * t1516;
             let t4459 = t352 * t924;
@@ -2358,8 +2364,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4510 = t1492 * t19;
             let t4512 = f64x8::splat(1.0) / t14 / t4510;
             let t4513 = t4512 * t511;
-            let t4514 = t12 * t11;
-            let t4515 = t28 * t4514;
             let t4516 = t4513 * t4515;
             let t4517 = t331 * t515;
             let t4518 = t4516 * t4517;
@@ -2476,7 +2480,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4693 = t4692 * t1579;
             let t4699 = t1586 * t4669;
             let t4711 = f64x8::splat(119.0) / f64x8::splat(3456.0) * t4427;
-            let t4719 = t4404 / f64x8::splat(96.0) + f64x8::splat(5.0) / f64x8::splat(192.0) * t4406 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4410 - t4412 / f64x8::splat(192.0) - t4415 / f64x8::splat(96.0) + f64x8::splat(0.00013457585364713465) * t4422 + t4425 / f64x8::splat(768.0) + t4711 - f64x8::splat(7.0) / f64x8::splat(576.0) * t4429 + f64x8::splat(0.016956557559538964) * t4437 + t4440 / f64x8::splat(8.0) - t4442 / f64x8::splat(768.0) + t4447 / f64x8::splat(384.0) + f64x8::splat(0.0008074551218828078) * t4450 - f64x8::splat(0.0004037275609414039) * t4453;
+            let t4719 = t4404 / f64x8::splat(96.0) + f64x8::splat(5.0) / f64x8::splat(192.0) * t4406 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4410 - t4412 / f64x8::splat(192.0) - t4415 / f64x8::splat(96.0) + f64x8::splat(0.00013457585364713465) * t4422 + t4425 / f64x8::splat(768.0) + t4711 - f64x8::splat(7.0) / f64x8::splat(576.0) * t4429 + f64x8::splat(0.016956557559538964) * t4437 + t4440 * f64x8::splat(0.125) - t4442 / f64x8::splat(768.0) + t4447 / f64x8::splat(384.0) + f64x8::splat(0.0008074551218828078) * t4450 - f64x8::splat(0.0004037275609414039) * t4453;
             let t4726 = f64x8::splat(35.0) / f64x8::splat(216.0) * t4476;
             let t4727 = f64x8::splat(0.02260874341271862) * t4482;
             let t4732 = f64x8::splat(0.001054177520235888) * t4503;
@@ -2592,7 +2596,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t4976 = t2765 * t365;
             let t4977 = t880 * t4976;
             let t4978 = t1515 * t4977;
-            let t4981 = -f64x8::splat(0.00020186378047070194) * t4952 + t4956 / f64x8::splat(16.0) + f64x8::splat(0.008478278779769482) * t4960 + f64x8::splat(0.0014130464632949138) * t4962 - f64x8::splat(0.00020186378047070194) * t4966 + f64x8::splat(0.0012111826828242118) * t4970 + f64x8::splat(0.0012111826828242118) * t4974 + f64x8::splat(0.0004037275609414039) * t4978 + f64x8::splat(0.00020186378047070194) * t4497 + t4504 - t4519;
+            let t4981 = -f64x8::splat(0.00020186378047070194) * t4952 + t4956 * f64x8::splat(0.0625) + f64x8::splat(0.008478278779769482) * t4960 + f64x8::splat(0.0014130464632949138) * t4962 - f64x8::splat(0.00020186378047070194) * t4966 + f64x8::splat(0.0012111826828242118) * t4970 + f64x8::splat(0.0012111826828242118) * t4974 + f64x8::splat(0.0004037275609414039) * t4978 + f64x8::splat(0.00020186378047070194) * t4497 + t4504 - t4519;
             let t4983 = -t4886 / f64x8::splat(48.0) - f64x8::splat(0.0012111826828242118) * t4890 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t4892 - t4895 / f64x8::splat(1536.0) - t4897 / f64x8::splat(1536.0) - t4899 / f64x8::splat(1536.0) + f64x8::splat(5.0) / f64x8::splat(384.0) * t4901 - t4903 / f64x8::splat(384.0) - t4905 / f64x8::splat(384.0) - t4908 / f64x8::splat(384.0) + t4932 + f64x8::splat(3.364396341178366e-05) * t4937 + t4940 / f64x8::splat(1536.0) + f64x8::splat(0.0014130464632949138) * t4457 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4463 + f64x8::splat(0.008478278779769482) * t4469 + t4477 + t4483 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4945 + f64x8::splat(0.008478278779769482) * t4947 + f64x8::splat(7.0) / f64x8::splat(2304.0) * t4491 + t4981;
             let t4984 = t140 * t4983;
             let t4986 = t136 * t477;
@@ -2776,7 +2780,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t5351 = f64x8::splat(7.0) / f64x8::splat(1152.0) * t4930;
             let t5352 = t5344 + f64x8::splat(0.0004037275609414039) * t4915 + t4917 / f64x8::splat(192.0) - t4919 / f64x8::splat(768.0) + t4921 / f64x8::splat(192.0) + t4925 / f64x8::splat(384.0) + t4411 + f64x8::splat(6.728792682356732e-05) * t4422 + t4711 - t4430 - t5351;
             let t5358 = f64x8::splat(7.0) / f64x8::splat(72.0) * t4945;
-            let t5370 = -f64x8::splat(0.0004037275609414039) * t4952 + t4956 / f64x8::splat(8.0) + f64x8::splat(0.016956557559538964) * t4960 + f64x8::splat(0.0028260929265898275) * t4962 - f64x8::splat(0.0004037275609414039) * t4966 + f64x8::splat(0.0024223653656484235) * t4970 + f64x8::splat(0.0024223653656484235) * t4974 + f64x8::splat(0.0008074551218828078) * t4978 + f64x8::splat(0.0004037275609414039) * t4497 + t4732 - t4734;
+            let t5370 = -f64x8::splat(0.0004037275609414039) * t4952 + t4956 * f64x8::splat(0.125) + f64x8::splat(0.016956557559538964) * t4960 + f64x8::splat(0.0028260929265898275) * t4962 - f64x8::splat(0.0004037275609414039) * t4966 + f64x8::splat(0.0024223653656484235) * t4970 + f64x8::splat(0.0024223653656484235) * t4974 + f64x8::splat(0.0008074551218828078) * t4978 + f64x8::splat(0.0004037275609414039) * t4497 + t4732 - t4734;
             let t5372 = -t4886 / f64x8::splat(24.0) - f64x8::splat(0.0024223653656484235) * t4890 + t5335 - t4895 / f64x8::splat(768.0) - t4897 / f64x8::splat(768.0) - t4899 / f64x8::splat(768.0) + f64x8::splat(5.0) / f64x8::splat(192.0) * t4901 - t4903 / f64x8::splat(192.0) - t4905 / f64x8::splat(192.0) - t4908 / f64x8::splat(192.0) + t5352 + f64x8::splat(6.728792682356732e-05) * t4937 + t4940 / f64x8::splat(768.0) + f64x8::splat(0.0028260929265898275) * t4457 + t4464 + f64x8::splat(0.016956557559538964) * t4469 + t4726 + t4727 + t5358 + f64x8::splat(0.016956557559538964) * t4947 + t4492 + t5370;
             let t5373 = t157 * t5372;
             let t5377 = t5317 * t1136;
@@ -2838,7 +2842,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t5525 = t1515 * t5524;
             let t5527 = t880 * t1361;
             let t5528 = t1515 * t5527;
-            let t5530 = t5335 + t5344 + f64x8::splat(0.0004037275609414039) * t4915 + t5506 / f64x8::splat(16.0) + f64x8::splat(0.008478278779769482) * t5510 - f64x8::splat(0.0012111826828242118) * t5514 - t5516 / f64x8::splat(48.0) + t4428 + f64x8::splat(0.0024223653656484235) * t5521 - t5351 + f64x8::splat(6.728792682356732e-05) * t4937 - f64x8::splat(0.00020186378047070194) * t5525 + f64x8::splat(0.0004037275609414039) * t5528 + t4477 + t4483;
+            let t5530 = t5335 + t5344 + f64x8::splat(0.0004037275609414039) * t4915 + t5506 * f64x8::splat(0.0625) + f64x8::splat(0.008478278779769482) * t5510 - f64x8::splat(0.0012111826828242118) * t5514 - t5516 / f64x8::splat(48.0) + t4428 + f64x8::splat(0.0024223653656484235) * t5521 - t5351 + f64x8::splat(6.728792682356732e-05) * t4937 - f64x8::splat(0.00020186378047070194) * t5525 + f64x8::splat(0.0004037275609414039) * t5528 + t4477 + t4483;
             let t5533 = t4403 * t1369;
             let t5535 = t4907 * t474;
             let t5537 = t1531 * t1402;
@@ -2931,7 +2935,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t5722 = t5261 * t1052;
             let t5730 = t958 * t547 * t1431;
             let t5734 = t1334 * t541;
-            let t5754 = f64x8::splat(7.0) / f64x8::splat(576.0) * t4892 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4911 + f64x8::splat(0.0008074551218828078) * t4915 + t5506 / f64x8::splat(8.0) + f64x8::splat(0.016956557559538964) * t5510 - f64x8::splat(0.0024223653656484235) * t5514 - t5516 / f64x8::splat(24.0) + t4711 + f64x8::splat(0.004844730731296847) * t5521 - f64x8::splat(7.0) / f64x8::splat(576.0) * t4930 + f64x8::splat(0.00013457585364713465) * t4937 - f64x8::splat(0.0004037275609414039) * t5525 + f64x8::splat(0.0008074551218828078) * t5528 + t4726 + t4727;
+            let t5754 = f64x8::splat(7.0) / f64x8::splat(576.0) * t4892 + f64x8::splat(7.0) / f64x8::splat(144.0) * t4911 + f64x8::splat(0.0008074551218828078) * t4915 + t5506 * f64x8::splat(0.125) + f64x8::splat(0.016956557559538964) * t5510 - f64x8::splat(0.0024223653656484235) * t5514 - t5516 / f64x8::splat(24.0) + t4711 + f64x8::splat(0.004844730731296847) * t5521 - f64x8::splat(7.0) / f64x8::splat(576.0) * t4930 + f64x8::splat(0.00013457585364713465) * t4937 - f64x8::splat(0.0004037275609414039) * t5525 + f64x8::splat(0.0008074551218828078) * t5528 + t4726 + t4727;
             let t5768 = f64x8::splat(7.0) / f64x8::splat(36.0) * t4945 + f64x8::splat(0.03391311511907793) * t4947 + f64x8::splat(0.005652185853179655) * t4962 + t5533 / f64x8::splat(96.0) - t5535 / f64x8::splat(96.0) - t5537 / f64x8::splat(192.0) + f64x8::splat(5.0) / f64x8::splat(192.0) * t5539 + t5542 / f64x8::splat(768.0) - f64x8::splat(0.0004037275609414039) * t5545 + t5547 / f64x8::splat(384.0) - t5549 / f64x8::splat(384.0) - t5551 / f64x8::splat(768.0) - t5553 / f64x8::splat(768.0) + t4732 - t4734;
             let t5769 = t5754 + t5768;
             let t5770 = t140 * t5769;
@@ -3344,8 +3348,6 @@ pub fn gga_c_zvpbeloc_kxc_pol(
             let t6584 = t1461 * t6583;
             let t6585 = t498 * t6584;
             let t6587 = t140 * t509;
-            let t6589 = t112 * t112;
-            let t6590 = f64x8::splat(1.0) / t6589;
             let t6593 = t135 * t6590 * t156 * t180;
             let t6594 = t6587 * t511 * t6593;
             let t6602 = t1775 * t531;

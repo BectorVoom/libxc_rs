@@ -140,6 +140,16 @@ pub fn gga_c_wi_vxc_pol(
     let param_k = f64x8::splat(param_k);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t16 = f64x8::splat(M_CBRT3);
+    let t18 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t19 = t16 * t18;
+    let t20 = f64x8::splat(M_CBRT4);
+    let t21 = t20 * t20;
+    let t25 = t16 * t16;
+    let t26 = f64x8::splat(M_CBRTPI);
+    let t97 = param_d * t26;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -165,13 +175,6 @@ pub fn gga_c_wi_vxc_pol(
             let t10 = param_k * t2;
             let t12 = (simd::exp(-t10 * t9));
             let t15 = t3 * t9 * t12 + param_a;
-            let t16 = f64x8::splat(M_CBRT3);
-            let t18 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t19 = t16 * t18;
-            let t20 = f64x8::splat(M_CBRT4);
-            let t21 = t20 * t20;
-            let t25 = t16 * t16;
-            let t26 = f64x8::splat(M_CBRTPI);
             let t28 = ((t2).sqrt());
             let t29 = t28 * t2;
             let t30 = t5 * t5;
@@ -180,7 +183,7 @@ pub fn gga_c_wi_vxc_pol(
             let t35 = t28 * t34;
             let t36 = ((t35).sqrt());
             let t41 = f64x8::splat(1.0) + param_d * t20 * t25 * t26 * t36 * t29 * t31 / f64x8::splat(3.0);
-            let t45 = param_c + t19 * t21 / t6 * t41 / f64x8::splat(4.0);
+            let t45 = param_c + t19 * t21 / t6 * t41 * f64x8::splat(0.25);
             let t46 = f64x8::splat(1.0) / t45;
             let tzk0 = t15 * t46;
             acc_zk = tzk0;
@@ -212,16 +215,15 @@ pub fn gga_c_wi_vxc_pol(
             let t94 = t93 * t15;
             let t95 = t66 * t18;
             let t96 = t94 * t95;
-            let t97 = param_d * t26;
             let t98 = f64x8::splat(1.0) / t28;
             let t99 = t74 * t98;
             let t100 = t97 * t99;
             let t101 = t96 * t100;
-            let tvsigma0 = t91 * t46 - f64x8::splat(7.0) / f64x8::splat(4.0) * t101;
+            let tvsigma0 = t91 * t46 - f64x8::splat(7.0) * f64x8::splat(0.25) * t101;
             acc_vsigma_0 = tvsigma0;
             let t103 = f64x8::splat(2.0) * t90;
             let t104 = t4 * t103;
-            let tvsigma1 = t104 * t46 - f64x8::splat(7.0) / f64x8::splat(2.0) * t101;
+            let tvsigma1 = t104 * t46 - f64x8::splat(7.0) * f64x8::splat(0.5) * t101;
             acc_vsigma_1 = tvsigma1;
             let tvsigma2 = tvsigma0;
             acc_vsigma_2 = tvsigma2;

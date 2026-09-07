@@ -24,6 +24,29 @@ pub fn gga_x_g96_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = M_CBRTPI;
+    let t4 = 1.0 / t3;
+    let t5 = t2 * t4;
+    let t11 = zeta_threshold - 1.0;
+    let t15 = -t11;
+    let t21 = pow_1_3(zeta_threshold);
+    let t22 = t21 * zeta_threshold;
+    let t28 = t2 * t2;
+    let t30 = pow_1_3(1.0 / M_PI);
+    let t31 = 1.0 / t30;
+    let t32 = t28 * t31;
+    let t33 = M_CBRT4;
+    let tvsigma1 = 0.0;
+    let t375 = t31 * t33;
+    let tv2rhosigma1 = 0.0;
+    let tv2rhosigma4 = 0.0;
+    let tv2sigma21 = 0.0;
+    let tv2sigma22 = 0.0;
+    let tv2sigma23 = 0.0;
+    let tv2sigma24 = 0.0;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -31,30 +54,17 @@ pub fn gga_x_g96_fxc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t4 = 1.0 / t3;
-        let t5 = t2 * t4;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
         let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
         let t16 = rho0 - rho1;
         let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
         let t19 = 1.0 + t18;
         let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
         let t23 = pow_1_3(t19);
         let t25 = piecewise3(t20, t22, t23 * t19);
         let t26 = pow_1_3(t6);
-        let t28 = t2 * t2;
-        let t30 = pow_1_3(1.0 / M_PI);
-        let t31 = 1.0 / t30;
-        let t32 = t28 * t31;
-        let t33 = M_CBRT4;
         let t34 = rmath::sqrt(sigma0);
         let t35 = pow_1_3(rho0);
         let t37 = 1.0 / t35 / rho0;
@@ -62,7 +72,7 @@ pub fn gga_x_g96_fxc_pol(
         let t39 = rmath::sqrt(t38);
         let t40 = t39 * t38;
         let t44 = 1.0 + 2.0 / 1233.0 * t32 * t33 * t40;
-        let t48 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t25 * t26 * t44);
+        let t48 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t25 * t26 * t44);
         let t49 = rho1 <= dens_threshold;
         let t50 = -t16;
         let t52 = piecewise5(t14, t11, t10, t15, t50 * t7);
@@ -77,7 +87,7 @@ pub fn gga_x_g96_fxc_pol(
         let t64 = rmath::sqrt(t63);
         let t65 = t64 * t63;
         let t69 = 1.0 + 2.0 / 1233.0 * t32 * t33 * t65;
-        let t73 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t57 * t26 * t69);
+        let t73 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t57 * t26 * t69);
         let tzk0 = t48 + t73;
         zk[ip] += tzk0;
         let t74 = t6 * t6;
@@ -87,7 +97,7 @@ pub fn gga_x_g96_fxc_pol(
         let t81 = piecewise3(t20, 0.0, 4.0 / 3.0 * t23 * t78);
         let t86 = t26 * t26;
         let t87 = 1.0 / t86;
-        let t91 = t5 * t25 * t87 * t44 / 8.0;
+        let t91 = t5 * t25 * t87 * t44 * 0.125;
         let t92 = t4 * t25;
         let t93 = t26 * t31;
         let t94 = t92 * t93;
@@ -95,17 +105,17 @@ pub fn gga_x_g96_fxc_pol(
         let t96 = rho0 * rho0;
         let t98 = 1.0 / t35 / t96;
         let t100 = t95 * t34 * t98;
-        let t104 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t81 * t26 * t44 - t91 + t94 * t100 / 274.0);
+        let t104 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t81 * t26 * t44 - t91 + t94 * t100 / 274.0);
         let t105 = t50 * t75;
         let t107 = piecewise5(t14, 0.0, t10, 0.0, -t7 - t105);
         let t110 = piecewise3(t54, 0.0, 4.0 / 3.0 * t55 * t107);
-        let t118 = t5 * t57 * t87 * t69 / 8.0;
-        let t120 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t110 * t26 * t69 - t118);
+        let t118 = t5 * t57 * t87 * t69 * 0.125;
+        let t120 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t110 * t26 * t69 - t118);
         let tvrho0 = t48 + t73 + t6 * (t104 + t120);
         vrho[ip * 2] += tvrho0;
         let t124 = piecewise5(t10, 0.0, t14, 0.0, -t7 - t76);
         let t127 = piecewise3(t20, 0.0, 4.0 / 3.0 * t23 * t124);
-        let t133 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t127 * t26 * t44 - t91);
+        let t133 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t127 * t26 * t44 - t91);
         let t135 = piecewise5(t14, 0.0, t10, 0.0, t7 - t105);
         let t138 = piecewise3(t54, 0.0, 4.0 / 3.0 * t55 * t135);
         let t143 = t4 * t57;
@@ -114,7 +124,7 @@ pub fn gga_x_g96_fxc_pol(
         let t146 = rho1 * rho1;
         let t148 = 1.0 / t60 / t146;
         let t150 = t145 * t59 * t148;
-        let t154 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t138 * t26 * t69 - t118 + t144 * t150 / 274.0);
+        let t154 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t138 * t26 * t69 - t118 + t144 * t150 / 274.0);
         let tvrho1 = t48 + t73 + t6 * (t133 + t154);
         vrho[ip * 2 + 1] += tvrho1;
         let t157 = 1.0 / t34;
@@ -122,7 +132,6 @@ pub fn gga_x_g96_fxc_pol(
         let t162 = piecewise3(t1, 0.0, -3.0 / 2192.0 * t94 * t159);
         let tvsigma0 = t6 * t162;
         vsigma[ip * 3] += tvsigma0;
-        let tvsigma1 = 0.0;
         vsigma[ip * 3 + 1] += tvsigma1;
         let t163 = 1.0 / t59;
         let t165 = t145 * t163 * t62;
@@ -154,7 +163,7 @@ pub fn gga_x_g96_fxc_pol(
         let t218 = t96 * rho0;
         let t220 = 1.0 / t35 / t218;
         let t222 = t95 * t34 * t220;
-        let t226 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t185 * t26 * t44 - t192 / 4.0 + t195 * t100 / 137.0 + t203 + t206 / 411.0 - t94 * t215 / 411.0 - 7.0 / 822.0 * t94 * t222);
+        let t226 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t185 * t26 * t44 - t192 * 0.25 + t195 * t100 / 137.0 + t203 + t206 / 411.0 - t94 * t215 / 411.0 - 7.0 / 822.0 * t94 * t222);
         let t227 = t55 * t55;
         let t228 = 1.0 / t227;
         let t229 = t107 * t107;
@@ -163,7 +172,7 @@ pub fn gga_x_g96_fxc_pol(
         let t239 = piecewise3(t54, 0.0, 4.0 / 9.0 * t228 * t229 + 4.0 / 3.0 * t55 * t235);
         let t246 = t5 * t110 * t87 * t69;
         let t251 = t5 * t57 * t199 * t69 / 12.0;
-        let t253 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t239 * t26 * t69 - t246 / 4.0 + t251);
+        let t253 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t239 * t26 * t69 - t246 * 0.25 + t251);
         let tv2rho20 = 2.0 * t104 + 2.0 * t120 + t6 * (t226 + t253);
         v2rho2[ip * 3] += tv2rho20;
         let t256 = t172 * t124;
@@ -172,7 +181,7 @@ pub fn gga_x_g96_fxc_pol(
         let t271 = t5 * t127 * t87 * t44;
         let t273 = t4 * t127;
         let t274 = t273 * t93;
-        let t280 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t264 * t26 * t44 - t271 / 8.0 + t274 * t100 / 274.0 - t192 / 8.0 + t203 + t206 / 822.0);
+        let t280 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t264 * t26 * t44 - t271 * 0.125 + t274 * t100 / 274.0 - t192 * 0.125 + t203 + t206 / 822.0);
         let t281 = t228 * t135;
         let t285 = piecewise5(t14, 0.0, t10, 0.0, 2.0 * t232);
         let t289 = piecewise3(t54, 0.0, 4.0 / 9.0 * t281 * t107 + 4.0 / 3.0 * t55 * t285);
@@ -181,13 +190,13 @@ pub fn gga_x_g96_fxc_pol(
         let t300 = t299 * t93;
         let t303 = t143 * t204;
         let t304 = t303 * t150;
-        let t307 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t289 * t26 * t69 - t296 / 8.0 - t246 / 8.0 + t251 + t300 * t150 / 274.0 + t304 / 822.0);
+        let t307 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t289 * t26 * t69 - t296 * 0.125 - t246 * 0.125 + t251 + t300 * t150 / 274.0 + t304 / 822.0);
         let tv2rho21 = t104 + t120 + t133 + t154 + t6 * (t280 + t307);
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t312 = t124 * t124;
         let t317 = piecewise5(t10, 0.0, t14, 0.0, 2.0 * t75 + 2.0 * t178);
         let t321 = piecewise3(t20, 0.0, 4.0 / 9.0 * t172 * t312 + 4.0 / 3.0 * t23 * t317);
-        let t328 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t321 * t26 * t44 - t271 / 4.0 + t203);
+        let t328 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t321 * t26 * t44 - t271 * 0.25 + t203);
         let t329 = t135 * t135;
         let t334 = piecewise5(t14, 0.0, t10, 0.0, -2.0 * t75 + 2.0 * t232);
         let t338 = piecewise3(t54, 0.0, 4.0 / 9.0 * t228 * t329 + 4.0 / 3.0 * t55 * t334);
@@ -202,19 +211,17 @@ pub fn gga_x_g96_fxc_pol(
         let t359 = t146 * rho1;
         let t361 = 1.0 / t60 / t359;
         let t363 = t145 * t59 * t361;
-        let t367 = piecewise3(t49, 0.0, -3.0 / 8.0 * t5 * t338 * t26 * t69 - t296 / 4.0 + t345 * t150 / 137.0 + t251 + t304 / 411.0 - t144 * t356 / 411.0 - 7.0 / 822.0 * t144 * t363);
+        let t367 = piecewise3(t49, 0.0, -3.0 * 0.125 * t5 * t338 * t26 * t69 - t296 * 0.25 + t345 * t150 / 137.0 + t251 + t304 / 411.0 - t144 * t356 / 411.0 - 7.0 / 822.0 * t144 * t363);
         let tv2rho22 = 2.0 * t133 + 2.0 * t154 + t6 * (t328 + t367);
         v2rho2[ip * 3 + 2] += tv2rho22;
         let t373 = t205 * t159 / 2192.0;
         let t374 = t92 * t26;
-        let t375 = t31 * t33;
         let t377 = 1.0 / t211 / t218;
         let t379 = t375 * t208 * t377;
         let t383 = t95 * t157 * t98;
         let t387 = piecewise3(t1, 0.0, -3.0 / 2192.0 * t195 * t159 - t373 + t374 * t379 / 1096.0 + t94 * t383 / 548.0);
         let tv2rhosigma0 = t6 * t387 + t162;
         v2rhosigma[ip * 6] += tv2rhosigma0;
-        let tv2rhosigma1 = 0.0;
         v2rhosigma[ip * 6 + 1] += tv2rhosigma1;
         let t392 = t303 * t165 / 2192.0;
         let t394 = piecewise3(t49, 0.0, -3.0 / 2192.0 * t300 * t165 - t392);
@@ -223,7 +230,6 @@ pub fn gga_x_g96_fxc_pol(
         let t399 = piecewise3(t1, 0.0, -3.0 / 2192.0 * t274 * t159 - t373);
         let tv2rhosigma3 = t6 * t399 + t162;
         v2rhosigma[ip * 6 + 3] += tv2rhosigma3;
-        let tv2rhosigma4 = 0.0;
         v2rhosigma[ip * 6 + 4] += tv2rhosigma4;
         let t403 = t143 * t26;
         let t405 = 1.0 / t352 / t359;
@@ -241,13 +247,9 @@ pub fn gga_x_g96_fxc_pol(
         let t431 = piecewise3(t1, 0.0, -3.0 / 8768.0 * t94 * t421 + 3.0 / 4384.0 * t94 * t427);
         let tv2sigma20 = t6 * t431;
         v2sigma2[ip * 6] += tv2sigma20;
-        let tv2sigma21 = 0.0;
         v2sigma2[ip * 6 + 1] += tv2sigma21;
-        let tv2sigma22 = 0.0;
         v2sigma2[ip * 6 + 2] += tv2sigma22;
-        let tv2sigma23 = 0.0;
         v2sigma2[ip * 6 + 3] += tv2sigma23;
-        let tv2sigma24 = 0.0;
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let t432 = 1.0 / sigma2;
         let t434 = 1.0 / t352 / t146;

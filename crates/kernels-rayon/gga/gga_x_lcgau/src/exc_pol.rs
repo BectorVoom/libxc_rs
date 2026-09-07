@@ -24,6 +24,29 @@ pub fn gga_x_lcgau_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = M_CBRTPI;
+    let t5 = t2 / t3;
+    let t11 = zeta_threshold - 1.0;
+    let t15 = -t11;
+    let t21 = pow_1_3(zeta_threshold);
+    let t22 = t21 * zeta_threshold;
+    let t28 = t2 * t2;
+    let t29 = 1.0 / M_PI;
+    let t30 = pow_1_3(t29);
+    let t32 = t28 / t30;
+    let t33 = M_CBRT4;
+    let t34 = t32 * t33;
+    let t55 = rmath::sqrt(3.0);
+    let t56 = param_hyb_omega_0 * t55;
+    let t57 = t2 * t30;
+    let t58 = t33 * t33;
+    let t63 = M_CBRT2;
+    let t100 = rmath::sqrt(M_PI);
+    let t120 = param_hyb_omega_2 * t55;
+    let t169 = param_hyb_omega_3 * t55;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -31,31 +54,18 @@ pub fn gga_x_lcgau_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t5 = t2 / t3;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
         let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
         let t16 = rho0 - rho1;
         let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
         let t19 = 1.0 + t18;
         let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
         let t23 = pow_1_3(t19);
         let t25 = piecewise3(t20, t22, t23 * t19);
         let t26 = t5 * t25;
         let t27 = pow_1_3(t6);
-        let t28 = t2 * t2;
-        let t29 = 1.0 / M_PI;
-        let t30 = pow_1_3(t29);
-        let t32 = t28 / t30;
-        let t33 = M_CBRT4;
-        let t34 = t32 * t33;
         let t35 = rho0 * rho0;
         let t36 = pow_1_3(rho0);
         let t37 = t36 * t36;
@@ -69,13 +79,8 @@ pub fn gga_x_lcgau_exc_pol(
         let t49 = 1.0 / t48;
         let t53 = 1.0 + 0.0009333333333333333 * t34 * t40 * t49;
         let t54 = t27 * t53;
-        let t55 = rmath::sqrt(3.0);
-        let t56 = param_hyb_omega_0 * t55;
-        let t57 = t2 * t30;
-        let t58 = t33 * t33;
         let t61 = t57 * t58 * t53 * t29;
         let t62 = rmath::sqrt(t61);
-        let t63 = M_CBRT2;
         let t64 = t62 * t63;
         let t65 = t19 * t6;
         let t66 = pow_1_3(t65);
@@ -98,17 +103,15 @@ pub fn gga_x_lcgau_exc_pol(
         let t95 = t83 * t83;
         let t96 = 1.0 / t95;
         let t99 = piecewise3(t72, 1.35, t70);
-        let t100 = rmath::sqrt(M_PI);
         let t101 = 1.0 / t99;
-        let t103 = rmath::erf(t101 / 2.0);
+        let t103 = rmath::erf(t101 * 0.5);
         let t105 = t99 * t99;
         let t106 = 1.0 / t105;
-        let t108 = rmath::exp(-t106 / 4.0);
+        let t108 = rmath::exp(-t106 * 0.25);
         let t109 = t108 - 1.0;
-        let t112 = t108 - 3.0 / 2.0 - 2.0 * t105 * t109;
+        let t112 = t108 - 3.0 * 0.5 - 2.0 * t105 * t109;
         let t115 = t100 * t103 + 2.0 * t112 * t99;
         let t119 = piecewise3(t71, 1.0 / t74 / 36.0 - t78 / 960.0 + t81 / 26880.0 - t84 / 829440.0 + t87 / 28385280.0 - t90 / 1073479680.0 + t93 / 44590694400.0 - t96 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t99 * t115);
-        let t120 = param_hyb_omega_2 * t55;
         let t122 = t120 * t68 / 12.0;
         let t123 = 2.07 <= t122;
         let t124 = 2.07 < t122;
@@ -125,16 +128,15 @@ pub fn gga_x_lcgau_exc_pol(
         let t145 = 1.0 / t135 / t132;
         let t148 = piecewise3(t124, 2.07, t122);
         let t149 = 1.0 / t148;
-        let t151 = rmath::erf(t149 / 2.0);
+        let t151 = rmath::erf(t149 * 0.5);
         let t153 = t148 * t148;
         let t154 = 1.0 / t153;
-        let t156 = rmath::exp(-t154 / 4.0);
+        let t156 = rmath::exp(-t154 * 0.25);
         let t157 = t156 - 1.0;
         let t158 = t148 * t157;
         let t160 = 1.0 - 8.0 * t153;
         let t164 = t100 * t151 + 2.0 * t158 * t160 - 4.0 * t148;
         let t167 = piecewise3(t123, -1.0 / t126 / 18.0 + t130 / 240.0 - t133 / 4480.0 + t136 / 103680.0 - t139 / 2838528.0 + t142 / 89456640.0 - t145 / 3185049600.0, -8.0 / 3.0 * t148 * t164);
-        let t169 = param_hyb_omega_3 * t55;
         let t171 = t169 * t68 / 12.0;
         let t172 = 2.07 <= t171;
         let t173 = 2.07 < t171;
@@ -151,10 +153,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t194 = 1.0 / t184 / t181;
         let t197 = piecewise3(t173, 2.07, t171);
         let t198 = 1.0 / t197;
-        let t200 = rmath::erf(t198 / 2.0);
+        let t200 = rmath::erf(t198 * 0.5);
         let t202 = t197 * t197;
         let t203 = 1.0 / t202;
-        let t205 = rmath::exp(-t203 / 4.0);
+        let t205 = rmath::exp(-t203 * 0.25);
         let t206 = t205 - 1.0;
         let t207 = t197 * t206;
         let t209 = 1.0 - 8.0 * t202;
@@ -162,7 +164,7 @@ pub fn gga_x_lcgau_exc_pol(
         let t216 = piecewise3(t172, -1.0 / t175 / 18.0 + t179 / 240.0 - t182 / 4480.0 + t185 / 103680.0 - t188 / 2838528.0 + t191 / 89456640.0 - t194 / 3185049600.0, -8.0 / 3.0 * t197 * t213);
         let t218 = t167 * param_hyb_coeff_2 + t216 * param_hyb_coeff_3 + t119;
         let t219 = t54 * t218;
-        let t222 = piecewise3(t1, 0.0, -3.0 / 8.0 * t26 * t219);
+        let t222 = piecewise3(t1, 0.0, -3.0 * 0.125 * t26 * t219);
         let t223 = rho1 <= dens_threshold;
         let t224 = -t16;
         let t226 = piecewise5(t14, t11, t10, t15, t224 * t7);
@@ -209,12 +211,12 @@ pub fn gga_x_lcgau_exc_pol(
         let t289 = 1.0 / t288;
         let t292 = piecewise3(t265, 1.35, t263);
         let t293 = 1.0 / t292;
-        let t295 = rmath::erf(t293 / 2.0);
+        let t295 = rmath::erf(t293 * 0.5);
         let t297 = t292 * t292;
         let t298 = 1.0 / t297;
-        let t300 = rmath::exp(-t298 / 4.0);
+        let t300 = rmath::exp(-t298 * 0.25);
         let t301 = t300 - 1.0;
-        let t304 = t300 - 3.0 / 2.0 - 2.0 * t297 * t301;
+        let t304 = t300 - 3.0 * 0.5 - 2.0 * t297 * t301;
         let t307 = t100 * t295 + 2.0 * t292 * t304;
         let t311 = piecewise3(t264, 1.0 / t267 / 36.0 - t271 / 960.0 + t274 / 26880.0 - t277 / 829440.0 + t280 / 28385280.0 - t283 / 1073479680.0 + t286 / 44590694400.0 - t289 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t292 * t307);
         let t313 = t120 * t261 / 12.0;
@@ -233,10 +235,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t336 = 1.0 / t326 / t323;
         let t339 = piecewise3(t315, 2.07, t313);
         let t340 = 1.0 / t339;
-        let t342 = rmath::erf(t340 / 2.0);
+        let t342 = rmath::erf(t340 * 0.5);
         let t344 = t339 * t339;
         let t345 = 1.0 / t344;
-        let t347 = rmath::exp(-t345 / 4.0);
+        let t347 = rmath::exp(-t345 * 0.25);
         let t348 = t347 - 1.0;
         let t349 = t339 * t348;
         let t351 = 1.0 - 8.0 * t344;
@@ -258,10 +260,10 @@ pub fn gga_x_lcgau_exc_pol(
         let t384 = 1.0 / t374 / t371;
         let t387 = piecewise3(t363, 2.07, t361);
         let t388 = 1.0 / t387;
-        let t390 = rmath::erf(t388 / 2.0);
+        let t390 = rmath::erf(t388 * 0.5);
         let t392 = t387 * t387;
         let t393 = 1.0 / t392;
-        let t395 = rmath::exp(-t393 / 4.0);
+        let t395 = rmath::exp(-t393 * 0.25);
         let t396 = t395 - 1.0;
         let t397 = t387 * t396;
         let t399 = 1.0 - 8.0 * t392;
@@ -269,7 +271,7 @@ pub fn gga_x_lcgau_exc_pol(
         let t406 = piecewise3(t362, -1.0 / t365 / 18.0 + t369 / 240.0 - t372 / 4480.0 + t375 / 103680.0 - t378 / 2838528.0 + t381 / 89456640.0 - t384 / 3185049600.0, -8.0 / 3.0 * t387 * t403);
         let t408 = t358 * param_hyb_coeff_2 + t406 * param_hyb_coeff_3 + t311;
         let t409 = t252 * t408;
-        let t412 = piecewise3(t223, 0.0, -3.0 / 8.0 * t232 * t409);
+        let t412 = piecewise3(t223, 0.0, -3.0 * 0.125 * t232 * t409);
         let tzk0 = t222 + t412;
         zk[ip] += tzk0;
     }

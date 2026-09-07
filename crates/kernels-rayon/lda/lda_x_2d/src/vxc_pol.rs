@@ -18,21 +18,23 @@ pub fn lda_x_2d_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_SQRT2;
+    let t2 = rmath::sqrt(M_PI);
+    let t3 = 1.0 / t2;
+    let t4 = t1 * t3;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t12 = t11 * zeta_threshold;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        let t1 = M_SQRT2;
-        let t2 = rmath::sqrt(M_PI);
-        let t3 = 1.0 / t2;
-        let t4 = t1 * t3;
         let t5 = rho0 - rho1;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t8 = t5 * t7;
         let t9 = 1.0 + t8;
         let t10 = t9 <= zeta_threshold;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t12 = t11 * zeta_threshold;
         let t13 = rmath::sqrt(t9);
         let t14 = t13 * t9;
         let t15 = piecewise3(t10, t12, t14);
@@ -41,7 +43,7 @@ pub fn lda_x_2d_vxc_pol(
         let t18 = rmath::sqrt(t16);
         let t19 = t18 * t16;
         let t20 = piecewise3(t17, t12, t19);
-        let t22 = t15 / 2.0 + t20 / 2.0;
+        let t22 = t15 * 0.5 + t20 * 0.5;
         let t23 = rmath::sqrt(t6);
         let t25 = t4 * t22 * t23;
         let tzk0 = -4.0 / 3.0 * t25;
@@ -53,17 +55,17 @@ pub fn lda_x_2d_vxc_pol(
         let t31 = 1.0 / t30;
         let t32 = t5 * t31;
         let t33 = t7 - t32;
-        let t36 = piecewise3(t10, 0.0, 3.0 / 2.0 * t13 * t33);
+        let t36 = piecewise3(t10, 0.0, 3.0 * 0.5 * t13 * t33);
         let t37 = -t33;
-        let t40 = piecewise3(t17, 0.0, 3.0 / 2.0 * t18 * t37);
-        let t42 = t36 / 2.0 + t40 / 2.0;
+        let t40 = piecewise3(t17, 0.0, 3.0 * 0.5 * t18 * t37);
+        let t42 = t36 * 0.5 + t40 * 0.5;
         let tvrho0 = -t27 - 4.0 / 3.0 * t29 * t3 * t42;
         vrho[ip * 2] += tvrho0;
         let t46 = -t7 - t32;
-        let t49 = piecewise3(t10, 0.0, 3.0 / 2.0 * t13 * t46);
+        let t49 = piecewise3(t10, 0.0, 3.0 * 0.5 * t13 * t46);
         let t50 = -t46;
-        let t53 = piecewise3(t17, 0.0, 3.0 / 2.0 * t18 * t50);
-        let t56 = t3 * (t49 / 2.0 + t53 / 2.0);
+        let t53 = piecewise3(t17, 0.0, 3.0 * 0.5 * t18 * t50);
+        let t56 = t3 * (t49 * 0.5 + t53 * 0.5);
         let tvrho1 = -t27 - 4.0 / 3.0 * t29 * t56;
         vrho[ip * 2 + 1] += tvrho1;
     }

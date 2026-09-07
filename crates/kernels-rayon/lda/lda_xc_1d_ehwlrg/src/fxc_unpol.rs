@@ -21,6 +21,9 @@ pub fn lda_xc_1d_ehwlrg_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t22 = param_alpha * param_alpha;
     for ip in 0..zk.len() {
         let t1 = rho[ip] * rho[ip];
         let t4 = param_a2 * rho[ip] + param_a3 * t1 + param_a1;
@@ -34,7 +37,6 @@ pub fn lda_xc_1d_ehwlrg_fxc_unpol(
         let t13 = t8 * t5;
         let t15 = 1.0 / rho[ip];
         let t16 = param_alpha * t15;
-        let t22 = param_alpha * param_alpha;
         let t23 = t22 * t15;
         let tv2rho20 = 2.0 * t13 * param_alpha + tzk0 * t16 + tzk0 * t23 + 2.0 * t6 * t5 + 2.0 * t13;
         v2rho2[ip] += tv2rho20;

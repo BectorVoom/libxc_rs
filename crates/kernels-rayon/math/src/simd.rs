@@ -21,6 +21,18 @@ pub fn ln(x: f64x8) -> f64x8 {
 }
 
 /// Cube root for `f64x8`, backed by `rmath::cbrt`.
+///
+/// `rmath::cbrt`'s vector form (`f64x2`/`f64x4`/`f64x8`) does this same
+/// exponent decompose/recompose on genuine `wide::u64xN` integer SIMD
+/// rather than a per-lane loop over an array (`~/workspace/rmath`,
+/// `src/kernels/double/cbrt.rs`, "Cycle 9" in its ROADMAP.md,
+/// 2026-09-07) -- the fix this file's own custom cbrt implementation
+/// prototyped earlier the same day, before it was ported upstream.
+/// Delegating here keeps one algorithm instead of two independently
+/// verified copies; `math/tests/simd_exact.rs::
+/// cbrt_bit_identical_to_scalar_kernels` still sweeps this bit-for-bit
+/// against `powers::cbrt_f64` and `f64::cbrt`, so a regression in rmath's
+/// own vector form would still be caught here, not only upstream.
 #[inline(always)]
 pub fn cbrt(x: f64x8) -> f64x8 {
     rmath::cbrt(x)
@@ -29,27 +41,27 @@ pub fn cbrt(x: f64x8) -> f64x8 {
 /// x^(2/3) for `f64x8` = cbrt(x)^2
 #[inline(always)]
 pub fn pow_2_3(x: f64x8) -> f64x8 {
-    let c = rmath::cbrt(x);
+    let c = cbrt(x);
     c * c
 }
 
 /// x^(4/3) for `f64x8` = x * cbrt(x)
 #[inline(always)]
 pub fn pow_4_3(x: f64x8) -> f64x8 {
-    x * rmath::cbrt(x)
+    x * cbrt(x)
 }
 
 /// x^(5/3) for `f64x8` = x * cbrt(x)^2
 #[inline(always)]
 pub fn pow_5_3(x: f64x8) -> f64x8 {
-    let c = rmath::cbrt(x);
+    let c = cbrt(x);
     x * c * c
 }
 
 /// x^(7/3) for `f64x8` = x * x * cbrt(x)
 #[inline(always)]
 pub fn pow_7_3(x: f64x8) -> f64x8 {
-    x * x * rmath::cbrt(x)
+    x * x * cbrt(x)
 }
 
 /// `e^x - 1` for `f64x8`, backed by `rmath::expm1`.

@@ -30,30 +30,41 @@ pub fn gga_k_apbe_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = t3 * t3;
+    let t5 = M_CBRTPI;
+    let t7 = t4 * t5 * M_PI;
+    let t8 = 1.0 <= zeta_threshold;
+    let t9 = zeta_threshold - 1.0;
+    let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+    let t12 = 1.0 + t11;
+    let t14 = pow_1_3(zeta_threshold);
+    let t15 = t14 * t14;
+    let t17 = pow_1_3(t12);
+    let t18 = t17 * t17;
+    let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+    let t24 = M_CBRT6;
+    let t26 = M_PI * M_PI;
+    let t27 = pow_1_3(t26);
+    let t28 = t27 * t27;
+    let t29 = 1.0 / t28;
+    let t31 = M_CBRT2;
+    let t32 = t31 * t31;
+    let t58 = param_kappa * param_kappa;
+    let t79 = t24 * t29 * t32;
+    let t107 = param_mu * param_mu;
+    let t109 = t24 * t24;
+    let t112 = 1.0 / t27 / t26;
+    let t173 = t5 * t5;
+    let t176 = t4 / t173 / t26;
+    let t186 = t107 * param_mu;
+    let t228 = t176 * t20;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = t3 * t3;
-        let t5 = M_CBRTPI;
-        let t7 = t4 * t5 * M_PI;
-        let t8 = 1.0 <= zeta_threshold;
-        let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
-        let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
-        let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t21 = pow_1_3(rho[ip]);
         let t22 = t21 * t21;
-        let t24 = M_CBRT6;
-        let t26 = M_PI * M_PI;
-        let t27 = pow_1_3(t26);
-        let t28 = t27 * t27;
-        let t29 = 1.0 / t28;
-        let t31 = M_CBRT2;
-        let t32 = t31 * t31;
         let t34 = rho[ip] * rho[ip];
         let t40 = param_kappa + param_mu * t24 * t29 * sigma[ip] * t32 / t22 / t34 / 24.0;
         let t45 = 1.0 + param_kappa * (1.0 - param_kappa / t40);
@@ -61,7 +72,6 @@ pub fn gga_k_apbe_kxc_unpol(
         let tzk0 = 2.0 * t49;
         zk[ip] += tzk0;
         let t55 = t34 * rho[ip];
-        let t58 = param_kappa * param_kappa;
         let t60 = t7 * t20 / t55 * t58;
         let t61 = t40 * t40;
         let t63 = 1.0 / t61 * param_mu;
@@ -70,7 +80,6 @@ pub fn gga_k_apbe_kxc_unpol(
         let t71 = piecewise3(t2, 0.0, t7 * t20 / t21 * t45 / 10.0 - t60 * t67 / 60.0);
         let tvrho0 = 2.0 * rho[ip] * t71 + 2.0 * t49;
         vrho[ip] += tvrho0;
-        let t79 = t24 * t29 * t32;
         let t80 = t63 * t79;
         let t83 = piecewise3(t2, 0.0, t7 * t20 / t34 * t58 * t80 / 160.0);
         let tvsigma0 = 2.0 * rho[ip] * t83;
@@ -79,11 +88,8 @@ pub fn gga_k_apbe_kxc_unpol(
         let t96 = t7 * t20 / t92 * t58;
         let t99 = t92 * t34;
         let t104 = t7 * t20 / t22 / t99 * t58;
-        let t107 = param_mu * param_mu;
         let t108 = 1.0 / t61 / t40 * t107;
-        let t109 = t24 * t24;
         let t110 = t108 * t109;
-        let t112 = 1.0 / t27 / t26;
         let t113 = sigma[ip] * sigma[ip];
         let t116 = t110 * t112 * t113 * t31;
         let t120 = piecewise3(t2, 0.0, -t7 * t20 / t21 / rho[ip] * t45 / 30.0 + 7.0 / 180.0 * t96 * t67 - t104 * t116 / 135.0);
@@ -102,15 +108,12 @@ pub fn gga_k_apbe_kxc_unpol(
         let t162 = t7 * t20 / t125 * t58;
         let t165 = t92 * t55;
         let t170 = t7 * t20 / t22 / t165 * t58;
-        let t173 = t5 * t5;
-        let t176 = t4 / t173 / t26;
         let t177 = t92 * t92;
         let t178 = t177 * t34;
         let t182 = t176 * t20 / t21 / t178;
         let t183 = t61 * t61;
         let t184 = 1.0 / t183;
         let t185 = t58 * t184;
-        let t186 = t107 * param_mu;
         let t187 = t113 * sigma[ip];
         let t189 = t185 * t186 * t187;
         let t193 = piecewise3(t2, 0.0, 2.0 / 45.0 * t7 * t20 / t21 / t34 * t45 - 41.0 / 270.0 * t162 * t67 + t170 * t116 / 15.0 - 4.0 / 135.0 * t182 * t189);
@@ -126,7 +129,6 @@ pub fn gga_k_apbe_kxc_unpol(
         let t225 = piecewise3(t2, 0.0, 7.0 / 1440.0 * t130 * t147 - t176 * t20 * t217 * t221 / 240.0);
         let tv3rhosigma20 = 2.0 * rho[ip] * t225 + 2.0 * t150;
         v3rhosigma2[ip] += tv3rhosigma20;
-        let t228 = t176 * t20;
         let t232 = t184 * t186;
         let t236 = piecewise3(t2, 0.0, t228 / t21 / t165 * t58 * t232 / 640.0);
         let tv3sigma30 = 2.0 * rho[ip] * t236;

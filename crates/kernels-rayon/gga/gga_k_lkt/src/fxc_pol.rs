@@ -25,6 +25,32 @@ pub fn gga_k_lkt_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = t2 * t2;
+    let t4 = M_CBRTPI;
+    let t6 = t3 * t4 * M_PI;
+    let t12 = zeta_threshold - 1.0;
+    let t16 = -t12;
+    let t22 = pow_1_3(zeta_threshold);
+    let t23 = t22 * t22;
+    let t24 = t23 * zeta_threshold;
+    let t32 = M_CBRT6;
+    let t33 = t32 * t32;
+    let t34 = M_PI * M_PI;
+    let t35 = pow_1_3(t34);
+    let t37 = t33 / t35;
+    let t50 = t35 * t35;
+    let t52 = t32 / t50;
+    let tvsigma1 = 0.0;
+    let t271 = param_a * param_a;
+    let tv2rhosigma1 = 0.0;
+    let tv2rhosigma4 = 0.0;
+    let tv2sigma21 = 0.0;
+    let tv2sigma22 = 0.0;
+    let tv2sigma23 = 0.0;
+    let tv2sigma24 = 0.0;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -32,34 +58,20 @@ pub fn gga_k_lkt_fxc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = t2 * t2;
-        let t4 = M_CBRTPI;
-        let t6 = t3 * t4 * M_PI;
         let t7 = rho0 + rho1;
         let t8 = 1.0 / t7;
         let t11 = 2.0 * rho0 * t8 <= zeta_threshold;
-        let t12 = zeta_threshold - 1.0;
         let t15 = 2.0 * rho1 * t8 <= zeta_threshold;
-        let t16 = -t12;
         let t17 = rho0 - rho1;
         let t19 = piecewise5(t11, t12, t15, t16, t17 * t8);
         let t20 = 1.0 + t19;
         let t21 = t20 <= zeta_threshold;
-        let t22 = pow_1_3(zeta_threshold);
-        let t23 = t22 * t22;
-        let t24 = t23 * zeta_threshold;
         let t25 = pow_1_3(t20);
         let t26 = t25 * t25;
         let t28 = piecewise3(t21, t24, t26 * t20);
         let t29 = pow_1_3(t7);
         let t30 = t29 * t29;
         let t31 = t28 * t30;
-        let t32 = M_CBRT6;
-        let t33 = t32 * t32;
-        let t34 = M_PI * M_PI;
-        let t35 = pow_1_3(t34);
-        let t37 = t33 / t35;
         let t38 = rmath::sqrt(sigma0);
         let t39 = pow_1_3(rho0);
         let t41 = 1.0 / t39 / rho0;
@@ -69,8 +81,6 @@ pub fn gga_k_lkt_fxc_pol(
         let t47 = param_a * t46;
         let t48 = rmath::cosh(t47);
         let t49 = 1.0 / t48;
-        let t50 = t35 * t35;
-        let t52 = t32 / t50;
         let t53 = rho0 * rho0;
         let t54 = t39 * t39;
         let t56 = 1.0 / t54 / t53;
@@ -157,7 +167,6 @@ pub fn gga_k_lkt_fxc_pol(
         let t218 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t31 * t214);
         let tvsigma0 = t7 * t218;
         vsigma[ip * 3] += tvsigma0;
-        let tvsigma1 = 0.0;
         vsigma[ip * 3 + 1] += tvsigma1;
         let t219 = 1.0 / t76;
         let t223 = piecewise3(t83, t37 * t219 * t79 / 24.0, 0.0);
@@ -181,7 +190,6 @@ pub fn gga_k_lkt_fxc_pol(
         let t265 = t6 * t262 * t60 / 30.0;
         let t267 = t6 * t113 * t135;
         let t270 = 1.0 / t117 / t48;
-        let t271 = param_a * param_a;
         let t272 = t270 * t271;
         let t273 = t125 * t125;
         let t274 = t126 * t126;
@@ -252,7 +260,6 @@ pub fn gga_k_lkt_fxc_pol(
         let t475 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t108 * t214 + t455 + 3.0 / 20.0 * t6 * t31 * t470);
         let tv2rhosigma0 = t7 * t475 + t218;
         v2rhosigma[ip * 6] += tv2rhosigma0;
-        let tv2rhosigma1 = 0.0;
         v2rhosigma[ip * 6 + 1] += tv2rhosigma1;
         let t482 = t6 * t151 * t228 / 10.0;
         let t484 = piecewise3(t65, 0.0, 3.0 / 20.0 * t6 * t147 * t228 + t482);
@@ -261,7 +268,6 @@ pub fn gga_k_lkt_fxc_pol(
         let t490 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t164 * t214 + t455);
         let tv2rhosigma3 = t7 * t490 + t218;
         v2rhosigma[ip * 6 + 3] += tv2rhosigma3;
-        let tv2rhosigma4 = 0.0;
         v2rhosigma[ip * 6 + 4] += tv2rhosigma4;
         let t495 = t223 * t422;
         let t502 = piecewise3(t83, -t37 * t219 * t183 / 18.0, 0.0);
@@ -279,13 +285,9 @@ pub fn gga_k_lkt_fxc_pol(
         let t533 = piecewise3(t1, 0.0, 3.0 / 20.0 * t6 * t31 * t529);
         let tv2sigma20 = t7 * t533;
         v2sigma2[ip * 6] += tv2sigma20;
-        let tv2sigma21 = 0.0;
         v2sigma2[ip * 6 + 1] += tv2sigma21;
-        let tv2sigma22 = 0.0;
         v2sigma2[ip * 6 + 2] += tv2sigma22;
-        let tv2sigma23 = 0.0;
         v2sigma2[ip * 6 + 3] += tv2sigma23;
-        let tv2sigma24 = 0.0;
         v2sigma2[ip * 6 + 4] += tv2sigma24;
         let t534 = t223 * t223;
         let t535 = t534 * t422;

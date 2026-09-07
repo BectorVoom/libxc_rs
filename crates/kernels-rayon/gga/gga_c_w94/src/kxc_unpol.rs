@@ -27,6 +27,13 @@ pub fn gga_c_w94_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t20 = M_CBRT3;
+    let t22 = pow_1_3(1.0 / M_PI);
+    let t23 = t20 * t22;
+    let t24 = M_CBRT4;
+    let t25 = t24 * t24;
     for ip in 0..zk.len() {
         let t1 = rmath::sqrt(sigma[ip]);
         let t2 = t1 * sigma[ip];
@@ -36,17 +43,12 @@ pub fn gga_c_w94_kxc_unpol(
         let t7 = pow_1_3(rho[ip]);
         let t9 = 1.0 / t7 / rho[ip];
         let t10 = t1 * t9;
-        let t11 = rmath::pow(t10, 1.0 / 16.0);
+        let t11 = rmath::pow(t10, 1.0 * 0.0625);
         let t12 = t11 * t11;
         let t13 = t12 * t11;
         let t16 = t3 * rho[ip];
         let t17 = 1.0 / t16;
-        let t20 = M_CBRT3;
-        let t22 = pow_1_3(1.0 / M_PI);
-        let t23 = t20 * t22;
-        let t24 = M_CBRT4;
-        let t25 = t24 * t24;
-        let t30 = 11.8 + 0.15067 * t13 * t2 * t5 + 0.01102 * sigma[ip] * t17 + t23 * t25 / t7 / 4.0;
+        let t30 = 11.8 + 0.15067 * t13 * t2 * t5 + 0.01102 * sigma[ip] * t17 + t23 * t25 / t7 * 0.25;
         let tzk0 = -1.0 / t30;
         zk[ip] += tzk0;
         let t32 = t30 * t30;

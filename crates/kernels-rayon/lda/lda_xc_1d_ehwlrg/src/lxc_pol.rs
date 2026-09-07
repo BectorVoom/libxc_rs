@@ -23,6 +23,11 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t23 = param_alpha * param_alpha;
+    let t37 = t23 * param_alpha;
+    let t55 = t23 * t23;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -41,7 +46,6 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
         let t14 = t9 * t6;
         let t16 = 1.0 / t1;
         let t17 = param_alpha * t16;
-        let t23 = param_alpha * param_alpha;
         let t24 = t23 * t16;
         let tv2rho20 = 2.0 * t14 * param_alpha + tzk0 * t17 + tzk0 * t24 + 2.0 * t7 * t6 + 2.0 * t14;
         v2rho2[ip * 3] += tv2rho20;
@@ -52,7 +56,6 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
         let t26 = param_a3 * t6;
         let t30 = 1.0 / t3;
         let t31 = param_alpha * t30;
-        let t37 = t23 * param_alpha;
         let t38 = t37 * t30;
         let tv3rho30 = 3.0 * t14 * t17 + 3.0 * t14 * t24 + 6.0 * t26 * param_alpha - tzk0 * t31 + tzk0 * t38 + 6.0 * t26;
         v3rho3[ip * 4] += tv3rho30;
@@ -63,7 +66,6 @@ pub fn lda_xc_1d_ehwlrg_lxc_pol(
         let tv3rho33 = tv3rho32;
         v3rho3[ip * 4 + 3] += tv3rho33;
         let t45 = 1.0 / t3 / t1;
-        let t55 = t23 * t23;
         let tv4rho40 = -tzk0 * t23 * t45 - 2.0 * tzk0 * t37 * t45 + tzk0 * t55 * t45 + 2.0 * tzk0 * param_alpha * t45 - 4.0 * t14 * t31 + 4.0 * t14 * t38 + 12.0 * t26 * t17 + 12.0 * t26 * t24;
         v4rho4[ip * 5] += tv4rho40;
         let tv4rho41 = tv4rho40;

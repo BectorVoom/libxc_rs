@@ -129,6 +129,18 @@ pub fn lda_k_tf_exc_pol(
     let param_ax = f64x8::splat(param_ax);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = (simd::cbrt(zeta_threshold));
+    let t8 = t7 * t7;
+    let t9 = t8 * zeta_threshold;
+    let t23 = f64x8::splat(M_CBRT3);
+    let t26 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t27 = t26 * t26;
+    let t28 = f64x8::splat(1.0) / t27;
+    let t29 = f64x8::splat(M_CBRT4);
+    let t30 = t29 * t29;
+    let t31 = t28 * t30;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -142,9 +154,6 @@ pub fn lda_k_tf_exc_pol(
             let t4 = t1 * t3;
             let t5 = f64x8::splat(1.0) + t4;
             let t6 = (t5).simd_le(zeta_threshold);
-            let t7 = (simd::cbrt(zeta_threshold));
-            let t8 = t7 * t7;
-            let t9 = t8 * zeta_threshold;
             let t10 = (simd::cbrt(t5));
             let t11 = t10 * t10;
             let t13 = ((t6).select(t9, t11 * t5));
@@ -153,14 +162,7 @@ pub fn lda_k_tf_exc_pol(
             let t16 = (simd::cbrt(t14));
             let t17 = t16 * t16;
             let t19 = ((t15).select(t9, t17 * t14));
-            let t23 = f64x8::splat(M_CBRT3);
-            let t24 = param_ax * (t13 / f64x8::splat(2.0) + t19 / f64x8::splat(2.0)) * t23;
-            let t26 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t27 = t26 * t26;
-            let t28 = f64x8::splat(1.0) / t27;
-            let t29 = f64x8::splat(M_CBRT4);
-            let t30 = t29 * t29;
-            let t31 = t28 * t30;
+            let t24 = param_ax * (t13 * f64x8::splat(0.5) + t19 * f64x8::splat(0.5)) * t23;
             let t32 = (simd::cbrt(t2));
             let t33 = t32 * t32;
             let t34 = t31 * t33;

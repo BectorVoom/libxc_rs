@@ -131,6 +131,25 @@ pub fn lda_c_gk72_lxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = f64x8::splat(M_CBRT3);
+    let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
+    let t3 = (simd::cbrt(t2));
+    let t4 = t1 * t3;
+    let t5 = f64x8::splat(M_CBRT4);
+    let t6 = t5 * t5;
+    let t24 = t1 * t1;
+    let t26 = t24 / t3;
+    let t30 = ((f64x8::splat(4.0)).sqrt());
+    let t36 = t3 * t3;
+    let t38 = t1 / t36;
+    let t43 = t24 * t36;
+    let t67 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t103 = t67 * t67;
+    let t104 = t103 * t103;
+    let t105 = t104 * t67;
+    let t218 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -152,36 +171,23 @@ pub fn lda_c_gk72_lxc_pol(
         let mut acc_v4rho4_3 = V_ZERO;
         let mut acc_v4rho4_4 = V_ZERO;
         {
-            let t1 = f64x8::splat(M_CBRT3);
-            let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-            let t3 = (simd::cbrt(t2));
-            let t4 = t1 * t3;
-            let t5 = f64x8::splat(M_CBRT4);
-            let t6 = t5 * t5;
             let t7 = v_rho0 + v_rho1;
             let t8 = (simd::cbrt(t7));
             let t10 = t6 / t8;
             let t11 = t4 * t10;
-            let t12 = t11 / f64x8::splat(4.0);
+            let t12 = t11 * f64x8::splat(0.25);
             let t13 = (t12).simd_lt(f64x8::splat(0.7));
             let t14 = (simd::ln(t12));
             let t21 = (t12).simd_lt(f64x8::splat(10.0));
-            let t24 = t1 * t1;
-            let t26 = t24 / t3;
-            let t30 = ((f64x8::splat(4.0)).sqrt());
             let t31 = ((t11).sqrt());
-            let t36 = t3 * t3;
-            let t38 = t1 / t36;
             let t39 = t8 * t8;
-            let t43 = t24 * t36;
             let t45 = t5 / t39;
-            let t49 = f64x8::splat(1.0) / t31 / t43 / t45 / f64x8::splat(4.0);
+            let t49 = f64x8::splat(1.0) / t31 / t43 / t45 * f64x8::splat(0.25);
             let tzk0 = ((t13).select(f64x8::splat(0.0311) * t14 - f64x8::splat(0.048) + f64x8::splat(0.00225) * t4 * t10 * t14 - f64x8::splat(0.00425) * t11, (t21).select(-f64x8::splat(0.06156) + f64x8::splat(0.01898) * t14, f64x8::splat(0.146) * t26 * t5 * t8 + f64x8::splat(5.3) * t30 / t31 / t11 - f64x8::splat(0.49) * t38 * t6 * t39 - f64x8::splat(6.4) * t30 * t49)));
             acc_zk = tzk0;
             let t53 = f64x8::splat(1.0) / t7;
             let t56 = f64x8::splat(1.0) / t8 / t7;
             let t57 = t6 * t56;
-            let t67 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
             let t68 = t67 * t49;
             let t69 = t4 * t56;
             let t77 = f64x8::splat(1.0) / t31 / t2 / t53 / f64x8::splat(48.0);
@@ -196,9 +202,6 @@ pub fn lda_c_gk72_lxc_pol(
             let t89 = f64x8::splat(1.0) / t8 / t85;
             let t90 = t6 * t89;
             let t100 = t5 / t39 / t7;
-            let t103 = t67 * t67;
-            let t104 = t103 * t103;
-            let t105 = t104 * t67;
             let t106 = t105 * t77;
             let t108 = f64x8::splat(1.0) / t39 / t85;
             let t109 = t43 * t108;
@@ -241,7 +244,6 @@ pub fn lda_c_gk72_lxc_pol(
             let t205 = t2 / t197;
             let t210 = t43 / t39 / t149;
             let t213 = t4 * t183;
-            let t218 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
             let t235 = ((t13).select(f64x8::splat(0.0622) * t150 + f64x8::splat(0.0077777777777777776) * t4 * t184 * t14 - f64x8::splat(0.003080246913580247) * t4 * t184, (t21).select(f64x8::splat(0.03796) * t150, -f64x8::splat(0.14419753086419754) * t26 * t5 * t155 + f64x8::splat(742.0) * t67 * t169 * t2 * t201 - f64x8::splat(989.3333333333334) * t148 * t205 + f64x8::splat(157.03703703703704) * t106 * t210 - f64x8::splat(109.92592592592592) * t68 * t213 + f64x8::splat(0.3387654320987654) * t38 * t137 - f64x8::splat(1.4259259259259258) * t67 / t31 * t218 / t86 * t2 * t201 + f64x8::splat(3584.0) * t170 * t205 - f64x8::splat(442.4691358024691) * t123 * t210 + f64x8::splat(221.23456790123456) * t78 * t213)));
             let tv4rho40 = t7 * t235 + f64x8::splat(4.0) * t178;
             acc_v4rho4_0 = tv4rho40;

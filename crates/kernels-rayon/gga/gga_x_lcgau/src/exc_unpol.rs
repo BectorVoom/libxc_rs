@@ -24,27 +24,35 @@ pub fn gga_x_lcgau_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t7 = 1.0 <= zeta_threshold;
+    let t8 = zeta_threshold - 1.0;
+    let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+    let t11 = 1.0 + t10;
+    let t13 = pow_1_3(zeta_threshold);
+    let t15 = pow_1_3(t11);
+    let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+    let t18 = t3 / t4 * t17;
+    let t20 = t3 * t3;
+    let t21 = 1.0 / M_PI;
+    let t22 = pow_1_3(t21);
+    let t24 = t20 / t22;
+    let t25 = M_CBRT4;
+    let t26 = t24 * t25;
+    let t27 = M_CBRT2;
+    let t28 = t27 * t27;
+    let t51 = rmath::sqrt(3.0);
+    let t52 = param_hyb_omega_0 * t51;
+    let t54 = t25 * t25;
+    let t95 = rmath::sqrt(M_PI);
+    let t115 = param_hyb_omega_2 * t51;
+    let t164 = param_hyb_omega_3 * t51;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t7 = 1.0 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
-        let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = t3 / t4 * t17;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t19 = pow_1_3(rho[ip]);
-        let t20 = t3 * t3;
-        let t21 = 1.0 / M_PI;
-        let t22 = pow_1_3(t21);
-        let t24 = t20 / t22;
-        let t25 = M_CBRT4;
-        let t26 = t24 * t25;
-        let t27 = M_CBRT2;
-        let t28 = t27 * t27;
         let t29 = sigma[ip] * t28;
         let t30 = rho[ip] * rho[ip];
         let t31 = t19 * t19;
@@ -58,9 +66,6 @@ pub fn gga_x_lcgau_exc_unpol(
         let t44 = 1.0 / t43;
         let t49 = 1.0 + 0.0009333333333333333 * t26 * t29 * t33 * t44;
         let t50 = t19 * t49;
-        let t51 = rmath::sqrt(3.0);
-        let t52 = param_hyb_omega_0 * t51;
-        let t54 = t25 * t25;
         let t57 = t3 * t22 * t54 * t49 * t21;
         let t58 = rmath::sqrt(t57);
         let t60 = t11 * rho[ip];
@@ -84,17 +89,15 @@ pub fn gga_x_lcgau_exc_unpol(
         let t90 = t78 * t78;
         let t91 = 1.0 / t90;
         let t94 = piecewise3(t67, 1.35, t65);
-        let t95 = rmath::sqrt(M_PI);
         let t96 = 1.0 / t94;
-        let t98 = rmath::erf(t96 / 2.0);
+        let t98 = rmath::erf(t96 * 0.5);
         let t100 = t94 * t94;
         let t101 = 1.0 / t100;
-        let t103 = rmath::exp(-t101 / 4.0);
+        let t103 = rmath::exp(-t101 * 0.25);
         let t104 = t103 - 1.0;
-        let t107 = t103 - 3.0 / 2.0 - 2.0 * t100 * t104;
+        let t107 = t103 - 3.0 * 0.5 - 2.0 * t100 * t104;
         let t110 = 2.0 * t94 * t107 + t95 * t98;
         let t114 = piecewise3(t66, 1.0 / t69 / 36.0 - t73 / 960.0 + t76 / 26880.0 - t79 / 829440.0 + t82 / 28385280.0 - t85 / 1073479680.0 + t88 / 44590694400.0 - t91 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t94 * t110);
-        let t115 = param_hyb_omega_2 * t51;
         let t117 = t115 * t63 / 12.0;
         let t118 = 2.07 <= t117;
         let t119 = 2.07 < t117;
@@ -111,16 +114,15 @@ pub fn gga_x_lcgau_exc_unpol(
         let t140 = 1.0 / t130 / t127;
         let t143 = piecewise3(t119, 2.07, t117);
         let t144 = 1.0 / t143;
-        let t146 = rmath::erf(t144 / 2.0);
+        let t146 = rmath::erf(t144 * 0.5);
         let t148 = t143 * t143;
         let t149 = 1.0 / t148;
-        let t151 = rmath::exp(-t149 / 4.0);
+        let t151 = rmath::exp(-t149 * 0.25);
         let t152 = t151 - 1.0;
         let t153 = t143 * t152;
         let t155 = 1.0 - 8.0 * t148;
         let t159 = t95 * t146 + 2.0 * t153 * t155 - 4.0 * t143;
         let t162 = piecewise3(t118, -1.0 / t121 / 18.0 + t125 / 240.0 - t128 / 4480.0 + t131 / 103680.0 - t134 / 2838528.0 + t137 / 89456640.0 - t140 / 3185049600.0, -8.0 / 3.0 * t143 * t159);
-        let t164 = param_hyb_omega_3 * t51;
         let t166 = t164 * t63 / 12.0;
         let t167 = 2.07 <= t166;
         let t168 = 2.07 < t166;
@@ -137,17 +139,17 @@ pub fn gga_x_lcgau_exc_unpol(
         let t189 = 1.0 / t179 / t176;
         let t192 = piecewise3(t168, 2.07, t166);
         let t193 = 1.0 / t192;
-        let t195 = rmath::erf(t193 / 2.0);
+        let t195 = rmath::erf(t193 * 0.5);
         let t197 = t192 * t192;
         let t198 = 1.0 / t197;
-        let t200 = rmath::exp(-t198 / 4.0);
+        let t200 = rmath::exp(-t198 * 0.25);
         let t201 = t200 - 1.0;
         let t202 = t192 * t201;
         let t204 = 1.0 - 8.0 * t197;
         let t208 = t95 * t195 + 2.0 * t202 * t204 - 4.0 * t192;
         let t211 = piecewise3(t167, -1.0 / t170 / 18.0 + t174 / 240.0 - t177 / 4480.0 + t180 / 103680.0 - t183 / 2838528.0 + t186 / 89456640.0 - t189 / 3185049600.0, -8.0 / 3.0 * t192 * t208);
         let t213 = param_hyb_coeff_2 * t162 + param_hyb_coeff_3 * t211 + t114;
-        let t217 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t50 * t213);
+        let t217 = piecewise3(t2, 0.0, -3.0 * 0.125 * t18 * t50 * t213);
         let tzk0 = 2.0 * t217;
         zk[ip] += tzk0;
     }

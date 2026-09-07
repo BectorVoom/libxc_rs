@@ -1980,7 +1980,51 @@ def translate_expr(expr: str, ctx: Ctx) -> str:
     for i, t in enumerate(protected):
         tag = "".join(chr(ord("A") + int(c)) for c in str(i))
         expr = expr.replace(f"\x01{tag}\x01", t)
-    return expr
+    return fold_pow2_div(expr)
+
+
+_POW2_DIV = re.compile(r" / (\d+(?:\.\d*)?)(?![\w.])")
+
+
+def _pow2_recip(lit: str) -> str | None:
+    """`"8.0"` -> `"0.125"`; None unless the literal is an exact power of two."""
+    v = float(lit)
+    if not (v > 0.0 and v.is_integer()) or v > 2.0 ** 60:
+        return None
+    n = int(v)
+    if n & (n - 1):
+        return None
+    # 2^-k has an exact, finite decimal expansion, and Rust's literal parser
+    # is correctly rounded, so this spelling round-trips to the exact value.
+    r = 1.0 / v
+    text = repr(r)
+    assert float(text) == r and float(text) * v == 1.0
+    return text
+
+
+def fold_pow2_div(expr: str) -> str:
+    """`x / 8.0` -> `x * 0.125` for power-of-two literal divisors.
+
+    Bit-exact: both are the correctly rounded value of the same real number
+    `x / 2^k` (the reciprocal is exact, so the product's exact value is the
+    quotient's), for every finite, infinite and NaN `x`, including results
+    that land in the subnormal range. `/` and `*` share precedence and
+    associativity in C and Rust, so replacing the operator keeps the
+    expression tree: `a / b / 2.0` is still `(a / b) * 0.5`. GCC applies the
+    same rewrite to libxc's C at `-O2` without any fast-math flag, for the
+    same reason.
+
+    Why it pays (2026-09-07): a division is the most expensive arithmetic
+    operation in these bodies by an order of magnitude (`vdivpd zmm` is about
+    ten cycles of throughput against half a cycle for `vmulpd`), and
+    maple2c's derivative chains are full of `/ 2.0`, `/ 4.0`, `/ 8.0`:
+    `fused_hse vxc unpol` had 174 divisions per point, 25 of them by a power
+    of two; its polarized form 428 and 70.
+    """
+    def sub(m: re.Match) -> str:
+        r = _pow2_recip(m.group(1))
+        return m.group(0) if r is None else f" * {r}"
+    return _POW2_DIV.sub(sub, expr)
 
 
 BOOL_TOP = re.compile(r"(?<![<>=!])(<=|>=|==|!=|<|>|&&|\|\|)(?![<>=])")
@@ -2131,15 +2175,31 @@ def emit_function(fam: str, func: str, order: str, spin: str,
     for mod in sorted(by_mod):
         src.append(
             f"use libxc_rkernel_math::{mod}::{{{', '.join(sorted(by_mod[mod]))}}};")
+    # Statements that depend only on constants, parameters and thresholds
+    # are evaluated once before the grid loop (`simd.split_invariant`; same
+    # bindings, same operation order, computed once instead of per point).
+    # The varying roots are the input arrays, the polarized per-point
+    # component bindings from `pre`, and the loop index itself.
+    pre_names = {l.strip().split()[1] for l in pre}
+    roots = set(ctx.inputs) | pre_names | {"ip"}
+    hoisted, loop_lines = simd_mod.split_invariant(lines, lambda n: n in roots)
+    hoist_block = []
+    if hoisted:
+        hoist_block = [
+            "    // Loop-invariant bindings (constants, parameters, thresholds):",
+            "    // the same statements maple2c emits per point, evaluated once.",
+            *(f"    {l.strip()}" for l in hoisted),
+        ]
     src += [
         "",
         "#[allow(unused_variables, non_snake_case)]",
         f"pub fn {func}_{order}_{spin}(",
         *sig,
         ") {",
+        *hoist_block,
         f"    for ip in 0..{bound} {{",
         *pre,
-        *lines,
+        *loop_lines,
         "    }",
         "}",
         "",

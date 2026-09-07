@@ -132,6 +132,15 @@ pub fn lda_c_wigner_vxc_pol(
     let param_b = f64x8::splat(param_b);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = f64x8::splat(M_CBRT3);
+    let t10 = f64x8::splat(1.0) / f64x8::splat(M_PI);
+    let t11 = (simd::cbrt(t10));
+    let t12 = t9 * t11;
+    let t13 = f64x8::splat(M_CBRT4);
+    let t14 = t13 * t13;
+    let t36 = t11 * t14;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -148,15 +157,9 @@ pub fn lda_c_wigner_vxc_pol(
             let t5 = f64x8::splat(1.0) / t4;
             let t7 = -t2 * t5 + f64x8::splat(1.0);
             let t8 = t7 * param_a;
-            let t9 = f64x8::splat(M_CBRT3);
-            let t10 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-            let t11 = (simd::cbrt(t10));
-            let t12 = t9 * t11;
-            let t13 = f64x8::splat(M_CBRT4);
-            let t14 = t13 * t13;
             let t15 = (simd::cbrt(t3));
             let t16 = f64x8::splat(1.0) / t15;
-            let t20 = param_b + t12 * t14 * t16 / f64x8::splat(4.0);
+            let t20 = param_b + t12 * t14 * t16 * f64x8::splat(0.25);
             let t21 = f64x8::splat(1.0) / t20;
             let tzk0 = t8 * t21;
             acc_zk = tzk0;
@@ -168,7 +171,6 @@ pub fn lda_c_wigner_vxc_pol(
             let t29 = param_a * t21;
             let t33 = t20 * t20;
             let t34 = f64x8::splat(1.0) / t33;
-            let t36 = t11 * t14;
             let t37 = t34 * t9 * t36;
             let t39 = t16 * t7 * param_a * t37 / f64x8::splat(12.0);
             let tvrho0 = t3 * t27 * t29 + t39 + tzk0;

@@ -21,16 +21,19 @@ pub fn lda_k_zlp_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t2 = t1 * t1;
+    let t4 = pow_1_3(1.0 / M_PI);
+    let t5 = 1.0 / t4;
+    let t7 = M_CBRT4;
+    let t8 = t2 * t5 * t7;
+    let t10 = pow_1_3(zeta_threshold);
+    let t11 = t10 * t10;
+    let t13 = piecewise3(1.0 <= zeta_threshold, t11 * zeta_threshold, 1.0);
+    let t30 = t7 * t13;
     for ip in 0..zk.len() {
-        let t1 = M_CBRT3;
-        let t2 = t1 * t1;
-        let t4 = pow_1_3(1.0 / M_PI);
-        let t5 = 1.0 / t4;
-        let t7 = M_CBRT4;
-        let t8 = t2 * t5 * t7;
-        let t10 = pow_1_3(zeta_threshold);
-        let t11 = t10 * t10;
-        let t13 = piecewise3(1.0 <= zeta_threshold, t11 * zeta_threshold, 1.0);
         let t14 = pow_1_3(rho[ip]);
         let t15 = t14 * t14;
         let t16 = t13 * t15;
@@ -43,7 +46,6 @@ pub fn lda_k_zlp_kxc_unpol(
         zk[ip] += tzk0;
         let t27 = t15 * rho[ip];
         let t29 = t27 * t2 * t5;
-        let t30 = t7 * t13;
         let t35 = 1.0 / t19;
         let t38 = -0.0006533333333333333 / t15 * t20 + 0.3333333333333333 / rho[ip] * t35;
         let tvrho0 = 1.7984444444444445 * t25 + 1.0790666666666666 * t29 * t30 * t38;

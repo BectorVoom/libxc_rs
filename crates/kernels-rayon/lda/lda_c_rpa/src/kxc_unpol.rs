@@ -20,16 +20,18 @@ pub fn lda_c_rpa_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t3 = pow_1_3(1.0 / M_PI);
+    let t4 = t1 * t3;
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
     for ip in 0..zk.len() {
-        let t1 = M_CBRT3;
-        let t3 = pow_1_3(1.0 / M_PI);
-        let t4 = t1 * t3;
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
-        let t12 = rmath::ln(t10 / 4.0);
+        let t12 = rmath::ln(t10 * 0.25);
         let t13 = 0.0311 * t12;
         let t16 = 0.00225 * t4 * t9 * t12;
         let t17 = 0.00425 * t10;

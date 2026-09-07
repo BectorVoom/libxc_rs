@@ -26,19 +26,23 @@ pub fn gga_x_lb_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t4 = pow_1_3(1.0 / M_PI);
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t11 = M_CBRT2;
+    let t19 = t11 * t11;
+    let t64 = param_gamma * param_gamma;
+    let t92 = param_beta * t19;
     for ip in 0..vrho.len() {
-        let t1 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t10 = rmath::sqrt(sigma[ip]);
-        let t11 = M_CBRT2;
         let t12 = t10 * t11;
         let t13 = pow_1_3(rho[ip]);
         let t15 = 1.0 / t13 / rho[ip];
         let t17 = t12 * t15 < 300.0;
         let t18 = param_beta * sigma[ip];
-        let t19 = t11 * t11;
         let t20 = rho[ip] * rho[ip];
         let t21 = t13 * t13;
         let t23 = 1.0 / t21 / t20;
@@ -54,8 +58,8 @@ pub fn gga_x_lb_fxc_unpol(
         let t39 = 1.0 / t38;
         let t40 = t15 * t39;
         let t43 = piecewise3(t17, t18 * t24 * t34, t12 * t40 / 3.0);
-        let t45 = (-param_alpha * t1 * t4 * t6 / 2.0 - t43) * t19;
-        let tvrho0 = t45 * t13 / 2.0;
+        let t45 = (-param_alpha * t1 * t4 * t6 * 0.5 - t43) * t19;
+        let tvrho0 = t45 * t13 * 0.5;
         vrho[ip] += tvrho0;
         let t47 = t20 * rho[ip];
         let t49 = 1.0 / t21 / t47;
@@ -65,7 +69,6 @@ pub fn gga_x_lb_fxc_unpol(
         let t57 = t23 * t56;
         let t59 = 1.0 / t13 / t20;
         let t61 = t11 * t59 * t29;
-        let t64 = param_gamma * param_gamma;
         let t67 = t64 * sigma[ip] * t24 + 1.0;
         let t68 = rmath::sqrt(t67);
         let t69 = 1.0 / t68;
@@ -79,19 +82,18 @@ pub fn gga_x_lb_fxc_unpol(
         let t85 = piecewise3(t17, -8.0 / 3.0 * t18 * t19 * t49 * t34 - t54 * t74, -4.0 / 9.0 * t12 * t77 + 4.0 / 9.0 * t12 * t81);
         let t86 = t85 * t19;
         let t89 = 1.0 / t21;
-        let tv2rho20 = -t86 * t13 / 2.0 + t45 * t89 / 6.0;
+        let tv2rho20 = -t86 * t13 * 0.5 + t45 * t89 / 6.0;
         v2rho2[ip] += tv2rho20;
-        let t92 = param_beta * t19;
         let t95 = 1.0 / t10;
         let t96 = param_beta * t95;
         let t99 = t23 * param_gamma * t69;
-        let t102 = 3.0 / 2.0 * t96 * t30 + 3.0 / 2.0 * t92 * t99;
+        let t102 = 3.0 * 0.5 * t96 * t30 + 3.0 * 0.5 * t92 * t99;
         let t103 = t57 * t102;
         let t106 = t95 * t11;
         let t108 = t15 * t80;
         let t112 = piecewise3(t17, t92 * t23 * t34 - t54 * t103, -t106 * t108 / 6.0 + t106 * t40 / 6.0);
         let t113 = t112 * t19;
-        let tv2rhosigma0 = -t113 * t13 / 2.0;
+        let tv2rhosigma0 = -t113 * t13 * 0.5;
         v2rhosigma[ip] += tv2rhosigma0;
     }
 }

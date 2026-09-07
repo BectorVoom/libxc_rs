@@ -21,12 +21,14 @@ pub fn lda_x_2d_lxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_SQRT2;
+    let t2 = rmath::sqrt(M_PI);
+    let t4 = t1 / t2;
+    let t6 = rmath::sqrt(zeta_threshold);
+    let t8 = piecewise3(1.0 <= zeta_threshold, t6 * zeta_threshold, 1.0);
     for ip in 0..zk.len() {
-        let t1 = M_SQRT2;
-        let t2 = rmath::sqrt(M_PI);
-        let t4 = t1 / t2;
-        let t6 = rmath::sqrt(zeta_threshold);
-        let t8 = piecewise3(1.0 <= zeta_threshold, t6 * zeta_threshold, 1.0);
         let t9 = rmath::sqrt(rho[ip]);
         let t11 = t4 * t8 * t9;
         let tzk0 = -4.0 / 3.0 * t11;
@@ -35,10 +37,10 @@ pub fn lda_x_2d_lxc_unpol(
         vrho[ip] += tvrho0;
         let tv2rho20 = -t4 * t8 / t9;
         v2rho2[ip] += tv2rho20;
-        let tv3rho30 = t4 * t8 / t9 / rho[ip] / 2.0;
+        let tv3rho30 = t4 * t8 / t9 / rho[ip] * 0.5;
         v3rho3[ip] += tv3rho30;
         let t21 = rho[ip] * rho[ip];
-        let tv4rho40 = -3.0 / 4.0 * t4 * t8 / t9 / t21;
+        let tv4rho40 = -3.0 * 0.25 * t4 * t8 / t9 / t21;
         v4rho4[ip] += tv4rho40;
     }
 }

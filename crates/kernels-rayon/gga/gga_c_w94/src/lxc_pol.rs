@@ -142,6 +142,13 @@ pub fn gga_c_w94_lxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t35 = f64x8::splat(M_CBRT3);
+    let t37 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t38 = t35 * t37;
+    let t39 = f64x8::splat(M_CBRT4);
+    let t40 = t39 * t39;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -298,17 +305,12 @@ pub fn gga_c_w94_lxc_pol(
             let t22 = (simd::cbrt(t2));
             let t24 = f64x8::splat(1.0) / t22 / t2;
             let t25 = t16 * t24;
-            let t26 = (simd::pow(t25, f64x8::splat(1.0) / f64x8::splat(16.0)));
+            let t26 = (simd::pow(t25, f64x8::splat(1.0) * f64x8::splat(0.0625)));
             let t27 = t26 * t26;
             let t28 = t27 * t26;
             let t31 = t18 * t2;
             let t32 = f64x8::splat(1.0) / t31;
-            let t35 = f64x8::splat(M_CBRT3);
-            let t37 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t38 = t35 * t37;
-            let t39 = f64x8::splat(M_CBRT4);
-            let t40 = t39 * t39;
-            let t45 = f64x8::splat(11.8) + f64x8::splat(0.15067) * t28 * t17 * t20 + f64x8::splat(0.01102) * t15 * t32 + t38 * t40 / t22 / f64x8::splat(4.0);
+            let t45 = f64x8::splat(11.8) + f64x8::splat(0.15067) * t28 * t17 * t20 + f64x8::splat(0.01102) * t15 * t32 + t38 * t40 / t22 * f64x8::splat(0.25);
             let t46 = f64x8::splat(1.0) / t45;
             let tzk0 = -t13 * t46;
             acc_zk = tzk0;
@@ -509,7 +511,7 @@ pub fn gga_c_w94_lxc_pol(
             let t371 = t369 * t370;
             let t373 = t308 * t78;
             let t374 = t115 * t373;
-            let tv3rho30 = f64x8::splat(5.0) / f64x8::splat(2.0) * t273 + f64x8::splat(25.0) / f64x8::splat(12.0) * t277 - t281 + t304 - f64x8::splat(5.0) * t306 + f64x8::splat(5.0) / f64x8::splat(3.0) * t309 + f64x8::splat(125.0) / f64x8::splat(72.0) * t314 * t316 * t317 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t326 + t335 - t339 - f64x8::splat(25.0) / f64x8::splat(12.0) * t342 + f64x8::splat(25.0) / f64x8::splat(18.0) * t108 * t344 * t317 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t349 - f64x8::splat(5.0) / f64x8::splat(2.0) * t353 - f64x8::splat(5.0) / f64x8::splat(2.0) * t356 - f64x8::splat(5.0) / f64x8::splat(27.0) * t49 * t359 * t317 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t364 + t368 + f64x8::splat(5.0) * t371 - f64x8::splat(5.0) / f64x8::splat(3.0) * t374;
+            let tv3rho30 = f64x8::splat(5.0) * f64x8::splat(0.5) * t273 + f64x8::splat(25.0) / f64x8::splat(12.0) * t277 - t281 + t304 - f64x8::splat(5.0) * t306 + f64x8::splat(5.0) / f64x8::splat(3.0) * t309 + f64x8::splat(125.0) / f64x8::splat(72.0) * t314 * t316 * t317 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t326 + t335 - t339 - f64x8::splat(25.0) / f64x8::splat(12.0) * t342 + f64x8::splat(25.0) / f64x8::splat(18.0) * t108 * t344 * t317 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t349 - f64x8::splat(5.0) * f64x8::splat(0.5) * t353 - f64x8::splat(5.0) * f64x8::splat(0.5) * t356 - f64x8::splat(5.0) / f64x8::splat(27.0) * t49 * t359 * t317 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t364 + t368 + f64x8::splat(5.0) * t371 - f64x8::splat(5.0) / f64x8::splat(3.0) * t374;
             acc_v3rho3_0 = tv3rho30;
             let t376 = t305 * t168;
             let t379 = f64x8::splat(10.0) / f64x8::splat(9.0) * t99 * t173;
@@ -586,7 +588,7 @@ pub fn gga_c_w94_lxc_pol(
             let t519 = ((t7).select(t518, f64x8::splat(0.0)));
             let t530 = t164 * t196;
             let t536 = t172 * t196;
-            let tv3rho33 = -t281 + t304 + t335 - t339 - f64x8::splat(5.0) * t376 + f64x8::splat(25.0) / f64x8::splat(12.0) * t458 + f64x8::splat(5.0) / f64x8::splat(3.0) * t461 + f64x8::splat(5.0) / f64x8::splat(2.0) * t464 + f64x8::splat(125.0) / f64x8::splat(72.0) * t314 * t316 * t511 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t519 - f64x8::splat(5.0) / f64x8::splat(2.0) * t431 - f64x8::splat(25.0) / f64x8::splat(12.0) * t469 - f64x8::splat(5.0) / f64x8::splat(3.0) * t483 - f64x8::splat(5.0) / f64x8::splat(2.0) * t493 + f64x8::splat(25.0) / f64x8::splat(18.0) * t108 * t344 * t511 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t530 - f64x8::splat(5.0) / f64x8::splat(27.0) * t49 * t359 * t511 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t536 + t368 + f64x8::splat(5.0) * t404;
+            let tv3rho33 = -t281 + t304 + t335 - t339 - f64x8::splat(5.0) * t376 + f64x8::splat(25.0) / f64x8::splat(12.0) * t458 + f64x8::splat(5.0) / f64x8::splat(3.0) * t461 + f64x8::splat(5.0) * f64x8::splat(0.5) * t464 + f64x8::splat(125.0) / f64x8::splat(72.0) * t314 * t316 * t511 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t519 - f64x8::splat(5.0) * f64x8::splat(0.5) * t431 - f64x8::splat(25.0) / f64x8::splat(12.0) * t469 - f64x8::splat(5.0) / f64x8::splat(3.0) * t483 - f64x8::splat(5.0) * f64x8::splat(0.5) * t493 + f64x8::splat(25.0) / f64x8::splat(18.0) * t108 * t344 * t511 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t530 - f64x8::splat(5.0) / f64x8::splat(27.0) * t49 * t359 * t511 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t536 + t368 + f64x8::splat(5.0) * t404;
             acc_v3rho3_3 = tv3rho33;
             let t540 = t305 * t202;
             let t542 = t93 * t78;
@@ -872,7 +874,7 @@ pub fn gga_c_w94_lxc_pol(
             let t1112 = t340 * t398 * t1110;
             let t1115 = t115 * t406 * t1110;
             let t1118 = t340 * t415 * t440;
-            let t1120 = f64x8::splat(5.0) / f64x8::splat(2.0) * t1077 - t876 - t880 + t911 + f64x8::splat(25.0) / f64x8::splat(18.0) * t913 - f64x8::splat(5.0) / f64x8::splat(27.0) * t916 + f64x8::splat(5.0) / f64x8::splat(6.0) * t919 + f64x8::splat(125.0) / f64x8::splat(72.0) * t923 - t927 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1084 + f64x8::splat(5.0) * t1087 - t1092 - t1095 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1097 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t406 * t1099 + t1106 + t1109 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1112 + f64x8::splat(5.0) / f64x8::splat(9.0) * t1115 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1118;
+            let t1120 = f64x8::splat(5.0) * f64x8::splat(0.5) * t1077 - t876 - t880 + t911 + f64x8::splat(25.0) / f64x8::splat(18.0) * t913 - f64x8::splat(5.0) / f64x8::splat(27.0) * t916 + f64x8::splat(5.0) / f64x8::splat(6.0) * t919 + f64x8::splat(125.0) / f64x8::splat(72.0) * t923 - t927 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1084 + f64x8::splat(5.0) * t1087 - t1092 - t1095 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1097 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t406 * t1099 + t1106 + t1109 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1112 + f64x8::splat(5.0) / f64x8::splat(9.0) * t1115 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1118;
             let t1122 = t340 * t164 * t931;
             let t1131 = t1016 * t423 * t1110;
             let t1136 = t305 * t430;
@@ -891,15 +893,15 @@ pub fn gga_c_w94_lxc_pol(
             let t1159 = t275 * t416;
             let t1161 = t1009 * t403;
             let t1163 = t99 * t407;
-            let t1165 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t1122 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t398 * t1099 + f64x8::splat(125.0) / f64x8::splat(24.0) * t422 * t423 * t1099 - f64x8::splat(125.0) / f64x8::splat(24.0) * t1131 + f64x8::splat(15.0) * t929 - f64x8::splat(25.0) / f64x8::splat(12.0) * t933 - f64x8::splat(5.0) / f64x8::splat(3.0) * t937 + t942 + t944 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1136 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1138 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1140 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1142 + f64x8::splat(125.0) / f64x8::splat(24.0) * t1144 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t1151 - t1156 + f64x8::splat(10.0) / f64x8::splat(3.0) * t1157 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1159 + f64x8::splat(5.0) * t1161 - f64x8::splat(5.0) / f64x8::splat(9.0) * t1163;
+            let t1165 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t1122 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t398 * t1099 + f64x8::splat(125.0) / f64x8::splat(24.0) * t422 * t423 * t1099 - f64x8::splat(125.0) / f64x8::splat(24.0) * t1131 + f64x8::splat(15.0) * t929 - f64x8::splat(25.0) / f64x8::splat(12.0) * t933 - f64x8::splat(5.0) / f64x8::splat(3.0) * t937 + t942 + t944 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1136 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1138 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1140 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1142 + f64x8::splat(125.0) / f64x8::splat(24.0) * t1144 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t1151 - t1156 + f64x8::splat(10.0) / f64x8::splat(3.0) * t1157 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1159 + f64x8::splat(5.0) * t1161 - f64x8::splat(5.0) / f64x8::splat(9.0) * t1163;
             let t1179 = t1036 * t160 * t332;
             let t1186 = t115 * t1076 * t78;
             let t1205 = t369 * t392 * t135;
             let t1206 = f64x8::splat(5.0) * t1205;
-            let t1212 = -t959 - f64x8::splat(15.0) / f64x8::splat(2.0) * t960 + t983 - f64x8::splat(10.0) / f64x8::splat(3.0) * t984 - f64x8::splat(5.0) * t1000 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1002 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1004 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1007 + f64x8::splat(15.0) * t1010 + f64x8::splat(25.0) / f64x8::splat(81.0) * t163 * t990 * t84 * t317 - f64x8::splat(5.0) * t1179 + f64x8::splat(20.0) / f64x8::splat(81.0) * t171 * t946 * t84 * t317 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1186 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t119 * t387 * t56 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t109 * t387 * t56 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t9 * t178 * t111 + f64x8::splat(125.0) / f64x8::splat(18.0) * t422 * t8 * t84 * t317 + t1206 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t358 * t178 * t111 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1014;
+            let t1212 = -t959 - f64x8::splat(15.0) * f64x8::splat(0.5) * t960 + t983 - f64x8::splat(10.0) / f64x8::splat(3.0) * t984 - f64x8::splat(5.0) * t1000 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1002 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1004 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1007 + f64x8::splat(15.0) * t1010 + f64x8::splat(25.0) / f64x8::splat(81.0) * t163 * t990 * t84 * t317 - f64x8::splat(5.0) * t1179 + f64x8::splat(20.0) / f64x8::splat(81.0) * t171 * t946 * t84 * t317 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1186 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t119 * t387 * t56 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t109 * t387 * t56 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t9 * t178 * t111 + f64x8::splat(125.0) / f64x8::splat(18.0) * t422 * t8 * t84 * t317 + t1206 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t358 * t178 * t111 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1014;
             let t1225 = t965 * t46;
             let t1231 = t115 * t392 * t156;
-            let t1232 = f64x8::splat(5.0) / f64x8::splat(2.0) * t1231;
+            let t1232 = f64x8::splat(5.0) * f64x8::splat(0.5) * t1231;
             let t1234 = t115 * t160 * t302;
             let t1253 = t637 * t56;
             let t1254 = t305 * t119 * t1253;
@@ -907,7 +909,7 @@ pub fn gga_c_w94_lxc_pol(
             let t1257 = t1006 * t109 * t1253;
             let t1258 = f64x8::splat(25.0) / f64x8::splat(6.0) * t1257;
             let t1259 = f64x8::splat(10.0) / f64x8::splat(3.0) * t1072 + f64x8::splat(3125.0) / f64x8::splat(432.0) * t1225 * t966 * t84 * t317 - t1232 - f64x8::splat(5.0) / f64x8::splat(6.0) * t1234 + f64x8::splat(5.0) / f64x8::splat(3.0) * t171 * t433 * t129 + f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t172 * t326 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t415 * t129 + f64x8::splat(125.0) / f64x8::splat(24.0) * t422 * t315 * t178 * t111 + f64x8::splat(25.0) / f64x8::splat(36.0) * t163 * t164 * t326 - t1255 - t1258;
-            let tv4rho41 = t1120 + t1165 + t1212 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1018 - f64x8::splat(5.0) / f64x8::splat(6.0) * t1025 - f64x8::splat(15.0) * t1039 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1042 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1049 + f64x8::splat(5.0) / f64x8::splat(27.0) * t1052 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1060 - f64x8::splat(25.0) / f64x8::splat(18.0) * t1063 + f64x8::splat(5.0) * t1066 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1069 + t1259;
+            let tv4rho41 = t1120 + t1165 + t1212 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1018 - f64x8::splat(5.0) / f64x8::splat(6.0) * t1025 - f64x8::splat(15.0) * t1039 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1042 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1049 + f64x8::splat(5.0) / f64x8::splat(27.0) * t1052 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1060 - f64x8::splat(25.0) / f64x8::splat(18.0) * t1063 + f64x8::splat(5.0) * t1066 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1069 + t1259;
             acc_v4rho4_1 = tv4rho41;
             let t1263 = t10 * t451;
             let t1264 = t99 * t1263;
@@ -954,8 +956,8 @@ pub fn gga_c_w94_lxc_pol(
             let t1468 = t340 * t164 * t1466;
             let t1470 = t196 * t56;
             let t1478 = t115 * t172 * t1466;
-            let t1491 = f64x8::splat(5.0) / f64x8::splat(2.0) * t1264 - t876 - t880 + t911 - t927 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1468 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t398 * t1470 + f64x8::splat(125.0) / f64x8::splat(24.0) * t422 * t423 * t1470 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1478 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t406 * t1470 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1271 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1274 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1277 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1281 - f64x8::splat(125.0) / f64x8::splat(24.0) * t1284 + f64x8::splat(5.0) / f64x8::splat(9.0) * t1294 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1297 + f64x8::splat(15.0) * t1087 - t1092 - t1095;
-            let t1506 = t1106 + t1109 + f64x8::splat(5.0) * t929 + t942 + t944 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1314 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1316 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1318 + f64x8::splat(125.0) / f64x8::splat(24.0) * t1320 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1322 - f64x8::splat(5.0) / f64x8::splat(9.0) * t1325 + f64x8::splat(10.0) / f64x8::splat(3.0) * t1327 - f64x8::splat(5.0) * t1329 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1331 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1333 - f64x8::splat(15.0) / f64x8::splat(2.0) * t1136 - t1156 + f64x8::splat(15.0) * t1161 - t959 - f64x8::splat(5.0) / f64x8::splat(2.0) * t960;
+            let t1491 = f64x8::splat(5.0) * f64x8::splat(0.5) * t1264 - t876 - t880 + t911 - t927 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1468 + f64x8::splat(25.0) / f64x8::splat(6.0) * t163 * t398 * t1470 + f64x8::splat(125.0) / f64x8::splat(24.0) * t422 * t423 * t1470 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1478 - f64x8::splat(5.0) / f64x8::splat(9.0) * t171 * t406 * t1470 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1271 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1274 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1277 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1281 - f64x8::splat(125.0) / f64x8::splat(24.0) * t1284 + f64x8::splat(5.0) / f64x8::splat(9.0) * t1294 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1297 + f64x8::splat(15.0) * t1087 - t1092 - t1095;
+            let t1506 = t1106 + t1109 + f64x8::splat(5.0) * t929 + t942 + t944 - f64x8::splat(25.0) / f64x8::splat(6.0) * t1314 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1316 + f64x8::splat(25.0) / f64x8::splat(6.0) * t1318 + f64x8::splat(125.0) / f64x8::splat(24.0) * t1320 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1322 - f64x8::splat(5.0) / f64x8::splat(9.0) * t1325 + f64x8::splat(10.0) / f64x8::splat(3.0) * t1327 - f64x8::splat(5.0) * t1329 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1331 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1333 - f64x8::splat(15.0) * f64x8::splat(0.5) * t1136 - t1156 + f64x8::splat(15.0) * t1161 - t959 - f64x8::splat(5.0) * f64x8::splat(0.5) * t960;
             let t1509 = t358 * t511;
             let t1511 = t115 * t1509 * t78;
             let t1526 = t10 * t519;
@@ -976,8 +978,8 @@ pub fn gga_c_w94_lxc_pol(
             let t1595 = t1146 + t1147;
             let t1597 = ((t5).select(t1595, -t1595));
             let t1598 = ((t7).select(t1597, f64x8::splat(0.0)));
-            let t1602 = -t1232 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1234 - t1255 - t1258 + f64x8::splat(25.0) / f64x8::splat(18.0) * t1583 - f64x8::splat(5.0) / f64x8::splat(27.0) * t1585 + f64x8::splat(125.0) / f64x8::splat(72.0) * t1587 + f64x8::splat(5.0) / f64x8::splat(6.0) * t1589 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1591 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1593 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t1598;
-            let tv4rho43 = t1491 + t1506 + t1567 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t415 * t196 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t164 * t451 - f64x8::splat(15.0) * t1179 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1392 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1411 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1431 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1437 + t1206 - f64x8::splat(5.0) / f64x8::splat(6.0) * t1014 - f64x8::splat(5.0) * t1039 + t1602;
+            let t1602 = -t1232 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1234 - t1255 - t1258 + f64x8::splat(25.0) / f64x8::splat(18.0) * t1583 - f64x8::splat(5.0) / f64x8::splat(27.0) * t1585 + f64x8::splat(125.0) / f64x8::splat(72.0) * t1587 + f64x8::splat(5.0) / f64x8::splat(6.0) * t1589 + f64x8::splat(25.0) / f64x8::splat(12.0) * t1591 + f64x8::splat(5.0) / f64x8::splat(3.0) * t1593 + f64x8::splat(5.0) / f64x8::splat(6.0) * t49 * t50 * t1598;
+            let tv4rho43 = t1491 + t1506 + t1567 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t415 * t196 + f64x8::splat(25.0) / f64x8::splat(12.0) * t163 * t164 * t451 - f64x8::splat(15.0) * t1179 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1392 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1411 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1431 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1437 + t1206 - f64x8::splat(5.0) / f64x8::splat(6.0) * t1014 - f64x8::splat(5.0) * t1039 + t1602;
             acc_v4rho4_3 = tv4rho43;
             let t1610 = -t876 - t880 + t911 - t927 - f64x8::splat(25.0) / f64x8::splat(3.0) * t1468 - f64x8::splat(20.0) / f64x8::splat(3.0) * t1478 + f64x8::splat(20.0) * t1087 + t942 + t944 - f64x8::splat(25.0) / f64x8::splat(3.0) * t1314 - f64x8::splat(20.0) / f64x8::splat(3.0) * t1322;
             let t1621 = -f64x8::splat(10.0) * t1329 - f64x8::splat(10.0) * t1136 + f64x8::splat(20.0) * t1161 - t959 + t983 + f64x8::splat(20.0) / f64x8::splat(27.0) * t1511 - f64x8::splat(10.0) / f64x8::splat(3.0) * t1528 - f64x8::splat(125.0) / f64x8::splat(18.0) * t1540 + f64x8::splat(25.0) / f64x8::splat(3.0) * t1367 + f64x8::splat(20.0) / f64x8::splat(3.0) * t1374 + f64x8::splat(10.0) * t1381 - f64x8::splat(50.0) / f64x8::splat(9.0) * t1558;
@@ -1028,7 +1030,7 @@ pub fn gga_c_w94_lxc_pol(
             let t1787 = f64x8::splat(12.0) * t279 * t216 * t78;
             let t1790 = f64x8::splat(6.0) * t279 * t93 * t156;
             let t1793 = f64x8::splat(18.0) * t940 * t93 * t135;
-            let t1794 = -f64x8::splat(5.0) / f64x8::splat(2.0) * t1729 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1731 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1733 * t317 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1739 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1742 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t201 * t326 + t1749 + f64x8::splat(10.0) * t1751 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1755 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1757 * t317 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1763 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1765 * t317 + t1784 - t1787 - t1790 + t1793;
+            let t1794 = -f64x8::splat(5.0) * f64x8::splat(0.5) * t1729 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1731 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1733 * t317 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1739 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1742 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t201 * t326 + t1749 + f64x8::splat(10.0) * t1751 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1755 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1757 * t317 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1763 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1765 * t317 + t1784 - t1787 - t1790 + t1793;
             let tv4rho3sigma0 = t1728 + t1794;
             acc_v4rho3sigma_0 = tv4rho3sigma0;
             let t1796 = t369 * t605 * t1110;
@@ -1068,7 +1070,7 @@ pub fn gga_c_w94_lxc_pol(
             let t1893 = t231 * t119;
             let t1895 = t115 * t1893 * t111;
             let t1897 = t97 * t358;
-            let t1901 = -t1852 - f64x8::splat(5.0) * t1853 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1855 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1857 - t1862 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1863 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1865 * t317 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1871 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1874 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t220 * t326 + t1881 + f64x8::splat(10.0) * t1883 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1887 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1889 * t317 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1895 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1897 * t317;
+            let t1901 = -t1852 - f64x8::splat(5.0) * t1853 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1855 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1857 - t1862 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1863 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1865 * t317 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1871 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1874 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t220 * t326 + t1881 + f64x8::splat(10.0) * t1883 - f64x8::splat(25.0) / f64x8::splat(12.0) * t1887 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1889 * t317 - f64x8::splat(5.0) / f64x8::splat(3.0) * t1895 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1897 * t317;
             let tv4rho3sigma1 = t1849 + t1901;
             acc_v4rho3sigma_1 = tv4rho3sigma1;
             let tv4rho3sigma2 = tv4rho3sigma0;
@@ -1159,12 +1161,12 @@ pub fn gga_c_w94_lxc_pol(
             let tv4rho3sigma8 = tv4rho3sigma6;
             acc_v4rho3sigma_8 = tv4rho3sigma8;
             let t2215 = t84 * t196;
-            let t2231 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t340 * t547 * t2215 - f64x8::splat(5.0) / f64x8::splat(3.0) * t115 * t558 * t2215 + f64x8::splat(25.0) / f64x8::splat(6.0) * t2085 + f64x8::splat(10.0) / f64x8::splat(3.0) * t2099 + f64x8::splat(5.0) * t2108 + f64x8::splat(10.0) * t1907 + f64x8::splat(5.0) * t1914 - f64x8::splat(15.0) * t1921 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2120 - f64x8::splat(5.0) / f64x8::splat(2.0) * t2122 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2124 + t1705 - t1709 - t1712 - t1715 - t1719;
-            let t2250 = t1725 - f64x8::splat(5.0) * t1964 + t1749 - f64x8::splat(5.0) / f64x8::splat(2.0) * t1975 + f64x8::splat(10.0) * t1983 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2136 - f64x8::splat(5.0) / f64x8::splat(2.0) * t2139 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2145 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t201 * t519 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1733 * t511 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1757 * t511 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1765 * t511 + t1784 - t1787 - t1790 + t1793;
+            let t2231 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t340 * t547 * t2215 - f64x8::splat(5.0) / f64x8::splat(3.0) * t115 * t558 * t2215 + f64x8::splat(25.0) / f64x8::splat(6.0) * t2085 + f64x8::splat(10.0) / f64x8::splat(3.0) * t2099 + f64x8::splat(5.0) * t2108 + f64x8::splat(10.0) * t1907 + f64x8::splat(5.0) * t1914 - f64x8::splat(15.0) * t1921 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2120 - f64x8::splat(5.0) * f64x8::splat(0.5) * t2122 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2124 + t1705 - t1709 - t1712 - t1715 - t1719;
+            let t2250 = t1725 - f64x8::splat(5.0) * t1964 + t1749 - f64x8::splat(5.0) * f64x8::splat(0.5) * t1975 + f64x8::splat(10.0) * t1983 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2136 - f64x8::splat(5.0) * f64x8::splat(0.5) * t2139 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2145 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t201 * t519 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1733 * t511 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1757 * t511 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1765 * t511 + t1784 - t1787 - t1790 + t1793;
             let tv4rho3sigma9 = t2231 + t2250;
             acc_v4rho3sigma_9 = tv4rho3sigma9;
-            let t2267 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t340 * t594 * t2215 - f64x8::splat(5.0) / f64x8::splat(3.0) * t115 * t605 * t2215 + f64x8::splat(10.0) / f64x8::splat(3.0) * t2150 + f64x8::splat(5.0) * t2159 + f64x8::splat(25.0) / f64x8::splat(6.0) * t2168 - f64x8::splat(15.0) * t2000 + f64x8::splat(10.0) * t2018 + f64x8::splat(5.0) * t2024 - t1821 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2186 - f64x8::splat(5.0) / f64x8::splat(2.0) * t2188 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2192 + t1824 + t1832 - t1835 - f64x8::splat(5.0) * t2047;
-            let t2285 = t1837 + t1841 - t1845 - t1848 - t1852 - t1862 + t1881 + f64x8::splat(10.0) * t2061 - f64x8::splat(5.0) / f64x8::splat(2.0) * t2070 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2202 - f64x8::splat(5.0) / f64x8::splat(2.0) * t2205 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2211 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t220 * t519 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1865 * t511 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1889 * t511 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1897 * t511;
+            let t2267 = -f64x8::splat(25.0) / f64x8::splat(12.0) * t340 * t594 * t2215 - f64x8::splat(5.0) / f64x8::splat(3.0) * t115 * t605 * t2215 + f64x8::splat(10.0) / f64x8::splat(3.0) * t2150 + f64x8::splat(5.0) * t2159 + f64x8::splat(25.0) / f64x8::splat(6.0) * t2168 - f64x8::splat(15.0) * t2000 + f64x8::splat(10.0) * t2018 + f64x8::splat(5.0) * t2024 - t1821 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2186 - f64x8::splat(5.0) * f64x8::splat(0.5) * t2188 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2192 + t1824 + t1832 - t1835 - f64x8::splat(5.0) * t2047;
+            let t2285 = t1837 + t1841 - t1845 - t1848 - t1852 - t1862 + t1881 + f64x8::splat(10.0) * t2061 - f64x8::splat(5.0) * f64x8::splat(0.5) * t2070 - f64x8::splat(5.0) / f64x8::splat(3.0) * t2202 - f64x8::splat(5.0) * f64x8::splat(0.5) * t2205 - f64x8::splat(25.0) / f64x8::splat(12.0) * t2211 - f64x8::splat(5.0) / f64x8::splat(6.0) * t115 * t220 * t519 - f64x8::splat(125.0) / f64x8::splat(72.0) * t1016 * t1865 * t511 - f64x8::splat(25.0) / f64x8::splat(18.0) * t340 * t1889 * t511 + f64x8::splat(5.0) / f64x8::splat(27.0) * t115 * t1897 * t511;
             let tv4rho3sigma10 = t2267 + t2285;
             acc_v4rho3sigma_10 = tv4rho3sigma10;
             let tv4rho3sigma11 = tv4rho3sigma9;

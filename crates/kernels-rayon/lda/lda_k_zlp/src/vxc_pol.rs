@@ -128,6 +128,17 @@ pub fn lda_k_zlp_vxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = f64x8::splat(M_CBRT3);
+    let t2 = t1 * t1;
+    let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t5 = f64x8::splat(1.0) / t4;
+    let t7 = f64x8::splat(M_CBRT4);
+    let t8 = t2 * t5 * t7;
+    let t15 = (simd::cbrt(zeta_threshold));
+    let t16 = t15 * t15;
+    let t17 = t16 * zeta_threshold;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -137,21 +148,12 @@ pub fn lda_k_zlp_vxc_pol(
         let mut acc_vrho_0 = V_ZERO;
         let mut acc_vrho_1 = V_ZERO;
         {
-            let t1 = f64x8::splat(M_CBRT3);
-            let t2 = t1 * t1;
-            let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t5 = f64x8::splat(1.0) / t4;
-            let t7 = f64x8::splat(M_CBRT4);
-            let t8 = t2 * t5 * t7;
             let t9 = v_rho0 - v_rho1;
             let t10 = v_rho0 + v_rho1;
             let t11 = f64x8::splat(1.0) / t10;
             let t12 = t9 * t11;
             let t13 = f64x8::splat(1.0) + t12;
             let t14 = (t13).simd_le(zeta_threshold);
-            let t15 = (simd::cbrt(zeta_threshold));
-            let t16 = t15 * t15;
-            let t17 = t16 * zeta_threshold;
             let t18 = (simd::cbrt(t13));
             let t19 = t18 * t18;
             let t21 = ((t14).select(t17, t19 * t13));
@@ -160,7 +162,7 @@ pub fn lda_k_zlp_vxc_pol(
             let t24 = (simd::cbrt(t22));
             let t25 = t24 * t24;
             let t27 = ((t23).select(t17, t25 * t22));
-            let t29 = t21 / f64x8::splat(2.0) + t27 / f64x8::splat(2.0);
+            let t29 = t21 * f64x8::splat(0.5) + t27 * f64x8::splat(0.5);
             let t30 = (simd::cbrt(t10));
             let t31 = t30 * t30;
             let t32 = t29 * t31;
@@ -181,7 +183,7 @@ pub fn lda_k_zlp_vxc_pol(
             let t52 = ((t14).select(f64x8::splat(0.0), f64x8::splat(5.0) / f64x8::splat(3.0) * t19 * t49));
             let t53 = -t49;
             let t56 = ((t23).select(f64x8::splat(0.0), f64x8::splat(5.0) / f64x8::splat(3.0) * t25 * t53));
-            let t58 = t52 / f64x8::splat(2.0) + t56 / f64x8::splat(2.0);
+            let t58 = t52 * f64x8::splat(0.5) + t56 * f64x8::splat(0.5);
             let t59 = t7 * t58;
             let t63 = t7 * t29;
             let t67 = f64x8::splat(1.0) / t35;
@@ -193,7 +195,7 @@ pub fn lda_k_zlp_vxc_pol(
             let t77 = ((t14).select(f64x8::splat(0.0), f64x8::splat(5.0) / f64x8::splat(3.0) * t19 * t74));
             let t78 = -t74;
             let t81 = ((t23).select(f64x8::splat(0.0), f64x8::splat(5.0) / f64x8::splat(3.0) * t25 * t78));
-            let t84 = t7 * (t77 / f64x8::splat(2.0) + t81 / f64x8::splat(2.0));
+            let t84 = t7 * (t77 * f64x8::splat(0.5) + t81 * f64x8::splat(0.5));
             let t85 = t84 * t39;
             let tvrho1 = t42 + f64x8::splat(1.0790666666666666) * t45 * t85 + t73;
             acc_vrho_1 = tvrho1;

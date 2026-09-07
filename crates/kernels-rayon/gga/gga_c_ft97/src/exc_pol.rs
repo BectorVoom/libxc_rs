@@ -20,29 +20,45 @@ pub fn gga_c_ft97_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = rmath::ln(2.0);
+    let t2 = 1.0 - t1;
+    let t3 = M_PI * M_PI;
+    let t4 = 1.0 / t3;
+    let t5 = t2 * t4;
+    let t6 = M_CBRT3;
+    let t7 = 1.0 / M_PI;
+    let t8 = pow_1_3(t7);
+    let t9 = t6 * t8;
+    let t10 = t5 * t9;
+    let t11 = M_CBRT4;
+    let t12 = t11 * t11;
+    let t17 = M_CBRT2;
+    let t25 = rmath::pow(4.0, 1.0 / 5.0);
+    let t26 = t9 * t12;
+    let t39 = t6 * t6;
+    let t40 = t8 * t8;
+    let t41 = t39 * t40;
+    let t51 = t8 * t7;
+    let t52 = t6 * t51;
+    let t70 = t17 * t17;
+    let t89 = t5 * t26;
+    let t90 = rmath::sqrt(6.0);
+    let t91 = t90 * t7;
+    let t122 = t25 * t25;
+    let t123 = t122 * t25;
+    let t170 = t41 * t11;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = rmath::ln(2.0);
-        let t2 = 1.0 - t1;
-        let t3 = M_PI * M_PI;
-        let t4 = 1.0 / t3;
-        let t5 = t2 * t4;
-        let t6 = M_CBRT3;
-        let t7 = 1.0 / M_PI;
-        let t8 = pow_1_3(t7);
-        let t9 = t6 * t8;
-        let t10 = t5 * t9;
-        let t11 = M_CBRT4;
-        let t12 = t11 * t11;
         let t13 = rho0 + rho1;
         let t14 = pow_1_3(t13);
         let t15 = 1.0 / t14;
         let t16 = t12 * t15;
-        let t17 = M_CBRT2;
         let t18 = rho0 - rho1;
         let t19 = 1.0 / t13;
         let t20 = t18 * t19;
@@ -50,8 +66,6 @@ pub fn gga_c_ft97_exc_pol(
         let t22 = 1.0 / t21;
         let t23 = pow_1_3(t22);
         let t24 = t17 * t23;
-        let t25 = rmath::pow(4.0, 1.0 / 5.0);
-        let t26 = t9 * t12;
         let t27 = t15 * t17;
         let t28 = t27 * t23;
         let t29 = t26 * t28;
@@ -61,16 +75,11 @@ pub fn gga_c_ft97_exc_pol(
         let t35 = rmath::exp(-0.02081897 * t25 * t32);
         let t37 = 0.942486901 + 0.349064173 * t35;
         let t38 = t37 * t37;
-        let t39 = t6 * t6;
-        let t40 = t8 * t8;
-        let t41 = t39 * t40;
         let t42 = t11 * sigma0;
         let t43 = rho0 * rho0;
         let t44 = pow_1_3(rho0);
         let t45 = t44 * t44;
         let t47 = 1.0 / t45 / t43;
-        let t51 = t8 * t7;
-        let t52 = t6 * t51;
         let t53 = sigma0 * sigma0;
         let t54 = t12 * t53;
         let t55 = t43 * t43;
@@ -86,7 +95,6 @@ pub fn gga_c_ft97_exc_pol(
         let t67 = t12 * sigma0;
         let t68 = t9 * t67;
         let t69 = t47 * t14;
-        let t70 = t17 * t17;
         let t71 = 1.0 / t23;
         let t72 = t70 * t71;
         let t73 = t69 * t72;
@@ -103,9 +111,6 @@ pub fn gga_c_ft97_exc_pol(
         let t86 = t85 / 6.0;
         let t87 = 10000000.0 <= t86;
         let t88 = xc_e1_scaled(t86);
-        let t89 = t5 * t26;
-        let t90 = rmath::sqrt(6.0);
-        let t91 = t90 * t7;
         let t92 = t9 * t16;
         let t93 = t82 * t2;
         let t94 = t24 * t93;
@@ -121,11 +126,9 @@ pub fn gga_c_ft97_exc_pol(
         let t110 = t100 * t103;
         let t112 = -t108 * t88 + 2.0 * t110;
         let t113 = 1.0 - t20;
-        let t117 = piecewise3(t87, 0.0, t5 * t112 * t113 / 4.0);
+        let t117 = piecewise3(t87, 0.0, t5 * t112 * t113 * 0.25);
         let t118 = rmath::sqrt(t29);
         let t120 = rmath::exp(-0.544669424 * t118);
-        let t122 = t25 * t25;
-        let t123 = t122 * t25;
         let t126 = rmath::exp(-0.16390970575 * t123 * t31);
         let t128 = 1.247511874 - 0.859614445 * t120 + 0.812904345 * t126;
         let t129 = t128 * t128;
@@ -160,7 +163,6 @@ pub fn gga_c_ft97_exc_pol(
         let t165 = 1.0 + t89 * t28 * t161 / 3.0;
         let t167 = t157 * t160;
         let t169 = -t149 * t165 + 2.0 * t167;
-        let t170 = t41 * t11;
         let t171 = t14 * t14;
         let t172 = 1.0 / t171;
         let t173 = t172 * t70;
@@ -169,9 +171,9 @@ pub fn gga_c_ft97_exc_pol(
         let t178 = t177 * t177;
         let t179 = 1.0 / t178;
         let t180 = t174 * t179;
-        let t184 = rmath::exp(-t170 * t173 * t180 / 4.0);
+        let t184 = rmath::exp(-t170 * t173 * t180 * 0.25);
         let t185 = t169 * t184;
-        let t189 = piecewise3(t148, 0.0, t5 * t185 * t21 / 4.0);
+        let t189 = piecewise3(t148, 0.0, t5 * t185 * t21 * 0.25);
         let t190 = 1.0 / t113;
         let t191 = pow_1_3(t190);
         let t192 = t17 * t191;
@@ -232,7 +234,7 @@ pub fn gga_c_ft97_exc_pol(
         let t263 = 1.0 + t89 * t193 * t259 / 3.0;
         let t265 = t255 * t258;
         let t267 = -t247 * t263 + 2.0 * t265;
-        let t271 = piecewise3(t246, 0.0, t5 * t267 * t21 / 4.0);
+        let t271 = piecewise3(t246, 0.0, t5 * t267 * t21 * 0.25);
         let t272 = rmath::sqrt(t194);
         let t274 = rmath::exp(-0.544669424 * t272);
         let t278 = rmath::exp(-0.16390970575 * t123 * t196);
@@ -274,9 +276,9 @@ pub fn gga_c_ft97_exc_pol(
         let t326 = t325 * t325;
         let t327 = 1.0 / t326;
         let t328 = t322 * t327;
-        let t332 = rmath::exp(-t170 * t173 * t328 / 4.0);
+        let t332 = rmath::exp(-t170 * t173 * t328 * 0.25);
         let t333 = t321 * t332;
-        let t337 = piecewise3(t300, 0.0, t5 * t333 * t113 / 4.0);
+        let t337 = piecewise3(t300, 0.0, t5 * t333 * t113 * 0.25);
         let tzk0 = t117 + t189 + t271 + t337;
         zk[ip] += tzk0;
     }

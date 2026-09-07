@@ -20,28 +20,41 @@ pub fn lda_c_vwn_rpa_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t2 = 1.0 / M_PI;
+    let t3 = pow_1_3(t2);
+    let t4 = t1 * t3;
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t39 = pow_1_3(zeta_threshold);
+    let t40 = t39 * zeta_threshold;
+    let t50 = M_CBRT2;
+    let t53 = 1.0 / (2.0 * t50 - 2.0);
+    let t84 = t4 * t6;
+    let t92 = t3 * t6;
+    let t101 = t1 * t1;
+    let t103 = 1.0 / t3;
+    let t234 = t3 * t3;
+    let t235 = t234 * t5;
+    let t297 = t101 * t234;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        let t1 = M_CBRT3;
-        let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
-        let t4 = t1 * t3;
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t7 = rho0 + rho1;
         let t8 = pow_1_3(t7);
         let t9 = 1.0 / t8;
         let t10 = t6 * t9;
         let t11 = t4 * t10;
-        let t12 = t11 / 4.0;
+        let t12 = t11 * 0.25;
         let t13 = rmath::sqrt(t11);
         let t15 = t12 + 6.536 * t13 + 42.7198;
         let t16 = 1.0 / t15;
-        let t20 = rmath::ln(t4 * t10 * t16 / 4.0);
+        let t20 = rmath::ln(t4 * t10 * t16 * 0.25);
         let t22 = t13 + 13.072;
         let t25 = rmath::atan(0.0448998886412873 / t22);
-        let t27 = t13 / 2.0;
+        let t27 = t13 * 0.5;
         let t28 = t27 + 0.409286;
         let t29 = t28 * t28;
         let t31 = rmath::ln(t29 * t16);
@@ -51,8 +64,6 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t36 = t34 * t35;
         let t37 = 1.0 + t36;
         let t38 = t37 <= zeta_threshold;
-        let t39 = pow_1_3(zeta_threshold);
-        let t40 = t39 * zeta_threshold;
         let t41 = pow_1_3(t37);
         let t43 = piecewise3(t38, t40, t41 * t37);
         let t44 = 1.0 - t36;
@@ -60,13 +71,11 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t46 = pow_1_3(t44);
         let t48 = piecewise3(t45, t40, t46 * t44);
         let t49 = t43 + t48 - 2.0;
-        let t50 = M_CBRT2;
-        let t53 = 1.0 / (2.0 * t50 - 2.0);
         let t55 = -t49 * t53 + 1.0;
         let t56 = t33 * t55;
         let t58 = t12 + 10.06155 * t13 + 101.578;
         let t59 = 1.0 / t58;
-        let t63 = rmath::ln(t4 * t10 * t59 / 4.0);
+        let t63 = rmath::ln(t4 * t10 * t59 * 0.25);
         let t65 = t13 + 20.1231;
         let t68 = rmath::atan(1.171685277708993 / t65);
         let t70 = t27 + 0.743294;
@@ -78,7 +87,6 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         zk[ip] += tzk0;
         let t79 = 1.0 / t8 / t7;
         let t80 = t6 * t79;
-        let t84 = t4 * t6;
         let t85 = t15 * t15;
         let t86 = 1.0 / t85;
         let t87 = t9 * t86;
@@ -86,12 +94,9 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t89 = t88 / 12.0;
         let t90 = 1.0 / t13;
         let t91 = t90 * t1;
-        let t92 = t3 * t6;
         let t94 = t91 * t92 * t79;
         let t96 = -t89 - 1.0893333333333333 * t94;
-        let t101 = t1 * t1;
-        let t103 = 1.0 / t3;
-        let t104 = (-t4 * t80 * t16 / 12.0 - t84 * t87 * t96 / 4.0) * t101 * t103;
+        let t104 = (-t4 * t80 * t16 / 12.0 - t84 * t87 * t96 * 0.25) * t101 * t103;
         let t105 = t5 * t8;
         let t106 = t105 * t15;
         let t109 = t22 * t22;
@@ -120,7 +125,7 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t151 = 1.0 / t150;
         let t152 = t9 * t151;
         let t154 = -t89 - 1.676925 * t94;
-        let t160 = (-t4 * t80 * t59 / 12.0 - t84 * t152 * t154 / 4.0) * t101 * t103;
+        let t160 = (-t4 * t80 * t59 / 12.0 - t84 * t152 * t154 * 0.25) * t101 * t103;
         let t161 = t105 * t58;
         let t164 = t65 * t65;
         let t165 = 1.0 / t164;
@@ -160,14 +165,12 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t230 = t229 / 9.0;
         let t232 = 1.0 / t13 / t11;
         let t233 = t232 * t101;
-        let t234 = t3 * t3;
-        let t235 = t234 * t5;
         let t236 = t8 * t8;
         let t238 = 1.0 / t236 / t133;
         let t240 = t233 * t235 * t238;
         let t243 = t91 * t92 * t213;
         let t245 = t230 - 0.7262222222222222 * t240 + 1.4524444444444444 * t243;
-        let t251 = (t216 / 9.0 + t84 * t218 * t96 / 6.0 + t84 * t224 * t225 / 2.0 - t84 * t87 * t245 / 4.0) * t101 * t103;
+        let t251 = (t216 / 9.0 + t84 * t218 * t96 / 6.0 + t84 * t224 * t225 * 0.5 - t84 * t87 * t245 * 0.25) * t101 * t103;
         let t255 = t5 / t236;
         let t256 = t255 * t15;
         let t259 = t105 * t96;
@@ -186,7 +189,6 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t291 = t290 * t91;
         let t292 = t79 * t96;
         let t296 = t120 * t232;
-        let t297 = t101 * t234;
         let t298 = t5 * t238;
         let t299 = t297 * t298;
         let t304 = t29 * t223;
@@ -221,7 +223,7 @@ pub fn lda_c_vwn_rpa_fxc_pol(
         let t362 = t9 * t361;
         let t363 = t154 * t154;
         let t369 = t230 - 1.11795 * t240 + 2.2359 * t243;
-        let t375 = (t354 / 9.0 + t84 * t356 * t154 / 6.0 + t84 * t362 * t363 / 2.0 - t84 * t152 * t369 / 4.0) * t101 * t103;
+        let t375 = (t354 / 9.0 + t84 * t356 * t154 / 6.0 + t84 * t362 * t363 * 0.5 - t84 * t152 * t369 * 0.25) * t101 * t103;
         let t378 = t255 * t58;
         let t381 = t105 * t154;
         let t384 = t164 * t65;

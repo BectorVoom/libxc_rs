@@ -76,6 +76,18 @@ pub fn lda_c_wigner_kxc_unpol(
     let param_b = f64x8::splat(param_b);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = f64x8::splat(M_CBRT3);
+    let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
+    let t3 = (simd::cbrt(t2));
+    let t4 = t1 * t3;
+    let t5 = f64x8::splat(M_CBRT4);
+    let t6 = t5 * t5;
+    let t23 = t3 * t6;
+    let t35 = t1 * t1;
+    let t36 = t3 * t3;
+    let t43 = t36 * t5;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -85,15 +97,9 @@ pub fn lda_c_wigner_kxc_unpol(
         let mut acc_v2rho2 = V_ZERO;
         let mut acc_v3rho3 = V_ZERO;
         {
-            let t1 = f64x8::splat(M_CBRT3);
-            let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-            let t3 = (simd::cbrt(t2));
-            let t4 = t1 * t3;
-            let t5 = f64x8::splat(M_CBRT4);
-            let t6 = t5 * t5;
             let t7 = (simd::cbrt(v_rho));
             let t8 = f64x8::splat(1.0) / t7;
-            let t12 = param_b + t4 * t6 * t8 / f64x8::splat(4.0);
+            let t12 = param_b + t4 * t6 * t8 * f64x8::splat(0.25);
             let tzk0 = param_a / t12;
             acc_zk = tzk0;
             let t15 = t12 * t12;
@@ -101,15 +107,11 @@ pub fn lda_c_wigner_kxc_unpol(
             let tvrho0 = tzk0 + t8 * param_a * t16 * t4 * t6 / f64x8::splat(12.0);
             acc_vrho = tvrho0;
             let t22 = param_a * t16 * t1;
-            let t23 = t3 * t6;
             let t28 = t7 * t7;
             let t33 = f64x8::splat(1.0) / t15 / t12;
-            let t35 = t1 * t1;
-            let t36 = t3 * t3;
             let tv2rho20 = t22 * t23 / t7 / v_rho / f64x8::splat(18.0) + f64x8::splat(1.0) / t28 / v_rho * param_a * t33 * t35 * t36 * t5 / f64x8::splat(18.0);
             acc_v2rho2 = tv2rho20;
             let t42 = param_a * t33 * t35;
-            let t43 = t36 * t5;
             let t44 = v_rho * v_rho;
             let t55 = t44 * v_rho;
             let t58 = t15 * t15;

@@ -27,6 +27,15 @@ pub fn mgga_x_tb09_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRTPI;
+    let t3 = param_c * t2;
+    let t38 = rmath::sqrt(15.0);
+    let t39 = (3.0 * param_c - 2.0) * t38;
+    let t40 = 1.0 / M_PI;
+    let t41 = M_SQRT2;
+    let t42 = t40 * t41;
     for ip in 0..vrho.len() / 2 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -37,8 +46,6 @@ pub fn mgga_x_tb09_vxc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        let t2 = M_CBRTPI;
-        let t3 = param_c * t2;
         let t4 = pow_1_3(rho0);
         let t5 = t4 * t4;
         let t7 = 1.0 / t5 / rho0;
@@ -54,19 +61,14 @@ pub fn mgga_x_tb09_vxc_pol(
         let t23 = xc_mgga_x_br89_get_x(t22);
         let t25 = rmath::exp(t23 / 3.0);
         let t26 = rmath::exp(-t23);
-        let t28 = 1.0 + t23 / 2.0;
+        let t28 = 1.0 + t23 * 0.5;
         let t29 = t26 * t28;
         let t30 = 1.0 - t29;
         let t31 = t25 * t30;
         let t32 = 1.0 / t23;
         let t33 = t31 * t32;
-        let t38 = rmath::sqrt(15.0);
-        let t39 = (3.0 * param_c - 2.0) * t38;
-        let t40 = 1.0 / M_PI;
-        let t41 = M_SQRT2;
-        let t42 = t40 * t41;
         let t43 = param_alpha * sigma0;
-        let t46 = t10 - t43 * t14 / 8.0;
+        let t46 = t10 - t43 * t14 * 0.125;
         let t47 = 1e-10 < t46;
         let t48 = piecewise3(t47, t46, 1e-10);
         let t49 = rmath::sqrt(t48);
@@ -88,14 +90,14 @@ pub fn mgga_x_tb09_vxc_pol(
         let t73 = xc_mgga_x_br89_get_x(t72);
         let t75 = rmath::exp(t73 / 3.0);
         let t76 = rmath::exp(-t73);
-        let t78 = 1.0 + t73 / 2.0;
+        let t78 = 1.0 + t73 * 0.5;
         let t79 = t76 * t78;
         let t80 = 1.0 - t79;
         let t81 = t75 * t80;
         let t82 = 1.0 / t73;
         let t83 = t81 * t82;
         let t86 = param_alpha * sigma2;
-        let t89 = t60 - t86 * t64 / 8.0;
+        let t89 = t60 - t86 * t64 * 0.125;
         let t90 = 1e-10 < t89;
         let t91 = piecewise3(t90, t89, 1e-10);
         let t92 = rmath::sqrt(t91);

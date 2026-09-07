@@ -21,36 +21,41 @@ pub fn lda_c_gk72_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t2 = 1.0 / M_PI;
+    let t3 = pow_1_3(t2);
+    let t4 = t1 * t3;
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t23 = t1 * t1;
+    let t25 = t23 / t3;
+    let t29 = rmath::sqrt(4.0);
+    let t35 = t3 * t3;
+    let t37 = t1 / t35;
+    let t42 = t23 * t35;
+    let t66 = rmath::pow(4.0, 1.0 / 6.0);
+    let t102 = t66 * t66;
+    let t103 = t102 * t102;
+    let t104 = t103 * t66;
     for ip in 0..zk.len() {
-        let t1 = M_CBRT3;
-        let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
-        let t4 = t1 * t3;
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t9 = t6 / t7;
         let t10 = t4 * t9;
-        let t11 = t10 / 4.0;
+        let t11 = t10 * 0.25;
         let t12 = t11 < 0.7;
         let t13 = rmath::ln(t11);
         let t20 = t11 < 10.0;
-        let t23 = t1 * t1;
-        let t25 = t23 / t3;
-        let t29 = rmath::sqrt(4.0);
         let t30 = rmath::sqrt(t10);
-        let t35 = t3 * t3;
-        let t37 = t1 / t35;
         let t38 = t7 * t7;
-        let t42 = t23 * t35;
         let t44 = t5 / t38;
-        let t48 = 1.0 / t30 / t42 / t44 / 4.0;
+        let t48 = 1.0 / t30 / t42 / t44 * 0.25;
         let tzk0 = piecewise5(t12, 0.0311 * t13 - 0.048 + 0.00225 * t4 * t9 * t13 - 0.00425 * t10, t20, -0.06156 + 0.01898 * t13, 0.146 * t25 * t5 * t7 + 5.3 * t29 / t30 / t10 - 0.49 * t37 * t6 * t38 - 6.4 * t29 * t48);
         zk[ip] += tzk0;
         let t52 = 1.0 / rho[ip];
         let t55 = 1.0 / t7 / rho[ip];
         let t56 = t6 * t55;
-        let t66 = rmath::pow(4.0, 1.0 / 6.0);
         let t67 = t66 * t48;
         let t68 = t4 * t55;
         let t76 = 1.0 / t30 / t2 / t52 / 48.0;
@@ -63,9 +68,6 @@ pub fn lda_c_gk72_kxc_unpol(
         let t88 = 1.0 / t7 / t84;
         let t89 = t6 * t88;
         let t99 = t5 / t38 / rho[ip];
-        let t102 = t66 * t66;
-        let t103 = t102 * t102;
-        let t104 = t103 * t66;
         let t105 = t104 * t76;
         let t107 = 1.0 / t38 / t84;
         let t108 = t42 * t107;

@@ -72,6 +72,16 @@ pub fn mgga_xc_zlp_exc_unpol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t5 = t2 * t4;
+    let t6 = f64x8::splat(M_CBRT4);
+    let t7 = t6 * t6;
+    let t33 = t2 * t2;
+    let t35 = f64x8::splat(1.0) / t4;
+    let t36 = t35 * t6;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -81,25 +91,17 @@ pub fn mgga_xc_zlp_exc_unpol(
         let v_tau = load(tau, ip, np);
         let mut acc_zk = V_ZERO;
         {
-            let t2 = f64x8::splat(M_CBRT3);
-            let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t5 = t2 * t4;
-            let t6 = f64x8::splat(M_CBRT4);
-            let t7 = t6 * t6;
             let t10 = v_rho * v_rho;
             let t11 = (simd::cbrt(v_rho));
             let t12 = t11 * t11;
             let t14 = f64x8::splat(1.0) / t12 / t10;
             let t17 = f64x8::splat(1.0) / t12 / v_rho;
-            let t24 = f64x8::splat(0.207108) * t5 * t7 + f64x8::splat(0.005387725) * t5 * t7 * (-v_lapl * t17 / f64x8::splat(8.0) + v_sigma * t14 / f64x8::splat(8.0));
+            let t24 = f64x8::splat(0.207108) * t5 * t7 + f64x8::splat(0.005387725) * t5 * t7 * (-v_lapl * t17 * f64x8::splat(0.125) + v_sigma * t14 * f64x8::splat(0.125));
             let t25 = f64x8::splat(1.0) / t11;
             let t27 = f64x8::splat(1.0) + f64x8::splat(488.4942506669168) * t25;
             let t28 = (simd::ln(t27));
             let t31 = f64x8::splat(1.0) - f64x8::splat(0.002047107) * t28 * t11;
-            let t33 = t2 * t2;
             let t34 = t24 * t31 * t33;
-            let t35 = f64x8::splat(1.0) / t4;
-            let t36 = t35 * t6;
             let t37 = t36 * t11;
             let t38 = t34 * t37;
             let tzk0 = -t38 / f64x8::splat(3.0);

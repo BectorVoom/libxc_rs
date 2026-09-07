@@ -130,6 +130,19 @@ pub fn gga_k_thakkar_vxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t3 = t2 * t2;
+    let t4 = f64x8::splat(M_CBRTPI);
+    let t6 = t3 * t4 * f64x8::splat(M_PI);
+    let t12 = zeta_threshold - f64x8::splat(1.0);
+    let t16 = -t12;
+    let t22 = (simd::cbrt(zeta_threshold));
+    let t23 = t22 * t22;
+    let t24 = t23 * zeta_threshold;
+    let t49 = f64x8::splat(M_CBRT4);
+    let tvsigma1 = f64x8::splat(0.0);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -146,23 +159,14 @@ pub fn gga_k_thakkar_vxc_pol(
         let mut acc_vsigma_2 = V_ZERO;
         {
             let t1 = (v_rho0).simd_le(dens_threshold);
-            let t2 = f64x8::splat(M_CBRT3);
-            let t3 = t2 * t2;
-            let t4 = f64x8::splat(M_CBRTPI);
-            let t6 = t3 * t4 * f64x8::splat(M_PI);
             let t7 = v_rho0 + v_rho1;
             let t8 = f64x8::splat(1.0) / t7;
             let t11 = (f64x8::splat(2.0) * v_rho0 * t8).simd_le(zeta_threshold);
-            let t12 = zeta_threshold - f64x8::splat(1.0);
             let t15 = (f64x8::splat(2.0) * v_rho1 * t8).simd_le(zeta_threshold);
-            let t16 = -t12;
             let t17 = v_rho0 - v_rho1;
             let t19 = ((t11).select(t12, (t15).select(t16, t17 * t8)));
             let t20 = f64x8::splat(1.0) + t19;
             let t21 = (t20).simd_le(zeta_threshold);
-            let t22 = (simd::cbrt(zeta_threshold));
-            let t23 = t22 * t22;
-            let t24 = t23 * zeta_threshold;
             let t25 = (simd::cbrt(t20));
             let t26 = t25 * t25;
             let t28 = ((t21).select(t24, t26 * t20));
@@ -180,7 +184,6 @@ pub fn gga_k_thakkar_vxc_pol(
             let t42 = (simd::ln(t41 + ((t41 * t41 + f64x8::splat(1.0)).sqrt())));
             let t45 = f64x8::splat(1.0) + f64x8::splat(0.0253) * t41 * t42;
             let t46 = f64x8::splat(1.0) / t45;
-            let t49 = f64x8::splat(M_CBRT4);
             let t50 = t49 * t38;
             let t53 = f64x8::splat(2.0) * t50 * t40 + f64x8::splat(1.0);
             let t54 = f64x8::splat(1.0) / t53;
@@ -282,7 +285,6 @@ pub fn gga_k_thakkar_vxc_pol(
             let t250 = ((t1).select(f64x8::splat(0.0), f64x8::splat(3.0) / f64x8::splat(20.0) * t6 * t31 * t246));
             let tvsigma0 = t7 * t250;
             acc_vsigma_0 = tvsigma0;
-            let tvsigma1 = f64x8::splat(0.0);
             acc_vsigma_1 = tvsigma1;
             let t253 = f64x8::splat(1.0) / t79;
             let t254 = t253 * t81;

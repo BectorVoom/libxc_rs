@@ -23,6 +23,16 @@ pub fn lda_x_1d_exponential_kxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = zeta_threshold - 1.0;
+    let t12 = -t9;
+    let t21 = 1.0 / M_PI;
+    let t23 = 1.0 / param_beta;
+    let t98 = M_PI * M_PI;
+    let t100 = param_beta * param_beta;
+    let t211 = 1.0 / t98;
+    let t213 = 1.0 / t100;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -32,9 +42,7 @@ pub fn lda_x_1d_exponential_kxc_pol(
         let t5 = t2 * t4;
         let t7 = 1.0 + t5 <= zeta_threshold;
         let t8 = rho0 <= dens_threshold || t7;
-        let t9 = zeta_threshold - 1.0;
         let t11 = 1.0 - t5 <= zeta_threshold;
-        let t12 = -t9;
         let t13 = piecewise5(t7, t9, t11, t12, t5);
         let t14 = 1.0 + t13;
         let t15 = t14 * M_PI;
@@ -42,9 +50,7 @@ pub fn lda_x_1d_exponential_kxc_pol(
         let t17 = t15 * t16;
         let t18 = xc_integrate_lda_exponential_func1(t17);
         let t20 = xc_integrate_lda_exponential_func2(t17);
-        let t21 = 1.0 / M_PI;
         let t22 = t20 * t21;
-        let t23 = 1.0 / param_beta;
         let t24 = t23 * t4;
         let t29 = piecewise3(t8, 0.0, -0.07957747154594767 * (t14 * t18 - t22 * t24) * t23);
         let t31 = rho1 <= dens_threshold || t11;
@@ -87,9 +93,7 @@ pub fn lda_x_1d_exponential_kxc_pol(
         let t95 = t92 * t16 + t94;
         let t96 = t49 * t95;
         let t97 = t14 * t14;
-        let t98 = M_PI * M_PI;
         let t99 = t97 * t98;
-        let t100 = param_beta * param_beta;
         let t101 = t100 * t45;
         let t103 = xc_e1_scaled(t99 * t101);
         let t105 = t95 * t103;
@@ -147,9 +151,7 @@ pub fn lda_x_1d_exponential_kxc_pol(
         let t205 = t92 * param_beta;
         let t207 = t203 * t16 + 2.0 * t205;
         let t208 = t49 * t207;
-        let t211 = 1.0 / t98;
         let t212 = 1.0 / t97 * t211;
-        let t213 = 1.0 / t100;
         let t214 = t213 * t46;
         let t216 = -t212 * t214 + t103;
         let t217 = t14 * t98;

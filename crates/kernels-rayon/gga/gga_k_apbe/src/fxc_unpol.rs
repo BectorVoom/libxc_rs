@@ -79,6 +79,33 @@ pub fn gga_k_apbe_fxc_unpol(
     let param_mu = f64x8::splat(param_mu);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = f64x8::splat(M_CBRT3);
+    let t4 = t3 * t3;
+    let t5 = f64x8::splat(M_CBRTPI);
+    let t7 = t4 * t5 * f64x8::splat(M_PI);
+    let t8 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+    let t9 = zeta_threshold - f64x8::splat(1.0);
+    let t11 = ((t8).select(t9, (t8).select(-t9, f64x8::splat(0.0))));
+    let t12 = f64x8::splat(1.0) + t11;
+    let t14 = (simd::cbrt(zeta_threshold));
+    let t15 = t14 * t14;
+    let t17 = (simd::cbrt(t12));
+    let t18 = t17 * t17;
+    let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
+    let t24 = f64x8::splat(M_CBRT6);
+    let t26 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t27 = (simd::cbrt(t26));
+    let t28 = t27 * t27;
+    let t29 = f64x8::splat(1.0) / t28;
+    let t31 = f64x8::splat(M_CBRT2);
+    let t32 = t31 * t31;
+    let t58 = param_kappa * param_kappa;
+    let t79 = t24 * t29 * t32;
+    let t107 = param_mu * param_mu;
+    let t109 = t24 * t24;
+    let t112 = f64x8::splat(1.0) / t27 / t26;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -91,29 +118,9 @@ pub fn gga_k_apbe_fxc_unpol(
         let mut acc_v2rhosigma = V_ZERO;
         let mut acc_v2sigma2 = V_ZERO;
         {
-            let t2 = (v_rho / f64x8::splat(2.0)).simd_le(dens_threshold);
-            let t3 = f64x8::splat(M_CBRT3);
-            let t4 = t3 * t3;
-            let t5 = f64x8::splat(M_CBRTPI);
-            let t7 = t4 * t5 * f64x8::splat(M_PI);
-            let t8 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
-            let t9 = zeta_threshold - f64x8::splat(1.0);
-            let t11 = ((t8).select(t9, (t8).select(-t9, f64x8::splat(0.0))));
-            let t12 = f64x8::splat(1.0) + t11;
-            let t14 = (simd::cbrt(zeta_threshold));
-            let t15 = t14 * t14;
-            let t17 = (simd::cbrt(t12));
-            let t18 = t17 * t17;
-            let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
+            let t2 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
             let t21 = (simd::cbrt(v_rho));
             let t22 = t21 * t21;
-            let t24 = f64x8::splat(M_CBRT6);
-            let t26 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t27 = (simd::cbrt(t26));
-            let t28 = t27 * t27;
-            let t29 = f64x8::splat(1.0) / t28;
-            let t31 = f64x8::splat(M_CBRT2);
-            let t32 = t31 * t31;
             let t34 = v_rho * v_rho;
             let t40 = param_kappa + param_mu * t24 * t29 * v_sigma * t32 / t22 / t34 / f64x8::splat(24.0);
             let t45 = f64x8::splat(1.0) + param_kappa * (f64x8::splat(1.0) - param_kappa / t40);
@@ -121,7 +128,6 @@ pub fn gga_k_apbe_fxc_unpol(
             let tzk0 = f64x8::splat(2.0) * t49;
             acc_zk = tzk0;
             let t55 = t34 * v_rho;
-            let t58 = param_kappa * param_kappa;
             let t60 = t7 * t20 / t55 * t58;
             let t61 = t40 * t40;
             let t63 = f64x8::splat(1.0) / t61 * param_mu;
@@ -130,7 +136,6 @@ pub fn gga_k_apbe_fxc_unpol(
             let t71 = ((t2).select(f64x8::splat(0.0), t7 * t20 / t21 * t45 / f64x8::splat(10.0) - t60 * t67 / f64x8::splat(60.0)));
             let tvrho0 = f64x8::splat(2.0) * v_rho * t71 + f64x8::splat(2.0) * t49;
             acc_vrho = tvrho0;
-            let t79 = t24 * t29 * t32;
             let t80 = t63 * t79;
             let t83 = ((t2).select(f64x8::splat(0.0), t7 * t20 / t34 * t58 * t80 / f64x8::splat(160.0)));
             let tvsigma0 = f64x8::splat(2.0) * v_rho * t83;
@@ -139,11 +144,8 @@ pub fn gga_k_apbe_fxc_unpol(
             let t96 = t7 * t20 / t92 * t58;
             let t99 = t92 * t34;
             let t104 = t7 * t20 / t22 / t99 * t58;
-            let t107 = param_mu * param_mu;
             let t108 = f64x8::splat(1.0) / t61 / t40 * t107;
-            let t109 = t24 * t24;
             let t110 = t108 * t109;
-            let t112 = f64x8::splat(1.0) / t27 / t26;
             let t113 = v_sigma * v_sigma;
             let t116 = t110 * t112 * t113 * t31;
             let t120 = ((t2).select(f64x8::splat(0.0), -t7 * t20 / t21 / v_rho * t45 / f64x8::splat(30.0) + f64x8::splat(7.0) / f64x8::splat(180.0) * t96 * t67 - t104 * t116 / f64x8::splat(135.0)));

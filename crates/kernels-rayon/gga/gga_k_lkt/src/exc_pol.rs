@@ -130,6 +130,24 @@ pub fn gga_k_lkt_exc_pol(
     let param_a = f64x8::splat(param_a);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t3 = t2 * t2;
+    let t4 = f64x8::splat(M_CBRTPI);
+    let t6 = t3 * t4 * f64x8::splat(M_PI);
+    let t12 = zeta_threshold - f64x8::splat(1.0);
+    let t16 = -t12;
+    let t22 = (simd::cbrt(zeta_threshold));
+    let t23 = t22 * t22;
+    let t24 = t23 * zeta_threshold;
+    let t32 = f64x8::splat(M_CBRT6);
+    let t33 = t32 * t32;
+    let t34 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t35 = (simd::cbrt(t34));
+    let t37 = t33 / t35;
+    let t50 = t35 * t35;
+    let t52 = t32 / t50;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -141,34 +159,20 @@ pub fn gga_k_lkt_exc_pol(
         let mut acc_zk = V_ZERO;
         {
             let t1 = (v_rho0).simd_le(dens_threshold);
-            let t2 = f64x8::splat(M_CBRT3);
-            let t3 = t2 * t2;
-            let t4 = f64x8::splat(M_CBRTPI);
-            let t6 = t3 * t4 * f64x8::splat(M_PI);
             let t7 = v_rho0 + v_rho1;
             let t8 = f64x8::splat(1.0) / t7;
             let t11 = (f64x8::splat(2.0) * v_rho0 * t8).simd_le(zeta_threshold);
-            let t12 = zeta_threshold - f64x8::splat(1.0);
             let t15 = (f64x8::splat(2.0) * v_rho1 * t8).simd_le(zeta_threshold);
-            let t16 = -t12;
             let t17 = v_rho0 - v_rho1;
             let t19 = ((t11).select(t12, (t15).select(t16, t17 * t8)));
             let t20 = f64x8::splat(1.0) + t19;
             let t21 = (t20).simd_le(zeta_threshold);
-            let t22 = (simd::cbrt(zeta_threshold));
-            let t23 = t22 * t22;
-            let t24 = t23 * zeta_threshold;
             let t25 = (simd::cbrt(t20));
             let t26 = t25 * t25;
             let t28 = ((t21).select(t24, t26 * t20));
             let t29 = (simd::cbrt(t7));
             let t30 = t29 * t29;
             let t31 = t28 * t30;
-            let t32 = f64x8::splat(M_CBRT6);
-            let t33 = t32 * t32;
-            let t34 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t35 = (simd::cbrt(t34));
-            let t37 = t33 / t35;
             let t38 = ((v_sigma0).sqrt());
             let t39 = (simd::cbrt(v_rho0));
             let t41 = f64x8::splat(1.0) / t39 / v_rho0;
@@ -178,8 +182,6 @@ pub fn gga_k_lkt_exc_pol(
             let t47 = param_a * t46;
             let t48 = (simd::cosh(t47));
             let t49 = f64x8::splat(1.0) / t48;
-            let t50 = t35 * t35;
-            let t52 = t32 / t50;
             let t53 = v_rho0 * v_rho0;
             let t54 = t39 * t39;
             let t56 = f64x8::splat(1.0) / t54 / t53;

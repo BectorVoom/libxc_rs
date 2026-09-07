@@ -127,6 +127,17 @@ pub fn lda_k_zlp_exc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = f64x8::splat(M_CBRT3);
+    let t2 = t1 * t1;
+    let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t5 = f64x8::splat(1.0) / t4;
+    let t7 = f64x8::splat(M_CBRT4);
+    let t8 = t2 * t5 * t7;
+    let t15 = (simd::cbrt(zeta_threshold));
+    let t16 = t15 * t15;
+    let t17 = t16 * zeta_threshold;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -134,21 +145,12 @@ pub fn lda_k_zlp_exc_pol(
         let v_rho1 = load_strided(rho, ip, np, 2, 1);
         let mut acc_zk = V_ZERO;
         {
-            let t1 = f64x8::splat(M_CBRT3);
-            let t2 = t1 * t1;
-            let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t5 = f64x8::splat(1.0) / t4;
-            let t7 = f64x8::splat(M_CBRT4);
-            let t8 = t2 * t5 * t7;
             let t9 = v_rho0 - v_rho1;
             let t10 = v_rho0 + v_rho1;
             let t11 = f64x8::splat(1.0) / t10;
             let t12 = t9 * t11;
             let t13 = f64x8::splat(1.0) + t12;
             let t14 = (t13).simd_le(zeta_threshold);
-            let t15 = (simd::cbrt(zeta_threshold));
-            let t16 = t15 * t15;
-            let t17 = t16 * zeta_threshold;
             let t18 = (simd::cbrt(t13));
             let t19 = t18 * t18;
             let t21 = ((t14).select(t17, t19 * t13));
@@ -157,7 +159,7 @@ pub fn lda_k_zlp_exc_pol(
             let t24 = (simd::cbrt(t22));
             let t25 = t24 * t24;
             let t27 = ((t23).select(t17, t25 * t22));
-            let t29 = t21 / f64x8::splat(2.0) + t27 / f64x8::splat(2.0);
+            let t29 = t21 * f64x8::splat(0.5) + t27 * f64x8::splat(0.5);
             let t30 = (simd::cbrt(t10));
             let t31 = t30 * t30;
             let t32 = t29 * t31;

@@ -33,6 +33,16 @@ pub fn mgga_xc_lp90_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let tvtau0 = 0.0;
+    let tv2rhotau0 = 0.0;
+    let tv2sigma20 = 0.0;
+    let tv2sigmalapl0 = 0.0;
+    let tv2sigmatau0 = 0.0;
+    let tv2lapl20 = 0.0;
+    let tv2lapltau0 = 0.0;
+    let tv2tau20 = 0.0;
     for ip in 0..zk.len() {
         let t2 = rho[ip] * rho[ip];
         let t3 = pow_1_3(rho[ip]);
@@ -57,7 +67,6 @@ pub fn mgga_xc_lp90_fxc_unpol(
         vsigma[ip] += tvsigma0;
         let tvlapl0 = 0.00037655 / t4 * t16;
         vlapl[ip] += tvlapl0;
-        let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
         let t39 = t13 * t30;
         let t41 = 1.0 / t3 / rho[ip];
@@ -74,19 +83,12 @@ pub fn mgga_xc_lp90_fxc_unpol(
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2rholapl0 = -0.00025103333333333333 * t33 + 0.00012551666666666666 / t2 * t30;
         v2rholapl[ip] += tv2rholapl0;
-        let tv2rhotau0 = 0.0;
         v2rhotau[ip] += tv2rhotau0;
-        let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
-        let tv2sigmalapl0 = 0.0;
         v2sigmalapl[ip] += tv2sigmalapl0;
-        let tv2sigmatau0 = 0.0;
         v2sigmatau[ip] += tv2sigmatau0;
-        let tv2lapl20 = 0.0;
         v2lapl2[ip] += tv2lapl20;
-        let tv2lapltau0 = 0.0;
         v2lapltau[ip] += tv2lapltau0;
-        let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
     }
 }

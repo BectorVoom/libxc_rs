@@ -128,6 +128,13 @@ pub fn gga_c_wl_exc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t31 = f64x8::splat(M_CBRT3);
+    let t33 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t34 = t31 * t33;
+    let t35 = f64x8::splat(M_CBRT4);
+    let t36 = t35 * t35;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -157,13 +164,8 @@ pub fn gga_c_wl_exc_pol(
             let t25 = ((v_sigma2).sqrt());
             let t26 = (simd::cbrt(v_rho1));
             let t28 = f64x8::splat(1.0) / t26 / v_rho1;
-            let t31 = f64x8::splat(M_CBRT3);
-            let t33 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t34 = t31 * t33;
-            let t35 = f64x8::splat(M_CBRT4);
-            let t36 = t35 * t35;
             let t37 = f64x8::splat(1.0) / t12;
-            let t41 = f64x8::splat(3.60073) + f64x8::splat(0.9) * t19 * t22 + f64x8::splat(0.9) * t25 * t28 + t34 * t36 * t37 / f64x8::splat(4.0);
+            let t41 = f64x8::splat(3.60073) + f64x8::splat(0.9) * t19 * t22 + f64x8::splat(0.9) * t25 * t28 + t34 * t36 * t37 * f64x8::splat(0.25);
             let t42 = f64x8::splat(1.0) / t41;
             let tzk0 = t18 * t42;
             acc_zk = tzk0;

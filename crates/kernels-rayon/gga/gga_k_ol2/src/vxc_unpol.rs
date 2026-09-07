@@ -78,6 +78,25 @@ pub fn gga_k_ol2_vxc_unpol(
     let param_aa = f64x8::splat(param_aa);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = f64x8::splat(M_CBRT3);
+    let t4 = t3 * t3;
+    let t5 = f64x8::splat(M_CBRTPI);
+    let t7 = t4 * t5 * f64x8::splat(M_PI);
+    let t8 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+    let t9 = zeta_threshold - f64x8::splat(1.0);
+    let t11 = ((t8).select(t9, (t8).select(-t9, f64x8::splat(0.0))));
+    let t12 = f64x8::splat(1.0) + t11;
+    let t14 = (simd::cbrt(zeta_threshold));
+    let t15 = t14 * t14;
+    let t17 = (simd::cbrt(t12));
+    let t18 = t17 * t17;
+    let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
+    let t25 = f64x8::splat(M_CBRT2);
+    let t26 = t25 * t25;
+    let t81 = param_bb * t26;
+    let t88 = param_cc * t26;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -87,26 +106,11 @@ pub fn gga_k_ol2_vxc_unpol(
         let mut acc_vrho = V_ZERO;
         let mut acc_vsigma = V_ZERO;
         {
-            let t2 = (v_rho / f64x8::splat(2.0)).simd_le(dens_threshold);
-            let t3 = f64x8::splat(M_CBRT3);
-            let t4 = t3 * t3;
-            let t5 = f64x8::splat(M_CBRTPI);
-            let t7 = t4 * t5 * f64x8::splat(M_PI);
-            let t8 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
-            let t9 = zeta_threshold - f64x8::splat(1.0);
-            let t11 = ((t8).select(t9, (t8).select(-t9, f64x8::splat(0.0))));
-            let t12 = f64x8::splat(1.0) + t11;
-            let t14 = (simd::cbrt(zeta_threshold));
-            let t15 = t14 * t14;
-            let t17 = (simd::cbrt(t12));
-            let t18 = t17 * t17;
-            let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
+            let t2 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
             let t21 = (simd::cbrt(v_rho));
             let t22 = t21 * t21;
             let t23 = t20 * t22;
             let t24 = param_bb * v_sigma;
-            let t25 = f64x8::splat(M_CBRT2);
-            let t26 = t25 * t25;
             let t27 = v_rho * v_rho;
             let t29 = f64x8::splat(1.0) / t22 / t27;
             let t30 = t26 * t29;
@@ -134,11 +138,9 @@ pub fn gga_k_ol2_vxc_unpol(
             let t78 = ((t2).select(f64x8::splat(0.0), t7 * t51 * t45 / f64x8::splat(10.0) + f64x8::splat(3.0) / f64x8::splat(20.0) * t7 * t23 * t73));
             let tvrho0 = f64x8::splat(2.0) * v_rho * t78 + f64x8::splat(2.0) * t49;
             acc_vrho = tvrho0;
-            let t81 = param_bb * t26;
             let t84 = f64x8::splat(1.0) / t33;
             let t85 = param_cc * t84;
-            let t88 = param_cc * t26;
-            let t92 = f64x8::splat(0.013888888888888888) * t81 * t29 + t85 * t43 / f64x8::splat(2.0) - f64x8::splat(2.0) * t88 * t29 * t69;
+            let t92 = f64x8::splat(0.013888888888888888) * t81 * t29 + t85 * t43 * f64x8::splat(0.5) - f64x8::splat(2.0) * t88 * t29 * t69;
             let t96 = ((t2).select(f64x8::splat(0.0), f64x8::splat(3.0) / f64x8::splat(20.0) * t7 * t23 * t92));
             let tvsigma0 = f64x8::splat(2.0) * v_rho * t96;
             acc_vsigma = tvsigma0;

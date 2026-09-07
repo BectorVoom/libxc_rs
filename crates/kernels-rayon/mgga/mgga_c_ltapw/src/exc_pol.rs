@@ -22,6 +22,27 @@ pub fn mgga_c_ltapw_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = 1.0 / M_PI;
+    let t4 = pow_1_3(t3);
+    let t5 = t2 * t4;
+    let t6 = M_CBRT4;
+    let t7 = t6 * t6;
+    let t13 = M_CBRT6;
+    let t14 = M_PI * M_PI;
+    let t15 = pow_1_3(t14);
+    let t16 = t15 * t15;
+    let t18 = t13 / t16;
+    let t21 = 3.0 / 5.0 * param_ltafrac;
+    let t45 = t2 * t2;
+    let t46 = t4 * t4;
+    let t47 = t45 * t46;
+    let t71 = pow_1_3(zeta_threshold);
+    let t72 = t71 * zeta_threshold;
+    let t82 = M_CBRT2;
+    let t85 = 1.0 / (2.0 * t82 - 2.0);
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -32,20 +53,8 @@ pub fn mgga_c_ltapw_exc_pol(
         let lapl1 = lapl[ip * 2 + 1];
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
-        let t2 = M_CBRT3;
-        let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
-        let t5 = t2 * t4;
-        let t6 = M_CBRT4;
-        let t7 = t6 * t6;
         let t8 = pow_1_3(rho0);
         let t9 = t8 * t8;
-        let t13 = M_CBRT6;
-        let t14 = M_PI * M_PI;
-        let t15 = pow_1_3(t14);
-        let t16 = t15 * t15;
-        let t18 = t13 / t16;
-        let t21 = 3.0 / 5.0 * param_ltafrac;
         let t22 = rmath::pow(5.0 / 9.0 * tau0 / t9 / rho0 * t18, t21);
         let t23 = rho0 * t22;
         let t24 = pow_1_3(rho1);
@@ -58,9 +67,6 @@ pub fn mgga_c_ltapw_exc_pol(
         let t39 = 1.0 + 0.053425 * t37;
         let t40 = rmath::sqrt(t37);
         let t43 = pow_3_2(t37);
-        let t45 = t2 * t2;
-        let t46 = t4 * t4;
-        let t47 = t45 * t46;
         let t48 = t34 * t34;
         let t51 = t47 * t6 / t48;
         let t53 = 3.79785 * t40 + 0.8969 * t37 + 0.204775 * t43 + 0.123235 * t51;
@@ -78,8 +84,6 @@ pub fn mgga_c_ltapw_exc_pol(
         let t68 = t60 * t67;
         let t69 = 1.0 + t68;
         let t70 = t69 <= zeta_threshold;
-        let t71 = pow_1_3(zeta_threshold);
-        let t72 = t71 * zeta_threshold;
         let t73 = pow_1_3(t69);
         let t75 = piecewise3(t70, t72, t73 * t69);
         let t76 = 1.0 - t68;
@@ -87,8 +91,6 @@ pub fn mgga_c_ltapw_exc_pol(
         let t78 = pow_1_3(t76);
         let t80 = piecewise3(t77, t72, t78 * t76);
         let t81 = t75 + t80 - 2.0;
-        let t82 = M_CBRT2;
-        let t85 = 1.0 / (2.0 * t82 - 2.0);
         let t86 = t81 * t85;
         let t88 = 1.0 + 0.05137 * t37;
         let t93 = 7.05945 * t40 + 1.549425 * t37 + 0.420775 * t43 + 0.1562925 * t51;

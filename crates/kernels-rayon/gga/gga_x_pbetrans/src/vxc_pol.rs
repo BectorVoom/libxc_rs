@@ -130,6 +130,24 @@ pub fn gga_x_pbetrans_vxc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t3 = f64x8::splat(M_CBRTPI);
+    let t5 = t2 / t3;
+    let t11 = zeta_threshold - f64x8::splat(1.0);
+    let t15 = -t11;
+    let t21 = (simd::cbrt(zeta_threshold));
+    let t22 = t21 * zeta_threshold;
+    let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t29 = (simd::cbrt(t28));
+    let t30 = t2 * t29;
+    let t31 = f64x8::splat(M_CBRT6);
+    let t32 = t31 * t31;
+    let t34 = t32 / t29;
+    let t50 = t29 * t29;
+    let t52 = t31 / t50;
+    let tvsigma1 = f64x8::splat(0.0);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -146,31 +164,18 @@ pub fn gga_x_pbetrans_vxc_pol(
         let mut acc_vsigma_2 = V_ZERO;
         {
             let t1 = (v_rho0).simd_le(dens_threshold);
-            let t2 = f64x8::splat(M_CBRT3);
-            let t3 = f64x8::splat(M_CBRTPI);
-            let t5 = t2 / t3;
             let t6 = v_rho0 + v_rho1;
             let t7 = f64x8::splat(1.0) / t6;
             let t10 = (f64x8::splat(2.0) * v_rho0 * t7).simd_le(zeta_threshold);
-            let t11 = zeta_threshold - f64x8::splat(1.0);
             let t14 = (f64x8::splat(2.0) * v_rho1 * t7).simd_le(zeta_threshold);
-            let t15 = -t11;
             let t16 = v_rho0 - v_rho1;
             let t18 = ((t10).select(t11, (t14).select(t15, t16 * t7)));
             let t19 = f64x8::splat(1.0) + t18;
             let t20 = (t19).simd_le(zeta_threshold);
-            let t21 = (simd::cbrt(zeta_threshold));
-            let t22 = t21 * zeta_threshold;
             let t23 = (simd::cbrt(t19));
             let t25 = ((t20).select(t22, t23 * t19));
             let t26 = (simd::cbrt(t6));
             let t27 = t25 * t26;
-            let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t29 = (simd::cbrt(t28));
-            let t30 = t2 * t29;
-            let t31 = f64x8::splat(M_CBRT6);
-            let t32 = t31 * t31;
-            let t34 = t32 / t29;
             let t35 = ((v_sigma0).sqrt());
             let t36 = (simd::cbrt(v_rho0));
             let t38 = f64x8::splat(1.0) / t36 / v_rho0;
@@ -178,8 +183,6 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t46 = f64x8::splat(1.0) + t45;
             let t48 = f64x8::splat(0.413) / t46;
             let t49 = f64x8::splat(1.227) - t48;
-            let t50 = t29 * t29;
-            let t52 = t31 / t50;
             let t53 = v_rho0 * v_rho0;
             let t54 = t36 * t36;
             let t56 = f64x8::splat(1.0) / t54 / t53;
@@ -187,7 +190,7 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t61 = f64x8::splat(1.0) / t60;
             let t63 = -t49 * t61 + f64x8::splat(1.0);
             let t65 = t49 * t63 + f64x8::splat(1.0);
-            let t69 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t65));
+            let t69 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t27 * t65));
             let t70 = (v_rho1).simd_le(dens_threshold);
             let t71 = -t16;
             let t73 = ((t14).select(t11, (t10).select(t15, t71 * t7)));
@@ -210,7 +213,7 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t103 = f64x8::splat(1.0) / t102;
             let t105 = -t94 * t103 + f64x8::splat(1.0);
             let t107 = t94 * t105 + f64x8::splat(1.0);
-            let t111 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t79 * t107));
+            let t111 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t79 * t107));
             let tzk0 = t69 + t111;
             acc_zk = tzk0;
             let t112 = t6 * t6;
@@ -222,7 +225,7 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t124 = t26 * t26;
             let t125 = f64x8::splat(1.0) / t124;
             let t126 = t25 * t125;
-            let t129 = t5 * t126 * t65 / f64x8::splat(8.0);
+            let t129 = t5 * t126 * t65 * f64x8::splat(0.125);
             let t130 = t46 * t46;
             let t131 = f64x8::splat(1.0) / t130;
             let t132 = t131 * t2;
@@ -239,20 +242,20 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t157 = f64x8::splat(0.09177777777777778) * t133 * t136 * t45 - f64x8::splat(0.024333333333333332) * t52 * v_sigma0 * t153;
             let t159 = -f64x8::splat(0.09177777777777778) * t133 * t136 * t141 + t147 * t157;
             let t161 = f64x8::splat(0.09177777777777778) * t133 * t136 * t137 + t49 * t159;
-            let t166 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t120 * t65 - t129 - f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t161));
+            let t166 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t120 * t65 - t129 - f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t27 * t161));
             let t167 = t71 * t113;
             let t169 = ((t14).select(f64x8::splat(0.0), (t10).select(f64x8::splat(0.0), -t7 - t167)));
             let t172 = ((t75).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t76 * t169));
             let t173 = t172 * t26;
             let t177 = t78 * t125;
-            let t180 = t5 * t177 * t107 / f64x8::splat(8.0);
-            let t182 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t173 * t107 - t180));
+            let t180 = t5 * t177 * t107 * f64x8::splat(0.125);
+            let t182 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t173 * t107 - t180));
             let tvrho0 = t69 + t111 + t6 * (t166 + t182);
             acc_vrho_0 = tvrho0;
             let t186 = ((t10).select(f64x8::splat(0.0), (t14).select(f64x8::splat(0.0), -t7 - t114)));
             let t189 = ((t20).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t23 * t186));
             let t190 = t189 * t26;
-            let t195 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t190 * t65 - t129));
+            let t195 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t190 * t65 - t129));
             let t197 = ((t14).select(f64x8::splat(0.0), (t10).select(f64x8::splat(0.0), t7 - t167)));
             let t200 = ((t75).select(f64x8::splat(0.0), f64x8::splat(4.0) / f64x8::splat(3.0) * t76 * t197));
             let t201 = t200 * t26;
@@ -272,7 +275,7 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t232 = f64x8::splat(0.09177777777777778) * t208 * t211 * t90 - f64x8::splat(0.024333333333333332) * t52 * v_sigma2 * t228;
             let t234 = -f64x8::splat(0.09177777777777778) * t208 * t211 * t216 + t222 * t232;
             let t236 = f64x8::splat(0.09177777777777778) * t208 * t211 * t212 + t94 * t234;
-            let t241 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t201 * t107 - t180 - f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t79 * t236));
+            let t241 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t201 * t107 - t180 - f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t79 * t236));
             let tvrho1 = t69 + t111 + t6 * (t195 + t241);
             acc_vrho_1 = tvrho1;
             let t244 = f64x8::splat(1.0) / t35;
@@ -280,17 +283,16 @@ pub fn gga_x_pbetrans_vxc_pol(
             let t257 = -f64x8::splat(0.034416666666666665) * t133 * t245 * t45 + f64x8::splat(0.009125) * t52 * t56;
             let t259 = f64x8::splat(0.034416666666666665) * t133 * t245 * t141 + t147 * t257;
             let t261 = -f64x8::splat(0.034416666666666665) * t133 * t245 * t137 + t49 * t259;
-            let t265 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t27 * t261));
+            let t265 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t27 * t261));
             let tvsigma0 = t6 * t265;
             acc_vsigma_0 = tvsigma0;
-            let tvsigma1 = f64x8::splat(0.0);
             acc_vsigma_1 = tvsigma1;
             let t266 = f64x8::splat(1.0) / t80;
             let t267 = t266 * t83;
             let t279 = -f64x8::splat(0.034416666666666665) * t208 * t267 * t90 + f64x8::splat(0.009125) * t52 * t98;
             let t281 = f64x8::splat(0.034416666666666665) * t208 * t267 * t216 + t222 * t279;
             let t283 = -f64x8::splat(0.034416666666666665) * t208 * t267 * t212 + t94 * t281;
-            let t287 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t79 * t283));
+            let t287 = ((t70).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t79 * t283));
             let tvsigma2 = t6 * t287;
             acc_vsigma_2 = tvsigma2;
         }

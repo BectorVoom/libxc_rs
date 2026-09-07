@@ -32,19 +32,36 @@ pub fn gga_c_ccdf_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = M_CBRT2;
+    let t8 = M_CBRT6;
+    let t9 = t8 * t8;
+    let t10 = t7 * t9;
+    let t11 = M_PI * M_PI;
+    let t12 = pow_1_3(t11);
+    let t13 = 1.0 / t12;
+    let t42 = param_c4 * t7 * t9;
+    let t62 = t10 * t13;
+    let t78 = param_c2 * param_c2;
+    let t100 = param_c4 * param_c4;
+    let t101 = t7 * t7;
+    let t102 = t100 * t101;
+    let t103 = t102 * t8;
+    let t104 = t12 * t12;
+    let t105 = 1.0 / t104;
+    let t127 = t8 * t105;
+    let t165 = t9 * t13;
+    let t179 = t101 * t8 * t105;
+    let t206 = t78 * param_c2;
+    let t240 = t100 * param_c4;
+    let t242 = 1.0 / t11;
     for ip in 0..zk.len() {
         let t1 = pow_1_3(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = param_c2 * t2 + 1.0;
         let t5 = 1.0 / t4;
         let t6 = param_c1 * t5;
-        let t7 = M_CBRT2;
-        let t8 = M_CBRT6;
-        let t9 = t8 * t8;
-        let t10 = t7 * t9;
-        let t11 = M_PI * M_PI;
-        let t12 = pow_1_3(t11);
-        let t13 = 1.0 / t12;
         let t14 = rmath::sqrt(sigma[ip]);
         let t15 = t13 * t14;
         let t17 = 1.0 / t1 / rho[ip];
@@ -61,7 +78,6 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t38 = 1.0 / t37;
         let t39 = t36 * t38;
         let t40 = t17 * param_c1 * t39;
-        let t42 = param_c4 * t7 * t9;
         let tvrho0 = tzk0 + t28 * t30 * t27 * param_c2 / 3.0 + t40 * t42 * t15 * t23 / 9.0;
         vrho[ip] += tvrho0;
         let t47 = t28 * t39;
@@ -74,13 +90,11 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t59 = param_c3 * t38;
         let t60 = t59 * param_c4;
         let t61 = t6 * t60;
-        let t62 = t10 * t13;
         let t63 = rho[ip] * rho[ip];
         let t65 = 1.0 / t1 / t63;
         let t71 = t1 * t1;
         let t74 = 1.0 / t71 / rho[ip] * param_c1;
         let t76 = 1.0 / t29 / t4;
-        let t78 = param_c2 * param_c2;
         let t83 = 1.0 / t71 / t63;
         let t84 = t83 * param_c1;
         let t86 = t84 * t30 * t60;
@@ -92,12 +106,6 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t97 = 1.0 / t37 / t24;
         let t98 = t36 * t97;
         let t99 = t95 * t98;
-        let t100 = param_c4 * param_c4;
-        let t101 = t7 * t7;
-        let t102 = t100 * t101;
-        let t103 = t102 * t8;
-        let t104 = t12 * t12;
-        let t105 = 1.0 / t104;
         let t106 = t105 * sigma[ip];
         let t107 = t23 * t23;
         let t112 = t95 * t39;
@@ -108,7 +116,6 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t122 = t121 * param_c2;
         let t123 = t62 * t122;
         let t126 = t84 * t98;
-        let t127 = t8 * t105;
         let t129 = t102 * t127 * t107;
         let t132 = t84 * t39;
         let t134 = t102 * t127 * t23;
@@ -130,12 +137,10 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t161 = t54 * param_c3;
         let t163 = t38 * param_c4 * t7;
         let t164 = t161 * t163;
-        let t165 = t9 * t13;
         let t166 = t165 * t14;
         let t175 = param_c3 * t97;
         let t176 = t175 * t100;
         let t177 = t6 * t176;
-        let t179 = t101 * t8 * t105;
         let t180 = t63 * t63;
         let t182 = 1.0 / t71 / t180;
         let t183 = sigma[ip] * t182;
@@ -145,7 +150,6 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t202 = 1.0 / t92 * param_c1;
         let t203 = t29 * t29;
         let t204 = 1.0 / t203;
-        let t206 = t78 * param_c2;
         let t210 = 1.0 / t180;
         let t211 = t210 * param_c1;
         let t213 = t211 * t76 * t60;
@@ -160,9 +164,7 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t237 = t235 * param_c1 * t36;
         let t238 = t37 * t37;
         let t239 = 1.0 / t238;
-        let t240 = t100 * param_c4;
         let t241 = t239 * t240;
-        let t242 = 1.0 / t11;
         let t243 = t242 * t144;
         let t244 = t107 * t23;
         let t249 = t97 * t240;
@@ -216,7 +218,7 @@ pub fn gga_c_ccdf_kxc_unpol(
         let t365 = t42 * t13 * t362 * t23;
         let t369 = t103 * t352 * t23;
         let t373 = t254 * t345 * t23;
-        let tv3sigma30 = -t344 * t347 / 32.0 + t137 * t354 / 32.0 + t344 * t358 / 32.0 - t47 * t365 / 32.0 - t151 * t369 / 64.0 - t344 * t373 / 192.0;
+        let tv3sigma30 = -t344 * t347 * 0.03125 + t137 * t354 * 0.03125 + t344 * t358 * 0.03125 - t47 * t365 * 0.03125 - t151 * t369 * 0.015625 - t344 * t373 / 192.0;
         v3sigma3[ip] += tv3sigma30;
     }
 }

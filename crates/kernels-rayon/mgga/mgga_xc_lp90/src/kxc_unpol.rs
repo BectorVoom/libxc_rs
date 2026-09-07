@@ -53,6 +53,33 @@ pub fn mgga_xc_lp90_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let tvtau0 = 0.0;
+    let tv2rhotau0 = 0.0;
+    let tv2sigma20 = 0.0;
+    let tv2sigmalapl0 = 0.0;
+    let tv2sigmatau0 = 0.0;
+    let tv2lapl20 = 0.0;
+    let tv2lapltau0 = 0.0;
+    let tv2tau20 = 0.0;
+    let tv3rho2tau0 = 0.0;
+    let tv3rhosigma20 = 0.0;
+    let tv3rhosigmalapl0 = 0.0;
+    let tv3rhosigmatau0 = 0.0;
+    let tv3rholapl20 = 0.0;
+    let tv3rholapltau0 = 0.0;
+    let tv3rhotau20 = 0.0;
+    let tv3sigma30 = 0.0;
+    let tv3sigma2lapl0 = 0.0;
+    let tv3sigma2tau0 = 0.0;
+    let tv3sigmalapl20 = 0.0;
+    let tv3sigmalapltau0 = 0.0;
+    let tv3sigmatau20 = 0.0;
+    let tv3lapl30 = 0.0;
+    let tv3lapl2tau0 = 0.0;
+    let tv3lapltau20 = 0.0;
+    let tv3tau30 = 0.0;
     for ip in 0..zk.len() {
         let t2 = rho[ip] * rho[ip];
         let t3 = pow_1_3(rho[ip]);
@@ -77,7 +104,6 @@ pub fn mgga_xc_lp90_kxc_unpol(
         vsigma[ip] += tvsigma0;
         let tvlapl0 = 0.00037655 / t4 * t16;
         vlapl[ip] += tvlapl0;
-        let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
         let t39 = t13 * t30;
         let t41 = 1.0 / t3 / rho[ip];
@@ -94,19 +120,12 @@ pub fn mgga_xc_lp90_kxc_unpol(
         v2rhosigma[ip] += tv2rhosigma0;
         let tv2rholapl0 = -0.00025103333333333333 * t33 + 0.00012551666666666666 / t2 * t30;
         v2rholapl[ip] += tv2rholapl0;
-        let tv2rhotau0 = 0.0;
         v2rhotau[ip] += tv2rhotau0;
-        let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
-        let tv2sigmalapl0 = 0.0;
         v2sigmalapl[ip] += tv2sigmalapl0;
-        let tv2sigmatau0 = 0.0;
         v2sigmatau[ip] += tv2sigmatau0;
-        let tv2lapl20 = 0.0;
         v2lapl2[ip] += tv2lapl20;
-        let tv2lapltau0 = 0.0;
         v2lapltau[ip] += tv2lapltau0;
-        let tv2tau20 = 0.0;
         v2tau2[ip] += tv2tau20;
         let t73 = t25 * t30;
         let t76 = t13 * t59;
@@ -128,39 +147,22 @@ pub fn mgga_xc_lp90_kxc_unpol(
         let t115 = 1.0 / t3 / t18;
         let tv3rho2lapl0 = 0.0004183888888888889 * t62 - 0.0003347111111111111 * t65 + 8.367777777777778e-05 * t115 * t59;
         v3rho2lapl[ip] += tv3rho2lapl0;
-        let tv3rho2tau0 = 0.0;
         v3rho2tau[ip] += tv3rho2tau0;
-        let tv3rhosigma20 = 0.0;
         v3rhosigma2[ip] += tv3rhosigma20;
-        let tv3rhosigmalapl0 = 0.0;
         v3rhosigmalapl[ip] += tv3rhosigmalapl0;
-        let tv3rhosigmatau0 = 0.0;
         v3rhosigmatau[ip] += tv3rhosigmatau0;
-        let tv3rholapl20 = 0.0;
         v3rholapl2[ip] += tv3rholapl20;
-        let tv3rholapltau0 = 0.0;
         v3rholapltau[ip] += tv3rholapltau0;
-        let tv3rhotau20 = 0.0;
         v3rhotau2[ip] += tv3rhotau20;
-        let tv3sigma30 = 0.0;
         v3sigma3[ip] += tv3sigma30;
-        let tv3sigma2lapl0 = 0.0;
         v3sigma2lapl[ip] += tv3sigma2lapl0;
-        let tv3sigma2tau0 = 0.0;
         v3sigma2tau[ip] += tv3sigma2tau0;
-        let tv3sigmalapl20 = 0.0;
         v3sigmalapl2[ip] += tv3sigmalapl20;
-        let tv3sigmalapltau0 = 0.0;
         v3sigmalapltau[ip] += tv3sigmalapltau0;
-        let tv3sigmatau20 = 0.0;
         v3sigmatau2[ip] += tv3sigmatau20;
-        let tv3lapl30 = 0.0;
         v3lapl3[ip] += tv3lapl30;
-        let tv3lapl2tau0 = 0.0;
         v3lapl2tau[ip] += tv3lapl2tau0;
-        let tv3lapltau20 = 0.0;
         v3lapltau2[ip] += tv3lapltau20;
-        let tv3tau30 = 0.0;
         v3tau3[ip] += tv3tau30;
     }
 }

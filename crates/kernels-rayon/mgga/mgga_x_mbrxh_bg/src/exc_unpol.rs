@@ -22,31 +22,33 @@ pub fn mgga_x_mbrxh_bg_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t4 = 1.0 <= zeta_threshold;
+    let t5 = zeta_threshold - 1.0;
+    let t7 = piecewise5(t4, t5, t4, -t5, 0.0);
+    let t8 = 1.0 + t7;
+    let t10 = pow_1_3(zeta_threshold);
+    let t12 = pow_1_3(t8);
+    let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
+    let t18 = pow_1_3(1.0 / M_PI);
+    let t19 = 1.0 / t18;
+    let t21 = M_CBRT4;
+    let t22 = M_CBRT2;
+    let t23 = t22 * t22;
+    let t30 = M_CBRT6;
+    let t31 = t30 * t30;
+    let t32 = M_PI * M_PI;
+    let t33 = pow_1_3(t32);
+    let t34 = t33 * t33;
     for ip in 0..zk.len() {
-        let t3 = rho[ip] / 2.0 <= dens_threshold;
-        let t4 = 1.0 <= zeta_threshold;
-        let t5 = zeta_threshold - 1.0;
-        let t7 = piecewise5(t4, t5, t4, -t5, 0.0);
-        let t8 = 1.0 + t7;
-        let t10 = pow_1_3(zeta_threshold);
-        let t12 = pow_1_3(t8);
-        let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
+        let t3 = rho[ip] * 0.5 <= dens_threshold;
         let t15 = pow_1_3(rho[ip]);
         let t16 = t14 * t15;
-        let t18 = pow_1_3(1.0 / M_PI);
-        let t19 = 1.0 / t18;
         let t20 = t16 * t19;
-        let t21 = M_CBRT4;
-        let t22 = M_CBRT2;
-        let t23 = t22 * t22;
         let t24 = tau[ip] * t23;
         let t25 = t15 * t15;
         let t27 = 1.0 / t25 / rho[ip];
-        let t30 = M_CBRT6;
-        let t31 = t30 * t30;
-        let t32 = M_PI * M_PI;
-        let t33 = pow_1_3(t32);
-        let t34 = t33 * t33;
         let t37 = sigma[ip] * t23;
         let t38 = rho[ip] * rho[ip];
         let t40 = 1.0 / t25 / t38;
@@ -65,13 +67,13 @@ pub fn mgga_x_mbrxh_bg_exc_unpol(
         let t59 = rmath::exp(t57 / 3.0);
         let t60 = t21 * t59;
         let t61 = rmath::exp(-t57);
-        let t63 = 1.0 + t57 / 2.0;
+        let t63 = 1.0 + t57 * 0.5;
         let t64 = t61 * t63;
         let t65 = 1.0 - t64;
         let t66 = 1.0 / t57;
         let t67 = t65 * t66;
         let t68 = t60 * t67;
-        let t71 = piecewise3(t3, 0.0, -t20 * t68 / 4.0);
+        let t71 = piecewise3(t3, 0.0, -t20 * t68 * 0.25);
         let tzk0 = 2.0 * t71;
         zk[ip] += tzk0;
     }

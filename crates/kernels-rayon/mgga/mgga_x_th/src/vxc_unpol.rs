@@ -76,6 +76,24 @@ pub fn mgga_x_th_vxc_unpol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t4 = f64x8::splat(M_CBRTPI);
+    let t5 = t4 * t4;
+    let t6 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+    let t7 = zeta_threshold - f64x8::splat(1.0);
+    let t9 = ((t6).select(t7, (t6).select(-t7, f64x8::splat(0.0))));
+    let t10 = f64x8::splat(1.0) + t9;
+    let t12 = (simd::cbrt(zeta_threshold));
+    let t14 = (simd::cbrt(t10));
+    let t16 = (((t10).simd_le(zeta_threshold)).select(t12 * zeta_threshold, t14 * t10));
+    let t17 = t5 * t16;
+    let t22 = f64x8::splat(M_CBRT2);
+    let t30 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t31 = f64x8::splat(1.0) / t30;
+    let t32 = f64x8::splat(M_CBRT4);
+    let t33 = t31 * t32;
+    let tvlapl0 = f64x8::splat(0.0);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -89,25 +107,10 @@ pub fn mgga_x_th_vxc_unpol(
         let mut acc_vlapl = V_ZERO;
         let mut acc_vtau = V_ZERO;
         {
-            let t3 = (v_rho / f64x8::splat(2.0)).simd_le(dens_threshold);
-            let t4 = f64x8::splat(M_CBRTPI);
-            let t5 = t4 * t4;
-            let t6 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
-            let t7 = zeta_threshold - f64x8::splat(1.0);
-            let t9 = ((t6).select(t7, (t6).select(-t7, f64x8::splat(0.0))));
-            let t10 = f64x8::splat(1.0) + t9;
-            let t12 = (simd::cbrt(zeta_threshold));
-            let t14 = (simd::cbrt(t10));
-            let t16 = (((t10).simd_le(zeta_threshold)).select(t12 * zeta_threshold, t14 * t10));
-            let t17 = t5 * t16;
+            let t3 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
             let t18 = v_rho * v_rho;
             let t19 = f64x8::splat(1.0) / v_tau;
-            let t22 = f64x8::splat(M_CBRT2);
             let t23 = f64x8::splat(1.0) / v_rho;
-            let t30 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t31 = f64x8::splat(1.0) / t30;
-            let t32 = f64x8::splat(M_CBRT4);
-            let t33 = t31 * t32;
             let t34 = t22 * (f64x8::splat(1.0) + f64x8::splat(7.0) / f64x8::splat(216.0) * v_sigma * t23 * t19) * t33;
             let t37 = ((t3).select(f64x8::splat(0.0), -f64x8::splat(27.0) / f64x8::splat(160.0) * t17 * t18 * t19 * t34));
             let tzk0 = f64x8::splat(2.0) * t37;
@@ -123,7 +126,6 @@ pub fn mgga_x_th_vxc_unpol(
             let t58 = ((t3).select(f64x8::splat(0.0), -f64x8::splat(7.0) / f64x8::splat(1280.0) * t53 * t43 * t22 * t33));
             let tvsigma0 = f64x8::splat(2.0) * v_rho * t58;
             acc_vsigma = tvsigma0;
-            let tvlapl0 = f64x8::splat(0.0);
             acc_vlapl = tvlapl0;
             let t65 = f64x8::splat(1.0) / t42 / v_tau;
             let t67 = t17 * v_rho * t65;

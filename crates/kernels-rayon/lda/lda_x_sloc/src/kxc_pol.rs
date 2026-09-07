@@ -134,6 +134,16 @@ pub fn lda_x_sloc_kxc_pol(
     let param_b = f64x8::splat(param_b);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = param_b + f64x8::splat(1.0);
+    let t3 = f64x8::splat(1.0) / t1 * f64x8::splat(0.5);
+    let t4 = param_a * t3;
+    let t12 = (simd::pow(zeta_threshold, t1));
+    let t63 = param_b * param_b;
+    let t70 = t1 * t1;
+    let t160 = t63 * param_b;
+    let t170 = t70 * t1;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -150,9 +160,6 @@ pub fn lda_x_sloc_kxc_pol(
         let mut acc_v3rho3_2 = V_ZERO;
         let mut acc_v3rho3_3 = V_ZERO;
         {
-            let t1 = param_b + f64x8::splat(1.0);
-            let t3 = f64x8::splat(1.0) / t1 / f64x8::splat(2.0);
-            let t4 = param_a * t3;
             let t5 = v_rho0 + v_rho1;
             let t6 = (simd::pow(t5, param_b));
             let t7 = v_rho0 - v_rho1;
@@ -160,7 +167,6 @@ pub fn lda_x_sloc_kxc_pol(
             let t9 = t7 * t8;
             let t10 = f64x8::splat(1.0) + t9;
             let t11 = (t10).simd_le(zeta_threshold);
-            let t12 = (simd::pow(zeta_threshold, t1));
             let t13 = (simd::pow(t10, t1));
             let t14 = ((t11).select(t12, t13));
             let t15 = f64x8::splat(1.0) - t9;
@@ -199,11 +205,9 @@ pub fn lda_x_sloc_kxc_pol(
             let t57 = param_b * t8;
             let t59 = t56 * t57 * t19;
             let t61 = t4 * t6 * t42;
-            let t63 = param_b * param_b;
             let t64 = t63 * t8;
             let t66 = t56 * t64 * t19;
             let t68 = t4 * t22 * t42;
-            let t70 = t1 * t1;
             let t71 = t13 * t70;
             let t72 = t31 * t31;
             let t73 = t10 * t10;
@@ -249,12 +253,10 @@ pub fn lda_x_sloc_kxc_pol(
             let t153 = t56 * t151 * t19;
             let t155 = t56 * t57 * t42;
             let t158 = t4 * t6 * t99;
-            let t160 = t63 * param_b;
             let t161 = t160 * t29;
             let t163 = t56 * t161 * t19;
             let t165 = t56 * t64 * t42;
             let t168 = t4 * t22 * t99;
-            let t170 = t70 * t1;
             let t171 = t13 * t170;
             let t172 = t72 * t31;
             let t174 = f64x8::splat(1.0) / t73 / t10;

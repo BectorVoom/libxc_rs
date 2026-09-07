@@ -134,6 +134,18 @@ pub fn lda_c_wigner_kxc_pol(
     let param_b = f64x8::splat(param_b);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = f64x8::splat(M_CBRT3);
+    let t10 = f64x8::splat(1.0) / f64x8::splat(M_PI);
+    let t11 = (simd::cbrt(t10));
+    let t12 = t9 * t11;
+    let t13 = f64x8::splat(M_CBRT4);
+    let t14 = t13 * t13;
+    let t36 = t11 * t14;
+    let t75 = t9 * t9;
+    let t77 = t11 * t11;
+    let t104 = t75 * t77;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -157,15 +169,9 @@ pub fn lda_c_wigner_kxc_pol(
             let t5 = f64x8::splat(1.0) / t4;
             let t7 = -t2 * t5 + f64x8::splat(1.0);
             let t8 = t7 * param_a;
-            let t9 = f64x8::splat(M_CBRT3);
-            let t10 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-            let t11 = (simd::cbrt(t10));
-            let t12 = t9 * t11;
-            let t13 = f64x8::splat(M_CBRT4);
-            let t14 = t13 * t13;
             let t15 = (simd::cbrt(t3));
             let t16 = f64x8::splat(1.0) / t15;
-            let t20 = param_b + t12 * t14 * t16 / f64x8::splat(4.0);
+            let t20 = param_b + t12 * t14 * t16 * f64x8::splat(0.25);
             let t21 = f64x8::splat(1.0) / t20;
             let tzk0 = t8 * t21;
             acc_zk = tzk0;
@@ -177,7 +183,6 @@ pub fn lda_c_wigner_kxc_pol(
             let t29 = param_a * t21;
             let t33 = t20 * t20;
             let t34 = f64x8::splat(1.0) / t33;
-            let t36 = t11 * t14;
             let t37 = t34 * t9 * t36;
             let t39 = t16 * t7 * param_a * t37 / f64x8::splat(12.0);
             let tvrho0 = t3 * t27 * t29 + t39 + tzk0;
@@ -200,8 +205,6 @@ pub fn lda_c_wigner_kxc_pol(
             let t68 = t15 * t15;
             let t70 = f64x8::splat(1.0) / t68 / t3;
             let t74 = f64x8::splat(1.0) / t33 / t20;
-            let t75 = t9 * t9;
-            let t77 = t11 * t11;
             let t79 = t74 * t75 * t77 * t13;
             let t81 = t70 * t7 * param_a * t79 / f64x8::splat(18.0);
             let tv2rho20 = f64x8::splat(2.0) * t45 + t53 + t3 * t61 * t29 + t66 / f64x8::splat(6.0) + t81;
@@ -220,7 +223,6 @@ pub fn lda_c_wigner_kxc_pol(
             let t100 = t44 * t34;
             let t101 = t100 * t51;
             let t103 = t8 * t74;
-            let t104 = t75 * t77;
             let t108 = t104 * t13 / t68 / t4;
             let t110 = t103 * t108 / f64x8::splat(18.0);
             let t114 = t12 * t14 / t15 / t4;
@@ -237,7 +239,7 @@ pub fn lda_c_wigner_kxc_pol(
             let t137 = f64x8::splat(1.0) / t136;
             let t139 = param_a * t137 * t10;
             let t141 = t24 * t7 * t139 / f64x8::splat(6.0);
-            let tv3rho30 = f64x8::splat(3.0) * t98 + t101 / f64x8::splat(6.0) - t110 - t116 + t3 * t124 * t29 + t129 / f64x8::splat(4.0) + t133 / f64x8::splat(6.0) + t141;
+            let tv3rho30 = f64x8::splat(3.0) * t98 + t101 / f64x8::splat(6.0) - t110 - t116 + t3 * t124 * t29 + t129 * f64x8::splat(0.25) + t133 / f64x8::splat(6.0) + t141;
             acc_v3rho3_0 = tv3rho30;
             let t143 = t84 * param_a;
             let t145 = f64x8::splat(2.0) * t143 * t21;
@@ -257,7 +259,7 @@ pub fn lda_c_wigner_kxc_pol(
             let tv3rho32 = t145 + t147 / f64x8::splat(9.0) + t101 / f64x8::splat(18.0) - t110 - t116 + t167 + t3 * t168 * t29 + t173 / f64x8::splat(12.0) + t157 + t160 / f64x8::splat(9.0) + t133 / f64x8::splat(18.0) + t141;
             acc_v3rho3_2 = tv3rho32;
             let t179 = t117 + t119 + t123;
-            let tv3rho33 = f64x8::splat(3.0) * t167 + t147 / f64x8::splat(6.0) - t110 - t116 + t3 * t179 * t29 + t173 / f64x8::splat(4.0) + t160 / f64x8::splat(6.0) + t141;
+            let tv3rho33 = f64x8::splat(3.0) * t167 + t147 / f64x8::splat(6.0) - t110 - t116 + t3 * t179 * t29 + t173 * f64x8::splat(0.25) + t160 / f64x8::splat(6.0) + t141;
             acc_v3rho3_3 = tv3rho33;
         }
         store_add(zk, ip, m, acc_zk);

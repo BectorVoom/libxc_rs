@@ -24,6 +24,22 @@ pub fn mgga_x_br89_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t8 = zeta_threshold - 1.0;
+    let t12 = -t8;
+    let t18 = pow_1_3(zeta_threshold);
+    let t19 = t18 * zeta_threshold;
+    let t26 = pow_1_3(1.0 / M_PI);
+    let t27 = 1.0 / t26;
+    let t28 = M_CBRT4;
+    let t29 = t27 * t28;
+    let t67 = M_CBRT6;
+    let t68 = t67 * t67;
+    let t69 = M_PI * M_PI;
+    let t70 = pow_1_3(t69);
+    let t71 = t70 * t70;
+    let t73 = 3.0 / 10.0 * t68 * t71;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -38,23 +54,15 @@ pub fn mgga_x_br89_exc_pol(
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;
         let t7 = 2.0 * rho0 * t4 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
         let t11 = 2.0 * rho1 * t4 <= zeta_threshold;
-        let t12 = -t8;
         let t13 = rho0 - rho1;
         let t15 = piecewise5(t7, t8, t11, t12, t13 * t4);
         let t16 = 1.0 + t15;
         let t17 = t16 <= zeta_threshold;
-        let t18 = pow_1_3(zeta_threshold);
-        let t19 = t18 * zeta_threshold;
         let t20 = pow_1_3(t16);
         let t22 = piecewise3(t17, t19, t20 * t16);
         let t23 = pow_1_3(t3);
         let t24 = t22 * t23;
-        let t26 = pow_1_3(1.0 / M_PI);
-        let t27 = 1.0 / t26;
-        let t28 = M_CBRT4;
-        let t29 = t27 * t28;
         let t30 = t24 * t29;
         let t31 = pow_1_3(rho0);
         let t32 = t31 * t31;
@@ -66,7 +74,7 @@ pub fn mgga_x_br89_exc_pol(
         let t41 = rho0 * rho0;
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
-        let t47 = rmath::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
+        let t47 = rmath::abs(t35 * 0.5 - 2.0 * t38 + t44 * 0.25);
         let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
@@ -75,17 +83,11 @@ pub fn mgga_x_br89_exc_pol(
         let t57 = xc_mgga_x_br89_get_x(t56);
         let t59 = rmath::exp(t57 / 3.0);
         let t60 = rmath::exp(-t57);
-        let t62 = 1.0 + t57 / 2.0;
+        let t62 = 1.0 + t57 * 0.5;
         let t63 = t60 * t62;
         let t64 = 1.0 - t63;
         let t65 = t59 * t64;
         let t66 = 1.0 / t57;
-        let t67 = M_CBRT6;
-        let t68 = t67 * t67;
-        let t69 = M_PI * M_PI;
-        let t70 = pow_1_3(t69);
-        let t71 = t70 * t70;
-        let t73 = 3.0 / 10.0 * t68 * t71;
         let t74 = tau0 * t34;
         let t75 = t73 - t74;
         let t76 = t73 + t74;
@@ -102,7 +104,7 @@ pub fn mgga_x_br89_exc_pol(
         let t94 = 1.0 + param_at * (t75 * t77 - 2.0 * t80 * t83 + t87 * t90);
         let t95 = t66 * t94;
         let t96 = t65 * t95;
-        let t99 = piecewise3(t2, 0.0, -t30 * t96 / 4.0);
+        let t99 = piecewise3(t2, 0.0, -t30 * t96 * 0.25);
         let t100 = rho1 <= dens_threshold;
         let t101 = -t13;
         let t103 = piecewise5(t11, t8, t7, t12, t101 * t4);
@@ -122,7 +124,7 @@ pub fn mgga_x_br89_exc_pol(
         let t121 = rho1 * rho1;
         let t123 = 1.0 / t112 / t121;
         let t124 = t120 * t123;
-        let t127 = rmath::abs(t115 / 2.0 - 2.0 * t118 + t124 / 4.0);
+        let t127 = rmath::abs(t115 * 0.5 - 2.0 * t118 + t124 * 0.25);
         let t129 = t127 / 3.0 < 5e-13;
         let t133 = t115 / 6.0 - 2.0 / 3.0 * t118 + t124 / 12.0;
         let t134 = 0.0 < t133;
@@ -131,7 +133,7 @@ pub fn mgga_x_br89_exc_pol(
         let t137 = xc_mgga_x_br89_get_x(t136);
         let t139 = rmath::exp(t137 / 3.0);
         let t140 = rmath::exp(-t137);
-        let t142 = 1.0 + t137 / 2.0;
+        let t142 = 1.0 + t137 * 0.5;
         let t143 = t140 * t142;
         let t144 = 1.0 - t143;
         let t145 = t139 * t144;
@@ -152,7 +154,7 @@ pub fn mgga_x_br89_exc_pol(
         let t167 = 1.0 + param_at * (t148 * t150 - 2.0 * t153 * t156 + t160 * t163);
         let t168 = t146 * t167;
         let t169 = t145 * t168;
-        let t172 = piecewise3(t100, 0.0, -t110 * t169 / 4.0);
+        let t172 = piecewise3(t100, 0.0, -t110 * t169 * 0.25);
         let tzk0 = t99 + t172;
         zk[ip] += tzk0;
     }

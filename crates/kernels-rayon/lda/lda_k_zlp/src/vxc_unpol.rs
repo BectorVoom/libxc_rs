@@ -70,6 +70,18 @@ pub fn lda_k_zlp_vxc_unpol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = f64x8::splat(M_CBRT3);
+    let t2 = t1 * t1;
+    let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t5 = f64x8::splat(1.0) / t4;
+    let t7 = f64x8::splat(M_CBRT4);
+    let t8 = t2 * t5 * t7;
+    let t10 = (simd::cbrt(zeta_threshold));
+    let t11 = t10 * t10;
+    let t13 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t11 * zeta_threshold, f64x8::splat(1.0)));
+    let t30 = t7 * t13;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -77,15 +89,6 @@ pub fn lda_k_zlp_vxc_unpol(
         let mut acc_zk = V_ZERO;
         let mut acc_vrho = V_ZERO;
         {
-            let t1 = f64x8::splat(M_CBRT3);
-            let t2 = t1 * t1;
-            let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t5 = f64x8::splat(1.0) / t4;
-            let t7 = f64x8::splat(M_CBRT4);
-            let t8 = t2 * t5 * t7;
-            let t10 = (simd::cbrt(zeta_threshold));
-            let t11 = t10 * t10;
-            let t13 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t11 * zeta_threshold, f64x8::splat(1.0)));
             let t14 = (simd::cbrt(v_rho));
             let t15 = t14 * t14;
             let t16 = t13 * t15;
@@ -98,7 +101,6 @@ pub fn lda_k_zlp_vxc_unpol(
             acc_zk = tzk0;
             let t27 = t15 * v_rho;
             let t29 = t27 * t2 * t5;
-            let t30 = t7 * t13;
             let t35 = f64x8::splat(1.0) / t19;
             let t38 = -f64x8::splat(0.0006533333333333333) / t15 * t20 + f64x8::splat(0.3333333333333333) / v_rho * t35;
             let tvrho0 = f64x8::splat(1.7984444444444445) * t25 + f64x8::splat(1.0790666666666666) * t29 * t30 * t38;

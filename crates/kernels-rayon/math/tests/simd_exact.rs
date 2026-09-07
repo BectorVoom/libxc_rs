@@ -144,21 +144,101 @@ fn ln_bit_identical_to_rmath() {
     check_all(&vals, rmath::ln, simd::ln, "ln");
 }
 
-#[test]
-fn cbrt_bit_identical_to_scalar_kernels() {
+/// Inputs for the vector `cbrt`, aimed at every arm of `simd::cbrt`: the
+/// normal path over the whole binade range (so every exponent residue mod 3
+/// and every `e / 3` the reciprocal trick can see), subnormals (lane-wise
+/// fallback), zero/inf/NaN lanes (computed on 1.0 and patched), exact
+/// powers of two and near-cubes (the `zz == 1` and mid-interval snap), the
+/// two tabulated hard cases at many scales, and enough random inputs for
+/// the `2^-75` rounding-boundary patch to fire.
+fn cbrt_inputs() -> Vec<f64> {
     let mut rng = Rng(0xA0761D6478BD642F);
     let mut vals = specials();
-    for _ in 0..1_000_000 {
+    for _ in 0..2_000_000 {
         vals.push(rng.logmag(1e-30, 1e10, true));
     }
-    for _ in 0..500_000 {
+    for _ in 0..1_000_000 {
+        vals.push(rng.logmag(1e-320, 1e300, true));
+    }
+    for _ in 0..1_000_000 {
         vals.push(f64::from_bits(rng.next()));
     }
+    // Every power of two, both signs, including the subnormal ones.
+    for k in -1074i32..=1023 {
+        let v = 2f64.powi(k);
+        vals.push(v);
+        vals.push(-v);
+    }
+    // Near-cubes: y^3 for random y lands next to a value whose cube root is
+    // exactly representable, where the snap decides the last bit.
+    for _ in 0..500_000 {
+        let y = rng.logmag(1e-100, 1e100, true);
+        let c = y * y * y;
+        vals.push(c);
+        for d in [-2i64, -1, 1, 2] {
+            vals.push(f64::from_bits(c.to_bits().wrapping_add(d as u64)));
+        }
+    }
+    // The two hard cases core-math tabulates, at every scale 2^(3k), and
+    // their bit-neighbours.
+    for hard in [0x4009b78223aa307cu64, 0x401a202bfc89ddff] {
+        for k in (-340i32..=340).step_by(7) {
+            let base = f64::from_bits(hard) * 2f64.powi(3 * k);
+            for d in [-2i64, -1, 0, 1, 2] {
+                let v = f64::from_bits(base.to_bits().wrapping_add(d as u64));
+                vals.push(v);
+                vals.push(-v);
+            }
+        }
+    }
+    vals
+}
+
+#[test]
+fn cbrt_bit_identical_to_scalar_kernels() {
+    let vals = cbrt_inputs();
     check_all(&vals, powers::cbrt_f64, simd::cbrt, "cbrt");
+    check_all(&vals, rmath::cbrt, simd::cbrt, "cbrt vs rmath");
+    check_all(&vals, f64::cbrt, simd::cbrt, "cbrt vs f64::cbrt");
     check_all(&vals, powers::pow_2_3, simd::pow_2_3, "pow_2_3");
     check_all(&vals, powers::pow_4_3, simd::pow_4_3, "pow_4_3");
     check_all(&vals, powers::pow_5_3, simd::pow_5_3, "pow_5_3");
     check_all(&vals, powers::pow_7_3, simd::pow_7_3, "pow_7_3");
+}
+
+/// Lanes that take different arms of `simd::cbrt` in one vector must not
+/// disturb each other: a subnormal, a zero, a NaN, an infinity, a hard
+/// case and ordinary values mixed in every position.
+#[test]
+fn cbrt_mixed_lanes_do_not_leak() {
+    let mut rng = Rng(0x9E3779B97F4A7C15);
+    let odd = [
+        0.0,
+        -0.0,
+        f64::NAN,
+        f64::INFINITY,
+        f64::NEG_INFINITY,
+        f64::from_bits(1),
+        f64::MIN_POSITIVE / 3.0,
+        f64::from_bits(0x4009b78223aa307c),
+        -f64::from_bits(0x401a202bfc89ddff),
+        8.0,
+        -27.0,
+        1.0,
+    ];
+    let mut vals = Vec::new();
+    for _ in 0..40_000 {
+        let mut lanes = [0.0f64; 8];
+        for l in lanes.iter_mut() {
+            *l = if rng.next() % 3 == 0 {
+                odd[(rng.next() % odd.len() as u64) as usize]
+            } else {
+                rng.logmag(1e-20, 1e5, true)
+            };
+        }
+        vals.extend_from_slice(&lanes);
+    }
+    check_all(&vals, rmath::cbrt, simd::cbrt, "cbrt mixed lanes");
 }
 
 #[test]

@@ -248,6 +248,62 @@ def _vec_expr(e):
     return splat_leaves(rewrite_cmp(rewrite_calls(e)))
 
 
+_IDENT = re.compile(r"\b[A-Za-z_]\w*\b")
+_LET = re.compile(r"^\s*let (\w+) = (.*);$")
+
+
+def split_invariant(stmts, is_root):
+    """Partition single-statement lines into (loop-invariant, loop-varying).
+
+    A `let NAME = EXPR;` is loop-varying if any identifier in EXPR is a
+    varying root (`is_root`: the per-point input loads) or a local already
+    classed as varying; everything else -- constants, the functional's
+    parameters, the thresholds, and locals built only from those -- is
+    invariant and can be evaluated once, before the grid loop. Relative
+    order is kept within each class, and an invariant statement only ever
+    reads earlier invariants, so evaluating the first class first is the
+    same computation in the same order: the value of every binding is
+    unchanged bit for bit, it is merely computed once instead of per step.
+
+    Why this exists (2026-09-07): maple2c bodies open with 10-30 statements
+    that depend only on `zeta_threshold` and constants, among them **three
+    `cbrt`s** in `gga_x_pbe` and **four** in `fused_hse` (`cbrt(pi^2)`,
+    `cbrt(1/pi)`, `cbrt(zeta_threshold)`, `cbrt(1 + zeta_threshold - 1)`).
+    LLVM's LICM hoisted those when `cbrt` was branch-free inline arithmetic
+    (`docs/perf/kernel-codegen.md` measured hoisting at ~0 then). rmath's
+    bit-exact `cbrt` is a per-lane loop with data-dependent branches, which
+    LICM cannot move, so every 8-point step recomputed them: 4.9 ns per
+    cbrt per point, 14.6 of `gga_x_pbe vxc unpol`'s 20.3 ns.
+
+    Any line that is not a single `let` stays in the loop; a name bound twice
+    in one body disables hoisting for that body (no kernel does this, but a
+    shadowed invariant hoisted above a varying redefinition would silently
+    change which binding the loop sees).
+    """
+    defined = set()
+    for st in stmts:
+        m = _LET.match(st)
+        if m:
+            if m.group(1) in defined:
+                return [], list(stmts)
+            defined.add(m.group(1))
+    variant = set()
+    hoisted, loop = [], []
+    for st in stmts:
+        m = _LET.match(st)
+        if not m:
+            loop.append(st)
+            continue
+        name, expr = m.group(1), m.group(2)
+        idents = set(_IDENT.findall(expr))
+        if any(is_root(i) or i in variant for i in idents):
+            variant.add(name)
+            loop.append(st)
+        else:
+            hoisted.append(st)
+    return hoisted, loop
+
+
 def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
     """Turn the emitted scalar statement list into a SIMD function body."""
     if in_dims is None:
@@ -306,6 +362,18 @@ def simd_body(lines, ins, outs, scalars, fn, in_dims=None, out_dims=None):
             out_lines.append(f"            acc_{m.group(1)}_{k} = acc_{m.group(1)}_{k} + ({e});")
             continue
         raise ValueError(f"SIMD rewrite does not handle: {st}")
+
+    # Loop-invariant statements run once, before the grid loop (see
+    # `split_invariant`). The varying roots are the per-step input vectors.
+    hoisted, out_lines = split_invariant(
+        out_lines, lambda n: n.startswith("v_") or n.startswith("acc_"))
+    hoisted = [l.strip() for l in hoisted]
+    hoist_block = ""
+    if hoisted:
+        hoist_block = (
+            "    // Loop-invariant bindings (constants, parameters, thresholds):\n"
+            "    // the same statements maple2c emits per point, evaluated once.\n"
+            + "\n".join(f"    {l}" for l in hoisted) + "\n")
 
     math_import = "use libxc_rkernel_math::simd;"
 
@@ -467,7 +535,7 @@ pub fn {fn}(
 ) {{
     let np = {bound};
 {nl.join(f"    let {n} = {VT}::splat({n});" for n in scalars)}
-    let mut ip = 0usize;
+{hoist_block}    let mut ip = 0usize;
     while ip < np {{
         let m = (np - ip).min({L});
 {nl.join(in_loads)}

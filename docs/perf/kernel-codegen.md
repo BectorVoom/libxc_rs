@@ -95,6 +95,19 @@ was already identical.
 
 All three variants fingerprinted identically (`ce0f244c739f0868`).
 
+**Superseded 2026-09-07.** The "LICM already does this" finding was true of
+the tree it was measured on, where `pow_1_3` was `powers.rs::cbrt_f64` --
+branch-free inline arithmetic LLVM can move. Once `cbrt` became rmath's
+bit-exact form (a per-lane loop with data-dependent branches, which LICM
+cannot hoist), every SIMD kernel recomputed its `cbrt(pi^2)`,
+`cbrt(zeta_threshold)` and friends on every 8-point step, at 4.9 ns each:
+`gga_x_pbe vxc unpol` spent 14.6 of its 20.3 ns/pt single-threaded on three
+cube roots of constants. The emitter now hoists every statement that reads
+only constants, parameters and thresholds above the grid loop
+(`simd.py::split_invariant`, applied to both the SIMD and the scalar
+emit): 20.3 -> 8.5 ns/pt, fingerprint unchanged. See
+`docs/perf/vs-libxc.md`, "Three bit-exact levers".
+
 ### 3. Register-pressure scheduling — worth ~0
 
 Implemented as `tools/translate_rayon/sched.py`: greedy list scheduling over the

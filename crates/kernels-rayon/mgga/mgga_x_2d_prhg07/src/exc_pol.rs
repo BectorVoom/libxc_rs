@@ -22,6 +22,15 @@ pub fn mgga_x_2d_prhg07_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t8 = zeta_threshold - 1.0;
+    let t12 = -t8;
+    let t18 = rmath::sqrt(zeta_threshold);
+    let t19 = t18 * zeta_threshold;
+    let t24 = M_SQRT2;
+    let t37 = 1.0 / M_PI;
+    let t41 = rmath::exp(-1.0);
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -36,37 +45,30 @@ pub fn mgga_x_2d_prhg07_exc_pol(
         let t3 = rho0 + rho1;
         let t4 = 1.0 / t3;
         let t7 = 2.0 * rho0 * t4 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
         let t11 = 2.0 * rho1 * t4 <= zeta_threshold;
-        let t12 = -t8;
         let t13 = rho0 - rho1;
         let t15 = piecewise5(t7, t8, t11, t12, t13 * t4);
         let t16 = 1.0 + t15;
         let t17 = t16 <= zeta_threshold;
-        let t18 = rmath::sqrt(zeta_threshold);
-        let t19 = t18 * zeta_threshold;
         let t20 = rmath::sqrt(t16);
         let t21 = t20 * t16;
         let t22 = piecewise3(t17, t19, t21);
         let t23 = M_PI * t22;
-        let t24 = M_SQRT2;
         let t25 = rmath::sqrt(t3);
         let t26 = t24 * t25;
         let t27 = rho0 * rho0;
         let t28 = 1.0 / t27;
         let t32 = t27 * rho0;
         let t33 = 1.0 / t32;
-        let t37 = 1.0 / M_PI;
-        let t38 = (lapl0 * t28 / 4.0 - tau0 * t28 + sigma0 * t33 / 8.0) * t37;
+        let t38 = (lapl0 * t28 * 0.25 - tau0 * t28 + sigma0 * t33 * 0.125) * t37;
         let t39 = -0.9999999999 < t38;
         let t40 = piecewise3(t39, t38, -0.9999999999);
-        let t41 = rmath::exp(-1.0);
         let t43 = lambert_w(t40 * t41);
         let t44 = t43 + 1.0;
-        let t45 = t44 / 2.0;
+        let t45 = t44 * 0.5;
         let t46 = xc_bessel_I0(t45);
         let t47 = t26 * t46;
-        let t50 = piecewise3(t2, 0.0, -t23 * t47 / 8.0);
+        let t50 = piecewise3(t2, 0.0, -t23 * t47 * 0.125);
         let t51 = rho1 <= dens_threshold;
         let t52 = -t13;
         let t54 = piecewise5(t11, t8, t7, t12, t52 * t4);
@@ -80,15 +82,15 @@ pub fn mgga_x_2d_prhg07_exc_pol(
         let t62 = 1.0 / t61;
         let t66 = t61 * rho1;
         let t67 = 1.0 / t66;
-        let t71 = (lapl1 * t62 / 4.0 - tau1 * t62 + sigma2 * t67 / 8.0) * t37;
+        let t71 = (lapl1 * t62 * 0.25 - tau1 * t62 + sigma2 * t67 * 0.125) * t37;
         let t72 = -0.9999999999 < t71;
         let t73 = piecewise3(t72, t71, -0.9999999999);
         let t75 = lambert_w(t73 * t41);
         let t76 = t75 + 1.0;
-        let t77 = t76 / 2.0;
+        let t77 = t76 * 0.5;
         let t78 = xc_bessel_I0(t77);
         let t79 = t26 * t78;
-        let t82 = piecewise3(t51, 0.0, -t60 * t79 / 8.0);
+        let t82 = piecewise3(t51, 0.0, -t60 * t79 * 0.125);
         let tzk0 = t50 + t82;
         zk[ip] += tzk0;
     }

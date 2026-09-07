@@ -19,6 +19,13 @@ pub fn lda_c_1d_loos_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = M_SQRT2;
+    let t10 = rmath::sqrt(M_PI);
+    let t12 = rmath::ln(t9 * t10);
+    let t14 = -0.3083 * t12 - 0.231225;
+    let t22 = -1.2332 * t12 - 0.8632856383593266;
     for ip in 0..zk.len() {
         let t1 = 1.0 / rho[ip];
         let t3 = 1.0 + 0.6166 * t1;
@@ -27,14 +34,9 @@ pub fn lda_c_1d_loos_kxc_unpol(
         let t6 = t5 * t5;
         let t7 = rho[ip] * rho[ip];
         let t8 = t6 * t7;
-        let t9 = M_SQRT2;
-        let t10 = rmath::sqrt(M_PI);
-        let t12 = rmath::ln(t9 * t10);
-        let t14 = -0.3083 * t12 - 0.231225;
         let t15 = t5 * rho[ip];
         let t17 = 1.0 - 3.243593902043464 * t15;
         let t18 = t17 * t17;
-        let t22 = -1.2332 * t12 - 0.8632856383593266;
         let t23 = t22 * t5;
         let t29 = t6 * t5;
         let t30 = t7 * rho[ip];

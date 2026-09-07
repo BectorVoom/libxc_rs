@@ -22,6 +22,31 @@ pub fn mgga_k_lk_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = t3 * t3;
+    let t5 = M_CBRTPI;
+    let t7 = t4 * t5 * M_PI;
+    let t13 = zeta_threshold - 1.0;
+    let t17 = -t13;
+    let t23 = pow_1_3(zeta_threshold);
+    let t24 = t23 * t23;
+    let t25 = t24 * zeta_threshold;
+    let t33 = M_CBRT6;
+    let t34 = M_PI * M_PI;
+    let t35 = pow_1_3(t34);
+    let t36 = t35 * t35;
+    let t37 = 1.0 / t36;
+    let t38 = t33 * t37;
+    let t47 = t33 * t33;
+    let t49 = 1.0 / t35 / t34;
+    let t50 = t47 * t49;
+    let t72 = 1.0 / param_kappa;
+    let t86 = t34 * t34;
+    let t87 = 1.0 / t86;
+    let t92 = param_kappa * param_kappa;
+    let t93 = 1.0 / t92;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -33,42 +58,24 @@ pub fn mgga_k_lk_exc_pol(
         let tau0 = tau[ip * 2];
         let tau1 = tau[ip * 2 + 1];
         let t2 = rho0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = t3 * t3;
-        let t5 = M_CBRTPI;
-        let t7 = t4 * t5 * M_PI;
         let t8 = rho0 + rho1;
         let t9 = 1.0 / t8;
         let t12 = 2.0 * rho0 * t9 <= zeta_threshold;
-        let t13 = zeta_threshold - 1.0;
         let t16 = 2.0 * rho1 * t9 <= zeta_threshold;
-        let t17 = -t13;
         let t18 = rho0 - rho1;
         let t20 = piecewise5(t12, t13, t16, t17, t18 * t9);
         let t21 = 1.0 + t20;
         let t22 = t21 <= zeta_threshold;
-        let t23 = pow_1_3(zeta_threshold);
-        let t24 = t23 * t23;
-        let t25 = t24 * zeta_threshold;
         let t26 = pow_1_3(t21);
         let t27 = t26 * t26;
         let t29 = piecewise3(t22, t25, t27 * t21);
         let t30 = pow_1_3(t8);
         let t31 = t30 * t30;
-        let t33 = M_CBRT6;
-        let t34 = M_PI * M_PI;
-        let t35 = pow_1_3(t34);
-        let t36 = t35 * t35;
-        let t37 = 1.0 / t36;
-        let t38 = t33 * t37;
         let t39 = rho0 * rho0;
         let t40 = pow_1_3(rho0);
         let t41 = t40 * t40;
         let t43 = 1.0 / t41 / t39;
         let t44 = sigma0 * t43;
-        let t47 = t33 * t33;
-        let t49 = 1.0 / t35 / t34;
-        let t50 = t47 * t49;
         let t51 = lapl0 * lapl0;
         let t52 = t39 * rho0;
         let t54 = 1.0 / t40 / t52;
@@ -82,19 +89,14 @@ pub fn mgga_k_lk_exc_pol(
         let t68 = 1.0 / t40 / t66;
         let t69 = t65 * t68;
         let t71 = t50 * t69 / 17496.0;
-        let t72 = 1.0 / param_kappa;
         let t78 = 1.0 + (5.0 / 648.0 * t38 * t44 + t57 - t64 + t71 + 25.0 / 419904.0 * t50 * t69 * t72) * t72;
         let t80 = t38 * sigma0;
         let t81 = t57 - t64 + t71;
         let t83 = t43 * t81 * t72;
-        let t86 = t34 * t34;
-        let t87 = 1.0 / t86;
         let t88 = t65 * sigma0;
         let t89 = t87 * t88;
         let t90 = t58 * t58;
         let t91 = 1.0 / t90;
-        let t92 = param_kappa * param_kappa;
-        let t93 = 1.0 / t92;
         let t94 = t91 * t93;
         let t99 = 1.0 + (5.0 / 324.0 * t80 * t83 + 125.0 / 45349632.0 * t89 * t94) * t72;
         let t103 = 1.0 + param_kappa * (2.0 - 1.0 / t78 - 1.0 / t99);

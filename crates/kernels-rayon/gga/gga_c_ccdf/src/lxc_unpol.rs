@@ -37,19 +37,40 @@ pub fn gga_c_ccdf_lxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = M_CBRT2;
+    let t8 = M_CBRT6;
+    let t9 = t8 * t8;
+    let t10 = t7 * t9;
+    let t11 = M_PI * M_PI;
+    let t12 = pow_1_3(t11);
+    let t13 = 1.0 / t12;
+    let t42 = param_c4 * t7 * t9;
+    let t62 = t10 * t13;
+    let t78 = param_c2 * param_c2;
+    let t100 = param_c4 * param_c4;
+    let t101 = t7 * t7;
+    let t102 = t100 * t101;
+    let t103 = t102 * t8;
+    let t104 = t12 * t12;
+    let t105 = 1.0 / t104;
+    let t127 = t8 * t105;
+    let t165 = t9 * t13;
+    let t179 = t101 * t8 * t105;
+    let t206 = t78 * param_c2;
+    let t240 = t100 * param_c4;
+    let t242 = 1.0 / t11;
+    let t378 = t240 * t242;
+    let t460 = t100 * t100;
+    let t535 = t78 * t78;
+    let t662 = t460 * t242;
     for ip in 0..zk.len() {
         let t1 = pow_1_3(rho[ip]);
         let t2 = 1.0 / t1;
         let t4 = param_c2 * t2 + 1.0;
         let t5 = 1.0 / t4;
         let t6 = param_c1 * t5;
-        let t7 = M_CBRT2;
-        let t8 = M_CBRT6;
-        let t9 = t8 * t8;
-        let t10 = t7 * t9;
-        let t11 = M_PI * M_PI;
-        let t12 = pow_1_3(t11);
-        let t13 = 1.0 / t12;
         let t14 = rmath::sqrt(sigma[ip]);
         let t15 = t13 * t14;
         let t17 = 1.0 / t1 / rho[ip];
@@ -66,7 +87,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t38 = 1.0 / t37;
         let t39 = t36 * t38;
         let t40 = t17 * param_c1 * t39;
-        let t42 = param_c4 * t7 * t9;
         let tvrho0 = tzk0 + t28 * t30 * t27 * param_c2 / 3.0 + t40 * t42 * t15 * t23 / 9.0;
         vrho[ip] += tvrho0;
         let t47 = t28 * t39;
@@ -79,13 +99,11 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t59 = param_c3 * t38;
         let t60 = t59 * param_c4;
         let t61 = t6 * t60;
-        let t62 = t10 * t13;
         let t63 = rho[ip] * rho[ip];
         let t65 = 1.0 / t1 / t63;
         let t71 = t1 * t1;
         let t74 = 1.0 / t71 / rho[ip] * param_c1;
         let t76 = 1.0 / t29 / t4;
-        let t78 = param_c2 * param_c2;
         let t83 = 1.0 / t71 / t63;
         let t84 = t83 * param_c1;
         let t86 = t84 * t30 * t60;
@@ -97,12 +115,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t97 = 1.0 / t37 / t24;
         let t98 = t36 * t97;
         let t99 = t95 * t98;
-        let t100 = param_c4 * param_c4;
-        let t101 = t7 * t7;
-        let t102 = t100 * t101;
-        let t103 = t102 * t8;
-        let t104 = t12 * t12;
-        let t105 = 1.0 / t104;
         let t106 = t105 * sigma[ip];
         let t107 = t23 * t23;
         let t112 = t95 * t39;
@@ -113,7 +125,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t122 = t121 * param_c2;
         let t123 = t62 * t122;
         let t126 = t84 * t98;
-        let t127 = t8 * t105;
         let t129 = t102 * t127 * t107;
         let t132 = t84 * t39;
         let t134 = t102 * t127 * t23;
@@ -135,12 +146,10 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t161 = t54 * param_c3;
         let t163 = t38 * param_c4 * t7;
         let t164 = t161 * t163;
-        let t165 = t9 * t13;
         let t166 = t165 * t14;
         let t175 = param_c3 * t97;
         let t176 = t175 * t100;
         let t177 = t6 * t176;
-        let t179 = t101 * t8 * t105;
         let t180 = t63 * t63;
         let t182 = 1.0 / t71 / t180;
         let t183 = sigma[ip] * t182;
@@ -150,7 +159,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t202 = 1.0 / t92 * param_c1;
         let t203 = t29 * t29;
         let t204 = 1.0 / t203;
-        let t206 = t78 * param_c2;
         let t210 = 1.0 / t180;
         let t211 = t210 * param_c1;
         let t213 = t211 * t76 * t60;
@@ -165,9 +173,7 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t237 = t235 * param_c1 * t36;
         let t238 = t37 * t37;
         let t239 = 1.0 / t238;
-        let t240 = t100 * param_c4;
         let t241 = t239 * t240;
-        let t242 = 1.0 / t11;
         let t243 = t242 * t144;
         let t244 = t107 * t23;
         let t249 = t97 * t240;
@@ -221,10 +227,9 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t365 = t42 * t13 * t362 * t23;
         let t369 = t103 * t352 * t23;
         let t373 = t254 * t345 * t23;
-        let tv3sigma30 = -t344 * t347 / 32.0 + t137 * t354 / 32.0 + t344 * t358 / 32.0 - t47 * t365 / 32.0 - t151 * t369 / 64.0 - t344 * t373 / 192.0;
+        let tv3sigma30 = -t344 * t347 * 0.03125 + t137 * t354 * 0.03125 + t344 * t358 * 0.03125 - t47 * t365 * 0.03125 - t151 * t369 * 0.015625 - t344 * t373 / 192.0;
         v3sigma3[ip] += tv3sigma30;
         let t376 = param_c3 * t239;
-        let t378 = t240 * t242;
         let t379 = t180 * t92;
         let t381 = t144 / t379;
         let t401 = t127 * sigma[ip];
@@ -236,7 +241,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t452 = t180 * t180;
         let t456 = 1.0 / t1 / t452 * param_c1 * t5;
         let t458 = 1.0 / t238 / t24;
-        let t460 = t100 * t100;
         let t461 = param_c3 * t458 * t460;
         let t463 = t242 * t350;
         let t464 = t107 * t107;
@@ -248,7 +252,6 @@ pub fn gga_c_ccdf_lxc_unpol(
         let t506 = 1.0 / t1 / t379 * param_c1;
         let t507 = t275 * t239;
         let t531 = t423 * param_c1;
-        let t535 = t78 * t78;
         let t544 = -112.0 / 729.0 * t456 * t476 * t463 * t107 * t62 + 8.0 / 729.0 * t456 * t482 * t463 * t7 * t485 + 32.0 / 81.0 * t156 * t157 * t94 + 56.0 / 81.0 * t54 * t55 * t189 + 350.0 / 243.0 * t196 * t179 * t417 * t23 + 164.0 / 243.0 * t164 * t166 * t182 * t23 * param_c2 + 64.0 / 81.0 * t506 * t507 * t378 * t144 * t244 * param_c2 - 64.0 / 81.0 * t506 * t276 * t378 * t144 * t107 * param_c2 + 32.0 / 243.0 * t506 * t283 * t378 * t144 * t23 * param_c2 - 8.0 / 9.0 * param_c1 * t204 * t27 * t206 * t210 + 8.0 / 27.0 * t531 / t203 / t4 * t27 * t535 - 80.0 / 81.0 * t6 * t59 * t378 * t381 * t23;
         let tv4rho40 = t475 + t544;
         v4rho4[ip] += tv4rho40;
@@ -259,19 +262,18 @@ pub fn gga_c_ccdf_lxc_unpol(
         v4rho3sigma[ip] += tv4rho3sigma0;
         let t634 = t211 * t30;
         let t638 = t531 * t76;
-        let t662 = t460 * t242;
         let tv4rho2sigma20 = -t99 * t141 / 108.0 + t634 * t176 * t312 / 72.0 - t638 * t176 * t179 * t310 * t78 / 216.0 + t260 * t148 / 108.0 - t86 * t329 / 72.0 + t270 * t62 * t327 * t78 / 216.0 - t634 * t195 * t337 / 144.0 + t638 * t195 * t179 * t335 * t78 / 432.0 - t440 * t36 * t458 * t662 * t464 * t62 / 27.0 + t440 * t36 * t239 * t662 * t244 * t62 / 18.0 - 7.0 / 324.0 * t440 * t98 * t662 * t107 * t62 + t112 * t153 / 216.0 + t440 * t39 * t662 * t7 * t485 / 648.0 + t431 * t507 * t378 * t48 * t244 * param_c2 / 18.0 - t431 * t276 * t378 * t48 * t107 * param_c2 / 18.0 + t431 * t283 * t378 * t122 / 108.0 - 13.0 / 36.0 * t290 * t318 + 13.0 / 36.0 * t290 * t322 - 13.0 / 216.0 * t290 * t341;
         v4rho2sigma2[ip] += tv4rho2sigma20;
         let t715 = t431 * t5;
         let t717 = t242 * t138;
-        let tv4rhosigma30 = -t315 * t347 / 32.0 - t531 * t507 * t378 * t145 * t244 * param_c2 / 96.0 + t715 * t461 * t717 * t464 * t62 / 72.0 - t715 * t469 * t717 * t244 * t62 / 48.0 - t126 * t354 / 96.0 + t309 * t179 * t351 * t107 * param_c2 / 96.0 + t315 * t358 / 32.0 + t531 * t276 * t378 * t145 * t107 * param_c2 / 96.0 + 7.0 / 864.0 * t715 * t476 * t717 * t107 * t62 + t40 * t365 / 96.0 - t120 * t62 * t362 * t23 * param_c2 / 96.0 + t132 * t369 / 192.0 - t334 * t179 * t351 * t23 * param_c2 / 192.0 - t315 * t373 / 192.0 - t531 * t283 * t378 * t328 / 576.0 - t715 * t482 * t717 * t7 * t485 / 1728.0;
+        let tv4rhosigma30 = -t315 * t347 * 0.03125 - t531 * t507 * t378 * t145 * t244 * param_c2 / 96.0 + t715 * t461 * t717 * t464 * t62 / 72.0 - t715 * t469 * t717 * t244 * t62 / 48.0 - t126 * t354 / 96.0 + t309 * t179 * t351 * t107 * param_c2 / 96.0 + t315 * t358 * 0.03125 + t531 * t276 * t378 * t145 * t107 * param_c2 / 96.0 + 7.0 / 864.0 * t715 * t476 * t717 * t107 * t62 + t40 * t365 / 96.0 - t120 * t62 * t362 * t23 * param_c2 / 96.0 + t132 * t369 / 192.0 - t334 * t179 * t351 * t23 * param_c2 / 192.0 - t315 * t373 / 192.0 - t531 * t283 * t378 * t328 / 576.0 - t715 * t482 * t717 * t7 * t485 / 1728.0;
         v4rhosigma3[ip] += tv4rhosigma30;
         let t772 = t531 * t5;
         let t774 = t242 * t351;
         let t779 = t242 * t362;
         let t789 = t350 * sigma[ip];
         let t791 = t105 / t789;
-        let tv4sigma40 = -t772 * t461 * t774 * t464 * t62 / 192.0 + 3.0 / 32.0 * t344 * t241 * t779 * t244 + t772 * t469 * t774 * t244 * t62 / 128.0 - 5.0 / 64.0 * t137 * t103 * t791 * t107 - 3.0 / 32.0 * t344 * t249 * t779 * t107 - 7.0 / 2304.0 * t772 * t476 * t774 * t107 * t62 + 5.0 / 64.0 * t47 * t42 * t13 / t14 / t789 * t23 + 5.0 / 128.0 * t151 * t103 * t791 * t23 + t344 * t254 * t779 * t23 / 64.0 + t772 * t482 * t774 * t7 * t485 / 4608.0;
+        let tv4sigma40 = -t772 * t461 * t774 * t464 * t62 / 192.0 + 3.0 * 0.03125 * t344 * t241 * t779 * t244 + t772 * t469 * t774 * t244 * t62 * 0.0078125 - 5.0 * 0.015625 * t137 * t103 * t791 * t107 - 3.0 * 0.03125 * t344 * t249 * t779 * t107 - 7.0 / 2304.0 * t772 * t476 * t774 * t107 * t62 + 5.0 * 0.015625 * t47 * t42 * t13 / t14 / t789 * t23 + 5.0 * 0.0078125 * t151 * t103 * t791 * t23 + t344 * t254 * t779 * t23 * 0.015625 + t772 * t482 * t774 * t7 * t485 / 4608.0;
         v4sigma4[ip] += tv4sigma40;
     }
 }

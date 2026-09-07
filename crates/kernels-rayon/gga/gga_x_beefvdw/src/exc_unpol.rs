@@ -70,6 +70,26 @@ pub fn gga_x_beefvdw_exc_unpol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = f64x8::splat(M_CBRT3);
+    let t4 = f64x8::splat(M_CBRTPI);
+    let t6 = t3 / t4;
+    let t7 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
+    let t8 = zeta_threshold - f64x8::splat(1.0);
+    let t10 = ((t7).select(t8, (t7).select(-t8, f64x8::splat(0.0))));
+    let t11 = t10 + f64x8::splat(1.0);
+    let t13 = (simd::cbrt(zeta_threshold));
+    let t15 = (simd::cbrt(t11));
+    let t17 = (((t11).simd_le(zeta_threshold)).select(t13 * zeta_threshold, t15 * t11));
+    let t20 = f64x8::splat(M_CBRT6);
+    let t21 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t22 = (simd::cbrt(t21));
+    let t23 = t22 * t22;
+    let t24 = f64x8::splat(1.0) / t23;
+    let t25 = t20 * t24;
+    let t27 = f64x8::splat(M_CBRT2);
+    let t28 = t27 * t27;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -77,28 +97,10 @@ pub fn gga_x_beefvdw_exc_unpol(
         let v_sigma = load(sigma, ip, np);
         let mut acc_zk = V_ZERO;
         {
-            let t2 = (v_rho / f64x8::splat(2.0)).simd_le(dens_threshold);
-            let t3 = f64x8::splat(M_CBRT3);
-            let t4 = f64x8::splat(M_CBRTPI);
-            let t6 = t3 / t4;
-            let t7 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
-            let t8 = zeta_threshold - f64x8::splat(1.0);
-            let t10 = ((t7).select(t8, (t7).select(-t8, f64x8::splat(0.0))));
-            let t11 = t10 + f64x8::splat(1.0);
-            let t13 = (simd::cbrt(zeta_threshold));
-            let t15 = (simd::cbrt(t11));
-            let t17 = (((t11).simd_le(zeta_threshold)).select(t13 * zeta_threshold, t15 * t11));
+            let t2 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
             let t18 = (simd::cbrt(v_rho));
             let t19 = t17 * t18;
-            let t20 = f64x8::splat(M_CBRT6);
-            let t21 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t22 = (simd::cbrt(t21));
-            let t23 = t22 * t22;
-            let t24 = f64x8::splat(1.0) / t23;
-            let t25 = t20 * t24;
             let t26 = t25 * v_sigma;
-            let t27 = f64x8::splat(M_CBRT2);
-            let t28 = t27 * t27;
             let t29 = v_rho * v_rho;
             let t30 = t18 * t18;
             let t32 = f64x8::splat(1.0) / t30 / t29;
@@ -137,7 +139,7 @@ pub fn gga_x_beefvdw_exc_unpol(
             let t99 = t46 * t65;
             let t102 = f64x8::splat(1.1313514630621233) - f64x8::splat(7.2975787893717134) * t51 + f64x8::splat(3783.53964072524) * t59 - f64x8::splat(617.547861045286) * t62 - f64x8::splat(442.33229018433804) * t46 - f64x8::splat(20148.24517562505) * t47 + f64x8::splat(2274.8997850816486) * t56 + f64x8::splat(70504.54186903402) * t88 - f64x8::splat(2810.240180568463) * t52 - f64x8::splat(323524.0313604933) * t91 + f64x8::splat(180782.00670879145) * t93 - f64x8::splat(129814.81812794984) * t95 + f64x8::splat(56174.00797937267) * t97 - f64x8::splat(10276.426607863825) * t99 - f64x8::splat(168370.8413901412) * t48;
             let t103 = t81 + t102;
-            let t107 = ((t2).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t6 * t19 * t103));
+            let t107 = ((t2).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t6 * t19 * t103));
             let tzk0 = f64x8::splat(2.0) * t107;
             acc_zk = tzk0;
         }

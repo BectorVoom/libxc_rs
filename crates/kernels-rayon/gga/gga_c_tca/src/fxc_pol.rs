@@ -24,6 +24,32 @@ pub fn gga_c_tca_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = pow_1_3(zeta_threshold);
+    let t8 = t7 * t7;
+    let t21 = M_CBRT3;
+    let t23 = pow_1_3(1.0 / M_PI);
+    let t24 = t21 * t23;
+    let t25 = M_CBRT4;
+    let t26 = t25 * t25;
+    let t37 = t21 * t21;
+    let t39 = 1.0 / t23;
+    let t40 = t39 * t25;
+    let t41 = M_CBRT6;
+    let t42 = t41 * t41;
+    let t43 = M_PI * M_PI;
+    let t44 = pow_1_3(t43);
+    let t45 = 1.0 / t44;
+    let t46 = t42 * t45;
+    let t47 = M_CBRT2;
+    let t93 = t37 * t39;
+    let t94 = t93 * t25;
+    let t101 = t45 * t47;
+    let t219 = t44 * t44;
+    let t220 = 1.0 / t219;
+    let t221 = t47 * t47;
+    let t222 = t220 * t221;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -36,8 +62,6 @@ pub fn gga_c_tca_fxc_pol(
         let t4 = t1 * t3;
         let t5 = 1.0 + t4;
         let t6 = t5 <= zeta_threshold;
-        let t7 = pow_1_3(zeta_threshold);
-        let t8 = t7 * t7;
         let t9 = pow_1_3(t5);
         let t10 = t9 * t9;
         let t11 = piecewise3(t6, t8, t10);
@@ -46,30 +70,15 @@ pub fn gga_c_tca_fxc_pol(
         let t14 = pow_1_3(t12);
         let t15 = t14 * t14;
         let t16 = piecewise3(t13, t8, t15);
-        let t18 = t11 / 2.0 + t16 / 2.0;
+        let t18 = t11 * 0.5 + t16 * 0.5;
         let t19 = t18 * t18;
         let t20 = t19 * t18;
-        let t21 = M_CBRT3;
-        let t23 = pow_1_3(1.0 / M_PI);
-        let t24 = t21 * t23;
-        let t25 = M_CBRT4;
-        let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
         let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
         let t33 = rmath::atan(t32);
         let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
-        let t37 = t21 * t21;
         let t38 = t36 * t37;
-        let t39 = 1.0 / t23;
-        let t40 = t39 * t25;
-        let t41 = M_CBRT6;
-        let t42 = t41 * t41;
-        let t43 = M_PI * M_PI;
-        let t44 = pow_1_3(t43);
-        let t45 = 1.0 / t44;
-        let t46 = t42 * t45;
-        let t47 = M_CBRT2;
         let t49 = sigma0 + 2.0 * sigma1 + sigma2;
         let t50 = rmath::sqrt(t49);
         let t51 = t47 * t50;
@@ -94,7 +103,7 @@ pub fn gga_c_tca_fxc_pol(
         let t75 = 1.0 / t14;
         let t76 = -t71;
         let t79 = piecewise3(t13, 0.0, 2.0 / 3.0 * t75 * t76);
-        let t81 = t74 / 2.0 + t79 / 2.0;
+        let t81 = t74 * 0.5 + t79 * 0.5;
         let t82 = t59 * t81;
         let t85 = t32 * t32;
         let t86 = t85 + 1.0;
@@ -102,14 +111,11 @@ pub fn gga_c_tca_fxc_pol(
         let t88 = t20 * t87;
         let t90 = 0.6945723010386666 * t88 * t59;
         let t91 = t3 * t20;
-        let t93 = t37 * t39;
-        let t94 = t93 * t25;
         let t96 = t58 * t58;
         let t97 = 1.0 / t96;
         let t98 = rmath::pow(t55, 1.3);
         let t99 = t97 * t98;
         let t100 = t99 * t42;
-        let t101 = t45 * t47;
         let t102 = t101 * t50;
         let t103 = t100 * t102;
         let t105 = 0.004816865163518771 * t91 * t35 * t94 * t103;
@@ -119,7 +125,7 @@ pub fn gga_c_tca_fxc_pol(
         let t109 = piecewise3(t6, 0.0, 2.0 / 3.0 * t67 * t106);
         let t110 = -t106;
         let t113 = piecewise3(t13, 0.0, 2.0 / 3.0 * t75 * t110);
-        let t115 = t109 / 2.0 + t113 / 2.0;
+        let t115 = t109 * 0.5 + t113 * 0.5;
         let t116 = t59 * t115;
         let t117 = t40 * t116;
         let tvrho1 = t66 * t117 + t105 + t63 + t90;
@@ -169,7 +175,7 @@ pub fn gga_c_tca_fxc_pol(
         let t180 = t76 * t76;
         let t183 = -t173;
         let t187 = piecewise3(t13, 0.0, -2.0 / 9.0 * t179 * t180 + 2.0 / 3.0 * t75 * t183);
-        let t189 = t177 / 2.0 + t187 / 2.0;
+        let t189 = t177 * 0.5 + t187 * 0.5;
         let t190 = t59 * t189;
         let t191 = t40 * t190;
         let t193 = t86 * t86;
@@ -188,10 +194,6 @@ pub fn gga_c_tca_fxc_pol(
         let t216 = rmath::pow(t55, 2.6);
         let t217 = t215 * t216;
         let t218 = t217 * t41;
-        let t219 = t44 * t44;
-        let t220 = 1.0 / t219;
-        let t221 = t47 * t47;
-        let t222 = t220 * t221;
         let t223 = t222 * t49;
         let t224 = t218 * t223;
         let t226 = 0.0008352788401267458 * t213 * t224;
@@ -217,7 +219,7 @@ pub fn gga_c_tca_fxc_pol(
         let t257 = t179 * t110;
         let t260 = t75 * t1;
         let t264 = piecewise3(t13, 0.0, -2.0 / 9.0 * t257 * t76 - 4.0 / 3.0 * t260 * t170);
-        let t266 = t256 / 2.0 + t264 / 2.0;
+        let t266 = t256 * 0.5 + t264 * 0.5;
         let t267 = t59 * t266;
         let t268 = t40 * t267;
         let tv2rho21 = 4.0 / 3.0 * t130 + t134 + t140 + t144 + 4.0 / 3.0 * t236 + 2.0 * t146 * t239 + 2.083716903116 * t242 + 0.014450595490556313 * t247 + t66 * t268 + 2.083716903116 * t153 + t201 + t208 + 0.014450595490556313 * t162 + t226 - t232;
@@ -231,7 +233,7 @@ pub fn gga_c_tca_fxc_pol(
         let t289 = t110 * t110;
         let t292 = -t284;
         let t296 = piecewise3(t13, 0.0, -2.0 / 9.0 * t179 * t289 + 2.0 / 3.0 * t75 * t292);
-        let t298 = t288 / 2.0 + t296 / 2.0;
+        let t298 = t288 * 0.5 + t296 * 0.5;
         let t299 = t59 * t298;
         let t300 = t40 * t299;
         let tv2rho22 = 8.0 / 3.0 * t236 + t134 + t140 + t144 + 2.0 * t146 * t275 + 4.167433806232 * t242 + 0.028901190981112625 * t247 + t66 * t300 + t201 + t208 + t226 - t232;

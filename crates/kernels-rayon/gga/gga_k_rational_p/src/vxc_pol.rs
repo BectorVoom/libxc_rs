@@ -134,6 +134,27 @@ pub fn gga_k_rational_p_vxc_pol(
     let param_C2 = f64x8::splat(param_C2);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t3 = t2 * t2;
+    let t4 = f64x8::splat(M_CBRTPI);
+    let t6 = t3 * t4 * f64x8::splat(M_PI);
+    let t12 = zeta_threshold - f64x8::splat(1.0);
+    let t16 = -t12;
+    let t22 = (simd::cbrt(zeta_threshold));
+    let t23 = t22 * t22;
+    let t24 = t23 * zeta_threshold;
+    let t32 = f64x8::splat(1.0) / param_p;
+    let t34 = f64x8::splat(M_CBRT6);
+    let t35 = param_C2 * t32 * t34;
+    let t36 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t37 = (simd::cbrt(t36));
+    let t38 = t37 * t37;
+    let t39 = f64x8::splat(1.0) / t38;
+    let t98 = param_C2 * t34;
+    let t99 = t98 * t39;
+    let tvsigma1 = f64x8::splat(0.0);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -150,36 +171,20 @@ pub fn gga_k_rational_p_vxc_pol(
         let mut acc_vsigma_2 = V_ZERO;
         {
             let t1 = (v_rho0).simd_le(dens_threshold);
-            let t2 = f64x8::splat(M_CBRT3);
-            let t3 = t2 * t2;
-            let t4 = f64x8::splat(M_CBRTPI);
-            let t6 = t3 * t4 * f64x8::splat(M_PI);
             let t7 = v_rho0 + v_rho1;
             let t8 = f64x8::splat(1.0) / t7;
             let t11 = (f64x8::splat(2.0) * v_rho0 * t8).simd_le(zeta_threshold);
-            let t12 = zeta_threshold - f64x8::splat(1.0);
             let t15 = (f64x8::splat(2.0) * v_rho1 * t8).simd_le(zeta_threshold);
-            let t16 = -t12;
             let t17 = v_rho0 - v_rho1;
             let t19 = ((t11).select(t12, (t15).select(t16, t17 * t8)));
             let t20 = f64x8::splat(1.0) + t19;
             let t21 = (t20).simd_le(zeta_threshold);
-            let t22 = (simd::cbrt(zeta_threshold));
-            let t23 = t22 * t22;
-            let t24 = t23 * zeta_threshold;
             let t25 = (simd::cbrt(t20));
             let t26 = t25 * t25;
             let t28 = ((t21).select(t24, t26 * t20));
             let t29 = (simd::cbrt(t7));
             let t30 = t29 * t29;
             let t31 = t28 * t30;
-            let t32 = f64x8::splat(1.0) / param_p;
-            let t34 = f64x8::splat(M_CBRT6);
-            let t35 = param_C2 * t32 * t34;
-            let t36 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t37 = (simd::cbrt(t36));
-            let t38 = t37 * t37;
-            let t39 = f64x8::splat(1.0) / t38;
             let t41 = v_rho0 * v_rho0;
             let t42 = (simd::cbrt(v_rho0));
             let t43 = t42 * t42;
@@ -222,8 +227,6 @@ pub fn gga_k_rational_p_vxc_pol(
             let t95 = t94 * t50;
             let t96 = t6 * t95;
             let t97 = t96 / f64x8::splat(10.0);
-            let t98 = param_C2 * t34;
-            let t99 = t98 * t39;
             let t100 = t41 * v_rho0;
             let t102 = f64x8::splat(1.0) / t43 / t100;
             let t104 = f64x8::splat(1.0) / t49;
@@ -264,7 +267,6 @@ pub fn gga_k_rational_p_vxc_pol(
             let t167 = ((t1).select(f64x8::splat(0.0), -t52 * t164 / f64x8::splat(160.0)));
             let tvsigma0 = t7 * t167;
             acc_vsigma_0 = tvsigma0;
-            let tvsigma1 = f64x8::splat(0.0);
             acc_vsigma_1 = tvsigma1;
             let t170 = t98 * t39 * t71 * t153;
             let t173 = ((t55).select(f64x8::splat(0.0), -t78 * t170 / f64x8::splat(160.0)));

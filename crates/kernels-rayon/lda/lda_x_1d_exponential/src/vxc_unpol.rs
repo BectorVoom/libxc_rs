@@ -20,23 +20,25 @@ pub fn lda_x_1d_exponential_vxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = 1.0 <= zeta_threshold;
+    let t5 = zeta_threshold - 1.0;
+    let t7 = piecewise5(t3, t5, t3, -t5, 0.0);
+    let t8 = 1.0 + t7;
+    let t17 = 1.0 / param_beta;
+    let t25 = param_beta * param_beta;
+    let t26 = 1.0 / t25;
     for ip in 0..zk.len() {
-        let t3 = 1.0 <= zeta_threshold;
-        let t4 = rho[ip] / 2.0 <= dens_threshold || t3;
-        let t5 = zeta_threshold - 1.0;
-        let t7 = piecewise5(t3, t5, t3, -t5, 0.0);
-        let t8 = 1.0 + t7;
+        let t4 = rho[ip] * 0.5 <= dens_threshold || t3;
         let t11 = t8 * M_PI * param_beta * rho[ip];
         let t12 = xc_integrate_lda_exponential_func1(t11);
         let t14 = xc_integrate_lda_exponential_func2(t11);
         let t16 = t14 / M_PI;
-        let t17 = 1.0 / param_beta;
         let t18 = 1.0 / rho[ip];
         let t24 = piecewise3(t4, 0.0, -0.07957747154594767 * (-t16 * t17 * t18 + t8 * t12) * t17);
         let tzk0 = 2.0 * t24;
         zk[ip] += tzk0;
-        let t25 = param_beta * param_beta;
-        let t26 = 1.0 / t25;
         let t27 = rho[ip] * rho[ip];
         let t28 = 1.0 / t27;
         let t29 = t26 * t28;

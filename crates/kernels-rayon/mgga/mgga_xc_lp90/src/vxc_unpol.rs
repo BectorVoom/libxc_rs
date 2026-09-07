@@ -23,6 +23,9 @@ pub fn mgga_xc_lp90_vxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let tvtau0 = 0.0;
     for ip in 0..zk.len() {
         let t2 = rho[ip] * rho[ip];
         let t3 = pow_1_3(rho[ip]);
@@ -47,7 +50,6 @@ pub fn mgga_xc_lp90_vxc_unpol(
         vsigma[ip] += tvsigma0;
         let tvlapl0 = 0.00037655 / t4 * t16;
         vlapl[ip] += tvlapl0;
-        let tvtau0 = 0.0;
         vtau[ip] += tvtau0;
     }
 }

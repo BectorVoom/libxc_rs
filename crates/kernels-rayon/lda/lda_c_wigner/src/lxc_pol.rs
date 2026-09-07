@@ -23,6 +23,18 @@ pub fn lda_c_wigner_lxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t9 = M_CBRT3;
+    let t10 = 1.0 / M_PI;
+    let t11 = pow_1_3(t10);
+    let t12 = t9 * t11;
+    let t13 = M_CBRT4;
+    let t14 = t13 * t13;
+    let t36 = t11 * t14;
+    let t75 = t9 * t9;
+    let t77 = t11 * t11;
+    let t104 = t75 * t77;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -33,15 +45,9 @@ pub fn lda_c_wigner_lxc_pol(
         let t5 = 1.0 / t4;
         let t7 = -t2 * t5 + 1.0;
         let t8 = t7 * param_a;
-        let t9 = M_CBRT3;
-        let t10 = 1.0 / M_PI;
-        let t11 = pow_1_3(t10);
-        let t12 = t9 * t11;
-        let t13 = M_CBRT4;
-        let t14 = t13 * t13;
         let t15 = pow_1_3(t3);
         let t16 = 1.0 / t15;
-        let t20 = param_b + t12 * t14 * t16 / 4.0;
+        let t20 = param_b + t12 * t14 * t16 * 0.25;
         let t21 = 1.0 / t20;
         let tzk0 = t8 * t21;
         zk[ip] += tzk0;
@@ -53,7 +59,6 @@ pub fn lda_c_wigner_lxc_pol(
         let t29 = param_a * t21;
         let t33 = t20 * t20;
         let t34 = 1.0 / t33;
-        let t36 = t11 * t14;
         let t37 = t34 * t9 * t36;
         let t39 = t16 * t7 * param_a * t37 / 12.0;
         let tvrho0 = t3 * t27 * t29 + t39 + tzk0;
@@ -76,8 +81,6 @@ pub fn lda_c_wigner_lxc_pol(
         let t68 = t15 * t15;
         let t70 = 1.0 / t68 / t3;
         let t74 = 1.0 / t33 / t20;
-        let t75 = t9 * t9;
-        let t77 = t11 * t11;
         let t79 = t74 * t75 * t77 * t13;
         let t81 = t70 * t7 * param_a * t79 / 18.0;
         let tv2rho20 = 2.0 * t45 + t53 + t3 * t61 * t29 + t66 / 6.0 + t81;
@@ -96,7 +99,6 @@ pub fn lda_c_wigner_lxc_pol(
         let t100 = t44 * t34;
         let t101 = t100 * t51;
         let t103 = t8 * t74;
-        let t104 = t75 * t77;
         let t108 = t104 * t13 / t68 / t4;
         let t110 = t103 * t108 / 18.0;
         let t114 = t12 * t14 / t15 / t4;
@@ -113,7 +115,7 @@ pub fn lda_c_wigner_lxc_pol(
         let t137 = 1.0 / t136;
         let t139 = param_a * t137 * t10;
         let t141 = t24 * t7 * t139 / 6.0;
-        let tv3rho30 = 3.0 * t98 + t101 / 6.0 - t110 - t116 + t3 * t124 * t29 + t129 / 4.0 + t133 / 6.0 + t141;
+        let tv3rho30 = 3.0 * t98 + t101 / 6.0 - t110 - t116 + t3 * t124 * t29 + t129 * 0.25 + t133 / 6.0 + t141;
         v3rho3[ip * 4] += tv3rho30;
         let t143 = t84 * param_a;
         let t145 = 2.0 * t143 * t21;
@@ -133,7 +135,7 @@ pub fn lda_c_wigner_lxc_pol(
         let tv3rho32 = t145 + t147 / 9.0 + t101 / 18.0 - t110 - t116 + t167 + t3 * t168 * t29 + t173 / 12.0 + t157 + t160 / 9.0 + t133 / 18.0 + t141;
         v3rho3[ip * 4 + 2] += tv3rho32;
         let t179 = t117 + t119 + t123;
-        let tv3rho33 = 3.0 * t167 + t147 / 6.0 - t110 - t116 + t3 * t179 * t29 + t173 / 4.0 + t160 / 6.0 + t141;
+        let tv3rho33 = 3.0 * t167 + t147 / 6.0 - t110 - t116 + t3 * t179 * t29 + t173 * 0.25 + t160 / 6.0 + t141;
         v3rho3[ip * 4 + 3] += tv3rho33;
         let t185 = t124 * param_a * t21;
         let t188 = t97 * t34 * t51;
@@ -162,7 +164,7 @@ pub fn lda_c_wigner_lxc_pol(
         let t269 = t16 * t151 * param_a * t37;
         let t273 = t70 * t84 * param_a * t79;
         let t274 = t273 / 6.0;
-        let tv4rho41 = -t198 + t230 / 2.0 + t245 / 6.0 + t3 * (t247 - t217) * t29 - 2.0 / 9.0 * t193 + t204 + t210 + t242 - 2.0 / 27.0 * t252 + t185 + 3.0 * t255 + t188 / 6.0 - t191 / 6.0 + t223 / 12.0 + t227 / 6.0 + t263 - t265 / 18.0 + t269 / 4.0 + t274;
+        let tv4rho41 = -t198 + t230 * 0.5 + t245 / 6.0 + t3 * (t247 - t217) * t29 - 2.0 / 9.0 * t193 + t204 + t210 + t242 - 2.0 / 27.0 * t252 + t185 + 3.0 * t255 + t188 / 6.0 - t191 / 6.0 + t223 / 12.0 + t227 / 6.0 + t263 - t265 / 18.0 + t269 * 0.25 + t274;
         v4rho4[ip * 5 + 1] += tv4rho41;
         let t286 = t168 * param_a * t21;
         let t296 = t166 * t34 * t51;
@@ -173,7 +175,7 @@ pub fn lda_c_wigner_lxc_pol(
         v4rho4[ip * 5 + 2] += tv4rho42;
         let t314 = t179 * param_a * t21;
         let t320 = t16 * t179 * param_a * t37;
-        let tv4rho43 = 3.0 * t286 + t296 / 6.0 + t263 - t265 / 6.0 - 2.0 / 9.0 * t252 - t191 / 18.0 - t198 + t204 - 2.0 / 27.0 * t193 + t210 + t314 + t3 * (-t247 - t217) * t29 + t320 / 12.0 + t300 / 4.0 + t304 / 6.0 + t274 + t245 / 2.0 + t230 / 6.0 + t242;
+        let tv4rho43 = 3.0 * t286 + t296 / 6.0 + t263 - t265 / 6.0 - 2.0 / 9.0 * t252 - t191 / 18.0 - t198 + t204 - 2.0 / 27.0 * t193 + t210 + t314 + t3 * (-t247 - t217) * t29 + t320 / 12.0 + t300 * 0.25 + t304 / 6.0 + t274 + t245 * 0.5 + t230 / 6.0 + t242;
         v4rho4[ip * 5 + 3] += tv4rho43;
         let tv4rho44 = 4.0 * t314 + t296 / 3.0 - 2.0 / 9.0 * t265 - 8.0 / 27.0 * t252 - t198 + t204 + t210 + t3 * (-t211 - t213 - t217) * t29 + t320 / 3.0 + t304 / 3.0 + 2.0 / 3.0 * t245 + t242;
         v4rho4[ip * 5 + 4] += tv4rho44;

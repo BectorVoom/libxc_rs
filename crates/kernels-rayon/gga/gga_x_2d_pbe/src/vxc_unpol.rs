@@ -20,18 +20,21 @@ pub fn gga_x_2d_pbe_vxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = rmath::sqrt(M_PI);
+    let t5 = 1.0 <= zeta_threshold;
+    let t6 = zeta_threshold - 1.0;
+    let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+    let t9 = 1.0 + t8;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t13 = rmath::sqrt(t9);
+    let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+    let t16 = 1.0 / t3 * t15;
+    let t17 = M_SQRT2;
+    let t38 = t15 * t17;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = rmath::sqrt(M_PI);
-        let t5 = 1.0 <= zeta_threshold;
-        let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
-        let t9 = 1.0 + t8;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t13 = rmath::sqrt(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
-        let t16 = 1.0 / t3 * t15;
-        let t17 = M_SQRT2;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t18 = rmath::sqrt(rho[ip]);
         let t20 = rho[ip] * rho[ip];
         let t21 = t20 * rho[ip];
@@ -40,7 +43,6 @@ pub fn gga_x_2d_pbe_vxc_unpol(
         let t32 = piecewise3(t2, 0.0, -2.0 / 3.0 * t16 * t17 * t18 * t28);
         let tzk0 = 2.0 * t32;
         zk[ip] += tzk0;
-        let t38 = t15 * t17;
         let t40 = 1.0 / t18 / t21;
         let t41 = t25 * t25;
         let t42 = 1.0 / t41;

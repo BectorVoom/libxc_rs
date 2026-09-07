@@ -131,6 +131,12 @@ pub fn lda_c_ml1_exc_pol(
     let param_q = f64x8::splat(param_q);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t17 = zeta_threshold - f64x8::splat(1.0);
+    let t42 = f64x8::splat(1.0) / param_fc;
+    let t59 = param_fc * param_fc;
+    let t60 = f64x8::splat(1.0) / t59;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -151,7 +157,6 @@ pub fn lda_c_ml1_exc_pol(
             let t13 = (simd::cbrt(t1));
             let t14 = t13 * param_fc;
             let t16 = (f64x8::splat(1.0) + t4).simd_le(zeta_threshold);
-            let t17 = zeta_threshold - f64x8::splat(1.0);
             let t19 = (f64x8::splat(1.0) - t4).simd_le(zeta_threshold);
             let t21 = ((t16).select(t17, (t19).select(-t17, t4)));
             let t22 = f64x8::splat(1.0) + t21;
@@ -170,7 +175,6 @@ pub fn lda_c_ml1_exc_pol(
             let t35 = t30 * t34;
             let t38 = f64x8::splat(1.0) + f64x8::splat(10.874334072525) * t14 * t35;
             let t41 = f64x8::splat(1.0) / t13;
-            let t42 = f64x8::splat(1.0) / param_fc;
             let t43 = t41 * t42;
             let t44 = f64x8::splat(1.0) / t26;
             let t45 = f64x8::splat(1.0) / t29;
@@ -183,8 +187,6 @@ pub fn lda_c_ml1_exc_pol(
             let t53 = t52 * t42;
             let t57 = t13 * t13;
             let t58 = f64x8::splat(1.0) / t57;
-            let t59 = param_fc * param_fc;
-            let t60 = f64x8::splat(1.0) / t59;
             let t61 = t58 * t60;
             let t62 = t26 * t26;
             let t63 = f64x8::splat(1.0) / t62;
@@ -194,7 +196,7 @@ pub fn lda_c_ml1_exc_pol(
             let t67 = t33 * t33;
             let t68 = t66 * t67;
             let t71 = -f64x8::splat(2.763169) / t38 + f64x8::splat(0.28144540420067765) * t53 * t47 + f64x8::splat(0.2541000285260132) * t48 - f64x8::splat(0.049248579417833935) * t61 * t68;
-            let t74 = ((t7).select(f64x8::splat(0.0), t12 * t71 / f64x8::splat(4.0)));
+            let t74 = ((t7).select(f64x8::splat(0.0), t12 * t71 * f64x8::splat(0.25)));
             let tzk0 = t1 * t74;
             acc_zk = tzk0;
         }

@@ -33,26 +33,30 @@ pub fn gga_k_thakkar_lxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = t3 * t3;
+    let t5 = M_CBRTPI;
+    let t7 = t4 * t5 * M_PI;
+    let t8 = 1.0 <= zeta_threshold;
+    let t9 = zeta_threshold - 1.0;
+    let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
+    let t12 = 1.0 + t11;
+    let t14 = pow_1_3(zeta_threshold);
+    let t15 = t14 * t14;
+    let t17 = pow_1_3(t12);
+    let t18 = t17 * t17;
+    let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+    let t24 = M_CBRT2;
+    let t25 = t24 * t24;
+    let t44 = M_CBRT4;
+    let t190 = t44 * t44;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = t3 * t3;
-        let t5 = M_CBRTPI;
-        let t7 = t4 * t5 * M_PI;
-        let t8 = 1.0 <= zeta_threshold;
-        let t9 = zeta_threshold - 1.0;
-        let t11 = piecewise5(t8, t9, t8, -t9, 0.0);
-        let t12 = 1.0 + t11;
-        let t14 = pow_1_3(zeta_threshold);
-        let t15 = t14 * t14;
-        let t17 = pow_1_3(t12);
-        let t18 = t17 * t17;
-        let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t21 = pow_1_3(rho[ip]);
         let t22 = t21 * t21;
         let t23 = t20 * t22;
-        let t24 = M_CBRT2;
-        let t25 = t24 * t24;
         let t26 = sigma[ip] * t25;
         let t27 = rho[ip] * rho[ip];
         let t29 = 1.0 / t22 / t27;
@@ -63,7 +67,6 @@ pub fn gga_k_thakkar_lxc_unpol(
         let t36 = t33 * t35;
         let t39 = 1.0 + 0.0253 * t31 * t36;
         let t40 = 1.0 / t39;
-        let t44 = M_CBRT4;
         let t49 = 2.0 * t44 * t30 * t24 * t33 + 1.0;
         let t50 = 1.0 / t49;
         let t51 = t33 * t50;
@@ -124,7 +127,6 @@ pub fn gga_k_thakkar_lxc_unpol(
         let t185 = t138 * t27;
         let t186 = 1.0 / t185;
         let t189 = 1.0 / t92 / t49;
-        let t190 = t44 * t44;
         let t191 = t189 * t190;
         let t194 = 0.05377777777777778 * t26 * t140 * t40 + 0.029333333333333333 * t26 * t144 * t85 + 0.011 * t26 * t150 * t151 - 0.0055 * t26 * t72 * t173 - 0.224 * t31 * t177 + 0.96 * t26 * t181 - 2.048 * t184 * t186 * t191;
         let t199 = piecewise3(t2, 0.0, -t7 * t131 * t54 / 30.0 + t7 * t60 * t98 / 5.0 + 3.0 / 20.0 * t7 * t23 * t194);

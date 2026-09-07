@@ -24,6 +24,13 @@ pub fn gga_c_cs1_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t27 = piecewise3(1.0 <= zeta_threshold, zeta_threshold, 1.0);
+    let t28 = M_CBRT2;
+    let t29 = t28 * t28;
+    let t30 = t27 * t29;
+    let t80 = t27 * t28;
     for ip in 0..zk.len() {
         let t1 = pow_1_3(rho[ip]);
         let t2 = 1.0 / t1;
@@ -40,12 +47,8 @@ pub fn gga_c_cs1_fxc_unpol(
         let t19 = t18 * t18;
         let t20 = 1.0 / t19;
         let t23 = -0.159068 + 2.86308e-07 * t6 * t11 * t20;
-        let t25 = t5 * t23 / 4.0;
-        let t27 = piecewise3(1.0 <= zeta_threshold, zeta_threshold, 1.0);
-        let t28 = M_CBRT2;
-        let t29 = t28 * t28;
-        let t30 = t27 * t29;
-        let t33 = t29 * t1 / 2.0 + 0.349;
+        let t25 = t5 * t23 * 0.25;
+        let t33 = t29 * t1 * 0.5 + 0.349;
         let t34 = 1.0 / t33;
         let t35 = t1 * t34;
         let t36 = t6 * t28;
@@ -55,7 +58,7 @@ pub fn gga_c_cs1_fxc_unpol(
         let t42 = 1.0 / t41;
         let t43 = t11 * t42;
         let t46 = -0.018897 + 1.117728e-05 * t36 * t43;
-        let t49 = t30 * t35 * t46 / 2.0;
+        let t49 = t30 * t35 * t46 * 0.5;
         let tzk0 = t25 + t49;
         zk[ip] += tzk0;
         let t50 = t4 * t4;
@@ -75,7 +78,6 @@ pub fn gga_c_cs1_fxc_unpol(
         let t73 = t5 * t72;
         let t76 = 1.0 / t13 * t34;
         let t78 = t30 * t76 * t46;
-        let t80 = t27 * t28;
         let t81 = t33 * t33;
         let t82 = 1.0 / t81;
         let t83 = t2 * t82;
@@ -84,15 +86,15 @@ pub fn gga_c_cs1_fxc_unpol(
         let t91 = 1.0 / t41 / t40;
         let t94 = -5.961216e-05 * t36 * t87 + 7.1534592e-07 * t67 * t91;
         let t96 = t30 * t35 * t94;
-        let tvrho0 = t25 + t49 + rho[ip] * (0.029083333333333333 * t55 + t73 / 4.0 + t78 / 6.0 - t85 / 6.0 + t96 / 2.0);
+        let tvrho0 = t25 + t49 + rho[ip] * (0.029083333333333333 * t55 + t73 * 0.25 + t78 / 6.0 - t85 / 6.0 + t96 * 0.5);
         vrho[ip] += tvrho0;
         let t103 = 1.0 / t64;
         let t104 = t6 * t103;
         let t107 = 5.72616e-07 * sigma[ip] * t11 * t20 - 3.435696e-09 * t104 * t69;
-        let t109 = t5 * t107 / 4.0;
+        let t109 = t5 * t107 * 0.25;
         let t110 = sigma[ip] * t28;
         let t115 = 2.235456e-05 * t110 * t43 - 2.6825472e-07 * t104 * t91;
-        let t118 = t30 * t35 * t115 / 2.0;
+        let t118 = t30 * t35 * t115 * 0.5;
         let tvsigma0 = rho[ip] * (t109 + t118);
         vsigma[ip] += tvsigma0;
         let t125 = 1.0 / t50 / t4;
@@ -131,7 +133,7 @@ pub fn gga_c_cs1_fxc_unpol(
         let t186 = t185 * t29;
         let t189 = 0.00037754368 * t36 * t179 - 1.025329152e-05 * t145 * t91 + 3.433660416e-08 * t152 * t186;
         let t191 = t30 * t35 * t189;
-        let tv2rho20 = 0.058166666666666665 * t55 + t73 / 2.0 + t78 / 3.0 - t85 / 3.0 + t96 + rho[ip] * (0.006766722222222223 * t127 + 0.058166666666666665 * t130 - 0.03877777777777778 * t134 + t158 / 4.0 - t164 / 9.0 + t167 / 3.0 + t174 / 9.0 - t177 / 3.0 + t191 / 2.0);
+        let tv2rho20 = 0.058166666666666665 * t55 + t73 * 0.5 + t78 / 3.0 - t85 / 3.0 + t96 + rho[ip] * (0.006766722222222223 * t127 + 0.058166666666666665 * t130 - 0.03877777777777778 * t134 + t158 * 0.25 - t164 / 9.0 + t167 / 3.0 + t174 / 9.0 - t177 / 3.0 + t191 * 0.5);
         v2rho2[ip] += tv2rho20;
         let t195 = t51 * t107;
         let t196 = t195 * t54;
@@ -145,15 +147,15 @@ pub fn gga_c_cs1_fxc_unpol(
         let t217 = t80 * t83 * t115;
         let t225 = -0.00011922432 * t110 * t87 + 3.5767296e-06 * t201 * t91 - 1.287622656e-08 * t207 * t186;
         let t227 = t30 * t35 * t225;
-        let tv2rhosigma0 = t109 + t118 + rho[ip] * (0.029083333333333333 * t196 + t211 / 4.0 + t214 / 6.0 - t217 / 6.0 + t227 / 2.0);
+        let tv2rhosigma0 = t109 + t118 + rho[ip] * (0.029083333333333333 * t196 + t211 * 0.25 + t214 / 6.0 - t217 / 6.0 + t227 * 0.5);
         v2rhosigma[ip] += tv2rhosigma0;
         let t233 = sigma[ip] * t103;
         let t237 = 1.0 / t13 / t143;
         let t238 = t6 * t237;
         let t241 = 5.72616e-07 * t11 * t20 - 1.3742784e-08 * t233 * t69 + 6.1842528e-11 * t238 * t154;
-        let t243 = t5 * t241 / 4.0;
+        let t243 = t5 * t241 * 0.25;
         let t251 = 2.235456e-05 * t28 * t11 * t42 - 1.07301888e-06 * t233 * t91 + 4.82858496e-09 * t238 * t186;
-        let t254 = t30 * t35 * t251 / 2.0;
+        let t254 = t30 * t35 * t251 * 0.5;
         let tv2sigma20 = rho[ip] * (t243 + t254);
         v2sigma2[ip] += tv2sigma20;
     }

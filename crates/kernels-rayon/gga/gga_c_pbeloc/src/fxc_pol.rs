@@ -24,27 +24,53 @@ pub fn gga_c_pbeloc_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t2 = 1.0 / M_PI;
+    let t3 = pow_1_3(t2);
+    let t4 = t1 * t3;
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t19 = t1 * t1;
+    let t20 = t3 * t3;
+    let t21 = t19 * t20;
+    let t45 = pow_1_3(zeta_threshold);
+    let t46 = t45 * zeta_threshold;
+    let t56 = M_CBRT2;
+    let t59 = 1.0 / (2.0 * t56 - 2.0);
+    let t92 = rmath::ln(2.0);
+    let t93 = 1.0 - t92;
+    let t94 = M_PI * M_PI;
+    let t95 = 1.0 / t94;
+    let t96 = t93 * t95;
+    let t97 = t45 * t45;
+    let t114 = 1.0 / t3;
+    let t115 = t19 * t114;
+    let t126 = t114 * t5;
+    let t130 = 1.0 / t93;
+    let t146 = t56 * t56;
+    let t151 = 1.0 / t20;
+    let t152 = t1 * t151;
+    let t153 = t152 * t6;
+    let t159 = t130 * t94;
+    let t181 = t3 * t6;
+    let t324 = t151 * t6;
+    let t463 = t115 * t5;
+    let t542 = t4 * t6;
+    let t557 = t20 * t5;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = M_CBRT3;
-        let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
-        let t4 = t1 * t3;
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t7 = rho0 + rho1;
         let t8 = pow_1_3(t7);
         let t11 = t4 * t6 / t8;
         let t13 = 1.0 + 0.053425 * t11;
         let t14 = rmath::sqrt(t11);
         let t17 = pow_3_2(t11);
-        let t19 = t1 * t1;
-        let t20 = t3 * t3;
-        let t21 = t19 * t20;
         let t22 = t8 * t8;
         let t25 = t21 * t5 / t22;
         let t27 = 3.79785 * t14 + 0.8969 * t11 + 0.204775 * t17 + 0.123235 * t25;
@@ -62,8 +88,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t42 = t34 * t41;
         let t43 = 1.0 + t42;
         let t44 = t43 <= zeta_threshold;
-        let t45 = pow_1_3(zeta_threshold);
-        let t46 = t45 * zeta_threshold;
         let t47 = pow_1_3(t43);
         let t48 = t47 * t43;
         let t49 = piecewise3(t44, t46, t48);
@@ -73,8 +97,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t53 = t52 * t50;
         let t54 = piecewise3(t51, t46, t53);
         let t55 = t49 + t54 - 2.0;
-        let t56 = M_CBRT2;
-        let t59 = 1.0 / (2.0 * t56 - 2.0);
         let t60 = t55 * t59;
         let t62 = 1.0 + 0.05137 * t11;
         let t67 = 7.05945 * t14 + 1.549425 * t11 + 0.420775 * t17 + 0.1562925 * t25;
@@ -89,17 +111,11 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t88 = t60 * t87;
         let t89 = t40 * t88;
         let t91 = 0.0197516734986138 * t60 * t85;
-        let t92 = rmath::ln(2.0);
-        let t93 = 1.0 - t92;
-        let t94 = M_PI * M_PI;
-        let t95 = 1.0 / t94;
-        let t96 = t93 * t95;
-        let t97 = t45 * t45;
         let t98 = t47 * t47;
         let t99 = piecewise3(t44, t97, t98);
         let t100 = t52 * t52;
         let t101 = piecewise3(t51, t97, t100);
-        let t103 = t99 / 2.0 + t101 / 2.0;
+        let t103 = t99 * 0.5 + t101 * 0.5;
         let t104 = t103 * t103;
         let t105 = t104 * t103;
         let t107 = sigma0 + 2.0 * sigma1 + sigma2;
@@ -107,17 +123,13 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t110 = t107 * t109;
         let t111 = 1.0 / t104;
         let t112 = t56 * t111;
-        let t114 = 1.0 / t3;
-        let t115 = t19 * t114;
-        let t117 = rmath::exp(-t25 / 4.0);
+        let t117 = rmath::exp(-t25 * 0.25);
         let t118 = 1.0 - t117;
         let t119 = t5 * t118;
         let t120 = t115 * t119;
         let t123 = 0.0375 + 0.0008333333333333334 * t110 * t112 * t120;
         let t125 = t111 * t19;
-        let t126 = t114 * t5;
         let t127 = t125 * t126;
-        let t130 = 1.0 / t93;
         let t131 = t123 * t130;
         let t133 = (-t33 + t89 + t91) * t130;
         let t134 = 1.0 / t105;
@@ -130,17 +142,12 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t142 = t140 * t141;
         let t143 = t131 * t142;
         let t145 = 1.0 / t22 / t38;
-        let t146 = t56 * t56;
         let t147 = t145 * t146;
         let t148 = t104 * t104;
         let t149 = 1.0 / t148;
-        let t151 = 1.0 / t20;
-        let t152 = t1 * t151;
-        let t153 = t152 * t6;
         let t154 = t147 * t149 * t153;
         let t157 = t110 * t56 * t127 / 96.0 + t143 * t154 / 3072.0;
         let t158 = t123 * t157;
-        let t159 = t130 * t94;
         let t160 = t140 * t157;
         let t162 = t131 * t160 + 1.0;
         let t163 = 1.0 / t162;
@@ -158,7 +165,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t177 = 1.0 / t176;
         let t178 = t13 * t177;
         let t180 = 1.0 / t14 * t1;
-        let t181 = t3 * t6;
         let t182 = t181 * t171;
         let t183 = t180 * t182;
         let t185 = t4 * t172;
@@ -219,7 +225,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t273 = piecewise3(t44, 0.0, 2.0 / 3.0 * t270 * t212);
         let t274 = 1.0 / t52;
         let t277 = piecewise3(t51, 0.0, 2.0 / 3.0 * t274 * t216);
-        let t279 = t273 / 2.0 + t277 / 2.0;
+        let t279 = t273 * 0.5 + t277 * 0.5;
         let t281 = t96 * t269 * t279;
         let t282 = 3.0 * t281;
         let t283 = t37 * t7;
@@ -248,7 +254,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t321 = t316 * t320;
         let t322 = t146 * t149;
         let t323 = t322 * t1;
-        let t324 = t151 * t6;
         let t326 = (t175 + t200 + t204 - t209 + t223 + t256 + t258 - t263 - t268) * t130;
         let t328 = t94 * t149;
         let t329 = t328 * t279;
@@ -293,7 +298,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t392 = 0.0197516734986138 * t391;
         let t395 = piecewise3(t44, 0.0, 2.0 / 3.0 * t270 * t379);
         let t398 = piecewise3(t51, 0.0, 2.0 / 3.0 * t274 * t383);
-        let t400 = t395 / 2.0 + t398 / 2.0;
+        let t400 = t395 * 0.5 + t398 * 0.5;
         let t402 = t96 * t269 * t400;
         let t403 = 3.0 * t402;
         let t405 = t115 * t119 * t400;
@@ -328,7 +333,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t458 = t157 * t130 * t163;
         let t459 = t119 * t458;
         let t460 = t456 * t459;
-        let t463 = t115 * t5;
         let t464 = t454 * t111 * t463;
         let t466 = t38 * t283;
         let t467 = 1.0 / t466;
@@ -389,7 +393,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t535 = t6 * t109;
         let t537 = t4 * t535 * t31;
         let t538 = 0.0014764627977777779 * t537;
-        let t542 = t4 * t6;
         let t543 = t171 * t228;
         let t547 = t227 * t67;
         let t548 = 1.0 / t547;
@@ -397,7 +400,6 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t550 = t234 * t234;
         let t551 = t550 * t235;
         let t556 = 1.0 / t14 / t11 * t19;
-        let t557 = t20 * t5;
         let t559 = 1.0 / t22 / t37;
         let t560 = t557 * t559;
         let t561 = t556 * t560;
@@ -513,7 +515,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t732 = piecewise3(t44, 0.0, -2.0 / 9.0 * t726 * t658 + 2.0 / 3.0 * t270 * t664);
         let t733 = 1.0 / t53;
         let t739 = piecewise3(t51, 0.0, -2.0 / 9.0 * t733 * t670 + 2.0 / 3.0 * t274 * t673);
-        let t741 = t732 / 2.0 + t739 / 2.0;
+        let t741 = t732 * 0.5 + t739 * 0.5;
         let t743 = t96 * t269 * t741;
         let t744 = 3.0 * t743;
         let t746 = 1.0 / t8 / t38;
@@ -596,7 +598,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t883 = t882 * t1;
         let t885 = t883 * t324 * t690;
         let t889 = t351 * t324 * t741;
-        let t892 = t790 + 7.0 / 72.0 * t791 + t759 * t794 / 16.0 - t291 * t798 / 48.0 + t802 * t154 / 3072.0 - t806 * t335 / 1536.0 - 7.0 / 2304.0 * t809 - t811 * t353 / 384.0 + t818 * t823 / 1536.0 + 7.0 / 2304.0 * t828 + t831 * t837 / 384.0 - t321 * t863 / 3072.0 - t321 * t868 / 3072.0 + t877 + 7.0 / 576.0 * t880 + 5.0 / 768.0 * t347 * t885 - t347 * t889 / 768.0;
+        let t892 = t790 + 7.0 / 72.0 * t791 + t759 * t794 * 0.0625 - t291 * t798 / 48.0 + t802 * t154 / 3072.0 - t806 * t335 / 1536.0 - 7.0 / 2304.0 * t809 - t811 * t353 / 384.0 + t818 * t823 / 1536.0 + 7.0 / 2304.0 * t828 + t831 * t837 / 384.0 - t321 * t863 / 3072.0 - t321 * t868 / 3072.0 + t877 + 7.0 / 576.0 * t880 + 5.0 / 768.0 * t347 * t885 - t347 * t889 / 768.0;
         let t893 = t123 * t892;
         let t895 = t357 * t130;
         let t899 = 1.0 / t360 / t162;
@@ -648,7 +650,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t973 = t733 * t383;
         let t976 = t274 * t34;
         let t980 = piecewise3(t51, 0.0, -2.0 / 9.0 * t973 * t216 - 4.0 / 3.0 * t976 * t661);
-        let t982 = t972 / 2.0 + t980 / 2.0;
+        let t982 = t972 * 0.5 + t980 * 0.5;
         let t984 = t96 * t269 * t982;
         let t987 = t751 * t405;
         let t989 = t758 * t19;
@@ -681,7 +683,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t1045 = t820 * t332;
         let t1047 = t1043 * t1044 * t1045;
         let t1050 = t827 * t428;
-        let t1052 = t790 + 7.0 / 144.0 * t791 + 7.0 / 144.0 * t1015 + t759 * t1018 / 16.0 - t291 * t1022 / 48.0 + t1026 * t154 / 3072.0 - t1030 * t335 / 3072.0 - 7.0 / 4608.0 * t1033 - t1035 * t353 / 768.0 - t806 * t428 / 3072.0 + t1041 * t1047 / 1536.0 + 7.0 / 4608.0 * t1050;
+        let t1052 = t790 + 7.0 / 144.0 * t791 + 7.0 / 144.0 * t1015 + t759 * t1018 * 0.0625 - t291 * t1022 / 48.0 + t1026 * t154 / 3072.0 - t1030 * t335 / 3072.0 - 7.0 / 4608.0 * t1033 - t1035 * t353 / 768.0 - t806 * t428 / 3072.0 + t1041 * t1047 / 1536.0 + 7.0 / 4608.0 * t1050;
         let t1054 = t833 * t1044 * t835;
         let t1057 = t528 - t531 - t936 - t939 - t538 + t652 + t656 + t941 - t943 - t592 + t685 - t949 - t599;
         let t1058 = t657 * t379;
@@ -762,7 +764,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t1215 = t96 * t105 * t1212 * t723;
         let t1221 = piecewise3(t44, 0.0, -2.0 / 9.0 * t726 * t1181 + 2.0 / 3.0 * t270 * t1185);
         let t1227 = piecewise3(t51, 0.0, -2.0 / 9.0 * t733 * t1190 + 2.0 / 3.0 * t274 * t1193);
-        let t1229 = t1221 / 2.0 + t1227 / 2.0;
+        let t1229 = t1221 * 0.5 + t1227 * 0.5;
         let t1231 = t96 * t269 * t1229;
         let t1232 = 3.0 * t1231;
         let t1235 = t115 * t119 * t1202;
@@ -796,7 +798,7 @@ pub fn gga_c_pbeloc_fxc_pol(
         let t1305 = t323 * t324 * t1303;
         let t1310 = t883 * t324 * t1202;
         let t1314 = t351 * t324 * t1229;
-        let t1317 = t790 + 7.0 / 72.0 * t1015 + t759 * t1253 / 16.0 - t291 * t1257 / 48.0 + t1261 * t154 / 3072.0 - t1030 * t428 / 1536.0 - 7.0 / 2304.0 * t1033 - t1035 * t432 / 384.0 + t818 * t1272 / 1536.0 + 7.0 / 2304.0 * t1050 + t831 * t1278 / 384.0 - t321 * t1300 / 3072.0 - t321 * t1305 / 3072.0 + t877 + 7.0 / 576.0 * t1118 + 5.0 / 768.0 * t347 * t1310 - t347 * t1314 / 768.0;
+        let t1317 = t790 + 7.0 / 72.0 * t1015 + t759 * t1253 * 0.0625 - t291 * t1257 / 48.0 + t1261 * t154 / 3072.0 - t1030 * t428 / 1536.0 - 7.0 / 2304.0 * t1033 - t1035 * t432 / 384.0 + t818 * t1272 / 1536.0 + 7.0 / 2304.0 * t1050 + t831 * t1278 / 384.0 - t321 * t1300 / 3072.0 - t321 * t1305 / 3072.0 + t877 + 7.0 / 576.0 * t1118 + 5.0 / 768.0 * t347 * t1310 - t347 * t1314 / 768.0;
         let t1318 = t123 * t1317;
         let t1322 = t443 * t443;
         let t1323 = t900 * t1322;

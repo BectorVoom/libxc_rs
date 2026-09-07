@@ -157,7 +157,7 @@ pub fn mgga_xc_lp90_exc_pol(
             let t17 = v_rho0 - v_rho1;
             let t18 = f64x8::splat(1.0) / t4;
             let t19 = t17 * t18;
-            let t21 = f64x8::splat(1.0) / f64x8::splat(2.0) + t19 / f64x8::splat(2.0);
+            let t21 = f64x8::splat(1.0) * f64x8::splat(0.5) + t19 * f64x8::splat(0.5);
             let t22 = (simd::cbrt(t21));
             let t23 = t22 * t22;
             let t24 = t23 * t21;
@@ -165,7 +165,7 @@ pub fn mgga_xc_lp90_exc_pol(
             let t28 = t27 * t27;
             let t30 = f64x8::splat(1.0) / t28 / v_rho1;
             let t31 = v_lapl1 * t30;
-            let t33 = f64x8::splat(1.0) / f64x8::splat(2.0) - t19 / f64x8::splat(2.0);
+            let t33 = f64x8::splat(1.0) * f64x8::splat(0.5) - t19 * f64x8::splat(0.5);
             let t34 = (simd::cbrt(t33));
             let t35 = t34 * t34;
             let t36 = t35 * t33;

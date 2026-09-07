@@ -27,11 +27,18 @@ pub fn mgga_x_tb09_vxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRTPI;
+    let t3 = param_c * t2;
+    let t4 = M_CBRT2;
+    let t5 = t4 * t4;
+    let t51 = rmath::sqrt(15.0);
+    let t52 = (3.0 * param_c - 2.0) * t51;
+    let t53 = 1.0 / M_PI;
+    let t54 = M_SQRT2;
+    let t55 = t53 * t54;
     for ip in 0..vrho.len() {
-        let t2 = M_CBRTPI;
-        let t3 = param_c * t2;
-        let t4 = M_CBRT2;
-        let t5 = t4 * t4;
         let t6 = pow_1_3(rho[ip]);
         let t7 = t6 * t6;
         let t9 = 1.0 / t7 / rho[ip];
@@ -50,25 +57,20 @@ pub fn mgga_x_tb09_vxc_unpol(
         let t36 = xc_mgga_x_br89_get_x(t35);
         let t38 = rmath::exp(t36 / 3.0);
         let t39 = rmath::exp(-t36);
-        let t41 = 1.0 + t36 / 2.0;
+        let t41 = 1.0 + t36 * 0.5;
         let t42 = t39 * t41;
         let t43 = 1.0 - t42;
         let t44 = t38 * t43;
         let t45 = 1.0 / t36;
         let t46 = t44 * t45;
-        let t51 = rmath::sqrt(15.0);
-        let t52 = (3.0 * param_c - 2.0) * t51;
-        let t53 = 1.0 / M_PI;
-        let t54 = M_SQRT2;
-        let t55 = t53 * t54;
         let t56 = param_alpha * sigma[ip];
         let t57 = t5 * t16;
-        let t60 = t27 - t56 * t57 / 8.0;
+        let t60 = t27 - t56 * t57 * 0.125;
         let t61 = 1e-10 < t60;
         let t62 = piecewise3(t61, t60, 1e-10);
         let t63 = rmath::sqrt(t62);
         let t68 = (-2.0 * t3 * t46 + t52 * t55 * t63 / 6.0) * t5;
-        let tvrho0 = t68 * t6 / 2.0;
+        let tvrho0 = t68 * t6 * 0.5;
         vrho[ip] += tvrho0;
     }
 }

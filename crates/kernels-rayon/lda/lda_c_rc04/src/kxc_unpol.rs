@@ -72,6 +72,23 @@ pub fn lda_c_rc04_kxc_unpol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = (simd::cbrt(zeta_threshold));
+    let t3 = t2 * t2;
+    let t4 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t3, f64x8::splat(1.0)));
+    let t5 = t4 * t4;
+    let t6 = t5 * t4;
+    let t7 = f64x8::splat(M_CBRT3);
+    let t9 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t10 = t7 * t9;
+    let t11 = f64x8::splat(M_CBRT4);
+    let t12 = t11 * t11;
+    let t23 = t7 * t7;
+    let t26 = f64x8::splat(1.0) / t9 * t11;
+    let t77 = t9 * t9;
+    let t78 = t23 * t77;
+    let t86 = t77 * t11;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -81,22 +98,10 @@ pub fn lda_c_rc04_kxc_unpol(
         let mut acc_v2rho2 = V_ZERO;
         let mut acc_v3rho3 = V_ZERO;
         {
-            let t2 = (simd::cbrt(zeta_threshold));
-            let t3 = t2 * t2;
-            let t4 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t3, f64x8::splat(1.0)));
-            let t5 = t4 * t4;
-            let t6 = t5 * t4;
-            let t7 = f64x8::splat(M_CBRT3);
-            let t9 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t10 = t7 * t9;
-            let t11 = f64x8::splat(M_CBRT4);
-            let t12 = t11 * t11;
             let t13 = (simd::cbrt(v_rho));
             let t18 = f64x8::splat(4.88827) + f64x8::splat(0.79425925) * t10 * t12 / t13;
             let t19 = (simd::atan(t18));
-            let t23 = t7 * t7;
             let t24 = t6 * (-f64x8::splat(0.655868) * t19 + f64x8::splat(0.897889)) * t23;
-            let t26 = f64x8::splat(1.0) / t9 * t11;
             let t28 = t24 * t26 * t13;
             let tzk0 = t28 / f64x8::splat(3.0);
             acc_zk = tzk0;
@@ -115,10 +120,7 @@ pub fn lda_c_rc04_kxc_unpol(
             let t65 = t18 * t7 * t9 * t12;
             let t74 = f64x8::splat(1.0) / t44 / t31;
             let t75 = t6 * t74;
-            let t77 = t9 * t9;
-            let t78 = t23 * t77;
             let t80 = f64x8::splat(1.0) / t39 / t54;
-            let t86 = t77 * t11;
             let tv3rho30 = -f64x8::splat(0.6173976009232592) * t6 / t54 * t32 - f64x8::splat(1e-20) * t6 / t13 / t54 * t45 * t65 - f64x8::splat(8.0) / f64x8::splat(81.0) * t24 * t26 / t39 / v_rho + f64x8::splat(1.5579355649288897) * t75 * t30 * t78 * t11 * t80 - f64x8::splat(0.38948389123222243) * t46 * t23 * t86 * t80;
             acc_v3rho3 = tv3rho30;
         }

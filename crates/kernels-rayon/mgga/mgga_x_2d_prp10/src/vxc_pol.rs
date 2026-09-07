@@ -25,6 +25,10 @@ pub fn mgga_x_2d_prp10_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t12 = 1.0 / M_PI;
+    let t16 = rmath::exp(-1.0);
     for ip in 0..vrho.len() / 2 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -39,15 +43,13 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t3 = 1.0 / t2;
         let t6 = tau0 * t3;
         let t8 = 1.0 / t2 / rho0;
-        let t10 = sigma0 * t8 / 8.0;
-        let t12 = 1.0 / M_PI;
-        let t13 = (lapl0 * t3 / 4.0 - t6 + t10) * t12;
+        let t10 = sigma0 * t8 * 0.125;
+        let t13 = (lapl0 * t3 * 0.25 - t6 + t10) * t12;
         let t14 = -0.9999999999 < t13;
         let t15 = piecewise3(t14, t13, -0.9999999999);
-        let t16 = rmath::exp(-1.0);
         let t18 = lambert_w(t15 * t16);
         let t19 = t18 + 1.0;
-        let t20 = t19 / 2.0;
+        let t20 = t19 * 0.5;
         let t21 = xc_bessel_I0(t20);
         let t23 = t6 - t10;
         let t24 = 1e-10 < t23;
@@ -61,13 +63,13 @@ pub fn mgga_x_2d_prp10_vxc_pol(
         let t33 = 1.0 / t32;
         let t36 = tau1 * t33;
         let t38 = 1.0 / t32 / rho1;
-        let t40 = sigma2 * t38 / 8.0;
-        let t42 = (lapl1 * t33 / 4.0 - t36 + t40) * t12;
+        let t40 = sigma2 * t38 * 0.125;
+        let t42 = (lapl1 * t33 * 0.25 - t36 + t40) * t12;
         let t43 = -0.9999999999 < t42;
         let t44 = piecewise3(t43, t42, -0.9999999999);
         let t46 = lambert_w(t44 * t16);
         let t47 = t46 + 1.0;
-        let t48 = t47 / 2.0;
+        let t48 = t47 * 0.5;
         let t49 = xc_bessel_I0(t48);
         let t51 = t36 - t40;
         let t52 = 1e-10 < t51;

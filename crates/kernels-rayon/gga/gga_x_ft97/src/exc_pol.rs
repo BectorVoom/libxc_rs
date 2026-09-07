@@ -22,6 +22,21 @@ pub fn gga_x_ft97_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = M_CBRTPI;
+    let t5 = t2 / t3;
+    let t11 = zeta_threshold - 1.0;
+    let t15 = -t11;
+    let t21 = pow_1_3(zeta_threshold);
+    let t22 = t21 * zeta_threshold;
+    let t34 = M_CBRT2;
+    let t57 = t2 * t2;
+    let t59 = pow_1_3(1.0 / M_PI);
+    let t60 = 1.0 / t59;
+    let t61 = t57 * t60;
+    let t62 = M_CBRT4;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -29,21 +44,14 @@ pub fn gga_x_ft97_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t5 = t2 / t3;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
         let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
         let t16 = rho0 - rho1;
         let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
         let t19 = 1.0 + t18;
         let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
         let t23 = pow_1_3(t19);
         let t25 = piecewise3(t20, t22, t23 * t19);
         let t26 = pow_1_3(t6);
@@ -53,7 +61,6 @@ pub fn gga_x_ft97_exc_pol(
         let t30 = pow_1_3(rho0);
         let t31 = t30 * t30;
         let t33 = 1.0 / t31 / t29;
-        let t34 = M_CBRT2;
         let t35 = t33 * t34;
         let t36 = t28 * t35;
         let t37 = t19 * t19;
@@ -65,17 +72,12 @@ pub fn gga_x_ft97_exc_pol(
         let t43 = sigma0 * t33;
         let t44 = t43 * t34;
         let t45 = t39 * t42;
-        let t48 = param_beta2 + t44 * t45 / 8.0;
+        let t48 = param_beta2 + t44 * t45 * 0.125;
         let t49 = 1.0 / t48;
         let t50 = t42 * t49;
         let t51 = t39 * t50;
-        let t54 = param_beta0 + t36 * t51 / 8.0;
+        let t54 = param_beta0 + t36 * t51 * 0.125;
         let t55 = t54 * sigma0;
-        let t57 = t2 * t2;
-        let t59 = pow_1_3(1.0 / M_PI);
-        let t60 = 1.0 / t59;
-        let t61 = t57 * t60;
-        let t62 = M_CBRT4;
         let t63 = t54 * t54;
         let t64 = rmath::ln(t43 + rmath::sqrt(t43 * t43 + 1.0));
         let t65 = t64 * t64;
@@ -85,7 +87,7 @@ pub fn gga_x_ft97_exc_pol(
         let t71 = 1.0 / t70;
         let t73 = t61 * t62 * t71;
         let t76 = 1.0 + 2.0 / 9.0 * t55 * t33 * t73;
-        let t80 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t76);
+        let t80 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t27 * t76);
         let t81 = rho1 <= dens_threshold;
         let t82 = -t16;
         let t84 = piecewise5(t14, t11, t10, t15, t82 * t7);
@@ -109,11 +111,11 @@ pub fn gga_x_ft97_exc_pol(
         let t104 = sigma2 * t96;
         let t105 = t104 * t34;
         let t106 = t100 * t103;
-        let t109 = param_beta2 + t105 * t106 / 8.0;
+        let t109 = param_beta2 + t105 * t106 * 0.125;
         let t110 = 1.0 / t109;
         let t111 = t103 * t110;
         let t112 = t100 * t111;
-        let t115 = param_beta0 + t98 * t112 / 8.0;
+        let t115 = param_beta0 + t98 * t112 * 0.125;
         let t116 = t115 * sigma2;
         let t118 = t115 * t115;
         let t119 = rmath::ln(t104 + rmath::sqrt(t104 * t104 + 1.0));
@@ -124,7 +126,7 @@ pub fn gga_x_ft97_exc_pol(
         let t126 = 1.0 / t125;
         let t128 = t61 * t62 * t126;
         let t131 = 1.0 + 2.0 / 9.0 * t116 * t96 * t128;
-        let t135 = piecewise3(t81, 0.0, -3.0 / 8.0 * t5 * t90 * t131);
+        let t135 = piecewise3(t81, 0.0, -3.0 * 0.125 * t5 * t90 * t131);
         let tzk0 = t80 + t135;
         zk[ip] += tzk0;
     }

@@ -28,6 +28,25 @@ pub fn gga_c_ccdf_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t8 = M_CBRT2;
+    let t9 = M_CBRT6;
+    let t10 = t9 * t9;
+    let t11 = t8 * t10;
+    let t12 = M_PI * M_PI;
+    let t13 = pow_1_3(t12);
+    let t14 = 1.0 / t13;
+    let t45 = param_c4 * t8 * t10;
+    let t66 = t11 * t14;
+    let t82 = param_c2 * param_c2;
+    let t104 = param_c4 * param_c4;
+    let t105 = t8 * t8;
+    let t106 = t104 * t105;
+    let t107 = t106 * t9;
+    let t108 = t13 * t13;
+    let t109 = 1.0 / t108;
+    let t131 = t9 * t109;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -40,13 +59,6 @@ pub fn gga_c_ccdf_fxc_pol(
         let t5 = param_c2 * t3 + 1.0;
         let t6 = 1.0 / t5;
         let t7 = param_c1 * t6;
-        let t8 = M_CBRT2;
-        let t9 = M_CBRT6;
-        let t10 = t9 * t9;
-        let t11 = t8 * t10;
-        let t12 = M_PI * M_PI;
-        let t13 = pow_1_3(t12);
-        let t14 = 1.0 / t13;
         let t16 = sigma0 + 2.0 * sigma1 + sigma2;
         let t17 = rmath::sqrt(t16);
         let t18 = t14 * t17;
@@ -64,7 +76,6 @@ pub fn gga_c_ccdf_fxc_pol(
         let t41 = 1.0 / t40;
         let t42 = t39 * t41;
         let t43 = t20 * param_c1 * t42;
-        let t45 = param_c4 * t8 * t10;
         let tvrho0 = tzk0 + t31 * t33 * t30 * param_c2 / 3.0 + t43 * t45 * t18 * t26 / 9.0;
         vrho[ip * 2] += tvrho0;
         let tvrho1 = tvrho0;
@@ -84,13 +95,11 @@ pub fn gga_c_ccdf_fxc_pol(
         let t63 = param_c3 * t41;
         let t64 = t63 * param_c4;
         let t65 = t7 * t64;
-        let t66 = t11 * t14;
         let t67 = t1 * t1;
         let t69 = 1.0 / t2 / t67;
         let t75 = t2 * t2;
         let t78 = 1.0 / t75 / t1 * param_c1;
         let t80 = 1.0 / t32 / t5;
-        let t82 = param_c2 * param_c2;
         let t87 = 1.0 / t75 / t67;
         let t88 = t87 * param_c1;
         let t90 = t88 * t33 * t64;
@@ -102,12 +111,6 @@ pub fn gga_c_ccdf_fxc_pol(
         let t101 = 1.0 / t40 / t27;
         let t102 = t39 * t101;
         let t103 = t99 * t102;
-        let t104 = param_c4 * param_c4;
-        let t105 = t8 * t8;
-        let t106 = t104 * t105;
-        let t107 = t106 * t9;
-        let t108 = t13 * t13;
-        let t109 = 1.0 / t108;
         let t110 = t109 * t16;
         let t111 = t26 * t26;
         let t116 = t99 * t42;
@@ -124,7 +127,6 @@ pub fn gga_c_ccdf_fxc_pol(
         let t127 = t66 * t126;
         let t128 = t124 * t127;
         let t130 = t88 * t102;
-        let t131 = t9 * t109;
         let t133 = t106 * t131 * t111;
         let t134 = t130 * t133;
         let t136 = t88 * t42;

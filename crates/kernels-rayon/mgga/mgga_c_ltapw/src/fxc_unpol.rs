@@ -36,21 +36,46 @@ pub fn mgga_c_ltapw_fxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = 1.0 / M_PI;
+    let t4 = pow_1_3(t3);
+    let t5 = t2 * t4;
+    let t6 = M_CBRT4;
+    let t7 = t6 * t6;
+    let t8 = M_CBRT2;
+    let t9 = t8 * t8;
+    let t15 = M_CBRT6;
+    let t17 = M_PI * M_PI;
+    let t18 = pow_1_3(t17);
+    let t19 = t18 * t18;
+    let t38 = t2 * t2;
+    let t39 = t4 * t4;
+    let t40 = t38 * t39;
+    let t54 = pow_1_3(zeta_threshold);
+    let t56 = piecewise3(1.0 <= zeta_threshold, t54 * zeta_threshold, 1.0);
+    let t62 = (2.0 * t56 - 2.0) / (2.0 * t8 - 2.0);
+    let t77 = t5 * t7;
+    let t114 = t62 * t5;
+    let tvsigma0 = 0.0;
+    let tvlapl0 = 0.0;
+    let t141 = t4 * t7;
+    let t161 = t62 * t77;
+    let t193 = param_ltafrac * param_ltafrac;
+    let tv2rhosigma0 = 0.0;
+    let tv2rholapl0 = 0.0;
+    let t328 = t39 * t6;
+    let t367 = t40 * t6;
+    let t383 = t62 * t2;
+    let tv2sigma20 = 0.0;
+    let tv2sigmalapl0 = 0.0;
+    let tv2sigmatau0 = 0.0;
+    let tv2lapl20 = 0.0;
+    let tv2lapltau0 = 0.0;
     for ip in 0..zk.len() {
-        let t2 = M_CBRT3;
-        let t3 = 1.0 / M_PI;
-        let t4 = pow_1_3(t3);
-        let t5 = t2 * t4;
-        let t6 = M_CBRT4;
-        let t7 = t6 * t6;
-        let t8 = M_CBRT2;
-        let t9 = t8 * t8;
         let t11 = pow_1_3(rho[ip]);
         let t12 = t11 * t11;
-        let t15 = M_CBRT6;
-        let t17 = M_PI * M_PI;
-        let t18 = pow_1_3(t17);
-        let t19 = t18 * t18;
         let t25 = rmath::pow(5.0 / 9.0 * tau[ip] * t9 / t12 / rho[ip] * t15 / t19, 3.0 / 5.0 * param_ltafrac);
         let t26 = rho[ip] * t25;
         let t27 = pow_1_3(t26);
@@ -58,18 +83,12 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t32 = 1.0 + 0.053425 * t30;
         let t33 = rmath::sqrt(t30);
         let t36 = pow_3_2(t30);
-        let t38 = t2 * t2;
-        let t39 = t4 * t4;
-        let t40 = t38 * t39;
         let t41 = t27 * t27;
         let t44 = t40 * t6 / t41;
         let t46 = 3.79785 * t33 + 0.8969 * t30 + 0.204775 * t36 + 0.123235 * t44;
         let t49 = 1.0 + 16.081824322151103 / t46;
         let t50 = rmath::ln(t49);
         let t52 = 0.062182 * t32 * t50;
-        let t54 = pow_1_3(zeta_threshold);
-        let t56 = piecewise3(1.0 <= zeta_threshold, t54 * zeta_threshold, 1.0);
-        let t62 = (2.0 * t56 - 2.0) / (2.0 * t8 - 2.0);
         let t64 = 1.0 + 0.0278125 * t30;
         let t69 = 5.1785 * t33 + 0.905775 * t30 + 0.1100325 * t36 + 0.1241775 * t44;
         let t72 = 1.0 + 29.608574643216677 / t69;
@@ -77,7 +96,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t76 = 0.019751789702565206 * t62 * t64 * t73;
         let tzk0 = -t52 + t76;
         zk[ip] += tzk0;
-        let t77 = t5 * t7;
         let t79 = 1.0 / t27 / t26;
         let t80 = t25 * param_ltafrac;
         let t81 = t25 - t80;
@@ -103,7 +121,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t110 = 1.0 / t49;
         let t111 = t109 * t110;
         let t112 = t88 * t111;
-        let t114 = t62 * t5;
         let t115 = t81 * t73;
         let t117 = t114 * t92 * t115;
         let t119 = t62 * t64;
@@ -116,15 +133,12 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t130 = t119 * t129;
         let tvrho0 = -t52 + t76 + rho[ip] * (0.0011073577833333333 * t84 + 1.0 * t112 - 0.0001831155503675316 * t117 - 0.5848223397455204 * t130);
         vrho[ip] += tvrho0;
-        let tvsigma0 = 0.0;
         vsigma[ip] += tvsigma0;
-        let tvlapl0 = 0.0;
         vlapl[ip] += tvlapl0;
         let t134 = t5 * t92;
         let t135 = 1.0 / tau[ip];
         let t136 = param_ltafrac * t135;
         let t140 = 0.00066441467 * t134 * t26 * t136 * t50;
-        let t141 = t4 * t7;
         let t142 = t90 * t141;
         let t143 = t79 * rho[ip];
         let t144 = t80 * t135;
@@ -139,7 +153,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t157 = -0.379785 * t146 - 0.17938 * t149 - 0.0614325 * t152 - 0.049294 * t155;
         let t158 = t157 * t110;
         let t160 = 1.0 * t88 * t158;
-        let t161 = t62 * t77;
         let t162 = t143 * t25;
         let t163 = t136 * t73;
         let t166 = 0.00010986933022051895 * t161 * t162 * t163;
@@ -157,7 +170,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t187 = t185 * t186;
         let t189 = t77 * t187 * t50;
         let t191 = 1.0 / rho[ip];
-        let t193 = param_ltafrac * param_ltafrac;
         let t194 = t25 * t193;
         let t195 = t194 * t191;
         let t196 = -t80 * t191 + t195;
@@ -226,9 +238,7 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t300 = -0.0014764770444444443 * t189 + 0.0011073577833333333 * t199 - 0.035616666666666665 * t203 - 2.0 * t210 + 1.0 * t249 + 16.081824322151103 * t257 + 0.0002441540671567088 * t261 - 0.0001831155503675316 * t265 + 0.010843580882781523 * t268 + 1.169644679491041 * t275 - 0.5848223397455204 * t290 - 17.315755899375862 * t298;
         let tv2rho20 = 0.0022147155666666666 * t84 + 2.0 * t112 - 0.0003662311007350632 * t117 - 1.169644679491041 * t130 + rho[ip] * t300;
         v2rho2[ip] += tv2rho20;
-        let tv2rhosigma0 = 0.0;
         v2rhosigma[ip] += tv2rhosigma0;
-        let tv2rholapl0 = 0.0;
         v2rholapl[ip] += tv2rholapl0;
         let t303 = t5 * t222 * rho[ip];
         let t304 = t135 * t50;
@@ -243,7 +253,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t323 = t134 * t201 * t158;
         let t325 = t158 * t109;
         let t326 = t207 * t325;
-        let t328 = t39 * t6;
         let t329 = t328 * t217;
         let t330 = t214 * t329;
         let t331 = t136 * t81;
@@ -270,7 +279,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t362 = t151 * t344;
         let t364 = t40 * t218;
         let t365 = t364 * t332;
-        let t367 = t40 * t6;
         let t368 = t104 * t25;
         let t370 = t367 * t368 * t136;
         let t373 = t367 * t368 * t343;
@@ -280,7 +288,6 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t379 = t157 * t255;
         let t380 = t379 * t109;
         let t381 = t253 * t380;
-        let t383 = t62 * t2;
         let t384 = t383 * t335;
         let t385 = t26 * param_ltafrac;
         let t386 = t135 * t73;
@@ -309,15 +316,10 @@ pub fn mgga_c_ltapw_fxc_unpol(
         let t437 = -0.0008858862266666667 * t307 + 0.00066441467 * t310 - 0.00066441467 * t313 - 0.010685 * t320 - 0.017808333333333332 * t323 - 2.0 * t326 + 1.0 * t377 + 16.081824322151103 * t381 + 0.00014649244029402527 * t389 - 0.00010986933022051895 * t392 + 0.00010986933022051895 * t396 + 0.003253074264834457 * t404 + 0.005421790441390762 * t407 + 1.169644679491041 * t411 - 0.5848223397455204 * t430 - 17.315755899375862 * t435;
         let tv2rhotau0 = rho[ip] * t437 + t140 + t160 - t166 - t175;
         v2rhotau[ip] += tv2rhotau0;
-        let tv2sigma20 = 0.0;
         v2sigma2[ip] += tv2sigma20;
-        let tv2sigmalapl0 = 0.0;
         v2sigmalapl[ip] += tv2sigmalapl0;
-        let tv2sigmatau0 = 0.0;
         v2sigmatau[ip] += tv2sigmatau0;
-        let tv2lapl20 = 0.0;
         v2lapl2[ip] += tv2lapl20;
-        let tv2lapltau0 = 0.0;
         v2lapltau[ip] += tv2lapltau0;
         let t439 = tau[ip] * tau[ip];
         let t440 = 1.0 / t439;

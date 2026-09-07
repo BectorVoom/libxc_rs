@@ -25,6 +25,18 @@ pub fn mgga_c_b94_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t11 = M_CBRT2;
+    let t16 = zeta_threshold - 1.0;
+    let t20 = -t16;
+    let t28 = M_CBRTPI;
+    let t29 = 1.0 / t28;
+    let t141 = t11 * t11;
+    let t152 = param_css * param_css;
+    let t153 = t152 * t152;
+    let t168 = param_css * t11;
+    let t177 = 1.0 / param_css;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -43,12 +55,9 @@ pub fn mgga_c_b94_exc_pol(
         let t8 = -t3 * t6 + 1.0;
         let t9 = t8 * t4;
         let t10 = rho0 <= dens_threshold;
-        let t11 = M_CBRT2;
         let t12 = 1.0 / t4;
         let t15 = 2.0 * rho0 * t12 <= zeta_threshold;
-        let t16 = zeta_threshold - 1.0;
         let t19 = 2.0 * rho1 * t12 <= zeta_threshold;
-        let t20 = -t16;
         let t21 = t2 * t12;
         let t22 = piecewise5(t15, t16, t19, t20, t21);
         let t23 = 1.0 + t22;
@@ -56,8 +65,6 @@ pub fn mgga_c_b94_exc_pol(
         let t25 = pow_1_3(t24);
         let t26 = 1.0 / t25;
         let t27 = t11 * t26;
-        let t28 = M_CBRTPI;
-        let t29 = 1.0 / t28;
         let t30 = t27 * t29;
         let t31 = pow_1_3(rho0);
         let t32 = t31 * t31;
@@ -69,7 +76,7 @@ pub fn mgga_c_b94_exc_pol(
         let t41 = rho0 * rho0;
         let t43 = 1.0 / t32 / t41;
         let t44 = t40 * t43;
-        let t47 = rmath::abs(t35 / 2.0 - 2.0 * t38 + t44 / 4.0);
+        let t47 = rmath::abs(t35 * 0.5 - 2.0 * t38 + t44 * 0.25);
         let t49 = t47 / 3.0 < 5e-13;
         let t53 = t35 / 6.0 - 2.0 / 3.0 * t38 + t44 / 12.0;
         let t54 = 0.0 < t53;
@@ -79,13 +86,13 @@ pub fn mgga_c_b94_exc_pol(
         let t59 = rmath::exp(t57 / 3.0);
         let t60 = 1.0 / t59;
         let t61 = rmath::exp(-t57);
-        let t63 = 1.0 + t57 / 2.0;
+        let t63 = 1.0 + t57 * 0.5;
         let t64 = t61 * t63;
         let t65 = 1.0 - t64;
         let t66 = 1.0 / t65;
         let t67 = t60 * t66;
         let t68 = t67 * t57;
-        let t71 = piecewise3(t10, 0.0, t30 * t68 / 2.0);
+        let t71 = piecewise3(t10, 0.0, t30 * t68 * 0.5);
         let t72 = rho1 <= dens_threshold;
         let t73 = -t2;
         let t75 = piecewise5(t19, t16, t15, t20, t73 * t12);
@@ -105,7 +112,7 @@ pub fn mgga_c_b94_exc_pol(
         let t92 = rho1 * rho1;
         let t94 = 1.0 / t83 / t92;
         let t95 = t91 * t94;
-        let t98 = rmath::abs(t86 / 2.0 - 2.0 * t89 + t95 / 4.0);
+        let t98 = rmath::abs(t86 * 0.5 - 2.0 * t89 + t95 * 0.25);
         let t100 = t98 / 3.0 < 5e-13;
         let t104 = t86 / 6.0 - 2.0 / 3.0 * t89 + t95 / 12.0;
         let t105 = 0.0 < t104;
@@ -115,13 +122,13 @@ pub fn mgga_c_b94_exc_pol(
         let t110 = rmath::exp(t108 / 3.0);
         let t111 = 1.0 / t110;
         let t112 = rmath::exp(-t108);
-        let t114 = 1.0 + t108 / 2.0;
+        let t114 = 1.0 + t108 * 0.5;
         let t115 = t112 * t114;
         let t116 = 1.0 - t115;
         let t117 = 1.0 / t116;
         let t118 = t111 * t117;
         let t119 = t118 * t108;
-        let t122 = piecewise3(t72, 0.0, t81 * t119 / 2.0);
+        let t122 = piecewise3(t72, 0.0, t81 * t119 * 0.5);
         let t123 = t71 + t122;
         let t124 = param_cab * t123;
         let t125 = 1.0 + t124;
@@ -136,15 +143,12 @@ pub fn mgga_c_b94_exc_pol(
         let t137 = t136 * t136;
         let t138 = pow_1_3(t136);
         let t139 = t138 * t138;
-        let t141 = t11 * t11;
         let t142 = t139 * t137 * t141;
         let t143 = pow_1_3(t4);
         let t144 = t143 * t143;
         let t145 = t144 * t4;
-        let t150 = 2.0 * tau0 * t34 - sigma0 * t43 / 4.0;
+        let t150 = 2.0 * tau0 * t34 - sigma0 * t43 * 0.25;
         let t151 = t145 * t150;
-        let t152 = param_css * param_css;
-        let t153 = t152 * t152;
         let t154 = t151 * t153;
         let t155 = t142 * t154;
         let t157 = 1.0 / t25 / t24;
@@ -158,13 +162,11 @@ pub fn mgga_c_b94_exc_pol(
         let t165 = t57 * t57;
         let t166 = t165 * t165;
         let t167 = t164 * t166;
-        let t168 = param_css * t11;
         let t169 = t168 * t26;
         let t170 = t29 * t60;
         let t171 = t66 * t57;
-        let t175 = 1.0 + t169 * t170 * t171 / 2.0;
+        let t175 = 1.0 + t169 * t170 * t171 * 0.5;
         let t176 = rmath::ln(t175);
-        let t177 = 1.0 / param_css;
         let t178 = t176 * t177;
         let t179 = t141 * t25;
         let t180 = t178 * t179;
@@ -180,7 +182,7 @@ pub fn mgga_c_b94_exc_pol(
         let t195 = pow_1_3(t193);
         let t196 = t195 * t195;
         let t198 = t196 * t194 * t141;
-        let t203 = 2.0 * tau1 * t85 - sigma2 * t94 / 4.0;
+        let t203 = 2.0 * tau1 * t85 - sigma2 * t94 * 0.25;
         let t204 = t145 * t203;
         let t205 = t204 * t153;
         let t206 = t198 * t205;
@@ -198,7 +200,7 @@ pub fn mgga_c_b94_exc_pol(
         let t219 = t168 * t79;
         let t220 = t29 * t111;
         let t221 = t117 * t108;
-        let t225 = 1.0 + t219 * t220 * t221 / 2.0;
+        let t225 = 1.0 + t219 * t220 * t221 * 0.5;
         let t226 = rmath::ln(t225);
         let t227 = t226 * t177;
         let t228 = t141 * t78;

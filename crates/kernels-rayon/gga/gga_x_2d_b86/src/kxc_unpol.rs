@@ -27,18 +27,21 @@ pub fn gga_x_2d_b86_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = rmath::sqrt(M_PI);
+    let t5 = 1.0 <= zeta_threshold;
+    let t6 = zeta_threshold - 1.0;
+    let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+    let t9 = 1.0 + t8;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t13 = rmath::sqrt(t9);
+    let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+    let t17 = M_SQRT2;
+    let t18 = 1.0 / t3 * t15 * t17;
+    let t39 = t15 * t17;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = rmath::sqrt(M_PI);
-        let t5 = 1.0 <= zeta_threshold;
-        let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
-        let t9 = 1.0 + t8;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t13 = rmath::sqrt(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
-        let t17 = M_SQRT2;
-        let t18 = 1.0 / t3 * t15 * t17;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t19 = rmath::sqrt(rho[ip]);
         let t20 = rho[ip] * rho[ip];
         let t21 = t20 * rho[ip];
@@ -49,7 +52,6 @@ pub fn gga_x_2d_b86_kxc_unpol(
         let t33 = piecewise3(t2, 0.0, -2.0 / 3.0 * t18 * t19 * t25 * t29);
         let tzk0 = 2.0 * t33;
         zk[ip] += tzk0;
-        let t39 = t15 * t17;
         let t41 = 1.0 / t19 / t21;
         let t47 = t28 * t28;
         let t48 = 1.0 / t47;
@@ -99,7 +101,7 @@ pub fn gga_x_2d_b86_kxc_unpol(
         let t171 = 1.0 / t170;
         let t172 = t25 * t171;
         let t173 = t172 * t164;
-        let t177 = piecewise3(t2, 0.0, -t18 * t62 * t29 / 4.0 + 0.06294381088850542 * t39 * t129 * sigma[ip] * t29 - 0.003558343703435699 * t39 * t129 * t50 - 7.122864154432079e-05 * t39 * t153 * t89 * t48 + 4.026702301080368e-06 * t158 * t98 + 1.4530642875041441e-08 * t39 * t163 * t164 * t96 - 8.21447269420395e-10 * t169 * t173);
+        let t177 = piecewise3(t2, 0.0, -t18 * t62 * t29 * 0.25 + 0.06294381088850542 * t39 * t129 * sigma[ip] * t29 - 0.003558343703435699 * t39 * t129 * t50 - 7.122864154432079e-05 * t39 * t153 * t89 * t48 + 4.026702301080368e-06 * t158 * t98 + 1.4530642875041441e-08 * t39 * t163 * t164 * t96 - 8.21447269420395e-10 * t169 * t173);
         let tv3rho30 = 2.0 * rho[ip] * t177 + 6.0 * t102;
         v3rho3[ip] += tv3rho30;
         let t184 = t88 * t48;

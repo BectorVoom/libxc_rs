@@ -130,6 +130,17 @@ pub fn mgga_x_th_exc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = f64x8::splat(M_CBRTPI);
+    let t4 = t3 * t3;
+    let t10 = zeta_threshold - f64x8::splat(1.0);
+    let t14 = -t10;
+    let t20 = (simd::cbrt(zeta_threshold));
+    let t21 = t20 * zeta_threshold;
+    let t40 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t42 = f64x8::splat(M_CBRT4);
+    let t43 = f64x8::splat(1.0) / t40 * t42;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -145,20 +156,14 @@ pub fn mgga_x_th_exc_pol(
         let mut acc_zk = V_ZERO;
         {
             let t2 = (v_rho0).simd_le(dens_threshold);
-            let t3 = f64x8::splat(M_CBRTPI);
-            let t4 = t3 * t3;
             let t5 = v_rho0 + v_rho1;
             let t6 = f64x8::splat(1.0) / t5;
             let t9 = (f64x8::splat(2.0) * v_rho0 * t6).simd_le(zeta_threshold);
-            let t10 = zeta_threshold - f64x8::splat(1.0);
             let t13 = (f64x8::splat(2.0) * v_rho1 * t6).simd_le(zeta_threshold);
-            let t14 = -t10;
             let t15 = v_rho0 - v_rho1;
             let t17 = ((t9).select(t10, (t13).select(t14, t15 * t6)));
             let t18 = f64x8::splat(1.0) + t17;
             let t19 = (t18).simd_le(zeta_threshold);
-            let t20 = (simd::cbrt(zeta_threshold));
-            let t21 = t20 * zeta_threshold;
             let t22 = (simd::cbrt(t18));
             let t24 = ((t19).select(t21, t22 * t18));
             let t25 = t4 * t24;
@@ -169,9 +174,6 @@ pub fn mgga_x_th_exc_pol(
             let t30 = (simd::cbrt(v_rho0));
             let t31 = t30 * t30;
             let t37 = f64x8::splat(1.0) + f64x8::splat(7.0) / f64x8::splat(216.0) * v_sigma0 / v_rho0 * t27;
-            let t40 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
-            let t42 = f64x8::splat(M_CBRT4);
-            let t43 = f64x8::splat(1.0) / t40 * t42;
             let t44 = t31 * v_rho0 * t37 * t43;
             let t47 = ((t2).select(f64x8::splat(0.0), -f64x8::splat(27.0) / f64x8::splat(80.0) * t29 * t44));
             let t48 = (v_rho1).simd_le(dens_threshold);

@@ -20,24 +20,40 @@ pub fn gga_c_ft97_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = rmath::ln(2.0);
+    let t2 = 1.0 - t1;
+    let t3 = M_PI * M_PI;
+    let t4 = 1.0 / t3;
+    let t5 = t2 * t4;
+    let t6 = M_CBRT3;
+    let t7 = 1.0 / M_PI;
+    let t8 = pow_1_3(t7);
+    let t9 = t6 * t8;
+    let t10 = t5 * t9;
+    let t11 = M_CBRT4;
+    let t12 = t11 * t11;
+    let t16 = M_CBRT2;
+    let t17 = rmath::pow(4.0, 1.0 / 5.0);
+    let t29 = t6 * t6;
+    let t30 = t8 * t8;
+    let t31 = t29 * t30;
+    let t32 = t31 * t11;
+    let t33 = t16 * t16;
+    let t42 = t8 * t7;
+    let t43 = t6 * t42;
+    let t44 = t43 * t12;
+    let t59 = t9 * t12;
+    let t79 = t5 * t59;
+    let t81 = rmath::sqrt(6.0);
+    let t82 = t81 * t7;
+    let t110 = t17 * t17;
+    let t111 = t110 * t17;
     for ip in 0..zk.len() {
-        let t1 = rmath::ln(2.0);
-        let t2 = 1.0 - t1;
-        let t3 = M_PI * M_PI;
-        let t4 = 1.0 / t3;
-        let t5 = t2 * t4;
-        let t6 = M_CBRT3;
-        let t7 = 1.0 / M_PI;
-        let t8 = pow_1_3(t7);
-        let t9 = t6 * t8;
-        let t10 = t5 * t9;
-        let t11 = M_CBRT4;
-        let t12 = t11 * t11;
         let t13 = pow_1_3(rho[ip]);
         let t14 = 1.0 / t13;
         let t15 = t12 * t14;
-        let t16 = M_CBRT2;
-        let t17 = rmath::pow(4.0, 1.0 / 5.0);
         let t18 = t15 * t16;
         let t19 = t9 * t18;
         let t20 = rmath::pow(t19, 1.0 / 5.0);
@@ -46,18 +62,10 @@ pub fn gga_c_ft97_exc_unpol(
         let t25 = rmath::exp(-0.02081897 * t17 * t22);
         let t27 = 0.942486901 + 0.349064173 * t25;
         let t28 = t27 * t27;
-        let t29 = t6 * t6;
-        let t30 = t8 * t8;
-        let t31 = t29 * t30;
-        let t32 = t31 * t11;
-        let t33 = t16 * t16;
         let t34 = sigma[ip] * t33;
         let t35 = rho[ip] * rho[ip];
         let t36 = t13 * t13;
         let t38 = 1.0 / t36 / t35;
-        let t42 = t8 * t7;
-        let t43 = t6 * t42;
-        let t44 = t43 * t12;
         let t45 = sigma[ip] * sigma[ip];
         let t46 = t45 * t16;
         let t47 = t35 * t35;
@@ -70,7 +78,6 @@ pub fn gga_c_ft97_exc_unpol(
         let t56 = t28 * t55;
         let t57 = rmath::exp(-t53);
         let t58 = t57 * t57;
-        let t59 = t9 * t12;
         let t60 = sigma[ip] * t16;
         let t62 = 1.0 / t13 / t35;
         let t64 = t59 * t60 * t62;
@@ -86,10 +93,7 @@ pub fn gga_c_ft97_exc_unpol(
         let t76 = t75 / 6.0;
         let t77 = 10000000.0 <= t76;
         let t78 = xc_e1_scaled(t76);
-        let t79 = t5 * t59;
         let t80 = t14 * t16;
-        let t81 = rmath::sqrt(6.0);
-        let t82 = t81 * t7;
         let t83 = t72 * t2;
         let t85 = t59 * t80 * t83;
         let t86 = rmath::sqrt(t85);
@@ -100,11 +104,9 @@ pub fn gga_c_ft97_exc_unpol(
         let t94 = t72 * t90 * t93;
         let t98 = 1.0 + t79 * t80 * t94 / 3.0;
         let t100 = t90 * t93;
-        let t105 = piecewise3(t77, 0.0, t5 * (-t78 * t98 + 2.0 * t100) / 4.0);
+        let t105 = piecewise3(t77, 0.0, t5 * (-t78 * t98 + 2.0 * t100) * 0.25);
         let t106 = rmath::sqrt(t19);
         let t108 = rmath::exp(-0.544669424 * t106);
-        let t110 = t17 * t17;
-        let t111 = t110 * t17;
         let t114 = rmath::exp(-0.16390970575 * t111 * t21);
         let t116 = 1.247511874 - 0.859614445 * t108 + 0.812904345 * t114;
         let t117 = t116 * t116;
@@ -142,8 +144,8 @@ pub fn gga_c_ft97_exc_unpol(
         let t162 = 0.469508 * t106 + 0.4332925 * t19;
         let t163 = t162 * t162;
         let t164 = 1.0 / t163;
-        let t168 = rmath::exp(-t32 * t159 * t164 / 4.0);
-        let t172 = piecewise3(t136, 0.0, t5 * t157 * t168 / 4.0);
+        let t168 = rmath::exp(-t32 * t159 * t164 * 0.25);
+        let t172 = piecewise3(t136, 0.0, t5 * t157 * t168 * 0.25);
         let tzk0 = 2.0 * t105 + 2.0 * t172;
         zk[ip] += tzk0;
     }

@@ -108,9 +108,11 @@ allocator and `mallinfo2`. Full numbers, method, and the changes that got there:
 `docs/perf/kernel-codegen.md` is the follow-up: five translator-side codegen
 levers implemented and measured, four worth ~0 and the fifth already at its best
 setting. **Read it before optimising the emitter for speed** -- bounds-check
-elimination, loop-invariant hoisting, register-pressure scheduling and
-`powf` -> cbrt rewrites are all closed off with numbers, and the remaining
-headroom (6.2x, measured) is in the libm transcendentals, not the translator.
+elimination, register-pressure scheduling and `powf` -> cbrt rewrites are
+closed off with numbers. Its loop-invariant-hoisting verdict ("LICM already
+does this") is **superseded**: it held only while `cbrt` was inline
+arithmetic, and the emitter now hoists explicitly -- see the bullet below
+and `docs/perf/vs-libxc.md`, "Three bit-exact levers".
 
 **Explicit SIMD is opt-in per functional.** `from_maple.py` emits a kernel as
 `wide::f64x8` only for the `(functional, order, spin)` triples in its
@@ -243,6 +245,31 @@ Three things from that work bind future changes:
   a `bind` to a leg without checking them for that functional.
   `XCVS_NO_FUSED=1` times the mix path; `libxc_eval::eval::set_fused_enabled`
   is the process-wide switch.
+- **Loop-invariant statements are hoisted by the emitter, `/ 2^k` is
+  folded to `* 2^-k`, and `simd::cbrt` got a vectorised bit-exact form
+  (2026-09-07).** `kernel-codegen.md`'s "LICM already hoists" verdict was
+  true only while `cbrt` was inline arithmetic; rmath's bit-exact `cbrt` is
+  a per-lane loop LLVM cannot move, so every SIMD kernel recomputed its
+  `cbrt(pi^2)`, `cbrt(zeta_threshold)`, ... on every 8-point step (three of
+  `gga_x_pbe`'s four cube roots, 14.6 of its 20.3 ns/pt).
+  `simd.py::split_invariant` (both emit paths) moves every `let` that reads
+  only constants/params/thresholds above the loop; `from_maple.py::
+  fold_pow2_div` rewrites power-of-two literal divisors (exact by IEEE, and
+  what GCC does to libxc's C); the exponent-surgery fix for `cbrt` was
+  built here first (`i64x8` + `bytemuck`, 4.9 -> 2.2 ns/elem) and then
+  **ported upstream into `rmath` itself** the same day
+  (`~/workspace/rmath`, `src/kernels/double/cbrt.rs`, "Cycle 9"), so
+  `math/src/simd.rs::cbrt` is now a one-line `rmath::cbrt(x)` delegation
+  rather than a second copy of the algorithm -- `bytemuck` was dropped
+  from the math crate's `Cargo.toml` accordingly. Confirmed bit-identical
+  by a full regen + rebuild + oracle/`revalcheck` cycle after the switch:
+  every fingerprint below is unchanged. All three
+  are bit-neutral by construction and gated by unchanged fingerprints;
+  `gga_x_pbe vxc unpol` 20.3 -> 5.4 ns/pt, PBE0 5.0-5.5x vs libxc, HSE06
+  6.1x. Divisions by non-power-of-two constants (144 per point left in
+  `fused_hse vxc unpol`) are the largest remaining cost and must stay
+  divisions. Any math-crate change rebuilds all 266 kernel crates for the
+  bench (~25 min); prototype on the math crate alone first.
 - **The grid loop now vectorises 8-wide (AVX-512), not 2-wide SLP.** The note in
   the CLAUDE.md risk table about "always SSE, `xmm` only" described the
   pre-`target-cpu` build. Anything that puts a function boundary or a libm call

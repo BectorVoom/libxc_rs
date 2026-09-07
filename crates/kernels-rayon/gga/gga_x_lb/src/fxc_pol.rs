@@ -26,17 +26,25 @@ pub fn gga_x_lb_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t4 = pow_1_3(1.0 / M_PI);
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t9 = param_alpha * t1 * t4 * t6 * 0.5;
+    let t82 = param_gamma * param_gamma;
+    let tv2rho21 = 0.0;
+    let tv2rhosigma1 = 0.0;
+    let tv2rhosigma2 = 0.0;
+    let tv2rhosigma3 = 0.0;
+    let tv2rhosigma4 = 0.0;
     for ip in 0..vrho.len() / 2 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
-        let t9 = param_alpha * t1 * t4 * t6 / 2.0;
         let t10 = rmath::sqrt(sigma0);
         let t11 = pow_1_3(rho0);
         let t13 = 1.0 / t11 / rho0;
@@ -86,7 +94,6 @@ pub fn gga_x_lb_fxc_pol(
         let t76 = t20 * t75;
         let t78 = 1.0 / t11 / t17;
         let t79 = t78 * t24;
-        let t82 = param_gamma * param_gamma;
         let t85 = t82 * sigma0 * t20 + 1.0;
         let t86 = rmath::sqrt(t85);
         let t87 = 1.0 / t86;
@@ -99,7 +106,6 @@ pub fn gga_x_lb_fxc_pol(
         let t104 = 1.0 / t18;
         let tv2rho20 = -t102 * t11 + t38 * t104 / 3.0;
         v2rho2[ip * 3] += tv2rho20;
-        let tv2rho21 = 0.0;
         v2rho2[ip * 3 + 1] += tv2rho21;
         let t107 = t46 * rho1;
         let t109 = 1.0 / t47 / t107;
@@ -124,24 +130,20 @@ pub fn gga_x_lb_fxc_pol(
         let t147 = 1.0 / t10;
         let t148 = param_beta * t147;
         let t150 = param_gamma * t87;
-        let t153 = 3.0 / 2.0 * t145 * t150 + 3.0 / 2.0 * t148 * t25;
+        let t153 = 3.0 * 0.5 * t145 * t150 + 3.0 * 0.5 * t148 * t25;
         let t157 = t147 * t13;
         let t162 = piecewise3(t15, -t16 * t76 * t153 + t145 * t29, t157 * t34 / 6.0 - t157 * t98 / 6.0);
         let tv2rhosigma0 = -t162 * t11;
         v2rhosigma[ip * 6] += tv2rhosigma0;
-        let tv2rhosigma1 = 0.0;
         v2rhosigma[ip * 6 + 1] += tv2rhosigma1;
-        let tv2rhosigma2 = 0.0;
         v2rhosigma[ip * 6 + 2] += tv2rhosigma2;
-        let tv2rhosigma3 = 0.0;
         v2rhosigma[ip * 6 + 3] += tv2rhosigma3;
-        let tv2rhosigma4 = 0.0;
         v2rhosigma[ip * 6 + 4] += tv2rhosigma4;
         let t164 = param_beta * t49;
         let t166 = 1.0 / t39;
         let t167 = param_beta * t166;
         let t169 = param_gamma * t125;
-        let t172 = 3.0 / 2.0 * t164 * t169 + 3.0 / 2.0 * t167 * t54;
+        let t172 = 3.0 * 0.5 * t164 * t169 + 3.0 * 0.5 * t167 * t54;
         let t176 = t166 * t42;
         let t181 = piecewise3(t44, -t45 * t115 * t172 + t164 * t58, -t176 * t136 / 6.0 + t176 * t63 / 6.0);
         let tv2rhosigma5 = -t181 * t40;

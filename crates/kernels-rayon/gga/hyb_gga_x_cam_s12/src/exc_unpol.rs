@@ -27,22 +27,31 @@ pub fn hyb_gga_x_cam_s12_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t7 = 1.0 <= zeta_threshold;
+    let t8 = zeta_threshold - 1.0;
+    let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+    let t11 = 1.0 + t10;
+    let t13 = pow_1_3(zeta_threshold);
+    let t15 = pow_1_3(t11);
+    let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+    let t18 = t3 / t4 * t17;
+    let t21 = M_CBRT2;
+    let t22 = t21 * t21;
+    let t50 = t3 * t3;
+    let t52 = 1.0 / M_PI;
+    let t53 = pow_1_3(t52);
+    let t54 = 1.0 / t53;
+    let t55 = M_CBRT4;
+    let t56 = t54 * t55;
+    let t98 = rmath::sqrt(M_PI);
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t7 = 1.0 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
-        let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
-        let t18 = t3 / t4 * t17;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t19 = pow_1_3(rho[ip]);
         let t20 = param_C * sigma[ip];
-        let t21 = M_CBRT2;
-        let t22 = t21 * t21;
         let t23 = rho[ip] * rho[ip];
         let t24 = t19 * t19;
         let t26 = 1.0 / t24 / t23;
@@ -60,12 +69,6 @@ pub fn hyb_gga_x_cam_s12_exc_unpol(
         let t46 = 1.0 - 1.0 / t44;
         let t48 = t41 * t46 + param_A;
         let t49 = t19 * t48;
-        let t50 = t3 * t3;
-        let t52 = 1.0 / M_PI;
-        let t53 = pow_1_3(t52);
-        let t54 = 1.0 / t53;
-        let t55 = M_CBRT4;
-        let t56 = t54 * t55;
         let t59 = M_PI * t50 * t56 / t48;
         let t60 = rmath::sqrt(t59);
         let t62 = param_hyb_omega_0 / t60;
@@ -73,7 +76,7 @@ pub fn hyb_gga_x_cam_s12_exc_unpol(
         let t64 = pow_1_3(t63);
         let t65 = 1.0 / t64;
         let t66 = t21 * t65;
-        let t68 = t62 * t66 / 2.0;
+        let t68 = t62 * t66 * 0.5;
         let t69 = 1.35 <= t68;
         let t70 = 1.35 < t68;
         let t71 = piecewise3(t70, t68, 1.35);
@@ -90,18 +93,17 @@ pub fn hyb_gga_x_cam_s12_exc_unpol(
         let t93 = t81 * t81;
         let t94 = 1.0 / t93;
         let t97 = piecewise3(t70, 1.35, t68);
-        let t98 = rmath::sqrt(M_PI);
         let t99 = 1.0 / t97;
-        let t101 = rmath::erf(t99 / 2.0);
+        let t101 = rmath::erf(t99 * 0.5);
         let t103 = t97 * t97;
         let t104 = 1.0 / t103;
-        let t106 = rmath::exp(-t104 / 4.0);
+        let t106 = rmath::exp(-t104 * 0.25);
         let t107 = t106 - 1.0;
-        let t110 = t106 - 3.0 / 2.0 - 2.0 * t103 * t107;
+        let t110 = t106 - 3.0 * 0.5 - 2.0 * t103 * t107;
         let t113 = t98 * t101 + 2.0 * t97 * t110;
         let t117 = piecewise3(t69, 1.0 / t72 / 36.0 - t76 / 960.0 + t79 / 26880.0 - t82 / 829440.0 + t85 / 28385280.0 - t88 / 1073479680.0 + t91 / 44590694400.0 - t94 / 2021444812800.0, 1.0 - 8.0 / 3.0 * t97 * t113);
         let t119 = -param_hyb_coeff_0 * t117 - param_hyb_coeff_1 + 1.0;
-        let t123 = piecewise3(t2, 0.0, -3.0 / 8.0 * t18 * t49 * t119);
+        let t123 = piecewise3(t2, 0.0, -3.0 * 0.125 * t18 * t49 * t119);
         let tzk0 = 2.0 * t123;
         zk[ip] += tzk0;
     }

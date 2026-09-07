@@ -85,6 +85,25 @@ pub fn gga_c_ccdf_fxc_unpol(
     let param_c5 = f64x8::splat(param_c5);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = f64x8::splat(M_CBRT2);
+    let t8 = f64x8::splat(M_CBRT6);
+    let t9 = t8 * t8;
+    let t10 = t7 * t9;
+    let t11 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t12 = (simd::cbrt(t11));
+    let t13 = f64x8::splat(1.0) / t12;
+    let t42 = param_c4 * t7 * t9;
+    let t62 = t10 * t13;
+    let t78 = param_c2 * param_c2;
+    let t100 = param_c4 * param_c4;
+    let t101 = t7 * t7;
+    let t102 = t100 * t101;
+    let t103 = t102 * t8;
+    let t104 = t12 * t12;
+    let t105 = f64x8::splat(1.0) / t104;
+    let t127 = t8 * t105;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -102,13 +121,6 @@ pub fn gga_c_ccdf_fxc_unpol(
             let t4 = param_c2 * t2 + f64x8::splat(1.0);
             let t5 = f64x8::splat(1.0) / t4;
             let t6 = param_c1 * t5;
-            let t7 = f64x8::splat(M_CBRT2);
-            let t8 = f64x8::splat(M_CBRT6);
-            let t9 = t8 * t8;
-            let t10 = t7 * t9;
-            let t11 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t12 = (simd::cbrt(t11));
-            let t13 = f64x8::splat(1.0) / t12;
             let t14 = ((v_sigma).sqrt());
             let t15 = t13 * t14;
             let t17 = f64x8::splat(1.0) / t1 / v_rho;
@@ -125,7 +137,6 @@ pub fn gga_c_ccdf_fxc_unpol(
             let t38 = f64x8::splat(1.0) / t37;
             let t39 = t36 * t38;
             let t40 = t17 * param_c1 * t39;
-            let t42 = param_c4 * t7 * t9;
             let tvrho0 = tzk0 + t28 * t30 * t27 * param_c2 / f64x8::splat(3.0) + t40 * t42 * t15 * t23 / f64x8::splat(9.0);
             acc_vrho = tvrho0;
             let t47 = t28 * t39;
@@ -138,13 +149,11 @@ pub fn gga_c_ccdf_fxc_unpol(
             let t59 = param_c3 * t38;
             let t60 = t59 * param_c4;
             let t61 = t6 * t60;
-            let t62 = t10 * t13;
             let t63 = v_rho * v_rho;
             let t65 = f64x8::splat(1.0) / t1 / t63;
             let t71 = t1 * t1;
             let t74 = f64x8::splat(1.0) / t71 / v_rho * param_c1;
             let t76 = f64x8::splat(1.0) / t29 / t4;
-            let t78 = param_c2 * param_c2;
             let t83 = f64x8::splat(1.0) / t71 / t63;
             let t84 = t83 * param_c1;
             let t86 = t84 * t30 * t60;
@@ -156,12 +165,6 @@ pub fn gga_c_ccdf_fxc_unpol(
             let t97 = f64x8::splat(1.0) / t37 / t24;
             let t98 = t36 * t97;
             let t99 = t95 * t98;
-            let t100 = param_c4 * param_c4;
-            let t101 = t7 * t7;
-            let t102 = t100 * t101;
-            let t103 = t102 * t8;
-            let t104 = t12 * t12;
-            let t105 = f64x8::splat(1.0) / t104;
             let t106 = t105 * v_sigma;
             let t107 = t23 * t23;
             let t112 = t95 * t39;
@@ -172,7 +175,6 @@ pub fn gga_c_ccdf_fxc_unpol(
             let t122 = t121 * param_c2;
             let t123 = t62 * t122;
             let t126 = t84 * t98;
-            let t127 = t8 * t105;
             let t129 = t102 * t127 * t107;
             let t132 = t84 * t39;
             let t134 = t102 * t127 * t23;

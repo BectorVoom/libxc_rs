@@ -24,22 +24,53 @@ pub fn gga_c_zvpbeloc_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = rmath::pow(4.0, 1.0 / 6.0);
+    let t2 = t1 * t1;
+    let t3 = t2 * t2;
+    let t5 = rmath::pow(3.0, 1.0 / 6.0);
+    let t7 = M_PI * M_PI;
+    let t8 = 1.0 / t7;
+    let t9 = rmath::pow(t8, 1.0 / 6.0);
+    let t10 = t3 * t1 * t5 * t9;
+    let t11 = 1.0 / M_PI;
+    let t12 = pow_1_3(t11);
+    let t28 = M_CBRT3;
+    let t29 = t28 * t12;
+    let t30 = M_CBRT4;
+    let t31 = t30 * t30;
+    let t41 = t28 * t28;
+    let t42 = t12 * t12;
+    let t43 = t41 * t42;
+    let t64 = pow_1_3(zeta_threshold);
+    let t65 = t64 * zeta_threshold;
+    let t75 = M_CBRT2;
+    let t78 = 1.0 / (2.0 * t75 - 2.0);
+    let t111 = rmath::ln(2.0);
+    let t112 = 1.0 - t111;
+    let t113 = t112 * t8;
+    let t114 = t64 * t64;
+    let t131 = 1.0 / t12;
+    let t132 = t41 * t131;
+    let t143 = t131 * t30;
+    let t147 = 1.0 / t112;
+    let t163 = t75 * t75;
+    let t168 = 1.0 / t42;
+    let t169 = t28 * t168;
+    let t170 = t169 * t31;
+    let t176 = t147 * t7;
+    let t217 = t12 * t31;
+    let t357 = t168 * t31;
+    let t505 = t132 * t30;
+    let t591 = t42 * t30;
+    let t656 = t29 * t31;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = rmath::pow(4.0, 1.0 / 6.0);
-        let t2 = t1 * t1;
-        let t3 = t2 * t2;
-        let t5 = rmath::pow(3.0, 1.0 / 6.0);
-        let t7 = M_PI * M_PI;
-        let t8 = 1.0 / t7;
-        let t9 = rmath::pow(t8, 1.0 / 6.0);
-        let t10 = t3 * t1 * t5 * t9;
-        let t11 = 1.0 / M_PI;
-        let t12 = pow_1_3(t11);
         let t13 = rho0 + rho1;
         let t14 = pow_1_3(t13);
         let t15 = 1.0 / t14;
@@ -52,17 +83,10 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t22 = 1e-20 < t21;
         let t23 = piecewise3(t22, t21, 1e-20);
         let t27 = rmath::exp(-1.0 * t10 * t16 * t23);
-        let t28 = M_CBRT3;
-        let t29 = t28 * t12;
-        let t30 = M_CBRT4;
-        let t31 = t30 * t30;
         let t33 = t29 * t31 * t15;
         let t35 = 1.0 + 0.053425 * t33;
         let t36 = rmath::sqrt(t33);
         let t39 = pow_3_2(t33);
-        let t41 = t28 * t28;
-        let t42 = t12 * t12;
-        let t43 = t41 * t42;
         let t44 = t14 * t14;
         let t47 = t43 * t30 / t44;
         let t49 = 3.79785 * t36 + 0.8969 * t33 + 0.204775 * t39 + 0.123235 * t47;
@@ -77,8 +101,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t61 = t17 * t60;
         let t62 = 1.0 + t61;
         let t63 = t62 <= zeta_threshold;
-        let t64 = pow_1_3(zeta_threshold);
-        let t65 = t64 * zeta_threshold;
         let t66 = pow_1_3(t62);
         let t67 = t66 * t62;
         let t68 = piecewise3(t63, t65, t67);
@@ -88,8 +110,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t72 = t71 * t69;
         let t73 = piecewise3(t70, t65, t72);
         let t74 = t68 + t73 - 2.0;
-        let t75 = M_CBRT2;
-        let t78 = 1.0 / (2.0 * t75 - 2.0);
         let t79 = t74 * t78;
         let t81 = 1.0 + 0.05137 * t33;
         let t86 = 7.05945 * t36 + 1.549425 * t33 + 0.420775 * t39 + 0.1562925 * t47;
@@ -104,15 +124,11 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t107 = t79 * t106;
         let t108 = t59 * t107;
         let t110 = 0.0197516734986138 * t79 * t104;
-        let t111 = rmath::ln(2.0);
-        let t112 = 1.0 - t111;
-        let t113 = t112 * t8;
-        let t114 = t64 * t64;
         let t115 = t66 * t66;
         let t116 = piecewise3(t63, t114, t115);
         let t117 = t71 * t71;
         let t118 = piecewise3(t70, t114, t117);
-        let t120 = t116 / 2.0 + t118 / 2.0;
+        let t120 = t116 * 0.5 + t118 * 0.5;
         let t121 = t120 * t120;
         let t122 = t121 * t120;
         let t124 = sigma0 + 2.0 * sigma1 + sigma2;
@@ -120,17 +136,13 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t127 = t124 * t126;
         let t128 = 1.0 / t121;
         let t129 = t75 * t128;
-        let t131 = 1.0 / t12;
-        let t132 = t41 * t131;
-        let t134 = rmath::exp(-t47 / 4.0);
+        let t134 = rmath::exp(-t47 * 0.25);
         let t135 = 1.0 - t134;
         let t136 = t30 * t135;
         let t137 = t132 * t136;
         let t140 = 0.0375 + 0.0008333333333333334 * t127 * t129 * t137;
         let t142 = t128 * t41;
-        let t143 = t131 * t30;
         let t144 = t142 * t143;
-        let t147 = 1.0 / t112;
         let t148 = t140 * t147;
         let t150 = (-t55 + t108 + t110) * t147;
         let t151 = 1.0 / t122;
@@ -143,17 +155,12 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t159 = t157 * t158;
         let t160 = t148 * t159;
         let t162 = 1.0 / t44 / t57;
-        let t163 = t75 * t75;
         let t164 = t162 * t163;
         let t165 = t121 * t121;
         let t166 = 1.0 / t165;
-        let t168 = 1.0 / t42;
-        let t169 = t28 * t168;
-        let t170 = t169 * t31;
         let t171 = t164 * t166 * t170;
         let t174 = t127 * t75 * t144 / 96.0 + t160 * t171 / 3072.0;
         let t175 = t140 * t174;
-        let t176 = t147 * t7;
         let t177 = t157 * t174;
         let t179 = t148 * t177 + 1.0;
         let t180 = 1.0 / t179;
@@ -180,7 +187,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t213 = 1.0 / t212;
         let t214 = t35 * t213;
         let t216 = 1.0 / t36 * t28;
-        let t217 = t12 * t31;
         let t218 = t217 * t189;
         let t219 = t216 * t218;
         let t221 = t29 * t208;
@@ -233,7 +239,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t307 = piecewise3(t63, 0.0, 2.0 / 3.0 * t304 * t246);
         let t308 = 1.0 / t71;
         let t311 = piecewise3(t70, 0.0, 2.0 / 3.0 * t308 * t250);
-        let t313 = t307 / 2.0 + t311 / 2.0;
+        let t313 = t307 * 0.5 + t311 * 0.5;
         let t318 = 1.0 / t14 / t195;
         let t319 = t124 * t318;
         let t322 = 0.0019444444444444444 * t319 * t129 * t137;
@@ -259,7 +265,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t354 = t349 * t353;
         let t355 = t163 * t166;
         let t356 = t355 * t28;
-        let t357 = t168 * t31;
         let t359 = (t211 + t236 + t240 - t245 + t257 + t290 + t292 - t297 - t302) * t147;
         let t361 = t7 * t166;
         let t362 = t361 * t313;
@@ -305,7 +310,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t434 = 0.0197516734986138 * t430 * t104;
         let t437 = piecewise3(t63, 0.0, 2.0 / 3.0 * t304 * t421);
         let t440 = piecewise3(t70, 0.0, 2.0 / 3.0 * t308 * t425);
-        let t442 = t437 / 2.0 + t440 / 2.0;
+        let t442 = t437 * 0.5 + t440 * 0.5;
         let t447 = t132 * t136 * t442;
         let t450 = -t322 - 0.0016666666666666668 * t324 * t447 - t334;
         let t451 = t450 * t174;
@@ -337,7 +342,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t500 = t174 * t147 * t180;
         let t501 = t136 * t500;
         let t502 = t498 * t501;
-        let t505 = t132 * t30;
         let t506 = t496 * t128 * t505;
         let t508 = t57 * t195;
         let t509 = 1.0 / t508;
@@ -394,7 +398,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t583 = t113 * t121;
         let t584 = t405 * t407;
         let t590 = 1.0 / t36 / t33 * t41;
-        let t591 = t42 * t30;
         let t593 = 1.0 / t44 / t19;
         let t594 = t591 * t593;
         let t595 = t590 * t594;
@@ -432,7 +435,6 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t653 = t255 * t28;
         let t654 = t653 * t295;
         let t655 = 0.0003662289461201309 * t654;
-        let t656 = t29 * t31;
         let t657 = t189 * t213;
         let t660 = 0.035616666666666665 * t656 * t657 * t234;
         let t663 = 0.0014764627977777779 * t29 * t600 * t53;
@@ -513,7 +515,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t796 = piecewise3(t63, 0.0, -2.0 / 9.0 * t790 * t618 + 2.0 / 3.0 * t304 * t622);
         let t797 = 1.0 / t72;
         let t803 = piecewise3(t70, 0.0, -2.0 / 9.0 * t797 * t628 + 2.0 / 3.0 * t308 * t631);
-        let t805 = t796 / 2.0 + t803 / 2.0;
+        let t805 = t796 * 0.5 + t803 * 0.5;
         let t810 = 1.0 / t14 / t57;
         let t811 = t124 * t810;
         let t814 = 0.006481481481481481 * t811 * t129 * t137;
@@ -588,7 +590,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t941 = t940 * t28;
         let t943 = t941 * t357 * t665;
         let t947 = t384 * t357 * t805;
-        let t950 = t854 + 7.0 / 72.0 * t855 + t823 * t858 / 16.0 - t324 * t862 / 48.0 + t866 * t171 / 3072.0 - t870 * t368 / 1536.0 - 7.0 / 2304.0 * t873 - t875 * t386 / 384.0 + t882 * t887 / 1536.0 + 7.0 / 2304.0 * t892 + t895 * t901 / 384.0 - t354 * t921 / 3072.0 - t354 * t926 / 3072.0 + t935 + 7.0 / 576.0 * t938 + 5.0 / 768.0 * t380 * t943 - t380 * t947 / 768.0;
+        let t950 = t854 + 7.0 / 72.0 * t855 + t823 * t858 * 0.0625 - t324 * t862 / 48.0 + t866 * t171 / 3072.0 - t870 * t368 / 1536.0 - 7.0 / 2304.0 * t873 - t875 * t386 / 384.0 + t882 * t887 / 1536.0 + 7.0 / 2304.0 * t892 + t895 * t901 / 384.0 - t354 * t921 / 3072.0 - t354 * t926 / 3072.0 + t935 + 7.0 / 576.0 * t938 + 5.0 / 768.0 * t380 * t943 - t380 * t947 / 768.0;
         let t951 = t140 * t950;
         let t953 = t390 * t147;
         let t957 = 1.0 / t393 / t179;
@@ -648,7 +650,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t1064 = t797 * t425;
         let t1067 = t308 * t17;
         let t1071 = piecewise3(t70, 0.0, -2.0 / 9.0 * t1064 * t250 - 4.0 / 3.0 * t1067 * t196);
-        let t1073 = t1063 / 2.0 + t1071 / 2.0;
+        let t1073 = t1063 * 0.5 + t1071 * 0.5;
         let t1078 = t815 * t447;
         let t1080 = t822 * t41;
         let t1081 = t127 * t1080;
@@ -680,7 +682,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t1136 = t884 * t365;
         let t1138 = t1134 * t1135 * t1136;
         let t1141 = t891 * t470;
-        let t1143 = t854 + 7.0 / 144.0 * t855 + 7.0 / 144.0 * t1106 + t823 * t1109 / 16.0 - t324 * t1113 / 48.0 + t1117 * t171 / 3072.0 - t1121 * t368 / 3072.0 - 7.0 / 4608.0 * t1124 - t1126 * t386 / 768.0 - t870 * t470 / 3072.0 + t1132 * t1138 / 1536.0 + 7.0 / 4608.0 * t1141;
+        let t1143 = t854 + 7.0 / 144.0 * t855 + 7.0 / 144.0 * t1106 + t823 * t1109 * 0.0625 - t324 * t1113 / 48.0 + t1117 * t171 / 3072.0 - t1121 * t368 / 3072.0 - 7.0 / 4608.0 * t1124 - t1126 * t386 / 768.0 - t870 * t470 / 3072.0 + t1132 * t1138 / 1536.0 + 7.0 / 4608.0 * t1141;
         let t1145 = t897 * t1135 * t899;
         let t1148 = t1011 - t1013 + t1033 + t1035 + t1037 - t616 - t1049 + t648 + t652 - t1050 - t660 - t663 + t750;
         let t1149 = 0.5848223622634646 * t770;
@@ -757,7 +759,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t1303 = t488 * t488;
         let t1312 = piecewise3(t63, 0.0, -2.0 / 9.0 * t790 * t1276 + 2.0 / 3.0 * t304 * t1280);
         let t1318 = piecewise3(t70, 0.0, -2.0 / 9.0 * t797 * t1285 + 2.0 / 3.0 * t308 * t1288);
-        let t1320 = t1312 / 2.0 + t1318 / 2.0;
+        let t1320 = t1312 * 0.5 + t1318 * 0.5;
         let t1326 = t132 * t136 * t1271;
         let t1331 = t132 * t136 * t1320;
         let t1334 = t814 + 0.0077777777777777776 * t1078 + t821 + 0.005 * t823 * t1326 + 0.0016666666666666668 * t1089 - 0.0016666666666666668 * t324 * t1331 - t842;
@@ -786,7 +788,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
         let t1393 = t356 * t357 * t1391;
         let t1398 = t941 * t357 * t1271;
         let t1402 = t384 * t357 * t1320;
-        let t1405 = t854 + 7.0 / 72.0 * t1106 + t823 * t1344 / 16.0 - t324 * t1348 / 48.0 + t1352 * t171 / 3072.0 - t1121 * t470 / 1536.0 - 7.0 / 2304.0 * t1124 - t1126 * t474 / 384.0 + t882 * t1363 / 1536.0 + 7.0 / 2304.0 * t1141 + t895 * t1369 / 384.0 - t354 * t1388 / 3072.0 - t354 * t1393 / 3072.0 + t935 + 7.0 / 576.0 * t1191 + 5.0 / 768.0 * t380 * t1398 - t380 * t1402 / 768.0;
+        let t1405 = t854 + 7.0 / 72.0 * t1106 + t823 * t1344 * 0.0625 - t324 * t1348 / 48.0 + t1352 * t171 / 3072.0 - t1121 * t470 / 1536.0 - 7.0 / 2304.0 * t1124 - t1126 * t474 / 384.0 + t882 * t1363 / 1536.0 + 7.0 / 2304.0 * t1141 + t895 * t1369 / 384.0 - t354 * t1388 / 3072.0 - t354 * t1393 / 3072.0 + t935 + 7.0 / 576.0 * t1191 + 5.0 / 768.0 * t380 * t1398 - t380 * t1402 / 768.0;
         let t1406 = t140 * t1405;
         let t1410 = t485 * t485;
         let t1411 = t958 * t1410;

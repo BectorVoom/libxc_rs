@@ -33,18 +33,20 @@ pub fn gga_x_2d_b86_mgc_lxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = rmath::sqrt(M_PI);
+    let t5 = 1.0 <= zeta_threshold;
+    let t6 = zeta_threshold - 1.0;
+    let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+    let t9 = 1.0 + t8;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t13 = rmath::sqrt(t9);
+    let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+    let t16 = 1.0 / t3 * t15;
+    let t17 = M_SQRT2;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = rmath::sqrt(M_PI);
-        let t5 = 1.0 <= zeta_threshold;
-        let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
-        let t9 = 1.0 + t8;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t13 = rmath::sqrt(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
-        let t16 = 1.0 / t3 * t15;
-        let t17 = M_SQRT2;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t18 = rmath::sqrt(rho[ip]);
         let t19 = t17 * t18;
         let t20 = rho[ip] * rho[ip];
@@ -109,7 +111,7 @@ pub fn gga_x_2d_b86_mgc_lxc_unpol(
         let t171 = 1.0 / t91 / t48;
         let t175 = 1.0 / t28 / t100 / t25;
         let t178 = -0.26456532405541183 * t67 * t29 + 0.01519364262558103 * t47 * t137 * t52 - 0.0003030836914106821 * t96 * t165 * t102 + 1.9820157999801557e-06 * t169 * t171 * t175;
-        let t183 = piecewise3(t2, 0.0, -t16 * t150 * t32 / 4.0 + t16 * t79 * t55 / 2.0 - t16 * t38 * t105 - 2.0 / 3.0 * t16 * t19 * t178);
+        let t183 = piecewise3(t2, 0.0, -t16 * t150 * t32 * 0.25 + t16 * t79 * t55 * 0.5 - t16 * t38 * t105 - 2.0 / 3.0 * t16 * t19 * t178);
         let tv3rho30 = 2.0 * rho[ip] * t183 + 6.0 * t110;
         v3rho3[ip] += tv3rho30;
         let t195 = t92 * t52;
@@ -133,10 +135,10 @@ pub fn gga_x_2d_b86_mgc_lxc_unpol(
         let t268 = 1.0 / t267;
         let t276 = t100 * t100;
         let t278 = 1.0 / t28 / t276;
-        let t286 = piecewise3(t2, 0.0, 5.0 / 8.0 * t16 * t17 / t18 / t21 * t32 - t16 * t150 * t55 + t16 * t79 * t105 - 4.0 / 3.0 * t16 * t38 * t178 - 2.0 / 3.0 * t16 * t19 * (1.587391944332471 * sigma[ip] * t49 * t29 - 0.14665168099473863 * t123 * t52 + 0.0049647995164416505 * t96 * t222 * t102 - 7.135256879928562e-05 * t169 * t268 * t175 + 3.7116714382278384e-07 * t169 * sigma[ip] / t267 / t21 * t278));
+        let t286 = piecewise3(t2, 0.0, 5.0 * 0.125 * t16 * t17 / t18 / t21 * t32 - t16 * t150 * t55 + t16 * t79 * t105 - 4.0 / 3.0 * t16 * t38 * t178 - 2.0 / 3.0 * t16 * t19 * (1.587391944332471 * sigma[ip] * t49 * t29 - 0.14665168099473863 * t123 * t52 + 0.0049647995164416505 * t96 * t222 * t102 - 7.135256879928562e-05 * t169 * t268 * t175 + 3.7116714382278384e-07 * t169 * sigma[ip] / t267 / t21 * t278));
         let tv4rho40 = 2.0 * rho[ip] * t286 + 8.0 * t183;
         v4rho4[ip] += tv4rho40;
-        let t319 = piecewise3(t2, 0.0, -t16 * t150 * t70 / 4.0 + t16 * t79 * t126 / 2.0 - t16 * t38 * t206 - 2.0 / 3.0 * t16 * t19 * (-0.26456532405541183 * t66 * t29 + 0.03369025103933185 * t137 * t52 * sigma[ip] - 0.0013518494807365346 * t165 * t102 * t47 + 2.1802173799781715e-05 * t171 * t175 * t96 - 1.2372238127426128e-07 * t169 / t267 / t20 * t278));
+        let t319 = piecewise3(t2, 0.0, -t16 * t150 * t70 * 0.25 + t16 * t79 * t126 * 0.5 - t16 * t38 * t206 - 2.0 / 3.0 * t16 * t19 * (-0.26456532405541183 * t66 * t29 + 0.03369025103933185 * t137 * t52 * sigma[ip] - 0.0013518494807365346 * t165 * t102 * t47 + 2.1802173799781715e-05 * t171 * t175 * t96 - 1.2372238127426128e-07 * t169 / t267 / t20 * t278));
         let tv4rho3sigma0 = 2.0 * rho[ip] * t319 + 6.0 * t211;
         v4rho3sigma[ip] += tv4rho3sigma0;
         let t345 = piecewise3(t2, 0.0, t16 * t79 * t141 / 6.0 - 2.0 / 3.0 * t16 * t38 * t226 - 2.0 / 3.0 * t16 * t19 * (-0.004624152103437705 * t195 + 0.00029827283916606816 * t198 * sigma[ip] - 6.1662713777160406e-06 * t202 * t175 * t47 + 4.124079375808709e-08 * t96 / t267 / rho[ip] * t278));

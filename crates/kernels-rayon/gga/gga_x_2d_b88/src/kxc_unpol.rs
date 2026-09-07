@@ -28,18 +28,20 @@ pub fn gga_x_2d_b88_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = rmath::sqrt(M_PI);
+    let t5 = 1.0 <= zeta_threshold;
+    let t6 = zeta_threshold - 1.0;
+    let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
+    let t9 = 1.0 + t8;
+    let t11 = rmath::sqrt(zeta_threshold);
+    let t13 = rmath::sqrt(t9);
+    let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
+    let t16 = 1.0 / t3 * t15;
+    let t17 = M_SQRT2;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = rmath::sqrt(M_PI);
-        let t5 = 1.0 <= zeta_threshold;
-        let t6 = zeta_threshold - 1.0;
-        let t8 = piecewise5(t5, t6, t5, -t6, 0.0);
-        let t9 = 1.0 + t8;
-        let t11 = rmath::sqrt(zeta_threshold);
-        let t13 = rmath::sqrt(t9);
-        let t15 = piecewise3(t9 <= zeta_threshold, t11 * zeta_threshold, t13 * t9);
-        let t16 = 1.0 / t3 * t15;
-        let t17 = M_SQRT2;
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t18 = rmath::sqrt(rho[ip]);
         let t19 = t17 * t18;
         let t20 = rho[ip] * rho[ip];
@@ -141,7 +143,7 @@ pub fn gga_x_2d_b88_kxc_unpol(
         let t257 = -0.735 * t25 * t238 - 5.25 * t217 * t62 + 6.804 * t123 * t244 * t128 - 4.536 * t248 * t250 * t254;
         let t258 = t53 * t257;
         let t261 = -0.5583229630352375 * t217 * t34 - 0.33499377782114254 * t105 * t66 - 0.16749688891057127 * t49 * t113 + 0.08374844445528563 * t49 * t132 - 0.05583229630352376 * t23 * t229 + 0.05583229630352376 * t23 * t233 - 0.009305382717253959 * t23 * t258;
-        let t266 = piecewise3(t2, 0.0, -t16 * t208 * t37 / 4.0 + t16 * t96 * t69 / 2.0 - t16 * t43 * t135 - 2.0 / 3.0 * t16 * t19 * t261);
+        let t266 = piecewise3(t2, 0.0, -t16 * t208 * t37 * 0.25 + t16 * t96 * t69 * 0.5 - t16 * t43 * t135 - 2.0 / 3.0 * t16 * t19 * t261);
         let tv3rho30 = 2.0 * rho[ip] * t266 + 6.0 * t140;
         v3rho3[ip] += tv3rho30;
         let t278 = t48 * t53;

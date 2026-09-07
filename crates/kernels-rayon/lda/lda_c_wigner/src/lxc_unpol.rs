@@ -23,16 +23,22 @@ pub fn lda_c_wigner_lxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t2 = 1.0 / M_PI;
+    let t3 = pow_1_3(t2);
+    let t4 = t1 * t3;
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t23 = t3 * t6;
+    let t35 = t1 * t1;
+    let t36 = t3 * t3;
+    let t43 = t36 * t5;
     for ip in 0..zk.len() {
-        let t1 = M_CBRT3;
-        let t2 = 1.0 / M_PI;
-        let t3 = pow_1_3(t2);
-        let t4 = t1 * t3;
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t8 = 1.0 / t7;
-        let t12 = param_b + t4 * t6 * t8 / 4.0;
+        let t12 = param_b + t4 * t6 * t8 * 0.25;
         let tzk0 = param_a / t12;
         zk[ip] += tzk0;
         let t15 = t12 * t12;
@@ -40,15 +46,11 @@ pub fn lda_c_wigner_lxc_unpol(
         let tvrho0 = tzk0 + t8 * param_a * t16 * t4 * t6 / 12.0;
         vrho[ip] += tvrho0;
         let t22 = param_a * t16 * t1;
-        let t23 = t3 * t6;
         let t28 = t7 * t7;
         let t33 = 1.0 / t15 / t12;
-        let t35 = t1 * t1;
-        let t36 = t3 * t3;
         let tv2rho20 = t22 * t23 / t7 / rho[ip] / 18.0 + 1.0 / t28 / rho[ip] * param_a * t33 * t35 * t36 * t5 / 18.0;
         v2rho2[ip] += tv2rho20;
         let t42 = param_a * t33 * t35;
-        let t43 = t36 * t5;
         let t44 = rho[ip] * rho[ip];
         let t55 = t44 * rho[ip];
         let t58 = t15 * t15;

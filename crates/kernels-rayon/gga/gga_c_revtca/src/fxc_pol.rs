@@ -24,6 +24,50 @@ pub fn gga_c_revtca_fxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t7 = pow_1_3(zeta_threshold);
+    let t8 = t7 * t7;
+    let t21 = M_CBRT3;
+    let t22 = 1.0 / M_PI;
+    let t23 = pow_1_3(t22);
+    let t24 = t21 * t23;
+    let t25 = M_CBRT4;
+    let t26 = t25 * t25;
+    let t37 = t21 * t21;
+    let t38 = 1.0 / t23;
+    let t39 = t37 * t38;
+    let t42 = M_CBRT6;
+    let t43 = t42 * t42;
+    let t44 = M_PI * M_PI;
+    let t45 = pow_1_3(t44);
+    let t46 = 1.0 / t45;
+    let t47 = t43 * t46;
+    let t48 = M_CBRT2;
+    let t67 = M_CBRTPI;
+    let t69 = pow_1_3(9.0);
+    let t71 = t67 * M_PI * t69 * t47;
+    let t77 = pow_1_4(f64::EPSILON);
+    let t79 = t67 * t67;
+    let t81 = t69 * t69;
+    let t83 = t45 * t45;
+    let t84 = 1.0 / t83;
+    let t85 = t42 * t84;
+    let t86 = t79 * t44 * t81 * t85;
+    let t87 = t48 * t48;
+    let t91 = t23 * t23;
+    let t92 = 1.0 / t91;
+    let t97 = t44 * t44;
+    let t104 = t67 * t97 * M_PI * t69 * t43 / t45 / t44;
+    let t109 = 1.0 / t23 / t22;
+    let t114 = t97 * t44;
+    let t139 = t38 * t25;
+    let t164 = t39 * t25;
+    let t249 = t46 * t48;
+    let t264 = t21 * t92;
+    let t449 = t23 * t26;
+    let t610 = t84 * t87;
+    let t793 = t37 * t109;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -36,8 +80,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t4 = t1 * t3;
         let t5 = 1.0 + t4;
         let t6 = t5 <= zeta_threshold;
-        let t7 = pow_1_3(zeta_threshold);
-        let t8 = t7 * t7;
         let t9 = pow_1_3(t5);
         let t10 = t9 * t9;
         let t11 = piecewise3(t6, t8, t10);
@@ -46,32 +88,16 @@ pub fn gga_c_revtca_fxc_pol(
         let t14 = pow_1_3(t12);
         let t15 = t14 * t14;
         let t16 = piecewise3(t13, t8, t15);
-        let t18 = t11 / 2.0 + t16 / 2.0;
+        let t18 = t11 * 0.5 + t16 * 0.5;
         let t19 = t18 * t18;
         let t20 = t19 * t18;
-        let t21 = M_CBRT3;
-        let t22 = 1.0 / M_PI;
-        let t23 = pow_1_3(t22);
-        let t24 = t21 * t23;
-        let t25 = M_CBRT4;
-        let t26 = t25 * t25;
         let t27 = pow_1_3(t2);
         let t32 = 4.88827 + 0.79425925 * t24 * t26 / t27;
         let t33 = rmath::atan(t32);
         let t35 = -0.655868 * t33 + 0.897889;
         let t36 = t20 * t35;
-        let t37 = t21 * t21;
-        let t38 = 1.0 / t23;
-        let t39 = t37 * t38;
         let t40 = t36 * t39;
         let t41 = t25 * t27;
-        let t42 = M_CBRT6;
-        let t43 = t42 * t42;
-        let t44 = M_PI * M_PI;
-        let t45 = pow_1_3(t44);
-        let t46 = 1.0 / t45;
-        let t47 = t43 * t46;
-        let t48 = M_CBRT2;
         let t50 = sigma0 + 2.0 * sigma1 + sigma2;
         let t51 = rmath::sqrt(t50);
         let t52 = t48 * t51;
@@ -87,32 +113,15 @@ pub fn gga_c_revtca_fxc_pol(
         let t64 = t63 * t63;
         let t65 = 1.0 / t64;
         let t66 = t62 * t65;
-        let t67 = M_CBRTPI;
-        let t69 = pow_1_3(9.0);
-        let t71 = t67 * M_PI * t69 * t47;
         let t73 = t3 * t37 * t38;
         let t76 = t71 * t52 * t73 / 36.0;
-        let t77 = pow_1_4(f64::EPSILON);
         let t78 = t76 <= t77;
-        let t79 = t67 * t67;
-        let t81 = t69 * t69;
-        let t83 = t45 * t45;
-        let t84 = 1.0 / t83;
-        let t85 = t42 * t84;
-        let t86 = t79 * t44 * t81 * t85;
-        let t87 = t48 * t48;
         let t88 = t87 * t50;
         let t89 = 1.0 / t63;
-        let t91 = t23 * t23;
-        let t92 = 1.0 / t91;
-        let t97 = t44 * t44;
-        let t104 = t67 * t97 * M_PI * t69 * t43 / t45 / t44;
         let t105 = t50 * t50;
         let t106 = t48 * t105;
         let t107 = t65 * t37;
-        let t109 = 1.0 / t23 / t22;
         let t110 = t107 * t109;
-        let t114 = t97 * t44;
         let t115 = t105 * t50;
         let t116 = t114 * t115;
         let t117 = t64 * t63;
@@ -133,7 +142,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t135 = 4.0 / 9.0 * t134;
         let t137 = t35 * t37;
         let t138 = t53 * t19 * t137;
-        let t139 = t38 * t25;
         let t140 = 1.0 / t9;
         let t141 = t1 * t89;
         let t142 = t3 - t141;
@@ -141,7 +149,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t146 = 1.0 / t14;
         let t147 = -t142;
         let t150 = piecewise3(t13, 0.0, 2.0 / 3.0 * t146 * t147);
-        let t152 = t145 / 2.0 + t150 / 2.0;
+        let t152 = t145 * 0.5 + t150 * 0.5;
         let t153 = t132 * t152;
         let t156 = t32 * t32;
         let t157 = t156 + 1.0;
@@ -149,7 +157,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t159 = t20 * t158;
         let t161 = 0.6945723010386666 * t159 * t132;
         let t162 = t3 * t20;
-        let t164 = t39 * t25;
         let t165 = t162 * t35 * t164;
         let t166 = t59 * t59;
         let t167 = 1.0 / t166;
@@ -193,7 +200,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t229 = piecewise3(t6, 0.0, 2.0 / 3.0 * t140 * t226);
         let t230 = -t226;
         let t233 = piecewise3(t13, 0.0, 2.0 / 3.0 * t146 * t230);
-        let t235 = t229 / 2.0 + t233 / 2.0;
+        let t235 = t229 * 0.5 + t233 * 0.5;
         let t236 = t132 * t235;
         let t237 = t139 * t236;
         let t239 = t180 + t185 + t220;
@@ -206,7 +213,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t246 = t244 * t245;
         let t247 = t131 * t169;
         let t248 = t247 * t43;
-        let t249 = t46 * t48;
         let t250 = 1.0 / t51;
         let t251 = t249 * t250;
         let t252 = t248 * t251;
@@ -218,7 +224,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t260 = t258 * t259;
         let t261 = t25 * t60;
         let t262 = t62 * t127;
-        let t264 = t21 * t92;
         let t266 = t86 * t87 * t89 * t264;
         let t268 = t48 * t50;
         let t270 = t104 * t268 * t110;
@@ -311,7 +316,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t431 = t147 * t147;
         let t434 = -t424;
         let t438 = piecewise3(t13, 0.0, -2.0 / 9.0 * t430 * t431 + 2.0 / 3.0 * t146 * t434);
-        let t440 = t428 / 2.0 + t438 / 2.0;
+        let t440 = t428 * 0.5 + t438 * 0.5;
         let t441 = t132 * t440;
         let t442 = t139 * t441;
         let t444 = t157 * t157;
@@ -319,7 +324,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t446 = t20 * t445;
         let t447 = t446 * t132;
         let t448 = t32 * t21;
-        let t449 = t23 * t26;
         let t450 = t449 * t54;
         let t451 = t448 * t450;
         let t453 = 0.3677803165958304 * t447 * t451;
@@ -367,7 +371,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t522 = t430 * t230;
         let t525 = t146 * t1;
         let t529 = piecewise3(t13, 0.0, -2.0 / 9.0 * t522 * t147 - 4.0 / 3.0 * t525 * t187);
-        let t531 = t521 / 2.0 + t529 / 2.0;
+        let t531 = t521 * 0.5 + t529 * 0.5;
         let t532 = t132 * t531;
         let t533 = t139 * t532;
         let t536 = t27 * t20 * t137;
@@ -395,7 +399,7 @@ pub fn gga_c_revtca_fxc_pol(
         let t577 = t230 * t230;
         let t580 = -t572;
         let t584 = piecewise3(t13, 0.0, -2.0 / 9.0 * t430 * t577 + 2.0 / 3.0 * t146 * t580);
-        let t586 = t576 / 2.0 + t584 / 2.0;
+        let t586 = t576 * 0.5 + t584 * 0.5;
         let t587 = t132 * t586;
         let t588 = t139 * t587;
         let tv2rho22 = 1.3891446020773333 * t483 + 0.028901190981112625 * t489 + t176 * t553 / 3.0 + t385 + 4.167433806232 * t498 + t402 + 8.0 / 3.0 * t502 + 2.0 * t390 * t560 + t412 + t453 + 8.0 / 9.0 * t537 + 2.0 * t138 * t565 + t138 * t588 + t457 + t476 - t481 + 0.009633730327037541 * t546;
@@ -416,7 +420,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t607 = t244 * t606;
         let t608 = t131 * t471;
         let t609 = t608 * t42;
-        let t610 = t84 * t87;
         let t611 = t610 * t398;
         let t613 = t607 * t609 * t611;
         let t614 = 0.0003132295650475297 * t613;
@@ -538,7 +541,6 @@ pub fn gga_c_revtca_fxc_pol(
         let t787 = t285 * t285;
         let t788 = t641 * t787;
         let t789 = t139 * t788;
-        let t793 = t37 * t109;
         let t795 = t104 * t48 * t65 * t793;
         let t797 = t114 * t50;
         let t798 = t797 * t118;

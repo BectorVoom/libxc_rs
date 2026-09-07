@@ -23,17 +23,19 @@ pub fn gga_x_lb_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT3;
+    let t4 = pow_1_3(1.0 / M_PI);
+    let t5 = M_CBRT4;
+    let t6 = t5 * t5;
+    let t9 = param_alpha * t1 * t4 * t6 * 0.5;
     for ip in 0..vrho.len() / 2 {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let sigma0 = sigma[ip * 3];
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
-        let t1 = M_CBRT3;
-        let t4 = pow_1_3(1.0 / M_PI);
-        let t5 = M_CBRT4;
-        let t6 = t5 * t5;
-        let t9 = param_alpha * t1 * t4 * t6 / 2.0;
         let t10 = rmath::sqrt(sigma0);
         let t11 = pow_1_3(rho0);
         let t13 = 1.0 / t11 / rho0;

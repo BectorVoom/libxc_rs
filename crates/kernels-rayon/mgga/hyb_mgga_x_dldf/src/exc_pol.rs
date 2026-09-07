@@ -130,6 +130,21 @@ pub fn hyb_mgga_x_dldf_exc_pol(
     let np = zk.len();
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = f64x8::splat(M_CBRT3);
+    let t9 = zeta_threshold - f64x8::splat(1.0);
+    let t13 = -t9;
+    let t19 = (simd::cbrt(zeta_threshold));
+    let t20 = t19 * zeta_threshold;
+    let t26 = f64x8::splat(M_CBRT6);
+    let t27 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
+    let t28 = (simd::cbrt(t27));
+    let t29 = t28 * t28;
+    let t30 = f64x8::splat(1.0) / t29;
+    let t31 = t26 * t30;
+    let t45 = t26 * t26;
+    let t47 = f64x8::splat(3.0) / f64x8::splat(10.0) * t45 * t29;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -145,29 +160,18 @@ pub fn hyb_mgga_x_dldf_exc_pol(
         let mut acc_zk = V_ZERO;
         {
             let t2 = (v_rho0).simd_le(dens_threshold);
-            let t3 = f64x8::splat(M_CBRT3);
             let t4 = v_rho0 + v_rho1;
             let t5 = f64x8::splat(1.0) / t4;
             let t8 = (f64x8::splat(2.0) * v_rho0 * t5).simd_le(zeta_threshold);
-            let t9 = zeta_threshold - f64x8::splat(1.0);
             let t12 = (f64x8::splat(2.0) * v_rho1 * t5).simd_le(zeta_threshold);
-            let t13 = -t9;
             let t14 = v_rho0 - v_rho1;
             let t16 = ((t8).select(t9, (t12).select(t13, t14 * t5)));
             let t17 = f64x8::splat(1.0) + t16;
             let t18 = (t17).simd_le(zeta_threshold);
-            let t19 = (simd::cbrt(zeta_threshold));
-            let t20 = t19 * zeta_threshold;
             let t21 = (simd::cbrt(t17));
             let t23 = ((t18).select(t20, t21 * t17));
             let t24 = t3 * t23;
             let t25 = (simd::cbrt(t4));
-            let t26 = f64x8::splat(M_CBRT6);
-            let t27 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-            let t28 = (simd::cbrt(t27));
-            let t29 = t28 * t28;
-            let t30 = f64x8::splat(1.0) / t29;
-            let t31 = t26 * t30;
             let t32 = v_rho0 * v_rho0;
             let t33 = (simd::cbrt(v_rho0));
             let t34 = t33 * t33;
@@ -175,8 +179,6 @@ pub fn hyb_mgga_x_dldf_exc_pol(
             let t40 = f64x8::splat(4.8827323) + f64x8::splat(0.0146297) * t31 * v_sigma0 * t36;
             let t43 = f64x8::splat(5.8827323) - f64x8::splat(23.84107471346329) / t40;
             let t44 = t25 * t43;
-            let t45 = t26 * t26;
-            let t47 = f64x8::splat(3.0) / f64x8::splat(10.0) * t45 * t29;
             let t49 = f64x8::splat(1.0) / t34 / v_rho0;
             let t50 = v_tau0 * t49;
             let t51 = t47 - t50;

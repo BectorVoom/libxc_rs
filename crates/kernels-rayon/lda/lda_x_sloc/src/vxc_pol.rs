@@ -19,12 +19,15 @@ pub fn lda_x_sloc_vxc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = param_b + 1.0;
+    let t3 = 1.0 / t1 * 0.5;
+    let t4 = param_a * t3;
+    let t12 = rmath::pow(zeta_threshold, t1);
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
-        let t1 = param_b + 1.0;
-        let t3 = 1.0 / t1 / 2.0;
-        let t4 = param_a * t3;
         let t5 = rho0 + rho1;
         let t6 = rmath::pow(t5, param_b);
         let t7 = rho0 - rho1;
@@ -32,7 +35,6 @@ pub fn lda_x_sloc_vxc_pol(
         let t9 = t7 * t8;
         let t10 = 1.0 + t9;
         let t11 = t10 <= zeta_threshold;
-        let t12 = rmath::pow(zeta_threshold, t1);
         let t13 = rmath::pow(t10, t1);
         let t14 = piecewise3(t11, t12, t13);
         let t15 = 1.0 - t9;

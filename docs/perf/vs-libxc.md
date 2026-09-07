@@ -328,11 +328,11 @@ are here so the two names in the question have their numbers side by side:
 | `gga_c_pbe` exc+vxc pol | 25.91 | 8.41 | 3.08x |
 | `gga_c_pbe` exc+vxc+fxc unpol | 21.37 | 6.93 | 3.08x |
 
-`gga_x_pbe` unpolarized `vxc` is the weakest row and it is at the floor: the
-kernel is three `cbrt` and ~40 flops per point, `docs/perf/kernel-codegen.md`
-already closed hoisting, bounds checks and scheduling on it, and its whole
-body is 3.3 ns/pt across 16 threads. The remaining lever there is the
-correctly-rounded `cbrt` itself, which is not one this project will pull.
+`gga_x_pbe` unpolarized `vxc` is the weakest row. (This paragraph used to
+call it "at the floor": three `cbrt` and ~40 flops per point, with hoisting
+closed off by `docs/perf/kernel-codegen.md`. That was wrong on both counts --
+two of the three cube roots were of *constants*, and they were being
+recomputed on every step. See "Three bit-exact levers" below.)
 
 ## HSE06: the helpers (2026-09-07, later the same day)
 
@@ -526,3 +526,160 @@ reads `0 rust allocs / 0 B` for HSE06 and PBE0 at every order and spin --
 the same as a plain single-kernel functional. Before this the mix path
 held 0.6 / 1.2 MB of pooled leaf buffers for HSE06 vxc (4.2 MB at fxc
 polarized) and allocated them on the first call.
+
+## Three bit-exact levers: hoisting, `/ 2^k`, and a vector `cbrt` (2026-09-07, last)
+
+Starting point: the fused tree above. Where the time went, measured with
+`simd_bench` (ns per element, this box) and by counting the emitted loop body:
+
+| | `exp` | `ln` | `cbrt` | `erf` | `e1_scaled` | `vdivpd zmm` |
+|---|--:|--:|--:|--:|--:|--:|
+| bit-exact vector cost | 0.8 | 0.8 | **4.9** | 8.0 | ~10 | ~10 cycles per 8 lanes |
+| per point, `fused_hse vxc unpol` | 4 | 8 | 5 | 1 | 3 | **174** |
+| per point, `gga_x_pbe vxc unpol` | 0 | 0 | **4** | 0 | 0 | 15 |
+
+Two things stand out. `gga_x_pbe` has *four* `cbrt` in its loop for a formula
+with one -- `cbrt(rho)` -- because maple2c also emits `cbrt(pi^2)`,
+`cbrt(zeta_threshold)` and `cbrt(1 + (zeta_threshold - 1))`, and at 4.9 ns
+each those three account for 14.6 of the kernel's 20.3 ns/pt. And the
+division count dwarfs every transcendental: 174 per point in HSE06, more
+than the 21 special-function calls combined at their measured cost.
+
+### 1. Loop-invariant statements are evaluated once
+
+`docs/perf/kernel-codegen.md` measured hand-hoisting at ~0 and concluded
+"LLVM's LICM already does this". It did, when `pow_1_3` was
+`powers.rs::cbrt_f64` -- branch-free inline arithmetic. rmath's bit-exact
+`cbrt` (commit 31fd1ff47f) is a per-lane loop with data-dependent branches,
+which LICM cannot move, so from that commit on every SIMD kernel paid its
+constant cube roots per 8-point step. Nothing measured it: the bits are the
+same either way.
+
+`simd.py::split_invariant` now classes each emitted `let` by whether any
+identifier in it is a per-point load (`v_rho`, `v_sigma`, ...) or a local
+already classed varying; the rest -- constants, parameters, thresholds and
+everything built only from them -- goes above the grid loop, in its original
+order. Same statements, same operands, same rounding, computed once. The
+scalar emit in `from_maple.py` applies the same pass. A name bound twice in
+one body disables hoisting for that body (none does).
+
+| kernel | statements hoisted | `cbrt` hoisted / left in loop |
+|---|--:|--:|
+| `gga_x_pbe vxc unpol` | 20 of 47 | 3 / 1 |
+| `gga_c_pbe vxc unpol` | ~50 | 2 / 1 |
+| `fused_pbeh vxc unpol` | 58 | 4 / 1 |
+| `fused_hse vxc unpol` | 78 of 664 | 4 / 1 |
+| `fused_hse vxc pol` | 58 | 3 / 9 |
+
+Hoist alone, `gga_x_pbe vxc unpol` single-threaded: 20.3 -> 8.5 ns/pt.
+
+### 2. `x / 2^k` becomes `x * 2^-k`
+
+`from_maple.py::fold_pow2_div` rewrites a division by a power-of-two literal
+into a multiplication by its exact reciprocal. Both are the correctly rounded
+value of the same real number for every `x`, finite or not, including results
+in the subnormal range, so this is not a tolerance argument: the bits cannot
+differ. `/` and `*` share precedence and associativity, so the expression
+tree is untouched (`a / b / 2.0` is still `(a / b) * 0.5`). GCC applies the
+same rewrite to libxc's C at `-O2` without any fast-math flag. Divisions by
+`3.0`, `9.0`, `27.0` and the rest stay divisions: their reciprocals are not
+exact and the project keeps maple2c's operation order.
+
+`fused_hse vxc unpol`: 174 -> 144 divisions per point; polarized 428 -> 358.
+
+### 3. `simd::cbrt` does its exponent surgery on integer lanes
+
+rmath's bit-exact vector `cbrt` vectorises only the arithmetic middle of
+core-math's algorithm; its decomposition (`e % 3`, table selects) and
+recomposition (rounding-boundary test, final snap) are per-lane loops over
+arrays with branches. `math/src/simd.rs::cbrt` is now the same algorithm with
+those stages on `wide::i64x8`: `e / 3` by the exact 16-bit reciprocal
+`(e * 43691) >> 17`, the tables as two-way selects with the sign bit or'd in,
+the snap as masks and a blend. The floating-point middle is rmath's
+expression sequence verbatim. Lanes within `2^-75` of a rounding boundary
+(about one input in four million) are patched from the scalar reference;
+zero/inf/NaN lanes are computed on 1.0 and patched with `x + x`; a
+subnormal lane sends the vector lane-wise. `simd_exact.rs` sweeps every arm
+(7 M inputs: every power of two, near-cubes, both tabulated hard cases at 100
+scales, random bit patterns, mixed-arm vectors) and requires `to_bits()`
+equality against `rmath::cbrt` and `f64::cbrt`.
+
+| `simd_bench`, ns/elem | before | after |
+|---|--:|--:|
+| `simd::cbrt` (bit-exact) | 4.86 | **2.20** |
+
+(The `simd-kernels.md` attribution that put bit-exact `cbrt` at 8.98 ns/elem
+predates this; `lda_c_vwn` below shows what that was costing.)
+
+**Superseded the same day: `simd::cbrt` now delegates to `rmath::cbrt`.**
+The `wide::i64x8` implementation above was ported upstream into `rmath`
+itself (`~/workspace/rmath`, `src/kernels/double/cbrt.rs`,
+"Cycle 9" in its ROADMAP.md), generalised to `f64x2`/`f64x4`/`f64x8` and
+using unsigned `wide::u64xN` arithmetic throughout (no `bytemuck`, no
+signed-shift subtlety) rather than the `i64x8` + `bytemuck::cast` shape
+used here. `math/src/simd.rs::cbrt` is now `rmath::cbrt(x)`, a one-line
+delegation, keeping a single algorithm instead of two independent
+implementations of the same bit surgery. Confirmed bit-identical by the
+full regen + rebuild + verify cycle: every fingerprint above is unchanged
+to the last digit, `revalcheck` still passes on 1.7B+ values, and the
+oracle harness still reports the same 0 unexpected failures across all 454
+routed kernels, both spins. `bytemuck` was dropped from
+`crates/kernels-rayon/math/Cargo.toml` -- nothing in this crate needs it
+now that the vector bit surgery lives in rmath instead.
+
+### Results
+
+`--np 100000 --reps 7`, ns per grid point, one run of the whole case list
+on the tree with all three changes. "was" is this session's baseline on the
+fused tree; `libxc-Nt` is the bar. **Every `rust` fingerprint is
+byte-identical to the baseline** on all thirteen PBE/PBE0/HSE06 cases, the
+fused-vs-mix and `rust-1t == rust-Nt` gates report 0 differing values, and
+the elementwise libxc agreement figures are unchanged to four digits.
+
+| case | libxc-1t | rust-1t was | **rust-1t** | libxc-Nt | rust-Nt was | **rust-Nt** | **vs libxc** (was) |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| `gga_x_pbe` exc+vxc unpol | 21.3 | 20.29 | **5.38** | 3.40 | 4.06 | **0.96** | **3.5x** (1.2x) |
+| `gga_x_pbe` exc+vxc pol | 82.8 | 39.22 | **19.92** | 15.21 | 8.07 | **3.10** | **4.9x** (2.0x) |
+| `gga_x_pbe` exc+vxc+fxc unpol | 31.7 | 22.72 | **8.26** | 5.59 | 3.44 | **1.50** | **3.7x** (1.7x) |
+| `gga_c_pbe` exc+vxc unpol | 79.3 | 28.30 | **17.70** | 11.19 | 4.44 | **2.74** | **4.1x** (2.6x) |
+| `gga_c_pbe` exc+vxc pol | 132.7 | 47.20 | **32.73** | 22.65 | 7.47 | **5.12** | **4.4x** (2.9x) |
+| `gga_c_pbe` exc+vxc+fxc unpol | 115.6 | 35.89 | **25.26** | 17.40 | 5.78 | **3.95** | **4.4x** (3.0x) |
+| `hyb_gga_xc_pbeh` exc+vxc unpol | 104.4 | 37.31 | **19.52** | 15.30 | 5.68 | **3.09** | **5.0x** (2.6x) |
+| `hyb_gga_xc_pbeh` exc+vxc pol | 223.0 | 82.72 | **44.35** | 39.20 | 11.46 | **7.16** | **5.5x** (3.4x) |
+| `hyb_gga_xc_pbeh` exc+vxc+fxc unpol | 156.9 | 47.56 | **30.03** | 23.66 | 7.40 | **4.74** | **5.0x** (3.1x) |
+| `hyb_gga_xc_hse06` exc+vxc unpol | 598.3 | 115.69 | **98.64** | 95.59 | 18.40 | **15.67** | **6.1x** (5.0x) |
+| `hyb_gga_xc_hse06` exc+vxc pol | 1402 | 271.01 | **240.80** | 222.1 | 42.93 | **39.82** | **5.6x** (5.2x) |
+| `hyb_gga_xc_hse06` exc+vxc+fxc unpol | 1311 | 187.92 | **170.71** | 215.0 | 32.37 | **29.48** | **7.3x** (6.4x) |
+| `hyb_gga_xc_hse06` exc+vxc+fxc pol | 3941 | 553.09 | 616.47 | 671.2 | 108.75 | 112.18 | 6.0x (5.9x) |
+
+HSE06 re-run alone on a rested machine (`--reps 9`), ns/pt:
+
+| case | libxc-1t | rust-1t | libxc-Nt | rust-Nt | vs libxc |
+|---|--:|--:|--:|--:|--:|
+| `hyb_gga_xc_hse06` exc+vxc unpol | 592.2 | **94.3** | 91.6 | **15.3** | **6.0x** |
+| `hyb_gga_xc_hse06` exc+vxc pol | 1374 | **229.9** | 224.5 | **39.3** | **5.7x** |
+| `hyb_gga_xc_hse06` exc+vxc+fxc unpol | 1308 | **167.7** | 208.9 | **29.0** | **7.2x** |
+| `hyb_gga_xc_hse06` exc+vxc+fxc pol | 4273 | 601.0 | 661.1 | 112.3 | 5.9x |
+
+The polarized `fxc` row reads slower than the baseline's 553 / 108.8 in
+absolute terms, but so does libxc in the same run (3941 -> 4273
+single-threaded): the ratio `rust-1t / libxc-1t` is 0.140 at baseline and
+0.141 here, so that is the machine's clock under a 5-second polarized-fxc
+load, not the kernel. The gains scale with how much of a kernel
+was cube roots of constants and power-of-two divisions: PBE exchange loses
+three of its four `cbrt`, PBE0 the same plus 13 divisions, HSE06 four
+`cbrt` and 30 divisions out of a body that still has 144 divisions and three
+`e1_scaled` per point.
+
+The same regeneration touched every kernel in the tree (2,613 files), so the
+rest of the bench moved too, all with libxc agreement unchanged:
+`lda_c_vwn` 70.7 -> 23.3 ns/pt single-threaded (its `cbrt(constants)` and
+the vector `cbrt`), `mgga_c_r2scan` 78.5 -> 43.8, `mgga_x_scan` 27.5 -> 17.4,
+`gga_x_b88` 9.25 -> 8.00, `gga_c_lyp` 9.43 -> 8.61.
+
+### Memory
+
+Unchanged, and already at the floor: 0 allocations per evaluation on every
+case, no scratch for the fused composites, peak RSS the caller's buffers.
+The hoisted bindings live in registers or the kernel's stack frame; nothing
+here touches the heap.

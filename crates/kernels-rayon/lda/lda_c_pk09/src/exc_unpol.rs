@@ -18,38 +18,52 @@ pub fn lda_c_pk09_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = M_CBRT4;
+    let t2 = t1 * t1;
+    let t3 = M_CBRT3;
+    let t4 = 1.0 / M_PI;
+    let t5 = pow_1_3(t4);
+    let t6 = t3 * t5;
+    let t15 = pow_1_4(4.0);
+    let t16 = t15 * t15;
+    let t17 = t16 * t15;
+    let t29 = t3 * t3;
+    let t31 = M_PI * M_PI;
+    let t32 = pow_1_3(t31);
+    let t33 = t32 * t32;
+    let t36 = 1.0 <= zeta_threshold;
+    let t37 = pow_1_3(zeta_threshold);
+    let t38 = piecewise3(t36, t37, 1.0);
+    let t39 = t38 * t38;
+    let t59 = 1.0 / t32;
+    let t60 = t29 * t59;
+    let t61 = 1.0 / t38;
+    let t90 = 1.0 / t33;
+    let t93 = 1.0 / t39;
+    let t166 = zeta_threshold * zeta_threshold;
+    let t167 = piecewise3(t36, t166, 1.0);
+    let t182 = t5 * t5;
+    let t183 = t29 * t182;
+    let t190 = t3 * t5 * t4;
+    let t197 = t29 * t182 * t4;
+    let t330 = t3 * t90;
     for ip in 0..zk.len() {
-        let t1 = M_CBRT4;
-        let t2 = t1 * t1;
-        let t3 = M_CBRT3;
-        let t4 = 1.0 / M_PI;
-        let t5 = pow_1_3(t4);
-        let t6 = t3 * t5;
         let t7 = pow_1_3(rho[ip]);
         let t8 = 1.0 / t7;
         let t10 = t6 * t2 * t8;
         let t11 = pow_1_3(t10);
         let t12 = t2 * t11;
         let t14 = rmath::exp(-0.209325945580702 * t12);
-        let t15 = pow_1_4(4.0);
-        let t16 = t15 * t15;
-        let t17 = t16 * t15;
         let t18 = t14 * t17;
         let t19 = pow_1_4(t10);
         let t23 = rmath::exp(-0.25916439866088 * t12);
         let t27 = 0.538074483500437 - 0.5565237477462975 * t18 * t19 + 0.6549274647407946 * t23 * t2 * t11;
         let t28 = t27 * t27;
-        let t29 = t3 * t3;
         let t30 = t28 * t29;
-        let t31 = M_PI * M_PI;
-        let t32 = pow_1_3(t31);
-        let t33 = t32 * t32;
         let t34 = t7 * t7;
         let t35 = t33 * t34;
-        let t36 = 1.0 <= zeta_threshold;
-        let t37 = pow_1_3(zeta_threshold);
-        let t38 = piecewise3(t36, t37, 1.0);
-        let t39 = t38 * t38;
         let t40 = t35 * t39;
         let t41 = t30 * t40;
         let t43 = t27 * t3;
@@ -64,9 +78,6 @@ pub fn lda_c_pk09_exc_unpol(
         let t56 = t52 * t55;
         let t57 = 1.0 / t27;
         let t58 = t56 * t57;
-        let t59 = 1.0 / t32;
-        let t60 = t29 * t59;
-        let t61 = 1.0 / t38;
         let t62 = t8 * t61;
         let t63 = t60 * t62;
         let t66 = rmath::ln(t48);
@@ -83,10 +94,8 @@ pub fn lda_c_pk09_exc_unpol(
         let t86 = t83 * t85;
         let t88 = 1.0 / t28;
         let t89 = t88 * t3;
-        let t90 = 1.0 / t33;
         let t91 = 1.0 / t34;
         let t92 = t90 * t91;
-        let t93 = 1.0 / t39;
         let t94 = t92 * t93;
         let t95 = t89 * t94;
         let t97 = -t58 * t63 / 3.0 - t71 * t63 / 3.0 + t79 * t63 / 3.0 - 0.05118886552595877 * t46 + 1.0150830754383913 + 0.29951248675449116 * t86 + 0.07400578449205193 * t95;
@@ -115,7 +124,7 @@ pub fn lda_c_pk09_exc_unpol(
         let t145 = 0.25 * t41 + 0.2528829196169895 * t46 + 0.07204858311271498;
         let t146 = rmath::sqrt(t145);
         let t147 = 1.0 / t146;
-        let t149 = (rmath::ln(1.0 + t142 * t147) - rmath::ln(1.0 - t142 * t147)) / 2.0;
+        let t149 = (rmath::ln(1.0 + t142 * t147) - rmath::ln(1.0 - t142 * t147)) * 0.5;
         let t151 = t149 * t57 * t29;
         let t152 = t151 * t85;
         let t156 = 0.78125 * t41 + 0.6233473131272386 * t46 + 0.146484375;
@@ -124,23 +133,17 @@ pub fn lda_c_pk09_exc_unpol(
         let t160 = t159 * t85;
         let t163 = t146 * t88 * t3;
         let t164 = t163 * t94;
-        let t166 = zeta_threshold * zeta_threshold;
-        let t167 = piecewise3(t36, t166, 1.0);
         let t169 = rmath::exp(-0.42734869200542 * t12);
         let t170 = t169 * t1;
         let t171 = t11 * t11;
         let t175 = rmath::exp(-0.1173961225190475 * t12);
         let t179 = 0.41081146652128 + 0.14983581422587874 * t170 * t171 + 0.01928080210487025 * t175 * t2 * t11;
         let t180 = t179 * t179;
-        let t182 = t5 * t5;
-        let t183 = t29 * t182;
         let t185 = t183 * t1 * t91;
         let t187 = 1.0 / rho[ip];
-        let t190 = t3 * t5 * t4;
         let t192 = 1.0 / t7 / rho[ip];
         let t193 = t2 * t192;
         let t194 = t190 * t193;
-        let t197 = t29 * t182 * t4;
         let t199 = 1.0 / t34 / rho[ip];
         let t200 = t1 * t199;
         let t203 = -113.69336978972719 + 6.001255378196778 * t10 + 12.335328239599177 * t185 - 5.687617677680484 * t187 + 0.17701513906783214 * t194 + 5.4944839533438375e-05 * t197 * t200;
@@ -202,7 +205,7 @@ pub fn lda_c_pk09_exc_unpol(
         let t311 = 0.25 * t218 + 0.2528829196169895 * t223 + 0.07204858311271498;
         let t312 = rmath::sqrt(t311);
         let t313 = 1.0 / t312;
-        let t315 = (rmath::ln(1.0 + t308 * t313) - rmath::ln(1.0 - t308 * t313)) / 2.0;
+        let t315 = (rmath::ln(1.0 + t308 * t313) - rmath::ln(1.0 - t308 * t313)) * 0.5;
         let t316 = t315 * t234;
         let t317 = t316 * t213;
         let t322 = 0.78125 * t218 + 0.6233473131272386 * t223 + 0.146484375;
@@ -211,12 +214,11 @@ pub fn lda_c_pk09_exc_unpol(
         let t325 = t324 * t213;
         let t328 = t312 * t259;
         let t329 = t328 * t214;
-        let t330 = t3 * t90;
         let t331 = t91 * t93;
         let t332 = t330 * t331;
         let t335 = t226 * t264 - 44.15969676259812 * t257 - 10.80049028389238 * t262 - 7.5221484387501265 * t269 * t63 + 3.7610742193750633 * t277 * t63 + 38.978347549160304 * t281 * t63 + 9.87466743489671 * t287 * t63 - 0.08230132705969918 * t256 * t295 + 37.27051603526593 * t304 * t63 - 4.4281498357666145 * t317 * t63 - 4.855032390388656 * t325 * t63 - 14.216351496367702 * t329 * t332;
         let t336 = t167 * t335;
-        let t338 = t98 / 4.0 - 11.03992419064953 * t86 - 2.700122570973095 * t95 - 1.8805371096875316 * t104 + 0.9402685548437658 * t112 + 9.744586887290076 * t116 + 2.4686668587241773 * t122 - 0.020575331764924796 * t130 + 9.317629008816482 * t139 - 1.1070374589416536 * t152 - 1.213758097597164 * t160 - 3.5540878740919255 * t164 + t336 / 4.0;
+        let t338 = t98 * 0.25 - 11.03992419064953 * t86 - 2.700122570973095 * t95 - 1.8805371096875316 * t104 + 0.9402685548437658 * t112 + 9.744586887290076 * t116 + 2.4686668587241773 * t122 - 0.020575331764924796 * t130 + 9.317629008816482 * t139 - 1.1070374589416536 * t152 - 1.213758097597164 * t160 - 3.5540878740919255 * t164 + t336 * 0.25;
         let tzk0 = rho[ip] * t338;
         zk[ip] += tzk0;
     }

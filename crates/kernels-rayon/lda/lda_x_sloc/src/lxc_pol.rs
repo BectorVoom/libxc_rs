@@ -135,6 +135,18 @@ pub fn lda_x_sloc_lxc_pol(
     let param_b = f64x8::splat(param_b);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t1 = param_b + f64x8::splat(1.0);
+    let t3 = f64x8::splat(1.0) / t1 * f64x8::splat(0.5);
+    let t4 = param_a * t3;
+    let t12 = (simd::pow(zeta_threshold, t1));
+    let t63 = param_b * param_b;
+    let t70 = t1 * t1;
+    let t160 = t63 * param_b;
+    let t170 = t70 * t1;
+    let t404 = t63 * t63;
+    let t421 = t70 * t70;
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -156,9 +168,6 @@ pub fn lda_x_sloc_lxc_pol(
         let mut acc_v4rho4_3 = V_ZERO;
         let mut acc_v4rho4_4 = V_ZERO;
         {
-            let t1 = param_b + f64x8::splat(1.0);
-            let t3 = f64x8::splat(1.0) / t1 / f64x8::splat(2.0);
-            let t4 = param_a * t3;
             let t5 = v_rho0 + v_rho1;
             let t6 = (simd::pow(t5, param_b));
             let t7 = v_rho0 - v_rho1;
@@ -166,7 +175,6 @@ pub fn lda_x_sloc_lxc_pol(
             let t9 = t7 * t8;
             let t10 = f64x8::splat(1.0) + t9;
             let t11 = (t10).simd_le(zeta_threshold);
-            let t12 = (simd::pow(zeta_threshold, t1));
             let t13 = (simd::pow(t10, t1));
             let t14 = ((t11).select(t12, t13));
             let t15 = f64x8::splat(1.0) - t9;
@@ -205,11 +213,9 @@ pub fn lda_x_sloc_lxc_pol(
             let t57 = param_b * t8;
             let t59 = t56 * t57 * t19;
             let t61 = t4 * t6 * t42;
-            let t63 = param_b * param_b;
             let t64 = t63 * t8;
             let t66 = t56 * t64 * t19;
             let t68 = t4 * t22 * t42;
-            let t70 = t1 * t1;
             let t71 = t13 * t70;
             let t72 = t31 * t31;
             let t73 = t10 * t10;
@@ -255,12 +261,10 @@ pub fn lda_x_sloc_lxc_pol(
             let t153 = t56 * t151 * t19;
             let t155 = t56 * t57 * t42;
             let t158 = t4 * t6 * t99;
-            let t160 = t63 * param_b;
             let t161 = t160 * t29;
             let t163 = t56 * t161 * t19;
             let t165 = t56 * t64 * t42;
             let t168 = t4 * t22 * t99;
-            let t170 = t70 * t1;
             let t171 = t13 * t170;
             let t172 = t72 * t31;
             let t174 = f64x8::splat(1.0) / t73 / t10;
@@ -349,13 +353,11 @@ pub fn lda_x_sloc_lxc_pol(
             let t396 = t56 * t151 * t42;
             let t399 = t56 * t57 * t99;
             let t402 = t4 * t6 * t215;
-            let t404 = t63 * t63;
             let t407 = t56 * t404 * t78 * t19;
             let t411 = f64x8::splat(2.0) * t56 * t160 * t78 * t19;
             let t413 = t56 * t161 * t42;
             let t416 = t56 * t64 * t99;
             let t419 = t4 * t22 * t215;
-            let t421 = t70 * t70;
             let t422 = t13 * t421;
             let t423 = t72 * t72;
             let t424 = t73 * t73;

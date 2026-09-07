@@ -21,47 +21,49 @@ pub fn gga_x_vmt84_exc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t6 = t3 / t4;
+    let t7 = 1.0 <= zeta_threshold;
+    let t8 = zeta_threshold - 1.0;
+    let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
+    let t11 = 1.0 + t10;
+    let t13 = pow_1_3(zeta_threshold);
+    let t15 = pow_1_3(t11);
+    let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+    let t20 = M_CBRT6;
+    let t21 = param_mu * t20;
+    let t22 = M_PI * M_PI;
+    let t23 = pow_1_3(t22);
+    let t24 = t23 * t23;
+    let t25 = 1.0 / t24;
+    let t28 = M_CBRT2;
+    let t29 = t28 * t28;
+    let t36 = param_alpha * t20 * t25;
+    let t42 = t21 * t25;
+    let t51 = t20 * t20;
+    let t54 = 1.0 / t23 / t22;
+    let t55 = param_alpha * t51 * t54;
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t6 = t3 / t4;
-        let t7 = 1.0 <= zeta_threshold;
-        let t8 = zeta_threshold - 1.0;
-        let t10 = piecewise5(t7, t8, t7, -t8, 0.0);
-        let t11 = 1.0 + t10;
-        let t13 = pow_1_3(zeta_threshold);
-        let t15 = pow_1_3(t11);
-        let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t18 = pow_1_3(rho[ip]);
         let t19 = t17 * t18;
-        let t20 = M_CBRT6;
-        let t21 = param_mu * t20;
-        let t22 = M_PI * M_PI;
-        let t23 = pow_1_3(t22);
-        let t24 = t23 * t23;
-        let t25 = 1.0 / t24;
         let t26 = t25 * sigma[ip];
         let t27 = t21 * t26;
-        let t28 = M_CBRT2;
-        let t29 = t28 * t28;
         let t30 = rho[ip] * rho[ip];
         let t31 = t18 * t18;
         let t32 = t31 * t30;
         let t33 = 1.0 / t32;
         let t34 = t29 * t33;
-        let t36 = param_alpha * t20 * t25;
         let t37 = sigma[ip] * t29;
         let t38 = t37 * t33;
         let t41 = rmath::exp(-t36 * t38 / 24.0);
-        let t42 = t21 * t25;
         let t45 = 1.0 + t42 * t38 / 24.0;
         let t46 = 1.0 / t45;
         let t47 = t41 * t46;
         let t48 = t34 * t47;
-        let t51 = t20 * t20;
-        let t54 = 1.0 / t23 / t22;
-        let t55 = param_alpha * t51 * t54;
         let t56 = sigma[ip] * sigma[ip];
         let t57 = t56 * t28;
         let t58 = t30 * t30;
@@ -72,7 +74,7 @@ pub fn gga_x_vmt84_exc_unpol(
         let t69 = 1.0 / sigma[ip];
         let t70 = t69 * t28;
         let t74 = t27 * t48 / 24.0 + 2.0 * t68 * t70 * t32 + t65;
-        let t78 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t19 * t74);
+        let t78 = piecewise3(t2, 0.0, -3.0 * 0.125 * t6 * t19 * t74);
         let tzk0 = 2.0 * t78;
         zk[ip] += tzk0;
     }

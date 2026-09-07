@@ -25,6 +25,15 @@ pub fn gga_x_s12_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = M_CBRTPI;
+    let t5 = t2 / t3;
+    let t11 = zeta_threshold - 1.0;
+    let t15 = -t11;
+    let t21 = pow_1_3(zeta_threshold);
+    let t22 = t21 * zeta_threshold;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -32,21 +41,14 @@ pub fn gga_x_s12_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t5 = t2 / t3;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
         let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
         let t16 = rho0 - rho1;
         let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
         let t19 = 1.0 + t18;
         let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
         let t23 = pow_1_3(t19);
         let t25 = piecewise3(t20, t22, t23 * t19);
         let t26 = t5 * t25;
@@ -69,7 +71,7 @@ pub fn gga_x_s12_exc_pol(
         let t51 = 1.0 - 1.0 / t49;
         let t53 = t46 * t51 + param_A;
         let t54 = t28 * t53;
-        let t57 = piecewise3(t1, 0.0, -3.0 / 8.0 * t26 * t54);
+        let t57 = piecewise3(t1, 0.0, -3.0 * 0.125 * t26 * t54);
         let t58 = rho1 <= dens_threshold;
         let t59 = -t16;
         let t61 = piecewise5(t14, t11, t10, t15, t59 * t7);
@@ -95,7 +97,7 @@ pub fn gga_x_s12_exc_pol(
         let t90 = 1.0 - 1.0 / t88;
         let t92 = t85 * t90 + param_A;
         let t93 = t28 * t92;
-        let t96 = piecewise3(t58, 0.0, -3.0 / 8.0 * t67 * t93);
+        let t96 = piecewise3(t58, 0.0, -3.0 * 0.125 * t67 * t93);
         let tzk0 = t57 + t96;
         zk[ip] += tzk0;
     }

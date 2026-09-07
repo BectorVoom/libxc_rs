@@ -19,6 +19,20 @@ pub fn gga_x_herman_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = M_CBRT3;
+    let t3 = M_CBRTPI;
+    let t5 = t2 / t3;
+    let t11 = zeta_threshold - 1.0;
+    let t15 = -t11;
+    let t21 = pow_1_3(zeta_threshold);
+    let t22 = t21 * zeta_threshold;
+    let t28 = t2 * t2;
+    let t30 = pow_1_3(1.0 / M_PI);
+    let t31 = 1.0 / t30;
+    let t32 = t28 * t31;
+    let t33 = M_CBRT4;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
@@ -26,37 +40,25 @@ pub fn gga_x_herman_exc_pol(
         let sigma1 = sigma[ip * 3 + 1];
         let sigma2 = sigma[ip * 3 + 2];
         let t1 = rho0 <= dens_threshold;
-        let t2 = M_CBRT3;
-        let t3 = M_CBRTPI;
-        let t5 = t2 / t3;
         let t6 = rho0 + rho1;
         let t7 = 1.0 / t6;
         let t10 = 2.0 * rho0 * t7 <= zeta_threshold;
-        let t11 = zeta_threshold - 1.0;
         let t14 = 2.0 * rho1 * t7 <= zeta_threshold;
-        let t15 = -t11;
         let t16 = rho0 - rho1;
         let t18 = piecewise5(t10, t11, t14, t15, t16 * t7);
         let t19 = 1.0 + t18;
         let t20 = t19 <= zeta_threshold;
-        let t21 = pow_1_3(zeta_threshold);
-        let t22 = t21 * zeta_threshold;
         let t23 = pow_1_3(t19);
         let t25 = piecewise3(t20, t22, t23 * t19);
         let t26 = pow_1_3(t6);
         let t27 = t25 * t26;
-        let t28 = t2 * t2;
-        let t30 = pow_1_3(1.0 / M_PI);
-        let t31 = 1.0 / t30;
-        let t32 = t28 * t31;
-        let t33 = M_CBRT4;
         let t34 = t33 * sigma0;
         let t35 = rho0 * rho0;
         let t36 = pow_1_3(rho0);
         let t37 = t36 * t36;
         let t39 = 1.0 / t37 / t35;
         let t43 = 1.0 + 0.0006666666666666666 * t32 * t34 * t39;
-        let t47 = piecewise3(t1, 0.0, -3.0 / 8.0 * t5 * t27 * t43);
+        let t47 = piecewise3(t1, 0.0, -3.0 * 0.125 * t5 * t27 * t43);
         let t48 = rho1 <= dens_threshold;
         let t49 = -t16;
         let t51 = piecewise5(t14, t11, t10, t15, t49 * t7);
@@ -71,7 +73,7 @@ pub fn gga_x_herman_exc_pol(
         let t61 = t60 * t60;
         let t63 = 1.0 / t61 / t59;
         let t67 = 1.0 + 0.0006666666666666666 * t32 * t58 * t63;
-        let t71 = piecewise3(t48, 0.0, -3.0 / 8.0 * t5 * t57 * t67);
+        let t71 = piecewise3(t48, 0.0, -3.0 * 0.125 * t5 * t57 * t67);
         let tzk0 = t47 + t71;
         zk[ip] += tzk0;
     }

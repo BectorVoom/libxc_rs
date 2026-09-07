@@ -22,21 +22,23 @@ pub fn lda_x_kxc_unpol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t3 = M_CBRT3;
+    let t4 = M_CBRTPI;
+    let t6 = t3 / t4;
+    let t8 = pow_1_3(zeta_threshold);
+    let t10 = piecewise3(1.0 <= zeta_threshold, t8 * zeta_threshold, 1.0);
     for ip in 0..zk.len() {
-        let t2 = rho[ip] / 2.0 <= dens_threshold;
-        let t3 = M_CBRT3;
-        let t4 = M_CBRTPI;
-        let t6 = t3 / t4;
-        let t8 = pow_1_3(zeta_threshold);
-        let t10 = piecewise3(1.0 <= zeta_threshold, t8 * zeta_threshold, 1.0);
+        let t2 = rho[ip] * 0.5 <= dens_threshold;
         let t11 = pow_1_3(rho[ip]);
-        let t15 = piecewise3(t2, 0.0, -3.0 / 8.0 * t6 * t10 * t11);
+        let t15 = piecewise3(t2, 0.0, -3.0 * 0.125 * t6 * t10 * t11);
         let t16 = param_alpha * t15;
         let tzk0 = 2.0 * t16;
         zk[ip] += tzk0;
         let t17 = rho[ip] * param_alpha;
         let t18 = t11 * t11;
-        let t23 = piecewise3(t2, 0.0, -t6 * t10 / t18 / 8.0);
+        let t23 = piecewise3(t2, 0.0, -t6 * t10 / t18 * 0.125);
         let tvrho0 = 2.0 * t17 * t23 + 2.0 * t16;
         vrho[ip] += tvrho0;
         let t33 = piecewise3(t2, 0.0, t6 * t10 / t18 / rho[ip] / 12.0);

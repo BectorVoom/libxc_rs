@@ -129,6 +129,14 @@ pub fn lda_x_exc_pol(
     let param_alpha = f64x8::splat(param_alpha);
     let dens_threshold = f64x8::splat(dens_threshold);
     let zeta_threshold = f64x8::splat(zeta_threshold);
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t2 = f64x8::splat(M_CBRT3);
+    let t3 = f64x8::splat(M_CBRTPI);
+    let t5 = t2 / t3;
+    let t11 = (simd::cbrt(zeta_threshold));
+    let t12 = t11 * zeta_threshold;
+    let t13 = f64x8::splat(M_CBRT2);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);
@@ -137,21 +145,15 @@ pub fn lda_x_exc_pol(
         let mut acc_zk = V_ZERO;
         {
             let t1 = (v_rho0).simd_le(dens_threshold);
-            let t2 = f64x8::splat(M_CBRT3);
-            let t3 = f64x8::splat(M_CBRTPI);
-            let t5 = t2 / t3;
             let t6 = v_rho0 + v_rho1;
             let t7 = f64x8::splat(1.0) / t6;
             let t8 = v_rho0 * t7;
             let t10 = (f64x8::splat(2.0) * t8).simd_le(zeta_threshold);
-            let t11 = (simd::cbrt(zeta_threshold));
-            let t12 = t11 * zeta_threshold;
-            let t13 = f64x8::splat(M_CBRT2);
             let t14 = t13 * v_rho0;
             let t15 = (simd::cbrt(t8));
             let t19 = ((t10).select(t12, f64x8::splat(2.0) * t14 * t7 * t15));
             let t20 = (simd::cbrt(t6));
-            let t24 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t19 * t20));
+            let t24 = ((t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t19 * t20));
             let t25 = param_alpha * t24;
             let t26 = (v_rho1).simd_le(dens_threshold);
             let t27 = v_rho1 * t7;
@@ -159,7 +161,7 @@ pub fn lda_x_exc_pol(
             let t30 = t13 * v_rho1;
             let t31 = (simd::cbrt(t27));
             let t35 = ((t29).select(t12, f64x8::splat(2.0) * t30 * t7 * t31));
-            let t39 = ((t26).select(f64x8::splat(0.0), -f64x8::splat(3.0) / f64x8::splat(8.0) * t5 * t35 * t20));
+            let t39 = ((t26).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * t5 * t35 * t20));
             let t40 = param_alpha * t39;
             let tzk0 = t25 + t40;
             acc_zk = tzk0;

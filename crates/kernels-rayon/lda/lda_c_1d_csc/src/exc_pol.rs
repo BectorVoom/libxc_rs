@@ -35,47 +35,49 @@ pub fn lda_c_1d_csc_exc_pol(
     dens_threshold: f64,
     zeta_threshold: f64,
 ) {
+    // Loop-invariant bindings (constants, parameters, thresholds):
+    // the same statements maple2c emits per point, evaluated once.
+    let t4 = param_para_4;
+    let t10 = param_para_7;
+    let t14 = param_para_9;
+    let t22 = param_para_1;
+    let t25 = param_para_5;
+    let t30 = param_para_6;
+    let t37 = param_ferro_4;
+    let t41 = param_ferro_7;
+    let t45 = param_ferro_9;
+    let t53 = param_ferro_1;
+    let t56 = param_ferro_5;
+    let t61 = param_ferro_6;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];
         let t1 = rho0 + rho1;
         let t2 = 1.0 / t1;
-        let t3 = t2 / 2.0;
-        let t4 = param_para_4;
+        let t3 = t2 * 0.5;
         let t5 = t1 * t1;
         let t6 = 1.0 / t5;
-        let t9 = t3 + t4 * t6 / 4.0;
-        let t10 = param_para_7;
-        let t14 = param_para_9;
+        let t9 = t3 + t4 * t6 * 0.25;
         let t15 = rmath::pow(t3, t14);
         let t16 = param_para_8 * t15;
-        let t17 = 1.0 + t10 * t2 / 2.0 + t16;
+        let t17 = 1.0 + t10 * t2 * 0.5 + t16;
         let t18 = rmath::ln(t17);
         let t19 = t9 * t18;
-        let t22 = param_para_1;
-        let t25 = param_para_5;
         let t26 = rmath::pow(t3, t25);
         let t27 = param_para_2 * t26;
-        let t30 = param_para_6;
         let t31 = rmath::pow(t3, t30);
         let t32 = param_para_3 * t31;
         let t34 = t22 * t2 + 2.0 * t27 + 2.0 * t32 + 2.0 * param_para_0;
         let t35 = 1.0 / t34;
         let t36 = t19 * t35;
-        let t37 = param_ferro_4;
-        let t40 = t3 + t37 * t6 / 4.0;
-        let t41 = param_ferro_7;
-        let t45 = param_ferro_9;
+        let t40 = t3 + t37 * t6 * 0.25;
         let t46 = rmath::pow(t3, t45);
         let t47 = param_ferro_8 * t46;
-        let t48 = 1.0 + t41 * t2 / 2.0 + t47;
+        let t48 = 1.0 + t41 * t2 * 0.5 + t47;
         let t49 = rmath::ln(t48);
         let t50 = t40 * t49;
-        let t53 = param_ferro_1;
-        let t56 = param_ferro_5;
         let t57 = rmath::pow(t3, t56);
         let t58 = param_ferro_2 * t57;
-        let t61 = param_ferro_6;
         let t62 = rmath::pow(t3, t61);
         let t63 = param_ferro_3 * t62;
         let t65 = t53 * t2 + 2.0 * t58 + 2.0 * t63 + 2.0 * param_ferro_0;
