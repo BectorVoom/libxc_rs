@@ -17,7 +17,8 @@
 | `crates/libxc-reval` | rayon eval layer: stride-aware parallel sweep, per-family dispatch, routing |
 | `crates/libxc-compat` | C-ABI shim |
 | `tools/translate_rayon` | the kernel emitter: maple2c C -> rayon Rust (see below) |
-| `bench-vs-libxc` | head-to-head speed/memory benchmark against C libxc (see below) |
+| `bench-vs-libxc` | head-to-head speed/memory benchmark against C libxc; needs `--features libxc-oracle` (see below) |
+| `libxc-sys` | FFI bindings + cmake build of the vendored C oracle. Not a workspace member, `publish = false`, and reached only through an opt-in feature -- see "What ships" |
 | `crates/libxc-eval` | orchestration types the facade and C-ABI take (`Functional`, `EvaluationWorkspace`); no longer holds any kernel path |
 
 
@@ -93,8 +94,11 @@ The generated kernel tree (266 crates) is workspace **`exclude`d**, not merely l
 
 ## Performance against libxc
 
-`bench-vs-libxc` (`cargo run --release -p bench-vs-libxc --bin xcvs`) is the
-only harness that times both sides. It runs four legs -- serial libxc,
+`bench-vs-libxc` (`cargo run --release -p bench-vs-libxc --features
+libxc-oracle --bin xcvs`) is the only harness that times both sides. The
+`--features libxc-oracle` is not optional and not decorative: it is what pulls
+in `libxc-sys`, and without it the `xcvs` target is not built at all
+(`required-features`). It runs four legs -- serial libxc,
 caller-parallelised libxc (the honest bar), this library single-threaded, and
 this library's sweep -- cross-checks them elementwise, and prints a fingerprint
 over `to_bits()` of every output so a codegen change can be shown bit-exact.
@@ -120,7 +124,9 @@ and `docs/perf/vs-libxc.md`, "Three bit-exact levers".
 explicit SIMD where LLVM did *not* decline is a regression (`gga_x_pbe` 0.55x).
 Candidates are qualified by `tools/translate_rayon/simd_qualify.py`, which
 tries them in batches against `bench-vs-libxc`'s `xcqual` binary (Rust legs and
-a fingerprint, no C side, any order or spin) and records every verdict —
+a fingerprint, no C side, any order or spin -- and since 2026-09-10 no C
+*build* either: `libxc-sys` is behind the crate's opt-in `libxc-oracle`
+feature, which `xcqual` does not need) and records every verdict —
 accepts and rejects alike, with the numbers — in `docs/perf/simd-ledger.json`.
 It applies a batch through the `LIBXC_RS_SIMD_EXTRA` environment variable
 rather than editing the allowlist, so an interrupted sweep leaves the tree
@@ -243,6 +249,26 @@ Three things from that work bind future changes:
   omega does not. kxc/lxc stay on the mix. The two assumptions the
   specialisation rests on are stated in `fuse.py`'s module docs; do not add
   a `bind` to a leg without checking them for that functional.
+  **Each leg screens and clamps at its own `dens_threshold` (2026-09-10).**
+  libxc's `xc_mix_init` calls `xc_func_init` per auxiliary, so HSE06's legs
+  are `gga_x_wpbeh` twice at 1e-14 and `gga_c_pbe` at 1e-12, and PBE0's are
+  `gga_x_pbe` at 1e-15 and `gga_c_pbe` at 1e-12. One shared threshold gave two
+  of three legs a screen libxc does not use. The fused kernels now take one
+  `dens_threshold_k` per leg, feed it to that leg's own maple2c guards, and
+  wrap each leg's accumulation in `piecewise3(dens < dens_threshold_k, 0, ..)`
+  -- so a point above one leg's threshold and below another's contributes to
+  the first only, exactly as the mix does.
+  What a fused kernel *cannot* reproduce is a per-leg **clamp**, because a
+  clamped input is a different input and sharing one set of inputs is the whole
+  point of fusing. `crate::screen::fused_legs_agree` is the guard: one linear
+  pass that refuses the fused path unless every leg which survives its own
+  screen would have had its inputs left alone. That holds on every benchmark
+  and oracle grid and on the bulk of a molecular quadrature; where it does not,
+  the call runs as the mix, which clamps per auxiliary and is correct by
+  construction. `eval::mix`'s `fused_composite_is_bit_identical_to_mix`
+  asserts the predicate before comparing, so the gate cannot quietly decay
+  into mix-against-mix.
+
   `XCVS_NO_FUSED=1` times the mix path; `libxc_eval::eval::set_fused_enabled`
   is the process-wide switch.
 - **Loop-invariant statements are hoisted by the emitter, `/ 2^k` is
@@ -275,6 +301,89 @@ Three things from that work bind future changes:
   pre-`target-cpu` build. Anything that puts a function boundary or a libm call
   inside the loop still destroys it.
 
+## What ships, and what is only here for verification
+
+The package directory of the published `libxc_rs` crate **is the repository
+root**, so by default `cargo package` would sweep up everything beside it: 372
+MB of vendored C in `libxc-master/`, the `bench-vs-libxc` harness, the
+`verify/` suite, and 22,654 Windows `:Zone.Identifier` files whose names cargo
+refuses outright (`cannot package a filename with a special character ':'`).
+Before 2026-09-10 `cargo package -p libxc_rs` simply failed on that last point.
+
+Three mechanisms keep the two apart, and they do different jobs:
+
+1. **`[package] include` in the root `Cargo.toml` -- an allowlist.** This is
+   what decides the tarball; it is 4 entries and ships 11 files. A denylist
+   would have to be kept in step with every new top-level directory. Note
+   `src/model` is deliberately *not* in it: that is a symlink into
+   `crates/libxc-core/src/model` which the regeneration tools want on disk and
+   which nothing in this crate compiles (`lib.rs` re-exports
+   `libxc_core::model`), and packaging a symlink out of the package root is at
+   best unportable.
+
+2. **Opt-in `libxc-oracle` features on `bench-vs-libxc` and `xtask`.** These
+   are the only workspace members that touch `libxc-sys`, and they now do so
+   through `optional = true` + `dep:`. This is what stops a build from
+   *compiling* the oracle, which `include` cannot do: `cargo build`,
+   `cargo test`, `cargo check -p bench-vs-libxc`, and `simd_qualify.py`'s
+   `xcqual` build all used to run cmake over `libxc-master/` first -- roughly
+   an hour, dominated by `mgga_x_br89.c` -- and none of them do now (measured:
+   zero `libxc-sys` units in `cargo build -v` and in the `xcqual` build).
+   `xcvs` carries `required-features = ["libxc-oracle"]` so the target is
+   skipped rather than failing to link, and `xtask generate-metadata` reports
+   the flag it needs instead of not existing.
+
+   **`cargo check --workspace` is the exception, and it is a cargo limitation
+   rather than an oversight.** Cargo makes a path dependency of a member into a
+   member whether or not it appears in `exclude`, so `libxc-sys` is still
+   enumerated (`cargo metadata` reports it) and still checked. Prising it out
+   would mean excluding `bench-vs-libxc` and `xtask` as well, and they would
+   then stop sharing the workspace lockfile -- which is precisely how
+   `verify/Cargo.lock` drifted to `wide` 1.7.0 against the library's 1.6.1. A
+   benchmark that resolves a different SIMD crate than the library it measures
+   is not a benchmark, so that trade was refused.
+
+3. **`publish = false`** on `libxc-sys`, `verify`, `verify-canary`, `xtask`,
+   `bench-vs-libxc` and the rayon `oracle` crate, so none of them can reach a
+   registry even by accident.
+
+**The root crate has no dev-dependency on `verify` any more.** It used to, and
+that single line meant a plain `cargo test` on the library built the whole C
+oracle -- cargo strips a path-only dev-dep at publish time, so this was never a
+*packaging* problem, but it was an hour of everybody's time. The two root test
+files that needed it (`invariants_mgga.rs`, `oracle_c_libxc_parity.rs`) moved
+to `verify/tests/`, where the other 17 oracle files already live. A consequence
+worth knowing: nothing in the workspace depends on `verify/` now, so its
+`exclude` entry finally takes effect and it needed its own `[workspace]` table
+(cargo: "current package believes it's in a workspace when it's not").
+
+`cargo package --list -p libxc_rs` is the check. It should print 11 lines.
+
+**A standalone harness needs the root's profiles *and* the root's lockfile, or
+it is not testing the library you ship.** Making `verify/` genuinely standalone
+had two consequences that are easy to miss and were both fixed on 2026-09-10:
+
+- Its own `[profile.*]` was cargo's defaults rather than the root's, and
+  profile flags go into every unit's fingerprint -- so all 266 kernel crates
+  missed the shared target directory and rebuilt from scratch. `verify` now
+  mirrors the root profiles exactly. Measured: one transitional rebuild of the
+  tree, after which a `cargo test --manifest-path verify/Cargo.toml` that
+  follows a root build recompiles ~6 units (`libxc-reval`, `libxc-eval`,
+  `libxc-compat`, `libxc_rs`, `toml`) instead of 266.
+- Its own `verify/Cargo.lock` came into force for the first time (it had been
+  inert while the root's dev-dependency made `verify` a de-facto member), and
+  it had drifted: **26 dependencies resolved to different versions, including
+  `wide` 1.7.0 against the library's 1.6.1**. `wide` is the explicit-SIMD crate
+  -- `f64x8` -- so the oracle would have been validating kernels built against
+  a different vector implementation than the one that ships, which is exactly
+  the class of difference the harness exists to catch. The lock is now a copy
+  of the root's; keep it that way.
+
+  `crates/kernels-rayon/oracle/Cargo.lock` still shows 24 such mismatches, but
+  `wide` and `safe_arch` agree there and the rest (`bytemuck`, `bitflags`) are
+  inert for numerics. It also pins `opt-level = 2`, so it cannot share
+  artifacts regardless. Pre-existing, and left alone.
+
 ## Verification
 
 **Run the `verify/` suite in two parts.** Every test there needs libxc linked
@@ -284,10 +393,36 @@ exports the same C symbol names as libxc itself, so a binary links one or the
 other:
 
 ```bash
-cargo test --release --manifest-path verify/Cargo.toml                          # 14 files
+# The 19 oracle files. They must be named: `cargo test` builds *every* target
+# before it runs any, and `compat_smoke` does not link without `c-abi` (mold:
+# undefined symbol: xc_func_init, xc_lda_exc, ...), so leaving it in the
+# invocation silently reports nothing at all rather than 19 results.
+cargo test --release --manifest-path verify/Cargo.toml \
+    --test kernel_oracle --test kernel_oracle_fxc --test composite_oracle \
+    --test composite_diagnose --test gen_aux_overrides --test hse06_oracle \
+    --test screening_helpers --test wpbeh_domain --test root_finders \
+    --test libm_parity --test input_sanitisation \
+    --test hybrid_oracle --test hybrid_type_oracle \
+    --test metadata_oracle --test mixed_oracle --test parity_phase09 \
+    --test parity_phase11 --test invariants_mgga \
+    --test oracle_c_libxc_parity
+
 cargo test --release --manifest-path verify/Cargo.toml --features c-abi \
     --test compat_smoke                                                         # on its own
 ```
+
+**`LIBXC_RS_FP_CONTRACT=off`** rebuilds the vendored oracle with
+`-ffp-contract=off`, so its C evaluates `a*b + c` as written instead of
+contracting it into an FMA the way GCC does by default and rustc never does.
+It is an attribution tool, not a mode: it compares against a libxc nobody
+builds.
+
+Budget an hour each way. It reuses the same cmake build directory, so toggling
+it recompiles all 319 objects, and the wall clock is dominated by two files:
+`mgga_x_br89.c` takes ~40-55 minutes on its own at 5.3 GB of RSS (with
+contraction *on* as well as off -- this is `-march=native -O2` on a maple2c
+body, not something the flag causes), with `gga_c_ft97.c` a distant second.
+Everything else finishes in the first few minutes.
 
 | file | what it proves |
 |---|---|
@@ -298,7 +433,12 @@ cargo test --release --manifest-path verify/Cargo.toml --features c-abi \
 | `gen_aux_overrides.rs` | regenerates `meta::generated_aux_overrides` from libxc |
 | `hse06_oracle.rs` | the HSE family, and `gga_x_wpbeh` at a non-default screening parameter |
 | `screening_helpers.rs` | `xc_erfcx` and `xc_E1_scaled` against libxc's C directly |
+| `root_finders.rs` | `xc_mgga_x_br89_get_x`, `xc_mgga_x_mbrxc_get_x` and `LambertW` against libxc's C directly -- the three helpers whose answer depends on a stopping rule |
+| `input_sanitisation.rs` | the `rho`/`sigma`/`sigma_ab`/`tau` clamps and the Fermi-hole curvature bound, each on a grid built to violate exactly that bound (and asserting the violation, so none can pass vacuously) |
+| `libm_parity.rs` | `rmath::erf`/`erfc` against the platform libm libxc calls; `simd_exact.rs` cannot cover these two because Rust's `f64` has neither |
 | `wpbeh_domain.rs` | where `gga_x_wpbeh` diverges as a function of reduced gradient |
+| `invariants_mgga.rs` | MGGA `zk`/`vxc` invariants against libxc; **moved here from the root crate's `tests/` on 2026-09-10** so `cargo test` on the library stops building the C oracle |
+| `oracle_c_libxc_parity.rs` | broad C-parity sweep; moved here for the same reason |
 
 `gga_oracle.rs`, `lda_oracle.rs`, `mgga_oracle.rs`, `lda_x_oracle.rs` and
 `lda_x_stress.rs` were **deleted** on 2026-09-03. The first three were gated on
@@ -320,7 +460,7 @@ their ground and more.
 That harness counts **NaN-vs-NaN differences separately** from real ones, and the distinction matters. It feeds each input array independently at random, which for MGGA produces points outside the functional's domain (`tau` below the von Weizsäcker bound `sigma/8rho`), and those evaluate to NaN. Deduplicating a computation can flip the *sign bit* of such a NaN — `mgga_x_scan` shows 1,679 of them — because a value the split form derived twice down two expression paths is now derived once. No finite value changes: the gate is 0 real mismatches, and NaN payload is IEEE-unspecified anyway. `revalcheck` and the oracle harness use physical inputs and do not hit this.
 
 
-## Density screening is a correctness requirement, not a tuning knob
+## Screening and sanitisation are correctness requirements, not tuning knobs
 
 libxc screens below-threshold points *outside* the maple2c body
 (`work_*_inc.c`: `if(dens < p->dens_threshold) continue;`), so the screen covers
@@ -344,6 +484,137 @@ the screened points instead of splitting. Splitting into ~1.7-point runs costs
 about 14 ns per call and made `gga_x_b88` *slower* than doing nothing (1.98 ->
 6.84 ns/pt). Real quadratures order points by radial shell, so their empty
 points are contiguous and always take the fast route.
+
+**The screen is only half of what libxc does before the maple2c body runs, and
+the other half was missing until 2026-09-10.** `work_{lda,gga,mgga}_inc.c`
+also *sanitises* the inputs it is about to use:
+
+```c
+my_rho[0]   = m_max(p->dens_threshold, rho[0]);
+my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
+if(p->info->flags & XC_FLAGS_NEEDS_TAU){
+  my_tau[0] = m_max(p->tau_threshold, tau[0]);
+  my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);   /* Fermi hole */
+}
+/* polarized: the same for spin 1, then */
+s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+my_sigma[1] = clamp(my_sigma[1], -s_ave, +s_ave);
+```
+
+None of that is optional. The Fermi-hole curvature bound is **on by default in
+libxc's own CMake** (`if(NOT DISABLE_FHC)` -> `-DXC_ENFORCE_FERMI_HOLE_CURVATURE`),
+so the oracle this library is measured against has it. Any grid that feeds the
+input arrays independently -- which is what the oracle and `revalcheck`
+harnesses do -- lands `tau` below the von Weizsaecker bound `sigma/(8 rho)` at
+a large fraction of its points; libxc clamps `sigma` down to `8 rho tau` there
+and this tree did not. The `+-s_ave` clamp on the cross term is the same story
+for polarized GGA and MGGA, and `m_max(dens_threshold, rho)` for a polarized
+point with one empty spin channel. `verify/tests/input_sanitisation.rs` pins
+each clamp on points chosen to trigger it, which is the only way to see them:
+a grid built to stay inside the domain (`bench-vs-libxc`'s `grid::mgga` does
+this deliberately) never exercises one.
+
+`crates/libxc-reval/src/screen.rs` (generated) carries it, and the generated
+`sweep_*.rs` apply it in `screened_call`. Three things about the
+implementation are load-bearing:
+
+- **`m_max` is not `f64::max`.** libxc's is `(((x)<(y)) ? (y) : (x))`, so
+  `m_max(t, NAN)` is `t`. The ternaries are reproduced, not approximated, and
+  the `+-s_ave` clamp is two ternaries rather than `f64::clamp` because a NaN
+  has to come out as `-s_ave`.
+- **The fast path is the predicate, and the predicate is the transform.**
+  `needs_sanitise` runs `sanitise_point` and compares bit for bit, so it cannot
+  drift from what `sanitise_into` would write. On a physical quadrature nothing
+  clamps -- `sigma_ab` really is bounded by `(sigma_aa+sigma_bb)/2`, `tau`
+  really does satisfy the von Weizsaecker bound -- so the kernel keeps reading
+  the caller's own slices with no copy. The copy (a per-worker `thread_local`
+  scratch, *taken* out of its cell rather than borrowed, so a composite
+  dispatching an auxiliary on the same worker cannot double-borrow) only
+  happens on the randomised grids the harnesses build.
+- **The screen still reads the caller's `rho`, never the sanitised one.** Every
+  sanitised `rho` is at least `dens_threshold` by construction, so screening on
+  it would admit the whole tail. `run_screened_with` takes the raw array as a
+  separate argument for that reason.
+
+**`XC_FLAGS_NEEDS_TAU` decides the tau clamp and the Fermi-hole bound**, and
+when it is clear libxc passes `my_tau = {0.0, 0.0}` -- its `my_tau` is declared
+outside the point loop and written only under the flag. For 23 of the 24 such
+functionals the emitted kernel loads `tau` and never reads the binding, so the
+caller's value goes straight through and no copy is forced;
+`mgga_x_2d_prhg07_prp10` is the one that *does* read it (`XC_FLAGS_2D |
+XC_FLAGS_NEEDS_LAPLACIAN`, no `NEEDS_TAU`, and a maple2c body that uses `tau`
+anyway) and gets the zeros. `gen_eval.py::kernel_reads_tau` decides this per
+kernel by reading the emitted source rather than assuming either way -- an
+earlier version of this work assumed "no flag means no use", and that
+functional is what caught it.
+
+## Thresholds are per functional
+
+`xc_func_init` seeds every threshold from the functional's own info block:
+
+```c
+func->dens_threshold  = func->info->dens_threshold;
+func->sigma_threshold = pow(func->info->dens_threshold, 4.0/3.0);
+func->zeta_threshold  = DBL_EPSILON;
+func->tau_threshold   = 1e-20;
+```
+
+`dens_threshold` is 1e-15 for 432 of the 649 functionals, but 1e-14 for 113,
+1e-12 for 40, 1e-13 for 10, 1e-32 for 8, and single functionals sit as high as
+5e-7. This tree carried one global `Thresholds::default()` until 2026-09-10, so
+**217 functionals ran with a different screen and different input clamps than
+libxc**. `FunctionalMeta::default_density_threshold` had been generated from
+libxc all along and was never read.
+
+`Thresholds::for_functional(id)` is the constructor to use anywhere a
+functional is in hand; `Functional::new` uses it. Two details:
+
+- `sigma` is `density.powf(4.0/3.0)`, evaluated, not tabulated: `pow(1e-15,
+  4.0/3.0)` is `1.0000000000000027e-20`, not the double nearest `1e-20`. The
+  old hardcoded `1e-24` had no counterpart in libxc at all.
+- The setters ignore a non-positive argument, as libxc's
+  `xc_func_set_*_threshold` do, and recurse into the auxiliaries either way.
+
+**Each auxiliary of a mix keeps its own.** `xc_mix_init` calls `xc_func_init`
+per aux, and `xc_mix_func` then evaluates each through the full `xc_gga` /
+`xc_mgga` entry point, so each screens and clamps at its own threshold.
+HSE06's legs are `gga_x_wpbeh` twice at 1e-14 and `gga_c_pbe` at 1e-12; PBE0's
+are `gga_x_pbe` at 1e-15 and `gga_c_pbe` at 1e-12. See "Fused composites" for
+what that costs the fused path.
+
+## Root-finders: the stopping rule is part of the answer
+
+Three helpers are iterations rather than expressions -- `br89`'s exchange-hole
+inversion, `mbrxc`'s cuspless-hole inversion, and `lambert_w` -- and all three
+were CubeCL-era transcriptions that ran a **fixed** number of unrolled steps
+with branchless `select`, because `#[cube]` kernels had no dynamic loops.
+Brent's method does not stand still once it is inside the tolerance: it keeps
+interpolating and bisecting within the bracket. Running 60 steps therefore
+returns a different point of the same bracket than libxc's "return `(a+b)/2` as
+soon as `|b-a| < TOL`", and BR89's `TOL = 5e-12` is **absolute**, so at a root
+of 3e-8 it pins only about four significant digits. That is the residual
+`mgga_x_br89`, `mgga_x_br89_1`, `mgga_x_b00`, `mgga_x_mggac` and the composite
+`hyb_mgga_xc_br3p86` all carried, and no amount of re-checking the formulas
+explained it.
+
+`crates/kernels-rayon/math/src/brent.rs` is now a single transcription of
+libxc's `xc_math_brent`, loop and early return included, shared by both
+inversions. `lambert_w` had three further gaps: `eps` was `1e-15` rather than
+`DBL_EPSILON` (so `CBRT(eps)`, the small-`z` series cutoff, was 1.0e-5 instead
+of 6.06e-6), the `z` just below `-1/e` case was missing, and `w != -1.0` had
+become `|w + 1| < 1e-300`. libxc also returns **0.0** when the iteration limit
+is reached, which is now reproduced; the `f64x8` form freezes a converged lane
+instead of returning, which is the same thing, and `math/tests/simd_exact.rs`
+holds it bit-identical to the scalar. `mbrxc_x_Q` additionally had an `exp`
+underflow guard copied from `br89_x_Q` -- libxc's `br89_x_Q` has one, its
+`mbrxc_x_Q` does not, and it zeroed `exp(-arg)` from `arg > 115` upward where
+the true value is still ~1e-50.
+
+**Test these against libxc's C directly, not through a functional.**
+`verify/tests/root_finders.rs` calls the exported `xc_mgga_x_br89_get_x`,
+`xc_mgga_x_mbrxc_get_x` and `LambertW` on a quarter-million arguments each.
+A functional comparison can only ever say "`vsigma` is 3.8e-9 out"; this says
+which iterate diverged.
 
 ## Known gaps
 
@@ -386,9 +657,22 @@ points are contiguous and always take the fast route.
   1221 of 1221 fields: the bench grid draws `s` uniformly from [0, 3] and so
   lands on points the oracle grid does not. **Pre-existing** -- the wpbeh
   output fingerprint (`d67311fbdf2bab7d`) is byte-identical before and after
-  the 2026-09-03 erfcx/E1 fixes. Not yet diagnosed; the first thing to check is
-  the `wpbeh_EG` piecewise on `s` in `libxc-master/maple/gga_exc/gga_x_wpbeh.mpl`,
-  since the divergence sits below its cutoff.
+  the 2026-09-03 erfcx/E1 fixes.
+
+  **Diagnosed 2026-09-10: it is GCC's FMA contraction, amplified by a
+  cancellation that is in the formula itself.** The `wpbeh_EG` piecewise was
+  the wrong place to look. At `omega = 0`, `term1` reduces to
+  `A/2 * E1_scaled(aux5) + A/2 * log(aux4/aux6)` with `aux5` proportional to
+  `aux4`, and both logarithms diverge as `s -> 0` while their sum stays finite.
+  `zk` loses about two digits to that and holds at 2e-15; `vsigma` is the
+  derivative, where the leading terms cancel *exactly* and what is left is the
+  subleading correction -- around `s = 1e-8`, `aux4 ~ s^4 ~ 1e-32`, so terms of
+  order `1/aux4` cancel down to order 1 and there are no digits left. Both
+  libraries compute the same ill-conditioned expression; they differ because
+  GCC contracts `a*b + c` into an FMA and rustc does not, and at that
+  conditioning one ulp is the whole answer. It is out of reach of any physical
+  quadrature (`s` of order 0.1 to 5), which is what
+  `wpbeh_vsigma_agrees_over_the_physical_range` gates.
 - **Screened hybrids were wrong until 2026-09-03, and two math helpers with
   them.** HSE06 is `1.0*wpbeh(w=0) - beta*wpbeh(w=omega_PBE) + PBEc`. Three
   independent gaps meant `omega` never reached the kernel -- the generated
@@ -443,6 +727,11 @@ points are contiguous and always take the fast route.
   parent parameter that feeds an auxiliary and it goes stale unless
   `composite_setters` or `PROPAGATION_RULES` also describes the relationship.
   Only the HSE family and the nine generated copy rules have that today.
+- ~~**Composite MGGAs**: `composite_oracle.rs::composite_mgga_survey` is
+  reporting-only~~ **Closed 2026-09-10.** `composite_mgga_matches_libxc` is an
+  assertion now and passes; `hyb_mgga_xc_b0kcis` is under the gate, and
+  `hyb_mgga_xc_br3p86`'s `vsigma` residual was the BR89 inversion's stopping
+  rule (see "Root-finders"). Original note follows.
 - **Composite MGGAs could not evaluate at all until 2026-09-03** (36 of 39
   failed with "output buffer 'vlapl' size mismatch"). `evaluate_mixed_mgga`
   gated the *auxiliary's* buffers on the parent's `NEEDS_LAPLACIAN`/`NEEDS_TAU`
@@ -464,9 +753,31 @@ points are contiguous and always take the fast route.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
 - Kernel correctness rests on `verify/tests/kernel_oracle*.rs` (C libxc parity for all 454 routed kernels, **both spins, all three families**, first and second derivatives), `crates/kernels-rayon/oracle` (unpolarized LDA/GGA, kept as a second opinion) and `revalcheck` (chunked vs whole-grid). The polarized/MGGA gap this list used to call "the largest remaining" was closed on 2026-09-03, and closing it is what found the `b0kcis` defect. **Third and fourth derivatives are still uncovered**, as are MGGA second derivatives.
 - The maple2c rewrite was validated against the tree it replaced before that tree was regenerated: of 2,648 emitted functions, **2,420 were token-for-token identical** (numbers compared by value, not spelling), 218 differed only because the old ones had been reconstructed by `vnmerge` and carried its `vN` names, and 3 differed by a redundant paren. All 8 `bench-vs-libxc` output fingerprints and the full oracle result (7/344 over tolerance, same three functionals) were unchanged across the rewrite.
-- `revalcheck` reports **4 differing values in `gga_c_op_pw91 Lxc Polarized`** (chunked vs whole-grid). Pre-existing and reproduced on an untouched tree; the other 482,775,350 values are bit-identical.
+- ~~`revalcheck` reports **4 differing values in `gga_c_op_pw91 Lxc Polarized`**~~ **Gone as of 2026-09-10**: `revalcheck` is clean over 1,736,268,725 values across 322 LDA+GGA functionals, both spins, all five orders. The likely reason is the input sanitisation -- those four values came from points whose raw inputs are outside the functional's domain, and libxc's clamps now put them back inside before the kernel sees them.
 - **9 of 1221 oracle field comparisons exceed 1e-12** (2026-08-31, down from 48). **All nine are `v2rho2` (5) or `vsigma` (4); `zk` has none**, so the project's stated contract -- *energy* relative error <= 1e-12 -- is met. The harness applies 1e-12 uniformly to `zk`/`vrho`/`vsigma`/`v2rho2`, which is stricter than that.
-  They are not translation errors. Constants, call counts, parameters, thresholds and every math function were checked against the maple2c source and glibc. What remains is accumulated floating-point divergence from a differently-compiled implementation: **GCC contracts `a*b+c` into FMA by default and rustc does not** (`gga_c_optc.o` carries 40,564 FMA instructions). Rebuilding the oracle's libxc with `-ffp-contract=off` removes `gga_x_beefvdw` and `hyb_gga_xc_wb97x_d` outright and takes `wb97x_d3` from 4.1e-11 to 5.5e-12; it was **not adopted**, because it compares against a libxc nobody builds and only fixes a third of the tail. Worst remaining: `hyb_gga_xc_wb97x_d3` v2rho2 4.7e-11, `gga_x_beefvdw` v2rho2 1.5e-11, then six between 1.0e-12 and 8.4e-12.
+  They are not translation errors. Constants, call counts, parameters, thresholds and every math function were checked against the maple2c source and glibc. What remains is accumulated floating-point divergence from a differently-compiled implementation: **GCC contracts `a*b+c` into FMA by default and rustc does not** (`gga_c_optc.o` carries 40,564 FMA instructions). Rebuilding the oracle's libxc with `-ffp-contract=off` removes `gga_x_beefvdw` and `hyb_gga_xc_wb97x_d` outright and takes `wb97x_d3` from 4.1e-11 to 5.5e-12; it is **not the default**, because it compares against a libxc nobody builds -- but it is now reachable as `LIBXC_RS_FP_CONTRACT=off` (see Verification) precisely so the attribution can be demonstrated rather than argued. Worst remaining: `hyb_gga_xc_wb97x_d3` v2rho2 4.7e-11, `gga_x_beefvdw` v2rho2 1.5e-11, then six between 1.0e-12 and 8.4e-12.
+
+  **The attribution is no longer circumstantial (2026-09-10).**
+  `verify/tests/root_finders.rs` compares the three iterative helpers against
+  libxc's own exported C on a quarter-million arguments each. Against a stock
+  GCC oracle, 41% of `xc_mgga_x_br89_get_x` calls differ (worst 6.1e-5
+  relative, which is 1.8e-12 absolute -- inside the solver's own 5e-12 bracket
+  tolerance); rebuilt with `-ffp-contract=off`, **0 of 250,011 differ**, and
+  the same for `xc_mgga_x_mbrxc_get_x` (0 of 250,008) and `LambertW` (0 of
+  250,014). The mechanism is directly observable without libxc at all: GCC
+  compiles `2.0*M_E*z + 2.0` at `z = -1/e` to 3.88e-17 by contracting it into
+  an FMA, and to exactly 0.0 with `-ffp-contract=off`, which is what Rust
+  computes. In `LambertW` that one difference flips a branch -- `sqrt(0) - 1`
+  is exactly -1, so the Halley step's `w != -1.0` guard fires and it returns
+  immediately, while libxc starts from -0.99999999377, exhausts its fifteen
+  iterations and returns its "should never happen" 0.0.
+
+  So: matching a stock libxc bit for bit would mean reproducing GCC's
+  contraction *decisions*, which are made on gimple after its own CSE and
+  reassociation and are not recoverable from the maple2c source. Emitting
+  `mul_add` by guesswork would be silently wrong wherever the guess missed.
+  What can be said, and now is: **where the two compilers evaluate the same
+  expressions, this library is bit-identical to libxc.**
 - Four real defects were fixed to get there, all found by `crates/kernels-rayon/oracle/tests/diagnose.rs` (dumps ours-vs-libxc pointwise; `XCDIAG=<name> ... --test diagnose -- --nocapture`):
   1. **Composed functionals were wired to an unrelated kernel** (15 failures). `extract_params.py` paired every `xc_func_info_` block in a libxc `.c` file with that file's one `maple2c` include. Files also define `xc_mix_init` composites that have no formula -- so `hyb_gga_xc_apbe0` was evaluating `gga_c_zvpbeloc`, 238x off. libxc marks the difference with a work pointer (`NULL, &work_gga, NULL`) vs an init fn and none; that is now required, and the 9 affected functionals are reported as UNSUPPORTED rather than guessed.
   2. **`gga_x_fd_lb94` integrated what libxc doesn't** (8). Its `FT_inter` returns `-3/4 * ...`, and `-3/4` is **integer division** in C, so the integrand is identically zero and both `xc_integrate` calls vanish. We had 886 lines of correct Gauss-Legendre computing the intended value.
@@ -480,7 +791,23 @@ points are contiguous and always take the fast route.
   lands where `gga_x_wpbeh`'s `vsigma` already diverges as `s -> 0` (the
   `wpbeh_domain.rs` gap above); the second sigma derivative amplifies it.
   Not diagnosed beyond that; the composite `fxc` cases are new to the bench.
-- `bench-vs-libxc`'s elementwise cross-check flags `mgga_c_r2scan` (`vtau`, 9e-8) and `mgga_x_scan` polarized (`vsigma`, 3.5e-9) against C libxc. Unrelated to the threshold screening -- present with and without it, and on a grid with no below-threshold points at all. Not yet diagnosed; the grid feeds `tau` close to the von Weizsaecker bound, where libxc's `work_mgga_inc.c` clamps and this tree does not, so check that before assuming a formula b
+- `bench-vs-libxc`'s elementwise cross-check flags `mgga_c_r2scan` (`vtau`,
+  9.035e-8) and `mgga_x_scan` polarized (`vsigma`, 3.476e-9) against C libxc.
+  **Still open, and the Fermi-hole clamp is not the explanation** -- that was
+  the obvious suspect and it was checked on 2026-09-10. `grid::mgga` constructs
+  `tau` *above* `tau_W = sigma/(8 rho)` on purpose ("staying above it keeps the
+  point inside the domain, so the kernel runs its real branch"), so
+  `sigma <= 8 rho tau` holds at every point and the clamp is the identity on
+  this grid; both numbers are unchanged to three figures by implementing it.
+  What the grid does do is put `tau` *close* to the bound, where r2SCAN's
+  `alpha` is a difference of nearly equal quantities -- the same conditioning
+  story as `gga_x_wpbeh` at small `s`, and consistent with the FMA attribution
+  above, but not measured. `kernel_oracle.rs` passes both functionals on its
+  own grid.
+
+  The clamp itself is not in question: libxc applies it, this tree did not, and
+  `verify/tests/input_sanitisation.rs` shows the difference it makes on points
+  that actually violate the bound.
 - The rayon oracle harness (`crates/kernels-rayon/oracle`) compares against C libxc for **unpolarized** LDA/GGA only. The polarized split-kernel paths (fixed 2026-08-16: loop bound was `first_buf.len()` even when that buffer has D>1 elements per point, sweeping D× too far — 2,495 files regenerated with `len() / D`) are exercised bitwise by `revalcheck` but have no oracle-parity test yet.
 
 

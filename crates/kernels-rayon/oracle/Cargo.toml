@@ -2,6 +2,8 @@
 name = "libxc-rkernel-oracle"
 version = "0.1.0"
 edition = "2024"
+# Verification / tooling harness: never publishable.
+publish = false
 
 [workspace]
 

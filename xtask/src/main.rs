@@ -4,6 +4,9 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
+// Reads the functional table out of C libxc through FFI; see the
+// `libxc-oracle` feature in Cargo.toml for why that is not built by default.
+#[cfg(feature = "libxc-oracle")]
 mod generate_metadata;
 mod verify_phase_4;
 
@@ -13,7 +16,14 @@ fn main() -> Result<()> {
 
     match command {
         "generate-registry" => generate_registry()?,
+        #[cfg(feature = "libxc-oracle")]
         "generate-metadata" => generate_metadata::run()?,
+        #[cfg(not(feature = "libxc-oracle"))]
+        "generate-metadata" => bail!(
+            "`generate-metadata` snapshots the metadata out of C libxc through FFI, which \
+             this build does not link. Re-run as:\n    \
+             cargo run -p xtask --features libxc-oracle -- generate-metadata"
+        ),
         "verify-phase-4" => {
             let report = verify_phase_4::run_phase_4_verification()?;
             verify_phase_4::print_phase_4_summary(&report);
@@ -26,7 +36,10 @@ fn main() -> Result<()> {
             eprintln!();
             eprintln!("Commands:");
             eprintln!("  generate-registry  Parse C headers and generate registry source files");
-            eprintln!("  generate-metadata  Snapshot libxc metadata for all 649 functionals");
+            eprintln!(
+                "  generate-metadata  Snapshot libxc metadata for all 649 functionals \
+                 (needs --features libxc-oracle)"
+            );
             eprintln!(
                 "  verify-phase-4     Run full Phase 4 oracle matrix (LDA+GGA+MGGA) and print summary"
             );

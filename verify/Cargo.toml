@@ -2,6 +2,57 @@
 name = "libxc_rs-verify"
 version = "0.1.0"
 edition = "2024"
+# Verification / tooling harness: never publishable.
+publish = false
+
+# Standalone: this harness is in the root `workspace.exclude` list, and since
+# nothing in the workspace depends on it any more (the root crate's dev-dep on
+# it was dropped so `cargo test` on the library stops building 372 MB of C),
+# cargo needs to be told explicitly that it is its own workspace root.
+[workspace]
+
+# Mirror the root workspace's profiles *exactly*.
+#
+# This harness is its own workspace root (it is in the root `exclude` list, and
+# since the root crate's dev-dependency on it was dropped nothing in the
+# workspace pulls it back in), and a standalone workspace gets cargo's default
+# profiles rather than the ones next door. That is not cosmetic: profile flags
+# go into every unit's fingerprint, so one differing knob makes all 266 kernel
+# crates miss the shared target directory and rebuild from scratch -- measured,
+# on the first run after `verify` became standalone.
+#
+# `.cargo/config.toml` at the repo root still supplies `-C target-cpu=native`
+# either way: rustflags are read from the invocation's working directory
+# upward, not from the workspace root.
+[profile.dev]
+debug = 0
+codegen-units = 16
+incremental = false
+
+[profile.dev.build-override]
+opt-level = 3
+codegen-units = 2
+debug = false
+
+[profile.release]
+debug = 0
+incremental = false
+codegen-units = 16
+
+[profile.release.build-override]
+opt-level = 3
+codegen-units = 2
+debug = false
+
+[profile.test]
+debug = 0
+codegen-units = 16
+incremental = false
+
+[profile.test.build-override]
+opt-level = 3
+codegen-units = 2
+debug = false
 
 [dependencies]
 anyhow = "1.0.100"

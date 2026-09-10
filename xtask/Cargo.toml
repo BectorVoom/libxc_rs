@@ -2,6 +2,8 @@
 name = "xtask"
 version = "0.1.0"
 edition = "2024"
+# Verification / tooling harness: never publishable.
+publish = false
 
 [[bin]]
 name = "xtask"
@@ -10,7 +12,18 @@ path = "src/main.rs"
 [dependencies]
 regex = "1"
 anyhow = "1"
-libxc-sys = { path = "../libxc-sys" }
+# Optional: only `generate-metadata` reads the functional table out of C libxc
+# through FFI, and building it means running cmake over the 372 MB vendored
+# `libxc-master/`. Off by default so `cargo check --workspace` -- which xtask is
+# a member of -- does not pay for an hour of C compilation to check a metadata
+# generator nobody is running.
+libxc-sys = { path = "../libxc-sys", optional = true }
+
+[features]
+default = []
+# Build and link C libxc 7.0.0, enabling `xtask generate-metadata`:
+#   cargo run -p xtask --features libxc-oracle -- generate-metadata
+libxc-oracle = ["dep:libxc-sys"]
 # NOTE: a path-dep on `libxc_rs = { path = ".." }` was tried during 05-04
 # resume but pulled in 170 kernel crates whose CubeCL proc-macro expansion
 # takes ~9 hours to compile. The xtask iterates IDs 1..1024 directly via

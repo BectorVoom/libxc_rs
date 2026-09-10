@@ -290,7 +290,7 @@ fn test_tier1_corpus_parity_against_c_libxc() {
 #[test]
 fn test_remediation_v4_corpus_parity_against_c_libxc() {
     let np = 8;
-    let thresholds = libxc_core::model::Thresholds::default();
+    let thresholds = libxc_rs::model::Thresholds::default();
 
     // Unpolarized densities
     let rho_unpol = vec![0.05, 0.1, 0.2, 0.4, 0.8, 1.2, 2.0, 5.0];
@@ -563,6 +563,7 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
     let tau_unpol = vec![0.06, 0.15, 0.9, 2.0];
 
     let mut verified_count = 0;
+    let mut mismatches: Vec<String> = Vec::new();
 
     for &(_fam, name) in libxc_reval::routing::SUPPORTED {
         let id = match lookup_by_name(name) {
@@ -574,6 +575,17 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
             Ok(m) => m,
             Err(_) => continue,
         };
+
+        // 3D functionals only, for the reason `kernel_oracle.rs` gives: `rho` for
+        // a 1D or 2D functional is a line or sheet density and its `sigma`
+        // scales differently, so feeding one the 3D grid below compares two
+        // libraries on inputs neither is defined for. `mgga_x_2d_prhg07` is the
+        // one that shows it here -- it drives libxc's own Lambert W solver past
+        // its iteration limit and comes out 6% from ours, which says nothing
+        // about either implementation.
+        if !meta.flags.contains(libxc_rs::FunctionalFlags::DIM_3D) {
+            continue;
+        }
 
         let spin = Spin::Unpolarized;
         let func = match Functional::new(id, spin) {
@@ -613,6 +625,7 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
                     let rel = diff / max_val;
                     if rel > 1e-6 && diff > 1e-8 {
                         println!("ZK mismatch in {} (id {}) at point {i}: rust={}, C={}, rel={rel}", meta.name, raw, zk_rust[i], c_res.zk[i]);
+                        mismatches.push(format!("{} (id {raw}) rel {rel:.3e}", meta.name));
                         ok = false;
                         break;
                     }
@@ -659,6 +672,7 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
                     let rel = diff / max_val;
                     if rel > 1e-6 && diff > 1e-8 {
                         println!("ZK mismatch in {} (id {}) at point {i}: rust={}, C={}, rel={rel}", meta.name, raw, zk_rust[i], c_res.zk[i]);
+                        mismatches.push(format!("{} (id {raw}) rel {rel:.3e}", meta.name));
                         ok = false;
                         break;
                     }
@@ -690,6 +704,7 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
                     let rel = diff / max_val;
                     if rel > 1e-6 && diff > 1e-8 {
                         println!("ZK mismatch in {} (id {}) at point {i}: rust={}, C={}, rel={rel}", meta.name, raw, zk_rust[i], c_res.zk[i]);
+                        mismatches.push(format!("{} (id {raw}) rel {rel:.3e}", meta.name));
                         ok = false;
                         break;
                     }
@@ -701,9 +716,36 @@ fn test_all_reachable_functionals_parity_against_c_libxc() {
         }
     }
 
-    println!("Swept parity for {verified_count} reachable functionals against C libxc");
+    println!(
+        "Swept parity for {verified_count} reachable 3D functionals against C libxc \
+         ({} mismatched)",
+        mismatches.len()
+    );
+
+    // The gate is "nothing disagrees", not "at least N agreed".
+    //
+    // It used to be `verified_count >= 475`, and that number was **not
+    // attainable**: `routing::SUPPORTED` yields 470 candidates here once the
+    // registry, `Functional::new` and the 3D filter have had their say, so the
+    // assertion could not pass however correct the library was. It had been
+    // failing for that reason alone -- invisibly, because this file lived in
+    // the root crate's `tests/`, where running it meant building the C oracle
+    // first, so in practice nobody did. Moving it into `verify/` on 2026-09-10
+    // is what surfaced it.
+    //
+    // A count floor is the wrong shape anyway: it passes while a functional
+    // silently stops being reachable, and fails when one is legitimately
+    // added. Assert on the disagreements instead, and keep a loose floor only
+    // so the sweep cannot pass by covering nothing.
     assert!(
-        verified_count >= 475,
-        "Expected at least 475 functionals verified against C libxc, got {verified_count}"
+        mismatches.is_empty(),
+        "{} of {} reachable 3D functionals disagree with C libxc on zk: {mismatches:?}",
+        mismatches.len(),
+        verified_count + mismatches.len()
+    );
+    assert!(
+        verified_count >= 400,
+        "only {verified_count} functionals were swept -- the corpus collapsed, so this \
+         test is no longer covering what it claims"
     );
 }

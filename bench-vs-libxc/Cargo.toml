@@ -12,15 +12,33 @@ publish = false
 libxc-core = { path = "../crates/libxc-core" }
 libxc-eval = { path = "../crates/libxc-eval" }
 libxc-reval = { path = "../crates/libxc-reval" }
-libxc-sys = { path = "../libxc-sys" }
 rayon = "1.11"
 
+# The C oracle, and the only thing in this workspace that runs cmake over the
+# vendored `libxc-master/`. Optional and off by default: this crate is a
+# workspace *member* (deliberately -- the numbers are meaningless if it
+# resolves rayon or the kernels differently from the library it measures), so
+# an unconditional dependency here meant `cargo check --workspace` built 372 MB
+# of C, roughly an hour of it, before checking a line of Rust.
+libxc-sys = { path = "../libxc-sys", optional = true }
+
+[features]
+default = []
+# Build and link C libxc 7.0.0. Required by `xcvs`, which is the only harness
+# that times both sides; `xcqual` has no C leg and does not need it.
+libxc-oracle = ["dep:libxc-sys"]
+
+# Head-to-head against C libxc, so it needs the oracle:
+#   cargo run --release -p bench-vs-libxc --features libxc-oracle --bin xcvs
+# `required-features` is what keeps a bare `--workspace` build from reaching
+# for `libxc-sys`; without it cargo would build the binary and fail to link.
 [[bin]]
 name = "xcvs"
 path = "src/main.rs"
+required-features = ["libxc-oracle"]
 
 # The SIMD-allowlist qualification harness: Rust legs and a fingerprint only,
-# no C side. See the module docs in src/qual.rs.
+# no C side. See the module docs in src/qual.rs. Builds with no features.
 [[bin]]
 name = "xcqual"
 path = "src/qual.rs"

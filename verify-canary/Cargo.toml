@@ -2,6 +2,8 @@
 name = "libxc_rs-verify-canary"
 version = "0.1.0"
 edition = "2024"
+# Verification / tooling harness: never publishable.
+publish = false
 
 # Phase 11.1 Plan 03 G3 canary — a STANDALONE parity test for the single
 # `mgga_c_b94` functional that does NOT depend on the `libxc_rs` umbrella crate.
@@ -17,6 +19,12 @@ edition = "2024"
 #
 # NOT a workspace default-member: built on demand via
 #   `cargo test -p libxc_rs-verify-canary`.
+
+# Standalone: this harness is in the root `workspace.exclude` list, and since
+# nothing in the workspace depends on it any more (the root crate's dev-dep on
+# it was dropped so `cargo test` on the library stops building 372 MB of C),
+# cargo needs to be told explicitly that it is its own workspace root.
+[workspace]
 
 [dependencies]
 bytemuck = "1.25"

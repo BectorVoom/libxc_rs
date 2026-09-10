@@ -2,6 +2,32 @@
 name = "libxc_rs"
 version = "0.1.0"
 edition = "2024"
+description = "Pure-Rust reimplementation of the libxc 7.0.0 exchange-correlation functional library for density functional theory"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/BectorVoom/libxc_rs"
+keywords = ["dft", "chemistry", "physics", "libxc", "quantum"]
+categories = ["science", "mathematics"]
+
+# **Allowlist, not a denylist.** The package directory *is* the repository
+# root, so anything not named here would otherwise be shipped: 372 MB of
+# vendored C in `libxc-master/` (the oracle, which is a verification tool and
+# not part of the production path at all), the `bench-vs-libxc` harness, the
+# `verify/` suite, and 22,654 Windows `:Zone.Identifier` files whose names
+# `cargo package` outright refuses ("cannot package a filename with a special
+# character `:`"). A denylist would have to be kept in step with every new
+# directory; this cannot silently grow.
+#
+# `src/model` is deliberately absent: it is a symlink to
+# `crates/libxc-core/src/model` that the regeneration tools want on disk, and
+# nothing in this crate compiles it -- `lib.rs` re-exports `libxc_core::model`.
+# Packaging a symlink that escapes the package root is at best unportable.
+include = [
+    "/src/lib.rs",
+    "/src/api",
+    "/README.md",
+    "/LICENSE",
+]
 
 [dependencies]
 # Phase 10: thin facade — deps reduced to the 3 leaf crates. bitflags/bytemuck/
@@ -23,7 +49,13 @@ c-abi       = ["libxc-compat/c-abi"]
 [dev-dependencies]
 approx = "0.5.1"
 libm = "0.2"
-libxc_rs-verify = { path = "verify" }
+# `libxc_rs-verify` is deliberately NOT a dev-dependency of this crate, even
+# though cargo would strip a path-only dev-dep at publish time. It pulls in
+# `libxc-sys`, which builds the vendored C libxc through cmake -- roughly an
+# hour, dominated by `mgga_x_br89.c` -- so a plain `cargo test` on the library
+# would compile a 372 MB C project it never links. The tests that do need the
+# oracle live in `verify/tests/`, with the other 17 oracle files; see the
+# Verification section of AGENTS.md for how to run them.
 
 [workspace]
 resolver = "3"
@@ -45,7 +77,7 @@ members = [
 
     # --- tooling / harnesses --------------------------------------------
     "xtask",
-    "libxc-sys",
+    # `libxc-sys` is NOT a member: see `exclude`.
     # Head-to-head speed/memory benchmark against C libxc. A member (not an
     # excluded harness) so it shares the workspace lockfile and profiles --
     # the numbers are meaningless if it resolves rayon or the kernels
@@ -71,6 +103,25 @@ members = [
 #   * For a kernel that nothing depends on, use
 #     `cargo check --manifest-path crates/kernels-rayon/<fam>/<f>/Cargo.toml`.
 exclude = [
+    # The C oracle. Listed here for intent, but be aware of the limit: cargo
+    # pulls a path dependency of a member into the workspace whether or not it
+    # is excluded, and `bench-vs-libxc` and `xtask` both declare it (optionally).
+    # So `cargo metadata` still reports it as a member and `cargo check
+    # --workspace` still checks it -- which on a clean tree means running cmake
+    # over the 372 MB vendored `libxc-master/`, roughly an hour.
+    #
+    # What the `libxc-oracle` features *do* buy, measured: `cargo build`,
+    # `cargo test`, `cargo check -p bench-vs-libxc`, and simd_qualify.py's
+    # `xcqual` build no longer touch it at all.
+    #
+    # Getting it out of `--workspace` too would mean moving `bench-vs-libxc`
+    # and `xtask` to `exclude` as well, and that trade is worse than it looks:
+    # they would stop sharing the workspace lockfile, which is exactly how
+    # `verify/Cargo.lock` silently drifted to `wide` 1.7.0 against the
+    # library's 1.6.1. A benchmark resolving a different SIMD crate than the
+    # library it measures is not a benchmark.
+    "libxc-sys",
+
     # On-demand verification tools, kept out of `cargo check --workspace`. Run
     # them with --manifest-path:
     #   cargo test --release --manifest-path crates/kernels-rayon/oracle/Cargo.toml

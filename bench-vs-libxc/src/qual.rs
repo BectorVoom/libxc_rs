@@ -25,6 +25,19 @@ use libxc_core::model::{DerivativeOrder, Spin, Thresholds};
 use libxc_core::output::{GgaOutput, LdaOutput, MggaOutput};
 use libxc_reval::routing;
 
+/// The thresholds libxc's own `xc_func_init` gives this functional.
+///
+/// `dens_threshold` is per functional and `sigma_threshold` derives from it;
+/// both reach `work_*_inc.c` as input clamps, not only as a screen. A
+/// fingerprint taken at the wrong thresholds is a fingerprint of a different
+/// functional.
+fn thresholds_for(name: &str) -> Thresholds {
+    Thresholds::for_functional(
+        libxc_core::registry::lookup_by_name(&format!("XC_{name}"))
+            .unwrap_or_else(|e| panic!("no libxc id for {name}: {e}")),
+    )
+}
+
 #[path = "grid.rs"]
 mod grid;
 #[path = "harness.rs"]
@@ -231,7 +244,7 @@ fn qual_lda(c: &Case, np: usize, reps: usize, min_chunk: usize, quiet: bool) {
     use libxc_core::dims::Dimensions;
     let d = Dimensions::lda(c.spin);
     let g = grid::lda(np, nc(c.spin), 0x1234);
-    let th = Thresholds::default();
+    let th = thresholds_for(&c.name);
     let strides = lda_strides(&d);
     let mk = || -> Vec<Vec<f64>> { strides.iter().map(|s| vec![0f64; np * s]).collect() };
 
@@ -301,7 +314,7 @@ fn qual_gga(c: &Case, np: usize, reps: usize, min_chunk: usize, quiet: bool) {
     use libxc_core::dims::Dimensions;
     let d = Dimensions::gga(c.spin);
     let g = grid::gga(np, nc(c.spin), 0x1234);
-    let th = Thresholds::default();
+    let th = thresholds_for(&c.name);
     let strides = gga_strides(&d);
     let mk = || -> Vec<Vec<f64>> { strides.iter().map(|s| vec![0f64; np * s]).collect() };
 
@@ -394,7 +407,7 @@ fn qual_mgga(c: &Case, np: usize, reps: usize, min_chunk: usize, quiet: bool) {
     }
     let d = Dimensions::mgga(c.spin);
     let g = grid::mgga(np, nc(c.spin), 0x1234);
-    let th = Thresholds::default();
+    let th = thresholds_for(&c.name);
     let strides = mgga_strides(&d);
     let mk = || -> Vec<Vec<f64>> { strides.iter().map(|s| vec![0f64; np * s]).collect() };
 
