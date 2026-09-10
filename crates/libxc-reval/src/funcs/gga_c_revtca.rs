@@ -16,6 +16,7 @@ pub const ID: u16 = 99;
 
 
 
+
 /// Number of libxc `ext_params` this dispatch accepts at runtime: none,
 /// because this functional has no ext_params.
 pub const N_EXT_PARAMS: usize = 0;
@@ -70,6 +71,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_revtca_exc_unpol],
         [k::vxc_unpol::gga_c_revtca_vxc_unpol],
         [k::fxc_unpol::gga_c_revtca_fxc_unpol],

@@ -9,6 +9,13 @@
 //!
 //! The wpbeh fingerprint is byte-identical before and after the 2026-09-03
 //! erfcx/E1 fixes, so whatever this is, it predates them.
+//!
+//! Both sides use `Thresholds::for_functional`, not `Thresholds::default()`:
+//! `gga_x_wpbeh`'s own `dens_threshold` is 1e-14, and `sigma_threshold` is
+//! derived from it. The C side of each comparison is initialised by
+//! `xc_func_init` from the functional's info block, so a global default here
+//! would measure a threshold mismatch rather than the divergence this file is
+//! named for.
 
 use libxc_sys::{
     xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, XC_UNPOLARIZED,
@@ -55,7 +62,7 @@ fn sweep(omega: f64) {
                 };
                 libxc_reval::routing::dispatch_gga_by_id_with(
                     id, &input, &mut out, DerivativeOrder::Vxc, Spin::Unpolarized,
-                    &Thresholds::default(), Some(&[omega]),
+                    &Thresholds::for_functional(id), Some(&[omega]),
                 ).unwrap();
             }
             let rel = |a: f64, b: f64| if b == 0.0 { (a - b).abs() } else { ((a - b) / b).abs() };
@@ -123,7 +130,7 @@ fn wpbeh_vsigma_agrees_over_the_physical_range() {
                     };
                     libxc_reval::routing::dispatch_gga_by_id_with(
                         id, &input, &mut out, DerivativeOrder::Vxc, Spin::Unpolarized,
-                        &Thresholds::default(), Some(&[omega]),
+                        &Thresholds::for_functional(id), Some(&[omega]),
                     ).unwrap();
                 }
                 for (o, c) in [(rz[0], cz[0]), (rv[0], cv[0]), (rs[0], cs[0])] {

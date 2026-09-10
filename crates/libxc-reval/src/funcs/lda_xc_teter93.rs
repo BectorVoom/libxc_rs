@@ -16,6 +16,7 @@ pub const ID: u16 = 20;
 
 
 
+
 /// Number of libxc `ext_params` this dispatch accepts at runtime: none,
 /// because this functional has no ext_params.
 pub const N_EXT_PARAMS: usize = 0;
@@ -70,6 +71,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::lda_xc_teter93_exc_unpol],
         [k::vxc_unpol::lda_xc_teter93_vxc_unpol],
         [k::fxc_unpol::lda_xc_teter93_fxc_unpol],

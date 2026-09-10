@@ -159,22 +159,69 @@ pub struct Thresholds {
     pub tau: f64,
 }
 
+impl Thresholds {
+    /// The thresholds `xc_func_init` gives a functional whose
+    /// `info->dens_threshold` is `density`.
+    ///
+    /// libxc, `functionals.c`:
+    ///
+    /// ```c
+    /// func->dens_threshold  = func->info->dens_threshold;
+    /// func->sigma_threshold = pow(func->info->dens_threshold, 4.0/3.0);
+    /// func->zeta_threshold  = DBL_EPSILON;
+    /// func->tau_threshold   = 1e-20;
+    /// ```
+    ///
+    /// `dens_threshold` is **per functional** -- 1e-15 for 432 of the 649, but
+    /// 1e-14 for 113, 1e-12 for 40, and down to 1e-32 for eight of them. It is
+    /// not only a screening cutoff: `work_{lda,gga,mgga}_inc.c` also clamps the
+    /// inputs with it (`my_rho = m_max(dens_threshold, rho)`), and
+    /// `sigma_threshold` is derived from it, so carrying one global 1e-15 gave
+    /// 217 functionals a different screen *and* a different clamp than libxc.
+    ///
+    /// `sigma` is deliberately `powf` and not a table: it has to be the same
+    /// `pow(x, 4.0/3.0)` libxc's C evaluates, bit for bit.
+    /// The thresholds `xc_func_init` gives this functional, from its own
+    /// `info->dens_threshold`.
+    ///
+    /// Prefer this to [`Thresholds::default`] anywhere a functional is in
+    /// hand: 217 of the 649 have a `dens_threshold` other than 1e-15, and it
+    /// feeds both the screen and the input clamps in `work_*_inc.c`.
+    #[must_use]
+    pub fn for_functional(id: FunctionalId) -> Self {
+        Self::for_density(id.meta().default_density_threshold)
+    }
+
+    #[must_use]
+    pub fn for_density(density: f64) -> Self {
+        Self {
+            density,
+            zeta: f64::EPSILON,
+            sigma: density.powf(4.0 / 3.0),
+            tau: 1e-20,
+        }
+    }
+}
+
 impl Default for Thresholds {
-    /// libxc's own defaults, from `functionals.c` (`xc_func_init`).
+    /// libxc's own defaults, from `functionals.c` (`xc_func_init`), for the
+    /// commonest `info->dens_threshold` of 1e-15.
     ///
     /// These are not free parameters: `zeta` and `tau` reach the maple2c
     /// formulas as values, not just as screening cutoffs, so a different
     /// number is a different functional. `gga_c_optc`, for instance, evaluates
     /// `zeta_threshold^(4/3)` and adds it into a term of order 0.5.
+    ///
+    /// Prefer [`Thresholds::for_density`] with the functional's own
+    /// `default_density_threshold`; this exists for the 432 functionals where
+    /// the two agree, and for callers with no functional in hand.
     fn default() -> Self {
-        Self {
-            density: 1e-15,
-            // libxc: `func->zeta_threshold = DBL_EPSILON;`. This was 1e-10 --
-            // six orders too large, and visible in the oracle.
-            zeta: f64::EPSILON,
-            sigma: 1e-24,
-            tau: 1e-20,
-        }
+        // Not a literal table: `sigma` must be the same `pow(1e-15, 4.0/3.0)`
+        // libxc's C computes, and that is not exactly the double nearest
+        // 1e-20. `zeta` was 1e-10 here once -- six orders too large, and
+        // visible in the oracle -- and `sigma` was 1e-24, a free-floating
+        // guess with no counterpart in libxc at all.
+        Self::for_density(1e-15)
     }
 }
 

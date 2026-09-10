@@ -14,6 +14,7 @@ use libxc_rkernel_lda_xc_1d_ehwlrg as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 536;
 
+
 /// libxc default for `param_a2`.
 pub const PARAM_A2: f64 = 0.82;
 /// libxc default for `param_a3`.
@@ -77,6 +78,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::lda_xc_1d_ehwlrg_exc_unpol],
         [k::vxc_unpol::lda_xc_1d_ehwlrg_vxc_unpol],
         [k::fxc_unpol::lda_xc_1d_ehwlrg_fxc_unpol],

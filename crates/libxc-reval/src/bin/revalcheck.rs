@@ -41,13 +41,19 @@ macro_rules! family_check {
     ($fam:ident, $Input:ident, $Output:ident, $dims:ident, $fields:expr,
      $mk_input:expr, $mk_output:expr) => {
         fn $fam(np: usize, names: &[&str], bad: &mut usize, checked: &mut usize) {
-            let t = Thresholds::default();
             for spin in [Spin::Unpolarized, Spin::Polarized] {
                 let d = Dimensions::$dims(spin);
                 let strides: Vec<usize> = $fields(&d);
                 let mut r = Rng(0x243F6A8885A308D3);
                 let ins = $mk_input(np, &d, &mut r);
                 for &name in names {
+                    // Per functional, as `xc_func_init` does it. Chunked and
+                    // whole-grid must agree at the thresholds the functional
+                    // actually runs at, not at a stand-in: the input clamps
+                    // they drive are what a chunk boundary could disturb.
+                    let t = libxc_core::registry::lookup_by_name(&format!("XC_{name}"))
+                        .map(Thresholds::for_functional)
+                        .unwrap_or_default();
                     for order in ORDERS {
                         let mut want: Vec<Vec<f64>> =
                             strides.iter().map(|s| vec![0f64; np * s]).collect();
@@ -107,7 +113,6 @@ fn gga_fields(d: &Dimensions) -> Vec<usize> {
 
 fn main() {
     let np: usize = std::env::args().nth(1).and_then(|s| s.parse().ok()).unwrap_or(9_311);
-    let t = Thresholds::default();
     let mut bad = 0usize;
     let mut checked = 0usize;
     let mut funcs = 0usize;
@@ -124,6 +129,13 @@ fn main() {
         for (fam, name) in routing::SUPPORTED.iter().filter(|(f, _)| *f == "lda") {
             let _ = fam;
             if spin == Spin::Unpolarized { funcs += 1; }
+            // Per functional, as `xc_func_init` does it. Chunked and
+            // whole-grid have to run at the thresholds the functional actually
+            // uses: they drive the input clamps in `work_*_inc.c`, and those
+            // are what a chunk boundary could conceivably disturb.
+            let t = libxc_core::registry::lookup_by_name(&format!("XC_{name}"))
+                .map(Thresholds::for_functional)
+                .unwrap_or_default();
             for order in ORDERS {
                 let mut run = |min: usize, bufs: &mut Vec<Vec<f64>>| {
                     libxc_reval::sweep_lda::set_min_chunk(min);
@@ -157,6 +169,13 @@ fn main() {
         let strides = gga_fields(&d);
         for (_, name) in routing::SUPPORTED.iter().filter(|(f, _)| *f == "gga") {
             if spin == Spin::Unpolarized { funcs += 1; }
+            // Per functional, as `xc_func_init` does it. Chunked and
+            // whole-grid have to run at the thresholds the functional actually
+            // uses: they drive the input clamps in `work_*_inc.c`, and those
+            // are what a chunk boundary could conceivably disturb.
+            let t = libxc_core::registry::lookup_by_name(&format!("XC_{name}"))
+                .map(Thresholds::for_functional)
+                .unwrap_or_default();
             for order in ORDERS {
                 let mut run = |min: usize, bufs: &mut Vec<Vec<f64>>| {
                     libxc_reval::sweep_gga::set_min_chunk(min);
@@ -196,5 +215,5 @@ fn main() {
         println!("FAIL: {bad} differing values.");
         std::process::exit(1);
     }
-    let _ = (np, t);
+    let _ = np;
 }

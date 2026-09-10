@@ -195,6 +195,19 @@ fn func_id(name: &str) -> i32 {
         .raw() as i32
 }
 
+/// The thresholds libxc's own `xc_func_init` gives this functional.
+///
+/// `dens_threshold` is per functional and `sigma_threshold` is derived from it,
+/// and both reach the point loop as input clamps, not only as a screen. The C
+/// side of every leg below was initialised this way, so the Rust side has to be
+/// too or the two are being handed different inputs.
+fn thresholds_for(name: &str) -> Thresholds {
+    Thresholds::for_functional(
+        lookup_by_name(&format!("XC_{name}"))
+            .unwrap_or_else(|e| panic!("no libxc id for {name}: {e}")),
+    )
+}
+
 /// An initialised C `xc_func_type`, freed on drop.
 struct CFunc(*mut libxc_sys::xc_func_type);
 
@@ -607,7 +620,7 @@ fn bench_lda(c: Case, np: usize, reps: usize, threads: usize) {
     let d = Dimensions::lda(c.spin);
     let g = grid::lda(np, n, 0x1234);
     let cf = CFunc::new(c.name, c.spin);
-    let th = Thresholds::default();
+    let th = thresholds_for(c.name);
     let fxc = c.order >= DerivativeOrder::Fxc;
 
     let mk = || {
@@ -793,7 +806,7 @@ fn bench_gga(c: Case, np: usize, reps: usize, threads: usize) {
     let d = Dimensions::gga(c.spin);
     let g = grid::gga(np, n, 0x1234);
     let cf = CFunc::new(c.name, c.spin);
-    let th = Thresholds::default();
+    let th = thresholds_for(c.name);
     let fxc = c.order >= DerivativeOrder::Fxc;
 
     let mut b1 = GgaBufs::new(np, &d, fxc);
@@ -1190,7 +1203,7 @@ fn bench_mgga(c: Case, np: usize, reps: usize, threads: usize) {
     let d = Dimensions::mgga(c.spin);
     let g = grid::mgga(np, n, 0x1234);
     let cf = CFunc::new(c.name, c.spin);
-    let th = Thresholds::default();
+    let th = thresholds_for(c.name);
 
     let mut b1 = MggaBufs::new(np, &d);
     let mut bn = MggaBufs::new(np, &d);

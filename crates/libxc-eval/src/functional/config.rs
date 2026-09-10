@@ -178,28 +178,48 @@ impl Functional {
     // ====================================================================
 
     pub fn set_density_threshold(&mut self, v: f64) {
-        self.thresholds.density = v;
+        // libxc: `if(t_dens > 0.0) p->dens_threshold = t_dens;` -- a
+        // non-positive value is ignored, not stored. The recursion into the
+        // auxiliaries happens either way.
+        if v > 0.0 {
+            self.thresholds.density = v;
+        }
         for aux in self.auxiliaries.iter_mut() {
             aux.set_density_threshold(v);
         }
     }
 
     pub fn set_zeta_threshold(&mut self, v: f64) {
-        self.thresholds.zeta = v;
+        // libxc: `if(t_zeta > 0.0) p->zeta_threshold = t_zeta;` -- a
+        // non-positive value is ignored, not stored. The recursion into the
+        // auxiliaries happens either way.
+        if v > 0.0 {
+            self.thresholds.zeta = v;
+        }
         for aux in self.auxiliaries.iter_mut() {
             aux.set_zeta_threshold(v);
         }
     }
 
     pub fn set_sigma_threshold(&mut self, v: f64) {
-        self.thresholds.sigma = v;
+        // libxc: `if(t_sigma > 0.0) p->sigma_threshold = t_sigma;` -- a
+        // non-positive value is ignored, not stored. The recursion into the
+        // auxiliaries happens either way.
+        if v > 0.0 {
+            self.thresholds.sigma = v;
+        }
         for aux in self.auxiliaries.iter_mut() {
             aux.set_sigma_threshold(v);
         }
     }
 
     pub fn set_tau_threshold(&mut self, v: f64) {
-        self.thresholds.tau = v;
+        // libxc: `if(t_tau > 0.0) p->tau_threshold = t_tau;` -- a
+        // non-positive value is ignored, not stored. The recursion into the
+        // auxiliaries happens either way.
+        if v > 0.0 {
+            self.thresholds.tau = v;
+        }
         for aux in self.auxiliaries.iter_mut() {
             aux.set_tau_threshold(v);
         }

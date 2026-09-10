@@ -159,12 +159,27 @@ def leg_params(spec: dict, resolved: dict) -> list[list[tuple[str, float | None]
 
 def fused_scalars(spec: dict, resolved: dict) -> list[str]:
     """The scalar arguments of a fused kernel, in signature order: one weight
-    per leg, then each leg's unbound parameters as `l<k>_<param>`, then the
-    two thresholds. gen_eval.py builds the call site from this same list."""
+    per leg, then each leg's unbound parameters as `l<k>_<param>`, then **one
+    `dens_threshold` per leg**, then the shared `zeta_threshold`.
+    gen_eval.py builds the call site from this same list.
+
+    The density threshold is per leg because libxc's is: `xc_mix_init` calls
+    `xc_func_init` on each auxiliary, so each keeps its own
+    `info->dens_threshold` and therefore its own screen and its own guards.
+    HSE06's legs are `gga_x_wpbeh` twice at 1e-14 and `gga_c_pbe` at 1e-12;
+    PBE0's are `gga_x_pbe` at 1e-15 and `gga_c_pbe` at 1e-12. One shared
+    threshold gave two of the three legs a screen libxc does not use.
+
+    `zeta_threshold` stays shared: libxc sets it to `DBL_EPSILON` for every
+    functional and `xc_func_set_zeta_threshold` recurses into the auxiliaries,
+    so the legs cannot disagree unless a caller forces them to -- which
+    `crate::screen::fused_legs_agree` checks for and refuses.
+    """
     names = [f"w{k}" for k in range(len(spec["legs"]))]
     for k, plist in enumerate(leg_params(spec, resolved)):
         names += [f"l{k}_{p}" for p, bound in plist if bound is None]
-    return names + ["dens_threshold", "zeta_threshold"]
+    names += [f"dens_threshold_{k}" for k in range(len(spec["legs"]))]
+    return names + ["zeta_threshold"]
 
 
 # --------------------------------------------------------------------------
@@ -535,6 +550,15 @@ def fuse_function(name: str, spec: dict, order: str, spin: str,
     inputs = fm.INPUTS[fam]
     scalars = fused_scalars(spec, resolved)
 
+    # The quantity libxc screens on: the *total* density, read from the
+    # caller's array. Written as an indexed read so that the SIMD emitter
+    # rewrites it into the same lane load the rest of the body uses.
+    # Named the way the rest of the body names its inputs, so the SIMD
+    # emitter's `_vec_expr` rewrites it into the same lane load: `rho0`/`rho1`
+    # in the polarized bodies (bound by `pre`), a bare `rho[ip]` in the
+    # unpolarized ones.
+    dens_expr = "(rho0 + rho1)" if pol else "rho[ip]"
+
     table: dict[str, str] = {}          # canonical rhs -> canonical name
     lets: list[tuple[str, str]] = []    # (canonical name, rhs)
     accs: list[tuple[str, str, str]] = []  # (output, index expr, rhs)
@@ -559,6 +583,9 @@ def fuse_function(name: str, spec: dict, order: str, spin: str,
         # fused signature's name, bound params were substituted as literals
         # by fold_stmts and can no longer appear.
         ren: dict[str, str] = {p: f"l{k}_{p}" for p, bound in plist if bound is None}
+        # This leg's own `dens_threshold`, everywhere its body names one --
+        # including the `rho_s <= dens_threshold` guards maple2c emits.
+        ren["dens_threshold"] = f"dens_threshold_{k}"
         for st in sts:
             m = fm.OUT_WRITE.match(st)
             if m:
@@ -573,7 +600,18 @@ def fuse_function(name: str, spec: dict, order: str, spin: str,
                     ix = f"ip * {d}"
                 else:
                     ix = f"ip * {d} + {idx}"
-                accs.append((oname, ix, f"w{k} * (0.0 + {rhs})"))
+                # libxc screens each auxiliary at *its own* `dens_threshold`
+                # (`work_gga_inc.c`, reached once per aux through
+                # `xc_mix_func`), so a leg contributes nothing at a point below
+                # its threshold while another leg still does. `w{k} * 0.0` --
+                # not a bare `0.0` -- because that is exactly what the mix adds
+                # there: the auxiliary's buffer is zero and the mix multiplies
+                # it by the weight, which matters for the sign of the zero when
+                # the weight is negative (HSE06's middle leg is `-beta`).
+                accs.append((oname, ix,
+                             f"w{k} * piecewise3({dens_expr} < dens_threshold_{k}, "
+                             f"0.0, 0.0 + {rhs})"))
+                used.add(("piecewise", "piecewise3"))
                 continue
             m = fm.ASSIGN.match(st)
             if not m:

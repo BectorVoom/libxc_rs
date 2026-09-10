@@ -14,6 +14,7 @@ use libxc_rkernel_gga_c_lypr as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 624;
 
+
 /// libxc default for `param_m1`.
 pub const PARAM_M1: f64 = 0.15283842794759825;
 /// libxc default for `param_omega`.
@@ -101,6 +102,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_lypr_exc_unpol],
         [k::vxc_unpol::gga_c_lypr_vxc_unpol],
         [k::fxc_unpol::gga_c_lypr_fxc_unpol],
@@ -124,6 +126,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_lypr_exc_unpol],
         [k::vxc_unpol::gga_c_lypr_vxc_unpol],
         [k::fxc_unpol::gga_c_lypr_fxc_unpol],

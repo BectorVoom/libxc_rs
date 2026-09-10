@@ -14,6 +14,7 @@ use libxc_rkernel_lda_c_wigner as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 574;
 
+
 /// libxc default for `param_a`.
 pub const PARAM_A: f64 = -0.09349695077738808;
 /// libxc default for `param_b`.
@@ -86,6 +87,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::lda_c_wigner_exc_unpol],
         [k::vxc_unpol::lda_c_wigner_vxc_unpol],
         [k::fxc_unpol::lda_c_wigner_fxc_unpol],
@@ -109,6 +111,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::lda_c_wigner_exc_unpol],
         [k::vxc_unpol::lda_c_wigner_vxc_unpol],
         [k::fxc_unpol::lda_c_wigner_fxc_unpol],

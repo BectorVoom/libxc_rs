@@ -97,6 +97,7 @@ pub fn prepare<'inp, 'out>(
 macro_rules! ten_arm_dispatch_rlda {
     (
         $input:expr, $output:expr, $order:expr, $spin:expr, $thresholds:expr,
+        needs_tau = $needs_tau:expr, zero_tau = $zero_tau:expr,
         [$($exc_u:tt)::+],
         [$($vxc_u:tt)::+],
         [$($fxc_u:tt)::+],
@@ -116,10 +117,15 @@ macro_rules! ten_arm_dispatch_rlda {
         let d = Dimensions::lda($spin);
         let dt = $thresholds.density;
         let zt = $thresholds.zeta;
+        // libxc screens *and* clamps every point before the maple2c body sees
+        // it (`work_lda_inc.c`); `sc` carries both halves. `needs_tau` is
+        // `info->flags & XC_FLAGS_NEEDS_TAU`, which decides the tau clamp and
+        // the Fermi-hole curvature bound on sigma.
+        let sc = $crate::screen::Screen::new($thresholds, $needs_tau, $zero_tau);
         let chunk = $crate::lda::prepare($input, $output, $order, &d)?;
 
         match ($order, $spin) {
-            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($exc_u)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -127,7 +133,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($vxc_u)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -136,7 +142,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($fxc_u)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -146,7 +152,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Kxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($kxc_u)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -157,7 +163,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Lxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($lxc_u)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -169,7 +175,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($exc_p)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -177,7 +183,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($vxc_p)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -186,7 +192,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($fxc_p)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -196,7 +202,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Kxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($kxc_p)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),
@@ -207,7 +213,7 @@ macro_rules! ten_arm_dispatch_rlda {
                         dt, zt,
                     )
             }),
-            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
+            (DerivativeOrder::Lxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut $crate::sweep_lda::LdaChunk<'_, '_>| {
                 $($lxc_p)::+(
                         c.rho,
                         c.zk.as_deref_mut().expect("prepare guarantees this buffer"),

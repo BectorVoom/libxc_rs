@@ -13,6 +13,8 @@
 
 use libxc_core::dims::Dimensions;
 
+use crate::screen::{Screen, m_max, m_min};
+
 /// One contiguous run of grid points, every array narrowed to it.
 pub struct MggaChunk<'inp, 'out> {
     pub np: usize,
@@ -891,6 +893,230 @@ fn zero_point(chunk: &mut MggaChunk<'_, '_>, ip: usize, d: &Dimensions) {
     }
 }
 
+
+// ---------------------------------------------------------------------------
+// libxc's input sanitisation (`work_mgga_inc.c`), and the fast path past it.
+// ---------------------------------------------------------------------------
+
+thread_local! {
+    /// Per-worker scratch for sanitised inputs.
+    ///
+    /// A leaf is at most `min_chunk` points, so this settles at a few tens of
+    /// kB per rayon worker and is never reallocated after the first chunk that
+    /// needs it. It is *taken* out of the cell for the duration of the call
+    /// rather than borrowed across it, so a nested evaluation on the same
+    /// worker -- a composite dispatching one of its auxiliaries -- gets its
+    /// own buffer instead of panicking on a double borrow.
+    static SANITISED: std::cell::Cell<Vec<f64>> = const { std::cell::Cell::new(Vec::new()) };
+}
+
+/// One grid point's inputs, clamped exactly as `work_mgga_inc.c` clamps them.
+///
+/// Component `i` of each returned array is meaningful only for `i < nc` (rho,
+/// tau) or `i < ns` (sigma). libxc leaves the rest at the `0.0` its stack
+/// arrays were initialised with and the unpolarized kernels never read them.
+#[inline(always)]
+fn sanitise_point(rho: &[f64], sigma: &[f64], tau: &[f64], ip: usize, nc: usize, ns: usize, sc: &Screen) -> ([f64; 2], [f64; 3], [f64; 2]) {
+    let mut r = [0.0f64; 2];
+    let mut s = [0.0f64; 3];
+    let mut t = [0.0f64; 2];
+    r[0] = m_max(sc.dens, rho[ip * nc]);
+    s[0] = m_max(sc.sigma2, sigma[ip * ns]);
+    if sc.needs_tau {
+        t[0] = m_max(sc.tau, tau[ip * nc]);
+        // The Fermi hole curvature 1 - xs^2/(8 ts) must be positive.
+        s[0] = m_min(s[0], 8.0 * r[0] * t[0]);
+    } else if sc.zero_tau {
+        // libxc leaves `my_tau` at {0.0, 0.0} for a functional
+        // without XC_FLAGS_NEEDS_TAU, whatever the caller passed.
+        t[0] = 0.0;
+    } else {
+        // Same case, but this kernel provably never reads `tau`
+        // (gen_eval.py::kernel_reads_tau), so the caller's value
+        // gives the same answer without forcing a copy.
+        t[0] = tau[ip * nc];
+    }
+    if nc == 2 {
+        r[1] = m_max(sc.dens, rho[ip * nc + 1]);
+        s[2] = m_max(sc.sigma2, sigma[ip * ns + 2]);
+        if sc.needs_tau {
+            t[1] = m_max(sc.tau, tau[ip * nc + 1]);
+            s[2] = m_min(s[2], 8.0 * r[1] * t[1]);
+        } else if sc.zero_tau {
+            t[1] = 0.0;
+        } else {
+            t[1] = tau[ip * nc + 1];
+        }
+        // |grad n_up + grad n_dn|^2 >= 0 bounds the cross term
+        // from below and |grad n_up - grad n_dn|^2 >= 0 from
+        // above. Written as the C's two ternaries rather than a
+        // `clamp`: a NaN has to come out as -s_ave, which is what
+        // `(x >= -s_ave ? x : -s_ave)` gives and `f64::clamp`
+        // does not.
+        let s_ave = 0.5 * (s[0] + s[2]);
+        let mut s1 = sigma[ip * ns + 1];
+        s1 = if s1 >= -s_ave { s1 } else { -s_ave };
+        s1 = if s1 <= s_ave { s1 } else { s_ave };
+        s[1] = s1;
+    }
+    (r, s, t)
+}
+
+/// Does any point the kernel will actually see carry an input libxc would
+/// clamp?
+///
+/// The clamps are the identity on a physical quadrature: `sigma_ab` really is
+/// bounded by `(sigma_aa + sigma_bb)/2`, `tau` really does satisfy the von
+/// Weizsaecker bound `sigma <= 8 rho tau`, and the screen has already
+/// established `rho >= dens_threshold` for the total density. So this pass
+/// almost always answers no and the kernel then runs on the caller's own
+/// slices with no copy at all. It answers yes on the randomised grids the
+/// oracle and bench harnesses build, and at polarized points where one spin
+/// channel is empty.
+///
+/// The predicate *is* the transform: it runs [`sanitise_point`] and compares
+/// the result bit for bit, so it cannot drift out of agreement with what
+/// [`sanitise_into`] would write.
+///
+/// Below-threshold points are skipped. Their outputs are zero either way, and
+/// a molecular grid's empty tail would otherwise force the copy on every chunk
+/// that reaches into it.
+fn needs_sanitise(chunk: &MggaChunk<'_, '_>, d: &Dimensions, sc: &Screen) -> bool {
+    let nc = d.rho as usize;
+    let ns = d.sigma as usize;
+    for ip in 0..chunk.np {
+        if total_density(chunk.rho, ip, nc) < sc.dens {
+            continue;
+        }
+        let (r, s, t) = sanitise_point(chunk.rho, chunk.sigma, chunk.tau, ip, nc, ns, sc);
+        for c in 0..nc {
+            if r[c].to_bits() != chunk.rho[ip * nc + c].to_bits() {
+                return true;
+            }
+            if t[c].to_bits() != chunk.tau[ip * nc + c].to_bits() {
+                return true;
+            }
+        }
+        for c in 0..ns {
+            if s[c].to_bits() != chunk.sigma[ip * ns + c].to_bits() {
+                return true;
+            }
+        }
+    }
+    false
+}
+
+/// Write the whole chunk's sanitised inputs into `buf`, one flat run per
+/// array.
+///
+/// Below-threshold points are clamped too, rather than skipped: the
+/// fragmented-grid route runs the kernel over them and zeroes their outputs
+/// afterwards, and clamped inputs are strictly better behaved there.
+fn sanitise_into(buf: &mut Vec<f64>, chunk: &MggaChunk<'_, '_>, d: &Dimensions, sc: &Screen) {
+    let nc = d.rho as usize;
+    let ns = d.sigma as usize;
+    let np = chunk.np;
+    buf.clear();
+    buf.resize(np * nc + np * ns + np * nc, 0.0);
+    let off_sigma = np * nc;
+    let off_tau = off_sigma + np * ns;
+    for ip in 0..np {
+        let (r, s, t) = sanitise_point(chunk.rho, chunk.sigma, chunk.tau, ip, nc, ns, sc);
+        for c in 0..nc {
+            buf[ip * nc + c] = r[c];
+            buf[off_tau + ip * nc + c] = t[c];
+        }
+        for c in 0..ns {
+            buf[off_sigma + ip * ns + c] = s[c];
+        }
+    }
+}
+
+/// The same chunk with its input arrays pointed at sanitised copies. The
+/// outputs move across untouched -- they are still the caller's buffers.
+fn retarget<'i, 's, 'o>(c: MggaChunk<'i, 'o>, rho: &'s [f64], sigma: &'s [f64], tau: &'s [f64]) -> MggaChunk<'s, 'o>
+where
+    'i: 's,
+{
+    MggaChunk {
+        np: c.np,
+        rho,
+        sigma,
+        lapl: c.lapl,
+        tau,
+        zk: c.zk,
+        vrho: c.vrho,
+        vsigma: c.vsigma,
+        vlapl: c.vlapl,
+        vtau: c.vtau,
+        v2rho2: c.v2rho2,
+        v2rhosigma: c.v2rhosigma,
+        v2rholapl: c.v2rholapl,
+        v2rhotau: c.v2rhotau,
+        v2sigma2: c.v2sigma2,
+        v2sigmalapl: c.v2sigmalapl,
+        v2sigmatau: c.v2sigmatau,
+        v2lapl2: c.v2lapl2,
+        v2lapltau: c.v2lapltau,
+        v2tau2: c.v2tau2,
+        v3rho3: c.v3rho3,
+        v3rho2sigma: c.v3rho2sigma,
+        v3rho2lapl: c.v3rho2lapl,
+        v3rho2tau: c.v3rho2tau,
+        v3rhosigma2: c.v3rhosigma2,
+        v3rhosigmalapl: c.v3rhosigmalapl,
+        v3rhosigmatau: c.v3rhosigmatau,
+        v3rholapl2: c.v3rholapl2,
+        v3rholapltau: c.v3rholapltau,
+        v3rhotau2: c.v3rhotau2,
+        v3sigma3: c.v3sigma3,
+        v3sigma2lapl: c.v3sigma2lapl,
+        v3sigma2tau: c.v3sigma2tau,
+        v3sigmalapl2: c.v3sigmalapl2,
+        v3sigmalapltau: c.v3sigmalapltau,
+        v3sigmatau2: c.v3sigmatau2,
+        v3lapl3: c.v3lapl3,
+        v3lapl2tau: c.v3lapl2tau,
+        v3lapltau2: c.v3lapltau2,
+        v3tau3: c.v3tau3,
+        v4rho4: c.v4rho4,
+        v4rho3sigma: c.v4rho3sigma,
+        v4rho3lapl: c.v4rho3lapl,
+        v4rho3tau: c.v4rho3tau,
+        v4rho2sigma2: c.v4rho2sigma2,
+        v4rho2sigmalapl: c.v4rho2sigmalapl,
+        v4rho2sigmatau: c.v4rho2sigmatau,
+        v4rho2lapl2: c.v4rho2lapl2,
+        v4rho2lapltau: c.v4rho2lapltau,
+        v4rho2tau2: c.v4rho2tau2,
+        v4rhosigma3: c.v4rhosigma3,
+        v4rhosigma2lapl: c.v4rhosigma2lapl,
+        v4rhosigma2tau: c.v4rhosigma2tau,
+        v4rhosigmalapl2: c.v4rhosigmalapl2,
+        v4rhosigmalapltau: c.v4rhosigmalapltau,
+        v4rhosigmatau2: c.v4rhosigmatau2,
+        v4rholapl3: c.v4rholapl3,
+        v4rholapl2tau: c.v4rholapl2tau,
+        v4rholapltau2: c.v4rholapltau2,
+        v4rhotau3: c.v4rhotau3,
+        v4sigma4: c.v4sigma4,
+        v4sigma3lapl: c.v4sigma3lapl,
+        v4sigma3tau: c.v4sigma3tau,
+        v4sigma2lapl2: c.v4sigma2lapl2,
+        v4sigma2lapltau: c.v4sigma2lapltau,
+        v4sigma2tau2: c.v4sigma2tau2,
+        v4sigmalapl3: c.v4sigmalapl3,
+        v4sigmalapl2tau: c.v4sigmalapl2tau,
+        v4sigmalapltau2: c.v4sigmalapltau2,
+        v4sigmatau3: c.v4sigmatau3,
+        v4lapl4: c.v4lapl4,
+        v4lapl3tau: c.v4lapl3tau,
+        v4lapl2tau2: c.v4lapl2tau2,
+        v4lapltau3: c.v4lapltau3,
+        v4tau4: c.v4tau4,
+    }
+}
+
 /// Average length an above-threshold run must reach before it is worth calling
 /// the kernel on it separately.
 ///
@@ -943,7 +1169,7 @@ const MIN_RUN: usize = 128;
 ///   it saves. Then the kernel runs over the whole chunk and the screened
 ///   points are zeroed afterwards. No arithmetic is saved, but the answer is
 ///   the same one, which is the part that matters.
-fn screened_call<F>(mut chunk: MggaChunk<'_, '_>, d: &Dimensions, dens_threshold: f64, f: &F)
+fn screened_call<F>(chunk: MggaChunk<'_, '_>, d: &Dimensions, sc: &Screen, f: &F)
 where
     F: Fn(&mut MggaChunk<'_, '_>) + Sync,
 {
@@ -956,7 +1182,7 @@ where
     let mut runs = 0usize;
     let mut prev_active = false;
     for ip in 0..np {
-        let active = total_density(chunk.rho, ip, nc) >= dens_threshold;
+        let active = total_density(chunk.rho, ip, nc) >= sc.dens;
         if !active {
             below += 1;
         } else if !prev_active {
@@ -965,13 +1191,73 @@ where
         prev_active = active;
     }
 
-    // Overwhelmingly the common case: nothing to screen, so this costs one
-    // linear read of `rho` that the kernel is about to make anyway.
+    // Whole chunk is in the tail: the zeros already written are the answer, and
+    // there is nothing left to sanitise for.
+    if below == np {
+        return;
+    }
+
+    // Second half of what libxc does before the maple2c body runs: clamp the
+    // inputs it is about to use (`crate::screen`). Almost always a no-op, and
+    // then the kernel reads the caller's slices directly.
+    if !needs_sanitise(&chunk, d, sc) {
+        run_screened(chunk, d, sc.dens, below, runs, f);
+        return;
+    }
+
+    let raw_rho = chunk.rho;
+    let mut buf = SANITISED.with(|c| c.take());
+    sanitise_into(&mut buf, &chunk, d, sc);
+    {
+        let (rho_s, rest) = buf.split_at(np * nc);
+        let (sigma_s, tau_s) = rest.split_at(np * d.sigma as usize);
+        let c2 = retarget(chunk, rho_s, sigma_s, tau_s);
+        // The screen still reads the *caller's* rho: every sanitised rho is at
+        // least `dens_threshold` by construction, so screening on it would
+        // admit the whole tail.
+        run_screened_with(c2, raw_rho, d, sc.dens, below, runs, f);
+    }
+    SANITISED.with(|c| c.set(buf));
+}
+
+/// [`screened_call`]'s second half for a chunk whose inputs did not need
+/// clamping, so the density screen can read the chunk's own `rho`.
+fn run_screened<F>(chunk: MggaChunk<'_, '_>, d: &Dimensions, dens_threshold: f64, below: usize, runs: usize, f: &F)
+where
+    F: Fn(&mut MggaChunk<'_, '_>) + Sync,
+{
+    // Reborrowing `rho` here and passing it back in is what lets the sanitised
+    // path share this code: there the screen has to read a different array
+    // from the one the kernel does.
+    let rho = chunk.rho;
+    run_screened_with(chunk, rho, d, dens_threshold, below, runs, f);
+}
+
+/// Run `f` over the above-threshold points of `chunk`, screening on `raw_rho`.
+///
+/// `raw_rho` is the density the *caller* passed, which is the only one libxc's
+/// `if(dens < p->dens_threshold) continue;` ever sees. It is a separate
+/// argument because `chunk.rho` may by now be the clamped copy, in which case
+/// every point would test as above-threshold.
+fn run_screened_with<F>(
+    mut chunk: MggaChunk<'_, '_>,
+    raw_rho: &[f64],
+    d: &Dimensions,
+    dens_threshold: f64,
+    below: usize,
+    runs: usize,
+    f: &F,
+) where
+    F: Fn(&mut MggaChunk<'_, '_>) + Sync,
+{
+    let nc = d.rho as usize;
+    let np = chunk.np;
+
+    // Overwhelmingly the common case: nothing to screen.
     if below == 0 {
         f(&mut chunk);
         return;
     }
-    // Whole chunk is in the tail: the zeros already written are the answer.
     if below == np {
         return;
     }
@@ -979,12 +1265,12 @@ where
     if runs * MIN_RUN <= np - below {
         let mut ip = 0;
         while ip < np {
-            if total_density(chunk.rho, ip, nc) < dens_threshold {
+            if total_density(raw_rho, ip, nc) < dens_threshold {
                 ip += 1;
                 continue;
             }
             let start = ip;
-            while ip < np && total_density(chunk.rho, ip, nc) >= dens_threshold {
+            while ip < np && total_density(raw_rho, ip, nc) >= dens_threshold {
                 ip += 1;
             }
             let mut w = chunk.window(start, ip - start, d);
@@ -993,7 +1279,7 @@ where
     } else {
         f(&mut chunk);
         for ip in 0..np {
-            if total_density(chunk.rho, ip, nc) < dens_threshold {
+            if total_density(raw_rho, ip, nc) < dens_threshold {
                 zero_point(&mut chunk, ip, d);
             }
         }
@@ -1005,21 +1291,21 @@ pub fn par_sweep<F>(
     mut chunk: MggaChunk<'_, '_>,
     d: &Dimensions,
     min_chunk: usize,
-    dens_threshold: f64,
+    sc: &Screen,
     f: &F,
 ) where
     F: Fn(&mut MggaChunk<'_, '_>) + Sync,
 {
     if chunk.np <= min_chunk {
         zero_outputs(&mut chunk);
-        screened_call(chunk, d, dens_threshold, f);
+        screened_call(chunk, d, sc, f);
         return;
     }
     let mid = chunk.np / 2;
     let (l, r) = chunk.split_at(mid, d);
     rayon::join(
-        || par_sweep(l, d, min_chunk, dens_threshold, f),
-        || par_sweep(r, d, min_chunk, dens_threshold, f),
+        || par_sweep(l, d, min_chunk, sc, f),
+        || par_sweep(r, d, min_chunk, sc, f),
     );
 }
 

@@ -101,13 +101,24 @@ pub mod fused_hse {
         if !ARMS.contains(&(order, spin)) {
             return None;
         }
-        // One screen serves every leg only if every leg screens alike.
+        // One screen and one set of input clamps serve every leg only where
+        // the legs cannot be told apart on this grid -- see
+        // `crate::screen::fused_legs_agree`. libxc gives each auxiliary of a
+        // mix its own `dens_threshold`, and HSE06's and PBE0's legs differ.
         let t = legs[0].thresholds;
-        if legs.iter().any(|l| {
-            l.thresholds.density.to_bits() != t.density.to_bits()
-                || l.thresholds.zeta.to_bits() != t.zeta.to_bits()
-        }) {
-            return None;
+        {
+            let ths: [Thresholds; 3] = [legs[0].thresholds, legs[1].thresholds, legs[2].thresholds];
+            let d = Dimensions::gga(spin);
+            if !crate::screen::fused_legs_agree(
+                input.rho(),
+                input.sigma(),
+                input.np(),
+                d.rho as usize,
+                d.sigma as usize,
+                &ths,
+            ) {
+                return None;
+            }
         }
         // `prepare` requires every buffer of the order and *takes* them, so
         // the check has to come first; the mix tolerates a missing one.
@@ -131,30 +142,42 @@ pub mod fused_hse {
             return None;
         }
         let d = Dimensions::gga(spin);
-        let dt = t.density;
+        // The sweep screens and clamps once, at the *lowest* of the legs'
+        // thresholds, so every point any leg needs survives to reach the
+        // kernel; the kernel then applies each leg's own threshold to its own
+        // accumulation. `fused_legs_agree` has already established that the
+        // clamps at this threshold are the identity wherever a leg is live.
+        let mut t_min = t;
+        for l in legs {
+            if l.thresholds.density < t_min.density {
+                t_min = l.thresholds;
+            }
+        }
         let zt = t.zeta;
+        // GGA, so no tau clamp; see `crate::screen`.
+        let sc = crate::screen::Screen::new(&t_min, false, false);
         let chunk = match crate::gga::prepare(input, output, order, &d) {
             Ok(c) => c,
             Err(e) => return Some(Err(e)),
         };
         match (order, spin) {
-            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::exc_unpol::fused_hse_exc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::exc_unpol::fused_hse_exc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
-            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::vxc_unpol::fused_hse_vxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::vxc_unpol::fused_hse_vxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
-            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::fxc_unpol::fused_hse_fxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::fxc_unpol::fused_hse_fxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
-            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::exc_pol::fused_hse_exc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::exc_pol::fused_hse_exc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
-            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::vxc_pol::fused_hse_vxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::vxc_pol::fused_hse_vxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
-            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::fxc_pol::fused_hse_fxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], dt, zt)
+            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::fxc_pol::fused_hse_fxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], weights[2], p1[0], p2[0], p2[1], p2[2], legs[0].thresholds.density, legs[1].thresholds.density, legs[2].thresholds.density, zt)
             }),
             _ => unreachable!("ARMS was checked above"),
         }
@@ -198,13 +221,24 @@ pub mod fused_pbeh {
         if !ARMS.contains(&(order, spin)) {
             return None;
         }
-        // One screen serves every leg only if every leg screens alike.
+        // One screen and one set of input clamps serve every leg only where
+        // the legs cannot be told apart on this grid -- see
+        // `crate::screen::fused_legs_agree`. libxc gives each auxiliary of a
+        // mix its own `dens_threshold`, and HSE06's and PBE0's legs differ.
         let t = legs[0].thresholds;
-        if legs.iter().any(|l| {
-            l.thresholds.density.to_bits() != t.density.to_bits()
-                || l.thresholds.zeta.to_bits() != t.zeta.to_bits()
-        }) {
-            return None;
+        {
+            let ths: [Thresholds; 2] = [legs[0].thresholds, legs[1].thresholds];
+            let d = Dimensions::gga(spin);
+            if !crate::screen::fused_legs_agree(
+                input.rho(),
+                input.sigma(),
+                input.np(),
+                d.rho as usize,
+                d.sigma as usize,
+                &ths,
+            ) {
+                return None;
+            }
         }
         // `prepare` requires every buffer of the order and *takes* them, so
         // the check has to come first; the mix tolerates a missing one.
@@ -221,30 +255,42 @@ pub mod fused_pbeh {
         };
 
         let d = Dimensions::gga(spin);
-        let dt = t.density;
+        // The sweep screens and clamps once, at the *lowest* of the legs'
+        // thresholds, so every point any leg needs survives to reach the
+        // kernel; the kernel then applies each leg's own threshold to its own
+        // accumulation. `fused_legs_agree` has already established that the
+        // clamps at this threshold are the identity wherever a leg is live.
+        let mut t_min = t;
+        for l in legs {
+            if l.thresholds.density < t_min.density {
+                t_min = l.thresholds;
+            }
+        }
         let zt = t.zeta;
+        // GGA, so no tau clamp; see `crate::screen`.
+        let sc = crate::screen::Screen::new(&t_min, false, false);
         let chunk = match crate::gga::prepare(input, output, order, &d) {
             Ok(c) => c,
             Err(e) => return Some(Err(e)),
         };
         match (order, spin) {
-            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::exc_unpol::fused_pbeh_exc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Exc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::exc_unpol::fused_pbeh_exc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
-            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::vxc_unpol::fused_pbeh_vxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Vxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::vxc_unpol::fused_pbeh_vxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
-            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::fxc_unpol::fused_pbeh_fxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Fxc, Spin::Unpolarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::fxc_unpol::fused_pbeh_fxc_unpol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
-            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::exc_pol::fused_pbeh_exc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Exc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::exc_pol::fused_pbeh_exc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
-            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::vxc_pol::fused_pbeh_vxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Vxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::vxc_pol::fused_pbeh_vxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
-            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), dt, &|c: &mut GgaChunk<'_, '_>| {
-                k::fxc_pol::fused_pbeh_fxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], dt, zt)
+            (DerivativeOrder::Fxc, Spin::Polarized) => par_sweep(chunk, &d, min_chunk(), &sc, &|c: &mut GgaChunk<'_, '_>| {
+                k::fxc_pol::fused_pbeh_fxc_pol(c.rho, c.sigma, c.zk.as_deref_mut().expect("prepare guarantees this buffer"), c.vrho.as_deref_mut().expect("prepare guarantees this buffer"), c.vsigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rho2.as_deref_mut().expect("prepare guarantees this buffer"), c.v2rhosigma.as_deref_mut().expect("prepare guarantees this buffer"), c.v2sigma2.as_deref_mut().expect("prepare guarantees this buffer"), weights[0], weights[1], p0[0], p0[1], p1[0], p1[1], p1[2], legs[0].thresholds.density, legs[1].thresholds.density, zt)
             }),
             _ => unreachable!("ARMS was checked above"),
         }

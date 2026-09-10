@@ -160,50 +160,75 @@ pub fn acos(x: f64x8) -> f64x8 {
     rmath::acos(x)
 }
 
+/// The `dw` of one Halley step of [`lambert_w`], eight lanes, in the scalar's
+/// operand order. The caller adds it, because it also needs `dw` for the
+/// convergence test.
+///
+/// `w != -1.0` is an exact comparison, as it is in libxc; an earlier version
+/// here used `|w + 1| < 1e-300`, which takes the `dw = 0` branch for a whole
+/// neighbourhood the scalar iterates through.
 #[inline(always)]
 fn halley_step(w: f64x8, z: f64x8) -> f64x8 {
+    let one = f64x8::splat(1.0);
+    let two = f64x8::splat(2.0);
     let expmw = exp(-w);
     let residual = w - z * expmw;
-    let denom = w + f64x8::splat(1.0) - (w + f64x8::splat(2.0)) / (f64x8::splat(2.0) * w + f64x8::splat(2.0)) * residual;
-    let mask = (w + f64x8::splat(1.0)).abs().simd_lt(f64x8::splat(1.0e-300));
-    let dw = mask.select(f64x8::splat(0.0), -residual / denom);
-    w + dw
+    let denom = w + one - (w + two) / (two * w + two) * residual;
+    let at_pole = w.simd_eq(-one);
+    at_pole.select(f64x8::ZERO, -residual / denom)
 }
 
-/// Principal branch of Lambert W function for `f64x8`.
+/// Principal branch of the Lambert W function for `f64x8`.
+///
+/// Bit-identical to [`crate::lambert_w::lambert_w`], including its stopping
+/// rule. libxc returns at the first Halley step whose `|dw| < 100 eps (1+|w|)`
+/// and returns **0.0** if fifteen steps do not get there; a lane cannot
+/// `return`, so a converged lane is *frozen* -- its `w` stops being updated,
+/// which is the same thing -- and a lane that never converges is replaced by
+/// zero at the end.
 #[inline(always)]
 pub fn lambert_w(z: f64x8) -> f64x8 {
-    let exp_1 = rmath::exp(1.0_f64);
-    let inv_e = f64x8::splat(1.0_f64 / exp_1);
-    let eps = f64x8::splat(1e-15_f64);
-    let cbrt_eps = f64x8::splat(rmath::pow(1e-15_f64, 1.0_f64 / 3.0_f64));
+    const M_E: f64 = std::f64::consts::E;
+    let one = f64x8::splat(1.0);
+
+    let inv_e = f64x8::splat(1.0 / M_E);
+    let eps = f64x8::splat(f64::EPSILON);
+    let cbrt_eps = f64x8::splat(rmath::cbrt(f64::EPSILON));
 
     let small_res = z - z * z + f64x8::splat(1.5) * z * z * z;
 
-    let branch_arg = (f64x8::splat(2.0_f64 * exp_1) * z + f64x8::splat(2.0_f64)).max(f64x8::splat(0.0));
-    let branch_guess = branch_arg.sqrt() - f64x8::splat(1.0);
-    let taylor_guess = small_res;
+    // Initial guesses. The square root and the logs are evaluated on every
+    // lane and selected afterwards, so their arguments are floored to keep a
+    // lane that is not going to use them from raising a NaN into the select.
+    let branch_arg = (f64x8::splat(2.0 * M_E) * z + f64x8::splat(2.0)).max(f64x8::ZERO);
+    let branch_guess = branch_arg.sqrt() - one;
     let pos_z = z.max(f64x8::splat(1e-300));
     let lnz = ln(pos_z);
-    let pos_lnz = lnz.max(f64x8::splat(1e-300));
-    let asymp_guess = lnz - ln(pos_lnz);
+    let asymp_guess = lnz - ln(lnz.max(f64x8::splat(1e-300)));
 
-    let is_near_branch = z.simd_le(f64x8::splat(-0.3140862435046707_f64));
-    let is_taylor = z.simd_le(f64x8::splat(1.149876485041417_f64));
+    let is_near_branch = z.simd_le(f64x8::splat(-0.3140862435046707));
+    let is_taylor = z.simd_le(f64x8::splat(1.149876485041417));
+    let mut w = is_near_branch.select(branch_guess, is_taylor.select(small_res, asymp_guess));
 
-    let w0 = is_near_branch.select(branch_guess, is_taylor.select(taylor_guess, asymp_guess));
-
-    let mut w = w0;
+    // `done` is the lane-wise stand-in for libxc's `return w`.
+    let mut done = f64x8::ZERO.simd_ne(f64x8::ZERO); // all false
     for _ in 0..15 {
-        w = halley_step(w, z);
+        // `halley_step` returns `dw`, not `w + dw`.
+        let dw = halley_step(w, z);
+        let next = done.select(w, w + dw);
+        // The test is applied to the *updated* w, as in the C, where the
+        // `return` follows `w += dw`.
+        let converged = dw.abs().simd_lt(f64x8::splat(100.0) * eps * (one + next.abs()));
+        w = next;
+        done |= converged;
     }
+    // "This should never happen!" -- libxc warns and returns zero.
+    let w = done.select(w, f64x8::ZERO);
 
-    let is_below_branch = (z + inv_e).simd_lt(f64x8::splat(-10.0_f64 * 1e-15_f64));
+    let is_below_branch = z.simd_lt(-inv_e);
     let is_small_z = z.abs().simd_lt(cbrt_eps);
-
     is_below_branch.select(f64x8::splat(-1.0), is_small_z.select(small_res, w))
 }
-
 
 /// Run a scalar helper on every lane.
 ///

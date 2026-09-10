@@ -14,6 +14,22 @@ use libxc_rkernel_mgga_x_gvt4 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 204;
 
+/// libxc's `XC_FLAGS_NEEDS_TAU` for this functional.
+///
+/// Set means `work_mgga_inc.c` clamps `tau` up to `tau_threshold`
+/// and then clamps `sigma` down to the Fermi-hole curvature bound
+/// `8 rho tau`. Clear means libxc evaluates the functional at
+/// `tau = 0` and neither clamp applies.
+pub const NEEDS_TAU: bool = true;
+
+/// Whether the kernel has to be handed `tau = 0` to reproduce
+/// libxc, rather than the caller's `tau`.
+///
+/// Only ever true when [`NEEDS_TAU`] is false, and then only when
+/// this kernel actually reads `tau` -- see
+/// `crate::screen::Screen::zero_tau`.
+pub const ZERO_TAU: bool = false;
+
 
 
 /// Number of libxc `ext_params` this dispatch accepts at runtime: none,
@@ -70,6 +86,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rmgga!(
         input, output, order, spin, thresholds,
+        needs_tau = NEEDS_TAU, zero_tau = ZERO_TAU,
         [k::exc_unpol::mgga_x_gvt4_exc_unpol],
         [k::vxc_unpol::mgga_x_gvt4_vxc_unpol],
         [k::fxc_unpol::mgga_x_gvt4_fxc_unpol],

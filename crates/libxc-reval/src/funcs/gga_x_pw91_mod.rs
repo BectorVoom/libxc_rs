@@ -14,6 +14,7 @@ use libxc_rkernel_gga_x_pw91 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 316;
 
+
 /// libxc default for `param_a`.
 pub const PARAM_A: f64 = 0.196447965321926;
 /// libxc default for `param_alpha`.
@@ -83,6 +84,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_x_pw91_exc_unpol],
         [k::vxc_unpol::gga_x_pw91_vxc_unpol],
         [k::fxc_unpol::gga_x_pw91_fxc_unpol],

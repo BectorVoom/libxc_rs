@@ -89,7 +89,13 @@ impl Functional {
             meta,
             spin,
             dims,
-            thresholds: Thresholds::default(),
+            // libxc's `xc_func_init` seeds these from `info->dens_threshold`,
+            // which is per functional (1e-15 for 432 of the 649, but 1e-14 for
+            // 113, 1e-12 for 40, 1e-32 for eight). It is not just a screening
+            // cutoff -- `work_*_inc.c` also clamps the inputs with it, and
+            // derives `sigma_threshold` from it -- so a global 1e-15 gave 217
+            // functionals both a different screen and a different clamp.
+            thresholds: Thresholds::for_density(meta.default_density_threshold),
             ext_params,
             params,
             auxiliaries,

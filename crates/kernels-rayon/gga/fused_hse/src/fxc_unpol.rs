@@ -78,7 +78,9 @@ pub fn fused_hse_fxc_unpol(
     l2_param_gamma: f64,
     l2_param_BB: f64,
     l2_param_beta: f64,
-    dens_threshold: f64,
+    dens_threshold_0: f64,
+    dens_threshold_1: f64,
+    dens_threshold_2: f64,
     zeta_threshold: f64,
 ) {
     let np = zk.len();
@@ -89,7 +91,9 @@ pub fn fused_hse_fxc_unpol(
     let l2_param_gamma = f64x8::splat(l2_param_gamma);
     let l2_param_BB = f64x8::splat(l2_param_BB);
     let l2_param_beta = f64x8::splat(l2_param_beta);
-    let dens_threshold = f64x8::splat(dens_threshold);
+    let dens_threshold_0 = f64x8::splat(dens_threshold_0);
+    let dens_threshold_1 = f64x8::splat(dens_threshold_1);
+    let dens_threshold_2 = f64x8::splat(dens_threshold_2);
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
@@ -194,7 +198,7 @@ pub fn fused_hse_fxc_unpol(
         let mut acc_v2rhosigma = V_ZERO;
         let mut acc_v2sigma2 = V_ZERO;
         {
-            let l0_t3 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
+            let l0_t3 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold_0);
             let l0_t20 = (simd::cbrt(v_rho));
             let l0_t21 = l0_t19 * l0_t20;
             let l0_t30 = f64x8::splat(1.0) / l0_t20;
@@ -771,6 +775,7 @@ pub fn fused_hse_fxc_unpol(
             let l0_t3435 = l0_t3335 + l0_t3434;
             let l0_t3439 = ((l0_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l0_t3435));
             let l0_tv2sigma20 = f64x8::splat(2.0) * v_rho * l0_t3439;
+            let l1_t3 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold_1);
             let l1_t32 = l1_t23 * l0_t29 * l0_t30;
             let l1_t33 = l1_t32 / f64x8::splat(3.0);
             let l1_t34 = (f64x8::splat(14.0)).simd_lt(l1_t33);
@@ -863,7 +868,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t310 = l0_t152 * l1_t292;
             let l1_t328 = l0_t172 * l1_t292;
             let l1_t332 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t221 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t270 * l0_t172 + l1_t274 * l1_t288 * l1_t293 / f64x8::splat(27.0) + f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t302 * l0_t303 * l1_t307 * l1_t310 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t327 * l1_t328;
-            let l1_t336 = ((l0_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t332));
+            let l1_t336 = ((l1_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t332));
             let l1_tzk0 = f64x8::splat(2.0) * l1_t336;
             let l1_t342 = l1_t91 - f64x8::splat(1.0) / l1_t90;
             let l1_t382 = ((l1_t75).select(f64x8::splat(0.0), f64x8::splat(0.0)));
@@ -990,7 +995,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t784 = l0_t172 * l1_t733;
             let l1_t785 = l1_t784 * l1_t705;
             let l1_t789 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t613 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t692 * l0_t172 + f64x8::splat(4.0) / f64x8::splat(3.0) * l0_t696 * l0_t396 - l1_t274 * l1_t699 * l1_t293 / f64x8::splat(81.0) + l1_t274 * l1_t723 * l1_t293 / f64x8::splat(27.0) - l1_t274 * l1_t288 * l1_t727 / f64x8::splat(27.0) - f64x8::splat(5.0) / f64x8::splat(54.0) * l1_t274 * l1_t288 * l1_t735 - f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t302 * l0_t739 * l1_t307 * l1_t310 + f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t302 * l0_t303 * l1_t750 * l1_t310 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t759 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t764 - f64x8::splat(40.0) / f64x8::splat(243.0) * l1_t323 * l0_t769 * l1_t328 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t775 * l1_t328 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t323 * l0_t327 * l1_t780 - f64x8::splat(20.0) / f64x8::splat(81.0) * l1_t323 * l0_t327 * l1_t785;
-            let l1_t794 = ((l0_t3).select(f64x8::splat(0.0), -l0_t7 * l0_t337 * l1_t332 * f64x8::splat(0.125) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t789));
+            let l1_t794 = ((l1_t3).select(f64x8::splat(0.0), -l0_t7 * l0_t337 * l1_t332 * f64x8::splat(0.125) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t789));
             let l1_tvrho0 = f64x8::splat(2.0) * v_rho * l1_t794 + f64x8::splat(2.0) * l1_t336;
             let l1_t831 = l1_t342 * l0_t830;
             let l1_t840 = l1_t475 * l0_t830;
@@ -1034,7 +1039,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t1063 = l1_t779 * l0_t834;
             let l1_t1067 = l1_t784 * l0_t834;
             let l1_t1071 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t947 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t1010 * l0_t172 + f64x8::splat(4.0) / f64x8::splat(3.0) * l0_t696 * l0_t834 + l1_t274 * l1_t1028 * l1_t293 / f64x8::splat(27.0) - l1_t274 * l1_t288 * l1_t1032 / f64x8::splat(27.0) - f64x8::splat(5.0) / f64x8::splat(54.0) * l1_t274 * l1_t288 * l1_t1036 + f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t302 * l0_t303 * l1_t1044 * l1_t310 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t1050 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t1054 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t1059 * l1_t328 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t323 * l0_t327 * l1_t1063 - f64x8::splat(20.0) / f64x8::splat(81.0) * l1_t323 * l0_t327 * l1_t1067;
-            let l1_t1075 = ((l0_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t1071));
+            let l1_t1075 = ((l1_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t1071));
             let l1_tvsigma0 = f64x8::splat(2.0) * v_rho * l1_t1075;
             let l1_t1316 = l1_t316 * l0_t322 * l0_t325;
             let l1_t1318 = l1_t733 * l0_t396;
@@ -1241,7 +1246,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t1990 = l1_t734 * l1_t1844;
             let l1_t1994 = f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t1951 * l1_t328 + f64x8::splat(4.0) / f64x8::splat(243.0) * l1_t274 * l1_t1955 * l1_t293 + f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t756 * l1_t1961 + f64x8::splat(35.0) / f64x8::splat(27.0) * l1_t756 * l1_t1965 + f64x8::splat(320.0) / f64x8::splat(729.0) * l1_t323 * l0_t1970 * l1_t328 + f64x8::splat(2.0) / f64x8::splat(81.0) * l1_t274 * l1_t699 * l1_t727 + f64x8::splat(5.0) / f64x8::splat(81.0) * l1_t274 * l1_t699 * l1_t735 - f64x8::splat(2.0) / f64x8::splat(27.0) * l1_t274 * l1_t723 * l1_t727 - f64x8::splat(5.0) / f64x8::splat(27.0) * l1_t274 * l1_t723 * l1_t735 - l1_t274 * l1_t288 * l1_t1986 / f64x8::splat(27.0) - f64x8::splat(5.0) / f64x8::splat(54.0) * l1_t274 * l1_t288 * l1_t1990;
             let l1_t1996 = l1_t1880 + f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t302 * l0_t1881 * l1_t307 * l1_t310 - f64x8::splat(2.0) / f64x8::splat(81.0) * l1_t274 * l1_t1886 * l1_t293 + l1_t274 * l1_t1916 * l1_t293 / f64x8::splat(27.0) + f64x8::splat(16.0) / f64x8::splat(27.0) * l1_t1921 * l1_t759 + f64x8::splat(20.0) / f64x8::splat(27.0) * l1_t1921 * l1_t764 - f64x8::splat(16.0) / f64x8::splat(27.0) * l1_t756 * l1_t1927 - f64x8::splat(20.0) / f64x8::splat(27.0) * l1_t756 * l1_t1931 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t1935 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t1939 - f64x8::splat(80.0) / f64x8::splat(243.0) * l1_t323 * l0_t1942 * l1_t328 + l1_t1994;
-            let l1_t2001 = ((l0_t3).select(f64x8::splat(0.0), l0_t7 * l0_t1078 * l1_t332 / f64x8::splat(12.0) - l0_t7 * l0_t337 * l1_t789 * f64x8::splat(0.25) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t1996));
+            let l1_t2001 = ((l1_t3).select(f64x8::splat(0.0), l0_t7 * l0_t1078 * l1_t332 / f64x8::splat(12.0) - l0_t7 * l0_t337 * l1_t789 * f64x8::splat(0.25) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t1996));
             let l1_tv2rho20 = f64x8::splat(2.0) * v_rho * l1_t2001 + f64x8::splat(4.0) * l1_t794;
             let l1_t2083 = l1_t779 * l0_t2082;
             let l1_t2090 = l1_t784 * l0_t2082;
@@ -1378,7 +1383,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t2826 = ((l1_t34).select(f64x8::splat(0.5080572) * l1_t2481 + f64x8::splat(0.5080572) * l1_t2483 - f64x8::splat(0.5080572) * l0_t2082 * l1_t397 + f64x8::splat(0.5080572) * l1_t2487 * l1_t396 + f64x8::splat(0.5080572) * l0_t2082 * l1_t400 - f64x8::splat(0.5080572) * l1_t2492 * l1_t396, l1_t2537 + l1_t2614 + l1_t2744 + l1_t2823));
             let l1_t2828 = -f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t2439 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t2443 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t2446 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t2450 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t2453 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t2457 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t2465 * l1_t328 - l1_t274 * l1_t2469 * l1_t293 / f64x8::splat(81.0) + f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t1921 * l1_t1050 + f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t1921 * l1_t1054 - f64x8::splat(40.0) / f64x8::splat(243.0) * l1_t323 * l0_t2477 * l1_t328 - f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t2826;
             let l1_t2830 = l1_t2120 + l1_t2343 + l1_t2437 + l1_t2828;
-            let l1_t2835 = ((l0_t3).select(f64x8::splat(0.0), -l0_t7 * l0_t337 * l1_t1071 * f64x8::splat(0.125) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t2830));
+            let l1_t2835 = ((l1_t3).select(f64x8::splat(0.0), -l0_t7 * l0_t337 * l1_t1071 * f64x8::splat(0.125) - f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t2830));
             let l1_tv2rhosigma0 = f64x8::splat(2.0) * v_rho * l1_t2835 + f64x8::splat(2.0) * l1_t1075;
             let l1_t2841 = l1_t278 * l0_t2840;
             let l1_t2842 = l1_t2841 * l0_t230;
@@ -1468,7 +1473,7 @@ pub fn fused_hse_fxc_unpol(
             let l1_t3429 = l1_t762 * l1_t3428;
             let l1_t3434 = -f64x8::splat(16.0) / f64x8::splat(27.0) * l1_t323 * l0_t1059 * l1_t1063 - f64x8::splat(40.0) / f64x8::splat(81.0) * l1_t323 * l0_t1059 * l1_t1067 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t323 * l0_t327 * l1_t3342 - f64x8::splat(20.0) / f64x8::splat(81.0) * l1_t323 * l0_t327 * l1_t3346 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t3367 * l0_t172 + l1_t274 * l1_t3394 * l1_t293 / f64x8::splat(27.0) - f64x8::splat(16.0) / f64x8::splat(27.0) * l1_t756 * l1_t3398 - f64x8::splat(20.0) / f64x8::splat(27.0) * l1_t756 * l1_t3401 - f64x8::splat(8.0) / f64x8::splat(27.0) * l1_t756 * l1_t3405 - f64x8::splat(10.0) / f64x8::splat(27.0) * l1_t756 * l1_t3409 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t323 * l0_t3416 * l1_t328 + f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t756 * l1_t3421 + f64x8::splat(40.0) / f64x8::splat(27.0) * l1_t756 * l1_t3425 + f64x8::splat(35.0) / f64x8::splat(27.0) * l1_t756 * l1_t3429 + f64x8::splat(4.0) / f64x8::splat(3.0) * l0_t696 * l0_t2937;
             let l1_t3435 = l1_t3335 + l1_t3434;
-            let l1_t3439 = ((l0_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t3435));
+            let l1_t3439 = ((l1_t3).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t7 * l0_t21 * l1_t3435));
             let l1_tv2sigma20 = f64x8::splat(2.0) * v_rho * l1_t3439;
             let l2_t10 = l2_t4 * l2_t6 / l0_t20;
             let l2_t12 = f64x8::splat(1.0) + f64x8::splat(0.053425) * l2_t10;
@@ -1703,24 +1708,24 @@ pub fn fused_hse_fxc_unpol(
             let l2_t500 = l2_t472 * l2_t473 * l2_t90 * l2_t479 / f64x8::splat(1536.0) - f64x8::splat(2.0) * l2_t483 * l2_t485 + f64x8::splat(2.0) * l2_t490 * l2_t492 - l2_t497 * l2_t99 / f64x8::splat(1536.0);
             let l2_t504 = l2_t240 * l2_t240;
             let l2_tv2sigma20 = l2_t220 * l2_t61 * l2_t500 * l2_t215 - l2_t220 * l2_t61 * l2_t504 * l2_t425;
-            acc_zk = acc_zk + (w0 * (f64x8::splat(0.0) + l0_tzk0));
-            acc_vrho = acc_vrho + (w0 * (f64x8::splat(0.0) + l0_tvrho0));
-            acc_vsigma = acc_vsigma + (w0 * (f64x8::splat(0.0) + l0_tvsigma0));
-            acc_v2rho2 = acc_v2rho2 + (w0 * (f64x8::splat(0.0) + l0_tv2rho20));
-            acc_v2rhosigma = acc_v2rhosigma + (w0 * (f64x8::splat(0.0) + l0_tv2rhosigma0));
-            acc_v2sigma2 = acc_v2sigma2 + (w0 * (f64x8::splat(0.0) + l0_tv2sigma20));
-            acc_zk = acc_zk + (w1 * (f64x8::splat(0.0) + l1_tzk0));
-            acc_vrho = acc_vrho + (w1 * (f64x8::splat(0.0) + l1_tvrho0));
-            acc_vsigma = acc_vsigma + (w1 * (f64x8::splat(0.0) + l1_tvsigma0));
-            acc_v2rho2 = acc_v2rho2 + (w1 * (f64x8::splat(0.0) + l1_tv2rho20));
-            acc_v2rhosigma = acc_v2rhosigma + (w1 * (f64x8::splat(0.0) + l1_tv2rhosigma0));
-            acc_v2sigma2 = acc_v2sigma2 + (w1 * (f64x8::splat(0.0) + l1_tv2sigma20));
-            acc_zk = acc_zk + (w2 * (f64x8::splat(0.0) + l2_tzk0));
-            acc_vrho = acc_vrho + (w2 * (f64x8::splat(0.0) + l2_tvrho0));
-            acc_vsigma = acc_vsigma + (w2 * (f64x8::splat(0.0) + l2_tvsigma0));
-            acc_v2rho2 = acc_v2rho2 + (w2 * (f64x8::splat(0.0) + l2_tv2rho20));
-            acc_v2rhosigma = acc_v2rhosigma + (w2 * (f64x8::splat(0.0) + l2_tv2rhosigma0));
-            acc_v2sigma2 = acc_v2sigma2 + (w2 * (f64x8::splat(0.0) + l2_tv2sigma20));
+            acc_zk = acc_zk + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tzk0)));
+            acc_vrho = acc_vrho + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tvrho0)));
+            acc_vsigma = acc_vsigma + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tvsigma0)));
+            acc_v2rho2 = acc_v2rho2 + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tv2rho20)));
+            acc_v2rhosigma = acc_v2rhosigma + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tv2rhosigma0)));
+            acc_v2sigma2 = acc_v2sigma2 + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tv2sigma20)));
+            acc_zk = acc_zk + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tzk0)));
+            acc_vrho = acc_vrho + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tvrho0)));
+            acc_vsigma = acc_vsigma + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tvsigma0)));
+            acc_v2rho2 = acc_v2rho2 + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tv2rho20)));
+            acc_v2rhosigma = acc_v2rhosigma + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tv2rhosigma0)));
+            acc_v2sigma2 = acc_v2sigma2 + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tv2sigma20)));
+            acc_zk = acc_zk + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tzk0)));
+            acc_vrho = acc_vrho + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tvrho0)));
+            acc_vsigma = acc_vsigma + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tvsigma0)));
+            acc_v2rho2 = acc_v2rho2 + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tv2rho20)));
+            acc_v2rhosigma = acc_v2rhosigma + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tv2rhosigma0)));
+            acc_v2sigma2 = acc_v2sigma2 + (w2 * (((v_rho).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tv2sigma20)));
         }
         store_add(zk, ip, m, acc_zk);
         store_add(vrho, ip, m, acc_vrho);

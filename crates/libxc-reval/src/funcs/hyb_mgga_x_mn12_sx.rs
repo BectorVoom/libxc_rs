@@ -14,6 +14,22 @@ use libxc_rkernel_mgga_x_mn12 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 248;
 
+/// libxc's `XC_FLAGS_NEEDS_TAU` for this functional.
+///
+/// Set means `work_mgga_inc.c` clamps `tau` up to `tau_threshold`
+/// and then clamps `sigma` down to the Fermi-hole curvature bound
+/// `8 rho tau`. Clear means libxc evaluates the functional at
+/// `tau = 0` and neither clamp applies.
+pub const NEEDS_TAU: bool = true;
+
+/// Whether the kernel has to be handed `tau = 0` to reproduce
+/// libxc, rather than the caller's `tau`.
+///
+/// Only ever true when [`NEEDS_TAU`] is false, and then only when
+/// this kernel actually reads `tau` -- see
+/// `crate::screen::Screen::zero_tau`.
+pub const ZERO_TAU: bool = false;
+
 /// libxc default for `param_c_1`.
 pub const PARAM_C_1: f64 = -2.681208e-01;
 /// libxc default for `param_c_2`.
@@ -203,6 +219,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rmgga!(
         input, output, order, spin, thresholds,
+        needs_tau = NEEDS_TAU, zero_tau = ZERO_TAU,
         [k::exc_unpol::mgga_x_mn12_exc_unpol],
         [k::vxc_unpol::mgga_x_mn12_vxc_unpol],
         [k::fxc_unpol::mgga_x_mn12_fxc_unpol],
@@ -226,6 +243,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rmgga!(
         input, output, order, spin, thresholds,
+        needs_tau = NEEDS_TAU, zero_tau = ZERO_TAU,
         [k::exc_unpol::mgga_x_mn12_exc_unpol],
         [k::vxc_unpol::mgga_x_mn12_vxc_unpol],
         [k::fxc_unpol::mgga_x_mn12_fxc_unpol],

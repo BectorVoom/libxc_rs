@@ -131,7 +131,8 @@ pub fn fused_pbeh_exc_pol(
     l1_param_gamma: f64,
     l1_param_BB: f64,
     l1_param_beta: f64,
-    dens_threshold: f64,
+    dens_threshold_0: f64,
+    dens_threshold_1: f64,
     zeta_threshold: f64,
 ) {
     let np = zk.len();
@@ -142,7 +143,8 @@ pub fn fused_pbeh_exc_pol(
     let l1_param_gamma = f64x8::splat(l1_param_gamma);
     let l1_param_BB = f64x8::splat(l1_param_BB);
     let l1_param_beta = f64x8::splat(l1_param_beta);
-    let dens_threshold = f64x8::splat(dens_threshold);
+    let dens_threshold_0 = f64x8::splat(dens_threshold_0);
+    let dens_threshold_1 = f64x8::splat(dens_threshold_1);
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
@@ -189,7 +191,7 @@ pub fn fused_pbeh_exc_pol(
         let v_sigma2 = load_strided(sigma, ip, np, 3, 2);
         let mut acc_zk = V_ZERO;
         {
-            let l0_t1 = (v_rho0).simd_le(dens_threshold);
+            let l0_t1 = (v_rho0).simd_le(dens_threshold_0);
             let l0_t6 = v_rho0 + v_rho1;
             let l0_t7 = f64x8::splat(1.0) / l0_t6;
             let l0_t10 = (f64x8::splat(2.0) * v_rho0 * l0_t7).simd_le(zeta_threshold);
@@ -210,7 +212,7 @@ pub fn fused_pbeh_exc_pol(
             let l0_t43 = l0_param_kappa + l0_t29 * l0_t34 * l0_t39 / f64x8::splat(24.0);
             let l0_t48 = f64x8::splat(1.0) + l0_param_kappa * (f64x8::splat(1.0) - l0_param_kappa / l0_t43);
             let l0_t52 = ((l0_t1).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t5 * l0_t27 * l0_t48));
-            let l0_t53 = (v_rho1).simd_le(dens_threshold);
+            let l0_t53 = (v_rho1).simd_le(dens_threshold_0);
             let l0_t54 = -l0_t16;
             let l0_t56 = ((l0_t14).select(l0_t11, (l0_t10).select(l0_t15, l0_t54 * l0_t7)));
             let l0_t57 = f64x8::splat(1.0) + l0_t56;
@@ -305,8 +307,8 @@ pub fn fused_pbeh_exc_pol(
             let l1_t151 = (simd::ln(l1_t150));
             let l1_t152 = l1_t101 * l1_t151;
             let l1_tzk0 = -l1_t33 + l1_t89 + l1_t91 + l1_t152;
-            acc_zk = acc_zk + (w0 * (f64x8::splat(0.0) + l0_tzk0));
-            acc_zk = acc_zk + (w1 * (f64x8::splat(0.0) + l1_tzk0));
+            acc_zk = acc_zk + (w0 * ((((v_rho0 + v_rho1)).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tzk0)));
+            acc_zk = acc_zk + (w1 * ((((v_rho0 + v_rho1)).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tzk0)));
         }
         store_add(zk, ip, m, acc_zk);
         ip += 8;

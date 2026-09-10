@@ -1538,6 +1538,27 @@ mod tests {
                     }
                     covered += 1;
                     let np = 5000;
+                    // The comparison is only worth something if the fused path
+                    // is actually taken. It is refused whenever the legs'
+                    // thresholds could be told apart on the grid -- libxc gives
+                    // each auxiliary its own `dens_threshold`, and HSE06's and
+                    // PBE0's differ -- so assert the precondition rather than
+                    // let this quietly become mix against mix.
+                    {
+                        let f = Functional::new(id, spin).unwrap();
+                        let ths: Vec<Thresholds> =
+                            f.auxiliaries.iter().map(|a| *a.thresholds()).collect();
+                        let nc = if spin == Spin::Unpolarized { 1 } else { 2 };
+                        let (rho, sigma) = gga_grid(np, nc);
+                        let d = Dimensions::gga(spin);
+                        assert!(
+                            libxc_reval::screen::fused_legs_agree(
+                                &rho, &sigma, np, d.rho as usize, d.sigma as usize, &ths,
+                            ),
+                            "{name} {spin:?}: the fused path is refused on this grid, so the \
+                             comparison below is mix against mix and proves nothing"
+                        );
+                    }
                     let fused = run_composite_via(name, spin, order, np, 512, true, true);
                     let mix = run_composite_via(name, spin, order, np, 512, true, false);
                     for (k, (a, b)) in [(&fused.0, &mix.0), (&fused.1, &mix.1), (&fused.2, &mix.2), (&fused.3, &mix.3)]

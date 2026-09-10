@@ -28,6 +28,7 @@ pub mod powers;
 pub mod simd;
 pub mod bessel;
 pub mod br89;
+pub mod brent;
 pub mod bspline;
 pub mod dft_quantities;
 pub mod erf;

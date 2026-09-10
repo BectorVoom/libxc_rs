@@ -75,7 +75,8 @@ pub fn fused_pbeh_vxc_unpol(
     l1_param_gamma: f64,
     l1_param_BB: f64,
     l1_param_beta: f64,
-    dens_threshold: f64,
+    dens_threshold_0: f64,
+    dens_threshold_1: f64,
     zeta_threshold: f64,
 ) {
     let np = zk.len();
@@ -86,7 +87,8 @@ pub fn fused_pbeh_vxc_unpol(
     let l1_param_gamma = f64x8::splat(l1_param_gamma);
     let l1_param_BB = f64x8::splat(l1_param_BB);
     let l1_param_beta = f64x8::splat(l1_param_beta);
-    let dens_threshold = f64x8::splat(dens_threshold);
+    let dens_threshold_0 = f64x8::splat(dens_threshold_0);
+    let dens_threshold_1 = f64x8::splat(dens_threshold_1);
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
@@ -156,7 +158,7 @@ pub fn fused_pbeh_vxc_unpol(
         let mut acc_vrho = V_ZERO;
         let mut acc_vsigma = V_ZERO;
         {
-            let l0_t2 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold);
+            let l0_t2 = (v_rho * f64x8::splat(0.5)).simd_le(dens_threshold_0);
             let l0_t18 = (simd::cbrt(v_rho));
             let l0_t30 = v_rho * v_rho;
             let l0_t31 = l0_t18 * l0_t18;
@@ -278,12 +280,12 @@ pub fn fused_pbeh_vxc_unpol(
             let l1_t238 = l1_t237 * l1_t231;
             let l1_t240 = l1_t232 * l1_t109 - l1_t236 * l1_t238;
             let l1_tvsigma0 = l1_t220 * l1_t61 * l1_t240 * l1_t215;
-            acc_zk = acc_zk + (w0 * (f64x8::splat(0.0) + l0_tzk0));
-            acc_vrho = acc_vrho + (w0 * (f64x8::splat(0.0) + l0_tvrho0));
-            acc_vsigma = acc_vsigma + (w0 * (f64x8::splat(0.0) + l0_tvsigma0));
-            acc_zk = acc_zk + (w1 * (f64x8::splat(0.0) + l1_tzk0));
-            acc_vrho = acc_vrho + (w1 * (f64x8::splat(0.0) + l1_tvrho0));
-            acc_vsigma = acc_vsigma + (w1 * (f64x8::splat(0.0) + l1_tvsigma0));
+            acc_zk = acc_zk + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tzk0)));
+            acc_vrho = acc_vrho + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tvrho0)));
+            acc_vsigma = acc_vsigma + (w0 * (((v_rho).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tvsigma0)));
+            acc_zk = acc_zk + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tzk0)));
+            acc_vrho = acc_vrho + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tvrho0)));
+            acc_vsigma = acc_vsigma + (w1 * (((v_rho).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tvsigma0)));
         }
         store_add(zk, ip, m, acc_zk);
         store_add(vrho, ip, m, acc_vrho);

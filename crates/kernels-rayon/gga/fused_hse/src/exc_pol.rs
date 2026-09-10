@@ -131,7 +131,9 @@ pub fn fused_hse_exc_pol(
     l2_param_gamma: f64,
     l2_param_BB: f64,
     l2_param_beta: f64,
-    dens_threshold: f64,
+    dens_threshold_0: f64,
+    dens_threshold_1: f64,
+    dens_threshold_2: f64,
     zeta_threshold: f64,
 ) {
     let np = zk.len();
@@ -142,7 +144,9 @@ pub fn fused_hse_exc_pol(
     let l2_param_gamma = f64x8::splat(l2_param_gamma);
     let l2_param_BB = f64x8::splat(l2_param_BB);
     let l2_param_beta = f64x8::splat(l2_param_beta);
-    let dens_threshold = f64x8::splat(dens_threshold);
+    let dens_threshold_0 = f64x8::splat(dens_threshold_0);
+    let dens_threshold_1 = f64x8::splat(dens_threshold_1);
+    let dens_threshold_2 = f64x8::splat(dens_threshold_2);
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
@@ -202,7 +206,7 @@ pub fn fused_hse_exc_pol(
         let v_sigma2 = load_strided(sigma, ip, np, 3, 2);
         let mut acc_zk = V_ZERO;
         {
-            let l0_t2 = (v_rho0).simd_le(dens_threshold);
+            let l0_t2 = (v_rho0).simd_le(dens_threshold_0);
             let l0_t7 = v_rho0 + v_rho1;
             let l0_t8 = f64x8::splat(1.0) / l0_t7;
             let l0_t12 = (f64x8::splat(2.0) * v_rho0 * l0_t8).simd_le(zeta_threshold);
@@ -301,7 +305,7 @@ pub fn fused_hse_exc_pol(
             let l0_t341 = l0_t339 * l0_t340;
             let l0_t346 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l0_t236 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t285 * l0_t187;
             let l0_t350 = ((l0_t2).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t29 * l0_t346));
-            let l0_t351 = (v_rho1).simd_le(dens_threshold);
+            let l0_t351 = (v_rho1).simd_le(dens_threshold_0);
             let l0_t352 = -l0_t18;
             let l0_t354 = ((l0_t16).select(l0_t13, (l0_t12).select(l0_t17, l0_t352 * l0_t8)));
             let l0_t355 = f64x8::splat(1.0) + l0_t354;
@@ -389,6 +393,7 @@ pub fn fused_hse_exc_pol(
             let l0_t645 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l0_t549 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t595 * l0_t500;
             let l0_t649 = ((l0_t351).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t360 * l0_t645));
             let l0_tzk0 = l0_t350 + l0_t649;
+            let l1_t2 = (v_rho0).simd_le(dens_threshold_1);
             let l1_t48 = l1_t31 * l0_t45 * l0_t46;
             let l1_t49 = l1_t48 / f64x8::splat(3.0);
             let l1_t50 = (f64x8::splat(14.0)).simd_lt(l1_t49);
@@ -485,7 +490,8 @@ pub fn fused_hse_exc_pol(
             let l1_t337 = l1_t330 * l0_t336;
             let l1_t342 = l0_t187 * l1_t307;
             let l1_t346 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t236 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t285 * l0_t187 + l1_t289 * l1_t303 * l1_t308 / f64x8::splat(27.0) + f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t317 * l0_t8 * l1_t321 * l1_t324 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t337 * l0_t341 * l1_t342;
-            let l1_t350 = ((l0_t2).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t29 * l1_t346));
+            let l1_t350 = ((l1_t2).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t29 * l1_t346));
+            let l1_t351 = (v_rho1).simd_le(dens_threshold_1);
             let l1_t369 = l1_t31 * l0_t367 * l0_t46;
             let l1_t370 = l1_t369 / f64x8::splat(3.0);
             let l1_t371 = (f64x8::splat(14.0)).simd_lt(l1_t370);
@@ -582,7 +588,7 @@ pub fn fused_hse_exc_pol(
             let l1_t638 = l1_t330 * l0_t637;
             let l1_t641 = l0_t500 * l1_t616;
             let l1_t645 = -f64x8::splat(8.0) / f64x8::splat(9.0) * l1_t549 - f64x8::splat(4.0) / f64x8::splat(9.0) * l0_t595 * l0_t500 + l1_t599 * l1_t612 * l1_t617 / f64x8::splat(27.0) + f64x8::splat(4.0) / f64x8::splat(27.0) * l1_t623 * l0_t8 * l1_t627 * l1_t630 + f64x8::splat(8.0) / f64x8::splat(81.0) * l1_t638 * l0_t640 * l1_t641;
-            let l1_t649 = ((l0_t351).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t360 * l1_t645));
+            let l1_t649 = ((l1_t351).select(f64x8::splat(0.0), -f64x8::splat(3.0) * f64x8::splat(0.125) * l0_t6 * l0_t360 * l1_t645));
             let l1_tzk0 = l1_t350 + l1_t649;
             let l2_t11 = l2_t4 * l2_t6 / l0_t28;
             let l2_t13 = f64x8::splat(1.0) + f64x8::splat(0.053425) * l2_t11;
@@ -660,9 +666,9 @@ pub fn fused_hse_exc_pol(
             let l2_t151 = (simd::ln(l2_t150));
             let l2_t152 = l2_t101 * l2_t151;
             let l2_tzk0 = -l2_t33 + l2_t89 + l2_t91 + l2_t152;
-            acc_zk = acc_zk + (w0 * (f64x8::splat(0.0) + l0_tzk0));
-            acc_zk = acc_zk + (w1 * (f64x8::splat(0.0) + l1_tzk0));
-            acc_zk = acc_zk + (w2 * (f64x8::splat(0.0) + l2_tzk0));
+            acc_zk = acc_zk + (w0 * ((((v_rho0 + v_rho1)).simd_lt(dens_threshold_0)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l0_tzk0)));
+            acc_zk = acc_zk + (w1 * ((((v_rho0 + v_rho1)).simd_lt(dens_threshold_1)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l1_tzk0)));
+            acc_zk = acc_zk + (w2 * ((((v_rho0 + v_rho1)).simd_lt(dens_threshold_2)).select(f64x8::splat(0.0), f64x8::splat(0.0) + l2_tzk0)));
         }
         store_add(zk, ip, m, acc_zk);
         ip += 8;

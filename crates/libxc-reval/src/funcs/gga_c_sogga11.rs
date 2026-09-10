@@ -14,6 +14,7 @@ use libxc_rkernel_gga_c_sogga11 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 152;
 
+
 /// libxc default for `param_sogga11_a_1`.
 pub const PARAM_SOGGA11_A_1: f64 = -4.62334;
 /// libxc default for `param_sogga11_a_2`.
@@ -116,6 +117,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_sogga11_exc_unpol],
         [k::vxc_unpol::gga_c_sogga11_vxc_unpol],
         [k::fxc_unpol::gga_c_sogga11_fxc_unpol],
@@ -139,6 +141,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_sogga11_exc_unpol],
         [k::vxc_unpol::gga_c_sogga11_vxc_unpol],
         [k::fxc_unpol::gga_c_sogga11_fxc_unpol],

@@ -14,6 +14,7 @@ use libxc_rkernel_hyb_lda_xc_bn05 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 588;
 
+
 /// libxc default for `param_hyb_omega_0`.
 pub const PARAM_HYB_OMEGA_0: f64 = 1.0;
 
@@ -83,6 +84,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::hyb_lda_xc_bn05_exc_unpol],
         [k::vxc_unpol::hyb_lda_xc_bn05_vxc_unpol],
         [k::fxc_unpol::hyb_lda_xc_bn05_fxc_unpol],
@@ -106,6 +108,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rlda!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::hyb_lda_xc_bn05_exc_unpol],
         [k::vxc_unpol::hyb_lda_xc_bn05_vxc_unpol],
         [k::fxc_unpol::hyb_lda_xc_bn05_fxc_unpol],

@@ -50,17 +50,19 @@ fn dump_gga_disagreements() {
 
     let (rho, sigma) = gga_grid();
     let np = rho.len();
-    let t = Thresholds::default();
 
     for name in &names {
         println!("\n================ {name} ================");
-        let id = match lookup_by_name(&format!("XC_{name}")) {
-            Ok(i) => i.raw() as i32,
+        let fid = match lookup_by_name(&format!("XC_{name}")) {
+            Ok(i) => i,
             Err(e) => {
                 println!("  no libxc id: {e}");
                 continue;
             }
         };
+        let id = fid.raw() as i32;
+        // Per functional, as `xc_func_init` does it -- see `Thresholds`.
+        let t = Thresholds::for_functional(fid);
         let want = match oracle_gga_all(id, 1, &rho, &sigma) {
             Ok(w) => w,
             Err(e) => {

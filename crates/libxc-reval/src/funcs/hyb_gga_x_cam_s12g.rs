@@ -14,6 +14,7 @@ use libxc_rkernel_hyb_gga_x_cam_s12 as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 646;
 
+
 /// libxc default for `param_C`.
 pub const PARAM_C: f64 = 0.00417251;
 /// libxc default for `param_D`.
@@ -104,6 +105,7 @@ pub fn dispatch_with(
     let p = kernel_params(ext)?;
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::hyb_gga_x_cam_s12_exc_unpol],
         [k::vxc_unpol::hyb_gga_x_cam_s12_vxc_unpol],
         [k::fxc_unpol::hyb_gga_x_cam_s12_fxc_unpol],
@@ -127,6 +129,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::hyb_gga_x_cam_s12_exc_unpol],
         [k::vxc_unpol::hyb_gga_x_cam_s12_vxc_unpol],
         [k::fxc_unpol::hyb_gga_x_cam_s12_fxc_unpol],

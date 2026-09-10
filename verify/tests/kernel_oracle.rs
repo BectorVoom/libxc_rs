@@ -56,6 +56,28 @@ const KERNEL_IS_PARTIAL: &[&str] = &["hyb_mgga_xc_b0kcis"];
 ///
 /// Listed rather than tolerated wholesale so a real regression still fails:
 /// the gate is 4x the measured value.
+///
+/// **The four BR89-family entries are a different mechanism from the rest, and
+/// their `vxc` figures were re-measured on 2026-09-10.** Those functionals go
+/// through `xc_mgga_x_br89_get_x`, a Brent solve whose `TOL = 5e-12` bounds
+/// the *bracket*, not the residual: both libraries return `(a+b)/2` of a
+/// bracket narrower than that, so ulp-different function values put the root
+/// anywhere inside it. `verify/tests/root_finders.rs` measures exactly that
+/// against libxc's own exported C -- worst |delta| 4.965e-12 against a
+/// `TOL` of 5e-12 -- and shows it collapsing to **0 differences in 250,011**
+/// when the oracle is rebuilt with `LIBXC_RS_FP_CONTRACT=off`. `vtau` and
+/// `vsigma` are derivatives, so they amplify that bracket ambiguity to the
+/// 1e-7 recorded here.
+///
+/// `mgga_x_b00` and `mgga_x_br89_1` moved from 2.9e-8 / 2.3e-8 when the
+/// solver was corrected to libxc's stopping rule (it previously ran a fixed 60
+/// unrolled iterations with no convergence test, a CubeCL-era artifact). That
+/// is not a fidelity regression -- the inversion is now provably libxc's
+/// algorithm operand for operand, where before it was provably not -- it is
+/// the same bracket ambiguity landing differently on this grid. The two
+/// entries that did not move (`mgga_x_br89`, `mgga_x_mggac`) sit at 5.4e-9 and
+/// 3.9e-9 and show the spread is grid luck rather than a property of the
+/// functional.
 const CONTRACTION_FLOOR: &[(&str, f64, f64)] = &[
     ("gga_x_beefvdw", 1.7e-10, 1.1e-8),
     ("hyb_mgga_x_mn15", 3.6e-11, 1.0e-12),
@@ -69,8 +91,8 @@ const CONTRACTION_FLOOR: &[(&str, f64, f64)] = &[
     ("mgga_c_m06_2x", 1.2e-12, 3.0e-12),
     ("hyb_mgga_xc_wb97m_v", 1.2e-12, 1.1e-11),
     ("mgga_x_br89", 1.0e-12, 5.4e-9),
-    ("mgga_x_b00", 1.0e-12, 2.9e-8),
-    ("mgga_x_br89_1", 1.0e-12, 2.3e-8),
+    ("mgga_x_b00", 1.0e-12, 1.7e-7),
+    ("mgga_x_br89_1", 1.0e-12, 1.1e-7),
     ("mgga_x_mggac", 1.0e-12, 3.9e-9),
 ];
 
@@ -193,7 +215,6 @@ struct Row {
 fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
     let nspin = if spin == Spin::Unpolarized { 1 } else { 2 };
     let g = grid(nspin);
-    let th = Thresholds::default();
     let nvr = nspin;
     let nvs = if nspin == 1 { 1 } else { 3 };
     let mut rows = Vec::new();
@@ -219,6 +240,12 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
             skipped.push((name.to_string(), "libxc xc_func_init failed".into()));
             continue;
         };
+        // libxc seeds `dens_threshold` from `info->dens_threshold`, which is
+        // per functional, and derives `sigma_threshold` from it. The oracle on
+        // the other side of this comparison was initialised that way, so the
+        // screen and the input clamps have to match it or the two libraries
+        // are being asked different questions.
+        let th = Thresholds::for_functional(id);
 
         macro_rules! cmp {
             ($ours:expr, $theirs:expr, $lbl:literal, $best:ident, $bestf:ident, $scale:expr) => {{

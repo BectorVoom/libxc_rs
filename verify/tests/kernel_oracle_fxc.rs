@@ -145,7 +145,6 @@ struct Row {
 fn sweep(spin: Spin) -> (Vec<Row>, usize) {
     let nspin = if spin == Spin::Unpolarized { 1 } else { 2 };
     let (rho, sigma) = grid(nspin);
-    let th = Thresholds::default();
     let nvr = nspin;
     let nvs = if nspin == 1 { 1 } else { 3 };
     // second-derivative widths
@@ -177,6 +176,10 @@ fn sweep(spin: Spin) -> (Vec<Row>, usize) {
             continue;
         }
         let cf = CFunc(t);
+        // Per functional, as `xc_func_init` does it: the oracle on the other
+        // side was seeded from `info->dens_threshold`, and that feeds both the
+        // screen and the input clamps in `work_*_inc.c`.
+        let th = Thresholds::for_functional(id);
 
         let (mut best, mut bestf) = (0.0f64, "");
         if *fam == "lda" {

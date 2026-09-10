@@ -14,6 +14,7 @@ use libxc_rkernel_gga_c_zpbeint as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 63;
 
+
 /// libxc default for `param_alpha`.
 pub const PARAM_ALPHA: f64 = 4.8;
 /// libxc default for `param_beta`.
@@ -73,6 +74,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_c_zpbeint_exc_unpol],
         [k::vxc_unpol::gga_c_zpbeint_vxc_unpol],
         [k::fxc_unpol::gga_c_zpbeint_fxc_unpol],

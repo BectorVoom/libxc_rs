@@ -170,7 +170,6 @@ impl Tally {
 
 #[test]
 fn rayon_backend_matches_libxc_oracle() {
-    let t = Thresholds::default();
     let mut tally = Tally::new();
 
     // ---- LDA ------------------------------------------------------------
@@ -178,13 +177,17 @@ fn rayon_backend_matches_libxc_oracle() {
     let np = rho.len();
     for (fam, name) in routing::SUPPORTED.iter().filter(|(f, _)| *f == "lda") {
         let _ = fam;
-        let id = match lookup_by_name(&format!("XC_{name}")) {
-            Ok(i) => i.raw() as i32,
+        let fid = match lookup_by_name(&format!("XC_{name}")) {
+            Ok(i) => i,
             Err(_) => {
                 tally.no_id += 1;
                 continue;
             }
         };
+        let id = fid.raw() as i32;
+        // libxc seeds these from `info->dens_threshold`, per functional, and
+        // they feed the input clamps in `work_*_inc.c` as well as the screen.
+        let t = Thresholds::for_functional(fid);
         let want = match oracle_lda_all(id, 1, &rho) {
             Ok(w) => w,
             Err(_) => continue, // libxc cannot init this one; not our failure
@@ -216,10 +219,12 @@ fn rayon_backend_matches_libxc_oracle() {
     let (grho, gsigma) = gga_grid();
     let gnp = grho.len();
     for (_, name) in routing::SUPPORTED.iter().filter(|(f, _)| *f == "gga") {
-        let id = match lookup_by_name(&format!("XC_{name}")) {
-            Ok(i) => i.raw() as i32,
+        let fid = match lookup_by_name(&format!("XC_{name}")) {
+            Ok(i) => i,
             Err(_) => { tally.no_id += 1; continue; }
         };
+        let id = fid.raw() as i32;
+        let t = Thresholds::for_functional(fid);
         let want = match oracle_gga_all(id, 1, &grho, &gsigma) {
             Ok(w) => w,
             Err(_) => continue,

@@ -14,6 +14,7 @@ use libxc_rkernel_gga_k_apbeint as k;
 /// libxc's raw integer id for this functional.
 pub const ID: u16 = 54;
 
+
 /// libxc default for `param_muPBE`.
 pub const PARAM_MUPBE: f64 = 0.23899;
 /// libxc default for `param_muGE`.
@@ -77,6 +78,7 @@ pub fn dispatch(
 ) -> Result<(), LibxcRsError> {
     crate::ten_arm_dispatch_rgga!(
         input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
         [k::exc_unpol::gga_k_apbeint_exc_unpol],
         [k::vxc_unpol::gga_k_apbeint_vxc_unpol],
         [k::fxc_unpol::gga_k_apbeint_fxc_unpol],
