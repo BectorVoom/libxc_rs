@@ -82,7 +82,7 @@ pub fn gga_c_lm_fxc_unpol(
     let t1 = f64x8::splat(1.0) / f64x8::splat(M_PI);
     let t6 = f64x8::splat(M_CBRT3);
     let t7 = t6 * t6;
-    let t8 = (simd::cbrt(t1));
+    let t8 = f64x8::splat(0.6827840632552957);
     let t9 = f64x8::splat(1.0) / t8;
     let t10 = t7 * t9;
     let t11 = f64x8::splat(M_CBRT4);
@@ -97,13 +97,13 @@ pub fn gga_c_lm_fxc_unpol(
     let t43 = (f64x8::splat(2.0) * t36 - f64x8::splat(2.0)) / (f64x8::splat(2.0) * t39 - f64x8::splat(2.0));
     let t55 = f64x8::splat(M_PI) * t7;
     let t56 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t57 = (simd::cbrt(t56));
+    let t57 = f64x8::splat(2.1450293971110255);
     let t59 = f64x8::splat(1.0) / t57 / t56;
     let t66 = t34 * t34;
     let t68 = ((t33).select(t66 * zeta_threshold, f64x8::splat(1.0)));
     let t69 = ((t68).sqrt());
     let t70 = f64x8::splat(1.0) / t69;
-    let t72 = (simd::pow(t1, f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t72 = f64x8::splat(0.8263074871107581);
     let t73 = f64x8::splat(1.0) / t72;
     let t129 = t70 * t6 * param_lm_f;
     let t155 = t7 * t59;

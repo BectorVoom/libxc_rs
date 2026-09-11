@@ -90,7 +90,7 @@ pub fn gga_x_airy_fxc_unpol(
     let t20 = f64x8::splat(M_CBRT6);
     let t21 = t20 * t20;
     let t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(2.1450293971110255);
     let t24 = f64x8::splat(1.0) / t23;
     let t25 = t21 * t24;
     let t27 = f64x8::splat(M_CBRT2);

@@ -143,7 +143,7 @@ pub fn mgga_x_lta_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t34 = f64x8::splat(M_CBRT6);
     let t35 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t36 = (simd::cbrt(t35));
+    let t36 = f64x8::splat(2.1450293971110255);
     let t37 = t36 * t36;
     let t39 = t34 / t37;
     let t42 = f64x8::splat(4.0) / f64x8::splat(5.0) * param_ltafrac;

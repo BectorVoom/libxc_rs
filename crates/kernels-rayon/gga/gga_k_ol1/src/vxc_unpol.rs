@@ -91,7 +91,7 @@ pub fn gga_k_ol1_vxc_unpol(
     let t25 = t24 * t24;
     let t39 = f64x8::splat(M_CBRT6);
     let t41 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t42 = (simd::cbrt(t41));
+    let t42 = f64x8::splat(2.1450293971110255);
     let t43 = t42 * t42;
     let t44 = f64x8::splat(1.0) / t43;
     let t57 = t7 * t20;

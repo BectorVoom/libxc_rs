@@ -99,7 +99,7 @@ pub fn gga_k_apbeint_vxc_unpol(
     let t25 = t24 * param_alpha;
     let t26 = f64x8::splat(M_CBRT6);
     let t27 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t28 = (simd::cbrt(t27));
+    let t28 = f64x8::splat(2.1450293971110255);
     let t29 = t28 * t28;
     let t30 = f64x8::splat(1.0) / t29;
     let t31 = t26 * t30;

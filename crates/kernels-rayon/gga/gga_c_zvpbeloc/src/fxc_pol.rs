@@ -26,16 +26,16 @@ pub fn gga_c_zvpbeloc_fxc_pol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = rmath::pow(4.0, 1.0 / 6.0);
+    let t1 = 1.2599210498948732;
     let t2 = t1 * t1;
     let t3 = t2 * t2;
-    let t5 = rmath::pow(3.0, 1.0 / 6.0);
+    let t5 = 1.2009369551760027;
     let t7 = M_PI * M_PI;
     let t8 = 1.0 / t7;
-    let t9 = rmath::pow(t8, 1.0 / 6.0);
+    let t9 = 0.6827840632552957;
     let t10 = t3 * t1 * t5 * t9;
     let t11 = 1.0 / M_PI;
-    let t12 = pow_1_3(t11);
+    let t12 = 0.6827840632552957;
     let t28 = M_CBRT3;
     let t29 = t28 * t12;
     let t30 = M_CBRT4;
@@ -47,7 +47,7 @@ pub fn gga_c_zvpbeloc_fxc_pol(
     let t65 = t64 * zeta_threshold;
     let t75 = M_CBRT2;
     let t78 = 1.0 / (2.0 * t75 - 2.0);
-    let t111 = rmath::ln(2.0);
+    let t111 = 0.6931471805599453;
     let t112 = 1.0 - t111;
     let t113 = t112 * t8;
     let t114 = t64 * t64;

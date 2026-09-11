@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -39,7 +39,7 @@ pub fn gga_c_op_xalpha_lxc_pol(
     let t17 = -t14;
     let t33 = M_CBRT3;
     let t34 = t33 * t33;
-    let t36 = pow_1_3(1.0 / M_PI);
+    let t36 = 0.6827840632552957;
     let t38 = t34 / t36;
     let t39 = M_CBRT4;
     let t40 = M_CBRT2;

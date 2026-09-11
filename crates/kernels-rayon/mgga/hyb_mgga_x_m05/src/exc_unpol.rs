@@ -112,7 +112,7 @@ pub fn hyb_mgga_x_m05_exc_unpol(
     let t19 = t4 / t5 * t18;
     let t22 = f64x8::splat(M_CBRT6);
     let t23 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t24 = (simd::cbrt(t23));
+    let t24 = f64x8::splat(2.1450293971110255);
     let t25 = t24 * t24;
     let t26 = f64x8::splat(1.0) / t25;
     let t27 = t22 * t26;

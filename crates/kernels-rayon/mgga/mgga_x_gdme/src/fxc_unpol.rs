@@ -52,12 +52,12 @@ pub fn mgga_x_gdme_fxc_unpol(
     let t16 = pow_1_3(t12);
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t23 = M_CBRT2;
-    let t26 = pow_1_3(1.0 / M_PI);
+    let t26 = 0.6827840632552957;
     let t27 = 1.0 / t26;
     let t28 = M_CBRT4;
     let t29 = t27 * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t39 = t23 * t23;
     let t42 = 1.0 / t31 / t30;

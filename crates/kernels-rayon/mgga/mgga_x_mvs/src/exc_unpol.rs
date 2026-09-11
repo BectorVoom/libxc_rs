@@ -97,7 +97,7 @@ pub fn mgga_x_mvs_exc_unpol(
     let t22 = t21 * t21;
     let t35 = f64x8::splat(M_CBRT6);
     let t37 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t38 = (simd::cbrt(t37));
+    let t38 = f64x8::splat(2.1450293971110255);
     let t39 = t38 * t38;
     let t40 = f64x8::splat(1.0) / t39;
     let t47 = t35 * t35;

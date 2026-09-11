@@ -31,6 +31,15 @@ impl Functional {
     ///   resolves automatically).
     pub fn new(id: FunctionalId, spin: Spin) -> Result<Self, LibxcRsError> {
         let meta: &'static FunctionalMeta = lookup_by_id(id.raw())?;
+        Self::from_meta(meta, spin)
+    }
+
+    /// [`Functional::new`] for a metadata record already in hand: a public one
+    /// from the registry, or one of libxc's internal workers
+    /// (`libxc_core::meta::internal_auxiliary`), which only a composite's
+    /// auxiliary list reaches. Private, so the latter cannot be built on its
+    /// own.
+    fn from_meta(meta: &'static FunctionalMeta, spin: Spin) -> Result<Self, LibxcRsError> {
 
         let dims = match meta.family {
             Family::Lda => Dimensions::lda(spin),
@@ -66,23 +75,36 @@ impl Functional {
         // populates real auxiliaries, this performs the recursion.
         let mut auxiliaries: Vec<Functional> = Vec::with_capacity(meta.auxiliaries.len());
         let mut mix_coefficients: Vec<f64> = Vec::with_capacity(meta.auxiliaries.len());
+        let aux_failed = |aux_id, e| LibxcRsError::AuxiliaryInitFailed {
+            parent_id: meta.id,
+            aux_id,
+            source: Box::new(e),
+        };
         for &(aux_id, weight) in meta.auxiliaries {
-            let aux = match Functional::new(aux_id, spin) {
-                Ok(aux) => aux,
-                Err(LibxcRsError::UnknownFunctionalId(_)) => {
-                    // Internal worker functional not exposed in public registry (e.g. XC_LDA_K_GDS08_WORKER)
-                    continue;
-                }
-                Err(e) => {
-                    return Err(LibxcRsError::AuxiliaryInitFailed {
-                        parent_id: meta.id,
-                        aux_id,
-                        source: Box::new(e),
-                    });
-                }
-            };
+            // An auxiliary the public registry does not know is one of libxc's
+            // internal workers: `lda_k_gds08_worker` (id 100001, declared in
+            // `xc_funcs_worker.h`), which gga_k_gds08 / ghds10 / ghds10r /
+            // tkvln mix. It is built from its own metadata here and nowhere
+            // else. (Until 2026-09-11 it was skipped, and those four
+            // evaluated with a whole component missing, up to 7x off.)
+            let aux = match libxc_core::meta::internal_auxiliary(aux_id) {
+                Some(m) => Functional::from_meta(m, spin),
+                None => Functional::new(aux_id, spin),
+            }
+            .map_err(|e| aux_failed(aux_id, e))?;
             auxiliaries.push(aux);
             mix_coefficients.push(weight);
+        }
+        // A deorbitalized meta-GGA (SCAN-L and relatives) is built by
+        // `xc_deorbitalize_init`, not `xc_mix_init`: two auxiliaries -- the
+        // base meta-GGA and the kinetic-energy functional that stands in for
+        // `tau` -- and no mix coefficients. `meta.auxiliaries` does not
+        // record them; `meta::DEORBITALIZED` does. `crate::eval::deorbitalize`
+        // evaluates the pair.
+        if let Some(d) = libxc_core::meta::deorbitalized(meta.id) {
+            for aux_id in [d.base, d.ked] {
+                auxiliaries.push(Functional::new(aux_id, spin).map_err(|e| aux_failed(aux_id, e))?);
+            }
         }
 
         let mut out = Functional {
@@ -113,6 +135,7 @@ impl Functional {
         out.apply_aux_overrides()?;
         out.propagate_to_aux()?;
         out.apply_composite_setters()?;
+        out.apply_deorbitalized_ext()?;
 
         Ok(out)
     }
@@ -133,16 +156,11 @@ impl Functional {
     pub(crate) fn apply_aux_overrides(&mut self) -> Result<(), LibxcRsError> {
         let id = self.meta.id;
 
-        // The constructor skips auxiliaries the public registry does not know
-        // (libxc's internal worker functionals, ids around 100000), which
-        // *shifts every slot index after the one dropped*. Applying a
-        // slot-indexed override to a shortened list would silently write the
-        // right value onto the wrong auxiliary -- worse than not applying it.
-        //
-        // Such a functional is already incomplete: `gga_k_gds08` and friends
-        // are missing a whole component and disagree with libxc by 7e0 with or
-        // without this table. Skip them here and leave that recorded as the
-        // metadata gap it is, rather than layering a second fault on top.
+        // Defensive: the constructor now refuses a functional whose
+        // auxiliary it cannot build (the gds08 family), so the lists always
+        // match here. If they ever did not, a slot-indexed override applied
+        // to a shortened list would write the right value onto the wrong
+        // auxiliary -- worse than not applying it.
         if self.auxiliaries.len() != self.meta.auxiliaries.len() {
             return Ok(());
         }
@@ -166,6 +184,31 @@ impl Functional {
                     cause: libxc_core::error::PropagationConflictCause::AuxRejectedParam,
                 }
             })?;
+        }
+        Ok(())
+    }
+
+    /// Hand a deorbitalized functional's ext_params to its two auxiliaries,
+    /// as its libxc setter does -- `mgga_x_scanl.c` copies the first four to
+    /// SCAN and the last two to PC07, `mgga_c_scanl.c` all of its two to PC07.
+    /// The map is libxc's own, observed by `verify/tests/gen_deorbitalized.rs`.
+    /// A no-op for every other functional.
+    pub(crate) fn apply_deorbitalized_ext(&mut self) -> Result<(), LibxcRsError> {
+        let Some(d) = libxc_core::meta::deorbitalized(self.meta.id) else {
+            return Ok(());
+        };
+        let Some(vals) = self.ext_params.as_deref().map(<[f64]>::to_vec) else {
+            return Ok(());
+        };
+        if vals.len() != d.ext_to_aux.len() {
+            return Err(LibxcRsError::ExtParamCountMismatch {
+                id: self.meta.id,
+                expected: d.ext_to_aux.len(),
+                actual: vals.len(),
+            });
+        }
+        for (&v, &(slot, k)) in vals.iter().zip(d.ext_to_aux) {
+            self.auxiliaries[slot as usize].set_ext_param_by_index(k as usize, v)?;
         }
         Ok(())
     }

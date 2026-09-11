@@ -34,7 +34,7 @@ pub fn lda_c_hl_fxc_pol(
     let t9 = 1.0 / t8;
     let t13 = M_CBRT3;
     let t14 = t13 * t13;
-    let t15 = pow_1_3(t2);
+    let t15 = 0.6827840632552957;
     let t16 = 1.0 / t15;
     let t17 = t14 * t16;
     let t18 = M_CBRT4;

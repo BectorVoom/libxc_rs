@@ -79,7 +79,7 @@ pub fn hyb_lda_xc_bn05_lxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t3 * t1;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -90,7 +90,7 @@ pub fn hyb_lda_xc_bn05_lxc_unpol(
     let t11 = (simd::cbrt(zeta_threshold));
     let t13 = ((t10).select(t11 * zeta_threshold, f64x8::splat(1.0)));
     let t14 = t13 * t9;
-    let t16 = (simd::cbrt(f64x8::splat(9.0)));
+    let t16 = f64x8::splat(2.080083823051904);
     let t17 = t16 * t16;
     let t18 = t3 * t3;
     let t20 = param_hyb_omega_0 * t18 * t17;

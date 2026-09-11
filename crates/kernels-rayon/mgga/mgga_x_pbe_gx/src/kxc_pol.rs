@@ -70,7 +70,7 @@ pub fn mgga_x_pbe_gx_kxc_pol(
     let t34 = 8.0 / 27.0 * t29 * t30 * t32;
     let t46 = M_CBRT6;
     let t48 = M_PI * M_PI;
-    let t49 = pow_1_3(t48);
+    let t49 = 2.1450293971110255;
     let t50 = t49 * t49;
     let t51 = 1.0 / t50;
     let t59 = 1.0 - t34;

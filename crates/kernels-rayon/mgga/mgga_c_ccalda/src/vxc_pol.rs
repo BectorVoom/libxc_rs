@@ -141,7 +141,7 @@ pub fn mgga_c_ccalda_vxc_pol(
     let t2 = f64x8::splat(1.0) + param_c;
     let t40 = f64x8::splat(M_CBRT6);
     let t41 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t42 = (simd::cbrt(t41));
+    let t42 = f64x8::splat(2.1450293971110255);
     let t43 = t42 * t42;
     let t44 = f64x8::splat(1.0) / t43;
     let t45 = t40 * t44;
@@ -150,7 +150,7 @@ pub fn mgga_c_ccalda_vxc_pol(
     let t50 = t45 * t48;
     let t67 = f64x8::splat(M_CBRT3);
     let t68 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t69 = (simd::cbrt(t68));
+    let t69 = f64x8::splat(0.6827840632552957);
     let t70 = t67 * t69;
     let t71 = f64x8::splat(M_CBRT4);
     let t72 = t71 * t71;

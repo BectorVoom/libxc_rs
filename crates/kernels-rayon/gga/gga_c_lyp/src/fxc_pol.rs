@@ -33,7 +33,7 @@ pub fn gga_c_lyp_fxc_pol(
     let t32 = M_CBRT3;
     let t33 = t32 * t32;
     let t34 = M_PI * M_PI;
-    let t35 = pow_1_3(t34);
+    let t35 = 2.1450293971110255;
     let t36 = t35 * t35;
     let t37 = t33 * t36;
     let t42 = zeta_threshold * zeta_threshold;

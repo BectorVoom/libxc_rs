@@ -101,7 +101,7 @@ pub fn mgga_x_mcml_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t40 = M_CBRT6;
     let t42 = M_PI * M_PI;
-    let t43 = pow_1_3(t42);
+    let t43 = 2.1450293971110255;
     let t44 = t43 * t43;
     let t45 = 1.0 / t44;
     let t80 = t40 * t45;

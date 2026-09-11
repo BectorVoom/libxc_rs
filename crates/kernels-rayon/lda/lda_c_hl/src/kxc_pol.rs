@@ -148,7 +148,7 @@ pub fn lda_c_hl_kxc_pol(
     let t9 = f64x8::splat(1.0) / t8;
     let t13 = f64x8::splat(M_CBRT3);
     let t14 = t13 * t13;
-    let t15 = (simd::cbrt(t2));
+    let t15 = f64x8::splat(0.6827840632552957);
     let t16 = f64x8::splat(1.0) / t15;
     let t17 = t14 * t16;
     let t18 = f64x8::splat(M_CBRT4);

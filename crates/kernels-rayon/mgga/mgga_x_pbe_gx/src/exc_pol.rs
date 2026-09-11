@@ -145,7 +145,7 @@ pub fn mgga_x_pbe_gx_exc_pol(
     let t34 = f64x8::splat(8.0) / f64x8::splat(27.0) * t29 * t30 * t32;
     let t46 = f64x8::splat(M_CBRT6);
     let t48 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t49 = (simd::cbrt(t48));
+    let t49 = f64x8::splat(2.1450293971110255);
     let t50 = t49 * t49;
     let t51 = f64x8::splat(1.0) / t50;
     let t59 = f64x8::splat(1.0) - t34;

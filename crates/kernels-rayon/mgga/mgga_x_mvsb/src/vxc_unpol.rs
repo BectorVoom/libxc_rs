@@ -102,7 +102,7 @@ pub fn mgga_x_mvsb_vxc_unpol(
     let t35 = f64x8::splat(M_CBRT6);
     let t36 = t35 * t35;
     let t37 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t38 = (simd::cbrt(t37));
+    let t38 = f64x8::splat(2.1450293971110255);
     let t39 = t38 * t38;
     let t67 = f64x8::splat(1.0) / t38 / t37;
     let t156 = param_k0 * t22;

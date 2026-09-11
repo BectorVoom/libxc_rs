@@ -28,7 +28,7 @@ pub fn lda_xc_teter93_fxc_pol(
     let t21 = 1.0 / (2.0 * t18 - 2.0);
     let t26 = M_CBRT3;
     let t28 = 1.0 / M_PI;
-    let t29 = pow_1_3(t28);
+    let t29 = 0.6827840632552957;
     let t30 = M_CBRT4;
     let t31 = t30 * t30;
     let t32 = t29 * t31;

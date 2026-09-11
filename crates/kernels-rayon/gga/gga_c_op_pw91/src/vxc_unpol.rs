@@ -83,7 +83,7 @@ pub fn gga_c_op_pw91_vxc_unpol(
     let t11 = f64x8::splat(1.0) + t7;
     let t15 = f64x8::splat(M_CBRT3);
     let t16 = t15 * t15;
-    let t18 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t18 = f64x8::splat(0.6827840632552957);
     let t20 = t16 / t18;
     let t21 = f64x8::splat(M_CBRT4);
     let t22 = t20 * t21;
@@ -95,7 +95,7 @@ pub fn gga_c_op_pw91_vxc_unpol(
     let t28 = f64x8::splat(1.0) + t27;
     let t33 = f64x8::splat(M_CBRT6);
     let t34 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t35 = (simd::cbrt(t34));
+    let t35 = f64x8::splat(2.1450293971110255);
     let t36 = t35 * t35;
     let t37 = f64x8::splat(1.0) / t36;
     let t38 = t33 * t37;

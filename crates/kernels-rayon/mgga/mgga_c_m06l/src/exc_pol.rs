@@ -52,7 +52,7 @@ pub fn mgga_c_m06l_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = M_CBRT3;
     let t12 = 1.0 / M_PI;
-    let t13 = pow_1_3(t12);
+    let t13 = 0.6827840632552957;
     let t14 = t11 * t13;
     let t15 = M_CBRT4;
     let t16 = t15 * t15;
@@ -99,7 +99,7 @@ pub fn mgga_c_m06l_exc_pol(
     let t395 = M_CBRT6;
     let t396 = t395 * t395;
     let t397 = M_PI * M_PI;
-    let t398 = pow_1_3(t397);
+    let t398 = 2.1450293971110255;
     let t399 = t398 * t398;
     let t400 = t396 * t399;
     let t401 = 3.0 / 5.0 * t400;

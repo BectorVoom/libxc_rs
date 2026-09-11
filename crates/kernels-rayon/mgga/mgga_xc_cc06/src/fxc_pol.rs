@@ -44,7 +44,7 @@ pub fn mgga_xc_cc06_fxc_pol(
     let t13 = t12 * zeta_threshold;
     let t14 = M_CBRT2;
     let t40 = 1.0 / M_PI;
-    let t41 = pow_1_3(t40);
+    let t41 = 0.6827840632552957;
     let t42 = t3 * t41;
     let t43 = M_CBRT4;
     let t44 = t43 * t43;

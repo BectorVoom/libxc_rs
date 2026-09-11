@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -24,7 +24,7 @@ pub fn lda_x_erf_fxc_pol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
-    let t3 = pow_1_3(1.0 / M_PI);
+    let t3 = 0.6827840632552957;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
     let t7 = t1 * t3 * t6;
@@ -32,12 +32,12 @@ pub fn lda_x_erf_fxc_pol(
     let t9 = t8 * t8;
     let t16 = pow_1_3(zeta_threshold);
     let t17 = t16 * zeta_threshold;
-    let t23 = pow_1_3(9.0);
+    let t23 = 2.080083823051904;
     let t24 = t23 * t23;
     let t25 = t3 * t3;
     let t26 = t24 * t25;
     let t27 = t26 * param_hyb_omega_0;
-    let t64 = rmath::sqrt(M_PI);
+    let t64 = 1.7724538509055159;
     let t791 = t26 * param_hyb_omega_0 * t1;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];

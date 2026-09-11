@@ -24,14 +24,14 @@ pub fn lda_c_pk09_exc_unpol(
     let t2 = t1 * t1;
     let t3 = M_CBRT3;
     let t4 = 1.0 / M_PI;
-    let t5 = pow_1_3(t4);
+    let t5 = 0.6827840632552957;
     let t6 = t3 * t5;
-    let t15 = pow_1_4(4.0);
+    let t15 = 1.4142135623730951;
     let t16 = t15 * t15;
     let t17 = t16 * t15;
     let t29 = t3 * t3;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = t32 * t32;
     let t36 = 1.0 <= zeta_threshold;
     let t37 = pow_1_3(zeta_threshold);

@@ -31,11 +31,11 @@ pub fn mgga_xc_b98_exc_pol(
     let t13 = M_CBRT2;
     let t35 = M_CBRT6;
     let t37 = M_PI * M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 2.1450293971110255;
     let t39 = t38 * t38;
     let t40 = 1.0 / t39;
     let t106 = 1.0 / M_PI;
-    let t107 = pow_1_3(t106);
+    let t107 = 0.6827840632552957;
     let t108 = t2 * t107;
     let t109 = M_CBRT4;
     let t110 = t109 * t109;

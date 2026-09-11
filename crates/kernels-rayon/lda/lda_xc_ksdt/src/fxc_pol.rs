@@ -64,9 +64,9 @@ pub fn lda_xc_ksdt_fxc_pol(
     let t2 = M_CBRT4;
     let t3 = t2 * t2;
     let t4 = t1 * t3;
-    let t5 = pow_1_3(9.0);
+    let t5 = 2.080083823051904;
     let t6 = t4 * t5;
-    let t7 = pow_1_3(t1);
+    let t7 = 0.6827840632552957;
     let t8 = 1.0 / t7;
     let t9 = t5 * t5;
     let t10 = t7 * t1;
@@ -182,7 +182,7 @@ pub fn lda_xc_ksdt_fxc_pol(
     let t684 = t5 * t35 * t1;
     let t685 = t684 * param_T;
     let t701 = rmath::ln(zeta_threshold);
-    let t728 = rmath::ln(2.0);
+    let t728 = 0.6931471805599453;
     let t738 = t12 * t134;
     let t756 = t37 * t94;
     let t766 = t58 * t102;

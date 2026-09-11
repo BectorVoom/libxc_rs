@@ -136,7 +136,7 @@ pub fn gga_c_op_b88_vxc_pol(
     let t17 = -t14;
     let t33 = f64x8::splat(M_CBRT3);
     let t34 = t33 * t33;
-    let t36 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t36 = f64x8::splat(0.6827840632552957);
     let t38 = t34 / t36;
     let t39 = f64x8::splat(M_CBRT4);
     let t40 = t38 * t39;

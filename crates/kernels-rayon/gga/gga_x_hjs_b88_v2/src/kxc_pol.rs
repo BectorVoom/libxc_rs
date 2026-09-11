@@ -181,13 +181,13 @@ pub fn gga_x_hjs_b88_v2_kxc_pol(
     let t28 = t2 * t2;
     let t29 = param_hyb_omega_0 * t28;
     let t30 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(2.1450293971110255);
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = t29 * t32;
     let t46 = f64x8::splat(M_CBRT6);
     let t47 = t46 * t46;
     let t48 = t47 * t32;
-    let t57 = (simd::exp(f64x8::splat(20.0)));
+    let t57 = f64x8::splat(485165195.4097903);
     let t59 = f64x8::splat(1.0) / (t57 - f64x8::splat(1.0));
     let t62 = f64x8::splat(1.0) / (f64x8::splat(1.0) + t59);
     let t66 = param_a_0;
@@ -211,7 +211,7 @@ pub fn gga_x_hjs_b88_v2_kxc_pol(
     let t113 = f64x8::splat(1.0) / t112;
     let t141 = f64x8::splat(1.0) / t30;
     let t142 = t110 * param_hyb_omega_0 * t141;
-    let t164 = ((f64x8::splat(M_PI)).sqrt());
+    let t164 = f64x8::splat(1.7724538509055159);
     let t165 = f64x8::splat(4.0) / f64x8::splat(5.0) * t164;
     let t179 = t110 * t110;
     let t181 = t179 * param_hyb_omega_0 * t2;

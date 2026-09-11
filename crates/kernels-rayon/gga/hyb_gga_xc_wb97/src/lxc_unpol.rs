@@ -121,7 +121,7 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
     let t3 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
     let t5 = f64x8::splat(M_CBRT3);
     let t6 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t7 = (simd::cbrt(t6));
+    let t7 = f64x8::splat(0.6827840632552957);
     let t8 = t5 * t7;
     let t9 = f64x8::splat(M_CBRT4);
     let t10 = t9 * t9;
@@ -131,13 +131,13 @@ pub fn hyb_gga_xc_wb97_lxc_unpol(
     let t15 = (simd::cbrt(zeta_threshold));
     let t16 = t15 * zeta_threshold;
     let t18 = ((t14).select(t16, f64x8::splat(2.0) * t11));
-    let t21 = (simd::cbrt(f64x8::splat(9.0)));
+    let t21 = f64x8::splat(2.080083823051904);
     let t22 = t21 * t21;
     let t23 = t7 * t7;
     let t25 = t22 * t23 * param_hyb_omega_0;
     let t28 = ((t14).select(t15, t11));
     let t30 = t11 / t28;
-    let t63 = ((f64x8::splat(M_PI)).sqrt());
+    let t63 = f64x8::splat(1.7724538509055159);
     let t84 = param_c_x_1;
     let t86 = t11 * t11;
     let t100 = param_c_x_2;

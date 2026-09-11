@@ -66,7 +66,7 @@ pub fn mgga_x_revtm_kxc_pol(
     let t23 = t22 * zeta_threshold;
     let t44 = M_CBRT6;
     let t45 = M_PI * M_PI;
-    let t46 = pow_1_3(t45);
+    let t46 = 2.1450293971110255;
     let t47 = t46 * t46;
     let t48 = 1.0 / t47;
     let t49 = t44 * t48;

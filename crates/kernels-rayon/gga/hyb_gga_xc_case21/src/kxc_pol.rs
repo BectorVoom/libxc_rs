@@ -65,14 +65,14 @@ pub fn hyb_gga_xc_case21_kxc_pol(
     let t29 = M_CBRT6;
     let t30 = param_gammax * t29;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = t32 * t32;
     let t34 = 1.0 / t33;
     let t35 = t30 * t34;
     let t90 = t22 * t22;
     let t101 = t3 * t3;
     let t116 = 1.0 / M_PI;
-    let t117 = pow_1_3(t116);
+    let t117 = 0.6827840632552957;
     let t118 = t3 * t117;
     let t119 = M_CBRT4;
     let t120 = t119 * t119;

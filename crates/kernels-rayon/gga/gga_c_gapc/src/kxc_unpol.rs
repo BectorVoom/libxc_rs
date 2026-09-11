@@ -83,7 +83,7 @@ pub fn gga_c_gapc_kxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -103,7 +103,7 @@ pub fn gga_c_gapc_kxc_unpol(
     let t92 = t1 * t3 / t89;
     let t101 = f64x8::splat(1.0) / t19;
     let t102 = t1 * t101;
-    let t103 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t103 = f64x8::splat(1.2599210498948732);
     let t104 = t102 * t103;
     let t116 = t34 * t34;
     let t117 = ((t33).select(t116, f64x8::splat(1.0)));
@@ -113,7 +113,7 @@ pub fn gga_c_gapc_kxc_unpol(
     let t144 = f64x8::splat(1.0) / t3;
     let t145 = t143 * t144;
     let t151 = t102 * t6;
-    let t156 = ((f64x8::splat(4.0)).sqrt());
+    let t156 = f64x8::splat(2.0);
     let t208 = (f64x8::splat(2.0)).simd_le(zeta_threshold);
     let t210 = ((t208).select(t35, f64x8::splat(2.0) * t39));
     let t211 = (f64x8::splat(0.0)).simd_le(zeta_threshold);

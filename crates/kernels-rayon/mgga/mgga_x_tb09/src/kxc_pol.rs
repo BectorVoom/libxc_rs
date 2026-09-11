@@ -61,7 +61,7 @@ pub fn mgga_x_tb09_kxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRTPI;
     let t3 = param_c * t2;
-    let t38 = rmath::sqrt(15.0);
+    let t38 = 3.872983346207417;
     let t39 = (3.0 * param_c - 2.0) * t38;
     let t40 = 1.0 / M_PI;
     let t41 = M_SQRT2;

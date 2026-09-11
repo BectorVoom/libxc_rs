@@ -30,7 +30,7 @@ pub fn gga_c_revtca_fxc_pol(
     let t8 = t7 * t7;
     let t21 = M_CBRT3;
     let t22 = 1.0 / M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 0.6827840632552957;
     let t24 = t21 * t23;
     let t25 = M_CBRT4;
     let t26 = t25 * t25;
@@ -40,12 +40,12 @@ pub fn gga_c_revtca_fxc_pol(
     let t42 = M_CBRT6;
     let t43 = t42 * t42;
     let t44 = M_PI * M_PI;
-    let t45 = pow_1_3(t44);
+    let t45 = 2.1450293971110255;
     let t46 = 1.0 / t45;
     let t47 = t43 * t46;
     let t48 = M_CBRT2;
     let t67 = M_CBRTPI;
-    let t69 = pow_1_3(9.0);
+    let t69 = 2.080083823051904;
     let t71 = t67 * M_PI * t69 * t47;
     let t77 = pow_1_4(f64::EPSILON);
     let t79 = t67 * t67;

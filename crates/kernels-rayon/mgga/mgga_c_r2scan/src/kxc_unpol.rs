@@ -60,7 +60,7 @@ pub fn mgga_c_r2scan_kxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRT3;
     let t3 = 1.0 / M_PI;
-    let t4 = pow_1_3(t3);
+    let t4 = 0.6827840632552957;
     let t5 = t2 * t4;
     let t6 = M_CBRT4;
     let t7 = t6 * t6;
@@ -75,7 +75,7 @@ pub fn mgga_c_r2scan_kxc_unpol(
     let t41 = t40 - 1.0;
     let t43 = 1.0 / t41 * 0.5;
     let t44 = t39 * t43;
-    let t59 = rmath::ln(2.0);
+    let t59 = 0.6931471805599453;
     let t60 = 1.0 - t59;
     let t61 = M_PI * M_PI;
     let t63 = t60 / t61;
@@ -91,10 +91,10 @@ pub fn mgga_c_r2scan_kxc_unpol(
     let t99 = piecewise3(t34, t64 * zeta_threshold, 1.0);
     let t100 = 1.0 / t99;
     let t101 = t69 * t100;
-    let t103 = rmath::sqrt(4.0);
+    let t103 = 2.0;
     let t113 = 1.0 - 2.363 * t41 * t39 * t43;
     let t175 = M_CBRT6;
-    let t176 = pow_1_3(t61);
+    let t176 = 2.1450293971110255;
     let t177 = t176 * t176;
     let t178 = 1.0 / t177;
     let t179 = t175 * t178;
@@ -117,7 +117,7 @@ pub fn mgga_c_r2scan_kxc_unpol(
     let t376 = t357 * t66;
     let t377 = 1.0 / t376;
     let t378 = t375 * t377;
-    let t393 = rmath::pow(4.0, 1.0 / 6.0);
+    let t393 = 1.2599210498948732;
     let t416 = t5 * t7;
     let t454 = t44 * t5;
     let t577 = t178 * t180;

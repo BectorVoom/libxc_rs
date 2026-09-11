@@ -22,31 +22,31 @@ pub fn lda_c_w20_fxc_pol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = rmath::ln(2.0);
+    let t1 = 0.6931471805599453;
     let t2 = 1.0 - t1;
     let t3 = M_PI * M_PI;
     let t4 = 1.0 / t3;
     let t5 = t2 * t4;
     let t6 = t1 / 6.0;
     let t8 = 1.0 / t2;
-    let t12 = rmath::exp(-2.0 * (-0.16244537117517982 + t6) * t8 * t3);
+    let t12 = 20.456913703084926;
     let t13 = M_CBRT3;
     let t14 = t13 * t13;
     let t15 = 1.0 / M_PI;
-    let t16 = pow_1_3(t15);
+    let t16 = 0.6827840632552957;
     let t17 = t16 * t16;
     let t18 = t14 * t17;
     let t19 = M_CBRT4;
     let t29 = M_CBRTPI;
     let t30 = t29 * t29;
-    let t32 = pow_1_3(9.0);
+    let t32 = 2.080083823051904;
     let t33 = 1.0 / t30 * t32;
     let t34 = t19 * t19;
     let t40 = t12 * 0.5;
     let t41 = (-0.9 + 3.0 * 0.0625 * t33 * t34) * t8 * t3 + t40;
     let t46 = 1.0 / t16;
     let t47 = t46 * t19;
-    let t52 = rmath::sqrt(4.0);
+    let t52 = 2.0;
     let t53 = t13 * t16;
     let t63 = t32 * t32;
     let t64 = t63 * t19;
@@ -55,7 +55,7 @@ pub fn lda_c_w20_fxc_pol(
     let t74 = 1.0 / t17;
     let t75 = t74 * t34;
     let t83 = t53 * t34;
-    let t85 = pow_1_4(4.0);
+    let t85 = 1.4142135623730951;
     let t86 = t85 * t85;
     let t87 = t86 * t85;
     let t94 = t3 * M_PI;
@@ -64,7 +64,7 @@ pub fn lda_c_w20_fxc_pol(
     let t99 = 7.0 / 6.0 * t3 - t98 - 1.0;
     let t100 = t96 * t99;
     let t101 = t14 * t46;
-    let t119 = rmath::exp(-4.0 * (-0.1412623711751798 + t6) * t8 * t3);
+    let t119 = 27.42141927531214;
     let t120 = M_CBRT2;
     let t128 = t119 * 0.5;
     let t129 = 2.0 * (-0.9 + 3.0 * 0.0625 * t33 * t34 * t120) * t8 * t3 + t128;
@@ -76,12 +76,12 @@ pub fn lda_c_w20_fxc_pol(
     let t169 = pow_1_3(zeta_threshold);
     let t170 = t169 * zeta_threshold;
     let t183 = 1.0 / (2.0 * t120 - 2.0);
-    let t194 = rmath::pow(4.0, 1.0 / 6.0);
+    let t194 = 1.2599210498948732;
     let t195 = t194 * t194;
     let t196 = t195 * t195;
     let t197 = t196 * t194;
     let t198 = t18 * t197;
-    let t243 = rmath::pow(4.0, 1.0 / 12.0);
+    let t243 = 1.122462048309373;
     let t244 = t243 * t243;
     let t245 = t244 * t244;
     let t246 = t245 * t243;

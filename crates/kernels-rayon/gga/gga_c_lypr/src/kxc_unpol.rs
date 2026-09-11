@@ -41,7 +41,7 @@ pub fn gga_c_lypr_kxc_unpol(
     let t28 = M_CBRT3;
     let t29 = t28 * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t34 = 1.0 <= zeta_threshold;
     let t35 = zeta_threshold * zeta_threshold;
@@ -52,7 +52,7 @@ pub fn gga_c_lypr_kxc_unpol(
     let t56 = M_CBRT2;
     let t57 = t56 * t56;
     let t61 = piecewise3(t34, t35, 1.0);
-    let t74 = rmath::sqrt(M_PI);
+    let t74 = 1.7724538509055159;
     let t75 = 1.0 / t74;
     let t78 = param_m2 * param_m2;
     let t79 = param_omega * param_omega;

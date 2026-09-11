@@ -68,7 +68,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t15, t16 * t12);
     let t21 = M_CBRT6;
     let t23 = M_PI * M_PI;
-    let t24 = pow_1_3(t23);
+    let t24 = 2.1450293971110255;
     let t25 = t24 * t24;
     let t26 = 1.0 / t25;
     let t27 = param_gammax * t21 * t26;
@@ -80,7 +80,7 @@ pub fn hyb_gga_xc_case21_kxc_unpol(
     let t54 = t52 * t53;
     let t55 = t54 * t5;
     let t63 = 1.0 / M_PI;
-    let t64 = pow_1_3(t63);
+    let t64 = 0.6827840632552957;
     let t65 = t4 * t64;
     let t66 = M_CBRT4;
     let t67 = t66 * t66;

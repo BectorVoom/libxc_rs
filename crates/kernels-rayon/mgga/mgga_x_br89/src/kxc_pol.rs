@@ -64,14 +64,14 @@ pub fn mgga_x_br89_kxc_pol(
     let t12 = -t8;
     let t18 = pow_1_3(zeta_threshold);
     let t19 = t18 * zeta_threshold;
-    let t26 = pow_1_3(1.0 / M_PI);
+    let t26 = 0.6827840632552957;
     let t27 = 1.0 / t26;
     let t28 = M_CBRT4;
     let t29 = t27 * t28;
     let t67 = M_CBRT6;
     let t68 = t67 * t67;
     let t69 = M_PI * M_PI;
-    let t70 = pow_1_3(t69);
+    let t70 = 2.1450293971110255;
     let t71 = t70 * t70;
     let t73 = 3.0 / 10.0 * t68 * t71;
     let t192 = M_CBRTPI;

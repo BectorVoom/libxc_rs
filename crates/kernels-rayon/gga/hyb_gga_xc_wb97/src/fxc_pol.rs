@@ -44,7 +44,7 @@ pub fn hyb_gga_xc_wb97_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t9 = M_CBRT3;
     let t11 = 1.0 / M_PI;
-    let t12 = pow_1_3(t11);
+    let t12 = 0.6827840632552957;
     let t13 = M_CBRT4;
     let t14 = t13 * t13;
     let t15 = t12 * t14;
@@ -54,7 +54,7 @@ pub fn hyb_gga_xc_wb97_fxc_pol(
     let t20 = pow_1_3(zeta_threshold);
     let t21 = t20 * zeta_threshold;
     let t23 = piecewise3(t19, t21, 2.0 * t16);
-    let t29 = pow_1_3(9.0);
+    let t29 = 2.080083823051904;
     let t30 = t29 * t29;
     let t31 = t12 * t12;
     let t32 = t30 * t31;
@@ -62,7 +62,7 @@ pub fn hyb_gga_xc_wb97_fxc_pol(
     let t34 = t32 * t33;
     let t37 = piecewise3(t19, t20, t16);
     let t38 = 1.0 / t37;
-    let t72 = rmath::sqrt(M_PI);
+    let t72 = 1.7724538509055159;
     let t93 = param_c_x_0;
     let t94 = param_c_x_1;
     let t108 = param_c_x_2;

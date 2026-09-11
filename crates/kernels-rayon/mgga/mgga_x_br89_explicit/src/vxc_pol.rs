@@ -142,7 +142,7 @@ pub fn mgga_x_br89_explicit_vxc_pol(
     let t12 = -t8;
     let t18 = (simd::cbrt(zeta_threshold));
     let t19 = t18 * zeta_threshold;
-    let t26 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t26 = f64x8::splat(0.6827840632552957);
     let t27 = f64x8::splat(1.0) / t26;
     let t29 = f64x8::splat(M_CBRT4);
     let t30 = f64x8::splat(M_CBRTPI);

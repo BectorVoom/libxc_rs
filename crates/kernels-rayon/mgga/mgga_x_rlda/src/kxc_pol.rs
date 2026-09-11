@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT4, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -64,7 +64,7 @@ pub fn mgga_x_rlda_kxc_pol(
     let t14 = -t10;
     let t20 = pow_1_3(zeta_threshold);
     let t21 = t20 * zeta_threshold;
-    let t29 = pow_1_3(1.0 / M_PI);
+    let t29 = 0.6827840632552957;
     let t30 = 1.0 / t29;
     let t31 = param_prefactor * t30;
     let t32 = M_CBRT4;

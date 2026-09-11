@@ -25,17 +25,17 @@ pub fn lda_c_gk72_kxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
     let t23 = t1 * t1;
     let t25 = t23 / t3;
-    let t29 = rmath::sqrt(4.0);
+    let t29 = 2.0;
     let t35 = t3 * t3;
     let t37 = t1 / t35;
     let t42 = t23 * t35;
-    let t66 = rmath::pow(4.0, 1.0 / 6.0);
+    let t66 = 1.2599210498948732;
     let t102 = t66 * t66;
     let t103 = t102 * t102;
     let t104 = t103 * t66;

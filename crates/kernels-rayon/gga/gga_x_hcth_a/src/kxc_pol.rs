@@ -147,7 +147,7 @@ pub fn gga_x_hcth_a_kxc_pol(
     let t21 = (simd::cbrt(zeta_threshold));
     let t22 = t21 * zeta_threshold;
     let t28 = t2 * t2;
-    let t30 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t30 = f64x8::splat(0.6827840632552957);
     let t32 = t28 / t30;
     let t33 = f64x8::splat(M_CBRT4);
     let t34 = t32 * t33;

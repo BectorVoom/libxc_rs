@@ -91,7 +91,7 @@ pub fn gga_x_ityh_fxc_unpol(
     let t18 = t3 / t4 * t17;
     let t20 = t3 * t3;
     let t22 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(0.6827840632552957);
     let t24 = f64x8::splat(1.0) / t23;
     let t25 = f64x8::splat(M_CBRT4);
     let t26 = t24 * t25;
@@ -99,7 +99,7 @@ pub fn gga_x_ityh_fxc_unpol(
     let t28 = t27 * t25;
     let t29 = f64x8::splat(M_CBRT2);
     let t30 = t29 * t29;
-    let t93 = ((f64x8::splat(M_PI)).sqrt());
+    let t93 = f64x8::splat(1.7724538509055159);
     let t324 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t326 = t23 * t23;
     let t327 = f64x8::splat(1.0) / t326;

@@ -53,12 +53,12 @@ pub fn hyb_gga_x_cam_s12_lxc_pol(
     let t54 = t2 * t2;
     let t55 = M_PI * t54;
     let t56 = 1.0 / M_PI;
-    let t57 = pow_1_3(t56);
+    let t57 = 0.6827840632552957;
     let t58 = 1.0 / t57;
     let t59 = M_CBRT4;
     let t60 = t58 * t59;
     let t67 = M_CBRT2;
-    let t103 = rmath::sqrt(M_PI);
+    let t103 = 1.7724538509055159;
     let t282 = t54 * t58;
     let tvsigma1 = 0.0;
     let t794 = param_E * param_E;

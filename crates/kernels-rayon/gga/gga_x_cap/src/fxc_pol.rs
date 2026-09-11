@@ -38,7 +38,7 @@ pub fn gga_x_cap_fxc_pol(
     let t28 = M_CBRT6;
     let t29 = t28 * t28;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = 1.0 / t32;
     let t34 = param_alphaoAx * t29 * t33;
     let t40 = t29 * t33;

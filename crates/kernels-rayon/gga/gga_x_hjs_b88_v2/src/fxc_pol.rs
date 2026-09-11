@@ -52,13 +52,13 @@ pub fn gga_x_hjs_b88_v2_fxc_pol(
     let t28 = t2 * t2;
     let t29 = param_hyb_omega_0 * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = 1.0 / t31;
     let t33 = t29 * t32;
     let t46 = M_CBRT6;
     let t47 = t46 * t46;
     let t48 = t47 * t32;
-    let t57 = rmath::exp(20.0);
+    let t57 = 485165195.4097903;
     let t59 = 1.0 / (t57 - 1.0);
     let t62 = 1.0 / (1.0 + t59);
     let t66 = param_a_0;
@@ -82,7 +82,7 @@ pub fn gga_x_hjs_b88_v2_fxc_pol(
     let t113 = 1.0 / t112;
     let t141 = 1.0 / t30;
     let t142 = t110 * param_hyb_omega_0 * t141;
-    let t164 = rmath::sqrt(M_PI);
+    let t164 = 1.7724538509055159;
     let t165 = 4.0 / 5.0 * t164;
     let t179 = t110 * t110;
     let t181 = t179 * param_hyb_omega_0 * t2;

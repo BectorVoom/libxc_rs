@@ -40,7 +40,7 @@ pub fn gga_k_vt84f_fxc_pol(
     let t32 = M_CBRT6;
     let t33 = t32 * t32;
     let t34 = M_PI * M_PI;
-    let t35 = pow_1_3(t34);
+    let t35 = 2.1450293971110255;
     let t37 = t33 / t35;
     let t45 = rmath::sqrt(f64::EPSILON);
     let t48 = (-param_mu + param_alpha + 5.0 / 3.0) * t32;

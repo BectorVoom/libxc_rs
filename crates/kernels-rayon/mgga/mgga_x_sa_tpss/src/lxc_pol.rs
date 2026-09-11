@@ -99,11 +99,11 @@ pub fn mgga_x_sa_tpss_lxc_pol(
     let t16 = -t12;
     let t22 = pow_1_3(zeta_threshold);
     let t23 = t22 * zeta_threshold;
-    let t29 = rmath::sqrt(5.0);
+    let t29 = 2.23606797749979;
     let t30 = M_PI * t29;
     let t42 = M_CBRT6;
     let t44 = M_PI * M_PI;
-    let t45 = pow_1_3(t44);
+    let t45 = 2.1450293971110255;
     let t46 = t45 * t45;
     let t47 = 1.0 / t46;
     let t89 = t42 * t47;

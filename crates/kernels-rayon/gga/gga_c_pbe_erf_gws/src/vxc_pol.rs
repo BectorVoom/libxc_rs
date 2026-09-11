@@ -142,7 +142,7 @@ pub fn gga_c_pbe_erf_gws_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -153,10 +153,10 @@ pub fn gga_c_pbe_erf_gws_vxc_pol(
     let t46 = t45 * zeta_threshold;
     let t56 = f64x8::splat(M_CBRT2);
     let t59 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t56 - f64x8::splat(2.0));
-    let t98 = (simd::ln(f64x8::splat(2.0)));
+    let t98 = f64x8::splat(0.6931471805599453);
     let t99 = t98 - f64x8::splat(1.0);
     let t100 = f64x8::splat(2.0) * t99;
-    let t107 = (simd::cbrt(f64x8::splat(9.0)));
+    let t107 = f64x8::splat(2.080083823051904);
     let t108 = t107 * t107;
     let t116 = param_hyb_omega_0 * param_hyb_omega_0;
     let t117 = (f64x8::splat(3.44851) - f64x8::splat(M_PI) * t5 * t108 * t3 / t99 / f64x8::splat(12.0)) * t116;

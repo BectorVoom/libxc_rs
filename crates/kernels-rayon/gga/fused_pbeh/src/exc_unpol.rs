@@ -101,14 +101,12 @@ pub fn fused_pbeh_exc_unpol(
     let l0_t15 = (simd::cbrt(l0_t11));
     let l0_t17 = (((l0_t11).simd_le(zeta_threshold)).select(l0_t13 * zeta_threshold, l0_t15 * l0_t11));
     let l0_t20 = f64x8::splat(M_CBRT6);
-    let l0_t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let l0_t23 = (simd::cbrt(l0_t22));
+    let l0_t23 = f64x8::splat(2.1450293971110255);
     let l0_t24 = l0_t23 * l0_t23;
     let l0_t25 = f64x8::splat(1.0) / l0_t24;
     let l0_t27 = f64x8::splat(M_CBRT2);
     let l0_t28 = l0_t27 * l0_t27;
-    let l1_t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let l1_t3 = (simd::cbrt(l1_t2));
+    let l1_t3 = f64x8::splat(0.6827840632552957);
     let l1_t4 = l0_t3 * l1_t3;
     let l1_t5 = f64x8::splat(M_CBRT4);
     let l1_t6 = l1_t5 * l1_t5;

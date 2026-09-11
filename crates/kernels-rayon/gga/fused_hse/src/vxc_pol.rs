@@ -161,7 +161,7 @@ pub fn fused_hse_vxc_pol(
     let l0_t24 = l0_t23 * zeta_threshold;
     let l0_t30 = l0_t3 * l0_t3;
     let l0_t32 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let l0_t33 = (simd::cbrt(l0_t32));
+    let l0_t33 = f64x8::splat(2.1450293971110255);
     let l0_t34 = f64x8::splat(1.0) / l0_t33;
     let l0_t51 = f64x8::splat(M_CBRT6);
     let l0_t52 = l0_t51 * l0_t51;
@@ -170,7 +170,7 @@ pub fn fused_hse_vxc_pol(
     let l0_t96 = f64x8::splat(1.0) / l0_t95;
     let l0_t143 = -f64x8::splat(1.0161144);
     let l0_t249 = f64x8::splat(3.0) * f64x8::splat(0.25) * f64x8::splat(M_PI);
-    let l0_t250 = ((f64x8::splat(M_PI)).sqrt());
+    let l0_t250 = f64x8::splat(1.7724538509055159);
     let l0_t273 = f64x8::splat(1.0) / l0_t250;
     let l0_t332 = f64x8::splat(1.0) / l0_t95 / l0_t32;
     let l0_t707 = f64x8::splat(0.0);
@@ -182,8 +182,7 @@ pub fn fused_hse_vxc_pol(
     let l1_t330 = l1_t328 * l1_param_hyb_omega_0 * l0_t3;
     let l1_t747 = l1_t31 * l0_t34;
     let l1_t1054 = l1_t290 * l0_t96;
-    let l2_t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let l2_t3 = (simd::cbrt(l2_t2));
+    let l2_t3 = f64x8::splat(0.6827840632552957);
     let l2_t4 = l0_t3 * l2_t3;
     let l2_t5 = f64x8::splat(M_CBRT4);
     let l2_t6 = l2_t5 * l2_t5;

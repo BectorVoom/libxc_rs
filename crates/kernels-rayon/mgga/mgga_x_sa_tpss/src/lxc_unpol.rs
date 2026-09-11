@@ -102,13 +102,13 @@ pub fn mgga_x_sa_tpss_lxc_unpol(
     let t14 = pow_1_3(zeta_threshold);
     let t16 = pow_1_3(t12);
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-    let t21 = rmath::sqrt(5.0);
+    let t21 = 2.23606797749979;
     let t22 = M_PI * t21;
     let t23 = M_CBRT2;
     let t24 = t23 * t23;
     let t37 = M_CBRT6;
     let t39 = M_PI * M_PI;
-    let t40 = pow_1_3(t39);
+    let t40 = 2.1450293971110255;
     let t41 = t40 * t40;
     let t42 = 1.0 / t41;
     let t83 = t37 * t42;

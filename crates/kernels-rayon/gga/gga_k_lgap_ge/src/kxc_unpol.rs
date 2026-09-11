@@ -49,7 +49,7 @@ pub fn gga_k_lgap_ge_kxc_unpol(
     let t25 = M_CBRT6;
     let t26 = t25 * t25;
     let t28 = M_PI * M_PI;
-    let t29 = pow_1_3(t28);
+    let t29 = 2.1450293971110255;
     let t31 = param_mu_0 * t26 / t29;
     let t33 = M_CBRT2;
     let t41 = param_mu_1 * t25;

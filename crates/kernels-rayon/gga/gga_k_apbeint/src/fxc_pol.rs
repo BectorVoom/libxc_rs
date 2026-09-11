@@ -43,7 +43,7 @@ pub fn gga_k_apbeint_fxc_pol(
     let t34 = M_CBRT6;
     let t35 = t32 * param_alpha * t34;
     let t36 = M_PI * M_PI;
-    let t37 = pow_1_3(t36);
+    let t37 = 2.1450293971110255;
     let t38 = t37 * t37;
     let t39 = 1.0 / t38;
     let t46 = param_alpha * t34;

@@ -39,7 +39,7 @@ pub fn mgga_c_cc_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t44 = M_CBRT3;
     let t45 = 1.0 / M_PI;
-    let t46 = pow_1_3(t45);
+    let t46 = 0.6827840632552957;
     let t47 = t44 * t46;
     let t48 = M_CBRT4;
     let t49 = t48 * t48;

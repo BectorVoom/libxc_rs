@@ -146,7 +146,7 @@ pub fn gga_k_llp_vxc_pol(
     let t23 = t22 * t22;
     let t24 = t23 * zeta_threshold;
     let t32 = param_beta * t3;
-    let t34 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t34 = f64x8::splat(0.6827840632552957);
     let t35 = f64x8::splat(1.0) / t34;
     let t36 = t32 * t35;
     let t37 = f64x8::splat(M_CBRT4);

@@ -39,12 +39,12 @@ pub fn gga_x_ityh_optx_fxc_pol(
     let t28 = t2 * t2;
     let t29 = M_PI * t28;
     let t30 = 1.0 / M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 0.6827840632552957;
     let t32 = 1.0 / t31;
     let t33 = M_CBRT4;
     let t34 = t32 * t33;
     let t61 = M_CBRT2;
-    let t97 = rmath::sqrt(M_PI);
+    let t97 = 1.7724538509055159;
     let t241 = t28 * t32;
     let tvsigma1 = 0.0;
     let t734 = M_PI * M_PI;

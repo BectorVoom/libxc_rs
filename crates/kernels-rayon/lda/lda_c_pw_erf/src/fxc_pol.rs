@@ -25,7 +25,7 @@ pub fn lda_c_pw_erf_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -36,10 +36,10 @@ pub fn lda_c_pw_erf_fxc_pol(
     let t46 = t45 * zeta_threshold;
     let t56 = M_CBRT2;
     let t59 = 1.0 / (2.0 * t56 - 2.0);
-    let t98 = rmath::ln(2.0);
+    let t98 = 0.6931471805599453;
     let t99 = t98 - 1.0;
     let t100 = 2.0 * t99;
-    let t107 = pow_1_3(9.0);
+    let t107 = 2.080083823051904;
     let t108 = t107 * t107;
     let t116 = param_hyb_omega_0 * param_hyb_omega_0;
     let t117 = (3.44851 - M_PI * t5 * t108 * t3 / t99 / 12.0) * t116;

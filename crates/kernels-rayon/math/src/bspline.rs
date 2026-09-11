@@ -1,156 +1,204 @@
-//! B-spline evaluation for CubeCL kernels.
+//! B-spline evaluation for `hyb_gga_xc_case21` (k = 3, Nsp = 10).
 //!
-//! Specialized for hyb_gga_xc_case21 functional (k=3, Nsp=10).
-//! Knots are precomputed constants: knots[i] = -3/7 + i/7 for i=0..13.
+//! A line-for-line port of libxc's `xc_bspline` (`util.c`) and of the knot
+//! sequence `case21_set_ext_params` (`hyb_gga_xc_case21.c`) builds.
+//! Bit-exactness against libxc needs both to be literal:
 //!
-//! Matches the libxc C original (`xc_bspline` in `util.c`) control flow: uses
-//! `if/else` guards to skip computation outside the support interval and to
-//! dispatch only the requested derivative order. CubeCL 0.9.0 does not support
-//! `return` in `#[cube]` functions, so we use mutable result + `if/else` guards
-//! instead of early returns.
-//!
-//! Mixed-precision signature note (Rule 7): `knot`, `bspline_k3_eval`,
-//! `case21_xbspline`, and `case21_cbspline` take `u32` integer index parameters
-//! (`idx`/`i`/`ider`) alongside their generic `` float parameters.
-//! The float portion of each signature is fully generic.
+//! * the knots are `qmin + k*dq` evaluated in floating point, not the exact
+//!   `(k - 3)/7`: the last knot comes out `0x1.6db6db6db6db6p+0`, one ulp
+//!   below the correctly rounded 10/7;
+//! * the Cox-de Boor table uses libxc's `saved` recurrence and its derivative
+//!   table, in libxc's operation order. An algebraically equal closed form
+//!   rounds differently: the unrolled k = 3 version this replaces was 1-2 ulp
+//!   off on `zk` and up to 3e-14 relative on `vsigma` (2026-09-11).
 
+/// Spline order `k` (`params->k`).
+const K: usize = 3;
+/// Number of B-splines (`params->Nsp`).
+const NSP: usize = 10;
+/// `nknots = Nsp + k + 1`.
+const NKNOTS: usize = NSP + K + 1;
 
-/// Get knot value by index (inlined constant lookup for CubeCL).
-/// Case21: k=3, Nsp=10, knots[i] = (-3 + i) / 7
-fn knot(idx: u32) -> f64 {
-    let i = (idx as f64);
-    (i - 3.0_f64) / 7.0_f64
-}
-
-/// Safe division: returns 0 if denominator is 0, otherwise a/b.
-fn safe_div(a: f64, b: f64) -> f64 {
-    (if b == 0.0_f64 { 0.0_f64 } else { a / b })
-}
-
-/// Evaluate a single B-spline basis function N_{i,3}(u) for derivative order `ider`.
+/// `case21_set_ext_params`:
 ///
-/// For k=3, supports ider=0..3 (ider>=4 returns 0 since maxk=min(4,3)=3).
-/// Uses `if/else` guards matching libxc's `xc_bspline` control flow: skips
-/// computation outside support, dispatches only the needed derivative order.
-fn bspline_k3_eval(i: u32, u: f64, ider: u32) -> f64 {
-    let ki0 = knot(i);
-    let ki1 = knot(i + 1);
-    let ki2 = knot(i + 2);
-    let ki3 = knot(i + 3);
-    let ki4 = knot(i + 4);
+/// ```c
+/// double qmin = -params->k*1.0/(params->Nsp - params->k);
+/// double qmax = params->Nsp*1.0/(params->Nsp - params->k);
+/// double dq  = (qmax - qmin)/(nknots-1);
+/// params->knots[k] = qmin+k*dq;
+/// ```
+///
+/// Const evaluation rounds IEEE round-to-nearest, as the runtime C does.
+const KNOTS: [f64; NKNOTS] = {
+    let qmin = -(K as f64) * 1.0 / (NSP - K) as f64;
+    let qmax = NSP as f64 * 1.0 / (NSP - K) as f64;
+    let dq = (qmax - qmin) / (NKNOTS - 1) as f64;
+    let mut u = [0.0; NKNOTS];
+    let mut k = 0;
+    while k < NKNOTS {
+        u[k] = qmin + k as f64 * dq;
+        k += 1;
+    }
+    u
+};
 
-    let mut result = 0.0_f64;
+/// libxc `PMAX`: the dense table's static size.
+const PMAX: usize = 8;
 
-    // Guard: only compute if u is in support [knots[i], knots[i+4])
-    if u >= ki0 {
-        if u < ki4 {
-            // Degree 0: piecewise constants (always needed)
-            let n0_0 = (if u >= ki0 { (if u < ki1 { 1.0_f64 } else { 0.0_f64 }) } else { 0.0_f64 });
-            let n0_1 = (if u >= ki1 { (if u < ki2 { 1.0_f64 } else { 0.0_f64 }) } else { 0.0_f64 });
-            let n0_2 = (if u >= ki2 { (if u < ki3 { 1.0_f64 } else { 0.0_f64 }) } else { 0.0_f64 });
-            let n0_3 = (if u >= ki3 { (if u < ki4 { 1.0_f64 } else { 0.0_f64 }) } else { 0.0_f64 });
+/// `xc_bspline(i, p, u, nderiv, U, ders)`: the `i`-th B-spline of degree `p`
+/// on knots `uk` and its derivatives up to `nderiv`, into `ders[0..=nderiv]`.
+fn xc_bspline(i: usize, p: usize, u: f64, nderiv: usize, uk: &[f64], ders: &mut [f64; 5]) {
+    // Initialize output array
+    for d in ders.iter_mut().take(nderiv + 1) {
+        *d = 0.0;
+    }
 
-            if ider == 3 {
-                // Derivative order 3: only needs N[0] values, 3 triangular passes
-                let d3_a0 = safe_div(n0_0, ki1 - ki0);
-                let d3_a1 = safe_div(n0_1, ki2 - ki1);
-                let d3_a2 = safe_div(n0_2, ki3 - ki2);
-                let d3_a3 = safe_div(n0_3, ki4 - ki3);
-                let d3_b0 = d3_a0 - d3_a1;
-                let d3_b1 = d3_a1 - d3_a2;
-                let d3_b2 = d3_a2 - d3_a3;
-                let d3_c0 = safe_div(d3_b0, ki2 - ki0);
-                let d3_c1 = safe_div(d3_b1, ki3 - ki1);
-                let d3_c2 = safe_div(d3_b2, ki4 - ki2);
-                let d3_d0 = 2.0_f64 * (d3_c0 - d3_c1);
-                let d3_d1 = 2.0_f64 * (d3_c1 - d3_c2);
-                let d3_e0 = safe_div(d3_d0, ki3 - ki0);
-                let d3_e1 = safe_div(d3_d1, ki4 - ki1);
-                result = 3.0_f64 * (d3_e0 - d3_e1);
+    // Check locality of support
+    if u < uk[i] || u >= uk[i + p + 1] {
+        return;
+    }
+
+    // Array of normalized B splines, dense storage
+    let mut n = [[0.0f64; PMAX]; PMAX];
+
+    // Zeroth-degree functions: piecewise constants
+    for j in 0..=p {
+        n[0][j] = if u >= uk[i + j] && u < uk[i + j + 1] {
+            1.0
+        } else {
+            0.0
+        };
+    }
+
+    // Table of B splines
+    for k in 1..=p {
+        let mut saved = if n[k - 1][0] == 0.0 {
+            0.0
+        } else {
+            ((u - uk[i]) * n[k - 1][0]) / (uk[i + k] - uk[i])
+        };
+        for j in 0..=(p - k) {
+            let ul = uk[i + j + 1];
+            let ur = uk[i + j + k + 1];
+            if n[k - 1][j + 1] == 0.0 {
+                n[k][j] = saved;
+                saved = 0.0;
             } else {
-                // Degree 1: needed for ider <= 2
-                let n1_0 = safe_div((u - ki0) * n0_0, ki1 - ki0)
-                         + safe_div((ki2 - u) * n0_1, ki2 - ki1);
-                let n1_1 = safe_div((u - ki1) * n0_1, ki2 - ki1)
-                         + safe_div((ki3 - u) * n0_2, ki3 - ki2);
-                let n1_2 = safe_div((u - ki2) * n0_2, ki3 - ki2)
-                         + safe_div((ki4 - u) * n0_3, ki4 - ki3);
-
-                if ider == 2 {
-                    // Derivative order 2: needs N[1] values, 2 triangular passes
-                    let d2_a0 = safe_div(n1_0, ki2 - ki0);
-                    let d2_a1 = safe_div(n1_1, ki3 - ki1);
-                    let d2_a2 = safe_div(n1_2, ki4 - ki2);
-                    let d2_b0 = 2.0_f64 * (d2_a0 - d2_a1);
-                    let d2_b1 = 2.0_f64 * (d2_a1 - d2_a2);
-                    let d2_c0 = safe_div(d2_b0, ki3 - ki0);
-                    let d2_c1 = safe_div(d2_b1, ki4 - ki1);
-                    result = 3.0_f64 * (d2_c0 - d2_c1);
-                } else {
-                    // Degree 2: needed for ider <= 1
-                    let n2_0 = safe_div((u - ki0) * n1_0, ki2 - ki0)
-                             + safe_div((ki3 - u) * n1_1, ki3 - ki1);
-                    let n2_1 = safe_div((u - ki1) * n1_1, ki3 - ki1)
-                             + safe_div((ki4 - u) * n1_2, ki4 - ki2);
-
-                    if ider == 1 {
-                        // Derivative order 1: needs N[2] values
-                        let d1_s0 = safe_div(n2_0, ki3 - ki0);
-                        let d1_s1 = safe_div(n2_1, ki4 - ki1);
-                        result = 3.0_f64 * (d1_s0 - d1_s1);
-                    } else {
-                        // ider == 0: function value, needs full N[3]
-                        result = safe_div((u - ki0) * n2_0, ki3 - ki0)
-                               + safe_div((ki4 - u) * n2_1, ki4 - ki1);
-                    }
-                }
+                let temp = n[k - 1][j + 1] / (ur - ul);
+                n[k][j] = saved + (ur - u) * temp;
+                saved = (u - ul) * temp;
             }
         }
     }
 
+    // Function value
+    ders[0] = n[p][0];
+    if nderiv == 0 {
+        return;
+    }
+
+    // Derivatives
+    let mut nd = [0.0f64; 5];
+    let maxk = if nderiv < p { nderiv } else { p };
+    for k in 1..=maxk {
+        // Load appropriate column
+        for v in nd.iter_mut().take(nderiv + 1) {
+            *v = 0.0;
+        }
+        for j in 0..=k {
+            nd[j] = n[p - k][j];
+        }
+
+        // Compute table
+        for jj in 1..=k {
+            let mut saved = if nd[0] == 0.0 {
+                0.0
+            } else {
+                nd[0] / (uk[i + p - k + jj] - uk[i])
+            };
+            for j in 0..=(k - jj) {
+                let ul = uk[i + j + 1];
+                // the -k term is missing in the book
+                let ur = uk[i + j + p - k + jj + 1];
+                let m = (p - k + jj) as f64;
+                if nd[j + 1] == 0.0 {
+                    nd[j] = m * saved;
+                    saved = 0.0;
+                } else {
+                    let temp = nd[j + 1] / (ur - ul);
+                    nd[j] = m * (saved - temp);
+                    saved = temp;
+                }
+            }
+        }
+        // k:th derivative
+        ders[k] = nd[0];
+    }
+}
+
+/// `xbspline` / `cbspline` in `hyb_gga_xc_case21.c`:
+///
+/// ```c
+/// double result=0.0;
+/// for(int i=0;i<params->Nsp;i++) {
+///   xc_bspline(i, params->k, u, ider, params->knots, temp);
+///   result += params->cx[i]*temp[ider];
+/// }
+/// ```
+fn spline_sum(u: f64, ider: f64, c: &[f64; NSP]) -> f64 {
+    let ider = ider as usize;
+    assert!(ider <= 4);
+    let mut temp = [0.0f64; 5];
+    let mut result = 0.0;
+    for (i, ci) in c.iter().enumerate() {
+        xc_bspline(i, K, u, ider, &KNOTS, &mut temp);
+        result += ci * temp[ider];
+    }
     result
 }
 
-/// Evaluate case21 exchange B-spline: sum_i cx[i] * B_{i,3}(u, ider)
-///
-/// cx_0..cx_9 are the 10 exchange enhancement coefficients.
+/// case21 exchange enhancement: `sum_i cx[i] * B_{i,3}^{(ider)}(u)`.
 #[allow(clippy::too_many_arguments)]
 pub fn case21_xbspline(
-    u: f64, ider: f64,
-    cx_0: f64, cx_1: f64, cx_2: f64, cx_3: f64, cx_4: f64,
-    cx_5: f64, cx_6: f64, cx_7: f64, cx_8: f64, cx_9: f64,
+    u: f64,
+    ider: f64,
+    cx_0: f64,
+    cx_1: f64,
+    cx_2: f64,
+    cx_3: f64,
+    cx_4: f64,
+    cx_5: f64,
+    cx_6: f64,
+    cx_7: f64,
+    cx_8: f64,
+    cx_9: f64,
 ) -> f64 {
-    let ider = ider as u32;
-    cx_0 * bspline_k3_eval(0, u, ider)
-        + cx_1 * bspline_k3_eval(1, u, ider)
-        + cx_2 * bspline_k3_eval(2, u, ider)
-        + cx_3 * bspline_k3_eval(3, u, ider)
-        + cx_4 * bspline_k3_eval(4, u, ider)
-        + cx_5 * bspline_k3_eval(5, u, ider)
-        + cx_6 * bspline_k3_eval(6, u, ider)
-        + cx_7 * bspline_k3_eval(7, u, ider)
-        + cx_8 * bspline_k3_eval(8, u, ider)
-        + cx_9 * bspline_k3_eval(9, u, ider)
+    spline_sum(
+        u,
+        ider,
+        &[cx_0, cx_1, cx_2, cx_3, cx_4, cx_5, cx_6, cx_7, cx_8, cx_9],
+    )
 }
 
-/// Evaluate case21 correlation B-spline: sum_i cc[i] * B_{i,3}(u, ider)
-///
-/// cc_0..cc_9 are the 10 correlation enhancement coefficients.
+/// case21 correlation enhancement: `sum_i cc[i] * B_{i,3}^{(ider)}(u)`.
 #[allow(clippy::too_many_arguments)]
 pub fn case21_cbspline(
-    u: f64, ider: f64,
-    cc_0: f64, cc_1: f64, cc_2: f64, cc_3: f64, cc_4: f64,
-    cc_5: f64, cc_6: f64, cc_7: f64, cc_8: f64, cc_9: f64,
+    u: f64,
+    ider: f64,
+    cc_0: f64,
+    cc_1: f64,
+    cc_2: f64,
+    cc_3: f64,
+    cc_4: f64,
+    cc_5: f64,
+    cc_6: f64,
+    cc_7: f64,
+    cc_8: f64,
+    cc_9: f64,
 ) -> f64 {
-    let ider = ider as u32;
-    cc_0 * bspline_k3_eval(0, u, ider)
-        + cc_1 * bspline_k3_eval(1, u, ider)
-        + cc_2 * bspline_k3_eval(2, u, ider)
-        + cc_3 * bspline_k3_eval(3, u, ider)
-        + cc_4 * bspline_k3_eval(4, u, ider)
-        + cc_5 * bspline_k3_eval(5, u, ider)
-        + cc_6 * bspline_k3_eval(6, u, ider)
-        + cc_7 * bspline_k3_eval(7, u, ider)
-        + cc_8 * bspline_k3_eval(8, u, ider)
-        + cc_9 * bspline_k3_eval(9, u, ider)
+    spline_sum(
+        u,
+        ider,
+        &[cc_0, cc_1, cc_2, cc_3, cc_4, cc_5, cc_6, cc_7, cc_8, cc_9],
+    )
 }

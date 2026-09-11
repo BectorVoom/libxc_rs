@@ -25,18 +25,18 @@ pub fn lda_c_pmgb06_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t7 = pow_1_3(zeta_threshold);
     let t8 = t7 * t7;
-    let t21 = rmath::ln(2.0);
+    let t21 = 0.6931471805599453;
     let t22 = t21 - 1.0;
     let t23 = 2.0 * t22;
     let t25 = M_PI * M_PI;
     let t26 = 1.0 / t25;
     let t27 = M_CBRT3;
     let t28 = 1.0 / M_PI;
-    let t29 = pow_1_3(t28);
+    let t29 = 0.6827840632552957;
     let t30 = t27 * t29;
     let t31 = M_CBRT4;
     let t32 = t31 * t31;
-    let t43 = pow_1_3(9.0);
+    let t43 = 2.080083823051904;
     let t44 = t43 * t43;
     let t52 = param_hyb_omega_0 * param_hyb_omega_0;
     let t53 = (3.44851 - M_PI * t31 * t44 * t29 / t22 / 12.0) * t52;

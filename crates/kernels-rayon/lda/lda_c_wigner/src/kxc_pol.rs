@@ -138,7 +138,7 @@ pub fn lda_c_wigner_kxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t9 = f64x8::splat(M_CBRT3);
     let t10 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t11 = (simd::cbrt(t10));
+    let t11 = f64x8::splat(0.6827840632552957);
     let t12 = t9 * t11;
     let t13 = f64x8::splat(M_CBRT4);
     let t14 = t13 * t13;

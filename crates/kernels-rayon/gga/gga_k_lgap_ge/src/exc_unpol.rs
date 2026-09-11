@@ -94,7 +94,7 @@ pub fn gga_k_lgap_ge_exc_unpol(
     let t25 = f64x8::splat(M_CBRT6);
     let t26 = t25 * t25;
     let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(2.1450293971110255);
     let t31 = param_mu_0 * t26 / t29;
     let t33 = f64x8::splat(M_CBRT2);
     let t41 = param_mu_1 * t25;

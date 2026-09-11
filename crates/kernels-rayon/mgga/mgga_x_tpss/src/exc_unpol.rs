@@ -100,7 +100,7 @@ pub fn mgga_x_tpss_exc_unpol(
     let t18 = (((t12).simd_le(zeta_threshold)).select(t14 * zeta_threshold, t16 * t12));
     let t46 = f64x8::splat(M_CBRT6);
     let t48 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t49 = (simd::cbrt(t48));
+    let t49 = f64x8::splat(2.1450293971110255);
     let t50 = t49 * t49;
     let t51 = f64x8::splat(1.0) / t50;
     let t53 = f64x8::splat(M_CBRT2);

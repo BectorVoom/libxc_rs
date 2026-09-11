@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 
 #[allow(unused_variables, non_snake_case)]
@@ -25,7 +25,7 @@ pub fn gga_x_2d_b86_fxc_unpol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t3 = rmath::sqrt(M_PI);
+    let t3 = 1.7724538509055159;
     let t5 = 1.0 <= zeta_threshold;
     let t6 = zeta_threshold - 1.0;
     let t8 = piecewise5(t5, t6, t5, -t6, 0.0);

@@ -70,8 +70,8 @@ impl LdaFunctional {
     /// Map a libxc functional ID to a dispatchable LDA variant, or return an error.
     ///
     /// Returns `Err(UnsupportedFunctional)` for:
-    /// - Any of the 4 deferred IDs (lda_c_pk09=554, lda_xc_ksdt=259,
-    ///   lda_c_pw_erf=654, lda_c_pmgb06=590)
+    /// - Any of the 3 deferred IDs (lda_xc_ksdt=259, lda_c_pw_erf=654,
+    ///   lda_c_pmgb06=590)
     /// - Any LDA-family ID that is not present in `crates/kernel-lda` (e.g.
     ///   `lda_x_rae`, `lda_c_xalpha`)
     /// - Any non-LDA ID (these should be routed via dispatch_gga / dispatch_mgga)
@@ -216,17 +216,18 @@ mod tests {
         );
     }
 
+    /// `lda_c_pk09` left the deferred list on 2026-09-11 (it is dispatched by
+    /// id at the orders libxc ships). The typed enum has no variant for it,
+    /// so this path still declines it -- as a functional the enum does not
+    /// cover, not as a deferred one.
     #[test]
-    fn from_id_rejects_deferred_lda_c_pk09() {
+    fn from_id_has_no_typed_variant_for_lda_c_pk09() {
         let id = FunctionalId::from_raw(554).unwrap();
         let err = LdaFunctional::from_id(id).unwrap_err();
         match err {
             LibxcRsError::UnsupportedFunctional { id: e_id, reason } => {
                 assert_eq!(e_id.raw(), 554);
-                assert!(
-                    reason.contains("deferred"),
-                    "expected 'deferred' in reason, got: {reason}"
-                );
+                assert!(!reason.contains("deferred"), "pk09 is no longer deferred: {reason}");
             }
             other => panic!("expected UnsupportedFunctional, got {other:?}"),
         }

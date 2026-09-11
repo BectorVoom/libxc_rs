@@ -16,7 +16,7 @@ pub const ID: u16 = 549;
 
 
 /// libxc default for `param_alpha`.
-pub const PARAM_ALPHA: f64 = 0.06130908237864922;
+pub const PARAM_ALPHA: f64 = 0.061309082378649155;
 
 /// Number of libxc `ext_params` this dispatch accepts at runtime: none,
 /// because its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py.

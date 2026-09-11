@@ -141,7 +141,7 @@ pub fn mgga_x_vt84_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t50 = f64x8::splat(M_CBRT6);
     let t52 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t53 = (simd::cbrt(t52));
+    let t53 = f64x8::splat(2.1450293971110255);
     let t54 = t53 * t53;
     let t55 = f64x8::splat(1.0) / t54;
     let t82 = t50 * t55;

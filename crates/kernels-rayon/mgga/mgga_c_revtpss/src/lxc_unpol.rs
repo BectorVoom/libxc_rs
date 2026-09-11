@@ -119,7 +119,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
     let t35 = t34 * t32;
     let t41 = M_CBRT3;
     let t42 = M_PI * M_PI;
-    let t43 = pow_1_3(t42);
+    let t43 = 2.1450293971110255;
     let t44 = t43 * t43;
     let t45 = 1.0 / t44;
     let t46 = t41 * t45;
@@ -129,7 +129,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
     let t51 = t50 * t31;
     let t53 = 1.0 / t48 + 1.0 / t51;
     let t76 = 1.0 / M_PI;
-    let t77 = pow_1_3(t76);
+    let t77 = 0.6827840632552957;
     let t78 = t41 * t77;
     let t79 = M_CBRT4;
     let t80 = t79 * t79;
@@ -147,7 +147,7 @@ pub fn mgga_c_revtpss_lxc_unpol(
     let t113 = t105 * t112;
     let t116 = 1.0 / (2.0 * t16 - 2.0);
     let t148 = t112 * t116;
-    let t151 = rmath::ln(2.0);
+    let t151 = 0.6931471805599453;
     let t152 = 1.0 - t151;
     let t153 = 1.0 / t42;
     let t154 = t152 * t153;

@@ -2,9 +2,18 @@
 //! what does it cost relative to calling the platform libm directly?
 //!
 //! `rmath_bitexact` exists so every transcendental agrees bit-for-bit with the
-//! libm C libxc calls. `f64::cbrt` on Linux *is* that libm. If the two agree,
-//! the reimplementation buys nothing the direct call does not already have,
-//! and any cost difference is pure loss.
+//! libm C libxc calls.
+//!
+//! **`f64::cbrt` is NOT that libm**, and this example used to assume it was.
+//! Rust's std ports core-math's correctly rounded `cbrt` instead of calling
+//! libm, and inside a Rust binary even a plain `extern "C" cbrt` resolves to
+//! `compiler_builtins` rather than `libm.so.6`. glibc's `cbrt` is a different,
+//! ~1-ulp algorithm; the two disagree on roughly half of all inputs. So the
+//! comparison below measures `rmath::cbrt` (a port of glibc's) against
+//! core-math, and ~50 % disagreement is the EXPECTED answer, not a defect.
+//! Bit-parity with glibc is pinned by `tests/cbrt_glibc_parity.rs`, which
+//! fetches glibc's own symbol with `dlopen`. What this example still answers
+//! honestly is the cost question.
 //!
 //!     cargo run --release --manifest-path crates/kernels-rayon/math/Cargo.toml \
 //!         --example cbrt_check
@@ -38,7 +47,7 @@ fn main() {
             }
         }
     }
-    println!("rmath::cbrt (BitExact) vs f64::cbrt (platform libm)");
+    println!("rmath::cbrt (glibc port) vs f64::cbrt (Rust core-math, NOT glibc)");
     println!("  inputs           : {}", xs.len());
     println!("  differing        : {diff}  ({:.4} %)", 100.0 * diff as f64 / xs.len() as f64);
     println!("  worst ulp        : {worst_ulp}");
@@ -78,7 +87,7 @@ fn main() {
 
     println!("\nscalar cost (best of 5 over {} elems)", xs.len());
     let a = time("rmath::cbrt BitExact", &|x| rmath::cbrt(x));
-    let b = time("f64::cbrt (libm)", &|x| x.cbrt());
+    let b = time("f64::cbrt (core-math)", &|x| x.cbrt());
     let c = time("rmath::fast::cbrt", &|x| rmath::fast::cbrt(x));
     println!("\n  BitExact / libm  = {:.2}x", a / b);
     println!("  fast     / libm  = {:.2}x", c / b);

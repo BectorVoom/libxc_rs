@@ -94,7 +94,7 @@ pub fn mgga_x_lta_vxc_unpol(
     let t22 = t21 * t21;
     let t27 = f64x8::splat(M_CBRT6);
     let t29 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t30 = (simd::cbrt(t29));
+    let t30 = f64x8::splat(2.1450293971110255);
     let t31 = t30 * t30;
     let t47 = t7 * t18;
     let tvsigma0 = f64x8::splat(0.0);

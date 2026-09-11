@@ -37,7 +37,7 @@ pub fn gga_k_pg_exc_unpol(
     let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
     let t24 = M_CBRT6;
     let t25 = M_PI * M_PI;
-    let t26 = pow_1_3(t25);
+    let t26 = 2.1450293971110255;
     let t27 = t26 * t26;
     let t28 = 1.0 / t27;
     let t29 = t24 * t28;

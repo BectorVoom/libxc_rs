@@ -150,7 +150,7 @@ pub fn mgga_x_mvsb_exc_pol(
     let t40 = f64x8::splat(M_CBRT6);
     let t41 = t40 * t40;
     let t42 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t43 = (simd::cbrt(t42));
+    let t43 = f64x8::splat(2.1450293971110255);
     let t44 = t43 * t43;
     let t46 = f64x8::splat(3.0) / f64x8::splat(10.0) * t41 * t44;
     let t70 = param_b * t41;

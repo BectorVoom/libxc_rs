@@ -163,7 +163,7 @@ pub fn fused_pbeh_fxc_pol(
     let l0_t28 = f64x8::splat(M_CBRT6);
     let l0_t29 = l0_param_mu * l0_t28;
     let l0_t30 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let l0_t31 = (simd::cbrt(l0_t30));
+    let l0_t31 = f64x8::splat(2.1450293971110255);
     let l0_t32 = l0_t31 * l0_t31;
     let l0_t33 = f64x8::splat(1.0) / l0_t32;
     let l0_t100 = l0_param_kappa * l0_param_kappa;
@@ -173,8 +173,7 @@ pub fn fused_pbeh_fxc_pol(
     let l0_t225 = l0_t28 * l0_t28;
     let l0_t228 = f64x8::splat(1.0) / l0_t31 / l0_t30;
     let l0_t442 = l0_t225 * l0_t228;
-    let l1_t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let l1_t3 = (simd::cbrt(l1_t2));
+    let l1_t3 = f64x8::splat(0.6827840632552957);
     let l1_t4 = l0_t2 * l1_t3;
     let l1_t5 = f64x8::splat(M_CBRT4);
     let l1_t6 = l1_t5 * l1_t5;

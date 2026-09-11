@@ -120,7 +120,7 @@ pub fn mgga_x_ft98_lxc_unpol(
     let t116 = t115 * t60;
     let t126 = t4 * t4;
     let t127 = 1.0 / M_PI;
-    let t128 = pow_1_3(t127);
+    let t128 = 0.6827840632552957;
     let t129 = t128 * t128;
     let t130 = t126 * t129;
     let t131 = M_CBRT4;

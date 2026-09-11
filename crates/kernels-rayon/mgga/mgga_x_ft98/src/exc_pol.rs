@@ -163,7 +163,7 @@ pub fn mgga_x_ft98_exc_pol(
     let t118 = t117 * t65;
     let t128 = t3 * t3;
     let t129 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t130 = (simd::cbrt(t129));
+    let t130 = f64x8::splat(0.6827840632552957);
     let t131 = t130 * t130;
     let t132 = t128 * t131;
     let t133 = f64x8::splat(M_CBRT4);

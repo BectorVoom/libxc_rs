@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -31,7 +31,7 @@ pub fn lda_c_chachiyo_fxc_pol(
     let t1 = M_CBRT3;
     let t2 = t1 * t1;
     let t3 = param_bp * t2;
-    let t5 = pow_1_3(1.0 / M_PI);
+    let t5 = 0.6827840632552957;
     let t7 = M_CBRT4;
     let t8 = 1.0 / t5 * t7;
     let t14 = param_cp * t1;

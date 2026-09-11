@@ -73,7 +73,7 @@ pub fn lda_k_zlp_exc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = t1 * t1;
-    let t4 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t4 = f64x8::splat(0.6827840632552957);
     let t5 = f64x8::splat(1.0) / t4;
     let t7 = f64x8::splat(M_CBRT4);
     let t8 = t2 * t5 * t7;

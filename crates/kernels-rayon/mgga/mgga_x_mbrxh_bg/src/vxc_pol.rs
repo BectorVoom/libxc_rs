@@ -32,13 +32,13 @@ pub fn mgga_x_mbrxh_bg_vxc_pol(
     let t12 = -t8;
     let t18 = pow_1_3(zeta_threshold);
     let t19 = t18 * zeta_threshold;
-    let t26 = pow_1_3(1.0 / M_PI);
+    let t26 = 0.6827840632552957;
     let t27 = 1.0 / t26;
     let t29 = M_CBRT4;
     let t36 = M_CBRT6;
     let t37 = t36 * t36;
     let t38 = M_PI * M_PI;
-    let t39 = pow_1_3(t38);
+    let t39 = 2.1450293971110255;
     let t40 = t39 * t39;
     let t42 = 3.0 / 10.0 * t37 * t40;
     let t144 = M_CBRTPI;

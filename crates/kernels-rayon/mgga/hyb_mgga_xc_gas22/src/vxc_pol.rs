@@ -166,7 +166,7 @@ pub fn hyb_mgga_xc_gas22_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t10 = f64x8::splat(M_CBRT3);
     let t12 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t13 = (simd::cbrt(t12));
+    let t13 = f64x8::splat(0.6827840632552957);
     let t14 = f64x8::splat(M_CBRT4);
     let t15 = t14 * t14;
     let t16 = t13 * t15;
@@ -176,7 +176,7 @@ pub fn hyb_mgga_xc_gas22_vxc_pol(
     let t21 = (simd::cbrt(zeta_threshold));
     let t22 = t21 * zeta_threshold;
     let t24 = ((t20).select(t22, f64x8::splat(2.0) * t17));
-    let t30 = (simd::cbrt(f64x8::splat(9.0)));
+    let t30 = f64x8::splat(2.080083823051904);
     let t31 = t30 * t30;
     let t32 = t13 * t13;
     let t33 = t31 * t32;
@@ -184,14 +184,14 @@ pub fn hyb_mgga_xc_gas22_vxc_pol(
     let t35 = t33 * t34;
     let t38 = ((t20).select(t21, t17));
     let t39 = f64x8::splat(1.0) / t38;
-    let t73 = ((f64x8::splat(M_PI)).sqrt());
+    let t73 = f64x8::splat(1.7724538509055159);
     let t94 = param_c_x_0;
     let t95 = param_c_x_1;
     let t109 = param_c_x_2;
     let t110 = f64x8::splat(M_CBRT6);
     let t111 = t110 * t110;
     let t112 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t113 = (simd::cbrt(t112));
+    let t113 = f64x8::splat(2.1450293971110255);
     let t114 = t113 * t113;
     let t115 = t111 * t114;
     let t116 = f64x8::splat(3.0) / f64x8::splat(10.0) * t115;
@@ -215,7 +215,7 @@ pub fn hyb_mgga_xc_gas22_vxc_pol(
     let t523 = param_c_os_3;
     let t528 = f64x8::splat(M_SQRT2);
     let t535 = param_c_os_4;
-    let t1153 = (simd::pow(f64x8::splat(2.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t1153 = f64x8::splat(1.122462048309373);
     let t1154 = t1153 * t1153;
     let t1155 = t1154 * t1154;
     let t1156 = t1155 * t1153;

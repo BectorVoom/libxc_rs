@@ -46,7 +46,7 @@ pub fn gga_x_am05_kxc_unpol(
     let t20 = M_CBRT6;
     let t21 = param_alpha * t20;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = t23 * t23;
     let t25 = 1.0 / t24;
     let t26 = t21 * t25;
@@ -59,8 +59,8 @@ pub fn gga_x_am05_kxc_unpol(
     let t54 = 1.0 / t23;
     let t61 = 1.0 / M_PI;
     let t63 = t3 * t3;
-    let t64 = rmath::sqrt(12.0);
-    let t72 = rmath::sqrt(6.0);
+    let t64 = 3.4641016151377544;
+    let t72 = 2.449489742783178;
     let t112 = param_alpha * param_alpha;
     let t113 = t112 * t52;
     let t115 = 1.0 / t23 / t22;

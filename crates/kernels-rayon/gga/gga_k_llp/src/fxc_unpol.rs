@@ -95,7 +95,7 @@ pub fn gga_k_llp_fxc_unpol(
     let t18 = t17 * t17;
     let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
     let t24 = param_beta * t4;
-    let t26 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t26 = f64x8::splat(0.6827840632552957);
     let t27 = f64x8::splat(1.0) / t26;
     let t28 = f64x8::splat(M_CBRT4);
     let t29 = t27 * t28;

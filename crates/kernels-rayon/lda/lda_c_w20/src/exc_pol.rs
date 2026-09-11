@@ -129,31 +129,31 @@ pub fn lda_c_w20_exc_pol(
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = (simd::ln(f64x8::splat(2.0)));
+    let t1 = f64x8::splat(0.6931471805599453);
     let t2 = f64x8::splat(1.0) - t1;
     let t3 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t4 = f64x8::splat(1.0) / t3;
     let t5 = t2 * t4;
     let t6 = t1 / f64x8::splat(6.0);
     let t8 = f64x8::splat(1.0) / t2;
-    let t12 = (simd::exp(-f64x8::splat(2.0) * (-f64x8::splat(0.16244537117517982) + t6) * t8 * t3));
+    let t12 = f64x8::splat(20.456913703084926);
     let t13 = f64x8::splat(M_CBRT3);
     let t14 = t13 * t13;
     let t15 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t16 = (simd::cbrt(t15));
+    let t16 = f64x8::splat(0.6827840632552957);
     let t17 = t16 * t16;
     let t18 = t14 * t17;
     let t19 = f64x8::splat(M_CBRT4);
     let t29 = f64x8::splat(M_CBRTPI);
     let t30 = t29 * t29;
-    let t32 = (simd::cbrt(f64x8::splat(9.0)));
+    let t32 = f64x8::splat(2.080083823051904);
     let t33 = f64x8::splat(1.0) / t30 * t32;
     let t34 = t19 * t19;
     let t40 = t12 * f64x8::splat(0.5);
     let t41 = (-f64x8::splat(0.9) + f64x8::splat(3.0) * f64x8::splat(0.0625) * t33 * t34) * t8 * t3 + t40;
     let t46 = f64x8::splat(1.0) / t16;
     let t47 = t46 * t19;
-    let t52 = ((f64x8::splat(4.0)).sqrt());
+    let t52 = f64x8::splat(2.0);
     let t53 = t13 * t16;
     let t63 = t32 * t32;
     let t64 = t63 * t19;
@@ -162,7 +162,7 @@ pub fn lda_c_w20_exc_pol(
     let t74 = f64x8::splat(1.0) / t17;
     let t75 = t74 * t34;
     let t83 = t53 * t34;
-    let t85 = ((f64x8::splat(4.0)).sqrt().sqrt());
+    let t85 = f64x8::splat(1.4142135623730951);
     let t86 = t85 * t85;
     let t87 = t86 * t85;
     let t94 = t3 * f64x8::splat(M_PI);
@@ -171,7 +171,7 @@ pub fn lda_c_w20_exc_pol(
     let t99 = f64x8::splat(7.0) / f64x8::splat(6.0) * t3 - t98 - f64x8::splat(1.0);
     let t100 = t96 * t99;
     let t101 = t14 * t46;
-    let t119 = (simd::exp(-f64x8::splat(4.0) * (-f64x8::splat(0.1412623711751798) + t6) * t8 * t3));
+    let t119 = f64x8::splat(27.42141927531214);
     let t120 = f64x8::splat(M_CBRT2);
     let t128 = t119 * f64x8::splat(0.5);
     let t129 = f64x8::splat(2.0) * (-f64x8::splat(0.9) + f64x8::splat(3.0) * f64x8::splat(0.0625) * t33 * t34 * t120) * t8 * t3 + t128;

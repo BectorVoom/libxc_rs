@@ -284,7 +284,10 @@ mod tests {
         // part of the functional's definition; the constant was corrected when
         // it showed up in the oracle, and this assertion was left behind.
         assert_eq!(t.zeta, f64::EPSILON);
-        assert_eq!(t.sigma, 1e-24);
+        // `pow(dens_threshold, 4.0/3.0)`, as `xc_func_init` derives it -- not
+        // the 1e-24 this used to assert, which `default()` itself records as
+        // a guess with no counterpart in libxc.
+        assert_eq!(t.sigma.to_bits(), 1e-15f64.powf(4.0 / 3.0).to_bits());
         assert_eq!(t.tau, 1e-20);
     }
 

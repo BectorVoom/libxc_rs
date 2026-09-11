@@ -61,7 +61,7 @@ pub fn mgga_c_ccalda_kxc_pol(
     let t2 = 1.0 + param_c;
     let t40 = M_CBRT6;
     let t41 = M_PI * M_PI;
-    let t42 = pow_1_3(t41);
+    let t42 = 2.1450293971110255;
     let t43 = t42 * t42;
     let t44 = 1.0 / t43;
     let t45 = t40 * t44;
@@ -70,7 +70,7 @@ pub fn mgga_c_ccalda_kxc_pol(
     let t50 = t45 * t48;
     let t67 = M_CBRT3;
     let t68 = 1.0 / M_PI;
-    let t69 = pow_1_3(t68);
+    let t69 = 0.6827840632552957;
     let t70 = t67 * t69;
     let t71 = M_CBRT4;
     let t72 = t71 * t71;

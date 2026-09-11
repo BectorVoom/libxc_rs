@@ -26,7 +26,7 @@ pub fn mgga_c_ltapw_exc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRT3;
     let t3 = 1.0 / M_PI;
-    let t4 = pow_1_3(t3);
+    let t4 = 0.6827840632552957;
     let t5 = t2 * t4;
     let t6 = M_CBRT4;
     let t7 = t6 * t6;
@@ -34,7 +34,7 @@ pub fn mgga_c_ltapw_exc_unpol(
     let t9 = t8 * t8;
     let t15 = M_CBRT6;
     let t17 = M_PI * M_PI;
-    let t18 = pow_1_3(t17);
+    let t18 = 2.1450293971110255;
     let t19 = t18 * t18;
     let t38 = t2 * t2;
     let t39 = t4 * t4;

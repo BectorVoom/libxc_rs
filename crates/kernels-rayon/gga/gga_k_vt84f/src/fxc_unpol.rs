@@ -97,7 +97,7 @@ pub fn gga_k_vt84f_fxc_unpol(
     let t24 = f64x8::splat(M_CBRT6);
     let t25 = t24 * t24;
     let t26 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t27 = (simd::cbrt(t26));
+    let t27 = f64x8::splat(2.1450293971110255);
     let t29 = t25 / t27;
     let t31 = f64x8::splat(M_CBRT2);
     let t38 = ((f64x8::splat(f64::EPSILON)).sqrt());

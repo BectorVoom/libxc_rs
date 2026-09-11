@@ -52,7 +52,7 @@ pub fn gga_k_ol1_lxc_unpol(
     let t25 = t24 * t24;
     let t39 = M_CBRT6;
     let t41 = M_PI * M_PI;
-    let t42 = pow_1_3(t41);
+    let t42 = 2.1450293971110255;
     let t43 = t42 * t42;
     let t44 = 1.0 / t43;
     let t57 = t7 * t20;

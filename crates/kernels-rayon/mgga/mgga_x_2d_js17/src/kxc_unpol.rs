@@ -56,7 +56,7 @@ pub fn mgga_x_2d_js17_kxc_unpol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t4 = rmath::sqrt(M_PI);
+    let t4 = 1.7724538509055159;
     let t6 = 1.0 <= zeta_threshold;
     let t7 = zeta_threshold - 1.0;
     let t9 = piecewise5(t6, t7, t6, -t7, 0.0);

@@ -128,7 +128,7 @@ pub fn gga_x_sogga11_lxc_unpol(
     let t22 = f64x8::splat(M_CBRT6);
     let t23 = param_mu * t22;
     let t24 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t25 = (simd::cbrt(t24));
+    let t25 = f64x8::splat(2.1450293971110255);
     let t26 = t25 * t25;
     let t27 = f64x8::splat(1.0) / t26;
     let t28 = t23 * t27;

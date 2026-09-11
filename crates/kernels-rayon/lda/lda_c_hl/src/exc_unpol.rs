@@ -87,7 +87,7 @@ pub fn lda_c_hl_exc_unpol(
     let t8 = f64x8::splat(1.0) / t7;
     let t12 = f64x8::splat(M_CBRT3);
     let t13 = t12 * t12;
-    let t14 = (simd::cbrt(t2));
+    let t14 = f64x8::splat(0.6827840632552957);
     let t15 = f64x8::splat(1.0) / t14;
     let t16 = t13 * t15;
     let t17 = f64x8::splat(M_CBRT4);

@@ -144,7 +144,7 @@ pub fn gga_c_lm_kxc_pol(
     let t1 = f64x8::splat(1.0) / f64x8::splat(M_PI);
     let t7 = f64x8::splat(M_CBRT3);
     let t8 = t7 * t7;
-    let t9 = (simd::cbrt(t1));
+    let t9 = f64x8::splat(0.6827840632552957);
     let t10 = f64x8::splat(1.0) / t9;
     let t11 = t8 * t10;
     let t12 = f64x8::splat(M_CBRT4);
@@ -158,13 +158,13 @@ pub fn gga_c_lm_kxc_pol(
     let t52 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t49 - f64x8::splat(2.0));
     let t65 = f64x8::splat(M_PI) * t8;
     let t66 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t67 = (simd::cbrt(t66));
+    let t67 = f64x8::splat(2.1450293971110255);
     let t69 = f64x8::splat(1.0) / t67 / t66;
     let t87 = t38 * t38;
     let t88 = t87 * zeta_threshold;
     let t98 = f64x8::splat(M_SQRT2);
     let t100 = t7 * param_lm_f;
-    let t101 = (simd::pow(t1, f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t101 = f64x8::splat(0.8263074871107581);
     let t102 = f64x8::splat(1.0) / t101;
     let t262 = t8 * t69;
     let t302 = t10 * t12;
@@ -174,7 +174,7 @@ pub fn gga_c_lm_kxc_pol(
     let t677 = t425 * t10;
     let t708 = t310 * t29;
     let t883 = t425 * param_lm_f;
-    let t885 = ((t1).sqrt());
+    let t885 = f64x8::splat(0.5641895835477563);
     let t886 = f64x8::splat(1.0) / t885;
     let t1015 = t100 * t102;
     let mut ip = 0usize;

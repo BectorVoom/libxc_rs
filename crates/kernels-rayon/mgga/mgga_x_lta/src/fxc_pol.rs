@@ -47,7 +47,7 @@ pub fn mgga_x_lta_fxc_pol(
     let t23 = t22 * zeta_threshold;
     let t34 = M_CBRT6;
     let t35 = M_PI * M_PI;
-    let t36 = pow_1_3(t35);
+    let t36 = 2.1450293971110255;
     let t37 = t36 * t36;
     let t39 = t34 / t37;
     let t42 = 4.0 / 5.0 * param_ltafrac;

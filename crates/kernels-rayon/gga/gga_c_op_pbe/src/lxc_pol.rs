@@ -39,14 +39,14 @@ pub fn gga_c_op_pbe_lxc_pol(
     let t17 = -t14;
     let t33 = M_CBRT3;
     let t34 = t33 * t33;
-    let t36 = pow_1_3(1.0 / M_PI);
+    let t36 = 0.6827840632552957;
     let t38 = t34 / t36;
     let t39 = M_CBRT4;
     let t40 = t38 * t39;
     let t41 = M_CBRT2;
     let t51 = M_CBRT6;
     let t52 = M_PI * M_PI;
-    let t53 = pow_1_3(t52);
+    let t53 = 2.1450293971110255;
     let t54 = t53 * t53;
     let t55 = 1.0 / t54;
     let t56 = t51 * t55;

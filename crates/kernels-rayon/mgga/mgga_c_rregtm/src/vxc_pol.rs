@@ -138,7 +138,7 @@ pub fn mgga_c_rregtm_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = f64x8::splat(M_CBRT3);
     let t3 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t4 = (simd::cbrt(t3));
+    let t4 = f64x8::splat(0.6827840632552957);
     let t5 = t2 * t4;
     let t6 = f64x8::splat(M_CBRT4);
     let t7 = t6 * t6;
@@ -150,7 +150,7 @@ pub fn mgga_c_rregtm_vxc_pol(
     let t57 = f64x8::splat(M_CBRT2);
     let t58 = t57 - f64x8::splat(1.0);
     let t60 = f64x8::splat(1.0) / t58 * f64x8::splat(0.5);
-    let t93 = (simd::ln(f64x8::splat(2.0)));
+    let t93 = f64x8::splat(0.6931471805599453);
     let t94 = f64x8::splat(1.0) - t93;
     let t95 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t97 = t94 / t95;
@@ -160,7 +160,7 @@ pub fn mgga_c_rregtm_vxc_pol(
     let t133 = t20 * t132;
     let t134 = t133 * t6;
     let t173 = f64x8::splat(M_CBRT6);
-    let t175 = (simd::cbrt(t95));
+    let t175 = f64x8::splat(2.1450293971110255);
     let t176 = t175 * t175;
     let t177 = f64x8::splat(1.0) / t176;
     let t184 = (simd::ln(f64x8::splat(f64::EPSILON)));

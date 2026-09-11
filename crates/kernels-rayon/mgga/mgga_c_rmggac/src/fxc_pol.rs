@@ -39,13 +39,13 @@ pub fn mgga_c_rmggac_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRT3;
     let t3 = 1.0 / M_PI;
-    let t4 = pow_1_3(t3);
+    let t4 = 0.6827840632552957;
     let t5 = t2 * t4;
     let t6 = M_CBRT4;
     let t7 = t6 * t6;
     let t22 = M_CBRT6;
     let t23 = M_PI * M_PI;
-    let t24 = pow_1_3(t23);
+    let t24 = 2.1450293971110255;
     let t25 = t24 * t24;
     let t26 = 1.0 / t25;
     let t27 = t22 * t26;
@@ -59,7 +59,7 @@ pub fn mgga_c_rmggac_fxc_pol(
     let t141 = t4 * t4;
     let t142 = t140 * t141;
     let t188 = t55 * t55;
-    let t203 = rmath::ln(2.0);
+    let t203 = 0.6931471805599453;
     let t204 = 1.0 - t203;
     let t205 = 1.0 / t204;
     let t219 = 1.0 / t4;

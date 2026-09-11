@@ -68,7 +68,7 @@ pub fn hyb_mgga_x_dldf_kxc_unpol(
     let t16 = t4 * t15;
     let t18 = M_CBRT6;
     let t19 = M_PI * M_PI;
-    let t20 = pow_1_3(t19);
+    let t20 = 2.1450293971110255;
     let t21 = t20 * t20;
     let t23 = t18 / t21;
     let t24 = M_CBRT2;

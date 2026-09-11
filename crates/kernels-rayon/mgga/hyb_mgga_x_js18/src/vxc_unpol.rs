@@ -93,15 +93,15 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
     let t14 = (simd::cbrt(zeta_threshold));
     let t16 = (simd::cbrt(t12));
     let t18 = ((t13).select(t14 * zeta_threshold, t16 * t12));
-    let t36 = (simd::cbrt(f64x8::splat(9.0)));
+    let t36 = f64x8::splat(2.080083823051904);
     let t37 = t36 * t36;
-    let t39 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t39 = f64x8::splat(0.6827840632552957);
     let t40 = t39 * t39;
     let t41 = t37 * t40;
     let t42 = t41 * param_hyb_omega_0;
     let t45 = f64x8::splat(M_CBRT6);
     let t46 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t47 = (simd::cbrt(t46));
+    let t47 = f64x8::splat(2.1450293971110255);
     let t48 = t47 * t47;
     let t49 = f64x8::splat(1.0) / t48;
     let t50 = t45 * t49;
@@ -112,7 +112,7 @@ pub fn hyb_mgga_x_js18_vxc_unpol(
     let t64 = t61 * t63;
     let t77 = ((t13).select(t14, t16));
     let t78 = f64x8::splat(1.0) / t77;
-    let t114 = ((f64x8::splat(M_PI)).sqrt());
+    let t114 = f64x8::splat(1.7724538509055159);
     let t237 = t61 * t48;
     let t479 = param_hyb_omega_0 * t4;
     let t480 = t41 * t479;

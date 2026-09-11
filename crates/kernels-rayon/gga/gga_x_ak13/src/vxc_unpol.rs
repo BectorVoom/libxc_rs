@@ -91,7 +91,7 @@ pub fn gga_x_ak13_vxc_unpol(
     let t20 = f64x8::splat(M_CBRT6);
     let t21 = t20 * t20;
     let t23 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t24 = (simd::cbrt(t23));
+    let t24 = f64x8::splat(2.1450293971110255);
     let t25 = f64x8::splat(1.0) / t24;
     let t26 = param_B1 * t21 * t25;
     let t28 = f64x8::splat(M_CBRT2);

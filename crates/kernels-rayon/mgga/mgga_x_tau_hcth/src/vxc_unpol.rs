@@ -115,7 +115,7 @@ pub fn mgga_x_tau_hcth_vxc_unpol(
     let t76 = f64x8::splat(M_CBRT6);
     let t77 = t76 * t76;
     let t78 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t79 = (simd::cbrt(t78));
+    let t79 = f64x8::splat(2.1450293971110255);
     let t80 = t79 * t79;
     let t82 = f64x8::splat(3.0) / f64x8::splat(10.0) * t77 * t80;
     let t202 = t22 * t25;

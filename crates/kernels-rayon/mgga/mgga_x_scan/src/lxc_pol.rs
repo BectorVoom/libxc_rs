@@ -105,7 +105,7 @@ pub fn mgga_x_scan_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = M_CBRT6;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t34 = t29 * t33;
@@ -116,14 +116,14 @@ pub fn mgga_x_scan_lxc_pol(
     let t49 = 1.0 / t48;
     let t50 = t47 * t49;
     let t57 = t45 * t29;
-    let t66 = rmath::sqrt(146.0);
+    let t66 = 12.083045973594572;
     let t67 = t66 * t29;
     let t94 = rmath::ln(f64::EPSILON);
     let t97 = t94 / (-t94 + param_c1);
     let t107 = rmath::abs(param_d);
     let t110 = rmath::ln(f64::EPSILON / t107);
     let t113 = (-t110 + param_c2) / t110;
-    let t128 = rmath::sqrt(3.0);
+    let t128 = 1.7320508075688772;
     let t129 = 1.0 / t31;
     let t130 = t46 * t129;
     let t259 = param_k1 * param_k1;
@@ -132,7 +132,7 @@ pub fn mgga_x_scan_lxc_pol(
     let t278 = 1.0 / t277;
     let t279 = t276 * t278;
     let t322 = param_d * param_c2;
-    let t338 = rmath::pow(3.0, 1.0 / 6.0);
+    let t338 = 1.2009369551760027;
     let t339 = t338 * t338;
     let t340 = t339 * t339;
     let t341 = t340 * t338;

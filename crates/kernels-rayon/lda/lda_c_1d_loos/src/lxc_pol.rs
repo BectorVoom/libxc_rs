@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_SQRT2};
 
 #[allow(unused_variables, non_snake_case)]
 pub fn lda_c_1d_loos_lxc_pol(
@@ -23,8 +23,8 @@ pub fn lda_c_1d_loos_lxc_pol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t10 = M_SQRT2;
-    let t11 = rmath::sqrt(M_PI);
-    let t13 = rmath::ln(t10 * t11);
+    let t11 = 1.7724538509055159;
+    let t13 = 0.9189385332046728;
     let t15 = -0.3083 * t13 - 0.231225;
     let t23 = -1.2332 * t13 - 0.8632856383593266;
     for ip in 0..zk.len() {

@@ -78,7 +78,7 @@ pub fn mgga_c_tpssloc_kxc_unpol(
     let t30 = t29 * t27;
     let t36 = M_CBRT3;
     let t37 = M_PI * M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 2.1450293971110255;
     let t39 = t38 * t38;
     let t41 = t36 / t39;
     let t42 = pow_1_3(t19);
@@ -88,7 +88,7 @@ pub fn mgga_c_tpssloc_kxc_unpol(
     let t48 = 1.0 / t43 + 1.0 / t46;
     let t49 = t41 * t48;
     let t71 = 1.0 / M_PI;
-    let t72 = pow_1_3(t71);
+    let t72 = 0.6827840632552957;
     let t73 = t36 * t72;
     let t74 = M_CBRT4;
     let t75 = t74 * t74;
@@ -106,7 +106,7 @@ pub fn mgga_c_tpssloc_kxc_unpol(
     let t108 = t100 * t107;
     let t111 = 1.0 / (2.0 * t11 - 2.0);
     let t143 = t107 * t111;
-    let t146 = rmath::ln(2.0);
+    let t146 = 0.6931471805599453;
     let t147 = 1.0 - t146;
     let t148 = 1.0 / t37;
     let t149 = t147 * t148;

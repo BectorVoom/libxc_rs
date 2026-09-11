@@ -122,7 +122,7 @@ pub fn mgga_x_ft98_fxc_unpol(
     let t116 = t115 * t60;
     let t126 = t4 * t4;
     let t127 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t128 = (simd::cbrt(t127));
+    let t128 = f64x8::splat(0.6827840632552957);
     let t129 = t128 * t128;
     let t130 = t126 * t129;
     let t131 = f64x8::splat(M_CBRT4);

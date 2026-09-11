@@ -47,7 +47,7 @@ pub fn gga_x_ssb_sw_kxc_unpol(
     let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
     let t20 = M_CBRT6;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = t23 * t23;
     let t25 = 1.0 / t24;
     let t26 = param_B * t20 * t25;

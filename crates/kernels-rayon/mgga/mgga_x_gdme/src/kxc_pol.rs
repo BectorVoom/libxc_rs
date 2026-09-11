@@ -69,12 +69,12 @@ pub fn mgga_x_gdme_kxc_pol(
     let t22 = pow_1_3(zeta_threshold);
     let t23 = t22 * zeta_threshold;
     let t31 = M_CBRT2;
-    let t34 = pow_1_3(1.0 / M_PI);
+    let t34 = 0.6827840632552957;
     let t35 = 1.0 / t34;
     let t36 = M_CBRT4;
     let t37 = t35 * t36;
     let t38 = M_PI * M_PI;
-    let t39 = pow_1_3(t38);
+    let t39 = 2.1450293971110255;
     let t40 = t39 * t39;
     let t44 = 2.0 / 9.0 * (param_AA + 3.0 / 5.0 * param_BB) * t31 * t37 / t40;
     let t46 = param_BB * t3 * t35;

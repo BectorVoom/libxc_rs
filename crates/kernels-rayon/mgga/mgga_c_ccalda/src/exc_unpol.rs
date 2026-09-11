@@ -79,7 +79,7 @@ pub fn mgga_c_ccalda_exc_unpol(
     let t2 = f64x8::splat(1.0) + param_c;
     let t15 = f64x8::splat(M_CBRT6);
     let t17 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t18 = (simd::cbrt(t17));
+    let t18 = f64x8::splat(2.1450293971110255);
     let t19 = t18 * t18;
     let t20 = f64x8::splat(1.0) / t19;
     let t21 = f64x8::splat(M_CBRT2);
@@ -88,7 +88,7 @@ pub fn mgga_c_ccalda_exc_unpol(
     let t26 = t15 * t20 * t22;
     let t31 = f64x8::splat(M_CBRT3);
     let t32 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t33 = (simd::cbrt(t32));
+    let t33 = f64x8::splat(0.6827840632552957);
     let t34 = t31 * t33;
     let t35 = f64x8::splat(M_CBRT4);
     let t36 = t35 * t35;

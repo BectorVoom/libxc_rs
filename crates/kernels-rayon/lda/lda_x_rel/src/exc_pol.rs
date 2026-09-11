@@ -135,11 +135,11 @@ pub fn lda_x_rel_exc_pol(
     let t11 = (simd::cbrt(zeta_threshold));
     let t12 = t11 * zeta_threshold;
     let t13 = f64x8::splat(M_CBRT2);
-    let t40 = (simd::cbrt(f64x8::splat(9.0)));
+    let t40 = f64x8::splat(2.080083823051904);
     let t41 = t40 * t40;
     let t42 = t41 * t2;
     let t43 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t44 = (simd::cbrt(t43));
+    let t44 = f64x8::splat(0.6827840632552957);
     let t45 = t44 * t44;
     let t46 = f64x8::splat(1.0) / t45;
     let t54 = t2 * t44;

@@ -114,7 +114,7 @@ pub fn gga_xc_th1_exc_unpol(
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t2 = (simd::pow(f64x8::splat(2.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t2 = f64x8::splat(1.122462048309373);
     let t3 = t2 * t2;
     let t4 = t3 * t3;
     let t6 = param_omega_0 * t4 * t2;

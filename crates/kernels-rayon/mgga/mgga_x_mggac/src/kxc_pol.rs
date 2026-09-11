@@ -66,13 +66,13 @@ pub fn mgga_x_mggac_kxc_pol(
     let t16 = -t12;
     let t22 = pow_1_3(zeta_threshold);
     let t23 = t22 * zeta_threshold;
-    let t29 = pow_1_3(32.0);
+    let t29 = 3.174802103936399;
     let t30 = t29 * t29;
     let t31 = t4 * t4;
     let t32 = t30 * t31;
     let t38 = M_CBRT6;
     let t39 = M_PI * M_PI;
-    let t40 = pow_1_3(t39);
+    let t40 = 2.1450293971110255;
     let t41 = t40 * t40;
     let t42 = 1.0 / t41;
     let t43 = t38 * t42;
@@ -83,7 +83,7 @@ pub fn mgga_x_mggac_kxc_pol(
     let t81 = t29 * t4;
     let t82 = t3 * t3;
     let t83 = 1.0 / M_PI;
-    let t84 = pow_1_3(t83);
+    let t84 = 0.6827840632552957;
     let t85 = 1.0 / t84;
     let t86 = t82 * t85;
     let t87 = M_CBRT4;

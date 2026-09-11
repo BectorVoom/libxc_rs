@@ -110,7 +110,7 @@ pub fn fused_hse_fxc_unpol(
     let l0_t19 = ((l0_t14).select(l0_t15 * zeta_threshold, l0_t17 * l0_t13));
     let l0_t22 = l0_t4 * l0_t4;
     let l0_t24 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let l0_t25 = (simd::cbrt(l0_t24));
+    let l0_t25 = f64x8::splat(2.1450293971110255);
     let l0_t26 = f64x8::splat(1.0) / l0_t25;
     let l0_t27 = ((l0_t14).select(l0_t15, l0_t17));
     let l0_t29 = l0_t26 / l0_t27;
@@ -122,7 +122,7 @@ pub fn fused_hse_fxc_unpol(
     let l0_t82 = l0_t27 * l0_t27;
     let l0_t84 = f64x8::splat(1.0) / l0_t80 / l0_t82;
     let l0_t128 = -f64x8::splat(1.0161144);
-    let l0_t235 = ((f64x8::splat(M_PI)).sqrt());
+    let l0_t235 = f64x8::splat(1.7724538509055159);
     let l0_t258 = f64x8::splat(1.0) / l0_t235;
     let l0_t301 = f64x8::splat(1.0) / l0_t82 / l0_t27;
     let l0_t319 = l0_t82 * l0_t82;
@@ -136,8 +136,7 @@ pub fn fused_hse_fxc_unpol(
     let l1_t314 = l1_t77 * l1_t77;
     let l1_t316 = l1_t314 * l1_param_hyb_omega_0 * l0_t4;
     let l1_t323 = l1_t316 * l0_t322;
-    let l2_t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let l2_t3 = (simd::cbrt(l2_t2));
+    let l2_t3 = f64x8::splat(0.6827840632552957);
     let l2_t4 = l0_t4 * l2_t3;
     let l2_t5 = f64x8::splat(M_CBRT4);
     let l2_t6 = l2_t5 * l2_t5;

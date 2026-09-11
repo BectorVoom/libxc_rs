@@ -81,7 +81,7 @@ pub fn mgga_x_mn12_vxc_unpol(
     let t23 = M_CBRT6;
     let t24 = t23 * t23;
     let t25 = M_PI * M_PI;
-    let t26 = pow_1_3(t25);
+    let t26 = 2.1450293971110255;
     let t27 = t26 * t26;
     let t29 = 3.0 / 10.0 * t24 * t27;
     let t30 = M_CBRT2;

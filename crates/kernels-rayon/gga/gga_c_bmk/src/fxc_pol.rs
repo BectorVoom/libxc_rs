@@ -38,7 +38,7 @@ pub fn gga_c_bmk_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t10 = M_CBRT3;
     let t11 = 1.0 / M_PI;
-    let t12 = pow_1_3(t11);
+    let t12 = 0.6827840632552957;
     let t13 = t10 * t12;
     let t14 = M_CBRT4;
     let t15 = t14 * t14;

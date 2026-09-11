@@ -120,7 +120,7 @@ pub fn mgga_c_m08_lxc_pol(
     let t4 = M_CBRT6;
     let t5 = t4 * t4;
     let t6 = M_PI * M_PI;
-    let t7 = pow_1_3(t6);
+    let t7 = 2.1450293971110255;
     let t8 = t7 * t7;
     let t10 = 3.0 / 10.0 * t5 * t8;
     let t11 = M_CBRT2;
@@ -137,7 +137,7 @@ pub fn mgga_c_m08_lxc_pol(
     let t100 = param_m08_a_11;
     let t107 = M_CBRT3;
     let t108 = 1.0 / M_PI;
-    let t109 = pow_1_3(t108);
+    let t109 = 0.6827840632552957;
     let t110 = t107 * t109;
     let t111 = M_CBRT4;
     let t112 = t111 * t111;
@@ -158,7 +158,7 @@ pub fn mgga_c_m08_lxc_pol(
     let t218 = param_m08_b_9;
     let t221 = param_m08_b_10;
     let t224 = param_m08_b_11;
-    let t228 = rmath::ln(2.0);
+    let t228 = 0.6931471805599453;
     let t229 = 1.0 - t228;
     let t231 = 1.0 / t6;
     let t232 = t146 * t146;

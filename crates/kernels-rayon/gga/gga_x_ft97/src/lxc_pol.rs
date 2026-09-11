@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -47,7 +47,7 @@ pub fn gga_x_ft97_lxc_pol(
     let t22 = t21 * zeta_threshold;
     let t34 = M_CBRT2;
     let t57 = t2 * t2;
-    let t59 = pow_1_3(1.0 / M_PI);
+    let t59 = 0.6827840632552957;
     let t60 = 1.0 / t59;
     let t61 = t57 * t60;
     let t62 = M_CBRT4;

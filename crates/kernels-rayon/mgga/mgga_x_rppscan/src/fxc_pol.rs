@@ -50,7 +50,7 @@ pub fn mgga_x_rppscan_fxc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = M_CBRT6;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t34 = t29 * t33;
@@ -61,10 +61,10 @@ pub fn mgga_x_rppscan_fxc_pol(
     let t49 = 1.0 / t48;
     let t50 = t47 * t49;
     let t57 = t45 * t29;
-    let t66 = rmath::sqrt(146.0);
+    let t66 = 12.083045973594572;
     let t67 = t66 * t29;
     let t76 = 3.0 / 10.0 * t46 * t32;
-    let t127 = rmath::sqrt(3.0);
+    let t127 = 1.7320508075688772;
     let t128 = 1.0 / t31;
     let t129 = t46 * t128;
     let t266 = param_k1 * param_k1;
@@ -73,7 +73,7 @@ pub fn mgga_x_rppscan_fxc_pol(
     let t285 = 1.0 / t284;
     let t286 = t283 * t285;
     let t339 = param_d * param_c2;
-    let t354 = rmath::pow(3.0, 1.0 / 6.0);
+    let t354 = 1.2009369551760027;
     let t355 = t354 * t354;
     let t356 = t355 * t355;
     let t357 = t356 * t354;

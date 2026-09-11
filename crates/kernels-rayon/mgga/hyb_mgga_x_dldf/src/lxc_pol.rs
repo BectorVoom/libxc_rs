@@ -99,7 +99,7 @@ pub fn hyb_mgga_x_dldf_lxc_pol(
     let t20 = t19 * zeta_threshold;
     let t26 = M_CBRT6;
     let t27 = M_PI * M_PI;
-    let t28 = pow_1_3(t27);
+    let t28 = 2.1450293971110255;
     let t29 = t28 * t28;
     let t30 = 1.0 / t29;
     let t31 = t26 * t30;

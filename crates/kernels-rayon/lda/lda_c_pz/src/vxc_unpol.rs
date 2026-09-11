@@ -102,7 +102,7 @@ pub fn lda_c_pz_vxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
     let t13 = param_gamma_0;

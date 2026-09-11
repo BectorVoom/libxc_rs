@@ -110,6 +110,9 @@ impl Functional {
         // would leave `mix_coef[1]` and the screened leg's `_omega` describing
         // the previous value. libxc re-runs the whole setter here as well.
         self.apply_composite_setters()?;
+        // ...and a deorbitalized functional's two auxiliaries (SCAN-L's
+        // `_c1`..`_k1` belong to SCAN, its `_a`/`_b` to PC07).
+        self.apply_deorbitalized_ext()?;
         Ok(())
     }
 

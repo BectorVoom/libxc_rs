@@ -149,7 +149,7 @@ pub fn gga_k_lgap_ge_exc_pol(
     let t34 = t33 * t33;
     let t35 = param_mu_0 * t34;
     let t36 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t37 = (simd::cbrt(t36));
+    let t37 = f64x8::splat(2.1450293971110255);
     let t38 = f64x8::splat(1.0) / t37;
     let t48 = param_mu_1 * t33;
     let t49 = t37 * t37;

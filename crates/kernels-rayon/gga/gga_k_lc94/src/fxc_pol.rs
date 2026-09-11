@@ -45,7 +45,7 @@ pub fn gga_k_lc94_fxc_pol(
     let t32 = M_CBRT6;
     let t33 = param_alpha * t32;
     let t34 = M_PI * M_PI;
-    let t35 = pow_1_3(t34);
+    let t35 = 2.1450293971110255;
     let t36 = t35 * t35;
     let t37 = 1.0 / t36;
     let t53 = t32 * t32;

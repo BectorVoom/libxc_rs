@@ -1846,6 +1846,252 @@ class Ctx:
         self.used: set[tuple[str, str]] = set()   # (module, fn name)
         self.used_consts: set[str] = set()
         self.inputs = INPUTS[fam]
+        # GCC constant folding (see `fold_consts`): name -> value of every
+        # binding that is a compile-time constant in the C.
+        self.cvals: dict[str, float] = {}
+
+
+
+# --------------------------------------------------------------------------
+# GCC constant folding
+# --------------------------------------------------------------------------
+#
+# The libxc PySCF ships is C compiled at -O3 (pyscf/lib/CMakeLists.txt builds
+# the 7.0.0 tarball with CMAKE_BUILD_TYPE=RELEASE). From -O1 up, GCC's constant
+# propagation turns the argument of a libm call into a compile-time constant
+# whenever it depends only on literals and the M_* constants, and GCC then
+# FOLDS the call with MPFR -- correctly rounded -- instead of calling glibc at
+# run time. maple2c emits exactly such calls: `t2 = 0.1e1 / M_PI; t3 =
+# POW_1_3(t2);` in every PW92/VWN-type correlation. glibc's `cbrt(1/pi)` is two
+# ulp from the correctly rounded value, so a kernel that evaluates it at run
+# time -- as this generator used to emit -- reproduces libxc built at -O0, not
+# the libxc anyone runs.
+#
+# Measured with libxc's own C API, 7.0.0 release, same glibc: -O0 and -O3
+# builds disagree bit-wise on 169 of 512 functionals, and `lda_c_vwn.c`
+# compiled at -O1 alone already reproduces PySCF's wheel 8/8. The rule that
+# reproduces it: a libm call whose argument is a compile-time constant is
+# correctly rounded; a call on anything that varies (inputs, `params->`,
+# `p->*_threshold`, all run-time struct loads GCC cannot fold) goes to glibc;
+# all arithmetic is plain IEEE double either way.
+#
+# So only statements containing such a call change: each constant call is
+# replaced by its correctly rounded value, written as a literal. Constant
+# arithmetic is left alone -- folded or run, IEEE gives the same bits.
+#
+# Assumes no `long double` operand mid-expression: libxc's `M_CBRT*` etc. are
+# `L` literals, which C would evaluate in 80-bit, but maple2c only ever uses
+# them as the sole right-hand side (checked over all 278 files, 0 exceptions),
+# where they are rounded to double on assignment.
+
+import math as _fmath
+try:
+    import mpmath as _mp
+except ImportError:  # pragma: no cover
+    _mp = None
+
+_FOLD_LIBM1 = {"sqrt", "cbrt", "log", "exp", "atan", "sin", "cos", "tan", "asin",
+               "acos", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "erf",
+               "erfc", "expm1", "log1p", "fabs"}
+_FOLD_LIBM2 = {"pow", "atan2"}
+# util.h under HAVE_CBRT, which libxc's CMake always sets on glibc.
+_FOLD_MACROS = {"POW_1_3", "CBRT", "POW_2_3", "POW_4_3", "POW_5_3", "POW_7_3",
+                "POW_3_2", "POW_1_4", "POW_1_2", "POW_2", "POW_3"}
+_FOLD_CALL = re.compile(r"\b(" + "|".join(sorted(_FOLD_LIBM1 | _FOLD_LIBM2 | _FOLD_MACROS,
+                                                  key=len, reverse=True)) + r")\s*\(")
+_CONST_VALUES: dict[str, float] | None = None
+
+
+def _const_values() -> dict[str, float]:
+    """The M_* constants as the kernels see them -- read from constants.rs,
+    whose values were checked bit-for-bit against gcc's `double x = M_FOO;`."""
+    global _CONST_VALUES
+    if _CONST_VALUES is None:
+        txt = (REPO / "crates" / "kernels-rayon" / "math" / "src" / "constants.rs").read_text()
+        vals = {}
+        for n, v in re.findall(r"pub const (\w+)\s*:\s*f64\s*=\s*([^;]+);", txt):
+            v = v.strip()
+            if v == "std::f64::consts::PI":
+                vals[n] = _fmath.pi
+            elif v == "std::f64::consts::SQRT_2":
+                vals[n] = _fmath.sqrt(2.0)
+            else:
+                try:
+                    vals[n] = float(v.replace("_", ""))
+                except ValueError:
+                    pass
+        missing = CONSTS - vals.keys()
+        if missing:
+            raise Untranslatable(f"constants.rs lacks {sorted(missing)}")
+        _CONST_VALUES = vals
+    return _CONST_VALUES
+
+
+def _nearest(y) -> float | None:
+    """The double nearest an mpmath value (found directly, not by searching
+    around glibc's answer: glibc's cbrt can be two ulp away)."""
+    if isinstance(y, _mp.mpc):
+        if y.imag != 0:
+            return None
+        y = y.real
+    x = float(y)
+    if not _fmath.isfinite(x):
+        return None
+    return min((x, _fmath.nextafter(x, _fmath.inf), _fmath.nextafter(x, -_fmath.inf)),
+               key=lambda c: abs(_mp.mpf(c) - y))
+
+
+def _cr_libm(name: str, args: list[float]) -> float | None:
+    """GCC's MPFR fold of a libm call: the correctly rounded result, or None
+    where C would give NaN/inf/an error (then GCC does not fold either)."""
+    if _mp is None:
+        raise Untranslatable("constant folding needs mpmath (pip install mpmath)")
+    if name == "fabs":
+        return abs(args[0])
+    if name == "sqrt":
+        return _fmath.sqrt(args[0]) if args[0] >= 0 else None
+    with _mp.workprec(256):
+        a = [_mp.mpf(v) for v in args]
+        try:
+            if name == "cbrt":
+                y = -_mp.cbrt(-a[0]) if a[0] < 0 else _mp.cbrt(a[0])
+            elif name == "pow":
+                y = _mp.power(a[0], a[1])
+            elif name == "atan2":
+                y = _mp.atan2(a[0], a[1])
+            else:
+                y = {"log": _mp.log, "exp": _mp.exp, "atan": _mp.atan, "sin": _mp.sin,
+                     "cos": _mp.cos, "tan": _mp.tan, "asin": _mp.asin, "acos": _mp.acos,
+                     "sinh": _mp.sinh, "cosh": _mp.cosh, "tanh": _mp.tanh,
+                     "asinh": _mp.asinh, "acosh": _mp.acosh, "atanh": _mp.atanh,
+                     "erf": _mp.erf, "erfc": _mp.erfc, "expm1": _mp.expm1,
+                     "log1p": _mp.log1p}[name](a[0])
+        except (ValueError, ZeroDivisionError):
+            return None
+        return _nearest(y)
+
+
+def _cr_macro(name: str, x: float) -> float | None:
+    """util.h's POW_* macros, folded: each libm call correctly rounded, the
+    arithmetic around it in double, in the macro's own association."""
+    if name in ("POW_1_3", "CBRT"):
+        return _cr_libm("cbrt", [x])
+    if name in ("POW_2", "POW_3"):
+        return x * x if name == "POW_2" else x * x * x
+    if name in ("POW_1_2", "POW_3_2", "POW_1_4"):
+        r = _cr_libm("sqrt", [x])
+        if r is None:
+            return None
+        return r if name == "POW_1_2" else (x * r if name == "POW_3_2" else _cr_libm("sqrt", [r]))
+    c = _cr_libm("cbrt", [x])
+    if c is None:
+        return None
+    return {"POW_2_3": lambda: c * c, "POW_4_3": lambda: x * c,
+            "POW_5_3": lambda: x * c * c, "POW_7_3": lambda: x * x * c}[name]()
+
+
+def _split_args(s: str, i: int) -> tuple[list[str], int]:
+    """Comma-split the argument list that opens just before `s[i]`."""
+    depth, cur, out = 1, "", []
+    while i < len(s):
+        ch = s[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth == 0:
+                out.append(cur)
+                return out, i + 1
+        if ch == "," and depth == 1:
+            out.append(cur)
+            cur = ""
+        else:
+            cur += ch
+        i += 1
+    raise Untranslatable("unbalanced parentheses in a call")
+
+
+def _eval_const(expr: str, ctx: "Ctx") -> float | None:
+    """The value of a C expression if it is a compile-time constant (literals,
+    M_* constants and constant bindings only), evaluated with IEEE double
+    arithmetic in C's order and every libm call correctly rounded; else None."""
+    if "->" in expr or "[" in expr or "?" in expr or re.search(r"!(?!=)", expr):
+        return None
+    if re.search(r"(?<![\w.])\d+(?![\w.eE])\s*/\s*\d+(?![\w.eE])", expr):
+        return None   # C integer division; not worth modelling
+    cv, K = ctx.cvals, _const_values()
+    for m in IDENT.finditer(expr):
+        n = m.group(0)
+        after = expr[m.end():].lstrip()
+        if after.startswith("(") and (n in _FOLD_LIBM1 or n in _FOLD_LIBM2 or n in _FOLD_MACROS
+                                      or n in ("my_piecewise3", "my_piecewise5")):
+            continue
+        if n in CONSTS or n in cv:
+            continue
+        return None
+    calls = {}
+
+    def call(name):
+        def f(*a):
+            if any(v is None for v in a):
+                raise ValueError
+            if name in _FOLD_MACROS:
+                r = _cr_macro(name, *a)
+            else:
+                r = _cr_libm(name, list(a))
+            if r is None:
+                raise ValueError
+            return r
+        return f
+
+    py = NUM.sub(lambda m: repr(float(m.group(1))), expr)
+    py = re.sub(r"\b([A-Za-z_]\w*)\b", lambda m: (
+        f"_K[{m.group(1)!r}]" if m.group(1) in CONSTS else
+        f"_V[{m.group(1)!r}]" if m.group(1) in cv else m.group(1)), py)
+    py = py.replace("&&", " and ").replace("||", " or ")
+    env = {"_K": K, "_V": cv,
+           "my_piecewise3": lambda c, a, b: a if c else b,
+           "my_piecewise5": lambda c1, a, c2, b, d: a if c1 else (b if c2 else d)}
+    for n in _FOLD_LIBM1 | _FOLD_LIBM2 | _FOLD_MACROS:
+        env[n] = call(n)
+    try:
+        v = eval(py, {"__builtins__": {}}, env)
+    except Exception:
+        return None
+    if isinstance(v, bool) or not isinstance(v, float) or not _fmath.isfinite(v):
+        return None
+    return v
+
+
+def fold_consts(lhs: str | None, expr: str, ctx: "Ctx") -> str:
+    """Replace every libm call whose argument is a compile-time constant by
+    its correctly rounded value, innermost first, and record `lhs`'s value if
+    the whole right-hand side is constant. See the section comment."""
+    for _ in range(10_000):
+        for m in reversed(list(_FOLD_CALL.finditer(expr))):
+            args, end = _split_args(expr, m.end())
+            vals = [_eval_const(a, ctx) for a in args]
+            if any(v is None for v in vals):
+                continue
+            name = m.group(1)
+            want = 2 if name in _FOLD_LIBM2 else 1
+            if len(vals) != want:
+                continue
+            v = _cr_macro(name, vals[0]) if name in _FOLD_MACROS else _cr_libm(name, vals)
+            if v is None:
+                continue
+            lit = repr(v)
+            expr = expr[:m.start()] + (f"({lit})" if lit.startswith("-") else lit) + expr[end:]
+            break
+        else:
+            break
+    if lhs is not None:
+        v = _eval_const(expr, ctx)
+        if v is None:
+            ctx.cvals.pop(lhs, None)
+        else:
+            ctx.cvals[lhs] = v
+    return expr
 
 
 def translate_expr(expr: str, ctx: Ctx) -> str:
@@ -2092,7 +2338,7 @@ def emit_function(fam: str, func: str, order: str, spin: str,
             name, k, val = m.group(1), int(m.group(2)), m.group(3)
             if name not in wanted:
                 raise Untranslatable(f"{order} writes unexpected output {name}")
-            rhs = translate_expr(val, ctx)
+            rhs = translate_expr(fold_consts(None, val, ctx), ctx)
             d = dim_of(name, fam, pol)
             if d == 1:
                 idx = "ip"
@@ -2107,6 +2353,7 @@ def emit_function(fam: str, func: str, order: str, spin: str,
         if not m:
             raise Untranslatable(f"unparsed statement: {st[:80]!r}")
         name, val = m.group(1), m.group(2)
+        val = fold_consts(name, val, ctx)
         rhs = translate_expr(val, ctx)
         ctx.locals[name] = "bool" if is_bool_expr(val) else "f64"
         lines.append(f"        let {name} = {rhs};")
@@ -2234,10 +2481,16 @@ def is_vxc_type(path: Path) -> bool:
 # `u16` and 100001 does not fit.
 #
 # Derived rather than hard-coded: a base is skipped when every functional that
-# uses it is non-public. The four composites that mix this one
-# (`gga_k_gds08`, `ghds10`, `ghds10r`, `tkvln`) are public and stay wired; they
-# are simply not evaluable, which
-# `verify/tests/composite_oracle.rs::KNOWN_GAPS` records with the reason.
+# uses it is non-public -- unless it is in `INTERNAL_WORKERS`.
+#
+# `INTERNAL_WORKERS` are the exception, and `lda_k_gds08_worker` is the only
+# one: four *public* composites mix it (`gga_k_gds08`, `ghds10`, `ghds10r`,
+# `tkvln`), so without its kernel they cannot be evaluated at all. It is
+# emitted, and reached only as an auxiliary of those four, never through the
+# public registry (`libxc_core::meta::internal_auxiliary`).
+INTERNAL_WORKERS = {"lda_k_gds08_worker"}
+
+
 def nonpublic_bases() -> set[str]:
     header = REPO / "libxc-master" / "src" / "xc_funcs.h"
     public = {m.group(1).lower() for m in
@@ -2250,7 +2503,7 @@ def nonpublic_bases() -> set[str]:
         if not incs:
             continue
         infos = re.findall(r"const\s+xc_func_info_type\s+xc_func_info_(\w+)\s*=", text)
-        if infos and not any(i in public for i in infos):
+        if infos and not any(i in public or i in INTERNAL_WORKERS for i in infos):
             skip.update(incs)
     return skip
 

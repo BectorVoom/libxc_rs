@@ -81,7 +81,7 @@ pub fn gga_c_op_b88_exc_unpol(
     let t11 = f64x8::splat(1.0) + t7;
     let t15 = f64x8::splat(M_CBRT3);
     let t16 = t15 * t15;
-    let t18 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t18 = f64x8::splat(0.6827840632552957);
     let t20 = t16 / t18;
     let t21 = f64x8::splat(M_CBRT4);
     let t22 = t20 * t21;

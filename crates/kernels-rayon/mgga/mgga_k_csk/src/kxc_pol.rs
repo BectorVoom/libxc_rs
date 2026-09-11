@@ -69,7 +69,7 @@ pub fn mgga_k_csk_kxc_pol(
     let t25 = t24 * zeta_threshold;
     let t33 = M_CBRT6;
     let t34 = M_PI * M_PI;
-    let t35 = pow_1_3(t34);
+    let t35 = 2.1450293971110255;
     let t36 = t35 * t35;
     let t38 = t33 / t36;
     let t55 = rmath::ln(1.0 - f64::EPSILON);

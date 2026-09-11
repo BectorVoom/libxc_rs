@@ -106,10 +106,10 @@ pub fn mgga_x_gvt4_lxc_unpol(
     let t34 = M_CBRT6;
     let t35 = t34 * t34;
     let t36 = M_PI * M_PI;
-    let t37 = pow_1_3(t36);
+    let t37 = 2.1450293971110255;
     let t38 = t37 * t37;
     let t39 = t35 * t38;
-    let t73 = pow_1_3(1.0 / M_PI);
+    let t73 = 0.6827840632552957;
     let t74 = 1.0 / t73;
     let t76 = M_CBRT4;
     let tvlapl0 = 0.0;

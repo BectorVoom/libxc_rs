@@ -16,7 +16,7 @@ pub const ID: u16 = 40;
 
 
 /// libxc default for `param_kappa`.
-pub const PARAM_KAPPA: f64 = 0.5874010519681994;
+pub const PARAM_KAPPA: f64 = 0.5874010519681995;
 /// libxc default for `param_mu`.
 pub const PARAM_MU: f64 = 0.2195149727645171;
 

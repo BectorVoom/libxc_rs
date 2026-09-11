@@ -147,7 +147,9 @@ pub unsafe extern "C" fn xc_aux_func_ids(p: *const xc_func_type, ids: *mut i32) 
             // SAFETY: caller contract — `ids` holds `xc_num_aux_funcs(p)` ints.
             let slice = unsafe { std::slice::from_raw_parts_mut(ids, aux.len()) };
             for (i, a) in aux.iter().enumerate() {
-                slice[i] = a.meta().id.raw() as i32;
+                // libxc's own number: the gds08 worker is 100001, which the
+                // `u16` id holds truncated.
+                slice[i] = libxc_core::meta::libxc_number(a.meta().id);
             }
         }
     }));
@@ -208,7 +210,9 @@ pub unsafe extern "C" fn xc_gga_ak13_pars_get_asymptotic(homo: f64, ext_params: 
 fn ak13_pars_asymptotic_inner(homo: f64, ak13_b1: f64) -> f64 {
     // libxc:47 — Qx = sqrt(2.0)*ak13_B1/(3.0*CBRT(3.0*M_PI*M_PI));
     let qx = (2.0_f64).sqrt() * ak13_b1
-        / (3.0 * (3.0 * std::f64::consts::PI * std::f64::consts::PI).cbrt());
+        // `CBRT` is glibc's cbrt in C libxc; `f64::cbrt` is core-math's, and
+        // the two disagree on about half of inputs by an ulp.
+        / (3.0 * libxc_rkernel_math::rmath::cbrt_glibc(3.0 * std::f64::consts::PI * std::f64::consts::PI));
     // libxc:49-50 — aa = X_FACTOR_C*Qx; aa2 = aa*aa;
     let aa = X_FACTOR_C * qx;
     let aa2 = aa * aa;

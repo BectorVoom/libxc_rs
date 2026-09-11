@@ -68,7 +68,7 @@ pub fn gga_x_pbe_erf_gws_lxc_unpol(
     let t50 = t49 * t17;
     let t56 = t14 * t13;
     let t57 = 1.0 / param_hyb_omega_0;
-    let t66 = rmath::sqrt(M_PI);
+    let t66 = 1.7724538509055159;
     let t67 = t66 * t43;
     let t75 = t3 * t3;
     let t76 = t75 * t30;
@@ -95,7 +95,7 @@ pub fn gga_x_pbe_erf_gws_lxc_unpol(
     let t306 = t83 * t17;
     let t316 = t42 * t13 * t57 * t5;
     let t317 = t43 * M_PI;
-    let t318 = rmath::pow(M_PI, 1.0 / 6.0);
+    let t318 = 1.2102032422537643;
     let t319 = t318 * t318;
     let t320 = t319 * t319;
     let t321 = t320 * t318;

@@ -9,8 +9,6 @@
 /// (functional, why it is not wired)
 pub const UNSUPPORTED: &[(&str, &str)] = &[
     ("gga_x_kgg99", "composed functional: gga_x_gg99.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
-    ("gga_x_lb", "potential-only functional; no exc by construction"),
-    ("gga_x_lbm", "potential-only functional; no exc by construction"),
     ("gga_x_revssb_d", "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("gga_x_ssb", "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("gga_x_ssb_d", "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
@@ -30,18 +28,10 @@ pub const UNSUPPORTED: &[(&str, &str)] = &[
     ("hyb_mgga_xc_b94_hyb", "composed functional: mgga_c_b94.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("hyb_mgga_xc_edmggah", "composed functional: mgga_x_edmgga.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("hyb_mgga_xc_lc_tmlyp", "composed functional: hyb_mgga_x_pjs18.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
-    ("lda_c_pk09", "kernel tree is missing one of the 10 (order, spin) modules"),
-    ("lda_k_gds08_worker", "not in libxc's public header xc_funcs.h (lda_k_gds08_worker.c declares it in xc_funcs_worker.h); libxc does not expose it and this tree does not generate a dispatch path for it"),
-    ("lda_xc_tih", "kernel tree is missing one of the 10 (order, spin) modules"),
-    ("mgga_c_b94", "kernel tree is missing one of the 10 (order, spin) modules"),
     ("mgga_c_revscan_vv10", "composed functional: mgga_c_revscan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("mgga_c_scan_rvv10", "composed functional: mgga_c_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
     ("mgga_c_scan_vv10", "composed functional: mgga_c_scan.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
-    ("mgga_x_2d_prhg07_prp10", "kernel tree is missing one of the 10 (order, spin) modules"),
-    ("mgga_x_bj06", "potential-only functional; no exc by construction"),
     ("mgga_x_mk00b", "composed functional: mgga_x_rlda.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
-    ("mgga_x_rpp09", "potential-only functional; no exc by construction"),
-    ("mgga_x_tb09", "potential-only functional; no exc by construction"),
     ("mgga_xc_vcml_rvv10", "composed functional: mgga_x_vcml.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own"),
 ];
 
@@ -206,6 +196,8 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("gga", "gga_x_lambda_ch_n"),
     ("gga", "gga_x_lambda_lo_n"),
     ("gga", "gga_x_lambda_oc2_n"),
+    ("gga", "gga_x_lb"),
+    ("gga", "gga_x_lbm"),
     ("gga", "gga_x_lg93"),
     ("gga", "gga_x_lspbe"),
     ("gga", "gga_x_lsrpbe"),
@@ -347,6 +339,7 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("lda", "lda_c_ob_pz"),
     ("lda", "lda_c_ow"),
     ("lda", "lda_c_ow_lyp"),
+    ("lda", "lda_c_pk09"),
     ("lda", "lda_c_pmgb06"),
     ("lda", "lda_c_pw"),
     ("lda", "lda_c_pw_erf"),
@@ -368,6 +361,7 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("lda", "lda_c_w20"),
     ("lda", "lda_c_wigner"),
     ("lda", "lda_c_xalpha"),
+    ("lda", "lda_k_gds08_worker"),
     ("lda", "lda_k_lp"),
     ("lda", "lda_k_lp96"),
     ("lda", "lda_k_tf"),
@@ -390,8 +384,10 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("lda", "lda_xc_lp_a"),
     ("lda", "lda_xc_lp_b"),
     ("lda", "lda_xc_teter93"),
+    ("lda", "lda_xc_tih"),
     ("lda", "lda_xc_zlp"),
     ("mgga", "mgga_c_b88"),
+    ("mgga", "mgga_c_b94"),
     ("mgga", "mgga_c_bc95"),
     ("mgga", "mgga_c_cc"),
     ("mgga", "mgga_c_ccalda"),
@@ -448,7 +444,9 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("mgga", "mgga_k_rda"),
     ("mgga", "mgga_x_2d_js17"),
     ("mgga", "mgga_x_2d_prhg07"),
+    ("mgga", "mgga_x_2d_prhg07_prp10"),
     ("mgga", "mgga_x_b00"),
+    ("mgga", "mgga_x_bj06"),
     ("mgga", "mgga_x_bloc"),
     ("mgga", "mgga_x_br89"),
     ("mgga", "mgga_x_br89_1"),
@@ -500,6 +498,7 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("mgga", "mgga_x_revtm"),
     ("mgga", "mgga_x_revtpss"),
     ("mgga", "mgga_x_rlda"),
+    ("mgga", "mgga_x_rpp09"),
     ("mgga", "mgga_x_rppscan"),
     ("mgga", "mgga_x_rscan"),
     ("mgga", "mgga_x_rtpss"),
@@ -507,6 +506,7 @@ pub const SUPPORTED: &[(&str, &str)] = &[
     ("mgga", "mgga_x_scan"),
     ("mgga", "mgga_x_task"),
     ("mgga", "mgga_x_tau_hcth"),
+    ("mgga", "mgga_x_tb09"),
     ("mgga", "mgga_x_th"),
     ("mgga", "mgga_x_tlda"),
     ("mgga", "mgga_x_tm"),
@@ -557,6 +557,7 @@ pub fn dispatch_lda_by_name(
         "lda_c_ob_pz" => Some(crate::funcs::lda_c_ob_pz::dispatch(input, output, order, spin, thresholds)),
         "lda_c_ow" => Some(crate::funcs::lda_c_ow::dispatch(input, output, order, spin, thresholds)),
         "lda_c_ow_lyp" => Some(crate::funcs::lda_c_ow_lyp::dispatch(input, output, order, spin, thresholds)),
+        "lda_c_pk09" => Some(crate::funcs::lda_c_pk09::dispatch(input, output, order, spin, thresholds)),
         "lda_c_pmgb06" => Some(crate::funcs::lda_c_pmgb06::dispatch(input, output, order, spin, thresholds)),
         "lda_c_pw" => Some(crate::funcs::lda_c_pw::dispatch(input, output, order, spin, thresholds)),
         "lda_c_pw_erf" => Some(crate::funcs::lda_c_pw_erf::dispatch(input, output, order, spin, thresholds)),
@@ -578,6 +579,7 @@ pub fn dispatch_lda_by_name(
         "lda_c_w20" => Some(crate::funcs::lda_c_w20::dispatch(input, output, order, spin, thresholds)),
         "lda_c_wigner" => Some(crate::funcs::lda_c_wigner::dispatch(input, output, order, spin, thresholds)),
         "lda_c_xalpha" => Some(crate::funcs::lda_c_xalpha::dispatch(input, output, order, spin, thresholds)),
+        "lda_k_gds08_worker" => Some(crate::funcs::lda_k_gds08_worker::dispatch(input, output, order, spin, thresholds)),
         "lda_k_lp" => Some(crate::funcs::lda_k_lp::dispatch(input, output, order, spin, thresholds)),
         "lda_k_lp96" => Some(crate::funcs::lda_k_lp96::dispatch(input, output, order, spin, thresholds)),
         "lda_k_tf" => Some(crate::funcs::lda_k_tf::dispatch(input, output, order, spin, thresholds)),
@@ -600,6 +602,7 @@ pub fn dispatch_lda_by_name(
         "lda_xc_lp_a" => Some(crate::funcs::lda_xc_lp_a::dispatch(input, output, order, spin, thresholds)),
         "lda_xc_lp_b" => Some(crate::funcs::lda_xc_lp_b::dispatch(input, output, order, spin, thresholds)),
         "lda_xc_teter93" => Some(crate::funcs::lda_xc_teter93::dispatch(input, output, order, spin, thresholds)),
+        "lda_xc_tih" => Some(crate::funcs::lda_xc_tih::dispatch(input, output, order, spin, thresholds)),
         "lda_xc_zlp" => Some(crate::funcs::lda_xc_zlp::dispatch(input, output, order, spin, thresholds)),
         _ => None,
     }
@@ -638,6 +641,7 @@ pub fn dispatch_lda_by_id(
         11 => crate::funcs::lda_c_ob_pz::dispatch(input, output, order, spin, thresholds),
         574 => crate::funcs::lda_c_ow::dispatch(input, output, order, spin, thresholds),
         573 => crate::funcs::lda_c_ow_lyp::dispatch(input, output, order, spin, thresholds),
+        554 => crate::funcs::lda_c_pk09::dispatch(input, output, order, spin, thresholds),
         590 => crate::funcs::lda_c_pmgb06::dispatch(input, output, order, spin, thresholds),
         12 => crate::funcs::lda_c_pw::dispatch(input, output, order, spin, thresholds),
         654 => crate::funcs::lda_c_pw_erf::dispatch(input, output, order, spin, thresholds),
@@ -659,6 +663,7 @@ pub fn dispatch_lda_by_id(
         317 => crate::funcs::lda_c_w20::dispatch(input, output, order, spin, thresholds),
         2 => crate::funcs::lda_c_wigner::dispatch(input, output, order, spin, thresholds),
         6 => crate::funcs::lda_c_xalpha::dispatch(input, output, order, spin, thresholds),
+        34465 => crate::funcs::lda_k_gds08_worker::dispatch(input, output, order, spin, thresholds),
         51 => crate::funcs::lda_k_lp::dispatch(input, output, order, spin, thresholds),
         580 => crate::funcs::lda_k_lp96::dispatch(input, output, order, spin, thresholds),
         50 => crate::funcs::lda_k_tf::dispatch(input, output, order, spin, thresholds),
@@ -681,6 +686,7 @@ pub fn dispatch_lda_by_id(
         547 => crate::funcs::lda_xc_lp_a::dispatch(input, output, order, spin, thresholds),
         548 => crate::funcs::lda_xc_lp_b::dispatch(input, output, order, spin, thresholds),
         20 => crate::funcs::lda_xc_teter93::dispatch(input, output, order, spin, thresholds),
+        599 => crate::funcs::lda_xc_tih::dispatch(input, output, order, spin, thresholds),
         43 => crate::funcs::lda_xc_zlp::dispatch(input, output, order, spin, thresholds),
         _ => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {
             id,
@@ -733,6 +739,7 @@ pub fn dispatch_lda_by_id_with(
         11 => crate::funcs::lda_c_ob_pz::dispatch_with(input, output, order, spin, thresholds, ext),
         574 => crate::funcs::lda_c_ow::dispatch_with(input, output, order, spin, thresholds, ext),
         573 => crate::funcs::lda_c_ow_lyp::dispatch_with(input, output, order, spin, thresholds, ext),
+        554 => crate::funcs::lda_c_pk09::dispatch_with(input, output, order, spin, thresholds, ext),
         590 => crate::funcs::lda_c_pmgb06::dispatch_with(input, output, order, spin, thresholds, ext),
         12 => crate::funcs::lda_c_pw::dispatch_with(input, output, order, spin, thresholds, ext),
         654 => crate::funcs::lda_c_pw_erf::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -754,6 +761,7 @@ pub fn dispatch_lda_by_id_with(
         317 => crate::funcs::lda_c_w20::dispatch_with(input, output, order, spin, thresholds, ext),
         2 => crate::funcs::lda_c_wigner::dispatch_with(input, output, order, spin, thresholds, ext),
         6 => crate::funcs::lda_c_xalpha::dispatch_with(input, output, order, spin, thresholds, ext),
+        34465 => crate::funcs::lda_k_gds08_worker::dispatch_with(input, output, order, spin, thresholds, ext),
         51 => crate::funcs::lda_k_lp::dispatch_with(input, output, order, spin, thresholds, ext),
         580 => crate::funcs::lda_k_lp96::dispatch_with(input, output, order, spin, thresholds, ext),
         50 => crate::funcs::lda_k_tf::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -776,6 +784,7 @@ pub fn dispatch_lda_by_id_with(
         547 => crate::funcs::lda_xc_lp_a::dispatch_with(input, output, order, spin, thresholds, ext),
         548 => crate::funcs::lda_xc_lp_b::dispatch_with(input, output, order, spin, thresholds, ext),
         20 => crate::funcs::lda_xc_teter93::dispatch_with(input, output, order, spin, thresholds, ext),
+        599 => crate::funcs::lda_xc_tih::dispatch_with(input, output, order, spin, thresholds, ext),
         43 => crate::funcs::lda_xc_zlp::dispatch_with(input, output, order, spin, thresholds, ext),
         _ => Err(libxc_core::error::LibxcRsError::UnsupportedFunctional {
             id,
@@ -798,7 +807,7 @@ pub fn dispatch_lda_by_id_with(
 /// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
 pub fn lda_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
     matches!(id.raw(),
-        653 | 588 | 18 | 26 | 15 | 16 | 552 | 287 | 307 | 578 | 5 | 24 | 4 | 579 | 308 | 289 | 551 | 22 | 23 | 14 | 11 | 574 | 573 | 590 | 12 | 654 | 13 | 25 | 9 | 10 | 27 | 3 | 684 | 683 | 17 | 7 | 28 | 29 | 30 | 31 | 8 | 317 | 2 | 6 | 51 | 580 | 50 | 550 | 1 | 600 | 21 | 19 | 546 | 549 | 532 | 692 | 641 | 536 | 537 | 538 | 318 | 577 | 259 | 547 | 548 | 20 | 43
+        653 | 588 | 18 | 26 | 15 | 16 | 552 | 287 | 307 | 578 | 5 | 24 | 4 | 579 | 308 | 289 | 551 | 22 | 23 | 14 | 11 | 574 | 573 | 554 | 590 | 12 | 654 | 13 | 25 | 9 | 10 | 27 | 3 | 684 | 683 | 17 | 7 | 28 | 29 | 30 | 31 | 8 | 317 | 2 | 6 | 34465 | 51 | 580 | 50 | 550 | 1 | 600 | 21 | 19 | 546 | 549 | 532 | 692 | 641 | 536 | 537 | 538 | 318 | 577 | 259 | 547 | 548 | 20 | 599 | 43
     )
 }
 
@@ -988,6 +997,8 @@ pub fn dispatch_gga_by_name(
         "gga_x_lambda_ch_n" => Some(crate::funcs::gga_x_lambda_ch_n::dispatch(input, output, order, spin, thresholds)),
         "gga_x_lambda_lo_n" => Some(crate::funcs::gga_x_lambda_lo_n::dispatch(input, output, order, spin, thresholds)),
         "gga_x_lambda_oc2_n" => Some(crate::funcs::gga_x_lambda_oc2_n::dispatch(input, output, order, spin, thresholds)),
+        "gga_x_lb" => Some(crate::funcs::gga_x_lb::dispatch(input, output, order, spin, thresholds)),
+        "gga_x_lbm" => Some(crate::funcs::gga_x_lbm::dispatch(input, output, order, spin, thresholds)),
         "gga_x_lg93" => Some(crate::funcs::gga_x_lg93::dispatch(input, output, order, spin, thresholds)),
         "gga_x_lspbe" => Some(crate::funcs::gga_x_lspbe::dispatch(input, output, order, spin, thresholds)),
         "gga_x_lsrpbe" => Some(crate::funcs::gga_x_lsrpbe::dispatch(input, output, order, spin, thresholds)),
@@ -1257,6 +1268,8 @@ pub fn dispatch_gga_by_id(
         44 => crate::funcs::gga_x_lambda_ch_n::dispatch(input, output, order, spin, thresholds),
         45 => crate::funcs::gga_x_lambda_lo_n::dispatch(input, output, order, spin, thresholds),
         40 => crate::funcs::gga_x_lambda_oc2_n::dispatch(input, output, order, spin, thresholds),
+        160 => crate::funcs::gga_x_lb::dispatch(input, output, order, spin, thresholds),
+        182 => crate::funcs::gga_x_lbm::dispatch(input, output, order, spin, thresholds),
         113 => crate::funcs::gga_x_lg93::dispatch(input, output, order, spin, thresholds),
         168 => crate::funcs::gga_x_lspbe::dispatch(input, output, order, spin, thresholds),
         169 => crate::funcs::gga_x_lsrpbe::dispatch(input, output, order, spin, thresholds),
@@ -1540,6 +1553,8 @@ pub fn dispatch_gga_by_id_with(
         44 => crate::funcs::gga_x_lambda_ch_n::dispatch_with(input, output, order, spin, thresholds, ext),
         45 => crate::funcs::gga_x_lambda_lo_n::dispatch_with(input, output, order, spin, thresholds, ext),
         40 => crate::funcs::gga_x_lambda_oc2_n::dispatch_with(input, output, order, spin, thresholds, ext),
+        160 => crate::funcs::gga_x_lb::dispatch_with(input, output, order, spin, thresholds, ext),
+        182 => crate::funcs::gga_x_lbm::dispatch_with(input, output, order, spin, thresholds, ext),
         113 => crate::funcs::gga_x_lg93::dispatch_with(input, output, order, spin, thresholds, ext),
         168 => crate::funcs::gga_x_lspbe::dispatch_with(input, output, order, spin, thresholds, ext),
         169 => crate::funcs::gga_x_lsrpbe::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -1657,7 +1672,7 @@ pub fn dispatch_gga_by_id_with(
 /// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
 pub fn gga_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
     matches!(id.raw(),
-        39 | 176 | 135 | 186 | 280 | 313 | 309 | 565 | 88 | 33 | 555 | 556 | 97 | 283 | 137 | 131 | 624 | 712 | 80 | 79 | 87 | 85 | 86 | 262 | 84 | 200 | 132 | 217 | 252 | 253 | 130 | 657 | 322 | 138 | 272 | 133 | 216 | 258 | 62 | 246 | 134 | 47 | 83 | 99 | 143 | 553 | 534 | 152 | 159 | 89 | 281 | 100 | 559 | 560 | 561 | 148 | 153 | 147 | 136 | 61 | 63 | 557 | 606 | 558 | 506 | 507 | 277 | 278 | 185 | 54 | 504 | 516 | 520 | 597 | 514 | 515 | 501 | 502 | 510 | 508 | 521 | 620 | 633 | 505 | 613 | 522 | 509 | 57 | 512 | 513 | 616 | 595 | 596 | 511 | 517 | 219 | 218 | 55 | 53 | 52 | 635 | 523 | 187 | 188 | 189 | 190 | 519 | 518 | 619 | 500 | 503 | 128 | 124 | 127 | 129 | 192 | 56 | 120 | 184 | 103 | 105 | 41 | 106 | 179 | 570 | 125 | 38 | 285 | 98 | 158 | 270 | 298 | 111 | 112 | 271 | 215 | 35 | 604 | 605 | 114 | 115 | 107 | 32 | 535 | 34 | 527 | 46 | 528 | 525 | 526 | 191 | 529 | 622 | 623 | 145 | 193 | 44 | 45 | 40 | 113 | 168 | 169 | 58 | 149 | 122 | 119 | 82 | 180 | 324 | 183 | 171 | 139 | 110 | 101 | 655 | 321 | 126 | 320 | 49 | 102 | 116 | 59 | 121 | 265 | 60 | 140 | 539 | 291 | 108 | 109 | 316 | 734 | 48 | 142 | 117 | 144 | 495 | 530 | 601 | 533 | 151 | 90 | 68 | 69 | 70 | 71 | 118 | 524 | 123 | 327 | 170 | 96 | 162 | 163 | 164 | 93 | 161 | 95 | 94 | 545 | 154 | 155 | 156 | 157 | 197 | 198 | 199 | 196 | 646 | 647 | 710 | 708 | 709 | 81 | 656 | 496 | 426 | 407 | 408 | 266 | 410 | 414 | 413 | 390 | 420 | 421 | 422 | 423 | 424 | 425 | 463 | 464 | 471 | 399 | 466
+        39 | 176 | 135 | 186 | 280 | 313 | 309 | 565 | 88 | 33 | 555 | 556 | 97 | 283 | 137 | 131 | 624 | 712 | 80 | 79 | 87 | 85 | 86 | 262 | 84 | 200 | 132 | 217 | 252 | 253 | 130 | 657 | 322 | 138 | 272 | 133 | 216 | 258 | 62 | 246 | 134 | 47 | 83 | 99 | 143 | 553 | 534 | 152 | 159 | 89 | 281 | 100 | 559 | 560 | 561 | 148 | 153 | 147 | 136 | 61 | 63 | 557 | 606 | 558 | 506 | 507 | 277 | 278 | 185 | 54 | 504 | 516 | 520 | 597 | 514 | 515 | 501 | 502 | 510 | 508 | 521 | 620 | 633 | 505 | 613 | 522 | 509 | 57 | 512 | 513 | 616 | 595 | 596 | 511 | 517 | 219 | 218 | 55 | 53 | 52 | 635 | 523 | 187 | 188 | 189 | 190 | 519 | 518 | 619 | 500 | 503 | 128 | 124 | 127 | 129 | 192 | 56 | 120 | 184 | 103 | 105 | 41 | 106 | 179 | 570 | 125 | 38 | 285 | 98 | 158 | 270 | 298 | 111 | 112 | 271 | 215 | 35 | 604 | 605 | 114 | 115 | 107 | 32 | 535 | 34 | 527 | 46 | 528 | 525 | 526 | 191 | 529 | 622 | 623 | 145 | 193 | 44 | 45 | 40 | 160 | 182 | 113 | 168 | 169 | 58 | 149 | 122 | 119 | 82 | 180 | 324 | 183 | 171 | 139 | 110 | 101 | 655 | 321 | 126 | 320 | 49 | 102 | 116 | 59 | 121 | 265 | 60 | 140 | 539 | 291 | 108 | 109 | 316 | 734 | 48 | 142 | 117 | 144 | 495 | 530 | 601 | 533 | 151 | 90 | 68 | 69 | 70 | 71 | 118 | 524 | 123 | 327 | 170 | 96 | 162 | 163 | 164 | 93 | 161 | 95 | 94 | 545 | 154 | 155 | 156 | 157 | 197 | 198 | 199 | 196 | 646 | 647 | 710 | 708 | 709 | 81 | 656 | 496 | 426 | 407 | 408 | 266 | 410 | 414 | 413 | 390 | 420 | 421 | 422 | 423 | 424 | 425 | 463 | 464 | 471 | 399 | 466
     )
 }
 
@@ -1711,6 +1726,7 @@ pub fn dispatch_mgga_by_name(
         "hyb_mgga_xc_gas22" => Some(crate::funcs::hyb_mgga_xc_gas22::dispatch(input, output, order, spin, thresholds)),
         "hyb_mgga_xc_wb97m_v" => Some(crate::funcs::hyb_mgga_xc_wb97m_v::dispatch(input, output, order, spin, thresholds)),
         "mgga_c_b88" => Some(crate::funcs::mgga_c_b88::dispatch(input, output, order, spin, thresholds)),
+        "mgga_c_b94" => Some(crate::funcs::mgga_c_b94::dispatch(input, output, order, spin, thresholds)),
         "mgga_c_bc95" => Some(crate::funcs::mgga_c_bc95::dispatch(input, output, order, spin, thresholds)),
         "mgga_c_cc" => Some(crate::funcs::mgga_c_cc::dispatch(input, output, order, spin, thresholds)),
         "mgga_c_ccalda" => Some(crate::funcs::mgga_c_ccalda::dispatch(input, output, order, spin, thresholds)),
@@ -1767,7 +1783,9 @@ pub fn dispatch_mgga_by_name(
         "mgga_k_rda" => Some(crate::funcs::mgga_k_rda::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_2d_js17" => Some(crate::funcs::mgga_x_2d_js17::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_2d_prhg07" => Some(crate::funcs::mgga_x_2d_prhg07::dispatch(input, output, order, spin, thresholds)),
+        "mgga_x_2d_prhg07_prp10" => Some(crate::funcs::mgga_x_2d_prhg07_prp10::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_b00" => Some(crate::funcs::mgga_x_b00::dispatch(input, output, order, spin, thresholds)),
+        "mgga_x_bj06" => Some(crate::funcs::mgga_x_bj06::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_bloc" => Some(crate::funcs::mgga_x_bloc::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_br89" => Some(crate::funcs::mgga_x_br89::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_br89_1" => Some(crate::funcs::mgga_x_br89_1::dispatch(input, output, order, spin, thresholds)),
@@ -1819,6 +1837,7 @@ pub fn dispatch_mgga_by_name(
         "mgga_x_revtm" => Some(crate::funcs::mgga_x_revtm::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_revtpss" => Some(crate::funcs::mgga_x_revtpss::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_rlda" => Some(crate::funcs::mgga_x_rlda::dispatch(input, output, order, spin, thresholds)),
+        "mgga_x_rpp09" => Some(crate::funcs::mgga_x_rpp09::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_rppscan" => Some(crate::funcs::mgga_x_rppscan::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_rscan" => Some(crate::funcs::mgga_x_rscan::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_rtpss" => Some(crate::funcs::mgga_x_rtpss::dispatch(input, output, order, spin, thresholds)),
@@ -1826,6 +1845,7 @@ pub fn dispatch_mgga_by_name(
         "mgga_x_scan" => Some(crate::funcs::mgga_x_scan::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_task" => Some(crate::funcs::mgga_x_task::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_tau_hcth" => Some(crate::funcs::mgga_x_tau_hcth::dispatch(input, output, order, spin, thresholds)),
+        "mgga_x_tb09" => Some(crate::funcs::mgga_x_tb09::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_th" => Some(crate::funcs::mgga_x_th::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_tlda" => Some(crate::funcs::mgga_x_tlda::dispatch(input, output, order, spin, thresholds)),
         "mgga_x_tm" => Some(crate::funcs::mgga_x_tm::dispatch(input, output, order, spin, thresholds)),
@@ -1873,6 +1893,7 @@ pub fn dispatch_mgga_by_id(
         658 => crate::funcs::hyb_mgga_xc_gas22::dispatch(input, output, order, spin, thresholds),
         531 => crate::funcs::hyb_mgga_xc_wb97m_v::dispatch(input, output, order, spin, thresholds),
         571 => crate::funcs::mgga_c_b88::dispatch(input, output, order, spin, thresholds),
+        397 => crate::funcs::mgga_c_b94::dispatch(input, output, order, spin, thresholds),
         240 => crate::funcs::mgga_c_bc95::dispatch(input, output, order, spin, thresholds),
         387 => crate::funcs::mgga_c_cc::dispatch(input, output, order, spin, thresholds),
         388 => crate::funcs::mgga_c_ccalda::dispatch(input, output, order, spin, thresholds),
@@ -1929,7 +1950,9 @@ pub fn dispatch_mgga_by_id(
         621 => crate::funcs::mgga_k_rda::dispatch(input, output, order, spin, thresholds),
         609 => crate::funcs::mgga_x_2d_js17::dispatch(input, output, order, spin, thresholds),
         210 => crate::funcs::mgga_x_2d_prhg07::dispatch(input, output, order, spin, thresholds),
+        211 => crate::funcs::mgga_x_2d_prhg07_prp10::dispatch(input, output, order, spin, thresholds),
         284 => crate::funcs::mgga_x_b00::dispatch(input, output, order, spin, thresholds),
+        207 => crate::funcs::mgga_x_bj06::dispatch(input, output, order, spin, thresholds),
         244 => crate::funcs::mgga_x_bloc::dispatch(input, output, order, spin, thresholds),
         206 => crate::funcs::mgga_x_br89::dispatch(input, output, order, spin, thresholds),
         214 => crate::funcs::mgga_x_br89_1::dispatch(input, output, order, spin, thresholds),
@@ -1981,6 +2004,7 @@ pub fn dispatch_mgga_by_id(
         693 => crate::funcs::mgga_x_revtm::dispatch(input, output, order, spin, thresholds),
         212 => crate::funcs::mgga_x_revtpss::dispatch(input, output, order, spin, thresholds),
         688 => crate::funcs::mgga_x_rlda::dispatch(input, output, order, spin, thresholds),
+        209 => crate::funcs::mgga_x_rpp09::dispatch(input, output, order, spin, thresholds),
         648 => crate::funcs::mgga_x_rppscan::dispatch(input, output, order, spin, thresholds),
         493 => crate::funcs::mgga_x_rscan::dispatch(input, output, order, spin, thresholds),
         299 => crate::funcs::mgga_x_rtpss::dispatch(input, output, order, spin, thresholds),
@@ -1988,6 +2012,7 @@ pub fn dispatch_mgga_by_id(
         263 => crate::funcs::mgga_x_scan::dispatch(input, output, order, spin, thresholds),
         707 => crate::funcs::mgga_x_task::dispatch(input, output, order, spin, thresholds),
         205 => crate::funcs::mgga_x_tau_hcth::dispatch(input, output, order, spin, thresholds),
+        208 => crate::funcs::mgga_x_tb09::dispatch(input, output, order, spin, thresholds),
         225 => crate::funcs::mgga_x_th::dispatch(input, output, order, spin, thresholds),
         685 => crate::funcs::mgga_x_tlda::dispatch(input, output, order, spin, thresholds),
         540 => crate::funcs::mgga_x_tm::dispatch(input, output, order, spin, thresholds),
@@ -2049,6 +2074,7 @@ pub fn dispatch_mgga_by_id_with(
         658 => crate::funcs::hyb_mgga_xc_gas22::dispatch_with(input, output, order, spin, thresholds, ext),
         531 => crate::funcs::hyb_mgga_xc_wb97m_v::dispatch_with(input, output, order, spin, thresholds, ext),
         571 => crate::funcs::mgga_c_b88::dispatch_with(input, output, order, spin, thresholds, ext),
+        397 => crate::funcs::mgga_c_b94::dispatch_with(input, output, order, spin, thresholds, ext),
         240 => crate::funcs::mgga_c_bc95::dispatch_with(input, output, order, spin, thresholds, ext),
         387 => crate::funcs::mgga_c_cc::dispatch_with(input, output, order, spin, thresholds, ext),
         388 => crate::funcs::mgga_c_ccalda::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -2105,7 +2131,9 @@ pub fn dispatch_mgga_by_id_with(
         621 => crate::funcs::mgga_k_rda::dispatch_with(input, output, order, spin, thresholds, ext),
         609 => crate::funcs::mgga_x_2d_js17::dispatch_with(input, output, order, spin, thresholds, ext),
         210 => crate::funcs::mgga_x_2d_prhg07::dispatch_with(input, output, order, spin, thresholds, ext),
+        211 => crate::funcs::mgga_x_2d_prhg07_prp10::dispatch_with(input, output, order, spin, thresholds, ext),
         284 => crate::funcs::mgga_x_b00::dispatch_with(input, output, order, spin, thresholds, ext),
+        207 => crate::funcs::mgga_x_bj06::dispatch_with(input, output, order, spin, thresholds, ext),
         244 => crate::funcs::mgga_x_bloc::dispatch_with(input, output, order, spin, thresholds, ext),
         206 => crate::funcs::mgga_x_br89::dispatch_with(input, output, order, spin, thresholds, ext),
         214 => crate::funcs::mgga_x_br89_1::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -2157,6 +2185,7 @@ pub fn dispatch_mgga_by_id_with(
         693 => crate::funcs::mgga_x_revtm::dispatch_with(input, output, order, spin, thresholds, ext),
         212 => crate::funcs::mgga_x_revtpss::dispatch_with(input, output, order, spin, thresholds, ext),
         688 => crate::funcs::mgga_x_rlda::dispatch_with(input, output, order, spin, thresholds, ext),
+        209 => crate::funcs::mgga_x_rpp09::dispatch_with(input, output, order, spin, thresholds, ext),
         648 => crate::funcs::mgga_x_rppscan::dispatch_with(input, output, order, spin, thresholds, ext),
         493 => crate::funcs::mgga_x_rscan::dispatch_with(input, output, order, spin, thresholds, ext),
         299 => crate::funcs::mgga_x_rtpss::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -2164,6 +2193,7 @@ pub fn dispatch_mgga_by_id_with(
         263 => crate::funcs::mgga_x_scan::dispatch_with(input, output, order, spin, thresholds, ext),
         707 => crate::funcs::mgga_x_task::dispatch_with(input, output, order, spin, thresholds, ext),
         205 => crate::funcs::mgga_x_tau_hcth::dispatch_with(input, output, order, spin, thresholds, ext),
+        208 => crate::funcs::mgga_x_tb09::dispatch_with(input, output, order, spin, thresholds, ext),
         225 => crate::funcs::mgga_x_th::dispatch_with(input, output, order, spin, thresholds, ext),
         685 => crate::funcs::mgga_x_tlda::dispatch_with(input, output, order, spin, thresholds, ext),
         540 => crate::funcs::mgga_x_tm::dispatch_with(input, output, order, spin, thresholds, ext),
@@ -2195,7 +2225,7 @@ pub fn dispatch_mgga_by_id_with(
 /// either-or gets it 96% wrong (kernel alone) or 20% wrong (mix alone).
 pub fn mgga_has_own_kernel(id: libxc_core::model::FunctionalId) -> bool {
     matches!(id.raw(),
-        279 | 36 | 705 | 438 | 439 | 449 | 450 | 444 | 310 | 295 | 296 | 297 | 248 | 268 | 706 | 305 | 304 | 282 | 563 | 598 | 658 | 531 | 571 | 240 | 387 | 388 | 72 | 37 | 699 | 562 | 638 | 237 | 238 | 235 | 236 | 234 | 233 | 311 | 78 | 77 | 76 | 75 | 74 | 73 | 269 | 261 | 239 | 498 | 642 | 306 | 294 | 172 | 582 | 694 | 241 | 643 | 649 | 391 | 494 | 267 | 251 | 231 | 323 | 247 | 232 | 629 | 630 | 631 | 632 | 627 | 628 | 617 | 618 | 543 | 634 | 220 | 621 | 609 | 210 | 284 | 244 | 206 | 214 | 586 | 602 | 686 | 319 | 689 | 690 | 687 | 691 | 204 | 575 | 698 | 256 | 201 | 203 | 226 | 249 | 250 | 716 | 696 | 697 | 644 | 711 | 230 | 227 | 260 | 245 | 221 | 222 | 223 | 228 | 300 | 301 | 724 | 257 | 302 | 303 | 576 | 213 | 497 | 645 | 650 | 626 | 603 | 293 | 581 | 693 | 212 | 688 | 648 | 493 | 299 | 542 | 263 | 707 | 205 | 225 | 685 | 540 | 202 | 651 | 541 | 254 | 229 | 564 | 42
+        279 | 36 | 705 | 438 | 439 | 449 | 450 | 444 | 310 | 295 | 296 | 297 | 248 | 268 | 706 | 305 | 304 | 282 | 563 | 598 | 658 | 531 | 571 | 397 | 240 | 387 | 388 | 72 | 37 | 699 | 562 | 638 | 237 | 238 | 235 | 236 | 234 | 233 | 311 | 78 | 77 | 76 | 75 | 74 | 73 | 269 | 261 | 239 | 498 | 642 | 306 | 294 | 172 | 582 | 694 | 241 | 643 | 649 | 391 | 494 | 267 | 251 | 231 | 323 | 247 | 232 | 629 | 630 | 631 | 632 | 627 | 628 | 617 | 618 | 543 | 634 | 220 | 621 | 609 | 210 | 211 | 284 | 207 | 244 | 206 | 214 | 586 | 602 | 686 | 319 | 689 | 690 | 687 | 691 | 204 | 575 | 698 | 256 | 201 | 203 | 226 | 249 | 250 | 716 | 696 | 697 | 644 | 711 | 230 | 227 | 260 | 245 | 221 | 222 | 223 | 228 | 300 | 301 | 724 | 257 | 302 | 303 | 576 | 213 | 497 | 645 | 650 | 626 | 603 | 293 | 581 | 693 | 212 | 688 | 209 | 648 | 493 | 299 | 542 | 263 | 707 | 205 | 208 | 225 | 685 | 540 | 202 | 651 | 541 | 254 | 229 | 564 | 42
     )
 }
 

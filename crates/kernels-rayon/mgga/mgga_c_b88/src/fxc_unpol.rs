@@ -91,7 +91,7 @@ pub fn mgga_c_b88_fxc_unpol(
     let t4 = f64x8::splat(M_CBRT3);
     let t5 = t4 * t4;
     let t6 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t7 = (simd::cbrt(t6));
+    let t7 = f64x8::splat(0.6827840632552957);
     let t8 = f64x8::splat(1.0) / t7;
     let t9 = t5 * t8;
     let t10 = f64x8::splat(M_CBRT4);

@@ -138,7 +138,7 @@ pub fn mgga_c_cc_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t44 = f64x8::splat(M_CBRT3);
     let t45 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t46 = (simd::cbrt(t45));
+    let t46 = f64x8::splat(0.6827840632552957);
     let t47 = t44 * t46;
     let t48 = f64x8::splat(M_CBRT4);
     let t49 = t48 * t48;

@@ -95,7 +95,7 @@ pub fn mgga_c_b88_lxc_unpol(
     let t4 = M_CBRT3;
     let t5 = t4 * t4;
     let t6 = 1.0 / M_PI;
-    let t7 = pow_1_3(t6);
+    let t7 = 0.6827840632552957;
     let t8 = 1.0 / t7;
     let t9 = t5 * t8;
     let t10 = M_CBRT4;

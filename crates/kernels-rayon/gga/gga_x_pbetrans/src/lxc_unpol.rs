@@ -97,7 +97,7 @@ pub fn gga_x_pbetrans_lxc_unpol(
     let t15 = (simd::cbrt(t11));
     let t17 = (((t11).simd_le(zeta_threshold)).select(t13 * zeta_threshold, t15 * t11));
     let t20 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t21 = (simd::cbrt(t20));
+    let t21 = f64x8::splat(2.1450293971110255);
     let t23 = f64x8::splat(M_CBRT6);
     let t24 = t23 * t23;
     let t28 = f64x8::splat(M_CBRT2);

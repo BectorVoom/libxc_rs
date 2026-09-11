@@ -109,7 +109,7 @@ pub fn gga_x_pbe_erf_gws_exc_unpol(
     let t50 = t49 * t17;
     let t56 = t14 * t13;
     let t57 = f64x8::splat(1.0) / param_hyb_omega_0;
-    let t66 = ((f64x8::splat(M_PI)).sqrt());
+    let t66 = f64x8::splat(1.7724538509055159);
     let t67 = t66 * t43;
     let t75 = t3 * t3;
     let t76 = t75 * t30;

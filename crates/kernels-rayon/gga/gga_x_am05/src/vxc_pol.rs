@@ -36,7 +36,7 @@ pub fn gga_x_am05_vxc_pol(
     let t28 = M_CBRT6;
     let t29 = param_alpha * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t34 = t29 * t33;
@@ -48,9 +48,9 @@ pub fn gga_x_am05_vxc_pol(
     let t66 = t2 * t2;
     let t67 = t65 * t66;
     let t68 = M_CBRT2;
-    let t69 = rmath::sqrt(12.0);
+    let t69 = 3.4641016151377544;
     let t70 = t56 * t58;
-    let t76 = rmath::sqrt(6.0);
+    let t76 = 2.449489742783178;
     let t83 = t68 * t68;
     let t84 = t2 * t83;
     let t197 = param_alpha * param_alpha;

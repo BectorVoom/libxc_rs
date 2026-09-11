@@ -30,7 +30,7 @@ pub fn gga_c_am05_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -44,7 +44,7 @@ pub fn gga_c_am05_fxc_pol(
     let t94 = M_CBRT6;
     let t95 = param_alpha * t94;
     let t96 = M_PI * M_PI;
-    let t97 = pow_1_3(t96);
+    let t97 = 2.1450293971110255;
     let t98 = t97 * t97;
     let t99 = 1.0 / t98;
     let t144 = t3 * t6;

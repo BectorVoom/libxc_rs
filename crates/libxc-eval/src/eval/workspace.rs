@@ -143,6 +143,124 @@ struct LdaFieldOffsets {
     v4rho4_len: usize,
 }
 
+
+/// Carve `buf` into the 70 MGGA fields in the workspace's order-major layout
+/// (every order-0 field, then every order-1 field, ...), each `d.f * np` long.
+///
+/// `take_n` clamps, so a buffer sized for a lower derivative order yields
+/// empty slices for the orders above it rather than panicking.
+pub(crate) fn mgga_scratch_view<'a>(buf: &'a mut [f64], d: &Dimensions, np: usize) -> MggaScratch<'a> {
+    let mut cursor = buf;
+
+    macro_rules! pop {
+        ($field:ident) => {{
+            let out = take_n(&mut cursor, d.$field as usize * np);
+            out
+        }};
+    }
+
+    // Order 0
+    let zk = pop!(zk);
+
+    // Order 1 (4 fields)
+    let vrho = pop!(vrho);
+    let vsigma = pop!(vsigma);
+    let vlapl = pop!(vlapl);
+    let vtau = pop!(vtau);
+
+    // Order 2 (10 fields)
+    let v2rho2 = pop!(v2rho2);
+    let v2rhosigma = pop!(v2rhosigma);
+    let v2rholapl = pop!(v2rholapl);
+    let v2rhotau = pop!(v2rhotau);
+    let v2sigma2 = pop!(v2sigma2);
+    let v2sigmalapl = pop!(v2sigmalapl);
+    let v2sigmatau = pop!(v2sigmatau);
+    let v2lapl2 = pop!(v2lapl2);
+    let v2lapltau = pop!(v2lapltau);
+    let v2tau2 = pop!(v2tau2);
+
+    // Order 3 (20 fields)
+    let v3rho3 = pop!(v3rho3);
+    let v3rho2sigma = pop!(v3rho2sigma);
+    let v3rho2lapl = pop!(v3rho2lapl);
+    let v3rho2tau = pop!(v3rho2tau);
+    let v3rhosigma2 = pop!(v3rhosigma2);
+    let v3rhosigmalapl = pop!(v3rhosigmalapl);
+    let v3rhosigmatau = pop!(v3rhosigmatau);
+    let v3rholapl2 = pop!(v3rholapl2);
+    let v3rholapltau = pop!(v3rholapltau);
+    let v3rhotau2 = pop!(v3rhotau2);
+    let v3sigma3 = pop!(v3sigma3);
+    let v3sigma2lapl = pop!(v3sigma2lapl);
+    let v3sigma2tau = pop!(v3sigma2tau);
+    let v3sigmalapl2 = pop!(v3sigmalapl2);
+    let v3sigmalapltau = pop!(v3sigmalapltau);
+    let v3sigmatau2 = pop!(v3sigmatau2);
+    let v3lapl3 = pop!(v3lapl3);
+    let v3lapl2tau = pop!(v3lapl2tau);
+    let v3lapltau2 = pop!(v3lapltau2);
+    let v3tau3 = pop!(v3tau3);
+
+    // Order 4 (35 fields)
+    let v4rho4 = pop!(v4rho4);
+    let v4rho3sigma = pop!(v4rho3sigma);
+    let v4rho3lapl = pop!(v4rho3lapl);
+    let v4rho3tau = pop!(v4rho3tau);
+    let v4rho2sigma2 = pop!(v4rho2sigma2);
+    let v4rho2sigmalapl = pop!(v4rho2sigmalapl);
+    let v4rho2sigmatau = pop!(v4rho2sigmatau);
+    let v4rho2lapl2 = pop!(v4rho2lapl2);
+    let v4rho2lapltau = pop!(v4rho2lapltau);
+    let v4rho2tau2 = pop!(v4rho2tau2);
+    let v4rhosigma3 = pop!(v4rhosigma3);
+    let v4rhosigma2lapl = pop!(v4rhosigma2lapl);
+    let v4rhosigma2tau = pop!(v4rhosigma2tau);
+    let v4rhosigmalapl2 = pop!(v4rhosigmalapl2);
+    let v4rhosigmalapltau = pop!(v4rhosigmalapltau);
+    let v4rhosigmatau2 = pop!(v4rhosigmatau2);
+    let v4rholapl3 = pop!(v4rholapl3);
+    let v4rholapl2tau = pop!(v4rholapl2tau);
+    let v4rholapltau2 = pop!(v4rholapltau2);
+    let v4rhotau3 = pop!(v4rhotau3);
+    let v4sigma4 = pop!(v4sigma4);
+    let v4sigma3lapl = pop!(v4sigma3lapl);
+    let v4sigma3tau = pop!(v4sigma3tau);
+    let v4sigma2lapl2 = pop!(v4sigma2lapl2);
+    let v4sigma2lapltau = pop!(v4sigma2lapltau);
+    let v4sigma2tau2 = pop!(v4sigma2tau2);
+    let v4sigmalapl3 = pop!(v4sigmalapl3);
+    let v4sigmalapl2tau = pop!(v4sigmalapl2tau);
+    let v4sigmalapltau2 = pop!(v4sigmalapltau2);
+    let v4sigmatau3 = pop!(v4sigmatau3);
+    let v4lapl4 = pop!(v4lapl4);
+    let v4lapl3tau = pop!(v4lapl3tau);
+    let v4lapl2tau2 = pop!(v4lapl2tau2);
+    let v4lapltau3 = pop!(v4lapltau3);
+    let v4tau4 = pop!(v4tau4);
+
+    // Suppress unused-cursor warning (cursor consumed by last pop!).
+    let _ = cursor;
+
+    MggaScratch {
+        zk,
+        vrho, vsigma, vlapl, vtau,
+        v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+        v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+        v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,
+        v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2,
+        v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2, v3sigmalapltau,
+        v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3,
+        v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
+        v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2,
+        v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau,
+        v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
+        v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau,
+        v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3,
+        v4lapl4, v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4,
+    }
+}
+
 /// Pre-allocated scratch buffer for mixed functional evaluation.
 ///
 /// Allocates a single contiguous `Vec<f64>` sized for the MGGA superset
@@ -605,118 +723,8 @@ impl EvaluationWorkspace {
     /// Field ordering follows `Dimensions::total_output_components()` exactly.
     pub fn mgga_scratch_mut(&mut self) -> MggaScratch<'_> {
         self.ensure_scratch();
-        let d = &self.dims;
-        let np = self.np;
-        let buf = self.scratch.as_mut_slice();
-        let mut cursor = buf;
-
-        macro_rules! pop {
-            ($field:ident) => {{
-                let out = take_n(&mut cursor, d.$field as usize * np);
-                out
-            }};
-        }
-
-        // Order 0
-        let zk = pop!(zk);
-
-        // Order 1 (4 fields)
-        let vrho = pop!(vrho);
-        let vsigma = pop!(vsigma);
-        let vlapl = pop!(vlapl);
-        let vtau = pop!(vtau);
-
-        // Order 2 (10 fields)
-        let v2rho2 = pop!(v2rho2);
-        let v2rhosigma = pop!(v2rhosigma);
-        let v2rholapl = pop!(v2rholapl);
-        let v2rhotau = pop!(v2rhotau);
-        let v2sigma2 = pop!(v2sigma2);
-        let v2sigmalapl = pop!(v2sigmalapl);
-        let v2sigmatau = pop!(v2sigmatau);
-        let v2lapl2 = pop!(v2lapl2);
-        let v2lapltau = pop!(v2lapltau);
-        let v2tau2 = pop!(v2tau2);
-
-        // Order 3 (20 fields)
-        let v3rho3 = pop!(v3rho3);
-        let v3rho2sigma = pop!(v3rho2sigma);
-        let v3rho2lapl = pop!(v3rho2lapl);
-        let v3rho2tau = pop!(v3rho2tau);
-        let v3rhosigma2 = pop!(v3rhosigma2);
-        let v3rhosigmalapl = pop!(v3rhosigmalapl);
-        let v3rhosigmatau = pop!(v3rhosigmatau);
-        let v3rholapl2 = pop!(v3rholapl2);
-        let v3rholapltau = pop!(v3rholapltau);
-        let v3rhotau2 = pop!(v3rhotau2);
-        let v3sigma3 = pop!(v3sigma3);
-        let v3sigma2lapl = pop!(v3sigma2lapl);
-        let v3sigma2tau = pop!(v3sigma2tau);
-        let v3sigmalapl2 = pop!(v3sigmalapl2);
-        let v3sigmalapltau = pop!(v3sigmalapltau);
-        let v3sigmatau2 = pop!(v3sigmatau2);
-        let v3lapl3 = pop!(v3lapl3);
-        let v3lapl2tau = pop!(v3lapl2tau);
-        let v3lapltau2 = pop!(v3lapltau2);
-        let v3tau3 = pop!(v3tau3);
-
-        // Order 4 (35 fields)
-        let v4rho4 = pop!(v4rho4);
-        let v4rho3sigma = pop!(v4rho3sigma);
-        let v4rho3lapl = pop!(v4rho3lapl);
-        let v4rho3tau = pop!(v4rho3tau);
-        let v4rho2sigma2 = pop!(v4rho2sigma2);
-        let v4rho2sigmalapl = pop!(v4rho2sigmalapl);
-        let v4rho2sigmatau = pop!(v4rho2sigmatau);
-        let v4rho2lapl2 = pop!(v4rho2lapl2);
-        let v4rho2lapltau = pop!(v4rho2lapltau);
-        let v4rho2tau2 = pop!(v4rho2tau2);
-        let v4rhosigma3 = pop!(v4rhosigma3);
-        let v4rhosigma2lapl = pop!(v4rhosigma2lapl);
-        let v4rhosigma2tau = pop!(v4rhosigma2tau);
-        let v4rhosigmalapl2 = pop!(v4rhosigmalapl2);
-        let v4rhosigmalapltau = pop!(v4rhosigmalapltau);
-        let v4rhosigmatau2 = pop!(v4rhosigmatau2);
-        let v4rholapl3 = pop!(v4rholapl3);
-        let v4rholapl2tau = pop!(v4rholapl2tau);
-        let v4rholapltau2 = pop!(v4rholapltau2);
-        let v4rhotau3 = pop!(v4rhotau3);
-        let v4sigma4 = pop!(v4sigma4);
-        let v4sigma3lapl = pop!(v4sigma3lapl);
-        let v4sigma3tau = pop!(v4sigma3tau);
-        let v4sigma2lapl2 = pop!(v4sigma2lapl2);
-        let v4sigma2lapltau = pop!(v4sigma2lapltau);
-        let v4sigma2tau2 = pop!(v4sigma2tau2);
-        let v4sigmalapl3 = pop!(v4sigmalapl3);
-        let v4sigmalapl2tau = pop!(v4sigmalapl2tau);
-        let v4sigmalapltau2 = pop!(v4sigmalapltau2);
-        let v4sigmatau3 = pop!(v4sigmatau3);
-        let v4lapl4 = pop!(v4lapl4);
-        let v4lapl3tau = pop!(v4lapl3tau);
-        let v4lapl2tau2 = pop!(v4lapl2tau2);
-        let v4lapltau3 = pop!(v4lapltau3);
-        let v4tau4 = pop!(v4tau4);
-
-        // Suppress unused-cursor warning (cursor consumed by last pop!).
-        let _ = cursor;
-
-        MggaScratch {
-            zk,
-            vrho, vsigma, vlapl, vtau,
-            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-            v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,
-            v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2,
-            v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2, v3sigmalapltau,
-            v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3,
-            v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
-            v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2,
-            v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau,
-            v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
-            v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau,
-            v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3,
-            v4lapl4, v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4,
-        }
+        let (d, np) = (self.dims, self.np);
+        mgga_scratch_view(self.scratch.as_mut_slice(), &d, np)
     }
 }
 

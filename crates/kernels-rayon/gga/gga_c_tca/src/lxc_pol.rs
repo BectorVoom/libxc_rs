@@ -147,7 +147,7 @@ pub fn gga_c_tca_lxc_pol(
     let t7 = (simd::cbrt(zeta_threshold));
     let t8 = t7 * t7;
     let t21 = f64x8::splat(M_CBRT3);
-    let t23 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t23 = f64x8::splat(0.6827840632552957);
     let t24 = t21 * t23;
     let t25 = f64x8::splat(M_CBRT4);
     let t26 = t25 * t25;
@@ -157,7 +157,7 @@ pub fn gga_c_tca_lxc_pol(
     let t41 = f64x8::splat(M_CBRT6);
     let t42 = t41 * t41;
     let t43 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t44 = (simd::cbrt(t43));
+    let t44 = f64x8::splat(2.1450293971110255);
     let t45 = f64x8::splat(1.0) / t44;
     let t46 = t42 * t45;
     let t47 = f64x8::splat(M_CBRT2);

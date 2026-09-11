@@ -69,7 +69,7 @@ pub fn mgga_x_vt84_kxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t42 = M_CBRT6;
     let t44 = M_PI * M_PI;
-    let t45 = pow_1_3(t44);
+    let t45 = 2.1450293971110255;
     let t46 = t45 * t45;
     let t47 = 1.0 / t46;
     let t49 = M_CBRT2;

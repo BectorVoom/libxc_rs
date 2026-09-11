@@ -35,7 +35,7 @@ pub fn lda_c_hl_kxc_unpol(
     let t8 = 1.0 / t7;
     let t12 = M_CBRT3;
     let t13 = t12 * t12;
-    let t14 = pow_1_3(t2);
+    let t14 = 0.6827840632552957;
     let t15 = 1.0 / t14;
     let t16 = t13 * t15;
     let t17 = M_CBRT4;

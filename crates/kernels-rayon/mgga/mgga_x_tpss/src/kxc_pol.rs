@@ -73,7 +73,7 @@ pub fn mgga_x_tpss_kxc_pol(
     let t23 = t22 * zeta_threshold;
     let t54 = M_CBRT6;
     let t56 = M_PI * M_PI;
-    let t57 = pow_1_3(t56);
+    let t57 = 2.1450293971110255;
     let t58 = t57 * t57;
     let t59 = 1.0 / t58;
     let t79 = t54 * t59;

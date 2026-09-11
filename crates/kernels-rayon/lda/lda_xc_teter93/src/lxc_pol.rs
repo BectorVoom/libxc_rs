@@ -139,7 +139,7 @@ pub fn lda_xc_teter93_lxc_pol(
     let t21 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t18 - f64x8::splat(2.0));
     let t26 = f64x8::splat(M_CBRT3);
     let t28 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(0.6827840632552957);
     let t30 = f64x8::splat(M_CBRT4);
     let t31 = t30 * t30;
     let t32 = t29 * t31;

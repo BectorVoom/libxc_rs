@@ -53,7 +53,7 @@ pub fn mgga_c_vsxc_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = M_CBRT3;
     let t12 = 1.0 / M_PI;
-    let t13 = pow_1_3(t12);
+    let t13 = 0.6827840632552957;
     let t14 = t11 * t13;
     let t15 = M_CBRT4;
     let t16 = t15 * t15;
@@ -75,7 +75,7 @@ pub fn mgga_c_vsxc_fxc_pol(
     let t111 = M_CBRT6;
     let t112 = t111 * t111;
     let t113 = M_PI * M_PI;
-    let t114 = pow_1_3(t113);
+    let t114 = 2.1450293971110255;
     let t115 = t114 * t114;
     let t116 = t112 * t115;
     let t117 = 3.0 / 5.0 * t116;

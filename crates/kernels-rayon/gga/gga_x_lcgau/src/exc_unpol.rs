@@ -38,16 +38,16 @@ pub fn gga_x_lcgau_exc_unpol(
     let t18 = t3 / t4 * t17;
     let t20 = t3 * t3;
     let t21 = 1.0 / M_PI;
-    let t22 = pow_1_3(t21);
+    let t22 = 0.6827840632552957;
     let t24 = t20 / t22;
     let t25 = M_CBRT4;
     let t26 = t24 * t25;
     let t27 = M_CBRT2;
     let t28 = t27 * t27;
-    let t51 = rmath::sqrt(3.0);
+    let t51 = 1.7320508075688772;
     let t52 = param_hyb_omega_0 * t51;
     let t54 = t25 * t25;
-    let t95 = rmath::sqrt(M_PI);
+    let t95 = 1.7724538509055159;
     let t115 = param_hyb_omega_2 * t51;
     let t164 = param_hyb_omega_3 * t51;
     for ip in 0..zk.len() {

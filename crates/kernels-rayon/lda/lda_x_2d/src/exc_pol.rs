@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_PI, M_SQRT2};
+use libxc_rkernel_math::constants::{M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3};
 
 #[allow(unused_variables, non_snake_case)]
@@ -20,7 +20,7 @@ pub fn lda_x_2d_exc_pol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_SQRT2;
-    let t2 = rmath::sqrt(M_PI);
+    let t2 = 1.7724538509055159;
     let t3 = 1.0 / t2;
     let t4 = t1 * t3;
     let t11 = rmath::sqrt(zeta_threshold);

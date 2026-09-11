@@ -143,7 +143,7 @@ pub fn mgga_xc_cc06_vxc_pol(
     let t13 = t12 * zeta_threshold;
     let t14 = f64x8::splat(M_CBRT2);
     let t40 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t41 = (simd::cbrt(t40));
+    let t41 = f64x8::splat(0.6827840632552957);
     let t42 = t3 * t41;
     let t43 = f64x8::splat(M_CBRT4);
     let t44 = t43 * t43;

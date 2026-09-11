@@ -22,7 +22,7 @@ pub fn lda_c_2d_amgb_fxc_pol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t12 = rmath::sqrt(M_PI);
+    let t12 = 1.7724538509055159;
     let t13 = 1.0 / t12;
     let t63 = M_SQRT2;
     let t69 = rmath::sqrt(zeta_threshold);

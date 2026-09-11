@@ -32,7 +32,7 @@ pub fn gga_c_q2d_fxc_pol(
     let t20 = t19 * t19;
     let t36 = M_CBRT3;
     let t37 = 1.0 / M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 0.6827840632552957;
     let t39 = t38 * t38;
     let t40 = 1.0 / t39;
     let t41 = t36 * t40;
@@ -45,7 +45,7 @@ pub fn gga_c_q2d_fxc_pol(
     let t86 = t49 * t39;
     let t102 = t19 * zeta_threshold;
     let t110 = 1.0 / (2.0 * t12 - 2.0);
-    let t143 = rmath::ln(2.0);
+    let t143 = 0.6931471805599453;
     let t144 = 1.0 - t143;
     let t145 = M_PI * M_PI;
     let t146 = 1.0 / t145;
@@ -53,10 +53,10 @@ pub fn gga_c_q2d_fxc_pol(
     let t149 = 1.0 / t144;
     let t160 = t41 * t43;
     let t180 = t40 * t43;
-    let t182 = rmath::sqrt(3.0);
+    let t182 = 1.7320508075688772;
     let t184 = M_CBRT6;
     let t185 = t184 * t184;
-    let t186 = pow_1_3(t145);
+    let t186 = 2.1450293971110255;
     let t187 = 1.0 / t186;
     let t188 = t185 * t187;
     let t249 = M_SQRT2;

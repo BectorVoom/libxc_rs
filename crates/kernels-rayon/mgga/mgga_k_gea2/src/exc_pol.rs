@@ -143,7 +143,7 @@ pub fn mgga_k_gea2_exc_pol(
     let t25 = t24 * zeta_threshold;
     let t33 = f64x8::splat(M_CBRT6);
     let t34 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t35 = (simd::cbrt(t34));
+    let t35 = f64x8::splat(2.1450293971110255);
     let t36 = t35 * t35;
     let t37 = f64x8::splat(1.0) / t36;
     let t38 = t33 * t37;

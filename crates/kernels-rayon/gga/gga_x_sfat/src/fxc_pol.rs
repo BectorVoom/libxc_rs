@@ -37,7 +37,7 @@ pub fn gga_x_sfat_fxc_pol(
     let t28 = t2 * t2;
     let t29 = t28 * M_PI;
     let t30 = 1.0 / M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 0.6827840632552957;
     let t32 = 1.0 / t31;
     let t33 = M_CBRT4;
     let t34 = t33 * t32;

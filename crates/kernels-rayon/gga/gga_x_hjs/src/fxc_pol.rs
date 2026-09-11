@@ -52,7 +52,7 @@ pub fn gga_x_hjs_fxc_pol(
     let t28 = t2 * t2;
     let t29 = param_hyb_omega_0 * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = 1.0 / t31;
     let t33 = t29 * t32;
     let t46 = M_CBRT6;
@@ -85,7 +85,7 @@ pub fn gga_x_hjs_fxc_pol(
     let t182 = param_hyb_omega_0 * param_hyb_omega_0;
     let t183 = t182 * t2;
     let t214 = t182 * param_hyb_omega_0 * t63;
-    let t236 = rmath::sqrt(M_PI);
+    let t236 = 1.7724538509055159;
     let t237 = 4.0 / 5.0 * t236;
     let t251 = t182 * t182;
     let t253 = t251 * param_hyb_omega_0 * t2;

@@ -7,6 +7,9 @@ edition = "2024"
 crate-type = ["rlib", "cdylib", "staticlib"]
 
 [dependencies]
+# `cbrt_glibc`: the exported AK13 helper must reproduce C libxc's `CBRT`,
+# which is glibc's cbrt -- not Rust's `f64::cbrt` (core-math).
+libxc-rkernel-math = { path = "../kernels-rayon/math" }
 libxc-core = { path = "../libxc-core" }
 libxc-eval = { path = "../libxc-eval", default-features = false }
 libxc-reval = { path = "../libxc-reval" }

@@ -166,7 +166,7 @@ pub fn mgga_x_tau_hcth_exc_pol(
     let t80 = f64x8::splat(M_CBRT6);
     let t81 = t80 * t80;
     let t82 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t83 = (simd::cbrt(t82));
+    let t83 = f64x8::splat(2.1450293971110255);
     let t84 = t83 * t83;
     let t86 = f64x8::splat(3.0) / f64x8::splat(10.0) * t81 * t84;
     let mut ip = 0usize;

@@ -132,7 +132,7 @@ pub fn gga_c_pbeloc_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -143,7 +143,7 @@ pub fn gga_c_pbeloc_exc_pol(
     let t46 = t45 * zeta_threshold;
     let t56 = f64x8::splat(M_CBRT2);
     let t59 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t56 - f64x8::splat(2.0));
-    let t92 = (simd::ln(f64x8::splat(2.0)));
+    let t92 = f64x8::splat(0.6931471805599453);
     let t93 = f64x8::splat(1.0) - t92;
     let t94 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t95 = f64x8::splat(1.0) / t94;

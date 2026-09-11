@@ -35,9 +35,47 @@ import json
 import math
 import operator
 import re
+import ctypes
 import struct
 import sys
 from pathlib import Path
+
+import numpy as np
+
+# The values computed here have to be the doubles libxc's C init code
+# produces, not the mathematically nearest ones. Two C rules decide that:
+#
+# * libxc's `M_*` constants (util.h) carry an `L` suffix. A `long double`
+#   operand promotes the whole binary operation to x87 80-bit arithmetic,
+#   and the result is rounded to double only when it is stored:
+#   `0.0887*M_CBRT4/K_FACTOR_C` (gga_k_ol2) and `lambda/M_CBRT2 - 1.0`
+#   (pbe_lambda_set_ext_params) each come out 1 ulp away from a
+#   double-precision evaluation. A lone `L` literal is rounded twice
+#   (decimal -> 64-bit mantissa -> 53-bit), which can also differ from the
+#   direct decimal -> double rounding. On x86-64 Linux `np.longdouble` IS the
+#   x87 80-bit format, so evaluating with it reproduces GCC bit for bit.
+# * libxc is compiled with -DHAVE_CBRT, so `CBRT(x)` is glibc's `cbrt` at
+#   runtime. glibc's cbrt is not correctly rounded, and `x ** (1/3)` is
+#   `pow(x, 0.333...)`, a third different value.
+_LD = np.longdouble
+_LIBM = ctypes.CDLL("libm.so.6")
+_LIBM.cbrt.restype = ctypes.c_double
+_LIBM.cbrt.argtypes = [ctypes.c_double]
+
+
+def glibc_cbrt(x: float) -> float:
+    return _LIBM.cbrt(x)
+
+
+# util.h: #define M_CBRT2 1.259921049894873164767210607278228350570L
+_LD_M_CBRT2 = _LD("1.259921049894873164767210607278228350570")
+
+_LD_LITERAL_RE = re.compile(r"(?<![\w.])((?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)[Ll]\b")
+
+
+def _mark_long_double_literals(s: str) -> str:
+    """`1.25L` -> `_LD("1.25")` so the evaluator keeps its C type."""
+    return _LD_LITERAL_RE.sub(r'_LD("\1")', s)
 
 REPO = Path(__file__).resolve().parents[2]
 LIBXC_SRC = REPO / "libxc-master" / "src"
@@ -323,6 +361,8 @@ def load_meta_ext_params() -> dict[str, list[tuple[str, str]]]:
     if not _META_RS.is_file():
         return {}
     src = _META_RS.read_text(errors="replace")
+    if _META_MOD_RS.is_file():
+        src += _META_MOD_RS.read_text(errors="replace")
     out: dict[str, list[tuple[str, str]]] = {}
     for m in re.finditer(
             r"static (XC_[A-Z0-9_]+)_EXT_PARAMS: &\[ExtParamSpec\] = &\[(.*?)\];",
@@ -388,6 +428,20 @@ def validate_ext_wiring(func, kp, values, ext_names, ext_to_kernel, meta_ext):
 _PUBLIC_HEADER = LIBXC_SRC / "xc_funcs.h"
 
 
+# Internal workers a *public* composite mixes, with the id the composites'
+# generated auxiliary lists carry for them. `lda_k_gds08_worker` is the only
+# one: libxc numbers it 100001, which the `u16` `FunctionalId` holds as 100001
+# truncated (34465) -- see `libxc_core::meta::LDA_K_GDS08_WORKER`. It is
+# resolved like any kernel-backed functional so its dispatch exists, and is
+# reached only as an auxiliary of `gga_k_gds08` / `ghds10` / `ghds10r` /
+# `tkvln`, never through the public registry.
+INTERNAL_WORKERS = {"lda_k_gds08_worker": 100001 & 0xFFFF}
+
+# The worker's metadata is written by hand, next to the struct it fills, rather
+# than generated from the public registry it is not part of.
+_META_MOD_RS = REPO / "crates/libxc-core/src/meta/mod.rs"
+
+
 def public_functionals() -> dict[str, int]:
     """`{functional name: id}` for every functional in `xc_funcs.h`.
 
@@ -440,9 +494,10 @@ def safe_eval_expr(expr_str: str, local_defines: dict[str, str] | None = None) -
     if _FLOAT_RE.match(expr_str):
         return expr_str
 
-    s = re.sub(r"(?<=\d)[LlFf]\b", "", expr_str)
+    s = re.sub(r"(?<=\d)[Ff]\b", "", expr_str)
     if _FLOAT_RE.match(s):
         return s
+    s = _mark_long_double_literals(s)
 
     all_defs = dict(GLOBAL_DEFINES)
     if local_defines:
@@ -454,7 +509,8 @@ def safe_eval_expr(expr_str: str, local_defines: dict[str, str] | None = None) -
             if re.search(r"\b" + re.escape(k) + r"\b", s):
                 s = re.sub(r"\b" + re.escape(k) + r"\b", f"({v})", s)
                 changed = True
-        s = re.sub(r"(?<=\d)[LlFf]\b", "", s)
+        s = re.sub(r"(?<=\d)[Ff]\b", "", s)
+        s = _mark_long_double_literals(s)
         if not changed:
             break
 
@@ -465,7 +521,11 @@ def safe_eval_expr(expr_str: str, local_defines: dict[str, str] | None = None) -
             if isinstance(node, ast.Expression):
                 return _eval(node.body)
             elif isinstance(node, ast.Constant):
-                return float(node.value)
+                return np.float64(node.value)
+            elif (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                  and node.func.id == "_LD" and len(node.args) == 1
+                  and isinstance(node.args[0], ast.Constant)):
+                return _LD(node.args[0].value)
             elif isinstance(node, ast.UnaryOp) and type(node.op) in SAFE_OPERATORS:
                 return SAFE_OPERATORS[type(node.op)](_eval(node.operand))
             elif isinstance(node, ast.BinOp) and type(node.op) in SAFE_OPERATORS:
@@ -475,7 +535,8 @@ def safe_eval_expr(expr_str: str, local_defines: dict[str, str] | None = None) -
 
         val = _eval(tree)
         if val is not None:
-            return repr(val)
+            # Assignment to a `double` rounds once, here.
+            return repr(float(val))
     except Exception:
         pass
     return None
@@ -677,7 +738,7 @@ def main() -> int:
                 r"const\s+xc_func_info_type\s+xc_func_info_(\w+)\s*=\s*\{(.*?)\n\};",
                 text, re.S):
             info, body = m.group(1), m.group(2)
-            if info not in PUBLIC:
+            if info not in PUBLIC and info not in INTERNAL_WORKERS:
                 # Not in `xc_funcs.h`: an internal worker libxc does not
                 # expose. Recorded, never emitted. See `public_functionals`.
                 nonpublic[info] = c.name
@@ -800,7 +861,7 @@ def main() -> int:
             elif func == "gga_k_gp85":
                 gamma = ((6.0 * math.pi * math.pi) ** (1.0 / 3.0)) * math.pi * math.pi / 4.0 * (1.0 - 1.0 / N) * (1.0 + 1.0 / N + 6.0 / (N * N))
             elif func == "lda_x_rae":
-                dx = 1.0 / ((4.0 * N) ** (1.0 / 3.0))
+                dx = 1.0 / glibc_cbrt(4.0 * N)
                 dx2 = dx * dx
                 alpha = 1.0 - (8.0 / 3.0) * dx + 2.0 * dx2 - (dx2 * dx2) / 3.0
                 resolved_vals = [repr(alpha)]
@@ -840,7 +901,8 @@ def main() -> int:
         elif setter == "pbe_lambda_set_ext_params":
             N, mu, lambda_in = float(resolved_vals[0]), float(resolved_vals[1]), float(resolved_vals[2])
             lambda_val = (1.0 - 1.0 / N) * lambda_in + 1.48 / N
-            kappa = lambda_val / (2.0 ** (1.0 / 3.0)) - 1.0
+            # C: `lambda/M_CBRT2 - 1.0`, M_CBRT2 long double -> x87 arithmetic.
+            kappa = float(_LD(lambda_val) / _LD_M_CBRT2 - _LD(1.0))
             resolved_vals = [repr(kappa), repr(mu)]
             norm_names = ["param_kappa", "param_mu"]
 
@@ -964,6 +1026,17 @@ def main() -> int:
         if why:
             ext_unwired[func] = why
 
+        # A setter that DERIVES the kernel constants cannot be a permutation.
+        # `mpw91_set_ext_params` turns (_bt, _alpha, _expo) into seven kernel
+        # constants; gen_eval.py emits that derivation as the dispatch's
+        # `kernel_params`. Without it every composite that hands an mpw91
+        # auxiliary its own constants -- hyb_mgga_xc_pw6b95, hyb_mgga_xc_pwb6k,
+        # gga_xc_opwlyp_d -- failed with ExtParamCountMismatch (2026-09-11).
+        ext_transform = None
+        if setter == "mpw91_set_ext_params":
+            ext_names, ext_to_kernel, ext_transform = list(libnames), None, "mpw91"
+            ext_unwired.pop(func, None)
+
         resolved[func] = {
             "family": fam,
             "base_kernel": base,
@@ -971,7 +1044,12 @@ def main() -> int:
             "values": [mapping[p] for p in kp],
             "ext_names": ext_names,
             "ext_to_kernel": ext_to_kernel,
+            **({"ext_transform": ext_transform} if ext_transform else {}),
         }
+
+    for w, wid in INTERNAL_WORKERS.items():
+        if w in resolved:
+            resolved[w]["internal_id"] = wid
 
     n_ext_wired = sum(1 for v in resolved.values() if v.get("ext_to_kernel"))
     print(f"runtime ext_params wired : {n_ext_wired}")

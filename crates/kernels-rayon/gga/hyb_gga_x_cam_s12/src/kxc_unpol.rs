@@ -52,11 +52,11 @@ pub fn hyb_gga_x_cam_s12_kxc_unpol(
     let t22 = t21 * t21;
     let t50 = t3 * t3;
     let t52 = 1.0 / M_PI;
-    let t53 = pow_1_3(t52);
+    let t53 = 0.6827840632552957;
     let t54 = 1.0 / t53;
     let t55 = M_CBRT4;
     let t56 = t54 * t55;
-    let t98 = rmath::sqrt(M_PI);
+    let t98 = 1.7724538509055159;
     let t165 = t50 * t54;
     let t244 = param_C * t22;
     let t252 = param_E * t22;

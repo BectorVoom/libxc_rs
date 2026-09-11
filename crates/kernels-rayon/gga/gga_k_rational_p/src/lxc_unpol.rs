@@ -106,7 +106,7 @@ pub fn gga_k_rational_p_lxc_unpol(
     let t24 = f64x8::splat(1.0) / param_p;
     let t26 = f64x8::splat(M_CBRT6);
     let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(2.1450293971110255);
     let t30 = t29 * t29;
     let t31 = f64x8::splat(1.0) / t30;
     let t33 = f64x8::splat(M_CBRT2);

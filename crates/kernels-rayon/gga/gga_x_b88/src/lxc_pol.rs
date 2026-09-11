@@ -157,7 +157,7 @@ pub fn gga_x_b88_lxc_pol(
     let t22 = t21 * zeta_threshold;
     let t28 = t2 * t2;
     let t29 = param_beta * t28;
-    let t31 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t31 = f64x8::splat(0.6827840632552957);
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = t29 * t32;
     let t34 = f64x8::splat(M_CBRT4);

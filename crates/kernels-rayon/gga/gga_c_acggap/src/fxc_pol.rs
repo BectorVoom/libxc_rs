@@ -28,7 +28,7 @@ pub fn gga_c_acggap_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -39,7 +39,7 @@ pub fn gga_c_acggap_fxc_pol(
     let t46 = t45 * zeta_threshold;
     let t56 = M_CBRT2;
     let t59 = 1.0 / (2.0 * t56 - 2.0);
-    let t92 = rmath::ln(2.0);
+    let t92 = 0.6931471805599453;
     let t93 = 1.0 - t92;
     let t94 = M_PI * M_PI;
     let t95 = 1.0 / t94;

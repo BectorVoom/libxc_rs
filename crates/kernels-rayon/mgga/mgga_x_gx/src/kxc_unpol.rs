@@ -77,7 +77,7 @@ pub fn mgga_x_gx_kxc_unpol(
     let t27 = t21 * t21;
     let t40 = M_CBRT6;
     let t42 = M_PI * M_PI;
-    let t43 = pow_1_3(t42);
+    let t43 = 2.1450293971110255;
     let t44 = t43 * t43;
     let t45 = 1.0 / t44;
     let t48 = t40 * t45;

@@ -132,17 +132,17 @@ pub fn lda_c_gk72_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
     let t24 = t1 * t1;
     let t26 = t24 / t3;
-    let t30 = ((f64x8::splat(4.0)).sqrt());
+    let t30 = f64x8::splat(2.0);
     let t36 = t3 * t3;
     let t38 = t1 / t36;
     let t43 = t24 * t36;
-    let t67 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t67 = f64x8::splat(1.2599210498948732);
     let mut ip = 0usize;
     while ip < np {
         let m = (np - ip).min(8);

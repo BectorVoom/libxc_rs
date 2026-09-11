@@ -9,7 +9,7 @@
 use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_2};
 use libxc_rkernel_math::special::{xc_dilogarithm};
 
 #[allow(unused_variables, non_snake_case)]
@@ -36,15 +36,15 @@ pub fn gga_x_gg99_exc_unpol(
     let t23 = M_PI * M_PI;
     let t25 = M_CBRT2;
     let t30 = M_CBRT4;
-    let t31 = rmath::sqrt(3.0);
+    let t31 = 1.7320508075688772;
     let t32 = t23 * M_PI;
     let t33 = t31 * t32;
-    let t34 = pow_1_3(t33);
+    let t34 = 3.772854715805425;
     let t35 = t30 * t34;
-    let t37 = pow_1_4(3.0);
+    let t37 = 1.3160740129524924;
     let t38 = M_SQRT2;
     let t39 = t37 * t38;
-    let t40 = rmath::sqrt(M_PI);
+    let t40 = 1.7724538509055159;
     let t42 = 1.0 / t40 / M_PI;
     let t43 = t39 * t42;
     let t44 = t35 - 1e-10;
@@ -52,7 +52,7 @@ pub fn gga_x_gg99_exc_unpol(
     let t50 = t49 * t23;
     let t68 = 1.0 / M_PI;
     let t69 = t35 + 1e-10;
-    let t108 = pow_1_3(t68);
+    let t108 = 0.6827840632552957;
     let t109 = 1.0 / t108;
     for ip in 0..zk.len() {
         let t2 = rho[ip] * 0.5 <= dens_threshold;

@@ -43,13 +43,13 @@ pub fn mgga_x_mbrxc_bg_vxc_unpol(
     let t29 = M_CBRT6;
     let t30 = t29 * t29;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = t32 * t32;
     let t52 = pow_1_4(f64::EPSILON);
-    let t54 = pow_1_3(32.0);
+    let t54 = 3.174802103936399;
     let t55 = t54 * t5;
     let t56 = t4 * t4;
-    let t58 = pow_1_3(1.0 / M_PI);
+    let t58 = 0.6827840632552957;
     let t59 = 1.0 / t58;
     let t60 = t56 * t59;
     let t61 = M_CBRT4;

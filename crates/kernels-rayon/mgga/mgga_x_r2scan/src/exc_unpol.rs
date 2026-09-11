@@ -101,7 +101,7 @@ pub fn mgga_x_r2scan_exc_unpol(
     let t23 = f64x8::splat(M_CBRT6);
     let t24 = t23 * t23;
     let t25 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t26 = (simd::cbrt(t25));
+    let t26 = f64x8::splat(2.1450293971110255);
     let t27 = t26 * t25;
     let t28 = f64x8::splat(1.0) / t27;
     let t29 = t24 * t28;
@@ -112,7 +112,7 @@ pub fn mgga_x_r2scan_exc_unpol(
     let t50 = t26 * t26;
     let t51 = f64x8::splat(1.0) / t50;
     let t53 = t32 * t32;
-    let t117 = ((f64x8::splat(3.0)).sqrt());
+    let t117 = f64x8::splat(1.7320508075688772);
     let t118 = f64x8::splat(1.0) / t26;
     let t119 = t24 * t118;
     let mut ip = 0usize;

@@ -7,7 +7,6 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_PI};
 use libxc_rkernel_math::powers::{pow_3_2};
 
 #[allow(unused_variables, non_snake_case)]
@@ -23,7 +22,7 @@ pub fn lda_c_2d_prm_fxc_pol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t4 = rmath::sqrt(M_PI);
+    let t4 = 1.7724538509055159;
     let t12 = 2.0 + param_c;
     let t13 = rmath::sqrt(t12);
     let t14 = 1.0 / t13;

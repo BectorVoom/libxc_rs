@@ -168,7 +168,7 @@ pub fn gga_x_pbe_erf_gws_exc_pol(
     let t53 = f64x8::splat(1.0) / param_hyb_omega_0;
     let t54 = t53 * t6;
     let t55 = t29 * t13;
-    let t60 = ((f64x8::splat(M_PI)).sqrt());
+    let t60 = f64x8::splat(1.7724538509055159);
     let t61 = t60 * t40;
     let t69 = t4 * t4;
     let t71 = f64x8::splat(6.0) * t28 * t69;

@@ -147,7 +147,7 @@ pub fn gga_c_ccdf_vxc_pol(
     let t10 = t9 * t9;
     let t11 = t8 * t10;
     let t12 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t13 = (simd::cbrt(t12));
+    let t13 = f64x8::splat(2.1450293971110255);
     let t14 = f64x8::splat(1.0) / t13;
     let t45 = param_c4 * t8 * t10;
     let mut ip = 0usize;

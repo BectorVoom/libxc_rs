@@ -135,7 +135,7 @@ pub fn mgga_c_b88_exc_pol(
     let t11 = f64x8::splat(M_CBRT3);
     let t12 = t11 * t11;
     let t13 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t14 = (simd::cbrt(t13));
+    let t14 = f64x8::splat(0.6827840632552957);
     let t15 = f64x8::splat(1.0) / t14;
     let t16 = t12 * t15;
     let t17 = f64x8::splat(M_CBRT4);

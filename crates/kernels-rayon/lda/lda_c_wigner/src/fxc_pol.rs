@@ -25,7 +25,7 @@ pub fn lda_c_wigner_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t9 = M_CBRT3;
     let t10 = 1.0 / M_PI;
-    let t11 = pow_1_3(t10);
+    let t11 = 0.6827840632552957;
     let t12 = t9 * t11;
     let t13 = M_CBRT4;
     let t14 = t13 * t13;

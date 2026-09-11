@@ -144,7 +144,7 @@ pub fn gga_x_wpbeh_vxc_pol(
     let t30 = t3 * t3;
     let t31 = param_hyb_omega_0 * t30;
     let t32 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t33 = (simd::cbrt(t32));
+    let t33 = f64x8::splat(2.1450293971110255);
     let t34 = f64x8::splat(1.0) / t33;
     let t51 = f64x8::splat(M_CBRT6);
     let t52 = t51 * t51;
@@ -153,7 +153,7 @@ pub fn gga_x_wpbeh_vxc_pol(
     let t95 = t33 * t33;
     let t96 = f64x8::splat(1.0) / t95;
     let t249 = f64x8::splat(3.0) * f64x8::splat(0.25) * f64x8::splat(M_PI);
-    let t250 = ((f64x8::splat(M_PI)).sqrt());
+    let t250 = f64x8::splat(1.7724538509055159);
     let t273 = f64x8::splat(1.0) / t250;
     let t290 = t92 * t3;
     let t314 = t92 * param_hyb_omega_0 / t32;

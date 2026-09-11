@@ -138,7 +138,7 @@ pub fn lda_k_tf_kxc_pol(
     let t8 = t7 * t7;
     let t9 = t8 * zeta_threshold;
     let t23 = f64x8::splat(M_CBRT3);
-    let t26 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t26 = f64x8::splat(0.6827840632552957);
     let t27 = t26 * t26;
     let t28 = f64x8::splat(1.0) / t27;
     let t29 = f64x8::splat(M_CBRT4);

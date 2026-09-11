@@ -48,7 +48,7 @@ pub fn gga_x_sfat_lxc_unpol(
     let t18 = t17 / t4 * t3;
     let t20 = t3 * t3;
     let t22 = 1.0 / M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 0.6827840632552957;
     let t24 = 1.0 / t23;
     let t25 = M_CBRT4;
     let t26 = t25 * t24;

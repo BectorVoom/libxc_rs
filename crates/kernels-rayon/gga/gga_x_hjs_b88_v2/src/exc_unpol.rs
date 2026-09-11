@@ -118,7 +118,7 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
     let t20 = t3 * t3;
     let t21 = param_hyb_omega_0 * t20;
     let t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(2.1450293971110255);
     let t24 = f64x8::splat(1.0) / t23;
     let t25 = t21 * t24;
     let t26 = ((t12).select(t13, t15));
@@ -127,7 +127,7 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
     let t31 = t30 * t30;
     let t32 = t31 * t24;
     let t34 = f64x8::splat(M_CBRT2);
-    let t42 = (simd::exp(f64x8::splat(20.0)));
+    let t42 = f64x8::splat(485165195.4097903);
     let t44 = f64x8::splat(1.0) / (t42 - f64x8::splat(1.0));
     let t51 = param_a_0;
     let t53 = param_a_1;
@@ -153,7 +153,7 @@ pub fn gga_x_hjs_b88_v2_exc_unpol(
     let t126 = f64x8::splat(1.0) / t22;
     let t127 = t95 * param_hyb_omega_0 * t126;
     let t129 = f64x8::splat(1.0) / t99 / t26;
-    let t150 = ((f64x8::splat(M_PI)).sqrt());
+    let t150 = f64x8::splat(1.7724538509055159);
     let t165 = t95 * t95;
     let t167 = t165 * param_hyb_omega_0 * t3;
     let t169 = f64x8::splat(1.0) / t97 / t22;

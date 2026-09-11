@@ -43,6 +43,7 @@
 python3 tools/translate_rayon/from_maple.py --all                # kernels
 python3 tools/translate_rayon/extract_params.py --json tools/translate_rayon/params.json
 python3 tools/translate_rayon/gen_eval.py                        # eval layer + routing
+python3 tools/translate_rayon/deorbitalize.py                    # SCAN-L chain rule (libxc-eval)
 ```
 
 `from_maple.py` reads `libxc-master/src/maple2c/<fam>_{exc,vxc}/<func>.c` --
@@ -79,6 +80,35 @@ hand-written.** They were hand-written once and it was wrong: polarized
 `v3sigma2lapl` is `6*2 = 12` (libxc `util.c`), not the 9 that counting index
 combinations suggests. A wrong stride misaligns every subsequent grid point of
 that output and is invisible in a spot check.
+
+**A kernel tree may have fewer than ten modules, and then only as its flags
+say (2026-09-11).** libxc ships fewer maple2c functions for a handful of
+functionals: the potential-only ones (`maple2c/*_vxc`, compiled `XC_NO_EXC`:
+`gga_x_lb`, `gga_x_lbm`, `mgga_x_tb09`, `mgga_x_bj06`, `mgga_x_rpp09`,
+`lda_xc_tih`, `mgga_x_2d_prhg07_prp10`) have no exc, and `lda_c_pk09` /
+`mgga_c_b94` stop at kxc. `gen_eval.py` used to skip any tree without all
+ten, so all nine refused every order. It now emits such a functional when
+the modules present are exactly the orders its `XC_FLAGS_HAVE_*` claim, in
+both spins, through a file-local `partial_dispatch!` that takes the ten-arm
+macro's invocation, refuses an unclaimed order with
+`UnsupportedDerivativeOrder` before `prepare` touches a buffer (libxc's own
+contract), and for a no-exc functional neither demands nor writes `zk`
+(`prepare_for(.., have_exc = false)`). libxc `exit(1)`s if handed a `zk`
+buffer for one of these, which is why `kernel_oracle*.rs` compare them
+through `xc_*_vxc`.
+
+**libxc's deorbitalized meta-GGAs (SCAN-L, revSCAN-L, r2SCAN-L and their
+correlation halves) are neither a kernel nor a mix.** `xc_deorbitalize_init`
+gives them two auxiliaries -- the base meta-GGA and `mgga_k_pc07_opt`, whose
+`tau = rho * e_ked` stands in for the orbital one -- and
+`xc_deorbitalize_func` chain-rules every derivative through that `tau` with
+Maple-generated C (`maple2c/deorbitalize_{1..4}.c`). `deorbitalize.py`
+translates that C operand for operand into
+`crates/libxc-eval/src/eval/deorbitalize_gen.rs`, refusing anything outside
+its closed vocabulary; `eval/deorbitalize.rs` drives it. Which functional is
+deorbitalized, over what, and where each parent ext_param goes is read out of
+libxc's own `xc_func_type` by `verify/tests/gen_deorbitalized.rs` into
+`meta::DEORBITALIZED`, not scraped from the C.
 
 ## Build and editor hygiene
 
@@ -393,10 +423,10 @@ exports the same C symbol names as libxc itself, so a binary links one or the
 other:
 
 ```bash
-# The 19 oracle files. They must be named: `cargo test` builds *every* target
+# The 22 oracle files. They must be named: `cargo test` builds *every* target
 # before it runs any, and `compat_smoke` does not link without `c-abi` (mold:
 # undefined symbol: xc_func_init, xc_lda_exc, ...), so leaving it in the
-# invocation silently reports nothing at all rather than 19 results.
+# invocation silently reports nothing at all rather than 22 results.
 cargo test --release --manifest-path verify/Cargo.toml \
     --test kernel_oracle --test kernel_oracle_fxc --test composite_oracle \
     --test composite_diagnose --test gen_aux_overrides --test hse06_oracle \
@@ -405,7 +435,8 @@ cargo test --release --manifest-path verify/Cargo.toml \
     --test hybrid_oracle --test hybrid_type_oracle \
     --test metadata_oracle --test mixed_oracle --test parity_phase09 \
     --test parity_phase11 --test invariants_mgga \
-    --test oracle_c_libxc_parity
+    --test oracle_c_libxc_parity \
+    --test refusal_sweep --test deorbital_oracle --test gen_deorbitalized
 
 cargo test --release --manifest-path verify/Cargo.toml --features c-abi \
     --test compat_smoke                                                         # on its own
@@ -439,6 +470,9 @@ Everything else finishes in the first few minutes.
 | `wpbeh_domain.rs` | where `gga_x_wpbeh` diverges as a function of reduced gradient |
 | `invariants_mgga.rs` | MGGA `zk`/`vxc` invariants against libxc; **moved here from the root crate's `tests/` on 2026-09-10** so `cargo test` on the library stops building the C oracle |
 | `oracle_c_libxc_parity.rs` | broad C-parity sweep; moved here for the same reason |
+| `refusal_sweep.rs` | every public id, both spins, every order its flags claim, through `BatchEvaluator`: a refusal not on its allowlist fails, and so does an allowlisted refusal that starts working -- the list can only shrink. Return codes, not values |
+| `deorbital_oracle.rs` | the deorbitalized SCAN-L family (700-704, 718, 719) against libxc at every order, both spins, and at non-default ext_params |
+| `gen_deorbitalized.rs` | `meta::DEORBITALIZED` is still what libxc's `xc_func_type` says (`LIBXC_RS_WRITE_DEORBITALIZED=1` regenerates it) |
 
 `gga_oracle.rs`, `lda_oracle.rs`, `mgga_oracle.rs`, `lda_x_oracle.rs` and
 `lda_x_stress.rs` were **deleted** on 2026-09-03. The first three were gated on
@@ -618,6 +652,29 @@ which iterate diverged.
 
 ## Known gaps
 
+- **The public API refuses nothing it claims (2026-09-11).**
+  `verify/tests/refusal_sweep.rs` evaluates every public id, both spins, at
+  every order its `XC_FLAGS_HAVE_*` claim, through `BatchEvaluator`, and its
+  allowlist is empty. It started at 57 functionals over five mechanisms
+  (`docs/PLAN-defect-remediation-v6.md`): 36 composite MGGAs at kxc/lxc (the
+  mix never grew third/fourth-order buffers), `hyb_mgga_xc_b0kcis` above vxc
+  (its own-kernel half was stubbed), nine partial kernel trees plus
+  `hyb_mgga_xc_b94_hyb` (the generator demanded ten modules), the seven
+  deorbitalized SCAN-L functionals (no deorbitalization at all) and the four
+  gds08 composites (no worker kernel). The only functional without a public id,
+  `lda_k_gds08_worker`, is out of scope by design and never enters the sweep.
+- **libxc's own deorbitalization reads uninitialized memory at fourth order.**
+  `xc_mgga_vars_allocate_all` (`deorbitalize_func.c:188-189`) mallocs the base
+  meta-GGA's `v4sigmalapltau2` and memsets `v4sigmalapl2tau` twice instead;
+  `xc_mgga` zeroes a lapl-tau cross field only for a functional with both
+  `NEEDS_LAPLACIAN` and `NEEDS_TAU` (`mgga.c:262`), and no SCAN-L base needs the
+  Laplacian. `deorbitalize_4.c` reads that buffer into six lxc outputs
+  (`v4rho2sigmalapl`, `v4rhosigma2lapl`, `v4rhosigmalapl2`, `v4sigma3lapl`,
+  `v4sigma2lapl2`, `v4sigmalapl3`), so libxc's values there depend on what the
+  heap held: identical to this tree on a fresh heap, noise after a long sweep
+  (1.04 relative, measured). This tree zeroes the buffer. The oracles skip
+  exactly those six fields (`LIBXC_UNZEROED`) and gate everything else bit for
+  bit. Do not "fix" the Rust side to match.
 - **A rejection in `docs/perf/simd-ledger.json` is only valid for the tree it was
   measured on.** Re-swept 2026-09-03: of the 120 hottest undecided tier-1
   candidates over two sweeps, **262 of 264 verdicts accept** (median 1.76x,
@@ -741,17 +798,22 @@ which iterate diverged.
   `hyb_mgga_xc_br3p86` (vsigma 2.1e-7, zk within contract). Neither is fixed.
   `composite_oracle.rs::composite_mgga_survey` is reporting-only until they
   are.
-- Five composite GGAs remain over the gate, listed with reasons in
-  `composite_oracle.rs::KNOWN_GAPS`. Four (`gga_k_gds08`, `ghds10`, `ghds10r`,
-  `tkvln`) mix `lda_k_gds08_worker`, which libxc numbers **100001** and keeps
-  out of its public `xc_funcs.h`. **`FunctionalId` is a `u16`, so that id is
-  not representable at all** -- the kernel exists and is routed by name, only
-  the id-keyed path cannot reach it. Widening the id type across the codebase
-  for four kinetic functionals is not a trade worth making. The fifth is
-  `gga_xc_beefvdw` at zk 1.6e-10.
+- ~~Five composite GGAs remain over the gate~~ **Closed 2026-09-11.** Four
+  (`gga_k_gds08`, `ghds10`, `ghds10r`, `tkvln`) mix `lda_k_gds08_worker`, which
+  libxc numbers **100001** and keeps out of its public `xc_funcs.h`. There was
+  no kernel for it (an earlier version of this note said there was; there was
+  not), so they refused at construction. It now has one, emitted by
+  `from_maple.py` as the only `INTERNAL_WORKERS` entry and routed under the id
+  the parents' generated auxiliary lists already carried: 100001 truncated to
+  the `u16`, 34465 (`meta::LDA_K_GDS08_WORKER`). Its metadata is
+  `meta::internal_auxiliary`, written by hand and checked against libxc's info
+  block by `composite_oracle.rs::gds08_worker_metadata_matches_libxc`; the
+  registry does not know it, so it can only be reached as one of those four
+  auxiliaries. The C ABI reports it as 100001 (`meta::libxc_number`). The fifth,
+  `gga_xc_beefvdw`, passes against a wheel-built oracle.
 - `libxc-reval` routes 156 of 266 functionals. The other 110 are listed in `crates/libxc-reval/src/routing.rs::UNSUPPORTED` **with the reason** (custom `ext_params` setters that transform values, defaults written as C expressions, or no libxc registration) and return `None`. Do not wire these by guessing constants — a wrong default is silently wrong physics.
 - The `LdaFunctional`/`GgaFunctional`/`MggaFunctional` enums cover only 168 of 305 functionals, so typed dispatch reaches 100 of the 156 wired ones; the rest are name-only.
-- Kernel correctness rests on `verify/tests/kernel_oracle*.rs` (C libxc parity for all 454 routed kernels, **both spins, all three families**, first and second derivatives), `crates/kernels-rayon/oracle` (unpolarized LDA/GGA, kept as a second opinion) and `revalcheck` (chunked vs whole-grid). The polarized/MGGA gap this list used to call "the largest remaining" was closed on 2026-09-03, and closing it is what found the `b0kcis` defect. **Third and fourth derivatives are still uncovered**, as are MGGA second derivatives.
+- Kernel correctness rests on `verify/tests/kernel_oracle*.rs` (C libxc parity for all 454 routed kernels, **both spins, all three families**, first and second derivatives), `crates/kernels-rayon/oracle` (unpolarized LDA/GGA, kept as a second opinion) and `revalcheck` (chunked vs whole-grid). The polarized/MGGA gap this list used to call "the largest remaining" was closed on 2026-09-03, and closing it is what found the `b0kcis` defect. **Third and fourth derivatives of the routed kernels are still uncovered**, as are MGGA second derivatives of single kernels. Composite MGGAs (vxc through lxc, both spins, every field) and the deorbitalized SCAN-L family are covered since 2026-09-11 and are bit-identical to libxc (`composite_oracle.rs::composite_mgga_higher_orders_match_libxc`, `deorbital_oracle.rs`).
 - The maple2c rewrite was validated against the tree it replaced before that tree was regenerated: of 2,648 emitted functions, **2,420 were token-for-token identical** (numbers compared by value, not spelling), 218 differed only because the old ones had been reconstructed by `vnmerge` and carried its `vN` names, and 3 differed by a redundant paren. All 8 `bench-vs-libxc` output fingerprints and the full oracle result (7/344 over tolerance, same three functionals) were unchanged across the rewrite.
 - ~~`revalcheck` reports **4 differing values in `gga_c_op_pw91 Lxc Polarized`**~~ **Gone as of 2026-09-10**: `revalcheck` is clean over 1,736,268,725 values across 322 LDA+GGA functionals, both spins, all five orders. The likely reason is the input sanitisation -- those four values came from points whose raw inputs are outside the functional's domain, and libxc's clamps now put them back inside before the kernel sees them.
 - **9 of 1221 oracle field comparisons exceed 1e-12** (2026-08-31, down from 48). **All nine are `v2rho2` (5) or `vsigma` (4); `zk` has none**, so the project's stated contract -- *energy* relative error <= 1e-12 -- is met. The harness applies 1e-12 uniformly to `zk`/`vrho`/`vsigma`/`v2rho2`, which is stricter than that.

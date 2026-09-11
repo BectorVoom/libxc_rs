@@ -12,7 +12,7 @@
 use libxc_core::dims::Dimensions;
 use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): eval-level dispatch_* (real under family feature, stub when off).
-use crate::eval::workspace::EvaluationWorkspace;
+use crate::eval::workspace::{EvaluationWorkspace, MggaScratch};
 use crate::eval::{dispatch_gga_by_id, dispatch_lda, dispatch_lda_by_id, dispatch_mgga_by_id};
 use crate::functional::Functional;
 use crate::functional::params_lda::LdaXParams;
@@ -253,6 +253,26 @@ fn add_opt_n(
         }
     }
     Ok(())
+}
+
+/// `out.f = Some(s.f)` for each listed field, when `on`: hand a kernel the
+/// scratch buffer for a field it will write.
+macro_rules! give_fields {
+    ($out:ident, $s:ident, $on:expr; $($f:ident),+ $(,)?) => {
+        if $on {
+            $( $out.$f = Some($s.$f); )+
+        }
+    };
+}
+
+/// `out.f += w * s.f` for each listed field, when `on`, over the length the
+/// field has in `d` at `np` points (see [`add_opt_n`]).
+macro_rules! acc_fields {
+    ($out:expr, $s:expr, $w:expr, $d:expr, $np:expr, $on:expr; $($f:ident),+ $(,)?) => {
+        if $on {
+            $( add_opt_n($out.$f.as_deref_mut(), $w, &*$s.$f, $d.$f as usize * $np, stringify!($f))?; )+
+        }
+    };
 }
 
 /// Evaluate a mixed LDA functional via `Functional::auxiliaries` /
@@ -780,6 +800,94 @@ fn mix_gga_leaf(
     Ok(())
 }
 
+/// Hand an MGGA kernel the workspace scratch for every field `order` writes.
+///
+/// Every field of every order through `order`, regardless of the functional's
+/// `NEEDS_LAPLACIAN`/`NEEDS_TAU`: `prepare` demands all of them, and those
+/// flags gate the *accumulation* ([`accumulate_mgga`]), not the buffers.
+pub(crate) fn mgga_scratch_output(s: MggaScratch<'_>, order: DerivativeOrder) -> MggaOutput<'_> {
+    let mut out = MggaOutput { zk: Some(s.zk), ..Default::default() };
+    give_fields!(out, s, order >= DerivativeOrder::Vxc;
+        vrho, vsigma, vlapl, vtau);
+    give_fields!(out, s, order >= DerivativeOrder::Fxc;
+        v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+        v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2);
+    give_fields!(out, s, order >= DerivativeOrder::Kxc;
+        v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,
+        v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2,
+        v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2, v3sigmalapltau,
+        v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3);
+    give_fields!(out, s, order >= DerivativeOrder::Lxc;
+        v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
+        v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2,
+        v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau,
+        v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
+        v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau,
+        v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3,
+        v4lapl4, v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4);
+    out
+}
+
+/// `output += w * s` for every MGGA field `order` writes, gated the way
+/// libxc's `mix_func.c` gates a meta-GGA auxiliary: a field with a `lapl`
+/// derivative only when `lapl`, one with a `tau` derivative only when `tau`,
+/// one with both only when both. The rho/sigma fields always.
+///
+/// The lengths come from `d` (`Dimensions::mgga`), never from a table written
+/// here: polarized `v3sigma2lapl` is 12, not the 9 counting suggests.
+#[allow(clippy::too_many_arguments)]
+fn accumulate_mgga(
+    output: &mut MggaOutput<'_>,
+    s: &MggaScratch<'_>,
+    w: f64,
+    order: DerivativeOrder,
+    np: usize,
+    d: &Dimensions,
+    lapl: bool,
+    tau: bool,
+) -> Result<(), LibxcRsError> {
+    let (vxc, fxc, kxc, lxc) = (
+        order >= DerivativeOrder::Vxc,
+        order >= DerivativeOrder::Fxc,
+        order >= DerivativeOrder::Kxc,
+        order >= DerivativeOrder::Lxc,
+    );
+    let both = lapl && tau;
+    acc_fields!(output, s, w, d, np, true; zk);
+
+    acc_fields!(output, s, w, d, np, vxc; vrho, vsigma);
+    acc_fields!(output, s, w, d, np, vxc && lapl; vlapl);
+    acc_fields!(output, s, w, d, np, vxc && tau; vtau);
+
+    acc_fields!(output, s, w, d, np, fxc; v2rho2, v2rhosigma, v2sigma2);
+    acc_fields!(output, s, w, d, np, fxc && lapl; v2rholapl, v2sigmalapl, v2lapl2);
+    acc_fields!(output, s, w, d, np, fxc && tau; v2rhotau, v2sigmatau, v2tau2);
+    acc_fields!(output, s, w, d, np, fxc && both; v2lapltau);
+
+    // mix_func.c:221-253.
+    acc_fields!(output, s, w, d, np, kxc; v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+    acc_fields!(output, s, w, d, np, kxc && lapl;
+        v3rho2lapl, v3rhosigmalapl, v3rholapl2, v3sigma2lapl, v3sigmalapl2, v3lapl3);
+    acc_fields!(output, s, w, d, np, kxc && tau;
+        v3rho2tau, v3rhosigmatau, v3rhotau2, v3sigma2tau, v3sigmatau2, v3tau3);
+    acc_fields!(output, s, w, d, np, kxc && both;
+        v3rholapltau, v3sigmalapltau, v3lapl2tau, v3lapltau2);
+
+    // mix_func.c:257-303.
+    acc_fields!(output, s, w, d, np, lxc;
+        v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);
+    acc_fields!(output, s, w, d, np, lxc && lapl;
+        v4rho3lapl, v4rho2sigmalapl, v4rho2lapl2, v4rhosigma2lapl, v4rhosigmalapl2,
+        v4rholapl3, v4sigma3lapl, v4sigma2lapl2, v4sigmalapl3, v4lapl4);
+    acc_fields!(output, s, w, d, np, lxc && tau;
+        v4rho3tau, v4rho2sigmatau, v4rho2tau2, v4rhosigma2tau, v4rhosigmatau2,
+        v4rhotau3, v4sigma3tau, v4sigma2tau2, v4sigmatau3, v4tau4);
+    acc_fields!(output, s, w, d, np, lxc && both;
+        v4rho2lapltau, v4rhosigmalapltau, v4rholapl2tau, v4rholapltau2, v4sigma2lapltau,
+        v4sigmalapl2tau, v4sigmalapltau2, v4lapl3tau, v4lapl2tau2, v4lapltau3);
+    Ok(())
+}
+
 /// Evaluate a mixed MGGA functional. Per-aux family gating mirrors
 /// `evaluate_mixed_gga` with two additional gates for laplacian and tau
 /// derivatives (libxc `mix_func.c:184-305`):
@@ -843,47 +951,18 @@ pub fn evaluate_mixed_mgga_into(
     // caller paying for the MGGA all-orders superset up front.
     workspace.ensure_order(order);
 
-    // CR-02 (Plan 05-06): pre-compute per-family per-field lengths once so
-    // every accumulation site uses an explicit length parameter (no silent
-    // truncation). Three family flavours are needed since the MGGA parent
-    // accepts LDA, GGA, and MGGA aux subtrees.
+    // One set of lengths serves every family of auxiliary: `Dimensions::mgga`
+    // is built on `gga`, which is built on `lda`, so the rho and sigma chains
+    // an LDA or GGA auxiliary writes have the same per-point sizes here as in
+    // its own family.
     let np = input.np();
-    let mgga_dims = Dimensions::mgga(input.spin());
-    let gga_dims = Dimensions::gga(input.spin());
-    let lda_dims = Dimensions::lda(input.spin());
-
-    // MGGA per-field lengths (for MGGA aux + writes into MGGA parent output).
-    let mgga_zk_len = mgga_dims.zk as usize * np;
-    let mgga_vrho_len = mgga_dims.vrho as usize * np;
-    let mgga_vsigma_len = mgga_dims.vsigma as usize * np;
-    let mgga_vlapl_len = mgga_dims.vlapl as usize * np;
-    let mgga_vtau_len = mgga_dims.vtau as usize * np;
-    let mgga_v2rho2_len = mgga_dims.v2rho2 as usize * np;
-    let mgga_v2rhosigma_len = mgga_dims.v2rhosigma as usize * np;
-    let mgga_v2rholapl_len = mgga_dims.v2rholapl as usize * np;
-    let mgga_v2rhotau_len = mgga_dims.v2rhotau as usize * np;
-    let mgga_v2sigma2_len = mgga_dims.v2sigma2 as usize * np;
-    let mgga_v2sigmalapl_len = mgga_dims.v2sigmalapl as usize * np;
-    let mgga_v2sigmatau_len = mgga_dims.v2sigmatau as usize * np;
-    let mgga_v2lapl2_len = mgga_dims.v2lapl2 as usize * np;
-    let mgga_v2lapltau_len = mgga_dims.v2lapltau as usize * np;
-    let mgga_v2tau2_len = mgga_dims.v2tau2 as usize * np;
-
-    // GGA per-field lengths (for GGA aux). The MGGA parent output buffers for
-    // these fields are sized to MGGA dimensions, which equal GGA dimensions
-    // for the rho+sigma chain (mgga_dims.{zk,vrho,vsigma,...} == gga_dims same).
-    let gga_zk_len = gga_dims.zk as usize * np;
-    let gga_vrho_len = gga_dims.vrho as usize * np;
-    let gga_vsigma_len = gga_dims.vsigma as usize * np;
-    let gga_v2rho2_len = gga_dims.v2rho2 as usize * np;
-    let gga_v2rhosigma_len = gga_dims.v2rhosigma as usize * np;
-    let gga_v2sigma2_len = gga_dims.v2sigma2 as usize * np;
-
-    // LDA per-field lengths (for LDA aux). MGGA parent's rho-only field
-    // dimensions equal LDA dimensions.
-    let lda_zk_len = lda_dims.zk as usize * np;
-    let lda_vrho_len = lda_dims.vrho as usize * np;
-    let lda_v2rho2_len = lda_dims.v2rho2 as usize * np;
+    let d = Dimensions::mgga(input.spin());
+    let (vxc, fxc, kxc, lxc) = (
+        order >= DerivativeOrder::Vxc,
+        order >= DerivativeOrder::Fxc,
+        order >= DerivativeOrder::Kxc,
+        order >= DerivativeOrder::Lxc,
+    );
 
     // Capture parent flags once (CR-03 fix): the gate is parent AND aux per
     // mix_func.c:184-305 + parent assertion at mix_func.c:104-120.
@@ -895,85 +974,29 @@ pub fn evaluate_mixed_mgga_into(
 
     // Skipped when accumulating on top of a kernel result -- see the
     // `zero_first` note on this function.
-    macro_rules! zero_field {
-        ($field:ident) => {
-            if zero_first
-                && let Some(ref mut b) = output.$field
-            {
-                b.fill(0.0);
-            }
+    macro_rules! zero_fields {
+        ($($f:ident),+ $(,)?) => {
+            $( if let Some(b) = output.$f.as_deref_mut() { b.fill(0.0); } )+
         };
     }
-    zero_field!(zk);
-    zero_field!(vrho);
-    zero_field!(vsigma);
-    zero_field!(vlapl);
-    zero_field!(vtau);
-    zero_field!(v2rho2);
-    zero_field!(v2rhosigma);
-    zero_field!(v2rholapl);
-    zero_field!(v2rhotau);
-    zero_field!(v2sigma2);
-    zero_field!(v2sigmalapl);
-    zero_field!(v2sigmatau);
-    zero_field!(v2lapl2);
-    zero_field!(v2lapltau);
-    zero_field!(v2tau2);
-    zero_field!(v3rho3);
-    zero_field!(v3rho2sigma);
-    zero_field!(v3rho2lapl);
-    zero_field!(v3rho2tau);
-    zero_field!(v3rhosigma2);
-    zero_field!(v3rhosigmalapl);
-    zero_field!(v3rhosigmatau);
-    zero_field!(v3rholapl2);
-    zero_field!(v3rholapltau);
-    zero_field!(v3rhotau2);
-    zero_field!(v3sigma3);
-    zero_field!(v3sigma2lapl);
-    zero_field!(v3sigma2tau);
-    zero_field!(v3sigmalapl2);
-    zero_field!(v3sigmalapltau);
-    zero_field!(v3sigmatau2);
-    zero_field!(v3lapl3);
-    zero_field!(v3lapl2tau);
-    zero_field!(v3lapltau2);
-    zero_field!(v3tau3);
-    zero_field!(v4rho4);
-    zero_field!(v4rho3sigma);
-    zero_field!(v4rho3lapl);
-    zero_field!(v4rho3tau);
-    zero_field!(v4rho2sigma2);
-    zero_field!(v4rho2sigmalapl);
-    zero_field!(v4rho2sigmatau);
-    zero_field!(v4rho2lapl2);
-    zero_field!(v4rho2lapltau);
-    zero_field!(v4rho2tau2);
-    zero_field!(v4rhosigma3);
-    zero_field!(v4rhosigma2lapl);
-    zero_field!(v4rhosigma2tau);
-    zero_field!(v4rhosigmalapl2);
-    zero_field!(v4rhosigmalapltau);
-    zero_field!(v4rhosigmatau2);
-    zero_field!(v4rholapl3);
-    zero_field!(v4rholapl2tau);
-    zero_field!(v4rholapltau2);
-    zero_field!(v4rhotau3);
-    zero_field!(v4sigma4);
-    zero_field!(v4sigma3lapl);
-    zero_field!(v4sigma3tau);
-    zero_field!(v4sigma2lapl2);
-    zero_field!(v4sigma2lapltau);
-    zero_field!(v4sigma2tau2);
-    zero_field!(v4sigmalapl3);
-    zero_field!(v4sigmalapl2tau);
-    zero_field!(v4sigmalapltau2);
-    zero_field!(v4sigmatau3);
-    zero_field!(v4lapl4);
-    zero_field!(v4lapl3tau);
-    zero_field!(v4lapl2tau2);
-    zero_field!(v4lapltau3);
-    zero_field!(v4tau4);
+    if zero_first {
+        zero_fields!(
+            zk, vrho, vsigma, vlapl, vtau,
+            v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+            v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+            v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,
+            v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2,
+            v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigmalapl2, v3sigmalapltau,
+            v3sigmatau2, v3lapl3, v3lapl2tau, v3lapltau2, v3tau3,
+            v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
+            v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2,
+            v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau,
+            v4rhosigmatau2, v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
+            v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2, v4sigma2lapltau,
+            v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3,
+            v4lapl4, v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4,
+        );
+    }
 
     for (aux, &weight) in functional
         .auxiliaries
@@ -984,30 +1007,18 @@ pub fn evaluate_mixed_mgga_into(
             Family::Lda => {
                 let lda_input = LdaInput::new(input.rho(), input.np(), input.spin())?;
                 {
-                    let scratch = workspace.lda_scratch_mut();
+                    let s = workspace.lda_scratch_mut();
                     let mut aux_output = LdaOutput {
-                        zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vrho)
-                        } else {
-                            None
-                        },
-                        v2rho2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rho2)
-                        } else {
-                            None
-                        },
-                        v3rho3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho3)
-                        } else {
-                            None
-                        },
-                        v4rho4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho4)
-                        } else {
-                            None
-                        },
+                        zk: Some(s.zk),
+                        vrho: None,
+                        v2rho2: None,
+                        v3rho3: None,
+                        v4rho4: None,
                     };
+                    give_fields!(aux_output, s, vxc; vrho);
+                    give_fields!(aux_output, s, fxc; v2rho2);
+                    give_fields!(aux_output, s, kxc; v3rho3);
+                    give_fields!(aux_output, s, lxc; v4rho4);
                     dispatch_lda_by_id(
                         aux.meta.id,
                         &lda_input,
@@ -1017,118 +1028,29 @@ pub fn evaluate_mixed_mgga_into(
                         &aux.thresholds,
                     )?;
                 }
-                let scratch = workspace.lda_scratch_mut();
-                add_opt_n(
-                    output.zk.as_deref_mut(),
-                    weight,
-                    scratch.zk,
-                    lda_zk_len,
-                    "zk",
-                )?;
-                if order >= DerivativeOrder::Vxc {
-                    add_opt_n(
-                        output.vrho.as_deref_mut(),
-                        weight,
-                        scratch.vrho,
-                        lda_vrho_len,
-                        "vrho",
-                    )?;
-                }
-                if order >= DerivativeOrder::Fxc {
-                    add_opt_n(
-                        output.v2rho2.as_deref_mut(),
-                        weight,
-                        scratch.v2rho2,
-                        lda_v2rho2_len,
-                        "v2rho2",
-                    )?;
-                }
-                // Note: dispatch_mgga currently rejects Kxc/Lxc orders upstream
-                // (the function returns UnsupportedDerivativeOrder before this
-                // accumulation block runs). LDA-aux Kxc/Lxc accumulation paths
-                // are therefore unreachable from evaluate_mixed_mgga today; if
-                // and when MGGA Kxc/Lxc dispatch lands, add v3rho3/v4rho4 calls
-                // here (using mgga_dims-derived lengths to match parent buffer
-                // shape, which equals lda_dims for the rho-only chain).
+                // The rho chain only: mix_func.c sums `v?rho?` for every
+                // auxiliary before it asks about the family.
+                let s = workspace.lda_scratch_mut();
+                acc_fields!(output, s, weight, d, np, true; zk);
+                acc_fields!(output, s, weight, d, np, vxc; vrho);
+                acc_fields!(output, s, weight, d, np, fxc; v2rho2);
+                acc_fields!(output, s, weight, d, np, kxc; v3rho3);
+                acc_fields!(output, s, weight, d, np, lxc; v4rho4);
             }
             Family::Gga => {
                 let gga_input =
                     GgaInput::new(input.rho(), input.sigma(), input.np(), input.spin())?;
                 {
-                    let scratch = workspace.gga_scratch_mut();
+                    let s = workspace.gga_scratch_mut();
                     let mut aux_output = GgaOutput {
-                        zk: Some(scratch.zk),
-                        vrho: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vrho)
-                        } else {
-                            None
-                        },
-                        vsigma: if order >= DerivativeOrder::Vxc {
-                            Some(scratch.vsigma)
-                        } else {
-                            None
-                        },
-                        v2rho2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rho2)
-                        } else {
-                            None
-                        },
-                        v2rhosigma: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2rhosigma)
-                        } else {
-                            None
-                        },
-                        v2sigma2: if order >= DerivativeOrder::Fxc {
-                            Some(scratch.v2sigma2)
-                        } else {
-                            None
-                        },
-                        v3rho3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho3)
-                        } else {
-                            None
-                        },
-                        v3rho2sigma: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rho2sigma)
-                        } else {
-                            None
-                        },
-                        v3rhosigma2: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3rhosigma2)
-                        } else {
-                            None
-                        },
-                        v3sigma3: if order >= DerivativeOrder::Kxc {
-                            Some(scratch.v3sigma3)
-                        } else {
-                            None
-                        },
-                        v4rho4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho4)
-                        } else {
-                            None
-                        },
-                        v4rho3sigma: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho3sigma)
-                        } else {
-                            None
-                        },
-                        v4rho2sigma2: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rho2sigma2)
-                        } else {
-                            None
-                        },
-                        v4rhosigma3: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4rhosigma3)
-                        } else {
-                            None
-                        },
-                        v4sigma4: if order >= DerivativeOrder::Lxc {
-                            Some(scratch.v4sigma4)
-                        } else {
-                            None
-                        },
+                        zk: Some(s.zk),
+                        ..Default::default()
                     };
+                    give_fields!(aux_output, s, vxc; vrho, vsigma);
+                    give_fields!(aux_output, s, fxc; v2rho2, v2rhosigma, v2sigma2);
+                    give_fields!(aux_output, s, kxc; v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+                    give_fields!(aux_output, s, lxc;
+                        v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);
                     dispatch_gga_by_id(
                         aux.meta.id,
                         &gga_input,
@@ -1138,62 +1060,15 @@ pub fn evaluate_mixed_mgga_into(
                         &aux.thresholds,
                     )?;
                 }
-                let scratch = workspace.gga_scratch_mut();
-                add_opt_n(
-                    output.zk.as_deref_mut(),
-                    weight,
-                    scratch.zk,
-                    gga_zk_len,
-                    "zk",
-                )?;
-                if order >= DerivativeOrder::Vxc {
-                    add_opt_n(
-                        output.vrho.as_deref_mut(),
-                        weight,
-                        scratch.vrho,
-                        gga_vrho_len,
-                        "vrho",
-                    )?;
-                    add_opt_n(
-                        output.vsigma.as_deref_mut(),
-                        weight,
-                        scratch.vsigma,
-                        gga_vsigma_len,
-                        "vsigma",
-                    )?;
-                }
-                if order >= DerivativeOrder::Fxc {
-                    add_opt_n(
-                        output.v2rho2.as_deref_mut(),
-                        weight,
-                        scratch.v2rho2,
-                        gga_v2rho2_len,
-                        "v2rho2",
-                    )?;
-                    add_opt_n(
-                        output.v2rhosigma.as_deref_mut(),
-                        weight,
-                        scratch.v2rhosigma,
-                        gga_v2rhosigma_len,
-                        "v2rhosigma",
-                    )?;
-                    add_opt_n(
-                        output.v2sigma2.as_deref_mut(),
-                        weight,
-                        scratch.v2sigma2,
-                        gga_v2sigma2_len,
-                        "v2sigma2",
-                    )?;
-                }
-                // Note: dispatch_mgga currently rejects Kxc/Lxc orders, so the
-                // higher-order GGA-aux accumulation paths are unreachable from
-                // evaluate_mixed_mgga today. They were retained in the prior
-                // code as defense-in-depth; here we omit them in the
-                // length-checked rewrite because the corresponding parent
-                // output fields (output.v3rho3 etc.) would be sized to MGGA
-                // dimensions, not GGA dimensions, causing add_opt_n to error
-                // even on a no-op path. If/when MGGA Kxc/Lxc dispatch lands,
-                // re-add these calls using mgga-derived lengths.
+                // The rho and sigma chains (mix_func.c: `if(is_gga(...))`).
+                let s = workspace.gga_scratch_mut();
+                acc_fields!(output, s, weight, d, np, true; zk);
+                acc_fields!(output, s, weight, d, np, vxc; vrho, vsigma);
+                acc_fields!(output, s, weight, d, np, fxc; v2rho2, v2rhosigma, v2sigma2);
+                acc_fields!(output, s, weight, d, np, kxc;
+                    v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+                acc_fields!(output, s, weight, d, np, lxc;
+                    v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);
             }
             Family::Mgga => {
                 let aux_needs_lapl = aux.meta.flags.contains(FunctionalFlags::NEEDS_LAPLACIAN);
@@ -1206,8 +1081,6 @@ pub fn evaluate_mixed_mgga_into(
                 // (which the parent didn't promise to expose).
                 let needs_lapl = aux_needs_lapl && parent_needs_lapl;
                 let needs_tau = aux_needs_tau && parent_needs_tau;
-                let needs_both = needs_lapl && needs_tau;
-
                 {
                     // The auxiliary gets a buffer for every field its own
                     // family and order requires, unconditionally.
@@ -1221,170 +1094,18 @@ pub fn evaluate_mixed_mgga_into(
                     // field of the requested order, so `evaluate_mgga` failed
                     // outright with "output buffer 'vlapl' size mismatch" for
                     // **36 of the 39 composite MGGA functionals** -- every
-                    // TPSS0/B95/BR3P86/MS2h/SCAN0 hybrid. The accumulation
-                    // gating below is unchanged, so nothing leaks.
-                    let scratch = workspace.mgga_scratch_mut();
-                    let mut aux_output = MggaOutput {
-                        zk: Some(scratch.zk),
-                        ..Default::default()
-                    };
-                    if order >= DerivativeOrder::Vxc {
-                        aux_output.vrho = Some(scratch.vrho);
-                        aux_output.vsigma = Some(scratch.vsigma);
-                        aux_output.vlapl = Some(scratch.vlapl);
-                        aux_output.vtau = Some(scratch.vtau);
-                    }
-                    if order >= DerivativeOrder::Fxc {
-                        aux_output.v2rho2 = Some(scratch.v2rho2);
-                        aux_output.v2rhosigma = Some(scratch.v2rhosigma);
-                        aux_output.v2sigma2 = Some(scratch.v2sigma2);
-                        aux_output.v2rholapl = Some(scratch.v2rholapl);
-                        aux_output.v2sigmalapl = Some(scratch.v2sigmalapl);
-                        aux_output.v2lapl2 = Some(scratch.v2lapl2);
-                        aux_output.v2rhotau = Some(scratch.v2rhotau);
-                        aux_output.v2sigmatau = Some(scratch.v2sigmatau);
-                        aux_output.v2tau2 = Some(scratch.v2tau2);
-                        aux_output.v2lapltau = Some(scratch.v2lapltau);
-                    }
-                    // Order >= Kxc / Lxc: dispatch_mgga currently rejects them
-                    // upstream, so leave the higher-order aux_output fields as
-                    // None. If/when MGGA Fxc+ is wired, expand here.
-                    // (WR-10 Plan 05-06: a dead let-discard that previously
-                    // consumed needs_lapl / needs_tau / needs_both has been
-                    // removed since those variables are load-bearing below in
-                    // the gated accumulation block.)
-                    dispatch_mgga_by_id(
-                        aux.meta.id,
-                        input,
-                        order,
-                        &mut aux_output,
-                        aux.kernel_ext_params(),
-                        &aux.thresholds,
-                    )?;
+                    // TPSS0/B95/BR3P86/MS2h/SCAN0 hybrid. The same 36 then
+                    // failed the same way at kxc/lxc ("'v3rho3' size
+                    // mismatch") until 2026-09-11, because this handed over
+                    // buffers only through second order.
+                    let mut aux_output = mgga_scratch_output(workspace.mgga_scratch_mut(), order);
+                    // Not `dispatch_mgga_by_id`: a deorbitalized auxiliary
+                    // (`mgga_c_scanl` inside `mgga_c_scanl_vv10`) has no
+                    // kernel of its own to route to.
+                    crate::eval::deorbitalize::dispatch_mgga(aux, input, order, &mut aux_output)?;
                 }
-                let scratch = workspace.mgga_scratch_mut();
-                // Always-accumulate (rho-chain, all aux families contribute).
-                add_opt_n(
-                    output.zk.as_deref_mut(),
-                    weight,
-                    scratch.zk,
-                    mgga_zk_len,
-                    "zk",
-                )?;
-                if order >= DerivativeOrder::Vxc {
-                    add_opt_n(
-                        output.vrho.as_deref_mut(),
-                        weight,
-                        scratch.vrho,
-                        mgga_vrho_len,
-                        "vrho",
-                    )?;
-                    add_opt_n(
-                        output.vsigma.as_deref_mut(),
-                        weight,
-                        scratch.vsigma,
-                        mgga_vsigma_len,
-                        "vsigma",
-                    )?;
-                    if needs_lapl {
-                        add_opt_n(
-                            output.vlapl.as_deref_mut(),
-                            weight,
-                            scratch.vlapl,
-                            mgga_vlapl_len,
-                            "vlapl",
-                        )?;
-                    }
-                    if needs_tau {
-                        add_opt_n(
-                            output.vtau.as_deref_mut(),
-                            weight,
-                            scratch.vtau,
-                            mgga_vtau_len,
-                            "vtau",
-                        )?;
-                    }
-                }
-                if order >= DerivativeOrder::Fxc {
-                    add_opt_n(
-                        output.v2rho2.as_deref_mut(),
-                        weight,
-                        scratch.v2rho2,
-                        mgga_v2rho2_len,
-                        "v2rho2",
-                    )?;
-                    add_opt_n(
-                        output.v2rhosigma.as_deref_mut(),
-                        weight,
-                        scratch.v2rhosigma,
-                        mgga_v2rhosigma_len,
-                        "v2rhosigma",
-                    )?;
-                    add_opt_n(
-                        output.v2sigma2.as_deref_mut(),
-                        weight,
-                        scratch.v2sigma2,
-                        mgga_v2sigma2_len,
-                        "v2sigma2",
-                    )?;
-                    if needs_lapl {
-                        add_opt_n(
-                            output.v2rholapl.as_deref_mut(),
-                            weight,
-                            scratch.v2rholapl,
-                            mgga_v2rholapl_len,
-                            "v2rholapl",
-                        )?;
-                        add_opt_n(
-                            output.v2sigmalapl.as_deref_mut(),
-                            weight,
-                            scratch.v2sigmalapl,
-                            mgga_v2sigmalapl_len,
-                            "v2sigmalapl",
-                        )?;
-                        add_opt_n(
-                            output.v2lapl2.as_deref_mut(),
-                            weight,
-                            scratch.v2lapl2,
-                            mgga_v2lapl2_len,
-                            "v2lapl2",
-                        )?;
-                    }
-                    if needs_tau {
-                        add_opt_n(
-                            output.v2rhotau.as_deref_mut(),
-                            weight,
-                            scratch.v2rhotau,
-                            mgga_v2rhotau_len,
-                            "v2rhotau",
-                        )?;
-                        add_opt_n(
-                            output.v2sigmatau.as_deref_mut(),
-                            weight,
-                            scratch.v2sigmatau,
-                            mgga_v2sigmatau_len,
-                            "v2sigmatau",
-                        )?;
-                        add_opt_n(
-                            output.v2tau2.as_deref_mut(),
-                            weight,
-                            scratch.v2tau2,
-                            mgga_v2tau2_len,
-                            "v2tau2",
-                        )?;
-                    }
-                    if needs_both {
-                        add_opt_n(
-                            output.v2lapltau.as_deref_mut(),
-                            weight,
-                            scratch.v2lapltau,
-                            mgga_v2lapltau_len,
-                            "v2lapltau",
-                        )?;
-                    }
-                }
-                // Higher-order MGGA accumulation (Kxc/Lxc) deferred — current
-                // dispatch_mgga rejects those orders upstream.
+                let s = workspace.mgga_scratch_mut();
+                accumulate_mgga(output, &s, weight, order, np, &d, needs_lapl, needs_tau)?;
             }
         }
     }
@@ -2202,8 +1923,8 @@ mod tests {
 /// with both is the sum of the two. `hyb_mgga_xc_b0kcis` is the only such
 /// functional in libxc 7.0.0: it is
 /// `mgga_c_kcis + (0.75*gga_x_b88 + 1.0*mgga_c_kcis)`, i.e. twice the KCIS
-/// correlation. Verified against libxc to 1.7e-16 by
-/// `verify/tests/b0kcis_probe.rs`.
+/// correlation, at every derivative order its flags claim (exc through lxc).
+/// Gated against libxc by `verify/tests/composite_oracle.rs`.
 ///
 /// The kernel goes into the workspace scratch rather than straight into
 /// `output`, because `prepare` *takes* the caller's buffers out of the output
@@ -2221,24 +1942,7 @@ pub fn add_own_kernel_mgga(
     let d = Dimensions::mgga(input.spin());
 
     {
-        let scratch = workspace.mgga_scratch_mut();
-        let mut own = MggaOutput {
-            zk: Some(scratch.zk),
-            ..Default::default()
-        };
-        if order >= DerivativeOrder::Vxc {
-            own.vrho = Some(scratch.vrho);
-            own.vsigma = Some(scratch.vsigma);
-            own.vlapl = Some(scratch.vlapl);
-            own.vtau = Some(scratch.vtau);
-        }
-        if order >= DerivativeOrder::Fxc {
-            return Err(LibxcRsError::UnsupportedDerivativeOrder {
-                id: functional.meta.id,
-                order,
-                max: DerivativeOrder::Vxc,
-            });
-        }
+        let mut own = mgga_scratch_output(workspace.mgga_scratch_mut(), order);
         dispatch_mgga_by_id(
             functional.meta.id,
             input,
@@ -2249,13 +1953,8 @@ pub fn add_own_kernel_mgga(
         )?;
     }
 
+    // The kernel is the functional itself, not an auxiliary of it: every
+    // field it wrote goes in, at weight one, with no lapl/tau gate.
     let scratch = workspace.mgga_scratch_mut();
-    add_opt_n(output.zk.as_deref_mut(), 1.0, scratch.zk, d.zk as usize * np, "zk")?;
-    if order >= DerivativeOrder::Vxc {
-        add_opt_n(output.vrho.as_deref_mut(), 1.0, scratch.vrho, d.vrho as usize * np, "vrho")?;
-        add_opt_n(output.vsigma.as_deref_mut(), 1.0, scratch.vsigma, d.vsigma as usize * np, "vsigma")?;
-        add_opt_n(output.vlapl.as_deref_mut(), 1.0, scratch.vlapl, d.vlapl as usize * np, "vlapl")?;
-        add_opt_n(output.vtau.as_deref_mut(), 1.0, scratch.vtau, d.vtau as usize * np, "vtau")?;
-    }
-    Ok(())
+    accumulate_mgga(output, &scratch, 1.0, order, np, &d, true, true)
 }

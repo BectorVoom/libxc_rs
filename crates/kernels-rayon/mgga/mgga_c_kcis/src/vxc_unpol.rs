@@ -80,7 +80,7 @@ pub fn mgga_c_kcis_vxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = f64x8::splat(M_CBRT3);
     let t3 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t4 = (simd::cbrt(t3));
+    let t4 = f64x8::splat(0.6827840632552957);
     let t5 = t2 * t4;
     let t6 = f64x8::splat(M_CBRT4);
     let t7 = t6 * t6;
@@ -103,9 +103,9 @@ pub fn mgga_c_kcis_vxc_unpol(
     let t104 = t19 * t20 * t3;
     let t112 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t115 = t2 * t4 / t112;
-    let t123 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t123 = f64x8::splat(1.2599210498948732);
     let t124 = t82 * t123;
-    let t140 = ((f64x8::splat(4.0)).sqrt());
+    let t140 = f64x8::splat(2.0);
     let t166 = (((f64x8::splat(2.0)).simd_le(zeta_threshold)).select(t36, f64x8::splat(2.0) * t40));
     let t168 = (((f64x8::splat(0.0)).simd_le(zeta_threshold)).select(t36, f64x8::splat(0.0)));
     let t170 = (t166 + t168 - f64x8::splat(2.0)) * t43;

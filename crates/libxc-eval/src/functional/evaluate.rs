@@ -5,11 +5,10 @@
 //! (`evaluate_mixed_{lda,gga,mgga}_functional`). This is the public API
 //! surface most users will interact with for hybrid functionals.
 //!
-//! Pitfall 7 (Plan 05-03): Functionals deferred at the kernel layer
-//! (e.g. `LDA_C_PK09`, `MGGA_X_BR89`) succeed at `Functional::new` (so
-//! metadata queries and aux iteration still work) but return
-//! `UnsupportedFunctional` here at evaluate time via the inner
-//! `from_id` helpers.
+//! A functional with no route to a kernel still constructs (so metadata
+//! queries and aux iteration work) and returns `UnsupportedFunctional` here at
+//! evaluate time. `verify/tests/refusal_sweep.rs` lists every public id that
+//! does.
 
 use libxc_core::error::LibxcRsError;
 // 11-12 (G-2): import the eval-level dispatch_* (real under the family feature,
@@ -137,6 +136,11 @@ impl Functional {
         output: &mut MggaOutput,
         workspace: &mut EvaluationWorkspace,
     ) -> Result<(), LibxcRsError> {
+        // A deorbitalized meta-GGA (SCAN-L and relatives) is neither a kernel
+        // nor a mix: see `crate::eval::deorbitalize`.
+        if libxc_core::meta::deorbitalized(self.meta.id).is_some() {
+            return crate::eval::deorbitalize::evaluate(self, input, order, output);
+        }
         if self.auxiliaries.is_empty() {
             dispatch_mgga_by_id(
                 self.meta.id,
@@ -232,30 +236,35 @@ mod tests {
         }
     }
 
-    /// Pitfall 7 / Test 9: a deferred LDA id constructs successfully (so
-    /// metadata queries work) but `evaluate_lda` returns
-    /// `UnsupportedFunctional`.
+    /// `lda_c_pk09` (554) sat on the CubeCL-era deferred list, so every order
+    /// refused. libxc ships it at exc through kxc and has no lxc; it now
+    /// evaluates the orders it has and refuses the one it does not, as libxc
+    /// does.
     #[test]
-    fn evaluate_lda_deferred_id_returns_unsupported() {
-        // lda_c_pk09 = 554 is a deferred LDA id (see model::lda_functional).
+    fn lda_c_pk09_evaluates_its_claimed_orders_only() {
         let id = FunctionalId::from_raw(554).unwrap();
         let f = Functional::new(id, Spin::Unpolarized).unwrap();
-        // Construction succeeds, metadata is queryable.
-        assert_eq!(f.meta.id.raw(), 554);
 
         let np = 2;
         let rho = vec![0.1_f64, 0.5];
         let input = LdaInput::new(&rho, np, Spin::Unpolarized).unwrap();
-        let mut zk = vec![0.0_f64; np];
         let mut ws = EvaluationWorkspace::new(np, Spin::Unpolarized);
+        let mut zk = vec![0.0_f64; np];
         let mut out = LdaOutput::new(Some(&mut zk), None, None, None, None, np, Spin::Unpolarized)
             .unwrap();
-        let err = f.evaluate_lda(&input, DerivativeOrder::Exc, &mut out, &mut ws).unwrap_err();
-        match err {
-            LibxcRsError::UnsupportedFunctional { id: e_id, .. } => {
-                assert_eq!(e_id.raw(), 554);
+        f.evaluate_lda(&input, DerivativeOrder::Exc, &mut out, &mut ws).unwrap();
+        assert!(zk.iter().all(|v| v.is_finite() && *v != 0.0), "zk = {zk:?}");
+
+        let mut b = [vec![0.0_f64; np], vec![0.0; np], vec![0.0; np], vec![0.0; np], vec![0.0; np]];
+        let [z, v1, v2, v3, v4] = &mut b;
+        let mut out = LdaOutput::new(Some(z), Some(v1), Some(v2), Some(v3), Some(v4), np, Spin::Unpolarized)
+            .unwrap();
+        match f.evaluate_lda(&input, DerivativeOrder::Lxc, &mut out, &mut ws).unwrap_err() {
+            LibxcRsError::UnsupportedDerivativeOrder { order, max, .. } => {
+                assert_eq!(order, DerivativeOrder::Lxc);
+                assert_eq!(max, DerivativeOrder::Kxc);
             }
-            other => panic!("expected UnsupportedFunctional, got {other:?}"),
+            other => panic!("expected UnsupportedDerivativeOrder, got {other:?}"),
         }
     }
 }

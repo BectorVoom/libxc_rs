@@ -18,7 +18,7 @@ pub const ID: u16 = 513;
 /// libxc default for `param_bb`.
 pub const PARAM_BB: f64 = 0.21940410461360746;
 /// libxc default for `param_cc`.
-pub const PARAM_CC: f64 = 0.03089264058386961;
+pub const PARAM_CC: f64 = 0.030892640583869608;
 /// libxc default for `param_aa`.
 pub const PARAM_AA: f64 = 1.0;
 

@@ -38,7 +38,7 @@ pub fn mgga_x_mbr_vxc_unpol(
     let t10 = pow_1_3(zeta_threshold);
     let t12 = pow_1_3(t8);
     let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
-    let t18 = pow_1_3(1.0 / M_PI);
+    let t18 = 0.6827840632552957;
     let t19 = 1.0 / t18;
     let t21 = M_CBRT4;
     let t22 = param_lambda * param_lambda;
@@ -48,7 +48,7 @@ pub fn mgga_x_mbr_vxc_unpol(
     let t32 = M_CBRT6;
     let t33 = t32 * t32;
     let t34 = M_PI * M_PI;
-    let t35 = pow_1_3(t34);
+    let t35 = 2.1450293971110255;
     let t36 = t35 * t35;
     let t37 = t33 * t36;
     let t49 = pow_2(2.0 * param_lambda - 1.0);

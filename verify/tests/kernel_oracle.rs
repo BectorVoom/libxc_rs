@@ -15,6 +15,11 @@
 //! This sweeps every functional `libxc-reval` routes, in both spin modes, at
 //! Vxc, and compares every output field against libxc elementwise.
 //!
+//! A potential-only functional (no `XC_FLAGS_HAVE_EXC`: LB94, TB09, BJ06,
+//! RPP09, TIH) is compared on its potentials alone, through libxc's
+//! `xc_*_vxc`: libxc `exit(1)`s if asked for an energy a functional does not
+//! have, so it must not be handed a `zk` buffer, and neither is this tree.
+//!
 //! # Reading a failure
 //!
 //! A functional over the gate here is a kernel-level disagreement: the same
@@ -27,16 +32,17 @@ use libxc_rs::output::{GgaOutput, LdaOutput, MggaOutput};
 use libxc_rs::model::FunctionalFlags;
 use libxc_rs::registry::{lookup_by_id, lookup_by_name};
 use libxc_sys::{
-    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, xc_lda_exc_vxc, xc_mgga_exc_vxc,
-    XC_POLARIZED, XC_UNPOLARIZED,
+    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, xc_gga_vxc, xc_lda_exc_vxc,
+    xc_lda_vxc, xc_mgga_exc_vxc, xc_mgga_vxc, XC_POLARIZED, XC_UNPOLARIZED,
 };
 
 /// Energy density: the project's stated contract.
 const TOL_ZK: f64 = 1e-12;
-/// Potentials: the floating-point contraction floor. libxc's release objects
-/// are built with GCC's default `-ffp-contract=fast` and rustc leaves
-/// contraction off, so a derivative accumulates a few ulp of difference that
-/// no amount of correct translation removes. See `hse06_oracle.rs`.
+/// Potentials. Historically the floating-point contraction floor: the oracle
+/// used to be built `-march=native`, where GCC contracts `a*b + c` into FMAs
+/// and rustc does not. The oracle is now built like PySCF's wheel (generic
+/// x86-64, no FMA; see `libxc-sys/build.rs`), and every routed kernel passes
+/// well inside this.
 const TOL_VXC: f64 = 1e-9;
 
 /// `hyb_mgga_xc_b0kcis` carries both a work pointer and an `xc_mix_init` init,
@@ -45,56 +51,21 @@ const TOL_VXC: f64 = 1e-9;
 /// The whole functional is covered by `composite_oracle.rs`, where it passes.
 const KERNEL_IS_PARTIAL: &[&str] = &["hyb_mgga_xc_b0kcis"];
 
-/// Kernels whose residual is floating-point contraction, with the value
-/// measured on 2026-09-03 as `(name, zk, vxc)`.
+/// Kernels allowed past the gate on a floating-point-contraction residual,
+/// as `(name, zk, vxc)` gates.
 ///
-/// libxc's release objects are built `-march=native -O3` under GCC's default
-/// `-ffp-contract=fast`; rustc leaves contraction off. On these kernels the
-/// two builds therefore lose different digits to the same expression. At every
-/// one of the worst points below, our value and libxc's agree to four
-/// significant figures; the ratio is the tail, not the answer.
+/// **Empty since 2026-09-11.** Fifteen kernels used to be listed here (the
+/// Minnesota family, beefvdw, lc2gau, wb97m_v, and the BR89-family Brent
+/// inversions) at up to 1.7e-7 on vxc. Every one of those residuals came from
+/// the oracle, not from this tree: it was built `-march=native` (FMA
+/// contraction), at -O0 (cmake-rs's Debug default: no GCC constant folding),
+/// and statically linked into the test binary, where its `cbrt` bound to
+/// compiler_builtins' copy instead of glibc's. Built the way PySCF's wheel is
+/// (shared, `-O3`, `ENABLE_XHOST=OFF`; see `libxc-sys/build.rs`), all fifteen
+/// pass the plain gate in both spins, and so does every other routed kernel.
 ///
-/// Listed rather than tolerated wholesale so a real regression still fails:
-/// the gate is 4x the measured value.
-///
-/// **The four BR89-family entries are a different mechanism from the rest, and
-/// their `vxc` figures were re-measured on 2026-09-10.** Those functionals go
-/// through `xc_mgga_x_br89_get_x`, a Brent solve whose `TOL = 5e-12` bounds
-/// the *bracket*, not the residual: both libraries return `(a+b)/2` of a
-/// bracket narrower than that, so ulp-different function values put the root
-/// anywhere inside it. `verify/tests/root_finders.rs` measures exactly that
-/// against libxc's own exported C -- worst |delta| 4.965e-12 against a
-/// `TOL` of 5e-12 -- and shows it collapsing to **0 differences in 250,011**
-/// when the oracle is rebuilt with `LIBXC_RS_FP_CONTRACT=off`. `vtau` and
-/// `vsigma` are derivatives, so they amplify that bracket ambiguity to the
-/// 1e-7 recorded here.
-///
-/// `mgga_x_b00` and `mgga_x_br89_1` moved from 2.9e-8 / 2.3e-8 when the
-/// solver was corrected to libxc's stopping rule (it previously ran a fixed 60
-/// unrolled iterations with no convergence test, a CubeCL-era artifact). That
-/// is not a fidelity regression -- the inversion is now provably libxc's
-/// algorithm operand for operand, where before it was provably not -- it is
-/// the same bracket ambiguity landing differently on this grid. The two
-/// entries that did not move (`mgga_x_br89`, `mgga_x_mggac`) sit at 5.4e-9 and
-/// 3.9e-9 and show the spread is grid luck rather than a property of the
-/// functional.
-const CONTRACTION_FLOOR: &[(&str, f64, f64)] = &[
-    ("gga_x_beefvdw", 1.7e-10, 1.1e-8),
-    ("hyb_mgga_x_mn15", 3.6e-11, 1.0e-12),
-    ("mgga_c_m08_hx", 1.2e-11, 1.9e-11),
-    ("hyb_mgga_x_m11", 7.4e-12, 7.8e-12),
-    ("hyb_mgga_x_m06_hf", 4.7e-12, 3.8e-12),
-    ("hyb_mgga_x_m05_2x", 3.5e-12, 7.3e-12),
-    ("hyb_gga_x_lc2gau", 2.8e-12, 1.9e-11),
-    ("mgga_c_m06_l", 1.5e-12, 9.7e-12),
-    ("mgga_x_mn12_l", 1.5e-12, 1.0e-12),
-    ("mgga_c_m06_2x", 1.2e-12, 3.0e-12),
-    ("hyb_mgga_xc_wb97m_v", 1.2e-12, 1.1e-11),
-    ("mgga_x_br89", 1.0e-12, 5.4e-9),
-    ("mgga_x_b00", 1.0e-12, 1.7e-7),
-    ("mgga_x_br89_1", 1.0e-12, 1.1e-7),
-    ("mgga_x_mggac", 1.0e-12, 3.9e-9),
-];
+/// Keep the mechanism: a new entry needs a measured value and a reason.
+const CONTRACTION_FLOOR: &[(&str, f64, f64)] = &[];
 
 /// Functionals whose *bare kernel* is deliberately not the whole functional.
 const NP: usize = 300;
@@ -246,6 +217,9 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
         // screen and the input clamps have to match it or the two libraries
         // are being asked different questions.
         let th = Thresholds::for_functional(id);
+        let have_exc = lookup_by_id(id.raw())
+            .map(|m| m.flags.contains(FunctionalFlags::HAVE_EXC))
+            .unwrap_or(true);
 
         macro_rules! cmp {
             ($ours:expr, $theirs:expr, $lbl:literal, $best:ident, $bestf:ident, $scale:expr) => {{
@@ -278,7 +252,7 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let mut rz = vec![0.0; NP];
                 let mut rv = vec![0.0; NP * nvr];
                 let mut out = LdaOutput {
-                    zk: Some(&mut rz),
+                    zk: if have_exc { Some(&mut rz) } else { None },
                     vrho: Some(&mut rv),
                     ..Default::default()
                 };
@@ -293,23 +267,27 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let mut cz = vec![0.0; NP];
                 let mut cv = vec![0.0; NP * nvr];
                 unsafe {
-                    xc_lda_exc_vxc(&cf.0, NP, g.rho.as_ptr(), cz.as_mut_ptr(), cv.as_mut_ptr());
+                    if have_exc {
+                        xc_lda_exc_vxc(&cf.0, NP, g.rho.as_ptr(), cz.as_mut_ptr(), cv.as_mut_ptr());
+                    } else {
+                        xc_lda_vxc(&cf.0, NP, g.rho.as_ptr(), cv.as_mut_ptr());
+                    }
                 }
-                let scale = cz.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+                let scale = (if have_exc { &cz } else { &cv }).iter().fold(0.0f64, |m, v| m.max(v.abs()));
                 if scale == 0.0 || !scale.is_finite() {
                     skipped.push((name.to_string(), "libxc zk not finite".into()));
                     continue;
                 }
                 let (mut b, mut bf) = (0.0f64, "");
                 cmp!(&rv, &cv, "vrho", b, bf, scale);
-                (worst(&rz, &cz, scale), b, bf)
+                (if have_exc { worst(&rz, &cz, scale) } else { 0.0 }, b, bf)
             }
             "gga" => {
                 let mut rz = vec![0.0; NP];
                 let mut rv = vec![0.0; NP * nvr];
                 let mut rs = vec![0.0; NP * nvs];
                 let mut out = GgaOutput {
-                    zk: Some(&mut rz),
+                    zk: if have_exc { Some(&mut rz) } else { None },
                     vrho: Some(&mut rv),
                     vsigma: Some(&mut rs),
                     ..Default::default()
@@ -326,12 +304,19 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let mut cv = vec![0.0; NP * nvr];
                 let mut cs = vec![0.0; NP * nvs];
                 unsafe {
-                    xc_gga_exc_vxc(
-                        &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(),
-                        cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
-                    );
+                    if have_exc {
+                        xc_gga_exc_vxc(
+                            &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(),
+                            cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
+                        );
+                    } else {
+                        xc_gga_vxc(
+                            &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(),
+                            cv.as_mut_ptr(), cs.as_mut_ptr(),
+                        );
+                    }
                 }
-                let scale = cz.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+                let scale = (if have_exc { &cz } else { &cv }).iter().fold(0.0f64, |m, v| m.max(v.abs()));
                 if scale == 0.0 || !scale.is_finite() {
                     skipped.push((name.to_string(), "libxc zk not finite".into()));
                     continue;
@@ -339,7 +324,7 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let (mut b, mut bf) = (0.0f64, "");
                 cmp!(&rv, &cv, "vrho", b, bf, scale);
                 cmp!(&rs, &cs, "vsigma", b, bf, scale);
-                (worst(&rz, &cz, scale), b, bf)
+                (if have_exc { worst(&rz, &cz, scale) } else { 0.0 }, b, bf)
             }
             _ => {
                 let mut rz = vec![0.0; NP];
@@ -348,7 +333,7 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let mut rl = vec![0.0; NP * nvr];
                 let mut rt = vec![0.0; NP * nvr];
                 let mut out = MggaOutput {
-                    zk: Some(&mut rz),
+                    zk: if have_exc { Some(&mut rz) } else { None },
                     vrho: Some(&mut rv),
                     vsigma: Some(&mut rs),
                     vlapl: Some(&mut rl),
@@ -370,13 +355,20 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 let mut cl = vec![0.0; NP * nvr];
                 let mut ct = vec![0.0; NP * nvr];
                 unsafe {
-                    xc_mgga_exc_vxc(
-                        &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(), g.lapl.as_ptr(), g.tau.as_ptr(),
-                        cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
-                        cl.as_mut_ptr(), ct.as_mut_ptr(),
-                    );
+                    if have_exc {
+                        xc_mgga_exc_vxc(
+                            &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(), g.lapl.as_ptr(), g.tau.as_ptr(),
+                            cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
+                            cl.as_mut_ptr(), ct.as_mut_ptr(),
+                        );
+                    } else {
+                        xc_mgga_vxc(
+                            &cf.0, NP, g.rho.as_ptr(), g.sigma.as_ptr(), g.lapl.as_ptr(), g.tau.as_ptr(),
+                            cv.as_mut_ptr(), cs.as_mut_ptr(), cl.as_mut_ptr(), ct.as_mut_ptr(),
+                        );
+                    }
                 }
-                let scale = cz.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+                let scale = (if have_exc { &cz } else { &cv }).iter().fold(0.0f64, |m, v| m.max(v.abs()));
                 if scale == 0.0 || !scale.is_finite() {
                     skipped.push((name.to_string(), "libxc zk not finite".into()));
                     continue;
@@ -385,7 +377,7 @@ fn sweep(spin: Spin) -> (Vec<Row>, Vec<(String, String)>) {
                 cmp!(&rv, &cv, "vrho", b, bf, scale);
                 cmp!(&rs, &cs, "vsigma", b, bf, scale);
                 cmp!(&rt, &ct, "vtau", b, bf, scale);
-                (worst(&rz, &cz, scale), b, bf)
+                (if have_exc { worst(&rz, &cz, scale) } else { 0.0 }, b, bf)
             }
         };
         if vxc_field.is_empty() {

@@ -1133,7 +1133,23 @@ mod gga_evaluate_tests {
             assert_eq!(xc_func_init(p, 101, 2), 0); // gga_x_pbe, polarized
             let np = 3000;
             let rho: Vec<f64> = (0..2 * np).map(|i| 0.05 + 1e-4 * i as f64).collect();
-            let sigma: Vec<f64> = (0..3 * np).map(|i| 1e-3 + 1e-6 * i as f64).collect();
+            // `sigma_ab` strictly inside libxc's bound `|sigma_ab| <=
+            // (sigma_aa + sigma_bb)/2`, so no point is clamped. This used to be
+            // one linear ramp over all three components, which put `sigma_ab`
+            // *on* the bound -- and an ulp outside it at some points. Those
+            // points take the sanitised-input copy, whose scratch is per rayon
+            // worker (`sweep_gga::SANITISED`) and allocated on each worker's
+            // first use; a worker that sat out the warm-up calls allocated in
+            // the measured one, so this failed intermittently (60,000 bytes,
+            // 2026-09-11). What it guards -- no per-call allocation in the
+            // shim -- is unaffected by the clamp; the clamp path is covered by
+            // `verify/tests/input_sanitisation.rs`.
+            let sigma: Vec<f64> = (0..np)
+                .flat_map(|i| {
+                    let (aa, bb) = (1e-3 + 1e-6 * i as f64, 2e-3 + 1e-6 * i as f64);
+                    [aa, 0.25 * (aa + bb), bb]
+                })
+                .collect();
             let mut zk = vec![0.0f64; np];
             let mut vrho = vec![0.0f64; 2 * np];
             let mut vsigma = vec![0.0f64; 3 * np];

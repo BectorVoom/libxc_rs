@@ -162,7 +162,7 @@ pub fn mgga_c_vsxc_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = f64x8::splat(M_CBRT3);
     let t12 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t13 = (simd::cbrt(t12));
+    let t13 = f64x8::splat(0.6827840632552957);
     let t14 = t11 * t13;
     let t15 = f64x8::splat(M_CBRT4);
     let t16 = t15 * t15;
@@ -184,7 +184,7 @@ pub fn mgga_c_vsxc_exc_pol(
     let t111 = f64x8::splat(M_CBRT6);
     let t112 = t111 * t111;
     let t113 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t114 = (simd::cbrt(t113));
+    let t114 = f64x8::splat(2.1450293971110255);
     let t115 = t114 * t114;
     let t116 = t112 * t115;
     let t117 = f64x8::splat(3.0) / f64x8::splat(5.0) * t116;

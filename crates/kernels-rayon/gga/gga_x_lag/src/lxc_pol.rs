@@ -152,7 +152,7 @@ pub fn gga_x_lag_lxc_pol(
     let t25 = f64x8::splat(M_CBRT6);
     let t26 = t25 * t25;
     let t27 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t28 = (simd::cbrt(t27));
+    let t28 = f64x8::splat(2.1450293971110255);
     let t29 = f64x8::splat(1.0) / t28;
     let t30 = t26 * t29;
     let tvsigma1 = f64x8::splat(0.0);

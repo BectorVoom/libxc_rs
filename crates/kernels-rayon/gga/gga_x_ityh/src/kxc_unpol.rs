@@ -43,7 +43,7 @@ pub fn gga_x_ityh_kxc_unpol(
     let t18 = t3 / t4 * t17;
     let t20 = t3 * t3;
     let t22 = 1.0 / M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 0.6827840632552957;
     let t24 = 1.0 / t23;
     let t25 = M_CBRT4;
     let t26 = t24 * t25;
@@ -51,7 +51,7 @@ pub fn gga_x_ityh_kxc_unpol(
     let t28 = t27 * t25;
     let t29 = M_CBRT2;
     let t30 = t29 * t29;
-    let t93 = rmath::sqrt(M_PI);
+    let t93 = 1.7724538509055159;
     let t324 = M_PI * M_PI;
     let t326 = t23 * t23;
     let t327 = 1.0 / t326;

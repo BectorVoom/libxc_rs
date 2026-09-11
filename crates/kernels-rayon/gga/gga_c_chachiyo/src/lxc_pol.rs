@@ -161,7 +161,7 @@ pub fn gga_c_chachiyo_lxc_pol(
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = t1 * t1;
     let t3 = param_bp * t2;
-    let t5 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t5 = f64x8::splat(0.6827840632552957);
     let t7 = f64x8::splat(M_CBRT4);
     let t8 = f64x8::splat(1.0) / t5 * t7;
     let t14 = param_cp * t1;

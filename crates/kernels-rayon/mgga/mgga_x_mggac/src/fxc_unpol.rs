@@ -49,7 +49,7 @@ pub fn mgga_x_mggac_fxc_unpol(
     let t14 = pow_1_3(zeta_threshold);
     let t16 = pow_1_3(t12);
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
-    let t21 = pow_1_3(32.0);
+    let t21 = 3.174802103936399;
     let t22 = t21 * t21;
     let t23 = t5 * t5;
     let t24 = t22 * t23;
@@ -57,7 +57,7 @@ pub fn mgga_x_mggac_fxc_unpol(
     let t26 = t25 * t25;
     let t32 = M_CBRT6;
     let t33 = M_PI * M_PI;
-    let t34 = pow_1_3(t33);
+    let t34 = 2.1450293971110255;
     let t35 = t34 * t34;
     let t37 = t32 / t35;
     let t57 = t32 * t32;
@@ -67,7 +67,7 @@ pub fn mgga_x_mggac_fxc_unpol(
     let t76 = t21 * t5;
     let t77 = t4 * t4;
     let t78 = 1.0 / M_PI;
-    let t79 = pow_1_3(t78);
+    let t79 = 0.6827840632552957;
     let t80 = 1.0 / t79;
     let t81 = t77 * t80;
     let t82 = M_CBRT4;

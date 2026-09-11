@@ -76,7 +76,7 @@ pub fn mgga_c_pkzb_exc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = f64x8::splat(M_CBRT3);
     let t12 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t13 = (simd::cbrt(t12));
+    let t13 = f64x8::splat(0.6827840632552957);
     let t14 = t11 * t13;
     let t15 = f64x8::splat(M_CBRT4);
     let t16 = t15 * t15;
@@ -90,7 +90,7 @@ pub fn mgga_c_pkzb_exc_unpol(
     let t49 = f64x8::splat(M_CBRT2);
     let t52 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t49 - f64x8::splat(2.0));
     let t53 = (f64x8::splat(2.0) * t46 - f64x8::splat(2.0)) * t52;
-    let t68 = (simd::ln(f64x8::splat(2.0)));
+    let t68 = f64x8::splat(0.6931471805599453);
     let t69 = f64x8::splat(1.0) - t68;
     let t70 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t71 = f64x8::splat(1.0) / t70;

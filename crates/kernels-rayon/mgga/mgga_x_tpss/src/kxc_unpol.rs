@@ -76,7 +76,7 @@ pub fn mgga_x_tpss_kxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t46 = M_CBRT6;
     let t48 = M_PI * M_PI;
-    let t49 = pow_1_3(t48);
+    let t49 = 2.1450293971110255;
     let t50 = t49 * t49;
     let t51 = 1.0 / t50;
     let t53 = M_CBRT2;

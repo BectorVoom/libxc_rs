@@ -106,7 +106,7 @@ pub fn mgga_x_rtpss_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t46 = M_CBRT6;
     let t48 = M_PI * M_PI;
-    let t49 = pow_1_3(t48);
+    let t49 = 2.1450293971110255;
     let t50 = t49 * t49;
     let t51 = 1.0 / t50;
     let t71 = t46 * t51;

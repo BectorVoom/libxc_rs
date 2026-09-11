@@ -38,7 +38,7 @@ pub fn gga_c_lypr_fxc_pol(
     let t40 = M_CBRT3;
     let t41 = t40 * t40;
     let t42 = M_PI * M_PI;
-    let t43 = pow_1_3(t42);
+    let t43 = 2.1450293971110255;
     let t44 = t43 * t43;
     let t45 = t41 * t44;
     let t50 = zeta_threshold * zeta_threshold;
@@ -47,7 +47,7 @@ pub fn gga_c_lypr_fxc_pol(
     let t53 = t52 * t50;
     let t70 = M_CBRT2;
     let t94 = t52 * t50 * zeta_threshold;
-    let t126 = rmath::sqrt(M_PI);
+    let t126 = 1.7724538509055159;
     let t127 = 1.0 / t126;
     let t131 = param_m2 * param_m2;
     let t132 = param_omega * param_omega;

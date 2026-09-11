@@ -57,7 +57,7 @@ pub fn mgga_x_m06l_vxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t21 = M_CBRT6;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = t23 * t23;
     let t25 = 1.0 / t24;
     let t26 = t21 * t25;

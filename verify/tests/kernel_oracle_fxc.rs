@@ -23,8 +23,7 @@ use libxc_rs::model::{DerivativeOrder, FunctionalFlags, Spin, Thresholds};
 use libxc_rs::output::{GgaOutput, LdaOutput};
 use libxc_rs::registry::{lookup_by_id, lookup_by_name};
 use libxc_sys::{
-    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc_fxc, xc_lda_exc_vxc_fxc,
-    XC_POLARIZED, XC_UNPOLARIZED,
+    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc_fxc, xc_gga_vxc_fxc, xc_lda_exc_vxc_fxc, xc_lda_vxc_fxc, XC_POLARIZED, XC_UNPOLARIZED,
 };
 
 /// Second derivatives sit further down the chain than the potentials, so they
@@ -180,13 +179,19 @@ fn sweep(spin: Spin) -> (Vec<Row>, usize) {
         // side was seeded from `info->dens_threshold`, and that feeds both the
         // screen and the input clamps in `work_*_inc.c`.
         let th = Thresholds::for_functional(id);
+        // A potential-only functional (LB94, TIH) has no energy, and libxc
+        // `exit(1)`s if handed a `zk` buffer for one: compare it through
+        // `xc_*_vxc_fxc` and scale the dust rule off `vrho` instead.
+        let have_exc = lookup_by_id(id.raw())
+            .map(|m| m.flags.contains(FunctionalFlags::HAVE_EXC))
+            .unwrap_or(true);
 
         let (mut best, mut bestf) = (0.0f64, "");
         if *fam == "lda" {
             let (mut rz, mut rv, mut r2) =
                 (vec![0.0; NP], vec![0.0; NP * nvr], vec![0.0; NP * n2r]);
             let mut out = LdaOutput {
-                zk: Some(&mut rz),
+                zk: if have_exc { Some(&mut rz) } else { None },
                 vrho: Some(&mut rv),
                 v2rho2: Some(&mut r2),
                 ..Default::default()
@@ -204,12 +209,16 @@ fn sweep(spin: Spin) -> (Vec<Row>, usize) {
             let (mut cz, mut cv, mut c2) =
                 (vec![0.0; NP], vec![0.0; NP * nvr], vec![0.0; NP * n2r]);
             unsafe {
-                xc_lda_exc_vxc_fxc(
-                    &cf.0, NP, rho.as_ptr(),
-                    cz.as_mut_ptr(), cv.as_mut_ptr(), c2.as_mut_ptr(),
-                );
+                if have_exc {
+                    xc_lda_exc_vxc_fxc(
+                        &cf.0, NP, rho.as_ptr(),
+                        cz.as_mut_ptr(), cv.as_mut_ptr(), c2.as_mut_ptr(),
+                    );
+                } else {
+                    xc_lda_vxc_fxc(&cf.0, NP, rho.as_ptr(), cv.as_mut_ptr(), c2.as_mut_ptr());
+                }
             }
-            let scale = cz.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+            let scale = (if have_exc { &cz } else { &cv }).iter().fold(0.0f64, |m, v| m.max(v.abs()));
             if scale == 0.0 || !scale.is_finite() {
                 skipped += 1;
                 continue;
@@ -228,7 +237,7 @@ fn sweep(spin: Spin) -> (Vec<Row>, usize) {
                 vec![0.0; NP * n2s],
             );
             let mut out = GgaOutput {
-                zk: Some(&mut rz),
+                zk: if have_exc { Some(&mut rz) } else { None },
                 vrho: Some(&mut rv),
                 vsigma: Some(&mut rs),
                 v2rho2: Some(&mut r2r),
@@ -254,13 +263,21 @@ fn sweep(spin: Spin) -> (Vec<Row>, usize) {
                 vec![0.0; NP * n2s],
             );
             unsafe {
-                xc_gga_exc_vxc_fxc(
-                    &cf.0, NP, rho.as_ptr(), sigma.as_ptr(),
-                    cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
-                    c2r.as_mut_ptr(), c2rs.as_mut_ptr(), c2s.as_mut_ptr(),
-                );
+                if have_exc {
+                    xc_gga_exc_vxc_fxc(
+                        &cf.0, NP, rho.as_ptr(), sigma.as_ptr(),
+                        cz.as_mut_ptr(), cv.as_mut_ptr(), cs.as_mut_ptr(),
+                        c2r.as_mut_ptr(), c2rs.as_mut_ptr(), c2s.as_mut_ptr(),
+                    );
+                } else {
+                    xc_gga_vxc_fxc(
+                        &cf.0, NP, rho.as_ptr(), sigma.as_ptr(),
+                        cv.as_mut_ptr(), cs.as_mut_ptr(),
+                        c2r.as_mut_ptr(), c2rs.as_mut_ptr(), c2s.as_mut_ptr(),
+                    );
+                }
             }
-            let scale = cz.iter().fold(0.0f64, |m, v| m.max(v.abs()));
+            let scale = (if have_exc { &cz } else { &cv }).iter().fold(0.0f64, |m, v| m.max(v.abs()));
             if scale == 0.0 || !scale.is_finite() {
                 skipped += 1;
                 continue;

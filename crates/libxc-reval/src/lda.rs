@@ -51,12 +51,28 @@ pub fn prepare<'inp, 'out>(
     order: DerivativeOrder,
     d: &Dimensions,
 ) -> Result<LdaChunk<'inp, 'out>, LibxcRsError> {
+    prepare_for(input, output, order, d, true)
+}
+
+/// [`prepare`] for a functional that may have no energy.
+///
+/// `have_exc = false` is libxc's `XC_NO_EXC` (the potential-only functionals,
+/// LB94 and TB09 among them): their kernels take no `zk`, so `zk` is not
+/// demanded, and a `zk` buffer the caller hands over is cleared like any other
+/// field this evaluation does not write.
+pub fn prepare_for<'inp, 'out>(
+    input: &LdaInput<'inp>,
+    output: &mut LdaOutput<'out>,
+    order: DerivativeOrder,
+    d: &Dimensions,
+    have_exc: bool,
+) -> Result<LdaChunk<'inp, 'out>, LibxcRsError> {
     let np = input.np();
     let need = required_fields(order);
 
     macro_rules! take {
         ($f:ident, $name:literal, $stride:expr) => {{
-            let wanted = need.contains(&$name);
+            let wanted = need.contains(&$name) && (have_exc || $name != "zk");
             match output.$f.take() {
                 Some(b) if wanted => {
                     let expected = np * $stride as usize;

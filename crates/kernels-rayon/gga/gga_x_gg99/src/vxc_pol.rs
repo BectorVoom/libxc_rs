@@ -9,7 +9,7 @@
 use libxc_rkernel_math::rmath;
 use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_CBRTPI, M_PI, M_SQRT2};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
-use libxc_rkernel_math::powers::{pow_1_3, pow_1_4, pow_2};
+use libxc_rkernel_math::powers::{pow_1_3, pow_2};
 use libxc_rkernel_math::special::{xc_dilogarithm};
 
 #[allow(unused_variables, non_snake_case)]
@@ -34,15 +34,15 @@ pub fn gga_x_gg99_vxc_pol(
     let t24 = t23 * zeta_threshold;
     let t31 = M_PI * M_PI;
     let t37 = M_CBRT4;
-    let t38 = rmath::sqrt(3.0);
+    let t38 = 1.7320508075688772;
     let t39 = t31 * M_PI;
     let t40 = t38 * t39;
-    let t41 = pow_1_3(t40);
+    let t41 = 3.772854715805425;
     let t42 = t37 * t41;
-    let t44 = pow_1_4(3.0);
+    let t44 = 1.3160740129524924;
     let t45 = M_SQRT2;
     let t46 = t44 * t45;
-    let t47 = rmath::sqrt(M_PI);
+    let t47 = 1.7724538509055159;
     let t49 = 1.0 / t47 / M_PI;
     let t50 = t46 * t49;
     let t51 = t42 - 1e-10;
@@ -53,7 +53,7 @@ pub fn gga_x_gg99_vxc_pol(
     let t75 = 1.0 / M_PI;
     let t76 = t42 + 1e-10;
     let t82 = 1.0 / t57;
-    let t115 = pow_1_3(t75);
+    let t115 = 0.6827840632552957;
     let t116 = 1.0 / t115;
     let t255 = 1.0 / t39;
     let t256 = t38 * t255;

@@ -135,12 +135,12 @@ pub fn mgga_c_tpssloc_exc_pol(
     let t27 = zeta_threshold - f64x8::splat(1.0);
     let t67 = f64x8::splat(M_CBRT3);
     let t68 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t69 = (simd::cbrt(t68));
+    let t69 = f64x8::splat(2.1450293971110255);
     let t70 = t69 * t69;
     let t71 = f64x8::splat(1.0) / t70;
     let t72 = t67 * t71;
     let t116 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t117 = (simd::cbrt(t116));
+    let t117 = f64x8::splat(0.6827840632552957);
     let t118 = t67 * t117;
     let t119 = f64x8::splat(M_CBRT4);
     let t120 = t119 * t119;
@@ -151,7 +151,7 @@ pub fn mgga_c_tpssloc_exc_pol(
     let t148 = t147 * zeta_threshold;
     let t154 = f64x8::splat(M_CBRT2);
     let t157 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t154 - f64x8::splat(2.0));
-    let t190 = (simd::ln(f64x8::splat(2.0)));
+    let t190 = f64x8::splat(0.6931471805599453);
     let t191 = f64x8::splat(1.0) - t190;
     let t192 = f64x8::splat(1.0) / t68;
     let t193 = t191 * t192;

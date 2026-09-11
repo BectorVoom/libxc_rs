@@ -44,7 +44,7 @@ pub fn gga_x_sg4_lxc_pol(
     let t22 = t21 * zeta_threshold;
     let t28 = M_CBRT6;
     let t29 = M_PI * M_PI;
-    let t30 = pow_1_3(t29);
+    let t30 = 2.1450293971110255;
     let t31 = t30 * t30;
     let t32 = 1.0 / t31;
     let t33 = t28 * t32;

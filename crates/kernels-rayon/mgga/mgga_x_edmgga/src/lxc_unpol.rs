@@ -105,7 +105,7 @@ pub fn mgga_x_edmgga_lxc_unpol(
     let t21 = M_CBRT4;
     let t22 = t4 * t4;
     let t24 = M_PI * M_PI;
-    let t25 = pow_1_3(t24);
+    let t25 = 2.1450293971110255;
     let t27 = t21 * t22 * t25 / 9.0;
     let t28 = 1.0 - t27;
     let t29 = M_CBRT2;
@@ -113,7 +113,7 @@ pub fn mgga_x_edmgga_lxc_unpol(
     let t46 = M_CBRT6;
     let t48 = t25 * t25;
     let t49 = 1.0 / t48;
-    let t73 = rmath::sqrt(30.0);
+    let t73 = 5.477225575051661;
     let t74 = t28 * t73;
     let t76 = t28 * t28;
     let t81 = 0.6018478308354863 * t76 - 0.0206514;

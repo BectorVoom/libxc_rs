@@ -141,13 +141,13 @@ pub fn mgga_x_gvt4_exc_pol(
     let t39 = f64x8::splat(M_CBRT6);
     let t40 = t39 * t39;
     let t41 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t42 = (simd::cbrt(t41));
+    let t42 = f64x8::splat(2.1450293971110255);
     let t43 = t42 * t42;
     let t44 = t40 * t43;
     let t45 = f64x8::splat(0.001120356) * t44;
     let t51 = f64x8::splat(0.0037501956) * t44;
     let t64 = f64x8::splat(3.0) / f64x8::splat(5.0) * t44;
-    let t76 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t76 = f64x8::splat(0.6827840632552957);
     let t77 = f64x8::splat(1.0) / t76;
     let t79 = f64x8::splat(M_CBRT4);
     let mut ip = 0usize;

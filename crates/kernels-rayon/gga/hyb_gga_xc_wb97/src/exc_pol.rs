@@ -164,7 +164,7 @@ pub fn hyb_gga_xc_wb97_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t9 = f64x8::splat(M_CBRT3);
     let t11 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t12 = (simd::cbrt(t11));
+    let t12 = f64x8::splat(0.6827840632552957);
     let t13 = f64x8::splat(M_CBRT4);
     let t14 = t13 * t13;
     let t15 = t12 * t14;
@@ -174,7 +174,7 @@ pub fn hyb_gga_xc_wb97_exc_pol(
     let t20 = (simd::cbrt(zeta_threshold));
     let t21 = t20 * zeta_threshold;
     let t23 = ((t19).select(t21, f64x8::splat(2.0) * t16));
-    let t29 = (simd::cbrt(f64x8::splat(9.0)));
+    let t29 = f64x8::splat(2.080083823051904);
     let t30 = t29 * t29;
     let t31 = t12 * t12;
     let t32 = t30 * t31;
@@ -182,7 +182,7 @@ pub fn hyb_gga_xc_wb97_exc_pol(
     let t34 = t32 * t33;
     let t37 = ((t19).select(t20, t16));
     let t38 = f64x8::splat(1.0) / t37;
-    let t72 = ((f64x8::splat(M_PI)).sqrt());
+    let t72 = f64x8::splat(1.7724538509055159);
     let t93 = param_c_x_0;
     let t94 = param_c_x_1;
     let t108 = param_c_x_2;

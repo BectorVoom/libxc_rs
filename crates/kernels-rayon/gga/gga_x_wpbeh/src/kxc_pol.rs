@@ -43,7 +43,7 @@ pub fn gga_x_wpbeh_kxc_pol(
     let t30 = t3 * t3;
     let t31 = param_hyb_omega_0 * t30;
     let t32 = M_PI * M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 2.1450293971110255;
     let t34 = 1.0 / t33;
     let t51 = M_CBRT6;
     let t52 = t51 * t51;
@@ -52,7 +52,7 @@ pub fn gga_x_wpbeh_kxc_pol(
     let t95 = t33 * t33;
     let t96 = 1.0 / t95;
     let t249 = 3.0 * 0.25 * M_PI;
-    let t250 = rmath::sqrt(M_PI);
+    let t250 = 1.7724538509055159;
     let t273 = 1.0 / t250;
     let t290 = t92 * t3;
     let t314 = t92 * param_hyb_omega_0 / t32;

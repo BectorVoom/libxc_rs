@@ -44,7 +44,7 @@ pub fn mgga_x_2d_prhg07_fxc_pol(
     let t19 = t18 * zeta_threshold;
     let t24 = M_SQRT2;
     let t37 = 1.0 / M_PI;
-    let t41 = rmath::exp(-1.0);
+    let t41 = 0.36787944117144233;
     let tvsigma1 = 0.0;
     let tv2rhosigma1 = 0.0;
     let tv2rhosigma4 = 0.0;

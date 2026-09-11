@@ -146,7 +146,7 @@ pub fn mgga_x_jk_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = t3 * t3;
     let t30 = param_beta * t29;
-    let t32 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t32 = f64x8::splat(0.6827840632552957);
     let t33 = f64x8::splat(1.0) / t32;
     let t34 = f64x8::splat(M_CBRT4);
     let t35 = t33 * t34;

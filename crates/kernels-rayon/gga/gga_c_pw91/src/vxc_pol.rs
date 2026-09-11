@@ -134,7 +134,7 @@ pub fn gga_c_pw91_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -146,7 +146,7 @@ pub fn gga_c_pw91_vxc_pol(
     let t56 = f64x8::splat(M_CBRT2);
     let t59 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t56 - f64x8::splat(2.0));
     let t92 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t93 = (simd::cbrt(t92));
+    let t93 = f64x8::splat(2.1450293971110255);
     let t94 = t93 * t93;
     let t95 = t19 * t94;
     let t96 = t45 * t45;
@@ -162,7 +162,7 @@ pub fn gga_c_pw91_vxc_pol(
     let t146 = t1 * t105;
     let t155 = t19 * t123;
     let t176 = t2 * t93;
-    let t190 = (simd::cbrt(f64x8::splat(9.0)));
+    let t190 = f64x8::splat(2.080083823051904);
     let t191 = t190 * t190;
     let t193 = t2 * t5 * t191 * t3;
     let t217 = t3 * t6;

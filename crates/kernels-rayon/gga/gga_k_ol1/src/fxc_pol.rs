@@ -38,7 +38,7 @@ pub fn gga_k_ol1_fxc_pol(
     let t39 = M_CBRT2;
     let t47 = M_CBRT6;
     let t49 = M_PI * M_PI;
-    let t50 = pow_1_3(t49);
+    let t50 = 2.1450293971110255;
     let t51 = t50 * t50;
     let t52 = 1.0 / t51;
     let t122 = t47 * t52;

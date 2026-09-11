@@ -199,7 +199,11 @@ fn cbrt_bit_identical_to_scalar_kernels() {
     let vals = cbrt_inputs();
     check_all(&vals, powers::cbrt_f64, simd::cbrt, "cbrt");
     check_all(&vals, rmath::cbrt, simd::cbrt, "cbrt vs rmath");
-    check_all(&vals, f64::cbrt, simd::cbrt, "cbrt vs f64::cbrt");
+    // NOT `f64::cbrt`: Rust's std ports core-math's correctly rounded cbrt
+    // instead of calling libm, and in a Rust binary even `extern "C" cbrt`
+    // resolves to `compiler_builtins`. `rmath::cbrt` reproduces glibc's --
+    // the one C libxc calls -- and `tests/cbrt_glibc_parity.rs` pins it
+    // against glibc's own symbol via `dlopen`, the only honest reference.
     check_all(&vals, powers::pow_2_3, simd::pow_2_3, "pow_2_3");
     check_all(&vals, powers::pow_4_3, simd::pow_4_3, "pow_4_3");
     check_all(&vals, powers::pow_5_3, simd::pow_5_3, "pow_5_3");
@@ -454,7 +458,11 @@ fn rmath_free_functions_are_bit_exact_against_platform_libm() {
 
     check_vs_platform(&expo, rmath::exp, f64::exp, "exp");
     check_vs_platform(&pos, rmath::ln, f64::ln, "ln");
-    check_vs_platform(&wide_vals, rmath::cbrt, f64::cbrt, "cbrt");
+    // NOT `f64::cbrt`: Rust's std ports core-math's correctly rounded cbrt
+    // instead of calling libm, and in a Rust binary even `extern "C" cbrt`
+    // resolves to `compiler_builtins`. `rmath::cbrt` reproduces glibc's --
+    // the one C libxc calls -- and `tests/cbrt_glibc_parity.rs` pins it
+    // against glibc's own symbol via `dlopen`, the only honest reference.
     check_vs_platform(&wide_vals, rmath::atan, f64::atan, "atan");
     check_vs_platform(&expo, rmath::expm1, f64::exp_m1, "expm1");
     check_vs_platform(&unit, rmath::log1p, f64::ln_1p, "log1p");

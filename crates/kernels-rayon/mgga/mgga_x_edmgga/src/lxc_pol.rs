@@ -102,13 +102,13 @@ pub fn mgga_x_edmgga_lxc_pol(
     let t29 = M_CBRT4;
     let t30 = t3 * t3;
     let t32 = M_PI * M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 2.1450293971110255;
     let t35 = t29 * t30 * t33 / 9.0;
     let t36 = 1.0 - t35;
     let t50 = M_CBRT6;
     let t52 = t33 * t33;
     let t53 = 1.0 / t52;
-    let t77 = rmath::sqrt(30.0);
+    let t77 = 5.477225575051661;
     let t78 = t36 * t77;
     let t80 = t36 * t36;
     let t83 = 1.0 / t80 / t36 * t77;

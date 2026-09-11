@@ -92,7 +92,7 @@ pub fn gga_x_hcth_a_kxc_unpol(
     let t15 = (simd::cbrt(t11));
     let t17 = (((t11).simd_le(zeta_threshold)).select(t13 * zeta_threshold, t15 * t11));
     let t20 = t3 * t3;
-    let t22 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t22 = f64x8::splat(0.6827840632552957);
     let t25 = f64x8::splat(M_CBRT4);
     let t26 = t20 / t22 * t25;
     let t27 = f64x8::splat(M_CBRT2);

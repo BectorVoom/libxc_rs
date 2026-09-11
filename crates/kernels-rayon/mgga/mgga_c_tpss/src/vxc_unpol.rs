@@ -112,7 +112,7 @@ pub fn mgga_c_tpss_vxc_unpol(
     let t35 = t34 * t32;
     let t41 = f64x8::splat(M_CBRT3);
     let t42 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t43 = (simd::cbrt(t42));
+    let t43 = f64x8::splat(2.1450293971110255);
     let t44 = t43 * t43;
     let t45 = f64x8::splat(1.0) / t44;
     let t46 = t41 * t45;
@@ -122,7 +122,7 @@ pub fn mgga_c_tpss_vxc_unpol(
     let t51 = t50 * t31;
     let t53 = f64x8::splat(1.0) / t48 + f64x8::splat(1.0) / t51;
     let t76 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t77 = (simd::cbrt(t76));
+    let t77 = f64x8::splat(0.6827840632552957);
     let t78 = t41 * t77;
     let t79 = f64x8::splat(M_CBRT4);
     let t80 = t79 * t79;
@@ -140,7 +140,7 @@ pub fn mgga_c_tpss_vxc_unpol(
     let t113 = t105 * t112;
     let t116 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t16 - f64x8::splat(2.0));
     let t148 = t112 * t116;
-    let t151 = (simd::ln(f64x8::splat(2.0)));
+    let t151 = f64x8::splat(0.6931471805599453);
     let t152 = f64x8::splat(1.0) - t151;
     let t153 = f64x8::splat(1.0) / t42;
     let t154 = t152 * t153;

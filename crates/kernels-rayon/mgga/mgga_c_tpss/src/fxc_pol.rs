@@ -50,12 +50,12 @@ pub fn mgga_c_tpss_fxc_pol(
     let t32 = zeta_threshold - 1.0;
     let t72 = M_CBRT3;
     let t73 = M_PI * M_PI;
-    let t74 = pow_1_3(t73);
+    let t74 = 2.1450293971110255;
     let t75 = t74 * t74;
     let t76 = 1.0 / t75;
     let t77 = t72 * t76;
     let t121 = 1.0 / M_PI;
-    let t122 = pow_1_3(t121);
+    let t122 = 0.6827840632552957;
     let t123 = t72 * t122;
     let t124 = M_CBRT4;
     let t125 = t124 * t124;
@@ -66,7 +66,7 @@ pub fn mgga_c_tpss_fxc_pol(
     let t153 = t152 * zeta_threshold;
     let t159 = M_CBRT2;
     let t162 = 1.0 / (2.0 * t159 - 2.0);
-    let t195 = rmath::ln(2.0);
+    let t195 = 0.6931471805599453;
     let t196 = 1.0 - t195;
     let t197 = 1.0 / t73;
     let t198 = t196 * t197;

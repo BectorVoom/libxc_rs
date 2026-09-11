@@ -67,7 +67,7 @@ pub fn mgga_x_br89_kxc_unpol(
     let t10 = pow_1_3(zeta_threshold);
     let t12 = pow_1_3(t8);
     let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
-    let t18 = pow_1_3(1.0 / M_PI);
+    let t18 = 0.6827840632552957;
     let t19 = 1.0 / t18;
     let t20 = M_CBRT4;
     let t21 = t19 * t20;
@@ -76,7 +76,7 @@ pub fn mgga_x_br89_kxc_unpol(
     let t67 = M_CBRT6;
     let t68 = t67 * t67;
     let t69 = M_PI * M_PI;
-    let t70 = pow_1_3(t69);
+    let t70 = 2.1450293971110255;
     let t71 = t70 * t70;
     let t73 = 3.0 / 10.0 * t68 * t71;
     let t107 = M_CBRTPI;

@@ -152,7 +152,7 @@ pub fn gga_x_pbetrans_lxc_pol(
     let t21 = (simd::cbrt(zeta_threshold));
     let t22 = t21 * zeta_threshold;
     let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(2.1450293971110255);
     let t30 = t2 * t29;
     let t31 = f64x8::splat(M_CBRT6);
     let t32 = t31 * t31;

@@ -44,7 +44,7 @@ pub fn gga_c_ccdf_lxc_unpol(
     let t9 = t8 * t8;
     let t10 = t7 * t9;
     let t11 = M_PI * M_PI;
-    let t12 = pow_1_3(t11);
+    let t12 = 2.1450293971110255;
     let t13 = 1.0 / t12;
     let t42 = param_c4 * t7 * t9;
     let t62 = t10 * t13;

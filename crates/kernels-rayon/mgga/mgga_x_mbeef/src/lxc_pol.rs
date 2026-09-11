@@ -101,7 +101,7 @@ pub fn mgga_x_mbeef_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = M_CBRT6;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t34 = t29 * t33;

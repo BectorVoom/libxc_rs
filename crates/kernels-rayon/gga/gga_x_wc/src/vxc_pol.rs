@@ -141,7 +141,7 @@ pub fn gga_x_wc_vxc_pol(
     let t22 = t21 * zeta_threshold;
     let t28 = f64x8::splat(M_CBRT6);
     let t29 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t30 = (simd::cbrt(t29));
+    let t30 = f64x8::splat(2.1450293971110255);
     let t31 = t30 * t30;
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = t28 * t32;

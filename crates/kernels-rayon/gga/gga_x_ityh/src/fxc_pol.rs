@@ -37,14 +37,14 @@ pub fn gga_x_ityh_fxc_pol(
     let t28 = t2 * t2;
     let t29 = M_PI * t28;
     let t30 = 1.0 / M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 0.6827840632552957;
     let t32 = 1.0 / t31;
     let t33 = M_CBRT4;
     let t34 = t32 * t33;
     let t35 = t28 * t32;
     let t36 = t35 * t33;
     let t62 = M_CBRT2;
-    let t98 = rmath::sqrt(M_PI);
+    let t98 = 1.7724538509055159;
     let tvsigma1 = 0.0;
     let t765 = M_PI * M_PI;
     let t766 = t765 * t2;

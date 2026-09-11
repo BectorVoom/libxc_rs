@@ -103,14 +103,14 @@ pub fn mgga_x_mbrxc_bg_lxc_pol(
     let t35 = M_CBRT6;
     let t36 = t35 * t35;
     let t37 = M_PI * M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 2.1450293971110255;
     let t39 = t38 * t38;
     let t41 = 3.0 / 10.0 * t36 * t39;
     let t56 = pow_1_4(f64::EPSILON);
-    let t58 = pow_1_3(32.0);
+    let t58 = 3.174802103936399;
     let t59 = t58 * t4;
     let t60 = t3 * t3;
-    let t62 = pow_1_3(1.0 / M_PI);
+    let t62 = 0.6827840632552957;
     let t63 = 1.0 / t62;
     let t64 = t60 * t63;
     let t65 = M_CBRT4;

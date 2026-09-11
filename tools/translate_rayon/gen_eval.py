@@ -529,6 +529,106 @@ def needs_tau_map() -> dict[str, bool]:
     return out
 
 
+def claimed_orders_map() -> dict[str, list[str]]:
+    """`info->flags & XC_FLAGS_HAVE_{EXC..LXC}`, per functional, keyed by
+    lowercase name: the derivative orders libxc implements for it, as names in
+    `ORDERS`. Same source as `needs_tau_map`."""
+    src = (REPO / "crates/libxc-core/src/meta/generated.rs").read_text()
+    out: dict[str, list[str]] = {}
+    for name, body in re.findall(
+            r"pub\(crate\) const (\w+): FunctionalMeta = FunctionalMeta \{(.*?)\n\};",
+            src, re.S):
+        m = re.search(r"flags: FunctionalFlags::from_bits_retain\((\d+)u32\)", body)
+        if not m:
+            continue
+        flags = int(m.group(1))
+        out[name[3:].lower()] = [o for i, o in enumerate(ORDERS) if flags >> i & 1]
+    return out
+
+
+def partial_dispatch_src(fam: str, base: str, orders: list[str], have_exc: bool) -> str:
+    """A file-local stand-in for `ten_arm_dispatch_r{fam}` over a kernel tree
+    that has only the modules for `orders`.
+
+    libxc ships fewer than ten maple2c functions for a handful of functionals:
+    the potential-only ones (`maple2c/*_vxc`, compiled with `XC_NO_EXC`) have
+    no exc, and `lda_c_pk09` / `mgga_c_b94` stop at kxc. Their flags say so,
+    and libxc refuses the missing orders. The macro takes the same invocation
+    as the ten-arm one (so `dispatch` and `dispatch_with` are emitted
+    unchanged), ignores the slot list, and names each present kernel directly.
+    """
+    Fam = fam.capitalize()
+    spec = FAMILIES[fam]
+    per_order = order_slices(fam, spec["outputs"])
+    ins = ", ".join(f"c.{n}" for n in spec["inputs"])
+    arms = []
+    for spin, sfx in (("Unpolarized", "unpol"), ("Polarized", "pol")):
+        for o in orders:
+            fields = "\n".join(
+                f'                        c.{f}.as_deref_mut().expect("prepare guarantees this buffer"),'
+                for f in per_order[o] if have_exc or f != "zk")
+            mod = f"{o.lower()}_{sfx}"
+            arms.append(
+                f"            (DerivativeOrder::{o}, Spin::{spin}) => par_sweep(chunk, &d, min_chunk(), &sc, "
+                f"&|c: &mut crate::sweep_{fam}::{Fam}Chunk<'_, '_>| {{\n"
+                f"                k::{mod}::{base}_{mod}(\n"
+                f"                        {ins},\n"
+                f"{fields}\n"
+                f"                        $( $scalar, )*\n"
+                f"                        dt, zt,\n"
+                f"                    )\n"
+                f"            }}),")
+    claimed_lit = ", ".join(f"DerivativeOrder::{o}" for o in orders)
+    return f'''
+/// The derivative orders libxc implements for this functional (its
+/// `XC_FLAGS_HAVE_*`). libxc ships a maple2c function for exactly these, so
+/// this kernel tree has fewer than the usual ten modules; any other order is
+/// refused, as libxc refuses it.
+pub const CLAIMED: &[DerivativeOrder] = &[{claimed_lit}];
+
+/// `XC_FLAGS_HAVE_EXC`. Clear for a potential-only functional (`XC_NO_EXC`):
+/// its kernels take no `zk`, so `zk` is neither demanded nor written.
+pub const HAVE_EXC: bool = {str(have_exc).lower()};
+
+/// `crate::ten_arm_dispatch_r{fam}` for a tree with only the [`CLAIMED`]
+/// modules. Same invocation; the slot list is for the reader, and each arm
+/// names its kernel directly.
+macro_rules! partial_dispatch {{
+    (
+        $input:expr, $output:expr, $order:expr, $spin:expr, $thresholds:expr,
+        needs_tau = $needs_tau:expr, zero_tau = $zero_tau:expr,
+        $( [ $($slot:tt)* ], )*
+        params = ( $( $scalar:expr ),* $(,)? )
+    ) => {{{{
+        use crate::sweep_{fam}::{{min_chunk, par_sweep}};
+        use libxc_core::dims::Dimensions;
+
+        // Refused before `prepare` takes the caller's buffers.
+        if !CLAIMED.contains(&$order) {{
+            return Err(LibxcRsError::UnsupportedDerivativeOrder {{
+                id: libxc_core::model::FunctionalId(ID),
+                order: $order,
+                max: CLAIMED[CLAIMED.len() - 1],
+            }});
+        }}
+        let d = Dimensions::{fam}($spin);
+        let dt = $thresholds.density;
+        let zt = $thresholds.zeta;
+        // libxc screens and clamps every point before the maple2c body sees
+        // it (`work_{fam}_inc.c`), potential-only functionals included.
+        let sc = crate::screen::Screen::new($thresholds, $needs_tau, $zero_tau);
+        let chunk = crate::{fam}::prepare_for($input, $output, $order, &d, HAVE_EXC)?;
+
+        match ($order, $spin) {{
+{chr(10).join(arms)}
+            _ => unreachable!("CLAIMED is exactly the set of arms above"),
+        }}
+        Ok(())
+    }}}};
+}}
+'''
+
+
 def kernel_reads_tau(base: str) -> bool:
     """Does the emitted MGGA kernel for `base` actually use its `tau` argument?
 
@@ -1037,12 +1137,28 @@ pub fn prepare<'inp, 'out>(
     order: DerivativeOrder,
     d: &Dimensions,
 ) -> Result<{Fam}Chunk<'inp, 'out>, LibxcRsError> {{
+    prepare_for(input, output, order, d, true)
+}}
+
+/// [`prepare`] for a functional that may have no energy.
+///
+/// `have_exc = false` is libxc's `XC_NO_EXC` (the potential-only functionals,
+/// LB94 and TB09 among them): their kernels take no `zk`, so `zk` is not
+/// demanded, and a `zk` buffer the caller hands over is cleared like any other
+/// field this evaluation does not write.
+pub fn prepare_for<'inp, 'out>(
+    input: &{Fam}Input<'inp>,
+    output: &mut {Fam}Output<'out>,
+    order: DerivativeOrder,
+    d: &Dimensions,
+    have_exc: bool,
+) -> Result<{Fam}Chunk<'inp, 'out>, LibxcRsError> {{
     let np = input.np();
     let need = required_fields(order);
 
     macro_rules! take {{
         ($f:ident, $name:literal, $stride:expr) => {{{{
-            let wanted = need.contains(&$name);
+            let wanted = need.contains(&$name) && (have_exc || $name != "zk");
             match output.$f.take() {{
                 Some(b) if wanted => {{
                     let expected = np * $stride as usize;
@@ -1106,20 +1222,148 @@ macro_rules! ten_arm_dispatch_r{fam} {{
 '''
 
 
+def _mpw91_constants() -> tuple[float, float, float]:
+    """`X2S`, `X_FACTOR_C` and `beta` exactly as libxc's C holds them.
+
+    `X2S` and `X_FACTOR_C` are plain `double` macros (util.h). `beta` is
+    `5.0*pow(36.0*M_PI,-5.0/3.0)`: `36.0*M_PI` is a long double product
+    (`M_PI` carries `L`) converted to double at the call, and with constant
+    arguments GCC folds the `pow` through MPFR, i.e. correctly rounded.
+    """
+    import math
+
+    import mpmath
+    import numpy as np
+
+    x2s = 0.1282782438530421943003109254455883701296
+    x_factor_c = 0.9305257363491000250020102180716672510262
+    mpmath.mp.prec = 256
+    arg = float(np.longdouble(36.0) * np.longdouble("3.141592653589793238462643383279502884197"))
+    exact = mpmath.power(mpmath.mpf(arg), mpmath.mpf(-5.0 / 3.0))
+    y = float(exact)
+    y = min((y, math.nextafter(y, math.inf), math.nextafter(y, -math.inf)),
+            key=lambda c: abs(mpmath.mpf(c) - exact))
+    return x2s, x_factor_c, 5.0 * y
+
+
+def _mpw91_ext_block(fam: str, Fam: str, params: list[str], ext_names: list[str],
+                     tau_arg: str, slots: list[str]) -> str:
+    """Runtime ext_params for a functional whose setter is `mpw91_set_ext_params`.
+
+    The setter does not copy its three ext_params into kernel slots, it
+    derives seven kernel constants from them, so there is no permutation to
+    emit; this emits the derivation instead, in the C's operation order.
+    """
+    x2s, x_factor_c, beta = _mpw91_constants()
+    n = len(params)
+    idx = {name: params.index(name) for name in
+           ("param_a", "param_b", "param_c", "param_d", "param_f", "param_alpha", "param_expo")}
+    defaults_lit = ", ".join(p.upper() for p in params)
+    pass_lit = ", ".join(f"p[{i}]" for i in range(n))
+    names_lit = ", ".join(f'"{x}"' for x in ext_names)
+    return f'''
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = {len(ext_names)};
+
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; {len(ext_names)}] = [{names_lit}];
+
+/// Compiled-in libxc defaults, in kernel argument order.
+pub const DEFAULTS: [f64; {n}] = [{defaults_lit}];
+
+/// Number of kernel arguments.
+pub const N_PARAMS: usize = {n};
+
+/// `X2S` (util.h, a plain `double` macro).
+const X2S: f64 = {x2s!r};
+/// `X_FACTOR_C` (util.h, a plain `double` macro).
+const X_FACTOR_C: f64 = {x_factor_c!r};
+/// `beta = 5.0*pow(36.0*M_PI,-5.0/3.0)`: constant arguments, so GCC folds
+/// the `pow` correctly rounded at compile time.
+const BETA: f64 = {beta!r};
+
+/// The kernel's parameters for a caller-supplied `ext_params` array
+/// `[_bt, _alpha, _expo]`, derived as `mpw91_set_ext_params`
+/// (gga_x_pw91.c) derives them:
+///
+/// ```c
+/// params->a = 6.0*bt/X2S;
+/// params->b = 1.0/X2S;
+/// params->c = bt/(X_FACTOR_C*X2S*X2S);
+/// params->d = -(bt - beta)/(X_FACTOR_C*X2S*X2S);
+/// params->f = 1.0e-6/(X_FACTOR_C*pow(X2S, params->expo));
+/// ```
+///
+/// That `pow` has a runtime exponent, so it is glibc's; `rmath::pow` is
+/// bit-exact against it. `None` is exactly [`DEFAULTS`].
+pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {{
+    let Some(e) = ext else {{
+        return Ok(DEFAULTS);
+    }};
+    if e.len() != N_EXT_PARAMS {{
+        return Err(LibxcRsError::ExtParamCountMismatch {{
+            id: libxc_core::model::FunctionalId(ID),
+            expected: N_EXT_PARAMS,
+            actual: e.len(),
+        }});
+    }}
+    let (bt, alpha, expo) = (e[0], e[1], e[2]);
+    let mut p = DEFAULTS;
+    p[{idx["param_a"]}] = 6.0 * bt / X2S;
+    p[{idx["param_b"]}] = 1.0 / X2S;
+    p[{idx["param_c"]}] = bt / (X_FACTOR_C * X2S * X2S);
+    p[{idx["param_d"]}] = -(bt - BETA) / (X_FACTOR_C * X2S * X2S);
+    p[{idx["param_f"]}] = 1.0e-6 / (X_FACTOR_C * libxc_rkernel_math::rmath::pow(X2S, expo));
+    p[{idx["param_alpha"]}] = alpha;
+    p[{idx["param_expo"]}] = expo;
+    Ok(p)
+}}
+
+/// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
+/// in libxc's own order, turned into kernel constants by [`kernel_params`].
+pub fn dispatch_with(
+    input: &{Fam}Input<'_>,
+    output: &mut {Fam}Output<'_>,
+    order: DerivativeOrder,
+    spin: Spin,
+    thresholds: &Thresholds,
+    ext: Option<&[f64]>,
+) -> Result<(), LibxcRsError> {{
+    let p = kernel_params(ext)?;
+    crate::ten_arm_dispatch_r{fam}!(
+        input, output, order, spin, thresholds,
+{tau_arg}
+{chr(10).join(slots)}
+        params = ({pass_lit})
+    )
+}}
+'''
+
+
 def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str],
              modules: set[str], ext_names: list[str] | None = None,
              ext_to_kernel: list[int | None] | None = None,
-             needs_tau: bool = False, zero_tau: bool = False) -> str | None:
-    """One dispatch entry point. Returns None if any of the 10 arms is missing."""
+             needs_tau: bool = False, zero_tau: bool = False,
+             ext_transform: str | None = None,
+             claimed: list[str] | None = None) -> str | None:
+    """One dispatch entry point.
+
+    Returns None if the kernel tree is missing a module: all ten (order, spin)
+    modules, or -- for the few functionals libxc ships fewer maple2c
+    functions for -- exactly the orders `claimed` (the functional's
+    `XC_FLAGS_HAVE_*`), in both spins.
+    """
     krate = f"libxc_rkernel_{base}"
     slots = []
-    for suf, spin in (("unpol", "u"), ("pol", "p")):
-        pass
+    present = {sfx: [o for o in ORDERS if f"{o.lower()}_{sfx}" in modules]
+               for sfx in ("unpol", "pol")}
+    partial = present["unpol"] != ORDERS or present["pol"] != ORDERS
+    if partial and not (present["unpol"] and present["unpol"] == present["pol"]
+                        and present["unpol"] == claimed):
+        return None
     for spin_sfx in ("unpol", "pol"):
-        for o in ("exc", "vxc", "fxc", "kxc", "lxc"):
-            mod = f"{o}_{spin_sfx}"
-            if mod not in modules:
-                return None
+        for o in present[spin_sfx]:
+            mod = f"{o.lower()}_{spin_sfx}"
             slots.append(f"        [k::{mod}::{base}_{mod}],")
     def as_f64(v: str) -> str:
         """libxc writes some defaults as integers (`3`) or with leading `+`; Rust needs a float."""
@@ -1130,6 +1374,8 @@ def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str
         f"/// libxc default for `{p}`.\npub const {p.upper()}: f64 = {as_f64(v)};"
         for p, v in zip(params, values)
     )
+    if partial:
+        consts += "\n" + partial_dispatch_src(fam, base, present["unpol"], "Exc" in present["unpol"])
     plist = ", ".join(p.upper() for p in params)
     Fam = fam.capitalize()
     n = len(params)
@@ -1173,7 +1419,9 @@ def gen_func(fam: str, func: str, base: str, params: list[str], values: list[str
     # For 160 of 276 functionals those orders differ (`gga_c_pbe` is
     # `[gamma, BB, beta]` against libxc's `[_beta, _gamma, _B]`), so a
     # positional copy would silently swap constants.
-    if ext_to_kernel is None or n == 0:
+    if ext_transform == "mpw91":
+        ext_block = _mpw91_ext_block(fam, Fam, params, ext_names, tau_arg, slots)
+    elif ext_to_kernel is None or n == 0:
         why = ("this functional has no ext_params"
                if n == 0 else
                "its libxc ext_params could not be put in correspondence with the "
@@ -1310,7 +1558,7 @@ pub fn dispatch_with(
 }}
 '''
 
-    return f'''//! Dispatch for `{func}` over the rayon kernels.
+    text = f'''//! Dispatch for `{func}` over the rayon kernels.
 //!
 //! GENERATED by tools/translate_rayon/gen_eval.py -- do not hand-edit.
 //! Parameter defaults are libxc's `ext_params` values, extracted by
@@ -1344,6 +1592,9 @@ pub fn dispatch(
     )
 }}
 '''
+    if partial:
+        text = text.replace(f"crate::ten_arm_dispatch_r{fam}!(", "partial_dispatch!(")
+    return text
 
 
 def gen_fused(resolved: dict, name_to_id: dict[str, int]) -> tuple[str, list[str]]:
@@ -1629,8 +1880,13 @@ def main() -> int:
     s_reg = (REPO / "crates/libxc-core/src/registry/by_name.rs").read_text()
     name_to_id = {m.group(1).lower(): int(m.group(2))
                   for m in _re.finditer(r'\("XC_(\w+)",\s*(\d+)\)', s_reg)}
+    # Internal workers (`lda_k_gds08_worker`) are routed by the id their
+    # parents' auxiliary lists carry; see extract_params.INTERNAL_WORKERS.
+    name_to_id.update({f: info["internal_id"] for f, info in resolved.items()
+                       if "internal_id" in info})
 
     tau_flags = needs_tau_map()
+    claimed_map = claimed_orders_map()
     for func, info in sorted(resolved.items()):
         fam = info["family"]
         base = info.get("base_kernel", func)
@@ -1643,17 +1899,17 @@ def main() -> int:
         zero_tau = fam == "mgga" and not needs_tau and kernel_reads_tau(base)
         text = gen_func(fam, func, base, info["params"], info["values"], modules,
                         info.get("ext_names"), info.get("ext_to_kernel"),
-                        needs_tau=needs_tau, zero_tau=zero_tau)
+                        needs_tau=needs_tau, zero_tau=zero_tau,
+                        ext_transform=info.get("ext_transform"),
+                        claimed=claimed_map.get(func))
         if text is not None:
             # `ID` is only used to build a typed ExtParamCountMismatch, so a
             # functional the registry does not know can carry 0 rather than
             # block emission.
             text = text.replace("{ID_PLACEHOLDER}", str(name_to_id.get(func, 0)))
         if text is None:
-            if func in ("mgga_x_bj06", "mgga_x_rpp09", "mgga_x_tb09", "gga_x_lb", "gga_x_lbm"):
-                skipped[func] = "potential-only functional; no exc by construction"
-            else:
-                skipped[func] = "kernel tree is missing one of the 10 (order, spin) modules"
+            skipped[func] = ("kernel tree is missing an (order, spin) module the "
+                             "functional's XC_FLAGS_HAVE_* claim")
             continue
         (OUT / "funcs" / f"{func}.rs").write_text(text)
         emitted.append((fam, func, base))
@@ -1847,6 +2103,7 @@ edition = "2024"
 
 [dependencies]
 libxc-core = {{ path = "../libxc-core" }}
+libxc-rkernel-math = {{ path = "../kernels-rayon/math" }}
 rayon = "1.11"
 {deps}
 

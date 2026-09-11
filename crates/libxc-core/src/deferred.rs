@@ -14,7 +14,11 @@
 
 /// LDA functionals deferred from translation due to CubeCL proc macro stack limits.
 ///
-/// These 4 functionals were translated with the incremental derivative
+/// `lda_c_pk09` was the fourth. Its recorded blocker was CubeCL's limit on
+/// `kxc_pol`; CubeCL is gone, libxc ships no pk09 `lxc` at all, and since
+/// 2026-09-11 it is dispatched at exactly the orders it has.
+///
+/// These 3 functionals were translated with the incremental derivative
 /// structure (so source files exist under their respective modules), but
 /// the generated `kxc_pol` or `lxc_pol` functions exceed CubeCL's
 /// proc-macro stack limit (~10K lines per `#[cube]` fn). Compiling them
@@ -34,17 +38,10 @@ pub mod lda {
         pub reason: &'static str,
     }
 
-    /// The 4 LDA functionals deferred due to CubeCL proc macro stack limits.
+    /// The 3 LDA functionals deferred due to CubeCL proc macro stack limits.
     ///
-    /// Total LDA functionals: 41 (37 compiled + 4 deferred)
+    /// Total LDA functionals: 41 (38 compiled + 3 deferred)
     pub const DEFERRED_LDA_FUNCTIONALS: &[DeferredLda] = &[
-        DeferredLda {
-            name: "lda_c_pk09",
-            id: 554,
-            c_lines: 17_500,
-            blocked_by: "kxc_pol (17.5K lines exceeds CubeCL proc-macro stack limit)",
-            reason: "kxc_pol single function too large to compile via CubeCL proc macro",
-        },
         DeferredLda {
             name: "lda_xc_ksdt",
             id: 259,
@@ -69,7 +66,7 @@ pub mod lda {
     ];
 
     /// Number of LDA functionals that were successfully compiled.
-    pub const TRANSLATED_LDA_COUNT: usize = 37;
+    pub const TRANSLATED_LDA_COUNT: usize = 38;
 
     /// Total LDA functionals in libxc 7.0.0 that were translated.
     pub const TOTAL_LDA_COUNT: usize = 41;
@@ -85,13 +82,12 @@ pub mod lda {
 
         #[test]
         fn deferred_count_matches_constant() {
-            assert_eq!(DEFERRED_LDA_FUNCTIONALS.len(), 4);
-            assert_eq!(TOTAL_LDA_COUNT - TRANSLATED_LDA_COUNT, 4);
+            assert_eq!(DEFERRED_LDA_FUNCTIONALS.len(), 3);
+            assert_eq!(TOTAL_LDA_COUNT - TRANSLATED_LDA_COUNT, 3);
         }
 
         #[test]
         fn is_deferred_recognizes_known_ids() {
-            assert!(is_deferred(554)); // lda_c_pk09
             assert!(is_deferred(259)); // lda_xc_ksdt
             assert!(is_deferred(654)); // lda_c_pw_erf
             assert!(is_deferred(590)); // lda_c_pmgb06
@@ -102,13 +98,18 @@ pub mod lda {
             assert!(!is_deferred(1)); // lda_x
             assert!(!is_deferred(7)); // lda_c_vwn
             assert!(!is_deferred(599)); // lda_xc_tih
+            assert!(!is_deferred(554)); // lda_c_pk09
         }
     }
 }
 
 /// MGGA functionals deferred from translation due to missing math primitives.
 ///
-/// These 6 functionals require iterative root-finder implementations
+/// `mgga_c_b94` was listed here too; it is dispatched since 2026-09-11 (the
+/// root-finder exists, `math/src/brent.rs`, and its kernel tree stops at kxc
+/// because libxc's does).
+///
+/// These 5 functionals require iterative root-finder implementations
 /// (Brent's method) that are not yet available in kernel-math. They use
 /// either `xc_mgga_x_br89_get_x` (solves x * exp(-2x/3) = C) or
 /// `xc_mgga_x_mbrxc_get_x` (similar nonlinear solve).
@@ -127,19 +128,12 @@ pub mod mgga {
         pub reason: &'static str,
     }
 
-    /// The 6 MGGA functionals deferred due to missing iterative root-finders.
+    /// The 5 MGGA functionals deferred due to missing iterative root-finders.
     ///
     /// Total MGGA functionals: 92 (90 mgga_exc + 2 mgga_vxc)
-    /// Translatable: 86
-    /// Deferred: 6 (listed here)
+    /// Translatable: 87
+    /// Deferred: 5 (listed here)
     pub const DEFERRED_MGGA_FUNCTIONALS: &[DeferredMgga] = &[
-        DeferredMgga {
-            name: "mgga_c_b94",
-            id: 397,
-            c_lines: 34_899,
-            blocked_by: "xc_mgga_x_br89_get_x",
-            reason: "Requires Brent's method root-finder for BR89 exchange hole model",
-        },
         DeferredMgga {
             name: "mgga_x_br89",
             id: 206,
@@ -178,7 +172,7 @@ pub mod mgga {
     ];
 
     /// Number of MGGA functionals that were successfully translated.
-    pub const TRANSLATED_MGGA_COUNT: usize = 86;
+    pub const TRANSLATED_MGGA_COUNT: usize = 87;
 
     /// Total MGGA functionals in libxc 7.0.0.
     pub const TOTAL_MGGA_COUNT: usize = 92;
@@ -194,12 +188,11 @@ pub mod mgga {
 
         #[test]
         fn deferred_count_matches_constant() {
-            assert_eq!(DEFERRED_MGGA_FUNCTIONALS.len(), 6);
+            assert_eq!(DEFERRED_MGGA_FUNCTIONALS.len(), 5);
         }
 
         #[test]
         fn is_deferred_recognizes_known_ids() {
-            assert!(is_deferred(397)); // mgga_c_b94
             assert!(is_deferred(206)); // mgga_x_br89
             assert!(is_deferred(716)); // mgga_x_mbr
             assert!(is_deferred(696)); // mgga_x_mbrxc_bg
@@ -211,6 +204,7 @@ pub mod mgga {
         fn is_deferred_rejects_compiled_ids() {
             assert!(!is_deferred(202)); // mgga_x_tpss
             assert!(!is_deferred(208)); // mgga_x_tb09
+            assert!(!is_deferred(397)); // mgga_c_b94
             assert!(!is_deferred(1)); // lda_x
         }
     }

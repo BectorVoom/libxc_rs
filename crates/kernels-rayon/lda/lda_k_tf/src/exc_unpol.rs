@@ -78,7 +78,7 @@ pub fn lda_k_tf_exc_unpol(
     let t5 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t3 * zeta_threshold, f64x8::splat(1.0)));
     let t7 = f64x8::splat(M_CBRT3);
     let t8 = param_ax * t5 * t7;
-    let t10 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t10 = f64x8::splat(0.6827840632552957);
     let t11 = t10 * t10;
     let t13 = f64x8::splat(M_CBRT4);
     let t14 = t13 * t13;

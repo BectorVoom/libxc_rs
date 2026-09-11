@@ -105,7 +105,7 @@ pub fn mgga_x_jk_fxc_unpol(
     let t18 = (((t12).simd_le(zeta_threshold)).select(t14 * zeta_threshold, t16 * t12));
     let t21 = t4 * t4;
     let t22 = param_beta * t21;
-    let t24 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t24 = f64x8::splat(0.6827840632552957);
     let t25 = f64x8::splat(1.0) / t24;
     let t26 = f64x8::splat(M_CBRT4);
     let t27 = t25 * t26;

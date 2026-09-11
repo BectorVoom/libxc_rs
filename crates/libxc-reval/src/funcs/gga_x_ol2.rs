@@ -16,11 +16,11 @@ pub const ID: u16 = 183;
 
 
 /// libxc default for `param_bb`.
-pub const PARAM_BB: f64 = 0.09564574034649151285038696952714226444963;
+pub const PARAM_BB: f64 = 0.09564574034649151;
 /// libxc default for `param_cc`.
-pub const PARAM_CC: f64 = 4.098833606342553442039881031486386917472;
+pub const PARAM_CC: f64 = 4.098833606342553;
 /// libxc default for `param_aa`.
-pub const PARAM_AA: f64 = 0.09564574034649151285038696952714226444963;
+pub const PARAM_AA: f64 = 0.09564574034649151;
 
 /// Number of libxc `ext_params` this dispatch accepts at runtime.
 pub const N_EXT_PARAMS: usize = 3;

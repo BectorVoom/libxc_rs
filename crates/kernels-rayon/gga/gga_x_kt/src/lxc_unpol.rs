@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT3, M_CBRT4, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -50,7 +50,7 @@ pub fn gga_x_kt_lxc_unpol(
     let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
     let t20 = t3 * t3;
     let t21 = param_gamma * t20;
-    let t23 = pow_1_3(1.0 / M_PI);
+    let t23 = 0.6827840632552957;
     let t24 = 1.0 / t23;
     let t25 = M_CBRT4;
     let t26 = t24 * t25;

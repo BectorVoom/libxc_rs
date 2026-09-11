@@ -104,7 +104,7 @@ pub fn mgga_x_revtm_lxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t36 = M_CBRT6;
     let t37 = M_PI * M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 2.1450293971110255;
     let t39 = t38 * t38;
     let t40 = 1.0 / t39;
     let t41 = t36 * t40;

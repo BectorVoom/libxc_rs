@@ -160,7 +160,7 @@ pub fn gga_k_vt84f_lxc_pol(
     let t32 = f64x8::splat(M_CBRT6);
     let t33 = t32 * t32;
     let t34 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t35 = (simd::cbrt(t34));
+    let t35 = f64x8::splat(2.1450293971110255);
     let t37 = t33 / t35;
     let t45 = ((f64x8::splat(f64::EPSILON)).sqrt());
     let t48 = (-param_mu + param_alpha + f64x8::splat(5.0) / f64x8::splat(3.0)) * t32;

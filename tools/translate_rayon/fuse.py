@@ -592,7 +592,7 @@ def fuse_function(name: str, spec: dict, order: str, spin: str,
                 oname, idx, val = m.group(1), int(m.group(2)), m.group(3)
                 if oname not in wanted:
                     raise fm.Untranslatable(f"{func} {order} writes unexpected output {oname}")
-                rhs = _subst(fm.translate_expr(val, ctx), ren)
+                rhs = _subst(fm.translate_expr(fm.fold_consts(None, val, ctx), ctx), ren)
                 d = fm.dim_of(oname, fam, pol)
                 if d == 1:
                     ix = "ip"
@@ -617,6 +617,7 @@ def fuse_function(name: str, spec: dict, order: str, spin: str,
             if not m:
                 raise fm.Untranslatable(f"unparsed statement: {st[:80]!r}")
             lname, val = m.group(1), m.group(2)
+            val = fm.fold_consts(lname, val, ctx)
             rhs = _subst(fm.translate_expr(val, ctx), ren)
             ctx.locals[lname] = "bool" if fm.is_bool_expr(val) else "f64"
             if rhs in table:

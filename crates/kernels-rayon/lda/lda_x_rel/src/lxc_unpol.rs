@@ -80,11 +80,11 @@ pub fn lda_x_rel_lxc_unpol(
     let t6 = t3 / t4;
     let t8 = (simd::cbrt(zeta_threshold));
     let t10 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t8 * zeta_threshold, f64x8::splat(1.0)));
-    let t16 = (simd::cbrt(f64x8::splat(9.0)));
+    let t16 = f64x8::splat(2.080083823051904);
     let t17 = t16 * t16;
     let t18 = t17 * t3;
     let t19 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t20 = (simd::cbrt(t19));
+    let t20 = f64x8::splat(0.6827840632552957);
     let t21 = t20 * t20;
     let t22 = f64x8::splat(1.0) / t21;
     let t30 = t3 * t20;

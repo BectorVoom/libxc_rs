@@ -114,7 +114,7 @@ pub fn gga_x_pbe_erf_gws_fxc_unpol(
     let t50 = t49 * t17;
     let t56 = t14 * t13;
     let t57 = f64x8::splat(1.0) / param_hyb_omega_0;
-    let t66 = ((f64x8::splat(M_PI)).sqrt());
+    let t66 = f64x8::splat(1.7724538509055159);
     let t67 = t66 * t43;
     let t75 = t3 * t3;
     let t76 = t75 * t30;
@@ -141,7 +141,7 @@ pub fn gga_x_pbe_erf_gws_fxc_unpol(
     let t306 = t83 * t17;
     let t316 = t42 * t13 * t57 * t5;
     let t317 = t43 * f64x8::splat(M_PI);
-    let t318 = (simd::pow(f64x8::splat(M_PI), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t318 = f64x8::splat(1.2102032422537643);
     let t319 = t318 * t318;
     let t320 = t319 * t319;
     let t321 = t320 * t318;

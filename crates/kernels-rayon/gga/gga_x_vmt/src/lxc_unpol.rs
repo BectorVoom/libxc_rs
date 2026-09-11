@@ -50,7 +50,7 @@ pub fn gga_x_vmt_lxc_unpol(
     let t20 = M_CBRT6;
     let t21 = param_mu * t20;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = t23 * t23;
     let t25 = 1.0 / t24;
     let t28 = M_CBRT2;

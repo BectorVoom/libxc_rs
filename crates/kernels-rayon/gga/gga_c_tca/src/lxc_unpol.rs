@@ -92,7 +92,7 @@ pub fn gga_c_tca_lxc_unpol(
     let t5 = t4 * t4;
     let t6 = t5 * t4;
     let t7 = f64x8::splat(M_CBRT3);
-    let t9 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t9 = f64x8::splat(0.6827840632552957);
     let t10 = t7 * t9;
     let t11 = f64x8::splat(M_CBRT4);
     let t12 = t11 * t11;
@@ -102,7 +102,7 @@ pub fn gga_c_tca_lxc_unpol(
     let t27 = f64x8::splat(M_CBRT6);
     let t28 = t27 * t27;
     let t29 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t30 = (simd::cbrt(t29));
+    let t30 = f64x8::splat(2.1450293971110255);
     let t31 = f64x8::splat(1.0) / t30;
     let t32 = t28 * t31;
     let t33 = f64x8::splat(M_CBRT2);

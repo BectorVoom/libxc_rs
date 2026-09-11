@@ -43,7 +43,7 @@ pub fn gga_x_pw91_fxc_pol(
     let t28 = M_CBRT6;
     let t29 = param_alpha * t28;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t49 = t28 * t28;

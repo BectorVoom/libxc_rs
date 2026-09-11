@@ -94,7 +94,7 @@ pub fn mgga_c_kcisk_lxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRT3;
     let t3 = 1.0 / M_PI;
-    let t4 = pow_1_3(t3);
+    let t4 = 0.6827840632552957;
     let t5 = t2 * t4;
     let t6 = M_CBRT4;
     let t7 = t6 * t6;
@@ -111,7 +111,7 @@ pub fn mgga_c_kcisk_lxc_pol(
     let t63 = t62 * t62;
     let t64 = t41 * t3 * t63;
     let t65 = M_PI * M_PI;
-    let t66 = pow_1_3(t65);
+    let t66 = 2.1450293971110255;
     let t67 = 1.0 / t66;
     let t68 = t41 * t2;
     let t69 = t4 * t7;
@@ -126,9 +126,9 @@ pub fn mgga_c_kcisk_lxc_pol(
     let t156 = t2 * t4 * t3;
     let t161 = t20 * t21 * t3;
     let t171 = t2 * t4 / t65;
-    let t179 = rmath::pow(4.0, 1.0 / 6.0);
+    let t179 = 1.2599210498948732;
     let t180 = t139 * t179;
-    let t196 = rmath::sqrt(4.0);
+    let t196 = 2.0;
     let t236 = piecewise3(2.0 <= zeta_threshold, t37, 2.0 * t41);
     let t238 = piecewise3(0.0 <= zeta_threshold, t37, 0.0);
     let t240 = (t236 + t238 - 2.0) * t44;

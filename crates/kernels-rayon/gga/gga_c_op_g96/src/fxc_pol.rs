@@ -30,7 +30,7 @@ pub fn gga_c_op_g96_fxc_pol(
     let t17 = -t14;
     let t33 = M_CBRT3;
     let t34 = t33 * t33;
-    let t36 = pow_1_3(1.0 / M_PI);
+    let t36 = 0.6827840632552957;
     let t37 = 1.0 / t36;
     let t38 = t34 * t37;
     let t39 = M_CBRT4;

@@ -79,7 +79,7 @@ pub fn gga_c_wl_fxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t8 = f64x8::splat(M_CBRT2);
     let t12 = f64x8::splat(M_CBRT3);
-    let t14 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t14 = f64x8::splat(0.6827840632552957);
     let t15 = t12 * t14;
     let t16 = f64x8::splat(M_CBRT4);
     let t17 = t16 * t16;

@@ -40,7 +40,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t10 = M_CBRT3;
     let t12 = 1.0 / M_PI;
-    let t13 = pow_1_3(t12);
+    let t13 = 0.6827840632552957;
     let t14 = M_CBRT4;
     let t15 = t14 * t14;
     let t16 = t13 * t15;
@@ -50,7 +50,7 @@ pub fn hyb_mgga_xc_wb97mv_exc_pol(
     let t21 = pow_1_3(zeta_threshold);
     let t22 = t21 * zeta_threshold;
     let t24 = piecewise3(t20, t22, 2.0 * t17);
-    let t30 = pow_1_3(9.0);
+    let t30 = 2.080083823051904;
     let t31 = t30 * t30;
     let t32 = t13 * t13;
     let t33 = t31 * t32;
@@ -58,14 +58,14 @@ pub fn hyb_mgga_xc_wb97mv_exc_pol(
     let t35 = t33 * t34;
     let t38 = piecewise3(t20, t21, t17);
     let t39 = 1.0 / t38;
-    let t73 = rmath::sqrt(M_PI);
+    let t73 = 1.7724538509055159;
     let t94 = param_c_x_0;
     let t95 = param_c_x_1;
     let t109 = param_c_x_2;
     let t110 = M_CBRT6;
     let t111 = t110 * t110;
     let t112 = M_PI * M_PI;
-    let t113 = pow_1_3(t112);
+    let t113 = 2.1450293971110255;
     let t114 = t113 * t113;
     let t115 = t111 * t114;
     let t116 = 3.0 / 10.0 * t115;

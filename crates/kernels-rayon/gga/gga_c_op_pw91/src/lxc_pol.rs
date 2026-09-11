@@ -148,14 +148,14 @@ pub fn gga_c_op_pw91_lxc_pol(
     let t17 = -t14;
     let t33 = f64x8::splat(M_CBRT3);
     let t34 = t33 * t33;
-    let t36 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t36 = f64x8::splat(0.6827840632552957);
     let t38 = t34 / t36;
     let t39 = f64x8::splat(M_CBRT4);
     let t40 = t38 * t39;
     let t41 = f64x8::splat(M_CBRT2);
     let t51 = f64x8::splat(M_CBRT6);
     let t52 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t53 = (simd::cbrt(t52));
+    let t53 = f64x8::splat(2.1450293971110255);
     let t54 = t53 * t53;
     let t55 = f64x8::splat(1.0) / t54;
     let t56 = t51 * t55;

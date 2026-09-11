@@ -153,12 +153,12 @@ pub fn mgga_c_revtpss_vxc_pol(
     let t32 = zeta_threshold - f64x8::splat(1.0);
     let t72 = f64x8::splat(M_CBRT3);
     let t73 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t74 = (simd::cbrt(t73));
+    let t74 = f64x8::splat(2.1450293971110255);
     let t75 = t74 * t74;
     let t76 = f64x8::splat(1.0) / t75;
     let t77 = t72 * t76;
     let t121 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t122 = (simd::cbrt(t121));
+    let t122 = f64x8::splat(0.6827840632552957);
     let t123 = t72 * t122;
     let t124 = f64x8::splat(M_CBRT4);
     let t125 = t124 * t124;
@@ -169,7 +169,7 @@ pub fn mgga_c_revtpss_vxc_pol(
     let t153 = t152 * zeta_threshold;
     let t159 = f64x8::splat(M_CBRT2);
     let t162 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t159 - f64x8::splat(2.0));
-    let t195 = (simd::ln(f64x8::splat(2.0)));
+    let t195 = f64x8::splat(0.6931471805599453);
     let t196 = f64x8::splat(1.0) - t195;
     let t197 = f64x8::splat(1.0) / t73;
     let t198 = t196 * t197;

@@ -149,7 +149,7 @@ pub fn gga_x_airy_kxc_pol(
     let t28 = f64x8::splat(M_CBRT6);
     let t29 = t28 * t28;
     let t30 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(2.1450293971110255);
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = t29 * t32;
     let tvsigma1 = f64x8::splat(0.0);

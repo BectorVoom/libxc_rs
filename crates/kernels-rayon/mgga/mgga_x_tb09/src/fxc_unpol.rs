@@ -43,7 +43,7 @@ pub fn mgga_x_tb09_fxc_unpol(
     let t3 = param_c * t2;
     let t4 = M_CBRT2;
     let t5 = t4 * t4;
-    let t51 = rmath::sqrt(15.0);
+    let t51 = 3.872983346207417;
     let t52 = (3.0 * param_c - 2.0) * t51;
     let t53 = 1.0 / M_PI;
     let t54 = M_SQRT2;

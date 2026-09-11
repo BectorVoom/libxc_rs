@@ -142,13 +142,13 @@ pub fn gga_x_sfat_pbe_exc_pol(
     let t28 = t2 * t2;
     let t29 = t28 * f64x8::splat(M_PI);
     let t30 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(0.6827840632552957);
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = f64x8::splat(M_CBRT4);
     let t34 = t33 * t32;
     let t35 = f64x8::splat(M_CBRT6);
     let t36 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t37 = (simd::cbrt(t36));
+    let t37 = f64x8::splat(2.1450293971110255);
     let t38 = t37 * t37;
     let t39 = f64x8::splat(1.0) / t38;
     let t40 = t39 * t35;

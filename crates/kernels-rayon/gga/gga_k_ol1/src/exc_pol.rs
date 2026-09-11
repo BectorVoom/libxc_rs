@@ -142,7 +142,7 @@ pub fn gga_k_ol1_exc_pol(
     let t39 = f64x8::splat(M_CBRT2);
     let t47 = f64x8::splat(M_CBRT6);
     let t49 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t50 = (simd::cbrt(t49));
+    let t50 = f64x8::splat(2.1450293971110255);
     let t51 = t50 * t50;
     let t52 = f64x8::splat(1.0) / t51;
     let mut ip = 0usize;

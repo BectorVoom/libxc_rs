@@ -46,7 +46,7 @@ pub fn gga_k_lgap_ge_kxc_pol(
     let t34 = t33 * t33;
     let t35 = param_mu_0 * t34;
     let t36 = M_PI * M_PI;
-    let t37 = pow_1_3(t36);
+    let t37 = 2.1450293971110255;
     let t38 = 1.0 / t37;
     let t48 = param_mu_1 * t33;
     let t49 = t37 * t37;

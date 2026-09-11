@@ -129,7 +129,7 @@ pub fn lda_c_2d_amgb_exc_pol(
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t12 = ((f64x8::splat(M_PI)).sqrt());
+    let t12 = f64x8::splat(1.7724538509055159);
     let t13 = f64x8::splat(1.0) / t12;
     let t63 = f64x8::splat(M_SQRT2);
     let t69 = ((zeta_threshold).sqrt());

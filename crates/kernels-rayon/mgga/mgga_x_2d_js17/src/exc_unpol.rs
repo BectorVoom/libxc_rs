@@ -74,7 +74,7 @@ pub fn mgga_x_2d_js17_exc_unpol(
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t4 = ((f64x8::splat(M_PI)).sqrt());
+    let t4 = f64x8::splat(1.7724538509055159);
     let t6 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
     let t7 = zeta_threshold - f64x8::splat(1.0);
     let t9 = ((t6).select(t7, (t6).select(-t7, f64x8::splat(0.0))));

@@ -34,7 +34,7 @@ pub fn gga_x_pbetrans_fxc_pol(
     let t21 = pow_1_3(zeta_threshold);
     let t22 = t21 * zeta_threshold;
     let t28 = M_PI * M_PI;
-    let t29 = pow_1_3(t28);
+    let t29 = 2.1450293971110255;
     let t30 = t2 * t29;
     let t31 = M_CBRT6;
     let t32 = t31 * t31;

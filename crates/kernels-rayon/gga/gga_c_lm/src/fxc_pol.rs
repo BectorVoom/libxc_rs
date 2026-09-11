@@ -30,7 +30,7 @@ pub fn gga_c_lm_fxc_pol(
     let t1 = 1.0 / M_PI;
     let t7 = M_CBRT3;
     let t8 = t7 * t7;
-    let t9 = pow_1_3(t1);
+    let t9 = 0.6827840632552957;
     let t10 = 1.0 / t9;
     let t11 = t8 * t10;
     let t12 = M_CBRT4;
@@ -44,13 +44,13 @@ pub fn gga_c_lm_fxc_pol(
     let t52 = 1.0 / (2.0 * t49 - 2.0);
     let t65 = M_PI * t8;
     let t66 = M_PI * M_PI;
-    let t67 = pow_1_3(t66);
+    let t67 = 2.1450293971110255;
     let t69 = 1.0 / t67 / t66;
     let t87 = t38 * t38;
     let t88 = t87 * zeta_threshold;
     let t98 = M_SQRT2;
     let t100 = t7 * param_lm_f;
-    let t101 = rmath::pow(t1, 1.0 / 6.0);
+    let t101 = 0.8263074871107581;
     let t102 = 1.0 / t101;
     let t262 = t8 * t69;
     let t302 = t10 * t12;

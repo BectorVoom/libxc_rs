@@ -80,7 +80,7 @@ pub fn lda_xc_teter93_fxc_unpol(
     let t15 = f64x8::splat(M_CBRT3);
     let t16 = (f64x8::splat(2.217058676663745) + f64x8::splat(0.6157402568883344) * t11) * t15;
     let t17 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t18 = (simd::cbrt(t17));
+    let t18 = f64x8::splat(0.6827840632552957);
     let t19 = f64x8::splat(M_CBRT4);
     let t20 = t19 * t19;
     let t21 = t18 * t20;

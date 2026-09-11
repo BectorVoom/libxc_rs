@@ -88,7 +88,7 @@ pub fn gga_x_b88_exc_unpol(
     let t17 = (((t11).simd_le(zeta_threshold)).select(t13 * zeta_threshold, t15 * t11));
     let t20 = t3 * t3;
     let t21 = param_beta * t20;
-    let t23 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t23 = f64x8::splat(0.6827840632552957);
     let t24 = f64x8::splat(1.0) / t23;
     let t25 = f64x8::splat(M_CBRT4);
     let t26 = t24 * t25;

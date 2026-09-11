@@ -31,20 +31,20 @@ pub fn gga_c_ft97_kxc_unpol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = rmath::ln(2.0);
+    let t1 = 0.6931471805599453;
     let t2 = 1.0 - t1;
     let t3 = M_PI * M_PI;
     let t4 = 1.0 / t3;
     let t5 = t2 * t4;
     let t6 = M_CBRT3;
     let t7 = 1.0 / M_PI;
-    let t8 = pow_1_3(t7);
+    let t8 = 0.6827840632552957;
     let t9 = t6 * t8;
     let t10 = t5 * t9;
     let t11 = M_CBRT4;
     let t12 = t11 * t11;
     let t16 = M_CBRT2;
-    let t17 = rmath::pow(4.0, 1.0 / 5.0);
+    let t17 = 1.3195079107728942;
     let t29 = t6 * t6;
     let t30 = t8 * t8;
     let t31 = t29 * t30;
@@ -55,14 +55,14 @@ pub fn gga_c_ft97_kxc_unpol(
     let t44 = t43 * t12;
     let t59 = t9 * t12;
     let t79 = t5 * t59;
-    let t81 = rmath::sqrt(6.0);
+    let t81 = 2.449489742783178;
     let t82 = t81 * t7;
     let t110 = t17 * t17;
     let t111 = t110 * t17;
     let t178 = 1.0 / t8;
     let t179 = t29 * t178;
     let t180 = 1.0 / t2 * t3 * t179;
-    let t197 = rmath::pow(4.0, 1.0 / 15.0);
+    let t197 = 1.096824979694626;
     let t198 = t197 * t197;
     let t199 = t198 * t198;
     let t201 = t199 * t199;

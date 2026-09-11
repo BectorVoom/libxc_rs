@@ -140,7 +140,7 @@ pub fn mgga_x_rlda_exc_pol(
     let t14 = -t10;
     let t20 = (simd::cbrt(zeta_threshold));
     let t21 = t20 * zeta_threshold;
-    let t29 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t29 = f64x8::splat(0.6827840632552957);
     let t30 = f64x8::splat(1.0) / t29;
     let t31 = param_prefactor * t30;
     let t32 = f64x8::splat(M_CBRT4);

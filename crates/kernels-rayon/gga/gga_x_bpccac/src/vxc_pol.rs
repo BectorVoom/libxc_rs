@@ -141,7 +141,7 @@ pub fn gga_x_bpccac_vxc_pol(
     let t22 = t21 * zeta_threshold;
     let t38 = f64x8::splat(M_CBRT6);
     let t39 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t40 = (simd::cbrt(t39));
+    let t40 = f64x8::splat(2.1450293971110255);
     let t41 = t40 * t40;
     let t42 = f64x8::splat(1.0) / t41;
     let t43 = t38 * t42;

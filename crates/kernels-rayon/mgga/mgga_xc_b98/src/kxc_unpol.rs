@@ -68,12 +68,12 @@ pub fn mgga_xc_b98_kxc_unpol(
     let t13 = t12 * t12;
     let t29 = M_CBRT6;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = t32 * t32;
     let t34 = 1.0 / t33;
     let t55 = piecewise3(t6, zeta_threshold, 1.0);
     let t56 = 1.0 / M_PI;
-    let t57 = pow_1_3(t56);
+    let t57 = 0.6827840632552957;
     let t58 = t2 * t57;
     let t59 = M_CBRT4;
     let t60 = t59 * t59;

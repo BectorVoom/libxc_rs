@@ -103,7 +103,7 @@ pub fn mgga_x_2d_prhg07_lxc_unpol(
     let t15 = M_PI * t14;
     let t16 = M_SQRT2;
     let t30 = 1.0 / M_PI;
-    let t34 = rmath::exp(-1.0);
+    let t34 = 0.36787944117144233;
     let t5120 = t15 * t16;
     for ip in 0..zk.len() {
         let t3 = rho[ip] * 0.5 <= dens_threshold;

@@ -116,8 +116,8 @@ impl MggaFunctional {
     /// Map a libxc functional ID to a dispatchable MGGA variant, or return an error.
     ///
     /// Returns `Err(UnsupportedFunctional)` for:
-    /// - The 6 deferred MGGA IDs tracked in `crates/kernel-mgga/src/deferred.rs`
-    ///   (mgga_c_b94, mgga_x_br89, mgga_x_mbr, mgga_x_mbrxc_bg, mgga_x_mbrxh_bg,
+    /// - The 5 deferred MGGA IDs tracked in `crates/libxc-core/src/deferred.rs`
+    ///   (mgga_x_br89, mgga_x_mbr, mgga_x_mbrxc_bg, mgga_x_mbrxh_bg,
     ///   mgga_x_mggac) — these require Brent's-method root-finders.
     /// - MGGA functionals whose kernel module has only partial derivative
     ///   coverage (split-file translations such as `mgga_c_tpss`).

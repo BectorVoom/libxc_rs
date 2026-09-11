@@ -24,20 +24,20 @@ pub fn gga_c_ft97_vxc_pol(
 ) {
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = rmath::ln(2.0);
+    let t1 = 0.6931471805599453;
     let t2 = 1.0 - t1;
     let t3 = M_PI * M_PI;
     let t4 = 1.0 / t3;
     let t5 = t2 * t4;
     let t6 = M_CBRT3;
     let t7 = 1.0 / M_PI;
-    let t8 = pow_1_3(t7);
+    let t8 = 0.6827840632552957;
     let t9 = t6 * t8;
     let t10 = t5 * t9;
     let t11 = M_CBRT4;
     let t12 = t11 * t11;
     let t17 = M_CBRT2;
-    let t25 = rmath::pow(4.0, 1.0 / 5.0);
+    let t25 = 1.3195079107728942;
     let t26 = t9 * t12;
     let t39 = t6 * t6;
     let t40 = t8 * t8;
@@ -46,7 +46,7 @@ pub fn gga_c_ft97_vxc_pol(
     let t52 = t6 * t51;
     let t70 = t17 * t17;
     let t89 = t5 * t26;
-    let t90 = rmath::sqrt(6.0);
+    let t90 = 2.449489742783178;
     let t91 = t90 * t7;
     let t122 = t25 * t25;
     let t123 = t122 * t25;

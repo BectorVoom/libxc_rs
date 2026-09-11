@@ -80,7 +80,7 @@ pub fn mgga_c_kcisk_vxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = f64x8::splat(M_CBRT3);
     let t3 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t4 = (simd::cbrt(t3));
+    let t4 = f64x8::splat(0.6827840632552957);
     let t5 = t2 * t4;
     let t6 = f64x8::splat(M_CBRT4);
     let t7 = t6 * t6;
@@ -98,7 +98,7 @@ pub fn mgga_c_kcisk_vxc_unpol(
     let t62 = t61 * t61;
     let t63 = t40 * t3 * t62;
     let t64 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t65 = (simd::cbrt(t64));
+    let t65 = f64x8::splat(2.1450293971110255);
     let t66 = f64x8::splat(1.0) / t65;
     let t67 = t40 * t2;
     let t68 = t4 * t7;
@@ -116,9 +116,9 @@ pub fn mgga_c_kcisk_vxc_unpol(
     let t158 = t19 * t157;
     let t167 = t4 / t64;
     let t168 = t2 * t167;
-    let t176 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t176 = f64x8::splat(1.2599210498948732);
     let t177 = t136 * t176;
-    let t193 = ((f64x8::splat(4.0)).sqrt());
+    let t193 = f64x8::splat(2.0);
     let t219 = (((f64x8::splat(2.0)).simd_le(zeta_threshold)).select(t36, f64x8::splat(2.0) * t40));
     let t221 = (((f64x8::splat(0.0)).simd_le(zeta_threshold)).select(t36, f64x8::splat(0.0)));
     let t223 = (t219 + t221 - f64x8::splat(2.0)) * t43;

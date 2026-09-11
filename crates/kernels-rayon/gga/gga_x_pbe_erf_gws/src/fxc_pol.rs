@@ -60,7 +60,7 @@ pub fn gga_x_pbe_erf_gws_fxc_pol(
     let t53 = 1.0 / param_hyb_omega_0;
     let t54 = t53 * t6;
     let t55 = t29 * t13;
-    let t60 = rmath::sqrt(M_PI);
+    let t60 = 1.7724538509055159;
     let t61 = t60 * t40;
     let t69 = t4 * t4;
     let t71 = 6.0 * t28 * t69;
@@ -85,7 +85,7 @@ pub fn gga_x_pbe_erf_gws_fxc_pol(
     let t460 = t79 * t98;
     let t461 = t460 * t6;
     let t470 = t40 * M_PI;
-    let t471 = rmath::pow(M_PI, 1.0 / 6.0);
+    let t471 = 1.2102032422537643;
     let t472 = t471 * t471;
     let t473 = t472 * t472;
     let t474 = t473 * t471;

@@ -161,7 +161,7 @@ pub fn gga_k_rational_p_lxc_pol(
     let t34 = f64x8::splat(M_CBRT6);
     let t35 = param_C2 * t32 * t34;
     let t36 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t37 = (simd::cbrt(t36));
+    let t37 = f64x8::splat(2.1450293971110255);
     let t38 = t37 * t37;
     let t39 = f64x8::splat(1.0) / t38;
     let t98 = param_C2 * t34;

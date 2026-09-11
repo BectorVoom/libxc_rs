@@ -99,7 +99,7 @@ pub fn hyb_mgga_x_dldf_fxc_unpol(
     let t16 = t4 * t15;
     let t18 = f64x8::splat(M_CBRT6);
     let t19 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t20 = (simd::cbrt(t19));
+    let t20 = f64x8::splat(2.1450293971110255);
     let t21 = t20 * t20;
     let t23 = t18 / t21;
     let t24 = f64x8::splat(M_CBRT2);

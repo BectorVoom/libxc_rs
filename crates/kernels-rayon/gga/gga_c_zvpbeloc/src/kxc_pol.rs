@@ -139,16 +139,16 @@ pub fn gga_c_zvpbeloc_kxc_pol(
     let zeta_threshold = f64x8::splat(zeta_threshold);
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
-    let t1 = (simd::pow(f64x8::splat(4.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t1 = f64x8::splat(1.2599210498948732);
     let t2 = t1 * t1;
     let t3 = t2 * t2;
-    let t5 = (simd::pow(f64x8::splat(3.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t5 = f64x8::splat(1.2009369551760027);
     let t7 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t8 = f64x8::splat(1.0) / t7;
-    let t9 = (simd::pow(t8, f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t9 = f64x8::splat(0.6827840632552957);
     let t10 = t3 * t1 * t5 * t9;
     let t11 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t12 = (simd::cbrt(t11));
+    let t12 = f64x8::splat(0.6827840632552957);
     let t28 = f64x8::splat(M_CBRT3);
     let t29 = t28 * t12;
     let t30 = f64x8::splat(M_CBRT4);
@@ -160,7 +160,7 @@ pub fn gga_c_zvpbeloc_kxc_pol(
     let t65 = t64 * zeta_threshold;
     let t75 = f64x8::splat(M_CBRT2);
     let t78 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t75 - f64x8::splat(2.0));
-    let t111 = (simd::ln(f64x8::splat(2.0)));
+    let t111 = f64x8::splat(0.6931471805599453);
     let t112 = f64x8::splat(1.0) - t111;
     let t113 = t112 * t8;
     let t114 = t64 * t64;

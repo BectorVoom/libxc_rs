@@ -114,7 +114,7 @@ pub fn hyb_mgga_x_m05_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t30 = M_CBRT6;
     let t31 = M_PI * M_PI;
-    let t32 = pow_1_3(t31);
+    let t32 = 2.1450293971110255;
     let t33 = t32 * t32;
     let t34 = 1.0 / t33;
     let t35 = t30 * t34;

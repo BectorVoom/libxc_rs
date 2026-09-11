@@ -57,7 +57,7 @@ pub fn gga_k_lc94_lxc_unpol(
     let t20 = piecewise3(t12 <= zeta_threshold, t15 * zeta_threshold, t18 * t12);
     let t24 = M_CBRT6;
     let t26 = M_PI * M_PI;
-    let t27 = pow_1_3(t26);
+    let t27 = 2.1450293971110255;
     let t28 = t27 * t27;
     let t29 = 1.0 / t28;
     let t31 = M_CBRT2;

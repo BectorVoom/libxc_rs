@@ -30,7 +30,7 @@ pub fn mgga_x_2d_prhg07_exc_pol(
     let t19 = t18 * zeta_threshold;
     let t24 = M_SQRT2;
     let t37 = 1.0 / M_PI;
-    let t41 = rmath::exp(-1.0);
+    let t41 = 0.36787944117144233;
     for ip in 0..zk.len() {
         let rho0 = rho[ip * 2];
         let rho1 = rho[ip * 2 + 1];

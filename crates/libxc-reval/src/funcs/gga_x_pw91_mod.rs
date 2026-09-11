@@ -30,39 +30,65 @@ pub const PARAM_EXPO: f64 = 4.0;
 /// libxc default for `param_f`.
 pub const PARAM_F: f64 = 0.003968803415078375;
 
-/// Number of libxc `ext_params` this dispatch accepts at runtime: none,
-/// because its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py.
-pub const N_EXT_PARAMS: usize = 0;
+/// Number of libxc `ext_params` this dispatch accepts at runtime.
+pub const N_EXT_PARAMS: usize = 3;
 
-/// Number of kernel arguments (compiled-in constants).
-pub const N_PARAMS: usize = 7;
+/// libxc `ext_params` names, in libxc's own order.
+pub const EXT_PARAM_NAMES: [&str; 3] = ["_bt", "_alpha", "_expo"];
 
 /// Compiled-in libxc defaults, in kernel argument order.
 pub const DEFAULTS: [f64; 7] = [PARAM_A, PARAM_ALPHA, PARAM_B, PARAM_C, PARAM_D, PARAM_EXPO, PARAM_F];
 
-/// The kernel's parameters for a caller-supplied `ext_params` array: always
-/// [`DEFAULTS`] here, and a non-empty `ext` is rejected rather than guessed
-/// at (its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py). The fused composite dispatch (`crate::fused`) uses this to
-/// hand an auxiliary's constants to a kernel that evaluates several
-/// auxiliaries in one loop.
+/// Number of kernel arguments.
+pub const N_PARAMS: usize = 7;
+
+/// `X2S` (util.h, a plain `double` macro).
+const X2S: f64 = 0.1282782438530422;
+/// `X_FACTOR_C` (util.h, a plain `double` macro).
+const X_FACTOR_C: f64 = 0.9305257363491001;
+/// `beta = 5.0*pow(36.0*M_PI,-5.0/3.0)`: constant arguments, so GCC folds
+/// the `pow` correctly rounded at compile time.
+const BETA: f64 = 0.0018903811666999256;
+
+/// The kernel's parameters for a caller-supplied `ext_params` array
+/// `[_bt, _alpha, _expo]`, derived as `mpw91_set_ext_params`
+/// (gga_x_pw91.c) derives them:
+///
+/// ```c
+/// params->a = 6.0*bt/X2S;
+/// params->b = 1.0/X2S;
+/// params->c = bt/(X_FACTOR_C*X2S*X2S);
+/// params->d = -(bt - beta)/(X_FACTOR_C*X2S*X2S);
+/// params->f = 1.0e-6/(X_FACTOR_C*pow(X2S, params->expo));
+/// ```
+///
+/// That `pow` has a runtime exponent, so it is glibc's; `rmath::pow` is
+/// bit-exact against it. `None` is exactly [`DEFAULTS`].
 pub fn kernel_params(ext: Option<&[f64]>) -> Result<[f64; N_PARAMS], LibxcRsError> {
-    if let Some(e) = ext
-        && !e.is_empty()
-    {
+    let Some(e) = ext else {
+        return Ok(DEFAULTS);
+    };
+    if e.len() != N_EXT_PARAMS {
         return Err(LibxcRsError::ExtParamCountMismatch {
             id: libxc_core::model::FunctionalId(ID),
-            expected: 0,
+            expected: N_EXT_PARAMS,
             actual: e.len(),
         });
     }
-    Ok(DEFAULTS)
+    let (bt, alpha, expo) = (e[0], e[1], e[2]);
+    let mut p = DEFAULTS;
+    p[0] = 6.0 * bt / X2S;
+    p[2] = 1.0 / X2S;
+    p[3] = bt / (X_FACTOR_C * X2S * X2S);
+    p[4] = -(bt - BETA) / (X_FACTOR_C * X2S * X2S);
+    p[6] = 1.0e-6 / (X_FACTOR_C * libxc_rkernel_math::rmath::pow(X2S, expo));
+    p[1] = alpha;
+    p[5] = expo;
+    Ok(p)
 }
 
 /// Same as [`dispatch`], with an optional caller-supplied `ext_params` array
-/// in libxc's own order.
-///
-/// This functional does not accept runtime ext_params (its libxc ext_params could not be put in correspondence with the kernel's arguments; see extract_params.py), so a non-empty
-/// `ext` is rejected rather than guessed at.
+/// in libxc's own order, turned into kernel constants by [`kernel_params`].
 pub fn dispatch_with(
     input: &GgaInput<'_>,
     output: &mut GgaOutput<'_>,
@@ -71,8 +97,22 @@ pub fn dispatch_with(
     thresholds: &Thresholds,
     ext: Option<&[f64]>,
 ) -> Result<(), LibxcRsError> {
-    kernel_params(ext)?;
-    dispatch(input, output, order, spin, thresholds)
+    let p = kernel_params(ext)?;
+    crate::ten_arm_dispatch_rgga!(
+        input, output, order, spin, thresholds,
+        needs_tau = false, zero_tau = false,
+        [k::exc_unpol::gga_x_pw91_exc_unpol],
+        [k::vxc_unpol::gga_x_pw91_vxc_unpol],
+        [k::fxc_unpol::gga_x_pw91_fxc_unpol],
+        [k::kxc_unpol::gga_x_pw91_kxc_unpol],
+        [k::lxc_unpol::gga_x_pw91_lxc_unpol],
+        [k::exc_pol::gga_x_pw91_exc_pol],
+        [k::vxc_pol::gga_x_pw91_vxc_pol],
+        [k::fxc_pol::gga_x_pw91_fxc_pol],
+        [k::kxc_pol::gga_x_pw91_kxc_pol],
+        [k::lxc_pol::gga_x_pw91_lxc_pol],
+        params = (p[0], p[1], p[2], p[3], p[4], p[5], p[6])
+    )
 }
 
 pub fn dispatch(

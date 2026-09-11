@@ -53,7 +53,7 @@ pub fn gga_x_hjs_vxc_unpol(
     let t20 = t3 * t3;
     let t21 = param_hyb_omega_0 * t20;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = 1.0 / t23;
     let t25 = t21 * t24;
     let t26 = piecewise3(t12, t13, t15);
@@ -98,7 +98,7 @@ pub fn gga_x_hjs_vxc_unpol(
     let t182 = t32 / t180;
     let t208 = t178 * param_hyb_omega_0 * t50;
     let t210 = 1.0 / t180 / t26;
-    let t231 = rmath::sqrt(M_PI);
+    let t231 = 1.7724538509055159;
     let t246 = t178 * t178;
     let t248 = t246 * param_hyb_omega_0 * t3;
     let t249 = t248 * t76;

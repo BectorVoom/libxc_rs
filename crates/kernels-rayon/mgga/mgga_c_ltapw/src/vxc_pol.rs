@@ -30,13 +30,13 @@ pub fn mgga_c_ltapw_vxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t2 = M_CBRT3;
     let t3 = 1.0 / M_PI;
-    let t4 = pow_1_3(t3);
+    let t4 = 0.6827840632552957;
     let t5 = t2 * t4;
     let t6 = M_CBRT4;
     let t7 = t6 * t6;
     let t13 = M_CBRT6;
     let t14 = M_PI * M_PI;
-    let t15 = pow_1_3(t14);
+    let t15 = 2.1450293971110255;
     let t16 = t15 * t15;
     let t18 = t13 / t16;
     let t21 = 3.0 / 5.0 * param_ltafrac;

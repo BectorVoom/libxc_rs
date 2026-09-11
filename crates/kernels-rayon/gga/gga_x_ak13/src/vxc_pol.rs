@@ -146,7 +146,7 @@ pub fn gga_x_ak13_vxc_pol(
     let t28 = f64x8::splat(M_CBRT6);
     let t29 = t28 * t28;
     let t31 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t32 = (simd::cbrt(t31));
+    let t32 = f64x8::splat(2.1450293971110255);
     let t33 = f64x8::splat(1.0) / t32;
     let t34 = param_B1 * t29 * t33;
     let t40 = t29 * t33;

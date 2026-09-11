@@ -71,7 +71,7 @@ pub fn mgga_x_rscan_kxc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = M_CBRT6;
     let t30 = M_PI * M_PI;
-    let t31 = pow_1_3(t30);
+    let t31 = 2.1450293971110255;
     let t32 = t31 * t31;
     let t33 = 1.0 / t32;
     let t34 = t29 * t33;
@@ -82,13 +82,13 @@ pub fn mgga_x_rscan_kxc_pol(
     let t49 = 1.0 / t48;
     let t50 = t47 * t49;
     let t57 = t45 * t29;
-    let t66 = rmath::sqrt(146.0);
+    let t66 = 12.083045973594572;
     let t67 = t66 * t29;
     let t86 = M_CBRT2;
     let t92 = t46 * t32;
     let t95 = param_taur * 0.5;
     let t101 = t86 * t86;
-    let t160 = rmath::sqrt(3.0);
+    let t160 = 1.7320508075688772;
     let t161 = 1.0 / t31;
     let t162 = t46 * t161;
     let t325 = param_k1 * param_k1;
@@ -97,7 +97,7 @@ pub fn mgga_x_rscan_kxc_pol(
     let t344 = 1.0 / t343;
     let t345 = t342 * t344;
     let t442 = param_d * param_c2;
-    let t457 = rmath::pow(3.0, 1.0 / 6.0);
+    let t457 = 1.2009369551760027;
     let t458 = t457 * t457;
     let t459 = t458 * t458;
     let t460 = t459 * t457;

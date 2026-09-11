@@ -92,7 +92,7 @@ pub fn gga_c_lyp_kxc_unpol(
     let t20 = f64x8::splat(M_CBRT3);
     let t21 = t20 * t20;
     let t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(2.1450293971110255);
     let t24 = t23 * t23;
     let t26 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
     let t27 = zeta_threshold * zeta_threshold;

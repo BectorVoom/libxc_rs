@@ -77,7 +77,7 @@ pub fn lda_c_rc04_exc_unpol(
     let t5 = t4 * t4;
     let t6 = t5 * t4;
     let t7 = f64x8::splat(M_CBRT3);
-    let t9 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t9 = f64x8::splat(0.6827840632552957);
     let t10 = t7 * t9;
     let t11 = f64x8::splat(M_CBRT4);
     let t12 = t11 * t11;

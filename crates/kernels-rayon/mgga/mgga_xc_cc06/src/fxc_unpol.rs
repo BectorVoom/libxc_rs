@@ -94,7 +94,7 @@ pub fn mgga_xc_cc06_fxc_unpol(
     let t9 = (simd::cbrt(zeta_threshold));
     let t11 = (((f64x8::splat(1.0)).simd_le(zeta_threshold)).select(t9 * zeta_threshold, f64x8::splat(1.0)));
     let t18 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t19 = (simd::cbrt(t18));
+    let t19 = f64x8::splat(0.6827840632552957);
     let t20 = t4 * t19;
     let t21 = f64x8::splat(M_CBRT4);
     let t22 = t21 * t21;

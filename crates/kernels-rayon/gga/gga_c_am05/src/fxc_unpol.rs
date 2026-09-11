@@ -83,7 +83,7 @@ pub fn gga_c_am05_fxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -99,7 +99,7 @@ pub fn gga_c_am05_fxc_unpol(
     let t61 = f64x8::splat(M_CBRT6);
     let t62 = param_alpha * t61;
     let t63 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t64 = (simd::cbrt(t63));
+    let t64 = f64x8::splat(2.1450293971110255);
     let t65 = t64 * t64;
     let t66 = f64x8::splat(1.0) / t65;
     let t68 = t39 * t39;

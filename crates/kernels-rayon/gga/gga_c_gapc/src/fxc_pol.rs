@@ -28,7 +28,7 @@ pub fn gga_c_gapc_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -48,7 +48,7 @@ pub fn gga_c_gapc_fxc_pol(
     let t93 = t1 * t3 / t90;
     let t102 = 1.0 / t20;
     let t103 = t1 * t102;
-    let t104 = rmath::pow(4.0, 1.0 / 6.0);
+    let t104 = 1.2599210498948732;
     let t105 = t103 * t104;
     let t117 = t35 * t35;
     let t118 = piecewise3(t34, t117, 1.0);
@@ -57,7 +57,7 @@ pub fn gga_c_gapc_fxc_pol(
     let t147 = 1.0 / t3;
     let t148 = t137 * t19 * t147;
     let t154 = t103 * t6;
-    let t159 = rmath::sqrt(4.0);
+    let t159 = 2.0;
     let t225 = 2.0 <= zeta_threshold;
     let t227 = piecewise3(t225, t36, 2.0 * t40);
     let t228 = 0.0 <= zeta_threshold;

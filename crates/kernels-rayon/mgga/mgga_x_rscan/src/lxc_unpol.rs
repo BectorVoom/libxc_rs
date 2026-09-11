@@ -109,7 +109,7 @@ pub fn mgga_x_rscan_lxc_unpol(
     let t19 = t4 / t5 * t18;
     let t21 = M_CBRT6;
     let t22 = M_PI * M_PI;
-    let t23 = pow_1_3(t22);
+    let t23 = 2.1450293971110255;
     let t24 = t23 * t23;
     let t25 = 1.0 / t24;
     let t26 = t21 * t25;
@@ -120,7 +120,7 @@ pub fn mgga_x_rscan_lxc_unpol(
     let t42 = t23 * t22;
     let t43 = 1.0 / t42;
     let t44 = t39 * t40 * t43;
-    let t60 = rmath::sqrt(146.0);
+    let t60 = 12.083045973594572;
     let t61 = t60 * t21;
     let t62 = t61 * t25;
     let t65 = t12 * t12;
@@ -128,7 +128,7 @@ pub fn mgga_x_rscan_lxc_unpol(
     let t67 = t66 * t12;
     let t84 = t40 * t24;
     let t93 = t65 * t12;
-    let t151 = rmath::sqrt(3.0);
+    let t151 = 1.7320508075688772;
     let t152 = 1.0 / t23;
     let t153 = t40 * t152;
     let t175 = param_k1 * param_k1;
@@ -138,7 +138,7 @@ pub fn mgga_x_rscan_lxc_unpol(
     let t194 = t191 * t193;
     let t218 = t66 * t65;
     let t283 = param_d * param_c2;
-    let t298 = rmath::pow(3.0, 1.0 / 6.0);
+    let t298 = 1.2009369551760027;
     let t299 = t298 * t298;
     let t300 = t299 * t299;
     let t302 = t300 * t298 * t18;

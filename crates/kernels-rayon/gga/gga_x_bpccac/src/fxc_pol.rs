@@ -35,7 +35,7 @@ pub fn gga_x_bpccac_fxc_pol(
     let t22 = t21 * zeta_threshold;
     let t38 = M_CBRT6;
     let t39 = M_PI * M_PI;
-    let t40 = pow_1_3(t39);
+    let t40 = 2.1450293971110255;
     let t41 = t40 * t40;
     let t42 = 1.0 / t41;
     let t43 = t38 * t42;

@@ -144,7 +144,7 @@ pub fn mgga_x_mn12_lxc_pol(
     let t31 = M_CBRT6;
     let t32 = t31 * t31;
     let t33 = M_PI * M_PI;
-    let t34 = pow_1_3(t33);
+    let t34 = 2.1450293971110255;
     let t35 = t34 * t34;
     let t37 = 3.0 / 10.0 * t32 * t35;
     let t48 = param_c_2;

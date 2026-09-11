@@ -25,7 +25,7 @@ pub fn hyb_lda_xc_bn05_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t3 * t1;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -34,7 +34,7 @@ pub fn hyb_lda_xc_bn05_fxc_pol(
     let t9 = t8 * t8;
     let t16 = pow_1_3(zeta_threshold);
     let t17 = t16 * zeta_threshold;
-    let t23 = pow_1_3(9.0);
+    let t23 = 2.080083823051904;
     let t24 = t23 * t23;
     let t25 = t3 * t3;
     let t26 = t25 * t24;

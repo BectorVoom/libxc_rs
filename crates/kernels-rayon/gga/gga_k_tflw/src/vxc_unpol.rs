@@ -42,7 +42,7 @@ pub fn gga_k_tflw_vxc_unpol(
     let t26 = t25 * t25;
     let t31 = M_CBRT6;
     let t33 = M_PI * M_PI;
-    let t34 = pow_1_3(t33);
+    let t34 = 2.1450293971110255;
     let t35 = t34 * t34;
     let t36 = 1.0 / t35;
     let t68 = param_lambda * t26 * t31 * t36;

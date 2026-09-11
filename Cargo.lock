@@ -215,6 +215,7 @@ dependencies = [
  "libxc-core",
  "libxc-eval",
  "libxc-reval",
+ "libxc-rkernel-math",
 ]
 
 [[package]]
@@ -333,6 +334,7 @@ dependencies = [
  "libxc-rkernel-gga_x_ityh_pbe",
  "libxc-rkernel-gga_x_kt",
  "libxc-rkernel-gga_x_lag",
+ "libxc-rkernel-gga_x_lb",
  "libxc-rkernel-gga_x_lcgau",
  "libxc-rkernel-gga_x_lg93",
  "libxc-rkernel-gga_x_lspbe",
@@ -390,6 +392,7 @@ dependencies = [
  "libxc-rkernel-lda_c_hl",
  "libxc-rkernel-lda_c_lp96",
  "libxc-rkernel-lda_c_ml1",
+ "libxc-rkernel-lda_c_pk09",
  "libxc-rkernel-lda_c_pmgb06",
  "libxc-rkernel-lda_c_pw",
  "libxc-rkernel-lda_c_pw_erf",
@@ -404,6 +407,7 @@ dependencies = [
  "libxc-rkernel-lda_c_vwn_rpa",
  "libxc-rkernel-lda_c_w20",
  "libxc-rkernel-lda_c_wigner",
+ "libxc-rkernel-lda_k_gds08_worker",
  "libxc-rkernel-lda_k_tf",
  "libxc-rkernel-lda_k_zlp",
  "libxc-rkernel-lda_x",
@@ -417,8 +421,11 @@ dependencies = [
  "libxc-rkernel-lda_xc_1d_ehwlrg",
  "libxc-rkernel-lda_xc_ksdt",
  "libxc-rkernel-lda_xc_teter93",
+ "libxc-rkernel-lda_xc_tih",
  "libxc-rkernel-lda_xc_zlp",
+ "libxc-rkernel-math",
  "libxc-rkernel-mgga_c_b88",
+ "libxc-rkernel-mgga_c_b94",
  "libxc-rkernel-mgga_c_bc95",
  "libxc-rkernel-mgga_c_cc",
  "libxc-rkernel-mgga_c_ccalda",
@@ -451,6 +458,7 @@ dependencies = [
  "libxc-rkernel-mgga_k_rda",
  "libxc-rkernel-mgga_x_2d_js17",
  "libxc-rkernel-mgga_x_2d_prhg07",
+ "libxc-rkernel-mgga_x_2d_prp10",
  "libxc-rkernel-mgga_x_br89",
  "libxc-rkernel-mgga_x_br89_explicit",
  "libxc-rkernel-mgga_x_edmgga",
@@ -491,6 +499,7 @@ dependencies = [
  "libxc-rkernel-mgga_x_scan",
  "libxc-rkernel-mgga_x_task",
  "libxc-rkernel-mgga_x_tau_hcth",
+ "libxc-rkernel-mgga_x_tb09",
  "libxc-rkernel-mgga_x_th",
  "libxc-rkernel-mgga_x_tm",
  "libxc-rkernel-mgga_x_tpss",
@@ -1149,6 +1158,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-rkernel-gga_x_lb"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
 name = "libxc-rkernel-gga_x_lcgau"
 version = "0.1.0"
 dependencies = [
@@ -1548,6 +1564,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-rkernel-lda_c_pk09"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
 name = "libxc-rkernel-lda_c_pmgb06"
 version = "0.1.0"
 dependencies = [
@@ -1646,6 +1669,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-rkernel-lda_k_gds08_worker"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
 name = "libxc-rkernel-lda_k_tf"
 version = "0.1.0"
 dependencies = [
@@ -1737,6 +1767,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "libxc-rkernel-lda_xc_tih"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
 name = "libxc-rkernel-lda_xc_zlp"
 version = "0.1.0"
 dependencies = [
@@ -1753,6 +1790,13 @@ dependencies = [
 
 [[package]]
 name = "libxc-rkernel-mgga_c_b88"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
+name = "libxc-rkernel-mgga_c_b94"
 version = "0.1.0"
 dependencies = [
  "libxc-rkernel-math",
@@ -1977,6 +2021,13 @@ dependencies = [
 
 [[package]]
 name = "libxc-rkernel-mgga_x_2d_prhg07"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
+name = "libxc-rkernel-mgga_x_2d_prp10"
 version = "0.1.0"
 dependencies = [
  "libxc-rkernel-math",
@@ -2257,6 +2308,13 @@ dependencies = [
 
 [[package]]
 name = "libxc-rkernel-mgga_x_tau_hcth"
+version = "0.1.0"
+dependencies = [
+ "libxc-rkernel-math",
+]
+
+[[package]]
+name = "libxc-rkernel-mgga_x_tb09"
 version = "0.1.0"
 dependencies = [
  "libxc-rkernel-math",

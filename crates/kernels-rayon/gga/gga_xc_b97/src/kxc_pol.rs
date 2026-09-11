@@ -63,7 +63,7 @@ pub fn gga_xc_b97_kxc_pol(
     let t83 = param_c_x_3;
     let t93 = param_c_x_4;
     let t183 = 1.0 / M_PI;
-    let t184 = pow_1_3(t183);
+    let t184 = 0.6827840632552957;
     let t185 = t28 * t184;
     let t186 = M_CBRT4;
     let t187 = t186 * t186;

@@ -88,12 +88,12 @@ pub fn gga_x_sfat_pbe_vxc_unpol(
     let t18 = t17 / t4 * t3;
     let t20 = t3 * t3;
     let t22 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(0.6827840632552957);
     let t24 = f64x8::splat(1.0) / t23;
     let t25 = f64x8::splat(M_CBRT4);
     let t27 = f64x8::splat(M_CBRT6);
     let t28 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(2.1450293971110255);
     let t30 = t29 * t29;
     let t31 = f64x8::splat(1.0) / t30;
     let t32 = t31 * t27;

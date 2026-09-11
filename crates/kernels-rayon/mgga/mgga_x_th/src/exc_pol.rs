@@ -138,7 +138,7 @@ pub fn mgga_x_th_exc_pol(
     let t14 = -t10;
     let t20 = (simd::cbrt(zeta_threshold));
     let t21 = t20 * zeta_threshold;
-    let t40 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t40 = f64x8::splat(0.6827840632552957);
     let t42 = f64x8::splat(M_CBRT4);
     let t43 = f64x8::splat(1.0) / t40 * t42;
     let mut ip = 0usize;

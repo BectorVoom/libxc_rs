@@ -167,7 +167,7 @@ pub fn hyb_mgga_x_m05_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t30 = f64x8::splat(M_CBRT6);
     let t31 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t32 = (simd::cbrt(t31));
+    let t32 = f64x8::splat(2.1450293971110255);
     let t33 = t32 * t32;
     let t34 = f64x8::splat(1.0) / t33;
     let t35 = t30 * t34;

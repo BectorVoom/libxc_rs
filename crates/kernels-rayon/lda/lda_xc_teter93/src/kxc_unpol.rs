@@ -30,7 +30,7 @@ pub fn lda_xc_teter93_kxc_unpol(
     let t15 = M_CBRT3;
     let t16 = (2.217058676663745 + 0.6157402568883344 * t11) * t15;
     let t17 = 1.0 / M_PI;
-    let t18 = pow_1_3(t17);
+    let t18 = 0.6827840632552957;
     let t19 = M_CBRT4;
     let t20 = t19 * t19;
     let t21 = t18 * t20;

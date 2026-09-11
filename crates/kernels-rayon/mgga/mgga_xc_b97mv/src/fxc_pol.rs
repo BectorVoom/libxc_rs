@@ -68,13 +68,13 @@ pub fn mgga_xc_b97mv_fxc_pol(
     let t68 = M_CBRT6;
     let t69 = t68 * t68;
     let t70 = M_PI * M_PI;
-    let t71 = pow_1_3(t70);
+    let t71 = 2.1450293971110255;
     let t72 = t71 * t71;
     let t73 = t69 * t72;
     let t74 = 3.0 / 10.0 * t73;
     let t83 = param_c_x_4;
     let t151 = 1.0 / M_PI;
-    let t152 = pow_1_3(t151);
+    let t152 = 0.6827840632552957;
     let t153 = t10 * t152;
     let t154 = M_CBRT4;
     let t155 = t154 * t154;

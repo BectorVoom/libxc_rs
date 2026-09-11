@@ -28,7 +28,7 @@ pub fn gga_c_pw91_fxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -40,7 +40,7 @@ pub fn gga_c_pw91_fxc_pol(
     let t56 = M_CBRT2;
     let t59 = 1.0 / (2.0 * t56 - 2.0);
     let t92 = M_PI * M_PI;
-    let t93 = pow_1_3(t92);
+    let t93 = 2.1450293971110255;
     let t94 = t93 * t93;
     let t95 = t19 * t94;
     let t96 = t45 * t45;
@@ -56,7 +56,7 @@ pub fn gga_c_pw91_fxc_pol(
     let t146 = t1 * t105;
     let t155 = t19 * t123;
     let t176 = t2 * t93;
-    let t190 = pow_1_3(9.0);
+    let t190 = 2.080083823051904;
     let t191 = t190 * t190;
     let t193 = t2 * t5 * t191 * t3;
     let t217 = t3 * t6;

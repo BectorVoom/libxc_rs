@@ -135,7 +135,7 @@ pub fn gga_c_lm_exc_pol(
     let t1 = f64x8::splat(1.0) / f64x8::splat(M_PI);
     let t7 = f64x8::splat(M_CBRT3);
     let t8 = t7 * t7;
-    let t9 = (simd::cbrt(t1));
+    let t9 = f64x8::splat(0.6827840632552957);
     let t10 = f64x8::splat(1.0) / t9;
     let t11 = t8 * t10;
     let t12 = f64x8::splat(M_CBRT4);
@@ -149,13 +149,13 @@ pub fn gga_c_lm_exc_pol(
     let t52 = f64x8::splat(1.0) / (f64x8::splat(2.0) * t49 - f64x8::splat(2.0));
     let t65 = f64x8::splat(M_PI) * t8;
     let t66 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t67 = (simd::cbrt(t66));
+    let t67 = f64x8::splat(2.1450293971110255);
     let t69 = f64x8::splat(1.0) / t67 / t66;
     let t87 = t38 * t38;
     let t88 = t87 * zeta_threshold;
     let t98 = f64x8::splat(M_SQRT2);
     let t100 = t7 * param_lm_f;
-    let t101 = (simd::pow(t1, f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t101 = f64x8::splat(0.8263074871107581);
     let t102 = f64x8::splat(1.0) / t101;
     let mut ip = 0usize;
     while ip < np {

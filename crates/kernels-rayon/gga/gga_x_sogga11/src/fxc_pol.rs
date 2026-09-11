@@ -52,7 +52,7 @@ pub fn gga_x_sogga11_fxc_pol(
     let t30 = M_CBRT6;
     let t31 = param_mu * t30;
     let t32 = M_PI * M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 2.1450293971110255;
     let t34 = t33 * t33;
     let t35 = 1.0 / t34;
     let t36 = t31 * t35;

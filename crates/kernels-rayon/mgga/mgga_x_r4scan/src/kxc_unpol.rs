@@ -79,7 +79,7 @@ pub fn mgga_x_r4scan_kxc_unpol(
     let t23 = M_CBRT6;
     let t24 = t23 * t23;
     let t25 = M_PI * M_PI;
-    let t26 = pow_1_3(t25);
+    let t26 = 2.1450293971110255;
     let t27 = t26 * t25;
     let t28 = 1.0 / t27;
     let t29 = t24 * t28;
@@ -103,12 +103,12 @@ pub fn mgga_x_r4scan_kxc_unpol(
     let t163 = param_dp4 * param_dp4;
     let t164 = t163 * t163;
     let t165 = 1.0 / t164;
-    let t176 = rmath::sqrt(3.0);
+    let t176 = 1.7320508075688772;
     let t177 = 1.0 / t26;
     let t178 = t24 * t177;
     let t200 = param_k1 * param_k1;
     let t255 = param_d * param_c2;
-    let t341 = rmath::pow(3.0, 1.0 / 6.0);
+    let t341 = 1.2009369551760027;
     let t342 = t341 * t341;
     let t343 = t342 * t342;
     let t345 = t343 * t341 * t18;

@@ -39,7 +39,7 @@ pub fn gga_c_am05_lxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = M_CBRT3;
     let t2 = 1.0 / M_PI;
-    let t3 = pow_1_3(t2);
+    let t3 = 0.6827840632552957;
     let t4 = t1 * t3;
     let t5 = M_CBRT4;
     let t6 = t5 * t5;
@@ -55,7 +55,7 @@ pub fn gga_c_am05_lxc_unpol(
     let t61 = M_CBRT6;
     let t62 = param_alpha * t61;
     let t63 = M_PI * M_PI;
-    let t64 = pow_1_3(t63);
+    let t64 = 2.1450293971110255;
     let t65 = t64 * t64;
     let t66 = 1.0 / t65;
     let t68 = t39 * t39;

@@ -99,7 +99,7 @@ pub fn gga_x_cap_kxc_unpol(
     let t21 = t20 * t20;
     let t22 = param_alphaoAx * t21;
     let t23 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t24 = (simd::cbrt(t23));
+    let t24 = f64x8::splat(2.1450293971110255);
     let t25 = f64x8::splat(1.0) / t24;
     let t29 = f64x8::splat(M_CBRT2);
     let t33 = t21 * t25;

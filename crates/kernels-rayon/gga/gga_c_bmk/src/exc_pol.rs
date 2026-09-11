@@ -152,7 +152,7 @@ pub fn gga_c_bmk_exc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t10 = f64x8::splat(M_CBRT3);
     let t11 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t12 = (simd::cbrt(t11));
+    let t12 = f64x8::splat(0.6827840632552957);
     let t13 = t10 * t12;
     let t14 = f64x8::splat(M_CBRT4);
     let t15 = t14 * t14;

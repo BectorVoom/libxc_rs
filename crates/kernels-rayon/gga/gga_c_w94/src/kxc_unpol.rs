@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4};
 use libxc_rkernel_math::powers::{pow_1_3};
 
 #[allow(unused_variables, non_snake_case)]
@@ -30,7 +30,7 @@ pub fn gga_c_w94_kxc_unpol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t20 = M_CBRT3;
-    let t22 = pow_1_3(1.0 / M_PI);
+    let t22 = 0.6827840632552957;
     let t23 = t20 * t22;
     let t24 = M_CBRT4;
     let t25 = t24 * t24;

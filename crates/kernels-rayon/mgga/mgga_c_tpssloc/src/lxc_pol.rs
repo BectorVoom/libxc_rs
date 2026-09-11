@@ -95,12 +95,12 @@ pub fn mgga_c_tpssloc_lxc_pol(
     let t27 = zeta_threshold - 1.0;
     let t67 = M_CBRT3;
     let t68 = M_PI * M_PI;
-    let t69 = pow_1_3(t68);
+    let t69 = 2.1450293971110255;
     let t70 = t69 * t69;
     let t71 = 1.0 / t70;
     let t72 = t67 * t71;
     let t116 = 1.0 / M_PI;
-    let t117 = pow_1_3(t116);
+    let t117 = 0.6827840632552957;
     let t118 = t67 * t117;
     let t119 = M_CBRT4;
     let t120 = t119 * t119;
@@ -111,7 +111,7 @@ pub fn mgga_c_tpssloc_lxc_pol(
     let t148 = t147 * zeta_threshold;
     let t154 = M_CBRT2;
     let t157 = 1.0 / (2.0 * t154 - 2.0);
-    let t190 = rmath::ln(2.0);
+    let t190 = 0.6931471805599453;
     let t191 = 1.0 - t190;
     let t192 = 1.0 / t68;
     let t193 = t191 * t192;

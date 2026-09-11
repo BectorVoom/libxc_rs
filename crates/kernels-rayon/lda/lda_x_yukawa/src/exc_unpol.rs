@@ -74,7 +74,7 @@ pub fn lda_x_yukawa_exc_unpol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
-    let t3 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
     let t7 = t6 * t3 * t1;
@@ -84,7 +84,7 @@ pub fn lda_x_yukawa_exc_unpol(
     let t11 = (simd::cbrt(zeta_threshold));
     let t13 = ((t10).select(t11 * zeta_threshold, f64x8::splat(1.0)));
     let t14 = t13 * t9;
-    let t16 = (simd::cbrt(f64x8::splat(9.0)));
+    let t16 = f64x8::splat(2.080083823051904);
     let t17 = t16 * t16;
     let t18 = t3 * t3;
     let t20 = param_hyb_omega_0 * t18 * t17;

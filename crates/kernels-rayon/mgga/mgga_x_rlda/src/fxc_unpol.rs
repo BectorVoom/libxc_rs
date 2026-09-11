@@ -100,7 +100,7 @@ pub fn mgga_x_rlda_fxc_unpol(
     let t14 = (simd::cbrt(t10));
     let t16 = (((t10).simd_le(zeta_threshold)).select(t12 * zeta_threshold, t14 * t10));
     let t17 = t5 * t16;
-    let t21 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t21 = f64x8::splat(0.6827840632552957);
     let t22 = f64x8::splat(1.0) / t21;
     let t23 = param_prefactor * t22;
     let t24 = f64x8::splat(M_CBRT4);

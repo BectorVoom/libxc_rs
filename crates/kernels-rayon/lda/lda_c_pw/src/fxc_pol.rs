@@ -49,7 +49,7 @@ pub fn lda_c_pw_fxc_pol(
     let t3 = M_CBRT3;
     let t4 = t2 * t3;
     let t5 = 1.0 / M_PI;
-    let t6 = pow_1_3(t5);
+    let t6 = 0.6827840632552957;
     let t7 = M_CBRT4;
     let t8 = t7 * t7;
     let t9 = t6 * t8;

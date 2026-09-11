@@ -107,7 +107,7 @@ pub fn mgga_k_gea4_lxc_unpol(
     let t21 = piecewise3(t13 <= zeta_threshold, t16 * zeta_threshold, t19 * t13);
     let t25 = M_CBRT6;
     let t26 = M_PI * M_PI;
-    let t27 = pow_1_3(t26);
+    let t27 = 2.1450293971110255;
     let t28 = t27 * t27;
     let t30 = t25 / t28;
     let t31 = M_CBRT2;

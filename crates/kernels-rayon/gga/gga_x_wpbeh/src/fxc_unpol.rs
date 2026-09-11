@@ -93,7 +93,7 @@ pub fn gga_x_wpbeh_fxc_unpol(
     let t22 = t4 * t4;
     let t23 = param_hyb_omega_0 * t22;
     let t24 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t25 = (simd::cbrt(t24));
+    let t25 = f64x8::splat(2.1450293971110255);
     let t26 = f64x8::splat(1.0) / t25;
     let t27 = ((t14).select(t15, t17));
     let t29 = t26 / t27;
@@ -105,7 +105,7 @@ pub fn gga_x_wpbeh_fxc_unpol(
     let t80 = t25 * t25;
     let t82 = t27 * t27;
     let t84 = f64x8::splat(1.0) / t80 / t82;
-    let t235 = ((f64x8::splat(M_PI)).sqrt());
+    let t235 = f64x8::splat(1.7724538509055159);
     let t258 = f64x8::splat(1.0) / t235;
     let t274 = t23 * t29;
     let t275 = t77 * t4;

@@ -137,18 +137,18 @@ pub fn lda_c_pmgb06_lxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t7 = (simd::cbrt(zeta_threshold));
     let t8 = t7 * t7;
-    let t21 = (simd::ln(f64x8::splat(2.0)));
+    let t21 = f64x8::splat(0.6931471805599453);
     let t22 = t21 - f64x8::splat(1.0);
     let t23 = f64x8::splat(2.0) * t22;
     let t25 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t26 = f64x8::splat(1.0) / t25;
     let t27 = f64x8::splat(M_CBRT3);
     let t28 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t29 = (simd::cbrt(t28));
+    let t29 = f64x8::splat(0.6827840632552957);
     let t30 = t27 * t29;
     let t31 = f64x8::splat(M_CBRT4);
     let t32 = t31 * t31;
-    let t43 = (simd::cbrt(f64x8::splat(9.0)));
+    let t43 = f64x8::splat(2.080083823051904);
     let t44 = t43 * t43;
     let t52 = param_hyb_omega_0 * param_hyb_omega_0;
     let t53 = (f64x8::splat(3.44851) - f64x8::splat(M_PI) * t31 * t44 * t29 / t22 / f64x8::splat(12.0)) * t52;

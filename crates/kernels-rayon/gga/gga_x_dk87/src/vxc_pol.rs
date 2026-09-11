@@ -38,11 +38,11 @@ pub fn gga_x_dk87_vxc_pol(
     let t30 = t29 * t29;
     let t31 = t28 * t30;
     let t32 = M_PI * M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 2.1450293971110255;
     let t34 = 1.0 / t33;
     let t35 = t2 * t2;
     let t36 = t34 * t35;
-    let t37 = pow_1_3(t28);
+    let t37 = 0.6827840632552957;
     let t38 = 1.0 / t37;
     let t40 = t31 * t36 * t38;
     let t41 = M_CBRT4;

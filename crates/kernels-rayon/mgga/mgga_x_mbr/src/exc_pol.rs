@@ -31,7 +31,7 @@ pub fn mgga_x_mbr_exc_pol(
     let t12 = -t8;
     let t18 = pow_1_3(zeta_threshold);
     let t19 = t18 * zeta_threshold;
-    let t26 = pow_1_3(1.0 / M_PI);
+    let t26 = 0.6827840632552957;
     let t27 = 1.0 / t26;
     let t29 = M_CBRT4;
     let t30 = param_lambda * param_lambda;
@@ -39,7 +39,7 @@ pub fn mgga_x_mbr_exc_pol(
     let t38 = M_CBRT6;
     let t39 = t38 * t38;
     let t40 = M_PI * M_PI;
-    let t41 = pow_1_3(t40);
+    let t41 = 2.1450293971110255;
     let t42 = t41 * t41;
     let t43 = t39 * t42;
     let t44 = 3.0 / 5.0 * t43;

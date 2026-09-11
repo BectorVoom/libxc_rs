@@ -74,7 +74,7 @@ pub fn mgga_c_m05_kxc_unpol(
     let t6 = piecewise3(t4, zeta_threshold, 1.0);
     let t7 = M_CBRT3;
     let t8 = 1.0 / M_PI;
-    let t9 = pow_1_3(t8);
+    let t9 = 0.6827840632552957;
     let t10 = t7 * t9;
     let t11 = M_CBRT4;
     let t12 = t11 * t11;

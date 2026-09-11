@@ -38,7 +38,7 @@ pub fn gga_k_llp_fxc_pol(
     let t23 = t22 * t22;
     let t24 = t23 * zeta_threshold;
     let t32 = param_beta * t3;
-    let t34 = pow_1_3(1.0 / M_PI);
+    let t34 = 0.6827840632552957;
     let t35 = 1.0 / t34;
     let t36 = t32 * t35;
     let t37 = M_CBRT4;

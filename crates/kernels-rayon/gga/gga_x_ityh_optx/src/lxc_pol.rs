@@ -160,12 +160,12 @@ pub fn gga_x_ityh_optx_lxc_pol(
     let t28 = t2 * t2;
     let t29 = f64x8::splat(M_PI) * t28;
     let t30 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(0.6827840632552957);
     let t32 = f64x8::splat(1.0) / t31;
     let t33 = f64x8::splat(M_CBRT4);
     let t34 = t32 * t33;
     let t61 = f64x8::splat(M_CBRT2);
-    let t97 = ((f64x8::splat(M_PI)).sqrt());
+    let t97 = f64x8::splat(1.7724538509055159);
     let t241 = t28 * t32;
     let tvsigma1 = f64x8::splat(0.0);
     let t734 = f64x8::splat(M_PI) * f64x8::splat(M_PI);

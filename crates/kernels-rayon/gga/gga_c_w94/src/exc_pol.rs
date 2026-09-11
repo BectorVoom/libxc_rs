@@ -131,7 +131,7 @@ pub fn gga_c_w94_exc_pol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t35 = f64x8::splat(M_CBRT3);
-    let t37 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t37 = f64x8::splat(0.6827840632552957);
     let t38 = t35 * t37;
     let t39 = f64x8::splat(M_CBRT4);
     let t40 = t39 * t39;

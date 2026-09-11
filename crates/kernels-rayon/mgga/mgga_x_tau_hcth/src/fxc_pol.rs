@@ -63,7 +63,7 @@ pub fn mgga_x_tau_hcth_fxc_pol(
     let t80 = M_CBRT6;
     let t81 = t80 * t80;
     let t82 = M_PI * M_PI;
-    let t83 = pow_1_3(t82);
+    let t83 = 2.1450293971110255;
     let t84 = t83 * t83;
     let t86 = 3.0 / 10.0 * t81 * t84;
     let tvsigma1 = 0.0;

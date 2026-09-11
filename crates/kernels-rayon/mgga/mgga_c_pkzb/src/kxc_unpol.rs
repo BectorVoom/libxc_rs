@@ -59,7 +59,7 @@ pub fn mgga_c_pkzb_kxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = M_CBRT3;
     let t12 = 1.0 / M_PI;
-    let t13 = pow_1_3(t12);
+    let t13 = 0.6827840632552957;
     let t14 = t11 * t13;
     let t15 = M_CBRT4;
     let t16 = t15 * t15;
@@ -73,7 +73,7 @@ pub fn mgga_c_pkzb_kxc_unpol(
     let t49 = M_CBRT2;
     let t52 = 1.0 / (2.0 * t49 - 2.0);
     let t53 = (2.0 * t46 - 2.0) * t52;
-    let t68 = rmath::ln(2.0);
+    let t68 = 0.6931471805599453;
     let t69 = 1.0 - t68;
     let t70 = M_PI * M_PI;
     let t71 = 1.0 / t70;

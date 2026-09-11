@@ -98,7 +98,7 @@ pub fn gga_c_bmk_vxc_unpol(
     let t5 = ((t3).select(zeta_threshold, f64x8::splat(1.0)));
     let t6 = f64x8::splat(M_CBRT3);
     let t7 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t8 = (simd::cbrt(t7));
+    let t8 = f64x8::splat(0.6827840632552957);
     let t9 = t6 * t8;
     let t10 = f64x8::splat(M_CBRT4);
     let t11 = t10 * t10;

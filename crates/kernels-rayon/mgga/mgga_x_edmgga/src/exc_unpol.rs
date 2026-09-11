@@ -87,7 +87,7 @@ pub fn mgga_x_edmgga_exc_unpol(
     let t21 = f64x8::splat(M_CBRT4);
     let t22 = t4 * t4;
     let t24 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t25 = (simd::cbrt(t24));
+    let t25 = f64x8::splat(2.1450293971110255);
     let t27 = t21 * t22 * t25 / f64x8::splat(9.0);
     let t28 = f64x8::splat(1.0) - t27;
     let t29 = f64x8::splat(M_CBRT2);
@@ -95,7 +95,7 @@ pub fn mgga_x_edmgga_exc_unpol(
     let t46 = f64x8::splat(M_CBRT6);
     let t48 = t25 * t25;
     let t49 = f64x8::splat(1.0) / t48;
-    let t73 = ((f64x8::splat(30.0)).sqrt());
+    let t73 = f64x8::splat(5.477225575051661);
     let t74 = t28 * t73;
     let t76 = t28 * t28;
     let t81 = f64x8::splat(0.6018478308354863) * t76 - f64x8::splat(0.0206514);

@@ -2,11 +2,15 @@
 
 pub const M_PI: f64 = std::f64::consts::PI;
 pub const M_SQRTPI: f64 = 1.7724538509055160;
-pub const M_CBRTPI: f64 = 1.4645918875615232;
+// 1 ULP low before 2026-09-11: this is the correctly-rounded double gcc gives
+// libxc's #define (verified bit-for-bit), which is what PySCF's libxc uses.
+pub const M_CBRTPI: f64 = 1.4645918875615234;
 pub const M_SQRT3: f64 = 1.7320508075688773;
 pub const M_CBRT2: f64 = 1.2599210498948732;
 pub const M_CBRT3: f64 = 1.4422495703074084;
-pub const M_CBRT4: f64 = 1.5874010519681994;
+// 1 ULP low before 2026-09-11: this is the correctly-rounded double gcc gives
+// libxc's #define (verified bit-for-bit), which is what PySCF's libxc uses.
+pub const M_CBRT4: f64 = 1.5874010519681996;
 pub const M_CBRT5: f64 = 1.7099759466766970;
 pub const M_CBRT6: f64 = 1.8171205928321397;
 pub const M_CBRT7: f64 = 1.9129311827723891;
@@ -19,7 +23,9 @@ pub const X_FACTOR_2D_C: f64 = 1.5045055561273501;
 pub const K_FACTOR_C: f64 = 4.5577998723455971;
 pub const MU_GE: f64 = 0.12345679012345679;
 pub const MU_PBE: f64 = 0.2195149727645171;
-pub const X2S: f64 = 0.12827824385304219;
+// 1 ULP low before 2026-09-11: this is the correctly-rounded double gcc gives
+// libxc's #define (verified bit-for-bit), which is what PySCF's libxc uses.
+pub const X2S: f64 = 0.1282782438530422;
 pub const X2S_2D: f64 = 0.14104739588693907;
 pub const FZETAFACTOR: f64 = 0.51984209978974633;
 pub const KF_CONST: f64 = 3.0936677262801355;

@@ -143,11 +143,11 @@ pub fn mgga_x_sa_tpss_vxc_pol(
     let t16 = -t12;
     let t22 = (simd::cbrt(zeta_threshold));
     let t23 = t22 * zeta_threshold;
-    let t29 = ((f64x8::splat(5.0)).sqrt());
+    let t29 = f64x8::splat(2.23606797749979);
     let t30 = f64x8::splat(M_PI) * t29;
     let t42 = f64x8::splat(M_CBRT6);
     let t44 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t45 = (simd::cbrt(t44));
+    let t45 = f64x8::splat(2.1450293971110255);
     let t46 = t45 * t45;
     let t47 = f64x8::splat(1.0) / t46;
     let t89 = t42 * t47;

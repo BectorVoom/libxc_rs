@@ -59,7 +59,7 @@ pub fn gga_xc_b97_vxc_unpol(
     let t74 = param_c_x_3;
     let t84 = param_c_x_4;
     let t99 = 1.0 / M_PI;
-    let t100 = pow_1_3(t99);
+    let t100 = 0.6827840632552957;
     let t101 = t15 * t100;
     let t102 = M_CBRT4;
     let t103 = t102 * t102;

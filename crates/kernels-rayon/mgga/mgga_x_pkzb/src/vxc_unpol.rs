@@ -90,7 +90,7 @@ pub fn mgga_x_pkzb_vxc_unpol(
     let t18 = (((t12).simd_le(zeta_threshold)).select(t14 * zeta_threshold, t16 * t12));
     let t21 = f64x8::splat(M_CBRT6);
     let t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(2.1450293971110255);
     let t24 = t23 * t23;
     let t25 = f64x8::splat(1.0) / t24;
     let t26 = t21 * t25;

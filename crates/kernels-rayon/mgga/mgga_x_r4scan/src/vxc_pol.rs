@@ -163,7 +163,7 @@ pub fn mgga_x_r4scan_vxc_pol(
     let t31 = f64x8::splat(M_CBRT6);
     let t32 = t31 * t31;
     let t33 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t34 = (simd::cbrt(t33));
+    let t34 = f64x8::splat(2.1450293971110255);
     let t35 = t34 * t33;
     let t36 = f64x8::splat(1.0) / t35;
     let t37 = t32 * t36;
@@ -184,12 +184,12 @@ pub fn mgga_x_r4scan_vxc_pol(
     let t164 = param_dp4 * param_dp4;
     let t165 = t164 * t164;
     let t166 = f64x8::splat(1.0) / t165;
-    let t177 = ((f64x8::splat(3.0)).sqrt());
+    let t177 = f64x8::splat(1.7320508075688772);
     let t178 = f64x8::splat(1.0) / t34;
     let t179 = t32 * t178;
     let t347 = param_k1 * param_k1;
     let t403 = param_d * param_c2;
-    let t486 = (simd::pow(f64x8::splat(3.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t486 = f64x8::splat(1.2009369551760027);
     let t487 = t486 * t486;
     let t488 = t487 * t487;
     let t489 = t488 * t486;

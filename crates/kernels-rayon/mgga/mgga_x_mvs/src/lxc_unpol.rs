@@ -111,7 +111,7 @@ pub fn mgga_x_mvs_lxc_unpol(
     let t22 = t21 * t21;
     let t35 = M_CBRT6;
     let t37 = M_PI * M_PI;
-    let t38 = pow_1_3(t37);
+    let t38 = 2.1450293971110255;
     let t39 = t38 * t38;
     let t40 = 1.0 / t39;
     let t47 = t35 * t35;

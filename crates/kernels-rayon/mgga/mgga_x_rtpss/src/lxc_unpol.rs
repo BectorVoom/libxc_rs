@@ -109,7 +109,7 @@ pub fn mgga_x_rtpss_lxc_unpol(
     let t18 = piecewise3(t12 <= zeta_threshold, t14 * zeta_threshold, t16 * t12);
     let t38 = M_CBRT6;
     let t40 = M_PI * M_PI;
-    let t41 = pow_1_3(t40);
+    let t41 = 2.1450293971110255;
     let t42 = t41 * t41;
     let t43 = 1.0 / t42;
     let t45 = M_CBRT2;

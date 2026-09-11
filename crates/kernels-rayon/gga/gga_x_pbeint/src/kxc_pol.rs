@@ -45,7 +45,7 @@ pub fn gga_x_pbeint_kxc_pol(
     let t30 = M_CBRT6;
     let t31 = t28 * param_alpha * t30;
     let t32 = M_PI * M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 2.1450293971110255;
     let t34 = t33 * t33;
     let t35 = 1.0 / t34;
     let t42 = param_alpha * t30;

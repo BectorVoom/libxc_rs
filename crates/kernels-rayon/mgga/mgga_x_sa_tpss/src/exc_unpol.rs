@@ -84,13 +84,13 @@ pub fn mgga_x_sa_tpss_exc_unpol(
     let t14 = (simd::cbrt(zeta_threshold));
     let t16 = (simd::cbrt(t12));
     let t18 = (((t12).simd_le(zeta_threshold)).select(t14 * zeta_threshold, t16 * t12));
-    let t21 = ((f64x8::splat(5.0)).sqrt());
+    let t21 = f64x8::splat(2.23606797749979);
     let t22 = f64x8::splat(M_PI) * t21;
     let t23 = f64x8::splat(M_CBRT2);
     let t24 = t23 * t23;
     let t37 = f64x8::splat(M_CBRT6);
     let t39 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t40 = (simd::cbrt(t39));
+    let t40 = f64x8::splat(2.1450293971110255);
     let t41 = t40 * t40;
     let t42 = f64x8::splat(1.0) / t41;
     let t83 = t37 * t42;

@@ -43,12 +43,13 @@ fn erfcx_matches_libxc() {
     }
     println!("erfcx: {n_diff}/{n} differ, worst {} ulp at x={} ours={:e} libxc={:e}",
              worst.0, worst.1, worst.2, worst.3);
-    // 1 ulp. The residual is GCC contracting `a*b + c` into an FMA inside the
-    // Chebyshev sum, which rustc does not do -- the same effect that accounts
-    // for the oracle's remaining sub-1e-11 tail (see AGENTS.md). Before the
-    // Faddeeva table replaced the Abramowitz & Stegun fit this was 5463/22001
-    // differing, worst ~1.4e13 ulp (0.3% relative).
-    assert!(worst.0 <= 2, "erfcx differs from libxc by {} ulp at x={}", worst.0, worst.1);
+    // Bit-identical: 0/22001 differ (2026-09-11) against libxc built the way
+    // PySCF's wheel is (see libxc-sys/build.rs). The ulp this used to allow
+    // was GCC contracting `a*b + c` into an FMA inside the Chebyshev sum under
+    // the old `-march=native` oracle. Before the Faddeeva table replaced the
+    // Abramowitz & Stegun fit this was 5463/22001 differing, worst ~1.4e13
+    // ulp (0.3% relative).
+    assert!(worst.0 == 0, "erfcx differs from libxc by {} ulp at x={}", worst.0, worst.1);
 }
 
 #[test]
@@ -85,12 +86,18 @@ fn e1_scaled_matches_libxc() {
     }
     println!("E1_scaled: {n_diff}/{n} differ, worst {} ulp at x={} ours={:e} libxc={:e}",
              worst.0, worst.1, worst.2, worst.3);
-    // Same story as erfcx: a few ulp of GCC FMA contraction in the Clenshaw
-    // recurrence, against 705/6601 differing by up to ~2.2e13 ulp before the
-    // six corrupted E11 coefficients were regenerated from libxc's C.
-    assert!(worst.0 <= 4, "E1_scaled differs from libxc by {} ulp at x={}", worst.0, worst.1);
-    // And say the same thing in relative terms, which is what the 1e-12
-    // contract actually cares about.
-    let rel = ((worst.2 - worst.3) / worst.3).abs();
-    assert!(rel < 1e-14, "E1_scaled worst relative error {rel:e}");
+    // Bit-identical: 0/6601 differ (2026-09-11) against libxc built the way
+    // PySCF's wheel is (see libxc-sys/build.rs). The few ulp this used to
+    // allow were GCC FMA contraction in the Clenshaw recurrence under the old
+    // `-march=native` oracle; before that, 705/6601 differed by up to ~2.2e13
+    // ulp until the six corrupted E11 coefficients were regenerated from
+    // libxc's C.
+    assert!(worst.0 == 0, "E1_scaled differs from libxc by {} ulp at x={}", worst.0, worst.1);
+    // The same in relative terms, which is what the 1e-12 contract cares
+    // about. Only meaningful when something differs: with every sample exact,
+    // `worst` is still its (0, 0.0, 0.0, 0.0) seed and 0/0 would be NaN.
+    if worst.0 > 0 {
+        let rel = ((worst.2 - worst.3) / worst.3).abs();
+        assert!(rel < 1e-14, "E1_scaled worst relative error {rel:e}");
+    }
 }

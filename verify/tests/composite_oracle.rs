@@ -25,7 +25,7 @@ use libxc_rs::model::{DerivativeOrder, Family, Spin};
 use libxc_rs::output::{GgaOutput, MggaOutput};
 use libxc_rs::registry::{all_functional_ids, lookup_by_id};
 use libxc_sys::{
-    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, xc_mgga_exc_vxc, XC_POLARIZED,
+    xc_func_end, xc_func_init, xc_func_type, xc_gga_exc_vxc, xc_mgga, xc_mgga_exc_vxc, XC_POLARIZED,
     XC_UNPOLARIZED,
 };
 
@@ -34,23 +34,15 @@ use libxc_sys::{
 /// Both reasons are structural and predate the composite work; neither is a
 /// mixing fault. A functional not on this list must meet the gate.
 const KNOWN_GAPS: &[(u16, &str)] = &[
-    // These four mix `lda_k_gds08_worker`, which libxc declares in
-    // `xc_funcs_worker.h` rather than `xc_funcs.h` -- not part of its public
-    // API, not resolvable through `xc_functional_get_number`, and numbered
-    // 100001, which does not fit the `u16` `FunctionalId` anyway. The
-    // generators take the public header as the definition of what exists, so
-    // no dispatch path is emitted for it and `Functional::new` drops it from
-    // the mix, leaving these four missing a whole component. Nothing to do
-    // with parameters: they disagree by the same amount with and without the
-    // override table.
-    (591, "gga_k_gds08: aux list is missing libxc's internal worker functional"),
-    (592, "gga_k_ghds10: aux list is missing libxc's internal worker functional"),
-    (593, "gga_k_ghds10r: aux list is missing libxc's internal worker functional"),
-    (594, "gga_k_tkvln: aux list is missing libxc's internal worker functional"),
-    // Already on AGENTS.md's oracle-outlier list. zk 1.6e-10, the same
-    // floating-point contraction floor described on TOL_VXC, amplified by a
-    // 30-term Bayesian expansion.
-    (286, "gga_xc_beefvdw: known FP-contraction outlier, zk 1.6e-10"),
+    // gga_k_gds08 / ghds10 / ghds10r / tkvln used to be listed here: they
+    // mix `lda_k_gds08_worker` (id 100001, libxc-internal), which this
+    // library had no kernel for, and evaluated with that component missing.
+    // Since 2026-09-11 the worker has a kernel, reached only as their
+    // auxiliary (`libxc_core::meta::internal_auxiliary`), and all four are
+    // under the gate like every other composite.
+    // gga_xc_beefvdw (zk 1.6e-10) was listed here as a floating-point
+    // contraction outlier. That was the oracle's `-march=native` build; against
+    // a wheel-built libxc it passes the gate (2026-09-11).
 ];
 
 /// Energy density: the project's stated contract.
@@ -590,4 +582,300 @@ fn composite_gga_unpolarized_matches_libxc() {
 #[test]
 fn composite_gga_polarized_matches_libxc() {
     report(Spin::Polarized);
+}
+
+// ---------------------------------------------------------------------------
+// Composite MGGAs above the first derivative
+// ---------------------------------------------------------------------------
+
+/// `MggaOutput`'s fields in declaration order -- which is also the order of
+/// libxc's `xc_mgga` output arguments -- with each field's derivative order.
+const MGGA_FIELDS: [(&str, u8); 70] = [
+    ("zk", 0), ("vrho", 1), ("vsigma", 1), ("vlapl", 1), ("vtau", 1), ("v2rho2", 2),
+    ("v2rhosigma", 2), ("v2rholapl", 2), ("v2rhotau", 2), ("v2sigma2", 2),
+    ("v2sigmalapl", 2), ("v2sigmatau", 2), ("v2lapl2", 2), ("v2lapltau", 2), ("v2tau2", 2),
+    ("v3rho3", 3), ("v3rho2sigma", 3), ("v3rho2lapl", 3), ("v3rho2tau", 3),
+    ("v3rhosigma2", 3), ("v3rhosigmalapl", 3), ("v3rhosigmatau", 3), ("v3rholapl2", 3),
+    ("v3rholapltau", 3), ("v3rhotau2", 3), ("v3sigma3", 3), ("v3sigma2lapl", 3),
+    ("v3sigma2tau", 3), ("v3sigmalapl2", 3), ("v3sigmalapltau", 3), ("v3sigmatau2", 3),
+    ("v3lapl3", 3), ("v3lapl2tau", 3), ("v3lapltau2", 3), ("v3tau3", 3), ("v4rho4", 4),
+    ("v4rho3sigma", 4), ("v4rho3lapl", 4), ("v4rho3tau", 4), ("v4rho2sigma2", 4),
+    ("v4rho2sigmalapl", 4), ("v4rho2sigmatau", 4), ("v4rho2lapl2", 4),
+    ("v4rho2lapltau", 4), ("v4rho2tau2", 4), ("v4rhosigma3", 4), ("v4rhosigma2lapl", 4),
+    ("v4rhosigma2tau", 4), ("v4rhosigmalapl2", 4), ("v4rhosigmalapltau", 4),
+    ("v4rhosigmatau2", 4), ("v4rholapl3", 4), ("v4rholapl2tau", 4), ("v4rholapltau2", 4),
+    ("v4rhotau3", 4), ("v4sigma4", 4), ("v4sigma3lapl", 4), ("v4sigma3tau", 4),
+    ("v4sigma2lapl2", 4), ("v4sigma2lapltau", 4), ("v4sigma2tau2", 4), ("v4sigmalapl3", 4),
+    ("v4sigmalapl2tau", 4), ("v4sigmalapltau2", 4), ("v4sigmatau3", 4), ("v4lapl4", 4),
+    ("v4lapl3tau", 4), ("v4lapl2tau2", 4), ("v4lapltau3", 4), ("v4tau4", 4),
+];
+
+fn mgga_widths(d: &libxc_rs::Dimensions) -> [usize; 70] {
+    [
+        d.zk as usize, d.vrho as usize, d.vsigma as usize, d.vlapl as usize,
+        d.vtau as usize, d.v2rho2 as usize, d.v2rhosigma as usize, d.v2rholapl as usize,
+        d.v2rhotau as usize, d.v2sigma2 as usize, d.v2sigmalapl as usize,
+        d.v2sigmatau as usize, d.v2lapl2 as usize, d.v2lapltau as usize, d.v2tau2 as usize,
+        d.v3rho3 as usize, d.v3rho2sigma as usize, d.v3rho2lapl as usize,
+        d.v3rho2tau as usize, d.v3rhosigma2 as usize, d.v3rhosigmalapl as usize,
+        d.v3rhosigmatau as usize, d.v3rholapl2 as usize, d.v3rholapltau as usize,
+        d.v3rhotau2 as usize, d.v3sigma3 as usize, d.v3sigma2lapl as usize,
+        d.v3sigma2tau as usize, d.v3sigmalapl2 as usize, d.v3sigmalapltau as usize,
+        d.v3sigmatau2 as usize, d.v3lapl3 as usize, d.v3lapl2tau as usize,
+        d.v3lapltau2 as usize, d.v3tau3 as usize, d.v4rho4 as usize,
+        d.v4rho3sigma as usize, d.v4rho3lapl as usize, d.v4rho3tau as usize,
+        d.v4rho2sigma2 as usize, d.v4rho2sigmalapl as usize, d.v4rho2sigmatau as usize,
+        d.v4rho2lapl2 as usize, d.v4rho2lapltau as usize, d.v4rho2tau2 as usize,
+        d.v4rhosigma3 as usize, d.v4rhosigma2lapl as usize, d.v4rhosigma2tau as usize,
+        d.v4rhosigmalapl2 as usize, d.v4rhosigmalapltau as usize,
+        d.v4rhosigmatau2 as usize, d.v4rholapl3 as usize, d.v4rholapl2tau as usize,
+        d.v4rholapltau2 as usize, d.v4rhotau3 as usize, d.v4sigma4 as usize,
+        d.v4sigma3lapl as usize, d.v4sigma3tau as usize, d.v4sigma2lapl2 as usize,
+        d.v4sigma2lapltau as usize, d.v4sigma2tau2 as usize, d.v4sigmalapl3 as usize,
+        d.v4sigmalapl2tau as usize, d.v4sigmalapltau2 as usize, d.v4sigmatau3 as usize,
+        d.v4lapl4 as usize, d.v4lapl3tau as usize, d.v4lapl2tau2 as usize,
+        d.v4lapltau3 as usize, d.v4tau4 as usize,
+    ]
+}
+
+/// One buffer per field: `np * width` for the fields of `order` and below,
+/// empty (a `NULL` / `None`) above it.
+fn mgga_buffers(d: &libxc_rs::Dimensions, np: usize, order: DerivativeOrder) -> Vec<Vec<f64>> {
+    mgga_widths(d)
+        .iter()
+        .zip(MGGA_FIELDS.iter())
+        .map(|(w, (_, o))| if *o <= order as u8 { vec![0.0; w * np] } else { Vec::new() })
+        .collect()
+}
+
+fn mgga_output(b: &mut [Vec<f64>]) -> MggaOutput<'_> {
+    let mut it = b.iter_mut().map(|v| if v.is_empty() { None } else { Some(v.as_mut_slice()) });
+    let mut nx = || it.next().unwrap();
+    MggaOutput {
+        zk: nx(), vrho: nx(), vsigma: nx(), vlapl: nx(), vtau: nx(), v2rho2: nx(),
+        v2rhosigma: nx(), v2rholapl: nx(), v2rhotau: nx(), v2sigma2: nx(),
+        v2sigmalapl: nx(), v2sigmatau: nx(), v2lapl2: nx(), v2lapltau: nx(), v2tau2: nx(),
+        v3rho3: nx(), v3rho2sigma: nx(), v3rho2lapl: nx(), v3rho2tau: nx(),
+        v3rhosigma2: nx(), v3rhosigmalapl: nx(), v3rhosigmatau: nx(), v3rholapl2: nx(),
+        v3rholapltau: nx(), v3rhotau2: nx(), v3sigma3: nx(), v3sigma2lapl: nx(),
+        v3sigma2tau: nx(), v3sigmalapl2: nx(), v3sigmalapltau: nx(), v3sigmatau2: nx(),
+        v3lapl3: nx(), v3lapl2tau: nx(), v3lapltau2: nx(), v3tau3: nx(), v4rho4: nx(),
+        v4rho3sigma: nx(), v4rho3lapl: nx(), v4rho3tau: nx(), v4rho2sigma2: nx(),
+        v4rho2sigmalapl: nx(), v4rho2sigmatau: nx(), v4rho2lapl2: nx(),
+        v4rho2lapltau: nx(), v4rho2tau2: nx(), v4rhosigma3: nx(), v4rhosigma2lapl: nx(),
+        v4rhosigma2tau: nx(), v4rhosigmalapl2: nx(), v4rhosigmalapltau: nx(),
+        v4rhosigmatau2: nx(), v4rholapl3: nx(), v4rholapl2tau: nx(), v4rholapltau2: nx(),
+        v4rhotau3: nx(), v4sigma4: nx(), v4sigma3lapl: nx(), v4sigma3tau: nx(),
+        v4sigma2lapl2: nx(), v4sigma2lapltau: nx(), v4sigma2tau2: nx(), v4sigmalapl3: nx(),
+        v4sigmalapl2tau: nx(), v4sigmalapltau2: nx(), v4sigmatau3: nx(), v4lapl4: nx(),
+        v4lapl3tau: nx(), v4lapl2tau2: nx(), v4lapltau3: nx(), v4tau4: nx(),
+    }
+}
+
+/// libxc's generic `xc_mgga`, every field of `b` that is non-empty requested.
+fn c_mgga(cf: &CFunc, np: usize, rho: &[f64], sigma: &[f64], lapl: &[f64], tau: &[f64], b: &mut [Vec<f64>]) {
+    let p: Vec<*mut f64> = b
+        .iter_mut()
+        .map(|v| if v.is_empty() { std::ptr::null_mut() } else { v.as_mut_ptr() })
+        .collect();
+    unsafe {
+        xc_mgga(
+            &cf.0, np, rho.as_ptr(), sigma.as_ptr(), lapl.as_ptr(), tau.as_ptr(),
+            p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11],
+            p[12], p[13], p[14], p[15], p[16], p[17], p[18], p[19], p[20], p[21], p[22],
+            p[23], p[24], p[25], p[26], p[27], p[28], p[29], p[30], p[31], p[32], p[33],
+            p[34], p[35], p[36], p[37], p[38], p[39], p[40], p[41], p[42], p[43], p[44],
+            p[45], p[46], p[47], p[48], p[49], p[50], p[51], p[52], p[53], p[54], p[55],
+            p[56], p[57], p[58], p[59], p[60], p[61], p[62], p[63], p[64], p[65], p[66],
+            p[67], p[68], p[69],
+        );
+    }
+}
+
+/// Worst relative difference over one field, each point measured against the
+/// largest libxc component at that point (the rule `kernel_oracle_fxc.rs`
+/// uses: a derivative component that is small next to its siblings is not a
+/// meaningful denominator).
+fn worst_pointwise(ours: &[f64], theirs: &[f64], width: usize) -> f64 {
+    let mut w = 0.0f64;
+    for (a, b) in ours.chunks(width.max(1)).zip(theirs.chunks(width.max(1))) {
+        let ps = b.iter().fold(0.0f64, |m, v| m.max(v.abs())).max(f64::MIN_POSITIVE);
+        for (x, y) in a.iter().zip(b.iter()) {
+            if x == y || !x.is_finite() || !y.is_finite() {
+                continue;
+            }
+            w = w.max((x - y).abs() / ps);
+        }
+    }
+    w
+}
+
+/// `(name, id, worst field, worst difference, nonzero libxc values compared,
+/// of which bit-identical)` for every composite MGGA that claims `order`,
+/// comparing every field of exactly that order.
+#[allow(clippy::type_complexity)]
+fn sweep_mgga_order(
+    spin: Spin,
+    order: DerivativeOrder,
+) -> (Vec<(&'static str, u16, &'static str, f64, usize, usize)>, Vec<(String, String)>) {
+    use libxc_rs::model::FunctionalFlags;
+    let np = 200usize;
+    let nspin = if spin == Spin::Unpolarized { 1 } else { 2 };
+    let (rho, sigma, lapl, tau) = mgga_grid(np, nspin);
+    let d = libxc_rs::Dimensions::mgga(spin);
+    let widths = mgga_widths(&d);
+    let claim = [
+        FunctionalFlags::HAVE_EXC,
+        FunctionalFlags::HAVE_VXC,
+        FunctionalFlags::HAVE_FXC,
+        FunctionalFlags::HAVE_KXC,
+        FunctionalFlags::HAVE_LXC,
+    ][order as usize];
+
+    let mut rows = Vec::new();
+    let mut skipped = Vec::new();
+    for id in all_functional_ids() {
+        let Ok(meta) = lookup_by_id(id.raw()) else { continue };
+        if meta.family != Family::Mgga || meta.auxiliaries.is_empty() || !meta.flags.contains(claim) {
+            continue;
+        }
+        let f = match Functional::new(id, spin) {
+            Ok(f) => f,
+            Err(e) => {
+                skipped.push((meta.name.to_string(), format!("Functional::new: {e}")));
+                continue;
+            }
+        };
+        let input = MggaInput::new(&rho, &sigma, &lapl, &tau, np, spin).unwrap();
+        let mut ours = mgga_buffers(&d, np, order);
+        let mut ws = EvaluationWorkspace::new(np, spin);
+        if let Err(e) = f.evaluate_mgga(&input, order, &mut mgga_output(&mut ours), &mut ws) {
+            skipped.push((meta.name.to_string(), format!("evaluate_mgga: {e}")));
+            continue;
+        }
+        let mut t: xc_func_type = unsafe { std::mem::zeroed() };
+        let n = if nspin == 1 { XC_UNPOLARIZED } else { XC_POLARIZED } as i32;
+        if unsafe { xc_func_init(&mut t, id.raw() as i32, n) } != 0 {
+            skipped.push((meta.name.to_string(), "libxc xc_func_init failed".into()));
+            continue;
+        }
+        let cf = CFunc(t);
+        let mut theirs = mgga_buffers(&d, np, order);
+        c_mgga(&cf, np, &rho, &sigma, &lapl, &tau, &mut theirs);
+
+        let (mut worst, mut field, mut nonzero, mut same) = (0.0f64, "-", 0usize, 0usize);
+        // `mgga_c_scanl_vv10` and `_rvv10` mix a deorbitalized functional.
+        let over_deorbitalized = order == DerivativeOrder::Lxc
+            && meta.auxiliaries.iter().any(|(a, _)| libxc_rs::meta::deorbitalized(*a).is_some());
+        for (k, (name, o)) in MGGA_FIELDS.iter().enumerate() {
+            if *o != order as u8 || widths[k] == 0 {
+                continue;
+            }
+            if over_deorbitalized && LIBXC_UNZEROED.contains(name) {
+                assert!(ours[k].iter().all(|v| v.is_finite()), "{} {name}: not finite", meta.name);
+                continue;
+            }
+            for (x, y) in ours[k].iter().zip(theirs[k].iter()) {
+                if *y != 0.0 {
+                    nonzero += 1;
+                    same += usize::from(x.to_bits() == y.to_bits());
+                }
+            }
+            let w = worst_pointwise(&ours[k], &theirs[k], widths[k]);
+            if w > worst {
+                worst = w;
+                field = name;
+            }
+        }
+        rows.push((meta.name, id.raw(), field, worst, nonzero, same));
+    }
+    (rows, skipped)
+}
+
+/// Fourth-derivative fields libxc's own deorbitalization computes from
+/// uninitialized memory, so no comparison against it means anything.
+///
+/// `xc_mgga_vars_allocate_all` (`deorbitalize_func.c:188-189`) mallocs the base
+/// meta-GGA's `v4sigmalapltau2` buffer and then memsets `v4sigmalapl2tau` a
+/// second time instead of it. `xc_mgga` does not repair that: it zeroes a
+/// lapl-tau cross field only for a functional with both `NEEDS_LAPLACIAN` and
+/// `NEEDS_TAU` (`mgga.c:262`), and none of the SCAN-L bases needs the
+/// Laplacian -- so the kernel, which accumulates with `+=`, adds nothing to
+/// whatever the heap held, and `maple2c/deorbitalize_4.c` reads
+/// `mgga_v4sigmalapltau2` into exactly these six outputs. On a fresh heap it
+/// happens to be zero and the two libraries agree bit for bit; after a sweep
+/// has churned the allocator, libxc returns noise (`v4sigma3lapl` 1.04
+/// relative, `mgga_c_scanl_vv10`, polarized, 2026-09-11). This tree zeroes the
+/// buffer, which is what libxc's allocator plainly means to do.
+const LIBXC_UNZEROED: [&str; 6] = [
+    "v4rho2sigmalapl", "v4rhosigma2lapl", "v4rhosigmalapl2",
+    "v4sigma3lapl", "v4sigma2lapl2", "v4sigmalapl3",
+];
+
+/// Gate for composite MGGAs above the first derivative. Pointwise-scaled, as
+/// `kernel_oracle_fxc.rs` gates second derivatives.
+const TOL_HIGHER: f64 = 1e-8;
+
+/// Every composite MGGA at every order from vxc to lxc that its flags claim,
+/// both spins, every field of that order, against libxc's own `xc_mgga`.
+///
+/// Until 2026-09-11 the mix handed its auxiliaries buffers only through second
+/// order, so all 36 composite MGGAs refused kxc and lxc, and
+/// `hyb_mgga_xc_b0kcis` refused everything above vxc. This is the first
+/// third- and fourth-derivative coverage the tree has had.
+#[test]
+fn composite_mgga_higher_orders_match_libxc() {
+    let mut bad = Vec::new();
+    for spin in [Spin::Unpolarized, Spin::Polarized] {
+        for order in [DerivativeOrder::Vxc, DerivativeOrder::Fxc, DerivativeOrder::Kxc, DerivativeOrder::Lxc] {
+            let (mut rows, skipped) = sweep_mgga_order(spin, order);
+            rows.sort_by(|a, b| b.3.partial_cmp(&a.3).unwrap());
+            println!("\n=== composite MGGA vs libxc, {order:?} {spin:?} ===");
+            let (nz, eq): (usize, usize) = rows.iter().fold((0, 0), |a, r| (a.0 + r.4, a.1 + r.5));
+            println!("compared : {} functionals, {nz} nonzero libxc values, {eq} bit-identical", rows.len());
+            for (n, why) in &skipped {
+                println!("  skipped {:<30} {why}", n.to_lowercase());
+            }
+            for (n, _, fld, w, _, _) in rows.iter().take(5) {
+                println!("  {:<32} {:>14} {:>10.3e}", n.to_lowercase(), fld, w);
+            }
+            for r in rows.iter().filter(|r| r.3 > TOL_HIGHER) {
+                bad.push(format!("{} {order:?} {spin:?}: {} {:.3e}", r.0.to_lowercase(), r.2, r.3));
+            }
+            // A comparison of two all-zero buffers passes any gate. Every
+            // composite MGGA has a nonzero rho derivative at every order.
+            for r in rows.iter().filter(|r| r.4 == 0) {
+                bad.push(format!("{} {order:?} {spin:?}: compared no nonzero values", r.0.to_lowercase()));
+            }
+        }
+    }
+    assert!(bad.is_empty(), "{} over the gate:\n{}", bad.len(), bad.join("\n"));
+}
+
+/// `lda_k_gds08_worker`'s metadata is written by hand
+/// (`libxc_core::meta::internal_auxiliary`): the worker is not in libxc's
+/// public header, so nothing generates it. This holds it to libxc's own info
+/// block, which `xc_func_init` does resolve for id 100001.
+#[test]
+fn gds08_worker_metadata_matches_libxc() {
+    use libxc_rs::meta::{internal_auxiliary, LDA_K_GDS08_WORKER};
+    let m = internal_auxiliary(LDA_K_GDS08_WORKER).expect("worker metadata");
+    let mut t: xc_func_type = unsafe { std::mem::zeroed() };
+    assert_eq!(unsafe { xc_func_init(&mut t, 100001, XC_UNPOLARIZED as i32) }, 0);
+    let cf = CFunc(t);
+    let info = unsafe { &*cf.0.info };
+    assert_eq!(info.number, 100001);
+    assert_eq!(info.flags as u32, m.flags.bits(), "flags");
+    assert_eq!(info.kind, m.kind as i32, "kind");
+    assert_eq!(info.family, m.family as i32, "family");
+    assert_eq!(info.dens_threshold.to_bits(), m.default_density_threshold.to_bits());
+    let ep = &info.ext_params;
+    assert_eq!(ep.n as usize, m.ext_params.len());
+    for (k, spec) in m.ext_params.iter().enumerate() {
+        let name = unsafe { std::ffi::CStr::from_ptr(*ep.names.add(k)) };
+        assert_eq!(name.to_str().unwrap(), spec.name);
+        assert_eq!(unsafe { *ep.values.add(k) }.to_bits(), spec.default_value.to_bits(), "{}", spec.name);
+    }
+    // And it is not reachable from the public registry.
+    assert!(lookup_by_id(LDA_K_GDS08_WORKER.raw()).is_err());
 }

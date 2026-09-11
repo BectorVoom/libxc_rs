@@ -53,10 +53,10 @@ pub fn gga_x_dk87_lxc_unpol(
     let t22 = t21 * t21;
     let t23 = t20 * t22;
     let t24 = M_PI * M_PI;
-    let t25 = pow_1_3(t24);
+    let t25 = 2.1450293971110255;
     let t26 = 1.0 / t25;
     let t27 = t3 * t3;
-    let t29 = pow_1_3(t20);
+    let t29 = 0.6827840632552957;
     let t30 = 1.0 / t29;
     let t32 = t23 * t26 * t27 * t30;
     let t33 = M_CBRT4;

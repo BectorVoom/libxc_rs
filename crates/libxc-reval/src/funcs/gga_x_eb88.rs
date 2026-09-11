@@ -16,7 +16,7 @@ pub const ID: u16 = 271;
 
 
 /// libxc default for `param_beta`.
-pub const PARAM_BETA: f64 = 0.0039685026299204986870;
+pub const PARAM_BETA: f64 = 0.003968502629920499;
 /// libxc default for `param_gamma`.
 pub const PARAM_GAMMA: f64 = 6.0;
 

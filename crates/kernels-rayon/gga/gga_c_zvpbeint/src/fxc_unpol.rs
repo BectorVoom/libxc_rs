@@ -85,7 +85,7 @@ pub fn gga_c_zvpbeint_fxc_unpol(
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
     let t2 = f64x8::splat(1.0) / f64x8::splat(M_PI);
-    let t3 = (simd::cbrt(t2));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t4 = t1 * t3;
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
@@ -101,7 +101,7 @@ pub fn gga_c_zvpbeint_fxc_unpol(
     let t68 = t18 * t67;
     let t74 = (((f64x8::splat(1e-20)).simd_lt(f64x8::splat(0.0))).select(f64x8::splat(0.0), f64x8::splat(1e-20)));
     let t76 = (simd::pow(t74, param_omega * f64x8::splat(0.5)));
-    let t81 = (simd::ln(f64x8::splat(2.0)));
+    let t81 = f64x8::splat(0.6931471805599453);
     let t82 = f64x8::splat(1.0) - t81;
     let t84 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
     let t85 = f64x8::splat(1.0) / t84;

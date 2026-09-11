@@ -141,7 +141,7 @@ pub fn mgga_x_revtm_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t44 = f64x8::splat(M_CBRT6);
     let t45 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t46 = (simd::cbrt(t45));
+    let t46 = f64x8::splat(2.1450293971110255);
     let t47 = t46 * t46;
     let t48 = f64x8::splat(1.0) / t47;
     let t49 = t44 * t48;

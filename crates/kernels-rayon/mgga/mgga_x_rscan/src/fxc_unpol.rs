@@ -110,7 +110,7 @@ pub fn mgga_x_rscan_fxc_unpol(
     let t19 = t4 / t5 * t18;
     let t21 = f64x8::splat(M_CBRT6);
     let t22 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t23 = (simd::cbrt(t22));
+    let t23 = f64x8::splat(2.1450293971110255);
     let t24 = t23 * t23;
     let t25 = f64x8::splat(1.0) / t24;
     let t26 = t21 * t25;
@@ -121,7 +121,7 @@ pub fn mgga_x_rscan_fxc_unpol(
     let t42 = t23 * t22;
     let t43 = f64x8::splat(1.0) / t42;
     let t44 = t39 * t40 * t43;
-    let t60 = ((f64x8::splat(146.0)).sqrt());
+    let t60 = f64x8::splat(12.083045973594572);
     let t61 = t60 * t21;
     let t62 = t61 * t25;
     let t65 = t12 * t12;
@@ -129,7 +129,7 @@ pub fn mgga_x_rscan_fxc_unpol(
     let t67 = t66 * t12;
     let t84 = t40 * t24;
     let t93 = t65 * t12;
-    let t151 = ((f64x8::splat(3.0)).sqrt());
+    let t151 = f64x8::splat(1.7320508075688772);
     let t152 = f64x8::splat(1.0) / t23;
     let t153 = t40 * t152;
     let t175 = param_k1 * param_k1;
@@ -139,7 +139,7 @@ pub fn mgga_x_rscan_fxc_unpol(
     let t194 = t191 * t193;
     let t218 = t66 * t65;
     let t283 = param_d * param_c2;
-    let t298 = (simd::pow(f64x8::splat(3.0), f64x8::splat(1.0) / f64x8::splat(6.0)));
+    let t298 = f64x8::splat(1.2009369551760027);
     let t299 = t298 * t298;
     let t300 = t299 * t299;
     let t302 = t300 * t298 * t18;

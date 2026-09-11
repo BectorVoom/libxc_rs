@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT3, M_CBRT4};
 use libxc_rkernel_math::piecewise::{piecewise3};
 use libxc_rkernel_math::powers::{pow_1_3};
 
@@ -27,7 +27,7 @@ pub fn lda_k_tf_fxc_pol(
     let t8 = t7 * t7;
     let t9 = t8 * zeta_threshold;
     let t23 = M_CBRT3;
-    let t26 = pow_1_3(1.0 / M_PI);
+    let t26 = 0.6827840632552957;
     let t27 = t26 * t26;
     let t28 = 1.0 / t27;
     let t29 = M_CBRT4;

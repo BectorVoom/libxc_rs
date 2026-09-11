@@ -155,7 +155,7 @@ pub fn mgga_x_tpss_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t54 = f64x8::splat(M_CBRT6);
     let t56 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t57 = (simd::cbrt(t56));
+    let t57 = f64x8::splat(2.1450293971110255);
     let t58 = t57 * t57;
     let t59 = f64x8::splat(1.0) / t58;
     let t79 = t54 * t59;

@@ -107,7 +107,7 @@ pub fn mgga_c_m05_lxc_pol(
     // the same statements maple2c emits per point, evaluated once.
     let t11 = M_CBRT3;
     let t12 = 1.0 / M_PI;
-    let t13 = pow_1_3(t12);
+    let t13 = 0.6827840632552957;
     let t14 = t11 * t13;
     let t15 = M_CBRT4;
     let t16 = t15 * t15;

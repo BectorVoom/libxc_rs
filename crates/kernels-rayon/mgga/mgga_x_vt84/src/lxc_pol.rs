@@ -101,7 +101,7 @@ pub fn mgga_x_vt84_lxc_pol(
     let t23 = t22 * zeta_threshold;
     let t50 = M_CBRT6;
     let t52 = M_PI * M_PI;
-    let t53 = pow_1_3(t52);
+    let t53 = 2.1450293971110255;
     let t54 = t53 * t53;
     let t55 = 1.0 / t54;
     let t82 = t50 * t55;

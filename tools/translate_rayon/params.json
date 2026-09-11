@@ -1980,7 +1980,7 @@
    ],
    "values": [
     "0.21940410461360746",
-    "0.03089264058386961",
+    "0.030892640583869608",
     "1.0"
    ],
    "ext_names": null,
@@ -2834,7 +2834,7 @@
     "param_gamma"
    ],
    "values": [
-    "0.0039685026299204986870",
+    "0.003968502629920499",
     "6.0"
    ],
    "ext_names": [
@@ -3616,7 +3616,7 @@
     "param_mu"
    ],
    "values": [
-    "0.5874010519681994",
+    "0.5874010519681995",
     "0.2195149727645171"
    ],
    "ext_names": null,
@@ -3761,8 +3761,13 @@
     "3.72",
     "0.002233276157114453"
    ],
-   "ext_names": null,
-   "ext_to_kernel": null
+   "ext_names": [
+    "_bt",
+    "_alpha",
+    "_expo"
+   ],
+   "ext_to_kernel": null,
+   "ext_transform": "mpw91"
   },
   "gga_x_n12": {
    "family": "gga",
@@ -3905,9 +3910,9 @@
     "param_aa"
    ],
    "values": [
-    "0.09564574034649151285038696952714226444963",
-    "4.098833606342553442039881031486386917472",
-    "0.09564574034649151285038696952714226444963"
+    "0.09564574034649151",
+    "4.098833606342553",
+    "0.09564574034649151"
    ],
    "ext_names": [
     "_aa",
@@ -4353,8 +4358,13 @@
     "4.0",
     "0.003968803415078375"
    ],
-   "ext_names": null,
-   "ext_to_kernel": null
+   "ext_names": [
+    "_bt",
+    "_alpha",
+    "_expo"
+   ],
+   "ext_to_kernel": null,
+   "ext_transform": "mpw91"
   },
   "gga_x_q1d": {
    "family": "gga",
@@ -10558,6 +10568,31 @@
    "ext_names": null,
    "ext_to_kernel": null
   },
+  "lda_k_gds08_worker": {
+   "family": "lda",
+   "base_kernel": "lda_k_gds08_worker",
+   "params": [
+    "param_C",
+    "param_B",
+    "param_A"
+   ],
+   "values": [
+    "0.0",
+    "0.224",
+    "0.860"
+   ],
+   "ext_names": [
+    "_A",
+    "_B",
+    "_C"
+   ],
+   "ext_to_kernel": [
+    2,
+    1,
+    0
+   ],
+   "internal_id": 34465
+  },
   "lda_k_lp": {
    "family": "lda",
    "base_kernel": "lda_k_tf",
@@ -10689,7 +10724,7 @@
     "param_alpha"
    ],
    "values": [
-    "0.06130908237864922"
+    "0.061309082378649155"
    ],
    "ext_names": null,
    "ext_to_kernel": null
@@ -14152,7 +14187,7 @@
    ],
    "values": [
     "0.827411",
-    "-0.643560",
+    "-0.64356",
     "0.852"
    ],
    "ext_names": [
@@ -16028,7 +16063,6 @@
   }
  },
  "unresolved": {
-  "lda_k_gds08_worker": "not in libxc's public header xc_funcs.h (lda_k_gds08_worker.c declares it in xc_funcs_worker.h); libxc does not expose it and this tree does not generate a dispatch path for it",
   "gga_x_kgg99": "composed functional: gga_x_gg99.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
   "gga_x_revssb_d": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",
   "gga_x_ssb": "composed functional: gga_x_ssb_sw.c builds it with xc_mix_init out of other functionals, so it has no maple2c kernel of its own",

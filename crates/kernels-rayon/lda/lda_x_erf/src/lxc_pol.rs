@@ -136,7 +136,7 @@ pub fn lda_x_erf_lxc_pol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t1 = f64x8::splat(M_CBRT3);
-    let t3 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t3 = f64x8::splat(0.6827840632552957);
     let t5 = f64x8::splat(M_CBRT4);
     let t6 = t5 * t5;
     let t7 = t1 * t3 * t6;
@@ -144,12 +144,12 @@ pub fn lda_x_erf_lxc_pol(
     let t9 = t8 * t8;
     let t16 = (simd::cbrt(zeta_threshold));
     let t17 = t16 * zeta_threshold;
-    let t23 = (simd::cbrt(f64x8::splat(9.0)));
+    let t23 = f64x8::splat(2.080083823051904);
     let t24 = t23 * t23;
     let t25 = t3 * t3;
     let t26 = t24 * t25;
     let t27 = t26 * param_hyb_omega_0;
-    let t64 = ((f64x8::splat(M_PI)).sqrt());
+    let t64 = f64x8::splat(1.7724538509055159);
     let t791 = t26 * param_hyb_omega_0 * t1;
     let mut ip = 0usize;
     while ip < np {

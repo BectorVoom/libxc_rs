@@ -87,7 +87,7 @@ pub fn gga_c_ccdf_exc_unpol(
     let t9 = t8 * t8;
     let t10 = t7 * t9;
     let t11 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t12 = (simd::cbrt(t11));
+    let t12 = f64x8::splat(2.1450293971110255);
     let t13 = f64x8::splat(1.0) / t12;
     let mut ip = 0usize;
     while ip < np {

@@ -93,7 +93,7 @@ pub fn gga_k_apbe_vxc_unpol(
     let t20 = (((t12).simd_le(zeta_threshold)).select(t15 * zeta_threshold, t18 * t12));
     let t24 = f64x8::splat(M_CBRT6);
     let t26 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t27 = (simd::cbrt(t26));
+    let t27 = f64x8::splat(2.1450293971110255);
     let t28 = t27 * t27;
     let t29 = f64x8::splat(1.0) / t28;
     let t31 = f64x8::splat(M_CBRT2);

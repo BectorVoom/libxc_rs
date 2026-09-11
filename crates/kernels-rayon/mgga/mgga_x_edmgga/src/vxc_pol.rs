@@ -146,13 +146,13 @@ pub fn mgga_x_edmgga_vxc_pol(
     let t29 = f64x8::splat(M_CBRT4);
     let t30 = t3 * t3;
     let t32 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t33 = (simd::cbrt(t32));
+    let t33 = f64x8::splat(2.1450293971110255);
     let t35 = t29 * t30 * t33 / f64x8::splat(9.0);
     let t36 = f64x8::splat(1.0) - t35;
     let t50 = f64x8::splat(M_CBRT6);
     let t52 = t33 * t33;
     let t53 = f64x8::splat(1.0) / t52;
-    let t77 = ((f64x8::splat(30.0)).sqrt());
+    let t77 = f64x8::splat(5.477225575051661);
     let t78 = t36 * t77;
     let t80 = t36 * t36;
     let t83 = f64x8::splat(1.0) / t80 / t36 * t77;

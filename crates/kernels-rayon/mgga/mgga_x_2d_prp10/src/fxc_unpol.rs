@@ -38,7 +38,7 @@ pub fn mgga_x_2d_prp10_fxc_unpol(
     // Loop-invariant bindings (constants, parameters, thresholds):
     // the same statements maple2c emits per point, evaluated once.
     let t13 = 1.0 / M_PI;
-    let t17 = rmath::exp(-1.0);
+    let t17 = 0.36787944117144233;
     let t31 = M_SQRT2;
     for ip in 0..vrho.len() {
         let t2 = rho[ip] * rho[ip];

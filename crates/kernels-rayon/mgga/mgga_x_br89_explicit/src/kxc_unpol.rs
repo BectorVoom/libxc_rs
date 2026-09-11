@@ -7,7 +7,7 @@
 #![allow(unused_imports, unused_variables, non_snake_case, clippy::all)]
 
 use libxc_rkernel_math::rmath;
-use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRTPI, M_PI};
+use libxc_rkernel_math::constants::{M_CBRT2, M_CBRT4, M_CBRTPI};
 use libxc_rkernel_math::piecewise::{piecewise3, piecewise5};
 use libxc_rkernel_math::powers::{pow_1_3, pow_2};
 
@@ -65,7 +65,7 @@ pub fn mgga_x_br89_explicit_kxc_unpol(
     let t10 = pow_1_3(zeta_threshold);
     let t12 = pow_1_3(t8);
     let t14 = piecewise3(t8 <= zeta_threshold, t10 * zeta_threshold, t12 * t8);
-    let t18 = pow_1_3(1.0 / M_PI);
+    let t18 = 0.6827840632552957;
     let t19 = 1.0 / t18;
     let t21 = M_CBRT4;
     let t22 = M_CBRTPI;

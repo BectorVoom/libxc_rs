@@ -320,6 +320,10 @@ pub mod gga_x_lambda_ch_n;
 pub mod gga_x_lambda_lo_n;
 #[cfg(feature = "gga_x_lambda_oc2_n")]
 pub mod gga_x_lambda_oc2_n;
+#[cfg(feature = "gga_x_lb")]
+pub mod gga_x_lb;
+#[cfg(feature = "gga_x_lbm")]
+pub mod gga_x_lbm;
 #[cfg(feature = "gga_x_lg93")]
 pub mod gga_x_lg93;
 #[cfg(feature = "gga_x_lspbe")]
@@ -602,6 +606,8 @@ pub mod lda_c_ob_pz;
 pub mod lda_c_ow;
 #[cfg(feature = "lda_c_ow_lyp")]
 pub mod lda_c_ow_lyp;
+#[cfg(feature = "lda_c_pk09")]
+pub mod lda_c_pk09;
 #[cfg(feature = "lda_c_pmgb06")]
 pub mod lda_c_pmgb06;
 #[cfg(feature = "lda_c_pw")]
@@ -644,6 +650,8 @@ pub mod lda_c_w20;
 pub mod lda_c_wigner;
 #[cfg(feature = "lda_c_xalpha")]
 pub mod lda_c_xalpha;
+#[cfg(feature = "lda_k_gds08_worker")]
+pub mod lda_k_gds08_worker;
 #[cfg(feature = "lda_k_lp")]
 pub mod lda_k_lp;
 #[cfg(feature = "lda_k_lp96")]
@@ -688,10 +696,14 @@ pub mod lda_xc_lp_a;
 pub mod lda_xc_lp_b;
 #[cfg(feature = "lda_xc_teter93")]
 pub mod lda_xc_teter93;
+#[cfg(feature = "lda_xc_tih")]
+pub mod lda_xc_tih;
 #[cfg(feature = "lda_xc_zlp")]
 pub mod lda_xc_zlp;
 #[cfg(feature = "mgga_c_b88")]
 pub mod mgga_c_b88;
+#[cfg(feature = "mgga_c_b94")]
+pub mod mgga_c_b94;
 #[cfg(feature = "mgga_c_bc95")]
 pub mod mgga_c_bc95;
 #[cfg(feature = "mgga_c_cc")]
@@ -804,8 +816,12 @@ pub mod mgga_k_rda;
 pub mod mgga_x_2d_js17;
 #[cfg(feature = "mgga_x_2d_prhg07")]
 pub mod mgga_x_2d_prhg07;
+#[cfg(feature = "mgga_x_2d_prhg07_prp10")]
+pub mod mgga_x_2d_prhg07_prp10;
 #[cfg(feature = "mgga_x_b00")]
 pub mod mgga_x_b00;
+#[cfg(feature = "mgga_x_bj06")]
+pub mod mgga_x_bj06;
 #[cfg(feature = "mgga_x_bloc")]
 pub mod mgga_x_bloc;
 #[cfg(feature = "mgga_x_br89")]
@@ -908,6 +924,8 @@ pub mod mgga_x_revtm;
 pub mod mgga_x_revtpss;
 #[cfg(feature = "mgga_x_rlda")]
 pub mod mgga_x_rlda;
+#[cfg(feature = "mgga_x_rpp09")]
+pub mod mgga_x_rpp09;
 #[cfg(feature = "mgga_x_rppscan")]
 pub mod mgga_x_rppscan;
 #[cfg(feature = "mgga_x_rscan")]
@@ -922,6 +940,8 @@ pub mod mgga_x_scan;
 pub mod mgga_x_task;
 #[cfg(feature = "mgga_x_tau_hcth")]
 pub mod mgga_x_tau_hcth;
+#[cfg(feature = "mgga_x_tb09")]
+pub mod mgga_x_tb09;
 #[cfg(feature = "mgga_x_th")]
 pub mod mgga_x_th;
 #[cfg(feature = "mgga_x_tlda")]

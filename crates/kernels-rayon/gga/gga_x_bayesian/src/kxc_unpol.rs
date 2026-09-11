@@ -42,7 +42,7 @@ pub fn gga_x_bayesian_kxc_unpol(
     let t17 = piecewise3(t11 <= zeta_threshold, t13 * zeta_threshold, t15 * t11);
     let t20 = M_CBRT6;
     let t21 = M_PI * M_PI;
-    let t22 = pow_1_3(t21);
+    let t22 = 2.1450293971110255;
     let t23 = t22 * t22;
     let t24 = 1.0 / t23;
     let t25 = t20 * t24;

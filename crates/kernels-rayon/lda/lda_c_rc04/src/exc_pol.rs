@@ -132,7 +132,7 @@ pub fn lda_c_rc04_exc_pol(
     let t7 = (simd::cbrt(zeta_threshold));
     let t8 = t7 * t7;
     let t21 = f64x8::splat(M_CBRT3);
-    let t23 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t23 = f64x8::splat(0.6827840632552957);
     let t24 = t21 * t23;
     let t25 = f64x8::splat(M_CBRT4);
     let t26 = t25 * t25;

@@ -62,13 +62,13 @@ pub fn mgga_xc_b97mv_vxc_unpol(
     let t63 = M_CBRT6;
     let t64 = t63 * t63;
     let t65 = M_PI * M_PI;
-    let t66 = pow_1_3(t65);
+    let t66 = 2.1450293971110255;
     let t67 = t66 * t66;
     let t68 = t64 * t67;
     let t69 = 3.0 / 10.0 * t68;
     let t79 = param_c_x_4;
     let t89 = 1.0 / M_PI;
-    let t90 = pow_1_3(t89);
+    let t90 = 0.6827840632552957;
     let t91 = t6 * t90;
     let t92 = M_CBRT4;
     let t93 = t92 * t92;

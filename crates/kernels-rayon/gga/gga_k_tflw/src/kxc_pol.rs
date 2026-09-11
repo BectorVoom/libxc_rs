@@ -43,7 +43,7 @@ pub fn gga_k_tflw_kxc_pol(
     let t24 = t23 * zeta_threshold;
     let t38 = M_CBRT6;
     let t40 = M_PI * M_PI;
-    let t41 = pow_1_3(t40);
+    let t41 = 2.1450293971110255;
     let t42 = t41 * t41;
     let t43 = 1.0 / t42;
     let t158 = t38 * t43;

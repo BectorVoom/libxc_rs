@@ -92,7 +92,7 @@ pub fn gga_c_lypr_vxc_unpol(
     let t28 = f64x8::splat(M_CBRT3);
     let t29 = t28 * t28;
     let t30 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(2.1450293971110255);
     let t32 = t31 * t31;
     let t34 = (f64x8::splat(1.0)).simd_le(zeta_threshold);
     let t35 = zeta_threshold * zeta_threshold;
@@ -103,7 +103,7 @@ pub fn gga_c_lypr_vxc_unpol(
     let t56 = f64x8::splat(M_CBRT2);
     let t57 = t56 * t56;
     let t61 = ((t34).select(t35, f64x8::splat(1.0)));
-    let t74 = ((f64x8::splat(M_PI)).sqrt());
+    let t74 = f64x8::splat(1.7724538509055159);
     let t75 = f64x8::splat(1.0) / t74;
     let t78 = param_m2 * param_m2;
     let t79 = param_omega * param_omega;

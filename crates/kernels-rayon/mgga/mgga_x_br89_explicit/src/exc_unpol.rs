@@ -83,7 +83,7 @@ pub fn mgga_x_br89_explicit_exc_unpol(
     let t10 = (simd::cbrt(zeta_threshold));
     let t12 = (simd::cbrt(t8));
     let t14 = (((t8).simd_le(zeta_threshold)).select(t10 * zeta_threshold, t12 * t8));
-    let t18 = (simd::cbrt(f64x8::splat(1.0) / f64x8::splat(M_PI)));
+    let t18 = f64x8::splat(0.6827840632552957);
     let t19 = f64x8::splat(1.0) / t18;
     let t21 = f64x8::splat(M_CBRT4);
     let t22 = f64x8::splat(M_CBRTPI);

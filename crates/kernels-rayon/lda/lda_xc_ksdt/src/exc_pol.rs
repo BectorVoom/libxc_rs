@@ -209,9 +209,9 @@ pub fn lda_xc_ksdt_exc_pol(
     let t2 = f64x8::splat(M_CBRT4);
     let t3 = t2 * t2;
     let t4 = t1 * t3;
-    let t5 = (simd::cbrt(f64x8::splat(9.0)));
+    let t5 = f64x8::splat(2.080083823051904);
     let t6 = t4 * t5;
-    let t7 = (simd::cbrt(t1));
+    let t7 = f64x8::splat(0.6827840632552957);
     let t8 = f64x8::splat(1.0) / t7;
     let t9 = t5 * t5;
     let t10 = t7 * t1;

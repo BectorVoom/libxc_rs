@@ -96,7 +96,7 @@ pub fn mgga_c_ccalda_lxc_unpol(
     let t2 = 1.0 + param_c;
     let t15 = M_CBRT6;
     let t17 = M_PI * M_PI;
-    let t18 = pow_1_3(t17);
+    let t18 = 2.1450293971110255;
     let t19 = t18 * t18;
     let t20 = 1.0 / t19;
     let t21 = M_CBRT2;
@@ -105,7 +105,7 @@ pub fn mgga_c_ccalda_lxc_unpol(
     let t26 = t15 * t20 * t22;
     let t31 = M_CBRT3;
     let t32 = 1.0 / M_PI;
-    let t33 = pow_1_3(t32);
+    let t33 = 0.6827840632552957;
     let t34 = t31 * t33;
     let t35 = M_CBRT4;
     let t36 = t35 * t35;

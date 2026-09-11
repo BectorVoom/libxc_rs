@@ -149,7 +149,7 @@ pub fn mgga_x_rppscan_exc_pol(
     let t23 = t22 * zeta_threshold;
     let t29 = f64x8::splat(M_CBRT6);
     let t30 = f64x8::splat(M_PI) * f64x8::splat(M_PI);
-    let t31 = (simd::cbrt(t30));
+    let t31 = f64x8::splat(2.1450293971110255);
     let t32 = t31 * t31;
     let t33 = f64x8::splat(1.0) / t32;
     let t34 = t29 * t33;
@@ -160,10 +160,10 @@ pub fn mgga_x_rppscan_exc_pol(
     let t49 = f64x8::splat(1.0) / t48;
     let t50 = t47 * t49;
     let t57 = t45 * t29;
-    let t66 = ((f64x8::splat(146.0)).sqrt());
+    let t66 = f64x8::splat(12.083045973594572);
     let t67 = t66 * t29;
     let t76 = f64x8::splat(3.0) / f64x8::splat(10.0) * t46 * t32;
-    let t127 = ((f64x8::splat(3.0)).sqrt());
+    let t127 = f64x8::splat(1.7320508075688772);
     let t128 = f64x8::splat(1.0) / t31;
     let t129 = t46 * t128;
     let mut ip = 0usize;

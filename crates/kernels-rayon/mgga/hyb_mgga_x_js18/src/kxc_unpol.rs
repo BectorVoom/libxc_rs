@@ -70,15 +70,15 @@ pub fn hyb_mgga_x_js18_kxc_unpol(
     let t14 = pow_1_3(zeta_threshold);
     let t16 = pow_1_3(t12);
     let t18 = piecewise3(t13, t14 * zeta_threshold, t16 * t12);
-    let t36 = pow_1_3(9.0);
+    let t36 = 2.080083823051904;
     let t37 = t36 * t36;
-    let t39 = pow_1_3(1.0 / M_PI);
+    let t39 = 0.6827840632552957;
     let t40 = t39 * t39;
     let t41 = t37 * t40;
     let t42 = t41 * param_hyb_omega_0;
     let t45 = M_CBRT6;
     let t46 = M_PI * M_PI;
-    let t47 = pow_1_3(t46);
+    let t47 = 2.1450293971110255;
     let t48 = t47 * t47;
     let t49 = 1.0 / t48;
     let t50 = t45 * t49;
@@ -89,7 +89,7 @@ pub fn hyb_mgga_x_js18_kxc_unpol(
     let t64 = t61 * t63;
     let t77 = piecewise3(t13, t14, t16);
     let t78 = 1.0 / t77;
-    let t114 = rmath::sqrt(M_PI);
+    let t114 = 1.7724538509055159;
     let t237 = t61 * t48;
     let t479 = param_hyb_omega_0 * t4;
     let t480 = t41 * t479;

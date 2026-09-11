@@ -33,7 +33,7 @@ pub const ZERO_TAU: bool = false;
 /// libxc default for `param_c0`.
 pub const PARAM_C0: f64 = 0.827411;
 /// libxc default for `param_c1`.
-pub const PARAM_C1: f64 = -0.643560;
+pub const PARAM_C1: f64 = -0.64356;
 /// libxc default for `param_alphainf`.
 pub const PARAM_ALPHAINF: f64 = 0.852;
 

@@ -82,7 +82,7 @@ pub fn mgga_x_ft98_kxc_pol(
     let t118 = t117 * t65;
     let t128 = t3 * t3;
     let t129 = 1.0 / M_PI;
-    let t130 = pow_1_3(t129);
+    let t130 = 0.6827840632552957;
     let t131 = t130 * t130;
     let t132 = t128 * t131;
     let t133 = M_CBRT4;
